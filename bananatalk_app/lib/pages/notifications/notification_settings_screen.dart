@@ -160,6 +160,52 @@ class NotificationSettingsScreen extends ConsumerWidget {
                     .read(notificationSettingsProvider.notifier)
                     .toggleSetting('marketing', value);
               },
+            ),
+            _buildDivider(context),
+            _buildToggleTile(
+              context: context,
+              icon: Icons.campaign_outlined,
+              iconColor: const Color(0xFFFF7043),
+              title: l10n.notifyAnnouncementsTitle,
+              subtitle: l10n.notifyAnnouncementsSubtitle,
+              value: settings.announcements && settings.enabled,
+              enabled: settings.enabled,
+              onChanged: (value) {
+                HapticFeedback.selectionClick();
+                ref
+                    .read(notificationSettingsProvider.notifier)
+                    .toggleSetting('announcements', value);
+              },
+              isLast: true,
+            ),
+          ]),
+
+          const SizedBox(height: 24),
+
+          // Calls
+          _buildSectionTitle(
+            context,
+            l10n.callsTitle,
+            Icons.call_rounded,
+            const Color(0xFF00BFA5),
+          ),
+          const SizedBox(height: 10),
+          _buildSectionContainer(context, [
+            _buildToggleTile(
+              context: context,
+              icon: Icons.phone_in_talk_rounded,
+              iconColor: const Color(0xFF00BFA5),
+              title: l10n.callsAllowTitle,
+              subtitle: l10n.callsAllowSubtitle,
+              value: settings.allowCalls,
+              enabled: true,
+              onChanged: (value) {
+                HapticFeedback.selectionClick();
+                ref
+                    .read(notificationSettingsProvider.notifier)
+                    .toggleSetting('allowCalls', value);
+              },
+              isFirst: true,
               isLast: true,
             ),
           ]),
@@ -254,7 +300,13 @@ class NotificationSettingsScreen extends ConsumerWidget {
                         settings.quietHours.copyWith(allowUrgent: v),
                       );
                 },
-                isLast: true,
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 8, 16, 12),
+                child: Text(
+                  l10n.callsQuietHoursNote,
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
               ),
             ],
           ]),
@@ -449,7 +501,7 @@ class NotificationSettingsScreen extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  enabled ? 'Notifications on' : 'Notifications off',
+                  enabled ? l10n.profileNotificationsOn : l10n.profileNotificationsOff,
                   style: context.titleMedium.copyWith(
                     fontWeight: FontWeight.w800,
                     color: enabled ? color : context.textPrimary,
@@ -915,6 +967,7 @@ class NotificationSettingsScreen extends ConsumerWidget {
 
   // ========== LOADING STATE ==========
   Widget _buildLoadingState(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -929,7 +982,7 @@ class NotificationSettingsScreen extends ConsumerWidget {
           ),
           const SizedBox(height: 14),
           Text(
-            'Loading settings...',
+            l10n.profileLoadingSettings,
             style: context.bodySmall.copyWith(color: context.textSecondary),
           ),
         ],

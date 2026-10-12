@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:bananatalk_app/pages/chat/message/chat_tip_row.dart';
 import 'package:bananatalk_app/pages/authentication/biometric/biometric_service.dart';
 import 'package:bananatalk_app/pages/chat/state/chat_state_provider.dart'
     as chat_page_state;
@@ -20,6 +21,7 @@ import 'package:bananatalk_app/providers/chat_state_provider.dart'
 import 'package:bananatalk_app/providers/coins_provider.dart';
 import 'package:bananatalk_app/providers/matching_provider.dart';
 import 'package:bananatalk_app/providers/message_count_provider.dart';
+import 'package:bananatalk_app/providers/announcement_provider.dart';
 import 'package:bananatalk_app/providers/notification_history_provider.dart';
 import 'package:bananatalk_app/providers/notification_settings_provider.dart';
 import 'package:bananatalk_app/providers/presence_provider.dart';
@@ -58,7 +60,9 @@ import 'package:bananatalk_app/services/global_chat_listener.dart';
 import 'package:bananatalk_app/services/notification_service.dart';
 import 'package:bananatalk_app/services/referral_service.dart';
 import 'package:bananatalk_app/pages/community/first_session/first_session_store.dart';
+import 'package:bananatalk_app/services/activation_store.dart';
 import 'package:bananatalk_app/services/guide_store.dart';
+import 'package:bananatalk_app/services/launch_modal_coordinator.dart';
 
 /// Every Riverpod provider whose state belongs to the signed-in user, keyed
 /// by its declared name (the key is what `session_reset_test.dart` checks
@@ -90,6 +94,12 @@ final Map<String, ProviderOrFamily> userScopedProviders = {
   // this run" are both per account, same reason as the three above.
   'guideStateProvider': guideStateProvider,
   'guideRecordedProvider': guideRecordedProvider,
+  // Activation milestones (spec 2026-10-12 §3.1). The prefs are removed by
+  // clearUserSessionPrefs (not device-level); these drop the cached reads.
+  'activationStoreProvider': activationStoreProvider,
+  'activationDoneProvider': activationDoneProvider,
+  'isGuidePeriodProvider': isGuidePeriodProvider,
+  'chatTipClaimProvider': chatTipClaimProvider,
   'currentUserLimitsProvider': currentUserLimitsProvider,
   'vipStatusProvider': vipStatusProvider,
   'isVipProvider': isVipProvider,
@@ -112,6 +122,7 @@ final Map<String, ProviderOrFamily> userScopedProviders = {
   // Notifications + badges
   'notificationSettingsProvider': notificationSettingsProvider,
   'notificationHistoryProvider': notificationHistoryProvider,
+  'announcementDetailProvider': announcementDetailProvider,
   'badgeCountProvider': badgeCountProvider,
   // Chat
   'messageServiceProvider': messageServiceProvider,
@@ -336,6 +347,15 @@ Future<void> resetUserSession({
   }
 
   invalidateUserScopedProviders(inv);
+  resetLaunchProcessState();
+}
+
+/// Process-wide launch state that belongs to the signed-in account: the
+/// one-pop-up budget and TabsScreen's run-once latch. Without this a second
+/// account signed in without a restart got no launch pop-up and no priming.
+void resetLaunchProcessState() {
+  PopupBudget.reset();
+  resetLaunchModalsRun();
 }
 
 /// Step 5 of [resetUserSession], split out so it is testable without plugins.

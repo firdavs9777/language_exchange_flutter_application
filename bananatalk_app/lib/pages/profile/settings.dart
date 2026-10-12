@@ -379,7 +379,7 @@ class _ProfileSettingsState extends ConsumerState<ProfileSettings> {
               ),
               const SizedBox(height: 14),
               Text(
-                'Loading settings...',
+                l10n.profileLoadingSettings,
                 style: context.bodySmall.copyWith(color: context.textSecondary),
               ),
             ],
@@ -413,7 +413,7 @@ class _ProfileSettingsState extends ConsumerState<ProfileSettings> {
             ),
             const SizedBox(height: 16),
             Text(
-              'Something went wrong',
+              l10n.somethingWentWrong,
               style: context.titleMedium.copyWith(fontWeight: FontWeight.w700),
             ),
             const SizedBox(height: 6),
@@ -737,6 +737,7 @@ class _ProfileSettingsState extends ConsumerState<ProfileSettings> {
 
   // ========== AUTO-SAVE BANNER ==========
   Widget _buildAutoSaveBanner() {
+    final l10n = AppLocalizations.of(context)!;
     final isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
       padding: const EdgeInsets.all(14),
@@ -775,7 +776,7 @@ class _ProfileSettingsState extends ConsumerState<ProfileSettings> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Auto-save enabled',
+                  l10n.profileAutoSaveEnabled,
                   style: context.titleSmall.copyWith(
                     fontWeight: FontWeight.w800,
                     color: AppColors.primary,
@@ -783,7 +784,7 @@ class _ProfileSettingsState extends ConsumerState<ProfileSettings> {
                   ),
                 ),
                 Text(
-                  'Changes are saved instantly when you toggle.',
+                  l10n.profileChangesSavedInstantlyWhen,
                   style: context.captionSmall.copyWith(
                     color: context.textSecondary,
                     height: 1.3,
@@ -1086,7 +1087,7 @@ class _ProfileSettingsState extends ConsumerState<ProfileSettings> {
                       ),
                       const SizedBox(width: 4),
                       Text(
-                        'Update',
+                        l10n.profileUpdate,
                         style: TextStyle(
                           color: AppColors.primary,
                           fontWeight: FontWeight.w700,

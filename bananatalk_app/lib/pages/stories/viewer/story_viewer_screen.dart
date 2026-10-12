@@ -301,7 +301,7 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
       if (community == null) {
         showStoriesSnackBar(
           context,
-          message: 'User not found',
+          message: AppLocalizations.of(context)!.userNotFound,
           type: StoriesSnackBarType.info,
         );
         return;
@@ -316,7 +316,7 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
       if (mounted) {
         showStoriesSnackBar(
           context,
-          message: 'Failed to load profile',
+          message: AppLocalizations.of(context)!.failedToLoadProfile,
           type: StoriesSnackBarType.error,
         );
       }
@@ -445,7 +445,7 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
         setState(() => _isBlocked = true);
         BlockedContentSnackbar.show(
           context,
-          message: "You can't react to this story",
+          message: AppLocalizations.of(context)!.storyCantReact,
         );
       } else if (result['success'] == true) {
         showStoriesSnackBar(
@@ -482,7 +482,7 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
         setState(() => _isBlocked = true);
         BlockedContentSnackbar.show(
           context,
-          message: "You can't reply to this story",
+          message: AppLocalizations.of(context)!.storyCantReply,
         );
       } else if (result['success'] == true) {
         _replyController.clear();
@@ -557,7 +557,7 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
       });
       showStoriesSnackBar(
         context,
-        message: 'Failed to submit vote',
+        message: AppLocalizations.of(context)!.storyVoteFailed,
         type: StoriesSnackBarType.error,
       );
     }
@@ -578,13 +578,13 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
     if (result['success'] == true) {
       showStoriesSnackBar(
         context,
-        message: 'Answer sent!',
+        message: AppLocalizations.of(context)!.answerSent,
         type: StoriesSnackBarType.success,
       );
     } else {
       showStoriesSnackBar(
         context,
-        message: 'Failed to send answer',
+        message: AppLocalizations.of(context)!.storyAnswerFailed,
         type: StoriesSnackBarType.error,
       );
     }
@@ -671,7 +671,7 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
-                result['error']?.toString() ?? 'Failed to delete story',
+                result['error']?.toString() ?? AppLocalizations.of(context)!.storyFailedToDelete,
               ),
               backgroundColor: Colors.red,
             ),
@@ -748,7 +748,7 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
     if (mounted) {
       showStoriesSnackBar(
         context,
-        message: 'Link copied to clipboard',
+        message: AppLocalizations.of(context)!.linkCopiedToClipboard,
         type: StoriesSnackBarType.success,
       );
     }
@@ -769,7 +769,7 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
     if (story.mediaType == 'text' || story.mediaUrl.isEmpty) {
       showStoriesSnackBar(
         context,
-        message: "This story doesn't have media to save",
+        message: AppLocalizations.of(context)!.storyNoMediaToSave,
         type: StoriesSnackBarType.info,
       );
       return;
@@ -975,8 +975,8 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
     final story = _currentStory;
 
     if (story == null) {
-      return const Center(
-        child: Text('No stories', style: TextStyle(color: Colors.white)),
+      return Center(
+        child: Text(AppLocalizations.of(context)!.noStories, style: TextStyle(color: Colors.white)),
       );
     }
 
@@ -1192,8 +1192,8 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
                               color: const Color(0xFF00C853),
                               borderRadius: BorderRadius.circular(4),
                             ),
-                            child: const Text(
-                              'Close Friends',
+                            child: Text(
+                              AppLocalizations.of(context)!.closeFriends,
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 9,
@@ -1322,7 +1322,7 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
                                 color: Theme.of(context).iconTheme.color,
                               ),
                               title: Text(
-                                'Send to friends',
+                                AppLocalizations.of(context)!.storySendFriends,
                                 style: TextStyle(
                                   color: Theme.of(
                                     context,
@@ -1359,7 +1359,7 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
                                   color: Theme.of(context).iconTheme.color,
                                 ),
                                 title: Text(
-                                  'Share/Save',
+                                  AppLocalizations.of(context)!.storyShareSave,
                                   style: TextStyle(
                                     color: Theme.of(
                                       context,
@@ -1377,7 +1377,7 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
                                 color: Theme.of(context).iconTheme.color,
                               ),
                               title: Text(
-                                'Add more to story',
+                                AppLocalizations.of(context)!.addMoreToStory,
                                 style: TextStyle(
                                   color: Theme.of(
                                     context,
@@ -1614,7 +1614,7 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
       if (mounted) {
         showStoriesSnackBar(
           context,
-          message: 'Already saved to a highlight',
+          message: AppLocalizations.of(context)!.storyAlreadyInHighlight,
           type: StoriesSnackBarType.success,
         );
       }
@@ -1639,7 +1639,7 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
       if (added) {
         showStoriesSnackBar(
           context,
-          message: 'Added to highlight',
+          message: AppLocalizations.of(context)!.storyAddedToHighlight,
           type: StoriesSnackBarType.success,
         );
       }
@@ -1761,7 +1761,7 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
-                        'Reply to story...',
+                        AppLocalizations.of(context)!.replyToStory,
                         style: const TextStyle(
                           color: Colors.white60,
                           fontSize: 14,
@@ -1811,7 +1811,7 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
           children: [
             Text(emoji, style: const TextStyle(fontSize: 24)),
             const SizedBox(width: 8),
-            const Text('Sent!', style: TextStyle(color: Colors.white)),
+            Text(AppLocalizations.of(context)!.storySent, style: TextStyle(color: Colors.white)),
           ],
         ),
         duration: const Duration(milliseconds: 800),

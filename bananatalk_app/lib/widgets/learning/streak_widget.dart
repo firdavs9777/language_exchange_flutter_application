@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 /// Streak indicator widget with flame icon
@@ -103,7 +104,7 @@ class StreakWidget extends StatelessWidget {
           ),
           const SizedBox(height: 4),
           Text(
-            currentStreak == 1 ? 'Day Streak' : 'Day Streak',
+            AppLocalizations.of(context)!.learnDayStreak,
             style: TextStyle(
               color: isActive ? Colors.white.withOpacity(0.9) : Colors.grey[500],
               fontSize: 14,
@@ -112,7 +113,7 @@ class StreakWidget extends StatelessWidget {
           if (showLongest && longestStreak != null && longestStreak! > 0) ...[
             const SizedBox(height: 8),
             Text(
-              'Longest: $longestStreak days',
+              AppLocalizations.of(context)!.learnLongestDays(longestStreak!),
               style: TextStyle(
                 color:
                     isActive ? Colors.white.withOpacity(0.7) : Colors.grey[400],

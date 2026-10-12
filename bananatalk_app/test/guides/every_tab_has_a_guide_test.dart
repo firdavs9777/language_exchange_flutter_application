@@ -70,6 +70,10 @@ void main() {
     final mounted = tabs.values.map((t) => t.mounts).join('\n');
     for (final name in declared) {
       if (name == 'matches') continue; // has its own panel, asserted above
+      // Not a tab: the chat long-press tip is mounted in the chat screen by
+      // the chat-tip task, not by one of the five tab pages. A7 mounts
+      // chatTip in the chat screen and asserts it there.
+      if (name == 'chatTip') continue;
       expect(mounted.contains('GuideSurface.$name'), isTrue,
           reason: 'GuideSurface.$name exists but no page mounts it — a '
               'surface nobody shows is dead code that still burns a slug');

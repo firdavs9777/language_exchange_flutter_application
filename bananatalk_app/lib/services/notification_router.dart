@@ -6,6 +6,9 @@ import 'package:bananatalk_app/providers/app_provider_container.dart';
 import 'package:bananatalk_app/providers/missed_calls_provider.dart';
 import 'package:bananatalk_app/pages/community/main/community_main.dart';
 import 'package:bananatalk_app/pages/menu_tab/TabBarMenu.dart';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'package:bananatalk_app/providers/provider_root/block_provider.dart';
+import 'package:bananatalk_app/services/call/missed_call_actions.dart';
 import 'package:bananatalk_app/services/call_manager.dart';
 import 'package:bananatalk_app/services/notification_api_client.dart';
 import 'package:bananatalk_app/router/app_router.dart';
@@ -20,7 +23,47 @@ class NavigationPlan {
   final bool usePushAfterHome;
 }
 
+/// Missed-call taps from a notification (push, local, or the iOS native
+/// action channel): once per call, held until the app is past the splash.
+final MissedCallTapGate missedCallTaps = MissedCallTapGate(
+  navigate: (route) {
+    // Home first for a proper back stack, as for every other detail push.
+    goRouter.go('/home');
+    Future.delayed(const Duration(milliseconds: 300), () => goRouter.push(route));
+  },
+  isSignedIn: () {
+    final auth = appProviderContainer.read(authServiceProvider);
+    return auth.isLoggedIn && auth.token.isNotEmpty;
+  },
+  isBlocked: (userId) async =>
+      (await appProviderContainer.read(blockedUserIdsProvider.future)).contains(userId),
+);
+
 class NotificationRouter {
+  static bool _watchingSplash = false;
+
+  /// Settles [missedCallTaps] once the router has left `/splash` (the
+  /// splash's own go('/home') or go('/login')). Terms and profile gates are
+  /// pushed over the splash, so they keep the tap held.
+  static void _settleMissedCallTapsAfterSplash() {
+    if (_watchingSplash || missedCallTaps.isSettled) return;
+    _watchingSplash = true;
+    final delegate = goRouter.routerDelegate;
+    void check() {
+      String? path;
+      try {
+        final config = delegate.currentConfiguration;
+        path = config.matches.isEmpty ? null : config.uri.path;
+      } catch (_) {}
+      if (path == null || path == '/splash') return;
+      delegate.removeListener(check);
+      missedCallTaps.settle();
+    }
+
+    delegate.addListener(check);
+    check();
+  }
+
   /// Handle notification tap and navigate to appropriate screen
   /// Uses goRouter directly to avoid context mounting issues
   static Future<void> handleNotification(
@@ -77,6 +120,14 @@ class NotificationRouter {
       final notificationId = data['notificationId']?.toString();
       if (notificationId != null && notificationId.isNotEmpty) {
         unawaited(NotificationApiClient().markClicked(notificationId));
+      }
+
+      // A missed-call notification (no context = from the OS, not the list):
+      // plain tap, Call back or Message, routed once per call.
+      if (type == 'missed_call' && context == null) {
+        appProviderContainer.read(missedCallsProvider.notifier).refresh();
+        _settleMissedCallTapsAfterSplash();
+        if (missedCallTaps.submit(data, actionId)) return;
       }
 
       // incoming_call is handled entirely outside the target-path switch —
@@ -381,6 +432,13 @@ class NotificationRouter {
       // Tap opens the app to home; push body tells user to renew.
       case 'vip_renewal_warning':
         return null;
+
+      // Admin announcements (spec §5.2): push and notifications-list row.
+      case 'announcement':
+        final announcementId = data['announcementId']?.toString();
+        return (announcementId != null && announcementId.isNotEmpty)
+            ? '/announcement/$announcementId'
+            : null;
 
       case 'missed_call':
         // The badge may predate this push.

@@ -93,6 +93,7 @@ class ExamPickerScreen extends ConsumerWidget {
   /// Featured entry into the curated Vocabulary Packs, shown at the top of
   /// the English exam list.
   Widget _buildVocabPacksCard(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     const accent = Color(0xFF14B8A6);
     return InkWell(
       borderRadius: BorderRadius.circular(16),
@@ -124,7 +125,7 @@ class ExamPickerScreen extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Vocabulary Packs',
+                    l10n.vocabularyPacks,
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w800,
@@ -133,7 +134,7 @@ class ExamPickerScreen extends ConsumerWidget {
                   ),
                   const SizedBox(height: 2),
                   Text(
-                    'Themed word sets to build your vocabulary',
+                    l10n.learnThemedWordSetsBuild,
                     style: TextStyle(
                       fontSize: 13,
                       color: context.textSecondary,

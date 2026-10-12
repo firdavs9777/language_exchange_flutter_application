@@ -155,6 +155,7 @@ class _VocabularyAddScreenState extends ConsumerState<VocabularyAddScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       backgroundColor: context.scaffoldBackground,
       appBar: AppBar(
@@ -165,7 +166,7 @@ class _VocabularyAddScreenState extends ConsumerState<VocabularyAddScreen> {
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
-          'Add Word',
+          l10n.addWord,
           style: context.titleLarge,
         ),
         actions: [
@@ -177,9 +178,9 @@ class _VocabularyAddScreenState extends ConsumerState<VocabularyAddScreen> {
                     height: 20,
                     child: CircularProgressIndicator(strokeWidth: 2),
                   )
-                : const Text(
-                    'Save',
-                    style: TextStyle(
+                : Text(
+                    l10n.save,
+                    style: const TextStyle(
                       color: AppColors.primary,
                       fontWeight: FontWeight.bold,
                     ),
@@ -241,7 +242,7 @@ class _VocabularyAddScreenState extends ConsumerState<VocabularyAddScreen> {
                         child: CircularProgressIndicator(strokeWidth: 2),
                       )
                     : const Icon(Icons.auto_awesome),
-                label: const Text('AI Auto-fill'),
+                label: Text(l10n.learnAiAutoFill),
                 style: FilledButton.styleFrom(
                   backgroundColor: AppColors.primary,
                   foregroundColor: Colors.white,

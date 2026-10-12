@@ -4,40 +4,58 @@ Last updated: 2026-10-12. Keep this current: tick items off in the same commit t
 
 ---
 
+## Release — onboarding, announcements, localization, Calls Phase 2 (branch `feat/onboarding-announcements`)
+
+The 2026-10-12 plan (`docs/superpowers/plans/2026-10-12-onboarding-announcements.md`, 61 tasks: O, B, W,
+A, L, C) is **DONE** and through its final review and fix wave. What is left is release work:
+
+- [ ] **Deploy in order: backend → web admin → app.** The new app on the old backend gets 404s on
+      `/announcements/:id` and `/calls/:id/upgrade` and silently drops decline messages.
+- [ ] **After the backend deploy:** the log shows `[index] announcement_once_per_user ensured` and
+      `db.notifications.getIndexes()` lists `announcement_once_per_user` (if not: run
+      `node migrations/addAnnouncementNotificationIndex.js` on the server).
+- [ ] **Release build** (manual signing — keystore MacBook; `reference_release_build`), then store submit.
+- [ ] **Device QA:** every row of `docs/qa/onboarding-matrix.md` and `docs/qa/calls-matrix.md` §5
+      (CALL2-1…CALL2-20), plus the camera-upgrade speaker route and an upgrade POST that times out.
+- [ ] **Native review** of the machine-drafted strings (`docs/l10n/native-qa-strings-2026-10.csv`).
+- Live 2.6.1 caveats after the backend deploy (accepted, tell admins):
+  - 2.6.1 sends no `lang`: it only ever gets announcements that target **all languages**; a
+    language-targeted announcement never pops up on 2.6.1 (push and list row still arrive).
+  - 2.6.1 shows the server's **English** text for the new 409 `CALLEE_UNAVAILABLE` ("X isn't taking
+    calls right now").
+
 ## Open work, by who can act
 
 **You — consoles, keys, money, store** (§1)
-- Build + submit 2.6.1 · store prices (VIP $3.99 / $24.99) · Play Console foreground-service
+- Build + submit (see Release above) · store prices (VIP $3.99 / $24.99) · Play Console foreground-service
   declarations (upload is REJECTED without them) · Android App Links SHA-256 · droplet
   `config.env` duplicate keys then Day-0 flags · LiveKit webhook + `APNS_VOIP_*` on prod ·
   AdMob earnings · native review of the machine-drafted strings
 
-**You — a device in your hand** (§0, §0b, §0c)
+**You — a device in your hand** (§0, §0b, §0c, §0d)
 - Re-run after the PulseHighlight ticker fix and confirm a clean log
 - Send one message on a new account so `first_message_sent` is finally observed
 - Biometric smoke: Android 7–8, Android 13+, iPhone Face ID
-- `docs/qa/calls-matrix.md`, every row; decide on IOS-8 (Focus mode silences CallKit)
+- `docs/qa/calls-matrix.md` every row (incl. §5 CALL2-1…20); `docs/qa/onboarding-matrix.md`; decide on
+  IOS-8 (Focus mode silences CallKit)
 
-**Me — code, ready to start** (§0c, §5)
-- **Onboarding + announcements + localization + Calls Phase 2 + ops, one plan** — spec
-  `docs/superpowers/specs/2026-10-12-onboarding-announcements-design.md`, plan
-  `docs/superpowers/plans/2026-10-12-onboarding-announcements.md` (60 tasks: O, B, W, A, L, C)
-- 74 hardcoded English strings in 56 files (`docs/onboarding-audit-2026-10-10.md` §2a).
-  These never reach an `.arb`, so no translation check can see them. Next by exposure:
-  `report_dialog.dart`, `lesson_summary_sheet.dart`, the remaining learning screens, stories.
-- Long-press tooltip on the first received message — translate/correct are invisible today
-  (audit §3 P2, cheapest large win, reuses `GuideStore` with one new surface)
-- Calls Phase 2: decline with message, missed-call push actions, quiet hours, camera mid
-  voice call, draggable self-view
+**Me — code, ready to start** (§5)
+- Localization is done except the **103 allowlisted `Text` literals** and the follow-up sweep (`L14`:
+  property literals — `hintText:`/`labelText:`/`tooltip:`/`message:` — with a guard), see §5.
+- Built on this branch, no longer open: the long-press tooltip on the first received message (A7) and
+  Calls Phase 2 (decline with message, missed-call push actions, quiet hours, camera mid voice call,
+  draggable self-view — C1–C10).
 
 **Me — waiting on data, not on work** (§0c)
 - Read `guide_cta_tapped` by `target` before adding a third destination anywhere
 - Decide whether guides should reach the existing install base (they are gated on
-  `isNewUser`, so today only accounts ≤3 days old see one)
+  `isNewUser`, so today only accounts ≤7 days old see one)
 
 **Unexplained — no owner yet** (§0b)
-- Two bare `flutter: null` log lines after the chat app-bar overflow
-- 7,533 PM2 restarts on the droplet
+- [x] `flutter: null` lines — debug-only trap added (`lib/utils/null_log_trap.dart`); source not yet named, needs a device run (2026-10-12)
+- [ ] Device: open a chat whose partner was last seen long ago (header ~99px) in a debug build and confirm the `[null-log] … from <frame>` line names the source; then fix it (our frame) or record package noise
+- [x] PM2 restarts — cause recorded in backend docs/ops/2026-10-pm2-restarts.md (2026-10-12)
+- [ ] PM2 restarts follow-ups (backend REMAINING_WORK): deploy-time EADDRINUSE crash, mongoose DocumentArray crash during deploy, droplet OOM (960 MB), attribute 6,862 spike-day exits
 
 ---
 
@@ -90,7 +108,23 @@ Baseline: 1/30 calls answered in 30 days, 168 stuck ringing, 0 call messages eve
     - [x] fold `startCallFromCallsList` (Calls list busy / start-limit messages, A4 review) and the chat header's ignored `InitiateResult` into `CallLauncher`
   - [x] A14 Calls list + chat-tab icon + missed badge
   - [x] Final whole-branch review fixes: one ring UI per call (native ring present → no in-app screen / Dart ringtone; native ring appearing later closes the in-app one; in-app accept dismisses the native ring and ignores its echo; a leftover native decline never ends a call answered here, a native End still hangs up a call answered there); cold start skips a stale accepted CallKit entry; a `failed` call:state shows "Call failed" to the caller; LiveKit connect superseded mid-connect never publishes mic/camera; th missed voice label (QA rows S-15 updated, IOS-8, IOS-9, AND-8); re-review: the native-ring-only rule is iOS-only (Android keeps the in-app screen, native ringtone only), and CallKit reporting a call after an in-app accept is ended at once
-  - [ ] Phase 2: decline with message, missed-call push actions, calls on/off + quiet hours, camera mid voice call, draggable self-view
+  - Phase 2:
+    - [x] App plumbing: `CallApi.decline(message)` / `upgrade`, `CallManager.rejectCall(message:)` / `upgradeToVideo` / `onCallTypeChanged` (a late `call:state` never revives an ended call), callee-unavailable snack, 13 strings x 19 locales
+    - [x] Decline-with-message sheet on the incoming screen (2 canned + custom, 200-char cap; sheet closes if the call ends under it)
+    - [x] Missed-call push actions (code): Call back / Message on iOS (category MISSED_CALL, AppDelegate catches remote taps, `bananatalk/missed_call_actions` channel) and Android (data-only push drawn by the app, fail-safe to a plain notification, also from the killed-app handler); capability `missed_call_actions` declared; each call's tap routed once and held until the app is past the splash; signed out / blocked caller → app just opens; `/chat/:userId?call=` starts the call via `CallLauncher`
+      - [ ] Device QA CALL2-3..CALL2-6: Call back + Message from killed / background / foreground on iOS and Android; Android Doze + an aggressive OEM (Xiaomi/Samsung) killed-app draw; one action fires once (no second chat or call); signed out → app just opens; 409 callee-unavailable snack after Call back
+      - [ ] Device QA (iOS, AppDelegate is now the notification-center delegate): foreground pushes still badge-only (no banner/sound) for every type except the missed-call copy, which shows a banner with Call back / Message; tapping a local notification now routes (it did nothing before); no "completion handler called twice" warning in the console
+    - [x] Calls on/off + quiet-hours settings UI (C8: "Allow calls" switch + quiet-hours note; reads `notificationSettings.allowCalls`, default true)
+      - [x] Final fix wave: the note now reads "With “Allow urgent notifications” off, calls are held during quiet hours too." (19 locales, machine drafts in the QA CSV) — matches the backend ruling that quiet hours hold calls only when `allowUrgent` is false, and no longer contradicts the "Allow urgent" subtitle
+    - [x] Camera button mid voice call + peer-upgrade UI (C9: connected voice calls only; peer upgrade switches layout but the local camera stays off until tapped; refused upgrade shows `callCameraFailed` (new, 19 locales, machine drafts in QA CSV); turning the camera on from the video toggle also runs the permission check)
+    - [x] Final fix wave (calls): a voice call that becomes video (local or peer upgrade) routes audio to the speaker like a call started as video, and a rollback restores the previous route; the screen reads the route from `CallManager`. An upgrade POST with no definite answer (timeout, network, 5xx) re-checks `GET /calls/:id` and only rolls back if the server says audio; if that read fails too the optimistic video state is kept. A reopened call screen shows the real local camera state (off after a peer upgrade)
+    - [ ] Device QA of camera upgrade: both directions, permission denied, rollback on server refusal, speaker route after upgrade and after rollback, upgrade POST timing out, upgrade racing call end
+    - [x] Draggable self-view (C10: `SwappableVideoLayout`; snaps to corners clear of the top/control bars, re-snaps on rotation, tap swaps big/small only while both feeds are live; semantics label + swap hint, 2 new strings x 19 locales, machine drafts in QA CSV)
+    - [ ] Device QA of the self-view: drag/snap on small + large phones, rotation, swap with real tracks, TalkBack/VoiceOver
+    - [x] Device QA matrix rows CALL2-1…CALL2-20 written (`docs/qa/calls-matrix.md` §5)
+    - [ ] Device QA CALL2-1…CALL2-20 (owner, after a release build)
+    - [ ] Deploy backend C1–C4 BEFORE the app release (additive; old clients unchanged)
+    - [ ] Native review of the 13 Phase 2 call strings
 - [ ] Device QA IOS-8: with a Focus mode silencing calls, CallKit shows no banner and the in-app ring closes — decide whether that is acceptable.
 - [ ] Native review of the 18 machine-drafted call strings (`lib/l10n/app_*.arb`)
 - [ ] Owner: LiveKit webhook URL in LiveKit Cloud; confirm `APNS_VOIP_*` on prod.
@@ -116,14 +150,36 @@ Baseline: 1/30 calls answered in 30 days, 168 stuck ringing, 0 call messages eve
       `mainAxisSize: MainAxisSize.min` inside a ~99px-bounded parent, a long "last seen…" string has
       nowhere to go. Wrap the `Text` in `Flexible` with `overflow: TextOverflow.ellipsis`. Reproduces on
       a 99.2px constraint; wider headers hide it, so it is screen-size dependent.
-- [ ] **Two bare `flutter: null` lines** after the overflow, source unidentified. Not from
-      `matching_provider.dart` (those prints all carry an emoji prefix). Needs the action that produced
-      them to locate.
+- [~] **Two bare `flutter: null` lines** after the overflow. Grep of `lib/` found no bare print; a
+      debug-only trap (`null_log_trap.dart`, `kDebugMode` + zone in `main.dart`) now prints
+      `[null-log] … from <frame>` after any bare null. Open: confirm on a device run which frame it names.
 
 Checked and NOT a bug, recorded so it is not re-reported: `GET /calls/current` returning `{call: null}`
 immediately after a successful `POST /calls/initiate`. `callService.getCurrentCall` deliberately matches
 a ringing call only when `initiator: { $ne: userId }` — `/current` answers "should I be shown an incoming
 call or rejoin", and the caller already has the call on screen.
+
+## 0d. Activation, launch pop-ups, announcements — app (2026-10-12) — spec `docs/superpowers/specs/2026-10-12-onboarding-announcements-design.md` §3 §4 §5.2
+
+- [x] A1 analytics: `activation_milestone`, `guide_retired`, `notification_prime_shown`, `notification_prime_result`
+- [x] A2 `ActivationStore` (4 actions, back-fill, fail closed, user-scoped)
+- [x] A3 hooks: message, moment (direct + upload queue), lesson / quiz / vocab review, profile complete
+- [x] A4 guide rule: 7 days, stop at 3 of 4, `isGuidePeriod`, `GuideSurface.chatTip`, `guide_retired` latch
+- [x] A5 strings: 6 keys × 19 locales + native-QA rows (108 machine-draft rows still need native review)
+- [x] A6 guide UI: "Getting started · N of 4", retire on real action, CTA no longer retires, Matches on the same rule
+- [x] A7 chat tip under the first received text message
+- [x] A8 `PopupBudget` + `LaunchModalCoordinator`
+- [x] A9 priming: budget, triggers (first matches / first wave / first message sent / received), events; chat-open trigger removed
+- [x] A10 AI Study promo folded into the spotlight rotation; `AiStudyPromoModal` deleted
+- [x] A11 `Announcement` model, `appConfig.announcements`, `lang` on app-config, seen set
+- [x] A12 launch wiring: announcement / ads notice / spotlight candidates; version check reports the update dialog; splash welcome-back shares the budget
+- [x] A13 `AnnouncementScreen` at `/announcement/:id`
+- [x] A14 notifications list `announcement` type + push routing
+- [x] A15 Settings → Notifications "Announcements" toggle
+- [x] A16 suspension screen reads `banReason` (REST 403 only; no app socket-suspended handler exists; falls back to the old "Reason:" suffix until the backend ships)
+- [x] A12 fix round 1: empty `bananatalk:///` links ignored (never handed to the OS), external launch failures caught, spotlight re-checks the route after picking
+- [x] Final fix wave (launch): logout / account switch re-arms `PopupBudget` and TabsScreen's run-once latch (`resetLaunchProcessState` in `resetUserSession`), so a second account in the same process gets its launch pop-up and priming; welcome-back is marked only when its sheet actually shows (an update dialog that spends the budget leaves it armed); a `bananatalk://` link with no matching route does nothing instead of opening go_router's not-found page; the moment milestone survives leaving the composer mid-request; missed-call taps without a call id dedupe on caller + push time (caller-only keys expire after 30 s), so a second missed call from the same caller still routes
+- [ ] Device QA rows in `docs/qa/onboarding-matrix.md` (owner, after a release build) — matrix file created in A1; incl. 2 new launch rows (update vs welcome-back, notification tap within 1 s)
 
 ## 0c. First-session guidance (2026-10-09) — spec `docs/superpowers/specs/2026-10-09-first-session-guidance-design.md`
 
@@ -216,7 +272,7 @@ fails if a tab loses its guide or a sixth one arrives without one.
 - [ ] Decide from `guide_cta_tapped` whether any surface needs a second, deeper guide. One card per
       tab, but AI Study's now carries two destinations: the tutor (primary, ringed) and Exam Study
       (secondary, quieter). Read `target` before adding a third anywhere.
-- [ ] Guides are gated on `isNewUser` (≤6 days), so the existing install base never sees one. Revisit
+- [ ] Guides are gated on the 7-day guide period, so the existing install base never sees one. Revisit
       if the goal becomes activating dormant accounts rather than day-one retention.
 
 ## 5. Localization debt (2026-10-11 → ongoing)
@@ -228,7 +284,9 @@ Two distinct failures, counted separately because the tooling sees one and not t
       were invisible. Covered the Matches surface, all 106 `exam*` keys, and the rest. The 5 left
       in English are deliberate: `vipBrandTitle` (brand), `helpEmailSupportSubtitle` (an address),
       and the pure-placeholder `dailyScore` / `weeklyReportRange` / `learningXpGained`.
-- [ ] **Hardcoded strings: 74 left in 56 files** (was 113 in 67). These never reach an `.arb`.
+- [ ] **Hardcoded strings: 184 left** by `test/l10n/hardcoded_text_scanner.dart` (any English literal in the first argument of `Text(`/`SelectableText(`; index keys like `m['error']` ignored, ternaries and `??` included; excludes `TextSpan`, `hintText`, `labelText`, `tooltip`, `title:`; counted over lib/ minus lib/l10n, brand words like VIP/GIPHY included). Earlier figures (384, 74) used narrower definitions and are not comparable. Done in L13b (the sweep of English the scanner cannot see): 80 new keys in all 19 locales (`_keysByTask['L13b']`); existing keys (wave, message, skip, sort, levelBeginner/Intermediate/Advanced, saved, gallery, option, vocabWatchAdBonus, ...) were reused after checking their ja/ko/zh/de meaning. Localized: stories hintText/tooltip/label/`_error`/StoriesSnackbar (11 files), AI `_error` fallbacks and the free-attempt/bonus ad labels, coin-history reason labels, visitor-upgrade benefit rows, feature-gate messages, `RewardedAdButton` default label, ads-notice perks, visitor-limit dialog, welcome-back rows, my-reports info rows, image-preview/report-dialog hints, desktop voice-recorder tooltip, vocab-pack level chips, `_NotAuthorizedScreen`, and the coin-shop ad button. Relative times (`timeago`) are now localized for the 16 app locales timeago supports (`lib/utils/time_ago.dart`; tl and tg fall back to English; compact style only exists for en/es, other locales show the regular phrase), all 7 call sites moved. L12 cleanups done (`_exceptionPrefix` doc, dead `_reasons` labels, report-type terms harmonized: zh Story 故事, zh_TW User 用戶, ko Moment 모멘트). The VIP payment debug block is `kDebugMode`-only and its `_allowedTexts` exemption is gone. `api_error_handler.parseError` now requires its default message. Still open after L13b, none of it in the original list: the **103 allowlisted `Text` literals**, and English found while sweeping that was never collected: tooltips/labels in image_viewer ('Rotate'), word_card ('Listen'), message_bubble ('Report'), quick_replies_panel, create_poll_dialog, visitor_usage_indicator, limit_indicator, voice_recorder_mobile, daily_goal_widget, lesson_assistant_widget, engagement_stats_bar, notification_bell, upload_progress_indicator, ai_quiz_screen, vocabulary_review_screen ('Didn't know'), study_plan_setup_screen hint, and enum labels in leaderboard_model/learning_progress_model; `message:` snackbars in chat (bookmarks, wallpaper picker, chat list, media, forwarding, story-unavailable), moments (create_moment, notification_preferences_screen), community_filter_sheet, blocked_content_widget, partner_list_item, and the upload_queue_service progress strings. Next: a second sweep (`L14`) over those, using a property-literal scanner so they are guarded too. Done in L13a: guard `test/l10n/no_hardcoded_text_test.dart` fails on any new Text literal and on any allowlist entry that no longer matches, so the list only shrinks; allowlist `test/l10n/no_hardcoded_text_allowlist.txt` holds **103 entries** (184 scanner hits minus 81 English by design: staff-only admin console, livekit debug screen, VIP debug diagnostics, brand/unit-only words), matched by path + text, not line number. Also: key-coverage guard (every en key added since f3742650 must be in a `_keysByTask` list or another l10n test; it caught 5 L2 keys never listed), `_mayMatchEnglish` is now per (key, locale), CSV normalized to CRLF record endings, direct `formatDateForLocale` test. Done in L12: shared widgets, auth, calls, errors (29 new keys incl. 9 beyond the brief table: commonReportSubmittedSuccessfully, commonErrorLoadingFile, commonReportReasonCopyright, and commonReportTypeUser/Moment/Comment/Message/Story/Content so the report dialog's `_typeLabel` argument is localized too; 31 scanner hits incl. 5 beyond the table; reuses tryAgain, connecting, preview, additionalDetailsOptional, submitReport, ok, somethingWentWrong, operationCompleted and reportReason* for the report-dialog reason labels while the reason codes sent to the API stay raw). Done in L11: VIP, coins, limits and launch pop-ups (29 new keys incl. 3 beyond the brief table: vipCoinsPerAdInfo, vipUpgradeUnlockMore, vipUpgradeNow; promoAnnouncementGotIt dropped per preflight ruling R3; reuses vip, goVip, vipBestValue, or, ok, upgradeToVip, maybeLater, limitDailyReachedTitle, limitDesc*, waveLimitBody, somethingWentWrong, aiToolsVipUpgradeDescription; announcement_modal secondary button now uses `close` because `dismiss` means reject in ja/ko/zh/de). Done in L10: Stories and video editor (32 new keys incl. 8 beyond the brief table: storySent [the existing `sent` key takes an {emoji} placeholder so it was not reused], storyProcessing, storyHd, storyVideoMeta, storyUserFallback, storySendCount, storyFailedToDelete, storyAnonymous; 59 literals incl. 7 beyond the table; reuses unknown). Done in L9: Notifications, profile, settings, reports (40 new keys incl. 15 beyond the brief table: profileThanksForWatching, profileNotificationsOn/Off, profileMaximumReached, profilePickYourInterests, profileDeselectToChooseAnother, profileTapTopicsMatchVibe, profileEnjoyingPremium, profileUnlockUnlimited, profileBirthYear, profileReportTypeUser/Moment/Comment/Message/Story, profileReportReasonCopyright; 42 literals incl. 9 beyond the table; reuses momentsPullDownRefresh, delete, newUser, unsavedChanges, native, profileCompletion, somethingWentWrong, profile, vipMember, upgradeToVip, and the profile-completion field labels reuse profilePicture/nameLabel/bio/nativeLanguage/learningLanguageLabel/location/topics/mbti/intentSectionTitle; report type/reason labels localized). Done in L8: AI Study conversation, grammar, lesson builder, pronunciation, translation (53 new keys incl. 10 beyond the brief table: aiNoCompletedConversations, aiNoActiveConversations, aiStartInLanguage, aiSelect, aiIssuesCount, aiGenerateLesson, aiGeneratingEllipsis, aiAnalyzing, aiExcellentPronunciation, aiGoodJob; 68 literals incl. 11 beyond the table; reuses aiWhy, selectLanguage, aiTutorPronounceTapToRecord/Stop, aiKeepPracticing, failedToSave). Done in L7: AI Study quizzes, tutor and lesson sheets (42 new keys incl. 6 beyond the brief table: aiGreatJob, aiGoodEffort, aiKeepPracticing, aiFailedToGetHint, aiFailedToGetAnswer, aiFailedToExplain; 56 literals incl. 7 beyond the table; reuses submit, nextButton, lessonCorrect, lessonIncorrect). Done in L6: Learn achievements, challenges and progress widgets (23 new keys incl. 4 beyond the brief table; 28 literals incl. 8 beyond the table; `+N XP` reuses `learningXpGained`; unlock date now uses locale `formatDateForLocale`). Also in L6: challenge tabs/type/descriptions and vocabulary relative dates localized (11 more keys). Done in L5: Learn lessons, vocabulary, exam study (24 new keys + examSpeakingSubmit, which was English in all 19 locales, now translated; 37 literals incl. 9 beyond the brief table). Open from L5: `ai_tools_tab.dart` persona fallback name 'Nana' in `aiTutorHeroTitleSet(name ?? 'Nana')` is a name, left as is. Done in L4: Community and matching (18 keys incl. 3 beyond the brief; 33 literals incl. 8 beyond the brief table). Open from L4 (out of scanner scope, L13 sweep): see commit body. Done in L3: moments, reels and video players (19 keys; 33 literals incl. 9 beyond the brief table). Done in L1: chat list, input, conversation and paywall (26 keys). Done in L2: chat messages, bubbles, wallpaper picker, translation sheet (25 keys). These never reach an `.arb`.
+- [x] Final fix wave (deferred minors): Tajik date crash — every `DateFormat.x(runtimeLocale)` in lib/ now goes through `lib/utils/date_format_locale.dart` (gathering card, birthdate edit, blocked users), guarded by a test that fails on a new unguarded call; visitors time badge is one line, ellipsized, max 96 px; time_ago tests for zh_TW→zh, zh→zh_cn, tg→en; profile completion keyed by `ProfileCompletionField`, not by localized labels, and its status line localized (reuses `justGettingStarted`/`lookingGood`/`almostThere`, already in 19 locales); `FeatureGate` and `LimitExceededDialog` share `limitTypeDescription`
+- [ ] 54 property literals (`hintText:`/`labelText:`/`tooltip:`) are not covered by the guard; the 103-entry allowlist should shrink to zero (about 19 of its files are unreachable: delete or localize).
       Done so far: the EULA screen (43), the four learning players + waves (45 keys), the coin
       shop / VIP banner / chat paywall (29), Explore + Facebook login + suspension notice (26),
       both correction sheets + the translation sheet (16), the Moments composer (18), the chat
@@ -244,7 +302,7 @@ Two distinct failures, counted separately because the tooling sees one and not t
 
 Guards added, each for a failure that survives to release on its own:
 `test/l10n/guide_strings_test.dart` (missing key, key left as English, plural losing its ICU arms)
-and `test/l10n/arb_integrity_test.dart` (a placeholder gen-l10n never generated, which renders as
+and `test/l10n/no_hardcoded_text_test.dart` (new English `Text` literal outside the 103-entry shrink-only allowlist), `test/l10n/arb_integrity_test.dart` (a placeholder gen-l10n never generated, which renders as
 the literal word "null" — two locales were asking people to "Select up to null images"; and any
 character from a script a locale should not contain, which caught Korean 새 inside a Japanese
 string and a stray 材 in a Russian one).

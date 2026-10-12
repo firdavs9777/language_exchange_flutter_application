@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/models/learning/challenge_model.dart';
 
@@ -119,7 +120,7 @@ class ChallengeCard extends StatelessWidget {
                 children: [
                   _buildRewardChip(
                     icon: Icons.star_rounded,
-                    text: '+${challenge.xpReward} XP',
+                    text: AppLocalizations.of(context)!.learningXpGained(challenge.xpReward),
                     color: const Color(0xFF00BFA5),
                   ),
                   if (challenge.bonusReward != null) ...[
@@ -141,18 +142,18 @@ class ChallengeCard extends StatelessWidget {
                         color: const Color(0xFF00BFA5),
                         borderRadius: BorderRadius.circular(16),
                       ),
-                      child: const Row(
+                      child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.check_rounded,
                             color: Colors.white,
                             size: 16,
                           ),
-                          SizedBox(width: 4),
+                          const SizedBox(width: 4),
                           Text(
-                            'Completed',
-                            style: TextStyle(
+                            AppLocalizations.of(context)!.learnChallengeCompleted,
+                            style: const TextStyle(
                               color: Colors.white,
                               fontSize: 12,
                               fontWeight: FontWeight.bold,
@@ -419,7 +420,7 @@ class ChallengeCompactCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 2),
                   Text(
-                    '+${challenge.xpReward} XP',
+                    AppLocalizations.of(context)!.learningXpGained(challenge.xpReward),
                     style: const TextStyle(
                       fontSize: 11,
                       color: Color(0xFF00BFA5),

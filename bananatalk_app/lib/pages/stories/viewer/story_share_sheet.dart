@@ -49,19 +49,19 @@ Future<void> showStoryShareSheet(
   if (result.failedNames.isEmpty) {
     showChatSnackBar(
       context,
-      message: 'Sent 💛',
+      message: AppLocalizations.of(context)!.storyShareSent,
       type: ChatSnackBarType.success,
     );
   } else if (result.successCount == 0) {
     showChatSnackBar(
       context,
-      message: "Couldn't send to ${result.failedNames.join(', ')}",
+      message: AppLocalizations.of(context)!.storyShareSendFailedTo(result.failedNames.join(', ')),
       type: ChatSnackBarType.error,
     );
   } else {
     showChatSnackBar(
       context,
-      message: 'Sent 💛 — failed for ${result.failedNames.join(', ')}',
+      message: AppLocalizations.of(context)!.storyShareSentPartial(result.failedNames.join(', ')),
       type: ChatSnackBarType.info,
     );
   }
@@ -183,14 +183,14 @@ class _StoryShareSheetState extends State<_StoryShareSheet> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Send to friends',
+                      AppLocalizations.of(context)!.storySendFriends,
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.w600,
                       ),
                     ),
                     if (_selectedIds.isNotEmpty)
                       Text(
-                        '${_selectedIds.length} selected',
+                        AppLocalizations.of(context)!.storySelected(_selectedIds.length),
                         style: TextStyle(
                           color: Theme.of(context).hintColor,
                           fontSize: 12,
@@ -205,7 +205,7 @@ class _StoryShareSheetState extends State<_StoryShareSheet> {
                   controller: _controller,
                   onChanged: (_) => setState(() {}),
                   decoration: InputDecoration(
-                    hintText: 'Search recent chats…',
+                    hintText: AppLocalizations.of(context)!.storySearchRecentChatsHint,
                     prefixIcon: const Icon(Icons.search_rounded),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(14),
@@ -239,8 +239,8 @@ class _StoryShareSheetState extends State<_StoryShareSheet> {
                           )
                         : Text(
                             _selectedIds.isEmpty
-                                ? 'Send'
-                                : 'Send (${_selectedIds.length})',
+                                ? AppLocalizations.of(context)!.send
+                                : AppLocalizations.of(context)!.storySendCount(_selectedIds.length),
                             style: const TextStyle(fontWeight: FontWeight.w600),
                           ),
                   ),

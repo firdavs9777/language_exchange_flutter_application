@@ -26,6 +26,7 @@ class GuideCard extends StatelessWidget {
     this.onCta,
     this.secondaryLabel,
     this.onSecondary,
+    this.footer,
   });
 
   final IconData icon;
@@ -49,6 +50,9 @@ class GuideCard extends StatelessWidget {
   /// button, which is the whole point of it.
   final String? secondaryLabel;
   final VoidCallback? onSecondary;
+
+  /// "Getting started · N of 4" (spec §3.2). Null hides it.
+  final String? footer;
 
   @override
   Widget build(BuildContext context) {
@@ -114,6 +118,17 @@ class GuideCard extends StatelessWidget {
                 ),
               ],
             ),
+            if (footer != null) ...[
+              const SizedBox(height: 10),
+              Text(
+                footer!,
+                style: TextStyle(
+                  fontSize: 11.5,
+                  fontWeight: FontWeight.w600,
+                  color: accent,
+                ),
+              ),
+            ],
             if (hasCta || hasSecondary) ...[
               const SizedBox(height: 12),
               // Wrap, not Row: with two buttons and a long translation the
@@ -193,8 +208,11 @@ class _CtaPill extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 6),
-              const Icon(Icons.arrow_forward_rounded,
-                  size: 16, color: Colors.white),
+              const Icon(
+                Icons.arrow_forward_rounded,
+                size: 16,
+                color: Colors.white,
+              ),
             ],
           ),
         ),
@@ -262,7 +280,10 @@ class _FadeInUp extends StatelessWidget {
       curve: Curves.easeOutCubic,
       builder: (context, t, child) => Opacity(
         opacity: t,
-        child: Transform.translate(offset: Offset(0, 8 * (1 - t)), child: child),
+        child: Transform.translate(
+          offset: Offset(0, 8 * (1 - t)),
+          child: child,
+        ),
       ),
       child: child,
     );

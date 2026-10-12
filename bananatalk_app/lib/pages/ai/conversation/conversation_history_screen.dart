@@ -117,7 +117,7 @@ class _ConversationHistoryScreenState
             Icon(Icons.error_outline, size: 48, color: context.textMuted),
             Spacing.gapMD,
             Text(
-              'Failed to load history',
+              AppLocalizations.of(context)!.aiFailedLoadHistory,
               style: context.bodyMedium.copyWith(color: context.textSecondary),
             ),
             Spacing.gapMD,
@@ -243,7 +243,7 @@ class _ConversationHistoryScreenState
                     ),
                     Spacing.hGapXS,
                     Text(
-                      '${conversation.messages.length} messages',
+                      AppLocalizations.of(context)!.aiConversationMessageCount(conversation.messages.length),
                       style: context.caption.copyWith(
                         color: context.textMuted,
                       ),
@@ -278,6 +278,7 @@ class _ConversationHistoryScreenState
   }
 
   Widget _buildEmptyState(String status) {
+    final isCompleted = status == 'completed';
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -289,14 +290,14 @@ class _ConversationHistoryScreenState
           ),
           Spacing.gapMD,
           Text(
-            status == 'completed'
-                ? 'No completed conversations'
-                : 'No active conversations',
+            isCompleted
+                ? AppLocalizations.of(context)!.aiNoCompletedConversations
+                : AppLocalizations.of(context)!.aiNoActiveConversations,
             style: context.bodyLarge.copyWith(color: context.textSecondary),
           ),
           Spacing.gapSM,
           Text(
-            'Start a new conversation to see it here',
+            AppLocalizations.of(context)!.aiStartNewConversationSee,
             style: context.bodyMedium.copyWith(color: context.textMuted),
           ),
         ],
@@ -361,7 +362,7 @@ class _ConversationDetailsSheetState extends State<_ConversationDetailsSheet> {
         setState(() {
           _isLoading = false;
           if (_messages.isEmpty) {
-            _error = 'No messages found';
+            _error = AppLocalizations.of(context)!.aiNoMessagesConversation;
           }
         });
       }
@@ -369,7 +370,7 @@ class _ConversationDetailsSheetState extends State<_ConversationDetailsSheet> {
       if (mounted) {
         setState(() {
           _isLoading = false;
-          _error = 'Failed to load conversation';
+          _error = AppLocalizations.of(context)!.aiFailedToLoadConversation;
         });
       }
     }
@@ -403,7 +404,7 @@ class _ConversationDetailsSheetState extends State<_ConversationDetailsSheet> {
                 child: Row(
                   children: [
                     Text(
-                      'Conversation',
+                      AppLocalizations.of(context)!.conversation,
                       style: context.titleMedium.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
@@ -433,7 +434,7 @@ class _ConversationDetailsSheetState extends State<_ConversationDetailsSheet> {
             const CircularProgressIndicator(color: AppColors.accent),
             Spacing.gapMD,
             Text(
-              'Loading messages...',
+              AppLocalizations.of(context)!.aiLoadingMessages,
               style: context.bodyMedium.copyWith(color: context.textMuted),
             ),
           ],
@@ -476,7 +477,7 @@ class _ConversationDetailsSheetState extends State<_ConversationDetailsSheet> {
             Icon(Icons.chat_bubble_outline, size: 48, color: context.textMuted),
             Spacing.gapMD,
             Text(
-              'No messages in this conversation',
+              AppLocalizations.of(context)!.aiNoMessagesConversation,
               style: context.bodyMedium.copyWith(color: context.textSecondary),
             ),
           ],

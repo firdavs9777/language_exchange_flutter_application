@@ -9,7 +9,7 @@ import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
-import 'package:timeago/timeago.dart' as timeago;
+import 'package:bananatalk_app/utils/time_ago.dart';
 
 class WavesArchiveScreen extends ConsumerStatefulWidget {
   const WavesArchiveScreen({super.key});
@@ -101,7 +101,7 @@ class _WavesArchiveScreenState extends ConsumerState<WavesArchiveScreen> {
                           size: 48, color: context.textMuted),
                       Spacing.gapMD,
                       Text(
-                        'Failed to load archived waves',
+                        l10n.communityFailedLoadArchivedWaves,
                         style: context.bodyMedium
                             .copyWith(color: context.textSecondary),
                       ),
@@ -150,7 +150,7 @@ class _ArchiveWaveCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final timeAgo = timeago.format(wave.createdAt);
+    final timeAgo = timeAgoFor(context, wave.createdAt);
 
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
@@ -229,7 +229,7 @@ class _ArchiveWaveCard extends StatelessWidget {
                       Text(
                         wave.message?.isNotEmpty == true
                             ? wave.message!
-                            : 'Waved at you',
+                            : AppLocalizations.of(context)!.communityWavedAtYou,
                         style: context.bodyMedium
                             .copyWith(color: context.textSecondary),
                         maxLines: 1,

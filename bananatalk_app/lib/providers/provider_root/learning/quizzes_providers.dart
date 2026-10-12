@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/services/activation_store.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/services/learning_service.dart';
 import 'package:bananatalk_app/models/learning/quiz_model.dart';
@@ -145,6 +146,7 @@ class QuizPlayerNotifier extends StateNotifier<QuizPlayerState> {
 
     if (result['success'] == true && result['data'] != null) {
       final data = result['data'];
+      ActivationStore().markDone(ActivationAction.lesson).ignore();
       state = state.copyWith(
         isComplete: true,
         correctCount: data['correctCount'] ?? _calculateCorrectCount(),

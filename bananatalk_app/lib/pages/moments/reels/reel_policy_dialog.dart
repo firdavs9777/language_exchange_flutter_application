@@ -102,17 +102,10 @@ class ReelPolicyDialog extends StatelessWidget {
           ),
         ],
       ),
-      content: const SingleChildScrollView(
+      content: SingleChildScrollView(
         child: Text(
-          'Reels are short language-learning videos — prompt answers, '
-          'speaking practice, native-speaker explainers, and culture clips.\n\n'
-          'Bananatalk has zero tolerance for objectionable content: no '
-          'nudity, hate speech, harassment, violence, or illegal content. '
-          'Reported videos are automatically hidden pending review after '
-          '2 reports, and violations can result in content removal or '
-          'account bans.\n\n'
-          'You can report or block from any reel at any time.',
-          style: TextStyle(fontSize: 14, height: 1.4),
+          AppLocalizations.of(context)!.momentsReelPolicyBody,
+          style: const TextStyle(fontSize: 14, height: 1.4),
         ),
       ),
       actions: [
@@ -126,7 +119,7 @@ class ReelPolicyDialog extends StatelessWidget {
             backgroundColor: const Color(0xFF00BFA5),
             foregroundColor: Colors.white,
           ),
-          child: const Text('I agree'),
+          child: Text(AppLocalizations.of(context)!.momentsIAgree),
         ),
       ],
     );

@@ -868,7 +868,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Enter username to start a chat',
+              AppLocalizations.of(context)!.chatEnterUsernameStart,
               style: TextStyle(color: colors.onSurfaceVariant),
             ),
             const SizedBox(height: 16),
@@ -948,7 +948,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
               CircularProgressIndicator(color: colors.primary),
               const SizedBox(height: 16),
               Text(
-                'Searching for @$username...',
+                AppLocalizations.of(context)!.chatSearching(username),
                 style: TextStyle(color: colors.onSurface),
               ),
             ],
@@ -1072,7 +1072,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
       builder: (context) => AlertDialog(
         title: Text(AppLocalizations.of(context)!.chatListDeleteConversation),
         content: Text(
-          'Delete your conversation with ${partner.name}? This cannot be undone.',
+          AppLocalizations.of(context)!.chatDeleteConversationBody(partner.name),
         ),
         actions: [
           TextButton(
@@ -1306,13 +1306,13 @@ class _ChatMainState extends ConsumerState<ChatMain>
               }
             },
             itemBuilder: (context) => [
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 'qr',
                 child: Row(
                   children: [
                     Icon(Icons.qr_code_rounded, size: 20),
                     SizedBox(width: 12),
-                    Text('QR Code'),
+                    Text(AppLocalizations.of(context)!.chatQrCode),
                   ],
                 ),
               ),

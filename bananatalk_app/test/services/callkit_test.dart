@@ -208,7 +208,7 @@ void main() {
     });
   });
 
-  group('token registration declares call_cancel and the real device id', () {
+  group('token registration declares call_cancel + missed_call_actions and the real device id', () {
     late String originalBaseUrl;
     setUp(() {
       originalBaseUrl = Endpoints.baseURL;
@@ -228,9 +228,9 @@ void main() {
         return http.Response(jsonEncode({'success': true}), 200);
       }));
       expect(bodies['register-voip-token'], {
-        'voipToken': 'voip-tok', 'deviceId': 'device-xyz', 'capabilities': ['call_cancel'],
+        'voipToken': 'voip-tok', 'deviceId': 'device-xyz', 'capabilities': ['call_cancel', 'missed_call_actions'],
       });
-      expect(bodies['register-token']['capabilities'], ['call_cancel']);
+      expect(bodies['register-token']['capabilities'], ['call_cancel', 'missed_call_actions']);
     });
   });
 }

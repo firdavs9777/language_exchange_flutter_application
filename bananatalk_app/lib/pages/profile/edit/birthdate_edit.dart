@@ -10,7 +10,7 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
+import 'package:bananatalk_app/utils/date_format_locale.dart';
 
 /// Birthdate edit screen.
 ///
@@ -175,21 +175,8 @@ class _BirthdateEditState extends ConsumerState<BirthdateEdit> {
   }
 
   /// Formats [d] in the user's current locale (e.g. "Mar 15, 1995" in en,
-  /// "15 мар. 1995 г." in ru). Falls back to a hard-coded English short
-  /// format if the active locale's date data hasn't been initialised — a
-  /// guard so a missing intl locale registration can't crash the screen.
-  String _formatDate(DateTime d) {
-    final locale = Localizations.localeOf(context).toString();
-    try {
-      return DateFormat.yMMMd(locale).format(d);
-    } catch (_) {
-      const months = [
-        'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
-      ];
-      return '${months[d.month - 1]} ${d.day}, ${d.year}';
-    }
-  }
+  /// "15 мар. 1995 г." in ru); English for locales intl lacks (Tajik).
+  String _formatDate(DateTime d) => formatDateForLocale(context, d);
 
   @override
   Widget build(BuildContext context) {

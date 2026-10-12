@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/models/community/voice_room_model.dart';
@@ -56,13 +57,13 @@ class _PostRoomConnectSheet extends StatelessWidget {
               ),
             ),
             Text(
-              'Great chat! 🎉',
+              AppLocalizations.of(context)!.communityGreatChat,
               style: context.titleMedium.copyWith(fontWeight: FontWeight.w600),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 4),
             Text(
-              'Stay in touch with the people you just talked to',
+              AppLocalizations.of(context)!.communityStayTouchPeopleJust,
               style: context.bodyMedium.copyWith(color: context.textSecondary),
               textAlign: TextAlign.center,
             ),
@@ -74,7 +75,7 @@ class _PostRoomConnectSheet extends StatelessWidget {
               child: TextButton(
                 onPressed: () => Navigator.pop(context),
                 child: Text(
-                  'Not now',
+                  AppLocalizations.of(context)!.communityNotNow,
                   style: TextStyle(color: context.textSecondary),
                 ),
               ),
@@ -123,7 +124,7 @@ class _ParticipantRow extends StatelessWidget {
           const SizedBox(width: 12),
           Expanded(
             child: Text(
-              participant.name.isNotEmpty ? participant.name : 'Someone',
+              participant.name.isNotEmpty ? participant.name : AppLocalizations.of(context)!.communitySomeone,
               style: context.bodyLarge,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,

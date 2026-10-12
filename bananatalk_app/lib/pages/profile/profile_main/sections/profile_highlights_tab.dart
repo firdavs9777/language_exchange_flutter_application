@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
 import 'package:bananatalk_app/pages/vip/vip_status_screen.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
@@ -32,58 +33,92 @@ class ProfileHighlightsTab extends StatelessWidget {
 // Profile completion card
 // ---------------------------------------------------------------------------
 
+/// The fields the completion card counts. Keyed by this stable id, never by
+/// the localized label: two labels that translate to the same word in some
+/// locale would collapse into one map entry and skew the percentage.
+enum ProfileCompletionField {
+  picture,
+  name,
+  bio,
+  nativeLanguage,
+  learningLanguage,
+  location,
+  topics,
+  mbti,
+  birthYear,
+  intents;
+
+  String label(AppLocalizations l10n) => switch (this) {
+        picture => l10n.profilePicture,
+        name => l10n.nameLabel,
+        bio => l10n.bio,
+        nativeLanguage => l10n.nativeLanguage,
+        learningLanguage => l10n.learningLanguageLabel,
+        location => l10n.location,
+        topics => l10n.topics,
+        mbti => l10n.mbti,
+        birthYear => l10n.profileBirthYear,
+        intents => l10n.intentSectionTitle,
+      };
+}
+
+/// Percentage of [ProfileCompletionField]s [user] has filled, and the first
+/// three missing ones.
+({int percentage, List<ProfileCompletionField> missing}) calculateProfileCompletion(
+    Community user) {
+  final fields = <ProfileCompletionField, bool>{
+    ProfileCompletionField.picture: user.imageUrls.isNotEmpty,
+    ProfileCompletionField.name: user.name.isNotEmpty,
+    ProfileCompletionField.bio: user.bio.isNotEmpty,
+    ProfileCompletionField.nativeLanguage: user.native_language.isNotEmpty,
+    ProfileCompletionField.learningLanguage: user.language_to_learn.isNotEmpty,
+    ProfileCompletionField.location:
+        user.location.country.isNotEmpty || user.location.city.isNotEmpty,
+    ProfileCompletionField.topics: user.topics.isNotEmpty,
+    ProfileCompletionField.mbti: user.mbti.isNotEmpty,
+    ProfileCompletionField.birthYear: user.birth_year.isNotEmpty,
+    ProfileCompletionField.intents: user.intents.isNotEmpty,
+  };
+  final completed = fields.values.where((v) => v).length;
+  final percentage = (completed / fields.length * 100).round();
+  final missing =
+      fields.entries.where((e) => !e.value).map((e) => e.key).take(3).toList();
+  return (percentage: percentage, missing: missing);
+}
+
+/// The status line under "Profile completion" for [percentage].
+String profileCompletionStatus(AppLocalizations l10n, int percentage) {
+  if (percentage < 50) return l10n.justGettingStarted;
+  if (percentage < 80) return l10n.lookingGood;
+  return l10n.almostThere;
+}
+
 class _ProfileCompletionCard extends StatelessWidget {
   const _ProfileCompletionCard({required this.user});
   final Community user;
 
-  static Map<String, dynamic> _calculate(Community user) {
-    final fields = <String, bool>{
-      'Profile Picture': user.imageUrls.isNotEmpty,
-      'Name': user.name.isNotEmpty,
-      'Bio': user.bio.isNotEmpty,
-      'Native Language': user.native_language.isNotEmpty,
-      'Learning Language': user.language_to_learn.isNotEmpty,
-      'Location':
-          user.location.country.isNotEmpty || user.location.city.isNotEmpty,
-      'Topics': user.topics.isNotEmpty,
-      'MBTI': user.mbti.isNotEmpty,
-      'Birth Year': user.birth_year.isNotEmpty,
-      'What you\'re here for': user.intents.isNotEmpty,
-    };
-    final completed = fields.values.where((v) => v).length;
-    final percentage = (completed / fields.length * 100).round();
-    final missing = fields.entries
-        .where((e) => !e.value)
-        .map((e) => e.key)
-        .take(3)
-        .toList();
-    return {'percentage': percentage, 'missing': missing};
-  }
-
   @override
   Widget build(BuildContext context) {
-    final completion = _calculate(user);
-    final percentage = completion['percentage'] as int;
-    final missing = completion['missing'] as List<String>;
+    final l10n = AppLocalizations.of(context)!;
+    final completion = calculateProfileCompletion(user);
+    final percentage = completion.percentage;
+    final missing = [for (final f in completion.missing) f.label(l10n)];
 
     if (percentage >= 100) return const SizedBox.shrink();
 
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
+    final statusText = profileCompletionStatus(l10n, percentage);
     Color color;
-    String statusText;
     IconData statusIcon;
     if (percentage < 50) {
       color = const Color(0xFFFF9800);
-      statusText = 'Just getting started';
       statusIcon = Icons.rocket_launch_rounded;
     } else if (percentage < 80) {
       color = const Color(0xFF2196F3);
-      statusText = 'Looking good!';
       statusIcon = Icons.trending_up_rounded;
     } else {
       color = AppColors.primary;
-      statusText = 'Almost there!';
       statusIcon = Icons.celebration_rounded;
     }
 
@@ -121,7 +156,7 @@ class _ProfileCompletionCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Profile Completion',
+                      l10n.profileCompletion,
                       style: context.titleSmall.copyWith(
                         fontWeight: FontWeight.w700,
                       ),
@@ -171,7 +206,7 @@ class _ProfileCompletionCard extends StatelessWidget {
                 const SizedBox(width: 6),
                 Expanded(
                   child: Text(
-                    'Add: ${missing.join(", ")}',
+                    l10n.profileCompletionAdd(missing.join(', ')),
                     style: context.captionSmall.copyWith(
                       color: context.textSecondary,
                       fontWeight: FontWeight.w500,
@@ -199,6 +234,7 @@ class _VipStatusCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final isVip = user.isVip;
 
     return Padding(
@@ -271,7 +307,7 @@ class _VipStatusCard extends StatelessWidget {
                         Row(
                           children: [
                             Text(
-                              isVip ? 'VIP Member' : 'Upgrade to VIP',
+                              isVip ? l10n.vipMember : l10n.upgradeToVip,
                               style: context.titleMedium.copyWith(
                                 fontWeight: FontWeight.w800,
                                 color: isVip
@@ -291,9 +327,9 @@ class _VipStatusCard extends StatelessWidget {
                                       Colors.white.withValues(alpha: 0.25),
                                   borderRadius: BorderRadius.circular(8),
                                 ),
-                                child: const Text(
-                                  'ACTIVE',
-                                  style: TextStyle(
+                                child: Text(
+                                  l10n.profileActive,
+                                  style: const TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.w800,
                                     fontSize: 10,
@@ -307,8 +343,8 @@ class _VipStatusCard extends StatelessWidget {
                         const SizedBox(height: 4),
                         Text(
                           isVip
-                              ? 'Enjoying premium features'
-                              : 'Unlock unlimited messages & AI tools',
+                              ? l10n.profileEnjoyingPremium
+                              : l10n.profileUnlockUnlimited,
                           style: context.bodySmall.copyWith(
                             color: isVip
                                 ? Colors.white.withValues(alpha: 0.9)

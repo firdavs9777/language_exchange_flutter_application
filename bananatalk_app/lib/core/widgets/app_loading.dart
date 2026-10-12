@@ -1,6 +1,7 @@
 // lib/core/widgets/app_loading.dart
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 /// Loading indicator with Bananatalk styling
 class AppLoading extends StatelessWidget {
@@ -239,6 +240,7 @@ class AppErrorState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Center(
       child: Padding(
         padding: AppSpacing.paddingXXL,
@@ -259,7 +261,7 @@ class AppErrorState extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             Text(
-              title ?? 'Something went wrong',
+              title ?? l10n.somethingWentWrong,
               style: AppTypography.headlineSmall,
               textAlign: TextAlign.center,
             ),
@@ -278,7 +280,7 @@ class AppErrorState extends StatelessWidget {
               TextButton.icon(
                 onPressed: onRetry,
                 icon: const Icon(Icons.refresh),
-                label: const Text('Try Again'),
+                label: Text(l10n.tryAgain),
               ),
             ],
           ],

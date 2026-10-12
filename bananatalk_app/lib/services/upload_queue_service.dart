@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:bananatalk_app/services/activation_store.dart';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/models/upload_task.dart';
@@ -314,6 +315,7 @@ class UploadQueueService {
       isReel: metadata['isReel'] == true,
     );
     _checkSession(gen);
+    ActivationStore().markDone(ActivationAction.moment).ignore();
 
     // Update progress
     _tasks[taskIndex] = _tasks[taskIndex].copyWith(progress: 0.3);
@@ -351,6 +353,7 @@ class UploadQueueService {
       isReel: metadata['isReel'] == true,
     );
     _checkSession(gen);
+    ActivationStore().markDone(ActivationAction.moment).ignore();
 
     // Update progress
     _tasks[taskIndex] = _tasks[taskIndex].copyWith(progress: 0.2);

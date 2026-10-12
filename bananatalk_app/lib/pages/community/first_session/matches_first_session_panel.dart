@@ -33,12 +33,16 @@ class MatchesFirstSessionPanel extends StatelessWidget {
     required this.matchCount,
     this.liveLabel,
     this.onLive,
+    this.progressCount,
   });
 
   final int matchCount;
 
   final String? liveLabel;
   final VoidCallback? onLive;
+
+  /// Activation actions done so far, for the "Getting started" footer.
+  final int? progressCount;
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +54,7 @@ class MatchesFirstSessionPanel extends StatelessWidget {
       body: l10n.firstSessionMatchesBody,
       secondaryLabel: liveLabel,
       onSecondary: onLive,
+      footer: progressCount == null ? null : l10n.guideProgress(progressCount!),
     );
   }
 }

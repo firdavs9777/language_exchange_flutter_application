@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:bananatalk_app/utils/date_format_locale.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/community/gathering_model.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
@@ -334,6 +334,8 @@ class GatheringCard extends StatelessWidget {
 
   /// Locale-aware. A bare "16/9" reads as 16 September to a Russian and as an
   /// invalid month to an American, and this list is shown in 19 locales.
+  /// Tajik has no intl date symbols: [formatMonthDayForLocale] falls back to
+  /// English instead of throwing in build.
   String _shortDate(BuildContext context, DateTime local) =>
-      DateFormat.MMMd(Localizations.localeOf(context).toString()).format(local);
+      formatMonthDayForLocale(context, local);
 }

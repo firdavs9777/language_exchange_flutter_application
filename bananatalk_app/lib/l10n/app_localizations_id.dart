@@ -7047,7 +7047,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get examSpeakingPart3 => 'Speaking — Part 3';
 
   @override
-  String get examSpeakingSubmit => 'Submit recording';
+  String get examSpeakingSubmit => 'Kirim rekaman';
 
   @override
   String get examSpeakingUploading => 'Mengunggah…';
@@ -9557,4 +9557,1649 @@ class AppLocalizationsId extends AppLocalizations {
   String translatedToLanguage(String language) {
     return 'Diterjemahkan ke $language';
   }
+
+  @override
+  String guideProgress(int count) {
+    return 'Memulai · $count dari 4';
+  }
+
+  @override
+  String get guideChatTip => 'Tekan lama untuk menerjemahkan atau mengoreksi';
+
+  @override
+  String get announcementTitle => 'Pengumuman';
+
+  @override
+  String get announcementUnavailable => 'Pengumuman ini sudah tidak tersedia.';
+
+  @override
+  String get notifyAnnouncementsTitle => 'Pengumuman';
+
+  @override
+  String get notifyAnnouncementsSubtitle => 'Berita dan pembaruan dari tim BananaTalk';
+
+  @override
+  String chatDailyLimitBody(Object count) {
+    return 'Pengguna gratis dapat mengobrol dengan hingga $count orang per hari.\nUpgrade ke VIP untuk percakapan tanpa batas!';
+  }
+
+  @override
+  String get chatCompressingVideo => 'Mengompres video...';
+
+  @override
+  String chatShareLocationBody(Object name) {
+    return 'Kirim lokasi Anda saat ini ke $name. Lakukan hanya dengan orang yang Anda percaya.';
+  }
+
+  @override
+  String get chatShareLocationThisChat => 'obrolan ini';
+
+  @override
+  String get chatTranslationLimitReached => 'Batas terjemahan tercapai';
+
+  @override
+  String get chatTranslateLimitBody => 'Anda telah menggunakan terjemahan gratis hari ini di obrolan ini. Buka lebih banyak seketika dengan koin.';
+
+  @override
+  String chatReplyingTo(Object name) {
+    return 'Membalas $name';
+  }
+
+  @override
+  String get chatReplyingToFallback => 'pengguna';
+
+  @override
+  String chatSendingMedia(Object mediaType) {
+    return 'Mengirim $mediaType...';
+  }
+
+  @override
+  String get chatEnterUsernameStart => 'Masukkan nama pengguna untuk memulai obrolan';
+
+  @override
+  String chatSearching(Object username) {
+    return 'Mencari @$username...';
+  }
+
+  @override
+  String chatDeleteConversationBody(Object name) {
+    return 'Hapus percakapan Anda dengan $name? Tindakan ini tidak dapat dibatalkan.';
+  }
+
+  @override
+  String get chatQrCode => 'Kode QR';
+
+  @override
+  String get chatDraft => 'Draf: ';
+
+  @override
+  String get chatTyping => 'sedang mengetik...';
+
+  @override
+  String get chatPoweredBy => 'Didukung oleh ';
+
+  @override
+  String get chatReconnecting => 'Menyambungkan kembali ke obrolan...';
+
+  @override
+  String get chatDailyLimitReached => 'Batas pesan harian tercapai';
+
+  @override
+  String chatMessagesRemainingToday(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Sisa $count pesan hari ini',
+      one: 'Sisa 1 pesan hari ini',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get chatTranslatePreviewHint => 'Mulai mengetik untuk melihat terjemahan';
+
+  @override
+  String get chatNoMessagesYet => 'Belum ada pesan';
+
+  @override
+  String get chatMediaPhoto => 'foto';
+
+  @override
+  String get chatMediaVideo => 'video';
+
+  @override
+  String get chatMediaAudio => 'audio';
+
+  @override
+  String get chatMediaFile => 'file';
+
+  @override
+  String get chatMediaGeneric => 'media';
+
+  @override
+  String get chatMessageFailedToSend => 'Pesan gagal terkirim';
+
+  @override
+  String get chatSendingEllipsis => 'Mengirim...';
+
+  @override
+  String get chatFailedTapOptions => 'Gagal · Ketuk untuk opsi';
+
+  @override
+  String get chatMessageWasDeleted => 'Pesan ini telah dihapus';
+
+  @override
+  String get chatStory => 'Cerita';
+
+  @override
+  String get chatHi => 'Hai!';
+
+  @override
+  String get chatEdited => 'diedit';
+
+  @override
+  String get chatPremium => 'Premium ✨';
+
+  @override
+  String chatUnlockPremiumWallpapers(Object cost) {
+    return 'Buka semua wallpaper Premium ✨ seharga 💎$cost koin? Ini membuka seluruh paket selamanya.';
+  }
+
+  @override
+  String chatWallpaperForName(Object userName) {
+    return 'Wallpaper obrolan untuk $userName';
+  }
+
+  @override
+  String get chatChooseGallery => 'Pilih dari galeri';
+
+  @override
+  String get chatHiThere => 'Halo! 😊';
+
+  @override
+  String chatCorrected(Object correctorName) {
+    return '$correctorName mengoreksi';
+  }
+
+  @override
+  String get chatCorrectionAccepted => 'Koreksi diterima ✓';
+
+  @override
+  String chatForwarded(Object senderName) {
+    return 'Diteruskan dari $senderName';
+  }
+
+  @override
+  String get chatCached => 'Tersimpan di cache';
+
+  @override
+  String get chatWordBreakdown => 'Rincian kata';
+
+  @override
+  String get chatAlternatives => 'Alternatif';
+
+  @override
+  String chatTranslationAlso(Object items) {
+    return 'Juga: $items';
+  }
+
+  @override
+  String get chatAudioUnavailable => 'Audio tidak tersedia';
+
+  @override
+  String get chatHideTranslation => 'Sembunyikan terjemahan';
+
+  @override
+  String get chatStoryExpired => 'Cerita kedaluwarsa';
+
+  @override
+  String get chatAcceptCorrection => 'Terima koreksi';
+
+  @override
+  String get chatAccepting => 'Menerima…';
+
+  @override
+  String get chatSaveToVocabularyAction => 'Simpan ke kosakata';
+
+  @override
+  String momentsMore(Object hidden) {
+    return '+$hidden lagi';
+  }
+
+  @override
+  String get momentsAllow => 'Izinkan';
+
+  @override
+  String get momentsCompressed => 'Terkompresi';
+
+  @override
+  String get momentsPromptDay => 'Topik hari ini';
+
+  @override
+  String get momentsAnswer => 'Jawab';
+
+  @override
+  String get momentsAnswerCamera => '🎥 Jawab dengan kamera';
+
+  @override
+  String momentsPracticeWriting(Object langName) {
+    return 'Latihan menulis dalam $langName';
+  }
+
+  @override
+  String get momentsReelPolicyBody => 'Reels adalah video pendek untuk belajar bahasa — jawaban topik, latihan berbicara, penjelasan dari penutur asli, dan klip budaya.\n\nBananatalk tidak menoleransi konten yang tidak pantas: tanpa ketelanjangan, ujaran kebencian, pelecehan, kekerasan, atau konten ilegal. Video yang dilaporkan otomatis disembunyikan menunggu peninjauan setelah 2 laporan, dan pelanggaran dapat berujung pada penghapusan konten atau pemblokiran akun.\n\nAnda dapat melaporkan atau memblokir dari reel mana pun kapan saja.';
+
+  @override
+  String get momentsIAgree => 'Saya setuju';
+
+  @override
+  String get momentsWhyReportingReel => 'Mengapa Anda melaporkan reel ini?';
+
+  @override
+  String get momentsNoReelsYet => 'Belum ada reel';
+
+  @override
+  String get momentsNoReelsBody => 'Jadilah yang pertama menjawab topik hari ini dengan kamera, atau rekam klip bebas untuk belajar bahasa.';
+
+  @override
+  String get momentsPullDownRefresh => 'Tarik ke bawah untuk menyegarkan';
+
+  @override
+  String get momentsErrorLoadingVideo => 'Gagal memuat video';
+
+  @override
+  String get momentsLoadingVideo => 'Memuat video...';
+
+  @override
+  String momentsFileSizeMb(Object size) {
+    return '$size MB';
+  }
+
+  @override
+  String momentsMaxDuration(Object duration) {
+    return 'Maks. $duration';
+  }
+
+  @override
+  String get momentsReportSubmitted => 'Laporan terkirim';
+
+  @override
+  String communityLive(Object count) {
+    return '$count langsung';
+  }
+
+  @override
+  String get communityFind => 'Cari';
+
+  @override
+  String communityFinding(Object username) {
+    return 'Mencari @$username...';
+  }
+
+  @override
+  String get communitySeeAll => 'Lihat semua';
+
+  @override
+  String get communitySeeWhoLikes => 'Lihat siapa yang menyukaimu';
+
+  @override
+  String get communityUnlimitedBrowsingNoAds => 'Jelajah tanpa batas, tanpa iklan, pencocokan prioritas';
+
+  @override
+  String communityMembersCount(Object count) {
+    return '$count anggota';
+  }
+
+  @override
+  String communityPeopleCount(Object count) {
+    return '$count orang';
+  }
+
+  @override
+  String get communityFailedLoadArchivedWaves => 'Gagal memuat lambaian yang diarsipkan';
+
+  @override
+  String get communityGreatChat => 'Obrolan seru! 🎉';
+
+  @override
+  String get communityStayTouchPeopleJust => 'Tetap terhubung dengan orang yang baru saja kamu ajak bicara';
+
+  @override
+  String get communityNotNow => 'Nanti saja';
+
+  @override
+  String get communityPerfect => 'Sempurna';
+
+  @override
+  String communityLv(Object level) {
+    return 'Lv.$level';
+  }
+
+  @override
+  String get communityReact => 'Beri reaksi';
+
+  @override
+  String get communityWavedAtYou => 'Melambai padamu';
+
+  @override
+  String get communitySomeone => 'Seseorang';
+
+  @override
+  String get communityPeopleInterestedInTopic => 'Orang yang tertarik dengan topik ini';
+
+  @override
+  String get learnThemedWordSetsBuild => 'Kumpulan kata bertema untuk memperkaya kosakatamu';
+
+  @override
+  String get learnTapStartRecording => 'Ketuk untuk mulai merekam';
+
+  @override
+  String get learnWordBank => 'Bank Kata';
+
+  @override
+  String learnCorrectAnswer(Object correctAnswer) {
+    return 'Jawaban benar: $correctAnswer';
+  }
+
+  @override
+  String get learnMatchingDataNotAvailable => 'Data pencocokan tidak tersedia';
+
+  @override
+  String get learnExerciseCouldNotLoad => 'Latihan ini tidak dapat memuat pasangan yang harus dicocokkan. Coba buat ulang pelajarannya.';
+
+  @override
+  String get learnSkipExercise => 'Lewati Latihan';
+
+  @override
+  String get learnTapItemLeftThen => 'Ketuk item di kiri, lalu ketuk pasangannya di kanan';
+
+  @override
+  String learnMatchedOfTotal(Object count, Object count2) {
+    return '$count/$count2 cocok';
+  }
+
+  @override
+  String learnCorrectOfTotal(Object correctCount, Object count) {
+    return '$correctCount/$count benar';
+  }
+
+  @override
+  String get learnDragDropReorderItems => 'Seret dan lepas untuk mengurutkan ulang item';
+
+  @override
+  String learnCorrectOrder(Object order) {
+    return 'Urutan benar: $order';
+  }
+
+  @override
+  String learnWordsToReview(int dueCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      dueCount,
+      locale: localeName,
+      other: '$dueCount kata untuk diulas',
+      one: '1 kata untuk diulas',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnScore(Object score) {
+    return 'Skor: $score / 100';
+  }
+
+  @override
+  String learnGotCorrect(Object correct, Object count) {
+    return 'Kamu menjawab $correct dari $count dengan benar.';
+  }
+
+  @override
+  String learnQuestionOf(Object number, Object total) {
+    return 'Pertanyaan $number dari $total';
+  }
+
+  @override
+  String get learnMatchEachWordIts => 'Cocokkan setiap kata dengan artinya';
+
+  @override
+  String get learnCouldNotLoadPacks => 'Paket tidak dapat dimuat';
+
+  @override
+  String learnWordsExercises(Object wordCount, Object exerciseCount) {
+    return '$wordCount kata · $exerciseCount latihan';
+  }
+
+  @override
+  String get learnAiAutoFill => 'Isi Otomatis AI';
+
+  @override
+  String get learnPlay => 'Putar';
+
+  @override
+  String get learnFinish => 'Selesai';
+
+  @override
+  String get learnNotQuite => 'Belum tepat.';
+
+  @override
+  String get learnUnsupportedExercise => 'Latihan tidak didukung';
+
+  @override
+  String get learnFailedLoadAchievements => 'Gagal memuat pencapaian';
+
+  @override
+  String learnUnlockedOn(Object date) {
+    return 'Dibuka pada $date';
+  }
+
+  @override
+  String get learnChallenges => 'Tantangan';
+
+  @override
+  String get learnFailedLoadChallenges => 'Gagal memuat tantangan';
+
+  @override
+  String learnNoChallenges(Object type) {
+    return 'Tidak ada tantangan $type';
+  }
+
+  @override
+  String get learnCheckBackLater => 'Cek lagi nanti!';
+
+  @override
+  String learnActiveCount(Object count) {
+    return 'Aktif ($count)';
+  }
+
+  @override
+  String learnCompletedCount(Object count) {
+    return 'Selesai ($count)';
+  }
+
+  @override
+  String get learnProgress => 'Kemajuan';
+
+  @override
+  String get learnXpReward => 'Hadiah XP';
+
+  @override
+  String get learnBonus => 'Bonus';
+
+  @override
+  String learnExpires(Object timeRemainingFormatted) {
+    return 'Berakhir dalam $timeRemainingFormatted';
+  }
+
+  @override
+  String get learnAchievementUnlocked => 'Pencapaian Terbuka!';
+
+  @override
+  String get learnTapContinue => 'Ketuk untuk melanjutkan';
+
+  @override
+  String get learnChallengeCompleted => 'Selesai';
+
+  @override
+  String get learnDailyGoals => 'Target Harian';
+
+  @override
+  String learnLessons(Object completedCount, Object lessonsCount) {
+    return '$completedCount/$lessonsCount pelajaran';
+  }
+
+  @override
+  String learnLongestDays(Object longestStreak) {
+    return 'Terlama: $longestStreak hari';
+  }
+
+  @override
+  String get learnTapReveal => 'Ketuk untuk melihat';
+
+  @override
+  String get learnNoAchievements => 'Belum ada pencapaian';
+
+  @override
+  String get learnDayStreak => 'Hari Beruntun';
+
+  @override
+  String get learnDueForReview => 'Waktunya diulang';
+
+  @override
+  String learnNextReview(Object date) {
+    return 'Berikutnya: $date';
+  }
+
+  @override
+  String get learnChallengeDaily => 'Harian';
+
+  @override
+  String get learnChallengeWeekly => 'Mingguan';
+
+  @override
+  String get learnChallengeSpecial => 'Spesial';
+
+  @override
+  String get learnChallengeDailyDesc => 'Selesaikan tantangan setiap hari untuk mendapatkan XP dan hadiah!';
+
+  @override
+  String get learnChallengeWeeklyDesc => 'Tantangan mingguan diperbarui setiap Senin';
+
+  @override
+  String get learnChallengeSpecialDesc => 'Tantangan waktu terbatas dengan hadiah bonus!';
+
+  @override
+  String get learnDateToday => 'Hari ini';
+
+  @override
+  String get learnDateTomorrow => 'Besok';
+
+  @override
+  String learnInDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count hari lagi',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnInWeeks(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count minggu lagi',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnInMonths(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count bulan lagi',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiGenerateNewQuiz => 'Buat kuis baru';
+
+  @override
+  String get aiPreviousQuizzes => 'Kuis sebelumnya';
+
+  @override
+  String get aiGeneratingQuiz => 'Membuat kuis Anda…';
+
+  @override
+  String aiFocusArea(Object name) {
+    return 'Area fokus: $name';
+  }
+
+  @override
+  String get aiQuizType => 'Jenis kuis';
+
+  @override
+  String get aiDifficulty => 'Tingkat kesulitan';
+
+  @override
+  String get aiQuestionsLabel => 'Pertanyaan:';
+
+  @override
+  String get aiGenerateQuiz => 'Buat kuis';
+
+  @override
+  String aiQuizQuestionCount(int questionCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      questionCount,
+      locale: localeName,
+      other: '$questionCount pertanyaan',
+      one: '1 pertanyaan',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String aiCorrectOfTotal(Object correctCount, Object totalQuestions) {
+    return '$correctCount/$totalQuestions benar';
+  }
+
+  @override
+  String get aiNoQuizzesYet => 'Belum ada kuis';
+
+  @override
+  String get aiGenerateFirstQuizAbove => 'Buat kuis pertama Anda di atas!';
+
+  @override
+  String aiCorrectOutOf(Object correctCount, Object totalQuestions) {
+    return '$correctCount dari $totalQuestions benar';
+  }
+
+  @override
+  String get aiBackQuizHub => 'Kembali ke pusat kuis';
+
+  @override
+  String get aiNoQuestionsAvailable => 'Tidak ada pertanyaan tersedia';
+
+  @override
+  String get aiQuizHasNoQuestions => 'Kuis ini tidak memiliki pertanyaan untuk ditampilkan.';
+
+  @override
+  String aiQuestionOf(Object number, Object count) {
+    return 'Pertanyaan $number dari $count';
+  }
+
+  @override
+  String get aiYourAnswerLabel => 'Jawaban Anda:';
+
+  @override
+  String get aiBonusXpWatching => '🎉 +10 XP bonus karena menonton!';
+
+  @override
+  String get aiNotQuiteRight => 'Kurang tepat';
+
+  @override
+  String get aiWhy => 'Mengapa?';
+
+  @override
+  String get aiGotIt => 'Mengerti';
+
+  @override
+  String get aiHint => 'Petunjuk';
+
+  @override
+  String aiLevel(Object hintLevel) {
+    return 'Tingkat $hintLevel/3';
+  }
+
+  @override
+  String get aiAskQuestion => 'Ajukan pertanyaan';
+
+  @override
+  String get aiAsk => 'Tanya';
+
+  @override
+  String get aiAssistantExamples => 'Contoh';
+
+  @override
+  String get aiExplainConcept => 'Jelaskan konsep';
+
+  @override
+  String get aiRelatedConcepts => 'Konsep terkait';
+
+  @override
+  String get aiGeneratingLessonSummary => 'Membuat ringkasan pelajaran Anda...';
+
+  @override
+  String get aiLessonSummary => 'Ringkasan pelajaran';
+
+  @override
+  String get aiKeyPoints => 'Poin penting';
+
+  @override
+  String get aiVocabularyRemember => 'Kosakata yang perlu diingat';
+
+  @override
+  String get aiGrammarRules => 'Aturan tata bahasa';
+
+  @override
+  String get aiWhatPracticeNext => 'Yang perlu dilatih selanjutnya';
+
+  @override
+  String get aiPerfectScore => 'Skor sempurna!';
+
+  @override
+  String get aiGreatJob => 'Kerja bagus!';
+
+  @override
+  String get aiGoodEffort => 'Usaha yang bagus!';
+
+  @override
+  String get aiKeepPracticing => 'Terus berlatih!';
+
+  @override
+  String get aiFailedToGetHint => 'Gagal mendapatkan petunjuk';
+
+  @override
+  String get aiFailedToGetAnswer => 'Gagal mendapatkan jawaban';
+
+  @override
+  String get aiFailedToExplain => 'Gagal menjelaskan';
+
+  @override
+  String get aiFailedLoadHistory => 'Gagal memuat riwayat';
+
+  @override
+  String aiConversationMessageCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count pesan',
+      one: '1 pesan',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiStartNewConversationSee => 'Mulai percakapan baru untuk melihatnya di sini';
+
+  @override
+  String get aiLoadingMessages => 'Memuat pesan...';
+
+  @override
+  String get aiNoMessagesConversation => 'Tidak ada pesan dalam percakapan ini';
+
+  @override
+  String get aiDifficultyLevel => 'Tingkat Kesulitan';
+
+  @override
+  String get aiScenarios => 'Skenario';
+
+  @override
+  String get aiGrammarCheck => 'Pemeriksaan Tata Bahasa';
+
+  @override
+  String get aiRecentAnalysis => 'Analisis Terbaru';
+
+  @override
+  String get aiCheckGrammar => 'Periksa Tata Bahasa';
+
+  @override
+  String get aiLanguageLabel => 'Bahasa:';
+
+  @override
+  String aiGrammarIssuesFound(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count kesalahan ditemukan',
+      one: '1 kesalahan ditemukan',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiPerfect => 'Sempurna!';
+
+  @override
+  String get aiNoGrammarIssuesFound => 'Tidak ada kesalahan tata bahasa pada teksmu.';
+
+  @override
+  String aiIssuesFound(Object count) {
+    return 'Kesalahan Ditemukan ($count)';
+  }
+
+  @override
+  String get aiCorrected => 'Dikoreksi';
+
+  @override
+  String get aiGrammarExamples => 'Contoh:';
+
+  @override
+  String get aiImprovedSuggestions => 'Saran yang Diperbaiki';
+
+  @override
+  String get aiNoAnalysisHistoryYet => 'Belum ada riwayat analisis';
+
+  @override
+  String get aiLessonBuilder => 'Pembuat Pelajaran AI';
+
+  @override
+  String get aiGenerateCustomLessons => 'Buat Pelajaran Khusus';
+
+  @override
+  String get aiCreatesPersonalizedLessonsAny => 'AI membuat pelajaran personal untuk topik apa pun';
+
+  @override
+  String aiExercises(Object exerciseCount) {
+    return 'Latihan: $exerciseCount';
+  }
+
+  @override
+  String get aiSuggestedTopics => 'Topik yang Disarankan';
+
+  @override
+  String get aiCreatingLesson => 'Membuat pelajaranmu...';
+
+  @override
+  String get aiGeneratingExercisesContent => 'AI sedang membuat latihan dan konten';
+
+  @override
+  String get aiLessonGenerated => 'Pelajaran Dibuat!';
+
+  @override
+  String get aiGenerateAnother => 'Buat Lagi';
+
+  @override
+  String get aiStartLesson => 'Mulai Pelajaran';
+
+  @override
+  String get aiPronunciationPractice => 'Latihan Pengucapan';
+
+  @override
+  String get aiPracticeHistory => 'Riwayat Latihan';
+
+  @override
+  String get aiTextPractice => 'Teks untuk Dilatih';
+
+  @override
+  String get aiWordAnalysis => 'Analisis Kata';
+
+  @override
+  String get aiNoPracticeHistoryYet => 'Belum ada riwayat latihan';
+
+  @override
+  String get aiSmartTranslation => 'Terjemahan Cerdas';
+
+  @override
+  String get aiWordBreakdown => 'Rincian Kata';
+
+  @override
+  String get aiAlternativeTranslations => 'Terjemahan Alternatif';
+
+  @override
+  String get aiGrammarNotes => 'Catatan Tata Bahasa';
+
+  @override
+  String get aiIdiomsExpressions => 'Idiom & Ungkapan';
+
+  @override
+  String aiLiteral(Object literalTranslation) {
+    return 'Harfiah: $literalTranslation';
+  }
+
+  @override
+  String aiMeaning(Object meaning) {
+    return 'Arti: $meaning';
+  }
+
+  @override
+  String aiEquivalent(Object equivalentIdiom) {
+    return 'Padanan: $equivalentIdiom';
+  }
+
+  @override
+  String get aiCulturalContext => 'Konteks Budaya';
+
+  @override
+  String get aiNoCompletedConversations => 'Tidak ada percakapan yang selesai';
+
+  @override
+  String get aiNoActiveConversations => 'Tidak ada percakapan aktif';
+
+  @override
+  String aiStartInLanguage(Object language) {
+    return 'Mulai dalam $language';
+  }
+
+  @override
+  String get aiSelect => 'Pilih';
+
+  @override
+  String aiIssuesCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count kesalahan',
+      one: '1 kesalahan',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiGenerateLesson => 'Buat Pelajaran';
+
+  @override
+  String get aiGeneratingEllipsis => 'Membuat...';
+
+  @override
+  String get aiAnalyzing => 'Menganalisis...';
+
+  @override
+  String get aiExcellentPronunciation => 'Pengucapan yang luar biasa!';
+
+  @override
+  String get aiGoodJob => 'Kerja bagus!';
+
+  @override
+  String get profileBuyMeCoffee => 'Traktir aku kopi';
+
+  @override
+  String get profileOr => 'atau';
+
+  @override
+  String get profileLoadingNotifications => 'Memuat notifikasi...';
+
+  @override
+  String get profileLoadingSettings => 'Memuat pengaturan...';
+
+  @override
+  String get profileAdmin => 'ADMIN';
+
+  @override
+  String get profileSelected => 'TERPILIH';
+
+  @override
+  String get profilePrivacyIntro => 'Kamu yang mengatur apa yang bisa dilihat orang lain. Matikan item untuk menyembunyikannya dari profil publikmu.';
+
+  @override
+  String get profileUpdate => 'Perbarui';
+
+  @override
+  String get profileNoTopicsCategory => 'Tidak ada topik di kategori ini';
+
+  @override
+  String get profileAdminTools => 'Alat Admin';
+
+  @override
+  String profileCompletionAdd(Object items) {
+    return 'Tambahkan: $items';
+  }
+
+  @override
+  String get profileActive => 'AKTIF';
+
+  @override
+  String get profileAutoSaveEnabled => 'Simpan otomatis aktif';
+
+  @override
+  String get profileChangesSavedInstantlyWhen => 'Perubahan disimpan langsung saat kamu mengaktifkan atau menonaktifkan.';
+
+  @override
+  String get profileCurrentTheme => 'Tema saat ini';
+
+  @override
+  String get profileThemeChangesApplyInstantly => 'Perubahan tema langsung diterapkan di seluruh aplikasi.';
+
+  @override
+  String get profileLoadingVisitors => 'Memuat pengunjung...';
+
+  @override
+  String get profileSeeWhoChecked => 'Lihat siapa yang mengunjungi profilmu';
+
+  @override
+  String get profileRecentVisitors => 'Pengunjung Terbaru';
+
+  @override
+  String get profileNoReportsSubmitted => 'Belum ada laporan yang dikirim';
+
+  @override
+  String get profileReportsSubmitWillAppear => 'Laporan yang kamu kirim akan muncul di sini';
+
+  @override
+  String profileReportTypeTitle(Object type) {
+    return 'Laporan $type';
+  }
+
+  @override
+  String profileReportReason(Object reason) {
+    return 'Alasan: $reason';
+  }
+
+  @override
+  String get profileDeleteAccountFinalBody => 'Semua datamu akan dihapus secara permanen.\n\nApakah kamu benar-benar yakin?';
+
+  @override
+  String get profileThanksForWatching => 'Terima kasih sudah menonton! 🙏';
+
+  @override
+  String get profileNotificationsOn => 'Notifikasi aktif';
+
+  @override
+  String get profileNotificationsOff => 'Notifikasi nonaktif';
+
+  @override
+  String get profileMaximumReached => 'Batas maksimum tercapai';
+
+  @override
+  String get profilePickYourInterests => 'Pilih minatmu';
+
+  @override
+  String get profileDeselectToChooseAnother => 'Batalkan satu pilihan untuk memilih yang lain';
+
+  @override
+  String get profileTapTopicsMatchVibe => 'Ketuk topik yang sesuai dengan seleramu';
+
+  @override
+  String get profileEnjoyingPremium => 'Menikmati fitur premium';
+
+  @override
+  String get profileUnlockUnlimited => 'Buka pesan tanpa batas dan alat AI';
+
+  @override
+  String get profileBirthYear => 'Tahun lahir';
+
+  @override
+  String get profileReportTypeUser => 'Pengguna';
+
+  @override
+  String get profileReportTypeMoment => 'Momen';
+
+  @override
+  String get profileReportTypeComment => 'Komentar';
+
+  @override
+  String get profileReportTypeMessage => 'Pesan';
+
+  @override
+  String get profileReportTypeStory => 'Cerita';
+
+  @override
+  String get profileReportReasonCopyright => 'Hak cipta';
+
+  @override
+  String get storyOptimizingBestExperience => 'Mengoptimalkan untuk pengalaman terbaik';
+
+  @override
+  String get storyCreate => 'Buat Cerita';
+
+  @override
+  String get storyAddTags => 'Tambah tag';
+
+  @override
+  String get storyVideoSelected => 'Video Dipilih';
+
+  @override
+  String get storyAddPoll => 'Tambah Polling';
+
+  @override
+  String get storyOptions => 'Opsi';
+
+  @override
+  String get storyAddQuestion => 'Tambah Pertanyaan';
+
+  @override
+  String get storyPrompt => 'Pemicu';
+
+  @override
+  String get storyTapAnywhereAddText => 'Ketuk di mana saja untuk menambah teks';
+
+  @override
+  String storyHighlightStoryCount(int storyCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      storyCount,
+      locale: localeName,
+      other: '$storyCount cerita',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storySendFriends => 'Kirim ke teman';
+
+  @override
+  String storySelected(Object count) {
+    return '$count dipilih';
+  }
+
+  @override
+  String get storyShareSave => 'Bagikan/Simpan';
+
+  @override
+  String storySeenBy(Object viewCount) {
+    return 'Dilihat oleh $viewCount';
+  }
+
+  @override
+  String get storyNoViewsYet => 'Belum ada penayangan';
+
+  @override
+  String get storyEditVideo => 'Edit Video';
+
+  @override
+  String storyVotes(Object totalVotes) {
+    return '$totalVotes suara';
+  }
+
+  @override
+  String get storyCreatePoll => 'Buat Polling';
+
+  @override
+  String get storySendAnonymously => 'Kirim secara anonim';
+
+  @override
+  String storyResponseCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count tanggapan',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyViewResponses => 'Lihat tanggapan';
+
+  @override
+  String get storyResponsesTitle => 'Tanggapan';
+
+  @override
+  String get storyNoResponsesYet => 'Belum ada tanggapan';
+
+  @override
+  String get storyQuestionBox => 'Kotak Pertanyaan';
+
+  @override
+  String get storySent => 'Terkirim!';
+
+  @override
+  String get storyProcessing => 'Memproses...';
+
+  @override
+  String get storyHd => 'HD';
+
+  @override
+  String storyVideoMeta(Object duration, Object size) {
+    return '$duration | $size MB';
+  }
+
+  @override
+  String get storyUserFallback => 'Pengguna';
+
+  @override
+  String storySendCount(int count) {
+    return 'Kirim ($count)';
+  }
+
+  @override
+  String get storyFailedToDelete => 'Gagal menghapus cerita';
+
+  @override
+  String get storyAnonymous => 'Anonim';
+
+  @override
+  String get vipNoCoinActivityYet => 'Belum ada aktivitas koin';
+
+  @override
+  String get vipCoinShopExplainer => 'Koin digunakan untuk membuka tambahan penggunaan terjemahan, obrolan tutor AI, dan momen setelah Anda mencapai batas harian gratis. Pembelian tidak dapat dikembalikan setelah koin digunakan.';
+
+  @override
+  String get vipLimitReached => 'Batas tercapai';
+
+  @override
+  String get vipCoins => 'koin';
+
+  @override
+  String vipBonusIncluded(Object bonusCoins) {
+    return '+$bonusCoins bonus termasuk';
+  }
+
+  @override
+  String get vipVisitorModeLimitReached => 'Batas Mode Pengunjung Tercapai';
+
+  @override
+  String get vipWhatGetFreeAccount => 'Yang Anda Dapatkan dengan Akun Gratis';
+
+  @override
+  String get vipCreateFreeAccount => 'Buat Akun Gratis';
+
+  @override
+  String get vipGoUnlimitedAccess => 'Jadi VIP untuk Akses Tanpa Batas';
+
+  @override
+  String get vipContinueAsVisitor => 'Lanjutkan sebagai Pengunjung';
+
+  @override
+  String vipResets(Object resetTime) {
+    return 'Diatur ulang pada: $resetTime';
+  }
+
+  @override
+  String vipUsedToday(Object currentUsage, Object maxAllowed) {
+    return '$currentUsage / $maxAllowed digunakan hari ini';
+  }
+
+  @override
+  String get vipTierVisitor => 'Pengunjung';
+
+  @override
+  String get vipTierMember => 'Anggota';
+
+  @override
+  String get vipAd => 'Iklan';
+
+  @override
+  String get promoAdsNoticeTitle => 'Catatan dari pengembang';
+
+  @override
+  String get promoAdsNoticeBody => 'Hai! Saya Firdavs, pengembang tunggal di balik Bananatalk. Saya menambahkan beberapa iklan kecil ke aplikasi untuk membantu menjaganya tetap gratis dan membiayai pengembangan berkelanjutan.\n\nSaya tahu iklan bisa mengganggu — jadi saya membuatnya opsional dan bermanfaat. Tonton iklan untuk membuka pesan tambahan, filter komunitas, XP bonus setelah kuis, dan lainnya.\n\nTerima kasih telah menggunakan Bananatalk. Dukungan Anda sangat berarti. 🙏';
+
+  @override
+  String get promoAdsNoticeGotIt => 'Mengerti, terima kasih! 👍';
+
+  @override
+  String get vipOnly => 'Khusus VIP';
+
+  @override
+  String get vipTapUpgrade => 'Ketuk untuk upgrade';
+
+  @override
+  String get vipUnlockFeatures => 'Buka Fitur VIP';
+
+  @override
+  String get vipUpPillUp => 'Naik';
+
+  @override
+  String get vipChooseOption => 'Pilih salah satu opsi:';
+
+  @override
+  String get promoWelcomeBackTitle => 'Selamat datang kembali! 👋';
+
+  @override
+  String get promoWelcomeBackBody => 'Kami merindukanmu. Ini yang menantimu:';
+
+  @override
+  String get promoWelcomeBackCta => 'Ayo mulai! 🚀';
+
+  @override
+  String get vipCoinsPerAdInfo => '+5 koin per iklan, hingga 5 per hari';
+
+  @override
+  String get vipUpgradeUnlockMore => 'Upgrade untuk membuka lebih banyak fitur dan akses tanpa batas';
+
+  @override
+  String get vipUpgradeNow => 'Upgrade Sekarang';
+
+  @override
+  String get commonContinueWhereLeftOff => 'Lanjutkan dari terakhir kali?';
+
+  @override
+  String get commonLanguageNotProvided => 'Bahasa tidak diberikan';
+
+  @override
+  String get commonExamNotProvided => 'Ujian tidak diberikan';
+
+  @override
+  String get commonMuted => 'Dibisukan';
+
+  @override
+  String get commonPoorConnection => 'Koneksi buruk';
+
+  @override
+  String commonBlockUserConfirmBody(Object targetUserName) {
+    return 'Yakin ingin memblokir $targetUserName?\n\nKamu tidak akan lagi melihat pesan dan postingannya, dan kalian tidak akan muncul di pencarian satu sama lain.';
+  }
+
+  @override
+  String get commonVideoFile => 'File video';
+
+  @override
+  String get commonPointCameraBananatalkQr => 'Arahkan kameramu ke kode QR Bananatalk';
+
+  @override
+  String get commonReportSubmittedButSome => 'Laporan terkirim, tetapi beberapa bukti gagal diunggah';
+
+  @override
+  String commonReportTitle(Object typeLabel) {
+    return 'Laporkan $typeLabel';
+  }
+
+  @override
+  String commonWhyReporting(Object typeLabel) {
+    return 'Mengapa kamu melaporkan $typeLabel ini?';
+  }
+
+  @override
+  String get commonAddEvidenceRequired => 'Tambah bukti (wajib)';
+
+  @override
+  String get commonUploadScreenshotsTextFiles => 'Unggah tangkapan layar atau file teks untuk mendukung laporanmu';
+
+  @override
+  String commonAddEvidenceCount(Object count, Object maxFiles) {
+    return 'Tambah bukti ($count/$maxFiles)';
+  }
+
+  @override
+  String commonReportTotalSize(Object max, Object used) {
+    return 'Total: $used / $max';
+  }
+
+  @override
+  String get commonEvidence => 'Bukti';
+
+  @override
+  String get commonImageFailed => 'Gambar gagal dimuat';
+
+  @override
+  String get commonShowMore => 'Tampilkan lebih banyak';
+
+  @override
+  String get commonVoiceRecordingNotAvailable => 'Perekaman suara tidak tersedia';
+
+  @override
+  String get commonVoiceRecordingOnlyAvailable => 'Perekaman suara hanya tersedia di perangkat seluler.';
+
+  @override
+  String get commonReportSubmittedSuccessfully => 'Laporan berhasil dikirim';
+
+  @override
+  String get commonErrorLoadingFile => 'Gagal memuat file';
+
+  @override
+  String get commonReportTypeUser => 'pengguna';
+
+  @override
+  String get commonReportTypeMoment => 'momen';
+
+  @override
+  String get commonReportTypeComment => 'komentar';
+
+  @override
+  String get commonReportTypeMessage => 'pesan';
+
+  @override
+  String get commonReportTypeStory => 'cerita';
+
+  @override
+  String get commonReportTypeContent => 'konten';
+
+  @override
+  String get commonReportReasonCopyright => 'Pelanggaran hak cipta';
+
+  @override
+  String get momentsRemoveVoiceNote => 'Hapus catatan suara';
+
+  @override
+  String get vocabPackLevelProficiency => 'Mahir';
+
+  @override
+  String get aiFailedToLoadFeedback => 'Gagal memuat umpan balik';
+
+  @override
+  String get aiFailedToLoadSummary => 'Gagal memuat ringkasan';
+
+  @override
+  String get momentFailedToLoad => 'Gagal memuat momen';
+
+  @override
+  String get aiPronunciationWatchAdRetry => 'Tonton iklan untuk satu percobaan gratis lagi';
+
+  @override
+  String aiErrorLoadingLanguages(Object error) {
+    return 'Kesalahan memuat bahasa: $error';
+  }
+
+  @override
+  String get aiSelectSourceTargetLanguages => 'Pilih bahasa sumber dan bahasa tujuan';
+
+  @override
+  String get aiUnexpectedResponseFormat => 'Format respons tidak terduga';
+
+  @override
+  String get aiFailedToLoadConversation => 'Gagal memuat percakapan';
+
+  @override
+  String get aiMicPermissionDeniedSettings => 'Izin mikrofon ditolak. Aktifkan di Pengaturan.';
+
+  @override
+  String get aiFailedToEvaluatePronunciation => 'Gagal menilai pelafalan';
+
+  @override
+  String get aiFailedToGenerateSpeech => 'Gagal membuat suara';
+
+  @override
+  String get aiFailedToGenerateLesson => 'Gagal membuat pelajaran';
+
+  @override
+  String get aiLessonTopicRequired => 'Masukkan topik';
+
+  @override
+  String get aiFailedToLoadTopics => 'Gagal memuat topik';
+
+  @override
+  String get aiFailedToLoadScenarios => 'Gagal memuat skenario';
+
+  @override
+  String get aiAnalysisFailed => 'Analisis gagal';
+
+  @override
+  String get storySearchPlaceHint => 'Cari tempat…';
+
+  @override
+  String get storySearchRecentChatsHint => 'Cari obrolan terbaru…';
+
+  @override
+  String get storySearchFollowingHint => 'Cari orang yang kamu ikuti…';
+
+  @override
+  String get storyAddHashtagsHint => 'Tambahkan tagar...';
+
+  @override
+  String get storyHighlightCreateFailed => 'Gagal membuat sorotan';
+
+  @override
+  String get storyHighlightRenameFailed => 'Gagal mengganti nama sorotan';
+
+  @override
+  String get storyHighlightDeleteFailed => 'Gagal menghapus sorotan';
+
+  @override
+  String get storyViewersLoadFailed => 'Gagal memuat penonton';
+
+  @override
+  String get storyShareSent => 'Terkirim 💛';
+
+  @override
+  String storyShareSentPartial(Object names) {
+    return 'Terkirim 💛 — gagal untuk $names';
+  }
+
+  @override
+  String get storyVoteFailed => 'Gagal mengirim suara';
+
+  @override
+  String get storyAnswerFailed => 'Gagal mengirim jawaban';
+
+  @override
+  String get storyAlreadyInHighlight => 'Sudah disimpan ke sorotan';
+
+  @override
+  String get storyAddedToHighlight => 'Ditambahkan ke sorotan';
+
+  @override
+  String storyMaxHashtags(int max) {
+    return 'Kamu bisa menambahkan hingga $max tagar';
+  }
+
+  @override
+  String storyMaxMentions(int max) {
+    return 'Kamu bisa menyebut hingga $max orang';
+  }
+
+  @override
+  String get coinHistoryActivity => 'Aktivitas koin';
+
+  @override
+  String get coinHistoryAdReward => 'Menonton iklan';
+
+  @override
+  String get coinHistoryPurchase => 'Pembelian koin';
+
+  @override
+  String coinHistoryUnlocked(Object feature) {
+    return 'Membuka $feature';
+  }
+
+  @override
+  String get vipVisitorMessagesBenefit => 'Kirim hingga 50 pesan per hari';
+
+  @override
+  String get vipVisitorProfilesBenefit => 'Lihat hingga 100 profil per hari';
+
+  @override
+  String get vipVisitorFriendsBenefit => 'Tambah teman dan perluas jaringanmu';
+
+  @override
+  String get vipVisitorCommunitiesTitle => 'Gabung komunitas';
+
+  @override
+  String get vipVisitorCommunitiesBenefit => 'Ikut serta dalam diskusi komunitas';
+
+  @override
+  String get vipVisitorMomentsTitle => 'Bagikan momen';
+
+  @override
+  String get vipVisitorMomentsBenefit => 'Posting dan bagikan momenmu';
+
+  @override
+  String get vipUnlimitedEverythingTitle => 'Semuanya tanpa batas';
+
+  @override
+  String get vipUnlimitedEverythingBenefit => 'Tanpa batas harian untuk pesan atau tampilan profil';
+
+  @override
+  String get vipProfileBoostBenefit => 'Dapatkan visibilitas lebih di hasil pencarian';
+
+  @override
+  String get vipAdFreeExperienceBenefit => 'Nikmati aplikasi tanpa iklan';
+
+  @override
+  String get featureGateUpgradeToUnlock => 'Upgrade untuk membuka fitur ini';
+
+  @override
+  String get featureGateVipOnly => 'Fitur khusus VIP';
+
+  @override
+  String get adsRewardedButtonLabel => 'Tonton iklan untuk bonus';
+
+  @override
+  String get promoAdsPerkMessages => '+3 pesan\nbonus';
+
+  @override
+  String get promoAdsPerkFilters => 'Buka\nfilter';
+
+  @override
+  String get promoAdsPerkXp => '+10 XP\nbonus';
+
+  @override
+  String get promoAdsPerkRetry => 'Coba lagi\ngratis';
+
+  @override
+  String get visitorLimitMessagesTitle => 'Batas pesan harian tercapai';
+
+  @override
+  String visitorLimitMessagesBody(int count) {
+    return 'Kamu sudah mengirim $count pesan hari ini. Upgrade untuk mengirim lebih banyak!';
+  }
+
+  @override
+  String get visitorLimitProfilesTitle => 'Batas tampilan profil harian tercapai';
+
+  @override
+  String visitorLimitProfilesBody(int count) {
+    return 'Kamu sudah melihat $count profil hari ini. Upgrade untuk melihat lebih banyak!';
+  }
+
+  @override
+  String get visitorLimitFreeAccountBenefit => 'Batas harian lebih tinggi';
+
+  @override
+  String get visitorLimitVipBenefit => 'Akses tanpa batas';
+
+  @override
+  String get promoWelcomeBackTutorSubtitle => 'Latihan percakapan, pelafalan, dan kuis';
+
+  @override
+  String get promoWelcomeBackCommunitySubtitle => 'Temukan partner bahasa di dekatmu';
+
+  @override
+  String get promoWelcomeBackMomentsSubtitle => 'Bagikan perjalanan belajar bahasamu';
+
+  @override
+  String get myReportsReportedId => 'ID yang dilaporkan';
+
+  @override
+  String get myReportsReason => 'Alasan';
+
+  @override
+  String get myReportsSubmitted => 'Dikirim';
+
+  @override
+  String get myReportsResolved => 'Diselesaikan';
+
+  @override
+  String get myReportsModeratorNotes => 'Catatan moderator';
+
+  @override
+  String get myReportsNotAvailable => 'T/A';
+
+  @override
+  String get myReportsFailedToLoad => 'Gagal memuat laporan';
+
+  @override
+  String get voiceRecorderUnavailableDesktop => 'Perekaman suara tidak tersedia di desktop';
+
+  @override
+  String get adminPageUnavailable => 'Halaman ini tidak tersedia.';
+
+  @override
+  String storyShareSendFailedTo(Object names) {
+    return 'Tidak bisa mengirim ke $names';
+  }
+
+  @override
+  String get storyCantReact => 'Kamu tidak bisa bereaksi pada cerita ini';
+
+  @override
+  String get storyCantReply => 'Kamu tidak bisa membalas cerita ini';
+
+  @override
+  String get storyNoMediaToSave => 'Cerita ini tidak memiliki media untuk disimpan';
+
+  @override
+  String get coinsAdCrediting => 'Mengkreditkan…';
+
+  @override
+  String get coinsWatchAdReward => 'Tonton iklan (+5 💎)';
+
+  @override
+  String callUnavailable(String name) {
+    return '$name sedang tidak menerima panggilan';
+  }
+
+  @override
+  String get callDeclineWithMessage => 'Pesan';
+
+  @override
+  String get callDeclineSheetTitle => 'Tolak dengan pesan';
+
+  @override
+  String get callDeclineCannedLater => 'Tidak bisa bicara sekarang. Nanti kutelepon balik.';
+
+  @override
+  String get callDeclineCannedText => 'Tidak bisa bicara sekarang. Kirim pesan ya?';
+
+  @override
+  String get callDeclineCustomHint => 'Tulis pesan…';
+
+  @override
+  String get callDeclineSend => 'Kirim';
+
+  @override
+  String get callBackAction => 'Telepon balik';
+
+  @override
+  String get callMessageAction => 'Pesan';
+
+  @override
+  String get callsAllowTitle => 'Izinkan panggilan';
+
+  @override
+  String get callsAllowSubtitle => 'Saat nonaktif, panggilan untukmu tidak berdering. Penelepon akan melihat bahwa kamu tidak menerima panggilan.';
+
+  @override
+  String get callsQuietHoursNote => 'Jika “Izinkan notifikasi mendesak” nonaktif, panggilan juga ditahan selama jam tenang.';
+
+  @override
+  String get callTurnOnCamera => 'Kamera';
+
+  @override
+  String get callCameraFailed => 'Tidak dapat menyalakan kamera';
+
+  @override
+  String get callSelfViewLabel => 'Kameramu. Seret untuk memindahkan.';
+
+  @override
+  String get callSelfViewSwapHint => 'Ketuk dua kali untuk menukar dengan video lainnya';
 }

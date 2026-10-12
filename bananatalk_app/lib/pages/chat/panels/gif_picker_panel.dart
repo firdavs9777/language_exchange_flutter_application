@@ -15,6 +15,9 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 /// Tracks what the GIF picker is currently showing.
 enum _PickerState { loading, loaded, error }
 
+/// Brand name, shown as-is in every language.
+const _giphyBrand = 'GIPHY';
+
 class _GifPickerStateModel {
   final List<GiphyGif> gifs;
   final _PickerState state;
@@ -346,7 +349,7 @@ class _GifPickerPanelState extends ConsumerState<GifPickerPanel> {
           Icon(Icons.gif_box_outlined, size: 48, color: context.textMuted),
           const SizedBox(height: 12),
           Text(
-            'No GIFs found',
+            AppLocalizations.of(context)!.noGifsFound,
             style: TextStyle(
               fontSize: 15,
               fontWeight: FontWeight.w500,
@@ -355,7 +358,7 @@ class _GifPickerPanelState extends ConsumerState<GifPickerPanel> {
           ),
           const SizedBox(height: 4),
           Text(
-            'Try a different search term',
+            AppLocalizations.of(context)!.tryDifferentSearch,
             style: TextStyle(fontSize: 13, color: context.textMuted),
           ),
         ],
@@ -373,7 +376,8 @@ class _GifPickerPanelState extends ConsumerState<GifPickerPanel> {
             Icon(Icons.wifi_off_rounded, size: 44, color: context.textMuted),
             const SizedBox(height: 12),
             Text(
-              _model.errorMessage ?? 'Something went wrong.',
+              _model.errorMessage ??
+                  AppLocalizations.of(context)!.somethingWentWrong,
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 14, color: context.textSecondary),
             ),
@@ -402,11 +406,11 @@ class _GifPickerPanelState extends ConsumerState<GifPickerPanel> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            'Powered by ',
+            AppLocalizations.of(context)!.chatPoweredBy,
             style: TextStyle(fontSize: 11, color: context.textMuted),
           ),
           Text(
-            'GIPHY',
+            _giphyBrand,
             style: TextStyle(
               fontSize: 11,
               fontWeight: FontWeight.w700,

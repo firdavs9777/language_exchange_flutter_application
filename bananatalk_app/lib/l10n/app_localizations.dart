@@ -17545,6 +17545,2838 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Translated to {language}'**
   String translatedToLanguage(String language);
+
+  /// Footer on every first-week guide card: how many of the four first actions are done
+  ///
+  /// In en, this message translates to:
+  /// **'Getting started · {count} of 4'**
+  String guideProgress(int count);
+
+  /// No description provided for @guideChatTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Long-press to translate or correct'**
+  String get guideChatTip;
+
+  /// No description provided for @announcementTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Announcement'**
+  String get announcementTitle;
+
+  /// No description provided for @announcementUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'This announcement is no longer available.'**
+  String get announcementUnavailable;
+
+  /// No description provided for @notifyAnnouncementsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Announcements'**
+  String get notifyAnnouncementsTitle;
+
+  /// No description provided for @notifyAnnouncementsSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'News and updates from the BananaTalk team'**
+  String get notifyAnnouncementsSubtitle;
+
+  /// No description provided for @chatDailyLimitBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Free users can chat with up to {count} people per day.\nUpgrade to VIP for unlimited conversations!'**
+  String chatDailyLimitBody(Object count);
+
+  /// No description provided for @chatCompressingVideo.
+  ///
+  /// In en, this message translates to:
+  /// **'Compressing video...'**
+  String get chatCompressingVideo;
+
+  /// No description provided for @chatShareLocationBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Send your current location to {name}. Only do this with people you trust.'**
+  String chatShareLocationBody(Object name);
+
+  /// No description provided for @chatShareLocationThisChat.
+  ///
+  /// In en, this message translates to:
+  /// **'this chat'**
+  String get chatShareLocationThisChat;
+
+  /// No description provided for @chatTranslationLimitReached.
+  ///
+  /// In en, this message translates to:
+  /// **'Translation limit reached'**
+  String get chatTranslationLimitReached;
+
+  /// No description provided for @chatTranslateLimitBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'ve used up today\'s free translations in this chat. Unlock more instantly with coins.'**
+  String get chatTranslateLimitBody;
+
+  /// No description provided for @chatReplyingTo.
+  ///
+  /// In en, this message translates to:
+  /// **'Replying to {name}'**
+  String chatReplyingTo(Object name);
+
+  /// No description provided for @chatReplyingToFallback.
+  ///
+  /// In en, this message translates to:
+  /// **'user'**
+  String get chatReplyingToFallback;
+
+  /// No description provided for @chatSendingMedia.
+  ///
+  /// In en, this message translates to:
+  /// **'Sending {mediaType}...'**
+  String chatSendingMedia(Object mediaType);
+
+  /// No description provided for @chatEnterUsernameStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter username to start a chat'**
+  String get chatEnterUsernameStart;
+
+  /// No description provided for @chatSearching.
+  ///
+  /// In en, this message translates to:
+  /// **'Searching for @{username}...'**
+  String chatSearching(Object username);
+
+  /// No description provided for @chatDeleteConversationBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete your conversation with {name}? This cannot be undone.'**
+  String chatDeleteConversationBody(Object name);
+
+  /// No description provided for @chatQrCode.
+  ///
+  /// In en, this message translates to:
+  /// **'QR Code'**
+  String get chatQrCode;
+
+  /// No description provided for @chatDraft.
+  ///
+  /// In en, this message translates to:
+  /// **'Draft: '**
+  String get chatDraft;
+
+  /// No description provided for @chatTyping.
+  ///
+  /// In en, this message translates to:
+  /// **'typing...'**
+  String get chatTyping;
+
+  /// No description provided for @chatPoweredBy.
+  ///
+  /// In en, this message translates to:
+  /// **'Powered by '**
+  String get chatPoweredBy;
+
+  /// No description provided for @chatReconnecting.
+  ///
+  /// In en, this message translates to:
+  /// **'Reconnecting to chat...'**
+  String get chatReconnecting;
+
+  /// No description provided for @chatDailyLimitReached.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily message limit reached'**
+  String get chatDailyLimitReached;
+
+  /// No description provided for @chatMessagesRemainingToday.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 message remaining today} other{{count} messages remaining today}}'**
+  String chatMessagesRemainingToday(int count);
+
+  /// No description provided for @chatTranslatePreviewHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Start typing to see the translation'**
+  String get chatTranslatePreviewHint;
+
+  /// No description provided for @chatNoMessagesYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No messages yet'**
+  String get chatNoMessagesYet;
+
+  /// No description provided for @chatMediaPhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'photo'**
+  String get chatMediaPhoto;
+
+  /// No description provided for @chatMediaVideo.
+  ///
+  /// In en, this message translates to:
+  /// **'video'**
+  String get chatMediaVideo;
+
+  /// No description provided for @chatMediaAudio.
+  ///
+  /// In en, this message translates to:
+  /// **'audio'**
+  String get chatMediaAudio;
+
+  /// No description provided for @chatMediaFile.
+  ///
+  /// In en, this message translates to:
+  /// **'file'**
+  String get chatMediaFile;
+
+  /// No description provided for @chatMediaGeneric.
+  ///
+  /// In en, this message translates to:
+  /// **'media'**
+  String get chatMediaGeneric;
+
+  /// No description provided for @chatMessageFailedToSend.
+  ///
+  /// In en, this message translates to:
+  /// **'Message failed to send'**
+  String get chatMessageFailedToSend;
+
+  /// No description provided for @chatSendingEllipsis.
+  ///
+  /// In en, this message translates to:
+  /// **'Sending...'**
+  String get chatSendingEllipsis;
+
+  /// No description provided for @chatFailedTapOptions.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed · Tap for options'**
+  String get chatFailedTapOptions;
+
+  /// No description provided for @chatMessageWasDeleted.
+  ///
+  /// In en, this message translates to:
+  /// **'This message was deleted'**
+  String get chatMessageWasDeleted;
+
+  /// No description provided for @chatStory.
+  ///
+  /// In en, this message translates to:
+  /// **'Story'**
+  String get chatStory;
+
+  /// No description provided for @chatHi.
+  ///
+  /// In en, this message translates to:
+  /// **'Hi!'**
+  String get chatHi;
+
+  /// No description provided for @chatEdited.
+  ///
+  /// In en, this message translates to:
+  /// **'edited'**
+  String get chatEdited;
+
+  /// No description provided for @chatPremium.
+  ///
+  /// In en, this message translates to:
+  /// **'Premium ✨'**
+  String get chatPremium;
+
+  /// No description provided for @chatUnlockPremiumWallpapers.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock all Premium ✨ wallpapers for 💎{cost} coins? This unlocks the whole pack for good.'**
+  String chatUnlockPremiumWallpapers(Object cost);
+
+  /// No description provided for @chatWallpaperForName.
+  ///
+  /// In en, this message translates to:
+  /// **'Chat wallpaper for {userName}'**
+  String chatWallpaperForName(Object userName);
+
+  /// No description provided for @chatChooseGallery.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose from gallery'**
+  String get chatChooseGallery;
+
+  /// No description provided for @chatHiThere.
+  ///
+  /// In en, this message translates to:
+  /// **'Hi there! 😊'**
+  String get chatHiThere;
+
+  /// No description provided for @chatCorrected.
+  ///
+  /// In en, this message translates to:
+  /// **'{correctorName} corrected'**
+  String chatCorrected(Object correctorName);
+
+  /// No description provided for @chatCorrectionAccepted.
+  ///
+  /// In en, this message translates to:
+  /// **'Correction accepted ✓'**
+  String get chatCorrectionAccepted;
+
+  /// No description provided for @chatForwarded.
+  ///
+  /// In en, this message translates to:
+  /// **'Forwarded from {senderName}'**
+  String chatForwarded(Object senderName);
+
+  /// No description provided for @chatCached.
+  ///
+  /// In en, this message translates to:
+  /// **'Cached'**
+  String get chatCached;
+
+  /// No description provided for @chatWordBreakdown.
+  ///
+  /// In en, this message translates to:
+  /// **'Word Breakdown'**
+  String get chatWordBreakdown;
+
+  /// No description provided for @chatAlternatives.
+  ///
+  /// In en, this message translates to:
+  /// **'Alternatives'**
+  String get chatAlternatives;
+
+  /// No description provided for @chatTranslationAlso.
+  ///
+  /// In en, this message translates to:
+  /// **'Also: {items}'**
+  String chatTranslationAlso(Object items);
+
+  /// No description provided for @chatAudioUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Audio unavailable'**
+  String get chatAudioUnavailable;
+
+  /// No description provided for @chatHideTranslation.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide translation'**
+  String get chatHideTranslation;
+
+  /// No description provided for @chatStoryExpired.
+  ///
+  /// In en, this message translates to:
+  /// **'Story expired'**
+  String get chatStoryExpired;
+
+  /// No description provided for @chatAcceptCorrection.
+  ///
+  /// In en, this message translates to:
+  /// **'Accept correction'**
+  String get chatAcceptCorrection;
+
+  /// No description provided for @chatAccepting.
+  ///
+  /// In en, this message translates to:
+  /// **'Accepting…'**
+  String get chatAccepting;
+
+  /// No description provided for @chatSaveToVocabularyAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Save to Vocabulary'**
+  String get chatSaveToVocabularyAction;
+
+  /// No description provided for @momentsMore.
+  ///
+  /// In en, this message translates to:
+  /// **'+{hidden} more'**
+  String momentsMore(Object hidden);
+
+  /// No description provided for @momentsAllow.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow'**
+  String get momentsAllow;
+
+  /// No description provided for @momentsCompressed.
+  ///
+  /// In en, this message translates to:
+  /// **'Compressed'**
+  String get momentsCompressed;
+
+  /// No description provided for @momentsPromptDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Prompt of the day'**
+  String get momentsPromptDay;
+
+  /// No description provided for @momentsAnswer.
+  ///
+  /// In en, this message translates to:
+  /// **'Answer'**
+  String get momentsAnswer;
+
+  /// No description provided for @momentsAnswerCamera.
+  ///
+  /// In en, this message translates to:
+  /// **'🎥 Answer on camera'**
+  String get momentsAnswerCamera;
+
+  /// No description provided for @momentsPracticeWriting.
+  ///
+  /// In en, this message translates to:
+  /// **'Practice writing in {langName}'**
+  String momentsPracticeWriting(Object langName);
+
+  /// No description provided for @momentsReelPolicyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Reels are short language-learning videos — prompt answers, speaking practice, native-speaker explainers, and culture clips.\n\nBananatalk has zero tolerance for objectionable content: no nudity, hate speech, harassment, violence, or illegal content. Reported videos are automatically hidden pending review after 2 reports, and violations can result in content removal or account bans.\n\nYou can report or block from any reel at any time.'**
+  String get momentsReelPolicyBody;
+
+  /// No description provided for @momentsIAgree.
+  ///
+  /// In en, this message translates to:
+  /// **'I agree'**
+  String get momentsIAgree;
+
+  /// No description provided for @momentsWhyReportingReel.
+  ///
+  /// In en, this message translates to:
+  /// **'Why are you reporting this reel?'**
+  String get momentsWhyReportingReel;
+
+  /// No description provided for @momentsNoReelsYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No reels yet'**
+  String get momentsNoReelsYet;
+
+  /// No description provided for @momentsNoReelsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Be the first to answer today\'s prompt on camera, or record a free-form language-learning clip.'**
+  String get momentsNoReelsBody;
+
+  /// No description provided for @momentsPullDownRefresh.
+  ///
+  /// In en, this message translates to:
+  /// **'Pull down to refresh'**
+  String get momentsPullDownRefresh;
+
+  /// No description provided for @momentsErrorLoadingVideo.
+  ///
+  /// In en, this message translates to:
+  /// **'Error loading video'**
+  String get momentsErrorLoadingVideo;
+
+  /// No description provided for @momentsLoadingVideo.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading video...'**
+  String get momentsLoadingVideo;
+
+  /// No description provided for @momentsFileSizeMb.
+  ///
+  /// In en, this message translates to:
+  /// **'{size}MB'**
+  String momentsFileSizeMb(Object size);
+
+  /// No description provided for @momentsMaxDuration.
+  ///
+  /// In en, this message translates to:
+  /// **'Max {duration}'**
+  String momentsMaxDuration(Object duration);
+
+  /// No description provided for @momentsReportSubmitted.
+  ///
+  /// In en, this message translates to:
+  /// **'Report submitted'**
+  String get momentsReportSubmitted;
+
+  /// No description provided for @communityLive.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} live'**
+  String communityLive(Object count);
+
+  /// No description provided for @communityFind.
+  ///
+  /// In en, this message translates to:
+  /// **'Find'**
+  String get communityFind;
+
+  /// No description provided for @communityFinding.
+  ///
+  /// In en, this message translates to:
+  /// **'Finding @{username}...'**
+  String communityFinding(Object username);
+
+  /// No description provided for @communitySeeAll.
+  ///
+  /// In en, this message translates to:
+  /// **'See all'**
+  String get communitySeeAll;
+
+  /// No description provided for @communitySeeWhoLikes.
+  ///
+  /// In en, this message translates to:
+  /// **'See who likes you'**
+  String get communitySeeWhoLikes;
+
+  /// No description provided for @communityUnlimitedBrowsingNoAds.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlimited browsing, no ads, priority matching'**
+  String get communityUnlimitedBrowsingNoAds;
+
+  /// No description provided for @communityMembersCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} members'**
+  String communityMembersCount(Object count);
+
+  /// No description provided for @communityPeopleCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} people'**
+  String communityPeopleCount(Object count);
+
+  /// No description provided for @communityFailedLoadArchivedWaves.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load archived waves'**
+  String get communityFailedLoadArchivedWaves;
+
+  /// No description provided for @communityGreatChat.
+  ///
+  /// In en, this message translates to:
+  /// **'Great chat! 🎉'**
+  String get communityGreatChat;
+
+  /// No description provided for @communityStayTouchPeopleJust.
+  ///
+  /// In en, this message translates to:
+  /// **'Stay in touch with the people you just talked to'**
+  String get communityStayTouchPeopleJust;
+
+  /// No description provided for @communityNotNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Not now'**
+  String get communityNotNow;
+
+  /// No description provided for @communityPerfect.
+  ///
+  /// In en, this message translates to:
+  /// **'Perfect'**
+  String get communityPerfect;
+
+  /// No description provided for @communityLv.
+  ///
+  /// In en, this message translates to:
+  /// **'Lv.{level}'**
+  String communityLv(Object level);
+
+  /// No description provided for @communityReact.
+  ///
+  /// In en, this message translates to:
+  /// **'React'**
+  String get communityReact;
+
+  /// No description provided for @communityWavedAtYou.
+  ///
+  /// In en, this message translates to:
+  /// **'Waved at you'**
+  String get communityWavedAtYou;
+
+  /// No description provided for @communitySomeone.
+  ///
+  /// In en, this message translates to:
+  /// **'Someone'**
+  String get communitySomeone;
+
+  /// No description provided for @communityPeopleInterestedInTopic.
+  ///
+  /// In en, this message translates to:
+  /// **'People interested in this topic'**
+  String get communityPeopleInterestedInTopic;
+
+  /// No description provided for @learnThemedWordSetsBuild.
+  ///
+  /// In en, this message translates to:
+  /// **'Themed word sets to build your vocabulary'**
+  String get learnThemedWordSetsBuild;
+
+  /// No description provided for @learnTapStartRecording.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to start recording'**
+  String get learnTapStartRecording;
+
+  /// No description provided for @learnWordBank.
+  ///
+  /// In en, this message translates to:
+  /// **'Word Bank'**
+  String get learnWordBank;
+
+  /// No description provided for @learnCorrectAnswer.
+  ///
+  /// In en, this message translates to:
+  /// **'Correct answer: {correctAnswer}'**
+  String learnCorrectAnswer(Object correctAnswer);
+
+  /// No description provided for @learnMatchingDataNotAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Matching data not available'**
+  String get learnMatchingDataNotAvailable;
+
+  /// No description provided for @learnExerciseCouldNotLoad.
+  ///
+  /// In en, this message translates to:
+  /// **'This exercise could not load the matching pairs. Please try regenerating the lesson.'**
+  String get learnExerciseCouldNotLoad;
+
+  /// No description provided for @learnSkipExercise.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip Exercise'**
+  String get learnSkipExercise;
+
+  /// No description provided for @learnTapItemLeftThen.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap an item on the left, then tap its match on the right'**
+  String get learnTapItemLeftThen;
+
+  /// No description provided for @learnMatchedOfTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'{count}/{count2} matched'**
+  String learnMatchedOfTotal(Object count, Object count2);
+
+  /// No description provided for @learnCorrectOfTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'{correctCount}/{count} correct'**
+  String learnCorrectOfTotal(Object correctCount, Object count);
+
+  /// No description provided for @learnDragDropReorderItems.
+  ///
+  /// In en, this message translates to:
+  /// **'Drag and drop to reorder the items'**
+  String get learnDragDropReorderItems;
+
+  /// No description provided for @learnCorrectOrder.
+  ///
+  /// In en, this message translates to:
+  /// **'Correct order: {order}'**
+  String learnCorrectOrder(Object order);
+
+  /// No description provided for @learnWordsToReview.
+  ///
+  /// In en, this message translates to:
+  /// **'{dueCount, plural, =1{1 word to review} other{{dueCount} words to review}}'**
+  String learnWordsToReview(int dueCount);
+
+  /// No description provided for @learnScore.
+  ///
+  /// In en, this message translates to:
+  /// **'Score: {score} / 100'**
+  String learnScore(Object score);
+
+  /// No description provided for @learnGotCorrect.
+  ///
+  /// In en, this message translates to:
+  /// **'You got {correct} of {count} correct.'**
+  String learnGotCorrect(Object correct, Object count);
+
+  /// No description provided for @learnQuestionOf.
+  ///
+  /// In en, this message translates to:
+  /// **'Question {number} of {total}'**
+  String learnQuestionOf(Object number, Object total);
+
+  /// No description provided for @learnMatchEachWordIts.
+  ///
+  /// In en, this message translates to:
+  /// **'Match each word to its meaning'**
+  String get learnMatchEachWordIts;
+
+  /// No description provided for @learnCouldNotLoadPacks.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load packs'**
+  String get learnCouldNotLoadPacks;
+
+  /// No description provided for @learnWordsExercises.
+  ///
+  /// In en, this message translates to:
+  /// **'{wordCount} words · {exerciseCount} exercises'**
+  String learnWordsExercises(Object wordCount, Object exerciseCount);
+
+  /// No description provided for @learnAiAutoFill.
+  ///
+  /// In en, this message translates to:
+  /// **'AI Auto-fill'**
+  String get learnAiAutoFill;
+
+  /// No description provided for @learnPlay.
+  ///
+  /// In en, this message translates to:
+  /// **'Play'**
+  String get learnPlay;
+
+  /// No description provided for @learnFinish.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish'**
+  String get learnFinish;
+
+  /// No description provided for @learnNotQuite.
+  ///
+  /// In en, this message translates to:
+  /// **'Not quite.'**
+  String get learnNotQuite;
+
+  /// No description provided for @learnUnsupportedExercise.
+  ///
+  /// In en, this message translates to:
+  /// **'Unsupported exercise'**
+  String get learnUnsupportedExercise;
+
+  /// No description provided for @learnFailedLoadAchievements.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load achievements'**
+  String get learnFailedLoadAchievements;
+
+  /// No description provided for @learnUnlockedOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlocked on {date}'**
+  String learnUnlockedOn(Object date);
+
+  /// No description provided for @learnChallenges.
+  ///
+  /// In en, this message translates to:
+  /// **'Challenges'**
+  String get learnChallenges;
+
+  /// No description provided for @learnFailedLoadChallenges.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load challenges'**
+  String get learnFailedLoadChallenges;
+
+  /// No description provided for @learnNoChallenges.
+  ///
+  /// In en, this message translates to:
+  /// **'No {type} Challenges'**
+  String learnNoChallenges(Object type);
+
+  /// No description provided for @learnCheckBackLater.
+  ///
+  /// In en, this message translates to:
+  /// **'Check back later!'**
+  String get learnCheckBackLater;
+
+  /// No description provided for @learnActiveCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Active ({count})'**
+  String learnActiveCount(Object count);
+
+  /// No description provided for @learnCompletedCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed ({count})'**
+  String learnCompletedCount(Object count);
+
+  /// No description provided for @learnProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress'**
+  String get learnProgress;
+
+  /// No description provided for @learnXpReward.
+  ///
+  /// In en, this message translates to:
+  /// **'XP Reward'**
+  String get learnXpReward;
+
+  /// No description provided for @learnBonus.
+  ///
+  /// In en, this message translates to:
+  /// **'Bonus'**
+  String get learnBonus;
+
+  /// No description provided for @learnExpires.
+  ///
+  /// In en, this message translates to:
+  /// **'Expires in {timeRemainingFormatted}'**
+  String learnExpires(Object timeRemainingFormatted);
+
+  /// No description provided for @learnAchievementUnlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Achievement Unlocked!'**
+  String get learnAchievementUnlocked;
+
+  /// No description provided for @learnTapContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to continue'**
+  String get learnTapContinue;
+
+  /// No description provided for @learnChallengeCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed'**
+  String get learnChallengeCompleted;
+
+  /// No description provided for @learnDailyGoals.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily Goals'**
+  String get learnDailyGoals;
+
+  /// No description provided for @learnLessons.
+  ///
+  /// In en, this message translates to:
+  /// **'{completedCount}/{lessonsCount} lessons'**
+  String learnLessons(Object completedCount, Object lessonsCount);
+
+  /// No description provided for @learnLongestDays.
+  ///
+  /// In en, this message translates to:
+  /// **'Longest: {longestStreak} days'**
+  String learnLongestDays(Object longestStreak);
+
+  /// No description provided for @learnTapReveal.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to reveal'**
+  String get learnTapReveal;
+
+  /// No description provided for @learnNoAchievements.
+  ///
+  /// In en, this message translates to:
+  /// **'No achievements'**
+  String get learnNoAchievements;
+
+  /// No description provided for @learnDayStreak.
+  ///
+  /// In en, this message translates to:
+  /// **'Day Streak'**
+  String get learnDayStreak;
+
+  /// No description provided for @learnDueForReview.
+  ///
+  /// In en, this message translates to:
+  /// **'Due for review'**
+  String get learnDueForReview;
+
+  /// No description provided for @learnNextReview.
+  ///
+  /// In en, this message translates to:
+  /// **'Next: {date}'**
+  String learnNextReview(Object date);
+
+  /// No description provided for @learnChallengeDaily.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily'**
+  String get learnChallengeDaily;
+
+  /// No description provided for @learnChallengeWeekly.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly'**
+  String get learnChallengeWeekly;
+
+  /// No description provided for @learnChallengeSpecial.
+  ///
+  /// In en, this message translates to:
+  /// **'Special'**
+  String get learnChallengeSpecial;
+
+  /// No description provided for @learnChallengeDailyDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete challenges daily to earn XP and rewards!'**
+  String get learnChallengeDailyDesc;
+
+  /// No description provided for @learnChallengeWeeklyDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly challenges refresh every Monday'**
+  String get learnChallengeWeeklyDesc;
+
+  /// No description provided for @learnChallengeSpecialDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Limited-time challenges with bonus rewards!'**
+  String get learnChallengeSpecialDesc;
+
+  /// No description provided for @learnDateToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get learnDateToday;
+
+  /// No description provided for @learnDateTomorrow.
+  ///
+  /// In en, this message translates to:
+  /// **'Tomorrow'**
+  String get learnDateTomorrow;
+
+  /// No description provided for @learnInDays.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{In {count} day} other{In {count} days}}'**
+  String learnInDays(int count);
+
+  /// No description provided for @learnInWeeks.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{In {count} week} other{In {count} weeks}}'**
+  String learnInWeeks(int count);
+
+  /// No description provided for @learnInMonths.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{In {count} month} other{In {count} months}}'**
+  String learnInMonths(int count);
+
+  /// No description provided for @aiGenerateNewQuiz.
+  ///
+  /// In en, this message translates to:
+  /// **'Generate New Quiz'**
+  String get aiGenerateNewQuiz;
+
+  /// No description provided for @aiPreviousQuizzes.
+  ///
+  /// In en, this message translates to:
+  /// **'Previous Quizzes'**
+  String get aiPreviousQuizzes;
+
+  /// No description provided for @aiGeneratingQuiz.
+  ///
+  /// In en, this message translates to:
+  /// **'Generating your quiz…'**
+  String get aiGeneratingQuiz;
+
+  /// No description provided for @aiFocusArea.
+  ///
+  /// In en, this message translates to:
+  /// **'Focus area: {name}'**
+  String aiFocusArea(Object name);
+
+  /// No description provided for @aiQuizType.
+  ///
+  /// In en, this message translates to:
+  /// **'Quiz Type'**
+  String get aiQuizType;
+
+  /// No description provided for @aiDifficulty.
+  ///
+  /// In en, this message translates to:
+  /// **'Difficulty'**
+  String get aiDifficulty;
+
+  /// No description provided for @aiQuestionsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Questions:'**
+  String get aiQuestionsLabel;
+
+  /// No description provided for @aiGenerateQuiz.
+  ///
+  /// In en, this message translates to:
+  /// **'Generate Quiz'**
+  String get aiGenerateQuiz;
+
+  /// No description provided for @aiQuizQuestionCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{questionCount, plural, =1{1 question} other{{questionCount} questions}}'**
+  String aiQuizQuestionCount(int questionCount);
+
+  /// No description provided for @aiCorrectOfTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'{correctCount}/{totalQuestions} correct'**
+  String aiCorrectOfTotal(Object correctCount, Object totalQuestions);
+
+  /// No description provided for @aiNoQuizzesYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No quizzes yet'**
+  String get aiNoQuizzesYet;
+
+  /// No description provided for @aiGenerateFirstQuizAbove.
+  ///
+  /// In en, this message translates to:
+  /// **'Generate your first quiz above!'**
+  String get aiGenerateFirstQuizAbove;
+
+  /// No description provided for @aiCorrectOutOf.
+  ///
+  /// In en, this message translates to:
+  /// **'{correctCount} out of {totalQuestions} correct'**
+  String aiCorrectOutOf(Object correctCount, Object totalQuestions);
+
+  /// No description provided for @aiBackQuizHub.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to Quiz Hub'**
+  String get aiBackQuizHub;
+
+  /// No description provided for @aiNoQuestionsAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'No questions available'**
+  String get aiNoQuestionsAvailable;
+
+  /// No description provided for @aiQuizHasNoQuestions.
+  ///
+  /// In en, this message translates to:
+  /// **'This quiz has no questions to display.'**
+  String get aiQuizHasNoQuestions;
+
+  /// No description provided for @aiQuestionOf.
+  ///
+  /// In en, this message translates to:
+  /// **'Question {number} of {count}'**
+  String aiQuestionOf(Object number, Object count);
+
+  /// No description provided for @aiYourAnswerLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Your answer:'**
+  String get aiYourAnswerLabel;
+
+  /// No description provided for @aiBonusXpWatching.
+  ///
+  /// In en, this message translates to:
+  /// **'🎉 +10 Bonus XP for watching!'**
+  String get aiBonusXpWatching;
+
+  /// No description provided for @aiNotQuiteRight.
+  ///
+  /// In en, this message translates to:
+  /// **'Not quite right'**
+  String get aiNotQuiteRight;
+
+  /// No description provided for @aiWhy.
+  ///
+  /// In en, this message translates to:
+  /// **'Why?'**
+  String get aiWhy;
+
+  /// No description provided for @aiGotIt.
+  ///
+  /// In en, this message translates to:
+  /// **'Got It'**
+  String get aiGotIt;
+
+  /// No description provided for @aiHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Hint'**
+  String get aiHint;
+
+  /// No description provided for @aiLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Level {hintLevel}/3'**
+  String aiLevel(Object hintLevel);
+
+  /// No description provided for @aiAskQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Ask a Question'**
+  String get aiAskQuestion;
+
+  /// No description provided for @aiAsk.
+  ///
+  /// In en, this message translates to:
+  /// **'Ask'**
+  String get aiAsk;
+
+  /// No description provided for @aiAssistantExamples.
+  ///
+  /// In en, this message translates to:
+  /// **'Examples'**
+  String get aiAssistantExamples;
+
+  /// No description provided for @aiExplainConcept.
+  ///
+  /// In en, this message translates to:
+  /// **'Explain Concept'**
+  String get aiExplainConcept;
+
+  /// No description provided for @aiRelatedConcepts.
+  ///
+  /// In en, this message translates to:
+  /// **'Related Concepts'**
+  String get aiRelatedConcepts;
+
+  /// No description provided for @aiGeneratingLessonSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Generating your lesson summary...'**
+  String get aiGeneratingLessonSummary;
+
+  /// No description provided for @aiLessonSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Lesson Summary'**
+  String get aiLessonSummary;
+
+  /// No description provided for @aiKeyPoints.
+  ///
+  /// In en, this message translates to:
+  /// **'Key Points'**
+  String get aiKeyPoints;
+
+  /// No description provided for @aiVocabularyRemember.
+  ///
+  /// In en, this message translates to:
+  /// **'Vocabulary to Remember'**
+  String get aiVocabularyRemember;
+
+  /// No description provided for @aiGrammarRules.
+  ///
+  /// In en, this message translates to:
+  /// **'Grammar Rules'**
+  String get aiGrammarRules;
+
+  /// No description provided for @aiWhatPracticeNext.
+  ///
+  /// In en, this message translates to:
+  /// **'What to Practice Next'**
+  String get aiWhatPracticeNext;
+
+  /// No description provided for @aiPerfectScore.
+  ///
+  /// In en, this message translates to:
+  /// **'Perfect Score!'**
+  String get aiPerfectScore;
+
+  /// No description provided for @aiGreatJob.
+  ///
+  /// In en, this message translates to:
+  /// **'Great job!'**
+  String get aiGreatJob;
+
+  /// No description provided for @aiGoodEffort.
+  ///
+  /// In en, this message translates to:
+  /// **'Good effort!'**
+  String get aiGoodEffort;
+
+  /// No description provided for @aiKeepPracticing.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep practicing!'**
+  String get aiKeepPracticing;
+
+  /// No description provided for @aiFailedToGetHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to get hint'**
+  String get aiFailedToGetHint;
+
+  /// No description provided for @aiFailedToGetAnswer.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to get answer'**
+  String get aiFailedToGetAnswer;
+
+  /// No description provided for @aiFailedToExplain.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to explain'**
+  String get aiFailedToExplain;
+
+  /// No description provided for @aiFailedLoadHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load history'**
+  String get aiFailedLoadHistory;
+
+  /// No description provided for @aiConversationMessageCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 message} other{{count} messages}}'**
+  String aiConversationMessageCount(int count);
+
+  /// No description provided for @aiStartNewConversationSee.
+  ///
+  /// In en, this message translates to:
+  /// **'Start a new conversation to see it here'**
+  String get aiStartNewConversationSee;
+
+  /// No description provided for @aiLoadingMessages.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading messages...'**
+  String get aiLoadingMessages;
+
+  /// No description provided for @aiNoMessagesConversation.
+  ///
+  /// In en, this message translates to:
+  /// **'No messages in this conversation'**
+  String get aiNoMessagesConversation;
+
+  /// No description provided for @aiDifficultyLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Difficulty Level'**
+  String get aiDifficultyLevel;
+
+  /// No description provided for @aiScenarios.
+  ///
+  /// In en, this message translates to:
+  /// **'Scenarios'**
+  String get aiScenarios;
+
+  /// No description provided for @aiGrammarCheck.
+  ///
+  /// In en, this message translates to:
+  /// **'Grammar Check'**
+  String get aiGrammarCheck;
+
+  /// No description provided for @aiRecentAnalysis.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent Analysis'**
+  String get aiRecentAnalysis;
+
+  /// No description provided for @aiCheckGrammar.
+  ///
+  /// In en, this message translates to:
+  /// **'Check Grammar'**
+  String get aiCheckGrammar;
+
+  /// No description provided for @aiLanguageLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Language:'**
+  String get aiLanguageLabel;
+
+  /// No description provided for @aiGrammarIssuesFound.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 issue found} other{{count} issues found}}'**
+  String aiGrammarIssuesFound(int count);
+
+  /// No description provided for @aiPerfect.
+  ///
+  /// In en, this message translates to:
+  /// **'Perfect!'**
+  String get aiPerfect;
+
+  /// No description provided for @aiNoGrammarIssuesFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No grammar issues found in your text.'**
+  String get aiNoGrammarIssuesFound;
+
+  /// No description provided for @aiIssuesFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Issues Found ({count})'**
+  String aiIssuesFound(Object count);
+
+  /// No description provided for @aiCorrected.
+  ///
+  /// In en, this message translates to:
+  /// **'Corrected'**
+  String get aiCorrected;
+
+  /// No description provided for @aiGrammarExamples.
+  ///
+  /// In en, this message translates to:
+  /// **'Examples:'**
+  String get aiGrammarExamples;
+
+  /// No description provided for @aiImprovedSuggestions.
+  ///
+  /// In en, this message translates to:
+  /// **'Improved Suggestions'**
+  String get aiImprovedSuggestions;
+
+  /// No description provided for @aiNoAnalysisHistoryYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No analysis history yet'**
+  String get aiNoAnalysisHistoryYet;
+
+  /// No description provided for @aiLessonBuilder.
+  ///
+  /// In en, this message translates to:
+  /// **'AI Lesson Builder'**
+  String get aiLessonBuilder;
+
+  /// No description provided for @aiGenerateCustomLessons.
+  ///
+  /// In en, this message translates to:
+  /// **'Generate Custom Lessons'**
+  String get aiGenerateCustomLessons;
+
+  /// No description provided for @aiCreatesPersonalizedLessonsAny.
+  ///
+  /// In en, this message translates to:
+  /// **'AI creates personalized lessons on any topic'**
+  String get aiCreatesPersonalizedLessonsAny;
+
+  /// No description provided for @aiExercises.
+  ///
+  /// In en, this message translates to:
+  /// **'Exercises: {exerciseCount}'**
+  String aiExercises(Object exerciseCount);
+
+  /// No description provided for @aiSuggestedTopics.
+  ///
+  /// In en, this message translates to:
+  /// **'Suggested Topics'**
+  String get aiSuggestedTopics;
+
+  /// No description provided for @aiCreatingLesson.
+  ///
+  /// In en, this message translates to:
+  /// **'Creating your lesson...'**
+  String get aiCreatingLesson;
+
+  /// No description provided for @aiGeneratingExercisesContent.
+  ///
+  /// In en, this message translates to:
+  /// **'AI is generating exercises and content'**
+  String get aiGeneratingExercisesContent;
+
+  /// No description provided for @aiLessonGenerated.
+  ///
+  /// In en, this message translates to:
+  /// **'Lesson Generated!'**
+  String get aiLessonGenerated;
+
+  /// No description provided for @aiGenerateAnother.
+  ///
+  /// In en, this message translates to:
+  /// **'Generate Another'**
+  String get aiGenerateAnother;
+
+  /// No description provided for @aiStartLesson.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Lesson'**
+  String get aiStartLesson;
+
+  /// No description provided for @aiPronunciationPractice.
+  ///
+  /// In en, this message translates to:
+  /// **'Pronunciation Practice'**
+  String get aiPronunciationPractice;
+
+  /// No description provided for @aiPracticeHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Practice History'**
+  String get aiPracticeHistory;
+
+  /// No description provided for @aiTextPractice.
+  ///
+  /// In en, this message translates to:
+  /// **'Text to Practice'**
+  String get aiTextPractice;
+
+  /// No description provided for @aiWordAnalysis.
+  ///
+  /// In en, this message translates to:
+  /// **'Word Analysis'**
+  String get aiWordAnalysis;
+
+  /// No description provided for @aiNoPracticeHistoryYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No practice history yet'**
+  String get aiNoPracticeHistoryYet;
+
+  /// No description provided for @aiSmartTranslation.
+  ///
+  /// In en, this message translates to:
+  /// **'Smart Translation'**
+  String get aiSmartTranslation;
+
+  /// No description provided for @aiWordBreakdown.
+  ///
+  /// In en, this message translates to:
+  /// **'Word Breakdown'**
+  String get aiWordBreakdown;
+
+  /// No description provided for @aiAlternativeTranslations.
+  ///
+  /// In en, this message translates to:
+  /// **'Alternative Translations'**
+  String get aiAlternativeTranslations;
+
+  /// No description provided for @aiGrammarNotes.
+  ///
+  /// In en, this message translates to:
+  /// **'Grammar Notes'**
+  String get aiGrammarNotes;
+
+  /// No description provided for @aiIdiomsExpressions.
+  ///
+  /// In en, this message translates to:
+  /// **'Idioms & Expressions'**
+  String get aiIdiomsExpressions;
+
+  /// No description provided for @aiLiteral.
+  ///
+  /// In en, this message translates to:
+  /// **'Literal: {literalTranslation}'**
+  String aiLiteral(Object literalTranslation);
+
+  /// No description provided for @aiMeaning.
+  ///
+  /// In en, this message translates to:
+  /// **'Meaning: {meaning}'**
+  String aiMeaning(Object meaning);
+
+  /// No description provided for @aiEquivalent.
+  ///
+  /// In en, this message translates to:
+  /// **'Equivalent: {equivalentIdiom}'**
+  String aiEquivalent(Object equivalentIdiom);
+
+  /// No description provided for @aiCulturalContext.
+  ///
+  /// In en, this message translates to:
+  /// **'Cultural Context'**
+  String get aiCulturalContext;
+
+  /// No description provided for @aiNoCompletedConversations.
+  ///
+  /// In en, this message translates to:
+  /// **'No completed conversations'**
+  String get aiNoCompletedConversations;
+
+  /// No description provided for @aiNoActiveConversations.
+  ///
+  /// In en, this message translates to:
+  /// **'No active conversations'**
+  String get aiNoActiveConversations;
+
+  /// No description provided for @aiStartInLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Start in {language}'**
+  String aiStartInLanguage(Object language);
+
+  /// No description provided for @aiSelect.
+  ///
+  /// In en, this message translates to:
+  /// **'Select'**
+  String get aiSelect;
+
+  /// No description provided for @aiIssuesCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 issue} other{{count} issues}}'**
+  String aiIssuesCount(int count);
+
+  /// No description provided for @aiGenerateLesson.
+  ///
+  /// In en, this message translates to:
+  /// **'Generate Lesson'**
+  String get aiGenerateLesson;
+
+  /// No description provided for @aiGeneratingEllipsis.
+  ///
+  /// In en, this message translates to:
+  /// **'Generating...'**
+  String get aiGeneratingEllipsis;
+
+  /// No description provided for @aiAnalyzing.
+  ///
+  /// In en, this message translates to:
+  /// **'Analyzing...'**
+  String get aiAnalyzing;
+
+  /// No description provided for @aiExcellentPronunciation.
+  ///
+  /// In en, this message translates to:
+  /// **'Excellent pronunciation!'**
+  String get aiExcellentPronunciation;
+
+  /// No description provided for @aiGoodJob.
+  ///
+  /// In en, this message translates to:
+  /// **'Good job!'**
+  String get aiGoodJob;
+
+  /// No description provided for @profileBuyMeCoffee.
+  ///
+  /// In en, this message translates to:
+  /// **'Buy me a coffee'**
+  String get profileBuyMeCoffee;
+
+  /// No description provided for @profileOr.
+  ///
+  /// In en, this message translates to:
+  /// **'or'**
+  String get profileOr;
+
+  /// No description provided for @profileLoadingNotifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading notifications...'**
+  String get profileLoadingNotifications;
+
+  /// No description provided for @profileLoadingSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading settings...'**
+  String get profileLoadingSettings;
+
+  /// No description provided for @profileAdmin.
+  ///
+  /// In en, this message translates to:
+  /// **'ADMIN'**
+  String get profileAdmin;
+
+  /// No description provided for @profileSelected.
+  ///
+  /// In en, this message translates to:
+  /// **'SELECTED'**
+  String get profileSelected;
+
+  /// No description provided for @profilePrivacyIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'You control what others can see. Toggle items off to hide them from your public profile.'**
+  String get profilePrivacyIntro;
+
+  /// No description provided for @profileUpdate.
+  ///
+  /// In en, this message translates to:
+  /// **'Update'**
+  String get profileUpdate;
+
+  /// No description provided for @profileNoTopicsCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'No topics in this category'**
+  String get profileNoTopicsCategory;
+
+  /// No description provided for @profileAdminTools.
+  ///
+  /// In en, this message translates to:
+  /// **'Admin Tools'**
+  String get profileAdminTools;
+
+  /// No description provided for @profileCompletionAdd.
+  ///
+  /// In en, this message translates to:
+  /// **'Add: {items}'**
+  String profileCompletionAdd(Object items);
+
+  /// No description provided for @profileActive.
+  ///
+  /// In en, this message translates to:
+  /// **'ACTIVE'**
+  String get profileActive;
+
+  /// No description provided for @profileAutoSaveEnabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto-save enabled'**
+  String get profileAutoSaveEnabled;
+
+  /// No description provided for @profileChangesSavedInstantlyWhen.
+  ///
+  /// In en, this message translates to:
+  /// **'Changes are saved instantly when you toggle.'**
+  String get profileChangesSavedInstantlyWhen;
+
+  /// No description provided for @profileCurrentTheme.
+  ///
+  /// In en, this message translates to:
+  /// **'Current theme'**
+  String get profileCurrentTheme;
+
+  /// No description provided for @profileThemeChangesApplyInstantly.
+  ///
+  /// In en, this message translates to:
+  /// **'Theme changes apply instantly across the entire app.'**
+  String get profileThemeChangesApplyInstantly;
+
+  /// No description provided for @profileLoadingVisitors.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading visitors...'**
+  String get profileLoadingVisitors;
+
+  /// No description provided for @profileSeeWhoChecked.
+  ///
+  /// In en, this message translates to:
+  /// **'See who checked your profile'**
+  String get profileSeeWhoChecked;
+
+  /// No description provided for @profileRecentVisitors.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent Visitors'**
+  String get profileRecentVisitors;
+
+  /// No description provided for @profileNoReportsSubmitted.
+  ///
+  /// In en, this message translates to:
+  /// **'No reports submitted'**
+  String get profileNoReportsSubmitted;
+
+  /// No description provided for @profileReportsSubmitWillAppear.
+  ///
+  /// In en, this message translates to:
+  /// **'Reports you submit will appear here'**
+  String get profileReportsSubmitWillAppear;
+
+  /// No description provided for @profileReportTypeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'{type} Report'**
+  String profileReportTypeTitle(Object type);
+
+  /// No description provided for @profileReportReason.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason: {reason}'**
+  String profileReportReason(Object reason);
+
+  /// No description provided for @profileDeleteAccountFinalBody.
+  ///
+  /// In en, this message translates to:
+  /// **'All your data will be permanently deleted.\n\nAre you absolutely sure?'**
+  String get profileDeleteAccountFinalBody;
+
+  /// No description provided for @profileThanksForWatching.
+  ///
+  /// In en, this message translates to:
+  /// **'Thanks for watching! 🙏'**
+  String get profileThanksForWatching;
+
+  /// No description provided for @profileNotificationsOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications on'**
+  String get profileNotificationsOn;
+
+  /// No description provided for @profileNotificationsOff.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications off'**
+  String get profileNotificationsOff;
+
+  /// No description provided for @profileMaximumReached.
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum reached'**
+  String get profileMaximumReached;
+
+  /// No description provided for @profilePickYourInterests.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick your interests'**
+  String get profilePickYourInterests;
+
+  /// No description provided for @profileDeselectToChooseAnother.
+  ///
+  /// In en, this message translates to:
+  /// **'Deselect one to choose another'**
+  String get profileDeselectToChooseAnother;
+
+  /// No description provided for @profileTapTopicsMatchVibe.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap topics that match your vibe'**
+  String get profileTapTopicsMatchVibe;
+
+  /// No description provided for @profileEnjoyingPremium.
+  ///
+  /// In en, this message translates to:
+  /// **'Enjoying premium features'**
+  String get profileEnjoyingPremium;
+
+  /// No description provided for @profileUnlockUnlimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock unlimited messages & AI tools'**
+  String get profileUnlockUnlimited;
+
+  /// No description provided for @profileBirthYear.
+  ///
+  /// In en, this message translates to:
+  /// **'Birth Year'**
+  String get profileBirthYear;
+
+  /// No description provided for @profileReportTypeUser.
+  ///
+  /// In en, this message translates to:
+  /// **'User'**
+  String get profileReportTypeUser;
+
+  /// No description provided for @profileReportTypeMoment.
+  ///
+  /// In en, this message translates to:
+  /// **'Moment'**
+  String get profileReportTypeMoment;
+
+  /// No description provided for @profileReportTypeComment.
+  ///
+  /// In en, this message translates to:
+  /// **'Comment'**
+  String get profileReportTypeComment;
+
+  /// No description provided for @profileReportTypeMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Message'**
+  String get profileReportTypeMessage;
+
+  /// No description provided for @profileReportTypeStory.
+  ///
+  /// In en, this message translates to:
+  /// **'Story'**
+  String get profileReportTypeStory;
+
+  /// No description provided for @profileReportReasonCopyright.
+  ///
+  /// In en, this message translates to:
+  /// **'Copyright'**
+  String get profileReportReasonCopyright;
+
+  /// No description provided for @storyOptimizingBestExperience.
+  ///
+  /// In en, this message translates to:
+  /// **'Optimizing for the best experience'**
+  String get storyOptimizingBestExperience;
+
+  /// No description provided for @storyCreate.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a Story'**
+  String get storyCreate;
+
+  /// No description provided for @storyAddTags.
+  ///
+  /// In en, this message translates to:
+  /// **'Add tags'**
+  String get storyAddTags;
+
+  /// No description provided for @storyVideoSelected.
+  ///
+  /// In en, this message translates to:
+  /// **'Video Selected'**
+  String get storyVideoSelected;
+
+  /// No description provided for @storyAddPoll.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Poll'**
+  String get storyAddPoll;
+
+  /// No description provided for @storyOptions.
+  ///
+  /// In en, this message translates to:
+  /// **'Options'**
+  String get storyOptions;
+
+  /// No description provided for @storyAddQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Question'**
+  String get storyAddQuestion;
+
+  /// No description provided for @storyPrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Prompt'**
+  String get storyPrompt;
+
+  /// No description provided for @storyTapAnywhereAddText.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap anywhere to add text'**
+  String get storyTapAnywhereAddText;
+
+  /// No description provided for @storyHighlightStoryCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{storyCount, plural, =1{1 story} other{{storyCount} stories}}'**
+  String storyHighlightStoryCount(int storyCount);
+
+  /// No description provided for @storySendFriends.
+  ///
+  /// In en, this message translates to:
+  /// **'Send to friends'**
+  String get storySendFriends;
+
+  /// No description provided for @storySelected.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} selected'**
+  String storySelected(Object count);
+
+  /// No description provided for @storyShareSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Share/Save'**
+  String get storyShareSave;
+
+  /// No description provided for @storySeenBy.
+  ///
+  /// In en, this message translates to:
+  /// **'Seen by {viewCount}'**
+  String storySeenBy(Object viewCount);
+
+  /// No description provided for @storyNoViewsYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No views yet'**
+  String get storyNoViewsYet;
+
+  /// No description provided for @storyEditVideo.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Video'**
+  String get storyEditVideo;
+
+  /// No description provided for @storyVotes.
+  ///
+  /// In en, this message translates to:
+  /// **'{totalVotes} votes'**
+  String storyVotes(Object totalVotes);
+
+  /// No description provided for @storyCreatePoll.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Poll'**
+  String get storyCreatePoll;
+
+  /// No description provided for @storySendAnonymously.
+  ///
+  /// In en, this message translates to:
+  /// **'Send anonymously'**
+  String get storySendAnonymously;
+
+  /// No description provided for @storyResponseCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 response} other{{count} responses}}'**
+  String storyResponseCount(int count);
+
+  /// No description provided for @storyViewResponses.
+  ///
+  /// In en, this message translates to:
+  /// **'View responses'**
+  String get storyViewResponses;
+
+  /// No description provided for @storyResponsesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Responses'**
+  String get storyResponsesTitle;
+
+  /// No description provided for @storyNoResponsesYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No responses yet'**
+  String get storyNoResponsesYet;
+
+  /// No description provided for @storyQuestionBox.
+  ///
+  /// In en, this message translates to:
+  /// **'Question Box'**
+  String get storyQuestionBox;
+
+  /// No description provided for @storySent.
+  ///
+  /// In en, this message translates to:
+  /// **'Sent!'**
+  String get storySent;
+
+  /// No description provided for @storyProcessing.
+  ///
+  /// In en, this message translates to:
+  /// **'Processing...'**
+  String get storyProcessing;
+
+  /// No description provided for @storyHd.
+  ///
+  /// In en, this message translates to:
+  /// **'HD'**
+  String get storyHd;
+
+  /// No description provided for @storyVideoMeta.
+  ///
+  /// In en, this message translates to:
+  /// **'{duration} | {size}MB'**
+  String storyVideoMeta(Object duration, Object size);
+
+  /// No description provided for @storyUserFallback.
+  ///
+  /// In en, this message translates to:
+  /// **'User'**
+  String get storyUserFallback;
+
+  /// No description provided for @storySendCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Send ({count})'**
+  String storySendCount(int count);
+
+  /// No description provided for @storyFailedToDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to delete story'**
+  String get storyFailedToDelete;
+
+  /// No description provided for @storyAnonymous.
+  ///
+  /// In en, this message translates to:
+  /// **'Anonymous'**
+  String get storyAnonymous;
+
+  /// No description provided for @vipNoCoinActivityYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No coin activity yet'**
+  String get vipNoCoinActivityYet;
+
+  /// No description provided for @vipCoinShopExplainer.
+  ///
+  /// In en, this message translates to:
+  /// **'Coins are used to unlock extra uses of translations, AI tutor chats, and moments once you hit your free daily limit. Purchases are non-refundable once coins are spent.'**
+  String get vipCoinShopExplainer;
+
+  /// No description provided for @vipLimitReached.
+  ///
+  /// In en, this message translates to:
+  /// **'Limit reached'**
+  String get vipLimitReached;
+
+  /// No description provided for @vipCoins.
+  ///
+  /// In en, this message translates to:
+  /// **'coins'**
+  String get vipCoins;
+
+  /// No description provided for @vipBonusIncluded.
+  ///
+  /// In en, this message translates to:
+  /// **'+{bonusCoins} bonus included'**
+  String vipBonusIncluded(Object bonusCoins);
+
+  /// No description provided for @vipVisitorModeLimitReached.
+  ///
+  /// In en, this message translates to:
+  /// **'Visitor Mode Limit Reached'**
+  String get vipVisitorModeLimitReached;
+
+  /// No description provided for @vipWhatGetFreeAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'What You Get with a Free Account'**
+  String get vipWhatGetFreeAccount;
+
+  /// No description provided for @vipCreateFreeAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Free Account'**
+  String get vipCreateFreeAccount;
+
+  /// No description provided for @vipGoUnlimitedAccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Go VIP for Unlimited Access'**
+  String get vipGoUnlimitedAccess;
+
+  /// No description provided for @vipContinueAsVisitor.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue as Visitor'**
+  String get vipContinueAsVisitor;
+
+  /// No description provided for @vipResets.
+  ///
+  /// In en, this message translates to:
+  /// **'Resets at: {resetTime}'**
+  String vipResets(Object resetTime);
+
+  /// No description provided for @vipUsedToday.
+  ///
+  /// In en, this message translates to:
+  /// **'{currentUsage} / {maxAllowed} used today'**
+  String vipUsedToday(Object currentUsage, Object maxAllowed);
+
+  /// No description provided for @vipTierVisitor.
+  ///
+  /// In en, this message translates to:
+  /// **'Visitor'**
+  String get vipTierVisitor;
+
+  /// No description provided for @vipTierMember.
+  ///
+  /// In en, this message translates to:
+  /// **'Member'**
+  String get vipTierMember;
+
+  /// No description provided for @vipAd.
+  ///
+  /// In en, this message translates to:
+  /// **'Ad'**
+  String get vipAd;
+
+  /// No description provided for @promoAdsNoticeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'A note from the developer'**
+  String get promoAdsNoticeTitle;
+
+  /// No description provided for @promoAdsNoticeBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Hey! I\'m Firdavs, the solo developer behind Bananatalk. I\'ve added a few small ads to the app to help keep it free and fund ongoing development.\n\nI know ads can be annoying — so I\'ve made them optional and rewarding. Watch an ad to unlock extra messages, community filters, bonus XP after quizzes, and more.\n\nThank you for using Bananatalk. Your support means everything. 🙏'**
+  String get promoAdsNoticeBody;
+
+  /// No description provided for @promoAdsNoticeGotIt.
+  ///
+  /// In en, this message translates to:
+  /// **'Got it, thanks! 👍'**
+  String get promoAdsNoticeGotIt;
+
+  /// No description provided for @vipOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'VIP Only'**
+  String get vipOnly;
+
+  /// No description provided for @vipTapUpgrade.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to upgrade'**
+  String get vipTapUpgrade;
+
+  /// No description provided for @vipUnlockFeatures.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock VIP Features'**
+  String get vipUnlockFeatures;
+
+  /// No description provided for @vipUpPillUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Up'**
+  String get vipUpPillUp;
+
+  /// No description provided for @vipChooseOption.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose an option:'**
+  String get vipChooseOption;
+
+  /// No description provided for @promoWelcomeBackTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome back! 👋'**
+  String get promoWelcomeBackTitle;
+
+  /// No description provided for @promoWelcomeBackBody.
+  ///
+  /// In en, this message translates to:
+  /// **'We missed you. Here\'s what\'s waiting:'**
+  String get promoWelcomeBackBody;
+
+  /// No description provided for @promoWelcomeBackCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Let\'s go! 🚀'**
+  String get promoWelcomeBackCta;
+
+  /// No description provided for @vipCoinsPerAdInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'+5 coins per ad, up to 5 a day'**
+  String get vipCoinsPerAdInfo;
+
+  /// No description provided for @vipUpgradeUnlockMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Upgrade to unlock more features and unlimited access'**
+  String get vipUpgradeUnlockMore;
+
+  /// No description provided for @vipUpgradeNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Upgrade Now'**
+  String get vipUpgradeNow;
+
+  /// No description provided for @commonContinueWhereLeftOff.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue where you left off?'**
+  String get commonContinueWhereLeftOff;
+
+  /// No description provided for @commonLanguageNotProvided.
+  ///
+  /// In en, this message translates to:
+  /// **'Language not provided'**
+  String get commonLanguageNotProvided;
+
+  /// No description provided for @commonExamNotProvided.
+  ///
+  /// In en, this message translates to:
+  /// **'Exam not provided'**
+  String get commonExamNotProvided;
+
+  /// No description provided for @commonMuted.
+  ///
+  /// In en, this message translates to:
+  /// **'Muted'**
+  String get commonMuted;
+
+  /// No description provided for @commonPoorConnection.
+  ///
+  /// In en, this message translates to:
+  /// **'Poor Connection'**
+  String get commonPoorConnection;
+
+  /// No description provided for @commonBlockUserConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to block {targetUserName}?\n\nYou will no longer see their messages, posts, or appear in each other\'s searches.'**
+  String commonBlockUserConfirmBody(Object targetUserName);
+
+  /// No description provided for @commonVideoFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Video File'**
+  String get commonVideoFile;
+
+  /// No description provided for @commonPointCameraBananatalkQr.
+  ///
+  /// In en, this message translates to:
+  /// **'Point your camera at a Bananatalk QR code'**
+  String get commonPointCameraBananatalkQr;
+
+  /// No description provided for @commonReportSubmittedButSome.
+  ///
+  /// In en, this message translates to:
+  /// **'Report submitted, but some evidence failed to upload'**
+  String get commonReportSubmittedButSome;
+
+  /// No description provided for @commonReportTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Report {typeLabel}'**
+  String commonReportTitle(Object typeLabel);
+
+  /// No description provided for @commonWhyReporting.
+  ///
+  /// In en, this message translates to:
+  /// **'Why are you reporting this {typeLabel}?'**
+  String commonWhyReporting(Object typeLabel);
+
+  /// No description provided for @commonAddEvidenceRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Evidence (Required)'**
+  String get commonAddEvidenceRequired;
+
+  /// No description provided for @commonUploadScreenshotsTextFiles.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload screenshots or text files to support your report'**
+  String get commonUploadScreenshotsTextFiles;
+
+  /// No description provided for @commonAddEvidenceCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Evidence ({count}/{maxFiles})'**
+  String commonAddEvidenceCount(Object count, Object maxFiles);
+
+  /// No description provided for @commonReportTotalSize.
+  ///
+  /// In en, this message translates to:
+  /// **'Total: {used} / {max}'**
+  String commonReportTotalSize(Object max, Object used);
+
+  /// No description provided for @commonEvidence.
+  ///
+  /// In en, this message translates to:
+  /// **'Evidence'**
+  String get commonEvidence;
+
+  /// No description provided for @commonImageFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Image failed'**
+  String get commonImageFailed;
+
+  /// No description provided for @commonShowMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Show more'**
+  String get commonShowMore;
+
+  /// No description provided for @commonVoiceRecordingNotAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice Recording Not Available'**
+  String get commonVoiceRecordingNotAvailable;
+
+  /// No description provided for @commonVoiceRecordingOnlyAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice recording is only available on mobile devices.'**
+  String get commonVoiceRecordingOnlyAvailable;
+
+  /// No description provided for @commonReportSubmittedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Report submitted successfully'**
+  String get commonReportSubmittedSuccessfully;
+
+  /// No description provided for @commonErrorLoadingFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Error loading file'**
+  String get commonErrorLoadingFile;
+
+  /// No description provided for @commonReportTypeUser.
+  ///
+  /// In en, this message translates to:
+  /// **'user'**
+  String get commonReportTypeUser;
+
+  /// No description provided for @commonReportTypeMoment.
+  ///
+  /// In en, this message translates to:
+  /// **'moment'**
+  String get commonReportTypeMoment;
+
+  /// No description provided for @commonReportTypeComment.
+  ///
+  /// In en, this message translates to:
+  /// **'comment'**
+  String get commonReportTypeComment;
+
+  /// No description provided for @commonReportTypeMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'message'**
+  String get commonReportTypeMessage;
+
+  /// No description provided for @commonReportTypeStory.
+  ///
+  /// In en, this message translates to:
+  /// **'story'**
+  String get commonReportTypeStory;
+
+  /// No description provided for @commonReportTypeContent.
+  ///
+  /// In en, this message translates to:
+  /// **'content'**
+  String get commonReportTypeContent;
+
+  /// No description provided for @commonReportReasonCopyright.
+  ///
+  /// In en, this message translates to:
+  /// **'Copyright Violation'**
+  String get commonReportReasonCopyright;
+
+  /// No description provided for @momentsRemoveVoiceNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove voice note'**
+  String get momentsRemoveVoiceNote;
+
+  /// No description provided for @vocabPackLevelProficiency.
+  ///
+  /// In en, this message translates to:
+  /// **'Proficiency'**
+  String get vocabPackLevelProficiency;
+
+  /// No description provided for @aiFailedToLoadFeedback.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load feedback'**
+  String get aiFailedToLoadFeedback;
+
+  /// No description provided for @aiFailedToLoadSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load summary'**
+  String get aiFailedToLoadSummary;
+
+  /// No description provided for @momentFailedToLoad.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load moment'**
+  String get momentFailedToLoad;
+
+  /// No description provided for @aiPronunciationWatchAdRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Watch Ad for another free attempt'**
+  String get aiPronunciationWatchAdRetry;
+
+  /// No description provided for @aiErrorLoadingLanguages.
+  ///
+  /// In en, this message translates to:
+  /// **'Error loading languages: {error}'**
+  String aiErrorLoadingLanguages(Object error);
+
+  /// No description provided for @aiSelectSourceTargetLanguages.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select source and target languages'**
+  String get aiSelectSourceTargetLanguages;
+
+  /// No description provided for @aiUnexpectedResponseFormat.
+  ///
+  /// In en, this message translates to:
+  /// **'Unexpected response format'**
+  String get aiUnexpectedResponseFormat;
+
+  /// No description provided for @aiFailedToLoadConversation.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load conversation'**
+  String get aiFailedToLoadConversation;
+
+  /// No description provided for @aiMicPermissionDeniedSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Microphone permission denied. Please enable it in Settings.'**
+  String get aiMicPermissionDeniedSettings;
+
+  /// No description provided for @aiFailedToEvaluatePronunciation.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to evaluate pronunciation'**
+  String get aiFailedToEvaluatePronunciation;
+
+  /// No description provided for @aiFailedToGenerateSpeech.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to generate speech'**
+  String get aiFailedToGenerateSpeech;
+
+  /// No description provided for @aiFailedToGenerateLesson.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to generate lesson'**
+  String get aiFailedToGenerateLesson;
+
+  /// No description provided for @aiLessonTopicRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a topic'**
+  String get aiLessonTopicRequired;
+
+  /// No description provided for @aiFailedToLoadTopics.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load topics'**
+  String get aiFailedToLoadTopics;
+
+  /// No description provided for @aiFailedToLoadScenarios.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load scenarios'**
+  String get aiFailedToLoadScenarios;
+
+  /// No description provided for @aiAnalysisFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Analysis failed'**
+  String get aiAnalysisFailed;
+
+  /// No description provided for @storySearchPlaceHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search a place…'**
+  String get storySearchPlaceHint;
+
+  /// No description provided for @storySearchRecentChatsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search recent chats…'**
+  String get storySearchRecentChatsHint;
+
+  /// No description provided for @storySearchFollowingHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search people you follow…'**
+  String get storySearchFollowingHint;
+
+  /// No description provided for @storyAddHashtagsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Add hashtags...'**
+  String get storyAddHashtagsHint;
+
+  /// No description provided for @storyHighlightCreateFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to create highlight'**
+  String get storyHighlightCreateFailed;
+
+  /// No description provided for @storyHighlightRenameFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to rename highlight'**
+  String get storyHighlightRenameFailed;
+
+  /// No description provided for @storyHighlightDeleteFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to delete highlight'**
+  String get storyHighlightDeleteFailed;
+
+  /// No description provided for @storyViewersLoadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load viewers'**
+  String get storyViewersLoadFailed;
+
+  /// No description provided for @storyShareSent.
+  ///
+  /// In en, this message translates to:
+  /// **'Sent 💛'**
+  String get storyShareSent;
+
+  /// No description provided for @storyShareSentPartial.
+  ///
+  /// In en, this message translates to:
+  /// **'Sent 💛 — failed for {names}'**
+  String storyShareSentPartial(Object names);
+
+  /// No description provided for @storyVoteFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to submit vote'**
+  String get storyVoteFailed;
+
+  /// No description provided for @storyAnswerFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to send answer'**
+  String get storyAnswerFailed;
+
+  /// No description provided for @storyAlreadyInHighlight.
+  ///
+  /// In en, this message translates to:
+  /// **'Already saved to a highlight'**
+  String get storyAlreadyInHighlight;
+
+  /// No description provided for @storyAddedToHighlight.
+  ///
+  /// In en, this message translates to:
+  /// **'Added to highlight'**
+  String get storyAddedToHighlight;
+
+  /// No description provided for @storyMaxHashtags.
+  ///
+  /// In en, this message translates to:
+  /// **'You can add up to {max} hashtags'**
+  String storyMaxHashtags(int max);
+
+  /// No description provided for @storyMaxMentions.
+  ///
+  /// In en, this message translates to:
+  /// **'You can mention up to {max} people'**
+  String storyMaxMentions(int max);
+
+  /// No description provided for @coinHistoryActivity.
+  ///
+  /// In en, this message translates to:
+  /// **'Coin activity'**
+  String get coinHistoryActivity;
+
+  /// No description provided for @coinHistoryAdReward.
+  ///
+  /// In en, this message translates to:
+  /// **'Watched an ad'**
+  String get coinHistoryAdReward;
+
+  /// No description provided for @coinHistoryPurchase.
+  ///
+  /// In en, this message translates to:
+  /// **'Coin purchase'**
+  String get coinHistoryPurchase;
+
+  /// No description provided for @coinHistoryUnlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlocked {feature}'**
+  String coinHistoryUnlocked(Object feature);
+
+  /// No description provided for @vipVisitorMessagesBenefit.
+  ///
+  /// In en, this message translates to:
+  /// **'Send up to 50 messages per day'**
+  String get vipVisitorMessagesBenefit;
+
+  /// No description provided for @vipVisitorProfilesBenefit.
+  ///
+  /// In en, this message translates to:
+  /// **'View up to 100 profiles per day'**
+  String get vipVisitorProfilesBenefit;
+
+  /// No description provided for @vipVisitorFriendsBenefit.
+  ///
+  /// In en, this message translates to:
+  /// **'Add friends and build your network'**
+  String get vipVisitorFriendsBenefit;
+
+  /// No description provided for @vipVisitorCommunitiesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Join Communities'**
+  String get vipVisitorCommunitiesTitle;
+
+  /// No description provided for @vipVisitorCommunitiesBenefit.
+  ///
+  /// In en, this message translates to:
+  /// **'Participate in community discussions'**
+  String get vipVisitorCommunitiesBenefit;
+
+  /// No description provided for @vipVisitorMomentsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Share Moments'**
+  String get vipVisitorMomentsTitle;
+
+  /// No description provided for @vipVisitorMomentsBenefit.
+  ///
+  /// In en, this message translates to:
+  /// **'Post and share your moments'**
+  String get vipVisitorMomentsBenefit;
+
+  /// No description provided for @vipUnlimitedEverythingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlimited Everything'**
+  String get vipUnlimitedEverythingTitle;
+
+  /// No description provided for @vipUnlimitedEverythingBenefit.
+  ///
+  /// In en, this message translates to:
+  /// **'No daily limits on messages or profile views'**
+  String get vipUnlimitedEverythingBenefit;
+
+  /// No description provided for @vipProfileBoostBenefit.
+  ///
+  /// In en, this message translates to:
+  /// **'Get more visibility in search results'**
+  String get vipProfileBoostBenefit;
+
+  /// No description provided for @vipAdFreeExperienceBenefit.
+  ///
+  /// In en, this message translates to:
+  /// **'Enjoy the app without advertisements'**
+  String get vipAdFreeExperienceBenefit;
+
+  /// No description provided for @featureGateUpgradeToUnlock.
+  ///
+  /// In en, this message translates to:
+  /// **'Upgrade to unlock this feature'**
+  String get featureGateUpgradeToUnlock;
+
+  /// No description provided for @featureGateVipOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'VIP only feature'**
+  String get featureGateVipOnly;
+
+  /// No description provided for @adsRewardedButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Watch Ad for Bonus'**
+  String get adsRewardedButtonLabel;
+
+  /// No description provided for @promoAdsPerkMessages.
+  ///
+  /// In en, this message translates to:
+  /// **'+3 bonus\nmessages'**
+  String get promoAdsPerkMessages;
+
+  /// No description provided for @promoAdsPerkFilters.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock\nfilters'**
+  String get promoAdsPerkFilters;
+
+  /// No description provided for @promoAdsPerkXp.
+  ///
+  /// In en, this message translates to:
+  /// **'+10 bonus\nXP'**
+  String get promoAdsPerkXp;
+
+  /// No description provided for @promoAdsPerkRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Free\nretry'**
+  String get promoAdsPerkRetry;
+
+  /// No description provided for @visitorLimitMessagesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily Message Limit Reached'**
+  String get visitorLimitMessagesTitle;
+
+  /// No description provided for @visitorLimitMessagesBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You have sent {count} messages today. Upgrade to send more!'**
+  String visitorLimitMessagesBody(int count);
+
+  /// No description provided for @visitorLimitProfilesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily Profile View Limit Reached'**
+  String get visitorLimitProfilesTitle;
+
+  /// No description provided for @visitorLimitProfilesBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You have viewed {count} profiles today. Upgrade to view more!'**
+  String visitorLimitProfilesBody(int count);
+
+  /// No description provided for @visitorLimitFreeAccountBenefit.
+  ///
+  /// In en, this message translates to:
+  /// **'Higher daily limits'**
+  String get visitorLimitFreeAccountBenefit;
+
+  /// No description provided for @visitorLimitVipBenefit.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlimited access'**
+  String get visitorLimitVipBenefit;
+
+  /// No description provided for @promoWelcomeBackTutorSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Practice conversations, pronunciation & quizzes'**
+  String get promoWelcomeBackTutorSubtitle;
+
+  /// No description provided for @promoWelcomeBackCommunitySubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Find language partners near you'**
+  String get promoWelcomeBackCommunitySubtitle;
+
+  /// No description provided for @promoWelcomeBackMomentsSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Share your language learning journey'**
+  String get promoWelcomeBackMomentsSubtitle;
+
+  /// No description provided for @myReportsReportedId.
+  ///
+  /// In en, this message translates to:
+  /// **'Reported ID'**
+  String get myReportsReportedId;
+
+  /// No description provided for @myReportsReason.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason'**
+  String get myReportsReason;
+
+  /// No description provided for @myReportsSubmitted.
+  ///
+  /// In en, this message translates to:
+  /// **'Submitted'**
+  String get myReportsSubmitted;
+
+  /// No description provided for @myReportsResolved.
+  ///
+  /// In en, this message translates to:
+  /// **'Resolved'**
+  String get myReportsResolved;
+
+  /// No description provided for @myReportsModeratorNotes.
+  ///
+  /// In en, this message translates to:
+  /// **'Moderator Notes'**
+  String get myReportsModeratorNotes;
+
+  /// No description provided for @myReportsNotAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'N/A'**
+  String get myReportsNotAvailable;
+
+  /// No description provided for @myReportsFailedToLoad.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load reports'**
+  String get myReportsFailedToLoad;
+
+  /// No description provided for @voiceRecorderUnavailableDesktop.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice recording not available on desktop'**
+  String get voiceRecorderUnavailableDesktop;
+
+  /// No description provided for @adminPageUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'This page isn\'t available.'**
+  String get adminPageUnavailable;
+
+  /// No description provided for @storyShareSendFailedTo.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t send to {names}'**
+  String storyShareSendFailedTo(Object names);
+
+  /// No description provided for @storyCantReact.
+  ///
+  /// In en, this message translates to:
+  /// **'You can\'t react to this story'**
+  String get storyCantReact;
+
+  /// No description provided for @storyCantReply.
+  ///
+  /// In en, this message translates to:
+  /// **'You can\'t reply to this story'**
+  String get storyCantReply;
+
+  /// No description provided for @storyNoMediaToSave.
+  ///
+  /// In en, this message translates to:
+  /// **'This story doesn\'t have media to save'**
+  String get storyNoMediaToSave;
+
+  /// No description provided for @coinsAdCrediting.
+  ///
+  /// In en, this message translates to:
+  /// **'Crediting…'**
+  String get coinsAdCrediting;
+
+  /// No description provided for @coinsWatchAdReward.
+  ///
+  /// In en, this message translates to:
+  /// **'Watch ad (+5 💎)'**
+  String get coinsWatchAdReward;
+
+  /// No description provided for @callUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} isn\'t taking calls right now'**
+  String callUnavailable(String name);
+
+  /// No description provided for @callDeclineWithMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Message'**
+  String get callDeclineWithMessage;
+
+  /// No description provided for @callDeclineSheetTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Decline with a message'**
+  String get callDeclineSheetTitle;
+
+  /// No description provided for @callDeclineCannedLater.
+  ///
+  /// In en, this message translates to:
+  /// **'Can\'t talk now. I\'ll call you back.'**
+  String get callDeclineCannedLater;
+
+  /// No description provided for @callDeclineCannedText.
+  ///
+  /// In en, this message translates to:
+  /// **'Can\'t talk now. Text me?'**
+  String get callDeclineCannedText;
+
+  /// No description provided for @callDeclineCustomHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Write a message…'**
+  String get callDeclineCustomHint;
+
+  /// No description provided for @callDeclineSend.
+  ///
+  /// In en, this message translates to:
+  /// **'Send'**
+  String get callDeclineSend;
+
+  /// No description provided for @callBackAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Call back'**
+  String get callBackAction;
+
+  /// No description provided for @callMessageAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Message'**
+  String get callMessageAction;
+
+  /// No description provided for @callsAllowTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow calls'**
+  String get callsAllowTitle;
+
+  /// No description provided for @callsAllowSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'When off, calls to you don\'t ring. Callers see that you\'re not taking calls.'**
+  String get callsAllowSubtitle;
+
+  /// No description provided for @callsQuietHoursNote.
+  ///
+  /// In en, this message translates to:
+  /// **'With “Allow urgent notifications” off, calls are held during quiet hours too.'**
+  String get callsQuietHoursNote;
+
+  /// No description provided for @callTurnOnCamera.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera'**
+  String get callTurnOnCamera;
+
+  /// No description provided for @callCameraFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t turn the camera on'**
+  String get callCameraFailed;
+
+  /// No description provided for @callSelfViewLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Your camera. Drag to move.'**
+  String get callSelfViewLabel;
+
+  /// No description provided for @callSelfViewSwapHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Double tap to swap with the other video'**
+  String get callSelfViewSwapHint;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

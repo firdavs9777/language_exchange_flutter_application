@@ -1,3 +1,5 @@
+import 'package:bananatalk_app/models/announcement.dart';
+
 class AppAnnouncement {
   final bool active;
   final String id;
@@ -30,6 +32,23 @@ class AppAnnouncement {
   }
 }
 
+/// One malformed item is dropped; it never costs the whole app-config.
+List<Announcement> _parseAnnouncements(Object? raw) {
+  if (raw is! List) return const <Announcement>[];
+  final out = <Announcement>[];
+  for (final m in raw) {
+    if (m is! Map) continue;
+    try {
+      final a = Announcement.fromJson(Map<String, dynamic>.from(m));
+      // Nothing to show without text (e.g. non-string title and body).
+      if (a.id.isNotEmpty && (a.title.isNotEmpty || a.body.isNotEmpty)) {
+        out.add(a);
+      }
+    } catch (_) {}
+  }
+  return out;
+}
+
 class AppConfig {
   final String minVersion;
   final String latestVersion;
@@ -38,6 +57,10 @@ class AppConfig {
   final String androidUrl;
   final String releaseNotes;
   final AppAnnouncement? announcement;
+
+  /// Every live in-app announcement for this platform + language, sorted by
+  /// the server (spec §5.2). Empty on an older server.
+  final List<Announcement> announcements;
 
   /// Workstream D: server-side kill switch for the public Language Rooms
   /// feature. Defaults to `true` so older/dev config payloads that predate
@@ -109,6 +132,7 @@ class AppConfig {
     required this.androidUrl,
     required this.releaseNotes,
     this.announcement,
+    this.announcements = const [],
     this.roomsEnabled = true,
     this.reelsEnabled = false,
     this.coinsEnabled = false,
@@ -135,6 +159,7 @@ class AppConfig {
           announcementJson != null
               ? AppAnnouncement.fromJson(announcementJson)
               : null,
+      announcements: _parseAnnouncements(json['announcements']),
       roomsEnabled: (json['roomsEnabled'] as bool?) ?? true,
       reelsEnabled: (json['reelsEnabled'] as bool?) ?? false,
       coinsEnabled: (json['coinsEnabled'] as bool?) ?? false,

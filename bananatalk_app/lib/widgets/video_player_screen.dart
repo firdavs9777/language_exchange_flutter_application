@@ -37,9 +37,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
     try {
       _videoController = VideoPlayerController.networkUrl(
         Uri.parse(widget.videoUrl),
-        httpHeaders: const {
-          'Accept': '*/*',
-        },
+        httpHeaders: const {'Accept': '*/*'},
         videoPlayerOptions: VideoPlayerOptions(
           mixWithOthers: false,
           allowBackgroundPlayback: false,
@@ -78,7 +76,10 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
               children: [
                 const Icon(Icons.error, color: Colors.white, size: 48),
                 const SizedBox(height: 16),
-                const Text('Error loading video', style: TextStyle(color: Colors.white)),
+                Text(
+                  AppLocalizations.of(context)!.momentsErrorLoadingVideo,
+                  style: const TextStyle(color: Colors.white),
+                ),
                 const SizedBox(height: 8),
                 Text(
                   errorMessage,
@@ -113,8 +114,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
     }
 
     // Update buffer progress
-    if (_videoController!.value.buffered.isNotEmpty) {
-    }
+    if (_videoController!.value.buffered.isNotEmpty) {}
   }
 
   Widget _buildPlaceholder() {
@@ -128,9 +128,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
             errorBuilder: (_, __, ___) => Container(color: Colors.black),
           ),
           Container(color: Colors.black.withOpacity(0.3)),
-          const Center(
-            child: CircularProgressIndicator(color: Colors.white),
-          ),
+          const Center(child: CircularProgressIndicator(color: Colors.white)),
         ],
       );
     }
@@ -160,7 +158,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
         foregroundColor: Colors.white,
         elevation: 0,
         title: Text(
-          widget.title ?? 'Video',
+          widget.title ?? AppLocalizations.of(context)!.video,
           style: const TextStyle(color: Colors.white, fontSize: 16),
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
@@ -194,9 +192,9 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
               children: [
                 const CircularProgressIndicator(color: Colors.white),
                 const SizedBox(height: 16),
-                const Text(
-                  'Loading video...',
-                  style: TextStyle(color: Colors.white70),
+                Text(
+                  AppLocalizations.of(context)!.momentsLoadingVideo,
+                  style: const TextStyle(color: Colors.white70),
                 ),
               ],
             ),
@@ -212,9 +210,9 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
           children: [
             const Icon(Icons.error_outline, color: Colors.red, size: 64),
             const SizedBox(height: 16),
-            const Text(
-              'Failed to load video',
-              style: TextStyle(color: Colors.white, fontSize: 18),
+            Text(
+              AppLocalizations.of(context)!.failedToLoadVideo,
+              style: const TextStyle(color: Colors.white, fontSize: 18),
             ),
             const SizedBox(height: 8),
             Padding(
@@ -248,9 +246,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
           Center(child: Chewie(controller: _chewieController!)),
           // Buffering indicator overlay
           if (_isBuffering)
-            const Center(
-              child: CircularProgressIndicator(color: Colors.white),
-            ),
+            const Center(child: CircularProgressIndicator(color: Colors.white)),
         ],
       );
     }

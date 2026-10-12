@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/providers/provider_models/story_model.dart';
 import 'package:bananatalk_app/services/stories_service.dart';
@@ -141,7 +142,7 @@ class _StoryViewersSheetState extends State<StoryViewersSheet> {
       if (!mounted) return;
       showStoriesSnackBar(
         context,
-        message: 'Failed to load viewers',
+        message: AppLocalizations.of(context)!.storyViewersLoadFailed,
         type: StoriesSnackBarType.error,
       );
       Navigator.of(context).maybePop();
@@ -181,7 +182,7 @@ class _StoryViewersSheetState extends State<StoryViewersSheet> {
                     Icon(Icons.visibility_outlined, size: 20, color: colorScheme.onSurface),
                     const SizedBox(width: 8),
                     Text(
-                      'Seen by $_viewCount',
+                      AppLocalizations.of(context)!.storySeenBy(_viewCount),
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
@@ -225,7 +226,7 @@ class _StoryViewersSheetState extends State<StoryViewersSheet> {
             padding: const EdgeInsets.symmetric(vertical: 48),
             child: Center(
               child: Text(
-                'No views yet',
+                AppLocalizations.of(context)!.storyNoViewsYet,
                 style: TextStyle(
                   color: colorScheme.onSurfaceVariant,
                   fontSize: 14,

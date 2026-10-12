@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 
@@ -123,7 +124,7 @@ class _MomentMediaCarouselState extends State<MomentMediaCarousel> {
             key: const Key('carousel-cap-notice'),
             padding: const EdgeInsets.only(top: 6),
             child: Text(
-              '+$hidden more',
+              AppLocalizations.of(context)!.momentsMore(hidden),
               style: context.captionSmall.copyWith(color: context.textMuted),
             ),
           ),

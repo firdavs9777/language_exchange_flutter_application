@@ -206,9 +206,12 @@ class _MomentVideoPlayerState extends State<MomentVideoPlayer> {
                         size: 40,
                       ),
                       Spacing.gapSM,
-                      const Text(
-                        'Failed to load video',
-                        style: TextStyle(color: Colors.white54, fontSize: 12),
+                      Text(
+                        AppLocalizations.of(context)!.failedToLoadVideo,
+                        style: const TextStyle(
+                          color: Colors.white54,
+                          fontSize: 12,
+                        ),
                       ),
                       TextButton(
                         onPressed: () {
@@ -263,13 +266,13 @@ class _MomentVideoPlayerState extends State<MomentVideoPlayer> {
                     color: Colors.black54,
                     borderRadius: BorderRadius.circular(4),
                   ),
-                  child: const Row(
+                  child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Icon(Icons.videocam, color: Colors.white, size: 14),
                       Spacing.hGapXS,
                       Text(
-                        'Video',
+                        AppLocalizations.of(context)!.video,
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 10,

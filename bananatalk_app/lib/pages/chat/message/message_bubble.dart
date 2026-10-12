@@ -21,6 +21,7 @@ import 'package:bananatalk_app/pages/chat/header/user_avatar.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/chat/message/message_context_menu_item.dart';
 import 'package:bananatalk_app/pages/chat/message/tick_status.dart';
+import 'package:bananatalk_app/pages/chat/message/chat_tip_row.dart';
 import 'package:bananatalk_app/services/learning_service.dart';
 import 'package:bananatalk_app/services/translation_service.dart';
 import 'package:bananatalk_app/pages/chat/dialogs/translate_unlock_sheet.dart';
@@ -57,6 +58,9 @@ class ChatMessageBubble extends ConsumerStatefulWidget {
   final bool isFirstInGroup;
   final bool isLastInGroup;
 
+  /// Conversation key for the chat tip; null mounts no tip.
+  final String? tipChatId;
+
   /// Workstream D (Task 11) — reports a message (long-press menu). `null`
   /// (the default used everywhere in 1-on-1 chat) hides the menu item, so
   /// the existing DM context menu is unchanged.
@@ -85,6 +89,7 @@ class ChatMessageBubble extends ConsumerStatefulWidget {
     this.isFirstInGroup = true,
     this.isLastInGroup = true,
     this.onReport,
+    this.tipChatId,
   });
 
   @override
@@ -417,7 +422,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
                 ),
                 title: Text(
                   hasInlineTranslation
-                      ? 'Hide translation'
+                      ? l10n.chatHideTranslation
                       : l10n.chatMessageTranslate,
                 ),
                 onTap: () {
@@ -588,6 +593,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
   // ---------- Sending status ----------
 
   Widget _buildSendingStatus() {
+    final l10n = AppLocalizations.of(context)!;
     final status = widget.message.sendingStatus;
 
     if (status == MessageSendingStatus.none) return const SizedBox.shrink();
@@ -610,7 +616,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
             ),
             Spacing.hGapXS,
             Text(
-              'Sending...',
+              l10n.chatSendingEllipsis,
               style: context.captionSmall.copyWith(
                 color: _sendingColor(context),
                 fontWeight: FontWeight.w500,
@@ -637,7 +643,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
               Icon(Icons.error_outline, size: 12, color: _failedColor(context)),
               Spacing.hGapXS,
               Text(
-                'Failed · Tap for options',
+                l10n.chatFailedTapOptions,
                 style: context.captionSmall.copyWith(
                   color: _failedColor(context),
                   fontWeight: FontWeight.w600,
@@ -664,6 +670,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
   // ---------- Context menu ----------
 
   void _showContextMenu(BuildContext context) {
+    retireChatTip(ref, target: 'primary').ignore();
     _hideReactionPicker();
     HapticFeedback.mediumImpact();
 
@@ -1523,6 +1530,11 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
                       widget.message.message != null &&
                       widget.message.message!.isNotEmpty &&
                       !widget.isSelectionMode) ...[
+                    if (widget.tipChatId != null)
+                      ChatTipRow(
+                        messageId: widget.message.id,
+                        chatId: widget.tipChatId!,
+                      ),
                     if (_inlineTranslation != null)
                       Padding(
                         padding: const EdgeInsets.only(

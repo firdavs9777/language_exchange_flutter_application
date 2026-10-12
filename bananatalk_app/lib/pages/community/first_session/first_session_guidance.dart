@@ -17,5 +17,10 @@ import 'package:bananatalk_app/services/guide_store.dart';
 bool shouldShowFirstSessionGuidance({
   required bool withinWindow,
   required bool hasMessaged,
+  required int milestonesDone,
 }) =>
-    shouldShowGuide(withinWindow: withinWindow, acted: hasMessaged);
+    shouldShowGuide(
+      withinWindow: withinWindow,
+      acted: hasMessaged,
+      milestonesDone: milestonesDone,
+    );

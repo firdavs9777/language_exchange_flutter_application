@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:bananatalk_app/models/learning/lesson_model.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 /// Fill in the blank exercise widget
 class FillBlankWidget extends StatefulWidget {
@@ -69,6 +70,7 @@ class _FillBlankWidgetState extends State<FillBlankWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     // Parse the question to find the blank position
     final question = widget.exercise.question;
     final blankRegex = RegExp(r'_{2,}|\[blank\]|\{blank\}');
@@ -129,7 +131,7 @@ class _FillBlankWidgetState extends State<FillBlankWidget> {
         // Word bank (if options available)
         if (widget.exercise.options.isNotEmpty && !widget.showResult) ...[
           Text(
-            'Word Bank',
+            l10n.learnWordBank,
             style: context.labelLarge,
           ),
           Spacing.gapMD,
@@ -202,7 +204,7 @@ class _FillBlankWidgetState extends State<FillBlankWidget> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        _isCorrect ? 'Correct!' : 'Incorrect',
+                        _isCorrect ? l10n.lessonCorrect : l10n.lessonIncorrect,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: _isCorrect ? AppColors.success : AppColors.error,
@@ -210,7 +212,7 @@ class _FillBlankWidgetState extends State<FillBlankWidget> {
                       ),
                       if (!_isCorrect && widget.exercise.correctAnswer != null)
                         Text(
-                          'Correct answer: ${widget.exercise.correctAnswer}',
+                          l10n.learnCorrectAnswer(widget.exercise.correctAnswer!),
                           style: context.bodySmall,
                         ),
                     ],
@@ -264,7 +266,7 @@ class _FillBlankWidgetState extends State<FillBlankWidget> {
               ),
             ),
             child: Text(
-              widget.showResult ? 'Continue' : 'Check',
+              widget.showResult ? l10n.continueButton : l10n.lessonCheck,
               style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,

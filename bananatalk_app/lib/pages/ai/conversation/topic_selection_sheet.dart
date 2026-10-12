@@ -153,7 +153,7 @@ class _TopicSelectionSheetState extends ConsumerState<TopicSelectionSheet> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Text(
-                  'Start Conversation',
+                  AppLocalizations.of(context)!.startConversation,
                   style: context.titleLarge.copyWith(fontWeight: FontWeight.bold),
                 ),
               ),
@@ -170,7 +170,7 @@ class _TopicSelectionSheetState extends ConsumerState<TopicSelectionSheet> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Difficulty Level',
+                      AppLocalizations.of(context)!.aiDifficultyLevel,
                       style: context.labelLarge.copyWith(fontWeight: FontWeight.w600),
                     ),
                     Spacing.gapSM,
@@ -242,7 +242,7 @@ class _TopicSelectionSheetState extends ConsumerState<TopicSelectionSheet> {
                             boxShadow: _tabIndex == 0 ? AppShadows.sm : null,
                           ),
                           child: Text(
-                            'Topics',
+                            AppLocalizations.of(context)!.topics,
                             textAlign: TextAlign.center,
                             style: context.bodyMedium.copyWith(
                               fontWeight: FontWeight.w500,
@@ -267,7 +267,7 @@ class _TopicSelectionSheetState extends ConsumerState<TopicSelectionSheet> {
                             boxShadow: _tabIndex == 1 ? AppShadows.sm : null,
                           ),
                           child: Text(
-                            'Scenarios',
+                            AppLocalizations.of(context)!.aiScenarios,
                             textAlign: TextAlign.center,
                             style: context.bodyMedium.copyWith(
                               fontWeight: FontWeight.w500,
@@ -329,8 +329,8 @@ class _TopicSelectionSheetState extends ConsumerState<TopicSelectionSheet> {
                     ),
                     child: Text(
                       _targetLanguage != null
-                          ? 'Start in ${_targetLanguage!.name}'
-                          : 'Start Conversation',
+                          ? AppLocalizations.of(context)!.aiStartInLanguage(_targetLanguage!.name)
+                          : AppLocalizations.of(context)!.startConversation,
                       style: context.bodyLarge.copyWith(
                         fontWeight: FontWeight.w600,
                         color: Colors.white,
@@ -358,7 +358,7 @@ class _TopicSelectionSheetState extends ConsumerState<TopicSelectionSheet> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Languages',
+            AppLocalizations.of(context)!.languages,
             style: context.labelLarge.copyWith(fontWeight: FontWeight.w600),
           ),
           Spacing.gapSM,
@@ -446,7 +446,7 @@ class _TopicSelectionSheetState extends ConsumerState<TopicSelectionSheet> {
                 Spacing.hGapSM,
                 Expanded(
                   child: Text(
-                    language?.name ?? 'Select',
+                    language?.name ?? AppLocalizations.of(context)!.aiSelect,
                     style: context.bodyMedium.copyWith(
                       fontWeight: FontWeight.w600,
                       color: language != null ? context.textPrimary : context.textMuted,
@@ -490,7 +490,7 @@ class _TopicSelectionSheetState extends ConsumerState<TopicSelectionSheet> {
       loading: () => const Center(
         child: CircularProgressIndicator(color: AppColors.accent),
       ),
-      error: (_, __) => _buildEmptyState('Failed to load topics'),
+      error: (_, __) => _buildEmptyState(AppLocalizations.of(context)!.aiFailedToLoadTopics),
     );
   }
 
@@ -601,7 +601,7 @@ class _TopicSelectionSheetState extends ConsumerState<TopicSelectionSheet> {
       loading: () => const Center(
         child: CircularProgressIndicator(color: AppColors.accent),
       ),
-      error: (_, __) => _buildEmptyState('Failed to load scenarios'),
+      error: (_, __) => _buildEmptyState(AppLocalizations.of(context)!.aiFailedToLoadScenarios),
     );
   }
 

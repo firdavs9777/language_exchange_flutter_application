@@ -96,7 +96,7 @@ class _LessonBuilderScreenState extends ConsumerState<LessonBuilderScreen> {
         if (result['success'] == true && result['data'] != null) {
           _generatedLesson = result['data'] as GeneratedLessonResponse;
         } else {
-          _error = result['message'] ?? 'Failed to generate lesson';
+          _error = result['message'] ?? AppLocalizations.of(context)!.aiFailedToGenerateLesson;
         }
       });
     }
@@ -164,7 +164,7 @@ class _LessonBuilderScreenState extends ConsumerState<LessonBuilderScreen> {
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
-          'AI Lesson Builder',
+          AppLocalizations.of(context)!.aiLessonBuilder,
           style: context.titleMedium.copyWith(fontWeight: FontWeight.bold),
         ),
       ),
@@ -242,12 +242,12 @@ class _LessonBuilderScreenState extends ConsumerState<LessonBuilderScreen> {
             ),
           ),
           const SizedBox(width: 16),
-          const Expanded(
+          Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Generate Custom Lessons',
+                  AppLocalizations.of(context)!.aiGenerateCustomLessons,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 18,
@@ -256,7 +256,7 @@ class _LessonBuilderScreenState extends ConsumerState<LessonBuilderScreen> {
                 ),
                 SizedBox(height: 4),
                 Text(
-                  'AI creates personalized lessons on any topic',
+                  AppLocalizations.of(context)!.aiCreatesPersonalizedLessonsAny,
                   style: TextStyle(
                     color: Colors.white70,
                     fontSize: 13,
@@ -329,7 +329,7 @@ class _LessonBuilderScreenState extends ConsumerState<LessonBuilderScreen> {
                   Icon(Icons.category, color: Colors.grey[600], size: 20),
                   const SizedBox(width: 8),
                   Text(
-                    'Category',
+                    AppLocalizations.of(context)!.category,
                     style: TextStyle(
                       color: Colors.grey[700],
                       fontWeight: FontWeight.w500,
@@ -400,7 +400,7 @@ class _LessonBuilderScreenState extends ConsumerState<LessonBuilderScreen> {
                   Icon(Icons.format_list_numbered, color: Colors.grey[600], size: 20),
                   const SizedBox(width: 8),
                   Text(
-                    'Exercises: $_exerciseCount',
+                    AppLocalizations.of(context)!.aiExercises(_exerciseCount),
                     style: TextStyle(
                       color: Colors.grey[700],
                       fontWeight: FontWeight.w500,
@@ -489,7 +489,7 @@ class _LessonBuilderScreenState extends ConsumerState<LessonBuilderScreen> {
         ),
         validator: (value) {
           if (value == null || value.trim().isEmpty) {
-            return 'Please enter a topic';
+            return AppLocalizations.of(context)!.aiLessonTopicRequired;
           }
           return null;
         },
@@ -502,7 +502,7 @@ class _LessonBuilderScreenState extends ConsumerState<LessonBuilderScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Suggested Topics',
+          AppLocalizations.of(context)!.aiSuggestedTopics,
           style: TextStyle(
             fontSize: 13,
             color: Colors.grey[600],
@@ -565,7 +565,7 @@ class _LessonBuilderScreenState extends ConsumerState<LessonBuilderScreen> {
             ),
             const SizedBox(width: 8),
             Text(
-              _isGenerating ? 'Generating...' : 'Generate Lesson',
+              _isGenerating ? AppLocalizations.of(context)!.aiGeneratingEllipsis : AppLocalizations.of(context)!.aiGenerateLesson,
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 16,
@@ -592,12 +592,12 @@ class _LessonBuilderScreenState extends ConsumerState<LessonBuilderScreen> {
           ),
           Spacing.gapMD,
           Text(
-            'Creating your lesson...',
+            AppLocalizations.of(context)!.aiCreatingLesson,
             style: context.titleSmall.copyWith(fontWeight: FontWeight.w600),
           ),
           Spacing.gapSM,
           Text(
-            'AI is generating exercises and content',
+            AppLocalizations.of(context)!.aiGeneratingExercisesContent,
             style: context.bodySmall.copyWith(color: context.textSecondary),
           ),
         ],
@@ -659,7 +659,7 @@ class _LessonBuilderScreenState extends ConsumerState<LessonBuilderScreen> {
                 Icon(Icons.check_circle, color: Colors.green[700], size: 16),
                 const SizedBox(width: 6),
                 Text(
-                  'Lesson Generated!',
+                  AppLocalizations.of(context)!.aiLessonGenerated,
                   style: TextStyle(
                     color: Colors.green[700],
                     fontWeight: FontWeight.w600,
@@ -736,8 +736,8 @@ class _LessonBuilderScreenState extends ConsumerState<LessonBuilderScreen> {
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                  child: const Text(
-                    'Generate Another',
+                  child: Text(
+                    AppLocalizations.of(context)!.aiGenerateAnother,
                     style: TextStyle(
                       color: Color(0xFF8B5CF6),
                       fontWeight: FontWeight.w600,
@@ -757,8 +757,8 @@ class _LessonBuilderScreenState extends ConsumerState<LessonBuilderScreen> {
                     ),
                     elevation: 0,
                   ),
-                  child: const Text(
-                    'Start Lesson',
+                  child: Text(
+                    AppLocalizations.of(context)!.aiStartLesson,
                     style: TextStyle(fontWeight: FontWeight.w600),
                   ),
                 ),

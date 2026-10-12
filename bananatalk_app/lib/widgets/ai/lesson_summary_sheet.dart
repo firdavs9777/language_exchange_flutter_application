@@ -58,7 +58,7 @@ class _LessonSummarySheetState extends State<LessonSummarySheet> {
         if (result['success'] == true && result['data'] != null) {
           _summary = result['data'] as LessonSummaryResponse;
         } else {
-          _error = result['message'] ?? 'Failed to load summary';
+          _error = result['message'] ?? AppLocalizations.of(context)!.aiFailedToLoadSummary;
         }
       });
     }
@@ -85,15 +85,15 @@ class _LessonSummarySheetState extends State<LessonSummarySheet> {
   }
 
   Widget _buildLoading() {
-    return const Center(
+    return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          CircularProgressIndicator(color: Color(0xFF6366F1)),
-          SizedBox(height: 16),
+          const CircularProgressIndicator(color: Color(0xFF6366F1)),
+          const SizedBox(height: 16),
           Text(
-            'Generating your lesson summary...',
-            style: TextStyle(color: Colors.grey),
+            AppLocalizations.of(context)!.aiGeneratingLessonSummary,
+            style: const TextStyle(color: Colors.grey),
           ),
         ],
       ),
@@ -120,7 +120,7 @@ class _LessonSummarySheetState extends State<LessonSummarySheet> {
               children: [
                 TextButton(
                   onPressed: () => Navigator.pop(context),
-                  child: const Text('Skip'),
+                  child: Text(AppLocalizations.of(context)!.skip),
                 ),
                 const SizedBox(width: 16),
                 ElevatedButton(
@@ -168,9 +168,9 @@ class _LessonSummarySheetState extends State<LessonSummarySheet> {
           const SizedBox(height: 24),
 
           // Summary
-          const Text(
-            'Lesson Summary',
-            style: TextStyle(
+          Text(
+            AppLocalizations.of(context)!.aiLessonSummary,
+            style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
@@ -184,9 +184,9 @@ class _LessonSummarySheetState extends State<LessonSummarySheet> {
           // Key points
           if (summary.keyPoints.isNotEmpty) ...[
             const SizedBox(height: 24),
-            const Text(
-              'Key Points',
-              style: TextStyle(
+            Text(
+              AppLocalizations.of(context)!.aiKeyPoints,
+              style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
@@ -226,9 +226,9 @@ class _LessonSummarySheetState extends State<LessonSummarySheet> {
           // Vocabulary to remember
           if (summary.vocabularyToRemember.isNotEmpty) ...[
             const SizedBox(height: 24),
-            const Text(
-              'Vocabulary to Remember',
-              style: TextStyle(
+            Text(
+              AppLocalizations.of(context)!.aiVocabularyRemember,
+              style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
@@ -284,9 +284,9 @@ class _LessonSummarySheetState extends State<LessonSummarySheet> {
           // Grammar rules
           if (summary.grammarRules.isNotEmpty) ...[
             const SizedBox(height: 24),
-            const Text(
-              'Grammar Rules',
-              style: TextStyle(
+            Text(
+              AppLocalizations.of(context)!.aiGrammarRules,
+              style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
@@ -343,9 +343,9 @@ class _LessonSummarySheetState extends State<LessonSummarySheet> {
                         color: Color(0xFF6366F1),
                       ),
                       const SizedBox(width: 8),
-                      const Text(
-                        'What to Practice Next',
-                        style: TextStyle(
+                      Text(
+                        AppLocalizations.of(context)!.aiWhatPracticeNext,
+                        style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                           color: Color(0xFF6366F1),
@@ -382,10 +382,10 @@ class _LessonSummarySheetState extends State<LessonSummarySheet> {
           // Rewarded ad button
           const SizedBox(height: 8),
           RewardedAdButton(
-            label: 'Watch Ad for +10 Bonus XP',
+            label: AppLocalizations.of(context)!.vocabWatchAdBonus,
             onRewarded: () {
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('+10 Bonus XP earned! 🎉')),
+                SnackBar(content: Text(AppLocalizations.of(context)!.vocabBonusEarned)),
               );
             },
           ),
@@ -403,9 +403,9 @@ class _LessonSummarySheetState extends State<LessonSummarySheet> {
                   borderRadius: BorderRadius.circular(12),
                 ),
               ),
-              child: const Text(
-                'Continue',
-                style: TextStyle(
+              child: Text(
+                AppLocalizations.of(context)!.continueButton,
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
                 ),
@@ -440,9 +440,9 @@ class _LessonSummarySheetState extends State<LessonSummarySheet> {
           if (isPerfect) ...[
             const Icon(Icons.emoji_events, color: Colors.white, size: 48),
             const SizedBox(height: 8),
-            const Text(
-              'Perfect Score!',
-              style: TextStyle(
+            Text(
+              AppLocalizations.of(context)!.aiPerfectScore,
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 24,
                 fontWeight: FontWeight.bold,

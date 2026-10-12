@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/services/analytics_service.dart';
+import 'package:bananatalk_app/services/call_manager.dart';
+import 'package:bananatalk_app/services/launch_modal_coordinator.dart';
 import 'package:bananatalk_app/services/notification_permission.dart';
 import 'package:bananatalk_app/services/notification_service.dart';
 
@@ -20,18 +23,75 @@ class PrimeGate {
 
 final PrimeGate _primeGate = PrimeGate();
 
-/// Offer notification permission at the first moment it is obviously useful.
-///
-/// Shows at most once ever: dismissal marks the prompt spent, because asking
-/// again on every conversation open is how an app teaches people to refuse
-/// reflexively. A user who is already `authorized` never sees this.
-Future<void> maybePrimeNotifications(BuildContext context) async {
+/// `notification_prime_result` value for how the sheet closed.
+String primeResultFor({required bool? accepted, required bool granted}) =>
+    accepted == true ? (granted ? 'granted' : 'declined') : 'later';
+
+/// Whether a message that just appeared in an open conversation is a live
+/// incoming one (not history, not pagination, not mine).
+bool isLiveIncoming({
+  required Set<String> beforeIds,
+  required String id,
+  required String senderId,
+  required String? me,
+  required String createdAt,
+  required DateTime openedAt,
+}) {
+  if (beforeIds.contains(id)) return false;
+  if (me != null && senderId == me) return false;
+  final at = DateTime.tryParse(createdAt);
+  if (at == null) return false;
+  return !at.isBefore(openedAt.subtract(const Duration(seconds: 10)));
+}
+
+/// True when the history load of a conversation has just finished: that
+/// state, empty or not, is the baseline. Anything arriving after it is a
+/// candidate for [isLiveIncoming].
+bool isHistoryLoadComplete({
+  required bool previousLoading,
+  required bool nextLoading,
+}) =>
+    previousLoading && !nextLoading;
+
+/// Whether any message in [next] is a live incoming one, given the ids that
+/// were listed before. False until the baseline is set, so history from the
+/// first load never counts, while an empty chat's first reply does.
+bool shouldTreatAsLive({
+  required bool baselineSet,
+  required Set<String> beforeIds,
+  required Iterable<({String id, String senderId, String createdAt})> next,
+  required String? me,
+  required DateTime openedAt,
+}) =>
+    baselineSet &&
+    next.any((m) => isLiveIncoming(
+          beforeIds: beforeIds,
+          id: m.id,
+          senderId: m.senderId,
+          me: me,
+          createdAt: m.createdAt,
+          openedAt: openedAt,
+        ));
+
+/// Offer notification permission at a moment it is obviously useful
+/// (spec 4.2: first match batch, first wave, first message sent or
+/// received). Shows at most once ever, and only if this launch's
+/// [PopupBudget] is unspent. The budget is consumed only when the sheet will
+/// actually show.
+Future<void> maybePrimeNotifications(
+  BuildContext context, {
+  String trigger = 'unspecified',
+}) async {
   final service = NotificationService();
   final action = service.pendingAction;
   if (!shouldPrimeNotifications(action)) return;
   if (!context.mounted) return;
+  // Never interrupt a call.
+  if (CallManager().currentCall != null) return;
   if (!_primeGate.tryEnter()) return;
   try {
+    if (!PopupBudget.tryConsume()) return;
+    AnalyticsService.instance.logNotificationPrimeShown(trigger);
     final l10n = AppLocalizations.of(context)!;
     final accepted = await showModalBottomSheet<bool>(
       context: context,
@@ -76,12 +136,32 @@ Future<void> maybePrimeNotifications(BuildContext context) async {
     );
 
     if (accepted == true) {
-      await service.requestFullAuthorization();
+      // The contract's results are granted|declined|later, so when the OS
+      // prompt could not be raised (no messaging) or threw, nothing was
+      // answered and no result is logged.
+      final available = service.isMessagingAvailable;
+      try {
+        final granted = await service.requestFullAuthorization();
+        if (available) {
+          AnalyticsService.instance.logNotificationPrimeResult(
+              primeResultFor(accepted: true, granted: granted));
+        }
+      } catch (_) {}
     } else {
       // Covers an explicit decline AND a swipe-dismiss (null).
       await service.markPromptDeclined();
+      AnalyticsService.instance.logNotificationPrimeResult(
+          primeResultFor(accepted: accepted, granted: false));
     }
   } finally {
     _primeGate.exit();
   }
 }
+
+/// Default for MatchesTab: after the first non-empty match batch.
+Future<void> primeAfterFirstMatches(BuildContext context) =>
+    maybePrimeNotifications(context, trigger: 'first_matches');
+
+/// Default for WavesTab: after the first wave received.
+Future<void> primeAfterFirstWave(BuildContext context) =>
+    maybePrimeNotifications(context, trigger: 'first_wave');

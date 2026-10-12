@@ -7047,7 +7047,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get examSpeakingPart3 => 'Speaking — Part 3';
 
   @override
-  String get examSpeakingSubmit => 'Submit recording';
+  String get examSpeakingSubmit => 'Isumite ang recording';
 
   @override
   String get examSpeakingUploading => 'Ina-upload…';
@@ -9560,4 +9560,1654 @@ class AppLocalizationsTl extends AppLocalizations {
   String translatedToLanguage(String language) {
     return 'Isinalin sa $language';
   }
+
+  @override
+  String guideProgress(int count) {
+    return 'Pagsisimula · $count sa 4';
+  }
+
+  @override
+  String get guideChatTip => 'Pindutin nang matagal para isalin o itama';
+
+  @override
+  String get announcementTitle => 'Anunsyo';
+
+  @override
+  String get announcementUnavailable => 'Hindi na available ang anunsyong ito.';
+
+  @override
+  String get notifyAnnouncementsTitle => 'Mga anunsyo';
+
+  @override
+  String get notifyAnnouncementsSubtitle => 'Mga balita at update mula sa BananaTalk team';
+
+  @override
+  String chatDailyLimitBody(Object count) {
+    return 'Ang mga libreng user ay maaaring makipag-chat sa hanggang $count tao bawat araw.\nMag-upgrade sa VIP para sa walang limitasyong usapan!';
+  }
+
+  @override
+  String get chatCompressingVideo => 'Kino-compress ang video...';
+
+  @override
+  String chatShareLocationBody(Object name) {
+    return 'Ipadala ang iyong kasalukuyang lokasyon kay $name. Gawin lang ito sa mga taong pinagkakatiwalaan mo.';
+  }
+
+  @override
+  String get chatShareLocationThisChat => 'chat na ito';
+
+  @override
+  String get chatTranslationLimitReached => 'Naabot na ang limitasyon sa pagsasalin';
+
+  @override
+  String get chatTranslateLimitBody => 'Nagamit mo na ang mga libreng pagsasalin ngayong araw sa chat na ito. Mag-unlock ng higit pa agad gamit ang mga barya.';
+
+  @override
+  String chatReplyingTo(Object name) {
+    return 'Sumasagot kay $name';
+  }
+
+  @override
+  String get chatReplyingToFallback => 'user';
+
+  @override
+  String chatSendingMedia(Object mediaType) {
+    return 'Ipinapadala ang $mediaType...';
+  }
+
+  @override
+  String get chatEnterUsernameStart => 'Maglagay ng username para magsimula ng chat';
+
+  @override
+  String chatSearching(Object username) {
+    return 'Hinahanap si @$username...';
+  }
+
+  @override
+  String chatDeleteConversationBody(Object name) {
+    return 'I-delete ang iyong usapan kay $name? Hindi na ito maibabalik.';
+  }
+
+  @override
+  String get chatQrCode => 'QR Code';
+
+  @override
+  String get chatDraft => 'Draft: ';
+
+  @override
+  String get chatTyping => 'nagta-type...';
+
+  @override
+  String get chatPoweredBy => 'Pinapagana ng ';
+
+  @override
+  String get chatReconnecting => 'Muling kumokonekta sa chat...';
+
+  @override
+  String get chatDailyLimitReached => 'Naabot na ang pang-araw-araw na limitasyon ng mensahe';
+
+  @override
+  String chatMessagesRemainingToday(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count mensahe na lang ang natitira ngayon',
+      one: '1 mensahe na lang ang natitira ngayon',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get chatTranslatePreviewHint => 'Magsimulang mag-type para makita ang salin';
+
+  @override
+  String get chatNoMessagesYet => 'Wala pang mensahe';
+
+  @override
+  String get chatMediaPhoto => 'larawan';
+
+  @override
+  String get chatMediaVideo => 'video';
+
+  @override
+  String get chatMediaAudio => 'audio';
+
+  @override
+  String get chatMediaFile => 'file';
+
+  @override
+  String get chatMediaGeneric => 'media';
+
+  @override
+  String get chatMessageFailedToSend => 'Hindi naipadala ang mensahe';
+
+  @override
+  String get chatSendingEllipsis => 'Ipinapadala...';
+
+  @override
+  String get chatFailedTapOptions => 'Nabigo · I-tap para sa mga opsyon';
+
+  @override
+  String get chatMessageWasDeleted => 'Binura ang mensaheng ito';
+
+  @override
+  String get chatStory => 'Story';
+
+  @override
+  String get chatHi => 'Kumusta!';
+
+  @override
+  String get chatEdited => 'na-edit';
+
+  @override
+  String get chatPremium => 'Premium ✨';
+
+  @override
+  String chatUnlockPremiumWallpapers(Object cost) {
+    return 'I-unlock ang lahat ng Premium ✨ wallpaper para sa 💎$cost coins? Permanenteng ina-unlock nito ang buong pack.';
+  }
+
+  @override
+  String chatWallpaperForName(Object userName) {
+    return 'Chat wallpaper para kay $userName';
+  }
+
+  @override
+  String get chatChooseGallery => 'Pumili mula sa gallery';
+
+  @override
+  String get chatHiThere => 'Kumusta! 😊';
+
+  @override
+  String chatCorrected(Object correctorName) {
+    return 'Itinama ni $correctorName';
+  }
+
+  @override
+  String get chatCorrectionAccepted => 'Tinanggap ang pagwawasto ✓';
+
+  @override
+  String chatForwarded(Object senderName) {
+    return 'Na-forward mula kay $senderName';
+  }
+
+  @override
+  String get chatCached => 'Naka-cache';
+
+  @override
+  String get chatWordBreakdown => 'Pagsusuri ng salita';
+
+  @override
+  String get chatAlternatives => 'Mga alternatibo';
+
+  @override
+  String chatTranslationAlso(Object items) {
+    return 'Pati na rin: $items';
+  }
+
+  @override
+  String get chatAudioUnavailable => 'Hindi available ang audio';
+
+  @override
+  String get chatHideTranslation => 'Itago ang salin';
+
+  @override
+  String get chatStoryExpired => 'Nag-expire na ang story';
+
+  @override
+  String get chatAcceptCorrection => 'Tanggapin ang pagwawasto';
+
+  @override
+  String get chatAccepting => 'Tinatanggap…';
+
+  @override
+  String get chatSaveToVocabularyAction => 'I-save sa bokabularyo';
+
+  @override
+  String momentsMore(Object hidden) {
+    return '+$hidden pa';
+  }
+
+  @override
+  String get momentsAllow => 'Payagan';
+
+  @override
+  String get momentsCompressed => 'Na-compress';
+
+  @override
+  String get momentsPromptDay => 'Paksa ng araw';
+
+  @override
+  String get momentsAnswer => 'Sumagot';
+
+  @override
+  String get momentsAnswerCamera => '🎥 Sumagot gamit ang camera';
+
+  @override
+  String momentsPracticeWriting(Object langName) {
+    return 'Magsanay magsulat sa $langName';
+  }
+
+  @override
+  String get momentsReelPolicyBody => 'Ang mga reel ay maiikling video para sa pag-aaral ng wika — mga sagot sa paksa, pagsasanay sa pagsasalita, paliwanag ng mga native speaker, at mga clip tungkol sa kultura.\n\nWalang pagpapaubaya ang Bananatalk sa hindi katanggap-tanggap na nilalaman: bawal ang kahubaran, hate speech, panliligalig, karahasan, o ilegal na nilalaman. Awtomatikong itinatago ang mga na-report na video habang hinihintay ang pagsusuri pagkatapos ng 2 report, at ang mga paglabag ay maaaring humantong sa pagtanggal ng nilalaman o pag-ban sa account.\n\nMaaari kang mag-report o mag-block mula sa anumang reel anumang oras.';
+
+  @override
+  String get momentsIAgree => 'Sumasang-ayon ako';
+
+  @override
+  String get momentsWhyReportingReel => 'Bakit mo nire-report ang reel na ito?';
+
+  @override
+  String get momentsNoReelsYet => 'Wala pang reel';
+
+  @override
+  String get momentsNoReelsBody => 'Maging una sa pagsagot sa paksa ngayon gamit ang camera, o mag-record ng malayang clip sa pag-aaral ng wika.';
+
+  @override
+  String get momentsPullDownRefresh => 'I-pull down para mag-refresh';
+
+  @override
+  String get momentsErrorLoadingVideo => 'Error sa pag-load ng video';
+
+  @override
+  String get momentsLoadingVideo => 'Nilo-load ang video...';
+
+  @override
+  String momentsFileSizeMb(Object size) {
+    return '${size}MB';
+  }
+
+  @override
+  String momentsMaxDuration(Object duration) {
+    return 'Hanggang $duration';
+  }
+
+  @override
+  String get momentsReportSubmitted => 'Naipadala ang report';
+
+  @override
+  String communityLive(Object count) {
+    return '$count naka-live';
+  }
+
+  @override
+  String get communityFind => 'Hanapin';
+
+  @override
+  String communityFinding(Object username) {
+    return 'Hinahanap si @$username...';
+  }
+
+  @override
+  String get communitySeeAll => 'Tingnan lahat';
+
+  @override
+  String get communitySeeWhoLikes => 'Tingnan kung sino ang may gusto sa iyo';
+
+  @override
+  String get communityUnlimitedBrowsingNoAds => 'Walang limitasyong pag-browse, walang ad, priority matching';
+
+  @override
+  String communityMembersCount(Object count) {
+    return '$count miyembro';
+  }
+
+  @override
+  String communityPeopleCount(Object count) {
+    return '$count tao';
+  }
+
+  @override
+  String get communityFailedLoadArchivedWaves => 'Hindi na-load ang mga naka-archive na kaway';
+
+  @override
+  String get communityGreatChat => 'Ang saya ng chat! 🎉';
+
+  @override
+  String get communityStayTouchPeopleJust => 'Manatiling in touch sa mga taong kakausap mo lang';
+
+  @override
+  String get communityNotNow => 'Hindi muna';
+
+  @override
+  String get communityPerfect => 'Perpekto';
+
+  @override
+  String communityLv(Object level) {
+    return 'Lv.$level';
+  }
+
+  @override
+  String get communityReact => 'Mag-react';
+
+  @override
+  String get communityWavedAtYou => 'Kumaway sa iyo';
+
+  @override
+  String get communitySomeone => 'Isang tao';
+
+  @override
+  String get communityPeopleInterestedInTopic => 'Mga taong interesado sa paksang ito';
+
+  @override
+  String get learnThemedWordSetsBuild => 'Mga set ng salita ayon sa tema para palawakin ang bokabularyo mo';
+
+  @override
+  String get learnTapStartRecording => 'I-tap para simulan ang pagre-record';
+
+  @override
+  String get learnWordBank => 'Word Bank';
+
+  @override
+  String learnCorrectAnswer(Object correctAnswer) {
+    return 'Tamang sagot: $correctAnswer';
+  }
+
+  @override
+  String get learnMatchingDataNotAvailable => 'Hindi available ang data ng pagtutugma';
+
+  @override
+  String get learnExerciseCouldNotLoad => 'Hindi na-load ng ehersisyong ito ang mga pares na itutugma. Subukang buuin muli ang aralin.';
+
+  @override
+  String get learnSkipExercise => 'Laktawan ang Ehersisyo';
+
+  @override
+  String get learnTapItemLeftThen => 'I-tap ang isang item sa kaliwa, pagkatapos ay i-tap ang katugma nito sa kanan';
+
+  @override
+  String learnMatchedOfTotal(Object count, Object count2) {
+    return '$count/$count2 ang naitugma';
+  }
+
+  @override
+  String learnCorrectOfTotal(Object correctCount, Object count) {
+    return '$correctCount/$count ang tama';
+  }
+
+  @override
+  String get learnDragDropReorderItems => 'I-drag at i-drop para muling ayusin ang mga item';
+
+  @override
+  String learnCorrectOrder(Object order) {
+    return 'Tamang pagkakasunod-sunod: $order';
+  }
+
+  @override
+  String learnWordsToReview(int dueCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      dueCount,
+      locale: localeName,
+      other: '$dueCount salitang aaralin muli',
+      one: '1 salitang aaralin muli',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnScore(Object score) {
+    return 'Iskor: $score / 100';
+  }
+
+  @override
+  String learnGotCorrect(Object correct, Object count) {
+    return 'Nakakuha ka ng $correct sa $count na tama.';
+  }
+
+  @override
+  String learnQuestionOf(Object number, Object total) {
+    return 'Tanong $number sa $total';
+  }
+
+  @override
+  String get learnMatchEachWordIts => 'Itugma ang bawat salita sa kahulugan nito';
+
+  @override
+  String get learnCouldNotLoadPacks => 'Hindi ma-load ang mga pack';
+
+  @override
+  String learnWordsExercises(Object wordCount, Object exerciseCount) {
+    return '$wordCount salita · $exerciseCount ehersisyo';
+  }
+
+  @override
+  String get learnAiAutoFill => 'AI Auto-fill';
+
+  @override
+  String get learnPlay => 'I-play';
+
+  @override
+  String get learnFinish => 'Tapusin';
+
+  @override
+  String get learnNotQuite => 'Muntik na.';
+
+  @override
+  String get learnUnsupportedExercise => 'Hindi suportadong ehersisyo';
+
+  @override
+  String get learnFailedLoadAchievements => 'Hindi na-load ang mga achievement';
+
+  @override
+  String learnUnlockedOn(Object date) {
+    return 'Na-unlock noong $date';
+  }
+
+  @override
+  String get learnChallenges => 'Mga Hamon';
+
+  @override
+  String get learnFailedLoadChallenges => 'Hindi na-load ang mga hamon';
+
+  @override
+  String learnNoChallenges(Object type) {
+    return 'Walang $type na hamon';
+  }
+
+  @override
+  String get learnCheckBackLater => 'Bumalik ka mamaya!';
+
+  @override
+  String learnActiveCount(Object count) {
+    return 'Aktibo ($count)';
+  }
+
+  @override
+  String learnCompletedCount(Object count) {
+    return 'Tapos na ($count)';
+  }
+
+  @override
+  String get learnProgress => 'Pag-usad';
+
+  @override
+  String get learnXpReward => 'XP na Gantimpala';
+
+  @override
+  String get learnBonus => 'Bonus';
+
+  @override
+  String learnExpires(Object timeRemainingFormatted) {
+    return 'Mag-e-expire sa $timeRemainingFormatted';
+  }
+
+  @override
+  String get learnAchievementUnlocked => 'Na-unlock ang Achievement!';
+
+  @override
+  String get learnTapContinue => 'I-tap para magpatuloy';
+
+  @override
+  String get learnChallengeCompleted => 'Tapos na';
+
+  @override
+  String get learnDailyGoals => 'Mga Pang-araw-araw na Layunin';
+
+  @override
+  String learnLessons(Object completedCount, Object lessonsCount) {
+    return '$completedCount/$lessonsCount aralin';
+  }
+
+  @override
+  String learnLongestDays(Object longestStreak) {
+    return 'Pinakamahaba: $longestStreak araw';
+  }
+
+  @override
+  String get learnTapReveal => 'I-tap para ipakita';
+
+  @override
+  String get learnNoAchievements => 'Walang achievement';
+
+  @override
+  String get learnDayStreak => 'Sunod-sunod na Araw';
+
+  @override
+  String get learnDueForReview => 'Oras nang mag-review';
+
+  @override
+  String learnNextReview(Object date) {
+    return 'Susunod: $date';
+  }
+
+  @override
+  String get learnChallengeDaily => 'Araw-araw';
+
+  @override
+  String get learnChallengeWeekly => 'Lingguhan';
+
+  @override
+  String get learnChallengeSpecial => 'Espesyal';
+
+  @override
+  String get learnChallengeDailyDesc => 'Kumpletuhin ang mga hamon araw-araw para makakuha ng XP at mga gantimpala!';
+
+  @override
+  String get learnChallengeWeeklyDesc => 'Nire-refresh ang mga lingguhang hamon tuwing Lunes';
+
+  @override
+  String get learnChallengeSpecialDesc => 'Mga hamong limitado ang oras na may bonus na gantimpala!';
+
+  @override
+  String get learnDateToday => 'Ngayon';
+
+  @override
+  String get learnDateTomorrow => 'Bukas';
+
+  @override
+  String learnInDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Sa loob ng $count araw',
+      one: 'Sa loob ng $count araw',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnInWeeks(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Sa loob ng $count linggo',
+      one: 'Sa loob ng $count linggo',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnInMonths(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Sa loob ng $count buwan',
+      one: 'Sa loob ng $count buwan',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiGenerateNewQuiz => 'Gumawa ng bagong quiz';
+
+  @override
+  String get aiPreviousQuizzes => 'Mga nakaraang quiz';
+
+  @override
+  String get aiGeneratingQuiz => 'Ginagawa ang iyong quiz…';
+
+  @override
+  String aiFocusArea(Object name) {
+    return 'Pokus na lugar: $name';
+  }
+
+  @override
+  String get aiQuizType => 'Uri ng quiz';
+
+  @override
+  String get aiDifficulty => 'Antas ng hirap';
+
+  @override
+  String get aiQuestionsLabel => 'Mga tanong:';
+
+  @override
+  String get aiGenerateQuiz => 'Gumawa ng quiz';
+
+  @override
+  String aiQuizQuestionCount(int questionCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      questionCount,
+      locale: localeName,
+      other: '$questionCount tanong',
+      one: '1 tanong',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String aiCorrectOfTotal(Object correctCount, Object totalQuestions) {
+    return '$correctCount/$totalQuestions tama';
+  }
+
+  @override
+  String get aiNoQuizzesYet => 'Wala pang quiz';
+
+  @override
+  String get aiGenerateFirstQuizAbove => 'Gumawa ng iyong unang quiz sa itaas!';
+
+  @override
+  String aiCorrectOutOf(Object correctCount, Object totalQuestions) {
+    return '$correctCount sa $totalQuestions ang tama';
+  }
+
+  @override
+  String get aiBackQuizHub => 'Bumalik sa Quiz Hub';
+
+  @override
+  String get aiNoQuestionsAvailable => 'Walang available na tanong';
+
+  @override
+  String get aiQuizHasNoQuestions => 'Walang tanong na maipapakita sa quiz na ito.';
+
+  @override
+  String aiQuestionOf(Object number, Object count) {
+    return 'Tanong $number sa $count';
+  }
+
+  @override
+  String get aiYourAnswerLabel => 'Ang sagot mo:';
+
+  @override
+  String get aiBonusXpWatching => '🎉 +10 Bonus XP sa panonood!';
+
+  @override
+  String get aiNotQuiteRight => 'Hindi masyadong tama';
+
+  @override
+  String get aiWhy => 'Bakit?';
+
+  @override
+  String get aiGotIt => 'Naintindihan ko';
+
+  @override
+  String get aiHint => 'Pahiwatig';
+
+  @override
+  String aiLevel(Object hintLevel) {
+    return 'Antas $hintLevel/3';
+  }
+
+  @override
+  String get aiAskQuestion => 'Magtanong';
+
+  @override
+  String get aiAsk => 'Itanong';
+
+  @override
+  String get aiAssistantExamples => 'Mga halimbawa';
+
+  @override
+  String get aiExplainConcept => 'Ipaliwanag ang konsepto';
+
+  @override
+  String get aiRelatedConcepts => 'Mga kaugnay na konsepto';
+
+  @override
+  String get aiGeneratingLessonSummary => 'Ginagawa ang buod ng iyong aralin...';
+
+  @override
+  String get aiLessonSummary => 'Buod ng aralin';
+
+  @override
+  String get aiKeyPoints => 'Mga pangunahing punto';
+
+  @override
+  String get aiVocabularyRemember => 'Mga salitang dapat tandaan';
+
+  @override
+  String get aiGrammarRules => 'Mga tuntunin sa balarila';
+
+  @override
+  String get aiWhatPracticeNext => 'Ano ang susunod na pagsasanayan';
+
+  @override
+  String get aiPerfectScore => 'Perpektong iskor!';
+
+  @override
+  String get aiGreatJob => 'Magaling!';
+
+  @override
+  String get aiGoodEffort => 'Magandang pagsisikap!';
+
+  @override
+  String get aiKeepPracticing => 'Magpatuloy sa pagsasanay!';
+
+  @override
+  String get aiFailedToGetHint => 'Hindi nakuha ang pahiwatig';
+
+  @override
+  String get aiFailedToGetAnswer => 'Hindi nakuha ang sagot';
+
+  @override
+  String get aiFailedToExplain => 'Hindi naipaliwanag';
+
+  @override
+  String get aiFailedLoadHistory => 'Hindi na-load ang history';
+
+  @override
+  String aiConversationMessageCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count mensahe',
+      one: '1 mensahe',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiStartNewConversationSee => 'Magsimula ng bagong usapan para makita ito rito';
+
+  @override
+  String get aiLoadingMessages => 'Nilo-load ang mga mensahe...';
+
+  @override
+  String get aiNoMessagesConversation => 'Walang mensahe sa usapang ito';
+
+  @override
+  String get aiDifficultyLevel => 'Antas ng Hirap';
+
+  @override
+  String get aiScenarios => 'Mga Senaryo';
+
+  @override
+  String get aiGrammarCheck => 'Pagsusuri ng Grammar';
+
+  @override
+  String get aiRecentAnalysis => 'Mga Kamakailang Pagsusuri';
+
+  @override
+  String get aiCheckGrammar => 'Suriin ang Grammar';
+
+  @override
+  String get aiLanguageLabel => 'Wika:';
+
+  @override
+  String aiGrammarIssuesFound(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'May $count error na nakita',
+      one: 'May 1 error na nakita',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiPerfect => 'Perpekto!';
+
+  @override
+  String get aiNoGrammarIssuesFound => 'Walang grammar error na nakita sa iyong teksto.';
+
+  @override
+  String aiIssuesFound(Object count) {
+    return 'Mga Nakitang Error ($count)';
+  }
+
+  @override
+  String get aiCorrected => 'Naitama';
+
+  @override
+  String get aiGrammarExamples => 'Mga Halimbawa:';
+
+  @override
+  String get aiImprovedSuggestions => 'Mga Pinahusay na Mungkahi';
+
+  @override
+  String get aiNoAnalysisHistoryYet => 'Wala pang history ng pagsusuri';
+
+  @override
+  String get aiLessonBuilder => 'AI Lesson Builder';
+
+  @override
+  String get aiGenerateCustomLessons => 'Gumawa ng Custom na Aralin';
+
+  @override
+  String get aiCreatesPersonalizedLessonsAny => 'Gumagawa ang AI ng personalized na aralin sa anumang paksa';
+
+  @override
+  String aiExercises(Object exerciseCount) {
+    return 'Mga Ehersisyo: $exerciseCount';
+  }
+
+  @override
+  String get aiSuggestedTopics => 'Mga Iminumungkahing Paksa';
+
+  @override
+  String get aiCreatingLesson => 'Ginagawa ang iyong aralin...';
+
+  @override
+  String get aiGeneratingExercisesContent => 'Gumagawa ang AI ng mga ehersisyo at nilalaman';
+
+  @override
+  String get aiLessonGenerated => 'Nagawa na ang Aralin!';
+
+  @override
+  String get aiGenerateAnother => 'Gumawa Pa ng Isa';
+
+  @override
+  String get aiStartLesson => 'Simulan ang Aralin';
+
+  @override
+  String get aiPronunciationPractice => 'Pagsasanay sa Pagbigkas';
+
+  @override
+  String get aiPracticeHistory => 'History ng Pagsasanay';
+
+  @override
+  String get aiTextPractice => 'Tekstong Sasanayin';
+
+  @override
+  String get aiWordAnalysis => 'Pagsusuri ng Salita';
+
+  @override
+  String get aiNoPracticeHistoryYet => 'Wala pang history ng pagsasanay';
+
+  @override
+  String get aiSmartTranslation => 'Smart na Pagsasalin';
+
+  @override
+  String get aiWordBreakdown => 'Hati ng mga Salita';
+
+  @override
+  String get aiAlternativeTranslations => 'Mga Alternatibong Pagsasalin';
+
+  @override
+  String get aiGrammarNotes => 'Mga Tala sa Grammar';
+
+  @override
+  String get aiIdiomsExpressions => 'Mga Idyoma at Ekspresyon';
+
+  @override
+  String aiLiteral(Object literalTranslation) {
+    return 'Literal: $literalTranslation';
+  }
+
+  @override
+  String aiMeaning(Object meaning) {
+    return 'Kahulugan: $meaning';
+  }
+
+  @override
+  String aiEquivalent(Object equivalentIdiom) {
+    return 'Katumbas: $equivalentIdiom';
+  }
+
+  @override
+  String get aiCulturalContext => 'Konteksto ng Kultura';
+
+  @override
+  String get aiNoCompletedConversations => 'Walang natapos na usapan';
+
+  @override
+  String get aiNoActiveConversations => 'Walang aktibong usapan';
+
+  @override
+  String aiStartInLanguage(Object language) {
+    return 'Magsimula sa $language';
+  }
+
+  @override
+  String get aiSelect => 'Piliin';
+
+  @override
+  String aiIssuesCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count error',
+      one: '1 error',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiGenerateLesson => 'Gumawa ng Aralin';
+
+  @override
+  String get aiGeneratingEllipsis => 'Ginagawa...';
+
+  @override
+  String get aiAnalyzing => 'Sinusuri...';
+
+  @override
+  String get aiExcellentPronunciation => 'Napakahusay na pagbigkas!';
+
+  @override
+  String get aiGoodJob => 'Magaling!';
+
+  @override
+  String get profileBuyMeCoffee => 'Ilibre mo ako ng kape';
+
+  @override
+  String get profileOr => 'o';
+
+  @override
+  String get profileLoadingNotifications => 'Nilo-load ang mga notification...';
+
+  @override
+  String get profileLoadingSettings => 'Nilo-load ang mga setting...';
+
+  @override
+  String get profileAdmin => 'ADMIN';
+
+  @override
+  String get profileSelected => 'NAPILI';
+
+  @override
+  String get profilePrivacyIntro => 'Ikaw ang may kontrol sa makikita ng iba. I-off ang mga item para itago ang mga ito sa iyong pampublikong profile.';
+
+  @override
+  String get profileUpdate => 'I-update';
+
+  @override
+  String get profileNoTopicsCategory => 'Walang paksa sa kategoryang ito';
+
+  @override
+  String get profileAdminTools => 'Mga Admin Tool';
+
+  @override
+  String profileCompletionAdd(Object items) {
+    return 'Idagdag: $items';
+  }
+
+  @override
+  String get profileActive => 'AKTIBO';
+
+  @override
+  String get profileAutoSaveEnabled => 'Naka-on ang auto-save';
+
+  @override
+  String get profileChangesSavedInstantlyWhen => 'Agad na nase-save ang mga pagbabago kapag nag-toggle ka.';
+
+  @override
+  String get profileCurrentTheme => 'Kasalukuyang tema';
+
+  @override
+  String get profileThemeChangesApplyInstantly => 'Agad na nailalapat ang mga pagbabago sa tema sa buong app.';
+
+  @override
+  String get profileLoadingVisitors => 'Nilo-load ang mga bisita...';
+
+  @override
+  String get profileSeeWhoChecked => 'Tingnan kung sino ang tumingin sa profile mo';
+
+  @override
+  String get profileRecentVisitors => 'Mga Kamakailang Bisita';
+
+  @override
+  String get profileNoReportsSubmitted => 'Walang naipasang report';
+
+  @override
+  String get profileReportsSubmitWillAppear => 'Lalabas dito ang mga report na ipapasa mo';
+
+  @override
+  String profileReportTypeTitle(Object type) {
+    return 'Report sa $type';
+  }
+
+  @override
+  String profileReportReason(Object reason) {
+    return 'Dahilan: $reason';
+  }
+
+  @override
+  String get profileDeleteAccountFinalBody => 'Permanenteng made-delete ang lahat ng data mo.\n\nSigurado ka ba talaga?';
+
+  @override
+  String get profileThanksForWatching => 'Salamat sa panonood! 🙏';
+
+  @override
+  String get profileNotificationsOn => 'Naka-on ang mga notification';
+
+  @override
+  String get profileNotificationsOff => 'Naka-off ang mga notification';
+
+  @override
+  String get profileMaximumReached => 'Naabot na ang maximum';
+
+  @override
+  String get profilePickYourInterests => 'Piliin ang mga interes mo';
+
+  @override
+  String get profileDeselectToChooseAnother => 'Alisin ang pagpili sa isa para makapili ng iba';
+
+  @override
+  String get profileTapTopicsMatchVibe => 'I-tap ang mga paksang bagay sa iyo';
+
+  @override
+  String get profileEnjoyingPremium => 'Nasisiyahan sa mga premium na feature';
+
+  @override
+  String get profileUnlockUnlimited => 'I-unlock ang walang limitasyong mensahe at AI tool';
+
+  @override
+  String get profileBirthYear => 'Taon ng kapanganakan';
+
+  @override
+  String get profileReportTypeUser => 'Gumagamit';
+
+  @override
+  String get profileReportTypeMoment => 'Moment';
+
+  @override
+  String get profileReportTypeComment => 'Komento';
+
+  @override
+  String get profileReportTypeMessage => 'Mensahe';
+
+  @override
+  String get profileReportTypeStory => 'Story';
+
+  @override
+  String get profileReportReasonCopyright => 'Karapatang-ari';
+
+  @override
+  String get storyOptimizingBestExperience => 'Ino-optimize para sa pinakamagandang karanasan';
+
+  @override
+  String get storyCreate => 'Gumawa ng Story';
+
+  @override
+  String get storyAddTags => 'Magdagdag ng mga tag';
+
+  @override
+  String get storyVideoSelected => 'Napili ang Video';
+
+  @override
+  String get storyAddPoll => 'Magdagdag ng Poll';
+
+  @override
+  String get storyOptions => 'Mga Opsyon';
+
+  @override
+  String get storyAddQuestion => 'Magdagdag ng Tanong';
+
+  @override
+  String get storyPrompt => 'Prompt';
+
+  @override
+  String get storyTapAnywhereAddText => 'Mag-tap kahit saan para magdagdag ng teksto';
+
+  @override
+  String storyHighlightStoryCount(int storyCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      storyCount,
+      locale: localeName,
+      other: '$storyCount na story',
+      one: '1 story',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storySendFriends => 'Ipadala sa mga kaibigan';
+
+  @override
+  String storySelected(Object count) {
+    return '$count ang napili';
+  }
+
+  @override
+  String get storyShareSave => 'Ibahagi/I-save';
+
+  @override
+  String storySeenBy(Object viewCount) {
+    return 'Nakita ni $viewCount';
+  }
+
+  @override
+  String get storyNoViewsYet => 'Wala pang views';
+
+  @override
+  String get storyEditVideo => 'I-edit ang Video';
+
+  @override
+  String storyVotes(Object totalVotes) {
+    return '$totalVotes boto';
+  }
+
+  @override
+  String get storyCreatePoll => 'Gumawa ng Poll';
+
+  @override
+  String get storySendAnonymously => 'Ipadala nang anonymous';
+
+  @override
+  String storyResponseCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count na sagot',
+      one: '1 sagot',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyViewResponses => 'Tingnan ang mga sagot';
+
+  @override
+  String get storyResponsesTitle => 'Mga Sagot';
+
+  @override
+  String get storyNoResponsesYet => 'Wala pang mga sagot';
+
+  @override
+  String get storyQuestionBox => 'Kahon ng Tanong';
+
+  @override
+  String get storySent => 'Naipadala!';
+
+  @override
+  String get storyProcessing => 'Pinoproseso...';
+
+  @override
+  String get storyHd => 'HD';
+
+  @override
+  String storyVideoMeta(Object duration, Object size) {
+    return '$duration | ${size}MB';
+  }
+
+  @override
+  String get storyUserFallback => 'User';
+
+  @override
+  String storySendCount(int count) {
+    return 'Ipadala ($count)';
+  }
+
+  @override
+  String get storyFailedToDelete => 'Hindi nabura ang story';
+
+  @override
+  String get storyAnonymous => 'Anonymous';
+
+  @override
+  String get vipNoCoinActivityYet => 'Wala pang aktibidad ng barya';
+
+  @override
+  String get vipCoinShopExplainer => 'Ginagamit ang mga barya para mag-unlock ng dagdag na paggamit ng mga pagsasalin, AI tutor chat, at moments kapag naabot mo na ang libreng pang-araw-araw na limitasyon. Hindi na maibabalik ang bayad kapag nagastos na ang mga barya.';
+
+  @override
+  String get vipLimitReached => 'Naabot na ang limitasyon';
+
+  @override
+  String get vipCoins => 'barya';
+
+  @override
+  String vipBonusIncluded(Object bonusCoins) {
+    return 'Kasama ang +$bonusCoins bonus';
+  }
+
+  @override
+  String get vipVisitorModeLimitReached => 'Naabot na ang Limitasyon ng Visitor Mode';
+
+  @override
+  String get vipWhatGetFreeAccount => 'Ano ang Makukuha Mo sa Libreng Account';
+
+  @override
+  String get vipCreateFreeAccount => 'Gumawa ng Libreng Account';
+
+  @override
+  String get vipGoUnlimitedAccess => 'Mag-VIP para sa Walang Limitasyong Access';
+
+  @override
+  String get vipContinueAsVisitor => 'Magpatuloy bilang Bisita';
+
+  @override
+  String vipResets(Object resetTime) {
+    return 'Magre-reset sa: $resetTime';
+  }
+
+  @override
+  String vipUsedToday(Object currentUsage, Object maxAllowed) {
+    return '$currentUsage / $maxAllowed ang nagamit ngayon';
+  }
+
+  @override
+  String get vipTierVisitor => 'Bisita';
+
+  @override
+  String get vipTierMember => 'Miyembro';
+
+  @override
+  String get vipAd => 'Patalastas';
+
+  @override
+  String get promoAdsNoticeTitle => 'Isang paalala mula sa developer';
+
+  @override
+  String get promoAdsNoticeBody => 'Kumusta! Ako si Firdavs, ang nag-iisang developer ng Bananatalk. Nagdagdag ako ng ilang maliliit na patalastas sa app para mapanatili itong libre at mapondohan ang patuloy na pagpapaunlad.\n\nAlam kong nakakainis ang mga patalastas — kaya ginawa kong opsyonal at may gantimpala ang mga ito. Manood ng patalastas para mag-unlock ng dagdag na mensahe, community filter, bonus XP pagkatapos ng quiz, at marami pa.\n\nSalamat sa paggamit ng Bananatalk. Napakahalaga ng suporta mo. 🙏';
+
+  @override
+  String get promoAdsNoticeGotIt => 'Sige, salamat! 👍';
+
+  @override
+  String get vipOnly => 'Para sa VIP Lang';
+
+  @override
+  String get vipTapUpgrade => 'I-tap para mag-upgrade';
+
+  @override
+  String get vipUnlockFeatures => 'I-unlock ang mga VIP Feature';
+
+  @override
+  String get vipUpPillUp => 'Taas';
+
+  @override
+  String get vipChooseOption => 'Pumili ng opsyon:';
+
+  @override
+  String get promoWelcomeBackTitle => 'Maligayang pagbabalik! 👋';
+
+  @override
+  String get promoWelcomeBackBody => 'Na-miss ka namin. Narito ang naghihintay sa iyo:';
+
+  @override
+  String get promoWelcomeBackCta => 'Tara na! 🚀';
+
+  @override
+  String get vipCoinsPerAdInfo => '+5 barya bawat patalastas, hanggang 5 bawat araw';
+
+  @override
+  String get vipUpgradeUnlockMore => 'Mag-upgrade para ma-unlock ang higit pang feature at walang limitasyong access';
+
+  @override
+  String get vipUpgradeNow => 'Mag-upgrade Ngayon';
+
+  @override
+  String get commonContinueWhereLeftOff => 'Ituloy kung saan ka huminto?';
+
+  @override
+  String get commonLanguageNotProvided => 'Hindi nabigay ang wika';
+
+  @override
+  String get commonExamNotProvided => 'Hindi nabigay ang pagsusulit';
+
+  @override
+  String get commonMuted => 'Naka-mute';
+
+  @override
+  String get commonPoorConnection => 'Mahinang koneksyon';
+
+  @override
+  String commonBlockUserConfirmBody(Object targetUserName) {
+    return 'Sigurado ka bang gusto mong i-block si $targetUserName?\n\nHindi mo na makikita ang kanilang mga mensahe at post, at hindi na kayo lalabas sa paghahanap ng isa\'t isa.';
+  }
+
+  @override
+  String get commonVideoFile => 'Video file';
+
+  @override
+  String get commonPointCameraBananatalkQr => 'Ituro ang camera mo sa isang Bananatalk QR code';
+
+  @override
+  String get commonReportSubmittedButSome => 'Naisumite ang ulat, pero hindi na-upload ang ilang ebidensya';
+
+  @override
+  String commonReportTitle(Object typeLabel) {
+    return 'I-report ang $typeLabel';
+  }
+
+  @override
+  String commonWhyReporting(Object typeLabel) {
+    return 'Bakit mo ni-re-report ang $typeLabel na ito?';
+  }
+
+  @override
+  String get commonAddEvidenceRequired => 'Magdagdag ng ebidensya (kailangan)';
+
+  @override
+  String get commonUploadScreenshotsTextFiles => 'Mag-upload ng mga screenshot o text file para suportahan ang iyong ulat';
+
+  @override
+  String commonAddEvidenceCount(Object count, Object maxFiles) {
+    return 'Magdagdag ng ebidensya ($count/$maxFiles)';
+  }
+
+  @override
+  String commonReportTotalSize(Object max, Object used) {
+    return 'Kabuuan: $used / $max';
+  }
+
+  @override
+  String get commonEvidence => 'Ebidensya';
+
+  @override
+  String get commonImageFailed => 'Nabigo ang larawan';
+
+  @override
+  String get commonShowMore => 'Magpakita pa';
+
+  @override
+  String get commonVoiceRecordingNotAvailable => 'Hindi available ang voice recording';
+
+  @override
+  String get commonVoiceRecordingOnlyAvailable => 'Available lang ang voice recording sa mga mobile device.';
+
+  @override
+  String get commonReportSubmittedSuccessfully => 'Matagumpay na naisumite ang ulat';
+
+  @override
+  String get commonErrorLoadingFile => 'Error sa pag-load ng file';
+
+  @override
+  String get commonReportTypeUser => 'user';
+
+  @override
+  String get commonReportTypeMoment => 'moment';
+
+  @override
+  String get commonReportTypeComment => 'komento';
+
+  @override
+  String get commonReportTypeMessage => 'mensahe';
+
+  @override
+  String get commonReportTypeStory => 'story';
+
+  @override
+  String get commonReportTypeContent => 'nilalaman';
+
+  @override
+  String get commonReportReasonCopyright => 'Paglabag sa copyright';
+
+  @override
+  String get momentsRemoveVoiceNote => 'Alisin ang voice note';
+
+  @override
+  String get vocabPackLevelProficiency => 'Kahusayan';
+
+  @override
+  String get aiFailedToLoadFeedback => 'Hindi na-load ang feedback';
+
+  @override
+  String get aiFailedToLoadSummary => 'Hindi na-load ang buod';
+
+  @override
+  String get momentFailedToLoad => 'Hindi na-load ang moment';
+
+  @override
+  String get aiPronunciationWatchAdRetry => 'Manood ng ad para sa isa pang libreng subok';
+
+  @override
+  String aiErrorLoadingLanguages(Object error) {
+    return 'Error sa pag-load ng mga wika: $error';
+  }
+
+  @override
+  String get aiSelectSourceTargetLanguages => 'Pumili ng pinagmulang wika at target na wika';
+
+  @override
+  String get aiUnexpectedResponseFormat => 'Hindi inaasahang format ng tugon';
+
+  @override
+  String get aiFailedToLoadConversation => 'Hindi na-load ang usapan';
+
+  @override
+  String get aiMicPermissionDeniedSettings => 'Tinanggihan ang pahintulot sa mikropono. Paki-enable ito sa Settings.';
+
+  @override
+  String get aiFailedToEvaluatePronunciation => 'Hindi nasuri ang pagbigkas';
+
+  @override
+  String get aiFailedToGenerateSpeech => 'Hindi nakabuo ng boses';
+
+  @override
+  String get aiFailedToGenerateLesson => 'Hindi nakabuo ng aralin';
+
+  @override
+  String get aiLessonTopicRequired => 'Maglagay ng paksa';
+
+  @override
+  String get aiFailedToLoadTopics => 'Hindi na-load ang mga paksa';
+
+  @override
+  String get aiFailedToLoadScenarios => 'Hindi na-load ang mga senaryo';
+
+  @override
+  String get aiAnalysisFailed => 'Nabigo ang pagsusuri';
+
+  @override
+  String get storySearchPlaceHint => 'Maghanap ng lugar…';
+
+  @override
+  String get storySearchRecentChatsHint => 'Maghanap sa mga kamakailang chat…';
+
+  @override
+  String get storySearchFollowingHint => 'Maghanap ng mga taong sinusundan mo…';
+
+  @override
+  String get storyAddHashtagsHint => 'Magdagdag ng mga hashtag...';
+
+  @override
+  String get storyHighlightCreateFailed => 'Hindi nagawa ang highlight';
+
+  @override
+  String get storyHighlightRenameFailed => 'Hindi napalitan ang pangalan ng highlight';
+
+  @override
+  String get storyHighlightDeleteFailed => 'Hindi nabura ang highlight';
+
+  @override
+  String get storyViewersLoadFailed => 'Hindi na-load ang mga nanood';
+
+  @override
+  String get storyShareSent => 'Naipadala 💛';
+
+  @override
+  String storyShareSentPartial(Object names) {
+    return 'Naipadala 💛 — nabigo para kina $names';
+  }
+
+  @override
+  String get storyVoteFailed => 'Hindi naisumite ang boto';
+
+  @override
+  String get storyAnswerFailed => 'Hindi naipadala ang sagot';
+
+  @override
+  String get storyAlreadyInHighlight => 'Naka-save na sa isang highlight';
+
+  @override
+  String get storyAddedToHighlight => 'Naidagdag sa highlight';
+
+  @override
+  String storyMaxHashtags(int max) {
+    return 'Maaari kang magdagdag ng hanggang $max hashtag';
+  }
+
+  @override
+  String storyMaxMentions(int max) {
+    return 'Maaari kang mag-mention ng hanggang $max tao';
+  }
+
+  @override
+  String get coinHistoryActivity => 'Aktibidad ng coin';
+
+  @override
+  String get coinHistoryAdReward => 'Nanood ng ad';
+
+  @override
+  String get coinHistoryPurchase => 'Pagbili ng coin';
+
+  @override
+  String coinHistoryUnlocked(Object feature) {
+    return 'Na-unlock ang $feature';
+  }
+
+  @override
+  String get vipVisitorMessagesBenefit => 'Magpadala ng hanggang 50 mensahe bawat araw';
+
+  @override
+  String get vipVisitorProfilesBenefit => 'Tumingin ng hanggang 100 profile bawat araw';
+
+  @override
+  String get vipVisitorFriendsBenefit => 'Magdagdag ng mga kaibigan at palawakin ang iyong network';
+
+  @override
+  String get vipVisitorCommunitiesTitle => 'Sumali sa mga komunidad';
+
+  @override
+  String get vipVisitorCommunitiesBenefit => 'Makilahok sa mga talakayan ng komunidad';
+
+  @override
+  String get vipVisitorMomentsTitle => 'Magbahagi ng mga moment';
+
+  @override
+  String get vipVisitorMomentsBenefit => 'Mag-post at magbahagi ng iyong mga moment';
+
+  @override
+  String get vipUnlimitedEverythingTitle => 'Lahat ay walang limitasyon';
+
+  @override
+  String get vipUnlimitedEverythingBenefit => 'Walang pang-araw-araw na limitasyon sa mga mensahe o pagtingin ng profile';
+
+  @override
+  String get vipProfileBoostBenefit => 'Mas makita sa mga resulta ng paghahanap';
+
+  @override
+  String get vipAdFreeExperienceBenefit => 'I-enjoy ang app nang walang ad';
+
+  @override
+  String get featureGateUpgradeToUnlock => 'Mag-upgrade para ma-unlock ang feature na ito';
+
+  @override
+  String get featureGateVipOnly => 'Feature para sa VIP lang';
+
+  @override
+  String get adsRewardedButtonLabel => 'Manood ng ad para sa bonus';
+
+  @override
+  String get promoAdsPerkMessages => '+3 bonus\nna mensahe';
+
+  @override
+  String get promoAdsPerkFilters => 'I-unlock ang\nmga filter';
+
+  @override
+  String get promoAdsPerkXp => '+10 bonus\nXP';
+
+  @override
+  String get promoAdsPerkRetry => 'Libreng\nulit';
+
+  @override
+  String get visitorLimitMessagesTitle => 'Naabot na ang pang-araw-araw na limitasyon ng mensahe';
+
+  @override
+  String visitorLimitMessagesBody(int count) {
+    return 'Nakapagpadala ka na ng $count mensahe ngayong araw. Mag-upgrade para magpadala pa!';
+  }
+
+  @override
+  String get visitorLimitProfilesTitle => 'Naabot na ang pang-araw-araw na limitasyon sa pagtingin ng profile';
+
+  @override
+  String visitorLimitProfilesBody(int count) {
+    return 'Nakakita ka na ng $count profile ngayong araw. Mag-upgrade para makakita pa!';
+  }
+
+  @override
+  String get visitorLimitFreeAccountBenefit => 'Mas mataas na pang-araw-araw na limitasyon';
+
+  @override
+  String get visitorLimitVipBenefit => 'Walang limitasyong access';
+
+  @override
+  String get promoWelcomeBackTutorSubtitle => 'Magsanay ng pag-uusap, pagbigkas, at mga quiz';
+
+  @override
+  String get promoWelcomeBackCommunitySubtitle => 'Humanap ng mga language partner malapit sa iyo';
+
+  @override
+  String get promoWelcomeBackMomentsSubtitle => 'Ibahagi ang iyong paglalakbay sa pag-aaral ng wika';
+
+  @override
+  String get myReportsReportedId => 'Na-report na ID';
+
+  @override
+  String get myReportsReason => 'Dahilan';
+
+  @override
+  String get myReportsSubmitted => 'Naisumite';
+
+  @override
+  String get myReportsResolved => 'Nalutas';
+
+  @override
+  String get myReportsModeratorNotes => 'Mga tala ng moderator';
+
+  @override
+  String get myReportsNotAvailable => 'Wala';
+
+  @override
+  String get myReportsFailedToLoad => 'Hindi na-load ang mga ulat';
+
+  @override
+  String get voiceRecorderUnavailableDesktop => 'Hindi available ang voice recording sa desktop';
+
+  @override
+  String get adminPageUnavailable => 'Hindi available ang pahinang ito.';
+
+  @override
+  String storyShareSendFailedTo(Object names) {
+    return 'Hindi naipadala kina $names';
+  }
+
+  @override
+  String get storyCantReact => 'Hindi ka makakapag-react sa story na ito';
+
+  @override
+  String get storyCantReply => 'Hindi ka makakasagot sa story na ito';
+
+  @override
+  String get storyNoMediaToSave => 'Walang media na ise-save sa story na ito';
+
+  @override
+  String get coinsAdCrediting => 'Kinukredito…';
+
+  @override
+  String get coinsWatchAdReward => 'Manood ng ad (+5 💎)';
+
+  @override
+  String callUnavailable(String name) {
+    return 'Hindi tumatanggap ng tawag si $name ngayon';
+  }
+
+  @override
+  String get callDeclineWithMessage => 'Mensahe';
+
+  @override
+  String get callDeclineSheetTitle => 'Tanggihan na may mensahe';
+
+  @override
+  String get callDeclineCannedLater => 'Hindi ako makapag-usap ngayon. Tatawagan kita ulit.';
+
+  @override
+  String get callDeclineCannedText => 'Hindi ako makapag-usap ngayon. I-text mo ako?';
+
+  @override
+  String get callDeclineCustomHint => 'Magsulat ng mensahe…';
+
+  @override
+  String get callDeclineSend => 'Ipadala';
+
+  @override
+  String get callBackAction => 'Tawagan muli';
+
+  @override
+  String get callMessageAction => 'Mensahe';
+
+  @override
+  String get callsAllowTitle => 'Payagan ang mga tawag';
+
+  @override
+  String get callsAllowSubtitle => 'Kapag naka-off, hindi magri-ring ang mga tawag sa iyo. Makikita ng mga tumatawag na hindi ka tumatanggap ng tawag.';
+
+  @override
+  String get callsQuietHoursNote => 'Kapag naka-off ang “Payagan ang mahahalagang notification,” pinipigil din ang mga tawag sa quiet hours.';
+
+  @override
+  String get callTurnOnCamera => 'Camera';
+
+  @override
+  String get callCameraFailed => 'Hindi nabuksan ang camera';
+
+  @override
+  String get callSelfViewLabel => 'Ang camera mo. I-drag para ilipat.';
+
+  @override
+  String get callSelfViewSwapHint => 'I-double tap para makipagpalit sa kabilang video';
 }

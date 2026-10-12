@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/services/activation_store.dart';
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/learning/daily_pack_model.dart';
@@ -91,6 +92,11 @@ class _DailyPackFlowState extends State<DailyPackFlow> {
             reviews: reviews,
             text: text,
           );
+    // completeStation throws on any failure, so reaching here is a success.
+    // A station finished is a lesson done; idempotent after the first.
+    if (widget.submit == null) {
+      ActivationStore().markDone(ActivationAction.lesson).ignore();
+    }
     _last = result;
     return result;
   }

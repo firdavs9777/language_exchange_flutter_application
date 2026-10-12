@@ -12,21 +12,21 @@ void main() {
   group('shouldShowFirstSessionGuidance', () {
     test('someone inside the window who has not messaged sees it', () {
       expect(
-        shouldShowFirstSessionGuidance(withinWindow: true, hasMessaged: false),
+        shouldShowFirstSessionGuidance(withinWindow: true, hasMessaged: false, milestonesDone: 0),
         isTrue,
       );
     });
 
     test('a user who has already messaged never sees it', () {
       expect(
-        shouldShowFirstSessionGuidance(withinWindow: true, hasMessaged: true),
+        shouldShowFirstSessionGuidance(withinWindow: true, hasMessaged: true, milestonesDone: 0),
         isFalse,
       );
     });
 
     test('an account past the window never sees it', () {
       expect(
-        shouldShowFirstSessionGuidance(withinWindow: false, hasMessaged: false),
+        shouldShowFirstSessionGuidance(withinWindow: false, hasMessaged: false, milestonesDone: 0),
         isFalse,
       );
     });
@@ -38,8 +38,9 @@ void main() {
         for (final acted in [true, false]) {
           expect(
             shouldShowFirstSessionGuidance(
-                withinWindow: within, hasMessaged: acted),
-            shouldShowGuide(withinWindow: within, acted: acted),
+                withinWindow: within, hasMessaged: acted, milestonesDone: 0),
+            shouldShowGuide(
+                withinWindow: within, acted: acted, milestonesDone: 0),
           );
         }
       }
@@ -55,7 +56,7 @@ void main() {
       expect(
         shouldShowFirstSessionGuidance(
           withinWindow: true,
-          hasMessaged: unknown.hasMessaged,
+          hasMessaged: unknown.hasMessaged, milestonesDone: 0
         ),
         isFalse,
       );

@@ -37,7 +37,7 @@ enum CallExitReason {
 /// notification, resume recovery, or CallKit). Used for dedupe decisions.
 enum IncomingSource { socket, push, notificationTap, recovery, callKit }
 
-enum InitiateStatus { started, calleeBusy, callerBusy, permissionDenied, failed }
+enum InitiateStatus { started, calleeBusy, calleeUnavailable, callerBusy, permissionDenied, failed }
 
 /// What a tapped incoming-call notification should open.
 enum IncomingTapAction { showCall, openChat }
@@ -180,6 +180,7 @@ class CallManager with WidgetsBindingObserver {
   bool _peerGone = false;
   bool _localReconnecting = false;
   bool _recovering = false;
+  bool _upgrading = false;
 
   final StreamController<CallFinish> _finishController = StreamController<CallFinish>.broadcast();
 
@@ -195,6 +196,9 @@ class CallManager with WidgetsBindingObserver {
   Function(String)? onCallError;
   Function(bool)? onPeerMuteChanged;
   Function(bool)? onPeerVideoChanged;
+
+  /// A live call became a video call (either side turned the camera on).
+  void Function(CallType type)? onCallTypeChanged;
   Function()? onPeerReconnecting;
   Function()? onPeerReconnected;
   Function()? onReconnecting;
@@ -214,6 +218,11 @@ class CallManager with WidgetsBindingObserver {
   /// service on the next resume.
   bool _callServicePending = false;
   bool _isSpeakerOn = false;
+
+  /// The audio route before this call turned into a video call (local or
+  /// peer upgrade); restored if the upgrade is rolled back. Null when the
+  /// call has not been upgraded.
+  bool? _speakerBeforeUpgrade;
   bool _isFrontCamera = true;
 
   CallUiState get connectionState => _connectionState;
@@ -293,7 +302,7 @@ class CallManager with WidgetsBindingObserver {
     } else if (state == AppLifecycleState.resumed) {
       if (_callServicePending) {
         _callServicePending = false;
-        if (c != null) unawaited(_deps.platform.startCallService(video: c.callType == CallType.video));
+        if (c != null) unawaited(_deps.platform.startCallService(video: _isVideoEnabled));
       }
       if (_cameraPausedByLifecycle) {
         _cameraPausedByLifecycle = false;
@@ -646,6 +655,17 @@ class CallManager with WidgetsBindingObserver {
     final outcome = callOutcomeFromWire(m['outcome']?.toString());
 
     if (status == 'active') {
+      // Already past ringing: a repeat 'active' is a Phase 2 type change
+      // (voice → video), never a second accept. (A call that already ended
+      // or is unknown never gets here: the guard above drops it.)
+      if (cur.status != CallStatus.ringing) {
+        if (m['type'] == 'video' && cur.callType != CallType.video) {
+          currentCall = cur.copyWith(callType: CallType.video);
+          _routeAudioForVideo();
+          onCallTypeChanged?.call(CallType.video);
+        }
+        return;
+      }
       if (cur.direction == CallDirection.outgoing) {
         _ringSafetyTimer?.cancel();
         unawaited(_deps.platform.stopTones());
@@ -958,6 +978,7 @@ class CallManager with WidgetsBindingObserver {
     if (!res.ok) {
       currentCall = null;
       if (res.isCalleeBusy) return const InitiateResult(InitiateStatus.calleeBusy);
+      if (res.isCalleeUnavailable) return const InitiateResult(InitiateStatus.calleeUnavailable);
       if (res.isCallerBusy) return const InitiateResult(InitiateStatus.callerBusy);
       // 403 CONVERSATION_START_LIMIT: a call to a stranger counts as starting a
       // conversation. Like the chat send path, show the server's own message
@@ -1106,7 +1127,7 @@ class CallManager with WidgetsBindingObserver {
     onCallAccepted?.call(currentCall!);
   }
 
-  Future<void> rejectCall() async {
+  Future<void> rejectCall({String? message}) async {
     final call = currentCall;
     if (call == null) {
       _closeNow();
@@ -1114,7 +1135,7 @@ class CallManager with WidgetsBindingObserver {
     }
     if (call.callId.isNotEmpty) {
       final deviceId = await _deps.platform.deviceId();
-      unawaited(_deps.api.decline(call.callId, deviceId: deviceId));
+      unawaited(_deps.api.decline(call.callId, deviceId: deviceId, message: message));
       if (!_sameId(currentCall?.callId, call.callId)) return;
     }
     onCallRejected?.call(call.copyWith(status: CallStatus.rejected));
@@ -1209,6 +1230,7 @@ class CallManager with WidgetsBindingObserver {
     _cameraPausedByLifecycle = false;
     _callServicePending = false;
     _isSpeakerOn = false;
+    _speakerBeforeUpgrade = null;
     _isFrontCamera = true;
   }
 
@@ -1245,15 +1267,130 @@ class CallManager with WidgetsBindingObserver {
     _emitToPeer('call:video-toggle', {'isVideoEnabled': enabled});
   }
 
+  /// Camera on during a voice call (either side). Publishes video and makes
+  /// the call a video call on the server so history says "Video call".
+  /// Returns false on any failure (no call, still ringing, no permission,
+  /// non-200) and never throws; a refused upgrade rolls the camera back.
+  /// True when the last [upgradeToVideo]/[enableCamera] failed only because
+  /// camera permission was denied (the manager already reported it through
+  /// [onCallError], so the UI must not add a second message).
+  bool lastCameraFailureWasPermission = false;
+
+  /// Camera back on in a call that is already video: permission check, then
+  /// publish. Never POSTs /upgrade (the server type is already video).
+  Future<bool> enableCamera() async {
+    lastCameraFailureWasPermission = false;
+    final cur = currentCall;
+    if (cur == null || cur.status != CallStatus.connected) return false;
+    if (!await _deps.platform.ensurePermissions(video: true)) {
+      lastCameraFailureWasPermission = true;
+      onCallError?.call(await _deps.platform.permissionError(video: true, accepting: false));
+      return false;
+    }
+    if (!_sameId(currentCall?.callId, cur.callId)) return false;
+    setVideoEnabled(true);
+    return true;
+  }
+
+  Future<bool> upgradeToVideo() async {
+    if (_upgrading) return false;
+    _upgrading = true;
+    lastCameraFailureWasPermission = false;
+    try {
+      final cur = currentCall;
+      // Only a connected call has a room to publish into; while connecting
+      // the camera would never publish but the server would record video.
+      if (cur == null || cur.status != CallStatus.connected) return false;
+      if (cur.callType == CallType.video) {
+        // Already a video call: only the camera changes, no POST.
+        _upgrading = false;
+        return enableCamera();
+      }
+      if (!await _deps.platform.ensurePermissions(video: true)) {
+        lastCameraFailureWasPermission = true;
+        onCallError?.call(await _deps.platform.permissionError(video: true, accepting: false));
+        return false;
+      }
+      if (!_sameId(currentCall?.callId, cur.callId)) return false;
+      final wasVoice = cur.callType != CallType.video;
+      setVideoEnabled(true);
+      if (wasVoice) {
+        currentCall = cur.copyWith(callType: CallType.video);
+        _routeAudioForVideo();
+        onCallTypeChanged?.call(CallType.video);
+        unawaited(_deps.platform.setWakelock(true));
+        if (_deps.isAppResumed()) unawaited(_deps.platform.startCallService(video: true));
+      }
+      CallApiResult? res;
+      try {
+        res = await _deps.api.upgrade(cur.callId);
+      } catch (_) {}
+      if (res != null && res.ok && res.statusCode == 200) return true;
+      if (!wasVoice) return false;
+      if (res != null && res.statusCode >= 400 && res.statusCode < 500) {
+        // A definite refusal: the server kept the call as voice.
+        _rollBackUpgrade(cur.callId);
+        return false;
+      }
+      // Timeout, dropped connection or 5xx: the server may have applied the
+      // upgrade (and told the peer). Ask it before rolling back.
+      return _settleUnknownUpgrade(cur.callId);
+    } catch (e) {
+      debugPrint('upgradeToVideo failed: $e');
+      return false;
+    } finally {
+      _upgrading = false;
+    }
+  }
+
+  /// The upgrade POST gave no definite answer. GET the call: video → the
+  /// upgrade landed, keep it; voice → roll back. If that read fails too the
+  /// outcome stays unknown and the optimistic video state is kept: a peer
+  /// upgrade arrives as `call:state` anyway, and a phone showing video while
+  /// the server says voice only costs the history label, whereas rolling
+  /// back a call the server (and the peer) already made video leaves this
+  /// phone on a voice layout with its camera off while the peer waits.
+  Future<bool> _settleUnknownUpgrade(String callId) async {
+    CallApiResult? check;
+    try {
+      check = await _deps.api.get(callId);
+    } catch (_) {}
+    final c = currentCall;
+    if (c == null || !_sameId(c.callId, callId) || c.callType != CallType.video) return false;
+    final type = check != null && check.ok ? check.data['type']?.toString() : null;
+    if (type == 'audio') {
+      _rollBackUpgrade(callId);
+      return false;
+    }
+    return true;
+  }
+
+  /// A call that just became video routes audio to the loudspeaker, as a
+  /// call started as video does at connect ([CallLiveKitManager.connect]).
+  /// The previous route is kept for [_rollBackUpgrade].
+  void _routeAudioForVideo() {
+    _speakerBeforeUpgrade ??= _isSpeakerOn;
+    unawaited(setSpeakerOn(true));
+  }
+
+  void _rollBackUpgrade(String callId) {
+    final c = currentCall;
+    if (c == null || !_sameId(c.callId, callId) || c.callType != CallType.video) return;
+    setVideoEnabled(false);
+    currentCall = c.copyWith(callType: CallType.audio);
+    final previousRoute = _speakerBeforeUpgrade;
+    _speakerBeforeUpgrade = null;
+    if (previousRoute != null) unawaited(setSpeakerOn(previousRoute));
+    onCallTypeChanged?.call(CallType.audio);
+    unawaited(_deps.platform.setWakelock(false));
+    if (_deps.isAppResumed()) unawaited(_deps.platform.startCallService(video: false));
+  }
+
   void toggleVideo() => setVideoEnabled(!_isVideoEnabled);
 
   Future<void> setSpeakerOn(bool on) async {
     _isSpeakerOn = on;
-    try {
-      await lk.Hardware.instance.setSpeakerphoneOn(on);
-    } catch (e) {
-      debugPrint('🔊 setSpeakerphoneOn failed: $e');
-    }
+    await _liveKit.setSpeakerOn(on);
   }
 
   Future<void> toggleSpeaker() => setSpeakerOn(!_isSpeakerOn);

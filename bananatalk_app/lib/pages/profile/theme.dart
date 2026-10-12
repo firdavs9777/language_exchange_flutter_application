@@ -176,7 +176,7 @@ class _ProfileThemeState extends ConsumerState<ProfileTheme> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Current theme',
+                  l10n.profileCurrentTheme,
                   style: context.captionSmall.copyWith(
                     color: modeColor,
                     fontWeight: FontWeight.w800,
@@ -627,7 +627,7 @@ class _ProfileThemeState extends ConsumerState<ProfileTheme> {
           const SizedBox(width: 10),
           Expanded(
             child: Text(
-              'Theme changes apply instantly across the entire app.',
+              l10n.profileThemeChangesApplyInstantly,
               style: context.captionSmall.copyWith(
                 color: isDark
                     ? const Color(0xFF64B5F6)

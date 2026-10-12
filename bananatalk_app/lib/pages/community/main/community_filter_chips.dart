@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/utils/language_flags.dart';
@@ -137,7 +138,7 @@ class CommunityFilterChips extends StatelessWidget {
           GestureDetector(
             onTap: onClearAll,
             child: Text(
-              'Clear',
+              AppLocalizations.of(context)!.clear,
               style: TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w600,

@@ -7,7 +7,16 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timeago/timeago.dart' as timeago;
+import 'package:bananatalk_app/utils/time_ago.dart';
+
+/// What a list-row tap hands the router. Announcement rows store only
+/// `{announcementId}`, so their type is injected; other rows are unchanged.
+/// The row's own id rides along as `notificationId` so the tap is reported.
+Map<String, dynamic> notificationTapPayload(NotificationItem n) => {
+      if (n.type == 'announcement') 'type': 'announcement',
+      ...n.data,
+      'notificationId': n.id,
+    };
 
 class NotificationHistoryScreen extends ConsumerStatefulWidget {
   const NotificationHistoryScreen({super.key});
@@ -84,6 +93,8 @@ class _NotificationHistoryScreenState
         return Icons.local_fire_department_rounded;
       case 'vip_renewal_warning':
         return Icons.workspace_premium_rounded;
+      case 'announcement':
+        return Icons.campaign_rounded;
       default:
         return Icons.notifications_rounded;
     }
@@ -125,6 +136,8 @@ class _NotificationHistoryScreenState
         return const Color(0xFFFF5722); // deep orange
       case 'vip_renewal_warning':
         return const Color(0xFFFFC107); // gold
+      case 'announcement':
+        return const Color(0xFFFF7043); // deep orange
       default:
         return const Color(0xFF607D8B);
     }
@@ -378,7 +391,7 @@ class _NotificationHistoryScreenState
             ),
             const SizedBox(height: 14),
             Text(
-              'Loading notifications...',
+              l10n.profileLoadingNotifications,
               style: context.bodySmall.copyWith(color: context.textSecondary),
             ),
           ],
@@ -604,6 +617,7 @@ class _NotificationHistoryScreenState
 
   // ========== NOTIFICATION ITEM ==========
   Widget _buildNotificationItem(NotificationItem notification) {
+    final l10n = AppLocalizations.of(context)!;
     final iconColor = _getNotificationColor(notification.type);
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final isUnread = !notification.read;
@@ -621,12 +635,12 @@ class _NotificationHistoryScreenState
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           mainAxisSize: MainAxisSize.min,
-          children: const [
-            Icon(Icons.delete_rounded, color: Colors.white, size: 22),
-            SizedBox(width: 6),
+          children: [
+            const Icon(Icons.delete_rounded, color: Colors.white, size: 22),
+            const SizedBox(width: 6),
             Text(
-              'Delete',
-              style: TextStyle(
+              l10n.delete,
+              style: const TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.w700,
                 fontSize: 13,
@@ -656,10 +670,7 @@ class _NotificationHistoryScreenState
               // router reports the tap. The stored `data` blob is whatever the
               // server put in the push payload and historically carried no id,
               // so an in-app tap never registered as a click.
-              NotificationRouter.handleNotification(context, {
-                ...notification.data,
-                'notificationId': notification.id,
-              });
+              NotificationRouter.handleNotification(context, notificationTapPayload(notification));
             }
           },
           borderRadius: BorderRadius.circular(16),
@@ -806,7 +817,7 @@ class _NotificationHistoryScreenState
                           ),
                           const SizedBox(width: 3),
                           Text(
-                            timeago.format(notification.createdAt),
+                            timeAgoFor(context, notification.createdAt),
                             style: context.captionSmall.copyWith(
                               color: context.textMuted,
                               fontWeight: FontWeight.w600,

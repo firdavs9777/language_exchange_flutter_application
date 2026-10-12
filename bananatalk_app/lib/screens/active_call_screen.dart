@@ -11,6 +11,12 @@ import 'package:bananatalk_app/providers/call_provider.dart';
 import 'package:bananatalk_app/services/call_manager.dart'
     show CallManager, CallUiState, CallQuality, CallFinish, CallExitReason;
 import 'package:bananatalk_app/widgets/call/call_duration_timer.dart';
+import 'package:bananatalk_app/widgets/call/swappable_video_layout.dart';
+
+// Space the self-view must stay clear of: top bar + quality badge, and the
+// control bar + switch-camera button (the latter scaled with text size).
+const double _kPipTopInset = 90;
+const double _kPipBottomInset = 200;
 
 class ActiveCallScreen extends ConsumerStatefulWidget {
   final CallModel call;
@@ -25,7 +31,13 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
     with SingleTickerProviderStateMixin {
   bool _isMuted = false;
   bool _isVideoEnabled = true;
-  late bool _isSpeakerOn;
+  /// The audio route lives in CallManager (it reroutes on a voice → video
+  /// upgrade and restores on a rollback); the screen only reads it.
+  bool get _isSpeakerOn => _cachedCallManager?.isSpeakerOn ?? false;
+  // The call type follows CallManager.onCallTypeChanged: a voice call becomes
+  // video when either side turns the camera on.
+  late CallType _callType;
+  void Function(CallType)? _typeListener;
   DateTime? _connectedTime;
   bool _isPeerMuted = false;
   bool _isPeerVideoEnabled = true;
@@ -54,9 +66,13 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
   void initState() {
     super.initState();
     _cachedCallManager = ref.read(callProvider.notifier).callManager;
-    // Default: speaker ON for video calls, OFF for audio calls
-    _isSpeakerOn = widget.call.callType == CallType.video;
-    _isVideoEnabled = widget.call.callType == CallType.video;
+    final live = _cachedCallManager!.currentCall;
+    final isLive = live != null && live.callId == widget.call.callId;
+    _callType = isLive ? live.callType : widget.call.callType;
+    // A reopened screen shows the camera that is really in effect: after a
+    // peer upgrade the call is video but the local camera is still off.
+    _isVideoEnabled = _callType == CallType.video &&
+        (!isLive || _cachedCallManager!.isVideoEnabled);
 
     _reconnectAnimController = AnimationController(
       vsync: this,
@@ -193,6 +209,19 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
         }
       };
 
+      // Voice <-> video. A peer upgrade changes the layout only: the local
+      // camera stays off until the user taps (_isVideoEnabled is untouched);
+      // a rolled-back upgrade turns it off again. CallManager moves the audio
+      // route itself (speaker for video, previous route on rollback).
+      final listener = _typeListener = (type) {
+        if (!mounted) return;
+        setState(() {
+          _callType = type;
+          if (type != CallType.video) _isVideoEnabled = false;
+        });
+      };
+      if (mounted) callManager.onCallTypeChanged = listener;
+
       // Watch for status changes (fallback)
       ref.listenManual(callProvider, (previous, next) {
         if (next.currentCall?.status == CallStatus.connected &&
@@ -216,6 +245,10 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
       callManager.onPeerReconnected = null;
       callManager.onPeerMuteChanged = null;
       callManager.onPeerVideoChanged = null;
+      // A rebuilt screen may already own the callback; only clear our own.
+      if (identical(callManager.onCallTypeChanged, _typeListener)) {
+        callManager.onCallTypeChanged = null;
+      }
       callManager.onRawQualityChanged = null;
     }
     _reconnectAnimController.dispose();
@@ -228,6 +261,13 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
 
   void _hideReconnectBanner() => _reconnectAnimController.reverse();
 
+  void _showCameraFailed(AppLocalizations l10n) {
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(l10n.callCameraFailed)),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
@@ -235,7 +275,7 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
     final callManager = callNotifier.callManager;
     final localTrack = callManager.liveKit.localVideoTrack;
     final remoteTrack = callManager.liveKit.remoteVideoTrack;
-    final isVideoCall = widget.call.callType == CallType.video;
+    final isVideoCall = _callType == CallType.video;
 
     return PopScope(
       canPop: false,
@@ -244,97 +284,59 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
         body: SafeArea(
           child: Stack(
             children: [
-              // Remote Video (Full Screen) — for video calls when the peer's
-              // camera is on and their video track is subscribed.
-              if (isVideoCall && !_isEnding && _isPeerVideoEnabled &&
-                  remoteTrack != null)
+              // Video call: the remote feed is large and the self-view is a
+              // draggable tile that swaps with it on tap. Otherwise (voice
+              // call, or ending) show the avatar/info.
+              if (isVideoCall && !_isEnding)
                 Positioned.fill(
-                  child: lk.VideoTrackRenderer(
-                    remoteTrack,
-                    fit: lk.VideoViewFit.cover,
-                    mirrorMode: lk.VideoViewMirrorMode.off,
+                  child: SwappableVideoLayout(
+                    // Keep the tile clear of the top bar / quality badge and
+                    // the control bar + switch-camera button.
+                    insets: EdgeInsets.only(
+                      top: _kPipTopInset,
+                      bottom: MediaQuery.textScalerOf(context)
+                          .scale(_kPipBottomInset),
+                    ),
+                    // Swapping only makes sense while both feeds are live
+                    // video, otherwise a placeholder would fill the screen.
+                    swapEnabled: _isPeerVideoEnabled &&
+                        remoteTrack != null &&
+                        localTrack != null,
+                    localLabel: l10n.callSelfViewLabel,
+                    remoteLabel: widget.call.userName,
+                    swapHint: l10n.callSelfViewSwapHint,
+                    remote: _isPeerVideoEnabled && remoteTrack != null
+                        ? lk.VideoTrackRenderer(
+                            remoteTrack,
+                            fit: lk.VideoViewFit.cover,
+                            mirrorMode: lk.VideoViewMirrorMode.off,
+                          )
+                        : _buildPeerPlaceholder(l10n, isVideoCall),
+                    local: _isVideoEnabled
+                        ? (localTrack != null
+                            ? lk.VideoTrackRenderer(
+                                localTrack,
+                                fit: lk.VideoViewFit.cover,
+                                mirrorMode: lk.VideoViewMirrorMode.mirror,
+                              )
+                            : Container(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .surfaceContainerHighest,
+                                alignment: Alignment.center,
+                                child: Icon(
+                                  Icons.videocam_off,
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onSurfaceVariant,
+                                  size: 32,
+                                ),
+                              ))
+                        : null,
                   ),
                 )
               else
-                // Audio call OR remote video unavailable — show avatar/info
-                Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      CircleAvatar(
-                        radius: 80,
-                        backgroundColor: Colors.grey[800],
-                        backgroundImage: widget.call.userProfilePicture != null
-                            ? NetworkImage(widget.call.userProfilePicture!)
-                            : null,
-                        child: widget.call.userProfilePicture == null
-                            ? const Icon(Icons.person,
-                                size: 80, color: Colors.white54)
-                            : null,
-                      ),
-                      const SizedBox(height: 30),
-                      Text(
-                        widget.call.userName,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 32,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(height: 15),
-                      _buildCallStatus(l10n),
-                      if (isVideoCall && !_isPeerVideoEnabled && _connectedTime != null) ...[
-                        const SizedBox(height: 8),
-                        Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            const Icon(Icons.videocam_off, color: Colors.white70, size: 16),
-                            const SizedBox(width: 6),
-                            Text(l10n.callCameraPaused,
-                                style: const TextStyle(color: Colors.white70, fontSize: 14)),
-                          ],
-                        ),
-                      ],
-                    ],
-                  ),
-                ),
-
-              // Local Video (Picture in Picture) — only when camera is on.
-              if (isVideoCall && !_isEnding && _isVideoEnabled)
-                Positioned(
-                  top: 20,
-                  right: 20,
-                  child: Container(
-                    width: 120,
-                    height: 160,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: Colors.white, width: 2),
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: localTrack != null
-                          ? lk.VideoTrackRenderer(
-                              localTrack,
-                              fit: lk.VideoViewFit.cover,
-                              mirrorMode: lk.VideoViewMirrorMode.mirror,
-                            )
-                          : Container(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .surfaceContainerHighest,
-                              alignment: Alignment.center,
-                              child: Icon(
-                                Icons.videocam_off,
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .onSurfaceVariant,
-                                size: 32,
-                              ),
-                            ),
-                    ),
-                  ),
-                ),
+                _buildPeerPlaceholder(l10n, isVideoCall),
 
               // Top Bar
               Positioned(
@@ -379,7 +381,7 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
                             _buildQualityIndicator(),
                           const SizedBox(width: 8),
                           Icon(
-                            widget.call.callType == CallType.video
+                            isVideoCall
                                 ? Icons.videocam
                                 : Icons.phone,
                             color: Colors.white,
@@ -458,10 +460,21 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
                               : Icons.videocam_off,
                           label:
                               _isVideoEnabled ? l10n.videoOff : l10n.videoOn,
-                          onPressed: () {
+                          onPressed: () async {
                             final next = !_isVideoEnabled;
-                            callManager.setVideoEnabled(next);
-                            setState(() => _isVideoEnabled = next);
+                            if (next) {
+                              // Turning the camera on runs the permission
+                              // check (an upgraded call's peer never had one).
+                              if (!await callManager.enableCamera()) {
+                                if (!callManager.lastCameraFailureWasPermission) {
+                                  _showCameraFailed(l10n);
+                                }
+                                return;
+                              }
+                            } else {
+                              callManager.setVideoEnabled(false);
+                            }
+                            if (mounted) setState(() => _isVideoEnabled = next);
                           },
                           backgroundColor:
                               _isVideoEnabled ? Colors.white24 : Colors.white,
@@ -478,16 +491,34 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
                               ? l10n.speakerOn
                               : l10n.speakerOff,
                           onPressed: () async {
-                            final next = !_isSpeakerOn;
-                            await callManager.setSpeakerOn(next);
-                            if (mounted) {
-                              setState(() => _isSpeakerOn = next);
-                            }
+                            await callManager.setSpeakerOn(!_isSpeakerOn);
+                            if (mounted) setState(() {});
                           },
                           backgroundColor:
                               _isSpeakerOn ? Colors.white : Colors.white24,
                           iconColor:
                               _isSpeakerOn ? Colors.black : Colors.white,
+                        ),
+
+                      // Camera on during a voice call (connected calls only).
+                      if (!isVideoCall && _connectedTime != null && !_isEnding)
+                        _ControlButton(
+                          icon: Icons.videocam_rounded,
+                          label: l10n.callTurnOnCamera,
+                          onPressed: () async {
+                            final ok = await callManager.upgradeToVideo();
+                            if (!mounted) return;
+                            if (ok) {
+                              setState(() {
+                                _callType = CallType.video;
+                                _isVideoEnabled = true;
+                              });
+                            } else if (!callManager.lastCameraFailureWasPermission) {
+                              _showCameraFailed(l10n);
+                            }
+                          },
+                          backgroundColor: Colors.white24,
+                          iconColor: Colors.white,
                         ),
                     ],
                   ),
@@ -573,13 +604,14 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
                         color: Colors.black54,
                         borderRadius: BorderRadius.circular(16),
                       ),
-                      child: const Row(
+                      child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(Icons.mic_off, color: Colors.white70, size: 16),
-                          SizedBox(width: 4),
-                          Text('Muted',
-                              style: TextStyle(
+                          const Icon(Icons.mic_off,
+                              color: Colors.white70, size: 16),
+                          const SizedBox(width: 4),
+                          Text(l10n.commonMuted,
+                              style: const TextStyle(
                                   color: Colors.white70, fontSize: 12)),
                         ],
                       ),
@@ -589,6 +621,50 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildPeerPlaceholder(AppLocalizations l10n, bool isVideoCall) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          CircleAvatar(
+            radius: 80,
+            backgroundColor: Colors.grey[800],
+            backgroundImage: widget.call.userProfilePicture != null
+                ? NetworkImage(widget.call.userProfilePicture!)
+                : null,
+            child: widget.call.userProfilePicture == null
+                ? const Icon(Icons.person,
+                    size: 80, color: Colors.white54)
+                : null,
+          ),
+          const SizedBox(height: 30),
+          Text(
+            widget.call.userName,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 32,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 15),
+          _buildCallStatus(l10n),
+          if (isVideoCall && !_isPeerVideoEnabled && _connectedTime != null) ...[
+            const SizedBox(height: 8),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(Icons.videocam_off, color: Colors.white70, size: 16),
+                const SizedBox(width: 6),
+                Text(l10n.callCameraPaused,
+                    style: const TextStyle(color: Colors.white70, fontSize: 14)),
+              ],
+            ),
+          ],
+        ],
       ),
     );
   }
@@ -623,9 +699,9 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
             style: const TextStyle(color: Colors.white70, fontSize: 14),
           ),
           const SizedBox(width: 8),
-          const Text(
-            'Poor Connection',
-            style: TextStyle(color: Colors.orangeAccent, fontSize: 12),
+          Text(
+            l10n.commonPoorConnection,
+            style: const TextStyle(color: Colors.orangeAccent, fontSize: 12),
           ),
         ],
       );
@@ -639,9 +715,9 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
     }
 
     if (_connState == CallUiState.connecting) {
-      return const Text(
-        'Connecting...',
-        style: TextStyle(color: Colors.white70, fontSize: 14),
+      return Text(
+        l10n.connecting,
+        style: const TextStyle(color: Colors.white70, fontSize: 14),
       );
     }
 

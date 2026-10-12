@@ -158,7 +158,7 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
             ),
             Spacing.hGapMD,
             Text(
-              'Loading languages...',
+              AppLocalizations.of(context)!.loadingLanguages,
               style: context.bodyMedium.copyWith(color: context.textMuted),
             ),
           ],
@@ -194,7 +194,7 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    _selectedLanguage?.name ?? 'Select Language',
+                    _selectedLanguage?.name ?? AppLocalizations.of(context)!.selectLanguage,
                     style: context.titleSmall.copyWith(
                       fontWeight: FontWeight.w500,
                       color: _selectedLanguage != null
@@ -273,7 +273,7 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
     if (!mounted) return;
     if (!status.isGranted) {
       setState(() {
-        _error = 'Microphone permission denied. Please enable it in Settings.';
+        _error = AppLocalizations.of(context)!.aiMicPermissionDeniedSettings;
       });
       return;
     }
@@ -334,7 +334,7 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
         _result = res['data'] as PronunciationResult?;
       } else {
         _error =
-            res['message']?.toString() ?? 'Failed to evaluate pronunciation';
+            res['message']?.toString() ?? AppLocalizations.of(context)!.aiFailedToEvaluatePronunciation;
       }
     });
   }
@@ -373,7 +373,7 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
       }
     } else {
       setState(() {
-        _error = result['message']?.toString() ?? 'Failed to generate speech';
+        _error = result['message']?.toString() ?? AppLocalizations.of(context)!.aiFailedToGenerateSpeech;
       });
     }
   }
@@ -394,7 +394,7 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
-          'Pronunciation Practice',
+          AppLocalizations.of(context)!.aiPronunciationPractice,
           style: context.titleMedium.copyWith(fontWeight: FontWeight.bold),
         ),
       ),
@@ -425,7 +425,7 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
 
             // History Section
             Text(
-              'Practice History',
+              AppLocalizations.of(context)!.aiPracticeHistory,
               style: context.titleMedium.copyWith(fontWeight: FontWeight.bold),
             ),
             Spacing.gapMD,
@@ -526,7 +526,7 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
 
           // Text to Practice
           Text(
-            'Text to Practice',
+            AppLocalizations.of(context)!.aiTextPractice,
             style: context.labelLarge.copyWith(fontWeight: FontWeight.w500),
           ),
           Spacing.gapSM,
@@ -658,10 +658,10 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
           Center(
             child: Text(
               _isRecording
-                  ? 'Tap to stop'
+                  ? AppLocalizations.of(context)!.aiTutorPronounceTapToStop
                   : _isAnalyzing
-                  ? 'Analyzing...'
-                  : 'Tap to record',
+                  ? AppLocalizations.of(context)!.aiAnalyzing
+                  : AppLocalizations.of(context)!.aiTutorPronounceTapToRecord,
               style: context.bodyMedium.copyWith(color: context.textSecondary),
             ),
           ),
@@ -727,10 +727,10 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
                 const SizedBox(height: 12),
                 Text(
                   _result!.isExcellent
-                      ? 'Excellent pronunciation!'
+                      ? AppLocalizations.of(context)!.aiExcellentPronunciation
                       : _result!.isGood
-                      ? 'Good job!'
-                      : 'Keep practicing!',
+                      ? AppLocalizations.of(context)!.aiGoodJob
+                      : AppLocalizations.of(context)!.aiKeepPracticing,
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
@@ -761,8 +761,8 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
           // Word-by-word feedback
           if (_result!.words.isNotEmpty) ...[
             const SizedBox(height: 20),
-            const Text(
-              'Word Analysis',
+            Text(
+              AppLocalizations.of(context)!.aiWordAnalysis,
               style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
             ),
             const SizedBox(height: 12),
@@ -872,7 +872,7 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
           ],
           const SizedBox(height: 16),
           RewardedAdButton(
-            label: 'Watch Ad for another free attempt',
+            label: AppLocalizations.of(context)!.aiPronunciationWatchAdRetry,
             onRewarded: () {
               setState(() => _result = null);
               ScaffoldMessenger.of(context).showSnackBar(
@@ -998,7 +998,7 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
           Icon(Icons.mic_none_rounded, size: 48, color: context.textMuted),
           Spacing.gapMD,
           Text(
-            'No practice history yet',
+            AppLocalizations.of(context)!.aiNoPracticeHistoryYet,
             style: context.bodyMedium.copyWith(color: context.textMuted),
           ),
         ],

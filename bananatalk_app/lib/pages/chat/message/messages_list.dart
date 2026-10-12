@@ -50,6 +50,11 @@ class ChatMessagesList extends StatelessWidget {
   /// existing DM path is completely unaffected.
   final bool isGroup;
 
+  /// Stable conversation key for the chat tip: the room id in group mode.
+  /// 1:1 chats may omit it (the other user's id is used); a group without
+  /// one gets no tip.
+  final String? conversationId;
+
   /// Long-press "Report" action for a message — used by hub/room chat
   /// (Task 11 moderation). `null` (the default) hides the option, which is
   /// how the existing 1-on-1 path stays unchanged.
@@ -85,6 +90,7 @@ class ChatMessagesList extends StatelessWidget {
     this.onSendWave,
     this.onCallTap,
     this.isGroup = false,
+    this.conversationId,
     this.onReport,
   }) : super(key: key);
 
@@ -286,6 +292,9 @@ class ChatMessagesList extends StatelessWidget {
 
               final bubble = ChatMessageBubble(
                 key: ValueKey(message.id), // Key for scrolling to message
+                tipChatId: isGroup
+                    ? conversationId
+                    : (conversationId ?? message.sender.id),
                 message: message,
                 isMe: isMe,
                 otherUserName: bubbleUserName,

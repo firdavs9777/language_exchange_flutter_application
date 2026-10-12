@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 /// Dialog to preview and confirm image or video before sending
@@ -117,7 +118,7 @@ class _ImagePreviewDialogState extends State<ImagePreviewDialog> {
                   ),
                   const Spacer(),
                   Text(
-                    'Preview',
+                    AppLocalizations.of(context)!.preview,
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 18,
@@ -148,7 +149,7 @@ class _ImagePreviewDialogState extends State<ImagePreviewDialog> {
                         controller: _captionController,
                         style: const TextStyle(color: Colors.white),
                         decoration: InputDecoration(
-                          hintText: 'Add a caption...',
+                          hintText: AppLocalizations.of(context)!.addACaption,
                           hintStyle: TextStyle(color: Colors.grey[400]),
                           border: InputBorder.none,
                           contentPadding: const EdgeInsets.symmetric(horizontal: 12),
@@ -210,7 +211,7 @@ class _ImagePreviewDialogState extends State<ImagePreviewDialog> {
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  'Video File',
+                  AppLocalizations.of(context)!.commonVideoFile,
                   style: TextStyle(
                     color: Colors.white70,
                     fontSize: 18,

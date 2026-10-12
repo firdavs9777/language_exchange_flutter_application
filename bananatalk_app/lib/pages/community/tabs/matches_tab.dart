@@ -17,6 +17,7 @@ import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/services/analytics_service.dart';
 import 'package:bananatalk_app/providers/provider_models/daily_match_model.dart';
 import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
+import 'package:bananatalk_app/services/activation_store.dart';
 import 'package:bananatalk_app/services/guide_store.dart';
 import 'package:bananatalk_app/pages/community/main/community_main.dart';
 import 'package:bananatalk_app/services/ad_service.dart';
@@ -41,11 +42,16 @@ bool shouldShowExtraMatchesCta({
 }) => boostsEnabled && count < kDailyMatchesBatchSize + kExtraMatchesMax;
 
 /// "Your N matches today" list. Self-contained; mounted by the community page.
+/// Data that is neither loading nor errored. `hasValue` alone is true for an
+/// errored refresh that kept its previous value.
+bool _isCleanData(AsyncValue<Object?> v) =>
+    !v.isLoading && !v.hasError && v.hasValue;
+
 class MatchesTab extends ConsumerStatefulWidget {
   const MatchesTab({
     super.key,
     this.onBrowsePartners,
-    this.primeNotifications = maybePrimeNotifications,
+    this.primeNotifications = primeAfterFirstMatches,
   });
 
   /// Offered once after the first non-empty load. Injectable for tests.
@@ -160,8 +166,10 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
   /// Slot 2 holds whichever of the two the flag selects, so one index is
   /// correct either way.
   void _openLiveTab() {
-    AnalyticsService.instance
-        .guideCtaTapped(surface: 'matches', target: 'secondary');
+    AnalyticsService.instance.guideCtaTapped(
+      surface: 'matches',
+      target: 'secondary',
+    );
     ref.read(communityPendingSubTabProvider.notifier).state =
         communityVoiceRoomsSubTab;
   }
@@ -295,30 +303,59 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
         // An empty or errored batch never reaches here -- those take the
         // _Empty / _LoadError branches above, which render no list header. A
         // new user with no matches has a supply problem, not a guidance one.
-        final gatheringsEnabled = ref.watch(appConfigProvider).maybeWhen(
+        final gatheringsEnabled = ref
+            .watch(appConfigProvider)
+            .maybeWhen(
               data: (config) => config?.gatheringsEnabled ?? true,
               orElse: () => true,
             );
-        final liveTabLabel =
-            gatheringsEnabled ? l10n.gatheringsTabLabel : l10n.voiceRooms;
+        final liveTabLabel = gatheringsEnabled
+            ? l10n.gatheringsTabLabel
+            : l10n.voiceRooms;
         // Two different windows on purpose. `isNew` is the seven-day cohort
         // the funnel is split by and must keep matching the existing data;
         // the panel itself uses the shorter guide window, so Matches retires
         // on the same day as the other four tabs.
         final user = ref.watch(userProvider);
-        final isNew =
-            user.maybeWhen(data: (u) => u.isNewUser, orElse: () => false);
-        final withinWindow = user.maybeWhen(
-          data: (u) => u.joinedWithinDays(kGuideWindowDays),
-          orElse: () => false,
-        );
-        final session = ref
-            .watch(firstSessionStateProvider)
-            .maybeWhen(data: (s) => s, orElse: () => FirstSessionState.unknown);
-        final showGuidance = shouldShowFirstSessionGuidance(
-          withinWindow: withinWindow,
-          hasMessaged: session.hasMessaged,
-        );
+        // valueOrNull: an errored refresh keeps its previous value, and a
+        // transient error must not change what is shown.
+        final isNew = user.valueOrNull?.isNewUser ?? false;
+        final withinWindow =
+            user.valueOrNull?.joinedWithinDays(kGuideWindowDays) ?? false;
+        final sessionAsync = ref.watch(firstSessionStateProvider);
+        final session = sessionAsync.valueOrNull ?? FirstSessionState.unknown;
+        final doneAsync = ref.watch(activationDoneProvider);
+        // Loading or unreadable: everything done, i.e. show nothing.
+        final done = doneAsync.valueOrNull ?? ActivationAction.values.toSet();
+        // Unread: treated as retired (hidden), like PageGuide's unknown state.
+        final retiredLatch =
+            ref.watch(guideStateProvider(GuideSurface.matches)).valueOrNull
+                ?.retired ??
+            true;
+        final messaged =
+            session.hasMessaged || done.contains(ActivationAction.message);
+        final showGuidance =
+            !retiredLatch &&
+            shouldShowFirstSessionGuidance(
+              withinWindow: withinWindow,
+              hasMessaged: messaged,
+              milestonesDone: done.length,
+            );
+        if (!showGuidance &&
+            // Clean data only: an errored refresh still reports hasValue.
+            _isCleanData(user) &&
+            _isCleanData(sessionAsync) &&
+            _isCleanData(doneAsync)) {
+          final reason = guideRetiredReason(
+            wasShown: session.timesShown > 0,
+            withinWindow: withinWindow,
+            acted: messaged,
+            milestonesDone: done.length,
+          );
+          if (reason != null) {
+            GuideStore.recordRetired(GuideSurface.matches, reason).ignore();
+          }
+        }
         // Debug-only: the panel has four conditions and used to fail silently,
         // which made it untestable on a device.
         if (kDebugMode) {
@@ -354,6 +391,7 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
                             _recordGuidanceShownAfterFrame(session.timesShown);
                             return MatchesFirstSessionPanel(
                               matchCount: matches.length,
+                              progressCount: done.length,
                               liveLabel: liveTabLabel,
                               onLive: _openLiveTab,
                             );

@@ -111,15 +111,15 @@ class _PollStickerEditorState extends State<PollStickerEditor> {
         elevation: 0,
         leading: TextButton(
           onPressed: () => Navigator.pop(context),
-          child: const Text('Cancel', style: TextStyle(color: Colors.white70)),
+          child: Text(AppLocalizations.of(context)!.cancel, style: TextStyle(color: Colors.white70)),
         ),
         leadingWidth: 80,
-        title: const Text('Add Poll', style: TextStyle(color: Colors.white)),
+        title: Text(AppLocalizations.of(context)!.storyAddPoll, style: TextStyle(color: Colors.white)),
         actions: [
           TextButton(
             onPressed: _isValid ? _done : null,
             child: Text(
-              'Done',
+              AppLocalizations.of(context)!.done,
               style: TextStyle(
                 color: _isValid ? _teal : Colors.white30,
                 fontWeight: FontWeight.bold,
@@ -135,8 +135,8 @@ class _PollStickerEditorState extends State<PollStickerEditor> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Question',
+              Text(
+                AppLocalizations.of(context)!.question,
                 style: TextStyle(
                   color: Colors.white70,
                   fontSize: 13,
@@ -151,7 +151,7 @@ class _PollStickerEditorState extends State<PollStickerEditor> {
                 style: const TextStyle(color: Colors.white),
                 onChanged: (_) => setState(() {}),
                 decoration: InputDecoration(
-                  hintText: 'Ask a question...',
+                  hintText: AppLocalizations.of(context)!.askAQuestion,
                   hintStyle: TextStyle(color: Colors.grey[500]),
                   filled: true,
                   fillColor: Colors.grey[900],
@@ -167,8 +167,8 @@ class _PollStickerEditorState extends State<PollStickerEditor> {
                 ),
               ),
               const SizedBox(height: 20),
-              const Text(
-                'Options',
+              Text(
+                AppLocalizations.of(context)!.storyOptions,
                 style: TextStyle(
                   color: Colors.white70,
                   fontSize: 13,
@@ -188,7 +188,7 @@ class _PollStickerEditorState extends State<PollStickerEditor> {
                           style: const TextStyle(color: Colors.white),
                           onChanged: (_) => setState(() {}),
                           decoration: InputDecoration(
-                            hintText: 'Option ${entry.key + 1}',
+                            hintText: AppLocalizations.of(context)!.option((entry.key + 1).toString()),
                             hintStyle: TextStyle(color: Colors.grey[500]),
                             filled: true,
                             fillColor: Colors.grey[900],
@@ -223,8 +223,8 @@ class _PollStickerEditorState extends State<PollStickerEditor> {
                 TextButton.icon(
                   onPressed: _addOption,
                   icon: const Icon(Icons.add, color: _teal),
-                  label: const Text(
-                    'Add option',
+                  label: Text(
+                    AppLocalizations.of(context)!.addOption,
                     style: TextStyle(color: _teal),
                   ),
                 ),

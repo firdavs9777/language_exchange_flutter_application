@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/services/activation_store.dart';
 import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 import 'package:bananatalk_app/widgets/notifications/notification_bell.dart';
 import 'package:bananatalk_app/widgets/coins/coin_balance_pill.dart';
@@ -61,6 +62,13 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
     super.initState();
     Future.microtask(() => ref.invalidate(userProvider));
     _loadOwnStories();
+    // Profile complete is a milestone. TabsScreen builds this page eagerly
+    // and every edit screen invalidates userProvider on save, so one
+    // listener covers the first load and each save.
+    ref.listenManual<AsyncValue<Community>>(userProvider, (_, next) {
+      final u = next.valueOrNull;
+      if (u != null) checkProfileComplete(u).ignore();
+    }, fireImmediately: true);
   }
 
   Future<void> _loadOwnStories() async {
@@ -331,6 +339,7 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
 
   // ========== APP BAR ==========
   Widget _buildSliverAppBar(BuildContext context, Community user) {
+    final l10n = AppLocalizations.of(context)!;
     return SliverAppBar(
       pinned: true,
       floating: false,
@@ -340,7 +349,7 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
       foregroundColor: context.textPrimary,
       automaticallyImplyLeading: false,
       title: Text(
-        user.name.isNotEmpty ? user.name : 'Profile',
+        user.name.isNotEmpty ? user.name : l10n.profile,
         style: context.titleLarge.copyWith(fontWeight: FontWeight.w800),
       ),
       actions: [
@@ -383,6 +392,7 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
   // actual gate. Routes to AdminHomeScreen, which is the grid of admin
   // surfaces (Reports, Users, Audit Log).
   Widget _buildAdminToolsEntry(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: SizedBox(
@@ -401,7 +411,7 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
             size: 20,
           ),
           label: Text(
-            'Admin Tools',
+            l10n.profileAdminTools,
             style: TextStyle(
               fontSize: 15,
               fontWeight: FontWeight.w700,

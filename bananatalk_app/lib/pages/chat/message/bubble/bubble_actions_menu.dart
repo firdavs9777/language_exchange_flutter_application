@@ -17,7 +17,7 @@ Future<void> showFailedMessageOptions({
   required VoidCallback onRetry,
   required VoidCallback onDelete,
 }) async {
-  final l10n = AppLocalizations.of(context);
+  final l10n = AppLocalizations.of(context)!;
   final theme = Theme.of(context);
   final isDark = theme.brightness == Brightness.dark;
 
@@ -36,7 +36,7 @@ Future<void> showFailedMessageOptions({
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: Text(
-                'Message failed to send',
+                l10n.chatMessageFailedToSend,
                 style: theme.textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w600,
                 ),
@@ -52,9 +52,9 @@ Future<void> showFailedMessageOptions({
                 ),
                 child: const Icon(Icons.refresh, color: AppColors.primary),
               ),
-              title: Text(l10n?.retry ?? 'Retry'),
+              title: Text(l10n.retry),
               subtitle: Text(
-                AppLocalizations.of(context)!.chatMessageRetrySubtitle,
+                l10n.chatMessageRetrySubtitle,
               ),
               onTap: () {
                 Navigator.pop(context);
@@ -71,11 +71,11 @@ Future<void> showFailedMessageOptions({
                 child: const Icon(Icons.delete_outline, color: AppColors.error),
               ),
               title: Text(
-                l10n?.delete ?? 'Delete',
+                l10n.delete,
                 style: const TextStyle(color: AppColors.error),
               ),
               subtitle: Text(
-                AppLocalizations.of(context)!.chatMessageRemoveSubtitle,
+                l10n.chatMessageRemoveSubtitle,
               ),
               onTap: () {
                 Navigator.pop(context);
@@ -89,7 +89,7 @@ Future<void> showFailedMessageOptions({
                 width: double.infinity,
                 child: TextButton(
                   onPressed: () => Navigator.pop(context),
-                  child: Text(l10n?.cancel ?? 'Cancel'),
+                  child: Text(l10n.cancel),
                 ),
               ),
             ),

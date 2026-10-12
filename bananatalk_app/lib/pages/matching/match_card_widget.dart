@@ -113,7 +113,7 @@ class MatchCard extends StatelessWidget {
                                     Icon(Icons.swap_horiz, size: 10, color: Colors.white),
                                     const SizedBox(width: 2),
                                     Text(
-                                      'Perfect',
+                                      l10n.communityPerfect,
                                       style: TextStyle(
                                         fontSize: 9,
                                         fontWeight: FontWeight.bold,
@@ -136,7 +136,7 @@ class MatchCard extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(4),
                                 ),
                                 child: Text(
-                                  'Lv.${match.level}',
+                                  l10n.communityLv(match.level!),
                                   style: TextStyle(
                                     fontSize: 10,
                                     fontWeight: FontWeight.bold,

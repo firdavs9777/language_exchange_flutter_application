@@ -103,7 +103,7 @@ class _StoryPollWidgetState extends State<StoryPollWidget>
           if (_hasVoted || widget.isOwner) ...[
             const SizedBox(height: 12),
             Text(
-              '${widget.poll.totalVotes} votes',
+              AppLocalizations.of(context)!.storyVotes(widget.poll.totalVotes),
               style: TextStyle(
                 color: Colors.white.withOpacity(0.7),
                 fontSize: 12,
@@ -290,8 +290,8 @@ class _CreateStoryPollDialogState extends State<CreateStoryPollDialog> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Create Poll',
+            Text(
+              AppLocalizations.of(context)!.storyCreatePoll,
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 20,
@@ -303,7 +303,7 @@ class _CreateStoryPollDialogState extends State<CreateStoryPollDialog> {
               controller: _questionController,
               style: const TextStyle(color: Colors.white),
               decoration: InputDecoration(
-                hintText: 'Ask a question...',
+                hintText: AppLocalizations.of(context)!.askAQuestion,
                 hintStyle: TextStyle(color: Colors.grey[500]),
                 filled: true,
                 fillColor: Colors.grey[800],
@@ -324,7 +324,7 @@ class _CreateStoryPollDialogState extends State<CreateStoryPollDialog> {
                         controller: entry.value,
                         style: const TextStyle(color: Colors.white),
                         decoration: InputDecoration(
-                          hintText: 'Option ${entry.key + 1}',
+                          hintText: AppLocalizations.of(context)!.option((entry.key + 1).toString()),
                           hintStyle: TextStyle(color: Colors.grey[500]),
                           filled: true,
                           fillColor: Colors.grey[800],
@@ -351,8 +351,8 @@ class _CreateStoryPollDialogState extends State<CreateStoryPollDialog> {
               TextButton.icon(
                 onPressed: _addOption,
                 icon: const Icon(Icons.add, color: Colors.blue),
-                label: const Text(
-                  'Add option',
+                label: Text(
+                  AppLocalizations.of(context)!.addOption,
                   style: TextStyle(color: Colors.blue),
                 ),
               ),
@@ -369,8 +369,8 @@ class _CreateStoryPollDialogState extends State<CreateStoryPollDialog> {
                         : Colors.grey[700],
                   ),
                 ),
-                const Text(
-                  'Anonymous voting',
+                Text(
+                  AppLocalizations.of(context)!.anonymousVoting,
                   style: TextStyle(color: Colors.white),
                 ),
               ],
@@ -382,7 +382,7 @@ class _CreateStoryPollDialogState extends State<CreateStoryPollDialog> {
                 TextButton(
                   onPressed: () => Navigator.pop(context),
                   child: Text(
-                    'Cancel',
+                    AppLocalizations.of(context)!.cancel,
                     style: TextStyle(color: Colors.grey[400]),
                   ),
                 ),

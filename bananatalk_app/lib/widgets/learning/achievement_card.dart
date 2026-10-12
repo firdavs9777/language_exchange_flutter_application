@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/models/learning/achievement_model.dart';
 
@@ -111,7 +112,7 @@ class AchievementCard extends StatelessWidget {
                         ),
                         const SizedBox(width: 4),
                         Text(
-                          '+${achievement.xpReward} XP',
+                          AppLocalizations.of(context)!.learningXpGained(achievement.xpReward),
                           style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w600,
@@ -300,9 +301,9 @@ class AchievementUnlockOverlay extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Text(
-                'Achievement Unlocked!',
-                style: TextStyle(
+              Text(
+                AppLocalizations.of(context)!.learnAchievementUnlocked,
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
@@ -358,7 +359,7 @@ class AchievementUnlockOverlay extends StatelessWidget {
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: Text(
-                  '+${achievement.xpReward} XP',
+                  AppLocalizations.of(context)!.learningXpGained(achievement.xpReward),
                   style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
@@ -367,7 +368,7 @@ class AchievementUnlockOverlay extends StatelessWidget {
               ),
               const SizedBox(height: 48),
               Text(
-                'Tap to continue',
+                AppLocalizations.of(context)!.learnTapContinue,
                 style: TextStyle(
                   color: Colors.white.withOpacity(0.5),
                   fontSize: 12,

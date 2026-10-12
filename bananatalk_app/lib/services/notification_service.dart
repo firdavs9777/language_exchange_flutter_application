@@ -5,6 +5,7 @@ import 'package:bananatalk_app/providers/app_provider_container.dart';
 import 'package:bananatalk_app/providers/missed_calls_provider.dart';
 import 'package:bananatalk_app/models/notification_models.dart' as nm;
 import 'package:bananatalk_app/services/call/call_push_handler.dart';
+import 'package:bananatalk_app/services/call/missed_call_actions.dart';
 import 'package:bananatalk_app/services/call/callkit_ids.dart';
 import 'package:bananatalk_app/services/callkit_service.dart';
 import 'package:bananatalk_app/services/notification_api_client.dart';
@@ -36,6 +37,18 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
       // Same id the invite was shown under (a legacy invite has no callUuid).
       await CallKitService().endCall(CallKitIds.uuidFor(callId: callId, callUuid: callUuid));
     }
+    return;
+  }
+
+  // Android builds that declared `missed_call_actions` get the missed call
+  // data-only, so nothing is on screen unless it is drawn here. Never throws:
+  // any failure still shows a plain missed-call notification.
+  if (type == 'missed_call' && message.notification == null) {
+    await showMissedCallNotification(
+      FlutterLocalNotificationsPlugin(),
+      Map<String, dynamic>.from(message.data),
+      initialize: true,
+    );
     return;
   }
 
@@ -89,6 +102,14 @@ class NotificationService {
   /// What the UI should do at the next primed moment, or null before
   /// [initialize] has run. Read by the chat trigger and the recovery surfaces.
   NotificationAction? get pendingAction => _pendingAction;
+
+  /// False until Firebase messaging was set up; the OS prompt cannot be raised
+  /// without it.
+  bool get isMessagingAvailable => _fcm != null;
+
+  @visibleForTesting
+  void debugSetPendingAction(NotificationAction? action) =>
+      _pendingAction = action;
 
   // Track current user ID to ensure token refresh registers with correct user
   String? _currentUserId;
@@ -270,6 +291,7 @@ class NotificationService {
 
   /// Initialize local notifications plugin
   Future<void> _initializeLocalNotifications() async {
+    final l10n = await notificationL10n();
 
     const androidSettings = AndroidInitializationSettings(
       '@mipmap/ic_launcher',
@@ -307,6 +329,25 @@ class NotificationService {
             DarwinNotificationAction.plain('profile', 'View Profile'),
           ],
         ),
+        // Missed call (calls Phase 2). Remote action taps are caught by the
+        // AppDelegate (missedCallActionsChannel); foreground local copies come
+        // back through _handleNotificationTap. Registered here only:
+        // setNotificationCategories replaces the whole set.
+        DarwinNotificationCategory(
+          kMissedCallCategory,
+          actions: [
+            DarwinNotificationAction.plain(
+              kMissedCallBack,
+              l10n.callBackAction,
+              options: {DarwinNotificationActionOption.foreground},
+            ),
+            DarwinNotificationAction.plain(
+              kMissedCallMessage,
+              l10n.callMessageAction,
+              options: {DarwinNotificationActionOption.foreground},
+            ),
+          ],
+        ),
       ],
       onDidReceiveLocalNotification: (id, title, body, payload) {
       },
@@ -321,6 +362,22 @@ class NotificationService {
       initSettings,
       onDidReceiveNotificationResponse: _handleNotificationTap,
     );
+
+    // A missed-call notification (or its button) that launched the app from
+    // killed. NotificationRouter holds it until the splash is done.
+    try {
+      final launch = await _localNotifications.getNotificationAppLaunchDetails();
+      final response = launch?.notificationResponse;
+      if (launch?.didNotificationLaunchApp == true &&
+          response != null &&
+          _payloadType(response.payload) == 'missed_call') {
+        _handleNotificationTap(response);
+      }
+    } catch (e) {
+      debugPrint('[NotificationService] launch details failed: $e');
+    }
+
+    if (Platform.isIOS) await _listenForNativeMissedCallActions();
 
     // Create Android notification channels
     if (Platform.isAndroid) {
@@ -351,6 +408,45 @@ class NotificationService {
       await androidPlugin?.createNotificationChannel(callChannel);
     }
 
+  }
+
+  /// iOS: MISSED_CALL buttons on a remote notification are caught by the
+  /// AppDelegate (the plugins never see them). Warm: it calls `action`.
+  /// Cold: it keeps the tap until asked with `takePending`.
+  Future<void> _listenForNativeMissedCallActions() async {
+    missedCallActionsChannel.setMethodCallHandler((call) async {
+      if (call.method == 'action' && call.arguments is Map) {
+        // Clear the native copy so a later takePending does not replay it.
+        unawaited(_takeNativeMissedCallAction());
+        _routeNativeMissedCallAction(call.arguments as Map);
+      }
+      return null;
+    });
+    final pending = await _takeNativeMissedCallAction();
+    if (pending != null) _routeNativeMissedCallAction(pending);
+  }
+
+  Future<Map<dynamic, dynamic>?> _takeNativeMissedCallAction() async {
+    try {
+      return await missedCallActionsChannel.invokeMethod<Map<dynamic, dynamic>>('takePending');
+    } catch (e) {
+      debugPrint('[NotificationService] takePending failed: $e');
+      return null;
+    }
+  }
+
+  void _routeNativeMissedCallAction(Map<dynamic, dynamic> m) {
+    NotificationRouter.handleNotification(null, nativeMissedCallTapData(m));
+  }
+
+  static String? _payloadType(String? payload) {
+    if (payload == null || payload.isEmpty) return null;
+    try {
+      final decoded = jsonDecode(payload);
+      return decoded is Map ? decoded['type']?.toString() : null;
+    } catch (_) {
+      return null;
+    }
   }
 
   /// Get FCM token
@@ -444,6 +540,15 @@ class NotificationService {
 
     if (notificationType == 'missed_call') {
       appProviderContainer.read(missedCallsProvider.notifier).refresh();
+      // Android data-only (this build declared missed_call_actions): draw it
+      // with Call back / Message ourselves.
+      if (message.notification == null) {
+        await showMissedCallNotification(
+          _localNotifications,
+          Map<String, dynamic>.from(message.data),
+        );
+        return;
+      }
     }
 
     // Quiet-hours guard for foreground locals.
@@ -530,6 +635,11 @@ class NotificationService {
           message.data['imageUrl'];
 
 
+      // Missed calls carry Call back / Message (iOS category MISSED_CALL).
+      final category = message.data['type']?.toString() == 'missed_call'
+          ? kMissedCallCategory
+          : null;
+
       // Prepare notification details with sender's profile picture
       AndroidNotificationDetails androidDetails;
       DarwinNotificationDetails iosDetails;
@@ -572,6 +682,7 @@ class NotificationService {
           presentSound: true,
           interruptionLevel: InterruptionLevel.active,
           attachments: attachments,
+          categoryIdentifier: category,
         );
       } else {
         // Default notification without image
@@ -586,11 +697,12 @@ class NotificationService {
           playSound: true,
         );
 
-        iosDetails = const DarwinNotificationDetails(
+        iosDetails = DarwinNotificationDetails(
           presentAlert: true,
           presentBadge: true,
           presentSound: true,
           interruptionLevel: InterruptionLevel.active,
+          categoryIdentifier: category,
         );
       }
 

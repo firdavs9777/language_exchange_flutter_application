@@ -25,7 +25,7 @@ void main() {
 
     for (var frame = 0; frame < 50; frame++) {
       if (shouldShowFirstSessionGuidance(
-          withinWindow: true, hasMessaged: false)) {
+          withinWindow: true, hasMessaged: false, milestonesDone: 0)) {
         onPanelBuilt();
       }
     }
@@ -40,7 +40,7 @@ void main() {
     var recorded = 0;
     for (var frame = 0; frame < 50; frame++) {
       if (shouldShowFirstSessionGuidance(
-          withinWindow: true, hasMessaged: false)) {
+          withinWindow: true, hasMessaged: false, milestonesDone: 0)) {
         recorded++;
       }
     }

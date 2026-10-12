@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:timeago/timeago.dart' as timeago;
+import 'package:bananatalk_app/utils/time_ago.dart';
 
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/models/coin_transaction.dart';
@@ -135,7 +135,7 @@ class _CoinHistoryScreenState extends ConsumerState<CoinHistoryScreen> {
           const SizedBox(height: 12),
           Center(
             child: Text(
-              'No coin activity yet',
+              AppLocalizations.of(context)!.vipNoCoinActivityYet,
               style: context.bodyMedium.copyWith(color: context.textSecondary),
             ),
           ),
@@ -187,10 +187,10 @@ class _CoinHistoryScreenState extends ConsumerState<CoinHistoryScreen> {
         ),
         child: Icon(_iconFor(tx.reason), color: color, size: 20),
       ),
-      title: Text(_labelFor(tx.reason), style: context.titleSmall),
+      title: Text(_labelFor(context, tx.reason), style: context.titleSmall),
       subtitle: tx.createdAt != null
           ? Text(
-              timeago.format(tx.createdAt!),
+              timeAgoFor(context, tx.createdAt!),
               style: context.captionSmall.copyWith(color: context.textMuted),
             )
           : null,
@@ -224,16 +224,17 @@ class _CoinHistoryScreenState extends ConsumerState<CoinHistoryScreen> {
     return Icons.swap_horiz;
   }
 
-  String _labelFor(String? reason) {
-    if (reason == null) return 'Coin activity';
-    if (reason == 'daily_reward') return 'Daily reward';
-    if (reason == 'ad_reward') return 'Watched an ad';
-    if (reason == 'iap_purchase') return 'Coin purchase';
+  String _labelFor(BuildContext context, String? reason) {
+    final l10n = AppLocalizations.of(context)!;
+    if (reason == null) return l10n.coinHistoryActivity;
+    if (reason == 'daily_reward') return l10n.coinsDailyReward;
+    if (reason == 'ad_reward') return l10n.coinHistoryAdReward;
+    if (reason == 'iap_purchase') return l10n.coinHistoryPurchase;
     if (reason.startsWith('unlock:')) {
       final feature = reason.substring('unlock:'.length);
-      return 'Unlocked ${_titleCase(feature)}';
+      return l10n.coinHistoryUnlocked(_titleCase(feature));
     }
-    return 'Coin activity';
+    return l10n.coinHistoryActivity;
   }
 
   String _titleCase(String value) {

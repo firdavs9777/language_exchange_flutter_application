@@ -82,8 +82,8 @@ class _VocabPackPracticeScreenState extends State<VocabPackPracticeScreen> {
         context: context,
         builder: (ctx) => AlertDialog(
           title: Text(AppLocalizations.of(context)!.practiceComplete),
-          content: Text(
-              'You got $_correct of ${widget.exercises.length} correct.'),
+          content: Text(AppLocalizations.of(context)!
+              .learnGotCorrect(_correct, widget.exercises.length)),
           actions: [
             TextButton(
               onPressed: () {
@@ -121,6 +121,7 @@ class _VocabPackPracticeScreenState extends State<VocabPackPracticeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final ex = _current;
     final total = widget.exercises.length;
 
@@ -137,7 +138,7 @@ class _VocabPackPracticeScreenState extends State<VocabPackPracticeScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Question ${_index + 1} of $total',
+            Text(l10n.learnQuestionOf(_index + 1, total),
                 style: Theme.of(context).textTheme.labelMedium),
             const SizedBox(height: 12),
             Expanded(child: SingleChildScrollView(child: _buildQuestion(ex))),
@@ -150,8 +151,8 @@ class _VocabPackPracticeScreenState extends State<VocabPackPracticeScreen> {
                     ? _next
                     : (_canCheck() ? _checkAnswer : null),
                 child: Text(_answered
-                    ? (_isLast ? 'Finish' : 'Next')
-                    : 'Check'),
+                    ? (_isLast ? l10n.learnFinish : l10n.nextButton)
+                    : l10n.lessonCheck),
               ),
             ),
           ],
@@ -172,7 +173,7 @@ class _VocabPackPracticeScreenState extends State<VocabPackPracticeScreen> {
       case 'matching':
         return _buildMatching(ex);
       default:
-        return Text(ex.prompt ?? 'Unsupported exercise');
+        return Text(ex.prompt ?? AppLocalizations.of(context)!.learnUnsupportedExercise);
     }
   }
 
@@ -243,7 +244,7 @@ class _VocabPackPracticeScreenState extends State<VocabPackPracticeScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Match each word to its meaning',
+        Text(AppLocalizations.of(context)!.learnMatchEachWordIts,
             style: Theme.of(context).textTheme.titleMedium),
         const SizedBox(height: 16),
         ...pairs.map((p) {
@@ -326,8 +327,8 @@ class _VocabPackPracticeScreenState extends State<VocabPackPracticeScreen> {
           Expanded(
             child: Text(
               _lastCorrect
-                  ? 'Correct!'
-                  : (solution ?? 'Not quite.'),
+                  ? AppLocalizations.of(context)!.lessonCorrect
+                  : (solution ?? AppLocalizations.of(context)!.learnNotQuite),
             ),
           ),
         ],

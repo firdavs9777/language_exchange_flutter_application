@@ -12,6 +12,7 @@ const kCallUuid = '6f1c2b8e-3c1d-4a8e-9b7f-0a1b2c3d4e5f';
 class FakeCallApi implements CallApi {
   final List<String> calls = [];
   final Map<String, String?> deviceIds = {};
+  final Map<String, String?> declineMessages = {};
   Completer<void>? initiateGate;
   Completer<void>? currentGate;
   Completer<void>? acceptGate;
@@ -30,6 +31,7 @@ class FakeCallApi implements CallApi {
   /// Per-call accept results; a call id missing here gets [acceptResult].
   final Map<String, CallApiResult> acceptResultFor = {};
   CallApiResult declineResult = const CallApiResult(ok: true, statusCode: 200);
+  CallApiResult upgradeResult = const CallApiResult(ok: true, statusCode: 200);
   CallApiResult endResult = const CallApiResult(ok: true, statusCode: 200);
   CallApiResult currentResult =
       const CallApiResult(ok: true, statusCode: 200, data: {'call': null});
@@ -52,10 +54,17 @@ class FakeCallApi implements CallApi {
   }
 
   @override
-  Future<CallApiResult> decline(String callId, {String? deviceId}) async {
+  Future<CallApiResult> decline(String callId, {String? deviceId, String? message}) async {
     calls.add('decline:$callId');
     deviceIds['decline'] = deviceId;
+    declineMessages[callId] = message;
     return declineResult;
+  }
+
+  @override
+  Future<CallApiResult> upgrade(String callId) async {
+    calls.add('upgrade:$callId');
+    return upgradeResult;
   }
 
   @override
@@ -139,6 +148,11 @@ class FakeLiveKit extends CallLiveKitManager {
 
   @override
   Future<void> setCameraEnabled(bool enabled) async => cameraCalls.add(enabled);
+
+  final List<bool> speakerCalls = [];
+
+  @override
+  Future<void> setSpeakerOn(bool on) async => speakerCalls.add(on);
 }
 
 /// A CallManager wired to fakes, recording everything it does.

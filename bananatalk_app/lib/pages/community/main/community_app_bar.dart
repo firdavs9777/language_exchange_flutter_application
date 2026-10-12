@@ -188,7 +188,7 @@ class _LiveRoomsPill extends ConsumerWidget {
                 ),
                 const SizedBox(width: 5),
                 Text(
-                  '$count live',
+                  AppLocalizations.of(context)!.communityLive(count),
                   style: const TextStyle(
                     color: Colors.red,
                     fontSize: 12,

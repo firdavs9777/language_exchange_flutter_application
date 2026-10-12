@@ -21,6 +21,7 @@ import 'package:bananatalk_app/providers/call_provider.dart';
 import 'package:bananatalk_app/pages/authentication/account_suspended_screen.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/call_model.dart';
+import 'package:bananatalk_app/utils/null_log_trap.dart';
 import 'package:bananatalk_app/providers/missed_calls_provider.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -35,7 +36,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-Future<void> main() async {
+/// Debug builds run inside a zone that names the caller of any bare
+/// `print(null)` (lib/utils/null_log_trap.dart). The binding is initialized
+/// inside `_main`, i.e. inside the same zone as `runApp`, so there is no zone
+/// mismatch.
+Future<void> main() => kDebugMode
+    ? runZoned(_main, zoneSpecification: nullPrintZone())
+    : _main();
+
+Future<void> _main() async {
+  installNullLogTrap();
   WidgetsFlutterBinding.ensureInitialized();
 
   // Set transparent system UI; per-screen AnnotatedRegion overrides will

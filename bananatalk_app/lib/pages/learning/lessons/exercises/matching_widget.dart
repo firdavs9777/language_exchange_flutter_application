@@ -107,12 +107,12 @@ class _MatchingWidgetState extends State<MatchingWidget> {
                 const Icon(Icons.warning_amber, color: AppColors.warning, size: 48),
                 Spacing.gapMD,
                 Text(
-                  'Matching data not available',
+                  AppLocalizations.of(context)!.learnMatchingDataNotAvailable,
                   style: context.titleMedium.copyWith(color: AppColors.warning),
                 ),
                 Spacing.gapSM,
                 Text(
-                  'This exercise could not load the matching pairs. Please try regenerating the lesson.',
+                  AppLocalizations.of(context)!.learnExerciseCouldNotLoad,
                   textAlign: TextAlign.center,
                   style: context.bodySmall,
                 ),
@@ -132,9 +132,9 @@ class _MatchingWidgetState extends State<MatchingWidget> {
                   borderRadius: AppRadius.borderMD,
                 ),
               ),
-              child: const Text(
-                'Skip Exercise',
-                style: TextStyle(
+              child: Text(
+                AppLocalizations.of(context)!.learnSkipExercise,
+                style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                 ),
@@ -156,6 +156,7 @@ class _MatchingWidgetState extends State<MatchingWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     // If no items to match, show error state
     if (_leftItems.isEmpty || _rightItems.isEmpty) {
       return _buildNoDataState();
@@ -171,7 +172,7 @@ class _MatchingWidgetState extends State<MatchingWidget> {
         ),
         Spacing.gapSM,
         Text(
-          'Tap an item on the left, then tap its match on the right',
+          l10n.learnTapItemLeftThen,
           style: context.caption.copyWith(fontStyle: FontStyle.italic),
         ),
         Spacing.gapXL,
@@ -180,7 +181,7 @@ class _MatchingWidgetState extends State<MatchingWidget> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              '${_matches.length}/${_leftItems.length} matched',
+              l10n.learnMatchedOfTotal(_matches.length, _leftItems.length),
               style: context.labelLarge.copyWith(color: context.textSecondary),
             ),
           ],
@@ -427,7 +428,7 @@ class _MatchingWidgetState extends State<MatchingWidget> {
                 ),
                 Spacing.hGapMD,
                 Text(
-                  '$_correctCount/${_leftItems.length} correct',
+                  AppLocalizations.of(context)!.learnCorrectOfTotal(_correctCount, _leftItems.length),
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: _correctCount == _leftItems.length
@@ -489,7 +490,9 @@ class _MatchingWidgetState extends State<MatchingWidget> {
               ),
             ),
             child: Text(
-              widget.showResult ? 'Continue' : 'Check',
+              widget.showResult
+                  ? AppLocalizations.of(context)!.continueButton
+                  : AppLocalizations.of(context)!.lessonCheck,
               style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,

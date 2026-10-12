@@ -263,7 +263,10 @@ class _ChatInputBarState extends ConsumerState<ChatInputBar>
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  'Replying to ${widget.otherUserName ?? "user"}',
+                  AppLocalizations.of(context)!.chatReplyingTo(
+                    widget.otherUserName ??
+                        AppLocalizations.of(context)!.chatReplyingToFallback,
+                  ),
                   style: TextStyle(
                     fontSize: 11,
                     fontWeight: FontWeight.w600,
@@ -530,8 +533,9 @@ class _ChatInputBarState extends ConsumerState<ChatInputBar>
                 Text(
                   preview == null || preview.isEmpty
                       ? (_hasText
-                            ? 'Translating…'
-                            : 'Start typing to see the translation')
+                            ? AppLocalizations.of(context)!.translating
+                            : AppLocalizations.of(context)!
+                                  .chatTranslatePreviewHint)
                       : preview,
                   style: TextStyle(
                     fontSize: 14,

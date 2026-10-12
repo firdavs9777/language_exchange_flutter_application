@@ -73,6 +73,7 @@ class _CorrectionMessageBubbleState
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final message = widget.message;
     final isMe = widget.isMe;
 
@@ -145,7 +146,7 @@ class _CorrectionMessageBubbleState
                       const SizedBox(width: 4),
                       Flexible(
                         child: Text(
-                          '$correctorName corrected',
+                          l10n.chatCorrected(correctorName),
                           style: TextStyle(
                             fontSize: 11,
                             fontWeight: FontWeight.w600,
@@ -235,7 +236,7 @@ class _CorrectionMessageBubbleState
                               )
                             : const Icon(Icons.check_rounded, size: 16),
                         label: Text(
-                            _accepting ? 'Accepting…' : 'Accept correction'),
+                            _accepting ? l10n.chatAccepting : l10n.chatAcceptCorrection),
                         style: FilledButton.styleFrom(
                           backgroundColor: Colors.green[600],
                           padding:
@@ -254,7 +255,7 @@ class _CorrectionMessageBubbleState
                             size: 14, color: Colors.green[600]),
                         const SizedBox(width: 4),
                         Text(
-                          'Correction accepted ✓',
+                          l10n.chatCorrectionAccepted,
                           style: TextStyle(
                             fontSize: 12,
                             color: Colors.green[600],

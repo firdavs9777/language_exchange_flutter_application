@@ -37,31 +37,33 @@ class _ReportDialogState extends State<ReportDialog> {
   static const int maxTotalSize = 25 * 1024 * 1024; // 25 MB
   static const List<String> allowedExtensions = ['jpg', 'jpeg', 'png', 'txt'];
 
-  final List<Map<String, String>> _reasons = [
-    {'value': 'spam', 'label': 'Spam'},
-    {'value': 'harassment', 'label': 'Harassment or Bullying'},
-    {'value': 'hate_speech', 'label': 'Hate Speech'},
-    {'value': 'violence', 'label': 'Violence or Threats'},
-    {'value': 'nudity', 'label': 'Nudity or Sexual Content'},
-    {'value': 'false_information', 'label': 'False Information'},
-    {'value': 'copyright', 'label': 'Copyright Violation'},
-    {'value': 'other', 'label': 'Other'},
+  /// Report reason codes sent to the server; labels come from [_reasonLabel].
+  final List<String> _reasons = [
+    'spam',
+    'harassment',
+    'hate_speech',
+    'violence',
+    'nudity',
+    'false_information',
+    'copyright',
+    'other',
   ];
 
   String get _typeLabel {
+    final l10n = AppLocalizations.of(context)!;
     switch (widget.type) {
       case 'user':
-        return 'user';
+        return l10n.commonReportTypeUser;
       case 'moment':
-        return 'moment';
+        return l10n.commonReportTypeMoment;
       case 'comment':
-        return 'comment';
+        return l10n.commonReportTypeComment;
       case 'message':
-        return 'message';
+        return l10n.commonReportTypeMessage;
       case 'story':
-        return 'story';
+        return l10n.commonReportTypeStory;
       default:
-        return 'content';
+        return l10n.commonReportTypeContent;
     }
   }
 
@@ -196,6 +198,29 @@ class _ReportDialogState extends State<ReportDialog> {
     return '${(bytes / (1024 * 1024)).toStringAsFixed(1)} MB';
   }
 
+  /// Display label for a report reason code; the code itself is what the
+  /// API receives and stays raw.
+  String _reasonLabel(AppLocalizations l10n, String value) {
+    switch (value) {
+      case 'spam':
+        return l10n.reportReasonSpam;
+      case 'harassment':
+        return l10n.reportReasonHarassment;
+      case 'hate_speech':
+        return l10n.reportReasonHateSpeech;
+      case 'violence':
+        return l10n.reportReasonViolence;
+      case 'nudity':
+        return l10n.reportReasonNudity;
+      case 'false_information':
+        return l10n.reportReasonFalseInformation;
+      case 'copyright':
+        return l10n.commonReportReasonCopyright;
+      default:
+        return l10n.other;
+    }
+  }
+
   Future<void> _submitReport() async {
     // Prevent multiple submissions
     if (_isSubmitting) {
@@ -286,8 +311,8 @@ class _ReportDialogState extends State<ReportDialog> {
             if (mounted) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: const Text(
-                    'Report submitted, but some evidence failed to upload',
+                  content: Text(
+                    AppLocalizations.of(context)!.commonReportSubmittedButSome,
                   ),
                   backgroundColor: Colors.orange,
                 ),
@@ -304,6 +329,7 @@ class _ReportDialogState extends State<ReportDialog> {
           // appear.
           if (!mounted) return;
           final messenger = ScaffoldMessenger.of(context);
+          final l10n = AppLocalizations.of(context)!;
           setState(() {
             _isSubmitting = false;
           });
@@ -312,7 +338,7 @@ class _ReportDialogState extends State<ReportDialog> {
           messenger.showSnackBar(
             SnackBar(
               content: Text(
-                result['message'] ?? 'Report submitted successfully',
+                result['message'] ?? l10n.commonReportSubmittedSuccessfully,
               ),
               backgroundColor: Colors.green,
               duration: const Duration(seconds: 2),
@@ -320,7 +346,7 @@ class _ReportDialogState extends State<ReportDialog> {
           );
         } else {
           // Show detailed error message
-          final errorMessage = result['error'] ?? 'Failed to submit report';
+          final errorMessage = result['error'] ?? AppLocalizations.of(context)!.roomReportSubmitFailed;
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(errorMessage),
@@ -361,6 +387,7 @@ class _ReportDialogState extends State<ReportDialog> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
 
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
@@ -383,7 +410,7 @@ class _ReportDialogState extends State<ReportDialog> {
                   const SizedBox(width: 12),
                   Expanded(
                     child: Text(
-                      'Report $_typeLabel',
+                      l10n.commonReportTitle(_typeLabel),
                       style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -406,7 +433,7 @@ class _ReportDialogState extends State<ReportDialog> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Why are you reporting this $_typeLabel?',
+                      l10n.commonWhyReporting(_typeLabel),
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
@@ -417,8 +444,8 @@ class _ReportDialogState extends State<ReportDialog> {
                     // Reason options
                     ..._reasons.map(
                       (reason) => RadioListTile<String>(
-                        title: Text(reason['label']!),
-                        value: reason['value']!,
+                        title: Text(_reasonLabel(l10n, reason)),
+                        value: reason,
                         groupValue: _selectedReason,
                         onChanged: (value) {
                           setState(() {
@@ -433,7 +460,7 @@ class _ReportDialogState extends State<ReportDialog> {
 
                     // Additional details
                     Text(
-                      'Additional details (optional)',
+                      l10n.additionalDetailsOptional,
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
@@ -444,7 +471,7 @@ class _ReportDialogState extends State<ReportDialog> {
                       controller: _descriptionController,
                       maxLines: 4,
                       decoration: InputDecoration(
-                        hintText: 'Provide more information about the issue...',
+                        hintText: AppLocalizations.of(context)!.provideMoreInformation,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
@@ -457,12 +484,12 @@ class _ReportDialogState extends State<ReportDialog> {
 
                     // Evidence section
                     Text(
-                      'Add Evidence (Required)',
+                      l10n.commonAddEvidenceRequired,
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      'Upload screenshots or text files to support your report',
+                      l10n.commonUploadScreenshotsTextFiles,
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                     const SizedBox(height: 12),
@@ -474,7 +501,10 @@ class _ReportDialogState extends State<ReportDialog> {
                           : _addEvidence,
                       icon: const Icon(Icons.add_photo_alternate_outlined),
                       label: Text(
-                        'Add Evidence (${_selectedFiles.length}/$maxFiles)',
+                        l10n.commonAddEvidenceCount(
+                          _selectedFiles.length,
+                          maxFiles,
+                        ),
                       ),
                     ),
 
@@ -502,7 +532,10 @@ class _ReportDialogState extends State<ReportDialog> {
 
                     // File size progress
                     Text(
-                      'Total: ${_formatFileSize(_totalFileSize)} / ${_formatFileSize(maxTotalSize)}',
+                      l10n.commonReportTotalSize(
+                        _formatFileSize(_totalFileSize),
+                        _formatFileSize(maxTotalSize),
+                      ),
                       style: Theme.of(context).textTheme.labelSmall,
                     ),
                   ],
@@ -560,9 +593,9 @@ class _ReportDialogState extends State<ReportDialog> {
                                     ),
                                   ),
                                 )
-                              : const Text(
-                                  'Submit Report',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
+                              : Text(
+                                  l10n.submitReport,
+                                  style: const TextStyle(fontWeight: FontWeight.bold),
                                 ),
                         ),
                       ),

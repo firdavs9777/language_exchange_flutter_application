@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timeago/timeago.dart' as timeago;
+import 'package:bananatalk_app/utils/time_ago.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/presence_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
@@ -389,7 +389,7 @@ class _SingleCommunityHeaderState extends ConsumerState<SingleCommunityHeader> {
     final lastSeen = presenceState.lastSeen[community.id];
     if (lastSeen != null) {
       return Text(
-        l10n.activeAgo(timeago.format(lastSeen)),
+        l10n.activeAgo(timeAgoFor(context, lastSeen)),
         style: context.captionSmall.copyWith(color: context.textMuted),
       );
     }

@@ -9,9 +9,14 @@ import 'package:bananatalk_app/pages/learning/main/learning_main_screen.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/providers/badge_count_provider.dart';
-import 'package:bananatalk_app/widgets/promo/ai_study_promo_modal.dart';
-import 'package:bananatalk_app/widgets/promo/ads_notice_modal.dart';
-import 'package:bananatalk_app/widgets/promos/feature_spotlight_sheet.dart';
+import 'package:bananatalk_app/pages/ai/tutor/scenario_picker_screen.dart';
+import 'package:bananatalk_app/services/activation_store.dart';
+import 'package:bananatalk_app/models/app_config.dart';
+import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
+import 'package:bananatalk_app/services/guide_store.dart';
+import 'package:bananatalk_app/services/launch_candidates.dart';
+import 'package:bananatalk_app/services/launch_modal_coordinator.dart';
+import 'package:bananatalk_app/services/version_check_coordinator.dart';
 import 'package:bananatalk_app/pages/coins/coin_shop_screen.dart';
 import 'package:bananatalk_app/services/promo_service.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
@@ -41,12 +46,19 @@ final selectedTabProvider = StateProvider<int>((ref) => 0);
 /// tab switch tore it down (see `ReelsGridScreen`).
 const int kMomentsTabIndex = 3;
 
-/// In-memory guard so the rotating feature-spotlight promo (coins/rooms/
-/// voice) is attempted at most once per app process launch, on top of its
-/// own once-per-day SharedPreferences cap. Module-level (not per-State) so
-/// it survives `TabsScreen` being recreated (e.g. deep links reusing vs.
-/// rebuilding the widget) within the same process.
-bool _featureSpotlightAttemptedThisLaunch = false;
+/// The launch pop-ups run once per process (spec §4.1), even if TabsScreen
+/// is rebuilt by a deep link. Re-armed per account by [resetLaunchModalsRun].
+bool _launchModalsRanThisProcess = false;
+
+/// Lets the next account signed in on this process run the launch pop-ups
+/// (called by `resetUserSession` on logout / account switch).
+void resetLaunchModalsRun() => _launchModalsRanThisProcess = false;
+
+@visibleForTesting
+bool get launchModalsRanThisProcess => _launchModalsRanThisProcess;
+
+@visibleForTesting
+void debugMarkLaunchModalsRan() => _launchModalsRanThisProcess = true;
 
 /// Whether a [TabsScreen] has mounted before in this process (see
 /// [shouldSeedInitialTab]).
@@ -121,49 +133,59 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref.read(badgeCountProvider.notifier).fetchBadgeCount();
-      // Weekly promo for AI Study / practice scenarios. Self-throttles to
-      // once per 7 days via SharedPreferences.
-      if (mounted) {
-        AiStudyPromoModal.showIfDue(context);
-      }
-      // One-time ads transparency notice — shown once per device after ads were added.
-      if (mounted) {
-        Future.delayed(const Duration(seconds: 1), () {
-          if (mounted) AdsNoticeModal.showIfNeeded(context);
-        });
-      }
-      // Rotating "feature spotlight" promo (coins/rooms/voice). Reaching
-      // this point already means the user is logged in and on the home
-      // shell — the /home route is only reachable post-login (see
-      // app_router.dart: splash -> login -> home) — so no separate
-      // onboarding/login check is needed here. `pickPromo` itself enforces
-      // the once-per-day cap, per-promo "don't show again" snooze, the
-      // global dismiss-count stop, and coins eligibility; this call site
-      // only adds the once-per-process-launch guard and confirms this tab
-      // shell is still the active route before popping a sheet over it.
-      _maybeShowFeatureSpotlight();
+      _runLaunchModals();
     });
   }
 
-  Future<void> _maybeShowFeatureSpotlight() async {
-    if (_featureSpotlightAttemptedThisLaunch) return;
-    _featureSpotlightAttemptedThisLaunch = true;
-    if (!mounted) return;
+  /// Whether this shell is the visible route, so a pop-up would land on it
+  /// and not over a pushed screen. Callers check [mounted] first.
+  bool get _isCurrentRoute {
     final route = ModalRoute.of(context);
-    if (route != null && !route.isCurrent) return;
+    return route == null || route.isCurrent;
+  }
 
-    final promo = await pickPromo(ref);
-    if (promo == null) return;
-    if (!mounted) return;
-    final route2 = ModalRoute.of(context);
-    if (route2 != null && !route2.isCurrent) return;
+  /// At most one pop-up per launch, chosen by [LaunchModalCoordinator]. The
+  /// update dialog (and the welcome-back sheet) already ran in splash and
+  /// spent the shared PopupBudget if they showed; inside the guide period
+  /// only the ads notice can follow.
+  ///
+  /// Runs once per process. If the shell is rebuilt or replaced (a deep link)
+  /// or covered by a pushed screen within the first second, the launch
+  /// pop-ups are skipped for this process and show on the next launch:
+  /// nothing is marked seen, so this is intended.
+  Future<void> _runLaunchModals() async {
+    if (_launchModalsRanThisProcess) return;
+    _launchModalsRanThisProcess = true;
+    // Let the shell paint first (the ads notice always waited a second).
+    await Future<void>.delayed(const Duration(seconds: 1));
+    if (!mounted || !_isCurrentRoute) return;
 
-    await showFeatureSpotlight(
+    final guidePeriod =
+        await launchGuidePeriod(() => ref.read(isGuidePeriodProvider.future));
+    AppConfig? config;
+    try {
+      config = await ref.read(appConfigProvider.future);
+    } catch (_) {
+      config = null;
+    }
+    if (!mounted || !_isCurrentRoute) return;
+
+    final store = ref.read(activationStoreProvider);
+    await LaunchModalCoordinator(standardLaunchCandidates(
+      config: config,
+      pickSpotlight: () async {
+        final lessonDone = await store.isDone(ActivationAction.lesson);
+        if (!mounted || !_isCurrentRoute) return null;
+        final promo = await pickPromo(ref, lessonDone: lessonDone);
+        if (!mounted || !_isCurrentRoute) return null;
+        return promo;
+      },
+      onSpotlightTry: _openPromoDestination,
+    )).run(
       context,
-      promo,
-      onTry: () => _openPromoDestination(promo),
+      guidePeriod: guidePeriod,
+      updateShown: VersionCheckCoordinator.lastCheckShowedUpdate,
     );
-    await markShown(promo);
   }
 
   /// Deep-link for the feature spotlight's "Try it" CTA.
@@ -187,6 +209,11 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
         ref.read(communityPendingSubTabProvider.notifier).state =
             communityVoiceRoomsSubTab;
         ref.read(selectedTabProvider.notifier).state = 1;
+      case PromoType.aiStudy:
+        Navigator.push(
+          context,
+          AppPageRoute(builder: (_) => const ScenarioPickerScreen()),
+        );
     }
   }
 
@@ -585,6 +612,7 @@ class _CoffeeButtonState extends State<_CoffeeButton>
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return GestureDetector(
       onTapDown: (_) => _ctrl.animateTo(0.0),
       onTapUp: (_) async {
@@ -633,13 +661,13 @@ class _CoffeeButtonState extends State<_CoffeeButton>
                 duration: const Duration(milliseconds: 350),
                 curve: Curves.easeInOutCubic,
                 child: _expanded
-                    ? const Row(
+                    ? Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          SizedBox(width: 6),
+                          const SizedBox(width: 6),
                           Text(
-                            'Buy me a coffee',
-                            style: TextStyle(
+                            l10n.profileBuyMeCoffee,
+                            style: const TextStyle(
                               fontSize: 13,
                               fontWeight: FontWeight.w700,
                               color: Color(0xFF5C3D00),
@@ -659,6 +687,9 @@ class _CoffeeButtonState extends State<_CoffeeButton>
 }
 
 // ─── Support / donation sheet ─────────────────────────────────────────────────
+
+/// PayPal account handle shown as a hint under the support buttons (not a translatable string).
+const String _paypalHandle = '@firdavsDev';
 
 class _SupportSheet extends StatefulWidget {
   const _SupportSheet();
@@ -832,7 +863,7 @@ class _SupportSheetState extends State<_SupportSheet> {
                   const SizedBox(width: 10),
                   Text(
                     _adWatched
-                        ? 'Thanks for watching! 🙏'
+                        ? l10n.profileThanksForWatching
                         : l10n.supportSheetWatchAd,
                     style: const TextStyle(
                       color: Colors.white,
@@ -856,7 +887,7 @@ class _SupportSheetState extends State<_SupportSheet> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12),
                 child: Text(
-                  'or',
+                  l10n.profileOr,
                   style: TextStyle(color: textSecondary, fontSize: 13),
                 ),
               ),
@@ -909,7 +940,7 @@ class _SupportSheetState extends State<_SupportSheet> {
 
           // PayPal handle hint
           Text(
-            '@firdavsDev',
+            _paypalHandle,
             style: TextStyle(
               fontSize: 12,
               color: textSecondary,

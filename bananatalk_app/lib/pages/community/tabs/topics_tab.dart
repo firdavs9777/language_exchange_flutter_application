@@ -132,8 +132,9 @@ class _TopicsTabState extends ConsumerState<TopicsTab> {
         itemCount: categories.length,
         itemBuilder: (context, index) {
           final category = categories[index];
+          final isAllCategory = category == 'All';
           final isSelected =
-              (category == 'All' && _selectedCategory == null) ||
+              (isAllCategory && _selectedCategory == null) ||
               category == _selectedCategory;
 
           return GestureDetector(
@@ -161,7 +162,7 @@ class _TopicsTabState extends ConsumerState<TopicsTab> {
               alignment: Alignment.center,
               child: Builder(
                 builder: (context) => Text(
-                  category == 'All' ? 'All' : Topic.getCategoryLabel(category),
+                  isAllCategory ? AppLocalizations.of(context)!.all : Topic.getCategoryLabel(category),
                   style: context.labelMedium.copyWith(
                     fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
                     color: isSelected ? primaryColor : context.textSecondary,
@@ -255,7 +256,7 @@ class _TopicsTabState extends ConsumerState<TopicsTab> {
                     children: [
                       Text(selectedTopic.name, style: context.titleMedium),
                       Text(
-                        'People interested in this topic',
+                        AppLocalizations.of(context)!.communityPeopleInterestedInTopic,
                         style: context.caption,
                       ),
                     ],
@@ -389,7 +390,7 @@ class _TopicsTabState extends ConsumerState<TopicsTab> {
             Spacing.gapSM,
             Builder(
               builder: (context) => Text(
-                'Be the first to add this topic to your interests!',
+                AppLocalizations.of(context)!.beFirstToAddTopic,
                 textAlign: TextAlign.center,
                 style: context.bodyMedium.copyWith(
                   color: context.textSecondary,
@@ -456,7 +457,7 @@ class _TopicCard extends StatelessWidget {
                     ),
                     if (topic.userCount > 0)
                       Text(
-                        '${formatCompactCount(topic.userCount)} people',
+                        AppLocalizations.of(context)!.communityPeopleCount(formatCompactCount(topic.userCount)),
                         style: context.caption.copyWith(
                           color: context.textMuted,
                         ),

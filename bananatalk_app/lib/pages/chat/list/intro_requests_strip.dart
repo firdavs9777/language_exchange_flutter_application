@@ -6,7 +6,7 @@ import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:timeago/timeago.dart' as timeago;
+import 'package:bananatalk_app/utils/time_ago.dart';
 
 /// Banana-yellow accent used for the pending-intros count chip.
 const _kBananaAccent = Color(0xFFFFD54F);
@@ -145,7 +145,7 @@ class _IntroCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final timeAgo = timeago.format(wave.createdAt);
+    final timeAgo = timeAgoFor(context, wave.createdAt);
     final preview = wave.message?.isNotEmpty == true ? wave.message! : '👋';
 
     return SizedBox(

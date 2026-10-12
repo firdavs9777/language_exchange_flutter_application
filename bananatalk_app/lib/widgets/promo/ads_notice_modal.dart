@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 
-/// One-time notice shown to users after ads were introduced.
-/// Stored in SharedPreferences — shows exactly once per device.
+/// One-time notice shown after ads were introduced. Now a launch candidate:
+/// [isDue] is the old once-only check, [show] records and shows.
 class AdsNoticeModal {
   static const _prefKey = 'ads_notice_shown_v1';
 
-  static Future<void> showIfNeeded(BuildContext context) async {
+  static Future<bool> isDue() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      return prefs.getBool(_prefKey) != true;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  static Future<void> show(BuildContext context) async {
     final prefs = await SharedPreferences.getInstance();
-    if (prefs.getBool(_prefKey) == true) return;
-    if (!context.mounted) return;
     await prefs.setBool(_prefKey, true);
     if (!context.mounted) return;
     await showModalBottomSheet<void>(
@@ -27,6 +35,7 @@ class _AdsNoticeSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final bg = isDark ? const Color(0xFF1C1C2E) : Colors.white;
     final textPrimary = context.textPrimary;
@@ -84,7 +93,7 @@ class _AdsNoticeSheet extends StatelessWidget {
 
           // Headline
           Text(
-            'A note from the developer',
+            l10n.promoAdsNoticeTitle,
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.w800,
@@ -106,11 +115,7 @@ class _AdsNoticeSheet extends StatelessWidget {
               ),
             ),
             child: Text(
-              'Hey! I\'m Firdavs, the solo developer behind Bananatalk. '
-              'I\'ve added a few small ads to the app to help keep it free and fund ongoing development.\n\n'
-              'I know ads can be annoying — so I\'ve made them optional and rewarding. '
-              'Watch an ad to unlock extra messages, community filters, bonus XP after quizzes, and more.\n\n'
-              'Thank you for using Bananatalk. Your support means everything. 🙏',
+              l10n.promoAdsNoticeBody,
               style: TextStyle(
                 fontSize: 14,
                 color: textSecondary,
@@ -123,10 +128,10 @@ class _AdsNoticeSheet extends StatelessWidget {
           // Perks row
           Row(
             children: [
-              _Perk(emoji: '💬', label: '+3 bonus\nmessages'),
-              _Perk(emoji: '🔍', label: 'Unlock\nfilters'),
-              _Perk(emoji: '⭐', label: '+10 bonus\nXP'),
-              _Perk(emoji: '🎙️', label: 'Free\nretry'),
+              _Perk(emoji: '💬', label: l10n.promoAdsPerkMessages),
+              _Perk(emoji: '🔍', label: l10n.promoAdsPerkFilters),
+              _Perk(emoji: '⭐', label: l10n.promoAdsPerkXp),
+              _Perk(emoji: '🎙️', label: l10n.promoAdsPerkRetry),
             ],
           ),
           const SizedBox(height: 24),
@@ -145,9 +150,9 @@ class _AdsNoticeSheet extends StatelessWidget {
                 ),
                 elevation: 0,
               ),
-              child: const Text(
-                'Got it, thanks! 👍',
-                style: TextStyle(
+              child: Text(
+                l10n.promoAdsNoticeGotIt,
+                style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w700,
                 ),

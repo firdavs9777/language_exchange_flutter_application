@@ -645,7 +645,7 @@ class _RegisterState extends State<Register> {
               const SizedBox(width: 12),
               Expanded(
                 child: Text(
-                  'Continue where you left off?',
+                  l10n.commonContinueWhereLeftOff,
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w600,

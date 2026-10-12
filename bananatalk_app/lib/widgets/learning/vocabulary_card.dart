@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/models/learning/vocabulary_model.dart';
 
@@ -194,8 +195,8 @@ class VocabularyCard extends StatelessWidget {
                     const SizedBox(width: 4),
                     Text(
                       item.isDue
-                          ? 'Due for review'
-                          : 'Next: ${_formatDate(item.nextReview!)}',
+                          ? AppLocalizations.of(context)!.learnDueForReview
+                          : AppLocalizations.of(context)!.learnNextReview(_formatDate(context, item.nextReview!)),
                       style: TextStyle(
                         fontSize: 11,
                         color: item.isDue ? Colors.orange : Colors.grey[500],
@@ -238,15 +239,16 @@ class VocabularyCard extends StatelessWidget {
     return Colors.green; // Mastered
   }
 
-  String _formatDate(DateTime date) {
+  String _formatDate(BuildContext context, DateTime date) {
+    final l10n = AppLocalizations.of(context)!;
     final now = DateTime.now();
     final diff = date.difference(now);
 
-    if (diff.inDays == 0) return 'Today';
-    if (diff.inDays == 1) return 'Tomorrow';
-    if (diff.inDays < 7) return 'In ${diff.inDays} days';
-    if (diff.inDays < 30) return 'In ${(diff.inDays / 7).round()} weeks';
-    return 'In ${(diff.inDays / 30).round()} months';
+    if (diff.inDays == 0) return l10n.learnDateToday;
+    if (diff.inDays == 1) return l10n.learnDateTomorrow;
+    if (diff.inDays < 7) return l10n.learnInDays(diff.inDays);
+    if (diff.inDays < 30) return l10n.learnInWeeks((diff.inDays / 7).round());
+    return l10n.learnInMonths((diff.inDays / 30).round());
   }
 }
 
@@ -272,12 +274,12 @@ class VocabularyFlashcard extends StatelessWidget {
         transitionBuilder: (child, animation) {
           return FadeTransition(opacity: animation, child: child);
         },
-        child: isFlipped ? _buildBack() : _buildFront(),
+        child: isFlipped ? _buildBack() : _buildFront(context),
       ),
     );
   }
 
-  Widget _buildFront() {
+  Widget _buildFront(BuildContext context) {
     return Container(
       key: const ValueKey('front'),
       width: double.infinity,
@@ -317,7 +319,7 @@ class VocabularyFlashcard extends StatelessWidget {
           ],
           const SizedBox(height: 24),
           Text(
-            'Tap to reveal',
+            AppLocalizations.of(context)!.learnTapReveal,
             style: TextStyle(
               fontSize: 14,
               color: Colors.grey[400],

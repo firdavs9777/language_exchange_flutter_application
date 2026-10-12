@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/pages/announcements/announcement_screen.dart';
 import 'package:bananatalk_app/pages/chat/chat_screen_wrapper.dart';
 import 'package:bananatalk_app/pages/coins/boost_screen.dart';
 import 'package:bananatalk_app/pages/home/Home.dart';
@@ -211,9 +213,15 @@ final goRouter = GoRouter(
       pageBuilder: (context, state) {
         final userId = state.pathParameters['userId']!;
         final prefill = state.uri.queryParameters['prefill'];
+        // `?call=audio|video`: missed-call "Call back" starts the call here.
+        final autoCall = state.uri.queryParameters['call'];
         return _buildSlideTransition(
           state: state,
-          child: ChatScreenWrapper(userId: userId, prefillMessage: prefill),
+          child: ChatScreenWrapper(
+            userId: userId,
+            prefillMessage: prefill,
+            autoCall: autoCall,
+          ),
         );
       },
     ),
@@ -342,6 +350,15 @@ final goRouter = GoRouter(
           _buildSlideTransition(state: state, child: const BoostScreen()),
     ),
 
+    // Announcement detail: notifications-list rows and `announcement` pushes.
+    GoRoute(
+      path: '/announcement/:id',
+      pageBuilder: (context, state) => _buildSlideTransition(
+        state: state,
+        child: AnnouncementScreen(id: state.pathParameters['id'] ?? ''),
+      ),
+    ),
+
     // Slide from right + fade — standard navigation push feel.
     GoRoute(
       path: '/leaderboard',
@@ -368,8 +385,13 @@ final goRouter = GoRouter(
           // than crash. Should only happen on a hand-typed deep link.
           return _buildSlideTransition(
             state: state,
-            child: const Scaffold(
-              body: Center(child: Text('Language not provided')),
+            child: Scaffold(
+              body: Center(
+                child: Builder(
+                  builder: (context) =>
+                      Text(AppLocalizations.of(context)!.commonLanguageNotProvided),
+                ),
+              ),
             ),
           );
         }
@@ -390,8 +412,13 @@ final goRouter = GoRouter(
         if (exam == null) {
           return _buildSlideTransition(
             state: state,
-            child: const Scaffold(
-              body: Center(child: Text('Exam not provided')),
+            child: Scaffold(
+              body: Center(
+                child: Builder(
+                  builder: (context) =>
+                      Text(AppLocalizations.of(context)!.commonExamNotProvided),
+                ),
+              ),
             ),
           );
         }

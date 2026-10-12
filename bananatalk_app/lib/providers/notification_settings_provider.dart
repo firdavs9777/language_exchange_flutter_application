@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:bananatalk_app/models/notification_models.dart';
 import 'package:bananatalk_app/services/notification_api_client.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -12,6 +13,10 @@ class NotificationSettingsNotifier
   NotificationSettingsNotifier() : super(const AsyncValue.loading()) {
     fetchSettings();
   }
+
+  @visibleForTesting
+  NotificationSettingsNotifier.forTest(NotificationSettings initial)
+      : super(AsyncValue.data(initial));
 
   /// Fetch notification settings from backend
   Future<void> fetchSettings() async {
@@ -107,6 +112,12 @@ class NotificationSettingsNotifier
         break;
       case 'marketing':
         updatedSettings = currentSettings.copyWith(marketing: value);
+        break;
+      case 'announcements':
+        updatedSettings = currentSettings.copyWith(announcements: value);
+        break;
+      case 'allowCalls':
+        updatedSettings = currentSettings.copyWith(allowCalls: value);
         break;
       case 'sound':
         updatedSettings = currentSettings.copyWith(sound: value);

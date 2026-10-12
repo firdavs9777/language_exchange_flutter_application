@@ -67,7 +67,7 @@ class _AnswerFeedbackSheetState extends State<AnswerFeedbackSheet> {
         if (result['success'] == true && result['data'] != null) {
           _feedback = result['data'] as FeedbackResponse;
         } else {
-          _error = result['message'] ?? 'Failed to load feedback';
+          _error = result['message'] ?? AppLocalizations.of(context)!.aiFailedToLoadFeedback;
         }
       });
     }
@@ -160,10 +160,10 @@ class _AnswerFeedbackSheetState extends State<AnswerFeedbackSheet> {
                 child: const Icon(Icons.close, color: Colors.red, size: 24),
               ),
               const SizedBox(width: 12),
-              const Expanded(
+              Expanded(
                 child: Text(
-                  'Not quite right',
-                  style: TextStyle(
+                  AppLocalizations.of(context)!.aiNotQuiteRight,
+                  style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
@@ -197,7 +197,7 @@ class _AnswerFeedbackSheetState extends State<AnswerFeedbackSheet> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Your answer',
+                            AppLocalizations.of(context)!.examVocabQuizYourAnswer,
                             style: TextStyle(
                               fontSize: 12,
                               color: Colors.grey[600],
@@ -228,7 +228,7 @@ class _AnswerFeedbackSheetState extends State<AnswerFeedbackSheet> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Correct answer',
+                            AppLocalizations.of(context)!.examVocabQuizCorrectAnswer,
                             style: TextStyle(
                               fontSize: 12,
                               color: Colors.grey[600],
@@ -253,9 +253,9 @@ class _AnswerFeedbackSheetState extends State<AnswerFeedbackSheet> {
           const SizedBox(height: 20),
 
           // Feedback
-          const Text(
-            'Why?',
-            style: TextStyle(
+          Text(
+            AppLocalizations.of(context)!.aiWhy,
+            style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
             ),
@@ -298,9 +298,9 @@ class _AnswerFeedbackSheetState extends State<AnswerFeedbackSheet> {
           // Explanation
           if (feedback.explanation != null) ...[
             const SizedBox(height: 16),
-            const Text(
-              'Explanation',
-              style: TextStyle(
+            Text(
+              AppLocalizations.of(context)!.examQuestionExplanation,
+              style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.bold,
                 color: Colors.grey,
@@ -371,9 +371,9 @@ class _AnswerFeedbackSheetState extends State<AnswerFeedbackSheet> {
                   borderRadius: BorderRadius.circular(12),
                 ),
               ),
-              child: const Text(
-                'Got It',
-                style: TextStyle(
+              child: Text(
+                AppLocalizations.of(context)!.aiGotIt,
+                style: const TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 16,
                 ),

@@ -40,14 +40,12 @@ class VisitorLimitDialog extends StatelessWidget {
     IconData icon;
 
     if (limitType == 'message') {
-      title = 'Daily Message Limit Reached';
-      message =
-          'You have sent ${limitations.messagesSentToday} messages today. Upgrade to send more!';
+      title = AppLocalizations.of(context)!.visitorLimitMessagesTitle;
+      message = AppLocalizations.of(context)!.visitorLimitMessagesBody(limitations.messagesSentToday);
       icon = Icons.message;
     } else {
-      title = 'Daily Profile View Limit Reached';
-      message =
-          'You have viewed ${limitations.profileViewsToday} profiles today. Upgrade to view more!';
+      title = AppLocalizations.of(context)!.visitorLimitProfilesTitle;
+      message = AppLocalizations.of(context)!.visitorLimitProfilesBody(limitations.profileViewsToday);
       icon = Icons.visibility;
     }
 
@@ -99,9 +97,9 @@ class VisitorLimitDialog extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 24),
-                  const Text(
-                    'Choose an option:',
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                  Text(
+                    AppLocalizations.of(context)!.vipChooseOption,
+                    style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 16),
 
@@ -109,8 +107,8 @@ class VisitorLimitDialog extends StatelessWidget {
                   _buildOptionCard(
                     context: context,
                     icon: Icons.person,
-                    title: 'Create Free Account',
-                    description: 'Higher daily limits',
+                    title: AppLocalizations.of(context)!.vipCreateFreeAccount,
+                    description: AppLocalizations.of(context)!.visitorLimitFreeAccountBenefit,
                     color: Colors.blue,
                     onTap: () {
                       Navigator.of(context).pop(false);
@@ -132,8 +130,8 @@ class VisitorLimitDialog extends StatelessWidget {
                   _buildOptionCard(
                     context: context,
                     icon: Icons.workspace_premium,
-                    title: 'Go VIP',
-                    description: 'Unlimited access',
+                    title: AppLocalizations.of(context)!.goVip,
+                    description: AppLocalizations.of(context)!.visitorLimitVipBenefit,
                     color: Colors.amber[700]!,
                     onTap: () {
                       Navigator.of(context).pop(false);

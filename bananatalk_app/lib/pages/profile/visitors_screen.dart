@@ -9,7 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
 import 'package:bananatalk_app/widgets/masked_person_tile.dart';
 import 'package:flutter/services.dart';
-import 'package:timeago/timeago.dart' as timeago;
+import 'package:bananatalk_app/utils/time_ago.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/utils/string_sanitizer.dart';
 import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
@@ -140,6 +140,7 @@ class _ProfileVisitorsScreenState
   }
 
   Widget _buildBody() {
+    final l10n = AppLocalizations.of(context)!;
     if (_isLoading) {
       return Center(
         child: Column(
@@ -155,7 +156,7 @@ class _ProfileVisitorsScreenState
             ),
             const SizedBox(height: 14),
             Text(
-              'Loading visitors...',
+              l10n.profileLoadingVisitors,
               style: context.bodySmall.copyWith(color: context.textSecondary),
             ),
           ],
@@ -425,7 +426,7 @@ class _ProfileVisitorsScreenState
                           ),
                           const SizedBox(width: 6),
                           Text(
-                            'Pull down to refresh',
+                            l10n.momentsPullDownRefresh,
                             style: context.captionSmall.copyWith(
                               color: AppColors.primary,
                               fontWeight: FontWeight.w600,
@@ -500,7 +501,7 @@ class _ProfileVisitorsScreenState
                       ),
                     ),
                     Text(
-                      'See who checked your profile',
+                      l10n.profileSeeWhoChecked,
                       style: context.captionSmall.copyWith(
                         color: context.textSecondary,
                       ),
@@ -616,6 +617,7 @@ class _ProfileVisitorsScreenState
 
   // ========== SECTION TITLE ==========
   Widget _buildSectionTitle() {
+    final l10n = AppLocalizations.of(context)!;
     return Row(
       children: [
         Container(
@@ -628,7 +630,7 @@ class _ProfileVisitorsScreenState
         ),
         const SizedBox(width: 10),
         Text(
-          'Recent Visitors',
+          l10n.profileRecentVisitors,
           style: context.titleMedium.copyWith(
             fontWeight: FontWeight.w800,
             letterSpacing: -0.2,
@@ -659,6 +661,8 @@ class _ProfileVisitorsScreenState
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final user = visitor['user'];
     final lastVisit = DateTime.parse(visitor['lastVisit']);
+    // Compact ("5m") in en/es; other locales use the regular localized phrase.
+    final lastVisitShort = timeAgoFor(context, lastVisit, short: true);
     final visitCount = visitor['visitCount'] ?? 1;
     final source = visitor['source'] ?? 'direct';
 
@@ -902,24 +906,7 @@ class _ProfileVisitorsScreenState
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 3,
-                      ),
-                      decoration: BoxDecoration(
-                        color: context.containerColor,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Text(
-                        timeago.format(lastVisit, locale: 'en_short'),
-                        style: context.captionSmall.copyWith(
-                          color: context.textSecondary,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 10,
-                        ),
-                      ),
-                    ),
+                    VisitTimeBadge(text: lastVisitShort),
                     const SizedBox(height: 6),
                     Icon(
                       Icons.chevron_right_rounded,
@@ -972,5 +959,39 @@ class _ProfileVisitorsScreenState
           color: const Color(0xFF607D8B),
         );
     }
+  }
+}
+
+/// The "last visit" time chip. Localized relative times can be long (only
+/// en/es have a compact timeago style), so it is one line, capped in width
+/// and ellipsized instead of squeezing the visitor's name.
+class VisitTimeBadge extends StatelessWidget {
+  const VisitTimeBadge({super.key, required this.text});
+
+  static const double maxWidth = 96;
+
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      constraints: const BoxConstraints(maxWidth: maxWidth),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+      decoration: BoxDecoration(
+        color: context.containerColor,
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Text(
+        text,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+        softWrap: false,
+        style: context.captionSmall.copyWith(
+          color: context.textSecondary,
+          fontWeight: FontWeight.w600,
+          fontSize: 10,
+        ),
+      ),
+    );
   }
 }

@@ -496,15 +496,14 @@ class _ReelsGridScreenState extends ConsumerState<ReelsGridScreen>
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    'No reels yet',
+                    AppLocalizations.of(context)!.momentsNoReelsYet,
                     style: context.titleMedium.copyWith(
                       fontWeight: FontWeight.w700,
                     ),
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    "Be the first to answer today's prompt on camera, or "
-                    'record a free-form language-learning clip.',
+                    AppLocalizations.of(context)!.momentsNoReelsBody,
                     textAlign: TextAlign.center,
                     style: context.bodySmall.copyWith(
                       color: context.textSecondary,

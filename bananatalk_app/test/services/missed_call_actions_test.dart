@@ -1,0 +1,343 @@
+import 'dart:async';
+
+import 'package:flutter/foundation.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'package:bananatalk_app/services/call/missed_call_actions.dart';
+import 'package:bananatalk_app/services/notification_api_client.dart';
+
+void main() {
+  const data = {'type': 'missed_call', 'callerId': 'u1', 'callType': 'video', 'actions': '["call_back","message"]'};
+
+  test('Call back opens the chat and starts a call of the same type', () {
+    expect(missedCallActionRoute(data, 'call_back'), '/chat/u1?call=video');
+    expect(missedCallActionRoute({...data, 'callType': 'audio'}, 'call_back'), '/chat/u1?call=audio');
+  });
+
+  test('Message opens the chat; plain tap and other types are not ours', () {
+    expect(missedCallActionRoute(data, 'message'), '/chat/u1');
+    expect(missedCallActionRoute(data, null), isNull);
+    expect(missedCallActionRoute({...data, 'type': 'chat_message'}, 'call_back'), isNull);
+    expect(missedCallActionRoute({...data, 'callerId': ''}, 'call_back'), isNull);
+  });
+
+  test('actions parse from JSON or a comma list; this build declares the capability', () {
+    expect(missedCallActions(data), ['call_back', 'message']);
+    expect(missedCallActions({'actions': 'call_back,message'}), ['call_back', 'message']);
+    expect(missedCallActions({}), isEmpty);
+    expect(kCallPushCapabilities, containsAll(['call_cancel', 'missed_call_actions']));
+  });
+
+  group('MissedCallTapGate', () {
+    late List<String> routes;
+    late bool signedIn;
+    late Set<String> blocked;
+    late MissedCallTapGate gate;
+
+    const push = {
+      'type': 'missed_call',
+      'callId': 'c1',
+      'callUuid': 'uuid-1',
+      'callerId': 'u1',
+      'callType': 'video',
+    };
+
+    setUp(() {
+      routes = [];
+      signedIn = true;
+      blocked = {};
+      gate = MissedCallTapGate(
+        navigate: routes.add,
+        isSignedIn: () => signedIn,
+        isBlocked: (id) async => blocked.contains(id),
+      );
+    });
+
+    test('only missed_call taps with a caller are taken', () {
+      expect(gate.submit({...push, 'type': 'chat_message'}, null), isFalse);
+      expect(gate.submit({...push, 'callerId': ''}, 'call_back'), isFalse);
+      expect(gate.submit(push, 'call_back'), isTrue);
+    });
+
+    test('a cold-start tap waits for the splash, then routes once', () async {
+      gate.submit(push, 'call_back');
+      await pumpEventQueue();
+      expect(routes, isEmpty, reason: 'never routes over the splash');
+
+      gate.settle();
+      await pumpEventQueue();
+      expect(routes, ['/chat/u1?call=video']);
+
+      gate.settle();
+      await pumpEventQueue();
+      expect(routes, hasLength(1));
+    });
+
+    test('the same notification arriving three ways fires its action once', () async {
+      gate.settle();
+      // Local-notification action, getInitialMessage (plain) and
+      // onMessageOpenedApp (plain) for the same call.
+      gate.submit(push, 'call_back');
+      gate.submit(push, null);
+      gate.submit(push, null);
+      gate.submit(push, 'call_back');
+      await pumpEventQueue();
+      expect(routes, ['/chat/u1?call=video']);
+    });
+
+    test('the native copy (callId only, no type extras) dedupes with the push', () async {
+      gate.settle();
+      gate.submit({'type': 'missed_call', 'callId': 'c1', 'callerId': 'u1', 'callType': 'video'}, 'call_back');
+      gate.submit(push, 'call_back');
+      await pumpEventQueue();
+      expect(routes, hasLength(1));
+    });
+
+    test('an action beats a plain tap still waiting for the splash', () async {
+      gate.submit(push, null);
+      gate.submit(push, 'message');
+      gate.settle();
+      await pumpEventQueue();
+      expect(routes, ['/chat/u1']);
+
+      routes.clear();
+      final other = MissedCallTapGate(
+        navigate: routes.add,
+        isSignedIn: () => true,
+        isBlocked: (_) async => false,
+      );
+      other.submit(push, 'call_back');
+      other.submit(push, null);
+      other.settle();
+      await pumpEventQueue();
+      expect(routes, ['/chat/u1?call=video'], reason: 'a later plain tap never downgrades the action');
+    });
+
+    test('a different call is a different tap', () async {
+      gate.settle();
+      gate.submit(push, 'call_back');
+      gate.submit({...push, 'callId': 'c2', 'callUuid': 'uuid-2'}, 'message');
+      await pumpEventQueue();
+      expect(routes, ['/chat/u1?call=video', '/chat/u1']);
+    });
+
+    test('no call id: two missed calls from the same caller are both routed', () async {
+      gate.settle();
+      const noId = {'type': 'missed_call', 'callerId': 'u1', 'callType': 'audio'};
+      gate.submit({...noId, 'sentAt': '2026-10-12T10:00:00Z'}, 'message');
+      gate.submit({...noId, 'sentAt': '2026-10-12T10:00:00Z'}, 'message'); // same tap, 2nd path
+      gate.submit({...noId, 'sentAt': '2026-10-12T10:05:00Z'}, 'call_back');
+      await pumpEventQueue();
+      expect(routes, ['/chat/u1', '/chat/u1?call=audio']);
+    });
+
+    test('no call id and no time: a repeat within the window is dropped, a later one routes', () async {
+      var clock = DateTime(2026, 10, 12, 10);
+      final g = MissedCallTapGate(
+        navigate: routes.add,
+        isSignedIn: () => true,
+        isBlocked: (_) async => false,
+        now: () => clock,
+      )..settle();
+      const noId = {'type': 'missed_call', 'callerId': 'u1', 'callType': 'audio'};
+      g.submit(noId, 'message');
+      clock = clock.add(const Duration(seconds: 2));
+      g.submit(noId, 'message'); // the same tap arriving another way
+      clock = clock.add(const Duration(minutes: 5));
+      g.submit(noId, 'message'); // the caller's next missed call
+      await pumpEventQueue();
+      expect(routes, ['/chat/u1', '/chat/u1']);
+    });
+
+    test('a plain tap opens the chat', () async {
+      gate.settle();
+      gate.submit(push, null);
+      await pumpEventQueue();
+      expect(routes, ['/chat/u1']);
+    });
+
+    test('signed out: nothing beyond opening the app', () async {
+      signedIn = false;
+      gate.submit(push, 'call_back');
+      gate.settle();
+      await pumpEventQueue();
+      expect(routes, isEmpty);
+    });
+
+    test('a blocked caller: nothing beyond opening the app', () async {
+      blocked = {'u1'};
+      gate.settle();
+      gate.submit(push, 'call_back');
+      gate.submit({...push, 'callId': 'c2'}, 'message');
+      gate.submit({...push, 'callId': 'c3'}, null);
+      await pumpEventQueue();
+      expect(routes, isEmpty);
+    });
+
+    test('a block lookup that fails or hangs still routes (the server refuses blocked calls)', () async {
+      final failing = MissedCallTapGate(
+        navigate: routes.add,
+        isSignedIn: () => true,
+        isBlocked: (_) async => throw StateError('offline'),
+      );
+      failing.settle();
+      failing.submit(push, 'call_back');
+      await pumpEventQueue();
+      expect(routes, ['/chat/u1?call=video']);
+
+      routes.clear();
+      final hanging = MissedCallTapGate(
+        navigate: routes.add,
+        isSignedIn: () => true,
+        isBlocked: (_) => Completer<bool>().future,
+        blockLookupTimeout: const Duration(milliseconds: 10),
+      );
+      hanging.settle();
+      hanging.submit(push, 'message');
+      await Future<void>.delayed(const Duration(milliseconds: 30));
+      expect(routes, ['/chat/u1']);
+    });
+
+    test('a navigation error is swallowed', () async {
+      final saved = debugPrint;
+      debugPrint = (String? message, {int? wrapWidth}) {};
+      addTearDown(() => debugPrint = saved);
+      final throwing = MissedCallTapGate(
+        navigate: (_) => throw StateError('no router'),
+        isSignedIn: () => true,
+        isBlocked: (_) async => false,
+      );
+      throwing.settle();
+      expect(() => throwing.submit(push, 'call_back'), returnsNormally);
+      await pumpEventQueue();
+    });
+  });
+
+  group('missedCallNotificationContent', () {
+    test('uses the server title and body', () {
+      final c = missedCallNotificationContent(
+        {'title': 'Missed video call', 'body': 'Ana called you', 'callerName': 'Ana'},
+        fallbackTitle: 'Missed Call',
+      );
+      expect(c.title, 'Missed video call');
+      expect(c.body, 'Ana called you');
+    });
+
+    test('falls back to a localized title and the caller name', () {
+      final c = missedCallNotificationContent({'callerName': 'Ana'}, fallbackTitle: 'Missed Call');
+      expect(c.title, 'Missed Call');
+      expect(c.body, 'Ana');
+    });
+
+    test('a stable id per call, so a repeat replaces instead of stacking', () {
+      expect(missedCallNotificationId({'callId': 'c1'}), missedCallNotificationId({'callId': 'c1'}));
+      expect(missedCallNotificationId({'callId': 'c1'}), isNot(missedCallNotificationId({'callId': 'c2'})));
+      expect(missedCallNotificationId({}), isNonNegative);
+    });
+
+    test('an empty callId is missing: callUuid, else caller + time', () {
+      expect(missedCallNotificationId({'callId': '', 'callUuid': 'uuid-1'}),
+          missedCallNotificationId({'callUuid': 'uuid-1'}));
+      final a = missedCallNotificationId({'callId': '', 'callerId': 'u1'},
+          now: () => DateTime.fromMicrosecondsSinceEpoch(1));
+      final b = missedCallNotificationId({'callId': '', 'callerId': 'u1'},
+          now: () => DateTime.fromMicrosecondsSinceEpoch(2));
+      expect(a, isNot(b), reason: 'two id-less missed calls must not replace each other');
+    });
+  });
+
+  group('showMissedCallNotification (Android draw)', () {
+    setUp(() => SharedPreferences.setMockInitialValues({'app_language': 'en'}));
+
+    const push = {
+      'type': 'missed_call',
+      'callId': 'c1',
+      'callerId': 'u1',
+      'callType': 'audio',
+      'title': 'Missed voice call',
+      'body': 'Ana called you',
+    };
+
+    test('draws Call back / Message with the push as payload', () async {
+      final plugin = _FakePlugin();
+      await showMissedCallNotification(plugin, push, isAndroid: true);
+      expect(plugin.shows, hasLength(1));
+      final shown = plugin.shows.single;
+      expect(shown.id, missedCallNotificationId(push));
+      expect(shown.title, 'Missed voice call');
+      expect(shown.actionIds, [kMissedCallBack, kMissedCallMessage]);
+      expect(shown.actionLabels, ['Call back', 'Message']);
+      expect(shown.payload, contains('"callId":"c1"'));
+    });
+
+    test('a failing action notification falls back to a plain one, same id and payload', () async {
+      final saved = debugPrint;
+      debugPrint = (String? message, {int? wrapWidth}) {};
+      addTearDown(() => debugPrint = saved);
+
+      final plugin = _FakePlugin(failFirst: 1);
+      await showMissedCallNotification(plugin, push, isAndroid: true);
+      expect(plugin.shows, hasLength(2));
+      final [first, fallback] = plugin.shows;
+      expect(first.actionIds, isNotEmpty);
+      expect(fallback.actionIds, isEmpty);
+      expect(fallback.id, first.id);
+      expect(fallback.payload, first.payload);
+      expect(fallback.title, 'Missed voice call');
+      expect(fallback.body, 'Ana called you');
+    });
+
+    test('never throws, even when the fallback fails too', () async {
+      final saved = debugPrint;
+      debugPrint = (String? message, {int? wrapWidth}) {};
+      addTearDown(() => debugPrint = saved);
+
+      final plugin = _FakePlugin(failFirst: 2);
+      await expectLater(showMissedCallNotification(plugin, push, isAndroid: true), completes);
+      expect(plugin.shows, hasLength(2));
+    });
+
+    test('not Android: draws nothing', () async {
+      final plugin = _FakePlugin();
+      await showMissedCallNotification(plugin, push, isAndroid: false);
+      expect(plugin.shows, isEmpty);
+    });
+  });
+}
+
+class _Shown {
+  _Shown(this.id, this.title, this.body, this.details, this.payload);
+  final int id;
+  final String? title;
+  final String? body;
+  final NotificationDetails? details;
+  final String? payload;
+
+  List<AndroidNotificationAction> get _actions => details?.android?.actions ?? const [];
+  List<String> get actionIds => _actions.map((a) => a.id).toList();
+  List<String> get actionLabels => _actions.map((a) => a.title).toList();
+}
+
+/// Records every `show`; the first [failFirst] calls throw after recording.
+class _FakePlugin implements FlutterLocalNotificationsPlugin {
+  _FakePlugin({this.failFirst = 0});
+  final int failFirst;
+  final shows = <_Shown>[];
+
+  @override
+  Future<void> show(
+    int id,
+    String? title,
+    String? body,
+    NotificationDetails? notificationDetails, {
+    String? payload,
+  }) async {
+    shows.add(_Shown(id, title, body, notificationDetails, payload));
+    if (shows.length <= failFirst) throw StateError('show failed');
+  }
+
+  @override
+  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
+}

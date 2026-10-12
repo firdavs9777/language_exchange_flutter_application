@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/models/learning/learning_progress_model.dart';
 
@@ -30,9 +31,9 @@ class DailyGoalWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Daily Goals',
-            style: TextStyle(
+          Text(
+            AppLocalizations.of(context)!.learnDailyGoals,
+            style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 16,
             ),

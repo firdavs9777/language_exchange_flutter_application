@@ -41,7 +41,7 @@ class _ChallengesScreenState extends ConsumerState<ChallengesScreen>
         elevation: 0,
         backgroundColor: context.surfaceColor,
         title: Text(
-          'Challenges',
+          AppLocalizations.of(context)!.learnChallenges,
           style: context.titleLarge,
         ),
         leading: IconButton(
@@ -53,10 +53,10 @@ class _ChallengesScreenState extends ConsumerState<ChallengesScreen>
           labelColor: AppColors.primary,
           unselectedLabelColor: context.textSecondary,
           indicatorColor: AppColors.primary,
-          tabs: const [
-            Tab(text: 'Daily'),
-            Tab(text: 'Weekly'),
-            Tab(text: 'Special'),
+          tabs: [
+            Tab(text: AppLocalizations.of(context)!.learnChallengeDaily),
+            Tab(text: AppLocalizations.of(context)!.learnChallengeWeekly),
+            Tab(text: AppLocalizations.of(context)!.learnChallengeSpecial),
           ],
         ),
       ),
@@ -84,20 +84,20 @@ class _ChallengesScreenState extends ConsumerState<ChallengesScreen>
                   children: [
                     _buildChallengeList(
                       daily,
-                      'Daily',
-                      'Complete challenges daily to earn XP and rewards!',
+                      AppLocalizations.of(context)!.learnChallengeDaily,
+                      AppLocalizations.of(context)!.learnChallengeDailyDesc,
                       const Color(0xFF2196F3),
                     ),
                     _buildChallengeList(
                       weekly,
-                      'Weekly',
-                      'Weekly challenges refresh every Monday',
+                      AppLocalizations.of(context)!.learnChallengeWeekly,
+                      AppLocalizations.of(context)!.learnChallengeWeeklyDesc,
                       const Color(0xFF9C27B0),
                     ),
                     _buildChallengeList(
                       special,
-                      'Special',
-                      'Limited-time challenges with bonus rewards!',
+                      AppLocalizations.of(context)!.learnChallengeSpecial,
+                      AppLocalizations.of(context)!.learnChallengeSpecialDesc,
                       const Color(0xFFFF9800),
                     ),
                   ],
@@ -115,7 +115,7 @@ class _ChallengesScreenState extends ConsumerState<ChallengesScreen>
             children: [
               Icon(Icons.error_outline, size: 48, color: context.textMuted),
               Spacing.gapLG,
-              Text('Failed to load challenges',
+              Text(AppLocalizations.of(context)!.learnFailedLoadChallenges,
                   style: context.bodyMedium.copyWith(color: context.textSecondary)),
               Spacing.gapLG,
               ElevatedButton(
@@ -161,7 +161,7 @@ class _ChallengesScreenState extends ConsumerState<ChallengesScreen>
           color: Theme.of(context).colorScheme.surfaceContainerHighest,
         ),
         _buildStatItem(
-          'Progress',
+          AppLocalizations.of(context)!.learnProgress,
           challenges.isNotEmpty
               ? '${(completed / challenges.length * 100).round()}%'
               : '0%',
@@ -233,7 +233,7 @@ class _ChallengesScreenState extends ConsumerState<ChallengesScreen>
             ),
             const SizedBox(height: 16),
             Text(
-              'No $type Challenges',
+              AppLocalizations.of(context)!.learnNoChallenges(type),
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
@@ -242,7 +242,7 @@ class _ChallengesScreenState extends ConsumerState<ChallengesScreen>
             ),
             const SizedBox(height: 8),
             Text(
-              'Check back later!',
+              AppLocalizations.of(context)!.learnCheckBackLater,
               style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
             ),
           ],
@@ -300,7 +300,7 @@ class _ChallengesScreenState extends ConsumerState<ChallengesScreen>
                 ),
                 const SizedBox(width: 8),
                 Text(
-                  'Active (${active.length})',
+                  AppLocalizations.of(context)!.learnActiveCount(active.length),
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -329,7 +329,7 @@ class _ChallengesScreenState extends ConsumerState<ChallengesScreen>
                 ),
                 const SizedBox(width: 8),
                 Text(
-                  'Completed (${completed.length})',
+                  AppLocalizations.of(context)!.learnCompletedCount(completed.length),
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -424,7 +424,7 @@ class _ChallengesScreenState extends ConsumerState<ChallengesScreen>
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Progress',
+                  AppLocalizations.of(context)!.learnProgress,
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     color: Theme.of(context).colorScheme.onSurfaceVariant,
@@ -485,14 +485,14 @@ class _ChallengesScreenState extends ConsumerState<ChallengesScreen>
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              '+${challenge.xpReward} XP',
+                              AppLocalizations.of(context)!.learningXpGained(challenge.xpReward),
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Color(0xFF00BFA5),
                               ),
                             ),
                             Text(
-                              'XP Reward',
+                              AppLocalizations.of(context)!.learnXpReward,
                               style: TextStyle(
                                 fontSize: 11,
                                 color: Theme.of(context).colorScheme.onSurfaceVariant,
@@ -538,7 +538,7 @@ class _ChallengesScreenState extends ConsumerState<ChallengesScreen>
                                   ),
                                 ),
                                 Text(
-                                  'Bonus',
+                                  AppLocalizations.of(context)!.learnBonus,
                                   style: TextStyle(
                                     fontSize: 11,
                                     color: Theme.of(context).colorScheme.onSurfaceVariant,
@@ -568,7 +568,7 @@ class _ChallengesScreenState extends ConsumerState<ChallengesScreen>
                 ),
                 const SizedBox(width: 6),
                 Text(
-                  'Expires in ${challenge.timeRemainingFormatted}',
+                  AppLocalizations.of(context)!.learnExpires(challenge.timeRemainingFormatted),
                   style: TextStyle(
                     fontSize: 13,
                     color: challenge.timeRemaining.inHours < 6

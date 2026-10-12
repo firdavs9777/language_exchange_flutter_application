@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/services/activation_store.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/services/learning_service.dart';
 import 'package:bananatalk_app/models/learning/lesson_model.dart';
@@ -378,6 +379,10 @@ class LessonPlayerNotifier extends StateNotifier<LessonPlayerState> {
     final xpEarned = result['success'] == true
         ? (result['data']?['xpEarned'] ?? 0) as int
         : 0;
+
+    if (result['success'] == true) {
+      ActivationStore().markDone(ActivationAction.lesson).ignore();
+    }
 
     state = state.copyWith(
       isComplete: true,

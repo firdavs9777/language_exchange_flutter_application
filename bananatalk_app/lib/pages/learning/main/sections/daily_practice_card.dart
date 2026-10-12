@@ -14,6 +14,7 @@ class DailyPracticeCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     final practice = ref.watch(dailyPracticeProvider);
 
@@ -39,9 +40,9 @@ class DailyPracticeCard extends ConsumerWidget {
                       Icon(Icons.auto_awesome,
                           color: theme.colorScheme.tertiary),
                       const SizedBox(width: 8),
-                      const Text(
-                        'Daily Practice',
-                        style: TextStyle(
+                      Text(
+                        l10n.aiDailyPracticeTitle,
+                        style: const TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                       const Spacer(),
@@ -56,7 +57,7 @@ class DailyPracticeCard extends ConsumerWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Translate this sentence',
+                    l10n.packTranslatePrompt,
                     style: TextStyle(
                         color: theme.colorScheme.onSurfaceVariant,
                         fontSize: 13),
@@ -217,7 +218,7 @@ class _DailyPracticeScreenState extends ConsumerState<DailyPracticeScreen> {
                         color: color),
                     const SizedBox(width: 8),
                     Text(
-                      'Score: $score / 100',
+                      AppLocalizations.of(context)!.learnScore(score),
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: color,

@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:bananatalk_app/services/analytics_service.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/services/activation_store.dart';
 import 'package:bananatalk_app/services/guide_store.dart';
 import 'package:bananatalk_app/pages/community/first_session/first_session_store.dart';
 import 'package:bananatalk_app/pages/community/first_session/matches_first_session_panel.dart';
@@ -20,70 +23,78 @@ import 'package:bananatalk_app/widgets/guides/pulse_highlight.dart';
 /// isolation, so nothing ever mounted MatchesTab with the panel -- which is
 /// how the remount bug below survived.
 DailyMatchesResult _result({int count = 3}) => DailyMatchesResult.fromJson({
-      'matches': [
-        for (var i = 0; i < count; i++)
-          {
-            'user': {
-              '_id': 'u$i',
-              'name': 'Partner $i',
-              'native_language': 'Korean',
-              'language_to_learn': 'English',
-            },
-            'matchReasons': const <String>[],
-          },
-      ],
-    });
+  'matches': [
+    for (var i = 0; i < count; i++)
+      {
+        'user': {
+          '_id': 'u$i',
+          'name': 'Partner $i',
+          'native_language': 'Korean',
+          'language_to_learn': 'English',
+        },
+        'matchReasons': const <String>[],
+      },
+  ],
+});
 
 Community _user({required int daysOld}) => Community(
-      id: 'me',
-      appleId: '',
-      googleId: '',
-      name: 'Me',
-      email: '',
-      mbti: '',
-      bloodType: '',
-      bio: '',
-      images: const [],
-      birth_day: '',
-      birth_month: '',
-      gender: '',
-      birth_year: '',
-      native_language: 'English',
-      language_to_learn: 'Korean',
-      imageUrls: const [],
-      createdAt:
-          DateTime.now().subtract(Duration(days: daysOld)).toIso8601String(),
-      version: 0,
-      followers: const [],
-      followings: const [],
-      location: Location.defaultLocation(),
-    );
+  id: 'me',
+  appleId: '',
+  googleId: '',
+  name: 'Me',
+  email: '',
+  mbti: '',
+  bloodType: '',
+  bio: '',
+  images: const [],
+  birth_day: '',
+  birth_month: '',
+  gender: '',
+  birth_year: '',
+  native_language: 'English',
+  language_to_learn: 'Korean',
+  imageUrls: const [],
+  createdAt: DateTime.now().subtract(Duration(days: daysOld)).toIso8601String(),
+  version: 0,
+  followers: const [],
+  followings: const [],
+  location: Location.defaultLocation(),
+);
 
 Widget _wrap({
   required int daysOld,
   required FirstSessionState session,
   DailyMatchesResult? result,
   bool fail = false,
-}) =>
-    ProviderScope(
-      overrides: [
-        userProvider.overrideWith((ref) async => _user(daysOld: daysOld)),
-        firstSessionStateProvider.overrideWith((ref) async => session),
-        dailyMatchesProvider.overrideWith((ref) async {
-          if (fail) throw Exception('boom');
-          return result ?? _result();
-        }),
-      ],
-      child: const MaterialApp(
-        localizationsDelegates: [
-          AppLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-        ],
-        supportedLocales: AppLocalizations.supportedLocales,
-        home: Scaffold(body: MatchesTab()),
-      ),
-    );
+  Set<ActivationAction> done = const {},
+  Future<Community> Function()? userLoader,
+  GuideState? guideState,
+}) => ProviderScope(
+  overrides: [
+    userProvider.overrideWith(
+      (ref) => userLoader != null ? userLoader() : Future.value(_user(daysOld: daysOld)),
+    ),
+    guideStateProvider(GuideSurface.matches).overrideWith(
+      (ref) async =>
+          guideState ?? const GuideState(acted: false, timesShown: 0),
+    ),
+    activationDoneProvider.overrideWith((ref) => Stream.value(done)),
+    firstSessionStateProvider.overrideWith((ref) async => session),
+    dailyMatchesProvider.overrideWith((ref) async {
+      if (fail) throw Exception('boom');
+      return result ?? _result();
+    }),
+  ],
+  child: const MaterialApp(
+    localizationsDelegates: [
+      AppLocalizations.delegate,
+      GlobalMaterialLocalizations.delegate,
+      GlobalWidgetsLocalizations.delegate,
+    ],
+    supportedLocales: AppLocalizations.supportedLocales,
+    home: Scaffold(body: MatchesTab()),
+  ),
+);
 
 const _fresh = FirstSessionState(hasMessaged: false, timesShown: 0);
 
@@ -105,29 +116,35 @@ void main() {
   });
 
   testWidgets('a user who has already messaged does not', (tester) async {
-    await tester.pumpWidget(_wrap(
-      daysOld: _insideWindow,
-      session: const FirstSessionState(hasMessaged: true, timesShown: 0),
-    ));
+    await tester.pumpWidget(
+      _wrap(
+        daysOld: _insideWindow,
+        session: const FirstSessionState(hasMessaged: true, timesShown: 0),
+      ),
+    );
     await tester.pumpAndSettle();
     expect(find.byType(MatchesFirstSessionPanel), findsNothing);
   });
 
-  testWidgets('a high view count does not retire it inside the window',
-      (tester) async {
+  testWidgets('a high view count does not retire it inside the window', (
+    tester,
+  ) async {
     // The three-day window ends the panel now, not a count of views. Someone
     // who opens the app ten times on day one still gets it on the eleventh.
-    await tester.pumpWidget(_wrap(
-      daysOld: _insideWindow,
-      session: const FirstSessionState(hasMessaged: false, timesShown: 10),
-    ));
+    await tester.pumpWidget(
+      _wrap(
+        daysOld: _insideWindow,
+        session: const FirstSessionState(hasMessaged: false, timesShown: 10),
+      ),
+    );
     await tester.pumpAndSettle();
     expect(find.byType(MatchesFirstSessionPanel), findsOneWidget);
   });
 
   testWidgets('the last day of the window still shows it', (tester) async {
     await tester.pumpWidget(
-        _wrap(daysOld: kGuideWindowDays - 1, session: _fresh));
+      _wrap(daysOld: kGuideWindowDays - 1, session: _fresh),
+    );
     await tester.pumpAndSettle();
     expect(find.byType(MatchesFirstSessionPanel), findsOneWidget);
   });
@@ -139,20 +156,24 @@ void main() {
   });
 
   testWidgets('an errored batch shows no panel', (tester) async {
-    await tester.pumpWidget(_wrap(daysOld: _insideWindow, session: _fresh, fail: true));
+    await tester.pumpWidget(
+      _wrap(daysOld: _insideWindow, session: _fresh, fail: true),
+    );
     await tester.pumpAndSettle();
     expect(find.byType(MatchesFirstSessionPanel), findsNothing);
   });
 
   testWidgets('an empty batch shows no panel', (tester) async {
     await tester.pumpWidget(
-        _wrap(daysOld: _insideWindow, session: _fresh, result: _result(count: 0)));
+      _wrap(daysOld: _insideWindow, session: _fresh, result: _result(count: 0)),
+    );
     await tester.pumpAndSettle();
     expect(find.byType(MatchesFirstSessionPanel), findsNothing);
   });
 
-  testWidgets('the panel replaces the header rather than stacking on it',
-      (tester) async {
+  testWidgets('the panel replaces the header rather than stacking on it', (
+    tester,
+  ) async {
     // The spec says the panel OCCUPIES the header slot. Stacked, a new user
     // read "3 people picked for you today" then "Your 3 matches today" then
     // the refresh hint -- the same number twice, three lines where two were
@@ -161,24 +182,31 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.byType(MatchesFirstSessionPanel), findsOneWidget);
-    expect(find.textContaining('matches today'), findsNothing,
-        reason: 'the usual header must give way to the panel, not sit under it');
+    expect(
+      find.textContaining('matches today'),
+      findsNothing,
+      reason: 'the usual header must give way to the panel, not sit under it',
+    );
   });
 
-  testWidgets('the usual header returns once the panel is gone',
-      (tester) async {
-    await tester.pumpWidget(_wrap(
-      daysOld: _insideWindow,
-      session: const FirstSessionState(hasMessaged: true, timesShown: 0),
-    ));
+  testWidgets('the usual header returns once the panel is gone', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      _wrap(
+        daysOld: _insideWindow,
+        session: const FirstSessionState(hasMessaged: true, timesShown: 0),
+      ),
+    );
     await tester.pumpAndSettle();
 
     expect(find.byType(MatchesFirstSessionPanel), findsNothing);
     expect(find.textContaining('matches today'), findsOneWidget);
   });
 
-  testWidgets('the panel offers the live tab as a quiet secondary',
-      (tester) async {
+  testWidgets('the panel offers the live tab as a quiet secondary', (
+    tester,
+  ) async {
     // A new user whose six matches are all asleep has nothing else to do on
     // this screen. The live tab is the one other thing Community offers on
     // arrival, so the panel names it -- quietly, beside the action it is
@@ -186,14 +214,19 @@ void main() {
     await tester.pumpWidget(_wrap(daysOld: _insideWindow, session: _fresh));
     await tester.pumpAndSettle();
 
-    expect(find.descendant(
-      of: find.byType(MatchesFirstSessionPanel),
-      matching: find.byType(InkWell),
-    ), findsOneWidget, reason: 'exactly one button on the panel itself');
+    expect(
+      find.descendant(
+        of: find.byType(MatchesFirstSessionPanel),
+        matching: find.byType(InkWell),
+      ),
+      findsOneWidget,
+      reason: 'exactly one button on the panel itself',
+    );
   });
 
-  testWidgets("the panel's one button is the live tab, not another Say hi",
-      (tester) async {
+  testWidgets("the panel's one button is the live tab, not another Say hi", (
+    tester,
+  ) async {
     // The panel's primary action is Say hi on the card BELOW it. A Say hi
     // pill up here would compete with the button it is ringing -- so the one
     // button it does carry must be the other destination.
@@ -212,8 +245,10 @@ void main() {
     expect(button, findsOneWidget);
     // appConfig is not overridden here, so gatheringsEnabled falls back to
     // its default of true -- the same default CommunityTabBar uses.
-    expect(find.descendant(of: button, matching: find.text('Gatherings')),
-        findsOneWidget);
+    expect(
+      find.descendant(of: button, matching: find.text('Gatherings')),
+      findsOneWidget,
+    );
   });
 
   testWidgets('tapping it requests the live sub-tab', (tester) async {
@@ -226,16 +261,20 @@ void main() {
 
     expect(container.read(communityPendingSubTabProvider), isNull);
 
-    await tester.tap(find.descendant(
-      of: find.byType(MatchesFirstSessionPanel),
-      matching: find.byType(InkWell),
-    ));
+    await tester.tap(
+      find.descendant(
+        of: find.byType(MatchesFirstSessionPanel),
+        matching: find.byType(InkWell),
+      ),
+    );
     await tester.pumpAndSettle();
 
     // Slot 2 holds Gatherings or Voice Rooms depending on a server flag, so
     // one index is right either way -- and CommunityMain is what listens.
-    expect(container.read(communityPendingSubTabProvider),
-        communityVoiceRoomsSubTab);
+    expect(
+      container.read(communityPendingSubTabProvider),
+      communityVoiceRoomsSubTab,
+    );
   });
 
   testWidgets('the guide rings exactly one Say hi button', (tester) async {
@@ -253,10 +292,12 @@ void main() {
   });
 
   testWidgets('no Say hi is ringed once the guide is gone', (tester) async {
-    await tester.pumpWidget(_wrap(
-      daysOld: _insideWindow,
-      session: const FirstSessionState(hasMessaged: true, timesShown: 0),
-    ));
+    await tester.pumpWidget(
+      _wrap(
+        daysOld: _insideWindow,
+        session: const FirstSessionState(hasMessaged: true, timesShown: 0),
+      ),
+    );
     await tester.pumpAndSettle();
 
     expect(find.byType(MatchesFirstSessionPanel), findsNothing);
@@ -264,22 +305,133 @@ void main() {
         .widgetList<PulseHighlight>(find.byType(PulseHighlight))
         .where((w) => w.enabled)
         .length;
-    expect(rings, 0,
-        reason: 'an established user does not need their buttons ringed');
+    expect(
+      rings,
+      0,
+      reason: 'an established user does not need their buttons ringed',
+    );
   });
 
-  testWidgets('the panel does not vanish from under the user mid-view',
-      (tester) async {
+  testWidgets('the panel does not vanish from under the user mid-view', (
+    tester,
+  ) async {
     // If the provider is invalidated while the panel is on screen it is
     // removed milliseconds after appearing and the list jumps by the panel
     // height -- exactly as the user reaches for the first card. The view cap
     // that made this acute is gone; the invalidation hazard is not.
-    await tester.pumpWidget(_wrap(
+    await tester.pumpWidget(
+      _wrap(
+        daysOld: _insideWindow,
+        session: const FirstSessionState(hasMessaged: false, timesShown: 1),
+      ),
+    );
+    await tester.pumpAndSettle();
+    expect(
+      find.byType(MatchesFirstSessionPanel),
+      findsOneWidget,
+      reason: 'the panel must stay put for the whole visit',
+    );
+  });
+
+  testWidgets('the panel stops at 3 of 4 and shows progress before that', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      _wrap(
+        daysOld: _insideWindow,
+        session: _fresh,
+        done: {ActivationAction.lesson},
+      ),
+    );
+    await tester.pumpAndSettle();
+    expect(find.text('Getting started · 1 of 4'), findsOneWidget);
+
+    // A fresh scope: the first one's providers are already resolved.
+    await tester.pumpWidget(const SizedBox.shrink());
+    await tester.pumpWidget(
+      _wrap(
+        daysOld: _insideWindow,
+        session: _fresh,
+        done: {
+          ActivationAction.lesson,
+          ActivationAction.moment,
+          ActivationAction.profile,
+        },
+      ),
+    );
+    await tester.pumpAndSettle();
+    expect(find.byType(MatchesFirstSessionPanel), findsNothing);
+  });
+
+  testWidgets('the retired latch hides the panel', (tester) async {
+    await tester.pumpWidget(
+      _wrap(
+        daysOld: _insideWindow,
+        session: _fresh,
+        guideState: const GuideState(
+          acted: false,
+          timesShown: 1,
+          retired: true,
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    expect(find.byType(MatchesFirstSessionPanel), findsNothing);
+  });
+
+  testWidgets('a message action retires it and logs guide_retired once', (
+    tester,
+  ) async {
+    SharedPreferences.setMockInitialValues({});
+    final events = <String>[];
+    AnalyticsService.debugLogSink = (n, p) {
+      if (n == 'guide_retired') events.add('${p['surface']}:${p['reason']}');
+    };
+    addTearDown(() => AnalyticsService.debugLogSink = null);
+    Widget build() => _wrap(
       daysOld: _insideWindow,
       session: const FirstSessionState(hasMessaged: false, timesShown: 1),
-    ));
+      done: {ActivationAction.message},
+    );
+    await tester.pumpWidget(build());
     await tester.pumpAndSettle();
-    expect(find.byType(MatchesFirstSessionPanel), findsOneWidget,
-        reason: 'the panel must stay put for the whole visit');
+    await tester.pumpWidget(build());
+    await tester.pumpAndSettle();
+    expect(find.byType(MatchesFirstSessionPanel), findsNothing);
+    expect(events, ['matches:acted']);
+  });
+
+  testWidgets('a user refresh that throws does not latch a retirement', (
+    tester,
+  ) async {
+    SharedPreferences.setMockInitialValues({});
+    final events = <String>[];
+    AnalyticsService.debugLogSink = (n, p) {
+      if (n == 'guide_retired') events.add('${p['surface']}:${p['reason']}');
+    };
+    addTearDown(() => AnalyticsService.debugLogSink = null);
+    var calls = 0;
+    await tester.pumpWidget(
+      _wrap(
+        daysOld: _insideWindow,
+        session: const FirstSessionState(hasMessaged: false, timesShown: 1),
+        userLoader: () async {
+          if (calls++ > 0) throw Exception('flaky network');
+          return _user(daysOld: _insideWindow);
+        },
+      ),
+    );
+    await tester.pumpAndSettle();
+    expect(find.byType(MatchesFirstSessionPanel), findsOneWidget);
+
+    ProviderScope.containerOf(
+      tester.element(find.byType(MatchesTab)),
+    ).invalidate(userProvider);
+    await tester.pumpAndSettle();
+
+    expect(find.byType(MatchesFirstSessionPanel), findsOneWidget);
+    expect(events, isEmpty);
+    final prefs = await SharedPreferences.getInstance();
+    expect(prefs.getBool(GuideSurface.matches.retiredKey), isNull);
   });
 }

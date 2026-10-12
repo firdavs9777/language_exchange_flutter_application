@@ -57,7 +57,7 @@ class _VocabularyScreenState extends ConsumerState<VocabularyScreen> {
         elevation: 0,
         backgroundColor: context.surfaceColor,
         title: Text(
-          'Vocabulary',
+          l10n.vocabulary,
           style: context.titleLarge,
         ),
         leading: IconButton(
@@ -67,7 +67,7 @@ class _VocabularyScreenState extends ConsumerState<VocabularyScreen> {
         actions: [
           PopupMenuButton<_SortOption>(
             icon: const Icon(Icons.sort),
-            tooltip: 'Sort',
+            tooltip: l10n.sort,
             onSelected: (v) => setState(() => _sort = v),
             itemBuilder: (_) => [
               PopupMenuItem(

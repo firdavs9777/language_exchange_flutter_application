@@ -449,7 +449,7 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> with Widg
               ),
               Spacing.gapXS,
               Text(
-                'Your Story',
+                AppLocalizations.of(context)!.yourStory,
                 style: context.captionSmall.copyWith(
                   color: context.textSecondary,
                   fontWeight: hasActiveStories ? FontWeight.w600 : FontWeight.normal,
@@ -523,7 +523,7 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> with Widg
               Spacing.gapXS,
               Text(
                 () {
-                  final userName = userStories.user.name.isNotEmpty ? userStories.user.name : 'User';
+                  final userName = userStories.user.name.isNotEmpty ? userStories.user.name : AppLocalizations.of(context)!.storyUserFallback;
                   return userName.length > 8 ? '${userName.substring(0, 8)}...' : userName;
                 }(),
                 style: context.captionSmall.copyWith(color: context.textMuted),

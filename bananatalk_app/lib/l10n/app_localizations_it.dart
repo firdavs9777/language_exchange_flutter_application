@@ -7047,7 +7047,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get examSpeakingPart3 => 'Speaking — Part 3';
 
   @override
-  String get examSpeakingSubmit => 'Submit recording';
+  String get examSpeakingSubmit => 'Invia registrazione';
 
   @override
   String get examSpeakingUploading => 'Caricamento…';
@@ -9560,4 +9560,1654 @@ class AppLocalizationsIt extends AppLocalizations {
   String translatedToLanguage(String language) {
     return 'Tradotto in $language';
   }
+
+  @override
+  String guideProgress(int count) {
+    return 'Primi passi · $count di 4';
+  }
+
+  @override
+  String get guideChatTip => 'Tieni premuto per tradurre o correggere';
+
+  @override
+  String get announcementTitle => 'Annuncio';
+
+  @override
+  String get announcementUnavailable => 'Questo annuncio non è più disponibile.';
+
+  @override
+  String get notifyAnnouncementsTitle => 'Annunci';
+
+  @override
+  String get notifyAnnouncementsSubtitle => 'Novità e aggiornamenti dal team di BananaTalk';
+
+  @override
+  String chatDailyLimitBody(Object count) {
+    return 'Gli utenti gratuiti possono chattare con un massimo di $count persone al giorno.\nPassa a VIP per conversazioni illimitate!';
+  }
+
+  @override
+  String get chatCompressingVideo => 'Compressione del video...';
+
+  @override
+  String chatShareLocationBody(Object name) {
+    return 'Invia la tua posizione attuale a $name. Fallo solo con persone di cui ti fidi.';
+  }
+
+  @override
+  String get chatShareLocationThisChat => 'questa chat';
+
+  @override
+  String get chatTranslationLimitReached => 'Limite di traduzione raggiunto';
+
+  @override
+  String get chatTranslateLimitBody => 'Hai esaurito le traduzioni gratuite di oggi in questa chat. Sblocca subito altre traduzioni con le monete.';
+
+  @override
+  String chatReplyingTo(Object name) {
+    return 'In risposta a $name';
+  }
+
+  @override
+  String get chatReplyingToFallback => 'utente';
+
+  @override
+  String chatSendingMedia(Object mediaType) {
+    return 'Invio di $mediaType...';
+  }
+
+  @override
+  String get chatEnterUsernameStart => 'Inserisci un nome utente per avviare una chat';
+
+  @override
+  String chatSearching(Object username) {
+    return 'Ricerca di @$username...';
+  }
+
+  @override
+  String chatDeleteConversationBody(Object name) {
+    return 'Eliminare la tua conversazione con $name? Questa azione non può essere annullata.';
+  }
+
+  @override
+  String get chatQrCode => 'Codice QR';
+
+  @override
+  String get chatDraft => 'Bozza: ';
+
+  @override
+  String get chatTyping => 'sta scrivendo...';
+
+  @override
+  String get chatPoweredBy => 'Offerto da ';
+
+  @override
+  String get chatReconnecting => 'Riconnessione alla chat...';
+
+  @override
+  String get chatDailyLimitReached => 'Limite giornaliero di messaggi raggiunto';
+
+  @override
+  String chatMessagesRemainingToday(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count messaggi rimasti oggi',
+      one: '1 messaggio rimasto oggi',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get chatTranslatePreviewHint => 'Inizia a scrivere per vedere la traduzione';
+
+  @override
+  String get chatNoMessagesYet => 'Nessun messaggio ancora';
+
+  @override
+  String get chatMediaPhoto => 'foto';
+
+  @override
+  String get chatMediaVideo => 'video';
+
+  @override
+  String get chatMediaAudio => 'audio';
+
+  @override
+  String get chatMediaFile => 'file';
+
+  @override
+  String get chatMediaGeneric => 'contenuto';
+
+  @override
+  String get chatMessageFailedToSend => 'Invio del messaggio non riuscito';
+
+  @override
+  String get chatSendingEllipsis => 'Invio in corso...';
+
+  @override
+  String get chatFailedTapOptions => 'Non riuscito · Tocca per le opzioni';
+
+  @override
+  String get chatMessageWasDeleted => 'Questo messaggio è stato eliminato';
+
+  @override
+  String get chatStory => 'Storia';
+
+  @override
+  String get chatHi => 'Ciao!';
+
+  @override
+  String get chatEdited => 'modificato';
+
+  @override
+  String get chatPremium => 'Premium ✨';
+
+  @override
+  String chatUnlockPremiumWallpapers(Object cost) {
+    return 'Sbloccare tutti gli sfondi Premium ✨ per 💎$cost monete? Sblocca l\'intero pacchetto per sempre.';
+  }
+
+  @override
+  String chatWallpaperForName(Object userName) {
+    return 'Sfondo della chat per $userName';
+  }
+
+  @override
+  String get chatChooseGallery => 'Scegli dalla galleria';
+
+  @override
+  String get chatHiThere => 'Ciao! 😊';
+
+  @override
+  String chatCorrected(Object correctorName) {
+    return '$correctorName ha corretto';
+  }
+
+  @override
+  String get chatCorrectionAccepted => 'Correzione accettata ✓';
+
+  @override
+  String chatForwarded(Object senderName) {
+    return 'Inoltrato da $senderName';
+  }
+
+  @override
+  String get chatCached => 'In cache';
+
+  @override
+  String get chatWordBreakdown => 'Analisi delle parole';
+
+  @override
+  String get chatAlternatives => 'Alternative';
+
+  @override
+  String chatTranslationAlso(Object items) {
+    return 'Anche: $items';
+  }
+
+  @override
+  String get chatAudioUnavailable => 'Audio non disponibile';
+
+  @override
+  String get chatHideTranslation => 'Nascondi traduzione';
+
+  @override
+  String get chatStoryExpired => 'Storia scaduta';
+
+  @override
+  String get chatAcceptCorrection => 'Accetta correzione';
+
+  @override
+  String get chatAccepting => 'Accettazione…';
+
+  @override
+  String get chatSaveToVocabularyAction => 'Salva nel vocabolario';
+
+  @override
+  String momentsMore(Object hidden) {
+    return '+$hidden altri';
+  }
+
+  @override
+  String get momentsAllow => 'Consenti';
+
+  @override
+  String get momentsCompressed => 'Compresso';
+
+  @override
+  String get momentsPromptDay => 'Spunto del giorno';
+
+  @override
+  String get momentsAnswer => 'Rispondi';
+
+  @override
+  String get momentsAnswerCamera => '🎥 Rispondi con la fotocamera';
+
+  @override
+  String momentsPracticeWriting(Object langName) {
+    return 'Esercitati a scrivere in $langName';
+  }
+
+  @override
+  String get momentsReelPolicyBody => 'I reel sono brevi video per imparare le lingue: risposte agli spunti, pratica di conversazione, spiegazioni di madrelingua e clip culturali.\n\nBananatalk ha tolleranza zero per i contenuti inappropriati: niente nudità, discorsi d\'odio, molestie, violenza o contenuti illegali. I video segnalati vengono nascosti automaticamente in attesa di revisione dopo 2 segnalazioni e le violazioni possono comportare la rimozione dei contenuti o la sospensione dell\'account.\n\nPuoi segnalare o bloccare da qualsiasi reel in qualsiasi momento.';
+
+  @override
+  String get momentsIAgree => 'Accetto';
+
+  @override
+  String get momentsWhyReportingReel => 'Perché stai segnalando questo reel?';
+
+  @override
+  String get momentsNoReelsYet => 'Ancora nessun reel';
+
+  @override
+  String get momentsNoReelsBody => 'Sii il primo a rispondere allo spunto di oggi con la fotocamera, oppure registra una clip libera per imparare le lingue.';
+
+  @override
+  String get momentsPullDownRefresh => 'Trascina verso il basso per aggiornare';
+
+  @override
+  String get momentsErrorLoadingVideo => 'Errore nel caricamento del video';
+
+  @override
+  String get momentsLoadingVideo => 'Caricamento del video...';
+
+  @override
+  String momentsFileSizeMb(Object size) {
+    return '$size MB';
+  }
+
+  @override
+  String momentsMaxDuration(Object duration) {
+    return 'Massimo $duration';
+  }
+
+  @override
+  String get momentsReportSubmitted => 'Segnalazione inviata';
+
+  @override
+  String communityLive(Object count) {
+    return '$count in diretta';
+  }
+
+  @override
+  String get communityFind => 'Trova';
+
+  @override
+  String communityFinding(Object username) {
+    return 'Ricerca di @$username...';
+  }
+
+  @override
+  String get communitySeeAll => 'Vedi tutti';
+
+  @override
+  String get communitySeeWhoLikes => 'Scopri a chi piaci';
+
+  @override
+  String get communityUnlimitedBrowsingNoAds => 'Navigazione illimitata, niente pubblicità, abbinamento prioritario';
+
+  @override
+  String communityMembersCount(Object count) {
+    return '$count membri';
+  }
+
+  @override
+  String communityPeopleCount(Object count) {
+    return '$count persone';
+  }
+
+  @override
+  String get communityFailedLoadArchivedWaves => 'Impossibile caricare i saluti archiviati';
+
+  @override
+  String get communityGreatChat => 'Ottima chiacchierata! 🎉';
+
+  @override
+  String get communityStayTouchPeopleJust => 'Resta in contatto con le persone con cui hai appena parlato';
+
+  @override
+  String get communityNotNow => 'Non ora';
+
+  @override
+  String get communityPerfect => 'Perfetto';
+
+  @override
+  String communityLv(Object level) {
+    return 'Liv.$level';
+  }
+
+  @override
+  String get communityReact => 'Reagisci';
+
+  @override
+  String get communityWavedAtYou => 'Ti ha salutato';
+
+  @override
+  String get communitySomeone => 'Qualcuno';
+
+  @override
+  String get communityPeopleInterestedInTopic => 'Persone interessate a questo argomento';
+
+  @override
+  String get learnThemedWordSetsBuild => 'Set di parole a tema per costruire il tuo vocabolario';
+
+  @override
+  String get learnTapStartRecording => 'Tocca per iniziare a registrare';
+
+  @override
+  String get learnWordBank => 'Banca delle parole';
+
+  @override
+  String learnCorrectAnswer(Object correctAnswer) {
+    return 'Risposta corretta: $correctAnswer';
+  }
+
+  @override
+  String get learnMatchingDataNotAvailable => 'Dati di abbinamento non disponibili';
+
+  @override
+  String get learnExerciseCouldNotLoad => 'Questo esercizio non ha potuto caricare le coppie da abbinare. Prova a rigenerare la lezione.';
+
+  @override
+  String get learnSkipExercise => 'Salta esercizio';
+
+  @override
+  String get learnTapItemLeftThen => 'Tocca un elemento a sinistra, poi il suo abbinamento a destra';
+
+  @override
+  String learnMatchedOfTotal(Object count, Object count2) {
+    return '$count/$count2 abbinati';
+  }
+
+  @override
+  String learnCorrectOfTotal(Object correctCount, Object count) {
+    return '$correctCount/$count corretti';
+  }
+
+  @override
+  String get learnDragDropReorderItems => 'Trascina per riordinare gli elementi';
+
+  @override
+  String learnCorrectOrder(Object order) {
+    return 'Ordine corretto: $order';
+  }
+
+  @override
+  String learnWordsToReview(int dueCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      dueCount,
+      locale: localeName,
+      other: '$dueCount parole da ripassare',
+      one: '1 parola da ripassare',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnScore(Object score) {
+    return 'Punteggio: $score / 100';
+  }
+
+  @override
+  String learnGotCorrect(Object correct, Object count) {
+    return 'Hai risposto correttamente a $correct su $count.';
+  }
+
+  @override
+  String learnQuestionOf(Object number, Object total) {
+    return 'Domanda $number di $total';
+  }
+
+  @override
+  String get learnMatchEachWordIts => 'Abbina ogni parola al suo significato';
+
+  @override
+  String get learnCouldNotLoadPacks => 'Impossibile caricare i pacchetti';
+
+  @override
+  String learnWordsExercises(Object wordCount, Object exerciseCount) {
+    return '$wordCount parole · $exerciseCount esercizi';
+  }
+
+  @override
+  String get learnAiAutoFill => 'Compilazione automatica IA';
+
+  @override
+  String get learnPlay => 'Riproduci';
+
+  @override
+  String get learnFinish => 'Termina';
+
+  @override
+  String get learnNotQuite => 'Non proprio.';
+
+  @override
+  String get learnUnsupportedExercise => 'Esercizio non supportato';
+
+  @override
+  String get learnFailedLoadAchievements => 'Impossibile caricare i traguardi';
+
+  @override
+  String learnUnlockedOn(Object date) {
+    return 'Sbloccato il $date';
+  }
+
+  @override
+  String get learnChallenges => 'Sfide';
+
+  @override
+  String get learnFailedLoadChallenges => 'Impossibile caricare le sfide';
+
+  @override
+  String learnNoChallenges(Object type) {
+    return 'Nessuna sfida $type';
+  }
+
+  @override
+  String get learnCheckBackLater => 'Torna più tardi!';
+
+  @override
+  String learnActiveCount(Object count) {
+    return 'Attive ($count)';
+  }
+
+  @override
+  String learnCompletedCount(Object count) {
+    return 'Completate ($count)';
+  }
+
+  @override
+  String get learnProgress => 'Progressi';
+
+  @override
+  String get learnXpReward => 'Ricompensa XP';
+
+  @override
+  String get learnBonus => 'Bonus';
+
+  @override
+  String learnExpires(Object timeRemainingFormatted) {
+    return 'Scade tra $timeRemainingFormatted';
+  }
+
+  @override
+  String get learnAchievementUnlocked => 'Traguardo sbloccato!';
+
+  @override
+  String get learnTapContinue => 'Tocca per continuare';
+
+  @override
+  String get learnChallengeCompleted => 'Completata';
+
+  @override
+  String get learnDailyGoals => 'Obiettivi giornalieri';
+
+  @override
+  String learnLessons(Object completedCount, Object lessonsCount) {
+    return '$completedCount/$lessonsCount lezioni';
+  }
+
+  @override
+  String learnLongestDays(Object longestStreak) {
+    return 'Più lunga: $longestStreak giorni';
+  }
+
+  @override
+  String get learnTapReveal => 'Tocca per rivelare';
+
+  @override
+  String get learnNoAchievements => 'Nessun traguardo';
+
+  @override
+  String get learnDayStreak => 'Giorni di fila';
+
+  @override
+  String get learnDueForReview => 'Da ripassare';
+
+  @override
+  String learnNextReview(Object date) {
+    return 'Prossimo: $date';
+  }
+
+  @override
+  String get learnChallengeDaily => 'Giornaliere';
+
+  @override
+  String get learnChallengeWeekly => 'Settimanali';
+
+  @override
+  String get learnChallengeSpecial => 'Speciali';
+
+  @override
+  String get learnChallengeDailyDesc => 'Completa le sfide ogni giorno per ottenere XP e ricompense!';
+
+  @override
+  String get learnChallengeWeeklyDesc => 'Le sfide settimanali si rinnovano ogni lunedì';
+
+  @override
+  String get learnChallengeSpecialDesc => 'Sfide a tempo limitato con ricompense bonus!';
+
+  @override
+  String get learnDateToday => 'Oggi';
+
+  @override
+  String get learnDateTomorrow => 'Domani';
+
+  @override
+  String learnInDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Tra $count giorni',
+      one: 'Tra $count giorno',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnInWeeks(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Tra $count settimane',
+      one: 'Tra $count settimana',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnInMonths(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Tra $count mesi',
+      one: 'Tra $count mese',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiGenerateNewQuiz => 'Genera un nuovo quiz';
+
+  @override
+  String get aiPreviousQuizzes => 'Quiz precedenti';
+
+  @override
+  String get aiGeneratingQuiz => 'Generazione del tuo quiz…';
+
+  @override
+  String aiFocusArea(Object name) {
+    return 'Area di focus: $name';
+  }
+
+  @override
+  String get aiQuizType => 'Tipo di quiz';
+
+  @override
+  String get aiDifficulty => 'Difficoltà';
+
+  @override
+  String get aiQuestionsLabel => 'Domande:';
+
+  @override
+  String get aiGenerateQuiz => 'Genera quiz';
+
+  @override
+  String aiQuizQuestionCount(int questionCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      questionCount,
+      locale: localeName,
+      other: '$questionCount domande',
+      one: '1 domanda',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String aiCorrectOfTotal(Object correctCount, Object totalQuestions) {
+    return '$correctCount/$totalQuestions corrette';
+  }
+
+  @override
+  String get aiNoQuizzesYet => 'Ancora nessun quiz';
+
+  @override
+  String get aiGenerateFirstQuizAbove => 'Genera qui sopra il tuo primo quiz!';
+
+  @override
+  String aiCorrectOutOf(Object correctCount, Object totalQuestions) {
+    return '$correctCount su $totalQuestions corrette';
+  }
+
+  @override
+  String get aiBackQuizHub => 'Torna all\'hub dei quiz';
+
+  @override
+  String get aiNoQuestionsAvailable => 'Nessuna domanda disponibile';
+
+  @override
+  String get aiQuizHasNoQuestions => 'Questo quiz non ha domande da mostrare.';
+
+  @override
+  String aiQuestionOf(Object number, Object count) {
+    return 'Domanda $number di $count';
+  }
+
+  @override
+  String get aiYourAnswerLabel => 'La tua risposta:';
+
+  @override
+  String get aiBonusXpWatching => '🎉 +10 XP bonus per aver guardato!';
+
+  @override
+  String get aiNotQuiteRight => 'Non proprio giusto';
+
+  @override
+  String get aiWhy => 'Perché?';
+
+  @override
+  String get aiGotIt => 'Capito';
+
+  @override
+  String get aiHint => 'Suggerimento';
+
+  @override
+  String aiLevel(Object hintLevel) {
+    return 'Livello $hintLevel/3';
+  }
+
+  @override
+  String get aiAskQuestion => 'Fai una domanda';
+
+  @override
+  String get aiAsk => 'Chiedi';
+
+  @override
+  String get aiAssistantExamples => 'Esempi';
+
+  @override
+  String get aiExplainConcept => 'Spiega il concetto';
+
+  @override
+  String get aiRelatedConcepts => 'Concetti correlati';
+
+  @override
+  String get aiGeneratingLessonSummary => 'Generazione del riepilogo della lezione...';
+
+  @override
+  String get aiLessonSummary => 'Riepilogo della lezione';
+
+  @override
+  String get aiKeyPoints => 'Punti chiave';
+
+  @override
+  String get aiVocabularyRemember => 'Vocaboli da ricordare';
+
+  @override
+  String get aiGrammarRules => 'Regole grammaticali';
+
+  @override
+  String get aiWhatPracticeNext => 'Cosa esercitare dopo';
+
+  @override
+  String get aiPerfectScore => 'Punteggio perfetto!';
+
+  @override
+  String get aiGreatJob => 'Ottimo lavoro!';
+
+  @override
+  String get aiGoodEffort => 'Buon impegno!';
+
+  @override
+  String get aiKeepPracticing => 'Continua a esercitarti!';
+
+  @override
+  String get aiFailedToGetHint => 'Impossibile ottenere il suggerimento';
+
+  @override
+  String get aiFailedToGetAnswer => 'Impossibile ottenere la risposta';
+
+  @override
+  String get aiFailedToExplain => 'Impossibile spiegare';
+
+  @override
+  String get aiFailedLoadHistory => 'Impossibile caricare la cronologia';
+
+  @override
+  String aiConversationMessageCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count messaggi',
+      one: '1 messaggio',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiStartNewConversationSee => 'Inizia una nuova conversazione per vederla qui';
+
+  @override
+  String get aiLoadingMessages => 'Caricamento dei messaggi...';
+
+  @override
+  String get aiNoMessagesConversation => 'Nessun messaggio in questa conversazione';
+
+  @override
+  String get aiDifficultyLevel => 'Livello di difficoltà';
+
+  @override
+  String get aiScenarios => 'Scenari';
+
+  @override
+  String get aiGrammarCheck => 'Controllo grammaticale';
+
+  @override
+  String get aiRecentAnalysis => 'Analisi recenti';
+
+  @override
+  String get aiCheckGrammar => 'Controlla la grammatica';
+
+  @override
+  String get aiLanguageLabel => 'Lingua:';
+
+  @override
+  String aiGrammarIssuesFound(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count errori trovati',
+      one: '1 errore trovato',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiPerfect => 'Perfetto!';
+
+  @override
+  String get aiNoGrammarIssuesFound => 'Nessun errore grammaticale trovato nel tuo testo.';
+
+  @override
+  String aiIssuesFound(Object count) {
+    return 'Errori trovati ($count)';
+  }
+
+  @override
+  String get aiCorrected => 'Corretto';
+
+  @override
+  String get aiGrammarExamples => 'Esempi:';
+
+  @override
+  String get aiImprovedSuggestions => 'Suggerimenti migliorati';
+
+  @override
+  String get aiNoAnalysisHistoryYet => 'Ancora nessuna cronologia delle analisi';
+
+  @override
+  String get aiLessonBuilder => 'Creatore di lezioni IA';
+
+  @override
+  String get aiGenerateCustomLessons => 'Genera lezioni personalizzate';
+
+  @override
+  String get aiCreatesPersonalizedLessonsAny => 'L’IA crea lezioni personalizzate su qualsiasi argomento';
+
+  @override
+  String aiExercises(Object exerciseCount) {
+    return 'Esercizi: $exerciseCount';
+  }
+
+  @override
+  String get aiSuggestedTopics => 'Argomenti suggeriti';
+
+  @override
+  String get aiCreatingLesson => 'Creazione della lezione...';
+
+  @override
+  String get aiGeneratingExercisesContent => 'L’IA sta generando esercizi e contenuti';
+
+  @override
+  String get aiLessonGenerated => 'Lezione generata!';
+
+  @override
+  String get aiGenerateAnother => 'Generane un’altra';
+
+  @override
+  String get aiStartLesson => 'Inizia la lezione';
+
+  @override
+  String get aiPronunciationPractice => 'Pratica della pronuncia';
+
+  @override
+  String get aiPracticeHistory => 'Cronologia degli esercizi';
+
+  @override
+  String get aiTextPractice => 'Testo da praticare';
+
+  @override
+  String get aiWordAnalysis => 'Analisi delle parole';
+
+  @override
+  String get aiNoPracticeHistoryYet => 'Ancora nessuna cronologia degli esercizi';
+
+  @override
+  String get aiSmartTranslation => 'Traduzione intelligente';
+
+  @override
+  String get aiWordBreakdown => 'Analisi parola per parola';
+
+  @override
+  String get aiAlternativeTranslations => 'Traduzioni alternative';
+
+  @override
+  String get aiGrammarNotes => 'Note di grammatica';
+
+  @override
+  String get aiIdiomsExpressions => 'Modi di dire ed espressioni';
+
+  @override
+  String aiLiteral(Object literalTranslation) {
+    return 'Letterale: $literalTranslation';
+  }
+
+  @override
+  String aiMeaning(Object meaning) {
+    return 'Significato: $meaning';
+  }
+
+  @override
+  String aiEquivalent(Object equivalentIdiom) {
+    return 'Equivalente: $equivalentIdiom';
+  }
+
+  @override
+  String get aiCulturalContext => 'Contesto culturale';
+
+  @override
+  String get aiNoCompletedConversations => 'Nessuna conversazione completata';
+
+  @override
+  String get aiNoActiveConversations => 'Nessuna conversazione attiva';
+
+  @override
+  String aiStartInLanguage(Object language) {
+    return 'Inizia in $language';
+  }
+
+  @override
+  String get aiSelect => 'Seleziona';
+
+  @override
+  String aiIssuesCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count errori',
+      one: '1 errore',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiGenerateLesson => 'Genera lezione';
+
+  @override
+  String get aiGeneratingEllipsis => 'Generazione...';
+
+  @override
+  String get aiAnalyzing => 'Analisi in corso...';
+
+  @override
+  String get aiExcellentPronunciation => 'Pronuncia eccellente!';
+
+  @override
+  String get aiGoodJob => 'Ottimo lavoro!';
+
+  @override
+  String get profileBuyMeCoffee => 'Offrimi un caffè';
+
+  @override
+  String get profileOr => 'o';
+
+  @override
+  String get profileLoadingNotifications => 'Caricamento delle notifiche...';
+
+  @override
+  String get profileLoadingSettings => 'Caricamento delle impostazioni...';
+
+  @override
+  String get profileAdmin => 'ADMIN';
+
+  @override
+  String get profileSelected => 'SELEZIONATO';
+
+  @override
+  String get profilePrivacyIntro => 'Sei tu a decidere cosa possono vedere gli altri. Disattiva gli elementi per nasconderli dal tuo profilo pubblico.';
+
+  @override
+  String get profileUpdate => 'Aggiorna';
+
+  @override
+  String get profileNoTopicsCategory => 'Nessun argomento in questa categoria';
+
+  @override
+  String get profileAdminTools => 'Strumenti admin';
+
+  @override
+  String profileCompletionAdd(Object items) {
+    return 'Aggiungi: $items';
+  }
+
+  @override
+  String get profileActive => 'ATTIVO';
+
+  @override
+  String get profileAutoSaveEnabled => 'Salvataggio automatico attivo';
+
+  @override
+  String get profileChangesSavedInstantlyWhen => 'Le modifiche vengono salvate subito quando attivi o disattivi.';
+
+  @override
+  String get profileCurrentTheme => 'Tema attuale';
+
+  @override
+  String get profileThemeChangesApplyInstantly => 'Le modifiche al tema si applicano subito in tutta l\'app.';
+
+  @override
+  String get profileLoadingVisitors => 'Caricamento dei visitatori...';
+
+  @override
+  String get profileSeeWhoChecked => 'Scopri chi ha visitato il tuo profilo';
+
+  @override
+  String get profileRecentVisitors => 'Visitatori recenti';
+
+  @override
+  String get profileNoReportsSubmitted => 'Nessuna segnalazione inviata';
+
+  @override
+  String get profileReportsSubmitWillAppear => 'Le segnalazioni che invii appariranno qui';
+
+  @override
+  String profileReportTypeTitle(Object type) {
+    return 'Segnalazione: $type';
+  }
+
+  @override
+  String profileReportReason(Object reason) {
+    return 'Motivo: $reason';
+  }
+
+  @override
+  String get profileDeleteAccountFinalBody => 'Tutti i tuoi dati verranno eliminati definitivamente.\n\nSei assolutamente sicuro?';
+
+  @override
+  String get profileThanksForWatching => 'Grazie per aver guardato! 🙏';
+
+  @override
+  String get profileNotificationsOn => 'Notifiche attive';
+
+  @override
+  String get profileNotificationsOff => 'Notifiche disattivate';
+
+  @override
+  String get profileMaximumReached => 'Massimo raggiunto';
+
+  @override
+  String get profilePickYourInterests => 'Scegli i tuoi interessi';
+
+  @override
+  String get profileDeselectToChooseAnother => 'Deseleziona un argomento per sceglierne un altro';
+
+  @override
+  String get profileTapTopicsMatchVibe => 'Tocca gli argomenti che ti rispecchiano';
+
+  @override
+  String get profileEnjoyingPremium => 'Stai godendo delle funzioni premium';
+
+  @override
+  String get profileUnlockUnlimited => 'Sblocca messaggi illimitati e strumenti IA';
+
+  @override
+  String get profileBirthYear => 'Anno di nascita';
+
+  @override
+  String get profileReportTypeUser => 'Utente';
+
+  @override
+  String get profileReportTypeMoment => 'Momento';
+
+  @override
+  String get profileReportTypeComment => 'Commento';
+
+  @override
+  String get profileReportTypeMessage => 'Messaggio';
+
+  @override
+  String get profileReportTypeStory => 'Storia';
+
+  @override
+  String get profileReportReasonCopyright => 'Copyright';
+
+  @override
+  String get storyOptimizingBestExperience => 'Ottimizzazione per la migliore esperienza';
+
+  @override
+  String get storyCreate => 'Crea una storia';
+
+  @override
+  String get storyAddTags => 'Aggiungi tag';
+
+  @override
+  String get storyVideoSelected => 'Video selezionato';
+
+  @override
+  String get storyAddPoll => 'Aggiungi sondaggio';
+
+  @override
+  String get storyOptions => 'Opzioni';
+
+  @override
+  String get storyAddQuestion => 'Aggiungi domanda';
+
+  @override
+  String get storyPrompt => 'Spunto';
+
+  @override
+  String get storyTapAnywhereAddText => 'Tocca ovunque per aggiungere testo';
+
+  @override
+  String storyHighlightStoryCount(int storyCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      storyCount,
+      locale: localeName,
+      other: '$storyCount storie',
+      one: '1 storia',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storySendFriends => 'Invia agli amici';
+
+  @override
+  String storySelected(Object count) {
+    return '$count selezionati';
+  }
+
+  @override
+  String get storyShareSave => 'Condividi/Salva';
+
+  @override
+  String storySeenBy(Object viewCount) {
+    return 'Visto da $viewCount';
+  }
+
+  @override
+  String get storyNoViewsYet => 'Ancora nessuna visualizzazione';
+
+  @override
+  String get storyEditVideo => 'Modifica video';
+
+  @override
+  String storyVotes(Object totalVotes) {
+    return '$totalVotes voti';
+  }
+
+  @override
+  String get storyCreatePoll => 'Crea sondaggio';
+
+  @override
+  String get storySendAnonymously => 'Invia in forma anonima';
+
+  @override
+  String storyResponseCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count risposte',
+      one: '1 risposta',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyViewResponses => 'Vedi risposte';
+
+  @override
+  String get storyResponsesTitle => 'Risposte';
+
+  @override
+  String get storyNoResponsesYet => 'Ancora nessuna risposta';
+
+  @override
+  String get storyQuestionBox => 'Box delle domande';
+
+  @override
+  String get storySent => 'Inviato!';
+
+  @override
+  String get storyProcessing => 'Elaborazione in corso...';
+
+  @override
+  String get storyHd => 'HD';
+
+  @override
+  String storyVideoMeta(Object duration, Object size) {
+    return '$duration | $size MB';
+  }
+
+  @override
+  String get storyUserFallback => 'Utente';
+
+  @override
+  String storySendCount(int count) {
+    return 'Invia ($count)';
+  }
+
+  @override
+  String get storyFailedToDelete => 'Impossibile eliminare la storia';
+
+  @override
+  String get storyAnonymous => 'Anonimo';
+
+  @override
+  String get vipNoCoinActivityYet => 'Ancora nessuna attività con le monete';
+
+  @override
+  String get vipCoinShopExplainer => 'Le monete servono a sbloccare utilizzi extra di traduzioni, chat con il tutor IA e momenti dopo aver raggiunto il limite giornaliero gratuito. Gli acquisti non sono rimborsabili una volta spese le monete.';
+
+  @override
+  String get vipLimitReached => 'Limite raggiunto';
+
+  @override
+  String get vipCoins => 'monete';
+
+  @override
+  String vipBonusIncluded(Object bonusCoins) {
+    return '+$bonusCoins di bonus inclusi';
+  }
+
+  @override
+  String get vipVisitorModeLimitReached => 'Limite della modalità ospite raggiunto';
+
+  @override
+  String get vipWhatGetFreeAccount => 'Cosa ottieni con un account gratuito';
+
+  @override
+  String get vipCreateFreeAccount => 'Crea account gratuito';
+
+  @override
+  String get vipGoUnlimitedAccess => 'Passa a VIP per l\'accesso illimitato';
+
+  @override
+  String get vipContinueAsVisitor => 'Continua come ospite';
+
+  @override
+  String vipResets(Object resetTime) {
+    return 'Si azzera alle: $resetTime';
+  }
+
+  @override
+  String vipUsedToday(Object currentUsage, Object maxAllowed) {
+    return '$currentUsage / $maxAllowed usati oggi';
+  }
+
+  @override
+  String get vipTierVisitor => 'Ospite';
+
+  @override
+  String get vipTierMember => 'Membro';
+
+  @override
+  String get vipAd => 'Annuncio';
+
+  @override
+  String get promoAdsNoticeTitle => 'Una nota dallo sviluppatore';
+
+  @override
+  String get promoAdsNoticeBody => 'Ciao! Sono Firdavs, lo sviluppatore indipendente dietro Bananatalk. Ho aggiunto qualche piccolo annuncio all\'app per aiutare a mantenerla gratuita e finanziare lo sviluppo continuo.\n\nSo che le pubblicità possono dare fastidio — per questo le ho rese facoltative e ricompensate. Guarda un annuncio per sbloccare messaggi extra, filtri della community, XP bonus dopo i quiz e altro ancora.\n\nGrazie per usare Bananatalk. Il tuo supporto significa tutto. 🙏';
+
+  @override
+  String get promoAdsNoticeGotIt => 'Ho capito, grazie! 👍';
+
+  @override
+  String get vipOnly => 'Solo VIP';
+
+  @override
+  String get vipTapUpgrade => 'Tocca per passare a VIP';
+
+  @override
+  String get vipUnlockFeatures => 'Sblocca le funzioni VIP';
+
+  @override
+  String get vipUpPillUp => 'Su';
+
+  @override
+  String get vipChooseOption => 'Scegli un\'opzione:';
+
+  @override
+  String get promoWelcomeBackTitle => 'Bentornato! 👋';
+
+  @override
+  String get promoWelcomeBackBody => 'Ci sei mancato. Ecco cosa ti aspetta:';
+
+  @override
+  String get promoWelcomeBackCta => 'Andiamo! 🚀';
+
+  @override
+  String get vipCoinsPerAdInfo => '+5 monete per annuncio, fino a 5 al giorno';
+
+  @override
+  String get vipUpgradeUnlockMore => 'Passa a VIP per sbloccare più funzioni e l\'accesso illimitato';
+
+  @override
+  String get vipUpgradeNow => 'Passa a VIP ora';
+
+  @override
+  String get commonContinueWhereLeftOff => 'Continuare da dove avevi lasciato?';
+
+  @override
+  String get commonLanguageNotProvided => 'Lingua non indicata';
+
+  @override
+  String get commonExamNotProvided => 'Esame non indicato';
+
+  @override
+  String get commonMuted => 'Audio disattivato';
+
+  @override
+  String get commonPoorConnection => 'Connessione scarsa';
+
+  @override
+  String commonBlockUserConfirmBody(Object targetUserName) {
+    return 'Vuoi davvero bloccare $targetUserName?\n\nNon vedrai più i suoi messaggi e post, e non comparirete più nelle ricerche l\'uno dell\'altro.';
+  }
+
+  @override
+  String get commonVideoFile => 'File video';
+
+  @override
+  String get commonPointCameraBananatalkQr => 'Inquadra un codice QR di Bananatalk con la fotocamera';
+
+  @override
+  String get commonReportSubmittedButSome => 'Segnalazione inviata, ma alcune prove non sono state caricate';
+
+  @override
+  String commonReportTitle(Object typeLabel) {
+    return 'Segnala $typeLabel';
+  }
+
+  @override
+  String commonWhyReporting(Object typeLabel) {
+    return 'Perché stai segnalando questo $typeLabel?';
+  }
+
+  @override
+  String get commonAddEvidenceRequired => 'Aggiungi prove (obbligatorio)';
+
+  @override
+  String get commonUploadScreenshotsTextFiles => 'Carica screenshot o file di testo a sostegno della tua segnalazione';
+
+  @override
+  String commonAddEvidenceCount(Object count, Object maxFiles) {
+    return 'Aggiungi prove ($count/$maxFiles)';
+  }
+
+  @override
+  String commonReportTotalSize(Object max, Object used) {
+    return 'Totale: $used / $max';
+  }
+
+  @override
+  String get commonEvidence => 'Prove';
+
+  @override
+  String get commonImageFailed => 'Immagine non riuscita';
+
+  @override
+  String get commonShowMore => 'Mostra altro';
+
+  @override
+  String get commonVoiceRecordingNotAvailable => 'Registrazione vocale non disponibile';
+
+  @override
+  String get commonVoiceRecordingOnlyAvailable => 'La registrazione vocale è disponibile solo sui dispositivi mobili.';
+
+  @override
+  String get commonReportSubmittedSuccessfully => 'Segnalazione inviata con successo';
+
+  @override
+  String get commonErrorLoadingFile => 'Errore nel caricamento del file';
+
+  @override
+  String get commonReportTypeUser => 'utente';
+
+  @override
+  String get commonReportTypeMoment => 'momento';
+
+  @override
+  String get commonReportTypeComment => 'commento';
+
+  @override
+  String get commonReportTypeMessage => 'messaggio';
+
+  @override
+  String get commonReportTypeStory => 'storia';
+
+  @override
+  String get commonReportTypeContent => 'contenuto';
+
+  @override
+  String get commonReportReasonCopyright => 'Violazione del copyright';
+
+  @override
+  String get momentsRemoveVoiceNote => 'Rimuovi nota vocale';
+
+  @override
+  String get vocabPackLevelProficiency => 'Padronanza';
+
+  @override
+  String get aiFailedToLoadFeedback => 'Impossibile caricare il feedback';
+
+  @override
+  String get aiFailedToLoadSummary => 'Impossibile caricare il riepilogo';
+
+  @override
+  String get momentFailedToLoad => 'Impossibile caricare il momento';
+
+  @override
+  String get aiPronunciationWatchAdRetry => 'Guarda un annuncio per un altro tentativo gratuito';
+
+  @override
+  String aiErrorLoadingLanguages(Object error) {
+    return 'Errore nel caricamento delle lingue: $error';
+  }
+
+  @override
+  String get aiSelectSourceTargetLanguages => 'Seleziona la lingua di partenza e quella di destinazione';
+
+  @override
+  String get aiUnexpectedResponseFormat => 'Formato di risposta imprevisto';
+
+  @override
+  String get aiFailedToLoadConversation => 'Impossibile caricare la conversazione';
+
+  @override
+  String get aiMicPermissionDeniedSettings => 'Autorizzazione al microfono negata. Attivala nelle Impostazioni.';
+
+  @override
+  String get aiFailedToEvaluatePronunciation => 'Impossibile valutare la pronuncia';
+
+  @override
+  String get aiFailedToGenerateSpeech => 'Impossibile generare l\'audio';
+
+  @override
+  String get aiFailedToGenerateLesson => 'Impossibile generare la lezione';
+
+  @override
+  String get aiLessonTopicRequired => 'Inserisci un argomento';
+
+  @override
+  String get aiFailedToLoadTopics => 'Impossibile caricare gli argomenti';
+
+  @override
+  String get aiFailedToLoadScenarios => 'Impossibile caricare gli scenari';
+
+  @override
+  String get aiAnalysisFailed => 'Analisi non riuscita';
+
+  @override
+  String get storySearchPlaceHint => 'Cerca un luogo…';
+
+  @override
+  String get storySearchRecentChatsHint => 'Cerca nelle chat recenti…';
+
+  @override
+  String get storySearchFollowingHint => 'Cerca le persone che segui…';
+
+  @override
+  String get storyAddHashtagsHint => 'Aggiungi hashtag...';
+
+  @override
+  String get storyHighlightCreateFailed => 'Impossibile creare la storia in evidenza';
+
+  @override
+  String get storyHighlightRenameFailed => 'Impossibile rinominare la storia in evidenza';
+
+  @override
+  String get storyHighlightDeleteFailed => 'Impossibile eliminare la storia in evidenza';
+
+  @override
+  String get storyViewersLoadFailed => 'Impossibile caricare gli spettatori';
+
+  @override
+  String get storyShareSent => 'Inviato 💛';
+
+  @override
+  String storyShareSentPartial(Object names) {
+    return 'Inviato 💛 — non riuscito per $names';
+  }
+
+  @override
+  String get storyVoteFailed => 'Impossibile inviare il voto';
+
+  @override
+  String get storyAnswerFailed => 'Impossibile inviare la risposta';
+
+  @override
+  String get storyAlreadyInHighlight => 'Già salvata in una storia in evidenza';
+
+  @override
+  String get storyAddedToHighlight => 'Aggiunta alla storia in evidenza';
+
+  @override
+  String storyMaxHashtags(int max) {
+    return 'Puoi aggiungere fino a $max hashtag';
+  }
+
+  @override
+  String storyMaxMentions(int max) {
+    return 'Puoi menzionare fino a $max persone';
+  }
+
+  @override
+  String get coinHistoryActivity => 'Attività monete';
+
+  @override
+  String get coinHistoryAdReward => 'Hai guardato un annuncio';
+
+  @override
+  String get coinHistoryPurchase => 'Acquisto di monete';
+
+  @override
+  String coinHistoryUnlocked(Object feature) {
+    return 'Hai sbloccato $feature';
+  }
+
+  @override
+  String get vipVisitorMessagesBenefit => 'Invia fino a 50 messaggi al giorno';
+
+  @override
+  String get vipVisitorProfilesBenefit => 'Visualizza fino a 100 profili al giorno';
+
+  @override
+  String get vipVisitorFriendsBenefit => 'Aggiungi amici e amplia la tua rete';
+
+  @override
+  String get vipVisitorCommunitiesTitle => 'Unisciti alle community';
+
+  @override
+  String get vipVisitorCommunitiesBenefit => 'Partecipa alle discussioni della community';
+
+  @override
+  String get vipVisitorMomentsTitle => 'Condividi momenti';
+
+  @override
+  String get vipVisitorMomentsBenefit => 'Pubblica e condividi i tuoi momenti';
+
+  @override
+  String get vipUnlimitedEverythingTitle => 'Tutto illimitato';
+
+  @override
+  String get vipUnlimitedEverythingBenefit => 'Nessun limite giornaliero per messaggi o visualizzazioni di profili';
+
+  @override
+  String get vipProfileBoostBenefit => 'Ottieni più visibilità nei risultati di ricerca';
+
+  @override
+  String get vipAdFreeExperienceBenefit => 'Usa l\'app senza pubblicità';
+
+  @override
+  String get featureGateUpgradeToUnlock => 'Passa a un piano superiore per sbloccare questa funzione';
+
+  @override
+  String get featureGateVipOnly => 'Funzione solo per VIP';
+
+  @override
+  String get adsRewardedButtonLabel => 'Guarda un annuncio per un bonus';
+
+  @override
+  String get promoAdsPerkMessages => '+3 messaggi\nbonus';
+
+  @override
+  String get promoAdsPerkFilters => 'Sblocca\ni filtri';
+
+  @override
+  String get promoAdsPerkXp => '+10 XP\nbonus';
+
+  @override
+  String get promoAdsPerkRetry => 'Riprova\ngratis';
+
+  @override
+  String get visitorLimitMessagesTitle => 'Limite giornaliero di messaggi raggiunto';
+
+  @override
+  String visitorLimitMessagesBody(int count) {
+    return 'Oggi hai inviato $count messaggi. Passa a un piano superiore per inviarne altri!';
+  }
+
+  @override
+  String get visitorLimitProfilesTitle => 'Limite giornaliero di visualizzazioni di profili raggiunto';
+
+  @override
+  String visitorLimitProfilesBody(int count) {
+    return 'Oggi hai visualizzato $count profili. Passa a un piano superiore per vederne altri!';
+  }
+
+  @override
+  String get visitorLimitFreeAccountBenefit => 'Limiti giornalieri più alti';
+
+  @override
+  String get visitorLimitVipBenefit => 'Accesso illimitato';
+
+  @override
+  String get promoWelcomeBackTutorSubtitle => 'Esercitati con conversazioni, pronuncia e quiz';
+
+  @override
+  String get promoWelcomeBackCommunitySubtitle => 'Trova partner linguistici vicino a te';
+
+  @override
+  String get promoWelcomeBackMomentsSubtitle => 'Condividi il tuo percorso di apprendimento linguistico';
+
+  @override
+  String get myReportsReportedId => 'ID segnalato';
+
+  @override
+  String get myReportsReason => 'Motivo';
+
+  @override
+  String get myReportsSubmitted => 'Inviata';
+
+  @override
+  String get myReportsResolved => 'Risolta';
+
+  @override
+  String get myReportsModeratorNotes => 'Note del moderatore';
+
+  @override
+  String get myReportsNotAvailable => 'N/D';
+
+  @override
+  String get myReportsFailedToLoad => 'Impossibile caricare le segnalazioni';
+
+  @override
+  String get voiceRecorderUnavailableDesktop => 'La registrazione vocale non è disponibile su desktop';
+
+  @override
+  String get adminPageUnavailable => 'Questa pagina non è disponibile.';
+
+  @override
+  String storyShareSendFailedTo(Object names) {
+    return 'Impossibile inviare a $names';
+  }
+
+  @override
+  String get storyCantReact => 'Non puoi reagire a questa storia';
+
+  @override
+  String get storyCantReply => 'Non puoi rispondere a questa storia';
+
+  @override
+  String get storyNoMediaToSave => 'Questa storia non ha contenuti multimediali da salvare';
+
+  @override
+  String get coinsAdCrediting => 'Accredito in corso…';
+
+  @override
+  String get coinsWatchAdReward => 'Guarda un annuncio (+5 💎)';
+
+  @override
+  String callUnavailable(String name) {
+    return '$name non accetta chiamate in questo momento';
+  }
+
+  @override
+  String get callDeclineWithMessage => 'Messaggio';
+
+  @override
+  String get callDeclineSheetTitle => 'Rifiuta con un messaggio';
+
+  @override
+  String get callDeclineCannedLater => 'Non posso parlare ora. Ti richiamo io.';
+
+  @override
+  String get callDeclineCannedText => 'Non posso parlare ora. Mi scrivi?';
+
+  @override
+  String get callDeclineCustomHint => 'Scrivi un messaggio…';
+
+  @override
+  String get callDeclineSend => 'Invia';
+
+  @override
+  String get callBackAction => 'Richiama';
+
+  @override
+  String get callMessageAction => 'Messaggio';
+
+  @override
+  String get callsAllowTitle => 'Consenti chiamate';
+
+  @override
+  String get callsAllowSubtitle => 'Se disattivato, le chiamate non squillano. Chi chiama vedrà che non accetti chiamate.';
+
+  @override
+  String get callsQuietHoursNote => 'Con “Consenti notifiche urgenti” disattivato, anche le chiamate vengono trattenute durante le ore silenziose.';
+
+  @override
+  String get callTurnOnCamera => 'Fotocamera';
+
+  @override
+  String get callCameraFailed => 'Impossibile attivare la fotocamera';
+
+  @override
+  String get callSelfViewLabel => 'La tua fotocamera. Trascina per spostarla.';
+
+  @override
+  String get callSelfViewSwapHint => 'Tocca due volte per scambiare con l\'altro video';
 }

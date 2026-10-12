@@ -7040,7 +7040,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get examSpeakingPart3 => 'Speaking — Part 3';
 
   @override
-  String get examSpeakingSubmit => 'Submit recording';
+  String get examSpeakingSubmit => '提交录音';
 
   @override
   String get examSpeakingUploading => '上传中…';
@@ -9550,6 +9550,1647 @@ class AppLocalizationsZh extends AppLocalizations {
   String translatedToLanguage(String language) {
     return '已翻译成$language';
   }
+
+  @override
+  String guideProgress(int count) {
+    return '新手入门 · $count/4';
+  }
+
+  @override
+  String get guideChatTip => '长按可翻译或纠错';
+
+  @override
+  String get announcementTitle => '公告';
+
+  @override
+  String get announcementUnavailable => '此公告已不可用。';
+
+  @override
+  String get notifyAnnouncementsTitle => '公告';
+
+  @override
+  String get notifyAnnouncementsSubtitle => '来自 BananaTalk 团队的新闻和更新';
+
+  @override
+  String chatDailyLimitBody(Object count) {
+    return '免费用户每天最多可与 $count 人聊天。\n升级到 VIP 即可无限畅聊!';
+  }
+
+  @override
+  String get chatCompressingVideo => '正在压缩视频...';
+
+  @override
+  String chatShareLocationBody(Object name) {
+    return '将你当前的位置发送给 $name。请仅对你信任的人这样做。';
+  }
+
+  @override
+  String get chatShareLocationThisChat => '此聊天';
+
+  @override
+  String get chatTranslationLimitReached => '已达到翻译上限';
+
+  @override
+  String get chatTranslateLimitBody => '你在此聊天中已用完今天的免费翻译次数。使用金币即可立即解锁更多。';
+
+  @override
+  String chatReplyingTo(Object name) {
+    return '正在回复 $name';
+  }
+
+  @override
+  String get chatReplyingToFallback => '用户';
+
+  @override
+  String chatSendingMedia(Object mediaType) {
+    return '正在发送$mediaType...';
+  }
+
+  @override
+  String get chatEnterUsernameStart => '输入用户名以开始聊天';
+
+  @override
+  String chatSearching(Object username) {
+    return '正在搜索 @$username...';
+  }
+
+  @override
+  String chatDeleteConversationBody(Object name) {
+    return '删除你与 $name 的对话?此操作无法撤销。';
+  }
+
+  @override
+  String get chatQrCode => '二维码';
+
+  @override
+  String get chatDraft => '草稿: ';
+
+  @override
+  String get chatTyping => '正在输入...';
+
+  @override
+  String get chatPoweredBy => '技术支持: ';
+
+  @override
+  String get chatReconnecting => '正在重新连接聊天...';
+
+  @override
+  String get chatDailyLimitReached => '已达到每日消息上限';
+
+  @override
+  String chatMessagesRemainingToday(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '今天还剩 $count 条消息',
+      one: '今天还剩 1 条消息',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get chatTranslatePreviewHint => '开始输入即可查看翻译';
+
+  @override
+  String get chatNoMessagesYet => '暂无消息';
+
+  @override
+  String get chatMediaPhoto => '照片';
+
+  @override
+  String get chatMediaVideo => '视频';
+
+  @override
+  String get chatMediaAudio => '音频';
+
+  @override
+  String get chatMediaFile => '文件';
+
+  @override
+  String get chatMediaGeneric => '媒体';
+
+  @override
+  String get chatMessageFailedToSend => '消息发送失败';
+
+  @override
+  String get chatSendingEllipsis => '发送中...';
+
+  @override
+  String get chatFailedTapOptions => '失败 · 点击查看选项';
+
+  @override
+  String get chatMessageWasDeleted => '此消息已被删除';
+
+  @override
+  String get chatStory => '动态';
+
+  @override
+  String get chatHi => '嗨！';
+
+  @override
+  String get chatEdited => '已编辑';
+
+  @override
+  String get chatPremium => '高级 ✨';
+
+  @override
+  String chatUnlockPremiumWallpapers(Object cost) {
+    return '用 💎$cost 金币解锁所有高级 ✨ 壁纸吗？这将永久解锁整个壁纸包。';
+  }
+
+  @override
+  String chatWallpaperForName(Object userName) {
+    return '$userName的聊天壁纸';
+  }
+
+  @override
+  String get chatChooseGallery => '从相册选择';
+
+  @override
+  String get chatHiThere => '你好！😊';
+
+  @override
+  String chatCorrected(Object correctorName) {
+    return '$correctorName 已纠正';
+  }
+
+  @override
+  String get chatCorrectionAccepted => '已接受纠正 ✓';
+
+  @override
+  String chatForwarded(Object senderName) {
+    return '转发自 $senderName';
+  }
+
+  @override
+  String get chatCached => '已缓存';
+
+  @override
+  String get chatWordBreakdown => '单词解析';
+
+  @override
+  String get chatAlternatives => '备选';
+
+  @override
+  String chatTranslationAlso(Object items) {
+    return '另外：$items';
+  }
+
+  @override
+  String get chatAudioUnavailable => '音频不可用';
+
+  @override
+  String get chatHideTranslation => '隐藏翻译';
+
+  @override
+  String get chatStoryExpired => '动态已过期';
+
+  @override
+  String get chatAcceptCorrection => '接受纠正';
+
+  @override
+  String get chatAccepting => '正在接受…';
+
+  @override
+  String get chatSaveToVocabularyAction => '保存到词汇本';
+
+  @override
+  String momentsMore(Object hidden) {
+    return '还有$hidden个';
+  }
+
+  @override
+  String get momentsAllow => '允许';
+
+  @override
+  String get momentsCompressed => '已压缩';
+
+  @override
+  String get momentsPromptDay => '今日话题';
+
+  @override
+  String get momentsAnswer => '回答';
+
+  @override
+  String get momentsAnswerCamera => '🎥 用相机回答';
+
+  @override
+  String momentsPracticeWriting(Object langName) {
+    return '练习用$langName写作';
+  }
+
+  @override
+  String get momentsReelPolicyBody => 'Reels 是简短的语言学习视频，包括话题回答、口语练习、母语者讲解和文化短片。\n\nBananatalk 对不当内容零容忍：禁止裸露、仇恨言论、骚扰、暴力或非法内容。被举报的视频在收到 2 次举报后会自动隐藏以待审核，违规可能导致内容被删除或账号被封禁。\n\n你可以随时在任意 Reel 中举报或屏蔽。';
+
+  @override
+  String get momentsIAgree => '我同意';
+
+  @override
+  String get momentsWhyReportingReel => '你为什么要举报这个 Reel？';
+
+  @override
+  String get momentsNoReelsYet => '还没有 Reels';
+
+  @override
+  String get momentsNoReelsBody => '成为第一个用相机回答今日话题的人，或录制一段自由形式的语言学习短片。';
+
+  @override
+  String get momentsPullDownRefresh => '下拉刷新';
+
+  @override
+  String get momentsErrorLoadingVideo => '视频加载出错';
+
+  @override
+  String get momentsLoadingVideo => '正在加载视频...';
+
+  @override
+  String momentsFileSizeMb(Object size) {
+    return '${size}MB';
+  }
+
+  @override
+  String momentsMaxDuration(Object duration) {
+    return '最长 $duration';
+  }
+
+  @override
+  String get momentsReportSubmitted => '举报已提交';
+
+  @override
+  String communityLive(Object count) {
+    return '$count 人在线直播';
+  }
+
+  @override
+  String get communityFind => '查找';
+
+  @override
+  String communityFinding(Object username) {
+    return '正在查找 @$username...';
+  }
+
+  @override
+  String get communitySeeAll => '查看全部';
+
+  @override
+  String get communitySeeWhoLikes => '看看谁喜欢你';
+
+  @override
+  String get communityUnlimitedBrowsingNoAds => '无限浏览、无广告、优先匹配';
+
+  @override
+  String communityMembersCount(Object count) {
+    return '$count 位成员';
+  }
+
+  @override
+  String communityPeopleCount(Object count) {
+    return '$count 人';
+  }
+
+  @override
+  String get communityFailedLoadArchivedWaves => '无法加载已归档的招呼';
+
+  @override
+  String get communityGreatChat => '聊得真棒！🎉';
+
+  @override
+  String get communityStayTouchPeopleJust => '与刚刚聊过的人保持联系';
+
+  @override
+  String get communityNotNow => '暂不';
+
+  @override
+  String get communityPerfect => '完美';
+
+  @override
+  String communityLv(Object level) {
+    return 'Lv.$level';
+  }
+
+  @override
+  String get communityReact => '回应';
+
+  @override
+  String get communityWavedAtYou => '向你打了招呼';
+
+  @override
+  String get communitySomeone => '某人';
+
+  @override
+  String get communityPeopleInterestedInTopic => '对此话题感兴趣的人';
+
+  @override
+  String get learnThemedWordSetsBuild => '按主题整理的词汇集，帮你积累词汇量';
+
+  @override
+  String get learnTapStartRecording => '点按开始录音';
+
+  @override
+  String get learnWordBank => '单词库';
+
+  @override
+  String learnCorrectAnswer(Object correctAnswer) {
+    return '正确答案：$correctAnswer';
+  }
+
+  @override
+  String get learnMatchingDataNotAvailable => '匹配数据不可用';
+
+  @override
+  String get learnExerciseCouldNotLoad => '此练习无法加载匹配配对。请尝试重新生成课程。';
+
+  @override
+  String get learnSkipExercise => '跳过练习';
+
+  @override
+  String get learnTapItemLeftThen => '先点按左侧的一项，再点按右侧与之匹配的一项';
+
+  @override
+  String learnMatchedOfTotal(Object count, Object count2) {
+    return '已匹配 $count/$count2';
+  }
+
+  @override
+  String learnCorrectOfTotal(Object correctCount, Object count) {
+    return '答对 $correctCount/$count';
+  }
+
+  @override
+  String get learnDragDropReorderItems => '拖放以重新排列各项';
+
+  @override
+  String learnCorrectOrder(Object order) {
+    return '正确顺序：$order';
+  }
+
+  @override
+  String learnWordsToReview(int dueCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      dueCount,
+      locale: localeName,
+      other: '$dueCount 个单词待复习',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnScore(Object score) {
+    return '得分：$score / 100';
+  }
+
+  @override
+  String learnGotCorrect(Object correct, Object count) {
+    return '你答对了 $count 题中的 $correct 题。';
+  }
+
+  @override
+  String learnQuestionOf(Object number, Object total) {
+    return '第 $number 题，共 $total 题';
+  }
+
+  @override
+  String get learnMatchEachWordIts => '将每个单词与其含义配对';
+
+  @override
+  String get learnCouldNotLoadPacks => '无法加载词汇包';
+
+  @override
+  String learnWordsExercises(Object wordCount, Object exerciseCount) {
+    return '$wordCount 个单词 · $exerciseCount 个练习';
+  }
+
+  @override
+  String get learnAiAutoFill => 'AI 自动填写';
+
+  @override
+  String get learnPlay => '播放';
+
+  @override
+  String get learnFinish => '完成';
+
+  @override
+  String get learnNotQuite => '差一点。';
+
+  @override
+  String get learnUnsupportedExercise => '不支持的练习';
+
+  @override
+  String get learnFailedLoadAchievements => '无法加载成就';
+
+  @override
+  String learnUnlockedOn(Object date) {
+    return '解锁于 $date';
+  }
+
+  @override
+  String get learnChallenges => '挑战';
+
+  @override
+  String get learnFailedLoadChallenges => '无法加载挑战';
+
+  @override
+  String learnNoChallenges(Object type) {
+    return '没有$type挑战';
+  }
+
+  @override
+  String get learnCheckBackLater => '请稍后再来看看！';
+
+  @override
+  String learnActiveCount(Object count) {
+    return '进行中（$count）';
+  }
+
+  @override
+  String learnCompletedCount(Object count) {
+    return '已完成（$count）';
+  }
+
+  @override
+  String get learnProgress => '进度';
+
+  @override
+  String get learnXpReward => 'XP 奖励';
+
+  @override
+  String get learnBonus => '奖励';
+
+  @override
+  String learnExpires(Object timeRemainingFormatted) {
+    return '$timeRemainingFormatted后到期';
+  }
+
+  @override
+  String get learnAchievementUnlocked => '成就已解锁！';
+
+  @override
+  String get learnTapContinue => '点按继续';
+
+  @override
+  String get learnChallengeCompleted => '已完成';
+
+  @override
+  String get learnDailyGoals => '每日目标';
+
+  @override
+  String learnLessons(Object completedCount, Object lessonsCount) {
+    return '$completedCount/$lessonsCount 节课';
+  }
+
+  @override
+  String learnLongestDays(Object longestStreak) {
+    return '最长：$longestStreak 天';
+  }
+
+  @override
+  String get learnTapReveal => '点按查看';
+
+  @override
+  String get learnNoAchievements => '暂无成就';
+
+  @override
+  String get learnDayStreak => '天连续';
+
+  @override
+  String get learnDueForReview => '该复习了';
+
+  @override
+  String learnNextReview(Object date) {
+    return '下次：$date';
+  }
+
+  @override
+  String get learnChallengeDaily => '每日';
+
+  @override
+  String get learnChallengeWeekly => '每周';
+
+  @override
+  String get learnChallengeSpecial => '特别';
+
+  @override
+  String get learnChallengeDailyDesc => '每天完成挑战，赢取 XP 和奖励！';
+
+  @override
+  String get learnChallengeWeeklyDesc => '每周挑战在每周一刷新';
+
+  @override
+  String get learnChallengeSpecialDesc => '限时挑战，附带额外奖励！';
+
+  @override
+  String get learnDateToday => '今天';
+
+  @override
+  String get learnDateTomorrow => '明天';
+
+  @override
+  String learnInDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count天后',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnInWeeks(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count周后',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnInMonths(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count个月后',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiGenerateNewQuiz => '生成新测验';
+
+  @override
+  String get aiPreviousQuizzes => '以前的测验';
+
+  @override
+  String get aiGeneratingQuiz => '正在生成你的测验…';
+
+  @override
+  String aiFocusArea(Object name) {
+    return '重点领域：$name';
+  }
+
+  @override
+  String get aiQuizType => '测验类型';
+
+  @override
+  String get aiDifficulty => '难度';
+
+  @override
+  String get aiQuestionsLabel => '题目数：';
+
+  @override
+  String get aiGenerateQuiz => '生成测验';
+
+  @override
+  String aiQuizQuestionCount(int questionCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      questionCount,
+      locale: localeName,
+      other: '$questionCount 道题',
+      one: '1 道题',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String aiCorrectOfTotal(Object correctCount, Object totalQuestions) {
+    return '答对 $correctCount/$totalQuestions';
+  }
+
+  @override
+  String get aiNoQuizzesYet => '还没有测验';
+
+  @override
+  String get aiGenerateFirstQuizAbove => '在上方生成你的第一个测验吧！';
+
+  @override
+  String aiCorrectOutOf(Object correctCount, Object totalQuestions) {
+    return '$totalQuestions 题中答对 $correctCount 题';
+  }
+
+  @override
+  String get aiBackQuizHub => '返回测验中心';
+
+  @override
+  String get aiNoQuestionsAvailable => '没有可用的题目';
+
+  @override
+  String get aiQuizHasNoQuestions => '此测验没有可显示的题目。';
+
+  @override
+  String aiQuestionOf(Object number, Object count) {
+    return '第 $number 题，共 $count 题';
+  }
+
+  @override
+  String get aiYourAnswerLabel => '你的答案：';
+
+  @override
+  String get aiBonusXpWatching => '🎉 观看奖励 +10 XP！';
+
+  @override
+  String get aiNotQuiteRight => '不太对';
+
+  @override
+  String get aiWhy => '为什么？';
+
+  @override
+  String get aiGotIt => '明白了';
+
+  @override
+  String get aiHint => '提示';
+
+  @override
+  String aiLevel(Object hintLevel) {
+    return '等级 $hintLevel/3';
+  }
+
+  @override
+  String get aiAskQuestion => '提问';
+
+  @override
+  String get aiAsk => '提问';
+
+  @override
+  String get aiAssistantExamples => '示例';
+
+  @override
+  String get aiExplainConcept => '解释概念';
+
+  @override
+  String get aiRelatedConcepts => '相关概念';
+
+  @override
+  String get aiGeneratingLessonSummary => '正在生成你的课程总结...';
+
+  @override
+  String get aiLessonSummary => '课程总结';
+
+  @override
+  String get aiKeyPoints => '要点';
+
+  @override
+  String get aiVocabularyRemember => '需要记住的词汇';
+
+  @override
+  String get aiGrammarRules => '语法规则';
+
+  @override
+  String get aiWhatPracticeNext => '接下来练习什么';
+
+  @override
+  String get aiPerfectScore => '满分！';
+
+  @override
+  String get aiGreatJob => '做得好！';
+
+  @override
+  String get aiGoodEffort => '不错的努力！';
+
+  @override
+  String get aiKeepPracticing => '继续练习吧！';
+
+  @override
+  String get aiFailedToGetHint => '获取提示失败';
+
+  @override
+  String get aiFailedToGetAnswer => '获取回答失败';
+
+  @override
+  String get aiFailedToExplain => '解释失败';
+
+  @override
+  String get aiFailedLoadHistory => '无法加载历史记录';
+
+  @override
+  String aiConversationMessageCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count 条消息',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiStartNewConversationSee => '开始新的对话后即可在此查看';
+
+  @override
+  String get aiLoadingMessages => '正在加载消息...';
+
+  @override
+  String get aiNoMessagesConversation => '此对话中没有消息';
+
+  @override
+  String get aiDifficultyLevel => '难度等级';
+
+  @override
+  String get aiScenarios => '场景';
+
+  @override
+  String get aiGrammarCheck => '语法检查';
+
+  @override
+  String get aiRecentAnalysis => '最近的分析';
+
+  @override
+  String get aiCheckGrammar => '检查语法';
+
+  @override
+  String get aiLanguageLabel => '语言：';
+
+  @override
+  String aiGrammarIssuesFound(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '发现 $count 个错误',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiPerfect => '完美！';
+
+  @override
+  String get aiNoGrammarIssuesFound => '在你的文本中没有发现语法错误。';
+
+  @override
+  String aiIssuesFound(Object count) {
+    return '发现的错误（$count）';
+  }
+
+  @override
+  String get aiCorrected => '修正后';
+
+  @override
+  String get aiGrammarExamples => '示例：';
+
+  @override
+  String get aiImprovedSuggestions => '改进建议';
+
+  @override
+  String get aiNoAnalysisHistoryYet => '暂无分析记录';
+
+  @override
+  String get aiLessonBuilder => 'AI 课程生成器';
+
+  @override
+  String get aiGenerateCustomLessons => '生成自定义课程';
+
+  @override
+  String get aiCreatesPersonalizedLessonsAny => 'AI 可围绕任何主题为你创建个性化课程';
+
+  @override
+  String aiExercises(Object exerciseCount) {
+    return '练习：$exerciseCount';
+  }
+
+  @override
+  String get aiSuggestedTopics => '推荐主题';
+
+  @override
+  String get aiCreatingLesson => '正在创建你的课程...';
+
+  @override
+  String get aiGeneratingExercisesContent => 'AI 正在生成练习和内容';
+
+  @override
+  String get aiLessonGenerated => '课程已生成！';
+
+  @override
+  String get aiGenerateAnother => '再生成一个';
+
+  @override
+  String get aiStartLesson => '开始课程';
+
+  @override
+  String get aiPronunciationPractice => '发音练习';
+
+  @override
+  String get aiPracticeHistory => '练习记录';
+
+  @override
+  String get aiTextPractice => '练习文本';
+
+  @override
+  String get aiWordAnalysis => '单词分析';
+
+  @override
+  String get aiNoPracticeHistoryYet => '暂无练习记录';
+
+  @override
+  String get aiSmartTranslation => '智能翻译';
+
+  @override
+  String get aiWordBreakdown => '逐词解析';
+
+  @override
+  String get aiAlternativeTranslations => '其他译法';
+
+  @override
+  String get aiGrammarNotes => '语法笔记';
+
+  @override
+  String get aiIdiomsExpressions => '习语与表达';
+
+  @override
+  String aiLiteral(Object literalTranslation) {
+    return '直译：$literalTranslation';
+  }
+
+  @override
+  String aiMeaning(Object meaning) {
+    return '含义：$meaning';
+  }
+
+  @override
+  String aiEquivalent(Object equivalentIdiom) {
+    return '对应说法：$equivalentIdiom';
+  }
+
+  @override
+  String get aiCulturalContext => '文化背景';
+
+  @override
+  String get aiNoCompletedConversations => '没有已完成的对话';
+
+  @override
+  String get aiNoActiveConversations => '没有进行中的对话';
+
+  @override
+  String aiStartInLanguage(Object language) {
+    return '以$language开始';
+  }
+
+  @override
+  String get aiSelect => '选择';
+
+  @override
+  String aiIssuesCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count 个错误',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiGenerateLesson => '生成课程';
+
+  @override
+  String get aiGeneratingEllipsis => '生成中...';
+
+  @override
+  String get aiAnalyzing => '分析中...';
+
+  @override
+  String get aiExcellentPronunciation => '发音非常棒！';
+
+  @override
+  String get aiGoodJob => '做得好！';
+
+  @override
+  String get profileBuyMeCoffee => '请我喝杯咖啡';
+
+  @override
+  String get profileOr => '或';
+
+  @override
+  String get profileLoadingNotifications => '正在加载通知...';
+
+  @override
+  String get profileLoadingSettings => '正在加载设置...';
+
+  @override
+  String get profileAdmin => '管理员';
+
+  @override
+  String get profileSelected => '已选择';
+
+  @override
+  String get profilePrivacyIntro => '你可以决定别人能看到什么。关闭项目即可在公开资料中隐藏。';
+
+  @override
+  String get profileUpdate => '更新';
+
+  @override
+  String get profileNoTopicsCategory => '此分类下没有话题';
+
+  @override
+  String get profileAdminTools => '管理员工具';
+
+  @override
+  String profileCompletionAdd(Object items) {
+    return '添加：$items';
+  }
+
+  @override
+  String get profileActive => '活跃';
+
+  @override
+  String get profileAutoSaveEnabled => '已开启自动保存';
+
+  @override
+  String get profileChangesSavedInstantlyWhen => '切换后更改会立即保存。';
+
+  @override
+  String get profileCurrentTheme => '当前主题';
+
+  @override
+  String get profileThemeChangesApplyInstantly => '主题更改会立即应用于整个应用。';
+
+  @override
+  String get profileLoadingVisitors => '正在加载访客...';
+
+  @override
+  String get profileSeeWhoChecked => '查看谁看过你的资料';
+
+  @override
+  String get profileRecentVisitors => '最近访客';
+
+  @override
+  String get profileNoReportsSubmitted => '没有提交过举报';
+
+  @override
+  String get profileReportsSubmitWillAppear => '你提交的举报将显示在这里';
+
+  @override
+  String profileReportTypeTitle(Object type) {
+    return '$type举报';
+  }
+
+  @override
+  String profileReportReason(Object reason) {
+    return '原因：$reason';
+  }
+
+  @override
+  String get profileDeleteAccountFinalBody => '你的所有数据将被永久删除。\n\n你确定吗？';
+
+  @override
+  String get profileThanksForWatching => '感谢观看！🙏';
+
+  @override
+  String get profileNotificationsOn => '通知已开启';
+
+  @override
+  String get profileNotificationsOff => '通知已关闭';
+
+  @override
+  String get profileMaximumReached => '已达上限';
+
+  @override
+  String get profilePickYourInterests => '选择你的兴趣';
+
+  @override
+  String get profileDeselectToChooseAnother => '取消选择一个以选择其他的';
+
+  @override
+  String get profileTapTopicsMatchVibe => '点按符合你风格的话题';
+
+  @override
+  String get profileEnjoyingPremium => '正在享受高级功能';
+
+  @override
+  String get profileUnlockUnlimited => '解锁无限消息和 AI 工具';
+
+  @override
+  String get profileBirthYear => '出生年份';
+
+  @override
+  String get profileReportTypeUser => '用户';
+
+  @override
+  String get profileReportTypeMoment => '动态';
+
+  @override
+  String get profileReportTypeComment => '评论';
+
+  @override
+  String get profileReportTypeMessage => '消息';
+
+  @override
+  String get profileReportTypeStory => '故事';
+
+  @override
+  String get profileReportReasonCopyright => '版权';
+
+  @override
+  String get storyOptimizingBestExperience => '正在优化以获得最佳体验';
+
+  @override
+  String get storyCreate => '创建故事';
+
+  @override
+  String get storyAddTags => '添加标签';
+
+  @override
+  String get storyVideoSelected => '已选择视频';
+
+  @override
+  String get storyAddPoll => '添加投票';
+
+  @override
+  String get storyOptions => '选项';
+
+  @override
+  String get storyAddQuestion => '添加问题';
+
+  @override
+  String get storyPrompt => '提示语';
+
+  @override
+  String get storyTapAnywhereAddText => '点按任意位置添加文字';
+
+  @override
+  String storyHighlightStoryCount(int storyCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      storyCount,
+      locale: localeName,
+      other: '$storyCount 个故事',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storySendFriends => '发送给好友';
+
+  @override
+  String storySelected(Object count) {
+    return '已选择 $count 项';
+  }
+
+  @override
+  String get storyShareSave => '分享/保存';
+
+  @override
+  String storySeenBy(Object viewCount) {
+    return '$viewCount 人看过';
+  }
+
+  @override
+  String get storyNoViewsYet => '暂无浏览';
+
+  @override
+  String get storyEditVideo => '编辑视频';
+
+  @override
+  String storyVotes(Object totalVotes) {
+    return '$totalVotes 票';
+  }
+
+  @override
+  String get storyCreatePoll => '创建投票';
+
+  @override
+  String get storySendAnonymously => '匿名发送';
+
+  @override
+  String storyResponseCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count 条回复',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyViewResponses => '查看回复';
+
+  @override
+  String get storyResponsesTitle => '回复';
+
+  @override
+  String get storyNoResponsesYet => '暂无回复';
+
+  @override
+  String get storyQuestionBox => '提问箱';
+
+  @override
+  String get storySent => '已发送！';
+
+  @override
+  String get storyProcessing => '处理中...';
+
+  @override
+  String get storyHd => 'HD';
+
+  @override
+  String storyVideoMeta(Object duration, Object size) {
+    return '$duration | ${size}MB';
+  }
+
+  @override
+  String get storyUserFallback => '用户';
+
+  @override
+  String storySendCount(int count) {
+    return '发送（$count）';
+  }
+
+  @override
+  String get storyFailedToDelete => '删除故事失败';
+
+  @override
+  String get storyAnonymous => '匿名';
+
+  @override
+  String get vipNoCoinActivityYet => '暂无金币记录';
+
+  @override
+  String get vipCoinShopExplainer => '当您用完每日免费额度后，金币可用于解锁额外的翻译、AI 导师聊天和动态使用次数。金币一旦花费，购买内容不可退款。';
+
+  @override
+  String get vipLimitReached => '已达上限';
+
+  @override
+  String get vipCoins => '金币';
+
+  @override
+  String vipBonusIncluded(Object bonusCoins) {
+    return '含 +$bonusCoins 赠送金币';
+  }
+
+  @override
+  String get vipVisitorModeLimitReached => '已达访客模式上限';
+
+  @override
+  String get vipWhatGetFreeAccount => '免费账号可获得什么';
+
+  @override
+  String get vipCreateFreeAccount => '创建免费账号';
+
+  @override
+  String get vipGoUnlimitedAccess => '升级 VIP，无限畅享';
+
+  @override
+  String get vipContinueAsVisitor => '以访客身份继续';
+
+  @override
+  String vipResets(Object resetTime) {
+    return '重置时间：$resetTime';
+  }
+
+  @override
+  String vipUsedToday(Object currentUsage, Object maxAllowed) {
+    return '今日已使用 $currentUsage / $maxAllowed';
+  }
+
+  @override
+  String get vipTierVisitor => '访客';
+
+  @override
+  String get vipTierMember => '会员';
+
+  @override
+  String get vipAd => '广告';
+
+  @override
+  String get promoAdsNoticeTitle => '开发者的一段话';
+
+  @override
+  String get promoAdsNoticeBody => '你好！我是 Firdavs，Bananatalk 背后的独立开发者。我在应用中加入了少量小广告，以帮助保持应用免费并支持持续开发。\n\n我知道广告可能会让人烦——所以我把它们设为可选，并且有奖励。观看广告即可解锁额外消息、社区筛选、测验后的额外 XP 等更多内容。\n\n感谢你使用 Bananatalk。你的支持对我意义重大。🙏';
+
+  @override
+  String get promoAdsNoticeGotIt => '知道了，谢谢！👍';
+
+  @override
+  String get vipOnly => '仅限 VIP';
+
+  @override
+  String get vipTapUpgrade => '点击升级';
+
+  @override
+  String get vipUnlockFeatures => '解锁 VIP 功能';
+
+  @override
+  String get vipUpPillUp => '升级';
+
+  @override
+  String get vipChooseOption => '请选择一个选项：';
+
+  @override
+  String get promoWelcomeBackTitle => '欢迎回来！👋';
+
+  @override
+  String get promoWelcomeBackBody => '我们想你了。这里有等着你的内容：';
+
+  @override
+  String get promoWelcomeBackCta => '出发吧！🚀';
+
+  @override
+  String get vipCoinsPerAdInfo => '每次广告 +5 金币，每天最多 5 次';
+
+  @override
+  String get vipUpgradeUnlockMore => '升级以解锁更多功能和无限访问';
+
+  @override
+  String get vipUpgradeNow => '立即升级';
+
+  @override
+  String get commonContinueWhereLeftOff => '从上次离开的地方继续吗？';
+
+  @override
+  String get commonLanguageNotProvided => '未提供语言';
+
+  @override
+  String get commonExamNotProvided => '未提供考试';
+
+  @override
+  String get commonMuted => '已静音';
+
+  @override
+  String get commonPoorConnection => '连接较差';
+
+  @override
+  String commonBlockUserConfirmBody(Object targetUserName) {
+    return '确定要屏蔽$targetUserName吗？\n\n你将不再看到对方的消息和动态，双方也不会出现在彼此的搜索结果中。';
+  }
+
+  @override
+  String get commonVideoFile => '视频文件';
+
+  @override
+  String get commonPointCameraBananatalkQr => '请将相机对准 Bananatalk 二维码';
+
+  @override
+  String get commonReportSubmittedButSome => '举报已提交，但部分证据上传失败';
+
+  @override
+  String commonReportTitle(Object typeLabel) {
+    return '举报$typeLabel';
+  }
+
+  @override
+  String commonWhyReporting(Object typeLabel) {
+    return '你为什么要举报这个$typeLabel？';
+  }
+
+  @override
+  String get commonAddEvidenceRequired => '添加证据（必填）';
+
+  @override
+  String get commonUploadScreenshotsTextFiles => '上传截图或文本文件以支持你的举报';
+
+  @override
+  String commonAddEvidenceCount(Object count, Object maxFiles) {
+    return '添加证据（$count/$maxFiles）';
+  }
+
+  @override
+  String commonReportTotalSize(Object max, Object used) {
+    return '总计：$used / $max';
+  }
+
+  @override
+  String get commonEvidence => '证据';
+
+  @override
+  String get commonImageFailed => '图片加载失败';
+
+  @override
+  String get commonShowMore => '显示更多';
+
+  @override
+  String get commonVoiceRecordingNotAvailable => '语音录制不可用';
+
+  @override
+  String get commonVoiceRecordingOnlyAvailable => '语音录制仅在移动设备上可用。';
+
+  @override
+  String get commonReportSubmittedSuccessfully => '举报提交成功';
+
+  @override
+  String get commonErrorLoadingFile => '加载文件出错';
+
+  @override
+  String get commonReportTypeUser => '用户';
+
+  @override
+  String get commonReportTypeMoment => '动态';
+
+  @override
+  String get commonReportTypeComment => '评论';
+
+  @override
+  String get commonReportTypeMessage => '消息';
+
+  @override
+  String get commonReportTypeStory => '故事';
+
+  @override
+  String get commonReportTypeContent => '内容';
+
+  @override
+  String get commonReportReasonCopyright => '侵犯版权';
+
+  @override
+  String get momentsRemoveVoiceNote => '删除语音备注';
+
+  @override
+  String get vocabPackLevelProficiency => '精通';
+
+  @override
+  String get aiFailedToLoadFeedback => '加载反馈失败';
+
+  @override
+  String get aiFailedToLoadSummary => '加载总结失败';
+
+  @override
+  String get momentFailedToLoad => '加载动态失败';
+
+  @override
+  String get aiPronunciationWatchAdRetry => '观看广告再获一次免费尝试';
+
+  @override
+  String aiErrorLoadingLanguages(Object error) {
+    return '加载语言出错：$error';
+  }
+
+  @override
+  String get aiSelectSourceTargetLanguages => '请选择源语言和目标语言';
+
+  @override
+  String get aiUnexpectedResponseFormat => '响应格式异常';
+
+  @override
+  String get aiFailedToLoadConversation => '加载对话失败';
+
+  @override
+  String get aiMicPermissionDeniedSettings => '麦克风权限被拒绝。请在设置中开启。';
+
+  @override
+  String get aiFailedToEvaluatePronunciation => '发音评估失败';
+
+  @override
+  String get aiFailedToGenerateSpeech => '生成语音失败';
+
+  @override
+  String get aiFailedToGenerateLesson => '生成课程失败';
+
+  @override
+  String get aiLessonTopicRequired => '请输入主题';
+
+  @override
+  String get aiFailedToLoadTopics => '加载主题失败';
+
+  @override
+  String get aiFailedToLoadScenarios => '加载场景失败';
+
+  @override
+  String get aiAnalysisFailed => '分析失败';
+
+  @override
+  String get storySearchPlaceHint => '搜索地点…';
+
+  @override
+  String get storySearchRecentChatsHint => '搜索最近的聊天…';
+
+  @override
+  String get storySearchFollowingHint => '搜索你关注的人…';
+
+  @override
+  String get storyAddHashtagsHint => '添加话题标签...';
+
+  @override
+  String get storyHighlightCreateFailed => '创建精选失败';
+
+  @override
+  String get storyHighlightRenameFailed => '重命名精选失败';
+
+  @override
+  String get storyHighlightDeleteFailed => '删除精选失败';
+
+  @override
+  String get storyViewersLoadFailed => '加载观看者失败';
+
+  @override
+  String get storyShareSent => '已发送 💛';
+
+  @override
+  String storyShareSentPartial(Object names) {
+    return '已发送 💛 — 发给 $names 失败';
+  }
+
+  @override
+  String get storyVoteFailed => '提交投票失败';
+
+  @override
+  String get storyAnswerFailed => '发送回答失败';
+
+  @override
+  String get storyAlreadyInHighlight => '已保存到精选';
+
+  @override
+  String get storyAddedToHighlight => '已添加到精选';
+
+  @override
+  String storyMaxHashtags(int max) {
+    return '最多可添加 $max 个话题标签';
+  }
+
+  @override
+  String storyMaxMentions(int max) {
+    return '最多可提及 $max 人';
+  }
+
+  @override
+  String get coinHistoryActivity => '金币动态';
+
+  @override
+  String get coinHistoryAdReward => '观看了广告';
+
+  @override
+  String get coinHistoryPurchase => '购买金币';
+
+  @override
+  String coinHistoryUnlocked(Object feature) {
+    return '已解锁 $feature';
+  }
+
+  @override
+  String get vipVisitorMessagesBenefit => '每天最多发送 50 条消息';
+
+  @override
+  String get vipVisitorProfilesBenefit => '每天最多查看 100 个个人资料';
+
+  @override
+  String get vipVisitorFriendsBenefit => '添加好友，拓展你的社交圈';
+
+  @override
+  String get vipVisitorCommunitiesTitle => '加入社区';
+
+  @override
+  String get vipVisitorCommunitiesBenefit => '参与社区讨论';
+
+  @override
+  String get vipVisitorMomentsTitle => '分享动态';
+
+  @override
+  String get vipVisitorMomentsBenefit => '发布并分享你的动态';
+
+  @override
+  String get vipUnlimitedEverythingTitle => '一切无限制';
+
+  @override
+  String get vipUnlimitedEverythingBenefit => '消息和查看资料不受每日限制';
+
+  @override
+  String get vipProfileBoostBenefit => '在搜索结果中获得更多曝光';
+
+  @override
+  String get vipAdFreeExperienceBenefit => '无广告畅享应用';
+
+  @override
+  String get featureGateUpgradeToUnlock => '升级即可解锁此功能';
+
+  @override
+  String get featureGateVipOnly => '仅限 VIP 的功能';
+
+  @override
+  String get adsRewardedButtonLabel => '观看广告领取奖励';
+
+  @override
+  String get promoAdsPerkMessages => '+3 条奖励\n消息';
+
+  @override
+  String get promoAdsPerkFilters => '解锁\n筛选';
+
+  @override
+  String get promoAdsPerkXp => '+10 奖励\nXP';
+
+  @override
+  String get promoAdsPerkRetry => '免费\n重试';
+
+  @override
+  String get visitorLimitMessagesTitle => '已达到每日消息上限';
+
+  @override
+  String visitorLimitMessagesBody(int count) {
+    return '你今天已发送 $count 条消息。升级后可发送更多！';
+  }
+
+  @override
+  String get visitorLimitProfilesTitle => '已达到每日查看资料上限';
+
+  @override
+  String visitorLimitProfilesBody(int count) {
+    return '你今天已查看 $count 个资料。升级后可查看更多！';
+  }
+
+  @override
+  String get visitorLimitFreeAccountBenefit => '更高的每日额度';
+
+  @override
+  String get visitorLimitVipBenefit => '无限制使用';
+
+  @override
+  String get promoWelcomeBackTutorSubtitle => '练习对话、发音和测验';
+
+  @override
+  String get promoWelcomeBackCommunitySubtitle => '寻找你附近的语言伙伴';
+
+  @override
+  String get promoWelcomeBackMomentsSubtitle => '分享你的语言学习之旅';
+
+  @override
+  String get myReportsReportedId => '被举报的 ID';
+
+  @override
+  String get myReportsReason => '原因';
+
+  @override
+  String get myReportsSubmitted => '提交时间';
+
+  @override
+  String get myReportsResolved => '处理时间';
+
+  @override
+  String get myReportsModeratorNotes => '审核员备注';
+
+  @override
+  String get myReportsNotAvailable => '无';
+
+  @override
+  String get myReportsFailedToLoad => '加载举报记录失败';
+
+  @override
+  String get voiceRecorderUnavailableDesktop => '桌面端不支持语音录制';
+
+  @override
+  String get adminPageUnavailable => '此页面不可用。';
+
+  @override
+  String storyShareSendFailedTo(Object names) {
+    return '无法发送给 $names';
+  }
+
+  @override
+  String get storyCantReact => '你无法对这条故事做出回应';
+
+  @override
+  String get storyCantReply => '你无法回复这条故事';
+
+  @override
+  String get storyNoMediaToSave => '这条故事没有可保存的媒体';
+
+  @override
+  String get coinsAdCrediting => '发放中…';
+
+  @override
+  String get coinsWatchAdReward => '观看广告（+5 💎）';
+
+  @override
+  String callUnavailable(String name) {
+    return '$name目前不接听电话';
+  }
+
+  @override
+  String get callDeclineWithMessage => '消息';
+
+  @override
+  String get callDeclineSheetTitle => '拒接并发送消息';
+
+  @override
+  String get callDeclineCannedLater => '现在不方便说话，我稍后回电。';
+
+  @override
+  String get callDeclineCannedText => '现在不方便说话，给我发消息好吗？';
+
+  @override
+  String get callDeclineCustomHint => '写一条消息…';
+
+  @override
+  String get callDeclineSend => '发送';
+
+  @override
+  String get callBackAction => '回拨';
+
+  @override
+  String get callMessageAction => '消息';
+
+  @override
+  String get callsAllowTitle => '允许通话';
+
+  @override
+  String get callsAllowSubtitle => '关闭后，打给你的电话不会响铃。来电者会看到你不接听电话。';
+
+  @override
+  String get callsQuietHoursNote => '关闭“允许紧急通知”后，免打扰时段内的来电也会被拦截。';
+
+  @override
+  String get callTurnOnCamera => '相机';
+
+  @override
+  String get callCameraFailed => '无法打开相机';
+
+  @override
+  String get callSelfViewLabel => '你的摄像头。拖动可移动。';
+
+  @override
+  String get callSelfViewSwapHint => '双击可与对方视频互换';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -16588,7 +18229,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get examSpeakingPart3 => 'Speaking — Part 3';
 
   @override
-  String get examSpeakingSubmit => 'Submit recording';
+  String get examSpeakingSubmit => '提交錄音';
 
   @override
   String get examSpeakingUploading => '上傳中…';
@@ -19098,4 +20739,1645 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String translatedToLanguage(String language) {
     return '已翻譯成$language';
   }
+
+  @override
+  String guideProgress(int count) {
+    return '新手入門 · $count/4';
+  }
+
+  @override
+  String get guideChatTip => '長按可翻譯或修正';
+
+  @override
+  String get announcementTitle => '公告';
+
+  @override
+  String get announcementUnavailable => '此公告已無法查看。';
+
+  @override
+  String get notifyAnnouncementsTitle => '公告';
+
+  @override
+  String get notifyAnnouncementsSubtitle => '來自 BananaTalk 團隊的消息與更新';
+
+  @override
+  String chatDailyLimitBody(Object count) {
+    return '免費用戶每天最多可與 $count 人聊天。\n升級至 VIP 即可無限暢聊!';
+  }
+
+  @override
+  String get chatCompressingVideo => '正在壓縮影片...';
+
+  @override
+  String chatShareLocationBody(Object name) {
+    return '將你目前的位置傳送給 $name。請僅對你信任的人這樣做。';
+  }
+
+  @override
+  String get chatShareLocationThisChat => '此聊天';
+
+  @override
+  String get chatTranslationLimitReached => '已達到翻譯上限';
+
+  @override
+  String get chatTranslateLimitBody => '你在此聊天中已用完今天的免費翻譯次數。使用金幣即可立即解鎖更多。';
+
+  @override
+  String chatReplyingTo(Object name) {
+    return '正在回覆 $name';
+  }
+
+  @override
+  String get chatReplyingToFallback => '用戶';
+
+  @override
+  String chatSendingMedia(Object mediaType) {
+    return '正在傳送$mediaType...';
+  }
+
+  @override
+  String get chatEnterUsernameStart => '輸入用戶名稱以開始聊天';
+
+  @override
+  String chatSearching(Object username) {
+    return '正在搜尋 @$username...';
+  }
+
+  @override
+  String chatDeleteConversationBody(Object name) {
+    return '刪除你與 $name 的對話?此操作無法復原。';
+  }
+
+  @override
+  String get chatQrCode => 'QR 碼';
+
+  @override
+  String get chatDraft => '草稿: ';
+
+  @override
+  String get chatTyping => '正在輸入...';
+
+  @override
+  String get chatPoweredBy => '技術支援: ';
+
+  @override
+  String get chatReconnecting => '正在重新連線聊天...';
+
+  @override
+  String get chatDailyLimitReached => '已達到每日訊息上限';
+
+  @override
+  String chatMessagesRemainingToday(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '今天還剩 $count 則訊息',
+      one: '今天還剩 1 則訊息',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get chatTranslatePreviewHint => '開始輸入即可查看翻譯';
+
+  @override
+  String get chatNoMessagesYet => '尚無訊息';
+
+  @override
+  String get chatMediaPhoto => '照片';
+
+  @override
+  String get chatMediaVideo => '影片';
+
+  @override
+  String get chatMediaAudio => '音訊';
+
+  @override
+  String get chatMediaFile => '檔案';
+
+  @override
+  String get chatMediaGeneric => '媒體';
+
+  @override
+  String get chatMessageFailedToSend => '訊息傳送失敗';
+
+  @override
+  String get chatSendingEllipsis => '傳送中...';
+
+  @override
+  String get chatFailedTapOptions => '失敗 · 點選以查看選項';
+
+  @override
+  String get chatMessageWasDeleted => '此訊息已被刪除';
+
+  @override
+  String get chatStory => '動態';
+
+  @override
+  String get chatHi => '嗨！';
+
+  @override
+  String get chatEdited => '已編輯';
+
+  @override
+  String get chatPremium => '進階 ✨';
+
+  @override
+  String chatUnlockPremiumWallpapers(Object cost) {
+    return '要用 💎$cost 金幣解鎖所有進階 ✨ 桌布嗎？這將永久解鎖整個桌布包。';
+  }
+
+  @override
+  String chatWallpaperForName(Object userName) {
+    return '$userName的聊天桌布';
+  }
+
+  @override
+  String get chatChooseGallery => '從相簿選擇';
+
+  @override
+  String get chatHiThere => '你好！😊';
+
+  @override
+  String chatCorrected(Object correctorName) {
+    return '$correctorName 已更正';
+  }
+
+  @override
+  String get chatCorrectionAccepted => '已接受更正 ✓';
+
+  @override
+  String chatForwarded(Object senderName) {
+    return '轉寄自 $senderName';
+  }
+
+  @override
+  String get chatCached => '已快取';
+
+  @override
+  String get chatWordBreakdown => '單字解析';
+
+  @override
+  String get chatAlternatives => '備選';
+
+  @override
+  String chatTranslationAlso(Object items) {
+    return '另外：$items';
+  }
+
+  @override
+  String get chatAudioUnavailable => '音訊無法使用';
+
+  @override
+  String get chatHideTranslation => '隱藏翻譯';
+
+  @override
+  String get chatStoryExpired => '動態已過期';
+
+  @override
+  String get chatAcceptCorrection => '接受更正';
+
+  @override
+  String get chatAccepting => '正在接受…';
+
+  @override
+  String get chatSaveToVocabularyAction => '儲存到單字本';
+
+  @override
+  String momentsMore(Object hidden) {
+    return '還有$hidden個';
+  }
+
+  @override
+  String get momentsAllow => '允許';
+
+  @override
+  String get momentsCompressed => '已壓縮';
+
+  @override
+  String get momentsPromptDay => '今日話題';
+
+  @override
+  String get momentsAnswer => '回答';
+
+  @override
+  String get momentsAnswerCamera => '🎥 用相機回答';
+
+  @override
+  String momentsPracticeWriting(Object langName) {
+    return '練習用$langName寫作';
+  }
+
+  @override
+  String get momentsReelPolicyBody => 'Reels 是簡短的語言學習影片，包括話題回答、口說練習、母語者講解和文化短片。\n\nBananatalk 對不當內容零容忍：禁止裸露、仇恨言論、騷擾、暴力或非法內容。被檢舉的影片在收到 2 次檢舉後會自動隱藏以待審核，違規可能導致內容被刪除或帳號被停權。\n\n你可以隨時在任何 Reel 中檢舉或封鎖。';
+
+  @override
+  String get momentsIAgree => '我同意';
+
+  @override
+  String get momentsWhyReportingReel => '你為什麼要檢舉這個 Reel？';
+
+  @override
+  String get momentsNoReelsYet => '還沒有 Reels';
+
+  @override
+  String get momentsNoReelsBody => '成為第一個用相機回答今日話題的人，或錄製一段自由形式的語言學習短片。';
+
+  @override
+  String get momentsPullDownRefresh => '下拉重新整理';
+
+  @override
+  String get momentsErrorLoadingVideo => '影片載入出錯';
+
+  @override
+  String get momentsLoadingVideo => '正在載入影片...';
+
+  @override
+  String momentsFileSizeMb(Object size) {
+    return '${size}MB';
+  }
+
+  @override
+  String momentsMaxDuration(Object duration) {
+    return '最長 $duration';
+  }
+
+  @override
+  String get momentsReportSubmitted => '檢舉已送出';
+
+  @override
+  String communityLive(Object count) {
+    return '$count 人直播中';
+  }
+
+  @override
+  String get communityFind => '尋找';
+
+  @override
+  String communityFinding(Object username) {
+    return '正在尋找 @$username...';
+  }
+
+  @override
+  String get communitySeeAll => '查看全部';
+
+  @override
+  String get communitySeeWhoLikes => '看看誰喜歡你';
+
+  @override
+  String get communityUnlimitedBrowsingNoAds => '無限瀏覽、無廣告、優先配對';
+
+  @override
+  String communityMembersCount(Object count) {
+    return '$count 位成員';
+  }
+
+  @override
+  String communityPeopleCount(Object count) {
+    return '$count 人';
+  }
+
+  @override
+  String get communityFailedLoadArchivedWaves => '無法載入已封存的招呼';
+
+  @override
+  String get communityGreatChat => '聊得真棒！🎉';
+
+  @override
+  String get communityStayTouchPeopleJust => '與剛剛聊過的人保持聯繫';
+
+  @override
+  String get communityNotNow => '暫不';
+
+  @override
+  String get communityPerfect => '完美';
+
+  @override
+  String communityLv(Object level) {
+    return 'Lv.$level';
+  }
+
+  @override
+  String get communityReact => '回應';
+
+  @override
+  String get communityWavedAtYou => '向你打了招呼';
+
+  @override
+  String get communitySomeone => '某人';
+
+  @override
+  String get communityPeopleInterestedInTopic => '對此話題感興趣的人';
+
+  @override
+  String get learnThemedWordSetsBuild => '依主題整理的字詞組，幫你累積詞彙量';
+
+  @override
+  String get learnTapStartRecording => '點一下開始錄音';
+
+  @override
+  String get learnWordBank => '單字庫';
+
+  @override
+  String learnCorrectAnswer(Object correctAnswer) {
+    return '正確答案：$correctAnswer';
+  }
+
+  @override
+  String get learnMatchingDataNotAvailable => '配對資料無法使用';
+
+  @override
+  String get learnExerciseCouldNotLoad => '此練習無法載入配對項目。請嘗試重新產生課程。';
+
+  @override
+  String get learnSkipExercise => '略過練習';
+
+  @override
+  String get learnTapItemLeftThen => '先點選左側的項目，再點選右側與之配對的項目';
+
+  @override
+  String learnMatchedOfTotal(Object count, Object count2) {
+    return '已配對 $count/$count2';
+  }
+
+  @override
+  String learnCorrectOfTotal(Object correctCount, Object count) {
+    return '答對 $correctCount/$count';
+  }
+
+  @override
+  String get learnDragDropReorderItems => '拖放以重新排列項目';
+
+  @override
+  String learnCorrectOrder(Object order) {
+    return '正確順序：$order';
+  }
+
+  @override
+  String learnWordsToReview(int dueCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      dueCount,
+      locale: localeName,
+      other: '$dueCount 個單字待複習',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnScore(Object score) {
+    return '得分：$score / 100';
+  }
+
+  @override
+  String learnGotCorrect(Object correct, Object count) {
+    return '你答對了 $count 題中的 $correct 題。';
+  }
+
+  @override
+  String learnQuestionOf(Object number, Object total) {
+    return '第 $number 題，共 $total 題';
+  }
+
+  @override
+  String get learnMatchEachWordIts => '將每個單字與其意思配對';
+
+  @override
+  String get learnCouldNotLoadPacks => '無法載入字詞包';
+
+  @override
+  String learnWordsExercises(Object wordCount, Object exerciseCount) {
+    return '$wordCount 個單字 · $exerciseCount 個練習';
+  }
+
+  @override
+  String get learnAiAutoFill => 'AI 自動填寫';
+
+  @override
+  String get learnPlay => '播放';
+
+  @override
+  String get learnFinish => '完成';
+
+  @override
+  String get learnNotQuite => '差一點。';
+
+  @override
+  String get learnUnsupportedExercise => '不支援的練習';
+
+  @override
+  String get learnFailedLoadAchievements => '無法載入成就';
+
+  @override
+  String learnUnlockedOn(Object date) {
+    return '解鎖於 $date';
+  }
+
+  @override
+  String get learnChallenges => '挑戰';
+
+  @override
+  String get learnFailedLoadChallenges => '無法載入挑戰';
+
+  @override
+  String learnNoChallenges(Object type) {
+    return '沒有$type挑戰';
+  }
+
+  @override
+  String get learnCheckBackLater => '請稍後再來看看！';
+
+  @override
+  String learnActiveCount(Object count) {
+    return '進行中（$count）';
+  }
+
+  @override
+  String learnCompletedCount(Object count) {
+    return '已完成（$count）';
+  }
+
+  @override
+  String get learnProgress => '進度';
+
+  @override
+  String get learnXpReward => 'XP 獎勵';
+
+  @override
+  String get learnBonus => '獎勵';
+
+  @override
+  String learnExpires(Object timeRemainingFormatted) {
+    return '$timeRemainingFormatted後到期';
+  }
+
+  @override
+  String get learnAchievementUnlocked => '成就已解鎖！';
+
+  @override
+  String get learnTapContinue => '點一下繼續';
+
+  @override
+  String get learnChallengeCompleted => '已完成';
+
+  @override
+  String get learnDailyGoals => '每日目標';
+
+  @override
+  String learnLessons(Object completedCount, Object lessonsCount) {
+    return '$completedCount/$lessonsCount 堂課';
+  }
+
+  @override
+  String learnLongestDays(Object longestStreak) {
+    return '最長：$longestStreak 天';
+  }
+
+  @override
+  String get learnTapReveal => '點一下查看';
+
+  @override
+  String get learnNoAchievements => '尚無成就';
+
+  @override
+  String get learnDayStreak => '天連續';
+
+  @override
+  String get learnDueForReview => '該複習了';
+
+  @override
+  String learnNextReview(Object date) {
+    return '下次：$date';
+  }
+
+  @override
+  String get learnChallengeDaily => '每日';
+
+  @override
+  String get learnChallengeWeekly => '每週';
+
+  @override
+  String get learnChallengeSpecial => '特別';
+
+  @override
+  String get learnChallengeDailyDesc => '每天完成挑戰，贏取 XP 和獎勵！';
+
+  @override
+  String get learnChallengeWeeklyDesc => '每週挑戰在每週一重新整理';
+
+  @override
+  String get learnChallengeSpecialDesc => '限時挑戰，附帶額外獎勵！';
+
+  @override
+  String get learnDateToday => '今天';
+
+  @override
+  String get learnDateTomorrow => '明天';
+
+  @override
+  String learnInDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count天後',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnInWeeks(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count週後',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnInMonths(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count個月後',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiGenerateNewQuiz => '產生新測驗';
+
+  @override
+  String get aiPreviousQuizzes => '先前的測驗';
+
+  @override
+  String get aiGeneratingQuiz => '正在產生你的測驗…';
+
+  @override
+  String aiFocusArea(Object name) {
+    return '重點領域：$name';
+  }
+
+  @override
+  String get aiQuizType => '測驗類型';
+
+  @override
+  String get aiDifficulty => '難度';
+
+  @override
+  String get aiQuestionsLabel => '題目數：';
+
+  @override
+  String get aiGenerateQuiz => '產生測驗';
+
+  @override
+  String aiQuizQuestionCount(int questionCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      questionCount,
+      locale: localeName,
+      other: '$questionCount 道題',
+      one: '1 道題',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String aiCorrectOfTotal(Object correctCount, Object totalQuestions) {
+    return '答對 $correctCount/$totalQuestions';
+  }
+
+  @override
+  String get aiNoQuizzesYet => '還沒有測驗';
+
+  @override
+  String get aiGenerateFirstQuizAbove => '在上方產生你的第一個測驗吧！';
+
+  @override
+  String aiCorrectOutOf(Object correctCount, Object totalQuestions) {
+    return '$totalQuestions 題中答對 $correctCount 題';
+  }
+
+  @override
+  String get aiBackQuizHub => '返回測驗中心';
+
+  @override
+  String get aiNoQuestionsAvailable => '沒有可用的題目';
+
+  @override
+  String get aiQuizHasNoQuestions => '此測驗沒有可顯示的題目。';
+
+  @override
+  String aiQuestionOf(Object number, Object count) {
+    return '第 $number 題，共 $count 題';
+  }
+
+  @override
+  String get aiYourAnswerLabel => '你的答案：';
+
+  @override
+  String get aiBonusXpWatching => '🎉 觀看獎勵 +10 XP！';
+
+  @override
+  String get aiNotQuiteRight => '不太對';
+
+  @override
+  String get aiWhy => '為什麼？';
+
+  @override
+  String get aiGotIt => '明白了';
+
+  @override
+  String get aiHint => '提示';
+
+  @override
+  String aiLevel(Object hintLevel) {
+    return '等級 $hintLevel/3';
+  }
+
+  @override
+  String get aiAskQuestion => '提問';
+
+  @override
+  String get aiAsk => '提問';
+
+  @override
+  String get aiAssistantExamples => '範例';
+
+  @override
+  String get aiExplainConcept => '解釋概念';
+
+  @override
+  String get aiRelatedConcepts => '相關概念';
+
+  @override
+  String get aiGeneratingLessonSummary => '正在產生你的課程摘要...';
+
+  @override
+  String get aiLessonSummary => '課程摘要';
+
+  @override
+  String get aiKeyPoints => '重點';
+
+  @override
+  String get aiVocabularyRemember => '需要記住的詞彙';
+
+  @override
+  String get aiGrammarRules => '文法規則';
+
+  @override
+  String get aiWhatPracticeNext => '接下來練習什麼';
+
+  @override
+  String get aiPerfectScore => '滿分！';
+
+  @override
+  String get aiGreatJob => '做得好！';
+
+  @override
+  String get aiGoodEffort => '不錯的努力！';
+
+  @override
+  String get aiKeepPracticing => '繼續練習吧！';
+
+  @override
+  String get aiFailedToGetHint => '取得提示失敗';
+
+  @override
+  String get aiFailedToGetAnswer => '取得回答失敗';
+
+  @override
+  String get aiFailedToExplain => '解釋失敗';
+
+  @override
+  String get aiFailedLoadHistory => '無法載入歷史記錄';
+
+  @override
+  String aiConversationMessageCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count 則訊息',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiStartNewConversationSee => '開始新的對話後即可在此查看';
+
+  @override
+  String get aiLoadingMessages => '正在載入訊息...';
+
+  @override
+  String get aiNoMessagesConversation => '此對話中沒有訊息';
+
+  @override
+  String get aiDifficultyLevel => '難度等級';
+
+  @override
+  String get aiScenarios => '情境';
+
+  @override
+  String get aiGrammarCheck => '文法檢查';
+
+  @override
+  String get aiRecentAnalysis => '最近的分析';
+
+  @override
+  String get aiCheckGrammar => '檢查文法';
+
+  @override
+  String get aiLanguageLabel => '語言：';
+
+  @override
+  String aiGrammarIssuesFound(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '發現 $count 個錯誤',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiPerfect => '完美！';
+
+  @override
+  String get aiNoGrammarIssuesFound => '在你的文字中沒有發現文法錯誤。';
+
+  @override
+  String aiIssuesFound(Object count) {
+    return '發現的錯誤（$count）';
+  }
+
+  @override
+  String get aiCorrected => '修正後';
+
+  @override
+  String get aiGrammarExamples => '範例：';
+
+  @override
+  String get aiImprovedSuggestions => '改進建議';
+
+  @override
+  String get aiNoAnalysisHistoryYet => '尚無分析記錄';
+
+  @override
+  String get aiLessonBuilder => 'AI 課程產生器';
+
+  @override
+  String get aiGenerateCustomLessons => '產生自訂課程';
+
+  @override
+  String get aiCreatesPersonalizedLessonsAny => 'AI 可針對任何主題為你建立個人化課程';
+
+  @override
+  String aiExercises(Object exerciseCount) {
+    return '練習：$exerciseCount';
+  }
+
+  @override
+  String get aiSuggestedTopics => '推薦主題';
+
+  @override
+  String get aiCreatingLesson => '正在建立你的課程...';
+
+  @override
+  String get aiGeneratingExercisesContent => 'AI 正在產生練習和內容';
+
+  @override
+  String get aiLessonGenerated => '課程已產生！';
+
+  @override
+  String get aiGenerateAnother => '再產生一個';
+
+  @override
+  String get aiStartLesson => '開始課程';
+
+  @override
+  String get aiPronunciationPractice => '發音練習';
+
+  @override
+  String get aiPracticeHistory => '練習記錄';
+
+  @override
+  String get aiTextPractice => '練習文字';
+
+  @override
+  String get aiWordAnalysis => '單字分析';
+
+  @override
+  String get aiNoPracticeHistoryYet => '尚無練習記錄';
+
+  @override
+  String get aiSmartTranslation => '智慧翻譯';
+
+  @override
+  String get aiWordBreakdown => '逐字解析';
+
+  @override
+  String get aiAlternativeTranslations => '其他譯法';
+
+  @override
+  String get aiGrammarNotes => '文法筆記';
+
+  @override
+  String get aiIdiomsExpressions => '慣用語與表達';
+
+  @override
+  String aiLiteral(Object literalTranslation) {
+    return '直譯：$literalTranslation';
+  }
+
+  @override
+  String aiMeaning(Object meaning) {
+    return '含義：$meaning';
+  }
+
+  @override
+  String aiEquivalent(Object equivalentIdiom) {
+    return '對應說法：$equivalentIdiom';
+  }
+
+  @override
+  String get aiCulturalContext => '文化背景';
+
+  @override
+  String get aiNoCompletedConversations => '沒有已完成的對話';
+
+  @override
+  String get aiNoActiveConversations => '沒有進行中的對話';
+
+  @override
+  String aiStartInLanguage(Object language) {
+    return '以$language開始';
+  }
+
+  @override
+  String get aiSelect => '選擇';
+
+  @override
+  String aiIssuesCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count 個錯誤',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiGenerateLesson => '產生課程';
+
+  @override
+  String get aiGeneratingEllipsis => '產生中...';
+
+  @override
+  String get aiAnalyzing => '分析中...';
+
+  @override
+  String get aiExcellentPronunciation => '發音非常棒！';
+
+  @override
+  String get aiGoodJob => '做得好！';
+
+  @override
+  String get profileBuyMeCoffee => '請我喝杯咖啡';
+
+  @override
+  String get profileOr => '或';
+
+  @override
+  String get profileLoadingNotifications => '正在載入通知...';
+
+  @override
+  String get profileLoadingSettings => '正在載入設定...';
+
+  @override
+  String get profileAdmin => '管理員';
+
+  @override
+  String get profileSelected => '已選取';
+
+  @override
+  String get profilePrivacyIntro => '你可以決定別人能看到什麼。關閉項目即可在公開個人檔案中隱藏。';
+
+  @override
+  String get profileUpdate => '更新';
+
+  @override
+  String get profileNoTopicsCategory => '此分類下沒有主題';
+
+  @override
+  String get profileAdminTools => '管理員工具';
+
+  @override
+  String profileCompletionAdd(Object items) {
+    return '新增：$items';
+  }
+
+  @override
+  String get profileActive => '活躍';
+
+  @override
+  String get profileAutoSaveEnabled => '已開啟自動儲存';
+
+  @override
+  String get profileChangesSavedInstantlyWhen => '切換後變更會立即儲存。';
+
+  @override
+  String get profileCurrentTheme => '目前佈景主題';
+
+  @override
+  String get profileThemeChangesApplyInstantly => '佈景主題變更會立即套用於整個應用程式。';
+
+  @override
+  String get profileLoadingVisitors => '正在載入訪客...';
+
+  @override
+  String get profileSeeWhoChecked => '查看誰看過你的個人檔案';
+
+  @override
+  String get profileRecentVisitors => '最近訪客';
+
+  @override
+  String get profileNoReportsSubmitted => '尚未提交任何檢舉';
+
+  @override
+  String get profileReportsSubmitWillAppear => '你提交的檢舉會顯示在這裡';
+
+  @override
+  String profileReportTypeTitle(Object type) {
+    return '$type檢舉';
+  }
+
+  @override
+  String profileReportReason(Object reason) {
+    return '原因：$reason';
+  }
+
+  @override
+  String get profileDeleteAccountFinalBody => '你的所有資料將被永久刪除。\n\n你確定嗎？';
+
+  @override
+  String get profileThanksForWatching => '感謝觀看！🙏';
+
+  @override
+  String get profileNotificationsOn => '通知已開啟';
+
+  @override
+  String get profileNotificationsOff => '通知已關閉';
+
+  @override
+  String get profileMaximumReached => '已達上限';
+
+  @override
+  String get profilePickYourInterests => '選擇你的興趣';
+
+  @override
+  String get profileDeselectToChooseAnother => '取消選取一個以選擇其他的';
+
+  @override
+  String get profileTapTopicsMatchVibe => '點選符合你風格的主題';
+
+  @override
+  String get profileEnjoyingPremium => '正在享受進階功能';
+
+  @override
+  String get profileUnlockUnlimited => '解鎖無限訊息和 AI 工具';
+
+  @override
+  String get profileBirthYear => '出生年份';
+
+  @override
+  String get profileReportTypeUser => '用戶';
+
+  @override
+  String get profileReportTypeMoment => '動態';
+
+  @override
+  String get profileReportTypeComment => '留言';
+
+  @override
+  String get profileReportTypeMessage => '訊息';
+
+  @override
+  String get profileReportTypeStory => '限時動態';
+
+  @override
+  String get profileReportReasonCopyright => '版權';
+
+  @override
+  String get storyOptimizingBestExperience => '正在最佳化以獲得最佳體驗';
+
+  @override
+  String get storyCreate => '建立限時動態';
+
+  @override
+  String get storyAddTags => '新增標籤';
+
+  @override
+  String get storyVideoSelected => '已選擇影片';
+
+  @override
+  String get storyAddPoll => '新增投票';
+
+  @override
+  String get storyOptions => '選項';
+
+  @override
+  String get storyAddQuestion => '新增問題';
+
+  @override
+  String get storyPrompt => '提示語';
+
+  @override
+  String get storyTapAnywhereAddText => '點按任意位置新增文字';
+
+  @override
+  String storyHighlightStoryCount(int storyCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      storyCount,
+      locale: localeName,
+      other: '$storyCount 則限時動態',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storySendFriends => '傳送給好友';
+
+  @override
+  String storySelected(Object count) {
+    return '已選擇 $count 項';
+  }
+
+  @override
+  String get storyShareSave => '分享/儲存';
+
+  @override
+  String storySeenBy(Object viewCount) {
+    return '$viewCount 人看過';
+  }
+
+  @override
+  String get storyNoViewsYet => '尚無瀏覽';
+
+  @override
+  String get storyEditVideo => '編輯影片';
+
+  @override
+  String storyVotes(Object totalVotes) {
+    return '$totalVotes 票';
+  }
+
+  @override
+  String get storyCreatePoll => '建立投票';
+
+  @override
+  String get storySendAnonymously => '匿名傳送';
+
+  @override
+  String storyResponseCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count 則回覆',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyViewResponses => '查看回覆';
+
+  @override
+  String get storyResponsesTitle => '回覆';
+
+  @override
+  String get storyNoResponsesYet => '尚無回覆';
+
+  @override
+  String get storyQuestionBox => '提問箱';
+
+  @override
+  String get storySent => '已傳送！';
+
+  @override
+  String get storyProcessing => '處理中...';
+
+  @override
+  String get storyHd => 'HD';
+
+  @override
+  String storyVideoMeta(Object duration, Object size) {
+    return '$duration | ${size}MB';
+  }
+
+  @override
+  String get storyUserFallback => '使用者';
+
+  @override
+  String storySendCount(int count) {
+    return '傳送（$count）';
+  }
+
+  @override
+  String get storyFailedToDelete => '刪除限時動態失敗';
+
+  @override
+  String get storyAnonymous => '匿名';
+
+  @override
+  String get vipNoCoinActivityYet => '尚無金幣紀錄';
+
+  @override
+  String get vipCoinShopExplainer => '當您用完每日免費額度後，金幣可用於解鎖額外的翻譯、AI 導師聊天和動態使用次數。金幣一旦花費，購買內容不可退款。';
+
+  @override
+  String get vipLimitReached => '已達上限';
+
+  @override
+  String get vipCoins => '金幣';
+
+  @override
+  String vipBonusIncluded(Object bonusCoins) {
+    return '含 +$bonusCoins 贈送金幣';
+  }
+
+  @override
+  String get vipVisitorModeLimitReached => '已達訪客模式上限';
+
+  @override
+  String get vipWhatGetFreeAccount => '免費帳號可獲得什麼';
+
+  @override
+  String get vipCreateFreeAccount => '建立免費帳號';
+
+  @override
+  String get vipGoUnlimitedAccess => '升級 VIP，無限暢享';
+
+  @override
+  String get vipContinueAsVisitor => '以訪客身分繼續';
+
+  @override
+  String vipResets(Object resetTime) {
+    return '重設時間：$resetTime';
+  }
+
+  @override
+  String vipUsedToday(Object currentUsage, Object maxAllowed) {
+    return '今日已使用 $currentUsage / $maxAllowed';
+  }
+
+  @override
+  String get vipTierVisitor => '訪客';
+
+  @override
+  String get vipTierMember => '會員';
+
+  @override
+  String get vipAd => '廣告';
+
+  @override
+  String get promoAdsNoticeTitle => '開發者的一段話';
+
+  @override
+  String get promoAdsNoticeBody => '你好！我是 Firdavs，Bananatalk 背後的獨立開發者。我在應用程式中加入了少量小廣告，以協助維持應用程式免費並支持持續開發。\n\n我知道廣告可能會讓人厭煩——所以我把它們設為可選，並且有獎勵。觀看廣告即可解鎖額外訊息、社群篩選、測驗後的額外 XP 等更多內容。\n\n感謝你使用 Bananatalk。你的支持對我意義重大。🙏';
+
+  @override
+  String get promoAdsNoticeGotIt => '知道了，謝謝！👍';
+
+  @override
+  String get vipOnly => '僅限 VIP';
+
+  @override
+  String get vipTapUpgrade => '點擊升級';
+
+  @override
+  String get vipUnlockFeatures => '解鎖 VIP 功能';
+
+  @override
+  String get vipUpPillUp => '升級';
+
+  @override
+  String get vipChooseOption => '請選擇一個選項：';
+
+  @override
+  String get promoWelcomeBackTitle => '歡迎回來！👋';
+
+  @override
+  String get promoWelcomeBackBody => '我們想你了。這裡有等著你的內容：';
+
+  @override
+  String get promoWelcomeBackCta => '出發吧！🚀';
+
+  @override
+  String get vipCoinsPerAdInfo => '每次廣告 +5 金幣，每天最多 5 次';
+
+  @override
+  String get vipUpgradeUnlockMore => '升級以解鎖更多功能和無限存取';
+
+  @override
+  String get vipUpgradeNow => '立即升級';
+
+  @override
+  String get commonContinueWhereLeftOff => '要從上次離開的地方繼續嗎？';
+
+  @override
+  String get commonLanguageNotProvided => '未提供語言';
+
+  @override
+  String get commonExamNotProvided => '未提供考試';
+
+  @override
+  String get commonMuted => '已靜音';
+
+  @override
+  String get commonPoorConnection => '連線不佳';
+
+  @override
+  String commonBlockUserConfirmBody(Object targetUserName) {
+    return '確定要封鎖$targetUserName嗎？\n\n你將不再看到對方的訊息和貼文，雙方也不會出現在彼此的搜尋結果中。';
+  }
+
+  @override
+  String get commonVideoFile => '影片檔案';
+
+  @override
+  String get commonPointCameraBananatalkQr => '請將相機對準 Bananatalk QR 碼';
+
+  @override
+  String get commonReportSubmittedButSome => '檢舉已送出，但部分證據上傳失敗';
+
+  @override
+  String commonReportTitle(Object typeLabel) {
+    return '檢舉$typeLabel';
+  }
+
+  @override
+  String commonWhyReporting(Object typeLabel) {
+    return '你為什麼要檢舉這個$typeLabel？';
+  }
+
+  @override
+  String get commonAddEvidenceRequired => '新增證據（必填）';
+
+  @override
+  String get commonUploadScreenshotsTextFiles => '上傳螢幕截圖或文字檔案以支持你的檢舉';
+
+  @override
+  String commonAddEvidenceCount(Object count, Object maxFiles) {
+    return '新增證據（$count/$maxFiles）';
+  }
+
+  @override
+  String commonReportTotalSize(Object max, Object used) {
+    return '總計：$used / $max';
+  }
+
+  @override
+  String get commonEvidence => '證據';
+
+  @override
+  String get commonImageFailed => '圖片載入失敗';
+
+  @override
+  String get commonShowMore => '顯示更多';
+
+  @override
+  String get commonVoiceRecordingNotAvailable => '無法使用語音錄製';
+
+  @override
+  String get commonVoiceRecordingOnlyAvailable => '語音錄製僅適用於行動裝置。';
+
+  @override
+  String get commonReportSubmittedSuccessfully => '檢舉已成功送出';
+
+  @override
+  String get commonErrorLoadingFile => '載入檔案時發生錯誤';
+
+  @override
+  String get commonReportTypeUser => '用戶';
+
+  @override
+  String get commonReportTypeMoment => '動態';
+
+  @override
+  String get commonReportTypeComment => '留言';
+
+  @override
+  String get commonReportTypeMessage => '訊息';
+
+  @override
+  String get commonReportTypeStory => '限時動態';
+
+  @override
+  String get commonReportTypeContent => '內容';
+
+  @override
+  String get commonReportReasonCopyright => '侵犯版權';
+
+  @override
+  String get momentsRemoveVoiceNote => '刪除語音備註';
+
+  @override
+  String get vocabPackLevelProficiency => '精通';
+
+  @override
+  String get aiFailedToLoadFeedback => '載入回饋失敗';
+
+  @override
+  String get aiFailedToLoadSummary => '載入總結失敗';
+
+  @override
+  String get momentFailedToLoad => '載入動態失敗';
+
+  @override
+  String get aiPronunciationWatchAdRetry => '觀看廣告再獲一次免費嘗試';
+
+  @override
+  String aiErrorLoadingLanguages(Object error) {
+    return '載入語言時發生錯誤：$error';
+  }
+
+  @override
+  String get aiSelectSourceTargetLanguages => '請選擇來源語言和目標語言';
+
+  @override
+  String get aiUnexpectedResponseFormat => '回應格式異常';
+
+  @override
+  String get aiFailedToLoadConversation => '載入對話失敗';
+
+  @override
+  String get aiMicPermissionDeniedSettings => '麥克風權限遭拒。請在設定中開啟。';
+
+  @override
+  String get aiFailedToEvaluatePronunciation => '發音評估失敗';
+
+  @override
+  String get aiFailedToGenerateSpeech => '產生語音失敗';
+
+  @override
+  String get aiFailedToGenerateLesson => '產生課程失敗';
+
+  @override
+  String get aiLessonTopicRequired => '請輸入主題';
+
+  @override
+  String get aiFailedToLoadTopics => '載入主題失敗';
+
+  @override
+  String get aiFailedToLoadScenarios => '載入情境失敗';
+
+  @override
+  String get aiAnalysisFailed => '分析失敗';
+
+  @override
+  String get storySearchPlaceHint => '搜尋地點…';
+
+  @override
+  String get storySearchRecentChatsHint => '搜尋最近的聊天…';
+
+  @override
+  String get storySearchFollowingHint => '搜尋你追蹤的人…';
+
+  @override
+  String get storyAddHashtagsHint => '新增主題標籤...';
+
+  @override
+  String get storyHighlightCreateFailed => '建立精選失敗';
+
+  @override
+  String get storyHighlightRenameFailed => '重新命名精選失敗';
+
+  @override
+  String get storyHighlightDeleteFailed => '刪除精選失敗';
+
+  @override
+  String get storyViewersLoadFailed => '載入觀看者失敗';
+
+  @override
+  String get storyShareSent => '已傳送 💛';
+
+  @override
+  String storyShareSentPartial(Object names) {
+    return '已傳送 💛 — 傳送給 $names 失敗';
+  }
+
+  @override
+  String get storyVoteFailed => '提交投票失敗';
+
+  @override
+  String get storyAnswerFailed => '傳送回答失敗';
+
+  @override
+  String get storyAlreadyInHighlight => '已儲存到精選';
+
+  @override
+  String get storyAddedToHighlight => '已新增到精選';
+
+  @override
+  String storyMaxHashtags(int max) {
+    return '最多可新增 $max 個主題標籤';
+  }
+
+  @override
+  String storyMaxMentions(int max) {
+    return '最多可提及 $max 人';
+  }
+
+  @override
+  String get coinHistoryActivity => '金幣動態';
+
+  @override
+  String get coinHistoryAdReward => '觀看了廣告';
+
+  @override
+  String get coinHistoryPurchase => '購買金幣';
+
+  @override
+  String coinHistoryUnlocked(Object feature) {
+    return '已解鎖 $feature';
+  }
+
+  @override
+  String get vipVisitorMessagesBenefit => '每天最多傳送 50 則訊息';
+
+  @override
+  String get vipVisitorProfilesBenefit => '每天最多查看 100 個個人檔案';
+
+  @override
+  String get vipVisitorFriendsBenefit => '加入好友，拓展你的人脈';
+
+  @override
+  String get vipVisitorCommunitiesTitle => '加入社群';
+
+  @override
+  String get vipVisitorCommunitiesBenefit => '參與社群討論';
+
+  @override
+  String get vipVisitorMomentsTitle => '分享動態';
+
+  @override
+  String get vipVisitorMomentsBenefit => '發布並分享你的動態';
+
+  @override
+  String get vipUnlimitedEverythingTitle => '一切無限制';
+
+  @override
+  String get vipUnlimitedEverythingBenefit => '訊息和查看個人檔案不受每日限制';
+
+  @override
+  String get vipProfileBoostBenefit => '在搜尋結果中獲得更多曝光';
+
+  @override
+  String get vipAdFreeExperienceBenefit => '無廣告暢享應用程式';
+
+  @override
+  String get featureGateUpgradeToUnlock => '升級即可解鎖此功能';
+
+  @override
+  String get featureGateVipOnly => '僅限 VIP 的功能';
+
+  @override
+  String get adsRewardedButtonLabel => '觀看廣告領取獎勵';
+
+  @override
+  String get promoAdsPerkMessages => '+3 則獎勵\n訊息';
+
+  @override
+  String get promoAdsPerkFilters => '解鎖\n篩選';
+
+  @override
+  String get promoAdsPerkXp => '+10 獎勵\nXP';
+
+  @override
+  String get promoAdsPerkRetry => '免費\n重試';
+
+  @override
+  String get visitorLimitMessagesTitle => '已達到每日訊息上限';
+
+  @override
+  String visitorLimitMessagesBody(int count) {
+    return '你今天已傳送 $count 則訊息。升級後可傳送更多！';
+  }
+
+  @override
+  String get visitorLimitProfilesTitle => '已達到每日查看個人檔案上限';
+
+  @override
+  String visitorLimitProfilesBody(int count) {
+    return '你今天已查看 $count 個個人檔案。升級後可查看更多！';
+  }
+
+  @override
+  String get visitorLimitFreeAccountBenefit => '更高的每日額度';
+
+  @override
+  String get visitorLimitVipBenefit => '無限制使用';
+
+  @override
+  String get promoWelcomeBackTutorSubtitle => '練習對話、發音和測驗';
+
+  @override
+  String get promoWelcomeBackCommunitySubtitle => '尋找你附近的語言夥伴';
+
+  @override
+  String get promoWelcomeBackMomentsSubtitle => '分享你的語言學習之旅';
+
+  @override
+  String get myReportsReportedId => '被檢舉的 ID';
+
+  @override
+  String get myReportsReason => '原因';
+
+  @override
+  String get myReportsSubmitted => '提交時間';
+
+  @override
+  String get myReportsResolved => '處理時間';
+
+  @override
+  String get myReportsModeratorNotes => '審核員備註';
+
+  @override
+  String get myReportsNotAvailable => '無';
+
+  @override
+  String get myReportsFailedToLoad => '載入檢舉記錄失敗';
+
+  @override
+  String get voiceRecorderUnavailableDesktop => '桌面版不支援語音錄製';
+
+  @override
+  String get adminPageUnavailable => '此頁面無法使用。';
+
+  @override
+  String storyShareSendFailedTo(Object names) {
+    return '無法傳送給 $names';
+  }
+
+  @override
+  String get storyCantReact => '你無法對這則限時動態做出回應';
+
+  @override
+  String get storyCantReply => '你無法回覆這則限時動態';
+
+  @override
+  String get storyNoMediaToSave => '這則限時動態沒有可儲存的媒體';
+
+  @override
+  String get coinsAdCrediting => '發放中…';
+
+  @override
+  String get coinsWatchAdReward => '觀看廣告（+5 💎）';
+
+  @override
+  String callUnavailable(String name) {
+    return '$name目前不接聽通話';
+  }
+
+  @override
+  String get callDeclineWithMessage => '訊息';
+
+  @override
+  String get callDeclineSheetTitle => '拒接並傳送訊息';
+
+  @override
+  String get callDeclineCannedLater => '現在不方便說話，我稍後回電。';
+
+  @override
+  String get callDeclineCannedText => '現在不方便說話，傳訊息給我好嗎？';
+
+  @override
+  String get callDeclineCustomHint => '寫一則訊息…';
+
+  @override
+  String get callDeclineSend => '傳送';
+
+  @override
+  String get callBackAction => '回撥';
+
+  @override
+  String get callMessageAction => '訊息';
+
+  @override
+  String get callsAllowTitle => '允許通話';
+
+  @override
+  String get callsAllowSubtitle => '關閉後，打給你的通話不會響鈴。來電者會看到你不接聽通話。';
+
+  @override
+  String get callsQuietHoursNote => '關閉「允許緊急通知」後，免打擾時段內的來電也會被攔截。';
+
+  @override
+  String get callTurnOnCamera => '相機';
+
+  @override
+  String get callCameraFailed => '無法開啟相機';
+
+  @override
+  String get callSelfViewLabel => '你的相機。拖曳即可移動。';
+
+  @override
+  String get callSelfViewSwapHint => '連按兩下可與對方視訊互換';
 }

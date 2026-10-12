@@ -57,7 +57,7 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
       builder: (context) => AlertDialog(
         title: Text(AppLocalizations.of(context)!.finalWarning),
         content: Text(
-          '${AppLocalizations.of(context)!.thisActionCannotBeUndone} All your data will be permanently deleted.\n\nAre you absolutely sure?',
+          '${AppLocalizations.of(context)!.thisActionCannotBeUndone} ${AppLocalizations.of(context)!.profileDeleteAccountFinalBody}',
         ),
         actions: [
           TextButton(

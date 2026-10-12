@@ -42,7 +42,7 @@ class _MomentDetailWrapperState extends ConsumerState<MomentDetailWrapper> {
       debugPrint('❌ Error fetching moment: $e');
       if (mounted) {
         setState(() {
-          _error = 'Failed to load moment';
+          _error = AppLocalizations.of(context)!.momentFailedToLoad;
           _isLoading = false;
         });
       }

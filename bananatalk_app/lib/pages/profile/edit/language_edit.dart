@@ -407,18 +407,18 @@ class _ProfileLanguageEditState extends ConsumerState<ProfileLanguageEdit> {
                     color: _accentColor,
                     borderRadius: BorderRadius.circular(6),
                   ),
-                  child: const Row(
+                  child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.check_rounded,
                         color: Colors.white,
                         size: 12,
                       ),
-                      SizedBox(width: 3),
+                      const SizedBox(width: 3),
                       Text(
-                        'SELECTED',
-                        style: TextStyle(
+                        l10n.profileSelected,
+                        style: const TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.w800,
                           fontSize: 9,

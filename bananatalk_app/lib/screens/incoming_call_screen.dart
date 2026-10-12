@@ -6,6 +6,7 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/call_model.dart';
 import 'package:bananatalk_app/services/call/call_routes.dart';
 import 'package:bananatalk_app/services/call_manager.dart';
+import 'package:bananatalk_app/widgets/call/decline_message_sheet.dart';
 
 /// Incoming-call ring screen. CallManager opens it (once per callId) and
 /// closes it through its single exit path.
@@ -23,6 +24,7 @@ class IncomingCallScreen extends StatefulWidget {
 
 class _IncomingCallScreenState extends State<IncomingCallScreen> {
   bool _busy = false;
+  bool _sheetOpen = false;
   Timer? _safetyNet;
   StreamSubscription<CallFinish>? _finishSub;
 
@@ -53,7 +55,42 @@ class _IncomingCallScreenState extends State<IncomingCallScreen> {
   void _closeSelf() {
     if (!mounted) return;
     final route = ModalRoute.of(context);
-    if (route != null && route.isActive) Navigator.of(context).removeRoute(route);
+    if (route == null || !route.isActive) return;
+    final navigator = Navigator.of(context);
+    // A decline sheet may sit above this screen: close it first so it is not
+    // orphaned (its future resolves null, so no decline is sent).
+    if (_sheetOpen) navigator.popUntil((r) => r == route);
+    navigator.removeRoute(route);
+  }
+
+  Future<void> _decline() async {
+    if (_busy) return;
+    setState(() => _busy = true);
+    await CallManager().rejectCall();
+  }
+
+  Future<void> _declineWithMessage() async {
+    if (_sheetOpen || _busy) return;
+    _sheetOpen = true;
+    final String? text;
+    try {
+      text = await showDeclineMessageSheet(context);
+    } finally {
+      _sheetOpen = false;
+    }
+    if (text == null || !mounted) return;
+    final manager = CallManager();
+    final current = manager.currentCall;
+    // The call ended, was answered elsewhere or is being accepted while the
+    // sheet was open: nothing left to decline.
+    if (_busy ||
+        current == null ||
+        current.callId.toLowerCase() != widget.call.callId.toLowerCase() ||
+        current.status != CallStatus.ringing) {
+      return;
+    }
+    setState(() => _busy = true);
+    await manager.rejectCall(message: text);
   }
 
   Future<void> _accept() async {
@@ -130,7 +167,13 @@ class _IncomingCallScreenState extends State<IncomingCallScreen> {
                       icon: Icons.call_end,
                       label: l10n.declineCall,
                       color: Colors.red,
-                      onPressed: _busy ? null : () => CallManager().rejectCall(),
+                      onPressed: _busy ? null : _decline,
+                    ),
+                    _CallActionButton(
+                      icon: Icons.message_rounded,
+                      label: l10n.callDeclineWithMessage,
+                      color: Colors.blueGrey,
+                      onPressed: _busy ? null : _declineWithMessage,
                     ),
                     _CallActionButton(
                       icon: isVideo ? Icons.videocam : Icons.call,
@@ -164,21 +207,34 @@ class _CallActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Container(
-          width: 70,
-          height: 70,
-          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
-          child: IconButton(
-            icon: Icon(icon, color: Colors.white, size: 35),
-            onPressed: onPressed,
+    // One semantic button (label + action); the circle and the label share
+    // the same tap handler.
+    return Semantics(
+      button: true,
+      enabled: onPressed != null,
+      label: label,
+      onTap: onPressed,
+      excludeSemantics: true,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            width: 70,
+            height: 70,
+            decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+            child: IconButton(
+              icon: Icon(icon, color: Colors.white, size: 35),
+              onPressed: onPressed,
+            ),
           ),
-        ),
-        const SizedBox(height: 10),
-        Text(label, style: const TextStyle(color: Colors.white, fontSize: 14)),
-      ],
+          const SizedBox(height: 10),
+          GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: onPressed,
+            child: Text(label, style: const TextStyle(color: Colors.white, fontSize: 14)),
+          ),
+        ],
+      ),
     );
   }
 }

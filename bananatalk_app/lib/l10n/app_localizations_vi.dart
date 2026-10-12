@@ -7040,7 +7040,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get examSpeakingPart3 => 'Speaking — Part 3';
 
   @override
-  String get examSpeakingSubmit => 'Submit recording';
+  String get examSpeakingSubmit => 'Gửi bản ghi âm';
 
   @override
   String get examSpeakingUploading => 'Đang tải lên…';
@@ -9550,4 +9550,1645 @@ class AppLocalizationsVi extends AppLocalizations {
   String translatedToLanguage(String language) {
     return 'Đã dịch sang $language';
   }
+
+  @override
+  String guideProgress(int count) {
+    return 'Bắt đầu · $count/4';
+  }
+
+  @override
+  String get guideChatTip => 'Nhấn giữ để dịch hoặc sửa';
+
+  @override
+  String get announcementTitle => 'Thông báo';
+
+  @override
+  String get announcementUnavailable => 'Thông báo này không còn khả dụng.';
+
+  @override
+  String get notifyAnnouncementsTitle => 'Thông báo';
+
+  @override
+  String get notifyAnnouncementsSubtitle => 'Tin tức và cập nhật từ đội ngũ BananaTalk';
+
+  @override
+  String chatDailyLimitBody(Object count) {
+    return 'Người dùng miễn phí có thể trò chuyện với tối đa $count người mỗi ngày.\nNâng cấp lên VIP để trò chuyện không giới hạn!';
+  }
+
+  @override
+  String get chatCompressingVideo => 'Đang nén video...';
+
+  @override
+  String chatShareLocationBody(Object name) {
+    return 'Gửi vị trí hiện tại của bạn cho $name. Chỉ làm vậy với những người bạn tin tưởng.';
+  }
+
+  @override
+  String get chatShareLocationThisChat => 'cuộc trò chuyện này';
+
+  @override
+  String get chatTranslationLimitReached => 'Đã đạt giới hạn dịch';
+
+  @override
+  String get chatTranslateLimitBody => 'Bạn đã dùng hết lượt dịch miễn phí hôm nay trong cuộc trò chuyện này. Mở khóa thêm ngay bằng xu.';
+
+  @override
+  String chatReplyingTo(Object name) {
+    return 'Đang trả lời $name';
+  }
+
+  @override
+  String get chatReplyingToFallback => 'người dùng';
+
+  @override
+  String chatSendingMedia(Object mediaType) {
+    return 'Đang gửi $mediaType...';
+  }
+
+  @override
+  String get chatEnterUsernameStart => 'Nhập tên người dùng để bắt đầu trò chuyện';
+
+  @override
+  String chatSearching(Object username) {
+    return 'Đang tìm @$username...';
+  }
+
+  @override
+  String chatDeleteConversationBody(Object name) {
+    return 'Xóa cuộc trò chuyện của bạn với $name? Không thể hoàn tác thao tác này.';
+  }
+
+  @override
+  String get chatQrCode => 'Mã QR';
+
+  @override
+  String get chatDraft => 'Bản nháp: ';
+
+  @override
+  String get chatTyping => 'đang nhập...';
+
+  @override
+  String get chatPoweredBy => 'Cung cấp bởi ';
+
+  @override
+  String get chatReconnecting => 'Đang kết nối lại với cuộc trò chuyện...';
+
+  @override
+  String get chatDailyLimitReached => 'Đã đạt giới hạn tin nhắn hằng ngày';
+
+  @override
+  String chatMessagesRemainingToday(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Hôm nay còn $count tin nhắn',
+      one: 'Hôm nay còn 1 tin nhắn',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get chatTranslatePreviewHint => 'Bắt đầu nhập để xem bản dịch';
+
+  @override
+  String get chatNoMessagesYet => 'Chưa có tin nhắn nào';
+
+  @override
+  String get chatMediaPhoto => 'ảnh';
+
+  @override
+  String get chatMediaVideo => 'video';
+
+  @override
+  String get chatMediaAudio => 'âm thanh';
+
+  @override
+  String get chatMediaFile => 'tệp';
+
+  @override
+  String get chatMediaGeneric => 'phương tiện';
+
+  @override
+  String get chatMessageFailedToSend => 'Gửi tin nhắn không thành công';
+
+  @override
+  String get chatSendingEllipsis => 'Đang gửi...';
+
+  @override
+  String get chatFailedTapOptions => 'Thất bại · Nhấn để xem tùy chọn';
+
+  @override
+  String get chatMessageWasDeleted => 'Tin nhắn này đã bị xóa';
+
+  @override
+  String get chatStory => 'Tin';
+
+  @override
+  String get chatHi => 'Chào!';
+
+  @override
+  String get chatEdited => 'đã chỉnh sửa';
+
+  @override
+  String get chatPremium => 'Cao cấp ✨';
+
+  @override
+  String chatUnlockPremiumWallpapers(Object cost) {
+    return 'Mở khóa tất cả hình nền Cao cấp ✨ với 💎$cost xu? Thao tác này mở khóa vĩnh viễn toàn bộ gói.';
+  }
+
+  @override
+  String chatWallpaperForName(Object userName) {
+    return 'Hình nền trò chuyện cho $userName';
+  }
+
+  @override
+  String get chatChooseGallery => 'Chọn từ thư viện';
+
+  @override
+  String get chatHiThere => 'Chào bạn! 😊';
+
+  @override
+  String chatCorrected(Object correctorName) {
+    return '$correctorName đã sửa';
+  }
+
+  @override
+  String get chatCorrectionAccepted => 'Đã chấp nhận chỉnh sửa ✓';
+
+  @override
+  String chatForwarded(Object senderName) {
+    return 'Chuyển tiếp từ $senderName';
+  }
+
+  @override
+  String get chatCached => 'Đã lưu bộ nhớ đệm';
+
+  @override
+  String get chatWordBreakdown => 'Phân tích từ';
+
+  @override
+  String get chatAlternatives => 'Lựa chọn khác';
+
+  @override
+  String chatTranslationAlso(Object items) {
+    return 'Cũng có: $items';
+  }
+
+  @override
+  String get chatAudioUnavailable => 'Âm thanh không khả dụng';
+
+  @override
+  String get chatHideTranslation => 'Ẩn bản dịch';
+
+  @override
+  String get chatStoryExpired => 'Tin đã hết hạn';
+
+  @override
+  String get chatAcceptCorrection => 'Chấp nhận chỉnh sửa';
+
+  @override
+  String get chatAccepting => 'Đang chấp nhận…';
+
+  @override
+  String get chatSaveToVocabularyAction => 'Lưu vào từ vựng';
+
+  @override
+  String momentsMore(Object hidden) {
+    return '+$hidden nữa';
+  }
+
+  @override
+  String get momentsAllow => 'Cho phép';
+
+  @override
+  String get momentsCompressed => 'Đã nén';
+
+  @override
+  String get momentsPromptDay => 'Chủ đề hôm nay';
+
+  @override
+  String get momentsAnswer => 'Trả lời';
+
+  @override
+  String get momentsAnswerCamera => '🎥 Trả lời bằng camera';
+
+  @override
+  String momentsPracticeWriting(Object langName) {
+    return 'Luyện viết bằng $langName';
+  }
+
+  @override
+  String get momentsReelPolicyBody => 'Reels là các video ngắn học ngôn ngữ — câu trả lời cho chủ đề, luyện nói, giải thích từ người bản xứ và các clip văn hóa.\n\nBananatalk không khoan nhượng với nội dung phản cảm: không khỏa thân, lời lẽ thù ghét, quấy rối, bạo lực hay nội dung bất hợp pháp. Video bị báo cáo sẽ tự động bị ẩn để chờ xem xét sau 2 báo cáo, và vi phạm có thể dẫn đến gỡ nội dung hoặc khóa tài khoản.\n\nBạn có thể báo cáo hoặc chặn từ bất kỳ reel nào vào bất cứ lúc nào.';
+
+  @override
+  String get momentsIAgree => 'Tôi đồng ý';
+
+  @override
+  String get momentsWhyReportingReel => 'Vì sao bạn báo cáo reel này?';
+
+  @override
+  String get momentsNoReelsYet => 'Chưa có reel nào';
+
+  @override
+  String get momentsNoReelsBody => 'Hãy là người đầu tiên trả lời chủ đề hôm nay bằng camera, hoặc quay một clip học ngôn ngữ tự do.';
+
+  @override
+  String get momentsPullDownRefresh => 'Kéo xuống để làm mới';
+
+  @override
+  String get momentsErrorLoadingVideo => 'Lỗi tải video';
+
+  @override
+  String get momentsLoadingVideo => 'Đang tải video...';
+
+  @override
+  String momentsFileSizeMb(Object size) {
+    return '$size MB';
+  }
+
+  @override
+  String momentsMaxDuration(Object duration) {
+    return 'Tối đa $duration';
+  }
+
+  @override
+  String get momentsReportSubmitted => 'Đã gửi báo cáo';
+
+  @override
+  String communityLive(Object count) {
+    return '$count trực tiếp';
+  }
+
+  @override
+  String get communityFind => 'Tìm';
+
+  @override
+  String communityFinding(Object username) {
+    return 'Đang tìm @$username...';
+  }
+
+  @override
+  String get communitySeeAll => 'Xem tất cả';
+
+  @override
+  String get communitySeeWhoLikes => 'Xem ai thích bạn';
+
+  @override
+  String get communityUnlimitedBrowsingNoAds => 'Duyệt không giới hạn, không quảng cáo, ghép đôi ưu tiên';
+
+  @override
+  String communityMembersCount(Object count) {
+    return '$count thành viên';
+  }
+
+  @override
+  String communityPeopleCount(Object count) {
+    return '$count người';
+  }
+
+  @override
+  String get communityFailedLoadArchivedWaves => 'Không tải được các lời chào đã lưu trữ';
+
+  @override
+  String get communityGreatChat => 'Cuộc trò chuyện tuyệt vời! 🎉';
+
+  @override
+  String get communityStayTouchPeopleJust => 'Giữ liên lạc với những người bạn vừa trò chuyện';
+
+  @override
+  String get communityNotNow => 'Để sau';
+
+  @override
+  String get communityPerfect => 'Hoàn hảo';
+
+  @override
+  String communityLv(Object level) {
+    return 'Cấp $level';
+  }
+
+  @override
+  String get communityReact => 'Phản ứng';
+
+  @override
+  String get communityWavedAtYou => 'Đã vẫy tay chào bạn';
+
+  @override
+  String get communitySomeone => 'Ai đó';
+
+  @override
+  String get communityPeopleInterestedInTopic => 'Những người quan tâm đến chủ đề này';
+
+  @override
+  String get learnThemedWordSetsBuild => 'Các bộ từ theo chủ đề để xây dựng vốn từ vựng của bạn';
+
+  @override
+  String get learnTapStartRecording => 'Chạm để bắt đầu ghi âm';
+
+  @override
+  String get learnWordBank => 'Ngân hàng từ';
+
+  @override
+  String learnCorrectAnswer(Object correctAnswer) {
+    return 'Đáp án đúng: $correctAnswer';
+  }
+
+  @override
+  String get learnMatchingDataNotAvailable => 'Không có dữ liệu ghép cặp';
+
+  @override
+  String get learnExerciseCouldNotLoad => 'Bài tập này không tải được các cặp cần ghép. Vui lòng thử tạo lại bài học.';
+
+  @override
+  String get learnSkipExercise => 'Bỏ qua bài tập';
+
+  @override
+  String get learnTapItemLeftThen => 'Chạm vào một mục bên trái, rồi chạm vào mục tương ứng bên phải';
+
+  @override
+  String learnMatchedOfTotal(Object count, Object count2) {
+    return 'Đã ghép $count/$count2';
+  }
+
+  @override
+  String learnCorrectOfTotal(Object correctCount, Object count) {
+    return 'Đúng $correctCount/$count';
+  }
+
+  @override
+  String get learnDragDropReorderItems => 'Kéo và thả để sắp xếp lại các mục';
+
+  @override
+  String learnCorrectOrder(Object order) {
+    return 'Thứ tự đúng: $order';
+  }
+
+  @override
+  String learnWordsToReview(int dueCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      dueCount,
+      locale: localeName,
+      other: '$dueCount từ cần ôn',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnScore(Object score) {
+    return 'Điểm: $score / 100';
+  }
+
+  @override
+  String learnGotCorrect(Object correct, Object count) {
+    return 'Bạn trả lời đúng $correct trên $count câu.';
+  }
+
+  @override
+  String learnQuestionOf(Object number, Object total) {
+    return 'Câu hỏi $number / $total';
+  }
+
+  @override
+  String get learnMatchEachWordIts => 'Ghép mỗi từ với nghĩa của nó';
+
+  @override
+  String get learnCouldNotLoadPacks => 'Không thể tải các gói';
+
+  @override
+  String learnWordsExercises(Object wordCount, Object exerciseCount) {
+    return '$wordCount từ · $exerciseCount bài tập';
+  }
+
+  @override
+  String get learnAiAutoFill => 'Tự động điền bằng AI';
+
+  @override
+  String get learnPlay => 'Phát';
+
+  @override
+  String get learnFinish => 'Hoàn thành';
+
+  @override
+  String get learnNotQuite => 'Chưa đúng.';
+
+  @override
+  String get learnUnsupportedExercise => 'Bài tập không được hỗ trợ';
+
+  @override
+  String get learnFailedLoadAchievements => 'Không tải được thành tựu';
+
+  @override
+  String learnUnlockedOn(Object date) {
+    return 'Mở khóa vào $date';
+  }
+
+  @override
+  String get learnChallenges => 'Thử thách';
+
+  @override
+  String get learnFailedLoadChallenges => 'Không tải được thử thách';
+
+  @override
+  String learnNoChallenges(Object type) {
+    return 'Không có thử thách $type';
+  }
+
+  @override
+  String get learnCheckBackLater => 'Hãy quay lại sau nhé!';
+
+  @override
+  String learnActiveCount(Object count) {
+    return 'Đang diễn ra ($count)';
+  }
+
+  @override
+  String learnCompletedCount(Object count) {
+    return 'Đã hoàn thành ($count)';
+  }
+
+  @override
+  String get learnProgress => 'Tiến độ';
+
+  @override
+  String get learnXpReward => 'Thưởng XP';
+
+  @override
+  String get learnBonus => 'Thưởng thêm';
+
+  @override
+  String learnExpires(Object timeRemainingFormatted) {
+    return 'Hết hạn sau $timeRemainingFormatted';
+  }
+
+  @override
+  String get learnAchievementUnlocked => 'Đã mở khóa thành tựu!';
+
+  @override
+  String get learnTapContinue => 'Chạm để tiếp tục';
+
+  @override
+  String get learnChallengeCompleted => 'Đã hoàn thành';
+
+  @override
+  String get learnDailyGoals => 'Mục tiêu hằng ngày';
+
+  @override
+  String learnLessons(Object completedCount, Object lessonsCount) {
+    return '$completedCount/$lessonsCount bài học';
+  }
+
+  @override
+  String learnLongestDays(Object longestStreak) {
+    return 'Dài nhất: $longestStreak ngày';
+  }
+
+  @override
+  String get learnTapReveal => 'Chạm để xem';
+
+  @override
+  String get learnNoAchievements => 'Chưa có thành tựu';
+
+  @override
+  String get learnDayStreak => 'Chuỗi ngày';
+
+  @override
+  String get learnDueForReview => 'Đến hạn ôn tập';
+
+  @override
+  String learnNextReview(Object date) {
+    return 'Tiếp theo: $date';
+  }
+
+  @override
+  String get learnChallengeDaily => 'Hằng ngày';
+
+  @override
+  String get learnChallengeWeekly => 'Hằng tuần';
+
+  @override
+  String get learnChallengeSpecial => 'Đặc biệt';
+
+  @override
+  String get learnChallengeDailyDesc => 'Hoàn thành thử thách mỗi ngày để nhận XP và phần thưởng!';
+
+  @override
+  String get learnChallengeWeeklyDesc => 'Thử thách hằng tuần làm mới vào mỗi thứ Hai';
+
+  @override
+  String get learnChallengeSpecialDesc => 'Thử thách giới hạn thời gian với phần thưởng thêm!';
+
+  @override
+  String get learnDateToday => 'Hôm nay';
+
+  @override
+  String get learnDateTomorrow => 'Ngày mai';
+
+  @override
+  String learnInDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Sau $count ngày',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnInWeeks(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Sau $count tuần',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnInMonths(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Sau $count tháng',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiGenerateNewQuiz => 'Tạo bài đố mới';
+
+  @override
+  String get aiPreviousQuizzes => 'Các bài đố trước';
+
+  @override
+  String get aiGeneratingQuiz => 'Đang tạo bài đố của bạn…';
+
+  @override
+  String aiFocusArea(Object name) {
+    return 'Lĩnh vực trọng tâm: $name';
+  }
+
+  @override
+  String get aiQuizType => 'Loại bài đố';
+
+  @override
+  String get aiDifficulty => 'Độ khó';
+
+  @override
+  String get aiQuestionsLabel => 'Số câu hỏi:';
+
+  @override
+  String get aiGenerateQuiz => 'Tạo bài đố';
+
+  @override
+  String aiQuizQuestionCount(int questionCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      questionCount,
+      locale: localeName,
+      other: '$questionCount câu hỏi',
+      one: '1 câu hỏi',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String aiCorrectOfTotal(Object correctCount, Object totalQuestions) {
+    return 'Đúng $correctCount/$totalQuestions';
+  }
+
+  @override
+  String get aiNoQuizzesYet => 'Chưa có bài đố nào';
+
+  @override
+  String get aiGenerateFirstQuizAbove => 'Hãy tạo bài đố đầu tiên của bạn ở trên!';
+
+  @override
+  String aiCorrectOutOf(Object correctCount, Object totalQuestions) {
+    return 'Đúng $correctCount trên $totalQuestions';
+  }
+
+  @override
+  String get aiBackQuizHub => 'Quay lại trung tâm bài đố';
+
+  @override
+  String get aiNoQuestionsAvailable => 'Không có câu hỏi nào';
+
+  @override
+  String get aiQuizHasNoQuestions => 'Bài đố này không có câu hỏi nào để hiển thị.';
+
+  @override
+  String aiQuestionOf(Object number, Object count) {
+    return 'Câu hỏi $number trên $count';
+  }
+
+  @override
+  String get aiYourAnswerLabel => 'Câu trả lời của bạn:';
+
+  @override
+  String get aiBonusXpWatching => '🎉 +10 XP thưởng khi xem!';
+
+  @override
+  String get aiNotQuiteRight => 'Chưa đúng lắm';
+
+  @override
+  String get aiWhy => 'Tại sao?';
+
+  @override
+  String get aiGotIt => 'Đã hiểu';
+
+  @override
+  String get aiHint => 'Gợi ý';
+
+  @override
+  String aiLevel(Object hintLevel) {
+    return 'Mức $hintLevel/3';
+  }
+
+  @override
+  String get aiAskQuestion => 'Đặt câu hỏi';
+
+  @override
+  String get aiAsk => 'Hỏi';
+
+  @override
+  String get aiAssistantExamples => 'Ví dụ';
+
+  @override
+  String get aiExplainConcept => 'Giải thích khái niệm';
+
+  @override
+  String get aiRelatedConcepts => 'Khái niệm liên quan';
+
+  @override
+  String get aiGeneratingLessonSummary => 'Đang tạo bản tóm tắt bài học của bạn...';
+
+  @override
+  String get aiLessonSummary => 'Tóm tắt bài học';
+
+  @override
+  String get aiKeyPoints => 'Điểm chính';
+
+  @override
+  String get aiVocabularyRemember => 'Từ vựng cần nhớ';
+
+  @override
+  String get aiGrammarRules => 'Quy tắc ngữ pháp';
+
+  @override
+  String get aiWhatPracticeNext => 'Nên luyện tập gì tiếp theo';
+
+  @override
+  String get aiPerfectScore => 'Điểm tuyệt đối!';
+
+  @override
+  String get aiGreatJob => 'Làm tốt lắm!';
+
+  @override
+  String get aiGoodEffort => 'Cố gắng tốt lắm!';
+
+  @override
+  String get aiKeepPracticing => 'Hãy tiếp tục luyện tập!';
+
+  @override
+  String get aiFailedToGetHint => 'Không thể lấy gợi ý';
+
+  @override
+  String get aiFailedToGetAnswer => 'Không thể lấy câu trả lời';
+
+  @override
+  String get aiFailedToExplain => 'Không thể giải thích';
+
+  @override
+  String get aiFailedLoadHistory => 'Không tải được lịch sử';
+
+  @override
+  String aiConversationMessageCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count tin nhắn',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiStartNewConversationSee => 'Bắt đầu cuộc trò chuyện mới để xem tại đây';
+
+  @override
+  String get aiLoadingMessages => 'Đang tải tin nhắn...';
+
+  @override
+  String get aiNoMessagesConversation => 'Không có tin nhắn nào trong cuộc trò chuyện này';
+
+  @override
+  String get aiDifficultyLevel => 'Mức độ khó';
+
+  @override
+  String get aiScenarios => 'Tình huống';
+
+  @override
+  String get aiGrammarCheck => 'Kiểm tra ngữ pháp';
+
+  @override
+  String get aiRecentAnalysis => 'Phân tích gần đây';
+
+  @override
+  String get aiCheckGrammar => 'Kiểm tra ngữ pháp';
+
+  @override
+  String get aiLanguageLabel => 'Ngôn ngữ:';
+
+  @override
+  String aiGrammarIssuesFound(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Tìm thấy $count lỗi',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiPerfect => 'Hoàn hảo!';
+
+  @override
+  String get aiNoGrammarIssuesFound => 'Không tìm thấy lỗi ngữ pháp nào trong văn bản của bạn.';
+
+  @override
+  String aiIssuesFound(Object count) {
+    return 'Lỗi được tìm thấy ($count)';
+  }
+
+  @override
+  String get aiCorrected => 'Đã sửa';
+
+  @override
+  String get aiGrammarExamples => 'Ví dụ:';
+
+  @override
+  String get aiImprovedSuggestions => 'Gợi ý cải thiện';
+
+  @override
+  String get aiNoAnalysisHistoryYet => 'Chưa có lịch sử phân tích';
+
+  @override
+  String get aiLessonBuilder => 'Trình tạo bài học AI';
+
+  @override
+  String get aiGenerateCustomLessons => 'Tạo bài học tùy chỉnh';
+
+  @override
+  String get aiCreatesPersonalizedLessonsAny => 'AI tạo bài học cá nhân hóa về mọi chủ đề';
+
+  @override
+  String aiExercises(Object exerciseCount) {
+    return 'Bài tập: $exerciseCount';
+  }
+
+  @override
+  String get aiSuggestedTopics => 'Chủ đề gợi ý';
+
+  @override
+  String get aiCreatingLesson => 'Đang tạo bài học của bạn...';
+
+  @override
+  String get aiGeneratingExercisesContent => 'AI đang tạo bài tập và nội dung';
+
+  @override
+  String get aiLessonGenerated => 'Đã tạo bài học!';
+
+  @override
+  String get aiGenerateAnother => 'Tạo bài khác';
+
+  @override
+  String get aiStartLesson => 'Bắt đầu bài học';
+
+  @override
+  String get aiPronunciationPractice => 'Luyện phát âm';
+
+  @override
+  String get aiPracticeHistory => 'Lịch sử luyện tập';
+
+  @override
+  String get aiTextPractice => 'Văn bản để luyện tập';
+
+  @override
+  String get aiWordAnalysis => 'Phân tích từ';
+
+  @override
+  String get aiNoPracticeHistoryYet => 'Chưa có lịch sử luyện tập';
+
+  @override
+  String get aiSmartTranslation => 'Dịch thông minh';
+
+  @override
+  String get aiWordBreakdown => 'Phân tích từng từ';
+
+  @override
+  String get aiAlternativeTranslations => 'Các bản dịch khác';
+
+  @override
+  String get aiGrammarNotes => 'Ghi chú ngữ pháp';
+
+  @override
+  String get aiIdiomsExpressions => 'Thành ngữ & cách diễn đạt';
+
+  @override
+  String aiLiteral(Object literalTranslation) {
+    return 'Nghĩa đen: $literalTranslation';
+  }
+
+  @override
+  String aiMeaning(Object meaning) {
+    return 'Ý nghĩa: $meaning';
+  }
+
+  @override
+  String aiEquivalent(Object equivalentIdiom) {
+    return 'Tương đương: $equivalentIdiom';
+  }
+
+  @override
+  String get aiCulturalContext => 'Bối cảnh văn hóa';
+
+  @override
+  String get aiNoCompletedConversations => 'Không có cuộc trò chuyện đã hoàn thành';
+
+  @override
+  String get aiNoActiveConversations => 'Không có cuộc trò chuyện đang hoạt động';
+
+  @override
+  String aiStartInLanguage(Object language) {
+    return 'Bắt đầu bằng $language';
+  }
+
+  @override
+  String get aiSelect => 'Chọn';
+
+  @override
+  String aiIssuesCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count lỗi',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiGenerateLesson => 'Tạo bài học';
+
+  @override
+  String get aiGeneratingEllipsis => 'Đang tạo...';
+
+  @override
+  String get aiAnalyzing => 'Đang phân tích...';
+
+  @override
+  String get aiExcellentPronunciation => 'Phát âm xuất sắc!';
+
+  @override
+  String get aiGoodJob => 'Làm tốt lắm!';
+
+  @override
+  String get profileBuyMeCoffee => 'Mời tôi một ly cà phê';
+
+  @override
+  String get profileOr => 'hoặc';
+
+  @override
+  String get profileLoadingNotifications => 'Đang tải thông báo...';
+
+  @override
+  String get profileLoadingSettings => 'Đang tải cài đặt...';
+
+  @override
+  String get profileAdmin => 'QUẢN TRỊ';
+
+  @override
+  String get profileSelected => 'ĐÃ CHỌN';
+
+  @override
+  String get profilePrivacyIntro => 'Bạn kiểm soát những gì người khác có thể thấy. Tắt các mục để ẩn chúng khỏi hồ sơ công khai của bạn.';
+
+  @override
+  String get profileUpdate => 'Cập nhật';
+
+  @override
+  String get profileNoTopicsCategory => 'Không có chủ đề nào trong danh mục này';
+
+  @override
+  String get profileAdminTools => 'Công cụ quản trị';
+
+  @override
+  String profileCompletionAdd(Object items) {
+    return 'Thêm: $items';
+  }
+
+  @override
+  String get profileActive => 'ĐANG HOẠT ĐỘNG';
+
+  @override
+  String get profileAutoSaveEnabled => 'Đã bật tự động lưu';
+
+  @override
+  String get profileChangesSavedInstantlyWhen => 'Thay đổi được lưu ngay khi bạn bật hoặc tắt.';
+
+  @override
+  String get profileCurrentTheme => 'Giao diện hiện tại';
+
+  @override
+  String get profileThemeChangesApplyInstantly => 'Thay đổi giao diện được áp dụng ngay trên toàn bộ ứng dụng.';
+
+  @override
+  String get profileLoadingVisitors => 'Đang tải người truy cập...';
+
+  @override
+  String get profileSeeWhoChecked => 'Xem ai đã xem hồ sơ của bạn';
+
+  @override
+  String get profileRecentVisitors => 'Người truy cập gần đây';
+
+  @override
+  String get profileNoReportsSubmitted => 'Chưa gửi báo cáo nào';
+
+  @override
+  String get profileReportsSubmitWillAppear => 'Các báo cáo bạn gửi sẽ xuất hiện ở đây';
+
+  @override
+  String profileReportTypeTitle(Object type) {
+    return 'Báo cáo $type';
+  }
+
+  @override
+  String profileReportReason(Object reason) {
+    return 'Lý do: $reason';
+  }
+
+  @override
+  String get profileDeleteAccountFinalBody => 'Toàn bộ dữ liệu của bạn sẽ bị xóa vĩnh viễn.\n\nBạn có hoàn toàn chắc chắn không?';
+
+  @override
+  String get profileThanksForWatching => 'Cảm ơn bạn đã xem! 🙏';
+
+  @override
+  String get profileNotificationsOn => 'Thông báo đang bật';
+
+  @override
+  String get profileNotificationsOff => 'Thông báo đang tắt';
+
+  @override
+  String get profileMaximumReached => 'Đã đạt mức tối đa';
+
+  @override
+  String get profilePickYourInterests => 'Chọn sở thích của bạn';
+
+  @override
+  String get profileDeselectToChooseAnother => 'Bỏ chọn một mục để chọn mục khác';
+
+  @override
+  String get profileTapTopicsMatchVibe => 'Chạm vào các chủ đề hợp với bạn';
+
+  @override
+  String get profileEnjoyingPremium => 'Đang tận hưởng các tính năng cao cấp';
+
+  @override
+  String get profileUnlockUnlimited => 'Mở khóa tin nhắn không giới hạn và công cụ AI';
+
+  @override
+  String get profileBirthYear => 'Năm sinh';
+
+  @override
+  String get profileReportTypeUser => 'Người dùng';
+
+  @override
+  String get profileReportTypeMoment => 'Khoảnh khắc';
+
+  @override
+  String get profileReportTypeComment => 'Bình luận';
+
+  @override
+  String get profileReportTypeMessage => 'Tin nhắn';
+
+  @override
+  String get profileReportTypeStory => 'Story';
+
+  @override
+  String get profileReportReasonCopyright => 'Bản quyền';
+
+  @override
+  String get storyOptimizingBestExperience => 'Đang tối ưu hóa để có trải nghiệm tốt nhất';
+
+  @override
+  String get storyCreate => 'Tạo tin';
+
+  @override
+  String get storyAddTags => 'Thêm thẻ';
+
+  @override
+  String get storyVideoSelected => 'Đã chọn video';
+
+  @override
+  String get storyAddPoll => 'Thêm bình chọn';
+
+  @override
+  String get storyOptions => 'Tùy chọn';
+
+  @override
+  String get storyAddQuestion => 'Thêm câu hỏi';
+
+  @override
+  String get storyPrompt => 'Gợi ý';
+
+  @override
+  String get storyTapAnywhereAddText => 'Chạm vào bất kỳ đâu để thêm văn bản';
+
+  @override
+  String storyHighlightStoryCount(int storyCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      storyCount,
+      locale: localeName,
+      other: '$storyCount tin',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storySendFriends => 'Gửi cho bạn bè';
+
+  @override
+  String storySelected(Object count) {
+    return 'Đã chọn $count';
+  }
+
+  @override
+  String get storyShareSave => 'Chia sẻ/Lưu';
+
+  @override
+  String storySeenBy(Object viewCount) {
+    return '$viewCount người đã xem';
+  }
+
+  @override
+  String get storyNoViewsYet => 'Chưa có lượt xem';
+
+  @override
+  String get storyEditVideo => 'Chỉnh sửa video';
+
+  @override
+  String storyVotes(Object totalVotes) {
+    return '$totalVotes phiếu';
+  }
+
+  @override
+  String get storyCreatePoll => 'Tạo bình chọn';
+
+  @override
+  String get storySendAnonymously => 'Gửi ẩn danh';
+
+  @override
+  String storyResponseCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count phản hồi',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyViewResponses => 'Xem phản hồi';
+
+  @override
+  String get storyResponsesTitle => 'Phản hồi';
+
+  @override
+  String get storyNoResponsesYet => 'Chưa có phản hồi';
+
+  @override
+  String get storyQuestionBox => 'Hộp câu hỏi';
+
+  @override
+  String get storySent => 'Đã gửi!';
+
+  @override
+  String get storyProcessing => 'Đang xử lý...';
+
+  @override
+  String get storyHd => 'HD';
+
+  @override
+  String storyVideoMeta(Object duration, Object size) {
+    return '$duration | $size MB';
+  }
+
+  @override
+  String get storyUserFallback => 'Người dùng';
+
+  @override
+  String storySendCount(int count) {
+    return 'Gửi ($count)';
+  }
+
+  @override
+  String get storyFailedToDelete => 'Không thể xóa tin';
+
+  @override
+  String get storyAnonymous => 'Ẩn danh';
+
+  @override
+  String get vipNoCoinActivityYet => 'Chưa có hoạt động xu nào';
+
+  @override
+  String get vipCoinShopExplainer => 'Xu được dùng để mở khóa thêm lượt dùng bản dịch, trò chuyện với gia sư AI và khoảnh khắc khi bạn đạt giới hạn miễn phí hằng ngày. Các giao dịch mua không được hoàn lại sau khi xu đã được sử dụng.';
+
+  @override
+  String get vipLimitReached => 'Đã đạt giới hạn';
+
+  @override
+  String get vipCoins => 'xu';
+
+  @override
+  String vipBonusIncluded(Object bonusCoins) {
+    return 'Đã gồm +$bonusCoins xu thưởng';
+  }
+
+  @override
+  String get vipVisitorModeLimitReached => 'Đã đạt giới hạn của Chế độ khách';
+
+  @override
+  String get vipWhatGetFreeAccount => 'Bạn nhận được gì với tài khoản miễn phí';
+
+  @override
+  String get vipCreateFreeAccount => 'Tạo tài khoản miễn phí';
+
+  @override
+  String get vipGoUnlimitedAccess => 'Lên VIP để truy cập không giới hạn';
+
+  @override
+  String get vipContinueAsVisitor => 'Tiếp tục với tư cách khách';
+
+  @override
+  String vipResets(Object resetTime) {
+    return 'Đặt lại lúc: $resetTime';
+  }
+
+  @override
+  String vipUsedToday(Object currentUsage, Object maxAllowed) {
+    return 'Hôm nay đã dùng $currentUsage / $maxAllowed';
+  }
+
+  @override
+  String get vipTierVisitor => 'Khách';
+
+  @override
+  String get vipTierMember => 'Thành viên';
+
+  @override
+  String get vipAd => 'Quảng cáo';
+
+  @override
+  String get promoAdsNoticeTitle => 'Lời nhắn từ nhà phát triển';
+
+  @override
+  String get promoAdsNoticeBody => 'Xin chào! Mình là Firdavs, nhà phát triển duy nhất đứng sau Bananatalk. Mình đã thêm một vài quảng cáo nhỏ vào ứng dụng để giúp ứng dụng luôn miễn phí và có kinh phí phát triển lâu dài.\n\nMình biết quảng cáo có thể gây phiền — nên mình đã làm cho chúng tùy chọn và có thưởng. Xem một quảng cáo để mở khóa thêm tin nhắn, bộ lọc cộng đồng, XP thưởng sau bài kiểm tra và nhiều hơn nữa.\n\nCảm ơn bạn đã dùng Bananatalk. Sự ủng hộ của bạn có ý nghĩa rất lớn với mình. 🙏';
+
+  @override
+  String get promoAdsNoticeGotIt => 'Đã hiểu, cảm ơn! 👍';
+
+  @override
+  String get vipOnly => 'Chỉ dành cho VIP';
+
+  @override
+  String get vipTapUpgrade => 'Chạm để nâng cấp';
+
+  @override
+  String get vipUnlockFeatures => 'Mở khóa tính năng VIP';
+
+  @override
+  String get vipUpPillUp => 'Lên';
+
+  @override
+  String get vipChooseOption => 'Chọn một tùy chọn:';
+
+  @override
+  String get promoWelcomeBackTitle => 'Chào mừng bạn trở lại! 👋';
+
+  @override
+  String get promoWelcomeBackBody => 'Chúng mình nhớ bạn. Đây là những gì đang chờ bạn:';
+
+  @override
+  String get promoWelcomeBackCta => 'Bắt đầu thôi! 🚀';
+
+  @override
+  String get vipCoinsPerAdInfo => '+5 xu mỗi quảng cáo, tối đa 5 lần mỗi ngày';
+
+  @override
+  String get vipUpgradeUnlockMore => 'Nâng cấp để mở khóa thêm tính năng và truy cập không giới hạn';
+
+  @override
+  String get vipUpgradeNow => 'Nâng cấp ngay';
+
+  @override
+  String get commonContinueWhereLeftOff => 'Tiếp tục từ chỗ bạn đã dừng?';
+
+  @override
+  String get commonLanguageNotProvided => 'Chưa cung cấp ngôn ngữ';
+
+  @override
+  String get commonExamNotProvided => 'Chưa cung cấp bài thi';
+
+  @override
+  String get commonMuted => 'Đã tắt tiếng';
+
+  @override
+  String get commonPoorConnection => 'Kết nối kém';
+
+  @override
+  String commonBlockUserConfirmBody(Object targetUserName) {
+    return 'Bạn có chắc muốn chặn $targetUserName không?\n\nBạn sẽ không còn thấy tin nhắn và bài đăng của họ, và hai bên sẽ không xuất hiện trong kết quả tìm kiếm của nhau.';
+  }
+
+  @override
+  String get commonVideoFile => 'Tệp video';
+
+  @override
+  String get commonPointCameraBananatalkQr => 'Hướng camera vào mã QR Bananatalk';
+
+  @override
+  String get commonReportSubmittedButSome => 'Đã gửi báo cáo, nhưng một số bằng chứng tải lên không thành công';
+
+  @override
+  String commonReportTitle(Object typeLabel) {
+    return 'Báo cáo $typeLabel';
+  }
+
+  @override
+  String commonWhyReporting(Object typeLabel) {
+    return 'Tại sao bạn báo cáo $typeLabel này?';
+  }
+
+  @override
+  String get commonAddEvidenceRequired => 'Thêm bằng chứng (bắt buộc)';
+
+  @override
+  String get commonUploadScreenshotsTextFiles => 'Tải lên ảnh chụp màn hình hoặc tệp văn bản để hỗ trợ báo cáo của bạn';
+
+  @override
+  String commonAddEvidenceCount(Object count, Object maxFiles) {
+    return 'Thêm bằng chứng ($count/$maxFiles)';
+  }
+
+  @override
+  String commonReportTotalSize(Object max, Object used) {
+    return 'Tổng: $used / $max';
+  }
+
+  @override
+  String get commonEvidence => 'Bằng chứng';
+
+  @override
+  String get commonImageFailed => 'Ảnh bị lỗi';
+
+  @override
+  String get commonShowMore => 'Xem thêm';
+
+  @override
+  String get commonVoiceRecordingNotAvailable => 'Không thể ghi âm';
+
+  @override
+  String get commonVoiceRecordingOnlyAvailable => 'Ghi âm chỉ khả dụng trên thiết bị di động.';
+
+  @override
+  String get commonReportSubmittedSuccessfully => 'Đã gửi báo cáo thành công';
+
+  @override
+  String get commonErrorLoadingFile => 'Lỗi khi tải tệp';
+
+  @override
+  String get commonReportTypeUser => 'người dùng';
+
+  @override
+  String get commonReportTypeMoment => 'khoảnh khắc';
+
+  @override
+  String get commonReportTypeComment => 'bình luận';
+
+  @override
+  String get commonReportTypeMessage => 'tin nhắn';
+
+  @override
+  String get commonReportTypeStory => 'story';
+
+  @override
+  String get commonReportTypeContent => 'nội dung';
+
+  @override
+  String get commonReportReasonCopyright => 'Vi phạm bản quyền';
+
+  @override
+  String get momentsRemoveVoiceNote => 'Xóa ghi chú thoại';
+
+  @override
+  String get vocabPackLevelProficiency => 'Thành thạo';
+
+  @override
+  String get aiFailedToLoadFeedback => 'Không thể tải phản hồi';
+
+  @override
+  String get aiFailedToLoadSummary => 'Không thể tải bản tóm tắt';
+
+  @override
+  String get momentFailedToLoad => 'Không thể tải khoảnh khắc';
+
+  @override
+  String get aiPronunciationWatchAdRetry => 'Xem quảng cáo để có thêm một lượt thử miễn phí';
+
+  @override
+  String aiErrorLoadingLanguages(Object error) {
+    return 'Lỗi khi tải ngôn ngữ: $error';
+  }
+
+  @override
+  String get aiSelectSourceTargetLanguages => 'Vui lòng chọn ngôn ngữ nguồn và ngôn ngữ đích';
+
+  @override
+  String get aiUnexpectedResponseFormat => 'Định dạng phản hồi không mong đợi';
+
+  @override
+  String get aiFailedToLoadConversation => 'Không thể tải cuộc trò chuyện';
+
+  @override
+  String get aiMicPermissionDeniedSettings => 'Quyền micrô bị từ chối. Vui lòng bật trong Cài đặt.';
+
+  @override
+  String get aiFailedToEvaluatePronunciation => 'Không thể đánh giá phát âm';
+
+  @override
+  String get aiFailedToGenerateSpeech => 'Không thể tạo giọng nói';
+
+  @override
+  String get aiFailedToGenerateLesson => 'Không thể tạo bài học';
+
+  @override
+  String get aiLessonTopicRequired => 'Vui lòng nhập chủ đề';
+
+  @override
+  String get aiFailedToLoadTopics => 'Không thể tải các chủ đề';
+
+  @override
+  String get aiFailedToLoadScenarios => 'Không thể tải các tình huống';
+
+  @override
+  String get aiAnalysisFailed => 'Phân tích thất bại';
+
+  @override
+  String get storySearchPlaceHint => 'Tìm một địa điểm…';
+
+  @override
+  String get storySearchRecentChatsHint => 'Tìm trong các cuộc trò chuyện gần đây…';
+
+  @override
+  String get storySearchFollowingHint => 'Tìm người bạn theo dõi…';
+
+  @override
+  String get storyAddHashtagsHint => 'Thêm hashtag...';
+
+  @override
+  String get storyHighlightCreateFailed => 'Không thể tạo mục nổi bật';
+
+  @override
+  String get storyHighlightRenameFailed => 'Không thể đổi tên mục nổi bật';
+
+  @override
+  String get storyHighlightDeleteFailed => 'Không thể xóa mục nổi bật';
+
+  @override
+  String get storyViewersLoadFailed => 'Không thể tải danh sách người xem';
+
+  @override
+  String get storyShareSent => 'Đã gửi 💛';
+
+  @override
+  String storyShareSentPartial(Object names) {
+    return 'Đã gửi 💛 — thất bại với $names';
+  }
+
+  @override
+  String get storyVoteFailed => 'Không thể gửi phiếu bầu';
+
+  @override
+  String get storyAnswerFailed => 'Không thể gửi câu trả lời';
+
+  @override
+  String get storyAlreadyInHighlight => 'Đã lưu vào một mục nổi bật';
+
+  @override
+  String get storyAddedToHighlight => 'Đã thêm vào mục nổi bật';
+
+  @override
+  String storyMaxHashtags(int max) {
+    return 'Bạn có thể thêm tối đa $max hashtag';
+  }
+
+  @override
+  String storyMaxMentions(int max) {
+    return 'Bạn có thể nhắc đến tối đa $max người';
+  }
+
+  @override
+  String get coinHistoryActivity => 'Hoạt động xu';
+
+  @override
+  String get coinHistoryAdReward => 'Đã xem quảng cáo';
+
+  @override
+  String get coinHistoryPurchase => 'Mua xu';
+
+  @override
+  String coinHistoryUnlocked(Object feature) {
+    return 'Đã mở khóa $feature';
+  }
+
+  @override
+  String get vipVisitorMessagesBenefit => 'Gửi tối đa 50 tin nhắn mỗi ngày';
+
+  @override
+  String get vipVisitorProfilesBenefit => 'Xem tối đa 100 hồ sơ mỗi ngày';
+
+  @override
+  String get vipVisitorFriendsBenefit => 'Kết bạn và mở rộng mạng lưới của bạn';
+
+  @override
+  String get vipVisitorCommunitiesTitle => 'Tham gia cộng đồng';
+
+  @override
+  String get vipVisitorCommunitiesBenefit => 'Tham gia thảo luận cộng đồng';
+
+  @override
+  String get vipVisitorMomentsTitle => 'Chia sẻ khoảnh khắc';
+
+  @override
+  String get vipVisitorMomentsBenefit => 'Đăng và chia sẻ khoảnh khắc của bạn';
+
+  @override
+  String get vipUnlimitedEverythingTitle => 'Mọi thứ không giới hạn';
+
+  @override
+  String get vipUnlimitedEverythingBenefit => 'Không giới hạn hằng ngày về tin nhắn hoặc lượt xem hồ sơ';
+
+  @override
+  String get vipProfileBoostBenefit => 'Hiển thị nhiều hơn trong kết quả tìm kiếm';
+
+  @override
+  String get vipAdFreeExperienceBenefit => 'Tận hưởng ứng dụng không có quảng cáo';
+
+  @override
+  String get featureGateUpgradeToUnlock => 'Nâng cấp để mở khóa tính năng này';
+
+  @override
+  String get featureGateVipOnly => 'Tính năng chỉ dành cho VIP';
+
+  @override
+  String get adsRewardedButtonLabel => 'Xem quảng cáo để nhận thưởng';
+
+  @override
+  String get promoAdsPerkMessages => '+3 tin nhắn\nthưởng';
+
+  @override
+  String get promoAdsPerkFilters => 'Mở khóa\nbộ lọc';
+
+  @override
+  String get promoAdsPerkXp => '+10 XP\nthưởng';
+
+  @override
+  String get promoAdsPerkRetry => 'Thử lại\nmiễn phí';
+
+  @override
+  String get visitorLimitMessagesTitle => 'Đã đạt giới hạn tin nhắn hằng ngày';
+
+  @override
+  String visitorLimitMessagesBody(int count) {
+    return 'Hôm nay bạn đã gửi $count tin nhắn. Nâng cấp để gửi thêm!';
+  }
+
+  @override
+  String get visitorLimitProfilesTitle => 'Đã đạt giới hạn lượt xem hồ sơ hằng ngày';
+
+  @override
+  String visitorLimitProfilesBody(int count) {
+    return 'Hôm nay bạn đã xem $count hồ sơ. Nâng cấp để xem thêm!';
+  }
+
+  @override
+  String get visitorLimitFreeAccountBenefit => 'Giới hạn hằng ngày cao hơn';
+
+  @override
+  String get visitorLimitVipBenefit => 'Truy cập không giới hạn';
+
+  @override
+  String get promoWelcomeBackTutorSubtitle => 'Luyện hội thoại, phát âm và câu đố';
+
+  @override
+  String get promoWelcomeBackCommunitySubtitle => 'Tìm bạn học ngôn ngữ gần bạn';
+
+  @override
+  String get promoWelcomeBackMomentsSubtitle => 'Chia sẻ hành trình học ngôn ngữ của bạn';
+
+  @override
+  String get myReportsReportedId => 'ID bị báo cáo';
+
+  @override
+  String get myReportsReason => 'Lý do';
+
+  @override
+  String get myReportsSubmitted => 'Đã gửi';
+
+  @override
+  String get myReportsResolved => 'Đã giải quyết';
+
+  @override
+  String get myReportsModeratorNotes => 'Ghi chú của người kiểm duyệt';
+
+  @override
+  String get myReportsNotAvailable => 'Không có';
+
+  @override
+  String get myReportsFailedToLoad => 'Không thể tải các báo cáo';
+
+  @override
+  String get voiceRecorderUnavailableDesktop => 'Ghi âm giọng nói không khả dụng trên máy tính';
+
+  @override
+  String get adminPageUnavailable => 'Trang này không khả dụng.';
+
+  @override
+  String storyShareSendFailedTo(Object names) {
+    return 'Không thể gửi tới $names';
+  }
+
+  @override
+  String get storyCantReact => 'Bạn không thể thả cảm xúc cho tin này';
+
+  @override
+  String get storyCantReply => 'Bạn không thể trả lời tin này';
+
+  @override
+  String get storyNoMediaToSave => 'Tin này không có phương tiện để lưu';
+
+  @override
+  String get coinsAdCrediting => 'Đang cộng…';
+
+  @override
+  String get coinsWatchAdReward => 'Xem quảng cáo (+5 💎)';
+
+  @override
+  String callUnavailable(String name) {
+    return '$name hiện không nhận cuộc gọi';
+  }
+
+  @override
+  String get callDeclineWithMessage => 'Nhắn tin';
+
+  @override
+  String get callDeclineSheetTitle => 'Từ chối kèm tin nhắn';
+
+  @override
+  String get callDeclineCannedLater => 'Mình chưa nói chuyện được. Mình sẽ gọi lại.';
+
+  @override
+  String get callDeclineCannedText => 'Mình chưa nói chuyện được. Nhắn tin cho mình nhé?';
+
+  @override
+  String get callDeclineCustomHint => 'Viết tin nhắn…';
+
+  @override
+  String get callDeclineSend => 'Gửi';
+
+  @override
+  String get callBackAction => 'Gọi lại';
+
+  @override
+  String get callMessageAction => 'Nhắn tin';
+
+  @override
+  String get callsAllowTitle => 'Cho phép cuộc gọi';
+
+  @override
+  String get callsAllowSubtitle => 'Khi tắt, cuộc gọi đến bạn sẽ không đổ chuông. Người gọi sẽ thấy bạn không nhận cuộc gọi.';
+
+  @override
+  String get callsQuietHoursNote => 'Khi tắt “Cho phép thông báo khẩn cấp”, cuộc gọi cũng bị giữ lại trong giờ yên tĩnh.';
+
+  @override
+  String get callTurnOnCamera => 'Camera';
+
+  @override
+  String get callCameraFailed => 'Không thể bật camera';
+
+  @override
+  String get callSelfViewLabel => 'Camera của bạn. Kéo để di chuyển.';
+
+  @override
+  String get callSelfViewSwapHint => 'Chạm hai lần để đổi chỗ với video còn lại';
 }

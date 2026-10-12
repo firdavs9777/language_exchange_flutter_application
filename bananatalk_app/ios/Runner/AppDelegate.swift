@@ -3,6 +3,7 @@ import CallKit
 import AVFAudio
 import PushKit
 import Flutter
+import UserNotifications
 import flutter_callkit_incoming
 
 @main
@@ -14,11 +15,37 @@ import flutter_callkit_incoming
   private let callController = CXCallController()
   private static let appName = "Bananatalk"
 
+  /// Missed-call Call back / Message taps on a REMOTE notification (category
+  /// MISSED_CALL). Kept until Dart asks with takePending (cold start), and
+  /// also sent as `action` when Dart is already listening (warm).
+  private var missedCallChannel: FlutterMethodChannel?
+  private var pendingMissedCallAction: [String: Any]?
+
   override func application(
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
     GeneratedPluginRegistrant.register(with: self)
+
+    // FlutterAppDelegate forwards notification callbacks to every plugin
+    // (firebase_messaging, flutter_local_notifications); being the delegate
+    // also lets the override below see MISSED_CALL action taps first.
+    UNUserNotificationCenter.current().delegate = self
+    if let registrar = self.registrar(forPlugin: "BananatalkMissedCallActions") {
+      let channel = FlutterMethodChannel(
+        name: "bananatalk/missed_call_actions",
+        binaryMessenger: registrar.messenger()
+      )
+      channel.setMethodCallHandler { [weak self] call, result in
+        if call.method == "takePending" {
+          result(self?.pendingMissedCallAction)
+          self?.pendingMissedCallAction = nil
+        } else {
+          result(FlutterMethodNotImplemented)
+        }
+      }
+      missedCallChannel = channel
+    }
 
     // VoIP push registration. iOS 13+ requires EVERY VoIP push to report a
     // call to CallKit before the handler completes, or the app loses its
@@ -36,6 +63,74 @@ import flutter_callkit_incoming
     options: [UIApplication.OpenURLOptionsKey : Any] = [:]
   ) -> Bool {
     return super.application(app, open: url, options: options)
+  }
+
+  // MARK: - Missed-call notification actions
+
+  /// Intercepts only REMOTE (gcm.message_id) MISSED_CALL button taps; every
+  /// other response goes to the plugins as before. Local copies (foreground)
+  /// are flutter_local_notifications' own and reach Dart through it.
+  override func userNotificationCenter(
+    _ center: UNUserNotificationCenter,
+    didReceive response: UNNotificationResponse,
+    withCompletionHandler completionHandler: @escaping () -> Void
+  ) {
+    let content = response.notification.request.content
+    let action = response.actionIdentifier
+    let isRemote = content.userInfo["gcm.message_id"] != nil
+    if isRemote && content.categoryIdentifier == "MISSED_CALL"
+      && (action == "call_back" || action == "message") {
+      let payload: [String: Any] = [
+        "action": action,
+        "callId": content.userInfo["callId"] as? String ?? "",
+        "callerId": content.userInfo["callerId"] as? String ?? "",
+        "callType": content.userInfo["callType"] as? String ?? "audio",
+      ]
+      // Cold start: Dart is not listening yet, so keep it for takePending.
+      // Warm: Dart routes the invoke now and clears this copy; the Dart side
+      // routes each call once, so a replay is harmless.
+      pendingMissedCallAction = payload
+      missedCallChannel?.invokeMethod("action", arguments: payload)
+      completionHandler()
+      return
+    }
+    // firebase_messaging (no original delegate to forward to) and
+    // flutter_local_notifications may both complete: the first call wins.
+    var completed = false
+    let once: () -> Void = {
+      if completed { return }
+      completed = true
+      completionHandler()
+    }
+    super.userNotificationCenter(center, didReceive: response, withCompletionHandler: once)
+  }
+
+  /// Foreground presentation stays what it was before this AppDelegate became
+  /// the delegate (firebase alone answered: badge only, per
+  /// setForegroundNotificationPresentationOptions(alert: false, sound: false)),
+  /// for every notification except the app's own local missed-call copy,
+  /// which shows as a banner with its Call back / Message buttons. The
+  /// plugins still run (firebase needs it for onMessage); their later
+  /// completions are no-ops.
+  override func userNotificationCenter(
+    _ center: UNUserNotificationCenter,
+    willPresent notification: UNNotification,
+    withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
+  ) {
+    var completed = false
+    let once: (UNNotificationPresentationOptions) -> Void = { options in
+      if completed { return }
+      completed = true
+      completionHandler(options)
+    }
+    let content = notification.request.content
+    let isRemote = content.userInfo["gcm.message_id"] != nil
+    if !isRemote && content.categoryIdentifier == "MISSED_CALL" {
+      once([.banner, .list, .sound, .badge])
+    } else {
+      once([.badge])
+    }
+    super.userNotificationCenter(center, willPresent: notification, withCompletionHandler: once)
   }
 
   // MARK: - PKPushRegistryDelegate (VoIP)

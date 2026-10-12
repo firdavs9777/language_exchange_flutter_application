@@ -7053,7 +7053,7 @@ class AppLocalizationsTg extends AppLocalizations {
   String get examSpeakingPart3 => 'Speaking — Part 3';
 
   @override
-  String get examSpeakingSubmit => 'Submit recording';
+  String get examSpeakingSubmit => 'Фиристодани сабт';
 
   @override
   String get examSpeakingUploading => 'Боргузорӣ…';
@@ -9564,4 +9564,1651 @@ class AppLocalizationsTg extends AppLocalizations {
   String translatedToLanguage(String language) {
     return 'Ба $language тарҷума шуд';
   }
+
+  @override
+  String guideProgress(int count) {
+    return 'Оғоз · $count аз 4';
+  }
+
+  @override
+  String get guideChatTip => 'Барои тарҷума ё ислоҳ дароз пахш кунед';
+
+  @override
+  String get announcementTitle => 'Эълон';
+
+  @override
+  String get announcementUnavailable => 'Ин эълон дигар дастрас нест.';
+
+  @override
+  String get notifyAnnouncementsTitle => 'Эълонҳо';
+
+  @override
+  String get notifyAnnouncementsSubtitle => 'Хабарҳо ва навигариҳо аз дастаи BananaTalk';
+
+  @override
+  String chatDailyLimitBody(Object count) {
+    return 'Истифодабарандагони ройгон метавонанд дар як рӯз ба ҳадди ақал бо $count нафар чат кунанд.\nБарои сӯҳбатҳои бемаҳдуд ба VIP гузаред!';
+  }
+
+  @override
+  String get chatCompressingVideo => 'Фишурдани видео...';
+
+  @override
+  String chatShareLocationBody(Object name) {
+    return 'Ҷойгиршавии ҳозираатонро ба $name фиристед. Инро танҳо бо одамони боэътимод кунед.';
+  }
+
+  @override
+  String get chatShareLocationThisChat => 'ин чат';
+
+  @override
+  String get chatTranslationLimitReached => 'Ҳадди тарҷума расид';
+
+  @override
+  String get chatTranslateLimitBody => 'Шумо тарҷумаҳои ройгони имрӯзаро дар ин чат истифода бурдед. Бо танга фавран бештар кушоед.';
+
+  @override
+  String chatReplyingTo(Object name) {
+    return 'Ҷавоб ба $name';
+  }
+
+  @override
+  String get chatReplyingToFallback => 'корбар';
+
+  @override
+  String chatSendingMedia(Object mediaType) {
+    return 'Фиристодани $mediaType...';
+  }
+
+  @override
+  String get chatEnterUsernameStart => 'Барои оғози чат номи корбарро ворид кунед';
+
+  @override
+  String chatSearching(Object username) {
+    return 'Ҷустуҷӯи @$username...';
+  }
+
+  @override
+  String chatDeleteConversationBody(Object name) {
+    return 'Сӯҳбати худро бо $name нест кунед? Инро баргардонидан мумкин нест.';
+  }
+
+  @override
+  String get chatQrCode => 'Рамзи QR';
+
+  @override
+  String get chatDraft => 'Лоиҳа: ';
+
+  @override
+  String get chatTyping => 'менависад...';
+
+  @override
+  String get chatPoweredBy => 'Бо дастгирии ';
+
+  @override
+  String get chatReconnecting => 'Дубора пайваст шудан ба чат...';
+
+  @override
+  String get chatDailyLimitReached => 'Ҳадди ҳаррӯзаи паёмҳо расид';
+
+  @override
+  String chatMessagesRemainingToday(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Имрӯз $count паём монд',
+      one: 'Имрӯз 1 паём монд',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get chatTranslatePreviewHint => 'Барои дидани тарҷума навиштанро оғоз кунед';
+
+  @override
+  String get chatNoMessagesYet => 'Ҳоло паёме нест';
+
+  @override
+  String get chatMediaPhoto => 'акс';
+
+  @override
+  String get chatMediaVideo => 'видео';
+
+  @override
+  String get chatMediaAudio => 'аудио';
+
+  @override
+  String get chatMediaFile => 'файл';
+
+  @override
+  String get chatMediaGeneric => 'медиа';
+
+  @override
+  String get chatMessageFailedToSend => 'Паём фиристода нашуд';
+
+  @override
+  String get chatSendingEllipsis => 'Фиристода истодааст...';
+
+  @override
+  String get chatFailedTapOptions => 'Хато · Барои имконот зер кунед';
+
+  @override
+  String get chatMessageWasDeleted => 'Ин паём нест карда шуд';
+
+  @override
+  String get chatStory => 'Ҳикоя';
+
+  @override
+  String get chatHi => 'Салом!';
+
+  @override
+  String get chatEdited => 'таҳрир шуд';
+
+  @override
+  String get chatPremium => 'Премиум ✨';
+
+  @override
+  String chatUnlockPremiumWallpapers(Object cost) {
+    return 'Ҳамаи заминаҳои Премиум ✨-ро бо 💎$cost танга кушоед? Ин тамоми бастаро ба таври доимӣ мекушояд.';
+  }
+
+  @override
+  String chatWallpaperForName(Object userName) {
+    return 'Заминаи чат барои $userName';
+  }
+
+  @override
+  String get chatChooseGallery => 'Аз галерея интихоб кунед';
+
+  @override
+  String get chatHiThere => 'Салом! 😊';
+
+  @override
+  String chatCorrected(Object correctorName) {
+    return '$correctorName ислоҳ кард';
+  }
+
+  @override
+  String get chatCorrectionAccepted => 'Ислоҳ қабул шуд ✓';
+
+  @override
+  String chatForwarded(Object senderName) {
+    return 'Аз $senderName фиристода шуд';
+  }
+
+  @override
+  String get chatCached => 'Захира шуда';
+
+  @override
+  String get chatWordBreakdown => 'Таҷзияи калима';
+
+  @override
+  String get chatAlternatives => 'Алтернативаҳо';
+
+  @override
+  String chatTranslationAlso(Object items) {
+    return 'Инчунин: $items';
+  }
+
+  @override
+  String get chatAudioUnavailable => 'Аудио дастнорас аст';
+
+  @override
+  String get chatHideTranslation => 'Пинҳон кардани тарҷума';
+
+  @override
+  String get chatStoryExpired => 'Мӯҳлати ҳикоя тамом шуд';
+
+  @override
+  String get chatAcceptCorrection => 'Қабули ислоҳ';
+
+  @override
+  String get chatAccepting => 'Қабул шуда истодааст…';
+
+  @override
+  String get chatSaveToVocabularyAction => 'Ба луғат захира кунед';
+
+  @override
+  String momentsMore(Object hidden) {
+    return '+$hidden дигар';
+  }
+
+  @override
+  String get momentsAllow => 'Иҷозат додан';
+
+  @override
+  String get momentsCompressed => 'Фишурда шуд';
+
+  @override
+  String get momentsPromptDay => 'Мавзӯи рӯз';
+
+  @override
+  String get momentsAnswer => 'Ҷавоб додан';
+
+  @override
+  String get momentsAnswerCamera => '🎥 Бо камера ҷавоб диҳед';
+
+  @override
+  String momentsPracticeWriting(Object langName) {
+    return 'Навиштанро ба забони $langName машқ кунед';
+  }
+
+  @override
+  String get momentsReelPolicyBody => 'Reels видеоҳои кӯтоҳи омӯзиши забон мебошанд — ҷавобҳо ба мавзӯъ, машқи гуфтугӯ, шарҳҳои забондонҳои модарӣ ва клипҳои фарҳангӣ.\n\nBananatalk нисбат ба мундариҷаи номақбул тоқатнопазир аст: бе бараҳнагӣ, суханони нафратангез, таъқиб, зӯроварӣ ва мундариҷаи ғайриқонунӣ. Видеоҳои шикоятшуда пас аз 2 шикоят то баррасӣ ба таври худкор пинҳон карда мешаванд ва вайронкунӣ метавонад боиси нест кардани мундариҷа ё манъи ҳисоб гардад.\n\nШумо метавонед дар ҳар вақт аз ҳар reel шикоят кунед ё манъ намоед.';
+
+  @override
+  String get momentsIAgree => 'Розӣ ҳастам';
+
+  @override
+  String get momentsWhyReportingReel => 'Чаро шумо аз ин reel шикоят мекунед?';
+
+  @override
+  String get momentsNoReelsYet => 'Ҳанӯз reels нест';
+
+  @override
+  String get momentsNoReelsBody => 'Аввалин шахсе бошед, ки ба мавзӯи имрӯза бо камера ҷавоб медиҳад, ё клипи озоди омӯзиши забонро сабт кунед.';
+
+  @override
+  String get momentsPullDownRefresh => 'Барои навсозӣ ба поён кашед';
+
+  @override
+  String get momentsErrorLoadingVideo => 'Хатои боркунии видео';
+
+  @override
+  String get momentsLoadingVideo => 'Видео бор шуда истодааст...';
+
+  @override
+  String momentsFileSizeMb(Object size) {
+    return '$size МБ';
+  }
+
+  @override
+  String momentsMaxDuration(Object duration) {
+    return 'Ҳад. $duration';
+  }
+
+  @override
+  String get momentsReportSubmitted => 'Шикоят фиристода шуд';
+
+  @override
+  String communityLive(Object count) {
+    return '$count зинда';
+  }
+
+  @override
+  String get communityFind => 'Ёфтан';
+
+  @override
+  String communityFinding(Object username) {
+    return 'Ҷустуҷӯи @$username...';
+  }
+
+  @override
+  String get communitySeeAll => 'Ҳамаро дидан';
+
+  @override
+  String get communitySeeWhoLikes => 'Бубинед, ки кӣ шуморо дӯст медорад';
+
+  @override
+  String get communityUnlimitedBrowsingNoAds => 'Тамошои бемаҳдуд, бе реклама, ҷуфтсозии афзалиятнок';
+
+  @override
+  String communityMembersCount(Object count) {
+    return '$count аъзо';
+  }
+
+  @override
+  String communityPeopleCount(Object count) {
+    return '$count нафар';
+  }
+
+  @override
+  String get communityFailedLoadArchivedWaves => 'Боркунии саломҳои бойгонӣшуда ноком шуд';
+
+  @override
+  String get communityGreatChat => 'Сӯҳбати олӣ! 🎉';
+
+  @override
+  String get communityStayTouchPeopleJust => 'Бо одамоне, ки ҳоло бо онҳо сӯҳбат кардед, дар тамос бошед';
+
+  @override
+  String get communityNotNow => 'Ҳозир не';
+
+  @override
+  String get communityPerfect => 'Комил';
+
+  @override
+  String communityLv(Object level) {
+    return 'Сат.$level';
+  }
+
+  @override
+  String get communityReact => 'Вокуниш';
+
+  @override
+  String get communityWavedAtYou => 'Ба шумо даст ҷунбонд';
+
+  @override
+  String get communitySomeone => 'Касе';
+
+  @override
+  String get communityPeopleInterestedInTopic => 'Одамоне, ки ба ин мавзӯъ шавқ доранд';
+
+  @override
+  String get learnThemedWordSetsBuild => 'Маҷмӯаҳои мавзӯии калимаҳо барои афзоиши луғати шумо';
+
+  @override
+  String get learnTapStartRecording => 'Барои оғози сабт ламс кунед';
+
+  @override
+  String get learnWordBank => 'Бонки калимаҳо';
+
+  @override
+  String learnCorrectAnswer(Object correctAnswer) {
+    return 'Ҷавоби дуруст: $correctAnswer';
+  }
+
+  @override
+  String get learnMatchingDataNotAvailable => 'Маълумоти мутобиқсозӣ дастнорас аст';
+
+  @override
+  String get learnExerciseCouldNotLoad => 'Ҷуфтҳои мутобиқсозии ин машқ бор нашуданд. Лутфан дарсро аз нав эҷод кунед.';
+
+  @override
+  String get learnSkipExercise => 'Гузаштани машқ';
+
+  @override
+  String get learnTapItemLeftThen => 'Ба унсури чап ламс кунед, сипас ба ҷуфти он дар тарафи рост';
+
+  @override
+  String learnMatchedOfTotal(Object count, Object count2) {
+    return '$count/$count2 мутобиқ шуд';
+  }
+
+  @override
+  String learnCorrectOfTotal(Object correctCount, Object count) {
+    return '$correctCount/$count дуруст';
+  }
+
+  @override
+  String get learnDragDropReorderItems => 'Барои тағйири тартиби унсурҳо кашида монед';
+
+  @override
+  String learnCorrectOrder(Object order) {
+    return 'Тартиби дуруст: $order';
+  }
+
+  @override
+  String learnWordsToReview(int dueCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      dueCount,
+      locale: localeName,
+      other: '$dueCount калима барои такрор',
+      one: '1 калима барои такрор',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnScore(Object score) {
+    return 'Хол: $score / 100';
+  }
+
+  @override
+  String learnGotCorrect(Object correct, Object count) {
+    return 'Шумо ба $correct аз $count дуруст ҷавоб додед.';
+  }
+
+  @override
+  String learnQuestionOf(Object number, Object total) {
+    return 'Саволи $number аз $total';
+  }
+
+  @override
+  String get learnMatchEachWordIts => 'Ҳар калимаро бо маънояш мутобиқ кунед';
+
+  @override
+  String get learnCouldNotLoadPacks => 'Бастаҳо бор нашуданд';
+
+  @override
+  String learnWordsExercises(Object wordCount, Object exerciseCount) {
+    return '$wordCount калима · $exerciseCount машқ';
+  }
+
+  @override
+  String get learnAiAutoFill => 'Пуркунии худкори AI';
+
+  @override
+  String get learnPlay => 'Пахш кардан';
+
+  @override
+  String get learnFinish => 'Анҷом додан';
+
+  @override
+  String get learnNotQuite => 'Не чандон дуруст.';
+
+  @override
+  String get learnUnsupportedExercise => 'Машқи дастгиринашаванда';
+
+  @override
+  String get learnFailedLoadAchievements => 'Боркунии дастовардҳо ноком шуд';
+
+  @override
+  String learnUnlockedOn(Object date) {
+    return 'Кушода шуд: $date';
+  }
+
+  @override
+  String get learnChallenges => 'Озмунҳо';
+
+  @override
+  String get learnFailedLoadChallenges => 'Боркунии озмунҳо ноком шуд';
+
+  @override
+  String learnNoChallenges(Object type) {
+    return 'Озмуни $type нест';
+  }
+
+  @override
+  String get learnCheckBackLater => 'Баъдтар боз нигаред!';
+
+  @override
+  String learnActiveCount(Object count) {
+    return 'Фаъол ($count)';
+  }
+
+  @override
+  String learnCompletedCount(Object count) {
+    return 'Анҷомёфта ($count)';
+  }
+
+  @override
+  String get learnProgress => 'Пешрафт';
+
+  @override
+  String get learnXpReward => 'Ҷоизаи XP';
+
+  @override
+  String get learnBonus => 'Бонус';
+
+  @override
+  String learnExpires(Object timeRemainingFormatted) {
+    return 'Тамом мешавад баъди $timeRemainingFormatted';
+  }
+
+  @override
+  String get learnAchievementUnlocked => 'Дастовард кушода шуд!';
+
+  @override
+  String get learnTapContinue => 'Барои идома задан ламс кунед';
+
+  @override
+  String get learnChallengeCompleted => 'Анҷом ёфт';
+
+  @override
+  String get learnDailyGoals => 'Ҳадафҳои рӯзона';
+
+  @override
+  String learnLessons(Object completedCount, Object lessonsCount) {
+    return '$completedCount/$lessonsCount дарс';
+  }
+
+  @override
+  String learnLongestDays(Object longestStreak) {
+    return 'Дарозтарин: $longestStreak рӯз';
+  }
+
+  @override
+  String get learnTapReveal => 'Барои нишон додан ламс кунед';
+
+  @override
+  String get learnNoAchievements => 'Дастовард нест';
+
+  @override
+  String get learnDayStreak => 'Рӯзҳои пай дар пай';
+
+  @override
+  String get learnDueForReview => 'Вақти такрор';
+
+  @override
+  String learnNextReview(Object date) {
+    return 'Навбатӣ: $date';
+  }
+
+  @override
+  String get learnChallengeDaily => 'Ҳаррӯза';
+
+  @override
+  String get learnChallengeWeekly => 'Ҳафтаина';
+
+  @override
+  String get learnChallengeSpecial => 'Махсус';
+
+  @override
+  String get learnChallengeDailyDesc => 'Барои гирифтани XP ва ҷоизаҳо ҳар рӯз озмунҳоро иҷро кунед!';
+
+  @override
+  String get learnChallengeWeeklyDesc => 'Озмунҳои ҳафтаина ҳар душанбе нав мешаванд';
+
+  @override
+  String get learnChallengeSpecialDesc => 'Озмунҳои муддаташон маҳдуд бо ҷоизаҳои бонусӣ!';
+
+  @override
+  String get learnDateToday => 'Имрӯз';
+
+  @override
+  String get learnDateTomorrow => 'Фардо';
+
+  @override
+  String learnInDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Баъди $count рӯз',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnInWeeks(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Баъди $count ҳафта',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnInMonths(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Баъди $count моҳ',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiGenerateNewQuiz => 'Викторинаи нав эҷод кунед';
+
+  @override
+  String get aiPreviousQuizzes => 'Викторинаҳои қаблӣ';
+
+  @override
+  String get aiGeneratingQuiz => 'Викторинаи шумо эҷод мешавад…';
+
+  @override
+  String aiFocusArea(Object name) {
+    return 'Самти диққат: $name';
+  }
+
+  @override
+  String get aiQuizType => 'Навъи викторина';
+
+  @override
+  String get aiDifficulty => 'Душворӣ';
+
+  @override
+  String get aiQuestionsLabel => 'Саволҳо:';
+
+  @override
+  String get aiGenerateQuiz => 'Эҷоди викторина';
+
+  @override
+  String aiQuizQuestionCount(int questionCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      questionCount,
+      locale: localeName,
+      other: '$questionCount савол',
+      one: '1 савол',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String aiCorrectOfTotal(Object correctCount, Object totalQuestions) {
+    return '$correctCount/$totalQuestions дуруст';
+  }
+
+  @override
+  String get aiNoQuizzesYet => 'Ҳанӯз викторина нест';
+
+  @override
+  String get aiGenerateFirstQuizAbove => 'Аввалин викторинаи худро дар боло эҷод кунед!';
+
+  @override
+  String aiCorrectOutOf(Object correctCount, Object totalQuestions) {
+    return '$correctCount аз $totalQuestions дуруст';
+  }
+
+  @override
+  String get aiBackQuizHub => 'Бозгашт ба маркази викторинаҳо';
+
+  @override
+  String get aiNoQuestionsAvailable => 'Саволе дастрас нест';
+
+  @override
+  String get aiQuizHasNoQuestions => 'Дар ин викторина саволе барои намоиш нест.';
+
+  @override
+  String aiQuestionOf(Object number, Object count) {
+    return 'Саволи $number аз $count';
+  }
+
+  @override
+  String get aiYourAnswerLabel => 'Ҷавоби шумо:';
+
+  @override
+  String get aiBonusXpWatching => '🎉 +10 XP бонус барои тамошо!';
+
+  @override
+  String get aiNotQuiteRight => 'Тамоман дуруст нест';
+
+  @override
+  String get aiWhy => 'Чаро?';
+
+  @override
+  String get aiGotIt => 'Фаҳмидам';
+
+  @override
+  String get aiHint => 'Маслиҳат';
+
+  @override
+  String aiLevel(Object hintLevel) {
+    return 'Сатҳи $hintLevel/3';
+  }
+
+  @override
+  String get aiAskQuestion => 'Савол диҳед';
+
+  @override
+  String get aiAsk => 'Пурсед';
+
+  @override
+  String get aiAssistantExamples => 'Мисолҳо';
+
+  @override
+  String get aiExplainConcept => 'Шарҳи мафҳум';
+
+  @override
+  String get aiRelatedConcepts => 'Мафҳумҳои алоқаманд';
+
+  @override
+  String get aiGeneratingLessonSummary => 'Хулосаи дарси шумо эҷод мешавад...';
+
+  @override
+  String get aiLessonSummary => 'Хулосаи дарс';
+
+  @override
+  String get aiKeyPoints => 'Нуктаҳои асосӣ';
+
+  @override
+  String get aiVocabularyRemember => 'Луғатҳо барои ёдоварӣ';
+
+  @override
+  String get aiGrammarRules => 'Қоидаҳои грамматика';
+
+  @override
+  String get aiWhatPracticeNext => 'Минбаъд чиро машқ кардан лозим';
+
+  @override
+  String get aiPerfectScore => 'Холи комил!';
+
+  @override
+  String get aiGreatJob => 'Офарин!';
+
+  @override
+  String get aiGoodEffort => 'Кӯшиши хуб!';
+
+  @override
+  String get aiKeepPracticing => 'Машқро идома диҳед!';
+
+  @override
+  String get aiFailedToGetHint => 'Маслиҳат гирифта нашуд';
+
+  @override
+  String get aiFailedToGetAnswer => 'Ҷавоб гирифта нашуд';
+
+  @override
+  String get aiFailedToExplain => 'Шарҳ дода нашуд';
+
+  @override
+  String get aiFailedLoadHistory => 'Боркунии таърих номуваффақ шуд';
+
+  @override
+  String aiConversationMessageCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count паём',
+      one: '1 паём',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiStartNewConversationSee => 'Барои дидани он дар ин ҷо сӯҳбати нав оғоз кунед';
+
+  @override
+  String get aiLoadingMessages => 'Паёмҳо бор мешаванд...';
+
+  @override
+  String get aiNoMessagesConversation => 'Дар ин сӯҳбат паём нест';
+
+  @override
+  String get aiDifficultyLevel => 'Сатҳи душворӣ';
+
+  @override
+  String get aiScenarios => 'Сенарияҳо';
+
+  @override
+  String get aiGrammarCheck => 'Санҷиши грамматика';
+
+  @override
+  String get aiRecentAnalysis => 'Таҳлилҳои охирин';
+
+  @override
+  String get aiCheckGrammar => 'Грамматикаро санҷед';
+
+  @override
+  String get aiLanguageLabel => 'Забон:';
+
+  @override
+  String aiGrammarIssuesFound(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count хато ёфт шуд',
+      one: '1 хато ёфт шуд',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiPerfect => 'Олӣ!';
+
+  @override
+  String get aiNoGrammarIssuesFound => 'Дар матни шумо хатои грамматикӣ ёфт нашуд.';
+
+  @override
+  String aiIssuesFound(Object count) {
+    return 'Хатоҳои ёфтшуда ($count)';
+  }
+
+  @override
+  String get aiCorrected => 'Ислоҳшуда';
+
+  @override
+  String get aiGrammarExamples => 'Мисолҳо:';
+
+  @override
+  String get aiImprovedSuggestions => 'Пешниҳодҳои беҳтаршуда';
+
+  @override
+  String get aiNoAnalysisHistoryYet => 'Таърихи таҳлил ҳанӯз нест';
+
+  @override
+  String get aiLessonBuilder => 'Сохтори дарсҳо бо AI';
+
+  @override
+  String get aiGenerateCustomLessons => 'Сохтани дарсҳои шахсӣ';
+
+  @override
+  String get aiCreatesPersonalizedLessonsAny => 'AI дарсҳои шахсиро дар бораи ҳар мавзӯъ месозад';
+
+  @override
+  String aiExercises(Object exerciseCount) {
+    return 'Машқҳо: $exerciseCount';
+  }
+
+  @override
+  String get aiSuggestedTopics => 'Мавзӯъҳои пешниҳодшуда';
+
+  @override
+  String get aiCreatingLesson => 'Дарси шумо сохта истодааст...';
+
+  @override
+  String get aiGeneratingExercisesContent => 'AI машқҳо ва мундариҷаро месозад';
+
+  @override
+  String get aiLessonGenerated => 'Дарс сохта шуд!';
+
+  @override
+  String get aiGenerateAnother => 'Яке дигарро созед';
+
+  @override
+  String get aiStartLesson => 'Оғози дарс';
+
+  @override
+  String get aiPronunciationPractice => 'Машқи талаффуз';
+
+  @override
+  String get aiPracticeHistory => 'Таърихи машқҳо';
+
+  @override
+  String get aiTextPractice => 'Матн барои машқ';
+
+  @override
+  String get aiWordAnalysis => 'Таҳлили калимаҳо';
+
+  @override
+  String get aiNoPracticeHistoryYet => 'Таърихи машқҳо ҳанӯз нест';
+
+  @override
+  String get aiSmartTranslation => 'Тарҷумаи оқилона';
+
+  @override
+  String get aiWordBreakdown => 'Тақсими калимаҳо';
+
+  @override
+  String get aiAlternativeTranslations => 'Тарҷумаҳои алтернативӣ';
+
+  @override
+  String get aiGrammarNotes => 'Ёддоштҳои грамматикӣ';
+
+  @override
+  String get aiIdiomsExpressions => 'Ибораҳо ва таъбирҳо';
+
+  @override
+  String aiLiteral(Object literalTranslation) {
+    return 'Аслӣ: $literalTranslation';
+  }
+
+  @override
+  String aiMeaning(Object meaning) {
+    return 'Маъно: $meaning';
+  }
+
+  @override
+  String aiEquivalent(Object equivalentIdiom) {
+    return 'Баробарарзиш: $equivalentIdiom';
+  }
+
+  @override
+  String get aiCulturalContext => 'Заминаи фарҳангӣ';
+
+  @override
+  String get aiNoCompletedConversations => 'Сӯҳбатҳои анҷомшуда нест';
+
+  @override
+  String get aiNoActiveConversations => 'Сӯҳбатҳои фаъол нест';
+
+  @override
+  String aiStartInLanguage(Object language) {
+    return 'Оғоз ба $language';
+  }
+
+  @override
+  String get aiSelect => 'Интихоб';
+
+  @override
+  String aiIssuesCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count хато',
+      one: '1 хато',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiGenerateLesson => 'Сохтани дарс';
+
+  @override
+  String get aiGeneratingEllipsis => 'Сохта истодааст...';
+
+  @override
+  String get aiAnalyzing => 'Таҳлил мешавад...';
+
+  @override
+  String get aiExcellentPronunciation => 'Талаффузи олӣ!';
+
+  @override
+  String get aiGoodJob => 'Корро хуб кардед!';
+
+  @override
+  String get profileBuyMeCoffee => 'Маро ба қаҳва даъват кунед';
+
+  @override
+  String get profileOr => 'ё';
+
+  @override
+  String get profileLoadingNotifications => 'Боргирии огоҳиҳо...';
+
+  @override
+  String get profileLoadingSettings => 'Боргирии танзимот...';
+
+  @override
+  String get profileAdmin => 'АДМИН';
+
+  @override
+  String get profileSelected => 'ИНТИХОБШУДА';
+
+  @override
+  String get profilePrivacyIntro => 'Шумо назорат мекунед, ки дигарон чиро мебинанд. Барои пинҳон кардан аз профили оммавӣ ҷузъҳоро хомӯш кунед.';
+
+  @override
+  String get profileUpdate => 'Навсозӣ';
+
+  @override
+  String get profileNoTopicsCategory => 'Дар ин категория мавзӯъ нест';
+
+  @override
+  String get profileAdminTools => 'Абзорҳои админ';
+
+  @override
+  String profileCompletionAdd(Object items) {
+    return 'Илова кунед: $items';
+  }
+
+  @override
+  String get profileActive => 'ФАЪОЛ';
+
+  @override
+  String get profileAutoSaveEnabled => 'Захирасозии худкор фаъол аст';
+
+  @override
+  String get profileChangesSavedInstantlyWhen => 'Тағйирот ҳангоми иваз кардан фавран захира мешавад.';
+
+  @override
+  String get profileCurrentTheme => 'Мавзӯи ҷорӣ';
+
+  @override
+  String get profileThemeChangesApplyInstantly => 'Тағйирёбии мавзӯъ фавран дар тамоми барнома татбиқ мешавад.';
+
+  @override
+  String get profileLoadingVisitors => 'Боргирии меҳмонон...';
+
+  @override
+  String get profileSeeWhoChecked => 'Бинед, ки кӣ профили шуморо дидааст';
+
+  @override
+  String get profileRecentVisitors => 'Меҳмонони охирин';
+
+  @override
+  String get profileNoReportsSubmitted => 'Ягон шикоят фиристода нашудааст';
+
+  @override
+  String get profileReportsSubmitWillAppear => 'Шикоятҳое, ки мефиристед, дар ин ҷо пайдо мешаванд';
+
+  @override
+  String profileReportTypeTitle(Object type) {
+    return 'Шикояти $type';
+  }
+
+  @override
+  String profileReportReason(Object reason) {
+    return 'Сабаб: $reason';
+  }
+
+  @override
+  String get profileDeleteAccountFinalBody => 'Тамоми маълумоти шумо ба таври доимӣ нест карда мешавад.\n\nОё комилан боварӣ доред?';
+
+  @override
+  String get profileThanksForWatching => 'Ба шумо барои тамошо ташаккур! 🙏';
+
+  @override
+  String get profileNotificationsOn => 'Огоҳиҳо фаъол';
+
+  @override
+  String get profileNotificationsOff => 'Огоҳиҳо ғайрифаъол';
+
+  @override
+  String get profileMaximumReached => 'Ҳадди аксар расид';
+
+  @override
+  String get profilePickYourInterests => 'Манфиатҳои худро интихоб кунед';
+
+  @override
+  String get profileDeselectToChooseAnother => 'Барои интихоби дигар, яктоашро бекор кунед';
+
+  @override
+  String get profileTapTopicsMatchVibe => 'Ба мавзӯъҳое, ки ба шумо мувофиқанд, пахш кунед';
+
+  @override
+  String get profileEnjoyingPremium => 'Аз имкониятҳои премиум лаззат мебаред';
+
+  @override
+  String get profileUnlockUnlimited => 'Паёмҳои бемаҳдуд ва абзорҳои AI-ро кушоед';
+
+  @override
+  String get profileBirthYear => 'Соли таваллуд';
+
+  @override
+  String get profileReportTypeUser => 'Корбар';
+
+  @override
+  String get profileReportTypeMoment => 'Лаҳза';
+
+  @override
+  String get profileReportTypeComment => 'Шарҳ';
+
+  @override
+  String get profileReportTypeMessage => 'Паём';
+
+  @override
+  String get profileReportTypeStory => 'Ҳикоя';
+
+  @override
+  String get profileReportReasonCopyright => 'Ҳуқуқи муаллиф';
+
+  @override
+  String get storyOptimizingBestExperience => 'Барои беҳтарин таҷриба оптимизатсия мешавад';
+
+  @override
+  String get storyCreate => 'Сохтани ҳикоя';
+
+  @override
+  String get storyAddTags => 'Илова кардани тегҳо';
+
+  @override
+  String get storyVideoSelected => 'Видео интихоб шуд';
+
+  @override
+  String get storyAddPoll => 'Илова кардани назарсанҷӣ';
+
+  @override
+  String get storyOptions => 'Имконот';
+
+  @override
+  String get storyAddQuestion => 'Илова кардани савол';
+
+  @override
+  String get storyPrompt => 'Ишора';
+
+  @override
+  String get storyTapAnywhereAddText => 'Барои илова кардани матн дар ҳама ҷо клик кунед';
+
+  @override
+  String storyHighlightStoryCount(int storyCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      storyCount,
+      locale: localeName,
+      other: '$storyCount ҳикоя',
+      one: '1 ҳикоя',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storySendFriends => 'Ба дӯстон фиристодан';
+
+  @override
+  String storySelected(Object count) {
+    return '$count интихоб шуд';
+  }
+
+  @override
+  String get storyShareSave => 'Мубодила/Захира';
+
+  @override
+  String storySeenBy(Object viewCount) {
+    return 'Дидаанд: $viewCount';
+  }
+
+  @override
+  String get storyNoViewsYet => 'Ҳанӯз тамошо нашудааст';
+
+  @override
+  String get storyEditVideo => 'Таҳрири видео';
+
+  @override
+  String storyVotes(Object totalVotes) {
+    return '$totalVotes овоз';
+  }
+
+  @override
+  String get storyCreatePoll => 'Сохтани назарсанҷӣ';
+
+  @override
+  String get storySendAnonymously => 'Ба таври ношинос фиристодан';
+
+  @override
+  String storyResponseCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ҷавоб',
+      one: '1 ҷавоб',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyViewResponses => 'Дидани ҷавобҳо';
+
+  @override
+  String get storyResponsesTitle => 'Ҷавобҳо';
+
+  @override
+  String get storyNoResponsesYet => 'Ҳанӯз ҷавобе нест';
+
+  @override
+  String get storyQuestionBox => 'Қуттии саволҳо';
+
+  @override
+  String get storySent => 'Фиристода шуд!';
+
+  @override
+  String get storyProcessing => 'Коркард шуда истодааст...';
+
+  @override
+  String get storyHd => 'HD';
+
+  @override
+  String storyVideoMeta(Object duration, Object size) {
+    return '$duration | $size МБ';
+  }
+
+  @override
+  String get storyUserFallback => 'Корбар';
+
+  @override
+  String storySendCount(int count) {
+    return 'Фиристодан ($count)';
+  }
+
+  @override
+  String get storyFailedToDelete => 'Ҳикоя нест карда нашуд';
+
+  @override
+  String get storyAnonymous => 'Ношинос';
+
+  @override
+  String get vipNoCoinActivityYet => 'Ҳанӯз фаъолияти тангаҳо нест';
+
+  @override
+  String get vipCoinShopExplainer => 'Тангаҳо барои кушодани истифодаҳои иловагии тарҷумаҳо, чатҳо бо омӯзгори AI ва лаҳзаҳо пас аз расидан ба ҳадди рӯзонаи ройгон истифода мешаванд. Харидҳо пас аз сарф шудани тангаҳо баргардонида намешаванд.';
+
+  @override
+  String get vipLimitReached => 'Ҳад ба охир расид';
+
+  @override
+  String get vipCoins => 'танга';
+
+  @override
+  String vipBonusIncluded(Object bonusCoins) {
+    return '+$bonusCoins бонус дохил аст';
+  }
+
+  @override
+  String get vipVisitorModeLimitReached => 'Ҳадди реҷаи меҳмон ба охир расид';
+
+  @override
+  String get vipWhatGetFreeAccount => 'Бо ҳисоби ройгон чӣ ба даст меоред';
+
+  @override
+  String get vipCreateFreeAccount => 'Эҷоди ҳисоби ройгон';
+
+  @override
+  String get vipGoUnlimitedAccess => 'Барои дастрасии номаҳдуд VIP шавед';
+
+  @override
+  String get vipContinueAsVisitor => 'Идома ҳамчун меҳмон';
+
+  @override
+  String vipResets(Object resetTime) {
+    return 'Дубора танзим мешавад: $resetTime';
+  }
+
+  @override
+  String vipUsedToday(Object currentUsage, Object maxAllowed) {
+    return 'Имрӯз $currentUsage / $maxAllowed истифода шуд';
+  }
+
+  @override
+  String get vipTierVisitor => 'Меҳмон';
+
+  @override
+  String get vipTierMember => 'Узв';
+
+  @override
+  String get vipAd => 'Реклама';
+
+  @override
+  String get promoAdsNoticeTitle => 'Паёме аз барномасози';
+
+  @override
+  String get promoAdsNoticeBody => 'Салом! Ман Firdavs, барномасози ягонаи Bananatalk ҳастам. Ман чанд рекламаи хурд ба барнома илова кардам, то онро ройгон нигоҳ дорам ва таҳияи минбаъдаро маблағгузорӣ кунам.\n\nМедонам, ки реклама метавонад озор диҳад — барои ҳамин онро ихтиёрӣ ва судманд сохтам. Рекламаро бинед, то паёмҳои иловагӣ, филтрҳои ҷомеа, XP-и бонусӣ пас аз викторинаҳо ва ғайраро кушоед.\n\nБарои истифодаи Bananatalk ташаккур. Дастгирии шумо барои ман ҳама чиз аст. 🙏';
+
+  @override
+  String get promoAdsNoticeGotIt => 'Фаҳмидам, ташаккур! 👍';
+
+  @override
+  String get vipOnly => 'Танҳо барои VIP';
+
+  @override
+  String get vipTapUpgrade => 'Барои баланд бардоштан зер кунед';
+
+  @override
+  String get vipUnlockFeatures => 'Имкониятҳои VIP-ро кушоед';
+
+  @override
+  String get vipUpPillUp => 'Боло';
+
+  @override
+  String get vipChooseOption => 'Як вариантро интихоб кунед:';
+
+  @override
+  String get promoWelcomeBackTitle => 'Хуш омадед! 👋';
+
+  @override
+  String get promoWelcomeBackBody => 'Мо дилтанг шудем. Инҳо интизори шумоянд:';
+
+  @override
+  String get promoWelcomeBackCta => 'Биравем! 🚀';
+
+  @override
+  String get vipCoinsPerAdInfo => '+5 танга барои ҳар реклама, то 5 дар як рӯз';
+
+  @override
+  String get vipUpgradeUnlockMore => 'Барои кушодани имкониятҳои бештар ва дастрасии номаҳдуд такмил диҳед';
+
+  @override
+  String get vipUpgradeNow => 'Ҳозир такмил диҳед';
+
+  @override
+  String get commonContinueWhereLeftOff => 'Аз ҷое, ки қатъ карда будед, идома диҳед?';
+
+  @override
+  String get commonLanguageNotProvided => 'Забон нишон дода нашудааст';
+
+  @override
+  String get commonExamNotProvided => 'Имтиҳон нишон дода нашудааст';
+
+  @override
+  String get commonMuted => 'Овоз хомӯш аст';
+
+  @override
+  String get commonPoorConnection => 'Пайвасти суст';
+
+  @override
+  String commonBlockUserConfirmBody(Object targetUserName) {
+    return 'Оё шумо мутмаин ҳастед, ки мехоҳед $targetUserName-ро масдуд кунед?\n\nШумо дигар паёмҳо ва нашрҳои ӯро нахоҳед дид ва дар ҷустуҷӯи якдигар пайдо нахоҳед шуд.';
+  }
+
+  @override
+  String get commonVideoFile => 'Файли видео';
+
+  @override
+  String get commonPointCameraBananatalkQr => 'Камераи худро ба рамзи QR-и Bananatalk равона кунед';
+
+  @override
+  String get commonReportSubmittedButSome => 'Шикоят фиристода шуд, аммо баъзе далелҳо бор нашуданд';
+
+  @override
+  String commonReportTitle(Object typeLabel) {
+    return 'Шикоят дар бораи $typeLabel';
+  }
+
+  @override
+  String commonWhyReporting(Object typeLabel) {
+    return 'Чаро шумо дар бораи ин $typeLabel шикоят мекунед?';
+  }
+
+  @override
+  String get commonAddEvidenceRequired => 'Илова кардани далел (ҳатмӣ)';
+
+  @override
+  String get commonUploadScreenshotsTextFiles => 'Барои дастгирии шикояти худ скриншотҳо ё файлҳои матнӣ бор кунед';
+
+  @override
+  String commonAddEvidenceCount(Object count, Object maxFiles) {
+    return 'Илова кардани далел ($count/$maxFiles)';
+  }
+
+  @override
+  String commonReportTotalSize(Object max, Object used) {
+    return 'Ҷамъ: $used / $max';
+  }
+
+  @override
+  String get commonEvidence => 'Далел';
+
+  @override
+  String get commonImageFailed => 'Тасвир бор нашуд';
+
+  @override
+  String get commonShowMore => 'Бештар нишон додан';
+
+  @override
+  String get commonVoiceRecordingNotAvailable => 'Сабти овоз дастнорас аст';
+
+  @override
+  String get commonVoiceRecordingOnlyAvailable => 'Сабти овоз танҳо дар дастгоҳҳои мобилӣ дастрас аст.';
+
+  @override
+  String get commonReportSubmittedSuccessfully => 'Шикоят бомуваффақият фиристода шуд';
+
+  @override
+  String get commonErrorLoadingFile => 'Хатои боркунии файл';
+
+  @override
+  String get commonReportTypeUser => 'корбар';
+
+  @override
+  String get commonReportTypeMoment => 'лаҳза';
+
+  @override
+  String get commonReportTypeComment => 'шарҳ';
+
+  @override
+  String get commonReportTypeMessage => 'паём';
+
+  @override
+  String get commonReportTypeStory => 'ҳикоя';
+
+  @override
+  String get commonReportTypeContent => 'мундариҷа';
+
+  @override
+  String get commonReportReasonCopyright => 'Вайрон кардани ҳуқуқи муаллиф';
+
+  @override
+  String get momentsRemoveVoiceNote => 'Қайди овозиро нест кунед';
+
+  @override
+  String get vocabPackLevelProficiency => 'Омӯхтагӣ';
+
+  @override
+  String get aiFailedToLoadFeedback => 'Бор кардани бозхӯрд номуваффақ шуд';
+
+  @override
+  String get aiFailedToLoadSummary => 'Бор кардани хулоса номуваффақ шуд';
+
+  @override
+  String get momentFailedToLoad => 'Бор кардани лаҳза номуваффақ шуд';
+
+  @override
+  String get aiPronunciationWatchAdRetry => 'Барои як кӯшиши дигари ройгон реклама тамошо кунед';
+
+  @override
+  String aiErrorLoadingLanguages(Object error) {
+    return 'Хатогӣ ҳангоми бор кардани забонҳо: $error';
+  }
+
+  @override
+  String get aiSelectSourceTargetLanguages => 'Лутфан забони аслӣ ва забони мақсадро интихоб кунед';
+
+  @override
+  String get aiUnexpectedResponseFormat => 'Формати ҷавоб ғайричашмдошт аст';
+
+  @override
+  String get aiFailedToLoadConversation => 'Бор кардани сӯҳбат номуваффақ шуд';
+
+  @override
+  String get aiMicPermissionDeniedSettings => 'Иҷозати микрофон рад шуд. Лутфан онро дар Танзимот фаъол кунед.';
+
+  @override
+  String get aiFailedToEvaluatePronunciation => 'Арзёбии талаффуз номуваффақ шуд';
+
+  @override
+  String get aiFailedToGenerateSpeech => 'Эҷоди нутқ номуваффақ шуд';
+
+  @override
+  String get aiFailedToGenerateLesson => 'Эҷоди дарс номуваффақ шуд';
+
+  @override
+  String get aiLessonTopicRequired => 'Лутфан мавзӯъро ворид кунед';
+
+  @override
+  String get aiFailedToLoadTopics => 'Бор кардани мавзӯъҳо номуваффақ шуд';
+
+  @override
+  String get aiFailedToLoadScenarios => 'Бор кардани сенарияҳо номуваффақ шуд';
+
+  @override
+  String get aiAnalysisFailed => 'Таҳлил номуваффақ шуд';
+
+  @override
+  String get storySearchPlaceHint => 'Ҷустуҷӯи ҷой…';
+
+  @override
+  String get storySearchRecentChatsHint => 'Ҷустуҷӯи чатҳои охирин…';
+
+  @override
+  String get storySearchFollowingHint => 'Ҷустуҷӯи одамоне, ки шумо пайравӣ мекунед…';
+
+  @override
+  String get storyAddHashtagsHint => 'Ҳештегҳо илова кунед...';
+
+  @override
+  String get storyHighlightCreateFailed => 'Эҷоди интихобшуда номуваффақ шуд';
+
+  @override
+  String get storyHighlightRenameFailed => 'Тағйири номи интихобшуда номуваффақ шуд';
+
+  @override
+  String get storyHighlightDeleteFailed => 'Нест кардани интихобшуда номуваффақ шуд';
+
+  @override
+  String get storyViewersLoadFailed => 'Бор кардани тамошобинон номуваффақ шуд';
+
+  @override
+  String get storyShareSent => 'Фиристода шуд 💛';
+
+  @override
+  String storyShareSentPartial(Object names) {
+    return 'Фиристода шуд 💛 — барои $names номуваффақ шуд';
+  }
+
+  @override
+  String get storyVoteFailed => 'Фиристодани овоз номуваффақ шуд';
+
+  @override
+  String get storyAnswerFailed => 'Фиристодани ҷавоб номуваффақ шуд';
+
+  @override
+  String get storyAlreadyInHighlight => 'Аллакай дар интихобшуда захира шудааст';
+
+  @override
+  String get storyAddedToHighlight => 'Ба интихобшуда илова шуд';
+
+  @override
+  String storyMaxHashtags(int max) {
+    return 'Шумо метавонед то $max ҳештег илова кунед';
+  }
+
+  @override
+  String storyMaxMentions(int max) {
+    return 'Шумо метавонед то $max нафарро ном баред';
+  }
+
+  @override
+  String get coinHistoryActivity => 'Фаъолияти тангаҳо';
+
+  @override
+  String get coinHistoryAdReward => 'Реклама тамошо шуд';
+
+  @override
+  String get coinHistoryPurchase => 'Хариди тангаҳо';
+
+  @override
+  String coinHistoryUnlocked(Object feature) {
+    return '$feature кушода шуд';
+  }
+
+  @override
+  String get vipVisitorMessagesBenefit => 'Дар як рӯз то 50 паём фиристед';
+
+  @override
+  String get vipVisitorProfilesBenefit => 'Дар як рӯз то 100 профилро бинед';
+
+  @override
+  String get vipVisitorFriendsBenefit => 'Дӯстон илова кунед ва шабакаи худро васеъ кунед';
+
+  @override
+  String get vipVisitorCommunitiesTitle => 'Ба ҷамоатҳо ҳамроҳ шавед';
+
+  @override
+  String get vipVisitorCommunitiesBenefit => 'Дар баҳсҳои ҷамоат иштирок кунед';
+
+  @override
+  String get vipVisitorMomentsTitle => 'Лаҳзаҳоро мубодила кунед';
+
+  @override
+  String get vipVisitorMomentsBenefit => 'Лаҳзаҳои худро нашр ва мубодила кунед';
+
+  @override
+  String get vipUnlimitedEverythingTitle => 'Ҳама чиз бемаҳдуд';
+
+  @override
+  String get vipUnlimitedEverythingBenefit => 'Бе маҳдудияти рӯзона барои паёмҳо ё дидани профилҳо';
+
+  @override
+  String get vipProfileBoostBenefit => 'Дар натиҷаҳои ҷустуҷӯ бештар намоён шавед';
+
+  @override
+  String get vipAdFreeExperienceBenefit => 'Аз барнома бе реклама лаззат баред';
+
+  @override
+  String get featureGateUpgradeToUnlock => 'Барои кушодани ин имконият ба сатҳи болотар гузаред';
+
+  @override
+  String get featureGateVipOnly => 'Имконияти танҳо барои VIP';
+
+  @override
+  String get adsRewardedButtonLabel => 'Барои бонус реклама тамошо кунед';
+
+  @override
+  String get promoAdsPerkMessages => '+3 паёми\nбонусӣ';
+
+  @override
+  String get promoAdsPerkFilters => 'Филтрҳоро\nкушоед';
+
+  @override
+  String get promoAdsPerkXp => '+10 XP-и\nбонусӣ';
+
+  @override
+  String get promoAdsPerkRetry => 'Кӯшиши\nдубораи ройгон';
+
+  @override
+  String get visitorLimitMessagesTitle => 'Ҳудуди рӯзонаи паёмҳо ба охир расид';
+
+  @override
+  String visitorLimitMessagesBody(int count) {
+    return 'Имрӯз шумо $count паём фиристодед. Барои бештар фиристодан ба сатҳи болотар гузаред!';
+  }
+
+  @override
+  String get visitorLimitProfilesTitle => 'Ҳудуди рӯзонаи дидани профилҳо ба охир расид';
+
+  @override
+  String visitorLimitProfilesBody(int count) {
+    return 'Имрӯз шумо $count профилро дидед. Барои бештар дидан ба сатҳи болотар гузаред!';
+  }
+
+  @override
+  String get visitorLimitFreeAccountBenefit => 'Ҳудудҳои рӯзонаи баландтар';
+
+  @override
+  String get visitorLimitVipBenefit => 'Дастрасии бемаҳдуд';
+
+  @override
+  String get promoWelcomeBackTutorSubtitle => 'Сӯҳбат, талаффуз ва викторинаҳоро машқ кунед';
+
+  @override
+  String get promoWelcomeBackCommunitySubtitle => 'Шарикони забонро дар наздикии худ ёбед';
+
+  @override
+  String get promoWelcomeBackMomentsSubtitle => 'Роҳи омӯзиши забонатонро мубодила кунед';
+
+  @override
+  String get myReportsReportedId => 'Идентификатори гузоришшуда';
+
+  @override
+  String get myReportsReason => 'Сабаб';
+
+  @override
+  String get myReportsSubmitted => 'Пешниҳод шуд';
+
+  @override
+  String get myReportsResolved => 'Ҳал шуд';
+
+  @override
+  String get myReportsModeratorNotes => 'Ёддоштҳои модератор';
+
+  @override
+  String get myReportsNotAvailable => 'Нест';
+
+  @override
+  String get myReportsFailedToLoad => 'Бор кардани шикоятҳо номуваффақ шуд';
+
+  @override
+  String get voiceRecorderUnavailableDesktop => 'Сабти овоз дар компютер дастрас нест';
+
+  @override
+  String get adminPageUnavailable => 'Ин саҳифа дастрас нест.';
+
+  @override
+  String storyShareSendFailedTo(Object names) {
+    return 'Ба $names фиристода нашуд';
+  }
+
+  @override
+  String get storyCantReact => 'Шумо ба ин ҳикоя вокуниш нишон дода наметавонед';
+
+  @override
+  String get storyCantReply => 'Шумо ба ин ҳикоя ҷавоб дода наметавонед';
+
+  @override
+  String get storyNoMediaToSave => 'Дар ин ҳикоя расонае барои захира кардан нест';
+
+  @override
+  String get coinsAdCrediting => 'Ҳисоб карда истодааст…';
+
+  @override
+  String get coinsWatchAdReward => 'Реклама тамошо кунед (+5 💎)';
+
+  @override
+  String callUnavailable(String name) {
+    return '$name ҳоло занг қабул намекунад';
+  }
+
+  @override
+  String get callDeclineWithMessage => 'Паём';
+
+  @override
+  String get callDeclineSheetTitle => 'Рад кардан бо паём';
+
+  @override
+  String get callDeclineCannedLater => 'Ҳоло гап зада наметавонам. Баъд занг мезанам.';
+
+  @override
+  String get callDeclineCannedText => 'Ҳоло гап зада наметавонам. Паём фиристед?';
+
+  @override
+  String get callDeclineCustomHint => 'Паём нависед…';
+
+  @override
+  String get callDeclineSend => 'Фиристодан';
+
+  @override
+  String get callBackAction => 'Дубора занг задан';
+
+  @override
+  String get callMessageAction => 'Паём';
+
+  @override
+  String get callsAllowTitle => 'Иҷозати зангҳо';
+
+  @override
+  String get callsAllowSubtitle => 'Агар хомӯш бошад, зангҳо ба шумо садо намедиҳанд. Занганда мебинад, ки шумо занг қабул намекунед.';
+
+  @override
+  String get callsQuietHoursNote => 'Агар «Огоҳномаҳои таъҷилиро иҷозат диҳед» хомӯш бошад, зангҳо низ дар соатҳои оромӣ нигоҳ дошта мешаванд.';
+
+  @override
+  String get callTurnOnCamera => 'Камера';
+
+  @override
+  String get callCameraFailed => 'Камераро фурӯзон кардан имконнопазир шуд';
+
+  @override
+  String get callSelfViewLabel => 'Камераи шумо. Барои ҷойивазкунӣ кашед.';
+
+  @override
+  String get callSelfViewSwapHint => 'Барои иваз кардан бо видеои дигар ду бор зер кунед';
 }

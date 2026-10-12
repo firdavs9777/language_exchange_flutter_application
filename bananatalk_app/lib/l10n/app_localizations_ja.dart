@@ -7040,7 +7040,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get examSpeakingPart3 => 'Speaking — Part 3';
 
   @override
-  String get examSpeakingSubmit => 'Submit recording';
+  String get examSpeakingSubmit => '録音を送信';
 
   @override
   String get examSpeakingUploading => 'アップロード中…';
@@ -9550,4 +9550,1645 @@ class AppLocalizationsJa extends AppLocalizations {
   String translatedToLanguage(String language) {
     return '$languageに翻訳しました';
   }
+
+  @override
+  String guideProgress(int count) {
+    return 'はじめの一歩 · $count/4';
+  }
+
+  @override
+  String get guideChatTip => '長押しで翻訳・添削';
+
+  @override
+  String get announcementTitle => 'お知らせ';
+
+  @override
+  String get announcementUnavailable => 'このお知らせは現在ご覧いただけません。';
+
+  @override
+  String get notifyAnnouncementsTitle => 'お知らせ';
+
+  @override
+  String get notifyAnnouncementsSubtitle => 'BananaTalkチームからのニュースとアップデート';
+
+  @override
+  String chatDailyLimitBody(Object count) {
+    return '無料ユーザーは1日に最大$count人までチャットできます。\nVIPにアップグレードすると無制限に会話できます!';
+  }
+
+  @override
+  String get chatCompressingVideo => '動画を圧縮しています...';
+
+  @override
+  String chatShareLocationBody(Object name) {
+    return '現在地を$nameに送信します。信頼できる相手にのみ送信してください。';
+  }
+
+  @override
+  String get chatShareLocationThisChat => 'このチャット';
+
+  @override
+  String get chatTranslationLimitReached => '翻訳の上限に達しました';
+
+  @override
+  String get chatTranslateLimitBody => 'このチャットでの本日の無料翻訳を使い切りました。コインですぐにさらにロック解除できます。';
+
+  @override
+  String chatReplyingTo(Object name) {
+    return '$nameに返信中';
+  }
+
+  @override
+  String get chatReplyingToFallback => 'ユーザー';
+
+  @override
+  String chatSendingMedia(Object mediaType) {
+    return '$mediaTypeを送信中...';
+  }
+
+  @override
+  String get chatEnterUsernameStart => 'チャットを始めるにはユーザー名を入力してください';
+
+  @override
+  String chatSearching(Object username) {
+    return '@$usernameを検索中...';
+  }
+
+  @override
+  String chatDeleteConversationBody(Object name) {
+    return '$nameとの会話を削除しますか?この操作は元に戻せません。';
+  }
+
+  @override
+  String get chatQrCode => 'QRコード';
+
+  @override
+  String get chatDraft => '下書き: ';
+
+  @override
+  String get chatTyping => '入力中...';
+
+  @override
+  String get chatPoweredBy => '提供: ';
+
+  @override
+  String get chatReconnecting => 'チャットに再接続中...';
+
+  @override
+  String get chatDailyLimitReached => '1日のメッセージ上限に達しました';
+
+  @override
+  String chatMessagesRemainingToday(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '本日あと$count件',
+      one: '本日あと1件',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get chatTranslatePreviewHint => '入力を始めると翻訳が表示されます';
+
+  @override
+  String get chatNoMessagesYet => 'まだメッセージはありません';
+
+  @override
+  String get chatMediaPhoto => '写真';
+
+  @override
+  String get chatMediaVideo => '動画';
+
+  @override
+  String get chatMediaAudio => '音声';
+
+  @override
+  String get chatMediaFile => 'ファイル';
+
+  @override
+  String get chatMediaGeneric => 'メディア';
+
+  @override
+  String get chatMessageFailedToSend => 'メッセージを送信できませんでした';
+
+  @override
+  String get chatSendingEllipsis => '送信中...';
+
+  @override
+  String get chatFailedTapOptions => '失敗 · タップしてオプションを表示';
+
+  @override
+  String get chatMessageWasDeleted => 'このメッセージは削除されました';
+
+  @override
+  String get chatStory => 'ストーリー';
+
+  @override
+  String get chatHi => 'やあ！';
+
+  @override
+  String get chatEdited => '編集済み';
+
+  @override
+  String get chatPremium => 'プレミアム ✨';
+
+  @override
+  String chatUnlockPremiumWallpapers(Object cost) {
+    return '💎$costコインでプレミアム ✨ 壁紙をすべてアンロックしますか？パック全体が永久にアンロックされます。';
+  }
+
+  @override
+  String chatWallpaperForName(Object userName) {
+    return '$userNameさんとのチャット壁紙';
+  }
+
+  @override
+  String get chatChooseGallery => 'ギャラリーから選択';
+
+  @override
+  String get chatHiThere => 'こんにちは！😊';
+
+  @override
+  String chatCorrected(Object correctorName) {
+    return '$correctorNameさんが添削しました';
+  }
+
+  @override
+  String get chatCorrectionAccepted => '添削を承認しました ✓';
+
+  @override
+  String chatForwarded(Object senderName) {
+    return '$senderNameから転送';
+  }
+
+  @override
+  String get chatCached => 'キャッシュ済み';
+
+  @override
+  String get chatWordBreakdown => '単語の内訳';
+
+  @override
+  String get chatAlternatives => '別の表現';
+
+  @override
+  String chatTranslationAlso(Object items) {
+    return '他にも：$items';
+  }
+
+  @override
+  String get chatAudioUnavailable => '音声を利用できません';
+
+  @override
+  String get chatHideTranslation => '翻訳を非表示';
+
+  @override
+  String get chatStoryExpired => 'ストーリーの期限切れ';
+
+  @override
+  String get chatAcceptCorrection => '添削を承認';
+
+  @override
+  String get chatAccepting => '承認中…';
+
+  @override
+  String get chatSaveToVocabularyAction => '単語帳に保存';
+
+  @override
+  String momentsMore(Object hidden) {
+    return '他$hidden件';
+  }
+
+  @override
+  String get momentsAllow => '許可';
+
+  @override
+  String get momentsCompressed => '圧縮済み';
+
+  @override
+  String get momentsPromptDay => '今日のお題';
+
+  @override
+  String get momentsAnswer => '回答する';
+
+  @override
+  String get momentsAnswerCamera => '🎥 カメラで回答';
+
+  @override
+  String momentsPracticeWriting(Object langName) {
+    return '$langNameで書く練習をしよう';
+  }
+
+  @override
+  String get momentsReelPolicyBody => 'リールは語学学習向けの短い動画です。お題への回答、スピーキング練習、ネイティブによる解説、文化クリップなどが投稿されます。\n\nBananatalkは不適切なコンテンツを一切容認しません。ヌード、ヘイトスピーチ、嫌がらせ、暴力、違法なコンテンツは禁止です。報告された動画は2件の報告で審査まで自動的に非表示になり、違反するとコンテンツの削除やアカウントの停止となる場合があります。\n\nどのリールからでもいつでも報告やブロックができます。';
+
+  @override
+  String get momentsIAgree => '同意する';
+
+  @override
+  String get momentsWhyReportingReel => 'このリールを報告する理由は何ですか？';
+
+  @override
+  String get momentsNoReelsYet => 'まだリールがありません';
+
+  @override
+  String get momentsNoReelsBody => '今日のお題にカメラで最初に回答するか、自由形式の語学学習クリップを録画しましょう。';
+
+  @override
+  String get momentsPullDownRefresh => '下に引っ張って更新';
+
+  @override
+  String get momentsErrorLoadingVideo => '動画の読み込みエラー';
+
+  @override
+  String get momentsLoadingVideo => '動画を読み込み中...';
+
+  @override
+  String momentsFileSizeMb(Object size) {
+    return '${size}MB';
+  }
+
+  @override
+  String momentsMaxDuration(Object duration) {
+    return '最大$duration';
+  }
+
+  @override
+  String get momentsReportSubmitted => '報告を送信しました';
+
+  @override
+  String communityLive(Object count) {
+    return '$count件ライブ中';
+  }
+
+  @override
+  String get communityFind => '探す';
+
+  @override
+  String communityFinding(Object username) {
+    return '@$username を検索中...';
+  }
+
+  @override
+  String get communitySeeAll => 'すべて見る';
+
+  @override
+  String get communitySeeWhoLikes => 'あなたを気に入った人を見る';
+
+  @override
+  String get communityUnlimitedBrowsingNoAds => '無制限の閲覧、広告なし、優先マッチング';
+
+  @override
+  String communityMembersCount(Object count) {
+    return 'メンバー $count人';
+  }
+
+  @override
+  String communityPeopleCount(Object count) {
+    return '$count人';
+  }
+
+  @override
+  String get communityFailedLoadArchivedWaves => 'アーカイブしたウェーブを読み込めませんでした';
+
+  @override
+  String get communityGreatChat => 'いい会話でした！🎉';
+
+  @override
+  String get communityStayTouchPeopleJust => 'さっき話した人とつながり続けましょう';
+
+  @override
+  String get communityNotNow => '今はしない';
+
+  @override
+  String get communityPerfect => 'ぴったり';
+
+  @override
+  String communityLv(Object level) {
+    return 'Lv.$level';
+  }
+
+  @override
+  String get communityReact => 'リアクション';
+
+  @override
+  String get communityWavedAtYou => 'があなたにウェーブしました';
+
+  @override
+  String get communitySomeone => '誰か';
+
+  @override
+  String get communityPeopleInterestedInTopic => 'このトピックに興味がある人';
+
+  @override
+  String get learnThemedWordSetsBuild => '語彙を増やすためのテーマ別単語セット';
+
+  @override
+  String get learnTapStartRecording => 'タップして録音を開始';
+
+  @override
+  String get learnWordBank => '単語バンク';
+
+  @override
+  String learnCorrectAnswer(Object correctAnswer) {
+    return '正解: $correctAnswer';
+  }
+
+  @override
+  String get learnMatchingDataNotAvailable => 'マッチングデータがありません';
+
+  @override
+  String get learnExerciseCouldNotLoad => 'この問題のマッチングペアを読み込めませんでした。レッスンを再生成してみてください。';
+
+  @override
+  String get learnSkipExercise => '問題をスキップ';
+
+  @override
+  String get learnTapItemLeftThen => '左の項目をタップし、右の対応する項目をタップしてください';
+
+  @override
+  String learnMatchedOfTotal(Object count, Object count2) {
+    return '$count/$count2 組マッチ';
+  }
+
+  @override
+  String learnCorrectOfTotal(Object correctCount, Object count) {
+    return '$correctCount/$count 正解';
+  }
+
+  @override
+  String get learnDragDropReorderItems => 'ドラッグ＆ドロップで項目を並べ替えてください';
+
+  @override
+  String learnCorrectOrder(Object order) {
+    return '正しい順序: $order';
+  }
+
+  @override
+  String learnWordsToReview(int dueCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      dueCount,
+      locale: localeName,
+      other: '復習する単語 $dueCount 語',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnScore(Object score) {
+    return 'スコア: $score / 100';
+  }
+
+  @override
+  String learnGotCorrect(Object correct, Object count) {
+    return '$count問中$correct問正解です。';
+  }
+
+  @override
+  String learnQuestionOf(Object number, Object total) {
+    return '問題 $number / $total';
+  }
+
+  @override
+  String get learnMatchEachWordIts => '各単語をその意味に結びつけてください';
+
+  @override
+  String get learnCouldNotLoadPacks => 'パックを読み込めませんでした';
+
+  @override
+  String learnWordsExercises(Object wordCount, Object exerciseCount) {
+    return '$wordCount 語 · $exerciseCount 問';
+  }
+
+  @override
+  String get learnAiAutoFill => 'AI 自動入力';
+
+  @override
+  String get learnPlay => '再生';
+
+  @override
+  String get learnFinish => '完了';
+
+  @override
+  String get learnNotQuite => '惜しい！';
+
+  @override
+  String get learnUnsupportedExercise => '未対応の問題';
+
+  @override
+  String get learnFailedLoadAchievements => '実績を読み込めませんでした';
+
+  @override
+  String learnUnlockedOn(Object date) {
+    return '$dateに解除';
+  }
+
+  @override
+  String get learnChallenges => 'チャレンジ';
+
+  @override
+  String get learnFailedLoadChallenges => 'チャレンジを読み込めませんでした';
+
+  @override
+  String learnNoChallenges(Object type) {
+    return '$typeチャレンジはありません';
+  }
+
+  @override
+  String get learnCheckBackLater => '後でもう一度確認してください！';
+
+  @override
+  String learnActiveCount(Object count) {
+    return '進行中（$count）';
+  }
+
+  @override
+  String learnCompletedCount(Object count) {
+    return '完了（$count）';
+  }
+
+  @override
+  String get learnProgress => '進捗';
+
+  @override
+  String get learnXpReward => 'XP報酬';
+
+  @override
+  String get learnBonus => 'ボーナス';
+
+  @override
+  String learnExpires(Object timeRemainingFormatted) {
+    return 'あと$timeRemainingFormattedで終了';
+  }
+
+  @override
+  String get learnAchievementUnlocked => '実績を解除しました！';
+
+  @override
+  String get learnTapContinue => 'タップして続ける';
+
+  @override
+  String get learnChallengeCompleted => '完了';
+
+  @override
+  String get learnDailyGoals => 'デイリー目標';
+
+  @override
+  String learnLessons(Object completedCount, Object lessonsCount) {
+    return '$completedCount/$lessonsCountレッスン';
+  }
+
+  @override
+  String learnLongestDays(Object longestStreak) {
+    return '最長：$longestStreak日';
+  }
+
+  @override
+  String get learnTapReveal => 'タップして表示';
+
+  @override
+  String get learnNoAchievements => '実績はありません';
+
+  @override
+  String get learnDayStreak => '日連続';
+
+  @override
+  String get learnDueForReview => '復習の時間です';
+
+  @override
+  String learnNextReview(Object date) {
+    return '次回：$date';
+  }
+
+  @override
+  String get learnChallengeDaily => 'デイリー';
+
+  @override
+  String get learnChallengeWeekly => 'ウィークリー';
+
+  @override
+  String get learnChallengeSpecial => 'スペシャル';
+
+  @override
+  String get learnChallengeDailyDesc => '毎日チャレンジを完了してXPと報酬をゲットしよう！';
+
+  @override
+  String get learnChallengeWeeklyDesc => 'ウィークリーチャレンジは毎週月曜日に更新されます';
+
+  @override
+  String get learnChallengeSpecialDesc => '期間限定のチャレンジ、ボーナス報酬付き！';
+
+  @override
+  String get learnDateToday => '今日';
+
+  @override
+  String get learnDateTomorrow => '明日';
+
+  @override
+  String learnInDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count日後',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnInWeeks(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count週間後',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnInMonths(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countか月後',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiGenerateNewQuiz => '新しいクイズを作成';
+
+  @override
+  String get aiPreviousQuizzes => '過去のクイズ';
+
+  @override
+  String get aiGeneratingQuiz => 'クイズを作成中…';
+
+  @override
+  String aiFocusArea(Object name) {
+    return '重点分野：$name';
+  }
+
+  @override
+  String get aiQuizType => 'クイズの種類';
+
+  @override
+  String get aiDifficulty => '難易度';
+
+  @override
+  String get aiQuestionsLabel => '問題数：';
+
+  @override
+  String get aiGenerateQuiz => 'クイズを作成';
+
+  @override
+  String aiQuizQuestionCount(int questionCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      questionCount,
+      locale: localeName,
+      other: '$questionCount問',
+      one: '1問',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String aiCorrectOfTotal(Object correctCount, Object totalQuestions) {
+    return '$correctCount/$totalQuestions 問正解';
+  }
+
+  @override
+  String get aiNoQuizzesYet => 'まだクイズがありません';
+
+  @override
+  String get aiGenerateFirstQuizAbove => '上で最初のクイズを作成しましょう！';
+
+  @override
+  String aiCorrectOutOf(Object correctCount, Object totalQuestions) {
+    return '$totalQuestions問中$correctCount問正解';
+  }
+
+  @override
+  String get aiBackQuizHub => 'クイズハブに戻る';
+
+  @override
+  String get aiNoQuestionsAvailable => '利用できる問題がありません';
+
+  @override
+  String get aiQuizHasNoQuestions => 'このクイズには表示できる問題がありません。';
+
+  @override
+  String aiQuestionOf(Object number, Object count) {
+    return '問題 $number / $count';
+  }
+
+  @override
+  String get aiYourAnswerLabel => 'あなたの回答：';
+
+  @override
+  String get aiBonusXpWatching => '🎉 視聴で+10ボーナスXP！';
+
+  @override
+  String get aiNotQuiteRight => '惜しい！';
+
+  @override
+  String get aiWhy => 'なぜ？';
+
+  @override
+  String get aiGotIt => 'わかった';
+
+  @override
+  String get aiHint => 'ヒント';
+
+  @override
+  String aiLevel(Object hintLevel) {
+    return 'レベル $hintLevel/3';
+  }
+
+  @override
+  String get aiAskQuestion => '質問する';
+
+  @override
+  String get aiAsk => '聞く';
+
+  @override
+  String get aiAssistantExamples => '例';
+
+  @override
+  String get aiExplainConcept => '概念を説明';
+
+  @override
+  String get aiRelatedConcepts => '関連する概念';
+
+  @override
+  String get aiGeneratingLessonSummary => 'レッスンの要約を作成中...';
+
+  @override
+  String get aiLessonSummary => 'レッスンの要約';
+
+  @override
+  String get aiKeyPoints => '重要ポイント';
+
+  @override
+  String get aiVocabularyRemember => '覚えておきたい語彙';
+
+  @override
+  String get aiGrammarRules => '文法ルール';
+
+  @override
+  String get aiWhatPracticeNext => '次に練習すること';
+
+  @override
+  String get aiPerfectScore => '満点！';
+
+  @override
+  String get aiGreatJob => 'よくできました！';
+
+  @override
+  String get aiGoodEffort => 'よく頑張りました！';
+
+  @override
+  String get aiKeepPracticing => '練習を続けましょう！';
+
+  @override
+  String get aiFailedToGetHint => 'ヒントを取得できませんでした';
+
+  @override
+  String get aiFailedToGetAnswer => '回答を取得できませんでした';
+
+  @override
+  String get aiFailedToExplain => '説明に失敗しました';
+
+  @override
+  String get aiFailedLoadHistory => '履歴を読み込めませんでした';
+
+  @override
+  String aiConversationMessageCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count件のメッセージ',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiStartNewConversationSee => '新しい会話を始めるとここに表示されます';
+
+  @override
+  String get aiLoadingMessages => 'メッセージを読み込み中...';
+
+  @override
+  String get aiNoMessagesConversation => 'この会話にメッセージはありません';
+
+  @override
+  String get aiDifficultyLevel => '難易度';
+
+  @override
+  String get aiScenarios => 'シナリオ';
+
+  @override
+  String get aiGrammarCheck => '文法チェック';
+
+  @override
+  String get aiRecentAnalysis => '最近の分析';
+
+  @override
+  String get aiCheckGrammar => '文法をチェック';
+
+  @override
+  String get aiLanguageLabel => '言語：';
+
+  @override
+  String aiGrammarIssuesFound(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count件の誤りが見つかりました',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiPerfect => '完璧です！';
+
+  @override
+  String get aiNoGrammarIssuesFound => 'テキストに文法の誤りは見つかりませんでした。';
+
+  @override
+  String aiIssuesFound(Object count) {
+    return '見つかった誤り（$count）';
+  }
+
+  @override
+  String get aiCorrected => '修正後';
+
+  @override
+  String get aiGrammarExamples => '例：';
+
+  @override
+  String get aiImprovedSuggestions => '改善案';
+
+  @override
+  String get aiNoAnalysisHistoryYet => '分析履歴はまだありません';
+
+  @override
+  String get aiLessonBuilder => 'AIレッスンビルダー';
+
+  @override
+  String get aiGenerateCustomLessons => 'カスタムレッスンを作成';
+
+  @override
+  String get aiCreatesPersonalizedLessonsAny => 'AIがあらゆるトピックでパーソナライズされたレッスンを作成します';
+
+  @override
+  String aiExercises(Object exerciseCount) {
+    return '練習問題：$exerciseCount';
+  }
+
+  @override
+  String get aiSuggestedTopics => 'おすすめトピック';
+
+  @override
+  String get aiCreatingLesson => 'レッスンを作成中...';
+
+  @override
+  String get aiGeneratingExercisesContent => 'AIが練習問題とコンテンツを生成しています';
+
+  @override
+  String get aiLessonGenerated => 'レッスンができました！';
+
+  @override
+  String get aiGenerateAnother => 'もう1つ作成';
+
+  @override
+  String get aiStartLesson => 'レッスンを始める';
+
+  @override
+  String get aiPronunciationPractice => '発音練習';
+
+  @override
+  String get aiPracticeHistory => '練習履歴';
+
+  @override
+  String get aiTextPractice => '練習するテキスト';
+
+  @override
+  String get aiWordAnalysis => '単語分析';
+
+  @override
+  String get aiNoPracticeHistoryYet => '練習履歴はまだありません';
+
+  @override
+  String get aiSmartTranslation => 'スマート翻訳';
+
+  @override
+  String get aiWordBreakdown => '単語ごとの内訳';
+
+  @override
+  String get aiAlternativeTranslations => '別の訳';
+
+  @override
+  String get aiGrammarNotes => '文法メモ';
+
+  @override
+  String get aiIdiomsExpressions => '慣用句と表現';
+
+  @override
+  String aiLiteral(Object literalTranslation) {
+    return '直訳：$literalTranslation';
+  }
+
+  @override
+  String aiMeaning(Object meaning) {
+    return '意味：$meaning';
+  }
+
+  @override
+  String aiEquivalent(Object equivalentIdiom) {
+    return '同等の表現：$equivalentIdiom';
+  }
+
+  @override
+  String get aiCulturalContext => '文化的背景';
+
+  @override
+  String get aiNoCompletedConversations => '完了した会話はありません';
+
+  @override
+  String get aiNoActiveConversations => '進行中の会話はありません';
+
+  @override
+  String aiStartInLanguage(Object language) {
+    return '$languageで始める';
+  }
+
+  @override
+  String get aiSelect => '選択';
+
+  @override
+  String aiIssuesCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count件の誤り',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiGenerateLesson => 'レッスンを作成';
+
+  @override
+  String get aiGeneratingEllipsis => '生成中...';
+
+  @override
+  String get aiAnalyzing => '分析中...';
+
+  @override
+  String get aiExcellentPronunciation => '素晴らしい発音です！';
+
+  @override
+  String get aiGoodJob => 'よくできました！';
+
+  @override
+  String get profileBuyMeCoffee => 'コーヒーをおごる';
+
+  @override
+  String get profileOr => 'または';
+
+  @override
+  String get profileLoadingNotifications => '通知を読み込み中...';
+
+  @override
+  String get profileLoadingSettings => '設定を読み込み中...';
+
+  @override
+  String get profileAdmin => '管理者';
+
+  @override
+  String get profileSelected => '選択中';
+
+  @override
+  String get profilePrivacyIntro => '他のユーザーに見せる内容はあなたが決められます。項目をオフにすると公開プロフィールから非表示になります。';
+
+  @override
+  String get profileUpdate => '更新';
+
+  @override
+  String get profileNoTopicsCategory => 'このカテゴリにトピックはありません';
+
+  @override
+  String get profileAdminTools => '管理ツール';
+
+  @override
+  String profileCompletionAdd(Object items) {
+    return '追加: $items';
+  }
+
+  @override
+  String get profileActive => 'アクティブ';
+
+  @override
+  String get profileAutoSaveEnabled => '自動保存が有効です';
+
+  @override
+  String get profileChangesSavedInstantlyWhen => '切り替えると変更はすぐに保存されます。';
+
+  @override
+  String get profileCurrentTheme => '現在のテーマ';
+
+  @override
+  String get profileThemeChangesApplyInstantly => 'テーマの変更はアプリ全体にすぐに反映されます。';
+
+  @override
+  String get profileLoadingVisitors => '訪問者を読み込み中...';
+
+  @override
+  String get profileSeeWhoChecked => 'プロフィールを見た人を確認';
+
+  @override
+  String get profileRecentVisitors => '最近の訪問者';
+
+  @override
+  String get profileNoReportsSubmitted => '送信した報告はありません';
+
+  @override
+  String get profileReportsSubmitWillAppear => '送信した報告はここに表示されます';
+
+  @override
+  String profileReportTypeTitle(Object type) {
+    return '$typeの報告';
+  }
+
+  @override
+  String profileReportReason(Object reason) {
+    return '理由: $reason';
+  }
+
+  @override
+  String get profileDeleteAccountFinalBody => 'すべてのデータが完全に削除されます。\n\n本当によろしいですか？';
+
+  @override
+  String get profileThanksForWatching => 'ご視聴ありがとうございます！🙏';
+
+  @override
+  String get profileNotificationsOn => '通知オン';
+
+  @override
+  String get profileNotificationsOff => '通知オフ';
+
+  @override
+  String get profileMaximumReached => '上限に達しました';
+
+  @override
+  String get profilePickYourInterests => '興味のあることを選ぼう';
+
+  @override
+  String get profileDeselectToChooseAnother => '別のものを選ぶには1つ選択を解除してください';
+
+  @override
+  String get profileTapTopicsMatchVibe => 'あなたらしいトピックをタップしてください';
+
+  @override
+  String get profileEnjoyingPremium => 'プレミアム機能をお楽しみ中';
+
+  @override
+  String get profileUnlockUnlimited => '無制限のメッセージとAIツールを解放';
+
+  @override
+  String get profileBirthYear => '生年';
+
+  @override
+  String get profileReportTypeUser => 'ユーザー';
+
+  @override
+  String get profileReportTypeMoment => 'モーメント';
+
+  @override
+  String get profileReportTypeComment => 'コメント';
+
+  @override
+  String get profileReportTypeMessage => 'メッセージ';
+
+  @override
+  String get profileReportTypeStory => 'ストーリー';
+
+  @override
+  String get profileReportReasonCopyright => '著作権';
+
+  @override
+  String get storyOptimizingBestExperience => '最高の体験のために最適化中';
+
+  @override
+  String get storyCreate => 'ストーリーを作成';
+
+  @override
+  String get storyAddTags => 'タグを追加';
+
+  @override
+  String get storyVideoSelected => '動画を選択済み';
+
+  @override
+  String get storyAddPoll => '投票を追加';
+
+  @override
+  String get storyOptions => '選択肢';
+
+  @override
+  String get storyAddQuestion => '質問を追加';
+
+  @override
+  String get storyPrompt => 'プロンプト';
+
+  @override
+  String get storyTapAnywhereAddText => 'どこでもタップしてテキストを追加';
+
+  @override
+  String storyHighlightStoryCount(int storyCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      storyCount,
+      locale: localeName,
+      other: '$storyCount件のストーリー',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storySendFriends => '友達に送信';
+
+  @override
+  String storySelected(Object count) {
+    return '$count件選択中';
+  }
+
+  @override
+  String get storyShareSave => '共有/保存';
+
+  @override
+  String storySeenBy(Object viewCount) {
+    return '$viewCount人が閲覧';
+  }
+
+  @override
+  String get storyNoViewsYet => 'まだ閲覧はありません';
+
+  @override
+  String get storyEditVideo => '動画を編集';
+
+  @override
+  String storyVotes(Object totalVotes) {
+    return '$totalVotes票';
+  }
+
+  @override
+  String get storyCreatePoll => '投票を作成';
+
+  @override
+  String get storySendAnonymously => '匿名で送信';
+
+  @override
+  String storyResponseCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count件の回答',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyViewResponses => '回答を見る';
+
+  @override
+  String get storyResponsesTitle => '回答';
+
+  @override
+  String get storyNoResponsesYet => 'まだ回答はありません';
+
+  @override
+  String get storyQuestionBox => '質問ボックス';
+
+  @override
+  String get storySent => '送信しました！';
+
+  @override
+  String get storyProcessing => '処理中...';
+
+  @override
+  String get storyHd => 'HD';
+
+  @override
+  String storyVideoMeta(Object duration, Object size) {
+    return '$duration | ${size}MB';
+  }
+
+  @override
+  String get storyUserFallback => 'ユーザー';
+
+  @override
+  String storySendCount(int count) {
+    return '送信（$count）';
+  }
+
+  @override
+  String get storyFailedToDelete => 'ストーリーの削除に失敗しました';
+
+  @override
+  String get storyAnonymous => '匿名';
+
+  @override
+  String get vipNoCoinActivityYet => 'コインのアクティビティはまだありません';
+
+  @override
+  String get vipCoinShopExplainer => 'コインは、無料の1日の上限に達した後に、翻訳、AIチューター チャット、モーメントの追加利用を解放するために使います。コインを使用した後の購入は返金できません。';
+
+  @override
+  String get vipLimitReached => '上限に達しました';
+
+  @override
+  String get vipCoins => 'コイン';
+
+  @override
+  String vipBonusIncluded(Object bonusCoins) {
+    return 'ボーナス$bonusCoinsコイン付き';
+  }
+
+  @override
+  String get vipVisitorModeLimitReached => 'ビジターモードの上限に達しました';
+
+  @override
+  String get vipWhatGetFreeAccount => '無料アカウントで利用できること';
+
+  @override
+  String get vipCreateFreeAccount => '無料アカウントを作成';
+
+  @override
+  String get vipGoUnlimitedAccess => 'VIPで無制限にアクセス';
+
+  @override
+  String get vipContinueAsVisitor => 'ビジターとして続行';
+
+  @override
+  String vipResets(Object resetTime) {
+    return 'リセット時刻：$resetTime';
+  }
+
+  @override
+  String vipUsedToday(Object currentUsage, Object maxAllowed) {
+    return '本日$currentUsage / $maxAllowed使用済み';
+  }
+
+  @override
+  String get vipTierVisitor => 'ビジター';
+
+  @override
+  String get vipTierMember => 'メンバー';
+
+  @override
+  String get vipAd => '広告';
+
+  @override
+  String get promoAdsNoticeTitle => '開発者からのお知らせ';
+
+  @override
+  String get promoAdsNoticeBody => 'こんにちは！Bananatalkを一人で開発しているFirdavsです。アプリを無料で維持し、開発を続けるために、小さな広告をいくつか追加しました。\n\n広告が煩わしいことは承知しています。そのため、任意で見られて、見返りもあるようにしました。広告を見ると、追加メッセージ、コミュニティフィルター、クイズ後のボーナスXPなどが解放されます。\n\nBananatalkをご利用いただきありがとうございます。皆さまの応援が何よりの支えです。🙏';
+
+  @override
+  String get promoAdsNoticeGotIt => 'わかりました！👍';
+
+  @override
+  String get vipOnly => 'VIP限定';
+
+  @override
+  String get vipTapUpgrade => 'タップしてアップグレード';
+
+  @override
+  String get vipUnlockFeatures => 'VIP機能を解放';
+
+  @override
+  String get vipUpPillUp => 'UP';
+
+  @override
+  String get vipChooseOption => 'オプションを選択してください：';
+
+  @override
+  String get promoWelcomeBackTitle => 'おかえりなさい！👋';
+
+  @override
+  String get promoWelcomeBackBody => 'お待ちしていました。こちらが待っています：';
+
+  @override
+  String get promoWelcomeBackCta => 'さあ始めよう！🚀';
+
+  @override
+  String get vipCoinsPerAdInfo => '広告1回につき+5コイン（1日最大5回）';
+
+  @override
+  String get vipUpgradeUnlockMore => 'アップグレードして、さらに多くの機能と無制限アクセスを解放しましょう';
+
+  @override
+  String get vipUpgradeNow => '今すぐアップグレード';
+
+  @override
+  String get commonContinueWhereLeftOff => '前回の続きから再開しますか？';
+
+  @override
+  String get commonLanguageNotProvided => '言語が指定されていません';
+
+  @override
+  String get commonExamNotProvided => '試験が指定されていません';
+
+  @override
+  String get commonMuted => 'ミュート中';
+
+  @override
+  String get commonPoorConnection => '接続が不安定です';
+
+  @override
+  String commonBlockUserConfirmBody(Object targetUserName) {
+    return '$targetUserNameさんをブロックしてもよろしいですか？\n\n相手のメッセージや投稿は表示されなくなり、お互いの検索にも表示されなくなります。';
+  }
+
+  @override
+  String get commonVideoFile => '動画ファイル';
+
+  @override
+  String get commonPointCameraBananatalkQr => 'Bananatalk の QR コードにカメラを向けてください';
+
+  @override
+  String get commonReportSubmittedButSome => '報告を送信しましたが、一部の証拠をアップロードできませんでした';
+
+  @override
+  String commonReportTitle(Object typeLabel) {
+    return '$typeLabelを報告';
+  }
+
+  @override
+  String commonWhyReporting(Object typeLabel) {
+    return 'この$typeLabelを報告する理由は何ですか？';
+  }
+
+  @override
+  String get commonAddEvidenceRequired => '証拠を追加（必須）';
+
+  @override
+  String get commonUploadScreenshotsTextFiles => '報告を裏付けるスクリーンショットやテキストファイルをアップロードしてください';
+
+  @override
+  String commonAddEvidenceCount(Object count, Object maxFiles) {
+    return '証拠を追加（$count/$maxFiles）';
+  }
+
+  @override
+  String commonReportTotalSize(Object max, Object used) {
+    return '合計: $used / $max';
+  }
+
+  @override
+  String get commonEvidence => '証拠';
+
+  @override
+  String get commonImageFailed => '画像の読み込みに失敗';
+
+  @override
+  String get commonShowMore => 'もっと見る';
+
+  @override
+  String get commonVoiceRecordingNotAvailable => '音声録音は利用できません';
+
+  @override
+  String get commonVoiceRecordingOnlyAvailable => '音声録音はモバイルデバイスでのみ利用できます。';
+
+  @override
+  String get commonReportSubmittedSuccessfully => '報告を送信しました';
+
+  @override
+  String get commonErrorLoadingFile => 'ファイルの読み込みエラー';
+
+  @override
+  String get commonReportTypeUser => 'ユーザー';
+
+  @override
+  String get commonReportTypeMoment => 'モーメント';
+
+  @override
+  String get commonReportTypeComment => 'コメント';
+
+  @override
+  String get commonReportTypeMessage => 'メッセージ';
+
+  @override
+  String get commonReportTypeStory => 'ストーリー';
+
+  @override
+  String get commonReportTypeContent => 'コンテンツ';
+
+  @override
+  String get commonReportReasonCopyright => '著作権侵害';
+
+  @override
+  String get momentsRemoveVoiceNote => 'ボイスノートを削除';
+
+  @override
+  String get vocabPackLevelProficiency => '熟達';
+
+  @override
+  String get aiFailedToLoadFeedback => 'フィードバックの読み込みに失敗しました';
+
+  @override
+  String get aiFailedToLoadSummary => '要約の読み込みに失敗しました';
+
+  @override
+  String get momentFailedToLoad => 'モーメントの読み込みに失敗しました';
+
+  @override
+  String get aiPronunciationWatchAdRetry => '広告を見てもう1回無料で挑戦';
+
+  @override
+  String aiErrorLoadingLanguages(Object error) {
+    return '言語の読み込みエラー: $error';
+  }
+
+  @override
+  String get aiSelectSourceTargetLanguages => '翻訳元と翻訳先の言語を選択してください';
+
+  @override
+  String get aiUnexpectedResponseFormat => '予期しない応答形式です';
+
+  @override
+  String get aiFailedToLoadConversation => '会話の読み込みに失敗しました';
+
+  @override
+  String get aiMicPermissionDeniedSettings => 'マイクの権限が拒否されました。設定で有効にしてください。';
+
+  @override
+  String get aiFailedToEvaluatePronunciation => '発音の評価に失敗しました';
+
+  @override
+  String get aiFailedToGenerateSpeech => '音声の生成に失敗しました';
+
+  @override
+  String get aiFailedToGenerateLesson => 'レッスンの生成に失敗しました';
+
+  @override
+  String get aiLessonTopicRequired => 'トピックを入力してください';
+
+  @override
+  String get aiFailedToLoadTopics => 'トピックの読み込みに失敗しました';
+
+  @override
+  String get aiFailedToLoadScenarios => 'シナリオの読み込みに失敗しました';
+
+  @override
+  String get aiAnalysisFailed => '分析に失敗しました';
+
+  @override
+  String get storySearchPlaceHint => '場所を検索…';
+
+  @override
+  String get storySearchRecentChatsHint => '最近のチャットを検索…';
+
+  @override
+  String get storySearchFollowingHint => 'フォロー中のユーザーを検索…';
+
+  @override
+  String get storyAddHashtagsHint => 'ハッシュタグを追加...';
+
+  @override
+  String get storyHighlightCreateFailed => 'ハイライトの作成に失敗しました';
+
+  @override
+  String get storyHighlightRenameFailed => 'ハイライト名の変更に失敗しました';
+
+  @override
+  String get storyHighlightDeleteFailed => 'ハイライトの削除に失敗しました';
+
+  @override
+  String get storyViewersLoadFailed => '閲覧者の読み込みに失敗しました';
+
+  @override
+  String get storyShareSent => '送信しました 💛';
+
+  @override
+  String storyShareSentPartial(Object names) {
+    return '送信しました 💛 — $names への送信に失敗';
+  }
+
+  @override
+  String get storyVoteFailed => '投票の送信に失敗しました';
+
+  @override
+  String get storyAnswerFailed => '回答の送信に失敗しました';
+
+  @override
+  String get storyAlreadyInHighlight => 'すでにハイライトに保存されています';
+
+  @override
+  String get storyAddedToHighlight => 'ハイライトに追加しました';
+
+  @override
+  String storyMaxHashtags(int max) {
+    return 'ハッシュタグは最大$max個まで追加できます';
+  }
+
+  @override
+  String storyMaxMentions(int max) {
+    return 'メンションできるのは最大$max人までです';
+  }
+
+  @override
+  String get coinHistoryActivity => 'コインのアクティビティ';
+
+  @override
+  String get coinHistoryAdReward => '広告を視聴';
+
+  @override
+  String get coinHistoryPurchase => 'コイン購入';
+
+  @override
+  String coinHistoryUnlocked(Object feature) {
+    return '$featureをアンロック';
+  }
+
+  @override
+  String get vipVisitorMessagesBenefit => '1日最大50件のメッセージを送信';
+
+  @override
+  String get vipVisitorProfilesBenefit => '1日最大100件のプロフィールを閲覧';
+
+  @override
+  String get vipVisitorFriendsBenefit => '友達を追加してつながりを広げよう';
+
+  @override
+  String get vipVisitorCommunitiesTitle => 'コミュニティに参加';
+
+  @override
+  String get vipVisitorCommunitiesBenefit => 'コミュニティのディスカッションに参加';
+
+  @override
+  String get vipVisitorMomentsTitle => 'モーメントをシェア';
+
+  @override
+  String get vipVisitorMomentsBenefit => 'モーメントを投稿してシェア';
+
+  @override
+  String get vipUnlimitedEverythingTitle => 'すべて無制限';
+
+  @override
+  String get vipUnlimitedEverythingBenefit => 'メッセージやプロフィール閲覧に1日の上限なし';
+
+  @override
+  String get vipProfileBoostBenefit => '検索結果での表示機会が増えます';
+
+  @override
+  String get vipAdFreeExperienceBenefit => '広告なしでアプリを楽しめます';
+
+  @override
+  String get featureGateUpgradeToUnlock => 'アップグレードしてこの機能を利用しましょう';
+
+  @override
+  String get featureGateVipOnly => 'VIP限定の機能';
+
+  @override
+  String get adsRewardedButtonLabel => '広告を見てボーナスをもらう';
+
+  @override
+  String get promoAdsPerkMessages => '+3 ボーナス\nメッセージ';
+
+  @override
+  String get promoAdsPerkFilters => 'フィルターを\n解除';
+
+  @override
+  String get promoAdsPerkXp => '+10 ボーナス\nXP';
+
+  @override
+  String get promoAdsPerkRetry => '無料で\nもう一度';
+
+  @override
+  String get visitorLimitMessagesTitle => '1日のメッセージ上限に達しました';
+
+  @override
+  String visitorLimitMessagesBody(int count) {
+    return '今日は$count件のメッセージを送信しました。アップグレードしてもっと送信しましょう！';
+  }
+
+  @override
+  String get visitorLimitProfilesTitle => '1日のプロフィール閲覧上限に達しました';
+
+  @override
+  String visitorLimitProfilesBody(int count) {
+    return '今日は$count件のプロフィールを閲覧しました。アップグレードしてもっと見ましょう！';
+  }
+
+  @override
+  String get visitorLimitFreeAccountBenefit => '1日の上限が増えます';
+
+  @override
+  String get visitorLimitVipBenefit => '無制限のアクセス';
+
+  @override
+  String get promoWelcomeBackTutorSubtitle => '会話・発音・クイズを練習';
+
+  @override
+  String get promoWelcomeBackCommunitySubtitle => '近くの言語パートナーを見つけよう';
+
+  @override
+  String get promoWelcomeBackMomentsSubtitle => '語学学習の歩みをシェアしよう';
+
+  @override
+  String get myReportsReportedId => '報告対象のID';
+
+  @override
+  String get myReportsReason => '理由';
+
+  @override
+  String get myReportsSubmitted => '送信日時';
+
+  @override
+  String get myReportsResolved => '解決日時';
+
+  @override
+  String get myReportsModeratorNotes => 'モデレーターのメモ';
+
+  @override
+  String get myReportsNotAvailable => 'なし';
+
+  @override
+  String get myReportsFailedToLoad => '報告の読み込みに失敗しました';
+
+  @override
+  String get voiceRecorderUnavailableDesktop => 'デスクトップでは音声録音は利用できません';
+
+  @override
+  String get adminPageUnavailable => 'このページは利用できません。';
+
+  @override
+  String storyShareSendFailedTo(Object names) {
+    return '$names に送信できませんでした';
+  }
+
+  @override
+  String get storyCantReact => 'このストーリーにはリアクションできません';
+
+  @override
+  String get storyCantReply => 'このストーリーには返信できません';
+
+  @override
+  String get storyNoMediaToSave => 'このストーリーには保存できるメディアがありません';
+
+  @override
+  String get coinsAdCrediting => '付与中…';
+
+  @override
+  String get coinsWatchAdReward => '広告を見る（+5 💎）';
+
+  @override
+  String callUnavailable(String name) {
+    return '$nameさんは現在通話を受け付けていません';
+  }
+
+  @override
+  String get callDeclineWithMessage => 'メッセージ';
+
+  @override
+  String get callDeclineSheetTitle => 'メッセージを添えて拒否';
+
+  @override
+  String get callDeclineCannedLater => '今は話せません。あとで折り返します。';
+
+  @override
+  String get callDeclineCannedText => '今は話せません。メッセージください。';
+
+  @override
+  String get callDeclineCustomHint => 'メッセージを入力…';
+
+  @override
+  String get callDeclineSend => '送信';
+
+  @override
+  String get callBackAction => 'かけ直す';
+
+  @override
+  String get callMessageAction => 'メッセージ';
+
+  @override
+  String get callsAllowTitle => '通話を許可';
+
+  @override
+  String get callsAllowSubtitle => 'オフにすると、あなたへの着信は鳴りません。発信者にはあなたが通話を受け付けていないことが表示されます。';
+
+  @override
+  String get callsQuietHoursNote => '「緊急通知を許可する」がオフの場合、サイレント時間中は着信も保留されます。';
+
+  @override
+  String get callTurnOnCamera => 'カメラ';
+
+  @override
+  String get callCameraFailed => 'カメラをオンにできませんでした';
+
+  @override
+  String get callSelfViewLabel => 'あなたのカメラ。ドラッグで移動できます。';
+
+  @override
+  String get callSelfViewSwapHint => 'ダブルタップで相手の映像と入れ替えます';
 }

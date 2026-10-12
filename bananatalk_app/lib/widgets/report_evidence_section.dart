@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/report_model.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
@@ -29,7 +30,7 @@ class ReportEvidenceSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Evidence',
+          AppLocalizations.of(context)!.commonEvidence,
           style: context.labelSmall.copyWith(
             fontWeight: FontWeight.w600,
           ),
@@ -163,7 +164,7 @@ class _ImageEvidenceViewState extends State<_ImageEvidenceView> {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      'Image failed',
+                      AppLocalizations.of(context)!.commonImageFailed,
                       style: context.caption.copyWith(
                         color: context.textHint,
                       ),
@@ -218,6 +219,9 @@ class _ImageEvidenceViewState extends State<_ImageEvidenceView> {
     );
   }
 }
+
+/// Dart's `Exception.toString()` prefix, stripped before showing the reason.
+const _exceptionPrefix = 'Exception: ';
 
 /// Displays a text evidence file with expandable preview.
 /// Shows first 3 lines by default, with "Show more" button to expand full content.
@@ -345,8 +349,8 @@ class _TextEvidenceViewState extends State<_TextEvidenceView> {
                       // would have them treat the report as unsupported.
                       snapshot.error
                               ?.toString()
-                              .replaceFirst('Exception: ', '') ??
-                          'Error loading file',
+                              .replaceFirst(_exceptionPrefix, '') ??
+                          AppLocalizations.of(context)!.commonErrorLoadingFile,
                       textAlign: TextAlign.center,
                       style: context.caption.copyWith(
                         color: context.textHint,
@@ -380,7 +384,7 @@ class _TextEvidenceViewState extends State<_TextEvidenceView> {
                           child: GestureDetector(
                             onTap: () => setState(() => _isExpanded = true),
                             child: Text(
-                              'Show more',
+                              AppLocalizations.of(context)!.commonShowMore,
                               style: context.caption.copyWith(
                                 color: AppColors.primary,
                                 fontWeight: FontWeight.w600,

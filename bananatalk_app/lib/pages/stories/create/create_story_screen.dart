@@ -139,7 +139,7 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
     if (_hashtags.length >= _maxHashtags) {
       showStoriesSnackBar(
         context,
-        message: 'You can add up to $_maxHashtags hashtags',
+        message: AppLocalizations.of(context)!.storyMaxHashtags(_maxHashtags),
         type: StoriesSnackBarType.info,
       );
       return;
@@ -364,7 +364,10 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
           showStoriesSnackBar(
             context,
             message:
-                'Video optimized: ${result.fileSizeMB}MB (saved ${result.compressionSavings.toStringAsFixed(0)}%)',
+                AppLocalizations.of(context)!.videoOptimized(
+                  result.fileSizeMB.toString(),
+                  result.compressionSavings.toStringAsFixed(0),
+                ),
             type: StoriesSnackBarType.success,
           );
         }
@@ -372,7 +375,7 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
         if (mounted) {
           showStoriesSnackBar(
             context,
-            message: result.error ?? 'Failed to process video',
+            message: result.error ?? AppLocalizations.of(context)!.failedToProcessVideo,
             type: StoriesSnackBarType.error,
           );
         }
@@ -440,7 +443,7 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
             Text(
               _videoProcessingStatus.isNotEmpty
                   ? _videoProcessingStatus
-                  : 'Processing...',
+                  : AppLocalizations.of(context)!.storyProcessing,
               style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
@@ -450,7 +453,7 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
             ),
             const SizedBox(height: 8),
             Text(
-              'Optimizing for the best experience',
+              AppLocalizations.of(context)!.storyOptimizingBestExperience,
               style: TextStyle(fontSize: 13, color: Colors.grey[400]),
               textAlign: TextAlign.center,
             ),
@@ -548,7 +551,7 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
             setState(() => _isUploading = false);
             showStoriesSnackBar(
               context,
-              message: result.error ?? 'Failed to post story',
+              message: result.error ?? AppLocalizations.of(context)!.storyPostFailed,
               type: StoriesSnackBarType.error,
             );
           }
@@ -592,7 +595,7 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
             setState(() => _isUploading = false);
             showStoriesSnackBar(
               context,
-              message: result.error ?? 'Failed to post story',
+              message: result.error ?? AppLocalizations.of(context)!.storyPostFailed,
               type: StoriesSnackBarType.error,
             );
           }
@@ -642,7 +645,7 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
             // `_strokes` field doc for why video/text are excluded.
             if (_mediaFile != null && !_isVideo)
               IconButton(
-                tooltip: 'Draw',
+                tooltip: AppLocalizations.of(context)!.storyToolDraw,
                 onPressed: () => setState(() => _drawMode = !_drawMode),
                 icon: Icon(
                   Icons.brush_rounded,
@@ -661,8 +664,8 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
                           valueColor: AlwaysStoppedAnimation(Colors.white),
                         ),
                       )
-                    : const Text(
-                        'Share',
+                    : Text(
+                        AppLocalizations.of(context)!.share,
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -691,8 +694,8 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
             color: Colors.white30,
           ),
           const SizedBox(height: 24),
-          const Text(
-            'Create a Story',
+          Text(
+            AppLocalizations.of(context)!.storyCreate,
             style: TextStyle(
               color: Colors.white,
               fontSize: 24,
@@ -701,7 +704,7 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
           ),
           const SizedBox(height: 8),
           Text(
-            'Share moments that disappear in 24 hours',
+            AppLocalizations.of(context)!.shareMomentsThatDisappear,
             style: TextStyle(color: Colors.grey[400]),
           ),
           const SizedBox(height: 32),
@@ -712,7 +715,7 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
             children: [
               _buildPickerOption(
                 icon: Icons.photo_library,
-                label: 'Gallery',
+                label: AppLocalizations.of(context)!.gallery,
                 onTap: _pickImage,
               ),
               _buildPickerOption(
@@ -937,7 +940,7 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
                 controller: _captionController,
                 style: const TextStyle(color: Colors.white),
                 decoration: InputDecoration(
-                  hintText: 'Add a caption...',
+                  hintText: AppLocalizations.of(context)!.addACaption,
                   hintStyle: const TextStyle(color: Colors.white54),
                   filled: true,
                   fillColor: Colors.black54,
@@ -984,11 +987,11 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
                 color: Colors.black54,
                 borderRadius: BorderRadius.circular(20),
               ),
-              child: const Row(
+              child: Row(
                 children: [
                   Icon(Icons.refresh, color: Colors.white, size: 20),
                   SizedBox(width: 4),
-                  Text('Change', style: TextStyle(color: Colors.white)),
+                  Text(AppLocalizations.of(context)!.change, style: TextStyle(color: Colors.white)),
                 ],
               ),
             ),
@@ -1031,11 +1034,11 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
                     color: Colors.black54,
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  child: const Row(
+                  child: Row(
                     children: [
                       Icon(Icons.auto_awesome, color: Colors.white, size: 20),
                       SizedBox(width: 4),
-                      Text('Sticker', style: TextStyle(color: Colors.white)),
+                      Text(AppLocalizations.of(context)!.stickerMedia, style: TextStyle(color: Colors.white)),
                     ],
                   ),
                 ),
@@ -1214,13 +1217,13 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
             color: Colors.black54,
             borderRadius: BorderRadius.circular(16),
           ),
-          child: const Row(
+          child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               Icon(Icons.tag, color: Colors.white54, size: 16),
               SizedBox(width: 4),
               Text(
-                'Add tags',
+                AppLocalizations.of(context)!.storyAddTags,
                 style: TextStyle(color: Colors.white70, fontSize: 13),
               ),
             ],
@@ -1302,8 +1305,8 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
               controller: _hashtagController,
               autofocus: true,
               style: const TextStyle(color: Colors.white, fontSize: 14),
-              decoration: const InputDecoration(
-                hintText: 'Add hashtags...',
+              decoration: InputDecoration(
+                hintText: AppLocalizations.of(context)!.storyAddHashtagsHint,
                 hintStyle: TextStyle(color: Colors.white54, fontSize: 14),
                 border: InputBorder.none,
                 isDense: true,
@@ -1464,7 +1467,7 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
     if (_mentions.length >= _maxMentions) {
       showStoriesSnackBar(
         context,
-        message: 'You can mention up to $_maxMentions people',
+        message: AppLocalizations.of(context)!.storyMaxMentions(_maxMentions),
         type: StoriesSnackBarType.info,
       );
       return;
@@ -1623,8 +1626,8 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
                 children: [
                   const Icon(Icons.videocam, color: Colors.white70, size: 80),
                   const SizedBox(height: 16),
-                  const Text(
-                    'Video Selected',
+                  Text(
+                    AppLocalizations.of(context)!.storyVideoSelected,
                     style: TextStyle(
                       color: Colors.white70,
                       fontSize: 20,
@@ -1691,7 +1694,10 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
                     const Icon(Icons.videocam, color: Colors.white, size: 16),
                     const SizedBox(width: 6),
                     Text(
-                      '${_videoProcessResult!.durationFormatted} | ${_videoProcessResult!.fileSizeMB}MB',
+                      AppLocalizations.of(context)!.storyVideoMeta(
+                        _videoProcessResult!.durationFormatted,
+                        _videoProcessResult!.fileSizeMB,
+                      ),
                       style: const TextStyle(color: Colors.white, fontSize: 12),
                     ),
                     if (_videoProcessResult!.wasCompressed) ...[
@@ -1705,8 +1711,8 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
                           color: const Color(0xFF00BFA5),
                           borderRadius: BorderRadius.circular(4),
                         ),
-                        child: const Text(
-                          'HD',
+                        child: Text(
+                          AppLocalizations.of(context)!.storyHd,
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 10,

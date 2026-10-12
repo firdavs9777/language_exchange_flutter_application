@@ -98,7 +98,7 @@ class _TutorChatScreenState extends ConsumerState<TutorChatScreen> {
           adService.showRewarded(onRewarded: () {
             if (mounted) {
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('🎉 +10 Bonus XP for watching!')),
+                SnackBar(content: Text(AppLocalizations.of(context)!.aiBonusXpWatching)),
               );
             }
           });

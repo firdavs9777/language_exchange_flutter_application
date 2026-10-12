@@ -1,6 +1,8 @@
+import 'package:bananatalk_app/models/call_model.dart';
 import 'package:bananatalk_app/pages/chat/conversation/chat_conversation_screen.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
+import 'package:bananatalk_app/services/call/call_launcher.dart';
 import 'package:bananatalk_app/services/daily_chat_limit_service.dart';
 import 'package:bananatalk_app/widgets/vip_locked_feature.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
@@ -13,10 +15,16 @@ class ChatScreenWrapper extends ConsumerStatefulWidget {
   final String userId;
   final String? prefillMessage;
 
+  /// 'audio' | 'video': start that call once the user is loaded (missed-call
+  /// "Call back", `/chat/:userId?call=`). Busy, unavailable and permission
+  /// outcomes are shown by [CallLauncher].
+  final String? autoCall;
+
   const ChatScreenWrapper({
     super.key,
     required this.userId,
     this.prefillMessage,
+    this.autoCall,
   });
 
   @override
@@ -28,6 +36,7 @@ class _ChatScreenWrapperState extends ConsumerState<ChatScreenWrapper> {
   bool _isLoading = true;
   String? _error;
   bool _chatLimitReached = false;
+  bool _autoCallDone = false;
 
   @override
   void initState() {
@@ -47,6 +56,7 @@ class _ChatScreenWrapperState extends ConsumerState<ChatScreenWrapper> {
           _userData = userData;
           _isLoading = false;
         });
+        if (userData != null) _startAutoCall(userData);
       }
     } catch (e) {
       if (mounted) {
@@ -56,6 +66,23 @@ class _ChatScreenWrapperState extends ConsumerState<ChatScreenWrapper> {
         });
       }
     }
+  }
+
+  void _startAutoCall(Community user) {
+    final type = widget.autoCall;
+    if (type == null || _autoCallDone) return;
+    _autoCallDone = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      CallLauncher.start(
+        context,
+        ref,
+        userId: widget.userId,
+        userName: user.name,
+        avatar: user.profileImageUrl,
+        type: type == 'video' ? CallType.video : CallType.audio,
+      );
+    });
   }
 
   @override
@@ -109,7 +136,7 @@ class _ChatScreenWrapperState extends ConsumerState<ChatScreenWrapper> {
                 ),
                 const SizedBox(height: 12),
                 Text(
-                  'Free users can chat with up to ${DailyChatLimitService.maxDailyChats} people per day.\nUpgrade to VIP for unlimited conversations!',
+                  AppLocalizations.of(context)!.chatDailyLimitBody(DailyChatLimitService.maxDailyChats),
                   style: TextStyle(
                     fontSize: 14,
                     color: context.textSecondary,

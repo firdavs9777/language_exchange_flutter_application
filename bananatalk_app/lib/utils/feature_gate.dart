@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/vip_subscription.dart';
 import 'package:bananatalk_app/models/user_limits.dart';
 import 'package:bananatalk_app/providers/provider_models/users_model.dart';
 import 'package:bananatalk_app/widgets/visitor_limit_dialog.dart';
 import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
+import 'package:bananatalk_app/widgets/limit_exceeded_dialog.dart';
 
 class FeatureGate {
   /// Check if user can send a message
@@ -156,18 +158,16 @@ class FeatureGate {
     String limitType,
     String? errorMessage,
   ) async {
+    final l10n = AppLocalizations.of(context)!;
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Daily Limit Reached'),
-        content: Text(
-          errorMessage ??
-              'You have reached your daily $limitType limit. Upgrade to VIP for unlimited access!',
-        ),
+        title: Text(l10n.limitDailyReachedTitle),
+        content: Text(errorMessage ?? limitTypeDescription(l10n, limitType)),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('OK'),
+            child: Text(l10n.ok),
           ),
           ElevatedButton(
             onPressed: () {
@@ -175,16 +175,17 @@ class FeatureGate {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => VipPlansScreen(userId: ''),
+                  builder: (context) => const VipPlansScreen(userId: ''),
                 ),
               );
             },
-            child: const Text('Upgrade to VIP'),
+            child: Text(l10n.upgradeToVip),
           ),
         ],
       ),
     );
   }
+
 
   /// Wrap a widget with feature gate logic
   static Widget wrapWithFeatureGate({
@@ -238,10 +239,10 @@ class FeatureGate {
     IconData icon;
 
     if (user.isVisitor) {
-      message = 'Upgrade to unlock this feature';
+      message = AppLocalizations.of(context)!.featureGateUpgradeToUnlock;
       icon = Icons.lock_outline;
     } else {
-      message = 'VIP only feature';
+      message = AppLocalizations.of(context)!.featureGateVipOnly;
       icon = Icons.workspace_premium;
     }
 
@@ -274,13 +275,17 @@ class FeatureGate {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => VipPlansScreen(
+                  builder: (context) => const VipPlansScreen(
                     userId: '', // You'll need to pass the actual userId
                   ),
                 ),
               );
             },
-            child: Text(user.isVisitor ? 'Upgrade Now' : 'Go VIP'),
+            child: Text(
+              user.isVisitor
+                  ? AppLocalizations.of(context)!.vipUpgradeNow
+                  : AppLocalizations.of(context)!.goVip,
+            ),
           ),
         ],
       ),
@@ -303,7 +308,8 @@ extension UserFeatureExtensions on User {
   }
 
   /// Get the badge widget for the user mode
-  Widget get modeBadge {
+  Widget modeBadge(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     switch (userMode) {
       case UserMode.visitor:
         return Container(
@@ -318,7 +324,7 @@ extension UserFeatureExtensions on User {
               Icon(Icons.person_outline, size: 12, color: Colors.grey[700]),
               const SizedBox(width: 4),
               Text(
-                'Visitor',
+                l10n.vipTierVisitor,
                 style: TextStyle(
                   fontSize: 10,
                   fontWeight: FontWeight.bold,
@@ -335,14 +341,14 @@ extension UserFeatureExtensions on User {
             color: Colors.blue[100],
             borderRadius: BorderRadius.circular(12),
           ),
-          child: const Row(
+          child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(Icons.person, size: 12, color: Colors.blue),
-              SizedBox(width: 4),
+              const Icon(Icons.person, size: 12, color: Colors.blue),
+              const SizedBox(width: 4),
               Text(
-                'Member',
-                style: TextStyle(
+                l10n.vipTierMember,
+                style: const TextStyle(
                   fontSize: 10,
                   fontWeight: FontWeight.bold,
                   color: Colors.blue,
@@ -360,14 +366,14 @@ extension UserFeatureExtensions on User {
             ),
             borderRadius: BorderRadius.circular(12),
           ),
-          child: const Row(
+          child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(Icons.workspace_premium, size: 12, color: Colors.white),
-              SizedBox(width: 4),
+              const Icon(Icons.workspace_premium, size: 12, color: Colors.white),
+              const SizedBox(width: 4),
               Text(
-                'VIP',
-                style: TextStyle(
+                l10n.vip,
+                style: const TextStyle(
                   fontSize: 10,
                   fontWeight: FontWeight.bold,
                   color: Colors.white,

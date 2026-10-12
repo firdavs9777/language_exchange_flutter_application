@@ -218,9 +218,9 @@ class PhotoGridTile extends StatelessWidget {
                   color: const Color(0xFF7C4DFF),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: const Text(
-                  'NEW',
-                  style: TextStyle(
+                child: Text(
+                  l10n.newUser,
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 9,
                     fontWeight: FontWeight.w800,

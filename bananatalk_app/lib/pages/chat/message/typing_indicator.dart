@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
@@ -80,6 +81,7 @@ class _ChatTypingIndicatorState extends State<ChatTypingIndicator>
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return FadeTransition(
       opacity: _appearanceAnimation,
       child: SlideTransition(
@@ -133,7 +135,7 @@ class _ChatTypingIndicatorState extends State<ChatTypingIndicator>
               ),
               const SizedBox(width: 4),
               Text(
-                'typing',
+                l10n.typing,
                 style: TextStyle(
                   color: context.textSecondary,
                   fontSize: 11,
@@ -208,11 +210,12 @@ class _CompactTypingIndicatorState extends State<CompactTypingIndicator>
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(
-          'typing',
+          l10n.typing,
           style: TextStyle(
             color: context.textSecondary,
             fontSize: 13,

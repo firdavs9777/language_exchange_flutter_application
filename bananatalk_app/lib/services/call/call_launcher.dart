@@ -51,6 +51,8 @@ class CallLauncher {
         if (call != null) (openActive ?? CallRoutes.openActive)(call);
       case InitiateStatus.calleeBusy:
         _snack(context, l10n.callLabelBusy(userName));
+      case InitiateStatus.calleeUnavailable:
+        _snack(context, l10n.callUnavailable(userName));
       case InitiateStatus.callerBusy:
         // Already in a call (here or on another device): never a second screen.
         _snack(context, l10n.callFailed);

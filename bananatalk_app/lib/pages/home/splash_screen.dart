@@ -122,13 +122,21 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     if (remaining > Duration.zero) await Future.delayed(remaining);
 
     if (!mounted) return;
-    await VersionCheckCoordinator().check(context);
+    // One pop-up per launch (spec §4.1): an update dialog spends the
+    // PopupBudget, and the welcome-back sheet only shows if it is unspent.
+    await VersionCheckCoordinator.checkSafely(context);
     if (!mounted) return;
 
-    final shouldShowWelcomeBack = await WelcomeBackService.checkAndMark();
-    if (shouldShowWelcomeBack && mounted && isAuthenticated) {
-      await showWelcomeBackModal(context);
+    final welcomeBackDue = await WelcomeBackService.isDue();
+    if (!mounted) return;
+    if (isAuthenticated && welcomeBackDue) {
+      // Marked only once the sheet actually shows: when the update dialog
+      // already spent the budget, welcome-back stays armed for next launch.
+      await maybeShowWelcomeBack(context,
+          due: true, onShown: WelcomeBackService.markOpened);
       if (!mounted) return;
+    } else {
+      unawaited(WelcomeBackService.markOpened());
     }
 
     if (isAuthenticated) {

@@ -44,6 +44,13 @@ _SpotlightContent _contentFor(PromoType type, AppLocalizations l10n) {
         subtitle: l10n.promoSpotlightVoiceSubtitle,
         accent: AppColors.accent,
       );
+    case PromoType.aiStudy:
+      return _SpotlightContent(
+        emoji: '🎭',
+        headline: l10n.aiStudyPromoTitle,
+        subtitle: l10n.aiStudyPromoBody,
+        accent: AppColors.primary,
+      );
   }
 }
 

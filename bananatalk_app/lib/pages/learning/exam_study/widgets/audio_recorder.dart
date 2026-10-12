@@ -181,7 +181,7 @@ class _AudioRecorderState extends State<AudioRecorder> {
         ),
         const SizedBox(height: 12),
         Text(
-          'Tap to start recording',
+          AppLocalizations.of(context)!.learnTapStartRecording,
           style: TextStyle(
             fontSize: 13,
             color: context.textSecondary,
@@ -256,7 +256,9 @@ class _AudioRecorderState extends State<AudioRecorder> {
             OutlinedButton.icon(
               onPressed: _playRecording,
               icon: Icon(isPlaying ? Icons.stop_rounded : Icons.play_arrow_rounded),
-              label: Text(isPlaying ? 'Stop' : 'Play'),
+              label: Text(isPlaying
+                  ? AppLocalizations.of(context)!.stopAction
+                  : AppLocalizations.of(context)!.learnPlay),
               style: OutlinedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(24),
@@ -294,9 +296,9 @@ class _AudioRecorderState extends State<AudioRecorder> {
                 borderRadius: BorderRadius.circular(24),
               ),
             ),
-            child: const Text(
-              'Submit recording',
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),
+            child: Text(
+              AppLocalizations.of(context)!.examSpeakingSubmit,
+              style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w800),
             ),
           ),
         ),

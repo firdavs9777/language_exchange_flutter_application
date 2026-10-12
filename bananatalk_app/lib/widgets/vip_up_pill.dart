@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 
@@ -55,9 +56,9 @@ class VipUpPill extends StatelessWidget {
                     ),
                   ],
                 ),
-                child: const Text(
-                  'VIP',
-                  style: TextStyle(
+                child: Text(
+                  AppLocalizations.of(context)!.vip,
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 12,
                     fontWeight: FontWeight.w800,
@@ -79,9 +80,9 @@ class VipUpPill extends StatelessWidget {
                       width: 1.5,
                     ),
                   ),
-                  child: const Text(
-                    'Up',
-                    style: TextStyle(
+                  child: Text(
+                    AppLocalizations.of(context)!.vipUpPillUp,
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 8,
                       fontWeight: FontWeight.w700,

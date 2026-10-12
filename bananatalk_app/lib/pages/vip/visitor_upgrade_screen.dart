@@ -34,7 +34,7 @@ class VisitorUpgradeScreen extends StatelessWidget {
             Container(
               width: double.infinity,
               padding: Spacing.paddingXXL,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 gradient: AppColors.primaryGradient,
               ),
               child: Column(
@@ -46,7 +46,7 @@ class VisitorUpgradeScreen extends StatelessWidget {
                   ),
                   Spacing.gapLG,
                   Text(
-                    'Visitor Mode Limit Reached',
+                    AppLocalizations.of(context)!.vipVisitorModeLimitReached,
                     style: context.displayMedium.copyWith(
                       color: AppColors.white,
                     ),
@@ -55,7 +55,7 @@ class VisitorUpgradeScreen extends StatelessWidget {
                   Spacing.gapSM,
                   Text(
                     limitMessage ??
-                        'Upgrade to unlock more features and unlimited access',
+                        AppLocalizations.of(context)!.vipUpgradeUnlockMore,
                     style: context.bodyLarge.copyWith(
                       color: AppColors.white.withOpacity(0.8),
                     ),
@@ -72,7 +72,7 @@ class VisitorUpgradeScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'What You Get with a Free Account',
+                    AppLocalizations.of(context)!.vipWhatGetFreeAccount,
                     style: context.titleLarge,
                   ),
                   Spacing.gapLG,
@@ -80,31 +80,31 @@ class VisitorUpgradeScreen extends StatelessWidget {
                     context: context,
                     icon: Icons.message,
                     title: AppLocalizations.of(context)!.moreMessages,
-                    description: 'Send up to 50 messages per day',
+                    description: AppLocalizations.of(context)!.vipVisitorMessagesBenefit,
                   ),
                   _buildBenefitItem(
                     context: context,
                     icon: Icons.visibility,
                     title: AppLocalizations.of(context)!.moreProfileViews,
-                    description: 'View up to 100 profiles per day',
+                    description: AppLocalizations.of(context)!.vipVisitorProfilesBenefit,
                   ),
                   _buildBenefitItem(
                     context: context,
                     icon: Icons.person_add,
                     title: AppLocalizations.of(context)!.connectWithFriends,
-                    description: 'Add friends and build your network',
+                    description: AppLocalizations.of(context)!.vipVisitorFriendsBenefit,
                   ),
                   _buildBenefitItem(
                     context: context,
                     icon: Icons.group,
-                    title: 'Join Communities',
-                    description: 'Participate in community discussions',
+                    title: AppLocalizations.of(context)!.vipVisitorCommunitiesTitle,
+                    description: AppLocalizations.of(context)!.vipVisitorCommunitiesBenefit,
                   ),
                   _buildBenefitItem(
                     context: context,
                     icon: Icons.photo_library,
-                    title: 'Share Moments',
-                    description: 'Post and share your moments',
+                    title: AppLocalizations.of(context)!.vipVisitorMomentsTitle,
+                    description: AppLocalizations.of(context)!.vipVisitorMomentsBenefit,
                   ),
                 ],
               ),
@@ -135,7 +135,7 @@ class VisitorUpgradeScreen extends StatelessWidget {
                     ),
                   ),
                   child: Text(
-                    'Create Free Account',
+                    AppLocalizations.of(context)!.vipCreateFreeAccount,
                     style: context.titleMedium.copyWith(
                       color: AppColors.white,
                     ),
@@ -155,7 +155,7 @@ class VisitorUpgradeScreen extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Text(
-                      'OR',
+                      AppLocalizations.of(context)!.or,
                       style: context.labelMedium.copyWith(
                         color: context.textSecondary,
                       ),
@@ -175,29 +175,29 @@ class VisitorUpgradeScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Go VIP for Unlimited Access',
+                    AppLocalizations.of(context)!.vipGoUnlimitedAccess,
                     style: context.titleLarge,
                   ),
                   Spacing.gapLG,
                   _buildBenefitItem(
                     context: context,
                     icon: Icons.all_inclusive,
-                    title: 'Unlimited Everything',
-                    description: 'No daily limits on messages or profile views',
+                    title: AppLocalizations.of(context)!.vipUnlimitedEverythingTitle,
+                    description: AppLocalizations.of(context)!.vipUnlimitedEverythingBenefit,
                     vip: true,
                   ),
                   _buildBenefitItem(
                     context: context,
                     icon: Icons.trending_up,
-                    title: 'Profile Boost',
-                    description: 'Get more visibility in search results',
+                    title: AppLocalizations.of(context)!.profileBoost,
+                    description: AppLocalizations.of(context)!.vipProfileBoostBenefit,
                     vip: true,
                   ),
                   _buildBenefitItem(
                     context: context,
                     icon: Icons.block,
-                    title: 'Ad-Free Experience',
-                    description: 'Enjoy the app without advertisements',
+                    title: AppLocalizations.of(context)!.adFreeExperience,
+                    description: AppLocalizations.of(context)!.vipAdFreeExperienceBenefit,
                     vip: true,
                   ),
                 ],
@@ -231,7 +231,7 @@ class VisitorUpgradeScreen extends StatelessWidget {
                       const Icon(Icons.workspace_premium),
                       Spacing.hGapSM,
                       Text(
-                        'Continue as Visitor',
+                        AppLocalizations.of(context)!.vipContinueAsVisitor,
                         style: context.titleMedium.copyWith(
                           color: AppColors.primary,
                         ),

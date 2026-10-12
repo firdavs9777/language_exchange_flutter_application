@@ -7040,7 +7040,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get examSpeakingPart3 => 'Speaking — Part 3';
 
   @override
-  String get examSpeakingSubmit => 'Submit recording';
+  String get examSpeakingSubmit => '녹음 제출';
 
   @override
   String get examSpeakingUploading => '업로드 중…';
@@ -9550,4 +9550,1645 @@ class AppLocalizationsKo extends AppLocalizations {
   String translatedToLanguage(String language) {
     return '$language(으)로 번역됨';
   }
+
+  @override
+  String guideProgress(int count) {
+    return '시작하기 · 4개 중 $count개';
+  }
+
+  @override
+  String get guideChatTip => '길게 눌러 번역하거나 교정하세요';
+
+  @override
+  String get announcementTitle => '공지';
+
+  @override
+  String get announcementUnavailable => '더 이상 볼 수 없는 공지입니다.';
+
+  @override
+  String get notifyAnnouncementsTitle => '공지사항';
+
+  @override
+  String get notifyAnnouncementsSubtitle => 'BananaTalk 팀의 소식과 업데이트';
+
+  @override
+  String chatDailyLimitBody(Object count) {
+    return '무료 사용자는 하루에 최대 $count명과 채팅할 수 있습니다.\nVIP로 업그레이드하면 무제한으로 대화할 수 있어요!';
+  }
+
+  @override
+  String get chatCompressingVideo => '동영상 압축 중...';
+
+  @override
+  String chatShareLocationBody(Object name) {
+    return '현재 위치를 $name님에게 보냅니다. 신뢰하는 사람에게만 보내세요.';
+  }
+
+  @override
+  String get chatShareLocationThisChat => '이 채팅';
+
+  @override
+  String get chatTranslationLimitReached => '번역 한도에 도달했습니다';
+
+  @override
+  String get chatTranslateLimitBody => '이 채팅에서 오늘의 무료 번역을 모두 사용했습니다. 코인으로 즉시 더 잠금 해제하세요.';
+
+  @override
+  String chatReplyingTo(Object name) {
+    return '$name님에게 답장 중';
+  }
+
+  @override
+  String get chatReplyingToFallback => '사용자';
+
+  @override
+  String chatSendingMedia(Object mediaType) {
+    return '$mediaType 보내는 중...';
+  }
+
+  @override
+  String get chatEnterUsernameStart => '채팅을 시작하려면 사용자 이름을 입력하세요';
+
+  @override
+  String chatSearching(Object username) {
+    return '@$username 검색 중...';
+  }
+
+  @override
+  String chatDeleteConversationBody(Object name) {
+    return '$name님과의 대화를 삭제할까요? 이 작업은 되돌릴 수 없습니다.';
+  }
+
+  @override
+  String get chatQrCode => 'QR 코드';
+
+  @override
+  String get chatDraft => '임시 저장: ';
+
+  @override
+  String get chatTyping => '입력 중...';
+
+  @override
+  String get chatPoweredBy => '제공: ';
+
+  @override
+  String get chatReconnecting => '채팅에 다시 연결하는 중...';
+
+  @override
+  String get chatDailyLimitReached => '일일 메시지 한도에 도달했습니다';
+
+  @override
+  String chatMessagesRemainingToday(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '오늘 $count개 남음',
+      one: '오늘 1개 남음',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get chatTranslatePreviewHint => '입력을 시작하면 번역이 표시됩니다';
+
+  @override
+  String get chatNoMessagesYet => '아직 메시지가 없습니다';
+
+  @override
+  String get chatMediaPhoto => '사진';
+
+  @override
+  String get chatMediaVideo => '동영상';
+
+  @override
+  String get chatMediaAudio => '오디오';
+
+  @override
+  String get chatMediaFile => '파일';
+
+  @override
+  String get chatMediaGeneric => '미디어';
+
+  @override
+  String get chatMessageFailedToSend => '메시지를 보내지 못했습니다';
+
+  @override
+  String get chatSendingEllipsis => '보내는 중...';
+
+  @override
+  String get chatFailedTapOptions => '실패 · 탭하여 옵션 보기';
+
+  @override
+  String get chatMessageWasDeleted => '삭제된 메시지입니다';
+
+  @override
+  String get chatStory => '스토리';
+
+  @override
+  String get chatHi => '안녕!';
+
+  @override
+  String get chatEdited => '수정됨';
+
+  @override
+  String get chatPremium => '프리미엄 ✨';
+
+  @override
+  String chatUnlockPremiumWallpapers(Object cost) {
+    return '💎$cost 코인으로 모든 프리미엄 ✨ 배경화면을 잠금 해제할까요? 팩 전체가 영구적으로 잠금 해제됩니다.';
+  }
+
+  @override
+  String chatWallpaperForName(Object userName) {
+    return '$userName님과의 채팅 배경화면';
+  }
+
+  @override
+  String get chatChooseGallery => '갤러리에서 선택';
+
+  @override
+  String get chatHiThere => '안녕하세요! 😊';
+
+  @override
+  String chatCorrected(Object correctorName) {
+    return '$correctorName님이 교정했습니다';
+  }
+
+  @override
+  String get chatCorrectionAccepted => '교정이 수락되었습니다 ✓';
+
+  @override
+  String chatForwarded(Object senderName) {
+    return '$senderName님에게서 전달됨';
+  }
+
+  @override
+  String get chatCached => '캐시됨';
+
+  @override
+  String get chatWordBreakdown => '단어 분석';
+
+  @override
+  String get chatAlternatives => '대체 표현';
+
+  @override
+  String chatTranslationAlso(Object items) {
+    return '그 외: $items';
+  }
+
+  @override
+  String get chatAudioUnavailable => '오디오를 사용할 수 없습니다';
+
+  @override
+  String get chatHideTranslation => '번역 숨기기';
+
+  @override
+  String get chatStoryExpired => '스토리가 만료되었습니다';
+
+  @override
+  String get chatAcceptCorrection => '교정 수락';
+
+  @override
+  String get chatAccepting => '수락하는 중…';
+
+  @override
+  String get chatSaveToVocabularyAction => '어휘장에 저장';
+
+  @override
+  String momentsMore(Object hidden) {
+    return '+$hidden개 더보기';
+  }
+
+  @override
+  String get momentsAllow => '허용';
+
+  @override
+  String get momentsCompressed => '압축됨';
+
+  @override
+  String get momentsPromptDay => '오늘의 주제';
+
+  @override
+  String get momentsAnswer => '답변하기';
+
+  @override
+  String get momentsAnswerCamera => '🎥 카메라로 답변하기';
+
+  @override
+  String momentsPracticeWriting(Object langName) {
+    return '$langName 글쓰기 연습';
+  }
+
+  @override
+  String get momentsReelPolicyBody => '릴스는 짧은 언어 학습 영상입니다. 주제 답변, 말하기 연습, 원어민 설명, 문화 클립 등이 올라옵니다.\n\nBananatalk는 부적절한 콘텐츠에 무관용 원칙을 적용합니다. 노출, 혐오 발언, 괴롭힘, 폭력, 불법 콘텐츠는 금지됩니다. 신고된 영상은 신고 2건이 접수되면 검토 전까지 자동으로 숨겨지며, 위반 시 콘텐츠가 삭제되거나 계정이 정지될 수 있습니다.\n\n언제든지 모든 릴스에서 신고하거나 차단할 수 있습니다.';
+
+  @override
+  String get momentsIAgree => '동의합니다';
+
+  @override
+  String get momentsWhyReportingReel => '이 릴스를 신고하는 이유는 무엇인가요?';
+
+  @override
+  String get momentsNoReelsYet => '아직 릴스가 없습니다';
+
+  @override
+  String get momentsNoReelsBody => '오늘의 주제에 카메라로 가장 먼저 답변하거나 자유로운 언어 학습 클립을 녹화해 보세요.';
+
+  @override
+  String get momentsPullDownRefresh => '아래로 당겨 새로고침';
+
+  @override
+  String get momentsErrorLoadingVideo => '동영상을 불러오는 중 오류가 발생했습니다';
+
+  @override
+  String get momentsLoadingVideo => '동영상 불러오는 중...';
+
+  @override
+  String momentsFileSizeMb(Object size) {
+    return '${size}MB';
+  }
+
+  @override
+  String momentsMaxDuration(Object duration) {
+    return '최대 $duration';
+  }
+
+  @override
+  String get momentsReportSubmitted => '신고가 접수되었습니다';
+
+  @override
+  String communityLive(Object count) {
+    return '$count명 라이브';
+  }
+
+  @override
+  String get communityFind => '찾기';
+
+  @override
+  String communityFinding(Object username) {
+    return '@$username 찾는 중...';
+  }
+
+  @override
+  String get communitySeeAll => '모두 보기';
+
+  @override
+  String get communitySeeWhoLikes => '나를 좋아하는 사람 보기';
+
+  @override
+  String get communityUnlimitedBrowsingNoAds => '무제한 탐색, 광고 없음, 우선 매칭';
+
+  @override
+  String communityMembersCount(Object count) {
+    return '멤버 $count명';
+  }
+
+  @override
+  String communityPeopleCount(Object count) {
+    return '$count명';
+  }
+
+  @override
+  String get communityFailedLoadArchivedWaves => '보관된 웨이브를 불러오지 못했습니다';
+
+  @override
+  String get communityGreatChat => '멋진 대화였어요! 🎉';
+
+  @override
+  String get communityStayTouchPeopleJust => '방금 대화한 사람들과 계속 연락하세요';
+
+  @override
+  String get communityNotNow => '나중에';
+
+  @override
+  String get communityPerfect => '완벽함';
+
+  @override
+  String communityLv(Object level) {
+    return 'Lv.$level';
+  }
+
+  @override
+  String get communityReact => '반응';
+
+  @override
+  String get communityWavedAtYou => '님이 손을 흔들었어요';
+
+  @override
+  String get communitySomeone => '누군가';
+
+  @override
+  String get communityPeopleInterestedInTopic => '이 주제에 관심 있는 사람들';
+
+  @override
+  String get learnThemedWordSetsBuild => '어휘력을 키우는 주제별 단어 세트';
+
+  @override
+  String get learnTapStartRecording => '탭하여 녹음 시작';
+
+  @override
+  String get learnWordBank => '단어 은행';
+
+  @override
+  String learnCorrectAnswer(Object correctAnswer) {
+    return '정답: $correctAnswer';
+  }
+
+  @override
+  String get learnMatchingDataNotAvailable => '매칭 데이터를 사용할 수 없습니다';
+
+  @override
+  String get learnExerciseCouldNotLoad => '이 연습의 매칭 짝을 불러오지 못했습니다. 레슨을 다시 생성해 보세요.';
+
+  @override
+  String get learnSkipExercise => '연습 건너뛰기';
+
+  @override
+  String get learnTapItemLeftThen => '왼쪽 항목을 탭한 다음 오른쪽에서 짝을 탭하세요';
+
+  @override
+  String learnMatchedOfTotal(Object count, Object count2) {
+    return '$count/$count2 매칭됨';
+  }
+
+  @override
+  String learnCorrectOfTotal(Object correctCount, Object count) {
+    return '$correctCount/$count 정답';
+  }
+
+  @override
+  String get learnDragDropReorderItems => '항목을 끌어서 순서를 바꾸세요';
+
+  @override
+  String learnCorrectOrder(Object order) {
+    return '올바른 순서: $order';
+  }
+
+  @override
+  String learnWordsToReview(int dueCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      dueCount,
+      locale: localeName,
+      other: '복습할 단어 $dueCount개',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnScore(Object score) {
+    return '점수: $score / 100';
+  }
+
+  @override
+  String learnGotCorrect(Object correct, Object count) {
+    return '$count개 중 $correct개를 맞혔습니다.';
+  }
+
+  @override
+  String learnQuestionOf(Object number, Object total) {
+    return '질문 $number / $total';
+  }
+
+  @override
+  String get learnMatchEachWordIts => '각 단어를 그 뜻과 연결하세요';
+
+  @override
+  String get learnCouldNotLoadPacks => '팩을 불러오지 못했습니다';
+
+  @override
+  String learnWordsExercises(Object wordCount, Object exerciseCount) {
+    return '단어 $wordCount개 · 연습 $exerciseCount개';
+  }
+
+  @override
+  String get learnAiAutoFill => 'AI 자동 완성';
+
+  @override
+  String get learnPlay => '재생';
+
+  @override
+  String get learnFinish => '완료';
+
+  @override
+  String get learnNotQuite => '아쉬워요.';
+
+  @override
+  String get learnUnsupportedExercise => '지원되지 않는 연습';
+
+  @override
+  String get learnFailedLoadAchievements => '업적을 불러오지 못했어요';
+
+  @override
+  String learnUnlockedOn(Object date) {
+    return '$date에 달성';
+  }
+
+  @override
+  String get learnChallenges => '챌린지';
+
+  @override
+  String get learnFailedLoadChallenges => '챌린지를 불러오지 못했어요';
+
+  @override
+  String learnNoChallenges(Object type) {
+    return '$type 챌린지가 없어요';
+  }
+
+  @override
+  String get learnCheckBackLater => '나중에 다시 확인해 주세요!';
+
+  @override
+  String learnActiveCount(Object count) {
+    return '진행 중 ($count)';
+  }
+
+  @override
+  String learnCompletedCount(Object count) {
+    return '완료 ($count)';
+  }
+
+  @override
+  String get learnProgress => '진행도';
+
+  @override
+  String get learnXpReward => 'XP 보상';
+
+  @override
+  String get learnBonus => '보너스';
+
+  @override
+  String learnExpires(Object timeRemainingFormatted) {
+    return '$timeRemainingFormatted 후 종료';
+  }
+
+  @override
+  String get learnAchievementUnlocked => '업적 달성!';
+
+  @override
+  String get learnTapContinue => '탭하여 계속';
+
+  @override
+  String get learnChallengeCompleted => '완료';
+
+  @override
+  String get learnDailyGoals => '일일 목표';
+
+  @override
+  String learnLessons(Object completedCount, Object lessonsCount) {
+    return '$completedCount/$lessonsCount 레슨';
+  }
+
+  @override
+  String learnLongestDays(Object longestStreak) {
+    return '최장: $longestStreak일';
+  }
+
+  @override
+  String get learnTapReveal => '탭하여 확인';
+
+  @override
+  String get learnNoAchievements => '업적이 없어요';
+
+  @override
+  String get learnDayStreak => '일 연속';
+
+  @override
+  String get learnDueForReview => '복습할 차례예요';
+
+  @override
+  String learnNextReview(Object date) {
+    return '다음: $date';
+  }
+
+  @override
+  String get learnChallengeDaily => '일일';
+
+  @override
+  String get learnChallengeWeekly => '주간';
+
+  @override
+  String get learnChallengeSpecial => '스페셜';
+
+  @override
+  String get learnChallengeDailyDesc => '매일 챌린지를 완료하고 XP와 보상을 받으세요!';
+
+  @override
+  String get learnChallengeWeeklyDesc => '주간 챌린지는 매주 월요일에 갱신돼요';
+
+  @override
+  String get learnChallengeSpecialDesc => '기간 한정 챌린지, 보너스 보상까지!';
+
+  @override
+  String get learnDateToday => '오늘';
+
+  @override
+  String get learnDateTomorrow => '내일';
+
+  @override
+  String learnInDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count일 후',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnInWeeks(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count주 후',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnInMonths(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count개월 후',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiGenerateNewQuiz => '새 퀴즈 만들기';
+
+  @override
+  String get aiPreviousQuizzes => '이전 퀴즈';
+
+  @override
+  String get aiGeneratingQuiz => '퀴즈를 만드는 중…';
+
+  @override
+  String aiFocusArea(Object name) {
+    return '집중 영역: $name';
+  }
+
+  @override
+  String get aiQuizType => '퀴즈 유형';
+
+  @override
+  String get aiDifficulty => '난이도';
+
+  @override
+  String get aiQuestionsLabel => '문제 수:';
+
+  @override
+  String get aiGenerateQuiz => '퀴즈 만들기';
+
+  @override
+  String aiQuizQuestionCount(int questionCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      questionCount,
+      locale: localeName,
+      other: '$questionCount문제',
+      one: '1문제',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String aiCorrectOfTotal(Object correctCount, Object totalQuestions) {
+    return '$correctCount/$totalQuestions 정답';
+  }
+
+  @override
+  String get aiNoQuizzesYet => '아직 퀴즈가 없습니다';
+
+  @override
+  String get aiGenerateFirstQuizAbove => '위에서 첫 퀴즈를 만들어 보세요!';
+
+  @override
+  String aiCorrectOutOf(Object correctCount, Object totalQuestions) {
+    return '$totalQuestions문제 중 $correctCount문제 정답';
+  }
+
+  @override
+  String get aiBackQuizHub => '퀴즈 허브로 돌아가기';
+
+  @override
+  String get aiNoQuestionsAvailable => '사용할 수 있는 문제가 없습니다';
+
+  @override
+  String get aiQuizHasNoQuestions => '이 퀴즈에는 표시할 문제가 없습니다.';
+
+  @override
+  String aiQuestionOf(Object number, Object count) {
+    return '$count문제 중 $number번';
+  }
+
+  @override
+  String get aiYourAnswerLabel => '내 답:';
+
+  @override
+  String get aiBonusXpWatching => '🎉 시청 보너스 +10 XP!';
+
+  @override
+  String get aiNotQuiteRight => '아쉬워요';
+
+  @override
+  String get aiWhy => '왜 그럴까요?';
+
+  @override
+  String get aiGotIt => '알겠어요';
+
+  @override
+  String get aiHint => '힌트';
+
+  @override
+  String aiLevel(Object hintLevel) {
+    return '레벨 $hintLevel/3';
+  }
+
+  @override
+  String get aiAskQuestion => '질문하기';
+
+  @override
+  String get aiAsk => '질문';
+
+  @override
+  String get aiAssistantExamples => '예시';
+
+  @override
+  String get aiExplainConcept => '개념 설명';
+
+  @override
+  String get aiRelatedConcepts => '관련 개념';
+
+  @override
+  String get aiGeneratingLessonSummary => '수업 요약을 만드는 중...';
+
+  @override
+  String get aiLessonSummary => '수업 요약';
+
+  @override
+  String get aiKeyPoints => '핵심 포인트';
+
+  @override
+  String get aiVocabularyRemember => '기억해야 할 어휘';
+
+  @override
+  String get aiGrammarRules => '문법 규칙';
+
+  @override
+  String get aiWhatPracticeNext => '다음에 연습할 것';
+
+  @override
+  String get aiPerfectScore => '만점!';
+
+  @override
+  String get aiGreatJob => '잘했어요!';
+
+  @override
+  String get aiGoodEffort => '수고했어요!';
+
+  @override
+  String get aiKeepPracticing => '계속 연습하세요!';
+
+  @override
+  String get aiFailedToGetHint => '힌트를 가져오지 못했습니다';
+
+  @override
+  String get aiFailedToGetAnswer => '답변을 가져오지 못했습니다';
+
+  @override
+  String get aiFailedToExplain => '설명하지 못했습니다';
+
+  @override
+  String get aiFailedLoadHistory => '기록을 불러오지 못했습니다';
+
+  @override
+  String aiConversationMessageCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '메시지 $count개',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiStartNewConversationSee => '새 대화를 시작하면 여기에 표시됩니다';
+
+  @override
+  String get aiLoadingMessages => '메시지를 불러오는 중...';
+
+  @override
+  String get aiNoMessagesConversation => '이 대화에 메시지가 없습니다';
+
+  @override
+  String get aiDifficultyLevel => '난이도';
+
+  @override
+  String get aiScenarios => '시나리오';
+
+  @override
+  String get aiGrammarCheck => '문법 검사';
+
+  @override
+  String get aiRecentAnalysis => '최근 분석';
+
+  @override
+  String get aiCheckGrammar => '문법 검사하기';
+
+  @override
+  String get aiLanguageLabel => '언어:';
+
+  @override
+  String aiGrammarIssuesFound(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '오류 $count개 발견',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiPerfect => '완벽해요!';
+
+  @override
+  String get aiNoGrammarIssuesFound => '텍스트에서 문법 오류를 찾지 못했습니다.';
+
+  @override
+  String aiIssuesFound(Object count) {
+    return '발견된 오류 ($count)';
+  }
+
+  @override
+  String get aiCorrected => '교정됨';
+
+  @override
+  String get aiGrammarExamples => '예시:';
+
+  @override
+  String get aiImprovedSuggestions => '개선된 제안';
+
+  @override
+  String get aiNoAnalysisHistoryYet => '아직 분석 기록이 없습니다';
+
+  @override
+  String get aiLessonBuilder => 'AI 레슨 빌더';
+
+  @override
+  String get aiGenerateCustomLessons => '맞춤 레슨 만들기';
+
+  @override
+  String get aiCreatesPersonalizedLessonsAny => 'AI가 원하는 주제로 맞춤형 레슨을 만들어 드려요';
+
+  @override
+  String aiExercises(Object exerciseCount) {
+    return '연습 문제: $exerciseCount';
+  }
+
+  @override
+  String get aiSuggestedTopics => '추천 주제';
+
+  @override
+  String get aiCreatingLesson => '레슨을 만드는 중...';
+
+  @override
+  String get aiGeneratingExercisesContent => 'AI가 연습 문제와 콘텐츠를 만들고 있어요';
+
+  @override
+  String get aiLessonGenerated => '레슨이 만들어졌어요!';
+
+  @override
+  String get aiGenerateAnother => '하나 더 만들기';
+
+  @override
+  String get aiStartLesson => '레슨 시작';
+
+  @override
+  String get aiPronunciationPractice => '발음 연습';
+
+  @override
+  String get aiPracticeHistory => '연습 기록';
+
+  @override
+  String get aiTextPractice => '연습할 텍스트';
+
+  @override
+  String get aiWordAnalysis => '단어 분석';
+
+  @override
+  String get aiNoPracticeHistoryYet => '아직 연습 기록이 없습니다';
+
+  @override
+  String get aiSmartTranslation => '스마트 번역';
+
+  @override
+  String get aiWordBreakdown => '단어별 분석';
+
+  @override
+  String get aiAlternativeTranslations => '다른 번역';
+
+  @override
+  String get aiGrammarNotes => '문법 노트';
+
+  @override
+  String get aiIdiomsExpressions => '관용구 및 표현';
+
+  @override
+  String aiLiteral(Object literalTranslation) {
+    return '직역: $literalTranslation';
+  }
+
+  @override
+  String aiMeaning(Object meaning) {
+    return '의미: $meaning';
+  }
+
+  @override
+  String aiEquivalent(Object equivalentIdiom) {
+    return '대응 표현: $equivalentIdiom';
+  }
+
+  @override
+  String get aiCulturalContext => '문화적 맥락';
+
+  @override
+  String get aiNoCompletedConversations => '완료된 대화가 없습니다';
+
+  @override
+  String get aiNoActiveConversations => '진행 중인 대화가 없습니다';
+
+  @override
+  String aiStartInLanguage(Object language) {
+    return '$language(으)로 시작';
+  }
+
+  @override
+  String get aiSelect => '선택';
+
+  @override
+  String aiIssuesCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '오류 $count개',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiGenerateLesson => '레슨 만들기';
+
+  @override
+  String get aiGeneratingEllipsis => '생성 중...';
+
+  @override
+  String get aiAnalyzing => '분석 중...';
+
+  @override
+  String get aiExcellentPronunciation => '훌륭한 발음이에요!';
+
+  @override
+  String get aiGoodJob => '잘했어요!';
+
+  @override
+  String get profileBuyMeCoffee => '커피 한 잔 사주기';
+
+  @override
+  String get profileOr => '또는';
+
+  @override
+  String get profileLoadingNotifications => '알림을 불러오는 중...';
+
+  @override
+  String get profileLoadingSettings => '설정을 불러오는 중...';
+
+  @override
+  String get profileAdmin => '관리자';
+
+  @override
+  String get profileSelected => '선택됨';
+
+  @override
+  String get profilePrivacyIntro => '다른 사람에게 보일 내용은 직접 정할 수 있어요. 항목을 끄면 공개 프로필에서 숨겨집니다.';
+
+  @override
+  String get profileUpdate => '업데이트';
+
+  @override
+  String get profileNoTopicsCategory => '이 카테고리에는 주제가 없습니다';
+
+  @override
+  String get profileAdminTools => '관리자 도구';
+
+  @override
+  String profileCompletionAdd(Object items) {
+    return '추가: $items';
+  }
+
+  @override
+  String get profileActive => '활성';
+
+  @override
+  String get profileAutoSaveEnabled => '자동 저장 켜짐';
+
+  @override
+  String get profileChangesSavedInstantlyWhen => '토글하면 변경 사항이 즉시 저장됩니다.';
+
+  @override
+  String get profileCurrentTheme => '현재 테마';
+
+  @override
+  String get profileThemeChangesApplyInstantly => '테마 변경 사항은 앱 전체에 즉시 적용됩니다.';
+
+  @override
+  String get profileLoadingVisitors => '방문자를 불러오는 중...';
+
+  @override
+  String get profileSeeWhoChecked => '내 프로필을 본 사람 확인하기';
+
+  @override
+  String get profileRecentVisitors => '최근 방문자';
+
+  @override
+  String get profileNoReportsSubmitted => '제출한 신고가 없습니다';
+
+  @override
+  String get profileReportsSubmitWillAppear => '제출한 신고가 여기에 표시됩니다';
+
+  @override
+  String profileReportTypeTitle(Object type) {
+    return '$type 신고';
+  }
+
+  @override
+  String profileReportReason(Object reason) {
+    return '사유: $reason';
+  }
+
+  @override
+  String get profileDeleteAccountFinalBody => '모든 데이터가 영구적으로 삭제됩니다.\n\n정말 확실한가요?';
+
+  @override
+  String get profileThanksForWatching => '시청해 주셔서 감사합니다! 🙏';
+
+  @override
+  String get profileNotificationsOn => '알림 켜짐';
+
+  @override
+  String get profileNotificationsOff => '알림 꺼짐';
+
+  @override
+  String get profileMaximumReached => '최대 개수에 도달했습니다';
+
+  @override
+  String get profilePickYourInterests => '관심사를 골라보세요';
+
+  @override
+  String get profileDeselectToChooseAnother => '다른 것을 고르려면 하나를 선택 해제하세요';
+
+  @override
+  String get profileTapTopicsMatchVibe => '나와 어울리는 주제를 탭하세요';
+
+  @override
+  String get profileEnjoyingPremium => '프리미엄 기능을 누리는 중';
+
+  @override
+  String get profileUnlockUnlimited => '무제한 메시지와 AI 도구를 잠금 해제하세요';
+
+  @override
+  String get profileBirthYear => '출생 연도';
+
+  @override
+  String get profileReportTypeUser => '사용자';
+
+  @override
+  String get profileReportTypeMoment => '모멘트';
+
+  @override
+  String get profileReportTypeComment => '댓글';
+
+  @override
+  String get profileReportTypeMessage => '메시지';
+
+  @override
+  String get profileReportTypeStory => '스토리';
+
+  @override
+  String get profileReportReasonCopyright => '저작권';
+
+  @override
+  String get storyOptimizingBestExperience => '최상의 경험을 위해 최적화 중';
+
+  @override
+  String get storyCreate => '스토리 만들기';
+
+  @override
+  String get storyAddTags => '태그 추가';
+
+  @override
+  String get storyVideoSelected => '비디오 선택됨';
+
+  @override
+  String get storyAddPoll => '투표 추가';
+
+  @override
+  String get storyOptions => '옵션';
+
+  @override
+  String get storyAddQuestion => '질문 추가';
+
+  @override
+  String get storyPrompt => '프롬프트';
+
+  @override
+  String get storyTapAnywhereAddText => '아무 곳이나 탭하여 텍스트 추가';
+
+  @override
+  String storyHighlightStoryCount(int storyCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      storyCount,
+      locale: localeName,
+      other: '스토리 $storyCount개',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storySendFriends => '친구에게 보내기';
+
+  @override
+  String storySelected(Object count) {
+    return '$count개 선택됨';
+  }
+
+  @override
+  String get storyShareSave => '공유/저장';
+
+  @override
+  String storySeenBy(Object viewCount) {
+    return '$viewCount명이 봄';
+  }
+
+  @override
+  String get storyNoViewsYet => '아직 조회수가 없습니다';
+
+  @override
+  String get storyEditVideo => '비디오 편집';
+
+  @override
+  String storyVotes(Object totalVotes) {
+    return '$totalVotes표';
+  }
+
+  @override
+  String get storyCreatePoll => '투표 만들기';
+
+  @override
+  String get storySendAnonymously => '익명으로 보내기';
+
+  @override
+  String storyResponseCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '답변 $count개',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyViewResponses => '답변 보기';
+
+  @override
+  String get storyResponsesTitle => '답변';
+
+  @override
+  String get storyNoResponsesYet => '아직 답변이 없습니다';
+
+  @override
+  String get storyQuestionBox => '질문 상자';
+
+  @override
+  String get storySent => '전송됨!';
+
+  @override
+  String get storyProcessing => '처리 중...';
+
+  @override
+  String get storyHd => 'HD';
+
+  @override
+  String storyVideoMeta(Object duration, Object size) {
+    return '$duration | ${size}MB';
+  }
+
+  @override
+  String get storyUserFallback => '사용자';
+
+  @override
+  String storySendCount(int count) {
+    return '보내기 ($count)';
+  }
+
+  @override
+  String get storyFailedToDelete => '스토리 삭제에 실패했습니다';
+
+  @override
+  String get storyAnonymous => '익명';
+
+  @override
+  String get vipNoCoinActivityYet => '아직 코인 활동이 없습니다';
+
+  @override
+  String get vipCoinShopExplainer => '코인은 무료 일일 한도에 도달한 후 번역, AI 튜터 채팅, 모먼트를 추가로 이용하기 위해 사용합니다. 코인을 사용한 후에는 구매를 환불할 수 없습니다.';
+
+  @override
+  String get vipLimitReached => '한도 도달';
+
+  @override
+  String get vipCoins => '코인';
+
+  @override
+  String vipBonusIncluded(Object bonusCoins) {
+    return '보너스 $bonusCoins 코인 포함';
+  }
+
+  @override
+  String get vipVisitorModeLimitReached => '방문자 모드 한도 도달';
+
+  @override
+  String get vipWhatGetFreeAccount => '무료 계정으로 얻는 혜택';
+
+  @override
+  String get vipCreateFreeAccount => '무료 계정 만들기';
+
+  @override
+  String get vipGoUnlimitedAccess => 'VIP로 무제한 이용하기';
+
+  @override
+  String get vipContinueAsVisitor => '방문자로 계속하기';
+
+  @override
+  String vipResets(Object resetTime) {
+    return '초기화 시각: $resetTime';
+  }
+
+  @override
+  String vipUsedToday(Object currentUsage, Object maxAllowed) {
+    return '오늘 $currentUsage / $maxAllowed 사용';
+  }
+
+  @override
+  String get vipTierVisitor => '방문자';
+
+  @override
+  String get vipTierMember => '회원';
+
+  @override
+  String get vipAd => '광고';
+
+  @override
+  String get promoAdsNoticeTitle => '개발자의 한마디';
+
+  @override
+  String get promoAdsNoticeBody => '안녕하세요! 저는 Bananatalk를 혼자 만들고 있는 Firdavs입니다. 앱을 계속 무료로 유지하고 개발 비용을 마련하기 위해 작은 광고를 몇 개 추가했습니다.\n\n광고가 번거로울 수 있다는 것을 알기에 선택 사항으로 만들고 보상도 드립니다. 광고를 보면 추가 메시지, 커뮤니티 필터, 퀴즈 후 보너스 XP 등을 잠금 해제할 수 있습니다.\n\nBananatalk를 이용해 주셔서 감사합니다. 여러분의 응원이 큰 힘이 됩니다. 🙏';
+
+  @override
+  String get promoAdsNoticeGotIt => '알겠어요, 감사합니다! 👍';
+
+  @override
+  String get vipOnly => 'VIP 전용';
+
+  @override
+  String get vipTapUpgrade => '탭하여 업그레이드';
+
+  @override
+  String get vipUnlockFeatures => 'VIP 기능 잠금 해제';
+
+  @override
+  String get vipUpPillUp => 'UP';
+
+  @override
+  String get vipChooseOption => '옵션을 선택하세요:';
+
+  @override
+  String get promoWelcomeBackTitle => '다시 오신 것을 환영합니다! 👋';
+
+  @override
+  String get promoWelcomeBackBody => '보고 싶었어요. 기다리고 있는 것들이에요:';
+
+  @override
+  String get promoWelcomeBackCta => '시작해요! 🚀';
+
+  @override
+  String get vipCoinsPerAdInfo => '광고당 +5 코인, 하루 최대 5회';
+
+  @override
+  String get vipUpgradeUnlockMore => '업그레이드하고 더 많은 기능과 무제한 이용을 잠금 해제하세요';
+
+  @override
+  String get vipUpgradeNow => '지금 업그레이드';
+
+  @override
+  String get commonContinueWhereLeftOff => '이전에 하던 곳에서 이어서 할까요?';
+
+  @override
+  String get commonLanguageNotProvided => '언어가 지정되지 않았습니다';
+
+  @override
+  String get commonExamNotProvided => '시험이 지정되지 않았습니다';
+
+  @override
+  String get commonMuted => '음소거됨';
+
+  @override
+  String get commonPoorConnection => '연결 상태 불량';
+
+  @override
+  String commonBlockUserConfirmBody(Object targetUserName) {
+    return '$targetUserName님을 차단하시겠습니까?\n\n상대방의 메시지와 게시물이 더 이상 보이지 않으며, 서로의 검색 결과에도 나타나지 않습니다.';
+  }
+
+  @override
+  String get commonVideoFile => '동영상 파일';
+
+  @override
+  String get commonPointCameraBananatalkQr => '카메라를 Bananatalk QR 코드에 비춰 주세요';
+
+  @override
+  String get commonReportSubmittedButSome => '신고가 접수되었지만 일부 증거를 업로드하지 못했습니다';
+
+  @override
+  String commonReportTitle(Object typeLabel) {
+    return '$typeLabel 신고';
+  }
+
+  @override
+  String commonWhyReporting(Object typeLabel) {
+    return '이 $typeLabel을(를) 신고하는 이유는 무엇인가요?';
+  }
+
+  @override
+  String get commonAddEvidenceRequired => '증거 추가 (필수)';
+
+  @override
+  String get commonUploadScreenshotsTextFiles => '신고를 뒷받침할 스크린샷이나 텍스트 파일을 업로드하세요';
+
+  @override
+  String commonAddEvidenceCount(Object count, Object maxFiles) {
+    return '증거 추가 ($count/$maxFiles)';
+  }
+
+  @override
+  String commonReportTotalSize(Object max, Object used) {
+    return '합계: $used / $max';
+  }
+
+  @override
+  String get commonEvidence => '증거';
+
+  @override
+  String get commonImageFailed => '이미지 로드 실패';
+
+  @override
+  String get commonShowMore => '더 보기';
+
+  @override
+  String get commonVoiceRecordingNotAvailable => '음성 녹음을 사용할 수 없음';
+
+  @override
+  String get commonVoiceRecordingOnlyAvailable => '음성 녹음은 모바일 기기에서만 사용할 수 있습니다.';
+
+  @override
+  String get commonReportSubmittedSuccessfully => '신고가 접수되었습니다';
+
+  @override
+  String get commonErrorLoadingFile => '파일 로드 오류';
+
+  @override
+  String get commonReportTypeUser => '사용자';
+
+  @override
+  String get commonReportTypeMoment => '모멘트';
+
+  @override
+  String get commonReportTypeComment => '댓글';
+
+  @override
+  String get commonReportTypeMessage => '메시지';
+
+  @override
+  String get commonReportTypeStory => '스토리';
+
+  @override
+  String get commonReportTypeContent => '콘텐츠';
+
+  @override
+  String get commonReportReasonCopyright => '저작권 침해';
+
+  @override
+  String get momentsRemoveVoiceNote => '음성 메모 삭제';
+
+  @override
+  String get vocabPackLevelProficiency => '숙달';
+
+  @override
+  String get aiFailedToLoadFeedback => '피드백을 불러오지 못했습니다';
+
+  @override
+  String get aiFailedToLoadSummary => '요약을 불러오지 못했습니다';
+
+  @override
+  String get momentFailedToLoad => '모멘트를 불러오지 못했습니다';
+
+  @override
+  String get aiPronunciationWatchAdRetry => '광고 보고 무료로 한 번 더 시도하기';
+
+  @override
+  String aiErrorLoadingLanguages(Object error) {
+    return '언어를 불러오는 중 오류: $error';
+  }
+
+  @override
+  String get aiSelectSourceTargetLanguages => '원본 언어와 대상 언어를 선택해 주세요';
+
+  @override
+  String get aiUnexpectedResponseFormat => '예상하지 못한 응답 형식입니다';
+
+  @override
+  String get aiFailedToLoadConversation => '대화를 불러오지 못했습니다';
+
+  @override
+  String get aiMicPermissionDeniedSettings => '마이크 권한이 거부되었습니다. 설정에서 허용해 주세요.';
+
+  @override
+  String get aiFailedToEvaluatePronunciation => '발음을 평가하지 못했습니다';
+
+  @override
+  String get aiFailedToGenerateSpeech => '음성을 생성하지 못했습니다';
+
+  @override
+  String get aiFailedToGenerateLesson => '레슨을 생성하지 못했습니다';
+
+  @override
+  String get aiLessonTopicRequired => '주제를 입력해 주세요';
+
+  @override
+  String get aiFailedToLoadTopics => '주제를 불러오지 못했습니다';
+
+  @override
+  String get aiFailedToLoadScenarios => '시나리오를 불러오지 못했습니다';
+
+  @override
+  String get aiAnalysisFailed => '분석에 실패했습니다';
+
+  @override
+  String get storySearchPlaceHint => '장소 검색…';
+
+  @override
+  String get storySearchRecentChatsHint => '최근 채팅 검색…';
+
+  @override
+  String get storySearchFollowingHint => '팔로우 중인 사람 검색…';
+
+  @override
+  String get storyAddHashtagsHint => '해시태그 추가...';
+
+  @override
+  String get storyHighlightCreateFailed => '하이라이트를 만들지 못했습니다';
+
+  @override
+  String get storyHighlightRenameFailed => '하이라이트 이름을 바꾸지 못했습니다';
+
+  @override
+  String get storyHighlightDeleteFailed => '하이라이트를 삭제하지 못했습니다';
+
+  @override
+  String get storyViewersLoadFailed => '조회자를 불러오지 못했습니다';
+
+  @override
+  String get storyShareSent => '보냈어요 💛';
+
+  @override
+  String storyShareSentPartial(Object names) {
+    return '보냈어요 💛 — $names에게는 실패했어요';
+  }
+
+  @override
+  String get storyVoteFailed => '투표를 제출하지 못했습니다';
+
+  @override
+  String get storyAnswerFailed => '답변을 보내지 못했습니다';
+
+  @override
+  String get storyAlreadyInHighlight => '이미 하이라이트에 저장되어 있어요';
+
+  @override
+  String get storyAddedToHighlight => '하이라이트에 추가했어요';
+
+  @override
+  String storyMaxHashtags(int max) {
+    return '해시태그는 최대 $max개까지 추가할 수 있어요';
+  }
+
+  @override
+  String storyMaxMentions(int max) {
+    return '최대 $max명까지 멘션할 수 있어요';
+  }
+
+  @override
+  String get coinHistoryActivity => '코인 활동';
+
+  @override
+  String get coinHistoryAdReward => '광고 시청';
+
+  @override
+  String get coinHistoryPurchase => '코인 구매';
+
+  @override
+  String coinHistoryUnlocked(Object feature) {
+    return '$feature 잠금 해제';
+  }
+
+  @override
+  String get vipVisitorMessagesBenefit => '하루 최대 50개의 메시지 보내기';
+
+  @override
+  String get vipVisitorProfilesBenefit => '하루 최대 100개의 프로필 보기';
+
+  @override
+  String get vipVisitorFriendsBenefit => '친구를 추가하고 인맥을 넓혀 보세요';
+
+  @override
+  String get vipVisitorCommunitiesTitle => '커뮤니티 참여';
+
+  @override
+  String get vipVisitorCommunitiesBenefit => '커뮤니티 토론에 참여해 보세요';
+
+  @override
+  String get vipVisitorMomentsTitle => '모멘트 공유';
+
+  @override
+  String get vipVisitorMomentsBenefit => '내 모멘트를 올리고 공유해 보세요';
+
+  @override
+  String get vipUnlimitedEverythingTitle => '모든 것을 무제한으로';
+
+  @override
+  String get vipUnlimitedEverythingBenefit => '메시지와 프로필 조회에 일일 제한 없음';
+
+  @override
+  String get vipProfileBoostBenefit => '검색 결과에서 더 많이 노출돼요';
+
+  @override
+  String get vipAdFreeExperienceBenefit => '광고 없이 앱을 즐겨 보세요';
+
+  @override
+  String get featureGateUpgradeToUnlock => '업그레이드하면 이 기능을 사용할 수 있어요';
+
+  @override
+  String get featureGateVipOnly => 'VIP 전용 기능';
+
+  @override
+  String get adsRewardedButtonLabel => '광고 보고 보너스 받기';
+
+  @override
+  String get promoAdsPerkMessages => '보너스 메시지\n+3';
+
+  @override
+  String get promoAdsPerkFilters => '필터\n잠금 해제';
+
+  @override
+  String get promoAdsPerkXp => '보너스 XP\n+10';
+
+  @override
+  String get promoAdsPerkRetry => '무료\n재시도';
+
+  @override
+  String get visitorLimitMessagesTitle => '일일 메시지 한도에 도달했어요';
+
+  @override
+  String visitorLimitMessagesBody(int count) {
+    return '오늘 메시지를 $count개 보냈어요. 업그레이드하고 더 보내 보세요!';
+  }
+
+  @override
+  String get visitorLimitProfilesTitle => '일일 프로필 조회 한도에 도달했어요';
+
+  @override
+  String visitorLimitProfilesBody(int count) {
+    return '오늘 프로필을 $count개 봤어요. 업그레이드하고 더 둘러보세요!';
+  }
+
+  @override
+  String get visitorLimitFreeAccountBenefit => '더 높은 일일 한도';
+
+  @override
+  String get visitorLimitVipBenefit => '무제한 이용';
+
+  @override
+  String get promoWelcomeBackTutorSubtitle => '대화, 발음, 퀴즈를 연습해 보세요';
+
+  @override
+  String get promoWelcomeBackCommunitySubtitle => '내 주변의 언어 파트너를 찾아보세요';
+
+  @override
+  String get promoWelcomeBackMomentsSubtitle => '나의 언어 학습 여정을 공유해 보세요';
+
+  @override
+  String get myReportsReportedId => '신고 대상 ID';
+
+  @override
+  String get myReportsReason => '사유';
+
+  @override
+  String get myReportsSubmitted => '제출일';
+
+  @override
+  String get myReportsResolved => '해결일';
+
+  @override
+  String get myReportsModeratorNotes => '운영자 메모';
+
+  @override
+  String get myReportsNotAvailable => '해당 없음';
+
+  @override
+  String get myReportsFailedToLoad => '신고 내역을 불러오지 못했습니다';
+
+  @override
+  String get voiceRecorderUnavailableDesktop => '데스크톱에서는 음성 녹음을 사용할 수 없습니다';
+
+  @override
+  String get adminPageUnavailable => '이 페이지를 사용할 수 없습니다.';
+
+  @override
+  String storyShareSendFailedTo(Object names) {
+    return '$names에게 보내지 못했어요';
+  }
+
+  @override
+  String get storyCantReact => '이 스토리에는 반응할 수 없어요';
+
+  @override
+  String get storyCantReply => '이 스토리에는 답장할 수 없어요';
+
+  @override
+  String get storyNoMediaToSave => '이 스토리에는 저장할 미디어가 없어요';
+
+  @override
+  String get coinsAdCrediting => '지급 중…';
+
+  @override
+  String get coinsWatchAdReward => '광고 보기 (+5 💎)';
+
+  @override
+  String callUnavailable(String name) {
+    return '$name님은 지금 통화를 받지 않아요';
+  }
+
+  @override
+  String get callDeclineWithMessage => '메시지';
+
+  @override
+  String get callDeclineSheetTitle => '메시지와 함께 거절';
+
+  @override
+  String get callDeclineCannedLater => '지금은 통화할 수 없어요. 나중에 다시 걸게요.';
+
+  @override
+  String get callDeclineCannedText => '지금은 통화할 수 없어요. 문자 주세요.';
+
+  @override
+  String get callDeclineCustomHint => '메시지를 입력하세요…';
+
+  @override
+  String get callDeclineSend => '보내기';
+
+  @override
+  String get callBackAction => '다시 전화';
+
+  @override
+  String get callMessageAction => '메시지';
+
+  @override
+  String get callsAllowTitle => '통화 허용';
+
+  @override
+  String get callsAllowSubtitle => '끄면 내게 오는 전화가 울리지 않아요. 발신자에게는 통화를 받지 않는 상태로 표시돼요.';
+
+  @override
+  String get callsQuietHoursNote => '‘긴급 알림 허용’이 꺼져 있으면 방해 금지 시간에는 통화도 보류돼요.';
+
+  @override
+  String get callTurnOnCamera => '카메라';
+
+  @override
+  String get callCameraFailed => '카메라를 켤 수 없습니다';
+
+  @override
+  String get callSelfViewLabel => '내 카메라. 드래그해서 이동하세요.';
+
+  @override
+  String get callSelfViewSwapHint => '두 번 탭하면 상대방 영상과 바뀝니다';
 }
