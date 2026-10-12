@@ -1,7 +1,6 @@
 import 'package:bananatalk_app/services/activation_store.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
@@ -22,6 +21,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:bananatalk_app/utils/date_format_locale.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
@@ -2673,9 +2673,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                   Expanded(
                     child: Text(
                       _scheduledDate != null
-                          ? DateFormat.yMd(
-                              Localizations.localeOf(context).toString(),
-                            ).add_jm().format(_scheduledDate!)
+                          ? formatDateTimeForLocale(context, _scheduledDate!)
                           : AppLocalizations.of(
                               context,
                             )!.momentsCreateScheduleForLater,
