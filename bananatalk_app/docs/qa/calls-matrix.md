@@ -121,3 +121,5 @@ Backend with C1–C4 deployed; app with C5–C10. Record as above.
 | CALL2-18 | Swap does not come back by itself | Video call; tap self-view to swap; peer turns camera off, then on after 30 s | Layout returns to peer-big and stays there until A taps again | |
 | CALL2-19 | Decline message vs caller hang-up | B opens the Message sheet; A hangs up before B sends | Sheet and incoming screen close; no second decline; A sees "Missed call" only | |
 | CALL2-20 | Call back to an unavailable callee | A has Allow calls off; B taps Call back on A's missed call | B sees the localized "isn't taking calls right now" message; no crash | |
+| CALL2-21 | Peer upgrade while phone at the ear | Voice call, B holds the phone to the ear; A taps Camera | B's audio moves to the loudspeaker (as for calls started as video) — decide if acceptable; B can still hear and speak | |
+| CALL2-22 | Upgrade with a Bluetooth headset | Voice call on a BT headset; either side upgrades to video | Audio stays on the headset; hang-up restores normal routing | |
