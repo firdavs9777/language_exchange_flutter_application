@@ -251,7 +251,7 @@ Two distinct failures, counted separately because the tooling sees one and not t
       were invisible. Covered the Matches surface, all 106 `exam*` keys, and the rest. The 5 left
       in English are deliberate: `vipBrandTitle` (brand), `helpEmailSupportSubtitle` (an address),
       and the pure-placeholder `dailyScore` / `weeklyReportRange` / `learningXpGained`.
-- [ ] **Hardcoded strings: 692 left** by `test/l10n/hardcoded_text_scanner.dart` (any English literal in the first argument of `Text(`/`SelectableText(`, ternaries and `??` included; excludes `TextSpan`, `hintText`, `labelText`, `tooltip`, `title:`; counted over lib/ minus lib/l10n, brand words like VIP/GIPHY included). Earlier figures (384, 74) used narrower definitions and are not comparable. Next: L2. Done in L1: chat list, input, conversation and paywall (26 keys). These never reach an `.arb`.
+- [ ] **Hardcoded strings: 652 left** by `test/l10n/hardcoded_text_scanner.dart` (any English literal in the first argument, index keys like `m['error']` ignored of `Text(`/`SelectableText(`, ternaries and `??` included; excludes `TextSpan`, `hintText`, `labelText`, `tooltip`, `title:`; counted over lib/ minus lib/l10n, brand words like VIP/GIPHY included). Earlier figures (384, 74) used narrower definitions and are not comparable. Next: L2. Done in L1: chat list, input, conversation and paywall (26 keys). These never reach an `.arb`.
       Done so far: the EULA screen (43), the four learning players + waves (45 keys), the coin
       shop / VIP banner / chat paywall (29), Explore + Facebook login + suspension notice (26),
       both correction sheets + the translation sheet (16), the Moments composer (18), the chat

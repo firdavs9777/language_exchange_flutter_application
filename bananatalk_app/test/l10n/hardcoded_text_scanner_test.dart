@@ -28,4 +28,11 @@ void main() {
     expect(scanSource('a.dart', "Text('\${a}\${b}')"), isEmpty);
     expect(scanSource('a.dart', "// Text('Commented out')"), isEmpty);
   });
+
+  test('ignores index keys but still flags real fallbacks', () {
+    expect(scanSource('a.dart', "Text(m['error'] ?? l10n.x)"), isEmpty);
+    expect(scanSource('a.dart', "Text(data['title'])"), isEmpty);
+    expect(scanSource('a.dart', "Text(m['error'] ?? 'Something failed')"),
+        hasLength(1));
+  });
 }

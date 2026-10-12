@@ -2,6 +2,7 @@ import 'dart:io';
 
 /// Scope: English string literals anywhere in the FIRST argument of a
 /// `Text(` / `SelectableText(` call (plain, ternary, `??`, parenthesised).
+/// Index keys such as `m['error']` are ignored.
 /// Out of scope: `TextSpan(text:)`, `hintText`, `labelText`, `tooltip`,
 /// `title:` and other named-parameter strings.
 ///
@@ -128,6 +129,19 @@ int _firstArgEnd(String s, int i) {
   return s.length;
 }
 
+/// True when the literal spanning [start]..[end] is a lookup key, `m['k']`.
+bool _isIndexKey(String s, int start, int end) {
+  var b = start - 1;
+  while (b >= 0 && ' \t\r\n'.contains(s[b])) {
+    b--;
+  }
+  var a = end;
+  while (a < s.length && ' \t\r\n'.contains(s[a])) {
+    a++;
+  }
+  return b >= 0 && a < s.length && s[b] == '[' && s[a] == ']';
+}
+
 /// English-bearing Text literals in [source]; adjacent literals are joined.
 List<HardcodedText> scanSource(String path, String source) {
   final src = _stripLineComments(source);
@@ -147,7 +161,7 @@ List<HardcodedText> scanSource(String path, String source) {
       if (c == "'" || c == '"' || rawStart) {
         final lit = _literal(arg, i);
         if (lit == null) break;
-        parts.add(lit.$1);
+        if (!_isIndexKey(arg, i, lit.$2)) parts.add(lit.$1);
         i = lit.$2;
       } else {
         i++;
