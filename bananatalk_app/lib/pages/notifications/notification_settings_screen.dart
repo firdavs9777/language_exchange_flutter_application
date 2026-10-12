@@ -182,6 +182,36 @@ class NotificationSettingsScreen extends ConsumerWidget {
 
           const SizedBox(height: 24),
 
+          // Calls
+          _buildSectionTitle(
+            context,
+            l10n.callsTitle,
+            Icons.call_rounded,
+            const Color(0xFF00BFA5),
+          ),
+          const SizedBox(height: 10),
+          _buildSectionContainer(context, [
+            _buildToggleTile(
+              context: context,
+              icon: Icons.phone_in_talk_rounded,
+              iconColor: const Color(0xFF00BFA5),
+              title: l10n.callsAllowTitle,
+              subtitle: l10n.callsAllowSubtitle,
+              value: settings.allowCalls,
+              enabled: true,
+              onChanged: (value) {
+                HapticFeedback.selectionClick();
+                ref
+                    .read(notificationSettingsProvider.notifier)
+                    .toggleSetting('allowCalls', value);
+              },
+              isFirst: true,
+              isLast: true,
+            ),
+          ]),
+
+          const SizedBox(height: 24),
+
           // Quiet Hours
           _buildSectionTitle(
             context,
@@ -270,7 +300,13 @@ class NotificationSettingsScreen extends ConsumerWidget {
                         settings.quietHours.copyWith(allowUrgent: v),
                       );
                 },
-                isLast: true,
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 8, 16, 12),
+                child: Text(
+                  l10n.callsQuietHoursNote,
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
               ),
             ],
           ]),
