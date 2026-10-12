@@ -9560,4 +9560,24 @@ class AppLocalizationsTl extends AppLocalizations {
   String translatedToLanguage(String language) {
     return 'Isinalin sa $language';
   }
+
+  @override
+  String guideProgress(int count) {
+    return 'Pagsisimula · $count sa 4';
+  }
+
+  @override
+  String get guideChatTip => 'Pindutin nang matagal para isalin o itama';
+
+  @override
+  String get announcementTitle => 'Anunsyo';
+
+  @override
+  String get announcementUnavailable => 'Hindi na available ang anunsyong ito.';
+
+  @override
+  String get notifyAnnouncementsTitle => 'Mga anunsyo';
+
+  @override
+  String get notifyAnnouncementsSubtitle => 'Mga balita at update mula sa BananaTalk team';
 }

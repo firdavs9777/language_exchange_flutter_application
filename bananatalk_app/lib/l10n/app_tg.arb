@@ -3369,5 +3369,11 @@
         "type": "String"
       }
     }
-  }
+  },
+  "guideProgress": "Оғоз · {count} аз 4",
+  "guideChatTip": "Барои тарҷума ё ислоҳ дароз пахш кунед",
+  "announcementTitle": "Эълон",
+  "announcementUnavailable": "Ин эълон дигар дастрас нест.",
+  "notifyAnnouncementsTitle": "Эълонҳо",
+  "notifyAnnouncementsSubtitle": "Хабарҳо ва навигариҳо аз дастаи BananaTalk"
 }

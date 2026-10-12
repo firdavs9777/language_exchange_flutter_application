@@ -9558,4 +9558,24 @@ class AppLocalizationsTr extends AppLocalizations {
   String translatedToLanguage(String language) {
     return '$language diline çevrildi';
   }
+
+  @override
+  String guideProgress(int count) {
+    return 'Başlarken · $count/4';
+  }
+
+  @override
+  String get guideChatTip => 'Çevirmek veya düzeltmek için basılı tutun';
+
+  @override
+  String get announcementTitle => 'Duyuru';
+
+  @override
+  String get announcementUnavailable => 'Bu duyuru artık mevcut değil.';
+
+  @override
+  String get notifyAnnouncementsTitle => 'Duyurular';
+
+  @override
+  String get notifyAnnouncementsSubtitle => 'BananaTalk ekibinden haberler ve güncellemeler';
 }

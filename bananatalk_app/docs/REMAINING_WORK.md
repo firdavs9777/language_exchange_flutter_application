@@ -132,7 +132,7 @@ call or rejoin", and the caller already has the call on screen.
 - [x] A2 `ActivationStore` (4 actions, back-fill, fail closed, user-scoped)
 - [x] A3 hooks: message, moment (direct + upload queue), lesson / quiz / vocab review, profile complete
 - [x] A4 guide rule: 7 days, stop at 3 of 4, `isGuidePeriod`, `GuideSurface.chatTip`, `guide_retired` latch
-- [ ] A5 strings: 6 keys × 19 locales + native-QA rows
+- [x] A5 strings: 6 keys × 19 locales + native-QA rows (108 machine-draft rows still need native review)
 - [ ] A6 guide UI: "Getting started · N of 4", retire on real action, CTA no longer retires, Matches on the same rule
 - [ ] A7 chat tip under the first received text message
 - [ ] A8 `PopupBudget` + `LaunchModalCoordinator`

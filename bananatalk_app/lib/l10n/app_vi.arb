@@ -3876,5 +3876,11 @@
         "type": "String"
       }
     }
-  }
+  },
+  "guideProgress": "Bắt đầu · {count}/4",
+  "guideChatTip": "Nhấn giữ để dịch hoặc sửa",
+  "announcementTitle": "Thông báo",
+  "announcementUnavailable": "Thông báo này không còn khả dụng.",
+  "notifyAnnouncementsTitle": "Thông báo",
+  "notifyAnnouncementsSubtitle": "Tin tức và cập nhật từ đội ngũ BananaTalk"
 }

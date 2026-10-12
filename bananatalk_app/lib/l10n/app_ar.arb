@@ -3906,5 +3906,11 @@
         "type": "String"
       }
     }
-  }
+  },
+  "guideProgress": "البدء · {count} من 4",
+  "guideChatTip": "اضغط مطولاً للترجمة أو التصحيح",
+  "announcementTitle": "إعلان",
+  "announcementUnavailable": "هذا الإعلان لم يعد متاحًا.",
+  "notifyAnnouncementsTitle": "الإعلانات",
+  "notifyAnnouncementsSubtitle": "أخبار وتحديثات من فريق BananaTalk"
 }

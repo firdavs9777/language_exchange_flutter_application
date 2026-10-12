@@ -3567,5 +3567,11 @@
         "type": "String"
       }
     }
-  }
+  },
+  "guideProgress": "新手入門 · {count}/4",
+  "guideChatTip": "長按可翻譯或修正",
+  "announcementTitle": "公告",
+  "announcementUnavailable": "此公告已無法查看。",
+  "notifyAnnouncementsTitle": "公告",
+  "notifyAnnouncementsSubtitle": "來自 BananaTalk 團隊的消息與更新"
 }

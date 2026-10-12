@@ -6601,5 +6601,17 @@
         "type": "String"
       }
     }
+  },
+  "guideProgress": "Getting started · {count} of 4",
+  "guideChatTip": "Long-press to translate or correct",
+  "announcementTitle": "Announcement",
+  "announcementUnavailable": "This announcement is no longer available.",
+  "notifyAnnouncementsTitle": "Announcements",
+  "notifyAnnouncementsSubtitle": "News and updates from the BananaTalk team",
+  "@guideProgress": {
+    "description": "Footer on every first-week guide card: how many of the four first actions are done",
+    "placeholders": {
+      "count": { "type": "int" }
+    }
   }
 }

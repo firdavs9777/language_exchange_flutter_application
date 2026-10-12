@@ -9550,4 +9550,24 @@ class AppLocalizationsVi extends AppLocalizations {
   String translatedToLanguage(String language) {
     return 'Đã dịch sang $language';
   }
+
+  @override
+  String guideProgress(int count) {
+    return 'Bắt đầu · $count/4';
+  }
+
+  @override
+  String get guideChatTip => 'Nhấn giữ để dịch hoặc sửa';
+
+  @override
+  String get announcementTitle => 'Thông báo';
+
+  @override
+  String get announcementUnavailable => 'Thông báo này không còn khả dụng.';
+
+  @override
+  String get notifyAnnouncementsTitle => 'Thông báo';
+
+  @override
+  String get notifyAnnouncementsSubtitle => 'Tin tức và cập nhật từ đội ngũ BananaTalk';
 }

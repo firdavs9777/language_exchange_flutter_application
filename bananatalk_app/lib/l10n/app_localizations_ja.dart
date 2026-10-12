@@ -9550,4 +9550,24 @@ class AppLocalizationsJa extends AppLocalizations {
   String translatedToLanguage(String language) {
     return '$languageに翻訳しました';
   }
+
+  @override
+  String guideProgress(int count) {
+    return 'はじめの一歩 · $count/4';
+  }
+
+  @override
+  String get guideChatTip => '長押しで翻訳・添削';
+
+  @override
+  String get announcementTitle => 'お知らせ';
+
+  @override
+  String get announcementUnavailable => 'このお知らせは現在ご覧いただけません。';
+
+  @override
+  String get notifyAnnouncementsTitle => 'お知らせ';
+
+  @override
+  String get notifyAnnouncementsSubtitle => 'BananaTalkチームからのニュースとアップデート';
 }

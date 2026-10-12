@@ -3906,5 +3906,11 @@
         "type": "String"
       }
     }
-  }
+  },
+  "guideProgress": "Primeros pasos · {count} de 4",
+  "guideChatTip": "Mantén pulsado para traducir o corregir",
+  "announcementTitle": "Anuncio",
+  "announcementUnavailable": "Este anuncio ya no está disponible.",
+  "notifyAnnouncementsTitle": "Anuncios",
+  "notifyAnnouncementsSubtitle": "Noticias y novedades del equipo de BananaTalk"
 }

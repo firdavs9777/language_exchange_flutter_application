@@ -3876,5 +3876,11 @@
         "type": "String"
       }
     }
-  }
+  },
+  "guideProgress": "はじめの一歩 · {count}/4",
+  "guideChatTip": "長押しで翻訳・添削",
+  "announcementTitle": "お知らせ",
+  "announcementUnavailable": "このお知らせは現在ご覧いただけません。",
+  "notifyAnnouncementsTitle": "お知らせ",
+  "notifyAnnouncementsSubtitle": "BananaTalkチームからのニュースとアップデート"
 }

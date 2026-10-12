@@ -17545,6 +17545,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Translated to {language}'**
   String translatedToLanguage(String language);
+
+  /// Footer on every first-week guide card: how many of the four first actions are done
+  ///
+  /// In en, this message translates to:
+  /// **'Getting started · {count} of 4'**
+  String guideProgress(int count);
+
+  /// No description provided for @guideChatTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Long-press to translate or correct'**
+  String get guideChatTip;
+
+  /// No description provided for @announcementTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Announcement'**
+  String get announcementTitle;
+
+  /// No description provided for @announcementUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'This announcement is no longer available.'**
+  String get announcementUnavailable;
+
+  /// No description provided for @notifyAnnouncementsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Announcements'**
+  String get notifyAnnouncementsTitle;
+
+  /// No description provided for @notifyAnnouncementsSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'News and updates from the BananaTalk team'**
+  String get notifyAnnouncementsSubtitle;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

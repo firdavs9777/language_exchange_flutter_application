@@ -9550,6 +9550,26 @@ class AppLocalizationsZh extends AppLocalizations {
   String translatedToLanguage(String language) {
     return '已翻译成$language';
   }
+
+  @override
+  String guideProgress(int count) {
+    return '新手入门 · $count/4';
+  }
+
+  @override
+  String get guideChatTip => '长按可翻译或纠错';
+
+  @override
+  String get announcementTitle => '公告';
+
+  @override
+  String get announcementUnavailable => '此公告已不可用。';
+
+  @override
+  String get notifyAnnouncementsTitle => '公告';
+
+  @override
+  String get notifyAnnouncementsSubtitle => '来自 BananaTalk 团队的新闻和更新';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -19098,4 +19118,24 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String translatedToLanguage(String language) {
     return '已翻譯成$language';
   }
+
+  @override
+  String guideProgress(int count) {
+    return '新手入門 · $count/4';
+  }
+
+  @override
+  String get guideChatTip => '長按可翻譯或修正';
+
+  @override
+  String get announcementTitle => '公告';
+
+  @override
+  String get announcementUnavailable => '此公告已無法查看。';
+
+  @override
+  String get notifyAnnouncementsTitle => '公告';
+
+  @override
+  String get notifyAnnouncementsSubtitle => '來自 BananaTalk 團隊的消息與更新';
 }

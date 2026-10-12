@@ -9564,4 +9564,24 @@ class AppLocalizationsTg extends AppLocalizations {
   String translatedToLanguage(String language) {
     return 'Ба $language тарҷума шуд';
   }
+
+  @override
+  String guideProgress(int count) {
+    return 'Оғоз · $count аз 4';
+  }
+
+  @override
+  String get guideChatTip => 'Барои тарҷума ё ислоҳ дароз пахш кунед';
+
+  @override
+  String get announcementTitle => 'Эълон';
+
+  @override
+  String get announcementUnavailable => 'Ин эълон дигар дастрас нест.';
+
+  @override
+  String get notifyAnnouncementsTitle => 'Эълонҳо';
+
+  @override
+  String get notifyAnnouncementsSubtitle => 'Хабарҳо ва навигариҳо аз дастаи BananaTalk';
 }

@@ -3892,5 +3892,11 @@
         "type": "String"
       }
     }
-  }
+  },
+  "guideProgress": "शुरुआत · 4 में से {count}",
+  "guideChatTip": "अनुवाद या सुधार के लिए देर तक दबाएँ",
+  "announcementTitle": "घोषणा",
+  "announcementUnavailable": "यह घोषणा अब उपलब्ध नहीं है।",
+  "notifyAnnouncementsTitle": "घोषणाएँ",
+  "notifyAnnouncementsSubtitle": "BananaTalk टीम की खबरें और अपडेट"
 }

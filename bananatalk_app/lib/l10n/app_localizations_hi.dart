@@ -9560,4 +9560,24 @@ class AppLocalizationsHi extends AppLocalizations {
   String translatedToLanguage(String language) {
     return '$language में अनुवादित';
   }
+
+  @override
+  String guideProgress(int count) {
+    return 'शुरुआत · 4 में से $count';
+  }
+
+  @override
+  String get guideChatTip => 'अनुवाद या सुधार के लिए देर तक दबाएँ';
+
+  @override
+  String get announcementTitle => 'घोषणा';
+
+  @override
+  String get announcementUnavailable => 'यह घोषणा अब उपलब्ध नहीं है।';
+
+  @override
+  String get notifyAnnouncementsTitle => 'घोषणाएँ';
+
+  @override
+  String get notifyAnnouncementsSubtitle => 'BananaTalk टीम की खबरें और अपडेट';
 }

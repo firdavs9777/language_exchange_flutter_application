@@ -3849,5 +3849,11 @@
         "type": "String"
       }
     }
-  }
+  },
+  "guideProgress": "Pagsisimula · {count} sa 4",
+  "guideChatTip": "Pindutin nang matagal para isalin o itama",
+  "announcementTitle": "Anunsyo",
+  "announcementUnavailable": "Hindi na available ang anunsyong ito.",
+  "notifyAnnouncementsTitle": "Mga anunsyo",
+  "notifyAnnouncementsSubtitle": "Mga balita at update mula sa BananaTalk team"
 }

@@ -3890,5 +3890,11 @@
         "type": "String"
       }
     }
-  }
+  },
+  "guideProgress": "新手入门 · {count}/4",
+  "guideChatTip": "长按可翻译或纠错",
+  "announcementTitle": "公告",
+  "announcementUnavailable": "此公告已不可用。",
+  "notifyAnnouncementsTitle": "公告",
+  "notifyAnnouncementsSubtitle": "来自 BananaTalk 团队的新闻和更新"
 }

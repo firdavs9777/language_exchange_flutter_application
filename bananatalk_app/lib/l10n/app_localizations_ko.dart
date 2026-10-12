@@ -9550,4 +9550,24 @@ class AppLocalizationsKo extends AppLocalizations {
   String translatedToLanguage(String language) {
     return '$language(으)로 번역됨';
   }
+
+  @override
+  String guideProgress(int count) {
+    return '시작하기 · 4개 중 $count개';
+  }
+
+  @override
+  String get guideChatTip => '길게 눌러 번역하거나 교정하세요';
+
+  @override
+  String get announcementTitle => '공지';
+
+  @override
+  String get announcementUnavailable => '더 이상 볼 수 없는 공지입니다.';
+
+  @override
+  String get notifyAnnouncementsTitle => '공지사항';
+
+  @override
+  String get notifyAnnouncementsSubtitle => 'BananaTalk 팀의 소식과 업데이트';
 }

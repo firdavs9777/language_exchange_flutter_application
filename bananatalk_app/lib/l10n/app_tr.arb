@@ -4088,5 +4088,11 @@
         "type": "String"
       }
     }
-  }
+  },
+  "guideProgress": "Başlarken · {count}/4",
+  "guideChatTip": "Çevirmek veya düzeltmek için basılı tutun",
+  "announcementTitle": "Duyuru",
+  "announcementUnavailable": "Bu duyuru artık mevcut değil.",
+  "notifyAnnouncementsTitle": "Duyurular",
+  "notifyAnnouncementsSubtitle": "BananaTalk ekibinden haberler ve güncellemeler"
 }

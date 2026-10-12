@@ -9557,4 +9557,24 @@ class AppLocalizationsId extends AppLocalizations {
   String translatedToLanguage(String language) {
     return 'Diterjemahkan ke $language';
   }
+
+  @override
+  String guideProgress(int count) {
+    return 'Memulai · $count dari 4';
+  }
+
+  @override
+  String get guideChatTip => 'Tekan lama untuk menerjemahkan atau mengoreksi';
+
+  @override
+  String get announcementTitle => 'Pengumuman';
+
+  @override
+  String get announcementUnavailable => 'Pengumuman ini sudah tidak tersedia.';
+
+  @override
+  String get notifyAnnouncementsTitle => 'Pengumuman';
+
+  @override
+  String get notifyAnnouncementsSubtitle => 'Berita dan pembaruan dari tim BananaTalk';
 }

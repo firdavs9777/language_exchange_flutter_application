@@ -3876,5 +3876,11 @@
         "type": "String"
       }
     }
-  }
+  },
+  "guideProgress": "เริ่มต้นใช้งาน · {count} จาก 4",
+  "guideChatTip": "กดค้างเพื่อแปลหรือแก้ไข",
+  "announcementTitle": "ประกาศ",
+  "announcementUnavailable": "ประกาศนี้ไม่พร้อมใช้งานแล้ว",
+  "notifyAnnouncementsTitle": "ประกาศ",
+  "notifyAnnouncementsSubtitle": "ข่าวสารและอัปเดตจากทีม BananaTalk"
 }

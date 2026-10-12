@@ -3876,5 +3876,11 @@
         "type": "String"
       }
     }
-  }
+  },
+  "guideProgress": "Memulai · {count} dari 4",
+  "guideChatTip": "Tekan lama untuk menerjemahkan atau mengoreksi",
+  "announcementTitle": "Pengumuman",
+  "announcementUnavailable": "Pengumuman ini sudah tidak tersedia.",
+  "notifyAnnouncementsTitle": "Pengumuman",
+  "notifyAnnouncementsSubtitle": "Berita dan pembaruan dari tim BananaTalk"
 }

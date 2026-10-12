@@ -3897,5 +3897,11 @@
         "type": "String"
       }
     }
-  }
+  },
+  "guideProgress": "시작하기 · 4개 중 {count}개",
+  "guideChatTip": "길게 눌러 번역하거나 교정하세요",
+  "announcementTitle": "공지",
+  "announcementUnavailable": "더 이상 볼 수 없는 공지입니다.",
+  "notifyAnnouncementsTitle": "공지사항",
+  "notifyAnnouncementsSubtitle": "BananaTalk 팀의 소식과 업데이트"
 }

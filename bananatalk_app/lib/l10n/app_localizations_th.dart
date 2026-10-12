@@ -9550,4 +9550,24 @@ class AppLocalizationsTh extends AppLocalizations {
   String translatedToLanguage(String language) {
     return 'แปลเป็น $language แล้ว';
   }
+
+  @override
+  String guideProgress(int count) {
+    return 'เริ่มต้นใช้งาน · $count จาก 4';
+  }
+
+  @override
+  String get guideChatTip => 'กดค้างเพื่อแปลหรือแก้ไข';
+
+  @override
+  String get announcementTitle => 'ประกาศ';
+
+  @override
+  String get announcementUnavailable => 'ประกาศนี้ไม่พร้อมใช้งานแล้ว';
+
+  @override
+  String get notifyAnnouncementsTitle => 'ประกาศ';
+
+  @override
+  String get notifyAnnouncementsSubtitle => 'ข่าวสารและอัปเดตจากทีม BananaTalk';
 }

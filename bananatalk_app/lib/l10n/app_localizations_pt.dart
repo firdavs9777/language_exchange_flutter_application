@@ -9560,4 +9560,24 @@ class AppLocalizationsPt extends AppLocalizations {
   String translatedToLanguage(String language) {
     return 'Traduzido para $language';
   }
+
+  @override
+  String guideProgress(int count) {
+    return 'Primeiros passos · $count de 4';
+  }
+
+  @override
+  String get guideChatTip => 'Toque e segure para traduzir ou corrigir';
+
+  @override
+  String get announcementTitle => 'Anúncio';
+
+  @override
+  String get announcementUnavailable => 'Este anúncio não está mais disponível.';
+
+  @override
+  String get notifyAnnouncementsTitle => 'Anúncios';
+
+  @override
+  String get notifyAnnouncementsSubtitle => 'Novidades e atualizações da equipe BananaTalk';
 }
