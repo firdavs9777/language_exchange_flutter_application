@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:bananatalk_app/services/call/missed_call_actions.dart';
 import 'package:bananatalk_app/services/notification_api_client.dart';
@@ -206,5 +208,108 @@ void main() {
       expect(missedCallNotificationId({'callId': 'c1'}), isNot(missedCallNotificationId({'callId': 'c2'})));
       expect(missedCallNotificationId({}), isNonNegative);
     });
+
+    test('an empty callId is missing: callUuid, else caller + time', () {
+      expect(missedCallNotificationId({'callId': '', 'callUuid': 'uuid-1'}),
+          missedCallNotificationId({'callUuid': 'uuid-1'}));
+      final a = missedCallNotificationId({'callId': '', 'callerId': 'u1'},
+          now: () => DateTime.fromMicrosecondsSinceEpoch(1));
+      final b = missedCallNotificationId({'callId': '', 'callerId': 'u1'},
+          now: () => DateTime.fromMicrosecondsSinceEpoch(2));
+      expect(a, isNot(b), reason: 'two id-less missed calls must not replace each other');
+    });
   });
+
+  group('showMissedCallNotification (Android draw)', () {
+    setUp(() => SharedPreferences.setMockInitialValues({'app_language': 'en'}));
+
+    const push = {
+      'type': 'missed_call',
+      'callId': 'c1',
+      'callerId': 'u1',
+      'callType': 'audio',
+      'title': 'Missed voice call',
+      'body': 'Ana called you',
+    };
+
+    test('draws Call back / Message with the push as payload', () async {
+      final plugin = _FakePlugin();
+      await showMissedCallNotification(plugin, push, isAndroid: true);
+      expect(plugin.shows, hasLength(1));
+      final shown = plugin.shows.single;
+      expect(shown.id, missedCallNotificationId(push));
+      expect(shown.title, 'Missed voice call');
+      expect(shown.actionIds, [kMissedCallBack, kMissedCallMessage]);
+      expect(shown.actionLabels, ['Call back', 'Message']);
+      expect(shown.payload, contains('"callId":"c1"'));
+    });
+
+    test('a failing action notification falls back to a plain one, same id and payload', () async {
+      final saved = debugPrint;
+      debugPrint = (String? message, {int? wrapWidth}) {};
+      addTearDown(() => debugPrint = saved);
+
+      final plugin = _FakePlugin(failFirst: 1);
+      await showMissedCallNotification(plugin, push, isAndroid: true);
+      expect(plugin.shows, hasLength(2));
+      final [first, fallback] = plugin.shows;
+      expect(first.actionIds, isNotEmpty);
+      expect(fallback.actionIds, isEmpty);
+      expect(fallback.id, first.id);
+      expect(fallback.payload, first.payload);
+      expect(fallback.title, 'Missed voice call');
+      expect(fallback.body, 'Ana called you');
+    });
+
+    test('never throws, even when the fallback fails too', () async {
+      final saved = debugPrint;
+      debugPrint = (String? message, {int? wrapWidth}) {};
+      addTearDown(() => debugPrint = saved);
+
+      final plugin = _FakePlugin(failFirst: 2);
+      await expectLater(showMissedCallNotification(plugin, push, isAndroid: true), completes);
+      expect(plugin.shows, hasLength(2));
+    });
+
+    test('not Android: draws nothing', () async {
+      final plugin = _FakePlugin();
+      await showMissedCallNotification(plugin, push, isAndroid: false);
+      expect(plugin.shows, isEmpty);
+    });
+  });
+}
+
+class _Shown {
+  _Shown(this.id, this.title, this.body, this.details, this.payload);
+  final int id;
+  final String? title;
+  final String? body;
+  final NotificationDetails? details;
+  final String? payload;
+
+  List<AndroidNotificationAction> get _actions => details?.android?.actions ?? const [];
+  List<String> get actionIds => _actions.map((a) => a.id).toList();
+  List<String> get actionLabels => _actions.map((a) => a.title).toList();
+}
+
+/// Records every `show`; the first [failFirst] calls throw after recording.
+class _FakePlugin implements FlutterLocalNotificationsPlugin {
+  _FakePlugin({this.failFirst = 0});
+  final int failFirst;
+  final shows = <_Shown>[];
+
+  @override
+  Future<void> show(
+    int id,
+    String? title,
+    String? body,
+    NotificationDetails? notificationDetails, {
+    String? payload,
+  }) async {
+    shows.add(_Shown(id, title, body, notificationDetails, payload));
+    if (shows.length <= failFirst) throw StateError('show failed');
+  }
+
+  @override
+  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
 }

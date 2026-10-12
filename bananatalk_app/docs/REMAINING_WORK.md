@@ -97,7 +97,7 @@ Baseline: 1/30 calls answered in 30 days, 168 stuck ringing, 0 call messages eve
     - [x] Decline-with-message sheet on the incoming screen (2 canned + custom, 200-char cap; sheet closes if the call ends under it)
     - [x] Missed-call push actions (code): Call back / Message on iOS (category MISSED_CALL, AppDelegate catches remote taps, `bananatalk/missed_call_actions` channel) and Android (data-only push drawn by the app, fail-safe to a plain notification, also from the killed-app handler); capability `missed_call_actions` declared; each call's tap routed once and held until the app is past the splash; signed out / blocked caller → app just opens; `/chat/:userId?call=` starts the call via `CallLauncher`
       - [ ] Device QA CALL2-3..CALL2-6: Call back + Message from killed / background / foreground on iOS and Android; Android Doze + an aggressive OEM (Xiaomi/Samsung) killed-app draw; one action fires once (no second chat or call); signed out → app just opens; 409 callee-unavailable snack after Call back
-      - [ ] Device QA: iOS foreground local banners and local-notification taps now reach flutter_local_notifications (the AppDelegate is now the notification-center delegate) — check chat/moment banners and their buttons still behave
+      - [ ] Device QA (iOS, AppDelegate is now the notification-center delegate): foreground pushes still badge-only (no banner/sound) for every type except the missed-call copy, which shows a banner with Call back / Message; tapping a local notification now routes (it did nothing before); no "completion handler called twice" warning in the console
     - [ ] Calls on/off + quiet-hours settings UI
     - [ ] Camera button mid voice call + peer-upgrade UI
     - [ ] Draggable self-view

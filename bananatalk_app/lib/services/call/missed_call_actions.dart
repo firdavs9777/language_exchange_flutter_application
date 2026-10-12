@@ -189,9 +189,21 @@ Future<AppLocalizations> notificationL10n() async {
 }
 
 /// Stable 31-bit id per call (FNV-1a), the same in every isolate, so a repeat
-/// of the same push replaces the notification instead of stacking.
-int missedCallNotificationId(Map<String, dynamic> data) {
-  final source = data['callId']?.toString() ?? data['callUuid']?.toString() ?? '';
+/// of the same push replaces the notification instead of stacking. With no
+/// call id at all, caller + time: two such missed calls never replace each
+/// other.
+int missedCallNotificationId(
+  Map<String, dynamic> data, {
+  DateTime Function() now = DateTime.now,
+}) {
+  String? present(String key) {
+    final v = data[key]?.toString() ?? '';
+    return v.isEmpty ? null : v;
+  }
+
+  final source = present('callId') ??
+      present('callUuid') ??
+      '${data['callerId'] ?? ''}@${now().microsecondsSinceEpoch}';
   var hash = 0x811c9dc5;
   for (final unit in utf8.encode('missed_call:$source')) {
     hash ^= unit;
@@ -210,8 +222,9 @@ Future<void> showMissedCallNotification(
   FlutterLocalNotificationsPlugin plugin,
   Map<String, dynamic> data, {
   bool initialize = false,
+  @visibleForTesting bool? isAndroid,
 }) async {
-  if (!Platform.isAndroid) return;
+  if (!(isAndroid ?? Platform.isAndroid)) return;
   if (initialize) {
     try {
       await plugin.initialize(

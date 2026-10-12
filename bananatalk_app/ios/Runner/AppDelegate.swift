@@ -94,7 +94,43 @@ import flutter_callkit_incoming
       completionHandler()
       return
     }
-    super.userNotificationCenter(center, didReceive: response, withCompletionHandler: completionHandler)
+    // firebase_messaging (no original delegate to forward to) and
+    // flutter_local_notifications may both complete: the first call wins.
+    var completed = false
+    let once: () -> Void = {
+      if completed { return }
+      completed = true
+      completionHandler()
+    }
+    super.userNotificationCenter(center, didReceive: response, withCompletionHandler: once)
+  }
+
+  /// Foreground presentation stays what it was before this AppDelegate became
+  /// the delegate (firebase alone answered: badge only, per
+  /// setForegroundNotificationPresentationOptions(alert: false, sound: false)),
+  /// for every notification except the app's own local missed-call copy,
+  /// which shows as a banner with its Call back / Message buttons. The
+  /// plugins still run (firebase needs it for onMessage); their later
+  /// completions are no-ops.
+  override func userNotificationCenter(
+    _ center: UNUserNotificationCenter,
+    willPresent notification: UNNotification,
+    withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
+  ) {
+    var completed = false
+    let once: (UNNotificationPresentationOptions) -> Void = { options in
+      if completed { return }
+      completed = true
+      completionHandler(options)
+    }
+    let content = notification.request.content
+    let isRemote = content.userInfo["gcm.message_id"] != nil
+    if !isRemote && content.categoryIdentifier == "MISSED_CALL" {
+      once([.banner, .list, .sound, .badge])
+    } else {
+      once([.badge])
+    }
+    super.userNotificationCenter(center, willPresent: notification, withCompletionHandler: once)
   }
 
   // MARK: - PKPushRegistryDelegate (VoIP)
