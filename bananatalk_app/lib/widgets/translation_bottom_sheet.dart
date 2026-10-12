@@ -273,6 +273,7 @@ class _TranslationBottomSheetState extends State<TranslationBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
 
@@ -554,9 +555,9 @@ class _TranslationBottomSheetState extends State<TranslationBottomSheet> {
                             color: AppColors.gray500,
                           ),
                           const SizedBox(width: 4),
-                          const Text(
-                            'Cached',
-                            style: TextStyle(
+                          Text(
+                            l10n.chatCached,
+                            style: const TextStyle(
                               fontSize: 12,
                               color: AppColors.gray500,
                             ),
@@ -569,7 +570,7 @@ class _TranslationBottomSheetState extends State<TranslationBottomSheet> {
                     if (_breakdown.isNotEmpty) ...[
                       const SizedBox(height: 20),
                       Text(
-                        'Word Breakdown',
+                        l10n.chatWordBreakdown,
                         style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w600,
@@ -632,7 +633,7 @@ class _TranslationBottomSheetState extends State<TranslationBottomSheet> {
                     if (_alternatives.isNotEmpty) ...[
                       const SizedBox(height: 20),
                       Text(
-                        'Alternatives',
+                        l10n.chatAlternatives,
                         style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w600,
@@ -690,7 +691,7 @@ class _TranslationBottomSheetState extends State<TranslationBottomSheet> {
                     if (_grammarNotes.isNotEmpty) ...[
                       const SizedBox(height: 20),
                       Text(
-                        'Grammar',
+                        l10n.grammar,
                         style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w600,
@@ -860,6 +861,7 @@ class _WordDetailSheetState extends State<_WordDetailSheet> {
   bool _saved = false;
 
   Future<void> _saveToVocabulary() async {
+    final l10n = AppLocalizations.of(context)!;
     setState(() => _isSaving = true);
 
     final result = await TranslationService.saveToVocabulary(
@@ -890,7 +892,7 @@ class _WordDetailSheetState extends State<_WordDetailSheet> {
       setState(() => _isSaving = false);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(result['error']?.toString() ?? 'Failed to save'),
+          content: Text(result['error']?.toString() ?? l10n.failedToSave),
         ),
       );
     }
@@ -898,6 +900,7 @@ class _WordDetailSheetState extends State<_WordDetailSheet> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
 
@@ -978,7 +981,7 @@ class _WordDetailSheetState extends State<_WordDetailSheet> {
           if (widget.word.alternatives.isNotEmpty) ...[
             const SizedBox(height: 12),
             Text(
-              'Also: ${widget.word.alternatives.join(', ')}',
+              l10n.chatTranslationAlso(widget.word.alternatives.join(', ')),
               style: TextStyle(
                 fontSize: 14,
                 color: isDark ? AppColors.gray400 : AppColors.gray600,
@@ -1005,7 +1008,7 @@ class _WordDetailSheetState extends State<_WordDetailSheet> {
                             ? Icons.check_rounded
                             : Icons.bookmark_add_rounded,
                       ),
-                label: Text(_saved ? 'Saved' : 'Save to Vocabulary'),
+                label: Text(_saved ? l10n.saved : l10n.chatSaveToVocabularyAction),
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 20,

@@ -9701,4 +9701,89 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get chatMediaGeneric => 'медиа';
+
+  @override
+  String get chatMessageFailedToSend => 'Не удалось отправить сообщение';
+
+  @override
+  String get chatSendingEllipsis => 'Отправка...';
+
+  @override
+  String get chatFailedTapOptions => 'Ошибка · Нажмите для вариантов';
+
+  @override
+  String get chatMessageWasDeleted => 'Это сообщение удалено';
+
+  @override
+  String get chatStory => 'История';
+
+  @override
+  String get chatHi => 'Привет!';
+
+  @override
+  String get chatEdited => 'изменено';
+
+  @override
+  String get chatPremium => 'Премиум ✨';
+
+  @override
+  String chatUnlockPremiumWallpapers(Object cost) {
+    return 'Разблокировать все премиум-обои ✨ за 💎$cost монет? Весь набор будет разблокирован навсегда.';
+  }
+
+  @override
+  String chatWallpaperForName(Object userName) {
+    return 'Обои чата для $userName';
+  }
+
+  @override
+  String get chatChooseGallery => 'Выбрать из галереи';
+
+  @override
+  String get chatHiThere => 'Привет! 😊';
+
+  @override
+  String chatCorrected(Object correctorName) {
+    return '$correctorName исправил(а)';
+  }
+
+  @override
+  String get chatCorrectionAccepted => 'Исправление принято ✓';
+
+  @override
+  String chatForwarded(Object senderName) {
+    return 'Переслано от $senderName';
+  }
+
+  @override
+  String get chatCached => 'Из кэша';
+
+  @override
+  String get chatWordBreakdown => 'Разбор слов';
+
+  @override
+  String get chatAlternatives => 'Варианты';
+
+  @override
+  String chatTranslationAlso(Object items) {
+    return 'Также: $items';
+  }
+
+  @override
+  String get chatAudioUnavailable => 'Аудио недоступно';
+
+  @override
+  String get chatHideTranslation => 'Скрыть перевод';
+
+  @override
+  String get chatStoryExpired => 'История истекла';
+
+  @override
+  String get chatAcceptCorrection => 'Принять исправление';
+
+  @override
+  String get chatAccepting => 'Принимается…';
+
+  @override
+  String get chatSaveToVocabularyAction => 'Сохранить в словарь';
 }

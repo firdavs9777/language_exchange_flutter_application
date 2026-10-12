@@ -9678,4 +9678,89 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get chatMediaGeneric => 'Medien';
+
+  @override
+  String get chatMessageFailedToSend => 'Nachricht konnte nicht gesendet werden';
+
+  @override
+  String get chatSendingEllipsis => 'Wird gesendet...';
+
+  @override
+  String get chatFailedTapOptions => 'Fehlgeschlagen · Tippen für Optionen';
+
+  @override
+  String get chatMessageWasDeleted => 'Diese Nachricht wurde gelöscht';
+
+  @override
+  String get chatStory => 'Story';
+
+  @override
+  String get chatHi => 'Hallo!';
+
+  @override
+  String get chatEdited => 'bearbeitet';
+
+  @override
+  String get chatPremium => 'Premium ✨';
+
+  @override
+  String chatUnlockPremiumWallpapers(Object cost) {
+    return 'Alle Premium-✨-Hintergründe für 💎$cost Münzen freischalten? Das schaltet das ganze Paket dauerhaft frei.';
+  }
+
+  @override
+  String chatWallpaperForName(Object userName) {
+    return 'Chat-Hintergrund für $userName';
+  }
+
+  @override
+  String get chatChooseGallery => 'Aus Galerie wählen';
+
+  @override
+  String get chatHiThere => 'Hallo! 😊';
+
+  @override
+  String chatCorrected(Object correctorName) {
+    return '$correctorName hat korrigiert';
+  }
+
+  @override
+  String get chatCorrectionAccepted => 'Korrektur akzeptiert ✓';
+
+  @override
+  String chatForwarded(Object senderName) {
+    return 'Weitergeleitet von $senderName';
+  }
+
+  @override
+  String get chatCached => 'Zwischengespeichert';
+
+  @override
+  String get chatWordBreakdown => 'Wortanalyse';
+
+  @override
+  String get chatAlternatives => 'Alternativen';
+
+  @override
+  String chatTranslationAlso(Object items) {
+    return 'Auch: $items';
+  }
+
+  @override
+  String get chatAudioUnavailable => 'Audio nicht verfügbar';
+
+  @override
+  String get chatHideTranslation => 'Übersetzung ausblenden';
+
+  @override
+  String get chatStoryExpired => 'Story abgelaufen';
+
+  @override
+  String get chatAcceptCorrection => 'Korrektur akzeptieren';
+
+  @override
+  String get chatAccepting => 'Wird akzeptiert…';
+
+  @override
+  String get chatSaveToVocabularyAction => 'Im Vokabular speichern';
 }

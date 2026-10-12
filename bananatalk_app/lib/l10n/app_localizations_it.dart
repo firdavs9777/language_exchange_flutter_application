@@ -9678,4 +9678,89 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get chatMediaGeneric => 'contenuto';
+
+  @override
+  String get chatMessageFailedToSend => 'Invio del messaggio non riuscito';
+
+  @override
+  String get chatSendingEllipsis => 'Invio in corso...';
+
+  @override
+  String get chatFailedTapOptions => 'Non riuscito · Tocca per le opzioni';
+
+  @override
+  String get chatMessageWasDeleted => 'Questo messaggio è stato eliminato';
+
+  @override
+  String get chatStory => 'Storia';
+
+  @override
+  String get chatHi => 'Ciao!';
+
+  @override
+  String get chatEdited => 'modificato';
+
+  @override
+  String get chatPremium => 'Premium ✨';
+
+  @override
+  String chatUnlockPremiumWallpapers(Object cost) {
+    return 'Sbloccare tutti gli sfondi Premium ✨ per 💎$cost monete? Sblocca l\'intero pacchetto per sempre.';
+  }
+
+  @override
+  String chatWallpaperForName(Object userName) {
+    return 'Sfondo della chat per $userName';
+  }
+
+  @override
+  String get chatChooseGallery => 'Scegli dalla galleria';
+
+  @override
+  String get chatHiThere => 'Ciao! 😊';
+
+  @override
+  String chatCorrected(Object correctorName) {
+    return '$correctorName ha corretto';
+  }
+
+  @override
+  String get chatCorrectionAccepted => 'Correzione accettata ✓';
+
+  @override
+  String chatForwarded(Object senderName) {
+    return 'Inoltrato da $senderName';
+  }
+
+  @override
+  String get chatCached => 'In cache';
+
+  @override
+  String get chatWordBreakdown => 'Analisi delle parole';
+
+  @override
+  String get chatAlternatives => 'Alternative';
+
+  @override
+  String chatTranslationAlso(Object items) {
+    return 'Anche: $items';
+  }
+
+  @override
+  String get chatAudioUnavailable => 'Audio non disponibile';
+
+  @override
+  String get chatHideTranslation => 'Nascondi traduzione';
+
+  @override
+  String get chatStoryExpired => 'Storia scaduta';
+
+  @override
+  String get chatAcceptCorrection => 'Accetta correzione';
+
+  @override
+  String get chatAccepting => 'Accettazione…';
+
+  @override
+  String get chatSaveToVocabularyAction => 'Salva nel vocabolario';
 }

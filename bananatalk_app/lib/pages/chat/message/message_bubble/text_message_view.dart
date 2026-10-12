@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
 import 'package:bananatalk_app/providers/provider_models/story_model.dart';
@@ -131,6 +132,7 @@ class _TextMessageViewState extends State<TextMessageView> {
   // ---------- sub-builders ----------
 
   Widget _buildDeletedPlaceholder(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
@@ -143,7 +145,7 @@ class _TextMessageViewState extends State<TextMessageView> {
           Icon(Icons.delete_outline, size: 16, color: context.textSecondary),
           Spacing.hGapSM,
           Text(
-            'This message was deleted',
+            l10n.chatMessageWasDeleted,
             style: context.bodySmall.copyWith(
               color: context.textSecondary,
               fontStyle: FontStyle.italic,
@@ -155,6 +157,7 @@ class _TextMessageViewState extends State<TextMessageView> {
   }
 
   Widget _buildWaveStickerCard(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return GestureDetector(
       onLongPress: widget.onLongPress,
       child: Container(
@@ -186,7 +189,7 @@ class _TextMessageViewState extends State<TextMessageView> {
             const Text('👋', style: TextStyle(fontSize: 40)),
             const SizedBox(width: 8),
             Text(
-              'Hi!',
+              l10n.chatHi,
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -202,6 +205,7 @@ class _TextMessageViewState extends State<TextMessageView> {
   }
 
   Widget _buildStoryReferencePreview(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final ref = widget.message.storyReference!;
     return GestureDetector(
       onTap: () => _openStoryFromReference(context, ref),
@@ -248,7 +252,7 @@ class _TextMessageViewState extends State<TextMessageView> {
             const SizedBox(width: 8),
             Flexible(
               child: Text(
-                'Replied to your story',
+                l10n.repliedToYourStory,
                 style: TextStyle(
                   fontSize: 11,
                   color: widget.isMe
@@ -303,6 +307,7 @@ class _TextMessageViewState extends State<TextMessageView> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final text = widget.message.message ?? '';
 
     // Deleted placeholder
@@ -412,7 +417,7 @@ class _TextMessageViewState extends State<TextMessageView> {
                       Padding(
                         padding: const EdgeInsets.only(top: 2),
                         child: Text(
-                          'edited',
+                          l10n.chatEdited,
                           style: context.captionSmall.copyWith(
                             color:
                                 (widget.isMe

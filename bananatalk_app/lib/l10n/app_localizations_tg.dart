@@ -9682,4 +9682,89 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get chatMediaGeneric => 'медиа';
+
+  @override
+  String get chatMessageFailedToSend => 'Паём фиристода нашуд';
+
+  @override
+  String get chatSendingEllipsis => 'Фиристода истодааст...';
+
+  @override
+  String get chatFailedTapOptions => 'Хато · Барои имконот зер кунед';
+
+  @override
+  String get chatMessageWasDeleted => 'Ин паём нест карда шуд';
+
+  @override
+  String get chatStory => 'Ҳикоя';
+
+  @override
+  String get chatHi => 'Салом!';
+
+  @override
+  String get chatEdited => 'таҳрир шуд';
+
+  @override
+  String get chatPremium => 'Премиум ✨';
+
+  @override
+  String chatUnlockPremiumWallpapers(Object cost) {
+    return 'Ҳамаи заминаҳои Премиум ✨-ро бо 💎$cost танга кушоед? Ин тамоми бастаро ба таври доимӣ мекушояд.';
+  }
+
+  @override
+  String chatWallpaperForName(Object userName) {
+    return 'Заминаи чат барои $userName';
+  }
+
+  @override
+  String get chatChooseGallery => 'Аз галерея интихоб кунед';
+
+  @override
+  String get chatHiThere => 'Салом! 😊';
+
+  @override
+  String chatCorrected(Object correctorName) {
+    return '$correctorName ислоҳ кард';
+  }
+
+  @override
+  String get chatCorrectionAccepted => 'Ислоҳ қабул шуд ✓';
+
+  @override
+  String chatForwarded(Object senderName) {
+    return 'Аз $senderName фиристода шуд';
+  }
+
+  @override
+  String get chatCached => 'Захира шуда';
+
+  @override
+  String get chatWordBreakdown => 'Таҷзияи калима';
+
+  @override
+  String get chatAlternatives => 'Алтернативаҳо';
+
+  @override
+  String chatTranslationAlso(Object items) {
+    return 'Инчунин: $items';
+  }
+
+  @override
+  String get chatAudioUnavailable => 'Аудио дастнорас аст';
+
+  @override
+  String get chatHideTranslation => 'Пинҳон кардани тарҷума';
+
+  @override
+  String get chatStoryExpired => 'Мӯҳлати ҳикоя тамом шуд';
+
+  @override
+  String get chatAcceptCorrection => 'Қабули ислоҳ';
+
+  @override
+  String get chatAccepting => 'Қабул шуда истодааст…';
+
+  @override
+  String get chatSaveToVocabularyAction => 'Ба луғат захира кунед';
 }

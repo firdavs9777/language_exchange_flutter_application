@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
 import 'package:bananatalk_app/providers/provider_models/story_model.dart';
@@ -106,6 +107,7 @@ class _StoryShareMessageViewState extends State<StoryShareMessageView> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final isDark = context.isDarkMode;
     final thumbnail = widget.message.storyReference?.thumbnail;
     final isDisabled = _expired || !_hasStoryId;
@@ -171,7 +173,7 @@ class _StoryShareMessageViewState extends State<StoryShareMessageView> {
                 ),
                 color: isDark ? const Color(0xFF262626) : Colors.white,
                 child: Text(
-                  isDisabled ? 'Story expired' : caption,
+                  isDisabled ? l10n.chatStoryExpired : caption,
                   style: TextStyle(
                     fontSize: 12.5,
                     fontWeight: FontWeight.w500,
@@ -226,6 +228,7 @@ class _StoryShareMessageViewState extends State<StoryShareMessageView> {
   }
 
   Widget _buildLabelOverlay() {
+    final l10n = AppLocalizations.of(context)!;
     return Positioned(
       left: 8,
       top: 8,
@@ -235,18 +238,18 @@ class _StoryShareMessageViewState extends State<StoryShareMessageView> {
           color: Colors.black.withValues(alpha: 0.45),
           borderRadius: BorderRadius.circular(8),
         ),
-        child: const Row(
+        child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
+            const Icon(
               Icons.play_circle_outline_rounded,
               color: Colors.white,
               size: 12,
             ),
-            SizedBox(width: 4),
+            const SizedBox(width: 4),
             Text(
-              'Story',
-              style: TextStyle(
+              l10n.chatStory,
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 11,
                 fontWeight: FontWeight.w600,

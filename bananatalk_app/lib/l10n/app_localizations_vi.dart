@@ -9668,4 +9668,89 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get chatMediaGeneric => 'phương tiện';
+
+  @override
+  String get chatMessageFailedToSend => 'Gửi tin nhắn không thành công';
+
+  @override
+  String get chatSendingEllipsis => 'Đang gửi...';
+
+  @override
+  String get chatFailedTapOptions => 'Thất bại · Nhấn để xem tùy chọn';
+
+  @override
+  String get chatMessageWasDeleted => 'Tin nhắn này đã bị xóa';
+
+  @override
+  String get chatStory => 'Tin';
+
+  @override
+  String get chatHi => 'Chào!';
+
+  @override
+  String get chatEdited => 'đã chỉnh sửa';
+
+  @override
+  String get chatPremium => 'Cao cấp ✨';
+
+  @override
+  String chatUnlockPremiumWallpapers(Object cost) {
+    return 'Mở khóa tất cả hình nền Cao cấp ✨ với 💎$cost xu? Thao tác này mở khóa vĩnh viễn toàn bộ gói.';
+  }
+
+  @override
+  String chatWallpaperForName(Object userName) {
+    return 'Hình nền trò chuyện cho $userName';
+  }
+
+  @override
+  String get chatChooseGallery => 'Chọn từ thư viện';
+
+  @override
+  String get chatHiThere => 'Chào bạn! 😊';
+
+  @override
+  String chatCorrected(Object correctorName) {
+    return '$correctorName đã sửa';
+  }
+
+  @override
+  String get chatCorrectionAccepted => 'Đã chấp nhận chỉnh sửa ✓';
+
+  @override
+  String chatForwarded(Object senderName) {
+    return 'Chuyển tiếp từ $senderName';
+  }
+
+  @override
+  String get chatCached => 'Đã lưu bộ nhớ đệm';
+
+  @override
+  String get chatWordBreakdown => 'Phân tích từ';
+
+  @override
+  String get chatAlternatives => 'Lựa chọn khác';
+
+  @override
+  String chatTranslationAlso(Object items) {
+    return 'Cũng có: $items';
+  }
+
+  @override
+  String get chatAudioUnavailable => 'Âm thanh không khả dụng';
+
+  @override
+  String get chatHideTranslation => 'Ẩn bản dịch';
+
+  @override
+  String get chatStoryExpired => 'Tin đã hết hạn';
+
+  @override
+  String get chatAcceptCorrection => 'Chấp nhận chỉnh sửa';
+
+  @override
+  String get chatAccepting => 'Đang chấp nhận…';
+
+  @override
+  String get chatSaveToVocabularyAction => 'Lưu vào từ vựng';
 }

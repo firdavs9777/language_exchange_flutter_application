@@ -62,6 +62,7 @@ class _VoiceMessageViewState extends State<VoiceMessageView> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     // Deleted placeholder — no transcribe button here
     if (widget.message.isDeleted && widget.message.deletedForEveryone) {
       return Container(
@@ -76,7 +77,7 @@ class _VoiceMessageViewState extends State<VoiceMessageView> {
             Icon(Icons.delete_outline, size: 16, color: context.textSecondary),
             Spacing.hGapSM,
             Text(
-              'This message was deleted',
+              l10n.chatMessageWasDeleted,
               style: context.bodySmall.copyWith(
                 color: context.textSecondary,
                 fontStyle: FontStyle.italic,

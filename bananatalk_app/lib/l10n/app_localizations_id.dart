@@ -9675,4 +9675,89 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get chatMediaGeneric => 'media';
+
+  @override
+  String get chatMessageFailedToSend => 'Pesan gagal terkirim';
+
+  @override
+  String get chatSendingEllipsis => 'Mengirim...';
+
+  @override
+  String get chatFailedTapOptions => 'Gagal · Ketuk untuk opsi';
+
+  @override
+  String get chatMessageWasDeleted => 'Pesan ini telah dihapus';
+
+  @override
+  String get chatStory => 'Cerita';
+
+  @override
+  String get chatHi => 'Hai!';
+
+  @override
+  String get chatEdited => 'diedit';
+
+  @override
+  String get chatPremium => 'Premium ✨';
+
+  @override
+  String chatUnlockPremiumWallpapers(Object cost) {
+    return 'Buka semua wallpaper Premium ✨ seharga 💎$cost koin? Ini membuka seluruh paket selamanya.';
+  }
+
+  @override
+  String chatWallpaperForName(Object userName) {
+    return 'Wallpaper obrolan untuk $userName';
+  }
+
+  @override
+  String get chatChooseGallery => 'Pilih dari galeri';
+
+  @override
+  String get chatHiThere => 'Halo! 😊';
+
+  @override
+  String chatCorrected(Object correctorName) {
+    return '$correctorName mengoreksi';
+  }
+
+  @override
+  String get chatCorrectionAccepted => 'Koreksi diterima ✓';
+
+  @override
+  String chatForwarded(Object senderName) {
+    return 'Diteruskan dari $senderName';
+  }
+
+  @override
+  String get chatCached => 'Tersimpan di cache';
+
+  @override
+  String get chatWordBreakdown => 'Rincian kata';
+
+  @override
+  String get chatAlternatives => 'Alternatif';
+
+  @override
+  String chatTranslationAlso(Object items) {
+    return 'Juga: $items';
+  }
+
+  @override
+  String get chatAudioUnavailable => 'Audio tidak tersedia';
+
+  @override
+  String get chatHideTranslation => 'Sembunyikan terjemahan';
+
+  @override
+  String get chatStoryExpired => 'Cerita kedaluwarsa';
+
+  @override
+  String get chatAcceptCorrection => 'Terima koreksi';
+
+  @override
+  String get chatAccepting => 'Menerima…';
+
+  @override
+  String get chatSaveToVocabularyAction => 'Simpan ke kosakata';
 }

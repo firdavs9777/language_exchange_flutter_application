@@ -9668,4 +9668,89 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get chatMediaGeneric => '미디어';
+
+  @override
+  String get chatMessageFailedToSend => '메시지를 보내지 못했습니다';
+
+  @override
+  String get chatSendingEllipsis => '보내는 중...';
+
+  @override
+  String get chatFailedTapOptions => '실패 · 탭하여 옵션 보기';
+
+  @override
+  String get chatMessageWasDeleted => '삭제된 메시지입니다';
+
+  @override
+  String get chatStory => '스토리';
+
+  @override
+  String get chatHi => '안녕!';
+
+  @override
+  String get chatEdited => '수정됨';
+
+  @override
+  String get chatPremium => '프리미엄 ✨';
+
+  @override
+  String chatUnlockPremiumWallpapers(Object cost) {
+    return '💎$cost 코인으로 모든 프리미엄 ✨ 배경화면을 잠금 해제할까요? 팩 전체가 영구적으로 잠금 해제됩니다.';
+  }
+
+  @override
+  String chatWallpaperForName(Object userName) {
+    return '$userName님과의 채팅 배경화면';
+  }
+
+  @override
+  String get chatChooseGallery => '갤러리에서 선택';
+
+  @override
+  String get chatHiThere => '안녕하세요! 😊';
+
+  @override
+  String chatCorrected(Object correctorName) {
+    return '$correctorName님이 교정했습니다';
+  }
+
+  @override
+  String get chatCorrectionAccepted => '교정이 수락되었습니다 ✓';
+
+  @override
+  String chatForwarded(Object senderName) {
+    return '$senderName님에게서 전달됨';
+  }
+
+  @override
+  String get chatCached => '캐시됨';
+
+  @override
+  String get chatWordBreakdown => '단어 분석';
+
+  @override
+  String get chatAlternatives => '대체 표현';
+
+  @override
+  String chatTranslationAlso(Object items) {
+    return '그 외: $items';
+  }
+
+  @override
+  String get chatAudioUnavailable => '오디오를 사용할 수 없습니다';
+
+  @override
+  String get chatHideTranslation => '번역 숨기기';
+
+  @override
+  String get chatStoryExpired => '스토리가 만료되었습니다';
+
+  @override
+  String get chatAcceptCorrection => '교정 수락';
+
+  @override
+  String get chatAccepting => '수락하는 중…';
+
+  @override
+  String get chatSaveToVocabularyAction => '어휘장에 저장';
 }

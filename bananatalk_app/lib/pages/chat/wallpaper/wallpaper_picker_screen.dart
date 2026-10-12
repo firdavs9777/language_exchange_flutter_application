@@ -464,6 +464,7 @@ class _WallpaperPickerScreenState extends ConsumerState<WallpaperPickerScreen> {
   /// [UnlockCta] "render nothing rather than guess" convention so this
   /// screen never shows a coin surface the backend hasn't turned on.
   List<Widget> _buildPremiumSection() {
+    final l10n = AppLocalizations.of(context)!;
     final coinsEnabled = ref
         .watch(appConfigProvider)
         .maybeWhen(
@@ -491,7 +492,7 @@ class _WallpaperPickerScreenState extends ConsumerState<WallpaperPickerScreen> {
 
     return [
       Text(
-        'Premium ✨',
+        l10n.chatPremium,
         style: TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.bold,
@@ -625,6 +626,7 @@ class _WallpaperPickerScreenState extends ConsumerState<WallpaperPickerScreen> {
     required bool isUnlocked,
     required bool entitlementLoading,
   }) async {
+    final l10n = AppLocalizations.of(context)!;
     if (isUnlocked) {
       setState(() {
         _selectedPreset = wallpaper.name;
@@ -640,7 +642,7 @@ class _WallpaperPickerScreenState extends ConsumerState<WallpaperPickerScreen> {
       builder: (dialogContext) => AlertDialog(
         title: Text(AppLocalizations.of(context)!.unlockPremiumWallpapers),
         content: Text(
-          'Unlock all Premium ✨ wallpapers for 💎$cost coins? This unlocks the whole pack for good.',
+          l10n.chatUnlockPremiumWallpapers(cost),
         ),
         actions: [
           TextButton(
@@ -694,6 +696,7 @@ class _WallpaperPickerScreenState extends ConsumerState<WallpaperPickerScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.chatWallpaper),
@@ -721,14 +724,14 @@ class _WallpaperPickerScreenState extends ConsumerState<WallpaperPickerScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Chat wallpaper for ${widget.userName}',
+                  l10n.chatWallpaperForName(widget.userName),
                   style: TextStyle(color: context.textSecondary),
                 ),
                 Spacing.gapLG,
 
                 // Solid Colors Section
                 Text(
-                  'Solid Colors',
+                  l10n.solidColors,
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -819,7 +822,7 @@ class _WallpaperPickerScreenState extends ConsumerState<WallpaperPickerScreen> {
 
                 // Gradients Section
                 Text(
-                  'Gradients',
+                  l10n.gradients,
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -906,7 +909,7 @@ class _WallpaperPickerScreenState extends ConsumerState<WallpaperPickerScreen> {
 
                 // Custom Image Section
                 Text(
-                  'Custom Image',
+                  l10n.customImage,
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -946,7 +949,7 @@ class _WallpaperPickerScreenState extends ConsumerState<WallpaperPickerScreen> {
                               ),
                               Spacing.gapSM,
                               Text(
-                                'Choose from gallery',
+                                l10n.chatChooseGallery,
                                 style: TextStyle(color: context.textSecondary),
                               ),
                             ],
@@ -960,7 +963,7 @@ class _WallpaperPickerScreenState extends ConsumerState<WallpaperPickerScreen> {
                 // Preview Section
                 if (_selectedPreset != null) ...[
                   Text(
-                    'Preview',
+                    l10n.preview,
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -990,6 +993,7 @@ class _WallpaperPickerScreenState extends ConsumerState<WallpaperPickerScreen> {
   }
 
   Widget _buildPreview() {
+    final l10n = AppLocalizations.of(context)!;
     final isDark = context.isDarkMode;
     Widget background;
 
@@ -1068,9 +1072,9 @@ class _WallpaperPickerScreenState extends ConsumerState<WallpaperPickerScreen> {
               color: AppColors.primary,
               borderRadius: AppRadius.borderMD,
             ),
-            child: const Text(
-              'Hi there! 😊',
-              style: TextStyle(color: AppColors.white),
+            child: Text(
+              l10n.chatHiThere,
+              style: const TextStyle(color: AppColors.white),
             ),
           ),
         ),

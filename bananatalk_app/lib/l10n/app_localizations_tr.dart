@@ -9676,4 +9676,89 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get chatMediaGeneric => 'medya';
+
+  @override
+  String get chatMessageFailedToSend => 'Mesaj gönderilemedi';
+
+  @override
+  String get chatSendingEllipsis => 'Gönderiliyor...';
+
+  @override
+  String get chatFailedTapOptions => 'Başarısız · Seçenekler için dokunun';
+
+  @override
+  String get chatMessageWasDeleted => 'Bu mesaj silindi';
+
+  @override
+  String get chatStory => 'Hikâye';
+
+  @override
+  String get chatHi => 'Merhaba!';
+
+  @override
+  String get chatEdited => 'düzenlendi';
+
+  @override
+  String get chatPremium => 'Premium ✨';
+
+  @override
+  String chatUnlockPremiumWallpapers(Object cost) {
+    return 'Tüm Premium ✨ duvar kâğıtlarının kilidini 💎$cost jetonla açmak ister misiniz? Bu, tüm paketin kilidini kalıcı olarak açar.';
+  }
+
+  @override
+  String chatWallpaperForName(Object userName) {
+    return '$userName için sohbet duvar kâğıdı';
+  }
+
+  @override
+  String get chatChooseGallery => 'Galeriden seç';
+
+  @override
+  String get chatHiThere => 'Selam! 😊';
+
+  @override
+  String chatCorrected(Object correctorName) {
+    return '$correctorName düzeltti';
+  }
+
+  @override
+  String get chatCorrectionAccepted => 'Düzeltme kabul edildi ✓';
+
+  @override
+  String chatForwarded(Object senderName) {
+    return '$senderName kişisinden iletildi';
+  }
+
+  @override
+  String get chatCached => 'Önbellekte';
+
+  @override
+  String get chatWordBreakdown => 'Kelime dökümü';
+
+  @override
+  String get chatAlternatives => 'Alternatifler';
+
+  @override
+  String chatTranslationAlso(Object items) {
+    return 'Ayrıca: $items';
+  }
+
+  @override
+  String get chatAudioUnavailable => 'Ses kullanılamıyor';
+
+  @override
+  String get chatHideTranslation => 'Çeviriyi gizle';
+
+  @override
+  String get chatStoryExpired => 'Hikâyenin süresi doldu';
+
+  @override
+  String get chatAcceptCorrection => 'Düzeltmeyi kabul et';
+
+  @override
+  String get chatAccepting => 'Kabul ediliyor…';
+
+  @override
+  String get chatSaveToVocabularyAction => 'Kelime listesine kaydet';
 }

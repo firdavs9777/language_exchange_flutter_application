@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
 import 'package:bananatalk_app/providers/provider_models/story_model.dart';
@@ -75,6 +76,7 @@ class ImageMessageView extends StatelessWidget {
   // ---------- sub-builders ----------
 
   Widget _buildDeletedPlaceholder(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
@@ -87,7 +89,7 @@ class ImageMessageView extends StatelessWidget {
           Icon(Icons.delete_outline, size: 16, color: context.textSecondary),
           Spacing.hGapSM,
           Text(
-            'This message was deleted',
+            l10n.chatMessageWasDeleted,
             style: context.bodySmall.copyWith(
               color: context.textSecondary,
               fontStyle: FontStyle.italic,
@@ -99,6 +101,7 @@ class ImageMessageView extends StatelessWidget {
   }
 
   Widget _buildStoryReferencePreview(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final ref = message.storyReference!;
     return GestureDetector(
       onTap: () => _openStoryFromReference(context, ref),
@@ -145,7 +148,7 @@ class ImageMessageView extends StatelessWidget {
             const SizedBox(width: 8),
             Flexible(
               child: Text(
-                'Replied to your story',
+                l10n.repliedToYourStory,
                 style: TextStyle(
                   fontSize: 11,
                   color: isMe

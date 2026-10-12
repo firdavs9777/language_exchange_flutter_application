@@ -165,6 +165,7 @@ class _VoiceMessagePlayerState extends State<VoiceMessagePlayer> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     // Safety check: if URL is empty, show error state
     if (widget.audioUrl.isEmpty) {
       return Container(
@@ -186,9 +187,9 @@ class _VoiceMessagePlayerState extends State<VoiceMessagePlayer> {
               ),
             ),
             const SizedBox(width: 8),
-            const Text(
-              'Audio unavailable',
-              style: TextStyle(color: Colors.grey, fontSize: 12),
+            Text(
+              l10n.chatAudioUnavailable,
+              style: const TextStyle(color: Colors.grey, fontSize: 12),
             ),
           ],
         ),

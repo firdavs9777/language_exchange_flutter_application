@@ -9684,4 +9684,89 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get chatMediaGeneric => 'media';
+
+  @override
+  String get chatMessageFailedToSend => 'Message failed to send';
+
+  @override
+  String get chatSendingEllipsis => 'Sending...';
+
+  @override
+  String get chatFailedTapOptions => 'Failed · Tap for options';
+
+  @override
+  String get chatMessageWasDeleted => 'This message was deleted';
+
+  @override
+  String get chatStory => 'Story';
+
+  @override
+  String get chatHi => 'Hi!';
+
+  @override
+  String get chatEdited => 'edited';
+
+  @override
+  String get chatPremium => 'Premium ✨';
+
+  @override
+  String chatUnlockPremiumWallpapers(Object cost) {
+    return 'Unlock all Premium ✨ wallpapers for 💎$cost coins? This unlocks the whole pack for good.';
+  }
+
+  @override
+  String chatWallpaperForName(Object userName) {
+    return 'Chat wallpaper for $userName';
+  }
+
+  @override
+  String get chatChooseGallery => 'Choose from gallery';
+
+  @override
+  String get chatHiThere => 'Hi there! 😊';
+
+  @override
+  String chatCorrected(Object correctorName) {
+    return '$correctorName corrected';
+  }
+
+  @override
+  String get chatCorrectionAccepted => 'Correction accepted ✓';
+
+  @override
+  String chatForwarded(Object senderName) {
+    return 'Forwarded from $senderName';
+  }
+
+  @override
+  String get chatCached => 'Cached';
+
+  @override
+  String get chatWordBreakdown => 'Word Breakdown';
+
+  @override
+  String get chatAlternatives => 'Alternatives';
+
+  @override
+  String chatTranslationAlso(Object items) {
+    return 'Also: $items';
+  }
+
+  @override
+  String get chatAudioUnavailable => 'Audio unavailable';
+
+  @override
+  String get chatHideTranslation => 'Hide translation';
+
+  @override
+  String get chatStoryExpired => 'Story expired';
+
+  @override
+  String get chatAcceptCorrection => 'Accept correction';
+
+  @override
+  String get chatAccepting => 'Accepting…';
+
+  @override
+  String get chatSaveToVocabularyAction => 'Save to Vocabulary';
 }

@@ -9668,4 +9668,89 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get chatMediaGeneric => 'メディア';
+
+  @override
+  String get chatMessageFailedToSend => 'メッセージを送信できませんでした';
+
+  @override
+  String get chatSendingEllipsis => '送信中...';
+
+  @override
+  String get chatFailedTapOptions => '失敗 · タップしてオプションを表示';
+
+  @override
+  String get chatMessageWasDeleted => 'このメッセージは削除されました';
+
+  @override
+  String get chatStory => 'ストーリー';
+
+  @override
+  String get chatHi => 'やあ！';
+
+  @override
+  String get chatEdited => '編集済み';
+
+  @override
+  String get chatPremium => 'プレミアム ✨';
+
+  @override
+  String chatUnlockPremiumWallpapers(Object cost) {
+    return '💎$costコインでプレミアム ✨ 壁紙をすべてアンロックしますか？パック全体が永久にアンロックされます。';
+  }
+
+  @override
+  String chatWallpaperForName(Object userName) {
+    return '$userNameさんとのチャット壁紙';
+  }
+
+  @override
+  String get chatChooseGallery => 'ギャラリーから選択';
+
+  @override
+  String get chatHiThere => 'こんにちは！😊';
+
+  @override
+  String chatCorrected(Object correctorName) {
+    return '$correctorNameさんが添削しました';
+  }
+
+  @override
+  String get chatCorrectionAccepted => '添削を承認しました ✓';
+
+  @override
+  String chatForwarded(Object senderName) {
+    return '$senderNameから転送';
+  }
+
+  @override
+  String get chatCached => 'キャッシュ済み';
+
+  @override
+  String get chatWordBreakdown => '単語の内訳';
+
+  @override
+  String get chatAlternatives => '別の表現';
+
+  @override
+  String chatTranslationAlso(Object items) {
+    return '他にも：$items';
+  }
+
+  @override
+  String get chatAudioUnavailable => '音声を利用できません';
+
+  @override
+  String get chatHideTranslation => '翻訳を非表示';
+
+  @override
+  String get chatStoryExpired => 'ストーリーの期限切れ';
+
+  @override
+  String get chatAcceptCorrection => '添削を承認';
+
+  @override
+  String get chatAccepting => '承認中…';
+
+  @override
+  String get chatSaveToVocabularyAction => '単語帳に保存';
 }

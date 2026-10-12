@@ -9668,4 +9668,89 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get chatMediaGeneric => 'สื่อ';
+
+  @override
+  String get chatMessageFailedToSend => 'ส่งข้อความไม่สำเร็จ';
+
+  @override
+  String get chatSendingEllipsis => 'กำลังส่ง...';
+
+  @override
+  String get chatFailedTapOptions => 'ล้มเหลว · แตะเพื่อดูตัวเลือก';
+
+  @override
+  String get chatMessageWasDeleted => 'ข้อความนี้ถูกลบแล้ว';
+
+  @override
+  String get chatStory => 'สตอรี่';
+
+  @override
+  String get chatHi => 'สวัสดี!';
+
+  @override
+  String get chatEdited => 'แก้ไขแล้ว';
+
+  @override
+  String get chatPremium => 'พรีเมียม ✨';
+
+  @override
+  String chatUnlockPremiumWallpapers(Object cost) {
+    return 'ปลดล็อกวอลเปเปอร์พรีเมียม ✨ ทั้งหมดด้วย 💎$cost เหรียญหรือไม่ การปลดล็อกนี้จะใช้ได้ทั้งชุดตลอดไป';
+  }
+
+  @override
+  String chatWallpaperForName(Object userName) {
+    return 'วอลเปเปอร์แชทสำหรับ $userName';
+  }
+
+  @override
+  String get chatChooseGallery => 'เลือกจากแกลเลอรี';
+
+  @override
+  String get chatHiThere => 'สวัสดีจ้ะ! 😊';
+
+  @override
+  String chatCorrected(Object correctorName) {
+    return '$correctorName แก้ไขให้';
+  }
+
+  @override
+  String get chatCorrectionAccepted => 'ยอมรับการแก้ไขแล้ว ✓';
+
+  @override
+  String chatForwarded(Object senderName) {
+    return 'ส่งต่อจาก $senderName';
+  }
+
+  @override
+  String get chatCached => 'แคชไว้';
+
+  @override
+  String get chatWordBreakdown => 'แยกวิเคราะห์คำ';
+
+  @override
+  String get chatAlternatives => 'ทางเลือกอื่น';
+
+  @override
+  String chatTranslationAlso(Object items) {
+    return 'อีกความหมาย: $items';
+  }
+
+  @override
+  String get chatAudioUnavailable => 'ไม่มีเสียง';
+
+  @override
+  String get chatHideTranslation => 'ซ่อนคำแปล';
+
+  @override
+  String get chatStoryExpired => 'สตอรี่หมดอายุแล้ว';
+
+  @override
+  String get chatAcceptCorrection => 'ยอมรับการแก้ไข';
+
+  @override
+  String get chatAccepting => 'กำลังยอมรับ…';
+
+  @override
+  String get chatSaveToVocabularyAction => 'บันทึกลงคำศัพท์';
 }

@@ -9693,4 +9693,89 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get chatMediaGeneric => 'وسائط';
+
+  @override
+  String get chatMessageFailedToSend => 'فشل إرسال الرسالة';
+
+  @override
+  String get chatSendingEllipsis => 'جارٍ الإرسال...';
+
+  @override
+  String get chatFailedTapOptions => 'فشل · انقر للخيارات';
+
+  @override
+  String get chatMessageWasDeleted => 'تم حذف هذه الرسالة';
+
+  @override
+  String get chatStory => 'قصة';
+
+  @override
+  String get chatHi => 'مرحبًا!';
+
+  @override
+  String get chatEdited => 'تم التعديل';
+
+  @override
+  String get chatPremium => 'بريميوم ✨';
+
+  @override
+  String chatUnlockPremiumWallpapers(Object cost) {
+    return 'هل تريد فتح جميع خلفيات بريميوم ✨ مقابل 💎$cost عملة؟ سيؤدي هذا إلى فتح الحزمة بالكامل بشكل دائم.';
+  }
+
+  @override
+  String chatWallpaperForName(Object userName) {
+    return 'خلفية الدردشة لـ $userName';
+  }
+
+  @override
+  String get chatChooseGallery => 'اختر من المعرض';
+
+  @override
+  String get chatHiThere => 'أهلًا بك! 😊';
+
+  @override
+  String chatCorrected(Object correctorName) {
+    return 'صحّح $correctorName';
+  }
+
+  @override
+  String get chatCorrectionAccepted => 'تم قبول التصحيح ✓';
+
+  @override
+  String chatForwarded(Object senderName) {
+    return 'تمت إعادة التوجيه من $senderName';
+  }
+
+  @override
+  String get chatCached => 'محفوظ مؤقتًا';
+
+  @override
+  String get chatWordBreakdown => 'تحليل الكلمات';
+
+  @override
+  String get chatAlternatives => 'بدائل';
+
+  @override
+  String chatTranslationAlso(Object items) {
+    return 'أيضًا: $items';
+  }
+
+  @override
+  String get chatAudioUnavailable => 'الصوت غير متاح';
+
+  @override
+  String get chatHideTranslation => 'إخفاء الترجمة';
+
+  @override
+  String get chatStoryExpired => 'انتهت صلاحية القصة';
+
+  @override
+  String get chatAcceptCorrection => 'قبول التصحيح';
+
+  @override
+  String get chatAccepting => 'جارٍ القبول…';
+
+  @override
+  String get chatSaveToVocabularyAction => 'حفظ في المفردات';
 }

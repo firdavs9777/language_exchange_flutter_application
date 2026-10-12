@@ -35,6 +35,28 @@ const Map<String, List<String>> _keysByTask = {
     'chatMediaFile',
     'chatMediaGeneric',
   ],
+  'L2': [
+    'chatMessageFailedToSend',
+    'chatSendingEllipsis',
+    'chatFailedTapOptions',
+    'chatMessageWasDeleted',
+    'chatStory',
+    'chatHi',
+    'chatEdited',
+    'chatPremium',
+    'chatUnlockPremiumWallpapers',
+    'chatWallpaperForName',
+    'chatChooseGallery',
+    'chatHiThere',
+    'chatCorrected',
+    'chatCorrectionAccepted',
+    'chatForwarded',
+    'chatCached',
+    'chatWordBreakdown',
+    'chatAlternatives',
+    'chatTranslationAlso',
+    'chatAudioUnavailable',
+  ],
 };
 
 /// Files (under lib/) each task must leave with no English Text literal.
@@ -50,11 +72,28 @@ const Map<String, List<String>> _filesByTask = {
     'pages/chat/panels/gif_picker_panel.dart',
     'widgets/connection_status_indicator.dart',
   ],
+  'L2': [
+    'pages/chat/message/bubble/bubble_actions_menu.dart',
+    'pages/chat/message/message_bubble.dart',
+    'pages/chat/message/message_bubble/image_message_view.dart',
+    'pages/chat/message/message_bubble/story_share_message_view.dart',
+    'pages/chat/message/message_bubble/text_message_view.dart',
+    'pages/chat/message/message_bubble/voice_message_view.dart',
+    'pages/chat/message/typing_indicator.dart',
+    'pages/chat/wallpaper/wallpaper_picker_screen.dart',
+    'widgets/correction_message_bubble.dart',
+    'widgets/forwarded_message_indicator.dart',
+    'widgets/translation_bottom_sheet.dart',
+    'widgets/voice_message_player.dart',
+  ],
 };
 
 /// Keys whose draft may legitimately equal the English in some locale
 /// (loanwords). Add with a one-line reason; empty by default.
 const Set<String> _mayMatchEnglish = {
+  'chatStory', // de/fr/pt use the English loanword "Story"
+  'chatPremium', // "Premium ✨" is the same word in de/es/fr/id/it/pt/tl/tr
+  'chatAlternatives', // fr "Alternatives" is the same word
   'chatQrCode', // tl uses the English term
   'chatDraft', // tl uses the English loanword
   'chatMediaPhoto', // fr "photo" is the same word

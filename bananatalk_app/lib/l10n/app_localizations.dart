@@ -17737,6 +17737,156 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'media'**
   String get chatMediaGeneric;
+
+  /// No description provided for @chatMessageFailedToSend.
+  ///
+  /// In en, this message translates to:
+  /// **'Message failed to send'**
+  String get chatMessageFailedToSend;
+
+  /// No description provided for @chatSendingEllipsis.
+  ///
+  /// In en, this message translates to:
+  /// **'Sending...'**
+  String get chatSendingEllipsis;
+
+  /// No description provided for @chatFailedTapOptions.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed · Tap for options'**
+  String get chatFailedTapOptions;
+
+  /// No description provided for @chatMessageWasDeleted.
+  ///
+  /// In en, this message translates to:
+  /// **'This message was deleted'**
+  String get chatMessageWasDeleted;
+
+  /// No description provided for @chatStory.
+  ///
+  /// In en, this message translates to:
+  /// **'Story'**
+  String get chatStory;
+
+  /// No description provided for @chatHi.
+  ///
+  /// In en, this message translates to:
+  /// **'Hi!'**
+  String get chatHi;
+
+  /// No description provided for @chatEdited.
+  ///
+  /// In en, this message translates to:
+  /// **'edited'**
+  String get chatEdited;
+
+  /// No description provided for @chatPremium.
+  ///
+  /// In en, this message translates to:
+  /// **'Premium ✨'**
+  String get chatPremium;
+
+  /// No description provided for @chatUnlockPremiumWallpapers.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock all Premium ✨ wallpapers for 💎{cost} coins? This unlocks the whole pack for good.'**
+  String chatUnlockPremiumWallpapers(Object cost);
+
+  /// No description provided for @chatWallpaperForName.
+  ///
+  /// In en, this message translates to:
+  /// **'Chat wallpaper for {userName}'**
+  String chatWallpaperForName(Object userName);
+
+  /// No description provided for @chatChooseGallery.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose from gallery'**
+  String get chatChooseGallery;
+
+  /// No description provided for @chatHiThere.
+  ///
+  /// In en, this message translates to:
+  /// **'Hi there! 😊'**
+  String get chatHiThere;
+
+  /// No description provided for @chatCorrected.
+  ///
+  /// In en, this message translates to:
+  /// **'{correctorName} corrected'**
+  String chatCorrected(Object correctorName);
+
+  /// No description provided for @chatCorrectionAccepted.
+  ///
+  /// In en, this message translates to:
+  /// **'Correction accepted ✓'**
+  String get chatCorrectionAccepted;
+
+  /// No description provided for @chatForwarded.
+  ///
+  /// In en, this message translates to:
+  /// **'Forwarded from {senderName}'**
+  String chatForwarded(Object senderName);
+
+  /// No description provided for @chatCached.
+  ///
+  /// In en, this message translates to:
+  /// **'Cached'**
+  String get chatCached;
+
+  /// No description provided for @chatWordBreakdown.
+  ///
+  /// In en, this message translates to:
+  /// **'Word Breakdown'**
+  String get chatWordBreakdown;
+
+  /// No description provided for @chatAlternatives.
+  ///
+  /// In en, this message translates to:
+  /// **'Alternatives'**
+  String get chatAlternatives;
+
+  /// No description provided for @chatTranslationAlso.
+  ///
+  /// In en, this message translates to:
+  /// **'Also: {items}'**
+  String chatTranslationAlso(Object items);
+
+  /// No description provided for @chatAudioUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Audio unavailable'**
+  String get chatAudioUnavailable;
+
+  /// No description provided for @chatHideTranslation.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide translation'**
+  String get chatHideTranslation;
+
+  /// No description provided for @chatStoryExpired.
+  ///
+  /// In en, this message translates to:
+  /// **'Story expired'**
+  String get chatStoryExpired;
+
+  /// No description provided for @chatAcceptCorrection.
+  ///
+  /// In en, this message translates to:
+  /// **'Accept correction'**
+  String get chatAcceptCorrection;
+
+  /// No description provided for @chatAccepting.
+  ///
+  /// In en, this message translates to:
+  /// **'Accepting…'**
+  String get chatAccepting;
+
+  /// No description provided for @chatSaveToVocabularyAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Save to Vocabulary'**
+  String get chatSaveToVocabularyAction;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

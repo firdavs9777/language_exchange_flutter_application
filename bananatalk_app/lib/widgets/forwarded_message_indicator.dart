@@ -1,4 +1,5 @@
 // lib/widgets/forwarded_message_indicator.dart
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
 
@@ -15,6 +16,7 @@ class ForwardedMessageIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     if (forwardedFrom == null) return const SizedBox.shrink();
 
     final theme = Theme.of(context);
@@ -44,7 +46,7 @@ class ForwardedMessageIndicator extends StatelessWidget {
           ),
           const SizedBox(width: 4),
           Text(
-            'Forwarded from $senderName',
+            l10n.chatForwarded(senderName),
             style: TextStyle(
               fontSize: 12,
               fontStyle: FontStyle.italic,

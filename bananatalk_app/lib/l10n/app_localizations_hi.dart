@@ -9678,4 +9678,89 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get chatMediaGeneric => 'मीडिया';
+
+  @override
+  String get chatMessageFailedToSend => 'संदेश भेजने में विफल';
+
+  @override
+  String get chatSendingEllipsis => 'भेजा जा रहा है...';
+
+  @override
+  String get chatFailedTapOptions => 'विफल · विकल्पों के लिए टैप करें';
+
+  @override
+  String get chatMessageWasDeleted => 'यह संदेश हटा दिया गया';
+
+  @override
+  String get chatStory => 'स्टोरी';
+
+  @override
+  String get chatHi => 'नमस्ते!';
+
+  @override
+  String get chatEdited => 'संपादित';
+
+  @override
+  String get chatPremium => 'प्रीमियम ✨';
+
+  @override
+  String chatUnlockPremiumWallpapers(Object cost) {
+    return 'क्या 💎$cost सिक्कों में सभी प्रीमियम ✨ वॉलपेपर अनलॉक करें? इससे पूरा पैक हमेशा के लिए अनलॉक हो जाता है।';
+  }
+
+  @override
+  String chatWallpaperForName(Object userName) {
+    return '$userName के लिए चैट वॉलपेपर';
+  }
+
+  @override
+  String get chatChooseGallery => 'गैलरी से चुनें';
+
+  @override
+  String get chatHiThere => 'नमस्ते! 😊';
+
+  @override
+  String chatCorrected(Object correctorName) {
+    return '$correctorName ने सुधारा';
+  }
+
+  @override
+  String get chatCorrectionAccepted => 'सुधार स्वीकार किया गया ✓';
+
+  @override
+  String chatForwarded(Object senderName) {
+    return '$senderName से फ़ॉरवर्ड किया गया';
+  }
+
+  @override
+  String get chatCached => 'कैश किया गया';
+
+  @override
+  String get chatWordBreakdown => 'शब्द विश्लेषण';
+
+  @override
+  String get chatAlternatives => 'विकल्प';
+
+  @override
+  String chatTranslationAlso(Object items) {
+    return 'यह भी: $items';
+  }
+
+  @override
+  String get chatAudioUnavailable => 'ऑडियो उपलब्ध नहीं है';
+
+  @override
+  String get chatHideTranslation => 'अनुवाद छिपाएँ';
+
+  @override
+  String get chatStoryExpired => 'स्टोरी समाप्त हो गई';
+
+  @override
+  String get chatAcceptCorrection => 'सुधार स्वीकार करें';
+
+  @override
+  String get chatAccepting => 'स्वीकार किया जा रहा है…';
+
+  @override
+  String get chatSaveToVocabularyAction => 'शब्दावली में सहेजें';
 }

@@ -9678,4 +9678,89 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get chatMediaGeneric => 'media';
+
+  @override
+  String get chatMessageFailedToSend => 'Hindi naipadala ang mensahe';
+
+  @override
+  String get chatSendingEllipsis => 'Ipinapadala...';
+
+  @override
+  String get chatFailedTapOptions => 'Nabigo · I-tap para sa mga opsyon';
+
+  @override
+  String get chatMessageWasDeleted => 'Binura ang mensaheng ito';
+
+  @override
+  String get chatStory => 'Story';
+
+  @override
+  String get chatHi => 'Kumusta!';
+
+  @override
+  String get chatEdited => 'na-edit';
+
+  @override
+  String get chatPremium => 'Premium ✨';
+
+  @override
+  String chatUnlockPremiumWallpapers(Object cost) {
+    return 'I-unlock ang lahat ng Premium ✨ wallpaper para sa 💎$cost coins? Permanenteng ina-unlock nito ang buong pack.';
+  }
+
+  @override
+  String chatWallpaperForName(Object userName) {
+    return 'Chat wallpaper para kay $userName';
+  }
+
+  @override
+  String get chatChooseGallery => 'Pumili mula sa gallery';
+
+  @override
+  String get chatHiThere => 'Kumusta! 😊';
+
+  @override
+  String chatCorrected(Object correctorName) {
+    return 'Itinama ni $correctorName';
+  }
+
+  @override
+  String get chatCorrectionAccepted => 'Tinanggap ang pagwawasto ✓';
+
+  @override
+  String chatForwarded(Object senderName) {
+    return 'Na-forward mula kay $senderName';
+  }
+
+  @override
+  String get chatCached => 'Naka-cache';
+
+  @override
+  String get chatWordBreakdown => 'Pagsusuri ng salita';
+
+  @override
+  String get chatAlternatives => 'Mga alternatibo';
+
+  @override
+  String chatTranslationAlso(Object items) {
+    return 'Pati na rin: $items';
+  }
+
+  @override
+  String get chatAudioUnavailable => 'Hindi available ang audio';
+
+  @override
+  String get chatHideTranslation => 'Itago ang salin';
+
+  @override
+  String get chatStoryExpired => 'Nag-expire na ang story';
+
+  @override
+  String get chatAcceptCorrection => 'Tanggapin ang pagwawasto';
+
+  @override
+  String get chatAccepting => 'Tinatanggap…';
+
+  @override
+  String get chatSaveToVocabularyAction => 'I-save sa bokabularyo';
 }

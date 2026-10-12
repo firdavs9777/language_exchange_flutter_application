@@ -422,7 +422,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
                 ),
                 title: Text(
                   hasInlineTranslation
-                      ? 'Hide translation'
+                      ? l10n.chatHideTranslation
                       : l10n.chatMessageTranslate,
                 ),
                 onTap: () {
@@ -593,6 +593,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
   // ---------- Sending status ----------
 
   Widget _buildSendingStatus() {
+    final l10n = AppLocalizations.of(context)!;
     final status = widget.message.sendingStatus;
 
     if (status == MessageSendingStatus.none) return const SizedBox.shrink();
@@ -615,7 +616,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
             ),
             Spacing.hGapXS,
             Text(
-              'Sending...',
+              l10n.chatSendingEllipsis,
               style: context.captionSmall.copyWith(
                 color: _sendingColor(context),
                 fontWeight: FontWeight.w500,
@@ -642,7 +643,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
               Icon(Icons.error_outline, size: 12, color: _failedColor(context)),
               Spacing.hGapXS,
               Text(
-                'Failed · Tap for options',
+                l10n.chatFailedTapOptions,
                 style: context.captionSmall.copyWith(
                   color: _failedColor(context),
                   fontWeight: FontWeight.w600,

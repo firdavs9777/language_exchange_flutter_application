@@ -9668,6 +9668,91 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get chatMediaGeneric => '媒体';
+
+  @override
+  String get chatMessageFailedToSend => '消息发送失败';
+
+  @override
+  String get chatSendingEllipsis => '发送中...';
+
+  @override
+  String get chatFailedTapOptions => '失败 · 点击查看选项';
+
+  @override
+  String get chatMessageWasDeleted => '此消息已被删除';
+
+  @override
+  String get chatStory => '动态';
+
+  @override
+  String get chatHi => '嗨！';
+
+  @override
+  String get chatEdited => '已编辑';
+
+  @override
+  String get chatPremium => '高级 ✨';
+
+  @override
+  String chatUnlockPremiumWallpapers(Object cost) {
+    return '用 💎$cost 金币解锁所有高级 ✨ 壁纸吗？这将永久解锁整个壁纸包。';
+  }
+
+  @override
+  String chatWallpaperForName(Object userName) {
+    return '$userName的聊天壁纸';
+  }
+
+  @override
+  String get chatChooseGallery => '从相册选择';
+
+  @override
+  String get chatHiThere => '你好！😊';
+
+  @override
+  String chatCorrected(Object correctorName) {
+    return '$correctorName 已纠正';
+  }
+
+  @override
+  String get chatCorrectionAccepted => '已接受纠正 ✓';
+
+  @override
+  String chatForwarded(Object senderName) {
+    return '转发自 $senderName';
+  }
+
+  @override
+  String get chatCached => '已缓存';
+
+  @override
+  String get chatWordBreakdown => '单词解析';
+
+  @override
+  String get chatAlternatives => '备选';
+
+  @override
+  String chatTranslationAlso(Object items) {
+    return '另外：$items';
+  }
+
+  @override
+  String get chatAudioUnavailable => '音频不可用';
+
+  @override
+  String get chatHideTranslation => '隐藏翻译';
+
+  @override
+  String get chatStoryExpired => '动态已过期';
+
+  @override
+  String get chatAcceptCorrection => '接受纠正';
+
+  @override
+  String get chatAccepting => '正在接受…';
+
+  @override
+  String get chatSaveToVocabularyAction => '保存到词汇本';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -19334,4 +19419,89 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get chatMediaGeneric => '媒體';
+
+  @override
+  String get chatMessageFailedToSend => '訊息傳送失敗';
+
+  @override
+  String get chatSendingEllipsis => '傳送中...';
+
+  @override
+  String get chatFailedTapOptions => '失敗 · 點選以查看選項';
+
+  @override
+  String get chatMessageWasDeleted => '此訊息已被刪除';
+
+  @override
+  String get chatStory => '動態';
+
+  @override
+  String get chatHi => '嗨！';
+
+  @override
+  String get chatEdited => '已編輯';
+
+  @override
+  String get chatPremium => '進階 ✨';
+
+  @override
+  String chatUnlockPremiumWallpapers(Object cost) {
+    return '要用 💎$cost 金幣解鎖所有進階 ✨ 桌布嗎？這將永久解鎖整個桌布包。';
+  }
+
+  @override
+  String chatWallpaperForName(Object userName) {
+    return '$userName的聊天桌布';
+  }
+
+  @override
+  String get chatChooseGallery => '從相簿選擇';
+
+  @override
+  String get chatHiThere => '你好！😊';
+
+  @override
+  String chatCorrected(Object correctorName) {
+    return '$correctorName 已更正';
+  }
+
+  @override
+  String get chatCorrectionAccepted => '已接受更正 ✓';
+
+  @override
+  String chatForwarded(Object senderName) {
+    return '轉寄自 $senderName';
+  }
+
+  @override
+  String get chatCached => '已快取';
+
+  @override
+  String get chatWordBreakdown => '單字解析';
+
+  @override
+  String get chatAlternatives => '備選';
+
+  @override
+  String chatTranslationAlso(Object items) {
+    return '另外：$items';
+  }
+
+  @override
+  String get chatAudioUnavailable => '音訊無法使用';
+
+  @override
+  String get chatHideTranslation => '隱藏翻譯';
+
+  @override
+  String get chatStoryExpired => '動態已過期';
+
+  @override
+  String get chatAcceptCorrection => '接受更正';
+
+  @override
+  String get chatAccepting => '正在接受…';
+
+  @override
+  String get chatSaveToVocabularyAction => '儲存到單字本';
 }
