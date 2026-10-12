@@ -107,9 +107,17 @@ Future<void> maybePrimeNotifications(
     );
 
     if (accepted == true) {
-      final granted = await service.requestFullAuthorization();
-      AnalyticsService.instance.logNotificationPrimeResult(
-          primeResultFor(accepted: true, granted: granted));
+      // The contract's results are granted|declined|later, so when the OS
+      // prompt could not be raised (no messaging) or threw, nothing was
+      // answered and no result is logged.
+      final available = service.isMessagingAvailable;
+      try {
+        final granted = await service.requestFullAuthorization();
+        if (available) {
+          AnalyticsService.instance.logNotificationPrimeResult(
+              primeResultFor(accepted: true, granted: granted));
+        }
+      } catch (_) {}
     } else {
       // Covers an explicit decline AND a swipe-dismiss (null).
       await service.markPromptDeclined();

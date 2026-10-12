@@ -90,6 +90,14 @@ class NotificationService {
   /// [initialize] has run. Read by the chat trigger and the recovery surfaces.
   NotificationAction? get pendingAction => _pendingAction;
 
+  /// False until Firebase messaging was set up; the OS prompt cannot be raised
+  /// without it.
+  bool get isMessagingAvailable => _fcm != null;
+
+  @visibleForTesting
+  void debugSetPendingAction(NotificationAction? action) =>
+      _pendingAction = action;
+
   // Track current user ID to ensure token refresh registers with correct user
   String? _currentUserId;
 

@@ -1,10 +1,21 @@
 import 'dart:io';
 
+import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/models/call_model.dart';
+import 'package:bananatalk_app/services/analytics_service.dart';
+import 'package:bananatalk_app/services/call_manager.dart';
+import 'package:bananatalk_app/services/launch_modal_coordinator.dart';
+import 'package:bananatalk_app/services/notification_permission.dart';
+import 'package:bananatalk_app/services/notification_service.dart';
 import 'package:bananatalk_app/pages/community/first_session/first_message_reporter.dart';
 import 'package:bananatalk_app/widgets/notifications/notification_priming_sheet.dart';
+
+import '../helpers/call_fakes.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -56,5 +67,100 @@ void main() {
     expect(File('lib/widgets/notifications/notification_priming_sheet.dart')
         .readAsStringSync()
         .contains('PopupBudget.tryConsume()'), isTrue);
+  });
+
+  group('maybePrimeNotifications (behaviour)', () {
+    late CallManager originalCalls;
+    late List<String> events;
+
+    setUp(() {
+      originalCalls = CallManager();
+      PopupBudget.debugReset();
+      events = [];
+      AnalyticsService.debugLogSink = (n, p) => events.add(n);
+      NotificationService().debugSetPendingAction(NotificationAction.ask);
+    });
+    tearDown(() {
+      CallManager.debugSetInstance(originalCalls);
+      originalCalls.currentCall = null;
+      PopupBudget.debugReset();
+      AnalyticsService.debugLogSink = null;
+      NotificationService().debugSetPendingAction(null);
+    });
+
+    Future<BuildContext> pumpHost(WidgetTester tester) async {
+      late BuildContext ctx;
+      await tester.pumpWidget(MaterialApp(
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: AppLocalizations.supportedLocales,
+        home: Builder(builder: (c) {
+          ctx = c;
+          return const Scaffold();
+        }),
+      ));
+      return ctx;
+    }
+
+    testWidgets('eligible: sheet shows, budget spent, shown event logged',
+        (tester) async {
+      final ctx = await pumpHost(tester);
+      maybePrimeNotifications(ctx, trigger: 'first_wave').ignore();
+      await tester.pumpAndSettle();
+      expect(find.byType(BottomSheet), findsOneWidget);
+      expect(PopupBudget.spent, isTrue);
+      expect(events, contains('notification_prime_shown'));
+    });
+
+    testWidgets('budget already spent: no sheet', (tester) async {
+      PopupBudget.tryConsume();
+      final ctx = await pumpHost(tester);
+      maybePrimeNotifications(ctx).ignore();
+      await tester.pumpAndSettle();
+      expect(find.byType(BottomSheet), findsNothing);
+      expect(events, isEmpty);
+    });
+
+    testWidgets('not eligible (no pending action): no sheet, budget kept',
+        (tester) async {
+      NotificationService().debugSetPendingAction(null);
+      final ctx = await pumpHost(tester);
+      maybePrimeNotifications(ctx).ignore();
+      await tester.pumpAndSettle();
+      expect(find.byType(BottomSheet), findsNothing);
+      expect(PopupBudget.spent, isFalse);
+    });
+
+    testWidgets('not eligible (already granted: none): no sheet, budget kept',
+        (tester) async {
+      NotificationService().debugSetPendingAction(NotificationAction.none);
+      final ctx = await pumpHost(tester);
+      maybePrimeNotifications(ctx).ignore();
+      await tester.pumpAndSettle();
+      expect(find.byType(BottomSheet), findsNothing);
+      expect(PopupBudget.spent, isFalse);
+    });
+
+    testWidgets('active call: no sheet, budget kept', (tester) async {
+      final h = CallHarness();
+      CallManager.debugSetInstance(h.manager);
+      h.manager.currentCall = CallModel(
+        callId: 'c',
+        userId: 'u',
+        userName: 'Ada',
+        callType: CallType.audio,
+        direction: CallDirection.incoming,
+        startTime: DateTime.now(),
+      );
+      final ctx = await pumpHost(tester);
+      maybePrimeNotifications(ctx).ignore();
+      await tester.pumpAndSettle();
+      expect(find.byType(BottomSheet), findsNothing);
+      expect(PopupBudget.spent, isFalse);
+    });
   });
 }

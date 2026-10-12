@@ -127,6 +127,8 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
   // Priming on the first live incoming message (spec 4.2).
   final DateTime _openedAt = DateTime.now();
   bool _primedOnReceive = false;
+  // The first non-empty load is history, not a live message.
+  bool _chatBaselined = false;
 
   // Theme change listener for wallpaper sync
   StreamSubscription? _themeChangeSubscription;
@@ -1953,7 +1955,9 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
 
     // Listen for new messages and auto-scroll to bottom
     ref.listen<ChatState>(chatStateProvider(chatParams), (previous, next) {
-      if (previous != null && !_primedOnReceive && !next.isLoading) {
+      if (!_chatBaselined) {
+        if (!next.isLoading && next.messages.isNotEmpty) _chatBaselined = true;
+      } else if (previous != null && !_primedOnReceive && !next.isLoading) {
         final before = {for (final m in previous.messages) m.id};
         final live = next.messages.any((m) => isLiveIncoming(
               beforeIds: before,
