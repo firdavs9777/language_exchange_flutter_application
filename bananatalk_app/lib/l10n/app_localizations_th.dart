@@ -11141,4 +11141,45 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get coinsWatchAdReward => 'ดูโฆษณา (+5 💎)';
+
+  @override
+  String callUnavailable(String name) {
+    return '$name ไม่รับสายในตอนนี้';
+  }
+
+  @override
+  String get callDeclineWithMessage => 'ข้อความ';
+
+  @override
+  String get callDeclineSheetTitle => 'ปฏิเสธพร้อมข้อความ';
+
+  @override
+  String get callDeclineCannedLater => 'ตอนนี้คุยไม่ได้ เดี๋ยวโทรกลับนะ';
+
+  @override
+  String get callDeclineCannedText => 'ตอนนี้คุยไม่ได้ ส่งข้อความมาได้ไหม';
+
+  @override
+  String get callDeclineCustomHint => 'เขียนข้อความ…';
+
+  @override
+  String get callDeclineSend => 'ส่ง';
+
+  @override
+  String get callBackAction => 'โทรกลับ';
+
+  @override
+  String get callMessageAction => 'ข้อความ';
+
+  @override
+  String get callsAllowTitle => 'อนุญาตการโทร';
+
+  @override
+  String get callsAllowSubtitle => 'เมื่อปิด สายที่โทรหาคุณจะไม่ดัง ผู้โทรจะเห็นว่าคุณไม่รับสาย';
+
+  @override
+  String get callsQuietHoursNote => 'สายจะถูกพักไว้ในช่วงเวลาปิดเสียงด้วย';
+
+  @override
+  String get callTurnOnCamera => 'กล้อง';
 }

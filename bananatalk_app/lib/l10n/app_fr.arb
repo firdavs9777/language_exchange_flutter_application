@@ -4572,5 +4572,18 @@
   "storyCantReply": "Vous ne pouvez pas répondre à cette story",
   "storyNoMediaToSave": "Cette story n'a pas de média à enregistrer",
   "coinsAdCrediting": "Crédit en cours…",
-  "coinsWatchAdReward": "Regarder une pub (+5 💎)"
+  "coinsWatchAdReward": "Regarder une pub (+5 💎)",
+  "callUnavailable": "{name} ne prend pas d'appels pour le moment",
+  "callDeclineWithMessage": "Message",
+  "callDeclineSheetTitle": "Refuser avec un message",
+  "callDeclineCannedLater": "Je ne peux pas parler. Je te rappelle.",
+  "callDeclineCannedText": "Je ne peux pas parler. Écris-moi ?",
+  "callDeclineCustomHint": "Écrire un message…",
+  "callDeclineSend": "Envoyer",
+  "callBackAction": "Rappeler",
+  "callMessageAction": "Message",
+  "callsAllowTitle": "Autoriser les appels",
+  "callsAllowSubtitle": "Si désactivé, les appels ne sonneront pas. Les appelants verront que tu ne prends pas d'appels.",
+  "callsQuietHoursNote": "Les appels sont aussi retenus pendant les heures calmes.",
+  "callTurnOnCamera": "Caméra"
 }

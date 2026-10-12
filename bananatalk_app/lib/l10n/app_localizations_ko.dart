@@ -10869,7 +10869,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get commonReportTypeUser => '사용자';
 
   @override
-  String get commonReportTypeMoment => '모먼트';
+  String get commonReportTypeMoment => '모멘트';
 
   @override
   String get commonReportTypeComment => '댓글';
@@ -11141,4 +11141,45 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get coinsWatchAdReward => '광고 보기 (+5 💎)';
+
+  @override
+  String callUnavailable(String name) {
+    return '$name님은 지금 통화를 받지 않아요';
+  }
+
+  @override
+  String get callDeclineWithMessage => '메시지';
+
+  @override
+  String get callDeclineSheetTitle => '메시지와 함께 거절';
+
+  @override
+  String get callDeclineCannedLater => '지금은 통화할 수 없어요. 나중에 다시 걸게요.';
+
+  @override
+  String get callDeclineCannedText => '지금은 통화할 수 없어요. 문자 주세요.';
+
+  @override
+  String get callDeclineCustomHint => '메시지를 입력하세요…';
+
+  @override
+  String get callDeclineSend => '보내기';
+
+  @override
+  String get callBackAction => '다시 전화';
+
+  @override
+  String get callMessageAction => '메시지';
+
+  @override
+  String get callsAllowTitle => '통화 허용';
+
+  @override
+  String get callsAllowSubtitle => '끄면 내게 오는 전화가 울리지 않아요. 발신자에게는 통화를 받지 않는 상태로 표시돼요.';
+
+  @override
+  String get callsQuietHoursNote => '방해 금지 시간에도 통화가 보류돼요.';
+
+  @override
+  String get callTurnOnCamera => '카메라';
 }

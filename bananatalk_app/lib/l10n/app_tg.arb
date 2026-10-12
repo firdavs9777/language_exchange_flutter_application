@@ -3825,5 +3825,18 @@
   "storyCantReply": "Шумо ба ин ҳикоя ҷавоб дода наметавонед",
   "storyNoMediaToSave": "Дар ин ҳикоя расонае барои захира кардан нест",
   "coinsAdCrediting": "Ҳисоб карда истодааст…",
-  "coinsWatchAdReward": "Реклама тамошо кунед (+5 💎)"
+  "coinsWatchAdReward": "Реклама тамошо кунед (+5 💎)",
+  "callUnavailable": "{name} ҳоло занг қабул намекунад",
+  "callDeclineWithMessage": "Паём",
+  "callDeclineSheetTitle": "Рад кардан бо паём",
+  "callDeclineCannedLater": "Ҳоло гап зада наметавонам. Баъд занг мезанам.",
+  "callDeclineCannedText": "Ҳоло гап зада наметавонам. Паём фиристед?",
+  "callDeclineCustomHint": "Паём нависед…",
+  "callDeclineSend": "Фиристодан",
+  "callBackAction": "Дубора занг задан",
+  "callMessageAction": "Паём",
+  "callsAllowTitle": "Иҷозати зангҳо",
+  "callsAllowSubtitle": "Агар хомӯш бошад, зангҳо ба шумо садо намедиҳанд. Занганда мебинад, ки шумо занг қабул намекунед.",
+  "callsQuietHoursNote": "Зангҳо дар соатҳои оромӣ низ нигоҳ дошта мешаванд.",
+  "callTurnOnCamera": "Камера"
 }

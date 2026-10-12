@@ -11160,4 +11160,45 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get coinsWatchAdReward => 'विज्ञापन देखें (+5 💎)';
+
+  @override
+  String callUnavailable(String name) {
+    return '$name अभी कॉल नहीं ले रहे हैं';
+  }
+
+  @override
+  String get callDeclineWithMessage => 'संदेश';
+
+  @override
+  String get callDeclineSheetTitle => 'संदेश के साथ अस्वीकार करें';
+
+  @override
+  String get callDeclineCannedLater => 'अभी बात नहीं कर सकता। मैं वापस कॉल करूँगा।';
+
+  @override
+  String get callDeclineCannedText => 'अभी बात नहीं कर सकता। मुझे मैसेज करें?';
+
+  @override
+  String get callDeclineCustomHint => 'संदेश लिखें…';
+
+  @override
+  String get callDeclineSend => 'भेजें';
+
+  @override
+  String get callBackAction => 'वापस कॉल करें';
+
+  @override
+  String get callMessageAction => 'संदेश';
+
+  @override
+  String get callsAllowTitle => 'कॉल की अनुमति दें';
+
+  @override
+  String get callsAllowSubtitle => 'बंद होने पर, आपको की गई कॉल नहीं बजेंगी। कॉल करने वालों को दिखेगा कि आप कॉल नहीं ले रहे हैं।';
+
+  @override
+  String get callsQuietHoursNote => 'शांत समय के दौरान भी कॉल रोकी जाती हैं।';
+
+  @override
+  String get callTurnOnCamera => 'कैमरा';
 }

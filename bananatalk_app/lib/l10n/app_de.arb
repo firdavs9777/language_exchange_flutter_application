@@ -4572,5 +4572,18 @@
   "storyCantReply": "Du kannst auf diese Story nicht antworten",
   "storyNoMediaToSave": "Diese Story enthält keine Medien zum Speichern",
   "coinsAdCrediting": "Wird gutgeschrieben…",
-  "coinsWatchAdReward": "Werbung ansehen (+5 💎)"
+  "coinsWatchAdReward": "Werbung ansehen (+5 💎)",
+  "callUnavailable": "{name} nimmt gerade keine Anrufe an",
+  "callDeclineWithMessage": "Nachricht",
+  "callDeclineSheetTitle": "Mit Nachricht ablehnen",
+  "callDeclineCannedLater": "Kann gerade nicht sprechen. Ich rufe zurück.",
+  "callDeclineCannedText": "Kann gerade nicht sprechen. Schreib mir?",
+  "callDeclineCustomHint": "Nachricht schreiben…",
+  "callDeclineSend": "Senden",
+  "callBackAction": "Zurückrufen",
+  "callMessageAction": "Nachricht",
+  "callsAllowTitle": "Anrufe erlauben",
+  "callsAllowSubtitle": "Wenn aus, klingeln Anrufe bei dir nicht. Anrufer sehen, dass du keine Anrufe annimmst.",
+  "callsQuietHoursNote": "Anrufe werden auch in den Ruhezeiten zurückgehalten.",
+  "callTurnOnCamera": "Kamera"
 }

@@ -20281,6 +20281,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Watch ad (+5 💎)'**
   String get coinsWatchAdReward;
+
+  /// No description provided for @callUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} isn\'t taking calls right now'**
+  String callUnavailable(String name);
+
+  /// No description provided for @callDeclineWithMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Message'**
+  String get callDeclineWithMessage;
+
+  /// No description provided for @callDeclineSheetTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Decline with a message'**
+  String get callDeclineSheetTitle;
+
+  /// No description provided for @callDeclineCannedLater.
+  ///
+  /// In en, this message translates to:
+  /// **'Can\'t talk now. I\'ll call you back.'**
+  String get callDeclineCannedLater;
+
+  /// No description provided for @callDeclineCannedText.
+  ///
+  /// In en, this message translates to:
+  /// **'Can\'t talk now. Text me?'**
+  String get callDeclineCannedText;
+
+  /// No description provided for @callDeclineCustomHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Write a message…'**
+  String get callDeclineCustomHint;
+
+  /// No description provided for @callDeclineSend.
+  ///
+  /// In en, this message translates to:
+  /// **'Send'**
+  String get callDeclineSend;
+
+  /// No description provided for @callBackAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Call back'**
+  String get callBackAction;
+
+  /// No description provided for @callMessageAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Message'**
+  String get callMessageAction;
+
+  /// No description provided for @callsAllowTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow calls'**
+  String get callsAllowTitle;
+
+  /// No description provided for @callsAllowSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'When off, calls to you don\'t ring. Callers see that you\'re not taking calls.'**
+  String get callsAllowSubtitle;
+
+  /// No description provided for @callsQuietHoursNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Calls are held during quiet hours too.'**
+  String get callsQuietHoursNote;
+
+  /// No description provided for @callTurnOnCamera.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera'**
+  String get callTurnOnCamera;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

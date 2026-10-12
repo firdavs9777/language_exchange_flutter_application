@@ -4332,5 +4332,18 @@
   "storyCantReply": "このストーリーには返信できません",
   "storyNoMediaToSave": "このストーリーには保存できるメディアがありません",
   "coinsAdCrediting": "付与中…",
-  "coinsWatchAdReward": "広告を見る（+5 💎）"
+  "coinsWatchAdReward": "広告を見る（+5 💎）",
+  "callUnavailable": "{name}さんは現在通話を受け付けていません",
+  "callDeclineWithMessage": "メッセージ",
+  "callDeclineSheetTitle": "メッセージを添えて拒否",
+  "callDeclineCannedLater": "今は話せません。あとで折り返します。",
+  "callDeclineCannedText": "今は話せません。メッセージください。",
+  "callDeclineCustomHint": "メッセージを入力…",
+  "callDeclineSend": "送信",
+  "callBackAction": "かけ直す",
+  "callMessageAction": "メッセージ",
+  "callsAllowTitle": "通話を許可",
+  "callsAllowSubtitle": "オフにすると、あなたへの着信は鳴りません。発信者にはあなたが通話を受け付けていないことが表示されます。",
+  "callsQuietHoursNote": "通知オフ時間中も着信は保留されます。",
+  "callTurnOnCamera": "カメラ"
 }

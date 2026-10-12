@@ -11141,4 +11141,45 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get coinsWatchAdReward => '広告を見る（+5 💎）';
+
+  @override
+  String callUnavailable(String name) {
+    return '$nameさんは現在通話を受け付けていません';
+  }
+
+  @override
+  String get callDeclineWithMessage => 'メッセージ';
+
+  @override
+  String get callDeclineSheetTitle => 'メッセージを添えて拒否';
+
+  @override
+  String get callDeclineCannedLater => '今は話せません。あとで折り返します。';
+
+  @override
+  String get callDeclineCannedText => '今は話せません。メッセージください。';
+
+  @override
+  String get callDeclineCustomHint => 'メッセージを入力…';
+
+  @override
+  String get callDeclineSend => '送信';
+
+  @override
+  String get callBackAction => 'かけ直す';
+
+  @override
+  String get callMessageAction => 'メッセージ';
+
+  @override
+  String get callsAllowTitle => '通話を許可';
+
+  @override
+  String get callsAllowSubtitle => 'オフにすると、あなたへの着信は鳴りません。発信者にはあなたが通話を受け付けていないことが表示されます。';
+
+  @override
+  String get callsQuietHoursNote => '通知オフ時間中も着信は保留されます。';
+
+  @override
+  String get callTurnOnCamera => 'カメラ';
 }

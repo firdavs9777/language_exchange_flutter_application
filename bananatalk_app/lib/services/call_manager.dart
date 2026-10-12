@@ -37,7 +37,7 @@ enum CallExitReason {
 /// notification, resume recovery, or CallKit). Used for dedupe decisions.
 enum IncomingSource { socket, push, notificationTap, recovery, callKit }
 
-enum InitiateStatus { started, calleeBusy, callerBusy, permissionDenied, failed }
+enum InitiateStatus { started, calleeBusy, calleeUnavailable, callerBusy, permissionDenied, failed }
 
 /// What a tapped incoming-call notification should open.
 enum IncomingTapAction { showCall, openChat }
@@ -195,6 +195,9 @@ class CallManager with WidgetsBindingObserver {
   Function(String)? onCallError;
   Function(bool)? onPeerMuteChanged;
   Function(bool)? onPeerVideoChanged;
+
+  /// A live call became a video call (either side turned the camera on).
+  void Function(CallType type)? onCallTypeChanged;
   Function()? onPeerReconnecting;
   Function()? onPeerReconnected;
   Function()? onReconnecting;
@@ -646,6 +649,16 @@ class CallManager with WidgetsBindingObserver {
     final outcome = callOutcomeFromWire(m['outcome']?.toString());
 
     if (status == 'active') {
+      // Already past ringing: a repeat 'active' is a Phase 2 type change
+      // (voice → video), never a second accept. (A call that already ended
+      // or is unknown never gets here: the guard above drops it.)
+      if (cur.status != CallStatus.ringing) {
+        if (m['type'] == 'video' && cur.callType != CallType.video) {
+          currentCall = cur.copyWith(callType: CallType.video);
+          onCallTypeChanged?.call(CallType.video);
+        }
+        return;
+      }
       if (cur.direction == CallDirection.outgoing) {
         _ringSafetyTimer?.cancel();
         unawaited(_deps.platform.stopTones());
@@ -958,6 +971,7 @@ class CallManager with WidgetsBindingObserver {
     if (!res.ok) {
       currentCall = null;
       if (res.isCalleeBusy) return const InitiateResult(InitiateStatus.calleeBusy);
+      if (res.isCalleeUnavailable) return const InitiateResult(InitiateStatus.calleeUnavailable);
       if (res.isCallerBusy) return const InitiateResult(InitiateStatus.callerBusy);
       // 403 CONVERSATION_START_LIMIT: a call to a stranger counts as starting a
       // conversation. Like the chat send path, show the server's own message
@@ -1106,7 +1120,7 @@ class CallManager with WidgetsBindingObserver {
     onCallAccepted?.call(currentCall!);
   }
 
-  Future<void> rejectCall() async {
+  Future<void> rejectCall({String? message}) async {
     final call = currentCall;
     if (call == null) {
       _closeNow();
@@ -1114,7 +1128,7 @@ class CallManager with WidgetsBindingObserver {
     }
     if (call.callId.isNotEmpty) {
       final deviceId = await _deps.platform.deviceId();
-      unawaited(_deps.api.decline(call.callId, deviceId: deviceId));
+      unawaited(_deps.api.decline(call.callId, deviceId: deviceId, message: message));
       if (!_sameId(currentCall?.callId, call.callId)) return;
     }
     onCallRejected?.call(call.copyWith(status: CallStatus.rejected));
@@ -1243,6 +1257,49 @@ class CallManager with WidgetsBindingObserver {
     _isVideoEnabled = enabled;
     unawaited(_liveKit.setCameraEnabled(enabled));
     _emitToPeer('call:video-toggle', {'isVideoEnabled': enabled});
+  }
+
+  /// Camera on during a voice call (either side). Publishes video and makes
+  /// the call a video call on the server so history says "Video call".
+  /// Returns false on any failure (no call, still ringing, no permission,
+  /// non-200) and never throws; a refused upgrade rolls the camera back.
+  Future<bool> upgradeToVideo() async {
+    try {
+      final cur = currentCall;
+      if (cur == null || cur.status == CallStatus.ringing) return false;
+      if (!await _deps.platform.ensurePermissions(video: true)) {
+        onCallError?.call(await _deps.platform.permissionError(video: true, accepting: false));
+        return false;
+      }
+      if (!_sameId(currentCall?.callId, cur.callId)) return false;
+      final wasVoice = cur.callType != CallType.video;
+      setVideoEnabled(true);
+      if (wasVoice) {
+        currentCall = cur.copyWith(callType: CallType.video);
+        onCallTypeChanged?.call(CallType.video);
+        unawaited(_deps.platform.setWakelock(true));
+        if (_deps.isAppResumed()) unawaited(_deps.platform.startCallService(video: true));
+      }
+      var ok = false;
+      try {
+        final res = await _deps.api.upgrade(cur.callId);
+        ok = res.ok && res.statusCode == 200;
+      } catch (_) {}
+      if (!ok && wasVoice) _rollBackUpgrade(cur.callId);
+      return ok;
+    } catch (e) {
+      debugPrint('upgradeToVideo failed: $e');
+      return false;
+    }
+  }
+
+  void _rollBackUpgrade(String callId) {
+    final c = currentCall;
+    if (c == null || !_sameId(c.callId, callId) || c.callType != CallType.video) return;
+    setVideoEnabled(false);
+    currentCall = c.copyWith(callType: CallType.audio);
+    unawaited(_deps.platform.setWakelock(false));
+    if (_deps.isAppResumed()) unawaited(_deps.platform.startCallService(video: false));
   }
 
   void toggleVideo() => setVideoEnabled(!_isVideoEnabled);

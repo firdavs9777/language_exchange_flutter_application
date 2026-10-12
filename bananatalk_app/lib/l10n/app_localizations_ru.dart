@@ -11203,4 +11203,45 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get coinsWatchAdReward => 'Посмотреть рекламу (+5 💎)';
+
+  @override
+  String callUnavailable(String name) {
+    return '$name сейчас не принимает звонки';
+  }
+
+  @override
+  String get callDeclineWithMessage => 'Сообщение';
+
+  @override
+  String get callDeclineSheetTitle => 'Отклонить с сообщением';
+
+  @override
+  String get callDeclineCannedLater => 'Сейчас не могу говорить. Перезвоню.';
+
+  @override
+  String get callDeclineCannedText => 'Сейчас не могу говорить. Напиши мне?';
+
+  @override
+  String get callDeclineCustomHint => 'Напишите сообщение…';
+
+  @override
+  String get callDeclineSend => 'Отправить';
+
+  @override
+  String get callBackAction => 'Перезвонить';
+
+  @override
+  String get callMessageAction => 'Сообщение';
+
+  @override
+  String get callsAllowTitle => 'Разрешить звонки';
+
+  @override
+  String get callsAllowSubtitle => 'Если выключено, звонки вам не звонят. Звонящие видят, что вы не принимаете звонки.';
+
+  @override
+  String get callsQuietHoursNote => 'Звонки также откладываются в тихие часы.';
+
+  @override
+  String get callTurnOnCamera => 'Камера';
 }

@@ -4023,5 +4023,18 @@
   "storyCantReply": "你無法回覆這則限時動態",
   "storyNoMediaToSave": "這則限時動態沒有可儲存的媒體",
   "coinsAdCrediting": "發放中…",
-  "coinsWatchAdReward": "觀看廣告（+5 💎）"
+  "coinsWatchAdReward": "觀看廣告（+5 💎）",
+  "callUnavailable": "{name}目前不接聽通話",
+  "callDeclineWithMessage": "訊息",
+  "callDeclineSheetTitle": "拒接並傳送訊息",
+  "callDeclineCannedLater": "現在不方便說話，我稍後回電。",
+  "callDeclineCannedText": "現在不方便說話，傳訊息給我好嗎？",
+  "callDeclineCustomHint": "寫一則訊息…",
+  "callDeclineSend": "傳送",
+  "callBackAction": "回撥",
+  "callMessageAction": "訊息",
+  "callsAllowTitle": "允許通話",
+  "callsAllowSubtitle": "關閉後，打給你的通話不會響鈴。來電者會看到你不接聽通話。",
+  "callsQuietHoursNote": "勿擾時段內的通話同樣會被攔截。",
+  "callTurnOnCamera": "相機"
 }

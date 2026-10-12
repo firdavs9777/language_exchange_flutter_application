@@ -120,4 +120,37 @@ void main() {
     expect(m.userProfilePicture, 'https://cdn.test/a.jpg');
     expect(m.copyWith(status: CallStatus.connecting).callUuid, 'u-1');
   });
+
+  test('decline sends a trimmed message; upgrade posts; CALLEE_UNAVAILABLE is recognised', () async {
+    final seen = <http.Request>[];
+    Future<CallApiResult> send(Future<CallApiResult> Function() body, {int status = 200, Map<String, dynamic>? json}) =>
+        http.runWithClient(body, () => MockClient((req) async {
+              seen.add(req);
+              return http.Response(jsonEncode(json ?? {'success': true, 'data': {}}), status);
+            }));
+    await send(() => RestCallApi().decline('c1', deviceId: 'd', message: '  Later  '));
+    expect(jsonDecode(seen.last.body), {'deviceId': 'd', 'message': 'Later'});
+    await send(() => RestCallApi().upgrade('c1'));
+    expect(seen.last.url.toString(), 'http://api.test/api/v1/calls/c1/upgrade');
+    final r = await send(() => RestCallApi().initiate(receiverId: 'u', type: CallType.audio),
+        status: 409, json: {'success': false, 'error': "Bo isn't taking calls right now", 'code': 'CALLEE_UNAVAILABLE'});
+    expect(r.isCalleeUnavailable, isTrue);
+  });
+
+  test('upgrade fixture: real backend shapes (200 idempotent, 409 CALL_STATE, 404, 403)', () async {
+    Future<CallApiResult> upgrade(int status, Map<String, dynamic> json) => http.runWithClient(
+        () => RestCallApi().upgrade('c1'), () => MockClient((req) async => http.Response(jsonEncode(json), status)));
+    final ok = await upgrade(200, {
+      'success': true,
+      'data': {'call': {'_id': 'c1', 'type': 'video', 'status': 'active'}},
+    });
+    expect(ok.ok, isTrue);
+    expect(ok.statusCode, 200);
+    expect((ok.data['call'] as Map)['type'], 'video');
+    final ended = await upgrade(409, {'success': false, 'error': 'Call is not active', 'code': 'CALL_STATE', 'status': 'ended'});
+    expect(ended.ok, isFalse);
+    expect(ended.isCallStateConflict, isTrue);
+    expect((await upgrade(404, {'success': false, 'error': 'Call not found'})).ok, isFalse);
+    expect((await upgrade(403, {'success': false, 'error': 'Not authorized to change this call'})).ok, isFalse);
+  });
 }

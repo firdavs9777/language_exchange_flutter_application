@@ -11160,4 +11160,45 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get coinsWatchAdReward => 'Manood ng ad (+5 💎)';
+
+  @override
+  String callUnavailable(String name) {
+    return 'Hindi tumatanggap ng tawag si $name ngayon';
+  }
+
+  @override
+  String get callDeclineWithMessage => 'Mensahe';
+
+  @override
+  String get callDeclineSheetTitle => 'Tanggihan na may mensahe';
+
+  @override
+  String get callDeclineCannedLater => 'Hindi ako makapag-usap ngayon. Tatawagan kita ulit.';
+
+  @override
+  String get callDeclineCannedText => 'Hindi ako makapag-usap ngayon. I-text mo ako?';
+
+  @override
+  String get callDeclineCustomHint => 'Magsulat ng mensahe…';
+
+  @override
+  String get callDeclineSend => 'Ipadala';
+
+  @override
+  String get callBackAction => 'Tawagan muli';
+
+  @override
+  String get callMessageAction => 'Mensahe';
+
+  @override
+  String get callsAllowTitle => 'Payagan ang mga tawag';
+
+  @override
+  String get callsAllowSubtitle => 'Kapag naka-off, hindi magri-ring ang mga tawag sa iyo. Makikita ng mga tumatawag na hindi ka tumatanggap ng tawag.';
+
+  @override
+  String get callsQuietHoursNote => 'Pinipigil din ang mga tawag sa tahimik na oras.';
+
+  @override
+  String get callTurnOnCamera => 'Camera';
 }

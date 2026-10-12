@@ -4305,5 +4305,18 @@
   "storyCantReply": "Hindi ka makakasagot sa story na ito",
   "storyNoMediaToSave": "Walang media na ise-save sa story na ito",
   "coinsAdCrediting": "Kinukredito…",
-  "coinsWatchAdReward": "Manood ng ad (+5 💎)"
+  "coinsWatchAdReward": "Manood ng ad (+5 💎)",
+  "callUnavailable": "Hindi tumatanggap ng tawag si {name} ngayon",
+  "callDeclineWithMessage": "Mensahe",
+  "callDeclineSheetTitle": "Tanggihan na may mensahe",
+  "callDeclineCannedLater": "Hindi ako makapag-usap ngayon. Tatawagan kita ulit.",
+  "callDeclineCannedText": "Hindi ako makapag-usap ngayon. I-text mo ako?",
+  "callDeclineCustomHint": "Magsulat ng mensahe…",
+  "callDeclineSend": "Ipadala",
+  "callBackAction": "Tawagan muli",
+  "callMessageAction": "Mensahe",
+  "callsAllowTitle": "Payagan ang mga tawag",
+  "callsAllowSubtitle": "Kapag naka-off, hindi magri-ring ang mga tawag sa iyo. Makikita ng mga tumatawag na hindi ka tumatanggap ng tawag.",
+  "callsQuietHoursNote": "Pinipigil din ang mga tawag sa tahimik na oras.",
+  "callTurnOnCamera": "Camera"
 }

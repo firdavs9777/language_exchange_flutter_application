@@ -11152,4 +11152,45 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get coinsWatchAdReward => 'Tonton iklan (+5 💎)';
+
+  @override
+  String callUnavailable(String name) {
+    return '$name sedang tidak menerima panggilan';
+  }
+
+  @override
+  String get callDeclineWithMessage => 'Pesan';
+
+  @override
+  String get callDeclineSheetTitle => 'Tolak dengan pesan';
+
+  @override
+  String get callDeclineCannedLater => 'Tidak bisa bicara sekarang. Nanti kutelepon balik.';
+
+  @override
+  String get callDeclineCannedText => 'Tidak bisa bicara sekarang. Kirim pesan ya?';
+
+  @override
+  String get callDeclineCustomHint => 'Tulis pesan…';
+
+  @override
+  String get callDeclineSend => 'Kirim';
+
+  @override
+  String get callBackAction => 'Telepon balik';
+
+  @override
+  String get callMessageAction => 'Pesan';
+
+  @override
+  String get callsAllowTitle => 'Izinkan panggilan';
+
+  @override
+  String get callsAllowSubtitle => 'Saat nonaktif, panggilan untukmu tidak berdering. Penelepon akan melihat bahwa kamu tidak menerima panggilan.';
+
+  @override
+  String get callsQuietHoursNote => 'Panggilan juga ditahan selama jam tenang.';
+
+  @override
+  String get callTurnOnCamera => 'Kamera';
 }

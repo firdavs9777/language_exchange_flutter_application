@@ -4362,5 +4362,18 @@
   "storyCantReply": "لا يمكنك الرد على هذه القصة",
   "storyNoMediaToSave": "لا تحتوي هذه القصة على وسائط للحفظ",
   "coinsAdCrediting": "جارٍ إضافة الرصيد…",
-  "coinsWatchAdReward": "شاهد إعلانًا (+5 💎)"
+  "coinsWatchAdReward": "شاهد إعلانًا (+5 💎)",
+  "callUnavailable": "{name} لا يستقبل المكالمات حاليًا",
+  "callDeclineWithMessage": "رسالة",
+  "callDeclineSheetTitle": "رفض مع رسالة",
+  "callDeclineCannedLater": "لا أستطيع التحدث الآن. سأعاود الاتصال بك.",
+  "callDeclineCannedText": "لا أستطيع التحدث الآن. راسلني؟",
+  "callDeclineCustomHint": "اكتب رسالة…",
+  "callDeclineSend": "إرسال",
+  "callBackAction": "معاودة الاتصال",
+  "callMessageAction": "رسالة",
+  "callsAllowTitle": "السماح بالمكالمات",
+  "callsAllowSubtitle": "عند الإيقاف، لن ترن المكالمات الموجهة إليك. سيرى المتصلون أنك لا تستقبل المكالمات.",
+  "callsQuietHoursNote": "يتم أيضًا حجب المكالمات خلال ساعات الهدوء.",
+  "callTurnOnCamera": "الكاميرا"
 }

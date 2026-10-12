@@ -10878,7 +10878,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get commonReportTypeMessage => '消息';
 
   @override
-  String get commonReportTypeStory => '快拍';
+  String get commonReportTypeStory => '故事';
 
   @override
   String get commonReportTypeContent => '内容';
@@ -11128,19 +11128,60 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
-  String get storyCantReact => '你无法对这条快拍做出回应';
+  String get storyCantReact => '你无法对这条故事做出回应';
 
   @override
-  String get storyCantReply => '你无法回复这条快拍';
+  String get storyCantReply => '你无法回复这条故事';
 
   @override
-  String get storyNoMediaToSave => '这条快拍没有可保存的媒体';
+  String get storyNoMediaToSave => '这条故事没有可保存的媒体';
 
   @override
   String get coinsAdCrediting => '发放中…';
 
   @override
   String get coinsWatchAdReward => '观看广告（+5 💎）';
+
+  @override
+  String callUnavailable(String name) {
+    return '$name目前不接听电话';
+  }
+
+  @override
+  String get callDeclineWithMessage => '消息';
+
+  @override
+  String get callDeclineSheetTitle => '拒接并发送消息';
+
+  @override
+  String get callDeclineCannedLater => '现在不方便说话，我稍后回电。';
+
+  @override
+  String get callDeclineCannedText => '现在不方便说话，给我发消息好吗？';
+
+  @override
+  String get callDeclineCustomHint => '写一条消息…';
+
+  @override
+  String get callDeclineSend => '发送';
+
+  @override
+  String get callBackAction => '回拨';
+
+  @override
+  String get callMessageAction => '消息';
+
+  @override
+  String get callsAllowTitle => '允许通话';
+
+  @override
+  String get callsAllowSubtitle => '关闭后，打给你的电话不会响铃。来电者会看到你不接听电话。';
+
+  @override
+  String get callsQuietHoursNote => '免打扰时段内的来电同样会被拦截。';
+
+  @override
+  String get callTurnOnCamera => '相机';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -21698,7 +21739,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get profileBirthYear => '出生年份';
 
   @override
-  String get profileReportTypeUser => '使用者';
+  String get profileReportTypeUser => '用戶';
 
   @override
   String get profileReportTypeMoment => '動態';
@@ -22280,4 +22321,45 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get coinsWatchAdReward => '觀看廣告（+5 💎）';
+
+  @override
+  String callUnavailable(String name) {
+    return '$name目前不接聽通話';
+  }
+
+  @override
+  String get callDeclineWithMessage => '訊息';
+
+  @override
+  String get callDeclineSheetTitle => '拒接並傳送訊息';
+
+  @override
+  String get callDeclineCannedLater => '現在不方便說話，我稍後回電。';
+
+  @override
+  String get callDeclineCannedText => '現在不方便說話，傳訊息給我好嗎？';
+
+  @override
+  String get callDeclineCustomHint => '寫一則訊息…';
+
+  @override
+  String get callDeclineSend => '傳送';
+
+  @override
+  String get callBackAction => '回撥';
+
+  @override
+  String get callMessageAction => '訊息';
+
+  @override
+  String get callsAllowTitle => '允許通話';
+
+  @override
+  String get callsAllowSubtitle => '關閉後，打給你的通話不會響鈴。來電者會看到你不接聽通話。';
+
+  @override
+  String get callsQuietHoursNote => '勿擾時段內的通話同樣會被攔截。';
+
+  @override
+  String get callTurnOnCamera => '相機';
 }

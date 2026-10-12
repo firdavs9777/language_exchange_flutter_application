@@ -22,6 +22,19 @@ const _callKeys = [
   'callFullScreenIntentBody',
   'callForegroundTitle',
   'callForegroundBody',
+  'callUnavailable',
+  'callDeclineWithMessage',
+  'callDeclineSheetTitle',
+  'callDeclineCannedLater',
+  'callDeclineCannedText',
+  'callDeclineCustomHint',
+  'callDeclineSend',
+  'callBackAction',
+  'callMessageAction',
+  'callsAllowTitle',
+  'callsAllowSubtitle',
+  'callsQuietHoursNote',
+  'callTurnOnCamera',
 ];
 
 void main() {
@@ -49,6 +62,7 @@ void main() {
         );
       }
       expect(map['callLabelBusy'], contains('{name}'), reason: file.path);
+      expect(map['callUnavailable'], contains('{name}'), reason: file.path);
     }
   });
 
@@ -57,6 +71,7 @@ void main() {
     expect(en.callLabelMissed('video'), 'Missed video call');
     expect(en.callLabelMissed('audio'), 'Missed voice call');
     expect(en.callLabelNoAnswer('audio'), 'Voice call · No answer');
+    expect(en.callUnavailable('Bo'), "Bo isn't taking calls right now");
     expect(en.callLabelBusy('Ada'), 'Ada was on another call');
     final ko = lookupAppLocalizations(const Locale('ko'));
     expect(ko.callLabelMissed('audio'), '부재중 음성 통화');

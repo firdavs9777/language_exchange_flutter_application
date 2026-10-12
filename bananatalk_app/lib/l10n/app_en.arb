@@ -7221,5 +7221,19 @@
   "storyCantReply": "You can't reply to this story",
   "storyNoMediaToSave": "This story doesn't have media to save",
   "coinsAdCrediting": "Crediting…",
-  "coinsWatchAdReward": "Watch ad (+5 💎)"
+  "coinsWatchAdReward": "Watch ad (+5 💎)",
+  "callUnavailable": "{name} isn't taking calls right now",
+  "@callUnavailable": { "placeholders": { "name": { "type": "String" } } },
+  "callDeclineWithMessage": "Message",
+  "callDeclineSheetTitle": "Decline with a message",
+  "callDeclineCannedLater": "Can't talk now. I'll call you back.",
+  "callDeclineCannedText": "Can't talk now. Text me?",
+  "callDeclineCustomHint": "Write a message…",
+  "callDeclineSend": "Send",
+  "callBackAction": "Call back",
+  "callMessageAction": "Message",
+  "callsAllowTitle": "Allow calls",
+  "callsAllowSubtitle": "When off, calls to you don't ring. Callers see that you're not taking calls.",
+  "callsQuietHoursNote": "Calls are held during quiet hours too.",
+  "callTurnOnCamera": "Camera"
 }

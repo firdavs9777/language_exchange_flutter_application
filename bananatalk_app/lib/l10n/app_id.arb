@@ -4332,5 +4332,18 @@
   "storyCantReply": "Kamu tidak bisa membalas cerita ini",
   "storyNoMediaToSave": "Cerita ini tidak memiliki media untuk disimpan",
   "coinsAdCrediting": "Mengkreditkan…",
-  "coinsWatchAdReward": "Tonton iklan (+5 💎)"
+  "coinsWatchAdReward": "Tonton iklan (+5 💎)",
+  "callUnavailable": "{name} sedang tidak menerima panggilan",
+  "callDeclineWithMessage": "Pesan",
+  "callDeclineSheetTitle": "Tolak dengan pesan",
+  "callDeclineCannedLater": "Tidak bisa bicara sekarang. Nanti kutelepon balik.",
+  "callDeclineCannedText": "Tidak bisa bicara sekarang. Kirim pesan ya?",
+  "callDeclineCustomHint": "Tulis pesan…",
+  "callDeclineSend": "Kirim",
+  "callBackAction": "Telepon balik",
+  "callMessageAction": "Pesan",
+  "callsAllowTitle": "Izinkan panggilan",
+  "callsAllowSubtitle": "Saat nonaktif, panggilan untukmu tidak berdering. Penelepon akan melihat bahwa kamu tidak menerima panggilan.",
+  "callsQuietHoursNote": "Panggilan juga ditahan selama jam tenang.",
+  "callTurnOnCamera": "Kamera"
 }

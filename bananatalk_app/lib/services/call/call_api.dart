@@ -30,13 +30,15 @@ class CallApiResult {
   /// Another device (or the timeout) won the race: dismiss silently.
   bool get isCallStateConflict => statusCode == 409 && errorCode == 'CALL_STATE';
   bool get isCalleeBusy => statusCode == 409 && errorCode == 'CALLEE_BUSY';
+  bool get isCalleeUnavailable => statusCode == 409 && errorCode == 'CALLEE_UNAVAILABLE';
   bool get isCallerBusy => statusCode == 409 && errorCode == 'CALLER_BUSY';
 }
 
 abstract class CallApi {
   Future<CallApiResult> initiate({required String receiverId, required CallType type});
   Future<CallApiResult> accept(String callId, {String? deviceId});
-  Future<CallApiResult> decline(String callId, {String? deviceId});
+  Future<CallApiResult> decline(String callId, {String? deviceId, String? message});
+  Future<CallApiResult> upgrade(String callId);
   Future<CallApiResult> end(String callId);
   Future<CallApiResult> current();
   Future<CallApiResult> get(String callId);
@@ -61,9 +63,17 @@ class RestCallApi implements CallApi {
           await _client.post('calls/$callId/accept', body: _device(deviceId)));
 
   @override
-  Future<CallApiResult> decline(String callId, {String? deviceId}) async =>
-      CallApiResult.fromResponse(
-          await _client.post('calls/$callId/decline', body: _device(deviceId)));
+  Future<CallApiResult> decline(String callId, {String? deviceId, String? message}) async {
+    final text = message?.trim();
+    return CallApiResult.fromResponse(await _client.post('calls/$callId/decline', body: {
+      ..._device(deviceId),
+      if (text != null && text.isNotEmpty) 'message': text,
+    }));
+  }
+
+  @override
+  Future<CallApiResult> upgrade(String callId) async =>
+      CallApiResult.fromResponse(await _client.post('calls/$callId/upgrade'));
 
   @override
   Future<CallApiResult> end(String callId) async =>

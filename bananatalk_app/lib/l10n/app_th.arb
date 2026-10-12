@@ -4332,5 +4332,18 @@
   "storyCantReply": "คุณไม่สามารถตอบกลับสตอรี่นี้ได้",
   "storyNoMediaToSave": "สตอรี่นี้ไม่มีสื่อให้บันทึก",
   "coinsAdCrediting": "กำลังเพิ่มเหรียญ…",
-  "coinsWatchAdReward": "ดูโฆษณา (+5 💎)"
+  "coinsWatchAdReward": "ดูโฆษณา (+5 💎)",
+  "callUnavailable": "{name} ไม่รับสายในตอนนี้",
+  "callDeclineWithMessage": "ข้อความ",
+  "callDeclineSheetTitle": "ปฏิเสธพร้อมข้อความ",
+  "callDeclineCannedLater": "ตอนนี้คุยไม่ได้ เดี๋ยวโทรกลับนะ",
+  "callDeclineCannedText": "ตอนนี้คุยไม่ได้ ส่งข้อความมาได้ไหม",
+  "callDeclineCustomHint": "เขียนข้อความ…",
+  "callDeclineSend": "ส่ง",
+  "callBackAction": "โทรกลับ",
+  "callMessageAction": "ข้อความ",
+  "callsAllowTitle": "อนุญาตการโทร",
+  "callsAllowSubtitle": "เมื่อปิด สายที่โทรหาคุณจะไม่ดัง ผู้โทรจะเห็นว่าคุณไม่รับสาย",
+  "callsQuietHoursNote": "สายจะถูกพักไว้ในช่วงเวลาปิดเสียงด้วย",
+  "callTurnOnCamera": "กล้อง"
 }

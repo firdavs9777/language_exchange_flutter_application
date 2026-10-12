@@ -4332,5 +4332,18 @@
   "storyCantReply": "Bạn không thể trả lời tin này",
   "storyNoMediaToSave": "Tin này không có phương tiện để lưu",
   "coinsAdCrediting": "Đang cộng…",
-  "coinsWatchAdReward": "Xem quảng cáo (+5 💎)"
+  "coinsWatchAdReward": "Xem quảng cáo (+5 💎)",
+  "callUnavailable": "{name} hiện không nhận cuộc gọi",
+  "callDeclineWithMessage": "Nhắn tin",
+  "callDeclineSheetTitle": "Từ chối kèm tin nhắn",
+  "callDeclineCannedLater": "Mình chưa nói chuyện được. Mình sẽ gọi lại.",
+  "callDeclineCannedText": "Mình chưa nói chuyện được. Nhắn tin cho mình nhé?",
+  "callDeclineCustomHint": "Viết tin nhắn…",
+  "callDeclineSend": "Gửi",
+  "callBackAction": "Gọi lại",
+  "callMessageAction": "Nhắn tin",
+  "callsAllowTitle": "Cho phép cuộc gọi",
+  "callsAllowSubtitle": "Khi tắt, cuộc gọi đến bạn sẽ không đổ chuông. Người gọi sẽ thấy bạn không nhận cuộc gọi.",
+  "callsQuietHoursNote": "Cuộc gọi cũng bị giữ lại trong giờ yên tĩnh.",
+  "callTurnOnCamera": "Camera"
 }

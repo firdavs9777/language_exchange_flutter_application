@@ -4544,5 +4544,18 @@
   "storyCantReply": "Bu hikâyeyi yanıtlayamazsın",
   "storyNoMediaToSave": "Bu hikâyede kaydedilecek medya yok",
   "coinsAdCrediting": "Ekleniyor…",
-  "coinsWatchAdReward": "Reklam izle (+5 💎)"
+  "coinsWatchAdReward": "Reklam izle (+5 💎)",
+  "callUnavailable": "{name} şu anda arama kabul etmiyor",
+  "callDeclineWithMessage": "Mesaj",
+  "callDeclineSheetTitle": "Mesajla reddet",
+  "callDeclineCannedLater": "Şu an konuşamam. Seni geri arayacağım.",
+  "callDeclineCannedText": "Şu an konuşamam. Bana yazar mısın?",
+  "callDeclineCustomHint": "Bir mesaj yaz…",
+  "callDeclineSend": "Gönder",
+  "callBackAction": "Geri ara",
+  "callMessageAction": "Mesaj",
+  "callsAllowTitle": "Aramalara izin ver",
+  "callsAllowSubtitle": "Kapalıyken sana yapılan aramalar çalmaz. Arayanlar arama kabul etmediğini görür.",
+  "callsQuietHoursNote": "Aramalar sessiz saatlerde de tutulur.",
+  "callTurnOnCamera": "Kamera"
 }

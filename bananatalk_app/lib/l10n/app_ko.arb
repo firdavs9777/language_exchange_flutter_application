@@ -4353,5 +4353,18 @@
   "storyCantReply": "이 스토리에는 답장할 수 없어요",
   "storyNoMediaToSave": "이 스토리에는 저장할 미디어가 없어요",
   "coinsAdCrediting": "지급 중…",
-  "coinsWatchAdReward": "광고 보기 (+5 💎)"
+  "coinsWatchAdReward": "광고 보기 (+5 💎)",
+  "callUnavailable": "{name}님은 지금 통화를 받지 않아요",
+  "callDeclineWithMessage": "메시지",
+  "callDeclineSheetTitle": "메시지와 함께 거절",
+  "callDeclineCannedLater": "지금은 통화할 수 없어요. 나중에 다시 걸게요.",
+  "callDeclineCannedText": "지금은 통화할 수 없어요. 문자 주세요.",
+  "callDeclineCustomHint": "메시지를 입력하세요…",
+  "callDeclineSend": "보내기",
+  "callBackAction": "다시 전화",
+  "callMessageAction": "메시지",
+  "callsAllowTitle": "통화 허용",
+  "callsAllowSubtitle": "끄면 내게 오는 전화가 울리지 않아요. 발신자에게는 통화를 받지 않는 상태로 표시돼요.",
+  "callsQuietHoursNote": "방해 금지 시간에도 통화가 보류돼요.",
+  "callTurnOnCamera": "카메라"
 }

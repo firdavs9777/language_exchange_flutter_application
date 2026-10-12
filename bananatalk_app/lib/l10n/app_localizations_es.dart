@@ -11160,4 +11160,45 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get coinsWatchAdReward => 'Mira un anuncio (+5 💎)';
+
+  @override
+  String callUnavailable(String name) {
+    return '$name no está aceptando llamadas ahora mismo';
+  }
+
+  @override
+  String get callDeclineWithMessage => 'Mensaje';
+
+  @override
+  String get callDeclineSheetTitle => 'Rechazar con un mensaje';
+
+  @override
+  String get callDeclineCannedLater => 'No puedo hablar ahora. Te devuelvo la llamada.';
+
+  @override
+  String get callDeclineCannedText => 'No puedo hablar ahora. ¿Me escribes?';
+
+  @override
+  String get callDeclineCustomHint => 'Escribe un mensaje…';
+
+  @override
+  String get callDeclineSend => 'Enviar';
+
+  @override
+  String get callBackAction => 'Devolver llamada';
+
+  @override
+  String get callMessageAction => 'Mensaje';
+
+  @override
+  String get callsAllowTitle => 'Permitir llamadas';
+
+  @override
+  String get callsAllowSubtitle => 'Si está desactivado, las llamadas no te sonarán. Quien llame verá que no aceptas llamadas.';
+
+  @override
+  String get callsQuietHoursNote => 'Las llamadas también se retienen durante las horas de silencio.';
+
+  @override
+  String get callTurnOnCamera => 'Cámara';
 }

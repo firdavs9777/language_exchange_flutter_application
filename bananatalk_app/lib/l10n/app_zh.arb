@@ -4346,5 +4346,18 @@
   "storyCantReply": "你无法回复这条故事",
   "storyNoMediaToSave": "这条故事没有可保存的媒体",
   "coinsAdCrediting": "发放中…",
-  "coinsWatchAdReward": "观看广告（+5 💎）"
+  "coinsWatchAdReward": "观看广告（+5 💎）",
+  "callUnavailable": "{name}目前不接听电话",
+  "callDeclineWithMessage": "消息",
+  "callDeclineSheetTitle": "拒接并发送消息",
+  "callDeclineCannedLater": "现在不方便说话，我稍后回电。",
+  "callDeclineCannedText": "现在不方便说话，给我发消息好吗？",
+  "callDeclineCustomHint": "写一条消息…",
+  "callDeclineSend": "发送",
+  "callBackAction": "回拨",
+  "callMessageAction": "消息",
+  "callsAllowTitle": "允许通话",
+  "callsAllowSubtitle": "关闭后，打给你的电话不会响铃。来电者会看到你不接听电话。",
+  "callsQuietHoursNote": "免打扰时段内的来电同样会被拦截。",
+  "callTurnOnCamera": "相机"
 }

@@ -4362,5 +4362,18 @@
   "storyCantReply": "No puedes responder a esta historia",
   "storyNoMediaToSave": "Esta historia no tiene contenido para guardar",
   "coinsAdCrediting": "Acreditando…",
-  "coinsWatchAdReward": "Mira un anuncio (+5 💎)"
+  "coinsWatchAdReward": "Mira un anuncio (+5 💎)",
+  "callUnavailable": "{name} no está aceptando llamadas ahora mismo",
+  "callDeclineWithMessage": "Mensaje",
+  "callDeclineSheetTitle": "Rechazar con un mensaje",
+  "callDeclineCannedLater": "No puedo hablar ahora. Te devuelvo la llamada.",
+  "callDeclineCannedText": "No puedo hablar ahora. ¿Me escribes?",
+  "callDeclineCustomHint": "Escribe un mensaje…",
+  "callDeclineSend": "Enviar",
+  "callBackAction": "Devolver llamada",
+  "callMessageAction": "Mensaje",
+  "callsAllowTitle": "Permitir llamadas",
+  "callsAllowSubtitle": "Si está desactivado, las llamadas no te sonarán. Quien llame verá que no aceptas llamadas.",
+  "callsQuietHoursNote": "Las llamadas también se retienen durante las horas de silencio.",
+  "callTurnOnCamera": "Cámara"
 }

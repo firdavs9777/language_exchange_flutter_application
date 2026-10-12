@@ -11215,4 +11215,45 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get coinsWatchAdReward => 'شاهد إعلانًا (+5 💎)';
+
+  @override
+  String callUnavailable(String name) {
+    return '$name لا يستقبل المكالمات حاليًا';
+  }
+
+  @override
+  String get callDeclineWithMessage => 'رسالة';
+
+  @override
+  String get callDeclineSheetTitle => 'رفض مع رسالة';
+
+  @override
+  String get callDeclineCannedLater => 'لا أستطيع التحدث الآن. سأعاود الاتصال بك.';
+
+  @override
+  String get callDeclineCannedText => 'لا أستطيع التحدث الآن. راسلني؟';
+
+  @override
+  String get callDeclineCustomHint => 'اكتب رسالة…';
+
+  @override
+  String get callDeclineSend => 'إرسال';
+
+  @override
+  String get callBackAction => 'معاودة الاتصال';
+
+  @override
+  String get callMessageAction => 'رسالة';
+
+  @override
+  String get callsAllowTitle => 'السماح بالمكالمات';
+
+  @override
+  String get callsAllowSubtitle => 'عند الإيقاف، لن ترن المكالمات الموجهة إليك. سيرى المتصلون أنك لا تستقبل المكالمات.';
+
+  @override
+  String get callsQuietHoursNote => 'يتم أيضًا حجب المكالمات خلال ساعات الهدوء.';
+
+  @override
+  String get callTurnOnCamera => 'الكاميرا';
 }

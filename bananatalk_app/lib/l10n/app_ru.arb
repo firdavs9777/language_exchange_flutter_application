@@ -4362,5 +4362,18 @@
   "storyCantReply": "Вы не можете ответить на эту историю",
   "storyNoMediaToSave": "В этой истории нет медиа для сохранения",
   "coinsAdCrediting": "Начисление…",
-  "coinsWatchAdReward": "Посмотреть рекламу (+5 💎)"
+  "coinsWatchAdReward": "Посмотреть рекламу (+5 💎)",
+  "callUnavailable": "{name} сейчас не принимает звонки",
+  "callDeclineWithMessage": "Сообщение",
+  "callDeclineSheetTitle": "Отклонить с сообщением",
+  "callDeclineCannedLater": "Сейчас не могу говорить. Перезвоню.",
+  "callDeclineCannedText": "Сейчас не могу говорить. Напиши мне?",
+  "callDeclineCustomHint": "Напишите сообщение…",
+  "callDeclineSend": "Отправить",
+  "callBackAction": "Перезвонить",
+  "callMessageAction": "Сообщение",
+  "callsAllowTitle": "Разрешить звонки",
+  "callsAllowSubtitle": "Если выключено, звонки вам не звонят. Звонящие видят, что вы не принимаете звонки.",
+  "callsQuietHoursNote": "Звонки также откладываются в тихие часы.",
+  "callTurnOnCamera": "Камера"
 }

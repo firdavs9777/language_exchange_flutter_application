@@ -11158,4 +11158,45 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get coinsWatchAdReward => 'Reklam izle (+5 💎)';
+
+  @override
+  String callUnavailable(String name) {
+    return '$name şu anda arama kabul etmiyor';
+  }
+
+  @override
+  String get callDeclineWithMessage => 'Mesaj';
+
+  @override
+  String get callDeclineSheetTitle => 'Mesajla reddet';
+
+  @override
+  String get callDeclineCannedLater => 'Şu an konuşamam. Seni geri arayacağım.';
+
+  @override
+  String get callDeclineCannedText => 'Şu an konuşamam. Bana yazar mısın?';
+
+  @override
+  String get callDeclineCustomHint => 'Bir mesaj yaz…';
+
+  @override
+  String get callDeclineSend => 'Gönder';
+
+  @override
+  String get callBackAction => 'Geri ara';
+
+  @override
+  String get callMessageAction => 'Mesaj';
+
+  @override
+  String get callsAllowTitle => 'Aramalara izin ver';
+
+  @override
+  String get callsAllowSubtitle => 'Kapalıyken sana yapılan aramalar çalmaz. Arayanlar arama kabul etmediğini görür.';
+
+  @override
+  String get callsQuietHoursNote => 'Aramalar sessiz saatlerde de tutulur.';
+
+  @override
+  String get callTurnOnCamera => 'Kamera';
 }

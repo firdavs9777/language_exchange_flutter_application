@@ -11166,4 +11166,45 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get coinsWatchAdReward => 'Watch ad (+5 💎)';
+
+  @override
+  String callUnavailable(String name) {
+    return '$name isn\'t taking calls right now';
+  }
+
+  @override
+  String get callDeclineWithMessage => 'Message';
+
+  @override
+  String get callDeclineSheetTitle => 'Decline with a message';
+
+  @override
+  String get callDeclineCannedLater => 'Can\'t talk now. I\'ll call you back.';
+
+  @override
+  String get callDeclineCannedText => 'Can\'t talk now. Text me?';
+
+  @override
+  String get callDeclineCustomHint => 'Write a message…';
+
+  @override
+  String get callDeclineSend => 'Send';
+
+  @override
+  String get callBackAction => 'Call back';
+
+  @override
+  String get callMessageAction => 'Message';
+
+  @override
+  String get callsAllowTitle => 'Allow calls';
+
+  @override
+  String get callsAllowSubtitle => 'When off, calls to you don\'t ring. Callers see that you\'re not taking calls.';
+
+  @override
+  String get callsQuietHoursNote => 'Calls are held during quiet hours too.';
+
+  @override
+  String get callTurnOnCamera => 'Camera';
 }

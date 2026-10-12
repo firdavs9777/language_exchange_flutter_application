@@ -4348,5 +4348,18 @@
   "storyCantReply": "आप इस स्टोरी का जवाब नहीं दे सकते",
   "storyNoMediaToSave": "इस स्टोरी में सेव करने के लिए कोई मीडिया नहीं है",
   "coinsAdCrediting": "जमा किया जा रहा है…",
-  "coinsWatchAdReward": "विज्ञापन देखें (+5 💎)"
+  "coinsWatchAdReward": "विज्ञापन देखें (+5 💎)",
+  "callUnavailable": "{name} अभी कॉल नहीं ले रहे हैं",
+  "callDeclineWithMessage": "संदेश",
+  "callDeclineSheetTitle": "संदेश के साथ अस्वीकार करें",
+  "callDeclineCannedLater": "अभी बात नहीं कर सकता। मैं वापस कॉल करूँगा।",
+  "callDeclineCannedText": "अभी बात नहीं कर सकता। मुझे मैसेज करें?",
+  "callDeclineCustomHint": "संदेश लिखें…",
+  "callDeclineSend": "भेजें",
+  "callBackAction": "वापस कॉल करें",
+  "callMessageAction": "संदेश",
+  "callsAllowTitle": "कॉल की अनुमति दें",
+  "callsAllowSubtitle": "बंद होने पर, आपको की गई कॉल नहीं बजेंगी। कॉल करने वालों को दिखेगा कि आप कॉल नहीं ले रहे हैं।",
+  "callsQuietHoursNote": "शांत समय के दौरान भी कॉल रोकी जाती हैं।",
+  "callTurnOnCamera": "कैमरा"
 }

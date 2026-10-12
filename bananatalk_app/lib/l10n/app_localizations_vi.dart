@@ -11141,4 +11141,45 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get coinsWatchAdReward => 'Xem quảng cáo (+5 💎)';
+
+  @override
+  String callUnavailable(String name) {
+    return '$name hiện không nhận cuộc gọi';
+  }
+
+  @override
+  String get callDeclineWithMessage => 'Nhắn tin';
+
+  @override
+  String get callDeclineSheetTitle => 'Từ chối kèm tin nhắn';
+
+  @override
+  String get callDeclineCannedLater => 'Mình chưa nói chuyện được. Mình sẽ gọi lại.';
+
+  @override
+  String get callDeclineCannedText => 'Mình chưa nói chuyện được. Nhắn tin cho mình nhé?';
+
+  @override
+  String get callDeclineCustomHint => 'Viết tin nhắn…';
+
+  @override
+  String get callDeclineSend => 'Gửi';
+
+  @override
+  String get callBackAction => 'Gọi lại';
+
+  @override
+  String get callMessageAction => 'Nhắn tin';
+
+  @override
+  String get callsAllowTitle => 'Cho phép cuộc gọi';
+
+  @override
+  String get callsAllowSubtitle => 'Khi tắt, cuộc gọi đến bạn sẽ không đổ chuông. Người gọi sẽ thấy bạn không nhận cuộc gọi.';
+
+  @override
+  String get callsQuietHoursNote => 'Cuộc gọi cũng bị giữ lại trong giờ yên tĩnh.';
+
+  @override
+  String get callTurnOnCamera => 'Camera';
 }

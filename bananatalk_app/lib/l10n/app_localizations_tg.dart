@@ -11161,4 +11161,45 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get coinsWatchAdReward => 'Реклама тамошо кунед (+5 💎)';
+
+  @override
+  String callUnavailable(String name) {
+    return '$name ҳоло занг қабул намекунад';
+  }
+
+  @override
+  String get callDeclineWithMessage => 'Паём';
+
+  @override
+  String get callDeclineSheetTitle => 'Рад кардан бо паём';
+
+  @override
+  String get callDeclineCannedLater => 'Ҳоло гап зада наметавонам. Баъд занг мезанам.';
+
+  @override
+  String get callDeclineCannedText => 'Ҳоло гап зада наметавонам. Паём фиристед?';
+
+  @override
+  String get callDeclineCustomHint => 'Паём нависед…';
+
+  @override
+  String get callDeclineSend => 'Фиристодан';
+
+  @override
+  String get callBackAction => 'Дубора занг задан';
+
+  @override
+  String get callMessageAction => 'Паём';
+
+  @override
+  String get callsAllowTitle => 'Иҷозати зангҳо';
+
+  @override
+  String get callsAllowSubtitle => 'Агар хомӯш бошад, зангҳо ба шумо садо намедиҳанд. Занганда мебинад, ки шумо занг қабул намекунед.';
+
+  @override
+  String get callsQuietHoursNote => 'Зангҳо дар соатҳои оромӣ низ нигоҳ дошта мешаванд.';
+
+  @override
+  String get callTurnOnCamera => 'Камера';
 }

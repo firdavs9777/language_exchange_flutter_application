@@ -92,7 +92,15 @@ Baseline: 1/30 calls answered in 30 days, 168 stuck ringing, 0 call messages eve
     - [x] fold `startCallFromCallsList` (Calls list busy / start-limit messages, A4 review) and the chat header's ignored `InitiateResult` into `CallLauncher`
   - [x] A14 Calls list + chat-tab icon + missed badge
   - [x] Final whole-branch review fixes: one ring UI per call (native ring present → no in-app screen / Dart ringtone; native ring appearing later closes the in-app one; in-app accept dismisses the native ring and ignores its echo; a leftover native decline never ends a call answered here, a native End still hangs up a call answered there); cold start skips a stale accepted CallKit entry; a `failed` call:state shows "Call failed" to the caller; LiveKit connect superseded mid-connect never publishes mic/camera; th missed voice label (QA rows S-15 updated, IOS-8, IOS-9, AND-8); re-review: the native-ring-only rule is iOS-only (Android keeps the in-app screen, native ringtone only), and CallKit reporting a call after an in-app accept is ended at once
-  - [ ] Phase 2: decline with message, missed-call push actions, calls on/off + quiet hours, camera mid voice call, draggable self-view
+  - Phase 2:
+    - [x] App plumbing: `CallApi.decline(message)` / `upgrade`, `CallManager.rejectCall(message:)` / `upgradeToVideo` / `onCallTypeChanged` (a late `call:state` never revives an ended call), callee-unavailable snack, 13 strings x 19 locales
+    - [ ] Decline-with-message sheet on the incoming screen
+    - [ ] Missed-call push actions (call back / message)
+    - [ ] Calls on/off + quiet-hours settings UI
+    - [ ] Camera button mid voice call + peer-upgrade UI
+    - [ ] Draggable self-view
+    - [ ] Device QA of the Phase 2 flows
+    - [ ] Native review of the 13 Phase 2 call strings
 - [ ] Device QA IOS-8: with a Focus mode silencing calls, CallKit shows no banner and the in-app ring closes — decide whether that is acceptable.
 - [ ] Native review of the 18 machine-drafted call strings (`lib/l10n/app_*.arb`)
 - [ ] Owner: LiveKit webhook URL in LiveKit Cloud; confirm `APNS_VOIP_*` on prod.
