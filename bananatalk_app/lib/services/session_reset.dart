@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:bananatalk_app/pages/chat/message/chat_tip_row.dart';
 import 'package:bananatalk_app/pages/authentication/biometric/biometric_service.dart';
 import 'package:bananatalk_app/pages/chat/state/chat_state_provider.dart'
     as chat_page_state;
@@ -96,6 +97,7 @@ final Map<String, ProviderOrFamily> userScopedProviders = {
   'activationStoreProvider': activationStoreProvider,
   'activationDoneProvider': activationDoneProvider,
   'isGuidePeriodProvider': isGuidePeriodProvider,
+  'chatTipClaimProvider': chatTipClaimProvider,
   'currentUserLimitsProvider': currentUserLimitsProvider,
   'vipStatusProvider': vipStatusProvider,
   'isVipProvider': isVipProvider,

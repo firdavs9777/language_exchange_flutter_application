@@ -21,6 +21,7 @@ import 'package:bananatalk_app/pages/chat/header/user_avatar.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/chat/message/message_context_menu_item.dart';
 import 'package:bananatalk_app/pages/chat/message/tick_status.dart';
+import 'package:bananatalk_app/pages/chat/message/chat_tip_row.dart';
 import 'package:bananatalk_app/services/learning_service.dart';
 import 'package:bananatalk_app/services/translation_service.dart';
 import 'package:bananatalk_app/pages/chat/dialogs/translate_unlock_sheet.dart';
@@ -664,6 +665,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
   // ---------- Context menu ----------
 
   void _showContextMenu(BuildContext context) {
+    retireChatTip(ref, target: 'primary').ignore();
     _hideReactionPicker();
     HapticFeedback.mediumImpact();
 
@@ -1523,6 +1525,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
                       widget.message.message != null &&
                       widget.message.message!.isNotEmpty &&
                       !widget.isSelectionMode) ...[
+                    ChatTipRow(messageId: widget.message.id),
                     if (_inlineTranslation != null)
                       Padding(
                         padding: const EdgeInsets.only(
