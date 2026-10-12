@@ -103,6 +103,7 @@ void main() {
     final launched = <Uri>[];
     Future<void> open(String url) => openAnnouncementLink(url,
         push: pushed.add,
+        isKnownRoute: (_) => true,
         launch: (u) async {
           launched.add(u);
           return true;
@@ -116,6 +117,21 @@ void main() {
     await open('bananatalk:////');
     expect(pushed, ['/moment/1', '/learning/daily']);
     expect(launched, [Uri.parse('https://banatalk.com/x')]);
+  });
+
+  test('openAnnouncementLink: an unknown in-app path is ignored, not pushed', () async {
+    final pushed = <String>[];
+    await openAnnouncementLink('bananatalk://no-such-screen',
+        push: pushed.add, isKnownRoute: (p) => p != '/no-such-screen');
+    await openAnnouncementLink('bananatalk://moment/1',
+        push: pushed.add, isKnownRoute: (p) => p != '/no-such-screen');
+    expect(pushed, ['/moment/1']);
+  });
+
+  test('isKnownAppRoute matches the real router table', () {
+    expect(isKnownAppRoute('/home'), isTrue);
+    expect(isKnownAppRoute('/announcement/abc'), isTrue);
+    expect(isKnownAppRoute('/no-such-screen-xyz'), isFalse);
   });
 
   test('openAnnouncementLink: a failing external launch is caught', () async {

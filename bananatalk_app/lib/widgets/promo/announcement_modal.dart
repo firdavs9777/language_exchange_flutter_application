@@ -37,20 +37,42 @@ String? announcementRoutePath(String url) {
   return null;
 }
 
-/// [push] and [launch] default to the app router and the external browser.
-/// Never throws: a failed external launch is logged.
+/// Whether the app router has a route for [path]. A mistyped admin link
+/// (`bananatalk://moments-typo`) would otherwise land on go_router's built-in
+/// "page not found" screen (the router has no errorBuilder).
+bool isKnownAppRoute(String path) {
+  try {
+    return !goRouter.configuration.findMatch(Uri.parse(path)).isError;
+  } catch (e) {
+    debugPrint('isKnownAppRoute: $path failed to match: $e');
+    return false;
+  }
+}
+
+/// [push], [launch] and [isKnownRoute] default to the app router, the
+/// external browser and [isKnownAppRoute]. An in-app link with no matching
+/// route does nothing. Never throws: a failed launch or push is logged.
 Future<void> openAnnouncementLink(
   String url, {
   void Function(String path)? push,
   Future<bool> Function(Uri uri)? launch,
+  bool Function(String path)? isKnownRoute,
 }) async {
   switch (announcementLinkKind(url)) {
     case AnnouncementLinkKind.inApp:
       final path = announcementRoutePath(url)!;
-      if (push != null) {
-        push(path);
-      } else {
-        goRouter.push(path);
+      if (!(isKnownRoute ?? isKnownAppRoute)(path)) {
+        debugPrint('openAnnouncementLink: no route for $path, ignored');
+        return;
+      }
+      try {
+        if (push != null) {
+          push(path);
+        } else {
+          goRouter.push(path);
+        }
+      } catch (e) {
+        debugPrint('openAnnouncementLink: push failed: $e');
       }
     case AnnouncementLinkKind.external:
       final uri = Uri.parse(url.trim());

@@ -51,6 +51,17 @@ void main() {
         ('ActivationAction.lesson', 1),
     'lib/pages/profile/profile_main.dart': ('checkProfileComplete(', 1),
   };
+  test('create_moment reads the activation store before awaiting createMoments', () {
+    // After the await the user may have left the screen (ref unusable).
+    final src = File('lib/pages/moments/create/create_moment.dart').readAsStringSync();
+    final read = src.indexOf('ref.read(activationStoreProvider)');
+    final create = src.indexOf('.createMoments(');
+    final mark = src.indexOf('activation.markDone(ActivationAction.moment)');
+    expect(read, greaterThan(-1));
+    expect(read, lessThan(create));
+    expect(mark, greaterThan(create));
+  });
+
   test('vocab review records the lesson on any successful card, not only the last',
       () {
     final src = File('lib/providers/provider_root/learning/vocabulary_providers.dart')

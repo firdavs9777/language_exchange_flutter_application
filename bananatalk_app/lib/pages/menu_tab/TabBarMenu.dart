@@ -47,8 +47,18 @@ final selectedTabProvider = StateProvider<int>((ref) => 0);
 const int kMomentsTabIndex = 3;
 
 /// The launch pop-ups run once per process (spec §4.1), even if TabsScreen
-/// is rebuilt by a deep link.
+/// is rebuilt by a deep link. Re-armed per account by [resetLaunchModalsRun].
 bool _launchModalsRanThisProcess = false;
+
+/// Lets the next account signed in on this process run the launch pop-ups
+/// (called by `resetUserSession` on logout / account switch).
+void resetLaunchModalsRun() => _launchModalsRanThisProcess = false;
+
+@visibleForTesting
+bool get launchModalsRanThisProcess => _launchModalsRanThisProcess;
+
+@visibleForTesting
+void debugMarkLaunchModalsRan() => _launchModalsRanThisProcess = true;
 
 /// Whether a [TabsScreen] has mounted before in this process (see
 /// [shouldSeedInitialTab]).

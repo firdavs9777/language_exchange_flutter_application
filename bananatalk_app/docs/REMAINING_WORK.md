@@ -162,6 +162,7 @@ call or rejoin", and the caller already has the call on screen.
 - [x] A15 Settings → Notifications "Announcements" toggle
 - [x] A16 suspension screen reads `banReason` (REST 403 only; no app socket-suspended handler exists; falls back to the old "Reason:" suffix until the backend ships)
 - [x] A12 fix round 1: empty `bananatalk:///` links ignored (never handed to the OS), external launch failures caught, spotlight re-checks the route after picking
+- [x] Final fix wave (launch): logout / account switch re-arms `PopupBudget` and TabsScreen's run-once latch (`resetLaunchProcessState` in `resetUserSession`), so a second account in the same process gets its launch pop-up and priming; welcome-back is marked only when its sheet actually shows (an update dialog that spends the budget leaves it armed); a `bananatalk://` link with no matching route does nothing instead of opening go_router's not-found page; the moment milestone survives leaving the composer mid-request; missed-call taps without a call id dedupe on caller + push time (caller-only keys expire after 30 s), so a second missed call from the same caller still routes
 - [ ] Device QA rows in `docs/qa/onboarding-matrix.md` (owner, after a release build) — matrix file created in A1; incl. 2 new launch rows (update vs welcome-back, notification tap within 1 s)
 
 ## 0c. First-session guidance (2026-10-09) — spec `docs/superpowers/specs/2026-10-09-first-session-guidance-design.md`

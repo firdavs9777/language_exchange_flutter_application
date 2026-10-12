@@ -62,6 +62,7 @@ import 'package:bananatalk_app/services/referral_service.dart';
 import 'package:bananatalk_app/pages/community/first_session/first_session_store.dart';
 import 'package:bananatalk_app/services/activation_store.dart';
 import 'package:bananatalk_app/services/guide_store.dart';
+import 'package:bananatalk_app/services/launch_modal_coordinator.dart';
 
 /// Every Riverpod provider whose state belongs to the signed-in user, keyed
 /// by its declared name (the key is what `session_reset_test.dart` checks
@@ -346,6 +347,15 @@ Future<void> resetUserSession({
   }
 
   invalidateUserScopedProviders(inv);
+  resetLaunchProcessState();
+}
+
+/// Process-wide launch state that belongs to the signed-in account: the
+/// one-pop-up budget and TabsScreen's run-once latch. Without this a second
+/// account signed in without a restart got no launch pop-up and no priming.
+void resetLaunchProcessState() {
+  PopupBudget.reset();
+  resetLaunchModalsRun();
 }
 
 /// Step 5 of [resetUserSession], split out so it is testable without plugins.

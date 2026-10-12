@@ -123,6 +123,34 @@ void main() {
       expect(routes, ['/chat/u1?call=video', '/chat/u1']);
     });
 
+    test('no call id: two missed calls from the same caller are both routed', () async {
+      gate.settle();
+      const noId = {'type': 'missed_call', 'callerId': 'u1', 'callType': 'audio'};
+      gate.submit({...noId, 'sentAt': '2026-10-12T10:00:00Z'}, 'message');
+      gate.submit({...noId, 'sentAt': '2026-10-12T10:00:00Z'}, 'message'); // same tap, 2nd path
+      gate.submit({...noId, 'sentAt': '2026-10-12T10:05:00Z'}, 'call_back');
+      await pumpEventQueue();
+      expect(routes, ['/chat/u1', '/chat/u1?call=audio']);
+    });
+
+    test('no call id and no time: a repeat within the window is dropped, a later one routes', () async {
+      var clock = DateTime(2026, 10, 12, 10);
+      final g = MissedCallTapGate(
+        navigate: routes.add,
+        isSignedIn: () => true,
+        isBlocked: (_) async => false,
+        now: () => clock,
+      )..settle();
+      const noId = {'type': 'missed_call', 'callerId': 'u1', 'callType': 'audio'};
+      g.submit(noId, 'message');
+      clock = clock.add(const Duration(seconds: 2));
+      g.submit(noId, 'message'); // the same tap arriving another way
+      clock = clock.add(const Duration(minutes: 5));
+      g.submit(noId, 'message'); // the caller's next missed call
+      await pumpEventQueue();
+      expect(routes, ['/chat/u1', '/chat/u1']);
+    });
+
     test('a plain tap opens the chat', () async {
       gate.settle();
       gate.submit(push, null);

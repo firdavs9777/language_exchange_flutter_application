@@ -1353,6 +1353,9 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
         // Format location data if available
         final locationData = _formatLocationData();
 
+        // Read before the await: if the user leaves the screen while the
+        // request is in flight, `ref` is gone and the milestone would be lost.
+        final activation = ref.read(activationStoreProvider);
         // Create moment with all fields (no userId - backend uses authenticated user)
         final moment = await ref
             .read(momentsServiceProvider)
@@ -1372,10 +1375,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
               isReel: widget.isReel,
             );
         // The server created it: that is the milestone, uploads or not.
-        ref
-            .read(activationStoreProvider)
-            .markDone(ActivationAction.moment)
-            .ignore();
+        activation.markDone(ActivationAction.moment).ignore();
 
         // Upload images if any
         if (_selectedImages.isNotEmpty) {

@@ -11,6 +11,8 @@ import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/daily_matches_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/profile_visitor_provider.dart';
 import 'package:bananatalk_app/providers/tutor_provider.dart';
+import 'package:bananatalk_app/pages/menu_tab/TabBarMenu.dart';
+import 'package:bananatalk_app/services/launch_modal_coordinator.dart';
 import 'package:bananatalk_app/services/session_reset.dart';
 
 /// Every public top-level Riverpod provider declared under lib/.
@@ -71,5 +73,25 @@ void main() {
     ]) {
       expect(invalidated.any((i) => identical(i, p)), isTrue, reason: '$p');
     }
+  });
+
+  test('a reset re-arms the launch pop-up budget and the run-once latch', () {
+    PopupBudget.debugReset();
+    expect(PopupBudget.tryConsume(), isTrue);
+    debugMarkLaunchModalsRan();
+    expect(PopupBudget.spent, isTrue);
+    expect(launchModalsRanThisProcess, isTrue);
+
+    resetLaunchProcessState();
+
+    expect(PopupBudget.spent, isFalse, reason: 'the next account gets its launch pop-up');
+    expect(launchModalsRanThisProcess, isFalse);
+  });
+
+  test('resetUserSession calls resetLaunchProcessState', () {
+    final src = File('lib/services/session_reset.dart').readAsStringSync();
+    final body = src.substring(src.indexOf('Future<void> resetUserSession('),
+        src.indexOf('void invalidateUserScopedProviders('));
+    expect(body, contains('resetLaunchProcessState();'));
   });
 }

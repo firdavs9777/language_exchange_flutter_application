@@ -7,13 +7,23 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 
 /// Splash's welcome-back sheet, when [due] and this launch's [PopupBudget] is
 /// still unspent (an update dialog shown first wins). Spends the budget, so
-/// nothing else pops on the same launch. True when it showed.
+/// nothing else pops on the same launch. True when it showed. [onShown] runs
+/// as the sheet opens (not when the budget was already spent).
 Future<bool> maybeShowWelcomeBack(
   BuildContext context, {
   required bool due,
+  Future<void> Function()? onShown,
 }) async {
   if (!due || !context.mounted) return false;
   if (!PopupBudget.tryConsume()) return false;
+  if (onShown != null) {
+    try {
+      await onShown();
+    } catch (e) {
+      debugPrint('maybeShowWelcomeBack: onShown failed: $e');
+    }
+  }
+  if (!context.mounted) return false;
   await showWelcomeBackModal(context);
   return true;
 }

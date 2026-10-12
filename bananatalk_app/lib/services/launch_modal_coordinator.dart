@@ -18,8 +18,13 @@ class PopupBudget {
     return true;
   }
 
+  /// Re-arms the budget for the next account signed in on this process
+  /// (called by `resetUserSession`): a second user who logs in without a
+  /// restart gets their own launch pop-up / priming.
+  static void reset() => _spent = false;
+
   @visibleForTesting
-  static void debugReset() => _spent = false;
+  static void debugReset() => reset();
 }
 
 /// One launch pop-up. [isDue] keeps the pop-up's own throttle.

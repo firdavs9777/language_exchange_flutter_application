@@ -16,6 +16,7 @@ import 'package:bananatalk_app/services/guide_store.dart';
 import 'package:bananatalk_app/services/launch_candidates.dart';
 import 'package:bananatalk_app/services/launch_modal_coordinator.dart';
 import 'package:bananatalk_app/services/version_check_coordinator.dart';
+import 'package:bananatalk_app/services/welcome_back_service.dart';
 import 'package:bananatalk_app/widgets/welcome_back_modal.dart';
 
 import '../helpers/community_fixture.dart';
@@ -230,6 +231,56 @@ void main() {
       final ctx = await _app(t);
       expect(await maybeShowWelcomeBack(ctx, due: false), isFalse);
       expect(PopupBudget.spent, isFalse);
+    });
+
+    testWidgets('budget spent by the update dialog: welcome-back is not marked', (t) async {
+      final eightDaysAgo = DateTime.now()
+          .subtract(const Duration(days: 8))
+          .millisecondsSinceEpoch;
+      SharedPreferences.setMockInitialValues({'last_app_open_ms': eightDaysAgo});
+      final ctx = await _app(t);
+      expect(await WelcomeBackService.isDue(), isTrue);
+      PopupBudget.tryConsume(); // the update dialog
+      var marked = false;
+      expect(
+          await maybeShowWelcomeBack(ctx, due: true, onShown: () async {
+            marked = true;
+            await WelcomeBackService.markOpened();
+          }),
+          isFalse);
+      expect(marked, isFalse);
+      expect(await WelcomeBackService.isDue(), isTrue,
+          reason: 'still armed for the next launch');
+    });
+
+    testWidgets('shown: marked as it opens, no longer due', (t) async {
+      final eightDaysAgo = DateTime.now()
+          .subtract(const Duration(days: 8))
+          .millisecondsSinceEpoch;
+      SharedPreferences.setMockInitialValues({'last_app_open_ms': eightDaysAgo});
+      final ctx = await _app(t);
+      final shown = maybeShowWelcomeBack(ctx,
+          due: true, onShown: WelcomeBackService.markOpened);
+      await t.pumpAndSettle();
+      expect(await WelcomeBackService.isDue(), isFalse);
+      Navigator.of(ctx).pop();
+      await t.pumpAndSettle();
+      expect(await shown, isTrue);
+    });
+  });
+
+  group('WelcomeBackService', () {
+    test('isDue reads only; markOpened records the launch', () async {
+      SharedPreferences.setMockInitialValues({});
+      expect(await WelcomeBackService.isDue(), isFalse, reason: 'first launch');
+      final old = DateTime.now()
+          .subtract(const Duration(days: 7, minutes: 1))
+          .millisecondsSinceEpoch;
+      SharedPreferences.setMockInitialValues({'last_app_open_ms': old});
+      expect(await WelcomeBackService.isDue(), isTrue);
+      expect(await WelcomeBackService.isDue(), isTrue, reason: 'reading does not mark');
+      await WelcomeBackService.markOpened();
+      expect(await WelcomeBackService.isDue(), isFalse);
     });
   });
 

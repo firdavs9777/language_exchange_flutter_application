@@ -127,11 +127,16 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     await VersionCheckCoordinator.checkSafely(context);
     if (!mounted) return;
 
-    final shouldShowWelcomeBack = await WelcomeBackService.checkAndMark();
+    final welcomeBackDue = await WelcomeBackService.isDue();
     if (!mounted) return;
-    if (isAuthenticated) {
-      await maybeShowWelcomeBack(context, due: shouldShowWelcomeBack);
+    if (isAuthenticated && welcomeBackDue) {
+      // Marked only once the sheet actually shows: when the update dialog
+      // already spent the budget, welcome-back stays armed for next launch.
+      await maybeShowWelcomeBack(context,
+          due: true, onShown: WelcomeBackService.markOpened);
       if (!mounted) return;
+    } else {
+      unawaited(WelcomeBackService.markOpened());
     }
 
     if (isAuthenticated) {

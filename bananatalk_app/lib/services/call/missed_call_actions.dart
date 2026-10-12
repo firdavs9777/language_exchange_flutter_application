@@ -51,13 +51,22 @@ String? missedCallActionRoute(Map<String, dynamic> data, String? actionId) {
   return null;
 }
 
-/// One key per missed call, whichever way its tap arrives.
-String _tapKey(Map<String, dynamic> data) {
-  for (final k in const ['callId', 'callUuid', 'callerId']) {
+/// One key per missed call, whichever way its tap arrives. Without a call id
+/// the caller alone is not a call: two missed calls from the same person
+/// must not collapse, so the push's own time is added when it has one.
+/// [expires] is true when only the caller is left: that key is remembered for
+/// a short window (the same tap's other delivery paths), not for the process.
+({String key, bool expires}) _tapKey(Map<String, dynamic> data) {
+  for (final k in const ['callId', 'callUuid']) {
     final v = data[k]?.toString() ?? '';
-    if (v.isNotEmpty) return '$k:$v';
+    if (v.isNotEmpty) return (key: '$k:$v', expires: false);
   }
-  return '';
+  final caller = data['callerId']?.toString() ?? '';
+  for (final k in const ['sentAt', 'timestamp', 'sentTime', 'messageId']) {
+    final v = data[k]?.toString() ?? '';
+    if (v.isNotEmpty) return (key: 'callerId:$caller@$v', expires: false);
+  }
+  return (key: 'callerId:$caller', expires: true);
 }
 
 class _Tap {
@@ -86,18 +95,29 @@ class MissedCallTapGate {
     required this.isSignedIn,
     required this.isBlocked,
     this.blockLookupTimeout = const Duration(seconds: 5),
-  });
+    this.callerOnlyWindow = const Duration(seconds: 30),
+    DateTime Function()? now,
+  }) : _now = now ?? DateTime.now;
 
   final void Function(String route) navigate;
   final bool Function() isSignedIn;
   final Future<bool> Function(String userId) isBlocked;
   final Duration blockLookupTimeout;
 
+  /// How long a tap with no call id and no push time (key = caller only)
+  /// counts as a repeat: long enough for its other delivery paths, short
+  /// enough that the caller's next missed call is routed.
+  final Duration callerOnlyWindow;
+  final DateTime Function() _now;
+
   static const int _remembered = 50;
 
   bool _settled = false;
   _Tap? _pending;
-  final LinkedHashSet<String> _seen = LinkedHashSet<String>();
+
+  /// Seen keys; the value is when a caller-only key stops counting (null:
+  /// remembered while it is among the last [_remembered]).
+  final LinkedHashMap<String, DateTime?> _seen = LinkedHashMap<String, DateTime?>();
 
   bool get isSettled => _settled;
 
@@ -109,22 +129,28 @@ class MissedCallTapGate {
     if (callerId.isEmpty) return false;
 
     final actionRoute = missedCallActionRoute(data, actionId);
+    final id = _tapKey(data);
     final tap = _Tap(
-      _tapKey(data),
+      id.key,
       callerId,
       actionRoute ?? '/chat/$callerId',
       isAction: actionRoute != null,
     );
 
-    if (_seen.contains(tap.key)) {
+    final now = _now();
+    final until = _seen[tap.key];
+    if (_seen.containsKey(tap.key) && until != null && !until.isAfter(now)) {
+      _seen.remove(tap.key); // a caller-only key past its window: a new call
+    }
+    if (_seen.containsKey(tap.key)) {
       final waiting = _pending;
       if (tap.isAction && waiting != null && waiting.key == tap.key && !waiting.isAction) {
         _pending = tap;
       }
       return true;
     }
-    _seen.add(tap.key);
-    if (_seen.length > _remembered) _seen.remove(_seen.first);
+    _seen[tap.key] = id.expires ? now.add(callerOnlyWindow) : null;
+    if (_seen.length > _remembered) _seen.remove(_seen.keys.first);
 
     if (!_settled) {
       final waiting = _pending;
