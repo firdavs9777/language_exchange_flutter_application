@@ -53,10 +53,10 @@ class _ChallengesScreenState extends ConsumerState<ChallengesScreen>
           labelColor: AppColors.primary,
           unselectedLabelColor: context.textSecondary,
           indicatorColor: AppColors.primary,
-          tabs: const [
-            Tab(text: 'Daily'),
-            Tab(text: 'Weekly'),
-            Tab(text: 'Special'),
+          tabs: [
+            Tab(text: AppLocalizations.of(context)!.learnChallengeDaily),
+            Tab(text: AppLocalizations.of(context)!.learnChallengeWeekly),
+            Tab(text: AppLocalizations.of(context)!.learnChallengeSpecial),
           ],
         ),
       ),
@@ -84,20 +84,20 @@ class _ChallengesScreenState extends ConsumerState<ChallengesScreen>
                   children: [
                     _buildChallengeList(
                       daily,
-                      'Daily',
-                      'Complete challenges daily to earn XP and rewards!',
+                      AppLocalizations.of(context)!.learnChallengeDaily,
+                      AppLocalizations.of(context)!.learnChallengeDailyDesc,
                       const Color(0xFF2196F3),
                     ),
                     _buildChallengeList(
                       weekly,
-                      'Weekly',
-                      'Weekly challenges refresh every Monday',
+                      AppLocalizations.of(context)!.learnChallengeWeekly,
+                      AppLocalizations.of(context)!.learnChallengeWeeklyDesc,
                       const Color(0xFF9C27B0),
                     ),
                     _buildChallengeList(
                       special,
-                      'Special',
-                      'Limited-time challenges with bonus rewards!',
+                      AppLocalizations.of(context)!.learnChallengeSpecial,
+                      AppLocalizations.of(context)!.learnChallengeSpecialDesc,
                       const Color(0xFFFF9800),
                     ),
                   ],

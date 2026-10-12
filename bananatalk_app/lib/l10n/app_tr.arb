@@ -4228,5 +4228,16 @@
   "learnNoAchievements": "Başarım yok",
   "learnDayStreak": "Günlük Seri",
   "learnDueForReview": "Tekrar zamanı",
-  "learnNextReview": "Sonraki: {date}"
+  "learnNextReview": "Sonraki: {date}",
+  "learnChallengeDaily": "Günlük",
+  "learnChallengeWeekly": "Haftalık",
+  "learnChallengeSpecial": "Özel",
+  "learnChallengeDailyDesc": "XP ve ödüller kazanmak için meydan okumaları her gün tamamla!",
+  "learnChallengeWeeklyDesc": "Haftalık meydan okumalar her Pazartesi yenilenir",
+  "learnChallengeSpecialDesc": "Bonus ödüllü, süreli meydan okumalar!",
+  "learnDateToday": "Bugün",
+  "learnDateTomorrow": "Yarın",
+  "learnInDays": "{count, plural, one{{count} gün sonra} other{{count} gün sonra}}",
+  "learnInWeeks": "{count, plural, one{{count} hafta sonra} other{{count} hafta sonra}}",
+  "learnInMonths": "{count, plural, one{{count} ay sonra} other{{count} ay sonra}}"
 }

@@ -4016,5 +4016,16 @@
   "learnNoAchievements": "実績はありません",
   "learnDayStreak": "日連続",
   "learnDueForReview": "復習の時間です",
-  "learnNextReview": "次回：{date}"
+  "learnNextReview": "次回：{date}",
+  "learnChallengeDaily": "デイリー",
+  "learnChallengeWeekly": "ウィークリー",
+  "learnChallengeSpecial": "スペシャル",
+  "learnChallengeDailyDesc": "毎日チャレンジを完了してXPと報酬をゲットしよう！",
+  "learnChallengeWeeklyDesc": "ウィークリーチャレンジは毎週月曜日に更新されます",
+  "learnChallengeSpecialDesc": "期間限定のチャレンジ、ボーナス報酬付き！",
+  "learnDateToday": "今日",
+  "learnDateTomorrow": "明日",
+  "learnInDays": "{count, plural, other{{count}日後}}",
+  "learnInWeeks": "{count, plural, other{{count}週間後}}",
+  "learnInMonths": "{count, plural, other{{count}か月後}}"
 }

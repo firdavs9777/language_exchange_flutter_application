@@ -4016,5 +4016,16 @@
   "learnNoAchievements": "Belum ada pencapaian",
   "learnDayStreak": "Hari Beruntun",
   "learnDueForReview": "Waktunya diulang",
-  "learnNextReview": "Berikutnya: {date}"
+  "learnNextReview": "Berikutnya: {date}",
+  "learnChallengeDaily": "Harian",
+  "learnChallengeWeekly": "Mingguan",
+  "learnChallengeSpecial": "Spesial",
+  "learnChallengeDailyDesc": "Selesaikan tantangan setiap hari untuk mendapatkan XP dan hadiah!",
+  "learnChallengeWeeklyDesc": "Tantangan mingguan diperbarui setiap Senin",
+  "learnChallengeSpecialDesc": "Tantangan waktu terbatas dengan hadiah bonus!",
+  "learnDateToday": "Hari ini",
+  "learnDateTomorrow": "Besok",
+  "learnInDays": "{count, plural, other{{count} hari lagi}}",
+  "learnInWeeks": "{count, plural, other{{count} minggu lagi}}",
+  "learnInMonths": "{count, plural, other{{count} bulan lagi}}"
 }

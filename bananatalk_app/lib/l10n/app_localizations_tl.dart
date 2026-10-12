@@ -10070,4 +10070,61 @@ class AppLocalizationsTl extends AppLocalizations {
   String learnNextReview(Object date) {
     return 'Susunod: $date';
   }
+
+  @override
+  String get learnChallengeDaily => 'Araw-araw';
+
+  @override
+  String get learnChallengeWeekly => 'Lingguhan';
+
+  @override
+  String get learnChallengeSpecial => 'Espesyal';
+
+  @override
+  String get learnChallengeDailyDesc => 'Kumpletuhin ang mga hamon araw-araw para makakuha ng XP at mga gantimpala!';
+
+  @override
+  String get learnChallengeWeeklyDesc => 'Nire-refresh ang mga lingguhang hamon tuwing Lunes';
+
+  @override
+  String get learnChallengeSpecialDesc => 'Mga hamong limitado ang oras na may bonus na gantimpala!';
+
+  @override
+  String get learnDateToday => 'Ngayon';
+
+  @override
+  String get learnDateTomorrow => 'Bukas';
+
+  @override
+  String learnInDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Sa loob ng $count araw',
+      one: 'Sa loob ng $count araw',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnInWeeks(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Sa loob ng $count linggo',
+      one: 'Sa loob ng $count linggo',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnInMonths(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Sa loob ng $count buwan',
+      one: 'Sa loob ng $count buwan',
+    );
+    return '$_temp0';
+  }
 }

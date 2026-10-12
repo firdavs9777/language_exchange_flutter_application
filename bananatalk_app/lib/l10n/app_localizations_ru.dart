@@ -10095,4 +10095,67 @@ class AppLocalizationsRu extends AppLocalizations {
   String learnNextReview(Object date) {
     return 'Следующее: $date';
   }
+
+  @override
+  String get learnChallengeDaily => 'Ежедневные';
+
+  @override
+  String get learnChallengeWeekly => 'Еженедельные';
+
+  @override
+  String get learnChallengeSpecial => 'Особые';
+
+  @override
+  String get learnChallengeDailyDesc => 'Выполняйте задания каждый день, чтобы получать XP и награды!';
+
+  @override
+  String get learnChallengeWeeklyDesc => 'Еженедельные задания обновляются каждый понедельник';
+
+  @override
+  String get learnChallengeSpecialDesc => 'Ограниченные по времени задания с бонусными наградами!';
+
+  @override
+  String get learnDateToday => 'Сегодня';
+
+  @override
+  String get learnDateTomorrow => 'Завтра';
+
+  @override
+  String learnInDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Через $count дня',
+      many: 'Через $count дней',
+      few: 'Через $count дня',
+      one: 'Через $count день',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnInWeeks(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Через $count недели',
+      many: 'Через $count недель',
+      few: 'Через $count недели',
+      one: 'Через $count неделю',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnInMonths(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Через $count месяца',
+      many: 'Через $count месяцев',
+      few: 'Через $count месяца',
+      one: 'Через $count месяц',
+    );
+    return '$_temp0';
+  }
 }

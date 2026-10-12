@@ -4016,5 +4016,16 @@
   "learnNoAchievements": "ยังไม่มีความสำเร็จ",
   "learnDayStreak": "วันต่อเนื่อง",
   "learnDueForReview": "ถึงเวลาทบทวน",
-  "learnNextReview": "ถัดไป: {date}"
+  "learnNextReview": "ถัดไป: {date}",
+  "learnChallengeDaily": "รายวัน",
+  "learnChallengeWeekly": "รายสัปดาห์",
+  "learnChallengeSpecial": "พิเศษ",
+  "learnChallengeDailyDesc": "ทำชาเลนจ์ให้เสร็จทุกวันเพื่อรับ XP และรางวัล!",
+  "learnChallengeWeeklyDesc": "ชาเลนจ์รายสัปดาห์รีเฟรชทุกวันจันทร์",
+  "learnChallengeSpecialDesc": "ชาเลนจ์ช่วงเวลาจำกัดพร้อมรางวัลโบนัส!",
+  "learnDateToday": "วันนี้",
+  "learnDateTomorrow": "พรุ่งนี้",
+  "learnInDays": "{count, plural, other{ใน {count} วัน}}",
+  "learnInWeeks": "{count, plural, other{ใน {count} สัปดาห์}}",
+  "learnInMonths": "{count, plural, other{ใน {count} เดือน}}"
 }

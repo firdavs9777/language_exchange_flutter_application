@@ -18385,6 +18385,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Next: {date}'**
   String learnNextReview(Object date);
+
+  /// No description provided for @learnChallengeDaily.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily'**
+  String get learnChallengeDaily;
+
+  /// No description provided for @learnChallengeWeekly.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly'**
+  String get learnChallengeWeekly;
+
+  /// No description provided for @learnChallengeSpecial.
+  ///
+  /// In en, this message translates to:
+  /// **'Special'**
+  String get learnChallengeSpecial;
+
+  /// No description provided for @learnChallengeDailyDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete challenges daily to earn XP and rewards!'**
+  String get learnChallengeDailyDesc;
+
+  /// No description provided for @learnChallengeWeeklyDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly challenges refresh every Monday'**
+  String get learnChallengeWeeklyDesc;
+
+  /// No description provided for @learnChallengeSpecialDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Limited-time challenges with bonus rewards!'**
+  String get learnChallengeSpecialDesc;
+
+  /// No description provided for @learnDateToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get learnDateToday;
+
+  /// No description provided for @learnDateTomorrow.
+  ///
+  /// In en, this message translates to:
+  /// **'Tomorrow'**
+  String get learnDateTomorrow;
+
+  /// No description provided for @learnInDays.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{In {count} day} other{In {count} days}}'**
+  String learnInDays(int count);
+
+  /// No description provided for @learnInWeeks.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{In {count} week} other{In {count} weeks}}'**
+  String learnInWeeks(int count);
+
+  /// No description provided for @learnInMonths.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{In {count} month} other{In {count} months}}'**
+  String learnInMonths(int count);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -4046,5 +4046,16 @@
   "learnNoAchievements": "Нет достижений",
   "learnDayStreak": "Дней подряд",
   "learnDueForReview": "Пора повторить",
-  "learnNextReview": "Следующее: {date}"
+  "learnNextReview": "Следующее: {date}",
+  "learnChallengeDaily": "Ежедневные",
+  "learnChallengeWeekly": "Еженедельные",
+  "learnChallengeSpecial": "Особые",
+  "learnChallengeDailyDesc": "Выполняйте задания каждый день, чтобы получать XP и награды!",
+  "learnChallengeWeeklyDesc": "Еженедельные задания обновляются каждый понедельник",
+  "learnChallengeSpecialDesc": "Ограниченные по времени задания с бонусными наградами!",
+  "learnDateToday": "Сегодня",
+  "learnDateTomorrow": "Завтра",
+  "learnInDays": "{count, plural, one{Через {count} день} few{Через {count} дня} many{Через {count} дней} other{Через {count} дня}}",
+  "learnInWeeks": "{count, plural, one{Через {count} неделю} few{Через {count} недели} many{Через {count} недель} other{Через {count} недели}}",
+  "learnInMonths": "{count, plural, one{Через {count} месяц} few{Через {count} месяца} many{Через {count} месяцев} other{Через {count} месяца}}"
 }

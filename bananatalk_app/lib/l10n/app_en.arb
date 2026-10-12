@@ -6813,5 +6813,19 @@
   "learnDayStreak": "Day Streak",
   "learnDueForReview": "Due for review",
   "learnNextReview": "Next: {date}",
-  "@learnNextReview": {"placeholders": {"date": {"type": "Object"}}}
+  "@learnNextReview": {"placeholders": {"date": {"type": "Object"}}},
+  "learnChallengeDaily": "Daily",
+  "learnChallengeWeekly": "Weekly",
+  "learnChallengeSpecial": "Special",
+  "learnChallengeDailyDesc": "Complete challenges daily to earn XP and rewards!",
+  "learnChallengeWeeklyDesc": "Weekly challenges refresh every Monday",
+  "learnChallengeSpecialDesc": "Limited-time challenges with bonus rewards!",
+  "learnDateToday": "Today",
+  "learnDateTomorrow": "Tomorrow",
+  "learnInDays": "{count, plural, one{In {count} day} other{In {count} days}}",
+  "@learnInDays": { "placeholders": { "count": { "type": "int" } } },
+  "learnInWeeks": "{count, plural, one{In {count} week} other{In {count} weeks}}",
+  "@learnInWeeks": { "placeholders": { "count": { "type": "int" } } },
+  "learnInMonths": "{count, plural, one{In {count} month} other{In {count} months}}",
+  "@learnInMonths": { "placeholders": { "count": { "type": "int" } } }
 }

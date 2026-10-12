@@ -3707,5 +3707,16 @@
   "learnNoAchievements": "尚無成就",
   "learnDayStreak": "天連續",
   "learnDueForReview": "該複習了",
-  "learnNextReview": "下次：{date}"
+  "learnNextReview": "下次：{date}",
+  "learnChallengeDaily": "每日",
+  "learnChallengeWeekly": "每週",
+  "learnChallengeSpecial": "特別",
+  "learnChallengeDailyDesc": "每天完成挑戰，贏取 XP 和獎勵！",
+  "learnChallengeWeeklyDesc": "每週挑戰在每週一重新整理",
+  "learnChallengeSpecialDesc": "限時挑戰，附帶額外獎勵！",
+  "learnDateToday": "今天",
+  "learnDateTomorrow": "明天",
+  "learnInDays": "{count, plural, other{{count}天後}}",
+  "learnInWeeks": "{count, plural, other{{count}週後}}",
+  "learnInMonths": "{count, plural, other{{count}個月後}}"
 }

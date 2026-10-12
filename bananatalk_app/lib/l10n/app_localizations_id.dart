@@ -10067,4 +10067,58 @@ class AppLocalizationsId extends AppLocalizations {
   String learnNextReview(Object date) {
     return 'Berikutnya: $date';
   }
+
+  @override
+  String get learnChallengeDaily => 'Harian';
+
+  @override
+  String get learnChallengeWeekly => 'Mingguan';
+
+  @override
+  String get learnChallengeSpecial => 'Spesial';
+
+  @override
+  String get learnChallengeDailyDesc => 'Selesaikan tantangan setiap hari untuk mendapatkan XP dan hadiah!';
+
+  @override
+  String get learnChallengeWeeklyDesc => 'Tantangan mingguan diperbarui setiap Senin';
+
+  @override
+  String get learnChallengeSpecialDesc => 'Tantangan waktu terbatas dengan hadiah bonus!';
+
+  @override
+  String get learnDateToday => 'Hari ini';
+
+  @override
+  String get learnDateTomorrow => 'Besok';
+
+  @override
+  String learnInDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count hari lagi',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnInWeeks(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count minggu lagi',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnInMonths(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count bulan lagi',
+    );
+    return '$_temp0';
+  }
 }

@@ -10070,4 +10070,61 @@ class AppLocalizationsHi extends AppLocalizations {
   String learnNextReview(Object date) {
     return 'अगला: $date';
   }
+
+  @override
+  String get learnChallengeDaily => 'दैनिक';
+
+  @override
+  String get learnChallengeWeekly => 'साप्ताहिक';
+
+  @override
+  String get learnChallengeSpecial => 'विशेष';
+
+  @override
+  String get learnChallengeDailyDesc => 'XP और इनाम पाने के लिए रोज़ चैलेंज पूरे करें!';
+
+  @override
+  String get learnChallengeWeeklyDesc => 'साप्ताहिक चैलेंज हर सोमवार को नए होते हैं';
+
+  @override
+  String get learnChallengeSpecialDesc => 'सीमित समय के चैलेंज, बोनस इनाम के साथ!';
+
+  @override
+  String get learnDateToday => 'आज';
+
+  @override
+  String get learnDateTomorrow => 'कल';
+
+  @override
+  String learnInDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count दिन में',
+      one: '$count दिन में',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnInWeeks(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count सप्ताह में',
+      one: '$count सप्ताह में',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnInMonths(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count महीने में',
+      one: '$count महीने में',
+    );
+    return '$_temp0';
+  }
 }

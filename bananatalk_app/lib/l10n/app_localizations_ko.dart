@@ -10059,4 +10059,58 @@ class AppLocalizationsKo extends AppLocalizations {
   String learnNextReview(Object date) {
     return '다음: $date';
   }
+
+  @override
+  String get learnChallengeDaily => '일일';
+
+  @override
+  String get learnChallengeWeekly => '주간';
+
+  @override
+  String get learnChallengeSpecial => '스페셜';
+
+  @override
+  String get learnChallengeDailyDesc => '매일 챌린지를 완료하고 XP와 보상을 받으세요!';
+
+  @override
+  String get learnChallengeWeeklyDesc => '주간 챌린지는 매주 월요일에 갱신돼요';
+
+  @override
+  String get learnChallengeSpecialDesc => '기간 한정 챌린지, 보너스 보상까지!';
+
+  @override
+  String get learnDateToday => '오늘';
+
+  @override
+  String get learnDateTomorrow => '내일';
+
+  @override
+  String learnInDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count일 후',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnInWeeks(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count주 후',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnInMonths(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count개월 후',
+    );
+    return '$_temp0';
+  }
 }

@@ -3509,5 +3509,16 @@
   "learnNoAchievements": "Дастовард нест",
   "learnDayStreak": "Рӯзҳои пай дар пай",
   "learnDueForReview": "Вақти такрор",
-  "learnNextReview": "Навбатӣ: {date}"
+  "learnNextReview": "Навбатӣ: {date}",
+  "learnChallengeDaily": "Ҳаррӯза",
+  "learnChallengeWeekly": "Ҳафтаина",
+  "learnChallengeSpecial": "Махсус",
+  "learnChallengeDailyDesc": "Барои гирифтани XP ва ҷоизаҳо ҳар рӯз озмунҳоро иҷро кунед!",
+  "learnChallengeWeeklyDesc": "Озмунҳои ҳафтаина ҳар душанбе нав мешаванд",
+  "learnChallengeSpecialDesc": "Озмунҳои муддаташон маҳдуд бо ҷоизаҳои бонусӣ!",
+  "learnDateToday": "Имрӯз",
+  "learnDateTomorrow": "Фардо",
+  "learnInDays": "{count, plural, other{Баъди {count} рӯз}}",
+  "learnInWeeks": "{count, plural, other{Баъди {count} ҳафта}}",
+  "learnInMonths": "{count, plural, other{Баъди {count} моҳ}}"
 }

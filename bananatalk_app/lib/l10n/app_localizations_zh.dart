@@ -10059,6 +10059,60 @@ class AppLocalizationsZh extends AppLocalizations {
   String learnNextReview(Object date) {
     return '下次：$date';
   }
+
+  @override
+  String get learnChallengeDaily => '每日';
+
+  @override
+  String get learnChallengeWeekly => '每周';
+
+  @override
+  String get learnChallengeSpecial => '特别';
+
+  @override
+  String get learnChallengeDailyDesc => '每天完成挑战，赢取 XP 和奖励！';
+
+  @override
+  String get learnChallengeWeeklyDesc => '每周挑战在每周一刷新';
+
+  @override
+  String get learnChallengeSpecialDesc => '限时挑战，附带额外奖励！';
+
+  @override
+  String get learnDateToday => '今天';
+
+  @override
+  String get learnDateTomorrow => '明天';
+
+  @override
+  String learnInDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count天后',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnInWeeks(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count周后',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnInMonths(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count个月后',
+    );
+    return '$_temp0';
+  }
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -20115,5 +20169,59 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   @override
   String learnNextReview(Object date) {
     return '下次：$date';
+  }
+
+  @override
+  String get learnChallengeDaily => '每日';
+
+  @override
+  String get learnChallengeWeekly => '每週';
+
+  @override
+  String get learnChallengeSpecial => '特別';
+
+  @override
+  String get learnChallengeDailyDesc => '每天完成挑戰，贏取 XP 和獎勵！';
+
+  @override
+  String get learnChallengeWeeklyDesc => '每週挑戰在每週一重新整理';
+
+  @override
+  String get learnChallengeSpecialDesc => '限時挑戰，附帶額外獎勵！';
+
+  @override
+  String get learnDateToday => '今天';
+
+  @override
+  String get learnDateTomorrow => '明天';
+
+  @override
+  String learnInDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count天後',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnInWeeks(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count週後',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnInMonths(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count個月後',
+    );
+    return '$_temp0';
   }
 }

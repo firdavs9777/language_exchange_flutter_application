@@ -3989,5 +3989,16 @@
   "learnNoAchievements": "Walang achievement",
   "learnDayStreak": "Sunod-sunod na Araw",
   "learnDueForReview": "Oras nang mag-review",
-  "learnNextReview": "Susunod: {date}"
+  "learnNextReview": "Susunod: {date}",
+  "learnChallengeDaily": "Araw-araw",
+  "learnChallengeWeekly": "Lingguhan",
+  "learnChallengeSpecial": "Espesyal",
+  "learnChallengeDailyDesc": "Kumpletuhin ang mga hamon araw-araw para makakuha ng XP at mga gantimpala!",
+  "learnChallengeWeeklyDesc": "Nire-refresh ang mga lingguhang hamon tuwing Lunes",
+  "learnChallengeSpecialDesc": "Mga hamong limitado ang oras na may bonus na gantimpala!",
+  "learnDateToday": "Ngayon",
+  "learnDateTomorrow": "Bukas",
+  "learnInDays": "{count, plural, one{Sa loob ng {count} araw} other{Sa loob ng {count} araw}}",
+  "learnInWeeks": "{count, plural, one{Sa loob ng {count} linggo} other{Sa loob ng {count} linggo}}",
+  "learnInMonths": "{count, plural, one{Sa loob ng {count} buwan} other{Sa loob ng {count} buwan}}"
 }

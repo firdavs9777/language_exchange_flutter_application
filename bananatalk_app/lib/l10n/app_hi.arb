@@ -4032,5 +4032,16 @@
   "learnNoAchievements": "कोई उपलब्धि नहीं",
   "learnDayStreak": "दिन की स्ट्रीक",
   "learnDueForReview": "रिव्यू बाकी है",
-  "learnNextReview": "अगला: {date}"
+  "learnNextReview": "अगला: {date}",
+  "learnChallengeDaily": "दैनिक",
+  "learnChallengeWeekly": "साप्ताहिक",
+  "learnChallengeSpecial": "विशेष",
+  "learnChallengeDailyDesc": "XP और इनाम पाने के लिए रोज़ चैलेंज पूरे करें!",
+  "learnChallengeWeeklyDesc": "साप्ताहिक चैलेंज हर सोमवार को नए होते हैं",
+  "learnChallengeSpecialDesc": "सीमित समय के चैलेंज, बोनस इनाम के साथ!",
+  "learnDateToday": "आज",
+  "learnDateTomorrow": "कल",
+  "learnInDays": "{count, plural, one{{count} दिन में} other{{count} दिन में}}",
+  "learnInWeeks": "{count, plural, one{{count} सप्ताह में} other{{count} सप्ताह में}}",
+  "learnInMonths": "{count, plural, one{{count} महीने में} other{{count} महीने में}}"
 }

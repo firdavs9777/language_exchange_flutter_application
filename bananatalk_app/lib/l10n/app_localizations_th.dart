@@ -10059,4 +10059,58 @@ class AppLocalizationsTh extends AppLocalizations {
   String learnNextReview(Object date) {
     return 'ถัดไป: $date';
   }
+
+  @override
+  String get learnChallengeDaily => 'รายวัน';
+
+  @override
+  String get learnChallengeWeekly => 'รายสัปดาห์';
+
+  @override
+  String get learnChallengeSpecial => 'พิเศษ';
+
+  @override
+  String get learnChallengeDailyDesc => 'ทำชาเลนจ์ให้เสร็จทุกวันเพื่อรับ XP และรางวัล!';
+
+  @override
+  String get learnChallengeWeeklyDesc => 'ชาเลนจ์รายสัปดาห์รีเฟรชทุกวันจันทร์';
+
+  @override
+  String get learnChallengeSpecialDesc => 'ชาเลนจ์ช่วงเวลาจำกัดพร้อมรางวัลโบนัส!';
+
+  @override
+  String get learnDateToday => 'วันนี้';
+
+  @override
+  String get learnDateTomorrow => 'พรุ่งนี้';
+
+  @override
+  String learnInDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'ใน $count วัน',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnInWeeks(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'ใน $count สัปดาห์',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnInMonths(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'ใน $count เดือน',
+    );
+    return '$_temp0';
+  }
 }

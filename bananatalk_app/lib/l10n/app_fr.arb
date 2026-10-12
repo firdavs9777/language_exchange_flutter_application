@@ -4256,5 +4256,16 @@
   "learnNoAchievements": "Aucun succès",
   "learnDayStreak": "Jours de suite",
   "learnDueForReview": "À réviser",
-  "learnNextReview": "Prochain : {date}"
+  "learnNextReview": "Prochain : {date}",
+  "learnChallengeDaily": "Quotidiens",
+  "learnChallengeWeekly": "Hebdomadaires",
+  "learnChallengeSpecial": "Spéciaux",
+  "learnChallengeDailyDesc": "Termine des défis chaque jour pour gagner de l'XP et des récompenses !",
+  "learnChallengeWeeklyDesc": "Les défis hebdomadaires se renouvellent chaque lundi",
+  "learnChallengeSpecialDesc": "Défis à durée limitée avec des récompenses bonus !",
+  "learnDateToday": "Aujourd'hui",
+  "learnDateTomorrow": "Demain",
+  "learnInDays": "{count, plural, one{Dans {count} jour} other{Dans {count} jours}}",
+  "learnInWeeks": "{count, plural, one{Dans {count} semaine} other{Dans {count} semaines}}",
+  "learnInMonths": "{count, plural, one{Dans {count} mois} other{Dans {count} mois}}"
 }

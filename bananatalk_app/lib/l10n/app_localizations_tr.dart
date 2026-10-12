@@ -10068,4 +10068,61 @@ class AppLocalizationsTr extends AppLocalizations {
   String learnNextReview(Object date) {
     return 'Sonraki: $date';
   }
+
+  @override
+  String get learnChallengeDaily => 'Günlük';
+
+  @override
+  String get learnChallengeWeekly => 'Haftalık';
+
+  @override
+  String get learnChallengeSpecial => 'Özel';
+
+  @override
+  String get learnChallengeDailyDesc => 'XP ve ödüller kazanmak için meydan okumaları her gün tamamla!';
+
+  @override
+  String get learnChallengeWeeklyDesc => 'Haftalık meydan okumalar her Pazartesi yenilenir';
+
+  @override
+  String get learnChallengeSpecialDesc => 'Bonus ödüllü, süreli meydan okumalar!';
+
+  @override
+  String get learnDateToday => 'Bugün';
+
+  @override
+  String get learnDateTomorrow => 'Yarın';
+
+  @override
+  String learnInDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count gün sonra',
+      one: '$count gün sonra',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnInWeeks(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count hafta sonra',
+      one: '$count hafta sonra',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnInMonths(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ay sonra',
+      one: '$count ay sonra',
+    );
+    return '$_temp0';
+  }
 }

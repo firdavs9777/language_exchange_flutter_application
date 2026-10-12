@@ -4030,5 +4030,16 @@
   "learnNoAchievements": "暂无成就",
   "learnDayStreak": "天连续",
   "learnDueForReview": "该复习了",
-  "learnNextReview": "下次：{date}"
+  "learnNextReview": "下次：{date}",
+  "learnChallengeDaily": "每日",
+  "learnChallengeWeekly": "每周",
+  "learnChallengeSpecial": "特别",
+  "learnChallengeDailyDesc": "每天完成挑战，赢取 XP 和奖励！",
+  "learnChallengeWeeklyDesc": "每周挑战在每周一刷新",
+  "learnChallengeSpecialDesc": "限时挑战，附带额外奖励！",
+  "learnDateToday": "今天",
+  "learnDateTomorrow": "明天",
+  "learnInDays": "{count, plural, other{{count}天后}}",
+  "learnInWeeks": "{count, plural, other{{count}周后}}",
+  "learnInMonths": "{count, plural, other{{count}个月后}}"
 }

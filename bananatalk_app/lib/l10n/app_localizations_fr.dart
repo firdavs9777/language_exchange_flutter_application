@@ -10070,4 +10070,61 @@ class AppLocalizationsFr extends AppLocalizations {
   String learnNextReview(Object date) {
     return 'Prochain : $date';
   }
+
+  @override
+  String get learnChallengeDaily => 'Quotidiens';
+
+  @override
+  String get learnChallengeWeekly => 'Hebdomadaires';
+
+  @override
+  String get learnChallengeSpecial => 'Spéciaux';
+
+  @override
+  String get learnChallengeDailyDesc => 'Termine des défis chaque jour pour gagner de l\'XP et des récompenses !';
+
+  @override
+  String get learnChallengeWeeklyDesc => 'Les défis hebdomadaires se renouvellent chaque lundi';
+
+  @override
+  String get learnChallengeSpecialDesc => 'Défis à durée limitée avec des récompenses bonus !';
+
+  @override
+  String get learnDateToday => 'Aujourd\'hui';
+
+  @override
+  String get learnDateTomorrow => 'Demain';
+
+  @override
+  String learnInDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Dans $count jours',
+      one: 'Dans $count jour',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnInWeeks(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Dans $count semaines',
+      one: 'Dans $count semaine',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnInMonths(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Dans $count mois',
+      one: 'Dans $count mois',
+    );
+    return '$_temp0';
+  }
 }

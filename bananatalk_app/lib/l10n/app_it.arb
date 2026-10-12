@@ -4256,5 +4256,16 @@
   "learnNoAchievements": "Nessun traguardo",
   "learnDayStreak": "Giorni di fila",
   "learnDueForReview": "Da ripassare",
-  "learnNextReview": "Prossimo: {date}"
+  "learnNextReview": "Prossimo: {date}",
+  "learnChallengeDaily": "Giornaliere",
+  "learnChallengeWeekly": "Settimanali",
+  "learnChallengeSpecial": "Speciali",
+  "learnChallengeDailyDesc": "Completa le sfide ogni giorno per ottenere XP e ricompense!",
+  "learnChallengeWeeklyDesc": "Le sfide settimanali si rinnovano ogni lunedì",
+  "learnChallengeSpecialDesc": "Sfide a tempo limitato con ricompense bonus!",
+  "learnDateToday": "Oggi",
+  "learnDateTomorrow": "Domani",
+  "learnInDays": "{count, plural, one{Tra {count} giorno} other{Tra {count} giorni}}",
+  "learnInWeeks": "{count, plural, one{Tra {count} settimana} other{Tra {count} settimane}}",
+  "learnInMonths": "{count, plural, one{Tra {count} mese} other{Tra {count} mesi}}"
 }

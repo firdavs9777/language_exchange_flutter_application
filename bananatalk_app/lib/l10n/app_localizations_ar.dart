@@ -10089,4 +10089,73 @@ class AppLocalizationsAr extends AppLocalizations {
   String learnNextReview(Object date) {
     return 'التالي: $date';
   }
+
+  @override
+  String get learnChallengeDaily => 'يومي';
+
+  @override
+  String get learnChallengeWeekly => 'أسبوعي';
+
+  @override
+  String get learnChallengeSpecial => 'خاص';
+
+  @override
+  String get learnChallengeDailyDesc => 'أكمل التحديات يوميًا لتكسب XP والمكافآت!';
+
+  @override
+  String get learnChallengeWeeklyDesc => 'تتجدد التحديات الأسبوعية كل اثنين';
+
+  @override
+  String get learnChallengeSpecialDesc => 'تحديات لفترة محدودة بمكافآت إضافية!';
+
+  @override
+  String get learnDateToday => 'اليوم';
+
+  @override
+  String get learnDateTomorrow => 'غدًا';
+
+  @override
+  String learnInDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'خلال $count يوم',
+      many: 'خلال $count يومًا',
+      few: 'خلال $count أيام',
+      two: 'خلال يومين',
+      one: 'خلال يوم واحد',
+      zero: 'خلال $count يوم',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnInWeeks(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'خلال $count أسبوع',
+      many: 'خلال $count أسبوعًا',
+      few: 'خلال $count أسابيع',
+      two: 'خلال أسبوعين',
+      one: 'خلال أسبوع واحد',
+      zero: 'خلال $count أسبوع',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnInMonths(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'خلال $count شهر',
+      many: 'خلال $count شهرًا',
+      few: 'خلال $count أشهر',
+      two: 'خلال شهرين',
+      one: 'خلال شهر واحد',
+      zero: 'خلال $count شهر',
+    );
+    return '$_temp0';
+  }
 }

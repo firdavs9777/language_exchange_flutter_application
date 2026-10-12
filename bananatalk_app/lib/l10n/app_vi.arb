@@ -4016,5 +4016,16 @@
   "learnNoAchievements": "Chưa có thành tựu",
   "learnDayStreak": "Chuỗi ngày",
   "learnDueForReview": "Đến hạn ôn tập",
-  "learnNextReview": "Tiếp theo: {date}"
+  "learnNextReview": "Tiếp theo: {date}",
+  "learnChallengeDaily": "Hằng ngày",
+  "learnChallengeWeekly": "Hằng tuần",
+  "learnChallengeSpecial": "Đặc biệt",
+  "learnChallengeDailyDesc": "Hoàn thành thử thách mỗi ngày để nhận XP và phần thưởng!",
+  "learnChallengeWeeklyDesc": "Thử thách hằng tuần làm mới vào mỗi thứ Hai",
+  "learnChallengeSpecialDesc": "Thử thách giới hạn thời gian với phần thưởng thêm!",
+  "learnDateToday": "Hôm nay",
+  "learnDateTomorrow": "Ngày mai",
+  "learnInDays": "{count, plural, other{Sau {count} ngày}}",
+  "learnInWeeks": "{count, plural, other{Sau {count} tuần}}",
+  "learnInMonths": "{count, plural, other{Sau {count} tháng}}"
 }

@@ -196,7 +196,7 @@ class VocabularyCard extends StatelessWidget {
                     Text(
                       item.isDue
                           ? AppLocalizations.of(context)!.learnDueForReview
-                          : AppLocalizations.of(context)!.learnNextReview(_formatDate(item.nextReview!)),
+                          : AppLocalizations.of(context)!.learnNextReview(_formatDate(context, item.nextReview!)),
                       style: TextStyle(
                         fontSize: 11,
                         color: item.isDue ? Colors.orange : Colors.grey[500],
@@ -239,15 +239,16 @@ class VocabularyCard extends StatelessWidget {
     return Colors.green; // Mastered
   }
 
-  String _formatDate(DateTime date) {
+  String _formatDate(BuildContext context, DateTime date) {
+    final l10n = AppLocalizations.of(context)!;
     final now = DateTime.now();
     final diff = date.difference(now);
 
-    if (diff.inDays == 0) return 'Today';
-    if (diff.inDays == 1) return 'Tomorrow';
-    if (diff.inDays < 7) return 'In ${diff.inDays} days';
-    if (diff.inDays < 30) return 'In ${(diff.inDays / 7).round()} weeks';
-    return 'In ${(diff.inDays / 30).round()} months';
+    if (diff.inDays == 0) return l10n.learnDateToday;
+    if (diff.inDays == 1) return l10n.learnDateTomorrow;
+    if (diff.inDays < 7) return l10n.learnInDays(diff.inDays);
+    if (diff.inDays < 30) return l10n.learnInWeeks((diff.inDays / 7).round());
+    return l10n.learnInMonths((diff.inDays / 30).round());
   }
 }
 

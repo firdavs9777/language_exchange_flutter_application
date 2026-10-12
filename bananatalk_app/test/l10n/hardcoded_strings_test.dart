@@ -148,6 +148,17 @@ const Map<String, List<String>> _keysByTask = {
     'learnDayStreak',
     'learnDueForReview',
     'learnNextReview',
+    'learnChallengeDaily',
+    'learnChallengeWeekly',
+    'learnChallengeSpecial',
+    'learnChallengeDailyDesc',
+    'learnChallengeWeeklyDesc',
+    'learnChallengeSpecialDesc',
+    'learnDateToday',
+    'learnDateTomorrow',
+    'learnInDays',
+    'learnInWeeks',
+    'learnInMonths',
   ],
 };
 

@@ -10074,4 +10074,58 @@ class AppLocalizationsTg extends AppLocalizations {
   String learnNextReview(Object date) {
     return 'Навбатӣ: $date';
   }
+
+  @override
+  String get learnChallengeDaily => 'Ҳаррӯза';
+
+  @override
+  String get learnChallengeWeekly => 'Ҳафтаина';
+
+  @override
+  String get learnChallengeSpecial => 'Махсус';
+
+  @override
+  String get learnChallengeDailyDesc => 'Барои гирифтани XP ва ҷоизаҳо ҳар рӯз озмунҳоро иҷро кунед!';
+
+  @override
+  String get learnChallengeWeeklyDesc => 'Озмунҳои ҳафтаина ҳар душанбе нав мешаванд';
+
+  @override
+  String get learnChallengeSpecialDesc => 'Озмунҳои муддаташон маҳдуд бо ҷоизаҳои бонусӣ!';
+
+  @override
+  String get learnDateToday => 'Имрӯз';
+
+  @override
+  String get learnDateTomorrow => 'Фардо';
+
+  @override
+  String learnInDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Баъди $count рӯз',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnInWeeks(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Баъди $count ҳафта',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnInMonths(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Баъди $count моҳ',
+    );
+    return '$_temp0';
+  }
 }

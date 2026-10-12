@@ -10059,4 +10059,58 @@ class AppLocalizationsVi extends AppLocalizations {
   String learnNextReview(Object date) {
     return 'Tiếp theo: $date';
   }
+
+  @override
+  String get learnChallengeDaily => 'Hằng ngày';
+
+  @override
+  String get learnChallengeWeekly => 'Hằng tuần';
+
+  @override
+  String get learnChallengeSpecial => 'Đặc biệt';
+
+  @override
+  String get learnChallengeDailyDesc => 'Hoàn thành thử thách mỗi ngày để nhận XP và phần thưởng!';
+
+  @override
+  String get learnChallengeWeeklyDesc => 'Thử thách hằng tuần làm mới vào mỗi thứ Hai';
+
+  @override
+  String get learnChallengeSpecialDesc => 'Thử thách giới hạn thời gian với phần thưởng thêm!';
+
+  @override
+  String get learnDateToday => 'Hôm nay';
+
+  @override
+  String get learnDateTomorrow => 'Ngày mai';
+
+  @override
+  String learnInDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Sau $count ngày',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnInWeeks(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Sau $count tuần',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnInMonths(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Sau $count tháng',
+    );
+    return '$_temp0';
+  }
 }

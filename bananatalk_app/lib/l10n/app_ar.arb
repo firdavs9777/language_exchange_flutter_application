@@ -4046,5 +4046,16 @@
   "learnNoAchievements": "لا توجد إنجازات",
   "learnDayStreak": "أيام متتالية",
   "learnDueForReview": "حان وقت المراجعة",
-  "learnNextReview": "التالي: {date}"
+  "learnNextReview": "التالي: {date}",
+  "learnChallengeDaily": "يومي",
+  "learnChallengeWeekly": "أسبوعي",
+  "learnChallengeSpecial": "خاص",
+  "learnChallengeDailyDesc": "أكمل التحديات يوميًا لتكسب XP والمكافآت!",
+  "learnChallengeWeeklyDesc": "تتجدد التحديات الأسبوعية كل اثنين",
+  "learnChallengeSpecialDesc": "تحديات لفترة محدودة بمكافآت إضافية!",
+  "learnDateToday": "اليوم",
+  "learnDateTomorrow": "غدًا",
+  "learnInDays": "{count, plural, zero{خلال {count} يوم} one{خلال يوم واحد} two{خلال يومين} few{خلال {count} أيام} many{خلال {count} يومًا} other{خلال {count} يوم}}",
+  "learnInWeeks": "{count, plural, zero{خلال {count} أسبوع} one{خلال أسبوع واحد} two{خلال أسبوعين} few{خلال {count} أسابيع} many{خلال {count} أسبوعًا} other{خلال {count} أسبوع}}",
+  "learnInMonths": "{count, plural, zero{خلال {count} شهر} one{خلال شهر واحد} two{خلال شهرين} few{خلال {count} أشهر} many{خلال {count} شهرًا} other{خلال {count} شهر}}"
 }
