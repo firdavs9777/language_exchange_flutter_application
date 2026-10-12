@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/pages/announcements/announcement_screen.dart';
 import 'package:bananatalk_app/pages/chat/chat_screen_wrapper.dart';
 import 'package:bananatalk_app/pages/coins/boost_screen.dart';
 import 'package:bananatalk_app/pages/home/Home.dart';
@@ -340,6 +341,15 @@ final goRouter = GoRouter(
       path: '/boost',
       pageBuilder: (context, state) =>
           _buildSlideTransition(state: state, child: const BoostScreen()),
+    ),
+
+    // Announcement detail: notifications-list rows and `announcement` pushes.
+    GoRoute(
+      path: '/announcement/:id',
+      pageBuilder: (context, state) => _buildSlideTransition(
+        state: state,
+        child: AnnouncementScreen(id: state.pathParameters['id'] ?? ''),
+      ),
     ),
 
     // Slide from right + fade — standard navigation push feel.

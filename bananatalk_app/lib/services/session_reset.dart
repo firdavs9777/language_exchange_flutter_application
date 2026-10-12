@@ -21,6 +21,7 @@ import 'package:bananatalk_app/providers/chat_state_provider.dart'
 import 'package:bananatalk_app/providers/coins_provider.dart';
 import 'package:bananatalk_app/providers/matching_provider.dart';
 import 'package:bananatalk_app/providers/message_count_provider.dart';
+import 'package:bananatalk_app/providers/announcement_provider.dart';
 import 'package:bananatalk_app/providers/notification_history_provider.dart';
 import 'package:bananatalk_app/providers/notification_settings_provider.dart';
 import 'package:bananatalk_app/providers/presence_provider.dart';
@@ -120,6 +121,7 @@ final Map<String, ProviderOrFamily> userScopedProviders = {
   // Notifications + badges
   'notificationSettingsProvider': notificationSettingsProvider,
   'notificationHistoryProvider': notificationHistoryProvider,
+  'announcementDetailProvider': announcementDetailProvider,
   'badgeCountProvider': badgeCountProvider,
   // Chat
   'messageServiceProvider': messageServiceProvider,

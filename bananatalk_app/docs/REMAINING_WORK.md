@@ -140,7 +140,7 @@ call or rejoin", and the caller already has the call on screen.
 - [x] A10 AI Study promo folded into the spotlight rotation; `AiStudyPromoModal` deleted
 - [x] A11 `Announcement` model, `appConfig.announcements`, `lang` on app-config, seen set
 - [x] A12 launch wiring: announcement / ads notice / spotlight candidates; version check reports the update dialog; splash welcome-back shares the budget
-- [ ] A13 `AnnouncementScreen` at `/announcement/:id`
+- [x] A13 `AnnouncementScreen` at `/announcement/:id`
 - [ ] A14 notifications list `announcement` type + push routing
 - [ ] A15 Settings → Notifications "Announcements" toggle
 - [ ] A16 suspension screen reads `banReason`
