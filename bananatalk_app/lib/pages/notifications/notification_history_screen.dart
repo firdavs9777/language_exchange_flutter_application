@@ -9,6 +9,15 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
+/// What a list-row tap hands the router. Announcement rows store only
+/// `{announcementId}`, so their type is injected; other rows are unchanged.
+/// The row's own id rides along as `notificationId` so the tap is reported.
+Map<String, dynamic> notificationTapPayload(NotificationItem n) => {
+      if (n.type == 'announcement') 'type': 'announcement',
+      ...n.data,
+      'notificationId': n.id,
+    };
+
 class NotificationHistoryScreen extends ConsumerStatefulWidget {
   const NotificationHistoryScreen({super.key});
 
@@ -84,6 +93,8 @@ class _NotificationHistoryScreenState
         return Icons.local_fire_department_rounded;
       case 'vip_renewal_warning':
         return Icons.workspace_premium_rounded;
+      case 'announcement':
+        return Icons.campaign_rounded;
       default:
         return Icons.notifications_rounded;
     }
@@ -125,6 +136,8 @@ class _NotificationHistoryScreenState
         return const Color(0xFFFF5722); // deep orange
       case 'vip_renewal_warning':
         return const Color(0xFFFFC107); // gold
+      case 'announcement':
+        return const Color(0xFFFF7043); // deep orange
       default:
         return const Color(0xFF607D8B);
     }
@@ -656,10 +669,7 @@ class _NotificationHistoryScreenState
               // router reports the tap. The stored `data` blob is whatever the
               // server put in the push payload and historically carried no id,
               // so an in-app tap never registered as a click.
-              NotificationRouter.handleNotification(context, {
-                ...notification.data,
-                'notificationId': notification.id,
-              });
+              NotificationRouter.handleNotification(context, notificationTapPayload(notification));
             }
           },
           borderRadius: BorderRadius.circular(16),

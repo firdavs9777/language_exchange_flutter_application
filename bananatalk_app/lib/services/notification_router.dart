@@ -382,6 +382,13 @@ class NotificationRouter {
       case 'vip_renewal_warning':
         return null;
 
+      // Admin announcements (spec §5.2): push and notifications-list row.
+      case 'announcement':
+        final announcementId = data['announcementId']?.toString();
+        return (announcementId != null && announcementId.isNotEmpty)
+            ? '/announcement/$announcementId'
+            : null;
+
       case 'missed_call':
         // The badge may predate this push.
         appProviderContainer.read(missedCallsProvider.notifier).refresh();
