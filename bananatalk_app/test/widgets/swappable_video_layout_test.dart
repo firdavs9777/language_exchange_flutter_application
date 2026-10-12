@@ -28,7 +28,8 @@ void main() {
         local: local,
         swapEnabled: swapEnabled,
         insets: insets,
-        semanticLabel: 'Your camera',
+        localLabel: 'Your camera',
+        remoteLabel: 'Peer',
         swapHint: 'Swap videos',
       ),
     ));
@@ -121,5 +122,37 @@ void main() {
           isEnabled: true),
     );
     handle.dispose();
+  });
+
+  testWidgets('swap disabled then re-enabled does not resurrect the swap', (tester) async {
+    await pump(tester);
+    await tester.tap(pip());
+    await tester.pumpAndSettle();
+    await pump(tester, swapEnabled: false);
+    await pump(tester);
+    expect(inMain('REMOTE'), findsOneWidget);
+    expect(inPip('LOCAL'), findsOneWidget);
+  });
+
+  testWidgets('semantics follow the feed shown in the tile', (tester) async {
+    final handle = tester.ensureSemantics();
+    await pump(tester);
+    await tester.tap(pip());
+    await tester.pumpAndSettle();
+    expect(find.bySemanticsLabel('Peer'), findsOneWidget);
+    expect(find.bySemanticsLabel('Your camera'), findsNothing);
+    handle.dispose();
+  });
+
+  testWidgets('drag overshoot is clamped so reversing responds at once', (tester) async {
+    await pump(tester);
+    final g = await tester.startGesture(tester.getCenter(pip()));
+    await g.moveBy(const Offset(500, 0));
+    await tester.pump();
+    await g.moveBy(const Offset(-50, 0));
+    await tester.pump();
+    expect(tester.getTopLeft(pip()).dx, 400 - 20 - 120 - 50);
+    await g.up();
+    await tester.pumpAndSettle();
   });
 }

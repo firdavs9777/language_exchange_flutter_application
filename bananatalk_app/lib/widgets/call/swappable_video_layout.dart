@@ -24,7 +24,8 @@ class SwappableVideoLayout extends StatefulWidget {
     this.margin = 20,
     this.insets = EdgeInsets.zero,
     this.swapEnabled = true,
-    this.semanticLabel,
+    this.localLabel,
+    this.remoteLabel,
     this.swapHint,
   });
 
@@ -34,7 +35,9 @@ class SwappableVideoLayout extends StatefulWidget {
   final double margin;
   final EdgeInsets insets;
   final bool swapEnabled;
-  final String? semanticLabel;
+  /// Announced when the tile shows the self-view / the peer's video.
+  final String? localLabel;
+  final String? remoteLabel;
   final String? swapHint;
 
   @override
@@ -45,6 +48,15 @@ class _SwappableVideoLayoutState extends State<SwappableVideoLayout> {
   PipCorner _corner = PipCorner.topRight;
   bool _swapped = false;
   Offset? _drag;
+
+  @override
+  void didUpdateWidget(SwappableVideoLayout old) {
+    super.didUpdateWidget(old);
+    // Never let a stale swap re-apply when swapping becomes available again.
+    if ((old.swapEnabled && !widget.swapEnabled) || widget.local == null) {
+      _swapped = false;
+    }
+  }
 
   Rect _bounds(Size area) {
     final m = widget.margin;
@@ -105,7 +117,7 @@ class _SwappableVideoLayoutState extends State<SwappableVideoLayout> {
               container: true,
               button: true,
               enabled: widget.swapEnabled,
-              label: widget.semanticLabel,
+              label: swapped ? widget.remoteLabel : widget.localLabel,
               hint: widget.swapEnabled ? widget.swapHint : null,
               onTap: widget.swapEnabled
                   ? () => setState(() => _swapped = !_swapped)
@@ -116,8 +128,8 @@ class _SwappableVideoLayoutState extends State<SwappableVideoLayout> {
                 onTap: widget.swapEnabled
                     ? () => setState(() => _swapped = !_swapped)
                     : null,
-                onPanUpdate: (d) =>
-                    setState(() => _drag = (_drag ?? pos) + d.delta),
+                onPanUpdate: (d) => setState(
+                    () => _drag = _clamp((_drag ?? pos) + d.delta, area)),
                 onPanEnd: (_) => setState(() {
                   final p = _clamp(_drag ?? pos, area);
                   _corner = nearestCorner(

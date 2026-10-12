@@ -13,6 +13,11 @@ import 'package:bananatalk_app/services/call_manager.dart'
 import 'package:bananatalk_app/widgets/call/call_duration_timer.dart';
 import 'package:bananatalk_app/widgets/call/swappable_video_layout.dart';
 
+// Space the self-view must stay clear of: top bar + quality badge, and the
+// control bar + switch-camera button (the latter scaled with text size).
+const double _kPipTopInset = 90;
+const double _kPipBottomInset = 200;
+
 class ActiveCallScreen extends ConsumerStatefulWidget {
   final CallModel call;
 
@@ -288,13 +293,18 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
                   child: SwappableVideoLayout(
                     // Keep the tile clear of the top bar / quality badge and
                     // the control bar + switch-camera button.
-                    insets: const EdgeInsets.only(top: 90, bottom: 200),
+                    insets: EdgeInsets.only(
+                      top: _kPipTopInset,
+                      bottom: MediaQuery.textScalerOf(context)
+                          .scale(_kPipBottomInset),
+                    ),
                     // Swapping only makes sense while both feeds are live
                     // video, otherwise a placeholder would fill the screen.
                     swapEnabled: _isPeerVideoEnabled &&
                         remoteTrack != null &&
                         localTrack != null,
-                    semanticLabel: l10n.callSelfViewLabel,
+                    localLabel: l10n.callSelfViewLabel,
+                    remoteLabel: widget.call.userName,
                     swapHint: l10n.callSelfViewSwapHint,
                     remote: _isPeerVideoEnabled && remoteTrack != null
                         ? lk.VideoTrackRenderer(
