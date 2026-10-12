@@ -31,7 +31,9 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
     with SingleTickerProviderStateMixin {
   bool _isMuted = false;
   bool _isVideoEnabled = true;
-  late bool _isSpeakerOn;
+  /// The audio route lives in CallManager (it reroutes on a voice → video
+  /// upgrade and restores on a rollback); the screen only reads it.
+  bool get _isSpeakerOn => _cachedCallManager?.isSpeakerOn ?? false;
   // The call type follows CallManager.onCallTypeChanged: a voice call becomes
   // video when either side turns the camera on.
   late CallType _callType;
@@ -64,13 +66,13 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
   void initState() {
     super.initState();
     _cachedCallManager = ref.read(callProvider.notifier).callManager;
-    // Default: speaker ON for video calls, OFF for audio calls
     final live = _cachedCallManager!.currentCall;
-    _callType = live != null && live.callId == widget.call.callId
-        ? live.callType
-        : widget.call.callType;
-    _isSpeakerOn = _callType == CallType.video;
-    _isVideoEnabled = _callType == CallType.video;
+    final isLive = live != null && live.callId == widget.call.callId;
+    _callType = isLive ? live.callType : widget.call.callType;
+    // A reopened screen shows the camera that is really in effect: after a
+    // peer upgrade the call is video but the local camera is still off.
+    _isVideoEnabled = _callType == CallType.video &&
+        (!isLive || _cachedCallManager!.isVideoEnabled);
 
     _reconnectAnimController = AnimationController(
       vsync: this,
@@ -209,16 +211,13 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
 
       // Voice <-> video. A peer upgrade changes the layout only: the local
       // camera stays off until the user taps (_isVideoEnabled is untouched);
-      // a rolled-back upgrade turns it off again.
+      // a rolled-back upgrade turns it off again. CallManager moves the audio
+      // route itself (speaker for video, previous route on rollback).
       final listener = _typeListener = (type) {
         if (!mounted) return;
         setState(() {
           _callType = type;
-          if (type == CallType.video) {
-            _isSpeakerOn = true;
-          } else {
-            _isVideoEnabled = false;
-          }
+          if (type != CallType.video) _isVideoEnabled = false;
         });
       };
       if (mounted) callManager.onCallTypeChanged = listener;
@@ -492,11 +491,8 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
                               ? l10n.speakerOn
                               : l10n.speakerOff,
                           onPressed: () async {
-                            final next = !_isSpeakerOn;
-                            await callManager.setSpeakerOn(next);
-                            if (mounted) {
-                              setState(() => _isSpeakerOn = next);
-                            }
+                            await callManager.setSpeakerOn(!_isSpeakerOn);
+                            if (mounted) setState(() {});
                           },
                           backgroundColor:
                               _isSpeakerOn ? Colors.white : Colors.white24,

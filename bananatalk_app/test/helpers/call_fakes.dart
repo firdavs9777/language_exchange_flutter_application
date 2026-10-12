@@ -148,6 +148,11 @@ class FakeLiveKit extends CallLiveKitManager {
 
   @override
   Future<void> setCameraEnabled(bool enabled) async => cameraCalls.add(enabled);
+
+  final List<bool> speakerCalls = [];
+
+  @override
+  Future<void> setSpeakerOn(bool on) async => speakerCalls.add(on);
 }
 
 /// A CallManager wired to fakes, recording everything it does.

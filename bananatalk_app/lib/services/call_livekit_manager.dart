@@ -159,6 +159,16 @@ class CallLiveKitManager {
     await _livekit.setMicrophoneEnabled(!muted);
   }
 
+  /// Route call audio to the loudspeaker ([on]) or the earpiece. Best-effort:
+  /// errors are swallowed (a headset route keeps priority anyway).
+  Future<void> setSpeakerOn(bool on) async {
+    try {
+      await Hardware.instance.setSpeakerphoneOn(on);
+    } catch (e) {
+      debugPrint('CallLiveKitManager: setSpeakerphoneOn failed: $e');
+    }
+  }
+
   /// Enable/disable the local camera (publishes/unpublishes the video track).
   Future<void> setCameraEnabled(bool enabled) async {
     await _livekit.setCameraEnabled(enabled);

@@ -109,4 +109,62 @@ void main() {
     expect(h.liveKit.cameraCalls, [true]);
     expect(h.api.calls.where((c) => c.startsWith('upgrade')), hasLength(1));
   });
+
+  test('a local upgrade routes audio to the speaker; a refusal restores the earpiece', () async {
+    final h = await connectedVoice();
+    expect(h.manager.isSpeakerOn, isFalse);
+    expect(await h.manager.upgradeToVideo(), isTrue);
+    expect(h.manager.isSpeakerOn, isTrue);
+    expect(h.liveKit.speakerCalls, [true]);
+
+    final h2 = await connectedVoice();
+    h2.api.upgradeResult = const CallApiResult(ok: false, statusCode: 409, errorCode: 'CALL_STATE');
+    expect(await h2.manager.upgradeToVideo(), isFalse);
+    expect(h2.liveKit.speakerCalls, [true, false]);
+    expect(h2.manager.isSpeakerOn, isFalse);
+  });
+
+  test('a rollback restores a speaker the user had already turned on', () async {
+    final h = await connectedVoice();
+    await h.manager.setSpeakerOn(true);
+    h.api.upgradeResult = const CallApiResult(ok: false, statusCode: 403);
+    expect(await h.manager.upgradeToVideo(), isFalse);
+    expect(h.manager.isSpeakerOn, isTrue);
+  });
+
+  test('a peer upgrade routes audio to the speaker', () async {
+    final h = await connectedVoice();
+    await h.manager.handleSocketEvent('call:state', {'callId': 'call-1', 'status': 'active', 'type': 'video'});
+    expect(h.manager.isSpeakerOn, isTrue);
+    expect(h.liveKit.speakerCalls, [true]);
+    expect(h.manager.isVideoEnabled, isFalse, reason: 'the local camera stays off');
+  });
+
+  test('a timed-out upgrade the server applied stays video', () async {
+    final h = await connectedVoice();
+    h.api.upgradeResult = const CallApiResult(ok: false, statusCode: 0);
+    h.api.getResult = const CallApiResult(ok: true, statusCode: 200, data: {'status': 'active', 'type': 'video'});
+    expect(await h.manager.upgradeToVideo(), isTrue);
+    expect(h.api.calls, contains('get:call-1'));
+    expect(h.manager.currentCall!.callType, CallType.video);
+    expect(h.liveKit.cameraCalls, [true]);
+  });
+
+  test('a timed-out upgrade the server did not apply rolls back', () async {
+    final h = await connectedVoice();
+    h.api.upgradeResult = const CallApiResult(ok: false, statusCode: 503);
+    h.api.getResult = const CallApiResult(ok: true, statusCode: 200, data: {'status': 'active', 'type': 'audio'});
+    expect(await h.manager.upgradeToVideo(), isFalse);
+    expect(h.manager.currentCall!.callType, CallType.audio);
+    expect(h.liveKit.cameraCalls, [true, false]);
+  });
+
+  test('an unknown upgrade outcome (re-check fails too) keeps the optimistic video state', () async {
+    final h = await connectedVoice();
+    h.api.upgradeResult = const CallApiResult(ok: false, statusCode: 0);
+    h.api.getResult = const CallApiResult(ok: false, statusCode: 0);
+    expect(await h.manager.upgradeToVideo(), isTrue);
+    expect(h.manager.currentCall!.callType, CallType.video);
+    expect(h.manager.isVideoEnabled, isTrue);
+  });
 }

@@ -92,7 +92,7 @@ void main() {
   testWidgets('a refused upgrade shows feedback and stays a voice call', (tester) async {
     final h = CallHarness();
     CallManager.debugSetInstance(h.manager);
-    h.api.upgradeResult = const CallApiResult(ok: false, statusCode: 500);
+    h.api.upgradeResult = const CallApiResult(ok: false, statusCode: 409, errorCode: 'CALL_STATE');
     await h.startOutgoing();
     await h.state('active');
     h.liveKit.onPeerConnected!();
@@ -145,7 +145,7 @@ void main() {
   testWidgets('failed upgrade on a voice call leaves camera and UI off', (tester) async {
     final h = CallHarness();
     CallManager.debugSetInstance(h.manager);
-    h.api.upgradeResult = const CallApiResult(ok: false, statusCode: 500);
+    h.api.upgradeResult = const CallApiResult(ok: false, statusCode: 409, errorCode: 'CALL_STATE');
     await h.startOutgoing();
     await h.state('active');
     h.liveKit.onPeerConnected!();
@@ -192,6 +192,19 @@ void main() {
     h.manager.onCallTypeChanged = newer;
     await tester.pumpWidget(const SizedBox());
     expect(identical(h.manager.onCallTypeChanged, newer), isTrue);
+    await h.manager.endCall();
+    await tester.pump(const Duration(seconds: 2));
+  });
+
+  testWidgets('a screen reopened after a peer upgrade shows the camera as off', (tester) async {
+    final h = CallHarness();
+    CallManager.debugSetInstance(h.manager);
+    await h.startOutgoing();
+    await h.state('active');
+    h.liveKit.onPeerConnected!();
+    await h.manager.handleSocketEvent('call:state', {'callId': 'call-1', 'status': 'active', 'type': 'video'});
+    await pumpScreen(tester, h);
+    expect(find.text('Video On'), findsOneWidget, reason: 'the local camera was never turned on');
     await h.manager.endCall();
     await tester.pump(const Duration(seconds: 2));
   });
