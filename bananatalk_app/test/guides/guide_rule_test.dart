@@ -84,5 +84,50 @@ void main() {
       expect(await c.read(isGuidePeriodProvider.future), isTrue);
       expect(await ActivationStore().isDone(ActivationAction.profile), isTrue);
     });
+    test('an unlistened read right after the 3rd action does not hang',
+        () async {
+      final c = ProviderContainer(overrides: [
+        userProvider.overrideWith((ref) async => communityFixture()),
+      ]);
+      addTearDown(c.dispose);
+      final s = ActivationStore();
+      await s.markDone(ActivationAction.lesson);
+      await s.markDone(ActivationAction.moment);
+      expect(await c.read(isGuidePeriodProvider.future), isTrue);
+      await s.markDone(ActivationAction.message);
+      expect(
+        await c
+            .read(isGuidePeriodProvider.future)
+            .timeout(const Duration(seconds: 2)),
+        isFalse,
+      );
+    });
+    test('with a listener the value flips live on the 3rd action', () async {
+      final c = ProviderContainer(overrides: [
+        userProvider.overrideWith((ref) async => communityFixture()),
+      ]);
+      addTearDown(c.dispose);
+      final seen = <bool>[];
+      c.listen(isGuidePeriodProvider, (_, n) {
+        final v = n.valueOrNull;
+        if (v != null) seen.add(v);
+      }, fireImmediately: true);
+      final s = ActivationStore();
+      await s.markDone(ActivationAction.lesson);
+      await s.markDone(ActivationAction.moment);
+      await Future<void>.delayed(const Duration(milliseconds: 200));
+      expect(seen.last, isTrue);
+      await s.markDone(ActivationAction.message);
+      await Future<void>.delayed(const Duration(milliseconds: 200));
+      expect(seen.last, isFalse);
+    });
+    test('a failed user load throws rather than answering', () async {
+      final c = ProviderContainer(overrides: [
+        userProvider.overrideWith((ref) async => throw Exception('offline')),
+      ]);
+      addTearDown(c.dispose);
+      await expectLater(
+          c.read(isGuidePeriodProvider.future), throwsA(isA<Exception>()));
+    });
   });
 }

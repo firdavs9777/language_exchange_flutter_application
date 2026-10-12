@@ -58,14 +58,14 @@ void main() {
       expect(kGuideWindowDays, 7);
     });
 
-    test('covers the whole of day 0, 1 and 2', () {
+    test('covers the whole of days 0 through 6', () {
       for (var d = 0; d < kGuideWindowDays; d++) {
         expect(joinedDaysAgo(d).joinedWithinDays(kGuideWindowDays), isTrue,
             reason: 'day $d is inside a $kGuideWindowDays-day window');
       }
     });
 
-    test('is over on day 3', () {
+    test('is over on day 7', () {
       expect(
         joinedDaysAgo(kGuideWindowDays).joinedWithinDays(kGuideWindowDays),
         isFalse,

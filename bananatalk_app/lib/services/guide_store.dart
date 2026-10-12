@@ -164,22 +164,39 @@ Future<bool> isGuidePeriod(Community? user, ActivationStore store) async {
 /// Waits for the user (a still-loading user must not read as "not new"),
 /// back-fills the profile milestone from it, and re-evaluates whenever an
 /// action is recorded.
+///
+/// A failed user load throws (the caller decides; the launch coordinator
+/// treats an error as the restrictive answer).
+///
+/// Subscribes to [ActivationStore.changes] itself instead of watching
+/// `activationDoneProvider`: that stream lags a recorded action, so a read
+/// right after the 3rd `markDone` returned a stale `true`. A change landing
+/// mid-compute is folded in by looping, never by invalidating the build in
+/// flight (an unlistened read of an invalidated-while-loading provider never
+/// completes).
 final isGuidePeriodProvider = FutureProvider<bool>((ref) async {
   final store = ref.watch(activationStoreProvider);
-  Community? user;
-  try {
-    user = await ref.watch(userProvider.future);
-  } catch (_) {
-    user = null;
-  }
-  if (user != null) await checkProfileComplete(user, store: store);
-  // Watched only after the back-fill: the back-fill's own change event would
-  // otherwise invalidate this provider mid-compute. Awaiting the first
-  // emission means only later actions rebuild it.
-  try {
-    await ref.watch(activationDoneProvider.future);
-  } catch (_) {}
-  return isGuidePeriod(user, store);
+  var computed = false;
+  var dirty = false;
+  final sub = ActivationStore.changes.listen((_) {
+    if (computed) {
+      ref.invalidateSelf();
+    } else {
+      dirty = true;
+    }
+  });
+  ref.onDispose(sub.cancel);
+
+  final user = await ref.watch(userProvider.future);
+  await checkProfileComplete(user, store: store);
+  Set<ActivationAction> done;
+  do {
+    dirty = false;
+    done = await store.doneSet();
+  } while (dirty);
+  computed = true;
+  return user.joinedWithinDays(kGuideWindowDays) &&
+      done.length < kGuideMilestoneStop;
 });
 
 /// Read once per page mount. Deliberately NOT invalidated after

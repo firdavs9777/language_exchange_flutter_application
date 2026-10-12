@@ -33,9 +33,10 @@ enum ActivationAction {
 /// or wrong-typed key just reads as not done.
 class ActivationStore {
   static final StreamController<void> _changes =
-      StreamController<void>.broadcast();
+      StreamController<void>.broadcast(sync: true);
 
-  /// Fires after an action is newly recorded.
+  /// Fires after an action is newly recorded. Synchronous, so a listener has
+  /// run before `markDone` returns: a read right after it sees the change.
   static Stream<void> get changes => _changes.stream;
 
   static const String _kBackfillDone = 'activation_backfill_done';
