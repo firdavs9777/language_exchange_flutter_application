@@ -94,7 +94,7 @@ Baseline: 1/30 calls answered in 30 days, 168 stuck ringing, 0 call messages eve
   - [x] Final whole-branch review fixes: one ring UI per call (native ring present → no in-app screen / Dart ringtone; native ring appearing later closes the in-app one; in-app accept dismisses the native ring and ignores its echo; a leftover native decline never ends a call answered here, a native End still hangs up a call answered there); cold start skips a stale accepted CallKit entry; a `failed` call:state shows "Call failed" to the caller; LiveKit connect superseded mid-connect never publishes mic/camera; th missed voice label (QA rows S-15 updated, IOS-8, IOS-9, AND-8); re-review: the native-ring-only rule is iOS-only (Android keeps the in-app screen, native ringtone only), and CallKit reporting a call after an in-app accept is ended at once
   - Phase 2:
     - [x] App plumbing: `CallApi.decline(message)` / `upgrade`, `CallManager.rejectCall(message:)` / `upgradeToVideo` / `onCallTypeChanged` (a late `call:state` never revives an ended call), callee-unavailable snack, 13 strings x 19 locales
-    - [ ] Decline-with-message sheet on the incoming screen
+    - [x] Decline-with-message sheet on the incoming screen (2 canned + custom, 200-char cap; sheet closes if the call ends under it)
     - [ ] Missed-call push actions (call back / message)
     - [ ] Calls on/off + quiet-hours settings UI
     - [ ] Camera button mid voice call + peer-upgrade UI

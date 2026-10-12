@@ -92,4 +92,45 @@ void main() {
     expect(h.api.calls, contains('decline:call-1'));
     expect(find.byType(IncomingCallScreen), findsNothing);
   });
+
+  testWidgets('Message → canned reply declines with that text and closes', (tester) async {
+    await pumpApp(tester);
+    await h.ringIncoming();
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Message'));
+    await tester.pumpAndSettle();
+    expect(find.text('Decline with a message'), findsOneWidget);
+    await tester.tap(find.text("Can't talk now. I'll call you back."));
+    await tester.pumpAndSettle();
+    expect(h.api.declineMessages['call-1'], "Can't talk now. I'll call you back.");
+    expect(find.byType(IncomingCallScreen), findsNothing);
+  });
+
+  testWidgets('custom reply is capped at 200 characters and sent', (tester) async {
+    await pumpApp(tester);
+    await h.ringIncoming();
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Message'));
+    await tester.pumpAndSettle();
+    await tester.enterText(find.byType(TextField), 'y' * 250);
+    await tester.tap(find.text('Send'));
+    await tester.pumpAndSettle();
+    expect(h.api.declineMessages['call-1'], 'y' * 200);
+  });
+
+  testWidgets('call ends while the sheet is open: sheet and screen close, no second decline', (tester) async {
+    await pumpApp(tester);
+    await h.ringIncoming();
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Message'));
+    await tester.pumpAndSettle();
+    expect(find.text('Decline with a message'), findsOneWidget);
+    await h.state('missed', outcome: 'cancelled');
+    await tester.pumpAndSettle();
+    expect(find.text('Decline with a message'), findsNothing);
+    expect(find.byType(IncomingCallScreen), findsNothing);
+    expect(find.text('home'), findsOneWidget);
+    expect(h.api.calls.where((c) => c.startsWith('decline:')), isEmpty);
+    expect(tester.takeException(), isNull);
+  });
 }
