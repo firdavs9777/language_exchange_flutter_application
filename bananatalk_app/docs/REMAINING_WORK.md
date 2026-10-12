@@ -20,7 +20,8 @@ Last updated: 2026-10-12. Keep this current: tick items off in the same commit t
 
 **Me — code, ready to start** (§0c, §5)
 - **Onboarding + announcements + localization + Calls Phase 2 + ops, one plan** — spec
-  `docs/superpowers/specs/2026-10-12-onboarding-announcements-design.md` (awaiting spec review)
+  `docs/superpowers/specs/2026-10-12-onboarding-announcements-design.md`, plan
+  `docs/superpowers/plans/2026-10-12-onboarding-announcements.md` (60 tasks: O, B, W, A, L, C)
 - 74 hardcoded English strings in 56 files (`docs/onboarding-audit-2026-10-10.md` §2a).
   These never reach an `.arb`, so no translation check can see them. Next by exposure:
   `report_dialog.dart`, `lesson_summary_sheet.dart`, the remaining learning screens, stories.
