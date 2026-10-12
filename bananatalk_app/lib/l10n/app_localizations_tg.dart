@@ -9989,4 +9989,89 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get learnUnsupportedExercise => 'Машқи дастгиринашаванда';
+
+  @override
+  String get learnFailedLoadAchievements => 'Боркунии дастовардҳо ноком шуд';
+
+  @override
+  String learnUnlockedOn(Object date) {
+    return 'Кушода шуд: $date';
+  }
+
+  @override
+  String get learnChallenges => 'Озмунҳо';
+
+  @override
+  String get learnFailedLoadChallenges => 'Боркунии озмунҳо ноком шуд';
+
+  @override
+  String learnNoChallenges(Object type) {
+    return 'Озмуни $type нест';
+  }
+
+  @override
+  String get learnCheckBackLater => 'Баъдтар боз нигаред!';
+
+  @override
+  String learnActiveCount(Object count) {
+    return 'Фаъол ($count)';
+  }
+
+  @override
+  String learnCompletedCount(Object count) {
+    return 'Анҷомёфта ($count)';
+  }
+
+  @override
+  String get learnProgress => 'Пешрафт';
+
+  @override
+  String get learnXpReward => 'Ҷоизаи XP';
+
+  @override
+  String get learnBonus => 'Бонус';
+
+  @override
+  String learnExpires(Object timeRemainingFormatted) {
+    return 'Тамом мешавад баъди $timeRemainingFormatted';
+  }
+
+  @override
+  String get learnAchievementUnlocked => 'Дастовард кушода шуд!';
+
+  @override
+  String get learnTapContinue => 'Барои идома задан ламс кунед';
+
+  @override
+  String get learnChallengeCompleted => 'Анҷом ёфт';
+
+  @override
+  String get learnDailyGoals => 'Ҳадафҳои рӯзона';
+
+  @override
+  String learnLessons(Object completedCount, Object lessonsCount) {
+    return '$completedCount/$lessonsCount дарс';
+  }
+
+  @override
+  String learnLongestDays(Object longestStreak) {
+    return 'Дарозтарин: $longestStreak рӯз';
+  }
+
+  @override
+  String get learnTapReveal => 'Барои нишон додан ламс кунед';
+
+  @override
+  String get learnNoAchievements => 'Дастовард нест';
+
+  @override
+  String get learnDayStreak => 'Рӯзҳои пай дар пай';
+
+  @override
+  String get learnDueForReview => 'Вақти такрор';
+
+  @override
+  String learnNextReview(Object date) {
+    return 'Навбатӣ: $date';
+  }
 }

@@ -9983,4 +9983,89 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get learnUnsupportedExercise => 'Desteklenmeyen alıştırma';
+
+  @override
+  String get learnFailedLoadAchievements => 'Başarımlar yüklenemedi';
+
+  @override
+  String learnUnlockedOn(Object date) {
+    return '$date tarihinde açıldı';
+  }
+
+  @override
+  String get learnChallenges => 'Meydan Okumalar';
+
+  @override
+  String get learnFailedLoadChallenges => 'Meydan okumalar yüklenemedi';
+
+  @override
+  String learnNoChallenges(Object type) {
+    return '$type meydan okuma yok';
+  }
+
+  @override
+  String get learnCheckBackLater => 'Daha sonra tekrar bak!';
+
+  @override
+  String learnActiveCount(Object count) {
+    return 'Aktif ($count)';
+  }
+
+  @override
+  String learnCompletedCount(Object count) {
+    return 'Tamamlanan ($count)';
+  }
+
+  @override
+  String get learnProgress => 'İlerleme';
+
+  @override
+  String get learnXpReward => 'XP Ödülü';
+
+  @override
+  String get learnBonus => 'Bonus';
+
+  @override
+  String learnExpires(Object timeRemainingFormatted) {
+    return '$timeRemainingFormatted içinde sona erer';
+  }
+
+  @override
+  String get learnAchievementUnlocked => 'Başarım Kazanıldı!';
+
+  @override
+  String get learnTapContinue => 'Devam etmek için dokun';
+
+  @override
+  String get learnChallengeCompleted => 'Tamamlandı';
+
+  @override
+  String get learnDailyGoals => 'Günlük Hedefler';
+
+  @override
+  String learnLessons(Object completedCount, Object lessonsCount) {
+    return '$completedCount/$lessonsCount ders';
+  }
+
+  @override
+  String learnLongestDays(Object longestStreak) {
+    return 'En uzun: $longestStreak gün';
+  }
+
+  @override
+  String get learnTapReveal => 'Görmek için dokun';
+
+  @override
+  String get learnNoAchievements => 'Başarım yok';
+
+  @override
+  String get learnDayStreak => 'Günlük Seri';
+
+  @override
+  String get learnDueForReview => 'Tekrar zamanı';
+
+  @override
+  String learnNextReview(Object date) {
+    return 'Sonraki: $date';
+  }
 }

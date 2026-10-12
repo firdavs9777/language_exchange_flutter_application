@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/models/learning/vocabulary_model.dart';
 
@@ -194,8 +195,8 @@ class VocabularyCard extends StatelessWidget {
                     const SizedBox(width: 4),
                     Text(
                       item.isDue
-                          ? 'Due for review'
-                          : 'Next: ${_formatDate(item.nextReview!)}',
+                          ? AppLocalizations.of(context)!.learnDueForReview
+                          : AppLocalizations.of(context)!.learnNextReview(_formatDate(item.nextReview!)),
                       style: TextStyle(
                         fontSize: 11,
                         color: item.isDue ? Colors.orange : Colors.grey[500],
@@ -272,12 +273,12 @@ class VocabularyFlashcard extends StatelessWidget {
         transitionBuilder: (child, animation) {
           return FadeTransition(opacity: animation, child: child);
         },
-        child: isFlipped ? _buildBack() : _buildFront(),
+        child: isFlipped ? _buildBack() : _buildFront(context),
       ),
     );
   }
 
-  Widget _buildFront() {
+  Widget _buildFront(BuildContext context) {
     return Container(
       key: const ValueKey('front'),
       width: double.infinity,
@@ -317,7 +318,7 @@ class VocabularyFlashcard extends StatelessWidget {
           ],
           const SizedBox(height: 24),
           Text(
-            'Tap to reveal',
+            AppLocalizations.of(context)!.learnTapReveal,
             style: TextStyle(
               fontSize: 14,
               color: Colors.grey[400],

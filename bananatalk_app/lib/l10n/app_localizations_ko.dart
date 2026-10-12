@@ -9974,4 +9974,89 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get learnUnsupportedExercise => '지원되지 않는 연습';
+
+  @override
+  String get learnFailedLoadAchievements => '업적을 불러오지 못했어요';
+
+  @override
+  String learnUnlockedOn(Object date) {
+    return '$date에 달성';
+  }
+
+  @override
+  String get learnChallenges => '챌린지';
+
+  @override
+  String get learnFailedLoadChallenges => '챌린지를 불러오지 못했어요';
+
+  @override
+  String learnNoChallenges(Object type) {
+    return '$type 챌린지가 없어요';
+  }
+
+  @override
+  String get learnCheckBackLater => '나중에 다시 확인해 주세요!';
+
+  @override
+  String learnActiveCount(Object count) {
+    return '진행 중 ($count)';
+  }
+
+  @override
+  String learnCompletedCount(Object count) {
+    return '완료 ($count)';
+  }
+
+  @override
+  String get learnProgress => '진행도';
+
+  @override
+  String get learnXpReward => 'XP 보상';
+
+  @override
+  String get learnBonus => '보너스';
+
+  @override
+  String learnExpires(Object timeRemainingFormatted) {
+    return '$timeRemainingFormatted 후 종료';
+  }
+
+  @override
+  String get learnAchievementUnlocked => '업적 달성!';
+
+  @override
+  String get learnTapContinue => '탭하여 계속';
+
+  @override
+  String get learnChallengeCompleted => '완료';
+
+  @override
+  String get learnDailyGoals => '일일 목표';
+
+  @override
+  String learnLessons(Object completedCount, Object lessonsCount) {
+    return '$completedCount/$lessonsCount 레슨';
+  }
+
+  @override
+  String learnLongestDays(Object longestStreak) {
+    return '최장: $longestStreak일';
+  }
+
+  @override
+  String get learnTapReveal => '탭하여 확인';
+
+  @override
+  String get learnNoAchievements => '업적이 없어요';
+
+  @override
+  String get learnDayStreak => '일 연속';
+
+  @override
+  String get learnDueForReview => '복습할 차례예요';
+
+  @override
+  String learnNextReview(Object date) {
+    return '다음: $date';
+  }
 }

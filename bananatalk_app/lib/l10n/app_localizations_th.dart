@@ -9974,4 +9974,89 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get learnUnsupportedExercise => 'แบบฝึกหัดที่ไม่รองรับ';
+
+  @override
+  String get learnFailedLoadAchievements => 'โหลดความสำเร็จไม่สำเร็จ';
+
+  @override
+  String learnUnlockedOn(Object date) {
+    return 'ปลดล็อกเมื่อ $date';
+  }
+
+  @override
+  String get learnChallenges => 'ชาเลนจ์';
+
+  @override
+  String get learnFailedLoadChallenges => 'โหลดชาเลนจ์ไม่สำเร็จ';
+
+  @override
+  String learnNoChallenges(Object type) {
+    return 'ไม่มีชาเลนจ์$type';
+  }
+
+  @override
+  String get learnCheckBackLater => 'กลับมาดูใหม่ภายหลังนะ!';
+
+  @override
+  String learnActiveCount(Object count) {
+    return 'กำลังทำ ($count)';
+  }
+
+  @override
+  String learnCompletedCount(Object count) {
+    return 'เสร็จแล้ว ($count)';
+  }
+
+  @override
+  String get learnProgress => 'ความคืบหน้า';
+
+  @override
+  String get learnXpReward => 'รางวัล XP';
+
+  @override
+  String get learnBonus => 'โบนัส';
+
+  @override
+  String learnExpires(Object timeRemainingFormatted) {
+    return 'หมดอายุใน $timeRemainingFormatted';
+  }
+
+  @override
+  String get learnAchievementUnlocked => 'ปลดล็อกความสำเร็จแล้ว!';
+
+  @override
+  String get learnTapContinue => 'แตะเพื่อดำเนินการต่อ';
+
+  @override
+  String get learnChallengeCompleted => 'เสร็จสิ้น';
+
+  @override
+  String get learnDailyGoals => 'เป้าหมายรายวัน';
+
+  @override
+  String learnLessons(Object completedCount, Object lessonsCount) {
+    return '$completedCount/$lessonsCount บทเรียน';
+  }
+
+  @override
+  String learnLongestDays(Object longestStreak) {
+    return 'ยาวนานที่สุด: $longestStreak วัน';
+  }
+
+  @override
+  String get learnTapReveal => 'แตะเพื่อดูเฉลย';
+
+  @override
+  String get learnNoAchievements => 'ยังไม่มีความสำเร็จ';
+
+  @override
+  String get learnDayStreak => 'วันต่อเนื่อง';
+
+  @override
+  String get learnDueForReview => 'ถึงเวลาทบทวน';
+
+  @override
+  String learnNextReview(Object date) {
+    return 'ถัดไป: $date';
+  }
 }

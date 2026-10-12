@@ -9985,4 +9985,89 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get learnUnsupportedExercise => 'Ejercicio no compatible';
+
+  @override
+  String get learnFailedLoadAchievements => 'No se pudieron cargar los logros';
+
+  @override
+  String learnUnlockedOn(Object date) {
+    return 'Desbloqueado el $date';
+  }
+
+  @override
+  String get learnChallenges => 'Desafíos';
+
+  @override
+  String get learnFailedLoadChallenges => 'No se pudieron cargar los desafíos';
+
+  @override
+  String learnNoChallenges(Object type) {
+    return 'No hay desafíos $type';
+  }
+
+  @override
+  String get learnCheckBackLater => '¡Vuelve más tarde!';
+
+  @override
+  String learnActiveCount(Object count) {
+    return 'Activos ($count)';
+  }
+
+  @override
+  String learnCompletedCount(Object count) {
+    return 'Completados ($count)';
+  }
+
+  @override
+  String get learnProgress => 'Progreso';
+
+  @override
+  String get learnXpReward => 'Recompensa de XP';
+
+  @override
+  String get learnBonus => 'Bonificación';
+
+  @override
+  String learnExpires(Object timeRemainingFormatted) {
+    return 'Caduca en $timeRemainingFormatted';
+  }
+
+  @override
+  String get learnAchievementUnlocked => '¡Logro desbloqueado!';
+
+  @override
+  String get learnTapContinue => 'Toca para continuar';
+
+  @override
+  String get learnChallengeCompleted => 'Completado';
+
+  @override
+  String get learnDailyGoals => 'Metas diarias';
+
+  @override
+  String learnLessons(Object completedCount, Object lessonsCount) {
+    return '$completedCount/$lessonsCount lecciones';
+  }
+
+  @override
+  String learnLongestDays(Object longestStreak) {
+    return 'Más larga: $longestStreak días';
+  }
+
+  @override
+  String get learnTapReveal => 'Toca para revelar';
+
+  @override
+  String get learnNoAchievements => 'Sin logros';
+
+  @override
+  String get learnDayStreak => 'Días de racha';
+
+  @override
+  String get learnDueForReview => 'Pendiente de repaso';
+
+  @override
+  String learnNextReview(Object date) {
+    return 'Próximo: $date';
+  }
 }

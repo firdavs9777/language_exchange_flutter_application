@@ -18247,6 +18247,144 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Unsupported exercise'**
   String get learnUnsupportedExercise;
+
+  /// No description provided for @learnFailedLoadAchievements.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load achievements'**
+  String get learnFailedLoadAchievements;
+
+  /// No description provided for @learnUnlockedOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlocked on {date}'**
+  String learnUnlockedOn(Object date);
+
+  /// No description provided for @learnChallenges.
+  ///
+  /// In en, this message translates to:
+  /// **'Challenges'**
+  String get learnChallenges;
+
+  /// No description provided for @learnFailedLoadChallenges.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load challenges'**
+  String get learnFailedLoadChallenges;
+
+  /// No description provided for @learnNoChallenges.
+  ///
+  /// In en, this message translates to:
+  /// **'No {type} Challenges'**
+  String learnNoChallenges(Object type);
+
+  /// No description provided for @learnCheckBackLater.
+  ///
+  /// In en, this message translates to:
+  /// **'Check back later!'**
+  String get learnCheckBackLater;
+
+  /// No description provided for @learnActiveCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Active ({count})'**
+  String learnActiveCount(Object count);
+
+  /// No description provided for @learnCompletedCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed ({count})'**
+  String learnCompletedCount(Object count);
+
+  /// No description provided for @learnProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress'**
+  String get learnProgress;
+
+  /// No description provided for @learnXpReward.
+  ///
+  /// In en, this message translates to:
+  /// **'XP Reward'**
+  String get learnXpReward;
+
+  /// No description provided for @learnBonus.
+  ///
+  /// In en, this message translates to:
+  /// **'Bonus'**
+  String get learnBonus;
+
+  /// No description provided for @learnExpires.
+  ///
+  /// In en, this message translates to:
+  /// **'Expires in {timeRemainingFormatted}'**
+  String learnExpires(Object timeRemainingFormatted);
+
+  /// No description provided for @learnAchievementUnlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Achievement Unlocked!'**
+  String get learnAchievementUnlocked;
+
+  /// No description provided for @learnTapContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to continue'**
+  String get learnTapContinue;
+
+  /// No description provided for @learnChallengeCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed'**
+  String get learnChallengeCompleted;
+
+  /// No description provided for @learnDailyGoals.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily Goals'**
+  String get learnDailyGoals;
+
+  /// No description provided for @learnLessons.
+  ///
+  /// In en, this message translates to:
+  /// **'{completedCount}/{lessonsCount} lessons'**
+  String learnLessons(Object completedCount, Object lessonsCount);
+
+  /// No description provided for @learnLongestDays.
+  ///
+  /// In en, this message translates to:
+  /// **'Longest: {longestStreak} days'**
+  String learnLongestDays(Object longestStreak);
+
+  /// No description provided for @learnTapReveal.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to reveal'**
+  String get learnTapReveal;
+
+  /// No description provided for @learnNoAchievements.
+  ///
+  /// In en, this message translates to:
+  /// **'No achievements'**
+  String get learnNoAchievements;
+
+  /// No description provided for @learnDayStreak.
+  ///
+  /// In en, this message translates to:
+  /// **'Day Streak'**
+  String get learnDayStreak;
+
+  /// No description provided for @learnDueForReview.
+  ///
+  /// In en, this message translates to:
+  /// **'Due for review'**
+  String get learnDueForReview;
+
+  /// No description provided for @learnNextReview.
+  ///
+  /// In en, this message translates to:
+  /// **'Next: {date}'**
+  String learnNextReview(Object date);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

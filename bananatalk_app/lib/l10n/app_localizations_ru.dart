@@ -10010,4 +10010,89 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get learnUnsupportedExercise => 'Неподдерживаемое упражнение';
+
+  @override
+  String get learnFailedLoadAchievements => 'Не удалось загрузить достижения';
+
+  @override
+  String learnUnlockedOn(Object date) {
+    return 'Получено $date';
+  }
+
+  @override
+  String get learnChallenges => 'Испытания';
+
+  @override
+  String get learnFailedLoadChallenges => 'Не удалось загрузить испытания';
+
+  @override
+  String learnNoChallenges(Object type) {
+    return 'Нет испытаний: $type';
+  }
+
+  @override
+  String get learnCheckBackLater => 'Загляните позже!';
+
+  @override
+  String learnActiveCount(Object count) {
+    return 'Активные ($count)';
+  }
+
+  @override
+  String learnCompletedCount(Object count) {
+    return 'Завершённые ($count)';
+  }
+
+  @override
+  String get learnProgress => 'Прогресс';
+
+  @override
+  String get learnXpReward => 'Награда XP';
+
+  @override
+  String get learnBonus => 'Бонус';
+
+  @override
+  String learnExpires(Object timeRemainingFormatted) {
+    return 'Истекает через $timeRemainingFormatted';
+  }
+
+  @override
+  String get learnAchievementUnlocked => 'Достижение получено!';
+
+  @override
+  String get learnTapContinue => 'Нажмите, чтобы продолжить';
+
+  @override
+  String get learnChallengeCompleted => 'Завершено';
+
+  @override
+  String get learnDailyGoals => 'Ежедневные цели';
+
+  @override
+  String learnLessons(Object completedCount, Object lessonsCount) {
+    return '$completedCount/$lessonsCount уроков';
+  }
+
+  @override
+  String learnLongestDays(Object longestStreak) {
+    return 'Рекорд: $longestStreak дн.';
+  }
+
+  @override
+  String get learnTapReveal => 'Нажмите, чтобы показать';
+
+  @override
+  String get learnNoAchievements => 'Нет достижений';
+
+  @override
+  String get learnDayStreak => 'Дней подряд';
+
+  @override
+  String get learnDueForReview => 'Пора повторить';
+
+  @override
+  String learnNextReview(Object date) {
+    return 'Следующее: $date';
+  }
 }

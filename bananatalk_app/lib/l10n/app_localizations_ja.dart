@@ -9974,4 +9974,89 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get learnUnsupportedExercise => '未対応の問題';
+
+  @override
+  String get learnFailedLoadAchievements => '実績を読み込めませんでした';
+
+  @override
+  String learnUnlockedOn(Object date) {
+    return '$dateに解除';
+  }
+
+  @override
+  String get learnChallenges => 'チャレンジ';
+
+  @override
+  String get learnFailedLoadChallenges => 'チャレンジを読み込めませんでした';
+
+  @override
+  String learnNoChallenges(Object type) {
+    return '$typeチャレンジはありません';
+  }
+
+  @override
+  String get learnCheckBackLater => '後でもう一度確認してください！';
+
+  @override
+  String learnActiveCount(Object count) {
+    return '進行中（$count）';
+  }
+
+  @override
+  String learnCompletedCount(Object count) {
+    return '完了（$count）';
+  }
+
+  @override
+  String get learnProgress => '進捗';
+
+  @override
+  String get learnXpReward => 'XP報酬';
+
+  @override
+  String get learnBonus => 'ボーナス';
+
+  @override
+  String learnExpires(Object timeRemainingFormatted) {
+    return 'あと$timeRemainingFormattedで終了';
+  }
+
+  @override
+  String get learnAchievementUnlocked => '実績を解除しました！';
+
+  @override
+  String get learnTapContinue => 'タップして続ける';
+
+  @override
+  String get learnChallengeCompleted => '完了';
+
+  @override
+  String get learnDailyGoals => 'デイリー目標';
+
+  @override
+  String learnLessons(Object completedCount, Object lessonsCount) {
+    return '$completedCount/$lessonsCountレッスン';
+  }
+
+  @override
+  String learnLongestDays(Object longestStreak) {
+    return '最長：$longestStreak日';
+  }
+
+  @override
+  String get learnTapReveal => 'タップして表示';
+
+  @override
+  String get learnNoAchievements => '実績はありません';
+
+  @override
+  String get learnDayStreak => '日連続';
+
+  @override
+  String get learnDueForReview => '復習の時間です';
+
+  @override
+  String learnNextReview(Object date) {
+    return '次回：$date';
+  }
 }

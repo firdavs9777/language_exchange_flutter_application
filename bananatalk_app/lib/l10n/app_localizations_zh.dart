@@ -9974,6 +9974,91 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get learnUnsupportedExercise => '不支持的练习';
+
+  @override
+  String get learnFailedLoadAchievements => '无法加载成就';
+
+  @override
+  String learnUnlockedOn(Object date) {
+    return '解锁于 $date';
+  }
+
+  @override
+  String get learnChallenges => '挑战';
+
+  @override
+  String get learnFailedLoadChallenges => '无法加载挑战';
+
+  @override
+  String learnNoChallenges(Object type) {
+    return '没有$type挑战';
+  }
+
+  @override
+  String get learnCheckBackLater => '请稍后再来看看！';
+
+  @override
+  String learnActiveCount(Object count) {
+    return '进行中（$count）';
+  }
+
+  @override
+  String learnCompletedCount(Object count) {
+    return '已完成（$count）';
+  }
+
+  @override
+  String get learnProgress => '进度';
+
+  @override
+  String get learnXpReward => 'XP 奖励';
+
+  @override
+  String get learnBonus => '奖励';
+
+  @override
+  String learnExpires(Object timeRemainingFormatted) {
+    return '$timeRemainingFormatted后到期';
+  }
+
+  @override
+  String get learnAchievementUnlocked => '成就已解锁！';
+
+  @override
+  String get learnTapContinue => '点按继续';
+
+  @override
+  String get learnChallengeCompleted => '已完成';
+
+  @override
+  String get learnDailyGoals => '每日目标';
+
+  @override
+  String learnLessons(Object completedCount, Object lessonsCount) {
+    return '$completedCount/$lessonsCount 节课';
+  }
+
+  @override
+  String learnLongestDays(Object longestStreak) {
+    return '最长：$longestStreak 天';
+  }
+
+  @override
+  String get learnTapReveal => '点按查看';
+
+  @override
+  String get learnNoAchievements => '暂无成就';
+
+  @override
+  String get learnDayStreak => '天连续';
+
+  @override
+  String get learnDueForReview => '该复习了';
+
+  @override
+  String learnNextReview(Object date) {
+    return '下次：$date';
+  }
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -19946,4 +20031,89 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get learnUnsupportedExercise => '不支援的練習';
+
+  @override
+  String get learnFailedLoadAchievements => '無法載入成就';
+
+  @override
+  String learnUnlockedOn(Object date) {
+    return '解鎖於 $date';
+  }
+
+  @override
+  String get learnChallenges => '挑戰';
+
+  @override
+  String get learnFailedLoadChallenges => '無法載入挑戰';
+
+  @override
+  String learnNoChallenges(Object type) {
+    return '沒有$type挑戰';
+  }
+
+  @override
+  String get learnCheckBackLater => '請稍後再來看看！';
+
+  @override
+  String learnActiveCount(Object count) {
+    return '進行中（$count）';
+  }
+
+  @override
+  String learnCompletedCount(Object count) {
+    return '已完成（$count）';
+  }
+
+  @override
+  String get learnProgress => '進度';
+
+  @override
+  String get learnXpReward => 'XP 獎勵';
+
+  @override
+  String get learnBonus => '獎勵';
+
+  @override
+  String learnExpires(Object timeRemainingFormatted) {
+    return '$timeRemainingFormatted後到期';
+  }
+
+  @override
+  String get learnAchievementUnlocked => '成就已解鎖！';
+
+  @override
+  String get learnTapContinue => '點一下繼續';
+
+  @override
+  String get learnChallengeCompleted => '已完成';
+
+  @override
+  String get learnDailyGoals => '每日目標';
+
+  @override
+  String learnLessons(Object completedCount, Object lessonsCount) {
+    return '$completedCount/$lessonsCount 堂課';
+  }
+
+  @override
+  String learnLongestDays(Object longestStreak) {
+    return '最長：$longestStreak 天';
+  }
+
+  @override
+  String get learnTapReveal => '點一下查看';
+
+  @override
+  String get learnNoAchievements => '尚無成就';
+
+  @override
+  String get learnDayStreak => '天連續';
+
+  @override
+  String get learnDueForReview => '該複習了';
+
+  @override
+  String learnNextReview(Object date) {
+    return '下次：$date';
+  }
 }

@@ -124,6 +124,31 @@ const Map<String, List<String>> _keysByTask = {
     'learnUnsupportedExercise',
     'examSpeakingSubmit',
   ],
+  'L6': [
+    'learnFailedLoadAchievements',
+    'learnUnlockedOn',
+    'learnChallenges',
+    'learnFailedLoadChallenges',
+    'learnNoChallenges',
+    'learnCheckBackLater',
+    'learnActiveCount',
+    'learnCompletedCount',
+    'learnProgress',
+    'learnXpReward',
+    'learnBonus',
+    'learnExpires',
+    'learnAchievementUnlocked',
+    'learnTapContinue',
+    'learnChallengeCompleted',
+    'learnDailyGoals',
+    'learnLessons',
+    'learnLongestDays',
+    'learnTapReveal',
+    'learnNoAchievements',
+    'learnDayStreak',
+    'learnDueForReview',
+    'learnNextReview',
+  ],
 };
 
 /// Files (under lib/) each task must leave with no English Text literal.
@@ -194,11 +219,22 @@ const Map<String, List<String>> _filesByTask = {
     'pages/learning/vocabulary/vocabulary_add_screen.dart',
     'pages/learning/vocabulary/vocabulary_screen.dart',
   ],
+  'L6': [
+    'pages/learning/achievements/achievements_screen.dart',
+    'pages/learning/challenges/challenges_screen.dart',
+    'widgets/learning/achievement_card.dart',
+    'widgets/learning/challenge_card.dart',
+    'widgets/learning/daily_goal_widget.dart',
+    'widgets/learning/lesson_card.dart',
+    'widgets/learning/streak_widget.dart',
+    'widgets/learning/vocabulary_card.dart',
+  ],
 };
 
 /// Keys whose draft may legitimately equal the English in some locale
 /// (loanwords). Add with a one-line reason; empty by default.
 const Set<String> _mayMatchEnglish = {
+  'learnBonus', // de/fr/it/id/tl/tr use the English loanword "Bonus"
   'communityLv', // ja/ko/de/id/tl/zh/zh_TW keep the "Lv.{level}" abbreviation
   'momentsFileSizeMb', // ja/ko/tl/zh/zh_TW keep the "{size}MB" unit as written
   'chatStory', // de/fr/pt use the English loanword "Story"

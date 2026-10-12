@@ -16,3 +16,15 @@ String formatDateTimeForLocaleName(String locale, DateTime dt) {
 /// [formatDateTimeForLocaleName] for the locale of [context].
 String formatDateTimeForLocale(BuildContext context, DateTime dt) =>
     formatDateTimeForLocaleName(Localizations.localeOf(context).toString(), dt);
+
+/// Medium date (e.g. "Oct 12, 2026") for [context]'s locale, with the same
+/// English fallback as [formatDateTimeForLocaleName] for locales intl lacks.
+String formatDateForLocale(BuildContext context, DateTime dt) {
+  final locale = Localizations.localeOf(context).toString();
+  try {
+    final name = DateFormat.localeExists(locale) ? locale : 'en';
+    return DateFormat.yMMMd(name).format(dt);
+  } catch (_) {
+    return DateFormat.yMMMd('en').format(dt);
+  }
+}

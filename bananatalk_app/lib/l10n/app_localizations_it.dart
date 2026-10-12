@@ -9985,4 +9985,89 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get learnUnsupportedExercise => 'Esercizio non supportato';
+
+  @override
+  String get learnFailedLoadAchievements => 'Impossibile caricare i traguardi';
+
+  @override
+  String learnUnlockedOn(Object date) {
+    return 'Sbloccato il $date';
+  }
+
+  @override
+  String get learnChallenges => 'Sfide';
+
+  @override
+  String get learnFailedLoadChallenges => 'Impossibile caricare le sfide';
+
+  @override
+  String learnNoChallenges(Object type) {
+    return 'Nessuna sfida $type';
+  }
+
+  @override
+  String get learnCheckBackLater => 'Torna più tardi!';
+
+  @override
+  String learnActiveCount(Object count) {
+    return 'Attive ($count)';
+  }
+
+  @override
+  String learnCompletedCount(Object count) {
+    return 'Completate ($count)';
+  }
+
+  @override
+  String get learnProgress => 'Progressi';
+
+  @override
+  String get learnXpReward => 'Ricompensa XP';
+
+  @override
+  String get learnBonus => 'Bonus';
+
+  @override
+  String learnExpires(Object timeRemainingFormatted) {
+    return 'Scade tra $timeRemainingFormatted';
+  }
+
+  @override
+  String get learnAchievementUnlocked => 'Traguardo sbloccato!';
+
+  @override
+  String get learnTapContinue => 'Tocca per continuare';
+
+  @override
+  String get learnChallengeCompleted => 'Completata';
+
+  @override
+  String get learnDailyGoals => 'Obiettivi giornalieri';
+
+  @override
+  String learnLessons(Object completedCount, Object lessonsCount) {
+    return '$completedCount/$lessonsCount lezioni';
+  }
+
+  @override
+  String learnLongestDays(Object longestStreak) {
+    return 'Più lunga: $longestStreak giorni';
+  }
+
+  @override
+  String get learnTapReveal => 'Tocca per rivelare';
+
+  @override
+  String get learnNoAchievements => 'Nessun traguardo';
+
+  @override
+  String get learnDayStreak => 'Giorni di fila';
+
+  @override
+  String get learnDueForReview => 'Da ripassare';
+
+  @override
+  String learnNextReview(Object date) {
+    return 'Prossimo: $date';
+  }
 }

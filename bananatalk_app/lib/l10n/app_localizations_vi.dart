@@ -9974,4 +9974,89 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get learnUnsupportedExercise => 'Bài tập không được hỗ trợ';
+
+  @override
+  String get learnFailedLoadAchievements => 'Không tải được thành tựu';
+
+  @override
+  String learnUnlockedOn(Object date) {
+    return 'Mở khóa vào $date';
+  }
+
+  @override
+  String get learnChallenges => 'Thử thách';
+
+  @override
+  String get learnFailedLoadChallenges => 'Không tải được thử thách';
+
+  @override
+  String learnNoChallenges(Object type) {
+    return 'Không có thử thách $type';
+  }
+
+  @override
+  String get learnCheckBackLater => 'Hãy quay lại sau nhé!';
+
+  @override
+  String learnActiveCount(Object count) {
+    return 'Đang diễn ra ($count)';
+  }
+
+  @override
+  String learnCompletedCount(Object count) {
+    return 'Đã hoàn thành ($count)';
+  }
+
+  @override
+  String get learnProgress => 'Tiến độ';
+
+  @override
+  String get learnXpReward => 'Thưởng XP';
+
+  @override
+  String get learnBonus => 'Thưởng thêm';
+
+  @override
+  String learnExpires(Object timeRemainingFormatted) {
+    return 'Hết hạn sau $timeRemainingFormatted';
+  }
+
+  @override
+  String get learnAchievementUnlocked => 'Đã mở khóa thành tựu!';
+
+  @override
+  String get learnTapContinue => 'Chạm để tiếp tục';
+
+  @override
+  String get learnChallengeCompleted => 'Đã hoàn thành';
+
+  @override
+  String get learnDailyGoals => 'Mục tiêu hằng ngày';
+
+  @override
+  String learnLessons(Object completedCount, Object lessonsCount) {
+    return '$completedCount/$lessonsCount bài học';
+  }
+
+  @override
+  String learnLongestDays(Object longestStreak) {
+    return 'Dài nhất: $longestStreak ngày';
+  }
+
+  @override
+  String get learnTapReveal => 'Chạm để xem';
+
+  @override
+  String get learnNoAchievements => 'Chưa có thành tựu';
+
+  @override
+  String get learnDayStreak => 'Chuỗi ngày';
+
+  @override
+  String get learnDueForReview => 'Đến hạn ôn tập';
+
+  @override
+  String learnNextReview(Object date) {
+    return 'Tiếp theo: $date';
+  }
 }

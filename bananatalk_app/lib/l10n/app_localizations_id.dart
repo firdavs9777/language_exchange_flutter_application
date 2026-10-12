@@ -9982,4 +9982,89 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get learnUnsupportedExercise => 'Latihan tidak didukung';
+
+  @override
+  String get learnFailedLoadAchievements => 'Gagal memuat pencapaian';
+
+  @override
+  String learnUnlockedOn(Object date) {
+    return 'Dibuka pada $date';
+  }
+
+  @override
+  String get learnChallenges => 'Tantangan';
+
+  @override
+  String get learnFailedLoadChallenges => 'Gagal memuat tantangan';
+
+  @override
+  String learnNoChallenges(Object type) {
+    return 'Tidak ada tantangan $type';
+  }
+
+  @override
+  String get learnCheckBackLater => 'Cek lagi nanti!';
+
+  @override
+  String learnActiveCount(Object count) {
+    return 'Aktif ($count)';
+  }
+
+  @override
+  String learnCompletedCount(Object count) {
+    return 'Selesai ($count)';
+  }
+
+  @override
+  String get learnProgress => 'Kemajuan';
+
+  @override
+  String get learnXpReward => 'Hadiah XP';
+
+  @override
+  String get learnBonus => 'Bonus';
+
+  @override
+  String learnExpires(Object timeRemainingFormatted) {
+    return 'Berakhir dalam $timeRemainingFormatted';
+  }
+
+  @override
+  String get learnAchievementUnlocked => 'Pencapaian Terbuka!';
+
+  @override
+  String get learnTapContinue => 'Ketuk untuk melanjutkan';
+
+  @override
+  String get learnChallengeCompleted => 'Selesai';
+
+  @override
+  String get learnDailyGoals => 'Target Harian';
+
+  @override
+  String learnLessons(Object completedCount, Object lessonsCount) {
+    return '$completedCount/$lessonsCount pelajaran';
+  }
+
+  @override
+  String learnLongestDays(Object longestStreak) {
+    return 'Terlama: $longestStreak hari';
+  }
+
+  @override
+  String get learnTapReveal => 'Ketuk untuk melihat';
+
+  @override
+  String get learnNoAchievements => 'Belum ada pencapaian';
+
+  @override
+  String get learnDayStreak => 'Hari Beruntun';
+
+  @override
+  String get learnDueForReview => 'Waktunya diulang';
+
+  @override
+  String learnNextReview(Object date) {
+    return 'Berikutnya: $date';
+  }
 }

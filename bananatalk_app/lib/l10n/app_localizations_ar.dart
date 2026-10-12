@@ -10004,4 +10004,89 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get learnUnsupportedExercise => 'تمرين غير مدعوم';
+
+  @override
+  String get learnFailedLoadAchievements => 'فشل تحميل الإنجازات';
+
+  @override
+  String learnUnlockedOn(Object date) {
+    return 'تم الفتح في $date';
+  }
+
+  @override
+  String get learnChallenges => 'التحديات';
+
+  @override
+  String get learnFailedLoadChallenges => 'فشل تحميل التحديات';
+
+  @override
+  String learnNoChallenges(Object type) {
+    return 'لا توجد تحديات $type';
+  }
+
+  @override
+  String get learnCheckBackLater => 'عد لاحقًا!';
+
+  @override
+  String learnActiveCount(Object count) {
+    return 'نشطة ($count)';
+  }
+
+  @override
+  String learnCompletedCount(Object count) {
+    return 'مكتملة ($count)';
+  }
+
+  @override
+  String get learnProgress => 'التقدم';
+
+  @override
+  String get learnXpReward => 'مكافأة XP';
+
+  @override
+  String get learnBonus => 'مكافأة إضافية';
+
+  @override
+  String learnExpires(Object timeRemainingFormatted) {
+    return 'تنتهي خلال $timeRemainingFormatted';
+  }
+
+  @override
+  String get learnAchievementUnlocked => 'تم فتح إنجاز!';
+
+  @override
+  String get learnTapContinue => 'انقر للمتابعة';
+
+  @override
+  String get learnChallengeCompleted => 'مكتمل';
+
+  @override
+  String get learnDailyGoals => 'الأهداف اليومية';
+
+  @override
+  String learnLessons(Object completedCount, Object lessonsCount) {
+    return '$completedCount/$lessonsCount دروس';
+  }
+
+  @override
+  String learnLongestDays(Object longestStreak) {
+    return 'الأطول: $longestStreak أيام';
+  }
+
+  @override
+  String get learnTapReveal => 'انقر للكشف';
+
+  @override
+  String get learnNoAchievements => 'لا توجد إنجازات';
+
+  @override
+  String get learnDayStreak => 'أيام متتالية';
+
+  @override
+  String get learnDueForReview => 'حان وقت المراجعة';
+
+  @override
+  String learnNextReview(Object date) {
+    return 'التالي: $date';
+  }
 }

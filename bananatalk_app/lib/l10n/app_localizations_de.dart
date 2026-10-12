@@ -9985,4 +9985,89 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get learnUnsupportedExercise => 'Nicht unterstützte Übung';
+
+  @override
+  String get learnFailedLoadAchievements => 'Erfolge konnten nicht geladen werden';
+
+  @override
+  String learnUnlockedOn(Object date) {
+    return 'Freigeschaltet am $date';
+  }
+
+  @override
+  String get learnChallenges => 'Herausforderungen';
+
+  @override
+  String get learnFailedLoadChallenges => 'Herausforderungen konnten nicht geladen werden';
+
+  @override
+  String learnNoChallenges(Object type) {
+    return 'Keine $type-Herausforderungen';
+  }
+
+  @override
+  String get learnCheckBackLater => 'Schau später wieder vorbei!';
+
+  @override
+  String learnActiveCount(Object count) {
+    return 'Aktiv ($count)';
+  }
+
+  @override
+  String learnCompletedCount(Object count) {
+    return 'Abgeschlossen ($count)';
+  }
+
+  @override
+  String get learnProgress => 'Fortschritt';
+
+  @override
+  String get learnXpReward => 'XP-Belohnung';
+
+  @override
+  String get learnBonus => 'Bonus';
+
+  @override
+  String learnExpires(Object timeRemainingFormatted) {
+    return 'Läuft ab in $timeRemainingFormatted';
+  }
+
+  @override
+  String get learnAchievementUnlocked => 'Erfolg freigeschaltet!';
+
+  @override
+  String get learnTapContinue => 'Zum Fortfahren tippen';
+
+  @override
+  String get learnChallengeCompleted => 'Abgeschlossen';
+
+  @override
+  String get learnDailyGoals => 'Tagesziele';
+
+  @override
+  String learnLessons(Object completedCount, Object lessonsCount) {
+    return '$completedCount/$lessonsCount Lektionen';
+  }
+
+  @override
+  String learnLongestDays(Object longestStreak) {
+    return 'Längste: $longestStreak Tage';
+  }
+
+  @override
+  String get learnTapReveal => 'Zum Aufdecken tippen';
+
+  @override
+  String get learnNoAchievements => 'Keine Erfolge';
+
+  @override
+  String get learnDayStreak => 'Tage in Folge';
+
+  @override
+  String get learnDueForReview => 'Zur Wiederholung fällig';
+
+  @override
+  String learnNextReview(Object date) {
+    return 'Nächste: $date';
+  }
 }

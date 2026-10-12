@@ -9985,4 +9985,89 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get learnUnsupportedExercise => 'Hindi suportadong ehersisyo';
+
+  @override
+  String get learnFailedLoadAchievements => 'Hindi na-load ang mga achievement';
+
+  @override
+  String learnUnlockedOn(Object date) {
+    return 'Na-unlock noong $date';
+  }
+
+  @override
+  String get learnChallenges => 'Mga Hamon';
+
+  @override
+  String get learnFailedLoadChallenges => 'Hindi na-load ang mga hamon';
+
+  @override
+  String learnNoChallenges(Object type) {
+    return 'Walang $type na hamon';
+  }
+
+  @override
+  String get learnCheckBackLater => 'Bumalik ka mamaya!';
+
+  @override
+  String learnActiveCount(Object count) {
+    return 'Aktibo ($count)';
+  }
+
+  @override
+  String learnCompletedCount(Object count) {
+    return 'Tapos na ($count)';
+  }
+
+  @override
+  String get learnProgress => 'Pag-usad';
+
+  @override
+  String get learnXpReward => 'XP na Gantimpala';
+
+  @override
+  String get learnBonus => 'Bonus';
+
+  @override
+  String learnExpires(Object timeRemainingFormatted) {
+    return 'Mag-e-expire sa $timeRemainingFormatted';
+  }
+
+  @override
+  String get learnAchievementUnlocked => 'Na-unlock ang Achievement!';
+
+  @override
+  String get learnTapContinue => 'I-tap para magpatuloy';
+
+  @override
+  String get learnChallengeCompleted => 'Tapos na';
+
+  @override
+  String get learnDailyGoals => 'Mga Pang-araw-araw na Layunin';
+
+  @override
+  String learnLessons(Object completedCount, Object lessonsCount) {
+    return '$completedCount/$lessonsCount aralin';
+  }
+
+  @override
+  String learnLongestDays(Object longestStreak) {
+    return 'Pinakamahaba: $longestStreak araw';
+  }
+
+  @override
+  String get learnTapReveal => 'I-tap para ipakita';
+
+  @override
+  String get learnNoAchievements => 'Walang achievement';
+
+  @override
+  String get learnDayStreak => 'Sunod-sunod na Araw';
+
+  @override
+  String get learnDueForReview => 'Oras nang mag-review';
+
+  @override
+  String learnNextReview(Object date) {
+    return 'Susunod: $date';
+  }
 }

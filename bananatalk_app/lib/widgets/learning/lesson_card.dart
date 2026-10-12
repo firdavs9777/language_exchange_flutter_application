@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/models/learning/lesson_model.dart';
 
@@ -321,7 +322,7 @@ class LessonUnitHeader extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '${unit.completedCount}/${unit.lessonsCount} lessons',
+                  AppLocalizations.of(context)!.learnLessons(unit.completedCount, unit.lessonsCount),
                   style: TextStyle(
                     fontSize: 12,
                     color: Colors.grey[600],

@@ -9991,4 +9991,89 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get learnUnsupportedExercise => 'Unsupported exercise';
+
+  @override
+  String get learnFailedLoadAchievements => 'Failed to load achievements';
+
+  @override
+  String learnUnlockedOn(Object date) {
+    return 'Unlocked on $date';
+  }
+
+  @override
+  String get learnChallenges => 'Challenges';
+
+  @override
+  String get learnFailedLoadChallenges => 'Failed to load challenges';
+
+  @override
+  String learnNoChallenges(Object type) {
+    return 'No $type Challenges';
+  }
+
+  @override
+  String get learnCheckBackLater => 'Check back later!';
+
+  @override
+  String learnActiveCount(Object count) {
+    return 'Active ($count)';
+  }
+
+  @override
+  String learnCompletedCount(Object count) {
+    return 'Completed ($count)';
+  }
+
+  @override
+  String get learnProgress => 'Progress';
+
+  @override
+  String get learnXpReward => 'XP Reward';
+
+  @override
+  String get learnBonus => 'Bonus';
+
+  @override
+  String learnExpires(Object timeRemainingFormatted) {
+    return 'Expires in $timeRemainingFormatted';
+  }
+
+  @override
+  String get learnAchievementUnlocked => 'Achievement Unlocked!';
+
+  @override
+  String get learnTapContinue => 'Tap to continue';
+
+  @override
+  String get learnChallengeCompleted => 'Completed';
+
+  @override
+  String get learnDailyGoals => 'Daily Goals';
+
+  @override
+  String learnLessons(Object completedCount, Object lessonsCount) {
+    return '$completedCount/$lessonsCount lessons';
+  }
+
+  @override
+  String learnLongestDays(Object longestStreak) {
+    return 'Longest: $longestStreak days';
+  }
+
+  @override
+  String get learnTapReveal => 'Tap to reveal';
+
+  @override
+  String get learnNoAchievements => 'No achievements';
+
+  @override
+  String get learnDayStreak => 'Day Streak';
+
+  @override
+  String get learnDueForReview => 'Due for review';
+
+  @override
+  String learnNextReview(Object date) {
+    return 'Next: $date';
+  }
 }

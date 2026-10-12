@@ -9985,4 +9985,89 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get learnUnsupportedExercise => 'असमर्थित अभ्यास';
+
+  @override
+  String get learnFailedLoadAchievements => 'उपलब्धियाँ लोड नहीं हो सकीं';
+
+  @override
+  String learnUnlockedOn(Object date) {
+    return '$date को अनलॉक किया';
+  }
+
+  @override
+  String get learnChallenges => 'चैलेंज';
+
+  @override
+  String get learnFailedLoadChallenges => 'चैलेंज लोड नहीं हो सके';
+
+  @override
+  String learnNoChallenges(Object type) {
+    return 'कोई $type चैलेंज नहीं';
+  }
+
+  @override
+  String get learnCheckBackLater => 'बाद में फिर देखें!';
+
+  @override
+  String learnActiveCount(Object count) {
+    return 'सक्रिय ($count)';
+  }
+
+  @override
+  String learnCompletedCount(Object count) {
+    return 'पूर्ण ($count)';
+  }
+
+  @override
+  String get learnProgress => 'प्रगति';
+
+  @override
+  String get learnXpReward => 'XP इनाम';
+
+  @override
+  String get learnBonus => 'बोनस';
+
+  @override
+  String learnExpires(Object timeRemainingFormatted) {
+    return '$timeRemainingFormatted में समाप्त';
+  }
+
+  @override
+  String get learnAchievementUnlocked => 'उपलब्धि अनलॉक हुई!';
+
+  @override
+  String get learnTapContinue => 'जारी रखने के लिए टैप करें';
+
+  @override
+  String get learnChallengeCompleted => 'पूर्ण';
+
+  @override
+  String get learnDailyGoals => 'दैनिक लक्ष्य';
+
+  @override
+  String learnLessons(Object completedCount, Object lessonsCount) {
+    return '$completedCount/$lessonsCount पाठ';
+  }
+
+  @override
+  String learnLongestDays(Object longestStreak) {
+    return 'सबसे लंबी: $longestStreak दिन';
+  }
+
+  @override
+  String get learnTapReveal => 'देखने के लिए टैप करें';
+
+  @override
+  String get learnNoAchievements => 'कोई उपलब्धि नहीं';
+
+  @override
+  String get learnDayStreak => 'दिन की स्ट्रीक';
+
+  @override
+  String get learnDueForReview => 'रिव्यू बाकी है';
+
+  @override
+  String learnNextReview(Object date) {
+    return 'अगला: $date';
+  }
 }

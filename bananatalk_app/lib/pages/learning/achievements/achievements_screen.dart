@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/date_format_locale.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/providers/provider_root/learning_providers.dart';
 import 'package:bananatalk_app/widgets/learning/achievement_card.dart';
@@ -40,7 +41,7 @@ class _AchievementsScreenState extends ConsumerState<AchievementsScreen>
         elevation: 0,
         backgroundColor: context.surfaceColor,
         title: Text(
-          'Achievements',
+          AppLocalizations.of(context)!.achievements,
           style: context.titleLarge,
         ),
         leading: IconButton(
@@ -134,7 +135,7 @@ class _AchievementsScreenState extends ConsumerState<AchievementsScreen>
             children: [
               Icon(Icons.error_outline, size: 48, color: context.textMuted),
               Spacing.gapLG,
-              Text('Failed to load achievements',
+              Text(AppLocalizations.of(context)!.learnFailedLoadAchievements,
                   style: context.bodyMedium.copyWith(color: context.textSecondary)),
               Spacing.gapLG,
               ElevatedButton(
@@ -190,7 +191,7 @@ class _AchievementsScreenState extends ConsumerState<AchievementsScreen>
             ),
             Spacing.gapLG,
             Text(
-              emptyMessage ?? 'No achievements',
+              emptyMessage ?? AppLocalizations.of(context)!.learnNoAchievements,
               style: context.bodyMedium.copyWith(color: context.textSecondary),
             ),
           ],
@@ -357,7 +358,7 @@ class _AchievementsScreenState extends ConsumerState<AchievementsScreen>
                   ),
                   Spacing.hGapSM,
                   Text(
-                    '+${achievement.xpReward} XP',
+                    AppLocalizations.of(context)!.learningXpGained(achievement.xpReward),
                     style: ctx.labelLarge.copyWith(color: AppColors.primary),
                   ),
                 ],
@@ -366,7 +367,7 @@ class _AchievementsScreenState extends ConsumerState<AchievementsScreen>
             if (achievement.isUnlocked && achievement.unlockedAt != null) ...[
               Spacing.gapMD,
               Text(
-                'Unlocked on ${_formatDate(achievement.unlockedAt!)}',
+                AppLocalizations.of(ctx)!.learnUnlockedOn(formatDateForLocale(ctx, achievement.unlockedAt!)),
                 style: ctx.caption,
               ),
             ],
@@ -426,13 +427,5 @@ class _AchievementsScreenState extends ConsumerState<AchievementsScreen>
       default:
         return const Color(0xFF607D8B);
     }
-  }
-
-  String _formatDate(DateTime date) {
-    final months = [
-      'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
-    ];
-    return '${months[date.month - 1]} ${date.day}, ${date.year}';
   }
 }
