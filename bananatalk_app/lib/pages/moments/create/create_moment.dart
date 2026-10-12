@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/services/activation_store.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -1369,6 +1370,8 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
               promptId: _showPromptChip ? _promptId : null,
               isReel: widget.isReel,
             );
+        // The server created it: that is the milestone, uploads or not.
+        ref.read(activationStoreProvider).markDone(ActivationAction.moment).ignore();
 
         // Upload images if any
         if (_selectedImages.isNotEmpty) {

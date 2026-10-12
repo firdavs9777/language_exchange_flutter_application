@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/services/activation_store.dart';
 import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 import 'package:bananatalk_app/widgets/notifications/notification_bell.dart';
 import 'package:bananatalk_app/widgets/coins/coin_balance_pill.dart';
@@ -61,6 +62,13 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
     super.initState();
     Future.microtask(() => ref.invalidate(userProvider));
     _loadOwnStories();
+    // Profile complete is a milestone. TabsScreen builds this page eagerly
+    // and every edit screen invalidates userProvider on save, so one
+    // listener covers the first load and each save.
+    ref.listenManual<AsyncValue<Community>>(userProvider, (_, next) {
+      final u = next.valueOrNull;
+      if (u != null) checkProfileComplete(u).ignore();
+    }, fireImmediately: true);
   }
 
   Future<void> _loadOwnStories() async {

@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/services/activation_store.dart';
 import 'package:flutter/foundation.dart';
 
 import 'package:bananatalk_app/pages/community/first_session/first_session_store.dart';
@@ -25,6 +26,10 @@ Future<void> reportFirstMessageIfFirst() async {
       if (kDebugMode) debugPrint('[FirstSession] send: not the first, no event');
       return;
     }
+    // BEFORE markMessaged: the store's one-time back-fill reads
+    // first_conversation_done, so writing that first would swallow this very
+    // first message as legacy.
+    await ActivationStore().markDone(ActivationAction.message);
     await FirstSessionStore.markMessaged();
     if (kDebugMode) {
       debugPrint('[FirstSession] FIRST MESSAGE SENT — panel retires');

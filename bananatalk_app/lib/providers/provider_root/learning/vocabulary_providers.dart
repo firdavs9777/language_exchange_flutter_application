@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/services/activation_store.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/services/learning_service.dart';
 import 'package:bananatalk_app/models/learning/vocabulary_model.dart';
@@ -203,6 +204,9 @@ class VocabularyReviewNotifier extends StateNotifier<VocabularyReviewState> {
       isComplete: isComplete,
       xpEarned: (state.xpEarned ?? 0) + xpEarned,
     );
+    if (isComplete && result['success'] == true) {
+      ActivationStore().markDone(ActivationAction.lesson).ignore();
+    }
   }
 
   void reset() {
