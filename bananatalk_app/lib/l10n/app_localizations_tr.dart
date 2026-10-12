@@ -11199,4 +11199,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get callTurnOnCamera => 'Kamera';
+
+  @override
+  String get callCameraFailed => 'Kamera açılamadı';
 }

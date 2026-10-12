@@ -99,7 +99,8 @@ Baseline: 1/30 calls answered in 30 days, 168 stuck ringing, 0 call messages eve
       - [ ] Device QA CALL2-3..CALL2-6: Call back + Message from killed / background / foreground on iOS and Android; Android Doze + an aggressive OEM (Xiaomi/Samsung) killed-app draw; one action fires once (no second chat or call); signed out → app just opens; 409 callee-unavailable snack after Call back
       - [ ] Device QA (iOS, AppDelegate is now the notification-center delegate): foreground pushes still badge-only (no banner/sound) for every type except the missed-call copy, which shows a banner with Call back / Message; tapping a local notification now routes (it did nothing before); no "completion handler called twice" warning in the console
     - [x] Calls on/off + quiet-hours settings UI (C8: "Allow calls" switch + quiet-hours note; reads `notificationSettings.allowCalls`, default true)
-    - [ ] Camera button mid voice call + peer-upgrade UI
+    - [x] Camera button mid voice call + peer-upgrade UI (C9: connected voice calls only; peer upgrade switches layout but the local camera stays off until tapped; refused upgrade shows `callCameraFailed` (new, 19 locales, machine drafts in QA CSV); turning the camera on from the video toggle also runs the permission check)
+    - [ ] Device QA of camera upgrade: both directions, permission denied, rollback on server refusal, upgrade racing call end
     - [ ] Draggable self-view
     - [ ] Device QA of the Phase 2 flows
     - [ ] Native review of the 13 Phase 2 call strings

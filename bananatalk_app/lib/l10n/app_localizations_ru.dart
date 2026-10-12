@@ -11244,4 +11244,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get callTurnOnCamera => 'Камера';
+
+  @override
+  String get callCameraFailed => 'Не удалось включить камеру';
 }

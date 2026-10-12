@@ -4585,5 +4585,6 @@
   "callsAllowTitle": "Consenti chiamate",
   "callsAllowSubtitle": "Se disattivato, le chiamate non squillano. Chi chiama vedrà che non accetti chiamate.",
   "callsQuietHoursNote": "Le chiamate vengono trattenute anche durante le ore di silenzio.",
-  "callTurnOnCamera": "Fotocamera"
+  "callTurnOnCamera": "Fotocamera",
+  "callCameraFailed": "Impossibile attivare la fotocamera"
 }

@@ -26,6 +26,10 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
   bool _isMuted = false;
   bool _isVideoEnabled = true;
   late bool _isSpeakerOn;
+  // The call type follows CallManager.onCallTypeChanged: a voice call becomes
+  // video when either side turns the camera on.
+  late CallType _callType;
+  void Function(CallType)? _typeListener;
   DateTime? _connectedTime;
   bool _isPeerMuted = false;
   bool _isPeerVideoEnabled = true;
@@ -55,8 +59,12 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
     super.initState();
     _cachedCallManager = ref.read(callProvider.notifier).callManager;
     // Default: speaker ON for video calls, OFF for audio calls
-    _isSpeakerOn = widget.call.callType == CallType.video;
-    _isVideoEnabled = widget.call.callType == CallType.video;
+    final live = _cachedCallManager!.currentCall;
+    _callType = live != null && live.callId == widget.call.callId
+        ? live.callType
+        : widget.call.callType;
+    _isSpeakerOn = _callType == CallType.video;
+    _isVideoEnabled = _callType == CallType.video;
 
     _reconnectAnimController = AnimationController(
       vsync: this,
@@ -193,6 +201,22 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
         }
       };
 
+      // Voice <-> video. A peer upgrade changes the layout only: the local
+      // camera stays off until the user taps (_isVideoEnabled is untouched);
+      // a rolled-back upgrade turns it off again.
+      final listener = _typeListener = (type) {
+        if (!mounted) return;
+        setState(() {
+          _callType = type;
+          if (type == CallType.video) {
+            _isSpeakerOn = true;
+          } else {
+            _isVideoEnabled = false;
+          }
+        });
+      };
+      if (mounted) callManager.onCallTypeChanged = listener;
+
       // Watch for status changes (fallback)
       ref.listenManual(callProvider, (previous, next) {
         if (next.currentCall?.status == CallStatus.connected &&
@@ -216,6 +240,10 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
       callManager.onPeerReconnected = null;
       callManager.onPeerMuteChanged = null;
       callManager.onPeerVideoChanged = null;
+      // A rebuilt screen may already own the callback; only clear our own.
+      if (identical(callManager.onCallTypeChanged, _typeListener)) {
+        callManager.onCallTypeChanged = null;
+      }
       callManager.onRawQualityChanged = null;
     }
     _reconnectAnimController.dispose();
@@ -228,6 +256,13 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
 
   void _hideReconnectBanner() => _reconnectAnimController.reverse();
 
+  void _showCameraFailed(AppLocalizations l10n) {
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(l10n.callCameraFailed)),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
@@ -235,7 +270,7 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
     final callManager = callNotifier.callManager;
     final localTrack = callManager.liveKit.localVideoTrack;
     final remoteTrack = callManager.liveKit.remoteVideoTrack;
-    final isVideoCall = widget.call.callType == CallType.video;
+    final isVideoCall = _callType == CallType.video;
 
     return PopScope(
       canPop: false,
@@ -379,7 +414,7 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
                             _buildQualityIndicator(),
                           const SizedBox(width: 8),
                           Icon(
-                            widget.call.callType == CallType.video
+                            isVideoCall
                                 ? Icons.videocam
                                 : Icons.phone,
                             color: Colors.white,
@@ -458,10 +493,19 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
                               : Icons.videocam_off,
                           label:
                               _isVideoEnabled ? l10n.videoOff : l10n.videoOn,
-                          onPressed: () {
+                          onPressed: () async {
                             final next = !_isVideoEnabled;
-                            callManager.setVideoEnabled(next);
-                            setState(() => _isVideoEnabled = next);
+                            if (next) {
+                              // Turning the camera on runs the permission
+                              // check (an upgraded call's peer never had one).
+                              if (!await callManager.upgradeToVideo()) {
+                                _showCameraFailed(l10n);
+                                return;
+                              }
+                            } else {
+                              callManager.setVideoEnabled(false);
+                            }
+                            if (mounted) setState(() => _isVideoEnabled = next);
                           },
                           backgroundColor:
                               _isVideoEnabled ? Colors.white24 : Colors.white,
@@ -488,6 +532,27 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
                               _isSpeakerOn ? Colors.white : Colors.white24,
                           iconColor:
                               _isSpeakerOn ? Colors.black : Colors.white,
+                        ),
+
+                      // Camera on during a voice call (connected calls only).
+                      if (!isVideoCall && _connectedTime != null && !_isEnding)
+                        _ControlButton(
+                          icon: Icons.videocam_rounded,
+                          label: l10n.callTurnOnCamera,
+                          onPressed: () async {
+                            final ok = await callManager.upgradeToVideo();
+                            if (!mounted) return;
+                            if (ok) {
+                              setState(() {
+                                _callType = CallType.video;
+                                _isVideoEnabled = true;
+                              });
+                            } else {
+                              _showCameraFailed(l10n);
+                            }
+                          },
+                          backgroundColor: Colors.white24,
+                          iconColor: Colors.white,
                         ),
                     ],
                   ),

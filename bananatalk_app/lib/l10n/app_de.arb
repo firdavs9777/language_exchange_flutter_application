@@ -4585,5 +4585,6 @@
   "callsAllowTitle": "Anrufe erlauben",
   "callsAllowSubtitle": "Wenn aus, klingeln Anrufe bei dir nicht. Anrufer sehen, dass du keine Anrufe annimmst.",
   "callsQuietHoursNote": "Anrufe werden auch in den Ruhezeiten zurückgehalten.",
-  "callTurnOnCamera": "Kamera"
+  "callTurnOnCamera": "Kamera",
+  "callCameraFailed": "Kamera konnte nicht eingeschaltet werden"
 }

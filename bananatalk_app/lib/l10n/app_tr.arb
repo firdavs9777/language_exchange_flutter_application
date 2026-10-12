@@ -4557,5 +4557,6 @@
   "callsAllowTitle": "Aramalara izin ver",
   "callsAllowSubtitle": "Kapalıyken sana yapılan aramalar çalmaz. Arayanlar arama kabul etmediğini görür.",
   "callsQuietHoursNote": "Aramalar sessiz saatlerde de tutulur.",
-  "callTurnOnCamera": "Kamera"
+  "callTurnOnCamera": "Kamera",
+  "callCameraFailed": "Kamera açılamadı"
 }

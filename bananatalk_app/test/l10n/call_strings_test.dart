@@ -35,6 +35,7 @@ const _callKeys = [
   'callsAllowSubtitle',
   'callsQuietHoursNote',
   'callTurnOnCamera',
+  'callCameraFailed',
 ];
 
 void main() {

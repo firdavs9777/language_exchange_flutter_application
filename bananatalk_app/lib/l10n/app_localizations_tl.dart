@@ -11201,4 +11201,7 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get callTurnOnCamera => 'Camera';
+
+  @override
+  String get callCameraFailed => 'Hindi nabuksan ang camera';
 }

@@ -4375,5 +4375,6 @@
   "callsAllowTitle": "السماح بالمكالمات",
   "callsAllowSubtitle": "عند الإيقاف، لن ترن المكالمات الموجهة إليك. سيرى المتصلون أنك لا تستقبل المكالمات.",
   "callsQuietHoursNote": "يتم أيضًا حجب المكالمات خلال ساعات الهدوء.",
-  "callTurnOnCamera": "الكاميرا"
+  "callTurnOnCamera": "الكاميرا",
+  "callCameraFailed": "تعذّر تشغيل الكاميرا"
 }

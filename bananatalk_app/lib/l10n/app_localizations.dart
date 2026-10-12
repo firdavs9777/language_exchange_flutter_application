@@ -20359,6 +20359,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Camera'**
   String get callTurnOnCamera;
+
+  /// No description provided for @callCameraFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t turn the camera on'**
+  String get callCameraFailed;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

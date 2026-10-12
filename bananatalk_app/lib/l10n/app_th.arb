@@ -4345,5 +4345,6 @@
   "callsAllowTitle": "อนุญาตการโทร",
   "callsAllowSubtitle": "เมื่อปิด สายที่โทรหาคุณจะไม่ดัง ผู้โทรจะเห็นว่าคุณไม่รับสาย",
   "callsQuietHoursNote": "สายจะถูกพักไว้ในช่วงเวลาปิดเสียงด้วย",
-  "callTurnOnCamera": "กล้อง"
+  "callTurnOnCamera": "กล้อง",
+  "callCameraFailed": "เปิดกล้องไม่ได้"
 }

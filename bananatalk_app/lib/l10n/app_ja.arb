@@ -4345,5 +4345,6 @@
   "callsAllowTitle": "通話を許可",
   "callsAllowSubtitle": "オフにすると、あなたへの着信は鳴りません。発信者にはあなたが通話を受け付けていないことが表示されます。",
   "callsQuietHoursNote": "通知オフ時間中も着信は保留されます。",
-  "callTurnOnCamera": "カメラ"
+  "callTurnOnCamera": "カメラ",
+  "callCameraFailed": "カメラをオンにできませんでした"
 }

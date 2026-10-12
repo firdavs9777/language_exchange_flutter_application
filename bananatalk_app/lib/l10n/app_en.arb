@@ -7235,5 +7235,6 @@
   "callsAllowTitle": "Allow calls",
   "callsAllowSubtitle": "When off, calls to you don't ring. Callers see that you're not taking calls.",
   "callsQuietHoursNote": "Calls are held during quiet hours too.",
-  "callTurnOnCamera": "Camera"
+  "callTurnOnCamera": "Camera",
+  "callCameraFailed": "Couldn't turn the camera on"
 }

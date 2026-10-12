@@ -11182,4 +11182,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get callTurnOnCamera => 'Camera';
+
+  @override
+  String get callCameraFailed => 'Không thể bật camera';
 }

@@ -4361,5 +4361,6 @@
   "callsAllowTitle": "Permitir chamadas",
   "callsAllowSubtitle": "Quando desativado, as chamadas para você não tocam. Quem ligar verá que você não está aceitando chamadas.",
   "callsQuietHoursNote": "As chamadas também ficam retidas durante o horário silencioso.",
-  "callTurnOnCamera": "Câmera"
+  "callTurnOnCamera": "Câmera",
+  "callCameraFailed": "Não foi possível ligar a câmera"
 }

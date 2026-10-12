@@ -11201,4 +11201,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get callTurnOnCamera => 'कैमरा';
+
+  @override
+  String get callCameraFailed => 'कैमरा चालू नहीं हो सका';
 }

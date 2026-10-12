@@ -4318,5 +4318,6 @@
   "callsAllowTitle": "Payagan ang mga tawag",
   "callsAllowSubtitle": "Kapag naka-off, hindi magri-ring ang mga tawag sa iyo. Makikita ng mga tumatawag na hindi ka tumatanggap ng tawag.",
   "callsQuietHoursNote": "Pinipigil din ang mga tawag sa tahimik na oras.",
-  "callTurnOnCamera": "Camera"
+  "callTurnOnCamera": "Camera",
+  "callCameraFailed": "Hindi nabuksan ang camera"
 }

@@ -11201,4 +11201,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get callTurnOnCamera => 'Cámara';
+
+  @override
+  String get callCameraFailed => 'No se pudo encender la cámara';
 }

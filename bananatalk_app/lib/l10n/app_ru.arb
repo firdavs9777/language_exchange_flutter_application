@@ -4375,5 +4375,6 @@
   "callsAllowTitle": "Разрешить звонки",
   "callsAllowSubtitle": "Если выключено, звонки вам не звонят. Звонящие видят, что вы не принимаете звонки.",
   "callsQuietHoursNote": "Звонки также откладываются в тихие часы.",
-  "callTurnOnCamera": "Камера"
+  "callTurnOnCamera": "Камера",
+  "callCameraFailed": "Не удалось включить камеру"
 }

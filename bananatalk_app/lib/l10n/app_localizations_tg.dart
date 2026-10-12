@@ -11202,4 +11202,7 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get callTurnOnCamera => 'Камера';
+
+  @override
+  String get callCameraFailed => 'Камераро фурӯзон кардан имконнопазир шуд';
 }

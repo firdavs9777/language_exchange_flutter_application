@@ -4345,5 +4345,6 @@
   "callsAllowTitle": "Cho phép cuộc gọi",
   "callsAllowSubtitle": "Khi tắt, cuộc gọi đến bạn sẽ không đổ chuông. Người gọi sẽ thấy bạn không nhận cuộc gọi.",
   "callsQuietHoursNote": "Cuộc gọi cũng bị giữ lại trong giờ yên tĩnh.",
-  "callTurnOnCamera": "Camera"
+  "callTurnOnCamera": "Camera",
+  "callCameraFailed": "Không thể bật camera"
 }

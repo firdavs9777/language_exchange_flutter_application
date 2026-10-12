@@ -11193,4 +11193,7 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get callTurnOnCamera => 'Kamera';
+
+  @override
+  String get callCameraFailed => 'Tidak dapat menyalakan kamera';
 }

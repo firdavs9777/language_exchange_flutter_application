@@ -11182,4 +11182,7 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get callTurnOnCamera => 'กล้อง';
+
+  @override
+  String get callCameraFailed => 'เปิดกล้องไม่ได้';
 }

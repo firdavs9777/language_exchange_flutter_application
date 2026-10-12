@@ -11256,4 +11256,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get callTurnOnCamera => 'الكاميرا';
+
+  @override
+  String get callCameraFailed => 'تعذّر تشغيل الكاميرا';
 }

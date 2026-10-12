@@ -11182,4 +11182,7 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get callTurnOnCamera => '카메라';
+
+  @override
+  String get callCameraFailed => '카메라를 켤 수 없습니다';
 }

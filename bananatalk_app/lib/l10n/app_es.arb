@@ -4375,5 +4375,6 @@
   "callsAllowTitle": "Permitir llamadas",
   "callsAllowSubtitle": "Si está desactivado, las llamadas no te sonarán. Quien llame verá que no aceptas llamadas.",
   "callsQuietHoursNote": "Las llamadas también se retienen durante las horas de silencio.",
-  "callTurnOnCamera": "Cámara"
+  "callTurnOnCamera": "Cámara",
+  "callCameraFailed": "No se pudo encender la cámara"
 }
