@@ -47,8 +47,19 @@ void main() {
         ('ActivationAction.lesson', 1),
     'lib/providers/provider_root/learning/vocabulary_providers.dart':
         ('ActivationAction.lesson', 1),
+    'lib/pages/learning/daily/daily_pack_flow.dart':
+        ('ActivationAction.lesson', 1),
     'lib/pages/profile/profile_main.dart': ('checkProfileComplete(', 1),
   };
+  test('vocab review records the lesson on any successful card, not only the last',
+      () {
+    final src = File('lib/providers/provider_root/learning/vocabulary_providers.dart')
+        .readAsStringSync();
+    expect(src.contains("if (result['success'] == true) {\n      ActivationStore()"),
+        isTrue);
+    expect(src.contains('isComplete && result'), isFalse);
+  });
+
   for (final e in hooks.entries) {
     test('${e.key} records ${e.value.$1} on success (${e.value.$2}x)', () {
       final src = File(e.key).readAsStringSync();

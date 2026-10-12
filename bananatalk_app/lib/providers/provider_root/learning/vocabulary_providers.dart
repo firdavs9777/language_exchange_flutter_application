@@ -204,7 +204,9 @@ class VocabularyReviewNotifier extends StateNotifier<VocabularyReviewState> {
       isComplete: isComplete,
       xpEarned: (state.xpEarned ?? 0) + xpEarned,
     );
-    if (isComplete && result['success'] == true) {
+    // First successful card of the session is enough (markDone is idempotent);
+    // gating on the last card lost the milestone to one network blip.
+    if (result['success'] == true) {
       ActivationStore().markDone(ActivationAction.lesson).ignore();
     }
   }
