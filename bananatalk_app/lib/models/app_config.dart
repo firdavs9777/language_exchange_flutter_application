@@ -1,3 +1,5 @@
+import 'package:bananatalk_app/models/announcement.dart';
+
 class AppAnnouncement {
   final bool active;
   final String id;
@@ -38,6 +40,10 @@ class AppConfig {
   final String androidUrl;
   final String releaseNotes;
   final AppAnnouncement? announcement;
+
+  /// Every live in-app announcement for this platform + language, sorted by
+  /// the server (spec §5.2). Empty on an older server.
+  final List<Announcement> announcements;
 
   /// Workstream D: server-side kill switch for the public Language Rooms
   /// feature. Defaults to `true` so older/dev config payloads that predate
@@ -109,6 +115,7 @@ class AppConfig {
     required this.androidUrl,
     required this.releaseNotes,
     this.announcement,
+    this.announcements = const [],
     this.roomsEnabled = true,
     this.reelsEnabled = false,
     this.coinsEnabled = false,
@@ -135,6 +142,13 @@ class AppConfig {
           announcementJson != null
               ? AppAnnouncement.fromJson(announcementJson)
               : null,
+      announcements: json['announcements'] is List
+          ? (json['announcements'] as List)
+              .whereType<Map>()
+              .map((m) => Announcement.fromJson(Map<String, dynamic>.from(m)))
+              .where((a) => a.id.isNotEmpty)
+              .toList()
+          : const <Announcement>[],
       roomsEnabled: (json['roomsEnabled'] as bool?) ?? true,
       reelsEnabled: (json['reelsEnabled'] as bool?) ?? false,
       coinsEnabled: (json['coinsEnabled'] as bool?) ?? false,

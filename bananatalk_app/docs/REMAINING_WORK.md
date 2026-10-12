@@ -138,7 +138,7 @@ call or rejoin", and the caller already has the call on screen.
 - [x] A8 `PopupBudget` + `LaunchModalCoordinator`
 - [x] A9 priming: budget, triggers (first matches / first wave / first message sent / received), events; chat-open trigger removed
 - [x] A10 AI Study promo folded into the spotlight rotation; `AiStudyPromoModal` deleted
-- [ ] A11 `Announcement` model, `appConfig.announcements`, `lang` on app-config, seen set
+- [x] A11 `Announcement` model, `appConfig.announcements`, `lang` on app-config, seen set
 - [ ] A12 launch wiring: announcement / ads notice / spotlight candidates; version check reports the update dialog
 - [ ] A13 `AnnouncementScreen` at `/announcement/:id`
 - [ ] A14 notifications list `announcement` type + push routing

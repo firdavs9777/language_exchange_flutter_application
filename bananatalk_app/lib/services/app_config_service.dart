@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:bananatalk_app/models/app_config.dart';
 import 'package:bananatalk_app/service/endpoints.dart';
+import 'package:bananatalk_app/services/language_service.dart';
 
 class AppConfigService {
   static const Duration _timeout = Duration(seconds: 5);
@@ -26,8 +27,15 @@ class AppConfigService {
     try {
       final base = '${Endpoints.baseURL}${Endpoints.appConfigURL}';
       final tag = _platformTag;
-      final url = tag.isEmpty ? base : '$base?platform=$tag';
-      final res = await http.get(Uri.parse(url)).timeout(_timeout);
+      // `lang` picks the announcement translations (spec §5.1). The app's
+      // codes (en, zh, zh_TW, ...) are all accepted by the backend's
+      // normalizeLocale.
+      final lang = await LanguageService.getAppLanguage();
+      final url = Uri.parse(base).replace(queryParameters: {
+        if (tag.isNotEmpty) 'platform': tag,
+        'lang': lang,
+      });
+      final res = await http.get(url).timeout(_timeout);
       if (res.statusCode != 200) return null;
 
       final body = json.decode(res.body) as Map<String, dynamic>;
