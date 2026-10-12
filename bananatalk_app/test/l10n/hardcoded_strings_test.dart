@@ -56,6 +56,11 @@ const Map<String, List<String>> _keysByTask = {
     'chatAlternatives',
     'chatTranslationAlso',
     'chatAudioUnavailable',
+    'chatAcceptCorrection',
+    'chatAccepting',
+    'chatHideTranslation',
+    'chatSaveToVocabularyAction',
+    'chatStoryExpired',
   ],
   'L3': [
     'momentsMore',
@@ -557,49 +562,50 @@ const Map<String, List<String>> _filesByTask = {
   ],
 };
 
-/// Keys whose draft may legitimately equal the English in some locale
-/// (loanwords). Add with a one-line reason; empty by default.
-const Set<String> _mayMatchEnglish = {
-  'commonReportTotalSize', // es/pt/id: "Total" is the same word
-  'commonReportTypeUser', // tl keeps the loanword "user"
-  'commonReportTypeStory', // fr/pt/tl/vi keep the loanword "story"
-  'commonReportTypeMessage', // fr "message" is the same word
-  'commonReportTypeMoment', // fr "moment" is the same word
-  'vipUpPillUp', // fr keeps the English "Up" badge word
-  'profileReportTypeMoment', // de/fr/tl use the English loanword "Moment"
-  'profileReportTypeMessage', // fr "Message" is the same word
-  'profileReportTypeStory', // de/fr/pt/tl/vi use the English loanword "Story"
-  'profileReportReasonCopyright', // it uses the English loanword "Copyright"
-  'profileAdmin', // de/es/fr/id/it/pt/tl use the same "ADMIN" badge abbreviation
-  'aiLiteral', // es/pt/tl "Literal: {…}" is the same word
-  'aiConversationMessageCount', // fr "{count} messages" is the same word
-  'aiLessonBuilder', // tl keeps the English product name "AI Lesson Builder"
-  'learnBonus', // de/fr/it/id/tl/tr use the English loanword "Bonus"
-  'communityLv', // ja/ko/de/id/tl/zh/zh_TW keep the "Lv.{level}" abbreviation
-  'momentsFileSizeMb', // ja/ko/tl/zh/zh_TW keep the "{size}MB" unit as written
-  'chatStory', // de/fr/pt use the English loanword "Story"
-  'chatPremium', // "Premium ✨" is the same word in de/es/fr/id/it/pt/tl/tr
-  'chatAlternatives', // fr "Alternatives" is the same word
-  'chatQrCode', // tl uses the English term
-  'chatDraft', // tl uses the English loanword
-  'learnWordBank', // tl keeps the English term "Word Bank"
-  'learnAiAutoFill', // tl keeps "AI Auto-fill" as is
-  'chatMediaPhoto', // fr "photo" is the same word
-  'chatMediaVideo', // tl/id/de/it/pt/vi use the loanword "video"
-  'chatMediaAudio', // many locales use the loanword "audio"
-  'chatMediaFile', // id/tl use the loanword "file"
-  'chatMediaGeneric', // id/tl use the loanword "media"
-  'chatReplyingToFallback', // tl uses the English loanword "user"
-  'aiQuizQuestionCount', // fr "1 question" / "{n} questions" is spelled exactly like English
-  'storyHd', // "HD" is the international quality badge in every locale
-  'storyVideoMeta', // ja/ko/zh/zh_TW/tl keep the "MB" unit: "{duration} | {size}MB"
-  'storyUserFallback', // tl uses the loanword "User"
-  'storyAnonymous', // tl uses the loanword "Anonymous"
-  'storyOptions', // fr "Options" is the same word
-  'storyPrompt', // tl uses the loanword "Prompt"
-  'storyHighlightStoryCount', // fr/pt use the loanword "stories" (same plural form)
-  'storyEditVideo', // id "Edit Video" is the same phrase
-  'storyVotes', // fr "{totalVotes} votes" is the same word
+/// Keys whose draft may legitimately equal the English, per locale (loanwords,
+/// units, badges). Add `key: {locales}` with a one-line reason. Per-locale so a
+/// translation skipped in some other locale is still caught.
+const Map<String, Set<String>> _mayMatchEnglish = {
+  'commonReportTotalSize': {'es', 'id', 'pt'}, // es/pt/id: "Total" is the same word
+  'commonReportTypeUser': {'tl'}, // tl keeps the loanword "user"
+  'commonReportTypeStory': {'fr', 'pt', 'tl', 'vi'}, // fr/pt/tl/vi keep the loanword "story"
+  'commonReportTypeMessage': {'fr'}, // fr "message" is the same word
+  'commonReportTypeMoment': {'fr', 'tl'}, // fr "moment" is the same word
+  'vipUpPillUp': {'fr'}, // fr keeps the English "Up" badge word
+  'profileReportTypeMoment': {'de', 'fr', 'tl'}, // de/fr/tl use the English loanword "Moment"
+  'profileReportTypeMessage': {'fr'}, // fr "Message" is the same word
+  'profileReportTypeStory': {'de', 'fr', 'pt', 'tl', 'vi'}, // de/fr/pt/tl/vi use the English loanword "Story"
+  'profileReportReasonCopyright': {'it'}, // it uses the English loanword "Copyright"
+  'profileAdmin': {'de', 'es', 'fr', 'id', 'it', 'pt', 'tl'}, // de/es/fr/id/it/pt/tl use the same "ADMIN" badge abbreviation
+  'aiLiteral': {'es', 'pt', 'tl'}, // es/pt/tl "Literal: {…}" is the same word
+  'aiConversationMessageCount': {'fr'}, // fr "{count} messages" is the same word
+  'aiLessonBuilder': {'tl'}, // tl keeps the English product name "AI Lesson Builder"
+  'learnBonus': {'de', 'fr', 'id', 'it', 'tl', 'tr'}, // de/fr/it/id/tl/tr use the English loanword "Bonus"
+  'communityLv': {'de', 'id', 'ja', 'ko', 'tl', 'zh', 'zh_TW'}, // ja/ko/de/id/tl/zh/zh_TW keep the "Lv.{level}" abbreviation
+  'momentsFileSizeMb': {'ja', 'ko', 'tl', 'zh', 'zh_TW'}, // ja/ko/tl/zh/zh_TW keep the "{size}MB" unit as written
+  'chatStory': {'de', 'fr', 'pt', 'tl'}, // de/fr/pt use the English loanword "Story"
+  'chatPremium': {'de', 'es', 'fr', 'id', 'it', 'pt', 'tl', 'tr'}, // "Premium ✨" is the same word in de/es/fr/id/it/pt/tl/tr
+  'chatAlternatives': {'fr'}, // fr "Alternatives" is the same word
+  'chatQrCode': {'tl'}, // tl uses the English term
+  'chatDraft': {'tl'}, // tl uses the English loanword
+  'learnWordBank': {'tl'}, // tl keeps the English term "Word Bank"
+  'learnAiAutoFill': {'tl'}, // tl keeps "AI Auto-fill" as is
+  'chatMediaPhoto': {'fr'}, // fr "photo" is the same word
+  'chatMediaVideo': {'es', 'id', 'it', 'tl', 'tr', 'vi'}, // tl/id/de/it/pt/vi use the loanword "video"
+  'chatMediaAudio': {'es', 'fr', 'id', 'it', 'tl'}, // many locales use the loanword "audio"
+  'chatMediaFile': {'id', 'it', 'tl'}, // id/tl use the loanword "file"
+  'chatMediaGeneric': {'id', 'tl'}, // id/tl use the loanword "media"
+  'chatReplyingToFallback': {'tl'}, // tl uses the English loanword "user"
+  'aiQuizQuestionCount': {'fr'}, // fr "1 question" / "{n} questions" is spelled exactly like English
+  'storyHd': {'ar', 'de', 'es', 'fr', 'hi', 'id', 'it', 'ja', 'ko', 'pt', 'ru', 'tg', 'th', 'tl', 'tr', 'vi', 'zh', 'zh_TW'}, // "HD" is the international quality badge in every locale
+  'storyVideoMeta': {'ja', 'ko', 'tl', 'zh', 'zh_TW'}, // ja/ko/zh/zh_TW/tl keep the "MB" unit: "{duration} | {size}MB"
+  'storyUserFallback': {'tl'}, // tl uses the loanword "User"
+  'storyAnonymous': {'tl'}, // tl uses the loanword "Anonymous"
+  'storyOptions': {'fr'}, // fr "Options" is the same word
+  'storyPrompt': {'tl'}, // tl uses the loanword "Prompt"
+  'storyHighlightStoryCount': {'fr', 'pt'}, // fr/pt use the loanword "stories" (same plural form)
+  'storyEditVideo': {'id'}, // id "Edit Video" is the same phrase
+  'storyVotes': {'fr'}, // fr "{totalVotes} votes" is the same word
 };
 
 final _placeholder = RegExp(r'\{(\w+)[,}]');
@@ -614,6 +620,47 @@ void main() {
   };
   final en = arbs['app_en.arb']!;
 
+  test('every _mayMatchEnglish entry names real locales and still matches English', () {
+    final problems = <String>[];
+    _mayMatchEnglish.forEach((key, locales) {
+      for (final l in locales) {
+        final value = arbs['app_$l.arb']?[key];
+        if (value == null) {
+          problems.add('$key: unknown locale or missing key "$l"');
+        } else if (value != en[key]) {
+          problems.add('$key/$l: no longer equals English, drop it from _mayMatchEnglish');
+        }
+      }
+    });
+    expect(problems, isEmpty, reason: problems.join('\n'));
+  });
+
+  test('every key added to app_en.arb since f3742650 is in a _keysByTask list', () {
+    // Baseline: the en keys at f3742650 (git show f3742650:bananatalk_app/lib/l10n/app_en.arb).
+    // Keys from tasks outside L1-L12 (A5 onboarding, guides, announcements, calls)
+    // are checked by their own test files instead: a key counts as covered if its
+    // quoted name appears in any other test/l10n/*_test.dart.
+    final baseline = File('test/l10n/baseline_en_keys_f3742650.txt')
+        .readAsLinesSync()
+        .where((l) => l.isNotEmpty)
+        .toSet();
+    final listed = {for (final keys in _keysByTask.values) ...keys};
+    final otherTests = Directory('test/l10n')
+        .listSync()
+        .whereType<File>()
+        .where((f) => f.path.endsWith('_test.dart') && !f.path.endsWith('hardcoded_strings_test.dart'))
+        .map((f) => f.readAsStringSync())
+        .join('\n');
+    final uncovered = en.keys
+        .where((k) => !k.startsWith('@') && !baseline.contains(k))
+        .where((k) => !listed.contains(k) && !otherTests.contains("'$k'"))
+        .toList()
+      ..sort();
+    expect(uncovered, isEmpty,
+        reason: 'New en keys no test covers. Add them to the right _keysByTask list '
+            '(or to the test file of the feature that owns them):\n${uncovered.join('\n')}');
+  });
+
   for (final task in _keysByTask.keys) {
     group(task, () {
       test('every key is in all 19 locales, translated, placeholders kept', () {
@@ -627,12 +674,13 @@ void main() {
           }
           final names = _placeholder.allMatches(source).map((m) => m.group(1)!).toSet();
           arbs.forEach((file, map) {
+            final locale = file.substring('app_'.length, file.length - '.arb'.length);
             final value = map[key];
             if (value is! String || value.trim().isEmpty) {
               problems.add('$file: $key missing');
               return;
             }
-            if (file != 'app_en.arb' && value == source && !_mayMatchEnglish.contains(key)) {
+            if (file != 'app_en.arb' && value == source && !(_mayMatchEnglish[key]?.contains(locale) ?? false)) {
               problems.add('$file: $key left in English');
             }
             for (final n in names) {
