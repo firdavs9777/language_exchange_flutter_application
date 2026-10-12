@@ -161,6 +161,12 @@ const Map<String, List<String>> _keysByTask = {
     'learnInMonths',
   ],
   'L7': [
+    'aiGreatJob',
+    'aiGoodEffort',
+    'aiKeepPracticing',
+    'aiFailedToGetHint',
+    'aiFailedToGetAnswer',
+    'aiFailedToExplain',
     'aiGenerateNewQuiz',
     'aiPreviousQuizzes',
     'aiGeneratingQuiz',
