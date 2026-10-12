@@ -9,7 +9,8 @@ import 'package:bananatalk_app/pages/learning/main/learning_main_screen.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/providers/badge_count_provider.dart';
-import 'package:bananatalk_app/widgets/promo/ai_study_promo_modal.dart';
+import 'package:bananatalk_app/pages/ai/tutor/scenario_picker_screen.dart';
+import 'package:bananatalk_app/services/activation_store.dart';
 import 'package:bananatalk_app/widgets/promo/ads_notice_modal.dart';
 import 'package:bananatalk_app/widgets/promos/feature_spotlight_sheet.dart';
 import 'package:bananatalk_app/pages/coins/coin_shop_screen.dart';
@@ -121,18 +122,13 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref.read(badgeCountProvider.notifier).fetchBadgeCount();
-      // Weekly promo for AI Study / practice scenarios. Self-throttles to
-      // once per 7 days via SharedPreferences.
-      if (mounted) {
-        AiStudyPromoModal.showIfDue(context);
-      }
       // One-time ads transparency notice — shown once per device after ads were added.
       if (mounted) {
         Future.delayed(const Duration(seconds: 1), () {
           if (mounted) AdsNoticeModal.showIfNeeded(context);
         });
       }
-      // Rotating "feature spotlight" promo (coins/rooms/voice). Reaching
+      // Rotating "feature spotlight" promo (coins/rooms/voice/AI Study). Reaching
       // this point already means the user is logged in and on the home
       // shell — the /home route is only reachable post-login (see
       // app_router.dart: splash -> login -> home) — so no separate
@@ -152,7 +148,10 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
     final route = ModalRoute.of(context);
     if (route != null && !route.isCurrent) return;
 
-    final promo = await pickPromo(ref);
+    final lessonDone =
+        await ref.read(activationStoreProvider).isDone(ActivationAction.lesson);
+    if (!mounted) return;
+    final promo = await pickPromo(ref, lessonDone: lessonDone);
     if (promo == null) return;
     if (!mounted) return;
     final route2 = ModalRoute.of(context);
@@ -187,6 +186,11 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
         ref.read(communityPendingSubTabProvider.notifier).state =
             communityVoiceRoomsSubTab;
         ref.read(selectedTabProvider.notifier).state = 1;
+      case PromoType.aiStudy:
+        Navigator.push(
+          context,
+          AppPageRoute(builder: (_) => const ScenarioPickerScreen()),
+        );
     }
   }
 

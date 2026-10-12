@@ -4,8 +4,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/providers/ad_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
 
-/// The three rotating "feature spotlight" promos surfaced on the home shell.
-enum PromoType { coins, rooms, voice }
+/// The rotating "feature spotlight" promos surfaced on the home shell.
+enum PromoType { coins, rooms, voice, aiStudy }
 
 /// Fixed rotation order the spotlight cycles through. Kept stable so the
 /// stored `promo_rotation_index` always means the same thing across app
@@ -14,6 +14,7 @@ const List<PromoType> _rotationOrder = [
   PromoType.coins,
   PromoType.rooms,
   PromoType.voice,
+  PromoType.aiStudy,
 ];
 
 const String _lastShownDateKey = 'promo_last_shown_date';
@@ -37,9 +38,10 @@ String _dateOnly(DateTime dt) {
   return '$y-$m-$d';
 }
 
-/// Picks the promo to show right now, or `null` if none should show.
+/// Picks the promo to show now, or null. [lessonDone] drops the AI Study
+/// promo for someone who has already completed a lesson (spec §4.1).
 ///
-/// Rules (checked in order):
+/// Rules (checked in order, see [pickPromoFor]):
 /// 1. Global stop: if the user has dismissed `_maxDismissCount` or more
 ///    promos without engaging, never show again.
 /// 2. Once-per-day: if a promo was already shown today, show nothing.
@@ -52,7 +54,25 @@ String _dateOnly(DateTime dt) {
 /// 5. Rotation: starting from the stored `promo_rotation_index`, walk the
 ///    fixed rotation order and return the first eligible, non-hidden promo;
 ///    advance the stored index past it so tomorrow starts from the next one.
-Future<PromoType?> pickPromo(WidgetRef ref) async {
+Future<PromoType?> pickPromo(WidgetRef ref, {bool lessonDone = false}) {
+  final coinsEnabled = ref.read(appConfigProvider).maybeWhen(
+        data: (config) => config?.coinsEnabled ?? false,
+        orElse: () => false,
+      );
+  // showAdsProvider is true for non-VIP users; VIPs skip the coins upsell.
+  final showAds = ref.read(showAdsProvider);
+  return pickPromoFor(
+    coinsEligible: coinsEnabled && showAds,
+    lessonDone: lessonDone,
+  );
+}
+
+/// Rules, in order: global dismiss stop; once per day; eligibility; per-promo
+/// snooze; rotation from the stored index, advanced past the pick.
+Future<PromoType?> pickPromoFor({
+  required bool coinsEligible,
+  required bool lessonDone,
+}) async {
   final prefs = await SharedPreferences.getInstance();
 
   final dismissCount = prefs.getInt(_dismissCountKey) ?? 0;
@@ -61,19 +81,12 @@ Future<PromoType?> pickPromo(WidgetRef ref) async {
   final today = _dateOnly(DateTime.now());
   if (prefs.getString(_lastShownDateKey) == today) return null;
 
-  final coinsEnabled = ref.read(appConfigProvider).maybeWhen(
-        data: (config) => config?.coinsEnabled ?? false,
-        orElse: () => false,
-      );
-  // showAdsProvider is true for non-VIP users; ad-free (VIP) users have
-  // likely already paid, so the coins upsell isn't relevant to them.
-  final showAds = ref.read(showAdsProvider);
   final eligible = <PromoType>{
-    if (coinsEnabled && showAds) PromoType.coins,
+    if (coinsEligible) PromoType.coins,
     PromoType.rooms,
     PromoType.voice,
+    if (!lessonDone) PromoType.aiStudy,
   };
-  if (eligible.isEmpty) return null;
 
   final now = DateTime.now();
   final startIndex =
@@ -93,7 +106,6 @@ Future<PromoType?> pickPromo(WidgetRef ref) async {
     await prefs.setInt(_rotationIndexKey, (idx + 1) % _rotationOrder.length);
     return type;
   }
-
   return null;
 }
 
