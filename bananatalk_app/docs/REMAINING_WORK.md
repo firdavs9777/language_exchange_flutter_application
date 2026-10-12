@@ -103,7 +103,9 @@ Baseline: 1/30 calls answered in 30 days, 168 stuck ringing, 0 call messages eve
     - [ ] Device QA of camera upgrade: both directions, permission denied, rollback on server refusal, upgrade racing call end
     - [x] Draggable self-view (C10: `SwappableVideoLayout`; snaps to corners clear of the top/control bars, re-snaps on rotation, tap swaps big/small only while both feeds are live; semantics label + swap hint, 2 new strings x 19 locales, machine drafts in QA CSV)
     - [ ] Device QA of the self-view: drag/snap on small + large phones, rotation, swap with real tracks, TalkBack/VoiceOver
-    - [ ] Device QA of the Phase 2 flows
+    - [x] Device QA matrix rows CALL2-1…CALL2-20 written (`docs/qa/calls-matrix.md` §5)
+    - [ ] Device QA CALL2-1…CALL2-20 (owner, after a release build)
+    - [ ] Deploy backend C1–C4 BEFORE the app release (additive; old clients unchanged)
     - [ ] Native review of the 13 Phase 2 call strings
 - [ ] Device QA IOS-8: with a Focus mode silencing calls, CallKit shows no banner and the in-app ring closes — decide whether that is acceptable.
 - [ ] Native review of the 18 machine-drafted call strings (`lib/l10n/app_*.arb`)

@@ -94,3 +94,30 @@ bubble with the right label on both sides (§3), (e) nothing keeps ringing anywh
 | AND-6 | Camera revoked mid-call | During a video call open Settings → BananaTalk → Permissions → Camera → Deny; reopen BananaTalk | No crash; if the app restarts, no "Call in progress" notification is left without a call; a new video call asks for the camera again | |
 | AND-7 | Swipe away mid-call | Connected call; swipe BananaTalk out of Recents | "Call in progress" notification disappears and does not come back; peer sees the call end within ~20 s | |
 | AND-8 | Background, then open during the ring | B's app in background; A calls; the native call screen / heads-up rings; B opens BananaTalk from the icon or Recents while it rings (also: heads-up collapsed into the shade first; and after a force-stop) | The in-app incoming screen is always visible and only the native ringtone plays (no second ringtone); answering in-app stops the native ring and joins; declining declines; once answered, nothing from the native UI ends the call | |
+
+## 5. Phase 2 (decline message, push actions, calls off, camera, self-view)
+
+Backend with C1–C4 deployed; app with C5–C10. Record as above.
+
+| ID | Scenario | Steps | Expected | Result |
+|---|---|---|---|---|
+| CALL2-1 | Decline with a canned reply | B's app open; A calls; B taps Message → first canned reply | A's screen shows "Declined"; A's chat shows the call bubble, then B's text below it; B sees the same order | |
+| CALL2-2 | Decline with a custom reply | As CALL2-1, type 200+ chars | Field stops at 200; the 200-char text arrives | |
+| CALL2-3 | Missed push actions, iOS killed | Kill B's app; A calls, cancels | Missed notification shows Call back / Message (long-press); Call back opens the app on A's chat and rings A (same voice/video type); Message opens the chat | |
+| CALL2-4 | Missed push actions, iOS background + foreground | Repeat with B in background, then in foreground (banner) | Same as CALL2-3; no duplicate notification | |
+| CALL2-5 | Missed push actions, Android 13+ killed / background / foreground | Repeat CALL2-3 on Android | One notification with two buttons; Call back starts the call after the app opens; Message opens the chat | |
+| CALL2-6 | Live build unaffected | B on 2.6.1 (Android + iOS); A misses a call to B | B gets the same missed notification as today (no blank one) | |
+| CALL2-7 | Calls off | B: Settings → Notifications → Allow calls off; A calls | A sees "B isn't taking calls right now"; B's phone does nothing; no bubble on either side; turning it back on lets A's next call ring | |
+| CALL2-8 | Quiet hours | B: quiet hours covering now; A calls; then disable | Same as CALL2-7, then rings | |
+| CALL2-9 | Camera on mid voice call | Voice call connected; A taps Camera (grant permission on first use) | B sees A's video; B's controls become video controls; B can turn its camera on; after hang-up both bubbles and the Calls list say "Video call" | |
+| CALL2-10 | Camera on, permission denied | As CALL2-9 with camera permission denied | One permission message (not two); the call continues as voice | |
+| CALL2-11 | Upgrade against a live peer | A on the new build, B on 2.6.1; A taps Camera | B's call keeps going (audio); B shows no video — accepted limitation | |
+| CALL2-12 | Self-view | Video call; drag the self-view to each corner; tap it | Snaps to the nearest corner; tap swaps big/small; tap again swaps back | |
+| CALL2-13 | Android background after upgrade | CALL2-9 on Android 14, press Home for 1 min, return | Audio continues; camera pauses and returns; no crash (camera FGS type) | |
+| CALL2-14 | Android missed call: Doze + aggressive OEM | B on a Xiaomi or Samsung, app swiped away, phone idle ≥ 30 min (Doze); A calls, cancels. Repeat with airplane mode on during the avatar download | The missed notification still appears with Call back / Message; with the failed avatar a plain missed notification still appears (never nothing) | |
+| CALL2-15 | One action fires once | From CALL2-3/5 tap Call back once, then also tap the notification body / reopen from Recents | Exactly one chat screen and one outgoing call | |
+| CALL2-16 | iOS foreground banners unchanged | B in foreground: receive a moment like, a follow, an announcement, then a missed call | Only the missed call shows a banner (with buttons); the others only change the badge, as before; Xcode console shows no "completion handler called twice" | |
+| CALL2-17 | Camera re-enable on a video call, network blip | Video call; A turns camera off; turn on Wi-Fi off/airplane for 2 s; A turns camera on | Camera and the on-screen camera state always match (never "off" on A while B sees A's video) | |
+| CALL2-18 | Swap does not come back by itself | Video call; tap self-view to swap; peer turns camera off, then on after 30 s | Layout returns to peer-big and stays there until A taps again | |
+| CALL2-19 | Decline message vs caller hang-up | B opens the Message sheet; A hangs up before B sends | Sheet and incoming screen close; no second decline; A sees "Missed call" only | |
+| CALL2-20 | Call back to an unavailable callee | A has Allow calls off; B taps Call back on A's missed call | B sees the localized "isn't taking calls right now" message; no crash | |
