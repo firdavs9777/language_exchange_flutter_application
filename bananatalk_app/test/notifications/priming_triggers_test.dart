@@ -29,19 +29,77 @@ void main() {
 
   group('isLiveIncoming', () {
     final opened = DateTime.utc(2026, 10, 12, 10);
-    bool live({String id = 'n', String sender = 'them', String at = '2026-10-12T10:00:05Z'}) =>
-        isLiveIncoming(
-          beforeIds: {'old'},
-          id: id,
-          senderId: sender,
-          me: 'me',
-          createdAt: at,
-          openedAt: opened,
-        );
-    test('a new partner message after open is live', () => expect(live(), isTrue));
-    test('history is not', () => expect(live(at: '2026-10-11T09:00:00Z'), isFalse));
+    bool live({
+      String id = 'n',
+      String sender = 'them',
+      String at = '2026-10-12T10:00:05Z',
+    }) => isLiveIncoming(
+      beforeIds: {'old'},
+      id: id,
+      senderId: sender,
+      me: 'me',
+      createdAt: at,
+      openedAt: opened,
+    );
+    test(
+      'a new partner message after open is live',
+      () => expect(live(), isTrue),
+    );
+    test(
+      'history is not',
+      () => expect(live(at: '2026-10-11T09:00:00Z'), isFalse),
+    );
     test('my own message is not', () => expect(live(sender: 'me'), isFalse));
     test('an already-listed id is not', () => expect(live(id: 'old'), isFalse));
+  });
+
+  group('chat baseline', () {
+    final opened = DateTime.utc(2026, 10, 12, 10);
+    ({String id, String senderId, String createdAt}) msg(
+      String id,
+      String at, {
+      String sender = 'them',
+    }) => (id: id, senderId: sender, createdAt: at);
+    bool live(
+      bool baseline,
+      Set<String> before,
+      List<({String id, String senderId, String createdAt})> next,
+    ) => shouldTreatAsLive(
+      baselineSet: baseline,
+      beforeIds: before,
+      next: next,
+      me: 'me',
+      openedAt: opened,
+    );
+
+    test('empty chat: load completes, then the first reply primes', () {
+      expect(
+        isHistoryLoadComplete(previousLoading: true, nextLoading: false),
+        isTrue,
+      );
+      expect(live(true, {}, [msg('a', '2026-10-12T10:00:03Z')]), isTrue);
+    });
+    test('history load (even a fresh message) never primes', () {
+      expect(live(false, {}, [msg('a', '2026-10-12T10:00:03Z')]), isFalse);
+    });
+    test('history, then a new live message, primes', () {
+      final hist = msg('h', '2026-10-12T09:59:58Z');
+      expect(live(true, {'h'}, [hist]), isFalse);
+      expect(
+        live(true, {'h'}, [hist, msg('n', '2026-10-12T10:00:20Z')]),
+        isTrue,
+      );
+    });
+    test('state changes that are not a load completion are no baseline', () {
+      expect(
+        isHistoryLoadComplete(previousLoading: false, nextLoading: false),
+        isFalse,
+      );
+      expect(
+        isHistoryLoadComplete(previousLoading: true, nextLoading: true),
+        isFalse,
+      );
+    });
   });
 
   test('the first send primes once with trigger first_message_sent', () async {
@@ -54,19 +112,32 @@ void main() {
   });
 
   test('call sites carry their triggers; chat open no longer primes', () {
-    final chat = File('lib/pages/chat/conversation/chat_conversation_screen.dart')
-        .readAsStringSync();
+    final chat = File(
+      'lib/pages/chat/conversation/chat_conversation_screen.dart',
+    ).readAsStringSync();
     expect(chat.contains("trigger: 'first_message_received'"), isTrue);
-    expect(chat.contains('if (mounted) maybePrimeNotifications(context);'), isFalse);
-    expect(File('lib/pages/community/tabs/matches_tab.dart')
-        .readAsStringSync()
-        .contains('primeNotifications = primeAfterFirstMatches'), isTrue);
-    expect(File('lib/pages/community/tabs/waves_tab.dart')
-        .readAsStringSync()
-        .contains('primeNotifications = primeAfterFirstWave'), isTrue);
-    expect(File('lib/widgets/notifications/notification_priming_sheet.dart')
-        .readAsStringSync()
-        .contains('PopupBudget.tryConsume()'), isTrue);
+    expect(
+      chat.contains('if (mounted) maybePrimeNotifications(context);'),
+      isFalse,
+    );
+    expect(
+      File('lib/pages/community/tabs/matches_tab.dart')
+          .readAsStringSync()
+          .contains('primeNotifications = primeAfterFirstMatches'),
+      isTrue,
+    );
+    expect(
+      File(
+        'lib/pages/community/tabs/waves_tab.dart',
+      ).readAsStringSync().contains('primeNotifications = primeAfterFirstWave'),
+      isTrue,
+    );
+    expect(
+      File(
+        'lib/widgets/notifications/notification_priming_sheet.dart',
+      ).readAsStringSync().contains('PopupBudget.tryConsume()'),
+      isTrue,
+    );
   });
 
   group('maybePrimeNotifications (behaviour)', () {
@@ -90,24 +161,29 @@ void main() {
 
     Future<BuildContext> pumpHost(WidgetTester tester) async {
       late BuildContext ctx;
-      await tester.pumpWidget(MaterialApp(
-        localizationsDelegates: const [
-          AppLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: AppLocalizations.supportedLocales,
-        home: Builder(builder: (c) {
-          ctx = c;
-          return const Scaffold();
-        }),
-      ));
+      await tester.pumpWidget(
+        MaterialApp(
+          localizationsDelegates: const [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: Builder(
+            builder: (c) {
+              ctx = c;
+              return const Scaffold();
+            },
+          ),
+        ),
+      );
       return ctx;
     }
 
-    testWidgets('eligible: sheet shows, budget spent, shown event logged',
-        (tester) async {
+    testWidgets('eligible: sheet shows, budget spent, shown event logged', (
+      tester,
+    ) async {
       final ctx = await pumpHost(tester);
       maybePrimeNotifications(ctx, trigger: 'first_wave').ignore();
       await tester.pumpAndSettle();
@@ -125,8 +201,9 @@ void main() {
       expect(events, isEmpty);
     });
 
-    testWidgets('not eligible (no pending action): no sheet, budget kept',
-        (tester) async {
+    testWidgets('not eligible (no pending action): no sheet, budget kept', (
+      tester,
+    ) async {
       NotificationService().debugSetPendingAction(null);
       final ctx = await pumpHost(tester);
       maybePrimeNotifications(ctx).ignore();
@@ -135,8 +212,9 @@ void main() {
       expect(PopupBudget.spent, isFalse);
     });
 
-    testWidgets('not eligible (already granted: none): no sheet, budget kept',
-        (tester) async {
+    testWidgets('not eligible (already granted: none): no sheet, budget kept', (
+      tester,
+    ) async {
       NotificationService().debugSetPendingAction(NotificationAction.none);
       final ctx = await pumpHost(tester);
       maybePrimeNotifications(ctx).ignore();

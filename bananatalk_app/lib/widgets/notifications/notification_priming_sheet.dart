@@ -44,6 +44,35 @@ bool isLiveIncoming({
   return !at.isBefore(openedAt.subtract(const Duration(seconds: 10)));
 }
 
+/// True when the history load of a conversation has just finished: that
+/// state, empty or not, is the baseline. Anything arriving after it is a
+/// candidate for [isLiveIncoming].
+bool isHistoryLoadComplete({
+  required bool previousLoading,
+  required bool nextLoading,
+}) =>
+    previousLoading && !nextLoading;
+
+/// Whether any message in [next] is a live incoming one, given the ids that
+/// were listed before. False until the baseline is set, so history from the
+/// first load never counts, while an empty chat's first reply does.
+bool shouldTreatAsLive({
+  required bool baselineSet,
+  required Set<String> beforeIds,
+  required Iterable<({String id, String senderId, String createdAt})> next,
+  required String? me,
+  required DateTime openedAt,
+}) =>
+    baselineSet &&
+    next.any((m) => isLiveIncoming(
+          beforeIds: beforeIds,
+          id: m.id,
+          senderId: m.senderId,
+          me: me,
+          createdAt: m.createdAt,
+          openedAt: openedAt,
+        ));
+
 /// Offer notification permission at a moment it is obviously useful
 /// (spec 4.2: first match batch, first wave, first message sent or
 /// received). Shows at most once ever, and only if this launch's

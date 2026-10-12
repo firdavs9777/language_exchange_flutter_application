@@ -127,7 +127,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
   // Priming on the first live incoming message (spec 4.2).
   final DateTime _openedAt = DateTime.now();
   bool _primedOnReceive = false;
-  // The first non-empty load is history, not a live message.
+  // The first finished history load is the baseline, not a live message.
   bool _chatBaselined = false;
 
   // Theme change listener for wallpaper sync
@@ -1956,17 +1956,22 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     // Listen for new messages and auto-scroll to bottom
     ref.listen<ChatState>(chatStateProvider(chatParams), (previous, next) {
       if (!_chatBaselined) {
-        if (!next.isLoading && next.messages.isNotEmpty) _chatBaselined = true;
+        // The history load finishing (empty or not) is the baseline.
+        _chatBaselined = previous != null &&
+            isHistoryLoadComplete(
+                previousLoading: previous.isLoading,
+                nextLoading: next.isLoading);
       } else if (previous != null && !_primedOnReceive && !next.isLoading) {
-        final before = {for (final m in previous.messages) m.id};
-        final live = next.messages.any((m) => isLiveIncoming(
-              beforeIds: before,
-              id: m.id,
-              senderId: m.sender.id,
-              me: _currentUserId,
-              createdAt: m.createdAt,
-              openedAt: _openedAt,
-            ));
+        final live = shouldTreatAsLive(
+          baselineSet: true,
+          beforeIds: {for (final m in previous.messages) m.id},
+          next: [
+            for (final m in next.messages)
+              (id: m.id, senderId: m.sender.id, createdAt: m.createdAt),
+          ],
+          me: _currentUserId,
+          openedAt: _openedAt,
+        );
         if (live) {
           _primedOnReceive = true;
           WidgetsBinding.instance.addPostFrameCallback((_) {
