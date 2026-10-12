@@ -9848,4 +9848,68 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get momentsReportSubmitted => 'Жалоба отправлена';
+
+  @override
+  String communityLive(Object count) {
+    return '$count в эфире';
+  }
+
+  @override
+  String get communityFind => 'Найти';
+
+  @override
+  String communityFinding(Object username) {
+    return 'Ищем @$username...';
+  }
+
+  @override
+  String get communitySeeAll => 'Показать все';
+
+  @override
+  String get communitySeeWhoLikes => 'Узнайте, кому вы нравитесь';
+
+  @override
+  String get communityUnlimitedBrowsingNoAds => 'Безлимитный просмотр, без рекламы, приоритетный подбор';
+
+  @override
+  String communityMembersCount(Object count) {
+    return '$count участников';
+  }
+
+  @override
+  String communityPeopleCount(Object count) {
+    return '$count человек';
+  }
+
+  @override
+  String get communityFailedLoadArchivedWaves => 'Не удалось загрузить архивные приветствия';
+
+  @override
+  String get communityGreatChat => 'Отличный разговор! 🎉';
+
+  @override
+  String get communityStayTouchPeopleJust => 'Оставайтесь на связи с теми, с кем только что общались';
+
+  @override
+  String get communityNotNow => 'Не сейчас';
+
+  @override
+  String get communityPerfect => 'Идеально';
+
+  @override
+  String communityLv(Object level) {
+    return 'Ур.$level';
+  }
+
+  @override
+  String get communityReact => 'Отреагировать';
+
+  @override
+  String get communityWavedAtYou => 'Помахал(а) вам';
+
+  @override
+  String get communitySomeone => 'Кто-то';
+
+  @override
+  String get communityPeopleInterestedInTopic => 'Люди, интересующиеся этой темой';
 }

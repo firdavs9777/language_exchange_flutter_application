@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
@@ -82,7 +83,7 @@ class CommunityCardMeta extends StatelessWidget {
           ),
           const SizedBox(width: 6),
           Text(
-            'Following',
+            AppLocalizations.of(context)!.following,
             style: TextStyle(
               fontSize: 11,
               color: context.isDarkMode

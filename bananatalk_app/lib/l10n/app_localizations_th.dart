@@ -9815,4 +9815,68 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get momentsReportSubmitted => 'ส่งรายงานแล้ว';
+
+  @override
+  String communityLive(Object count) {
+    return '$count ไลฟ์อยู่';
+  }
+
+  @override
+  String get communityFind => 'ค้นหา';
+
+  @override
+  String communityFinding(Object username) {
+    return 'กำลังค้นหา @$username...';
+  }
+
+  @override
+  String get communitySeeAll => 'ดูทั้งหมด';
+
+  @override
+  String get communitySeeWhoLikes => 'ดูว่าใครชอบคุณ';
+
+  @override
+  String get communityUnlimitedBrowsingNoAds => 'เรียกดูได้ไม่จำกัด ไม่มีโฆษณา จับคู่แบบลำดับความสำคัญ';
+
+  @override
+  String communityMembersCount(Object count) {
+    return '$count สมาชิก';
+  }
+
+  @override
+  String communityPeopleCount(Object count) {
+    return '$count คน';
+  }
+
+  @override
+  String get communityFailedLoadArchivedWaves => 'โหลดการโบกมือที่เก็บถาวรไม่สำเร็จ';
+
+  @override
+  String get communityGreatChat => 'คุยกันสนุกมาก! 🎉';
+
+  @override
+  String get communityStayTouchPeopleJust => 'ติดต่อกับคนที่เพิ่งคุยด้วยต่อไป';
+
+  @override
+  String get communityNotNow => 'ไม่ใช่ตอนนี้';
+
+  @override
+  String get communityPerfect => 'สมบูรณ์แบบ';
+
+  @override
+  String communityLv(Object level) {
+    return 'เลเวล $level';
+  }
+
+  @override
+  String get communityReact => 'แสดงความรู้สึก';
+
+  @override
+  String get communityWavedAtYou => 'โบกมือให้คุณ';
+
+  @override
+  String get communitySomeone => 'ใครบางคน';
+
+  @override
+  String get communityPeopleInterestedInTopic => 'คนที่สนใจหัวข้อนี้';
 }

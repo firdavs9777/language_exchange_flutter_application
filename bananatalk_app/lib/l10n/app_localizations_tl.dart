@@ -9825,4 +9825,68 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get momentsReportSubmitted => 'Naipadala ang report';
+
+  @override
+  String communityLive(Object count) {
+    return '$count naka-live';
+  }
+
+  @override
+  String get communityFind => 'Hanapin';
+
+  @override
+  String communityFinding(Object username) {
+    return 'Hinahanap si @$username...';
+  }
+
+  @override
+  String get communitySeeAll => 'Tingnan lahat';
+
+  @override
+  String get communitySeeWhoLikes => 'Tingnan kung sino ang may gusto sa iyo';
+
+  @override
+  String get communityUnlimitedBrowsingNoAds => 'Walang limitasyong pag-browse, walang ad, priority matching';
+
+  @override
+  String communityMembersCount(Object count) {
+    return '$count miyembro';
+  }
+
+  @override
+  String communityPeopleCount(Object count) {
+    return '$count tao';
+  }
+
+  @override
+  String get communityFailedLoadArchivedWaves => 'Hindi na-load ang mga naka-archive na kaway';
+
+  @override
+  String get communityGreatChat => 'Ang saya ng chat! 🎉';
+
+  @override
+  String get communityStayTouchPeopleJust => 'Manatiling in touch sa mga taong kakausap mo lang';
+
+  @override
+  String get communityNotNow => 'Hindi muna';
+
+  @override
+  String get communityPerfect => 'Perpekto';
+
+  @override
+  String communityLv(Object level) {
+    return 'Lv.$level';
+  }
+
+  @override
+  String get communityReact => 'Mag-react';
+
+  @override
+  String get communityWavedAtYou => 'Kumaway sa iyo';
+
+  @override
+  String get communitySomeone => 'Isang tao';
+
+  @override
+  String get communityPeopleInterestedInTopic => 'Mga taong interesado sa paksang ito';
 }

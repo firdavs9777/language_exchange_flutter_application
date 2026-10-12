@@ -9822,4 +9822,68 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get momentsReportSubmitted => 'Laporan terkirim';
+
+  @override
+  String communityLive(Object count) {
+    return '$count langsung';
+  }
+
+  @override
+  String get communityFind => 'Cari';
+
+  @override
+  String communityFinding(Object username) {
+    return 'Mencari @$username...';
+  }
+
+  @override
+  String get communitySeeAll => 'Lihat semua';
+
+  @override
+  String get communitySeeWhoLikes => 'Lihat siapa yang menyukaimu';
+
+  @override
+  String get communityUnlimitedBrowsingNoAds => 'Jelajah tanpa batas, tanpa iklan, pencocokan prioritas';
+
+  @override
+  String communityMembersCount(Object count) {
+    return '$count anggota';
+  }
+
+  @override
+  String communityPeopleCount(Object count) {
+    return '$count orang';
+  }
+
+  @override
+  String get communityFailedLoadArchivedWaves => 'Gagal memuat lambaian yang diarsipkan';
+
+  @override
+  String get communityGreatChat => 'Obrolan seru! 🎉';
+
+  @override
+  String get communityStayTouchPeopleJust => 'Tetap terhubung dengan orang yang baru saja kamu ajak bicara';
+
+  @override
+  String get communityNotNow => 'Nanti saja';
+
+  @override
+  String get communityPerfect => 'Sempurna';
+
+  @override
+  String communityLv(Object level) {
+    return 'Lv.$level';
+  }
+
+  @override
+  String get communityReact => 'Beri reaksi';
+
+  @override
+  String get communityWavedAtYou => 'Melambai padamu';
+
+  @override
+  String get communitySomeone => 'Seseorang';
+
+  @override
+  String get communityPeopleInterestedInTopic => 'Orang yang tertarik dengan topik ini';
 }

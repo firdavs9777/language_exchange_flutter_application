@@ -9815,6 +9815,70 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get momentsReportSubmitted => '举报已提交';
+
+  @override
+  String communityLive(Object count) {
+    return '$count 人在线直播';
+  }
+
+  @override
+  String get communityFind => '查找';
+
+  @override
+  String communityFinding(Object username) {
+    return '正在查找 @$username...';
+  }
+
+  @override
+  String get communitySeeAll => '查看全部';
+
+  @override
+  String get communitySeeWhoLikes => '看看谁喜欢你';
+
+  @override
+  String get communityUnlimitedBrowsingNoAds => '无限浏览、无广告、优先匹配';
+
+  @override
+  String communityMembersCount(Object count) {
+    return '$count 位成员';
+  }
+
+  @override
+  String communityPeopleCount(Object count) {
+    return '$count 人';
+  }
+
+  @override
+  String get communityFailedLoadArchivedWaves => '无法加载已归档的招呼';
+
+  @override
+  String get communityGreatChat => '聊得真棒！🎉';
+
+  @override
+  String get communityStayTouchPeopleJust => '与刚刚聊过的人保持联系';
+
+  @override
+  String get communityNotNow => '暂不';
+
+  @override
+  String get communityPerfect => '完美';
+
+  @override
+  String communityLv(Object level) {
+    return 'Lv.$level';
+  }
+
+  @override
+  String get communityReact => '回应';
+
+  @override
+  String get communityWavedAtYou => '向你打了招呼';
+
+  @override
+  String get communitySomeone => '某人';
+
+  @override
+  String get communityPeopleInterestedInTopic => '对此话题感兴趣的人';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -19628,4 +19692,68 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get momentsReportSubmitted => '檢舉已送出';
+
+  @override
+  String communityLive(Object count) {
+    return '$count 人直播中';
+  }
+
+  @override
+  String get communityFind => '尋找';
+
+  @override
+  String communityFinding(Object username) {
+    return '正在尋找 @$username...';
+  }
+
+  @override
+  String get communitySeeAll => '查看全部';
+
+  @override
+  String get communitySeeWhoLikes => '看看誰喜歡你';
+
+  @override
+  String get communityUnlimitedBrowsingNoAds => '無限瀏覽、無廣告、優先配對';
+
+  @override
+  String communityMembersCount(Object count) {
+    return '$count 位成員';
+  }
+
+  @override
+  String communityPeopleCount(Object count) {
+    return '$count 人';
+  }
+
+  @override
+  String get communityFailedLoadArchivedWaves => '無法載入已封存的招呼';
+
+  @override
+  String get communityGreatChat => '聊得真棒！🎉';
+
+  @override
+  String get communityStayTouchPeopleJust => '與剛剛聊過的人保持聯繫';
+
+  @override
+  String get communityNotNow => '暫不';
+
+  @override
+  String get communityPerfect => '完美';
+
+  @override
+  String communityLv(Object level) {
+    return 'Lv.$level';
+  }
+
+  @override
+  String get communityReact => '回應';
+
+  @override
+  String get communityWavedAtYou => '向你打了招呼';
+
+  @override
+  String get communitySomeone => '某人';
+
+  @override
+  String get communityPeopleInterestedInTopic => '對此話題感興趣的人';
 }

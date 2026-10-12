@@ -9823,4 +9823,68 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get momentsReportSubmitted => 'Bildirim gönderildi';
+
+  @override
+  String communityLive(Object count) {
+    return '$count canlı';
+  }
+
+  @override
+  String get communityFind => 'Bul';
+
+  @override
+  String communityFinding(Object username) {
+    return '@$username aranıyor...';
+  }
+
+  @override
+  String get communitySeeAll => 'Tümünü gör';
+
+  @override
+  String get communitySeeWhoLikes => 'Seni kimlerin beğendiğini gör';
+
+  @override
+  String get communityUnlimitedBrowsingNoAds => 'Sınırsız gezinme, reklamsız, öncelikli eşleştirme';
+
+  @override
+  String communityMembersCount(Object count) {
+    return '$count üye';
+  }
+
+  @override
+  String communityPeopleCount(Object count) {
+    return '$count kişi';
+  }
+
+  @override
+  String get communityFailedLoadArchivedWaves => 'Arşivlenmiş selamlar yüklenemedi';
+
+  @override
+  String get communityGreatChat => 'Harika sohbet! 🎉';
+
+  @override
+  String get communityStayTouchPeopleJust => 'Az önce konuştuğun kişilerle iletişimde kal';
+
+  @override
+  String get communityNotNow => 'Şimdi değil';
+
+  @override
+  String get communityPerfect => 'Mükemmel';
+
+  @override
+  String communityLv(Object level) {
+    return 'Sv.$level';
+  }
+
+  @override
+  String get communityReact => 'Tepki ver';
+
+  @override
+  String get communityWavedAtYou => 'Sana el salladı';
+
+  @override
+  String get communitySomeone => 'Birisi';
+
+  @override
+  String get communityPeopleInterestedInTopic => 'Bu konuyla ilgilenen kişiler';
 }

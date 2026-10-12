@@ -9815,4 +9815,68 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get momentsReportSubmitted => '신고가 접수되었습니다';
+
+  @override
+  String communityLive(Object count) {
+    return '$count명 라이브';
+  }
+
+  @override
+  String get communityFind => '찾기';
+
+  @override
+  String communityFinding(Object username) {
+    return '@$username 찾는 중...';
+  }
+
+  @override
+  String get communitySeeAll => '모두 보기';
+
+  @override
+  String get communitySeeWhoLikes => '나를 좋아하는 사람 보기';
+
+  @override
+  String get communityUnlimitedBrowsingNoAds => '무제한 탐색, 광고 없음, 우선 매칭';
+
+  @override
+  String communityMembersCount(Object count) {
+    return '멤버 $count명';
+  }
+
+  @override
+  String communityPeopleCount(Object count) {
+    return '$count명';
+  }
+
+  @override
+  String get communityFailedLoadArchivedWaves => '보관된 웨이브를 불러오지 못했습니다';
+
+  @override
+  String get communityGreatChat => '멋진 대화였어요! 🎉';
+
+  @override
+  String get communityStayTouchPeopleJust => '방금 대화한 사람들과 계속 연락하세요';
+
+  @override
+  String get communityNotNow => '나중에';
+
+  @override
+  String get communityPerfect => '완벽함';
+
+  @override
+  String communityLv(Object level) {
+    return 'Lv.$level';
+  }
+
+  @override
+  String get communityReact => '반응';
+
+  @override
+  String get communityWavedAtYou => '님이 손을 흔들었어요';
+
+  @override
+  String get communitySomeone => '누군가';
+
+  @override
+  String get communityPeopleInterestedInTopic => '이 주제에 관심 있는 사람들';
 }

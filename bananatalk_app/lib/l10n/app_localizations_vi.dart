@@ -9815,4 +9815,68 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get momentsReportSubmitted => 'Đã gửi báo cáo';
+
+  @override
+  String communityLive(Object count) {
+    return '$count trực tiếp';
+  }
+
+  @override
+  String get communityFind => 'Tìm';
+
+  @override
+  String communityFinding(Object username) {
+    return 'Đang tìm @$username...';
+  }
+
+  @override
+  String get communitySeeAll => 'Xem tất cả';
+
+  @override
+  String get communitySeeWhoLikes => 'Xem ai thích bạn';
+
+  @override
+  String get communityUnlimitedBrowsingNoAds => 'Duyệt không giới hạn, không quảng cáo, ghép đôi ưu tiên';
+
+  @override
+  String communityMembersCount(Object count) {
+    return '$count thành viên';
+  }
+
+  @override
+  String communityPeopleCount(Object count) {
+    return '$count người';
+  }
+
+  @override
+  String get communityFailedLoadArchivedWaves => 'Không tải được các lời chào đã lưu trữ';
+
+  @override
+  String get communityGreatChat => 'Cuộc trò chuyện tuyệt vời! 🎉';
+
+  @override
+  String get communityStayTouchPeopleJust => 'Giữ liên lạc với những người bạn vừa trò chuyện';
+
+  @override
+  String get communityNotNow => 'Để sau';
+
+  @override
+  String get communityPerfect => 'Hoàn hảo';
+
+  @override
+  String communityLv(Object level) {
+    return 'Cấp $level';
+  }
+
+  @override
+  String get communityReact => 'Phản ứng';
+
+  @override
+  String get communityWavedAtYou => 'Đã vẫy tay chào bạn';
+
+  @override
+  String get communitySomeone => 'Ai đó';
+
+  @override
+  String get communityPeopleInterestedInTopic => 'Những người quan tâm đến chủ đề này';
 }

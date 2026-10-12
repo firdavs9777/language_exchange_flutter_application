@@ -9825,4 +9825,68 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get momentsReportSubmitted => 'रिपोर्ट भेज दी गई';
+
+  @override
+  String communityLive(Object count) {
+    return '$count लाइव';
+  }
+
+  @override
+  String get communityFind => 'खोजें';
+
+  @override
+  String communityFinding(Object username) {
+    return '@$username को खोजा जा रहा है...';
+  }
+
+  @override
+  String get communitySeeAll => 'सभी देखें';
+
+  @override
+  String get communitySeeWhoLikes => 'देखें कि आपको कौन पसंद करता है';
+
+  @override
+  String get communityUnlimitedBrowsingNoAds => 'असीमित ब्राउज़िंग, कोई विज्ञापन नहीं, प्राथमिकता मैचिंग';
+
+  @override
+  String communityMembersCount(Object count) {
+    return '$count सदस्य';
+  }
+
+  @override
+  String communityPeopleCount(Object count) {
+    return '$count लोग';
+  }
+
+  @override
+  String get communityFailedLoadArchivedWaves => 'संग्रहीत वेव लोड नहीं हो सके';
+
+  @override
+  String get communityGreatChat => 'शानदार बातचीत! 🎉';
+
+  @override
+  String get communityStayTouchPeopleJust => 'जिन लोगों से आपने अभी बात की, उनसे संपर्क में रहें';
+
+  @override
+  String get communityNotNow => 'अभी नहीं';
+
+  @override
+  String get communityPerfect => 'बिल्कुल सही';
+
+  @override
+  String communityLv(Object level) {
+    return 'स्तर $level';
+  }
+
+  @override
+  String get communityReact => 'प्रतिक्रिया दें';
+
+  @override
+  String get communityWavedAtYou => 'ने आपको वेव किया';
+
+  @override
+  String get communitySomeone => 'कोई';
+
+  @override
+  String get communityPeopleInterestedInTopic => 'इस विषय में रुचि रखने वाले लोग';
 }

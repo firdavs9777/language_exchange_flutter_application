@@ -9840,4 +9840,68 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get momentsReportSubmitted => 'تم إرسال البلاغ';
+
+  @override
+  String communityLive(Object count) {
+    return '$count مباشر';
+  }
+
+  @override
+  String get communityFind => 'بحث';
+
+  @override
+  String communityFinding(Object username) {
+    return 'جارٍ البحث عن @$username...';
+  }
+
+  @override
+  String get communitySeeAll => 'عرض الكل';
+
+  @override
+  String get communitySeeWhoLikes => 'اعرف من أعجب بك';
+
+  @override
+  String get communityUnlimitedBrowsingNoAds => 'تصفح غير محدود، بدون إعلانات، وأولوية في المطابقة';
+
+  @override
+  String communityMembersCount(Object count) {
+    return '$count عضو';
+  }
+
+  @override
+  String communityPeopleCount(Object count) {
+    return '$count شخص';
+  }
+
+  @override
+  String get communityFailedLoadArchivedWaves => 'تعذّر تحميل التحيات المؤرشفة';
+
+  @override
+  String get communityGreatChat => 'محادثة رائعة! 🎉';
+
+  @override
+  String get communityStayTouchPeopleJust => 'ابقَ على تواصل مع من تحدثت معهم للتو';
+
+  @override
+  String get communityNotNow => 'ليس الآن';
+
+  @override
+  String get communityPerfect => 'مثالي';
+
+  @override
+  String communityLv(Object level) {
+    return 'المستوى $level';
+  }
+
+  @override
+  String get communityReact => 'تفاعل';
+
+  @override
+  String get communityWavedAtYou => 'لوّح لك';
+
+  @override
+  String get communitySomeone => 'شخص ما';
+
+  @override
+  String get communityPeopleInterestedInTopic => 'أشخاص مهتمون بهذا الموضوع';
 }

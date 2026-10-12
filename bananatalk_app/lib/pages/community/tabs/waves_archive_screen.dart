@@ -101,7 +101,7 @@ class _WavesArchiveScreenState extends ConsumerState<WavesArchiveScreen> {
                           size: 48, color: context.textMuted),
                       Spacing.gapMD,
                       Text(
-                        'Failed to load archived waves',
+                        l10n.communityFailedLoadArchivedWaves,
                         style: context.bodyMedium
                             .copyWith(color: context.textSecondary),
                       ),
@@ -229,7 +229,7 @@ class _ArchiveWaveCard extends StatelessWidget {
                       Text(
                         wave.message?.isNotEmpty == true
                             ? wave.message!
-                            : 'Waved at you',
+                            : AppLocalizations.of(context)!.communityWavedAtYou,
                         style: context.bodyMedium
                             .copyWith(color: context.textSecondary),
                         maxLines: 1,

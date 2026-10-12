@@ -368,7 +368,7 @@ class _GendersTabState extends ConsumerState<GendersTab> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'See who likes you',
+                    AppLocalizations.of(context)!.communitySeeWhoLikes,
                     style: TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.w700,
@@ -376,7 +376,7 @@ class _GendersTabState extends ConsumerState<GendersTab> {
                     ),
                   ),
                   Text(
-                    'Unlimited browsing, no ads, priority matching',
+                    AppLocalizations.of(context)!.communityUnlimitedBrowsingNoAds,
                     style: TextStyle(
                       fontSize: 11,
                       color: context.textSecondary,
@@ -393,8 +393,8 @@ class _GendersTabState extends ConsumerState<GendersTab> {
                 ),
                 borderRadius: BorderRadius.circular(16),
               ),
-              child: const Text(
-                'VIP',
+              child: Text(
+                AppLocalizations.of(context)!.vip,
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 11,
@@ -475,7 +475,7 @@ class _GendersTabState extends ConsumerState<GendersTab> {
                     if (_countsLoaded) ...[
                       const SizedBox(height: 2),
                       Text(
-                        '${formatCompactCount(_femaleCount)} members',
+                        AppLocalizations.of(context)!.communityMembersCount(formatCompactCount(_femaleCount)),
                         style: TextStyle(
                           fontSize: 11,
                           fontWeight: FontWeight.w500,
@@ -543,7 +543,7 @@ class _GendersTabState extends ConsumerState<GendersTab> {
                     if (_countsLoaded) ...[
                       const SizedBox(height: 2),
                       Text(
-                        '${formatCompactCount(_maleCount)} members',
+                        AppLocalizations.of(context)!.communityMembersCount(formatCompactCount(_maleCount)),
                         style: TextStyle(
                           fontSize: 11,
                           fontWeight: FontWeight.w500,
@@ -603,7 +603,8 @@ class _GendersTabState extends ConsumerState<GendersTab> {
   }
 
   Widget _buildEmptyState() {
-    final color = _selectedGender == 'male'
+    final isMale = _selectedGender == 'male';
+    final color = isMale
         ? const Color(0xFF42A5F5)
         : const Color(0xFFEC407A);
 
@@ -628,7 +629,7 @@ class _GendersTabState extends ConsumerState<GendersTab> {
               ),
               const SizedBox(height: 16),
               Text(
-                _selectedGender == 'male'
+                isMale
                     ? AppLocalizations.of(context)!.noMaleUsersFound
                     : AppLocalizations.of(context)!.noFemaleUsersFound,
                 style: context.titleMedium,
@@ -790,7 +791,7 @@ class _GenderUserCard extends StatelessWidget {
                           ),
                         ],
                       ),
-                      child: const Row(
+                      child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Icon(
@@ -800,7 +801,7 @@ class _GenderUserCard extends StatelessWidget {
                           ),
                           SizedBox(width: 2),
                           Text(
-                            'VIP',
+                            AppLocalizations.of(context)!.vip,
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 9,
@@ -821,8 +822,8 @@ class _GenderUserCard extends StatelessWidget {
                         color: AppColors.primary,
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: const Text(
-                        'NEW',
+                      child: Text(
+                        AppLocalizations.of(context)!.newUser,
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 9,

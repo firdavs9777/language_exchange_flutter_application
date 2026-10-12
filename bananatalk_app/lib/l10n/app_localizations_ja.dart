@@ -9815,4 +9815,68 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get momentsReportSubmitted => '報告を送信しました';
+
+  @override
+  String communityLive(Object count) {
+    return '$count件ライブ中';
+  }
+
+  @override
+  String get communityFind => '探す';
+
+  @override
+  String communityFinding(Object username) {
+    return '@$username を検索中...';
+  }
+
+  @override
+  String get communitySeeAll => 'すべて見る';
+
+  @override
+  String get communitySeeWhoLikes => 'あなたを気に入った人を見る';
+
+  @override
+  String get communityUnlimitedBrowsingNoAds => '無制限の閲覧、広告なし、優先マッチング';
+
+  @override
+  String communityMembersCount(Object count) {
+    return 'メンバー $count人';
+  }
+
+  @override
+  String communityPeopleCount(Object count) {
+    return '$count人';
+  }
+
+  @override
+  String get communityFailedLoadArchivedWaves => 'アーカイブしたウェーブを読み込めませんでした';
+
+  @override
+  String get communityGreatChat => 'いい会話でした！🎉';
+
+  @override
+  String get communityStayTouchPeopleJust => 'さっき話した人とつながり続けましょう';
+
+  @override
+  String get communityNotNow => '今はしない';
+
+  @override
+  String get communityPerfect => 'ぴったり';
+
+  @override
+  String communityLv(Object level) {
+    return 'Lv.$level';
+  }
+
+  @override
+  String get communityReact => 'リアクション';
+
+  @override
+  String get communityWavedAtYou => 'があなたにウェーブしました';
+
+  @override
+  String get communitySomeone => '誰か';
+
+  @override
+  String get communityPeopleInterestedInTopic => 'このトピックに興味がある人';
 }

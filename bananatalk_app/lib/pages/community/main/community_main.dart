@@ -629,8 +629,8 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
                     minimumSize: Size.zero,
                     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   ),
-                  child: const Text(
-                    'Find',
+                  child: Text(
+                    AppLocalizations.of(context)!.communityFind,
                     style: TextStyle(fontWeight: FontWeight.w600),
                   ),
                 ),
@@ -705,7 +705,7 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
               CircularProgressIndicator(color: colorScheme.primary),
               const SizedBox(height: 16),
               Text(
-                'Finding @$username...',
+                l10n.communityFinding(username),
                 style: TextStyle(color: colorScheme.onSurface),
               ),
             ],

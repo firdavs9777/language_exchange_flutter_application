@@ -17995,6 +17995,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Report submitted'**
   String get momentsReportSubmitted;
+
+  /// No description provided for @communityLive.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} live'**
+  String communityLive(Object count);
+
+  /// No description provided for @communityFind.
+  ///
+  /// In en, this message translates to:
+  /// **'Find'**
+  String get communityFind;
+
+  /// No description provided for @communityFinding.
+  ///
+  /// In en, this message translates to:
+  /// **'Finding @{username}...'**
+  String communityFinding(Object username);
+
+  /// No description provided for @communitySeeAll.
+  ///
+  /// In en, this message translates to:
+  /// **'See all'**
+  String get communitySeeAll;
+
+  /// No description provided for @communitySeeWhoLikes.
+  ///
+  /// In en, this message translates to:
+  /// **'See who likes you'**
+  String get communitySeeWhoLikes;
+
+  /// No description provided for @communityUnlimitedBrowsingNoAds.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlimited browsing, no ads, priority matching'**
+  String get communityUnlimitedBrowsingNoAds;
+
+  /// No description provided for @communityMembersCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} members'**
+  String communityMembersCount(Object count);
+
+  /// No description provided for @communityPeopleCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} people'**
+  String communityPeopleCount(Object count);
+
+  /// No description provided for @communityFailedLoadArchivedWaves.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load archived waves'**
+  String get communityFailedLoadArchivedWaves;
+
+  /// No description provided for @communityGreatChat.
+  ///
+  /// In en, this message translates to:
+  /// **'Great chat! 🎉'**
+  String get communityGreatChat;
+
+  /// No description provided for @communityStayTouchPeopleJust.
+  ///
+  /// In en, this message translates to:
+  /// **'Stay in touch with the people you just talked to'**
+  String get communityStayTouchPeopleJust;
+
+  /// No description provided for @communityNotNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Not now'**
+  String get communityNotNow;
+
+  /// No description provided for @communityPerfect.
+  ///
+  /// In en, this message translates to:
+  /// **'Perfect'**
+  String get communityPerfect;
+
+  /// No description provided for @communityLv.
+  ///
+  /// In en, this message translates to:
+  /// **'Lv.{level}'**
+  String communityLv(Object level);
+
+  /// No description provided for @communityReact.
+  ///
+  /// In en, this message translates to:
+  /// **'React'**
+  String get communityReact;
+
+  /// No description provided for @communityWavedAtYou.
+  ///
+  /// In en, this message translates to:
+  /// **'Waved at you'**
+  String get communityWavedAtYou;
+
+  /// No description provided for @communitySomeone.
+  ///
+  /// In en, this message translates to:
+  /// **'Someone'**
+  String get communitySomeone;
+
+  /// No description provided for @communityPeopleInterestedInTopic.
+  ///
+  /// In en, this message translates to:
+  /// **'People interested in this topic'**
+  String get communityPeopleInterestedInTopic;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

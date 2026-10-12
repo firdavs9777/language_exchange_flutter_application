@@ -9829,4 +9829,68 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get momentsReportSubmitted => 'Шикоят фиристода шуд';
+
+  @override
+  String communityLive(Object count) {
+    return '$count зинда';
+  }
+
+  @override
+  String get communityFind => 'Ёфтан';
+
+  @override
+  String communityFinding(Object username) {
+    return 'Ҷустуҷӯи @$username...';
+  }
+
+  @override
+  String get communitySeeAll => 'Ҳамаро дидан';
+
+  @override
+  String get communitySeeWhoLikes => 'Бубинед, ки кӣ шуморо дӯст медорад';
+
+  @override
+  String get communityUnlimitedBrowsingNoAds => 'Тамошои бемаҳдуд, бе реклама, ҷуфтсозии афзалиятнок';
+
+  @override
+  String communityMembersCount(Object count) {
+    return '$count аъзо';
+  }
+
+  @override
+  String communityPeopleCount(Object count) {
+    return '$count нафар';
+  }
+
+  @override
+  String get communityFailedLoadArchivedWaves => 'Боркунии саломҳои бойгонӣшуда ноком шуд';
+
+  @override
+  String get communityGreatChat => 'Сӯҳбати олӣ! 🎉';
+
+  @override
+  String get communityStayTouchPeopleJust => 'Бо одамоне, ки ҳоло бо онҳо сӯҳбат кардед, дар тамос бошед';
+
+  @override
+  String get communityNotNow => 'Ҳозир не';
+
+  @override
+  String get communityPerfect => 'Комил';
+
+  @override
+  String communityLv(Object level) {
+    return 'Сат.$level';
+  }
+
+  @override
+  String get communityReact => 'Вокуниш';
+
+  @override
+  String get communityWavedAtYou => 'Ба шумо даст ҷунбонд';
+
+  @override
+  String get communitySomeone => 'Касе';
+
+  @override
+  String get communityPeopleInterestedInTopic => 'Одамоне, ки ба ин мавзӯъ шавқ доранд';
 }

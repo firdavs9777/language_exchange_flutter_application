@@ -9825,4 +9825,68 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get momentsReportSubmitted => 'Signalement envoyé';
+
+  @override
+  String communityLive(Object count) {
+    return '$count en direct';
+  }
+
+  @override
+  String get communityFind => 'Chercher';
+
+  @override
+  String communityFinding(Object username) {
+    return 'Recherche de @$username...';
+  }
+
+  @override
+  String get communitySeeAll => 'Voir tout';
+
+  @override
+  String get communitySeeWhoLikes => 'Voir qui vous aime';
+
+  @override
+  String get communityUnlimitedBrowsingNoAds => 'Navigation illimitée, sans pub, jumelage prioritaire';
+
+  @override
+  String communityMembersCount(Object count) {
+    return '$count membres';
+  }
+
+  @override
+  String communityPeopleCount(Object count) {
+    return '$count personnes';
+  }
+
+  @override
+  String get communityFailedLoadArchivedWaves => 'Échec du chargement des coucous archivés';
+
+  @override
+  String get communityGreatChat => 'Super discussion ! 🎉';
+
+  @override
+  String get communityStayTouchPeopleJust => 'Gardez le contact avec les personnes à qui vous venez de parler';
+
+  @override
+  String get communityNotNow => 'Pas maintenant';
+
+  @override
+  String get communityPerfect => 'Parfait';
+
+  @override
+  String communityLv(Object level) {
+    return 'Niv.$level';
+  }
+
+  @override
+  String get communityReact => 'Réagir';
+
+  @override
+  String get communityWavedAtYou => 'Vous a fait coucou';
+
+  @override
+  String get communitySomeone => 'Quelqu\'un';
+
+  @override
+  String get communityPeopleInterestedInTopic => 'Personnes intéressées par ce sujet';
 }

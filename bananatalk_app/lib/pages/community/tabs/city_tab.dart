@@ -678,7 +678,7 @@ class _CityTabState extends ConsumerState<CityTab> {
                   const Spacer(),
                   if (total > 0) ...[
                     Text(
-                      'See all',
+                      AppLocalizations.of(context)!.communitySeeAll,
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w700,

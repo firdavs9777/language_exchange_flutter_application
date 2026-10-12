@@ -9825,4 +9825,68 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get momentsReportSubmitted => 'Segnalazione inviata';
+
+  @override
+  String communityLive(Object count) {
+    return '$count in diretta';
+  }
+
+  @override
+  String get communityFind => 'Trova';
+
+  @override
+  String communityFinding(Object username) {
+    return 'Ricerca di @$username...';
+  }
+
+  @override
+  String get communitySeeAll => 'Vedi tutti';
+
+  @override
+  String get communitySeeWhoLikes => 'Scopri a chi piaci';
+
+  @override
+  String get communityUnlimitedBrowsingNoAds => 'Navigazione illimitata, niente pubblicità, abbinamento prioritario';
+
+  @override
+  String communityMembersCount(Object count) {
+    return '$count membri';
+  }
+
+  @override
+  String communityPeopleCount(Object count) {
+    return '$count persone';
+  }
+
+  @override
+  String get communityFailedLoadArchivedWaves => 'Impossibile caricare i saluti archiviati';
+
+  @override
+  String get communityGreatChat => 'Ottima chiacchierata! 🎉';
+
+  @override
+  String get communityStayTouchPeopleJust => 'Resta in contatto con le persone con cui hai appena parlato';
+
+  @override
+  String get communityNotNow => 'Non ora';
+
+  @override
+  String get communityPerfect => 'Perfetto';
+
+  @override
+  String communityLv(Object level) {
+    return 'Liv.$level';
+  }
+
+  @override
+  String get communityReact => 'Reagisci';
+
+  @override
+  String get communityWavedAtYou => 'Ti ha salutato';
+
+  @override
+  String get communitySomeone => 'Qualcuno';
+
+  @override
+  String get communityPeopleInterestedInTopic => 'Persone interessate a questo argomento';
 }

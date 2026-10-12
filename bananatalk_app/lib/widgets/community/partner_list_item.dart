@@ -203,11 +203,11 @@ class PartnerListItem extends StatelessWidget {
             ],
             if (user.isNewUser) ...[
               const SizedBox(width: 6),
-              _buildNewBadge(),
+              _buildNewBadge(context),
             ],
             if (user.isVip) ...[
               const SizedBox(width: 6),
-              _buildVipBadge(),
+              _buildVipBadge(context),
             ],
           ],
         ),
@@ -425,7 +425,7 @@ class PartnerListItem extends StatelessWidget {
     );
   }
 
-  Widget _buildNewBadge() {
+  Widget _buildNewBadge(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
       decoration: BoxDecoration(
@@ -434,8 +434,8 @@ class PartnerListItem extends StatelessWidget {
         ),
         borderRadius: BorderRadius.circular(4),
       ),
-      child: const Text(
-        'NEW',
+      child: Text(
+        AppLocalizations.of(context)!.newUser,
         style: TextStyle(
           fontSize: 10,
           fontWeight: FontWeight.bold,
@@ -445,7 +445,7 @@ class PartnerListItem extends StatelessWidget {
     );
   }
 
-  Widget _buildVipBadge() {
+  Widget _buildVipBadge(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
       decoration: BoxDecoration(
@@ -454,8 +454,8 @@ class PartnerListItem extends StatelessWidget {
         ),
         borderRadius: BorderRadius.circular(4),
       ),
-      child: const Text(
-        'VIP',
+      child: Text(
+        AppLocalizations.of(context)!.vip,
         style: TextStyle(
           fontSize: 10,
           fontWeight: FontWeight.bold,

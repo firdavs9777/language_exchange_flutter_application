@@ -77,6 +77,26 @@ const Map<String, List<String>> _keysByTask = {
     'momentsMaxDuration',
     'momentsReportSubmitted',
   ],
+  'L4': [
+    'communityLive',
+    'communityFind',
+    'communityFinding',
+    'communitySeeAll',
+    'communitySeeWhoLikes',
+    'communityUnlimitedBrowsingNoAds',
+    'communityMembersCount',
+    'communityPeopleCount',
+    'communityFailedLoadArchivedWaves',
+    'communityGreatChat',
+    'communityStayTouchPeopleJust',
+    'communityNotNow',
+    'communityPerfect',
+    'communityLv',
+    'communityReact',
+    'communityWavedAtYou',
+    'communitySomeone',
+    'communityPeopleInterestedInTopic',
+  ],
 };
 
 /// Files (under lib/) each task must leave with no English Text literal.
@@ -118,11 +138,27 @@ const Map<String, List<String>> _filesByTask = {
     'pages/profile/moments/moments_list.dart',
     'widgets/video_player_screen.dart',
   ],
+  'L4': [
+    'pages/community/card/community_card_meta.dart',
+    'pages/community/main/community_app_bar.dart',
+    'pages/community/main/community_filter_chips.dart',
+    'pages/community/main/community_main.dart',
+    'pages/community/tabs/city_tab.dart',
+    'pages/community/tabs/genders_tab.dart',
+    'pages/community/tabs/topics_tab.dart',
+    'pages/community/tabs/waves_archive_screen.dart',
+    'pages/community/voice_rooms/post_room_connect_sheet.dart',
+    'pages/matching/match_card_widget.dart',
+    'widgets/community/partner_card.dart',
+    'widgets/community/partner_list_item.dart',
+    'widgets/voice_room/reaction_picker.dart',
+  ],
 };
 
 /// Keys whose draft may legitimately equal the English in some locale
 /// (loanwords). Add with a one-line reason; empty by default.
 const Set<String> _mayMatchEnglish = {
+  'communityLv', // ja/ko/de/id/tl/zh/zh_TW keep the "Lv.{level}" abbreviation
   'momentsFileSizeMb', // ja/ko/tl/zh/zh_TW keep the "{size}MB" unit as written
   'chatStory', // de/fr/pt use the English loanword "Story"
   'chatPremium', // "Premium ✨" is the same word in de/es/fr/id/it/pt/tl/tr

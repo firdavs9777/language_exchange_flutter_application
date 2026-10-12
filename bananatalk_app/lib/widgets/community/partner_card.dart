@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
@@ -201,7 +202,7 @@ class PartnerCard extends StatelessWidget {
                         ),
                       ],
                     ),
-                    child: const Row(
+                    child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Icon(
@@ -211,7 +212,7 @@ class PartnerCard extends StatelessWidget {
                         ),
                         SizedBox(width: 5),
                         Text(
-                          'Online',
+                          AppLocalizations.of(context)!.online,
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 11,
@@ -244,7 +245,7 @@ class PartnerCard extends StatelessWidget {
                         ),
                       ],
                     ),
-                    child: const Row(
+                    child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Icon(
@@ -254,7 +255,7 @@ class PartnerCard extends StatelessWidget {
                         ),
                         SizedBox(width: 3),
                         Text(
-                          'VIP',
+                          AppLocalizations.of(context)!.vip,
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 11,
@@ -368,7 +369,7 @@ class PartnerCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 // Language exchange
-                _buildLanguageExchange(),
+                _buildLanguageExchange(context),
                 const SizedBox(height: 12),
                 // Topics
                 if (user.topics.isNotEmpty) _buildTopics(),
@@ -382,7 +383,7 @@ class PartnerCard extends StatelessWidget {
       );
   }
 
-  Widget _buildLanguageExchange() {
+  Widget _buildLanguageExchange(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
       decoration: BoxDecoration(
@@ -405,7 +406,7 @@ class PartnerCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 5),
                 Text(
-                  'Native',
+                  AppLocalizations.of(context)!.native,
                   style: TextStyle(
                     color: Colors.white.withOpacity(0.65),
                     fontSize: 10,
@@ -455,7 +456,7 @@ class PartnerCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Learning',
+                      AppLocalizations.of(context)!.learning,
                       style: TextStyle(
                         color: Colors.white.withOpacity(0.65),
                         fontSize: 10,

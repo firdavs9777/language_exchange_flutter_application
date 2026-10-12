@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 /// Bottom-sheet picker that surfaces a small fixed set of emoji reactions
@@ -49,7 +50,7 @@ class ReactionPicker extends StatelessWidget {
             Align(
               alignment: AlignmentDirectional.centerStart,
               child: Text(
-                'React',
+                AppLocalizations.of(context)!.communityReact,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w600,
                 ),

@@ -9831,4 +9831,68 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get momentsReportSubmitted => 'Report submitted';
+
+  @override
+  String communityLive(Object count) {
+    return '$count live';
+  }
+
+  @override
+  String get communityFind => 'Find';
+
+  @override
+  String communityFinding(Object username) {
+    return 'Finding @$username...';
+  }
+
+  @override
+  String get communitySeeAll => 'See all';
+
+  @override
+  String get communitySeeWhoLikes => 'See who likes you';
+
+  @override
+  String get communityUnlimitedBrowsingNoAds => 'Unlimited browsing, no ads, priority matching';
+
+  @override
+  String communityMembersCount(Object count) {
+    return '$count members';
+  }
+
+  @override
+  String communityPeopleCount(Object count) {
+    return '$count people';
+  }
+
+  @override
+  String get communityFailedLoadArchivedWaves => 'Failed to load archived waves';
+
+  @override
+  String get communityGreatChat => 'Great chat! 🎉';
+
+  @override
+  String get communityStayTouchPeopleJust => 'Stay in touch with the people you just talked to';
+
+  @override
+  String get communityNotNow => 'Not now';
+
+  @override
+  String get communityPerfect => 'Perfect';
+
+  @override
+  String communityLv(Object level) {
+    return 'Lv.$level';
+  }
+
+  @override
+  String get communityReact => 'React';
+
+  @override
+  String get communityWavedAtYou => 'Waved at you';
+
+  @override
+  String get communitySomeone => 'Someone';
+
+  @override
+  String get communityPeopleInterestedInTopic => 'People interested in this topic';
 }
