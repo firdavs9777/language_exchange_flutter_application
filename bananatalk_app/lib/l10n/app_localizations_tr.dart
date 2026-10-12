@@ -9822,10 +9822,5 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String momentsScheduledAt(Object date, Object time) {
-    return '$date, $time';
-  }
-
-  @override
   String get momentsReportSubmitted => 'Bildirim gönderildi';
 }

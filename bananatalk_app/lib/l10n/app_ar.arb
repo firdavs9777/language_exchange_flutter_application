@@ -3981,6 +3981,5 @@
   "momentsLoadingVideo": "جارٍ تحميل الفيديو...",
   "momentsFileSizeMb": "{size} ميجابايت",
   "momentsMaxDuration": "الحد الأقصى {duration}",
-  "momentsScheduledAt": "{date} في {time}",
   "momentsReportSubmitted": "تم إرسال البلاغ"
 }

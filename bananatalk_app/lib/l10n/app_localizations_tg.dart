@@ -9828,10 +9828,5 @@ class AppLocalizationsTg extends AppLocalizations {
   }
 
   @override
-  String momentsScheduledAt(Object date, Object time) {
-    return '$date соати $time';
-  }
-
-  @override
   String get momentsReportSubmitted => 'Шикоят фиристода шуд';
 }

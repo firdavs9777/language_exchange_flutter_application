@@ -9821,10 +9821,5 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
-  String momentsScheduledAt(Object date, Object time) {
-    return '$date pukul $time';
-  }
-
-  @override
   String get momentsReportSubmitted => 'Laporan terkirim';
 }

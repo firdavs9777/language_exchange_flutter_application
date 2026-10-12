@@ -3951,6 +3951,5 @@
   "momentsLoadingVideo": "กำลังโหลดวิดีโอ...",
   "momentsFileSizeMb": "{size} MB",
   "momentsMaxDuration": "สูงสุด {duration}",
-  "momentsScheduledAt": "{date} เวลา {time}",
   "momentsReportSubmitted": "ส่งรายงานแล้ว"
 }

@@ -4163,6 +4163,5 @@
   "momentsLoadingVideo": "Video yükleniyor...",
   "momentsFileSizeMb": "{size} MB",
   "momentsMaxDuration": "En fazla {duration}",
-  "momentsScheduledAt": "{date}, {time}",
   "momentsReportSubmitted": "Bildirim gönderildi"
 }

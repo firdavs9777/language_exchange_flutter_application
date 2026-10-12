@@ -3924,6 +3924,5 @@
   "momentsLoadingVideo": "Nilo-load ang video...",
   "momentsFileSizeMb": "{size}MB",
   "momentsMaxDuration": "Hanggang {duration}",
-  "momentsScheduledAt": "{date} nang {time}",
   "momentsReportSubmitted": "Naipadala ang report"
 }

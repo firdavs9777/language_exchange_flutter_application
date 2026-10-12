@@ -3444,6 +3444,5 @@
   "momentsLoadingVideo": "Видео бор шуда истодааст...",
   "momentsFileSizeMb": "{size} МБ",
   "momentsMaxDuration": "Ҳад. {duration}",
-  "momentsScheduledAt": "{date} соати {time}",
   "momentsReportSubmitted": "Шикоят фиристода шуд"
 }

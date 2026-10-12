@@ -9814,10 +9814,5 @@ class AppLocalizationsTh extends AppLocalizations {
   }
 
   @override
-  String momentsScheduledAt(Object date, Object time) {
-    return '$date เวลา $time';
-  }
-
-  @override
   String get momentsReportSubmitted => 'ส่งรายงานแล้ว';
 }

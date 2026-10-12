@@ -9814,10 +9814,5 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
-  String momentsScheduledAt(Object date, Object time) {
-    return '$date lúc $time';
-  }
-
-  @override
   String get momentsReportSubmitted => 'Đã gửi báo cáo';
 }

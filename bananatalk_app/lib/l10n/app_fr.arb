@@ -4191,6 +4191,5 @@
   "momentsLoadingVideo": "Chargement de la vidéo...",
   "momentsFileSizeMb": "{size} Mo",
   "momentsMaxDuration": "Maximum {duration}",
-  "momentsScheduledAt": "{date} à {time}",
   "momentsReportSubmitted": "Signalement envoyé"
 }

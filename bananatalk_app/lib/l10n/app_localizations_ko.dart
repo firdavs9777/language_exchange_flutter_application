@@ -9814,10 +9814,5 @@ class AppLocalizationsKo extends AppLocalizations {
   }
 
   @override
-  String momentsScheduledAt(Object date, Object time) {
-    return '$date $time';
-  }
-
-  @override
   String get momentsReportSubmitted => '신고가 접수되었습니다';
 }

@@ -3972,6 +3972,5 @@
   "momentsLoadingVideo": "동영상 불러오는 중...",
   "momentsFileSizeMb": "{size}MB",
   "momentsMaxDuration": "최대 {duration}",
-  "momentsScheduledAt": "{date} {time}",
   "momentsReportSubmitted": "신고가 접수되었습니다"
 }

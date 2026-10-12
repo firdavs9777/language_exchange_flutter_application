@@ -3951,6 +3951,5 @@
   "momentsLoadingVideo": "Memuat video...",
   "momentsFileSizeMb": "{size} MB",
   "momentsMaxDuration": "Maks. {duration}",
-  "momentsScheduledAt": "{date} pukul {time}",
   "momentsReportSubmitted": "Laporan terkirim"
 }

@@ -3951,6 +3951,5 @@
   "momentsLoadingVideo": "Đang tải video...",
   "momentsFileSizeMb": "{size} MB",
   "momentsMaxDuration": "Tối đa {duration}",
-  "momentsScheduledAt": "{date} lúc {time}",
   "momentsReportSubmitted": "Đã gửi báo cáo"
 }

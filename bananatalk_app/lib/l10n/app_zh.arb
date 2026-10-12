@@ -3965,6 +3965,5 @@
   "momentsLoadingVideo": "正在加载视频...",
   "momentsFileSizeMb": "{size}MB",
   "momentsMaxDuration": "最长 {duration}",
-  "momentsScheduledAt": "{date} {time}",
   "momentsReportSubmitted": "举报已提交"
 }

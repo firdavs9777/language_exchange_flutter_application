@@ -75,7 +75,6 @@ const Map<String, List<String>> _keysByTask = {
     'momentsLoadingVideo',
     'momentsFileSizeMb',
     'momentsMaxDuration',
-    'momentsScheduledAt',
     'momentsReportSubmitted',
   ],
 };

@@ -3642,6 +3642,5 @@
   "momentsLoadingVideo": "正在載入影片...",
   "momentsFileSizeMb": "{size}MB",
   "momentsMaxDuration": "最長 {duration}",
-  "momentsScheduledAt": "{date} {time}",
   "momentsReportSubmitted": "檢舉已送出"
 }

@@ -17990,12 +17990,6 @@ abstract class AppLocalizations {
   /// **'Max {duration}'**
   String momentsMaxDuration(Object duration);
 
-  /// No description provided for @momentsScheduledAt.
-  ///
-  /// In en, this message translates to:
-  /// **'{date} at {time}'**
-  String momentsScheduledAt(Object date, Object time);
-
   /// No description provided for @momentsReportSubmitted.
   ///
   /// In en, this message translates to:

@@ -9839,10 +9839,5 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
-  String momentsScheduledAt(Object date, Object time) {
-    return '$date في $time';
-  }
-
-  @override
   String get momentsReportSubmitted => 'تم إرسال البلاغ';
 }

@@ -3981,6 +3981,5 @@
   "momentsLoadingVideo": "Загрузка видео...",
   "momentsFileSizeMb": "{size} МБ",
   "momentsMaxDuration": "Макс. {duration}",
-  "momentsScheduledAt": "{date} в {time}",
   "momentsReportSubmitted": "Жалоба отправлена"
 }

@@ -9814,11 +9814,6 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
-  String momentsScheduledAt(Object date, Object time) {
-    return '$date $time';
-  }
-
-  @override
   String get momentsReportSubmitted => '举报已提交';
 }
 
@@ -19629,11 +19624,6 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   @override
   String momentsMaxDuration(Object duration) {
     return '最長 $duration';
-  }
-
-  @override
-  String momentsScheduledAt(Object date, Object time) {
-    return '$date $time';
   }
 
   @override

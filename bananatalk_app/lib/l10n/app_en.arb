@@ -6726,7 +6726,5 @@
   "@momentsFileSizeMb": { "placeholders": { "size": { "type": "Object" } } },
   "momentsMaxDuration": "Max {duration}",
   "@momentsMaxDuration": { "placeholders": { "duration": { "type": "Object" } } },
-  "momentsScheduledAt": "{date} at {time}",
-  "@momentsScheduledAt": { "placeholders": { "date": { "type": "Object" }, "time": { "type": "Object" } } },
   "momentsReportSubmitted": "Report submitted"
 }

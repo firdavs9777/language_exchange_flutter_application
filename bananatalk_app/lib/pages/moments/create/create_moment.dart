@@ -1,6 +1,7 @@
 import 'package:bananatalk_app/services/activation_store.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
@@ -835,7 +836,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
               child: Text(
                 decision == UploadRetryDecision.giveUp
                     ? AppLocalizations.of(context)!.ok
-                    : AppLocalizations.of(context)!.dismiss,
+                    : AppLocalizations.of(context)!.close,
               ),
             ),
             // Out of attempts: no button, rather than one that keeps failing.
@@ -2672,10 +2673,9 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                   Expanded(
                     child: Text(
                       _scheduledDate != null
-                          ? AppLocalizations.of(context)!.momentsScheduledAt(
-                              '${_scheduledDate!.day}/${_scheduledDate!.month}/${_scheduledDate!.year}',
-                              '${_scheduledDate!.hour}:${_scheduledDate!.minute.toString().padLeft(2, '0')}',
-                            )
+                          ? DateFormat.yMd(
+                              Localizations.localeOf(context).toString(),
+                            ).add_jm().format(_scheduledDate!)
                           : AppLocalizations.of(
                               context,
                             )!.momentsCreateScheduleForLater,

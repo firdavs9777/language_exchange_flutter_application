@@ -3967,6 +3967,5 @@
   "momentsLoadingVideo": "वीडियो लोड हो रहा है...",
   "momentsFileSizeMb": "{size} एमबी",
   "momentsMaxDuration": "अधिकतम {duration}",
-  "momentsScheduledAt": "{date} को {time} बजे",
   "momentsReportSubmitted": "रिपोर्ट भेज दी गई"
 }

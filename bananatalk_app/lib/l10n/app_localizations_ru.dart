@@ -9847,10 +9847,5 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
-  String momentsScheduledAt(Object date, Object time) {
-    return '$date в $time';
-  }
-
-  @override
   String get momentsReportSubmitted => 'Жалоба отправлена';
 }
