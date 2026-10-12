@@ -11,6 +11,12 @@ import 'package:flutter/foundation.dart';
 class AnalyticsService {
   AnalyticsService._();
   static final AnalyticsService instance = AnalyticsService._();
+
+  /// Test seam: receives every event that passes through [_log], after nulls
+  /// are dropped. Null in production.
+  @visibleForTesting
+  static void Function(String name, Map<String, Object> params)? debugLogSink;
+
   /// Resolved lazily INSIDE the guarded call below, never as a field.
   ///
   /// `FirebaseAnalytics.instance` throws when Firebase has not initialised,
@@ -32,6 +38,7 @@ class AnalyticsService {
       params.forEach((k, v) {
         if (v != null) clean[k] = v;
       });
+      debugLogSink?.call(name, clean);
       // Debug-only echo. Firebase DebugView needs a launch flag and a console
       // round trip; on a device you mostly just want to know the event fired.
       if (kDebugMode) debugPrint('[analytics] $name $clean');
@@ -166,6 +173,26 @@ class AnalyticsService {
     String target = 'primary',
   }) =>
       _log('guide_cta_tapped', {'surface': surface, 'target': target});
+
+  // ─── Activation, guides, priming (spec 2026-10-12) ───────────
+  //
+  // activation_milestone fires once per action, when it is first recorded;
+  // count is how many of the four are done after it. guide_retired fires
+  // once per surface, the first time a guide that was shown stops showing.
+
+  Future<void> logActivationMilestone(String action, int count) =>
+      _log('activation_milestone', {'action': action, 'count': count});
+
+  /// [reason] is 'acted' | 'milestones' | 'window'.
+  Future<void> logGuideRetired(String surface, String reason) =>
+      _log('guide_retired', {'surface': surface, 'reason': reason});
+
+  Future<void> logNotificationPrimeShown(String trigger) =>
+      _log('notification_prime_shown', {'trigger': trigger});
+
+  /// [result] is 'granted' | 'declined' | 'later'.
+  Future<void> logNotificationPrimeResult(String result) =>
+      _log('notification_prime_result', {'result': result});
 
   // ─── Step 13A events ──────────────────────────────────────────
 

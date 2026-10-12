@@ -126,6 +126,26 @@ immediately after a successful `POST /calls/initiate`. `callService.getCurrentCa
 a ringing call only when `initiator: { $ne: userId }` — `/current` answers "should I be shown an incoming
 call or rejoin", and the caller already has the call on screen.
 
+## 0d. Activation, launch pop-ups, announcements — app (2026-10-12) — spec `docs/superpowers/specs/2026-10-12-onboarding-announcements-design.md` §3 §4 §5.2
+
+- [x] A1 analytics: `activation_milestone`, `guide_retired`, `notification_prime_shown`, `notification_prime_result`
+- [ ] A2 `ActivationStore` (4 actions, back-fill, fail closed, user-scoped)
+- [ ] A3 hooks: message, moment (direct + upload queue), lesson / quiz / vocab review, profile complete
+- [ ] A4 guide rule: 7 days, stop at 3 of 4, `isGuidePeriod`, `GuideSurface.chatTip`, `guide_retired` latch
+- [ ] A5 strings: 6 keys × 19 locales + native-QA rows
+- [ ] A6 guide UI: "Getting started · N of 4", retire on real action, CTA no longer retires, Matches on the same rule
+- [ ] A7 chat tip under the first received text message
+- [ ] A8 `PopupBudget` + `LaunchModalCoordinator`
+- [ ] A9 priming: budget, triggers (first matches / first wave / first message sent / received), events; chat-open trigger removed
+- [ ] A10 AI Study promo folded into the spotlight rotation; `AiStudyPromoModal` deleted
+- [ ] A11 `Announcement` model, `appConfig.announcements`, `lang` on app-config, seen set
+- [ ] A12 launch wiring: announcement / ads notice / spotlight candidates; version check reports the update dialog
+- [ ] A13 `AnnouncementScreen` at `/announcement/:id`
+- [ ] A14 notifications list `announcement` type + push routing
+- [ ] A15 Settings → Notifications "Announcements" toggle
+- [ ] A16 suspension screen reads `banReason`
+- [ ] Device QA rows in `docs/qa/onboarding-matrix.md` (owner, after a release build) — matrix file created in A1
+
 ## 0c. First-session guidance (2026-10-09) — spec `docs/superpowers/specs/2026-10-09-first-session-guidance-design.md`
 
 Baseline: 85% of signups leave on day one; D1 15%, D7 7%. The first-conversation path is ~80% built
