@@ -7047,7 +7047,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get examSpeakingPart3 => 'Speaking — Part 3';
 
   @override
-  String get examSpeakingSubmit => 'Submit recording';
+  String get examSpeakingSubmit => 'रिकॉर्डिंग जमा करें';
 
   @override
   String get examSpeakingUploading => 'अपलोड हो रहा है…';
@@ -9889,4 +9889,100 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get communityPeopleInterestedInTopic => 'इस विषय में रुचि रखने वाले लोग';
+
+  @override
+  String get learnThemedWordSetsBuild => 'अपनी शब्दावली बढ़ाने के लिए विषय-आधारित शब्द सेट';
+
+  @override
+  String get learnTapStartRecording => 'रिकॉर्डिंग शुरू करने के लिए टैप करें';
+
+  @override
+  String get learnWordBank => 'शब्द बैंक';
+
+  @override
+  String learnCorrectAnswer(Object correctAnswer) {
+    return 'सही उत्तर: $correctAnswer';
+  }
+
+  @override
+  String get learnMatchingDataNotAvailable => 'मिलान का डेटा उपलब्ध नहीं है';
+
+  @override
+  String get learnExerciseCouldNotLoad => 'इस अभ्यास के लिए मिलान जोड़े लोड नहीं हो सके। कृपया पाठ फिर से बनाकर देखें।';
+
+  @override
+  String get learnSkipExercise => 'अभ्यास छोड़ें';
+
+  @override
+  String get learnTapItemLeftThen => 'बाईं ओर किसी आइटम पर टैप करें, फिर दाईं ओर उसके जोड़ पर टैप करें';
+
+  @override
+  String learnMatchedOfTotal(Object count, Object count2) {
+    return '$count/$count2 मिलाए गए';
+  }
+
+  @override
+  String learnCorrectOfTotal(Object correctCount, Object count) {
+    return '$correctCount/$count सही';
+  }
+
+  @override
+  String get learnDragDropReorderItems => 'आइटम को दोबारा क्रमबद्ध करने के लिए खींचकर छोड़ें';
+
+  @override
+  String learnCorrectOrder(Object order) {
+    return 'सही क्रम: $order';
+  }
+
+  @override
+  String learnWordsToReview(int dueCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      dueCount,
+      locale: localeName,
+      other: 'दोहराने के लिए $dueCount शब्द',
+      one: 'दोहराने के लिए 1 शब्द',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnScore(Object score) {
+    return 'स्कोर: $score / 100';
+  }
+
+  @override
+  String learnGotCorrect(Object correct, Object count) {
+    return 'आपने $count में से $correct सही किए।';
+  }
+
+  @override
+  String learnQuestionOf(Object number, Object total) {
+    return 'प्रश्न $number / $total';
+  }
+
+  @override
+  String get learnMatchEachWordIts => 'हर शब्द को उसके अर्थ से मिलाएँ';
+
+  @override
+  String get learnCouldNotLoadPacks => 'पैक लोड नहीं हो सके';
+
+  @override
+  String learnWordsExercises(Object wordCount, Object exerciseCount) {
+    return '$wordCount शब्द · $exerciseCount अभ्यास';
+  }
+
+  @override
+  String get learnAiAutoFill => 'AI ऑटो-फ़िल';
+
+  @override
+  String get learnPlay => 'चलाएँ';
+
+  @override
+  String get learnFinish => 'समाप्त करें';
+
+  @override
+  String get learnNotQuite => 'बिल्कुल नहीं।';
+
+  @override
+  String get learnUnsupportedExercise => 'असमर्थित अभ्यास';
 }

@@ -118,6 +118,7 @@ class _OrderingWidgetState extends State<OrderingWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -128,7 +129,7 @@ class _OrderingWidgetState extends State<OrderingWidget> {
         ),
         Spacing.gapSM,
         Text(
-          'Drag and drop to reorder the items',
+          l10n.learnDragDropReorderItems,
           style: context.caption.copyWith(fontStyle: FontStyle.italic),
         ),
         Spacing.gapLG,
@@ -181,7 +182,7 @@ class _OrderingWidgetState extends State<OrderingWidget> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        _isCorrect ? 'Correct!' : 'Incorrect',
+                        _isCorrect ? l10n.lessonCorrect : l10n.lessonIncorrect,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color:
@@ -191,7 +192,7 @@ class _OrderingWidgetState extends State<OrderingWidget> {
                       if (!_isCorrect) ...[
                         Spacing.gapXS,
                         Text(
-                          'Correct order: ${_correctOrder.join(' → ')}',
+                          l10n.learnCorrectOrder(_correctOrder.join(' → ')),
                           style: context.bodySmall,
                         ),
                       ],
@@ -262,7 +263,7 @@ class _OrderingWidgetState extends State<OrderingWidget> {
               ),
             ),
             child: Text(
-              widget.showResult ? 'Continue' : 'Check',
+              widget.showResult ? l10n.continueButton : l10n.lessonCheck,
               style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,

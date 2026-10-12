@@ -18103,6 +18103,150 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'People interested in this topic'**
   String get communityPeopleInterestedInTopic;
+
+  /// No description provided for @learnThemedWordSetsBuild.
+  ///
+  /// In en, this message translates to:
+  /// **'Themed word sets to build your vocabulary'**
+  String get learnThemedWordSetsBuild;
+
+  /// No description provided for @learnTapStartRecording.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to start recording'**
+  String get learnTapStartRecording;
+
+  /// No description provided for @learnWordBank.
+  ///
+  /// In en, this message translates to:
+  /// **'Word Bank'**
+  String get learnWordBank;
+
+  /// No description provided for @learnCorrectAnswer.
+  ///
+  /// In en, this message translates to:
+  /// **'Correct answer: {correctAnswer}'**
+  String learnCorrectAnswer(Object correctAnswer);
+
+  /// No description provided for @learnMatchingDataNotAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Matching data not available'**
+  String get learnMatchingDataNotAvailable;
+
+  /// No description provided for @learnExerciseCouldNotLoad.
+  ///
+  /// In en, this message translates to:
+  /// **'This exercise could not load the matching pairs. Please try regenerating the lesson.'**
+  String get learnExerciseCouldNotLoad;
+
+  /// No description provided for @learnSkipExercise.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip Exercise'**
+  String get learnSkipExercise;
+
+  /// No description provided for @learnTapItemLeftThen.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap an item on the left, then tap its match on the right'**
+  String get learnTapItemLeftThen;
+
+  /// No description provided for @learnMatchedOfTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'{count}/{count2} matched'**
+  String learnMatchedOfTotal(Object count, Object count2);
+
+  /// No description provided for @learnCorrectOfTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'{correctCount}/{count} correct'**
+  String learnCorrectOfTotal(Object correctCount, Object count);
+
+  /// No description provided for @learnDragDropReorderItems.
+  ///
+  /// In en, this message translates to:
+  /// **'Drag and drop to reorder the items'**
+  String get learnDragDropReorderItems;
+
+  /// No description provided for @learnCorrectOrder.
+  ///
+  /// In en, this message translates to:
+  /// **'Correct order: {order}'**
+  String learnCorrectOrder(Object order);
+
+  /// No description provided for @learnWordsToReview.
+  ///
+  /// In en, this message translates to:
+  /// **'{dueCount, plural, =1{1 word to review} other{{dueCount} words to review}}'**
+  String learnWordsToReview(int dueCount);
+
+  /// No description provided for @learnScore.
+  ///
+  /// In en, this message translates to:
+  /// **'Score: {score} / 100'**
+  String learnScore(Object score);
+
+  /// No description provided for @learnGotCorrect.
+  ///
+  /// In en, this message translates to:
+  /// **'You got {correct} of {count} correct.'**
+  String learnGotCorrect(Object correct, Object count);
+
+  /// No description provided for @learnQuestionOf.
+  ///
+  /// In en, this message translates to:
+  /// **'Question {number} of {total}'**
+  String learnQuestionOf(Object number, Object total);
+
+  /// No description provided for @learnMatchEachWordIts.
+  ///
+  /// In en, this message translates to:
+  /// **'Match each word to its meaning'**
+  String get learnMatchEachWordIts;
+
+  /// No description provided for @learnCouldNotLoadPacks.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load packs'**
+  String get learnCouldNotLoadPacks;
+
+  /// No description provided for @learnWordsExercises.
+  ///
+  /// In en, this message translates to:
+  /// **'{wordCount} words · {exerciseCount} exercises'**
+  String learnWordsExercises(Object wordCount, Object exerciseCount);
+
+  /// No description provided for @learnAiAutoFill.
+  ///
+  /// In en, this message translates to:
+  /// **'AI Auto-fill'**
+  String get learnAiAutoFill;
+
+  /// No description provided for @learnPlay.
+  ///
+  /// In en, this message translates to:
+  /// **'Play'**
+  String get learnPlay;
+
+  /// No description provided for @learnFinish.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish'**
+  String get learnFinish;
+
+  /// No description provided for @learnNotQuite.
+  ///
+  /// In en, this message translates to:
+  /// **'Not quite.'**
+  String get learnNotQuite;
+
+  /// No description provided for @learnUnsupportedExercise.
+  ///
+  /// In en, this message translates to:
+  /// **'Unsupported exercise'**
+  String get learnUnsupportedExercise;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

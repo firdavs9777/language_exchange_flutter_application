@@ -57,7 +57,7 @@ class _VocabularyScreenState extends ConsumerState<VocabularyScreen> {
         elevation: 0,
         backgroundColor: context.surfaceColor,
         title: Text(
-          'Vocabulary',
+          l10n.vocabulary,
           style: context.titleLarge,
         ),
         leading: IconButton(

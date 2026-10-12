@@ -7040,7 +7040,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get examSpeakingPart3 => 'Speaking — Part 3';
 
   @override
-  String get examSpeakingSubmit => 'Submit recording';
+  String get examSpeakingSubmit => 'Gửi bản ghi âm';
 
   @override
   String get examSpeakingUploading => 'Đang tải lên…';
@@ -9879,4 +9879,99 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get communityPeopleInterestedInTopic => 'Những người quan tâm đến chủ đề này';
+
+  @override
+  String get learnThemedWordSetsBuild => 'Các bộ từ theo chủ đề để xây dựng vốn từ vựng của bạn';
+
+  @override
+  String get learnTapStartRecording => 'Chạm để bắt đầu ghi âm';
+
+  @override
+  String get learnWordBank => 'Ngân hàng từ';
+
+  @override
+  String learnCorrectAnswer(Object correctAnswer) {
+    return 'Đáp án đúng: $correctAnswer';
+  }
+
+  @override
+  String get learnMatchingDataNotAvailable => 'Không có dữ liệu ghép cặp';
+
+  @override
+  String get learnExerciseCouldNotLoad => 'Bài tập này không tải được các cặp cần ghép. Vui lòng thử tạo lại bài học.';
+
+  @override
+  String get learnSkipExercise => 'Bỏ qua bài tập';
+
+  @override
+  String get learnTapItemLeftThen => 'Chạm vào một mục bên trái, rồi chạm vào mục tương ứng bên phải';
+
+  @override
+  String learnMatchedOfTotal(Object count, Object count2) {
+    return 'Đã ghép $count/$count2';
+  }
+
+  @override
+  String learnCorrectOfTotal(Object correctCount, Object count) {
+    return 'Đúng $correctCount/$count';
+  }
+
+  @override
+  String get learnDragDropReorderItems => 'Kéo và thả để sắp xếp lại các mục';
+
+  @override
+  String learnCorrectOrder(Object order) {
+    return 'Thứ tự đúng: $order';
+  }
+
+  @override
+  String learnWordsToReview(int dueCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      dueCount,
+      locale: localeName,
+      other: '$dueCount từ cần ôn',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnScore(Object score) {
+    return 'Điểm: $score / 100';
+  }
+
+  @override
+  String learnGotCorrect(Object correct, Object count) {
+    return 'Bạn trả lời đúng $correct trên $count câu.';
+  }
+
+  @override
+  String learnQuestionOf(Object number, Object total) {
+    return 'Câu hỏi $number / $total';
+  }
+
+  @override
+  String get learnMatchEachWordIts => 'Ghép mỗi từ với nghĩa của nó';
+
+  @override
+  String get learnCouldNotLoadPacks => 'Không thể tải các gói';
+
+  @override
+  String learnWordsExercises(Object wordCount, Object exerciseCount) {
+    return '$wordCount từ · $exerciseCount bài tập';
+  }
+
+  @override
+  String get learnAiAutoFill => 'Tự động điền bằng AI';
+
+  @override
+  String get learnPlay => 'Phát';
+
+  @override
+  String get learnFinish => 'Hoàn thành';
+
+  @override
+  String get learnNotQuite => 'Chưa đúng.';
+
+  @override
+  String get learnUnsupportedExercise => 'Bài tập không được hỗ trợ';
 }

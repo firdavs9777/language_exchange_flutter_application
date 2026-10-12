@@ -9895,4 +9895,100 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get communityPeopleInterestedInTopic => 'People interested in this topic';
+
+  @override
+  String get learnThemedWordSetsBuild => 'Themed word sets to build your vocabulary';
+
+  @override
+  String get learnTapStartRecording => 'Tap to start recording';
+
+  @override
+  String get learnWordBank => 'Word Bank';
+
+  @override
+  String learnCorrectAnswer(Object correctAnswer) {
+    return 'Correct answer: $correctAnswer';
+  }
+
+  @override
+  String get learnMatchingDataNotAvailable => 'Matching data not available';
+
+  @override
+  String get learnExerciseCouldNotLoad => 'This exercise could not load the matching pairs. Please try regenerating the lesson.';
+
+  @override
+  String get learnSkipExercise => 'Skip Exercise';
+
+  @override
+  String get learnTapItemLeftThen => 'Tap an item on the left, then tap its match on the right';
+
+  @override
+  String learnMatchedOfTotal(Object count, Object count2) {
+    return '$count/$count2 matched';
+  }
+
+  @override
+  String learnCorrectOfTotal(Object correctCount, Object count) {
+    return '$correctCount/$count correct';
+  }
+
+  @override
+  String get learnDragDropReorderItems => 'Drag and drop to reorder the items';
+
+  @override
+  String learnCorrectOrder(Object order) {
+    return 'Correct order: $order';
+  }
+
+  @override
+  String learnWordsToReview(int dueCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      dueCount,
+      locale: localeName,
+      other: '$dueCount words to review',
+      one: '1 word to review',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnScore(Object score) {
+    return 'Score: $score / 100';
+  }
+
+  @override
+  String learnGotCorrect(Object correct, Object count) {
+    return 'You got $correct of $count correct.';
+  }
+
+  @override
+  String learnQuestionOf(Object number, Object total) {
+    return 'Question $number of $total';
+  }
+
+  @override
+  String get learnMatchEachWordIts => 'Match each word to its meaning';
+
+  @override
+  String get learnCouldNotLoadPacks => 'Could not load packs';
+
+  @override
+  String learnWordsExercises(Object wordCount, Object exerciseCount) {
+    return '$wordCount words · $exerciseCount exercises';
+  }
+
+  @override
+  String get learnAiAutoFill => 'AI Auto-fill';
+
+  @override
+  String get learnPlay => 'Play';
+
+  @override
+  String get learnFinish => 'Finish';
+
+  @override
+  String get learnNotQuite => 'Not quite.';
+
+  @override
+  String get learnUnsupportedExercise => 'Unsupported exercise';
 }

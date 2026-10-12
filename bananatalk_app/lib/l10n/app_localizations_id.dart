@@ -7047,7 +7047,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get examSpeakingPart3 => 'Speaking — Part 3';
 
   @override
-  String get examSpeakingSubmit => 'Submit recording';
+  String get examSpeakingSubmit => 'Kirim rekaman';
 
   @override
   String get examSpeakingUploading => 'Mengunggah…';
@@ -9886,4 +9886,100 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get communityPeopleInterestedInTopic => 'Orang yang tertarik dengan topik ini';
+
+  @override
+  String get learnThemedWordSetsBuild => 'Kumpulan kata bertema untuk memperkaya kosakatamu';
+
+  @override
+  String get learnTapStartRecording => 'Ketuk untuk mulai merekam';
+
+  @override
+  String get learnWordBank => 'Bank Kata';
+
+  @override
+  String learnCorrectAnswer(Object correctAnswer) {
+    return 'Jawaban benar: $correctAnswer';
+  }
+
+  @override
+  String get learnMatchingDataNotAvailable => 'Data pencocokan tidak tersedia';
+
+  @override
+  String get learnExerciseCouldNotLoad => 'Latihan ini tidak dapat memuat pasangan yang harus dicocokkan. Coba buat ulang pelajarannya.';
+
+  @override
+  String get learnSkipExercise => 'Lewati Latihan';
+
+  @override
+  String get learnTapItemLeftThen => 'Ketuk item di kiri, lalu ketuk pasangannya di kanan';
+
+  @override
+  String learnMatchedOfTotal(Object count, Object count2) {
+    return '$count/$count2 cocok';
+  }
+
+  @override
+  String learnCorrectOfTotal(Object correctCount, Object count) {
+    return '$correctCount/$count benar';
+  }
+
+  @override
+  String get learnDragDropReorderItems => 'Seret dan lepas untuk mengurutkan ulang item';
+
+  @override
+  String learnCorrectOrder(Object order) {
+    return 'Urutan benar: $order';
+  }
+
+  @override
+  String learnWordsToReview(int dueCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      dueCount,
+      locale: localeName,
+      other: '$dueCount kata untuk diulas',
+      one: '1 kata untuk diulas',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnScore(Object score) {
+    return 'Skor: $score / 100';
+  }
+
+  @override
+  String learnGotCorrect(Object correct, Object count) {
+    return 'Kamu menjawab $correct dari $count dengan benar.';
+  }
+
+  @override
+  String learnQuestionOf(Object number, Object total) {
+    return 'Pertanyaan $number dari $total';
+  }
+
+  @override
+  String get learnMatchEachWordIts => 'Cocokkan setiap kata dengan artinya';
+
+  @override
+  String get learnCouldNotLoadPacks => 'Paket tidak dapat dimuat';
+
+  @override
+  String learnWordsExercises(Object wordCount, Object exerciseCount) {
+    return '$wordCount kata · $exerciseCount latihan';
+  }
+
+  @override
+  String get learnAiAutoFill => 'Isi Otomatis AI';
+
+  @override
+  String get learnPlay => 'Putar';
+
+  @override
+  String get learnFinish => 'Selesai';
+
+  @override
+  String get learnNotQuite => 'Belum tepat.';
+
+  @override
+  String get learnUnsupportedExercise => 'Latihan tidak didukung';
 }

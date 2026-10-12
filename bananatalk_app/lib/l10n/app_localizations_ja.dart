@@ -7040,7 +7040,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get examSpeakingPart3 => 'Speaking — Part 3';
 
   @override
-  String get examSpeakingSubmit => 'Submit recording';
+  String get examSpeakingSubmit => '録音を送信';
 
   @override
   String get examSpeakingUploading => 'アップロード中…';
@@ -9879,4 +9879,99 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get communityPeopleInterestedInTopic => 'このトピックに興味がある人';
+
+  @override
+  String get learnThemedWordSetsBuild => '語彙を増やすためのテーマ別単語セット';
+
+  @override
+  String get learnTapStartRecording => 'タップして録音を開始';
+
+  @override
+  String get learnWordBank => '単語バンク';
+
+  @override
+  String learnCorrectAnswer(Object correctAnswer) {
+    return '正解: $correctAnswer';
+  }
+
+  @override
+  String get learnMatchingDataNotAvailable => 'マッチングデータがありません';
+
+  @override
+  String get learnExerciseCouldNotLoad => 'この問題のマッチングペアを読み込めませんでした。レッスンを再生成してみてください。';
+
+  @override
+  String get learnSkipExercise => '問題をスキップ';
+
+  @override
+  String get learnTapItemLeftThen => '左の項目をタップし、右の対応する項目をタップしてください';
+
+  @override
+  String learnMatchedOfTotal(Object count, Object count2) {
+    return '$count/$count2 組マッチ';
+  }
+
+  @override
+  String learnCorrectOfTotal(Object correctCount, Object count) {
+    return '$correctCount/$count 正解';
+  }
+
+  @override
+  String get learnDragDropReorderItems => 'ドラッグ＆ドロップで項目を並べ替えてください';
+
+  @override
+  String learnCorrectOrder(Object order) {
+    return '正しい順序: $order';
+  }
+
+  @override
+  String learnWordsToReview(int dueCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      dueCount,
+      locale: localeName,
+      other: '復習する単語 $dueCount 語',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnScore(Object score) {
+    return 'スコア: $score / 100';
+  }
+
+  @override
+  String learnGotCorrect(Object correct, Object count) {
+    return '$count問中$correct問正解です。';
+  }
+
+  @override
+  String learnQuestionOf(Object number, Object total) {
+    return '問題 $number / $total';
+  }
+
+  @override
+  String get learnMatchEachWordIts => '各単語をその意味に結びつけてください';
+
+  @override
+  String get learnCouldNotLoadPacks => 'パックを読み込めませんでした';
+
+  @override
+  String learnWordsExercises(Object wordCount, Object exerciseCount) {
+    return '$wordCount 語 · $exerciseCount 問';
+  }
+
+  @override
+  String get learnAiAutoFill => 'AI 自動入力';
+
+  @override
+  String get learnPlay => '再生';
+
+  @override
+  String get learnFinish => '完了';
+
+  @override
+  String get learnNotQuite => '惜しい！';
+
+  @override
+  String get learnUnsupportedExercise => '未対応の問題';
 }

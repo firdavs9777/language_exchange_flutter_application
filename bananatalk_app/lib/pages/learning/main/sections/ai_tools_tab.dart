@@ -500,7 +500,7 @@ class _AITutorHero extends ConsumerWidget {
                     children: [
                       Text(
                         hasPersona
-                            ? l10n.aiTutorHeroTitleSet(name ?? 'Nana')
+                            ? l10n.aiTutorHeroTitleSet(name ?? '')
                             : l10n.aiTutorHeroTitleNew,
                         style: const TextStyle(
                           color: Colors.white,
@@ -774,7 +774,7 @@ class _ReviewCardBody extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '$dueCount words to review',
+                      AppLocalizations.of(context)!.learnWordsToReview(dueCount),
                       style: context.titleSmall.copyWith(
                         fontWeight: FontWeight.w700,
                         color: Colors.orange.shade800,

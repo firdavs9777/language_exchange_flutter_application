@@ -97,6 +97,33 @@ const Map<String, List<String>> _keysByTask = {
     'communitySomeone',
     'communityPeopleInterestedInTopic',
   ],
+  'L5': [
+    'learnThemedWordSetsBuild',
+    'learnTapStartRecording',
+    'learnWordBank',
+    'learnCorrectAnswer',
+    'learnMatchingDataNotAvailable',
+    'learnExerciseCouldNotLoad',
+    'learnSkipExercise',
+    'learnTapItemLeftThen',
+    'learnMatchedOfTotal',
+    'learnCorrectOfTotal',
+    'learnDragDropReorderItems',
+    'learnCorrectOrder',
+    'learnWordsToReview',
+    'learnScore',
+    'learnGotCorrect',
+    'learnQuestionOf',
+    'learnMatchEachWordIts',
+    'learnCouldNotLoadPacks',
+    'learnWordsExercises',
+    'learnAiAutoFill',
+    'learnPlay',
+    'learnFinish',
+    'learnNotQuite',
+    'learnUnsupportedExercise',
+    'examSpeakingSubmit',
+  ],
 };
 
 /// Files (under lib/) each task must leave with no English Text literal.
@@ -153,6 +180,20 @@ const Map<String, List<String>> _filesByTask = {
     'widgets/community/partner_list_item.dart',
     'widgets/voice_room/reaction_picker.dart',
   ],
+  'L5': [
+    'pages/learning/exam_study/exam_picker_screen.dart',
+    'pages/learning/exam_study/widgets/audio_recorder.dart',
+    'pages/learning/lessons/exercises/fill_blank_widget.dart',
+    'pages/learning/lessons/exercises/matching_widget.dart',
+    'pages/learning/lessons/exercises/multiple_choice_widget.dart',
+    'pages/learning/lessons/exercises/ordering_widget.dart',
+    'pages/learning/main/sections/ai_tools_tab.dart',
+    'pages/learning/main/sections/daily_practice_card.dart',
+    'pages/learning/vocabulary/vocab_pack_practice_screen.dart',
+    'pages/learning/vocabulary/vocab_packs_screen.dart',
+    'pages/learning/vocabulary/vocabulary_add_screen.dart',
+    'pages/learning/vocabulary/vocabulary_screen.dart',
+  ],
 };
 
 /// Keys whose draft may legitimately equal the English in some locale
@@ -165,6 +206,8 @@ const Set<String> _mayMatchEnglish = {
   'chatAlternatives', // fr "Alternatives" is the same word
   'chatQrCode', // tl uses the English term
   'chatDraft', // tl uses the English loanword
+  'learnWordBank', // tl keeps the English term "Word Bank"
+  'learnAiAutoFill', // tl keeps "AI Auto-fill" as is
   'chatMediaPhoto', // fr "photo" is the same word
   'chatMediaVideo', // tl/id/de/it/pt/vi use the loanword "video"
   'chatMediaAudio', // many locales use the loanword "audio"

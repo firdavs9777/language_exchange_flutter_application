@@ -7053,7 +7053,7 @@ class AppLocalizationsTg extends AppLocalizations {
   String get examSpeakingPart3 => 'Speaking — Part 3';
 
   @override
-  String get examSpeakingSubmit => 'Submit recording';
+  String get examSpeakingSubmit => 'Фиристодани сабт';
 
   @override
   String get examSpeakingUploading => 'Боргузорӣ…';
@@ -9893,4 +9893,100 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get communityPeopleInterestedInTopic => 'Одамоне, ки ба ин мавзӯъ шавқ доранд';
+
+  @override
+  String get learnThemedWordSetsBuild => 'Маҷмӯаҳои мавзӯии калимаҳо барои афзоиши луғати шумо';
+
+  @override
+  String get learnTapStartRecording => 'Барои оғози сабт ламс кунед';
+
+  @override
+  String get learnWordBank => 'Бонки калимаҳо';
+
+  @override
+  String learnCorrectAnswer(Object correctAnswer) {
+    return 'Ҷавоби дуруст: $correctAnswer';
+  }
+
+  @override
+  String get learnMatchingDataNotAvailable => 'Маълумоти мутобиқсозӣ дастнорас аст';
+
+  @override
+  String get learnExerciseCouldNotLoad => 'Ҷуфтҳои мутобиқсозии ин машқ бор нашуданд. Лутфан дарсро аз нав эҷод кунед.';
+
+  @override
+  String get learnSkipExercise => 'Гузаштани машқ';
+
+  @override
+  String get learnTapItemLeftThen => 'Ба унсури чап ламс кунед, сипас ба ҷуфти он дар тарафи рост';
+
+  @override
+  String learnMatchedOfTotal(Object count, Object count2) {
+    return '$count/$count2 мутобиқ шуд';
+  }
+
+  @override
+  String learnCorrectOfTotal(Object correctCount, Object count) {
+    return '$correctCount/$count дуруст';
+  }
+
+  @override
+  String get learnDragDropReorderItems => 'Барои тағйири тартиби унсурҳо кашида монед';
+
+  @override
+  String learnCorrectOrder(Object order) {
+    return 'Тартиби дуруст: $order';
+  }
+
+  @override
+  String learnWordsToReview(int dueCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      dueCount,
+      locale: localeName,
+      other: '$dueCount калима барои такрор',
+      one: '1 калима барои такрор',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnScore(Object score) {
+    return 'Хол: $score / 100';
+  }
+
+  @override
+  String learnGotCorrect(Object correct, Object count) {
+    return 'Шумо ба $correct аз $count дуруст ҷавоб додед.';
+  }
+
+  @override
+  String learnQuestionOf(Object number, Object total) {
+    return 'Саволи $number аз $total';
+  }
+
+  @override
+  String get learnMatchEachWordIts => 'Ҳар калимаро бо маънояш мутобиқ кунед';
+
+  @override
+  String get learnCouldNotLoadPacks => 'Бастаҳо бор нашуданд';
+
+  @override
+  String learnWordsExercises(Object wordCount, Object exerciseCount) {
+    return '$wordCount калима · $exerciseCount машқ';
+  }
+
+  @override
+  String get learnAiAutoFill => 'Пуркунии худкори AI';
+
+  @override
+  String get learnPlay => 'Пахш кардан';
+
+  @override
+  String get learnFinish => 'Анҷом додан';
+
+  @override
+  String get learnNotQuite => 'Не чандон дуруст.';
+
+  @override
+  String get learnUnsupportedExercise => 'Машқи дастгиринашаванда';
 }

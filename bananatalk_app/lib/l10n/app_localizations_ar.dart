@@ -7056,7 +7056,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get examSpeakingPart3 => 'Speaking — Part 3';
 
   @override
-  String get examSpeakingSubmit => 'Submit recording';
+  String get examSpeakingSubmit => 'إرسال التسجيل';
 
   @override
   String get examSpeakingUploading => 'جارٍ الرفع…';
@@ -9904,4 +9904,100 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get communityPeopleInterestedInTopic => 'أشخاص مهتمون بهذا الموضوع';
+
+  @override
+  String get learnThemedWordSetsBuild => 'مجموعات كلمات حسب الموضوع لبناء مفرداتك';
+
+  @override
+  String get learnTapStartRecording => 'اضغط لبدء التسجيل';
+
+  @override
+  String get learnWordBank => 'بنك الكلمات';
+
+  @override
+  String learnCorrectAnswer(Object correctAnswer) {
+    return 'الإجابة الصحيحة: $correctAnswer';
+  }
+
+  @override
+  String get learnMatchingDataNotAvailable => 'بيانات المطابقة غير متاحة';
+
+  @override
+  String get learnExerciseCouldNotLoad => 'تعذّر تحميل أزواج المطابقة لهذا التمرين. يُرجى محاولة إعادة إنشاء الدرس.';
+
+  @override
+  String get learnSkipExercise => 'تخطي التمرين';
+
+  @override
+  String get learnTapItemLeftThen => 'اضغط على عنصر من اليسار، ثم اضغط على ما يطابقه من اليمين';
+
+  @override
+  String learnMatchedOfTotal(Object count, Object count2) {
+    return 'تمت مطابقة $count/$count2';
+  }
+
+  @override
+  String learnCorrectOfTotal(Object correctCount, Object count) {
+    return '$correctCount/$count صحيحة';
+  }
+
+  @override
+  String get learnDragDropReorderItems => 'اسحب وأفلت لإعادة ترتيب العناصر';
+
+  @override
+  String learnCorrectOrder(Object order) {
+    return 'الترتيب الصحيح: $order';
+  }
+
+  @override
+  String learnWordsToReview(int dueCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      dueCount,
+      locale: localeName,
+      other: '$dueCount كلمات للمراجعة',
+      one: 'كلمة واحدة للمراجعة',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnScore(Object score) {
+    return 'النتيجة: $score / 100';
+  }
+
+  @override
+  String learnGotCorrect(Object correct, Object count) {
+    return 'أجبت بشكل صحيح على $correct من $count.';
+  }
+
+  @override
+  String learnQuestionOf(Object number, Object total) {
+    return 'السؤال $number من $total';
+  }
+
+  @override
+  String get learnMatchEachWordIts => 'طابق كل كلمة مع معناها';
+
+  @override
+  String get learnCouldNotLoadPacks => 'تعذّر تحميل الحزم';
+
+  @override
+  String learnWordsExercises(Object wordCount, Object exerciseCount) {
+    return '$wordCount كلمات · $exerciseCount تمارين';
+  }
+
+  @override
+  String get learnAiAutoFill => 'تعبئة تلقائية بالذكاء الاصطناعي';
+
+  @override
+  String get learnPlay => 'تشغيل';
+
+  @override
+  String get learnFinish => 'إنهاء';
+
+  @override
+  String get learnNotQuite => 'ليس تمامًا.';
+
+  @override
+  String get learnUnsupportedExercise => 'تمرين غير مدعوم';
 }

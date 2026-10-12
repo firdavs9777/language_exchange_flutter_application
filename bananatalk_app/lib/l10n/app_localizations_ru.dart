@@ -7059,7 +7059,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get examSpeakingPart3 => 'Speaking — Part 3';
 
   @override
-  String get examSpeakingSubmit => 'Submit recording';
+  String get examSpeakingSubmit => 'Отправить запись';
 
   @override
   String get examSpeakingUploading => 'Загрузка…';
@@ -9912,4 +9912,102 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get communityPeopleInterestedInTopic => 'Люди, интересующиеся этой темой';
+
+  @override
+  String get learnThemedWordSetsBuild => 'Тематические наборы слов для расширения словарного запаса';
+
+  @override
+  String get learnTapStartRecording => 'Нажмите, чтобы начать запись';
+
+  @override
+  String get learnWordBank => 'Банк слов';
+
+  @override
+  String learnCorrectAnswer(Object correctAnswer) {
+    return 'Правильный ответ: $correctAnswer';
+  }
+
+  @override
+  String get learnMatchingDataNotAvailable => 'Данные для сопоставления недоступны';
+
+  @override
+  String get learnExerciseCouldNotLoad => 'Не удалось загрузить пары для сопоставления в этом упражнении. Попробуйте пересоздать урок.';
+
+  @override
+  String get learnSkipExercise => 'Пропустить упражнение';
+
+  @override
+  String get learnTapItemLeftThen => 'Нажмите на элемент слева, затем на его пару справа';
+
+  @override
+  String learnMatchedOfTotal(Object count, Object count2) {
+    return 'Сопоставлено: $count/$count2';
+  }
+
+  @override
+  String learnCorrectOfTotal(Object correctCount, Object count) {
+    return 'Верно: $correctCount/$count';
+  }
+
+  @override
+  String get learnDragDropReorderItems => 'Перетащите, чтобы изменить порядок элементов';
+
+  @override
+  String learnCorrectOrder(Object order) {
+    return 'Правильный порядок: $order';
+  }
+
+  @override
+  String learnWordsToReview(int dueCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      dueCount,
+      locale: localeName,
+      other: '$dueCount слова для повторения',
+      many: '$dueCount слов для повторения',
+      few: '$dueCount слова для повторения',
+      one: '$dueCount слово для повторения',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnScore(Object score) {
+    return 'Результат: $score / 100';
+  }
+
+  @override
+  String learnGotCorrect(Object correct, Object count) {
+    return 'Вы ответили верно на $correct из $count.';
+  }
+
+  @override
+  String learnQuestionOf(Object number, Object total) {
+    return 'Вопрос $number из $total';
+  }
+
+  @override
+  String get learnMatchEachWordIts => 'Сопоставьте каждое слово с его значением';
+
+  @override
+  String get learnCouldNotLoadPacks => 'Не удалось загрузить наборы';
+
+  @override
+  String learnWordsExercises(Object wordCount, Object exerciseCount) {
+    return '$wordCount слов · $exerciseCount упражнений';
+  }
+
+  @override
+  String get learnAiAutoFill => 'Автозаполнение ИИ';
+
+  @override
+  String get learnPlay => 'Воспроизвести';
+
+  @override
+  String get learnFinish => 'Завершить';
+
+  @override
+  String get learnNotQuite => 'Не совсем.';
+
+  @override
+  String get learnUnsupportedExercise => 'Неподдерживаемое упражнение';
 }

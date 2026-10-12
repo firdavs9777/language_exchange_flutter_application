@@ -7040,7 +7040,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get examSpeakingPart3 => 'Speaking — Part 3';
 
   @override
-  String get examSpeakingSubmit => 'Submit recording';
+  String get examSpeakingSubmit => '녹음 제출';
 
   @override
   String get examSpeakingUploading => '업로드 중…';
@@ -9879,4 +9879,99 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get communityPeopleInterestedInTopic => '이 주제에 관심 있는 사람들';
+
+  @override
+  String get learnThemedWordSetsBuild => '어휘력을 키우는 주제별 단어 세트';
+
+  @override
+  String get learnTapStartRecording => '탭하여 녹음 시작';
+
+  @override
+  String get learnWordBank => '단어 은행';
+
+  @override
+  String learnCorrectAnswer(Object correctAnswer) {
+    return '정답: $correctAnswer';
+  }
+
+  @override
+  String get learnMatchingDataNotAvailable => '매칭 데이터를 사용할 수 없습니다';
+
+  @override
+  String get learnExerciseCouldNotLoad => '이 연습의 매칭 짝을 불러오지 못했습니다. 레슨을 다시 생성해 보세요.';
+
+  @override
+  String get learnSkipExercise => '연습 건너뛰기';
+
+  @override
+  String get learnTapItemLeftThen => '왼쪽 항목을 탭한 다음 오른쪽에서 짝을 탭하세요';
+
+  @override
+  String learnMatchedOfTotal(Object count, Object count2) {
+    return '$count/$count2 매칭됨';
+  }
+
+  @override
+  String learnCorrectOfTotal(Object correctCount, Object count) {
+    return '$correctCount/$count 정답';
+  }
+
+  @override
+  String get learnDragDropReorderItems => '항목을 끌어서 순서를 바꾸세요';
+
+  @override
+  String learnCorrectOrder(Object order) {
+    return '올바른 순서: $order';
+  }
+
+  @override
+  String learnWordsToReview(int dueCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      dueCount,
+      locale: localeName,
+      other: '복습할 단어 $dueCount개',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnScore(Object score) {
+    return '점수: $score / 100';
+  }
+
+  @override
+  String learnGotCorrect(Object correct, Object count) {
+    return '$count개 중 $correct개를 맞혔습니다.';
+  }
+
+  @override
+  String learnQuestionOf(Object number, Object total) {
+    return '질문 $number / $total';
+  }
+
+  @override
+  String get learnMatchEachWordIts => '각 단어를 그 뜻과 연결하세요';
+
+  @override
+  String get learnCouldNotLoadPacks => '팩을 불러오지 못했습니다';
+
+  @override
+  String learnWordsExercises(Object wordCount, Object exerciseCount) {
+    return '단어 $wordCount개 · 연습 $exerciseCount개';
+  }
+
+  @override
+  String get learnAiAutoFill => 'AI 자동 완성';
+
+  @override
+  String get learnPlay => '재생';
+
+  @override
+  String get learnFinish => '완료';
+
+  @override
+  String get learnNotQuite => '아쉬워요.';
+
+  @override
+  String get learnUnsupportedExercise => '지원되지 않는 연습';
 }

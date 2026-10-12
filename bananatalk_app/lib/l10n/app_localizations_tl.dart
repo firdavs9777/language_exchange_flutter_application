@@ -7047,7 +7047,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get examSpeakingPart3 => 'Speaking — Part 3';
 
   @override
-  String get examSpeakingSubmit => 'Submit recording';
+  String get examSpeakingSubmit => 'Isumite ang recording';
 
   @override
   String get examSpeakingUploading => 'Ina-upload…';
@@ -9889,4 +9889,100 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get communityPeopleInterestedInTopic => 'Mga taong interesado sa paksang ito';
+
+  @override
+  String get learnThemedWordSetsBuild => 'Mga set ng salita ayon sa tema para palawakin ang bokabularyo mo';
+
+  @override
+  String get learnTapStartRecording => 'I-tap para simulan ang pagre-record';
+
+  @override
+  String get learnWordBank => 'Word Bank';
+
+  @override
+  String learnCorrectAnswer(Object correctAnswer) {
+    return 'Tamang sagot: $correctAnswer';
+  }
+
+  @override
+  String get learnMatchingDataNotAvailable => 'Hindi available ang data ng pagtutugma';
+
+  @override
+  String get learnExerciseCouldNotLoad => 'Hindi na-load ng ehersisyong ito ang mga pares na itutugma. Subukang buuin muli ang aralin.';
+
+  @override
+  String get learnSkipExercise => 'Laktawan ang Ehersisyo';
+
+  @override
+  String get learnTapItemLeftThen => 'I-tap ang isang item sa kaliwa, pagkatapos ay i-tap ang katugma nito sa kanan';
+
+  @override
+  String learnMatchedOfTotal(Object count, Object count2) {
+    return '$count/$count2 ang naitugma';
+  }
+
+  @override
+  String learnCorrectOfTotal(Object correctCount, Object count) {
+    return '$correctCount/$count ang tama';
+  }
+
+  @override
+  String get learnDragDropReorderItems => 'I-drag at i-drop para muling ayusin ang mga item';
+
+  @override
+  String learnCorrectOrder(Object order) {
+    return 'Tamang pagkakasunod-sunod: $order';
+  }
+
+  @override
+  String learnWordsToReview(int dueCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      dueCount,
+      locale: localeName,
+      other: '$dueCount salitang aaralin muli',
+      one: '1 salitang aaralin muli',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnScore(Object score) {
+    return 'Iskor: $score / 100';
+  }
+
+  @override
+  String learnGotCorrect(Object correct, Object count) {
+    return 'Nakakuha ka ng $correct sa $count na tama.';
+  }
+
+  @override
+  String learnQuestionOf(Object number, Object total) {
+    return 'Tanong $number sa $total';
+  }
+
+  @override
+  String get learnMatchEachWordIts => 'Itugma ang bawat salita sa kahulugan nito';
+
+  @override
+  String get learnCouldNotLoadPacks => 'Hindi ma-load ang mga pack';
+
+  @override
+  String learnWordsExercises(Object wordCount, Object exerciseCount) {
+    return '$wordCount salita · $exerciseCount ehersisyo';
+  }
+
+  @override
+  String get learnAiAutoFill => 'AI Auto-fill';
+
+  @override
+  String get learnPlay => 'I-play';
+
+  @override
+  String get learnFinish => 'Tapusin';
+
+  @override
+  String get learnNotQuite => 'Muntik na.';
+
+  @override
+  String get learnUnsupportedExercise => 'Hindi suportadong ehersisyo';
 }

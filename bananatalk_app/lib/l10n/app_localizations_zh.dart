@@ -7040,7 +7040,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get examSpeakingPart3 => 'Speaking — Part 3';
 
   @override
-  String get examSpeakingSubmit => 'Submit recording';
+  String get examSpeakingSubmit => '提交录音';
 
   @override
   String get examSpeakingUploading => '上传中…';
@@ -9879,6 +9879,101 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get communityPeopleInterestedInTopic => '对此话题感兴趣的人';
+
+  @override
+  String get learnThemedWordSetsBuild => '按主题整理的词汇集，帮你积累词汇量';
+
+  @override
+  String get learnTapStartRecording => '点按开始录音';
+
+  @override
+  String get learnWordBank => '单词库';
+
+  @override
+  String learnCorrectAnswer(Object correctAnswer) {
+    return '正确答案：$correctAnswer';
+  }
+
+  @override
+  String get learnMatchingDataNotAvailable => '匹配数据不可用';
+
+  @override
+  String get learnExerciseCouldNotLoad => '此练习无法加载匹配配对。请尝试重新生成课程。';
+
+  @override
+  String get learnSkipExercise => '跳过练习';
+
+  @override
+  String get learnTapItemLeftThen => '先点按左侧的一项，再点按右侧与之匹配的一项';
+
+  @override
+  String learnMatchedOfTotal(Object count, Object count2) {
+    return '已匹配 $count/$count2';
+  }
+
+  @override
+  String learnCorrectOfTotal(Object correctCount, Object count) {
+    return '答对 $correctCount/$count';
+  }
+
+  @override
+  String get learnDragDropReorderItems => '拖放以重新排列各项';
+
+  @override
+  String learnCorrectOrder(Object order) {
+    return '正确顺序：$order';
+  }
+
+  @override
+  String learnWordsToReview(int dueCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      dueCount,
+      locale: localeName,
+      other: '$dueCount 个单词待复习',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnScore(Object score) {
+    return '得分：$score / 100';
+  }
+
+  @override
+  String learnGotCorrect(Object correct, Object count) {
+    return '你答对了 $count 题中的 $correct 题。';
+  }
+
+  @override
+  String learnQuestionOf(Object number, Object total) {
+    return '第 $number 题，共 $total 题';
+  }
+
+  @override
+  String get learnMatchEachWordIts => '将每个单词与其含义配对';
+
+  @override
+  String get learnCouldNotLoadPacks => '无法加载词汇包';
+
+  @override
+  String learnWordsExercises(Object wordCount, Object exerciseCount) {
+    return '$wordCount 个单词 · $exerciseCount 个练习';
+  }
+
+  @override
+  String get learnAiAutoFill => 'AI 自动填写';
+
+  @override
+  String get learnPlay => '播放';
+
+  @override
+  String get learnFinish => '完成';
+
+  @override
+  String get learnNotQuite => '差一点。';
+
+  @override
+  String get learnUnsupportedExercise => '不支持的练习';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -16917,7 +17012,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get examSpeakingPart3 => 'Speaking — Part 3';
 
   @override
-  String get examSpeakingSubmit => 'Submit recording';
+  String get examSpeakingSubmit => '提交錄音';
 
   @override
   String get examSpeakingUploading => '上傳中…';
@@ -19756,4 +19851,99 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get communityPeopleInterestedInTopic => '對此話題感興趣的人';
+
+  @override
+  String get learnThemedWordSetsBuild => '依主題整理的字詞組，幫你累積詞彙量';
+
+  @override
+  String get learnTapStartRecording => '點一下開始錄音';
+
+  @override
+  String get learnWordBank => '單字庫';
+
+  @override
+  String learnCorrectAnswer(Object correctAnswer) {
+    return '正確答案：$correctAnswer';
+  }
+
+  @override
+  String get learnMatchingDataNotAvailable => '配對資料無法使用';
+
+  @override
+  String get learnExerciseCouldNotLoad => '此練習無法載入配對項目。請嘗試重新產生課程。';
+
+  @override
+  String get learnSkipExercise => '略過練習';
+
+  @override
+  String get learnTapItemLeftThen => '先點選左側的項目，再點選右側與之配對的項目';
+
+  @override
+  String learnMatchedOfTotal(Object count, Object count2) {
+    return '已配對 $count/$count2';
+  }
+
+  @override
+  String learnCorrectOfTotal(Object correctCount, Object count) {
+    return '答對 $correctCount/$count';
+  }
+
+  @override
+  String get learnDragDropReorderItems => '拖放以重新排列項目';
+
+  @override
+  String learnCorrectOrder(Object order) {
+    return '正確順序：$order';
+  }
+
+  @override
+  String learnWordsToReview(int dueCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      dueCount,
+      locale: localeName,
+      other: '$dueCount 個單字待複習',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnScore(Object score) {
+    return '得分：$score / 100';
+  }
+
+  @override
+  String learnGotCorrect(Object correct, Object count) {
+    return '你答對了 $count 題中的 $correct 題。';
+  }
+
+  @override
+  String learnQuestionOf(Object number, Object total) {
+    return '第 $number 題，共 $total 題';
+  }
+
+  @override
+  String get learnMatchEachWordIts => '將每個單字與其意思配對';
+
+  @override
+  String get learnCouldNotLoadPacks => '無法載入字詞包';
+
+  @override
+  String learnWordsExercises(Object wordCount, Object exerciseCount) {
+    return '$wordCount 個單字 · $exerciseCount 個練習';
+  }
+
+  @override
+  String get learnAiAutoFill => 'AI 自動填寫';
+
+  @override
+  String get learnPlay => '播放';
+
+  @override
+  String get learnFinish => '完成';
+
+  @override
+  String get learnNotQuite => '差一點。';
+
+  @override
+  String get learnUnsupportedExercise => '不支援的練習';
 }

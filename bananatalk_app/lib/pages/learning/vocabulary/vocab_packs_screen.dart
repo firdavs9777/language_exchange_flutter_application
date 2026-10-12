@@ -86,7 +86,7 @@ class VocabPacksScreen extends ConsumerWidget {
                       Icon(Icons.error_outline,
                           color: theme.colorScheme.error, size: 40),
                       const SizedBox(height: 12),
-                      Text('Could not load packs',
+                      Text(AppLocalizations.of(context)!.learnCouldNotLoadPacks,
                           style: theme.textTheme.titleMedium),
                       const SizedBox(height: 12),
                       FilledButton(
@@ -162,6 +162,7 @@ class _PackCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     // One accent per level, from the same list the filter chips use — the
     // old two-way 'advanced or not' left beginner and proficiency packs
@@ -234,7 +235,7 @@ class _PackCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    '${pack.wordCount} words · ${pack.exerciseCount} exercises',
+                    l10n.learnWordsExercises(pack.wordCount, pack.exerciseCount),
                     style: theme.textTheme.bodySmall,
                   ),
                 ],

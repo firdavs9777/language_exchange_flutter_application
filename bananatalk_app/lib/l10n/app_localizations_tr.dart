@@ -7047,7 +7047,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get examSpeakingPart3 => 'Speaking — Part 3';
 
   @override
-  String get examSpeakingSubmit => 'Submit recording';
+  String get examSpeakingSubmit => 'Kaydı gönder';
 
   @override
   String get examSpeakingUploading => 'Yükleniyor…';
@@ -9887,4 +9887,100 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get communityPeopleInterestedInTopic => 'Bu konuyla ilgilenen kişiler';
+
+  @override
+  String get learnThemedWordSetsBuild => 'Kelime dağarcığını geliştirmek için konulu kelime setleri';
+
+  @override
+  String get learnTapStartRecording => 'Kaydı başlatmak için dokun';
+
+  @override
+  String get learnWordBank => 'Kelime Bankası';
+
+  @override
+  String learnCorrectAnswer(Object correctAnswer) {
+    return 'Doğru cevap: $correctAnswer';
+  }
+
+  @override
+  String get learnMatchingDataNotAvailable => 'Eşleştirme verisi mevcut değil';
+
+  @override
+  String get learnExerciseCouldNotLoad => 'Bu alıştırma için eşleştirme çiftleri yüklenemedi. Lütfen dersi yeniden oluşturmayı dene.';
+
+  @override
+  String get learnSkipExercise => 'Alıştırmayı Atla';
+
+  @override
+  String get learnTapItemLeftThen => 'Soldaki bir öğeye dokun, ardından sağdaki eşine dokun';
+
+  @override
+  String learnMatchedOfTotal(Object count, Object count2) {
+    return '$count/$count2 eşleşti';
+  }
+
+  @override
+  String learnCorrectOfTotal(Object correctCount, Object count) {
+    return '$correctCount/$count doğru';
+  }
+
+  @override
+  String get learnDragDropReorderItems => 'Öğeleri yeniden sıralamak için sürükleyip bırak';
+
+  @override
+  String learnCorrectOrder(Object order) {
+    return 'Doğru sıra: $order';
+  }
+
+  @override
+  String learnWordsToReview(int dueCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      dueCount,
+      locale: localeName,
+      other: 'Tekrar edilecek $dueCount kelime',
+      one: 'Tekrar edilecek 1 kelime',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String learnScore(Object score) {
+    return 'Puan: $score / 100';
+  }
+
+  @override
+  String learnGotCorrect(Object correct, Object count) {
+    return '$count sorudan $correct tanesini doğru yaptın.';
+  }
+
+  @override
+  String learnQuestionOf(Object number, Object total) {
+    return 'Soru $number / $total';
+  }
+
+  @override
+  String get learnMatchEachWordIts => 'Her kelimeyi anlamıyla eşleştir';
+
+  @override
+  String get learnCouldNotLoadPacks => 'Paketler yüklenemedi';
+
+  @override
+  String learnWordsExercises(Object wordCount, Object exerciseCount) {
+    return '$wordCount kelime · $exerciseCount alıştırma';
+  }
+
+  @override
+  String get learnAiAutoFill => 'Yapay Zekâ ile Otomatik Doldur';
+
+  @override
+  String get learnPlay => 'Oynat';
+
+  @override
+  String get learnFinish => 'Bitir';
+
+  @override
+  String get learnNotQuite => 'Tam olarak değil.';
+
+  @override
+  String get learnUnsupportedExercise => 'Desteklenmeyen alıştırma';
 }
