@@ -266,15 +266,17 @@ class _ProfileTopicsEditState extends ConsumerState<ProfileTopicsEdit> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      atLimit ? 'Maximum reached' : 'Pick your interests',
+                      atLimit
+                          ? l10n.profileMaximumReached
+                          : l10n.profilePickYourInterests,
                       style: context.titleSmall.copyWith(
                         fontWeight: FontWeight.w700,
                       ),
                     ),
                     Text(
                       atLimit
-                          ? 'Deselect one to choose another'
-                          : 'Tap topics that match your vibe',
+                          ? l10n.profileDeselectToChooseAnother
+                          : l10n.profileTapTopicsMatchVibe,
                       style: context.captionSmall.copyWith(
                         color: context.textSecondary,
                       ),
@@ -433,7 +435,7 @@ class _ProfileTopicsEditState extends ConsumerState<ProfileTopicsEdit> {
           ),
           const SizedBox(height: 12),
           Text(
-            'No topics in this category',
+            l10n.profileNoTopicsCategory,
             style: context.titleSmall.copyWith(
               fontWeight: FontWeight.w600,
               color: context.textSecondary,

@@ -10449,6 +10449,132 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get aiGoodJob => '做得好！';
+
+  @override
+  String get profileBuyMeCoffee => '请我喝杯咖啡';
+
+  @override
+  String get profileOr => '或';
+
+  @override
+  String get profileLoadingNotifications => '正在加载通知...';
+
+  @override
+  String get profileLoadingSettings => '正在加载设置...';
+
+  @override
+  String get profileAdmin => '管理员';
+
+  @override
+  String get profileSelected => '已选择';
+
+  @override
+  String get profilePrivacyIntro => '你可以决定别人能看到什么。关闭项目即可在公开资料中隐藏。';
+
+  @override
+  String get profileUpdate => '更新';
+
+  @override
+  String get profileNoTopicsCategory => '此分类下没有话题';
+
+  @override
+  String get profileAdminTools => '管理员工具';
+
+  @override
+  String profileCompletionAdd(Object items) {
+    return '添加：$items';
+  }
+
+  @override
+  String get profileActive => '活跃';
+
+  @override
+  String get profileAutoSaveEnabled => '已开启自动保存';
+
+  @override
+  String get profileChangesSavedInstantlyWhen => '切换后更改会立即保存。';
+
+  @override
+  String get profileCurrentTheme => '当前主题';
+
+  @override
+  String get profileThemeChangesApplyInstantly => '主题更改会立即应用于整个应用。';
+
+  @override
+  String get profileLoadingVisitors => '正在加载访客...';
+
+  @override
+  String get profileSeeWhoChecked => '查看谁看过你的资料';
+
+  @override
+  String get profileRecentVisitors => '最近访客';
+
+  @override
+  String get profileNoReportsSubmitted => '没有提交过举报';
+
+  @override
+  String get profileReportsSubmitWillAppear => '你提交的举报将显示在这里';
+
+  @override
+  String profileReportTypeTitle(Object type) {
+    return '$type举报';
+  }
+
+  @override
+  String profileReportReason(Object reason) {
+    return '原因：$reason';
+  }
+
+  @override
+  String get profileDeleteAccountFinalBody => '你的所有数据将被永久删除。\n\n你确定吗？';
+
+  @override
+  String get profileThanksForWatching => '感谢观看！🙏';
+
+  @override
+  String get profileNotificationsOn => '通知已开启';
+
+  @override
+  String get profileNotificationsOff => '通知已关闭';
+
+  @override
+  String get profileMaximumReached => '已达上限';
+
+  @override
+  String get profilePickYourInterests => '选择你的兴趣';
+
+  @override
+  String get profileDeselectToChooseAnother => '取消选择一个以选择其他的';
+
+  @override
+  String get profileTapTopicsMatchVibe => '点按符合你风格的话题';
+
+  @override
+  String get profileEnjoyingPremium => '正在享受高级功能';
+
+  @override
+  String get profileUnlockUnlimited => '解锁无限消息和 AI 工具';
+
+  @override
+  String get profileBirthYear => '出生年份';
+
+  @override
+  String get profileReportTypeUser => '用户';
+
+  @override
+  String get profileReportTypeMoment => '动态';
+
+  @override
+  String get profileReportTypeComment => '评论';
+
+  @override
+  String get profileReportTypeMessage => '消息';
+
+  @override
+  String get profileReportTypeStory => '故事';
+
+  @override
+  String get profileReportReasonCopyright => '版权';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -20896,4 +21022,130 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get aiGoodJob => '做得好！';
+
+  @override
+  String get profileBuyMeCoffee => '請我喝杯咖啡';
+
+  @override
+  String get profileOr => '或';
+
+  @override
+  String get profileLoadingNotifications => '正在載入通知...';
+
+  @override
+  String get profileLoadingSettings => '正在載入設定...';
+
+  @override
+  String get profileAdmin => '管理員';
+
+  @override
+  String get profileSelected => '已選取';
+
+  @override
+  String get profilePrivacyIntro => '你可以決定別人能看到什麼。關閉項目即可在公開個人檔案中隱藏。';
+
+  @override
+  String get profileUpdate => '更新';
+
+  @override
+  String get profileNoTopicsCategory => '此分類下沒有主題';
+
+  @override
+  String get profileAdminTools => '管理員工具';
+
+  @override
+  String profileCompletionAdd(Object items) {
+    return '新增：$items';
+  }
+
+  @override
+  String get profileActive => '活躍';
+
+  @override
+  String get profileAutoSaveEnabled => '已開啟自動儲存';
+
+  @override
+  String get profileChangesSavedInstantlyWhen => '切換後變更會立即儲存。';
+
+  @override
+  String get profileCurrentTheme => '目前佈景主題';
+
+  @override
+  String get profileThemeChangesApplyInstantly => '佈景主題變更會立即套用於整個應用程式。';
+
+  @override
+  String get profileLoadingVisitors => '正在載入訪客...';
+
+  @override
+  String get profileSeeWhoChecked => '查看誰看過你的個人檔案';
+
+  @override
+  String get profileRecentVisitors => '最近訪客';
+
+  @override
+  String get profileNoReportsSubmitted => '尚未提交任何檢舉';
+
+  @override
+  String get profileReportsSubmitWillAppear => '你提交的檢舉會顯示在這裡';
+
+  @override
+  String profileReportTypeTitle(Object type) {
+    return '$type檢舉';
+  }
+
+  @override
+  String profileReportReason(Object reason) {
+    return '原因：$reason';
+  }
+
+  @override
+  String get profileDeleteAccountFinalBody => '你的所有資料將被永久刪除。\n\n你確定嗎？';
+
+  @override
+  String get profileThanksForWatching => '感謝觀看！🙏';
+
+  @override
+  String get profileNotificationsOn => '通知已開啟';
+
+  @override
+  String get profileNotificationsOff => '通知已關閉';
+
+  @override
+  String get profileMaximumReached => '已達上限';
+
+  @override
+  String get profilePickYourInterests => '選擇你的興趣';
+
+  @override
+  String get profileDeselectToChooseAnother => '取消選取一個以選擇其他的';
+
+  @override
+  String get profileTapTopicsMatchVibe => '點選符合你風格的主題';
+
+  @override
+  String get profileEnjoyingPremium => '正在享受進階功能';
+
+  @override
+  String get profileUnlockUnlimited => '解鎖無限訊息和 AI 工具';
+
+  @override
+  String get profileBirthYear => '出生年份';
+
+  @override
+  String get profileReportTypeUser => '使用者';
+
+  @override
+  String get profileReportTypeMoment => '動態';
+
+  @override
+  String get profileReportTypeComment => '留言';
+
+  @override
+  String get profileReportTypeMessage => '訊息';
+
+  @override
+  String get profileReportTypeStory => '限時動態';
+
+  @override
+  String get profileReportReasonCopyright => '版權';
 }

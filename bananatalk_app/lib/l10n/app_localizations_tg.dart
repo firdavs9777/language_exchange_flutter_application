@@ -10467,4 +10467,130 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get aiGoodJob => 'Корро хуб кардед!';
+
+  @override
+  String get profileBuyMeCoffee => 'Маро ба қаҳва даъват кунед';
+
+  @override
+  String get profileOr => 'ё';
+
+  @override
+  String get profileLoadingNotifications => 'Боргирии огоҳиҳо...';
+
+  @override
+  String get profileLoadingSettings => 'Боргирии танзимот...';
+
+  @override
+  String get profileAdmin => 'АДМИН';
+
+  @override
+  String get profileSelected => 'ИНТИХОБШУДА';
+
+  @override
+  String get profilePrivacyIntro => 'Шумо назорат мекунед, ки дигарон чиро мебинанд. Барои пинҳон кардан аз профили оммавӣ ҷузъҳоро хомӯш кунед.';
+
+  @override
+  String get profileUpdate => 'Навсозӣ';
+
+  @override
+  String get profileNoTopicsCategory => 'Дар ин категория мавзӯъ нест';
+
+  @override
+  String get profileAdminTools => 'Абзорҳои админ';
+
+  @override
+  String profileCompletionAdd(Object items) {
+    return 'Илова кунед: $items';
+  }
+
+  @override
+  String get profileActive => 'ФАЪОЛ';
+
+  @override
+  String get profileAutoSaveEnabled => 'Захирасозии худкор фаъол аст';
+
+  @override
+  String get profileChangesSavedInstantlyWhen => 'Тағйирот ҳангоми иваз кардан фавран захира мешавад.';
+
+  @override
+  String get profileCurrentTheme => 'Мавзӯи ҷорӣ';
+
+  @override
+  String get profileThemeChangesApplyInstantly => 'Тағйирёбии мавзӯъ фавран дар тамоми барнома татбиқ мешавад.';
+
+  @override
+  String get profileLoadingVisitors => 'Боргирии меҳмонон...';
+
+  @override
+  String get profileSeeWhoChecked => 'Бинед, ки кӣ профили шуморо дидааст';
+
+  @override
+  String get profileRecentVisitors => 'Меҳмонони охирин';
+
+  @override
+  String get profileNoReportsSubmitted => 'Ягон шикоят фиристода нашудааст';
+
+  @override
+  String get profileReportsSubmitWillAppear => 'Шикоятҳое, ки мефиристед, дар ин ҷо пайдо мешаванд';
+
+  @override
+  String profileReportTypeTitle(Object type) {
+    return 'Шикояти $type';
+  }
+
+  @override
+  String profileReportReason(Object reason) {
+    return 'Сабаб: $reason';
+  }
+
+  @override
+  String get profileDeleteAccountFinalBody => 'Тамоми маълумоти шумо ба таври доимӣ нест карда мешавад.\n\nОё комилан боварӣ доред?';
+
+  @override
+  String get profileThanksForWatching => 'Ба шумо барои тамошо ташаккур! 🙏';
+
+  @override
+  String get profileNotificationsOn => 'Огоҳиҳо фаъол';
+
+  @override
+  String get profileNotificationsOff => 'Огоҳиҳо ғайрифаъол';
+
+  @override
+  String get profileMaximumReached => 'Ҳадди аксар расид';
+
+  @override
+  String get profilePickYourInterests => 'Манфиатҳои худро интихоб кунед';
+
+  @override
+  String get profileDeselectToChooseAnother => 'Барои интихоби дигар, яктоашро бекор кунед';
+
+  @override
+  String get profileTapTopicsMatchVibe => 'Ба мавзӯъҳое, ки ба шумо мувофиқанд, пахш кунед';
+
+  @override
+  String get profileEnjoyingPremium => 'Аз имкониятҳои премиум лаззат мебаред';
+
+  @override
+  String get profileUnlockUnlimited => 'Паёмҳои бемаҳдуд ва абзорҳои AI-ро кушоед';
+
+  @override
+  String get profileBirthYear => 'Соли таваллуд';
+
+  @override
+  String get profileReportTypeUser => 'Корбар';
+
+  @override
+  String get profileReportTypeMoment => 'Лаҳза';
+
+  @override
+  String get profileReportTypeComment => 'Шарҳ';
+
+  @override
+  String get profileReportTypeMessage => 'Паём';
+
+  @override
+  String get profileReportTypeStory => 'Ҳикоя';
+
+  @override
+  String get profileReportReasonCopyright => 'Ҳуқуқи муаллиф';
 }

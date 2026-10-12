@@ -444,7 +444,7 @@ class _ProfilePrivacyState extends ConsumerState<ProfilePrivacy> {
                         ),
                         const SizedBox(width: 6),
                         Text(
-                          'You have unsaved changes',
+                          l10n.unsavedChanges,
                           style: context.captionSmall.copyWith(
                             color: context.textMuted,
                           ),
@@ -495,7 +495,7 @@ class _ProfilePrivacyState extends ConsumerState<ProfilePrivacy> {
           const SizedBox(width: 12),
           Expanded(
             child: Text(
-              'You control what others can see. Toggle items off to hide them from your public profile.',
+              l10n.profilePrivacyIntro,
               style: context.captionSmall.copyWith(
                 color: context.textSecondary,
                 height: 1.4,
@@ -785,7 +785,7 @@ class _ProfilePrivacyState extends ConsumerState<ProfilePrivacy> {
                       ),
                       const SizedBox(width: 4),
                       Text(
-                        'Update',
+                        l10n.profileUpdate,
                         style: TextStyle(
                           color: AppColors.primary,
                           fontWeight: FontWeight.w700,

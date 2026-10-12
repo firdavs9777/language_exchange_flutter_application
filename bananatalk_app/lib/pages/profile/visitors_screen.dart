@@ -140,6 +140,7 @@ class _ProfileVisitorsScreenState
   }
 
   Widget _buildBody() {
+    final l10n = AppLocalizations.of(context)!;
     if (_isLoading) {
       return Center(
         child: Column(
@@ -155,7 +156,7 @@ class _ProfileVisitorsScreenState
             ),
             const SizedBox(height: 14),
             Text(
-              'Loading visitors...',
+              l10n.profileLoadingVisitors,
               style: context.bodySmall.copyWith(color: context.textSecondary),
             ),
           ],
@@ -425,7 +426,7 @@ class _ProfileVisitorsScreenState
                           ),
                           const SizedBox(width: 6),
                           Text(
-                            'Pull down to refresh',
+                            l10n.momentsPullDownRefresh,
                             style: context.captionSmall.copyWith(
                               color: AppColors.primary,
                               fontWeight: FontWeight.w600,
@@ -500,7 +501,7 @@ class _ProfileVisitorsScreenState
                       ),
                     ),
                     Text(
-                      'See who checked your profile',
+                      l10n.profileSeeWhoChecked,
                       style: context.captionSmall.copyWith(
                         color: context.textSecondary,
                       ),
@@ -616,6 +617,7 @@ class _ProfileVisitorsScreenState
 
   // ========== SECTION TITLE ==========
   Widget _buildSectionTitle() {
+    final l10n = AppLocalizations.of(context)!;
     return Row(
       children: [
         Container(
@@ -628,7 +630,7 @@ class _ProfileVisitorsScreenState
         ),
         const SizedBox(width: 10),
         Text(
-          'Recent Visitors',
+          l10n.profileRecentVisitors,
           style: context.titleMedium.copyWith(
             fontWeight: FontWeight.w800,
             letterSpacing: -0.2,
@@ -659,6 +661,8 @@ class _ProfileVisitorsScreenState
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final user = visitor['user'];
     final lastVisit = DateTime.parse(visitor['lastVisit']);
+    // timeago's compact English style ("5m"); timeago has no localized short style.
+    final lastVisitShort = timeago.format(lastVisit, locale: 'en_short');
     final visitCount = visitor['visitCount'] ?? 1;
     final source = visitor['source'] ?? 'direct';
 
@@ -912,7 +916,7 @@ class _ProfileVisitorsScreenState
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Text(
-                        timeago.format(lastVisit, locale: 'en_short'),
+                        lastVisitShort,
                         style: context.captionSmall.copyWith(
                           color: context.textSecondary,
                           fontWeight: FontWeight.w600,

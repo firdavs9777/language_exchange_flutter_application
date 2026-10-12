@@ -10505,4 +10505,130 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get aiGoodJob => 'Хорошая работа!';
+
+  @override
+  String get profileBuyMeCoffee => 'Угостить кофе';
+
+  @override
+  String get profileOr => 'или';
+
+  @override
+  String get profileLoadingNotifications => 'Загрузка уведомлений...';
+
+  @override
+  String get profileLoadingSettings => 'Загрузка настроек...';
+
+  @override
+  String get profileAdmin => 'АДМИН';
+
+  @override
+  String get profileSelected => 'ВЫБРАНО';
+
+  @override
+  String get profilePrivacyIntro => 'Вы сами решаете, что видят другие. Отключите пункты, чтобы скрыть их в публичном профиле.';
+
+  @override
+  String get profileUpdate => 'Обновить';
+
+  @override
+  String get profileNoTopicsCategory => 'В этой категории нет тем';
+
+  @override
+  String get profileAdminTools => 'Инструменты администратора';
+
+  @override
+  String profileCompletionAdd(Object items) {
+    return 'Добавьте: $items';
+  }
+
+  @override
+  String get profileActive => 'АКТИВЕН';
+
+  @override
+  String get profileAutoSaveEnabled => 'Автосохранение включено';
+
+  @override
+  String get profileChangesSavedInstantlyWhen => 'Изменения сохраняются мгновенно при переключении.';
+
+  @override
+  String get profileCurrentTheme => 'Текущая тема';
+
+  @override
+  String get profileThemeChangesApplyInstantly => 'Изменения темы мгновенно применяются во всём приложении.';
+
+  @override
+  String get profileLoadingVisitors => 'Загрузка посетителей...';
+
+  @override
+  String get profileSeeWhoChecked => 'Узнайте, кто смотрел ваш профиль';
+
+  @override
+  String get profileRecentVisitors => 'Недавние посетители';
+
+  @override
+  String get profileNoReportsSubmitted => 'Вы не отправляли жалоб';
+
+  @override
+  String get profileReportsSubmitWillAppear => 'Отправленные вами жалобы появятся здесь';
+
+  @override
+  String profileReportTypeTitle(Object type) {
+    return 'Жалоба: $type';
+  }
+
+  @override
+  String profileReportReason(Object reason) {
+    return 'Причина: $reason';
+  }
+
+  @override
+  String get profileDeleteAccountFinalBody => 'Все ваши данные будут удалены безвозвратно.\n\nВы абсолютно уверены?';
+
+  @override
+  String get profileThanksForWatching => 'Спасибо за просмотр! 🙏';
+
+  @override
+  String get profileNotificationsOn => 'Уведомления включены';
+
+  @override
+  String get profileNotificationsOff => 'Уведомления выключены';
+
+  @override
+  String get profileMaximumReached => 'Достигнут максимум';
+
+  @override
+  String get profilePickYourInterests => 'Выберите свои интересы';
+
+  @override
+  String get profileDeselectToChooseAnother => 'Снимите выбор с одной темы, чтобы выбрать другую';
+
+  @override
+  String get profileTapTopicsMatchVibe => 'Нажимайте на темы, которые вам близки';
+
+  @override
+  String get profileEnjoyingPremium => 'Вы пользуетесь премиум-функциями';
+
+  @override
+  String get profileUnlockUnlimited => 'Откройте безлимитные сообщения и ИИ-инструменты';
+
+  @override
+  String get profileBirthYear => 'Год рождения';
+
+  @override
+  String get profileReportTypeUser => 'Пользователь';
+
+  @override
+  String get profileReportTypeMoment => 'Момент';
+
+  @override
+  String get profileReportTypeComment => 'Комментарий';
+
+  @override
+  String get profileReportTypeMessage => 'Сообщение';
+
+  @override
+  String get profileReportTypeStory => 'История';
+
+  @override
+  String get profileReportReasonCopyright => 'Авторское право';
 }

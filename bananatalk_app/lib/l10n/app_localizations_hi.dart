@@ -10466,4 +10466,130 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get aiGoodJob => 'बहुत बढ़िया!';
+
+  @override
+  String get profileBuyMeCoffee => 'मुझे एक कॉफ़ी पिलाएँ';
+
+  @override
+  String get profileOr => 'या';
+
+  @override
+  String get profileLoadingNotifications => 'सूचनाएँ लोड हो रही हैं...';
+
+  @override
+  String get profileLoadingSettings => 'सेटिंग्स लोड हो रही हैं...';
+
+  @override
+  String get profileAdmin => 'एडमिन';
+
+  @override
+  String get profileSelected => 'चयनित';
+
+  @override
+  String get profilePrivacyIntro => 'आप तय करते हैं कि दूसरे क्या देख सकते हैं। अपनी सार्वजनिक प्रोफ़ाइल से छिपाने के लिए आइटम बंद करें।';
+
+  @override
+  String get profileUpdate => 'अपडेट करें';
+
+  @override
+  String get profileNoTopicsCategory => 'इस श्रेणी में कोई विषय नहीं';
+
+  @override
+  String get profileAdminTools => 'एडमिन टूल्स';
+
+  @override
+  String profileCompletionAdd(Object items) {
+    return 'जोड़ें: $items';
+  }
+
+  @override
+  String get profileActive => 'सक्रिय';
+
+  @override
+  String get profileAutoSaveEnabled => 'ऑटो-सेव चालू है';
+
+  @override
+  String get profileChangesSavedInstantlyWhen => 'टॉगल करते ही बदलाव तुरंत सेव हो जाते हैं।';
+
+  @override
+  String get profileCurrentTheme => 'मौजूदा थीम';
+
+  @override
+  String get profileThemeChangesApplyInstantly => 'थीम के बदलाव पूरे ऐप में तुरंत लागू होते हैं।';
+
+  @override
+  String get profileLoadingVisitors => 'विज़िटर लोड हो रहे हैं...';
+
+  @override
+  String get profileSeeWhoChecked => 'देखें कि किसने आपकी प्रोफ़ाइल देखी';
+
+  @override
+  String get profileRecentVisitors => 'हाल के विज़िटर';
+
+  @override
+  String get profileNoReportsSubmitted => 'कोई रिपोर्ट सबमिट नहीं की गई';
+
+  @override
+  String get profileReportsSubmitWillAppear => 'आपकी सबमिट की गई रिपोर्ट यहाँ दिखाई देंगी';
+
+  @override
+  String profileReportTypeTitle(Object type) {
+    return '$type रिपोर्ट';
+  }
+
+  @override
+  String profileReportReason(Object reason) {
+    return 'कारण: $reason';
+  }
+
+  @override
+  String get profileDeleteAccountFinalBody => 'आपका सारा डेटा हमेशा के लिए हटा दिया जाएगा।\n\nक्या आप पूरी तरह सुनिश्चित हैं?';
+
+  @override
+  String get profileThanksForWatching => 'देखने के लिए धन्यवाद! 🙏';
+
+  @override
+  String get profileNotificationsOn => 'सूचनाएँ चालू';
+
+  @override
+  String get profileNotificationsOff => 'सूचनाएँ बंद';
+
+  @override
+  String get profileMaximumReached => 'अधिकतम सीमा पूरी हुई';
+
+  @override
+  String get profilePickYourInterests => 'अपनी रुचियाँ चुनें';
+
+  @override
+  String get profileDeselectToChooseAnother => 'दूसरा चुनने के लिए एक को हटाएँ';
+
+  @override
+  String get profileTapTopicsMatchVibe => 'अपने मिज़ाज से मेल खाने वाले विषयों पर टैप करें';
+
+  @override
+  String get profileEnjoyingPremium => 'प्रीमियम सुविधाओं का आनंद ले रहे हैं';
+
+  @override
+  String get profileUnlockUnlimited => 'असीमित संदेश और AI टूल्स अनलॉक करें';
+
+  @override
+  String get profileBirthYear => 'जन्म वर्ष';
+
+  @override
+  String get profileReportTypeUser => 'उपयोगकर्ता';
+
+  @override
+  String get profileReportTypeMoment => 'पल';
+
+  @override
+  String get profileReportTypeComment => 'टिप्पणी';
+
+  @override
+  String get profileReportTypeMessage => 'संदेश';
+
+  @override
+  String get profileReportTypeStory => 'स्टोरी';
+
+  @override
+  String get profileReportReasonCopyright => 'कॉपीराइट';
 }

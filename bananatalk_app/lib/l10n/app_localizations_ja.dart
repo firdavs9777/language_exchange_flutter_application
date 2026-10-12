@@ -10449,4 +10449,130 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get aiGoodJob => 'よくできました！';
+
+  @override
+  String get profileBuyMeCoffee => 'コーヒーをおごる';
+
+  @override
+  String get profileOr => 'または';
+
+  @override
+  String get profileLoadingNotifications => '通知を読み込み中...';
+
+  @override
+  String get profileLoadingSettings => '設定を読み込み中...';
+
+  @override
+  String get profileAdmin => '管理者';
+
+  @override
+  String get profileSelected => '選択中';
+
+  @override
+  String get profilePrivacyIntro => '他のユーザーに見せる内容はあなたが決められます。項目をオフにすると公開プロフィールから非表示になります。';
+
+  @override
+  String get profileUpdate => '更新';
+
+  @override
+  String get profileNoTopicsCategory => 'このカテゴリにトピックはありません';
+
+  @override
+  String get profileAdminTools => '管理ツール';
+
+  @override
+  String profileCompletionAdd(Object items) {
+    return '追加: $items';
+  }
+
+  @override
+  String get profileActive => 'アクティブ';
+
+  @override
+  String get profileAutoSaveEnabled => '自動保存が有効です';
+
+  @override
+  String get profileChangesSavedInstantlyWhen => '切り替えると変更はすぐに保存されます。';
+
+  @override
+  String get profileCurrentTheme => '現在のテーマ';
+
+  @override
+  String get profileThemeChangesApplyInstantly => 'テーマの変更はアプリ全体にすぐに反映されます。';
+
+  @override
+  String get profileLoadingVisitors => '訪問者を読み込み中...';
+
+  @override
+  String get profileSeeWhoChecked => 'プロフィールを見た人を確認';
+
+  @override
+  String get profileRecentVisitors => '最近の訪問者';
+
+  @override
+  String get profileNoReportsSubmitted => '送信した報告はありません';
+
+  @override
+  String get profileReportsSubmitWillAppear => '送信した報告はここに表示されます';
+
+  @override
+  String profileReportTypeTitle(Object type) {
+    return '$typeの報告';
+  }
+
+  @override
+  String profileReportReason(Object reason) {
+    return '理由: $reason';
+  }
+
+  @override
+  String get profileDeleteAccountFinalBody => 'すべてのデータが完全に削除されます。\n\n本当によろしいですか？';
+
+  @override
+  String get profileThanksForWatching => 'ご視聴ありがとうございます！🙏';
+
+  @override
+  String get profileNotificationsOn => '通知オン';
+
+  @override
+  String get profileNotificationsOff => '通知オフ';
+
+  @override
+  String get profileMaximumReached => '上限に達しました';
+
+  @override
+  String get profilePickYourInterests => '興味のあることを選ぼう';
+
+  @override
+  String get profileDeselectToChooseAnother => '別のものを選ぶには1つ選択を解除してください';
+
+  @override
+  String get profileTapTopicsMatchVibe => 'あなたらしいトピックをタップしてください';
+
+  @override
+  String get profileEnjoyingPremium => 'プレミアム機能をお楽しみ中';
+
+  @override
+  String get profileUnlockUnlimited => '無制限のメッセージとAIツールを解放';
+
+  @override
+  String get profileBirthYear => '生年';
+
+  @override
+  String get profileReportTypeUser => 'ユーザー';
+
+  @override
+  String get profileReportTypeMoment => 'モーメント';
+
+  @override
+  String get profileReportTypeComment => 'コメント';
+
+  @override
+  String get profileReportTypeMessage => 'メッセージ';
+
+  @override
+  String get profileReportTypeStory => 'ストーリー';
+
+  @override
+  String get profileReportReasonCopyright => '著作権';
 }

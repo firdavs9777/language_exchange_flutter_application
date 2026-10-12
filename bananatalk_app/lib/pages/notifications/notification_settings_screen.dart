@@ -465,7 +465,7 @@ class NotificationSettingsScreen extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  enabled ? 'Notifications on' : 'Notifications off',
+                  enabled ? l10n.profileNotificationsOn : l10n.profileNotificationsOff,
                   style: context.titleMedium.copyWith(
                     fontWeight: FontWeight.w800,
                     color: enabled ? color : context.textPrimary,
@@ -931,6 +931,7 @@ class NotificationSettingsScreen extends ConsumerWidget {
 
   // ========== LOADING STATE ==========
   Widget _buildLoadingState(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -945,7 +946,7 @@ class NotificationSettingsScreen extends ConsumerWidget {
           ),
           const SizedBox(height: 14),
           Text(
-            'Loading settings...',
+            l10n.profileLoadingSettings,
             style: context.bodySmall.copyWith(color: context.textSecondary),
           ),
         ],

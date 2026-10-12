@@ -10466,4 +10466,130 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get aiGoodJob => 'Gut gemacht!';
+
+  @override
+  String get profileBuyMeCoffee => 'Spendiere mir einen Kaffee';
+
+  @override
+  String get profileOr => 'oder';
+
+  @override
+  String get profileLoadingNotifications => 'Benachrichtigungen werden geladen...';
+
+  @override
+  String get profileLoadingSettings => 'Einstellungen werden geladen...';
+
+  @override
+  String get profileAdmin => 'ADMIN';
+
+  @override
+  String get profileSelected => 'AUSGEWÄHLT';
+
+  @override
+  String get profilePrivacyIntro => 'Du bestimmst, was andere sehen können. Schalte Einträge aus, um sie in deinem öffentlichen Profil auszublenden.';
+
+  @override
+  String get profileUpdate => 'Aktualisieren';
+
+  @override
+  String get profileNoTopicsCategory => 'Keine Themen in dieser Kategorie';
+
+  @override
+  String get profileAdminTools => 'Admin-Tools';
+
+  @override
+  String profileCompletionAdd(Object items) {
+    return 'Hinzufügen: $items';
+  }
+
+  @override
+  String get profileActive => 'AKTIV';
+
+  @override
+  String get profileAutoSaveEnabled => 'Automatisches Speichern aktiviert';
+
+  @override
+  String get profileChangesSavedInstantlyWhen => 'Änderungen werden sofort gespeichert, wenn du umschaltest.';
+
+  @override
+  String get profileCurrentTheme => 'Aktuelles Design';
+
+  @override
+  String get profileThemeChangesApplyInstantly => 'Designänderungen werden sofort in der gesamten App übernommen.';
+
+  @override
+  String get profileLoadingVisitors => 'Besucher werden geladen...';
+
+  @override
+  String get profileSeeWhoChecked => 'Sieh, wer dein Profil besucht hat';
+
+  @override
+  String get profileRecentVisitors => 'Letzte Besucher';
+
+  @override
+  String get profileNoReportsSubmitted => 'Keine Meldungen gesendet';
+
+  @override
+  String get profileReportsSubmitWillAppear => 'Meldungen, die du sendest, erscheinen hier';
+
+  @override
+  String profileReportTypeTitle(Object type) {
+    return 'Meldung: $type';
+  }
+
+  @override
+  String profileReportReason(Object reason) {
+    return 'Grund: $reason';
+  }
+
+  @override
+  String get profileDeleteAccountFinalBody => 'Alle deine Daten werden dauerhaft gelöscht.\n\nBist du dir absolut sicher?';
+
+  @override
+  String get profileThanksForWatching => 'Danke fürs Zuschauen! 🙏';
+
+  @override
+  String get profileNotificationsOn => 'Benachrichtigungen an';
+
+  @override
+  String get profileNotificationsOff => 'Benachrichtigungen aus';
+
+  @override
+  String get profileMaximumReached => 'Maximum erreicht';
+
+  @override
+  String get profilePickYourInterests => 'Wähle deine Interessen';
+
+  @override
+  String get profileDeselectToChooseAnother => 'Wähle eines ab, um ein anderes auszuwählen';
+
+  @override
+  String get profileTapTopicsMatchVibe => 'Tippe auf Themen, die zu dir passen';
+
+  @override
+  String get profileEnjoyingPremium => 'Du genießt Premium-Funktionen';
+
+  @override
+  String get profileUnlockUnlimited => 'Schalte unbegrenzte Nachrichten und KI-Tools frei';
+
+  @override
+  String get profileBirthYear => 'Geburtsjahr';
+
+  @override
+  String get profileReportTypeUser => 'Nutzer';
+
+  @override
+  String get profileReportTypeMoment => 'Moment';
+
+  @override
+  String get profileReportTypeComment => 'Kommentar';
+
+  @override
+  String get profileReportTypeMessage => 'Nachricht';
+
+  @override
+  String get profileReportTypeStory => 'Story';
+
+  @override
+  String get profileReportReasonCopyright => 'Urheberrecht';
 }

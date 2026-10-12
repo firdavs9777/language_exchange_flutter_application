@@ -10449,4 +10449,130 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get aiGoodJob => 'เก่งมาก!';
+
+  @override
+  String get profileBuyMeCoffee => 'เลี้ยงกาแฟฉัน';
+
+  @override
+  String get profileOr => 'หรือ';
+
+  @override
+  String get profileLoadingNotifications => 'กำลังโหลดการแจ้งเตือน...';
+
+  @override
+  String get profileLoadingSettings => 'กำลังโหลดการตั้งค่า...';
+
+  @override
+  String get profileAdmin => 'แอดมิน';
+
+  @override
+  String get profileSelected => 'เลือกแล้ว';
+
+  @override
+  String get profilePrivacyIntro => 'คุณควบคุมได้ว่าผู้อื่นจะเห็นอะไร ปิดรายการเพื่อซ่อนจากโปรไฟล์สาธารณะของคุณ';
+
+  @override
+  String get profileUpdate => 'อัปเดต';
+
+  @override
+  String get profileNoTopicsCategory => 'ไม่มีหัวข้อในหมวดหมู่นี้';
+
+  @override
+  String get profileAdminTools => 'เครื่องมือแอดมิน';
+
+  @override
+  String profileCompletionAdd(Object items) {
+    return 'เพิ่ม: $items';
+  }
+
+  @override
+  String get profileActive => 'ใช้งานอยู่';
+
+  @override
+  String get profileAutoSaveEnabled => 'เปิดการบันทึกอัตโนมัติแล้ว';
+
+  @override
+  String get profileChangesSavedInstantlyWhen => 'การเปลี่ยนแปลงจะถูกบันทึกทันทีเมื่อคุณสลับ';
+
+  @override
+  String get profileCurrentTheme => 'ธีมปัจจุบัน';
+
+  @override
+  String get profileThemeChangesApplyInstantly => 'การเปลี่ยนธีมจะมีผลทันทีทั่วทั้งแอป';
+
+  @override
+  String get profileLoadingVisitors => 'กำลังโหลดผู้เข้าชม...';
+
+  @override
+  String get profileSeeWhoChecked => 'ดูว่าใครเข้ามาดูโปรไฟล์ของคุณ';
+
+  @override
+  String get profileRecentVisitors => 'ผู้เข้าชมล่าสุด';
+
+  @override
+  String get profileNoReportsSubmitted => 'ยังไม่มีรายงานที่ส่ง';
+
+  @override
+  String get profileReportsSubmitWillAppear => 'รายงานที่คุณส่งจะแสดงที่นี่';
+
+  @override
+  String profileReportTypeTitle(Object type) {
+    return 'รายงาน$type';
+  }
+
+  @override
+  String profileReportReason(Object reason) {
+    return 'เหตุผล: $reason';
+  }
+
+  @override
+  String get profileDeleteAccountFinalBody => 'ข้อมูลทั้งหมดของคุณจะถูกลบอย่างถาวร\n\nคุณแน่ใจหรือไม่?';
+
+  @override
+  String get profileThanksForWatching => 'ขอบคุณที่รับชม! 🙏';
+
+  @override
+  String get profileNotificationsOn => 'เปิดการแจ้งเตือน';
+
+  @override
+  String get profileNotificationsOff => 'ปิดการแจ้งเตือน';
+
+  @override
+  String get profileMaximumReached => 'ถึงขีดจำกัดสูงสุดแล้ว';
+
+  @override
+  String get profilePickYourInterests => 'เลือกสิ่งที่คุณสนใจ';
+
+  @override
+  String get profileDeselectToChooseAnother => 'ยกเลิกการเลือกหนึ่งรายการเพื่อเลือกอันอื่น';
+
+  @override
+  String get profileTapTopicsMatchVibe => 'แตะหัวข้อที่เข้ากับสไตล์ของคุณ';
+
+  @override
+  String get profileEnjoyingPremium => 'กำลังเพลิดเพลินกับฟีเจอร์พรีเมียม';
+
+  @override
+  String get profileUnlockUnlimited => 'ปลดล็อกข้อความไม่จำกัดและเครื่องมือ AI';
+
+  @override
+  String get profileBirthYear => 'ปีเกิด';
+
+  @override
+  String get profileReportTypeUser => 'ผู้ใช้';
+
+  @override
+  String get profileReportTypeMoment => 'โมเมนต์';
+
+  @override
+  String get profileReportTypeComment => 'ความคิดเห็น';
+
+  @override
+  String get profileReportTypeMessage => 'ข้อความ';
+
+  @override
+  String get profileReportTypeStory => 'สตอรี่';
+
+  @override
+  String get profileReportReasonCopyright => 'ลิขสิทธิ์';
 }

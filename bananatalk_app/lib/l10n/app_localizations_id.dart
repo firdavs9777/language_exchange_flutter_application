@@ -10460,4 +10460,130 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get aiGoodJob => 'Kerja bagus!';
+
+  @override
+  String get profileBuyMeCoffee => 'Traktir aku kopi';
+
+  @override
+  String get profileOr => 'atau';
+
+  @override
+  String get profileLoadingNotifications => 'Memuat notifikasi...';
+
+  @override
+  String get profileLoadingSettings => 'Memuat pengaturan...';
+
+  @override
+  String get profileAdmin => 'ADMIN';
+
+  @override
+  String get profileSelected => 'TERPILIH';
+
+  @override
+  String get profilePrivacyIntro => 'Kamu yang mengatur apa yang bisa dilihat orang lain. Matikan item untuk menyembunyikannya dari profil publikmu.';
+
+  @override
+  String get profileUpdate => 'Perbarui';
+
+  @override
+  String get profileNoTopicsCategory => 'Tidak ada topik di kategori ini';
+
+  @override
+  String get profileAdminTools => 'Alat Admin';
+
+  @override
+  String profileCompletionAdd(Object items) {
+    return 'Tambahkan: $items';
+  }
+
+  @override
+  String get profileActive => 'AKTIF';
+
+  @override
+  String get profileAutoSaveEnabled => 'Simpan otomatis aktif';
+
+  @override
+  String get profileChangesSavedInstantlyWhen => 'Perubahan disimpan langsung saat kamu mengaktifkan atau menonaktifkan.';
+
+  @override
+  String get profileCurrentTheme => 'Tema saat ini';
+
+  @override
+  String get profileThemeChangesApplyInstantly => 'Perubahan tema langsung diterapkan di seluruh aplikasi.';
+
+  @override
+  String get profileLoadingVisitors => 'Memuat pengunjung...';
+
+  @override
+  String get profileSeeWhoChecked => 'Lihat siapa yang mengunjungi profilmu';
+
+  @override
+  String get profileRecentVisitors => 'Pengunjung Terbaru';
+
+  @override
+  String get profileNoReportsSubmitted => 'Belum ada laporan yang dikirim';
+
+  @override
+  String get profileReportsSubmitWillAppear => 'Laporan yang kamu kirim akan muncul di sini';
+
+  @override
+  String profileReportTypeTitle(Object type) {
+    return 'Laporan $type';
+  }
+
+  @override
+  String profileReportReason(Object reason) {
+    return 'Alasan: $reason';
+  }
+
+  @override
+  String get profileDeleteAccountFinalBody => 'Semua datamu akan dihapus secara permanen.\n\nApakah kamu benar-benar yakin?';
+
+  @override
+  String get profileThanksForWatching => 'Terima kasih sudah menonton! 🙏';
+
+  @override
+  String get profileNotificationsOn => 'Notifikasi aktif';
+
+  @override
+  String get profileNotificationsOff => 'Notifikasi nonaktif';
+
+  @override
+  String get profileMaximumReached => 'Batas maksimum tercapai';
+
+  @override
+  String get profilePickYourInterests => 'Pilih minatmu';
+
+  @override
+  String get profileDeselectToChooseAnother => 'Batalkan satu pilihan untuk memilih yang lain';
+
+  @override
+  String get profileTapTopicsMatchVibe => 'Ketuk topik yang sesuai dengan seleramu';
+
+  @override
+  String get profileEnjoyingPremium => 'Menikmati fitur premium';
+
+  @override
+  String get profileUnlockUnlimited => 'Buka pesan tanpa batas dan alat AI';
+
+  @override
+  String get profileBirthYear => 'Tahun lahir';
+
+  @override
+  String get profileReportTypeUser => 'Pengguna';
+
+  @override
+  String get profileReportTypeMoment => 'Momen';
+
+  @override
+  String get profileReportTypeComment => 'Komentar';
+
+  @override
+  String get profileReportTypeMessage => 'Pesan';
+
+  @override
+  String get profileReportTypeStory => 'Cerita';
+
+  @override
+  String get profileReportReasonCopyright => 'Hak cipta';
 }

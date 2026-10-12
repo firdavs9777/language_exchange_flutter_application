@@ -391,7 +391,7 @@ class _NotificationHistoryScreenState
             ),
             const SizedBox(height: 14),
             Text(
-              'Loading notifications...',
+              l10n.profileLoadingNotifications,
               style: context.bodySmall.copyWith(color: context.textSecondary),
             ),
           ],
@@ -617,6 +617,7 @@ class _NotificationHistoryScreenState
 
   // ========== NOTIFICATION ITEM ==========
   Widget _buildNotificationItem(NotificationItem notification) {
+    final l10n = AppLocalizations.of(context)!;
     final iconColor = _getNotificationColor(notification.type);
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final isUnread = !notification.read;
@@ -634,12 +635,12 @@ class _NotificationHistoryScreenState
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           mainAxisSize: MainAxisSize.min,
-          children: const [
-            Icon(Icons.delete_rounded, color: Colors.white, size: 22),
-            SizedBox(width: 6),
+          children: [
+            const Icon(Icons.delete_rounded, color: Colors.white, size: 22),
+            const SizedBox(width: 6),
             Text(
-              'Delete',
-              style: TextStyle(
+              l10n.delete,
+              style: const TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.w700,
                 fontSize: 13,

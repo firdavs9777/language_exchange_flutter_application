@@ -10464,4 +10464,130 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get aiGoodJob => 'Aferin!';
+
+  @override
+  String get profileBuyMeCoffee => 'Bana bir kahve ısmarla';
+
+  @override
+  String get profileOr => 'veya';
+
+  @override
+  String get profileLoadingNotifications => 'Bildirimler yükleniyor...';
+
+  @override
+  String get profileLoadingSettings => 'Ayarlar yükleniyor...';
+
+  @override
+  String get profileAdmin => 'YÖNETİCİ';
+
+  @override
+  String get profileSelected => 'SEÇİLDİ';
+
+  @override
+  String get profilePrivacyIntro => 'Başkalarının neyi görebileceğini sen belirlersin. Herkese açık profilinde gizlemek için öğeleri kapat.';
+
+  @override
+  String get profileUpdate => 'Güncelle';
+
+  @override
+  String get profileNoTopicsCategory => 'Bu kategoride konu yok';
+
+  @override
+  String get profileAdminTools => 'Yönetici Araçları';
+
+  @override
+  String profileCompletionAdd(Object items) {
+    return 'Ekle: $items';
+  }
+
+  @override
+  String get profileActive => 'AKTİF';
+
+  @override
+  String get profileAutoSaveEnabled => 'Otomatik kaydetme açık';
+
+  @override
+  String get profileChangesSavedInstantlyWhen => 'Değişiklikler, anahtarı çevirdiğinde anında kaydedilir.';
+
+  @override
+  String get profileCurrentTheme => 'Geçerli tema';
+
+  @override
+  String get profileThemeChangesApplyInstantly => 'Tema değişiklikleri uygulamanın tamamında anında uygulanır.';
+
+  @override
+  String get profileLoadingVisitors => 'Ziyaretçiler yükleniyor...';
+
+  @override
+  String get profileSeeWhoChecked => 'Profiline kimlerin baktığını gör';
+
+  @override
+  String get profileRecentVisitors => 'Son Ziyaretçiler';
+
+  @override
+  String get profileNoReportsSubmitted => 'Gönderilmiş şikayet yok';
+
+  @override
+  String get profileReportsSubmitWillAppear => 'Gönderdiğin şikayetler burada görünecek';
+
+  @override
+  String profileReportTypeTitle(Object type) {
+    return '$type Şikayeti';
+  }
+
+  @override
+  String profileReportReason(Object reason) {
+    return 'Neden: $reason';
+  }
+
+  @override
+  String get profileDeleteAccountFinalBody => 'Tüm verilerin kalıcı olarak silinecek.\n\nKesinlikle emin misin?';
+
+  @override
+  String get profileThanksForWatching => 'İzlediğin için teşekkürler! 🙏';
+
+  @override
+  String get profileNotificationsOn => 'Bildirimler açık';
+
+  @override
+  String get profileNotificationsOff => 'Bildirimler kapalı';
+
+  @override
+  String get profileMaximumReached => 'Maksimuma ulaşıldı';
+
+  @override
+  String get profilePickYourInterests => 'İlgi alanlarını seç';
+
+  @override
+  String get profileDeselectToChooseAnother => 'Başka birini seçmek için birinin seçimini kaldır';
+
+  @override
+  String get profileTapTopicsMatchVibe => 'Tarzına uyan konulara dokun';
+
+  @override
+  String get profileEnjoyingPremium => 'Premium özelliklerin keyfini çıkarıyorsun';
+
+  @override
+  String get profileUnlockUnlimited => 'Sınırsız mesajın ve yapay zeka araçlarının kilidini aç';
+
+  @override
+  String get profileBirthYear => 'Doğum yılı';
+
+  @override
+  String get profileReportTypeUser => 'Kullanıcı';
+
+  @override
+  String get profileReportTypeMoment => 'Anı';
+
+  @override
+  String get profileReportTypeComment => 'Yorum';
+
+  @override
+  String get profileReportTypeMessage => 'Mesaj';
+
+  @override
+  String get profileReportTypeStory => 'Hikaye';
+
+  @override
+  String get profileReportReasonCopyright => 'Telif hakkı';
 }

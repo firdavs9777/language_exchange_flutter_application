@@ -260,6 +260,49 @@ const Map<String, List<String>> _keysByTask = {
     'aiEquivalent',
     'aiCulturalContext',
   ],
+  'L9': [
+    'profileBuyMeCoffee',
+    'profileOr',
+    'profileLoadingNotifications',
+    'profileLoadingSettings',
+    'profileAdmin',
+    'profileSelected',
+    'profilePrivacyIntro',
+    'profileUpdate',
+    'profileNoTopicsCategory',
+    'profileAdminTools',
+    'profileCompletionAdd',
+    'profileActive',
+    'profileAutoSaveEnabled',
+    'profileChangesSavedInstantlyWhen',
+    'profileCurrentTheme',
+    'profileThemeChangesApplyInstantly',
+    'profileLoadingVisitors',
+    'momentsPullDownRefresh',
+    'profileSeeWhoChecked',
+    'profileRecentVisitors',
+    'profileNoReportsSubmitted',
+    'profileReportsSubmitWillAppear',
+    'profileReportTypeTitle',
+    'profileReportReason',
+    'profileDeleteAccountFinalBody',
+    'profileThanksForWatching',
+    'profileNotificationsOn',
+    'profileNotificationsOff',
+    'profileMaximumReached',
+    'profilePickYourInterests',
+    'profileDeselectToChooseAnother',
+    'profileTapTopicsMatchVibe',
+    'profileEnjoyingPremium',
+    'profileUnlockUnlimited',
+    'profileBirthYear',
+    'profileReportTypeUser',
+    'profileReportTypeMoment',
+    'profileReportTypeComment',
+    'profileReportTypeMessage',
+    'profileReportTypeStory',
+    'profileReportReasonCopyright',
+  ],
 };
 
 /// Files (under lib/) each task must leave with no English Text literal.
@@ -356,11 +399,34 @@ const Map<String, List<String>> _filesByTask = {
     'pages/ai/pronunciation/pronunciation_screen.dart',
     'pages/ai/translation/translation_screen.dart',
   ],
+  'L9': [
+    'pages/menu_tab/TabBarMenu.dart',
+    'pages/notifications/notification_history_screen.dart',
+    'pages/notifications/notification_settings_screen.dart',
+    'pages/profile/drawer/drawer_section.dart',
+    'pages/profile/edit/language_edit.dart',
+    'pages/profile/edit/picture_edit/photo_grid_tile.dart',
+    'pages/profile/edit/privacy_edit.dart',
+    'pages/profile/edit/topics_edit.dart',
+    'pages/profile/profile_main.dart',
+    'pages/profile/profile_main/sections/profile_about_tab.dart',
+    'pages/profile/profile_main/sections/profile_highlights_tab.dart',
+    'pages/profile/settings.dart',
+    'pages/profile/theme.dart',
+    'pages/profile/visitors_screen.dart',
+    'pages/reports/my_reports_screen.dart',
+    'pages/settings/account_deletion.dart',
+  ],
 };
 
 /// Keys whose draft may legitimately equal the English in some locale
 /// (loanwords). Add with a one-line reason; empty by default.
 const Set<String> _mayMatchEnglish = {
+  'profileReportTypeMoment', // de/fr/tl use the English loanword "Moment"
+  'profileReportTypeMessage', // fr "Message" is the same word
+  'profileReportTypeStory', // de/fr/pt/tl/vi use the English loanword "Story"
+  'profileReportReasonCopyright', // it uses the English loanword "Copyright"
+  'profileAdmin', // de/es/fr/id/it/pt/tl use the same "ADMIN" badge abbreviation
   'aiLiteral', // es/pt/tl "Literal: {…}" is the same word
   'aiConversationMessageCount', // fr "{count} messages" is the same word
   'aiLessonBuilder', // tl keeps the English product name "AI Lesson Builder"

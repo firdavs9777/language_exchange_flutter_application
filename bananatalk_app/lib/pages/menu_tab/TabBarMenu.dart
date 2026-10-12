@@ -602,6 +602,7 @@ class _CoffeeButtonState extends State<_CoffeeButton>
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return GestureDetector(
       onTapDown: (_) => _ctrl.animateTo(0.0),
       onTapUp: (_) async {
@@ -650,13 +651,13 @@ class _CoffeeButtonState extends State<_CoffeeButton>
                 duration: const Duration(milliseconds: 350),
                 curve: Curves.easeInOutCubic,
                 child: _expanded
-                    ? const Row(
+                    ? Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          SizedBox(width: 6),
+                          const SizedBox(width: 6),
                           Text(
-                            'Buy me a coffee',
-                            style: TextStyle(
+                            l10n.profileBuyMeCoffee,
+                            style: const TextStyle(
                               fontSize: 13,
                               fontWeight: FontWeight.w700,
                               color: Color(0xFF5C3D00),
@@ -676,6 +677,9 @@ class _CoffeeButtonState extends State<_CoffeeButton>
 }
 
 // ─── Support / donation sheet ─────────────────────────────────────────────────
+
+/// PayPal account handle shown as a hint under the support buttons (not a translatable string).
+const String _paypalHandle = '@firdavsDev';
 
 class _SupportSheet extends StatefulWidget {
   const _SupportSheet();
@@ -849,7 +853,7 @@ class _SupportSheetState extends State<_SupportSheet> {
                   const SizedBox(width: 10),
                   Text(
                     _adWatched
-                        ? 'Thanks for watching! 🙏'
+                        ? l10n.profileThanksForWatching
                         : l10n.supportSheetWatchAd,
                     style: const TextStyle(
                       color: Colors.white,
@@ -873,7 +877,7 @@ class _SupportSheetState extends State<_SupportSheet> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12),
                 child: Text(
-                  'or',
+                  l10n.profileOr,
                   style: TextStyle(color: textSecondary, fontSize: 13),
                 ),
               ),
@@ -926,7 +930,7 @@ class _SupportSheetState extends State<_SupportSheet> {
 
           // PayPal handle hint
           Text(
-            '@firdavsDev',
+            _paypalHandle,
             style: TextStyle(
               fontSize: 12,
               color: textSecondary,

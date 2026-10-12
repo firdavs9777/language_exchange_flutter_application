@@ -19021,6 +19021,246 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Good job!'**
   String get aiGoodJob;
+
+  /// No description provided for @profileBuyMeCoffee.
+  ///
+  /// In en, this message translates to:
+  /// **'Buy me a coffee'**
+  String get profileBuyMeCoffee;
+
+  /// No description provided for @profileOr.
+  ///
+  /// In en, this message translates to:
+  /// **'or'**
+  String get profileOr;
+
+  /// No description provided for @profileLoadingNotifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading notifications...'**
+  String get profileLoadingNotifications;
+
+  /// No description provided for @profileLoadingSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading settings...'**
+  String get profileLoadingSettings;
+
+  /// No description provided for @profileAdmin.
+  ///
+  /// In en, this message translates to:
+  /// **'ADMIN'**
+  String get profileAdmin;
+
+  /// No description provided for @profileSelected.
+  ///
+  /// In en, this message translates to:
+  /// **'SELECTED'**
+  String get profileSelected;
+
+  /// No description provided for @profilePrivacyIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'You control what others can see. Toggle items off to hide them from your public profile.'**
+  String get profilePrivacyIntro;
+
+  /// No description provided for @profileUpdate.
+  ///
+  /// In en, this message translates to:
+  /// **'Update'**
+  String get profileUpdate;
+
+  /// No description provided for @profileNoTopicsCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'No topics in this category'**
+  String get profileNoTopicsCategory;
+
+  /// No description provided for @profileAdminTools.
+  ///
+  /// In en, this message translates to:
+  /// **'Admin Tools'**
+  String get profileAdminTools;
+
+  /// No description provided for @profileCompletionAdd.
+  ///
+  /// In en, this message translates to:
+  /// **'Add: {items}'**
+  String profileCompletionAdd(Object items);
+
+  /// No description provided for @profileActive.
+  ///
+  /// In en, this message translates to:
+  /// **'ACTIVE'**
+  String get profileActive;
+
+  /// No description provided for @profileAutoSaveEnabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto-save enabled'**
+  String get profileAutoSaveEnabled;
+
+  /// No description provided for @profileChangesSavedInstantlyWhen.
+  ///
+  /// In en, this message translates to:
+  /// **'Changes are saved instantly when you toggle.'**
+  String get profileChangesSavedInstantlyWhen;
+
+  /// No description provided for @profileCurrentTheme.
+  ///
+  /// In en, this message translates to:
+  /// **'Current theme'**
+  String get profileCurrentTheme;
+
+  /// No description provided for @profileThemeChangesApplyInstantly.
+  ///
+  /// In en, this message translates to:
+  /// **'Theme changes apply instantly across the entire app.'**
+  String get profileThemeChangesApplyInstantly;
+
+  /// No description provided for @profileLoadingVisitors.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading visitors...'**
+  String get profileLoadingVisitors;
+
+  /// No description provided for @profileSeeWhoChecked.
+  ///
+  /// In en, this message translates to:
+  /// **'See who checked your profile'**
+  String get profileSeeWhoChecked;
+
+  /// No description provided for @profileRecentVisitors.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent Visitors'**
+  String get profileRecentVisitors;
+
+  /// No description provided for @profileNoReportsSubmitted.
+  ///
+  /// In en, this message translates to:
+  /// **'No reports submitted'**
+  String get profileNoReportsSubmitted;
+
+  /// No description provided for @profileReportsSubmitWillAppear.
+  ///
+  /// In en, this message translates to:
+  /// **'Reports you submit will appear here'**
+  String get profileReportsSubmitWillAppear;
+
+  /// No description provided for @profileReportTypeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'{type} Report'**
+  String profileReportTypeTitle(Object type);
+
+  /// No description provided for @profileReportReason.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason: {reason}'**
+  String profileReportReason(Object reason);
+
+  /// No description provided for @profileDeleteAccountFinalBody.
+  ///
+  /// In en, this message translates to:
+  /// **'All your data will be permanently deleted.\n\nAre you absolutely sure?'**
+  String get profileDeleteAccountFinalBody;
+
+  /// No description provided for @profileThanksForWatching.
+  ///
+  /// In en, this message translates to:
+  /// **'Thanks for watching! 🙏'**
+  String get profileThanksForWatching;
+
+  /// No description provided for @profileNotificationsOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications on'**
+  String get profileNotificationsOn;
+
+  /// No description provided for @profileNotificationsOff.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications off'**
+  String get profileNotificationsOff;
+
+  /// No description provided for @profileMaximumReached.
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum reached'**
+  String get profileMaximumReached;
+
+  /// No description provided for @profilePickYourInterests.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick your interests'**
+  String get profilePickYourInterests;
+
+  /// No description provided for @profileDeselectToChooseAnother.
+  ///
+  /// In en, this message translates to:
+  /// **'Deselect one to choose another'**
+  String get profileDeselectToChooseAnother;
+
+  /// No description provided for @profileTapTopicsMatchVibe.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap topics that match your vibe'**
+  String get profileTapTopicsMatchVibe;
+
+  /// No description provided for @profileEnjoyingPremium.
+  ///
+  /// In en, this message translates to:
+  /// **'Enjoying premium features'**
+  String get profileEnjoyingPremium;
+
+  /// No description provided for @profileUnlockUnlimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock unlimited messages & AI tools'**
+  String get profileUnlockUnlimited;
+
+  /// No description provided for @profileBirthYear.
+  ///
+  /// In en, this message translates to:
+  /// **'Birth Year'**
+  String get profileBirthYear;
+
+  /// No description provided for @profileReportTypeUser.
+  ///
+  /// In en, this message translates to:
+  /// **'User'**
+  String get profileReportTypeUser;
+
+  /// No description provided for @profileReportTypeMoment.
+  ///
+  /// In en, this message translates to:
+  /// **'Moment'**
+  String get profileReportTypeMoment;
+
+  /// No description provided for @profileReportTypeComment.
+  ///
+  /// In en, this message translates to:
+  /// **'Comment'**
+  String get profileReportTypeComment;
+
+  /// No description provided for @profileReportTypeMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Message'**
+  String get profileReportTypeMessage;
+
+  /// No description provided for @profileReportTypeStory.
+  ///
+  /// In en, this message translates to:
+  /// **'Story'**
+  String get profileReportTypeStory;
+
+  /// No description provided for @profileReportReasonCopyright.
+  ///
+  /// In en, this message translates to:
+  /// **'Copyright'**
+  String get profileReportReasonCopyright;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

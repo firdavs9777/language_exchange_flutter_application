@@ -10449,4 +10449,130 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get aiGoodJob => 'Làm tốt lắm!';
+
+  @override
+  String get profileBuyMeCoffee => 'Mời tôi một ly cà phê';
+
+  @override
+  String get profileOr => 'hoặc';
+
+  @override
+  String get profileLoadingNotifications => 'Đang tải thông báo...';
+
+  @override
+  String get profileLoadingSettings => 'Đang tải cài đặt...';
+
+  @override
+  String get profileAdmin => 'QUẢN TRỊ';
+
+  @override
+  String get profileSelected => 'ĐÃ CHỌN';
+
+  @override
+  String get profilePrivacyIntro => 'Bạn kiểm soát những gì người khác có thể thấy. Tắt các mục để ẩn chúng khỏi hồ sơ công khai của bạn.';
+
+  @override
+  String get profileUpdate => 'Cập nhật';
+
+  @override
+  String get profileNoTopicsCategory => 'Không có chủ đề nào trong danh mục này';
+
+  @override
+  String get profileAdminTools => 'Công cụ quản trị';
+
+  @override
+  String profileCompletionAdd(Object items) {
+    return 'Thêm: $items';
+  }
+
+  @override
+  String get profileActive => 'ĐANG HOẠT ĐỘNG';
+
+  @override
+  String get profileAutoSaveEnabled => 'Đã bật tự động lưu';
+
+  @override
+  String get profileChangesSavedInstantlyWhen => 'Thay đổi được lưu ngay khi bạn bật hoặc tắt.';
+
+  @override
+  String get profileCurrentTheme => 'Giao diện hiện tại';
+
+  @override
+  String get profileThemeChangesApplyInstantly => 'Thay đổi giao diện được áp dụng ngay trên toàn bộ ứng dụng.';
+
+  @override
+  String get profileLoadingVisitors => 'Đang tải người truy cập...';
+
+  @override
+  String get profileSeeWhoChecked => 'Xem ai đã xem hồ sơ của bạn';
+
+  @override
+  String get profileRecentVisitors => 'Người truy cập gần đây';
+
+  @override
+  String get profileNoReportsSubmitted => 'Chưa gửi báo cáo nào';
+
+  @override
+  String get profileReportsSubmitWillAppear => 'Các báo cáo bạn gửi sẽ xuất hiện ở đây';
+
+  @override
+  String profileReportTypeTitle(Object type) {
+    return 'Báo cáo $type';
+  }
+
+  @override
+  String profileReportReason(Object reason) {
+    return 'Lý do: $reason';
+  }
+
+  @override
+  String get profileDeleteAccountFinalBody => 'Toàn bộ dữ liệu của bạn sẽ bị xóa vĩnh viễn.\n\nBạn có hoàn toàn chắc chắn không?';
+
+  @override
+  String get profileThanksForWatching => 'Cảm ơn bạn đã xem! 🙏';
+
+  @override
+  String get profileNotificationsOn => 'Thông báo đang bật';
+
+  @override
+  String get profileNotificationsOff => 'Thông báo đang tắt';
+
+  @override
+  String get profileMaximumReached => 'Đã đạt mức tối đa';
+
+  @override
+  String get profilePickYourInterests => 'Chọn sở thích của bạn';
+
+  @override
+  String get profileDeselectToChooseAnother => 'Bỏ chọn một mục để chọn mục khác';
+
+  @override
+  String get profileTapTopicsMatchVibe => 'Chạm vào các chủ đề hợp với bạn';
+
+  @override
+  String get profileEnjoyingPremium => 'Đang tận hưởng các tính năng cao cấp';
+
+  @override
+  String get profileUnlockUnlimited => 'Mở khóa tin nhắn không giới hạn và công cụ AI';
+
+  @override
+  String get profileBirthYear => 'Năm sinh';
+
+  @override
+  String get profileReportTypeUser => 'Người dùng';
+
+  @override
+  String get profileReportTypeMoment => 'Khoảnh khắc';
+
+  @override
+  String get profileReportTypeComment => 'Bình luận';
+
+  @override
+  String get profileReportTypeMessage => 'Tin nhắn';
+
+  @override
+  String get profileReportTypeStory => 'Story';
+
+  @override
+  String get profileReportReasonCopyright => 'Bản quyền';
 }

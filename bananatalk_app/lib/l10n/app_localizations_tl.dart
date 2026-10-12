@@ -10466,4 +10466,130 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get aiGoodJob => 'Magaling!';
+
+  @override
+  String get profileBuyMeCoffee => 'Ilibre mo ako ng kape';
+
+  @override
+  String get profileOr => 'o';
+
+  @override
+  String get profileLoadingNotifications => 'Nilo-load ang mga notification...';
+
+  @override
+  String get profileLoadingSettings => 'Nilo-load ang mga setting...';
+
+  @override
+  String get profileAdmin => 'ADMIN';
+
+  @override
+  String get profileSelected => 'NAPILI';
+
+  @override
+  String get profilePrivacyIntro => 'Ikaw ang may kontrol sa makikita ng iba. I-off ang mga item para itago ang mga ito sa iyong pampublikong profile.';
+
+  @override
+  String get profileUpdate => 'I-update';
+
+  @override
+  String get profileNoTopicsCategory => 'Walang paksa sa kategoryang ito';
+
+  @override
+  String get profileAdminTools => 'Mga Admin Tool';
+
+  @override
+  String profileCompletionAdd(Object items) {
+    return 'Idagdag: $items';
+  }
+
+  @override
+  String get profileActive => 'AKTIBO';
+
+  @override
+  String get profileAutoSaveEnabled => 'Naka-on ang auto-save';
+
+  @override
+  String get profileChangesSavedInstantlyWhen => 'Agad na nase-save ang mga pagbabago kapag nag-toggle ka.';
+
+  @override
+  String get profileCurrentTheme => 'Kasalukuyang tema';
+
+  @override
+  String get profileThemeChangesApplyInstantly => 'Agad na nailalapat ang mga pagbabago sa tema sa buong app.';
+
+  @override
+  String get profileLoadingVisitors => 'Nilo-load ang mga bisita...';
+
+  @override
+  String get profileSeeWhoChecked => 'Tingnan kung sino ang tumingin sa profile mo';
+
+  @override
+  String get profileRecentVisitors => 'Mga Kamakailang Bisita';
+
+  @override
+  String get profileNoReportsSubmitted => 'Walang naipasang report';
+
+  @override
+  String get profileReportsSubmitWillAppear => 'Lalabas dito ang mga report na ipapasa mo';
+
+  @override
+  String profileReportTypeTitle(Object type) {
+    return 'Report sa $type';
+  }
+
+  @override
+  String profileReportReason(Object reason) {
+    return 'Dahilan: $reason';
+  }
+
+  @override
+  String get profileDeleteAccountFinalBody => 'Permanenteng made-delete ang lahat ng data mo.\n\nSigurado ka ba talaga?';
+
+  @override
+  String get profileThanksForWatching => 'Salamat sa panonood! 🙏';
+
+  @override
+  String get profileNotificationsOn => 'Naka-on ang mga notification';
+
+  @override
+  String get profileNotificationsOff => 'Naka-off ang mga notification';
+
+  @override
+  String get profileMaximumReached => 'Naabot na ang maximum';
+
+  @override
+  String get profilePickYourInterests => 'Piliin ang mga interes mo';
+
+  @override
+  String get profileDeselectToChooseAnother => 'Alisin ang pagpili sa isa para makapili ng iba';
+
+  @override
+  String get profileTapTopicsMatchVibe => 'I-tap ang mga paksang bagay sa iyo';
+
+  @override
+  String get profileEnjoyingPremium => 'Nasisiyahan sa mga premium na feature';
+
+  @override
+  String get profileUnlockUnlimited => 'I-unlock ang walang limitasyong mensahe at AI tool';
+
+  @override
+  String get profileBirthYear => 'Taon ng kapanganakan';
+
+  @override
+  String get profileReportTypeUser => 'Gumagamit';
+
+  @override
+  String get profileReportTypeMoment => 'Moment';
+
+  @override
+  String get profileReportTypeComment => 'Komento';
+
+  @override
+  String get profileReportTypeMessage => 'Mensahe';
+
+  @override
+  String get profileReportTypeStory => 'Story';
+
+  @override
+  String get profileReportReasonCopyright => 'Karapatang-ari';
 }

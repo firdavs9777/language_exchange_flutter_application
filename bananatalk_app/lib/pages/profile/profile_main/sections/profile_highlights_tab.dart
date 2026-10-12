@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
 import 'package:bananatalk_app/pages/vip/vip_status_screen.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
@@ -36,19 +37,22 @@ class _ProfileCompletionCard extends StatelessWidget {
   const _ProfileCompletionCard({required this.user});
   final Community user;
 
-  static Map<String, dynamic> _calculate(Community user) {
+  static Map<String, dynamic> _calculate(
+    Community user,
+    AppLocalizations l10n,
+  ) {
     final fields = <String, bool>{
-      'Profile Picture': user.imageUrls.isNotEmpty,
-      'Name': user.name.isNotEmpty,
-      'Bio': user.bio.isNotEmpty,
-      'Native Language': user.native_language.isNotEmpty,
-      'Learning Language': user.language_to_learn.isNotEmpty,
-      'Location':
+      l10n.profilePicture: user.imageUrls.isNotEmpty,
+      l10n.nameLabel: user.name.isNotEmpty,
+      l10n.bio: user.bio.isNotEmpty,
+      l10n.nativeLanguage: user.native_language.isNotEmpty,
+      l10n.learningLanguageLabel: user.language_to_learn.isNotEmpty,
+      l10n.location:
           user.location.country.isNotEmpty || user.location.city.isNotEmpty,
-      'Topics': user.topics.isNotEmpty,
-      'MBTI': user.mbti.isNotEmpty,
-      'Birth Year': user.birth_year.isNotEmpty,
-      'What you\'re here for': user.intents.isNotEmpty,
+      l10n.topics: user.topics.isNotEmpty,
+      l10n.mbti: user.mbti.isNotEmpty,
+      l10n.profileBirthYear: user.birth_year.isNotEmpty,
+      l10n.intentSectionTitle: user.intents.isNotEmpty,
     };
     final completed = fields.values.where((v) => v).length;
     final percentage = (completed / fields.length * 100).round();
@@ -62,7 +66,8 @@ class _ProfileCompletionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final completion = _calculate(user);
+    final l10n = AppLocalizations.of(context)!;
+    final completion = _calculate(user, l10n);
     final percentage = completion['percentage'] as int;
     final missing = completion['missing'] as List<String>;
 
@@ -121,7 +126,7 @@ class _ProfileCompletionCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Profile Completion',
+                      l10n.profileCompletion,
                       style: context.titleSmall.copyWith(
                         fontWeight: FontWeight.w700,
                       ),
@@ -171,7 +176,7 @@ class _ProfileCompletionCard extends StatelessWidget {
                 const SizedBox(width: 6),
                 Expanded(
                   child: Text(
-                    'Add: ${missing.join(", ")}',
+                    l10n.profileCompletionAdd(missing.join(', ')),
                     style: context.captionSmall.copyWith(
                       color: context.textSecondary,
                       fontWeight: FontWeight.w500,
@@ -199,6 +204,7 @@ class _VipStatusCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final isVip = user.isVip;
 
     return Padding(
@@ -271,7 +277,7 @@ class _VipStatusCard extends StatelessWidget {
                         Row(
                           children: [
                             Text(
-                              isVip ? 'VIP Member' : 'Upgrade to VIP',
+                              isVip ? l10n.vipMember : l10n.upgradeToVip,
                               style: context.titleMedium.copyWith(
                                 fontWeight: FontWeight.w800,
                                 color: isVip
@@ -291,9 +297,9 @@ class _VipStatusCard extends StatelessWidget {
                                       Colors.white.withValues(alpha: 0.25),
                                   borderRadius: BorderRadius.circular(8),
                                 ),
-                                child: const Text(
-                                  'ACTIVE',
-                                  style: TextStyle(
+                                child: Text(
+                                  l10n.profileActive,
+                                  style: const TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.w800,
                                     fontSize: 10,
@@ -307,8 +313,8 @@ class _VipStatusCard extends StatelessWidget {
                         const SizedBox(height: 4),
                         Text(
                           isVip
-                              ? 'Enjoying premium features'
-                              : 'Unlock unlimited messages & AI tools',
+                              ? l10n.profileEnjoyingPremium
+                              : l10n.profileUnlockUnlimited,
                           style: context.bodySmall.copyWith(
                             color: isVip
                                 ? Colors.white.withValues(alpha: 0.9)

@@ -204,6 +204,7 @@ class _LanguageRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -257,7 +258,7 @@ class _LanguageRow extends StatelessWidget {
                       Icon(Icons.star_rounded, size: 12, color: color),
                       const SizedBox(width: 3),
                       Text(
-                        'Native',
+                        l10n.native,
                         style: context.captionSmall.copyWith(
                           color: color,
                           fontWeight: FontWeight.w700,

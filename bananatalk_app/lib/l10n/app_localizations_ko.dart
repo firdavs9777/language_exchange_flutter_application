@@ -10449,4 +10449,130 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get aiGoodJob => '잘했어요!';
+
+  @override
+  String get profileBuyMeCoffee => '커피 한 잔 사주기';
+
+  @override
+  String get profileOr => '또는';
+
+  @override
+  String get profileLoadingNotifications => '알림을 불러오는 중...';
+
+  @override
+  String get profileLoadingSettings => '설정을 불러오는 중...';
+
+  @override
+  String get profileAdmin => '관리자';
+
+  @override
+  String get profileSelected => '선택됨';
+
+  @override
+  String get profilePrivacyIntro => '다른 사람에게 보일 내용은 직접 정할 수 있어요. 항목을 끄면 공개 프로필에서 숨겨집니다.';
+
+  @override
+  String get profileUpdate => '업데이트';
+
+  @override
+  String get profileNoTopicsCategory => '이 카테고리에는 주제가 없습니다';
+
+  @override
+  String get profileAdminTools => '관리자 도구';
+
+  @override
+  String profileCompletionAdd(Object items) {
+    return '추가: $items';
+  }
+
+  @override
+  String get profileActive => '활성';
+
+  @override
+  String get profileAutoSaveEnabled => '자동 저장 켜짐';
+
+  @override
+  String get profileChangesSavedInstantlyWhen => '토글하면 변경 사항이 즉시 저장됩니다.';
+
+  @override
+  String get profileCurrentTheme => '현재 테마';
+
+  @override
+  String get profileThemeChangesApplyInstantly => '테마 변경 사항은 앱 전체에 즉시 적용됩니다.';
+
+  @override
+  String get profileLoadingVisitors => '방문자를 불러오는 중...';
+
+  @override
+  String get profileSeeWhoChecked => '내 프로필을 본 사람 확인하기';
+
+  @override
+  String get profileRecentVisitors => '최근 방문자';
+
+  @override
+  String get profileNoReportsSubmitted => '제출한 신고가 없습니다';
+
+  @override
+  String get profileReportsSubmitWillAppear => '제출한 신고가 여기에 표시됩니다';
+
+  @override
+  String profileReportTypeTitle(Object type) {
+    return '$type 신고';
+  }
+
+  @override
+  String profileReportReason(Object reason) {
+    return '사유: $reason';
+  }
+
+  @override
+  String get profileDeleteAccountFinalBody => '모든 데이터가 영구적으로 삭제됩니다.\n\n정말 확실한가요?';
+
+  @override
+  String get profileThanksForWatching => '시청해 주셔서 감사합니다! 🙏';
+
+  @override
+  String get profileNotificationsOn => '알림 켜짐';
+
+  @override
+  String get profileNotificationsOff => '알림 꺼짐';
+
+  @override
+  String get profileMaximumReached => '최대 개수에 도달했습니다';
+
+  @override
+  String get profilePickYourInterests => '관심사를 골라보세요';
+
+  @override
+  String get profileDeselectToChooseAnother => '다른 것을 고르려면 하나를 선택 해제하세요';
+
+  @override
+  String get profileTapTopicsMatchVibe => '나와 어울리는 주제를 탭하세요';
+
+  @override
+  String get profileEnjoyingPremium => '프리미엄 기능을 누리는 중';
+
+  @override
+  String get profileUnlockUnlimited => '무제한 메시지와 AI 도구를 잠금 해제하세요';
+
+  @override
+  String get profileBirthYear => '출생 연도';
+
+  @override
+  String get profileReportTypeUser => '사용자';
+
+  @override
+  String get profileReportTypeMoment => '모멘트';
+
+  @override
+  String get profileReportTypeComment => '댓글';
+
+  @override
+  String get profileReportTypeMessage => '메시지';
+
+  @override
+  String get profileReportTypeStory => '스토리';
+
+  @override
+  String get profileReportReasonCopyright => '저작권';
 }

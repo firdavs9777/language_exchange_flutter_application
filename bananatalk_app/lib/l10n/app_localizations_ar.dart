@@ -10513,4 +10513,130 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get aiGoodJob => 'عمل جيد!';
+
+  @override
+  String get profileBuyMeCoffee => 'اشترِ لي قهوة';
+
+  @override
+  String get profileOr => 'أو';
+
+  @override
+  String get profileLoadingNotifications => 'جارٍ تحميل الإشعارات...';
+
+  @override
+  String get profileLoadingSettings => 'جارٍ تحميل الإعدادات...';
+
+  @override
+  String get profileAdmin => 'مشرف';
+
+  @override
+  String get profileSelected => 'محدد';
+
+  @override
+  String get profilePrivacyIntro => 'أنت تتحكم فيما يمكن للآخرين رؤيته. أوقف العناصر لإخفائها عن ملفك الشخصي العام.';
+
+  @override
+  String get profileUpdate => 'تحديث';
+
+  @override
+  String get profileNoTopicsCategory => 'لا توجد مواضيع في هذه الفئة';
+
+  @override
+  String get profileAdminTools => 'أدوات المشرف';
+
+  @override
+  String profileCompletionAdd(Object items) {
+    return 'أضف: $items';
+  }
+
+  @override
+  String get profileActive => 'نشط';
+
+  @override
+  String get profileAutoSaveEnabled => 'تم تفعيل الحفظ التلقائي';
+
+  @override
+  String get profileChangesSavedInstantlyWhen => 'يتم حفظ التغييرات فورًا عند التبديل.';
+
+  @override
+  String get profileCurrentTheme => 'السمة الحالية';
+
+  @override
+  String get profileThemeChangesApplyInstantly => 'تُطبَّق تغييرات السمة فورًا على التطبيق بأكمله.';
+
+  @override
+  String get profileLoadingVisitors => 'جارٍ تحميل الزوار...';
+
+  @override
+  String get profileSeeWhoChecked => 'اعرف من زار ملفك الشخصي';
+
+  @override
+  String get profileRecentVisitors => 'الزوار الأخيرون';
+
+  @override
+  String get profileNoReportsSubmitted => 'لم يتم إرسال أي بلاغات';
+
+  @override
+  String get profileReportsSubmitWillAppear => 'ستظهر هنا البلاغات التي ترسلها';
+
+  @override
+  String profileReportTypeTitle(Object type) {
+    return 'بلاغ $type';
+  }
+
+  @override
+  String profileReportReason(Object reason) {
+    return 'السبب: $reason';
+  }
+
+  @override
+  String get profileDeleteAccountFinalBody => 'سيتم حذف جميع بياناتك نهائيًا.\n\nهل أنت متأكد تمامًا؟';
+
+  @override
+  String get profileThanksForWatching => 'شكرًا على المشاهدة! 🙏';
+
+  @override
+  String get profileNotificationsOn => 'الإشعارات مفعّلة';
+
+  @override
+  String get profileNotificationsOff => 'الإشعارات متوقفة';
+
+  @override
+  String get profileMaximumReached => 'تم الوصول إلى الحد الأقصى';
+
+  @override
+  String get profilePickYourInterests => 'اختر اهتماماتك';
+
+  @override
+  String get profileDeselectToChooseAnother => 'ألغِ تحديد موضوع لاختيار آخر';
+
+  @override
+  String get profileTapTopicsMatchVibe => 'اضغط على المواضيع التي تناسب أسلوبك';
+
+  @override
+  String get profileEnjoyingPremium => 'تستمتع بالميزات المميزة';
+
+  @override
+  String get profileUnlockUnlimited => 'افتح رسائل غير محدودة وأدوات الذكاء الاصطناعي';
+
+  @override
+  String get profileBirthYear => 'سنة الميلاد';
+
+  @override
+  String get profileReportTypeUser => 'مستخدم';
+
+  @override
+  String get profileReportTypeMoment => 'لحظة';
+
+  @override
+  String get profileReportTypeComment => 'تعليق';
+
+  @override
+  String get profileReportTypeMessage => 'رسالة';
+
+  @override
+  String get profileReportTypeStory => 'قصة';
+
+  @override
+  String get profileReportReasonCopyright => 'حقوق النشر';
 }

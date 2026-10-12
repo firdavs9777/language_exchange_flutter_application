@@ -68,48 +68,49 @@ class _MyReportsScreenState extends ConsumerState<MyReportsScreen> {
     }
   }
 
-  String _getTypeLabel(String? type) {
+  String _getTypeLabel(AppLocalizations l10n, String? type) {
     switch (type?.toLowerCase()) {
       case 'user':
-        return 'User';
+        return l10n.profileReportTypeUser;
       case 'moment':
-        return 'Moment';
+        return l10n.profileReportTypeMoment;
       case 'comment':
-        return 'Comment';
+        return l10n.profileReportTypeComment;
       case 'message':
-        return 'Message';
+        return l10n.profileReportTypeMessage;
       case 'story':
-        return 'Story';
+        return l10n.profileReportTypeStory;
       default:
-        return type ?? 'Unknown';
+        return type ?? l10n.unknown;
     }
   }
 
-  String _getReasonLabel(String? reason) {
+  String _getReasonLabel(AppLocalizations l10n, String? reason) {
     switch (reason?.toLowerCase()) {
       case 'spam':
-        return 'Spam';
+        return l10n.reportReasonSpam;
       case 'harassment':
-        return 'Harassment';
+        return l10n.reportReasonHarassment;
       case 'hate_speech':
-        return 'Hate Speech';
+        return l10n.reportReasonHateSpeech;
       case 'violence':
-        return 'Violence';
+        return l10n.reportReasonViolence;
       case 'nudity':
-        return 'Nudity';
+        return l10n.reportReasonNudity;
       case 'false_information':
-        return 'False Information';
+        return l10n.reportReasonFalseInformation;
       case 'copyright':
-        return 'Copyright';
+        return l10n.profileReportReasonCopyright;
       case 'other':
-        return 'Other';
+        return l10n.other;
       default:
-        return reason ?? 'Unknown';
+        return reason ?? l10n.unknown;
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       backgroundColor: context.scaffoldBackground,
       appBar: AppBar(
@@ -161,14 +162,14 @@ class _MyReportsScreenState extends ConsumerState<MyReportsScreen> {
                           ),
                           Spacing.gapLG,
                           Text(
-                            'No reports submitted',
+                            l10n.profileNoReportsSubmitted,
                             style: context.titleLarge.copyWith(
                               color: context.textPrimary,
                             ),
                           ),
                           Spacing.gapSM,
                           Text(
-                            'Reports you submit will appear here',
+                            l10n.profileReportsSubmitWillAppear,
                             style: context.bodyMedium.copyWith(
                               color: context.textSecondary,
                             ),
@@ -206,11 +207,11 @@ class _MyReportsScreenState extends ConsumerState<MyReportsScreen> {
                                 ),
                               ),
                               title: Text(
-                                '${_getTypeLabel(report['type'])} Report',
+                                l10n.profileReportTypeTitle(_getTypeLabel(l10n, report['type'])),
                                 style: context.titleMedium,
                               ),
                               subtitle: Text(
-                                'Reason: ${_getReasonLabel(report['reason'])}',
+                                l10n.profileReportReason(_getReasonLabel(l10n, report['reason'])),
                                 style: context.caption,
                               ),
                               trailing: Chip(
@@ -241,7 +242,7 @@ class _MyReportsScreenState extends ConsumerState<MyReportsScreen> {
                                       Spacing.gapSM,
                                       _buildInfoRow(
                                         'Reason',
-                                        _getReasonLabel(report['reason']),
+                                        _getReasonLabel(l10n, report['reason']),
                                       ),
                                       if (report['description'] != null &&
                                           report['description'].toString().isNotEmpty) ...[

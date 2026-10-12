@@ -10472,4 +10472,130 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get aiGoodJob => 'Good job!';
+
+  @override
+  String get profileBuyMeCoffee => 'Buy me a coffee';
+
+  @override
+  String get profileOr => 'or';
+
+  @override
+  String get profileLoadingNotifications => 'Loading notifications...';
+
+  @override
+  String get profileLoadingSettings => 'Loading settings...';
+
+  @override
+  String get profileAdmin => 'ADMIN';
+
+  @override
+  String get profileSelected => 'SELECTED';
+
+  @override
+  String get profilePrivacyIntro => 'You control what others can see. Toggle items off to hide them from your public profile.';
+
+  @override
+  String get profileUpdate => 'Update';
+
+  @override
+  String get profileNoTopicsCategory => 'No topics in this category';
+
+  @override
+  String get profileAdminTools => 'Admin Tools';
+
+  @override
+  String profileCompletionAdd(Object items) {
+    return 'Add: $items';
+  }
+
+  @override
+  String get profileActive => 'ACTIVE';
+
+  @override
+  String get profileAutoSaveEnabled => 'Auto-save enabled';
+
+  @override
+  String get profileChangesSavedInstantlyWhen => 'Changes are saved instantly when you toggle.';
+
+  @override
+  String get profileCurrentTheme => 'Current theme';
+
+  @override
+  String get profileThemeChangesApplyInstantly => 'Theme changes apply instantly across the entire app.';
+
+  @override
+  String get profileLoadingVisitors => 'Loading visitors...';
+
+  @override
+  String get profileSeeWhoChecked => 'See who checked your profile';
+
+  @override
+  String get profileRecentVisitors => 'Recent Visitors';
+
+  @override
+  String get profileNoReportsSubmitted => 'No reports submitted';
+
+  @override
+  String get profileReportsSubmitWillAppear => 'Reports you submit will appear here';
+
+  @override
+  String profileReportTypeTitle(Object type) {
+    return '$type Report';
+  }
+
+  @override
+  String profileReportReason(Object reason) {
+    return 'Reason: $reason';
+  }
+
+  @override
+  String get profileDeleteAccountFinalBody => 'All your data will be permanently deleted.\n\nAre you absolutely sure?';
+
+  @override
+  String get profileThanksForWatching => 'Thanks for watching! 🙏';
+
+  @override
+  String get profileNotificationsOn => 'Notifications on';
+
+  @override
+  String get profileNotificationsOff => 'Notifications off';
+
+  @override
+  String get profileMaximumReached => 'Maximum reached';
+
+  @override
+  String get profilePickYourInterests => 'Pick your interests';
+
+  @override
+  String get profileDeselectToChooseAnother => 'Deselect one to choose another';
+
+  @override
+  String get profileTapTopicsMatchVibe => 'Tap topics that match your vibe';
+
+  @override
+  String get profileEnjoyingPremium => 'Enjoying premium features';
+
+  @override
+  String get profileUnlockUnlimited => 'Unlock unlimited messages & AI tools';
+
+  @override
+  String get profileBirthYear => 'Birth Year';
+
+  @override
+  String get profileReportTypeUser => 'User';
+
+  @override
+  String get profileReportTypeMoment => 'Moment';
+
+  @override
+  String get profileReportTypeComment => 'Comment';
+
+  @override
+  String get profileReportTypeMessage => 'Message';
+
+  @override
+  String get profileReportTypeStory => 'Story';
+
+  @override
+  String get profileReportReasonCopyright => 'Copyright';
 }

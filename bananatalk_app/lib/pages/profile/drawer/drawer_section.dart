@@ -1,4 +1,5 @@
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:flutter/material.dart';
 
@@ -119,6 +120,7 @@ class DrawerMenuItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final radius = BorderRadius.only(
       topLeft: Radius.circular(isFirst ? 18 : 0),
@@ -176,9 +178,9 @@ class DrawerMenuItem extends StatelessWidget {
                               color: const Color(0xFF9C27B0),
                               borderRadius: BorderRadius.circular(6),
                             ),
-                            child: const Text(
-                              'ADMIN',
-                              style: TextStyle(
+                            child: Text(
+                              l10n.profileAdmin,
+                              style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 9,
                                 fontWeight: FontWeight.w800,
