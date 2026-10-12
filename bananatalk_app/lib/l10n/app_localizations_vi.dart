@@ -10113,4 +10113,148 @@ class AppLocalizationsVi extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get aiGenerateNewQuiz => 'Tạo bài đố mới';
+
+  @override
+  String get aiPreviousQuizzes => 'Các bài đố trước';
+
+  @override
+  String get aiGeneratingQuiz => 'Đang tạo bài đố của bạn…';
+
+  @override
+  String aiFocusArea(Object name) {
+    return 'Lĩnh vực trọng tâm: $name';
+  }
+
+  @override
+  String get aiQuizType => 'Loại bài đố';
+
+  @override
+  String get aiDifficulty => 'Độ khó';
+
+  @override
+  String get aiQuestionsLabel => 'Số câu hỏi:';
+
+  @override
+  String get aiGenerateQuiz => 'Tạo bài đố';
+
+  @override
+  String aiQuizQuestionCount(int questionCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      questionCount,
+      locale: localeName,
+      other: '$questionCount câu hỏi',
+      one: '1 câu hỏi',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String aiCorrectOfTotal(Object correctCount, Object totalQuestions) {
+    return 'Đúng $correctCount/$totalQuestions';
+  }
+
+  @override
+  String get aiNoQuizzesYet => 'Chưa có bài đố nào';
+
+  @override
+  String get aiGenerateFirstQuizAbove => 'Hãy tạo bài đố đầu tiên của bạn ở trên!';
+
+  @override
+  String aiCorrectOutOf(Object correctCount, Object totalQuestions) {
+    return 'Đúng $correctCount trên $totalQuestions';
+  }
+
+  @override
+  String get aiBackQuizHub => 'Quay lại trung tâm bài đố';
+
+  @override
+  String get aiNoQuestionsAvailable => 'Không có câu hỏi nào';
+
+  @override
+  String get aiQuizHasNoQuestions => 'Bài đố này không có câu hỏi nào để hiển thị.';
+
+  @override
+  String aiQuestionOf(Object number, Object count) {
+    return 'Câu hỏi $number trên $count';
+  }
+
+  @override
+  String get aiYourAnswerLabel => 'Câu trả lời của bạn:';
+
+  @override
+  String get aiBonusXpWatching => '🎉 +10 XP thưởng khi xem!';
+
+  @override
+  String get aiNotQuiteRight => 'Chưa đúng lắm';
+
+  @override
+  String get aiWhy => 'Tại sao?';
+
+  @override
+  String get aiGotIt => 'Đã hiểu';
+
+  @override
+  String get aiHint => 'Gợi ý';
+
+  @override
+  String aiLevel(Object hintLevel) {
+    return 'Mức $hintLevel/3';
+  }
+
+  @override
+  String get aiAskQuestion => 'Đặt câu hỏi';
+
+  @override
+  String get aiAsk => 'Hỏi';
+
+  @override
+  String get aiAssistantExamples => 'Ví dụ';
+
+  @override
+  String get aiExplainConcept => 'Giải thích khái niệm';
+
+  @override
+  String get aiRelatedConcepts => 'Khái niệm liên quan';
+
+  @override
+  String get aiGeneratingLessonSummary => 'Đang tạo bản tóm tắt bài học của bạn...';
+
+  @override
+  String get aiLessonSummary => 'Tóm tắt bài học';
+
+  @override
+  String get aiKeyPoints => 'Điểm chính';
+
+  @override
+  String get aiVocabularyRemember => 'Từ vựng cần nhớ';
+
+  @override
+  String get aiGrammarRules => 'Quy tắc ngữ pháp';
+
+  @override
+  String get aiWhatPracticeNext => 'Nên luyện tập gì tiếp theo';
+
+  @override
+  String get aiPerfectScore => 'Điểm tuyệt đối!';
+
+  @override
+  String get aiGreatJob => 'Làm tốt lắm!';
+
+  @override
+  String get aiGoodEffort => 'Cố gắng tốt lắm!';
+
+  @override
+  String get aiKeepPracticing => 'Hãy tiếp tục luyện tập!';
+
+  @override
+  String get aiFailedToGetHint => 'Không thể lấy gợi ý';
+
+  @override
+  String get aiFailedToGetAnswer => 'Không thể lấy câu trả lời';
+
+  @override
+  String get aiFailedToExplain => 'Không thể giải thích';
 }

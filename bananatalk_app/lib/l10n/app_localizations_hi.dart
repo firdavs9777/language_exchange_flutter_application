@@ -10127,4 +10127,148 @@ class AppLocalizationsHi extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get aiGenerateNewQuiz => 'नई क्विज़ बनाएं';
+
+  @override
+  String get aiPreviousQuizzes => 'पिछली क्विज़';
+
+  @override
+  String get aiGeneratingQuiz => 'आपकी क्विज़ बनाई जा रही है…';
+
+  @override
+  String aiFocusArea(Object name) {
+    return 'फ़ोकस क्षेत्र: $name';
+  }
+
+  @override
+  String get aiQuizType => 'क्विज़ का प्रकार';
+
+  @override
+  String get aiDifficulty => 'कठिनाई';
+
+  @override
+  String get aiQuestionsLabel => 'प्रश्न:';
+
+  @override
+  String get aiGenerateQuiz => 'क्विज़ बनाएं';
+
+  @override
+  String aiQuizQuestionCount(int questionCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      questionCount,
+      locale: localeName,
+      other: '$questionCount प्रश्न',
+      one: '1 प्रश्न',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String aiCorrectOfTotal(Object correctCount, Object totalQuestions) {
+    return '$correctCount/$totalQuestions सही';
+  }
+
+  @override
+  String get aiNoQuizzesYet => 'अभी तक कोई क्विज़ नहीं';
+
+  @override
+  String get aiGenerateFirstQuizAbove => 'ऊपर अपनी पहली क्विज़ बनाएं!';
+
+  @override
+  String aiCorrectOutOf(Object correctCount, Object totalQuestions) {
+    return '$totalQuestions में से $correctCount सही';
+  }
+
+  @override
+  String get aiBackQuizHub => 'क्विज़ हब पर वापस जाएं';
+
+  @override
+  String get aiNoQuestionsAvailable => 'कोई प्रश्न उपलब्ध नहीं';
+
+  @override
+  String get aiQuizHasNoQuestions => 'इस क्विज़ में दिखाने के लिए कोई प्रश्न नहीं है।';
+
+  @override
+  String aiQuestionOf(Object number, Object count) {
+    return 'प्रश्न $number/$count';
+  }
+
+  @override
+  String get aiYourAnswerLabel => 'आपका उत्तर:';
+
+  @override
+  String get aiBonusXpWatching => '🎉 देखने के लिए +10 बोनस XP!';
+
+  @override
+  String get aiNotQuiteRight => 'पूरी तरह सही नहीं';
+
+  @override
+  String get aiWhy => 'क्यों?';
+
+  @override
+  String get aiGotIt => 'समझ गया';
+
+  @override
+  String get aiHint => 'संकेत';
+
+  @override
+  String aiLevel(Object hintLevel) {
+    return 'स्तर $hintLevel/3';
+  }
+
+  @override
+  String get aiAskQuestion => 'प्रश्न पूछें';
+
+  @override
+  String get aiAsk => 'पूछें';
+
+  @override
+  String get aiAssistantExamples => 'उदाहरण';
+
+  @override
+  String get aiExplainConcept => 'अवधारणा समझाएं';
+
+  @override
+  String get aiRelatedConcepts => 'संबंधित अवधारणाएं';
+
+  @override
+  String get aiGeneratingLessonSummary => 'आपके पाठ का सारांश बनाया जा रहा है...';
+
+  @override
+  String get aiLessonSummary => 'पाठ सारांश';
+
+  @override
+  String get aiKeyPoints => 'मुख्य बिंदु';
+
+  @override
+  String get aiVocabularyRemember => 'याद रखने योग्य शब्दावली';
+
+  @override
+  String get aiGrammarRules => 'व्याकरण नियम';
+
+  @override
+  String get aiWhatPracticeNext => 'आगे क्या अभ्यास करें';
+
+  @override
+  String get aiPerfectScore => 'पूर्ण अंक!';
+
+  @override
+  String get aiGreatJob => 'बहुत बढ़िया!';
+
+  @override
+  String get aiGoodEffort => 'अच्छा प्रयास!';
+
+  @override
+  String get aiKeepPracticing => 'अभ्यास करते रहें!';
+
+  @override
+  String get aiFailedToGetHint => 'संकेत प्राप्त नहीं हो सका';
+
+  @override
+  String get aiFailedToGetAnswer => 'उत्तर प्राप्त नहीं हो सका';
+
+  @override
+  String get aiFailedToExplain => 'समझाया नहीं जा सका';
 }

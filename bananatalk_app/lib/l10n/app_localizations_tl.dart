@@ -10127,4 +10127,148 @@ class AppLocalizationsTl extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get aiGenerateNewQuiz => 'Gumawa ng bagong quiz';
+
+  @override
+  String get aiPreviousQuizzes => 'Mga nakaraang quiz';
+
+  @override
+  String get aiGeneratingQuiz => 'Ginagawa ang iyong quiz…';
+
+  @override
+  String aiFocusArea(Object name) {
+    return 'Pokus na lugar: $name';
+  }
+
+  @override
+  String get aiQuizType => 'Uri ng quiz';
+
+  @override
+  String get aiDifficulty => 'Antas ng hirap';
+
+  @override
+  String get aiQuestionsLabel => 'Mga tanong:';
+
+  @override
+  String get aiGenerateQuiz => 'Gumawa ng quiz';
+
+  @override
+  String aiQuizQuestionCount(int questionCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      questionCount,
+      locale: localeName,
+      other: '$questionCount tanong',
+      one: '1 tanong',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String aiCorrectOfTotal(Object correctCount, Object totalQuestions) {
+    return '$correctCount/$totalQuestions tama';
+  }
+
+  @override
+  String get aiNoQuizzesYet => 'Wala pang quiz';
+
+  @override
+  String get aiGenerateFirstQuizAbove => 'Gumawa ng iyong unang quiz sa itaas!';
+
+  @override
+  String aiCorrectOutOf(Object correctCount, Object totalQuestions) {
+    return '$correctCount sa $totalQuestions ang tama';
+  }
+
+  @override
+  String get aiBackQuizHub => 'Bumalik sa Quiz Hub';
+
+  @override
+  String get aiNoQuestionsAvailable => 'Walang available na tanong';
+
+  @override
+  String get aiQuizHasNoQuestions => 'Walang tanong na maipapakita sa quiz na ito.';
+
+  @override
+  String aiQuestionOf(Object number, Object count) {
+    return 'Tanong $number sa $count';
+  }
+
+  @override
+  String get aiYourAnswerLabel => 'Ang sagot mo:';
+
+  @override
+  String get aiBonusXpWatching => '🎉 +10 Bonus XP sa panonood!';
+
+  @override
+  String get aiNotQuiteRight => 'Hindi masyadong tama';
+
+  @override
+  String get aiWhy => 'Bakit?';
+
+  @override
+  String get aiGotIt => 'Naintindihan ko';
+
+  @override
+  String get aiHint => 'Pahiwatig';
+
+  @override
+  String aiLevel(Object hintLevel) {
+    return 'Antas $hintLevel/3';
+  }
+
+  @override
+  String get aiAskQuestion => 'Magtanong';
+
+  @override
+  String get aiAsk => 'Itanong';
+
+  @override
+  String get aiAssistantExamples => 'Mga halimbawa';
+
+  @override
+  String get aiExplainConcept => 'Ipaliwanag ang konsepto';
+
+  @override
+  String get aiRelatedConcepts => 'Mga kaugnay na konsepto';
+
+  @override
+  String get aiGeneratingLessonSummary => 'Ginagawa ang buod ng iyong aralin...';
+
+  @override
+  String get aiLessonSummary => 'Buod ng aralin';
+
+  @override
+  String get aiKeyPoints => 'Mga pangunahing punto';
+
+  @override
+  String get aiVocabularyRemember => 'Mga salitang dapat tandaan';
+
+  @override
+  String get aiGrammarRules => 'Mga tuntunin sa balarila';
+
+  @override
+  String get aiWhatPracticeNext => 'Ano ang susunod na pagsasanayan';
+
+  @override
+  String get aiPerfectScore => 'Perpektong iskor!';
+
+  @override
+  String get aiGreatJob => 'Magaling!';
+
+  @override
+  String get aiGoodEffort => 'Magandang pagsisikap!';
+
+  @override
+  String get aiKeepPracticing => 'Magpatuloy sa pagsasanay!';
+
+  @override
+  String get aiFailedToGetHint => 'Hindi nakuha ang pahiwatig';
+
+  @override
+  String get aiFailedToGetAnswer => 'Hindi nakuha ang sagot';
+
+  @override
+  String get aiFailedToExplain => 'Hindi naipaliwanag';
 }

@@ -10128,4 +10128,148 @@ class AppLocalizationsTg extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get aiGenerateNewQuiz => 'Викторинаи нав эҷод кунед';
+
+  @override
+  String get aiPreviousQuizzes => 'Викторинаҳои қаблӣ';
+
+  @override
+  String get aiGeneratingQuiz => 'Викторинаи шумо эҷод мешавад…';
+
+  @override
+  String aiFocusArea(Object name) {
+    return 'Самти диққат: $name';
+  }
+
+  @override
+  String get aiQuizType => 'Навъи викторина';
+
+  @override
+  String get aiDifficulty => 'Душворӣ';
+
+  @override
+  String get aiQuestionsLabel => 'Саволҳо:';
+
+  @override
+  String get aiGenerateQuiz => 'Эҷоди викторина';
+
+  @override
+  String aiQuizQuestionCount(int questionCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      questionCount,
+      locale: localeName,
+      other: '$questionCount савол',
+      one: '1 савол',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String aiCorrectOfTotal(Object correctCount, Object totalQuestions) {
+    return '$correctCount/$totalQuestions дуруст';
+  }
+
+  @override
+  String get aiNoQuizzesYet => 'Ҳанӯз викторина нест';
+
+  @override
+  String get aiGenerateFirstQuizAbove => 'Аввалин викторинаи худро дар боло эҷод кунед!';
+
+  @override
+  String aiCorrectOutOf(Object correctCount, Object totalQuestions) {
+    return '$correctCount аз $totalQuestions дуруст';
+  }
+
+  @override
+  String get aiBackQuizHub => 'Бозгашт ба маркази викторинаҳо';
+
+  @override
+  String get aiNoQuestionsAvailable => 'Саволе дастрас нест';
+
+  @override
+  String get aiQuizHasNoQuestions => 'Дар ин викторина саволе барои намоиш нест.';
+
+  @override
+  String aiQuestionOf(Object number, Object count) {
+    return 'Саволи $number аз $count';
+  }
+
+  @override
+  String get aiYourAnswerLabel => 'Ҷавоби шумо:';
+
+  @override
+  String get aiBonusXpWatching => '🎉 +10 XP бонус барои тамошо!';
+
+  @override
+  String get aiNotQuiteRight => 'Тамоман дуруст нест';
+
+  @override
+  String get aiWhy => 'Чаро?';
+
+  @override
+  String get aiGotIt => 'Фаҳмидам';
+
+  @override
+  String get aiHint => 'Маслиҳат';
+
+  @override
+  String aiLevel(Object hintLevel) {
+    return 'Сатҳи $hintLevel/3';
+  }
+
+  @override
+  String get aiAskQuestion => 'Савол диҳед';
+
+  @override
+  String get aiAsk => 'Пурсед';
+
+  @override
+  String get aiAssistantExamples => 'Мисолҳо';
+
+  @override
+  String get aiExplainConcept => 'Шарҳи мафҳум';
+
+  @override
+  String get aiRelatedConcepts => 'Мафҳумҳои алоқаманд';
+
+  @override
+  String get aiGeneratingLessonSummary => 'Хулосаи дарси шумо эҷод мешавад...';
+
+  @override
+  String get aiLessonSummary => 'Хулосаи дарс';
+
+  @override
+  String get aiKeyPoints => 'Нуктаҳои асосӣ';
+
+  @override
+  String get aiVocabularyRemember => 'Луғатҳо барои ёдоварӣ';
+
+  @override
+  String get aiGrammarRules => 'Қоидаҳои грамматика';
+
+  @override
+  String get aiWhatPracticeNext => 'Минбаъд чиро машқ кардан лозим';
+
+  @override
+  String get aiPerfectScore => 'Холи комил!';
+
+  @override
+  String get aiGreatJob => 'Офарин!';
+
+  @override
+  String get aiGoodEffort => 'Кӯшиши хуб!';
+
+  @override
+  String get aiKeepPracticing => 'Машқро идома диҳед!';
+
+  @override
+  String get aiFailedToGetHint => 'Маслиҳат гирифта нашуд';
+
+  @override
+  String get aiFailedToGetAnswer => 'Ҷавоб гирифта нашуд';
+
+  @override
+  String get aiFailedToExplain => 'Шарҳ дода нашуд';
 }

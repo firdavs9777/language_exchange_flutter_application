@@ -156,15 +156,15 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
               const SizedBox(height: 12),
               Text(
                 result.percentage >= 80
-                    ? 'Great job!'
+                    ? AppLocalizations.of(context)!.aiGreatJob
                     : result.percentage >= 60
-                        ? 'Good effort!'
-                        : 'Keep practicing!',
+                        ? AppLocalizations.of(context)!.aiGoodEffort
+                        : AppLocalizations.of(context)!.aiKeepPracticing,
                 style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 4),
               Text(
-                '${result.correctCount} out of ${result.totalQuestions} correct',
+                AppLocalizations.of(context)!.aiCorrectOutOf(result.correctCount, result.totalQuestions),
                 style: TextStyle(fontSize: 14, color: Colors.grey[600]),
               ),
               const SizedBox(height: 16),
@@ -227,7 +227,7 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
                   label: 'Watch Ad for +10 Bonus XP',
                   onRewarded: () {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('+10 Bonus XP earned! 🎉')),
+                      SnackBar(content: Text(AppLocalizations.of(context)!.vocabBonusEarned)),
                     );
                   },
                 ),
@@ -250,9 +250,9 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
                         borderRadius: BorderRadius.circular(12),
                       ),
                     ),
-                    child: const Text(
-                      'Back to Quiz Hub',
-                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+                    child: Text(
+                      AppLocalizations.of(context)!.aiBackQuizHub,
+                      style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
                     ),
                   ),
                 ),
@@ -312,12 +312,12 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
               Icon(Icons.quiz_rounded, size: 64, color: Colors.grey[300]),
               const SizedBox(height: 16),
               Text(
-                'No questions available',
+                AppLocalizations.of(context)!.aiNoQuestionsAvailable,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.grey[600]),
               ),
               const SizedBox(height: 8),
               Text(
-                'This quiz has no questions to display.',
+                AppLocalizations.of(context)!.aiQuizHasNoQuestions,
                 style: TextStyle(fontSize: 14, color: Colors.grey[500]),
               ),
               const SizedBox(height: 24),
@@ -399,7 +399,7 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
                 style: context.labelLarge.copyWith(fontWeight: FontWeight.w600),
               ),
               Text(
-                'Question ${state.currentIndex + 1} of ${quiz.questions.length}',
+                AppLocalizations.of(context)!.aiQuestionOf(state.currentIndex + 1, quiz.questions.length),
                 style: context.caption.copyWith(color: context.textSecondary),
               ),
             ],
@@ -490,7 +490,7 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
                             Spacing.gapMD,
                             Row(
                               children: [
-                                Icon(Icons.lightbulb_outline, size: 16, color: AppColors.warning),
+                                const Icon(Icons.lightbulb_outline, size: 16, color: AppColors.warning),
                                 Spacing.hGapSM,
                                 Expanded(
                                   child: Text(
@@ -597,7 +597,7 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  correct ? 'Correct!' : 'Incorrect',
+                  correct ? AppLocalizations.of(context)!.lessonCorrect : AppLocalizations.of(context)!.lessonIncorrect,
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     color: correct ? Colors.green : Colors.red,
@@ -743,7 +743,7 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Your answer:',
+          AppLocalizations.of(context)!.aiYourAnswerLabel,
           style: context.labelLarge.copyWith(fontWeight: FontWeight.w500),
         ),
         Spacing.gapSM,
@@ -855,7 +855,7 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Your translation:',
+          AppLocalizations.of(context)!.lessonYourTranslation,
           style: context.labelLarge.copyWith(fontWeight: FontWeight.w500),
         ),
         Spacing.gapSM,
@@ -917,7 +917,7 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
             shape: RoundedRectangleBorder(borderRadius: AppRadius.borderMD),
           ),
           child: Text(
-            isLastQuestion ? 'Submit' : 'Next',
+            isLastQuestion ? AppLocalizations.of(context)!.submit : AppLocalizations.of(context)!.nextButton,
             style: context.bodyLarge.copyWith(
               fontWeight: FontWeight.w600,
               color: Colors.white,

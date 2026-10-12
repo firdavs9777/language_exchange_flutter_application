@@ -10113,6 +10113,150 @@ class AppLocalizationsZh extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get aiGenerateNewQuiz => '生成新测验';
+
+  @override
+  String get aiPreviousQuizzes => '以前的测验';
+
+  @override
+  String get aiGeneratingQuiz => '正在生成你的测验…';
+
+  @override
+  String aiFocusArea(Object name) {
+    return '重点领域：$name';
+  }
+
+  @override
+  String get aiQuizType => '测验类型';
+
+  @override
+  String get aiDifficulty => '难度';
+
+  @override
+  String get aiQuestionsLabel => '题目数：';
+
+  @override
+  String get aiGenerateQuiz => '生成测验';
+
+  @override
+  String aiQuizQuestionCount(int questionCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      questionCount,
+      locale: localeName,
+      other: '$questionCount 道题',
+      one: '1 道题',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String aiCorrectOfTotal(Object correctCount, Object totalQuestions) {
+    return '答对 $correctCount/$totalQuestions';
+  }
+
+  @override
+  String get aiNoQuizzesYet => '还没有测验';
+
+  @override
+  String get aiGenerateFirstQuizAbove => '在上方生成你的第一个测验吧！';
+
+  @override
+  String aiCorrectOutOf(Object correctCount, Object totalQuestions) {
+    return '$totalQuestions 题中答对 $correctCount 题';
+  }
+
+  @override
+  String get aiBackQuizHub => '返回测验中心';
+
+  @override
+  String get aiNoQuestionsAvailable => '没有可用的题目';
+
+  @override
+  String get aiQuizHasNoQuestions => '此测验没有可显示的题目。';
+
+  @override
+  String aiQuestionOf(Object number, Object count) {
+    return '第 $number 题，共 $count 题';
+  }
+
+  @override
+  String get aiYourAnswerLabel => '你的答案：';
+
+  @override
+  String get aiBonusXpWatching => '🎉 观看奖励 +10 XP！';
+
+  @override
+  String get aiNotQuiteRight => '不太对';
+
+  @override
+  String get aiWhy => '为什么？';
+
+  @override
+  String get aiGotIt => '明白了';
+
+  @override
+  String get aiHint => '提示';
+
+  @override
+  String aiLevel(Object hintLevel) {
+    return '等级 $hintLevel/3';
+  }
+
+  @override
+  String get aiAskQuestion => '提问';
+
+  @override
+  String get aiAsk => '提问';
+
+  @override
+  String get aiAssistantExamples => '示例';
+
+  @override
+  String get aiExplainConcept => '解释概念';
+
+  @override
+  String get aiRelatedConcepts => '相关概念';
+
+  @override
+  String get aiGeneratingLessonSummary => '正在生成你的课程总结...';
+
+  @override
+  String get aiLessonSummary => '课程总结';
+
+  @override
+  String get aiKeyPoints => '要点';
+
+  @override
+  String get aiVocabularyRemember => '需要记住的词汇';
+
+  @override
+  String get aiGrammarRules => '语法规则';
+
+  @override
+  String get aiWhatPracticeNext => '接下来练习什么';
+
+  @override
+  String get aiPerfectScore => '满分！';
+
+  @override
+  String get aiGreatJob => '做得好！';
+
+  @override
+  String get aiGoodEffort => '不错的努力！';
+
+  @override
+  String get aiKeepPracticing => '继续练习吧！';
+
+  @override
+  String get aiFailedToGetHint => '获取提示失败';
+
+  @override
+  String get aiFailedToGetAnswer => '获取回答失败';
+
+  @override
+  String get aiFailedToExplain => '解释失败';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -20224,4 +20368,148 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
     );
     return '$_temp0';
   }
+
+  @override
+  String get aiGenerateNewQuiz => '產生新測驗';
+
+  @override
+  String get aiPreviousQuizzes => '先前的測驗';
+
+  @override
+  String get aiGeneratingQuiz => '正在產生你的測驗…';
+
+  @override
+  String aiFocusArea(Object name) {
+    return '重點領域：$name';
+  }
+
+  @override
+  String get aiQuizType => '測驗類型';
+
+  @override
+  String get aiDifficulty => '難度';
+
+  @override
+  String get aiQuestionsLabel => '題目數：';
+
+  @override
+  String get aiGenerateQuiz => '產生測驗';
+
+  @override
+  String aiQuizQuestionCount(int questionCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      questionCount,
+      locale: localeName,
+      other: '$questionCount 道題',
+      one: '1 道題',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String aiCorrectOfTotal(Object correctCount, Object totalQuestions) {
+    return '答對 $correctCount/$totalQuestions';
+  }
+
+  @override
+  String get aiNoQuizzesYet => '還沒有測驗';
+
+  @override
+  String get aiGenerateFirstQuizAbove => '在上方產生你的第一個測驗吧！';
+
+  @override
+  String aiCorrectOutOf(Object correctCount, Object totalQuestions) {
+    return '$totalQuestions 題中答對 $correctCount 題';
+  }
+
+  @override
+  String get aiBackQuizHub => '返回測驗中心';
+
+  @override
+  String get aiNoQuestionsAvailable => '沒有可用的題目';
+
+  @override
+  String get aiQuizHasNoQuestions => '此測驗沒有可顯示的題目。';
+
+  @override
+  String aiQuestionOf(Object number, Object count) {
+    return '第 $number 題，共 $count 題';
+  }
+
+  @override
+  String get aiYourAnswerLabel => '你的答案：';
+
+  @override
+  String get aiBonusXpWatching => '🎉 觀看獎勵 +10 XP！';
+
+  @override
+  String get aiNotQuiteRight => '不太對';
+
+  @override
+  String get aiWhy => '為什麼？';
+
+  @override
+  String get aiGotIt => '明白了';
+
+  @override
+  String get aiHint => '提示';
+
+  @override
+  String aiLevel(Object hintLevel) {
+    return '等級 $hintLevel/3';
+  }
+
+  @override
+  String get aiAskQuestion => '提問';
+
+  @override
+  String get aiAsk => '提問';
+
+  @override
+  String get aiAssistantExamples => '範例';
+
+  @override
+  String get aiExplainConcept => '解釋概念';
+
+  @override
+  String get aiRelatedConcepts => '相關概念';
+
+  @override
+  String get aiGeneratingLessonSummary => '正在產生你的課程摘要...';
+
+  @override
+  String get aiLessonSummary => '課程摘要';
+
+  @override
+  String get aiKeyPoints => '重點';
+
+  @override
+  String get aiVocabularyRemember => '需要記住的詞彙';
+
+  @override
+  String get aiGrammarRules => '文法規則';
+
+  @override
+  String get aiWhatPracticeNext => '接下來練習什麼';
+
+  @override
+  String get aiPerfectScore => '滿分！';
+
+  @override
+  String get aiGreatJob => '做得好！';
+
+  @override
+  String get aiGoodEffort => '不錯的努力！';
+
+  @override
+  String get aiKeepPracticing => '繼續練習吧！';
+
+  @override
+  String get aiFailedToGetHint => '取得提示失敗';
+
+  @override
+  String get aiFailedToGetAnswer => '取得回答失敗';
+
+  @override
+  String get aiFailedToExplain => '解釋失敗';
 }

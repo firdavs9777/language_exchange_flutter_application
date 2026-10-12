@@ -18451,6 +18451,258 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{count, plural, one{In {count} month} other{In {count} months}}'**
   String learnInMonths(int count);
+
+  /// No description provided for @aiGenerateNewQuiz.
+  ///
+  /// In en, this message translates to:
+  /// **'Generate New Quiz'**
+  String get aiGenerateNewQuiz;
+
+  /// No description provided for @aiPreviousQuizzes.
+  ///
+  /// In en, this message translates to:
+  /// **'Previous Quizzes'**
+  String get aiPreviousQuizzes;
+
+  /// No description provided for @aiGeneratingQuiz.
+  ///
+  /// In en, this message translates to:
+  /// **'Generating your quiz…'**
+  String get aiGeneratingQuiz;
+
+  /// No description provided for @aiFocusArea.
+  ///
+  /// In en, this message translates to:
+  /// **'Focus area: {name}'**
+  String aiFocusArea(Object name);
+
+  /// No description provided for @aiQuizType.
+  ///
+  /// In en, this message translates to:
+  /// **'Quiz Type'**
+  String get aiQuizType;
+
+  /// No description provided for @aiDifficulty.
+  ///
+  /// In en, this message translates to:
+  /// **'Difficulty'**
+  String get aiDifficulty;
+
+  /// No description provided for @aiQuestionsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Questions:'**
+  String get aiQuestionsLabel;
+
+  /// No description provided for @aiGenerateQuiz.
+  ///
+  /// In en, this message translates to:
+  /// **'Generate Quiz'**
+  String get aiGenerateQuiz;
+
+  /// No description provided for @aiQuizQuestionCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{questionCount, plural, =1{1 question} other{{questionCount} questions}}'**
+  String aiQuizQuestionCount(int questionCount);
+
+  /// No description provided for @aiCorrectOfTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'{correctCount}/{totalQuestions} correct'**
+  String aiCorrectOfTotal(Object correctCount, Object totalQuestions);
+
+  /// No description provided for @aiNoQuizzesYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No quizzes yet'**
+  String get aiNoQuizzesYet;
+
+  /// No description provided for @aiGenerateFirstQuizAbove.
+  ///
+  /// In en, this message translates to:
+  /// **'Generate your first quiz above!'**
+  String get aiGenerateFirstQuizAbove;
+
+  /// No description provided for @aiCorrectOutOf.
+  ///
+  /// In en, this message translates to:
+  /// **'{correctCount} out of {totalQuestions} correct'**
+  String aiCorrectOutOf(Object correctCount, Object totalQuestions);
+
+  /// No description provided for @aiBackQuizHub.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to Quiz Hub'**
+  String get aiBackQuizHub;
+
+  /// No description provided for @aiNoQuestionsAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'No questions available'**
+  String get aiNoQuestionsAvailable;
+
+  /// No description provided for @aiQuizHasNoQuestions.
+  ///
+  /// In en, this message translates to:
+  /// **'This quiz has no questions to display.'**
+  String get aiQuizHasNoQuestions;
+
+  /// No description provided for @aiQuestionOf.
+  ///
+  /// In en, this message translates to:
+  /// **'Question {number} of {count}'**
+  String aiQuestionOf(Object number, Object count);
+
+  /// No description provided for @aiYourAnswerLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Your answer:'**
+  String get aiYourAnswerLabel;
+
+  /// No description provided for @aiBonusXpWatching.
+  ///
+  /// In en, this message translates to:
+  /// **'🎉 +10 Bonus XP for watching!'**
+  String get aiBonusXpWatching;
+
+  /// No description provided for @aiNotQuiteRight.
+  ///
+  /// In en, this message translates to:
+  /// **'Not quite right'**
+  String get aiNotQuiteRight;
+
+  /// No description provided for @aiWhy.
+  ///
+  /// In en, this message translates to:
+  /// **'Why?'**
+  String get aiWhy;
+
+  /// No description provided for @aiGotIt.
+  ///
+  /// In en, this message translates to:
+  /// **'Got It'**
+  String get aiGotIt;
+
+  /// No description provided for @aiHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Hint'**
+  String get aiHint;
+
+  /// No description provided for @aiLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Level {hintLevel}/3'**
+  String aiLevel(Object hintLevel);
+
+  /// No description provided for @aiAskQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Ask a Question'**
+  String get aiAskQuestion;
+
+  /// No description provided for @aiAsk.
+  ///
+  /// In en, this message translates to:
+  /// **'Ask'**
+  String get aiAsk;
+
+  /// No description provided for @aiAssistantExamples.
+  ///
+  /// In en, this message translates to:
+  /// **'Examples'**
+  String get aiAssistantExamples;
+
+  /// No description provided for @aiExplainConcept.
+  ///
+  /// In en, this message translates to:
+  /// **'Explain Concept'**
+  String get aiExplainConcept;
+
+  /// No description provided for @aiRelatedConcepts.
+  ///
+  /// In en, this message translates to:
+  /// **'Related Concepts'**
+  String get aiRelatedConcepts;
+
+  /// No description provided for @aiGeneratingLessonSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Generating your lesson summary...'**
+  String get aiGeneratingLessonSummary;
+
+  /// No description provided for @aiLessonSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Lesson Summary'**
+  String get aiLessonSummary;
+
+  /// No description provided for @aiKeyPoints.
+  ///
+  /// In en, this message translates to:
+  /// **'Key Points'**
+  String get aiKeyPoints;
+
+  /// No description provided for @aiVocabularyRemember.
+  ///
+  /// In en, this message translates to:
+  /// **'Vocabulary to Remember'**
+  String get aiVocabularyRemember;
+
+  /// No description provided for @aiGrammarRules.
+  ///
+  /// In en, this message translates to:
+  /// **'Grammar Rules'**
+  String get aiGrammarRules;
+
+  /// No description provided for @aiWhatPracticeNext.
+  ///
+  /// In en, this message translates to:
+  /// **'What to Practice Next'**
+  String get aiWhatPracticeNext;
+
+  /// No description provided for @aiPerfectScore.
+  ///
+  /// In en, this message translates to:
+  /// **'Perfect Score!'**
+  String get aiPerfectScore;
+
+  /// No description provided for @aiGreatJob.
+  ///
+  /// In en, this message translates to:
+  /// **'Great job!'**
+  String get aiGreatJob;
+
+  /// No description provided for @aiGoodEffort.
+  ///
+  /// In en, this message translates to:
+  /// **'Good effort!'**
+  String get aiGoodEffort;
+
+  /// No description provided for @aiKeepPracticing.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep practicing!'**
+  String get aiKeepPracticing;
+
+  /// No description provided for @aiFailedToGetHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to get hint'**
+  String get aiFailedToGetHint;
+
+  /// No description provided for @aiFailedToGetAnswer.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to get answer'**
+  String get aiFailedToGetAnswer;
+
+  /// No description provided for @aiFailedToExplain.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to explain'**
+  String get aiFailedToExplain;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

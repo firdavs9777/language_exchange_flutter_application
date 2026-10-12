@@ -199,7 +199,7 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
               onPressed: () => Navigator.pop(context),
             ),
             title: Text(
-              'AI Quizzes',
+              AppLocalizations.of(context)!.aiQuizzes,
               style: context.titleMedium.copyWith(fontWeight: FontWeight.bold),
             ),
           ),
@@ -224,7 +224,7 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
 
                 // Generate New Quiz Section
                 Text(
-                  'Generate New Quiz',
+                  AppLocalizations.of(context)!.aiGenerateNewQuiz,
                   style: context.titleMedium.copyWith(fontWeight: FontWeight.bold),
                 ),
                 Spacing.gapMD,
@@ -233,7 +233,7 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
 
                 // Previous Quizzes
                 Text(
-                  'Previous Quizzes',
+                  AppLocalizations.of(context)!.aiPreviousQuizzes,
                   style: context.titleMedium.copyWith(fontWeight: FontWeight.bold),
                 ),
                 Spacing.gapMD,
@@ -261,15 +261,15 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
         if (_isGenerating)
           Container(
             color: Colors.black.withOpacity(0.6),
-            child: const Center(
+            child: Center(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  CircularProgressIndicator(color: Colors.white),
-                  SizedBox(height: 16),
+                  const CircularProgressIndicator(color: Colors.white),
+                  const SizedBox(height: 16),
                   Text(
-                    'Generating your quiz…',
-                    style: TextStyle(
+                    AppLocalizations.of(context)!.aiGeneratingQuiz,
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
@@ -392,7 +392,7 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
                   Spacing.hGapSM,
                   Expanded(
                     child: Text(
-                      'Focus area: ${stats.weakAreas.first.name}',
+                      AppLocalizations.of(context)!.aiFocusArea(stats.weakAreas.first.name),
                       style: context.bodySmall.copyWith(
                         color: Colors.white.withOpacity(0.9),
                       ),
@@ -441,7 +441,7 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
         children: [
           // Quiz Type Selection
           Text(
-            'Quiz Type',
+            AppLocalizations.of(context)!.aiQuizType,
             style: context.labelLarge.copyWith(fontWeight: FontWeight.w600),
           ),
           Spacing.gapMD,
@@ -504,7 +504,7 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
 
           // Language Selection
           Text(
-            'Language',
+            AppLocalizations.of(context)!.language,
             style: context.labelLarge.copyWith(fontWeight: FontWeight.w600),
           ),
           Spacing.gapSM,
@@ -513,7 +513,7 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
 
           // Difficulty Selection
           Text(
-            'Difficulty',
+            AppLocalizations.of(context)!.aiDifficulty,
             style: context.labelLarge.copyWith(fontWeight: FontWeight.w600),
           ),
           Spacing.gapSM,
@@ -557,7 +557,7 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
           Row(
             children: [
               Text(
-                'Questions:',
+                AppLocalizations.of(context)!.aiQuestionsLabel,
                 style: context.labelLarge.copyWith(fontWeight: FontWeight.w600),
               ),
               Spacing.hGapMD,
@@ -609,7 +609,7 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
                       ),
                     )
                   : Text(
-                      'Generate Quiz',
+                      AppLocalizations.of(context)!.aiGenerateQuiz,
                       style: context.bodyLarge.copyWith(
                         fontWeight: FontWeight.w600,
                         color: Colors.white,
@@ -642,7 +642,7 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
             ),
             Spacing.hGapMD,
             Text(
-              'Loading languages...',
+              AppLocalizations.of(context)!.loadingLanguages,
               style: context.bodyMedium.copyWith(color: context.textSecondary),
             ),
           ],
@@ -689,7 +689,7 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
               Spacing.hGapMD,
               Expanded(
                 child: Text(
-                  'Select a language',
+                  AppLocalizations.of(context)!.selectALanguage,
                   style: context.bodyMedium.copyWith(color: context.textMuted),
                 ),
               ),
@@ -750,7 +750,7 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
                       Row(
                         children: [
                           Text(
-                            '${quiz.questionCount} questions',
+                            AppLocalizations.of(context)!.aiQuizQuestionCount(quiz.questionCount),
                             style: context.caption.copyWith(color: context.textSecondary),
                           ),
                           Spacing.hGapSM,
@@ -793,7 +793,7 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
                   ),
                   const SizedBox(width: 4),
                   IconButton(
-                    icon: Icon(Icons.replay_rounded, color: AppColors.error, size: 20),
+                    icon: const Icon(Icons.replay_rounded, color: AppColors.error, size: 20),
                     padding: EdgeInsets.zero,
                     constraints: const BoxConstraints(),
                     tooltip: 'Play Again',
@@ -897,7 +897,7 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    '${result.correctCount}/${result.totalQuestions} correct',
+                    AppLocalizations.of(context)!.aiCorrectOfTotal(result.correctCount, result.totalQuestions),
                     style: TextStyle(
                       fontSize: 14,
                       color: Colors.grey[600],
@@ -1021,12 +1021,12 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
           ),
           Spacing.gapMD,
           Text(
-            'No quizzes yet',
+            AppLocalizations.of(context)!.aiNoQuizzesYet,
             style: context.bodyMedium.copyWith(color: context.textMuted),
           ),
           Spacing.gapXS,
           Text(
-            'Generate your first quiz above!',
+            AppLocalizations.of(context)!.aiGenerateFirstQuizAbove,
             style: context.caption.copyWith(color: context.textMuted),
           ),
         ],

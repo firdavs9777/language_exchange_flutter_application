@@ -160,6 +160,44 @@ const Map<String, List<String>> _keysByTask = {
     'learnInWeeks',
     'learnInMonths',
   ],
+  'L7': [
+    'aiGenerateNewQuiz',
+    'aiPreviousQuizzes',
+    'aiGeneratingQuiz',
+    'aiFocusArea',
+    'aiQuizType',
+    'aiDifficulty',
+    'aiQuestionsLabel',
+    'aiGenerateQuiz',
+    'aiQuizQuestionCount',
+    'aiCorrectOfTotal',
+    'aiNoQuizzesYet',
+    'aiGenerateFirstQuizAbove',
+    'aiCorrectOutOf',
+    'aiBackQuizHub',
+    'aiNoQuestionsAvailable',
+    'aiQuizHasNoQuestions',
+    'aiQuestionOf',
+    'aiYourAnswerLabel',
+    'aiBonusXpWatching',
+    'aiNotQuiteRight',
+    'aiWhy',
+    'aiGotIt',
+    'aiHint',
+    'aiLevel',
+    'aiAskQuestion',
+    'aiAsk',
+    'aiAssistantExamples',
+    'aiExplainConcept',
+    'aiRelatedConcepts',
+    'aiGeneratingLessonSummary',
+    'aiLessonSummary',
+    'aiKeyPoints',
+    'aiVocabularyRemember',
+    'aiGrammarRules',
+    'aiWhatPracticeNext',
+    'aiPerfectScore',
+  ],
 };
 
 /// Files (under lib/) each task must leave with no English Text literal.
@@ -240,6 +278,14 @@ const Map<String, List<String>> _filesByTask = {
     'widgets/learning/streak_widget.dart',
     'widgets/learning/vocabulary_card.dart',
   ],
+  'L7': [
+    'pages/ai/quiz/ai_quiz_screen.dart',
+    'pages/ai/quiz/quiz_player_screen.dart',
+    'pages/ai/tutor/tutor_chat_screen.dart',
+    'widgets/ai/answer_feedback_sheet.dart',
+    'widgets/ai/lesson_assistant_widget.dart',
+    'widgets/ai/lesson_summary_sheet.dart',
+  ],
 };
 
 /// Keys whose draft may legitimately equal the English in some locale
@@ -261,6 +307,7 @@ const Set<String> _mayMatchEnglish = {
   'chatMediaFile', // id/tl use the loanword "file"
   'chatMediaGeneric', // id/tl use the loanword "media"
   'chatReplyingToFallback', // tl uses the English loanword "user"
+  'aiQuizQuestionCount', // fr "1 question" / "{n} questions" is spelled exactly like English
 };
 
 final _placeholder = RegExp(r'\{(\w+)[,}]');

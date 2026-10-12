@@ -10158,4 +10158,152 @@ class AppLocalizationsAr extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get aiGenerateNewQuiz => 'إنشاء اختبار جديد';
+
+  @override
+  String get aiPreviousQuizzes => 'الاختبارات السابقة';
+
+  @override
+  String get aiGeneratingQuiz => 'جارٍ إنشاء اختبارك…';
+
+  @override
+  String aiFocusArea(Object name) {
+    return 'مجال التركيز: $name';
+  }
+
+  @override
+  String get aiQuizType => 'نوع الاختبار';
+
+  @override
+  String get aiDifficulty => 'مستوى الصعوبة';
+
+  @override
+  String get aiQuestionsLabel => 'الأسئلة:';
+
+  @override
+  String get aiGenerateQuiz => 'إنشاء الاختبار';
+
+  @override
+  String aiQuizQuestionCount(int questionCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      questionCount,
+      locale: localeName,
+      other: '$questionCount سؤال',
+      many: '$questionCount سؤالًا',
+      few: '$questionCount أسئلة',
+      two: 'سؤالان',
+      one: 'سؤال واحد',
+      zero: 'لا أسئلة',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String aiCorrectOfTotal(Object correctCount, Object totalQuestions) {
+    return '$correctCount/$totalQuestions صحيحة';
+  }
+
+  @override
+  String get aiNoQuizzesYet => 'لا توجد اختبارات بعد';
+
+  @override
+  String get aiGenerateFirstQuizAbove => 'أنشئ اختبارك الأول أعلاه!';
+
+  @override
+  String aiCorrectOutOf(Object correctCount, Object totalQuestions) {
+    return '$correctCount من أصل $totalQuestions صحيحة';
+  }
+
+  @override
+  String get aiBackQuizHub => 'العودة إلى مركز الاختبارات';
+
+  @override
+  String get aiNoQuestionsAvailable => 'لا توجد أسئلة متاحة';
+
+  @override
+  String get aiQuizHasNoQuestions => 'لا توجد أسئلة لعرضها في هذا الاختبار.';
+
+  @override
+  String aiQuestionOf(Object number, Object count) {
+    return 'السؤال $number من $count';
+  }
+
+  @override
+  String get aiYourAnswerLabel => 'إجابتك:';
+
+  @override
+  String get aiBonusXpWatching => '🎉 +10 نقاط خبرة إضافية على المشاهدة!';
+
+  @override
+  String get aiNotQuiteRight => 'ليست صحيحة تمامًا';
+
+  @override
+  String get aiWhy => 'لماذا؟';
+
+  @override
+  String get aiGotIt => 'فهمت';
+
+  @override
+  String get aiHint => 'تلميح';
+
+  @override
+  String aiLevel(Object hintLevel) {
+    return 'المستوى $hintLevel/3';
+  }
+
+  @override
+  String get aiAskQuestion => 'اطرح سؤالًا';
+
+  @override
+  String get aiAsk => 'اسأل';
+
+  @override
+  String get aiAssistantExamples => 'أمثلة';
+
+  @override
+  String get aiExplainConcept => 'اشرح المفهوم';
+
+  @override
+  String get aiRelatedConcepts => 'مفاهيم ذات صلة';
+
+  @override
+  String get aiGeneratingLessonSummary => 'جارٍ إنشاء ملخص درسك...';
+
+  @override
+  String get aiLessonSummary => 'ملخص الدرس';
+
+  @override
+  String get aiKeyPoints => 'النقاط الرئيسية';
+
+  @override
+  String get aiVocabularyRemember => 'مفردات يجب تذكرها';
+
+  @override
+  String get aiGrammarRules => 'قواعد النحو';
+
+  @override
+  String get aiWhatPracticeNext => 'ما الذي تتدرب عليه بعد ذلك';
+
+  @override
+  String get aiPerfectScore => 'نتيجة كاملة!';
+
+  @override
+  String get aiGreatJob => 'عمل رائع!';
+
+  @override
+  String get aiGoodEffort => 'جهد جيد!';
+
+  @override
+  String get aiKeepPracticing => 'واصل التدريب!';
+
+  @override
+  String get aiFailedToGetHint => 'تعذّر الحصول على التلميح';
+
+  @override
+  String get aiFailedToGetAnswer => 'تعذّر الحصول على الإجابة';
+
+  @override
+  String get aiFailedToExplain => 'تعذّر الشرح';
 }

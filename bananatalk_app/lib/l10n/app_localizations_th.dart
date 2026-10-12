@@ -10113,4 +10113,148 @@ class AppLocalizationsTh extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get aiGenerateNewQuiz => 'สร้างแบบทดสอบใหม่';
+
+  @override
+  String get aiPreviousQuizzes => 'แบบทดสอบก่อนหน้า';
+
+  @override
+  String get aiGeneratingQuiz => 'กำลังสร้างแบบทดสอบของคุณ…';
+
+  @override
+  String aiFocusArea(Object name) {
+    return 'หัวข้อที่เน้น: $name';
+  }
+
+  @override
+  String get aiQuizType => 'ประเภทแบบทดสอบ';
+
+  @override
+  String get aiDifficulty => 'ความยาก';
+
+  @override
+  String get aiQuestionsLabel => 'จำนวนคำถาม:';
+
+  @override
+  String get aiGenerateQuiz => 'สร้างแบบทดสอบ';
+
+  @override
+  String aiQuizQuestionCount(int questionCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      questionCount,
+      locale: localeName,
+      other: '$questionCount คำถาม',
+      one: '1 คำถาม',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String aiCorrectOfTotal(Object correctCount, Object totalQuestions) {
+    return 'ถูก $correctCount/$totalQuestions';
+  }
+
+  @override
+  String get aiNoQuizzesYet => 'ยังไม่มีแบบทดสอบ';
+
+  @override
+  String get aiGenerateFirstQuizAbove => 'สร้างแบบทดสอบแรกของคุณด้านบนได้เลย!';
+
+  @override
+  String aiCorrectOutOf(Object correctCount, Object totalQuestions) {
+    return 'ถูก $correctCount จาก $totalQuestions ข้อ';
+  }
+
+  @override
+  String get aiBackQuizHub => 'กลับไปที่ศูนย์รวมแบบทดสอบ';
+
+  @override
+  String get aiNoQuestionsAvailable => 'ไม่มีคำถามให้ใช้งาน';
+
+  @override
+  String get aiQuizHasNoQuestions => 'แบบทดสอบนี้ไม่มีคำถามที่จะแสดง';
+
+  @override
+  String aiQuestionOf(Object number, Object count) {
+    return 'คำถามที่ $number จาก $count';
+  }
+
+  @override
+  String get aiYourAnswerLabel => 'คำตอบของคุณ:';
+
+  @override
+  String get aiBonusXpWatching => '🎉 รับ XP โบนัส +10 จากการรับชม!';
+
+  @override
+  String get aiNotQuiteRight => 'ยังไม่ถูกทีเดียว';
+
+  @override
+  String get aiWhy => 'ทำไม?';
+
+  @override
+  String get aiGotIt => 'เข้าใจแล้ว';
+
+  @override
+  String get aiHint => 'คำใบ้';
+
+  @override
+  String aiLevel(Object hintLevel) {
+    return 'ระดับ $hintLevel/3';
+  }
+
+  @override
+  String get aiAskQuestion => 'ถามคำถาม';
+
+  @override
+  String get aiAsk => 'ถาม';
+
+  @override
+  String get aiAssistantExamples => 'ตัวอย่าง';
+
+  @override
+  String get aiExplainConcept => 'อธิบายแนวคิด';
+
+  @override
+  String get aiRelatedConcepts => 'แนวคิดที่เกี่ยวข้อง';
+
+  @override
+  String get aiGeneratingLessonSummary => 'กำลังสร้างสรุปบทเรียนของคุณ...';
+
+  @override
+  String get aiLessonSummary => 'สรุปบทเรียน';
+
+  @override
+  String get aiKeyPoints => 'ประเด็นสำคัญ';
+
+  @override
+  String get aiVocabularyRemember => 'คำศัพท์ที่ควรจำ';
+
+  @override
+  String get aiGrammarRules => 'กฎไวยากรณ์';
+
+  @override
+  String get aiWhatPracticeNext => 'สิ่งที่ควรฝึกต่อไป';
+
+  @override
+  String get aiPerfectScore => 'คะแนนเต็ม!';
+
+  @override
+  String get aiGreatJob => 'เยี่ยมมาก!';
+
+  @override
+  String get aiGoodEffort => 'พยายามได้ดี!';
+
+  @override
+  String get aiKeepPracticing => 'ฝึกฝนต่อไปนะ!';
+
+  @override
+  String get aiFailedToGetHint => 'ไม่สามารถรับคำใบ้ได้';
+
+  @override
+  String get aiFailedToGetAnswer => 'ไม่สามารถรับคำตอบได้';
+
+  @override
+  String get aiFailedToExplain => 'ไม่สามารถอธิบายได้';
 }

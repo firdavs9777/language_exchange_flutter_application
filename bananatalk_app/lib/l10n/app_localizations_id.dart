@@ -10121,4 +10121,148 @@ class AppLocalizationsId extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get aiGenerateNewQuiz => 'Buat kuis baru';
+
+  @override
+  String get aiPreviousQuizzes => 'Kuis sebelumnya';
+
+  @override
+  String get aiGeneratingQuiz => 'Membuat kuis Anda…';
+
+  @override
+  String aiFocusArea(Object name) {
+    return 'Area fokus: $name';
+  }
+
+  @override
+  String get aiQuizType => 'Jenis kuis';
+
+  @override
+  String get aiDifficulty => 'Tingkat kesulitan';
+
+  @override
+  String get aiQuestionsLabel => 'Pertanyaan:';
+
+  @override
+  String get aiGenerateQuiz => 'Buat kuis';
+
+  @override
+  String aiQuizQuestionCount(int questionCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      questionCount,
+      locale: localeName,
+      other: '$questionCount pertanyaan',
+      one: '1 pertanyaan',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String aiCorrectOfTotal(Object correctCount, Object totalQuestions) {
+    return '$correctCount/$totalQuestions benar';
+  }
+
+  @override
+  String get aiNoQuizzesYet => 'Belum ada kuis';
+
+  @override
+  String get aiGenerateFirstQuizAbove => 'Buat kuis pertama Anda di atas!';
+
+  @override
+  String aiCorrectOutOf(Object correctCount, Object totalQuestions) {
+    return '$correctCount dari $totalQuestions benar';
+  }
+
+  @override
+  String get aiBackQuizHub => 'Kembali ke pusat kuis';
+
+  @override
+  String get aiNoQuestionsAvailable => 'Tidak ada pertanyaan tersedia';
+
+  @override
+  String get aiQuizHasNoQuestions => 'Kuis ini tidak memiliki pertanyaan untuk ditampilkan.';
+
+  @override
+  String aiQuestionOf(Object number, Object count) {
+    return 'Pertanyaan $number dari $count';
+  }
+
+  @override
+  String get aiYourAnswerLabel => 'Jawaban Anda:';
+
+  @override
+  String get aiBonusXpWatching => '🎉 +10 XP bonus karena menonton!';
+
+  @override
+  String get aiNotQuiteRight => 'Kurang tepat';
+
+  @override
+  String get aiWhy => 'Mengapa?';
+
+  @override
+  String get aiGotIt => 'Mengerti';
+
+  @override
+  String get aiHint => 'Petunjuk';
+
+  @override
+  String aiLevel(Object hintLevel) {
+    return 'Tingkat $hintLevel/3';
+  }
+
+  @override
+  String get aiAskQuestion => 'Ajukan pertanyaan';
+
+  @override
+  String get aiAsk => 'Tanya';
+
+  @override
+  String get aiAssistantExamples => 'Contoh';
+
+  @override
+  String get aiExplainConcept => 'Jelaskan konsep';
+
+  @override
+  String get aiRelatedConcepts => 'Konsep terkait';
+
+  @override
+  String get aiGeneratingLessonSummary => 'Membuat ringkasan pelajaran Anda...';
+
+  @override
+  String get aiLessonSummary => 'Ringkasan pelajaran';
+
+  @override
+  String get aiKeyPoints => 'Poin penting';
+
+  @override
+  String get aiVocabularyRemember => 'Kosakata yang perlu diingat';
+
+  @override
+  String get aiGrammarRules => 'Aturan tata bahasa';
+
+  @override
+  String get aiWhatPracticeNext => 'Yang perlu dilatih selanjutnya';
+
+  @override
+  String get aiPerfectScore => 'Skor sempurna!';
+
+  @override
+  String get aiGreatJob => 'Kerja bagus!';
+
+  @override
+  String get aiGoodEffort => 'Usaha yang bagus!';
+
+  @override
+  String get aiKeepPracticing => 'Terus berlatih!';
+
+  @override
+  String get aiFailedToGetHint => 'Gagal mendapatkan petunjuk';
+
+  @override
+  String get aiFailedToGetAnswer => 'Gagal mendapatkan jawaban';
+
+  @override
+  String get aiFailedToExplain => 'Gagal menjelaskan';
 }

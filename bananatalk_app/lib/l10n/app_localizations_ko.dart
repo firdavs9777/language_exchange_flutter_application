@@ -10113,4 +10113,148 @@ class AppLocalizationsKo extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get aiGenerateNewQuiz => '새 퀴즈 만들기';
+
+  @override
+  String get aiPreviousQuizzes => '이전 퀴즈';
+
+  @override
+  String get aiGeneratingQuiz => '퀴즈를 만드는 중…';
+
+  @override
+  String aiFocusArea(Object name) {
+    return '집중 영역: $name';
+  }
+
+  @override
+  String get aiQuizType => '퀴즈 유형';
+
+  @override
+  String get aiDifficulty => '난이도';
+
+  @override
+  String get aiQuestionsLabel => '문제 수:';
+
+  @override
+  String get aiGenerateQuiz => '퀴즈 만들기';
+
+  @override
+  String aiQuizQuestionCount(int questionCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      questionCount,
+      locale: localeName,
+      other: '$questionCount문제',
+      one: '1문제',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String aiCorrectOfTotal(Object correctCount, Object totalQuestions) {
+    return '$correctCount/$totalQuestions 정답';
+  }
+
+  @override
+  String get aiNoQuizzesYet => '아직 퀴즈가 없습니다';
+
+  @override
+  String get aiGenerateFirstQuizAbove => '위에서 첫 퀴즈를 만들어 보세요!';
+
+  @override
+  String aiCorrectOutOf(Object correctCount, Object totalQuestions) {
+    return '$totalQuestions문제 중 $correctCount문제 정답';
+  }
+
+  @override
+  String get aiBackQuizHub => '퀴즈 허브로 돌아가기';
+
+  @override
+  String get aiNoQuestionsAvailable => '사용할 수 있는 문제가 없습니다';
+
+  @override
+  String get aiQuizHasNoQuestions => '이 퀴즈에는 표시할 문제가 없습니다.';
+
+  @override
+  String aiQuestionOf(Object number, Object count) {
+    return '$count문제 중 $number번';
+  }
+
+  @override
+  String get aiYourAnswerLabel => '내 답:';
+
+  @override
+  String get aiBonusXpWatching => '🎉 시청 보너스 +10 XP!';
+
+  @override
+  String get aiNotQuiteRight => '아쉬워요';
+
+  @override
+  String get aiWhy => '왜 그럴까요?';
+
+  @override
+  String get aiGotIt => '알겠어요';
+
+  @override
+  String get aiHint => '힌트';
+
+  @override
+  String aiLevel(Object hintLevel) {
+    return '레벨 $hintLevel/3';
+  }
+
+  @override
+  String get aiAskQuestion => '질문하기';
+
+  @override
+  String get aiAsk => '질문';
+
+  @override
+  String get aiAssistantExamples => '예시';
+
+  @override
+  String get aiExplainConcept => '개념 설명';
+
+  @override
+  String get aiRelatedConcepts => '관련 개념';
+
+  @override
+  String get aiGeneratingLessonSummary => '수업 요약을 만드는 중...';
+
+  @override
+  String get aiLessonSummary => '수업 요약';
+
+  @override
+  String get aiKeyPoints => '핵심 포인트';
+
+  @override
+  String get aiVocabularyRemember => '기억해야 할 어휘';
+
+  @override
+  String get aiGrammarRules => '문법 규칙';
+
+  @override
+  String get aiWhatPracticeNext => '다음에 연습할 것';
+
+  @override
+  String get aiPerfectScore => '만점!';
+
+  @override
+  String get aiGreatJob => '잘했어요!';
+
+  @override
+  String get aiGoodEffort => '수고했어요!';
+
+  @override
+  String get aiKeepPracticing => '계속 연습하세요!';
+
+  @override
+  String get aiFailedToGetHint => '힌트를 가져오지 못했습니다';
+
+  @override
+  String get aiFailedToGetAnswer => '답변을 가져오지 못했습니다';
+
+  @override
+  String get aiFailedToExplain => '설명하지 못했습니다';
 }

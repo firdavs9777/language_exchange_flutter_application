@@ -10158,4 +10158,150 @@ class AppLocalizationsRu extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get aiGenerateNewQuiz => 'Создать новую викторину';
+
+  @override
+  String get aiPreviousQuizzes => 'Предыдущие викторины';
+
+  @override
+  String get aiGeneratingQuiz => 'Создаём вашу викторину…';
+
+  @override
+  String aiFocusArea(Object name) {
+    return 'Область фокуса: $name';
+  }
+
+  @override
+  String get aiQuizType => 'Тип викторины';
+
+  @override
+  String get aiDifficulty => 'Сложность';
+
+  @override
+  String get aiQuestionsLabel => 'Вопросы:';
+
+  @override
+  String get aiGenerateQuiz => 'Создать викторину';
+
+  @override
+  String aiQuizQuestionCount(int questionCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      questionCount,
+      locale: localeName,
+      other: '$questionCount вопроса',
+      many: '$questionCount вопросов',
+      few: '$questionCount вопроса',
+      one: '$questionCount вопрос',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String aiCorrectOfTotal(Object correctCount, Object totalQuestions) {
+    return '$correctCount/$totalQuestions верно';
+  }
+
+  @override
+  String get aiNoQuizzesYet => 'Пока нет викторин';
+
+  @override
+  String get aiGenerateFirstQuizAbove => 'Создайте первую викторину выше!';
+
+  @override
+  String aiCorrectOutOf(Object correctCount, Object totalQuestions) {
+    return '$correctCount из $totalQuestions верно';
+  }
+
+  @override
+  String get aiBackQuizHub => 'Назад в центр викторин';
+
+  @override
+  String get aiNoQuestionsAvailable => 'Нет доступных вопросов';
+
+  @override
+  String get aiQuizHasNoQuestions => 'В этой викторине нет вопросов для отображения.';
+
+  @override
+  String aiQuestionOf(Object number, Object count) {
+    return 'Вопрос $number из $count';
+  }
+
+  @override
+  String get aiYourAnswerLabel => 'Ваш ответ:';
+
+  @override
+  String get aiBonusXpWatching => '🎉 +10 бонусных XP за просмотр!';
+
+  @override
+  String get aiNotQuiteRight => 'Не совсем верно';
+
+  @override
+  String get aiWhy => 'Почему?';
+
+  @override
+  String get aiGotIt => 'Понятно';
+
+  @override
+  String get aiHint => 'Подсказка';
+
+  @override
+  String aiLevel(Object hintLevel) {
+    return 'Уровень $hintLevel/3';
+  }
+
+  @override
+  String get aiAskQuestion => 'Задать вопрос';
+
+  @override
+  String get aiAsk => 'Спросить';
+
+  @override
+  String get aiAssistantExamples => 'Примеры';
+
+  @override
+  String get aiExplainConcept => 'Объяснить понятие';
+
+  @override
+  String get aiRelatedConcepts => 'Связанные понятия';
+
+  @override
+  String get aiGeneratingLessonSummary => 'Создаём краткое содержание урока...';
+
+  @override
+  String get aiLessonSummary => 'Итоги урока';
+
+  @override
+  String get aiKeyPoints => 'Ключевые моменты';
+
+  @override
+  String get aiVocabularyRemember => 'Слова для запоминания';
+
+  @override
+  String get aiGrammarRules => 'Правила грамматики';
+
+  @override
+  String get aiWhatPracticeNext => 'Что практиковать дальше';
+
+  @override
+  String get aiPerfectScore => 'Максимальный балл!';
+
+  @override
+  String get aiGreatJob => 'Отличная работа!';
+
+  @override
+  String get aiGoodEffort => 'Хорошая попытка!';
+
+  @override
+  String get aiKeepPracticing => 'Продолжайте практиковаться!';
+
+  @override
+  String get aiFailedToGetHint => 'Не удалось получить подсказку';
+
+  @override
+  String get aiFailedToGetAnswer => 'Не удалось получить ответ';
+
+  @override
+  String get aiFailedToExplain => 'Не удалось объяснить';
 }

@@ -10133,4 +10133,148 @@ class AppLocalizationsEn extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get aiGenerateNewQuiz => 'Generate New Quiz';
+
+  @override
+  String get aiPreviousQuizzes => 'Previous Quizzes';
+
+  @override
+  String get aiGeneratingQuiz => 'Generating your quiz…';
+
+  @override
+  String aiFocusArea(Object name) {
+    return 'Focus area: $name';
+  }
+
+  @override
+  String get aiQuizType => 'Quiz Type';
+
+  @override
+  String get aiDifficulty => 'Difficulty';
+
+  @override
+  String get aiQuestionsLabel => 'Questions:';
+
+  @override
+  String get aiGenerateQuiz => 'Generate Quiz';
+
+  @override
+  String aiQuizQuestionCount(int questionCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      questionCount,
+      locale: localeName,
+      other: '$questionCount questions',
+      one: '1 question',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String aiCorrectOfTotal(Object correctCount, Object totalQuestions) {
+    return '$correctCount/$totalQuestions correct';
+  }
+
+  @override
+  String get aiNoQuizzesYet => 'No quizzes yet';
+
+  @override
+  String get aiGenerateFirstQuizAbove => 'Generate your first quiz above!';
+
+  @override
+  String aiCorrectOutOf(Object correctCount, Object totalQuestions) {
+    return '$correctCount out of $totalQuestions correct';
+  }
+
+  @override
+  String get aiBackQuizHub => 'Back to Quiz Hub';
+
+  @override
+  String get aiNoQuestionsAvailable => 'No questions available';
+
+  @override
+  String get aiQuizHasNoQuestions => 'This quiz has no questions to display.';
+
+  @override
+  String aiQuestionOf(Object number, Object count) {
+    return 'Question $number of $count';
+  }
+
+  @override
+  String get aiYourAnswerLabel => 'Your answer:';
+
+  @override
+  String get aiBonusXpWatching => '🎉 +10 Bonus XP for watching!';
+
+  @override
+  String get aiNotQuiteRight => 'Not quite right';
+
+  @override
+  String get aiWhy => 'Why?';
+
+  @override
+  String get aiGotIt => 'Got It';
+
+  @override
+  String get aiHint => 'Hint';
+
+  @override
+  String aiLevel(Object hintLevel) {
+    return 'Level $hintLevel/3';
+  }
+
+  @override
+  String get aiAskQuestion => 'Ask a Question';
+
+  @override
+  String get aiAsk => 'Ask';
+
+  @override
+  String get aiAssistantExamples => 'Examples';
+
+  @override
+  String get aiExplainConcept => 'Explain Concept';
+
+  @override
+  String get aiRelatedConcepts => 'Related Concepts';
+
+  @override
+  String get aiGeneratingLessonSummary => 'Generating your lesson summary...';
+
+  @override
+  String get aiLessonSummary => 'Lesson Summary';
+
+  @override
+  String get aiKeyPoints => 'Key Points';
+
+  @override
+  String get aiVocabularyRemember => 'Vocabulary to Remember';
+
+  @override
+  String get aiGrammarRules => 'Grammar Rules';
+
+  @override
+  String get aiWhatPracticeNext => 'What to Practice Next';
+
+  @override
+  String get aiPerfectScore => 'Perfect Score!';
+
+  @override
+  String get aiGreatJob => 'Great job!';
+
+  @override
+  String get aiGoodEffort => 'Good effort!';
+
+  @override
+  String get aiKeepPracticing => 'Keep practicing!';
+
+  @override
+  String get aiFailedToGetHint => 'Failed to get hint';
+
+  @override
+  String get aiFailedToGetAnswer => 'Failed to get answer';
+
+  @override
+  String get aiFailedToExplain => 'Failed to explain';
 }

@@ -90,7 +90,7 @@ class _LessonAssistantWidgetState extends State<LessonAssistantWidget>
     } else {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(result['message'] ?? 'Failed to get hint')),
+          SnackBar(content: Text(result['message'] ?? AppLocalizations.of(context)!.aiFailedToGetHint)),
         );
       }
     }
@@ -126,15 +126,15 @@ class _LessonAssistantWidgetState extends State<LessonAssistantWidget>
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'Hint',
-                        style: TextStyle(
+                      Text(
+                        AppLocalizations.of(context)!.aiHint,
+                        style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        'Level ${hint.hintLevel}/3',
+                        AppLocalizations.of(context)!.aiLevel(hint.hintLevel),
                         style: TextStyle(fontSize: 12, color: Colors.grey[600]),
                       ),
                     ],
@@ -211,9 +211,9 @@ class _LessonAssistantWidgetState extends State<LessonAssistantWidget>
                     child: const Icon(Icons.help_outline, color: Colors.blue),
                   ),
                   const SizedBox(width: 12),
-                  const Text(
-                    'Ask a Question',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  Text(
+                    AppLocalizations.of(context)!.aiAskQuestion,
+                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
@@ -245,7 +245,7 @@ class _LessonAssistantWidgetState extends State<LessonAssistantWidget>
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                  child: const Text('Ask'),
+                  child: Text(AppLocalizations.of(context)!.aiAsk),
                 ),
               ),
               const SizedBox(height: 8),
@@ -274,7 +274,7 @@ class _LessonAssistantWidgetState extends State<LessonAssistantWidget>
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(result['message'] ?? 'Failed to get answer'),
+              content: Text(result['message'] ?? AppLocalizations.of(context)!.aiFailedToGetAnswer),
             ),
           );
         }
@@ -359,9 +359,9 @@ class _LessonAssistantWidgetState extends State<LessonAssistantWidget>
                 ),
                 if (answer.examples.isNotEmpty) ...[
                   const SizedBox(height: 20),
-                  const Text(
-                    'Examples',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  Text(
+                    AppLocalizations.of(context)!.aiAssistantExamples,
+                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8),
                   ...answer.examples.map(
@@ -466,9 +466,9 @@ class _LessonAssistantWidgetState extends State<LessonAssistantWidget>
                     child: const Icon(Icons.school, color: Colors.purple),
                   ),
                   const SizedBox(width: 12),
-                  const Text(
-                    'Explain Concept',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  Text(
+                    AppLocalizations.of(context)!.aiExplainConcept,
+                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
@@ -528,7 +528,7 @@ class _LessonAssistantWidgetState extends State<LessonAssistantWidget>
       } else {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(result['message'] ?? 'Failed to explain')),
+            SnackBar(content: Text(result['message'] ?? AppLocalizations.of(context)!.aiFailedToExplain)),
           );
         }
       }
@@ -580,9 +580,9 @@ class _LessonAssistantWidgetState extends State<LessonAssistantWidget>
                 ),
                 if (explanation.examples.isNotEmpty) ...[
                   const SizedBox(height: 20),
-                  const Text(
-                    'Examples',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  Text(
+                    AppLocalizations.of(context)!.aiAssistantExamples,
+                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8),
                   ...explanation.examples.map(
@@ -640,9 +640,9 @@ class _LessonAssistantWidgetState extends State<LessonAssistantWidget>
                 ],
                 if (explanation.relatedConcepts.isNotEmpty) ...[
                   const SizedBox(height: 16),
-                  const Text(
-                    'Related Concepts',
-                    style: TextStyle(
+                  Text(
+                    AppLocalizations.of(context)!.aiRelatedConcepts,
+                    style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
                       color: Colors.grey,

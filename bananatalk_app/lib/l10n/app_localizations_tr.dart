@@ -10125,4 +10125,148 @@ class AppLocalizationsTr extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get aiGenerateNewQuiz => 'Yeni test oluştur';
+
+  @override
+  String get aiPreviousQuizzes => 'Önceki testler';
+
+  @override
+  String get aiGeneratingQuiz => 'Testin oluşturuluyor…';
+
+  @override
+  String aiFocusArea(Object name) {
+    return 'Odak alanı: $name';
+  }
+
+  @override
+  String get aiQuizType => 'Test türü';
+
+  @override
+  String get aiDifficulty => 'Zorluk';
+
+  @override
+  String get aiQuestionsLabel => 'Sorular:';
+
+  @override
+  String get aiGenerateQuiz => 'Test oluştur';
+
+  @override
+  String aiQuizQuestionCount(int questionCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      questionCount,
+      locale: localeName,
+      other: '$questionCount soru',
+      one: '1 soru',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String aiCorrectOfTotal(Object correctCount, Object totalQuestions) {
+    return '$correctCount/$totalQuestions doğru';
+  }
+
+  @override
+  String get aiNoQuizzesYet => 'Henüz test yok';
+
+  @override
+  String get aiGenerateFirstQuizAbove => 'İlk testini yukarıdan oluştur!';
+
+  @override
+  String aiCorrectOutOf(Object correctCount, Object totalQuestions) {
+    return '$totalQuestions sorudan $correctCount doğru';
+  }
+
+  @override
+  String get aiBackQuizHub => 'Test merkezine dön';
+
+  @override
+  String get aiNoQuestionsAvailable => 'Kullanılabilir soru yok';
+
+  @override
+  String get aiQuizHasNoQuestions => 'Bu testte gösterilecek soru yok.';
+
+  @override
+  String aiQuestionOf(Object number, Object count) {
+    return 'Soru $number / $count';
+  }
+
+  @override
+  String get aiYourAnswerLabel => 'Cevabın:';
+
+  @override
+  String get aiBonusXpWatching => '🎉 İzlediğin için +10 bonus XP!';
+
+  @override
+  String get aiNotQuiteRight => 'Tam doğru değil';
+
+  @override
+  String get aiWhy => 'Neden?';
+
+  @override
+  String get aiGotIt => 'Anladım';
+
+  @override
+  String get aiHint => 'İpucu';
+
+  @override
+  String aiLevel(Object hintLevel) {
+    return 'Seviye $hintLevel/3';
+  }
+
+  @override
+  String get aiAskQuestion => 'Soru sor';
+
+  @override
+  String get aiAsk => 'Sor';
+
+  @override
+  String get aiAssistantExamples => 'Örnekler';
+
+  @override
+  String get aiExplainConcept => 'Kavramı açıkla';
+
+  @override
+  String get aiRelatedConcepts => 'İlgili kavramlar';
+
+  @override
+  String get aiGeneratingLessonSummary => 'Ders özetin oluşturuluyor...';
+
+  @override
+  String get aiLessonSummary => 'Ders özeti';
+
+  @override
+  String get aiKeyPoints => 'Önemli noktalar';
+
+  @override
+  String get aiVocabularyRemember => 'Hatırlanacak kelimeler';
+
+  @override
+  String get aiGrammarRules => 'Dilbilgisi kuralları';
+
+  @override
+  String get aiWhatPracticeNext => 'Sırada ne çalışmalı';
+
+  @override
+  String get aiPerfectScore => 'Tam puan!';
+
+  @override
+  String get aiGreatJob => 'Harika iş!';
+
+  @override
+  String get aiGoodEffort => 'Güzel çaba!';
+
+  @override
+  String get aiKeepPracticing => 'Çalışmaya devam et!';
+
+  @override
+  String get aiFailedToGetHint => 'İpucu alınamadı';
+
+  @override
+  String get aiFailedToGetAnswer => 'Cevap alınamadı';
+
+  @override
+  String get aiFailedToExplain => 'Açıklanamadı';
 }

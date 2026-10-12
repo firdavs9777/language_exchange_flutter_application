@@ -10113,4 +10113,148 @@ class AppLocalizationsJa extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get aiGenerateNewQuiz => '新しいクイズを作成';
+
+  @override
+  String get aiPreviousQuizzes => '過去のクイズ';
+
+  @override
+  String get aiGeneratingQuiz => 'クイズを作成中…';
+
+  @override
+  String aiFocusArea(Object name) {
+    return '重点分野：$name';
+  }
+
+  @override
+  String get aiQuizType => 'クイズの種類';
+
+  @override
+  String get aiDifficulty => '難易度';
+
+  @override
+  String get aiQuestionsLabel => '問題数：';
+
+  @override
+  String get aiGenerateQuiz => 'クイズを作成';
+
+  @override
+  String aiQuizQuestionCount(int questionCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      questionCount,
+      locale: localeName,
+      other: '$questionCount問',
+      one: '1問',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String aiCorrectOfTotal(Object correctCount, Object totalQuestions) {
+    return '$correctCount/$totalQuestions 問正解';
+  }
+
+  @override
+  String get aiNoQuizzesYet => 'まだクイズがありません';
+
+  @override
+  String get aiGenerateFirstQuizAbove => '上で最初のクイズを作成しましょう！';
+
+  @override
+  String aiCorrectOutOf(Object correctCount, Object totalQuestions) {
+    return '$totalQuestions問中$correctCount問正解';
+  }
+
+  @override
+  String get aiBackQuizHub => 'クイズハブに戻る';
+
+  @override
+  String get aiNoQuestionsAvailable => '利用できる問題がありません';
+
+  @override
+  String get aiQuizHasNoQuestions => 'このクイズには表示できる問題がありません。';
+
+  @override
+  String aiQuestionOf(Object number, Object count) {
+    return '問題 $number / $count';
+  }
+
+  @override
+  String get aiYourAnswerLabel => 'あなたの回答：';
+
+  @override
+  String get aiBonusXpWatching => '🎉 視聴で+10ボーナスXP！';
+
+  @override
+  String get aiNotQuiteRight => '惜しい！';
+
+  @override
+  String get aiWhy => 'なぜ？';
+
+  @override
+  String get aiGotIt => 'わかった';
+
+  @override
+  String get aiHint => 'ヒント';
+
+  @override
+  String aiLevel(Object hintLevel) {
+    return 'レベル $hintLevel/3';
+  }
+
+  @override
+  String get aiAskQuestion => '質問する';
+
+  @override
+  String get aiAsk => '聞く';
+
+  @override
+  String get aiAssistantExamples => '例';
+
+  @override
+  String get aiExplainConcept => '概念を説明';
+
+  @override
+  String get aiRelatedConcepts => '関連する概念';
+
+  @override
+  String get aiGeneratingLessonSummary => 'レッスンの要約を作成中...';
+
+  @override
+  String get aiLessonSummary => 'レッスンの要約';
+
+  @override
+  String get aiKeyPoints => '重要ポイント';
+
+  @override
+  String get aiVocabularyRemember => '覚えておきたい語彙';
+
+  @override
+  String get aiGrammarRules => '文法ルール';
+
+  @override
+  String get aiWhatPracticeNext => '次に練習すること';
+
+  @override
+  String get aiPerfectScore => '満点！';
+
+  @override
+  String get aiGreatJob => 'よくできました！';
+
+  @override
+  String get aiGoodEffort => 'よく頑張りました！';
+
+  @override
+  String get aiKeepPracticing => '練習を続けましょう！';
+
+  @override
+  String get aiFailedToGetHint => 'ヒントを取得できませんでした';
+
+  @override
+  String get aiFailedToGetAnswer => '回答を取得できませんでした';
+
+  @override
+  String get aiFailedToExplain => '説明に失敗しました';
 }
