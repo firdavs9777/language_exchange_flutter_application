@@ -36,6 +36,8 @@ Order: update -> announcement -> ads notice -> feature spotlight.
 | Guide period (new account), announcement + spotlight due | Neither shown; only update and ads notice are allowed | |
 | Guide period, update available | Update shown | |
 | Splash welcome-back pop-up also due | Never stacks with a launch pop-up (shared budget) | |
+| Update dialog shown on a launch | That absence's welcome-back is not shown (one pop-up per launch, by design) | |
+| Notification tap within 1 s of launch | No launch pop-up this process; it shows next launch | |
 
 ## 3. Chat tip
 

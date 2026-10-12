@@ -11,14 +11,17 @@ enum AnnouncementLinkKind { inApp, external, none }
 const String _appScheme = 'bananatalk://';
 
 /// One rule for every announcement button: [Announcement.isOpenableButtonUrl]
-/// (preflight ruling R1). http(s) opens outside the app; `bananatalk://...`
-/// and `/path` go through the app router; anything else is ignored.
+/// (preflight ruling R1). Only http(s) opens outside the app; `bananatalk://`
+/// and `/path` go through the app router (an empty app path is ignored, never
+/// handed back to the OS); anything else is ignored.
 AnnouncementLinkKind announcementLinkKind(String url) {
   final u = url.trim();
   if (!Announcement.isOpenableButtonUrl(u)) return AnnouncementLinkKind.none;
-  return announcementRoutePath(u) != null
-      ? AnnouncementLinkKind.inApp
-      : AnnouncementLinkKind.external;
+  if (announcementRoutePath(u) != null) return AnnouncementLinkKind.inApp;
+  final scheme = Uri.tryParse(u)?.scheme.toLowerCase();
+  return scheme == 'http' || scheme == 'https'
+      ? AnnouncementLinkKind.external
+      : AnnouncementLinkKind.none;
 }
 
 /// The go_router path for an in-app link: `/path` as is, and
@@ -35,6 +38,7 @@ String? announcementRoutePath(String url) {
 }
 
 /// [push] and [launch] default to the app router and the external browser.
+/// Never throws: a failed external launch is logged.
 Future<void> openAnnouncementLink(
   String url, {
   void Function(String path)? push,
@@ -50,10 +54,15 @@ Future<void> openAnnouncementLink(
       }
     case AnnouncementLinkKind.external:
       final uri = Uri.parse(url.trim());
-      if (launch != null) {
-        await launch(uri);
-      } else {
-        await launchUrl(uri, mode: LaunchMode.externalApplication);
+      try {
+        if (launch != null) {
+          await launch(uri);
+        } else {
+          await launchUrl(uri, mode: LaunchMode.externalApplication);
+        }
+      } catch (e) {
+        // Fire-and-forget from the sheet: never an uncaught async error.
+        debugPrint('openAnnouncementLink: launch failed: $e');
       }
     case AnnouncementLinkKind.none:
       break;

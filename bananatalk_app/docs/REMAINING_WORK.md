@@ -145,7 +145,8 @@ call or rejoin", and the caller already has the call on screen.
 - [ ] A15 Settings → Notifications "Announcements" toggle
 - [ ] A16 suspension screen reads `banReason`
 - [x] `test/growth/first_session_test.dart`: "WavesTab primes once with 1 waves" / "primes never with 0 waves" fail (already failing before A12, at ddc6fcae)
-- [ ] Device QA rows in `docs/qa/onboarding-matrix.md` (owner, after a release build) — matrix file created in A1
+- [x] A12 fix round 1: empty `bananatalk:///` links ignored (never handed to the OS), external launch failures caught, spotlight re-checks the route after picking
+- [ ] Device QA rows in `docs/qa/onboarding-matrix.md` (owner, after a release build) — matrix file created in A1; incl. 2 new launch rows (update vs welcome-back, notification tap within 1 s)
 
 ## 0c. First-session guidance (2026-10-09) — spec `docs/superpowers/specs/2026-10-09-first-session-guidance-design.md`
 

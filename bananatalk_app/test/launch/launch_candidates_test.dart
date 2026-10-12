@@ -86,6 +86,10 @@ void main() {
     expect(announcementLinkKind('//evil.example'), AnnouncementLinkKind.none);
     expect(announcementLinkKind('ftp://x.example/a'), AnnouncementLinkKind.none);
     expect(announcementLinkKind('javascript:alert(1)'), AnnouncementLinkKind.none);
+    // Empty app paths are ignored, never handed back to the OS.
+    expect(announcementLinkKind('bananatalk:///'), AnnouncementLinkKind.none);
+    expect(announcementLinkKind('bananatalk:////'), AnnouncementLinkKind.none);
+    expect(announcementRoutePath('bananatalk:///'), isNull);
     expect(announcementRoutePath('bananatalk://moment/1'), '/moment/1');
     expect(announcementRoutePath('BananaTalk://community/matches'),
         '/community/matches');
@@ -108,8 +112,15 @@ void main() {
     await open('https://banatalk.com/x');
     await open('//evil.example');
     await open('mailto:a@b.c');
+    await open('bananatalk:///');
+    await open('bananatalk:////');
     expect(pushed, ['/moment/1', '/learning/daily']);
     expect(launched, [Uri.parse('https://banatalk.com/x')]);
+  });
+
+  test('openAnnouncementLink: a failing external launch is caught', () async {
+    await openAnnouncementLink('https://banatalk.com/x',
+        launch: (_) async => throw Exception('PlatformException(no browser)'));
   });
 
   test('the version check no longer owns the announcement; the shell runs the coordinator', () {

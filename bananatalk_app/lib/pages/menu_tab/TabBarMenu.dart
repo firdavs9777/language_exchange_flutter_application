@@ -138,6 +138,11 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
   /// update dialog (and the welcome-back sheet) already ran in splash and
   /// spent the shared PopupBudget if they showed; inside the guide period
   /// only the ads notice can follow.
+  ///
+  /// Runs once per process. If the shell is rebuilt or replaced (a deep link)
+  /// or covered by a pushed screen within the first second, the launch
+  /// pop-ups are skipped for this process and show on the next launch:
+  /// nothing is marked seen, so this is intended.
   Future<void> _runLaunchModals() async {
     if (_launchModalsRanThisProcess) return;
     _launchModalsRanThisProcess = true;
@@ -161,7 +166,9 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
       pickSpotlight: () async {
         final lessonDone = await store.isDone(ActivationAction.lesson);
         if (!mounted || !_isCurrentRoute) return null;
-        return pickPromo(ref, lessonDone: lessonDone);
+        final promo = await pickPromo(ref, lessonDone: lessonDone);
+        if (!mounted || !_isCurrentRoute) return null;
+        return promo;
       },
       onSpotlightTry: _openPromoDestination,
     )).run(
