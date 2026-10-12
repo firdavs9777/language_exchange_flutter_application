@@ -139,4 +139,46 @@ void main() {
   test('seen key is user-scoped: not on the device allow-list', () {
     expect(isDeviceLevelPrefsKey(kAnnouncementsSeenKey), isFalse);
   });
+
+  test('hasButton hardening: backslash, bananatalk:foo, case, whitespace', () {
+    bool ok(String u) => Announcement(
+        id: 'i', title: 't', body: 'b', buttonLabel: 'Go', buttonUrl: u)
+        .hasButton;
+    expect(ok(r'/\evil.com'), isFalse);
+    expect(ok('//host'), isFalse);
+    expect(ok(r'https://a.com\@evil.com'), isFalse);
+    expect(ok('bananatalk:foo'), isFalse);
+    expect(ok('BananaTalk://study'), isTrue);
+    expect(ok('HTTP://x.com'), isTrue);
+    expect(ok('  https://x.com/a  '), isTrue);
+  });
+
+  test('a non-string title drops only that item; fromLegacy trims', () {
+    final c = AppConfig.fromJson({
+      'announcements': [
+        {'id': 'bad', 'title': 5, 'body': 7},
+        {'id': 'half', 'title': 5, 'body': 'b'},
+        {'id': 'good', 'title': 'T', 'body': 'b'},
+        {'id': 'x', 'title': null, 'body': ['z']},
+      ],
+    });
+    expect(c.announcements.map((a) => a.id), ['half', 'good']);
+    expect(c.announcements.first.title, '');
+    final l = Announcement.fromLegacy(const AppAnnouncement(
+        active: true, id: ' e ', title: ' T ', body: '', emoji: ' ',
+        buttonLabel: ' Go ', buttonUrl: ' https://x.com '))!;
+    expect(l.id, 'e');
+    expect(l.title, 'T');
+    expect(l.emoji, isNull);
+    expect(l.buttonUrl, 'https://x.com');
+  });
+
+  test('seen set with a wrong-typed value: read null, add does not clobber',
+      () async {
+    SharedPreferences.setMockInitialValues({kAnnouncementsSeenKey: 'oops'});
+    expect(await AnnouncementSeenStore.read(), isNull);
+    await AnnouncementSeenStore.add('x');
+    final prefs = await SharedPreferences.getInstance();
+    expect(prefs.get(kAnnouncementsSeenKey), 'oops');
+  });
 }

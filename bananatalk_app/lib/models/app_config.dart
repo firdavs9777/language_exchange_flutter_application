@@ -32,6 +32,23 @@ class AppAnnouncement {
   }
 }
 
+/// One malformed item is dropped; it never costs the whole app-config.
+List<Announcement> _parseAnnouncements(Object? raw) {
+  if (raw is! List) return const <Announcement>[];
+  final out = <Announcement>[];
+  for (final m in raw) {
+    if (m is! Map) continue;
+    try {
+      final a = Announcement.fromJson(Map<String, dynamic>.from(m));
+      // Nothing to show without text (e.g. non-string title and body).
+      if (a.id.isNotEmpty && (a.title.isNotEmpty || a.body.isNotEmpty)) {
+        out.add(a);
+      }
+    } catch (_) {}
+  }
+  return out;
+}
+
 class AppConfig {
   final String minVersion;
   final String latestVersion;
@@ -142,13 +159,7 @@ class AppConfig {
           announcementJson != null
               ? AppAnnouncement.fromJson(announcementJson)
               : null,
-      announcements: json['announcements'] is List
-          ? (json['announcements'] as List)
-              .whereType<Map>()
-              .map((m) => Announcement.fromJson(Map<String, dynamic>.from(m)))
-              .where((a) => a.id.isNotEmpty)
-              .toList()
-          : const <Announcement>[],
+      announcements: _parseAnnouncements(json['announcements']),
       roomsEnabled: (json['roomsEnabled'] as bool?) ?? true,
       reelsEnabled: (json['reelsEnabled'] as bool?) ?? false,
       coinsEnabled: (json['coinsEnabled'] as bool?) ?? false,

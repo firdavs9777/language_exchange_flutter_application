@@ -33,13 +33,16 @@ class Announcement {
   /// Shared with the screen that opens the link.
   static bool isOpenableButtonUrl(String url) {
     final u = url.trim();
-    if (u.isEmpty || u.startsWith('//')) return false;
-    if (u.startsWith('/')) return true;
+    if (u.isEmpty || u.contains(r'\')) return false;
+    if (u.startsWith('/')) {
+      return u.length == 1 || u[1] != '/';
+    }
     final uri = Uri.tryParse(u);
     if (uri == null) return false;
     final scheme = uri.scheme.toLowerCase();
     if (scheme == 'http' || scheme == 'https') return uri.host.isNotEmpty;
-    return scheme == 'bananatalk' && u.length > 'bananatalk://'.length;
+    return u.toLowerCase().startsWith('bananatalk://') &&
+        u.length > 'bananatalk://'.length;
   }
 
   factory Announcement.fromJson(Map<String, dynamic> json) {
@@ -48,11 +51,16 @@ class Announcement {
       return v is String && v.trim().isNotEmpty ? v.trim() : null;
     }
 
+    String str(String key) {
+      final v = json[key];
+      return v is String ? v : '';
+    }
+
     final p = json['priority'];
     return Announcement(
       id: (json['id'] ?? json['_id'] ?? '').toString(),
-      title: (json['title'] as String?) ?? '',
-      body: (json['body'] as String?) ?? '',
+      title: str('title'),
+      body: str('body'),
       emoji: opt('emoji'),
       imageUrl: opt('imageUrl'),
       buttonLabel: opt('buttonLabel'),
@@ -66,13 +74,14 @@ class Announcement {
   static Announcement? fromLegacy(AppAnnouncement? a) {
     if (a == null || !a.active || a.id.isEmpty) return null;
     if (a.title.isEmpty && a.body.isEmpty) return null;
+    String? t(String v) => v.trim().isEmpty ? null : v.trim();
     return Announcement(
-      id: a.id,
-      title: a.title,
-      body: a.body,
-      emoji: a.emoji.isEmpty ? null : a.emoji,
-      buttonLabel: a.buttonLabel.isEmpty ? null : a.buttonLabel,
-      buttonUrl: a.buttonUrl.isEmpty ? null : a.buttonUrl,
+      id: a.id.trim(),
+      title: a.title.trim(),
+      body: a.body.trim(),
+      emoji: t(a.emoji),
+      buttonLabel: t(a.buttonLabel),
+      buttonUrl: t(a.buttonUrl),
     );
   }
 }

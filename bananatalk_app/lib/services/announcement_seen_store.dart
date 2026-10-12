@@ -17,9 +17,8 @@ class AnnouncementSeenStore {
     try {
       final prefs = await SharedPreferences.getInstance();
       final seen = <String>{};
-      try {
-        seen.addAll(prefs.getStringList(kAnnouncementsSeenKey) ?? const []);
-      } catch (_) {}
+      // A wrong-typed value throws here: unreadable, so null (show nothing).
+      seen.addAll(prefs.getStringList(kAnnouncementsSeenKey) ?? const []);
       for (final k in prefs.getKeys()) {
         if (k.startsWith(_legacyDismissedPrefix)) {
           seen.add(k.substring(_legacyDismissedPrefix.length));
@@ -34,12 +33,8 @@ class AnnouncementSeenStore {
   static Future<void> add(String id) async {
     try {
       final prefs = await SharedPreferences.getInstance();
-      List<String> ids;
-      try {
-        ids = List.of(prefs.getStringList(kAnnouncementsSeenKey) ?? const []);
-      } catch (_) {
-        ids = [];
-      }
+      // A wrong-typed value throws: leave it alone rather than overwrite.
+      var ids = List<String>.of(prefs.getStringList(kAnnouncementsSeenKey) ?? const []);
       if (ids.contains(id)) return;
       ids.add(id);
       if (ids.length > _maxSeenIds) ids = ids.sublist(ids.length - _maxSeenIds);
