@@ -71,6 +71,17 @@ void main() {
     expect(milestones(), isEmpty);
   });
 
+  test('a first message after the first read still reports once', () async {
+    final s = ActivationStore();
+    expect(await s.isDone(ActivationAction.message), isFalse);
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('first_conversation_done', true);
+    expect(await s.markDone(ActivationAction.message), isTrue);
+    expect(milestones(), [
+      {'action': 'message', 'count': 1},
+    ]);
+  });
+
   test('a wrong-typed pref reads as not done instead of throwing', () async {
     SharedPreferences.setMockInitialValues({'activation_done_lesson': 'yes'});
     expect(await ActivationStore().isDone(ActivationAction.lesson), isFalse);

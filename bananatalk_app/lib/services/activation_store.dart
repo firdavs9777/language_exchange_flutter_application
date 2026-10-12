@@ -27,8 +27,10 @@ enum ActivationAction {
 /// Local record of which [ActivationAction]s this user has done.
 ///
 /// User-scoped: the keys are not device-level, so `clearUserSessionPrefs`
-/// removes them on logout / account switch. Reads fail closed (an unreadable
-/// store reports everything done, i.e. show no guide), like `GuideStore`.
+/// removes them on logout / account switch. Only a whole-store failure
+/// (`SharedPreferences.getInstance` throwing) fails closed — everything
+/// reports done, i.e. show no guide, like `GuideStore`. A single unreadable
+/// or wrong-typed key just reads as not done.
 class ActivationStore {
   static final StreamController<void> _changes =
       StreamController<void>.broadcast();
@@ -36,8 +38,10 @@ class ActivationStore {
   /// Fires after an action is newly recorded.
   static Stream<void> get changes => _changes.stream;
 
+  static const String _kBackfillDone = 'activation_backfill_done';
+
   /// Records [action]. Returns whether it was newly set; a new set logs
-  /// `activation_milestone`. Never throws.
+  /// `activation_milestone` once the write has succeeded. Never throws.
   Future<bool> markDone(ActivationAction action) async {
     try {
       final prefs = await SharedPreferences.getInstance();
@@ -46,10 +50,12 @@ class ActivationStore {
       // setBool updates the in-memory cache synchronously, so a concurrent
       // markDone resuming after this line already sees it done.
       final write = prefs.setBool(action.prefKey, true);
-      AnalyticsService.instance
-          .logActivationMilestone(action.slug, _count(prefs));
+      final count = _count(prefs);
+      if (!await write) return false;
+      try {
+        AnalyticsService.instance.logActivationMilestone(action.slug, count);
+      } catch (_) {}
       _changes.add(null);
-      await write;
       return true;
     } catch (_) {
       return false;
@@ -92,12 +98,14 @@ class ActivationStore {
     }
   }
 
-  /// Someone who messaged before this store existed has already done it.
-  /// Silent: a back-fill is not a milestone reached today.
+  /// Once per user: someone who messaged before this store existed has
+  /// already done it. Silent: a back-fill is not a milestone reached today.
+  /// Never runs again, so a first message sent later still reports.
   static void _backfill(SharedPreferences prefs) {
-    final key = ActivationAction.message.prefKey;
-    if (!_read(prefs, key) && _read(prefs, kPrefHasMessaged)) {
-      prefs.setBool(key, true).ignore();
+    if (_read(prefs, _kBackfillDone)) return;
+    prefs.setBool(_kBackfillDone, true).ignore();
+    if (_read(prefs, kPrefHasMessaged)) {
+      prefs.setBool(ActivationAction.message.prefKey, true).ignore();
     }
   }
 }
