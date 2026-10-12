@@ -135,7 +135,7 @@ call or rejoin", and the caller already has the call on screen.
 - [x] A5 strings: 6 keys × 19 locales + native-QA rows (108 machine-draft rows still need native review)
 - [x] A6 guide UI: "Getting started · N of 4", retire on real action, CTA no longer retires, Matches on the same rule
 - [x] A7 chat tip under the first received text message
-- [ ] A8 `PopupBudget` + `LaunchModalCoordinator`
+- [x] A8 `PopupBudget` + `LaunchModalCoordinator`
 - [ ] A9 priming: budget, triggers (first matches / first wave / first message sent / received), events; chat-open trigger removed
 - [ ] A10 AI Study promo folded into the spotlight rotation; `AiStudyPromoModal` deleted
 - [ ] A11 `Announcement` model, `appConfig.announcements`, `lang` on app-config, seen set
