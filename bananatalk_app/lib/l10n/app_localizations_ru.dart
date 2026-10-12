@@ -9601,4 +9601,67 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get notifyAnnouncementsSubtitle => 'Новости и обновления от команды BananaTalk';
+
+  @override
+  String chatDailyLimitBody(Object count) {
+    return 'Бесплатные пользователи могут общаться не более чем с $count людьми в день.\nПерейдите на VIP для безлимитного общения!';
+  }
+
+  @override
+  String get chatCompressingVideo => 'Сжатие видео...';
+
+  @override
+  String chatShareLocationBody(Object name) {
+    return 'Отправьте своё текущее местоположение пользователю $name. Делайте это только с теми, кому доверяете.';
+  }
+
+  @override
+  String get chatShareLocationThisChat => 'этим чатом';
+
+  @override
+  String get chatTranslationLimitReached => 'Достигнут лимит переводов';
+
+  @override
+  String get chatTranslateLimitBody => 'Вы израсходовали бесплатные переводы на сегодня в этом чате. Разблокируйте больше мгновенно за монеты.';
+
+  @override
+  String chatReplyingTo(Object name) {
+    return 'Ответ для $name';
+  }
+
+  @override
+  String get chatReplyingToFallback => 'пользователь';
+
+  @override
+  String chatSendingMedia(Object mediaType) {
+    return 'Отправка $mediaType...';
+  }
+
+  @override
+  String get chatEnterUsernameStart => 'Введите имя пользователя, чтобы начать чат';
+
+  @override
+  String chatSearching(Object username) {
+    return 'Поиск @$username...';
+  }
+
+  @override
+  String chatDeleteConversationBody(Object name) {
+    return 'Удалить вашу переписку с $name? Это действие нельзя отменить.';
+  }
+
+  @override
+  String get chatQrCode => 'QR-код';
+
+  @override
+  String get chatDraft => 'Черновик: ';
+
+  @override
+  String get chatTyping => 'печатает...';
+
+  @override
+  String get chatPoweredBy => 'При поддержке ';
+
+  @override
+  String get chatReconnecting => 'Повторное подключение к чату...';
 }

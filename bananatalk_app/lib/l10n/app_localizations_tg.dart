@@ -9584,4 +9584,67 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get notifyAnnouncementsSubtitle => 'Хабарҳо ва навигариҳо аз дастаи BananaTalk';
+
+  @override
+  String chatDailyLimitBody(Object count) {
+    return 'Истифодабарандагони ройгон метавонанд дар як рӯз ба ҳадди ақал бо $count нафар чат кунанд.\nБарои сӯҳбатҳои бемаҳдуд ба VIP гузаред!';
+  }
+
+  @override
+  String get chatCompressingVideo => 'Фишурдани видео...';
+
+  @override
+  String chatShareLocationBody(Object name) {
+    return 'Ҷойгиршавии ҳозираатонро ба $name фиристед. Инро танҳо бо одамони боэътимод кунед.';
+  }
+
+  @override
+  String get chatShareLocationThisChat => 'ин чат';
+
+  @override
+  String get chatTranslationLimitReached => 'Ҳадди тарҷума расид';
+
+  @override
+  String get chatTranslateLimitBody => 'Шумо тарҷумаҳои ройгони имрӯзаро дар ин чат истифода бурдед. Бо танга фавран бештар кушоед.';
+
+  @override
+  String chatReplyingTo(Object name) {
+    return 'Ҷавоб ба $name';
+  }
+
+  @override
+  String get chatReplyingToFallback => 'корбар';
+
+  @override
+  String chatSendingMedia(Object mediaType) {
+    return 'Фиристодани $mediaType...';
+  }
+
+  @override
+  String get chatEnterUsernameStart => 'Барои оғози чат номи корбарро ворид кунед';
+
+  @override
+  String chatSearching(Object username) {
+    return 'Ҷустуҷӯи @$username...';
+  }
+
+  @override
+  String chatDeleteConversationBody(Object name) {
+    return 'Сӯҳбати худро бо $name нест кунед? Инро баргардонидан мумкин нест.';
+  }
+
+  @override
+  String get chatQrCode => 'Рамзи QR';
+
+  @override
+  String get chatDraft => 'Лоиҳа: ';
+
+  @override
+  String get chatTyping => 'менависад...';
+
+  @override
+  String get chatPoweredBy => 'Бо дастгирии ';
+
+  @override
+  String get chatReconnecting => 'Дубора пайваст шудан ба чат...';
 }

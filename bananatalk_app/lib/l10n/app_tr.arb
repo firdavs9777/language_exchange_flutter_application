@@ -4094,5 +4094,22 @@
   "announcementTitle": "Duyuru",
   "announcementUnavailable": "Bu duyuru artık mevcut değil.",
   "notifyAnnouncementsTitle": "Duyurular",
-  "notifyAnnouncementsSubtitle": "BananaTalk ekibinden haberler ve güncellemeler"
+  "notifyAnnouncementsSubtitle": "BananaTalk ekibinden haberler ve güncellemeler",
+  "chatDailyLimitBody": "Ücretsiz kullanıcılar günde en fazla {count} kişiyle sohbet edebilir.\nSınırsız sohbet için VIP'e yükseltin!",
+  "chatCompressingVideo": "Video sıkıştırılıyor...",
+  "chatShareLocationBody": "Mevcut konumunuzu {name} kişisine gönderin. Bunu yalnızca güvendiğiniz kişilerle yapın.",
+  "chatShareLocationThisChat": "bu sohbet",
+  "chatTranslationLimitReached": "Çeviri sınırına ulaşıldı",
+  "chatTranslateLimitBody": "Bu sohbette bugünkü ücretsiz çevirilerinizi kullandınız. Jetonlarla anında daha fazlasının kilidini açın.",
+  "chatReplyingTo": "{name} kişisine yanıt veriliyor",
+  "chatReplyingToFallback": "kullanıcı",
+  "chatSendingMedia": "{mediaType} gönderiliyor...",
+  "chatEnterUsernameStart": "Sohbet başlatmak için kullanıcı adı girin",
+  "chatSearching": "@{username} aranıyor...",
+  "chatDeleteConversationBody": "{name} ile olan sohbetiniz silinsin mi? Bu işlem geri alınamaz.",
+  "chatQrCode": "QR Kodu",
+  "chatDraft": "Taslak: ",
+  "chatTyping": "yazıyor...",
+  "chatPoweredBy": "Sağlayan: ",
+  "chatReconnecting": "Sohbete yeniden bağlanılıyor..."
 }

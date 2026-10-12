@@ -9580,4 +9580,67 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get notifyAnnouncementsSubtitle => 'Mga balita at update mula sa BananaTalk team';
+
+  @override
+  String chatDailyLimitBody(Object count) {
+    return 'Ang mga libreng user ay maaaring makipag-chat sa hanggang $count tao bawat araw.\nMag-upgrade sa VIP para sa walang limitasyong usapan!';
+  }
+
+  @override
+  String get chatCompressingVideo => 'Kino-compress ang video...';
+
+  @override
+  String chatShareLocationBody(Object name) {
+    return 'Ipadala ang iyong kasalukuyang lokasyon kay $name. Gawin lang ito sa mga taong pinagkakatiwalaan mo.';
+  }
+
+  @override
+  String get chatShareLocationThisChat => 'chat na ito';
+
+  @override
+  String get chatTranslationLimitReached => 'Naabot na ang limitasyon sa pagsasalin';
+
+  @override
+  String get chatTranslateLimitBody => 'Nagamit mo na ang mga libreng pagsasalin ngayong araw sa chat na ito. Mag-unlock ng higit pa agad gamit ang mga barya.';
+
+  @override
+  String chatReplyingTo(Object name) {
+    return 'Sumasagot kay $name';
+  }
+
+  @override
+  String get chatReplyingToFallback => 'user';
+
+  @override
+  String chatSendingMedia(Object mediaType) {
+    return 'Ipinapadala ang $mediaType...';
+  }
+
+  @override
+  String get chatEnterUsernameStart => 'Maglagay ng username para magsimula ng chat';
+
+  @override
+  String chatSearching(Object username) {
+    return 'Hinahanap si @$username...';
+  }
+
+  @override
+  String chatDeleteConversationBody(Object name) {
+    return 'I-delete ang iyong usapan kay $name? Hindi na ito maibabalik.';
+  }
+
+  @override
+  String get chatQrCode => 'QR Code';
+
+  @override
+  String get chatDraft => 'Draft: ';
+
+  @override
+  String get chatTyping => 'nagta-type...';
+
+  @override
+  String get chatPoweredBy => 'Pinapagana ng ';
+
+  @override
+  String get chatReconnecting => 'Muling kumokonekta sa chat...';
 }

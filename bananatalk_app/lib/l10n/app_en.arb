@@ -6613,5 +6613,52 @@
     "placeholders": {
       "count": { "type": "int" }
     }
-  }
+  },
+  "chatDailyLimitBody": "Free users can chat with up to {count} people per day.\nUpgrade to VIP for unlimited conversations!",
+  "@chatDailyLimitBody": {
+    "placeholders": {
+      "count": { "type": "Object" }
+    }
+  },
+  "chatCompressingVideo": "Compressing video...",
+  "chatShareLocationBody": "Send your current location to {name}. Only do this with people you trust.",
+  "@chatShareLocationBody": {
+    "placeholders": {
+      "name": { "type": "Object" }
+    }
+  },
+  "chatShareLocationThisChat": "this chat",
+  "chatTranslationLimitReached": "Translation limit reached",
+  "chatTranslateLimitBody": "You've used up today's free translations in this chat. Unlock more instantly with coins.",
+  "chatReplyingTo": "Replying to {name}",
+  "@chatReplyingTo": {
+    "placeholders": {
+      "name": { "type": "Object" }
+    }
+  },
+  "chatReplyingToFallback": "user",
+  "chatSendingMedia": "Sending {mediaType}...",
+  "@chatSendingMedia": {
+    "placeholders": {
+      "mediaType": { "type": "Object" }
+    }
+  },
+  "chatEnterUsernameStart": "Enter username to start a chat",
+  "chatSearching": "Searching for @{username}...",
+  "@chatSearching": {
+    "placeholders": {
+      "username": { "type": "Object" }
+    }
+  },
+  "chatDeleteConversationBody": "Delete your conversation with {name}? This cannot be undone.",
+  "@chatDeleteConversationBody": {
+    "placeholders": {
+      "name": { "type": "Object" }
+    }
+  },
+  "chatQrCode": "QR Code",
+  "chatDraft": "Draft: ",
+  "chatTyping": "typing...",
+  "chatPoweredBy": "Powered by ",
+  "chatReconnecting": "Reconnecting to chat..."
 }

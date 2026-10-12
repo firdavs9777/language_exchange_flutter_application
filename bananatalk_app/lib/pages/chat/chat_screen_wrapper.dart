@@ -109,7 +109,7 @@ class _ChatScreenWrapperState extends ConsumerState<ChatScreenWrapper> {
                 ),
                 const SizedBox(height: 12),
                 Text(
-                  'Free users can chat with up to ${DailyChatLimitService.maxDailyChats} people per day.\nUpgrade to VIP for unlimited conversations!',
+                  AppLocalizations.of(context)!.chatDailyLimitBody(DailyChatLimitService.maxDailyChats),
                   style: TextStyle(
                     fontSize: 14,
                     color: context.textSecondary,

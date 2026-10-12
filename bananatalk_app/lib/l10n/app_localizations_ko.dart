@@ -9570,4 +9570,67 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get notifyAnnouncementsSubtitle => 'BananaTalk 팀의 소식과 업데이트';
+
+  @override
+  String chatDailyLimitBody(Object count) {
+    return '무료 사용자는 하루에 최대 $count명과 채팅할 수 있습니다.\nVIP로 업그레이드하면 무제한으로 대화할 수 있어요!';
+  }
+
+  @override
+  String get chatCompressingVideo => '동영상 압축 중...';
+
+  @override
+  String chatShareLocationBody(Object name) {
+    return '현재 위치를 $name님에게 보냅니다. 신뢰하는 사람에게만 보내세요.';
+  }
+
+  @override
+  String get chatShareLocationThisChat => '이 채팅';
+
+  @override
+  String get chatTranslationLimitReached => '번역 한도에 도달했습니다';
+
+  @override
+  String get chatTranslateLimitBody => '이 채팅에서 오늘의 무료 번역을 모두 사용했습니다. 코인으로 즉시 더 잠금 해제하세요.';
+
+  @override
+  String chatReplyingTo(Object name) {
+    return '$name님에게 답장 중';
+  }
+
+  @override
+  String get chatReplyingToFallback => '사용자';
+
+  @override
+  String chatSendingMedia(Object mediaType) {
+    return '$mediaType 보내는 중...';
+  }
+
+  @override
+  String get chatEnterUsernameStart => '채팅을 시작하려면 사용자 이름을 입력하세요';
+
+  @override
+  String chatSearching(Object username) {
+    return '@$username 검색 중...';
+  }
+
+  @override
+  String chatDeleteConversationBody(Object name) {
+    return '$name님과의 대화를 삭제할까요? 이 작업은 되돌릴 수 없습니다.';
+  }
+
+  @override
+  String get chatQrCode => 'QR 코드';
+
+  @override
+  String get chatDraft => '임시 저장: ';
+
+  @override
+  String get chatTyping => '입력 중...';
+
+  @override
+  String get chatPoweredBy => '제공: ';
+
+  @override
+  String get chatReconnecting => '채팅에 다시 연결하는 중...';
 }

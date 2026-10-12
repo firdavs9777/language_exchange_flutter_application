@@ -9570,4 +9570,67 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get notifyAnnouncementsSubtitle => 'ข่าวสารและอัปเดตจากทีม BananaTalk';
+
+  @override
+  String chatDailyLimitBody(Object count) {
+    return 'ผู้ใช้ฟรีแชทได้สูงสุด $count คนต่อวัน\nอัปเกรดเป็น VIP เพื่อสนทนาได้ไม่จำกัด!';
+  }
+
+  @override
+  String get chatCompressingVideo => 'กำลังบีบอัดวิดีโอ...';
+
+  @override
+  String chatShareLocationBody(Object name) {
+    return 'ส่งตำแหน่งปัจจุบันของคุณให้ $name ทำเฉพาะกับคนที่คุณไว้ใจเท่านั้น';
+  }
+
+  @override
+  String get chatShareLocationThisChat => 'แชทนี้';
+
+  @override
+  String get chatTranslationLimitReached => 'ถึงขีดจำกัดการแปลแล้ว';
+
+  @override
+  String get chatTranslateLimitBody => 'คุณใช้สิทธิ์แปลฟรีของวันนี้ในแชทนี้หมดแล้ว ปลดล็อกเพิ่มได้ทันทีด้วยเหรียญ';
+
+  @override
+  String chatReplyingTo(Object name) {
+    return 'กำลังตอบกลับ $name';
+  }
+
+  @override
+  String get chatReplyingToFallback => 'ผู้ใช้';
+
+  @override
+  String chatSendingMedia(Object mediaType) {
+    return 'กำลังส่ง$mediaType...';
+  }
+
+  @override
+  String get chatEnterUsernameStart => 'ป้อนชื่อผู้ใช้เพื่อเริ่มแชท';
+
+  @override
+  String chatSearching(Object username) {
+    return 'กำลังค้นหา @$username...';
+  }
+
+  @override
+  String chatDeleteConversationBody(Object name) {
+    return 'ลบการสนทนาของคุณกับ $name หรือไม่ การดำเนินการนี้ไม่สามารถย้อนกลับได้';
+  }
+
+  @override
+  String get chatQrCode => 'คิวอาร์โค้ด';
+
+  @override
+  String get chatDraft => 'ฉบับร่าง: ';
+
+  @override
+  String get chatTyping => 'กำลังพิมพ์...';
+
+  @override
+  String get chatPoweredBy => 'ขับเคลื่อนโดย ';
+
+  @override
+  String get chatReconnecting => 'กำลังเชื่อมต่อแชทอีกครั้ง...';
 }

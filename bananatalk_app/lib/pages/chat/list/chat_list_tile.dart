@@ -126,8 +126,8 @@ class ChatListTile extends StatelessWidget {
       children: [
         const Icon(Icons.edit_note_rounded, size: 16, color: accent),
         const SizedBox(width: 3),
-        const Text(
-          'Draft: ',
+        Text(
+          AppLocalizations.of(context)!.chatDraft,
           style: TextStyle(
             color: accent,
             fontSize: 13,
@@ -151,14 +151,14 @@ class ChatListTile extends StatelessWidget {
     );
   }
 
-  Widget _buildTypingIndicator() {
+  Widget _buildTypingIndicator(BuildContext context) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
         _buildTypingDots(),
         const SizedBox(width: 6),
-        const Text(
-          'typing...',
+        Text(
+          AppLocalizations.of(context)!.chatTyping,
           style: TextStyle(
             color: Color(0xFF4ADE80),
             fontSize: 13,
@@ -368,7 +368,7 @@ class ChatListTile extends StatelessWidget {
                                     ),
                                     borderRadius: BorderRadius.circular(8),
                                   ),
-                                  child: const Row(
+                                  child: Row(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       Icon(
@@ -378,7 +378,7 @@ class ChatListTile extends StatelessWidget {
                                       ),
                                       SizedBox(width: 2),
                                       Text(
-                                        'VIP',
+                                        AppLocalizations.of(context)!.vip,
                                         style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 9,
@@ -435,7 +435,7 @@ class ChatListTile extends StatelessWidget {
                       children: [
                         Expanded(
                           child: isTyping
-                              ? _buildTypingIndicator()
+                              ? _buildTypingIndicator(context)
                               : (draft != null && draft!.trim().isNotEmpty)
                               ? _buildDraftPreview(context)
                               : Row(

@@ -3882,5 +3882,22 @@
   "announcementTitle": "Pengumuman",
   "announcementUnavailable": "Pengumuman ini sudah tidak tersedia.",
   "notifyAnnouncementsTitle": "Pengumuman",
-  "notifyAnnouncementsSubtitle": "Berita dan pembaruan dari tim BananaTalk"
+  "notifyAnnouncementsSubtitle": "Berita dan pembaruan dari tim BananaTalk",
+  "chatDailyLimitBody": "Pengguna gratis dapat mengobrol dengan hingga {count} orang per hari.\nUpgrade ke VIP untuk percakapan tanpa batas!",
+  "chatCompressingVideo": "Mengompres video...",
+  "chatShareLocationBody": "Kirim lokasi Anda saat ini ke {name}. Lakukan hanya dengan orang yang Anda percaya.",
+  "chatShareLocationThisChat": "obrolan ini",
+  "chatTranslationLimitReached": "Batas terjemahan tercapai",
+  "chatTranslateLimitBody": "Anda telah menggunakan terjemahan gratis hari ini di obrolan ini. Buka lebih banyak seketika dengan koin.",
+  "chatReplyingTo": "Membalas {name}",
+  "chatReplyingToFallback": "pengguna",
+  "chatSendingMedia": "Mengirim {mediaType}...",
+  "chatEnterUsernameStart": "Masukkan nama pengguna untuk memulai obrolan",
+  "chatSearching": "Mencari @{username}...",
+  "chatDeleteConversationBody": "Hapus percakapan Anda dengan {name}? Tindakan ini tidak dapat dibatalkan.",
+  "chatQrCode": "Kode QR",
+  "chatDraft": "Draf: ",
+  "chatTyping": "sedang mengetik...",
+  "chatPoweredBy": "Didukung oleh ",
+  "chatReconnecting": "Menyambungkan kembali ke obrolan..."
 }

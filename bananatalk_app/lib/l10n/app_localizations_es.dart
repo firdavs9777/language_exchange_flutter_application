@@ -9580,4 +9580,67 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get notifyAnnouncementsSubtitle => 'Noticias y novedades del equipo de BananaTalk';
+
+  @override
+  String chatDailyLimitBody(Object count) {
+    return 'Los usuarios gratuitos pueden chatear con hasta $count personas al día.\n¡Hazte VIP para conversaciones ilimitadas!';
+  }
+
+  @override
+  String get chatCompressingVideo => 'Comprimiendo video...';
+
+  @override
+  String chatShareLocationBody(Object name) {
+    return 'Envía tu ubicación actual a $name. Hazlo solo con personas de confianza.';
+  }
+
+  @override
+  String get chatShareLocationThisChat => 'este chat';
+
+  @override
+  String get chatTranslationLimitReached => 'Límite de traducción alcanzado';
+
+  @override
+  String get chatTranslateLimitBody => 'Has usado las traducciones gratuitas de hoy en este chat. Desbloquea más al instante con monedas.';
+
+  @override
+  String chatReplyingTo(Object name) {
+    return 'Respondiendo a $name';
+  }
+
+  @override
+  String get chatReplyingToFallback => 'usuario';
+
+  @override
+  String chatSendingMedia(Object mediaType) {
+    return 'Enviando $mediaType...';
+  }
+
+  @override
+  String get chatEnterUsernameStart => 'Introduce un nombre de usuario para iniciar un chat';
+
+  @override
+  String chatSearching(Object username) {
+    return 'Buscando a @$username...';
+  }
+
+  @override
+  String chatDeleteConversationBody(Object name) {
+    return '¿Eliminar tu conversación con $name? Esta acción no se puede deshacer.';
+  }
+
+  @override
+  String get chatQrCode => 'Código QR';
+
+  @override
+  String get chatDraft => 'Borrador: ';
+
+  @override
+  String get chatTyping => 'escribiendo...';
+
+  @override
+  String get chatPoweredBy => 'Con tecnología de ';
+
+  @override
+  String get chatReconnecting => 'Reconectando al chat...';
 }

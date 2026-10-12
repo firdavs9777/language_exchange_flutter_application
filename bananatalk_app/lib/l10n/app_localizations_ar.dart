@@ -9592,4 +9592,67 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get notifyAnnouncementsSubtitle => 'أخبار وتحديثات من فريق BananaTalk';
+
+  @override
+  String chatDailyLimitBody(Object count) {
+    return 'يمكن للمستخدمين المجانيين الدردشة مع $count أشخاص يوميًا كحد أقصى.\nقم بالترقية إلى VIP لمحادثات غير محدودة!';
+  }
+
+  @override
+  String get chatCompressingVideo => 'جارٍ ضغط الفيديو...';
+
+  @override
+  String chatShareLocationBody(Object name) {
+    return 'أرسل موقعك الحالي إلى $name. افعل ذلك فقط مع من تثق بهم.';
+  }
+
+  @override
+  String get chatShareLocationThisChat => 'هذه الدردشة';
+
+  @override
+  String get chatTranslationLimitReached => 'تم بلوغ حد الترجمة';
+
+  @override
+  String get chatTranslateLimitBody => 'لقد استخدمت ترجماتك المجانية لهذا اليوم في هذه الدردشة. افتح المزيد فورًا باستخدام العملات.';
+
+  @override
+  String chatReplyingTo(Object name) {
+    return 'الرد على $name';
+  }
+
+  @override
+  String get chatReplyingToFallback => 'المستخدم';
+
+  @override
+  String chatSendingMedia(Object mediaType) {
+    return 'جارٍ إرسال $mediaType...';
+  }
+
+  @override
+  String get chatEnterUsernameStart => 'أدخل اسم المستخدم لبدء دردشة';
+
+  @override
+  String chatSearching(Object username) {
+    return 'جارٍ البحث عن @$username...';
+  }
+
+  @override
+  String chatDeleteConversationBody(Object name) {
+    return 'حذف محادثتك مع $name؟ لا يمكن التراجع عن هذا الإجراء.';
+  }
+
+  @override
+  String get chatQrCode => 'رمز QR';
+
+  @override
+  String get chatDraft => 'مسودة: ';
+
+  @override
+  String get chatTyping => 'يكتب...';
+
+  @override
+  String get chatPoweredBy => 'بدعم من ';
+
+  @override
+  String get chatReconnecting => 'جارٍ إعادة الاتصال بالدردشة...';
 }

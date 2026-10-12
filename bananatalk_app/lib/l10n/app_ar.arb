@@ -3912,5 +3912,22 @@
   "announcementTitle": "إعلان",
   "announcementUnavailable": "هذا الإعلان لم يعد متاحًا.",
   "notifyAnnouncementsTitle": "الإعلانات",
-  "notifyAnnouncementsSubtitle": "أخبار وتحديثات من فريق BananaTalk"
+  "notifyAnnouncementsSubtitle": "أخبار وتحديثات من فريق BananaTalk",
+  "chatDailyLimitBody": "يمكن للمستخدمين المجانيين الدردشة مع {count} أشخاص يوميًا كحد أقصى.\nقم بالترقية إلى VIP لمحادثات غير محدودة!",
+  "chatCompressingVideo": "جارٍ ضغط الفيديو...",
+  "chatShareLocationBody": "أرسل موقعك الحالي إلى {name}. افعل ذلك فقط مع من تثق بهم.",
+  "chatShareLocationThisChat": "هذه الدردشة",
+  "chatTranslationLimitReached": "تم بلوغ حد الترجمة",
+  "chatTranslateLimitBody": "لقد استخدمت ترجماتك المجانية لهذا اليوم في هذه الدردشة. افتح المزيد فورًا باستخدام العملات.",
+  "chatReplyingTo": "الرد على {name}",
+  "chatReplyingToFallback": "المستخدم",
+  "chatSendingMedia": "جارٍ إرسال {mediaType}...",
+  "chatEnterUsernameStart": "أدخل اسم المستخدم لبدء دردشة",
+  "chatSearching": "جارٍ البحث عن @{username}...",
+  "chatDeleteConversationBody": "حذف محادثتك مع {name}؟ لا يمكن التراجع عن هذا الإجراء.",
+  "chatQrCode": "رمز QR",
+  "chatDraft": "مسودة: ",
+  "chatTyping": "يكتب...",
+  "chatPoweredBy": "بدعم من ",
+  "chatReconnecting": "جارٍ إعادة الاتصال بالدردشة..."
 }

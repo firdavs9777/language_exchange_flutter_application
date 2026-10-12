@@ -9580,4 +9580,67 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get notifyAnnouncementsSubtitle => 'BananaTalk टीम की खबरें और अपडेट';
+
+  @override
+  String chatDailyLimitBody(Object count) {
+    return 'मुफ़्त उपयोगकर्ता प्रतिदिन अधिकतम $count लोगों से चैट कर सकते हैं।\nअसीमित बातचीत के लिए VIP में अपग्रेड करें!';
+  }
+
+  @override
+  String get chatCompressingVideo => 'वीडियो कंप्रेस हो रहा है...';
+
+  @override
+  String chatShareLocationBody(Object name) {
+    return 'अपना वर्तमान स्थान $name को भेजें। यह केवल उन्हीं के साथ करें जिन पर आप भरोसा करते हैं।';
+  }
+
+  @override
+  String get chatShareLocationThisChat => 'इस चैट';
+
+  @override
+  String get chatTranslationLimitReached => 'अनुवाद की सीमा पूरी हो गई';
+
+  @override
+  String get chatTranslateLimitBody => 'आप इस चैट में आज के मुफ़्त अनुवाद इस्तेमाल कर चुके हैं। सिक्कों से तुरंत और अनलॉक करें।';
+
+  @override
+  String chatReplyingTo(Object name) {
+    return '$name को जवाब दे रहे हैं';
+  }
+
+  @override
+  String get chatReplyingToFallback => 'उपयोगकर्ता';
+
+  @override
+  String chatSendingMedia(Object mediaType) {
+    return '$mediaType भेजा जा रहा है...';
+  }
+
+  @override
+  String get chatEnterUsernameStart => 'चैट शुरू करने के लिए उपयोगकर्ता नाम दर्ज करें';
+
+  @override
+  String chatSearching(Object username) {
+    return '@$username खोजा जा रहा है...';
+  }
+
+  @override
+  String chatDeleteConversationBody(Object name) {
+    return '$name के साथ अपनी बातचीत हटाएँ? इसे पूर्ववत नहीं किया जा सकता।';
+  }
+
+  @override
+  String get chatQrCode => 'QR कोड';
+
+  @override
+  String get chatDraft => 'ड्राफ़्ट: ';
+
+  @override
+  String get chatTyping => 'टाइप कर रहे हैं...';
+
+  @override
+  String get chatPoweredBy => 'संचालित: ';
+
+  @override
+  String get chatReconnecting => 'चैट से दोबारा कनेक्ट हो रहा है...';
 }

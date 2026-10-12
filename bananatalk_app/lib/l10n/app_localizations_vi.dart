@@ -9570,4 +9570,67 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get notifyAnnouncementsSubtitle => 'Tin tức và cập nhật từ đội ngũ BananaTalk';
+
+  @override
+  String chatDailyLimitBody(Object count) {
+    return 'Người dùng miễn phí có thể trò chuyện với tối đa $count người mỗi ngày.\nNâng cấp lên VIP để trò chuyện không giới hạn!';
+  }
+
+  @override
+  String get chatCompressingVideo => 'Đang nén video...';
+
+  @override
+  String chatShareLocationBody(Object name) {
+    return 'Gửi vị trí hiện tại của bạn cho $name. Chỉ làm vậy với những người bạn tin tưởng.';
+  }
+
+  @override
+  String get chatShareLocationThisChat => 'cuộc trò chuyện này';
+
+  @override
+  String get chatTranslationLimitReached => 'Đã đạt giới hạn dịch';
+
+  @override
+  String get chatTranslateLimitBody => 'Bạn đã dùng hết lượt dịch miễn phí hôm nay trong cuộc trò chuyện này. Mở khóa thêm ngay bằng xu.';
+
+  @override
+  String chatReplyingTo(Object name) {
+    return 'Đang trả lời $name';
+  }
+
+  @override
+  String get chatReplyingToFallback => 'người dùng';
+
+  @override
+  String chatSendingMedia(Object mediaType) {
+    return 'Đang gửi $mediaType...';
+  }
+
+  @override
+  String get chatEnterUsernameStart => 'Nhập tên người dùng để bắt đầu trò chuyện';
+
+  @override
+  String chatSearching(Object username) {
+    return 'Đang tìm @$username...';
+  }
+
+  @override
+  String chatDeleteConversationBody(Object name) {
+    return 'Xóa cuộc trò chuyện của bạn với $name? Không thể hoàn tác thao tác này.';
+  }
+
+  @override
+  String get chatQrCode => 'Mã QR';
+
+  @override
+  String get chatDraft => 'Bản nháp: ';
+
+  @override
+  String get chatTyping => 'đang nhập...';
+
+  @override
+  String get chatPoweredBy => 'Cung cấp bởi ';
+
+  @override
+  String get chatReconnecting => 'Đang kết nối lại với cuộc trò chuyện...';
 }

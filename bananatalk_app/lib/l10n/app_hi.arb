@@ -3898,5 +3898,22 @@
   "announcementTitle": "घोषणा",
   "announcementUnavailable": "यह घोषणा अब उपलब्ध नहीं है।",
   "notifyAnnouncementsTitle": "घोषणाएँ",
-  "notifyAnnouncementsSubtitle": "BananaTalk टीम की खबरें और अपडेट"
+  "notifyAnnouncementsSubtitle": "BananaTalk टीम की खबरें और अपडेट",
+  "chatDailyLimitBody": "मुफ़्त उपयोगकर्ता प्रतिदिन अधिकतम {count} लोगों से चैट कर सकते हैं।\nअसीमित बातचीत के लिए VIP में अपग्रेड करें!",
+  "chatCompressingVideo": "वीडियो कंप्रेस हो रहा है...",
+  "chatShareLocationBody": "अपना वर्तमान स्थान {name} को भेजें। यह केवल उन्हीं के साथ करें जिन पर आप भरोसा करते हैं।",
+  "chatShareLocationThisChat": "इस चैट",
+  "chatTranslationLimitReached": "अनुवाद की सीमा पूरी हो गई",
+  "chatTranslateLimitBody": "आप इस चैट में आज के मुफ़्त अनुवाद इस्तेमाल कर चुके हैं। सिक्कों से तुरंत और अनलॉक करें।",
+  "chatReplyingTo": "{name} को जवाब दे रहे हैं",
+  "chatReplyingToFallback": "उपयोगकर्ता",
+  "chatSendingMedia": "{mediaType} भेजा जा रहा है...",
+  "chatEnterUsernameStart": "चैट शुरू करने के लिए उपयोगकर्ता नाम दर्ज करें",
+  "chatSearching": "@{username} खोजा जा रहा है...",
+  "chatDeleteConversationBody": "{name} के साथ अपनी बातचीत हटाएँ? इसे पूर्ववत नहीं किया जा सकता।",
+  "chatQrCode": "QR कोड",
+  "chatDraft": "ड्राफ़्ट: ",
+  "chatTyping": "टाइप कर रहे हैं...",
+  "chatPoweredBy": "संचालित: ",
+  "chatReconnecting": "चैट से दोबारा कनेक्ट हो रहा है..."
 }

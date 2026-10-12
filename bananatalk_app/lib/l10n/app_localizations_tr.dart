@@ -9578,4 +9578,67 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get notifyAnnouncementsSubtitle => 'BananaTalk ekibinden haberler ve güncellemeler';
+
+  @override
+  String chatDailyLimitBody(Object count) {
+    return 'Ücretsiz kullanıcılar günde en fazla $count kişiyle sohbet edebilir.\nSınırsız sohbet için VIP\'e yükseltin!';
+  }
+
+  @override
+  String get chatCompressingVideo => 'Video sıkıştırılıyor...';
+
+  @override
+  String chatShareLocationBody(Object name) {
+    return 'Mevcut konumunuzu $name kişisine gönderin. Bunu yalnızca güvendiğiniz kişilerle yapın.';
+  }
+
+  @override
+  String get chatShareLocationThisChat => 'bu sohbet';
+
+  @override
+  String get chatTranslationLimitReached => 'Çeviri sınırına ulaşıldı';
+
+  @override
+  String get chatTranslateLimitBody => 'Bu sohbette bugünkü ücretsiz çevirilerinizi kullandınız. Jetonlarla anında daha fazlasının kilidini açın.';
+
+  @override
+  String chatReplyingTo(Object name) {
+    return '$name kişisine yanıt veriliyor';
+  }
+
+  @override
+  String get chatReplyingToFallback => 'kullanıcı';
+
+  @override
+  String chatSendingMedia(Object mediaType) {
+    return '$mediaType gönderiliyor...';
+  }
+
+  @override
+  String get chatEnterUsernameStart => 'Sohbet başlatmak için kullanıcı adı girin';
+
+  @override
+  String chatSearching(Object username) {
+    return '@$username aranıyor...';
+  }
+
+  @override
+  String chatDeleteConversationBody(Object name) {
+    return '$name ile olan sohbetiniz silinsin mi? Bu işlem geri alınamaz.';
+  }
+
+  @override
+  String get chatQrCode => 'QR Kodu';
+
+  @override
+  String get chatDraft => 'Taslak: ';
+
+  @override
+  String get chatTyping => 'yazıyor...';
+
+  @override
+  String get chatPoweredBy => 'Sağlayan: ';
+
+  @override
+  String get chatReconnecting => 'Sohbete yeniden bağlanılıyor...';
 }

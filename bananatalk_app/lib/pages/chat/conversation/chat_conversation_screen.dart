@@ -1329,7 +1329,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                 const CircularProgressIndicator(color: AppColors.primary),
                 const SizedBox(height: 16),
                 Text(
-                  'Compressing video...',
+                  AppLocalizations.of(dialogCtx)!.chatCompressingVideo,
                   style: TextStyle(
                     color: dialogDark ? AppColors.white : AppColors.gray900,
                   ),
@@ -1496,8 +1496,11 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       builder: (ctx) => AlertDialog(
         title: Text(AppLocalizations.of(context)!.shareYourLocation),
         content: Text(
-          'Send your current location to ${widget.userName.isNotEmpty ? widget.userName : "this chat"}. '
-          'Only do this with people you trust.',
+          AppLocalizations.of(context)!.chatShareLocationBody(
+            widget.userName.isNotEmpty
+                ? widget.userName
+                : AppLocalizations.of(context)!.chatShareLocationThisChat,
+          ),
         ),
         actions: [
           TextButton(

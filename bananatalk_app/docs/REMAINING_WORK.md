@@ -250,7 +250,7 @@ Two distinct failures, counted separately because the tooling sees one and not t
       were invisible. Covered the Matches surface, all 106 `exam*` keys, and the rest. The 5 left
       in English are deliberate: `vipBrandTitle` (brand), `helpEmailSupportSubtitle` (an address),
       and the pure-placeholder `dailyScore` / `weeklyReportRange` / `learningXpGained`.
-- [ ] **Hardcoded strings: 74 left in 56 files** (was 113 in 67). These never reach an `.arb`.
+- [ ] **Hardcoded strings: 384 left** (next: L2; was 74 in 56 files before the plan's wider scan). Done in L1: the chat list, input, conversation and paywall (17 keys). These never reach an `.arb`.
       Done so far: the EULA screen (43), the four learning players + waves (45 keys), the coin
       shop / VIP banner / chat paywall (29), Explore + Facebook login + suspension notice (26),
       both correction sheets + the translation sheet (16), the Moments composer (18), the chat

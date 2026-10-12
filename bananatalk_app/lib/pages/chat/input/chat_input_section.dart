@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/user_limits_provider.dart';
@@ -223,7 +224,7 @@ class _MessageLimitIndicator extends ConsumerWidget {
                     ),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: const Row(
+                  child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Icon(
@@ -233,7 +234,7 @@ class _MessageLimitIndicator extends ConsumerWidget {
                       ),
                       SizedBox(width: 4),
                       Text(
-                        'Unlimited',
+                        AppLocalizations.of(context)!.vipBenefitUnlimited,
                         style: TextStyle(
                           color: AppColors.white,
                           fontSize: 11,
@@ -313,7 +314,7 @@ class _UploadProgressBanner extends StatelessWidget {
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
-                  'Sending $mediaType...',
+                  AppLocalizations.of(context)!.chatSendingMedia(mediaType),
                   style: TextStyle(
                     fontSize: 13,
                     color: AppColors.info,

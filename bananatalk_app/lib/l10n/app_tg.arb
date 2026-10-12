@@ -3375,5 +3375,22 @@
   "announcementTitle": "Эълон",
   "announcementUnavailable": "Ин эълон дигар дастрас нест.",
   "notifyAnnouncementsTitle": "Эълонҳо",
-  "notifyAnnouncementsSubtitle": "Хабарҳо ва навигариҳо аз дастаи BananaTalk"
+  "notifyAnnouncementsSubtitle": "Хабарҳо ва навигариҳо аз дастаи BananaTalk",
+  "chatDailyLimitBody": "Истифодабарандагони ройгон метавонанд дар як рӯз ба ҳадди ақал бо {count} нафар чат кунанд.\nБарои сӯҳбатҳои бемаҳдуд ба VIP гузаред!",
+  "chatCompressingVideo": "Фишурдани видео...",
+  "chatShareLocationBody": "Ҷойгиршавии ҳозираатонро ба {name} фиристед. Инро танҳо бо одамони боэътимод кунед.",
+  "chatShareLocationThisChat": "ин чат",
+  "chatTranslationLimitReached": "Ҳадди тарҷума расид",
+  "chatTranslateLimitBody": "Шумо тарҷумаҳои ройгони имрӯзаро дар ин чат истифода бурдед. Бо танга фавран бештар кушоед.",
+  "chatReplyingTo": "Ҷавоб ба {name}",
+  "chatReplyingToFallback": "корбар",
+  "chatSendingMedia": "Фиристодани {mediaType}...",
+  "chatEnterUsernameStart": "Барои оғози чат номи корбарро ворид кунед",
+  "chatSearching": "Ҷустуҷӯи @{username}...",
+  "chatDeleteConversationBody": "Сӯҳбати худро бо {name} нест кунед? Инро баргардонидан мумкин нест.",
+  "chatQrCode": "Рамзи QR",
+  "chatDraft": "Лоиҳа: ",
+  "chatTyping": "менависад...",
+  "chatPoweredBy": "Бо дастгирии ",
+  "chatReconnecting": "Дубора пайваст шудан ба чат..."
 }

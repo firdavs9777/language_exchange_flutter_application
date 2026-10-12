@@ -3573,5 +3573,22 @@
   "announcementTitle": "公告",
   "announcementUnavailable": "此公告已無法查看。",
   "notifyAnnouncementsTitle": "公告",
-  "notifyAnnouncementsSubtitle": "來自 BananaTalk 團隊的消息與更新"
+  "notifyAnnouncementsSubtitle": "來自 BananaTalk 團隊的消息與更新",
+  "chatDailyLimitBody": "免費用戶每天最多可與 {count} 人聊天。\n升級至 VIP 即可無限暢聊!",
+  "chatCompressingVideo": "正在壓縮影片...",
+  "chatShareLocationBody": "將你目前的位置傳送給 {name}。請僅對你信任的人這樣做。",
+  "chatShareLocationThisChat": "此聊天",
+  "chatTranslationLimitReached": "已達到翻譯上限",
+  "chatTranslateLimitBody": "你在此聊天中已用完今天的免費翻譯次數。使用金幣即可立即解鎖更多。",
+  "chatReplyingTo": "正在回覆 {name}",
+  "chatReplyingToFallback": "用戶",
+  "chatSendingMedia": "正在傳送{mediaType}...",
+  "chatEnterUsernameStart": "輸入用戶名稱以開始聊天",
+  "chatSearching": "正在搜尋 @{username}...",
+  "chatDeleteConversationBody": "刪除你與 {name} 的對話?此操作無法復原。",
+  "chatQrCode": "QR 碼",
+  "chatDraft": "草稿: ",
+  "chatTyping": "正在輸入...",
+  "chatPoweredBy": "技術支援: ",
+  "chatReconnecting": "正在重新連線聊天..."
 }

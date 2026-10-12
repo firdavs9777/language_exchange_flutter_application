@@ -3855,5 +3855,22 @@
   "announcementTitle": "Anunsyo",
   "announcementUnavailable": "Hindi na available ang anunsyong ito.",
   "notifyAnnouncementsTitle": "Mga anunsyo",
-  "notifyAnnouncementsSubtitle": "Mga balita at update mula sa BananaTalk team"
+  "notifyAnnouncementsSubtitle": "Mga balita at update mula sa BananaTalk team",
+  "chatDailyLimitBody": "Ang mga libreng user ay maaaring makipag-chat sa hanggang {count} tao bawat araw.\nMag-upgrade sa VIP para sa walang limitasyong usapan!",
+  "chatCompressingVideo": "Kino-compress ang video...",
+  "chatShareLocationBody": "Ipadala ang iyong kasalukuyang lokasyon kay {name}. Gawin lang ito sa mga taong pinagkakatiwalaan mo.",
+  "chatShareLocationThisChat": "chat na ito",
+  "chatTranslationLimitReached": "Naabot na ang limitasyon sa pagsasalin",
+  "chatTranslateLimitBody": "Nagamit mo na ang mga libreng pagsasalin ngayong araw sa chat na ito. Mag-unlock ng higit pa agad gamit ang mga barya.",
+  "chatReplyingTo": "Sumasagot kay {name}",
+  "chatReplyingToFallback": "user",
+  "chatSendingMedia": "Ipinapadala ang {mediaType}...",
+  "chatEnterUsernameStart": "Maglagay ng username para magsimula ng chat",
+  "chatSearching": "Hinahanap si @{username}...",
+  "chatDeleteConversationBody": "I-delete ang iyong usapan kay {name}? Hindi na ito maibabalik.",
+  "chatQrCode": "QR Code",
+  "chatDraft": "Draft: ",
+  "chatTyping": "nagta-type...",
+  "chatPoweredBy": "Pinapagana ng ",
+  "chatReconnecting": "Muling kumokonekta sa chat..."
 }

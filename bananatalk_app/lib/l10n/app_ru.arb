@@ -3912,5 +3912,22 @@
   "announcementTitle": "Объявление",
   "announcementUnavailable": "Это объявление больше недоступно.",
   "notifyAnnouncementsTitle": "Объявления",
-  "notifyAnnouncementsSubtitle": "Новости и обновления от команды BananaTalk"
+  "notifyAnnouncementsSubtitle": "Новости и обновления от команды BananaTalk",
+  "chatDailyLimitBody": "Бесплатные пользователи могут общаться не более чем с {count} людьми в день.\nПерейдите на VIP для безлимитного общения!",
+  "chatCompressingVideo": "Сжатие видео...",
+  "chatShareLocationBody": "Отправьте своё текущее местоположение пользователю {name}. Делайте это только с теми, кому доверяете.",
+  "chatShareLocationThisChat": "этим чатом",
+  "chatTranslationLimitReached": "Достигнут лимит переводов",
+  "chatTranslateLimitBody": "Вы израсходовали бесплатные переводы на сегодня в этом чате. Разблокируйте больше мгновенно за монеты.",
+  "chatReplyingTo": "Ответ для {name}",
+  "chatReplyingToFallback": "пользователь",
+  "chatSendingMedia": "Отправка {mediaType}...",
+  "chatEnterUsernameStart": "Введите имя пользователя, чтобы начать чат",
+  "chatSearching": "Поиск @{username}...",
+  "chatDeleteConversationBody": "Удалить вашу переписку с {name}? Это действие нельзя отменить.",
+  "chatQrCode": "QR-код",
+  "chatDraft": "Черновик: ",
+  "chatTyping": "печатает...",
+  "chatPoweredBy": "При поддержке ",
+  "chatReconnecting": "Повторное подключение к чату..."
 }

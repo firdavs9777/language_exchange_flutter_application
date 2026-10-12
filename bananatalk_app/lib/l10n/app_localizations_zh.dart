@@ -9570,6 +9570,69 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get notifyAnnouncementsSubtitle => '来自 BananaTalk 团队的新闻和更新';
+
+  @override
+  String chatDailyLimitBody(Object count) {
+    return '免费用户每天最多可与 $count 人聊天。\n升级到 VIP 即可无限畅聊!';
+  }
+
+  @override
+  String get chatCompressingVideo => '正在压缩视频...';
+
+  @override
+  String chatShareLocationBody(Object name) {
+    return '将你当前的位置发送给 $name。请仅对你信任的人这样做。';
+  }
+
+  @override
+  String get chatShareLocationThisChat => '此聊天';
+
+  @override
+  String get chatTranslationLimitReached => '已达到翻译上限';
+
+  @override
+  String get chatTranslateLimitBody => '你在此聊天中已用完今天的免费翻译次数。使用金币即可立即解锁更多。';
+
+  @override
+  String chatReplyingTo(Object name) {
+    return '正在回复 $name';
+  }
+
+  @override
+  String get chatReplyingToFallback => '用户';
+
+  @override
+  String chatSendingMedia(Object mediaType) {
+    return '正在发送$mediaType...';
+  }
+
+  @override
+  String get chatEnterUsernameStart => '输入用户名以开始聊天';
+
+  @override
+  String chatSearching(Object username) {
+    return '正在搜索 @$username...';
+  }
+
+  @override
+  String chatDeleteConversationBody(Object name) {
+    return '删除你与 $name 的对话?此操作无法撤销。';
+  }
+
+  @override
+  String get chatQrCode => '二维码';
+
+  @override
+  String get chatDraft => '草稿: ';
+
+  @override
+  String get chatTyping => '正在输入...';
+
+  @override
+  String get chatPoweredBy => '技术支持: ';
+
+  @override
+  String get chatReconnecting => '正在重新连接聊天...';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -19138,4 +19201,67 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get notifyAnnouncementsSubtitle => '來自 BananaTalk 團隊的消息與更新';
+
+  @override
+  String chatDailyLimitBody(Object count) {
+    return '免費用戶每天最多可與 $count 人聊天。\n升級至 VIP 即可無限暢聊!';
+  }
+
+  @override
+  String get chatCompressingVideo => '正在壓縮影片...';
+
+  @override
+  String chatShareLocationBody(Object name) {
+    return '將你目前的位置傳送給 $name。請僅對你信任的人這樣做。';
+  }
+
+  @override
+  String get chatShareLocationThisChat => '此聊天';
+
+  @override
+  String get chatTranslationLimitReached => '已達到翻譯上限';
+
+  @override
+  String get chatTranslateLimitBody => '你在此聊天中已用完今天的免費翻譯次數。使用金幣即可立即解鎖更多。';
+
+  @override
+  String chatReplyingTo(Object name) {
+    return '正在回覆 $name';
+  }
+
+  @override
+  String get chatReplyingToFallback => '用戶';
+
+  @override
+  String chatSendingMedia(Object mediaType) {
+    return '正在傳送$mediaType...';
+  }
+
+  @override
+  String get chatEnterUsernameStart => '輸入用戶名稱以開始聊天';
+
+  @override
+  String chatSearching(Object username) {
+    return '正在搜尋 @$username...';
+  }
+
+  @override
+  String chatDeleteConversationBody(Object name) {
+    return '刪除你與 $name 的對話?此操作無法復原。';
+  }
+
+  @override
+  String get chatQrCode => 'QR 碼';
+
+  @override
+  String get chatDraft => '草稿: ';
+
+  @override
+  String get chatTyping => '正在輸入...';
+
+  @override
+  String get chatPoweredBy => '技術支援: ';
+
+  @override
+  String get chatReconnecting => '正在重新連線聊天...';
 }

@@ -17581,6 +17581,108 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'News and updates from the BananaTalk team'**
   String get notifyAnnouncementsSubtitle;
+
+  /// No description provided for @chatDailyLimitBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Free users can chat with up to {count} people per day.\nUpgrade to VIP for unlimited conversations!'**
+  String chatDailyLimitBody(Object count);
+
+  /// No description provided for @chatCompressingVideo.
+  ///
+  /// In en, this message translates to:
+  /// **'Compressing video...'**
+  String get chatCompressingVideo;
+
+  /// No description provided for @chatShareLocationBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Send your current location to {name}. Only do this with people you trust.'**
+  String chatShareLocationBody(Object name);
+
+  /// No description provided for @chatShareLocationThisChat.
+  ///
+  /// In en, this message translates to:
+  /// **'this chat'**
+  String get chatShareLocationThisChat;
+
+  /// No description provided for @chatTranslationLimitReached.
+  ///
+  /// In en, this message translates to:
+  /// **'Translation limit reached'**
+  String get chatTranslationLimitReached;
+
+  /// No description provided for @chatTranslateLimitBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'ve used up today\'s free translations in this chat. Unlock more instantly with coins.'**
+  String get chatTranslateLimitBody;
+
+  /// No description provided for @chatReplyingTo.
+  ///
+  /// In en, this message translates to:
+  /// **'Replying to {name}'**
+  String chatReplyingTo(Object name);
+
+  /// No description provided for @chatReplyingToFallback.
+  ///
+  /// In en, this message translates to:
+  /// **'user'**
+  String get chatReplyingToFallback;
+
+  /// No description provided for @chatSendingMedia.
+  ///
+  /// In en, this message translates to:
+  /// **'Sending {mediaType}...'**
+  String chatSendingMedia(Object mediaType);
+
+  /// No description provided for @chatEnterUsernameStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter username to start a chat'**
+  String get chatEnterUsernameStart;
+
+  /// No description provided for @chatSearching.
+  ///
+  /// In en, this message translates to:
+  /// **'Searching for @{username}...'**
+  String chatSearching(Object username);
+
+  /// No description provided for @chatDeleteConversationBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete your conversation with {name}? This cannot be undone.'**
+  String chatDeleteConversationBody(Object name);
+
+  /// No description provided for @chatQrCode.
+  ///
+  /// In en, this message translates to:
+  /// **'QR Code'**
+  String get chatQrCode;
+
+  /// No description provided for @chatDraft.
+  ///
+  /// In en, this message translates to:
+  /// **'Draft: '**
+  String get chatDraft;
+
+  /// No description provided for @chatTyping.
+  ///
+  /// In en, this message translates to:
+  /// **'typing...'**
+  String get chatTyping;
+
+  /// No description provided for @chatPoweredBy.
+  ///
+  /// In en, this message translates to:
+  /// **'Powered by '**
+  String get chatPoweredBy;
+
+  /// No description provided for @chatReconnecting.
+  ///
+  /// In en, this message translates to:
+  /// **'Reconnecting to chat...'**
+  String get chatReconnecting;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

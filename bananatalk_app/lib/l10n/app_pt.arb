@@ -3898,5 +3898,22 @@
   "announcementTitle": "Anúncio",
   "announcementUnavailable": "Este anúncio não está mais disponível.",
   "notifyAnnouncementsTitle": "Anúncios",
-  "notifyAnnouncementsSubtitle": "Novidades e atualizações da equipe BananaTalk"
+  "notifyAnnouncementsSubtitle": "Novidades e atualizações da equipe BananaTalk",
+  "chatDailyLimitBody": "Usuários gratuitos podem conversar com até {count} pessoas por dia.\nAssine o VIP para conversas ilimitadas!",
+  "chatCompressingVideo": "Comprimindo vídeo...",
+  "chatShareLocationBody": "Envie sua localização atual para {name}. Faça isso apenas com pessoas de confiança.",
+  "chatShareLocationThisChat": "este chat",
+  "chatTranslationLimitReached": "Limite de tradução atingido",
+  "chatTranslateLimitBody": "Você usou as traduções gratuitas de hoje neste chat. Desbloqueie mais na hora com moedas.",
+  "chatReplyingTo": "Respondendo a {name}",
+  "chatReplyingToFallback": "usuário",
+  "chatSendingMedia": "Enviando {mediaType}...",
+  "chatEnterUsernameStart": "Digite um nome de usuário para iniciar um chat",
+  "chatSearching": "Procurando por @{username}...",
+  "chatDeleteConversationBody": "Excluir sua conversa com {name}? Isso não pode ser desfeito.",
+  "chatQrCode": "Código QR",
+  "chatDraft": "Rascunho: ",
+  "chatTyping": "digitando...",
+  "chatPoweredBy": "Fornecido por ",
+  "chatReconnecting": "Reconectando ao chat..."
 }

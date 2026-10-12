@@ -3882,5 +3882,22 @@
   "announcementTitle": "Thông báo",
   "announcementUnavailable": "Thông báo này không còn khả dụng.",
   "notifyAnnouncementsTitle": "Thông báo",
-  "notifyAnnouncementsSubtitle": "Tin tức và cập nhật từ đội ngũ BananaTalk"
+  "notifyAnnouncementsSubtitle": "Tin tức và cập nhật từ đội ngũ BananaTalk",
+  "chatDailyLimitBody": "Người dùng miễn phí có thể trò chuyện với tối đa {count} người mỗi ngày.\nNâng cấp lên VIP để trò chuyện không giới hạn!",
+  "chatCompressingVideo": "Đang nén video...",
+  "chatShareLocationBody": "Gửi vị trí hiện tại của bạn cho {name}. Chỉ làm vậy với những người bạn tin tưởng.",
+  "chatShareLocationThisChat": "cuộc trò chuyện này",
+  "chatTranslationLimitReached": "Đã đạt giới hạn dịch",
+  "chatTranslateLimitBody": "Bạn đã dùng hết lượt dịch miễn phí hôm nay trong cuộc trò chuyện này. Mở khóa thêm ngay bằng xu.",
+  "chatReplyingTo": "Đang trả lời {name}",
+  "chatReplyingToFallback": "người dùng",
+  "chatSendingMedia": "Đang gửi {mediaType}...",
+  "chatEnterUsernameStart": "Nhập tên người dùng để bắt đầu trò chuyện",
+  "chatSearching": "Đang tìm @{username}...",
+  "chatDeleteConversationBody": "Xóa cuộc trò chuyện của bạn với {name}? Không thể hoàn tác thao tác này.",
+  "chatQrCode": "Mã QR",
+  "chatDraft": "Bản nháp: ",
+  "chatTyping": "đang nhập...",
+  "chatPoweredBy": "Cung cấp bởi ",
+  "chatReconnecting": "Đang kết nối lại với cuộc trò chuyện..."
 }

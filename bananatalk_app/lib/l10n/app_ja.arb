@@ -3882,5 +3882,22 @@
   "announcementTitle": "お知らせ",
   "announcementUnavailable": "このお知らせは現在ご覧いただけません。",
   "notifyAnnouncementsTitle": "お知らせ",
-  "notifyAnnouncementsSubtitle": "BananaTalkチームからのニュースとアップデート"
+  "notifyAnnouncementsSubtitle": "BananaTalkチームからのニュースとアップデート",
+  "chatDailyLimitBody": "無料ユーザーは1日に最大{count}人までチャットできます。\nVIPにアップグレードすると無制限に会話できます!",
+  "chatCompressingVideo": "動画を圧縮しています...",
+  "chatShareLocationBody": "現在地を{name}に送信します。信頼できる相手にのみ送信してください。",
+  "chatShareLocationThisChat": "このチャット",
+  "chatTranslationLimitReached": "翻訳の上限に達しました",
+  "chatTranslateLimitBody": "このチャットでの本日の無料翻訳を使い切りました。コインですぐにさらにロック解除できます。",
+  "chatReplyingTo": "{name}に返信中",
+  "chatReplyingToFallback": "ユーザー",
+  "chatSendingMedia": "{mediaType}を送信中...",
+  "chatEnterUsernameStart": "チャットを始めるにはユーザー名を入力してください",
+  "chatSearching": "@{username}を検索中...",
+  "chatDeleteConversationBody": "{name}との会話を削除しますか?この操作は元に戻せません。",
+  "chatQrCode": "QRコード",
+  "chatDraft": "下書き: ",
+  "chatTyping": "入力中...",
+  "chatPoweredBy": "提供: ",
+  "chatReconnecting": "チャットに再接続中..."
 }

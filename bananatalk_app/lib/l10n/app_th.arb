@@ -3882,5 +3882,22 @@
   "announcementTitle": "ประกาศ",
   "announcementUnavailable": "ประกาศนี้ไม่พร้อมใช้งานแล้ว",
   "notifyAnnouncementsTitle": "ประกาศ",
-  "notifyAnnouncementsSubtitle": "ข่าวสารและอัปเดตจากทีม BananaTalk"
+  "notifyAnnouncementsSubtitle": "ข่าวสารและอัปเดตจากทีม BananaTalk",
+  "chatDailyLimitBody": "ผู้ใช้ฟรีแชทได้สูงสุด {count} คนต่อวัน\nอัปเกรดเป็น VIP เพื่อสนทนาได้ไม่จำกัด!",
+  "chatCompressingVideo": "กำลังบีบอัดวิดีโอ...",
+  "chatShareLocationBody": "ส่งตำแหน่งปัจจุบันของคุณให้ {name} ทำเฉพาะกับคนที่คุณไว้ใจเท่านั้น",
+  "chatShareLocationThisChat": "แชทนี้",
+  "chatTranslationLimitReached": "ถึงขีดจำกัดการแปลแล้ว",
+  "chatTranslateLimitBody": "คุณใช้สิทธิ์แปลฟรีของวันนี้ในแชทนี้หมดแล้ว ปลดล็อกเพิ่มได้ทันทีด้วยเหรียญ",
+  "chatReplyingTo": "กำลังตอบกลับ {name}",
+  "chatReplyingToFallback": "ผู้ใช้",
+  "chatSendingMedia": "กำลังส่ง{mediaType}...",
+  "chatEnterUsernameStart": "ป้อนชื่อผู้ใช้เพื่อเริ่มแชท",
+  "chatSearching": "กำลังค้นหา @{username}...",
+  "chatDeleteConversationBody": "ลบการสนทนาของคุณกับ {name} หรือไม่ การดำเนินการนี้ไม่สามารถย้อนกลับได้",
+  "chatQrCode": "คิวอาร์โค้ด",
+  "chatDraft": "ฉบับร่าง: ",
+  "chatTyping": "กำลังพิมพ์...",
+  "chatPoweredBy": "ขับเคลื่อนโดย ",
+  "chatReconnecting": "กำลังเชื่อมต่อแชทอีกครั้ง..."
 }

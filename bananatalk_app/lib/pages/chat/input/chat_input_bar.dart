@@ -263,7 +263,10 @@ class _ChatInputBarState extends ConsumerState<ChatInputBar>
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  'Replying to ${widget.otherUserName ?? "user"}',
+                  AppLocalizations.of(context)!.chatReplyingTo(
+                    widget.otherUserName ??
+                        AppLocalizations.of(context)!.chatReplyingToFallback,
+                  ),
                   style: TextStyle(
                     fontSize: 11,
                     fontWeight: FontWeight.w600,

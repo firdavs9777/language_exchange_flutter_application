@@ -9577,4 +9577,67 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get notifyAnnouncementsSubtitle => 'Berita dan pembaruan dari tim BananaTalk';
+
+  @override
+  String chatDailyLimitBody(Object count) {
+    return 'Pengguna gratis dapat mengobrol dengan hingga $count orang per hari.\nUpgrade ke VIP untuk percakapan tanpa batas!';
+  }
+
+  @override
+  String get chatCompressingVideo => 'Mengompres video...';
+
+  @override
+  String chatShareLocationBody(Object name) {
+    return 'Kirim lokasi Anda saat ini ke $name. Lakukan hanya dengan orang yang Anda percaya.';
+  }
+
+  @override
+  String get chatShareLocationThisChat => 'obrolan ini';
+
+  @override
+  String get chatTranslationLimitReached => 'Batas terjemahan tercapai';
+
+  @override
+  String get chatTranslateLimitBody => 'Anda telah menggunakan terjemahan gratis hari ini di obrolan ini. Buka lebih banyak seketika dengan koin.';
+
+  @override
+  String chatReplyingTo(Object name) {
+    return 'Membalas $name';
+  }
+
+  @override
+  String get chatReplyingToFallback => 'pengguna';
+
+  @override
+  String chatSendingMedia(Object mediaType) {
+    return 'Mengirim $mediaType...';
+  }
+
+  @override
+  String get chatEnterUsernameStart => 'Masukkan nama pengguna untuk memulai obrolan';
+
+  @override
+  String chatSearching(Object username) {
+    return 'Mencari @$username...';
+  }
+
+  @override
+  String chatDeleteConversationBody(Object name) {
+    return 'Hapus percakapan Anda dengan $name? Tindakan ini tidak dapat dibatalkan.';
+  }
+
+  @override
+  String get chatQrCode => 'Kode QR';
+
+  @override
+  String get chatDraft => 'Draf: ';
+
+  @override
+  String get chatTyping => 'sedang mengetik...';
+
+  @override
+  String get chatPoweredBy => 'Didukung oleh ';
+
+  @override
+  String get chatReconnecting => 'Menyambungkan kembali ke obrolan...';
 }

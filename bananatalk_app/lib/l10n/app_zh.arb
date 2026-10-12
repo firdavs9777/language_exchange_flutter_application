@@ -3896,5 +3896,22 @@
   "announcementTitle": "公告",
   "announcementUnavailable": "此公告已不可用。",
   "notifyAnnouncementsTitle": "公告",
-  "notifyAnnouncementsSubtitle": "来自 BananaTalk 团队的新闻和更新"
+  "notifyAnnouncementsSubtitle": "来自 BananaTalk 团队的新闻和更新",
+  "chatDailyLimitBody": "免费用户每天最多可与 {count} 人聊天。\n升级到 VIP 即可无限畅聊!",
+  "chatCompressingVideo": "正在压缩视频...",
+  "chatShareLocationBody": "将你当前的位置发送给 {name}。请仅对你信任的人这样做。",
+  "chatShareLocationThisChat": "此聊天",
+  "chatTranslationLimitReached": "已达到翻译上限",
+  "chatTranslateLimitBody": "你在此聊天中已用完今天的免费翻译次数。使用金币即可立即解锁更多。",
+  "chatReplyingTo": "正在回复 {name}",
+  "chatReplyingToFallback": "用户",
+  "chatSendingMedia": "正在发送{mediaType}...",
+  "chatEnterUsernameStart": "输入用户名以开始聊天",
+  "chatSearching": "正在搜索 @{username}...",
+  "chatDeleteConversationBody": "删除你与 {name} 的对话?此操作无法撤销。",
+  "chatQrCode": "二维码",
+  "chatDraft": "草稿: ",
+  "chatTyping": "正在输入...",
+  "chatPoweredBy": "技术支持: ",
+  "chatReconnecting": "正在重新连接聊天..."
 }

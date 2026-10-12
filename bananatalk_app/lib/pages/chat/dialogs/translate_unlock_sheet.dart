@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/widgets/coins/unlock_cta.dart';
 
@@ -17,11 +18,13 @@ Future<bool> showTranslateUnlockSheet(BuildContext context) async {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Translation limit reached', style: ctx.titleMedium),
+          Text(
+            AppLocalizations.of(ctx)!.chatTranslationLimitReached,
+            style: ctx.titleMedium,
+          ),
           const SizedBox(height: 8),
           Text(
-            'You\'ve used up today\'s free translations in this chat. '
-            'Unlock more instantly with coins.',
+            AppLocalizations.of(ctx)!.chatTranslateLimitBody,
             style: ctx.bodyMedium.copyWith(color: ctx.textSecondary),
           ),
           const SizedBox(height: 16),
