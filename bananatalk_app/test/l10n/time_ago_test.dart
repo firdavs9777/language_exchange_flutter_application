@@ -48,4 +48,19 @@ void main() {
     expect(fmt(const Locale('es'), short: true), isNot(fmt(const Locale('es'))));
     expect(fmt(const Locale('ja'), short: true), fmt(const Locale('ja')));
   });
+
+  test('app locale → timeago key: zh_TW→zh, bare zh→zh_cn, tg→en (rendered)', () {
+    const zhTw = Locale('zh', 'TW');
+    const zh = Locale('zh');
+    const tg = Locale('tg');
+    expect(timeAgoLocaleKey(zhTw), 'zh');
+    expect(timeAgoLocaleKey(zh), 'zh_cn');
+    expect(timeAgoLocaleKey(tg), 'en');
+    // Traditional 小時 vs Simplified 小时: the two Chinese locales really differ.
+    final twoHoursAgo = now.subtract(const Duration(hours: 2));
+    expect(formatTimeAgo(zhTw, twoHoursAgo, now: now), contains('小時'));
+    expect(formatTimeAgo(zh, twoHoursAgo, now: now), contains('小时'));
+    expect(fmt(tg), '5 minutes ago');
+    expect(fmt(tg, short: true), '5m');
+  });
 }

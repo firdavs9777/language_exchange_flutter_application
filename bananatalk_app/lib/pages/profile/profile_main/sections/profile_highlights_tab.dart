@@ -33,62 +33,92 @@ class ProfileHighlightsTab extends StatelessWidget {
 // Profile completion card
 // ---------------------------------------------------------------------------
 
+/// The fields the completion card counts. Keyed by this stable id, never by
+/// the localized label: two labels that translate to the same word in some
+/// locale would collapse into one map entry and skew the percentage.
+enum ProfileCompletionField {
+  picture,
+  name,
+  bio,
+  nativeLanguage,
+  learningLanguage,
+  location,
+  topics,
+  mbti,
+  birthYear,
+  intents;
+
+  String label(AppLocalizations l10n) => switch (this) {
+        picture => l10n.profilePicture,
+        name => l10n.nameLabel,
+        bio => l10n.bio,
+        nativeLanguage => l10n.nativeLanguage,
+        learningLanguage => l10n.learningLanguageLabel,
+        location => l10n.location,
+        topics => l10n.topics,
+        mbti => l10n.mbti,
+        birthYear => l10n.profileBirthYear,
+        intents => l10n.intentSectionTitle,
+      };
+}
+
+/// Percentage of [ProfileCompletionField]s [user] has filled, and the first
+/// three missing ones.
+({int percentage, List<ProfileCompletionField> missing}) calculateProfileCompletion(
+    Community user) {
+  final fields = <ProfileCompletionField, bool>{
+    ProfileCompletionField.picture: user.imageUrls.isNotEmpty,
+    ProfileCompletionField.name: user.name.isNotEmpty,
+    ProfileCompletionField.bio: user.bio.isNotEmpty,
+    ProfileCompletionField.nativeLanguage: user.native_language.isNotEmpty,
+    ProfileCompletionField.learningLanguage: user.language_to_learn.isNotEmpty,
+    ProfileCompletionField.location:
+        user.location.country.isNotEmpty || user.location.city.isNotEmpty,
+    ProfileCompletionField.topics: user.topics.isNotEmpty,
+    ProfileCompletionField.mbti: user.mbti.isNotEmpty,
+    ProfileCompletionField.birthYear: user.birth_year.isNotEmpty,
+    ProfileCompletionField.intents: user.intents.isNotEmpty,
+  };
+  final completed = fields.values.where((v) => v).length;
+  final percentage = (completed / fields.length * 100).round();
+  final missing =
+      fields.entries.where((e) => !e.value).map((e) => e.key).take(3).toList();
+  return (percentage: percentage, missing: missing);
+}
+
+/// The status line under "Profile completion" for [percentage].
+String profileCompletionStatus(AppLocalizations l10n, int percentage) {
+  if (percentage < 50) return l10n.justGettingStarted;
+  if (percentage < 80) return l10n.lookingGood;
+  return l10n.almostThere;
+}
+
 class _ProfileCompletionCard extends StatelessWidget {
   const _ProfileCompletionCard({required this.user});
   final Community user;
 
-  static Map<String, dynamic> _calculate(
-    Community user,
-    AppLocalizations l10n,
-  ) {
-    final fields = <String, bool>{
-      l10n.profilePicture: user.imageUrls.isNotEmpty,
-      l10n.nameLabel: user.name.isNotEmpty,
-      l10n.bio: user.bio.isNotEmpty,
-      l10n.nativeLanguage: user.native_language.isNotEmpty,
-      l10n.learningLanguageLabel: user.language_to_learn.isNotEmpty,
-      l10n.location:
-          user.location.country.isNotEmpty || user.location.city.isNotEmpty,
-      l10n.topics: user.topics.isNotEmpty,
-      l10n.mbti: user.mbti.isNotEmpty,
-      l10n.profileBirthYear: user.birth_year.isNotEmpty,
-      l10n.intentSectionTitle: user.intents.isNotEmpty,
-    };
-    final completed = fields.values.where((v) => v).length;
-    final percentage = (completed / fields.length * 100).round();
-    final missing = fields.entries
-        .where((e) => !e.value)
-        .map((e) => e.key)
-        .take(3)
-        .toList();
-    return {'percentage': percentage, 'missing': missing};
-  }
-
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final completion = _calculate(user, l10n);
-    final percentage = completion['percentage'] as int;
-    final missing = completion['missing'] as List<String>;
+    final completion = calculateProfileCompletion(user);
+    final percentage = completion.percentage;
+    final missing = [for (final f in completion.missing) f.label(l10n)];
 
     if (percentage >= 100) return const SizedBox.shrink();
 
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
+    final statusText = profileCompletionStatus(l10n, percentage);
     Color color;
-    String statusText;
     IconData statusIcon;
     if (percentage < 50) {
       color = const Color(0xFFFF9800);
-      statusText = 'Just getting started';
       statusIcon = Icons.rocket_launch_rounded;
     } else if (percentage < 80) {
       color = const Color(0xFF2196F3);
-      statusText = 'Looking good!';
       statusIcon = Icons.trending_up_rounded;
     } else {
       color = AppColors.primary;
-      statusText = 'Almost there!';
       statusIcon = Icons.celebration_rounded;
     }
 

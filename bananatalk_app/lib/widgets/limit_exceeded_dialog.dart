@@ -59,6 +59,34 @@ Future<String> runRewardedUnlock({
   return outcome.result;
 }
 
+/// The app's own limit-reached sentence for [limitType] (shared by
+/// [LimitExceededDialog] and `FeatureGate`); unknown types get the generic one.
+String limitTypeDescription(AppLocalizations l10n, String limitType) {
+  switch (limitType.toLowerCase()) {
+    case 'message':
+    case 'messages':
+      return l10n.limitDescMessages;
+    case 'moment':
+    case 'moments':
+      return l10n.limitDescMoments;
+    case 'story':
+    case 'stories':
+      return l10n.limitDescStories;
+    case 'comment':
+    case 'comments':
+      return l10n.limitDescComments;
+    case 'profile':
+    case 'profileview':
+    case 'profileviews':
+      return l10n.limitDescProfileViews;
+    case 'wave':
+    case 'waves':
+      return l10n.waveLimitBody;
+    default:
+      return l10n.limitDescDefault;
+  }
+}
+
 /// True for the daily wave cap surface (`limitType: 'wave'`).
 bool isWaveLimitType(String limitType) {
   final t = limitType.toLowerCase();
@@ -130,31 +158,8 @@ class LimitExceededDialog extends ConsumerWidget {
     }
   }
 
-  String _getLimitTypeDescription(AppLocalizations l10n) {
-    switch (limitType.toLowerCase()) {
-      case 'message':
-      case 'messages':
-        return l10n.limitDescMessages;
-      case 'moment':
-      case 'moments':
-        return l10n.limitDescMoments;
-      case 'story':
-      case 'stories':
-        return l10n.limitDescStories;
-      case 'comment':
-      case 'comments':
-        return l10n.limitDescComments;
-      case 'profile':
-      case 'profileview':
-      case 'profileviews':
-        return l10n.limitDescProfileViews;
-      case 'wave':
-      case 'waves':
-        return l10n.waveLimitBody;
-      default:
-        return l10n.limitDescDefault;
-    }
-  }
+  String _getLimitTypeDescription(AppLocalizations l10n) =>
+      limitTypeDescription(l10n, limitType);
 
   /// Maps a daily-limit surface to its à-la-carte coin unlock key. The
   /// message cap maps to `dm` (extra direct messages today — backend

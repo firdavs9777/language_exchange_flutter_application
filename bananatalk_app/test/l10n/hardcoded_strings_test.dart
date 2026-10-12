@@ -486,6 +486,13 @@ const Map<String, List<String>> _keysByTask = {
     'coinsAdCrediting',
     'coinsWatchAdReward',
   ],
+  // Final fix wave: the profile-completion status line (final review Minor 8)
+  // reuses these existing, already-translated keys.
+  'final-fix': [
+    'justGettingStarted',
+    'lookingGood',
+    'almostThere',
+  ],
 };
 
 /// Files (under lib/) each task must leave with no English Text literal.
@@ -688,6 +695,9 @@ const Map<String, List<String>> _filesByTask = {
     'widgets/visitor_limit_dialog.dart',
     'widgets/voice_recorder/voice_recorder_stub.dart',
     'widgets/welcome_back_modal.dart',
+  ],
+  'final-fix': [
+    'pages/profile/profile_main/sections/profile_highlights_tab.dart',
   ],
 };
 

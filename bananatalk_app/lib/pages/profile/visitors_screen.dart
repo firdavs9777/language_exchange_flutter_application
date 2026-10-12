@@ -906,24 +906,7 @@ class _ProfileVisitorsScreenState
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 3,
-                      ),
-                      decoration: BoxDecoration(
-                        color: context.containerColor,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Text(
-                        lastVisitShort,
-                        style: context.captionSmall.copyWith(
-                          color: context.textSecondary,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 10,
-                        ),
-                      ),
-                    ),
+                    VisitTimeBadge(text: lastVisitShort),
                     const SizedBox(height: 6),
                     Icon(
                       Icons.chevron_right_rounded,
@@ -976,5 +959,39 @@ class _ProfileVisitorsScreenState
           color: const Color(0xFF607D8B),
         );
     }
+  }
+}
+
+/// The "last visit" time chip. Localized relative times can be long (only
+/// en/es have a compact timeago style), so it is one line, capped in width
+/// and ellipsized instead of squeezing the visitor's name.
+class VisitTimeBadge extends StatelessWidget {
+  const VisitTimeBadge({super.key, required this.text});
+
+  static const double maxWidth = 96;
+
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      constraints: const BoxConstraints(maxWidth: maxWidth),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+      decoration: BoxDecoration(
+        color: context.containerColor,
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Text(
+        text,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+        softWrap: false,
+        style: context.captionSmall.copyWith(
+          color: context.textSecondary,
+          fontWeight: FontWeight.w600,
+          fontSize: 10,
+        ),
+      ),
+    );
   }
 }

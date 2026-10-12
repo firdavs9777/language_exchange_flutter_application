@@ -7,6 +7,7 @@ import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/widgets/community/user_skeleton.dart';
 import 'package:intl/intl.dart';
+import 'package:bananatalk_app/utils/date_format_locale.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/pages/settings/widgets/settings_snackbar.dart';
 
@@ -297,8 +298,7 @@ class _BlockedUsersScreenState extends State<BlockedUsersScreen> {
       if (difference == 1) return l10n.yesterday;
       if (difference < 7) return l10n.daysAgo(difference);
 
-      final locale = Localizations.localeOf(context).toString();
-      return DateFormat.yMd(locale).format(dateTime);
+      return formatNumericDateForLocale(context, dateTime);
     } catch (_) {
       return DateFormat.yMd().format(dateTime);
     }

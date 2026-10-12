@@ -5,6 +5,7 @@ import 'package:bananatalk_app/models/user_limits.dart';
 import 'package:bananatalk_app/providers/provider_models/users_model.dart';
 import 'package:bananatalk_app/widgets/visitor_limit_dialog.dart';
 import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
+import 'package:bananatalk_app/widgets/limit_exceeded_dialog.dart';
 
 class FeatureGate {
   /// Check if user can send a message
@@ -162,7 +163,7 @@ class FeatureGate {
       context: context,
       builder: (context) => AlertDialog(
         title: Text(l10n.limitDailyReachedTitle),
-        content: Text(errorMessage ?? _limitDescription(l10n, limitType)),
+        content: Text(errorMessage ?? limitTypeDescription(l10n, limitType)),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
@@ -185,33 +186,6 @@ class FeatureGate {
     );
   }
 
-  /// The app's own limit-reached sentence for [limitType]. Mirrors the switch
-  /// in LimitExceededDialog; unknown types get the generic sentence.
-  static String _limitDescription(AppLocalizations l10n, String limitType) {
-    switch (limitType.toLowerCase()) {
-      case 'message':
-      case 'messages':
-        return l10n.limitDescMessages;
-      case 'moment':
-      case 'moments':
-        return l10n.limitDescMoments;
-      case 'story':
-      case 'stories':
-        return l10n.limitDescStories;
-      case 'comment':
-      case 'comments':
-        return l10n.limitDescComments;
-      case 'profile':
-      case 'profileview':
-      case 'profileviews':
-        return l10n.limitDescProfileViews;
-      case 'wave':
-      case 'waves':
-        return l10n.waveLimitBody;
-      default:
-        return l10n.limitDescDefault;
-    }
-  }
 
   /// Wrap a widget with feature gate logic
   static Widget wrapWithFeatureGate({

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -9,6 +11,32 @@ void main() {
 
   test('tg has no intl date symbols and must not throw', () {
     expect(formatDateTimeForLocaleName('tg', dt), isNotEmpty);
+  });
+
+  test('tg month-day and numeric helpers fall back to English, no throw', () {
+    expect(formatMonthDayForLocaleName('tg', dt), 'Oct 12');
+    expect(formatMonthDayForLocaleName('ru', dt), isNot('Oct 12'));
+  });
+
+  test('no DateFormat in lib/ takes a runtime locale outside the safe helpers', () {
+    // Tajik (tg) has no intl date symbols: DateFormat.x(locale) throws in
+    // build. Use lib/utils/date_format_locale.dart instead.
+    final call = RegExp(r"DateFormat(?:\.\w+)?\(\s*([^)]*)\)");
+    final literalOnly = RegExp(r"""^(\s*'[^']*'\s*,?)*$""");
+    final offenders = <String>[];
+    for (final f in Directory('lib').listSync(recursive: true)) {
+      if (f is! File || !f.path.endsWith('.dart')) continue;
+      if (f.path.endsWith('date_format_locale.dart') || f.path.contains('/l10n/')) continue;
+      final src = f.readAsStringSync();
+      for (final m in call.allMatches(src)) {
+        final args = m.group(1)!.trim();
+        if (args.isEmpty || literalOnly.hasMatch(args)) continue;
+        // DateFormat(pattern): the one argument is a pattern, not a locale.
+        if (!m.group(0)!.startsWith('DateFormat.') && !args.contains(',')) continue;
+        offenders.add('${f.path}: ${m.group(0)}');
+      }
+    }
+    expect(offenders, isEmpty, reason: offenders.join('\n'));
   });
 
   test('every app locale formats without throwing', () {
