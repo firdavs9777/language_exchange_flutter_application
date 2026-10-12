@@ -268,4 +268,44 @@ void main() {
     expect(prefs.getBool(GuideSurface.chatTip.actedKey), isNull);
     expect(events.where((e) => e.$1 == 'guide_cta_tapped'), isEmpty);
   });
+
+  testWidgets(
+    'group room: rows from different senders share one claim, no flip',
+    (tester) async {
+      // Every row of a room carries the room id, whoever wrote the message.
+      Widget rows() => _wrap(const [
+        ChatTipRow(key: ValueKey('m1'), messageId: 'm1', chatId: 'room1'),
+        ChatTipRow(key: ValueKey('m2'), messageId: 'm2', chatId: 'room1'),
+        ChatTipRow(key: ValueKey('m3'), messageId: 'm3', chatId: 'room1'),
+      ]);
+      await tester.pumpWidget(rows());
+      await tester.pumpAndSettle();
+      expect(find.text(_tip), findsOneWidget);
+      final c = ProviderScope.containerOf(
+        tester.element(find.byType(ChatTipRow).first),
+      );
+      expect(c.read(chatTipClaimProvider).messageId, 'm1');
+      for (var i = 0; i < 3; i++) {
+        await tester.pumpWidget(rows());
+        await tester.pumpAndSettle();
+      }
+      expect(find.text(_tip), findsOneWidget);
+      expect(c.read(chatTipClaimProvider).messageId, 'm1');
+    },
+  );
+
+  test('message list passes the room id in group mode, none means no tip', () {
+    final list = File(
+      'lib/pages/chat/message/messages_list.dart',
+    ).readAsStringSync();
+    expect(list, contains('isGroup\n                    ? conversationId'));
+    final room = File(
+      'lib/pages/community/rooms/room_screen.dart',
+    ).readAsStringSync();
+    expect(room, contains('conversationId: _room.id'));
+    final bubble = File(
+      'lib/pages/chat/message/message_bubble.dart',
+    ).readAsStringSync();
+    expect(bubble, contains('if (widget.tipChatId != null)'));
+  });
 }

@@ -58,6 +58,9 @@ class ChatMessageBubble extends ConsumerStatefulWidget {
   final bool isFirstInGroup;
   final bool isLastInGroup;
 
+  /// Conversation key for the chat tip; null mounts no tip.
+  final String? tipChatId;
+
   /// Workstream D (Task 11) — reports a message (long-press menu). `null`
   /// (the default used everywhere in 1-on-1 chat) hides the menu item, so
   /// the existing DM context menu is unchanged.
@@ -86,6 +89,7 @@ class ChatMessageBubble extends ConsumerStatefulWidget {
     this.isFirstInGroup = true,
     this.isLastInGroup = true,
     this.onReport,
+    this.tipChatId,
   });
 
   @override
@@ -1525,10 +1529,11 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
                       widget.message.message != null &&
                       widget.message.message!.isNotEmpty &&
                       !widget.isSelectionMode) ...[
-                    ChatTipRow(
-                      messageId: widget.message.id,
-                      chatId: widget.message.sender.id,
-                    ),
+                    if (widget.tipChatId != null)
+                      ChatTipRow(
+                        messageId: widget.message.id,
+                        chatId: widget.tipChatId!,
+                      ),
                     if (_inlineTranslation != null)
                       Padding(
                         padding: const EdgeInsets.only(

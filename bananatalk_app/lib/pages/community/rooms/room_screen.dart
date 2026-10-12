@@ -594,6 +594,7 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
           if (_dailyPrompt != null) _DailyPromptCard(message: _dailyPrompt!),
           Expanded(
             child: ChatMessagesList(
+              conversationId: _room.id,
               isLoading: _isLoading,
               error: _error,
               messages: _messages,
