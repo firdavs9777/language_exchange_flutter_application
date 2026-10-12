@@ -10788,6 +10788,103 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get vipUpgradeNow => '立即升级';
+
+  @override
+  String get commonContinueWhereLeftOff => '从上次离开的地方继续吗？';
+
+  @override
+  String get commonLanguageNotProvided => '未提供语言';
+
+  @override
+  String get commonExamNotProvided => '未提供考试';
+
+  @override
+  String get commonMuted => '已静音';
+
+  @override
+  String get commonPoorConnection => '连接较差';
+
+  @override
+  String commonBlockUserConfirmBody(Object targetUserName) {
+    return '确定要屏蔽$targetUserName吗？\n\n你将不再看到对方的消息和动态，双方也不会出现在彼此的搜索结果中。';
+  }
+
+  @override
+  String get commonVideoFile => '视频文件';
+
+  @override
+  String get commonPointCameraBananatalkQr => '请将相机对准 Bananatalk 二维码';
+
+  @override
+  String get commonReportSubmittedButSome => '举报已提交，但部分证据上传失败';
+
+  @override
+  String commonReportTitle(Object typeLabel) {
+    return '举报$typeLabel';
+  }
+
+  @override
+  String commonWhyReporting(Object typeLabel) {
+    return '你为什么要举报这个$typeLabel？';
+  }
+
+  @override
+  String get commonAddEvidenceRequired => '添加证据（必填）';
+
+  @override
+  String get commonUploadScreenshotsTextFiles => '上传截图或文本文件以支持你的举报';
+
+  @override
+  String commonAddEvidenceCount(Object count, Object maxFiles) {
+    return '添加证据（$count/$maxFiles）';
+  }
+
+  @override
+  String commonReportTotalSize(Object max, Object used) {
+    return '总计：$used / $max';
+  }
+
+  @override
+  String get commonEvidence => '证据';
+
+  @override
+  String get commonImageFailed => '图片加载失败';
+
+  @override
+  String get commonShowMore => '显示更多';
+
+  @override
+  String get commonVoiceRecordingNotAvailable => '语音录制不可用';
+
+  @override
+  String get commonVoiceRecordingOnlyAvailable => '语音录制仅在移动设备上可用。';
+
+  @override
+  String get commonReportSubmittedSuccessfully => '举报提交成功';
+
+  @override
+  String get commonErrorLoadingFile => '加载文件出错';
+
+  @override
+  String get commonReportTypeUser => '用户';
+
+  @override
+  String get commonReportTypeMoment => '动态';
+
+  @override
+  String get commonReportTypeComment => '评论';
+
+  @override
+  String get commonReportTypeMessage => '消息';
+
+  @override
+  String get commonReportTypeStory => '快拍';
+
+  @override
+  String get commonReportTypeContent => '内容';
+
+  @override
+  String get commonReportReasonCopyright => '侵犯版权';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -21574,4 +21671,101 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get vipUpgradeNow => '立即升級';
+
+  @override
+  String get commonContinueWhereLeftOff => '要從上次離開的地方繼續嗎？';
+
+  @override
+  String get commonLanguageNotProvided => '未提供語言';
+
+  @override
+  String get commonExamNotProvided => '未提供考試';
+
+  @override
+  String get commonMuted => '已靜音';
+
+  @override
+  String get commonPoorConnection => '連線不佳';
+
+  @override
+  String commonBlockUserConfirmBody(Object targetUserName) {
+    return '確定要封鎖$targetUserName嗎？\n\n你將不再看到對方的訊息和貼文，雙方也不會出現在彼此的搜尋結果中。';
+  }
+
+  @override
+  String get commonVideoFile => '影片檔案';
+
+  @override
+  String get commonPointCameraBananatalkQr => '請將相機對準 Bananatalk QR 碼';
+
+  @override
+  String get commonReportSubmittedButSome => '檢舉已送出，但部分證據上傳失敗';
+
+  @override
+  String commonReportTitle(Object typeLabel) {
+    return '檢舉$typeLabel';
+  }
+
+  @override
+  String commonWhyReporting(Object typeLabel) {
+    return '你為什麼要檢舉這個$typeLabel？';
+  }
+
+  @override
+  String get commonAddEvidenceRequired => '新增證據（必填）';
+
+  @override
+  String get commonUploadScreenshotsTextFiles => '上傳螢幕截圖或文字檔案以支持你的檢舉';
+
+  @override
+  String commonAddEvidenceCount(Object count, Object maxFiles) {
+    return '新增證據（$count/$maxFiles）';
+  }
+
+  @override
+  String commonReportTotalSize(Object max, Object used) {
+    return '總計：$used / $max';
+  }
+
+  @override
+  String get commonEvidence => '證據';
+
+  @override
+  String get commonImageFailed => '圖片載入失敗';
+
+  @override
+  String get commonShowMore => '顯示更多';
+
+  @override
+  String get commonVoiceRecordingNotAvailable => '無法使用語音錄製';
+
+  @override
+  String get commonVoiceRecordingOnlyAvailable => '語音錄製僅適用於行動裝置。';
+
+  @override
+  String get commonReportSubmittedSuccessfully => '檢舉已成功送出';
+
+  @override
+  String get commonErrorLoadingFile => '載入檔案時發生錯誤';
+
+  @override
+  String get commonReportTypeUser => '用戶';
+
+  @override
+  String get commonReportTypeMoment => '動態';
+
+  @override
+  String get commonReportTypeComment => '留言';
+
+  @override
+  String get commonReportTypeMessage => '訊息';
+
+  @override
+  String get commonReportTypeStory => '限時動態';
+
+  @override
+  String get commonReportTypeContent => '內容';
+
+  @override
+  String get commonReportReasonCopyright => '侵犯版權';
 }

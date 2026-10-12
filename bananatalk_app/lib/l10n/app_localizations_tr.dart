@@ -10805,4 +10805,101 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get vipUpgradeNow => 'Şimdi Yükselt';
+
+  @override
+  String get commonContinueWhereLeftOff => 'Kaldığınız yerden devam edilsin mi?';
+
+  @override
+  String get commonLanguageNotProvided => 'Dil belirtilmedi';
+
+  @override
+  String get commonExamNotProvided => 'Sınav belirtilmedi';
+
+  @override
+  String get commonMuted => 'Sessize alındı';
+
+  @override
+  String get commonPoorConnection => 'Zayıf bağlantı';
+
+  @override
+  String commonBlockUserConfirmBody(Object targetUserName) {
+    return '$targetUserName kullanıcısını engellemek istediğinizden emin misiniz?\n\nArtık mesajlarını ve gönderilerini görmeyeceksiniz ve birbirinizin aramalarında görünmeyeceksiniz.';
+  }
+
+  @override
+  String get commonVideoFile => 'Video dosyası';
+
+  @override
+  String get commonPointCameraBananatalkQr => 'Kameranızı bir Bananatalk QR koduna doğrultun';
+
+  @override
+  String get commonReportSubmittedButSome => 'Şikayet gönderildi, ancak bazı kanıtlar yüklenemedi';
+
+  @override
+  String commonReportTitle(Object typeLabel) {
+    return '$typeLabel şikayet et';
+  }
+
+  @override
+  String commonWhyReporting(Object typeLabel) {
+    return 'Bu $typeLabel içeriğini neden şikayet ediyorsunuz?';
+  }
+
+  @override
+  String get commonAddEvidenceRequired => 'Kanıt ekle (zorunlu)';
+
+  @override
+  String get commonUploadScreenshotsTextFiles => 'Şikayetinizi desteklemek için ekran görüntüleri veya metin dosyaları yükleyin';
+
+  @override
+  String commonAddEvidenceCount(Object count, Object maxFiles) {
+    return 'Kanıt ekle ($count/$maxFiles)';
+  }
+
+  @override
+  String commonReportTotalSize(Object max, Object used) {
+    return 'Toplam: $used / $max';
+  }
+
+  @override
+  String get commonEvidence => 'Kanıt';
+
+  @override
+  String get commonImageFailed => 'Görsel yüklenemedi';
+
+  @override
+  String get commonShowMore => 'Daha fazla göster';
+
+  @override
+  String get commonVoiceRecordingNotAvailable => 'Ses kaydı kullanılamıyor';
+
+  @override
+  String get commonVoiceRecordingOnlyAvailable => 'Ses kaydı yalnızca mobil cihazlarda kullanılabilir.';
+
+  @override
+  String get commonReportSubmittedSuccessfully => 'Şikayet başarıyla gönderildi';
+
+  @override
+  String get commonErrorLoadingFile => 'Dosya yüklenirken hata oluştu';
+
+  @override
+  String get commonReportTypeUser => 'kullanıcı';
+
+  @override
+  String get commonReportTypeMoment => 'an';
+
+  @override
+  String get commonReportTypeComment => 'yorum';
+
+  @override
+  String get commonReportTypeMessage => 'mesaj';
+
+  @override
+  String get commonReportTypeStory => 'hikaye';
+
+  @override
+  String get commonReportTypeContent => 'içerik';
+
+  @override
+  String get commonReportReasonCopyright => 'Telif hakkı ihlali';
 }

@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 /// Stub implementation of VoiceRecorderWidget for platforms that don't support recording
 class VoiceRecorderWidget extends StatelessWidget {
@@ -47,7 +48,7 @@ class VoiceRecorderWidget extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             Text(
-              'Voice Recording Not Available',
+              AppLocalizations.of(context)!.commonVoiceRecordingNotAvailable,
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
@@ -56,7 +57,7 @@ class VoiceRecorderWidget extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              'Voice recording is only available on mobile devices.',
+              AppLocalizations.of(context)!.commonVoiceRecordingOnlyAvailable,
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.grey.shade600,
@@ -66,7 +67,7 @@ class VoiceRecorderWidget extends StatelessWidget {
             const SizedBox(height: 16),
             TextButton(
               onPressed: onCancel,
-              child: const Text('OK'),
+              child: Text(AppLocalizations.of(context)!.ok),
             ),
           ],
         ),

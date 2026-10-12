@@ -28,7 +28,8 @@ class BlockUserDialog {
           ],
         ),
         content: Text(
-          'Are you sure you want to block $targetUserName?\n\nYou will no longer see their messages, posts, or appear in each other\'s searches.',
+          AppLocalizations.of(context)!
+              .commonBlockUserConfirmBody(targetUserName),
           style: const TextStyle(fontSize: 15),
         ),
         actions: [
@@ -90,7 +91,12 @@ class BlockUserDialog {
                 color: Colors.white,
               ),
               const SizedBox(width: 12),
-              Expanded(child: Text(result['message'] ?? 'Operation completed')),
+              Expanded(
+                child: Text(
+                  result['message'] ??
+                      AppLocalizations.of(context)!.operationCompleted,
+                ),
+              ),
             ],
           ),
           backgroundColor: result['success'] ? Colors.green : Colors.red,

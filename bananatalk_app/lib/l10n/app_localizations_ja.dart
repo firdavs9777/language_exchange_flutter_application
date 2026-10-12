@@ -10788,4 +10788,101 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get vipUpgradeNow => '今すぐアップグレード';
+
+  @override
+  String get commonContinueWhereLeftOff => '前回の続きから再開しますか？';
+
+  @override
+  String get commonLanguageNotProvided => '言語が指定されていません';
+
+  @override
+  String get commonExamNotProvided => '試験が指定されていません';
+
+  @override
+  String get commonMuted => 'ミュート中';
+
+  @override
+  String get commonPoorConnection => '接続が不安定です';
+
+  @override
+  String commonBlockUserConfirmBody(Object targetUserName) {
+    return '$targetUserNameさんをブロックしてもよろしいですか？\n\n相手のメッセージや投稿は表示されなくなり、お互いの検索にも表示されなくなります。';
+  }
+
+  @override
+  String get commonVideoFile => '動画ファイル';
+
+  @override
+  String get commonPointCameraBananatalkQr => 'Bananatalk の QR コードにカメラを向けてください';
+
+  @override
+  String get commonReportSubmittedButSome => '報告を送信しましたが、一部の証拠をアップロードできませんでした';
+
+  @override
+  String commonReportTitle(Object typeLabel) {
+    return '$typeLabelを報告';
+  }
+
+  @override
+  String commonWhyReporting(Object typeLabel) {
+    return 'この$typeLabelを報告する理由は何ですか？';
+  }
+
+  @override
+  String get commonAddEvidenceRequired => '証拠を追加（必須）';
+
+  @override
+  String get commonUploadScreenshotsTextFiles => '報告を裏付けるスクリーンショットやテキストファイルをアップロードしてください';
+
+  @override
+  String commonAddEvidenceCount(Object count, Object maxFiles) {
+    return '証拠を追加（$count/$maxFiles）';
+  }
+
+  @override
+  String commonReportTotalSize(Object max, Object used) {
+    return '合計: $used / $max';
+  }
+
+  @override
+  String get commonEvidence => '証拠';
+
+  @override
+  String get commonImageFailed => '画像の読み込みに失敗';
+
+  @override
+  String get commonShowMore => 'もっと見る';
+
+  @override
+  String get commonVoiceRecordingNotAvailable => '音声録音は利用できません';
+
+  @override
+  String get commonVoiceRecordingOnlyAvailable => '音声録音はモバイルデバイスでのみ利用できます。';
+
+  @override
+  String get commonReportSubmittedSuccessfully => '報告を送信しました';
+
+  @override
+  String get commonErrorLoadingFile => 'ファイルの読み込みエラー';
+
+  @override
+  String get commonReportTypeUser => 'ユーザー';
+
+  @override
+  String get commonReportTypeMoment => 'モーメント';
+
+  @override
+  String get commonReportTypeComment => 'コメント';
+
+  @override
+  String get commonReportTypeMessage => 'メッセージ';
+
+  @override
+  String get commonReportTypeStory => 'ストーリー';
+
+  @override
+  String get commonReportTypeContent => 'コンテンツ';
+
+  @override
+  String get commonReportReasonCopyright => '著作権侵害';
 }

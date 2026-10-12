@@ -10813,4 +10813,101 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get vipUpgradeNow => 'Upgrade Now';
+
+  @override
+  String get commonContinueWhereLeftOff => 'Continue where you left off?';
+
+  @override
+  String get commonLanguageNotProvided => 'Language not provided';
+
+  @override
+  String get commonExamNotProvided => 'Exam not provided';
+
+  @override
+  String get commonMuted => 'Muted';
+
+  @override
+  String get commonPoorConnection => 'Poor Connection';
+
+  @override
+  String commonBlockUserConfirmBody(Object targetUserName) {
+    return 'Are you sure you want to block $targetUserName?\n\nYou will no longer see their messages, posts, or appear in each other\'s searches.';
+  }
+
+  @override
+  String get commonVideoFile => 'Video File';
+
+  @override
+  String get commonPointCameraBananatalkQr => 'Point your camera at a Bananatalk QR code';
+
+  @override
+  String get commonReportSubmittedButSome => 'Report submitted, but some evidence failed to upload';
+
+  @override
+  String commonReportTitle(Object typeLabel) {
+    return 'Report $typeLabel';
+  }
+
+  @override
+  String commonWhyReporting(Object typeLabel) {
+    return 'Why are you reporting this $typeLabel?';
+  }
+
+  @override
+  String get commonAddEvidenceRequired => 'Add Evidence (Required)';
+
+  @override
+  String get commonUploadScreenshotsTextFiles => 'Upload screenshots or text files to support your report';
+
+  @override
+  String commonAddEvidenceCount(Object count, Object maxFiles) {
+    return 'Add Evidence ($count/$maxFiles)';
+  }
+
+  @override
+  String commonReportTotalSize(Object max, Object used) {
+    return 'Total: $used / $max';
+  }
+
+  @override
+  String get commonEvidence => 'Evidence';
+
+  @override
+  String get commonImageFailed => 'Image failed';
+
+  @override
+  String get commonShowMore => 'Show more';
+
+  @override
+  String get commonVoiceRecordingNotAvailable => 'Voice Recording Not Available';
+
+  @override
+  String get commonVoiceRecordingOnlyAvailable => 'Voice recording is only available on mobile devices.';
+
+  @override
+  String get commonReportSubmittedSuccessfully => 'Report submitted successfully';
+
+  @override
+  String get commonErrorLoadingFile => 'Error loading file';
+
+  @override
+  String get commonReportTypeUser => 'user';
+
+  @override
+  String get commonReportTypeMoment => 'moment';
+
+  @override
+  String get commonReportTypeComment => 'comment';
+
+  @override
+  String get commonReportTypeMessage => 'message';
+
+  @override
+  String get commonReportTypeStory => 'story';
+
+  @override
+  String get commonReportTypeContent => 'content';
+
+  @override
+  String get commonReportReasonCopyright => 'Copyright Violation';
 }

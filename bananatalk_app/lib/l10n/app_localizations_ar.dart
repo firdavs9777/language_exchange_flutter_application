@@ -10862,4 +10862,101 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get vipUpgradeNow => 'الترقية الآن';
+
+  @override
+  String get commonContinueWhereLeftOff => 'هل تريد المتابعة من حيث توقفت؟';
+
+  @override
+  String get commonLanguageNotProvided => 'اللغة غير متوفرة';
+
+  @override
+  String get commonExamNotProvided => 'الامتحان غير متوفر';
+
+  @override
+  String get commonMuted => 'مكتوم';
+
+  @override
+  String get commonPoorConnection => 'اتصال ضعيف';
+
+  @override
+  String commonBlockUserConfirmBody(Object targetUserName) {
+    return 'هل أنت متأكد أنك تريد حظر $targetUserName؟\n\nلن ترى رسائله ومنشوراته بعد الآن، ولن تظهرا في نتائج بحث بعضكما.';
+  }
+
+  @override
+  String get commonVideoFile => 'ملف فيديو';
+
+  @override
+  String get commonPointCameraBananatalkQr => 'وجّه كاميرتك نحو رمز QR الخاص بـ Bananatalk';
+
+  @override
+  String get commonReportSubmittedButSome => 'تم إرسال البلاغ، لكن تعذّر رفع بعض الأدلة';
+
+  @override
+  String commonReportTitle(Object typeLabel) {
+    return 'الإبلاغ عن $typeLabel';
+  }
+
+  @override
+  String commonWhyReporting(Object typeLabel) {
+    return 'لماذا تبلّغ عن هذا $typeLabel؟';
+  }
+
+  @override
+  String get commonAddEvidenceRequired => 'إضافة دليل (مطلوب)';
+
+  @override
+  String get commonUploadScreenshotsTextFiles => 'ارفع لقطات شاشة أو ملفات نصية لدعم بلاغك';
+
+  @override
+  String commonAddEvidenceCount(Object count, Object maxFiles) {
+    return 'إضافة دليل ($count/$maxFiles)';
+  }
+
+  @override
+  String commonReportTotalSize(Object max, Object used) {
+    return 'الإجمالي: $used / $max';
+  }
+
+  @override
+  String get commonEvidence => 'الدليل';
+
+  @override
+  String get commonImageFailed => 'فشل تحميل الصورة';
+
+  @override
+  String get commonShowMore => 'عرض المزيد';
+
+  @override
+  String get commonVoiceRecordingNotAvailable => 'تسجيل الصوت غير متاح';
+
+  @override
+  String get commonVoiceRecordingOnlyAvailable => 'تسجيل الصوت متاح فقط على الأجهزة المحمولة.';
+
+  @override
+  String get commonReportSubmittedSuccessfully => 'تم إرسال البلاغ بنجاح';
+
+  @override
+  String get commonErrorLoadingFile => 'حدث خطأ أثناء تحميل الملف';
+
+  @override
+  String get commonReportTypeUser => 'المستخدم';
+
+  @override
+  String get commonReportTypeMoment => 'اللحظة';
+
+  @override
+  String get commonReportTypeComment => 'التعليق';
+
+  @override
+  String get commonReportTypeMessage => 'الرسالة';
+
+  @override
+  String get commonReportTypeStory => 'القصة';
+
+  @override
+  String get commonReportTypeContent => 'المحتوى';
+
+  @override
+  String get commonReportReasonCopyright => 'انتهاك حقوق النشر';
 }

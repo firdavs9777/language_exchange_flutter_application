@@ -10799,4 +10799,101 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get vipUpgradeNow => 'Upgrade Sekarang';
+
+  @override
+  String get commonContinueWhereLeftOff => 'Lanjutkan dari terakhir kali?';
+
+  @override
+  String get commonLanguageNotProvided => 'Bahasa tidak diberikan';
+
+  @override
+  String get commonExamNotProvided => 'Ujian tidak diberikan';
+
+  @override
+  String get commonMuted => 'Dibisukan';
+
+  @override
+  String get commonPoorConnection => 'Koneksi buruk';
+
+  @override
+  String commonBlockUserConfirmBody(Object targetUserName) {
+    return 'Yakin ingin memblokir $targetUserName?\n\nKamu tidak akan lagi melihat pesan dan postingannya, dan kalian tidak akan muncul di pencarian satu sama lain.';
+  }
+
+  @override
+  String get commonVideoFile => 'File video';
+
+  @override
+  String get commonPointCameraBananatalkQr => 'Arahkan kameramu ke kode QR Bananatalk';
+
+  @override
+  String get commonReportSubmittedButSome => 'Laporan terkirim, tetapi beberapa bukti gagal diunggah';
+
+  @override
+  String commonReportTitle(Object typeLabel) {
+    return 'Laporkan $typeLabel';
+  }
+
+  @override
+  String commonWhyReporting(Object typeLabel) {
+    return 'Mengapa kamu melaporkan $typeLabel ini?';
+  }
+
+  @override
+  String get commonAddEvidenceRequired => 'Tambah bukti (wajib)';
+
+  @override
+  String get commonUploadScreenshotsTextFiles => 'Unggah tangkapan layar atau file teks untuk mendukung laporanmu';
+
+  @override
+  String commonAddEvidenceCount(Object count, Object maxFiles) {
+    return 'Tambah bukti ($count/$maxFiles)';
+  }
+
+  @override
+  String commonReportTotalSize(Object max, Object used) {
+    return 'Total: $used / $max';
+  }
+
+  @override
+  String get commonEvidence => 'Bukti';
+
+  @override
+  String get commonImageFailed => 'Gambar gagal dimuat';
+
+  @override
+  String get commonShowMore => 'Tampilkan lebih banyak';
+
+  @override
+  String get commonVoiceRecordingNotAvailable => 'Perekaman suara tidak tersedia';
+
+  @override
+  String get commonVoiceRecordingOnlyAvailable => 'Perekaman suara hanya tersedia di perangkat seluler.';
+
+  @override
+  String get commonReportSubmittedSuccessfully => 'Laporan berhasil dikirim';
+
+  @override
+  String get commonErrorLoadingFile => 'Gagal memuat file';
+
+  @override
+  String get commonReportTypeUser => 'pengguna';
+
+  @override
+  String get commonReportTypeMoment => 'momen';
+
+  @override
+  String get commonReportTypeComment => 'komentar';
+
+  @override
+  String get commonReportTypeMessage => 'pesan';
+
+  @override
+  String get commonReportTypeStory => 'cerita';
+
+  @override
+  String get commonReportTypeContent => 'konten';
+
+  @override
+  String get commonReportReasonCopyright => 'Pelanggaran hak cipta';
 }

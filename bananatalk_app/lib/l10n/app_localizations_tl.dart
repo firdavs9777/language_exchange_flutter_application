@@ -10807,4 +10807,101 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get vipUpgradeNow => 'Mag-upgrade Ngayon';
+
+  @override
+  String get commonContinueWhereLeftOff => 'Ituloy kung saan ka huminto?';
+
+  @override
+  String get commonLanguageNotProvided => 'Hindi nabigay ang wika';
+
+  @override
+  String get commonExamNotProvided => 'Hindi nabigay ang pagsusulit';
+
+  @override
+  String get commonMuted => 'Naka-mute';
+
+  @override
+  String get commonPoorConnection => 'Mahinang koneksyon';
+
+  @override
+  String commonBlockUserConfirmBody(Object targetUserName) {
+    return 'Sigurado ka bang gusto mong i-block si $targetUserName?\n\nHindi mo na makikita ang kanilang mga mensahe at post, at hindi na kayo lalabas sa paghahanap ng isa\'t isa.';
+  }
+
+  @override
+  String get commonVideoFile => 'Video file';
+
+  @override
+  String get commonPointCameraBananatalkQr => 'Ituro ang camera mo sa isang Bananatalk QR code';
+
+  @override
+  String get commonReportSubmittedButSome => 'Naisumite ang ulat, pero hindi na-upload ang ilang ebidensya';
+
+  @override
+  String commonReportTitle(Object typeLabel) {
+    return 'I-report ang $typeLabel';
+  }
+
+  @override
+  String commonWhyReporting(Object typeLabel) {
+    return 'Bakit mo ni-re-report ang $typeLabel na ito?';
+  }
+
+  @override
+  String get commonAddEvidenceRequired => 'Magdagdag ng ebidensya (kailangan)';
+
+  @override
+  String get commonUploadScreenshotsTextFiles => 'Mag-upload ng mga screenshot o text file para suportahan ang iyong ulat';
+
+  @override
+  String commonAddEvidenceCount(Object count, Object maxFiles) {
+    return 'Magdagdag ng ebidensya ($count/$maxFiles)';
+  }
+
+  @override
+  String commonReportTotalSize(Object max, Object used) {
+    return 'Kabuuan: $used / $max';
+  }
+
+  @override
+  String get commonEvidence => 'Ebidensya';
+
+  @override
+  String get commonImageFailed => 'Nabigo ang larawan';
+
+  @override
+  String get commonShowMore => 'Magpakita pa';
+
+  @override
+  String get commonVoiceRecordingNotAvailable => 'Hindi available ang voice recording';
+
+  @override
+  String get commonVoiceRecordingOnlyAvailable => 'Available lang ang voice recording sa mga mobile device.';
+
+  @override
+  String get commonReportSubmittedSuccessfully => 'Matagumpay na naisumite ang ulat';
+
+  @override
+  String get commonErrorLoadingFile => 'Error sa pag-load ng file';
+
+  @override
+  String get commonReportTypeUser => 'user';
+
+  @override
+  String get commonReportTypeMoment => 'moment';
+
+  @override
+  String get commonReportTypeComment => 'komento';
+
+  @override
+  String get commonReportTypeMessage => 'mensahe';
+
+  @override
+  String get commonReportTypeStory => 'story';
+
+  @override
+  String get commonReportTypeContent => 'nilalaman';
+
+  @override
+  String get commonReportReasonCopyright => 'Paglabag sa copyright';
 }

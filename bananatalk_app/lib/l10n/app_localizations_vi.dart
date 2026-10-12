@@ -10788,4 +10788,101 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get vipUpgradeNow => 'Nâng cấp ngay';
+
+  @override
+  String get commonContinueWhereLeftOff => 'Tiếp tục từ chỗ bạn đã dừng?';
+
+  @override
+  String get commonLanguageNotProvided => 'Chưa cung cấp ngôn ngữ';
+
+  @override
+  String get commonExamNotProvided => 'Chưa cung cấp bài thi';
+
+  @override
+  String get commonMuted => 'Đã tắt tiếng';
+
+  @override
+  String get commonPoorConnection => 'Kết nối kém';
+
+  @override
+  String commonBlockUserConfirmBody(Object targetUserName) {
+    return 'Bạn có chắc muốn chặn $targetUserName không?\n\nBạn sẽ không còn thấy tin nhắn và bài đăng của họ, và hai bên sẽ không xuất hiện trong kết quả tìm kiếm của nhau.';
+  }
+
+  @override
+  String get commonVideoFile => 'Tệp video';
+
+  @override
+  String get commonPointCameraBananatalkQr => 'Hướng camera vào mã QR Bananatalk';
+
+  @override
+  String get commonReportSubmittedButSome => 'Đã gửi báo cáo, nhưng một số bằng chứng tải lên không thành công';
+
+  @override
+  String commonReportTitle(Object typeLabel) {
+    return 'Báo cáo $typeLabel';
+  }
+
+  @override
+  String commonWhyReporting(Object typeLabel) {
+    return 'Tại sao bạn báo cáo $typeLabel này?';
+  }
+
+  @override
+  String get commonAddEvidenceRequired => 'Thêm bằng chứng (bắt buộc)';
+
+  @override
+  String get commonUploadScreenshotsTextFiles => 'Tải lên ảnh chụp màn hình hoặc tệp văn bản để hỗ trợ báo cáo của bạn';
+
+  @override
+  String commonAddEvidenceCount(Object count, Object maxFiles) {
+    return 'Thêm bằng chứng ($count/$maxFiles)';
+  }
+
+  @override
+  String commonReportTotalSize(Object max, Object used) {
+    return 'Tổng: $used / $max';
+  }
+
+  @override
+  String get commonEvidence => 'Bằng chứng';
+
+  @override
+  String get commonImageFailed => 'Ảnh bị lỗi';
+
+  @override
+  String get commonShowMore => 'Xem thêm';
+
+  @override
+  String get commonVoiceRecordingNotAvailable => 'Không thể ghi âm';
+
+  @override
+  String get commonVoiceRecordingOnlyAvailable => 'Ghi âm chỉ khả dụng trên thiết bị di động.';
+
+  @override
+  String get commonReportSubmittedSuccessfully => 'Đã gửi báo cáo thành công';
+
+  @override
+  String get commonErrorLoadingFile => 'Lỗi khi tải tệp';
+
+  @override
+  String get commonReportTypeUser => 'người dùng';
+
+  @override
+  String get commonReportTypeMoment => 'khoảnh khắc';
+
+  @override
+  String get commonReportTypeComment => 'bình luận';
+
+  @override
+  String get commonReportTypeMessage => 'tin nhắn';
+
+  @override
+  String get commonReportTypeStory => 'story';
+
+  @override
+  String get commonReportTypeContent => 'nội dung';
+
+  @override
+  String get commonReportReasonCopyright => 'Vi phạm bản quyền';
 }

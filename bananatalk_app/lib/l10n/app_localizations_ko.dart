@@ -10788,4 +10788,101 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get vipUpgradeNow => '지금 업그레이드';
+
+  @override
+  String get commonContinueWhereLeftOff => '이전에 하던 곳에서 이어서 할까요?';
+
+  @override
+  String get commonLanguageNotProvided => '언어가 지정되지 않았습니다';
+
+  @override
+  String get commonExamNotProvided => '시험이 지정되지 않았습니다';
+
+  @override
+  String get commonMuted => '음소거됨';
+
+  @override
+  String get commonPoorConnection => '연결 상태 불량';
+
+  @override
+  String commonBlockUserConfirmBody(Object targetUserName) {
+    return '$targetUserName님을 차단하시겠습니까?\n\n상대방의 메시지와 게시물이 더 이상 보이지 않으며, 서로의 검색 결과에도 나타나지 않습니다.';
+  }
+
+  @override
+  String get commonVideoFile => '동영상 파일';
+
+  @override
+  String get commonPointCameraBananatalkQr => '카메라를 Bananatalk QR 코드에 비춰 주세요';
+
+  @override
+  String get commonReportSubmittedButSome => '신고가 접수되었지만 일부 증거를 업로드하지 못했습니다';
+
+  @override
+  String commonReportTitle(Object typeLabel) {
+    return '$typeLabel 신고';
+  }
+
+  @override
+  String commonWhyReporting(Object typeLabel) {
+    return '이 $typeLabel을(를) 신고하는 이유는 무엇인가요?';
+  }
+
+  @override
+  String get commonAddEvidenceRequired => '증거 추가 (필수)';
+
+  @override
+  String get commonUploadScreenshotsTextFiles => '신고를 뒷받침할 스크린샷이나 텍스트 파일을 업로드하세요';
+
+  @override
+  String commonAddEvidenceCount(Object count, Object maxFiles) {
+    return '증거 추가 ($count/$maxFiles)';
+  }
+
+  @override
+  String commonReportTotalSize(Object max, Object used) {
+    return '합계: $used / $max';
+  }
+
+  @override
+  String get commonEvidence => '증거';
+
+  @override
+  String get commonImageFailed => '이미지 로드 실패';
+
+  @override
+  String get commonShowMore => '더 보기';
+
+  @override
+  String get commonVoiceRecordingNotAvailable => '음성 녹음을 사용할 수 없음';
+
+  @override
+  String get commonVoiceRecordingOnlyAvailable => '음성 녹음은 모바일 기기에서만 사용할 수 있습니다.';
+
+  @override
+  String get commonReportSubmittedSuccessfully => '신고가 접수되었습니다';
+
+  @override
+  String get commonErrorLoadingFile => '파일 로드 오류';
+
+  @override
+  String get commonReportTypeUser => '사용자';
+
+  @override
+  String get commonReportTypeMoment => '모먼트';
+
+  @override
+  String get commonReportTypeComment => '댓글';
+
+  @override
+  String get commonReportTypeMessage => '메시지';
+
+  @override
+  String get commonReportTypeStory => '스토리';
+
+  @override
+  String get commonReportTypeContent => '콘텐츠';
+
+  @override
+  String get commonReportReasonCopyright => '저작권 침해';
 }

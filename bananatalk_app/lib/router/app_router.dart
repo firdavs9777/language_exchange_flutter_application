@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/announcements/announcement_screen.dart';
 import 'package:bananatalk_app/pages/chat/chat_screen_wrapper.dart';
 import 'package:bananatalk_app/pages/coins/boost_screen.dart';
@@ -378,8 +379,13 @@ final goRouter = GoRouter(
           // than crash. Should only happen on a hand-typed deep link.
           return _buildSlideTransition(
             state: state,
-            child: const Scaffold(
-              body: Center(child: Text('Language not provided')),
+            child: Scaffold(
+              body: Center(
+                child: Builder(
+                  builder: (context) =>
+                      Text(AppLocalizations.of(context)!.commonLanguageNotProvided),
+                ),
+              ),
             ),
           );
         }
@@ -400,8 +406,13 @@ final goRouter = GoRouter(
         if (exam == null) {
           return _buildSlideTransition(
             state: state,
-            child: const Scaffold(
-              body: Center(child: Text('Exam not provided')),
+            child: Scaffold(
+              body: Center(
+                child: Builder(
+                  builder: (context) =>
+                      Text(AppLocalizations.of(context)!.commonExamNotProvided),
+                ),
+              ),
             ),
           );
         }

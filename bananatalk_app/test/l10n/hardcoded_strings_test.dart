@@ -368,6 +368,37 @@ const Map<String, List<String>> _keysByTask = {
     'vipUpgradeUnlockMore',
     'vipUpgradeNow',
   ],
+  'L12': [
+    'commonContinueWhereLeftOff',
+    'commonLanguageNotProvided',
+    'commonExamNotProvided',
+    'commonMuted',
+    'commonPoorConnection',
+    'commonBlockUserConfirmBody',
+    'commonVideoFile',
+    'commonPointCameraBananatalkQr',
+    'commonReportSubmittedButSome',
+    'commonReportTitle',
+    'commonWhyReporting',
+    'commonAddEvidenceRequired',
+    'commonUploadScreenshotsTextFiles',
+    'commonAddEvidenceCount',
+    'commonReportTotalSize',
+    'commonEvidence',
+    'commonImageFailed',
+    'commonShowMore',
+    'commonVoiceRecordingNotAvailable',
+    'commonVoiceRecordingOnlyAvailable',
+    'commonReportSubmittedSuccessfully',
+    'commonErrorLoadingFile',
+    'commonReportTypeUser',
+    'commonReportTypeMoment',
+    'commonReportTypeComment',
+    'commonReportTypeMessage',
+    'commonReportTypeStory',
+    'commonReportTypeContent',
+    'commonReportReasonCopyright',
+  ],
 };
 
 /// Files (under lib/) each task must leave with no English Text literal.
@@ -512,11 +543,28 @@ const Map<String, List<String>> _filesByTask = {
     'widgets/visitor_limit_dialog.dart',
     'widgets/welcome_back_modal.dart',
   ],
+  'L12': [
+    'core/widgets/app_loading.dart',
+    'pages/authentication/register/register_screen.dart',
+    'router/app_router.dart',
+    'screens/active_call_screen.dart',
+    'widgets/block_user_dialog.dart',
+    'widgets/image_preview_dialog.dart',
+    'widgets/qr_code_sheet.dart',
+    'widgets/report_dialog.dart',
+    'widgets/report_evidence_section.dart',
+    'widgets/voice_recorder/voice_recorder_stub.dart',
+  ],
 };
 
 /// Keys whose draft may legitimately equal the English in some locale
 /// (loanwords). Add with a one-line reason; empty by default.
 const Set<String> _mayMatchEnglish = {
+  'commonReportTotalSize', // es/pt/id: "Total" is the same word
+  'commonReportTypeUser', // tl keeps the loanword "user"
+  'commonReportTypeStory', // fr/pt/tl/vi keep the loanword "story"
+  'commonReportTypeMessage', // fr "message" is the same word
+  'commonReportTypeMoment', // fr "moment" is the same word
   'vipUpPillUp', // fr keeps the English "Up" badge word
   'profileReportTypeMoment', // de/fr/tl use the English loanword "Moment"
   'profileReportTypeMessage', // fr "Message" is the same word

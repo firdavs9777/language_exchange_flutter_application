@@ -573,13 +573,14 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
                         color: Colors.black54,
                         borderRadius: BorderRadius.circular(16),
                       ),
-                      child: const Row(
+                      child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(Icons.mic_off, color: Colors.white70, size: 16),
-                          SizedBox(width: 4),
-                          Text('Muted',
-                              style: TextStyle(
+                          const Icon(Icons.mic_off,
+                              color: Colors.white70, size: 16),
+                          const SizedBox(width: 4),
+                          Text(l10n.commonMuted,
+                              style: const TextStyle(
                                   color: Colors.white70, fontSize: 12)),
                         ],
                       ),
@@ -623,9 +624,9 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
             style: const TextStyle(color: Colors.white70, fontSize: 14),
           ),
           const SizedBox(width: 8),
-          const Text(
-            'Poor Connection',
-            style: TextStyle(color: Colors.orangeAccent, fontSize: 12),
+          Text(
+            l10n.commonPoorConnection,
+            style: const TextStyle(color: Colors.orangeAccent, fontSize: 12),
           ),
         ],
       );
@@ -639,9 +640,9 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
     }
 
     if (_connState == CallUiState.connecting) {
-      return const Text(
-        'Connecting...',
-        style: TextStyle(color: Colors.white70, fontSize: 14),
+      return Text(
+        l10n.connecting,
+        style: const TextStyle(color: Colors.white70, fontSize: 14),
       );
     }
 

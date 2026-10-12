@@ -10807,4 +10807,101 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get vipUpgradeNow => 'Passa a VIP ora';
+
+  @override
+  String get commonContinueWhereLeftOff => 'Continuare da dove avevi lasciato?';
+
+  @override
+  String get commonLanguageNotProvided => 'Lingua non indicata';
+
+  @override
+  String get commonExamNotProvided => 'Esame non indicato';
+
+  @override
+  String get commonMuted => 'Audio disattivato';
+
+  @override
+  String get commonPoorConnection => 'Connessione scarsa';
+
+  @override
+  String commonBlockUserConfirmBody(Object targetUserName) {
+    return 'Vuoi davvero bloccare $targetUserName?\n\nNon vedrai più i suoi messaggi e post, e non comparirete più nelle ricerche l\'uno dell\'altro.';
+  }
+
+  @override
+  String get commonVideoFile => 'File video';
+
+  @override
+  String get commonPointCameraBananatalkQr => 'Inquadra un codice QR di Bananatalk con la fotocamera';
+
+  @override
+  String get commonReportSubmittedButSome => 'Segnalazione inviata, ma alcune prove non sono state caricate';
+
+  @override
+  String commonReportTitle(Object typeLabel) {
+    return 'Segnala $typeLabel';
+  }
+
+  @override
+  String commonWhyReporting(Object typeLabel) {
+    return 'Perché stai segnalando questo $typeLabel?';
+  }
+
+  @override
+  String get commonAddEvidenceRequired => 'Aggiungi prove (obbligatorio)';
+
+  @override
+  String get commonUploadScreenshotsTextFiles => 'Carica screenshot o file di testo a sostegno della tua segnalazione';
+
+  @override
+  String commonAddEvidenceCount(Object count, Object maxFiles) {
+    return 'Aggiungi prove ($count/$maxFiles)';
+  }
+
+  @override
+  String commonReportTotalSize(Object max, Object used) {
+    return 'Totale: $used / $max';
+  }
+
+  @override
+  String get commonEvidence => 'Prove';
+
+  @override
+  String get commonImageFailed => 'Immagine non riuscita';
+
+  @override
+  String get commonShowMore => 'Mostra altro';
+
+  @override
+  String get commonVoiceRecordingNotAvailable => 'Registrazione vocale non disponibile';
+
+  @override
+  String get commonVoiceRecordingOnlyAvailable => 'La registrazione vocale è disponibile solo sui dispositivi mobili.';
+
+  @override
+  String get commonReportSubmittedSuccessfully => 'Segnalazione inviata con successo';
+
+  @override
+  String get commonErrorLoadingFile => 'Errore nel caricamento del file';
+
+  @override
+  String get commonReportTypeUser => 'utente';
+
+  @override
+  String get commonReportTypeMoment => 'momento';
+
+  @override
+  String get commonReportTypeComment => 'commento';
+
+  @override
+  String get commonReportTypeMessage => 'messaggio';
+
+  @override
+  String get commonReportTypeStory => 'storia';
+
+  @override
+  String get commonReportTypeContent => 'contenuto';
+
+  @override
+  String get commonReportReasonCopyright => 'Violazione del copyright';
 }

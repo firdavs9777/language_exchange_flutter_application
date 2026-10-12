@@ -10807,4 +10807,101 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get vipUpgradeNow => 'अभी अपग्रेड करें';
+
+  @override
+  String get commonContinueWhereLeftOff => 'जहाँ छोड़ा था वहीं से जारी रखें?';
+
+  @override
+  String get commonLanguageNotProvided => 'भाषा उपलब्ध नहीं है';
+
+  @override
+  String get commonExamNotProvided => 'परीक्षा उपलब्ध नहीं है';
+
+  @override
+  String get commonMuted => 'म्यूट';
+
+  @override
+  String get commonPoorConnection => 'कमज़ोर कनेक्शन';
+
+  @override
+  String commonBlockUserConfirmBody(Object targetUserName) {
+    return 'क्या आप वाकई $targetUserName को ब्लॉक करना चाहते हैं?\n\nआपको उनके संदेश और पोस्ट नहीं दिखेंगे, और आप एक-दूसरे की खोज में नहीं दिखेंगे।';
+  }
+
+  @override
+  String get commonVideoFile => 'वीडियो फ़ाइल';
+
+  @override
+  String get commonPointCameraBananatalkQr => 'अपने कैमरे को Bananatalk QR कोड की ओर करें';
+
+  @override
+  String get commonReportSubmittedButSome => 'रिपोर्ट भेज दी गई, लेकिन कुछ सबूत अपलोड नहीं हो सके';
+
+  @override
+  String commonReportTitle(Object typeLabel) {
+    return '$typeLabel की रिपोर्ट करें';
+  }
+
+  @override
+  String commonWhyReporting(Object typeLabel) {
+    return 'आप इस $typeLabel की रिपोर्ट क्यों कर रहे हैं?';
+  }
+
+  @override
+  String get commonAddEvidenceRequired => 'सबूत जोड़ें (ज़रूरी)';
+
+  @override
+  String get commonUploadScreenshotsTextFiles => 'अपनी रिपोर्ट के समर्थन में स्क्रीनशॉट या टेक्स्ट फ़ाइलें अपलोड करें';
+
+  @override
+  String commonAddEvidenceCount(Object count, Object maxFiles) {
+    return 'सबूत जोड़ें ($count/$maxFiles)';
+  }
+
+  @override
+  String commonReportTotalSize(Object max, Object used) {
+    return 'कुल: $used / $max';
+  }
+
+  @override
+  String get commonEvidence => 'सबूत';
+
+  @override
+  String get commonImageFailed => 'छवि लोड नहीं हुई';
+
+  @override
+  String get commonShowMore => 'और दिखाएँ';
+
+  @override
+  String get commonVoiceRecordingNotAvailable => 'वॉइस रिकॉर्डिंग उपलब्ध नहीं है';
+
+  @override
+  String get commonVoiceRecordingOnlyAvailable => 'वॉइस रिकॉर्डिंग केवल मोबाइल डिवाइस पर उपलब्ध है।';
+
+  @override
+  String get commonReportSubmittedSuccessfully => 'रिपोर्ट सफलतापूर्वक भेजी गई';
+
+  @override
+  String get commonErrorLoadingFile => 'फ़ाइल लोड करने में त्रुटि';
+
+  @override
+  String get commonReportTypeUser => 'उपयोगकर्ता';
+
+  @override
+  String get commonReportTypeMoment => 'मोमेंट';
+
+  @override
+  String get commonReportTypeComment => 'टिप्पणी';
+
+  @override
+  String get commonReportTypeMessage => 'संदेश';
+
+  @override
+  String get commonReportTypeStory => 'स्टोरी';
+
+  @override
+  String get commonReportTypeContent => 'सामग्री';
+
+  @override
+  String get commonReportReasonCopyright => 'कॉपीराइट उल्लंघन';
 }

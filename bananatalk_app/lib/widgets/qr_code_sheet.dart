@@ -330,7 +330,7 @@ class _ScanTabState extends State<_ScanTab> {
           ),
           const SizedBox(height: 16),
           Text(
-            'Point your camera at a Bananatalk QR code',
+            AppLocalizations.of(context)!.commonPointCameraBananatalkQr,
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 13, color: colors.onSurfaceVariant),
           ),

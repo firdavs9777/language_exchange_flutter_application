@@ -19627,6 +19627,180 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Upgrade Now'**
   String get vipUpgradeNow;
+
+  /// No description provided for @commonContinueWhereLeftOff.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue where you left off?'**
+  String get commonContinueWhereLeftOff;
+
+  /// No description provided for @commonLanguageNotProvided.
+  ///
+  /// In en, this message translates to:
+  /// **'Language not provided'**
+  String get commonLanguageNotProvided;
+
+  /// No description provided for @commonExamNotProvided.
+  ///
+  /// In en, this message translates to:
+  /// **'Exam not provided'**
+  String get commonExamNotProvided;
+
+  /// No description provided for @commonMuted.
+  ///
+  /// In en, this message translates to:
+  /// **'Muted'**
+  String get commonMuted;
+
+  /// No description provided for @commonPoorConnection.
+  ///
+  /// In en, this message translates to:
+  /// **'Poor Connection'**
+  String get commonPoorConnection;
+
+  /// No description provided for @commonBlockUserConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to block {targetUserName}?\n\nYou will no longer see their messages, posts, or appear in each other\'s searches.'**
+  String commonBlockUserConfirmBody(Object targetUserName);
+
+  /// No description provided for @commonVideoFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Video File'**
+  String get commonVideoFile;
+
+  /// No description provided for @commonPointCameraBananatalkQr.
+  ///
+  /// In en, this message translates to:
+  /// **'Point your camera at a Bananatalk QR code'**
+  String get commonPointCameraBananatalkQr;
+
+  /// No description provided for @commonReportSubmittedButSome.
+  ///
+  /// In en, this message translates to:
+  /// **'Report submitted, but some evidence failed to upload'**
+  String get commonReportSubmittedButSome;
+
+  /// No description provided for @commonReportTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Report {typeLabel}'**
+  String commonReportTitle(Object typeLabel);
+
+  /// No description provided for @commonWhyReporting.
+  ///
+  /// In en, this message translates to:
+  /// **'Why are you reporting this {typeLabel}?'**
+  String commonWhyReporting(Object typeLabel);
+
+  /// No description provided for @commonAddEvidenceRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Evidence (Required)'**
+  String get commonAddEvidenceRequired;
+
+  /// No description provided for @commonUploadScreenshotsTextFiles.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload screenshots or text files to support your report'**
+  String get commonUploadScreenshotsTextFiles;
+
+  /// No description provided for @commonAddEvidenceCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Evidence ({count}/{maxFiles})'**
+  String commonAddEvidenceCount(Object count, Object maxFiles);
+
+  /// No description provided for @commonReportTotalSize.
+  ///
+  /// In en, this message translates to:
+  /// **'Total: {used} / {max}'**
+  String commonReportTotalSize(Object max, Object used);
+
+  /// No description provided for @commonEvidence.
+  ///
+  /// In en, this message translates to:
+  /// **'Evidence'**
+  String get commonEvidence;
+
+  /// No description provided for @commonImageFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Image failed'**
+  String get commonImageFailed;
+
+  /// No description provided for @commonShowMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Show more'**
+  String get commonShowMore;
+
+  /// No description provided for @commonVoiceRecordingNotAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice Recording Not Available'**
+  String get commonVoiceRecordingNotAvailable;
+
+  /// No description provided for @commonVoiceRecordingOnlyAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice recording is only available on mobile devices.'**
+  String get commonVoiceRecordingOnlyAvailable;
+
+  /// No description provided for @commonReportSubmittedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Report submitted successfully'**
+  String get commonReportSubmittedSuccessfully;
+
+  /// No description provided for @commonErrorLoadingFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Error loading file'**
+  String get commonErrorLoadingFile;
+
+  /// No description provided for @commonReportTypeUser.
+  ///
+  /// In en, this message translates to:
+  /// **'user'**
+  String get commonReportTypeUser;
+
+  /// No description provided for @commonReportTypeMoment.
+  ///
+  /// In en, this message translates to:
+  /// **'moment'**
+  String get commonReportTypeMoment;
+
+  /// No description provided for @commonReportTypeComment.
+  ///
+  /// In en, this message translates to:
+  /// **'comment'**
+  String get commonReportTypeComment;
+
+  /// No description provided for @commonReportTypeMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'message'**
+  String get commonReportTypeMessage;
+
+  /// No description provided for @commonReportTypeStory.
+  ///
+  /// In en, this message translates to:
+  /// **'story'**
+  String get commonReportTypeStory;
+
+  /// No description provided for @commonReportTypeContent.
+  ///
+  /// In en, this message translates to:
+  /// **'content'**
+  String get commonReportTypeContent;
+
+  /// No description provided for @commonReportReasonCopyright.
+  ///
+  /// In en, this message translates to:
+  /// **'Copyright Violation'**
+  String get commonReportReasonCopyright;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

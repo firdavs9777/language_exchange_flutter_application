@@ -10808,4 +10808,101 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get vipUpgradeNow => 'Ҳозир такмил диҳед';
+
+  @override
+  String get commonContinueWhereLeftOff => 'Аз ҷое, ки қатъ карда будед, идома диҳед?';
+
+  @override
+  String get commonLanguageNotProvided => 'Забон нишон дода нашудааст';
+
+  @override
+  String get commonExamNotProvided => 'Имтиҳон нишон дода нашудааст';
+
+  @override
+  String get commonMuted => 'Овоз хомӯш аст';
+
+  @override
+  String get commonPoorConnection => 'Пайвасти суст';
+
+  @override
+  String commonBlockUserConfirmBody(Object targetUserName) {
+    return 'Оё шумо мутмаин ҳастед, ки мехоҳед $targetUserName-ро масдуд кунед?\n\nШумо дигар паёмҳо ва нашрҳои ӯро нахоҳед дид ва дар ҷустуҷӯи якдигар пайдо нахоҳед шуд.';
+  }
+
+  @override
+  String get commonVideoFile => 'Файли видео';
+
+  @override
+  String get commonPointCameraBananatalkQr => 'Камераи худро ба рамзи QR-и Bananatalk равона кунед';
+
+  @override
+  String get commonReportSubmittedButSome => 'Шикоят фиристода шуд, аммо баъзе далелҳо бор нашуданд';
+
+  @override
+  String commonReportTitle(Object typeLabel) {
+    return 'Шикоят дар бораи $typeLabel';
+  }
+
+  @override
+  String commonWhyReporting(Object typeLabel) {
+    return 'Чаро шумо дар бораи ин $typeLabel шикоят мекунед?';
+  }
+
+  @override
+  String get commonAddEvidenceRequired => 'Илова кардани далел (ҳатмӣ)';
+
+  @override
+  String get commonUploadScreenshotsTextFiles => 'Барои дастгирии шикояти худ скриншотҳо ё файлҳои матнӣ бор кунед';
+
+  @override
+  String commonAddEvidenceCount(Object count, Object maxFiles) {
+    return 'Илова кардани далел ($count/$maxFiles)';
+  }
+
+  @override
+  String commonReportTotalSize(Object max, Object used) {
+    return 'Ҷамъ: $used / $max';
+  }
+
+  @override
+  String get commonEvidence => 'Далел';
+
+  @override
+  String get commonImageFailed => 'Тасвир бор нашуд';
+
+  @override
+  String get commonShowMore => 'Бештар нишон додан';
+
+  @override
+  String get commonVoiceRecordingNotAvailable => 'Сабти овоз дастнорас аст';
+
+  @override
+  String get commonVoiceRecordingOnlyAvailable => 'Сабти овоз танҳо дар дастгоҳҳои мобилӣ дастрас аст.';
+
+  @override
+  String get commonReportSubmittedSuccessfully => 'Шикоят бомуваффақият фиристода шуд';
+
+  @override
+  String get commonErrorLoadingFile => 'Хатои боркунии файл';
+
+  @override
+  String get commonReportTypeUser => 'корбар';
+
+  @override
+  String get commonReportTypeMoment => 'лаҳза';
+
+  @override
+  String get commonReportTypeComment => 'шарҳ';
+
+  @override
+  String get commonReportTypeMessage => 'паём';
+
+  @override
+  String get commonReportTypeStory => 'ҳикоя';
+
+  @override
+  String get commonReportTypeContent => 'мундариҷа';
+
+  @override
+  String get commonReportReasonCopyright => 'Вайрон кардани ҳуқуқи муаллиф';
 }

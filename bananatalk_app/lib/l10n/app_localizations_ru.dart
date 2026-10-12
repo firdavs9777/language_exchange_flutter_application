@@ -10850,4 +10850,101 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get vipUpgradeNow => 'Улучшить сейчас';
+
+  @override
+  String get commonContinueWhereLeftOff => 'Продолжить с того места, где вы остановились?';
+
+  @override
+  String get commonLanguageNotProvided => 'Язык не указан';
+
+  @override
+  String get commonExamNotProvided => 'Экзамен не указан';
+
+  @override
+  String get commonMuted => 'Звук выключен';
+
+  @override
+  String get commonPoorConnection => 'Плохое соединение';
+
+  @override
+  String commonBlockUserConfirmBody(Object targetUserName) {
+    return 'Вы уверены, что хотите заблокировать $targetUserName?\n\nВы больше не будете видеть сообщения и публикации этого человека, и вы не будете появляться в поиске друг у друга.';
+  }
+
+  @override
+  String get commonVideoFile => 'Видеофайл';
+
+  @override
+  String get commonPointCameraBananatalkQr => 'Наведите камеру на QR-код Bananatalk';
+
+  @override
+  String get commonReportSubmittedButSome => 'Жалоба отправлена, но не все доказательства удалось загрузить';
+
+  @override
+  String commonReportTitle(Object typeLabel) {
+    return 'Пожаловаться: $typeLabel';
+  }
+
+  @override
+  String commonWhyReporting(Object typeLabel) {
+    return 'Почему вы жалуетесь на это: $typeLabel?';
+  }
+
+  @override
+  String get commonAddEvidenceRequired => 'Добавить доказательства (обязательно)';
+
+  @override
+  String get commonUploadScreenshotsTextFiles => 'Загрузите скриншоты или текстовые файлы в подтверждение жалобы';
+
+  @override
+  String commonAddEvidenceCount(Object count, Object maxFiles) {
+    return 'Добавить доказательства ($count/$maxFiles)';
+  }
+
+  @override
+  String commonReportTotalSize(Object max, Object used) {
+    return 'Всего: $used / $max';
+  }
+
+  @override
+  String get commonEvidence => 'Доказательства';
+
+  @override
+  String get commonImageFailed => 'Не удалось загрузить изображение';
+
+  @override
+  String get commonShowMore => 'Показать больше';
+
+  @override
+  String get commonVoiceRecordingNotAvailable => 'Запись голоса недоступна';
+
+  @override
+  String get commonVoiceRecordingOnlyAvailable => 'Запись голоса доступна только на мобильных устройствах.';
+
+  @override
+  String get commonReportSubmittedSuccessfully => 'Жалоба успешно отправлена';
+
+  @override
+  String get commonErrorLoadingFile => 'Ошибка загрузки файла';
+
+  @override
+  String get commonReportTypeUser => 'пользователя';
+
+  @override
+  String get commonReportTypeMoment => 'момент';
+
+  @override
+  String get commonReportTypeComment => 'комментарий';
+
+  @override
+  String get commonReportTypeMessage => 'сообщение';
+
+  @override
+  String get commonReportTypeStory => 'историю';
+
+  @override
+  String get commonReportTypeContent => 'контент';
+
+  @override
+  String get commonReportReasonCopyright => 'Нарушение авторских прав';
 }

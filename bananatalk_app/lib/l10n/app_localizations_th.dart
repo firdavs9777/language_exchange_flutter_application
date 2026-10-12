@@ -10788,4 +10788,101 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get vipUpgradeNow => 'อัปเกรดตอนนี้';
+
+  @override
+  String get commonContinueWhereLeftOff => 'ดำเนินการต่อจากที่ค้างไว้ไหม?';
+
+  @override
+  String get commonLanguageNotProvided => 'ไม่ได้ระบุภาษา';
+
+  @override
+  String get commonExamNotProvided => 'ไม่ได้ระบุข้อสอบ';
+
+  @override
+  String get commonMuted => 'ปิดเสียงอยู่';
+
+  @override
+  String get commonPoorConnection => 'สัญญาณไม่ดี';
+
+  @override
+  String commonBlockUserConfirmBody(Object targetUserName) {
+    return 'คุณแน่ใจหรือไม่ว่าต้องการบล็อก $targetUserName?\n\nคุณจะไม่เห็นข้อความและโพสต์ของเขาอีก และจะไม่ปรากฏในผลการค้นหาของกันและกัน';
+  }
+
+  @override
+  String get commonVideoFile => 'ไฟล์วิดีโอ';
+
+  @override
+  String get commonPointCameraBananatalkQr => 'ชี้กล้องไปที่คิวอาร์โค้ด Bananatalk';
+
+  @override
+  String get commonReportSubmittedButSome => 'ส่งรายงานแล้ว แต่อัปโหลดหลักฐานบางส่วนไม่สำเร็จ';
+
+  @override
+  String commonReportTitle(Object typeLabel) {
+    return 'รายงาน$typeLabel';
+  }
+
+  @override
+  String commonWhyReporting(Object typeLabel) {
+    return 'ทำไมคุณจึงรายงาน$typeLabelนี้?';
+  }
+
+  @override
+  String get commonAddEvidenceRequired => 'เพิ่มหลักฐาน (จำเป็น)';
+
+  @override
+  String get commonUploadScreenshotsTextFiles => 'อัปโหลดภาพหน้าจอหรือไฟล์ข้อความเพื่อสนับสนุนรายงานของคุณ';
+
+  @override
+  String commonAddEvidenceCount(Object count, Object maxFiles) {
+    return 'เพิ่มหลักฐาน ($count/$maxFiles)';
+  }
+
+  @override
+  String commonReportTotalSize(Object max, Object used) {
+    return 'รวม: $used / $max';
+  }
+
+  @override
+  String get commonEvidence => 'หลักฐาน';
+
+  @override
+  String get commonImageFailed => 'โหลดรูปภาพไม่สำเร็จ';
+
+  @override
+  String get commonShowMore => 'แสดงเพิ่มเติม';
+
+  @override
+  String get commonVoiceRecordingNotAvailable => 'ไม่สามารถอัดเสียงได้';
+
+  @override
+  String get commonVoiceRecordingOnlyAvailable => 'การอัดเสียงใช้ได้เฉพาะบนอุปกรณ์มือถือ';
+
+  @override
+  String get commonReportSubmittedSuccessfully => 'ส่งรายงานสำเร็จแล้ว';
+
+  @override
+  String get commonErrorLoadingFile => 'เกิดข้อผิดพลาดในการโหลดไฟล์';
+
+  @override
+  String get commonReportTypeUser => 'ผู้ใช้';
+
+  @override
+  String get commonReportTypeMoment => 'โมเมนต์';
+
+  @override
+  String get commonReportTypeComment => 'ความคิดเห็น';
+
+  @override
+  String get commonReportTypeMessage => 'ข้อความ';
+
+  @override
+  String get commonReportTypeStory => 'สตอรี่';
+
+  @override
+  String get commonReportTypeContent => 'เนื้อหา';
+
+  @override
+  String get commonReportReasonCopyright => 'การละเมิดลิขสิทธิ์';
 }
