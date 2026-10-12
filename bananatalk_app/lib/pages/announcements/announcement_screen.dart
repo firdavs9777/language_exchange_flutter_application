@@ -9,14 +9,35 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/widgets/promo/announcement_modal.dart';
 
 /// Opened from the notifications list or the push (spec §5.2).
-class AnnouncementScreen extends ConsumerWidget {
-  const AnnouncementScreen({super.key, required this.id});
+class AnnouncementScreen extends ConsumerStatefulWidget {
+  const AnnouncementScreen({super.key, required this.id, this.markSeen});
 
   final String id;
 
+  /// Seam for tests; defaults to [AnnouncementSeenStore.add].
+  final Future<void> Function(String id)? markSeen;
+
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<AnnouncementScreen> createState() => _AnnouncementScreenState();
+}
+
+class _AnnouncementScreenState extends ConsumerState<AnnouncementScreen> {
+  bool _marked = false;
+
+  /// Once per screen instance, after the first frame that has data, so the
+  /// launch pop-up does not repeat it. Never from build().
+  void _markSeenOnce(String announcementId) {
+    if (_marked) return;
+    _marked = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      (widget.markSeen ?? AnnouncementSeenStore.add)(announcementId).ignore();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final id = widget.id;
     final Widget body;
     if (id.trim().isEmpty) {
       body = const _Unavailable();
@@ -28,8 +49,7 @@ class AnnouncementScreen extends ConsumerWidget {
             ),
             data: (a) {
               if (a == null) return const _Unavailable();
-              // Read here: the launch pop-up must not repeat it.
-              AnnouncementSeenStore.add(a.id).ignore();
+              _markSeenOnce(a.id);
               return _Body(announcement: a);
             },
           );

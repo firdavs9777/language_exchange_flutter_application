@@ -27,6 +27,8 @@ final announcementDetailProvider =
   final res = await ApiClient().get(
     'announcements/${Uri.encodeComponent(clean)}',
     queryParams: {'lang': lang},
+    // Retry within the 1 s dedupe window must not get the failed future back.
+    deduplicate: false,
   );
   return announcementFromResponse(res);
 });

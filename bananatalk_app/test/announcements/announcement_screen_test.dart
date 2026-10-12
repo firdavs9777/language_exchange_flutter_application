@@ -41,6 +41,29 @@ void main() {
     expect(await AnnouncementSeenStore.read(), contains('a1'));
   });
 
+  testWidgets('a rebuild does not mark seen again', (t) async {
+    final calls = <String>[];
+    Future<void> fake(String id) async => calls.add(id);
+    Widget app(int n) => ProviderScope(
+          overrides: [
+            announcementDetailProvider('a1').overrideWith((ref) async =>
+                const Announcement(id: 'a1', title: 'T', body: 'B')),
+          ],
+          child: MaterialApp(
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
+            home: AnnouncementScreen(
+                key: const ValueKey('s'), id: 'a1', markSeen: fake),
+          ),
+        );
+    await t.pumpWidget(app(1));
+    await t.pumpAndSettle();
+    await t.pumpWidget(app(2));
+    await t.pumpAndSettle();
+    await t.pump(const Duration(seconds: 1));
+    expect(calls, ['a1']);
+  });
+
   testWidgets('no button when the link is not openable', (t) async {
     await t.pumpWidget(_wrap(() async => const Announcement(
         id: 'a1',
