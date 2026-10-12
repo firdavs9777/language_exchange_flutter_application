@@ -9763,4 +9763,71 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get chatSaveToVocabularyAction => 'शब्दावली में सहेजें';
+
+  @override
+  String momentsMore(Object hidden) {
+    return '+$hidden और';
+  }
+
+  @override
+  String get momentsAllow => 'अनुमति दें';
+
+  @override
+  String get momentsCompressed => 'संपीड़ित';
+
+  @override
+  String get momentsPromptDay => 'आज का प्रॉम्प्ट';
+
+  @override
+  String get momentsAnswer => 'जवाब दें';
+
+  @override
+  String get momentsAnswerCamera => '🎥 कैमरे पर जवाब दें';
+
+  @override
+  String momentsPracticeWriting(Object langName) {
+    return '$langName में लिखने का अभ्यास करें';
+  }
+
+  @override
+  String get momentsReelPolicyBody => 'रील्स भाषा सीखने के छोटे वीडियो हैं — प्रॉम्प्ट के जवाब, बोलने का अभ्यास, मूल वक्ताओं की व्याख्याएँ और संस्कृति की क्लिप।\n\nBananatalk आपत्तिजनक सामग्री के प्रति शून्य सहनशीलता रखता है: नग्नता, घृणास्पद भाषा, उत्पीड़न, हिंसा या अवैध सामग्री नहीं। 2 रिपोर्ट के बाद रिपोर्ट किए गए वीडियो समीक्षा तक अपने-आप छिपा दिए जाते हैं, और उल्लंघन पर सामग्री हटाई जा सकती है या खाता प्रतिबंधित हो सकता है।\n\nआप किसी भी रील से कभी भी रिपोर्ट या ब्लॉक कर सकते हैं।';
+
+  @override
+  String get momentsIAgree => 'मैं सहमत हूँ';
+
+  @override
+  String get momentsWhyReportingReel => 'आप इस रील की रिपोर्ट क्यों कर रहे हैं?';
+
+  @override
+  String get momentsNoReelsYet => 'अभी तक कोई रील नहीं';
+
+  @override
+  String get momentsNoReelsBody => 'आज के प्रॉम्प्ट का कैमरे पर जवाब देने वाले पहले व्यक्ति बनें, या भाषा सीखने की कोई भी क्लिप रिकॉर्ड करें।';
+
+  @override
+  String get momentsPullDownRefresh => 'रीफ़्रेश करने के लिए नीचे खींचें';
+
+  @override
+  String get momentsErrorLoadingVideo => 'वीडियो लोड करने में त्रुटि';
+
+  @override
+  String get momentsLoadingVideo => 'वीडियो लोड हो रहा है...';
+
+  @override
+  String momentsFileSizeMb(Object size) {
+    return '$size एमबी';
+  }
+
+  @override
+  String momentsMaxDuration(Object duration) {
+    return 'अधिकतम $duration';
+  }
+
+  @override
+  String momentsScheduledAt(Object date, Object time) {
+    return '$date को $time बजे';
+  }
+
+  @override
+  String get momentsReportSubmitted => 'रिपोर्ट भेज दी गई';
 }

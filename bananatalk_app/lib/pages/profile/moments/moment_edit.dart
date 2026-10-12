@@ -349,7 +349,7 @@ class _EditMomentScreenState extends ConsumerState<EditMomentScreen> {
                       ),
                       const SizedBox(width: 6),
                       Text(
-                        'You have unsaved changes',
+                        l10n.unsavedChanges,
                         style: context.captionSmall.copyWith(
                           color: context.textMuted,
                         ),
@@ -498,7 +498,7 @@ class _EditMomentScreenState extends ConsumerState<EditMomentScreen> {
                           ),
                           const SizedBox(width: 3),
                           Text(
-                            'Clear',
+                            l10n.clear,
                             style: context.captionSmall.copyWith(
                               color: context.textMuted,
                               fontWeight: FontWeight.w600,
@@ -741,6 +741,7 @@ class _EditMomentScreenState extends ConsumerState<EditMomentScreen> {
 
   // ========== SELECTED IMAGE TILE (new image) ==========
   Widget _buildSelectedImageTile(File file, int index) {
+    final l10n = AppLocalizations.of(context)!;
     return TweenAnimationBuilder<double>(
       tween: Tween(begin: 0.85, end: 1),
       duration: Duration(milliseconds: 200 + (index * 40).clamp(0, 240)),
@@ -775,8 +776,8 @@ class _EditMomentScreenState extends ConsumerState<EditMomentScreen> {
                 color: const Color(0xFF7C4DFF),
                 borderRadius: BorderRadius.circular(6),
               ),
-              child: const Text(
-                'NEW',
+              child: Text(
+                l10n.newUser,
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 8,
@@ -817,6 +818,7 @@ class _EditMomentScreenState extends ConsumerState<EditMomentScreen> {
 
   // ========== ADD TILE ==========
   Widget _buildAddTile() {
+    final l10n = AppLocalizations.of(context)!;
     final isDark = Theme.of(context).brightness == Brightness.dark;
     return Material(
       color: Colors.transparent,
@@ -849,7 +851,7 @@ class _EditMomentScreenState extends ConsumerState<EditMomentScreen> {
               ),
               const SizedBox(height: 6),
               Text(
-                'Add',
+                l10n.add,
                 style: context.captionSmall.copyWith(
                   color: AppColors.primary,
                   fontWeight: FontWeight.w700,

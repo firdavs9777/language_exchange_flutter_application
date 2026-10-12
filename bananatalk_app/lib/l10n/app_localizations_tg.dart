@@ -9767,4 +9767,71 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get chatSaveToVocabularyAction => 'Ба луғат захира кунед';
+
+  @override
+  String momentsMore(Object hidden) {
+    return '+$hidden дигар';
+  }
+
+  @override
+  String get momentsAllow => 'Иҷозат додан';
+
+  @override
+  String get momentsCompressed => 'Фишурда шуд';
+
+  @override
+  String get momentsPromptDay => 'Мавзӯи рӯз';
+
+  @override
+  String get momentsAnswer => 'Ҷавоб додан';
+
+  @override
+  String get momentsAnswerCamera => '🎥 Бо камера ҷавоб диҳед';
+
+  @override
+  String momentsPracticeWriting(Object langName) {
+    return 'Навиштанро ба забони $langName машқ кунед';
+  }
+
+  @override
+  String get momentsReelPolicyBody => 'Reels видеоҳои кӯтоҳи омӯзиши забон мебошанд — ҷавобҳо ба мавзӯъ, машқи гуфтугӯ, шарҳҳои забондонҳои модарӣ ва клипҳои фарҳангӣ.\n\nBananatalk нисбат ба мундариҷаи номақбул тоқатнопазир аст: бе бараҳнагӣ, суханони нафратангез, таъқиб, зӯроварӣ ва мундариҷаи ғайриқонунӣ. Видеоҳои шикоятшуда пас аз 2 шикоят то баррасӣ ба таври худкор пинҳон карда мешаванд ва вайронкунӣ метавонад боиси нест кардани мундариҷа ё манъи ҳисоб гардад.\n\nШумо метавонед дар ҳар вақт аз ҳар reel шикоят кунед ё манъ намоед.';
+
+  @override
+  String get momentsIAgree => 'Розӣ ҳастам';
+
+  @override
+  String get momentsWhyReportingReel => 'Чаро шумо аз ин reel шикоят мекунед?';
+
+  @override
+  String get momentsNoReelsYet => 'Ҳанӯз reels нест';
+
+  @override
+  String get momentsNoReelsBody => 'Аввалин шахсе бошед, ки ба мавзӯи имрӯза бо камера ҷавоб медиҳад, ё клипи озоди омӯзиши забонро сабт кунед.';
+
+  @override
+  String get momentsPullDownRefresh => 'Барои навсозӣ ба поён кашед';
+
+  @override
+  String get momentsErrorLoadingVideo => 'Хатои боркунии видео';
+
+  @override
+  String get momentsLoadingVideo => 'Видео бор шуда истодааст...';
+
+  @override
+  String momentsFileSizeMb(Object size) {
+    return '$size МБ';
+  }
+
+  @override
+  String momentsMaxDuration(Object duration) {
+    return 'Ҳад. $duration';
+  }
+
+  @override
+  String momentsScheduledAt(Object date, Object time) {
+    return '$date соати $time';
+  }
+
+  @override
+  String get momentsReportSubmitted => 'Шикоят фиристода шуд';
 }

@@ -57,6 +57,27 @@ const Map<String, List<String>> _keysByTask = {
     'chatTranslationAlso',
     'chatAudioUnavailable',
   ],
+  'L3': [
+    'momentsMore',
+    'momentsAllow',
+    'momentsCompressed',
+    'momentsPromptDay',
+    'momentsAnswer',
+    'momentsAnswerCamera',
+    'momentsPracticeWriting',
+    'momentsReelPolicyBody',
+    'momentsIAgree',
+    'momentsWhyReportingReel',
+    'momentsNoReelsYet',
+    'momentsNoReelsBody',
+    'momentsPullDownRefresh',
+    'momentsErrorLoadingVideo',
+    'momentsLoadingVideo',
+    'momentsFileSizeMb',
+    'momentsMaxDuration',
+    'momentsScheduledAt',
+    'momentsReportSubmitted',
+  ],
 };
 
 /// Files (under lib/) each task must leave with no English Text literal.
@@ -86,11 +107,24 @@ const Map<String, List<String>> _filesByTask = {
     'widgets/translation_bottom_sheet.dart',
     'widgets/voice_message_player.dart',
   ],
+  'L3': [
+    'pages/moments/card/moment_media_carousel.dart',
+    'pages/moments/create/create_moment.dart',
+    'pages/moments/feed/prompt_of_day_card.dart',
+    'pages/moments/reels/reel_policy_dialog.dart',
+    'pages/moments/reels/reels_feed_screen.dart',
+    'pages/moments/reels/reels_grid_screen.dart',
+    'pages/moments/viewer/video_player_widget.dart',
+    'pages/profile/moments/moment_edit.dart',
+    'pages/profile/moments/moments_list.dart',
+    'widgets/video_player_screen.dart',
+  ],
 };
 
 /// Keys whose draft may legitimately equal the English in some locale
 /// (loanwords). Add with a one-line reason; empty by default.
 const Set<String> _mayMatchEnglish = {
+  'momentsFileSizeMb', // ja/ko/tl/zh/zh_TW keep the "{size}MB" unit as written
   'chatStory', // de/fr/pt use the English loanword "Story"
   'chatPremium', // "Premium ✨" is the same word in de/es/fr/id/it/pt/tl/tr
   'chatAlternatives', // fr "Alternatives" is the same word

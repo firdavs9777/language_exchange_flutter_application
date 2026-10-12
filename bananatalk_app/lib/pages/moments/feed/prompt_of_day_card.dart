@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/moments/create/create_moment.dart';
 import 'package:bananatalk_app/pages/moments/reels/create_reel_flow.dart';
 import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
@@ -150,7 +151,7 @@ class _PromptOfDayCardState extends ConsumerState<PromptOfDayCard> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Prompt of the day',
+                          AppLocalizations.of(context)!.momentsPromptDay,
                           style: context.labelSmall.copyWith(
                             color: context.textSecondary,
                             fontWeight: FontWeight.w700,
@@ -215,8 +216,8 @@ class _PromptOfDayCardState extends ConsumerState<PromptOfDayCard> {
                             vertical: 6,
                           ),
                         ),
-                        child: const Text(
-                          'Answer',
+                        child: Text(
+                          AppLocalizations.of(context)!.momentsAnswer,
                           style: TextStyle(fontWeight: FontWeight.w700),
                         ),
                       ),
@@ -249,7 +250,7 @@ class _PromptOfDayCardState extends ConsumerState<PromptOfDayCard> {
                                 );
                           },
                           child: Text(
-                            '🎥 Answer on camera',
+                            AppLocalizations.of(context)!.momentsAnswerCamera,
                             style: context.labelSmall.copyWith(
                               color: _accentDark,
                               fontWeight: FontWeight.w700,
@@ -319,7 +320,10 @@ class _PromptOfDayCardState extends ConsumerState<PromptOfDayCard> {
       spacing: 4,
       children: [
         if (langName.isNotEmpty)
-          Text('Practice writing in $langName', style: secondaryStyle),
+          Text(
+            AppLocalizations.of(context)!.momentsPracticeWriting(langName),
+            style: secondaryStyle,
+          ),
         if (langName.isNotEmpty) Text('·', style: secondaryStyle),
         GestureDetector(
           onTap: (_translating || _translationFailed)

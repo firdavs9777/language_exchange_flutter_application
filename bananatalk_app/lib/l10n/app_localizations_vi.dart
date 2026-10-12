@@ -9753,4 +9753,71 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get chatSaveToVocabularyAction => 'Lưu vào từ vựng';
+
+  @override
+  String momentsMore(Object hidden) {
+    return '+$hidden nữa';
+  }
+
+  @override
+  String get momentsAllow => 'Cho phép';
+
+  @override
+  String get momentsCompressed => 'Đã nén';
+
+  @override
+  String get momentsPromptDay => 'Chủ đề hôm nay';
+
+  @override
+  String get momentsAnswer => 'Trả lời';
+
+  @override
+  String get momentsAnswerCamera => '🎥 Trả lời bằng camera';
+
+  @override
+  String momentsPracticeWriting(Object langName) {
+    return 'Luyện viết bằng $langName';
+  }
+
+  @override
+  String get momentsReelPolicyBody => 'Reels là các video ngắn học ngôn ngữ — câu trả lời cho chủ đề, luyện nói, giải thích từ người bản xứ và các clip văn hóa.\n\nBananatalk không khoan nhượng với nội dung phản cảm: không khỏa thân, lời lẽ thù ghét, quấy rối, bạo lực hay nội dung bất hợp pháp. Video bị báo cáo sẽ tự động bị ẩn để chờ xem xét sau 2 báo cáo, và vi phạm có thể dẫn đến gỡ nội dung hoặc khóa tài khoản.\n\nBạn có thể báo cáo hoặc chặn từ bất kỳ reel nào vào bất cứ lúc nào.';
+
+  @override
+  String get momentsIAgree => 'Tôi đồng ý';
+
+  @override
+  String get momentsWhyReportingReel => 'Vì sao bạn báo cáo reel này?';
+
+  @override
+  String get momentsNoReelsYet => 'Chưa có reel nào';
+
+  @override
+  String get momentsNoReelsBody => 'Hãy là người đầu tiên trả lời chủ đề hôm nay bằng camera, hoặc quay một clip học ngôn ngữ tự do.';
+
+  @override
+  String get momentsPullDownRefresh => 'Kéo xuống để làm mới';
+
+  @override
+  String get momentsErrorLoadingVideo => 'Lỗi tải video';
+
+  @override
+  String get momentsLoadingVideo => 'Đang tải video...';
+
+  @override
+  String momentsFileSizeMb(Object size) {
+    return '$size MB';
+  }
+
+  @override
+  String momentsMaxDuration(Object duration) {
+    return 'Tối đa $duration';
+  }
+
+  @override
+  String momentsScheduledAt(Object date, Object time) {
+    return '$date lúc $time';
+  }
+
+  @override
+  String get momentsReportSubmitted => 'Đã gửi báo cáo';
 }

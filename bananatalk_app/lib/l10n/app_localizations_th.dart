@@ -9753,4 +9753,71 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get chatSaveToVocabularyAction => 'บันทึกลงคำศัพท์';
+
+  @override
+  String momentsMore(Object hidden) {
+    return '+อีก $hidden';
+  }
+
+  @override
+  String get momentsAllow => 'อนุญาต';
+
+  @override
+  String get momentsCompressed => 'บีบอัดแล้ว';
+
+  @override
+  String get momentsPromptDay => 'หัวข้อประจำวัน';
+
+  @override
+  String get momentsAnswer => 'ตอบ';
+
+  @override
+  String get momentsAnswerCamera => '🎥 ตอบด้วยกล้อง';
+
+  @override
+  String momentsPracticeWriting(Object langName) {
+    return 'ฝึกเขียนเป็นภาษา$langName';
+  }
+
+  @override
+  String get momentsReelPolicyBody => 'รีลคือวิดีโอสั้นสำหรับเรียนภาษา เช่น คำตอบของหัวข้อประจำวัน การฝึกพูด คำอธิบายจากเจ้าของภาษา และคลิปวัฒนธรรม\n\nBananatalk ไม่ยอมรับเนื้อหาที่ไม่เหมาะสมโดยเด็ดขาด ห้ามมีภาพเปลือย วาจาสร้างความเกลียดชัง การคุกคาม ความรุนแรง หรือเนื้อหาผิดกฎหมาย วิดีโอที่ถูกรายงานจะถูกซ่อนโดยอัตโนมัติเพื่อรอการตรวจสอบหลังถูกรายงาน 2 ครั้ง และการละเมิดอาจทำให้เนื้อหาถูกลบหรือบัญชีถูกระงับ\n\nคุณรายงานหรือบล็อกจากรีลใดก็ได้ทุกเมื่อ';
+
+  @override
+  String get momentsIAgree => 'ฉันยอมรับ';
+
+  @override
+  String get momentsWhyReportingReel => 'ทำไมคุณจึงรายงานรีลนี้';
+
+  @override
+  String get momentsNoReelsYet => 'ยังไม่มีรีล';
+
+  @override
+  String get momentsNoReelsBody => 'เป็นคนแรกที่ตอบหัวข้อประจำวันนี้ด้วยกล้อง หรืออัดคลิปเรียนภาษาแบบอิสระ';
+
+  @override
+  String get momentsPullDownRefresh => 'ดึงลงเพื่อรีเฟรช';
+
+  @override
+  String get momentsErrorLoadingVideo => 'โหลดวิดีโอผิดพลาด';
+
+  @override
+  String get momentsLoadingVideo => 'กำลังโหลดวิดีโอ...';
+
+  @override
+  String momentsFileSizeMb(Object size) {
+    return '$size MB';
+  }
+
+  @override
+  String momentsMaxDuration(Object duration) {
+    return 'สูงสุด $duration';
+  }
+
+  @override
+  String momentsScheduledAt(Object date, Object time) {
+    return '$date เวลา $time';
+  }
+
+  @override
+  String get momentsReportSubmitted => 'ส่งรายงานแล้ว';
 }

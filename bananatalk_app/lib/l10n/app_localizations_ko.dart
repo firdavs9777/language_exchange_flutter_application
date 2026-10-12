@@ -9753,4 +9753,71 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get chatSaveToVocabularyAction => '어휘장에 저장';
+
+  @override
+  String momentsMore(Object hidden) {
+    return '+$hidden개 더보기';
+  }
+
+  @override
+  String get momentsAllow => '허용';
+
+  @override
+  String get momentsCompressed => '압축됨';
+
+  @override
+  String get momentsPromptDay => '오늘의 주제';
+
+  @override
+  String get momentsAnswer => '답변하기';
+
+  @override
+  String get momentsAnswerCamera => '🎥 카메라로 답변하기';
+
+  @override
+  String momentsPracticeWriting(Object langName) {
+    return '$langName 글쓰기 연습';
+  }
+
+  @override
+  String get momentsReelPolicyBody => '릴스는 짧은 언어 학습 영상입니다. 주제 답변, 말하기 연습, 원어민 설명, 문화 클립 등이 올라옵니다.\n\nBananatalk는 부적절한 콘텐츠에 무관용 원칙을 적용합니다. 노출, 혐오 발언, 괴롭힘, 폭력, 불법 콘텐츠는 금지됩니다. 신고된 영상은 신고 2건이 접수되면 검토 전까지 자동으로 숨겨지며, 위반 시 콘텐츠가 삭제되거나 계정이 정지될 수 있습니다.\n\n언제든지 모든 릴스에서 신고하거나 차단할 수 있습니다.';
+
+  @override
+  String get momentsIAgree => '동의합니다';
+
+  @override
+  String get momentsWhyReportingReel => '이 릴스를 신고하는 이유는 무엇인가요?';
+
+  @override
+  String get momentsNoReelsYet => '아직 릴스가 없습니다';
+
+  @override
+  String get momentsNoReelsBody => '오늘의 주제에 카메라로 가장 먼저 답변하거나 자유로운 언어 학습 클립을 녹화해 보세요.';
+
+  @override
+  String get momentsPullDownRefresh => '아래로 당겨 새로고침';
+
+  @override
+  String get momentsErrorLoadingVideo => '동영상을 불러오는 중 오류가 발생했습니다';
+
+  @override
+  String get momentsLoadingVideo => '동영상 불러오는 중...';
+
+  @override
+  String momentsFileSizeMb(Object size) {
+    return '${size}MB';
+  }
+
+  @override
+  String momentsMaxDuration(Object duration) {
+    return '최대 $duration';
+  }
+
+  @override
+  String momentsScheduledAt(Object date, Object time) {
+    return '$date $time';
+  }
+
+  @override
+  String get momentsReportSubmitted => '신고가 접수되었습니다';
 }

@@ -412,7 +412,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     setState(() {
       _selectedImages.addAll(filesToAdd);
     });
-    }
+  }
 
   Future<void> _takePhoto() async {
     if (_blockedFrom(MomentMediaKind.images)) return;
@@ -584,8 +584,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
           );
         }
       } else {
-        setState(() {
-        });
+        setState(() {});
 
         if (mounted) {
           showMomentsSnackBar(
@@ -601,8 +600,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
         Navigator.of(context, rootNavigator: true).pop();
       }
 
-      setState(() {
-      });
+      setState(() {});
 
       if (mounted) {
         showMomentsSnackBar(
@@ -667,7 +665,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                 Text(
                   _videoProcessingStatus.isNotEmpty
                       ? _videoProcessingStatus
-                      : 'Processing video...',
+                      : AppLocalizations.of(context)!.processingVideo,
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
@@ -835,7 +833,9 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
               key: const Key('audio-retry-dismiss'),
               onPressed: () => Navigator.of(dialogContext).pop(false),
               child: Text(
-                decision == UploadRetryDecision.giveUp ? 'OK' : 'Dismiss',
+                decision == UploadRetryDecision.giveUp
+                    ? AppLocalizations.of(context)!.ok
+                    : AppLocalizations.of(context)!.dismiss,
               ),
             ),
             // Out of attempts: no button, rather than one that keeps failing.
@@ -897,14 +897,16 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
         ),
         content: Text(
-          AppLocalizations.of(context)!.maximumImagesReachedDescription(maxImages),
+          AppLocalizations.of(
+            context,
+          )!.maximumImagesReachedDescription(maxImages),
           style: const TextStyle(fontSize: 15),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text(
-              'OK',
+            child: Text(
+              AppLocalizations.of(context)!.ok,
               style: TextStyle(
                 color: Color(0xFF00BFA5),
                 fontWeight: FontWeight.w600,
@@ -917,8 +919,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
   }
 
   Future<void> _requestLocationPermission() async {
-    setState(() {
-    });
+    setState(() {});
 
     // First check if location services are enabled
     bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
@@ -946,10 +947,8 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     // Permission granted, get location
     await _getCurrentLocation();
 
-    setState(() {
-    });
+    setState(() {});
   }
-
 
   Future<void> _getCurrentLocation() async {
     try {
@@ -1094,8 +1093,8 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                 Navigator.of(context).pop();
                 _requestLocationPermission();
               },
-              child: const Text(
-                'Allow',
+              child: Text(
+                AppLocalizations.of(context)!.momentsAllow,
                 style: TextStyle(
                   color: Color(0xFF00BFA5),
                   fontWeight: FontWeight.w600,
@@ -1121,14 +1120,16 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
           ),
           content: Text(
-            AppLocalizations.of(context)!.locationPermissionPermanentlyDeniedBody,
+            AppLocalizations.of(
+              context,
+            )!.locationPermissionPermanentlyDeniedBody,
             style: TextStyle(fontSize: 15),
           ),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
               child: Text(
-                'Cancel',
+                AppLocalizations.of(context)!.cancel,
                 style: TextStyle(color: context.textSecondary),
               ),
             ),
@@ -1260,7 +1261,6 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     }
   }
 
-
   Future<void> _createMoment() async {
     if (_isLoading) return;
 
@@ -1371,7 +1371,10 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
               isReel: widget.isReel,
             );
         // The server created it: that is the milestone, uploads or not.
-        ref.read(activationStoreProvider).markDone(ActivationAction.moment).ignore();
+        ref
+            .read(activationStoreProvider)
+            .markDone(ActivationAction.moment)
+            .ignore();
 
         // Upload images if any
         if (_selectedImages.isNotEmpty) {
@@ -2307,7 +2310,9 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                           children: [
                             if (_videoProcessResult != null) ...[
                               Text(
-                                '${_videoProcessResult!.fileSizeMB}MB',
+                                AppLocalizations.of(context)!.momentsFileSizeMb(
+                                  _videoProcessResult!.fileSizeMB,
+                                ),
                                 style: context.captionSmall.copyWith(
                                   color: context.textSecondary,
                                 ),
@@ -2333,8 +2338,10 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                                     ).withValues(alpha: 0.1),
                                     borderRadius: BorderRadius.circular(4),
                                   ),
-                                  child: const Text(
-                                    'Compressed',
+                                  child: Text(
+                                    AppLocalizations.of(
+                                      context,
+                                    )!.momentsCompressed,
                                     style: TextStyle(
                                       fontSize: 10,
                                       color: Color(0xFF00BFA5),
@@ -2345,7 +2352,9 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                               ],
                             ] else
                               Text(
-                                AppLocalizations.of(context)!.momentReadyToUpload,
+                                AppLocalizations.of(
+                                  context,
+                                )!.momentReadyToUpload,
                                 style: context.captionSmall.copyWith(
                                   color: context.textSecondary,
                                 ),
@@ -2409,7 +2418,11 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                             const SizedBox(width: 4),
                             Text(
                               _videoProcessResult?.durationFormatted ??
-                                  (widget.isReel ? 'Max 3:00' : 'Max 10:00'),
+                                  AppLocalizations.of(
+                                    context,
+                                  )!.momentsMaxDuration(
+                                    widget.isReel ? '3:00' : '10:00',
+                                  ),
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 12,
@@ -2444,8 +2457,14 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                             const SizedBox(width: 4),
                             Text(
                               _videoProcessResult != null
-                                  ? '${_videoProcessResult!.fileSizeMB}MB'
-                                  : 'Processing...',
+                                  ? AppLocalizations.of(
+                                      context,
+                                    )!.momentsFileSizeMb(
+                                      _videoProcessResult!.fileSizeMB,
+                                    )
+                                  : AppLocalizations.of(
+                                      context,
+                                    )!.termsProcessing,
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 12,
@@ -2511,7 +2530,8 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
               Spacing.hGapSM,
               Expanded(
                 child: Text(
-                  _formattedAddress ?? 'Location added',
+                  _formattedAddress ??
+                      AppLocalizations.of(context)!.locationAdded,
                   style: context.bodyMedium.copyWith(
                     color: AppColors.primary,
                     fontWeight: FontWeight.w500,
@@ -2652,7 +2672,10 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                   Expanded(
                     child: Text(
                       _scheduledDate != null
-                          ? '${_scheduledDate!.day}/${_scheduledDate!.month}/${_scheduledDate!.year} at ${_scheduledDate!.hour}:${_scheduledDate!.minute.toString().padLeft(2, '0')}'
+                          ? AppLocalizations.of(context)!.momentsScheduledAt(
+                              '${_scheduledDate!.day}/${_scheduledDate!.month}/${_scheduledDate!.year}',
+                              '${_scheduledDate!.hour}:${_scheduledDate!.minute.toString().padLeft(2, '0')}',
+                            )
                           : AppLocalizations.of(
                               context,
                             )!.momentsCreateScheduleForLater,

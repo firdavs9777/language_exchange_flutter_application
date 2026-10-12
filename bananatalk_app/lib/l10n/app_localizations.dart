@@ -17887,6 +17887,120 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Save to Vocabulary'**
   String get chatSaveToVocabularyAction;
+
+  /// No description provided for @momentsMore.
+  ///
+  /// In en, this message translates to:
+  /// **'+{hidden} more'**
+  String momentsMore(Object hidden);
+
+  /// No description provided for @momentsAllow.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow'**
+  String get momentsAllow;
+
+  /// No description provided for @momentsCompressed.
+  ///
+  /// In en, this message translates to:
+  /// **'Compressed'**
+  String get momentsCompressed;
+
+  /// No description provided for @momentsPromptDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Prompt of the day'**
+  String get momentsPromptDay;
+
+  /// No description provided for @momentsAnswer.
+  ///
+  /// In en, this message translates to:
+  /// **'Answer'**
+  String get momentsAnswer;
+
+  /// No description provided for @momentsAnswerCamera.
+  ///
+  /// In en, this message translates to:
+  /// **'🎥 Answer on camera'**
+  String get momentsAnswerCamera;
+
+  /// No description provided for @momentsPracticeWriting.
+  ///
+  /// In en, this message translates to:
+  /// **'Practice writing in {langName}'**
+  String momentsPracticeWriting(Object langName);
+
+  /// No description provided for @momentsReelPolicyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Reels are short language-learning videos — prompt answers, speaking practice, native-speaker explainers, and culture clips.\n\nBananatalk has zero tolerance for objectionable content: no nudity, hate speech, harassment, violence, or illegal content. Reported videos are automatically hidden pending review after 2 reports, and violations can result in content removal or account bans.\n\nYou can report or block from any reel at any time.'**
+  String get momentsReelPolicyBody;
+
+  /// No description provided for @momentsIAgree.
+  ///
+  /// In en, this message translates to:
+  /// **'I agree'**
+  String get momentsIAgree;
+
+  /// No description provided for @momentsWhyReportingReel.
+  ///
+  /// In en, this message translates to:
+  /// **'Why are you reporting this reel?'**
+  String get momentsWhyReportingReel;
+
+  /// No description provided for @momentsNoReelsYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No reels yet'**
+  String get momentsNoReelsYet;
+
+  /// No description provided for @momentsNoReelsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Be the first to answer today\'s prompt on camera, or record a free-form language-learning clip.'**
+  String get momentsNoReelsBody;
+
+  /// No description provided for @momentsPullDownRefresh.
+  ///
+  /// In en, this message translates to:
+  /// **'Pull down to refresh'**
+  String get momentsPullDownRefresh;
+
+  /// No description provided for @momentsErrorLoadingVideo.
+  ///
+  /// In en, this message translates to:
+  /// **'Error loading video'**
+  String get momentsErrorLoadingVideo;
+
+  /// No description provided for @momentsLoadingVideo.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading video...'**
+  String get momentsLoadingVideo;
+
+  /// No description provided for @momentsFileSizeMb.
+  ///
+  /// In en, this message translates to:
+  /// **'{size}MB'**
+  String momentsFileSizeMb(Object size);
+
+  /// No description provided for @momentsMaxDuration.
+  ///
+  /// In en, this message translates to:
+  /// **'Max {duration}'**
+  String momentsMaxDuration(Object duration);
+
+  /// No description provided for @momentsScheduledAt.
+  ///
+  /// In en, this message translates to:
+  /// **'{date} at {time}'**
+  String momentsScheduledAt(Object date, Object time);
+
+  /// No description provided for @momentsReportSubmitted.
+  ///
+  /// In en, this message translates to:
+  /// **'Report submitted'**
+  String get momentsReportSubmitted;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

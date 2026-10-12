@@ -9778,4 +9778,71 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get chatSaveToVocabularyAction => 'حفظ في المفردات';
+
+  @override
+  String momentsMore(Object hidden) {
+    return '+$hidden أخرى';
+  }
+
+  @override
+  String get momentsAllow => 'السماح';
+
+  @override
+  String get momentsCompressed => 'تم الضغط';
+
+  @override
+  String get momentsPromptDay => 'موضوع اليوم';
+
+  @override
+  String get momentsAnswer => 'أجب';
+
+  @override
+  String get momentsAnswerCamera => '🎥 أجب بالكاميرا';
+
+  @override
+  String momentsPracticeWriting(Object langName) {
+    return 'تدرّب على الكتابة بـ$langName';
+  }
+
+  @override
+  String get momentsReelPolicyBody => 'الريلز مقاطع فيديو قصيرة لتعلّم اللغات — إجابات على موضوع اليوم، وتدريب على التحدث، وشروحات من ناطقين أصليين، ومقاطع عن الثقافة.\n\nلا تتسامح Bananatalk إطلاقًا مع المحتوى المسيء: لا للعري ولا لخطاب الكراهية ولا للمضايقة ولا للعنف ولا للمحتوى غير القانوني. تُخفى المقاطع المبلَّغ عنها تلقائيًا بانتظار المراجعة بعد بلاغين، وقد تؤدي المخالفات إلى إزالة المحتوى أو حظر الحساب.\n\nيمكنك الإبلاغ أو الحظر من أي ريل في أي وقت.';
+
+  @override
+  String get momentsIAgree => 'أوافق';
+
+  @override
+  String get momentsWhyReportingReel => 'لماذا تبلّغ عن هذا الريل؟';
+
+  @override
+  String get momentsNoReelsYet => 'لا توجد ريلز بعد';
+
+  @override
+  String get momentsNoReelsBody => 'كن أول من يجيب على موضوع اليوم بالكاميرا، أو سجّل مقطعًا حرًا لتعلّم اللغة.';
+
+  @override
+  String get momentsPullDownRefresh => 'اسحب للأسفل للتحديث';
+
+  @override
+  String get momentsErrorLoadingVideo => 'خطأ في تحميل الفيديو';
+
+  @override
+  String get momentsLoadingVideo => 'جارٍ تحميل الفيديو...';
+
+  @override
+  String momentsFileSizeMb(Object size) {
+    return '$size ميجابايت';
+  }
+
+  @override
+  String momentsMaxDuration(Object duration) {
+    return 'الحد الأقصى $duration';
+  }
+
+  @override
+  String momentsScheduledAt(Object date, Object time) {
+    return '$date في $time';
+  }
+
+  @override
+  String get momentsReportSubmitted => 'تم إرسال البلاغ';
 }

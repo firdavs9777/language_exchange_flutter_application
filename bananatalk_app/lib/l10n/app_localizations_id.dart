@@ -9760,4 +9760,71 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get chatSaveToVocabularyAction => 'Simpan ke kosakata';
+
+  @override
+  String momentsMore(Object hidden) {
+    return '+$hidden lagi';
+  }
+
+  @override
+  String get momentsAllow => 'Izinkan';
+
+  @override
+  String get momentsCompressed => 'Terkompresi';
+
+  @override
+  String get momentsPromptDay => 'Topik hari ini';
+
+  @override
+  String get momentsAnswer => 'Jawab';
+
+  @override
+  String get momentsAnswerCamera => '🎥 Jawab dengan kamera';
+
+  @override
+  String momentsPracticeWriting(Object langName) {
+    return 'Latihan menulis dalam $langName';
+  }
+
+  @override
+  String get momentsReelPolicyBody => 'Reels adalah video pendek untuk belajar bahasa — jawaban topik, latihan berbicara, penjelasan dari penutur asli, dan klip budaya.\n\nBananatalk tidak menoleransi konten yang tidak pantas: tanpa ketelanjangan, ujaran kebencian, pelecehan, kekerasan, atau konten ilegal. Video yang dilaporkan otomatis disembunyikan menunggu peninjauan setelah 2 laporan, dan pelanggaran dapat berujung pada penghapusan konten atau pemblokiran akun.\n\nAnda dapat melaporkan atau memblokir dari reel mana pun kapan saja.';
+
+  @override
+  String get momentsIAgree => 'Saya setuju';
+
+  @override
+  String get momentsWhyReportingReel => 'Mengapa Anda melaporkan reel ini?';
+
+  @override
+  String get momentsNoReelsYet => 'Belum ada reel';
+
+  @override
+  String get momentsNoReelsBody => 'Jadilah yang pertama menjawab topik hari ini dengan kamera, atau rekam klip bebas untuk belajar bahasa.';
+
+  @override
+  String get momentsPullDownRefresh => 'Tarik ke bawah untuk menyegarkan';
+
+  @override
+  String get momentsErrorLoadingVideo => 'Gagal memuat video';
+
+  @override
+  String get momentsLoadingVideo => 'Memuat video...';
+
+  @override
+  String momentsFileSizeMb(Object size) {
+    return '$size MB';
+  }
+
+  @override
+  String momentsMaxDuration(Object duration) {
+    return 'Maks. $duration';
+  }
+
+  @override
+  String momentsScheduledAt(Object date, Object time) {
+    return '$date pukul $time';
+  }
+
+  @override
+  String get momentsReportSubmitted => 'Laporan terkirim';
 }

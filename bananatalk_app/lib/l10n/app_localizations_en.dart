@@ -9769,4 +9769,71 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get chatSaveToVocabularyAction => 'Save to Vocabulary';
+
+  @override
+  String momentsMore(Object hidden) {
+    return '+$hidden more';
+  }
+
+  @override
+  String get momentsAllow => 'Allow';
+
+  @override
+  String get momentsCompressed => 'Compressed';
+
+  @override
+  String get momentsPromptDay => 'Prompt of the day';
+
+  @override
+  String get momentsAnswer => 'Answer';
+
+  @override
+  String get momentsAnswerCamera => '🎥 Answer on camera';
+
+  @override
+  String momentsPracticeWriting(Object langName) {
+    return 'Practice writing in $langName';
+  }
+
+  @override
+  String get momentsReelPolicyBody => 'Reels are short language-learning videos — prompt answers, speaking practice, native-speaker explainers, and culture clips.\n\nBananatalk has zero tolerance for objectionable content: no nudity, hate speech, harassment, violence, or illegal content. Reported videos are automatically hidden pending review after 2 reports, and violations can result in content removal or account bans.\n\nYou can report or block from any reel at any time.';
+
+  @override
+  String get momentsIAgree => 'I agree';
+
+  @override
+  String get momentsWhyReportingReel => 'Why are you reporting this reel?';
+
+  @override
+  String get momentsNoReelsYet => 'No reels yet';
+
+  @override
+  String get momentsNoReelsBody => 'Be the first to answer today\'s prompt on camera, or record a free-form language-learning clip.';
+
+  @override
+  String get momentsPullDownRefresh => 'Pull down to refresh';
+
+  @override
+  String get momentsErrorLoadingVideo => 'Error loading video';
+
+  @override
+  String get momentsLoadingVideo => 'Loading video...';
+
+  @override
+  String momentsFileSizeMb(Object size) {
+    return '${size}MB';
+  }
+
+  @override
+  String momentsMaxDuration(Object duration) {
+    return 'Max $duration';
+  }
+
+  @override
+  String momentsScheduledAt(Object date, Object time) {
+    return '$date at $time';
+  }
+
+  @override
+  String get momentsReportSubmitted => 'Report submitted';
 }

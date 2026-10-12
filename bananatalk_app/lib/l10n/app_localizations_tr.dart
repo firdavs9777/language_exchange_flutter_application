@@ -9761,4 +9761,71 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get chatSaveToVocabularyAction => 'Kelime listesine kaydet';
+
+  @override
+  String momentsMore(Object hidden) {
+    return '+$hidden daha';
+  }
+
+  @override
+  String get momentsAllow => 'İzin ver';
+
+  @override
+  String get momentsCompressed => 'Sıkıştırıldı';
+
+  @override
+  String get momentsPromptDay => 'Günün konusu';
+
+  @override
+  String get momentsAnswer => 'Yanıtla';
+
+  @override
+  String get momentsAnswerCamera => '🎥 Kamerayla yanıtla';
+
+  @override
+  String momentsPracticeWriting(Object langName) {
+    return '$langName dilinde yazma pratiği yap';
+  }
+
+  @override
+  String get momentsReelPolicyBody => 'Reels, dil öğrenmeye yönelik kısa videolardır: konulara yanıtlar, konuşma pratiği, ana dili konuşanların açıklamaları ve kültür klipleri.\n\nBananatalk, uygunsuz içeriğe sıfır tolerans gösterir: çıplaklık, nefret söylemi, taciz, şiddet veya yasa dışı içerik yasaktır. Bildirilen videolar 2 bildirimden sonra incelenene kadar otomatik olarak gizlenir ve ihlaller içeriğin kaldırılmasına veya hesabın yasaklanmasına yol açabilir.\n\nHerhangi bir reel\'den istediğin zaman bildirebilir veya engelleyebilirsin.';
+
+  @override
+  String get momentsIAgree => 'Kabul ediyorum';
+
+  @override
+  String get momentsWhyReportingReel => 'Bu reel\'i neden bildiriyorsun?';
+
+  @override
+  String get momentsNoReelsYet => 'Henüz reel yok';
+
+  @override
+  String get momentsNoReelsBody => 'Bugünün konusunu kamerayla yanıtlayan ilk kişi ol veya serbest biçimli bir dil öğrenme klibi kaydet.';
+
+  @override
+  String get momentsPullDownRefresh => 'Yenilemek için aşağı çek';
+
+  @override
+  String get momentsErrorLoadingVideo => 'Video yüklenirken hata oluştu';
+
+  @override
+  String get momentsLoadingVideo => 'Video yükleniyor...';
+
+  @override
+  String momentsFileSizeMb(Object size) {
+    return '$size MB';
+  }
+
+  @override
+  String momentsMaxDuration(Object duration) {
+    return 'En fazla $duration';
+  }
+
+  @override
+  String momentsScheduledAt(Object date, Object time) {
+    return '$date, $time';
+  }
+
+  @override
+  String get momentsReportSubmitted => 'Bildirim gönderildi';
 }

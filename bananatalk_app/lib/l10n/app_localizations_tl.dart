@@ -9763,4 +9763,71 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get chatSaveToVocabularyAction => 'I-save sa bokabularyo';
+
+  @override
+  String momentsMore(Object hidden) {
+    return '+$hidden pa';
+  }
+
+  @override
+  String get momentsAllow => 'Payagan';
+
+  @override
+  String get momentsCompressed => 'Na-compress';
+
+  @override
+  String get momentsPromptDay => 'Paksa ng araw';
+
+  @override
+  String get momentsAnswer => 'Sumagot';
+
+  @override
+  String get momentsAnswerCamera => '🎥 Sumagot gamit ang camera';
+
+  @override
+  String momentsPracticeWriting(Object langName) {
+    return 'Magsanay magsulat sa $langName';
+  }
+
+  @override
+  String get momentsReelPolicyBody => 'Ang mga reel ay maiikling video para sa pag-aaral ng wika — mga sagot sa paksa, pagsasanay sa pagsasalita, paliwanag ng mga native speaker, at mga clip tungkol sa kultura.\n\nWalang pagpapaubaya ang Bananatalk sa hindi katanggap-tanggap na nilalaman: bawal ang kahubaran, hate speech, panliligalig, karahasan, o ilegal na nilalaman. Awtomatikong itinatago ang mga na-report na video habang hinihintay ang pagsusuri pagkatapos ng 2 report, at ang mga paglabag ay maaaring humantong sa pagtanggal ng nilalaman o pag-ban sa account.\n\nMaaari kang mag-report o mag-block mula sa anumang reel anumang oras.';
+
+  @override
+  String get momentsIAgree => 'Sumasang-ayon ako';
+
+  @override
+  String get momentsWhyReportingReel => 'Bakit mo nire-report ang reel na ito?';
+
+  @override
+  String get momentsNoReelsYet => 'Wala pang reel';
+
+  @override
+  String get momentsNoReelsBody => 'Maging una sa pagsagot sa paksa ngayon gamit ang camera, o mag-record ng malayang clip sa pag-aaral ng wika.';
+
+  @override
+  String get momentsPullDownRefresh => 'I-pull down para mag-refresh';
+
+  @override
+  String get momentsErrorLoadingVideo => 'Error sa pag-load ng video';
+
+  @override
+  String get momentsLoadingVideo => 'Nilo-load ang video...';
+
+  @override
+  String momentsFileSizeMb(Object size) {
+    return '${size}MB';
+  }
+
+  @override
+  String momentsMaxDuration(Object duration) {
+    return 'Hanggang $duration';
+  }
+
+  @override
+  String momentsScheduledAt(Object date, Object time) {
+    return '$date nang $time';
+  }
+
+  @override
+  String get momentsReportSubmitted => 'Naipadala ang report';
 }

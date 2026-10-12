@@ -9786,4 +9786,71 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get chatSaveToVocabularyAction => 'Сохранить в словарь';
+
+  @override
+  String momentsMore(Object hidden) {
+    return '+ещё $hidden';
+  }
+
+  @override
+  String get momentsAllow => 'Разрешить';
+
+  @override
+  String get momentsCompressed => 'Сжато';
+
+  @override
+  String get momentsPromptDay => 'Тема дня';
+
+  @override
+  String get momentsAnswer => 'Ответить';
+
+  @override
+  String get momentsAnswerCamera => '🎥 Ответить на камеру';
+
+  @override
+  String momentsPracticeWriting(Object langName) {
+    return 'Практикуйте письмо на языке: $langName';
+  }
+
+  @override
+  String get momentsReelPolicyBody => 'Reels — это короткие видео для изучения языков: ответы на тему дня, разговорная практика, объяснения носителей языка и клипы о культуре.\n\nBananatalk не терпит недопустимый контент: никакой наготы, языка ненависти, травли, насилия и незаконного контента. Видео, на которые пожаловались, автоматически скрываются до проверки после 2 жалоб, а нарушения могут привести к удалению контента или блокировке аккаунта.\n\nВы можете пожаловаться или заблокировать автора из любого ролика в любое время.';
+
+  @override
+  String get momentsIAgree => 'Я согласен';
+
+  @override
+  String get momentsWhyReportingReel => 'Почему вы жалуетесь на этот ролик?';
+
+  @override
+  String get momentsNoReelsYet => 'Пока нет роликов';
+
+  @override
+  String get momentsNoReelsBody => 'Станьте первым, кто ответит на сегодняшнюю тему на камеру, или запишите свободный клип для изучения языка.';
+
+  @override
+  String get momentsPullDownRefresh => 'Потяните вниз, чтобы обновить';
+
+  @override
+  String get momentsErrorLoadingVideo => 'Ошибка загрузки видео';
+
+  @override
+  String get momentsLoadingVideo => 'Загрузка видео...';
+
+  @override
+  String momentsFileSizeMb(Object size) {
+    return '$size МБ';
+  }
+
+  @override
+  String momentsMaxDuration(Object duration) {
+    return 'Макс. $duration';
+  }
+
+  @override
+  String momentsScheduledAt(Object date, Object time) {
+    return '$date в $time';
+  }
+
+  @override
+  String get momentsReportSubmitted => 'Жалоба отправлена';
 }

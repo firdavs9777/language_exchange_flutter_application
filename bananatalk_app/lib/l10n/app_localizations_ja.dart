@@ -9753,4 +9753,71 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get chatSaveToVocabularyAction => '単語帳に保存';
+
+  @override
+  String momentsMore(Object hidden) {
+    return '他$hidden件';
+  }
+
+  @override
+  String get momentsAllow => '許可';
+
+  @override
+  String get momentsCompressed => '圧縮済み';
+
+  @override
+  String get momentsPromptDay => '今日のお題';
+
+  @override
+  String get momentsAnswer => '回答する';
+
+  @override
+  String get momentsAnswerCamera => '🎥 カメラで回答';
+
+  @override
+  String momentsPracticeWriting(Object langName) {
+    return '$langNameで書く練習をしよう';
+  }
+
+  @override
+  String get momentsReelPolicyBody => 'リールは語学学習向けの短い動画です。お題への回答、スピーキング練習、ネイティブによる解説、文化クリップなどが投稿されます。\n\nBananatalkは不適切なコンテンツを一切容認しません。ヌード、ヘイトスピーチ、嫌がらせ、暴力、違法なコンテンツは禁止です。報告された動画は2件の報告で審査まで自動的に非表示になり、違反するとコンテンツの削除やアカウントの停止となる場合があります。\n\nどのリールからでもいつでも報告やブロックができます。';
+
+  @override
+  String get momentsIAgree => '同意する';
+
+  @override
+  String get momentsWhyReportingReel => 'このリールを報告する理由は何ですか？';
+
+  @override
+  String get momentsNoReelsYet => 'まだリールがありません';
+
+  @override
+  String get momentsNoReelsBody => '今日のお題にカメラで最初に回答するか、自由形式の語学学習クリップを録画しましょう。';
+
+  @override
+  String get momentsPullDownRefresh => '下に引っ張って更新';
+
+  @override
+  String get momentsErrorLoadingVideo => '動画の読み込みエラー';
+
+  @override
+  String get momentsLoadingVideo => '動画を読み込み中...';
+
+  @override
+  String momentsFileSizeMb(Object size) {
+    return '${size}MB';
+  }
+
+  @override
+  String momentsMaxDuration(Object duration) {
+    return '最大$duration';
+  }
+
+  @override
+  String momentsScheduledAt(Object date, Object time) {
+    return '$date $time';
+  }
+
+  @override
+  String get momentsReportSubmitted => '報告を送信しました';
 }

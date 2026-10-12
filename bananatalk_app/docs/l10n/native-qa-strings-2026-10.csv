@@ -2309,3 +2309,489 @@ app,zh_TW,chatStoryExpired,Story expired,動態已過期,
 app,zh_TW,chatAcceptCorrection,Accept correction,接受更正,
 app,zh_TW,chatAccepting,Accepting…,正在接受…,
 app,zh_TW,chatSaveToVocabularyAction,Save to Vocabulary,儲存到單字本,
+app,ar,momentsMore,+{hidden} more,+{hidden} أخرى,
+app,ar,momentsAllow,Allow,السماح,
+app,ar,momentsCompressed,Compressed,تم الضغط,
+app,ar,momentsPromptDay,Prompt of the day,موضوع اليوم,
+app,ar,momentsAnswer,Answer,أجب,
+app,ar,momentsAnswerCamera,🎥 Answer on camera,🎥 أجب بالكاميرا,
+app,ar,momentsPracticeWriting,Practice writing in {langName},تدرّب على الكتابة بـ{langName},
+app,ar,momentsReelPolicyBody,"Reels are short language-learning videos — prompt answers, speaking practice, native-speaker explainers, and culture clips.
+
+Bananatalk has zero tolerance for objectionable content: no nudity, hate speech, harassment, violence, or illegal content. Reported videos are automatically hidden pending review after 2 reports, and violations can result in content removal or account bans.
+
+You can report or block from any reel at any time.","الريلز مقاطع فيديو قصيرة لتعلّم اللغات — إجابات على موضوع اليوم، وتدريب على التحدث، وشروحات من ناطقين أصليين، ومقاطع عن الثقافة.
+
+لا تتسامح Bananatalk إطلاقًا مع المحتوى المسيء: لا للعري ولا لخطاب الكراهية ولا للمضايقة ولا للعنف ولا للمحتوى غير القانوني. تُخفى المقاطع المبلَّغ عنها تلقائيًا بانتظار المراجعة بعد بلاغين، وقد تؤدي المخالفات إلى إزالة المحتوى أو حظر الحساب.
+
+يمكنك الإبلاغ أو الحظر من أي ريل في أي وقت.",
+app,ar,momentsIAgree,I agree,أوافق,
+app,ar,momentsWhyReportingReel,Why are you reporting this reel?,لماذا تبلّغ عن هذا الريل؟,
+app,ar,momentsNoReelsYet,No reels yet,لا توجد ريلز بعد,
+app,ar,momentsNoReelsBody,"Be the first to answer today's prompt on camera, or record a free-form language-learning clip.",كن أول من يجيب على موضوع اليوم بالكاميرا، أو سجّل مقطعًا حرًا لتعلّم اللغة.,
+app,ar,momentsPullDownRefresh,Pull down to refresh,اسحب للأسفل للتحديث,
+app,ar,momentsErrorLoadingVideo,Error loading video,خطأ في تحميل الفيديو,
+app,ar,momentsLoadingVideo,Loading video...,جارٍ تحميل الفيديو...,
+app,ar,momentsFileSizeMb,{size}MB,{size} ميجابايت,
+app,ar,momentsMaxDuration,Max {duration},الحد الأقصى {duration},
+app,ar,momentsScheduledAt,{date} at {time},{date} في {time},
+app,ar,momentsReportSubmitted,Report submitted,تم إرسال البلاغ,
+app,de,momentsMore,+{hidden} more,+{hidden} weitere,
+app,de,momentsAllow,Allow,Erlauben,
+app,de,momentsCompressed,Compressed,Komprimiert,
+app,de,momentsPromptDay,Prompt of the day,Impuls des Tages,
+app,de,momentsAnswer,Answer,Antworten,
+app,de,momentsAnswerCamera,🎥 Answer on camera,🎥 Mit Kamera antworten,
+app,de,momentsPracticeWriting,Practice writing in {langName},Schreibe auf {langName},
+app,de,momentsReelPolicyBody,"Reels are short language-learning videos — prompt answers, speaking practice, native-speaker explainers, and culture clips.
+
+Bananatalk has zero tolerance for objectionable content: no nudity, hate speech, harassment, violence, or illegal content. Reported videos are automatically hidden pending review after 2 reports, and violations can result in content removal or account bans.
+
+You can report or block from any reel at any time.","Reels sind kurze Sprachlernvideos — Antworten auf Impulse, Sprechübungen, Erklärungen von Muttersprachlern und Kulturclips.
+
+Bananatalk duldet keine anstößigen Inhalte: keine Nacktheit, keine Hassrede, keine Belästigung, keine Gewalt und keine illegalen Inhalte. Gemeldete Videos werden nach 2 Meldungen bis zur Prüfung automatisch ausgeblendet; Verstöße können zur Entfernung von Inhalten oder zur Sperrung des Kontos führen.
+
+Du kannst jederzeit bei jedem Reel melden oder blockieren.",
+app,de,momentsIAgree,I agree,Ich stimme zu,
+app,de,momentsWhyReportingReel,Why are you reporting this reel?,Warum meldest du dieses Reel?,
+app,de,momentsNoReelsYet,No reels yet,Noch keine Reels,
+app,de,momentsNoReelsBody,"Be the first to answer today's prompt on camera, or record a free-form language-learning clip.","Sei der Erste, der den heutigen Impuls mit der Kamera beantwortet, oder nimm einen freien Sprachlern-Clip auf.",
+app,de,momentsPullDownRefresh,Pull down to refresh,Zum Aktualisieren nach unten ziehen,
+app,de,momentsErrorLoadingVideo,Error loading video,Fehler beim Laden des Videos,
+app,de,momentsLoadingVideo,Loading video...,Video wird geladen...,
+app,de,momentsFileSizeMb,{size}MB,{size} MB,
+app,de,momentsMaxDuration,Max {duration},Max. {duration},
+app,de,momentsScheduledAt,{date} at {time},{date} um {time},
+app,de,momentsReportSubmitted,Report submitted,Meldung gesendet,
+app,es,momentsMore,+{hidden} more,+{hidden} más,
+app,es,momentsAllow,Allow,Permitir,
+app,es,momentsCompressed,Compressed,Comprimido,
+app,es,momentsPromptDay,Prompt of the day,Tema del día,
+app,es,momentsAnswer,Answer,Responder,
+app,es,momentsAnswerCamera,🎥 Answer on camera,🎥 Responder con cámara,
+app,es,momentsPracticeWriting,Practice writing in {langName},Practica escribiendo en {langName},
+app,es,momentsReelPolicyBody,"Reels are short language-learning videos — prompt answers, speaking practice, native-speaker explainers, and culture clips.
+
+Bananatalk has zero tolerance for objectionable content: no nudity, hate speech, harassment, violence, or illegal content. Reported videos are automatically hidden pending review after 2 reports, and violations can result in content removal or account bans.
+
+You can report or block from any reel at any time.","Los reels son vídeos cortos para aprender idiomas: respuestas al tema del día, práctica de conversación, explicaciones de hablantes nativos y clips de cultura.
+
+Bananatalk tiene tolerancia cero con el contenido inapropiado: nada de desnudos, discurso de odio, acoso, violencia ni contenido ilegal. Los vídeos denunciados se ocultan automáticamente hasta su revisión tras 2 denuncias, y las infracciones pueden suponer la eliminación del contenido o la suspensión de la cuenta.
+
+Puedes denunciar o bloquear desde cualquier reel en cualquier momento.",
+app,es,momentsIAgree,I agree,Acepto,
+app,es,momentsWhyReportingReel,Why are you reporting this reel?,¿Por qué denuncias este reel?,
+app,es,momentsNoReelsYet,No reels yet,Aún no hay reels,
+app,es,momentsNoReelsBody,"Be the first to answer today's prompt on camera, or record a free-form language-learning clip.","Sé el primero en responder con la cámara al tema de hoy, o graba un clip libre para aprender idiomas.",
+app,es,momentsPullDownRefresh,Pull down to refresh,Desliza hacia abajo para actualizar,
+app,es,momentsErrorLoadingVideo,Error loading video,Error al cargar el vídeo,
+app,es,momentsLoadingVideo,Loading video...,Cargando vídeo...,
+app,es,momentsFileSizeMb,{size}MB,{size} MB,
+app,es,momentsMaxDuration,Max {duration},Máx. {duration},
+app,es,momentsScheduledAt,{date} at {time},{date} a las {time},
+app,es,momentsReportSubmitted,Report submitted,Denuncia enviada,
+app,fr,momentsMore,+{hidden} more,+{hidden} de plus,
+app,fr,momentsAllow,Allow,Autoriser,
+app,fr,momentsCompressed,Compressed,Compressé,
+app,fr,momentsPromptDay,Prompt of the day,Sujet du jour,
+app,fr,momentsAnswer,Answer,Répondre,
+app,fr,momentsAnswerCamera,🎥 Answer on camera,🎥 Répondre avec la caméra,
+app,fr,momentsPracticeWriting,Practice writing in {langName},Entraînez-vous à écrire en {langName},
+app,fr,momentsReelPolicyBody,"Reels are short language-learning videos — prompt answers, speaking practice, native-speaker explainers, and culture clips.
+
+Bananatalk has zero tolerance for objectionable content: no nudity, hate speech, harassment, violence, or illegal content. Reported videos are automatically hidden pending review after 2 reports, and violations can result in content removal or account bans.
+
+You can report or block from any reel at any time.","Les reels sont de courtes vidéos pour apprendre les langues : réponses au sujet du jour, entraînement à l'oral, explications de locuteurs natifs et clips culturels.
+
+Bananatalk applique une tolérance zéro envers les contenus répréhensibles : pas de nudité, de discours haineux, de harcèlement, de violence ni de contenu illégal. Les vidéos signalées sont automatiquement masquées dans l'attente d'un examen après 2 signalements, et les infractions peuvent entraîner la suppression du contenu ou le bannissement du compte.
+
+Vous pouvez signaler ou bloquer depuis n'importe quel reel à tout moment.",
+app,fr,momentsIAgree,I agree,J'accepte,
+app,fr,momentsWhyReportingReel,Why are you reporting this reel?,Pourquoi signalez-vous ce reel ?,
+app,fr,momentsNoReelsYet,No reels yet,Pas encore de reels,
+app,fr,momentsNoReelsBody,"Be the first to answer today's prompt on camera, or record a free-form language-learning clip.","Soyez le premier à répondre au sujet du jour avec la caméra, ou enregistrez un clip libre pour apprendre les langues.",
+app,fr,momentsPullDownRefresh,Pull down to refresh,Tirez vers le bas pour actualiser,
+app,fr,momentsErrorLoadingVideo,Error loading video,Erreur de chargement de la vidéo,
+app,fr,momentsLoadingVideo,Loading video...,Chargement de la vidéo...,
+app,fr,momentsFileSizeMb,{size}MB,{size} Mo,
+app,fr,momentsMaxDuration,Max {duration},Maximum {duration},
+app,fr,momentsScheduledAt,{date} at {time},{date} à {time},
+app,fr,momentsReportSubmitted,Report submitted,Signalement envoyé,
+app,hi,momentsMore,+{hidden} more,+{hidden} और,
+app,hi,momentsAllow,Allow,अनुमति दें,
+app,hi,momentsCompressed,Compressed,संपीड़ित,
+app,hi,momentsPromptDay,Prompt of the day,आज का प्रॉम्प्ट,
+app,hi,momentsAnswer,Answer,जवाब दें,
+app,hi,momentsAnswerCamera,🎥 Answer on camera,🎥 कैमरे पर जवाब दें,
+app,hi,momentsPracticeWriting,Practice writing in {langName},{langName} में लिखने का अभ्यास करें,
+app,hi,momentsReelPolicyBody,"Reels are short language-learning videos — prompt answers, speaking practice, native-speaker explainers, and culture clips.
+
+Bananatalk has zero tolerance for objectionable content: no nudity, hate speech, harassment, violence, or illegal content. Reported videos are automatically hidden pending review after 2 reports, and violations can result in content removal or account bans.
+
+You can report or block from any reel at any time.","रील्स भाषा सीखने के छोटे वीडियो हैं — प्रॉम्प्ट के जवाब, बोलने का अभ्यास, मूल वक्ताओं की व्याख्याएँ और संस्कृति की क्लिप।
+
+Bananatalk आपत्तिजनक सामग्री के प्रति शून्य सहनशीलता रखता है: नग्नता, घृणास्पद भाषा, उत्पीड़न, हिंसा या अवैध सामग्री नहीं। 2 रिपोर्ट के बाद रिपोर्ट किए गए वीडियो समीक्षा तक अपने-आप छिपा दिए जाते हैं, और उल्लंघन पर सामग्री हटाई जा सकती है या खाता प्रतिबंधित हो सकता है।
+
+आप किसी भी रील से कभी भी रिपोर्ट या ब्लॉक कर सकते हैं।",
+app,hi,momentsIAgree,I agree,मैं सहमत हूँ,
+app,hi,momentsWhyReportingReel,Why are you reporting this reel?,आप इस रील की रिपोर्ट क्यों कर रहे हैं?,
+app,hi,momentsNoReelsYet,No reels yet,अभी तक कोई रील नहीं,
+app,hi,momentsNoReelsBody,"Be the first to answer today's prompt on camera, or record a free-form language-learning clip.","आज के प्रॉम्प्ट का कैमरे पर जवाब देने वाले पहले व्यक्ति बनें, या भाषा सीखने की कोई भी क्लिप रिकॉर्ड करें।",
+app,hi,momentsPullDownRefresh,Pull down to refresh,रीफ़्रेश करने के लिए नीचे खींचें,
+app,hi,momentsErrorLoadingVideo,Error loading video,वीडियो लोड करने में त्रुटि,
+app,hi,momentsLoadingVideo,Loading video...,वीडियो लोड हो रहा है...,
+app,hi,momentsFileSizeMb,{size}MB,{size} एमबी,
+app,hi,momentsMaxDuration,Max {duration},अधिकतम {duration},
+app,hi,momentsScheduledAt,{date} at {time},{date} को {time} बजे,
+app,hi,momentsReportSubmitted,Report submitted,रिपोर्ट भेज दी गई,
+app,id,momentsMore,+{hidden} more,+{hidden} lagi,
+app,id,momentsAllow,Allow,Izinkan,
+app,id,momentsCompressed,Compressed,Terkompresi,
+app,id,momentsPromptDay,Prompt of the day,Topik hari ini,
+app,id,momentsAnswer,Answer,Jawab,
+app,id,momentsAnswerCamera,🎥 Answer on camera,🎥 Jawab dengan kamera,
+app,id,momentsPracticeWriting,Practice writing in {langName},Latihan menulis dalam {langName},
+app,id,momentsReelPolicyBody,"Reels are short language-learning videos — prompt answers, speaking practice, native-speaker explainers, and culture clips.
+
+Bananatalk has zero tolerance for objectionable content: no nudity, hate speech, harassment, violence, or illegal content. Reported videos are automatically hidden pending review after 2 reports, and violations can result in content removal or account bans.
+
+You can report or block from any reel at any time.","Reels adalah video pendek untuk belajar bahasa — jawaban topik, latihan berbicara, penjelasan dari penutur asli, dan klip budaya.
+
+Bananatalk tidak menoleransi konten yang tidak pantas: tanpa ketelanjangan, ujaran kebencian, pelecehan, kekerasan, atau konten ilegal. Video yang dilaporkan otomatis disembunyikan menunggu peninjauan setelah 2 laporan, dan pelanggaran dapat berujung pada penghapusan konten atau pemblokiran akun.
+
+Anda dapat melaporkan atau memblokir dari reel mana pun kapan saja.",
+app,id,momentsIAgree,I agree,Saya setuju,
+app,id,momentsWhyReportingReel,Why are you reporting this reel?,Mengapa Anda melaporkan reel ini?,
+app,id,momentsNoReelsYet,No reels yet,Belum ada reel,
+app,id,momentsNoReelsBody,"Be the first to answer today's prompt on camera, or record a free-form language-learning clip.","Jadilah yang pertama menjawab topik hari ini dengan kamera, atau rekam klip bebas untuk belajar bahasa.",
+app,id,momentsPullDownRefresh,Pull down to refresh,Tarik ke bawah untuk menyegarkan,
+app,id,momentsErrorLoadingVideo,Error loading video,Gagal memuat video,
+app,id,momentsLoadingVideo,Loading video...,Memuat video...,
+app,id,momentsFileSizeMb,{size}MB,{size} MB,
+app,id,momentsMaxDuration,Max {duration},Maks. {duration},
+app,id,momentsScheduledAt,{date} at {time},{date} pukul {time},
+app,id,momentsReportSubmitted,Report submitted,Laporan terkirim,
+app,it,momentsMore,+{hidden} more,+{hidden} altri,
+app,it,momentsAllow,Allow,Consenti,
+app,it,momentsCompressed,Compressed,Compresso,
+app,it,momentsPromptDay,Prompt of the day,Spunto del giorno,
+app,it,momentsAnswer,Answer,Rispondi,
+app,it,momentsAnswerCamera,🎥 Answer on camera,🎥 Rispondi con la fotocamera,
+app,it,momentsPracticeWriting,Practice writing in {langName},Esercitati a scrivere in {langName},
+app,it,momentsReelPolicyBody,"Reels are short language-learning videos — prompt answers, speaking practice, native-speaker explainers, and culture clips.
+
+Bananatalk has zero tolerance for objectionable content: no nudity, hate speech, harassment, violence, or illegal content. Reported videos are automatically hidden pending review after 2 reports, and violations can result in content removal or account bans.
+
+You can report or block from any reel at any time.","I reel sono brevi video per imparare le lingue: risposte agli spunti, pratica di conversazione, spiegazioni di madrelingua e clip culturali.
+
+Bananatalk ha tolleranza zero per i contenuti inappropriati: niente nudità, discorsi d'odio, molestie, violenza o contenuti illegali. I video segnalati vengono nascosti automaticamente in attesa di revisione dopo 2 segnalazioni e le violazioni possono comportare la rimozione dei contenuti o la sospensione dell'account.
+
+Puoi segnalare o bloccare da qualsiasi reel in qualsiasi momento.",
+app,it,momentsIAgree,I agree,Accetto,
+app,it,momentsWhyReportingReel,Why are you reporting this reel?,Perché stai segnalando questo reel?,
+app,it,momentsNoReelsYet,No reels yet,Ancora nessun reel,
+app,it,momentsNoReelsBody,"Be the first to answer today's prompt on camera, or record a free-form language-learning clip.","Sii il primo a rispondere allo spunto di oggi con la fotocamera, oppure registra una clip libera per imparare le lingue.",
+app,it,momentsPullDownRefresh,Pull down to refresh,Trascina verso il basso per aggiornare,
+app,it,momentsErrorLoadingVideo,Error loading video,Errore nel caricamento del video,
+app,it,momentsLoadingVideo,Loading video...,Caricamento del video...,
+app,it,momentsFileSizeMb,{size}MB,{size} MB,
+app,it,momentsMaxDuration,Max {duration},Massimo {duration},
+app,it,momentsScheduledAt,{date} at {time},{date} alle {time},
+app,it,momentsReportSubmitted,Report submitted,Segnalazione inviata,
+app,ja,momentsMore,+{hidden} more,他{hidden}件,
+app,ja,momentsAllow,Allow,許可,
+app,ja,momentsCompressed,Compressed,圧縮済み,
+app,ja,momentsPromptDay,Prompt of the day,今日のお題,
+app,ja,momentsAnswer,Answer,回答する,
+app,ja,momentsAnswerCamera,🎥 Answer on camera,🎥 カメラで回答,
+app,ja,momentsPracticeWriting,Practice writing in {langName},{langName}で書く練習をしよう,
+app,ja,momentsReelPolicyBody,"Reels are short language-learning videos — prompt answers, speaking practice, native-speaker explainers, and culture clips.
+
+Bananatalk has zero tolerance for objectionable content: no nudity, hate speech, harassment, violence, or illegal content. Reported videos are automatically hidden pending review after 2 reports, and violations can result in content removal or account bans.
+
+You can report or block from any reel at any time.","リールは語学学習向けの短い動画です。お題への回答、スピーキング練習、ネイティブによる解説、文化クリップなどが投稿されます。
+
+Bananatalkは不適切なコンテンツを一切容認しません。ヌード、ヘイトスピーチ、嫌がらせ、暴力、違法なコンテンツは禁止です。報告された動画は2件の報告で審査まで自動的に非表示になり、違反するとコンテンツの削除やアカウントの停止となる場合があります。
+
+どのリールからでもいつでも報告やブロックができます。",
+app,ja,momentsIAgree,I agree,同意する,
+app,ja,momentsWhyReportingReel,Why are you reporting this reel?,このリールを報告する理由は何ですか？,
+app,ja,momentsNoReelsYet,No reels yet,まだリールがありません,
+app,ja,momentsNoReelsBody,"Be the first to answer today's prompt on camera, or record a free-form language-learning clip.",今日のお題にカメラで最初に回答するか、自由形式の語学学習クリップを録画しましょう。,
+app,ja,momentsPullDownRefresh,Pull down to refresh,下に引っ張って更新,
+app,ja,momentsErrorLoadingVideo,Error loading video,動画の読み込みエラー,
+app,ja,momentsLoadingVideo,Loading video...,動画を読み込み中...,
+app,ja,momentsFileSizeMb,{size}MB,{size}MB,
+app,ja,momentsMaxDuration,Max {duration},最大{duration},
+app,ja,momentsScheduledAt,{date} at {time},{date} {time},
+app,ja,momentsReportSubmitted,Report submitted,報告を送信しました,
+app,ko,momentsMore,+{hidden} more,+{hidden}개 더보기,
+app,ko,momentsAllow,Allow,허용,
+app,ko,momentsCompressed,Compressed,압축됨,
+app,ko,momentsPromptDay,Prompt of the day,오늘의 주제,
+app,ko,momentsAnswer,Answer,답변하기,
+app,ko,momentsAnswerCamera,🎥 Answer on camera,🎥 카메라로 답변하기,
+app,ko,momentsPracticeWriting,Practice writing in {langName},{langName} 글쓰기 연습,
+app,ko,momentsReelPolicyBody,"Reels are short language-learning videos — prompt answers, speaking practice, native-speaker explainers, and culture clips.
+
+Bananatalk has zero tolerance for objectionable content: no nudity, hate speech, harassment, violence, or illegal content. Reported videos are automatically hidden pending review after 2 reports, and violations can result in content removal or account bans.
+
+You can report or block from any reel at any time.","릴스는 짧은 언어 학습 영상입니다. 주제 답변, 말하기 연습, 원어민 설명, 문화 클립 등이 올라옵니다.
+
+Bananatalk는 부적절한 콘텐츠에 무관용 원칙을 적용합니다. 노출, 혐오 발언, 괴롭힘, 폭력, 불법 콘텐츠는 금지됩니다. 신고된 영상은 신고 2건이 접수되면 검토 전까지 자동으로 숨겨지며, 위반 시 콘텐츠가 삭제되거나 계정이 정지될 수 있습니다.
+
+언제든지 모든 릴스에서 신고하거나 차단할 수 있습니다.",
+app,ko,momentsIAgree,I agree,동의합니다,
+app,ko,momentsWhyReportingReel,Why are you reporting this reel?,이 릴스를 신고하는 이유는 무엇인가요?,
+app,ko,momentsNoReelsYet,No reels yet,아직 릴스가 없습니다,
+app,ko,momentsNoReelsBody,"Be the first to answer today's prompt on camera, or record a free-form language-learning clip.",오늘의 주제에 카메라로 가장 먼저 답변하거나 자유로운 언어 학습 클립을 녹화해 보세요.,
+app,ko,momentsPullDownRefresh,Pull down to refresh,아래로 당겨 새로고침,
+app,ko,momentsErrorLoadingVideo,Error loading video,동영상을 불러오는 중 오류가 발생했습니다,
+app,ko,momentsLoadingVideo,Loading video...,동영상 불러오는 중...,
+app,ko,momentsFileSizeMb,{size}MB,{size}MB,
+app,ko,momentsMaxDuration,Max {duration},최대 {duration},
+app,ko,momentsScheduledAt,{date} at {time},{date} {time},
+app,ko,momentsReportSubmitted,Report submitted,신고가 접수되었습니다,
+app,pt,momentsMore,+{hidden} more,+{hidden} mais,
+app,pt,momentsAllow,Allow,Permitir,
+app,pt,momentsCompressed,Compressed,Comprimido,
+app,pt,momentsPromptDay,Prompt of the day,Tema do dia,
+app,pt,momentsAnswer,Answer,Responder,
+app,pt,momentsAnswerCamera,🎥 Answer on camera,🎥 Responder com a câmera,
+app,pt,momentsPracticeWriting,Practice writing in {langName},Pratique escrever em {langName},
+app,pt,momentsReelPolicyBody,"Reels are short language-learning videos — prompt answers, speaking practice, native-speaker explainers, and culture clips.
+
+Bananatalk has zero tolerance for objectionable content: no nudity, hate speech, harassment, violence, or illegal content. Reported videos are automatically hidden pending review after 2 reports, and violations can result in content removal or account bans.
+
+You can report or block from any reel at any time.","Reels são vídeos curtos para aprender idiomas: respostas ao tema do dia, prática de conversação, explicações de falantes nativos e clipes de cultura.
+
+O Bananatalk tem tolerância zero com conteúdo impróprio: sem nudez, discurso de ódio, assédio, violência ou conteúdo ilegal. Vídeos denunciados são ocultados automaticamente até a análise após 2 denúncias, e violações podem resultar na remoção do conteúdo ou no banimento da conta.
+
+Você pode denunciar ou bloquear em qualquer reel a qualquer momento.",
+app,pt,momentsIAgree,I agree,Concordo,
+app,pt,momentsWhyReportingReel,Why are you reporting this reel?,Por que você está denunciando este reel?,
+app,pt,momentsNoReelsYet,No reels yet,Ainda não há reels,
+app,pt,momentsNoReelsBody,"Be the first to answer today's prompt on camera, or record a free-form language-learning clip.","Seja o primeiro a responder ao tema de hoje com a câmera, ou grave um clipe livre para aprender idiomas.",
+app,pt,momentsPullDownRefresh,Pull down to refresh,Puxe para baixo para atualizar,
+app,pt,momentsErrorLoadingVideo,Error loading video,Erro ao carregar o vídeo,
+app,pt,momentsLoadingVideo,Loading video...,Carregando vídeo...,
+app,pt,momentsFileSizeMb,{size}MB,{size} MB,
+app,pt,momentsMaxDuration,Max {duration},Máx. {duration},
+app,pt,momentsScheduledAt,{date} at {time},{date} às {time},
+app,pt,momentsReportSubmitted,Report submitted,Denúncia enviada,
+app,ru,momentsMore,+{hidden} more,+ещё {hidden},
+app,ru,momentsAllow,Allow,Разрешить,
+app,ru,momentsCompressed,Compressed,Сжато,
+app,ru,momentsPromptDay,Prompt of the day,Тема дня,
+app,ru,momentsAnswer,Answer,Ответить,
+app,ru,momentsAnswerCamera,🎥 Answer on camera,🎥 Ответить на камеру,
+app,ru,momentsPracticeWriting,Practice writing in {langName},Практикуйте письмо на языке: {langName},
+app,ru,momentsReelPolicyBody,"Reels are short language-learning videos — prompt answers, speaking practice, native-speaker explainers, and culture clips.
+
+Bananatalk has zero tolerance for objectionable content: no nudity, hate speech, harassment, violence, or illegal content. Reported videos are automatically hidden pending review after 2 reports, and violations can result in content removal or account bans.
+
+You can report or block from any reel at any time.","Reels — это короткие видео для изучения языков: ответы на тему дня, разговорная практика, объяснения носителей языка и клипы о культуре.
+
+Bananatalk не терпит недопустимый контент: никакой наготы, языка ненависти, травли, насилия и незаконного контента. Видео, на которые пожаловались, автоматически скрываются до проверки после 2 жалоб, а нарушения могут привести к удалению контента или блокировке аккаунта.
+
+Вы можете пожаловаться или заблокировать автора из любого ролика в любое время.",
+app,ru,momentsIAgree,I agree,Я согласен,
+app,ru,momentsWhyReportingReel,Why are you reporting this reel?,Почему вы жалуетесь на этот ролик?,
+app,ru,momentsNoReelsYet,No reels yet,Пока нет роликов,
+app,ru,momentsNoReelsBody,"Be the first to answer today's prompt on camera, or record a free-form language-learning clip.","Станьте первым, кто ответит на сегодняшнюю тему на камеру, или запишите свободный клип для изучения языка.",
+app,ru,momentsPullDownRefresh,Pull down to refresh,"Потяните вниз, чтобы обновить",
+app,ru,momentsErrorLoadingVideo,Error loading video,Ошибка загрузки видео,
+app,ru,momentsLoadingVideo,Loading video...,Загрузка видео...,
+app,ru,momentsFileSizeMb,{size}MB,{size} МБ,
+app,ru,momentsMaxDuration,Max {duration},Макс. {duration},
+app,ru,momentsScheduledAt,{date} at {time},{date} в {time},
+app,ru,momentsReportSubmitted,Report submitted,Жалоба отправлена,
+app,tg,momentsMore,+{hidden} more,+{hidden} дигар,
+app,tg,momentsAllow,Allow,Иҷозат додан,
+app,tg,momentsCompressed,Compressed,Фишурда шуд,
+app,tg,momentsPromptDay,Prompt of the day,Мавзӯи рӯз,
+app,tg,momentsAnswer,Answer,Ҷавоб додан,
+app,tg,momentsAnswerCamera,🎥 Answer on camera,🎥 Бо камера ҷавоб диҳед,
+app,tg,momentsPracticeWriting,Practice writing in {langName},Навиштанро ба забони {langName} машқ кунед,
+app,tg,momentsReelPolicyBody,"Reels are short language-learning videos — prompt answers, speaking practice, native-speaker explainers, and culture clips.
+
+Bananatalk has zero tolerance for objectionable content: no nudity, hate speech, harassment, violence, or illegal content. Reported videos are automatically hidden pending review after 2 reports, and violations can result in content removal or account bans.
+
+You can report or block from any reel at any time.","Reels видеоҳои кӯтоҳи омӯзиши забон мебошанд — ҷавобҳо ба мавзӯъ, машқи гуфтугӯ, шарҳҳои забондонҳои модарӣ ва клипҳои фарҳангӣ.
+
+Bananatalk нисбат ба мундариҷаи номақбул тоқатнопазир аст: бе бараҳнагӣ, суханони нафратангез, таъқиб, зӯроварӣ ва мундариҷаи ғайриқонунӣ. Видеоҳои шикоятшуда пас аз 2 шикоят то баррасӣ ба таври худкор пинҳон карда мешаванд ва вайронкунӣ метавонад боиси нест кардани мундариҷа ё манъи ҳисоб гардад.
+
+Шумо метавонед дар ҳар вақт аз ҳар reel шикоят кунед ё манъ намоед.",
+app,tg,momentsIAgree,I agree,Розӣ ҳастам,
+app,tg,momentsWhyReportingReel,Why are you reporting this reel?,Чаро шумо аз ин reel шикоят мекунед?,
+app,tg,momentsNoReelsYet,No reels yet,Ҳанӯз reels нест,
+app,tg,momentsNoReelsBody,"Be the first to answer today's prompt on camera, or record a free-form language-learning clip.","Аввалин шахсе бошед, ки ба мавзӯи имрӯза бо камера ҷавоб медиҳад, ё клипи озоди омӯзиши забонро сабт кунед.",
+app,tg,momentsPullDownRefresh,Pull down to refresh,Барои навсозӣ ба поён кашед,
+app,tg,momentsErrorLoadingVideo,Error loading video,Хатои боркунии видео,
+app,tg,momentsLoadingVideo,Loading video...,Видео бор шуда истодааст...,
+app,tg,momentsFileSizeMb,{size}MB,{size} МБ,
+app,tg,momentsMaxDuration,Max {duration},Ҳад. {duration},
+app,tg,momentsScheduledAt,{date} at {time},{date} соати {time},
+app,tg,momentsReportSubmitted,Report submitted,Шикоят фиристода шуд,
+app,th,momentsMore,+{hidden} more,+อีก {hidden},
+app,th,momentsAllow,Allow,อนุญาต,
+app,th,momentsCompressed,Compressed,บีบอัดแล้ว,
+app,th,momentsPromptDay,Prompt of the day,หัวข้อประจำวัน,
+app,th,momentsAnswer,Answer,ตอบ,
+app,th,momentsAnswerCamera,🎥 Answer on camera,🎥 ตอบด้วยกล้อง,
+app,th,momentsPracticeWriting,Practice writing in {langName},ฝึกเขียนเป็นภาษา{langName},
+app,th,momentsReelPolicyBody,"Reels are short language-learning videos — prompt answers, speaking practice, native-speaker explainers, and culture clips.
+
+Bananatalk has zero tolerance for objectionable content: no nudity, hate speech, harassment, violence, or illegal content. Reported videos are automatically hidden pending review after 2 reports, and violations can result in content removal or account bans.
+
+You can report or block from any reel at any time.","รีลคือวิดีโอสั้นสำหรับเรียนภาษา เช่น คำตอบของหัวข้อประจำวัน การฝึกพูด คำอธิบายจากเจ้าของภาษา และคลิปวัฒนธรรม
+
+Bananatalk ไม่ยอมรับเนื้อหาที่ไม่เหมาะสมโดยเด็ดขาด ห้ามมีภาพเปลือย วาจาสร้างความเกลียดชัง การคุกคาม ความรุนแรง หรือเนื้อหาผิดกฎหมาย วิดีโอที่ถูกรายงานจะถูกซ่อนโดยอัตโนมัติเพื่อรอการตรวจสอบหลังถูกรายงาน 2 ครั้ง และการละเมิดอาจทำให้เนื้อหาถูกลบหรือบัญชีถูกระงับ
+
+คุณรายงานหรือบล็อกจากรีลใดก็ได้ทุกเมื่อ",
+app,th,momentsIAgree,I agree,ฉันยอมรับ,
+app,th,momentsWhyReportingReel,Why are you reporting this reel?,ทำไมคุณจึงรายงานรีลนี้,
+app,th,momentsNoReelsYet,No reels yet,ยังไม่มีรีล,
+app,th,momentsNoReelsBody,"Be the first to answer today's prompt on camera, or record a free-form language-learning clip.",เป็นคนแรกที่ตอบหัวข้อประจำวันนี้ด้วยกล้อง หรืออัดคลิปเรียนภาษาแบบอิสระ,
+app,th,momentsPullDownRefresh,Pull down to refresh,ดึงลงเพื่อรีเฟรช,
+app,th,momentsErrorLoadingVideo,Error loading video,โหลดวิดีโอผิดพลาด,
+app,th,momentsLoadingVideo,Loading video...,กำลังโหลดวิดีโอ...,
+app,th,momentsFileSizeMb,{size}MB,{size} MB,
+app,th,momentsMaxDuration,Max {duration},สูงสุด {duration},
+app,th,momentsScheduledAt,{date} at {time},{date} เวลา {time},
+app,th,momentsReportSubmitted,Report submitted,ส่งรายงานแล้ว,
+app,tl,momentsMore,+{hidden} more,+{hidden} pa,
+app,tl,momentsAllow,Allow,Payagan,
+app,tl,momentsCompressed,Compressed,Na-compress,
+app,tl,momentsPromptDay,Prompt of the day,Paksa ng araw,
+app,tl,momentsAnswer,Answer,Sumagot,
+app,tl,momentsAnswerCamera,🎥 Answer on camera,🎥 Sumagot gamit ang camera,
+app,tl,momentsPracticeWriting,Practice writing in {langName},Magsanay magsulat sa {langName},
+app,tl,momentsReelPolicyBody,"Reels are short language-learning videos — prompt answers, speaking practice, native-speaker explainers, and culture clips.
+
+Bananatalk has zero tolerance for objectionable content: no nudity, hate speech, harassment, violence, or illegal content. Reported videos are automatically hidden pending review after 2 reports, and violations can result in content removal or account bans.
+
+You can report or block from any reel at any time.","Ang mga reel ay maiikling video para sa pag-aaral ng wika — mga sagot sa paksa, pagsasanay sa pagsasalita, paliwanag ng mga native speaker, at mga clip tungkol sa kultura.
+
+Walang pagpapaubaya ang Bananatalk sa hindi katanggap-tanggap na nilalaman: bawal ang kahubaran, hate speech, panliligalig, karahasan, o ilegal na nilalaman. Awtomatikong itinatago ang mga na-report na video habang hinihintay ang pagsusuri pagkatapos ng 2 report, at ang mga paglabag ay maaaring humantong sa pagtanggal ng nilalaman o pag-ban sa account.
+
+Maaari kang mag-report o mag-block mula sa anumang reel anumang oras.",
+app,tl,momentsIAgree,I agree,Sumasang-ayon ako,
+app,tl,momentsWhyReportingReel,Why are you reporting this reel?,Bakit mo nire-report ang reel na ito?,
+app,tl,momentsNoReelsYet,No reels yet,Wala pang reel,
+app,tl,momentsNoReelsBody,"Be the first to answer today's prompt on camera, or record a free-form language-learning clip.","Maging una sa pagsagot sa paksa ngayon gamit ang camera, o mag-record ng malayang clip sa pag-aaral ng wika.",
+app,tl,momentsPullDownRefresh,Pull down to refresh,I-pull down para mag-refresh,
+app,tl,momentsErrorLoadingVideo,Error loading video,Error sa pag-load ng video,
+app,tl,momentsLoadingVideo,Loading video...,Nilo-load ang video...,
+app,tl,momentsFileSizeMb,{size}MB,{size}MB,
+app,tl,momentsMaxDuration,Max {duration},Hanggang {duration},
+app,tl,momentsScheduledAt,{date} at {time},{date} nang {time},
+app,tl,momentsReportSubmitted,Report submitted,Naipadala ang report,
+app,tr,momentsMore,+{hidden} more,+{hidden} daha,
+app,tr,momentsAllow,Allow,İzin ver,
+app,tr,momentsCompressed,Compressed,Sıkıştırıldı,
+app,tr,momentsPromptDay,Prompt of the day,Günün konusu,
+app,tr,momentsAnswer,Answer,Yanıtla,
+app,tr,momentsAnswerCamera,🎥 Answer on camera,🎥 Kamerayla yanıtla,
+app,tr,momentsPracticeWriting,Practice writing in {langName},{langName} dilinde yazma pratiği yap,
+app,tr,momentsReelPolicyBody,"Reels are short language-learning videos — prompt answers, speaking practice, native-speaker explainers, and culture clips.
+
+Bananatalk has zero tolerance for objectionable content: no nudity, hate speech, harassment, violence, or illegal content. Reported videos are automatically hidden pending review after 2 reports, and violations can result in content removal or account bans.
+
+You can report or block from any reel at any time.","Reels, dil öğrenmeye yönelik kısa videolardır: konulara yanıtlar, konuşma pratiği, ana dili konuşanların açıklamaları ve kültür klipleri.
+
+Bananatalk, uygunsuz içeriğe sıfır tolerans gösterir: çıplaklık, nefret söylemi, taciz, şiddet veya yasa dışı içerik yasaktır. Bildirilen videolar 2 bildirimden sonra incelenene kadar otomatik olarak gizlenir ve ihlaller içeriğin kaldırılmasına veya hesabın yasaklanmasına yol açabilir.
+
+Herhangi bir reel'den istediğin zaman bildirebilir veya engelleyebilirsin.",
+app,tr,momentsIAgree,I agree,Kabul ediyorum,
+app,tr,momentsWhyReportingReel,Why are you reporting this reel?,Bu reel'i neden bildiriyorsun?,
+app,tr,momentsNoReelsYet,No reels yet,Henüz reel yok,
+app,tr,momentsNoReelsBody,"Be the first to answer today's prompt on camera, or record a free-form language-learning clip.",Bugünün konusunu kamerayla yanıtlayan ilk kişi ol veya serbest biçimli bir dil öğrenme klibi kaydet.,
+app,tr,momentsPullDownRefresh,Pull down to refresh,Yenilemek için aşağı çek,
+app,tr,momentsErrorLoadingVideo,Error loading video,Video yüklenirken hata oluştu,
+app,tr,momentsLoadingVideo,Loading video...,Video yükleniyor...,
+app,tr,momentsFileSizeMb,{size}MB,{size} MB,
+app,tr,momentsMaxDuration,Max {duration},En fazla {duration},
+app,tr,momentsScheduledAt,{date} at {time},"{date}, {time}",
+app,tr,momentsReportSubmitted,Report submitted,Bildirim gönderildi,
+app,vi,momentsMore,+{hidden} more,+{hidden} nữa,
+app,vi,momentsAllow,Allow,Cho phép,
+app,vi,momentsCompressed,Compressed,Đã nén,
+app,vi,momentsPromptDay,Prompt of the day,Chủ đề hôm nay,
+app,vi,momentsAnswer,Answer,Trả lời,
+app,vi,momentsAnswerCamera,🎥 Answer on camera,🎥 Trả lời bằng camera,
+app,vi,momentsPracticeWriting,Practice writing in {langName},Luyện viết bằng {langName},
+app,vi,momentsReelPolicyBody,"Reels are short language-learning videos — prompt answers, speaking practice, native-speaker explainers, and culture clips.
+
+Bananatalk has zero tolerance for objectionable content: no nudity, hate speech, harassment, violence, or illegal content. Reported videos are automatically hidden pending review after 2 reports, and violations can result in content removal or account bans.
+
+You can report or block from any reel at any time.","Reels là các video ngắn học ngôn ngữ — câu trả lời cho chủ đề, luyện nói, giải thích từ người bản xứ và các clip văn hóa.
+
+Bananatalk không khoan nhượng với nội dung phản cảm: không khỏa thân, lời lẽ thù ghét, quấy rối, bạo lực hay nội dung bất hợp pháp. Video bị báo cáo sẽ tự động bị ẩn để chờ xem xét sau 2 báo cáo, và vi phạm có thể dẫn đến gỡ nội dung hoặc khóa tài khoản.
+
+Bạn có thể báo cáo hoặc chặn từ bất kỳ reel nào vào bất cứ lúc nào.",
+app,vi,momentsIAgree,I agree,Tôi đồng ý,
+app,vi,momentsWhyReportingReel,Why are you reporting this reel?,Vì sao bạn báo cáo reel này?,
+app,vi,momentsNoReelsYet,No reels yet,Chưa có reel nào,
+app,vi,momentsNoReelsBody,"Be the first to answer today's prompt on camera, or record a free-form language-learning clip.","Hãy là người đầu tiên trả lời chủ đề hôm nay bằng camera, hoặc quay một clip học ngôn ngữ tự do.",
+app,vi,momentsPullDownRefresh,Pull down to refresh,Kéo xuống để làm mới,
+app,vi,momentsErrorLoadingVideo,Error loading video,Lỗi tải video,
+app,vi,momentsLoadingVideo,Loading video...,Đang tải video...,
+app,vi,momentsFileSizeMb,{size}MB,{size} MB,
+app,vi,momentsMaxDuration,Max {duration},Tối đa {duration},
+app,vi,momentsScheduledAt,{date} at {time},{date} lúc {time},
+app,vi,momentsReportSubmitted,Report submitted,Đã gửi báo cáo,
+app,zh,momentsMore,+{hidden} more,还有{hidden}个,
+app,zh,momentsAllow,Allow,允许,
+app,zh,momentsCompressed,Compressed,已压缩,
+app,zh,momentsPromptDay,Prompt of the day,今日话题,
+app,zh,momentsAnswer,Answer,回答,
+app,zh,momentsAnswerCamera,🎥 Answer on camera,🎥 用相机回答,
+app,zh,momentsPracticeWriting,Practice writing in {langName},练习用{langName}写作,
+app,zh,momentsReelPolicyBody,"Reels are short language-learning videos — prompt answers, speaking practice, native-speaker explainers, and culture clips.
+
+Bananatalk has zero tolerance for objectionable content: no nudity, hate speech, harassment, violence, or illegal content. Reported videos are automatically hidden pending review after 2 reports, and violations can result in content removal or account bans.
+
+You can report or block from any reel at any time.","Reels 是简短的语言学习视频，包括话题回答、口语练习、母语者讲解和文化短片。
+
+Bananatalk 对不当内容零容忍：禁止裸露、仇恨言论、骚扰、暴力或非法内容。被举报的视频在收到 2 次举报后会自动隐藏以待审核，违规可能导致内容被删除或账号被封禁。
+
+你可以随时在任意 Reel 中举报或屏蔽。",
+app,zh,momentsIAgree,I agree,我同意,
+app,zh,momentsWhyReportingReel,Why are you reporting this reel?,你为什么要举报这个 Reel？,
+app,zh,momentsNoReelsYet,No reels yet,还没有 Reels,
+app,zh,momentsNoReelsBody,"Be the first to answer today's prompt on camera, or record a free-form language-learning clip.",成为第一个用相机回答今日话题的人，或录制一段自由形式的语言学习短片。,
+app,zh,momentsPullDownRefresh,Pull down to refresh,下拉刷新,
+app,zh,momentsErrorLoadingVideo,Error loading video,视频加载出错,
+app,zh,momentsLoadingVideo,Loading video...,正在加载视频...,
+app,zh,momentsFileSizeMb,{size}MB,{size}MB,
+app,zh,momentsMaxDuration,Max {duration},最长 {duration},
+app,zh,momentsScheduledAt,{date} at {time},{date} {time},
+app,zh,momentsReportSubmitted,Report submitted,举报已提交,
+app,zh_TW,momentsMore,+{hidden} more,還有{hidden}個,
+app,zh_TW,momentsAllow,Allow,允許,
+app,zh_TW,momentsCompressed,Compressed,已壓縮,
+app,zh_TW,momentsPromptDay,Prompt of the day,今日話題,
+app,zh_TW,momentsAnswer,Answer,回答,
+app,zh_TW,momentsAnswerCamera,🎥 Answer on camera,🎥 用相機回答,
+app,zh_TW,momentsPracticeWriting,Practice writing in {langName},練習用{langName}寫作,
+app,zh_TW,momentsReelPolicyBody,"Reels are short language-learning videos — prompt answers, speaking practice, native-speaker explainers, and culture clips.
+
+Bananatalk has zero tolerance for objectionable content: no nudity, hate speech, harassment, violence, or illegal content. Reported videos are automatically hidden pending review after 2 reports, and violations can result in content removal or account bans.
+
+You can report or block from any reel at any time.","Reels 是簡短的語言學習影片，包括話題回答、口說練習、母語者講解和文化短片。
+
+Bananatalk 對不當內容零容忍：禁止裸露、仇恨言論、騷擾、暴力或非法內容。被檢舉的影片在收到 2 次檢舉後會自動隱藏以待審核，違規可能導致內容被刪除或帳號被停權。
+
+你可以隨時在任何 Reel 中檢舉或封鎖。",
+app,zh_TW,momentsIAgree,I agree,我同意,
+app,zh_TW,momentsWhyReportingReel,Why are you reporting this reel?,你為什麼要檢舉這個 Reel？,
+app,zh_TW,momentsNoReelsYet,No reels yet,還沒有 Reels,
+app,zh_TW,momentsNoReelsBody,"Be the first to answer today's prompt on camera, or record a free-form language-learning clip.",成為第一個用相機回答今日話題的人，或錄製一段自由形式的語言學習短片。,
+app,zh_TW,momentsPullDownRefresh,Pull down to refresh,下拉重新整理,
+app,zh_TW,momentsErrorLoadingVideo,Error loading video,影片載入出錯,
+app,zh_TW,momentsLoadingVideo,Loading video...,正在載入影片...,
+app,zh_TW,momentsFileSizeMb,{size}MB,{size}MB,
+app,zh_TW,momentsMaxDuration,Max {duration},最長 {duration},
+app,zh_TW,momentsScheduledAt,{date} at {time},{date} {time},
+app,zh_TW,momentsReportSubmitted,Report submitted,檢舉已送出,

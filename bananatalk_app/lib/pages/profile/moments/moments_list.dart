@@ -260,7 +260,7 @@ class _ProfileMomentsState extends ConsumerState<ProfileMoments> {
                         ),
                         const SizedBox(width: 6),
                         Text(
-                          'Pull down to refresh',
+                          l10n.momentsPullDownRefresh,
                           style: context.captionSmall.copyWith(
                             color: AppColors.primary,
                             fontWeight: FontWeight.w600,
@@ -462,7 +462,8 @@ class _ProfileMomentsState extends ConsumerState<ProfileMoments> {
 
                   // Subtle gradient overlay at bottom for content visibility
                   // (image posts only — text tiles carry their own text).
-                  if (imageUrl != null && (hasMultiple || moment.description.isNotEmpty))
+                  if (imageUrl != null &&
+                      (hasMultiple || moment.description.isNotEmpty))
                     Positioned.fill(
                       child: IgnorePointer(
                         child: Container(

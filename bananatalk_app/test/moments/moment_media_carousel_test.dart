@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/moments/card/moment_media_carousel.dart';
 
 /// Phone-width, and scrollable.
@@ -9,6 +10,8 @@ import 'package:bananatalk_app/pages/moments/card/moment_media_carousel.dart';
 /// phone width, so the harness has to match that rather than the widget being
 /// made to fit an 800pt-wide column nothing ever renders it in.
 Widget _host(Widget child) => MaterialApp(
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       home: Scaffold(
         body: Center(
           child: SizedBox(

@@ -533,10 +533,10 @@ class _ReelsFeedScreenState extends ConsumerState<ReelsFeedScreen>
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Padding(
-              padding: EdgeInsets.all(16),
+            Padding(
+              padding: const EdgeInsets.all(16),
               child: Text(
-                'Why are you reporting this reel?',
+                AppLocalizations.of(context)!.momentsWhyReportingReel,
                 style: TextStyle(fontWeight: FontWeight.w700),
               ),
             ),
@@ -566,8 +566,9 @@ class _ReelsFeedScreenState extends ConsumerState<ReelsFeedScreen>
       SnackBar(
         content: Text(
           result['success'] == true
-              ? 'Report submitted'
-              : (result['message']?.toString() ?? 'Failed to submit report'),
+              ? AppLocalizations.of(context)!.momentsReportSubmitted
+              : (result['message']?.toString() ??
+                    AppLocalizations.of(context)!.roomReportSubmitFailed),
         ),
       ),
     );

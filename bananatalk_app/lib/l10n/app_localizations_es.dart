@@ -9763,4 +9763,71 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get chatSaveToVocabularyAction => 'Guardar en vocabulario';
+
+  @override
+  String momentsMore(Object hidden) {
+    return '+$hidden más';
+  }
+
+  @override
+  String get momentsAllow => 'Permitir';
+
+  @override
+  String get momentsCompressed => 'Comprimido';
+
+  @override
+  String get momentsPromptDay => 'Tema del día';
+
+  @override
+  String get momentsAnswer => 'Responder';
+
+  @override
+  String get momentsAnswerCamera => '🎥 Responder con cámara';
+
+  @override
+  String momentsPracticeWriting(Object langName) {
+    return 'Practica escribiendo en $langName';
+  }
+
+  @override
+  String get momentsReelPolicyBody => 'Los reels son vídeos cortos para aprender idiomas: respuestas al tema del día, práctica de conversación, explicaciones de hablantes nativos y clips de cultura.\n\nBananatalk tiene tolerancia cero con el contenido inapropiado: nada de desnudos, discurso de odio, acoso, violencia ni contenido ilegal. Los vídeos denunciados se ocultan automáticamente hasta su revisión tras 2 denuncias, y las infracciones pueden suponer la eliminación del contenido o la suspensión de la cuenta.\n\nPuedes denunciar o bloquear desde cualquier reel en cualquier momento.';
+
+  @override
+  String get momentsIAgree => 'Acepto';
+
+  @override
+  String get momentsWhyReportingReel => '¿Por qué denuncias este reel?';
+
+  @override
+  String get momentsNoReelsYet => 'Aún no hay reels';
+
+  @override
+  String get momentsNoReelsBody => 'Sé el primero en responder con la cámara al tema de hoy, o graba un clip libre para aprender idiomas.';
+
+  @override
+  String get momentsPullDownRefresh => 'Desliza hacia abajo para actualizar';
+
+  @override
+  String get momentsErrorLoadingVideo => 'Error al cargar el vídeo';
+
+  @override
+  String get momentsLoadingVideo => 'Cargando vídeo...';
+
+  @override
+  String momentsFileSizeMb(Object size) {
+    return '$size MB';
+  }
+
+  @override
+  String momentsMaxDuration(Object duration) {
+    return 'Máx. $duration';
+  }
+
+  @override
+  String momentsScheduledAt(Object date, Object time) {
+    return '$date a las $time';
+  }
+
+  @override
+  String get momentsReportSubmitted => 'Denuncia enviada';
 }

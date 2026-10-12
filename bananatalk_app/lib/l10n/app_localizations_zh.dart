@@ -9753,6 +9753,73 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get chatSaveToVocabularyAction => '保存到词汇本';
+
+  @override
+  String momentsMore(Object hidden) {
+    return '还有$hidden个';
+  }
+
+  @override
+  String get momentsAllow => '允许';
+
+  @override
+  String get momentsCompressed => '已压缩';
+
+  @override
+  String get momentsPromptDay => '今日话题';
+
+  @override
+  String get momentsAnswer => '回答';
+
+  @override
+  String get momentsAnswerCamera => '🎥 用相机回答';
+
+  @override
+  String momentsPracticeWriting(Object langName) {
+    return '练习用$langName写作';
+  }
+
+  @override
+  String get momentsReelPolicyBody => 'Reels 是简短的语言学习视频，包括话题回答、口语练习、母语者讲解和文化短片。\n\nBananatalk 对不当内容零容忍：禁止裸露、仇恨言论、骚扰、暴力或非法内容。被举报的视频在收到 2 次举报后会自动隐藏以待审核，违规可能导致内容被删除或账号被封禁。\n\n你可以随时在任意 Reel 中举报或屏蔽。';
+
+  @override
+  String get momentsIAgree => '我同意';
+
+  @override
+  String get momentsWhyReportingReel => '你为什么要举报这个 Reel？';
+
+  @override
+  String get momentsNoReelsYet => '还没有 Reels';
+
+  @override
+  String get momentsNoReelsBody => '成为第一个用相机回答今日话题的人，或录制一段自由形式的语言学习短片。';
+
+  @override
+  String get momentsPullDownRefresh => '下拉刷新';
+
+  @override
+  String get momentsErrorLoadingVideo => '视频加载出错';
+
+  @override
+  String get momentsLoadingVideo => '正在加载视频...';
+
+  @override
+  String momentsFileSizeMb(Object size) {
+    return '${size}MB';
+  }
+
+  @override
+  String momentsMaxDuration(Object duration) {
+    return '最长 $duration';
+  }
+
+  @override
+  String momentsScheduledAt(Object date, Object time) {
+    return '$date $time';
+  }
+
+  @override
+  String get momentsReportSubmitted => '举报已提交';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -19504,4 +19571,71 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get chatSaveToVocabularyAction => '儲存到單字本';
+
+  @override
+  String momentsMore(Object hidden) {
+    return '還有$hidden個';
+  }
+
+  @override
+  String get momentsAllow => '允許';
+
+  @override
+  String get momentsCompressed => '已壓縮';
+
+  @override
+  String get momentsPromptDay => '今日話題';
+
+  @override
+  String get momentsAnswer => '回答';
+
+  @override
+  String get momentsAnswerCamera => '🎥 用相機回答';
+
+  @override
+  String momentsPracticeWriting(Object langName) {
+    return '練習用$langName寫作';
+  }
+
+  @override
+  String get momentsReelPolicyBody => 'Reels 是簡短的語言學習影片，包括話題回答、口說練習、母語者講解和文化短片。\n\nBananatalk 對不當內容零容忍：禁止裸露、仇恨言論、騷擾、暴力或非法內容。被檢舉的影片在收到 2 次檢舉後會自動隱藏以待審核，違規可能導致內容被刪除或帳號被停權。\n\n你可以隨時在任何 Reel 中檢舉或封鎖。';
+
+  @override
+  String get momentsIAgree => '我同意';
+
+  @override
+  String get momentsWhyReportingReel => '你為什麼要檢舉這個 Reel？';
+
+  @override
+  String get momentsNoReelsYet => '還沒有 Reels';
+
+  @override
+  String get momentsNoReelsBody => '成為第一個用相機回答今日話題的人，或錄製一段自由形式的語言學習短片。';
+
+  @override
+  String get momentsPullDownRefresh => '下拉重新整理';
+
+  @override
+  String get momentsErrorLoadingVideo => '影片載入出錯';
+
+  @override
+  String get momentsLoadingVideo => '正在載入影片...';
+
+  @override
+  String momentsFileSizeMb(Object size) {
+    return '${size}MB';
+  }
+
+  @override
+  String momentsMaxDuration(Object duration) {
+    return '最長 $duration';
+  }
+
+  @override
+  String momentsScheduledAt(Object date, Object time) {
+    return '$date $time';
+  }
+
+  @override
+  String get momentsReportSubmitted => '檢舉已送出';
 }

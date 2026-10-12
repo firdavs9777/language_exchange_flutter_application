@@ -9763,4 +9763,71 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get chatSaveToVocabularyAction => 'Im Vokabular speichern';
+
+  @override
+  String momentsMore(Object hidden) {
+    return '+$hidden weitere';
+  }
+
+  @override
+  String get momentsAllow => 'Erlauben';
+
+  @override
+  String get momentsCompressed => 'Komprimiert';
+
+  @override
+  String get momentsPromptDay => 'Impuls des Tages';
+
+  @override
+  String get momentsAnswer => 'Antworten';
+
+  @override
+  String get momentsAnswerCamera => '🎥 Mit Kamera antworten';
+
+  @override
+  String momentsPracticeWriting(Object langName) {
+    return 'Schreibe auf $langName';
+  }
+
+  @override
+  String get momentsReelPolicyBody => 'Reels sind kurze Sprachlernvideos — Antworten auf Impulse, Sprechübungen, Erklärungen von Muttersprachlern und Kulturclips.\n\nBananatalk duldet keine anstößigen Inhalte: keine Nacktheit, keine Hassrede, keine Belästigung, keine Gewalt und keine illegalen Inhalte. Gemeldete Videos werden nach 2 Meldungen bis zur Prüfung automatisch ausgeblendet; Verstöße können zur Entfernung von Inhalten oder zur Sperrung des Kontos führen.\n\nDu kannst jederzeit bei jedem Reel melden oder blockieren.';
+
+  @override
+  String get momentsIAgree => 'Ich stimme zu';
+
+  @override
+  String get momentsWhyReportingReel => 'Warum meldest du dieses Reel?';
+
+  @override
+  String get momentsNoReelsYet => 'Noch keine Reels';
+
+  @override
+  String get momentsNoReelsBody => 'Sei der Erste, der den heutigen Impuls mit der Kamera beantwortet, oder nimm einen freien Sprachlern-Clip auf.';
+
+  @override
+  String get momentsPullDownRefresh => 'Zum Aktualisieren nach unten ziehen';
+
+  @override
+  String get momentsErrorLoadingVideo => 'Fehler beim Laden des Videos';
+
+  @override
+  String get momentsLoadingVideo => 'Video wird geladen...';
+
+  @override
+  String momentsFileSizeMb(Object size) {
+    return '$size MB';
+  }
+
+  @override
+  String momentsMaxDuration(Object duration) {
+    return 'Max. $duration';
+  }
+
+  @override
+  String momentsScheduledAt(Object date, Object time) {
+    return '$date um $time';
+  }
+
+  @override
+  String get momentsReportSubmitted => 'Meldung gesendet';
 }
