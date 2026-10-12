@@ -147,7 +147,7 @@ void main() {
     expect(ok.ok, isTrue);
     expect(ok.statusCode, 200);
     expect((ok.data['call'] as Map)['type'], 'video');
-    final ended = await upgrade(409, {'success': false, 'error': 'Call is not active', 'code': 'CALL_STATE', 'status': 'ended'});
+    final ended = await upgrade(409, {'success': false, 'error': 'Call already ended', 'code': 'CALL_STATE', 'status': 'ended'});
     expect(ended.ok, isFalse);
     expect(ended.isCallStateConflict, isTrue);
     expect((await upgrade(404, {'success': false, 'error': 'Call not found'})).ok, isFalse);

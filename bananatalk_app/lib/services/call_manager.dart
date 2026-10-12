@@ -180,6 +180,7 @@ class CallManager with WidgetsBindingObserver {
   bool _peerGone = false;
   bool _localReconnecting = false;
   bool _recovering = false;
+  bool _upgrading = false;
 
   final StreamController<CallFinish> _finishController = StreamController<CallFinish>.broadcast();
 
@@ -296,7 +297,7 @@ class CallManager with WidgetsBindingObserver {
     } else if (state == AppLifecycleState.resumed) {
       if (_callServicePending) {
         _callServicePending = false;
-        if (c != null) unawaited(_deps.platform.startCallService(video: c.callType == CallType.video));
+        if (c != null) unawaited(_deps.platform.startCallService(video: _isVideoEnabled));
       }
       if (_cameraPausedByLifecycle) {
         _cameraPausedByLifecycle = false;
@@ -1264,9 +1265,13 @@ class CallManager with WidgetsBindingObserver {
   /// Returns false on any failure (no call, still ringing, no permission,
   /// non-200) and never throws; a refused upgrade rolls the camera back.
   Future<bool> upgradeToVideo() async {
+    if (_upgrading) return false;
+    _upgrading = true;
     try {
       final cur = currentCall;
-      if (cur == null || cur.status == CallStatus.ringing) return false;
+      // Only a connected call has a room to publish into; while connecting
+      // the camera would never publish but the server would record video.
+      if (cur == null || cur.status != CallStatus.connected) return false;
       if (!await _deps.platform.ensurePermissions(video: true)) {
         onCallError?.call(await _deps.platform.permissionError(video: true, accepting: false));
         return false;
@@ -1290,6 +1295,8 @@ class CallManager with WidgetsBindingObserver {
     } catch (e) {
       debugPrint('upgradeToVideo failed: $e');
       return false;
+    } finally {
+      _upgrading = false;
     }
   }
 
@@ -1298,6 +1305,7 @@ class CallManager with WidgetsBindingObserver {
     if (c == null || !_sameId(c.callId, callId) || c.callType != CallType.video) return;
     setVideoEnabled(false);
     currentCall = c.copyWith(callType: CallType.audio);
+    onCallTypeChanged?.call(CallType.audio);
     unawaited(_deps.platform.setWakelock(false));
     if (_deps.isAppResumed()) unawaited(_deps.platform.startCallService(video: false));
   }

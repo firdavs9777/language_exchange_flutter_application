@@ -74,7 +74,10 @@ void main() {
   test('upgradeToVideo returns false on a non-200 and rolls the camera back', () async {
     final h = await connectedVoice();
     h.api.upgradeResult = const CallApiResult(ok: false, statusCode: 409, errorCode: 'CALL_STATE');
+    final types = <CallType>[];
+    h.manager.onCallTypeChanged = types.add;
     expect(await h.manager.upgradeToVideo(), isFalse);
+    expect(types, [CallType.video, CallType.audio]);
     expect(h.manager.currentCall!.callType, CallType.audio);
     expect(h.manager.isVideoEnabled, isFalse);
     expect(h.liveKit.cameraCalls, [true, false]);
@@ -85,5 +88,25 @@ void main() {
     expect(await h.manager.upgradeToVideo(), isFalse);
     await h.ringIncoming();
     expect(await h.manager.upgradeToVideo(), isFalse);
+  });
+
+  test('upgradeToVideo is false while the call is still connecting', () async {
+    final h = CallHarness();
+    await h.startOutgoing();
+    await h.state('active');
+    expect(h.manager.currentCall!.status, CallStatus.connecting);
+    expect(await h.manager.upgradeToVideo(), isFalse);
+    expect(h.liveKit.cameraCalls, isEmpty);
+    expect(h.api.calls.where((c) => c.startsWith('upgrade')), isEmpty);
+  });
+
+  test('a second upgradeToVideo while one is in flight does nothing', () async {
+    final h = await connectedVoice();
+    final first = h.manager.upgradeToVideo();
+    final second = await h.manager.upgradeToVideo();
+    expect(second, isFalse);
+    expect(await first, isTrue);
+    expect(h.liveKit.cameraCalls, [true]);
+    expect(h.api.calls.where((c) => c.startsWith('upgrade')), hasLength(1));
   });
 }
