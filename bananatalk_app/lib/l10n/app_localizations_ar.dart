@@ -9954,8 +9954,12 @@ class AppLocalizationsAr extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       dueCount,
       locale: localeName,
-      other: '$dueCount كلمات للمراجعة',
+      other: '$dueCount كلمة للمراجعة',
+      many: '$dueCount كلمة للمراجعة',
+      few: '$dueCount كلمات للمراجعة',
+      two: 'كلمتان للمراجعة',
       one: 'كلمة واحدة للمراجعة',
+      zero: 'لا كلمات للمراجعة',
     );
     return '$_temp0';
   }

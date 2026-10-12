@@ -4012,7 +4012,7 @@
   "learnCorrectOfTotal": "{correctCount}/{count} صحيحة",
   "learnDragDropReorderItems": "اسحب وأفلت لإعادة ترتيب العناصر",
   "learnCorrectOrder": "الترتيب الصحيح: {order}",
-  "learnWordsToReview": "{dueCount, plural, =1{كلمة واحدة للمراجعة} other{{dueCount} كلمات للمراجعة}}",
+  "learnWordsToReview": "{dueCount, plural, zero{لا كلمات للمراجعة} one{كلمة واحدة للمراجعة} two{كلمتان للمراجعة} few{{dueCount} كلمات للمراجعة} many{{dueCount} كلمة للمراجعة} other{{dueCount} كلمة للمراجعة}}",
   "learnScore": "النتيجة: {score} / 100",
   "learnGotCorrect": "أجبت بشكل صحيح على {correct} من {count}.",
   "learnQuestionOf": "السؤال {number} من {total}",
