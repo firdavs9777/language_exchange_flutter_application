@@ -253,6 +253,15 @@ void main() {
       ),
     );
     await tester.pumpAndSettle();
+    // A rebuild must not log it again.
+    await tester.pumpWidget(
+      _wrap(
+        daysOld: _insideWindow,
+        state: const GuideState(acted: false, timesShown: 1),
+        done: {ActivationAction.moment},
+      ),
+    );
+    await tester.pumpAndSettle();
     expect(events, ['moments:acted']);
   });
 
@@ -267,5 +276,58 @@ void main() {
     );
     await tester.pumpAndSettle();
     expect(find.byType(GuideCard), findsNothing);
+  });
+
+  testWidgets('a user refresh that throws does not latch a retirement', (
+    tester,
+  ) async {
+    SharedPreferences.setMockInitialValues({});
+    final events = <String>[];
+    AnalyticsService.debugLogSink = (n, p) {
+      if (n == 'guide_retired') events.add('${p['surface']}:${p['reason']}');
+    };
+    addTearDown(() => AnalyticsService.debugLogSink = null);
+    var calls = 0;
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          userProvider.overrideWith((ref) async {
+            if (calls++ > 0) throw Exception('flaky network');
+            return _user(daysOld: _insideWindow);
+          }),
+          activationDoneProvider.overrideWith((ref) => Stream.value({})),
+          guideStateProvider(_surface).overrideWith(
+            (ref) async => const GuideState(acted: false, timesShown: 1),
+          ),
+        ],
+        child: MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: Scaffold(
+            body: PageGuide(
+              surface: _surface,
+              icon: Icons.add_a_photo_rounded,
+              accent: const Color(0xFF7C4DFF),
+              title: 'Post something',
+              body: 'A photo or one line.',
+              ctaLabel: 'Post a moment',
+              onCta: () {},
+            ),
+          ),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    expect(find.byType(GuideCard), findsOneWidget);
+
+    ProviderScope.containerOf(
+      tester.element(find.byType(PageGuide)),
+    ).invalidate(userProvider);
+    await tester.pumpAndSettle();
+
+    expect(find.byType(GuideCard), findsOneWidget);
+    expect(events, isEmpty);
+    final prefs = await SharedPreferences.getInstance();
+    expect(prefs.getBool(_surface.retiredKey), isNull);
   });
 }

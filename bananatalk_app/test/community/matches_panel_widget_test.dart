@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:bananatalk_app/services/analytics_service.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/services/activation_store.dart';
 import 'package:bananatalk_app/services/guide_store.dart';
@@ -65,9 +67,17 @@ Widget _wrap({
   DailyMatchesResult? result,
   bool fail = false,
   Set<ActivationAction> done = const {},
+  Future<Community> Function()? userLoader,
+  GuideState? guideState,
 }) => ProviderScope(
   overrides: [
-    userProvider.overrideWith((ref) async => _user(daysOld: daysOld)),
+    userProvider.overrideWith(
+      (ref) => userLoader != null ? userLoader() : Future.value(_user(daysOld: daysOld)),
+    ),
+    guideStateProvider(GuideSurface.matches).overrideWith(
+      (ref) async =>
+          guideState ?? const GuideState(acted: false, timesShown: 0),
+    ),
     activationDoneProvider.overrideWith((ref) => Stream.value(done)),
     firstSessionStateProvider.overrideWith((ref) async => session),
     dailyMatchesProvider.overrideWith((ref) async {
@@ -351,5 +361,77 @@ void main() {
     );
     await tester.pumpAndSettle();
     expect(find.byType(MatchesFirstSessionPanel), findsNothing);
+  });
+
+  testWidgets('the retired latch hides the panel', (tester) async {
+    await tester.pumpWidget(
+      _wrap(
+        daysOld: _insideWindow,
+        session: _fresh,
+        guideState: const GuideState(
+          acted: false,
+          timesShown: 1,
+          retired: true,
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    expect(find.byType(MatchesFirstSessionPanel), findsNothing);
+  });
+
+  testWidgets('a message action retires it and logs guide_retired once', (
+    tester,
+  ) async {
+    SharedPreferences.setMockInitialValues({});
+    final events = <String>[];
+    AnalyticsService.debugLogSink = (n, p) {
+      if (n == 'guide_retired') events.add('${p['surface']}:${p['reason']}');
+    };
+    addTearDown(() => AnalyticsService.debugLogSink = null);
+    Widget build() => _wrap(
+      daysOld: _insideWindow,
+      session: const FirstSessionState(hasMessaged: false, timesShown: 1),
+      done: {ActivationAction.message},
+    );
+    await tester.pumpWidget(build());
+    await tester.pumpAndSettle();
+    await tester.pumpWidget(build());
+    await tester.pumpAndSettle();
+    expect(find.byType(MatchesFirstSessionPanel), findsNothing);
+    expect(events, ['matches:acted']);
+  });
+
+  testWidgets('a user refresh that throws does not latch a retirement', (
+    tester,
+  ) async {
+    SharedPreferences.setMockInitialValues({});
+    final events = <String>[];
+    AnalyticsService.debugLogSink = (n, p) {
+      if (n == 'guide_retired') events.add('${p['surface']}:${p['reason']}');
+    };
+    addTearDown(() => AnalyticsService.debugLogSink = null);
+    var calls = 0;
+    await tester.pumpWidget(
+      _wrap(
+        daysOld: _insideWindow,
+        session: const FirstSessionState(hasMessaged: false, timesShown: 1),
+        userLoader: () async {
+          if (calls++ > 0) throw Exception('flaky network');
+          return _user(daysOld: _insideWindow);
+        },
+      ),
+    );
+    await tester.pumpAndSettle();
+    expect(find.byType(MatchesFirstSessionPanel), findsOneWidget);
+
+    ProviderScope.containerOf(
+      tester.element(find.byType(MatchesTab)),
+    ).invalidate(userProvider);
+    await tester.pumpAndSettle();
+
+    expect(find.byType(MatchesFirstSessionPanel), findsOneWidget);
+    expect(events, isEmpty);
+    final prefs = await SharedPreferences.getInstance();
+    expect(prefs.getBool(GuideSurface.matches.retiredKey), isNull);
   });
 }

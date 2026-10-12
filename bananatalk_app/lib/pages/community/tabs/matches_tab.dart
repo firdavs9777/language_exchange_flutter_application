@@ -42,6 +42,11 @@ bool shouldShowExtraMatchesCta({
 }) => boostsEnabled && count < kDailyMatchesBatchSize + kExtraMatchesMax;
 
 /// "Your N matches today" list. Self-contained; mounted by the community page.
+/// Data that is neither loading nor errored. `hasValue` alone is true for an
+/// errored refresh that kept its previous value.
+bool _isCleanData(AsyncValue<Object?> v) =>
+    !v.isLoading && !v.hasError && v.hasValue;
+
 class MatchesTab extends ConsumerStatefulWidget {
   const MatchesTab({
     super.key,
@@ -312,28 +317,21 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
         // the panel itself uses the shorter guide window, so Matches retires
         // on the same day as the other four tabs.
         final user = ref.watch(userProvider);
-        final isNew = user.maybeWhen(
-          data: (u) => u.isNewUser,
-          orElse: () => false,
-        );
-        final withinWindow = user.maybeWhen(
-          data: (u) => u.joinedWithinDays(kGuideWindowDays),
-          orElse: () => false,
-        );
+        // valueOrNull: an errored refresh keeps its previous value, and a
+        // transient error must not change what is shown.
+        final isNew = user.valueOrNull?.isNewUser ?? false;
+        final withinWindow =
+            user.valueOrNull?.joinedWithinDays(kGuideWindowDays) ?? false;
         final sessionAsync = ref.watch(firstSessionStateProvider);
-        final session = sessionAsync.maybeWhen(
-          data: (s) => s,
-          orElse: () => FirstSessionState.unknown,
-        );
+        final session = sessionAsync.valueOrNull ?? FirstSessionState.unknown;
         final doneAsync = ref.watch(activationDoneProvider);
         // Loading or unreadable: everything done, i.e. show nothing.
-        final done = doneAsync.maybeWhen(
-          data: (d) => d,
-          orElse: () => ActivationAction.values.toSet(),
-        );
-        final retiredLatch = ref
-            .watch(guideStateProvider(GuideSurface.matches))
-            .maybeWhen(data: (g) => g.retired, orElse: () => false);
+        final done = doneAsync.valueOrNull ?? ActivationAction.values.toSet();
+        // Unread: treated as retired (hidden), like PageGuide's unknown state.
+        final retiredLatch =
+            ref.watch(guideStateProvider(GuideSurface.matches)).valueOrNull
+                ?.retired ??
+            true;
         final messaged =
             session.hasMessaged || done.contains(ActivationAction.message);
         final showGuidance =
@@ -344,9 +342,10 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
               milestonesDone: done.length,
             );
         if (!showGuidance &&
-            user.hasValue &&
-            sessionAsync.hasValue &&
-            doneAsync.hasValue) {
+            // Clean data only: an errored refresh still reports hasValue.
+            _isCleanData(user) &&
+            _isCleanData(sessionAsync) &&
+            _isCleanData(doneAsync)) {
           final reason = guideRetiredReason(
             wasShown: session.timesShown > 0,
             withinWindow: withinWindow,

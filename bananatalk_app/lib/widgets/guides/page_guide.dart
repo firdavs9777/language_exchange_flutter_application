@@ -59,21 +59,15 @@ class PageGuide extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final userAsync = ref.watch(userProvider);
-    final withinWindow = userAsync.maybeWhen(
-      data: (u) => u.joinedWithinDays(kGuideWindowDays),
-      orElse: () => false,
-    );
+    // valueOrNull, not maybeWhen(data:): a refresh that errors keeps its
+    // previous value, and a transient error must not change what is shown.
+    final withinWindow =
+        userAsync.valueOrNull?.joinedWithinDays(kGuideWindowDays) ?? false;
     final stateAsync = ref.watch(guideStateProvider(surface));
-    final state = stateAsync.maybeWhen(
-      data: (s) => s,
-      orElse: () => GuideState.unknown,
-    );
+    final state = stateAsync.valueOrNull ?? GuideState.unknown;
     final doneAsync = ref.watch(activationDoneProvider);
     // Loading or unreadable: everything done, i.e. show nothing.
-    final done = doneAsync.maybeWhen(
-      data: (d) => d,
-      orElse: () => ActivationAction.values.toSet(),
-    );
+    final done = doneAsync.valueOrNull ?? ActivationAction.values.toSet();
     final real = surface.action;
     final actedNow =
         acted || state.acted || (real != null && done.contains(real));
@@ -94,7 +88,11 @@ class PageGuide extends ConsumerWidget {
     }
 
     if (!show) {
-      if (userAsync.hasValue && stateAsync.hasValue && doneAsync.hasValue) {
+      // Only from clean data: an errored refresh still reports hasValue, and
+      // latching 'window' off a stale read would hide the guide for good.
+      if (_isCleanData(userAsync) &&
+          _isCleanData(stateAsync) &&
+          _isCleanData(doneAsync)) {
         final reason = guideRetiredReason(
           wasShown: state.timesShown > 0,
           withinWindow: withinWindow,
@@ -123,6 +121,9 @@ class PageGuide extends ConsumerWidget {
       ),
     );
   }
+
+  static bool _isCleanData(AsyncValue<Object?> v) =>
+      !v.isLoading && !v.hasError && v.hasValue;
 
   void _onCta({bool secondary = false}) {
     // `target` is what makes a two-destination card worth having: without it
