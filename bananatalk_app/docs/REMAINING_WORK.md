@@ -38,7 +38,8 @@ Last updated: 2026-10-12. Keep this current: tick items off in the same commit t
 **Unexplained — no owner yet** (§0b)
 - [x] `flutter: null` lines — debug-only trap added (`lib/utils/null_log_trap.dart`); source not yet named, needs a device run (2026-10-12)
 - [ ] Device: open a chat whose partner was last seen long ago (header ~99px) in a debug build and confirm the `[null-log] … from <frame>` line names the source; then fix it (our frame) or record package noise
-- 7,533 PM2 restarts on the droplet
+- [x] PM2 restarts — cause recorded in backend docs/ops/2026-10-pm2-restarts.md (2026-10-12)
+- [ ] PM2 restarts follow-ups (backend REMAINING_WORK): deploy-time EADDRINUSE crash, mongoose DocumentArray crash during deploy, droplet OOM (960 MB), attribute 6,862 spike-day exits
 
 ---
 
