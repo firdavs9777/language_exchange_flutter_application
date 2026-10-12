@@ -160,6 +160,22 @@ class NotificationSettingsScreen extends ConsumerWidget {
                     .read(notificationSettingsProvider.notifier)
                     .toggleSetting('marketing', value);
               },
+            ),
+            _buildDivider(context),
+            _buildToggleTile(
+              context: context,
+              icon: Icons.campaign_outlined,
+              iconColor: const Color(0xFFFF7043),
+              title: l10n.notifyAnnouncementsTitle,
+              subtitle: l10n.notifyAnnouncementsSubtitle,
+              value: settings.announcements && settings.enabled,
+              enabled: settings.enabled,
+              onChanged: (value) {
+                HapticFeedback.selectionClick();
+                ref
+                    .read(notificationSettingsProvider.notifier)
+                    .toggleSetting('announcements', value);
+              },
               isLast: true,
             ),
           ]),

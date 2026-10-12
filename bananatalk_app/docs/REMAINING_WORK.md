@@ -142,7 +142,7 @@ call or rejoin", and the caller already has the call on screen.
 - [x] A12 launch wiring: announcement / ads notice / spotlight candidates; version check reports the update dialog; splash welcome-back shares the budget
 - [x] A13 `AnnouncementScreen` at `/announcement/:id`
 - [x] A14 notifications list `announcement` type + push routing
-- [ ] A15 Settings → Notifications "Announcements" toggle
+- [x] A15 Settings → Notifications "Announcements" toggle
 - [ ] A16 suspension screen reads `banReason`
 - [x] `test/growth/first_session_test.dart`: "WavesTab primes once with 1 waves" / "primes never with 0 waves" fail (already failing before A12, at ddc6fcae)
 - [x] A12 fix round 1: empty `bananatalk:///` links ignored (never handed to the OS), external launch failures caught, spotlight re-checks the route after picking

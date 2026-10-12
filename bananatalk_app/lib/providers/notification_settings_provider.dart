@@ -108,6 +108,9 @@ class NotificationSettingsNotifier
       case 'marketing':
         updatedSettings = currentSettings.copyWith(marketing: value);
         break;
+      case 'announcements':
+        updatedSettings = currentSettings.copyWith(announcements: value);
+        break;
       case 'sound':
         updatedSettings = currentSettings.copyWith(sound: value);
         break;

@@ -138,6 +138,7 @@ class NotificationSettings {
   final bool friendRequests;
   final bool profileVisits;
   final bool marketing;
+  final bool announcements;
   final bool sound;
   final bool vibration;
   final bool showPreview;
@@ -156,6 +157,7 @@ class NotificationSettings {
     required this.vibration,
     required this.showPreview,
     required this.mutedConversations,
+    this.announcements = true,
     this.quietHours = const QuietHours(),
   });
 
@@ -168,6 +170,7 @@ class NotificationSettings {
       friendRequests: true,
       profileVisits: true,
       marketing: false,
+      announcements: true,
       sound: true,
       vibration: true,
       showPreview: true,
@@ -185,6 +188,7 @@ class NotificationSettings {
       friendRequests: json['friendRequests'] ?? true,
       profileVisits: json['profileVisits'] ?? true,
       marketing: json['marketing'] ?? false,
+      announcements: json['announcements'] ?? true,
       sound: json['sound'] ?? true,
       vibration: json['vibration'] ?? true,
       showPreview: json['showPreview'] ?? true,
@@ -209,6 +213,7 @@ class NotificationSettings {
       'friendRequests': friendRequests,
       'profileVisits': profileVisits,
       'marketing': marketing,
+      'announcements': announcements,
       'sound': sound,
       'vibration': vibration,
       'showPreview': showPreview,
@@ -225,6 +230,7 @@ class NotificationSettings {
     bool? friendRequests,
     bool? profileVisits,
     bool? marketing,
+    bool? announcements,
     bool? sound,
     bool? vibration,
     bool? showPreview,
@@ -239,6 +245,7 @@ class NotificationSettings {
       friendRequests: friendRequests ?? this.friendRequests,
       profileVisits: profileVisits ?? this.profileVisits,
       marketing: marketing ?? this.marketing,
+      announcements: announcements ?? this.announcements,
       sound: sound ?? this.sound,
       vibration: vibration ?? this.vibration,
       showPreview: showPreview ?? this.showPreview,
