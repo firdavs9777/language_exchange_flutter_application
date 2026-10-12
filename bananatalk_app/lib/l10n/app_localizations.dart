@@ -18703,6 +18703,324 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Failed to explain'**
   String get aiFailedToExplain;
+
+  /// No description provided for @aiFailedLoadHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load history'**
+  String get aiFailedLoadHistory;
+
+  /// No description provided for @aiConversationMessageCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 message} other{{count} messages}}'**
+  String aiConversationMessageCount(int count);
+
+  /// No description provided for @aiStartNewConversationSee.
+  ///
+  /// In en, this message translates to:
+  /// **'Start a new conversation to see it here'**
+  String get aiStartNewConversationSee;
+
+  /// No description provided for @aiLoadingMessages.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading messages...'**
+  String get aiLoadingMessages;
+
+  /// No description provided for @aiNoMessagesConversation.
+  ///
+  /// In en, this message translates to:
+  /// **'No messages in this conversation'**
+  String get aiNoMessagesConversation;
+
+  /// No description provided for @aiDifficultyLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Difficulty Level'**
+  String get aiDifficultyLevel;
+
+  /// No description provided for @aiScenarios.
+  ///
+  /// In en, this message translates to:
+  /// **'Scenarios'**
+  String get aiScenarios;
+
+  /// No description provided for @aiGrammarCheck.
+  ///
+  /// In en, this message translates to:
+  /// **'Grammar Check'**
+  String get aiGrammarCheck;
+
+  /// No description provided for @aiRecentAnalysis.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent Analysis'**
+  String get aiRecentAnalysis;
+
+  /// No description provided for @aiCheckGrammar.
+  ///
+  /// In en, this message translates to:
+  /// **'Check Grammar'**
+  String get aiCheckGrammar;
+
+  /// No description provided for @aiLanguageLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Language:'**
+  String get aiLanguageLabel;
+
+  /// No description provided for @aiGrammarIssuesFound.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 issue found} other{{count} issues found}}'**
+  String aiGrammarIssuesFound(int count);
+
+  /// No description provided for @aiPerfect.
+  ///
+  /// In en, this message translates to:
+  /// **'Perfect!'**
+  String get aiPerfect;
+
+  /// No description provided for @aiNoGrammarIssuesFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No grammar issues found in your text.'**
+  String get aiNoGrammarIssuesFound;
+
+  /// No description provided for @aiIssuesFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Issues Found ({count})'**
+  String aiIssuesFound(Object count);
+
+  /// No description provided for @aiCorrected.
+  ///
+  /// In en, this message translates to:
+  /// **'Corrected'**
+  String get aiCorrected;
+
+  /// No description provided for @aiGrammarExamples.
+  ///
+  /// In en, this message translates to:
+  /// **'Examples:'**
+  String get aiGrammarExamples;
+
+  /// No description provided for @aiImprovedSuggestions.
+  ///
+  /// In en, this message translates to:
+  /// **'Improved Suggestions'**
+  String get aiImprovedSuggestions;
+
+  /// No description provided for @aiNoAnalysisHistoryYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No analysis history yet'**
+  String get aiNoAnalysisHistoryYet;
+
+  /// No description provided for @aiLessonBuilder.
+  ///
+  /// In en, this message translates to:
+  /// **'AI Lesson Builder'**
+  String get aiLessonBuilder;
+
+  /// No description provided for @aiGenerateCustomLessons.
+  ///
+  /// In en, this message translates to:
+  /// **'Generate Custom Lessons'**
+  String get aiGenerateCustomLessons;
+
+  /// No description provided for @aiCreatesPersonalizedLessonsAny.
+  ///
+  /// In en, this message translates to:
+  /// **'AI creates personalized lessons on any topic'**
+  String get aiCreatesPersonalizedLessonsAny;
+
+  /// No description provided for @aiExercises.
+  ///
+  /// In en, this message translates to:
+  /// **'Exercises: {exerciseCount}'**
+  String aiExercises(Object exerciseCount);
+
+  /// No description provided for @aiSuggestedTopics.
+  ///
+  /// In en, this message translates to:
+  /// **'Suggested Topics'**
+  String get aiSuggestedTopics;
+
+  /// No description provided for @aiCreatingLesson.
+  ///
+  /// In en, this message translates to:
+  /// **'Creating your lesson...'**
+  String get aiCreatingLesson;
+
+  /// No description provided for @aiGeneratingExercisesContent.
+  ///
+  /// In en, this message translates to:
+  /// **'AI is generating exercises and content'**
+  String get aiGeneratingExercisesContent;
+
+  /// No description provided for @aiLessonGenerated.
+  ///
+  /// In en, this message translates to:
+  /// **'Lesson Generated!'**
+  String get aiLessonGenerated;
+
+  /// No description provided for @aiGenerateAnother.
+  ///
+  /// In en, this message translates to:
+  /// **'Generate Another'**
+  String get aiGenerateAnother;
+
+  /// No description provided for @aiStartLesson.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Lesson'**
+  String get aiStartLesson;
+
+  /// No description provided for @aiPronunciationPractice.
+  ///
+  /// In en, this message translates to:
+  /// **'Pronunciation Practice'**
+  String get aiPronunciationPractice;
+
+  /// No description provided for @aiPracticeHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Practice History'**
+  String get aiPracticeHistory;
+
+  /// No description provided for @aiTextPractice.
+  ///
+  /// In en, this message translates to:
+  /// **'Text to Practice'**
+  String get aiTextPractice;
+
+  /// No description provided for @aiWordAnalysis.
+  ///
+  /// In en, this message translates to:
+  /// **'Word Analysis'**
+  String get aiWordAnalysis;
+
+  /// No description provided for @aiNoPracticeHistoryYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No practice history yet'**
+  String get aiNoPracticeHistoryYet;
+
+  /// No description provided for @aiSmartTranslation.
+  ///
+  /// In en, this message translates to:
+  /// **'Smart Translation'**
+  String get aiSmartTranslation;
+
+  /// No description provided for @aiWordBreakdown.
+  ///
+  /// In en, this message translates to:
+  /// **'Word Breakdown'**
+  String get aiWordBreakdown;
+
+  /// No description provided for @aiAlternativeTranslations.
+  ///
+  /// In en, this message translates to:
+  /// **'Alternative Translations'**
+  String get aiAlternativeTranslations;
+
+  /// No description provided for @aiGrammarNotes.
+  ///
+  /// In en, this message translates to:
+  /// **'Grammar Notes'**
+  String get aiGrammarNotes;
+
+  /// No description provided for @aiIdiomsExpressions.
+  ///
+  /// In en, this message translates to:
+  /// **'Idioms & Expressions'**
+  String get aiIdiomsExpressions;
+
+  /// No description provided for @aiLiteral.
+  ///
+  /// In en, this message translates to:
+  /// **'Literal: {literalTranslation}'**
+  String aiLiteral(Object literalTranslation);
+
+  /// No description provided for @aiMeaning.
+  ///
+  /// In en, this message translates to:
+  /// **'Meaning: {meaning}'**
+  String aiMeaning(Object meaning);
+
+  /// No description provided for @aiEquivalent.
+  ///
+  /// In en, this message translates to:
+  /// **'Equivalent: {equivalentIdiom}'**
+  String aiEquivalent(Object equivalentIdiom);
+
+  /// No description provided for @aiCulturalContext.
+  ///
+  /// In en, this message translates to:
+  /// **'Cultural Context'**
+  String get aiCulturalContext;
+
+  /// No description provided for @aiNoCompletedConversations.
+  ///
+  /// In en, this message translates to:
+  /// **'No completed conversations'**
+  String get aiNoCompletedConversations;
+
+  /// No description provided for @aiNoActiveConversations.
+  ///
+  /// In en, this message translates to:
+  /// **'No active conversations'**
+  String get aiNoActiveConversations;
+
+  /// No description provided for @aiStartInLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Start in {language}'**
+  String aiStartInLanguage(Object language);
+
+  /// No description provided for @aiSelect.
+  ///
+  /// In en, this message translates to:
+  /// **'Select'**
+  String get aiSelect;
+
+  /// No description provided for @aiIssuesCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 issue} other{{count} issues}}'**
+  String aiIssuesCount(int count);
+
+  /// No description provided for @aiGenerateLesson.
+  ///
+  /// In en, this message translates to:
+  /// **'Generate Lesson'**
+  String get aiGenerateLesson;
+
+  /// No description provided for @aiGeneratingEllipsis.
+  ///
+  /// In en, this message translates to:
+  /// **'Generating...'**
+  String get aiGeneratingEllipsis;
+
+  /// No description provided for @aiAnalyzing.
+  ///
+  /// In en, this message translates to:
+  /// **'Analyzing...'**
+  String get aiAnalyzing;
+
+  /// No description provided for @aiExcellentPronunciation.
+  ///
+  /// In en, this message translates to:
+  /// **'Excellent pronunciation!'**
+  String get aiExcellentPronunciation;
+
+  /// No description provided for @aiGoodJob.
+  ///
+  /// In en, this message translates to:
+  /// **'Good job!'**
+  String get aiGoodJob;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -10272,4 +10272,199 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get aiFailedToExplain => 'Шарҳ дода нашуд';
+
+  @override
+  String get aiFailedLoadHistory => 'Боркунии таърих номуваффақ шуд';
+
+  @override
+  String aiConversationMessageCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count паём',
+      one: '1 паём',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiStartNewConversationSee => 'Барои дидани он дар ин ҷо сӯҳбати нав оғоз кунед';
+
+  @override
+  String get aiLoadingMessages => 'Паёмҳо бор мешаванд...';
+
+  @override
+  String get aiNoMessagesConversation => 'Дар ин сӯҳбат паём нест';
+
+  @override
+  String get aiDifficultyLevel => 'Сатҳи душворӣ';
+
+  @override
+  String get aiScenarios => 'Сенарияҳо';
+
+  @override
+  String get aiGrammarCheck => 'Санҷиши грамматика';
+
+  @override
+  String get aiRecentAnalysis => 'Таҳлилҳои охирин';
+
+  @override
+  String get aiCheckGrammar => 'Грамматикаро санҷед';
+
+  @override
+  String get aiLanguageLabel => 'Забон:';
+
+  @override
+  String aiGrammarIssuesFound(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count хато ёфт шуд',
+      one: '1 хато ёфт шуд',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiPerfect => 'Олӣ!';
+
+  @override
+  String get aiNoGrammarIssuesFound => 'Дар матни шумо хатои грамматикӣ ёфт нашуд.';
+
+  @override
+  String aiIssuesFound(Object count) {
+    return 'Хатоҳои ёфтшуда ($count)';
+  }
+
+  @override
+  String get aiCorrected => 'Ислоҳшуда';
+
+  @override
+  String get aiGrammarExamples => 'Мисолҳо:';
+
+  @override
+  String get aiImprovedSuggestions => 'Пешниҳодҳои беҳтаршуда';
+
+  @override
+  String get aiNoAnalysisHistoryYet => 'Таърихи таҳлил ҳанӯз нест';
+
+  @override
+  String get aiLessonBuilder => 'Сохтори дарсҳо бо AI';
+
+  @override
+  String get aiGenerateCustomLessons => 'Сохтани дарсҳои шахсӣ';
+
+  @override
+  String get aiCreatesPersonalizedLessonsAny => 'AI дарсҳои шахсиро дар бораи ҳар мавзӯъ месозад';
+
+  @override
+  String aiExercises(Object exerciseCount) {
+    return 'Машқҳо: $exerciseCount';
+  }
+
+  @override
+  String get aiSuggestedTopics => 'Мавзӯъҳои пешниҳодшуда';
+
+  @override
+  String get aiCreatingLesson => 'Дарси шумо сохта истодааст...';
+
+  @override
+  String get aiGeneratingExercisesContent => 'AI машқҳо ва мундариҷаро месозад';
+
+  @override
+  String get aiLessonGenerated => 'Дарс сохта шуд!';
+
+  @override
+  String get aiGenerateAnother => 'Яке дигарро созед';
+
+  @override
+  String get aiStartLesson => 'Оғози дарс';
+
+  @override
+  String get aiPronunciationPractice => 'Машқи талаффуз';
+
+  @override
+  String get aiPracticeHistory => 'Таърихи машқҳо';
+
+  @override
+  String get aiTextPractice => 'Матн барои машқ';
+
+  @override
+  String get aiWordAnalysis => 'Таҳлили калимаҳо';
+
+  @override
+  String get aiNoPracticeHistoryYet => 'Таърихи машқҳо ҳанӯз нест';
+
+  @override
+  String get aiSmartTranslation => 'Тарҷумаи оқилона';
+
+  @override
+  String get aiWordBreakdown => 'Тақсими калимаҳо';
+
+  @override
+  String get aiAlternativeTranslations => 'Тарҷумаҳои алтернативӣ';
+
+  @override
+  String get aiGrammarNotes => 'Ёддоштҳои грамматикӣ';
+
+  @override
+  String get aiIdiomsExpressions => 'Ибораҳо ва таъбирҳо';
+
+  @override
+  String aiLiteral(Object literalTranslation) {
+    return 'Аслӣ: $literalTranslation';
+  }
+
+  @override
+  String aiMeaning(Object meaning) {
+    return 'Маъно: $meaning';
+  }
+
+  @override
+  String aiEquivalent(Object equivalentIdiom) {
+    return 'Баробарарзиш: $equivalentIdiom';
+  }
+
+  @override
+  String get aiCulturalContext => 'Заминаи фарҳангӣ';
+
+  @override
+  String get aiNoCompletedConversations => 'Сӯҳбатҳои анҷомшуда нест';
+
+  @override
+  String get aiNoActiveConversations => 'Сӯҳбатҳои фаъол нест';
+
+  @override
+  String aiStartInLanguage(Object language) {
+    return 'Оғоз ба $language';
+  }
+
+  @override
+  String get aiSelect => 'Интихоб';
+
+  @override
+  String aiIssuesCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count хато',
+      one: '1 хато',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiGenerateLesson => 'Сохтани дарс';
+
+  @override
+  String get aiGeneratingEllipsis => 'Сохта истодааст...';
+
+  @override
+  String get aiAnalyzing => 'Таҳлил мешавад...';
+
+  @override
+  String get aiExcellentPronunciation => 'Талаффузи олӣ!';
+
+  @override
+  String get aiGoodJob => 'Корро хуб кардед!';
 }

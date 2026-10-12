@@ -172,7 +172,7 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
-          'Grammar Check',
+          AppLocalizations.of(context)!.aiGrammarCheck,
           style: context.titleMedium.copyWith(fontWeight: FontWeight.bold),
         ),
       ),
@@ -233,7 +233,7 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
 
             // History Section
             Text(
-              'Recent Analysis',
+              AppLocalizations.of(context)!.aiRecentAnalysis,
               style: context.titleMedium.copyWith(fontWeight: FontWeight.bold),
             ),
             Spacing.gapMD,
@@ -322,8 +322,8 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
                         color: Colors.white,
                       ),
                     )
-                  : const Text(
-                      'Check Grammar',
+                  : Text(
+                      AppLocalizations.of(context)!.aiCheckGrammar,
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 15,
@@ -340,8 +340,8 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
     if (_isLoadingLanguages) {
       return Row(
         children: [
-          const Text(
-            'Language:',
+          Text(
+            AppLocalizations.of(context)!.aiLanguageLabel,
             style: TextStyle(fontWeight: FontWeight.w500, fontSize: 14),
           ),
           const SizedBox(width: 12),
@@ -367,8 +367,8 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
 
     return Row(
       children: [
-        const Text(
-          'Language:',
+        Text(
+          AppLocalizations.of(context)!.aiLanguageLabel,
           style: TextStyle(fontWeight: FontWeight.w500, fontSize: 14),
         ),
         const SizedBox(width: 12),
@@ -391,7 +391,7 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
-                      _selectedLanguage?.name ?? 'Select',
+                      _selectedLanguage?.name ?? AppLocalizations.of(context)!.aiSelect,
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
@@ -474,7 +474,7 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  '${_feedback!.errorCount} ${_feedback!.errorCount == 1 ? 'issue' : 'issues'} found',
+                  AppLocalizations.of(context)!.aiGrammarIssuesFound(_feedback!.errorCount),
                   style: TextStyle(
                     fontSize: 14,
                     color: Colors.grey[600],
@@ -522,12 +522,12 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
             ),
           ),
           const SizedBox(width: 12),
-          const Expanded(
+          Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Perfect!',
+                  AppLocalizations.of(context)!.aiPerfect,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
@@ -535,7 +535,7 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
                   ),
                 ),
                 Text(
-                  'No grammar issues found in your text.',
+                  AppLocalizations.of(context)!.aiNoGrammarIssuesFound,
                   style: TextStyle(
                     fontSize: 13,
                     color: Colors.green,
@@ -570,8 +570,8 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
             children: [
               Icon(Icons.thumb_up_rounded, size: 20, color: Colors.green[600]),
               const SizedBox(width: 8),
-              const Text(
-                'What You Did Well',
+              Text(
+                AppLocalizations.of(context)!.aiGrammarSectionWell,
                 style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
               ),
             ],
@@ -628,7 +628,7 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
               Icon(Icons.edit_note_rounded, size: 22, color: Colors.orange[700]),
               const SizedBox(width: 8),
               Text(
-                'Issues Found (${_feedback!.errors.length})',
+                AppLocalizations.of(context)!.aiIssuesFound(_feedback!.errors.length),
                 style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
               ),
             ],
@@ -722,7 +722,7 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Original',
+                              AppLocalizations.of(context)!.correctionOriginal,
                               style: TextStyle(
                                 fontSize: 10,
                                 fontWeight: FontWeight.w600,
@@ -762,7 +762,7 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Corrected',
+                              AppLocalizations.of(context)!.aiCorrected,
                               style: TextStyle(
                                 fontSize: 10,
                                 fontWeight: FontWeight.w600,
@@ -811,7 +811,7 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
                             ),
                             const SizedBox(width: 6),
                             Text(
-                              'Why?',
+                              AppLocalizations.of(context)!.aiWhy,
                               style: TextStyle(
                                 fontSize: 12,
                                 color: Colors.blue[700],
@@ -853,7 +853,7 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
                 if (error.hasExamples) ...[
                   const SizedBox(height: 10),
                   Text(
-                    'Examples:',
+                    AppLocalizations.of(context)!.aiGrammarExamples,
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w600,
@@ -912,9 +912,9 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
             children: [
               Icon(Icons.check_circle_rounded, size: 20, color: Colors.green[600]),
               const SizedBox(width: 8),
-              const Expanded(
+              Expanded(
                 child: Text(
-                  'Corrected Text',
+                  AppLocalizations.of(context)!.aiGrammarSectionCorrected,
                   style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
                 ),
               ),
@@ -970,8 +970,8 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
             children: [
               Icon(Icons.auto_fix_high_rounded, size: 20, color: Colors.purple[600]),
               const SizedBox(width: 8),
-              const Text(
-                'Improved Suggestions',
+              Text(
+                AppLocalizations.of(context)!.aiImprovedSuggestions,
                 style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
               ),
             ],
@@ -1051,8 +1051,8 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
             children: [
               Icon(Icons.summarize_rounded, size: 20, color: Colors.teal[600]),
               const SizedBox(width: 8),
-              const Text(
-                'Summary',
+              Text(
+                AppLocalizations.of(context)!.aiGrammarSectionSummary,
                 style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
               ),
             ],
@@ -1158,8 +1158,8 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
                         const SizedBox(width: 4),
                         Text(
                           feedback.isPerfect
-                              ? 'Perfect!'
-                              : '${feedback.errors.length} issues',
+                              ? AppLocalizations.of(context)!.aiPerfect
+                              : AppLocalizations.of(context)!.aiIssuesCount(feedback.errors.length),
                           style: TextStyle(
                             fontSize: 12,
                             color: Colors.grey[600],
@@ -1243,7 +1243,7 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
                               ),
                             ),
                             Text(
-                              '${feedback.errorCount} ${feedback.errorCount == 1 ? 'issue' : 'issues'} found',
+                              AppLocalizations.of(context)!.aiGrammarIssuesFound(feedback.errorCount),
                               style: TextStyle(
                                 fontSize: 13,
                                 color: Colors.grey[600],
@@ -1487,7 +1487,7 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
           ),
           Spacing.gapMD,
           Text(
-            'No analysis history yet',
+            AppLocalizations.of(context)!.aiNoAnalysisHistoryYet,
             style: context.bodyMedium.copyWith(color: context.textMuted),
           ),
         ],

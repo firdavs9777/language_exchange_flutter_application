@@ -10257,4 +10257,196 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get aiFailedToExplain => '説明に失敗しました';
+
+  @override
+  String get aiFailedLoadHistory => '履歴を読み込めませんでした';
+
+  @override
+  String aiConversationMessageCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count件のメッセージ',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiStartNewConversationSee => '新しい会話を始めるとここに表示されます';
+
+  @override
+  String get aiLoadingMessages => 'メッセージを読み込み中...';
+
+  @override
+  String get aiNoMessagesConversation => 'この会話にメッセージはありません';
+
+  @override
+  String get aiDifficultyLevel => '難易度';
+
+  @override
+  String get aiScenarios => 'シナリオ';
+
+  @override
+  String get aiGrammarCheck => '文法チェック';
+
+  @override
+  String get aiRecentAnalysis => '最近の分析';
+
+  @override
+  String get aiCheckGrammar => '文法をチェック';
+
+  @override
+  String get aiLanguageLabel => '言語：';
+
+  @override
+  String aiGrammarIssuesFound(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count件の誤りが見つかりました',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiPerfect => '完璧です！';
+
+  @override
+  String get aiNoGrammarIssuesFound => 'テキストに文法の誤りは見つかりませんでした。';
+
+  @override
+  String aiIssuesFound(Object count) {
+    return '見つかった誤り（$count）';
+  }
+
+  @override
+  String get aiCorrected => '修正後';
+
+  @override
+  String get aiGrammarExamples => '例：';
+
+  @override
+  String get aiImprovedSuggestions => '改善案';
+
+  @override
+  String get aiNoAnalysisHistoryYet => '分析履歴はまだありません';
+
+  @override
+  String get aiLessonBuilder => 'AIレッスンビルダー';
+
+  @override
+  String get aiGenerateCustomLessons => 'カスタムレッスンを作成';
+
+  @override
+  String get aiCreatesPersonalizedLessonsAny => 'AIがあらゆるトピックでパーソナライズされたレッスンを作成します';
+
+  @override
+  String aiExercises(Object exerciseCount) {
+    return '練習問題：$exerciseCount';
+  }
+
+  @override
+  String get aiSuggestedTopics => 'おすすめトピック';
+
+  @override
+  String get aiCreatingLesson => 'レッスンを作成中...';
+
+  @override
+  String get aiGeneratingExercisesContent => 'AIが練習問題とコンテンツを生成しています';
+
+  @override
+  String get aiLessonGenerated => 'レッスンができました！';
+
+  @override
+  String get aiGenerateAnother => 'もう1つ作成';
+
+  @override
+  String get aiStartLesson => 'レッスンを始める';
+
+  @override
+  String get aiPronunciationPractice => '発音練習';
+
+  @override
+  String get aiPracticeHistory => '練習履歴';
+
+  @override
+  String get aiTextPractice => '練習するテキスト';
+
+  @override
+  String get aiWordAnalysis => '単語分析';
+
+  @override
+  String get aiNoPracticeHistoryYet => '練習履歴はまだありません';
+
+  @override
+  String get aiSmartTranslation => 'スマート翻訳';
+
+  @override
+  String get aiWordBreakdown => '単語ごとの内訳';
+
+  @override
+  String get aiAlternativeTranslations => '別の訳';
+
+  @override
+  String get aiGrammarNotes => '文法メモ';
+
+  @override
+  String get aiIdiomsExpressions => '慣用句と表現';
+
+  @override
+  String aiLiteral(Object literalTranslation) {
+    return '直訳：$literalTranslation';
+  }
+
+  @override
+  String aiMeaning(Object meaning) {
+    return '意味：$meaning';
+  }
+
+  @override
+  String aiEquivalent(Object equivalentIdiom) {
+    return '同等の表現：$equivalentIdiom';
+  }
+
+  @override
+  String get aiCulturalContext => '文化的背景';
+
+  @override
+  String get aiNoCompletedConversations => '完了した会話はありません';
+
+  @override
+  String get aiNoActiveConversations => '進行中の会話はありません';
+
+  @override
+  String aiStartInLanguage(Object language) {
+    return '$languageで始める';
+  }
+
+  @override
+  String get aiSelect => '選択';
+
+  @override
+  String aiIssuesCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count件の誤り',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiGenerateLesson => 'レッスンを作成';
+
+  @override
+  String get aiGeneratingEllipsis => '生成中...';
+
+  @override
+  String get aiAnalyzing => '分析中...';
+
+  @override
+  String get aiExcellentPronunciation => '素晴らしい発音です！';
+
+  @override
+  String get aiGoodJob => 'よくできました！';
 }

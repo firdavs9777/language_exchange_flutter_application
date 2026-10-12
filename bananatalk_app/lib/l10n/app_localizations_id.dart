@@ -10265,4 +10265,199 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get aiFailedToExplain => 'Gagal menjelaskan';
+
+  @override
+  String get aiFailedLoadHistory => 'Gagal memuat riwayat';
+
+  @override
+  String aiConversationMessageCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count pesan',
+      one: '1 pesan',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiStartNewConversationSee => 'Mulai percakapan baru untuk melihatnya di sini';
+
+  @override
+  String get aiLoadingMessages => 'Memuat pesan...';
+
+  @override
+  String get aiNoMessagesConversation => 'Tidak ada pesan dalam percakapan ini';
+
+  @override
+  String get aiDifficultyLevel => 'Tingkat Kesulitan';
+
+  @override
+  String get aiScenarios => 'Skenario';
+
+  @override
+  String get aiGrammarCheck => 'Pemeriksaan Tata Bahasa';
+
+  @override
+  String get aiRecentAnalysis => 'Analisis Terbaru';
+
+  @override
+  String get aiCheckGrammar => 'Periksa Tata Bahasa';
+
+  @override
+  String get aiLanguageLabel => 'Bahasa:';
+
+  @override
+  String aiGrammarIssuesFound(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count kesalahan ditemukan',
+      one: '1 kesalahan ditemukan',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiPerfect => 'Sempurna!';
+
+  @override
+  String get aiNoGrammarIssuesFound => 'Tidak ada kesalahan tata bahasa pada teksmu.';
+
+  @override
+  String aiIssuesFound(Object count) {
+    return 'Kesalahan Ditemukan ($count)';
+  }
+
+  @override
+  String get aiCorrected => 'Dikoreksi';
+
+  @override
+  String get aiGrammarExamples => 'Contoh:';
+
+  @override
+  String get aiImprovedSuggestions => 'Saran yang Diperbaiki';
+
+  @override
+  String get aiNoAnalysisHistoryYet => 'Belum ada riwayat analisis';
+
+  @override
+  String get aiLessonBuilder => 'Pembuat Pelajaran AI';
+
+  @override
+  String get aiGenerateCustomLessons => 'Buat Pelajaran Khusus';
+
+  @override
+  String get aiCreatesPersonalizedLessonsAny => 'AI membuat pelajaran personal untuk topik apa pun';
+
+  @override
+  String aiExercises(Object exerciseCount) {
+    return 'Latihan: $exerciseCount';
+  }
+
+  @override
+  String get aiSuggestedTopics => 'Topik yang Disarankan';
+
+  @override
+  String get aiCreatingLesson => 'Membuat pelajaranmu...';
+
+  @override
+  String get aiGeneratingExercisesContent => 'AI sedang membuat latihan dan konten';
+
+  @override
+  String get aiLessonGenerated => 'Pelajaran Dibuat!';
+
+  @override
+  String get aiGenerateAnother => 'Buat Lagi';
+
+  @override
+  String get aiStartLesson => 'Mulai Pelajaran';
+
+  @override
+  String get aiPronunciationPractice => 'Latihan Pengucapan';
+
+  @override
+  String get aiPracticeHistory => 'Riwayat Latihan';
+
+  @override
+  String get aiTextPractice => 'Teks untuk Dilatih';
+
+  @override
+  String get aiWordAnalysis => 'Analisis Kata';
+
+  @override
+  String get aiNoPracticeHistoryYet => 'Belum ada riwayat latihan';
+
+  @override
+  String get aiSmartTranslation => 'Terjemahan Cerdas';
+
+  @override
+  String get aiWordBreakdown => 'Rincian Kata';
+
+  @override
+  String get aiAlternativeTranslations => 'Terjemahan Alternatif';
+
+  @override
+  String get aiGrammarNotes => 'Catatan Tata Bahasa';
+
+  @override
+  String get aiIdiomsExpressions => 'Idiom & Ungkapan';
+
+  @override
+  String aiLiteral(Object literalTranslation) {
+    return 'Harfiah: $literalTranslation';
+  }
+
+  @override
+  String aiMeaning(Object meaning) {
+    return 'Arti: $meaning';
+  }
+
+  @override
+  String aiEquivalent(Object equivalentIdiom) {
+    return 'Padanan: $equivalentIdiom';
+  }
+
+  @override
+  String get aiCulturalContext => 'Konteks Budaya';
+
+  @override
+  String get aiNoCompletedConversations => 'Tidak ada percakapan yang selesai';
+
+  @override
+  String get aiNoActiveConversations => 'Tidak ada percakapan aktif';
+
+  @override
+  String aiStartInLanguage(Object language) {
+    return 'Mulai dalam $language';
+  }
+
+  @override
+  String get aiSelect => 'Pilih';
+
+  @override
+  String aiIssuesCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count kesalahan',
+      one: '1 kesalahan',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiGenerateLesson => 'Buat Pelajaran';
+
+  @override
+  String get aiGeneratingEllipsis => 'Membuat...';
+
+  @override
+  String get aiAnalyzing => 'Menganalisis...';
+
+  @override
+  String get aiExcellentPronunciation => 'Pengucapan yang luar biasa!';
+
+  @override
+  String get aiGoodJob => 'Kerja bagus!';
 }

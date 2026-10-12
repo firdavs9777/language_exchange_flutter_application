@@ -10257,4 +10257,196 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get aiFailedToExplain => 'Không thể giải thích';
+
+  @override
+  String get aiFailedLoadHistory => 'Không tải được lịch sử';
+
+  @override
+  String aiConversationMessageCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count tin nhắn',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiStartNewConversationSee => 'Bắt đầu cuộc trò chuyện mới để xem tại đây';
+
+  @override
+  String get aiLoadingMessages => 'Đang tải tin nhắn...';
+
+  @override
+  String get aiNoMessagesConversation => 'Không có tin nhắn nào trong cuộc trò chuyện này';
+
+  @override
+  String get aiDifficultyLevel => 'Mức độ khó';
+
+  @override
+  String get aiScenarios => 'Tình huống';
+
+  @override
+  String get aiGrammarCheck => 'Kiểm tra ngữ pháp';
+
+  @override
+  String get aiRecentAnalysis => 'Phân tích gần đây';
+
+  @override
+  String get aiCheckGrammar => 'Kiểm tra ngữ pháp';
+
+  @override
+  String get aiLanguageLabel => 'Ngôn ngữ:';
+
+  @override
+  String aiGrammarIssuesFound(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Tìm thấy $count lỗi',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiPerfect => 'Hoàn hảo!';
+
+  @override
+  String get aiNoGrammarIssuesFound => 'Không tìm thấy lỗi ngữ pháp nào trong văn bản của bạn.';
+
+  @override
+  String aiIssuesFound(Object count) {
+    return 'Lỗi được tìm thấy ($count)';
+  }
+
+  @override
+  String get aiCorrected => 'Đã sửa';
+
+  @override
+  String get aiGrammarExamples => 'Ví dụ:';
+
+  @override
+  String get aiImprovedSuggestions => 'Gợi ý cải thiện';
+
+  @override
+  String get aiNoAnalysisHistoryYet => 'Chưa có lịch sử phân tích';
+
+  @override
+  String get aiLessonBuilder => 'Trình tạo bài học AI';
+
+  @override
+  String get aiGenerateCustomLessons => 'Tạo bài học tùy chỉnh';
+
+  @override
+  String get aiCreatesPersonalizedLessonsAny => 'AI tạo bài học cá nhân hóa về mọi chủ đề';
+
+  @override
+  String aiExercises(Object exerciseCount) {
+    return 'Bài tập: $exerciseCount';
+  }
+
+  @override
+  String get aiSuggestedTopics => 'Chủ đề gợi ý';
+
+  @override
+  String get aiCreatingLesson => 'Đang tạo bài học của bạn...';
+
+  @override
+  String get aiGeneratingExercisesContent => 'AI đang tạo bài tập và nội dung';
+
+  @override
+  String get aiLessonGenerated => 'Đã tạo bài học!';
+
+  @override
+  String get aiGenerateAnother => 'Tạo bài khác';
+
+  @override
+  String get aiStartLesson => 'Bắt đầu bài học';
+
+  @override
+  String get aiPronunciationPractice => 'Luyện phát âm';
+
+  @override
+  String get aiPracticeHistory => 'Lịch sử luyện tập';
+
+  @override
+  String get aiTextPractice => 'Văn bản để luyện tập';
+
+  @override
+  String get aiWordAnalysis => 'Phân tích từ';
+
+  @override
+  String get aiNoPracticeHistoryYet => 'Chưa có lịch sử luyện tập';
+
+  @override
+  String get aiSmartTranslation => 'Dịch thông minh';
+
+  @override
+  String get aiWordBreakdown => 'Phân tích từng từ';
+
+  @override
+  String get aiAlternativeTranslations => 'Các bản dịch khác';
+
+  @override
+  String get aiGrammarNotes => 'Ghi chú ngữ pháp';
+
+  @override
+  String get aiIdiomsExpressions => 'Thành ngữ & cách diễn đạt';
+
+  @override
+  String aiLiteral(Object literalTranslation) {
+    return 'Nghĩa đen: $literalTranslation';
+  }
+
+  @override
+  String aiMeaning(Object meaning) {
+    return 'Ý nghĩa: $meaning';
+  }
+
+  @override
+  String aiEquivalent(Object equivalentIdiom) {
+    return 'Tương đương: $equivalentIdiom';
+  }
+
+  @override
+  String get aiCulturalContext => 'Bối cảnh văn hóa';
+
+  @override
+  String get aiNoCompletedConversations => 'Không có cuộc trò chuyện đã hoàn thành';
+
+  @override
+  String get aiNoActiveConversations => 'Không có cuộc trò chuyện đang hoạt động';
+
+  @override
+  String aiStartInLanguage(Object language) {
+    return 'Bắt đầu bằng $language';
+  }
+
+  @override
+  String get aiSelect => 'Chọn';
+
+  @override
+  String aiIssuesCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count lỗi',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiGenerateLesson => 'Tạo bài học';
+
+  @override
+  String get aiGeneratingEllipsis => 'Đang tạo...';
+
+  @override
+  String get aiAnalyzing => 'Đang phân tích...';
+
+  @override
+  String get aiExcellentPronunciation => 'Phát âm xuất sắc!';
+
+  @override
+  String get aiGoodJob => 'Làm tốt lắm!';
 }

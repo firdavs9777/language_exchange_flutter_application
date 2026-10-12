@@ -10269,4 +10269,199 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get aiFailedToExplain => 'Açıklanamadı';
+
+  @override
+  String get aiFailedLoadHistory => 'Geçmiş yüklenemedi';
+
+  @override
+  String aiConversationMessageCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count mesaj',
+      one: '1 mesaj',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiStartNewConversationSee => 'Burada görmek için yeni bir sohbet başlat';
+
+  @override
+  String get aiLoadingMessages => 'Mesajlar yükleniyor...';
+
+  @override
+  String get aiNoMessagesConversation => 'Bu sohbette mesaj yok';
+
+  @override
+  String get aiDifficultyLevel => 'Zorluk Seviyesi';
+
+  @override
+  String get aiScenarios => 'Senaryolar';
+
+  @override
+  String get aiGrammarCheck => 'Dilbilgisi Kontrolü';
+
+  @override
+  String get aiRecentAnalysis => 'Son Analizler';
+
+  @override
+  String get aiCheckGrammar => 'Dilbilgisini Kontrol Et';
+
+  @override
+  String get aiLanguageLabel => 'Dil:';
+
+  @override
+  String aiGrammarIssuesFound(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count hata bulundu',
+      one: '1 hata bulundu',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiPerfect => 'Mükemmel!';
+
+  @override
+  String get aiNoGrammarIssuesFound => 'Metninde dilbilgisi hatası bulunamadı.';
+
+  @override
+  String aiIssuesFound(Object count) {
+    return 'Bulunan Hatalar ($count)';
+  }
+
+  @override
+  String get aiCorrected => 'Düzeltilmiş';
+
+  @override
+  String get aiGrammarExamples => 'Örnekler:';
+
+  @override
+  String get aiImprovedSuggestions => 'Geliştirilmiş Öneriler';
+
+  @override
+  String get aiNoAnalysisHistoryYet => 'Henüz analiz geçmişi yok';
+
+  @override
+  String get aiLessonBuilder => 'Yapay Zekâ Ders Oluşturucu';
+
+  @override
+  String get aiGenerateCustomLessons => 'Özel Dersler Oluştur';
+
+  @override
+  String get aiCreatesPersonalizedLessonsAny => 'Yapay zekâ, istediğin konuda kişiselleştirilmiş dersler oluşturur';
+
+  @override
+  String aiExercises(Object exerciseCount) {
+    return 'Alıştırmalar: $exerciseCount';
+  }
+
+  @override
+  String get aiSuggestedTopics => 'Önerilen Konular';
+
+  @override
+  String get aiCreatingLesson => 'Dersin oluşturuluyor...';
+
+  @override
+  String get aiGeneratingExercisesContent => 'Yapay zekâ alıştırmaları ve içeriği hazırlıyor';
+
+  @override
+  String get aiLessonGenerated => 'Ders Oluşturuldu!';
+
+  @override
+  String get aiGenerateAnother => 'Bir Tane Daha Oluştur';
+
+  @override
+  String get aiStartLesson => 'Dersi Başlat';
+
+  @override
+  String get aiPronunciationPractice => 'Telaffuz Pratiği';
+
+  @override
+  String get aiPracticeHistory => 'Pratik Geçmişi';
+
+  @override
+  String get aiTextPractice => 'Çalışılacak Metin';
+
+  @override
+  String get aiWordAnalysis => 'Kelime Analizi';
+
+  @override
+  String get aiNoPracticeHistoryYet => 'Henüz pratik geçmişi yok';
+
+  @override
+  String get aiSmartTranslation => 'Akıllı Çeviri';
+
+  @override
+  String get aiWordBreakdown => 'Kelime Kelime Döküm';
+
+  @override
+  String get aiAlternativeTranslations => 'Alternatif Çeviriler';
+
+  @override
+  String get aiGrammarNotes => 'Dilbilgisi Notları';
+
+  @override
+  String get aiIdiomsExpressions => 'Deyimler ve İfadeler';
+
+  @override
+  String aiLiteral(Object literalTranslation) {
+    return 'Kelimesi kelimesine: $literalTranslation';
+  }
+
+  @override
+  String aiMeaning(Object meaning) {
+    return 'Anlamı: $meaning';
+  }
+
+  @override
+  String aiEquivalent(Object equivalentIdiom) {
+    return 'Karşılığı: $equivalentIdiom';
+  }
+
+  @override
+  String get aiCulturalContext => 'Kültürel Bağlam';
+
+  @override
+  String get aiNoCompletedConversations => 'Tamamlanmış sohbet yok';
+
+  @override
+  String get aiNoActiveConversations => 'Aktif sohbet yok';
+
+  @override
+  String aiStartInLanguage(Object language) {
+    return '$language dilinde başla';
+  }
+
+  @override
+  String get aiSelect => 'Seç';
+
+  @override
+  String aiIssuesCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count hata',
+      one: '1 hata',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiGenerateLesson => 'Ders Oluştur';
+
+  @override
+  String get aiGeneratingEllipsis => 'Oluşturuluyor...';
+
+  @override
+  String get aiAnalyzing => 'Analiz ediliyor...';
+
+  @override
+  String get aiExcellentPronunciation => 'Mükemmel telaffuz!';
+
+  @override
+  String get aiGoodJob => 'Aferin!';
 }

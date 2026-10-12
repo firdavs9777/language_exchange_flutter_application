@@ -10257,4 +10257,196 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get aiFailedToExplain => 'ไม่สามารถอธิบายได้';
+
+  @override
+  String get aiFailedLoadHistory => 'โหลดประวัติไม่สำเร็จ';
+
+  @override
+  String aiConversationMessageCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ข้อความ',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiStartNewConversationSee => 'เริ่มการสนทนาใหม่เพื่อดูที่นี่';
+
+  @override
+  String get aiLoadingMessages => 'กำลังโหลดข้อความ...';
+
+  @override
+  String get aiNoMessagesConversation => 'ไม่มีข้อความในการสนทนานี้';
+
+  @override
+  String get aiDifficultyLevel => 'ระดับความยาก';
+
+  @override
+  String get aiScenarios => 'สถานการณ์';
+
+  @override
+  String get aiGrammarCheck => 'ตรวจไวยากรณ์';
+
+  @override
+  String get aiRecentAnalysis => 'การวิเคราะห์ล่าสุด';
+
+  @override
+  String get aiCheckGrammar => 'ตรวจไวยากรณ์';
+
+  @override
+  String get aiLanguageLabel => 'ภาษา:';
+
+  @override
+  String aiGrammarIssuesFound(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'พบ $count ข้อผิดพลาด',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiPerfect => 'สมบูรณ์แบบ!';
+
+  @override
+  String get aiNoGrammarIssuesFound => 'ไม่พบข้อผิดพลาดทางไวยากรณ์ในข้อความของคุณ';
+
+  @override
+  String aiIssuesFound(Object count) {
+    return 'ข้อผิดพลาดที่พบ ($count)';
+  }
+
+  @override
+  String get aiCorrected => 'แก้ไขแล้ว';
+
+  @override
+  String get aiGrammarExamples => 'ตัวอย่าง:';
+
+  @override
+  String get aiImprovedSuggestions => 'ข้อเสนอแนะที่ปรับปรุงแล้ว';
+
+  @override
+  String get aiNoAnalysisHistoryYet => 'ยังไม่มีประวัติการวิเคราะห์';
+
+  @override
+  String get aiLessonBuilder => 'ตัวสร้างบทเรียน AI';
+
+  @override
+  String get aiGenerateCustomLessons => 'สร้างบทเรียนแบบกำหนดเอง';
+
+  @override
+  String get aiCreatesPersonalizedLessonsAny => 'AI สร้างบทเรียนเฉพาะตัวในหัวข้อใดก็ได้';
+
+  @override
+  String aiExercises(Object exerciseCount) {
+    return 'แบบฝึกหัด: $exerciseCount';
+  }
+
+  @override
+  String get aiSuggestedTopics => 'หัวข้อแนะนำ';
+
+  @override
+  String get aiCreatingLesson => 'กำลังสร้างบทเรียนของคุณ...';
+
+  @override
+  String get aiGeneratingExercisesContent => 'AI กำลังสร้างแบบฝึกหัดและเนื้อหา';
+
+  @override
+  String get aiLessonGenerated => 'สร้างบทเรียนแล้ว!';
+
+  @override
+  String get aiGenerateAnother => 'สร้างอีกบทเรียน';
+
+  @override
+  String get aiStartLesson => 'เริ่มบทเรียน';
+
+  @override
+  String get aiPronunciationPractice => 'ฝึกการออกเสียง';
+
+  @override
+  String get aiPracticeHistory => 'ประวัติการฝึก';
+
+  @override
+  String get aiTextPractice => 'ข้อความที่จะฝึก';
+
+  @override
+  String get aiWordAnalysis => 'วิเคราะห์คำ';
+
+  @override
+  String get aiNoPracticeHistoryYet => 'ยังไม่มีประวัติการฝึก';
+
+  @override
+  String get aiSmartTranslation => 'แปลอัจฉริยะ';
+
+  @override
+  String get aiWordBreakdown => 'แยกทีละคำ';
+
+  @override
+  String get aiAlternativeTranslations => 'คำแปลทางเลือก';
+
+  @override
+  String get aiGrammarNotes => 'บันทึกไวยากรณ์';
+
+  @override
+  String get aiIdiomsExpressions => 'สำนวนและวลี';
+
+  @override
+  String aiLiteral(Object literalTranslation) {
+    return 'แปลตรงตัว: $literalTranslation';
+  }
+
+  @override
+  String aiMeaning(Object meaning) {
+    return 'ความหมาย: $meaning';
+  }
+
+  @override
+  String aiEquivalent(Object equivalentIdiom) {
+    return 'สำนวนที่เทียบเท่า: $equivalentIdiom';
+  }
+
+  @override
+  String get aiCulturalContext => 'บริบททางวัฒนธรรม';
+
+  @override
+  String get aiNoCompletedConversations => 'ไม่มีการสนทนาที่เสร็จสิ้น';
+
+  @override
+  String get aiNoActiveConversations => 'ไม่มีการสนทนาที่ใช้งานอยู่';
+
+  @override
+  String aiStartInLanguage(Object language) {
+    return 'เริ่มใน$language';
+  }
+
+  @override
+  String get aiSelect => 'เลือก';
+
+  @override
+  String aiIssuesCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ข้อผิดพลาด',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiGenerateLesson => 'สร้างบทเรียน';
+
+  @override
+  String get aiGeneratingEllipsis => 'กำลังสร้าง...';
+
+  @override
+  String get aiAnalyzing => 'กำลังวิเคราะห์...';
+
+  @override
+  String get aiExcellentPronunciation => 'ออกเสียงได้ยอดเยี่ยม!';
+
+  @override
+  String get aiGoodJob => 'เก่งมาก!';
 }

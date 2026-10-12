@@ -10271,4 +10271,199 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get aiFailedToExplain => 'Falha ao explicar';
+
+  @override
+  String get aiFailedLoadHistory => 'Falha ao carregar o histórico';
+
+  @override
+  String aiConversationMessageCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count mensagens',
+      one: '1 mensagem',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiStartNewConversationSee => 'Inicie uma nova conversa para vê-la aqui';
+
+  @override
+  String get aiLoadingMessages => 'Carregando mensagens...';
+
+  @override
+  String get aiNoMessagesConversation => 'Nenhuma mensagem nesta conversa';
+
+  @override
+  String get aiDifficultyLevel => 'Nível de dificuldade';
+
+  @override
+  String get aiScenarios => 'Cenários';
+
+  @override
+  String get aiGrammarCheck => 'Verificação gramatical';
+
+  @override
+  String get aiRecentAnalysis => 'Análises recentes';
+
+  @override
+  String get aiCheckGrammar => 'Verificar gramática';
+
+  @override
+  String get aiLanguageLabel => 'Idioma:';
+
+  @override
+  String aiGrammarIssuesFound(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count erros encontrados',
+      one: '1 erro encontrado',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiPerfect => 'Perfeito!';
+
+  @override
+  String get aiNoGrammarIssuesFound => 'Nenhum erro gramatical encontrado no seu texto.';
+
+  @override
+  String aiIssuesFound(Object count) {
+    return 'Erros encontrados ($count)';
+  }
+
+  @override
+  String get aiCorrected => 'Corrigido';
+
+  @override
+  String get aiGrammarExamples => 'Exemplos:';
+
+  @override
+  String get aiImprovedSuggestions => 'Sugestões melhoradas';
+
+  @override
+  String get aiNoAnalysisHistoryYet => 'Ainda não há histórico de análises';
+
+  @override
+  String get aiLessonBuilder => 'Criador de lições com IA';
+
+  @override
+  String get aiGenerateCustomLessons => 'Gerar lições personalizadas';
+
+  @override
+  String get aiCreatesPersonalizedLessonsAny => 'A IA cria lições personalizadas sobre qualquer tema';
+
+  @override
+  String aiExercises(Object exerciseCount) {
+    return 'Exercícios: $exerciseCount';
+  }
+
+  @override
+  String get aiSuggestedTopics => 'Temas sugeridos';
+
+  @override
+  String get aiCreatingLesson => 'Criando sua lição...';
+
+  @override
+  String get aiGeneratingExercisesContent => 'A IA está gerando exercícios e conteúdo';
+
+  @override
+  String get aiLessonGenerated => 'Lição gerada!';
+
+  @override
+  String get aiGenerateAnother => 'Gerar outra';
+
+  @override
+  String get aiStartLesson => 'Iniciar lição';
+
+  @override
+  String get aiPronunciationPractice => 'Prática de pronúncia';
+
+  @override
+  String get aiPracticeHistory => 'Histórico de prática';
+
+  @override
+  String get aiTextPractice => 'Texto para praticar';
+
+  @override
+  String get aiWordAnalysis => 'Análise de palavras';
+
+  @override
+  String get aiNoPracticeHistoryYet => 'Ainda não há histórico de prática';
+
+  @override
+  String get aiSmartTranslation => 'Tradução inteligente';
+
+  @override
+  String get aiWordBreakdown => 'Análise palavra por palavra';
+
+  @override
+  String get aiAlternativeTranslations => 'Traduções alternativas';
+
+  @override
+  String get aiGrammarNotes => 'Notas de gramática';
+
+  @override
+  String get aiIdiomsExpressions => 'Expressões idiomáticas';
+
+  @override
+  String aiLiteral(Object literalTranslation) {
+    return 'Literal: $literalTranslation';
+  }
+
+  @override
+  String aiMeaning(Object meaning) {
+    return 'Significado: $meaning';
+  }
+
+  @override
+  String aiEquivalent(Object equivalentIdiom) {
+    return 'Equivalente: $equivalentIdiom';
+  }
+
+  @override
+  String get aiCulturalContext => 'Contexto cultural';
+
+  @override
+  String get aiNoCompletedConversations => 'Nenhuma conversa concluída';
+
+  @override
+  String get aiNoActiveConversations => 'Nenhuma conversa ativa';
+
+  @override
+  String aiStartInLanguage(Object language) {
+    return 'Começar em $language';
+  }
+
+  @override
+  String get aiSelect => 'Selecionar';
+
+  @override
+  String aiIssuesCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count erros',
+      one: '1 erro',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiGenerateLesson => 'Gerar lição';
+
+  @override
+  String get aiGeneratingEllipsis => 'Gerando...';
+
+  @override
+  String get aiAnalyzing => 'Analisando...';
+
+  @override
+  String get aiExcellentPronunciation => 'Excelente pronúncia!';
+
+  @override
+  String get aiGoodJob => 'Bom trabalho!';
 }

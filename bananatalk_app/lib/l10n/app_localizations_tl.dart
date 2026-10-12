@@ -10271,4 +10271,199 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get aiFailedToExplain => 'Hindi naipaliwanag';
+
+  @override
+  String get aiFailedLoadHistory => 'Hindi na-load ang history';
+
+  @override
+  String aiConversationMessageCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count mensahe',
+      one: '1 mensahe',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiStartNewConversationSee => 'Magsimula ng bagong usapan para makita ito rito';
+
+  @override
+  String get aiLoadingMessages => 'Nilo-load ang mga mensahe...';
+
+  @override
+  String get aiNoMessagesConversation => 'Walang mensahe sa usapang ito';
+
+  @override
+  String get aiDifficultyLevel => 'Antas ng Hirap';
+
+  @override
+  String get aiScenarios => 'Mga Senaryo';
+
+  @override
+  String get aiGrammarCheck => 'Pagsusuri ng Grammar';
+
+  @override
+  String get aiRecentAnalysis => 'Mga Kamakailang Pagsusuri';
+
+  @override
+  String get aiCheckGrammar => 'Suriin ang Grammar';
+
+  @override
+  String get aiLanguageLabel => 'Wika:';
+
+  @override
+  String aiGrammarIssuesFound(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'May $count error na nakita',
+      one: 'May 1 error na nakita',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiPerfect => 'Perpekto!';
+
+  @override
+  String get aiNoGrammarIssuesFound => 'Walang grammar error na nakita sa iyong teksto.';
+
+  @override
+  String aiIssuesFound(Object count) {
+    return 'Mga Nakitang Error ($count)';
+  }
+
+  @override
+  String get aiCorrected => 'Naitama';
+
+  @override
+  String get aiGrammarExamples => 'Mga Halimbawa:';
+
+  @override
+  String get aiImprovedSuggestions => 'Mga Pinahusay na Mungkahi';
+
+  @override
+  String get aiNoAnalysisHistoryYet => 'Wala pang history ng pagsusuri';
+
+  @override
+  String get aiLessonBuilder => 'AI Lesson Builder';
+
+  @override
+  String get aiGenerateCustomLessons => 'Gumawa ng Custom na Aralin';
+
+  @override
+  String get aiCreatesPersonalizedLessonsAny => 'Gumagawa ang AI ng personalized na aralin sa anumang paksa';
+
+  @override
+  String aiExercises(Object exerciseCount) {
+    return 'Mga Ehersisyo: $exerciseCount';
+  }
+
+  @override
+  String get aiSuggestedTopics => 'Mga Iminumungkahing Paksa';
+
+  @override
+  String get aiCreatingLesson => 'Ginagawa ang iyong aralin...';
+
+  @override
+  String get aiGeneratingExercisesContent => 'Gumagawa ang AI ng mga ehersisyo at nilalaman';
+
+  @override
+  String get aiLessonGenerated => 'Nagawa na ang Aralin!';
+
+  @override
+  String get aiGenerateAnother => 'Gumawa Pa ng Isa';
+
+  @override
+  String get aiStartLesson => 'Simulan ang Aralin';
+
+  @override
+  String get aiPronunciationPractice => 'Pagsasanay sa Pagbigkas';
+
+  @override
+  String get aiPracticeHistory => 'History ng Pagsasanay';
+
+  @override
+  String get aiTextPractice => 'Tekstong Sasanayin';
+
+  @override
+  String get aiWordAnalysis => 'Pagsusuri ng Salita';
+
+  @override
+  String get aiNoPracticeHistoryYet => 'Wala pang history ng pagsasanay';
+
+  @override
+  String get aiSmartTranslation => 'Smart na Pagsasalin';
+
+  @override
+  String get aiWordBreakdown => 'Hati ng mga Salita';
+
+  @override
+  String get aiAlternativeTranslations => 'Mga Alternatibong Pagsasalin';
+
+  @override
+  String get aiGrammarNotes => 'Mga Tala sa Grammar';
+
+  @override
+  String get aiIdiomsExpressions => 'Mga Idyoma at Ekspresyon';
+
+  @override
+  String aiLiteral(Object literalTranslation) {
+    return 'Literal: $literalTranslation';
+  }
+
+  @override
+  String aiMeaning(Object meaning) {
+    return 'Kahulugan: $meaning';
+  }
+
+  @override
+  String aiEquivalent(Object equivalentIdiom) {
+    return 'Katumbas: $equivalentIdiom';
+  }
+
+  @override
+  String get aiCulturalContext => 'Konteksto ng Kultura';
+
+  @override
+  String get aiNoCompletedConversations => 'Walang natapos na usapan';
+
+  @override
+  String get aiNoActiveConversations => 'Walang aktibong usapan';
+
+  @override
+  String aiStartInLanguage(Object language) {
+    return 'Magsimula sa $language';
+  }
+
+  @override
+  String get aiSelect => 'Piliin';
+
+  @override
+  String aiIssuesCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count error',
+      one: '1 error',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiGenerateLesson => 'Gumawa ng Aralin';
+
+  @override
+  String get aiGeneratingEllipsis => 'Ginagawa...';
+
+  @override
+  String get aiAnalyzing => 'Sinusuri...';
+
+  @override
+  String get aiExcellentPronunciation => 'Napakahusay na pagbigkas!';
+
+  @override
+  String get aiGoodJob => 'Magaling!';
 }

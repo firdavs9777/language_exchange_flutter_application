@@ -10271,4 +10271,199 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get aiFailedToExplain => 'समझाया नहीं जा सका';
+
+  @override
+  String get aiFailedLoadHistory => 'इतिहास लोड नहीं हो सका';
+
+  @override
+  String aiConversationMessageCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count संदेश',
+      one: '1 संदेश',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiStartNewConversationSee => 'यहाँ देखने के लिए नई बातचीत शुरू करें';
+
+  @override
+  String get aiLoadingMessages => 'संदेश लोड हो रहे हैं...';
+
+  @override
+  String get aiNoMessagesConversation => 'इस बातचीत में कोई संदेश नहीं है';
+
+  @override
+  String get aiDifficultyLevel => 'कठिनाई स्तर';
+
+  @override
+  String get aiScenarios => 'परिदृश्य';
+
+  @override
+  String get aiGrammarCheck => 'व्याकरण जाँच';
+
+  @override
+  String get aiRecentAnalysis => 'हाल के विश्लेषण';
+
+  @override
+  String get aiCheckGrammar => 'व्याकरण जाँचें';
+
+  @override
+  String get aiLanguageLabel => 'भाषा:';
+
+  @override
+  String aiGrammarIssuesFound(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count त्रुटियाँ मिलीं',
+      one: '1 त्रुटि मिली',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiPerfect => 'बिल्कुल सही!';
+
+  @override
+  String get aiNoGrammarIssuesFound => 'आपके टेक्स्ट में कोई व्याकरण त्रुटि नहीं मिली।';
+
+  @override
+  String aiIssuesFound(Object count) {
+    return 'मिली त्रुटियाँ ($count)';
+  }
+
+  @override
+  String get aiCorrected => 'सुधारा गया';
+
+  @override
+  String get aiGrammarExamples => 'उदाहरण:';
+
+  @override
+  String get aiImprovedSuggestions => 'बेहतर सुझाव';
+
+  @override
+  String get aiNoAnalysisHistoryYet => 'अभी तक कोई विश्लेषण इतिहास नहीं';
+
+  @override
+  String get aiLessonBuilder => 'AI पाठ निर्माता';
+
+  @override
+  String get aiGenerateCustomLessons => 'कस्टम पाठ बनाएँ';
+
+  @override
+  String get aiCreatesPersonalizedLessonsAny => 'AI किसी भी विषय पर आपके लिए पाठ बनाता है';
+
+  @override
+  String aiExercises(Object exerciseCount) {
+    return 'अभ्यास: $exerciseCount';
+  }
+
+  @override
+  String get aiSuggestedTopics => 'सुझाए गए विषय';
+
+  @override
+  String get aiCreatingLesson => 'आपका पाठ बनाया जा रहा है...';
+
+  @override
+  String get aiGeneratingExercisesContent => 'AI अभ्यास और सामग्री बना रहा है';
+
+  @override
+  String get aiLessonGenerated => 'पाठ तैयार!';
+
+  @override
+  String get aiGenerateAnother => 'एक और बनाएँ';
+
+  @override
+  String get aiStartLesson => 'पाठ शुरू करें';
+
+  @override
+  String get aiPronunciationPractice => 'उच्चारण अभ्यास';
+
+  @override
+  String get aiPracticeHistory => 'अभ्यास इतिहास';
+
+  @override
+  String get aiTextPractice => 'अभ्यास के लिए टेक्स्ट';
+
+  @override
+  String get aiWordAnalysis => 'शब्द विश्लेषण';
+
+  @override
+  String get aiNoPracticeHistoryYet => 'अभी तक कोई अभ्यास इतिहास नहीं';
+
+  @override
+  String get aiSmartTranslation => 'स्मार्ट अनुवाद';
+
+  @override
+  String get aiWordBreakdown => 'शब्द-दर-शब्द विश्लेषण';
+
+  @override
+  String get aiAlternativeTranslations => 'वैकल्पिक अनुवाद';
+
+  @override
+  String get aiGrammarNotes => 'व्याकरण नोट्स';
+
+  @override
+  String get aiIdiomsExpressions => 'मुहावरे और अभिव्यक्तियाँ';
+
+  @override
+  String aiLiteral(Object literalTranslation) {
+    return 'शाब्दिक: $literalTranslation';
+  }
+
+  @override
+  String aiMeaning(Object meaning) {
+    return 'अर्थ: $meaning';
+  }
+
+  @override
+  String aiEquivalent(Object equivalentIdiom) {
+    return 'समतुल्य: $equivalentIdiom';
+  }
+
+  @override
+  String get aiCulturalContext => 'सांस्कृतिक संदर्भ';
+
+  @override
+  String get aiNoCompletedConversations => 'कोई पूरी हुई बातचीत नहीं';
+
+  @override
+  String get aiNoActiveConversations => 'कोई सक्रिय बातचीत नहीं';
+
+  @override
+  String aiStartInLanguage(Object language) {
+    return '$language में शुरू करें';
+  }
+
+  @override
+  String get aiSelect => 'चुनें';
+
+  @override
+  String aiIssuesCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count त्रुटियाँ',
+      one: '1 त्रुटि',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiGenerateLesson => 'पाठ बनाएँ';
+
+  @override
+  String get aiGeneratingEllipsis => 'बनाया जा रहा है...';
+
+  @override
+  String get aiAnalyzing => 'विश्लेषण हो रहा है...';
+
+  @override
+  String get aiExcellentPronunciation => 'बेहतरीन उच्चारण!';
+
+  @override
+  String get aiGoodJob => 'बहुत बढ़िया!';
 }

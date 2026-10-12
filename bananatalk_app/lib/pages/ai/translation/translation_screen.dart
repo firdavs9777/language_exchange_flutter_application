@@ -200,7 +200,7 @@ class _TranslationScreenState extends ConsumerState<TranslationScreen> {
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
-          'Smart Translation',
+          AppLocalizations.of(context)!.aiSmartTranslation,
           style: context.titleLarge,
         ),
       ),
@@ -333,7 +333,7 @@ class _TranslationScreenState extends ConsumerState<TranslationScreen> {
             Spacing.hGapSM,
             Expanded(
               child: Text(
-                language?.name ?? 'Select',
+                language?.name ?? AppLocalizations.of(context)!.aiSelect,
                 style: context.labelLarge.copyWith(
                   color: language != null ? context.textPrimary : context.textMuted,
                 ),
@@ -404,7 +404,7 @@ class _TranslationScreenState extends ConsumerState<TranslationScreen> {
                       ),
                     )
                   : Text(
-                      'Translate',
+                      AppLocalizations.of(context)!.translate,
                       style: context.titleSmall.copyWith(color: Colors.white),
                     ),
             ),
@@ -486,7 +486,7 @@ class _TranslationScreenState extends ConsumerState<TranslationScreen> {
       } else {
         setState(() => _saving = false);
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(res.error ?? 'Could not save')),
+          SnackBar(content: Text(res.error ?? AppLocalizations.of(context)!.failedToSave)),
         );
       }
     } catch (e) {
@@ -519,7 +519,7 @@ class _TranslationScreenState extends ConsumerState<TranslationScreen> {
               ),
               Spacing.hGapSM,
               Text(
-                'Word Breakdown',
+                AppLocalizations.of(context)!.aiWordBreakdown,
                 style: context.titleSmall,
               ),
             ],
@@ -607,7 +607,7 @@ class _TranslationScreenState extends ConsumerState<TranslationScreen> {
               ),
               Spacing.hGapSM,
               Text(
-                'Alternative Translations',
+                AppLocalizations.of(context)!.aiAlternativeTranslations,
                 style: context.titleSmall,
               ),
             ],
@@ -694,7 +694,7 @@ class _TranslationScreenState extends ConsumerState<TranslationScreen> {
               ),
               Spacing.hGapSM,
               Text(
-                'Grammar Notes',
+                AppLocalizations.of(context)!.aiGrammarNotes,
                 style: context.titleSmall,
               ),
             ],
@@ -775,7 +775,7 @@ class _TranslationScreenState extends ConsumerState<TranslationScreen> {
               ),
               Spacing.hGapSM,
               Text(
-                'Idioms & Expressions',
+                AppLocalizations.of(context)!.aiIdiomsExpressions,
                 style: context.titleSmall,
               ),
             ],
@@ -801,12 +801,12 @@ class _TranslationScreenState extends ConsumerState<TranslationScreen> {
                   ),
                   Spacing.gapXS,
                   Text(
-                    'Literal: ${idiom.literalTranslation}',
+                    AppLocalizations.of(context)!.aiLiteral(idiom.literalTranslation),
                     style: context.caption.copyWith(fontStyle: FontStyle.italic),
                   ),
                   Spacing.gapXS,
                   Text(
-                    'Meaning: ${idiom.meaning}',
+                    AppLocalizations.of(context)!.aiMeaning(idiom.meaning),
                     style: context.bodySmall,
                   ),
                   if (idiom.equivalentIdiom.isNotEmpty) ...[
@@ -821,7 +821,7 @@ class _TranslationScreenState extends ConsumerState<TranslationScreen> {
                         borderRadius: AppRadius.borderXS,
                       ),
                       child: Text(
-                        'Equivalent: ${idiom.equivalentIdiom}',
+                        AppLocalizations.of(context)!.aiEquivalent(idiom.equivalentIdiom),
                         style: context.caption.copyWith(color: AppColors.warning),
                       ),
                     ),
@@ -855,7 +855,7 @@ class _TranslationScreenState extends ConsumerState<TranslationScreen> {
               ),
               Spacing.hGapSM,
               Text(
-                'Cultural Context',
+                AppLocalizations.of(context)!.aiCulturalContext,
                 style: context.titleSmall,
               ),
             ],

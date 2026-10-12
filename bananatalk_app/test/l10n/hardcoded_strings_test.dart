@@ -204,6 +204,52 @@ const Map<String, List<String>> _keysByTask = {
     'aiWhatPracticeNext',
     'aiPerfectScore',
   ],
+  'L8': [
+    'aiFailedLoadHistory',
+    'aiConversationMessageCount',
+    'aiStartNewConversationSee',
+    'aiLoadingMessages',
+    'aiNoMessagesConversation',
+    'aiDifficultyLevel',
+    'aiScenarios',
+    'aiGrammarCheck',
+    'aiRecentAnalysis',
+    'aiCheckGrammar',
+    'aiLanguageLabel',
+    'aiGrammarIssuesFound',
+    'aiPerfect',
+    'aiNoGrammarIssuesFound',
+    'aiIssuesFound',
+    'aiCorrected',
+    'aiWhy',
+    'aiGrammarExamples',
+    'aiImprovedSuggestions',
+    'aiNoAnalysisHistoryYet',
+    'aiLessonBuilder',
+    'aiGenerateCustomLessons',
+    'aiCreatesPersonalizedLessonsAny',
+    'aiExercises',
+    'aiSuggestedTopics',
+    'aiCreatingLesson',
+    'aiGeneratingExercisesContent',
+    'aiLessonGenerated',
+    'aiGenerateAnother',
+    'aiStartLesson',
+    'aiPronunciationPractice',
+    'aiPracticeHistory',
+    'aiTextPractice',
+    'aiWordAnalysis',
+    'aiNoPracticeHistoryYet',
+    'aiSmartTranslation',
+    'aiWordBreakdown',
+    'aiAlternativeTranslations',
+    'aiGrammarNotes',
+    'aiIdiomsExpressions',
+    'aiLiteral',
+    'aiMeaning',
+    'aiEquivalent',
+    'aiCulturalContext',
+  ],
 };
 
 /// Files (under lib/) each task must leave with no English Text literal.
@@ -292,11 +338,22 @@ const Map<String, List<String>> _filesByTask = {
     'widgets/ai/lesson_assistant_widget.dart',
     'widgets/ai/lesson_summary_sheet.dart',
   ],
+  'L8': [
+    'pages/ai/conversation/conversation_history_screen.dart',
+    'pages/ai/conversation/topic_selection_sheet.dart',
+    'pages/ai/grammar/grammar_feedback_screen.dart',
+    'pages/ai/lesson_builder/lesson_builder_screen.dart',
+    'pages/ai/pronunciation/pronunciation_screen.dart',
+    'pages/ai/translation/translation_screen.dart',
+  ],
 };
 
 /// Keys whose draft may legitimately equal the English in some locale
 /// (loanwords). Add with a one-line reason; empty by default.
 const Set<String> _mayMatchEnglish = {
+  'aiLiteral', // es/pt/tl "Literal: {…}" is the same word
+  'aiConversationMessageCount', // fr "{count} messages" is the same word
+  'aiLessonBuilder', // tl keeps the English product name "AI Lesson Builder"
   'learnBonus', // de/fr/it/id/tl/tr use the English loanword "Bonus"
   'communityLv', // ja/ko/de/id/tl/zh/zh_TW keep the "Lv.{level}" abbreviation
   'momentsFileSizeMb', // ja/ko/tl/zh/zh_TW keep the "{size}MB" unit as written

@@ -10257,6 +10257,198 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get aiFailedToExplain => '解释失败';
+
+  @override
+  String get aiFailedLoadHistory => '无法加载历史记录';
+
+  @override
+  String aiConversationMessageCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count 条消息',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiStartNewConversationSee => '开始新的对话后即可在此查看';
+
+  @override
+  String get aiLoadingMessages => '正在加载消息...';
+
+  @override
+  String get aiNoMessagesConversation => '此对话中没有消息';
+
+  @override
+  String get aiDifficultyLevel => '难度等级';
+
+  @override
+  String get aiScenarios => '场景';
+
+  @override
+  String get aiGrammarCheck => '语法检查';
+
+  @override
+  String get aiRecentAnalysis => '最近的分析';
+
+  @override
+  String get aiCheckGrammar => '检查语法';
+
+  @override
+  String get aiLanguageLabel => '语言：';
+
+  @override
+  String aiGrammarIssuesFound(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '发现 $count 个错误',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiPerfect => '完美！';
+
+  @override
+  String get aiNoGrammarIssuesFound => '在你的文本中没有发现语法错误。';
+
+  @override
+  String aiIssuesFound(Object count) {
+    return '发现的错误（$count）';
+  }
+
+  @override
+  String get aiCorrected => '修正后';
+
+  @override
+  String get aiGrammarExamples => '示例：';
+
+  @override
+  String get aiImprovedSuggestions => '改进建议';
+
+  @override
+  String get aiNoAnalysisHistoryYet => '暂无分析记录';
+
+  @override
+  String get aiLessonBuilder => 'AI 课程生成器';
+
+  @override
+  String get aiGenerateCustomLessons => '生成自定义课程';
+
+  @override
+  String get aiCreatesPersonalizedLessonsAny => 'AI 可围绕任何主题为你创建个性化课程';
+
+  @override
+  String aiExercises(Object exerciseCount) {
+    return '练习：$exerciseCount';
+  }
+
+  @override
+  String get aiSuggestedTopics => '推荐主题';
+
+  @override
+  String get aiCreatingLesson => '正在创建你的课程...';
+
+  @override
+  String get aiGeneratingExercisesContent => 'AI 正在生成练习和内容';
+
+  @override
+  String get aiLessonGenerated => '课程已生成！';
+
+  @override
+  String get aiGenerateAnother => '再生成一个';
+
+  @override
+  String get aiStartLesson => '开始课程';
+
+  @override
+  String get aiPronunciationPractice => '发音练习';
+
+  @override
+  String get aiPracticeHistory => '练习记录';
+
+  @override
+  String get aiTextPractice => '练习文本';
+
+  @override
+  String get aiWordAnalysis => '单词分析';
+
+  @override
+  String get aiNoPracticeHistoryYet => '暂无练习记录';
+
+  @override
+  String get aiSmartTranslation => '智能翻译';
+
+  @override
+  String get aiWordBreakdown => '逐词解析';
+
+  @override
+  String get aiAlternativeTranslations => '其他译法';
+
+  @override
+  String get aiGrammarNotes => '语法笔记';
+
+  @override
+  String get aiIdiomsExpressions => '习语与表达';
+
+  @override
+  String aiLiteral(Object literalTranslation) {
+    return '直译：$literalTranslation';
+  }
+
+  @override
+  String aiMeaning(Object meaning) {
+    return '含义：$meaning';
+  }
+
+  @override
+  String aiEquivalent(Object equivalentIdiom) {
+    return '对应说法：$equivalentIdiom';
+  }
+
+  @override
+  String get aiCulturalContext => '文化背景';
+
+  @override
+  String get aiNoCompletedConversations => '没有已完成的对话';
+
+  @override
+  String get aiNoActiveConversations => '没有进行中的对话';
+
+  @override
+  String aiStartInLanguage(Object language) {
+    return '以$language开始';
+  }
+
+  @override
+  String get aiSelect => '选择';
+
+  @override
+  String aiIssuesCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count 个错误',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiGenerateLesson => '生成课程';
+
+  @override
+  String get aiGeneratingEllipsis => '生成中...';
+
+  @override
+  String get aiAnalyzing => '分析中...';
+
+  @override
+  String get aiExcellentPronunciation => '发音非常棒！';
+
+  @override
+  String get aiGoodJob => '做得好！';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -20512,4 +20704,196 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get aiFailedToExplain => '解釋失敗';
+
+  @override
+  String get aiFailedLoadHistory => '無法載入歷史記錄';
+
+  @override
+  String aiConversationMessageCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count 則訊息',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiStartNewConversationSee => '開始新的對話後即可在此查看';
+
+  @override
+  String get aiLoadingMessages => '正在載入訊息...';
+
+  @override
+  String get aiNoMessagesConversation => '此對話中沒有訊息';
+
+  @override
+  String get aiDifficultyLevel => '難度等級';
+
+  @override
+  String get aiScenarios => '情境';
+
+  @override
+  String get aiGrammarCheck => '文法檢查';
+
+  @override
+  String get aiRecentAnalysis => '最近的分析';
+
+  @override
+  String get aiCheckGrammar => '檢查文法';
+
+  @override
+  String get aiLanguageLabel => '語言：';
+
+  @override
+  String aiGrammarIssuesFound(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '發現 $count 個錯誤',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiPerfect => '完美！';
+
+  @override
+  String get aiNoGrammarIssuesFound => '在你的文字中沒有發現文法錯誤。';
+
+  @override
+  String aiIssuesFound(Object count) {
+    return '發現的錯誤（$count）';
+  }
+
+  @override
+  String get aiCorrected => '修正後';
+
+  @override
+  String get aiGrammarExamples => '範例：';
+
+  @override
+  String get aiImprovedSuggestions => '改進建議';
+
+  @override
+  String get aiNoAnalysisHistoryYet => '尚無分析記錄';
+
+  @override
+  String get aiLessonBuilder => 'AI 課程產生器';
+
+  @override
+  String get aiGenerateCustomLessons => '產生自訂課程';
+
+  @override
+  String get aiCreatesPersonalizedLessonsAny => 'AI 可針對任何主題為你建立個人化課程';
+
+  @override
+  String aiExercises(Object exerciseCount) {
+    return '練習：$exerciseCount';
+  }
+
+  @override
+  String get aiSuggestedTopics => '推薦主題';
+
+  @override
+  String get aiCreatingLesson => '正在建立你的課程...';
+
+  @override
+  String get aiGeneratingExercisesContent => 'AI 正在產生練習和內容';
+
+  @override
+  String get aiLessonGenerated => '課程已產生！';
+
+  @override
+  String get aiGenerateAnother => '再產生一個';
+
+  @override
+  String get aiStartLesson => '開始課程';
+
+  @override
+  String get aiPronunciationPractice => '發音練習';
+
+  @override
+  String get aiPracticeHistory => '練習記錄';
+
+  @override
+  String get aiTextPractice => '練習文字';
+
+  @override
+  String get aiWordAnalysis => '單字分析';
+
+  @override
+  String get aiNoPracticeHistoryYet => '尚無練習記錄';
+
+  @override
+  String get aiSmartTranslation => '智慧翻譯';
+
+  @override
+  String get aiWordBreakdown => '逐字解析';
+
+  @override
+  String get aiAlternativeTranslations => '其他譯法';
+
+  @override
+  String get aiGrammarNotes => '文法筆記';
+
+  @override
+  String get aiIdiomsExpressions => '慣用語與表達';
+
+  @override
+  String aiLiteral(Object literalTranslation) {
+    return '直譯：$literalTranslation';
+  }
+
+  @override
+  String aiMeaning(Object meaning) {
+    return '含義：$meaning';
+  }
+
+  @override
+  String aiEquivalent(Object equivalentIdiom) {
+    return '對應說法：$equivalentIdiom';
+  }
+
+  @override
+  String get aiCulturalContext => '文化背景';
+
+  @override
+  String get aiNoCompletedConversations => '沒有已完成的對話';
+
+  @override
+  String get aiNoActiveConversations => '沒有進行中的對話';
+
+  @override
+  String aiStartInLanguage(Object language) {
+    return '以$language開始';
+  }
+
+  @override
+  String get aiSelect => '選擇';
+
+  @override
+  String aiIssuesCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count 個錯誤',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get aiGenerateLesson => '產生課程';
+
+  @override
+  String get aiGeneratingEllipsis => '產生中...';
+
+  @override
+  String get aiAnalyzing => '分析中...';
+
+  @override
+  String get aiExcellentPronunciation => '發音非常棒！';
+
+  @override
+  String get aiGoodJob => '做得好！';
 }
