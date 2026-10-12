@@ -51,7 +51,7 @@ class MatchesTab extends ConsumerStatefulWidget {
   const MatchesTab({
     super.key,
     this.onBrowsePartners,
-    this.primeNotifications = maybePrimeNotifications,
+    this.primeNotifications = primeAfterFirstMatches,
   });
 
   /// Offered once after the first non-empty load. Injectable for tests.

@@ -19,7 +19,7 @@ import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart
 class WavesTab extends ConsumerStatefulWidget {
   const WavesTab({
     super.key,
-    this.primeNotifications = maybePrimeNotifications,
+    this.primeNotifications = primeAfterFirstWave,
   });
 
   /// Offered once after the first received wave. Injectable for tests.

@@ -124,6 +124,9 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
   // to offer the one-per-session interstitial on leaving a real conversation.
   int _loadedMessageCount = 0;
   bool _rewardedLimitsFlagOn = false;
+  // Priming on the first live incoming message (spec 4.2).
+  final DateTime _openedAt = DateTime.now();
+  bool _primedOnReceive = false;
 
   // Theme change listener for wallpaper sync
   StreamSubscription? _themeChangeSubscription;
@@ -138,16 +141,8 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     _setupCallListeners();
     _setupScrollListener();
     _setupThemeChangeListener();
-    // Primed here rather than at splash. 43% of active users send a message in
-    // a month; 4% have ever finished a daily drop. Priming on study completion
-    // would reach almost nobody — the same chicken-and-egg that produced the
-    // current numbers. It is one OS permission, so granting it here is what
-    // makes the daily study reminder possible at all.
-    WidgetsBinding.instance.addPostFrameCallback(
-      (_) {
-        if (mounted) maybePrimeNotifications(context);
-      },
-    );
+    // Priming moved: first live incoming message (listener in build) and first
+    // message sent (first_message_reporter.dart). Every-open priming removed.
     // Restore any saved draft (and apply a prefill prompt if there is no
     // draft). Runs async because it reads from disk.
     _restoreDraft();
@@ -1958,6 +1953,26 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
 
     // Listen for new messages and auto-scroll to bottom
     ref.listen<ChatState>(chatStateProvider(chatParams), (previous, next) {
+      if (previous != null && !_primedOnReceive && !next.isLoading) {
+        final before = {for (final m in previous.messages) m.id};
+        final live = next.messages.any((m) => isLiveIncoming(
+              beforeIds: before,
+              id: m.id,
+              senderId: m.sender.id,
+              me: _currentUserId,
+              createdAt: m.createdAt,
+              openedAt: _openedAt,
+            ));
+        if (live) {
+          _primedOnReceive = true;
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (mounted) {
+              maybePrimeNotifications(context,
+                  trigger: 'first_message_received');
+            }
+          });
+        }
+      }
       // Check if a new message was added (not just loading initial messages)
       if (previous != null &&
           next.messages.length > previous.messages.length &&
