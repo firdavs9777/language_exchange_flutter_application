@@ -95,6 +95,7 @@ final Map<String, ProviderOrFamily> userScopedProviders = {
   // clearUserSessionPrefs (not device-level); these drop the cached reads.
   'activationStoreProvider': activationStoreProvider,
   'activationDoneProvider': activationDoneProvider,
+  'isGuidePeriodProvider': isGuidePeriodProvider,
   'currentUserLimitsProvider': currentUserLimitsProvider,
   'vipStatusProvider': vipStatusProvider,
   'isVipProvider': isVipProvider,

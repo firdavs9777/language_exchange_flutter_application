@@ -9,22 +9,22 @@ void main() {
 
   group('shouldShowGuide', () {
     test('someone inside the window who has not acted sees it', () {
-      expect(shouldShowGuide(withinWindow: true, acted: false), isTrue);
+      expect(shouldShowGuide(withinWindow: true, acted: false, milestonesDone: 0), isTrue);
     });
 
     test('past the window, nobody sees it', () {
-      expect(shouldShowGuide(withinWindow: false, acted: false), isFalse);
+      expect(shouldShowGuide(withinWindow: false, acted: false, milestonesDone: 0), isFalse);
     });
 
     test('someone who already acted does not, even inside the window', () {
-      expect(shouldShowGuide(withinWindow: true, acted: true), isFalse);
+      expect(shouldShowGuide(withinWindow: true, acted: true, milestonesDone: 0), isFalse);
     });
 
     test('how many times it has been seen is not part of the rule', () {
       // Deliberate: the window ends the guide, not a view count. A count
       // could not say how long a guide would live -- two launches is three
       // minutes for one user and most of a week for another.
-      expect(shouldShowGuide(withinWindow: true, acted: false), isTrue);
+      expect(shouldShowGuide(withinWindow: true, acted: false, milestonesDone: 0), isTrue);
     });
   });
 
@@ -54,8 +54,8 @@ void main() {
           location: Location.defaultLocation(),
         );
 
-    test('is three days, counted from signup', () {
-      expect(kGuideWindowDays, 3);
+    test('is seven days, counted from signup', () {
+      expect(kGuideWindowDays, 7);
     });
 
     test('covers the whole of day 0, 1 and 2', () {
@@ -72,13 +72,11 @@ void main() {
       );
     });
 
-    test('is shorter than the isNewUser cohort it sits inside', () {
-      // isNewUser also decides matching and the analytics cohort, where a
-      // wider window is correct. A guide outliving its own tab's card would
-      // be the giveaway that these got merged.
-      final midway = joinedDaysAgo(kGuideWindowDays + 1);
-      expect(midway.isNewUser, isTrue);
-      expect(midway.joinedWithinDays(kGuideWindowDays), isFalse);
+    test('matches the isNewUser cohort (spec 2026-10-12 §3.2)', () {
+      // Was 3 < 7. Guides now stop on 3 of 4 actions instead, so the window
+      // is only the outer bound and equals the new-user week.
+      expect(joinedDaysAgo(kGuideWindowDays - 1).isNewUser, isTrue);
+      expect(joinedDaysAgo(kGuideWindowDays + 1).isNewUser, isFalse);
     });
 
     test('an unparseable createdAt shows nothing, rather than everything', () {
@@ -146,6 +144,7 @@ void main() {
         shouldShowGuide(
           withinWindow: true,
           acted: GuideState.unknown.acted,
+          milestonesDone: 0,
         ),
         isFalse,
       );

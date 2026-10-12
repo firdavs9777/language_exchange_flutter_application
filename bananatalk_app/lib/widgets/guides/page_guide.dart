@@ -67,6 +67,7 @@ class PageGuide extends ConsumerWidget {
     final show = shouldShowGuide(
       withinWindow: withinWindow,
       acted: acted || state.acted,
+      milestonesDone: 0,
     );
 
     // Debug-only: the Matches panel had four conditions and failed silently,

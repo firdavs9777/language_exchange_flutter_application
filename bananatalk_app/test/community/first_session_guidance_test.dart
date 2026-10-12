@@ -39,7 +39,8 @@ void main() {
           expect(
             shouldShowFirstSessionGuidance(
                 withinWindow: within, hasMessaged: acted),
-            shouldShowGuide(withinWindow: within, acted: acted),
+            shouldShowGuide(
+                withinWindow: within, acted: acted, milestonesDone: 0),
           );
         }
       }
