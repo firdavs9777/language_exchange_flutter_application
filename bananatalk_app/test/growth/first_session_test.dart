@@ -215,6 +215,10 @@ void main() {
       await tester.pumpWidget(_wrapTab(
         WavesTab(primeNotifications: (_) async => calls++),
         [
+          // The tab reads app config for reveal gating; the real fetch now
+          // awaits SharedPreferences (lang), which never answers in a widget
+          // test and leaves the spinner animating forever.
+          appConfigProvider.overrideWith((ref) async => null),
           communityServiceProvider.overrideWithValue(_FakeCommunity([
             for (var i = 0; i < n; i++)
               Wave.fromJson({'waveId': 'w$i', 'isRead': true}),
