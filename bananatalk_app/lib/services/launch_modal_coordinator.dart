@@ -18,9 +18,6 @@ class PopupBudget {
     return true;
   }
 
-  /// Gives the budget back when a pop-up that consumed it failed to show.
-  static void refund() => _spent = false;
-
   @visibleForTesting
   static void debugReset() => _spent = false;
 }
@@ -38,8 +35,10 @@ abstract class LaunchCandidate {
 }
 
 /// Shows the first due candidate in [candidates] order, or nothing.
-/// A candidate whose [LaunchCandidate.isDue] or [LaunchCandidate.show] throws
-/// is skipped without spending the budget; it never crashes the launch.
+/// A candidate whose [LaunchCandidate.isDue] throws is skipped without
+/// spending the budget. Once a candidate's [LaunchCandidate.show] starts, the
+/// budget stays spent and the run ends, even if `show` throws (logged, never
+/// crashes the launch): the dialog may already be on screen.
 class LaunchModalCoordinator {
   const LaunchModalCoordinator(this.candidates);
 
@@ -50,13 +49,19 @@ class LaunchModalCoordinator {
     required bool guidePeriod,
     required bool updateShown,
   }) async {
-    if (updateShown || PopupBudget.spent) return;
+    if (updateShown) {
+      // The update dialog was this launch's pop-up (spec §4.1).
+      PopupBudget.tryConsume();
+      return;
+    }
+    if (PopupBudget.spent) return;
     for (final candidate in candidates) {
       if (guidePeriod && !candidate.allowedForNewUsers) continue;
       bool due;
       try {
         due = await candidate.isDue();
-      } catch (_) {
+      } catch (e) {
+        debugPrint('LaunchModalCoordinator: ${candidate.id}.isDue failed: $e');
         due = false;
       }
       if (!due) continue;
@@ -64,11 +69,10 @@ class LaunchModalCoordinator {
       if (!PopupBudget.tryConsume()) return;
       try {
         await candidate.show(context);
-        return;
-      } catch (_) {
-        PopupBudget.refund();
-        if (!context.mounted) return;
+      } catch (e) {
+        debugPrint('LaunchModalCoordinator: ${candidate.id}.show failed: $e');
       }
+      return;
     }
   }
 }

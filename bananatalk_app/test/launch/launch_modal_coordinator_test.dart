@@ -65,11 +65,19 @@ void main() {
 
   testWidgets('guide period: only new-user-safe candidates', (t) async {
     final log = <String>[];
+    var asked = false;
     await LaunchModalCoordinator([
-      _Fake('announcement', log),
+      _Fake(
+        'announcement',
+        log,
+        onIsDue: () async {
+          asked = true;
+        },
+      ),
       _Fake('ads_notice', log, allowedForNewUsers: true),
     ]).run(await _context(t), guidePeriod: true, updateShown: false);
     expect(log, ['ads_notice']);
+    expect(asked, isFalse, reason: 'disallowed candidate never queried');
   });
 
   testWidgets('an update dialog was this launch\'s pop-up', (t) async {
@@ -78,6 +86,7 @@ void main() {
       _Fake('announcement', log),
     ]).run(await _context(t), guidePeriod: false, updateShown: true);
     expect(log, isEmpty);
+    expect(PopupBudget.tryConsume(), isFalse, reason: 'update spent it');
   });
 
   testWidgets('priming already took the budget: nothing, not even isDue', (
@@ -118,7 +127,7 @@ void main() {
     expect(log, ['ads_notice']);
   });
 
-  testWidgets('show that throws does not crash, refunds the budget, moves on', (
+  testWidgets('show that throws: no crash, budget stays spent, run ends', (
     t,
   ) async {
     final log = <String>[];
@@ -126,13 +135,18 @@ void main() {
       _Fake('announcement', log, throwInShow: true),
       _Fake('ads_notice', log),
     ]).run(await _context(t), guidePeriod: false, updateShown: false);
-    expect(log, ['ads_notice']);
+    expect(log, isEmpty, reason: 'no later candidate is shown');
+    expect(PopupBudget.spent, isTrue);
+  });
 
-    PopupBudget.debugReset();
+  testWidgets('every isDue throws: nothing shown, budget untouched', (t) async {
+    final log = <String>[];
     await LaunchModalCoordinator([
-      _Fake('announcement', log, throwInShow: true),
+      _Fake('announcement', log, throwInIsDue: true),
+      _Fake('ads_notice', log, throwInIsDue: true),
     ]).run(await _context(t), guidePeriod: false, updateShown: false);
-    expect(PopupBudget.tryConsume(), isTrue, reason: 'failed show not spent');
+    expect(log, isEmpty);
+    expect(PopupBudget.spent, isFalse);
   });
 
   testWidgets('stops when the context unmounts between candidates', (t) async {
