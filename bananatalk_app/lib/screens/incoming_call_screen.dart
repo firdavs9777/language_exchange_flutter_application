@@ -63,8 +63,14 @@ class _IncomingCallScreenState extends State<IncomingCallScreen> {
     navigator.removeRoute(route);
   }
 
+  Future<void> _decline() async {
+    if (_busy) return;
+    setState(() => _busy = true);
+    await CallManager().rejectCall();
+  }
+
   Future<void> _declineWithMessage() async {
-    if (_sheetOpen) return;
+    if (_sheetOpen || _busy) return;
     _sheetOpen = true;
     final String? text;
     try {
@@ -75,8 +81,15 @@ class _IncomingCallScreenState extends State<IncomingCallScreen> {
     if (text == null || !mounted) return;
     final manager = CallManager();
     final current = manager.currentCall;
-    // The call ended while the sheet was open: nothing left to decline.
-    if (current == null || current.callId.toLowerCase() != widget.call.callId.toLowerCase()) return;
+    // The call ended, was answered elsewhere or is being accepted while the
+    // sheet was open: nothing left to decline.
+    if (_busy ||
+        current == null ||
+        current.callId.toLowerCase() != widget.call.callId.toLowerCase() ||
+        current.status != CallStatus.ringing) {
+      return;
+    }
+    setState(() => _busy = true);
     await manager.rejectCall(message: text);
   }
 
@@ -154,7 +167,7 @@ class _IncomingCallScreenState extends State<IncomingCallScreen> {
                       icon: Icons.call_end,
                       label: l10n.declineCall,
                       color: Colors.red,
-                      onPressed: _busy ? null : () => CallManager().rejectCall(),
+                      onPressed: _busy ? null : _decline,
                     ),
                     _CallActionButton(
                       icon: Icons.message_rounded,
@@ -194,26 +207,34 @@ class _CallActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Container(
-          width: 70,
-          height: 70,
-          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
-          child: IconButton(
-            icon: Icon(icon, color: Colors.white, size: 35),
-            onPressed: onPressed,
+    // One semantic button (label + action); the circle and the label share
+    // the same tap handler.
+    return Semantics(
+      button: true,
+      enabled: onPressed != null,
+      label: label,
+      onTap: onPressed,
+      excludeSemantics: true,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            width: 70,
+            height: 70,
+            decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+            child: IconButton(
+              icon: Icon(icon, color: Colors.white, size: 35),
+              onPressed: onPressed,
+            ),
           ),
-        ),
-        const SizedBox(height: 10),
-        // The label is part of the tap target, like the icon above it.
-        GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onTap: onPressed,
-          child: Text(label, style: const TextStyle(color: Colors.white, fontSize: 14)),
-        ),
-      ],
+          const SizedBox(height: 10),
+          GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: onPressed,
+            child: Text(label, style: const TextStyle(color: Colors.white, fontSize: 14)),
+          ),
+        ],
+      ),
     );
   }
 }

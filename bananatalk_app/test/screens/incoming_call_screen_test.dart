@@ -113,6 +113,7 @@ void main() {
     await tester.tap(find.text('Message'));
     await tester.pumpAndSettle();
     await tester.enterText(find.byType(TextField), 'y' * 250);
+    await tester.pump();
     await tester.tap(find.text('Send'));
     await tester.pumpAndSettle();
     expect(h.api.declineMessages['call-1'], 'y' * 200);
@@ -132,5 +133,29 @@ void main() {
     expect(find.text('home'), findsOneWidget);
     expect(h.api.calls.where((c) => c.startsWith('decline:')), isEmpty);
     expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('tapping the circle then the label declines only once', (tester) async {
+    await pumpApp(tester);
+    await h.ringIncoming();
+    await tester.pumpAndSettle();
+    await tester.tap(find.byIcon(Icons.call_end));
+    await tester.tap(find.text('Decline'), warnIfMissed: false);
+    await tester.pumpAndSettle();
+    expect(h.api.calls.where((c) => c.startsWith('decline:')).length, 1);
+  });
+
+  testWidgets('Send is disabled for empty or whitespace text', (tester) async {
+    await pumpApp(tester);
+    await h.ringIncoming();
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Message'));
+    await tester.pumpAndSettle();
+    await tester.enterText(find.byType(TextField), '   ');
+    await tester.pump();
+    await tester.tap(find.text('Send'));
+    await tester.pumpAndSettle();
+    expect(find.text('Decline with a message'), findsOneWidget);
+    expect(h.api.calls.where((c) => c.startsWith('decline:')), isEmpty);
   });
 }
