@@ -8,7 +8,9 @@ import 'package:flutter/foundation.dart';
 
 /// Push capabilities this build understands (see backend lib/pushCapabilities.js).
 /// 'call_cancel': a data-only / VoIP call_cancelled push ends the ringing UI.
-const List<String> kCallPushCapabilities = ['call_cancel'];
+/// 'missed_call_actions': missed calls carry Call back / Message (iOS category
+/// MISSED_CALL; Android sends data-only and the app draws the notification).
+const List<String> kCallPushCapabilities = ['call_cancel', 'missed_call_actions'];
 
 class NotificationApiClient {
   final String baseUrl = Endpoints.baseURL;

@@ -213,9 +213,15 @@ final goRouter = GoRouter(
       pageBuilder: (context, state) {
         final userId = state.pathParameters['userId']!;
         final prefill = state.uri.queryParameters['prefill'];
+        // `?call=audio|video`: missed-call "Call back" starts the call here.
+        final autoCall = state.uri.queryParameters['call'];
         return _buildSlideTransition(
           state: state,
-          child: ChatScreenWrapper(userId: userId, prefillMessage: prefill),
+          child: ChatScreenWrapper(
+            userId: userId,
+            prefillMessage: prefill,
+            autoCall: autoCall,
+          ),
         );
       },
     ),
