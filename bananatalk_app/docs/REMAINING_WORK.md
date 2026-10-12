@@ -36,7 +36,8 @@ Last updated: 2026-10-12. Keep this current: tick items off in the same commit t
   `isNewUser`, so today only accounts ≤3 days old see one)
 
 **Unexplained — no owner yet** (§0b)
-- Two bare `flutter: null` log lines after the chat app-bar overflow
+- [x] `flutter: null` lines — debug-only trap added (`lib/utils/null_log_trap.dart`); source not yet named, needs a device run (2026-10-12)
+- [ ] Device: open a chat whose partner was last seen long ago (header ~99px) in a debug build and confirm the `[null-log] … from <frame>` line names the source; then fix it (our frame) or record package noise
 - 7,533 PM2 restarts on the droplet
 
 ---
@@ -116,9 +117,9 @@ Baseline: 1/30 calls answered in 30 days, 168 stuck ringing, 0 call messages eve
       `mainAxisSize: MainAxisSize.min` inside a ~99px-bounded parent, a long "last seen…" string has
       nowhere to go. Wrap the `Text` in `Flexible` with `overflow: TextOverflow.ellipsis`. Reproduces on
       a 99.2px constraint; wider headers hide it, so it is screen-size dependent.
-- [ ] **Two bare `flutter: null` lines** after the overflow, source unidentified. Not from
-      `matching_provider.dart` (those prints all carry an emoji prefix). Needs the action that produced
-      them to locate.
+- [~] **Two bare `flutter: null` lines** after the overflow. Grep of `lib/` found no bare print; a
+      debug-only trap (`null_log_trap.dart`, `kDebugMode` + zone in `main.dart`) now prints
+      `[null-log] … from <frame>` after any bare null. Open: confirm on a device run which frame it names.
 
 Checked and NOT a bug, recorded so it is not re-reported: `GET /calls/current` returning `{call: null}`
 immediately after a successful `POST /calls/initiate`. `callService.getCurrentCall` deliberately matches
