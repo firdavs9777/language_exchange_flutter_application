@@ -498,8 +498,10 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
                             if (next) {
                               // Turning the camera on runs the permission
                               // check (an upgraded call's peer never had one).
-                              if (!await callManager.upgradeToVideo()) {
-                                _showCameraFailed(l10n);
+                              if (!await callManager.enableCamera()) {
+                                if (!callManager.lastCameraFailureWasPermission) {
+                                  _showCameraFailed(l10n);
+                                }
                                 return;
                               }
                             } else {
@@ -547,7 +549,7 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
                                 _callType = CallType.video;
                                 _isVideoEnabled = true;
                               });
-                            } else {
+                            } else if (!callManager.lastCameraFailureWasPermission) {
                               _showCameraFailed(l10n);
                             }
                           },

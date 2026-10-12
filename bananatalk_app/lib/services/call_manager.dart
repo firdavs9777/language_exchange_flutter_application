@@ -1264,15 +1264,43 @@ class CallManager with WidgetsBindingObserver {
   /// the call a video call on the server so history says "Video call".
   /// Returns false on any failure (no call, still ringing, no permission,
   /// non-200) and never throws; a refused upgrade rolls the camera back.
+  /// True when the last [upgradeToVideo]/[enableCamera] failed only because
+  /// camera permission was denied (the manager already reported it through
+  /// [onCallError], so the UI must not add a second message).
+  bool lastCameraFailureWasPermission = false;
+
+  /// Camera back on in a call that is already video: permission check, then
+  /// publish. Never POSTs /upgrade (the server type is already video).
+  Future<bool> enableCamera() async {
+    lastCameraFailureWasPermission = false;
+    final cur = currentCall;
+    if (cur == null || cur.status != CallStatus.connected) return false;
+    if (!await _deps.platform.ensurePermissions(video: true)) {
+      lastCameraFailureWasPermission = true;
+      onCallError?.call(await _deps.platform.permissionError(video: true, accepting: false));
+      return false;
+    }
+    if (!_sameId(currentCall?.callId, cur.callId)) return false;
+    setVideoEnabled(true);
+    return true;
+  }
+
   Future<bool> upgradeToVideo() async {
     if (_upgrading) return false;
     _upgrading = true;
+    lastCameraFailureWasPermission = false;
     try {
       final cur = currentCall;
       // Only a connected call has a room to publish into; while connecting
       // the camera would never publish but the server would record video.
       if (cur == null || cur.status != CallStatus.connected) return false;
+      if (cur.callType == CallType.video) {
+        // Already a video call: only the camera changes, no POST.
+        _upgrading = false;
+        return enableCamera();
+      }
       if (!await _deps.platform.ensurePermissions(video: true)) {
+        lastCameraFailureWasPermission = true;
         onCallError?.call(await _deps.platform.permissionError(video: true, accepting: false));
         return false;
       }

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/models/call_model.dart';
 import 'package:bananatalk_app/screens/active_call_screen.dart';
 import 'package:bananatalk_app/services/call/call_api.dart';
 import 'package:bananatalk_app/services/call_manager.dart';
@@ -117,6 +118,80 @@ void main() {
     await h.manager.handleSocketEvent('call:state', {'callId': 'call-1', 'status': 'active', 'type': 'video'});
     await tester.pump();
     expect(tester.takeException(), isNull);
+    await h.manager.endCall();
+    await tester.pump(const Duration(seconds: 2));
+  });
+
+  testWidgets('video call, camera off: toggling on posts no upgrade and stays in sync', (tester) async {
+    final h = CallHarness();
+    CallManager.debugSetInstance(h.manager);
+    await h.startOutgoing(type: CallType.video);
+    await h.state('active');
+    h.liveKit.onPeerConnected!();
+    await pumpScreen(tester, h);
+    await tester.tap(find.widgetWithIcon(IconButton, Icons.videocam));
+    await tester.pump();
+    expect(find.text('Video On'), findsOneWidget);
+    await tester.tap(find.widgetWithIcon(IconButton, Icons.videocam_off));
+    await tester.pump();
+    await tester.pump();
+    expect(h.api.calls.where((c) => c.startsWith('upgrade')), isEmpty);
+    expect(h.liveKit.cameraCalls, [false, true]);
+    expect(find.text('Video Off'), findsOneWidget);
+    await h.manager.endCall();
+    await tester.pump(const Duration(seconds: 2));
+  });
+
+  testWidgets('failed upgrade on a voice call leaves camera and UI off', (tester) async {
+    final h = CallHarness();
+    CallManager.debugSetInstance(h.manager);
+    h.api.upgradeResult = const CallApiResult(ok: false, statusCode: 500);
+    await h.startOutgoing();
+    await h.state('active');
+    h.liveKit.onPeerConnected!();
+    await pumpScreen(tester, h);
+    await tester.tap(find.byIcon(Icons.videocam_rounded));
+    await tester.pump();
+    await tester.pump();
+    expect(h.liveKit.cameraCalls.last, isFalse);
+    expect(h.manager.isVideoEnabled, isFalse);
+    expect(find.text('Camera'), findsOneWidget);
+    expect(find.text('Video On'), findsNothing);
+    await h.manager.endCall();
+    await tester.pump(const Duration(seconds: 2));
+  });
+
+  testWidgets('permission denied: the manager error only, no second snack', (tester) async {
+    final h = CallHarness();
+    CallManager.debugSetInstance(h.manager);
+    final errors = <String>[];
+    await h.startOutgoing();
+    await h.state('active');
+    h.liveKit.onPeerConnected!();
+    await pumpScreen(tester, h);
+    h.manager.onCallError = errors.add;
+    h.platform.permissionsGranted = false;
+    await tester.tap(find.byIcon(Icons.videocam_rounded));
+    await tester.pump();
+    await tester.pump();
+    expect(errors, ['DENIED:test']);
+    expect(find.text("Couldn't turn the camera on"), findsNothing);
+    await h.manager.endCall();
+    await tester.pump(const Duration(seconds: 2));
+  });
+
+  testWidgets('dispose leaves a newer screen\'s onCallTypeChanged alone', (tester) async {
+    final h = CallHarness();
+    CallManager.debugSetInstance(h.manager);
+    await h.startOutgoing();
+    await h.state('active');
+    h.liveKit.onPeerConnected!();
+    await pumpScreen(tester, h);
+    expect(h.manager.onCallTypeChanged, isNotNull);
+    void newer(CallType _) {}
+    h.manager.onCallTypeChanged = newer;
+    await tester.pumpWidget(const SizedBox());
+    expect(identical(h.manager.onCallTypeChanged, newer), isTrue);
     await h.manager.endCall();
     await tester.pump(const Duration(seconds: 2));
   });
