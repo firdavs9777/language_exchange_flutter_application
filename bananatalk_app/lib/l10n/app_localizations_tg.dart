@@ -11198,7 +11198,7 @@ class AppLocalizationsTg extends AppLocalizations {
   String get callsAllowSubtitle => 'Агар хомӯш бошад, зангҳо ба шумо садо намедиҳанд. Занганда мебинад, ки шумо занг қабул намекунед.';
 
   @override
-  String get callsQuietHoursNote => 'Зангҳо дар соатҳои оромӣ низ нигоҳ дошта мешаванд.';
+  String get callsQuietHoursNote => 'Агар «Огоҳномаҳои таъҷилиро иҷозат диҳед» хомӯш бошад, зангҳо низ дар соатҳои оромӣ нигоҳ дошта мешаванд.';
 
   @override
   String get callTurnOnCamera => 'Камера';

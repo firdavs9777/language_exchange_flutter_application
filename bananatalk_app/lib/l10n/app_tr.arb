@@ -4556,7 +4556,7 @@
   "callMessageAction": "Mesaj",
   "callsAllowTitle": "Aramalara izin ver",
   "callsAllowSubtitle": "Kapalıyken sana yapılan aramalar çalmaz. Arayanlar arama kabul etmediğini görür.",
-  "callsQuietHoursNote": "Aramalar sessiz saatlerde de tutulur.",
+  "callsQuietHoursNote": "“Acil bildirimlere izin ver” kapalıyken aramalar da sessiz saatlerde bekletilir.",
   "callTurnOnCamera": "Kamera",
   "callCameraFailed": "Kamera açılamadı",
   "callSelfViewLabel": "Kameranız. Taşımak için sürükleyin.",

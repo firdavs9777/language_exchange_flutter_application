@@ -11197,7 +11197,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get callsAllowSubtitle => 'Kapag naka-off, hindi magri-ring ang mga tawag sa iyo. Makikita ng mga tumatawag na hindi ka tumatanggap ng tawag.';
 
   @override
-  String get callsQuietHoursNote => 'Pinipigil din ang mga tawag sa tahimik na oras.';
+  String get callsQuietHoursNote => 'Kapag naka-off ang “Payagan ang mahahalagang notification,” pinipigil din ang mga tawag sa quiet hours.';
 
   @override
   String get callTurnOnCamera => 'Camera';

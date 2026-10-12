@@ -39,7 +39,12 @@ void main() {
     ));
     await tester.pumpAndSettle();
     await tester.scrollUntilVisible(find.text('Allow calls'), 200);
-    expect(find.text('Calls are held during quiet hours too.'), findsOneWidget);
+    // Quiet hours hold calls only when "Allow urgent" is off (backend ruling),
+    // so the note must not contradict the "Allow urgent" subtitle.
+    expect(
+        find.text('With “Allow urgent notifications” off, calls are held during quiet hours too.'),
+        findsOneWidget);
+    expect(find.text('Calls are held during quiet hours too.'), findsNothing);
     await tester.tap(find.text('Allow calls')); // the tile's InkWell toggles
     await tester.pumpAndSettle();
     expect(notifier.toggled, ['allowCalls:false']);

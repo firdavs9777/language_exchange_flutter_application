@@ -11178,7 +11178,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get callsAllowSubtitle => 'Khi tắt, cuộc gọi đến bạn sẽ không đổ chuông. Người gọi sẽ thấy bạn không nhận cuộc gọi.';
 
   @override
-  String get callsQuietHoursNote => 'Cuộc gọi cũng bị giữ lại trong giờ yên tĩnh.';
+  String get callsQuietHoursNote => 'Khi tắt “Cho phép thông báo khẩn cấp”, cuộc gọi cũng bị giữ lại trong giờ yên tĩnh.';
 
   @override
   String get callTurnOnCamera => 'Camera';

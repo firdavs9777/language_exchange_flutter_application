@@ -11178,7 +11178,7 @@ class AppLocalizationsTh extends AppLocalizations {
   String get callsAllowSubtitle => 'เมื่อปิด สายที่โทรหาคุณจะไม่ดัง ผู้โทรจะเห็นว่าคุณไม่รับสาย';
 
   @override
-  String get callsQuietHoursNote => 'สายจะถูกพักไว้ในช่วงเวลาปิดเสียงด้วย';
+  String get callsQuietHoursNote => 'เมื่อปิด “อนุญาตการแจ้งเตือนเร่งด่วน” สายเรียกเข้าจะถูกพักไว้ในช่วงเวลาเงียบด้วย';
 
   @override
   String get callTurnOnCamera => 'กล้อง';

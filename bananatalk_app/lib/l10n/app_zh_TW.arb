@@ -4035,7 +4035,7 @@
   "callMessageAction": "訊息",
   "callsAllowTitle": "允許通話",
   "callsAllowSubtitle": "關閉後，打給你的通話不會響鈴。來電者會看到你不接聽通話。",
-  "callsQuietHoursNote": "勿擾時段內的通話同樣會被攔截。",
+  "callsQuietHoursNote": "關閉「允許緊急通知」後，免打擾時段內的來電也會被攔截。",
   "callTurnOnCamera": "相機",
   "callCameraFailed": "無法開啟相機",
   "callSelfViewLabel": "你的相機。拖曳即可移動。",

@@ -11197,7 +11197,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get callsAllowSubtitle => 'Si désactivé, les appels ne sonneront pas. Les appelants verront que tu ne prends pas d\'appels.';
 
   @override
-  String get callsQuietHoursNote => 'Les appels sont aussi retenus pendant les heures calmes.';
+  String get callsQuietHoursNote => 'Si « Autoriser les notifications urgentes » est désactivé, les appels sont aussi retenus pendant les heures calmes.';
 
   @override
   String get callTurnOnCamera => 'Caméra';

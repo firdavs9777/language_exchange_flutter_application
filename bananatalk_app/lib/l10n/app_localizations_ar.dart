@@ -11252,7 +11252,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get callsAllowSubtitle => 'عند الإيقاف، لن ترن المكالمات الموجهة إليك. سيرى المتصلون أنك لا تستقبل المكالمات.';
 
   @override
-  String get callsQuietHoursNote => 'يتم أيضًا حجب المكالمات خلال ساعات الهدوء.';
+  String get callsQuietHoursNote => 'عند إيقاف «السماح بالإشعارات العاجلة»، يتم أيضًا حجب المكالمات خلال ساعات الهدوء.';
 
   @override
   String get callTurnOnCamera => 'الكاميرا';

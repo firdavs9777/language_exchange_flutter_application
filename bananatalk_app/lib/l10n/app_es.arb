@@ -4374,7 +4374,7 @@
   "callMessageAction": "Mensaje",
   "callsAllowTitle": "Permitir llamadas",
   "callsAllowSubtitle": "Si está desactivado, las llamadas no te sonarán. Quien llame verá que no aceptas llamadas.",
-  "callsQuietHoursNote": "Las llamadas también se retienen durante las horas de silencio.",
+  "callsQuietHoursNote": "Con «Permitir notificaciones urgentes» desactivado, las llamadas también se retienen durante las horas de silencio.",
   "callTurnOnCamera": "Cámara",
   "callCameraFailed": "No se pudo encender la cámara",
   "callSelfViewLabel": "Tu cámara. Arrastra para moverla.",

@@ -11189,7 +11189,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get callsAllowSubtitle => 'Saat nonaktif, panggilan untukmu tidak berdering. Penelepon akan melihat bahwa kamu tidak menerima panggilan.';
 
   @override
-  String get callsQuietHoursNote => 'Panggilan juga ditahan selama jam tenang.';
+  String get callsQuietHoursNote => 'Jika “Izinkan notifikasi mendesak” nonaktif, panggilan juga ditahan selama jam tenang.';
 
   @override
   String get callTurnOnCamera => 'Kamera';

@@ -11178,7 +11178,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get callsAllowSubtitle => 'オフにすると、あなたへの着信は鳴りません。発信者にはあなたが通話を受け付けていないことが表示されます。';
 
   @override
-  String get callsQuietHoursNote => '通知オフ時間中も着信は保留されます。';
+  String get callsQuietHoursNote => '「緊急通知を許可する」がオフの場合、サイレント時間中は着信も保留されます。';
 
   @override
   String get callTurnOnCamera => 'カメラ';

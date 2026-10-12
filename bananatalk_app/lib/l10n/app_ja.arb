@@ -4344,7 +4344,7 @@
   "callMessageAction": "メッセージ",
   "callsAllowTitle": "通話を許可",
   "callsAllowSubtitle": "オフにすると、あなたへの着信は鳴りません。発信者にはあなたが通話を受け付けていないことが表示されます。",
-  "callsQuietHoursNote": "通知オフ時間中も着信は保留されます。",
+  "callsQuietHoursNote": "「緊急通知を許可する」がオフの場合、サイレント時間中は着信も保留されます。",
   "callTurnOnCamera": "カメラ",
   "callCameraFailed": "カメラをオンにできませんでした",
   "callSelfViewLabel": "あなたのカメラ。ドラッグで移動できます。",

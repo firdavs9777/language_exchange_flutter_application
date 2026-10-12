@@ -20351,7 +20351,7 @@ abstract class AppLocalizations {
   /// No description provided for @callsQuietHoursNote.
   ///
   /// In en, this message translates to:
-  /// **'Calls are held during quiet hours too.'**
+  /// **'With “Allow urgent notifications” off, calls are held during quiet hours too.'**
   String get callsQuietHoursNote;
 
   /// No description provided for @callTurnOnCamera.

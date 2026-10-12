@@ -11197,7 +11197,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get callsAllowSubtitle => 'Wenn aus, klingeln Anrufe bei dir nicht. Anrufer sehen, dass du keine Anrufe annimmst.';
 
   @override
-  String get callsQuietHoursNote => 'Anrufe werden auch in den Ruhezeiten zurückgehalten.';
+  String get callsQuietHoursNote => 'Wenn „Dringende Benachrichtigungen zulassen“ aus ist, werden auch Anrufe in den Ruhezeiten zurückgehalten.';
 
   @override
   String get callTurnOnCamera => 'Kamera';

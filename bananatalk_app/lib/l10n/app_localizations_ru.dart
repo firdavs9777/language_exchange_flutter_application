@@ -11240,7 +11240,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get callsAllowSubtitle => 'Если выключено, звонки вам не звонят. Звонящие видят, что вы не принимаете звонки.';
 
   @override
-  String get callsQuietHoursNote => 'Звонки также откладываются в тихие часы.';
+  String get callsQuietHoursNote => 'Если «Разрешить срочные уведомления» выключено, звонки в тихие часы тоже откладываются.';
 
   @override
   String get callTurnOnCamera => 'Камера';

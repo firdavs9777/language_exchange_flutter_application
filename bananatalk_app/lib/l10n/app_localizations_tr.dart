@@ -11195,7 +11195,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get callsAllowSubtitle => 'Kapalıyken sana yapılan aramalar çalmaz. Arayanlar arama kabul etmediğini görür.';
 
   @override
-  String get callsQuietHoursNote => 'Aramalar sessiz saatlerde de tutulur.';
+  String get callsQuietHoursNote => '“Acil bildirimlere izin ver” kapalıyken aramalar da sessiz saatlerde bekletilir.';
 
   @override
   String get callTurnOnCamera => 'Kamera';

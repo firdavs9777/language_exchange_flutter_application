@@ -11203,7 +11203,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get callsAllowSubtitle => 'When off, calls to you don\'t ring. Callers see that you\'re not taking calls.';
 
   @override
-  String get callsQuietHoursNote => 'Calls are held during quiet hours too.';
+  String get callsQuietHoursNote => 'With “Allow urgent notifications” off, calls are held during quiet hours too.';
 
   @override
   String get callTurnOnCamera => 'Camera';

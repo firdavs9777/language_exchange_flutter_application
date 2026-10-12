@@ -4584,7 +4584,7 @@
   "callMessageAction": "Message",
   "callsAllowTitle": "Autoriser les appels",
   "callsAllowSubtitle": "Si désactivé, les appels ne sonneront pas. Les appelants verront que tu ne prends pas d'appels.",
-  "callsQuietHoursNote": "Les appels sont aussi retenus pendant les heures calmes.",
+  "callsQuietHoursNote": "Si « Autoriser les notifications urgentes » est désactivé, les appels sont aussi retenus pendant les heures calmes.",
   "callTurnOnCamera": "Caméra",
   "callCameraFailed": "Impossible d'activer la caméra",
   "callSelfViewLabel": "Votre caméra. Faites glisser pour la déplacer.",
