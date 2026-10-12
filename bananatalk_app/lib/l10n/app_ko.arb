@@ -4367,5 +4367,7 @@
   "callsAllowSubtitle": "끄면 내게 오는 전화가 울리지 않아요. 발신자에게는 통화를 받지 않는 상태로 표시돼요.",
   "callsQuietHoursNote": "방해 금지 시간에도 통화가 보류돼요.",
   "callTurnOnCamera": "카메라",
-  "callCameraFailed": "카메라를 켤 수 없습니다"
+  "callCameraFailed": "카메라를 켤 수 없습니다",
+  "callSelfViewLabel": "내 카메라. 드래그해서 이동하세요.",
+  "callSelfViewSwapHint": "두 번 탭하면 상대방 영상과 바뀝니다"
 }

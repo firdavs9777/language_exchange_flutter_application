@@ -11204,4 +11204,10 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get callCameraFailed => 'कैमरा चालू नहीं हो सका';
+
+  @override
+  String get callSelfViewLabel => 'आपका कैमरा। हिलाने के लिए खींचें।';
+
+  @override
+  String get callSelfViewSwapHint => 'दूसरे वीडियो से बदलने के लिए दो बार टैप करें';
 }

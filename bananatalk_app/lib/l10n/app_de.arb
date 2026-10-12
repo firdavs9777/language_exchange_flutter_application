@@ -4586,5 +4586,7 @@
   "callsAllowSubtitle": "Wenn aus, klingeln Anrufe bei dir nicht. Anrufer sehen, dass du keine Anrufe annimmst.",
   "callsQuietHoursNote": "Anrufe werden auch in den Ruhezeiten zurückgehalten.",
   "callTurnOnCamera": "Kamera",
-  "callCameraFailed": "Kamera konnte nicht eingeschaltet werden"
+  "callCameraFailed": "Kamera konnte nicht eingeschaltet werden",
+  "callSelfViewLabel": "Deine Kamera. Zum Verschieben ziehen.",
+  "callSelfViewSwapHint": "Doppeltippen, um mit dem anderen Video zu tauschen"
 }

@@ -4037,5 +4037,7 @@
   "callsAllowSubtitle": "關閉後，打給你的通話不會響鈴。來電者會看到你不接聽通話。",
   "callsQuietHoursNote": "勿擾時段內的通話同樣會被攔截。",
   "callTurnOnCamera": "相機",
-  "callCameraFailed": "無法開啟相機"
+  "callCameraFailed": "無法開啟相機",
+  "callSelfViewLabel": "你的相機。拖曳即可移動。",
+  "callSelfViewSwapHint": "連按兩下可與對方視訊互換"
 }

@@ -11204,4 +11204,10 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get callCameraFailed => 'Impossibile attivare la fotocamera';
+
+  @override
+  String get callSelfViewLabel => 'La tua fotocamera. Trascina per spostarla.';
+
+  @override
+  String get callSelfViewSwapHint => 'Tocca due volte per scambiare con l\'altro video';
 }

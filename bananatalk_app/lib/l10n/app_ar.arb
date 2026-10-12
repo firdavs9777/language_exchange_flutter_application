@@ -4376,5 +4376,7 @@
   "callsAllowSubtitle": "عند الإيقاف، لن ترن المكالمات الموجهة إليك. سيرى المتصلون أنك لا تستقبل المكالمات.",
   "callsQuietHoursNote": "يتم أيضًا حجب المكالمات خلال ساعات الهدوء.",
   "callTurnOnCamera": "الكاميرا",
-  "callCameraFailed": "تعذّر تشغيل الكاميرا"
+  "callCameraFailed": "تعذّر تشغيل الكاميرا",
+  "callSelfViewLabel": "كاميرتك. اسحب لتحريكها.",
+  "callSelfViewSwapHint": "انقر مرتين للتبديل مع الفيديو الآخر"
 }

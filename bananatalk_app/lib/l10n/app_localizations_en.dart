@@ -11210,4 +11210,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get callCameraFailed => 'Couldn\'t turn the camera on';
+
+  @override
+  String get callSelfViewLabel => 'Your camera. Drag to move.';
+
+  @override
+  String get callSelfViewSwapHint => 'Double tap to swap with the other video';
 }

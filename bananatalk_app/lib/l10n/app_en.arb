@@ -7236,5 +7236,7 @@
   "callsAllowSubtitle": "When off, calls to you don't ring. Callers see that you're not taking calls.",
   "callsQuietHoursNote": "Calls are held during quiet hours too.",
   "callTurnOnCamera": "Camera",
-  "callCameraFailed": "Couldn't turn the camera on"
+  "callCameraFailed": "Couldn't turn the camera on",
+  "callSelfViewLabel": "Your camera. Drag to move.",
+  "callSelfViewSwapHint": "Double tap to swap with the other video"
 }

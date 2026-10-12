@@ -11185,6 +11185,12 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get callCameraFailed => '无法打开相机';
+
+  @override
+  String get callSelfViewLabel => '你的摄像头。拖动可移动。';
+
+  @override
+  String get callSelfViewSwapHint => '双击可与对方视频互换';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -22368,4 +22374,10 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get callCameraFailed => '無法開啟相機';
+
+  @override
+  String get callSelfViewLabel => '你的相機。拖曳即可移動。';
+
+  @override
+  String get callSelfViewSwapHint => '連按兩下可與對方視訊互換';
 }

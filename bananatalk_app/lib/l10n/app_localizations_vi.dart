@@ -11185,4 +11185,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get callCameraFailed => 'Không thể bật camera';
+
+  @override
+  String get callSelfViewLabel => 'Camera của bạn. Kéo để di chuyển.';
+
+  @override
+  String get callSelfViewSwapHint => 'Chạm hai lần để đổi chỗ với video còn lại';
 }

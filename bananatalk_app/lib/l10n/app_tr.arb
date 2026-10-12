@@ -4558,5 +4558,7 @@
   "callsAllowSubtitle": "Kapalıyken sana yapılan aramalar çalmaz. Arayanlar arama kabul etmediğini görür.",
   "callsQuietHoursNote": "Aramalar sessiz saatlerde de tutulur.",
   "callTurnOnCamera": "Kamera",
-  "callCameraFailed": "Kamera açılamadı"
+  "callCameraFailed": "Kamera açılamadı",
+  "callSelfViewLabel": "Kameranız. Taşımak için sürükleyin.",
+  "callSelfViewSwapHint": "Diğer videoyla değiştirmek için iki kez dokunun"
 }

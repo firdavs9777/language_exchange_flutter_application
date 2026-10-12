@@ -20365,6 +20365,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Couldn\'t turn the camera on'**
   String get callCameraFailed;
+
+  /// No description provided for @callSelfViewLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Your camera. Drag to move.'**
+  String get callSelfViewLabel;
+
+  /// No description provided for @callSelfViewSwapHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Double tap to swap with the other video'**
+  String get callSelfViewSwapHint;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

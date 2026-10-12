@@ -11204,4 +11204,10 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get callCameraFailed => 'Hindi nabuksan ang camera';
+
+  @override
+  String get callSelfViewLabel => 'Ang camera mo. I-drag para ilipat.';
+
+  @override
+  String get callSelfViewSwapHint => 'I-double tap para makipagpalit sa kabilang video';
 }

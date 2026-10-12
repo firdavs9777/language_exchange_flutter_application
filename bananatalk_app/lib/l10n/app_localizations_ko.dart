@@ -11185,4 +11185,10 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get callCameraFailed => '카메라를 켤 수 없습니다';
+
+  @override
+  String get callSelfViewLabel => '내 카메라. 드래그해서 이동하세요.';
+
+  @override
+  String get callSelfViewSwapHint => '두 번 탭하면 상대방 영상과 바뀝니다';
 }

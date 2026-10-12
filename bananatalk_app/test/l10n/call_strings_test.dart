@@ -36,6 +36,8 @@ const _callKeys = [
   'callsQuietHoursNote',
   'callTurnOnCamera',
   'callCameraFailed',
+  'callSelfViewLabel',
+  'callSelfViewSwapHint',
 ];
 
 void main() {

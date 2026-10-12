@@ -11205,4 +11205,10 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get callCameraFailed => 'Камераро фурӯзон кардан имконнопазир шуд';
+
+  @override
+  String get callSelfViewLabel => 'Камераи шумо. Барои ҷойивазкунӣ кашед.';
+
+  @override
+  String get callSelfViewSwapHint => 'Барои иваз кардан бо видеои дигар ду бор зер кунед';
 }

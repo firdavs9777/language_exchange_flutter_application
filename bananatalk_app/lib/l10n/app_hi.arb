@@ -4362,5 +4362,7 @@
   "callsAllowSubtitle": "बंद होने पर, आपको की गई कॉल नहीं बजेंगी। कॉल करने वालों को दिखेगा कि आप कॉल नहीं ले रहे हैं।",
   "callsQuietHoursNote": "शांत समय के दौरान भी कॉल रोकी जाती हैं।",
   "callTurnOnCamera": "कैमरा",
-  "callCameraFailed": "कैमरा चालू नहीं हो सका"
+  "callCameraFailed": "कैमरा चालू नहीं हो सका",
+  "callSelfViewLabel": "आपका कैमरा। हिलाने के लिए खींचें।",
+  "callSelfViewSwapHint": "दूसरे वीडियो से बदलने के लिए दो बार टैप करें"
 }

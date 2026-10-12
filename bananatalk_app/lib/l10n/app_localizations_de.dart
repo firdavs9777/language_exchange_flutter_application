@@ -11204,4 +11204,10 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get callCameraFailed => 'Kamera konnte nicht eingeschaltet werden';
+
+  @override
+  String get callSelfViewLabel => 'Deine Kamera. Zum Verschieben ziehen.';
+
+  @override
+  String get callSelfViewSwapHint => 'Doppeltippen, um mit dem anderen Video zu tauschen';
 }

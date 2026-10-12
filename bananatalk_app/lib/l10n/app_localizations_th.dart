@@ -11185,4 +11185,10 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get callCameraFailed => 'เปิดกล้องไม่ได้';
+
+  @override
+  String get callSelfViewLabel => 'กล้องของคุณ ลากเพื่อย้าย';
+
+  @override
+  String get callSelfViewSwapHint => 'แตะสองครั้งเพื่อสลับกับวิดีโออีกฝั่ง';
 }

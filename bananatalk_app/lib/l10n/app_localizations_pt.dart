@@ -11204,4 +11204,10 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get callCameraFailed => 'Não foi possível ligar a câmera';
+
+  @override
+  String get callSelfViewLabel => 'A sua câmera. Arraste para mover.';
+
+  @override
+  String get callSelfViewSwapHint => 'Toque duas vezes para trocar com o outro vídeo';
 }

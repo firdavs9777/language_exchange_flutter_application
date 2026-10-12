@@ -11196,4 +11196,10 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get callCameraFailed => 'Tidak dapat menyalakan kamera';
+
+  @override
+  String get callSelfViewLabel => 'Kameramu. Seret untuk memindahkan.';
+
+  @override
+  String get callSelfViewSwapHint => 'Ketuk dua kali untuk menukar dengan video lainnya';
 }

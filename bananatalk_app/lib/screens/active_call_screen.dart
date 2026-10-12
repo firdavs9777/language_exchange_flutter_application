@@ -11,6 +11,7 @@ import 'package:bananatalk_app/providers/call_provider.dart';
 import 'package:bananatalk_app/services/call_manager.dart'
     show CallManager, CallUiState, CallQuality, CallFinish, CallExitReason;
 import 'package:bananatalk_app/widgets/call/call_duration_timer.dart';
+import 'package:bananatalk_app/widgets/call/swappable_video_layout.dart';
 
 class ActiveCallScreen extends ConsumerStatefulWidget {
   final CallModel call;
@@ -279,97 +280,54 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
         body: SafeArea(
           child: Stack(
             children: [
-              // Remote Video (Full Screen) — for video calls when the peer's
-              // camera is on and their video track is subscribed.
-              if (isVideoCall && !_isEnding && _isPeerVideoEnabled &&
-                  remoteTrack != null)
+              // Video call: the remote feed is large and the self-view is a
+              // draggable tile that swaps with it on tap. Otherwise (voice
+              // call, or ending) show the avatar/info.
+              if (isVideoCall && !_isEnding)
                 Positioned.fill(
-                  child: lk.VideoTrackRenderer(
-                    remoteTrack,
-                    fit: lk.VideoViewFit.cover,
-                    mirrorMode: lk.VideoViewMirrorMode.off,
+                  child: SwappableVideoLayout(
+                    // Keep the tile clear of the top bar / quality badge and
+                    // the control bar + switch-camera button.
+                    insets: const EdgeInsets.only(top: 90, bottom: 200),
+                    // Swapping only makes sense while both feeds are live
+                    // video, otherwise a placeholder would fill the screen.
+                    swapEnabled: _isPeerVideoEnabled &&
+                        remoteTrack != null &&
+                        localTrack != null,
+                    semanticLabel: l10n.callSelfViewLabel,
+                    swapHint: l10n.callSelfViewSwapHint,
+                    remote: _isPeerVideoEnabled && remoteTrack != null
+                        ? lk.VideoTrackRenderer(
+                            remoteTrack,
+                            fit: lk.VideoViewFit.cover,
+                            mirrorMode: lk.VideoViewMirrorMode.off,
+                          )
+                        : _buildPeerPlaceholder(l10n, isVideoCall),
+                    local: _isVideoEnabled
+                        ? (localTrack != null
+                            ? lk.VideoTrackRenderer(
+                                localTrack,
+                                fit: lk.VideoViewFit.cover,
+                                mirrorMode: lk.VideoViewMirrorMode.mirror,
+                              )
+                            : Container(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .surfaceContainerHighest,
+                                alignment: Alignment.center,
+                                child: Icon(
+                                  Icons.videocam_off,
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onSurfaceVariant,
+                                  size: 32,
+                                ),
+                              ))
+                        : null,
                   ),
                 )
               else
-                // Audio call OR remote video unavailable — show avatar/info
-                Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      CircleAvatar(
-                        radius: 80,
-                        backgroundColor: Colors.grey[800],
-                        backgroundImage: widget.call.userProfilePicture != null
-                            ? NetworkImage(widget.call.userProfilePicture!)
-                            : null,
-                        child: widget.call.userProfilePicture == null
-                            ? const Icon(Icons.person,
-                                size: 80, color: Colors.white54)
-                            : null,
-                      ),
-                      const SizedBox(height: 30),
-                      Text(
-                        widget.call.userName,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 32,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(height: 15),
-                      _buildCallStatus(l10n),
-                      if (isVideoCall && !_isPeerVideoEnabled && _connectedTime != null) ...[
-                        const SizedBox(height: 8),
-                        Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            const Icon(Icons.videocam_off, color: Colors.white70, size: 16),
-                            const SizedBox(width: 6),
-                            Text(l10n.callCameraPaused,
-                                style: const TextStyle(color: Colors.white70, fontSize: 14)),
-                          ],
-                        ),
-                      ],
-                    ],
-                  ),
-                ),
-
-              // Local Video (Picture in Picture) — only when camera is on.
-              if (isVideoCall && !_isEnding && _isVideoEnabled)
-                Positioned(
-                  top: 20,
-                  right: 20,
-                  child: Container(
-                    width: 120,
-                    height: 160,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: Colors.white, width: 2),
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: localTrack != null
-                          ? lk.VideoTrackRenderer(
-                              localTrack,
-                              fit: lk.VideoViewFit.cover,
-                              mirrorMode: lk.VideoViewMirrorMode.mirror,
-                            )
-                          : Container(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .surfaceContainerHighest,
-                              alignment: Alignment.center,
-                              child: Icon(
-                                Icons.videocam_off,
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .onSurfaceVariant,
-                                size: 32,
-                              ),
-                            ),
-                    ),
-                  ),
-                ),
+                _buildPeerPlaceholder(l10n, isVideoCall),
 
               // Top Bar
               Positioned(
@@ -657,6 +615,50 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildPeerPlaceholder(AppLocalizations l10n, bool isVideoCall) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          CircleAvatar(
+            radius: 80,
+            backgroundColor: Colors.grey[800],
+            backgroundImage: widget.call.userProfilePicture != null
+                ? NetworkImage(widget.call.userProfilePicture!)
+                : null,
+            child: widget.call.userProfilePicture == null
+                ? const Icon(Icons.person,
+                    size: 80, color: Colors.white54)
+                : null,
+          ),
+          const SizedBox(height: 30),
+          Text(
+            widget.call.userName,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 32,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 15),
+          _buildCallStatus(l10n),
+          if (isVideoCall && !_isPeerVideoEnabled && _connectedTime != null) ...[
+            const SizedBox(height: 8),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(Icons.videocam_off, color: Colors.white70, size: 16),
+                const SizedBox(width: 6),
+                Text(l10n.callCameraPaused,
+                    style: const TextStyle(color: Colors.white70, fontSize: 14)),
+              ],
+            ),
+          ],
+        ],
       ),
     );
   }

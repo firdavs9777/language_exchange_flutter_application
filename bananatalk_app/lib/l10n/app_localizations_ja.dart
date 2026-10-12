@@ -11185,4 +11185,10 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get callCameraFailed => 'カメラをオンにできませんでした';
+
+  @override
+  String get callSelfViewLabel => 'あなたのカメラ。ドラッグで移動できます。';
+
+  @override
+  String get callSelfViewSwapHint => 'ダブルタップで相手の映像と入れ替えます';
 }

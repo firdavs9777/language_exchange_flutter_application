@@ -28,7 +28,7 @@ Last updated: 2026-10-12. Keep this current: tick items off in the same commit t
 - Long-press tooltip on the first received message — translate/correct are invisible today
   (audit §3 P2, cheapest large win, reuses `GuideStore` with one new surface)
 - Calls Phase 2: decline with message, missed-call push actions, quiet hours, camera mid
-  voice call, draggable self-view
+  voice call
 
 **Me — waiting on data, not on work** (§0c)
 - Read `guide_cta_tapped` by `target` before adding a third destination anywhere
@@ -101,7 +101,8 @@ Baseline: 1/30 calls answered in 30 days, 168 stuck ringing, 0 call messages eve
     - [x] Calls on/off + quiet-hours settings UI (C8: "Allow calls" switch + quiet-hours note; reads `notificationSettings.allowCalls`, default true)
     - [x] Camera button mid voice call + peer-upgrade UI (C9: connected voice calls only; peer upgrade switches layout but the local camera stays off until tapped; refused upgrade shows `callCameraFailed` (new, 19 locales, machine drafts in QA CSV); turning the camera on from the video toggle also runs the permission check)
     - [ ] Device QA of camera upgrade: both directions, permission denied, rollback on server refusal, upgrade racing call end
-    - [ ] Draggable self-view
+    - [x] Draggable self-view (C10: `SwappableVideoLayout`; snaps to corners clear of the top/control bars, re-snaps on rotation, tap swaps big/small only while both feeds are live; semantics label + swap hint, 2 new strings x 19 locales, machine drafts in QA CSV)
+    - [ ] Device QA of the self-view: drag/snap on small + large phones, rotation, swap with real tracks, TalkBack/VoiceOver
     - [ ] Device QA of the Phase 2 flows
     - [ ] Native review of the 13 Phase 2 call strings
 - [ ] Device QA IOS-8: with a Focus mode silencing calls, CallKit shows no banner and the in-app ring closes — decide whether that is acceptable.

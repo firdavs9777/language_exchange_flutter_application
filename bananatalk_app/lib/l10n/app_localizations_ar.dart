@@ -11259,4 +11259,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get callCameraFailed => 'تعذّر تشغيل الكاميرا';
+
+  @override
+  String get callSelfViewLabel => 'كاميرتك. اسحب لتحريكها.';
+
+  @override
+  String get callSelfViewSwapHint => 'انقر مرتين للتبديل مع الفيديو الآخر';
 }

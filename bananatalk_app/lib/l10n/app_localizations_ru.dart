@@ -11247,4 +11247,10 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get callCameraFailed => 'Не удалось включить камеру';
+
+  @override
+  String get callSelfViewLabel => 'Ваша камера. Перетащите, чтобы переместить.';
+
+  @override
+  String get callSelfViewSwapHint => 'Нажмите дважды, чтобы поменять местами с другим видео';
 }

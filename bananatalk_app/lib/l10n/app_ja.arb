@@ -4346,5 +4346,7 @@
   "callsAllowSubtitle": "オフにすると、あなたへの着信は鳴りません。発信者にはあなたが通話を受け付けていないことが表示されます。",
   "callsQuietHoursNote": "通知オフ時間中も着信は保留されます。",
   "callTurnOnCamera": "カメラ",
-  "callCameraFailed": "カメラをオンにできませんでした"
+  "callCameraFailed": "カメラをオンにできませんでした",
+  "callSelfViewLabel": "あなたのカメラ。ドラッグで移動できます。",
+  "callSelfViewSwapHint": "ダブルタップで相手の映像と入れ替えます"
 }

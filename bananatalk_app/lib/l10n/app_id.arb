@@ -4346,5 +4346,7 @@
   "callsAllowSubtitle": "Saat nonaktif, panggilan untukmu tidak berdering. Penelepon akan melihat bahwa kamu tidak menerima panggilan.",
   "callsQuietHoursNote": "Panggilan juga ditahan selama jam tenang.",
   "callTurnOnCamera": "Kamera",
-  "callCameraFailed": "Tidak dapat menyalakan kamera"
+  "callCameraFailed": "Tidak dapat menyalakan kamera",
+  "callSelfViewLabel": "Kameramu. Seret untuk memindahkan.",
+  "callSelfViewSwapHint": "Ketuk dua kali untuk menukar dengan video lainnya"
 }

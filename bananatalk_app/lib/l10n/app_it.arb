@@ -4586,5 +4586,7 @@
   "callsAllowSubtitle": "Se disattivato, le chiamate non squillano. Chi chiama vedrà che non accetti chiamate.",
   "callsQuietHoursNote": "Le chiamate vengono trattenute anche durante le ore di silenzio.",
   "callTurnOnCamera": "Fotocamera",
-  "callCameraFailed": "Impossibile attivare la fotocamera"
+  "callCameraFailed": "Impossibile attivare la fotocamera",
+  "callSelfViewLabel": "La tua fotocamera. Trascina per spostarla.",
+  "callSelfViewSwapHint": "Tocca due volte per scambiare con l'altro video"
 }

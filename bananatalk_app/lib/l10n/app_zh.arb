@@ -4360,5 +4360,7 @@
   "callsAllowSubtitle": "关闭后，打给你的电话不会响铃。来电者会看到你不接听电话。",
   "callsQuietHoursNote": "免打扰时段内的来电同样会被拦截。",
   "callTurnOnCamera": "相机",
-  "callCameraFailed": "无法打开相机"
+  "callCameraFailed": "无法打开相机",
+  "callSelfViewLabel": "你的摄像头。拖动可移动。",
+  "callSelfViewSwapHint": "双击可与对方视频互换"
 }

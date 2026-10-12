@@ -11202,4 +11202,10 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get callCameraFailed => 'Kamera açılamadı';
+
+  @override
+  String get callSelfViewLabel => 'Kameranız. Taşımak için sürükleyin.';
+
+  @override
+  String get callSelfViewSwapHint => 'Diğer videoyla değiştirmek için iki kez dokunun';
 }

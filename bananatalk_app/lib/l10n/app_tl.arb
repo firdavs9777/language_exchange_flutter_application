@@ -4319,5 +4319,7 @@
   "callsAllowSubtitle": "Kapag naka-off, hindi magri-ring ang mga tawag sa iyo. Makikita ng mga tumatawag na hindi ka tumatanggap ng tawag.",
   "callsQuietHoursNote": "Pinipigil din ang mga tawag sa tahimik na oras.",
   "callTurnOnCamera": "Camera",
-  "callCameraFailed": "Hindi nabuksan ang camera"
+  "callCameraFailed": "Hindi nabuksan ang camera",
+  "callSelfViewLabel": "Ang camera mo. I-drag para ilipat.",
+  "callSelfViewSwapHint": "I-double tap para makipagpalit sa kabilang video"
 }
