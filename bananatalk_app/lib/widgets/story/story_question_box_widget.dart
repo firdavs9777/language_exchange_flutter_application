@@ -120,7 +120,7 @@ class _StoryQuestionBoxWidgetState extends State<StoryQuestionBoxWidget> {
               style: const TextStyle(color: Colors.white),
               maxLines: 3,
               decoration: InputDecoration(
-                hintText: 'Type your answer...',
+                hintText: AppLocalizations.of(context)!.typeYourAnswer,
                 hintStyle: TextStyle(color: Colors.white.withOpacity(0.6)),
                 filled: true,
                 fillColor: Colors.white.withOpacity(0.2),
@@ -358,7 +358,7 @@ class _CreateQuestionBoxDialogState extends State<CreateQuestionBoxDialog> {
               controller: _promptController,
               style: const TextStyle(color: Colors.white),
               decoration: InputDecoration(
-                hintText: 'Your prompt...',
+                hintText: AppLocalizations.of(context)!.yourPrompt,
                 hintStyle: TextStyle(color: Colors.grey[500]),
                 filled: true,
                 fillColor: Colors.grey[800],

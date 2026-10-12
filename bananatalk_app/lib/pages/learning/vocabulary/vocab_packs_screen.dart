@@ -10,12 +10,29 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 /// in the backend's lib/vocabPackShape.js; when a level is added there it has
 /// to be added here too, or the new packs are only reachable through "All".
 /// That is exactly what happened to the beginner and proficiency packs.
-const kVocabPackLevels = <({String value, String label, Color accent})>[
-  (value: 'beginner', label: 'Beginner', accent: Color(0xFF22C55E)),
-  (value: 'intermediate', label: 'Intermediate', accent: Color(0xFF6366F1)),
-  (value: 'advanced', label: 'Advanced', accent: Color(0xFFEC4899)),
-  (value: 'proficiency', label: 'Proficiency', accent: Color(0xFFF59E0B)),
+const kVocabPackLevels = <({String value, Color accent})>[
+  (value: 'beginner', accent: Color(0xFF22C55E)),
+  (value: 'intermediate', accent: Color(0xFF6366F1)),
+  (value: 'advanced', accent: Color(0xFFEC4899)),
+  (value: 'proficiency', accent: Color(0xFFF59E0B)),
 ];
+
+/// Localized name for a [kVocabPackLevels] value. An unknown level (a server
+/// addition this build predates) shows its raw value rather than nothing.
+String _levelLabel(AppLocalizations l10n, String value) {
+  switch (value) {
+    case 'beginner':
+      return l10n.levelBeginner;
+    case 'intermediate':
+      return l10n.levelIntermediate;
+    case 'advanced':
+      return l10n.levelAdvanced;
+    case 'proficiency':
+      return l10n.vocabPackLevelProficiency;
+    default:
+      return value;
+  }
+}
 
 /// Browse curated vocabulary packs at every CEFR band, each with words and
 /// practice exercises.
@@ -41,7 +58,7 @@ class VocabPacksScreen extends ConsumerWidget {
               children: [
                 _LevelChip(
                   key: const Key('level-chip-all'),
-                  label: 'All',
+                  label: AppLocalizations.of(context)!.all,
                   selected: level == null,
                   onTap: () =>
                       ref.read(vocabPackLevelFilterProvider.notifier).state = null,
@@ -50,7 +67,7 @@ class VocabPacksScreen extends ConsumerWidget {
                   const SizedBox(width: 8),
                   _LevelChip(
                     key: Key('level-chip-${l.value}'),
-                    label: l.label,
+                    label: _levelLabel(AppLocalizations.of(context)!, l.value),
                     selected: level == l.value,
                     onTap: () => ref
                         .read(vocabPackLevelFilterProvider.notifier)

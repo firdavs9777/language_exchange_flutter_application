@@ -10902,4 +10902,260 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get commonReportReasonCopyright => 'Telif hakkı ihlali';
+
+  @override
+  String get momentsRemoveVoiceNote => 'Sesli notu kaldır';
+
+  @override
+  String get vocabPackLevelProficiency => 'Yeterlilik';
+
+  @override
+  String get aiFailedToLoadFeedback => 'Geri bildirim yüklenemedi';
+
+  @override
+  String get aiFailedToLoadSummary => 'Özet yüklenemedi';
+
+  @override
+  String get momentFailedToLoad => 'An yüklenemedi';
+
+  @override
+  String get aiPronunciationWatchAdRetry => 'Bir ücretsiz deneme daha için reklam izle';
+
+  @override
+  String aiErrorLoadingLanguages(Object error) {
+    return 'Diller yüklenirken hata: $error';
+  }
+
+  @override
+  String get aiSelectSourceTargetLanguages => 'Lütfen kaynak ve hedef dilleri seçin';
+
+  @override
+  String get aiUnexpectedResponseFormat => 'Beklenmeyen yanıt biçimi';
+
+  @override
+  String get aiFailedToLoadConversation => 'Konuşma yüklenemedi';
+
+  @override
+  String get aiMicPermissionDeniedSettings => 'Mikrofon izni reddedildi. Lütfen Ayarlar\'dan etkinleştirin.';
+
+  @override
+  String get aiFailedToEvaluatePronunciation => 'Telaffuz değerlendirilemedi';
+
+  @override
+  String get aiFailedToGenerateSpeech => 'Konuşma oluşturulamadı';
+
+  @override
+  String get aiFailedToGenerateLesson => 'Ders oluşturulamadı';
+
+  @override
+  String get aiLessonTopicRequired => 'Lütfen bir konu girin';
+
+  @override
+  String get aiFailedToLoadTopics => 'Konular yüklenemedi';
+
+  @override
+  String get aiFailedToLoadScenarios => 'Senaryolar yüklenemedi';
+
+  @override
+  String get aiAnalysisFailed => 'Analiz başarısız oldu';
+
+  @override
+  String get storySearchPlaceHint => 'Yer ara…';
+
+  @override
+  String get storySearchRecentChatsHint => 'Son sohbetleri ara…';
+
+  @override
+  String get storySearchFollowingHint => 'Takip ettiğin kişileri ara…';
+
+  @override
+  String get storyAddHashtagsHint => 'Hashtag ekle...';
+
+  @override
+  String get storyHighlightCreateFailed => 'Öne çıkan oluşturulamadı';
+
+  @override
+  String get storyHighlightRenameFailed => 'Öne çıkanın adı değiştirilemedi';
+
+  @override
+  String get storyHighlightDeleteFailed => 'Öne çıkan silinemedi';
+
+  @override
+  String get storyViewersLoadFailed => 'İzleyenler yüklenemedi';
+
+  @override
+  String get storyShareSent => 'Gönderildi 💛';
+
+  @override
+  String storyShareSentPartial(Object names) {
+    return 'Gönderildi 💛 — $names için başarısız oldu';
+  }
+
+  @override
+  String get storyVoteFailed => 'Oy gönderilemedi';
+
+  @override
+  String get storyAnswerFailed => 'Yanıt gönderilemedi';
+
+  @override
+  String get storyAlreadyInHighlight => 'Zaten bir öne çıkana kaydedildi';
+
+  @override
+  String get storyAddedToHighlight => 'Öne çıkana eklendi';
+
+  @override
+  String storyMaxHashtags(int max) {
+    return 'En fazla $max hashtag ekleyebilirsin';
+  }
+
+  @override
+  String storyMaxMentions(int max) {
+    return 'En fazla $max kişiyi etiketleyebilirsin';
+  }
+
+  @override
+  String get coinHistoryActivity => 'Jeton etkinliği';
+
+  @override
+  String get coinHistoryAdReward => 'Reklam izlendi';
+
+  @override
+  String get coinHistoryPurchase => 'Jeton satın alma';
+
+  @override
+  String coinHistoryUnlocked(Object feature) {
+    return '$feature kilidi açıldı';
+  }
+
+  @override
+  String get vipVisitorMessagesBenefit => 'Günde 50 mesaja kadar gönderin';
+
+  @override
+  String get vipVisitorProfilesBenefit => 'Günde 100 profile kadar görüntüleyin';
+
+  @override
+  String get vipVisitorFriendsBenefit => 'Arkadaş ekleyin ve çevrenizi genişletin';
+
+  @override
+  String get vipVisitorCommunitiesTitle => 'Topluluklara katılın';
+
+  @override
+  String get vipVisitorCommunitiesBenefit => 'Topluluk tartışmalarına katılın';
+
+  @override
+  String get vipVisitorMomentsTitle => 'Anları paylaşın';
+
+  @override
+  String get vipVisitorMomentsBenefit => 'Anlarınızı paylaşın';
+
+  @override
+  String get vipUnlimitedEverythingTitle => 'Her şey sınırsız';
+
+  @override
+  String get vipUnlimitedEverythingBenefit => 'Mesajlarda veya profil görüntülemede günlük sınır yok';
+
+  @override
+  String get vipProfileBoostBenefit => 'Arama sonuçlarında daha görünür olun';
+
+  @override
+  String get vipAdFreeExperienceBenefit => 'Uygulamanın keyfini reklamsız çıkarın';
+
+  @override
+  String get featureGateUpgradeToUnlock => 'Bu özelliğin kilidini açmak için yükseltin';
+
+  @override
+  String get featureGateVipOnly => 'Yalnızca VIP özelliği';
+
+  @override
+  String get adsRewardedButtonLabel => 'Bonus için reklam izle';
+
+  @override
+  String get promoAdsPerkMessages => '+3 bonus\nmesaj';
+
+  @override
+  String get promoAdsPerkFilters => 'Filtrelerin\nkilidini aç';
+
+  @override
+  String get promoAdsPerkXp => '+10 bonus\nXP';
+
+  @override
+  String get promoAdsPerkRetry => 'Ücretsiz\ntekrar deneme';
+
+  @override
+  String get visitorLimitMessagesTitle => 'Günlük mesaj sınırına ulaşıldı';
+
+  @override
+  String visitorLimitMessagesBody(int count) {
+    return 'Bugün $count mesaj gönderdiniz. Daha fazlasını göndermek için yükseltin!';
+  }
+
+  @override
+  String get visitorLimitProfilesTitle => 'Günlük profil görüntüleme sınırına ulaşıldı';
+
+  @override
+  String visitorLimitProfilesBody(int count) {
+    return 'Bugün $count profil görüntülediniz. Daha fazlasını görmek için yükseltin!';
+  }
+
+  @override
+  String get visitorLimitFreeAccountBenefit => 'Daha yüksek günlük sınırlar';
+
+  @override
+  String get visitorLimitVipBenefit => 'Sınırsız erişim';
+
+  @override
+  String get promoWelcomeBackTutorSubtitle => 'Konuşma, telaffuz ve sınav pratiği yapın';
+
+  @override
+  String get promoWelcomeBackCommunitySubtitle => 'Yakınındaki dil partnerlerini bul';
+
+  @override
+  String get promoWelcomeBackMomentsSubtitle => 'Dil öğrenme yolculuğunu paylaş';
+
+  @override
+  String get myReportsReportedId => 'Bildirilen kimlik';
+
+  @override
+  String get myReportsReason => 'Neden';
+
+  @override
+  String get myReportsSubmitted => 'Gönderildi';
+
+  @override
+  String get myReportsResolved => 'Çözüldü';
+
+  @override
+  String get myReportsModeratorNotes => 'Moderatör notları';
+
+  @override
+  String get myReportsNotAvailable => 'Yok';
+
+  @override
+  String get myReportsFailedToLoad => 'Bildirimler yüklenemedi';
+
+  @override
+  String get voiceRecorderUnavailableDesktop => 'Masaüstünde sesli kayıt kullanılamıyor';
+
+  @override
+  String get adminPageUnavailable => 'Bu sayfa kullanılamıyor.';
+
+  @override
+  String storyShareSendFailedTo(Object names) {
+    return '$names kişisine gönderilemedi';
+  }
+
+  @override
+  String get storyCantReact => 'Bu hikâyeye tepki veremezsin';
+
+  @override
+  String get storyCantReply => 'Bu hikâyeyi yanıtlayamazsın';
+
+  @override
+  String get storyNoMediaToSave => 'Bu hikâyede kaydedilecek medya yok';
+
+  @override
+  String get coinsAdCrediting => 'Ekleniyor…';
+
+  @override
+  String get coinsWatchAdReward => 'Reklam izle (+5 💎)';
 }

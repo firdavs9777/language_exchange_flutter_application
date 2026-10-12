@@ -10904,4 +10904,260 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get commonReportReasonCopyright => 'Paglabag sa copyright';
+
+  @override
+  String get momentsRemoveVoiceNote => 'Alisin ang voice note';
+
+  @override
+  String get vocabPackLevelProficiency => 'Kahusayan';
+
+  @override
+  String get aiFailedToLoadFeedback => 'Hindi na-load ang feedback';
+
+  @override
+  String get aiFailedToLoadSummary => 'Hindi na-load ang buod';
+
+  @override
+  String get momentFailedToLoad => 'Hindi na-load ang moment';
+
+  @override
+  String get aiPronunciationWatchAdRetry => 'Manood ng ad para sa isa pang libreng subok';
+
+  @override
+  String aiErrorLoadingLanguages(Object error) {
+    return 'Error sa pag-load ng mga wika: $error';
+  }
+
+  @override
+  String get aiSelectSourceTargetLanguages => 'Pumili ng pinagmulang wika at target na wika';
+
+  @override
+  String get aiUnexpectedResponseFormat => 'Hindi inaasahang format ng tugon';
+
+  @override
+  String get aiFailedToLoadConversation => 'Hindi na-load ang usapan';
+
+  @override
+  String get aiMicPermissionDeniedSettings => 'Tinanggihan ang pahintulot sa mikropono. Paki-enable ito sa Settings.';
+
+  @override
+  String get aiFailedToEvaluatePronunciation => 'Hindi nasuri ang pagbigkas';
+
+  @override
+  String get aiFailedToGenerateSpeech => 'Hindi nakabuo ng boses';
+
+  @override
+  String get aiFailedToGenerateLesson => 'Hindi nakabuo ng aralin';
+
+  @override
+  String get aiLessonTopicRequired => 'Maglagay ng paksa';
+
+  @override
+  String get aiFailedToLoadTopics => 'Hindi na-load ang mga paksa';
+
+  @override
+  String get aiFailedToLoadScenarios => 'Hindi na-load ang mga senaryo';
+
+  @override
+  String get aiAnalysisFailed => 'Nabigo ang pagsusuri';
+
+  @override
+  String get storySearchPlaceHint => 'Maghanap ng lugar…';
+
+  @override
+  String get storySearchRecentChatsHint => 'Maghanap sa mga kamakailang chat…';
+
+  @override
+  String get storySearchFollowingHint => 'Maghanap ng mga taong sinusundan mo…';
+
+  @override
+  String get storyAddHashtagsHint => 'Magdagdag ng mga hashtag...';
+
+  @override
+  String get storyHighlightCreateFailed => 'Hindi nagawa ang highlight';
+
+  @override
+  String get storyHighlightRenameFailed => 'Hindi napalitan ang pangalan ng highlight';
+
+  @override
+  String get storyHighlightDeleteFailed => 'Hindi nabura ang highlight';
+
+  @override
+  String get storyViewersLoadFailed => 'Hindi na-load ang mga nanood';
+
+  @override
+  String get storyShareSent => 'Naipadala 💛';
+
+  @override
+  String storyShareSentPartial(Object names) {
+    return 'Naipadala 💛 — nabigo para kina $names';
+  }
+
+  @override
+  String get storyVoteFailed => 'Hindi naisumite ang boto';
+
+  @override
+  String get storyAnswerFailed => 'Hindi naipadala ang sagot';
+
+  @override
+  String get storyAlreadyInHighlight => 'Naka-save na sa isang highlight';
+
+  @override
+  String get storyAddedToHighlight => 'Naidagdag sa highlight';
+
+  @override
+  String storyMaxHashtags(int max) {
+    return 'Maaari kang magdagdag ng hanggang $max hashtag';
+  }
+
+  @override
+  String storyMaxMentions(int max) {
+    return 'Maaari kang mag-mention ng hanggang $max tao';
+  }
+
+  @override
+  String get coinHistoryActivity => 'Aktibidad ng coin';
+
+  @override
+  String get coinHistoryAdReward => 'Nanood ng ad';
+
+  @override
+  String get coinHistoryPurchase => 'Pagbili ng coin';
+
+  @override
+  String coinHistoryUnlocked(Object feature) {
+    return 'Na-unlock ang $feature';
+  }
+
+  @override
+  String get vipVisitorMessagesBenefit => 'Magpadala ng hanggang 50 mensahe bawat araw';
+
+  @override
+  String get vipVisitorProfilesBenefit => 'Tumingin ng hanggang 100 profile bawat araw';
+
+  @override
+  String get vipVisitorFriendsBenefit => 'Magdagdag ng mga kaibigan at palawakin ang iyong network';
+
+  @override
+  String get vipVisitorCommunitiesTitle => 'Sumali sa mga komunidad';
+
+  @override
+  String get vipVisitorCommunitiesBenefit => 'Makilahok sa mga talakayan ng komunidad';
+
+  @override
+  String get vipVisitorMomentsTitle => 'Magbahagi ng mga moment';
+
+  @override
+  String get vipVisitorMomentsBenefit => 'Mag-post at magbahagi ng iyong mga moment';
+
+  @override
+  String get vipUnlimitedEverythingTitle => 'Lahat ay walang limitasyon';
+
+  @override
+  String get vipUnlimitedEverythingBenefit => 'Walang pang-araw-araw na limitasyon sa mga mensahe o pagtingin ng profile';
+
+  @override
+  String get vipProfileBoostBenefit => 'Mas makita sa mga resulta ng paghahanap';
+
+  @override
+  String get vipAdFreeExperienceBenefit => 'I-enjoy ang app nang walang ad';
+
+  @override
+  String get featureGateUpgradeToUnlock => 'Mag-upgrade para ma-unlock ang feature na ito';
+
+  @override
+  String get featureGateVipOnly => 'Feature para sa VIP lang';
+
+  @override
+  String get adsRewardedButtonLabel => 'Manood ng ad para sa bonus';
+
+  @override
+  String get promoAdsPerkMessages => '+3 bonus\nna mensahe';
+
+  @override
+  String get promoAdsPerkFilters => 'I-unlock ang\nmga filter';
+
+  @override
+  String get promoAdsPerkXp => '+10 bonus\nXP';
+
+  @override
+  String get promoAdsPerkRetry => 'Libreng\nulit';
+
+  @override
+  String get visitorLimitMessagesTitle => 'Naabot na ang pang-araw-araw na limitasyon ng mensahe';
+
+  @override
+  String visitorLimitMessagesBody(int count) {
+    return 'Nakapagpadala ka na ng $count mensahe ngayong araw. Mag-upgrade para magpadala pa!';
+  }
+
+  @override
+  String get visitorLimitProfilesTitle => 'Naabot na ang pang-araw-araw na limitasyon sa pagtingin ng profile';
+
+  @override
+  String visitorLimitProfilesBody(int count) {
+    return 'Nakakita ka na ng $count profile ngayong araw. Mag-upgrade para makakita pa!';
+  }
+
+  @override
+  String get visitorLimitFreeAccountBenefit => 'Mas mataas na pang-araw-araw na limitasyon';
+
+  @override
+  String get visitorLimitVipBenefit => 'Walang limitasyong access';
+
+  @override
+  String get promoWelcomeBackTutorSubtitle => 'Magsanay ng pag-uusap, pagbigkas, at mga quiz';
+
+  @override
+  String get promoWelcomeBackCommunitySubtitle => 'Humanap ng mga language partner malapit sa iyo';
+
+  @override
+  String get promoWelcomeBackMomentsSubtitle => 'Ibahagi ang iyong paglalakbay sa pag-aaral ng wika';
+
+  @override
+  String get myReportsReportedId => 'Na-report na ID';
+
+  @override
+  String get myReportsReason => 'Dahilan';
+
+  @override
+  String get myReportsSubmitted => 'Naisumite';
+
+  @override
+  String get myReportsResolved => 'Nalutas';
+
+  @override
+  String get myReportsModeratorNotes => 'Mga tala ng moderator';
+
+  @override
+  String get myReportsNotAvailable => 'Wala';
+
+  @override
+  String get myReportsFailedToLoad => 'Hindi na-load ang mga ulat';
+
+  @override
+  String get voiceRecorderUnavailableDesktop => 'Hindi available ang voice recording sa desktop';
+
+  @override
+  String get adminPageUnavailable => 'Hindi available ang pahinang ito.';
+
+  @override
+  String storyShareSendFailedTo(Object names) {
+    return 'Hindi naipadala kina $names';
+  }
+
+  @override
+  String get storyCantReact => 'Hindi ka makakapag-react sa story na ito';
+
+  @override
+  String get storyCantReply => 'Hindi ka makakasagot sa story na ito';
+
+  @override
+  String get storyNoMediaToSave => 'Walang media na ise-save sa story na ito';
+
+  @override
+  String get coinsAdCrediting => 'Kinukredito…';
+
+  @override
+  String get coinsWatchAdReward => 'Manood ng ad (+5 💎)';
 }

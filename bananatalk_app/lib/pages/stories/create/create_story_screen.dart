@@ -139,7 +139,7 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
     if (_hashtags.length >= _maxHashtags) {
       showStoriesSnackBar(
         context,
-        message: 'You can add up to $_maxHashtags hashtags',
+        message: AppLocalizations.of(context)!.storyMaxHashtags(_maxHashtags),
         type: StoriesSnackBarType.info,
       );
       return;
@@ -364,7 +364,10 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
           showStoriesSnackBar(
             context,
             message:
-                'Video optimized: ${result.fileSizeMB}MB (saved ${result.compressionSavings.toStringAsFixed(0)}%)',
+                AppLocalizations.of(context)!.videoOptimized(
+                  result.fileSizeMB.toString(),
+                  result.compressionSavings.toStringAsFixed(0),
+                ),
             type: StoriesSnackBarType.success,
           );
         }
@@ -372,7 +375,7 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
         if (mounted) {
           showStoriesSnackBar(
             context,
-            message: result.error ?? 'Failed to process video',
+            message: result.error ?? AppLocalizations.of(context)!.failedToProcessVideo,
             type: StoriesSnackBarType.error,
           );
         }
@@ -548,7 +551,7 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
             setState(() => _isUploading = false);
             showStoriesSnackBar(
               context,
-              message: result.error ?? 'Failed to post story',
+              message: result.error ?? AppLocalizations.of(context)!.storyPostFailed,
               type: StoriesSnackBarType.error,
             );
           }
@@ -592,7 +595,7 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
             setState(() => _isUploading = false);
             showStoriesSnackBar(
               context,
-              message: result.error ?? 'Failed to post story',
+              message: result.error ?? AppLocalizations.of(context)!.storyPostFailed,
               type: StoriesSnackBarType.error,
             );
           }
@@ -642,7 +645,7 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
             // `_strokes` field doc for why video/text are excluded.
             if (_mediaFile != null && !_isVideo)
               IconButton(
-                tooltip: 'Draw',
+                tooltip: AppLocalizations.of(context)!.storyToolDraw,
                 onPressed: () => setState(() => _drawMode = !_drawMode),
                 icon: Icon(
                   Icons.brush_rounded,
@@ -712,7 +715,7 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
             children: [
               _buildPickerOption(
                 icon: Icons.photo_library,
-                label: 'Gallery',
+                label: AppLocalizations.of(context)!.gallery,
                 onTap: _pickImage,
               ),
               _buildPickerOption(
@@ -937,7 +940,7 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
                 controller: _captionController,
                 style: const TextStyle(color: Colors.white),
                 decoration: InputDecoration(
-                  hintText: 'Add a caption...',
+                  hintText: AppLocalizations.of(context)!.addACaption,
                   hintStyle: const TextStyle(color: Colors.white54),
                   filled: true,
                   fillColor: Colors.black54,
@@ -1302,8 +1305,8 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
               controller: _hashtagController,
               autofocus: true,
               style: const TextStyle(color: Colors.white, fontSize: 14),
-              decoration: const InputDecoration(
-                hintText: 'Add hashtags...',
+              decoration: InputDecoration(
+                hintText: AppLocalizations.of(context)!.storyAddHashtagsHint,
                 hintStyle: TextStyle(color: Colors.white54, fontSize: 14),
                 border: InputBorder.none,
                 isDense: true,
@@ -1464,7 +1467,7 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
     if (_mentions.length >= _maxMentions) {
       showStoriesSnackBar(
         context,
-        message: 'You can mention up to $_maxMentions people',
+        message: AppLocalizations.of(context)!.storyMaxMentions(_maxMentions),
         type: StoriesSnackBarType.info,
       );
       return;

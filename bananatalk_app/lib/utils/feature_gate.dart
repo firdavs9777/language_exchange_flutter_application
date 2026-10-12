@@ -265,10 +265,10 @@ class FeatureGate {
     IconData icon;
 
     if (user.isVisitor) {
-      message = 'Upgrade to unlock this feature';
+      message = AppLocalizations.of(context)!.featureGateUpgradeToUnlock;
       icon = Icons.lock_outline;
     } else {
-      message = 'VIP only feature';
+      message = AppLocalizations.of(context)!.featureGateVipOnly;
       icon = Icons.workspace_premium;
     }
 

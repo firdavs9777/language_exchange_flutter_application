@@ -224,7 +224,7 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: RewardedAdButton(
-                  label: 'Watch Ad for +10 Bonus XP',
+                  label: AppLocalizations.of(context)!.vocabWatchAdBonus,
                   onRewarded: () {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text(AppLocalizations.of(context)!.vocabBonusEarned)),

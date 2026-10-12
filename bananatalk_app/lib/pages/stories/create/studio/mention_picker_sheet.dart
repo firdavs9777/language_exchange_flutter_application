@@ -90,7 +90,7 @@ class _MentionSheetState extends State<_MentionSheet> {
                   controller: _controller,
                   onChanged: (_) => setState(() {}),
                   decoration: InputDecoration(
-                    hintText: 'Search people you follow…',
+                    hintText: AppLocalizations.of(context)!.storySearchFollowingHint,
                     prefixIcon: const Icon(Icons.search_rounded),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(14),

@@ -67,7 +67,7 @@ class _AnswerFeedbackSheetState extends State<AnswerFeedbackSheet> {
         if (result['success'] == true && result['data'] != null) {
           _feedback = result['data'] as FeedbackResponse;
         } else {
-          _error = result['message'] ?? 'Failed to load feedback';
+          _error = result['message'] ?? AppLocalizations.of(context)!.aiFailedToLoadFeedback;
         }
       });
     }

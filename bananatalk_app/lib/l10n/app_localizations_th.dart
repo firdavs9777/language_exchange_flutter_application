@@ -10885,4 +10885,260 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get commonReportReasonCopyright => 'การละเมิดลิขสิทธิ์';
+
+  @override
+  String get momentsRemoveVoiceNote => 'ลบโน้ตเสียง';
+
+  @override
+  String get vocabPackLevelProficiency => 'ชำนาญ';
+
+  @override
+  String get aiFailedToLoadFeedback => 'โหลดคำติชมไม่สำเร็จ';
+
+  @override
+  String get aiFailedToLoadSummary => 'โหลดสรุปไม่สำเร็จ';
+
+  @override
+  String get momentFailedToLoad => 'โหลดโมเมนต์ไม่สำเร็จ';
+
+  @override
+  String get aiPronunciationWatchAdRetry => 'ดูโฆษณาเพื่อลองฟรีอีกครั้ง';
+
+  @override
+  String aiErrorLoadingLanguages(Object error) {
+    return 'เกิดข้อผิดพลาดในการโหลดภาษา: $error';
+  }
+
+  @override
+  String get aiSelectSourceTargetLanguages => 'โปรดเลือกภาษาต้นทางและภาษาปลายทาง';
+
+  @override
+  String get aiUnexpectedResponseFormat => 'รูปแบบการตอบกลับไม่ถูกต้อง';
+
+  @override
+  String get aiFailedToLoadConversation => 'โหลดบทสนทนาไม่สำเร็จ';
+
+  @override
+  String get aiMicPermissionDeniedSettings => 'ไม่อนุญาตให้ใช้ไมโครโฟน โปรดเปิดในการตั้งค่า';
+
+  @override
+  String get aiFailedToEvaluatePronunciation => 'ประเมินการออกเสียงไม่สำเร็จ';
+
+  @override
+  String get aiFailedToGenerateSpeech => 'สร้างเสียงพูดไม่สำเร็จ';
+
+  @override
+  String get aiFailedToGenerateLesson => 'สร้างบทเรียนไม่สำเร็จ';
+
+  @override
+  String get aiLessonTopicRequired => 'โปรดป้อนหัวข้อ';
+
+  @override
+  String get aiFailedToLoadTopics => 'โหลดหัวข้อไม่สำเร็จ';
+
+  @override
+  String get aiFailedToLoadScenarios => 'โหลดสถานการณ์ไม่สำเร็จ';
+
+  @override
+  String get aiAnalysisFailed => 'การวิเคราะห์ล้มเหลว';
+
+  @override
+  String get storySearchPlaceHint => 'ค้นหาสถานที่…';
+
+  @override
+  String get storySearchRecentChatsHint => 'ค้นหาแชตล่าสุด…';
+
+  @override
+  String get storySearchFollowingHint => 'ค้นหาคนที่คุณติดตาม…';
+
+  @override
+  String get storyAddHashtagsHint => 'เพิ่มแฮชแท็ก...';
+
+  @override
+  String get storyHighlightCreateFailed => 'สร้างไฮไลต์ไม่สำเร็จ';
+
+  @override
+  String get storyHighlightRenameFailed => 'เปลี่ยนชื่อไฮไลต์ไม่สำเร็จ';
+
+  @override
+  String get storyHighlightDeleteFailed => 'ลบไฮไลต์ไม่สำเร็จ';
+
+  @override
+  String get storyViewersLoadFailed => 'โหลดผู้ชมไม่สำเร็จ';
+
+  @override
+  String get storyShareSent => 'ส่งแล้ว 💛';
+
+  @override
+  String storyShareSentPartial(Object names) {
+    return 'ส่งแล้ว 💛 — ส่งถึง $names ไม่สำเร็จ';
+  }
+
+  @override
+  String get storyVoteFailed => 'ส่งโหวตไม่สำเร็จ';
+
+  @override
+  String get storyAnswerFailed => 'ส่งคำตอบไม่สำเร็จ';
+
+  @override
+  String get storyAlreadyInHighlight => 'บันทึกในไฮไลต์แล้ว';
+
+  @override
+  String get storyAddedToHighlight => 'เพิ่มในไฮไลต์แล้ว';
+
+  @override
+  String storyMaxHashtags(int max) {
+    return 'เพิ่มแฮชแท็กได้สูงสุด $max รายการ';
+  }
+
+  @override
+  String storyMaxMentions(int max) {
+    return 'แท็กได้สูงสุด $max คน';
+  }
+
+  @override
+  String get coinHistoryActivity => 'กิจกรรมเหรียญ';
+
+  @override
+  String get coinHistoryAdReward => 'ดูโฆษณา';
+
+  @override
+  String get coinHistoryPurchase => 'ซื้อเหรียญ';
+
+  @override
+  String coinHistoryUnlocked(Object feature) {
+    return 'ปลดล็อก $feature';
+  }
+
+  @override
+  String get vipVisitorMessagesBenefit => 'ส่งข้อความได้สูงสุด 50 ข้อความต่อวัน';
+
+  @override
+  String get vipVisitorProfilesBenefit => 'ดูโปรไฟล์ได้สูงสุด 100 โปรไฟล์ต่อวัน';
+
+  @override
+  String get vipVisitorFriendsBenefit => 'เพิ่มเพื่อนและขยายเครือข่ายของคุณ';
+
+  @override
+  String get vipVisitorCommunitiesTitle => 'เข้าร่วมคอมมูนิตี้';
+
+  @override
+  String get vipVisitorCommunitiesBenefit => 'ร่วมสนทนาในคอมมูนิตี้';
+
+  @override
+  String get vipVisitorMomentsTitle => 'แชร์โมเมนต์';
+
+  @override
+  String get vipVisitorMomentsBenefit => 'โพสต์และแชร์โมเมนต์ของคุณ';
+
+  @override
+  String get vipUnlimitedEverythingTitle => 'ไม่จำกัดทุกอย่าง';
+
+  @override
+  String get vipUnlimitedEverythingBenefit => 'ไม่จำกัดข้อความหรือการดูโปรไฟล์รายวัน';
+
+  @override
+  String get vipProfileBoostBenefit => 'ถูกมองเห็นมากขึ้นในผลการค้นหา';
+
+  @override
+  String get vipAdFreeExperienceBenefit => 'ใช้งานแอปได้โดยไม่มีโฆษณา';
+
+  @override
+  String get featureGateUpgradeToUnlock => 'อัปเกรดเพื่อปลดล็อกฟีเจอร์นี้';
+
+  @override
+  String get featureGateVipOnly => 'ฟีเจอร์เฉพาะ VIP';
+
+  @override
+  String get adsRewardedButtonLabel => 'ดูโฆษณาเพื่อรับโบนัส';
+
+  @override
+  String get promoAdsPerkMessages => '+3 ข้อความ\nโบนัส';
+
+  @override
+  String get promoAdsPerkFilters => 'ปลดล็อก\nตัวกรอง';
+
+  @override
+  String get promoAdsPerkXp => '+10 XP\nโบนัส';
+
+  @override
+  String get promoAdsPerkRetry => 'ลองใหม่\nฟรี';
+
+  @override
+  String get visitorLimitMessagesTitle => 'ถึงขีดจำกัดข้อความรายวันแล้ว';
+
+  @override
+  String visitorLimitMessagesBody(int count) {
+    return 'วันนี้คุณส่งไปแล้ว $count ข้อความ อัปเกรดเพื่อส่งเพิ่ม!';
+  }
+
+  @override
+  String get visitorLimitProfilesTitle => 'ถึงขีดจำกัดการดูโปรไฟล์รายวันแล้ว';
+
+  @override
+  String visitorLimitProfilesBody(int count) {
+    return 'วันนี้คุณดูไปแล้ว $count โปรไฟล์ อัปเกรดเพื่อดูเพิ่ม!';
+  }
+
+  @override
+  String get visitorLimitFreeAccountBenefit => 'ขีดจำกัดรายวันสูงขึ้น';
+
+  @override
+  String get visitorLimitVipBenefit => 'เข้าถึงได้ไม่จำกัด';
+
+  @override
+  String get promoWelcomeBackTutorSubtitle => 'ฝึกสนทนา การออกเสียง และแบบทดสอบ';
+
+  @override
+  String get promoWelcomeBackCommunitySubtitle => 'ค้นหาคู่ฝึกภาษาใกล้ตัวคุณ';
+
+  @override
+  String get promoWelcomeBackMomentsSubtitle => 'แชร์เส้นทางการเรียนภาษาของคุณ';
+
+  @override
+  String get myReportsReportedId => 'ID ที่ถูกรายงาน';
+
+  @override
+  String get myReportsReason => 'เหตุผล';
+
+  @override
+  String get myReportsSubmitted => 'ส่งเมื่อ';
+
+  @override
+  String get myReportsResolved => 'แก้ไขเมื่อ';
+
+  @override
+  String get myReportsModeratorNotes => 'บันทึกของผู้ดูแล';
+
+  @override
+  String get myReportsNotAvailable => 'ไม่มี';
+
+  @override
+  String get myReportsFailedToLoad => 'โหลดรายงานไม่สำเร็จ';
+
+  @override
+  String get voiceRecorderUnavailableDesktop => 'ไม่รองรับการบันทึกเสียงบนเดสก์ท็อป';
+
+  @override
+  String get adminPageUnavailable => 'ไม่สามารถใช้หน้านี้ได้';
+
+  @override
+  String storyShareSendFailedTo(Object names) {
+    return 'ส่งถึง $names ไม่ได้';
+  }
+
+  @override
+  String get storyCantReact => 'คุณไม่สามารถแสดงปฏิกิริยากับสตอรี่นี้ได้';
+
+  @override
+  String get storyCantReply => 'คุณไม่สามารถตอบกลับสตอรี่นี้ได้';
+
+  @override
+  String get storyNoMediaToSave => 'สตอรี่นี้ไม่มีสื่อให้บันทึก';
+
+  @override
+  String get coinsAdCrediting => 'กำลังเพิ่มเหรียญ…';
+
+  @override
+  String get coinsWatchAdReward => 'ดูโฆษณา (+5 💎)';
 }

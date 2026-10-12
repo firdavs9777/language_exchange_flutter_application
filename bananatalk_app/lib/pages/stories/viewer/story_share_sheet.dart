@@ -49,19 +49,19 @@ Future<void> showStoryShareSheet(
   if (result.failedNames.isEmpty) {
     showChatSnackBar(
       context,
-      message: 'Sent 💛',
+      message: AppLocalizations.of(context)!.storyShareSent,
       type: ChatSnackBarType.success,
     );
   } else if (result.successCount == 0) {
     showChatSnackBar(
       context,
-      message: "Couldn't send to ${result.failedNames.join(', ')}",
+      message: AppLocalizations.of(context)!.storyShareSendFailedTo(result.failedNames.join(', ')),
       type: ChatSnackBarType.error,
     );
   } else {
     showChatSnackBar(
       context,
-      message: 'Sent 💛 — failed for ${result.failedNames.join(', ')}',
+      message: AppLocalizations.of(context)!.storyShareSentPartial(result.failedNames.join(', ')),
       type: ChatSnackBarType.info,
     );
   }
@@ -205,7 +205,7 @@ class _StoryShareSheetState extends State<_StoryShareSheet> {
                   controller: _controller,
                   onChanged: (_) => setState(() {}),
                   decoration: InputDecoration(
-                    hintText: 'Search recent chats…',
+                    hintText: AppLocalizations.of(context)!.storySearchRecentChatsHint,
                     prefixIcon: const Icon(Icons.search_rounded),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(14),

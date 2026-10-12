@@ -490,7 +490,7 @@ class _TopicSelectionSheetState extends ConsumerState<TopicSelectionSheet> {
       loading: () => const Center(
         child: CircularProgressIndicator(color: AppColors.accent),
       ),
-      error: (_, __) => _buildEmptyState('Failed to load topics'),
+      error: (_, __) => _buildEmptyState(AppLocalizations.of(context)!.aiFailedToLoadTopics),
     );
   }
 
@@ -601,7 +601,7 @@ class _TopicSelectionSheetState extends ConsumerState<TopicSelectionSheet> {
       loading: () => const Center(
         child: CircularProgressIndicator(color: AppColors.accent),
       ),
-      error: (_, __) => _buildEmptyState('Failed to load scenarios'),
+      error: (_, __) => _buildEmptyState(AppLocalizations.of(context)!.aiFailedToLoadScenarios),
     );
   }
 

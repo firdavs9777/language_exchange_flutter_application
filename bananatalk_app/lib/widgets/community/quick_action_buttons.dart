@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 /// Quick action buttons for community interactions
 class QuickActionButtons extends StatelessWidget {
@@ -32,14 +33,14 @@ class QuickActionButtons extends StatelessWidget {
             icon: Icons.waving_hand_rounded,
             color: const Color(0xFFFFB74D),
             onTap: onWave,
-            tooltip: 'Wave',
+            tooltip: AppLocalizations.of(context)!.wave,
           ),
           const SizedBox(width: 8),
           _CompactActionButton(
             icon: Icons.chat_bubble_rounded,
             color: const Color(0xFF00BFA5),
             onTap: onMessage,
-            tooltip: 'Message',
+            tooltip: AppLocalizations.of(context)!.message,
           ),
           if (showCall) ...[
             const SizedBox(width: 8),
@@ -47,7 +48,7 @@ class QuickActionButtons extends StatelessWidget {
               icon: Icons.call_rounded,
               color: const Color(0xFF42A5F5),
               onTap: onCall,
-              tooltip: 'Call',
+              tooltip: AppLocalizations.of(context)!.voiceCall,
             ),
           ],
         ],
@@ -65,7 +66,7 @@ class QuickActionButtons extends StatelessWidget {
             onTap: onSkip,
             size: 56,
             iconSize: 28,
-            tooltip: 'Skip',
+            tooltip: AppLocalizations.of(context)!.skip,
           ),
         if (showSkip) const SizedBox(width: 16),
         _ActionButton(
@@ -75,7 +76,7 @@ class QuickActionButtons extends StatelessWidget {
           onTap: onWave,
           size: 64,
           iconSize: 32,
-          tooltip: 'Wave',
+          tooltip: AppLocalizations.of(context)!.wave,
         ),
         const SizedBox(width: 16),
         _ActionButton(
@@ -86,7 +87,7 @@ class QuickActionButtons extends StatelessWidget {
           size: 72,
           iconSize: 36,
           isPrimary: true,
-          tooltip: 'Message',
+          tooltip: AppLocalizations.of(context)!.message,
         ),
         if (showCall) ...[
           const SizedBox(width: 16),
@@ -97,7 +98,7 @@ class QuickActionButtons extends StatelessWidget {
             onTap: onCall,
             size: 64,
             iconSize: 32,
-            tooltip: 'Call',
+            tooltip: AppLocalizations.of(context)!.voiceCall,
           ),
         ],
       ],

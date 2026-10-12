@@ -220,11 +220,11 @@ class _ImageEvidenceViewState extends State<_ImageEvidenceView> {
   }
 }
 
-/// Displays a text evidence file with expandable preview.
-/// Shows first 3 lines by default, with "Show more" button to expand full content.
 /// Dart's `Exception.toString()` prefix, stripped before showing the reason.
 const _exceptionPrefix = 'Exception: ';
 
+/// Displays a text evidence file with expandable preview.
+/// Shows first 3 lines by default, with "Show more" button to expand full content.
 class _TextEvidenceView extends StatefulWidget {
   final EvidenceFile file;
 

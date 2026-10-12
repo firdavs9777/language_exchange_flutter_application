@@ -106,7 +106,7 @@ class VoiceRecordButton extends StatelessWidget {
         Icons.mic_none,
         color: enabled ? Colors.grey[400] : Colors.grey[300],
       ),
-      tooltip: 'Voice recording not available on desktop',
+      tooltip: AppLocalizations.of(context)!.voiceRecorderUnavailableDesktop,
     );
   }
 }

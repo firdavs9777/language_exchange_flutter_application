@@ -7085,5 +7085,141 @@
   "commonReportTypeMessage": "message",
   "commonReportTypeStory": "story",
   "commonReportTypeContent": "content",
-  "commonReportReasonCopyright": "Copyright Violation"
+  "commonReportReasonCopyright": "Copyright Violation",
+  "momentsRemoveVoiceNote": "Remove voice note",
+  "vocabPackLevelProficiency": "Proficiency",
+  "aiFailedToLoadFeedback": "Failed to load feedback",
+  "aiFailedToLoadSummary": "Failed to load summary",
+  "momentFailedToLoad": "Failed to load moment",
+  "aiPronunciationWatchAdRetry": "Watch Ad for another free attempt",
+  "aiErrorLoadingLanguages": "Error loading languages: {error}",
+  "@aiErrorLoadingLanguages": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "aiSelectSourceTargetLanguages": "Please select source and target languages",
+  "aiUnexpectedResponseFormat": "Unexpected response format",
+  "aiFailedToLoadConversation": "Failed to load conversation",
+  "aiMicPermissionDeniedSettings": "Microphone permission denied. Please enable it in Settings.",
+  "aiFailedToEvaluatePronunciation": "Failed to evaluate pronunciation",
+  "aiFailedToGenerateSpeech": "Failed to generate speech",
+  "aiFailedToGenerateLesson": "Failed to generate lesson",
+  "aiLessonTopicRequired": "Please enter a topic",
+  "aiFailedToLoadTopics": "Failed to load topics",
+  "aiFailedToLoadScenarios": "Failed to load scenarios",
+  "aiAnalysisFailed": "Analysis failed",
+  "storySearchPlaceHint": "Search a place…",
+  "storySearchRecentChatsHint": "Search recent chats…",
+  "storySearchFollowingHint": "Search people you follow…",
+  "storyAddHashtagsHint": "Add hashtags...",
+  "storyHighlightCreateFailed": "Failed to create highlight",
+  "storyHighlightRenameFailed": "Failed to rename highlight",
+  "storyHighlightDeleteFailed": "Failed to delete highlight",
+  "storyViewersLoadFailed": "Failed to load viewers",
+  "storyShareSent": "Sent 💛",
+  "storyShareSentPartial": "Sent 💛 — failed for {names}",
+  "@storyShareSentPartial": {
+    "placeholders": {
+      "names": {
+        "type": "Object"
+      }
+    }
+  },
+  "storyVoteFailed": "Failed to submit vote",
+  "storyAnswerFailed": "Failed to send answer",
+  "storyAlreadyInHighlight": "Already saved to a highlight",
+  "storyAddedToHighlight": "Added to highlight",
+  "storyMaxHashtags": "You can add up to {max} hashtags",
+  "@storyMaxHashtags": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "storyMaxMentions": "You can mention up to {max} people",
+  "@storyMaxMentions": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "coinHistoryActivity": "Coin activity",
+  "coinHistoryAdReward": "Watched an ad",
+  "coinHistoryPurchase": "Coin purchase",
+  "coinHistoryUnlocked": "Unlocked {feature}",
+  "@coinHistoryUnlocked": {
+    "placeholders": {
+      "feature": {
+        "type": "Object"
+      }
+    }
+  },
+  "vipVisitorMessagesBenefit": "Send up to 50 messages per day",
+  "vipVisitorProfilesBenefit": "View up to 100 profiles per day",
+  "vipVisitorFriendsBenefit": "Add friends and build your network",
+  "vipVisitorCommunitiesTitle": "Join Communities",
+  "vipVisitorCommunitiesBenefit": "Participate in community discussions",
+  "vipVisitorMomentsTitle": "Share Moments",
+  "vipVisitorMomentsBenefit": "Post and share your moments",
+  "vipUnlimitedEverythingTitle": "Unlimited Everything",
+  "vipUnlimitedEverythingBenefit": "No daily limits on messages or profile views",
+  "vipProfileBoostBenefit": "Get more visibility in search results",
+  "vipAdFreeExperienceBenefit": "Enjoy the app without advertisements",
+  "featureGateUpgradeToUnlock": "Upgrade to unlock this feature",
+  "featureGateVipOnly": "VIP only feature",
+  "adsRewardedButtonLabel": "Watch Ad for Bonus",
+  "promoAdsPerkMessages": "+3 bonus\nmessages",
+  "promoAdsPerkFilters": "Unlock\nfilters",
+  "promoAdsPerkXp": "+10 bonus\nXP",
+  "promoAdsPerkRetry": "Free\nretry",
+  "visitorLimitMessagesTitle": "Daily Message Limit Reached",
+  "visitorLimitMessagesBody": "You have sent {count} messages today. Upgrade to send more!",
+  "@visitorLimitMessagesBody": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "visitorLimitProfilesTitle": "Daily Profile View Limit Reached",
+  "visitorLimitProfilesBody": "You have viewed {count} profiles today. Upgrade to view more!",
+  "@visitorLimitProfilesBody": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "visitorLimitFreeAccountBenefit": "Higher daily limits",
+  "visitorLimitVipBenefit": "Unlimited access",
+  "promoWelcomeBackTutorSubtitle": "Practice conversations, pronunciation & quizzes",
+  "promoWelcomeBackCommunitySubtitle": "Find language partners near you",
+  "promoWelcomeBackMomentsSubtitle": "Share your language learning journey",
+  "myReportsReportedId": "Reported ID",
+  "myReportsReason": "Reason",
+  "myReportsSubmitted": "Submitted",
+  "myReportsResolved": "Resolved",
+  "myReportsModeratorNotes": "Moderator Notes",
+  "myReportsNotAvailable": "N/A",
+  "myReportsFailedToLoad": "Failed to load reports",
+  "voiceRecorderUnavailableDesktop": "Voice recording not available on desktop",
+  "adminPageUnavailable": "This page isn't available.",
+  "storyShareSendFailedTo": "Couldn't send to {names}",
+  "@storyShareSendFailedTo": {
+    "placeholders": {
+      "names": {
+        "type": "Object"
+      }
+    }
+  },
+  "storyCantReact": "You can't react to this story",
+  "storyCantReply": "You can't reply to this story",
+  "storyNoMediaToSave": "This story doesn't have media to save",
+  "coinsAdCrediting": "Crediting…",
+  "coinsWatchAdReward": "Watch ad (+5 💎)"
 }

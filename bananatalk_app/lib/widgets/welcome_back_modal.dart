@@ -91,25 +91,25 @@ class _WelcomeBackSheet extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 20),
-          const _FeatureRow(
+          _FeatureRow(
             icon: Icons.psychology_rounded,
-            color: Color(0xFF8B5CF6),
-            title: 'AI Tutor',
-            subtitle: 'Practice conversations, pronunciation & quizzes',
+            color: const Color(0xFF8B5CF6),
+            title: l10n.aiTutorHomeTitle,
+            subtitle: l10n.promoWelcomeBackTutorSubtitle,
           ),
           const SizedBox(height: 12),
-          const _FeatureRow(
+          _FeatureRow(
             icon: Icons.explore_rounded,
-            color: Color(0xFF00BFA5),
-            title: 'Community',
-            subtitle: 'Find language partners near you',
+            color: const Color(0xFF00BFA5),
+            title: l10n.community,
+            subtitle: l10n.promoWelcomeBackCommunitySubtitle,
           ),
           const SizedBox(height: 12),
-          const _FeatureRow(
+          _FeatureRow(
             icon: Icons.auto_awesome_rounded,
-            color: Color(0xFFFF6B6B),
-            title: 'Moments',
-            subtitle: 'Share your language learning journey',
+            color: const Color(0xFFFF6B6B),
+            title: l10n.moments,
+            subtitle: l10n.promoWelcomeBackMomentsSubtitle,
           ),
           const SizedBox(height: 28),
           SizedBox(

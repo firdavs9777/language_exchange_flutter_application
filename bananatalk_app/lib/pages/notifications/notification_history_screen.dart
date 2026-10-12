@@ -7,7 +7,7 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:timeago/timeago.dart' as timeago;
+import 'package:bananatalk_app/utils/time_ago.dart';
 
 /// What a list-row tap hands the router. Announcement rows store only
 /// `{announcementId}`, so their type is injected; other rows are unchanged.
@@ -817,7 +817,7 @@ class _NotificationHistoryScreenState
                           ),
                           const SizedBox(width: 3),
                           Text(
-                            timeago.format(notification.createdAt),
+                            timeAgoFor(context, notification.createdAt),
                             style: context.captionSmall.copyWith(
                               color: context.textMuted,
                               fontWeight: FontWeight.w600,

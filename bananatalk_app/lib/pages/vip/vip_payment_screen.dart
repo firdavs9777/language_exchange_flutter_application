@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/models/vip_subscription.dart';
@@ -506,6 +507,10 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
     );
   }
 
+  /// Payment-error diagnostics for developer builds ([kDebugMode] only).
+  String _debugInfo() =>
+      'Debug Info:\nUser ID: ${widget.userId}\nPlan: ${widget.plan.name}\nPayment: $selectedPaymentMethod';
+
   void _showErrorDialog(String title, String message) {
     showDialog(
       context: context,
@@ -531,17 +536,17 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
                 message,
                 style: context.bodyMedium,
               ),
-              Spacing.gapMD,
-              Text(
-                'Debug Info:',
-                style: context.labelSmall,
-              ),
-              Text(
-                'User ID: ${widget.userId}\nPlan: ${widget.plan.name}\nPayment: $selectedPaymentMethod',
-                style: context.captionSmall.copyWith(
-                  fontFamily: 'monospace',
+              // Support diagnostics: developer builds only, never shown to
+              // users, so deliberately not localized.
+              if (kDebugMode) ...[
+                Spacing.gapMD,
+                Text(
+                  _debugInfo(),
+                  style: context.captionSmall.copyWith(
+                    fontFamily: 'monospace',
+                  ),
                 ),
-              ),
+              ],
             ],
           ),
         ),

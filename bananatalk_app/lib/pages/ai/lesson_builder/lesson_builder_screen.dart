@@ -96,7 +96,7 @@ class _LessonBuilderScreenState extends ConsumerState<LessonBuilderScreen> {
         if (result['success'] == true && result['data'] != null) {
           _generatedLesson = result['data'] as GeneratedLessonResponse;
         } else {
-          _error = result['message'] ?? 'Failed to generate lesson';
+          _error = result['message'] ?? AppLocalizations.of(context)!.aiFailedToGenerateLesson;
         }
       });
     }
@@ -489,7 +489,7 @@ class _LessonBuilderScreenState extends ConsumerState<LessonBuilderScreen> {
         ),
         validator: (value) {
           if (value == null || value.trim().isEmpty) {
-            return 'Please enter a topic';
+            return AppLocalizations.of(context)!.aiLessonTopicRequired;
           }
           return null;
         },

@@ -10896,4 +10896,260 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get commonReportReasonCopyright => 'Pelanggaran hak cipta';
+
+  @override
+  String get momentsRemoveVoiceNote => 'Hapus catatan suara';
+
+  @override
+  String get vocabPackLevelProficiency => 'Mahir';
+
+  @override
+  String get aiFailedToLoadFeedback => 'Gagal memuat umpan balik';
+
+  @override
+  String get aiFailedToLoadSummary => 'Gagal memuat ringkasan';
+
+  @override
+  String get momentFailedToLoad => 'Gagal memuat momen';
+
+  @override
+  String get aiPronunciationWatchAdRetry => 'Tonton iklan untuk satu percobaan gratis lagi';
+
+  @override
+  String aiErrorLoadingLanguages(Object error) {
+    return 'Kesalahan memuat bahasa: $error';
+  }
+
+  @override
+  String get aiSelectSourceTargetLanguages => 'Pilih bahasa sumber dan bahasa tujuan';
+
+  @override
+  String get aiUnexpectedResponseFormat => 'Format respons tidak terduga';
+
+  @override
+  String get aiFailedToLoadConversation => 'Gagal memuat percakapan';
+
+  @override
+  String get aiMicPermissionDeniedSettings => 'Izin mikrofon ditolak. Aktifkan di Pengaturan.';
+
+  @override
+  String get aiFailedToEvaluatePronunciation => 'Gagal menilai pelafalan';
+
+  @override
+  String get aiFailedToGenerateSpeech => 'Gagal membuat suara';
+
+  @override
+  String get aiFailedToGenerateLesson => 'Gagal membuat pelajaran';
+
+  @override
+  String get aiLessonTopicRequired => 'Masukkan topik';
+
+  @override
+  String get aiFailedToLoadTopics => 'Gagal memuat topik';
+
+  @override
+  String get aiFailedToLoadScenarios => 'Gagal memuat skenario';
+
+  @override
+  String get aiAnalysisFailed => 'Analisis gagal';
+
+  @override
+  String get storySearchPlaceHint => 'Cari tempat…';
+
+  @override
+  String get storySearchRecentChatsHint => 'Cari obrolan terbaru…';
+
+  @override
+  String get storySearchFollowingHint => 'Cari orang yang kamu ikuti…';
+
+  @override
+  String get storyAddHashtagsHint => 'Tambahkan tagar...';
+
+  @override
+  String get storyHighlightCreateFailed => 'Gagal membuat sorotan';
+
+  @override
+  String get storyHighlightRenameFailed => 'Gagal mengganti nama sorotan';
+
+  @override
+  String get storyHighlightDeleteFailed => 'Gagal menghapus sorotan';
+
+  @override
+  String get storyViewersLoadFailed => 'Gagal memuat penonton';
+
+  @override
+  String get storyShareSent => 'Terkirim 💛';
+
+  @override
+  String storyShareSentPartial(Object names) {
+    return 'Terkirim 💛 — gagal untuk $names';
+  }
+
+  @override
+  String get storyVoteFailed => 'Gagal mengirim suara';
+
+  @override
+  String get storyAnswerFailed => 'Gagal mengirim jawaban';
+
+  @override
+  String get storyAlreadyInHighlight => 'Sudah disimpan ke sorotan';
+
+  @override
+  String get storyAddedToHighlight => 'Ditambahkan ke sorotan';
+
+  @override
+  String storyMaxHashtags(int max) {
+    return 'Kamu bisa menambahkan hingga $max tagar';
+  }
+
+  @override
+  String storyMaxMentions(int max) {
+    return 'Kamu bisa menyebut hingga $max orang';
+  }
+
+  @override
+  String get coinHistoryActivity => 'Aktivitas koin';
+
+  @override
+  String get coinHistoryAdReward => 'Menonton iklan';
+
+  @override
+  String get coinHistoryPurchase => 'Pembelian koin';
+
+  @override
+  String coinHistoryUnlocked(Object feature) {
+    return 'Membuka $feature';
+  }
+
+  @override
+  String get vipVisitorMessagesBenefit => 'Kirim hingga 50 pesan per hari';
+
+  @override
+  String get vipVisitorProfilesBenefit => 'Lihat hingga 100 profil per hari';
+
+  @override
+  String get vipVisitorFriendsBenefit => 'Tambah teman dan perluas jaringanmu';
+
+  @override
+  String get vipVisitorCommunitiesTitle => 'Gabung komunitas';
+
+  @override
+  String get vipVisitorCommunitiesBenefit => 'Ikut serta dalam diskusi komunitas';
+
+  @override
+  String get vipVisitorMomentsTitle => 'Bagikan momen';
+
+  @override
+  String get vipVisitorMomentsBenefit => 'Posting dan bagikan momenmu';
+
+  @override
+  String get vipUnlimitedEverythingTitle => 'Semuanya tanpa batas';
+
+  @override
+  String get vipUnlimitedEverythingBenefit => 'Tanpa batas harian untuk pesan atau tampilan profil';
+
+  @override
+  String get vipProfileBoostBenefit => 'Dapatkan visibilitas lebih di hasil pencarian';
+
+  @override
+  String get vipAdFreeExperienceBenefit => 'Nikmati aplikasi tanpa iklan';
+
+  @override
+  String get featureGateUpgradeToUnlock => 'Upgrade untuk membuka fitur ini';
+
+  @override
+  String get featureGateVipOnly => 'Fitur khusus VIP';
+
+  @override
+  String get adsRewardedButtonLabel => 'Tonton iklan untuk bonus';
+
+  @override
+  String get promoAdsPerkMessages => '+3 pesan\nbonus';
+
+  @override
+  String get promoAdsPerkFilters => 'Buka\nfilter';
+
+  @override
+  String get promoAdsPerkXp => '+10 XP\nbonus';
+
+  @override
+  String get promoAdsPerkRetry => 'Coba lagi\ngratis';
+
+  @override
+  String get visitorLimitMessagesTitle => 'Batas pesan harian tercapai';
+
+  @override
+  String visitorLimitMessagesBody(int count) {
+    return 'Kamu sudah mengirim $count pesan hari ini. Upgrade untuk mengirim lebih banyak!';
+  }
+
+  @override
+  String get visitorLimitProfilesTitle => 'Batas tampilan profil harian tercapai';
+
+  @override
+  String visitorLimitProfilesBody(int count) {
+    return 'Kamu sudah melihat $count profil hari ini. Upgrade untuk melihat lebih banyak!';
+  }
+
+  @override
+  String get visitorLimitFreeAccountBenefit => 'Batas harian lebih tinggi';
+
+  @override
+  String get visitorLimitVipBenefit => 'Akses tanpa batas';
+
+  @override
+  String get promoWelcomeBackTutorSubtitle => 'Latihan percakapan, pelafalan, dan kuis';
+
+  @override
+  String get promoWelcomeBackCommunitySubtitle => 'Temukan partner bahasa di dekatmu';
+
+  @override
+  String get promoWelcomeBackMomentsSubtitle => 'Bagikan perjalanan belajar bahasamu';
+
+  @override
+  String get myReportsReportedId => 'ID yang dilaporkan';
+
+  @override
+  String get myReportsReason => 'Alasan';
+
+  @override
+  String get myReportsSubmitted => 'Dikirim';
+
+  @override
+  String get myReportsResolved => 'Diselesaikan';
+
+  @override
+  String get myReportsModeratorNotes => 'Catatan moderator';
+
+  @override
+  String get myReportsNotAvailable => 'T/A';
+
+  @override
+  String get myReportsFailedToLoad => 'Gagal memuat laporan';
+
+  @override
+  String get voiceRecorderUnavailableDesktop => 'Perekaman suara tidak tersedia di desktop';
+
+  @override
+  String get adminPageUnavailable => 'Halaman ini tidak tersedia.';
+
+  @override
+  String storyShareSendFailedTo(Object names) {
+    return 'Tidak bisa mengirim ke $names';
+  }
+
+  @override
+  String get storyCantReact => 'Kamu tidak bisa bereaksi pada cerita ini';
+
+  @override
+  String get storyCantReply => 'Kamu tidak bisa membalas cerita ini';
+
+  @override
+  String get storyNoMediaToSave => 'Cerita ini tidak memiliki media untuk disimpan';
+
+  @override
+  String get coinsAdCrediting => 'Mengkreditkan…';
+
+  @override
+  String get coinsWatchAdReward => 'Tonton iklan (+5 💎)';
 }

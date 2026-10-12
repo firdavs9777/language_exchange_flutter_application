@@ -10885,4 +10885,260 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get commonReportReasonCopyright => '著作権侵害';
+
+  @override
+  String get momentsRemoveVoiceNote => 'ボイスノートを削除';
+
+  @override
+  String get vocabPackLevelProficiency => '熟達';
+
+  @override
+  String get aiFailedToLoadFeedback => 'フィードバックの読み込みに失敗しました';
+
+  @override
+  String get aiFailedToLoadSummary => '要約の読み込みに失敗しました';
+
+  @override
+  String get momentFailedToLoad => 'モーメントの読み込みに失敗しました';
+
+  @override
+  String get aiPronunciationWatchAdRetry => '広告を見てもう1回無料で挑戦';
+
+  @override
+  String aiErrorLoadingLanguages(Object error) {
+    return '言語の読み込みエラー: $error';
+  }
+
+  @override
+  String get aiSelectSourceTargetLanguages => '翻訳元と翻訳先の言語を選択してください';
+
+  @override
+  String get aiUnexpectedResponseFormat => '予期しない応答形式です';
+
+  @override
+  String get aiFailedToLoadConversation => '会話の読み込みに失敗しました';
+
+  @override
+  String get aiMicPermissionDeniedSettings => 'マイクの権限が拒否されました。設定で有効にしてください。';
+
+  @override
+  String get aiFailedToEvaluatePronunciation => '発音の評価に失敗しました';
+
+  @override
+  String get aiFailedToGenerateSpeech => '音声の生成に失敗しました';
+
+  @override
+  String get aiFailedToGenerateLesson => 'レッスンの生成に失敗しました';
+
+  @override
+  String get aiLessonTopicRequired => 'トピックを入力してください';
+
+  @override
+  String get aiFailedToLoadTopics => 'トピックの読み込みに失敗しました';
+
+  @override
+  String get aiFailedToLoadScenarios => 'シナリオの読み込みに失敗しました';
+
+  @override
+  String get aiAnalysisFailed => '分析に失敗しました';
+
+  @override
+  String get storySearchPlaceHint => '場所を検索…';
+
+  @override
+  String get storySearchRecentChatsHint => '最近のチャットを検索…';
+
+  @override
+  String get storySearchFollowingHint => 'フォロー中のユーザーを検索…';
+
+  @override
+  String get storyAddHashtagsHint => 'ハッシュタグを追加...';
+
+  @override
+  String get storyHighlightCreateFailed => 'ハイライトの作成に失敗しました';
+
+  @override
+  String get storyHighlightRenameFailed => 'ハイライト名の変更に失敗しました';
+
+  @override
+  String get storyHighlightDeleteFailed => 'ハイライトの削除に失敗しました';
+
+  @override
+  String get storyViewersLoadFailed => '閲覧者の読み込みに失敗しました';
+
+  @override
+  String get storyShareSent => '送信しました 💛';
+
+  @override
+  String storyShareSentPartial(Object names) {
+    return '送信しました 💛 — $names への送信に失敗';
+  }
+
+  @override
+  String get storyVoteFailed => '投票の送信に失敗しました';
+
+  @override
+  String get storyAnswerFailed => '回答の送信に失敗しました';
+
+  @override
+  String get storyAlreadyInHighlight => 'すでにハイライトに保存されています';
+
+  @override
+  String get storyAddedToHighlight => 'ハイライトに追加しました';
+
+  @override
+  String storyMaxHashtags(int max) {
+    return 'ハッシュタグは最大$max個まで追加できます';
+  }
+
+  @override
+  String storyMaxMentions(int max) {
+    return 'メンションできるのは最大$max人までです';
+  }
+
+  @override
+  String get coinHistoryActivity => 'コインのアクティビティ';
+
+  @override
+  String get coinHistoryAdReward => '広告を視聴';
+
+  @override
+  String get coinHistoryPurchase => 'コイン購入';
+
+  @override
+  String coinHistoryUnlocked(Object feature) {
+    return '$featureをアンロック';
+  }
+
+  @override
+  String get vipVisitorMessagesBenefit => '1日最大50件のメッセージを送信';
+
+  @override
+  String get vipVisitorProfilesBenefit => '1日最大100件のプロフィールを閲覧';
+
+  @override
+  String get vipVisitorFriendsBenefit => '友達を追加してつながりを広げよう';
+
+  @override
+  String get vipVisitorCommunitiesTitle => 'コミュニティに参加';
+
+  @override
+  String get vipVisitorCommunitiesBenefit => 'コミュニティのディスカッションに参加';
+
+  @override
+  String get vipVisitorMomentsTitle => 'モーメントをシェア';
+
+  @override
+  String get vipVisitorMomentsBenefit => 'モーメントを投稿してシェア';
+
+  @override
+  String get vipUnlimitedEverythingTitle => 'すべて無制限';
+
+  @override
+  String get vipUnlimitedEverythingBenefit => 'メッセージやプロフィール閲覧に1日の上限なし';
+
+  @override
+  String get vipProfileBoostBenefit => '検索結果での表示機会が増えます';
+
+  @override
+  String get vipAdFreeExperienceBenefit => '広告なしでアプリを楽しめます';
+
+  @override
+  String get featureGateUpgradeToUnlock => 'アップグレードしてこの機能を利用しましょう';
+
+  @override
+  String get featureGateVipOnly => 'VIP限定の機能';
+
+  @override
+  String get adsRewardedButtonLabel => '広告を見てボーナスをもらう';
+
+  @override
+  String get promoAdsPerkMessages => '+3 ボーナス\nメッセージ';
+
+  @override
+  String get promoAdsPerkFilters => 'フィルターを\n解除';
+
+  @override
+  String get promoAdsPerkXp => '+10 ボーナス\nXP';
+
+  @override
+  String get promoAdsPerkRetry => '無料で\nもう一度';
+
+  @override
+  String get visitorLimitMessagesTitle => '1日のメッセージ上限に達しました';
+
+  @override
+  String visitorLimitMessagesBody(int count) {
+    return '今日は$count件のメッセージを送信しました。アップグレードしてもっと送信しましょう！';
+  }
+
+  @override
+  String get visitorLimitProfilesTitle => '1日のプロフィール閲覧上限に達しました';
+
+  @override
+  String visitorLimitProfilesBody(int count) {
+    return '今日は$count件のプロフィールを閲覧しました。アップグレードしてもっと見ましょう！';
+  }
+
+  @override
+  String get visitorLimitFreeAccountBenefit => '1日の上限が増えます';
+
+  @override
+  String get visitorLimitVipBenefit => '無制限のアクセス';
+
+  @override
+  String get promoWelcomeBackTutorSubtitle => '会話・発音・クイズを練習';
+
+  @override
+  String get promoWelcomeBackCommunitySubtitle => '近くの言語パートナーを見つけよう';
+
+  @override
+  String get promoWelcomeBackMomentsSubtitle => '語学学習の歩みをシェアしよう';
+
+  @override
+  String get myReportsReportedId => '報告対象のID';
+
+  @override
+  String get myReportsReason => '理由';
+
+  @override
+  String get myReportsSubmitted => '送信日時';
+
+  @override
+  String get myReportsResolved => '解決日時';
+
+  @override
+  String get myReportsModeratorNotes => 'モデレーターのメモ';
+
+  @override
+  String get myReportsNotAvailable => 'なし';
+
+  @override
+  String get myReportsFailedToLoad => '報告の読み込みに失敗しました';
+
+  @override
+  String get voiceRecorderUnavailableDesktop => 'デスクトップでは音声録音は利用できません';
+
+  @override
+  String get adminPageUnavailable => 'このページは利用できません。';
+
+  @override
+  String storyShareSendFailedTo(Object names) {
+    return '$names に送信できませんでした';
+  }
+
+  @override
+  String get storyCantReact => 'このストーリーにはリアクションできません';
+
+  @override
+  String get storyCantReply => 'このストーリーには返信できません';
+
+  @override
+  String get storyNoMediaToSave => 'このストーリーには保存できるメディアがありません';
+
+  @override
+  String get coinsAdCrediting => '付与中…';
+
+  @override
+  String get coinsWatchAdReward => '広告を見る（+5 💎）';
 }

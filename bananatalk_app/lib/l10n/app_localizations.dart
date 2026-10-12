@@ -19801,6 +19801,486 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Copyright Violation'**
   String get commonReportReasonCopyright;
+
+  /// No description provided for @momentsRemoveVoiceNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove voice note'**
+  String get momentsRemoveVoiceNote;
+
+  /// No description provided for @vocabPackLevelProficiency.
+  ///
+  /// In en, this message translates to:
+  /// **'Proficiency'**
+  String get vocabPackLevelProficiency;
+
+  /// No description provided for @aiFailedToLoadFeedback.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load feedback'**
+  String get aiFailedToLoadFeedback;
+
+  /// No description provided for @aiFailedToLoadSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load summary'**
+  String get aiFailedToLoadSummary;
+
+  /// No description provided for @momentFailedToLoad.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load moment'**
+  String get momentFailedToLoad;
+
+  /// No description provided for @aiPronunciationWatchAdRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Watch Ad for another free attempt'**
+  String get aiPronunciationWatchAdRetry;
+
+  /// No description provided for @aiErrorLoadingLanguages.
+  ///
+  /// In en, this message translates to:
+  /// **'Error loading languages: {error}'**
+  String aiErrorLoadingLanguages(Object error);
+
+  /// No description provided for @aiSelectSourceTargetLanguages.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select source and target languages'**
+  String get aiSelectSourceTargetLanguages;
+
+  /// No description provided for @aiUnexpectedResponseFormat.
+  ///
+  /// In en, this message translates to:
+  /// **'Unexpected response format'**
+  String get aiUnexpectedResponseFormat;
+
+  /// No description provided for @aiFailedToLoadConversation.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load conversation'**
+  String get aiFailedToLoadConversation;
+
+  /// No description provided for @aiMicPermissionDeniedSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Microphone permission denied. Please enable it in Settings.'**
+  String get aiMicPermissionDeniedSettings;
+
+  /// No description provided for @aiFailedToEvaluatePronunciation.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to evaluate pronunciation'**
+  String get aiFailedToEvaluatePronunciation;
+
+  /// No description provided for @aiFailedToGenerateSpeech.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to generate speech'**
+  String get aiFailedToGenerateSpeech;
+
+  /// No description provided for @aiFailedToGenerateLesson.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to generate lesson'**
+  String get aiFailedToGenerateLesson;
+
+  /// No description provided for @aiLessonTopicRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a topic'**
+  String get aiLessonTopicRequired;
+
+  /// No description provided for @aiFailedToLoadTopics.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load topics'**
+  String get aiFailedToLoadTopics;
+
+  /// No description provided for @aiFailedToLoadScenarios.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load scenarios'**
+  String get aiFailedToLoadScenarios;
+
+  /// No description provided for @aiAnalysisFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Analysis failed'**
+  String get aiAnalysisFailed;
+
+  /// No description provided for @storySearchPlaceHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search a place…'**
+  String get storySearchPlaceHint;
+
+  /// No description provided for @storySearchRecentChatsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search recent chats…'**
+  String get storySearchRecentChatsHint;
+
+  /// No description provided for @storySearchFollowingHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search people you follow…'**
+  String get storySearchFollowingHint;
+
+  /// No description provided for @storyAddHashtagsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Add hashtags...'**
+  String get storyAddHashtagsHint;
+
+  /// No description provided for @storyHighlightCreateFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to create highlight'**
+  String get storyHighlightCreateFailed;
+
+  /// No description provided for @storyHighlightRenameFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to rename highlight'**
+  String get storyHighlightRenameFailed;
+
+  /// No description provided for @storyHighlightDeleteFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to delete highlight'**
+  String get storyHighlightDeleteFailed;
+
+  /// No description provided for @storyViewersLoadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load viewers'**
+  String get storyViewersLoadFailed;
+
+  /// No description provided for @storyShareSent.
+  ///
+  /// In en, this message translates to:
+  /// **'Sent 💛'**
+  String get storyShareSent;
+
+  /// No description provided for @storyShareSentPartial.
+  ///
+  /// In en, this message translates to:
+  /// **'Sent 💛 — failed for {names}'**
+  String storyShareSentPartial(Object names);
+
+  /// No description provided for @storyVoteFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to submit vote'**
+  String get storyVoteFailed;
+
+  /// No description provided for @storyAnswerFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to send answer'**
+  String get storyAnswerFailed;
+
+  /// No description provided for @storyAlreadyInHighlight.
+  ///
+  /// In en, this message translates to:
+  /// **'Already saved to a highlight'**
+  String get storyAlreadyInHighlight;
+
+  /// No description provided for @storyAddedToHighlight.
+  ///
+  /// In en, this message translates to:
+  /// **'Added to highlight'**
+  String get storyAddedToHighlight;
+
+  /// No description provided for @storyMaxHashtags.
+  ///
+  /// In en, this message translates to:
+  /// **'You can add up to {max} hashtags'**
+  String storyMaxHashtags(int max);
+
+  /// No description provided for @storyMaxMentions.
+  ///
+  /// In en, this message translates to:
+  /// **'You can mention up to {max} people'**
+  String storyMaxMentions(int max);
+
+  /// No description provided for @coinHistoryActivity.
+  ///
+  /// In en, this message translates to:
+  /// **'Coin activity'**
+  String get coinHistoryActivity;
+
+  /// No description provided for @coinHistoryAdReward.
+  ///
+  /// In en, this message translates to:
+  /// **'Watched an ad'**
+  String get coinHistoryAdReward;
+
+  /// No description provided for @coinHistoryPurchase.
+  ///
+  /// In en, this message translates to:
+  /// **'Coin purchase'**
+  String get coinHistoryPurchase;
+
+  /// No description provided for @coinHistoryUnlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlocked {feature}'**
+  String coinHistoryUnlocked(Object feature);
+
+  /// No description provided for @vipVisitorMessagesBenefit.
+  ///
+  /// In en, this message translates to:
+  /// **'Send up to 50 messages per day'**
+  String get vipVisitorMessagesBenefit;
+
+  /// No description provided for @vipVisitorProfilesBenefit.
+  ///
+  /// In en, this message translates to:
+  /// **'View up to 100 profiles per day'**
+  String get vipVisitorProfilesBenefit;
+
+  /// No description provided for @vipVisitorFriendsBenefit.
+  ///
+  /// In en, this message translates to:
+  /// **'Add friends and build your network'**
+  String get vipVisitorFriendsBenefit;
+
+  /// No description provided for @vipVisitorCommunitiesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Join Communities'**
+  String get vipVisitorCommunitiesTitle;
+
+  /// No description provided for @vipVisitorCommunitiesBenefit.
+  ///
+  /// In en, this message translates to:
+  /// **'Participate in community discussions'**
+  String get vipVisitorCommunitiesBenefit;
+
+  /// No description provided for @vipVisitorMomentsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Share Moments'**
+  String get vipVisitorMomentsTitle;
+
+  /// No description provided for @vipVisitorMomentsBenefit.
+  ///
+  /// In en, this message translates to:
+  /// **'Post and share your moments'**
+  String get vipVisitorMomentsBenefit;
+
+  /// No description provided for @vipUnlimitedEverythingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlimited Everything'**
+  String get vipUnlimitedEverythingTitle;
+
+  /// No description provided for @vipUnlimitedEverythingBenefit.
+  ///
+  /// In en, this message translates to:
+  /// **'No daily limits on messages or profile views'**
+  String get vipUnlimitedEverythingBenefit;
+
+  /// No description provided for @vipProfileBoostBenefit.
+  ///
+  /// In en, this message translates to:
+  /// **'Get more visibility in search results'**
+  String get vipProfileBoostBenefit;
+
+  /// No description provided for @vipAdFreeExperienceBenefit.
+  ///
+  /// In en, this message translates to:
+  /// **'Enjoy the app without advertisements'**
+  String get vipAdFreeExperienceBenefit;
+
+  /// No description provided for @featureGateUpgradeToUnlock.
+  ///
+  /// In en, this message translates to:
+  /// **'Upgrade to unlock this feature'**
+  String get featureGateUpgradeToUnlock;
+
+  /// No description provided for @featureGateVipOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'VIP only feature'**
+  String get featureGateVipOnly;
+
+  /// No description provided for @adsRewardedButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Watch Ad for Bonus'**
+  String get adsRewardedButtonLabel;
+
+  /// No description provided for @promoAdsPerkMessages.
+  ///
+  /// In en, this message translates to:
+  /// **'+3 bonus\nmessages'**
+  String get promoAdsPerkMessages;
+
+  /// No description provided for @promoAdsPerkFilters.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock\nfilters'**
+  String get promoAdsPerkFilters;
+
+  /// No description provided for @promoAdsPerkXp.
+  ///
+  /// In en, this message translates to:
+  /// **'+10 bonus\nXP'**
+  String get promoAdsPerkXp;
+
+  /// No description provided for @promoAdsPerkRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Free\nretry'**
+  String get promoAdsPerkRetry;
+
+  /// No description provided for @visitorLimitMessagesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily Message Limit Reached'**
+  String get visitorLimitMessagesTitle;
+
+  /// No description provided for @visitorLimitMessagesBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You have sent {count} messages today. Upgrade to send more!'**
+  String visitorLimitMessagesBody(int count);
+
+  /// No description provided for @visitorLimitProfilesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily Profile View Limit Reached'**
+  String get visitorLimitProfilesTitle;
+
+  /// No description provided for @visitorLimitProfilesBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You have viewed {count} profiles today. Upgrade to view more!'**
+  String visitorLimitProfilesBody(int count);
+
+  /// No description provided for @visitorLimitFreeAccountBenefit.
+  ///
+  /// In en, this message translates to:
+  /// **'Higher daily limits'**
+  String get visitorLimitFreeAccountBenefit;
+
+  /// No description provided for @visitorLimitVipBenefit.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlimited access'**
+  String get visitorLimitVipBenefit;
+
+  /// No description provided for @promoWelcomeBackTutorSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Practice conversations, pronunciation & quizzes'**
+  String get promoWelcomeBackTutorSubtitle;
+
+  /// No description provided for @promoWelcomeBackCommunitySubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Find language partners near you'**
+  String get promoWelcomeBackCommunitySubtitle;
+
+  /// No description provided for @promoWelcomeBackMomentsSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Share your language learning journey'**
+  String get promoWelcomeBackMomentsSubtitle;
+
+  /// No description provided for @myReportsReportedId.
+  ///
+  /// In en, this message translates to:
+  /// **'Reported ID'**
+  String get myReportsReportedId;
+
+  /// No description provided for @myReportsReason.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason'**
+  String get myReportsReason;
+
+  /// No description provided for @myReportsSubmitted.
+  ///
+  /// In en, this message translates to:
+  /// **'Submitted'**
+  String get myReportsSubmitted;
+
+  /// No description provided for @myReportsResolved.
+  ///
+  /// In en, this message translates to:
+  /// **'Resolved'**
+  String get myReportsResolved;
+
+  /// No description provided for @myReportsModeratorNotes.
+  ///
+  /// In en, this message translates to:
+  /// **'Moderator Notes'**
+  String get myReportsModeratorNotes;
+
+  /// No description provided for @myReportsNotAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'N/A'**
+  String get myReportsNotAvailable;
+
+  /// No description provided for @myReportsFailedToLoad.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load reports'**
+  String get myReportsFailedToLoad;
+
+  /// No description provided for @voiceRecorderUnavailableDesktop.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice recording not available on desktop'**
+  String get voiceRecorderUnavailableDesktop;
+
+  /// No description provided for @adminPageUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'This page isn\'t available.'**
+  String get adminPageUnavailable;
+
+  /// No description provided for @storyShareSendFailedTo.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t send to {names}'**
+  String storyShareSendFailedTo(Object names);
+
+  /// No description provided for @storyCantReact.
+  ///
+  /// In en, this message translates to:
+  /// **'You can\'t react to this story'**
+  String get storyCantReact;
+
+  /// No description provided for @storyCantReply.
+  ///
+  /// In en, this message translates to:
+  /// **'You can\'t reply to this story'**
+  String get storyCantReply;
+
+  /// No description provided for @storyNoMediaToSave.
+  ///
+  /// In en, this message translates to:
+  /// **'This story doesn\'t have media to save'**
+  String get storyNoMediaToSave;
+
+  /// No description provided for @coinsAdCrediting.
+  ///
+  /// In en, this message translates to:
+  /// **'Crediting…'**
+  String get coinsAdCrediting;
+
+  /// No description provided for @coinsWatchAdReward.
+  ///
+  /// In en, this message translates to:
+  /// **'Watch ad (+5 💎)'**
+  String get coinsWatchAdReward;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

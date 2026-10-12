@@ -941,18 +941,18 @@ class _NotAuthorizedScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('')),
-      body: const Center(
+      body: Center(
         child: Padding(
-          padding: EdgeInsets.all(24),
+          padding: const EdgeInsets.all(24),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(Icons.lock_outline_rounded, size: 56, color: Colors.black45),
-              SizedBox(height: 16),
+              const Icon(Icons.lock_outline_rounded, size: 56, color: Colors.black45),
+              const SizedBox(height: 16),
               Text(
-                "This page isn't available.",
+                AppLocalizations.of(context)!.adminPageUnavailable,
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
               ),
             ],
           ),

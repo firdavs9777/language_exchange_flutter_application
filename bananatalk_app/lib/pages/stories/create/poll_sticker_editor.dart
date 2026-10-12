@@ -151,7 +151,7 @@ class _PollStickerEditorState extends State<PollStickerEditor> {
                 style: const TextStyle(color: Colors.white),
                 onChanged: (_) => setState(() {}),
                 decoration: InputDecoration(
-                  hintText: 'Ask a question...',
+                  hintText: AppLocalizations.of(context)!.askAQuestion,
                   hintStyle: TextStyle(color: Colors.grey[500]),
                   filled: true,
                   fillColor: Colors.grey[900],
@@ -188,7 +188,7 @@ class _PollStickerEditorState extends State<PollStickerEditor> {
                           style: const TextStyle(color: Colors.white),
                           onChanged: (_) => setState(() {}),
                           decoration: InputDecoration(
-                            hintText: 'Option ${entry.key + 1}',
+                            hintText: AppLocalizations.of(context)!.option((entry.key + 1).toString()),
                             hintStyle: TextStyle(color: Colors.grey[500]),
                             filled: true,
                             fillColor: Colors.grey[900],

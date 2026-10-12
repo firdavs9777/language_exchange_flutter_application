@@ -301,7 +301,7 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
       if (community == null) {
         showStoriesSnackBar(
           context,
-          message: 'User not found',
+          message: AppLocalizations.of(context)!.userNotFound,
           type: StoriesSnackBarType.info,
         );
         return;
@@ -316,7 +316,7 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
       if (mounted) {
         showStoriesSnackBar(
           context,
-          message: 'Failed to load profile',
+          message: AppLocalizations.of(context)!.failedToLoadProfile,
           type: StoriesSnackBarType.error,
         );
       }
@@ -445,7 +445,7 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
         setState(() => _isBlocked = true);
         BlockedContentSnackbar.show(
           context,
-          message: "You can't react to this story",
+          message: AppLocalizations.of(context)!.storyCantReact,
         );
       } else if (result['success'] == true) {
         showStoriesSnackBar(
@@ -482,7 +482,7 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
         setState(() => _isBlocked = true);
         BlockedContentSnackbar.show(
           context,
-          message: "You can't reply to this story",
+          message: AppLocalizations.of(context)!.storyCantReply,
         );
       } else if (result['success'] == true) {
         _replyController.clear();
@@ -557,7 +557,7 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
       });
       showStoriesSnackBar(
         context,
-        message: 'Failed to submit vote',
+        message: AppLocalizations.of(context)!.storyVoteFailed,
         type: StoriesSnackBarType.error,
       );
     }
@@ -578,13 +578,13 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
     if (result['success'] == true) {
       showStoriesSnackBar(
         context,
-        message: 'Answer sent!',
+        message: AppLocalizations.of(context)!.answerSent,
         type: StoriesSnackBarType.success,
       );
     } else {
       showStoriesSnackBar(
         context,
-        message: 'Failed to send answer',
+        message: AppLocalizations.of(context)!.storyAnswerFailed,
         type: StoriesSnackBarType.error,
       );
     }
@@ -748,7 +748,7 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
     if (mounted) {
       showStoriesSnackBar(
         context,
-        message: 'Link copied to clipboard',
+        message: AppLocalizations.of(context)!.linkCopiedToClipboard,
         type: StoriesSnackBarType.success,
       );
     }
@@ -769,7 +769,7 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
     if (story.mediaType == 'text' || story.mediaUrl.isEmpty) {
       showStoriesSnackBar(
         context,
-        message: "This story doesn't have media to save",
+        message: AppLocalizations.of(context)!.storyNoMediaToSave,
         type: StoriesSnackBarType.info,
       );
       return;
@@ -1614,7 +1614,7 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
       if (mounted) {
         showStoriesSnackBar(
           context,
-          message: 'Already saved to a highlight',
+          message: AppLocalizations.of(context)!.storyAlreadyInHighlight,
           type: StoriesSnackBarType.success,
         );
       }
@@ -1639,7 +1639,7 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
       if (added) {
         showStoriesSnackBar(
           context,
-          message: 'Added to highlight',
+          message: AppLocalizations.of(context)!.storyAddedToHighlight,
           type: StoriesSnackBarType.success,
         );
       }

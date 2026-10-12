@@ -58,7 +58,7 @@ class _LessonSummarySheetState extends State<LessonSummarySheet> {
         if (result['success'] == true && result['data'] != null) {
           _summary = result['data'] as LessonSummaryResponse;
         } else {
-          _error = result['message'] ?? 'Failed to load summary';
+          _error = result['message'] ?? AppLocalizations.of(context)!.aiFailedToLoadSummary;
         }
       });
     }
@@ -382,7 +382,7 @@ class _LessonSummarySheetState extends State<LessonSummarySheet> {
           // Rewarded ad button
           const SizedBox(height: 8),
           RewardedAdButton(
-            label: 'Watch Ad for +10 Bonus XP',
+            label: AppLocalizations.of(context)!.vocabWatchAdBonus,
             onRewarded: () {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text(AppLocalizations.of(context)!.vocabBonusEarned)),

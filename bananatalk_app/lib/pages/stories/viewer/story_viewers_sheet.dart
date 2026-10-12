@@ -142,7 +142,7 @@ class _StoryViewersSheetState extends State<StoryViewersSheet> {
       if (!mounted) return;
       showStoriesSnackBar(
         context,
-        message: 'Failed to load viewers',
+        message: AppLocalizations.of(context)!.storyViewersLoadFailed,
         type: StoriesSnackBarType.error,
       );
       Navigator.of(context).maybePop();

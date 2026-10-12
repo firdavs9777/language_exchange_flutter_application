@@ -37,15 +37,16 @@ class _ReportDialogState extends State<ReportDialog> {
   static const int maxTotalSize = 25 * 1024 * 1024; // 25 MB
   static const List<String> allowedExtensions = ['jpg', 'jpeg', 'png', 'txt'];
 
-  final List<Map<String, String>> _reasons = [
-    {'value': 'spam', 'label': 'Spam'},
-    {'value': 'harassment', 'label': 'Harassment or Bullying'},
-    {'value': 'hate_speech', 'label': 'Hate Speech'},
-    {'value': 'violence', 'label': 'Violence or Threats'},
-    {'value': 'nudity', 'label': 'Nudity or Sexual Content'},
-    {'value': 'false_information', 'label': 'False Information'},
-    {'value': 'copyright', 'label': 'Copyright Violation'},
-    {'value': 'other', 'label': 'Other'},
+  /// Report reason codes sent to the server; labels come from [_reasonLabel].
+  final List<String> _reasons = [
+    'spam',
+    'harassment',
+    'hate_speech',
+    'violence',
+    'nudity',
+    'false_information',
+    'copyright',
+    'other',
   ];
 
   String get _typeLabel {
@@ -345,7 +346,7 @@ class _ReportDialogState extends State<ReportDialog> {
           );
         } else {
           // Show detailed error message
-          final errorMessage = result['error'] ?? 'Failed to submit report';
+          final errorMessage = result['error'] ?? AppLocalizations.of(context)!.roomReportSubmitFailed;
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(errorMessage),
@@ -443,8 +444,8 @@ class _ReportDialogState extends State<ReportDialog> {
                     // Reason options
                     ..._reasons.map(
                       (reason) => RadioListTile<String>(
-                        title: Text(_reasonLabel(l10n, reason['value']!)),
-                        value: reason['value']!,
+                        title: Text(_reasonLabel(l10n, reason)),
+                        value: reason,
                         groupValue: _selectedReason,
                         onChanged: (value) {
                           setState(() {
@@ -470,7 +471,7 @@ class _ReportDialogState extends State<ReportDialog> {
                       controller: _descriptionController,
                       maxLines: 4,
                       decoration: InputDecoration(
-                        hintText: 'Provide more information about the issue...',
+                        hintText: AppLocalizations.of(context)!.provideMoreInformation,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),

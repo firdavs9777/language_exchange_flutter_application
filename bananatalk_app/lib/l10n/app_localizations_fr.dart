@@ -10904,4 +10904,260 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get commonReportReasonCopyright => 'Violation du droit d\'auteur';
+
+  @override
+  String get momentsRemoveVoiceNote => 'Supprimer la note vocale';
+
+  @override
+  String get vocabPackLevelProficiency => 'Maîtrise';
+
+  @override
+  String get aiFailedToLoadFeedback => 'Échec du chargement des commentaires';
+
+  @override
+  String get aiFailedToLoadSummary => 'Échec du chargement du résumé';
+
+  @override
+  String get momentFailedToLoad => 'Échec du chargement du moment';
+
+  @override
+  String get aiPronunciationWatchAdRetry => 'Regardez une pub pour un autre essai gratuit';
+
+  @override
+  String aiErrorLoadingLanguages(Object error) {
+    return 'Erreur de chargement des langues : $error';
+  }
+
+  @override
+  String get aiSelectSourceTargetLanguages => 'Veuillez choisir la langue source et la langue cible';
+
+  @override
+  String get aiUnexpectedResponseFormat => 'Format de réponse inattendu';
+
+  @override
+  String get aiFailedToLoadConversation => 'Échec du chargement de la conversation';
+
+  @override
+  String get aiMicPermissionDeniedSettings => 'Autorisation du microphone refusée. Veuillez l\'activer dans les Réglages.';
+
+  @override
+  String get aiFailedToEvaluatePronunciation => 'Échec de l\'évaluation de la prononciation';
+
+  @override
+  String get aiFailedToGenerateSpeech => 'Échec de la génération de la voix';
+
+  @override
+  String get aiFailedToGenerateLesson => 'Échec de la génération de la leçon';
+
+  @override
+  String get aiLessonTopicRequired => 'Veuillez saisir un sujet';
+
+  @override
+  String get aiFailedToLoadTopics => 'Échec du chargement des sujets';
+
+  @override
+  String get aiFailedToLoadScenarios => 'Échec du chargement des scénarios';
+
+  @override
+  String get aiAnalysisFailed => 'Échec de l\'analyse';
+
+  @override
+  String get storySearchPlaceHint => 'Rechercher un lieu…';
+
+  @override
+  String get storySearchRecentChatsHint => 'Rechercher dans les discussions récentes…';
+
+  @override
+  String get storySearchFollowingHint => 'Rechercher parmi les personnes que vous suivez…';
+
+  @override
+  String get storyAddHashtagsHint => 'Ajouter des hashtags...';
+
+  @override
+  String get storyHighlightCreateFailed => 'Échec de la création de la story à la une';
+
+  @override
+  String get storyHighlightRenameFailed => 'Échec du renommage de la story à la une';
+
+  @override
+  String get storyHighlightDeleteFailed => 'Échec de la suppression de la story à la une';
+
+  @override
+  String get storyViewersLoadFailed => 'Échec du chargement des spectateurs';
+
+  @override
+  String get storyShareSent => 'Envoyé 💛';
+
+  @override
+  String storyShareSentPartial(Object names) {
+    return 'Envoyé 💛 — échec pour $names';
+  }
+
+  @override
+  String get storyVoteFailed => 'Échec de l\'envoi du vote';
+
+  @override
+  String get storyAnswerFailed => 'Échec de l\'envoi de la réponse';
+
+  @override
+  String get storyAlreadyInHighlight => 'Déjà enregistrée dans une story à la une';
+
+  @override
+  String get storyAddedToHighlight => 'Ajoutée à la story à la une';
+
+  @override
+  String storyMaxHashtags(int max) {
+    return 'Vous pouvez ajouter jusqu\'à $max hashtags';
+  }
+
+  @override
+  String storyMaxMentions(int max) {
+    return 'Vous pouvez mentionner jusqu\'à $max personnes';
+  }
+
+  @override
+  String get coinHistoryActivity => 'Activité des pièces';
+
+  @override
+  String get coinHistoryAdReward => 'Pub regardée';
+
+  @override
+  String get coinHistoryPurchase => 'Achat de pièces';
+
+  @override
+  String coinHistoryUnlocked(Object feature) {
+    return '$feature débloqué';
+  }
+
+  @override
+  String get vipVisitorMessagesBenefit => 'Envoyez jusqu\'à 50 messages par jour';
+
+  @override
+  String get vipVisitorProfilesBenefit => 'Consultez jusqu\'à 100 profils par jour';
+
+  @override
+  String get vipVisitorFriendsBenefit => 'Ajoutez des amis et développez votre réseau';
+
+  @override
+  String get vipVisitorCommunitiesTitle => 'Rejoignez des communautés';
+
+  @override
+  String get vipVisitorCommunitiesBenefit => 'Participez aux discussions de la communauté';
+
+  @override
+  String get vipVisitorMomentsTitle => 'Partagez des moments';
+
+  @override
+  String get vipVisitorMomentsBenefit => 'Publiez et partagez vos moments';
+
+  @override
+  String get vipUnlimitedEverythingTitle => 'Tout en illimité';
+
+  @override
+  String get vipUnlimitedEverythingBenefit => 'Aucune limite quotidienne de messages ou de vues de profil';
+
+  @override
+  String get vipProfileBoostBenefit => 'Gagnez en visibilité dans les résultats de recherche';
+
+  @override
+  String get vipAdFreeExperienceBenefit => 'Profitez de l\'application sans publicité';
+
+  @override
+  String get featureGateUpgradeToUnlock => 'Passez à l\'offre supérieure pour débloquer cette fonctionnalité';
+
+  @override
+  String get featureGateVipOnly => 'Fonctionnalité réservée aux VIP';
+
+  @override
+  String get adsRewardedButtonLabel => 'Regardez une pub pour un bonus';
+
+  @override
+  String get promoAdsPerkMessages => '+3 messages\nbonus';
+
+  @override
+  String get promoAdsPerkFilters => 'Débloquez\nles filtres';
+
+  @override
+  String get promoAdsPerkXp => '+10 XP\nbonus';
+
+  @override
+  String get promoAdsPerkRetry => 'Nouvel essai\ngratuit';
+
+  @override
+  String get visitorLimitMessagesTitle => 'Limite quotidienne de messages atteinte';
+
+  @override
+  String visitorLimitMessagesBody(int count) {
+    return 'Vous avez envoyé $count messages aujourd\'hui. Passez à l\'offre supérieure pour en envoyer plus !';
+  }
+
+  @override
+  String get visitorLimitProfilesTitle => 'Limite quotidienne de vues de profil atteinte';
+
+  @override
+  String visitorLimitProfilesBody(int count) {
+    return 'Vous avez consulté $count profils aujourd\'hui. Passez à l\'offre supérieure pour en voir plus !';
+  }
+
+  @override
+  String get visitorLimitFreeAccountBenefit => 'Limites quotidiennes plus élevées';
+
+  @override
+  String get visitorLimitVipBenefit => 'Accès illimité';
+
+  @override
+  String get promoWelcomeBackTutorSubtitle => 'Entraînez-vous aux conversations, à la prononciation et aux quiz';
+
+  @override
+  String get promoWelcomeBackCommunitySubtitle => 'Trouvez des partenaires linguistiques près de chez vous';
+
+  @override
+  String get promoWelcomeBackMomentsSubtitle => 'Partagez votre parcours d\'apprentissage des langues';
+
+  @override
+  String get myReportsReportedId => 'ID signalé';
+
+  @override
+  String get myReportsReason => 'Motif';
+
+  @override
+  String get myReportsSubmitted => 'Envoyé';
+
+  @override
+  String get myReportsResolved => 'Résolu';
+
+  @override
+  String get myReportsModeratorNotes => 'Notes du modérateur';
+
+  @override
+  String get myReportsNotAvailable => 'N/D';
+
+  @override
+  String get myReportsFailedToLoad => 'Échec du chargement des signalements';
+
+  @override
+  String get voiceRecorderUnavailableDesktop => 'L\'enregistrement vocal n\'est pas disponible sur ordinateur';
+
+  @override
+  String get adminPageUnavailable => 'Cette page n\'est pas disponible.';
+
+  @override
+  String storyShareSendFailedTo(Object names) {
+    return 'Impossible d\'envoyer à $names';
+  }
+
+  @override
+  String get storyCantReact => 'Vous ne pouvez pas réagir à cette story';
+
+  @override
+  String get storyCantReply => 'Vous ne pouvez pas répondre à cette story';
+
+  @override
+  String get storyNoMediaToSave => 'Cette story n\'a pas de média à enregistrer';
+
+  @override
+  String get coinsAdCrediting => 'Crédit en cours…';
+
+  @override
+  String get coinsWatchAdReward => 'Regarder une pub (+5 💎)';
 }

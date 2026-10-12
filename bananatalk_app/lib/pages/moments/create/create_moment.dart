@@ -2160,7 +2160,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
               IconButton(
                 icon: const Icon(Icons.delete_outline, color: Colors.red),
                 onPressed: _removeRecordedAudio,
-                tooltip: 'Remove voice note',
+                tooltip: AppLocalizations.of(context)!.momentsRemoveVoiceNote,
               ),
             ],
           ),

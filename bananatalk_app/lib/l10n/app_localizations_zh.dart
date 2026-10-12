@@ -10885,6 +10885,262 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get commonReportReasonCopyright => '侵犯版权';
+
+  @override
+  String get momentsRemoveVoiceNote => '删除语音备注';
+
+  @override
+  String get vocabPackLevelProficiency => '精通';
+
+  @override
+  String get aiFailedToLoadFeedback => '加载反馈失败';
+
+  @override
+  String get aiFailedToLoadSummary => '加载总结失败';
+
+  @override
+  String get momentFailedToLoad => '加载动态失败';
+
+  @override
+  String get aiPronunciationWatchAdRetry => '观看广告再获一次免费尝试';
+
+  @override
+  String aiErrorLoadingLanguages(Object error) {
+    return '加载语言出错：$error';
+  }
+
+  @override
+  String get aiSelectSourceTargetLanguages => '请选择源语言和目标语言';
+
+  @override
+  String get aiUnexpectedResponseFormat => '响应格式异常';
+
+  @override
+  String get aiFailedToLoadConversation => '加载对话失败';
+
+  @override
+  String get aiMicPermissionDeniedSettings => '麦克风权限被拒绝。请在设置中开启。';
+
+  @override
+  String get aiFailedToEvaluatePronunciation => '发音评估失败';
+
+  @override
+  String get aiFailedToGenerateSpeech => '生成语音失败';
+
+  @override
+  String get aiFailedToGenerateLesson => '生成课程失败';
+
+  @override
+  String get aiLessonTopicRequired => '请输入主题';
+
+  @override
+  String get aiFailedToLoadTopics => '加载主题失败';
+
+  @override
+  String get aiFailedToLoadScenarios => '加载场景失败';
+
+  @override
+  String get aiAnalysisFailed => '分析失败';
+
+  @override
+  String get storySearchPlaceHint => '搜索地点…';
+
+  @override
+  String get storySearchRecentChatsHint => '搜索最近的聊天…';
+
+  @override
+  String get storySearchFollowingHint => '搜索你关注的人…';
+
+  @override
+  String get storyAddHashtagsHint => '添加话题标签...';
+
+  @override
+  String get storyHighlightCreateFailed => '创建精选失败';
+
+  @override
+  String get storyHighlightRenameFailed => '重命名精选失败';
+
+  @override
+  String get storyHighlightDeleteFailed => '删除精选失败';
+
+  @override
+  String get storyViewersLoadFailed => '加载观看者失败';
+
+  @override
+  String get storyShareSent => '已发送 💛';
+
+  @override
+  String storyShareSentPartial(Object names) {
+    return '已发送 💛 — 发给 $names 失败';
+  }
+
+  @override
+  String get storyVoteFailed => '提交投票失败';
+
+  @override
+  String get storyAnswerFailed => '发送回答失败';
+
+  @override
+  String get storyAlreadyInHighlight => '已保存到精选';
+
+  @override
+  String get storyAddedToHighlight => '已添加到精选';
+
+  @override
+  String storyMaxHashtags(int max) {
+    return '最多可添加 $max 个话题标签';
+  }
+
+  @override
+  String storyMaxMentions(int max) {
+    return '最多可提及 $max 人';
+  }
+
+  @override
+  String get coinHistoryActivity => '金币动态';
+
+  @override
+  String get coinHistoryAdReward => '观看了广告';
+
+  @override
+  String get coinHistoryPurchase => '购买金币';
+
+  @override
+  String coinHistoryUnlocked(Object feature) {
+    return '已解锁 $feature';
+  }
+
+  @override
+  String get vipVisitorMessagesBenefit => '每天最多发送 50 条消息';
+
+  @override
+  String get vipVisitorProfilesBenefit => '每天最多查看 100 个个人资料';
+
+  @override
+  String get vipVisitorFriendsBenefit => '添加好友，拓展你的社交圈';
+
+  @override
+  String get vipVisitorCommunitiesTitle => '加入社区';
+
+  @override
+  String get vipVisitorCommunitiesBenefit => '参与社区讨论';
+
+  @override
+  String get vipVisitorMomentsTitle => '分享动态';
+
+  @override
+  String get vipVisitorMomentsBenefit => '发布并分享你的动态';
+
+  @override
+  String get vipUnlimitedEverythingTitle => '一切无限制';
+
+  @override
+  String get vipUnlimitedEverythingBenefit => '消息和查看资料不受每日限制';
+
+  @override
+  String get vipProfileBoostBenefit => '在搜索结果中获得更多曝光';
+
+  @override
+  String get vipAdFreeExperienceBenefit => '无广告畅享应用';
+
+  @override
+  String get featureGateUpgradeToUnlock => '升级即可解锁此功能';
+
+  @override
+  String get featureGateVipOnly => '仅限 VIP 的功能';
+
+  @override
+  String get adsRewardedButtonLabel => '观看广告领取奖励';
+
+  @override
+  String get promoAdsPerkMessages => '+3 条奖励\n消息';
+
+  @override
+  String get promoAdsPerkFilters => '解锁\n筛选';
+
+  @override
+  String get promoAdsPerkXp => '+10 奖励\nXP';
+
+  @override
+  String get promoAdsPerkRetry => '免费\n重试';
+
+  @override
+  String get visitorLimitMessagesTitle => '已达到每日消息上限';
+
+  @override
+  String visitorLimitMessagesBody(int count) {
+    return '你今天已发送 $count 条消息。升级后可发送更多！';
+  }
+
+  @override
+  String get visitorLimitProfilesTitle => '已达到每日查看资料上限';
+
+  @override
+  String visitorLimitProfilesBody(int count) {
+    return '你今天已查看 $count 个资料。升级后可查看更多！';
+  }
+
+  @override
+  String get visitorLimitFreeAccountBenefit => '更高的每日额度';
+
+  @override
+  String get visitorLimitVipBenefit => '无限制使用';
+
+  @override
+  String get promoWelcomeBackTutorSubtitle => '练习对话、发音和测验';
+
+  @override
+  String get promoWelcomeBackCommunitySubtitle => '寻找你附近的语言伙伴';
+
+  @override
+  String get promoWelcomeBackMomentsSubtitle => '分享你的语言学习之旅';
+
+  @override
+  String get myReportsReportedId => '被举报的 ID';
+
+  @override
+  String get myReportsReason => '原因';
+
+  @override
+  String get myReportsSubmitted => '提交时间';
+
+  @override
+  String get myReportsResolved => '处理时间';
+
+  @override
+  String get myReportsModeratorNotes => '审核员备注';
+
+  @override
+  String get myReportsNotAvailable => '无';
+
+  @override
+  String get myReportsFailedToLoad => '加载举报记录失败';
+
+  @override
+  String get voiceRecorderUnavailableDesktop => '桌面端不支持语音录制';
+
+  @override
+  String get adminPageUnavailable => '此页面不可用。';
+
+  @override
+  String storyShareSendFailedTo(Object names) {
+    return '无法发送给 $names';
+  }
+
+  @override
+  String get storyCantReact => '你无法对这条快拍做出回应';
+
+  @override
+  String get storyCantReply => '你无法回复这条快拍';
+
+  @override
+  String get storyNoMediaToSave => '这条快拍没有可保存的媒体';
+
+  @override
+  String get coinsAdCrediting => '发放中…';
+
+  @override
+  String get coinsWatchAdReward => '观看广告（+5 💎）';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -21768,4 +22024,260 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get commonReportReasonCopyright => '侵犯版權';
+
+  @override
+  String get momentsRemoveVoiceNote => '刪除語音備註';
+
+  @override
+  String get vocabPackLevelProficiency => '精通';
+
+  @override
+  String get aiFailedToLoadFeedback => '載入回饋失敗';
+
+  @override
+  String get aiFailedToLoadSummary => '載入總結失敗';
+
+  @override
+  String get momentFailedToLoad => '載入動態失敗';
+
+  @override
+  String get aiPronunciationWatchAdRetry => '觀看廣告再獲一次免費嘗試';
+
+  @override
+  String aiErrorLoadingLanguages(Object error) {
+    return '載入語言時發生錯誤：$error';
+  }
+
+  @override
+  String get aiSelectSourceTargetLanguages => '請選擇來源語言和目標語言';
+
+  @override
+  String get aiUnexpectedResponseFormat => '回應格式異常';
+
+  @override
+  String get aiFailedToLoadConversation => '載入對話失敗';
+
+  @override
+  String get aiMicPermissionDeniedSettings => '麥克風權限遭拒。請在設定中開啟。';
+
+  @override
+  String get aiFailedToEvaluatePronunciation => '發音評估失敗';
+
+  @override
+  String get aiFailedToGenerateSpeech => '產生語音失敗';
+
+  @override
+  String get aiFailedToGenerateLesson => '產生課程失敗';
+
+  @override
+  String get aiLessonTopicRequired => '請輸入主題';
+
+  @override
+  String get aiFailedToLoadTopics => '載入主題失敗';
+
+  @override
+  String get aiFailedToLoadScenarios => '載入情境失敗';
+
+  @override
+  String get aiAnalysisFailed => '分析失敗';
+
+  @override
+  String get storySearchPlaceHint => '搜尋地點…';
+
+  @override
+  String get storySearchRecentChatsHint => '搜尋最近的聊天…';
+
+  @override
+  String get storySearchFollowingHint => '搜尋你追蹤的人…';
+
+  @override
+  String get storyAddHashtagsHint => '新增主題標籤...';
+
+  @override
+  String get storyHighlightCreateFailed => '建立精選失敗';
+
+  @override
+  String get storyHighlightRenameFailed => '重新命名精選失敗';
+
+  @override
+  String get storyHighlightDeleteFailed => '刪除精選失敗';
+
+  @override
+  String get storyViewersLoadFailed => '載入觀看者失敗';
+
+  @override
+  String get storyShareSent => '已傳送 💛';
+
+  @override
+  String storyShareSentPartial(Object names) {
+    return '已傳送 💛 — 傳送給 $names 失敗';
+  }
+
+  @override
+  String get storyVoteFailed => '提交投票失敗';
+
+  @override
+  String get storyAnswerFailed => '傳送回答失敗';
+
+  @override
+  String get storyAlreadyInHighlight => '已儲存到精選';
+
+  @override
+  String get storyAddedToHighlight => '已新增到精選';
+
+  @override
+  String storyMaxHashtags(int max) {
+    return '最多可新增 $max 個主題標籤';
+  }
+
+  @override
+  String storyMaxMentions(int max) {
+    return '最多可提及 $max 人';
+  }
+
+  @override
+  String get coinHistoryActivity => '金幣動態';
+
+  @override
+  String get coinHistoryAdReward => '觀看了廣告';
+
+  @override
+  String get coinHistoryPurchase => '購買金幣';
+
+  @override
+  String coinHistoryUnlocked(Object feature) {
+    return '已解鎖 $feature';
+  }
+
+  @override
+  String get vipVisitorMessagesBenefit => '每天最多傳送 50 則訊息';
+
+  @override
+  String get vipVisitorProfilesBenefit => '每天最多查看 100 個個人檔案';
+
+  @override
+  String get vipVisitorFriendsBenefit => '加入好友，拓展你的人脈';
+
+  @override
+  String get vipVisitorCommunitiesTitle => '加入社群';
+
+  @override
+  String get vipVisitorCommunitiesBenefit => '參與社群討論';
+
+  @override
+  String get vipVisitorMomentsTitle => '分享動態';
+
+  @override
+  String get vipVisitorMomentsBenefit => '發布並分享你的動態';
+
+  @override
+  String get vipUnlimitedEverythingTitle => '一切無限制';
+
+  @override
+  String get vipUnlimitedEverythingBenefit => '訊息和查看個人檔案不受每日限制';
+
+  @override
+  String get vipProfileBoostBenefit => '在搜尋結果中獲得更多曝光';
+
+  @override
+  String get vipAdFreeExperienceBenefit => '無廣告暢享應用程式';
+
+  @override
+  String get featureGateUpgradeToUnlock => '升級即可解鎖此功能';
+
+  @override
+  String get featureGateVipOnly => '僅限 VIP 的功能';
+
+  @override
+  String get adsRewardedButtonLabel => '觀看廣告領取獎勵';
+
+  @override
+  String get promoAdsPerkMessages => '+3 則獎勵\n訊息';
+
+  @override
+  String get promoAdsPerkFilters => '解鎖\n篩選';
+
+  @override
+  String get promoAdsPerkXp => '+10 獎勵\nXP';
+
+  @override
+  String get promoAdsPerkRetry => '免費\n重試';
+
+  @override
+  String get visitorLimitMessagesTitle => '已達到每日訊息上限';
+
+  @override
+  String visitorLimitMessagesBody(int count) {
+    return '你今天已傳送 $count 則訊息。升級後可傳送更多！';
+  }
+
+  @override
+  String get visitorLimitProfilesTitle => '已達到每日查看個人檔案上限';
+
+  @override
+  String visitorLimitProfilesBody(int count) {
+    return '你今天已查看 $count 個個人檔案。升級後可查看更多！';
+  }
+
+  @override
+  String get visitorLimitFreeAccountBenefit => '更高的每日額度';
+
+  @override
+  String get visitorLimitVipBenefit => '無限制使用';
+
+  @override
+  String get promoWelcomeBackTutorSubtitle => '練習對話、發音和測驗';
+
+  @override
+  String get promoWelcomeBackCommunitySubtitle => '尋找你附近的語言夥伴';
+
+  @override
+  String get promoWelcomeBackMomentsSubtitle => '分享你的語言學習之旅';
+
+  @override
+  String get myReportsReportedId => '被檢舉的 ID';
+
+  @override
+  String get myReportsReason => '原因';
+
+  @override
+  String get myReportsSubmitted => '提交時間';
+
+  @override
+  String get myReportsResolved => '處理時間';
+
+  @override
+  String get myReportsModeratorNotes => '審核員備註';
+
+  @override
+  String get myReportsNotAvailable => '無';
+
+  @override
+  String get myReportsFailedToLoad => '載入檢舉記錄失敗';
+
+  @override
+  String get voiceRecorderUnavailableDesktop => '桌面版不支援語音錄製';
+
+  @override
+  String get adminPageUnavailable => '此頁面無法使用。';
+
+  @override
+  String storyShareSendFailedTo(Object names) {
+    return '無法傳送給 $names';
+  }
+
+  @override
+  String get storyCantReact => '你無法對這則限時動態做出回應';
+
+  @override
+  String get storyCantReply => '你無法回覆這則限時動態';
+
+  @override
+  String get storyNoMediaToSave => '這則限時動態沒有可儲存的媒體';
+
+  @override
+  String get coinsAdCrediting => '發放中…';
+
+  @override
+  String get coinsWatchAdReward => '觀看廣告（+5 💎）';
 }

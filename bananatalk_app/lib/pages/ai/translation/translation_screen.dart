@@ -74,13 +74,13 @@ class _TranslationScreenState extends ConsumerState<TranslationScreen> {
       } else {
         setState(() {
           _isLoadingLanguages = false;
-          _error = 'Failed to load languages';
+          _error = AppLocalizations.of(context)!.failedToLoadLanguages;
         });
       }
     } catch (e) {
       setState(() {
         _isLoadingLanguages = false;
-        _error = 'Error loading languages: $e';
+        _error = AppLocalizations.of(context)!.aiErrorLoadingLanguages(e.toString());
       });
     }
   }
@@ -108,7 +108,7 @@ class _TranslationScreenState extends ConsumerState<TranslationScreen> {
     if (text.isEmpty) return;
     if (_sourceLanguage == null || _targetLanguage == null) {
       setState(() {
-        _error = 'Please select source and target languages';
+        _error = AppLocalizations.of(context)!.aiSelectSourceTargetLanguages;
       });
       return;
     }
@@ -140,7 +140,7 @@ class _TranslationScreenState extends ConsumerState<TranslationScreen> {
         } else if (data is Map) {
           _result = EnhancedTranslation.fromJson(Map<String, dynamic>.from(data));
         } else {
-          _error = 'Unexpected response format';
+          _error = AppLocalizations.of(context)!.aiUnexpectedResponseFormat;
         }
       } else {
         _error = result['message']?.toString() ?? 'Translation failed';

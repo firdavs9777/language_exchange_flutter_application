@@ -404,6 +404,88 @@ const Map<String, List<String>> _keysByTask = {
     'commonReportTypeContent',
     'commonReportReasonCopyright',
   ],
+  'L13b': [
+    'momentsRemoveVoiceNote',
+    'vocabPackLevelProficiency',
+    'aiFailedToLoadFeedback',
+    'aiFailedToLoadSummary',
+    'momentFailedToLoad',
+    'aiPronunciationWatchAdRetry',
+    'aiErrorLoadingLanguages',
+    'aiSelectSourceTargetLanguages',
+    'aiUnexpectedResponseFormat',
+    'aiFailedToLoadConversation',
+    'aiMicPermissionDeniedSettings',
+    'aiFailedToEvaluatePronunciation',
+    'aiFailedToGenerateSpeech',
+    'aiFailedToGenerateLesson',
+    'aiLessonTopicRequired',
+    'aiFailedToLoadTopics',
+    'aiFailedToLoadScenarios',
+    'aiAnalysisFailed',
+    'storySearchPlaceHint',
+    'storySearchRecentChatsHint',
+    'storySearchFollowingHint',
+    'storyAddHashtagsHint',
+    'storyHighlightCreateFailed',
+    'storyHighlightRenameFailed',
+    'storyHighlightDeleteFailed',
+    'storyViewersLoadFailed',
+    'storyShareSent',
+    'storyShareSentPartial',
+    'storyVoteFailed',
+    'storyAnswerFailed',
+    'storyAlreadyInHighlight',
+    'storyAddedToHighlight',
+    'storyMaxHashtags',
+    'storyMaxMentions',
+    'coinHistoryActivity',
+    'coinHistoryAdReward',
+    'coinHistoryPurchase',
+    'coinHistoryUnlocked',
+    'vipVisitorMessagesBenefit',
+    'vipVisitorProfilesBenefit',
+    'vipVisitorFriendsBenefit',
+    'vipVisitorCommunitiesTitle',
+    'vipVisitorCommunitiesBenefit',
+    'vipVisitorMomentsTitle',
+    'vipVisitorMomentsBenefit',
+    'vipUnlimitedEverythingTitle',
+    'vipUnlimitedEverythingBenefit',
+    'vipProfileBoostBenefit',
+    'vipAdFreeExperienceBenefit',
+    'featureGateUpgradeToUnlock',
+    'featureGateVipOnly',
+    'adsRewardedButtonLabel',
+    'promoAdsPerkMessages',
+    'promoAdsPerkFilters',
+    'promoAdsPerkXp',
+    'promoAdsPerkRetry',
+    'visitorLimitMessagesTitle',
+    'visitorLimitMessagesBody',
+    'visitorLimitProfilesTitle',
+    'visitorLimitProfilesBody',
+    'visitorLimitFreeAccountBenefit',
+    'visitorLimitVipBenefit',
+    'promoWelcomeBackTutorSubtitle',
+    'promoWelcomeBackCommunitySubtitle',
+    'promoWelcomeBackMomentsSubtitle',
+    'myReportsReportedId',
+    'myReportsReason',
+    'myReportsSubmitted',
+    'myReportsResolved',
+    'myReportsModeratorNotes',
+    'myReportsNotAvailable',
+    'myReportsFailedToLoad',
+    'voiceRecorderUnavailableDesktop',
+    'adminPageUnavailable',
+    'storyShareSendFailedTo',
+    'storyCantReact',
+    'storyCantReply',
+    'storyNoMediaToSave',
+    'coinsAdCrediting',
+    'coinsWatchAdReward',
+  ],
 };
 
 /// Files (under lib/) each task must leave with no English Text literal.
@@ -560,6 +642,53 @@ const Map<String, List<String>> _filesByTask = {
     'widgets/report_evidence_section.dart',
     'widgets/voice_recorder/voice_recorder_stub.dart',
   ],
+  'L13b': [
+    'pages/ai/conversation/conversation_history_screen.dart',
+    'pages/ai/conversation/topic_selection_sheet.dart',
+    'pages/ai/grammar/grammar_feedback_screen.dart',
+    'pages/ai/lesson_builder/lesson_builder_screen.dart',
+    'pages/ai/pronunciation/pronunciation_screen.dart',
+    'pages/ai/quiz/quiz_player_screen.dart',
+    'pages/ai/translation/translation_screen.dart',
+    'pages/chat/list/intro_requests_strip.dart',
+    'pages/coins/coin_history_screen.dart',
+    'pages/coins/coin_shop_screen.dart',
+    'pages/community/tabs/waves_archive_screen.dart',
+    'pages/community/tabs/waves_tab.dart',
+    'pages/learning/vocabulary/vocab_packs_screen.dart',
+    'pages/learning/vocabulary/vocabulary_screen.dart',
+    'pages/moments/create/create_moment.dart',
+    'pages/notifications/notification_history_screen.dart',
+    'pages/profile/visitors_screen.dart',
+    'pages/reports/my_reports_screen.dart',
+    'pages/stories/create/create_story_screen.dart',
+    'pages/stories/create/poll_sticker_editor.dart',
+    'pages/stories/create/question_sticker_editor.dart',
+    'pages/stories/create/studio/location_picker_sheet.dart',
+    'pages/stories/create/studio/mention_picker_sheet.dart',
+    'pages/stories/highlights/highlight_editor_sheet.dart',
+    'pages/stories/viewer/story_share_sheet.dart',
+    'pages/stories/viewer/story_viewer_screen.dart',
+    'pages/stories/viewer/story_viewers_sheet.dart',
+    'pages/vip/vip_payment_screen.dart',
+    'pages/vip/visitor_upgrade_screen.dart',
+    'utils/api_error_handler.dart',
+    'utils/feature_gate.dart',
+    'widgets/ads/ad_widgets.dart',
+    'widgets/ai/answer_feedback_sheet.dart',
+    'widgets/ai/lesson_summary_sheet.dart',
+    'widgets/community/quick_action_buttons.dart',
+    'widgets/image_preview_dialog.dart',
+    'widgets/promo/ads_notice_modal.dart',
+    'widgets/report_dialog.dart',
+    'widgets/report_evidence_section.dart',
+    'widgets/story/story_poll_widget.dart',
+    'widgets/story/story_question_box_widget.dart',
+    'widgets/translation_bottom_sheet.dart',
+    'widgets/visitor_limit_dialog.dart',
+    'widgets/voice_recorder/voice_recorder_stub.dart',
+    'widgets/welcome_back_modal.dart',
+  ],
 };
 
 /// Keys whose draft may legitimately equal the English, per locale (loanwords,
@@ -583,7 +712,7 @@ const Map<String, Set<String>> _mayMatchEnglish = {
   'learnBonus': {'de', 'fr', 'id', 'it', 'tl', 'tr'}, // de/fr/it/id/tl/tr use the English loanword "Bonus"
   'communityLv': {'de', 'id', 'ja', 'ko', 'tl', 'zh', 'zh_TW'}, // ja/ko/de/id/tl/zh/zh_TW keep the "Lv.{level}" abbreviation
   'momentsFileSizeMb': {'ja', 'ko', 'tl', 'zh', 'zh_TW'}, // ja/ko/tl/zh/zh_TW keep the "{size}MB" unit as written
-  'chatStory': {'de', 'fr', 'pt', 'tl'}, // de/fr/pt use the English loanword "Story"
+  'chatStory': {'de', 'fr', 'pt', 'tl'}, // de/fr/pt/tl use the English loanword "Story"
   'chatPremium': {'de', 'es', 'fr', 'id', 'it', 'pt', 'tl', 'tr'}, // "Premium ✨" is the same word in de/es/fr/id/it/pt/tl/tr
   'chatAlternatives': {'fr'}, // fr "Alternatives" is the same word
   'chatQrCode': {'tl'}, // tl uses the English term
@@ -591,9 +720,9 @@ const Map<String, Set<String>> _mayMatchEnglish = {
   'learnWordBank': {'tl'}, // tl keeps the English term "Word Bank"
   'learnAiAutoFill': {'tl'}, // tl keeps "AI Auto-fill" as is
   'chatMediaPhoto': {'fr'}, // fr "photo" is the same word
-  'chatMediaVideo': {'es', 'id', 'it', 'tl', 'tr', 'vi'}, // tl/id/de/it/pt/vi use the loanword "video"
-  'chatMediaAudio': {'es', 'fr', 'id', 'it', 'tl'}, // many locales use the loanword "audio"
-  'chatMediaFile': {'id', 'it', 'tl'}, // id/tl use the loanword "file"
+  'chatMediaVideo': {'es', 'id', 'it', 'tl', 'tr', 'vi'}, // es/id/it/tl/tr/vi use the loanword "video"
+  'chatMediaAudio': {'es', 'fr', 'id', 'it', 'tl'}, // es/fr/id/it/tl use the loanword "audio"
+  'chatMediaFile': {'id', 'it', 'tl'}, // id/it/tl use the loanword "file"
   'chatMediaGeneric': {'id', 'tl'}, // id/tl use the loanword "media"
   'chatReplyingToFallback': {'tl'}, // tl uses the English loanword "user"
   'aiQuizQuestionCount': {'fr'}, // fr "1 question" / "{n} questions" is spelled exactly like English
@@ -606,6 +735,7 @@ const Map<String, Set<String>> _mayMatchEnglish = {
   'storyHighlightStoryCount': {'fr', 'pt'}, // fr/pt use the loanword "stories" (same plural form)
   'storyEditVideo': {'id'}, // id "Edit Video" is the same phrase
   'storyVotes': {'fr'}, // fr "{totalVotes} votes" is the same word
+  'promoAdsPerkXp': {'tl', 'tr'}, // tl/tr keep "+10 bonus\nXP" as written ("bonus" is the local loanword)
 };
 
 final _placeholder = RegExp(r'\{(\w+)[,}]');

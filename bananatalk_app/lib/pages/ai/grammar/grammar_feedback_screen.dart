@@ -66,13 +66,13 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
       } else {
         setState(() {
           _isLoadingLanguages = false;
-          _error = 'Failed to load languages';
+          _error = AppLocalizations.of(context)!.failedToLoadLanguages;
         });
       }
     } catch (e) {
       setState(() {
         _isLoadingLanguages = false;
-        _error = 'Error loading languages: $e';
+        _error = AppLocalizations.of(context)!.aiErrorLoadingLanguages(e.toString());
       });
     }
   }
@@ -114,7 +114,7 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
     if (text.isEmpty) return;
     if (_selectedLanguage == null) {
       setState(() {
-        _error = 'Please select a language';
+        _error = AppLocalizations.of(context)!.pleaseSelectALanguage;
       });
       return;
     }
@@ -140,10 +140,10 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
         } else if (data is Map) {
           _feedback = GrammarFeedback.fromJson(Map<String, dynamic>.from(data));
         } else {
-          _error = 'Unexpected response format';
+          _error = AppLocalizations.of(context)!.aiUnexpectedResponseFormat;
         }
       } else {
-        _error = result['message']?.toString() ?? 'Analysis failed';
+        _error = result['message']?.toString() ?? AppLocalizations.of(context)!.aiAnalysisFailed;
       }
     });
   }

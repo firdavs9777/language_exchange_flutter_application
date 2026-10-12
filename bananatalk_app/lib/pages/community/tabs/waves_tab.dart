@@ -4,7 +4,7 @@ import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/pages/community/single/single_community_screen.dart';
-import 'package:timeago/timeago.dart' as timeago;
+import 'package:bananatalk_app/utils/time_ago.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
@@ -273,7 +273,7 @@ class _WaveCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final timeAgo = timeago.format(wave.createdAt);
+    final timeAgo = timeAgoFor(context, wave.createdAt);
 
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),

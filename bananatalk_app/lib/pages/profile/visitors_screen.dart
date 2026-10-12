@@ -9,7 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
 import 'package:bananatalk_app/widgets/masked_person_tile.dart';
 import 'package:flutter/services.dart';
-import 'package:timeago/timeago.dart' as timeago;
+import 'package:bananatalk_app/utils/time_ago.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/utils/string_sanitizer.dart';
 import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
@@ -661,8 +661,8 @@ class _ProfileVisitorsScreenState
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final user = visitor['user'];
     final lastVisit = DateTime.parse(visitor['lastVisit']);
-    // timeago's compact English style ("5m"); timeago has no localized short style.
-    final lastVisitShort = timeago.format(lastVisit, locale: 'en_short');
+    // Compact ("5m") in en/es; other locales use the regular localized phrase.
+    final lastVisitShort = timeAgoFor(context, lastVisit, short: true);
     final visitCount = visitor['visitCount'] ?? 1;
     final source = visitor['source'] ?? 'direct';
 

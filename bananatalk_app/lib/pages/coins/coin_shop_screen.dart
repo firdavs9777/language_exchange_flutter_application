@@ -570,7 +570,7 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
               child: RewardedAdButton(
                 onRewarded: _handleAdRewarded,
                 enabled: !_adClaiming,
-                label: _adClaiming ? 'Crediting…' : 'Watch ad (+5 💎)',
+                label: _adClaiming ? AppLocalizations.of(context)!.coinsAdCrediting : AppLocalizations.of(context)!.coinsWatchAdReward,
               ),
             ),
         ],

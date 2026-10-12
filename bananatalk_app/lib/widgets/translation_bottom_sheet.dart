@@ -541,7 +541,7 @@ class _TranslationBottomSheetState extends State<TranslationBottomSheet> {
                           icon: _phraseSaved
                               ? Icons.bookmark_added
                               : Icons.bookmark_add_outlined,
-                          label: _phraseSaved ? 'Saved' : 'Save phrase',
+                          label: _phraseSaved ? AppLocalizations.of(context)!.saved : AppLocalizations.of(context)!.chatMessageSavePhrase,
                           isLoading: _phraseSaving,
                           onTap: _phraseSaved ? () {} : _savePhrase,
                           isDark: isDark,

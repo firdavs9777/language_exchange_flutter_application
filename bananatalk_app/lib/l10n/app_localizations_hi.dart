@@ -10904,4 +10904,260 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get commonReportReasonCopyright => 'कॉपीराइट उल्लंघन';
+
+  @override
+  String get momentsRemoveVoiceNote => 'वॉइस नोट हटाएँ';
+
+  @override
+  String get vocabPackLevelProficiency => 'प्रवीणता';
+
+  @override
+  String get aiFailedToLoadFeedback => 'फ़ीडबैक लोड नहीं हो सका';
+
+  @override
+  String get aiFailedToLoadSummary => 'सारांश लोड नहीं हो सका';
+
+  @override
+  String get momentFailedToLoad => 'मोमेंट लोड नहीं हो सका';
+
+  @override
+  String get aiPronunciationWatchAdRetry => 'एक और मुफ़्त प्रयास के लिए विज्ञापन देखें';
+
+  @override
+  String aiErrorLoadingLanguages(Object error) {
+    return 'भाषाएँ लोड करने में त्रुटि: $error';
+  }
+
+  @override
+  String get aiSelectSourceTargetLanguages => 'कृपया स्रोत और लक्ष्य भाषाएँ चुनें';
+
+  @override
+  String get aiUnexpectedResponseFormat => 'अप्रत्याशित प्रतिक्रिया प्रारूप';
+
+  @override
+  String get aiFailedToLoadConversation => 'बातचीत लोड नहीं हो सकी';
+
+  @override
+  String get aiMicPermissionDeniedSettings => 'माइक्रोफ़ोन की अनुमति अस्वीकृत। कृपया इसे सेटिंग्स में चालू करें।';
+
+  @override
+  String get aiFailedToEvaluatePronunciation => 'उच्चारण का मूल्यांकन नहीं हो सका';
+
+  @override
+  String get aiFailedToGenerateSpeech => 'आवाज़ तैयार नहीं हो सकी';
+
+  @override
+  String get aiFailedToGenerateLesson => 'पाठ तैयार नहीं हो सका';
+
+  @override
+  String get aiLessonTopicRequired => 'कृपया कोई विषय दर्ज करें';
+
+  @override
+  String get aiFailedToLoadTopics => 'विषय लोड नहीं हो सके';
+
+  @override
+  String get aiFailedToLoadScenarios => 'परिदृश्य लोड नहीं हो सके';
+
+  @override
+  String get aiAnalysisFailed => 'विश्लेषण विफल रहा';
+
+  @override
+  String get storySearchPlaceHint => 'कोई जगह खोजें…';
+
+  @override
+  String get storySearchRecentChatsHint => 'हाल की चैट खोजें…';
+
+  @override
+  String get storySearchFollowingHint => 'जिन लोगों को आप फ़ॉलो करते हैं उन्हें खोजें…';
+
+  @override
+  String get storyAddHashtagsHint => 'हैशटैग जोड़ें...';
+
+  @override
+  String get storyHighlightCreateFailed => 'हाइलाइट नहीं बन सका';
+
+  @override
+  String get storyHighlightRenameFailed => 'हाइलाइट का नाम नहीं बदला जा सका';
+
+  @override
+  String get storyHighlightDeleteFailed => 'हाइलाइट हटाया नहीं जा सका';
+
+  @override
+  String get storyViewersLoadFailed => 'दर्शक लोड नहीं हो सके';
+
+  @override
+  String get storyShareSent => 'भेजा गया 💛';
+
+  @override
+  String storyShareSentPartial(Object names) {
+    return 'भेजा गया 💛 — $names के लिए विफल';
+  }
+
+  @override
+  String get storyVoteFailed => 'वोट भेजा नहीं जा सका';
+
+  @override
+  String get storyAnswerFailed => 'उत्तर भेजा नहीं जा सका';
+
+  @override
+  String get storyAlreadyInHighlight => 'पहले से हाइलाइट में सेव है';
+
+  @override
+  String get storyAddedToHighlight => 'हाइलाइट में जोड़ा गया';
+
+  @override
+  String storyMaxHashtags(int max) {
+    return 'आप अधिकतम $max हैशटैग जोड़ सकते हैं';
+  }
+
+  @override
+  String storyMaxMentions(int max) {
+    return 'आप अधिकतम $max लोगों को मेंशन कर सकते हैं';
+  }
+
+  @override
+  String get coinHistoryActivity => 'सिक्कों की गतिविधि';
+
+  @override
+  String get coinHistoryAdReward => 'विज्ञापन देखा';
+
+  @override
+  String get coinHistoryPurchase => 'सिक्के खरीदे';
+
+  @override
+  String coinHistoryUnlocked(Object feature) {
+    return '$feature अनलॉक किया';
+  }
+
+  @override
+  String get vipVisitorMessagesBenefit => 'रोज़ाना 50 संदेश तक भेजें';
+
+  @override
+  String get vipVisitorProfilesBenefit => 'रोज़ाना 100 प्रोफ़ाइल तक देखें';
+
+  @override
+  String get vipVisitorFriendsBenefit => 'दोस्त जोड़ें और अपना नेटवर्क बढ़ाएँ';
+
+  @override
+  String get vipVisitorCommunitiesTitle => 'समुदायों से जुड़ें';
+
+  @override
+  String get vipVisitorCommunitiesBenefit => 'समुदाय की चर्चाओं में भाग लें';
+
+  @override
+  String get vipVisitorMomentsTitle => 'मोमेंट्स शेयर करें';
+
+  @override
+  String get vipVisitorMomentsBenefit => 'अपने मोमेंट्स पोस्ट और शेयर करें';
+
+  @override
+  String get vipUnlimitedEverythingTitle => 'सब कुछ असीमित';
+
+  @override
+  String get vipUnlimitedEverythingBenefit => 'संदेशों या प्रोफ़ाइल व्यू पर कोई दैनिक सीमा नहीं';
+
+  @override
+  String get vipProfileBoostBenefit => 'खोज परिणामों में अधिक दिखाई दें';
+
+  @override
+  String get vipAdFreeExperienceBenefit => 'बिना विज्ञापनों के ऐप का आनंद लें';
+
+  @override
+  String get featureGateUpgradeToUnlock => 'इस फ़ीचर को अनलॉक करने के लिए अपग्रेड करें';
+
+  @override
+  String get featureGateVipOnly => 'केवल VIP के लिए फ़ीचर';
+
+  @override
+  String get adsRewardedButtonLabel => 'बोनस के लिए विज्ञापन देखें';
+
+  @override
+  String get promoAdsPerkMessages => '+3 बोनस\nसंदेश';
+
+  @override
+  String get promoAdsPerkFilters => 'फ़िल्टर\nअनलॉक करें';
+
+  @override
+  String get promoAdsPerkXp => '+10 बोनस\nXP';
+
+  @override
+  String get promoAdsPerkRetry => 'मुफ़्त\nपुनः प्रयास';
+
+  @override
+  String get visitorLimitMessagesTitle => 'दैनिक संदेश सीमा पूरी हो गई';
+
+  @override
+  String visitorLimitMessagesBody(int count) {
+    return 'आज आपने $count संदेश भेजे हैं। और भेजने के लिए अपग्रेड करें!';
+  }
+
+  @override
+  String get visitorLimitProfilesTitle => 'दैनिक प्रोफ़ाइल व्यू सीमा पूरी हो गई';
+
+  @override
+  String visitorLimitProfilesBody(int count) {
+    return 'आज आपने $count प्रोफ़ाइल देखी हैं। और देखने के लिए अपग्रेड करें!';
+  }
+
+  @override
+  String get visitorLimitFreeAccountBenefit => 'ऊँची दैनिक सीमाएँ';
+
+  @override
+  String get visitorLimitVipBenefit => 'असीमित पहुँच';
+
+  @override
+  String get promoWelcomeBackTutorSubtitle => 'बातचीत, उच्चारण और क्विज़ का अभ्यास करें';
+
+  @override
+  String get promoWelcomeBackCommunitySubtitle => 'अपने पास भाषा साथी खोजें';
+
+  @override
+  String get promoWelcomeBackMomentsSubtitle => 'अपनी भाषा सीखने की यात्रा साझा करें';
+
+  @override
+  String get myReportsReportedId => 'रिपोर्ट की गई ID';
+
+  @override
+  String get myReportsReason => 'कारण';
+
+  @override
+  String get myReportsSubmitted => 'सबमिट किया गया';
+
+  @override
+  String get myReportsResolved => 'हल किया गया';
+
+  @override
+  String get myReportsModeratorNotes => 'मॉडरेटर के नोट्स';
+
+  @override
+  String get myReportsNotAvailable => 'उपलब्ध नहीं';
+
+  @override
+  String get myReportsFailedToLoad => 'रिपोर्ट लोड नहीं हो सकीं';
+
+  @override
+  String get voiceRecorderUnavailableDesktop => 'डेस्कटॉप पर वॉइस रिकॉर्डिंग उपलब्ध नहीं है';
+
+  @override
+  String get adminPageUnavailable => 'यह पेज उपलब्ध नहीं है।';
+
+  @override
+  String storyShareSendFailedTo(Object names) {
+    return '$names को नहीं भेज सके';
+  }
+
+  @override
+  String get storyCantReact => 'आप इस स्टोरी पर प्रतिक्रिया नहीं दे सकते';
+
+  @override
+  String get storyCantReply => 'आप इस स्टोरी का जवाब नहीं दे सकते';
+
+  @override
+  String get storyNoMediaToSave => 'इस स्टोरी में सेव करने के लिए कोई मीडिया नहीं है';
+
+  @override
+  String get coinsAdCrediting => 'जमा किया जा रहा है…';
+
+  @override
+  String get coinsWatchAdReward => 'विज्ञापन देखें (+5 💎)';
 }

@@ -273,7 +273,7 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
     if (!mounted) return;
     if (!status.isGranted) {
       setState(() {
-        _error = 'Microphone permission denied. Please enable it in Settings.';
+        _error = AppLocalizations.of(context)!.aiMicPermissionDeniedSettings;
       });
       return;
     }
@@ -334,7 +334,7 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
         _result = res['data'] as PronunciationResult?;
       } else {
         _error =
-            res['message']?.toString() ?? 'Failed to evaluate pronunciation';
+            res['message']?.toString() ?? AppLocalizations.of(context)!.aiFailedToEvaluatePronunciation;
       }
     });
   }
@@ -373,7 +373,7 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
       }
     } else {
       setState(() {
-        _error = result['message']?.toString() ?? 'Failed to generate speech';
+        _error = result['message']?.toString() ?? AppLocalizations.of(context)!.aiFailedToGenerateSpeech;
       });
     }
   }
@@ -872,7 +872,7 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
           ],
           const SizedBox(height: 16),
           RewardedAdButton(
-            label: 'Watch Ad for another free attempt',
+            label: AppLocalizations.of(context)!.aiPronunciationWatchAdRetry,
             onRewarded: () {
               setState(() => _result = null);
               ScaffoldMessenger.of(context).showSnackBar(

@@ -10885,4 +10885,260 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get commonReportReasonCopyright => 'Vi phạm bản quyền';
+
+  @override
+  String get momentsRemoveVoiceNote => 'Xóa ghi chú thoại';
+
+  @override
+  String get vocabPackLevelProficiency => 'Thành thạo';
+
+  @override
+  String get aiFailedToLoadFeedback => 'Không thể tải phản hồi';
+
+  @override
+  String get aiFailedToLoadSummary => 'Không thể tải bản tóm tắt';
+
+  @override
+  String get momentFailedToLoad => 'Không thể tải khoảnh khắc';
+
+  @override
+  String get aiPronunciationWatchAdRetry => 'Xem quảng cáo để có thêm một lượt thử miễn phí';
+
+  @override
+  String aiErrorLoadingLanguages(Object error) {
+    return 'Lỗi khi tải ngôn ngữ: $error';
+  }
+
+  @override
+  String get aiSelectSourceTargetLanguages => 'Vui lòng chọn ngôn ngữ nguồn và ngôn ngữ đích';
+
+  @override
+  String get aiUnexpectedResponseFormat => 'Định dạng phản hồi không mong đợi';
+
+  @override
+  String get aiFailedToLoadConversation => 'Không thể tải cuộc trò chuyện';
+
+  @override
+  String get aiMicPermissionDeniedSettings => 'Quyền micrô bị từ chối. Vui lòng bật trong Cài đặt.';
+
+  @override
+  String get aiFailedToEvaluatePronunciation => 'Không thể đánh giá phát âm';
+
+  @override
+  String get aiFailedToGenerateSpeech => 'Không thể tạo giọng nói';
+
+  @override
+  String get aiFailedToGenerateLesson => 'Không thể tạo bài học';
+
+  @override
+  String get aiLessonTopicRequired => 'Vui lòng nhập chủ đề';
+
+  @override
+  String get aiFailedToLoadTopics => 'Không thể tải các chủ đề';
+
+  @override
+  String get aiFailedToLoadScenarios => 'Không thể tải các tình huống';
+
+  @override
+  String get aiAnalysisFailed => 'Phân tích thất bại';
+
+  @override
+  String get storySearchPlaceHint => 'Tìm một địa điểm…';
+
+  @override
+  String get storySearchRecentChatsHint => 'Tìm trong các cuộc trò chuyện gần đây…';
+
+  @override
+  String get storySearchFollowingHint => 'Tìm người bạn theo dõi…';
+
+  @override
+  String get storyAddHashtagsHint => 'Thêm hashtag...';
+
+  @override
+  String get storyHighlightCreateFailed => 'Không thể tạo mục nổi bật';
+
+  @override
+  String get storyHighlightRenameFailed => 'Không thể đổi tên mục nổi bật';
+
+  @override
+  String get storyHighlightDeleteFailed => 'Không thể xóa mục nổi bật';
+
+  @override
+  String get storyViewersLoadFailed => 'Không thể tải danh sách người xem';
+
+  @override
+  String get storyShareSent => 'Đã gửi 💛';
+
+  @override
+  String storyShareSentPartial(Object names) {
+    return 'Đã gửi 💛 — thất bại với $names';
+  }
+
+  @override
+  String get storyVoteFailed => 'Không thể gửi phiếu bầu';
+
+  @override
+  String get storyAnswerFailed => 'Không thể gửi câu trả lời';
+
+  @override
+  String get storyAlreadyInHighlight => 'Đã lưu vào một mục nổi bật';
+
+  @override
+  String get storyAddedToHighlight => 'Đã thêm vào mục nổi bật';
+
+  @override
+  String storyMaxHashtags(int max) {
+    return 'Bạn có thể thêm tối đa $max hashtag';
+  }
+
+  @override
+  String storyMaxMentions(int max) {
+    return 'Bạn có thể nhắc đến tối đa $max người';
+  }
+
+  @override
+  String get coinHistoryActivity => 'Hoạt động xu';
+
+  @override
+  String get coinHistoryAdReward => 'Đã xem quảng cáo';
+
+  @override
+  String get coinHistoryPurchase => 'Mua xu';
+
+  @override
+  String coinHistoryUnlocked(Object feature) {
+    return 'Đã mở khóa $feature';
+  }
+
+  @override
+  String get vipVisitorMessagesBenefit => 'Gửi tối đa 50 tin nhắn mỗi ngày';
+
+  @override
+  String get vipVisitorProfilesBenefit => 'Xem tối đa 100 hồ sơ mỗi ngày';
+
+  @override
+  String get vipVisitorFriendsBenefit => 'Kết bạn và mở rộng mạng lưới của bạn';
+
+  @override
+  String get vipVisitorCommunitiesTitle => 'Tham gia cộng đồng';
+
+  @override
+  String get vipVisitorCommunitiesBenefit => 'Tham gia thảo luận cộng đồng';
+
+  @override
+  String get vipVisitorMomentsTitle => 'Chia sẻ khoảnh khắc';
+
+  @override
+  String get vipVisitorMomentsBenefit => 'Đăng và chia sẻ khoảnh khắc của bạn';
+
+  @override
+  String get vipUnlimitedEverythingTitle => 'Mọi thứ không giới hạn';
+
+  @override
+  String get vipUnlimitedEverythingBenefit => 'Không giới hạn hằng ngày về tin nhắn hoặc lượt xem hồ sơ';
+
+  @override
+  String get vipProfileBoostBenefit => 'Hiển thị nhiều hơn trong kết quả tìm kiếm';
+
+  @override
+  String get vipAdFreeExperienceBenefit => 'Tận hưởng ứng dụng không có quảng cáo';
+
+  @override
+  String get featureGateUpgradeToUnlock => 'Nâng cấp để mở khóa tính năng này';
+
+  @override
+  String get featureGateVipOnly => 'Tính năng chỉ dành cho VIP';
+
+  @override
+  String get adsRewardedButtonLabel => 'Xem quảng cáo để nhận thưởng';
+
+  @override
+  String get promoAdsPerkMessages => '+3 tin nhắn\nthưởng';
+
+  @override
+  String get promoAdsPerkFilters => 'Mở khóa\nbộ lọc';
+
+  @override
+  String get promoAdsPerkXp => '+10 XP\nthưởng';
+
+  @override
+  String get promoAdsPerkRetry => 'Thử lại\nmiễn phí';
+
+  @override
+  String get visitorLimitMessagesTitle => 'Đã đạt giới hạn tin nhắn hằng ngày';
+
+  @override
+  String visitorLimitMessagesBody(int count) {
+    return 'Hôm nay bạn đã gửi $count tin nhắn. Nâng cấp để gửi thêm!';
+  }
+
+  @override
+  String get visitorLimitProfilesTitle => 'Đã đạt giới hạn lượt xem hồ sơ hằng ngày';
+
+  @override
+  String visitorLimitProfilesBody(int count) {
+    return 'Hôm nay bạn đã xem $count hồ sơ. Nâng cấp để xem thêm!';
+  }
+
+  @override
+  String get visitorLimitFreeAccountBenefit => 'Giới hạn hằng ngày cao hơn';
+
+  @override
+  String get visitorLimitVipBenefit => 'Truy cập không giới hạn';
+
+  @override
+  String get promoWelcomeBackTutorSubtitle => 'Luyện hội thoại, phát âm và câu đố';
+
+  @override
+  String get promoWelcomeBackCommunitySubtitle => 'Tìm bạn học ngôn ngữ gần bạn';
+
+  @override
+  String get promoWelcomeBackMomentsSubtitle => 'Chia sẻ hành trình học ngôn ngữ của bạn';
+
+  @override
+  String get myReportsReportedId => 'ID bị báo cáo';
+
+  @override
+  String get myReportsReason => 'Lý do';
+
+  @override
+  String get myReportsSubmitted => 'Đã gửi';
+
+  @override
+  String get myReportsResolved => 'Đã giải quyết';
+
+  @override
+  String get myReportsModeratorNotes => 'Ghi chú của người kiểm duyệt';
+
+  @override
+  String get myReportsNotAvailable => 'Không có';
+
+  @override
+  String get myReportsFailedToLoad => 'Không thể tải các báo cáo';
+
+  @override
+  String get voiceRecorderUnavailableDesktop => 'Ghi âm giọng nói không khả dụng trên máy tính';
+
+  @override
+  String get adminPageUnavailable => 'Trang này không khả dụng.';
+
+  @override
+  String storyShareSendFailedTo(Object names) {
+    return 'Không thể gửi tới $names';
+  }
+
+  @override
+  String get storyCantReact => 'Bạn không thể thả cảm xúc cho tin này';
+
+  @override
+  String get storyCantReply => 'Bạn không thể trả lời tin này';
+
+  @override
+  String get storyNoMediaToSave => 'Tin này không có phương tiện để lưu';
+
+  @override
+  String get coinsAdCrediting => 'Đang cộng…';
+
+  @override
+  String get coinsWatchAdReward => 'Xem quảng cáo (+5 💎)';
 }

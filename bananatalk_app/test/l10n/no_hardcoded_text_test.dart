@@ -31,13 +31,9 @@ const _allowedPaths = <String, String>{
   'lib/screens/livekit_test_screen.dart': 'debug-only test screen',
 };
 
-/// Exact literals allowed in one file (support diagnostics, not copy).
-const _allowedTexts = <String, Set<String>>{
-  'lib/pages/vip/vip_payment_screen.dart': {
-    'Debug Info:',
-    r'User ID: ${widget.userId}\nPlan: ${widget.plan.name}\nPayment: $selectedPaymentMethod',
-  },
-};
+/// Exact literals allowed in one file. Empty: the VIP payment debug block is
+/// now `kDebugMode`-only and built outside a `Text('...')` literal.
+const _allowedTexts = <String, Set<String>>{};
 
 /// Words that are the same in every locale: brands and units.
 const _brandTokens = {'VIP', 'XP', 'HD', 'MB', 'km', 'GIPHY', 'Bananatalk', 'BananaTalk', 'firdavsDev'};

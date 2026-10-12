@@ -362,7 +362,7 @@ class _ConversationDetailsSheetState extends State<_ConversationDetailsSheet> {
         setState(() {
           _isLoading = false;
           if (_messages.isEmpty) {
-            _error = 'No messages found';
+            _error = AppLocalizations.of(context)!.aiNoMessagesConversation;
           }
         });
       }
@@ -370,7 +370,7 @@ class _ConversationDetailsSheetState extends State<_ConversationDetailsSheet> {
       if (mounted) {
         setState(() {
           _isLoading = false;
-          _error = 'Failed to load conversation';
+          _error = AppLocalizations.of(context)!.aiFailedToLoadConversation;
         });
       }
     }

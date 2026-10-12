@@ -291,7 +291,8 @@ class _NativeAdWidgetState extends ConsumerState<NativeAdWidget> {
 /// Button to watch a rewarded ad for a temporary bonus
 class RewardedAdButton extends ConsumerWidget {
   final VoidCallback onRewarded;
-  final String label;
+  /// Button text; defaults to the localized "Watch Ad for Bonus".
+  final String? label;
 
   /// Extra caller-side gate on top of ad readiness — e.g. Coins v2's
   /// watch-ad card disables this while a previous reward call is still
@@ -302,7 +303,7 @@ class RewardedAdButton extends ConsumerWidget {
   const RewardedAdButton({
     super.key,
     required this.onRewarded,
-    this.label = 'Watch Ad for Bonus',
+    this.label,
     this.enabled = true,
   });
 
@@ -319,7 +320,7 @@ class RewardedAdButton extends ConsumerWidget {
           ? () => adService.showRewarded(onRewarded: onRewarded)
           : null,
       icon: const Icon(Icons.play_circle_outline, size: 20),
-      label: Text(label),
+      label: Text(label ?? AppLocalizations.of(context)!.adsRewardedButtonLabel),
       style: OutlinedButton.styleFrom(
         foregroundColor: const Color(0xFF667EEA),
         side: BorderSide(

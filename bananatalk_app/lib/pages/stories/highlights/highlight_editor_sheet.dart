@@ -122,7 +122,7 @@ class _CreateHighlightSheetState extends State<_CreateHighlightSheet> {
       } else {
         setState(() {
           _isSaving = false;
-          _error = 'Failed to create highlight';
+          _error = AppLocalizations.of(context)!.storyHighlightCreateFailed;
         });
       }
     } catch (e) {
@@ -256,7 +256,7 @@ class _EditHighlightSheetState extends State<_EditHighlightSheet> {
       } else {
         setState(() {
           _isSaving = false;
-          _error = 'Failed to rename highlight';
+          _error = AppLocalizations.of(context)!.storyHighlightRenameFailed;
         });
       }
     } catch (e) {
@@ -316,7 +316,7 @@ class _EditHighlightSheetState extends State<_EditHighlightSheet> {
       } else {
         setState(() {
           _isSaving = false;
-          _error = 'Failed to delete highlight';
+          _error = AppLocalizations.of(context)!.storyHighlightDeleteFailed;
         });
       }
     } catch (e) {

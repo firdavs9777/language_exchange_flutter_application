@@ -93,7 +93,7 @@ class _QuestionStickerEditorState extends State<QuestionStickerEditor> {
                 style: const TextStyle(color: Colors.white),
                 onChanged: (_) => setState(() {}),
                 decoration: InputDecoration(
-                  hintText: 'Your prompt...',
+                  hintText: AppLocalizations.of(context)!.yourPrompt,
                   hintStyle: TextStyle(color: Colors.grey[500]),
                   filled: true,
                   fillColor: Colors.grey[900],

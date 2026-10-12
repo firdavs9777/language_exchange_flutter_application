@@ -41,13 +41,13 @@ class _MyReportsScreenState extends ConsumerState<MyReportsScreen> {
         });
       } else {
         setState(() {
-          _error = result['error'] ?? 'Failed to load reports';
+          _error = result['error'] ?? AppLocalizations.of(context)!.myReportsFailedToLoad;
           _isLoading = false;
         });
       }
     } catch (e) {
       setState(() {
-        _error = 'Error: ${e.toString()}';
+        _error = AppLocalizations.of(context)!.commonError(e.toString());
         _isLoading = false;
       });
     }
@@ -231,30 +231,30 @@ class _MyReportsScreenState extends ConsumerState<MyReportsScreen> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       _buildInfoRow(
-                                        'Reported ID',
-                                        report['reportId']?.toString() ?? 'N/A',
+                                        l10n.myReportsReportedId,
+                                        report['reportId']?.toString() ?? l10n.myReportsNotAvailable,
                                       ),
                                       Spacing.gapSM,
                                       _buildInfoRow(
-                                        'Status',
+                                        l10n.status,
                                         status.toUpperCase(),
                                       ),
                                       Spacing.gapSM,
                                       _buildInfoRow(
-                                        'Reason',
+                                        l10n.myReportsReason,
                                         _getReasonLabel(l10n, report['reason']),
                                       ),
                                       if (report['description'] != null &&
                                           report['description'].toString().isNotEmpty) ...[
                                         Spacing.gapSM,
                                         _buildInfoRow(
-                                          'Description',
+                                          l10n.momentDescriptionLabel,
                                           report['description'].toString(),
                                         ),
                                       ],
                                       Spacing.gapSM,
                                       _buildInfoRow(
-                                        'Submitted',
+                                        l10n.myReportsSubmitted,
                                         report['createdAt'] != null
                                             ? _formatDate(report['createdAt'].toString())
                                             : 'N/A',
@@ -262,7 +262,7 @@ class _MyReportsScreenState extends ConsumerState<MyReportsScreen> {
                                       if (report['resolvedAt'] != null) ...[
                                         Spacing.gapSM,
                                         _buildInfoRow(
-                                          'Resolved',
+                                          l10n.myReportsResolved,
                                           _formatDate(report['resolvedAt'].toString()),
                                         ),
                                       ],
@@ -270,7 +270,7 @@ class _MyReportsScreenState extends ConsumerState<MyReportsScreen> {
                                           report['moderatorNotes'].toString().isNotEmpty) ...[
                                         Spacing.gapSM,
                                         _buildInfoRow(
-                                          'Moderator Notes',
+                                          l10n.myReportsModeratorNotes,
                                           report['moderatorNotes'].toString(),
                                         ),
                                       ],

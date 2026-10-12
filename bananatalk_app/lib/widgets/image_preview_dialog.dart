@@ -149,7 +149,7 @@ class _ImagePreviewDialogState extends State<ImagePreviewDialog> {
                         controller: _captionController,
                         style: const TextStyle(color: Colors.white),
                         decoration: InputDecoration(
-                          hintText: 'Add a caption...',
+                          hintText: AppLocalizations.of(context)!.addACaption,
                           hintStyle: TextStyle(color: Colors.grey[400]),
                           border: InputBorder.none,
                           contentPadding: const EdgeInsets.symmetric(horizontal: 12),

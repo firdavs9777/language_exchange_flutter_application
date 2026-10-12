@@ -10905,4 +10905,260 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get commonReportReasonCopyright => 'Вайрон кардани ҳуқуқи муаллиф';
+
+  @override
+  String get momentsRemoveVoiceNote => 'Қайди овозиро нест кунед';
+
+  @override
+  String get vocabPackLevelProficiency => 'Омӯхтагӣ';
+
+  @override
+  String get aiFailedToLoadFeedback => 'Бор кардани бозхӯрд номуваффақ шуд';
+
+  @override
+  String get aiFailedToLoadSummary => 'Бор кардани хулоса номуваффақ шуд';
+
+  @override
+  String get momentFailedToLoad => 'Бор кардани лаҳза номуваффақ шуд';
+
+  @override
+  String get aiPronunciationWatchAdRetry => 'Барои як кӯшиши дигари ройгон реклама тамошо кунед';
+
+  @override
+  String aiErrorLoadingLanguages(Object error) {
+    return 'Хатогӣ ҳангоми бор кардани забонҳо: $error';
+  }
+
+  @override
+  String get aiSelectSourceTargetLanguages => 'Лутфан забони аслӣ ва забони мақсадро интихоб кунед';
+
+  @override
+  String get aiUnexpectedResponseFormat => 'Формати ҷавоб ғайричашмдошт аст';
+
+  @override
+  String get aiFailedToLoadConversation => 'Бор кардани сӯҳбат номуваффақ шуд';
+
+  @override
+  String get aiMicPermissionDeniedSettings => 'Иҷозати микрофон рад шуд. Лутфан онро дар Танзимот фаъол кунед.';
+
+  @override
+  String get aiFailedToEvaluatePronunciation => 'Арзёбии талаффуз номуваффақ шуд';
+
+  @override
+  String get aiFailedToGenerateSpeech => 'Эҷоди нутқ номуваффақ шуд';
+
+  @override
+  String get aiFailedToGenerateLesson => 'Эҷоди дарс номуваффақ шуд';
+
+  @override
+  String get aiLessonTopicRequired => 'Лутфан мавзӯъро ворид кунед';
+
+  @override
+  String get aiFailedToLoadTopics => 'Бор кардани мавзӯъҳо номуваффақ шуд';
+
+  @override
+  String get aiFailedToLoadScenarios => 'Бор кардани сенарияҳо номуваффақ шуд';
+
+  @override
+  String get aiAnalysisFailed => 'Таҳлил номуваффақ шуд';
+
+  @override
+  String get storySearchPlaceHint => 'Ҷустуҷӯи ҷой…';
+
+  @override
+  String get storySearchRecentChatsHint => 'Ҷустуҷӯи чатҳои охирин…';
+
+  @override
+  String get storySearchFollowingHint => 'Ҷустуҷӯи одамоне, ки шумо пайравӣ мекунед…';
+
+  @override
+  String get storyAddHashtagsHint => 'Ҳештегҳо илова кунед...';
+
+  @override
+  String get storyHighlightCreateFailed => 'Эҷоди интихобшуда номуваффақ шуд';
+
+  @override
+  String get storyHighlightRenameFailed => 'Тағйири номи интихобшуда номуваффақ шуд';
+
+  @override
+  String get storyHighlightDeleteFailed => 'Нест кардани интихобшуда номуваффақ шуд';
+
+  @override
+  String get storyViewersLoadFailed => 'Бор кардани тамошобинон номуваффақ шуд';
+
+  @override
+  String get storyShareSent => 'Фиристода шуд 💛';
+
+  @override
+  String storyShareSentPartial(Object names) {
+    return 'Фиристода шуд 💛 — барои $names номуваффақ шуд';
+  }
+
+  @override
+  String get storyVoteFailed => 'Фиристодани овоз номуваффақ шуд';
+
+  @override
+  String get storyAnswerFailed => 'Фиристодани ҷавоб номуваффақ шуд';
+
+  @override
+  String get storyAlreadyInHighlight => 'Аллакай дар интихобшуда захира шудааст';
+
+  @override
+  String get storyAddedToHighlight => 'Ба интихобшуда илова шуд';
+
+  @override
+  String storyMaxHashtags(int max) {
+    return 'Шумо метавонед то $max ҳештег илова кунед';
+  }
+
+  @override
+  String storyMaxMentions(int max) {
+    return 'Шумо метавонед то $max нафарро ном баред';
+  }
+
+  @override
+  String get coinHistoryActivity => 'Фаъолияти тангаҳо';
+
+  @override
+  String get coinHistoryAdReward => 'Реклама тамошо шуд';
+
+  @override
+  String get coinHistoryPurchase => 'Хариди тангаҳо';
+
+  @override
+  String coinHistoryUnlocked(Object feature) {
+    return '$feature кушода шуд';
+  }
+
+  @override
+  String get vipVisitorMessagesBenefit => 'Дар як рӯз то 50 паём фиристед';
+
+  @override
+  String get vipVisitorProfilesBenefit => 'Дар як рӯз то 100 профилро бинед';
+
+  @override
+  String get vipVisitorFriendsBenefit => 'Дӯстон илова кунед ва шабакаи худро васеъ кунед';
+
+  @override
+  String get vipVisitorCommunitiesTitle => 'Ба ҷамоатҳо ҳамроҳ шавед';
+
+  @override
+  String get vipVisitorCommunitiesBenefit => 'Дар баҳсҳои ҷамоат иштирок кунед';
+
+  @override
+  String get vipVisitorMomentsTitle => 'Лаҳзаҳоро мубодила кунед';
+
+  @override
+  String get vipVisitorMomentsBenefit => 'Лаҳзаҳои худро нашр ва мубодила кунед';
+
+  @override
+  String get vipUnlimitedEverythingTitle => 'Ҳама чиз бемаҳдуд';
+
+  @override
+  String get vipUnlimitedEverythingBenefit => 'Бе маҳдудияти рӯзона барои паёмҳо ё дидани профилҳо';
+
+  @override
+  String get vipProfileBoostBenefit => 'Дар натиҷаҳои ҷустуҷӯ бештар намоён шавед';
+
+  @override
+  String get vipAdFreeExperienceBenefit => 'Аз барнома бе реклама лаззат баред';
+
+  @override
+  String get featureGateUpgradeToUnlock => 'Барои кушодани ин имконият ба сатҳи болотар гузаред';
+
+  @override
+  String get featureGateVipOnly => 'Имконияти танҳо барои VIP';
+
+  @override
+  String get adsRewardedButtonLabel => 'Барои бонус реклама тамошо кунед';
+
+  @override
+  String get promoAdsPerkMessages => '+3 паёми\nбонусӣ';
+
+  @override
+  String get promoAdsPerkFilters => 'Филтрҳоро\nкушоед';
+
+  @override
+  String get promoAdsPerkXp => '+10 XP-и\nбонусӣ';
+
+  @override
+  String get promoAdsPerkRetry => 'Кӯшиши\nдубораи ройгон';
+
+  @override
+  String get visitorLimitMessagesTitle => 'Ҳудуди рӯзонаи паёмҳо ба охир расид';
+
+  @override
+  String visitorLimitMessagesBody(int count) {
+    return 'Имрӯз шумо $count паём фиристодед. Барои бештар фиристодан ба сатҳи болотар гузаред!';
+  }
+
+  @override
+  String get visitorLimitProfilesTitle => 'Ҳудуди рӯзонаи дидани профилҳо ба охир расид';
+
+  @override
+  String visitorLimitProfilesBody(int count) {
+    return 'Имрӯз шумо $count профилро дидед. Барои бештар дидан ба сатҳи болотар гузаред!';
+  }
+
+  @override
+  String get visitorLimitFreeAccountBenefit => 'Ҳудудҳои рӯзонаи баландтар';
+
+  @override
+  String get visitorLimitVipBenefit => 'Дастрасии бемаҳдуд';
+
+  @override
+  String get promoWelcomeBackTutorSubtitle => 'Сӯҳбат, талаффуз ва викторинаҳоро машқ кунед';
+
+  @override
+  String get promoWelcomeBackCommunitySubtitle => 'Шарикони забонро дар наздикии худ ёбед';
+
+  @override
+  String get promoWelcomeBackMomentsSubtitle => 'Роҳи омӯзиши забонатонро мубодила кунед';
+
+  @override
+  String get myReportsReportedId => 'Идентификатори гузоришшуда';
+
+  @override
+  String get myReportsReason => 'Сабаб';
+
+  @override
+  String get myReportsSubmitted => 'Пешниҳод шуд';
+
+  @override
+  String get myReportsResolved => 'Ҳал шуд';
+
+  @override
+  String get myReportsModeratorNotes => 'Ёддоштҳои модератор';
+
+  @override
+  String get myReportsNotAvailable => 'Нест';
+
+  @override
+  String get myReportsFailedToLoad => 'Бор кардани шикоятҳо номуваффақ шуд';
+
+  @override
+  String get voiceRecorderUnavailableDesktop => 'Сабти овоз дар компютер дастрас нест';
+
+  @override
+  String get adminPageUnavailable => 'Ин саҳифа дастрас нест.';
+
+  @override
+  String storyShareSendFailedTo(Object names) {
+    return 'Ба $names фиристода нашуд';
+  }
+
+  @override
+  String get storyCantReact => 'Шумо ба ин ҳикоя вокуниш нишон дода наметавонед';
+
+  @override
+  String get storyCantReply => 'Шумо ба ин ҳикоя ҷавоб дода наметавонед';
+
+  @override
+  String get storyNoMediaToSave => 'Дар ин ҳикоя расонае барои захира кардан нест';
+
+  @override
+  String get coinsAdCrediting => 'Ҳисоб карда истодааст…';
+
+  @override
+  String get coinsWatchAdReward => 'Реклама тамошо кунед (+5 💎)';
 }

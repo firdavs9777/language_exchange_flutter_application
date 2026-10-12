@@ -123,7 +123,7 @@ class ApiErrorHandler {
   }
 
   /// Parse error from API response
-  static String parseError(dynamic error, {String defaultMessage = 'An error occurred'}) {
+  static String parseError(dynamic error, {required String defaultMessage}) {
     if (error is Map) {
       return error['error'] ?? error['message'] ?? defaultMessage;
     } else if (error is String) {

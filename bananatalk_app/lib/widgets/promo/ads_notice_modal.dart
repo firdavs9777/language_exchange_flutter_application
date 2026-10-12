@@ -126,12 +126,12 @@ class _AdsNoticeSheet extends StatelessWidget {
           const SizedBox(height: 16),
 
           // Perks row
-          const Row(
+          Row(
             children: [
-              _Perk(emoji: '💬', label: '+3 bonus\nmessages'),
-              _Perk(emoji: '🔍', label: 'Unlock\nfilters'),
-              _Perk(emoji: '⭐', label: '+10 bonus\nXP'),
-              _Perk(emoji: '🎙️', label: 'Free\nretry'),
+              _Perk(emoji: '💬', label: l10n.promoAdsPerkMessages),
+              _Perk(emoji: '🔍', label: l10n.promoAdsPerkFilters),
+              _Perk(emoji: '⭐', label: l10n.promoAdsPerkXp),
+              _Perk(emoji: '🎙️', label: l10n.promoAdsPerkRetry),
             ],
           ),
           const SizedBox(height: 24),

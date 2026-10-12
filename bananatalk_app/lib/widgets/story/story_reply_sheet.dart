@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 /// Bottom sheet for replying to stories with quick emoji reactions
 class StoryReplySheet extends StatefulWidget {
@@ -179,7 +180,7 @@ class _StoryReplySheetState extends State<StoryReplySheet> {
                         minLines: 1,
                         textCapitalization: TextCapitalization.sentences,
                         decoration: InputDecoration(
-                          hintText: 'Send a message...',
+                          hintText: AppLocalizations.of(context)!.sendAMessage,
                           hintStyle: context.bodyMedium.copyWith(color: context.textMuted),
                           filled: true,
                           fillColor: context.containerColor,

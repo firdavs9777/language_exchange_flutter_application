@@ -119,7 +119,7 @@ class _LocationSheetState extends State<_LocationSheet> {
                 controller: _controller,
                 onSubmitted: _search,
                 decoration: InputDecoration(
-                  hintText: 'Search a place…',
+                  hintText: AppLocalizations.of(context)!.storySearchPlaceHint,
                   prefixIcon: const Icon(Icons.search_rounded),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(14),

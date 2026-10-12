@@ -10885,4 +10885,260 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get commonReportReasonCopyright => '저작권 침해';
+
+  @override
+  String get momentsRemoveVoiceNote => '음성 메모 삭제';
+
+  @override
+  String get vocabPackLevelProficiency => '숙달';
+
+  @override
+  String get aiFailedToLoadFeedback => '피드백을 불러오지 못했습니다';
+
+  @override
+  String get aiFailedToLoadSummary => '요약을 불러오지 못했습니다';
+
+  @override
+  String get momentFailedToLoad => '모멘트를 불러오지 못했습니다';
+
+  @override
+  String get aiPronunciationWatchAdRetry => '광고 보고 무료로 한 번 더 시도하기';
+
+  @override
+  String aiErrorLoadingLanguages(Object error) {
+    return '언어를 불러오는 중 오류: $error';
+  }
+
+  @override
+  String get aiSelectSourceTargetLanguages => '원본 언어와 대상 언어를 선택해 주세요';
+
+  @override
+  String get aiUnexpectedResponseFormat => '예상하지 못한 응답 형식입니다';
+
+  @override
+  String get aiFailedToLoadConversation => '대화를 불러오지 못했습니다';
+
+  @override
+  String get aiMicPermissionDeniedSettings => '마이크 권한이 거부되었습니다. 설정에서 허용해 주세요.';
+
+  @override
+  String get aiFailedToEvaluatePronunciation => '발음을 평가하지 못했습니다';
+
+  @override
+  String get aiFailedToGenerateSpeech => '음성을 생성하지 못했습니다';
+
+  @override
+  String get aiFailedToGenerateLesson => '레슨을 생성하지 못했습니다';
+
+  @override
+  String get aiLessonTopicRequired => '주제를 입력해 주세요';
+
+  @override
+  String get aiFailedToLoadTopics => '주제를 불러오지 못했습니다';
+
+  @override
+  String get aiFailedToLoadScenarios => '시나리오를 불러오지 못했습니다';
+
+  @override
+  String get aiAnalysisFailed => '분석에 실패했습니다';
+
+  @override
+  String get storySearchPlaceHint => '장소 검색…';
+
+  @override
+  String get storySearchRecentChatsHint => '최근 채팅 검색…';
+
+  @override
+  String get storySearchFollowingHint => '팔로우 중인 사람 검색…';
+
+  @override
+  String get storyAddHashtagsHint => '해시태그 추가...';
+
+  @override
+  String get storyHighlightCreateFailed => '하이라이트를 만들지 못했습니다';
+
+  @override
+  String get storyHighlightRenameFailed => '하이라이트 이름을 바꾸지 못했습니다';
+
+  @override
+  String get storyHighlightDeleteFailed => '하이라이트를 삭제하지 못했습니다';
+
+  @override
+  String get storyViewersLoadFailed => '조회자를 불러오지 못했습니다';
+
+  @override
+  String get storyShareSent => '보냈어요 💛';
+
+  @override
+  String storyShareSentPartial(Object names) {
+    return '보냈어요 💛 — $names에게는 실패했어요';
+  }
+
+  @override
+  String get storyVoteFailed => '투표를 제출하지 못했습니다';
+
+  @override
+  String get storyAnswerFailed => '답변을 보내지 못했습니다';
+
+  @override
+  String get storyAlreadyInHighlight => '이미 하이라이트에 저장되어 있어요';
+
+  @override
+  String get storyAddedToHighlight => '하이라이트에 추가했어요';
+
+  @override
+  String storyMaxHashtags(int max) {
+    return '해시태그는 최대 $max개까지 추가할 수 있어요';
+  }
+
+  @override
+  String storyMaxMentions(int max) {
+    return '최대 $max명까지 멘션할 수 있어요';
+  }
+
+  @override
+  String get coinHistoryActivity => '코인 활동';
+
+  @override
+  String get coinHistoryAdReward => '광고 시청';
+
+  @override
+  String get coinHistoryPurchase => '코인 구매';
+
+  @override
+  String coinHistoryUnlocked(Object feature) {
+    return '$feature 잠금 해제';
+  }
+
+  @override
+  String get vipVisitorMessagesBenefit => '하루 최대 50개의 메시지 보내기';
+
+  @override
+  String get vipVisitorProfilesBenefit => '하루 최대 100개의 프로필 보기';
+
+  @override
+  String get vipVisitorFriendsBenefit => '친구를 추가하고 인맥을 넓혀 보세요';
+
+  @override
+  String get vipVisitorCommunitiesTitle => '커뮤니티 참여';
+
+  @override
+  String get vipVisitorCommunitiesBenefit => '커뮤니티 토론에 참여해 보세요';
+
+  @override
+  String get vipVisitorMomentsTitle => '모멘트 공유';
+
+  @override
+  String get vipVisitorMomentsBenefit => '내 모멘트를 올리고 공유해 보세요';
+
+  @override
+  String get vipUnlimitedEverythingTitle => '모든 것을 무제한으로';
+
+  @override
+  String get vipUnlimitedEverythingBenefit => '메시지와 프로필 조회에 일일 제한 없음';
+
+  @override
+  String get vipProfileBoostBenefit => '검색 결과에서 더 많이 노출돼요';
+
+  @override
+  String get vipAdFreeExperienceBenefit => '광고 없이 앱을 즐겨 보세요';
+
+  @override
+  String get featureGateUpgradeToUnlock => '업그레이드하면 이 기능을 사용할 수 있어요';
+
+  @override
+  String get featureGateVipOnly => 'VIP 전용 기능';
+
+  @override
+  String get adsRewardedButtonLabel => '광고 보고 보너스 받기';
+
+  @override
+  String get promoAdsPerkMessages => '보너스 메시지\n+3';
+
+  @override
+  String get promoAdsPerkFilters => '필터\n잠금 해제';
+
+  @override
+  String get promoAdsPerkXp => '보너스 XP\n+10';
+
+  @override
+  String get promoAdsPerkRetry => '무료\n재시도';
+
+  @override
+  String get visitorLimitMessagesTitle => '일일 메시지 한도에 도달했어요';
+
+  @override
+  String visitorLimitMessagesBody(int count) {
+    return '오늘 메시지를 $count개 보냈어요. 업그레이드하고 더 보내 보세요!';
+  }
+
+  @override
+  String get visitorLimitProfilesTitle => '일일 프로필 조회 한도에 도달했어요';
+
+  @override
+  String visitorLimitProfilesBody(int count) {
+    return '오늘 프로필을 $count개 봤어요. 업그레이드하고 더 둘러보세요!';
+  }
+
+  @override
+  String get visitorLimitFreeAccountBenefit => '더 높은 일일 한도';
+
+  @override
+  String get visitorLimitVipBenefit => '무제한 이용';
+
+  @override
+  String get promoWelcomeBackTutorSubtitle => '대화, 발음, 퀴즈를 연습해 보세요';
+
+  @override
+  String get promoWelcomeBackCommunitySubtitle => '내 주변의 언어 파트너를 찾아보세요';
+
+  @override
+  String get promoWelcomeBackMomentsSubtitle => '나의 언어 학습 여정을 공유해 보세요';
+
+  @override
+  String get myReportsReportedId => '신고 대상 ID';
+
+  @override
+  String get myReportsReason => '사유';
+
+  @override
+  String get myReportsSubmitted => '제출일';
+
+  @override
+  String get myReportsResolved => '해결일';
+
+  @override
+  String get myReportsModeratorNotes => '운영자 메모';
+
+  @override
+  String get myReportsNotAvailable => '해당 없음';
+
+  @override
+  String get myReportsFailedToLoad => '신고 내역을 불러오지 못했습니다';
+
+  @override
+  String get voiceRecorderUnavailableDesktop => '데스크톱에서는 음성 녹음을 사용할 수 없습니다';
+
+  @override
+  String get adminPageUnavailable => '이 페이지를 사용할 수 없습니다.';
+
+  @override
+  String storyShareSendFailedTo(Object names) {
+    return '$names에게 보내지 못했어요';
+  }
+
+  @override
+  String get storyCantReact => '이 스토리에는 반응할 수 없어요';
+
+  @override
+  String get storyCantReply => '이 스토리에는 답장할 수 없어요';
+
+  @override
+  String get storyNoMediaToSave => '이 스토리에는 저장할 미디어가 없어요';
+
+  @override
+  String get coinsAdCrediting => '지급 중…';
+
+  @override
+  String get coinsWatchAdReward => '광고 보기 (+5 💎)';
 }

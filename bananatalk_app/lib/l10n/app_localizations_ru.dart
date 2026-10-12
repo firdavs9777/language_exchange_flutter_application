@@ -10947,4 +10947,260 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get commonReportReasonCopyright => 'Нарушение авторских прав';
+
+  @override
+  String get momentsRemoveVoiceNote => 'Удалить голосовую заметку';
+
+  @override
+  String get vocabPackLevelProficiency => 'Владение';
+
+  @override
+  String get aiFailedToLoadFeedback => 'Не удалось загрузить отзыв';
+
+  @override
+  String get aiFailedToLoadSummary => 'Не удалось загрузить итоги';
+
+  @override
+  String get momentFailedToLoad => 'Не удалось загрузить момент';
+
+  @override
+  String get aiPronunciationWatchAdRetry => 'Посмотрите рекламу ради ещё одной бесплатной попытки';
+
+  @override
+  String aiErrorLoadingLanguages(Object error) {
+    return 'Ошибка загрузки языков: $error';
+  }
+
+  @override
+  String get aiSelectSourceTargetLanguages => 'Выберите исходный и целевой языки';
+
+  @override
+  String get aiUnexpectedResponseFormat => 'Непредвиденный формат ответа';
+
+  @override
+  String get aiFailedToLoadConversation => 'Не удалось загрузить разговор';
+
+  @override
+  String get aiMicPermissionDeniedSettings => 'Доступ к микрофону запрещён. Включите его в настройках.';
+
+  @override
+  String get aiFailedToEvaluatePronunciation => 'Не удалось оценить произношение';
+
+  @override
+  String get aiFailedToGenerateSpeech => 'Не удалось сгенерировать речь';
+
+  @override
+  String get aiFailedToGenerateLesson => 'Не удалось создать урок';
+
+  @override
+  String get aiLessonTopicRequired => 'Введите тему';
+
+  @override
+  String get aiFailedToLoadTopics => 'Не удалось загрузить темы';
+
+  @override
+  String get aiFailedToLoadScenarios => 'Не удалось загрузить сценарии';
+
+  @override
+  String get aiAnalysisFailed => 'Не удалось выполнить анализ';
+
+  @override
+  String get storySearchPlaceHint => 'Найти место…';
+
+  @override
+  String get storySearchRecentChatsHint => 'Поиск по недавним чатам…';
+
+  @override
+  String get storySearchFollowingHint => 'Поиск среди тех, на кого вы подписаны…';
+
+  @override
+  String get storyAddHashtagsHint => 'Добавьте хештеги...';
+
+  @override
+  String get storyHighlightCreateFailed => 'Не удалось создать актуальное';
+
+  @override
+  String get storyHighlightRenameFailed => 'Не удалось переименовать актуальное';
+
+  @override
+  String get storyHighlightDeleteFailed => 'Не удалось удалить актуальное';
+
+  @override
+  String get storyViewersLoadFailed => 'Не удалось загрузить зрителей';
+
+  @override
+  String get storyShareSent => 'Отправлено 💛';
+
+  @override
+  String storyShareSentPartial(Object names) {
+    return 'Отправлено 💛 — не удалось для $names';
+  }
+
+  @override
+  String get storyVoteFailed => 'Не удалось отправить голос';
+
+  @override
+  String get storyAnswerFailed => 'Не удалось отправить ответ';
+
+  @override
+  String get storyAlreadyInHighlight => 'Уже сохранено в актуальном';
+
+  @override
+  String get storyAddedToHighlight => 'Добавлено в актуальное';
+
+  @override
+  String storyMaxHashtags(int max) {
+    return 'Можно добавить до $max хештегов';
+  }
+
+  @override
+  String storyMaxMentions(int max) {
+    return 'Можно упомянуть до $max человек';
+  }
+
+  @override
+  String get coinHistoryActivity => 'Операция с монетами';
+
+  @override
+  String get coinHistoryAdReward => 'Просмотр рекламы';
+
+  @override
+  String get coinHistoryPurchase => 'Покупка монет';
+
+  @override
+  String coinHistoryUnlocked(Object feature) {
+    return 'Разблокировано: $feature';
+  }
+
+  @override
+  String get vipVisitorMessagesBenefit => 'Отправляйте до 50 сообщений в день';
+
+  @override
+  String get vipVisitorProfilesBenefit => 'Просматривайте до 100 профилей в день';
+
+  @override
+  String get vipVisitorFriendsBenefit => 'Добавляйте друзей и расширяйте круг общения';
+
+  @override
+  String get vipVisitorCommunitiesTitle => 'Вступайте в сообщества';
+
+  @override
+  String get vipVisitorCommunitiesBenefit => 'Участвуйте в обсуждениях сообщества';
+
+  @override
+  String get vipVisitorMomentsTitle => 'Делитесь моментами';
+
+  @override
+  String get vipVisitorMomentsBenefit => 'Публикуйте и делитесь своими моментами';
+
+  @override
+  String get vipUnlimitedEverythingTitle => 'Всё без ограничений';
+
+  @override
+  String get vipUnlimitedEverythingBenefit => 'Без дневных лимитов на сообщения и просмотры профилей';
+
+  @override
+  String get vipProfileBoostBenefit => 'Больше видимости в результатах поиска';
+
+  @override
+  String get vipAdFreeExperienceBenefit => 'Пользуйтесь приложением без рекламы';
+
+  @override
+  String get featureGateUpgradeToUnlock => 'Обновите план, чтобы разблокировать эту функцию';
+
+  @override
+  String get featureGateVipOnly => 'Функция только для VIP';
+
+  @override
+  String get adsRewardedButtonLabel => 'Посмотрите рекламу ради бонуса';
+
+  @override
+  String get promoAdsPerkMessages => '+3 бонусных\nсообщения';
+
+  @override
+  String get promoAdsPerkFilters => 'Откройте\nфильтры';
+
+  @override
+  String get promoAdsPerkXp => '+10 бонусных\nXP';
+
+  @override
+  String get promoAdsPerkRetry => 'Бесплатная\nповторная попытка';
+
+  @override
+  String get visitorLimitMessagesTitle => 'Достигнут дневной лимит сообщений';
+
+  @override
+  String visitorLimitMessagesBody(int count) {
+    return 'Сегодня вы отправили сообщений: $count. Обновите план, чтобы отправлять больше!';
+  }
+
+  @override
+  String get visitorLimitProfilesTitle => 'Достигнут дневной лимит просмотров профилей';
+
+  @override
+  String visitorLimitProfilesBody(int count) {
+    return 'Сегодня вы просмотрели профилей: $count. Обновите план, чтобы смотреть больше!';
+  }
+
+  @override
+  String get visitorLimitFreeAccountBenefit => 'Более высокие дневные лимиты';
+
+  @override
+  String get visitorLimitVipBenefit => 'Неограниченный доступ';
+
+  @override
+  String get promoWelcomeBackTutorSubtitle => 'Практикуйте разговор, произношение и викторины';
+
+  @override
+  String get promoWelcomeBackCommunitySubtitle => 'Найдите партнёров для практики языка рядом с вами';
+
+  @override
+  String get promoWelcomeBackMomentsSubtitle => 'Делитесь своим путём изучения языков';
+
+  @override
+  String get myReportsReportedId => 'ID объекта жалобы';
+
+  @override
+  String get myReportsReason => 'Причина';
+
+  @override
+  String get myReportsSubmitted => 'Отправлено';
+
+  @override
+  String get myReportsResolved => 'Решено';
+
+  @override
+  String get myReportsModeratorNotes => 'Заметки модератора';
+
+  @override
+  String get myReportsNotAvailable => 'Н/Д';
+
+  @override
+  String get myReportsFailedToLoad => 'Не удалось загрузить жалобы';
+
+  @override
+  String get voiceRecorderUnavailableDesktop => 'Запись голоса недоступна на компьютере';
+
+  @override
+  String get adminPageUnavailable => 'Эта страница недоступна.';
+
+  @override
+  String storyShareSendFailedTo(Object names) {
+    return 'Не удалось отправить: $names';
+  }
+
+  @override
+  String get storyCantReact => 'Вы не можете реагировать на эту историю';
+
+  @override
+  String get storyCantReply => 'Вы не можете ответить на эту историю';
+
+  @override
+  String get storyNoMediaToSave => 'В этой истории нет медиа для сохранения';
+
+  @override
+  String get coinsAdCrediting => 'Начисление…';
+
+  @override
+  String get coinsWatchAdReward => 'Посмотреть рекламу (+5 💎)';
 }
