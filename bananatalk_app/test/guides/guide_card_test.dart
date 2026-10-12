@@ -10,28 +10,28 @@ Widget _host({
   String body = 'A photo or one line.',
   String? cta = 'Post a moment',
   VoidCallback? onCta,
-}) =>
-    MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: SizedBox(
-            width: width,
-            child: GuideCard(
-              icon: Icons.add_a_photo_rounded,
-              accent: const Color(0xFF7C4DFF),
-              title: title,
-              body: body,
-              ctaLabel: cta,
-              onCta: cta == null ? null : (onCta ?? () {}),
-            ),
-          ),
+}) => MaterialApp(
+  home: Scaffold(
+    body: Center(
+      child: SizedBox(
+        width: width,
+        child: GuideCard(
+          icon: Icons.add_a_photo_rounded,
+          accent: const Color(0xFF7C4DFF),
+          title: title,
+          body: body,
+          ctaLabel: cta,
+          onCta: cta == null ? null : (onCta ?? () {}),
         ),
       ),
-    );
+    ),
+  ),
+);
 
 void main() {
-  testWidgets('it shows the title, the body and the one action',
-      (tester) async {
+  testWidgets('it shows the title, the body and the one action', (
+    tester,
+  ) async {
     await tester.pumpWidget(_host(width: 390));
     await tester.pumpAndSettle();
 
@@ -57,13 +57,16 @@ void main() {
   testWidgets('a long translation does not overflow the card', (tester) async {
     // Nineteen locales are machine-drafted, and German and Russian routinely
     // run half again the English length.
-    await tester.pumpWidget(_host(
-      width: 300,
-      title: 'Veröffentliche etwas in der Sprache, die du gerade lernst',
-      body: 'Ein Foto oder eine Zeile. Muttersprachler korrigieren, '
-          'was du hier schreibst, meistens innerhalb weniger Stunden.',
-      cta: 'Einen Moment veröffentlichen',
-    ));
+    await tester.pumpWidget(
+      _host(
+        width: 300,
+        title: 'Veröffentliche etwas in der Sprache, die du gerade lernst',
+        body:
+            'Ein Foto oder eine Zeile. Muttersprachler korrigieren, '
+            'was du hier schreibst, meistens innerhalb weniger Stunden.',
+        cta: 'Einen Moment veröffentlichen',
+      ),
+    );
     await tester.pumpAndSettle();
     expect(tester.takeException(), isNull);
   });
@@ -86,25 +89,27 @@ void main() {
     // one for everybody sends half the users to the wrong place.
     var primary = 0;
     var secondary = 0;
-    await tester.pumpWidget(MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: SizedBox(
-            width: 390,
-            child: GuideCard(
-              icon: Icons.auto_awesome_rounded,
-              accent: const Color(0xFF667EEA),
-              title: 'Practise before you have to',
-              body: 'Tutor or exam prep.',
-              ctaLabel: 'Open AI Tools',
-              onCta: () => primary++,
-              secondaryLabel: 'Exam Study',
-              onSecondary: () => secondary++,
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: Center(
+            child: SizedBox(
+              width: 390,
+              child: GuideCard(
+                icon: Icons.auto_awesome_rounded,
+                accent: const Color(0xFF667EEA),
+                title: 'Practise before you have to',
+                body: 'Tutor or exam prep.',
+                ctaLabel: 'Open AI Tools',
+                onCta: () => primary++,
+                secondaryLabel: 'Exam Study',
+                onSecondary: () => secondary++,
+              ),
             ),
           ),
         ),
       ),
-    ));
+    );
     await tester.pumpAndSettle();
 
     expect(find.text('Open AI Tools'), findsOneWidget);
@@ -123,52 +128,58 @@ void main() {
   testWidgets('only the primary is ringed', (tester) async {
     // The ring names ONE button. Two rings is a card flashing, not a card
     // pointing -- the same rule as the top-card-only Say hi highlight.
-    await tester.pumpWidget(MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: SizedBox(
-            width: 390,
-            child: GuideCard(
-              icon: Icons.auto_awesome_rounded,
-              accent: const Color(0xFF667EEA),
-              title: 'Practise before you have to',
-              body: 'Tutor or exam prep.',
-              ctaLabel: 'Open AI Tools',
-              onCta: () {},
-              secondaryLabel: 'Exam Study',
-              onSecondary: () {},
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: Center(
+            child: SizedBox(
+              width: 390,
+              child: GuideCard(
+                icon: Icons.auto_awesome_rounded,
+                accent: const Color(0xFF667EEA),
+                title: 'Practise before you have to',
+                body: 'Tutor or exam prep.',
+                ctaLabel: 'Open AI Tools',
+                onCta: () {},
+                secondaryLabel: 'Exam Study',
+                onSecondary: () {},
+              ),
             ),
           ),
         ),
       ),
-    ));
+    );
     await tester.pump(const Duration(milliseconds: 300));
 
     expect(find.byType(PulseHighlight), findsOneWidget);
   });
 
-  testWidgets('two buttons plus long translations do not overflow',
-      (tester) async {
-    await tester.pumpWidget(MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: SizedBox(
-            width: 280,
-            child: GuideCard(
-              icon: Icons.auto_awesome_rounded,
-              accent: const Color(0xFF667EEA),
-              title: 'Übe, bevor du musst',
-              body: 'Übe mit dem KI-Tutor oder bereite dich auf eine echte '
-                  'Prüfung vor. Zwei Minuten sind eine Sitzung.',
-              ctaLabel: 'KI-Werkzeuge öffnen',
-              onCta: () {},
-              secondaryLabel: 'Prüfungsvorbereitung',
-              onSecondary: () {},
+  testWidgets('two buttons plus long translations do not overflow', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: Center(
+            child: SizedBox(
+              width: 280,
+              child: GuideCard(
+                icon: Icons.auto_awesome_rounded,
+                accent: const Color(0xFF667EEA),
+                title: 'Übe, bevor du musst',
+                body:
+                    'Übe mit dem KI-Tutor oder bereite dich auf eine echte '
+                    'Prüfung vor. Zwei Minuten sind eine Sitzung.',
+                ctaLabel: 'KI-Werkzeuge öffnen',
+                onCta: () {},
+                secondaryLabel: 'Prüfungsvorbereitung',
+                onSecondary: () {},
+              ),
             ),
           ),
         ),
       ),
-    ));
+    );
     await tester.pumpAndSettle();
     expect(tester.takeException(), isNull);
   });
@@ -191,8 +202,9 @@ void main() {
     expect(find.byIcon(Icons.close_rounded), findsNothing);
   });
 
-  testWidgets('a rebuild after the pulse has finished does not crash',
-      (tester) async {
+  testWidgets('a rebuild after the pulse has finished does not crash', (
+    tester,
+  ) async {
     // Device crash, 2026-10-10: _PulseHighlightState disposed its controller
     // when the ring finished, then the next rebuild saw a null controller,
     // decided the ring had never started, and asked a
@@ -209,8 +221,11 @@ void main() {
     for (var i = 0; i < 5; i++) {
       await tester.pumpWidget(_host(width: 390 - i.toDouble()));
       await tester.pumpAndSettle();
-      expect(tester.takeException(), isNull,
-          reason: 'rebuild ${i + 1} after the ring finished');
+      expect(
+        tester.takeException(),
+        isNull,
+        reason: 'rebuild ${i + 1} after the ring finished',
+      );
     }
   });
 
@@ -223,17 +238,41 @@ void main() {
 
     await tester.pumpWidget(_host(width: 389));
     await tester.pump();
-    expect(tester.binding.hasScheduledFrame, isFalse,
-        reason: 'a finished ring must stay finished');
+    expect(
+      tester.binding.hasScheduledFrame,
+      isFalse,
+      reason: 'a finished ring must stay finished',
+    );
   });
 
-  testWidgets('the pulse stops, so the page is not animating forever',
-      (tester) async {
+  testWidgets('the pulse stops, so the page is not animating forever', (
+    tester,
+  ) async {
     // A ring that never stops holds a frame callback for as long as the tab
     // is alive -- and every pumpAndSettle in this suite would time out.
     await tester.pumpWidget(_host(width: 390));
     await tester.pumpAndSettle();
 
     expect(tester.binding.hasScheduledFrame, isFalse);
+  });
+
+  testWidgets('renders the progress footer only when given', (tester) async {
+    Widget card(String? footer) => MaterialApp(
+      home: Scaffold(
+        body: GuideCard(
+          icon: Icons.add_a_photo_rounded,
+          accent: const Color(0xFF7C4DFF),
+          title: 't',
+          body: 'b',
+          footer: footer,
+        ),
+      ),
+    );
+    await tester.pumpWidget(card('Getting started · 2 of 4'));
+    await tester.pumpAndSettle();
+    expect(find.text('Getting started · 2 of 4'), findsOneWidget);
+    await tester.pumpWidget(card(null));
+    await tester.pumpAndSettle();
+    expect(find.textContaining('Getting started'), findsNothing);
   });
 }

@@ -2,7 +2,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'package:bananatalk_app/services/activation_store.dart';
 import 'package:bananatalk_app/services/analytics_service.dart';
 import 'package:bananatalk_app/services/guide_store.dart';
 import 'package:bananatalk_app/widgets/guides/guide_card.dart';
@@ -56,31 +58,53 @@ class PageGuide extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final withinWindow = ref.watch(userProvider).maybeWhen(
-          data: (u) => u.joinedWithinDays(kGuideWindowDays),
-          orElse: () => false,
-        );
-    final state = ref
-        .watch(guideStateProvider(surface))
-        .maybeWhen(data: (s) => s, orElse: () => GuideState.unknown);
-
-    final show = shouldShowGuide(
-      withinWindow: withinWindow,
-      acted: acted || state.acted,
-      milestonesDone: 0,
+    final userAsync = ref.watch(userProvider);
+    final withinWindow = userAsync.maybeWhen(
+      data: (u) => u.joinedWithinDays(kGuideWindowDays),
+      orElse: () => false,
     );
+    final stateAsync = ref.watch(guideStateProvider(surface));
+    final state = stateAsync.maybeWhen(
+      data: (s) => s,
+      orElse: () => GuideState.unknown,
+    );
+    final doneAsync = ref.watch(activationDoneProvider);
+    // Loading or unreadable: everything done, i.e. show nothing.
+    final done = doneAsync.maybeWhen(
+      data: (d) => d,
+      orElse: () => ActivationAction.values.toSet(),
+    );
+    final real = surface.action;
+    final actedNow =
+        acted || state.acted || (real != null && done.contains(real));
+    final show =
+        !state.retired &&
+        shouldShowGuide(
+          withinWindow: withinWindow,
+          acted: actedNow,
+          milestonesDone: done.length,
+        );
 
-    // Debug-only: the Matches panel had four conditions and failed silently,
-    // which made it untestable on a device until these lines existed.
     if (kDebugMode) {
       debugPrint(
         '[Guide:${surface.slug}] show=$show '
-        '(within${kGuideWindowDays}d=$withinWindow '
-        'acted=${acted || state.acted} views=${state.timesShown})',
+        '(within${kGuideWindowDays}d=$withinWindow acted=$actedNow '
+        'done=${done.length} views=${state.timesShown})',
       );
     }
 
-    if (!show) return const SizedBox.shrink();
+    if (!show) {
+      if (userAsync.hasValue && stateAsync.hasValue && doneAsync.hasValue) {
+        final reason = guideRetiredReason(
+          wasShown: state.timesShown > 0,
+          withinWindow: withinWindow,
+          acted: actedNow,
+          milestonesDone: done.length,
+        );
+        if (reason != null) GuideStore.recordRetired(surface, reason).ignore();
+      }
+      return const SizedBox.shrink();
+    }
 
     _recordAfterFrame(ref, state.timesShown);
 
@@ -92,15 +116,15 @@ class PageGuide extends ConsumerWidget {
         title: title,
         body: body,
         ctaLabel: ctaLabel,
-        onCta: onCta == null ? null : () => _onCta(ref),
+        onCta: onCta == null ? null : () => _onCta(),
         secondaryLabel: secondaryLabel,
-        onSecondary:
-            onSecondary == null ? null : () => _onCta(ref, secondary: true),
+        onSecondary: onSecondary == null ? null : () => _onCta(secondary: true),
+        footer: AppLocalizations.of(context)?.guideProgress(done.length),
       ),
     );
   }
 
-  void _onCta(WidgetRef ref, {bool secondary = false}) {
+  void _onCta({bool secondary = false}) {
     // `target` is what makes a two-destination card worth having: without it
     // the console says AI Study's guide was tapped, but not whether anyone
     // wanted the tutor or the exam prep.
@@ -108,10 +132,8 @@ class PageGuide extends ConsumerWidget {
       surface: surface.slug,
       target: secondary ? 'secondary' : 'primary',
     );
-    // The tap is what the guide exists to produce, so it retires the guide
-    // even if the user backs out of what it opened. The view cap would have
-    // bounded it anyway; this stops the card nagging someone who complied.
-    GuideStore.markActed(surface);
+    // Does not retire the guide: a tap followed by backing out is not a
+    // start. The surface's real action retires it.
     (secondary ? onSecondary! : onCta!)();
   }
 

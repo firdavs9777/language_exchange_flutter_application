@@ -57,10 +57,18 @@ enum GuideSurface {
 
 @immutable
 class GuideState {
-  const GuideState({required this.acted, required this.timesShown});
+  const GuideState({
+    required this.acted,
+    required this.timesShown,
+    this.retired = false,
+  });
 
   final bool acted;
   final int timesShown;
+
+  /// One-way latch set by [GuideStore.recordRetired]: once a shown guide has
+  /// retired it stays hidden even if a later read drops the milestone count.
+  final bool retired;
 
   /// Storage unreadable: someone who has already acted, i.e. show nothing.
   static const unknown = GuideState(acted: true, timesShown: 0);
@@ -84,7 +92,13 @@ class GuideStore {
       } catch (_) {
         shown = 0;
       }
-      return GuideState(acted: acted, timesShown: shown);
+      bool retired = false;
+      try {
+        retired = prefs.getBool(surface.retiredKey) ?? false;
+      } catch (_) {
+        retired = false;
+      }
+      return GuideState(acted: acted, timesShown: shown, retired: retired);
     } catch (_) {
       return GuideState.unknown;
     }
