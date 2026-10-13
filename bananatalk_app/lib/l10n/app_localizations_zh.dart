@@ -7823,10 +7823,12 @@ class AppLocalizationsZh extends AppLocalizations {
       count,
       locale: localeName,
       other: '目前只有$countLabel人参加。还是照常举行，还是取消？',
-      one: '目前只有你一个人参加。还是照常举行，还是取消？',
     );
     return '$_temp0';
   }
+
+  @override
+  String get gatheringHostDecisionAlone => '目前只有你一个人参加。还是照常举行，还是取消？';
 
   @override
   String get gatheringRunAnyway => '照常举行';
@@ -18988,10 +18990,12 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
       count,
       locale: localeName,
       other: '目前只有$countLabel人參加。還是照常舉行，還是取消？',
-      one: '目前只有你一個人參加。還是照常舉行，還是取消？',
     );
     return '$_temp0';
   }
+
+  @override
+  String get gatheringHostDecisionAlone => '目前只有你一個人參加。還是照常舉行，還是取消？';
 
   @override
   String get gatheringRunAnyway => '照常舉行';

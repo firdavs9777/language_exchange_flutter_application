@@ -7849,10 +7849,13 @@ class AppLocalizationsRu extends AppLocalizations {
       other: 'Пока идут только $countLabel человека. Провести всё равно или отменить?',
       many: 'Пока идут только $countLabel человек. Провести всё равно или отменить?',
       few: 'Пока идут только $countLabel человека. Провести всё равно или отменить?',
-      one: 'Пока идёте только вы. Провести всё равно или отменить?',
+      one: 'Пока идёт только $countLabel человек. Провести всё равно или отменить?',
     );
     return '$_temp0';
   }
+
+  @override
+  String get gatheringHostDecisionAlone => 'Пока идёте только вы. Провести всё равно или отменить?';
 
   @override
   String get gatheringRunAnyway => 'Всё равно провести';

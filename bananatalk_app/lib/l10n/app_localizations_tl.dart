@@ -7728,7 +7728,7 @@ class AppLocalizationsTl extends AppLocalizations {
       count,
       locale: localeName,
       other: 'Kulang pa ng $countLabel tao para makumpirma',
-      one: 'Kulang pa ng 1 tao para makumpirma',
+      one: 'Kulang pa ng $countLabel tao para makumpirma',
       zero: 'Handa nang kumpirmahin',
     );
     return '$_temp0';
@@ -7832,10 +7832,12 @@ class AppLocalizationsTl extends AppLocalizations {
       count,
       locale: localeName,
       other: '$countLabel pa lang kayo sa ngayon. Ituloy pa rin o kanselahin?',
-      one: 'Ikaw pa lang sa ngayon. Ituloy pa rin o kanselahin?',
     );
     return '$_temp0';
   }
+
+  @override
+  String get gatheringHostDecisionAlone => 'Ikaw pa lang sa ngayon. Ituloy pa rin o kanselahin?';
 
   @override
   String get gatheringRunAnyway => 'Ituloy pa rin';
@@ -7861,7 +7863,7 @@ class AppLocalizationsTl extends AppLocalizations {
       count,
       locale: localeName,
       other: 'May $countLabel taong naghihintay nito. Sasabihan silang kansela na.',
-      one: 'May 1 taong naghihintay nito. Sasabihan silang kansela na.',
+      one: 'May $countLabel taong naghihintay nito. Sasabihan silang kansela na.',
     );
     return '$_temp0';
   }
@@ -7878,7 +7880,7 @@ class AppLocalizationsTl extends AppLocalizations {
       count,
       locale: localeName,
       other: '$countLabel miyembro',
-      one: '1 miyembro',
+      one: '$countLabel miyembro',
     );
     return '$_temp0';
   }

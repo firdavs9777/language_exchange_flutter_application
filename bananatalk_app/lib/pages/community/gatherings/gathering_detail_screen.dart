@@ -10,6 +10,7 @@ import 'package:bananatalk_app/utils/gathering_time.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/pages/community/gatherings/gathering_safety_menu.dart';
 import 'package:bananatalk_app/pages/community/gatherings/group_cover.dart';
+import 'package:bananatalk_app/pages/community/gatherings/gathering_strings.dart';
 import 'package:bananatalk_app/utils/number_format_locale.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
@@ -400,7 +401,7 @@ class _GatheringDetailScreenState extends State<GatheringDetailScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  l10n.gatheringHostDecision(gathering.going, formatCompactNumberForLocale(context, gathering.going)),
+                  gatheringHostDecisionText(l10n, gathering.going, formatCompactNumberForLocale(context, gathering.going)),
                   style: context.bodyMedium,
                 ),
                 Spacing.gapSM,

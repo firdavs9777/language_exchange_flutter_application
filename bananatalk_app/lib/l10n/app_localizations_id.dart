@@ -7830,10 +7830,12 @@ class AppLocalizationsId extends AppLocalizations {
       count,
       locale: localeName,
       other: 'Sejauh ini hanya $countLabel orang. Tetap jalan atau batalkan?',
-      one: 'Sejauh ini hanya kamu. Tetap jalan atau batalkan?',
     );
     return '$_temp0';
   }
+
+  @override
+  String get gatheringHostDecisionAlone => 'Sejauh ini hanya kamu. Tetap jalan atau batalkan?';
 
   @override
   String get gatheringRunAnyway => 'Tetap jalan';
@@ -7859,7 +7861,7 @@ class AppLocalizationsId extends AppLocalizations {
       count,
       locale: localeName,
       other: '$countLabel orang menunggu ini. Mereka akan diberi tahu pembatalannya.',
-      one: '1 orang menunggu ini. Mereka akan diberi tahu pembatalannya.',
+      one: '$countLabel orang menunggu ini. Mereka akan diberi tahu pembatalannya.',
     );
     return '$_temp0';
   }

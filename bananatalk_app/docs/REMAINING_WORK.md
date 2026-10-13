@@ -63,6 +63,13 @@ A, L, C) is **DONE** and through its final review and fix wave. What is left is 
 - [ ] Data check (M4): after release, compare `notification_prime_shown` per new signup before/after.
 - [x] **M5** Caller that missed the accept treated the upgrade `active` as the accept and stayed on voice.
       The ringing→connecting branch now also applies `type: video` (as a peer upgrade: camera off).
+- [x] **Plural `one` follow-up** (clubMembers, gatheringQuorumNeeded, gatheringHostDecision,
+      gatheringCancelConfirm): every `one` branch now shows `{countLabel}` (CLDR `one` covers 2,3,5… in
+      tl, 21,31… in ru, 0 in fr/pt/hi). "Only you" moved to the new plain key `gatheringHostDecisionAlone`
+      (19 locales, same wording as before), chosen at the call site for exactly 1 — gen-l10n maps `=1`
+      and `one` to the same argument, so it cannot be a plural branch. Arabic `one` (exactly 1) kept.
+- [ ] Native review: ru `gatheringHostDecision` gained a `one` branch ("Пока идёт только {n} человек…"),
+      row added to `docs/l10n/native-qa-strings-2026-10.csv`.
 - [x] **Quiet hours timezone** (from the backend audit): every settings save now stamps
       `quietHours.timezone` with the device IANA zone (`lib/services/device_timezone.dart`, the same
       source as the top-level timezone report) instead of the model's Asia/Seoul default; a saved

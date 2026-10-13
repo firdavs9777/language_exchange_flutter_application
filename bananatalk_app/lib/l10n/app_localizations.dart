@@ -14513,8 +14513,14 @@ abstract class AppLocalizations {
   /// 모임 / gatherings
   ///
   /// In en, this message translates to:
-  /// **'{count, plural, =1{Only you are coming so far. Run it anyway, or call it off?} other{Only {countLabel} people are coming so far. Run it anyway, or call it off?}}'**
+  /// **'{count, plural, other{Only {countLabel} people are coming so far. Run it anyway, or call it off?}}'**
   String gatheringHostDecision(num count, String countLabel);
+
+  /// 모임 / gatherings — host decision when only the host is coming (exactly one)
+  ///
+  /// In en, this message translates to:
+  /// **'Only you are coming so far. Run it anyway, or call it off?'**
+  String get gatheringHostDecisionAlone;
 
   /// 모임 / gatherings
   ///

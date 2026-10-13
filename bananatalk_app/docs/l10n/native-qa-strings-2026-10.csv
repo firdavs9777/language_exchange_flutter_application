@@ -10231,3 +10231,4 @@ app,zh,callSelfViewLabel,Your camera. Drag to move.,你的摄像头。拖动可�
 app,zh,callSelfViewSwapHint,Double tap to swap with the other video,双击可与对方视频互换,
 app,zh_TW,callSelfViewLabel,Your camera. Drag to move.,你的相機。拖曳即可移動。,
 app,zh_TW,callSelfViewSwapHint,Double tap to swap with the other video,連按兩下可與對方視訊互換,
+app,ru,gatheringHostDecision,"{count, plural, other{Only {countLabel} people are coming so far. Run it anyway, or call it off?}}","{count, plural, one{Пока идёт только {countLabel} человек. Провести всё равно или отменить?} few{Пока идут только {countLabel} человека. Провести всё равно или отменить?} many{Пока идут только {countLabel} человек. Провести всё равно или отменить?} other{Пока идут только {countLabel} человека. Провести всё равно или отменить?}}",

@@ -7823,10 +7823,12 @@ class AppLocalizationsVi extends AppLocalizations {
       count,
       locale: localeName,
       other: 'Hiện mới chỉ có $countLabel người. Vẫn tổ chức hay hủy?',
-      one: 'Hiện mới chỉ có mình bạn. Vẫn tổ chức hay hủy?',
     );
     return '$_temp0';
   }
+
+  @override
+  String get gatheringHostDecisionAlone => 'Hiện mới chỉ có mình bạn. Vẫn tổ chức hay hủy?';
 
   @override
   String get gatheringRunAnyway => 'Vẫn tổ chức';
@@ -7852,7 +7854,7 @@ class AppLocalizationsVi extends AppLocalizations {
       count,
       locale: localeName,
       other: '$countLabel người đang chờ buổi này. Họ sẽ được báo là đã hủy.',
-      one: '1 người đang chờ buổi này. Họ sẽ được báo là đã hủy.',
+      one: '$countLabel người đang chờ buổi này. Họ sẽ được báo là đã hủy.',
     );
     return '$_temp0';
   }

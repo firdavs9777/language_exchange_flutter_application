@@ -7823,10 +7823,12 @@ class AppLocalizationsKo extends AppLocalizations {
       count,
       locale: localeName,
       other: '지금까지 $countLabel명만 참여해요. 그래도 진행할까요, 아니면 취소할까요?',
-      one: '지금은 나만 참여해요. 그래도 진행할까요, 아니면 취소할까요?',
     );
     return '$_temp0';
   }
+
+  @override
+  String get gatheringHostDecisionAlone => '지금은 나만 참여해요. 그래도 진행할까요, 아니면 취소할까요?';
 
   @override
   String get gatheringRunAnyway => '그래도 진행';

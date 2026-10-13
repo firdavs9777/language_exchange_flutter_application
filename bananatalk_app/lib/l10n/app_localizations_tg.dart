@@ -7837,10 +7837,12 @@ class AppLocalizationsTg extends AppLocalizations {
       count,
       locale: localeName,
       other: 'То ҳол танҳо $countLabel нафар меоянд. Бо вуҷуди ин гузаронем ё бекор кунем?',
-      one: 'То ҳол танҳо шумо меоед. Бо вуҷуди ин гузаронем ё бекор кунем?',
     );
     return '$_temp0';
   }
+
+  @override
+  String get gatheringHostDecisionAlone => 'То ҳол танҳо шумо меоед. Бо вуҷуди ин гузаронем ё бекор кунем?';
 
   @override
   String get gatheringRunAnyway => 'Бо вуҷуди ин гузаронидан';
@@ -7866,7 +7868,7 @@ class AppLocalizationsTg extends AppLocalizations {
       count,
       locale: localeName,
       other: '$countLabel нафар инро интизоранд. Ба онҳо дар бораи бекоршавӣ хабар дода мешавад.',
-      one: '1 нафар инро интизор аст. Ба ӯ дар бораи бекоршавӣ хабар дода мешавад.',
+      one: '$countLabel нафар инро интизор аст. Ба ӯ дар бораи бекоршавӣ хабар дода мешавад.',
     );
     return '$_temp0';
   }

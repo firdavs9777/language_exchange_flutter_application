@@ -7843,10 +7843,12 @@ class AppLocalizationsAr extends AppLocalizations {
       count,
       locale: localeName,
       other: 'حتى الآن $countLabel أشخاص فقط. هل تقيمه على أي حال أم تلغيه؟',
-      one: 'حتى الآن أنت وحدك. هل تقيمه على أي حال أم تلغيه؟',
     );
     return '$_temp0';
   }
+
+  @override
+  String get gatheringHostDecisionAlone => 'حتى الآن أنت وحدك. هل تقيمه على أي حال أم تلغيه؟';
 
   @override
   String get gatheringRunAnyway => 'أقِمه على أي حال';

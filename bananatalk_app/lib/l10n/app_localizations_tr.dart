@@ -7831,10 +7831,12 @@ class AppLocalizationsTr extends AppLocalizations {
       count,
       locale: localeName,
       other: 'Şimdilik yalnızca $countLabel kişi var. Yine de yapalım mı, iptal mi edelim?',
-      one: 'Şimdilik yalnızca sen varsın. Yine de yapalım mı, iptal mi edelim?',
     );
     return '$_temp0';
   }
+
+  @override
+  String get gatheringHostDecisionAlone => 'Şimdilik yalnızca sen varsın. Yine de yapalım mı, iptal mi edelim?';
 
   @override
   String get gatheringRunAnyway => 'Yine de yap';
@@ -7860,7 +7862,7 @@ class AppLocalizationsTr extends AppLocalizations {
       count,
       locale: localeName,
       other: '$countLabel kişi bunu bekliyor. İptal edildiği kendilerine bildirilecek.',
-      one: '1 kişi bunu bekliyor. İptal edildiği kendisine bildirilecek.',
+      one: '$countLabel kişi bunu bekliyor. İptal edildiği kendisine bildirilecek.',
     );
     return '$_temp0';
   }

@@ -7838,10 +7838,12 @@ class AppLocalizationsEn extends AppLocalizations {
       count,
       locale: localeName,
       other: 'Only $countLabel people are coming so far. Run it anyway, or call it off?',
-      one: 'Only you are coming so far. Run it anyway, or call it off?',
     );
     return '$_temp0';
   }
+
+  @override
+  String get gatheringHostDecisionAlone => 'Only you are coming so far. Run it anyway, or call it off?';
 
   @override
   String get gatheringRunAnyway => 'Run it anyway';

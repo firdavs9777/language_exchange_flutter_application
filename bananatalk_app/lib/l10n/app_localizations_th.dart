@@ -7823,10 +7823,12 @@ class AppLocalizationsTh extends AppLocalizations {
       count,
       locale: localeName,
       other: 'ตอนนี้มีแค่ $countLabel คน จะจัดต่อหรือยกเลิก?',
-      one: 'ตอนนี้มีแค่คุณคนเดียว จะจัดต่อหรือยกเลิก?',
     );
     return '$_temp0';
   }
+
+  @override
+  String get gatheringHostDecisionAlone => 'ตอนนี้มีแค่คุณคนเดียว จะจัดต่อหรือยกเลิก?';
 
   @override
   String get gatheringRunAnyway => 'จัดต่อ';
@@ -7852,7 +7854,7 @@ class AppLocalizationsTh extends AppLocalizations {
       count,
       locale: localeName,
       other: 'มี $countLabel คนรออยู่ เราจะแจ้งให้ทราบว่ายกเลิกแล้ว',
-      one: 'มี 1 คนรออยู่ เราจะแจ้งให้ทราบว่ายกเลิกแล้ว',
+      one: 'มี $countLabel คนรออยู่ เราจะแจ้งให้ทราบว่ายกเลิกแล้ว',
     );
     return '$_temp0';
   }

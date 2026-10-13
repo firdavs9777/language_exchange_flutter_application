@@ -5343,7 +5343,7 @@
   "@gatheringCancelRsvp": {
     "description": "모임 / gatherings"
   },
-  "gatheringHostDecision": "{count, plural, =1{Only you are coming so far. Run it anyway, or call it off?} other{Only {countLabel} people are coming so far. Run it anyway, or call it off?}}",
+  "gatheringHostDecision": "{count, plural, other{Only {countLabel} people are coming so far. Run it anyway, or call it off?}}",
   "@gatheringHostDecision": {
     "description": "모임 / gatherings",
     "placeholders": {
@@ -5355,6 +5355,10 @@
         "description": "count, already formatted (formatCompactNumberForLocale; tg-safe)"
       }
     }
+  },
+  "gatheringHostDecisionAlone": "Only you are coming so far. Run it anyway, or call it off?",
+  "@gatheringHostDecisionAlone": {
+    "description": "모임 / gatherings — host decision when only the host is coming (exactly one)"
   },
   "gatheringRunAnyway": "Run it anyway",
   "@gatheringRunAnyway": {

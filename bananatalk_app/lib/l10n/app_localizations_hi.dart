@@ -7728,7 +7728,7 @@ class AppLocalizationsHi extends AppLocalizations {
       count,
       locale: localeName,
       other: 'पुष्टि के लिए $countLabel और लोग चाहिए',
-      one: 'पुष्टि के लिए 1 और व्यक्ति चाहिए',
+      one: 'पुष्टि के लिए $countLabel और व्यक्ति चाहिए',
       zero: 'पुष्टि के लिए तैयार',
     );
     return '$_temp0';
@@ -7832,10 +7832,12 @@ class AppLocalizationsHi extends AppLocalizations {
       count,
       locale: localeName,
       other: 'अभी तक सिर्फ़ $countLabel लोग आ रहे हैं। फिर भी करें या रद्द करें?',
-      one: 'अभी तक सिर्फ़ आप आ रहे हैं। फिर भी करें या रद्द करें?',
     );
     return '$_temp0';
   }
+
+  @override
+  String get gatheringHostDecisionAlone => 'अभी तक सिर्फ़ आप आ रहे हैं। फिर भी करें या रद्द करें?';
 
   @override
   String get gatheringRunAnyway => 'फिर भी करें';
@@ -7861,7 +7863,7 @@ class AppLocalizationsHi extends AppLocalizations {
       count,
       locale: localeName,
       other: '$countLabel लोग इसका इंतज़ार कर रहे हैं। उन्हें रद्द होने की सूचना दी जाएगी।',
-      one: '1 व्यक्ति इसका इंतज़ार कर रहा है। उन्हें रद्द होने की सूचना दी जाएगी।',
+      one: '$countLabel व्यक्ति इसका इंतज़ार कर रहा है। उन्हें रद्द होने की सूचना दी जाएगी।',
     );
     return '$_temp0';
   }
@@ -7878,7 +7880,7 @@ class AppLocalizationsHi extends AppLocalizations {
       count,
       locale: localeName,
       other: '$countLabel सदस्य',
-      one: '1 सदस्य',
+      one: '$countLabel सदस्य',
     );
     return '$_temp0';
   }

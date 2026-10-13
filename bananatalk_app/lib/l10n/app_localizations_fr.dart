@@ -7728,7 +7728,7 @@ class AppLocalizationsFr extends AppLocalizations {
       count,
       locale: localeName,
       other: 'Encore $countLabel personnes pour confirmer',
-      one: 'Encore 1 personne pour confirmer',
+      one: 'Encore $countLabel personne pour confirmer',
       zero: 'Prête à être confirmée',
     );
     return '$_temp0';
@@ -7832,10 +7832,12 @@ class AppLocalizationsFr extends AppLocalizations {
       count,
       locale: localeName,
       other: 'Pour l\'instant, vous n\'êtes que $countLabel. On maintient ou on annule ?',
-      one: 'Pour l\'instant, il n\'y a que vous. On maintient ou on annule ?',
     );
     return '$_temp0';
   }
+
+  @override
+  String get gatheringHostDecisionAlone => 'Pour l\'instant, il n\'y a que vous. On maintient ou on annule ?';
 
   @override
   String get gatheringRunAnyway => 'Maintenir';
@@ -7861,7 +7863,7 @@ class AppLocalizationsFr extends AppLocalizations {
       count,
       locale: localeName,
       other: '$countLabel personnes l\'attendent. Elles seront prévenues de l\'annulation.',
-      one: '1 personne l\'attend. Elle sera prévenue de l\'annulation.',
+      one: '$countLabel personne l\'attend. Elle sera prévenue de l\'annulation.',
     );
     return '$_temp0';
   }
@@ -7878,7 +7880,7 @@ class AppLocalizationsFr extends AppLocalizations {
       count,
       locale: localeName,
       other: '$countLabel membres',
-      one: '1 membre',
+      one: '$countLabel membre',
     );
     return '$_temp0';
   }

@@ -7823,10 +7823,12 @@ class AppLocalizationsJa extends AppLocalizations {
       count,
       locale: localeName,
       other: '今のところ参加は$countLabel人です。開催しますか、中止しますか？',
-      one: '今のところ参加はあなただけです。開催しますか、中止しますか？',
     );
     return '$_temp0';
   }
+
+  @override
+  String get gatheringHostDecisionAlone => '今のところ参加はあなただけです。開催しますか、中止しますか？';
 
   @override
   String get gatheringRunAnyway => 'それでも開催';
