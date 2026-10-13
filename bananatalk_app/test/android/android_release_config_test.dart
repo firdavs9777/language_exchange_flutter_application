@@ -167,4 +167,15 @@ void main() {
     expect(manifest, isNot(contains('com.facebook')));
     expect(read('$res/values/strings.xml'), isNot(contains('facebook')));
   });
+
+  test('CallKit components are guarded by a signature permission, not normal', () {
+    // flutter_callkit_incoming declares ${applicationId}.PERMISSION_CALL as
+    // "normal", so any app could declare it and fire fake incoming-call /
+    // accept / decline intents. The plugin's own intents are explicit and
+    // in-app, which a signature permission still allows.
+    expect(
+        manifest,
+        contains('<permission\n        android:name="\${applicationId}.PERMISSION_CALL"\n'
+            '        android:protectionLevel="signature"\n        tools:replace="android:protectionLevel" />'));
+  });
 }

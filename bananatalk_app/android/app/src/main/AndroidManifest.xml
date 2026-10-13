@@ -93,6 +93,16 @@
          service runs without an overlay or a battery exemption).
          test/android/android_release_config_test.dart keeps them out. -->
 
+    <!-- flutter_callkit_incoming guards its exported incoming-call activity, receiver
+         and service with this permission at protectionLevel="normal", which any
+         installed app can hold (fake full-screen "incoming call", spoofed
+         accept/decline). Its own intents are explicit and sent by this app, so
+         "signature" keeps them working and shuts everyone else out. -->
+    <permission
+        android:name="${applicationId}.PERMISSION_CALL"
+        android:protectionLevel="signature"
+        tools:replace="android:protectionLevel" />
+
     <!-- ==================== BILLING PERMISSION (Google Play In-App Purchases) ==================== -->
     <uses-permission android:name="com.android.vending.BILLING" />
 

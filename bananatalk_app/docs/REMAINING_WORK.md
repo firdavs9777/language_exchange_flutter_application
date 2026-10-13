@@ -97,7 +97,11 @@ A, L, C) is **DONE** and through its final review and fix wave. What is left is 
       moment, story, chat, avatar on Android 13+ and on Android 9.
 - [x] **M5** Dead Facebook SDK manifest entries (incl. an exported activity whose class is not in the
       APK) and placeholder strings removed.
-- [ ] **M6** CallKit permission · **M7** CallKit missed-call notification · **M8** backup rules
+- [x] **M6** `${applicationId}.PERMISSION_CALL` (guards the exported CallKit activity/receiver/service)
+      overridden from `normal` to `signature`; the plugin's own intents are explicit and in-app.
+- [ ] Device QA (M6, release build): incoming call from killed + locked → full-screen UI, Accept and
+      Decline from the CallKit screen and from the notification both reach the app.
+- [ ] **M7** CallKit missed-call notification · **M8** backup rules
       · VIP cancel → Play subscriptions · **B1** version + notes
 
 ## Open work, by who can act
