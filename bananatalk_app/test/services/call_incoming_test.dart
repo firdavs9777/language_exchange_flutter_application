@@ -7,6 +7,7 @@ import 'package:bananatalk_app/models/call_model.dart';
 import 'package:bananatalk_app/services/call/call_api.dart';
 import 'package:bananatalk_app/services/call/call_push_handler.dart';
 import 'package:bananatalk_app/services/call/callkit_ids.dart';
+import 'package:bananatalk_app/services/call_livekit_manager.dart';
 import 'package:bananatalk_app/services/call_manager.dart';
 
 import '../helpers/call_fakes.dart';
@@ -149,6 +150,23 @@ void main() {
       expect(h.liveKit.cameraCalls, [true]);
       expect(h.manager.isVideoEnabled, isTrue);
       expect(h.api.calls.where((c) => c.startsWith('upgrade')), isEmpty);
+    });
+
+    test('a rejoined video call keeps the audio route until the camera is turned on', () async {
+      final h = await rejoinVideo();
+      h.liveKit.onPeerConnected!();
+      expect(h.manager.isSpeakerOn, isFalse, reason: 'camera off: no forced loudspeaker');
+      expect(h.liveKit.speakerCalls, isEmpty);
+      expect(await h.manager.enableCamera(), isTrue);
+      expect(h.manager.isSpeakerOn, isTrue, reason: 'first camera-on routes as a fresh upgrade');
+      expect(h.liveKit.speakerCalls, [true]);
+    });
+
+    test('connect leaves the route alone when the camera is not published', () {
+      expect(CallLiveKitManager.speakerOnConnect(type: CallType.video), isTrue);
+      expect(CallLiveKitManager.speakerOnConnect(type: CallType.audio), isFalse);
+      expect(CallLiveKitManager.speakerOnConnect(type: CallType.video, publishCamera: false), isNull);
+      expect(CallLiveKitManager.speakerOnConnect(type: CallType.audio, publishCamera: false), isFalse);
     });
 
     test('a voice call rejoins as voice with the camera off', () async {

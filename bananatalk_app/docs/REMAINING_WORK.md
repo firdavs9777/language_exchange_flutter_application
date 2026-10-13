@@ -29,9 +29,13 @@ A, L, C) is **DONE** and through its final review and fix wave. What is left is 
 - [x] **I1** Rejoin after process death published the camera without asking (incl. a voice call the
       peer upgraded). Rejoin now connects with the camera off (audio still routed as for video, call
       type kept); the user turns it on via `enableCamera()` (permission check).
+- [x] **I1 follow-up** A rejoin with the camera off no longer forces the loudspeaker: connect leaves the
+      route alone for an unpublished video camera (`speakerOnConnect`), and the first `enableCamera`
+      routes to the speaker as after a peer upgrade.
 - [ ] **Device QA (I1):** voice call, peer turns the camera on, kill this app in the background (iOS:
       CallKit keeps the call), reopen → call rejoins as video, *own camera off*, no camera prompt,
-      speaker on; tap Video On → permission prompt if never granted, then the peer sees the camera.
+      audio stays on the current route (earpiece if at the ear — no forced loudspeaker); tap Video On →
+      permission prompt if never granted, then the peer sees the camera and audio moves to the speaker.
       Same for a native video call whose camera was switched off before the kill.
 - [x] **M1** Decline-with-message: client counted graphemes, server counts UTF-16 units → decline failed.
       Sheet now limits in UTF-16 units (`Utf16LengthLimitingTextInputFormatter`), `RestCallApi.decline`

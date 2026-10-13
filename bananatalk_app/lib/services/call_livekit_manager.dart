@@ -114,6 +114,15 @@ class CallLiveKitManager {
 
   // -- API ------------------------------------------------------------------
 
+  /// The audio route [connect] sets: loudspeaker for a video call that
+  /// publishes its camera, earpiece for voice, and null (leave the current
+  /// route) for a video call joined with the camera off (a rejoin): the
+  /// phone may be at the ear, and turning the camera on routes it later.
+  static bool? speakerOnConnect({required CallType type, bool? publishCamera}) {
+    if (type != CallType.video) return false;
+    return (publishCamera ?? true) ? true : null;
+  }
+
   /// Connect to the LiveKit room and wire room events. Audio calls publish
   /// mic only; video calls publish both mic and camera unless
   /// [publishCamera] is false (a rejoin never turns the camera on by itself:
@@ -139,10 +148,13 @@ class CallLiveKitManager {
     // headsets override this via the system route picker — LiveKit's audio
     // session honours the active route. The user can also toggle via
     // [CallManager.setSpeakerOn]. Swallow errors; routing is best-effort.
-    try {
-      await Hardware.instance.setSpeakerphoneOn(type == CallType.video);
-    } catch (e) {
-      debugPrint('CallLiveKitManager: setSpeakerphoneOn failed: $e');
+    final speaker = speakerOnConnect(type: type, publishCamera: publishCamera);
+    if (speaker != null) {
+      try {
+        await Hardware.instance.setSpeakerphoneOn(speaker);
+      } catch (e) {
+        debugPrint('CallLiveKitManager: setSpeakerphoneOn failed: $e');
+      }
     }
 
     _wireRoomEvents();

@@ -665,7 +665,12 @@ class CallManager with WidgetsBindingObserver {
     if (!_sameId(currentCall?.callId, callId)) return;
     _isMuted = false;
     _isVideoEnabled = false;
-    if (type == CallType.video) _emitToPeer('call:video-toggle', {'isVideoEnabled': false});
+    if (type == CallType.video) {
+      _emitToPeer('call:video-toggle', {'isVideoEnabled': false});
+      // Connect left the route alone (camera off): the first camera-on moves
+      // to the loudspeaker, as after a peer upgrade.
+      _speakerPendingForVideo = true;
+    }
     _onMediaConnected(currentCall!);
     _deps.openActiveCall(currentCall!);
   }
@@ -770,8 +775,10 @@ class CallManager with WidgetsBindingObserver {
       currentCall = c.copyWith(status: CallStatus.connected);
       unawaited(_deps.platform.stopTones());
       unawaited(_deps.platform.playConnectSound());
-      // CallLiveKitManager.connect already routed audio (speaker for video).
-      _isSpeakerOn = c.callType == CallType.video;
+      // CallLiveKitManager.connect already routed audio (speaker for video),
+      // except a video call joined with the camera off (rejoin, or an accept
+      // that arrived as an upgrade): that route is pending until camera-on.
+      _isSpeakerOn = c.callType == CallType.video && !_speakerPendingForVideo;
       onCallConnected?.call(currentCall!);
     }
     _updateConnectionState(CallUiState.connected);
