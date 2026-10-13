@@ -50,7 +50,10 @@ A, L, C) is **DONE** and through its final review and fix wave. What is left is 
 - [ ] Data check (M4): after release, compare `notification_prime_shown` per new signup before/after.
 - [x] **M5** Caller that missed the accept treated the upgrade `active` as the accept and stayed on voice.
       The ringing→connecting branch now also applies `type: video` (as a peer upgrade: camera off).
-- [ ] **M6** `tg` crashes on four compact-number strings (`NumberFormat.compact(locale:'tg')`).
+- [x] **M6** `tg` crashed on four compact-number strings (`NumberFormat.compact(locale:'tg')`). The four
+      keys now take a pre-formatted `countLabel` from `lib/utils/number_format_locale.dart` (English
+      fallback, like the date helper); guard `test/l10n/number_format_locale_test.dart` fails on any
+      `NumberFormat` in generated l10n or a runtime-locale `NumberFormat` outside the helper.
 
 ## Open work, by who can act
 

@@ -6,6 +6,7 @@ import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/pages/community/gatherings/gathering_filter_bar.dart';
 import 'package:bananatalk_app/utils/gathering_time.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/utils/number_format_locale.dart';
 
 /// One gathering in the list.
 ///
@@ -220,7 +221,7 @@ class GatheringCard extends StatelessWidget {
           child: Text(
             confirmed
                 ? l10n.gatheringConfirmed(gathering.going)
-                : l10n.gatheringQuorumNeeded(gathering.needed),
+                : l10n.gatheringQuorumNeeded(gathering.needed, formatCompactNumberForLocale(context, gathering.needed)),
             style: context.bodySmall.copyWith(
               color: confirmed ? AppColors.primary : context.textSecondary,
               fontWeight: confirmed ? FontWeight.w600 : FontWeight.w500,

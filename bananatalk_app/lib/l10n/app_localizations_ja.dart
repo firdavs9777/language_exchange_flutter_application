@@ -7715,17 +7715,11 @@ class AppLocalizationsJa extends AppLocalizations {
   }
 
   @override
-  String gatheringQuorumNeeded(num count) {
-    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
-      locale: localeName,
-      
-    );
-    final String countString = countNumberFormat.format(count);
-
+  String gatheringQuorumNeeded(num count, String countLabel) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '確定まであと$countString人',
+      other: '確定まであと$countLabel人',
       zero: '確定できます',
     );
     return '$_temp0';
@@ -7824,17 +7818,11 @@ class AppLocalizationsJa extends AppLocalizations {
   String get gatheringCancelRsvp => '参加を取り消す';
 
   @override
-  String gatheringHostDecision(num count) {
-    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
-      locale: localeName,
-      
-    );
-    final String countString = countNumberFormat.format(count);
-
+  String gatheringHostDecision(num count, String countLabel) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '今のところ参加は$countString人です。開催しますか、中止しますか？',
+      other: '今のところ参加は$countLabel人です。開催しますか、中止しますか？',
       one: '今のところ参加はあなただけです。開催しますか、中止しますか？',
     );
     return '$_temp0';
@@ -7859,17 +7847,11 @@ class AppLocalizationsJa extends AppLocalizations {
   String get gatheringKeepIt => 'そのままにする';
 
   @override
-  String gatheringCancelConfirm(num count) {
-    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
-      locale: localeName,
-      
-    );
-    final String countString = countNumberFormat.format(count);
-
+  String gatheringCancelConfirm(num count, String countLabel) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$countString人がこの集まりを待っています。中止を知らせます。',
+      other: '$countLabel人がこの集まりを待っています。中止を知らせます。',
       one: '1人がこの集まりを待っています。中止を知らせます。',
     );
     return '$_temp0';
@@ -7882,17 +7864,11 @@ class AppLocalizationsJa extends AppLocalizations {
   String get clubNotFound => 'このクラブは表示できなくなりました';
 
   @override
-  String clubMembers(num count) {
-    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
-      locale: localeName,
-      
-    );
-    final String countString = countNumberFormat.format(count);
-
+  String clubMembers(num count, String countLabel) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: 'メンバー$countString人',
+      other: 'メンバー$countLabel人',
     );
     return '$_temp0';
   }

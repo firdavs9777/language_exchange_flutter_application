@@ -10,6 +10,7 @@ import 'package:bananatalk_app/utils/gathering_time.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/pages/community/gatherings/gathering_safety_menu.dart';
 import 'package:bananatalk_app/pages/community/gatherings/group_cover.dart';
+import 'package:bananatalk_app/utils/number_format_locale.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 
@@ -340,7 +341,7 @@ class _GatheringDetailScreenState extends State<GatheringDetailScreen> {
         Icons.check_circle_rounded,
       ),
       _ => (
-        l10n.gatheringQuorumNeeded(gathering.needed),
+        l10n.gatheringQuorumNeeded(gathering.needed, formatCompactNumberForLocale(context, gathering.needed)),
         context.textSecondary,
         Icons.group_add_rounded,
       ),
@@ -399,7 +400,7 @@ class _GatheringDetailScreenState extends State<GatheringDetailScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  l10n.gatheringHostDecision(gathering.going),
+                  l10n.gatheringHostDecision(gathering.going, formatCompactNumberForLocale(context, gathering.going)),
                   style: context.bodyMedium,
                 ),
                 Spacing.gapSM,
@@ -580,7 +581,7 @@ class _GatheringDetailScreenState extends State<GatheringDetailScreen> {
       context: context,
       builder: (dialogContext) => AlertDialog(
         title: Text(l10n.gatheringCancelIt),
-        content: Text(l10n.gatheringCancelConfirm(gathering.going)),
+        content: Text(l10n.gatheringCancelConfirm(gathering.going, formatCompactNumberForLocale(context, gathering.going))),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(dialogContext).pop(false),

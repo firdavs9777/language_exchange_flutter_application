@@ -7723,17 +7723,11 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String gatheringQuorumNeeded(num count) {
-    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
-      locale: localeName,
-      
-    );
-    final String countString = countNumberFormat.format(count);
-
+  String gatheringQuorumNeeded(num count, String countLabel) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: 'Onay için $countString kişi daha gerekli',
+      other: 'Onay için $countLabel kişi daha gerekli',
       zero: 'Onaylanmaya hazır',
     );
     return '$_temp0';
@@ -7832,17 +7826,11 @@ class AppLocalizationsTr extends AppLocalizations {
   String get gatheringCancelRsvp => 'Katılımımı iptal et';
 
   @override
-  String gatheringHostDecision(num count) {
-    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
-      locale: localeName,
-      
-    );
-    final String countString = countNumberFormat.format(count);
-
+  String gatheringHostDecision(num count, String countLabel) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: 'Şimdilik yalnızca $countString kişi var. Yine de yapalım mı, iptal mi edelim?',
+      other: 'Şimdilik yalnızca $countLabel kişi var. Yine de yapalım mı, iptal mi edelim?',
       one: 'Şimdilik yalnızca sen varsın. Yine de yapalım mı, iptal mi edelim?',
     );
     return '$_temp0';
@@ -7867,17 +7855,11 @@ class AppLocalizationsTr extends AppLocalizations {
   String get gatheringKeepIt => 'Devam etsin';
 
   @override
-  String gatheringCancelConfirm(num count) {
-    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
-      locale: localeName,
-      
-    );
-    final String countString = countNumberFormat.format(count);
-
+  String gatheringCancelConfirm(num count, String countLabel) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$countString kişi bunu bekliyor. İptal edildiği kendilerine bildirilecek.',
+      other: '$countLabel kişi bunu bekliyor. İptal edildiği kendilerine bildirilecek.',
       one: '1 kişi bunu bekliyor. İptal edildiği kendisine bildirilecek.',
     );
     return '$_temp0';
@@ -7890,17 +7872,11 @@ class AppLocalizationsTr extends AppLocalizations {
   String get clubNotFound => 'Bu kulüp artık mevcut değil';
 
   @override
-  String clubMembers(num count) {
-    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
-      locale: localeName,
-      
-    );
-    final String countString = countNumberFormat.format(count);
-
+  String clubMembers(num count, String countLabel) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$countString üye',
+      other: '$countLabel üye',
     );
     return '$_temp0';
   }

@@ -5195,13 +5195,16 @@
       }
     }
   },
-  "gatheringQuorumNeeded": "{count, plural, =0{Ready to confirm} =1{1 more needed to confirm} other{{count} more needed to confirm}}",
+  "gatheringQuorumNeeded": "{count, plural, =0{Ready to confirm} =1{1 more needed to confirm} other{{countLabel} more needed to confirm}}",
   "@gatheringQuorumNeeded": {
     "description": "모임 / gatherings",
     "placeholders": {
       "count": {
-        "type": "num",
-        "format": "compact"
+        "type": "num"
+      },
+      "countLabel": {
+        "type": "String",
+        "description": "count, already formatted (formatCompactNumberForLocale; tg-safe)"
       }
     }
   },
@@ -5340,13 +5343,16 @@
   "@gatheringCancelRsvp": {
     "description": "모임 / gatherings"
   },
-  "gatheringHostDecision": "{count, plural, =1{Only you are coming so far. Run it anyway, or call it off?} other{Only {count} people are coming so far. Run it anyway, or call it off?}}",
+  "gatheringHostDecision": "{count, plural, =1{Only you are coming so far. Run it anyway, or call it off?} other{Only {countLabel} people are coming so far. Run it anyway, or call it off?}}",
   "@gatheringHostDecision": {
     "description": "모임 / gatherings",
     "placeholders": {
       "count": {
-        "type": "num",
-        "format": "compact"
+        "type": "num"
+      },
+      "countLabel": {
+        "type": "String",
+        "description": "count, already formatted (formatCompactNumberForLocale; tg-safe)"
       }
     }
   },
@@ -5374,13 +5380,16 @@
   "@gatheringKeepIt": {
     "description": "모임 / gatherings"
   },
-  "gatheringCancelConfirm": "{count, plural, =1{1 person is expecting this. They'll be told it's off.} other{{count} people are expecting this. They'll be told it's off.}}",
+  "gatheringCancelConfirm": "{count, plural, =1{1 person is expecting this. They'll be told it's off.} other{{countLabel} people are expecting this. They'll be told it's off.}}",
   "@gatheringCancelConfirm": {
     "description": "모임 / gatherings",
     "placeholders": {
       "count": {
-        "type": "num",
-        "format": "compact"
+        "type": "num"
+      },
+      "countLabel": {
+        "type": "String",
+        "description": "count, already formatted (formatCompactNumberForLocale; tg-safe)"
       }
     }
   },
@@ -5392,13 +5401,16 @@
   "@clubNotFound": {
     "description": "모임 / gatherings"
   },
-  "clubMembers": "{count, plural, =1{1 member} other{{count} members}}",
+  "clubMembers": "{count, plural, =1{1 member} other{{countLabel} members}}",
   "@clubMembers": {
     "description": "모임 / gatherings",
     "placeholders": {
       "count": {
-        "type": "num",
-        "format": "compact"
+        "type": "num"
+      },
+      "countLabel": {
+        "type": "String",
+        "description": "count, already formatted (formatCompactNumberForLocale; tg-safe)"
       }
     }
   },

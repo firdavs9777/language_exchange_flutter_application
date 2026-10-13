@@ -7736,20 +7736,14 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
-  String gatheringQuorumNeeded(num count) {
-    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
-      locale: localeName,
-      
-    );
-    final String countString = countNumberFormat.format(count);
-
+  String gatheringQuorumNeeded(num count, String countLabel) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: 'Ещё $countString человека для подтверждения',
-      many: 'Ещё $countString человек для подтверждения',
-      few: 'Ещё $countString человека для подтверждения',
-      one: 'Ещё $countString человек для подтверждения',
+      other: 'Ещё $countLabel человека для подтверждения',
+      many: 'Ещё $countLabel человек для подтверждения',
+      few: 'Ещё $countLabel человека для подтверждения',
+      one: 'Ещё $countLabel человек для подтверждения',
       zero: 'Готово к подтверждению',
     );
     return '$_temp0';
@@ -7848,19 +7842,13 @@ class AppLocalizationsRu extends AppLocalizations {
   String get gatheringCancelRsvp => 'Отменить участие';
 
   @override
-  String gatheringHostDecision(num count) {
-    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
-      locale: localeName,
-      
-    );
-    final String countString = countNumberFormat.format(count);
-
+  String gatheringHostDecision(num count, String countLabel) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: 'Пока идут только $countString человека. Провести всё равно или отменить?',
-      many: 'Пока идут только $countString человек. Провести всё равно или отменить?',
-      few: 'Пока идут только $countString человека. Провести всё равно или отменить?',
+      other: 'Пока идут только $countLabel человека. Провести всё равно или отменить?',
+      many: 'Пока идут только $countLabel человек. Провести всё равно или отменить?',
+      few: 'Пока идут только $countLabel человека. Провести всё равно или отменить?',
       one: 'Пока идёте только вы. Провести всё равно или отменить?',
     );
     return '$_temp0';
@@ -7885,20 +7873,14 @@ class AppLocalizationsRu extends AppLocalizations {
   String get gatheringKeepIt => 'Оставить';
 
   @override
-  String gatheringCancelConfirm(num count) {
-    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
-      locale: localeName,
-      
-    );
-    final String countString = countNumberFormat.format(count);
-
+  String gatheringCancelConfirm(num count, String countLabel) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$countString человека ждут эту встречу. Мы сообщим об отмене.',
-      many: '$countString человек ждут эту встречу. Мы сообщим об отмене.',
-      few: '$countString человека ждут эту встречу. Мы сообщим об отмене.',
-      one: '$countString человек ждёт эту встречу. Мы сообщим об отмене.',
+      other: '$countLabel человека ждут эту встречу. Мы сообщим об отмене.',
+      many: '$countLabel человек ждут эту встречу. Мы сообщим об отмене.',
+      few: '$countLabel человека ждут эту встречу. Мы сообщим об отмене.',
+      one: '$countLabel человек ждёт эту встречу. Мы сообщим об отмене.',
     );
     return '$_temp0';
   }
@@ -7910,20 +7892,14 @@ class AppLocalizationsRu extends AppLocalizations {
   String get clubNotFound => 'Этот клуб больше недоступен';
 
   @override
-  String clubMembers(num count) {
-    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
-      locale: localeName,
-      
-    );
-    final String countString = countNumberFormat.format(count);
-
+  String clubMembers(num count, String countLabel) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$countString участника',
-      many: '$countString участников',
-      few: '$countString участника',
-      one: '$countString участник',
+      other: '$countLabel участника',
+      many: '$countLabel участников',
+      few: '$countLabel участника',
+      one: '$countLabel участник',
     );
     return '$_temp0';
   }

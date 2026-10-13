@@ -7723,17 +7723,11 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
-  String gatheringQuorumNeeded(num count) {
-    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
-      locale: localeName,
-      
-    );
-    final String countString = countNumberFormat.format(count);
-
+  String gatheringQuorumNeeded(num count, String countLabel) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: 'Noch $countString Personen zur Bestätigung',
+      other: 'Noch $countLabel Personen zur Bestätigung',
       one: 'Noch 1 Person zur Bestätigung',
       zero: 'Bereit zur Bestätigung',
     );
@@ -7833,17 +7827,11 @@ class AppLocalizationsDe extends AppLocalizations {
   String get gatheringCancelRsvp => 'Zusage zurückziehen';
 
   @override
-  String gatheringHostDecision(num count) {
-    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
-      locale: localeName,
-      
-    );
-    final String countString = countNumberFormat.format(count);
-
+  String gatheringHostDecision(num count, String countLabel) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: 'Bisher kommen nur $countString Personen. Trotzdem durchziehen oder absagen?',
+      other: 'Bisher kommen nur $countLabel Personen. Trotzdem durchziehen oder absagen?',
       one: 'Bisher kommst nur du. Trotzdem durchziehen oder absagen?',
     );
     return '$_temp0';
@@ -7868,17 +7856,11 @@ class AppLocalizationsDe extends AppLocalizations {
   String get gatheringKeepIt => 'Behalten';
 
   @override
-  String gatheringCancelConfirm(num count) {
-    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
-      locale: localeName,
-      
-    );
-    final String countString = countNumberFormat.format(count);
-
+  String gatheringCancelConfirm(num count, String countLabel) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$countString Personen warten darauf und werden über die Absage informiert.',
+      other: '$countLabel Personen warten darauf und werden über die Absage informiert.',
       one: '1 Person wartet darauf und wird über die Absage informiert.',
     );
     return '$_temp0';
@@ -7891,17 +7873,11 @@ class AppLocalizationsDe extends AppLocalizations {
   String get clubNotFound => 'Dieser Club ist nicht mehr verfügbar';
 
   @override
-  String clubMembers(num count) {
-    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
-      locale: localeName,
-      
-    );
-    final String countString = countNumberFormat.format(count);
-
+  String clubMembers(num count, String countLabel) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$countString Mitglieder',
+      other: '$countLabel Mitglieder',
       one: '1 Mitglied',
     );
     return '$_temp0';

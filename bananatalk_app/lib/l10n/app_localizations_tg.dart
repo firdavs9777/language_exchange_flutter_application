@@ -7729,17 +7729,11 @@ class AppLocalizationsTg extends AppLocalizations {
   }
 
   @override
-  String gatheringQuorumNeeded(num count) {
-    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
-      locale: localeName,
-      
-    );
-    final String countString = countNumberFormat.format(count);
-
+  String gatheringQuorumNeeded(num count, String countLabel) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: 'Барои тасдиқ боз $countString нафар лозим аст',
+      other: 'Барои тасдиқ боз $countLabel нафар лозим аст',
       zero: 'Барои тасдиқ омода аст',
     );
     return '$_temp0';
@@ -7838,17 +7832,11 @@ class AppLocalizationsTg extends AppLocalizations {
   String get gatheringCancelRsvp => 'Иштироки худро бекор кардан';
 
   @override
-  String gatheringHostDecision(num count) {
-    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
-      locale: localeName,
-      
-    );
-    final String countString = countNumberFormat.format(count);
-
+  String gatheringHostDecision(num count, String countLabel) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: 'То ҳол танҳо $countString нафар меоянд. Бо вуҷуди ин гузаронем ё бекор кунем?',
+      other: 'То ҳол танҳо $countLabel нафар меоянд. Бо вуҷуди ин гузаронем ё бекор кунем?',
       one: 'То ҳол танҳо шумо меоед. Бо вуҷуди ин гузаронем ё бекор кунем?',
     );
     return '$_temp0';
@@ -7873,17 +7861,11 @@ class AppLocalizationsTg extends AppLocalizations {
   String get gatheringKeepIt => 'Нигоҳ доштан';
 
   @override
-  String gatheringCancelConfirm(num count) {
-    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
-      locale: localeName,
-      
-    );
-    final String countString = countNumberFormat.format(count);
-
+  String gatheringCancelConfirm(num count, String countLabel) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$countString нафар инро интизоранд. Ба онҳо дар бораи бекоршавӣ хабар дода мешавад.',
+      other: '$countLabel нафар инро интизоранд. Ба онҳо дар бораи бекоршавӣ хабар дода мешавад.',
       one: '1 нафар инро интизор аст. Ба ӯ дар бораи бекоршавӣ хабар дода мешавад.',
     );
     return '$_temp0';
@@ -7896,17 +7878,11 @@ class AppLocalizationsTg extends AppLocalizations {
   String get clubNotFound => 'Ин клуб дигар дастрас нест';
 
   @override
-  String clubMembers(num count) {
-    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
-      locale: localeName,
-      
-    );
-    final String countString = countNumberFormat.format(count);
-
+  String clubMembers(num count, String countLabel) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$countString аъзо',
+      other: '$countLabel аъзо',
     );
     return '$_temp0';
   }

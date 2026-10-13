@@ -16,6 +16,7 @@ import 'package:bananatalk_app/pages/community/widgets/community_snackbar.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/widgets/community/user_skeleton.dart';
+import 'package:bananatalk_app/utils/number_format_locale.dart';
 
 /// 모임 — the tab that replaces Voice Rooms.
 ///
@@ -556,7 +557,7 @@ class _ClubRow extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final subtitle = [
-      l10n.clubMembers(club.memberCount),
+      l10n.clubMembers(club.memberCount, formatCompactNumberForLocale(context, club.memberCount)),
       if (club.interest.isNotEmpty) club.interest,
     ].join(' · ');
 

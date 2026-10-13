@@ -14339,8 +14339,8 @@ abstract class AppLocalizations {
   /// 모임 / gatherings
   ///
   /// In en, this message translates to:
-  /// **'{count, plural, =0{Ready to confirm} =1{1 more needed to confirm} other{{count} more needed to confirm}}'**
-  String gatheringQuorumNeeded(num count);
+  /// **'{count, plural, =0{Ready to confirm} =1{1 more needed to confirm} other{{countLabel} more needed to confirm}}'**
+  String gatheringQuorumNeeded(num count, String countLabel);
 
   /// 모임 / gatherings
   ///
@@ -14513,8 +14513,8 @@ abstract class AppLocalizations {
   /// 모임 / gatherings
   ///
   /// In en, this message translates to:
-  /// **'{count, plural, =1{Only you are coming so far. Run it anyway, or call it off?} other{Only {count} people are coming so far. Run it anyway, or call it off?}}'**
-  String gatheringHostDecision(num count);
+  /// **'{count, plural, =1{Only you are coming so far. Run it anyway, or call it off?} other{Only {countLabel} people are coming so far. Run it anyway, or call it off?}}'**
+  String gatheringHostDecision(num count, String countLabel);
 
   /// 모임 / gatherings
   ///
@@ -14555,8 +14555,8 @@ abstract class AppLocalizations {
   /// 모임 / gatherings
   ///
   /// In en, this message translates to:
-  /// **'{count, plural, =1{1 person is expecting this. They\'ll be told it\'s off.} other{{count} people are expecting this. They\'ll be told it\'s off.}}'**
-  String gatheringCancelConfirm(num count);
+  /// **'{count, plural, =1{1 person is expecting this. They\'ll be told it\'s off.} other{{countLabel} people are expecting this. They\'ll be told it\'s off.}}'**
+  String gatheringCancelConfirm(num count, String countLabel);
 
   /// 모임 / gatherings
   ///
@@ -14573,8 +14573,8 @@ abstract class AppLocalizations {
   /// 모임 / gatherings
   ///
   /// In en, this message translates to:
-  /// **'{count, plural, =1{1 member} other{{count} members}}'**
-  String clubMembers(num count);
+  /// **'{count, plural, =1{1 member} other{{countLabel} members}}'**
+  String clubMembers(num count, String countLabel);
 
   /// 모임 / gatherings
   ///

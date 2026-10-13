@@ -7715,17 +7715,11 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
-  String gatheringQuorumNeeded(num count) {
-    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
-      locale: localeName,
-      
-    );
-    final String countString = countNumberFormat.format(count);
-
+  String gatheringQuorumNeeded(num count, String countLabel) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: 'Cần thêm $countString người để xác nhận',
+      other: 'Cần thêm $countLabel người để xác nhận',
       zero: 'Sẵn sàng xác nhận',
     );
     return '$_temp0';
@@ -7824,17 +7818,11 @@ class AppLocalizationsVi extends AppLocalizations {
   String get gatheringCancelRsvp => 'Hủy tham gia';
 
   @override
-  String gatheringHostDecision(num count) {
-    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
-      locale: localeName,
-      
-    );
-    final String countString = countNumberFormat.format(count);
-
+  String gatheringHostDecision(num count, String countLabel) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: 'Hiện mới chỉ có $countString người. Vẫn tổ chức hay hủy?',
+      other: 'Hiện mới chỉ có $countLabel người. Vẫn tổ chức hay hủy?',
       one: 'Hiện mới chỉ có mình bạn. Vẫn tổ chức hay hủy?',
     );
     return '$_temp0';
@@ -7859,17 +7847,11 @@ class AppLocalizationsVi extends AppLocalizations {
   String get gatheringKeepIt => 'Giữ lại';
 
   @override
-  String gatheringCancelConfirm(num count) {
-    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
-      locale: localeName,
-      
-    );
-    final String countString = countNumberFormat.format(count);
-
+  String gatheringCancelConfirm(num count, String countLabel) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$countString người đang chờ buổi này. Họ sẽ được báo là đã hủy.',
+      other: '$countLabel người đang chờ buổi này. Họ sẽ được báo là đã hủy.',
       one: '1 người đang chờ buổi này. Họ sẽ được báo là đã hủy.',
     );
     return '$_temp0';
@@ -7882,17 +7864,11 @@ class AppLocalizationsVi extends AppLocalizations {
   String get clubNotFound => 'Câu lạc bộ này không còn khả dụng';
 
   @override
-  String clubMembers(num count) {
-    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
-      locale: localeName,
-      
-    );
-    final String countString = countNumberFormat.format(count);
-
+  String clubMembers(num count, String countLabel) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$countString thành viên',
+      other: '$countLabel thành viên',
     );
     return '$_temp0';
   }

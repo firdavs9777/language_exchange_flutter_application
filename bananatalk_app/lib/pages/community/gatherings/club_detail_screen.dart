@@ -13,6 +13,7 @@ import 'package:bananatalk_app/pages/community/gatherings/gathering_safety_menu.
 import 'package:bananatalk_app/pages/community/gatherings/club_people_section.dart';
 import 'package:bananatalk_app/pages/community/gatherings/group_cover.dart';
 import 'package:bananatalk_app/pages/community/gatherings/group_cover_picker.dart';
+import 'package:bananatalk_app/utils/number_format_locale.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 
@@ -478,7 +479,7 @@ class _ClubDetailScreenState extends State<ClubDetailScreen> {
                     ),
                     Spacing.hGapXS,
                     Text(
-                      l10n.clubMembers(club.memberCount),
+                      l10n.clubMembers(club.memberCount, formatCompactNumberForLocale(context, club.memberCount)),
                       style: context.bodyMedium.copyWith(
                         color: context.primaryColor,
                         fontWeight: FontWeight.w600,

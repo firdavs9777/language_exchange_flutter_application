@@ -7715,17 +7715,11 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
-  String gatheringQuorumNeeded(num count) {
-    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
-      locale: localeName,
-      
-    );
-    final String countString = countNumberFormat.format(count);
-
+  String gatheringQuorumNeeded(num count, String countLabel) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '还差$countString人即可确认',
+      other: '还差$countLabel人即可确认',
       zero: '可以确认了',
     );
     return '$_temp0';
@@ -7824,17 +7818,11 @@ class AppLocalizationsZh extends AppLocalizations {
   String get gatheringCancelRsvp => '取消报名';
 
   @override
-  String gatheringHostDecision(num count) {
-    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
-      locale: localeName,
-      
-    );
-    final String countString = countNumberFormat.format(count);
-
+  String gatheringHostDecision(num count, String countLabel) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '目前只有$countString人参加。还是照常举行，还是取消？',
+      other: '目前只有$countLabel人参加。还是照常举行，还是取消？',
       one: '目前只有你一个人参加。还是照常举行，还是取消？',
     );
     return '$_temp0';
@@ -7859,17 +7847,11 @@ class AppLocalizationsZh extends AppLocalizations {
   String get gatheringKeepIt => '保留';
 
   @override
-  String gatheringCancelConfirm(num count) {
-    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
-      locale: localeName,
-      
-    );
-    final String countString = countNumberFormat.format(count);
-
+  String gatheringCancelConfirm(num count, String countLabel) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '有$countString人正在等这场聚会，我们会通知他们已取消。',
+      other: '有$countLabel人正在等这场聚会，我们会通知他们已取消。',
       one: '有1人正在等这场聚会，我们会通知他们已取消。',
     );
     return '$_temp0';
@@ -7882,17 +7864,11 @@ class AppLocalizationsZh extends AppLocalizations {
   String get clubNotFound => '该俱乐部已不可用';
 
   @override
-  String clubMembers(num count) {
-    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
-      locale: localeName,
-      
-    );
-    final String countString = countNumberFormat.format(count);
-
+  String clubMembers(num count, String countLabel) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$countString名成员',
+      other: '$countLabel名成员',
     );
     return '$_temp0';
   }
@@ -18904,17 +18880,11 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   }
 
   @override
-  String gatheringQuorumNeeded(num count) {
-    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
-      locale: localeName,
-      
-    );
-    final String countString = countNumberFormat.format(count);
-
+  String gatheringQuorumNeeded(num count, String countLabel) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '還差$countString人即可確認',
+      other: '還差$countLabel人即可確認',
       zero: '可以確認了',
     );
     return '$_temp0';
@@ -19013,17 +18983,11 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get gatheringCancelRsvp => '取消報名';
 
   @override
-  String gatheringHostDecision(num count) {
-    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
-      locale: localeName,
-      
-    );
-    final String countString = countNumberFormat.format(count);
-
+  String gatheringHostDecision(num count, String countLabel) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '目前只有$countString人參加。還是照常舉行，還是取消？',
+      other: '目前只有$countLabel人參加。還是照常舉行，還是取消？',
       one: '目前只有你一個人參加。還是照常舉行，還是取消？',
     );
     return '$_temp0';
@@ -19048,17 +19012,11 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get gatheringKeepIt => '保留';
 
   @override
-  String gatheringCancelConfirm(num count) {
-    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
-      locale: localeName,
-      
-    );
-    final String countString = countNumberFormat.format(count);
-
+  String gatheringCancelConfirm(num count, String countLabel) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '有$countString人正在等這場聚會，我們會通知他們已取消。',
+      other: '有$countLabel人正在等這場聚會，我們會通知他們已取消。',
       one: '有1人正在等這場聚會，我們會通知他們已取消。',
     );
     return '$_temp0';
@@ -19071,17 +19029,11 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get clubNotFound => '此社團已無法查看';
 
   @override
-  String clubMembers(num count) {
-    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
-      locale: localeName,
-      
-    );
-    final String countString = countNumberFormat.format(count);
-
+  String clubMembers(num count, String countLabel) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$countString位成員',
+      other: '$countLabel位成員',
     );
     return '$_temp0';
   }

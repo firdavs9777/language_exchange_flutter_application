@@ -9,6 +9,7 @@ import 'package:bananatalk_app/pages/community/widgets/community_error_state.dar
 import 'package:bananatalk_app/services/gathering_api_client.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
+import 'package:bananatalk_app/utils/number_format_locale.dart';
 
 /// The gatherings this viewer hosts or holds a seat in, reached from the
 /// profile drawer.
@@ -244,7 +245,7 @@ class _MyClubsTabState extends State<MyClubsTab> {
                 subtitle: Text(
                   [
                     if (club.displayLanguage.isNotEmpty) club.displayLanguage,
-                    l10n.clubMembers(club.memberCount),
+                    l10n.clubMembers(club.memberCount, formatCompactNumberForLocale(context, club.memberCount)),
                     // Shown, not hidden: an owner whose club was archived
                     // should learn that here rather than wonder where it went.
                     if (club.status != 'active') club.status,
