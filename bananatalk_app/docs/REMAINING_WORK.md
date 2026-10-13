@@ -96,7 +96,8 @@ Web announcements (backend + web; **no app change**)
 
 AI Study hub + floating tab bar (branch `feat/ai-study-hub`)
 - [x] Design approved and spec written: `docs/superpowers/specs/2026-10-13-ai-study-hub-and-tab-bar-design.md`; mockup https://claude.ai/artifact/R1A8GWY8C6cqEMkfs5akEK.
-- [ ] Implementation plan (`docs/superpowers/plans/`), then implementation. L
+- [ ] **Next (resume here):** owner reviews the spec — esp. the `studyHubEnabled` flag, empty VIP-only list at launch, max 3 NEW badges, tab names reusing "AI Study"/"Profile", weekly digest moving behind "Full report". Then write the implementation plan (`docs/superpowers/plans/`). Paused 2026-10-13 at owner's request. S
+- [ ] Implementation (after the plan is approved). L
 - [ ] Run the baseline prod queries (feature usage per user, 30 days) before release — not run during design (no prod DB access that session). S
 - [ ] Backend: app-config fields `studyHubEnabled` (default false) + `studyVipOnlyFeatures` (default []); deploy before the app. S
 - [ ] Verify each feature's real language support against the backend to fill the coverage table (spec §4.6). S
