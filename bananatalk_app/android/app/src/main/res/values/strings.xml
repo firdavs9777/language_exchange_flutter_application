@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Bananatalk</string>
-    <string name="default_notification_channel_id">bananatalk_notifications</string>
+    <!-- Must be a channel the app creates (NotificationService creates
+         high_importance_channel): FCM posts background/killed pushes whose
+         channel is missing here, so a nonexistent id sent them all to
+         "Miscellaneous" with no heads-up. -->
+    <string name="default_notification_channel_id">high_importance_channel</string>
     <string name="default_notification_channel_name">Bananatalk Notifications</string>
     
     <!-- Facebook SDK Configuration -->

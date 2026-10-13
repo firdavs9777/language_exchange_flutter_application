@@ -293,9 +293,7 @@ class NotificationService {
   Future<void> _initializeLocalNotifications() async {
     final l10n = await notificationL10n();
 
-    const androidSettings = AndroidInitializationSettings(
-      '@mipmap/ic_launcher',
-    );
+    const androidSettings = AndroidInitializationSettings('@drawable/ic_notification');
 
     // iOS settings with foreground notification presentation
     final iosSettings = DarwinInitializationSettings(

@@ -66,6 +66,20 @@ A, L, C) is **DONE** and through its final review and fix wave. What is left is 
       fallback, like the date helper); guard `test/l10n/number_format_locale_test.dart` fails on any
       `NumberFormat` in generated l10n or a runtime-locale `NumberFormat` outside the helper.
 
+## Android release audit, 2026-10-13 (2.7.0, branch `fix/audit-2026-10-13`) — `android-report` of ed37a53c
+
+- [x] **I1** FCM default channel was `bananatalk_notifications` (never created) → background/killed pushes
+      landed in "Miscellaneous" without heads-up. Now `high_importance_channel`. Backend `channelId`
+      change is separate (backend repo).
+- [x] **M1** Monochrome `@drawable/ic_notification` (chat bubble, white on transparent) for the FCM
+      default icon and both flutter_local_notifications inits; backend already requests it.
+- [ ] Device QA (I1/M1): kill the app, receive a chat push → heads-up banner, white bubble icon in the
+      status bar; Settings → app notifications lists "High Importance Notifications", not Miscellaneous.
+- [ ] **B1** version bump + release notes
+- [ ] **I3** App Link paths · **M2** tg locale + RTL · **M3** optional features · **M4/M5** permissions,
+      Facebook · **M6** CallKit permission · **M7** CallKit missed-call notification · **M8** backup rules
+      · **M9** cosmetics · VIP cancel → Play subscriptions
+
 ## Open work, by who can act
 
 **You — consoles, keys, money, store** (§1)

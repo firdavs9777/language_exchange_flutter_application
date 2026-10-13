@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Status-bar / notification small icon. Android draws only the alpha
+     channel, so this is one opaque white shape on transparent: a chat bubble
+     (BananaTalk is a chat app; the full-colour launcher icon rendered as a
+     solid white blob here). Referenced by the manifest FCM default icon, the
+     flutter_local_notifications init, and the backend's icon: 'ic_notification'. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:fillType="evenOdd"
+        android:pathData="M20,2H4C2.9,2 2.01,2.9 2.01,4L2,22l4,-4h14c1.1,0 2,-0.9 2,-2V4C22,2.9 21.1,2 20,2zM9,11H7V9h2V11zM13,11h-2V9h2V11zM17,11h-2V9h2V11z" />
+</vector>
