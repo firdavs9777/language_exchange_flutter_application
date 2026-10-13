@@ -113,13 +113,23 @@ void main() {
           isFalse);
     });
 
-    testWidgets('restrictive path: only the ads notice may show', (t) async {
+    testWidgets('restrictive path: no launch pop-up, the budget is left for priming', (t) async {
       final ctx = await _app(t);
       final guidePeriod = await launchGuidePeriod(() async => throw 'boom');
-      _launch(ctx, _config(), guidePeriod: guidePeriod); // sheet stays open
+      await _launch(ctx, _config(), guidePeriod: guidePeriod);
       await t.pumpAndSettle();
       expect(await _announcementShown(), isFalse);
-      expect(await _adsNoticeShown(), isTrue);
+      expect(await _adsNoticeShown(), isFalse);
+      expect(PopupBudget.spent, isFalse,
+          reason: "a new user's first-session notification priming still gets its pop-up");
+    });
+
+    testWidgets('after the guide period the ads notice shows once as before', (t) async {
+      final ctx = await _app(t);
+      _launch(ctx, _config(), guidePeriod: false); // announcement first
+      await t.pumpAndSettle();
+      expect(await _announcementShown(), isTrue);
+      expect(await _adsNoticeShown(), isFalse);
     });
   });
 

@@ -147,7 +147,7 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
   /// At most one pop-up per launch, chosen by [LaunchModalCoordinator]. The
   /// update dialog (and the welcome-back sheet) already ran in splash and
   /// spent the shared PopupBudget if they showed; inside the guide period
-  /// only the ads notice can follow.
+  /// nothing follows, so the budget is left for notification priming.
   ///
   /// Runs once per process. If the shell is rebuilt or replaced (a deep link)
   /// or covered by a pushed screen within the first second, the launch

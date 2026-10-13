@@ -56,6 +56,7 @@ Date: 2026-10-12 · Repos: `bananatalk_app` (Flutter), `language_exchange_backen
 - Runs once per process, post-first-frame, from the main shell (`TabBarMenu.initState`), replacing the separate `AiStudyPromoModal.showIfDue`, `AdsNoticeModal.showIfNeeded` and `_maybeShowFeatureSpotlight` calls. The version-check coordinator reports whether it showed an update dialog; the announcement call moves out of `version_check_coordinator.dart` into the coordinator.
 - Candidates in order, each a `LaunchCandidate { Future<bool> isDue(); Future<void> show(context); bool allowedForNewUsers }`: update (owned by version check; if it showed, stop) → announcement → ads notice → feature spotlight. The first due candidate is shown; the rest wait for a later launch. Existing per-modal throttles are kept inside each `isDue`.
 - During `isGuidePeriod`, only candidates with `allowedForNewUsers` (update, ads notice) run.
+  *Amended 2026-10-13 (audit M4):* the ads notice is no longer allowed for new users — it spent the launch budget that §4.2 priming needs in the first session; it shows once after the guide period.
 - AI Study promo becomes `PromoType.aiStudy` in `promo_service.dart`'s rotation, skipped when `ActivationStore.isDone(lesson)`. `AiStudyPromoModal` is deleted.
 - A shared `PopupBudget` (per process) is consumed by whichever pop-up shows first — launch candidate or notification priming — so two never stack.
 

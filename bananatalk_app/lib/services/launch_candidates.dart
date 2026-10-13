@@ -62,8 +62,13 @@ class AdsNoticeCandidate implements LaunchCandidate {
   @override
   String get id => 'ads_notice';
 
+  /// Not in the guide period: the notice tells existing users that ads
+  /// arrived, which means nothing to a brand-new user, and showing it at a
+  /// new user's first launch spent the one-per-launch [PopupBudget] that
+  /// notification priming (spec §4.2) needs in that same first session.
+  /// It shows once, as before, on the first launch after the guide period.
   @override
-  bool get allowedForNewUsers => true;
+  bool get allowedForNewUsers => false;
 
   @override
   Future<bool> isDue() => AdsNoticeModal.isDue();
@@ -101,7 +106,8 @@ class FeatureSpotlightCandidate implements LaunchCandidate {
 }
 
 /// Spec §4.1 order after the update dialog (which ran in splash):
-/// announcement → ads notice → feature spotlight.
+/// announcement → ads notice → feature spotlight. Inside the guide period
+/// none of them runs (only the update dialog, in splash).
 List<LaunchCandidate> standardLaunchCandidates({
   required AppConfig? config,
   required Future<PromoType?> Function() pickSpotlight,

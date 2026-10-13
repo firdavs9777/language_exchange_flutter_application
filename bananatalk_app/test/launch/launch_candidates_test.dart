@@ -25,7 +25,9 @@ void main() {
     final c = standardLaunchCandidates(
         config: null, pickSpotlight: () async => null, onSpotlightTry: (_) {});
     expect(c.map((x) => x.id), ['announcement', 'ads_notice', 'feature_spotlight']);
-    expect(c.map((x) => x.allowedForNewUsers), [false, true, false]);
+    // The ads notice waits until the guide period ends: in a new user's
+    // first week the launch budget is left for notification priming (§4.2).
+    expect(c.map((x) => x.allowedForNewUsers), [false, false, false]);
   });
 
   test('ads notice is due once per install', () async {
