@@ -9,6 +9,8 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/utils/subscription_links.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 class VipStatusScreen extends ConsumerStatefulWidget {
   final String userId;
@@ -295,16 +297,17 @@ class _VipStatusScreenState extends ConsumerState<VipStatusScreen> {
 
             SizedBox(height: AppSpacing.xxxl),
 
-            // Manage Subscription Button (iOS)
-            if (Platform.isIOS)
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: AppSpacing.xxl),
-                child: TextButton.icon(
-                  onPressed: _openSubscriptionSettings,
-                  icon: const Icon(Icons.settings, size: 18),
-                  label: Text(localizations.manageInAppStore),
-                ),
+            // Manage Subscription Button (App Store / Play subscriptions)
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: AppSpacing.xxl),
+              child: TextButton.icon(
+                onPressed: _openSubscriptionSettings,
+                icon: const Icon(Icons.settings, size: 18),
+                label: Text(Platform.isIOS
+                    ? localizations.manageInAppStore
+                    : localizations.manageSubscription),
               ),
+            ),
 
             SizedBox(height: AppSpacing.xxxl),
           ],
@@ -468,30 +471,29 @@ class _VipStatusScreenState extends ConsumerState<VipStatusScreen> {
 
             SizedBox(height: AppSpacing.xxl),
 
-            // Manage Subscription Button (iOS - redirects to App Store settings)
-            if (Platform.isIOS)
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: AppSpacing.xxl),
-                child: SizedBox(
-                  width: double.infinity,
-                  height: 50,
-                  child: OutlinedButton.icon(
-                    onPressed: _openSubscriptionSettings,
-                    icon: const Icon(Icons.settings),
-                    style: OutlinedButton.styleFrom(
-                      foregroundColor: context.primaryColor,
-                      side: BorderSide(color: context.primaryColor),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: AppRadius.borderMD,
-                      ),
+            // Manage Subscription Button (App Store / Play subscriptions)
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: AppSpacing.xxl),
+              child: SizedBox(
+                width: double.infinity,
+                height: 50,
+                child: OutlinedButton.icon(
+                  onPressed: _openSubscriptionSettings,
+                  icon: const Icon(Icons.settings),
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: context.primaryColor,
+                    side: BorderSide(color: context.primaryColor),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: AppRadius.borderMD,
                     ),
-                    label: Text(
-                      localizations.manageSubscription,
-                      style: context.titleMedium.copyWith(color: context.primaryColor),
-                    ),
+                  ),
+                  label: Text(
+                    localizations.manageSubscription,
+                    style: context.titleMedium.copyWith(color: context.primaryColor),
                   ),
                 ),
               ),
+            ),
 
             SizedBox(height: AppSpacing.xxxl),
           ],
@@ -681,44 +683,45 @@ class _VipStatusScreenState extends ConsumerState<VipStatusScreen> {
 
             SizedBox(height: AppSpacing.lg),
 
-            // Manage Subscription Button (iOS - redirects to App Store settings)
-            if (Platform.isIOS)
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: AppSpacing.xxl),
-                child: SizedBox(
-                  width: double.infinity,
-                  height: 50,
-                  child: OutlinedButton.icon(
-                    onPressed: _openSubscriptionSettings,
-                    icon: const Icon(Icons.settings),
-                    style: OutlinedButton.styleFrom(
-                      foregroundColor: context.primaryColor,
-                      side: BorderSide(color: context.primaryColor),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: AppRadius.borderMD,
-                      ),
+            // Manage Subscription Button: the store that billed it (App Store
+            // subscriptions on iOS, Play's subscription page on Android, the
+            // only place a Play subscription can be cancelled).
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: AppSpacing.xxl),
+              child: SizedBox(
+                width: double.infinity,
+                height: 50,
+                child: OutlinedButton.icon(
+                  onPressed: _openSubscriptionSettings,
+                  icon: const Icon(Icons.settings),
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: context.primaryColor,
+                    side: BorderSide(color: context.primaryColor),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: AppRadius.borderMD,
                     ),
-                    label: Text(
-                      localizations.manageSubscription,
-                      style: context.titleMedium.copyWith(color: context.primaryColor),
-                    ),
+                  ),
+                  label: Text(
+                    localizations.manageSubscription,
+                    style: context.titleMedium.copyWith(color: context.primaryColor),
                   ),
                 ),
               ),
-
-            SizedBox(height: AppSpacing.md),
-
-            // Cancel Info Text
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: AppSpacing.xxl),
-              child: Text(
-                Platform.isIOS
-                    ? localizations.manageSubscriptionInSettings
-                    : localizations.contactSupportToCancel,
-                style: context.caption,
-                textAlign: TextAlign.center,
-              ),
             ),
+
+            // Cancel Info Text (iOS: where Settings keeps subscriptions; on
+            // Android the button above is the cancel path).
+            if (Platform.isIOS) ...[
+              SizedBox(height: AppSpacing.md),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: AppSpacing.xxl),
+                child: Text(
+                  localizations.manageSubscriptionInSettings,
+                  style: context.caption,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ],
 
             SizedBox(height: AppSpacing.xxxl),
           ],
@@ -780,9 +783,11 @@ class _VipStatusScreenState extends ConsumerState<VipStatusScreen> {
   }
 
   Future<void> _openSubscriptionSettings() async {
-    // Open iOS subscription settings
-    final Uri url = Uri.parse('https://apps.apple.com/account/subscriptions');
     try {
+      final url = subscriptionManagementUri(
+        isIOS: Platform.isIOS,
+        packageName: (await PackageInfo.fromPlatform()).packageName,
+      );
       if (await canLaunchUrl(url)) {
         await launchUrl(url, mode: LaunchMode.externalApplication);
       }

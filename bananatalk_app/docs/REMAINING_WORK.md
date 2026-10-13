@@ -113,7 +113,12 @@ A, L, C) is **DONE** and through its final review and fix wave. What is left is 
       and `data_extraction_rules.xml` (31+). Side effect: theme/language prefs are not restored either.
 - [ ] Device QA (M8): `adb shell bmgr backupnow com.bananatalk.app` then restore on a fresh install →
       app starts logged out, no biometric error.
-- [ ] VIP cancel → Play subscriptions · **B1** version + notes
+- [x] **VIP cancel (checklist 11)** Android VIP screens now show "Manage Subscription", which opens
+      `https://play.google.com/store/account/subscriptions?package=<applicationId>` (was "contact support
+      to cancel"); iOS unchanged. `contactSupportToCancel` is now unused in code (left in the ARBs).
+- [ ] Device QA (VIP): Android VIP subscriber → Manage Subscription opens Play's subscription page for
+      BananaTalk.
+- [ ] **B1** version + notes
 
 ## Open work, by who can act
 
