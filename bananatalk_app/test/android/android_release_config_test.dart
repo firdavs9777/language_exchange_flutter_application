@@ -199,4 +199,12 @@ void main() {
       }
     }
   });
+
+  test('release version is above the live 2.6.1 (10574) and has notes', () {
+    final m = RegExp(r'^version: (\d+\.\d+\.\d+)\+(\d+)$', multiLine: true).firstMatch(read('pubspec.yaml'))!;
+    expect(int.parse(m.group(2)!), greaterThan(10574), reason: 'Play rejects a reused versionCode');
+    expect(m.group(1), '2.7.0');
+    expect(m.group(2), '10580');
+    expect(File('docs/releases/${m.group(1)}.md').existsSync(), isTrue);
+  });
 }

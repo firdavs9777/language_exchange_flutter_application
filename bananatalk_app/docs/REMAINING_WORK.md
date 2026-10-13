@@ -14,7 +14,7 @@ A, L, C) is **DONE** and through its final review and fix wave. What is left is 
 - [ ] **After the backend deploy:** the log shows `[index] announcement_once_per_user ensured` and
       `db.notifications.getIndexes()` lists `announcement_once_per_user` (if not: run
       `node migrations/addAnnouncementNotificationIndex.js` on the server).
-- [ ] **Release build** (manual signing — keystore MacBook; `reference_release_build`), then store submit.
+- [ ] **Release build 2.7.0 (10580)** (manual signing — keystore MacBook; `docs/releases/2.7.0-handoff.md`), then store submit (Android first).
 - [ ] **Device QA:** every row of `docs/qa/onboarding-matrix.md` and `docs/qa/calls-matrix.md` §5
       (CALL2-1…CALL2-20), plus the camera-upgrade speaker route and an upgrade POST that times out.
 - [ ] **Native review** of the machine-drafted strings (`docs/l10n/native-qa-strings-2026-10.csv`).
@@ -133,7 +133,10 @@ A, L, C) is **DONE** and through its final review and fix wave. What is left is 
       to cancel"); iOS unchanged. `contactSupportToCancel` is now unused in code (left in the ARBs).
 - [ ] Device QA (VIP): Android VIP subscriber → Manage Subscription opens Play's subscription page for
       BananaTalk.
-- [ ] **B1** version + notes
+- [x] **B1** `version: 2.7.0+10580` (live 2.6.1 is 10574); notes `docs/releases/2.7.0.md`, keystore/Play
+      checklist `docs/releases/2.7.0-handoff.md`. Not tagged (tag `v2.7.0` after the build is accepted).
+- [ ] **B2 (owner)** Play Console foreground-service declaration (Microphone + Camera + Phone call, video) —
+      upload is rejected without it. Full list: `2.7.0-handoff.md` §4.
 
 ## Open work, by who can act
 
