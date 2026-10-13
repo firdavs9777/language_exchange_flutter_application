@@ -85,8 +85,9 @@ A, L, C) is **DONE** and through its final review and fix wave. What is left is 
 ## Android release audit, 2026-10-13 (2.7.0, branch `fix/audit-2026-10-13`) — `android-report` of ed37a53c
 
 - [x] **I1** FCM default channel was `bananatalk_notifications` (never created) → background/killed pushes
-      landed in "Miscellaneous" without heads-up. Now `high_importance_channel`. Backend `channelId`
-      change is separate (backend repo).
+      landed in "Miscellaneous" without heads-up. Now `high_importance_channel`. Backend side done too:
+      it sends `channelId: 'high_importance_channel'` (backend branch commit c70cdf2; ships with the
+      backend deploy).
 - [x] **M1** Monochrome `@drawable/ic_notification` (chat bubble, white on transparent) for the FCM
       default icon and both flutter_local_notifications inits; backend already requests it.
 - [ ] Device QA (I1/M1): kill the app, receive a chat push → heads-up banner, white bubble icon in the
