@@ -88,7 +88,11 @@ Monetization
 - [ ] Widget-test gaps: limit dialog rewarded flow end-to-end, Matches extra-matches CTA wiring, drawer rows. M
 
 Web announcements (backend + web; **no app change**)
-- [ ] Show admin announcements on banatalk.com as a hero-card pop-up or a floating banner, chosen per announcement; spec `docs/superpowers/specs/2026-10-13-web-announcements-design.md`. Spec + plan written (`docs/superpowers/plans/2026-10-13-web-announcements.md`, 9 tasks), build next. M
+- [x] Show admin announcements on banatalk.com as a hero-card pop-up or a floating banner, chosen per announcement; spec `docs/superpowers/specs/2026-10-13-web-announcements-design.md`, plan `docs/superpowers/plans/2026-10-13-web-announcements.md`. Deployed 2026-10-13 (backend 8d97504, web bf9089c).
+- [x] Back after logging in from an announcement link landed on /login (which bounced forward again): login, register and Google sign-in now replace the login page in history.
+- [ ] QA one real web announcement as a pop-up and one as a banner, logged in and logged out. S
+- [ ] Admin editor shows the App preview slot even when "Show in app and on website" is off. S
+- [ ] Banner style in the app (same `displayStyle` field; the app ignores banners today). M
 
 Later, gated on dashboard numbers (no work until then)
 - Phase E (weeks 3–8): Boost price test (150 vs 100), coin-pack prices, 3-day VIP trial, interstitial frequency, more rewarded placements, smart sort when 2.6.x+ is the majority.
