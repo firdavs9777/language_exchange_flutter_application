@@ -31,7 +31,8 @@ A, L, C) is **DONE** and through its final review and fix wave. What is left is 
       type kept); the user turns it on via `enableCamera()` (permission check).
 - [x] **I1 follow-up** A rejoin with the camera off no longer forces the loudspeaker: connect leaves the
       route alone for an unpublished video camera (`speakerOnConnect`), and the first `enableCamera`
-      routes to the speaker as after a peer upgrade.
+      routes to the speaker as after a peer upgrade. The pending flag is set *before* connect (the
+      peer is usually already in the room and connect reports it first), cleared if connect fails.
 - [ ] **Device QA (I1):** voice call, peer turns the camera on, kill this app in the background (iOS:
       CallKit keeps the call), reopen → call rejoins as video, *own camera off*, no camera prompt,
       audio stays on the current route (earpiece if at the ear — no forced loudspeaker); tap Video On →

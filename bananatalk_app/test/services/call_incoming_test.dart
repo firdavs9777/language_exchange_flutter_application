@@ -162,6 +162,33 @@ void main() {
       expect(h.liveKit.speakerCalls, [true]);
     });
 
+    test('real rejoin: the peer is already in the room, connected fires during connect', () async {
+      final h = CallHarness()..nextPeerInRoom = true;
+      h.platform.activeEntries = const [CallKitEntry(uuid: '6F1C2B8E-3C1D-4A8E-9B7F-0A1B2C3D4E5F', accepted: true)];
+      h.api.currentResult = activeVideo();
+      await h.manager.recoverCallState();
+      expect(h.manager.currentCall!.status, CallStatus.connected);
+      expect(h.manager.isSpeakerOn, isFalse,
+          reason: 'connect left the earpiece route; the recorded state must match it');
+      expect(h.liveKit.speakerCalls, isEmpty);
+      expect(await h.manager.enableCamera(), isTrue);
+      expect(h.manager.isSpeakerOn, isTrue);
+      expect(h.liveKit.speakerCalls, [true]);
+    });
+
+    test('a failed rejoin connect leaves no pending speaker behind', () async {
+      final h = CallHarness()..nextConnectError = Exception('down');
+      h.platform.activeEntries = const [CallKitEntry(uuid: '6F1C2B8E-3C1D-4A8E-9B7F-0A1B2C3D4E5F', accepted: true)];
+      h.api.currentResult = activeVideo();
+      await h.manager.recoverCallState();
+      expect(h.manager.currentCall, isNull);
+      // A later fresh video call that is connected routes to the speaker as usual.
+      await h.startOutgoing(type: CallType.video);
+      await h.state('active');
+      h.liveKit.onPeerConnected!();
+      expect(h.manager.isSpeakerOn, isTrue);
+    });
+
     test('connect leaves the route alone when the camera is not published', () {
       expect(CallLiveKitManager.speakerOnConnect(type: CallType.video), isTrue);
       expect(CallLiveKitManager.speakerOnConnect(type: CallType.audio), isFalse);

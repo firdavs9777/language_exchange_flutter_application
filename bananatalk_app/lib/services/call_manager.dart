@@ -655,9 +655,15 @@ class CallManager with WidgetsBindingObserver {
       // because the peer upgraded it, or the user had switched the camera
       // off. The layout and audio route stay video; the user turns the
       // camera on through enableCamera(), which checks permission first.
+      // Connect leaves the route alone for a video call (camera off), so the
+      // speaker is pending until camera-on. Set before connect: the peer is
+      // usually already in the room, and connect reports it (peer-connected,
+      // which records the route) before returning.
+      if (type == CallType.video) _speakerPendingForVideo = true;
       await media.connect(url: url, token: token, type: type, publishCamera: false);
     } catch (e) {
       if (!_sameId(currentCall?.callId, callId)) return;
+      _speakerPendingForVideo = false;
       debugPrint('📞 rejoin failed: $e');
       await _finish(CallExitReason.connectionLost);
       return;
@@ -665,12 +671,7 @@ class CallManager with WidgetsBindingObserver {
     if (!_sameId(currentCall?.callId, callId)) return;
     _isMuted = false;
     _isVideoEnabled = false;
-    if (type == CallType.video) {
-      _emitToPeer('call:video-toggle', {'isVideoEnabled': false});
-      // Connect left the route alone (camera off): the first camera-on moves
-      // to the loudspeaker, as after a peer upgrade.
-      _speakerPendingForVideo = true;
-    }
+    if (type == CallType.video) _emitToPeer('call:video-toggle', {'isVideoEnabled': false});
     _onMediaConnected(currentCall!);
     _deps.openActiveCall(currentCall!);
   }

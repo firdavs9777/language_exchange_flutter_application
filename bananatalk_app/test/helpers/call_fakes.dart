@@ -135,6 +135,10 @@ class FakeLiveKit extends CallLiveKitManager {
   int disconnects = 0;
   Object? connectError;
   Completer<void>? connectGate;
+
+  /// The peer is already in the room (a rejoin): like the real
+  /// CallLiveKitManager.connect, fire onPeerConnected before connect returns.
+  bool peerInRoom = false;
   final List<bool> cameraCalls = [];
 
   /// Type and camera flag of every [connect], in order.
@@ -151,6 +155,7 @@ class FakeLiveKit extends CallLiveKitManager {
     connectArgs.add((type: type, camera: publishCamera ?? type == CallType.video));
     if (connectGate != null) await connectGate!.future;
     if (connectError != null) throw connectError!;
+    if (peerInRoom) onPeerConnected?.call();
   }
 
   @override
@@ -181,7 +186,8 @@ class CallHarness {
       liveKitFactory: () {
         final lk = FakeLiveKit()
           ..connectError = nextConnectError
-          ..connectGate = nextConnectGate;
+          ..connectGate = nextConnectGate
+          ..peerInRoom = nextPeerInRoom;
         nextConnectError = null;
         nextConnectGate = null;
         liveKits.add(lk);
@@ -219,6 +225,7 @@ class CallHarness {
   bool ios = false;
   Object? nextConnectError;
   Completer<void>? nextConnectGate;
+  bool nextPeerInRoom = false;
   late final CallManager manager;
 
   FakeLiveKit get liveKit => liveKits.last;
