@@ -1439,9 +1439,6 @@ class CallManager with WidgetsBindingObserver {
     return true;
   }
 
-  /// A call that just became video routes audio to the loudspeaker, as a
-  /// call started as video does at connect ([CallLiveKitManager.connect]).
-  /// The previous route is kept for [_rollBackUpgrade].
   /// Screen on and the foreground service in its video (camera) type, for
   /// a call that just became video. Deferred to the next resume when the
   /// app is in the background, as at connect ([_onMediaConnected]).
@@ -1454,6 +1451,9 @@ class CallManager with WidgetsBindingObserver {
     }
   }
 
+  /// A call that just became video routes audio to the loudspeaker, as a
+  /// call started as video does at connect ([CallLiveKitManager.connect]).
+  /// The previous route is kept for [_rollBackUpgrade].
   void _routeAudioForVideo() {
     _speakerBeforeUpgrade ??= _isSpeakerOn;
     unawaited(setSpeakerOn(true));
