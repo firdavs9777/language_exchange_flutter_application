@@ -50,6 +50,12 @@ A, L, C) is **DONE** and through its final review and fix wave. What is left is 
 - [ ] Data check (M4): after release, compare `notification_prime_shown` per new signup before/after.
 - [x] **M5** Caller that missed the accept treated the upgrade `active` as the accept and stayed on voice.
       The ringing→connecting branch now also applies `type: video` (as a peer upgrade: camera off).
+- [x] **Quiet hours timezone** (from the backend audit): every settings save now stamps
+      `quietHours.timezone` with the device IANA zone (`lib/services/device_timezone.dart`, the same
+      source as the top-level timezone report) instead of the model's Asia/Seoul default; a saved
+      zone never wins over the device zone; unknown device zone keeps the saved one.
+- [ ] Device QA (quiet hours tz): phone in a non-Seoul zone, enable quiet hours 22:00–08:00 → server
+      `notificationSettings.quietHours.timezone` is the phone's zone; pushes held in local night.
 - [x] **M6** `tg` crashed on four compact-number strings (`NumberFormat.compact(locale:'tg')`). The four
       keys now take a pre-formatted `countLabel` from `lib/utils/number_format_locale.dart` (English
       fallback, like the date helper); guard `test/l10n/number_format_locale_test.dart` fails on any

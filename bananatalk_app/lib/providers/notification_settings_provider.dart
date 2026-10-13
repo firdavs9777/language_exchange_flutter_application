@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:bananatalk_app/models/notification_models.dart';
+import 'package:bananatalk_app/services/device_timezone.dart';
 import 'package:bananatalk_app/services/notification_api_client.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,15 +9,34 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class NotificationSettingsNotifier
     extends StateNotifier<AsyncValue<NotificationSettings>> {
-  final NotificationApiClient _apiClient = NotificationApiClient();
+  final NotificationApiClient _apiClient;
+  final Future<String?> Function() _deviceTimezone;
 
-  NotificationSettingsNotifier() : super(const AsyncValue.loading()) {
+  NotificationSettingsNotifier()
+      : _apiClient = NotificationApiClient(),
+        _deviceTimezone = deviceTimezone,
+        super(const AsyncValue.loading()) {
     fetchSettings();
   }
 
   @visibleForTesting
-  NotificationSettingsNotifier.forTest(NotificationSettings initial)
-      : super(AsyncValue.data(initial));
+  NotificationSettingsNotifier.forTest(
+    NotificationSettings initial, {
+    NotificationApiClient? apiClient,
+    Future<String?> Function()? deviceTimezone,
+  })  : _apiClient = apiClient ?? NotificationApiClient(),
+        _deviceTimezone = deviceTimezone ?? (() async => null),
+        super(AsyncValue.data(initial));
+
+  /// [settings] with the quiet-hours window in the device's current zone.
+  /// The model defaults to Asia/Seoul and the server keeps whatever was saved
+  /// last, so a saved zone must never win over where the phone is now.
+  /// Unknown device zone: the saved one is kept.
+  Future<NotificationSettings> _withDeviceZone(NotificationSettings settings) async {
+    final tz = await _deviceTimezone();
+    if (tz == null || tz == settings.quietHours.timezone) return settings;
+    return settings.copyWith(quietHours: settings.quietHours.copyWith(timezone: tz));
+  }
 
   /// Fetch notification settings from backend
   Future<void> fetchSettings() async {
@@ -45,6 +65,7 @@ class NotificationSettingsNotifier
   /// Update notification settings
   Future<void> updateSettings(NotificationSettings settings) async {
     try {
+      settings = await _withDeviceZone(settings);
 
       // Optimistically update UI
       state = AsyncValue.data(settings);

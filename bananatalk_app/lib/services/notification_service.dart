@@ -14,7 +14,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:flutter_timezone/flutter_timezone.dart';
+import 'package:bananatalk_app/services/device_timezone.dart';
 import 'package:flutter/foundation.dart' show defaultTargetPlatform, TargetPlatform;
 import 'package:bananatalk_app/services/notification_permission.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -826,8 +826,8 @@ class NotificationService {
   /// startup or token registration.
   Future<void> reportTimezone() async {
     try {
-      final timezoneInfo = await FlutterTimezone.getLocalTimezone();
-      await _apiClient.updateTimezone(timezoneInfo.identifier);
+      final tz = await deviceTimezone();
+      if (tz != null) await _apiClient.updateTimezone(tz);
     } catch (e) {
       debugPrint('[NotificationService] timezone report failed: $e');
     }
