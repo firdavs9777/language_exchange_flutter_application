@@ -53,4 +53,7 @@
 
     <!-- Turkish -->
     <locale android:name="tr-TR"/>
+
+    <!-- Tajik -->
+    <locale android:name="tg-TJ"/>
 </locale-config>

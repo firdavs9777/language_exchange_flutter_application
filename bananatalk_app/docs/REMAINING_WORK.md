@@ -83,7 +83,12 @@ A, L, C) is **DONE** and through its final review and fix wave. What is left is 
 - [ ] **I3 (owner)** Paste the upload-key and Play app-signing SHA-256 into the web repo's
       `public/.well-known/assetlinks.json` (live file still has `TODO_SHA256_*`), deploy, then
       `adb shell pm verify-app-links --re-verify com.bananatalk.app` + `pm get-app-links`.
-- [ ] **M2** tg locale + RTL · **M3** optional features · **M4/M5** permissions,
+- [x] **M2** `tg-TJ` in `locales_config.xml` (Android 13+ App languages); `android:supportsRtl="true"`.
+- [x] **M3** bluetooth, location (+gps/network), wifi declared `required="false"`.
+- [x] **M9** bogus `showOnLockScreen` removed; the merged literal `Manifest.permission.CAPTURE_AUDIO_OUTPUT`
+      removed with `tools:node="remove"`.
+- [ ] Verify (M3): `aapt2 dump badging` on the signed bundle lists no `uses-implied-feature` as required.
+- [ ] **M2-rest** tg locale + RTL · **M3** optional features · **M4/M5** permissions,
       Facebook · **M6** CallKit permission · **M7** CallKit missed-call notification · **M8** backup rules
       · **M9** cosmetics · VIP cancel → Play subscriptions
 

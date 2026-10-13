@@ -80,4 +80,48 @@ void main() {
       }
     });
   });
+
+  test('every app locale is offered in Android 13+ per-app language settings', () {
+    final config = read('$res/xml/locales_config.xml');
+    final declared = RegExp(r'<locale android:name="([^"]+)"').allMatches(config).map((m) => m.group(1)!).toList();
+    final arbs = Directory('lib/l10n')
+        .listSync()
+        .map((f) => RegExp(r'app_(\w+)\.arb$').firstMatch(f.path)?.group(1))
+        .whereType<String>()
+        .toList();
+    expect(arbs, hasLength(19));
+    for (final l in arbs) {
+      final parts = l.split('_'); // zh_TW
+      final ok = declared.any((d) {
+        final dp = d.split('-');
+        if (dp.first != parts.first) return false;
+        if (parts.length == 1) return parts.first != 'zh' || !d.contains('Hant');
+        return d.endsWith(parts.last);
+      });
+      expect(ok, isTrue, reason: '$l missing from locales_config.xml');
+    }
+    expect(manifest, contains('android:supportsRtl="true"'), reason: 'Arabic mirrors native screens');
+  });
+
+  test('implied hardware features never filter devices out of Play', () {
+    for (final f in [
+      'android.hardware.bluetooth',
+      'android.hardware.location',
+      'android.hardware.location.gps',
+      'android.hardware.location.network',
+      'android.hardware.wifi',
+      'android.hardware.camera',
+      'android.hardware.microphone',
+      'android.hardware.telephony',
+      'android.hardware.screen.portrait',
+    ]) {
+      expect(manifest, contains('<uses-feature android:name="$f" android:required="false" />'), reason: f);
+    }
+  });
+
+  test('no bogus manifest attributes or permission names', () {
+    expect(manifest, isNot(contains('showOnLockScreen')));
+    expect(manifest,
+        contains('<uses-permission android:name="Manifest.permission.CAPTURE_AUDIO_OUTPUT" tools:node="remove" />'));
+  });
 }
