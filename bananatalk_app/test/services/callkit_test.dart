@@ -19,6 +19,15 @@ import '../helpers/call_fakes.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
+  test('Android: the plugin draws no missed-call notification (the app draws one with working actions)', () {
+    final android = CallKitService.buildIncomingParams(
+        callId: 'call-1', callerName: 'Ada', isAndroid: true);
+    expect(android.missedCallNotification!.showNotification, isFalse);
+    final ios = CallKitService.buildIncomingParams(
+        callId: 'call-1', callerName: 'Ada', isAndroid: false);
+    expect(ios.missedCallNotification!.showNotification, isTrue, reason: 'iOS unchanged');
+  });
+
   test('CallKit id is the lowercase callUuid; extra carries ids and caller, never a token', () {
     final p = CallKitService.buildIncomingParams(
       callId: 'call-1',

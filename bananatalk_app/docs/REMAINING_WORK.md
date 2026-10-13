@@ -101,7 +101,14 @@ A, L, C) is **DONE** and through its final review and fix wave. What is left is 
       overridden from `normal` to `signature`; the plugin's own intents are explicit and in-app.
 - [ ] Device QA (M6, release build): incoming call from killed + locked → full-screen UI, Accept and
       Decline from the CallKit screen and from the notification both reach the app.
-- [ ] **M7** CallKit missed-call notification · **M8** backup rules
+- [x] **M7** flutter_callkit_incoming 2.5.8 drew its own Android missed-call notification after its 50 s
+      timeout (duplicate of the app-drawn one, and its Call back did nothing): `showNotification: false`
+      on Android (the plugin honours it in `showMissCallNotification`). iOS unchanged.
+- [ ] Localize the native CallKit Accept/Decline labels and missed-call subtitle (hardcoded English;
+      `textAccept`/`textDecline` could come from `notificationL10n()`; no "Accept" key exists yet).
+- [ ] Device QA (M7): Android, let an incoming call ring out with the push delayed (airplane mode on the
+      callee after the ring starts) → exactly one missed-call notification, with Call back / Message.
+- [ ] **M8** backup rules
       · VIP cancel → Play subscriptions · **B1** version + notes
 
 ## Open work, by who can act

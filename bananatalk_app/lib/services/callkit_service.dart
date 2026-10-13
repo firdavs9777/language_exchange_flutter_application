@@ -199,7 +199,9 @@ class CallKitService {
     bool isVideo = false,
     String? livekitUrl,
     String? roomName,
+    @visibleForTesting bool? isAndroid,
   }) {
+    final android = isAndroid ?? Platform.isAndroid;
     // CallKit ids MUST be UUIDs (the plugin force-unwraps UUID(uuidString:)
     // on iOS); the 24-hex Mongo id crashed backgrounded iPhones.
     final uuid = CallKitIds.uuidFor(callId: callId, callUuid: callUuid);
@@ -222,8 +224,12 @@ class CallKitService {
       type: isVideo ? 1 : 0, // 0 = audio, 1 = video
       textAccept: 'Accept',
       textDecline: 'Decline',
-      missedCallNotification: const NotificationParams(
-        showNotification: true,
+      // Android: the server's data-only missed_call push is drawn by the app
+      // (missed_call_actions.dart) with working Call back / Message buttons.
+      // The plugin's own notification (after its 50 s timeout) duplicated it,
+      // and its Call back button emits an event nothing handles.
+      missedCallNotification: NotificationParams(
+        showNotification: !android,
         isShowCallback: true,
         subtitle: 'Missed call',
       ),
