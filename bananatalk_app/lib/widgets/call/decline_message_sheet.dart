@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:bananatalk_app/l10n/app_localizations.dart';
-
-/// Matches the backend cap on a decline message.
-const int kDeclineMessageMax = 200;
+import 'package:bananatalk_app/services/call/call_api.dart';
+import 'package:bananatalk_app/utils/utf16_length.dart';
 
 /// Two canned replies + a custom one. Resolves to the text, or null if dismissed.
 Future<String?> showDeclineMessageSheet(BuildContext context) {
@@ -70,10 +69,14 @@ class _DeclineMessageSheetState extends State<_DeclineMessageSheet> {
                     Expanded(
                       child: TextField(
                         controller: _controller,
-                        maxLength: kDeclineMessageMax,
+                        // The server counts UTF-16 units (JS .length);
+                        // maxLength would count graphemes and let emoji
+                        // through past its limit.
+                        inputFormatters: const [
+                          Utf16LengthLimitingTextInputFormatter(kDeclineMessageMax),
+                        ],
                         decoration: InputDecoration(
                           hintText: l10n.callDeclineCustomHint,
-                          counterText: '',
                         ),
                       ),
                     ),

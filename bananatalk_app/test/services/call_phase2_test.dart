@@ -23,6 +23,38 @@ void main() {
     expect(h.api.declineMessages['call-1'], 'Later');
   });
 
+  test('a decline whose message the server refuses (400) is sent again without it', () async {
+    final h = CallHarness();
+    await h.ringIncoming();
+    h.api.declineResponder = (message) => message == null
+        ? const CallApiResult(ok: true, statusCode: 200)
+        : const CallApiResult(ok: false, statusCode: 400);
+    await h.manager.rejectCall(message: 'too long for the server');
+    await pumpEventQueue();
+    expect(h.api.declineLog, [
+      (callId: 'call-1', message: 'too long for the server'),
+      (callId: 'call-1', message: null),
+    ]);
+  });
+
+  test('a decline refused for another reason (409) is not retried', () async {
+    final h = CallHarness();
+    await h.ringIncoming();
+    h.api.declineResult = const CallApiResult(ok: false, statusCode: 409, errorCode: 'CALL_STATE');
+    await h.manager.rejectCall(message: 'Later');
+    await pumpEventQueue();
+    expect(h.api.declineLog.length, 1);
+  });
+
+  test('a decline without a message is never retried', () async {
+    final h = CallHarness();
+    await h.ringIncoming();
+    h.api.declineResult = const CallApiResult(ok: false, statusCode: 400);
+    await h.manager.rejectCall();
+    await pumpEventQueue();
+    expect(h.api.declineLog.length, 1);
+  });
+
   test('409 CALLEE_UNAVAILABLE → InitiateStatus.calleeUnavailable, no call left', () async {
     final h = CallHarness();
     h.api.initiateResult = const CallApiResult(ok: false, statusCode: 409, errorCode: 'CALLEE_UNAVAILABLE');

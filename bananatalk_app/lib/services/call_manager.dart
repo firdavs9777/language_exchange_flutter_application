@@ -1140,11 +1140,27 @@ class CallManager with WidgetsBindingObserver {
     }
     if (call.callId.isNotEmpty) {
       final deviceId = await _deps.platform.deviceId();
-      unawaited(_deps.api.decline(call.callId, deviceId: deviceId, message: message));
+      unawaited(_declineKeepingTheDecline(call.callId, deviceId, message));
       if (!_sameId(currentCall?.callId, call.callId)) return;
     }
     onCallRejected?.call(call.copyWith(status: CallStatus.rejected));
     await _finish(CallExitReason.declined);
+  }
+
+  /// The decline must land even when the server refuses its message (400:
+  /// validation, checked before the decline transition): otherwise the
+  /// caller keeps ringing until the timeout and sees "No answer". Any other
+  /// answer (409: already answered/ended) means the decline is moot.
+  Future<void> _declineKeepingTheDecline(String callId, String deviceId, String? message) async {
+    final hasMessage = message != null && message.trim().isNotEmpty;
+    try {
+      final res = await _deps.api.decline(callId, deviceId: deviceId, message: message);
+      if (hasMessage && res.statusCode == 400) {
+        await _deps.api.decline(callId, deviceId: deviceId);
+      }
+    } catch (e) {
+      debugPrint('📞 decline failed: $e');
+    }
   }
 
   /// Hang up. Always closes the call screen, even when there is no call.

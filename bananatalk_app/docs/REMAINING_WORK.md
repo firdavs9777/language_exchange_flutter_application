@@ -33,7 +33,10 @@ A, L, C) is **DONE** and through its final review and fix wave. What is left is 
       CallKit keeps the call), reopen → call rejoins as video, *own camera off*, no camera prompt,
       speaker on; tap Video On → permission prompt if never granted, then the peer sees the camera.
       Same for a native video call whose camera was switched off before the kill.
-- [ ] **M1** Decline-with-message: client counts graphemes, server counts UTF-16 units → decline fails.
+- [x] **M1** Decline-with-message: client counted graphemes, server counts UTF-16 units → decline failed.
+      Sheet now limits in UTF-16 units (`Utf16LengthLimitingTextInputFormatter`), `RestCallApi.decline`
+      clamps grapheme-safely, and a 400 on a message decline is re-sent without the message.
+- [ ] Backend (optional): clamp the decline message instead of refusing the decline with a 400.
 - [ ] **M2** Peer upgrade forces the loudspeaker on, skips wakelock + video call service.
 - [ ] **M3** `VersionCheckCoordinator.lastCheckShowedUpdate` survives logout.
 - [ ] **M4** Ads notice uses up a new user's notification priming.

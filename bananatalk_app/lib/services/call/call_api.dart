@@ -1,5 +1,10 @@
 import 'package:bananatalk_app/models/call_model.dart';
 import 'package:bananatalk_app/services/api_client.dart';
+import 'package:bananatalk_app/utils/utf16_length.dart';
+
+/// The backend cap on a decline message, in UTF-16 code units (it checks
+/// JS `.length` after trimming).
+const int kDeclineMessageMax = 200;
 
 /// Result of a call REST request, with the server's machine-readable codes.
 class CallApiResult {
@@ -64,7 +69,8 @@ class RestCallApi implements CallApi {
 
   @override
   Future<CallApiResult> decline(String callId, {String? deviceId, String? message}) async {
-    final text = message?.trim();
+    final trimmed = message?.trim();
+    final text = trimmed == null ? null : truncateUtf16(trimmed, kDeclineMessageMax);
     return CallApiResult.fromResponse(await _client.post('calls/$callId/decline', body: {
       ..._device(deviceId),
       if (text != null && text.isNotEmpty) 'message': text,

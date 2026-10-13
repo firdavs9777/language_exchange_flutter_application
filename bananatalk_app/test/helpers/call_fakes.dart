@@ -31,6 +31,9 @@ class FakeCallApi implements CallApi {
   /// Per-call accept results; a call id missing here gets [acceptResult].
   final Map<String, CallApiResult> acceptResultFor = {};
   CallApiResult declineResult = const CallApiResult(ok: true, statusCode: 200);
+  /// When set, answers each decline by its message (overrides [declineResult]).
+  CallApiResult Function(String? message)? declineResponder;
+  final List<({String callId, String? message})> declineLog = [];
   CallApiResult upgradeResult = const CallApiResult(ok: true, statusCode: 200);
   CallApiResult endResult = const CallApiResult(ok: true, statusCode: 200);
   CallApiResult currentResult =
@@ -58,7 +61,8 @@ class FakeCallApi implements CallApi {
     calls.add('decline:$callId');
     deviceIds['decline'] = deviceId;
     declineMessages[callId] = message;
-    return declineResult;
+    declineLog.add((callId: callId, message: message));
+    return declineResponder?.call(message) ?? declineResult;
   }
 
   @override
