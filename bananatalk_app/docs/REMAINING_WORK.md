@@ -94,6 +94,14 @@ Web announcements (backend + web; **no app change**)
 - [ ] Admin editor shows the App preview slot even when "Show in app and on website" is off. S
 - [ ] Banner style in the app (same `displayStyle` field; the app ignores banners today). M
 
+AI Study hub + floating tab bar (branch `feat/ai-study-hub`)
+- [x] Design approved and spec written: `docs/superpowers/specs/2026-10-13-ai-study-hub-and-tab-bar-design.md`; mockup https://claude.ai/artifact/R1A8GWY8C6cqEMkfs5akEK.
+- [ ] Implementation plan (`docs/superpowers/plans/`), then implementation. L
+- [ ] Run the baseline prod queries (feature usage per user, 30 days) before release — not run during design (no prod DB access that session). S
+- [ ] Backend: app-config fields `studyHubEnabled` (default false) + `studyVipOnlyFeatures` (default []); deploy before the app. S
+- [ ] Verify each feature's real language support against the backend to fill the coverage table (spec §4.6). S
+- [ ] Delete old `LearnTab` / `AIToolsTab` once `studyHubEnabled` has been on for a full release. S
+
 Later, gated on dashboard numbers (no work until then)
 - Phase E (weeks 3–8): Boost price test (150 vs 100), coin-pack prices, 3-day VIP trial, interstitial frequency, more rewarded placements, smart sort when 2.6.x+ is the majority.
 - Phase F (only when D7 ≥ 20 %): new-conversation cap, paid installs (Apple Search Ads RU/IN/EG), Moment Boost, AI tutor in VIP.
