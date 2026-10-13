@@ -23,13 +23,23 @@ class Utf16LengthLimitingTextInputFormatter extends TextInputFormatter {
 
   final int maxUnits;
 
+  /// While an IME is composing (Korean, Japanese, Chinese input) the text is
+  /// left alone: cutting into a composition breaks it. The limit applies as
+  /// soon as the composition is committed (the send path clamps too).
+  /// Otherwise the text is cut on a grapheme boundary and the selection
+  /// stays where it was, clamped to the new length.
   @override
   TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
     if (newValue.text.length <= maxUnits) return newValue;
+    if (newValue.composing.isValid && !newValue.composing.isCollapsed) return newValue;
     final text = truncateUtf16(newValue.text, maxUnits);
+    int clamp(int offset) => offset < 0 ? offset : (offset > text.length ? text.length : offset);
+    final sel = newValue.selection;
     return TextEditingValue(
       text: text,
-      selection: TextSelection.collapsed(offset: text.length),
+      selection: sel.isValid
+          ? sel.copyWith(baseOffset: clamp(sel.baseOffset), extentOffset: clamp(sel.extentOffset))
+          : TextSelection.collapsed(offset: text.length),
     );
   }
 }

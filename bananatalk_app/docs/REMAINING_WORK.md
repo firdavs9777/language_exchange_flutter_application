@@ -40,6 +40,10 @@ A, L, C) is **DONE** and through its final review and fix wave. What is left is 
 - [x] **M1** Decline-with-message: client counted graphemes, server counts UTF-16 units → decline failed.
       Sheet now limits in UTF-16 units (`Utf16LengthLimitingTextInputFormatter`), `RestCallApi.decline`
       clamps grapheme-safely, and a 400 on a message decline is re-sent without the message.
+- [x] **M1 follow-up** The UTF-16 limit formatter leaves an active IME composition alone (applies on
+      commit) and keeps the cursor/selection where it was, clamped, instead of jumping to the end.
+- [ ] Device QA (M1): Korean and Japanese keyboards in the decline sheet near 200 units — composition
+      not broken, cursor stays put on a mid-text edit.
 - [ ] Backend (optional): clamp the decline message instead of refusing the decline with a 400.
 - [x] **Decline message delivery** (from the backend audit): `data.messageDelivered: false` on a 200
       decline (text dropped: blocked / daily cap), and a 400-refused message, now show the callee a
