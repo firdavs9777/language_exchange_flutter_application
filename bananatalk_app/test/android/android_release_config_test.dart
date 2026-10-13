@@ -124,4 +124,47 @@ void main() {
     expect(manifest,
         contains('<uses-permission android:name="Manifest.permission.CAPTURE_AUDIO_OUTPUT" tools:node="remove" />'));
   });
+
+  group('permissions the app never uses are not requested', () {
+    // Each of these is a Play policy / Data-safety surface. None is used by
+    // lib/ or by a plugin's own code path the app reaches (audit 2026-10-13):
+    // media comes through the photo picker / SAF, calls are self-managed.
+    const unused = [
+      'android.permission.READ_CONTACTS',
+      'android.permission.READ_PHONE_STATE',
+      'android.permission.SYSTEM_ALERT_WINDOW',
+      'android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS',
+      'android.permission.READ_MEDIA_IMAGES',
+      'android.permission.READ_MEDIA_VIDEO',
+      'android.permission.READ_MEDIA_AUDIO',
+    ];
+    for (final perm in unused) {
+      test(perm, () {
+        expect(manifest, isNot(contains('<uses-permission android:name="$perm" />')));
+        expect(manifest, isNot(contains('<uses-permission android:name="$perm"/>')));
+      });
+    }
+
+    test('legacy Bluetooth permissions stop at API 30 (BLUETOOTH_CONNECT after)', () {
+      for (final perm in ['BLUETOOTH', 'BLUETOOTH_ADMIN']) {
+        expect(manifest,
+            contains('<uses-permission android:name="android.permission.$perm"\n        android:maxSdkVersion="30" />'),
+            reason: perm);
+      }
+    });
+
+    test('no lib/ code asks for them at runtime', () {
+      final asked = RegExp(r'Permission\.(contacts|phone|systemAlertWindow|ignoreBatteryOptimizations|photos|videos|audio|mediaLibrary)\b');
+      for (final f in Directory('lib').listSync(recursive: true)) {
+        if (f is! File || !f.path.endsWith('.dart')) continue;
+        expect(asked.hasMatch(f.readAsStringSync()), isFalse, reason: f.path);
+      }
+    });
+  });
+
+  test('no dead Facebook SDK entries (flutter_facebook_auth is not a dependency)', () {
+    expect(read('pubspec.yaml'), isNot(matches(RegExp(r'^\s+flutter_facebook_auth:', multiLine: true))));
+    expect(manifest, isNot(contains('com.facebook')));
+    expect(read('$res/values/strings.xml'), isNot(contains('facebook')));
+  });
 }

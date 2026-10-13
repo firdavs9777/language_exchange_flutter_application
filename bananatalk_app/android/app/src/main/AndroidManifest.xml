@@ -47,8 +47,11 @@
     <uses-feature android:name="android.hardware.wifi" android:required="false" />
 
     <!-- ==================== BLUETOOTH PERMISSIONS ==================== -->
-    <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <!-- Legacy Bluetooth (headset routing on API <= 30); BLUETOOTH_CONNECT replaces them on 31+. -->
+    <uses-permission android:name="android.permission.BLUETOOTH"
+        android:maxSdkVersion="30" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"
+        android:maxSdkVersion="30" />
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
     <uses-permission android:name="android.permission.BLUETOOTH_SCAN"
         android:usesPermissionFlags="neverForLocation"
@@ -72,26 +75,23 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
 
-    <!-- Android 13+ (Granular media permissions) -->
-    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
-    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
-    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+    <!-- Android 13+: no READ_MEDIA_* — image_picker uses the system photo picker and
+         file_picker uses SAF, neither needs them (and Play's Photo & Video policy
+         restricts them to apps whose core function is media access). -->
 
     <!-- ==================== NOTIFICATION PERMISSIONS ==================== -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
-    <!-- ==================== CONTACTS PERMISSION ==================== -->
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
-
     <!-- ==================== PHONE/CALL PERMISSIONS ==================== -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.MANAGE_OWN_CALLS" />
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
 
-    <!-- ==================== SYSTEM PERMISSIONS ==================== -->
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+    <!-- No READ_CONTACTS, READ_PHONE_STATE, SYSTEM_ALERT_WINDOW or
+         REQUEST_IGNORE_BATTERY_OPTIMIZATIONS: nothing in lib/ asks for them and no
+         plugin path the app uses needs them (calls are self-managed, the foreground
+         service runs without an overlay or a battery exemption).
+         test/android/android_release_config_test.dart keeps them out. -->
 
     <!-- ==================== BILLING PERMISSION (Google Play In-App Purchases) ==================== -->
     <uses-permission android:name="com.android.vending.BILLING" />
@@ -162,34 +162,6 @@
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-5669092242437690~7322694079"/>
-
-        <!-- Facebook SDK Configuration -->
-        <meta-data
-            android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id"/>
-
-        <meta-data
-            android:name="com.facebook.sdk.ClientToken"
-            android:value="@string/facebook_client_token"/>
-
-        <activity
-            android:name="com.facebook.FacebookActivity"
-            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:label="@string/app_name"
-            tools:ignore="MissingClass" />
-
-
-        <activity
-            android:name="com.facebook.CustomTabActivity"
-            android:exported="true"
-            tools:ignore="MissingClass">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="@string/fb_login_protocol_scheme" />
-            </intent-filter>
-        </activity>
 
         <!-- FCM Notification Configuration -->
         <meta-data

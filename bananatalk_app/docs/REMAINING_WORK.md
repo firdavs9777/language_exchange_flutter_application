@@ -75,7 +75,6 @@ A, L, C) is **DONE** and through its final review and fix wave. What is left is 
       default icon and both flutter_local_notifications inits; backend already requests it.
 - [ ] Device QA (I1/M1): kill the app, receive a chat push → heads-up banner, white bubble icon in the
       status bar; Settings → app notifications lists "High Importance Notifications", not Miscellaneous.
-- [ ] **B1** version bump + release notes
 - [x] **I3 (code)** The https App Link filter claims only `/moment/`, `/profile/`, `/community/`, `/i/`
       (what `deep_link_parser` routes), so `/privacy-policy`, `/terms-of-use` and the rest of the site
       stay in the browser once links verify. The save-sheet share link used `/moments/<id>`, which the
@@ -88,9 +87,18 @@ A, L, C) is **DONE** and through its final review and fix wave. What is left is 
 - [x] **M9** bogus `showOnLockScreen` removed; the merged literal `Manifest.permission.CAPTURE_AUDIO_OUTPUT`
       removed with `tools:node="remove"`.
 - [ ] Verify (M3): `aapt2 dump badging` on the signed bundle lists no `uses-implied-feature` as required.
-- [ ] **M2-rest** tg locale + RTL · **M3** optional features · **M4/M5** permissions,
-      Facebook · **M6** CallKit permission · **M7** CallKit missed-call notification · **M8** backup rules
-      · **M9** cosmetics · VIP cancel → Play subscriptions
+- [x] **M4** Removed READ_CONTACTS, READ_PHONE_STATE, SYSTEM_ALERT_WINDOW,
+      REQUEST_IGNORE_BATTERY_OPTIMIZATIONS, READ_MEDIA_IMAGES/VIDEO/AUDIO (no lib/ use, no plugin path
+      the app reaches); BLUETOOTH/BLUETOOTH_ADMIN capped at API 30.
+- [ ] Owner (M4): Play Console — withdraw the Photo & Video permissions declaration once 2.7.0 is live;
+      update the Data safety form (contacts and phone state no longer collected).
+- [ ] Device QA (M4): Android 12+ call with a Bluetooth headset — headset selectable? (BLUETOOTH_CONNECT
+      is declared but never requested at runtime; request it with the mic if not.) Pick photo/video for a
+      moment, story, chat, avatar on Android 13+ and on Android 9.
+- [x] **M5** Dead Facebook SDK manifest entries (incl. an exported activity whose class is not in the
+      APK) and placeholder strings removed.
+- [ ] **M6** CallKit permission · **M7** CallKit missed-call notification · **M8** backup rules
+      · VIP cancel → Play subscriptions · **B1** version + notes
 
 ## Open work, by who can act
 

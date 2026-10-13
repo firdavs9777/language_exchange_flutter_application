@@ -7,10 +7,5 @@
          "Miscellaneous" with no heads-up. -->
     <string name="default_notification_channel_id">high_importance_channel</string>
     <string name="default_notification_channel_name">Bananatalk Notifications</string>
-    
-    <!-- Facebook SDK Configuration -->
-    <!-- Replace these with your actual Facebook App ID and Client Token from https://developers.facebook.com/ -->
-    <string name="facebook_app_id">YOUR_FACEBOOK_APP_ID</string>
-    <string name="facebook_client_token">YOUR_FACEBOOK_CLIENT_TOKEN</string>
-    <string name="fb_login_protocol_scheme">fbYOUR_FACEBOOK_APP_ID</string>
+
 </resources>
