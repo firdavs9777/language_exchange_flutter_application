@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 
+import 'package:bananatalk_app/services/deep_link_parser.dart';
+
 /// Guards for the Android release configuration (android audit 2026-10-13).
 /// Static checks on the checked-in files: the merged manifest is verified by
 /// the release build, these keep the source from drifting back.
@@ -38,6 +40,43 @@ void main() {
         final src = read(f);
         expect(src, contains("AndroidInitializationSettings('@drawable/ic_notification')"), reason: f);
         expect(src, isNot(contains("AndroidInitializationSettings('@mipmap")), reason: f);
+      }
+    });
+  });
+
+  group('App Links (https://banatalk.com)', () {
+    // The autoVerify filter: once assetlinks verifies, every matching URL
+    // opens the app instead of the browser.
+    final filter = RegExp(r'<intent-filter android:autoVerify="true">(.*?)</intent-filter>', dotAll: true)
+        .firstMatch(manifest)!
+        .group(1)!;
+    final prefixes = RegExp(r'android:pathPrefix="([^"]+)"').allMatches(filter).map((m) => m.group(1)!).toList();
+
+    bool claimed(String path) => prefixes.any(path.startsWith);
+
+    test('the filter is restricted to paths', () {
+      expect(prefixes, isNotEmpty);
+      expect(filter, isNot(contains('android:path=')));
+      expect(filter, isNot(contains('pathPattern')));
+    });
+
+    test('every claimed prefix is a route the app handles', () {
+      for (final p in prefixes) {
+        final uri = Uri.parse('https://banatalk.com${p}ABCDEFGH');
+        expect(routePathFromUri(uri), isNotNull, reason: p);
+      }
+    });
+
+    test('every link shape the app handles is claimed', () {
+      for (final path in ['/moment/123', '/profile/u1', '/community/matches', '/community/waves', '/i/ABCDEFGH']) {
+        expect(routePathFromUri(Uri.parse('https://banatalk.com$path')), isNotNull, reason: path);
+        expect(claimed(path), isTrue, reason: path);
+      }
+    });
+
+    test('legal pages and the web home stay in the browser', () {
+      for (final path in ['/', '/privacy-policy', '/terms-of-use', '/moments/123', '/delete-account']) {
+        expect(claimed(path), isFalse, reason: path);
       }
     });
   });

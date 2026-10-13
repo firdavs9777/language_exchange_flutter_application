@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/service/endpoints.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
+import 'package:bananatalk_app/services/link_constants.dart';
 
 class MomentsService {
   static Future<String?> _getToken() async {
@@ -180,10 +181,10 @@ class MomentsService {
     }
   }
 
-  /// Get shareable link for a moment
-  static String getShareableLink(String momentId) {
-    return 'https://banatalk.com/moments/$momentId';
-  }
+  /// Get shareable link for a moment: the same `/moment/<id>` shape every
+  /// other share uses, which the deep-link parser and the Android App Link
+  /// filter handle (the plural `/moments/` opened nothing in the app).
+  static String getShareableLink(String momentId) => shareUrl('moment', momentId);
 
   // ==================== REPORT ====================
 

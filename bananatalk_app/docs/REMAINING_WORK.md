@@ -76,7 +76,14 @@ A, L, C) is **DONE** and through its final review and fix wave. What is left is 
 - [ ] Device QA (I1/M1): kill the app, receive a chat push → heads-up banner, white bubble icon in the
       status bar; Settings → app notifications lists "High Importance Notifications", not Miscellaneous.
 - [ ] **B1** version bump + release notes
-- [ ] **I3** App Link paths · **M2** tg locale + RTL · **M3** optional features · **M4/M5** permissions,
+- [x] **I3 (code)** The https App Link filter claims only `/moment/`, `/profile/`, `/community/`, `/i/`
+      (what `deep_link_parser` routes), so `/privacy-policy`, `/terms-of-use` and the rest of the site
+      stay in the browser once links verify. The save-sheet share link used `/moments/<id>`, which the
+      app never routed; it now uses `/moment/<id>` like every other share.
+- [ ] **I3 (owner)** Paste the upload-key and Play app-signing SHA-256 into the web repo's
+      `public/.well-known/assetlinks.json` (live file still has `TODO_SHA256_*`), deploy, then
+      `adb shell pm verify-app-links --re-verify com.bananatalk.app` + `pm get-app-links`.
+- [ ] **M2** tg locale + RTL · **M3** optional features · **M4/M5** permissions,
       Facebook · **M6** CallKit permission · **M7** CallKit missed-call notification · **M8** backup rules
       · **M9** cosmetics · VIP cancel → Play subscriptions
 

@@ -113,12 +113,21 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
 
-            <!-- Android App Links: https://banatalk.com -->
+            <!-- Android App Links: https://banatalk.com, only the paths
+                 lib/services/deep_link_parser.dart routes. Once assetlinks.json
+                 verifies, anything matched here opens the app, so the legal
+                 pages (/privacy-policy, /terms-of-use) and the rest of the site
+                 must stay out and keep opening in the browser.
+                 test/android/android_release_config_test.dart keeps the two in sync. -->
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="https" android:host="banatalk.com" />
+                <data android:pathPrefix="/moment/" />
+                <data android:pathPrefix="/profile/" />
+                <data android:pathPrefix="/community/" />
+                <data android:pathPrefix="/i/" />
             </intent-filter>
 
             <!-- Custom scheme: bananatalk:// -->
