@@ -68,6 +68,7 @@ class CallManagerDeps {
     this.isAppResumed = CallManagerDeps._resumed,
     this.callFailedMessage = CallManagerDeps._callFailed,
     this.isIos = CallManagerDeps._notIos,
+    this.declineMessageNotSent = CallManagerDeps._noop,
   });
 
   factory CallManagerDeps.production() => CallManagerDeps(
@@ -90,6 +91,8 @@ class CallManagerDeps {
           final l10n = ctx != null ? AppLocalizations.of(ctx) : null;
           return l10n?.callFailed ?? _callFailed();
         },
+        declineMessageNotSent: () =>
+            CallRoutes.showDeclineMessageNotSent(callOverlayNavigatorKey.currentContext),
       );
 
   final CallApi api;
@@ -108,6 +111,11 @@ class CallManagerDeps {
 
   /// The localized "Call failed" message shown when the server fails a call.
   final String Function() callFailedMessage;
+
+  /// The call was declined but its message was not delivered (the server
+  /// dropped it: blocked / daily cap, or refused it). Production shows a
+  /// short snackbar; the incoming screen is already gone by then.
+  final void Function() declineMessageNotSent;
 
   /// iOS: a reported CallKit call is always on screen (banner / full
   /// screen), so it can be the only ring UI. Android's native entry can
@@ -1182,9 +1190,15 @@ class CallManager with WidgetsBindingObserver {
     final hasMessage = message != null && message.trim().isNotEmpty;
     try {
       final res = await _deps.api.decline(callId, deviceId: deviceId, message: message);
-      if (hasMessage && res.statusCode == 400) {
-        await _deps.api.decline(callId, deviceId: deviceId);
+      if (!hasMessage) return;
+      if (res.statusCode == 400) {
+        final retry = await _deps.api.decline(callId, deviceId: deviceId);
+        if (retry.ok) _deps.declineMessageNotSent();
+        return;
       }
+      // 200 with messageDelivered: false = declined, text dropped. A missing
+      // field (older servers) means delivered.
+      if (res.ok && res.data['messageDelivered'] == false) _deps.declineMessageNotSent();
     } catch (e) {
       debugPrint('📞 decline failed: $e');
     }

@@ -56,6 +56,55 @@ void main() {
     expect(h.api.declineLog.length, 1);
   });
 
+  group('decline message delivery', () {
+    Future<CallHarness> declineWith(CallApiResult result, {String? message = 'Later'}) async {
+      final h = CallHarness();
+      await h.ringIncoming();
+      h.api.declineResult = result;
+      await h.manager.rejectCall(message: message);
+      await pumpEventQueue();
+      return h;
+    }
+
+    test('messageDelivered: false tells the callee once', () async {
+      final h = await declineWith(const CallApiResult(
+          ok: true, statusCode: 200, data: {'messageDelivered': false}));
+      expect(h.declineMessageNotSent, 1);
+    });
+
+    test('messageDelivered: true, or missing (older servers), is delivered', () async {
+      expect((await declineWith(const CallApiResult(
+              ok: true, statusCode: 200, data: {'messageDelivered': true})))
+          .declineMessageNotSent, 0);
+      expect((await declineWith(const CallApiResult(ok: true, statusCode: 200)))
+          .declineMessageNotSent, 0);
+    });
+
+    test('a plain decline never reports a message', () async {
+      final h = await declineWith(
+          const CallApiResult(ok: true, statusCode: 200, data: {'messageDelivered': false}),
+          message: null);
+      expect(h.declineMessageNotSent, 0);
+    });
+
+    test('a message the server refused (400, decline re-sent without it) is reported', () async {
+      final h = CallHarness();
+      await h.ringIncoming();
+      h.api.declineResponder = (m) => m == null
+          ? const CallApiResult(ok: true, statusCode: 200)
+          : const CallApiResult(ok: false, statusCode: 400);
+      await h.manager.rejectCall(message: 'x');
+      await pumpEventQueue();
+      expect(h.declineMessageNotSent, 1);
+    });
+
+    test('a decline that lost the race (409) reports nothing', () async {
+      final h = await declineWith(
+          const CallApiResult(ok: false, statusCode: 409, errorCode: 'CALL_STATE'));
+      expect(h.declineMessageNotSent, 0);
+    });
+  });
+
   test('409 CALLEE_UNAVAILABLE → InitiateStatus.calleeUnavailable, no call left', () async {
     final h = CallHarness();
     h.api.initiateResult = const CallApiResult(ok: false, statusCode: 409, errorCode: 'CALLEE_UNAVAILABLE');

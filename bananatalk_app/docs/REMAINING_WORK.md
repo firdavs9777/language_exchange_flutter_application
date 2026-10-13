@@ -37,6 +37,11 @@ A, L, C) is **DONE** and through its final review and fix wave. What is left is 
       Sheet now limits in UTF-16 units (`Utf16LengthLimitingTextInputFormatter`), `RestCallApi.decline`
       clamps grapheme-safely, and a 400 on a message decline is re-sent without the message.
 - [ ] Backend (optional): clamp the decline message instead of refusing the decline with a 400.
+- [x] **Decline message delivery** (from the backend audit): `data.messageDelivered: false` on a 200
+      decline (text dropped: blocked / daily cap), and a 400-refused message, now show the callee a
+      short "Failed to send message" snackbar (existing key, all 19 locales). Missing field = delivered.
+- [ ] Device QA (decline delivery): decline with a message to a caller who blocked you / past the
+      daily cap → call stops ringing for the caller, you see "Failed to send message".
 - [x] **M2** Peer upgrade forced the loudspeaker on and skipped wakelock + video call service. Now:
       route untouched until this user turns the camera on (first `enableCamera` routes to speaker),
       wakelock on + call service restarted as video (deferred to resume in the background; the

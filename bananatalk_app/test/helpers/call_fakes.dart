@@ -200,6 +200,7 @@ class CallHarness {
         openIncoming?.call(c);
       },
       afterIncomingCall: () => afterIncomingCalls++,
+      declineMessageNotSent: () => declineMessageNotSent++,
       isAppResumed: () => appResumed,
       isIos: () => ios,
     ));
@@ -213,6 +214,7 @@ class CallHarness {
   final List<String> opened = [];
   int closes = 0;
   int afterIncomingCalls = 0;
+  int declineMessageNotSent = 0;
   bool appResumed = true;
   bool ios = false;
   Object? nextConnectError;

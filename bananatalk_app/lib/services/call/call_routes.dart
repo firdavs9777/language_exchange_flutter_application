@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/call_model.dart';
 import 'package:bananatalk_app/router/app_router.dart';
 import 'package:bananatalk_app/screens/active_call_screen.dart';
@@ -26,6 +27,17 @@ class CallRoutes {
         fullscreenDialog: true,
         builder: (_) => ActiveCallScreen(call: call),
       );
+
+  /// Short notice after a decline whose message did not reach the caller.
+  /// Reuses the translated "Failed to send message".
+  static void showDeclineMessageNotSent(BuildContext? context) {
+    if (context == null || !context.mounted) return;
+    final text = AppLocalizations.of(context)?.failedToSendMessage;
+    if (text == null) return;
+    ScaffoldMessenger.maybeOf(context)?.showSnackBar(
+      SnackBar(content: Text(text), behavior: SnackBarBehavior.floating),
+    );
+  }
 
   static void openIncoming(CallModel call) =>
       callOverlayNavigatorKey.currentState?.push(incomingRoute(call));
