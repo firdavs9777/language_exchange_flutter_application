@@ -633,7 +633,11 @@ class CallManager with WidgetsBindingObserver {
     _liveKit = media;
     _wireLiveKit(media);
     try {
-      await media.connect(url: url, token: token, type: type);
+      // Never publish the camera on a rejoin: the call may be video only
+      // because the peer upgraded it, or the user had switched the camera
+      // off. The layout and audio route stay video; the user turns the
+      // camera on through enableCamera(), which checks permission first.
+      await media.connect(url: url, token: token, type: type, publishCamera: false);
     } catch (e) {
       if (!_sameId(currentCall?.callId, callId)) return;
       debugPrint('📞 rejoin failed: $e');
@@ -642,7 +646,8 @@ class CallManager with WidgetsBindingObserver {
     }
     if (!_sameId(currentCall?.callId, callId)) return;
     _isMuted = false;
-    _isVideoEnabled = type == CallType.video;
+    _isVideoEnabled = false;
+    if (type == CallType.video) _emitToPeer('call:video-toggle', {'isVideoEnabled': false});
     _onMediaConnected(currentCall!);
     _deps.openActiveCall(currentCall!);
   }

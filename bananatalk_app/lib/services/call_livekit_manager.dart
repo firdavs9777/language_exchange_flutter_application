@@ -115,18 +115,22 @@ class CallLiveKitManager {
   // -- API ------------------------------------------------------------------
 
   /// Connect to the LiveKit room and wire room events. Audio calls publish
-  /// mic only; video calls publish both mic and camera.
+  /// mic only; video calls publish both mic and camera unless
+  /// [publishCamera] is false (a rejoin never turns the camera on by itself:
+  /// the audio route still follows [type]).
   Future<void> connect({
     required String url,
     required String token,
     required CallType type,
+    bool? publishCamera,
   }) async {
-    debugPrint('[Call] connect type=$type url=$url');
+    final camera = publishCamera ?? type == CallType.video;
+    debugPrint('[Call] connect type=$type camera=$camera url=$url');
     await _livekit.connect(
       url: url,
       token: token,
       enableMicrophone: true,
-      enableCamera: type == CallType.video,
+      enableCamera: camera,
     );
 
     // iOS audio routing default: video calls default to speakerphone (the

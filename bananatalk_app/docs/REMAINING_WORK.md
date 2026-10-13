@@ -1,6 +1,6 @@
 # Remaining work — BananaTalk app
 
-Last updated: 2026-10-12. Keep this current: tick items off in the same commit that finishes them.
+Last updated: 2026-10-13. Keep this current: tick items off in the same commit that finishes them.
 
 ---
 
@@ -23,6 +23,22 @@ A, L, C) is **DONE** and through its final review and fix wave. What is left is 
     language-targeted announcement never pops up on 2.6.1 (push and list row still arrive).
   - 2.6.1 shows the server's **English** text for the new 409 `CALLEE_UNAVAILABLE` ("X isn't taking
     calls right now").
+
+## Audit fixes, 2026-10-13 (branch `fix/audit-2026-10-13`) — report of ed37a53c
+
+- [x] **I1** Rejoin after process death published the camera without asking (incl. a voice call the
+      peer upgraded). Rejoin now connects with the camera off (audio still routed as for video, call
+      type kept); the user turns it on via `enableCamera()` (permission check).
+- [ ] **Device QA (I1):** voice call, peer turns the camera on, kill this app in the background (iOS:
+      CallKit keeps the call), reopen → call rejoins as video, *own camera off*, no camera prompt,
+      speaker on; tap Video On → permission prompt if never granted, then the peer sees the camera.
+      Same for a native video call whose camera was switched off before the kill.
+- [ ] **M1** Decline-with-message: client counts graphemes, server counts UTF-16 units → decline fails.
+- [ ] **M2** Peer upgrade forces the loudspeaker on, skips wakelock + video call service.
+- [ ] **M3** `VersionCheckCoordinator.lastCheckShowedUpdate` survives logout.
+- [ ] **M4** Ads notice uses up a new user's notification priming.
+- [ ] **M5** Caller that missed the accept treats the upgrade `active` as the accept and stays on voice.
+- [ ] **M6** `tg` crashes on four compact-number strings (`NumberFormat.compact(locale:'tg')`).
 
 ## Open work, by who can act
 

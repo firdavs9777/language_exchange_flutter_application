@@ -133,9 +133,18 @@ class FakeLiveKit extends CallLiveKitManager {
   Completer<void>? connectGate;
   final List<bool> cameraCalls = [];
 
+  /// Type and camera flag of every [connect], in order.
+  final List<({CallType type, bool camera})> connectArgs = [];
+
   @override
-  Future<void> connect({required String url, required String token, required CallType type}) async {
+  Future<void> connect({
+    required String url,
+    required String token,
+    required CallType type,
+    bool? publishCamera,
+  }) async {
     connects++;
+    connectArgs.add((type: type, camera: publishCamera ?? type == CallType.video));
     if (connectGate != null) await connectGate!.future;
     if (connectError != null) throw connectError!;
   }

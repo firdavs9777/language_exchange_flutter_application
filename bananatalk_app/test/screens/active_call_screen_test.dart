@@ -6,6 +6,7 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/call_model.dart';
 import 'package:bananatalk_app/screens/active_call_screen.dart';
 import 'package:bananatalk_app/services/call/call_api.dart';
+import 'package:bananatalk_app/services/call/callkit_ids.dart';
 import 'package:bananatalk_app/services/call_manager.dart';
 
 import '../helpers/call_fakes.dart';
@@ -75,6 +76,31 @@ void main() {
     expect(find.text('Camera'), findsNothing);
     expect(h.liveKit.cameraCalls, isEmpty, reason: 'the callee never auto-enables their camera');
     expect(find.text('Video On'), findsOneWidget, reason: 'local camera is off until tapped');
+    await h.manager.endCall();
+    await tester.pump(const Duration(seconds: 2));
+  });
+
+  testWidgets('rejoined video call shows the camera off until the user turns it on', (tester) async {
+    final h = CallHarness();
+    CallManager.debugSetInstance(h.manager);
+    h.platform.activeEntries = const [CallKitEntry(uuid: '6F1C2B8E-3C1D-4A8E-9B7F-0A1B2C3D4E5F', accepted: true)];
+    h.api.currentResult = const CallApiResult(ok: true, statusCode: 200, data: {
+      'call': {
+        'id': 'call-1', 'callUuid': kCallUuid, 'type': 'video', 'status': 'active', 'direction': 'in',
+        'otherParty': {'id': 'u-caller', 'name': 'Ada', 'avatar': null}, 'roomName': 'call:call-1',
+      },
+      'token': 'tok-rejoin', 'url': 'wss://lk.test',
+    });
+    await h.manager.recoverCallState();
+    h.liveKit.onPeerConnected!();
+    await pumpScreen(tester, h);
+    expect(find.text('Video On'), findsOneWidget, reason: 'local camera is off after a rejoin');
+    expect(h.liveKit.cameraCalls, isEmpty);
+    await tester.tap(find.widgetWithIcon(IconButton, Icons.videocam_off));
+    await tester.pump();
+    await tester.pump();
+    expect(h.liveKit.cameraCalls, [true]);
+    expect(find.text('Video Off'), findsOneWidget);
     await h.manager.endCall();
     await tester.pump(const Duration(seconds: 2));
   });

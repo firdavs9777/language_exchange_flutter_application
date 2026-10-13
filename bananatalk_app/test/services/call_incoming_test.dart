@@ -109,6 +109,58 @@ void main() {
     expect(h.manager.currentCall!.direction, CallDirection.outgoing);
   });
 
+  group('rejoin never turns the camera on by itself', () {
+    CallApiResult activeVideo() => const CallApiResult(ok: true, statusCode: 200, data: {
+          'call': {
+            'id': 'call-1', 'callUuid': kCallUuid, 'type': 'video', 'status': 'active', 'direction': 'in',
+            'otherParty': {'id': 'u-caller', 'name': 'Ada', 'avatar': null}, 'roomName': 'call:call-1',
+          },
+          'token': 'tok-rejoin', 'url': 'wss://lk.test',
+        });
+
+    Future<CallHarness> rejoinVideo() async {
+      final h = CallHarness();
+      h.platform.activeEntries = const [CallKitEntry(uuid: '6F1C2B8E-3C1D-4A8E-9B7F-0A1B2C3D4E5F', accepted: true)];
+      h.api.currentResult = activeVideo();
+      await h.manager.recoverCallState();
+      return h;
+    }
+
+    test('a video call (e.g. upgraded by the peer) rejoins with the camera off but stays video', () async {
+      final h = await rejoinVideo();
+      expect(h.liveKit.connectArgs.single, (type: CallType.video, camera: false),
+          reason: 'audio routed as for video, camera not published');
+      expect(h.manager.currentCall!.callType, CallType.video);
+      expect(h.manager.isVideoEnabled, isFalse);
+      expect(h.liveKit.cameraCalls, isEmpty);
+      expect(h.opened, ['active:call-1']);
+    });
+
+    test('the user turns the camera on through enableCamera, which checks permission', () async {
+      final h = await rejoinVideo();
+      h.liveKit.onPeerConnected!();
+      h.platform.permissionsGranted = false;
+      expect(await h.manager.enableCamera(), isFalse);
+      expect(h.manager.lastCameraFailureWasPermission, isTrue);
+      expect(h.liveKit.cameraCalls, isEmpty);
+
+      h.platform.permissionsGranted = true;
+      expect(await h.manager.enableCamera(), isTrue);
+      expect(h.liveKit.cameraCalls, [true]);
+      expect(h.manager.isVideoEnabled, isTrue);
+      expect(h.api.calls.where((c) => c.startsWith('upgrade')), isEmpty);
+    });
+
+    test('a voice call rejoins as voice with the camera off', () async {
+      final h = CallHarness();
+      h.platform.activeEntries = const [CallKitEntry(uuid: '6F1C2B8E-3C1D-4A8E-9B7F-0A1B2C3D4E5F', accepted: true)];
+      h.api.currentResult = _activeCurrent;
+      await h.manager.recoverCallState();
+      expect(h.liveKit.connectArgs.single, (type: CallType.audio, camera: false));
+      expect(h.manager.isVideoEnabled, isFalse);
+    });
+  });
+
   test('call_cancelled while this device is accepting does not end the call', () async {
     final h = CallHarness();
     await h.ringIncoming();
