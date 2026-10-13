@@ -178,4 +178,25 @@ void main() {
         contains('<permission\n        android:name="\${applicationId}.PERMISSION_CALL"\n'
             '        android:protectionLevel="signature"\n        tools:replace="android:protectionLevel" />'));
   });
+
+  test('backups and device transfer never carry the session or secure storage', () {
+    expect(manifest, contains('android:fullBackupContent="@xml/backup_rules"'));
+    expect(manifest, contains('android:dataExtractionRules="@xml/data_extraction_rules"'));
+    const files = [
+      'FlutterSharedPreferences.xml', // token, refreshToken, userId
+      'FlutterSecureStorage.xml', // biometric token (Keystore key does not transfer)
+      'FlutterSecureKeyStorage.xml',
+    ];
+    final backup = read('$res/xml/backup_rules.xml');
+    for (final f in files) {
+      expect(backup, contains('<exclude domain="sharedpref" path="$f" />'), reason: 'backup_rules $f');
+    }
+    final extraction = read('$res/xml/data_extraction_rules.xml');
+    for (final section in ['cloud-backup', 'device-transfer']) {
+      final body = RegExp('<$section[^>]*>(.*?)</$section>', dotAll: true).firstMatch(extraction)!.group(1)!;
+      for (final f in files) {
+        expect(body, contains('<exclude domain="sharedpref" path="$f" />'), reason: '$section $f');
+      }
+    }
+  });
 }

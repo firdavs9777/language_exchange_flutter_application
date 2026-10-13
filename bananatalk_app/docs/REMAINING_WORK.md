@@ -108,8 +108,12 @@ A, L, C) is **DONE** and through its final review and fix wave. What is left is 
       `textAccept`/`textDecline` could come from `notificationL10n()`; no "Accept" key exists yet).
 - [ ] Device QA (M7): Android, let an incoming call ring out with the push delayed (airplane mode on the
       callee after the ring starts) → exactly one missed-call notification, with Call back / Message.
-- [ ] **M8** backup rules
-      · VIP cancel → Play subscriptions · **B1** version + notes
+- [x] **M8** Auto Backup / device transfer no longer copy `FlutterSharedPreferences.xml` (session tokens),
+      `FlutterSecureStorage.xml` / `FlutterSecureKeyStorage.xml` (biometric): `backup_rules.xml` (API ≤30)
+      and `data_extraction_rules.xml` (31+). Side effect: theme/language prefs are not restored either.
+- [ ] Device QA (M8): `adb shell bmgr backupnow com.bananatalk.app` then restore on a fresh install →
+      app starts logged out, no biometric error.
+- [ ] VIP cancel → Play subscriptions · **B1** version + notes
 
 ## Open work, by who can act
 
