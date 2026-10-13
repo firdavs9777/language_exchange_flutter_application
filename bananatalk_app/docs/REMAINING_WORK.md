@@ -87,6 +87,9 @@ Monetization
 - [ ] `RemoveAdsButton` only under the chat-list banner (visitors-screen banner has none). S
 - [ ] Widget-test gaps: limit dialog rewarded flow end-to-end, Matches extra-matches CTA wiring, drawer rows. M
 
+Web announcements (backend + web; **no app change**)
+- [ ] Show admin announcements on banatalk.com as a hero-card pop-up or a floating banner, chosen per announcement; spec `docs/superpowers/specs/2026-10-13-web-announcements-design.md`. Spec written, plan + build next. M
+
 Later, gated on dashboard numbers (no work until then)
 - Phase E (weeks 3–8): Boost price test (150 vs 100), coin-pack prices, 3-day VIP trial, interstitial frequency, more rewarded placements, smart sort when 2.6.x+ is the majority.
 - Phase F (only when D7 ≥ 20 %): new-conversation cap, paid installs (Apple Search Ads RU/IN/EG), Moment Boost, AI tutor in VIP.
