@@ -74,6 +74,32 @@ void main() {
     expect(h.finishes, isEmpty);
   });
 
+  test('caller who missed the accept: an active+video is the accept AND the type change', () async {
+    final h = CallHarness();
+    await h.startOutgoing(); // voice, still ringing out (the first active was missed)
+    final types = <CallType>[];
+    final accepted = <CallModel>[];
+    h.manager.onCallTypeChanged = types.add;
+    h.manager.onCallAccepted = accepted.add;
+    h.platform.log.clear();
+    await h.manager.handleSocketEvent('call:state', {'callId': 'call-1', 'status': 'active', 'type': 'video'});
+    expect(h.manager.currentCall!.status, CallStatus.connecting);
+    expect(h.manager.currentCall!.callType, CallType.video);
+    expect(accepted.single.callType, CallType.video);
+    expect(types, [CallType.video]);
+    expect(h.manager.isVideoEnabled, isFalse, reason: 'the caller never auto-enables the camera');
+    expect(h.liveKit.cameraCalls, isEmpty);
+    expect(h.liveKit.speakerCalls, isEmpty);
+    expect(h.platform.log, contains('wakelock:on'));
+  });
+
+  test('a plain accept (no type) of a voice call stays voice', () async {
+    final h = CallHarness();
+    await h.startOutgoing();
+    await h.state('active');
+    expect(h.manager.currentCall!.callType, CallType.audio);
+  });
+
   test('a late call:state active+video never revives an ended or unknown call', () async {
     final h = await connectedVoice();
     final types = <CallType>[];

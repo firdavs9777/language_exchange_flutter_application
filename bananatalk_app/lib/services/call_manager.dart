@@ -688,8 +688,21 @@ class CallManager with WidgetsBindingObserver {
       if (cur.direction == CallDirection.outgoing) {
         _ringSafetyTimer?.cancel();
         unawaited(_deps.platform.stopTones());
-        currentCall = cur.copyWith(status: CallStatus.connecting);
+        // A caller whose socket missed the accept can first see the repeat
+        // 'active' the callee's upgrade sends: it is the accept and the
+        // type change at once (handled as a peer upgrade: camera stays off).
+        final upgraded = m['type'] == 'video' && cur.callType != CallType.video;
+        currentCall = cur.copyWith(
+          status: CallStatus.connecting,
+          callType: upgraded ? CallType.video : cur.callType,
+        );
         _updateConnectionState(CallUiState.connecting);
+        if (upgraded) {
+          _isVideoEnabled = false;
+          _speakerPendingForVideo = true;
+          _enterVideoMode();
+          onCallTypeChanged?.call(CallType.video);
+        }
         onCallAccepted?.call(currentCall!);
       } else if (!_sameId(_acceptingCallId, callId)) {
         await _finish(CallExitReason.answeredElsewhere);
