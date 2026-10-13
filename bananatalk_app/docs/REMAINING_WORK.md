@@ -37,7 +37,12 @@ A, L, C) is **DONE** and through its final review and fix wave. What is left is 
       Sheet now limits in UTF-16 units (`Utf16LengthLimitingTextInputFormatter`), `RestCallApi.decline`
       clamps grapheme-safely, and a 400 on a message decline is re-sent without the message.
 - [ ] Backend (optional): clamp the decline message instead of refusing the decline with a 400.
-- [ ] **M2** Peer upgrade forces the loudspeaker on, skips wakelock + video call service.
+- [x] **M2** Peer upgrade forced the loudspeaker on and skipped wakelock + video call service. Now:
+      route untouched until this user turns the camera on (first `enableCamera` routes to speaker),
+      wakelock on + call service restarted as video (deferred to resume in the background; the
+      resume start now uses the call type, not the camera state).
+- [ ] **Device QA (M2):** re-run CALL2-21 (`docs/qa/calls-matrix.md`, expectation updated) and CALL2-13
+      for a *peer* upgrade (Android FGS camera type with the local camera off, then on).
 - [ ] **M3** `VersionCheckCoordinator.lastCheckShowedUpdate` survives logout.
 - [ ] **M4** Ads notice uses up a new user's notification priming.
 - [ ] **M5** Caller that missed the accept treats the upgrade `active` as the accept and stays on voice.

@@ -212,7 +212,8 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
       // Voice <-> video. A peer upgrade changes the layout only: the local
       // camera stays off until the user taps (_isVideoEnabled is untouched);
       // a rolled-back upgrade turns it off again. CallManager moves the audio
-      // route itself (speaker for video, previous route on rollback).
+      // route itself (speaker for a local upgrade or the first camera-on
+      // after a peer upgrade, previous route on rollback).
       final listener = _typeListener = (type) {
         if (!mounted) return;
         setState(() {

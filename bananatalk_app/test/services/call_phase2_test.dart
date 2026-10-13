@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:bananatalk_app/models/call_model.dart';
@@ -164,12 +165,47 @@ void main() {
     expect(h.manager.isSpeakerOn, isTrue);
   });
 
-  test('a peer upgrade routes audio to the speaker', () async {
+  test('a peer upgrade leaves the audio route alone but keeps the screen on', () async {
+    final h = await connectedVoice();
+    h.platform.log.clear();
+    await h.manager.handleSocketEvent('call:state', {'callId': 'call-1', 'status': 'active', 'type': 'video'});
+    expect(h.manager.isSpeakerOn, isFalse, reason: 'the phone may be at the ear; the camera is still off');
+    expect(h.liveKit.speakerCalls, isEmpty);
+    expect(h.manager.isVideoEnabled, isFalse, reason: 'the local camera stays off');
+    expect(h.platform.log, containsAll(['wakelock:on', 'service:start:video']));
+  });
+
+  test('peer upgrade in the background: the video call service starts on resume', () async {
+    final h = await connectedVoice();
+    h.appResumed = false;
+    h.platform.log.clear();
+    await h.manager.handleSocketEvent('call:state', {'callId': 'call-1', 'status': 'active', 'type': 'video'});
+    expect(h.platform.log, isNot(contains('service:start:video')));
+    h.appResumed = true;
+    h.manager.didChangeAppLifecycleState(AppLifecycleState.resumed);
+    expect(h.platform.log, contains('service:start:video'));
+  });
+
+  test('after a peer upgrade, turning the camera on moves audio to the speaker once', () async {
     final h = await connectedVoice();
     await h.manager.handleSocketEvent('call:state', {'callId': 'call-1', 'status': 'active', 'type': 'video'});
+    expect(await h.manager.enableCamera(), isTrue);
     expect(h.manager.isSpeakerOn, isTrue);
     expect(h.liveKit.speakerCalls, [true]);
-    expect(h.manager.isVideoEnabled, isFalse, reason: 'the local camera stays off');
+    h.manager.setVideoEnabled(false);
+    await h.manager.setSpeakerOn(false); // user picks the earpiece
+    expect(await h.manager.enableCamera(), isTrue);
+    expect(h.liveKit.speakerCalls, [true, false], reason: 'a later camera-on keeps the user route');
+  });
+
+  test('enableCamera on a call started as video does not touch the route', () async {
+    final h = CallHarness();
+    await h.startOutgoing(type: CallType.video);
+    await h.state('active');
+    h.liveKit.onPeerConnected!();
+    h.manager.setVideoEnabled(false);
+    expect(await h.manager.enableCamera(), isTrue);
+    expect(h.liveKit.speakerCalls, isEmpty);
   });
 
   test('a timed-out upgrade the server applied stays video', () async {

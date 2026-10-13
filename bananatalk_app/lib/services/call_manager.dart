@@ -223,6 +223,11 @@ class CallManager with WidgetsBindingObserver {
   /// peer upgrade); restored if the upgrade is rolled back. Null when the
   /// call has not been upgraded.
   bool? _speakerBeforeUpgrade;
+
+  /// The peer upgraded this call to video while the local camera was off:
+  /// the audio moves to the loudspeaker only when this user turns the
+  /// camera on (see [enableCamera]).
+  bool _speakerPendingForVideo = false;
   bool _isFrontCamera = true;
 
   CallUiState get connectionState => _connectionState;
@@ -302,7 +307,12 @@ class CallManager with WidgetsBindingObserver {
     } else if (state == AppLifecycleState.resumed) {
       if (_callServicePending) {
         _callServicePending = false;
-        if (c != null) unawaited(_deps.platform.startCallService(video: _isVideoEnabled));
+        // Same type as at connect: the call's type, not the camera state
+        // (a peer-upgraded or rejoined video call starts with it off).
+        final cur = currentCall;
+        if (cur != null) {
+          unawaited(_deps.platform.startCallService(video: cur.callType == CallType.video));
+        }
       }
       if (_cameraPausedByLifecycle) {
         _cameraPausedByLifecycle = false;
@@ -666,7 +676,11 @@ class CallManager with WidgetsBindingObserver {
       if (cur.status != CallStatus.ringing) {
         if (m['type'] == 'video' && cur.callType != CallType.video) {
           currentCall = cur.copyWith(callType: CallType.video);
-          _routeAudioForVideo();
+          // The local camera stays off and the phone may be at the ear: the
+          // loudspeaker waits until this user turns the camera on
+          // (enableCamera). The screen stays on to watch the peer's video.
+          _speakerPendingForVideo = true;
+          _enterVideoMode();
           onCallTypeChanged?.call(CallType.video);
         }
         return;
@@ -1252,6 +1266,7 @@ class CallManager with WidgetsBindingObserver {
     _callServicePending = false;
     _isSpeakerOn = false;
     _speakerBeforeUpgrade = null;
+    _speakerPendingForVideo = false;
     _isFrontCamera = true;
   }
 
@@ -1310,6 +1325,11 @@ class CallManager with WidgetsBindingObserver {
     }
     if (!_sameId(currentCall?.callId, cur.callId)) return false;
     setVideoEnabled(true);
+    if (_speakerPendingForVideo) {
+      // First camera-on after a peer upgrade: route as a video call does.
+      _speakerPendingForVideo = false;
+      _routeAudioForVideo();
+    }
     return true;
   }
 
@@ -1339,8 +1359,7 @@ class CallManager with WidgetsBindingObserver {
         currentCall = cur.copyWith(callType: CallType.video);
         _routeAudioForVideo();
         onCallTypeChanged?.call(CallType.video);
-        unawaited(_deps.platform.setWakelock(true));
-        if (_deps.isAppResumed()) unawaited(_deps.platform.startCallService(video: true));
+        _enterVideoMode();
       }
       CallApiResult? res;
       try {
@@ -1389,6 +1408,18 @@ class CallManager with WidgetsBindingObserver {
   /// A call that just became video routes audio to the loudspeaker, as a
   /// call started as video does at connect ([CallLiveKitManager.connect]).
   /// The previous route is kept for [_rollBackUpgrade].
+  /// Screen on and the foreground service in its video (camera) type, for
+  /// a call that just became video. Deferred to the next resume when the
+  /// app is in the background, as at connect ([_onMediaConnected]).
+  void _enterVideoMode() {
+    unawaited(_deps.platform.setWakelock(true));
+    if (_deps.isAppResumed()) {
+      unawaited(_deps.platform.startCallService(video: true));
+    } else {
+      _callServicePending = true;
+    }
+  }
+
   void _routeAudioForVideo() {
     _speakerBeforeUpgrade ??= _isSpeakerOn;
     unawaited(setSpeakerOn(true));
