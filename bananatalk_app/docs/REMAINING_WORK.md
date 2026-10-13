@@ -43,7 +43,7 @@ A, L, C) is **DONE** and through its final review and fix wave. What is left is 
       resume start now uses the call type, not the camera state).
 - [ ] **Device QA (M2):** re-run CALL2-21 (`docs/qa/calls-matrix.md`, expectation updated) and CALL2-13
       for a *peer* upgrade (Android FGS camera type with the local camera off, then on).
-- [ ] **M3** `VersionCheckCoordinator.lastCheckShowedUpdate` survives logout.
+- [x] **M3** `VersionCheckCoordinator.lastCheckShowedUpdate` survived logout; now reset in `resetLaunchProcessState`.
 - [ ] **M4** Ads notice uses up a new user's notification priming.
 - [x] **M5** Caller that missed the accept treated the upgrade `active` as the accept and stayed on voice.
       The ringing→connecting branch now also applies `type: video` (as a peer upgrade: camera off).

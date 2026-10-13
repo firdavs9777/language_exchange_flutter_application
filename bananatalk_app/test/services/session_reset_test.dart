@@ -14,6 +14,7 @@ import 'package:bananatalk_app/providers/tutor_provider.dart';
 import 'package:bananatalk_app/pages/menu_tab/TabBarMenu.dart';
 import 'package:bananatalk_app/services/launch_modal_coordinator.dart';
 import 'package:bananatalk_app/services/session_reset.dart';
+import 'package:bananatalk_app/services/version_check_coordinator.dart';
 
 /// Every public top-level Riverpod provider declared under lib/.
 Set<String> _declaredProviderNames() {
@@ -79,6 +80,7 @@ void main() {
     PopupBudget.debugReset();
     expect(PopupBudget.tryConsume(), isTrue);
     debugMarkLaunchModalsRan();
+    VersionCheckCoordinator.lastCheckShowedUpdate = true; // splash showed an update
     expect(PopupBudget.spent, isTrue);
     expect(launchModalsRanThisProcess, isTrue);
 
@@ -86,6 +88,8 @@ void main() {
 
     expect(PopupBudget.spent, isFalse, reason: 'the next account gets its launch pop-up');
     expect(launchModalsRanThisProcess, isFalse);
+    expect(VersionCheckCoordinator.lastCheckShowedUpdate, isFalse,
+        reason: 'the previous account\'s update dialog must not spend the next one\'s budget');
   });
 
   test('resetUserSession calls resetLaunchProcessState', () {
