@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/widgets/navigation/floating_tab_bar.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 import 'package:bananatalk_app/pages/moments/card/moment_card.dart';
@@ -94,7 +95,7 @@ class MomentsFeedWidget extends ConsumerWidget {
         return ListView.builder(
           controller: scrollController,
           physics: const AlwaysScrollableScrollPhysics(),
-          padding: const EdgeInsets.only(bottom: 100),
+          padding: EdgeInsets.only(bottom: FloatingTabBar.clearance(context)),
           itemCount: items.length,
           itemBuilder: (context, index) {
             final item = items[index];

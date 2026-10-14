@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/widgets/navigation/floating_tab_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/providers/provider_root/learning_providers.dart';
@@ -51,7 +52,7 @@ class LearnTab extends ConsumerWidget {
           }
           return SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
-            padding: const EdgeInsets.fromLTRB(16, 20, 16, 100),
+            padding: EdgeInsets.fromLTRB(16, 20, 16, FloatingTabBar.clearance(context)),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

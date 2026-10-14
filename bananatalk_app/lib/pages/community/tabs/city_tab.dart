@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/widgets/navigation/floating_tab_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -899,7 +900,7 @@ class _CityTabState extends ConsumerState<CityTab> {
                 )
               : ListView.separated(
                   controller: _scrollController,
-                  padding: const EdgeInsets.only(bottom: 100),
+                  padding: EdgeInsets.only(bottom: FloatingTabBar.clearance(context)),
                   itemCount: _users.length + (_hasMore ? 1 : 0),
                   separatorBuilder: (_, __) =>
                       Divider(height: 1, color: context.dividerColor),

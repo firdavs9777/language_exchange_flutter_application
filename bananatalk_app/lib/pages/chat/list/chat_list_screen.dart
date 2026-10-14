@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/widgets/navigation/floating_tab_bar.dart';
 import 'dart:async';
 import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 import 'package:bananatalk_app/providers/provider_root/message_provider.dart';
@@ -1188,7 +1189,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
       child: SlidableAutoCloseBehavior(
         child: ListView.separated(
           physics: const BouncingScrollPhysics(),
-          padding: const EdgeInsets.only(top: 4, bottom: 100),
+          padding: EdgeInsets.only(top: 4, bottom: FloatingTabBar.clearance(context)),
           itemCount: displayPartners.length,
           separatorBuilder: (_, __) => Divider(
             height: 1,
@@ -1451,7 +1452,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
                       ),
                       Positioned(
                         right: 16,
-                        bottom: 100,
+                        bottom: FloatingTabBar.clearance(context),
                         child: _buildRefreshButton(colors),
                       ),
                     ],

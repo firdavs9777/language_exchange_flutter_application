@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/widgets/navigation/floating_tab_bar.dart';
 import 'dart:async';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 
@@ -379,7 +380,7 @@ class _ReelsGridScreenState extends ConsumerState<ReelsGridScreen>
           // renders inside MomentsMain's body, so at 16 the button sat
           // behind the nav bar and was effectively unreachable — which is
           // why reels got posted through the Moments composer instead.
-          bottom: 88,
+          bottom: FloatingTabBar.clearance(context),
           child: FloatingActionButton(
             heroTag: 'reels_create_fab',
             onPressed: () => _openCreateFlow().catchError((_) {}),
