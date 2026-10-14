@@ -123,7 +123,7 @@ AI Study hub + floating tab bar (branch `feat/ai-study-hub`)
 - [x] Tab bar padding tightened (side margin 8, no gap between items, capsule padding 10; 48 hit target kept): every English tab name fits whole at 360 pt, text 1.0 (measured with real Roboto in `floating_tab_bar_fit_test`).
 - [ ] Native review of the study hub strings (rows `studyGroup*`, `studyTile*`, `studyBadge*`, `studyUpgrade*`, `guideStudyHub*`, `supportBananaTalkRow*` appended to the CSV in Owner step 10). M
 - [ ] Run the baseline prod queries (feature usage per user, 30 days) before release — not run during design (no prod DB access that session). S
-- [ ] Backend: app-config fields `studyHubEnabled` (default false) + `studyVipOnlyFeatures` (default []) and the quota snapshot `bonus` field are on backend branch `feat/study-hub-config` (7a9a691 + 9d36fe0), not merged or deployed; owner merges and deploys before the app. S
+- [x] Backend: app-config fields `studyHubEnabled` (default false) + `studyVipOnlyFeatures` (default []) and the quota snapshot `bonus` field merged to backend `main` and DEPLOYED 2026-10-14 (9d36fe0, backend PR #1); live `/api/v1/app-config` verified `studyHubEnabled: false`, `studyVipOnlyFeatures: []`.
 - [x] Verify each feature's real language support against the backend to fill the coverage table (spec §4.6). S
 - [ ] Delete `LearnTab` / `AIToolsTab` / `LegacyStudyHub` / `practice_entries.dart` / `study_hub_tabs.dart` once `studyHubEnabled` has been on for a full release. S
 - [ ] Per-tab announcement targeting (later, not scheduled). S
