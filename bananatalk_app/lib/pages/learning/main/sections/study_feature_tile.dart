@@ -42,51 +42,76 @@ class StudyFeatureTile extends StatelessWidget {
           onTap: onTap,
           borderRadius: BorderRadius.circular(StudyHubMetrics.tileRadius),
           child: Container(
-            constraints: const BoxConstraints(minHeight: StudyHubMetrics.tileHeight),
+            constraints: const BoxConstraints(
+              minHeight: StudyHubMetrics.tileHeight,
+            ),
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(StudyHubMetrics.tileRadius),
-              border: Border.all(color: theme.dividerColor.withValues(alpha: 0.4)),
-            ),
-            child: Row(children: [
-              Container(
-                width: StudyHubMetrics.tileIconSize,
-                height: StudyHubMetrics.tileIconSize,
-                decoration: BoxDecoration(
-                    color: colors.fill, borderRadius: BorderRadius.circular(10)),
-                child: Icon(studyFeatureIcon(feature), color: colors.fg, size: 20),
+              border: Border.all(
+                color: theme.dividerColor.withValues(alpha: 0.4),
               ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Row(children: [
-                      Expanded(
-                        child: Text(title,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: theme.textTheme.titleSmall
-                                ?.copyWith(fontWeight: FontWeight.w700)),
+            ),
+            child: Row(
+              children: [
+                Container(
+                  width: StudyHubMetrics.tileIconSize,
+                  height: StudyHubMetrics.tileIconSize,
+                  decoration: BoxDecoration(
+                    color: colors.fill,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Icon(
+                    studyFeatureIcon(feature),
+                    color: colors.fg,
+                    size: 20,
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            flex: 3,
+                            child: Text(
+                              title,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: theme.textTheme.titleSmall?.copyWith(
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ),
+                          if (badge != null)
+                            Flexible(
+                              flex: 2,
+                              child: _Badge(badge: badge!, text: badgeText!),
+                            ),
+                        ],
                       ),
-                      if (badge != null) _Badge(badge: badge!, text: badgeText!),
-                    ]),
-                    Text(description,
+                      Text(
+                        description,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: theme.textTheme.bodySmall),
-                  ],
+                        style: theme.textTheme.bodySmall,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ]),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 
-  static String _badgeLabel(AppLocalizations l, TileBadge b) => switch (b.kind) {
+  static String _badgeLabel(AppLocalizations l, TileBadge b) =>
+      switch (b.kind) {
         TileBadgeKind.locked => l.studyBadgeVip,
         TileBadgeKind.exhausted => l.studyBadgeLeft(0),
         TileBadgeKind.low => l.studyBadgeLeft(b.count ?? 0),
@@ -104,23 +129,39 @@ class _Badge extends StatelessWidget {
   Widget build(BuildContext context) {
     final (bg, fg) = switch (badge.kind) {
       TileBadgeKind.exhausted => (AppColors.error, Colors.white),
-      TileBadgeKind.locked => (const Color(0xFF2B2B33), const Color(0xFFFFD54F)),
+      TileBadgeKind.locked => (
+        const Color(0xFF2B2B33),
+        const Color(0xFFFFD54F),
+      ),
       TileBadgeKind.isNew => (const Color(0xFF6D3FE0), Colors.white),
       _ => (const Color(0xFFFEF0D9), const Color(0xFF8A4B00)),
     };
     return Container(
       margin: const EdgeInsetsDirectional.only(start: 4),
       padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 1),
-      decoration: BoxDecoration(color: bg, borderRadius: BorderRadius.circular(8)),
-      child: Row(mainAxisSize: MainAxisSize.min, children: [
-        if (badge.kind == TileBadgeKind.locked)
-          Icon(Icons.lock_rounded, size: 12, color: fg),
-        Text(text,
-            style: Theme.of(context)
-                .textTheme
-                .labelSmall
-                ?.copyWith(color: fg, fontWeight: FontWeight.w700)),
-      ]),
+      decoration: BoxDecoration(
+        color: bg,
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (badge.kind == TileBadgeKind.locked)
+            Icon(Icons.lock_rounded, size: 12, color: fg),
+          Flexible(
+            child: Text(
+              text,
+              maxLines: 1,
+              softWrap: false,
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                color: fg,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
