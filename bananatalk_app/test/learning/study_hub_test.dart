@@ -57,6 +57,8 @@ const _pack = DailyPack(
   dateKey: '2026-10-14',
   weekKey: '2026-W42',
   dayInWeek: 2,
+  requestedLevel: 'B2',
+  servedLevel: 'B1',
   theme: PackTheme(id: 'p', topic: 'Travel', level: 'beginner'),
   stations: [
     PackStation(
@@ -141,6 +143,33 @@ Future<void> pump(
   await t.pump(const Duration(milliseconds: 100));
 }
 
+/// Taps "See all features" in the visible hub and checks its Explore groups
+/// moved from low on the page to near the top. Finders skip offstage routes,
+/// so with two hubs mounted this is the one on top.
+Future<void> expectSeeAllScrolls(WidgetTester t) async {
+  final groupsFinder = find.byKey(StudyHub.groupsSectionKey);
+  expect(groupsFinder, findsOneWidget);
+  final viewport = t.getRect(find.byType(Scaffold).last);
+  final before = t.getRect(groupsFinder).top;
+  expect(
+    before,
+    greaterThan(viewport.height * 0.6),
+    reason: 'precondition: the groups start low on the page',
+  );
+
+  await t.tap(find.text('See all features'));
+  await t.pumpAndSettle();
+
+  final groups = t.getRect(groupsFinder);
+  expect(groups.top, lessThan(before));
+  expect(groups.top, greaterThanOrEqualTo(viewport.top));
+  expect(
+    groups.top,
+    lessThan(viewport.height * 0.4),
+    reason: 'the groups now sit near the top of the viewport',
+  );
+}
+
 void main() {
   setUp(() => SharedPreferences.setMockInitialValues({}));
 
@@ -197,25 +226,7 @@ void main() {
       addTearDown(t.view.reset);
 
       await pump(t, true, daysOld: 1);
-      final viewport = t.getRect(find.byType(Scaffold).first);
-      final before = t.getRect(find.byKey(StudyHub.groupsKey)).top;
-      expect(
-        before,
-        greaterThan(viewport.height * 0.6),
-        reason: 'precondition: the groups start low on the page',
-      );
-
-      await t.tap(find.text('See all features'));
-      await t.pumpAndSettle();
-
-      final groups = t.getRect(find.byKey(StudyHub.groupsKey));
-      expect(groups.top, lessThan(before));
-      expect(groups.top, greaterThanOrEqualTo(viewport.top));
-      expect(
-        groups.top,
-        lessThan(viewport.height * 0.4),
-        reason: 'the groups now sit near the top of the viewport',
-      );
+      await expectSeeAllScrolls(t);
     });
 
     testWidgets('"Start today\'s pack" opens the pack', (t) async {
@@ -242,5 +253,50 @@ void main() {
     expect(t.takeException(), isNull);
     await t.scrollUntilVisible(find.text('PREPARE & COMPETE'), 200);
     expect(t.takeException(), isNull);
+  });
+
+  testWidgets(
+    'two hubs mounted at once (daily_drop pushes a second LearningMain) '
+    'share no key, and See all features scrolls the visible one',
+    (t) async {
+      t.view.physicalSize = const Size(390, 480);
+      t.view.devicePixelRatio = 1;
+      addTearDown(t.view.reset);
+
+      await pump(t, true, daysOld: 1);
+      t
+          .state<NavigatorState>(find.byType(Navigator))
+          .push(MaterialPageRoute<void>(builder: (_) => const LearningMain()));
+      await t.pumpAndSettle();
+      expect(t.takeException(), isNull);
+      expect(find.byType(StudyHub, skipOffstage: false), findsNWidgets(2));
+
+      await expectSeeAllScrolls(t);
+      expect(t.takeException(), isNull);
+    },
+  );
+
+  group('header language chip (spec §3)', () {
+    testWidgets('shows the target language with the CEFR level', (t) async {
+      await pump(t, true);
+      expect(find.text('Korean · B1'), findsOneWidget);
+    });
+
+    test('packCefrLevel: served, else requested, only A1-C2', () {
+      DailyPack p({String? served, String? requested}) => DailyPack(
+        needsLanguage: false,
+        dateKey: 'd',
+        weekKey: 'w',
+        dayInWeek: 1,
+        servedLevel: served,
+        requestedLevel: requested,
+      );
+      expect(packCefrLevel(p(served: 'B1', requested: 'B2')), 'B1');
+      expect(packCefrLevel(p(requested: 'a2')), 'A2');
+      expect(packCefrLevel(p(served: 'beginner', requested: 'C1')), 'C1');
+      expect(packCefrLevel(p(served: 'intermediate')), isNull);
+      expect(packCefrLevel(p()), isNull);
+      expect(packCefrLevel(null), isNull);
+    });
   });
 }

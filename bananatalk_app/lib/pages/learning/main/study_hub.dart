@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/announcement.dart';
+import 'package:bananatalk_app/models/learning/daily_pack_model.dart';
 import 'package:bananatalk_app/pages/learning/main/sections/learn_tab.dart';
 import 'package:bananatalk_app/pages/learning/main/sections/progress_card.dart';
 import 'package:bananatalk_app/pages/learning/main/sections/recommended_tile.dart';
@@ -32,9 +33,11 @@ import 'package:bananatalk_app/widgets/vip_up_pill.dart';
 class StudyHub extends ConsumerStatefulWidget {
   const StudyHub({super.key});
 
-  /// The Explore groups. A [GlobalKey] because the guide's "See all
-  /// features" scrolls to it with [Scrollable.ensureVisible].
-  static final groupsKey = GlobalKey(debugLabel: 'study-hub-groups');
+  /// Marks the Explore groups for tests (`find.byKey`). The scroll target
+  /// itself is a per-instance GlobalKey in the State: a static one broke as
+  /// soon as two hubs were mounted at once (a `daily_drop` notification pushes
+  /// a second LearningMain over the shell's).
+  static const groupsSectionKey = ValueKey('study-hub-groups');
 
   @override
   ConsumerState<StudyHub> createState() => _StudyHubState();
@@ -47,6 +50,14 @@ class _StudyHubState extends ConsumerState<StudyHub> {
   static const _gradientDark = [Color(0xFF1A1A2E), Color(0xFF16213E)];
 
   final _scroll = ScrollController();
+
+  /// What "See all features" scrolls to. A GlobalKey because
+  /// [Scrollable.ensureVisible] needs its context; per instance so two
+  /// mounted hubs never share it.
+  final _groupsKey = GlobalKey(debugLabel: 'study-hub-groups');
+
+  @visibleForTesting
+  GlobalKey get groupsKey => _groupsKey;
 
   @override
   void dispose() {
@@ -69,7 +80,7 @@ class _StudyHubState extends ConsumerState<StudyHub> {
   }
 
   void _scrollToGroups() {
-    final target = StudyHub.groupsKey.currentContext;
+    final target = _groupsKey.currentContext;
     if (target == null) return;
     Scrollable.ensureVisible(
       target,
@@ -173,8 +184,10 @@ class _StudyHubState extends ConsumerState<StudyHub> {
                     const RecommendedTile(),
                     const SizedBox(height: StudyHubMetrics.groupGap),
                     KeyedSubtree(
-                      key: StudyHub.groupsKey,
-                      child: const StudyFeatureGroups(),
+                      key: _groupsKey,
+                      child: const StudyFeatureGroups(
+                        key: StudyHub.groupsSectionKey,
+                      ),
                     ),
                     if (progress != null) ...[
                       const SizedBox(height: StudyHubMetrics.groupGap),
@@ -293,6 +306,18 @@ class _StudyHubState extends ConsumerState<StudyHub> {
   }
 }
 
+/// The pack's CEFR level for the header chip: what was served, else what
+/// was asked for; null unless it looks like A1–C2 (the server sends the bare
+/// code, as the hero card's fallback line shows).
+@visibleForTesting
+String? packCefrLevel(DailyPack? pack) {
+  for (final raw in [pack?.servedLevel, pack?.requestedLevel]) {
+    final v = raw?.trim().toUpperCase();
+    if (v != null && RegExp(r'^[ABC][12]$').hasMatch(v)) return v;
+  }
+  return null;
+}
+
 /// Header line 2: streak, level and target language.
 class _HeaderChips extends ConsumerWidget {
   const _HeaderChips();
@@ -302,10 +327,12 @@ class _HeaderChips extends ConsumerWidget {
     final l = AppLocalizations.of(context)!;
     final progress = ref.watch(learningProgressProvider).valueOrNull;
     final target = ref.watch(userProvider).valueOrNull?.language_to_learn ?? '';
+    final cefr = packCefrLevel(ref.watch(dailyPackProvider).valueOrNull);
     final chips = <String>[
       if (progress != null) l.studyStreakDays(progress.currentStreak),
       if (progress != null) l.studyLevelShort(progress.level),
-      if (target.isNotEmpty) target,
+      // Spec §3: target language + CEFR level, one chip.
+      if (target.isNotEmpty) cefr == null ? target : '$target · $cefr',
     ];
     if (chips.isEmpty) return const SizedBox.shrink();
     final style = Theme.of(
