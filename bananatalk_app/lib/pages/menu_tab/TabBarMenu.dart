@@ -21,6 +21,7 @@ import 'package:bananatalk_app/services/promo_service.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/widgets/navigation/floating_tab_bar.dart';
+import 'package:bananatalk_app/widgets/navigation/tab_reselect_scroll_to_top.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -330,7 +331,7 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
                     // Hidden tabs stay alive and can still scroll (a chat
                     // list receiving a message), so only the visible tab's
                     // scrolling moves the bar.
-                    child: NotificationListener<ScrollNotification>(
+                    child: NotificationListener<Notification>(
                       onNotification: (n) {
                         if (index == ref.read(selectedTabProvider) &&
                             _barScroll.onNotification(n)) {
@@ -338,7 +339,13 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
                         }
                         return false;
                       },
-                      child: _pages[index],
+                      // Re-tapping the active tab scrolls its visible list
+                      // to the top (spec §8.2). StudyHub also listens with
+                      // its own controller; both target the same top.
+                      child: TabReselectScrollToTop(
+                        tab: index,
+                        child: _pages[index],
+                      ),
                     ),
                   ),
                 );
@@ -355,6 +362,9 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
               selected: selectedPageIndex,
               visible: _barVisible,
               onSelect: _selectPage,
+              // A list that fits after the keyboard closes sends no scroll
+              // update, so closing the keyboard itself brings the bar back.
+              onKeyboardClosed: _showBar,
               items: [
                 FloatingTabItem(
                   icon: Icons.menu_book_outlined,

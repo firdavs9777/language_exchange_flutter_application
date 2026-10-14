@@ -81,6 +81,7 @@ void main() {
     ValueChanged<int>? onSelect,
     String firstLabel = 'AI Study',
     int badgeCount = 0,
+    int otherBadges = 0,
   }) => MaterialApp(
     home: Scaffold(
       body: Stack(
@@ -95,6 +96,7 @@ void main() {
                 activeIcon: Icons.menu_book_rounded,
                 label: firstLabel,
                 color: const Color(0xFF8B5CF6),
+                badgeCount: otherBadges,
               ),
               FloatingTabItem(
                 icon: Icons.explore_outlined,
@@ -103,23 +105,26 @@ void main() {
                 color: const Color(0xFF00BFA5),
                 badgeCount: badgeCount,
               ),
-              const FloatingTabItem(
+              FloatingTabItem(
                 icon: Icons.chat_bubble_outline_rounded,
                 activeIcon: Icons.chat_bubble_rounded,
                 label: 'Chats',
-                color: Color(0xFF667EEA),
+                color: const Color(0xFF667EEA),
+                badgeCount: otherBadges,
               ),
-              const FloatingTabItem(
+              FloatingTabItem(
                 icon: Icons.auto_awesome_outlined,
                 activeIcon: Icons.auto_awesome_rounded,
                 label: 'Moments',
-                color: Color(0xFFFF6B6B),
+                color: const Color(0xFFFF6B6B),
+                badgeCount: otherBadges,
               ),
-              const FloatingTabItem(
+              FloatingTabItem(
                 icon: Icons.person_outline_rounded,
                 activeIcon: Icons.person_rounded,
                 label: 'Profile',
-                color: Color(0xFFF59E0B),
+                color: const Color(0xFFF59E0B),
+                badgeCount: otherBadges,
               ),
             ],
           ),
@@ -244,39 +249,124 @@ void main() {
     expect(pill.right, lessThanOrEqualTo(320));
   });
 
+  for (var tab = 0; tab < 5; tab++) {
+    testWidgets('no overflow at 320 wide, text scale 1.3, tab $tab active '
+        'with a 99+ badge on every tab', (t) async {
+      t.view.physicalSize = const Size(320, 640);
+      t.view.devicePixelRatio = 1;
+      t.platformDispatcher.textScaleFactorTestValue = 1.3;
+      addTearDown(t.view.reset);
+      addTearDown(t.platformDispatcher.clearTextScaleFactorTestValue);
+
+      await t.pumpWidget(bar(selected: tab, badgeCount: 120, otherBadges: 120));
+      await t.pumpAndSettle();
+      expect(t.takeException(), isNull);
+      // The count is never lost: every tab still shows it somewhere.
+      expect(find.text('99+'), findsNWidgets(5));
+      final pill = t.getRect(find.byKey(FloatingTabBar.pillKey));
+      expect(pill.left, greaterThanOrEqualTo(0));
+      expect(pill.right, lessThanOrEqualTo(320));
+    });
+  }
+
+  testWidgets('no overflow at 360 wide, text scale 1.3, Community active '
+      'with a badge, and the name still shows', (t) async {
+    t.view.physicalSize = const Size(360, 640);
+    t.view.devicePixelRatio = 1;
+    t.platformDispatcher.textScaleFactorTestValue = 1.3;
+    addTearDown(t.view.reset);
+    addTearDown(t.platformDispatcher.clearTextScaleFactorTestValue);
+
+    await t.pumpWidget(bar(selected: 1, badgeCount: 120, otherBadges: 120));
+    await t.pumpAndSettle();
+    expect(t.takeException(), isNull);
+    expect(find.text('Community'), findsOneWidget);
+  });
+
+  testWidgets('the pill hugs its tabs on a wide screen', (t) async {
+    await t.pumpWidget(bar());
+    await t.pumpAndSettle();
+    final pill = t.getRect(find.byKey(FloatingTabBar.pillKey));
+    final screen = t.view.physicalSize.width / t.view.devicePixelRatio;
+    expect(pill.width, lessThan(screen / 2));
+  });
+
+  testWidgets('keyboard closing reports onKeyboardClosed once', (t) async {
+    var closed = 0;
+    await t.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: Stack(
+            children: [
+              FloatingTabBar(
+                selected: 0,
+                visible: false,
+                onSelect: (_) {},
+                onKeyboardClosed: () => closed++,
+                items: const [
+                  FloatingTabItem(
+                    icon: Icons.menu_book_outlined,
+                    activeIcon: Icons.menu_book_rounded,
+                    label: 'AI Study',
+                    color: Color(0xFF8B5CF6),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+    t.view.viewInsets = const FakeViewPadding(bottom: 300);
+    addTearDown(t.view.resetViewInsets);
+    await t.pump();
+    expect(closed, 0);
+    t.view.viewInsets = const FakeViewPadding(bottom: 120);
+    await t.pump();
+    expect(closed, 0);
+    t.view.resetViewInsets();
+    await t.pump();
+    expect(closed, 1);
+  });
+
   group('BarScrollState.onNotification with a real list', () {
-    Widget harness() {
+    Widget harness({ValueNotifier<int>? rows}) {
       final state = BarScrollState();
+      final rowCount = rows ?? ValueNotifier(100);
       return MaterialApp(
         home: StatefulBuilder(
           builder: (context, setState) => Scaffold(
-            body: NotificationListener<ScrollNotification>(
+            body: NotificationListener<Notification>(
               onNotification: (n) {
                 if (state.onNotification(n)) setState(() {});
                 return false;
               },
               child: Stack(
                 children: [
-                  ListView(
-                    children: [
-                      SizedBox(
-                        height: 120,
-                        child: ListView(
-                          scrollDirection: Axis.horizontal,
-                          children: [
-                            for (var i = 0; i < 30; i++)
-                              SizedBox(width: 80, child: Text('h$i')),
-                          ],
+                  ValueListenableBuilder<int>(
+                    valueListenable: rowCount,
+                    builder: (context, count, _) => ListView(
+                      children: [
+                        SizedBox(
+                          height: 120,
+                          child: ListView(
+                            scrollDirection: Axis.horizontal,
+                            children: [
+                              for (var i = 0; i < 30; i++)
+                                SizedBox(width: 80, child: Text('h$i')),
+                            ],
+                          ),
                         ),
-                      ),
-                      for (var i = 0; i < 100; i++)
-                        SizedBox(height: 60, child: Text('row $i')),
-                    ],
+                        for (var i = 0; i < count; i++)
+                          SizedBox(height: 60, child: Text('row $i')),
+                      ],
+                    ),
                   ),
                   FloatingTabBar(
                     selected: 0,
                     visible: state.visible,
                     onSelect: (_) {},
+                    onKeyboardClosed: () => setState(state.reset),
                     items: const [
                       FloatingTabItem(
                         icon: Icons.menu_book_outlined,
@@ -308,6 +398,38 @@ void main() {
     testWidgets('horizontal scrolling never hides the bar', (t) async {
       await t.pumpWidget(harness());
       await t.drag(find.text('h1'), const Offset(-400, 0));
+      await t.pumpAndSettle();
+      expect(find.text('AI Study').hitTestable(), findsOneWidget);
+    });
+
+    Future<void> hideByScrolling(WidgetTester t) async {
+      await t.drag(find.text('row 3'), const Offset(0, -300));
+      await t.pumpAndSettle();
+      expect(find.text('AI Study').hitTestable(), findsNothing);
+    }
+
+    testWidgets('keyboard closing restores a bar hidden by scrolling', (
+      t,
+    ) async {
+      await t.pumpWidget(harness());
+      await hideByScrolling(t);
+
+      t.view.viewInsets = const FakeViewPadding(bottom: 300);
+      addTearDown(t.view.resetViewInsets);
+      await t.pumpAndSettle();
+      t.view.resetViewInsets();
+      await t.pumpAndSettle();
+      expect(find.text('AI Study').hitTestable(), findsOneWidget);
+    });
+
+    testWidgets('content shrinking to fit the viewport restores the bar', (
+      t,
+    ) async {
+      final rows = ValueNotifier(100);
+      await t.pumpWidget(harness(rows: rows));
+      await hideByScrolling(t);
+
+      rows.value = 2; // e.g. short search results
       await t.pumpAndSettle();
       expect(find.text('AI Study').hitTestable(), findsOneWidget);
     });

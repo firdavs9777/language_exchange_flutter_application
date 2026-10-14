@@ -41,11 +41,23 @@ class BarScrollState {
   /// Feeds a tab page's scroll notification through [onScroll]. Only
   /// vertical scroll updates count; horizontal carousels and pagers never
   /// move the bar. Returns whether [visible] changed.
-  bool onNotification(ScrollNotification n) {
+  ///
+  /// A [ScrollMetricsNotification] (content changed size without a scroll)
+  /// that leaves the list at its top or end — e.g. search results that now
+  /// fit the viewport — shows the bar too.
+  bool onNotification(Notification n) {
+    final before = _visible;
+    if (n is ScrollMetricsNotification) {
+      final m = n.metrics;
+      if (m.axis == Axis.vertical &&
+          (m.pixels <= m.minScrollExtent || m.pixels >= m.maxScrollExtent)) {
+        reset();
+      }
+      return before != _visible;
+    }
     if (n is! ScrollUpdateNotification || n.metrics.axis != Axis.vertical) {
       return false;
     }
-    final before = _visible;
     onScroll(
       delta: n.scrollDelta ?? 0,
       atTop: n.metrics.pixels <= n.metrics.minScrollExtent,
@@ -62,6 +74,15 @@ final tabReselectProvider = StateProvider<({int tab, int seq})>(
 );
 
 const double _itemHeight = 44;
+const double _iconSize = 24;
+const double _labelGap = 6;
+
+/// Narrowest the active name may get before it is dropped (a few letters
+/// plus the ellipsis).
+const double _labelMinWidth = 32;
+const double _badgePadH = 5;
+const double _badgeBorder = 1.5;
+const double _badgeMinWidth = 20;
 const double _sideMargin = 16;
 const Duration _slide = Duration(milliseconds: 200);
 const Duration _morph = Duration(milliseconds: 220);
@@ -135,12 +156,18 @@ class FloatingTabBar extends StatefulWidget {
     required this.selected,
     required this.onSelect,
     required this.visible,
+    this.onKeyboardClosed,
   });
 
   final List<FloatingTabItem> items;
   final int selected;
   final ValueChanged<int> onSelect;
   final bool visible;
+
+  /// Called when the keyboard goes from open to closed, so the owner can
+  /// bring back a bar it hid on scroll (a list that now fits the viewport
+  /// sends no scroll updates to do it).
+  final VoidCallback? onKeyboardClosed;
 
   static const double height = 56;
   static const double _gapNoInset = 8;
@@ -188,15 +215,24 @@ class _FloatingTabBarState extends State<FloatingTabBar>
   /// the view insets removed.
   @override
   void didChangeMetrics() {
-    if (mounted) setState(() {});
+    if (!mounted) return;
+    final open = _keyboardOpen;
+    final closed = _wasKeyboardOpen && !open;
+    _wasKeyboardOpen = open;
+    setState(() {});
+    if (closed) widget.onKeyboardClosed?.call();
   }
 
   bool get _keyboardOpen => View.of(context).viewInsets.bottom > 0;
 
+  /// Last seen keyboard state, to report open -> closed exactly once.
+  bool _wasKeyboardOpen = false;
+
   @override
   Widget build(BuildContext context) {
     final dark = context.isDarkMode;
-    final hidden = !widget.visible || _keyboardOpen;
+    _wasKeyboardOpen = _keyboardOpen;
+    final hidden = !widget.visible || _wasKeyboardOpen;
 
     // Slides by moving its own box (not a paint transform) so the hidden
     // bar's layout rect is off screen too, shadow included.
@@ -310,44 +346,61 @@ class _FloatingTabBarState extends State<FloatingTabBar>
     } else {
       icon = Icon(
         isSelected ? item.activeIcon : item.icon,
-        size: 24,
+        size: _iconSize,
         color: isSelected ? item.color : inactiveColor,
       );
     }
 
     final hasBadge = item.badgeCount > 0;
-    final Widget content = isSelected
-        ? Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              icon,
-              const SizedBox(width: 6),
-              Flexible(
-                child: Text(
-                  item.label,
-                  style: labelStyle,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  softWrap: false,
-                ),
-              ),
-              if (hasBadge) ...[
-                const SizedBox(width: 6),
-                _badge(context, item.badgeCount, dark),
-              ],
-            ],
-          )
-        : Stack(
-            clipBehavior: Clip.none,
-            children: [
-              icon,
-              if (hasBadge)
-                Positioned(
-                  right: -10,
-                  top: -6,
-                  child: _badge(context, item.badgeCount, dark),
-                ),
-            ],
+    // The count overhangs the icon's corner; overhang never overflows.
+    final iconWithBadge = Stack(
+      clipBehavior: Clip.none,
+      children: [
+        icon,
+        if (hasBadge)
+          Positioned(
+            right: -10,
+            top: -6,
+            child: _badge(context, item.badgeCount, dark),
+          ),
+      ],
+    );
+
+    // The active capsule degrades instead of overflowing on narrow screens
+    // or large text: first the count moves from after the name back onto
+    // the icon, then the name drops (it stays the semantics label).
+    final Widget content = !isSelected
+        ? iconWithBadge
+        : LayoutBuilder(
+            builder: (context, c) {
+              final room = c.maxWidth;
+              const withLabel = _iconSize + _labelGap + _labelMinWidth;
+              if (room < withLabel) return iconWithBadge;
+              final badgeAfter = hasBadge
+                  ? _labelGap + _badgeWidth(context, item.badgeCount)
+                  : 0.0;
+              final countAfterName = hasBadge && room >= withLabel + badgeAfter;
+              return Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (hasBadge && !countAfterName) iconWithBadge else icon,
+                  const SizedBox(width: _labelGap),
+                  Flexible(
+                    child: Text(
+                      item.label,
+                      style: labelStyle,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      softWrap: false,
+                    ),
+                  ),
+                  if (countAfterName) ...[
+                    const SizedBox(width: _labelGap),
+                    _badge(context, item.badgeCount, dark),
+                  ],
+                ],
+              );
+            },
           );
 
     return Semantics(
@@ -369,27 +422,52 @@ class _FloatingTabBarState extends State<FloatingTabBar>
                 ? const EdgeInsets.symmetric(horizontal: 14)
                 : EdgeInsets.zero,
             constraints: const BoxConstraints(minWidth: 48),
-            alignment: Alignment.center,
             decoration: BoxDecoration(
               color: isSelected
                   ? item.color.withValues(alpha: tabCapsuleAlpha(dark: dark))
                   : Colors.transparent,
               borderRadius: BorderRadius.circular(22),
             ),
-            child: content,
+            // widthFactor 1: centre the content but hug it. A plain
+            // `alignment` would stretch the (Flexible) active capsule over
+            // all the free width.
+            child: Align(widthFactor: 1, child: content),
           ),
         ),
       ),
     );
   }
 
+  TextStyle? _badgeStyle(BuildContext context) => Theme.of(context)
+      .textTheme
+      .labelMedium
+      ?.copyWith(color: Colors.white, fontWeight: FontWeight.w700, height: 1.2);
+
+  String _badgeText(int count) => count > 99 ? '99+' : '$count';
+
+  /// Laid-out width of [_badge] for [count] at the current text scale.
+  double _badgeWidth(BuildContext context, int count) {
+    final painter = TextPainter(
+      text: TextSpan(text: _badgeText(count), style: _badgeStyle(context)),
+      textDirection: Directionality.of(context),
+      textScaler: MediaQuery.textScalerOf(context),
+      maxLines: 1,
+    )..layout();
+    final w = painter.width + 2 * _badgePadH + 2 * _badgeBorder;
+    painter.dispose();
+    return w < _badgeMinWidth ? _badgeMinWidth : w;
+  }
+
   Widget _badge(BuildContext context, int count, bool dark) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 5),
+      padding: const EdgeInsets.symmetric(horizontal: _badgePadH),
       decoration: BoxDecoration(
         color: AppColors.error,
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: dark ? _pillDark : Colors.white, width: 1.5),
+        border: Border.all(
+          color: dark ? _pillDark : Colors.white,
+          width: _badgeBorder,
+        ),
         boxShadow: [
           BoxShadow(
             color: AppColors.error.withValues(alpha: 0.4),
@@ -398,14 +476,10 @@ class _FloatingTabBarState extends State<FloatingTabBar>
           ),
         ],
       ),
-      constraints: const BoxConstraints(minWidth: 20),
+      constraints: const BoxConstraints(minWidth: _badgeMinWidth),
       child: Text(
-        count > 99 ? '99+' : '$count',
-        style: Theme.of(context).textTheme.labelMedium?.copyWith(
-          color: Colors.white,
-          fontWeight: FontWeight.w700,
-          height: 1.2,
-        ),
+        _badgeText(count),
+        style: _badgeStyle(context),
         textAlign: TextAlign.center,
         maxLines: 1,
       ),
