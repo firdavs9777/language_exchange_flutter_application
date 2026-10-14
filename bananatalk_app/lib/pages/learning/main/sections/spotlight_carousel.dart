@@ -72,7 +72,8 @@ class _SpotlightCarouselState extends ConsumerState<SpotlightCarousel> {
       mainAxisSize: MainAxisSize.min,
       children: [
         SizedBox(
-          height: StudyHubMetrics.carouselCardHeight,
+          height: StudyHubMetrics.carouselCardHeight *
+              MediaQuery.textScalerOf(context).scale(1).clamp(1.0, 2.0),
           child: PageView.builder(
             itemCount: items.length,
             onPageChanged: (i) => setState(() => _page = i),
@@ -100,7 +101,7 @@ class _SpotlightCarouselState extends ConsumerState<SpotlightCarousel> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(a.title,
-                                    maxLines: 2,
+                                    maxLines: a.hasButton ? 1 : 2,
                                     overflow: TextOverflow.ellipsis,
                                     style: text.titleSmall?.copyWith(fontWeight: FontWeight.w700)),
                                 if (a.hasButton)
@@ -116,6 +117,7 @@ class _SpotlightCarouselState extends ConsumerState<SpotlightCarousel> {
                             tooltip: MaterialLocalizations.of(context).closeButtonTooltip,
                             onPressed: () async {
                               await SpotlightDismissStore.dismiss(a.id);
+                              if (!mounted) return;
                               ref.invalidate(spotlightDismissedProvider);
                             },
                           ),

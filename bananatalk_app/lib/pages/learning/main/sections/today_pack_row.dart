@@ -26,21 +26,27 @@ class TodayPackRow extends StatelessWidget {
 
     String? caption;
     String title;
-    VoidCallback onTap = onOpen;
+    VoidCallback? onTap = onOpen;
     Widget? trailing;
+    var offerPlacement = false;
+    // Same precedence as DailyPackHeroCard: language blocks everything; an
+    // empty pack says so; unplaced learners keep today's pack and get
+    // placement as a secondary action.
     if (pack.needsLanguage) {
       title = l.todayPickLanguage;
       onTap = onPickLanguage;
-    } else if (!pack.levelPlaced) {
-      title = l.packTakePlacement;
-      onTap = onTakePlacement;
-    } else if (pack.packComplete) {
+    } else if (pack.theme == null && pack.stations.isEmpty) {
+      title = l.todayEmpty;
+      onTap = null;
+    } else if (pack.nextStation == null || pack.packComplete) {
       title = l.packDoneForToday;
       trailing = const Icon(Icons.check_circle_rounded, color: Colors.white);
+      offerPlacement = !pack.levelPlaced;
     } else {
       caption = l.studyTodayPack;
       title = pack.theme?.topic ?? l.studyTodayPack;
       trailing = FilledButton.tonal(onPressed: onOpen, child: Text(l.studyTodayStart));
+      offerPlacement = !pack.levelPlaced;
     }
 
     final radius = BorderRadius.circular(StudyHubMetrics.cardRadius);
@@ -71,10 +77,26 @@ class TodayPackRow extends StatelessWidget {
                               overflow: TextOverflow.ellipsis,
                               style: text.bodySmall?.copyWith(color: Colors.white70)),
                         Text(title,
-                            maxLines: 1,
+                            maxLines: onTap == null ? 3 : 1,
                             overflow: TextOverflow.ellipsis,
                             style: text.titleMedium?.copyWith(
                                 fontWeight: FontWeight.w800, color: Colors.white)),
+                        if (offerPlacement)
+                          TextButton(
+                            key: const Key('today-take-placement'),
+                            onPressed: onTakePlacement,
+                            style: TextButton.styleFrom(
+                              foregroundColor: Colors.white,
+                              padding: EdgeInsets.zero,
+                              minimumSize: const Size(0, 32),
+                              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            ),
+                            child: Text(l.packTakePlacement,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: text.labelMedium?.copyWith(
+                                    decoration: TextDecoration.underline)),
+                          ),
                       ],
                     ),
                   ),

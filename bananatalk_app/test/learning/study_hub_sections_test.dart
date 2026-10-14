@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/announcement.dart';
 import 'package:bananatalk_app/models/app_config.dart';
@@ -68,12 +69,49 @@ void main() {
       await t.tap(find.byType(InkWell).first);
       expect(picked, isTrue);
     });
-    testWidgets('not placed -> placement', (t) async {
-      var placement = false;
-      await t.pumpWidget(app(TodayPackRow(pack: pack(placed: false), onOpen: () {},
+    testWidgets('not placed -> can open the pack AND reach placement', (t) async {
+      var placement = false, opened = false;
+      await t.pumpWidget(app(TodayPackRow(pack: pack(placed: false), onOpen: () => opened = true,
           onPickLanguage: () {}, onTakePlacement: () => placement = true)));
-      await t.tap(find.byType(InkWell).first);
+      await t.tap(find.text('Start'));
+      expect(opened, isTrue);
+      await t.tap(find.byKey(const Key('today-take-placement')));
       expect(placement, isTrue);
+    });
+    testWidgets('needsLanguage beats unplaced', (t) async {
+      var picked = false, placement = false;
+      await t.pumpWidget(app(TodayPackRow(pack: pack(needsLanguage: true, placed: false),
+          onOpen: () {}, onPickLanguage: () => picked = true,
+          onTakePlacement: () => placement = true)));
+      expect(find.byKey(const Key('today-take-placement')), findsNothing);
+      await t.tap(find.byType(InkWell).first);
+      expect(picked, isTrue);
+      expect(placement, isFalse);
+    });
+    testWidgets('empty pack -> todayEmpty, no Start', (t) async {
+      const empty = DailyPack(needsLanguage: false, dateKey: 'd', weekKey: 'w', dayInWeek: 1);
+      await t.pumpWidget(app(TodayPackRow(pack: empty, onOpen: () {},
+          onPickLanguage: () {}, onTakePlacement: () {})));
+      expect(find.text("Today's items are still being prepared. Check back soon."), findsOneWidget);
+      expect(find.text('Start'), findsNothing);
+    });
+    testWidgets('all stations done (next == null) -> done', (t) async {
+      const donePack = DailyPack(
+        needsLanguage: false, dateKey: 'd', weekKey: 'w', dayInWeek: 1,
+        theme: PackTheme(id: 'p', topic: 'Travel', level: 'beginner'),
+        stations: [PackStation(kind: 'grammar', status: StationStatus.done)],
+      );
+      await t.pumpWidget(app(TodayPackRow(pack: donePack, onOpen: () {},
+          onPickLanguage: () {}, onTakePlacement: () {})));
+      expect(find.byIcon(Icons.check_circle_rounded), findsOneWidget);
+      expect(find.text('Start'), findsNothing);
+    });
+    testWidgets('unplaced + 320/1.3: no overflow', (t) async {
+      await t.pumpWidget(app(
+          TodayPackRow(pack: pack(placed: false), onOpen: () {}, onPickLanguage: () {},
+              onTakePlacement: () {}),
+          width: 320, scale: 1.3));
+      expect(t.takeException(), isNull);
     });
     testWidgets('complete -> done, opens review', (t) async {
       var opened = false;
@@ -105,6 +143,53 @@ void main() {
         ),
       ));
       expect(find.byType(PageView), findsNothing);
+    });
+  });
+
+  group('SpotlightCarousel content', () {
+    AppConfig cfg(List<Announcement> a) => AppConfig(
+          minVersion: '1.0.0', latestVersion: '1.0.0', forceUpdate: false,
+          iosUrl: '', androidUrl: '', releaseNotes: '', announcements: a);
+    final anns = [
+      Announcement.fromJson({
+        'id': 'a1',
+        'title': 'A very long announcement title that wraps over several lines on a narrow phone',
+        'body': 'b',
+        'emoji': '🎉',
+        'buttonLabel': 'Check it out now please',
+        'buttonUrl': 'https://example.com',
+      }),
+      Announcement.fromJson({'id': 'a2', 'title': 'Second', 'body': 'b'}),
+    ];
+    Widget host({double width = 320, double scale = 1.3}) => ProviderScope(
+          overrides: [appConfigProvider.overrideWith((ref) async => cfg(anns))],
+          child: MaterialApp(
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
+            home: MediaQuery(
+              data: MediaQueryData(size: Size(width, 800), textScaler: TextScaler.linear(scale)),
+              child: const Scaffold(body: SpotlightCarousel()),
+            ),
+          ),
+        );
+
+    testWidgets('no overflow at 320 wide, scale 1.3', (t) async {
+      SharedPreferences.setMockInitialValues({});
+      await t.pumpWidget(host());
+      await t.pumpAndSettle();
+      expect(find.byType(PageView), findsOneWidget);
+      expect(t.takeException(), isNull);
+    });
+
+    testWidgets('dismiss removes the card and stores the id', (t) async {
+      SharedPreferences.setMockInitialValues({});
+      await t.pumpWidget(host(width: 400, scale: 1.0));
+      await t.pumpAndSettle();
+      expect(find.textContaining('A very long'), findsOneWidget);
+      await t.tap(find.byIcon(Icons.close_rounded));
+      await t.pumpAndSettle();
+      expect(find.textContaining('A very long'), findsNothing);
+      expect(await SpotlightDismissStore.read(), {'a1'});
     });
   });
 
