@@ -83,7 +83,13 @@ const double _labelMinWidth = 32;
 const double _badgePadH = 5;
 const double _badgeBorder = 1.5;
 const double _badgeMinWidth = 20;
-const double _sideMargin = 16;
+
+/// Screen edge to pill. 8, not 16: at 360 wide the active name ("Community")
+/// needs the room.
+const double _sideMargin = 8;
+
+/// Active capsule's inner horizontal padding.
+const double _capsulePadH = 10;
 const Duration _slide = Duration(milliseconds: 200);
 const Duration _morph = Duration(milliseconds: 220);
 const Color _pillDark = Color(0xFF1C1C2E);
@@ -412,27 +418,25 @@ class _FloatingTabBarState extends State<FloatingTabBar>
       child: GestureDetector(
         onTap: () => widget.onSelect(i),
         behavior: HitTestBehavior.opaque,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 2),
-          child: AnimatedContainer(
-            duration: _morph,
-            curve: Curves.easeOutCubic,
-            height: _itemHeight,
-            padding: isSelected
-                ? const EdgeInsets.symmetric(horizontal: 14)
-                : EdgeInsets.zero,
-            constraints: const BoxConstraints(minWidth: 48),
-            decoration: BoxDecoration(
-              color: isSelected
-                  ? item.color.withValues(alpha: tabCapsuleAlpha(dark: dark))
-                  : Colors.transparent,
-              borderRadius: BorderRadius.circular(22),
-            ),
-            // widthFactor 1: centre the content but hug it. A plain
-            // `alignment` would stretch the (Flexible) active capsule over
-            // all the free width.
-            child: Align(widthFactor: 1, child: content),
+        // No gap between items: the 48 min width is the hit target.
+        child: AnimatedContainer(
+          duration: _morph,
+          curve: Curves.easeOutCubic,
+          height: _itemHeight,
+          padding: isSelected
+              ? const EdgeInsets.symmetric(horizontal: _capsulePadH)
+              : EdgeInsets.zero,
+          constraints: const BoxConstraints(minWidth: 48),
+          decoration: BoxDecoration(
+            color: isSelected
+                ? item.color.withValues(alpha: tabCapsuleAlpha(dark: dark))
+                : Colors.transparent,
+            borderRadius: BorderRadius.circular(22),
           ),
+          // widthFactor 1: centre the content but hug it. A plain
+          // `alignment` would stretch the (Flexible) active capsule over
+          // all the free width.
+          child: Align(widthFactor: 1, child: content),
         ),
       ),
     );

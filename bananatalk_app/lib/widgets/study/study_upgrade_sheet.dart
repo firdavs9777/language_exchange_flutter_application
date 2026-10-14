@@ -48,8 +48,10 @@ class _StudyUpgradeSheet extends ConsumerWidget {
         ? l.studyUpgradeLockedTitle(name)
         : l.studyUpgradeExhaustedTitle(name);
 
+    // Scrolls when the sheet is taller than the screen (small phones, large
+    // text); the modal caps it at the available height.
     return SafeArea(
-      child: Padding(
+      child: SingleChildScrollView(
         padding: const EdgeInsets.fromLTRB(20, 0, 20, 16),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -75,7 +77,8 @@ class _StudyUpgradeSheet extends ConsumerWidget {
             _Benefit(l.studyUpgradeBenefitUnlimited),
             _Benefit(l.studyUpgradeBenefitNoAds),
             const SizedBox(height: 16),
-            if (feature.quotaKey != null) ...[
+            // Coins add uses to a daily cap; they cannot lift a VIP-only lock.
+            if (reason == StudyUpgradeReason.exhausted && feature.quotaKey != null) ...[
               UnlockCta(
                 featureKey: feature.quotaKey!,
                 onUnlocked: () {

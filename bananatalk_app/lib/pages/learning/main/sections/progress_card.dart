@@ -8,8 +8,10 @@ import 'package:bananatalk_app/pages/learning/vocabulary/vocabulary_screen.dart'
 import 'package:bananatalk_app/utils/app_page_route.dart';
 
 /// Streak / level / daily-XP summary with shortcuts to the detail screens.
+/// [progress] null (not loaded, failed, or a brand-new account) shows "–"
+/// placeholders; the shortcuts work either way.
 class ProgressCard extends StatelessWidget {
-  final LearningProgress progress;
+  final LearningProgress? progress;
   final VoidCallback onFullReport;
 
   const ProgressCard({super.key, required this.progress, required this.onFullReport});
@@ -22,8 +24,10 @@ class ProgressCard extends StatelessWidget {
     final l = AppLocalizations.of(context)!;
     final scheme = Theme.of(context).colorScheme;
     final text = Theme.of(context).textTheme;
-    final goal = progress.dailyGoal <= 0 ? 1 : progress.dailyGoal;
-    final frac = (progress.dailyXP / goal).clamp(0.0, 1.0);
+    const none = '–';
+    final p = progress;
+    final goal = p == null || p.dailyGoal <= 0 ? 1 : p.dailyGoal;
+    final frac = p == null ? 0.0 : (p.dailyXP / goal).clamp(0.0, 1.0);
 
     Widget stat(String value, String? label) => Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,15 +59,15 @@ class ProgressCard extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(child: stat('${progress.currentStreak}', l.streak)),
-              Expanded(child: stat(l.studyLevelShort(progress.level), null)),
+              Expanded(child: stat(p == null ? none : '${p.currentStreak}', l.streak)),
+              Expanded(child: stat(p == null ? none : l.studyLevelShort(p.level), null)),
               Expanded(
                 flex: 2,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text('${progress.dailyXP} / ${progress.dailyGoal} XP',
+                    Text(p == null ? '$none XP' : '${p.dailyXP} / ${p.dailyGoal} XP',
                         maxLines: 1, overflow: TextOverflow.ellipsis, style: text.bodySmall),
                     const SizedBox(height: 6),
                     LinearProgressIndicator(value: frac, borderRadius: BorderRadius.circular(4)),

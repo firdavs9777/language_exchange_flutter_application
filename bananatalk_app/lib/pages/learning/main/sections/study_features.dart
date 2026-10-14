@@ -75,11 +75,12 @@ TileBadge? badgeFor(
   bool isNew = false,
 }) {
   if (!isVip && vipOnly.contains(f.slug)) return const TileBadge(TileBadgeKind.locked);
-  if (quota != null && !quota.unlimited && quota.remaining == 0) {
+  // Coin unlocks count: the server spends `bonus` after the free cap.
+  if (quota != null && quota.isExhausted) {
     return const TileBadge(TileBadgeKind.exhausted, 0);
   }
   if (quota != null && quota.shouldShowIndicator) {
-    return TileBadge(TileBadgeKind.low, quota.remaining ?? 0);
+    return TileBadge(TileBadgeKind.low, quota.available ?? 0);
   }
   if (f == StudyFeature.review && dueCount > 0) return TileBadge(TileBadgeKind.due, dueCount);
   if (isNew) return const TileBadge(TileBadgeKind.isNew);

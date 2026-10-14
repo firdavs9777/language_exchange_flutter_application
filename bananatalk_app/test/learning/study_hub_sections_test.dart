@@ -202,6 +202,22 @@ void main() {
       await t.tap(find.text('Full report'));
       expect(tapped, isTrue);
     });
+    testWidgets('null progress: placeholder stats, chips still reachable', (t) async {
+      var tapped = false;
+      await t.pumpWidget(app(SingleChildScrollView(
+          child: ProgressCard(progress: null, onFullReport: () => tapped = true))));
+      expect(find.text('Your progress'), findsOneWidget);
+      expect(find.text('–'), findsWidgets);
+      expect(find.text('Achievements'), findsOneWidget);
+      await t.tap(find.text('Full report'));
+      expect(tapped, isTrue);
+    });
+    testWidgets('null progress: no overflow at 320 wide, scale 1.3', (t) async {
+      await t.pumpWidget(app(
+          SingleChildScrollView(child: ProgressCard(progress: null, onFullReport: () {})),
+          width: 320, scale: 1.3));
+      expect(t.takeException(), isNull);
+    });
     testWidgets('no overflow at 320 wide, scale 1.3', (t) async {
       await t.pumpWidget(app(
           SingleChildScrollView(child: ProgressCard(progress: progress(), onFullReport: () {})),

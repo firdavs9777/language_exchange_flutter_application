@@ -22,7 +22,7 @@ class TutorQuotaIndicator extends ConsumerWidget {
     if (info == null || !info.shouldShowIndicator) {
       return const SizedBox.shrink();
     }
-    final remaining = info.remaining ?? 0;
+    final remaining = info.available ?? 0;
     final l10n = AppLocalizations.of(context)!;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),

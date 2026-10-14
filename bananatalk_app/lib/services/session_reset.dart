@@ -14,6 +14,7 @@ import 'package:bananatalk_app/providers/missed_calls_provider.dart';
 import 'package:bananatalk_app/services/call_history_service.dart';
 import 'package:bananatalk_app/pages/learning/main/sections/spotlight_carousel.dart';
 import 'package:bananatalk_app/services/feature_seen_store.dart';
+import 'package:bananatalk_app/widgets/navigation/floating_tab_bar.dart';
 import 'package:bananatalk_app/providers/active_voice_room_count_provider.dart';
 import 'package:bananatalk_app/providers/ad_providers.dart';
 import 'package:bananatalk_app/providers/app_provider_container.dart';
@@ -253,6 +254,8 @@ final Map<String, ProviderOrFamily> userScopedProviders = {
   'examStudyTipsProvider': examStudyTipsProvider,
   // Navigation: the next account starts on the first tab.
   'selectedTabProvider': selectedTabProvider,
+  // A pending reselect from the last account must not scroll the next one.
+  'tabReselectProvider': tabReselectProvider,
 };
 
 /// Providers deliberately NOT reset: device/app-level, public catalogs, or

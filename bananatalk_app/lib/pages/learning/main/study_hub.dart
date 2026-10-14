@@ -200,13 +200,13 @@ class _StudyHubState extends ConsumerState<StudyHub> {
                         key: StudyHub.groupsSectionKey,
                       ),
                     ),
-                    if (progress != null) ...[
-                      const SizedBox(height: StudyHubMetrics.groupGap),
-                      ProgressCard(
-                        progress: progress,
-                        onFullReport: () => openProgress(context, ref),
-                      ),
-                    ],
+                    // Always shown: its shortcuts (achievements, vocabulary,
+                    // review) are the hub's only way to those screens.
+                    const SizedBox(height: StudyHubMetrics.groupGap),
+                    ProgressCard(
+                      progress: progress,
+                      onFullReport: () => openProgress(context, ref),
+                    ),
                     if (showAds) ...[
                       gap,
                       const NativeAdWidget(key: ValueKey('study-hub-native')),

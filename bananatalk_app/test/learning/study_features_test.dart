@@ -4,12 +4,14 @@ import 'package:bananatalk_app/pages/learning/main/sections/study_features.dart'
 import 'package:bananatalk_app/providers/provider_models/exam/exam_language.dart';
 import 'package:bananatalk_app/providers/tutor_quota_provider.dart';
 
-TutorQuotaInfo q({int used = 0, int? cap = 10, bool unlimited = false}) => TutorQuotaInfo(
+TutorQuotaInfo q({int used = 0, int? cap = 10, bool unlimited = false, int bonus = 0}) =>
+    TutorQuotaInfo(
       used: used,
       cap: unlimited ? null : cap,
       remaining: unlimited ? null : (cap! - used),
       resetAt: null,
       unlimited: unlimited,
+      bonus: bonus,
     );
 
 WeakArea area(String name, double acc, int attempts) => WeakArea(
@@ -72,6 +74,15 @@ void main() {
         expect(b(StudyFeature.tutor, quota: q(used: 10))?.kind, TileBadgeKind.exhausted));
     test('precedence: low > new', () =>
         expect(b(StudyFeature.tutor, quota: q(used: 6), isNew: true)?.kind, TileBadgeKind.low));
+    test('coin bonus left: not exhausted, low shows remaining + bonus', () {
+      final r = b(StudyFeature.tutor, quota: q(used: 10, bonus: 2));
+      expect(r?.kind, TileBadgeKind.low);
+      expect(r?.count, 2);
+    });
+    test('bonus spent too: exhausted', () =>
+        expect(b(StudyFeature.tutor, quota: q(used: 10, bonus: 0))?.kind, TileBadgeKind.exhausted));
+    test('plenty left with bonus: no low badge', () =>
+        expect(b(StudyFeature.tutor, quota: q(used: 5, bonus: 3)), isNull));
     test('precedence: due > new', () =>
         expect(b(StudyFeature.review, due: 1, isNew: true)?.kind, TileBadgeKind.due));
   });
@@ -113,5 +124,30 @@ void main() {
     });
     test('none qualifies -> null', () => expect(pickRecommended([area('a', 0.1, 2)]), isNull));
     test('empty -> null', () => expect(pickRecommended([]), isNull));
+  });
+
+  group('TutorQuotaInfo', () {
+    test('parses bonus, defaults to 0 for old servers', () {
+      final withBonus = TutorQuotaInfo.fromJson(
+          {'used': 10, 'cap': 10, 'remaining': 0, 'unlimited': false, 'bonus': 2});
+      expect(withBonus.bonus, 2);
+      expect(withBonus.available, 2);
+      expect(withBonus.isExhausted, isFalse);
+      final old = TutorQuotaInfo.fromJson(
+          {'used': 10, 'cap': 10, 'remaining': 0, 'unlimited': false});
+      expect(old.bonus, 0);
+      expect(old.isExhausted, isTrue);
+      expect(old.shouldShowIndicator, isTrue);
+    });
+    test('negative bonus is clamped', () {
+      final i = TutorQuotaInfo.fromJson(
+          {'used': 10, 'cap': 10, 'remaining': 0, 'unlimited': false, 'bonus': -3});
+      expect(i.bonus, 0);
+    });
+    test('unlimited is never exhausted', () {
+      final i = TutorQuotaInfo.fromJson({'unlimited': true, 'bonus': 0});
+      expect(i.isExhausted, isFalse);
+      expect(i.available, isNull);
+    });
   });
 }

@@ -90,7 +90,6 @@ final _progress = LearningProgress.fromJson({
 /// listeners watch, answered from fixtures or left loading forever so no
 /// real HTTP runs.
 final _overrides = [
-  learningProgressProvider.overrideWith((ref) async => _progress),
   dailyPackProvider.overrideWith((ref) async => _pack),
   masteryProvider.overrideWith((ref) => Completer<MasterySummary>().future),
   weeklyReportProvider.overrideWith((ref) => Completer<WeeklyReport>().future),
@@ -121,13 +120,20 @@ Future<void> pump(
   bool on, {
   int daysOld = kGuideWindowDays + 30,
   List<Announcement> announcements = const [],
+  bool noProgress = false,
+  Future<AppConfig?> Function()? config,
 }) async {
   await t.pumpWidget(
     ProviderScope(
       overrides: [
         ..._overrides,
+        learningProgressProvider.overrideWith(
+          (ref) async => noProgress ? null : _progress,
+        ),
         appConfigProvider.overrideWith(
-          (ref) async => cfg(on, announcements: announcements),
+          (ref) => config != null
+              ? config()
+              : Future.value(cfg(on, announcements: announcements)),
         ),
         userProvider.overrideWith(
           (ref) async => communityFixture(daysOld: daysOld),
@@ -178,6 +184,59 @@ void main() {
     await pump(t, false);
     expect(find.byType(LegacyStudyHub), findsOneWidget);
     expect(find.byType(StudyHub), findsNothing);
+  });
+
+  testWidgets('no progress yet: the progress card still shows its shortcuts', (
+    t,
+  ) async {
+    await pump(t, true, noProgress: true);
+    await t.scrollUntilVisible(find.text('Full report'), 200);
+    expect(find.text('Your progress'), findsOneWidget);
+    expect(find.text('Achievements'), findsOneWidget);
+  });
+
+  group('cold start (config still loading)', () {
+    testWidgets('flag on, config arrives quickly: hub without legacy ever mounting', (
+      t,
+    ) async {
+      final c = Completer<AppConfig?>();
+      await pump(t, true, config: () => c.future);
+      // pump() already ran 200 ms of frames while config was loading.
+      expect(find.byType(LegacyStudyHub), findsNothing);
+      expect(find.byType(StudyHub), findsNothing);
+      await t.pump(const Duration(milliseconds: 500));
+      expect(find.byType(LegacyStudyHub), findsNothing);
+      c.complete(cfg(true));
+      await t.pump();
+      await t.pump();
+      expect(find.byType(StudyHub), findsOneWidget);
+      expect(find.byType(LegacyStudyHub), findsNothing);
+      // Past the fallback deadline nothing swaps back.
+      await t.pump(const Duration(seconds: 2));
+      expect(find.byType(StudyHub), findsOneWidget);
+    });
+
+    testWidgets('config never resolves: legacy after the timeout, and it stays', (
+      t,
+    ) async {
+      final c = Completer<AppConfig?>();
+      await pump(t, true, config: () => c.future);
+      expect(find.byType(LegacyStudyHub), findsNothing);
+      await t.pump(const Duration(milliseconds: 1500));
+      await t.pump();
+      expect(find.byType(LegacyStudyHub), findsOneWidget);
+      // A late config must not swap the page under the user.
+      c.complete(cfg(true));
+      await t.pump();
+      await t.pump();
+      expect(find.byType(LegacyStudyHub), findsOneWidget);
+      expect(find.byType(StudyHub), findsNothing);
+    });
+
+    testWidgets('config error: legacy straight away', (t) async {
+      await pump(t, true, config: () => Future.error(Exception('offline')));
+      expect(find.byType(LegacyStudyHub), findsOneWidget);
+    });
   });
 
   testWidgets('flag on renders the hub with all three groups', (t) async {

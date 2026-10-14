@@ -264,8 +264,18 @@ void main() {
       // The count is never lost: every tab still shows it somewhere.
       expect(find.text('99+'), findsNWidgets(5));
       final pill = t.getRect(find.byKey(FloatingTabBar.pillKey));
-      expect(pill.left, greaterThanOrEqualTo(0));
-      expect(pill.right, lessThanOrEqualTo(320));
+      // 8 px side margin.
+      expect(pill.left, greaterThanOrEqualTo(8));
+      expect(pill.right, lessThanOrEqualTo(312));
+      // Items touch, so each keeps its 48 px hit target.
+      final items = find.descendant(
+        of: find.byKey(FloatingTabBar.pillKey),
+        matching: find.byType(GestureDetector),
+      );
+      expect(items, findsNWidgets(5));
+      for (final e in items.evaluate()) {
+        expect(t.getSize(find.byWidget(e.widget)).width, greaterThanOrEqualTo(48));
+      }
     });
   }
 
