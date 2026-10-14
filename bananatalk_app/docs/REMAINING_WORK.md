@@ -1,6 +1,6 @@
 # Remaining work — BananaTalk app
 
-Last updated: 2026-10-13. Keep this current: tick items off in the same commit that finishes them.
+Last updated: 2026-10-14. Keep this current: tick items off in the same commit that finishes them.
 
 See also: backend `language_exchange_backend_application/docs/REMAINING_WORK.md` (server env, prod DB, flags, ops) ·
 web `docs/REMAINING_WORK.md` in the web repo (admin console, `assetlinks.json`, nginx).
@@ -96,8 +96,9 @@ Web announcements (backend + web; **no app change**)
 
 AI Study hub + floating tab bar (branch `feat/ai-study-hub`)
 - [x] Design approved and spec written: `docs/superpowers/specs/2026-10-13-ai-study-hub-and-tab-bar-design.md`; mockup https://claude.ai/artifact/R1A8GWY8C6cqEMkfs5akEK.
-- [ ] **Next (resume here):** owner reviews the spec — esp. the `studyHubEnabled` flag, empty VIP-only list at launch, max 3 NEW badges, tab names reusing "AI Study"/"Profile", weekly digest moving behind "Full report". Then write the implementation plan (`docs/superpowers/plans/`). Paused 2026-10-13 at owner's request. S
-- [ ] Implementation (after the plan is approved). L
+- [x] Owner approved the spec as written (2026-10-14).
+- [x] Implementation plan: `docs/superpowers/plans/2026-10-14-ai-study-hub.md` (10 tasks: backend config, strings, feature logic, sheet, tiles, sections, hub + flag, tab bar, coffee/clearance, QA).
+- [ ] **Next (resume here):** owner reviews the plan and picks an execution method; then implement Tasks 1–10. L
 - [ ] Run the baseline prod queries (feature usage per user, 30 days) before release — not run during design (no prod DB access that session). S
 - [ ] Backend: app-config fields `studyHubEnabled` (default false) + `studyVipOnlyFeatures` (default []); deploy before the app. S
 - [ ] Verify each feature's real language support against the backend to fill the coverage table (spec §4.6). S
