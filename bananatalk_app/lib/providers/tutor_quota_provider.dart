@@ -10,12 +10,18 @@ class TutorQuotaInfo {
   final DateTime? resetAt;
   final bool unlimited;
 
+  /// Unspent coin unlocks (server `coinBonus[key]`). The server spends these
+  /// after the free daily cap, so what's actually left is [remaining] +
+  /// [bonus]. 0 when the server predates the field.
+  final int bonus;
+
   const TutorQuotaInfo({
     required this.used,
     required this.cap,
     required this.remaining,
     required this.resetAt,
     required this.unlimited,
+    this.bonus = 0,
   });
 
   factory TutorQuotaInfo.fromJson(Map<String, dynamic> j) => TutorQuotaInfo(
@@ -24,12 +30,23 @@ class TutorQuotaInfo {
         remaining: (j['remaining'] as num?)?.toInt(),
         resetAt: j['resetAt'] != null ? DateTime.tryParse(j['resetAt'].toString()) : null,
         unlimited: j['unlimited'] == true,
+        bonus: ((j['bonus'] as num?)?.toInt() ?? 0).clamp(0, 1 << 30),
       );
 
-  /// True once usage ≥ 50% of cap. Hides for unlimited.
+  /// Uses left today, free + paid; null when unlimited or not reported.
+  int? get available => unlimited || remaining == null ? null : remaining! + bonus;
+
+  /// Nothing left at all — free cap used AND no coin unlocks in the pool.
+  bool get isExhausted => available == 0;
+
+  /// True once what's left (free + coin bonus) is ≤ 50% of the daily cap.
+  /// With no bonus this is the old "used ≥ 50%" rule; with a bonus a user
+  /// who just bought 3 uses sees "3 left" rather than "0 left", and one with
+  /// plenty left sees nothing. Hides for unlimited.
   bool get shouldShowIndicator {
     if (unlimited || cap == null || cap == 0) return false;
-    return used * 2 >= cap!;
+    final left = available ?? (cap! - used).clamp(0, cap!);
+    return left * 2 <= cap!;
   }
 }
 
@@ -83,7 +100,7 @@ void _maybeFireRemainingShown(TutorQuotaState state) {
       _shownThisSession.add(key);
       AnalyticsService.instance.quotaRemainingShown(
         chipName: key,
-        remainingCount: info.remaining ?? 0,
+        remainingCount: info.available ?? 0,
       );
     }
   }

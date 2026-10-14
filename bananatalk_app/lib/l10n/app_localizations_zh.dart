@@ -11169,6 +11169,170 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get callSelfViewSwapHint => '双击可与对方视频互换';
+
+  @override
+  String get studyGroupTalk => '交谈';
+
+  @override
+  String get studyGroupPractice => '练习';
+
+  @override
+  String get studyGroupPrepare => '备考与竞技';
+
+  @override
+  String get studyTileTutor => 'AI 导师';
+
+  @override
+  String get studyTileTutorDesc => '什么都可以聊';
+
+  @override
+  String get studyTileRoleplay => '角色扮演';
+
+  @override
+  String get studyTileRoleplayDesc => '真实生活场景';
+
+  @override
+  String get studyTileStory => '故事';
+
+  @override
+  String get studyTileStoryDesc => '一起写故事';
+
+  @override
+  String get studyTilePhoto => '拍照';
+
+  @override
+  String get studyTilePhotoDesc => '从照片学单词';
+
+  @override
+  String get studyTileSpeak => '口语';
+
+  @override
+  String get studyTileSpeakDesc => '发音检查';
+
+  @override
+  String get studyTileReview => '复习';
+
+  @override
+  String get studyTileReviewDesc => '今日待复习单词';
+
+  @override
+  String get studyTileWriting => '写作';
+
+  @override
+  String get studyTileWritingDesc => '语法反馈';
+
+  @override
+  String get studyTileQuizzes => '测验';
+
+  @override
+  String get studyTileQuizzesDesc => '快速 AI 测验';
+
+  @override
+  String get studyTileExam => '考试准备';
+
+  @override
+  String get studyTileExamDesc => 'TOPIK, JLPT, IELTS…';
+
+  @override
+  String get studyTileLessons => '课程';
+
+  @override
+  String get studyTileLessonsDesc => '循序渐进的单元';
+
+  @override
+  String get studyTileChallenges => '挑战';
+
+  @override
+  String get studyTileChallengesDesc => '完成每日目标赚经验值';
+
+  @override
+  String get studyTileLeaderboard => '排行榜';
+
+  @override
+  String get studyTileLeaderboardDesc => '查看本周排名';
+
+  @override
+  String get studyBadgeVip => 'VIP';
+
+  @override
+  String studyBadgeLeft(int count) {
+    return '剩余 $count 次';
+  }
+
+  @override
+  String studyBadgeDue(int count) {
+    return '$count 个待复习';
+  }
+
+  @override
+  String get studyBadgeNew => '新';
+
+  @override
+  String get studyEnglishOnly => '暂时仅支持英语';
+
+  @override
+  String get studyTodayPack => '今日学习包';
+
+  @override
+  String get studyTodayStart => '开始';
+
+  @override
+  String studyRecommended(String name, int percent) {
+    return '为你推荐：$name — 正确率 $percent% · 5 分钟测验';
+  }
+
+  @override
+  String get studyProgressTitle => '你的进度';
+
+  @override
+  String get studyFullReport => '完整报告';
+
+  @override
+  String studyStreakDays(int count) {
+    return '连续 $count 天';
+  }
+
+  @override
+  String studyLevelShort(int level) {
+    return 'Lv $level';
+  }
+
+  @override
+  String studyUpgradeLockedTitle(String feature) {
+    return '$feature是 VIP 功能';
+  }
+
+  @override
+  String studyUpgradeExhaustedTitle(String feature) {
+    return '你已用完今天的$feature';
+  }
+
+  @override
+  String get studyUpgradeBenefitUnlimited => '每天无限 AI 练习';
+
+  @override
+  String get studyUpgradeBenefitNoAds => '全应用无广告';
+
+  @override
+  String get studyUpgradeGetVip => '开通 VIP — 无限使用';
+
+  @override
+  String get guideStudyHubTitle => '你的每日语言健身房';
+
+  @override
+  String get guideStudyHubBody => '每天一个 5 分钟学习包，想聊天时还有 AI 导师。';
+
+  @override
+  String get guideStudyHubCta => '开始今日学习包';
+
+  @override
+  String get guideStudyHubSecondary => '查看全部功能';
+
+  @override
+  String get supportBananaTalkRow => '支持 BananaTalk';
+
+  @override
+  String get supportBananaTalkRowSubtitle => '帮助独立开发者继续打磨产品';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -22336,4 +22500,168 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get callSelfViewSwapHint => '連按兩下可與對方視訊互換';
+
+  @override
+  String get studyGroupTalk => '交談';
+
+  @override
+  String get studyGroupPractice => '練習';
+
+  @override
+  String get studyGroupPrepare => '備考與競技';
+
+  @override
+  String get studyTileTutor => 'AI 導師';
+
+  @override
+  String get studyTileTutorDesc => '什麼都可以聊';
+
+  @override
+  String get studyTileRoleplay => '角色扮演';
+
+  @override
+  String get studyTileRoleplayDesc => '真實生活場景';
+
+  @override
+  String get studyTileStory => '故事';
+
+  @override
+  String get studyTileStoryDesc => '一起寫故事';
+
+  @override
+  String get studyTilePhoto => '拍照';
+
+  @override
+  String get studyTilePhotoDesc => '從照片學單字';
+
+  @override
+  String get studyTileSpeak => '口說';
+
+  @override
+  String get studyTileSpeakDesc => '發音檢查';
+
+  @override
+  String get studyTileReview => '複習';
+
+  @override
+  String get studyTileReviewDesc => '今日待複習單字';
+
+  @override
+  String get studyTileWriting => '寫作';
+
+  @override
+  String get studyTileWritingDesc => '文法回饋';
+
+  @override
+  String get studyTileQuizzes => '測驗';
+
+  @override
+  String get studyTileQuizzesDesc => '快速 AI 測驗';
+
+  @override
+  String get studyTileExam => '考試準備';
+
+  @override
+  String get studyTileExamDesc => 'TOPIK, JLPT, IELTS…';
+
+  @override
+  String get studyTileLessons => '課程';
+
+  @override
+  String get studyTileLessonsDesc => '循序漸進的單元';
+
+  @override
+  String get studyTileChallenges => '挑戰';
+
+  @override
+  String get studyTileChallengesDesc => '完成每日目標賺經驗值';
+
+  @override
+  String get studyTileLeaderboard => '排行榜';
+
+  @override
+  String get studyTileLeaderboardDesc => '查看本週排名';
+
+  @override
+  String get studyBadgeVip => 'VIP';
+
+  @override
+  String studyBadgeLeft(int count) {
+    return '剩餘 $count 次';
+  }
+
+  @override
+  String studyBadgeDue(int count) {
+    return '$count 個待複習';
+  }
+
+  @override
+  String get studyBadgeNew => '新';
+
+  @override
+  String get studyEnglishOnly => '目前僅支援英文';
+
+  @override
+  String get studyTodayPack => '今日學習包';
+
+  @override
+  String get studyTodayStart => '開始';
+
+  @override
+  String studyRecommended(String name, int percent) {
+    return '為你推薦：$name — 正確率 $percent% · 5 分鐘測驗';
+  }
+
+  @override
+  String get studyProgressTitle => '你的進度';
+
+  @override
+  String get studyFullReport => '完整報告';
+
+  @override
+  String studyStreakDays(int count) {
+    return '連續 $count 天';
+  }
+
+  @override
+  String studyLevelShort(int level) {
+    return 'Lv $level';
+  }
+
+  @override
+  String studyUpgradeLockedTitle(String feature) {
+    return '$feature是 VIP 功能';
+  }
+
+  @override
+  String studyUpgradeExhaustedTitle(String feature) {
+    return '你已用完今天的$feature';
+  }
+
+  @override
+  String get studyUpgradeBenefitUnlimited => '每天無限 AI 練習';
+
+  @override
+  String get studyUpgradeBenefitNoAds => '整個應用程式無廣告';
+
+  @override
+  String get studyUpgradeGetVip => '開通 VIP — 無限使用';
+
+  @override
+  String get guideStudyHubTitle => '你的每日語言健身房';
+
+  @override
+  String get guideStudyHubBody => '每天一個 5 分鐘學習包，想聊天時還有 AI 導師。';
+
+  @override
+  String get guideStudyHubCta => '開始今日學習包';
+
+  @override
+  String get guideStudyHubSecondary => '查看全部功能';
+
+  @override
+  String get supportBananaTalkRow => '支持 BananaTalk';
+
+  @override
+  String get supportBananaTalkRowSubtitle => '幫助獨立開發者持續打磨產品';
 }

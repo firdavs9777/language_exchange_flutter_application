@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/widgets/navigation/floating_tab_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/providers/provider_root/learning_providers.dart';
@@ -20,6 +21,7 @@ import 'package:bananatalk_app/pages/learning/daily/daily_pack_hero_card.dart';
 import 'package:bananatalk_app/pages/learning/daily/placement/placement_screen.dart';
 import 'package:bananatalk_app/pages/learning/progress/mastery_screen.dart';
 import 'package:bananatalk_app/pages/learning/progress/weekly_report_screen.dart';
+import 'package:bananatalk_app/models/learning/daily_pack_model.dart';
 import 'package:bananatalk_app/providers/provider_root/learning/daily_pack_providers.dart';
 import 'package:bananatalk_app/services/learning_service.dart';
 import 'package:bananatalk_app/widgets/language_selection/show_language_picker.dart';
@@ -50,7 +52,7 @@ class LearnTab extends ConsumerWidget {
           }
           return SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
-            padding: const EdgeInsets.fromLTRB(16, 20, 16, 100),
+            padding: EdgeInsets.fromLTRB(16, 20, 16, FloatingTabBar.clearance(context)),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -64,33 +66,10 @@ class LearnTab extends ConsumerWidget {
                       data: (pack) => DailyPackHeroCard(
                         pack: pack,
                         mastery: ref.watch(masteryProvider).valueOrNull,
-                        onOpenProgress: () => _openProgress(context, ref),
-                        onOpen: () => Navigator.of(context)
-                            .push(AppPageRoute(builder: (_) => DailyPackFlow(pack: pack)))
-                            .then((_) {
-                          if (!context.mounted) return;
-                          ref.invalidate(dailyPackProvider);
-                          ref.invalidate(masteryProvider);
-                          // ProgressHero, the quick stats and DailyGoalWidget
-                          // all sit directly under these cards and read
-                          // learningProgressProvider. Without invalidating it
-                          // too, the cards flip to done while the streak
-                          // counter and XP bar an inch below still show
-                          // yesterday's numbers.
-                          ref.invalidate(learningProgressProvider);
-                        }),
-                        onTakePlacement: () => Navigator.of(context)
-                            .push(AppPageRoute(
-                                builder: (_) => const PlacementScreen()))
-                            .then((_) {
-                          if (!context.mounted) return;
-                          // The level the whole pack is built from just
-                          // changed, so the pack and the mastery summary are
-                          // both stale.
-                          ref.invalidate(dailyPackProvider);
-                          ref.invalidate(masteryProvider);
-                        }),
-                        onPickLanguage: () => _pickLearningLanguage(context, ref),
+                        onOpenProgress: () => openProgress(context, ref),
+                        onOpen: () => openDailyPack(context, ref, pack),
+                        onTakePlacement: () => openPlacement(context, ref),
+                        onPickLanguage: () => pickLearningLanguage(context, ref),
                       ),
                     ),
                 const SizedBox(height: 16),
@@ -126,7 +105,7 @@ class LearnTab extends ConsumerWidget {
                 // Full width rather than a third quick-action card: three
                 // across is where this row starts overflowing on narrow
                 // phones.
-                _ProgressEntryButton(onTap: () => _openProgress(context, ref)),
+                _ProgressEntryButton(onTap: () => openProgress(context, ref)),
                 const SizedBox(height: 28),
 
                 // AI Quick Access
@@ -360,34 +339,6 @@ class LearnTab extends ConsumerWidget {
     );
   }
 
-  /// Open "Your progress".
-  ///
-  /// Extracted because it now has two callers. It used to be reachable ONLY by
-  /// tapping an undecorated strip inside the daily-pack hero card — and that
-  /// strip renders only when mastery data is non-null, so when it was still
-  /// loading or absent there was no route to this screen at all.
-  void _openProgress(BuildContext context, WidgetRef ref) {
-    Navigator.of(context).push(
-      AppPageRoute(
-        builder: (_) => MasteryScreen(
-          mastery: ref.read(masteryProvider).valueOrNull,
-          onRetakePlacement: () => Navigator.of(context).push(
-            AppPageRoute(builder: (_) => const PlacementScreen()),
-          ),
-          onOpenWeeklyReport: () => Navigator.of(context).push(
-            AppPageRoute(
-              builder: (_) => Consumer(
-                builder: (_, r, __) => WeeklyReportScreen(
-                  report: r.watch(weeklyReportProvider).valueOrNull,
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
   Widget _buildQuickActions(BuildContext context, AsyncValue vocabStatsAsync, bool isDark) {
     final dueCount = vocabStatsAsync.valueOrNull?.dueToday ?? 0;
 
@@ -588,9 +539,73 @@ class LearnTab extends ConsumerWidget {
   }
 }
 
+/// Open today's pack, then refresh everything the pack changes.
+///
+/// Public because the legacy Learn tab and the Study Hub's today row both
+/// open the pack; the invalidations must not drift between two copies.
+Future<void> openDailyPack(BuildContext context, WidgetRef ref, DailyPack pack) {
+  return Navigator.of(context)
+      .push(AppPageRoute(builder: (_) => DailyPackFlow(pack: pack)))
+      .then((_) {
+    if (!context.mounted) return;
+    ref.invalidate(dailyPackProvider);
+    ref.invalidate(masteryProvider);
+    // ProgressHero, the quick stats and DailyGoalWidget
+    // all sit directly under these cards and read
+    // learningProgressProvider. Without invalidating it
+    // too, the cards flip to done while the streak
+    // counter and XP bar an inch below still show
+    // yesterday's numbers.
+    ref.invalidate(learningProgressProvider);
+  });
+}
+
+/// Open the placement test, then refresh the pack it levels.
+Future<void> openPlacement(BuildContext context, WidgetRef ref) {
+  return Navigator.of(context)
+      .push(AppPageRoute(builder: (_) => const PlacementScreen()))
+      .then((_) {
+    if (!context.mounted) return;
+    // The level the whole pack is built from just
+    // changed, so the pack and the mastery summary are
+    // both stale.
+    ref.invalidate(dailyPackProvider);
+    ref.invalidate(masteryProvider);
+  });
+}
+
+/// Open "Your progress".
+///
+/// Top-level and public because the legacy Learn tab and the one-scroll
+/// Study Hub both open it. It used to be reachable ONLY by
+/// tapping an undecorated strip inside the daily-pack hero card — and that
+/// strip renders only when mastery data is non-null, so when it was still
+/// loading or absent there was no route to this screen at all.
+void openProgress(BuildContext context, WidgetRef ref) {
+  Navigator.of(context).push(
+    AppPageRoute(
+      builder: (_) => MasteryScreen(
+        mastery: ref.read(masteryProvider).valueOrNull,
+        onRetakePlacement: () => Navigator.of(context).push(
+          AppPageRoute(builder: (_) => const PlacementScreen()),
+        ),
+        onOpenWeeklyReport: () => Navigator.of(context).push(
+          AppPageRoute(
+            builder: (_) => Consumer(
+              builder: (_, r, __) => WeeklyReportScreen(
+                report: r.watch(weeklyReportProvider).valueOrNull,
+              ),
+            ),
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
 /// Ask the active users with a blank `language_to_learn` what they are
 /// learning, then persist it and refresh today's pack (spec §4.1).
-Future<void> _pickLearningLanguage(BuildContext context, WidgetRef ref) async {
+Future<void> pickLearningLanguage(BuildContext context, WidgetRef ref) async {
   final picked = await showLanguagePickerSheet(context);
   if (picked == null) return;
   await LearningService.setLearningLanguage(picked.name);

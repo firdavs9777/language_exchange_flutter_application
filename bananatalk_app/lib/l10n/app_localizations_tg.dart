@@ -11189,4 +11189,168 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get callSelfViewSwapHint => 'Барои иваз кардан бо видеои дигар ду бор зер кунед';
+
+  @override
+  String get studyGroupTalk => 'Гуфтугӯ';
+
+  @override
+  String get studyGroupPractice => 'Машқ';
+
+  @override
+  String get studyGroupPrepare => 'Омодагӣ ва рақобат';
+
+  @override
+  String get studyTileTutor => 'Омӯзгори AI';
+
+  @override
+  String get studyTileTutorDesc => 'Дар бораи ҳар чиз сӯҳбат кунед';
+
+  @override
+  String get studyTileRoleplay => 'Нақшбозӣ';
+
+  @override
+  String get studyTileRoleplayDesc => 'Саҳнаҳои ҳаёти воқеӣ';
+
+  @override
+  String get studyTileStory => 'Ҳикоя';
+
+  @override
+  String get studyTileStoryDesc => 'Якҷоя ҳикоя нависед';
+
+  @override
+  String get studyTilePhoto => 'Акс';
+
+  @override
+  String get studyTilePhotoDesc => 'Аз акс калимаҳо омӯзед';
+
+  @override
+  String get studyTileSpeak => 'Сухан';
+
+  @override
+  String get studyTileSpeakDesc => 'Санҷиши талаффуз';
+
+  @override
+  String get studyTileReview => 'Такрор';
+
+  @override
+  String get studyTileReviewDesc => 'Калимаҳои имрӯз';
+
+  @override
+  String get studyTileWriting => 'Навиштан';
+
+  @override
+  String get studyTileWritingDesc => 'Назари грамматикӣ';
+
+  @override
+  String get studyTileQuizzes => 'Викторинаҳо';
+
+  @override
+  String get studyTileQuizzesDesc => 'Викторинаҳои зуд бо AI';
+
+  @override
+  String get studyTileExam => 'Омодагӣ ба имтиҳон';
+
+  @override
+  String get studyTileExamDesc => 'TOPIK, JLPT, IELTS…';
+
+  @override
+  String get studyTileLessons => 'Дарсҳо';
+
+  @override
+  String get studyTileLessonsDesc => 'Воҳидҳо қадам ба қадам';
+
+  @override
+  String get studyTileChallenges => 'Мусобиқаҳо';
+
+  @override
+  String get studyTileChallengesDesc => 'Ҳадафҳои ҳаррӯза барои XP';
+
+  @override
+  String get studyTileLeaderboard => 'Ҷадвали пешсафон';
+
+  @override
+  String get studyTileLeaderboardDesc => 'Ҷойҳои ин ҳафтаро бинед';
+
+  @override
+  String get studyBadgeVip => 'VIP';
+
+  @override
+  String studyBadgeLeft(int count) {
+    return '$count монд';
+  }
+
+  @override
+  String studyBadgeDue(int count) {
+    return '$count мувофиқ';
+  }
+
+  @override
+  String get studyBadgeNew => 'НАВ';
+
+  @override
+  String get studyEnglishOnly => 'Ҳоло танҳо бо забони англисӣ';
+
+  @override
+  String get studyTodayPack => 'Бастаи имрӯз';
+
+  @override
+  String get studyTodayStart => 'Оғоз';
+
+  @override
+  String studyRecommended(String name, int percent) {
+    return 'Барои шумо: $name — $percent% дуруст · викторинаи 5-дақиқагӣ';
+  }
+
+  @override
+  String get studyProgressTitle => 'Пешрафти шумо';
+
+  @override
+  String get studyFullReport => 'Ҳисоботи пурра';
+
+  @override
+  String studyStreakDays(int count) {
+    return 'Силсилаи $count рӯз';
+  }
+
+  @override
+  String studyLevelShort(int level) {
+    return 'Сат. $level';
+  }
+
+  @override
+  String studyUpgradeLockedTitle(String feature) {
+    return '$feature имкони VIP аст';
+  }
+
+  @override
+  String studyUpgradeExhaustedTitle(String feature) {
+    return 'Шумо $feature-и имрӯзро истифода бурдед';
+  }
+
+  @override
+  String get studyUpgradeBenefitUnlimited => 'Машқи бемаҳдуди AI ҳар рӯз';
+
+  @override
+  String get studyUpgradeBenefitNoAds => 'Бе реклама дар тамоми барнома';
+
+  @override
+  String get studyUpgradeGetVip => 'VIP гиред — бемаҳдуд';
+
+  @override
+  String get guideStudyHubTitle => 'Толори ҳаррӯзаи забони шумо';
+
+  @override
+  String get guideStudyHubBody => 'Ҳар рӯз бастаи 5-дақиқагӣ ва омӯзгори AI ҳар вақте ки хоҳед сӯҳбат кунед.';
+
+  @override
+  String get guideStudyHubCta => 'Бастаи имрӯзро оғоз кунед';
+
+  @override
+  String get guideStudyHubSecondary => 'Ҳамаи имкониятҳоро бинед';
+
+  @override
+  String get supportBananaTalkRow => 'BananaTalk-ро дастгирӣ кунед';
+
+  @override
+  String get supportBananaTalkRowSubtitle => 'Ба як барномасози танҳо барои идома додан кӯмак кунед';
 }

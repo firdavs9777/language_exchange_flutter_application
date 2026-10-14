@@ -49,6 +49,8 @@ void main() {
         ('ActivationAction.lesson', 1),
     'lib/pages/learning/daily/daily_pack_flow.dart':
         ('ActivationAction.lesson', 1),
+    // Tutor chat and roleplay both reply through TutorChatController.send.
+    'lib/providers/tutor_provider.dart': ('ActivationAction.lesson', 1),
     'lib/pages/profile/profile_main.dart': ('checkProfileComplete(', 1),
   };
   test('create_moment reads the activation store before awaiting createMoments', () {

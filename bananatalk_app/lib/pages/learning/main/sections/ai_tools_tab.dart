@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/widgets/navigation/floating_tab_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -93,7 +94,7 @@ class _AIToolsTabState extends ConsumerState<AIToolsTab>
           child: SingleChildScrollView(
             controller: _scroll,
             physics: const AlwaysScrollableScrollPhysics(),
-            padding: const EdgeInsets.fromLTRB(16, 20, 16, 100),
+            padding: EdgeInsets.fromLTRB(16, 20, 16, FloatingTabBar.clearance(context)),
             child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -165,7 +166,7 @@ class _AIToolsTabState extends ConsumerState<AIToolsTab>
         if (_showArrow)
           Positioned(
             right: 18,
-            bottom: 110,
+            bottom: FloatingTabBar.clearance(context) + 10,
             child: AnimatedOpacity(
               opacity: _showArrow ? 1.0 : 0.0,
               duration: const Duration(milliseconds: 300),

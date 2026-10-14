@@ -1,7 +1,4 @@
 import 'package:bananatalk_app/pages/chat/list/chat_list_screen.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:bananatalk_app/services/ad_service.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:bananatalk_app/pages/moments/feed/moments_main.dart';
 import 'package:bananatalk_app/pages/profile/profile_main.dart';
 import 'package:bananatalk_app/pages/community/main/community_main.dart';
@@ -21,9 +18,8 @@ import 'package:bananatalk_app/pages/coins/coin_shop_screen.dart';
 import 'package:bananatalk_app/services/promo_service.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
-import 'package:bananatalk_app/utils/theme_extensions.dart';
-import 'package:bananatalk_app/core/theme/app_theme.dart';
-import 'dart:ui';
+import 'package:bananatalk_app/widgets/navigation/floating_tab_bar.dart';
+import 'package:bananatalk_app/widgets/navigation/tab_reselect_scroll_to_top.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -160,8 +156,9 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
     await Future<void>.delayed(const Duration(seconds: 1));
     if (!mounted || !_isCurrentRoute) return;
 
-    final guidePeriod =
-        await launchGuidePeriod(() => ref.read(isGuidePeriodProvider.future));
+    final guidePeriod = await launchGuidePeriod(
+      () => ref.read(isGuidePeriodProvider.future),
+    );
     AppConfig? config;
     try {
       config = await ref.read(appConfigProvider.future);
@@ -171,17 +168,19 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
     if (!mounted || !_isCurrentRoute) return;
 
     final store = ref.read(activationStoreProvider);
-    await LaunchModalCoordinator(standardLaunchCandidates(
-      config: config,
-      pickSpotlight: () async {
-        final lessonDone = await store.isDone(ActivationAction.lesson);
-        if (!mounted || !_isCurrentRoute) return null;
-        final promo = await pickPromo(ref, lessonDone: lessonDone);
-        if (!mounted || !_isCurrentRoute) return null;
-        return promo;
-      },
-      onSpotlightTry: _openPromoDestination,
-    )).run(
+    await LaunchModalCoordinator(
+      standardLaunchCandidates(
+        config: config,
+        pickSpotlight: () async {
+          final lessonDone = await store.isDone(ActivationAction.lesson);
+          if (!mounted || !_isCurrentRoute) return null;
+          final promo = await pickPromo(ref, lessonDone: lessonDone);
+          if (!mounted || !_isCurrentRoute) return null;
+          return promo;
+        },
+        onSpotlightTry: _openPromoDestination,
+      ),
+    ).run(
       context,
       guidePeriod: guidePeriod,
       updateShown: VersionCheckCoordinator.lastCheckShowedUpdate,
@@ -234,8 +233,24 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
   // Notifiers for each tab to trigger silent refresh
   final ValueNotifier<int> _tabRefreshNotifier = ValueNotifier(0);
 
+  /// Hide-on-scroll state for the floating bar (spec §8.2).
+  final BarScrollState _barScroll = BarScrollState();
+  bool _barVisible = true;
+
+  void _showBar() {
+    _barScroll.reset();
+    if (!_barVisible) setState(() => _barVisible = true);
+  }
+
   void _selectPage(int index) {
     HapticFeedback.selectionClick();
+
+    // Re-tapping the active tab asks that tab to scroll to its top.
+    if (index == ref.read(selectedTabProvider)) {
+      final reselect = ref.read(tabReselectProvider.notifier);
+      reselect.state = (tab: index, seq: reselect.state.seq + 1);
+    }
+    _showBar();
 
     // Auto-heal: if userProvider is in error, invalidate it on any tab tap
     // so the next provider read gets a fresh fetch from auth/me.
@@ -266,8 +281,11 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
         .maybeWhen(data: (n) => n, orElse: () => 0);
     final messageCount = badgeCount.messages + pendingIntrosCount;
     final selectedPageIndex = ref.watch(selectedTabProvider);
-    final isDark = context.isDarkMode;
-    final bottomPadding = MediaQuery.of(context).padding.bottom;
+    final l = AppLocalizations.of(context)!;
+    // Any tab switch — a tap, a deep link, Android back — brings the bar back.
+    ref.listen(selectedTabProvider, (prev, next) {
+      if (prev != next) _showBar();
+    });
     // Profile tab shows the user's own avatar (IG-style); falls back to the
     // person icon while loading / on error / when no photo is set.
     final currentUser = ref.watch(userProvider).valueOrNull;
@@ -307,232 +325,71 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
                   curve: Curves.easeOut,
                   child: IgnorePointer(
                     ignoring: !isSelected,
-                    child: _pages[index],
+                    // Hidden tabs stay alive and can still scroll (a chat
+                    // list receiving a message), so only the visible tab's
+                    // scrolling moves the bar.
+                    child: NotificationListener<Notification>(
+                      onNotification: (n) {
+                        if (index == ref.read(selectedTabProvider) &&
+                            _barScroll.onNotification(n)) {
+                          setState(() => _barVisible = _barScroll.visible);
+                        }
+                        return false;
+                      },
+                      // Re-tapping the active tab scrolls its visible list
+                      // to the top (spec §8.2). StudyHub also listens with
+                      // its own controller; both target the same top.
+                      child: TabReselectScrollToTop(
+                        tab: index,
+                        child: _pages[index],
+                      ),
+                    ),
                   ),
                 );
               }),
             ),
-            // Buy me a coffee — floats above the tab bar on the right
-            Positioned(
-              right: 16,
-              bottom: bottomPadding > 0 ? bottomPadding + 76 : 88,
-              child: _CoffeeButton(),
-            ),
-
-            // Floating "swimming" pill tab bar — icon-only, hugs its content.
-            Positioned(
-              left: 0,
-              right: 0,
-              bottom: bottomPadding > 0 ? bottomPadding - 4 : 8,
-              child: Center(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(30),
-                  child: BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
-                    child: Container(
-                      height: 60,
-                      padding: const EdgeInsets.symmetric(horizontal: 6),
-                      decoration: BoxDecoration(
-                        color: isDark
-                            ? const Color(0xFF1C1C2E).withValues(alpha: 0.92)
-                            : Colors.white.withValues(alpha: 0.92),
-                        borderRadius: BorderRadius.circular(30),
-                        border: Border.all(
-                          color: isDark
-                              ? Colors.white.withValues(alpha: 0.08)
-                              : Colors.black.withValues(alpha: 0.06),
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: isDark
-                                ? Colors.black.withValues(alpha: 0.4)
-                                : Colors.black.withValues(alpha: 0.08),
-                            blurRadius: 24,
-                            offset: const Offset(0, 4),
-                            spreadRadius: -2,
-                          ),
-                        ],
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          _buildNavItem(
-                            index: 0,
-                            icon: Icons.menu_book_outlined,
-                            activeIcon: Icons.menu_book_rounded,
-                            isDark: isDark,
-                          ),
-                          _buildNavItem(
-                            index: 1,
-                            icon: Icons.explore_outlined,
-                            activeIcon: Icons.explore_rounded,
-                            isDark: isDark,
-                          ),
-                          _buildNavItem(
-                            index: 2,
-                            icon: Icons.chat_bubble_outline_rounded,
-                            activeIcon: Icons.chat_bubble_rounded,
-                            imageAsset: 'assets/images/logo_mark_ios.png',
-                            badgeCount: messageCount,
-                            isDark: isDark,
-                          ),
-                          _buildNavItem(
-                            index: 3,
-                            icon: Icons.auto_awesome_outlined,
-                            activeIcon: Icons.auto_awesome_rounded,
-                            isDark: isDark,
-                          ),
-                          _buildNavItem(
-                            index: 4,
-                            icon: Icons.person_outline_rounded,
-                            activeIcon: Icons.person_rounded,
-                            avatarUrl: profileAvatarUrl,
-                            badgeCount: badgeCount.notifications,
-                            isDark: isDark,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+            FloatingTabBar(
+              selected: selectedPageIndex,
+              visible: _barVisible,
+              onSelect: _selectPage,
+              // A list that fits after the keyboard closes sends no scroll
+              // update, so closing the keyboard itself brings the bar back.
+              onKeyboardClosed: _showBar,
+              items: [
+                FloatingTabItem(
+                  icon: Icons.menu_book_outlined,
+                  activeIcon: Icons.menu_book_rounded,
+                  label: l.study,
+                  color: const Color(0xFF8B5CF6),
                 ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildNavItem({
-    required int index,
-    required IconData icon,
-    required IconData activeIcon,
-    required bool isDark,
-    String? imageAsset,
-    String? avatarUrl,
-    int badgeCount = 0,
-  }) {
-    final isSelected = ref.watch(selectedTabProvider) == index;
-
-    // Each tab gets a unique accent color when active
-    final Color activeColor = _getTabColor(index);
-    final Color inactiveColor = isDark
-        ? Colors.white.withValues(alpha: 0.4)
-        : Colors.black.withValues(alpha: 0.35);
-
-    return GestureDetector(
-      onTap: () => _selectPage(index),
-      behavior: HitTestBehavior.opaque,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 9),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // Icon with badge — selected state = contrast circle bubble
-            // behind the icon (Instagram-style), no dot/label.
-            Stack(
-              clipBehavior: Clip.none,
-              children: [
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 220),
-                  curve: Curves.easeOutCubic,
-                  width: 46,
-                  height: 46,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: isSelected
-                        ? (isDark
-                              ? Colors.white.withValues(alpha: 0.12)
-                              : Colors.black.withValues(alpha: 0.07))
-                        : Colors.transparent,
-                  ),
-                  child: Center(
-                    child: avatarUrl != null
-                        // Own-profile avatar (IG-style) with an accent ring
-                        // when selected.
-                        ? AnimatedContainer(
-                            duration: const Duration(milliseconds: 220),
-                            padding: const EdgeInsets.all(2),
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: isSelected
-                                    ? activeColor
-                                    : Colors.transparent,
-                                width: 2,
-                              ),
-                            ),
-                            child: CircleAvatar(
-                              radius: 11.5,
-                              backgroundColor: inactiveColor,
-                              backgroundImage: CachedNetworkImageProvider(
-                                avatarUrl,
-                              ),
-                            ),
-                          )
-                        : imageAsset != null
-                        // Branded tab: the app icon itself. It's full-colour so
-                        // it can't tint with selection — dim it when inactive so
-                        // the active state still reads clearly.
-                        ? AnimatedOpacity(
-                            duration: const Duration(milliseconds: 250),
-                            opacity: isSelected ? 1.0 : 0.45,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(6),
-                              child: Image.asset(
-                                imageAsset,
-                                width: 27,
-                                height: 27,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          )
-                        : Icon(
-                            isSelected ? activeIcon : icon,
-                            size: 27,
-                            color: isSelected ? activeColor : inactiveColor,
-                          ),
-                  ),
+                FloatingTabItem(
+                  icon: Icons.explore_outlined,
+                  activeIcon: Icons.explore_rounded,
+                  label: l.community,
+                  color: const Color(0xFF00BFA5),
                 ),
-                if (badgeCount > 0)
-                  Positioned(
-                    right: -7,
-                    top: -4,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 5,
-                        vertical: 1.5,
-                      ),
-                      decoration: BoxDecoration(
-                        color: AppColors.error,
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(
-                          color: isDark
-                              ? const Color(0xFF1C1C2E)
-                              : Colors.white,
-                          width: 1.5,
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: AppColors.error.withValues(alpha: 0.4),
-                            blurRadius: 6,
-                            offset: const Offset(0, 2),
-                          ),
-                        ],
-                      ),
-                      constraints: const BoxConstraints(minWidth: 18),
-                      child: Text(
-                        badgeCount > 99 ? '99+' : '$badgeCount',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 9.5,
-                          fontWeight: FontWeight.w700,
-                          height: 1.2,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ),
+                FloatingTabItem(
+                  icon: Icons.chat_bubble_outline_rounded,
+                  activeIcon: Icons.chat_bubble_rounded,
+                  imageAsset: 'assets/images/logo_mark_ios.png',
+                  label: l.chats,
+                  color: const Color(0xFF667EEA),
+                  badgeCount: messageCount,
+                ),
+                FloatingTabItem(
+                  icon: Icons.auto_awesome_outlined,
+                  activeIcon: Icons.auto_awesome_rounded,
+                  label: l.moments,
+                  color: const Color(0xFFFF6B6B),
+                ),
+                FloatingTabItem(
+                  icon: Icons.person_outline_rounded,
+                  activeIcon: Icons.person_rounded,
+                  avatarUrl: profileAvatarUrl,
+                  label: l.profile,
+                  color: const Color(0xFFF59E0B),
+                  badgeCount: badgeCount.notifications,
+                ),
               ],
             ),
           ],
@@ -540,415 +397,5 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
       ),
     );
   }
-
-  Color _getTabColor(int index) {
-    switch (index) {
-      case 0:
-        return const Color(0xFF8B5CF6);
-      case 1:
-        return const Color(0xFF00BFA5);
-      case 2:
-        return const Color(0xFF667EEA);
-      case 3:
-        return const Color(0xFFFF6B6B);
-      case 4:
-        return const Color(0xFFF59E0B);
-      default:
-        return AppColors.primary;
-    }
-  }
 }
 
-// ─── Buy me a coffee button ───────────────────────────────────────────────────
-
-class _CoffeeButton extends StatefulWidget {
-  const _CoffeeButton();
-
-  @override
-  State<_CoffeeButton> createState() => _CoffeeButtonState();
-}
-
-class _CoffeeButtonState extends State<_CoffeeButton>
-    with SingleTickerProviderStateMixin {
-  late final AnimationController _ctrl;
-  late final Animation<double> _scale;
-  bool _expanded = true;
-
-  @override
-  void initState() {
-    super.initState();
-    _ctrl = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 120),
-      reverseDuration: const Duration(milliseconds: 200),
-      value: 1.0,
-    );
-    _scale = Tween<double>(
-      begin: 0.93,
-      end: 1.0,
-    ).animate(CurvedAnimation(parent: _ctrl, curve: Curves.easeOut));
-    // Auto-collapse label after 4 seconds to keep it unobtrusive
-    Future.delayed(const Duration(seconds: 4), () {
-      if (mounted) setState(() => _expanded = false);
-    });
-  }
-
-  @override
-  void dispose() {
-    _ctrl.dispose();
-    super.dispose();
-  }
-
-  Future<void> _open() async {
-    HapticFeedback.lightImpact();
-    if (!mounted) return;
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (_) => const _SupportSheet(),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-    return GestureDetector(
-      onTapDown: (_) => _ctrl.animateTo(0.0),
-      onTapUp: (_) async {
-        _ctrl.animateTo(1.0);
-        await _open();
-      },
-      onTapCancel: () => _ctrl.animateTo(1.0),
-      onTap: () {
-        // Expand label on tap if collapsed
-        if (!_expanded) setState(() => _expanded = true);
-      },
-      child: AnimatedBuilder(
-        animation: _scale,
-        builder: (context, child) =>
-            Transform.scale(scale: _scale.value, child: child),
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 350),
-          curve: Curves.easeInOutCubic,
-          height: 38,
-          padding: EdgeInsets.symmetric(horizontal: _expanded ? 14 : 10),
-          decoration: BoxDecoration(
-            gradient: const LinearGradient(
-              colors: [Color(0xFFFFDD57), Color(0xFFFFBB00)],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-            borderRadius: BorderRadius.circular(20),
-            boxShadow: [
-              BoxShadow(
-                color: const Color(0xFFFFDD57).withValues(alpha: 0.50),
-                blurRadius: 14,
-                offset: const Offset(0, 4),
-              ),
-              BoxShadow(
-                color: Colors.black.withValues(alpha: 0.10),
-                blurRadius: 4,
-                offset: const Offset(0, 1),
-              ),
-            ],
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Text('☕', style: TextStyle(fontSize: 17)),
-              AnimatedSize(
-                duration: const Duration(milliseconds: 350),
-                curve: Curves.easeInOutCubic,
-                child: _expanded
-                    ? Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const SizedBox(width: 6),
-                          Text(
-                            l10n.profileBuyMeCoffee,
-                            style: const TextStyle(
-                              fontSize: 13,
-                              fontWeight: FontWeight.w700,
-                              color: Color(0xFF5C3D00),
-                              letterSpacing: 0.1,
-                            ),
-                          ),
-                        ],
-                      )
-                    : const SizedBox.shrink(),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-// ─── Support / donation sheet ─────────────────────────────────────────────────
-
-/// PayPal account handle shown as a hint under the support buttons (not a translatable string).
-const String _paypalHandle = '@firdavsDev';
-
-class _SupportSheet extends StatefulWidget {
-  const _SupportSheet();
-
-  @override
-  State<_SupportSheet> createState() => _SupportSheetState();
-}
-
-class _SupportSheetState extends State<_SupportSheet> {
-  static const _paypalUrl = 'https://paypal.me/firdavsDev';
-  bool _adWatched = false;
-  bool _adLoading = false;
-
-  Future<void> _donate() async {
-    HapticFeedback.lightImpact();
-    final uri = Uri.parse(_paypalUrl);
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri, mode: LaunchMode.externalApplication);
-    }
-  }
-
-  Future<void> _watchAd() async {
-    if (_adLoading) return;
-    HapticFeedback.lightImpact();
-
-    final adService = AdService();
-    if (!adService.isRewardedAdReady) {
-      // Ad not loaded yet — try loading and show a brief wait state
-      setState(() => _adLoading = true);
-      adService.loadRewarded();
-      // Poll up to 8 seconds for the ad to load
-      for (int i = 0; i < 16; i++) {
-        await Future.delayed(const Duration(milliseconds: 500));
-        if (!mounted) return;
-        if (adService.isRewardedAdReady) break;
-      }
-      if (mounted) setState(() => _adLoading = false);
-      if (!adService.isRewardedAdReady) {
-        if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(AppLocalizations.of(context)!.adNotReady)),
-          );
-        }
-        return;
-      }
-    }
-
-    await adService.showRewarded(
-      onRewarded: () {
-        if (mounted) setState(() => _adWatched = true);
-      },
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-    final isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
-    final bg = isDark ? const Color(0xFF1C1C2E) : Colors.white;
-    final textPrimary = isDark ? Colors.white : const Color(0xFF1A1A2E);
-    final textSecondary = isDark
-        ? Colors.white.withValues(alpha: 0.60)
-        : const Color(0xFF6B7280);
-
-    return Container(
-      decoration: BoxDecoration(
-        color: bg,
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
-      ),
-      padding: EdgeInsets.fromLTRB(
-        24,
-        20,
-        24,
-        MediaQuery.of(context).padding.bottom + 28,
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          // Handle bar
-          Container(
-            width: 40,
-            height: 4,
-            decoration: BoxDecoration(
-              color: isDark
-                  ? Colors.white.withValues(alpha: 0.15)
-                  : Colors.black.withValues(alpha: 0.12),
-              borderRadius: BorderRadius.circular(2),
-            ),
-          ),
-          const SizedBox(height: 24),
-
-          // Emoji + headline
-          const Text('☕', style: TextStyle(fontSize: 44)),
-          const SizedBox(height: 12),
-          Text(
-            l10n.supportSheetGreeting,
-            style: TextStyle(
-              fontSize: 22,
-              fontWeight: FontWeight.w800,
-              color: textPrimary,
-              letterSpacing: -0.3,
-            ),
-          ),
-          const SizedBox(height: 16),
-
-          // Story card
-          Container(
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              color: const Color(
-                0xFF00BFA5,
-              ).withValues(alpha: isDark ? 0.12 : 0.07),
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(
-                color: const Color(
-                  0xFF00BFA5,
-                ).withValues(alpha: isDark ? 0.22 : 0.18),
-              ),
-            ),
-            child: Text(
-              l10n.supportSheetStory,
-              style: TextStyle(fontSize: 14, color: textSecondary, height: 1.6),
-            ),
-          ),
-          const SizedBox(height: 20),
-
-          // Watch an ad button
-          GestureDetector(
-            onTap: _adWatched ? null : _watchAd,
-            child: AnimatedContainer(
-              duration: const Duration(milliseconds: 300),
-              height: 56,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: _adWatched
-                      ? [const Color(0xFF43A047), const Color(0xFF2E7D32)]
-                      : [const Color(0xFFFF6F00), const Color(0xFFE65100)],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
-                borderRadius: BorderRadius.circular(16),
-                boxShadow: [
-                  BoxShadow(
-                    color:
-                        (_adWatched
-                                ? const Color(0xFF43A047)
-                                : const Color(0xFFFF6F00))
-                            .withValues(alpha: 0.35),
-                    blurRadius: 18,
-                    offset: const Offset(0, 6),
-                  ),
-                ],
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  if (_adLoading)
-                    const SizedBox(
-                      width: 20,
-                      height: 20,
-                      child: CircularProgressIndicator(
-                        strokeWidth: 2.5,
-                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                      ),
-                    )
-                  else
-                    Text(
-                      _adWatched ? '✅' : '▶️',
-                      style: const TextStyle(fontSize: 18),
-                    ),
-                  const SizedBox(width: 10),
-                  Text(
-                    _adWatched
-                        ? l10n.profileThanksForWatching
-                        : l10n.supportSheetWatchAd,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w700,
-                      letterSpacing: 0.2,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          const SizedBox(height: 12),
-
-          // Divider with "or"
-          Row(
-            children: [
-              Expanded(
-                child: Divider(color: textSecondary.withValues(alpha: 0.3)),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12),
-                child: Text(
-                  l10n.profileOr,
-                  style: TextStyle(color: textSecondary, fontSize: 13),
-                ),
-              ),
-              Expanded(
-                child: Divider(color: textSecondary.withValues(alpha: 0.3)),
-              ),
-            ],
-          ),
-          const SizedBox(height: 12),
-
-          // PayPal donate button
-          GestureDetector(
-            onTap: _donate,
-            child: Container(
-              height: 56,
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [Color(0xFF003087), Color(0xFF009CDE)],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
-                borderRadius: BorderRadius.circular(16),
-                boxShadow: [
-                  BoxShadow(
-                    color: const Color(0xFF003087).withValues(alpha: 0.35),
-                    blurRadius: 18,
-                    offset: const Offset(0, 6),
-                  ),
-                ],
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text('💙', style: TextStyle(fontSize: 18)),
-                  const SizedBox(width: 10),
-                  Text(
-                    l10n.supportSheetDonateButton,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w700,
-                      letterSpacing: 0.2,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          const SizedBox(height: 10),
-
-          // PayPal handle hint
-          Text(
-            _paypalHandle,
-            style: TextStyle(
-              fontSize: 12,
-              color: textSecondary,
-              letterSpacing: 0.3,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}

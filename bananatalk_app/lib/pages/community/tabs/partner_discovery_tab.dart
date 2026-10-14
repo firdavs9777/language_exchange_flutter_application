@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/widgets/navigation/floating_tab_bar.dart';
 import 'dart:math' as math;
 import 'package:flutter/foundation.dart' show mapEquals;
 import 'package:flutter/material.dart';
@@ -748,7 +749,7 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
       },
       child: ListView.separated(
         controller: _scrollController,
-        padding: const EdgeInsets.only(bottom: 100),
+        padding: EdgeInsets.only(bottom: FloatingTabBar.clearance(context)),
         itemCount: 1 + bodyLength + (isLoadingMore || hasMore ? 1 : 0),
         separatorBuilder: (context, index) => index == 0
             ? const SizedBox.shrink()
@@ -827,7 +828,7 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
     final hasNextCard = communities.length > 1;
 
     return Padding(
-      padding: const EdgeInsets.only(bottom: 100),
+      padding: EdgeInsets.only(bottom: FloatingTabBar.clearance(context)),
       child: Stack(
         children: [
           if (hasNextCard)

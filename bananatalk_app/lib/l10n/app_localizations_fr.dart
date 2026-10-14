@@ -11188,4 +11188,168 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get callSelfViewSwapHint => 'Touchez deux fois pour échanger avec l\'autre vidéo';
+
+  @override
+  String get studyGroupTalk => 'Parler';
+
+  @override
+  String get studyGroupPractice => 'S\'entraîner';
+
+  @override
+  String get studyGroupPrepare => 'Préparer et se mesurer';
+
+  @override
+  String get studyTileTutor => 'Tuteur IA';
+
+  @override
+  String get studyTileTutorDesc => 'Discutez de tout';
+
+  @override
+  String get studyTileRoleplay => 'Jeu de rôle';
+
+  @override
+  String get studyTileRoleplayDesc => 'Scènes de la vie réelle';
+
+  @override
+  String get studyTileStory => 'Histoire';
+
+  @override
+  String get studyTileStoryDesc => 'Écrivez une histoire ensemble';
+
+  @override
+  String get studyTilePhoto => 'Photo';
+
+  @override
+  String get studyTilePhotoDesc => 'Apprenez des mots avec une photo';
+
+  @override
+  String get studyTileSpeak => 'Oral';
+
+  @override
+  String get studyTileSpeakDesc => 'Vérifier la prononciation';
+
+  @override
+  String get studyTileReview => 'Révision';
+
+  @override
+  String get studyTileReviewDesc => 'Mots du jour';
+
+  @override
+  String get studyTileWriting => 'Écriture';
+
+  @override
+  String get studyTileWritingDesc => 'Retours de grammaire';
+
+  @override
+  String get studyTileQuizzes => 'Quiz';
+
+  @override
+  String get studyTileQuizzesDesc => 'Quiz IA rapides';
+
+  @override
+  String get studyTileExam => 'Préparation d\'examens';
+
+  @override
+  String get studyTileExamDesc => 'TOPIK, JLPT, IELTS…';
+
+  @override
+  String get studyTileLessons => 'Leçons';
+
+  @override
+  String get studyTileLessonsDesc => 'Unités pas à pas';
+
+  @override
+  String get studyTileChallenges => 'Défis';
+
+  @override
+  String get studyTileChallengesDesc => 'Objectifs quotidiens pour gagner de l\'XP';
+
+  @override
+  String get studyTileLeaderboard => 'Classement';
+
+  @override
+  String get studyTileLeaderboardDesc => 'Voir le classement de la semaine';
+
+  @override
+  String get studyBadgeVip => 'VIP';
+
+  @override
+  String studyBadgeLeft(int count) {
+    return '$count restant(s)';
+  }
+
+  @override
+  String studyBadgeDue(int count) {
+    return '$count à revoir';
+  }
+
+  @override
+  String get studyBadgeNew => 'NOUVEAU';
+
+  @override
+  String get studyEnglishOnly => 'Anglais uniquement pour l\'instant';
+
+  @override
+  String get studyTodayPack => 'Pack du jour';
+
+  @override
+  String get studyTodayStart => 'Démarrer';
+
+  @override
+  String studyRecommended(String name, int percent) {
+    return 'Pour vous : $name — $percent % de réussite · quiz de 5 min';
+  }
+
+  @override
+  String get studyProgressTitle => 'Votre progression';
+
+  @override
+  String get studyFullReport => 'Rapport complet';
+
+  @override
+  String studyStreakDays(int count) {
+    return 'Série de $count jours';
+  }
+
+  @override
+  String studyLevelShort(int level) {
+    return 'Niv. $level';
+  }
+
+  @override
+  String studyUpgradeLockedTitle(String feature) {
+    return '$feature est une fonctionnalité VIP';
+  }
+
+  @override
+  String studyUpgradeExhaustedTitle(String feature) {
+    return 'Vous avez utilisé $feature pour aujourd\'hui';
+  }
+
+  @override
+  String get studyUpgradeBenefitUnlimited => 'Pratique IA illimitée chaque jour';
+
+  @override
+  String get studyUpgradeBenefitNoAds => 'Aucune pub dans toute l\'appli';
+
+  @override
+  String get studyUpgradeGetVip => 'Passer VIP — illimité';
+
+  @override
+  String get guideStudyHubTitle => 'Votre salle de sport des langues';
+
+  @override
+  String get guideStudyHubBody => 'Un pack de 5 minutes chaque jour, et un tuteur IA dès que vous voulez parler.';
+
+  @override
+  String get guideStudyHubCta => 'Démarrer le pack du jour';
+
+  @override
+  String get guideStudyHubSecondary => 'Voir toutes les fonctionnalités';
+
+  @override
+  String get supportBananaTalkRow => 'Soutenir BananaTalk';
+
+  @override
+  String get supportBananaTalkRowSubtitle => 'Aidez un développeur indépendant à continuer';
 }

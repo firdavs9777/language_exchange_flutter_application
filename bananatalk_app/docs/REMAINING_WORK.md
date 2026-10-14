@@ -1,6 +1,6 @@
 # Remaining work — BananaTalk app
 
-Last updated: 2026-10-13. Keep this current: tick items off in the same commit that finishes them.
+Last updated: 2026-10-14. Keep this current: tick items off in the same commit that finishes them.
 
 See also: backend `language_exchange_backend_application/docs/REMAINING_WORK.md` (server env, prod DB, flags, ops) ·
 web `docs/REMAINING_WORK.md` in the web repo (admin console, `assetlinks.json`, nginx).
@@ -36,6 +36,7 @@ web `docs/REMAINING_WORK.md` in the web repo (admin console, `assetlinks.json`, 
     **The EULA body (terms screen) needs counsel or native review per market** — a higher bar than UI copy.
 11. AdMob earnings: lifetime + last 30 days (the one revenue number not in the DB).
 12. Server-side steps (flags, LiveKit webhook, `APNS_VOIP_*`, droplet `config.env`, prod queries): backend file.
+13. Set `STUDY_HUB_ENABLED=true` after 2.8.0 is live and QA passed (`docs/qa/study-hub-matrix.md`).
 
 ## 3. Device / production QA
 
@@ -93,6 +94,40 @@ Web announcements (backend + web; **no app change**)
 - [ ] QA one real web announcement as a pop-up and one as a banner, logged in and logged out. S
 - [ ] Admin editor shows the App preview slot even when "Show in app and on website" is off. S
 - [ ] Banner style in the app (same `displayStyle` field; the app ignores banners today). M
+
+AI Study hub + floating tab bar (branch `feat/ai-study-hub`)
+- [x] Design approved and spec written: `docs/superpowers/specs/2026-10-13-ai-study-hub-and-tab-bar-design.md`; mockup https://claude.ai/artifact/R1A8GWY8C6cqEMkfs5akEK.
+- [x] Owner approved the spec as written (2026-10-14).
+- [x] Implementation plan: `docs/superpowers/plans/2026-10-14-ai-study-hub.md` (10 tasks: backend config, strings, feature logic, sheet, tiles, sections, hub + flag, tab bar, coffee/clearance, QA).
+- [x] Owner reviewed the plan; executing via subagents.
+- [x] Task 2 done: `AppConfig.studyHubEnabled` / `studyVipOnlyFeatures`, `StudyHubMetrics`, 50 hub strings in 19 locales.
+- [x] Tasks 3–4 done: feature catalogue/badges, upgrade/trial sheet + `study_*` analytics events (`study_upgrade_unlock` method `vip` = tapped through to plans).
+- [x] Task 5 done: `StudyFeatureTile`, `StudyFeatureGroups` (badge-gated taps, persona picker, NEW marking), `ExamStudyScreen`.
+- [x] Task 6 done: `TodayPackRow`, `RecommendedTile`, `SpotlightCarousel` (+`SpotlightDismissStore`, per-account provider reset), `ProgressCard`.
+- [x] Task 7 done: `StudyHub` one-scroll page behind `studyHubEnabled`, old body moved verbatim to `LegacyStudyHub`, new guide ("Your daily language gym", pack + scroll-to-groups), tutor/roleplay reply now records `ActivationAction.lesson`, `FloatingTabBar.clearance` stub.
+- [x] Task 8 done: `FloatingTabBar` widget (active capsule with tab name, 56 high, label colour checked >= 4.5:1, badges on icon / after name), hides on downward scroll (24 px, visible tab only, vertical only), any upward scroll / top / end / tab switch brings it back, hidden while the keyboard is open, `tabReselectProvider` (re-tap active tab) scrolls `StudyHub` to top. Not behind `studyHubEnabled`: every user gets the new bar.
+- [x] Task 9 done: coffee button removed from the tab shell; `SupportSheet` (moved to `lib/pages/profile/support/support_sheet.dart`) opens from a new Profile drawer > Support row; every tab page (learn, AI tools, community tabs, chat list + refresh button, moments feed, reels create FAB) clears the bar with `FloatingTabBar.clearance`; static test guards the literals.
+- [x] Implementation (Tasks 1-10) complete on `feat/ai-study-hub`; QA matrix written: `docs/qa/study-hub-matrix.md`. Merge, version bump and release are owner gates.
+- [x] Reselect scroll-to-top on every tab: `TabReselectScrollToTop` wraps each tab page and scrolls the on-screen vertical lists (Community's visible sub-tab, chat list, moments feed/reels, profile, legacy hub); `StudyHub` keeps its own controller listener. Task 8 review fixes also landed: no capsule overflow at 320/1.3 with badges (count moves onto the icon, then the name drops), the pill hugs its tabs, keyboard close and content shrinking to fit restore a scroll-hidden bar.
+- [ ] Device QA of the tab bar: hide/show feel on iOS + Android, keyboard (chat composer, search fields), no TabsScreen widget test exists (the shell needs every tab's providers). M
+- [ ] Device QA of the hub and tab bar: run every row of `docs/qa/study-hub-matrix.md` (light/dark, SE width, text 1.3, ko + ar RTL, re-tap-to-top on every tab, reels FAB clearance). Widget tests now sweep every new surface for overflow at 320/360/412 × text 1.0/1.3/2.0 × en/de/ru/ko/ar (+ dark en) in the square test font; real fonts and real devices still need the pass. M
+- [x] Final whole-branch review fixes (2026-10-14):
+  - [x] Coin unlocks counted: tiles read the server's new `bonus` (unspent coin unlocks) — exhausted only when remaining + bonus is 0; "N left" shows remaining + bonus. Old servers (no `bonus`) behave as before.
+  - [x] VIP-locked sheet no longer offers a coin unlock (coins can't lift a lock); exhausted sheet's coin unlock pops, refreshes quotas and opens the feature (tested).
+  - [x] `ProgressCard` always shows (placeholders "–" when progress is missing), so its shortcuts stay reachable.
+  - [x] Cold start: neutral loader while app-config loads; legacy hub only on config error or after 1.5 s, and then it stays for that mount (no flash, no swap).
+  - [x] `tabReselectProvider` reset on account switch (session reset registry).
+  - [x] Seen-marking no longer uses `ref` after the tile is gone; upgrade sheet scrolls on small screens / large text.
+  - [x] Overflow sweep `test/learning/study_hub_overflow_sweep_test.dart` (864 cases) — no overflow found beyond the sheet fix.
+- [ ] Deferred minors from the final review (not blocking 2.8.0): hardcoded badge / row colours + dark-mode contrast QA; unread count missing from tab semantics label; inactive badge position in RTL; `didChangeMetrics` setState on every metrics frame; programmatic scrolls can hide the bar; `tabRefreshNotifier` not folded into `tabReselectProvider`; no `TabsScreen` widget test; `SupportSheetState` is public; the no-bottom-literal test misses reels and `SizedBox` spacers; spotlight may repeat the launch pop-up's announcement; `_openPack` is a dead tap while the pack is loading. S each
+- [x] Tab bar padding tightened (side margin 8, no gap between items, capsule padding 10; 48 hit target kept): every English tab name fits whole at 360 pt, text 1.0 (measured with real Roboto in `floating_tab_bar_fit_test`).
+- [ ] Native review of the study hub strings (rows `studyGroup*`, `studyTile*`, `studyBadge*`, `studyUpgrade*`, `guideStudyHub*`, `supportBananaTalkRow*` appended to the CSV in Owner step 10). M
+- [ ] Run the baseline prod queries (feature usage per user, 30 days) before release — not run during design (no prod DB access that session). S
+- [ ] Backend: app-config fields `studyHubEnabled` (default false) + `studyVipOnlyFeatures` (default []) and the quota snapshot `bonus` field are on backend branch `feat/study-hub-config` (7a9a691 + 9d36fe0), not merged or deployed; owner merges and deploys before the app. S
+- [x] Verify each feature's real language support against the backend to fill the coverage table (spec §4.6). S
+- [ ] Delete `LearnTab` / `AIToolsTab` / `LegacyStudyHub` / `practice_entries.dart` / `study_hub_tabs.dart` once `studyHubEnabled` has been on for a full release. S
+- [ ] Per-tab announcement targeting (later, not scheduled). S
+- [ ] Language coverage: backend has no hard English-only restriction, so no tile shows "English only for now"; revisit if content gaps show up in baseline queries. S
 
 Later, gated on dashboard numbers (no work until then)
 - Phase E (weeks 3–8): Boost price test (150 vs 100), coin-pack prices, 3-day VIP trial, interstitial frequency, more rewarded placements, smart sort when 2.6.x+ is the majority.

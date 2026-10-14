@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/widgets/navigation/floating_tab_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -566,7 +567,7 @@ class _GendersTabState extends ConsumerState<GendersTab> {
   Widget _buildUserGrid() {
     return GridView.builder(
       controller: _scrollController,
-      padding: const EdgeInsets.fromLTRB(12, 12, 12, 100),
+      padding: EdgeInsets.fromLTRB(12, 12, 12, FloatingTabBar.clearance(context)),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         childAspectRatio: 0.72,

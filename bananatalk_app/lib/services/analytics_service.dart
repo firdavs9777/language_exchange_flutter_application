@@ -190,6 +190,24 @@ class AnalyticsService {
   Future<void> logNotificationPrimeShown(String trigger) =>
       _log('notification_prime_shown', {'trigger': trigger});
 
+  /// AI Study hub (spec 2026-10-13 §9). [badge] is the tile's badge at tap
+  /// time ('locked' | 'exhausted' | 'low' | 'due' | 'new'), omitted when none.
+  Future<void> studyTileTap({required String feature, String? badge}) =>
+      _log('study_tile_tap', {'feature': feature, 'badge': badge});
+
+  /// [reason] is 'locked' | 'exhausted'.
+  Future<void> studyUpgradeSheetShown({required String feature, required String reason}) =>
+      _log('study_upgrade_sheet_shown', {'feature': feature, 'reason': reason});
+
+  /// [method] is 'coins' | 'vip'.
+  Future<void> studyUpgradeUnlock({required String feature, required String method}) =>
+      _log('study_upgrade_unlock', {'feature': feature, 'method': method});
+
+  Future<void> studySpotlightTap(String id) => _log('study_spotlight_tap', {'id': id});
+
+  Future<void> studyRecommendedTap(String area) =>
+      _log('study_recommended_tap', {'area': area});
+
   /// [result] is 'granted' | 'declined' | 'later'.
   Future<void> logNotificationPrimeResult(String result) =>
       _log('notification_prime_result', {'result': result});

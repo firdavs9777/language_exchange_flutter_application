@@ -11186,4 +11186,168 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get callSelfViewSwapHint => 'Diğer videoyla değiştirmek için iki kez dokunun';
+
+  @override
+  String get studyGroupTalk => 'Konuş';
+
+  @override
+  String get studyGroupPractice => 'Pratik yap';
+
+  @override
+  String get studyGroupPrepare => 'Hazırlan ve yarış';
+
+  @override
+  String get studyTileTutor => 'Yapay Zeka Öğretmeni';
+
+  @override
+  String get studyTileTutorDesc => 'Her şey hakkında sohbet et';
+
+  @override
+  String get studyTileRoleplay => 'Rol yapma';
+
+  @override
+  String get studyTileRoleplayDesc => 'Gerçek hayattan sahneler';
+
+  @override
+  String get studyTileStory => 'Hikâye';
+
+  @override
+  String get studyTileStoryDesc => 'Birlikte hikâye yazın';
+
+  @override
+  String get studyTilePhoto => 'Fotoğraf';
+
+  @override
+  String get studyTilePhotoDesc => 'Fotoğraftan kelime öğren';
+
+  @override
+  String get studyTileSpeak => 'Konuşma';
+
+  @override
+  String get studyTileSpeakDesc => 'Telaffuz kontrolü';
+
+  @override
+  String get studyTileReview => 'Tekrar';
+
+  @override
+  String get studyTileReviewDesc => 'Bugün tekrar edilecek kelimeler';
+
+  @override
+  String get studyTileWriting => 'Yazma';
+
+  @override
+  String get studyTileWritingDesc => 'Dilbilgisi geri bildirimi';
+
+  @override
+  String get studyTileQuizzes => 'Testler';
+
+  @override
+  String get studyTileQuizzesDesc => 'Hızlı yapay zekâ testleri';
+
+  @override
+  String get studyTileExam => 'Sınav hazırlığı';
+
+  @override
+  String get studyTileExamDesc => 'TOPIK, JLPT, IELTS…';
+
+  @override
+  String get studyTileLessons => 'Dersler';
+
+  @override
+  String get studyTileLessonsDesc => 'Adım adım üniteler';
+
+  @override
+  String get studyTileChallenges => 'Meydan okumalar';
+
+  @override
+  String get studyTileChallengesDesc => 'XP için günlük hedefler';
+
+  @override
+  String get studyTileLeaderboard => 'Liderlik tablosu';
+
+  @override
+  String get studyTileLeaderboardDesc => 'Bu haftanın sıralamasını gör';
+
+  @override
+  String get studyBadgeVip => 'VIP';
+
+  @override
+  String studyBadgeLeft(int count) {
+    return '$count hak kaldı';
+  }
+
+  @override
+  String studyBadgeDue(int count) {
+    return '$count tekrar';
+  }
+
+  @override
+  String get studyBadgeNew => 'YENİ';
+
+  @override
+  String get studyEnglishOnly => 'Şimdilik yalnızca İngilizce';
+
+  @override
+  String get studyTodayPack => 'Bugünün paketi';
+
+  @override
+  String get studyTodayStart => 'Başla';
+
+  @override
+  String studyRecommended(String name, int percent) {
+    return 'Senin için: $name — %$percent doğru · 5 dakikalık test';
+  }
+
+  @override
+  String get studyProgressTitle => 'İlerlemen';
+
+  @override
+  String get studyFullReport => 'Tam rapor';
+
+  @override
+  String studyStreakDays(int count) {
+    return '$count günlük seri';
+  }
+
+  @override
+  String studyLevelShort(int level) {
+    return 'Sv $level';
+  }
+
+  @override
+  String studyUpgradeLockedTitle(String feature) {
+    return '$feature bir VIP özelliğidir';
+  }
+
+  @override
+  String studyUpgradeExhaustedTitle(String feature) {
+    return 'Bugünkü $feature hakkını kullandın';
+  }
+
+  @override
+  String get studyUpgradeBenefitUnlimited => 'Her gün sınırsız yapay zekâ pratiği';
+
+  @override
+  String get studyUpgradeBenefitNoAds => 'Uygulamanın her yerinde reklamsız';
+
+  @override
+  String get studyUpgradeGetVip => 'VIP ol — sınırsız';
+
+  @override
+  String get guideStudyHubTitle => 'Günlük dil spor salonun';
+
+  @override
+  String get guideStudyHubBody => 'Her gün 5 dakikalık bir paket, konuşmak istediğinde de yapay zekâ öğretmeni.';
+
+  @override
+  String get guideStudyHubCta => 'Bugünün paketini başlat';
+
+  @override
+  String get guideStudyHubSecondary => 'Tüm özellikleri gör';
+
+  @override
+  String get supportBananaTalkRow => 'BananaTalk\'a destek ol';
+
+  @override
+  String get supportBananaTalkRowSubtitle => 'Tek başına çalışan bir geliştiricinin devam etmesine yardım et';
 }

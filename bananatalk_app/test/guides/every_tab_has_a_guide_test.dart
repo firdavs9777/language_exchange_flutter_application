@@ -22,7 +22,13 @@ void main() {
   /// and must not be merged into the generic `guide_shown`.
   const tabs = <String, ({String file, String mounts})>{
     'AI Study': (
-      file: 'lib/pages/learning/main/learning_main_screen.dart',
+      file: 'lib/pages/learning/main/study_hub.dart',
+      mounts: 'GuideSurface.aiStudy',
+    ),
+    // Rendered while `studyHubEnabled` is off; must keep its guide until
+    // it is deleted.
+    'AI Study (legacy)': (
+      file: 'lib/pages/learning/main/legacy_study_hub.dart',
       mounts: 'GuideSurface.aiStudy',
     ),
     'Community / Matches': (

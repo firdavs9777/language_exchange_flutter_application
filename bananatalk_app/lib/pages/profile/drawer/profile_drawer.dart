@@ -39,6 +39,7 @@ import 'package:bananatalk_app/pages/profile/widgets/profile_snackbar.dart';
 import 'package:bananatalk_app/pages/profile/drawer/about_dialog.dart';
 import 'package:bananatalk_app/pages/profile/drawer/drawer_section.dart';
 import 'package:bananatalk_app/pages/profile/drawer/logout_dialog.dart';
+import 'package:bananatalk_app/pages/profile/support/support_sheet.dart';
 
 class LeftDrawer extends ConsumerWidget {
   final Community user;
@@ -415,6 +416,17 @@ class LeftDrawer extends ConsumerWidget {
                         onTap: () {
                           Navigator.pop(context);
                           _showHelpCenterDialog(context);
+                        },
+                      ),
+                      const DrawerDivider(),
+                      DrawerMenuItem(
+                        icon: Icons.local_cafe_rounded,
+                        iconColor: const Color(0xFFF59E0B),
+                        title: l10n.supportBananaTalkRow,
+                        subtitle: l10n.supportBananaTalkRowSubtitle,
+                        onTap: () {
+                          Navigator.pop(context);
+                          SupportSheet.show(context);
                         },
                       ),
                       const DrawerDivider(),

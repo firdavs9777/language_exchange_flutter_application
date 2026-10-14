@@ -12,6 +12,9 @@ import 'package:bananatalk_app/pages/moments/feed/moments_main.dart';
 import 'package:bananatalk_app/pages/moments/feed/muted_users_provider.dart';
 import 'package:bananatalk_app/providers/missed_calls_provider.dart';
 import 'package:bananatalk_app/services/call_history_service.dart';
+import 'package:bananatalk_app/pages/learning/main/sections/spotlight_carousel.dart';
+import 'package:bananatalk_app/services/feature_seen_store.dart';
+import 'package:bananatalk_app/widgets/navigation/floating_tab_bar.dart';
 import 'package:bananatalk_app/providers/active_voice_room_count_provider.dart';
 import 'package:bananatalk_app/providers/ad_providers.dart';
 import 'package:bananatalk_app/providers/app_provider_container.dart';
@@ -94,6 +97,8 @@ final Map<String, ProviderOrFamily> userScopedProviders = {
   // Page guides: "has THIS user already done it" and "did we count a view
   // this run" are both per account, same reason as the three above.
   'guideStateProvider': guideStateProvider,
+  'featureSeenProvider': featureSeenProvider,
+  'spotlightDismissedProvider': spotlightDismissedProvider,
   'guideRecordedProvider': guideRecordedProvider,
   // Activation milestones (spec 2026-10-12 §3.1). The prefs are removed by
   // clearUserSessionPrefs (not device-level); these drop the cached reads.
@@ -249,6 +254,8 @@ final Map<String, ProviderOrFamily> userScopedProviders = {
   'examStudyTipsProvider': examStudyTipsProvider,
   // Navigation: the next account starts on the first tab.
   'selectedTabProvider': selectedTabProvider,
+  // A pending reselect from the last account must not scroll the next one.
+  'tabReselectProvider': tabReselectProvider,
 };
 
 /// Providers deliberately NOT reset: device/app-level, public catalogs, or
