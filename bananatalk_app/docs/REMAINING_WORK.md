@@ -104,7 +104,7 @@ AI Study hub + floating tab bar (branch `feat/ai-study-hub`)
 - [ ] Native review of the study hub strings (rows `studyGroup*`, `studyTile*`, `studyBadge*`, `studyUpgrade*`, `guideStudyHub*`, `supportBananaTalkRow*` appended to the CSV in Owner step 10). M
 - [ ] Run the baseline prod queries (feature usage per user, 30 days) before release — not run during design (no prod DB access that session). S
 - [ ] Backend: app-config fields `studyHubEnabled` (default false) + `studyVipOnlyFeatures` (default []); deploy before the app. S
-- [ ] Verify each feature's real language support against the backend to fill the coverage table (spec §4.6). S
+- [x] Verify each feature's real language support against the backend to fill the coverage table (spec §4.6). S
 - [ ] Delete old `LearnTab` / `AIToolsTab` once `studyHubEnabled` has been on for a full release. S
 
 Later, gated on dashboard numbers (no work until then)

@@ -169,7 +169,24 @@ in grid order; the rest show none until earlier ones are opened.
 the app already receives (exam languages, pronunciation language list, lesson-builder
 `supportedLanguages`, daily-pack `needsLanguage`). Features with no source → `unknown` → no note.
 When `englishOnly`, the tile description becomes "English only for now" (tile stays tappable). The
-plan's first task verifies each feature's real support against the backend and fills the table.
+plan's first task verified each feature's real support against the backend (2026-10-14):
+
+| Feature | Backend finding | Coverage |
+|---|---|---|
+| tutor | `controllers/tutor.js` takes `language_to_learn` from the user; no language allow-list | unknown (unrestricted) |
+| roleplay | `aiConversation.js` takes any `targetLanguage`; no allow-list | unknown (unrestricted) |
+| story | `story.js` route; no language gate found | unknown |
+| photo | no language gate found | unknown |
+| speak | `speech.js`: `language` is required but not validated against a list; voices resolved per language | unknown (unrestricted) |
+| review | not language-gated | unknown |
+| writing | `grammarFeedback.js` uses `targetLanguage` from user/body; no allow-list | unknown (unrestricted) |
+| quizzes | AI quiz uses user target language; no allow-list | unknown |
+| exam | `/exam-study/languages` list (dynamic, `examLanguagesProvider`) | supported / unknown |
+| lessons | lesson builder lists 11 languages (en es fr de it pt ru zh ja ko ar) as UI choices only; not enforced | unknown |
+| challenges, leaderboard | language-independent | unknown |
+
+No hard English-only restriction exists in code, so `_staticLanguageSupport` is empty and
+`englishOnly` is never produced yet; the mechanism is kept for future restrictions.
 
 ## 5. Recommended tile
 
