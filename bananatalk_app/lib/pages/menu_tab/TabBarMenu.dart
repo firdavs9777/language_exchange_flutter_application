@@ -1,5 +1,4 @@
 import 'package:bananatalk_app/pages/chat/list/chat_list_screen.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:bananatalk_app/services/ad_service.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:bananatalk_app/pages/moments/feed/moments_main.dart';
@@ -21,9 +20,7 @@ import 'package:bananatalk_app/pages/coins/coin_shop_screen.dart';
 import 'package:bananatalk_app/services/promo_service.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
-import 'package:bananatalk_app/utils/theme_extensions.dart';
-import 'package:bananatalk_app/core/theme/app_theme.dart';
-import 'dart:ui';
+import 'package:bananatalk_app/widgets/navigation/floating_tab_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -160,8 +157,9 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
     await Future<void>.delayed(const Duration(seconds: 1));
     if (!mounted || !_isCurrentRoute) return;
 
-    final guidePeriod =
-        await launchGuidePeriod(() => ref.read(isGuidePeriodProvider.future));
+    final guidePeriod = await launchGuidePeriod(
+      () => ref.read(isGuidePeriodProvider.future),
+    );
     AppConfig? config;
     try {
       config = await ref.read(appConfigProvider.future);
@@ -171,17 +169,19 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
     if (!mounted || !_isCurrentRoute) return;
 
     final store = ref.read(activationStoreProvider);
-    await LaunchModalCoordinator(standardLaunchCandidates(
-      config: config,
-      pickSpotlight: () async {
-        final lessonDone = await store.isDone(ActivationAction.lesson);
-        if (!mounted || !_isCurrentRoute) return null;
-        final promo = await pickPromo(ref, lessonDone: lessonDone);
-        if (!mounted || !_isCurrentRoute) return null;
-        return promo;
-      },
-      onSpotlightTry: _openPromoDestination,
-    )).run(
+    await LaunchModalCoordinator(
+      standardLaunchCandidates(
+        config: config,
+        pickSpotlight: () async {
+          final lessonDone = await store.isDone(ActivationAction.lesson);
+          if (!mounted || !_isCurrentRoute) return null;
+          final promo = await pickPromo(ref, lessonDone: lessonDone);
+          if (!mounted || !_isCurrentRoute) return null;
+          return promo;
+        },
+        onSpotlightTry: _openPromoDestination,
+      ),
+    ).run(
       context,
       guidePeriod: guidePeriod,
       updateShown: VersionCheckCoordinator.lastCheckShowedUpdate,
@@ -234,8 +234,24 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
   // Notifiers for each tab to trigger silent refresh
   final ValueNotifier<int> _tabRefreshNotifier = ValueNotifier(0);
 
+  /// Hide-on-scroll state for the floating bar (spec §8.2).
+  final BarScrollState _barScroll = BarScrollState();
+  bool _barVisible = true;
+
+  void _showBar() {
+    _barScroll.reset();
+    if (!_barVisible) setState(() => _barVisible = true);
+  }
+
   void _selectPage(int index) {
     HapticFeedback.selectionClick();
+
+    // Re-tapping the active tab asks that tab to scroll to its top.
+    if (index == ref.read(selectedTabProvider)) {
+      final reselect = ref.read(tabReselectProvider.notifier);
+      reselect.state = (tab: index, seq: reselect.state.seq + 1);
+    }
+    _showBar();
 
     // Auto-heal: if userProvider is in error, invalidate it on any tab tap
     // so the next provider read gets a fresh fetch from auth/me.
@@ -266,7 +282,11 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
         .maybeWhen(data: (n) => n, orElse: () => 0);
     final messageCount = badgeCount.messages + pendingIntrosCount;
     final selectedPageIndex = ref.watch(selectedTabProvider);
-    final isDark = context.isDarkMode;
+    final l = AppLocalizations.of(context)!;
+    // Any tab switch — a tap, a deep link, Android back — brings the bar back.
+    ref.listen(selectedTabProvider, (prev, next) {
+      if (prev != next) _showBar();
+    });
     final bottomPadding = MediaQuery.of(context).padding.bottom;
     // Profile tab shows the user's own avatar (IG-style); falls back to the
     // person icon while loading / on error / when no photo is set.
@@ -307,7 +327,19 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
                   curve: Curves.easeOut,
                   child: IgnorePointer(
                     ignoring: !isSelected,
-                    child: _pages[index],
+                    // Hidden tabs stay alive and can still scroll (a chat
+                    // list receiving a message), so only the visible tab's
+                    // scrolling moves the bar.
+                    child: NotificationListener<ScrollNotification>(
+                      onNotification: (n) {
+                        if (index == ref.read(selectedTabProvider) &&
+                            _barScroll.onNotification(n)) {
+                          setState(() => _barVisible = _barScroll.visible);
+                        }
+                        return false;
+                      },
+                      child: _pages[index],
+                    ),
                   ),
                 );
               }),
@@ -319,243 +351,51 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
               child: _CoffeeButton(),
             ),
 
-            // Floating "swimming" pill tab bar — icon-only, hugs its content.
-            Positioned(
-              left: 0,
-              right: 0,
-              bottom: bottomPadding > 0 ? bottomPadding - 4 : 8,
-              child: Center(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(30),
-                  child: BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
-                    child: Container(
-                      height: 60,
-                      padding: const EdgeInsets.symmetric(horizontal: 6),
-                      decoration: BoxDecoration(
-                        color: isDark
-                            ? const Color(0xFF1C1C2E).withValues(alpha: 0.92)
-                            : Colors.white.withValues(alpha: 0.92),
-                        borderRadius: BorderRadius.circular(30),
-                        border: Border.all(
-                          color: isDark
-                              ? Colors.white.withValues(alpha: 0.08)
-                              : Colors.black.withValues(alpha: 0.06),
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: isDark
-                                ? Colors.black.withValues(alpha: 0.4)
-                                : Colors.black.withValues(alpha: 0.08),
-                            blurRadius: 24,
-                            offset: const Offset(0, 4),
-                            spreadRadius: -2,
-                          ),
-                        ],
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          _buildNavItem(
-                            index: 0,
-                            icon: Icons.menu_book_outlined,
-                            activeIcon: Icons.menu_book_rounded,
-                            isDark: isDark,
-                          ),
-                          _buildNavItem(
-                            index: 1,
-                            icon: Icons.explore_outlined,
-                            activeIcon: Icons.explore_rounded,
-                            isDark: isDark,
-                          ),
-                          _buildNavItem(
-                            index: 2,
-                            icon: Icons.chat_bubble_outline_rounded,
-                            activeIcon: Icons.chat_bubble_rounded,
-                            imageAsset: 'assets/images/logo_mark_ios.png',
-                            badgeCount: messageCount,
-                            isDark: isDark,
-                          ),
-                          _buildNavItem(
-                            index: 3,
-                            icon: Icons.auto_awesome_outlined,
-                            activeIcon: Icons.auto_awesome_rounded,
-                            isDark: isDark,
-                          ),
-                          _buildNavItem(
-                            index: 4,
-                            icon: Icons.person_outline_rounded,
-                            activeIcon: Icons.person_rounded,
-                            avatarUrl: profileAvatarUrl,
-                            badgeCount: badgeCount.notifications,
-                            isDark: isDark,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+            FloatingTabBar(
+              selected: selectedPageIndex,
+              visible: _barVisible,
+              onSelect: _selectPage,
+              items: [
+                FloatingTabItem(
+                  icon: Icons.menu_book_outlined,
+                  activeIcon: Icons.menu_book_rounded,
+                  label: l.study,
+                  color: const Color(0xFF8B5CF6),
                 ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildNavItem({
-    required int index,
-    required IconData icon,
-    required IconData activeIcon,
-    required bool isDark,
-    String? imageAsset,
-    String? avatarUrl,
-    int badgeCount = 0,
-  }) {
-    final isSelected = ref.watch(selectedTabProvider) == index;
-
-    // Each tab gets a unique accent color when active
-    final Color activeColor = _getTabColor(index);
-    final Color inactiveColor = isDark
-        ? Colors.white.withValues(alpha: 0.4)
-        : Colors.black.withValues(alpha: 0.35);
-
-    return GestureDetector(
-      onTap: () => _selectPage(index),
-      behavior: HitTestBehavior.opaque,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 9),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // Icon with badge — selected state = contrast circle bubble
-            // behind the icon (Instagram-style), no dot/label.
-            Stack(
-              clipBehavior: Clip.none,
-              children: [
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 220),
-                  curve: Curves.easeOutCubic,
-                  width: 46,
-                  height: 46,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: isSelected
-                        ? (isDark
-                              ? Colors.white.withValues(alpha: 0.12)
-                              : Colors.black.withValues(alpha: 0.07))
-                        : Colors.transparent,
-                  ),
-                  child: Center(
-                    child: avatarUrl != null
-                        // Own-profile avatar (IG-style) with an accent ring
-                        // when selected.
-                        ? AnimatedContainer(
-                            duration: const Duration(milliseconds: 220),
-                            padding: const EdgeInsets.all(2),
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: isSelected
-                                    ? activeColor
-                                    : Colors.transparent,
-                                width: 2,
-                              ),
-                            ),
-                            child: CircleAvatar(
-                              radius: 11.5,
-                              backgroundColor: inactiveColor,
-                              backgroundImage: CachedNetworkImageProvider(
-                                avatarUrl,
-                              ),
-                            ),
-                          )
-                        : imageAsset != null
-                        // Branded tab: the app icon itself. It's full-colour so
-                        // it can't tint with selection — dim it when inactive so
-                        // the active state still reads clearly.
-                        ? AnimatedOpacity(
-                            duration: const Duration(milliseconds: 250),
-                            opacity: isSelected ? 1.0 : 0.45,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(6),
-                              child: Image.asset(
-                                imageAsset,
-                                width: 27,
-                                height: 27,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          )
-                        : Icon(
-                            isSelected ? activeIcon : icon,
-                            size: 27,
-                            color: isSelected ? activeColor : inactiveColor,
-                          ),
-                  ),
+                FloatingTabItem(
+                  icon: Icons.explore_outlined,
+                  activeIcon: Icons.explore_rounded,
+                  label: l.community,
+                  color: const Color(0xFF00BFA5),
                 ),
-                if (badgeCount > 0)
-                  Positioned(
-                    right: -7,
-                    top: -4,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 5,
-                        vertical: 1.5,
-                      ),
-                      decoration: BoxDecoration(
-                        color: AppColors.error,
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(
-                          color: isDark
-                              ? const Color(0xFF1C1C2E)
-                              : Colors.white,
-                          width: 1.5,
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: AppColors.error.withValues(alpha: 0.4),
-                            blurRadius: 6,
-                            offset: const Offset(0, 2),
-                          ),
-                        ],
-                      ),
-                      constraints: const BoxConstraints(minWidth: 18),
-                      child: Text(
-                        badgeCount > 99 ? '99+' : '$badgeCount',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 9.5,
-                          fontWeight: FontWeight.w700,
-                          height: 1.2,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ),
+                FloatingTabItem(
+                  icon: Icons.chat_bubble_outline_rounded,
+                  activeIcon: Icons.chat_bubble_rounded,
+                  imageAsset: 'assets/images/logo_mark_ios.png',
+                  label: l.chats,
+                  color: const Color(0xFF667EEA),
+                  badgeCount: messageCount,
+                ),
+                FloatingTabItem(
+                  icon: Icons.auto_awesome_outlined,
+                  activeIcon: Icons.auto_awesome_rounded,
+                  label: l.moments,
+                  color: const Color(0xFFFF6B6B),
+                ),
+                FloatingTabItem(
+                  icon: Icons.person_outline_rounded,
+                  activeIcon: Icons.person_rounded,
+                  avatarUrl: profileAvatarUrl,
+                  label: l.profile,
+                  color: const Color(0xFFF59E0B),
+                  badgeCount: badgeCount.notifications,
+                ),
               ],
             ),
           ],
         ),
       ),
     );
-  }
-
-  Color _getTabColor(int index) {
-    switch (index) {
-      case 0:
-        return const Color(0xFF8B5CF6);
-      case 1:
-        return const Color(0xFF00BFA5);
-      case 2:
-        return const Color(0xFF667EEA);
-      case 3:
-        return const Color(0xFFFF6B6B);
-      case 4:
-        return const Color(0xFFF59E0B);
-      default:
-        return AppColors.primary;
-    }
   }
 }
 

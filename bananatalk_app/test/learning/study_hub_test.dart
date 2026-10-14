@@ -37,6 +37,7 @@ import 'package:bananatalk_app/providers/tutor_quota_provider.dart';
 import 'package:bananatalk_app/services/feature_seen_store.dart';
 import 'package:bananatalk_app/services/guide_store.dart';
 import 'package:bananatalk_app/widgets/guides/guide_card.dart';
+import 'package:bananatalk_app/widgets/navigation/floating_tab_bar.dart';
 
 import '../helpers/community_fixture.dart';
 
@@ -275,6 +276,39 @@ void main() {
       expect(t.takeException(), isNull);
     },
   );
+
+  testWidgets('re-tapping the AI Study tab scrolls the hub to the top', (
+    t,
+  ) async {
+    t.view.physicalSize = const Size(390, 480);
+    t.view.devicePixelRatio = 1;
+    addTearDown(t.view.reset);
+
+    await pump(t, true);
+    final scrollable = find
+        .descendant(
+          of: find.byType(CustomScrollView),
+          matching: find.byType(Scrollable),
+        )
+        .first;
+    ScrollPosition position() => t.state<ScrollableState>(scrollable).position;
+
+    position().jumpTo(600);
+    await t.pump();
+    expect(position().pixels, 600);
+
+    final container = ProviderScope.containerOf(
+      t.element(find.byType(StudyHub)),
+    );
+    // Another tab's reselect leaves the hub alone.
+    container.read(tabReselectProvider.notifier).state = (tab: 2, seq: 1);
+    await t.pumpAndSettle();
+    expect(position().pixels, 600);
+
+    container.read(tabReselectProvider.notifier).state = (tab: 0, seq: 2);
+    await t.pumpAndSettle();
+    expect(position().pixels, 0);
+  });
 
   group('header language chip (spec §3)', () {
     testWidgets('shows the target language with the CEFR level', (t) async {

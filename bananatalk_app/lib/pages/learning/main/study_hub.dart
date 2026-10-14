@@ -119,6 +119,17 @@ class _StudyHubState extends ConsumerState<StudyHub> {
     final progress = ref.watch(learningProgressProvider).valueOrNull;
     final showAds = ref.watch(showAdsProvider);
 
+    // Re-tapping the AI Study tab (index 0) scrolls back to the top.
+    ref.listen(tabReselectProvider, (_, next) {
+      if (next.tab == 0 && _scroll.hasClients) {
+        _scroll.animateTo(
+          0,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeOutCubic,
+        );
+      }
+    });
+
     return Scaffold(
       backgroundColor: context.scaffoldBackground,
       body: RefreshIndicator(

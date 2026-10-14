@@ -104,7 +104,10 @@ AI Study hub + floating tab bar (branch `feat/ai-study-hub`)
 - [x] Task 5 done: `StudyFeatureTile`, `StudyFeatureGroups` (badge-gated taps, persona picker, NEW marking), `ExamStudyScreen`.
 - [x] Task 6 done: `TodayPackRow`, `RecommendedTile`, `SpotlightCarousel` (+`SpotlightDismissStore`, per-account provider reset), `ProgressCard`.
 - [x] Task 7 done (hub screen done, tab bar pending): `StudyHub` one-scroll page behind `studyHubEnabled`, old body moved verbatim to `LegacyStudyHub`, new guide ("Your daily language gym", pack + scroll-to-groups), tutor/roleplay reply now records `ActivationAction.lesson`, `FloatingTabBar.clearance` stub.
-- [ ] **Next (resume here):** Tasks 8–10 (floating tab bar + reselect scroll-to-top in `StudyHub`, coffee removal/clearance, QA). L
+- [x] Task 8 done: `FloatingTabBar` widget (active capsule with tab name, 56 high, label colour checked >= 4.5:1, badges on icon / after name), hides on downward scroll (24 px, visible tab only, vertical only), any upward scroll / top / end / tab switch brings it back, hidden while the keyboard is open, `tabReselectProvider` (re-tap active tab) scrolls `StudyHub` to top. Not behind `studyHubEnabled`: every user gets the new bar.
+- [ ] **Next (resume here):** Tasks 9–10 (coffee removal + shared `FloatingTabBar.clearance` replacing the `bottom: 100` literals, QA). M
+- [ ] Reselect scroll-to-top for Community, Chats, Moments, Profile and the legacy hub: only `StudyHub` listens to `tabReselectProvider` today. S
+- [ ] Device QA of the tab bar: hide/show feel on iOS + Android, keyboard (chat composer, search fields), no TabsScreen widget test exists (the shell needs every tab's providers). M
 - [ ] Device QA of the hub: light/dark, iPhone SE width, text scale 1.3, Korean + Arabic (RTL); widget tests cover 320/1.3 overflow only. M
 - [ ] Native review of the study hub strings (rows `studyGroup*`, `studyTile*`, `studyBadge*`, `studyUpgrade*`, `guideStudyHub*`, `supportBananaTalkRow*` appended to the CSV in Owner step 10). M
 - [ ] Run the baseline prod queries (feature usage per user, 30 days) before release — not run during design (no prod DB access that session). S
