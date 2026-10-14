@@ -100,7 +100,8 @@ AI Study hub + floating tab bar (branch `feat/ai-study-hub`)
 - [x] Implementation plan: `docs/superpowers/plans/2026-10-14-ai-study-hub.md` (10 tasks: backend config, strings, feature logic, sheet, tiles, sections, hub + flag, tab bar, coffee/clearance, QA).
 - [x] Owner reviewed the plan; executing via subagents.
 - [x] Task 2 done: `AppConfig.studyHubEnabled` / `studyVipOnlyFeatures`, `StudyHubMetrics`, 50 hub strings in 19 locales.
-- [ ] **Next (resume here):** Tasks 3–10 (feature logic, sheet, tiles, sections, hub + flag, tab bar, coffee/clearance, QA). L
+- [x] Tasks 3–4 done: feature catalogue/badges, upgrade/trial sheet + `study_*` analytics events (`study_upgrade_unlock` method `vip` = tapped through to plans).
+- [ ] **Next (resume here):** Tasks 5–10 (tile grid, sections, hub + flag, tab bar, coffee/clearance, QA). L
 - [ ] Native review of the study hub strings (rows `studyGroup*`, `studyTile*`, `studyBadge*`, `studyUpgrade*`, `guideStudyHub*`, `supportBananaTalkRow*` appended to the CSV in Owner step 10). M
 - [ ] Run the baseline prod queries (feature usage per user, 30 days) before release — not run during design (no prod DB access that session). S
 - [ ] Backend: app-config fields `studyHubEnabled` (default false) + `studyVipOnlyFeatures` (default []); deploy before the app. S
