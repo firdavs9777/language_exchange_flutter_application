@@ -98,7 +98,10 @@ AI Study hub + floating tab bar (branch `feat/ai-study-hub`)
 - [x] Design approved and spec written: `docs/superpowers/specs/2026-10-13-ai-study-hub-and-tab-bar-design.md`; mockup https://claude.ai/artifact/R1A8GWY8C6cqEMkfs5akEK.
 - [x] Owner approved the spec as written (2026-10-14).
 - [x] Implementation plan: `docs/superpowers/plans/2026-10-14-ai-study-hub.md` (10 tasks: backend config, strings, feature logic, sheet, tiles, sections, hub + flag, tab bar, coffee/clearance, QA).
-- [ ] **Next (resume here):** owner reviews the plan and picks an execution method; then implement Tasks 1–10. L
+- [x] Owner reviewed the plan; executing via subagents.
+- [x] Task 2 done: `AppConfig.studyHubEnabled` / `studyVipOnlyFeatures`, `StudyHubMetrics`, 50 hub strings in 19 locales.
+- [ ] **Next (resume here):** Tasks 3–10 (feature logic, sheet, tiles, sections, hub + flag, tab bar, coffee/clearance, QA). L
+- [ ] Native review of the study hub strings (rows `studyGroup*`, `studyTile*`, `studyBadge*`, `studyUpgrade*`, `guideStudyHub*`, `supportBananaTalkRow*` appended to the CSV in Owner step 10). M
 - [ ] Run the baseline prod queries (feature usage per user, 30 days) before release — not run during design (no prod DB access that session). S
 - [ ] Backend: app-config fields `studyHubEnabled` (default false) + `studyVipOnlyFeatures` (default []); deploy before the app. S
 - [ ] Verify each feature's real language support against the backend to fill the coverage table (spec §4.6). S

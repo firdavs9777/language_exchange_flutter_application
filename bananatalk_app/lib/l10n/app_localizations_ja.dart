@@ -11169,4 +11169,168 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get callSelfViewSwapHint => 'ダブルタップで相手の映像と入れ替えます';
+
+  @override
+  String get studyGroupTalk => '話す';
+
+  @override
+  String get studyGroupPractice => '練習';
+
+  @override
+  String get studyGroupPrepare => '準備＆挑戦';
+
+  @override
+  String get studyTileTutor => 'AIチューター';
+
+  @override
+  String get studyTileTutorDesc => '何でも話そう';
+
+  @override
+  String get studyTileRoleplay => 'ロールプレイ';
+
+  @override
+  String get studyTileRoleplayDesc => '実生活の場面';
+
+  @override
+  String get studyTileStory => 'ストーリー';
+
+  @override
+  String get studyTileStoryDesc => '一緒に物語を作ろう';
+
+  @override
+  String get studyTilePhoto => '写真';
+
+  @override
+  String get studyTilePhotoDesc => '写真から単語を学ぶ';
+
+  @override
+  String get studyTileSpeak => 'スピーキング';
+
+  @override
+  String get studyTileSpeakDesc => '発音チェック';
+
+  @override
+  String get studyTileReview => '復習';
+
+  @override
+  String get studyTileReviewDesc => '今日の単語';
+
+  @override
+  String get studyTileWriting => 'ライティング';
+
+  @override
+  String get studyTileWritingDesc => '文法フィードバック';
+
+  @override
+  String get studyTileQuizzes => 'クイズ';
+
+  @override
+  String get studyTileQuizzesDesc => 'サクッとAIクイズ';
+
+  @override
+  String get studyTileExam => '試験対策';
+
+  @override
+  String get studyTileExamDesc => 'TOPIK, JLPT, IELTS…';
+
+  @override
+  String get studyTileLessons => 'レッスン';
+
+  @override
+  String get studyTileLessonsDesc => 'ステップごとのユニット';
+
+  @override
+  String get studyTileChallenges => 'チャレンジ';
+
+  @override
+  String get studyTileChallengesDesc => '毎日の目標でXPを獲得';
+
+  @override
+  String get studyTileLeaderboard => 'ランキング';
+
+  @override
+  String get studyTileLeaderboardDesc => '今週の順位を見る';
+
+  @override
+  String get studyBadgeVip => 'VIP';
+
+  @override
+  String studyBadgeLeft(int count) {
+    return '残り$count';
+  }
+
+  @override
+  String studyBadgeDue(int count) {
+    return '$count件';
+  }
+
+  @override
+  String get studyBadgeNew => 'NEW';
+
+  @override
+  String get studyEnglishOnly => '今は英語のみ';
+
+  @override
+  String get studyTodayPack => '今日のパック';
+
+  @override
+  String get studyTodayStart => 'スタート';
+
+  @override
+  String studyRecommended(String name, int percent) {
+    return 'あなたへ：$name — 正答率$percent% · 5分クイズ';
+  }
+
+  @override
+  String get studyProgressTitle => '学習の進捗';
+
+  @override
+  String get studyFullReport => '詳しいレポート';
+
+  @override
+  String studyStreakDays(int count) {
+    return '$count日連続';
+  }
+
+  @override
+  String studyLevelShort(int level) {
+    return 'Lv $level';
+  }
+
+  @override
+  String studyUpgradeLockedTitle(String feature) {
+    return '$featureはVIP機能です';
+  }
+
+  @override
+  String studyUpgradeExhaustedTitle(String feature) {
+    return '今日の$featureを使い切りました';
+  }
+
+  @override
+  String get studyUpgradeBenefitUnlimited => '毎日AI練習が無制限';
+
+  @override
+  String get studyUpgradeBenefitNoAds => 'アプリ内の広告なし';
+
+  @override
+  String get studyUpgradeGetVip => 'VIPになる — 無制限';
+
+  @override
+  String get guideStudyHubTitle => '毎日の語学ジム';
+
+  @override
+  String get guideStudyHubBody => '毎日5分のパックと、話したいときのAIチューター。';
+
+  @override
+  String get guideStudyHubCta => '今日のパックを始める';
+
+  @override
+  String get guideStudyHubSecondary => 'すべての機能を見る';
+
+  @override
+  String get supportBananaTalkRow => 'BananaTalkを応援';
+
+  @override
+  String get supportBananaTalkRowSubtitle => '個人開発者の開発を支えてください';
 }

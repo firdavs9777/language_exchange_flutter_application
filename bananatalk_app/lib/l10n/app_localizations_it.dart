@@ -11188,4 +11188,168 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get callSelfViewSwapHint => 'Tocca due volte per scambiare con l\'altro video';
+
+  @override
+  String get studyGroupTalk => 'Parla';
+
+  @override
+  String get studyGroupPractice => 'Esercitati';
+
+  @override
+  String get studyGroupPrepare => 'Preparati e sfida';
+
+  @override
+  String get studyTileTutor => 'Tutor IA';
+
+  @override
+  String get studyTileTutorDesc => 'Chiacchiera di qualsiasi cosa';
+
+  @override
+  String get studyTileRoleplay => 'Giochi di ruolo';
+
+  @override
+  String get studyTileRoleplayDesc => 'Scene di vita reale';
+
+  @override
+  String get studyTileStory => 'Storia';
+
+  @override
+  String get studyTileStoryDesc => 'Scrivete una storia insieme';
+
+  @override
+  String get studyTilePhoto => 'Foto';
+
+  @override
+  String get studyTilePhotoDesc => 'Impara parole da una foto';
+
+  @override
+  String get studyTileSpeak => 'Parlato';
+
+  @override
+  String get studyTileSpeakDesc => 'Controllo della pronuncia';
+
+  @override
+  String get studyTileReview => 'Ripasso';
+
+  @override
+  String get studyTileReviewDesc => 'Parole di oggi';
+
+  @override
+  String get studyTileWriting => 'Scrittura';
+
+  @override
+  String get studyTileWritingDesc => 'Feedback di grammatica';
+
+  @override
+  String get studyTileQuizzes => 'Quiz';
+
+  @override
+  String get studyTileQuizzesDesc => 'Quiz IA veloci';
+
+  @override
+  String get studyTileExam => 'Preparazione esami';
+
+  @override
+  String get studyTileExamDesc => 'TOPIK, JLPT, IELTS…';
+
+  @override
+  String get studyTileLessons => 'Lezioni';
+
+  @override
+  String get studyTileLessonsDesc => 'Unità passo dopo passo';
+
+  @override
+  String get studyTileChallenges => 'Sfide';
+
+  @override
+  String get studyTileChallengesDesc => 'Obiettivi giornalieri per gli XP';
+
+  @override
+  String get studyTileLeaderboard => 'Classifica';
+
+  @override
+  String get studyTileLeaderboardDesc => 'Guarda la classifica della settimana';
+
+  @override
+  String get studyBadgeVip => 'VIP';
+
+  @override
+  String studyBadgeLeft(int count) {
+    return '$count rimasti';
+  }
+
+  @override
+  String studyBadgeDue(int count) {
+    return '$count da ripassare';
+  }
+
+  @override
+  String get studyBadgeNew => 'NUOVO';
+
+  @override
+  String get studyEnglishOnly => 'Per ora solo inglese';
+
+  @override
+  String get studyTodayPack => 'Pacchetto di oggi';
+
+  @override
+  String get studyTodayStart => 'Inizia';
+
+  @override
+  String studyRecommended(String name, int percent) {
+    return 'Per te: $name — $percent% corrette · quiz da 5 min';
+  }
+
+  @override
+  String get studyProgressTitle => 'I tuoi progressi';
+
+  @override
+  String get studyFullReport => 'Report completo';
+
+  @override
+  String studyStreakDays(int count) {
+    return 'Serie di $count giorni';
+  }
+
+  @override
+  String studyLevelShort(int level) {
+    return 'Liv. $level';
+  }
+
+  @override
+  String studyUpgradeLockedTitle(String feature) {
+    return '$feature è una funzione VIP';
+  }
+
+  @override
+  String studyUpgradeExhaustedTitle(String feature) {
+    return 'Hai usato $feature per oggi';
+  }
+
+  @override
+  String get studyUpgradeBenefitUnlimited => 'Pratica IA illimitata ogni giorno';
+
+  @override
+  String get studyUpgradeBenefitNoAds => 'Nessuna pubblicità in tutta l\'app';
+
+  @override
+  String get studyUpgradeGetVip => 'Passa a VIP — illimitato';
+
+  @override
+  String get guideStudyHubTitle => 'La tua palestra di lingue quotidiana';
+
+  @override
+  String get guideStudyHubBody => 'Un pacchetto da 5 minuti al giorno, più un tutor IA quando vuoi parlare.';
+
+  @override
+  String get guideStudyHubCta => 'Inizia il pacchetto di oggi';
+
+  @override
+  String get guideStudyHubSecondary => 'Vedi tutte le funzioni';
+
+  @override
+  String get supportBananaTalkRow => 'Sostieni BananaTalk';
+
+  @override
+  String get supportBananaTalkRowSubtitle => 'Aiuta uno sviluppatore indipendente a continuare';
 }

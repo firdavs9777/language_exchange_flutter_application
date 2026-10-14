@@ -124,6 +124,14 @@ class AppConfig {
   /// the legacy "too many waves" path runs exactly as before.
   final bool waveCapEnabled;
 
+  /// AI Study one-scroll hub (spec 2026-10-13 §10). Off by default: an older
+  /// server keeps the three sub-tabs.
+  final bool studyHubEnabled;
+
+  /// `StudyFeature.slug`s shown locked to non-VIP users (spec §4.4). Empty by
+  /// default — nothing is newly locked at launch.
+  final Set<String> studyVipOnlyFeatures;
+
   const AppConfig({
     required this.minVersion,
     required this.latestVersion,
@@ -144,6 +152,8 @@ class AppConfig {
     this.rewardedLimitsEnabled = false,
     this.rewardedFeatures = const [],
     this.waveCapEnabled = false,
+    this.studyHubEnabled = false,
+    this.studyVipOnlyFeatures = const <String>{},
   });
 
   factory AppConfig.fromJson(Map<String, dynamic> json) {
@@ -174,6 +184,11 @@ class AppConfig {
           ? (json['rewardedFeatures'] as List).whereType<String>().toList()
           : const <String>[],
       waveCapEnabled: (json['waveCapEnabled'] as bool?) ?? false,
+      // `== true`, not `as bool?`: a malformed value must read as off, not throw.
+      studyHubEnabled: json['studyHubEnabled'] == true,
+      studyVipOnlyFeatures: json['studyVipOnlyFeatures'] is List
+          ? (json['studyVipOnlyFeatures'] as List).whereType<String>().toSet()
+          : const <String>{},
     );
   }
 }

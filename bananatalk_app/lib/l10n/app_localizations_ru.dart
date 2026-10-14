@@ -11232,4 +11232,168 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get callSelfViewSwapHint => 'Нажмите дважды, чтобы поменять местами с другим видео';
+
+  @override
+  String get studyGroupTalk => 'Общение';
+
+  @override
+  String get studyGroupPractice => 'Практика';
+
+  @override
+  String get studyGroupPrepare => 'Подготовка и соревнование';
+
+  @override
+  String get studyTileTutor => 'ИИ-репетитор';
+
+  @override
+  String get studyTileTutorDesc => 'Болтайте о чём угодно';
+
+  @override
+  String get studyTileRoleplay => 'Ролевые игры';
+
+  @override
+  String get studyTileRoleplayDesc => 'Сцены из жизни';
+
+  @override
+  String get studyTileStory => 'История';
+
+  @override
+  String get studyTileStoryDesc => 'Пишите историю вместе';
+
+  @override
+  String get studyTilePhoto => 'Фото';
+
+  @override
+  String get studyTilePhotoDesc => 'Учите слова по фото';
+
+  @override
+  String get studyTileSpeak => 'Речь';
+
+  @override
+  String get studyTileSpeakDesc => 'Проверка произношения';
+
+  @override
+  String get studyTileReview => 'Повторение';
+
+  @override
+  String get studyTileReviewDesc => 'Слова на сегодня';
+
+  @override
+  String get studyTileWriting => 'Письмо';
+
+  @override
+  String get studyTileWritingDesc => 'Разбор грамматики';
+
+  @override
+  String get studyTileQuizzes => 'Викторины';
+
+  @override
+  String get studyTileQuizzesDesc => 'Быстрые ИИ-викторины';
+
+  @override
+  String get studyTileExam => 'Подготовка к экзаменам';
+
+  @override
+  String get studyTileExamDesc => 'TOPIK, JLPT, IELTS…';
+
+  @override
+  String get studyTileLessons => 'Уроки';
+
+  @override
+  String get studyTileLessonsDesc => 'Модули шаг за шагом';
+
+  @override
+  String get studyTileChallenges => 'Испытания';
+
+  @override
+  String get studyTileChallengesDesc => 'Ежедневные цели за XP';
+
+  @override
+  String get studyTileLeaderboard => 'Рейтинг';
+
+  @override
+  String get studyTileLeaderboardDesc => 'Места за эту неделю';
+
+  @override
+  String get studyBadgeVip => 'VIP';
+
+  @override
+  String studyBadgeLeft(int count) {
+    return 'Осталось $count';
+  }
+
+  @override
+  String studyBadgeDue(int count) {
+    return 'К повторению: $count';
+  }
+
+  @override
+  String get studyBadgeNew => 'НОВОЕ';
+
+  @override
+  String get studyEnglishOnly => 'Пока только английский';
+
+  @override
+  String get studyTodayPack => 'Набор на сегодня';
+
+  @override
+  String get studyTodayStart => 'Начать';
+
+  @override
+  String studyRecommended(String name, int percent) {
+    return 'Для вас: $name — $percent% верно · викторина на 5 минут';
+  }
+
+  @override
+  String get studyProgressTitle => 'Ваш прогресс';
+
+  @override
+  String get studyFullReport => 'Полный отчёт';
+
+  @override
+  String studyStreakDays(int count) {
+    return 'Серия: $count дн.';
+  }
+
+  @override
+  String studyLevelShort(int level) {
+    return 'Ур. $level';
+  }
+
+  @override
+  String studyUpgradeLockedTitle(String feature) {
+    return '$feature — функция VIP';
+  }
+
+  @override
+  String studyUpgradeExhaustedTitle(String feature) {
+    return 'Вы использовали $feature на сегодня';
+  }
+
+  @override
+  String get studyUpgradeBenefitUnlimited => 'Безлимитная ИИ-практика каждый день';
+
+  @override
+  String get studyUpgradeBenefitNoAds => 'Без рекламы во всём приложении';
+
+  @override
+  String get studyUpgradeGetVip => 'Получить VIP — без лимитов';
+
+  @override
+  String get guideStudyHubTitle => 'Ваш ежедневный зал для языков';
+
+  @override
+  String get guideStudyHubBody => 'Набор на 5 минут каждый день и ИИ-репетитор, когда захочется поговорить.';
+
+  @override
+  String get guideStudyHubCta => 'Начать набор на сегодня';
+
+  @override
+  String get guideStudyHubSecondary => 'Все функции';
+
+  @override
+  String get supportBananaTalkRow => 'Поддержать BananaTalk';
+
+  @override
+  String get supportBananaTalkRowSubtitle => 'Помогите одному разработчику продолжать работу';
 }

@@ -20383,6 +20383,306 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Double tap to swap with the other video'**
   String get callSelfViewSwapHint;
+
+  /// No description provided for @studyGroupTalk.
+  ///
+  /// In en, this message translates to:
+  /// **'Talk'**
+  String get studyGroupTalk;
+
+  /// No description provided for @studyGroupPractice.
+  ///
+  /// In en, this message translates to:
+  /// **'Practice'**
+  String get studyGroupPractice;
+
+  /// No description provided for @studyGroupPrepare.
+  ///
+  /// In en, this message translates to:
+  /// **'Prepare & compete'**
+  String get studyGroupPrepare;
+
+  /// No description provided for @studyTileTutor.
+  ///
+  /// In en, this message translates to:
+  /// **'AI Tutor'**
+  String get studyTileTutor;
+
+  /// No description provided for @studyTileTutorDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Chat about anything'**
+  String get studyTileTutorDesc;
+
+  /// No description provided for @studyTileRoleplay.
+  ///
+  /// In en, this message translates to:
+  /// **'Roleplay'**
+  String get studyTileRoleplay;
+
+  /// No description provided for @studyTileRoleplayDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Real-life scenes'**
+  String get studyTileRoleplayDesc;
+
+  /// No description provided for @studyTileStory.
+  ///
+  /// In en, this message translates to:
+  /// **'Story'**
+  String get studyTileStory;
+
+  /// No description provided for @studyTileStoryDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Write a story together'**
+  String get studyTileStoryDesc;
+
+  /// No description provided for @studyTilePhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Photo'**
+  String get studyTilePhoto;
+
+  /// No description provided for @studyTilePhotoDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Learn words from a photo'**
+  String get studyTilePhotoDesc;
+
+  /// No description provided for @studyTileSpeak.
+  ///
+  /// In en, this message translates to:
+  /// **'Speak'**
+  String get studyTileSpeak;
+
+  /// No description provided for @studyTileSpeakDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Pronunciation check'**
+  String get studyTileSpeakDesc;
+
+  /// No description provided for @studyTileReview.
+  ///
+  /// In en, this message translates to:
+  /// **'Review'**
+  String get studyTileReview;
+
+  /// No description provided for @studyTileReviewDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Words due today'**
+  String get studyTileReviewDesc;
+
+  /// No description provided for @studyTileWriting.
+  ///
+  /// In en, this message translates to:
+  /// **'Writing'**
+  String get studyTileWriting;
+
+  /// No description provided for @studyTileWritingDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Grammar feedback'**
+  String get studyTileWritingDesc;
+
+  /// No description provided for @studyTileQuizzes.
+  ///
+  /// In en, this message translates to:
+  /// **'Quizzes'**
+  String get studyTileQuizzes;
+
+  /// No description provided for @studyTileQuizzesDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick AI quizzes'**
+  String get studyTileQuizzesDesc;
+
+  /// No description provided for @studyTileExam.
+  ///
+  /// In en, this message translates to:
+  /// **'Exam prep'**
+  String get studyTileExam;
+
+  /// No description provided for @studyTileExamDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'TOPIK, JLPT, IELTS…'**
+  String get studyTileExamDesc;
+
+  /// No description provided for @studyTileLessons.
+  ///
+  /// In en, this message translates to:
+  /// **'Lessons'**
+  String get studyTileLessons;
+
+  /// No description provided for @studyTileLessonsDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Step-by-step units'**
+  String get studyTileLessonsDesc;
+
+  /// No description provided for @studyTileChallenges.
+  ///
+  /// In en, this message translates to:
+  /// **'Challenges'**
+  String get studyTileChallenges;
+
+  /// No description provided for @studyTileChallengesDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily goals for XP'**
+  String get studyTileChallengesDesc;
+
+  /// No description provided for @studyTileLeaderboard.
+  ///
+  /// In en, this message translates to:
+  /// **'Leaderboard'**
+  String get studyTileLeaderboard;
+
+  /// No description provided for @studyTileLeaderboardDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'See this week\'s ranks'**
+  String get studyTileLeaderboardDesc;
+
+  /// No description provided for @studyBadgeVip.
+  ///
+  /// In en, this message translates to:
+  /// **'VIP'**
+  String get studyBadgeVip;
+
+  /// No description provided for @studyBadgeLeft.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} left'**
+  String studyBadgeLeft(int count);
+
+  /// No description provided for @studyBadgeDue.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} due'**
+  String studyBadgeDue(int count);
+
+  /// No description provided for @studyBadgeNew.
+  ///
+  /// In en, this message translates to:
+  /// **'NEW'**
+  String get studyBadgeNew;
+
+  /// No description provided for @studyEnglishOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'English only for now'**
+  String get studyEnglishOnly;
+
+  /// No description provided for @studyTodayPack.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s pack'**
+  String get studyTodayPack;
+
+  /// No description provided for @studyTodayStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Start'**
+  String get studyTodayStart;
+
+  /// No description provided for @studyRecommended.
+  ///
+  /// In en, this message translates to:
+  /// **'For you: {name} — {percent}% right · 5-min quiz'**
+  String studyRecommended(String name, int percent);
+
+  /// No description provided for @studyProgressTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your progress'**
+  String get studyProgressTitle;
+
+  /// No description provided for @studyFullReport.
+  ///
+  /// In en, this message translates to:
+  /// **'Full report'**
+  String get studyFullReport;
+
+  /// No description provided for @studyStreakDays.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} day streak'**
+  String studyStreakDays(int count);
+
+  /// No description provided for @studyLevelShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Lv {level}'**
+  String studyLevelShort(int level);
+
+  /// No description provided for @studyUpgradeLockedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'{feature} is a VIP feature'**
+  String studyUpgradeLockedTitle(String feature);
+
+  /// No description provided for @studyUpgradeExhaustedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'ve used today\'s {feature}'**
+  String studyUpgradeExhaustedTitle(String feature);
+
+  /// No description provided for @studyUpgradeBenefitUnlimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlimited AI practice every day'**
+  String get studyUpgradeBenefitUnlimited;
+
+  /// No description provided for @studyUpgradeBenefitNoAds.
+  ///
+  /// In en, this message translates to:
+  /// **'No ads anywhere in the app'**
+  String get studyUpgradeBenefitNoAds;
+
+  /// No description provided for @studyUpgradeGetVip.
+  ///
+  /// In en, this message translates to:
+  /// **'Get VIP — unlimited'**
+  String get studyUpgradeGetVip;
+
+  /// No description provided for @guideStudyHubTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your daily language gym'**
+  String get guideStudyHubTitle;
+
+  /// No description provided for @guideStudyHubBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A 5-minute pack every day, plus an AI tutor whenever you want to talk.'**
+  String get guideStudyHubBody;
+
+  /// No description provided for @guideStudyHubCta.
+  ///
+  /// In en, this message translates to:
+  /// **'Start today\'s pack'**
+  String get guideStudyHubCta;
+
+  /// No description provided for @guideStudyHubSecondary.
+  ///
+  /// In en, this message translates to:
+  /// **'See all features'**
+  String get guideStudyHubSecondary;
+
+  /// No description provided for @supportBananaTalkRow.
+  ///
+  /// In en, this message translates to:
+  /// **'Support BananaTalk'**
+  String get supportBananaTalkRow;
+
+  /// No description provided for @supportBananaTalkRowSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Help a solo developer keep building'**
+  String get supportBananaTalkRowSubtitle;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -11188,4 +11188,168 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get callSelfViewSwapHint => 'I-double tap para makipagpalit sa kabilang video';
+
+  @override
+  String get studyGroupTalk => 'Makipag-usap';
+
+  @override
+  String get studyGroupPractice => 'Magsanay';
+
+  @override
+  String get studyGroupPrepare => 'Maghanda at makipagtagisan';
+
+  @override
+  String get studyTileTutor => 'AI Tutor';
+
+  @override
+  String get studyTileTutorDesc => 'Mag-chat tungkol sa kahit ano';
+
+  @override
+  String get studyTileRoleplay => 'Roleplay';
+
+  @override
+  String get studyTileRoleplayDesc => 'Mga eksena sa totoong buhay';
+
+  @override
+  String get studyTileStory => 'Kuwento';
+
+  @override
+  String get studyTileStoryDesc => 'Sumulat ng kuwento nang magkasama';
+
+  @override
+  String get studyTilePhoto => 'Larawan';
+
+  @override
+  String get studyTilePhotoDesc => 'Matuto ng mga salita mula sa larawan';
+
+  @override
+  String get studyTileSpeak => 'Pagsasalita';
+
+  @override
+  String get studyTileSpeakDesc => 'Pagsusuri ng bigkas';
+
+  @override
+  String get studyTileReview => 'Review';
+
+  @override
+  String get studyTileReviewDesc => 'Mga salitang due ngayon';
+
+  @override
+  String get studyTileWriting => 'Pagsusulat';
+
+  @override
+  String get studyTileWritingDesc => 'Feedback sa grammar';
+
+  @override
+  String get studyTileQuizzes => 'Mga Quiz';
+
+  @override
+  String get studyTileQuizzesDesc => 'Mabilis na AI quiz';
+
+  @override
+  String get studyTileExam => 'Paghahanda sa exam';
+
+  @override
+  String get studyTileExamDesc => 'TOPIK, JLPT, IELTS…';
+
+  @override
+  String get studyTileLessons => 'Mga Aralin';
+
+  @override
+  String get studyTileLessonsDesc => 'Mga unit nang hakbang-hakbang';
+
+  @override
+  String get studyTileChallenges => 'Mga Hamon';
+
+  @override
+  String get studyTileChallengesDesc => 'Pang-araw-araw na goal para sa XP';
+
+  @override
+  String get studyTileLeaderboard => 'Leaderboard';
+
+  @override
+  String get studyTileLeaderboardDesc => 'Tingnan ang ranggo ngayong linggo';
+
+  @override
+  String get studyBadgeVip => 'VIP';
+
+  @override
+  String studyBadgeLeft(int count) {
+    return '$count na lang';
+  }
+
+  @override
+  String studyBadgeDue(int count) {
+    return '$count due';
+  }
+
+  @override
+  String get studyBadgeNew => 'BAGO';
+
+  @override
+  String get studyEnglishOnly => 'English lang muna sa ngayon';
+
+  @override
+  String get studyTodayPack => 'Pack ngayong araw';
+
+  @override
+  String get studyTodayStart => 'Simulan';
+
+  @override
+  String studyRecommended(String name, int percent) {
+    return 'Para sa iyo: $name — $percent% tama · 5-minutong quiz';
+  }
+
+  @override
+  String get studyProgressTitle => 'Ang iyong progreso';
+
+  @override
+  String get studyFullReport => 'Buong ulat';
+
+  @override
+  String studyStreakDays(int count) {
+    return '$count araw na streak';
+  }
+
+  @override
+  String studyLevelShort(int level) {
+    return 'Lv $level';
+  }
+
+  @override
+  String studyUpgradeLockedTitle(String feature) {
+    return 'Ang $feature ay VIP feature';
+  }
+
+  @override
+  String studyUpgradeExhaustedTitle(String feature) {
+    return 'Naubos mo na ang $feature ngayong araw';
+  }
+
+  @override
+  String get studyUpgradeBenefitUnlimited => 'Walang limitasyong AI practice araw-araw';
+
+  @override
+  String get studyUpgradeBenefitNoAds => 'Walang ads sa buong app';
+
+  @override
+  String get studyUpgradeGetVip => 'Kumuha ng VIP — walang limit';
+
+  @override
+  String get guideStudyHubTitle => 'Ang iyong pang-araw-araw na gym sa wika';
+
+  @override
+  String get guideStudyHubBody => '5-minutong pack araw-araw, at AI tutor kapag gusto mong makipag-usap.';
+
+  @override
+  String get guideStudyHubCta => 'Simulan ang pack ngayon';
+
+  @override
+  String get guideStudyHubSecondary => 'Tingnan ang lahat ng feature';
+
+  @override
+  String get supportBananaTalkRow => 'Suportahan ang BananaTalk';
+
+  @override
+  String get supportBananaTalkRowSubtitle => 'Tulungan ang nag-iisang developer na magpatuloy';
 }

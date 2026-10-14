@@ -11169,4 +11169,168 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get callSelfViewSwapHint => 'Chạm hai lần để đổi chỗ với video còn lại';
+
+  @override
+  String get studyGroupTalk => 'Trò chuyện';
+
+  @override
+  String get studyGroupPractice => 'Luyện tập';
+
+  @override
+  String get studyGroupPrepare => 'Chuẩn bị & thi đấu';
+
+  @override
+  String get studyTileTutor => 'Gia sư AI';
+
+  @override
+  String get studyTileTutorDesc => 'Trò chuyện về mọi chủ đề';
+
+  @override
+  String get studyTileRoleplay => 'Nhập vai';
+
+  @override
+  String get studyTileRoleplayDesc => 'Tình huống đời thực';
+
+  @override
+  String get studyTileStory => 'Truyện';
+
+  @override
+  String get studyTileStoryDesc => 'Cùng viết một câu chuyện';
+
+  @override
+  String get studyTilePhoto => 'Ảnh';
+
+  @override
+  String get studyTilePhotoDesc => 'Học từ vựng qua ảnh';
+
+  @override
+  String get studyTileSpeak => 'Nói';
+
+  @override
+  String get studyTileSpeakDesc => 'Kiểm tra phát âm';
+
+  @override
+  String get studyTileReview => 'Ôn tập';
+
+  @override
+  String get studyTileReviewDesc => 'Từ cần ôn hôm nay';
+
+  @override
+  String get studyTileWriting => 'Viết';
+
+  @override
+  String get studyTileWritingDesc => 'Nhận xét ngữ pháp';
+
+  @override
+  String get studyTileQuizzes => 'Câu đố';
+
+  @override
+  String get studyTileQuizzesDesc => 'Câu đố AI nhanh';
+
+  @override
+  String get studyTileExam => 'Luyện thi';
+
+  @override
+  String get studyTileExamDesc => 'TOPIK, JLPT, IELTS…';
+
+  @override
+  String get studyTileLessons => 'Bài học';
+
+  @override
+  String get studyTileLessonsDesc => 'Từng bước theo bài';
+
+  @override
+  String get studyTileChallenges => 'Thử thách';
+
+  @override
+  String get studyTileChallengesDesc => 'Mục tiêu hằng ngày để nhận XP';
+
+  @override
+  String get studyTileLeaderboard => 'Bảng xếp hạng';
+
+  @override
+  String get studyTileLeaderboardDesc => 'Xem thứ hạng tuần này';
+
+  @override
+  String get studyBadgeVip => 'VIP';
+
+  @override
+  String studyBadgeLeft(int count) {
+    return 'Còn $count';
+  }
+
+  @override
+  String studyBadgeDue(int count) {
+    return '$count cần ôn';
+  }
+
+  @override
+  String get studyBadgeNew => 'MỚI';
+
+  @override
+  String get studyEnglishOnly => 'Hiện chỉ có tiếng Anh';
+
+  @override
+  String get studyTodayPack => 'Gói hôm nay';
+
+  @override
+  String get studyTodayStart => 'Bắt đầu';
+
+  @override
+  String studyRecommended(String name, int percent) {
+    return 'Dành cho bạn: $name — đúng $percent% · quiz 5 phút';
+  }
+
+  @override
+  String get studyProgressTitle => 'Tiến độ của bạn';
+
+  @override
+  String get studyFullReport => 'Báo cáo đầy đủ';
+
+  @override
+  String studyStreakDays(int count) {
+    return 'Chuỗi $count ngày';
+  }
+
+  @override
+  String studyLevelShort(int level) {
+    return 'Cấp $level';
+  }
+
+  @override
+  String studyUpgradeLockedTitle(String feature) {
+    return '$feature là tính năng VIP';
+  }
+
+  @override
+  String studyUpgradeExhaustedTitle(String feature) {
+    return 'Bạn đã dùng hết $feature hôm nay';
+  }
+
+  @override
+  String get studyUpgradeBenefitUnlimited => 'Luyện tập với AI không giới hạn mỗi ngày';
+
+  @override
+  String get studyUpgradeBenefitNoAds => 'Không quảng cáo trong toàn bộ ứng dụng';
+
+  @override
+  String get studyUpgradeGetVip => 'Nhận VIP — không giới hạn';
+
+  @override
+  String get guideStudyHubTitle => 'Phòng gym ngôn ngữ mỗi ngày';
+
+  @override
+  String get guideStudyHubBody => 'Gói 5 phút mỗi ngày, cùng gia sư AI khi bạn muốn trò chuyện.';
+
+  @override
+  String get guideStudyHubCta => 'Bắt đầu gói hôm nay';
+
+  @override
+  String get guideStudyHubSecondary => 'Xem tất cả tính năng';
+
+  @override
+  String get supportBananaTalkRow => 'Ủng hộ BananaTalk';
+
+  @override
+  String get supportBananaTalkRowSubtitle => 'Giúp một lập trình viên độc lập tiếp tục phát triển';
 }

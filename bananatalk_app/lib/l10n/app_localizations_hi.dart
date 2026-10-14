@@ -11188,4 +11188,168 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get callSelfViewSwapHint => 'दूसरे वीडियो से बदलने के लिए दो बार टैप करें';
+
+  @override
+  String get studyGroupTalk => 'बात करें';
+
+  @override
+  String get studyGroupPractice => 'अभ्यास करें';
+
+  @override
+  String get studyGroupPrepare => 'तैयारी और मुकाबला';
+
+  @override
+  String get studyTileTutor => 'AI ट्यूटर';
+
+  @override
+  String get studyTileTutorDesc => 'किसी भी विषय पर बात करें';
+
+  @override
+  String get studyTileRoleplay => 'रोलप्ले';
+
+  @override
+  String get studyTileRoleplayDesc => 'असल ज़िंदगी के दृश्य';
+
+  @override
+  String get studyTileStory => 'कहानी';
+
+  @override
+  String get studyTileStoryDesc => 'साथ मिलकर कहानी लिखें';
+
+  @override
+  String get studyTilePhoto => 'फ़ोटो';
+
+  @override
+  String get studyTilePhotoDesc => 'फ़ोटो से नए शब्द सीखें';
+
+  @override
+  String get studyTileSpeak => 'बोलें';
+
+  @override
+  String get studyTileSpeakDesc => 'उच्चारण जाँच';
+
+  @override
+  String get studyTileReview => 'रिव्यू';
+
+  @override
+  String get studyTileReviewDesc => 'आज के शब्द';
+
+  @override
+  String get studyTileWriting => 'लेखन';
+
+  @override
+  String get studyTileWritingDesc => 'व्याकरण फ़ीडबैक';
+
+  @override
+  String get studyTileQuizzes => 'क्विज़';
+
+  @override
+  String get studyTileQuizzesDesc => 'तेज़ AI क्विज़';
+
+  @override
+  String get studyTileExam => 'परीक्षा की तैयारी';
+
+  @override
+  String get studyTileExamDesc => 'TOPIK, JLPT, IELTS…';
+
+  @override
+  String get studyTileLessons => 'पाठ';
+
+  @override
+  String get studyTileLessonsDesc => 'चरण-दर-चरण यूनिट';
+
+  @override
+  String get studyTileChallenges => 'चैलेंज';
+
+  @override
+  String get studyTileChallengesDesc => 'XP के लिए रोज़ के लक्ष्य';
+
+  @override
+  String get studyTileLeaderboard => 'लीडरबोर्ड';
+
+  @override
+  String get studyTileLeaderboardDesc => 'इस हफ़्ते की रैंक देखें';
+
+  @override
+  String get studyBadgeVip => 'VIP';
+
+  @override
+  String studyBadgeLeft(int count) {
+    return '$count बाकी';
+  }
+
+  @override
+  String studyBadgeDue(int count) {
+    return '$count बाकी हैं';
+  }
+
+  @override
+  String get studyBadgeNew => 'नया';
+
+  @override
+  String get studyEnglishOnly => 'फ़िलहाल सिर्फ़ अंग्रेज़ी';
+
+  @override
+  String get studyTodayPack => 'आज का पैक';
+
+  @override
+  String get studyTodayStart => 'शुरू करें';
+
+  @override
+  String studyRecommended(String name, int percent) {
+    return 'आपके लिए: $name — $percent% सही · 5 मिनट का क्विज़';
+  }
+
+  @override
+  String get studyProgressTitle => 'आपकी प्रगति';
+
+  @override
+  String get studyFullReport => 'पूरी रिपोर्ट';
+
+  @override
+  String studyStreakDays(int count) {
+    return '$count दिन की स्ट्रीक';
+  }
+
+  @override
+  String studyLevelShort(int level) {
+    return 'लेवल $level';
+  }
+
+  @override
+  String studyUpgradeLockedTitle(String feature) {
+    return '$feature एक VIP फ़ीचर है';
+  }
+
+  @override
+  String studyUpgradeExhaustedTitle(String feature) {
+    return 'आपने आज का $feature इस्तेमाल कर लिया';
+  }
+
+  @override
+  String get studyUpgradeBenefitUnlimited => 'हर दिन असीमित AI अभ्यास';
+
+  @override
+  String get studyUpgradeBenefitNoAds => 'पूरे ऐप में कोई विज्ञापन नहीं';
+
+  @override
+  String get studyUpgradeGetVip => 'VIP लें — असीमित';
+
+  @override
+  String get guideStudyHubTitle => 'आपका रोज़ का भाषा जिम';
+
+  @override
+  String get guideStudyHubBody => 'हर दिन 5 मिनट का पैक, और बात करने का मन हो तो AI ट्यूटर।';
+
+  @override
+  String get guideStudyHubCta => 'आज का पैक शुरू करें';
+
+  @override
+  String get guideStudyHubSecondary => 'सभी फ़ीचर देखें';
+
+  @override
+  String get supportBananaTalkRow => 'BananaTalk का साथ दें';
+
+  @override
+  String get supportBananaTalkRowSubtitle => 'एक अकेले डेवलपर को काम जारी रखने में मदद करें';
 }
