@@ -250,6 +250,8 @@ Analytics events (existing `AnalyticsService`):
 `study_upgrade_unlock {feature, method: coins|vip}`, `study_spotlight_tap {id}`,
 `study_recommended_tap {area}`.
 
+Note: `study_upgrade_unlock {method: vip}` fires when the user taps "Get VIP" (intent to buy), not on purchase completion; `method: coins` fires on an actual coin unlock.
+
 Success (compare 14 days before vs after release):
 - distinct AI Study features opened per active learner per week — up;
 - share of new users who open ≥2 features in week 1 — up;
