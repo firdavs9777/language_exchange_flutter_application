@@ -102,7 +102,8 @@ AI Study hub + floating tab bar (branch `feat/ai-study-hub`)
 - [x] Task 2 done: `AppConfig.studyHubEnabled` / `studyVipOnlyFeatures`, `StudyHubMetrics`, 50 hub strings in 19 locales.
 - [x] Tasks 3–4 done: feature catalogue/badges, upgrade/trial sheet + `study_*` analytics events (`study_upgrade_unlock` method `vip` = tapped through to plans).
 - [x] Task 5 done: `StudyFeatureTile`, `StudyFeatureGroups` (badge-gated taps, persona picker, NEW marking), `ExamStudyScreen`.
-- [ ] **Next (resume here):** Tasks 6–10 (sections, hub + flag, tab bar, coffee/clearance, QA). L
+- [x] Task 6 done: `TodayPackRow`, `RecommendedTile`, `SpotlightCarousel` (+`SpotlightDismissStore`, per-account provider reset), `ProgressCard`.
+- [ ] **Next (resume here):** Tasks 7–10 (hub screen, hub + flag, tab bar, coffee/clearance, QA). L
 - [ ] Native review of the study hub strings (rows `studyGroup*`, `studyTile*`, `studyBadge*`, `studyUpgrade*`, `guideStudyHub*`, `supportBananaTalkRow*` appended to the CSV in Owner step 10). M
 - [ ] Run the baseline prod queries (feature usage per user, 30 days) before release — not run during design (no prod DB access that session). S
 - [ ] Backend: app-config fields `studyHubEnabled` (default false) + `studyVipOnlyFeatures` (default []); deploy before the app. S
