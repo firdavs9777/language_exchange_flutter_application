@@ -1,26 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:bananatalk_app/pages/learning/achievements/achievements_screen.dart';
-import 'package:bananatalk_app/pages/learning/leaderboard/leaderboard_screen.dart';
-import 'package:bananatalk_app/utils/theme_extensions.dart';
-import 'package:bananatalk_app/l10n/app_localizations.dart';
-import 'package:bananatalk_app/utils/app_page_route.dart';
-import 'package:bananatalk_app/pages/learning/main/sections/learn_tab.dart';
-import 'package:bananatalk_app/pages/learning/main/sections/ai_tools_tab.dart';
-import 'package:bananatalk_app/pages/learning/main/study_hub_tabs.dart';
+import 'package:bananatalk_app/pages/learning/main/legacy_study_hub.dart';
+import 'package:bananatalk_app/pages/learning/main/study_hub.dart';
 import 'package:bananatalk_app/pages/learning/animations/streak_milestone_celebration.dart';
 import 'package:bananatalk_app/pages/learning/animations/achievement_unlock_overlay.dart';
 import 'package:bananatalk_app/pages/learning/animations/level_up_sequence.dart';
+import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/learning/progress_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/learning/achievements_providers.dart';
-import 'package:bananatalk_app/widgets/vip_up_pill.dart';
-import 'package:bananatalk_app/widgets/coins/coin_balance_pill.dart';
-import 'package:bananatalk_app/widgets/notifications/notification_bell.dart';
-import 'package:bananatalk_app/pages/learning/exam_study/exam_study_tab.dart';
-import 'package:bananatalk_app/services/guide_store.dart';
-import 'package:bananatalk_app/widgets/guides/page_guide.dart';
 
-/// Unified Study Hub — composes the Learn tab and AI Tools tab.
+/// The AI Study tab. Owns the streak / level-up / achievement celebration
+/// listeners and renders [StudyHub] or, while `studyHubEnabled` is off,
+/// [LegacyStudyHub] (spec 2026-10-13 §10).
 class LearningMain extends ConsumerStatefulWidget {
   const LearningMain({super.key});
 
@@ -28,9 +19,7 @@ class LearningMain extends ConsumerStatefulWidget {
   ConsumerState<LearningMain> createState() => _LearningMainState();
 }
 
-class _LearningMainState extends ConsumerState<LearningMain>
-    with SingleTickerProviderStateMixin {
-  late TabController _tabController;
+class _LearningMainState extends ConsumerState<LearningMain> {
   int? _previousStreak;
   int? _previousLevel;
   // Tracks achievement IDs already shown this session to avoid re-triggering
@@ -39,21 +28,7 @@ class _LearningMainState extends ConsumerState<LearningMain>
   final Set<String> _seenAchievementIds = {};
 
   @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: 3, vsync: this);
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final isDark = context.isDarkMode;
-
     ref.listen(learningProgressProvider, (previous, next) {
       next.whenData((progress) {
         if (progress == null) return;
@@ -106,188 +81,8 @@ class _LearningMainState extends ConsumerState<LearningMain>
       });
     });
 
-    return Scaffold(
-      backgroundColor: context.scaffoldBackground,
-      body: NestedScrollView(
-        headerSliverBuilder: (context, innerBoxIsScrolled) => [
-          SliverAppBar(
-            expandedHeight: 120,
-            floating: true,
-            pinned: true,
-            elevation: 0,
-            backgroundColor: isDark ? const Color(0xFF1A1A2E) : Colors.white,
-            surfaceTintColor: Colors.transparent,
-            flexibleSpace: FlexibleSpaceBar(
-              background: Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: isDark
-                        ? [const Color(0xFF1A1A2E), const Color(0xFF16213E)]
-                        : [const Color(0xFF667EEA), const Color(0xFF764BA2)],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
-                ),
-                child: SafeArea(
-                  bottom: false,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 4, 20, 48),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                AppLocalizations.of(context)!.studyHub,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.w800,
-                                  letterSpacing: -0.5,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        _buildHeaderActions(context),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            bottom: PreferredSize(
-              preferredSize: const Size.fromHeight(52),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: isDark ? const Color(0xFF1A1A2E) : Colors.white,
-                  borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
-                ),
-                child: TabBar(
-                  controller: _tabController,
-                  indicatorColor: const Color(0xFF667EEA),
-                  indicatorWeight: 3,
-                  indicatorSize: TabBarIndicatorSize.label,
-                  indicatorPadding: const EdgeInsets.only(bottom: 0),
-                  labelColor: isDark ? Colors.white : const Color(0xFF667EEA),
-                  unselectedLabelColor: context.textSecondary,
-                  labelStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
-                  unselectedLabelStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
-                  dividerHeight: 0,
-                  tabs: [
-                    Tab(text: AppLocalizations.of(context)!.todayTab),
-                    Tab(text: AppLocalizations.of(context)!.aiTools),
-                    Tab(text: AppLocalizations.of(context)!.examStudy),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ],
-        body: Column(
-          children: [
-            // Above the TabBarView rather than inside the Today tab: a new
-            // user who lands on AI Tools or Exam Study first still needs
-            // telling what this screen is for, and the guide renders
-            // SizedBox.shrink() for everyone else.
-            PageGuide(
-              surface: GuideSurface.aiStudy,
-              icon: Icons.auto_awesome_rounded,
-              accent: const Color(0xFF667EEA),
-              title: AppLocalizations.of(context)!.guideAiStudyTitle,
-              body: AppLocalizations.of(context)!.guideAiStudyBody,
-              ctaLabel: AppLocalizations.of(context)!.guideAiStudyCta,
-              onCta: () =>
-                  _tabController.animateTo(indexOfTab(StudyHubTab.aiTools)),
-              // Exam Study is the other half of what this tab is for, and it
-              // is invisible to a new user: it sits third behind Today and AI
-              // Tools, and nothing on arrival says the app prepares you for
-              // an actual exam. Reuses the tab's own label so the button and
-              // the place it lands you read the same.
-              secondaryLabel: AppLocalizations.of(context)!.examStudy,
-              onSecondary: () =>
-                  _tabController.animateTo(indexOfTab(StudyHubTab.examStudy)),
-            ),
-            Expanded(
-              child: TabBarView(
-                controller: _tabController,
-                children: [
-                  LearnTab(
-                    onSwitchToAI: () => _tabController.animateTo(indexOfTab(StudyHubTab.aiTools)),
-                  ),
-                  const AIToolsTab(),
-                  const ExamStudyTab(),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildHeaderActions(BuildContext context) {
-    return Row(
-      children: [
-        // VIP upgrade entry — passes onLight: false because the AI Study
-        // header sits on a purple gradient, so the "Up" badge needs a
-        // white border to read cleanly.
-        const VipUpPill(onLight: false),
-        const SizedBox(width: 4),
-        const CoinBalancePill(onLight: false),
-        const SizedBox(width: 4),
-        // Notification inbox — white icon to read on the purple gradient.
-        const NotificationBell(color: Colors.white),
-        const SizedBox(width: 4),
-        // Leaderboard + Achievements tucked into an overflow menu.
-        PopupMenuButton<String>(
-          icon: const Icon(Icons.more_vert_rounded, color: Colors.white),
-          tooltip: AppLocalizations.of(context)!.more,
-          onSelected: (value) {
-            switch (value) {
-              case 'leaderboard':
-                Navigator.push(
-                  context,
-                  AppPageRoute(builder: (_) => const LeaderboardScreen()),
-                );
-                break;
-              case 'achievements':
-                Navigator.push(
-                  context,
-                  AppPageRoute(builder: (_) => const AchievementsScreen()),
-                );
-                break;
-            }
-          },
-          itemBuilder: (context) => [
-            PopupMenuItem(
-              value: 'leaderboard',
-              child: Row(
-                children: [
-                  const Icon(Icons.leaderboard_rounded, size: 20),
-                  const SizedBox(width: 12),
-                  Text(AppLocalizations.of(context)!.leaderboard),
-                ],
-              ),
-            ),
-            PopupMenuItem(
-              value: 'achievements',
-              child: Row(
-                children: [
-                  const Icon(Icons.emoji_events_rounded, size: 20),
-                  const SizedBox(width: 12),
-                  Text(AppLocalizations.of(context)!.achievements),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
+    final hubOn =
+        ref.watch(appConfigProvider).valueOrNull?.studyHubEnabled ?? false;
+    return hubOn ? const StudyHub() : const LegacyStudyHub();
   }
 }

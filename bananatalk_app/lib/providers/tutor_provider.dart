@@ -7,6 +7,7 @@ import 'package:mime/mime.dart' show lookupMimeType;
 import 'package:bananatalk_app/models/tutor/tutor_memory.dart';
 import 'package:bananatalk_app/models/tutor/tutor_session.dart';
 import 'package:bananatalk_app/models/tutor/tutor_story.dart';
+import 'package:bananatalk_app/services/activation_store.dart';
 import 'package:bananatalk_app/services/api_client.dart';
 
 class PronunciationSentence {
@@ -414,6 +415,10 @@ class TutorChatController extends StateNotifier<TutorChatState> {
         messages: [...optimistic.messages, reply],
       );
       _safeSet(state.copyWith(session: updated, sending: false));
+      // A real tutor exchange is a learning start (spec §7): without this,
+      // tutor-only users kept the AI Study guide all week. Recorded on the
+      // first successful reply, not on end(), which screens rarely call.
+      ActivationStore().markDone(ActivationAction.lesson).ignore();
       _refreshQuotas();
     } catch (e) {
       _safeSet(state.copyWith(sending: false, error: e.toString()));
