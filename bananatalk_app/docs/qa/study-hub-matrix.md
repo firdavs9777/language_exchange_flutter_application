@@ -12,7 +12,7 @@ Record in the Result column: date, build, device/OS, tester, pass/fail + note.
 | 1.1 | `STUDY_HUB_ENABLED=false`: AI Study tab shows the old screen (LegacyStudyHub), unchanged | |
 | 1.2 | `STUDY_HUB_ENABLED=true`: AI Study tab shows the one-scroll hub | |
 | 1.2a | Cold start with the flag on: a short neutral loader, then the hub — the old screen never flashes first | |
-| 1.2b | Cold start offline / slow server (airplane mode, then launch): after ~1.5 s the old screen shows and stays, even when config arrives later; next launch with network shows the hub | |
+| 1.2b | Cold start never waits: AI Study appears instantly (no spinner), offline too. The page is picked from the last remembered flag (`study_hub_enabled_last`, kept across logout); first launch after install/update shows the old screen. After `STUDY_HUB_ENABLED` flips, the hub appears from the NEXT launch, never by swapping mid-session | |
 | 1.3 | Light theme: hub, tiles, badges, sheet, tab bar all legible | |
 | 1.4 | Dark theme: same | |
 | 1.5 | iPhone SE (320 pt): no overflow on hub, tiles, badges, sheet, tab bar | |

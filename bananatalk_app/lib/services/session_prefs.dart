@@ -41,6 +41,9 @@ const Set<String> kDeviceLevelPrefsKeys = {
   'review_prompt_at',
   'app_update_last_soft_prompt_ms',
   'ads_notice_shown_v1',
+  // Last server value of studyHubEnabled (StudyHubFlagCache): describes the
+  // app, not the account, and lets a cold start pick the AI Study page.
+  'study_hub_enabled_last',
 };
 
 /// True when [key] must survive a logout.

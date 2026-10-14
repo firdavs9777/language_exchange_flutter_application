@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/pages/learning/main/legacy_study_hub.dart';
@@ -10,7 +8,7 @@ import 'package:bananatalk_app/pages/learning/animations/level_up_sequence.dart'
 import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/learning/progress_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/learning/achievements_providers.dart';
-import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/services/study_hub_flag_cache.dart';
 
 /// The AI Study tab. Owns the streak / level-up / achievement celebration
 /// listeners and renders [StudyHub] or, while `studyHubEnabled` is off,
@@ -30,32 +28,29 @@ class _LearningMainState extends ConsumerState<LearningMain> {
   // client-side only; unseen achievements will re-fire on the next cold start.
   final Set<String> _seenAchievementIds = {};
 
-  /// How long a cold start waits for app-config before giving up on the
-  /// flag and showing the legacy page.
-  static const configWait = Duration(milliseconds: 1500);
-  Timer? _configTimer;
-
-  /// Set once config failed or took longer than [configWait]: this mount
-  /// stays on the legacy page so it never swaps under the user.
-  bool _legacyLocked = false;
+  /// Which page this mount shows, decided once in [initState] and never
+  /// changed, so the page cannot swap under the user (see
+  /// [StudyHubFlagCache]).
+  late final bool _showHub;
 
   @override
   void initState() {
     super.initState();
-    _configTimer = Timer(configWait, () {
-      if (!mounted || ref.read(appConfigProvider).hasValue) return;
-      setState(() => _legacyLocked = true);
-    });
-  }
-
-  @override
-  void dispose() {
-    _configTimer?.cancel();
-    super.dispose();
+    final config = ref.read(appConfigProvider);
+    _showHub = config.hasValue
+        ? (config.value?.studyHubEnabled ?? false)
+        : (StudyHubFlagCache.lastKnown ?? false);
+    // Remember the server's answer for the next launch -- including a value
+    // that was already loaded before this page mounted (e.g. after re-login).
+    ref.listenManual(appConfigProvider, (previous, next) {
+      final value = next.valueOrNull;
+      if (value != null) StudyHubFlagCache.remember(value.studyHubEnabled);
+    }, fireImmediately: true);
   }
 
   @override
   Widget build(BuildContext context) {
+
     ref.listen(learningProgressProvider, (previous, next) {
       next.whenData((progress) {
         if (progress == null) return;
@@ -108,24 +103,6 @@ class _LearningMainState extends ConsumerState<LearningMain> {
       });
     });
 
-    final config = ref.watch(appConfigProvider);
-    if (_legacyLocked) return const LegacyStudyHub();
-    if (config.hasValue) {
-      _configTimer?.cancel();
-      return (config.value?.studyHubEnabled ?? false)
-          ? const StudyHub()
-          : const LegacyStudyHub();
-    }
-    if (config.hasError) {
-      _legacyLocked = true;
-      _configTimer?.cancel();
-      return const LegacyStudyHub();
-    }
-    // Cold start: a neutral page rather than the legacy hub, which would
-    // otherwise flash and then be replaced (losing scroll and refetching).
-    return Scaffold(
-      backgroundColor: context.scaffoldBackground,
-      body: const Center(child: CircularProgressIndicator()),
-    );
+    return _showHub ? const StudyHub() : const LegacyStudyHub();
   }
 }

@@ -7,10 +7,11 @@ web `docs/REMAINING_WORK.md` in the web repo (admin console, `assetlinks.json`, 
 
 ## 1. Status
 
-- **App `main` 545d1958 = 2.7.0 (10580): NOT built, NOT tagged, NOT submitted.** Android ships first, then iOS.
-  Notes `docs/releases/2.7.0.md`, keystore/Play steps `docs/releases/2.7.0-handoff.md`.
+- **App `main` = 2.7.0 (10580): NOT built, NOT tagged, NOT submitted.** Android ships first, then iOS.
+  Now also includes the tab bar redesign, coffee-button removal and the AI Study hub (dark), merged 2026-10-14;
+  Android audit of 2026-10-14 passed (no blockers). Notes `docs/releases/2.7.0.md`, keystore/Play steps `docs/releases/2.7.0-handoff.md` (smoke items 12–13 added).
 - Live in the stores: 2.6.1 (10574, tag `v2.6.1`).
-- Backend `main` a9a0b6e and web `main` 2ce0c93 are **deployed** (2026-10-13), so the deploy order
+- Backend `main` 9d36fe0 (2026-10-14) and web `main` 2ce0c93 are **deployed**, so the deploy order
   backend → web → app is satisfied; 2.7.0 can ship as soon as it is built.
 - All new server flags are still off (dark); see the backend file for the flag table.
 
@@ -95,6 +96,16 @@ Web announcements (backend + web; **no app change**)
 - [ ] Admin editor shows the App preview slot even when "Show in app and on website" is off. S
 - [ ] Banner style in the app (same `displayStyle` field; the app ignores banners today). M
 
+Android release audit 2026-10-14 (2.7.0 now includes the tab bar; hub ships dark)
+- [x] Release compile + R8 pass (stops only at signing, as expected without the keystore); badging: versionCode 10580, only `faketouch` required, removed permissions absent.
+- [x] AI Study cold start no longer shows a spinner (remembered flag, `StudyHubFlagCache`).
+- [x] Tab bar: no rebuild per keyboard-animation frame; hidden bar excluded from TalkBack; no hide-on-scroll while TalkBack is on; unread count announced.
+- [ ] 3-button navigation (Android 15, edge-to-edge): the bar's bottom ~4 dp sits in the system nav strip (`inset - 4`); consider `inset + 4` on Android after device QA. Same as the bar audited 10-13 (not a regression). S
+- [ ] `FloatingTabBar.clearance` drops by the nav inset while the keyboard is open, so lists with a search field shift ~36 dp on 3-button nav. Cosmetic. S
+- [ ] Below ~262 dp effective width (320 dp phone at max Display size) the bar row overflows and clips Profile. S
+- [ ] TalkBack keep-visible path in `TabsScreen` has no widget test (shell not pumpable); cover in device QA.
+- Note: turning `STUDY_HUB_ENABLED` off after devices cached `true` takes effect from the second launch (kill switch is one launch slow by design).
+
 AI Study hub + floating tab bar (branch `feat/ai-study-hub`)
 - [x] Design approved and spec written: `docs/superpowers/specs/2026-10-13-ai-study-hub-and-tab-bar-design.md`; mockup https://claude.ai/artifact/R1A8GWY8C6cqEMkfs5akEK.
 - [x] Owner approved the spec as written (2026-10-14).
@@ -115,7 +126,7 @@ AI Study hub + floating tab bar (branch `feat/ai-study-hub`)
   - [x] Coin unlocks counted: tiles read the server's new `bonus` (unspent coin unlocks) — exhausted only when remaining + bonus is 0; "N left" shows remaining + bonus. Old servers (no `bonus`) behave as before.
   - [x] VIP-locked sheet no longer offers a coin unlock (coins can't lift a lock); exhausted sheet's coin unlock pops, refreshes quotas and opens the feature (tested).
   - [x] `ProgressCard` always shows (placeholders "–" when progress is missing), so its shortcuts stay reachable.
-  - [x] Cold start: neutral loader while app-config loads; legacy hub only on config error or after 1.5 s, and then it stays for that mount (no flash, no swap).
+  - [x] Cold start (revised 2026-10-14 Android audit): no loader — AI Study is chosen once per launch from the last remembered `studyHubEnabled` (`StudyHubFlagCache`, device-level key), legacy when unknown; a flag change applies from the next launch. The 1.5 s loader would have put a spinner on every user's first screen while the hub is off.
   - [x] `tabReselectProvider` reset on account switch (session reset registry).
   - [x] Seen-marking no longer uses `ref` after the tile is gone; upgrade sheet scrolls on small screens / large text.
   - [x] Overflow sweep `test/learning/study_hub_overflow_sweep_test.dart` (864 cases) — no overflow found beyond the sheet fix.

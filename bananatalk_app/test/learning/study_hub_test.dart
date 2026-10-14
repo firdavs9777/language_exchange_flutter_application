@@ -18,6 +18,8 @@ import 'package:bananatalk_app/models/tutor/tutor_memory.dart' hide WeakArea;
 import 'package:bananatalk_app/pages/learning/models/weekly_digest.dart';
 import 'package:bananatalk_app/pages/learning/main/learning_main_screen.dart';
 import 'package:bananatalk_app/pages/learning/main/legacy_study_hub.dart';
+import 'package:bananatalk_app/services/session_prefs.dart';
+import 'package:bananatalk_app/services/study_hub_flag_cache.dart';
 import 'package:bananatalk_app/pages/learning/main/sections/spotlight_carousel.dart';
 import 'package:bananatalk_app/pages/learning/main/study_hub.dart';
 import 'package:bananatalk_app/providers/ad_providers.dart';
@@ -122,7 +124,12 @@ Future<void> pump(
   List<Announcement> announcements = const [],
   bool noProgress = false,
   Future<AppConfig?> Function()? config,
+  // The launch value remembered on the device (StudyHubFlagCache). Defaults
+  // to the flag itself: a returning user whose phone already knows it.
+  bool? cached,
+  bool noCache = false,
 }) async {
+  StudyHubFlagCache.lastKnown = noCache ? null : (cached ?? on);
   await t.pumpWidget(
     ProviderScope(
       overrides: [
@@ -195,48 +202,63 @@ void main() {
     expect(find.text('Achievements'), findsOneWidget);
   });
 
-  group('cold start (config still loading)', () {
-    testWidgets('flag on, config arrives quickly: hub without legacy ever mounting', (
+  group('cold start: page chosen once per launch from the remembered flag', () {
+    testWidgets('remembered on, config still loading: hub at once, no spinner', (
       t,
     ) async {
       final c = Completer<AppConfig?>();
-      await pump(t, true, config: () => c.future);
-      // pump() already ran 200 ms of frames while config was loading.
-      expect(find.byType(LegacyStudyHub), findsNothing);
-      expect(find.byType(StudyHub), findsNothing);
-      await t.pump(const Duration(milliseconds: 500));
-      expect(find.byType(LegacyStudyHub), findsNothing);
-      c.complete(cfg(true));
-      await t.pump();
-      await t.pump();
+      await pump(t, true, config: () => c.future, cached: true);
       expect(find.byType(StudyHub), findsOneWidget);
-      expect(find.byType(LegacyStudyHub), findsNothing);
-      // Past the fallback deadline nothing swaps back.
-      await t.pump(const Duration(seconds: 2));
-      expect(find.byType(StudyHub), findsOneWidget);
+      expect(find.byType(CircularProgressIndicator), findsNothing);
     });
 
-    testWidgets('config never resolves: legacy after the timeout, and it stays', (
-      t,
-    ) async {
+    testWidgets('nothing remembered (first launch): legacy at once, and a '
+        'later "on" applies from the next launch, not mid-session', (t) async {
       final c = Completer<AppConfig?>();
-      await pump(t, true, config: () => c.future);
-      expect(find.byType(LegacyStudyHub), findsNothing);
-      await t.pump(const Duration(milliseconds: 1500));
-      await t.pump();
+      await pump(t, true, config: () => c.future, noCache: true);
       expect(find.byType(LegacyStudyHub), findsOneWidget);
-      // A late config must not swap the page under the user.
       c.complete(cfg(true));
       await t.pump();
       await t.pump();
       expect(find.byType(LegacyStudyHub), findsOneWidget);
       expect(find.byType(StudyHub), findsNothing);
+      expect(StudyHubFlagCache.lastKnown, isTrue);
+      final prefs = await SharedPreferences.getInstance();
+      expect(prefs.getBool(StudyHubFlagCache.prefsKey), isTrue);
     });
 
-    testWidgets('config error: legacy straight away', (t) async {
-      await pump(t, true, config: () => Future.error(Exception('offline')));
+    testWidgets('remembered on but the server turned it off: the hub stays '
+        'for this launch, off is remembered for the next', (t) async {
+      final c = Completer<AppConfig?>();
+      await pump(t, true, config: () => c.future, cached: true);
+      c.complete(cfg(false));
+      await t.pump();
+      await t.pump();
+      expect(find.byType(StudyHub), findsOneWidget);
+      expect(StudyHubFlagCache.lastKnown, isFalse);
+    });
+
+    testWidgets('config error with nothing remembered: legacy', (t) async {
+      await pump(
+        t,
+        true,
+        config: () => Future.error(Exception('offline')),
+        noCache: true,
+      );
       expect(find.byType(LegacyStudyHub), findsOneWidget);
     });
+  });
+
+  testWidgets('config already loaded before the page mounts is still '
+      'remembered (e.g. after re-login)', (t) async {
+    // pump() resolves config immediately; with nothing remembered the page
+    // is legacy, but the loaded value must still be stored for next launch.
+    await pump(t, true, noCache: true);
+    expect(StudyHubFlagCache.lastKnown, isTrue);
+  });
+
+  test('the remembered flag survives logout (device-level key)', () {
+    expect(isDeviceLevelPrefsKey(StudyHubFlagCache.prefsKey), isTrue);
   });
 
   testWidgets('flag on renders the hub with all three groups', (t) async {

@@ -133,6 +133,21 @@ void main() {
     ),
   );
 
+  testWidgets('screen readers hear the unread count', (t) async {
+    await t.pumpWidget(bar(badgeCount: 7));
+    expect(find.bySemanticsLabel('Community, 7'), findsOneWidget);
+    expect(find.bySemanticsLabel('AI Study'), findsOneWidget);
+  });
+
+  testWidgets('a slid-away bar leaves no screen-reader stops', (t) async {
+    final handle = t.ensureSemantics();
+    await t.pumpWidget(bar(visible: false));
+    await t.pumpAndSettle();
+    expect(find.bySemanticsLabel('Community'), findsNothing);
+    expect(find.bySemanticsLabel('AI Study'), findsNothing);
+    handle.dispose();
+  });
+
   testWidgets('active tab draws its name, inactive does not', (t) async {
     await t.pumpWidget(bar());
     expect(find.text('AI Study'), findsOneWidget);

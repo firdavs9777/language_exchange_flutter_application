@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bananatalk_app/services/study_hub_flag_cache.dart';
 import 'package:bananatalk_app/router/app_router.dart'
     show goRouter, callOverlayNavigatorKey;
 import 'package:bananatalk_app/services/notification_service.dart';
@@ -78,6 +79,7 @@ Future<void> _main() async {
   // Initialize socket + notifications if user is logged in.
   try {
     final prefs = await SharedPreferences.getInstance();
+    StudyHubFlagCache.loadFrom(prefs);
     final token = prefs.getString('token');
     final userId = prefs.getString('userId');
 

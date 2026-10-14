@@ -223,6 +223,10 @@ class _FloatingTabBarState extends State<FloatingTabBar>
   void didChangeMetrics() {
     if (!mounted) return;
     final open = _keyboardOpen;
+    // Insets change on every frame of the keyboard animation; only an
+    // open/closed flip needs a rebuild (the inset itself reaches the bar
+    // through MediaQuery).
+    if (open == _wasKeyboardOpen) return;
     final closed = _wasKeyboardOpen && !open;
     _wasKeyboardOpen = open;
     setState(() {});
@@ -252,49 +256,53 @@ class _FloatingTabBarState extends State<FloatingTabBar>
       curve: Curves.easeOutCubic,
       child: IgnorePointer(
         ignoring: hidden,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: _sideMargin),
-          child: Center(
-            child: ClipRRect(
-              key: FloatingTabBar.pillKey,
-              borderRadius: BorderRadius.circular(28),
-              child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
-                child: Container(
-                  height: FloatingTabBar.height,
-                  padding: const EdgeInsets.symmetric(horizontal: 6),
-                  decoration: BoxDecoration(
-                    color: dark
-                        ? _pillDark.withValues(alpha: 0.92)
-                        : Colors.white.withValues(alpha: 0.92),
-                    borderRadius: BorderRadius.circular(28),
-                    border: Border.all(
+        // A slid-away bar must not keep five dead TalkBack/VoiceOver stops.
+        child: ExcludeSemantics(
+          excluding: hidden,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: _sideMargin),
+            child: Center(
+              child: ClipRRect(
+                key: FloatingTabBar.pillKey,
+                borderRadius: BorderRadius.circular(28),
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
+                  child: Container(
+                    height: FloatingTabBar.height,
+                    padding: const EdgeInsets.symmetric(horizontal: 6),
+                    decoration: BoxDecoration(
                       color: dark
-                          ? Colors.white.withValues(alpha: 0.08)
-                          : Colors.black.withValues(alpha: 0.06),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
+                          ? _pillDark.withValues(alpha: 0.92)
+                          : Colors.white.withValues(alpha: 0.92),
+                      borderRadius: BorderRadius.circular(28),
+                      border: Border.all(
                         color: dark
-                            ? Colors.black.withValues(alpha: 0.4)
-                            : Colors.black.withValues(alpha: 0.08),
-                        blurRadius: 24,
-                        offset: const Offset(0, 4),
-                        spreadRadius: -2,
+                            ? Colors.white.withValues(alpha: 0.08)
+                            : Colors.black.withValues(alpha: 0.06),
                       ),
-                    ],
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      for (var i = 0; i < items.length; i++)
-                        if (i == selected)
-                          // Only the active capsule may shrink, so a long
-                          // name ellipsizes instead of overflowing.
-                          Flexible(child: _item(context, i, dark))
-                        else
-                          _item(context, i, dark),
-                    ],
+                      boxShadow: [
+                        BoxShadow(
+                          color: dark
+                              ? Colors.black.withValues(alpha: 0.4)
+                              : Colors.black.withValues(alpha: 0.08),
+                          blurRadius: 24,
+                          offset: const Offset(0, 4),
+                          spreadRadius: -2,
+                        ),
+                      ],
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        for (var i = 0; i < items.length; i++)
+                          if (i == selected)
+                            // Only the active capsule may shrink, so a long
+                            // name ellipsizes instead of overflowing.
+                            Flexible(child: _item(context, i, dark))
+                          else
+                            _item(context, i, dark),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -412,7 +420,10 @@ class _FloatingTabBarState extends State<FloatingTabBar>
     return Semantics(
       button: true,
       selected: isSelected,
-      label: item.label,
+      // The unread count is drawn but would otherwise never be announced.
+      label: item.badgeCount > 0
+          ? '${item.label}, ${item.badgeCount}'
+          : item.label,
       excludeSemantics: true,
       onTap: () => widget.onSelect(i),
       child: GestureDetector(

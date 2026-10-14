@@ -330,6 +330,11 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
                     // scrolling moves the bar.
                     child: NotificationListener<Notification>(
                       onNotification: (n) {
+                        // With TalkBack/VoiceOver on, a bar that slides
+                        // away on scroll is hard to find again; keep it.
+                        if (MediaQuery.accessibleNavigationOf(context)) {
+                          return false;
+                        }
                         if (index == ref.read(selectedTabProvider) &&
                             _barScroll.onNotification(n)) {
                           setState(() => _barVisible = _barScroll.visible);
