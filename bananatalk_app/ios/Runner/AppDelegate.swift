@@ -47,6 +47,34 @@ import flutter_callkit_incoming
       missedCallChannel = channel
     }
 
+    // App icon badge (lib/services/app_icon_badge.dart). The server sets
+    // aps.badge to the unread-message count on pushes; Dart sets the same
+    // count after reading chats, on launch and to 0 at logout.
+    if let registrar = self.registrar(forPlugin: "BananatalkAppBadge") {
+      let badgeChannel = FlutterMethodChannel(
+        name: "bananatalk/app_badge",
+        binaryMessenger: registrar.messenger()
+      )
+      badgeChannel.setMethodCallHandler { call, result in
+        guard call.method == "setBadge" else {
+          result(FlutterMethodNotImplemented)
+          return
+        }
+        let args = call.arguments as? [String: Any]
+        let count = max(0, args?["count"] as? Int ?? 0)
+        if #available(iOS 16.0, *) {
+          UNUserNotificationCenter.current().setBadgeCount(count) { _ in
+            DispatchQueue.main.async { result(nil) }
+          }
+        } else {
+          DispatchQueue.main.async {
+            UIApplication.shared.applicationIconBadgeNumber = count
+            result(nil)
+          }
+        }
+      }
+    }
+
     // VoIP push registration. iOS 13+ requires EVERY VoIP push to report a
     // call to CallKit before the handler completes, or the app loses its
     // VoIP entitlement — including call_cancelled pushes (see below).

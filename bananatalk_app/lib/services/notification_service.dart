@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:bananatalk_app/services/app_icon_badge.dart';
 import 'package:bananatalk_app/providers/app_provider_container.dart';
 import 'package:bananatalk_app/providers/missed_calls_provider.dart';
 import 'package:bananatalk_app/models/notification_models.dart' as nm;
@@ -924,17 +925,12 @@ class NotificationService {
     return await _getDeviceId();
   }
 
-  /// Update badge count (iOS)
-  Future<void> updateBadgeCount(int count) async {
-    // Badge count is managed via local notifications plugin
-    // The actual badge update happens through FlutterLocalNotificationsPlugin
-  }
+  /// Set the iOS app icon badge. Pass the unread-message count: that is what
+  /// the server puts in `aps.badge`, so the icon keeps one meaning.
+  Future<void> updateBadgeCount(int count) => AppIconBadge.set(count);
 
-  /// Clear app badge (set to 0)
-  Future<void> clearBadge() async {
-    // Badge will be managed by the backend via notification payloads
-    // iOS clears badge when notifications are read
-  }
+  /// Clear the app icon badge (set to 0).
+  Future<void> clearBadge() => AppIconBadge.set(0);
 
   /// Cancel the ongoing incoming-call notification (Android full-screen intent)
   Future<void> cancelCallNotification() async {
