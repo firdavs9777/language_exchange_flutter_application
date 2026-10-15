@@ -1,6 +1,6 @@
 # Remaining work — BananaTalk app
 
-Last updated: 2026-10-14. Keep this current: tick items off in the same commit that finishes them.
+Last updated: 2026-10-15. Keep this current: tick items off in the same commit that finishes them.
 
 See also: backend `language_exchange_backend_application/docs/REMAINING_WORK.md` (server env, prod DB, flags, ops) ·
 web `docs/REMAINING_WORK.md` in the web repo (admin console, `assetlinks.json`, nginx).
@@ -37,11 +37,13 @@ web `docs/REMAINING_WORK.md` in the web repo (admin console, `assetlinks.json`, 
     **The EULA body (terms screen) needs counsel or native review per market** — a higher bar than UI copy.
 11. AdMob earnings: lifetime + last 30 days (the one revenue number not in the DB).
 12. Server-side steps (flags, LiveKit webhook, `APNS_VOIP_*`, droplet `config.env`, prod queries): backend file.
-13. Set `STUDY_HUB_ENABLED=true` after 2.8.0 is live and QA passed (`docs/qa/study-hub-matrix.md`).
+13. Set `STUDY_HUB_ENABLED=true` after 2.7.0 is live (the hub ships dark in it) and QA passed (`docs/qa/study-hub-matrix.md`).
 
 ## 3. Device / production QA
 
-Release-mode smoke (Android, internal track — handoff §3; rows in `docs/qa/calls-matrix.md` and `docs/qa/onboarding-matrix.md`):
+**Run from `docs/qa/2.7.0-weekend-run.md`** (order, setup, flags, known failures, release-smoke rows R-1…R-12). All four matrices were re-checked against the code on 2026-10-15; rows that were wrong were corrected and ~40 rows added.
+
+Release-mode smoke (Android, internal track — handoff §3; rows in `docs/qa/calls-matrix.md`, `docs/qa/onboarding-matrix.md`, `docs/qa/study-hub-matrix.md`):
 - [ ] Incoming call, killed + locked → full-screen UI; Accept/Decline from CallKit screen and from the notification (CallKit permission is now `signature`).
 - [ ] Rejoin after kill: voice call the peer upgraded → rejoins as video, own camera off, no camera prompt, no forced speaker; Video On → permission prompt, then speaker. Same for a native video call with the camera off.
 - [ ] Peer upgrade: CALL2-21 and CALL2-13 (Android FGS camera type with local camera off, then on).
@@ -80,7 +82,15 @@ Localization
 - [ ] Russian `{coins} монет` is not plural-aware (e.g. `referralClaimed`); needs an ICU plural in the en source. S
 
 Calls
+- [ ] **Rejoin after kill never happens (found 2026-10-15 by code reading, before 2.7.0 ships).** `main.dart` runs `reconcileCallKitOnColdStart()` then `recoverCallState()`; reconcile finds the still-accepted native entry and calls `handleCallKitAccept` → `POST /accept` on a call that is already `active` → server 409 `CALL_STATE` → `_finish(acceptConflict)` ends the native entry and remembers the id, so `recoverCallState` finds no accepted entry (and `_rejoin` would skip the remembered id anyway). The peer sees "Reconnecting..." and the call ends after ~20 s. Tests only cover `recoverCallState()` alone. Fix idea: in reconcile, ask `/calls/current` first and leave an entry whose call is already `active` to `recoverCallState`. Device row: calls-matrix CALL2-23. M
+- [ ] Android 12+ BT headset: a local upgrade / first "Video On" calls `setSpeakerOn(true)`, which in flutter_webrtc 1.4.0 forces `Speakerphone` over a connected headset (iOS keeps BT). Prefer speaker only when no headset is connected. Device row CALL2-22. S
 - [ ] Request BLUETOOTH_CONNECT at runtime with the mic if the device QA shows the headset is not selectable on Android 12+. S
+
+Notifications
+- [ ] **Android 13+ fresh installs are never asked for notification permission (since 2.4.0, 9a2368c8).** firebase_messaging 15.2.10 on Android reports only authorized/denied, so "not asked yet" reads as `denied` → `NotificationAction.recover` → no priming sheet, and `NotificationService.initialize` also skips handler/local-notification set-up for `denied`. Affects chat pushes and incoming calls for every new Android 13+ user (push reach, calls answered rate). Fix idea: on Android, treat `denied` with `notification_prompt_shown` unset as `notDetermined` (Android allows the dialog twice); re-check the set-up skip. Device row: onboarding §4. M
+
+Tab bar clearance
+- [ ] Community Waves (`waves_tab.dart`, vertical 8), Matches (`matches_tab.dart`, bottom 24), Gatherings (80), Nearby (100), Voice rooms (72–100) and Profile (100) use fixed bottom padding instead of `FloatingTabBar.clearance` (≈ 98 iPhone, ≈ 88 gesture, ≈ 112 3-button), so their last rows can sit under the bar. The bar ships to everyone in 2.7.0. Device row study-hub 4.8. S
 
 Auth
 - [ ] Map `SOCIAL_LOGIN_REQUIRED` (email login on a Google/Apple-only account) in `auth_error_codes.dart` if a dedicated UI is wanted; today it shows the server message. S
@@ -130,7 +140,7 @@ AI Study hub + floating tab bar (branch `feat/ai-study-hub`)
   - [x] `tabReselectProvider` reset on account switch (session reset registry).
   - [x] Seen-marking no longer uses `ref` after the tile is gone; upgrade sheet scrolls on small screens / large text.
   - [x] Overflow sweep `test/learning/study_hub_overflow_sweep_test.dart` (864 cases) — no overflow found beyond the sheet fix.
-- [ ] Deferred minors from the final review (not blocking 2.8.0): hardcoded badge / row colours + dark-mode contrast QA; unread count missing from tab semantics label; inactive badge position in RTL; `didChangeMetrics` setState on every metrics frame; programmatic scrolls can hide the bar; `tabRefreshNotifier` not folded into `tabReselectProvider`; no `TabsScreen` widget test; `SupportSheetState` is public; the no-bottom-literal test misses reels and `SizedBox` spacers; spotlight may repeat the launch pop-up's announcement; `_openPack` is a dead tap while the pack is loading. S each
+- [ ] Deferred minors from the final review (not blocking 2.7.0 or the flag flip): hardcoded badge / row colours + dark-mode contrast QA; inactive badge position in RTL; `didChangeMetrics` setState on every metrics frame; programmatic scrolls can hide the bar; `tabRefreshNotifier` not folded into `tabReselectProvider`; no `TabsScreen` widget test; `SupportSheetState` is public; the no-bottom-literal test misses reels and `SizedBox` spacers; spotlight may repeat the launch pop-up's announcement; `_openPack` is a dead tap while the pack is loading. S each
 - [x] Tab bar padding tightened (side margin 8, no gap between items, capsule padding 10; 48 hit target kept): every English tab name fits whole at 360 pt, text 1.0 (measured with real Roboto in `floating_tab_bar_fit_test`).
 - [ ] Native review of the study hub strings (rows `studyGroup*`, `studyTile*`, `studyBadge*`, `studyUpgrade*`, `guideStudyHub*`, `supportBananaTalkRow*` appended to the CSV in Owner step 10). M
 - [ ] Run the baseline prod queries (feature usage per user, 30 days) before release — not run during design (no prod DB access that session). S
