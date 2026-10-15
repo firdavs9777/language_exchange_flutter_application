@@ -15,28 +15,14 @@ class ViewerTextStoryLayer extends StatelessWidget {
     required this.fontStyle,
   });
 
-  Color _parseColor(String hex) {
-    final cleaned = hex.replaceAll('#', '');
-    final value = cleaned.length == 6 ? 'FF$cleaned' : cleaned;
-    return Color(int.parse(value, radix: 16));
-  }
-
-  Decoration _background() {
-    if (backgroundColorHint.startsWith('gradient_')) {
-      return BoxDecoration(
-        gradient: StoryGradient.byId(backgroundColorHint).toLinearGradient(),
-      );
-    }
-    if (backgroundColorHint.startsWith('#')) {
-      return BoxDecoration(color: _parseColor(backgroundColorHint));
-    }
-    // Fallback to black
-    return const BoxDecoration(color: Colors.black);
-  }
+  // Both used to int.parse whatever arrived, so one malformed or CSS-style
+  // colour from the web threw inside build and blanked the story.
+  Decoration _background() =>
+      StoryGradient.backgroundDecoration(backgroundColorHint);
 
   TextStyle _textStyleOf() {
     final base = TextStyle(
-      color: _parseColor(textColor),
+      color: StoryGradient.parseHexColor(textColor) ?? Colors.white,
       fontSize: 28,
       height: 1.3,
     );
