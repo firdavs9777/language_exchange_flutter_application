@@ -155,6 +155,7 @@ final Map<String, ProviderOrFamily> userScopedProviders = {
   'partnerFilterProvider': partnerFilterProvider,
   'communityPendingSubTabProvider': communityPendingSubTabProvider,
   'dailyMatchesProvider': dailyMatchesProvider,
+  'dailyMatchesSkippedProvider': dailyMatchesSkippedProvider,
   'matchingRecommendationsProvider': matchingRecommendationsProvider,
   'quickMatchesProvider': quickMatchesProvider,
   'matchByLanguageProvider': matchByLanguageProvider,
