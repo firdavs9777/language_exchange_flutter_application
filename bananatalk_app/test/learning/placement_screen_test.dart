@@ -80,4 +80,69 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.byKey(const Key('placement-error')), findsOneWidget);
   });
+
+  testWidgets('a failed submit shows a retry that resends the same eight answers',
+      (tester) async {
+    final sent = <List<int>>[];
+    var fail = true;
+    await tester.pumpWidget(_host(submit: (a) async {
+      sent.add(a);
+      if (fail) throw Exception('offline');
+      return {'level': 'B1', 'book': 'intermediate', 'correct': 6};
+    }));
+    await tester.pumpAndSettle();
+    for (var i = 0; i < 8; i++) {
+      await tester.tap(find.byKey(Key('check-q$i-opt1')));
+      await tester.pumpAndSettle();
+    }
+    expect(find.byKey(const Key('placement-submit-error')), findsOneWidget);
+
+    // Tapping an option again must not grow the answer list past eight.
+    await tester.tap(find.byKey(const Key('check-q7-opt2')));
+    await tester.pumpAndSettle();
+
+    fail = false;
+    await tester.tap(find.byKey(const Key('placement-submit-retry')));
+    await tester.pumpAndSettle();
+    expect(sent.every((a) => a.length == 8), isTrue);
+    expect(find.byKey(const Key('placement-start')), findsOneWidget);
+  });
+
+  testWidgets('a double tap on the last question submits once', (tester) async {
+    var calls = 0;
+    await tester.pumpWidget(_host(submit: (a) async {
+      calls++;
+      await Future<void>.delayed(const Duration(milliseconds: 50));
+      return {'level': 'B1', 'book': 'intermediate', 'correct': 6};
+    }));
+    await tester.pumpAndSettle();
+    for (var i = 0; i < 7; i++) {
+      await tester.tap(find.byKey(Key('check-q$i-opt1')));
+      await tester.pumpAndSettle();
+    }
+    await tester.tap(find.byKey(const Key('check-q7-opt1')));
+    await tester.pump();
+    await tester.tap(find.byKey(const Key('check-q7-opt0')), warnIfMissed: false);
+    await tester.pumpAndSettle();
+    expect(calls, 1);
+  });
+
+  testWidgets('loading and load-error screens have a back button', (tester) async {
+    await tester.pumpWidget(MaterialApp(
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      home: Builder(
+        builder: (context) => TextButton(
+          onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+            builder: (_) => PlacementScreen(load: () async => throw Exception('offline')),
+          )),
+          child: const Text('open'),
+        ),
+      ),
+    ));
+    await tester.tap(find.text('open'));
+    await tester.pumpAndSettle();
+    expect(find.byKey(const Key('placement-error')), findsOneWidget);
+    expect(find.byType(BackButton), findsOneWidget);
+  });
 }

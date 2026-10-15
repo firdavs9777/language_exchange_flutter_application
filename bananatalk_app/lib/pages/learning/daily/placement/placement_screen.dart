@@ -28,6 +28,11 @@ class _PlacementScreenState extends State<PlacementScreen> {
   Map<String, dynamic>? _result;
   bool _failed = false;
 
+  /// A submit is in flight; further taps and skips are ignored so a fast
+  /// double tap cannot send twice.
+  bool _submitting = false;
+  bool _submitFailed = false;
+
   @override
   void initState() {
     super.initState();
@@ -45,17 +50,35 @@ class _PlacementScreenState extends State<PlacementScreen> {
   }
 
   Future<void> _finish() async {
+    if (_submitting) return;
+    setState(() {
+      _submitting = true;
+      _submitFailed = false;
+    });
     try {
       final submitter = widget.submit ?? LearningService.submitPlacement;
-      final result = await submitter(List<int>.from(_answers));
+      // Never more answers than questions: the server rejects that with a
+      // 400 on every retry.
+      final result = await submitter(
+          _answers.take(_questions?.length ?? _answers.length).toList());
       if (mounted) setState(() => _result = result);
     } catch (_) {
-      if (mounted) setState(() => _failed = true);
+      // Stay on the last question with the answers kept, and offer a retry.
+      if (mounted) setState(() => _submitFailed = true);
+    } finally {
+      if (mounted) setState(() => _submitting = false);
     }
   }
 
   Future<void> _answer(int option) async {
-    _answers.add(option);
+    if (_submitting) return;
+    // Replace rather than append, so re-answering after a failed submit
+    // changes that answer instead of adding a ninth.
+    if (_index < _answers.length) {
+      _answers[_index] = option;
+    } else {
+      _answers.add(option);
+    }
     if (_index + 1 < (_questions?.length ?? 0)) {
       setState(() => _index += 1);
       return;
@@ -70,6 +93,7 @@ class _PlacementScreenState extends State<PlacementScreen> {
 
     if (_failed && _result == null && _questions == null) {
       return Scaffold(
+        appBar: AppBar(title: Text(l10n.placementTitle)),
         body: Center(
           child: Padding(
             padding: const EdgeInsets.all(32),
@@ -119,7 +143,10 @@ class _PlacementScreenState extends State<PlacementScreen> {
 
     final questions = _questions;
     if (questions == null) {
-      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+      return Scaffold(
+        appBar: AppBar(title: Text(l10n.placementTitle)),
+        body: const Center(child: CircularProgressIndicator()),
+      );
     }
 
     return Scaffold(
@@ -128,7 +155,7 @@ class _PlacementScreenState extends State<PlacementScreen> {
         actions: [
           TextButton(
             key: const Key('placement-skip'),
-            onPressed: _finish,
+            onPressed: _submitting ? null : _finish,
             child: Text(l10n.placementSkip),
           ),
         ],
@@ -144,8 +171,35 @@ class _PlacementScreenState extends State<PlacementScreen> {
           CheckQuestion(
             check: questions[_index],
             index: _index,
+            selected: _index < _answers.length ? _answers[_index] : null,
             onSelect: _answer,
           ),
+          if (_submitting)
+            const Padding(
+              padding: EdgeInsets.only(top: 12),
+              child: Center(child: CircularProgressIndicator()),
+            ),
+          if (_submitFailed && !_submitting)
+            Padding(
+              key: const Key('placement-submit-error'),
+              padding: const EdgeInsets.only(top: 12),
+              child: Column(
+                children: [
+                  Text(
+                    l10n.packSubmitFailed,
+                    textAlign: TextAlign.center,
+                    style: theme.textTheme.bodyMedium
+                        ?.copyWith(color: theme.colorScheme.error),
+                  ),
+                  const SizedBox(height: 8),
+                  FilledButton(
+                    key: const Key('placement-submit-retry'),
+                    onPressed: _finish,
+                    child: Text(l10n.retry),
+                  ),
+                ],
+              ),
+            ),
         ],
       ),
     );
