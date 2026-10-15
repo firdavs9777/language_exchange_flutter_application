@@ -11416,4 +11416,16 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get personaUpgradeGeneric => 'Мехоҳед идома диҳед?\nБарои Омӯзиши AI-и беҳудуд навсозӣ кунед.';
+
+  @override
+  String get chatListConversationPinned => 'Сӯҳбат васл шуд';
+
+  @override
+  String get chatListConversationUnpinned => 'Сӯҳбат аз васл озод шуд';
+
+  @override
+  String get chatListConversationDeleted => 'Сӯҳбат нест карда шуд';
+
+  @override
+  String get chatListConversationActionFailed => 'Ин сӯҳбатро нав кардан нашуд. Лутфан бори дигар кӯшиш кунед.';
 }

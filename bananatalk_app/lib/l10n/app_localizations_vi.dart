@@ -11396,4 +11396,16 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get personaUpgradeGeneric => 'Muốn tiếp tục?\nNâng cấp để học AI không giới hạn.';
+
+  @override
+  String get chatListConversationPinned => 'Đã ghim cuộc trò chuyện';
+
+  @override
+  String get chatListConversationUnpinned => 'Đã bỏ ghim cuộc trò chuyện';
+
+  @override
+  String get chatListConversationDeleted => 'Đã xóa cuộc trò chuyện';
+
+  @override
+  String get chatListConversationActionFailed => 'Không thể cập nhật cuộc trò chuyện này. Vui lòng thử lại.';
 }

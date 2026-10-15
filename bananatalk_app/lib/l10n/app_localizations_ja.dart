@@ -11396,4 +11396,16 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get personaUpgradeGeneric => 'もっと続けたい？\nアップグレードでAI学習が無制限に。';
+
+  @override
+  String get chatListConversationPinned => '会話をピン留めしました';
+
+  @override
+  String get chatListConversationUnpinned => '会話のピン留めを解除しました';
+
+  @override
+  String get chatListConversationDeleted => '会話を削除しました';
+
+  @override
+  String get chatListConversationActionFailed => 'この会話を更新できませんでした。もう一度お試しください。';
 }

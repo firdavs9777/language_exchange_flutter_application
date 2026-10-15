@@ -11415,4 +11415,16 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get personaUpgradeGeneric => 'Quer continuar?\nFaça upgrade para Estudo com IA ilimitado.';
+
+  @override
+  String get chatListConversationPinned => 'Conversa fixada';
+
+  @override
+  String get chatListConversationUnpinned => 'Conversa desafixada';
+
+  @override
+  String get chatListConversationDeleted => 'Conversa excluída';
+
+  @override
+  String get chatListConversationActionFailed => 'Não foi possível atualizar esta conversa. Tente novamente.';
 }

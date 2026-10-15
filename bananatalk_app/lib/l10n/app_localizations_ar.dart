@@ -11470,4 +11470,16 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get personaUpgradeGeneric => 'هل تريد المتابعة؟\nقم بالترقية لدراسة غير محدودة بالذكاء الاصطناعي.';
+
+  @override
+  String get chatListConversationPinned => 'تم تثبيت المحادثة';
+
+  @override
+  String get chatListConversationUnpinned => 'تم إلغاء تثبيت المحادثة';
+
+  @override
+  String get chatListConversationDeleted => 'تم حذف المحادثة';
+
+  @override
+  String get chatListConversationActionFailed => 'تعذّر تحديث هذه المحادثة. يُرجى المحاولة مرة أخرى.';
 }

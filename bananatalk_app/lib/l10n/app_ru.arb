@@ -4450,5 +4450,9 @@
   "personaUpgradeNana": "Хотите продолжить общение с Наной? 🐻\nОформите подписку для безлимита.",
   "personaUpgradeSensei": "Продолжайте тренировку с Сенсеем. 🤖\nОформите подписку для практики без ограничений.",
   "personaUpgradeRiko": "Рико только разогревается! 🐙\nОформите подписку и продолжим.",
-  "personaUpgradeGeneric": "Хотите продолжить?\nОформите подписку для безлимитного ИИ-обучения."
+  "personaUpgradeGeneric": "Хотите продолжить?\nОформите подписку для безлимитного ИИ-обучения.",
+  "chatListConversationPinned": "Чат закреплён",
+  "chatListConversationUnpinned": "Чат откреплён",
+  "chatListConversationDeleted": "Чат удалён",
+  "chatListConversationActionFailed": "Не удалось обновить этот чат. Попробуйте ещё раз."
 }

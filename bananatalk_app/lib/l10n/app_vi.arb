@@ -4420,5 +4420,9 @@
   "personaUpgradeNana": "Muốn tiếp tục trò chuyện với Nana? 🐻\nNâng cấp để dùng không giới hạn.",
   "personaUpgradeSensei": "Tiếp tục luyện tập cùng Sensei. 🤖\nNâng cấp để luyện tập không giới hạn.",
   "personaUpgradeRiko": "Riko mới chỉ khởi động thôi! 🐙\nNâng cấp và cùng tiếp tục nhé.",
-  "personaUpgradeGeneric": "Muốn tiếp tục?\nNâng cấp để học AI không giới hạn."
+  "personaUpgradeGeneric": "Muốn tiếp tục?\nNâng cấp để học AI không giới hạn.",
+  "chatListConversationPinned": "Đã ghim cuộc trò chuyện",
+  "chatListConversationUnpinned": "Đã bỏ ghim cuộc trò chuyện",
+  "chatListConversationDeleted": "Đã xóa cuộc trò chuyện",
+  "chatListConversationActionFailed": "Không thể cập nhật cuộc trò chuyện này. Vui lòng thử lại."
 }

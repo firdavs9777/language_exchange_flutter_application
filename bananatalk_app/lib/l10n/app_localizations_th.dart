@@ -11396,4 +11396,16 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get personaUpgradeGeneric => 'อยากไปต่อไหม?\nอัปเกรดเพื่อเรียนกับ AI ได้ไม่จำกัด';
+
+  @override
+  String get chatListConversationPinned => 'ปักหมุดการสนทนาแล้ว';
+
+  @override
+  String get chatListConversationUnpinned => 'เลิกปักหมุดการสนทนาแล้ว';
+
+  @override
+  String get chatListConversationDeleted => 'ลบการสนทนาแล้ว';
+
+  @override
+  String get chatListConversationActionFailed => 'ไม่สามารถอัปเดตการสนทนานี้ได้ โปรดลองอีกครั้ง';
 }

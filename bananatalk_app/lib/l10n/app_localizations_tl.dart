@@ -11415,4 +11415,16 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get personaUpgradeGeneric => 'Gusto mo pang magpatuloy?\nMag-upgrade para sa walang limitasyong AI Study.';
+
+  @override
+  String get chatListConversationPinned => 'Na-pin ang usapan';
+
+  @override
+  String get chatListConversationUnpinned => 'Na-unpin ang usapan';
+
+  @override
+  String get chatListConversationDeleted => 'Nabura ang usapan';
+
+  @override
+  String get chatListConversationActionFailed => 'Hindi ma-update ang usapang ito. Pakisubukang muli.';
 }

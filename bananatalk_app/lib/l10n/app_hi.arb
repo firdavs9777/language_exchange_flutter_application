@@ -4436,5 +4436,9 @@
   "personaUpgradeNana": "नाना से बात करते रहना चाहते हैं? 🐻\nअसीमित के लिए अपग्रेड करें।",
   "personaUpgradeSensei": "सेंसेई के साथ अपना प्रशिक्षण जारी रखें। 🤖\nबिना रोक-टोक अभ्यास के लिए अपग्रेड करें।",
   "personaUpgradeRiko": "रिको तो अभी शुरू ही हुआ है! 🐙\nअपग्रेड करें और आगे बढ़ते रहें।",
-  "personaUpgradeGeneric": "जारी रखना चाहते हैं?\nअसीमित AI अध्ययन के लिए अपग्रेड करें।"
+  "personaUpgradeGeneric": "जारी रखना चाहते हैं?\nअसीमित AI अध्ययन के लिए अपग्रेड करें।",
+  "chatListConversationPinned": "बातचीत पिन की गई",
+  "chatListConversationUnpinned": "बातचीत अनपिन की गई",
+  "chatListConversationDeleted": "बातचीत हटाई गई",
+  "chatListConversationActionFailed": "यह बातचीत अपडेट नहीं हो सकी। कृपया फिर से कोशिश करें।"
 }

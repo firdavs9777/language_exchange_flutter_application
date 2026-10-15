@@ -4420,5 +4420,9 @@
   "personaUpgradeNana": "ナナともっと話したい？🐻\nアップグレードで無制限に。",
   "personaUpgradeSensei": "センセイとトレーニングを続けよう。🤖\nアップグレードで制限なく練習できます。",
   "personaUpgradeRiko": "リコはまだウォーミングアップ中！🐙\nアップグレードして続けよう。",
-  "personaUpgradeGeneric": "もっと続けたい？\nアップグレードでAI学習が無制限に。"
+  "personaUpgradeGeneric": "もっと続けたい？\nアップグレードでAI学習が無制限に。",
+  "chatListConversationPinned": "会話をピン留めしました",
+  "chatListConversationUnpinned": "会話のピン留めを解除しました",
+  "chatListConversationDeleted": "会話を削除しました",
+  "chatListConversationActionFailed": "この会話を更新できませんでした。もう一度お試しください。"
 }

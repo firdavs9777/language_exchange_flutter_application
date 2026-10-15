@@ -4660,5 +4660,9 @@
   "personaUpgradeNana": "Envie de continuer à discuter avec Nana ? 🐻\nPasse à la version supérieure pour un usage illimité.",
   "personaUpgradeSensei": "Poursuis ton entraînement avec Sensei. 🤖\nPasse à la version supérieure pour pratiquer sans limite.",
   "personaUpgradeRiko": "Riko ne fait que s'échauffer ! 🐙\nPasse à la version supérieure et continuons.",
-  "personaUpgradeGeneric": "Envie de continuer ?\nPasse à la version supérieure pour l'étude IA illimitée."
+  "personaUpgradeGeneric": "Envie de continuer ?\nPasse à la version supérieure pour l'étude IA illimitée.",
+  "chatListConversationPinned": "Conversation épinglée",
+  "chatListConversationUnpinned": "Conversation désépinglée",
+  "chatListConversationDeleted": "Conversation supprimée",
+  "chatListConversationActionFailed": "Impossible de mettre à jour cette conversation. Veuillez réessayer."
 }

@@ -4660,5 +4660,9 @@
   "personaUpgradeNana": "Möchtest du weiter mit Nana chatten? 🐻\nUpgrade für unbegrenzte Nutzung.",
   "personaUpgradeSensei": "Setze dein Training mit Sensei fort. 🤖\nUpgrade für uneingeschränktes Üben.",
   "personaUpgradeRiko": "Riko kommt gerade erst in Fahrt! 🐙\nUpgrade und lass uns weitermachen.",
-  "personaUpgradeGeneric": "Möchtest du weitermachen?\nUpgrade für unbegrenztes KI-Lernen."
+  "personaUpgradeGeneric": "Möchtest du weitermachen?\nUpgrade für unbegrenztes KI-Lernen.",
+  "chatListConversationPinned": "Unterhaltung angeheftet",
+  "chatListConversationUnpinned": "Unterhaltung losgelöst",
+  "chatListConversationDeleted": "Unterhaltung gelöscht",
+  "chatListConversationActionFailed": "Diese Unterhaltung konnte nicht aktualisiert werden. Bitte versuche es erneut."
 }

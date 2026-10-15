@@ -4436,5 +4436,9 @@
   "personaUpgradeNana": "Quer continuar conversando com a Nana? 🐻\nFaça upgrade para uso ilimitado.",
   "personaUpgradeSensei": "Continue seu treino com o Sensei. 🤖\nFaça upgrade para praticar sem limites.",
   "personaUpgradeRiko": "O Riko está só se aquecendo! 🐙\nFaça upgrade e vamos continuar.",
-  "personaUpgradeGeneric": "Quer continuar?\nFaça upgrade para Estudo com IA ilimitado."
+  "personaUpgradeGeneric": "Quer continuar?\nFaça upgrade para Estudo com IA ilimitado.",
+  "chatListConversationPinned": "Conversa fixada",
+  "chatListConversationUnpinned": "Conversa desafixada",
+  "chatListConversationDeleted": "Conversa excluída",
+  "chatListConversationActionFailed": "Não foi possível atualizar esta conversa. Tente novamente."
 }

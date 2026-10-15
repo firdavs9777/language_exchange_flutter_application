@@ -4450,5 +4450,9 @@
   "personaUpgradeNana": "هل تريد مواصلة الدردشة مع نانا؟ 🐻\nقم بالترقية للحصول على استخدام غير محدود.",
   "personaUpgradeSensei": "واصل تدريبك مع سينسي. 🤖\nقم بالترقية لممارسة بلا قيود.",
   "personaUpgradeRiko": "ريكو بدأ للتو! 🐙\nقم بالترقية ولنواصل.",
-  "personaUpgradeGeneric": "هل تريد المتابعة؟\nقم بالترقية لدراسة غير محدودة بالذكاء الاصطناعي."
+  "personaUpgradeGeneric": "هل تريد المتابعة؟\nقم بالترقية لدراسة غير محدودة بالذكاء الاصطناعي.",
+  "chatListConversationPinned": "تم تثبيت المحادثة",
+  "chatListConversationUnpinned": "تم إلغاء تثبيت المحادثة",
+  "chatListConversationDeleted": "تم حذف المحادثة",
+  "chatListConversationActionFailed": "تعذّر تحديث هذه المحادثة. يُرجى المحاولة مرة أخرى."
 }

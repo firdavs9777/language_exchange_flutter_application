@@ -4420,5 +4420,9 @@
   "personaUpgradeNana": "Mau terus mengobrol dengan Nana? 🐻\nUpgrade untuk tanpa batas.",
   "personaUpgradeSensei": "Lanjutkan latihanmu dengan Sensei. 🤖\nUpgrade untuk latihan tanpa batas.",
   "personaUpgradeRiko": "Riko baru saja pemanasan! 🐙\nUpgrade dan ayo lanjut.",
-  "personaUpgradeGeneric": "Mau lanjut?\nUpgrade untuk Belajar AI tanpa batas."
+  "personaUpgradeGeneric": "Mau lanjut?\nUpgrade untuk Belajar AI tanpa batas.",
+  "chatListConversationPinned": "Percakapan disematkan",
+  "chatListConversationUnpinned": "Sematan percakapan dilepas",
+  "chatListConversationDeleted": "Percakapan dihapus",
+  "chatListConversationActionFailed": "Tidak dapat memperbarui percakapan ini. Silakan coba lagi."
 }

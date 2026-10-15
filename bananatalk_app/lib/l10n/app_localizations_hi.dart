@@ -11415,4 +11415,16 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get personaUpgradeGeneric => 'जारी रखना चाहते हैं?\nअसीमित AI अध्ययन के लिए अपग्रेड करें।';
+
+  @override
+  String get chatListConversationPinned => 'बातचीत पिन की गई';
+
+  @override
+  String get chatListConversationUnpinned => 'बातचीत अनपिन की गई';
+
+  @override
+  String get chatListConversationDeleted => 'बातचीत हटाई गई';
+
+  @override
+  String get chatListConversationActionFailed => 'यह बातचीत अपडेट नहीं हो सकी। कृपया फिर से कोशिश करें।';
 }

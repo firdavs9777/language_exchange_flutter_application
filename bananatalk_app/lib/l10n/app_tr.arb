@@ -4632,5 +4632,9 @@
   "personaUpgradeNana": "Nana ile sohbete devam etmek ister misin? 🐻\nSınırsız kullanım için yükselt.",
   "personaUpgradeSensei": "Sensei ile antrenmanına devam et. 🤖\nSınırsız pratik için yükselt.",
   "personaUpgradeRiko": "Riko daha yeni ısınıyor! 🐙\nYükselt ve devam edelim.",
-  "personaUpgradeGeneric": "Devam etmek ister misin?\nSınırsız AI Çalışma için yükselt."
+  "personaUpgradeGeneric": "Devam etmek ister misin?\nSınırsız AI Çalışma için yükselt.",
+  "chatListConversationPinned": "Sohbet sabitlendi",
+  "chatListConversationUnpinned": "Sohbetin sabitlemesi kaldırıldı",
+  "chatListConversationDeleted": "Sohbet silindi",
+  "chatListConversationActionFailed": "Bu sohbet güncellenemedi. Lütfen tekrar deneyin."
 }

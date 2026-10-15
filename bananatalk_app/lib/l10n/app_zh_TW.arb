@@ -4111,5 +4111,9 @@
   "personaUpgradeNana": "想繼續和 Nana 聊天嗎？🐻\n升級即可無限暢聊。",
   "personaUpgradeSensei": "和 Sensei 繼續訓練吧。🤖\n升級即可不受限制地練習。",
   "personaUpgradeRiko": "Riko 才剛剛熱身！🐙\n升級後我們繼續。",
-  "personaUpgradeGeneric": "想繼續嗎？\n升級即可無限使用 AI 學習。"
+  "personaUpgradeGeneric": "想繼續嗎？\n升級即可無限使用 AI 學習。",
+  "chatListConversationPinned": "已置頂對話",
+  "chatListConversationUnpinned": "已取消置頂對話",
+  "chatListConversationDeleted": "已刪除對話",
+  "chatListConversationActionFailed": "無法更新此對話，請再試一次。"
 }

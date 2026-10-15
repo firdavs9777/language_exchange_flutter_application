@@ -11415,4 +11415,16 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get personaUpgradeGeneric => 'Vuoi continuare?\nPassa a VIP per lo studio IA illimitato.';
+
+  @override
+  String get chatListConversationPinned => 'Conversazione fissata';
+
+  @override
+  String get chatListConversationUnpinned => 'Conversazione non più fissata';
+
+  @override
+  String get chatListConversationDeleted => 'Conversazione eliminata';
+
+  @override
+  String get chatListConversationActionFailed => 'Impossibile aggiornare questa conversazione. Riprova.';
 }

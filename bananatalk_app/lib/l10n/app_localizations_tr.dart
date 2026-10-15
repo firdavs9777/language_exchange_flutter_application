@@ -11413,4 +11413,16 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get personaUpgradeGeneric => 'Devam etmek ister misin?\nSınırsız AI Çalışma için yükselt.';
+
+  @override
+  String get chatListConversationPinned => 'Sohbet sabitlendi';
+
+  @override
+  String get chatListConversationUnpinned => 'Sohbetin sabitlemesi kaldırıldı';
+
+  @override
+  String get chatListConversationDeleted => 'Sohbet silindi';
+
+  @override
+  String get chatListConversationActionFailed => 'Bu sohbet güncellenemedi. Lütfen tekrar deneyin.';
 }

@@ -11396,4 +11396,16 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get personaUpgradeGeneric => '계속하고 싶나요?\n업그레이드하면 AI 학습이 무제한이에요.';
+
+  @override
+  String get chatListConversationPinned => '대화를 고정했어요';
+
+  @override
+  String get chatListConversationUnpinned => '대화 고정을 해제했어요';
+
+  @override
+  String get chatListConversationDeleted => '대화를 삭제했어요';
+
+  @override
+  String get chatListConversationActionFailed => '이 대화를 업데이트하지 못했어요. 다시 시도해 주세요.';
 }

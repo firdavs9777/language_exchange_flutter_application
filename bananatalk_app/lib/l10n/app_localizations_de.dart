@@ -11415,4 +11415,16 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get personaUpgradeGeneric => 'Möchtest du weitermachen?\nUpgrade für unbegrenztes KI-Lernen.';
+
+  @override
+  String get chatListConversationPinned => 'Unterhaltung angeheftet';
+
+  @override
+  String get chatListConversationUnpinned => 'Unterhaltung losgelöst';
+
+  @override
+  String get chatListConversationDeleted => 'Unterhaltung gelöscht';
+
+  @override
+  String get chatListConversationActionFailed => 'Diese Unterhaltung konnte nicht aktualisiert werden. Bitte versuche es erneut.';
 }

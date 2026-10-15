@@ -1,21 +1,61 @@
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/providers/provider_root/message_provider.dart';
-import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
-import 'package:bananatalk_app/providers/provider_models/community_model.dart';
+import 'package:bananatalk_app/providers/provider_root/block_provider.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/pages/chat/widgets/chat_dialog_scaffold.dart';
 
+/// Lists shorter than this skip the search field.
+const int _forwardSearchThreshold = 8;
+
+/// Who a message can be forwarded to: every conversation partner except the
+/// one this chat is with, the viewer, and anyone the viewer blocked.
+List<ChatPartnerData> forwardCandidates(
+  List<ChatPartnerData> partners, {
+  required String currentPartnerId,
+  String? currentUserId,
+  required Set<String> blockedIds,
+}) {
+  final seen = <String>{};
+  return [
+    for (final p in partners)
+      if (p.id.isNotEmpty &&
+          p.id != currentPartnerId &&
+          p.id != currentUserId &&
+          !blockedIds.contains(p.id) &&
+          seen.add(p.id))
+        p,
+  ];
+}
+
+/// Name/username search over [forwardCandidates]; a blank query keeps all.
+List<ChatPartnerData> filterForwardCandidates(
+  List<ChatPartnerData> candidates,
+  String query,
+) {
+  final q = query.trim().toLowerCase();
+  if (q.isEmpty) return candidates;
+  return candidates
+      .where(
+        (p) =>
+            p.name.toLowerCase().contains(q) ||
+            (p.username?.toLowerCase().contains(q) ?? false),
+      )
+      .toList();
+}
+
 // Export the dialog widget
 class ForwardMessageDialog extends ConsumerStatefulWidget {
-  final List<String> userIds;
+  final String currentUserId;
+  final String currentPartnerId;
   final MessageService messageService;
 
   const ForwardMessageDialog({
     super.key,
-    required this.userIds,
+    required this.currentUserId,
+    required this.currentPartnerId,
     required this.messageService,
   });
 
@@ -27,7 +67,8 @@ class ForwardMessageDialog extends ConsumerStatefulWidget {
 class _ForwardMessageDialogState extends ConsumerState<ForwardMessageDialog> {
   final Set<String> _selectedUserIds = {};
   bool _isLoading = true;
-  List<Community> _users = [];
+  List<ChatPartnerData> _users = [];
+  String _query = '';
   String _error = '';
 
   @override
@@ -43,23 +84,29 @@ class _ForwardMessageDialogState extends ConsumerState<ForwardMessageDialog> {
     });
 
     try {
-      final List<Community> users = [];
-      for (final userId in widget.userIds) {
-        try {
-          final user = await ref
-              .read(communityServiceProvider)
-              .getSingleCommunity(id: userId);
-          if (user != null) {
-            users.add(user);
-          }
-        } catch (e) {}
+      final partners = await widget.messageService.getChatPartners(
+        id: widget.currentUserId,
+        limit: 100,
+      );
+      Set<String> blockedIds = const {};
+      try {
+        blockedIds = await ref.read(blockedUserIdsProvider.future);
+      } catch (_) {
+        // The server already hides blocked chats; this is belt and braces.
       }
 
+      if (!mounted) return;
       setState(() {
-        _users = users;
+        _users = forwardCandidates(
+          partners,
+          currentPartnerId: widget.currentPartnerId,
+          currentUserId: widget.currentUserId,
+          blockedIds: blockedIds,
+        );
         _isLoading = false;
       });
     } catch (e) {
+      if (!mounted) return;
       setState(() {
         _error = 'load_failed';
         _isLoading = false;
@@ -94,50 +141,75 @@ class _ForwardMessageDialogState extends ConsumerState<ForwardMessageDialog> {
                 children: [
                   Text(l10n.selectUsersToForward, style: context.bodySmall),
                   Spacing.gapLG,
+                  if (_users.length > _forwardSearchThreshold) ...[
+                    TextField(
+                      onChanged: (v) => setState(() => _query = v),
+                      decoration: InputDecoration(
+                        hintText: l10n.searchUsers,
+                        prefixIcon: const Icon(Icons.search_rounded),
+                        isDense: true,
+                        border: OutlineInputBorder(
+                          borderRadius: AppRadius.borderMD,
+                        ),
+                      ),
+                    ),
+                    Spacing.gapMD,
+                  ],
                   Flexible(
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: _users.length,
-                      itemBuilder: (context, index) {
-                        final user = _users[index];
-                        final isSelected = _selectedUserIds.contains(user.id);
+                    child: Builder(
+                      builder: (context) {
+                        final visible = filterForwardCandidates(_users, _query);
+                        if (visible.isEmpty) {
+                          return Text(
+                            l10n.noResultsFound,
+                            style: context.bodyMedium,
+                          );
+                        }
+                        return ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: visible.length,
+                          itemBuilder: (context, index) {
+                            final user = visible[index];
+                            final isSelected = _selectedUserIds.contains(
+                              user.id,
+                            );
 
-                        return CheckboxListTile(
-                          value: isSelected,
-                          activeColor: AppColors.primary,
-                          onChanged: (value) {
-                            setState(() {
-                              if (value == true) {
-                                _selectedUserIds.add(user.id);
-                              } else {
-                                _selectedUserIds.remove(user.id);
-                              }
-                            });
+                            return CheckboxListTile(
+                              value: isSelected,
+                              activeColor: AppColors.primary,
+                              onChanged: (value) {
+                                setState(() {
+                                  if (value == true) {
+                                    _selectedUserIds.add(user.id);
+                                  } else {
+                                    _selectedUserIds.remove(user.id);
+                                  }
+                                });
+                              },
+                              title: Text(user.name, style: context.titleSmall),
+                              subtitle: (user.username?.isNotEmpty ?? false)
+                                  ? Text(
+                                      '@${user.username}',
+                                      style: context.caption,
+                                    )
+                                  : null,
+                              secondary: CircleAvatar(
+                                radius: 20,
+                                backgroundColor: context.containerColor,
+                                backgroundImage: user.profileImageUrl != null
+                                    ? NetworkImage(user.profileImageUrl!)
+                                    : null,
+                                child: user.profileImageUrl == null
+                                    ? Text(
+                                        user.name.isNotEmpty
+                                            ? user.name[0].toUpperCase()
+                                            : '?',
+                                        style: context.titleMedium,
+                                      )
+                                    : null,
+                              ),
+                            );
                           },
-                          title: Text(user.name, style: context.titleSmall),
-                          subtitle: user.email.isNotEmpty
-                              ? Text(user.email, style: context.caption)
-                              : null,
-                          secondary: CircleAvatar(
-                            radius: 20,
-                            backgroundColor: context.containerColor,
-                            backgroundImage:
-                                (user.images.isNotEmpty
-                                        ? NetworkImage(user.images.first)
-                                        : user.imageUrls.isNotEmpty
-                                        ? NetworkImage(user.imageUrls.first)
-                                        : null)
-                                    as ImageProvider?,
-                            child:
-                                (user.images.isEmpty && user.imageUrls.isEmpty)
-                                ? Text(
-                                    user.name.isNotEmpty
-                                        ? user.name[0].toUpperCase()
-                                        : '?',
-                                    style: context.titleMedium,
-                                  )
-                                : null,
-                          ),
                         );
                       },
                     ),

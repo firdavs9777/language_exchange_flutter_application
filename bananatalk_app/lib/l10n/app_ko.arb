@@ -4441,5 +4441,9 @@
   "personaUpgradeNana": "나나와 계속 대화하고 싶나요? 🐻\n업그레이드하면 무제한이에요.",
   "personaUpgradeSensei": "센세이와 훈련을 계속하세요. 🤖\n업그레이드하면 제한 없이 연습할 수 있어요.",
   "personaUpgradeRiko": "리코는 이제 막 몸을 풀었어요! 🐙\n업그레이드하고 계속해요.",
-  "personaUpgradeGeneric": "계속하고 싶나요?\n업그레이드하면 AI 학습이 무제한이에요."
+  "personaUpgradeGeneric": "계속하고 싶나요?\n업그레이드하면 AI 학습이 무제한이에요.",
+  "chatListConversationPinned": "대화를 고정했어요",
+  "chatListConversationUnpinned": "대화 고정을 해제했어요",
+  "chatListConversationDeleted": "대화를 삭제했어요",
+  "chatListConversationActionFailed": "이 대화를 업데이트하지 못했어요. 다시 시도해 주세요."
 }

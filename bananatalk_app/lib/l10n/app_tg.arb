@@ -3913,5 +3913,9 @@
   "personaUpgradeNana": "Мехоҳед бо Нана сӯҳбатро идома диҳед? 🐻\nБарои истифодаи беҳудуд навсозӣ кунед.",
   "personaUpgradeSensei": "Машқи худро бо Сенсей идома диҳед. 🤖\nБарои машқи бемаҳдуд навсозӣ кунед.",
   "personaUpgradeRiko": "Рико навакак гарм шуда истодааст! 🐙\nНавсозӣ кунед ва идома диҳем.",
-  "personaUpgradeGeneric": "Мехоҳед идома диҳед?\nБарои Омӯзиши AI-и беҳудуд навсозӣ кунед."
+  "personaUpgradeGeneric": "Мехоҳед идома диҳед?\nБарои Омӯзиши AI-и беҳудуд навсозӣ кунед.",
+  "chatListConversationPinned": "Сӯҳбат васл шуд",
+  "chatListConversationUnpinned": "Сӯҳбат аз васл озод шуд",
+  "chatListConversationDeleted": "Сӯҳбат нест карда шуд",
+  "chatListConversationActionFailed": "Ин сӯҳбатро нав кардан нашуд. Лутфан бори дигар кӯшиш кунед."
 }

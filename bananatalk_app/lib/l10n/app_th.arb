@@ -4420,5 +4420,9 @@
   "personaUpgradeNana": "อยากคุยกับนานะต่อไหม? 🐻\nอัปเกรดเพื่อใช้ได้ไม่จำกัด",
   "personaUpgradeSensei": "ฝึกต่อกับเซนเซย์ 🤖\nอัปเกรดเพื่อฝึกได้ไม่จำกัด",
   "personaUpgradeRiko": "ริโกะเพิ่งเริ่มวอร์มอัปเอง! 🐙\nอัปเกรดแล้วไปต่อกัน",
-  "personaUpgradeGeneric": "อยากไปต่อไหม?\nอัปเกรดเพื่อเรียนกับ AI ได้ไม่จำกัด"
+  "personaUpgradeGeneric": "อยากไปต่อไหม?\nอัปเกรดเพื่อเรียนกับ AI ได้ไม่จำกัด",
+  "chatListConversationPinned": "ปักหมุดการสนทนาแล้ว",
+  "chatListConversationUnpinned": "เลิกปักหมุดการสนทนาแล้ว",
+  "chatListConversationDeleted": "ลบการสนทนาแล้ว",
+  "chatListConversationActionFailed": "ไม่สามารถอัปเดตการสนทนานี้ได้ โปรดลองอีกครั้ง"
 }

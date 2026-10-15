@@ -518,6 +518,13 @@ const Map<String, List<String>> _keysByTask = {
     'personaUpgradeRiko',
     'personaUpgradeGeneric',
   ],
+  // Chat list pin/mute/delete results (audit_b #23).
+  'chat-list-actions': [
+    'chatListConversationPinned',
+    'chatListConversationUnpinned',
+    'chatListConversationDeleted',
+    'chatListConversationActionFailed',
+  ],
 };
 
 /// Files (under lib/) each task must leave with no English Text literal.
@@ -735,6 +742,9 @@ const Map<String, List<String>> _filesByTask = {
   ],
   'study-batch': [
     'widgets/tutor/persona_upgrade_sheet.dart',
+  ],
+  'chat-list-actions': [
+    'pages/chat/list/chat_list_screen.dart',
   ],
 };
 

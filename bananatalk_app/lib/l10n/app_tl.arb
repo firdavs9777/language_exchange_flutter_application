@@ -4393,5 +4393,9 @@
   "personaUpgradeNana": "Gusto mo pa bang makipag-chat kay Nana? 🐻\nMag-upgrade para walang limitasyon.",
   "personaUpgradeSensei": "Ituloy ang iyong pagsasanay kasama si Sensei. 🤖\nMag-upgrade para sa walang limitasyong pagsasanay.",
   "personaUpgradeRiko": "Nag-iinit pa lang si Riko! 🐙\nMag-upgrade at ituloy natin.",
-  "personaUpgradeGeneric": "Gusto mo pang magpatuloy?\nMag-upgrade para sa walang limitasyong AI Study."
+  "personaUpgradeGeneric": "Gusto mo pang magpatuloy?\nMag-upgrade para sa walang limitasyong AI Study.",
+  "chatListConversationPinned": "Na-pin ang usapan",
+  "chatListConversationUnpinned": "Na-unpin ang usapan",
+  "chatListConversationDeleted": "Nabura ang usapan",
+  "chatListConversationActionFailed": "Hindi ma-update ang usapang ito. Pakisubukang muli."
 }

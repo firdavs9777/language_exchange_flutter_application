@@ -11459,4 +11459,16 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get personaUpgradeGeneric => 'Хотите продолжить?\nОформите подписку для безлимитного ИИ-обучения.';
+
+  @override
+  String get chatListConversationPinned => 'Чат закреплён';
+
+  @override
+  String get chatListConversationUnpinned => 'Чат откреплён';
+
+  @override
+  String get chatListConversationDeleted => 'Чат удалён';
+
+  @override
+  String get chatListConversationActionFailed => 'Не удалось обновить этот чат. Попробуйте ещё раз.';
 }
