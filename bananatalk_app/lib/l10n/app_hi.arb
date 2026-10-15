@@ -4442,5 +4442,6 @@
   "chatListConversationDeleted": "बातचीत हटाई गई",
   "chatListConversationActionFailed": "यह बातचीत अपडेट नहीं हो सकी। कृपया फिर से कोशिश करें।",
   "coinsPurchaseLinkedElsewhere": "यह खरीदारी पहले से किसी दूसरे BananaTalk खाते से जुड़ी है, इसलिए यहाँ कोई सिक्के नहीं जोड़े गए।",
-  "coinsAlreadyCredited": "ये सिक्के आपके खाते में पहले ही जोड़े जा चुके हैं।"
+  "coinsAlreadyCredited": "ये सिक्के आपके खाते में पहले ही जोड़े जा चुके हैं।",
+  "pleaseRemoveImagesFirstToAddVoiceNote": "वॉइस नोट जोड़ने के लिए पहले तस्वीरें हटाएँ"
 }

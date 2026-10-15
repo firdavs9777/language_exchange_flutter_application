@@ -4666,5 +4666,6 @@
   "chatListConversationDeleted": "Conversazione eliminata",
   "chatListConversationActionFailed": "Impossibile aggiornare questa conversazione. Riprova.",
   "coinsPurchaseLinkedElsewhere": "Questo acquisto è già collegato a un altro account BananaTalk, quindi qui non sono state aggiunte monete.",
-  "coinsAlreadyCredited": "Queste monete sono già state aggiunte al tuo account."
+  "coinsAlreadyCredited": "Queste monete sono già state aggiunte al tuo account.",
+  "pleaseRemoveImagesFirstToAddVoiceNote": "Rimuovi prima le immagini per aggiungere una nota vocale"
 }

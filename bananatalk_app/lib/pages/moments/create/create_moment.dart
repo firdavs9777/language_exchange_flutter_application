@@ -98,6 +98,11 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
   // Video processing state
   double _videoCompressionProgress = 0;
   String _videoProcessingStatus = '';
+
+  // The processing dialog is its own route: setState here never rebuilt it,
+  // so its % and status froze at their first values. Bumped on every
+  // progress/status change; the dialog listens to it.
+  final ValueNotifier<int> _videoProgressTick = ValueNotifier(0);
   VideoProcessResult? _videoProcessResult;
   final VideoCompressionService _videoCompressionService =
       VideoCompressionService();
@@ -295,6 +300,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     descriptionController.removeListener(_updateButtonState);
     descriptionController.dispose();
     isButtonEnabled.dispose();
+    _videoProgressTick.dispose();
     super.dispose();
   }
 
@@ -378,7 +384,11 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     final message = switch (block.present) {
       MomentMediaKind.audio => 'Please remove the voice note first',
       MomentMediaKind.video => 'Please remove the video first',
-      _ => l10n.pleaseRemoveImagesFirst,
+      // Images block both a video and a voice note; name the one wanted
+      // (this always said "to add a video", even for a voice note).
+      _ => block.wanted == MomentMediaKind.audio
+          ? l10n.pleaseRemoveImagesFirstToAddVoiceNote
+          : l10n.pleaseRemoveImagesFirstToAddVideo,
     };
     showMomentsSnackBar(context, message: message);
     return true;
@@ -554,6 +564,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
             setState(() {
               _videoCompressionProgress = progress;
             });
+            _videoProgressTick.value++;
           }
         },
         onStatus: (status) {
@@ -561,6 +572,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
             setState(() {
               _videoProcessingStatus = status;
             });
+            _videoProgressTick.value++;
           }
         },
         maxDurationSecondsOverride: widget.isReel ? 180 : null,
@@ -620,8 +632,9 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (context) => StatefulBuilder(
-        builder: (context, setDialogState) {
+      builder: (context) => ValueListenableBuilder<int>(
+        valueListenable: _videoProgressTick,
+        builder: (context, _, __) {
           return AlertDialog(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),
@@ -1679,6 +1692,60 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     setState(() => _stage = stage);
   }
 
+  /// The caption the composer opened with: the moment's own when editing,
+  /// the prompt's when answering one, otherwise nothing.
+  String get _initialCaption {
+    if (widget.momentToEdit != null) return widget.momentToEdit!.description;
+    if (!widget.isReel) return widget.prefillPrompt ?? '';
+    return '';
+  }
+
+  /// Something leaving would throw away: an edited caption or newly picked
+  /// media.
+  bool get _hasUnsavedContent =>
+      descriptionController.text.trim() != _initialCaption.trim() ||
+      _selectedImages.isNotEmpty ||
+      _selectedVideo != null ||
+      _recordedAudio != null;
+
+  ComposerBackAction get _backAction => composerBackAction(
+    stage: _stage,
+    hasUnsavedContent: _hasUnsavedContent,
+  );
+
+  /// System back, iOS swipe and the leading button all come through here.
+  Future<void> _handleBack() async {
+    switch (_backAction) {
+      case ComposerBackAction.previousStage:
+        _goToStage(_stage.previous);
+      case ComposerBackAction.leave:
+        Navigator.pop(context);
+      case ComposerBackAction.confirmDiscard:
+        final l10n = AppLocalizations.of(context)!;
+        final discard = await showDialog<bool>(
+          context: context,
+          builder: (dialogContext) => AlertDialog(
+            content: Text(l10n.unsavedChanges),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(dialogContext, false),
+                child: Text(l10n.cancel),
+              ),
+              TextButton(
+                key: const Key('composer-discard'),
+                onPressed: () => Navigator.pop(dialogContext, true),
+                child: Text(
+                  l10n.discard,
+                  style: const TextStyle(color: AppColors.error),
+                ),
+              ),
+            ],
+          ),
+        );
+        if (discard == true && mounted) Navigator.pop(context);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // Swap the fallback tag list for the full shared catalog once loaded
@@ -1698,7 +1765,14 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
       }
     });
 
-    return Scaffold(
+    // System back / iOS swipe: step 2 goes back to step 1 (like the arrow),
+    // and leaving with a draft asks first, instead of dropping it.
+    return PopScope(
+      canPop: _backAction == ComposerBackAction.leave,
+      onPopInvokedWithResult: (didPop, _) {
+        if (!didPop) _handleBack();
+      },
+      child: Scaffold(
       backgroundColor: context.scaffoldBackground,
       appBar: AppBar(
         elevation: 0,
@@ -1712,9 +1786,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
             _stage.isFirst ? Icons.close : Icons.arrow_back,
             color: context.textPrimary,
           ),
-          onPressed: _stage.isFirst
-              ? () => Navigator.pop(context)
-              : () => _goToStage(_stage.previous),
+          onPressed: _handleBack,
         ),
         title: Text(
           isEditMode
@@ -1831,6 +1903,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
             ],
           ),
         ),
+      ),
       ),
     );
   }

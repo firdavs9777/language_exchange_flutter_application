@@ -11433,4 +11433,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get coinsAlreadyCredited => 'ये सिक्के आपके खाते में पहले ही जोड़े जा चुके हैं।';
+
+  @override
+  String get pleaseRemoveImagesFirstToAddVoiceNote => 'वॉइस नोट जोड़ने के लिए पहले तस्वीरें हटाएँ';
 }

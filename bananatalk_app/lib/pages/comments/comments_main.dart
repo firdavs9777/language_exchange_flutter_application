@@ -22,15 +22,31 @@ import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/utils/string_sanitizer.dart';
 
+/// Whether [currentUserId] may delete a comment: its author, or the owner
+/// of the moment it is on (the server allows both, plus admins; the app
+/// used to offer Delete to the author only).
+bool canDeleteComment({
+  required String? currentUserId,
+  required String? commentAuthorId,
+  required String? momentOwnerId,
+}) {
+  if (currentUserId == null || currentUserId.isEmpty) return false;
+  return currentUserId == commentAuthorId || currentUserId == momentOwnerId;
+}
+
 class CommentsMain extends ConsumerStatefulWidget {
   const CommentsMain({
     Key? key,
     required this.id,
     this.onReply,
     this.paginated = false,
+    this.momentOwnerId,
   }) : super(key: key);
 
   final String id;
+
+  /// The moment's author, who may delete any comment on it.
+  final String? momentOwnerId;
   final Function(String commentId, String userName)? onReply;
 
   /// When true, comments are loaded page-by-page via
@@ -75,6 +91,7 @@ class _CommentsMainState extends ConsumerState<CommentsMain> {
                 key: ValueKey(comment.id),
                 comment: comment,
                 momentId: widget.id,
+                momentOwnerId: widget.momentOwnerId,
                 currentUserId: currentUserId,
                 onRefresh: () {
                   ref.invalidate(commentsProvider(widget.id));
@@ -145,6 +162,7 @@ class _CommentsMainState extends ConsumerState<CommentsMain> {
                 key: ValueKey(comment.id),
                 comment: comment,
                 momentId: widget.id,
+                momentOwnerId: widget.momentOwnerId,
                 currentUserId: currentUserId,
                 onRefresh: () {
                   ref.read(paginatedCommentsProvider(widget.id).notifier).refresh();
@@ -208,6 +226,7 @@ class _CommentsMainState extends ConsumerState<CommentsMain> {
 class _CommentItem extends StatefulWidget {
   final dynamic comment;
   final String momentId;
+  final String? momentOwnerId;
   final String? currentUserId;
   final VoidCallback onRefresh;
   final Function(String commentId, String userName)? onReply;
@@ -216,6 +235,7 @@ class _CommentItem extends StatefulWidget {
     super.key,
     required this.comment,
     required this.momentId,
+    this.momentOwnerId,
     required this.currentUserId,
     required this.onRefresh,
     this.onReply,
@@ -300,6 +320,12 @@ class _CommentItemState extends State<_CommentItem> with SingleTickerProviderSta
   }
 
   bool get _isOwnComment => widget.currentUserId == widget.comment.user.id;
+
+  bool get _canDelete => canDeleteComment(
+    currentUserId: widget.currentUserId,
+    commentAuthorId: widget.comment.user.id,
+    momentOwnerId: widget.momentOwnerId,
+  );
 
   bool _safeIsEdited(dynamic comment) {
     try {
@@ -824,6 +850,7 @@ class _CommentItemState extends State<_CommentItem> with SingleTickerProviderSta
                                   key: ValueKey(_ReplyItem.idOf(reply)),
                                   reply: reply,
                                   momentId: widget.momentId,
+                                  momentOwnerId: widget.momentOwnerId,
                                   currentUserId: widget.currentUserId,
                                   onRefresh: _onReplyAdded,
                                   onReply: widget.onReply,
@@ -887,7 +914,7 @@ class _CommentItemState extends State<_CommentItem> with SingleTickerProviderSta
               ],
             ),
           ),
-        if (_isOwnComment)
+        if (_canDelete)
           PopupMenuItem(
             value: 'delete',
             child: Row(
@@ -957,6 +984,7 @@ class _CommentItemState extends State<_CommentItem> with SingleTickerProviderSta
 class _ReplyItem extends StatefulWidget {
   final dynamic reply;
   final String momentId;
+  final String? momentOwnerId;
   final String? currentUserId;
   final VoidCallback onRefresh;
   final Function(String commentId, String userName)? onReply;
@@ -966,6 +994,7 @@ class _ReplyItem extends StatefulWidget {
     super.key,
     required this.reply,
     required this.momentId,
+    this.momentOwnerId,
     required this.currentUserId,
     required this.onRefresh,
     this.onReply,
@@ -1097,6 +1126,12 @@ class _ReplyItemState extends State<_ReplyItem> {
   }
 
   bool get _isOwnReply => widget.currentUserId == _replyUserId;
+
+  bool get _canDelete => canDeleteComment(
+    currentUserId: widget.currentUserId,
+    commentAuthorId: _replyUserId,
+    momentOwnerId: widget.momentOwnerId,
+  );
 
   String _getRelativeTime(BuildContext context, DateTime dateTime) {
     final l10n = AppLocalizations.of(context)!;
@@ -1429,7 +1464,7 @@ class _ReplyItemState extends State<_ReplyItem> {
                                     ],
                                   ),
                                 ),
-                              if (_isOwnReply)
+                              if (_canDelete)
                                 PopupMenuItem(
                                   value: 'delete',
                                   height: 40,

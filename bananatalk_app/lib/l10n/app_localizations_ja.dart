@@ -11414,4 +11414,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get coinsAlreadyCredited => 'このコインはすでにアカウントに追加されています。';
+
+  @override
+  String get pleaseRemoveImagesFirstToAddVoiceNote => 'ボイスメモを追加するには、先に画像を削除してください';
 }

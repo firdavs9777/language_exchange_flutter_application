@@ -4666,5 +4666,6 @@
   "chatListConversationDeleted": "Unterhaltung gelöscht",
   "chatListConversationActionFailed": "Diese Unterhaltung konnte nicht aktualisiert werden. Bitte versuche es erneut.",
   "coinsPurchaseLinkedElsewhere": "Dieser Kauf ist bereits mit einem anderen BananaTalk-Konto verknüpft, daher wurden hier keine Münzen hinzugefügt.",
-  "coinsAlreadyCredited": "Diese Münzen wurden deinem Konto bereits gutgeschrieben."
+  "coinsAlreadyCredited": "Diese Münzen wurden deinem Konto bereits gutgeschrieben.",
+  "pleaseRemoveImagesFirstToAddVoiceNote": "Bitte entferne zuerst die Bilder, um eine Sprachnachricht hinzuzufügen"
 }

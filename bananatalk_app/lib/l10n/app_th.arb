@@ -4426,5 +4426,6 @@
   "chatListConversationDeleted": "ลบการสนทนาแล้ว",
   "chatListConversationActionFailed": "ไม่สามารถอัปเดตการสนทนานี้ได้ โปรดลองอีกครั้ง",
   "coinsPurchaseLinkedElsewhere": "การซื้อนี้เชื่อมโยงกับบัญชี BananaTalk อื่นแล้ว จึงไม่มีการเพิ่มเหรียญที่นี่",
-  "coinsAlreadyCredited": "เหรียญเหล่านี้ถูกเพิ่มเข้าบัญชีของคุณแล้ว"
+  "coinsAlreadyCredited": "เหรียญเหล่านี้ถูกเพิ่มเข้าบัญชีของคุณแล้ว",
+  "pleaseRemoveImagesFirstToAddVoiceNote": "โปรดลบรูปภาพก่อนเพื่อเพิ่มข้อความเสียง"
 }

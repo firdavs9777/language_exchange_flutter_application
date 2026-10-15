@@ -4440,5 +4440,6 @@
   "chatListConversationDeleted": "已删除对话",
   "chatListConversationActionFailed": "无法更新此对话，请重试。",
   "coinsPurchaseLinkedElsewhere": "此购买已关联到另一个 BananaTalk 账号，因此这里没有添加金币。",
-  "coinsAlreadyCredited": "这些金币已经添加到你的账号中。"
+  "coinsAlreadyCredited": "这些金币已经添加到你的账号中。",
+  "pleaseRemoveImagesFirstToAddVoiceNote": "请先删除图片再添加语音"
 }

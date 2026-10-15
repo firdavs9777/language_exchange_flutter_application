@@ -11414,4 +11414,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get coinsAlreadyCredited => 'Số xu này đã được cộng vào tài khoản của bạn.';
+
+  @override
+  String get pleaseRemoveImagesFirstToAddVoiceNote => 'Vui lòng xóa ảnh trước để thêm ghi chú thoại';
 }

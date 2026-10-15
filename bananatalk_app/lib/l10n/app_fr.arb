@@ -4666,5 +4666,6 @@
   "chatListConversationDeleted": "Conversation supprimée",
   "chatListConversationActionFailed": "Impossible de mettre à jour cette conversation. Veuillez réessayer.",
   "coinsPurchaseLinkedElsewhere": "Cet achat est déjà lié à un autre compte BananaTalk, aucune pièce n'a donc été ajoutée ici.",
-  "coinsAlreadyCredited": "Ces pièces ont déjà été ajoutées à ton compte."
+  "coinsAlreadyCredited": "Ces pièces ont déjà été ajoutées à ton compte.",
+  "pleaseRemoveImagesFirstToAddVoiceNote": "Veuillez d'abord supprimer les images pour ajouter une note vocale"
 }

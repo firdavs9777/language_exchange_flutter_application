@@ -4426,5 +4426,6 @@
   "chatListConversationDeleted": "会話を削除しました",
   "chatListConversationActionFailed": "この会話を更新できませんでした。もう一度お試しください。",
   "coinsPurchaseLinkedElsewhere": "この購入はすでに別のBananaTalkアカウントに紐付けられているため、ここではコインは追加されませんでした。",
-  "coinsAlreadyCredited": "このコインはすでにアカウントに追加されています。"
+  "coinsAlreadyCredited": "このコインはすでにアカウントに追加されています。",
+  "pleaseRemoveImagesFirstToAddVoiceNote": "ボイスメモを追加するには、先に画像を削除してください"
 }

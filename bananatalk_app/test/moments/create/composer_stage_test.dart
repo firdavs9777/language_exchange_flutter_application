@@ -65,4 +65,37 @@ void main() {
       );
     });
   });
+
+  // #25: system back / iOS swipe on step 2 closed the composer and dropped
+  // the draft; closing step 1 with content asked nothing.
+  group('composerBackAction', () {
+    test('back on the details step returns to compose, draft or not', () {
+      expect(
+        composerBackAction(
+            stage: ComposerStage.details, hasUnsavedContent: true),
+        ComposerBackAction.previousStage,
+      );
+      expect(
+        composerBackAction(
+            stage: ComposerStage.details, hasUnsavedContent: false),
+        ComposerBackAction.previousStage,
+      );
+    });
+
+    test('leaving compose with content asks first', () {
+      expect(
+        composerBackAction(
+            stage: ComposerStage.compose, hasUnsavedContent: true),
+        ComposerBackAction.confirmDiscard,
+      );
+    });
+
+    test('an empty compose step just closes', () {
+      expect(
+        composerBackAction(
+            stage: ComposerStage.compose, hasUnsavedContent: false),
+        ComposerBackAction.leave,
+      );
+    });
+  });
 }

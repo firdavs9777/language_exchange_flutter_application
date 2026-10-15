@@ -11433,4 +11433,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get coinsAlreadyCredited => 'Estas moedas já foram adicionadas à sua conta.';
+
+  @override
+  String get pleaseRemoveImagesFirstToAddVoiceNote => 'Remova as imagens primeiro para adicionar uma nota de voz';
 }

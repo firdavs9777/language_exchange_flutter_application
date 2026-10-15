@@ -530,6 +530,10 @@ const Map<String, List<String>> _keysByTask = {
     'coinsPurchaseLinkedElsewhere',
     'coinsAlreadyCredited',
   ],
+  // Moment composer: images block a voice note (was "...to add a video").
+  'moments-batch-2': [
+    'pleaseRemoveImagesFirstToAddVoiceNote',
+  ],
 };
 
 /// Files (under lib/) each task must leave with no English Text literal.
@@ -754,6 +758,10 @@ const Map<String, List<String>> _filesByTask = {
   'payments-batch': [
     'pages/coins/coin_shop_screen.dart',
   ],
+  ],
+  // create_moment.dart still has other English literals; the key is checked
+  // above, the file is not listed.
+  'moments-batch-2': [],
 };
 
 /// Keys whose draft may legitimately equal the English, per locale (loanwords,

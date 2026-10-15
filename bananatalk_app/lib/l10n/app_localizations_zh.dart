@@ -11414,6 +11414,9 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get coinsAlreadyCredited => '这些金币已经添加到你的账号中。';
+
+  @override
+  String get pleaseRemoveImagesFirstToAddVoiceNote => '请先删除图片再添加语音';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -22826,4 +22829,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get coinsAlreadyCredited => '這些金幣已經加入你的帳號。';
+
+  @override
+  String get pleaseRemoveImagesFirstToAddVoiceNote => '請先刪除圖片再新增語音';
 }

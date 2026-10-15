@@ -576,7 +576,10 @@ class _ProfileSingleMomentState extends ConsumerState<ProfileSingleMoment> {
                         style: context.titleMedium,
                       ),
                       Spacing.gapMD,
-                      CommentsMain(id: moment.id),
+                      CommentsMain(
+                        id: moment.id,
+                        momentOwnerId: moment.user.id,
+                      ),
                       Spacing.gapMD,
                       CreateComment(
                         focusNode: commentFocusNode,

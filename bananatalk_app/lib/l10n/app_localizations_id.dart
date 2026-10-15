@@ -11425,4 +11425,7 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get coinsAlreadyCredited => 'Koin ini sudah ditambahkan ke akunmu.';
+
+  @override
+  String get pleaseRemoveImagesFirstToAddVoiceNote => 'Hapus gambar terlebih dahulu untuk menambahkan pesan suara';
 }

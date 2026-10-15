@@ -11434,4 +11434,7 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get coinsAlreadyCredited => 'Ин тангаҳо аллакай ба ҳисоби шумо илова шудаанд.';
+
+  @override
+  String get pleaseRemoveImagesFirstToAddVoiceNote => 'Барои илова кардани паёми овозӣ аввал тасвирҳоро хориҷ кунед';
 }

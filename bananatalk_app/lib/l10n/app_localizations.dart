@@ -20845,6 +20845,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'These coins were already added to your account.'**
   String get coinsAlreadyCredited;
+
+  /// No description provided for @pleaseRemoveImagesFirstToAddVoiceNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Please remove images first to add a voice note'**
+  String get pleaseRemoveImagesFirstToAddVoiceNote;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

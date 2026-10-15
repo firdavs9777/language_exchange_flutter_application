@@ -1,5 +1,11 @@
 import 'dart:convert';
+import 'dart:io';
+import 'package:flutter/foundation.dart' show visibleForTesting;
+import 'package:bananatalk_app/pages/moments/create/moment_media_rules.dart'
+    show kMomentImageMimeTypes;
 import 'package:bananatalk_app/providers/provider_models/comments_model.dart';
+import 'package:http_parser/http_parser.dart';
+import 'package:mime/mime.dart' show lookupMimeType;
 
 import 'package:http/http.dart' as http;
 import 'package:bananatalk_app/service/endpoints.dart';
@@ -12,11 +18,14 @@ class CommentsService {
   // now refuses. It had no callers; comment reads go through
   // getCommentsPage below.
 
+  /// [image] is a picked photo, uploaded with the comment (multipart field
+  /// `image`, which the server stores on Spaces); [imageUrl] is a GIF URL.
   Future<Comments> createComment({
     required String title,
     required String id,
     String? parentCommentId,
     String? imageUrl,
+    File? image,
     Map<String, dynamic>? correction,
   }) async {
     final url = Uri.parse(
@@ -29,26 +38,16 @@ class CommentsService {
       throw Exception('Authentication required. Please login again.');
     }
 
-    final body = <String, dynamic>{'text': title};
-    if (parentCommentId != null) {
-      body['parentComment'] = parentCommentId;
-    }
-    if (imageUrl != null && imageUrl.isNotEmpty) {
-      body['imageUrl'] = imageUrl;
-    }
-    if (correction != null) {
-      body['correction'] = correction;
-    }
-
-    final response = await http.post(
-      url,
-      body: jsonEncode(body),
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization': 'Bearer $token'
-      },
+    final request = await buildCreateCommentRequest(
+      url: url,
+      token: token,
+      text: title,
+      parentCommentId: parentCommentId,
+      imageUrl: imageUrl,
+      image: image,
+      correction: correction,
     );
+    final response = await http.Response.fromStream(await request.send());
 
     if (response.statusCode == 200 || response.statusCode == 201) {
       final data = json.decode(response.body);
@@ -66,6 +65,58 @@ class CommentsService {
                      errorData['message'] ?? 
                      'Failed to create comment');
     }
+  }
+
+  /// The POST for a new comment: multipart when a photo is attached (the
+  /// photo used to be dropped and a photo-only comment posted blank), JSON
+  /// otherwise.
+  @visibleForTesting
+  static Future<http.BaseRequest> buildCreateCommentRequest({
+    required Uri url,
+    required String token,
+    required String text,
+    String? parentCommentId,
+    String? imageUrl,
+    File? image,
+    Map<String, dynamic>? correction,
+  }) async {
+    if (image != null) {
+      final request = http.MultipartRequest('POST', url)
+        ..headers['Authorization'] = 'Bearer $token'
+        ..headers['Accept'] = 'application/json'
+        ..fields['text'] = text;
+      if (parentCommentId != null) {
+        request.fields['parentComment'] = parentCommentId;
+      }
+      final extension = image.path.split('.').last.toLowerCase();
+      final mimeType = kMomentImageMimeTypes[extension] ??
+          lookupMimeType(image.path) ??
+          'image/jpeg';
+      request.files.add(await http.MultipartFile.fromPath(
+        'image',
+        image.path,
+        contentType: MediaType.parse(mimeType),
+      ));
+      return request;
+    }
+
+    final body = <String, dynamic>{'text': text};
+    if (parentCommentId != null) {
+      body['parentComment'] = parentCommentId;
+    }
+    if (imageUrl != null && imageUrl.isNotEmpty) {
+      body['imageUrl'] = imageUrl;
+    }
+    if (correction != null) {
+      body['correction'] = correction;
+    }
+    return http.Request('POST', url)
+      ..headers.addAll({
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $token',
+      })
+      ..body = jsonEncode(body);
   }
 
   Future<List<Comments>> getSingleComment({required String id}) async {

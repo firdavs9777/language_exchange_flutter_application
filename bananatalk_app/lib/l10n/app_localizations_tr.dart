@@ -11431,4 +11431,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get coinsAlreadyCredited => 'Bu jetonlar hesabına zaten eklendi.';
+
+  @override
+  String get pleaseRemoveImagesFirstToAddVoiceNote => 'Sesli not eklemek için önce görselleri kaldırın';
 }

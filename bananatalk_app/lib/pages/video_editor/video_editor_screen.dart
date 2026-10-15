@@ -6,7 +6,14 @@ import 'package:bananatalk_app/services/video_editor_service.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 
-/// Instagram-like video editor screen with trimming and filters
+/// Video editor screen: trimming.
+///
+/// It also had a filter row, but only the preview was tinted: the trimmer
+/// exports the untouched video and nothing downstream (moments, chat) read
+/// the chosen filter, so every upload went out unfiltered. With no FFmpeg in
+/// the app to bake a colour matrix into the file, the row is gone rather
+/// than promising what is not applied. [VideoEditorResult.filter] stays
+/// (always [VideoFilter.none]) so callers are untouched.
 class VideoEditorScreen extends StatefulWidget {
   final File videoFile;
   final int maxDurationSeconds;
@@ -22,7 +29,6 @@ class VideoEditorScreen extends StatefulWidget {
 }
 
 class _VideoEditorScreenState extends State<VideoEditorScreen> {
-  final VideoEditorService _editorService = VideoEditorService();
   final Trimmer _trimmer = Trimmer();
 
   bool _isLoading = true;
@@ -30,7 +36,6 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
   bool _isPlaying = false;
   double _startValue = 0.0;
   double _endValue = 0.0;
-  VideoFilter _selectedFilter = VideoFilter.none;
   String? _errorMessage;
 
   @override
@@ -92,10 +97,10 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
       });
 
       if (savedPath != null && mounted) {
-        // Return the edited video with filter info
+        // Return the edited video
         Navigator.of(context).pop(VideoEditorResult(
           videoFile: File(savedPath!),
-          filter: _selectedFilter,
+          filter: VideoFilter.none,
           startTimeMs: _startValue,
           endTimeMs: _endValue,
         ));
@@ -204,12 +209,7 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                             child: Stack(
                               alignment: Alignment.center,
                               children: [
-                                ColorFiltered(
-                                  colorFilter: ColorFilter.matrix(
-                                    _editorService.getFilterColorMatrix(_selectedFilter),
-                                  ),
-                                  child: VideoViewer(trimmer: _trimmer),
-                                ),
+                                VideoViewer(trimmer: _trimmer),
                                 // Play/Pause overlay
                                 AnimatedOpacity(
                                   opacity: _isPlaying ? 0.0 : 1.0,
@@ -311,101 +311,6 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
                         ),
 
                         Spacing.gapMD,
-
-                        // Filters
-                        Container(
-                          height: 100,
-                          color: Colors.black,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 16),
-                                child: Text(
-                                  AppLocalizations.of(context)!.filters,
-                                  style: TextStyle(
-                                    color: Colors.white70,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ),
-                              Spacing.gapSM,
-                              Expanded(
-                                child: ListView.builder(
-                                  scrollDirection: Axis.horizontal,
-                                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                                  itemCount: VideoFilter.values.length,
-                                  itemBuilder: (context, index) {
-                                    final filter = VideoFilter.values[index];
-                                    final isSelected = _selectedFilter == filter;
-                                    return GestureDetector(
-                                      onTap: () {
-                                        setState(() {
-                                          _selectedFilter = filter;
-                                        });
-                                      },
-                                      child: Container(
-                                        width: 60,
-                                        margin: const EdgeInsets.symmetric(horizontal: 4),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Container(
-                                              width: 50,
-                                              height: 50,
-                                              decoration: BoxDecoration(
-                                                border: Border.all(
-                                                  color: isSelected
-                                                      ? Colors.blue
-                                                      : Colors.grey.shade700,
-                                                  width: isSelected ? 2 : 1,
-                                                ),
-                                                borderRadius: AppRadius.borderSM,
-                                              ),
-                                              child: ClipRRect(
-                                                borderRadius: BorderRadius.circular(7),
-                                                child: ColorFiltered(
-                                                  colorFilter: ColorFilter.matrix(
-                                                    _editorService.getFilterColorMatrix(filter),
-                                                  ),
-                                                  child: Container(
-                                                    decoration: BoxDecoration(
-                                                      gradient: LinearGradient(
-                                                        colors: [
-                                                          Colors.orange.shade300,
-                                                          Colors.blue.shade300,
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            Spacing.gapXS,
-                                            Text(
-                                              _editorService.getFilterName(filter),
-                                              style: TextStyle(
-                                                color: isSelected
-                                                    ? Colors.blue
-                                                    : Colors.white70,
-                                                fontSize: 10,
-                                                fontWeight: isSelected
-                                                    ? FontWeight.bold
-                                                    : FontWeight.normal,
-                                              ),
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
 
                         Spacing.gapMD,
                       ],

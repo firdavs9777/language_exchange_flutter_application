@@ -3919,5 +3919,6 @@
   "chatListConversationDeleted": "Сӯҳбат нест карда шуд",
   "chatListConversationActionFailed": "Ин сӯҳбатро нав кардан нашуд. Лутфан бори дигар кӯшиш кунед.",
   "coinsPurchaseLinkedElsewhere": "Ин харид аллакай ба ҳисоби дигари BananaTalk пайваст аст, бинобар ин дар ин ҷо танга илова нашуд.",
-  "coinsAlreadyCredited": "Ин тангаҳо аллакай ба ҳисоби шумо илова шудаанд."
+  "coinsAlreadyCredited": "Ин тангаҳо аллакай ба ҳисоби шумо илова шудаанд.",
+  "pleaseRemoveImagesFirstToAddVoiceNote": "Барои илова кардани паёми овозӣ аввал тасвирҳоро хориҷ кунед"
 }

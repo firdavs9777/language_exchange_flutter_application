@@ -11477,4 +11477,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get coinsAlreadyCredited => 'Эти монеты уже зачислены на ваш аккаунт.';
+
+  @override
+  String get pleaseRemoveImagesFirstToAddVoiceNote => 'Сначала удалите изображения, чтобы добавить голосовую заметку';
 }

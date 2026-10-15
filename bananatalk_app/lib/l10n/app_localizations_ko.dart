@@ -11414,4 +11414,7 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get coinsAlreadyCredited => '이 코인은 이미 계정에 추가되었습니다.';
+
+  @override
+  String get pleaseRemoveImagesFirstToAddVoiceNote => '음성 메모를 추가하려면 먼저 이미지를 삭제하세요';
 }
