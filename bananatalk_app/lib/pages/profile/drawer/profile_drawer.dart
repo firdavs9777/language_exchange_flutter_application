@@ -1192,8 +1192,8 @@ class LeftDrawer extends ConsumerWidget {
     final adminEmails = [
       'testdemo@gmail.com',
       'fmutalipov7@gmail.com',
-      'fdwvycq6wh@privaterelay.appleid.com'
-          '000104.e36e48f4990f451eabc83e84eaa435f8.0931@privaterelay.appleid.com',
+      'fdwvycq6wh@privaterelay.appleid.com',
+      '000104.e36e48f4990f451eabc83e84eaa435f8.0931@privaterelay.appleid.com',
     ];
     return adminEmails.contains(user.email.toLowerCase());
   }
