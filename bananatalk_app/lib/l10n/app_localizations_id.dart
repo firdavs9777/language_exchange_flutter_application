@@ -11365,4 +11365,7 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get restorePurchasesFailed => 'Tidak dapat memulihkan pembelian. Silakan coba lagi.';
+
+  @override
+  String get coinsPurchaseLinkedElsewhere => 'Pembelian ini sudah tertaut ke akun BananaTalk lain, jadi tidak ada koin yang ditambahkan di sini.';
 }

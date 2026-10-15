@@ -11373,4 +11373,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get restorePurchasesFailed => 'खरीदारी पुनर्स्थापित नहीं हो सकी। कृपया फिर से कोशिश करें।';
+
+  @override
+  String get coinsPurchaseLinkedElsewhere => 'यह खरीदारी पहले से किसी दूसरे BananaTalk खाते से जुड़ी है, इसलिए यहाँ कोई सिक्के नहीं जोड़े गए।';
 }

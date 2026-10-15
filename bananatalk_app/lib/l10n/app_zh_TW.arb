@@ -4097,5 +4097,6 @@
   "restorePurchasesSuccess": "已恢復購買，你的 VIP 已生效。",
   "restorePurchasesAlreadyActive": "你的 VIP 訂閱已在有效狀態。",
   "restorePurchasesNothing": "沒有可恢復的購買項目。",
-  "restorePurchasesFailed": "無法恢復購買，請再試一次。"
+  "restorePurchasesFailed": "無法恢復購買，請再試一次。",
+  "coinsPurchaseLinkedElsewhere": "此購買已連結到另一個 BananaTalk 帳號，因此這裡沒有加入金幣。"
 }

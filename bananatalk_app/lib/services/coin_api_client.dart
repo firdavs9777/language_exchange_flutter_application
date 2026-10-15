@@ -243,6 +243,32 @@ class CoinApiClient {
   }
 }
 
+/// What a `/coins/verify-purchase` response means for the store transaction.
+enum CoinVerifyOutcome {
+  credited,
+
+  /// 409: the receipt was already credited to a different BananaTalk
+  /// account (same store account). Final — retrying can never succeed.
+  linkedToAnotherAccount,
+
+  /// Anything else: leave the purchase unfinished so it is retried.
+  failed;
+
+  /// Whether to finish (iOS) / consume (Android) the store transaction.
+  /// Leaving a final refusal unfinished meant Android could never rebuy the
+  /// pack and iOS re-delivered it forever.
+  bool get finishesPurchase => this != CoinVerifyOutcome.failed;
+}
+
+CoinVerifyOutcome coinVerifyOutcome(ApiResponse response) {
+  if (response.success) return CoinVerifyOutcome.credited;
+  if (response.statusCode == 409 &&
+      response.errorCode == 'ALREADY_LINKED_TO_ANOTHER_ACCOUNT') {
+    return CoinVerifyOutcome.linkedToAnotherAccount;
+  }
+  return CoinVerifyOutcome.failed;
+}
+
 /// Thrown by [CoinApiClient] read methods on a non-2xx response.
 class CoinApiException implements Exception {
   const CoinApiException(this.message, {this.statusCode});

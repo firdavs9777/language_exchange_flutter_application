@@ -11374,4 +11374,7 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get restorePurchasesFailed => 'Харидҳоро барқарор кардан нашуд. Лутфан бори дигар кӯшиш кунед.';
+
+  @override
+  String get coinsPurchaseLinkedElsewhere => 'Ин харид аллакай ба ҳисоби дигари BananaTalk пайваст аст, бинобар ин дар ин ҷо танга илова нашуд.';
 }

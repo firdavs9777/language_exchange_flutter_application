@@ -11373,4 +11373,7 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get restorePurchasesFailed => 'Hindi ma-restore ang mga binili. Pakisubukang muli.';
+
+  @override
+  String get coinsPurchaseLinkedElsewhere => 'Naka-link na ang pagbiling ito sa ibang BananaTalk account, kaya walang coins na naidagdag dito.';
 }

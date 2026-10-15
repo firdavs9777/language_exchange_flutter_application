@@ -11373,4 +11373,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get restorePurchasesFailed => 'Impossible de restaurer les achats. Veuillez réessayer.';
+
+  @override
+  String get coinsPurchaseLinkedElsewhere => 'Cet achat est déjà lié à un autre compte BananaTalk, aucune pièce n\'a donc été ajoutée ici.';
 }

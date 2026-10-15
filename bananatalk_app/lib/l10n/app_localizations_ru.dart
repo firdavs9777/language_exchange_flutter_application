@@ -11417,4 +11417,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get restorePurchasesFailed => 'Не удалось восстановить покупки. Попробуйте ещё раз.';
+
+  @override
+  String get coinsPurchaseLinkedElsewhere => 'Эта покупка уже привязана к другому аккаунту BananaTalk, поэтому монеты здесь не начислены.';
 }

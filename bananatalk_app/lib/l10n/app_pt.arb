@@ -4422,5 +4422,6 @@
   "restorePurchasesSuccess": "Compras restauradas. Seu VIP está ativo.",
   "restorePurchasesAlreadyActive": "Sua assinatura VIP já está ativa.",
   "restorePurchasesNothing": "Nenhuma compra para restaurar.",
-  "restorePurchasesFailed": "Não foi possível restaurar as compras. Tente novamente."
+  "restorePurchasesFailed": "Não foi possível restaurar as compras. Tente novamente.",
+  "coinsPurchaseLinkedElsewhere": "Esta compra já está vinculada a outra conta BananaTalk, por isso nenhuma moeda foi adicionada aqui."
 }

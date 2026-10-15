@@ -20725,6 +20725,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Couldn\'t restore purchases. Please try again.'**
   String get restorePurchasesFailed;
+
+  /// No description provided for @coinsPurchaseLinkedElsewhere.
+  ///
+  /// In en, this message translates to:
+  /// **'This purchase is already linked to another BananaTalk account, so no coins were added here.'**
+  String get coinsPurchaseLinkedElsewhere;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -122,9 +122,11 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
         transactionId: transactionId,
       );
 
-      if (response.success) {
+      final outcome = coinVerifyOutcome(response);
+      if (outcome.finishesPurchase) {
         // Only now is it safe to finish/consume — the backend confirmed
-        // the receipt and credited coins, so the store transaction is
+        // the receipt and credited coins (or refused it for good because
+        // another account already has it), so the store transaction is
         // done and the pack becomes repurchasable.
         if (_isIOS) {
           await IOSPurchaseService.completeCoinPurchase(purchase);
@@ -133,7 +135,11 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
         }
         refreshCoinBalance(ref);
         if (mounted) {
-          _showSnack(AppLocalizations.of(context)!.coinsAdded);
+          _showSnack(
+            outcome == CoinVerifyOutcome.linkedToAnotherAccount
+                ? AppLocalizations.of(context)!.coinsPurchaseLinkedElsewhere
+                : AppLocalizations.of(context)!.coinsAdded,
+          );
         }
       } else {
         // Verify failed after the store charged the user — leave the

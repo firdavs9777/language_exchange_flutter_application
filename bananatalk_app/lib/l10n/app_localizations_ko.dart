@@ -11354,4 +11354,7 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get restorePurchasesFailed => '구매를 복원하지 못했습니다. 다시 시도해 주세요.';
+
+  @override
+  String get coinsPurchaseLinkedElsewhere => '이 구매는 이미 다른 BananaTalk 계정에 연결되어 있어 여기에는 코인이 추가되지 않았습니다.';
 }

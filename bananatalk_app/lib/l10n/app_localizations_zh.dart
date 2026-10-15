@@ -11354,6 +11354,9 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get restorePurchasesFailed => '无法恢复购买，请重试。';
+
+  @override
+  String get coinsPurchaseLinkedElsewhere => '此购买已关联到另一个 BananaTalk 账号，因此这里没有添加金币。';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -22706,4 +22709,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get restorePurchasesFailed => '無法恢復購買，請再試一次。';
+
+  @override
+  String get coinsPurchaseLinkedElsewhere => '此購買已連結到另一個 BananaTalk 帳號，因此這裡沒有加入金幣。';
 }

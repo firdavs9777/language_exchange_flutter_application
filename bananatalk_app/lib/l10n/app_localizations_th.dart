@@ -11354,4 +11354,7 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get restorePurchasesFailed => 'ไม่สามารถกู้คืนการซื้อได้ โปรดลองอีกครั้ง';
+
+  @override
+  String get coinsPurchaseLinkedElsewhere => 'การซื้อนี้เชื่อมโยงกับบัญชี BananaTalk อื่นแล้ว จึงไม่มีการเพิ่มเหรียญที่นี่';
 }

@@ -11354,4 +11354,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get restorePurchasesFailed => '購入を復元できませんでした。もう一度お試しください。';
+
+  @override
+  String get coinsPurchaseLinkedElsewhere => 'この購入はすでに別のBananaTalkアカウントに紐付けられているため、ここではコインは追加されませんでした。';
 }

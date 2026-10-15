@@ -11354,4 +11354,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get restorePurchasesFailed => 'Không thể khôi phục giao dịch mua. Vui lòng thử lại.';
+
+  @override
+  String get coinsPurchaseLinkedElsewhere => 'Giao dịch mua này đã được liên kết với một tài khoản BananaTalk khác nên không có xu nào được cộng ở đây.';
 }

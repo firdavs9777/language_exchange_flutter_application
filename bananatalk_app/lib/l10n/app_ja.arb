@@ -4406,5 +4406,6 @@
   "restorePurchasesSuccess": "購入を復元しました。VIPが有効になりました。",
   "restorePurchasesAlreadyActive": "VIPサブスクリプションはすでに有効です。",
   "restorePurchasesNothing": "復元できる購入はありません。",
-  "restorePurchasesFailed": "購入を復元できませんでした。もう一度お試しください。"
+  "restorePurchasesFailed": "購入を復元できませんでした。もう一度お試しください。",
+  "coinsPurchaseLinkedElsewhere": "この購入はすでに別のBananaTalkアカウントに紐付けられているため、ここではコインは追加されませんでした。"
 }
