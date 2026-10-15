@@ -70,7 +70,8 @@ class SupportSheetState extends State<SupportSheet> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
+    // The app theme, not the phone setting: the in-app theme can differ.
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     final bg = isDark ? const Color(0xFF1C1C2E) : Colors.white;
     final textPrimary = isDark ? Colors.white : const Color(0xFF1A1A2E);
     final textSecondary = isDark
