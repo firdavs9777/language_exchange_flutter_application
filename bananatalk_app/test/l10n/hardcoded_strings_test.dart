@@ -758,7 +758,6 @@ const Map<String, List<String>> _filesByTask = {
   'payments-batch': [
     'pages/coins/coin_shop_screen.dart',
   ],
-  ],
   // create_moment.dart still has other English literals; the key is checked
   // above, the file is not listed.
   'moments-batch-2': [],
