@@ -18,6 +18,7 @@ import 'package:bananatalk_app/widgets/chat/opener_chips.dart';
 import 'package:bananatalk_app/widgets/chat/stall_rescue_banner.dart';
 import 'package:bananatalk_app/widgets/limit_exceeded_dialog.dart';
 import 'package:bananatalk_app/pages/chat/conversation/chat_limit_outcome.dart';
+import 'package:bananatalk_app/pages/chat/conversation/reply_routing.dart';
 import 'package:bananatalk_app/providers/coins_provider.dart';
 import 'package:bananatalk_app/widgets/image_preview_dialog.dart';
 import 'package:bananatalk_app/utils/api_error_handler.dart';
@@ -748,8 +749,12 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       ).notifier,
     );
 
-    // Handle replies via API (can't use optimistic for replies yet)
-    if (_replyingToMessage != null) {
+    // Handle replies via API (can't use optimistic for replies yet). Stickers
+    // and GIFs skip it: the reply endpoint would store them as plain text.
+    if (sendViaReplyApi(
+      isReplying: _replyingToMessage != null,
+      messageType: messageType,
+    )) {
       setState(() => _isSending = true);
       try {
         final messageService = ref.read(messageServiceProvider);
@@ -792,6 +797,15 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
             _messageController.clear();
             ref.invalidate(userLimitsProvider(_currentUserId!));
           }
+        } else if (mounted) {
+          // replyToMessage reports failures in its result rather than
+          // throwing, so without this a failed reply vanished silently
+          // (the input had already been cleared).
+          _showSendError(
+            result['error']?.toString() ?? 'Failed to send',
+            text,
+            messageType,
+          );
         }
       } catch (e) {
         if (mounted) {
