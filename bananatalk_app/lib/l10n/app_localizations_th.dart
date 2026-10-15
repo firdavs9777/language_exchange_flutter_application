@@ -11354,4 +11354,7 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get restorePurchasesFailed => 'ไม่สามารถกู้คืนการซื้อได้ โปรดลองอีกครั้ง';
+
+  @override
+  String get pleaseRemoveImagesFirstToAddVoiceNote => 'โปรดลบรูปภาพก่อนเพื่อเพิ่มข้อความเสียง';
 }

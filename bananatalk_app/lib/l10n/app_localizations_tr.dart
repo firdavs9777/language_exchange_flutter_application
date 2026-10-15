@@ -11371,4 +11371,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get restorePurchasesFailed => 'Satın alımlar geri yüklenemedi. Lütfen tekrar dene.';
+
+  @override
+  String get pleaseRemoveImagesFirstToAddVoiceNote => 'Sesli not eklemek için önce görselleri kaldırın';
 }

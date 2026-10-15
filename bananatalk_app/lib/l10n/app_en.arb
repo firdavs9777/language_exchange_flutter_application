@@ -7321,5 +7321,6 @@
   "restorePurchasesSuccess": "Purchases restored. Your VIP is active.",
   "restorePurchasesAlreadyActive": "Your VIP subscription is already active.",
   "restorePurchasesNothing": "No purchases to restore.",
-  "restorePurchasesFailed": "Couldn't restore purchases. Please try again."
+  "restorePurchasesFailed": "Couldn't restore purchases. Please try again.",
+  "pleaseRemoveImagesFirstToAddVoiceNote": "Please remove images first to add a voice note"
 }

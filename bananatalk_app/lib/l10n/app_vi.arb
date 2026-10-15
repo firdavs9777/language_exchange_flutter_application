@@ -4406,5 +4406,6 @@
   "restorePurchasesSuccess": "Đã khôi phục giao dịch mua. VIP của bạn đang hoạt động.",
   "restorePurchasesAlreadyActive": "Gói VIP của bạn đã đang hoạt động.",
   "restorePurchasesNothing": "Không có giao dịch mua nào để khôi phục.",
-  "restorePurchasesFailed": "Không thể khôi phục giao dịch mua. Vui lòng thử lại."
+  "restorePurchasesFailed": "Không thể khôi phục giao dịch mua. Vui lòng thử lại.",
+  "pleaseRemoveImagesFirstToAddVoiceNote": "Vui lòng xóa ảnh trước để thêm ghi chú thoại"
 }

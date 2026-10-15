@@ -11373,4 +11373,7 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get restorePurchasesFailed => 'Hindi ma-restore ang mga binili. Pakisubukang muli.';
+
+  @override
+  String get pleaseRemoveImagesFirstToAddVoiceNote => 'Pakialis muna ang mga larawan para makapagdagdag ng voice note';
 }

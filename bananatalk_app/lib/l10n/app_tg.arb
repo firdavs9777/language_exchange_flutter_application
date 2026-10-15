@@ -3899,5 +3899,6 @@
   "restorePurchasesSuccess": "Харидҳо барқарор шуданд. VIP-и шумо фаъол аст.",
   "restorePurchasesAlreadyActive": "Обунаи VIP-и шумо аллакай фаъол аст.",
   "restorePurchasesNothing": "Ягон хариде барои барқароркунӣ нест.",
-  "restorePurchasesFailed": "Харидҳоро барқарор кардан нашуд. Лутфан бори дигар кӯшиш кунед."
+  "restorePurchasesFailed": "Харидҳоро барқарор кардан нашуд. Лутфан бори дигар кӯшиш кунед.",
+  "pleaseRemoveImagesFirstToAddVoiceNote": "Барои илова кардани паёми овозӣ аввал тасвирҳоро хориҷ кунед"
 }

@@ -4422,5 +4422,6 @@
   "restorePurchasesSuccess": "खरीदारी पुनर्स्थापित हो गई। आपका VIP सक्रिय है।",
   "restorePurchasesAlreadyActive": "आपकी VIP सदस्यता पहले से सक्रिय है।",
   "restorePurchasesNothing": "पुनर्स्थापित करने के लिए कोई खरीदारी नहीं है।",
-  "restorePurchasesFailed": "खरीदारी पुनर्स्थापित नहीं हो सकी। कृपया फिर से कोशिश करें।"
+  "restorePurchasesFailed": "खरीदारी पुनर्स्थापित नहीं हो सकी। कृपया फिर से कोशिश करें।",
+  "pleaseRemoveImagesFirstToAddVoiceNote": "वॉइस नोट जोड़ने के लिए पहले तस्वीरें हटाएँ"
 }

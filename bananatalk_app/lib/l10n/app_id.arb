@@ -4406,5 +4406,6 @@
   "restorePurchasesSuccess": "Pembelian dipulihkan. VIP kamu aktif.",
   "restorePurchasesAlreadyActive": "Langganan VIP kamu sudah aktif.",
   "restorePurchasesNothing": "Tidak ada pembelian untuk dipulihkan.",
-  "restorePurchasesFailed": "Tidak dapat memulihkan pembelian. Silakan coba lagi."
+  "restorePurchasesFailed": "Tidak dapat memulihkan pembelian. Silakan coba lagi.",
+  "pleaseRemoveImagesFirstToAddVoiceNote": "Hapus gambar terlebih dahulu untuk menambahkan pesan suara"
 }

@@ -4646,5 +4646,6 @@
   "restorePurchasesSuccess": "Käufe wiederhergestellt. Dein VIP ist aktiv.",
   "restorePurchasesAlreadyActive": "Dein VIP-Abo ist bereits aktiv.",
   "restorePurchasesNothing": "Keine Käufe zum Wiederherstellen.",
-  "restorePurchasesFailed": "Käufe konnten nicht wiederhergestellt werden. Bitte versuche es erneut."
+  "restorePurchasesFailed": "Käufe konnten nicht wiederhergestellt werden. Bitte versuche es erneut.",
+  "pleaseRemoveImagesFirstToAddVoiceNote": "Bitte entferne zuerst die Bilder, um eine Sprachnachricht hinzuzufügen"
 }

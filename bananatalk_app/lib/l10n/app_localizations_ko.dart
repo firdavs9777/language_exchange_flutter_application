@@ -11354,4 +11354,7 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get restorePurchasesFailed => '구매를 복원하지 못했습니다. 다시 시도해 주세요.';
+
+  @override
+  String get pleaseRemoveImagesFirstToAddVoiceNote => '음성 메모를 추가하려면 먼저 이미지를 삭제하세요';
 }

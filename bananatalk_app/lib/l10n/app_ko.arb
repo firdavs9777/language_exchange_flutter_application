@@ -4427,5 +4427,6 @@
   "restorePurchasesSuccess": "구매가 복원되었습니다. VIP가 활성화되었습니다.",
   "restorePurchasesAlreadyActive": "VIP 구독이 이미 활성화되어 있습니다.",
   "restorePurchasesNothing": "복원할 구매 내역이 없습니다.",
-  "restorePurchasesFailed": "구매를 복원하지 못했습니다. 다시 시도해 주세요."
+  "restorePurchasesFailed": "구매를 복원하지 못했습니다. 다시 시도해 주세요.",
+  "pleaseRemoveImagesFirstToAddVoiceNote": "음성 메모를 추가하려면 먼저 이미지를 삭제하세요"
 }

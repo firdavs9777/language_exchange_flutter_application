@@ -20725,6 +20725,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Couldn\'t restore purchases. Please try again.'**
   String get restorePurchasesFailed;
+
+  /// No description provided for @pleaseRemoveImagesFirstToAddVoiceNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Please remove images first to add a voice note'**
+  String get pleaseRemoveImagesFirstToAddVoiceNote;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

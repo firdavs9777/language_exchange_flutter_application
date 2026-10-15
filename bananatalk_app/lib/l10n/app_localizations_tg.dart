@@ -11374,4 +11374,7 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get restorePurchasesFailed => 'Харидҳоро барқарор кардан нашуд. Лутфан бори дигар кӯшиш кунед.';
+
+  @override
+  String get pleaseRemoveImagesFirstToAddVoiceNote => 'Барои илова кардани паёми овозӣ аввал тасвирҳоро хориҷ кунед';
 }

@@ -4379,5 +4379,6 @@
   "restorePurchasesSuccess": "Na-restore ang mga binili. Aktibo na ang VIP mo.",
   "restorePurchasesAlreadyActive": "Aktibo na ang VIP subscription mo.",
   "restorePurchasesNothing": "Walang binili na mare-restore.",
-  "restorePurchasesFailed": "Hindi ma-restore ang mga binili. Pakisubukang muli."
+  "restorePurchasesFailed": "Hindi ma-restore ang mga binili. Pakisubukang muli.",
+  "pleaseRemoveImagesFirstToAddVoiceNote": "Pakialis muna ang mga larawan para makapagdagdag ng voice note"
 }

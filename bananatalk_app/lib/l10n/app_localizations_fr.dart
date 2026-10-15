@@ -11373,4 +11373,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get restorePurchasesFailed => 'Impossible de restaurer les achats. Veuillez réessayer.';
+
+  @override
+  String get pleaseRemoveImagesFirstToAddVoiceNote => 'Veuillez d\'abord supprimer les images pour ajouter une note vocale';
 }

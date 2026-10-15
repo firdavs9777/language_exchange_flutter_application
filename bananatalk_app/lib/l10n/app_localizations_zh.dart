@@ -11354,6 +11354,9 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get restorePurchasesFailed => '无法恢复购买，请重试。';
+
+  @override
+  String get pleaseRemoveImagesFirstToAddVoiceNote => '请先删除图片再添加语音';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -22706,4 +22709,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get restorePurchasesFailed => '無法恢復購買，請再試一次。';
+
+  @override
+  String get pleaseRemoveImagesFirstToAddVoiceNote => '請先刪除圖片再新增語音';
 }

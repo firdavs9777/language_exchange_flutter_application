@@ -11365,4 +11365,7 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get restorePurchasesFailed => 'Tidak dapat memulihkan pembelian. Silakan coba lagi.';
+
+  @override
+  String get pleaseRemoveImagesFirstToAddVoiceNote => 'Hapus gambar terlebih dahulu untuk menambahkan pesan suara';
 }

@@ -4646,5 +4646,6 @@
   "restorePurchasesSuccess": "Achats restaurés. Votre VIP est actif.",
   "restorePurchasesAlreadyActive": "Votre abonnement VIP est déjà actif.",
   "restorePurchasesNothing": "Aucun achat à restaurer.",
-  "restorePurchasesFailed": "Impossible de restaurer les achats. Veuillez réessayer."
+  "restorePurchasesFailed": "Impossible de restaurer les achats. Veuillez réessayer.",
+  "pleaseRemoveImagesFirstToAddVoiceNote": "Veuillez d'abord supprimer les images pour ajouter une note vocale"
 }

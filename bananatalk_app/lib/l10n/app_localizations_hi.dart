@@ -11373,4 +11373,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get restorePurchasesFailed => 'खरीदारी पुनर्स्थापित नहीं हो सकी। कृपया फिर से कोशिश करें।';
+
+  @override
+  String get pleaseRemoveImagesFirstToAddVoiceNote => 'वॉइस नोट जोड़ने के लिए पहले तस्वीरें हटाएँ';
 }

@@ -4618,5 +4618,6 @@
   "restorePurchasesSuccess": "Satın alımlar geri yüklendi. VIP üyeliğin aktif.",
   "restorePurchasesAlreadyActive": "VIP aboneliğin zaten aktif.",
   "restorePurchasesNothing": "Geri yüklenecek satın alım yok.",
-  "restorePurchasesFailed": "Satın alımlar geri yüklenemedi. Lütfen tekrar dene."
+  "restorePurchasesFailed": "Satın alımlar geri yüklenemedi. Lütfen tekrar dene.",
+  "pleaseRemoveImagesFirstToAddVoiceNote": "Sesli not eklemek için önce görselleri kaldırın"
 }

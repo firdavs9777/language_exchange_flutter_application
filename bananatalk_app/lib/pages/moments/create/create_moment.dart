@@ -378,7 +378,11 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     final message = switch (block.present) {
       MomentMediaKind.audio => 'Please remove the voice note first',
       MomentMediaKind.video => 'Please remove the video first',
-      _ => l10n.pleaseRemoveImagesFirst,
+      // Images block both a video and a voice note; name the one wanted
+      // (this always said "to add a video", even for a voice note).
+      _ => block.wanted == MomentMediaKind.audio
+          ? l10n.pleaseRemoveImagesFirstToAddVoiceNote
+          : l10n.pleaseRemoveImagesFirstToAddVideo,
     };
     showMomentsSnackBar(context, message: message);
     return true;

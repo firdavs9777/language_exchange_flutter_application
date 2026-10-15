@@ -4406,5 +4406,6 @@
   "restorePurchasesSuccess": "購入を復元しました。VIPが有効になりました。",
   "restorePurchasesAlreadyActive": "VIPサブスクリプションはすでに有効です。",
   "restorePurchasesNothing": "復元できる購入はありません。",
-  "restorePurchasesFailed": "購入を復元できませんでした。もう一度お試しください。"
+  "restorePurchasesFailed": "購入を復元できませんでした。もう一度お試しください。",
+  "pleaseRemoveImagesFirstToAddVoiceNote": "ボイスメモを追加するには、先に画像を削除してください"
 }

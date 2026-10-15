@@ -11428,4 +11428,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get restorePurchasesFailed => 'تعذّرت استعادة المشتريات. يُرجى المحاولة مرة أخرى.';
+
+  @override
+  String get pleaseRemoveImagesFirstToAddVoiceNote => 'يرجى إزالة الصور أولاً لإضافة رسالة صوتية';
 }

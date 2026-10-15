@@ -11354,4 +11354,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get restorePurchasesFailed => 'Không thể khôi phục giao dịch mua. Vui lòng thử lại.';
+
+  @override
+  String get pleaseRemoveImagesFirstToAddVoiceNote => 'Vui lòng xóa ảnh trước để thêm ghi chú thoại';
 }
