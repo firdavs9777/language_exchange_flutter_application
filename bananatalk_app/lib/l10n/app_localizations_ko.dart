@@ -2872,7 +2872,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get tapToDetectLocation => '탭하여 위치 감지';
 
   @override
-  String get optionalHelpsNearbyPartners => '필수 — 근처 파트너 매칭에 도움됩니다';
+  String get optionalHelpsNearbyPartners => '선택 — 근처 파트너 매칭에 도움됩니다';
 
   @override
   String get startLearning => '학습 시작!';
@@ -11414,4 +11414,59 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get coinsAlreadyCredited => '이 코인은 이미 계정에 추가되었습니다.';
+
+  @override
+  String get authLockedTitle => '계정이 일시적으로 잠겼습니다';
+
+  @override
+  String authLockedBodyMinutes(Object minutes) {
+    return '실패한 시도가 너무 많습니다. $minutes분 후에 다시 시도하세요.';
+  }
+
+  @override
+  String get authLockedBodyLater => '실패한 시도가 너무 많습니다. 나중에 다시 시도하세요.';
+
+  @override
+  String get authRateLimitedTitle => '잠시 천천히 해 주세요';
+
+  @override
+  String authRateLimitedBodySeconds(Object seconds) {
+    return '시도가 너무 많습니다. $seconds초 후에 다시 시도하세요.';
+  }
+
+  @override
+  String get authRateLimitedBodyShortly => '시도가 너무 많습니다. 잠시 후 다시 시도하세요.';
+
+  @override
+  String get passwordErrorLength => '비밀번호는 8자 이상이어야 합니다';
+
+  @override
+  String get passwordErrorUppercase => '비밀번호에는 대문자가 하나 이상 포함되어야 합니다';
+
+  @override
+  String get passwordErrorLowercase => '비밀번호에는 소문자가 하나 이상 포함되어야 합니다';
+
+  @override
+  String get passwordErrorNumber => '비밀번호에는 숫자가 하나 이상 포함되어야 합니다';
+
+  @override
+  String get authCodeExpired => '이 코드는 만료되었습니다. 새 코드를 요청하세요.';
+
+  @override
+  String get authCodeIncorrect => '코드가 올바르지 않습니다. 다시 시도하세요.';
+
+  @override
+  String get authVerificationFailed => '인증에 실패했습니다';
+
+  @override
+  String get authResendCodeFailed => '코드를 다시 보내지 못했습니다';
+
+  @override
+  String get authSendResetCodeFailed => '재설정 코드를 보내지 못했습니다';
+
+  @override
+  String get authResetPasswordFailed => '비밀번호를 재설정하지 못했습니다';
+
+  @override
+  String get enableBiometricTitleAndroid => '다음에는 지문 또는 얼굴 인식으로 로그인할까요?';
 }

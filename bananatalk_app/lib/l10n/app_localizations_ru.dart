@@ -2872,7 +2872,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get tapToDetectLocation => 'Нажмите для определения местоположения';
 
   @override
-  String get optionalHelpsNearbyPartners => 'Обязательно — помогает найти партнёров рядом';
+  String get optionalHelpsNearbyPartners => 'Необязательно — помогает найти партнёров рядом';
 
   @override
   String get startLearning => 'Начать обучение';
@@ -11477,4 +11477,59 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get coinsAlreadyCredited => 'Эти монеты уже зачислены на ваш аккаунт.';
+
+  @override
+  String get authLockedTitle => 'Аккаунт временно заблокирован';
+
+  @override
+  String authLockedBodyMinutes(Object minutes) {
+    return 'Слишком много неудачных попыток. Повторите через $minutes мин.';
+  }
+
+  @override
+  String get authLockedBodyLater => 'Слишком много неудачных попыток. Повторите позже.';
+
+  @override
+  String get authRateLimitedTitle => 'Немного помедленнее';
+
+  @override
+  String authRateLimitedBodySeconds(Object seconds) {
+    return 'Слишком много попыток. Повторите через $seconds с.';
+  }
+
+  @override
+  String get authRateLimitedBodyShortly => 'Слишком много попыток. Повторите чуть позже.';
+
+  @override
+  String get passwordErrorLength => 'Пароль должен содержать не менее 8 символов';
+
+  @override
+  String get passwordErrorUppercase => 'Пароль должен содержать хотя бы одну заглавную букву';
+
+  @override
+  String get passwordErrorLowercase => 'Пароль должен содержать хотя бы одну строчную букву';
+
+  @override
+  String get passwordErrorNumber => 'Пароль должен содержать хотя бы одну цифру';
+
+  @override
+  String get authCodeExpired => 'Срок действия кода истёк. Запросите новый.';
+
+  @override
+  String get authCodeIncorrect => 'Неверный код. Попробуйте ещё раз.';
+
+  @override
+  String get authVerificationFailed => 'Не удалось подтвердить';
+
+  @override
+  String get authResendCodeFailed => 'Не удалось отправить код повторно';
+
+  @override
+  String get authSendResetCodeFailed => 'Не удалось отправить код сброса';
+
+  @override
+  String get authResetPasswordFailed => 'Не удалось сбросить пароль';
+
+  @override
+  String get enableBiometricTitleAndroid => 'Входить в следующий раз по отпечатку пальца или лицу?';
 }

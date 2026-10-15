@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 enum PasswordStrength { empty, weak, fair, strong }
 
@@ -20,12 +21,13 @@ class PasswordStrengthMeter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final strength = scorePassword(password);
     final (fill, color, label) = switch (strength) {
       PasswordStrength.empty => (0.0, Colors.transparent, ''),
-      PasswordStrength.weak => (0.33, Colors.redAccent, 'Weak'),
-      PasswordStrength.fair => (0.66, const Color(0xFFFFB300), 'Good'),
-      PasswordStrength.strong => (1.0, const Color(0xFF00BFA5), 'Strong'),
+      PasswordStrength.weak => (0.33, Colors.redAccent, l10n.passwordWeak),
+      PasswordStrength.fair => (0.66, const Color(0xFFFFB300), l10n.passwordFair),
+      PasswordStrength.strong => (1.0, const Color(0xFF00BFA5), l10n.passwordStrong),
     };
     return AnimatedOpacity(
       duration: const Duration(milliseconds: 200),

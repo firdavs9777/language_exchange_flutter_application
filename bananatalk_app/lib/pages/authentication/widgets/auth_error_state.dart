@@ -21,23 +21,26 @@ class AuthErrorState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final (icon, title, body) = switch (kind) {
       AuthErrorKind.locked => (
         Icons.lock_clock,
-        'Account temporarily locked',
-        'Too many failed attempts. Try again '
-            '${retryAfter != null ? 'in ${retryAfter!.inMinutes} min' : 'later'}.',
+        l10n.authLockedTitle,
+        retryAfter != null
+            ? l10n.authLockedBodyMinutes(retryAfter!.inMinutes)
+            : l10n.authLockedBodyLater,
       ),
       AuthErrorKind.rateLimited => (
         Icons.hourglass_top,
-        'Slow down a moment',
-        'Too many attempts. Try again '
-            '${retryAfter != null ? 'in ${retryAfter!.inSeconds}s' : 'shortly'}.',
+        l10n.authRateLimitedTitle,
+        retryAfter != null
+            ? l10n.authRateLimitedBodySeconds(retryAfter!.inSeconds)
+            : l10n.authRateLimitedBodyShortly,
       ),
       AuthErrorKind.network => (
         Icons.wifi_off,
-        'No connection',
-        'Check your internet connection and try again.',
+        l10n.noInternetConnection,
+        l10n.pleaseCheckConnection,
       ),
     };
     return Column(

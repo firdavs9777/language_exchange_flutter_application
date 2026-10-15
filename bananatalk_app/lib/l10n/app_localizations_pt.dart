@@ -2872,7 +2872,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get tapToDetectLocation => 'Toque para detectar localização';
 
   @override
-  String get optionalHelpsNearbyPartners => 'Obrigatório — ajuda a encontrar parceiros próximos';
+  String get optionalHelpsNearbyPartners => 'Opcional — ajuda a encontrar parceiros próximos';
 
   @override
   String get startLearning => 'Começar a aprender';
@@ -11433,4 +11433,59 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get coinsAlreadyCredited => 'Estas moedas já foram adicionadas à sua conta.';
+
+  @override
+  String get authLockedTitle => 'Conta temporariamente bloqueada';
+
+  @override
+  String authLockedBodyMinutes(Object minutes) {
+    return 'Muitas tentativas falhadas. Tente novamente em $minutes min.';
+  }
+
+  @override
+  String get authLockedBodyLater => 'Muitas tentativas falhadas. Tente novamente mais tarde.';
+
+  @override
+  String get authRateLimitedTitle => 'Calma um momento';
+
+  @override
+  String authRateLimitedBodySeconds(Object seconds) {
+    return 'Muitas tentativas. Tente novamente em $seconds s.';
+  }
+
+  @override
+  String get authRateLimitedBodyShortly => 'Muitas tentativas. Tente novamente em breve.';
+
+  @override
+  String get passwordErrorLength => 'A senha deve ter pelo menos 8 caracteres';
+
+  @override
+  String get passwordErrorUppercase => 'A senha deve conter pelo menos uma letra maiúscula';
+
+  @override
+  String get passwordErrorLowercase => 'A senha deve conter pelo menos uma letra minúscula';
+
+  @override
+  String get passwordErrorNumber => 'A senha deve conter pelo menos um número';
+
+  @override
+  String get authCodeExpired => 'Este código expirou. Solicite um novo.';
+
+  @override
+  String get authCodeIncorrect => 'Código incorreto. Tente novamente.';
+
+  @override
+  String get authVerificationFailed => 'Falha na verificação';
+
+  @override
+  String get authResendCodeFailed => 'Falha ao reenviar o código';
+
+  @override
+  String get authSendResetCodeFailed => 'Falha ao enviar o código de redefinição';
+
+  @override
+  String get authResetPasswordFailed => 'Falha ao redefinir a senha';
+
+  @override
+  String get enableBiometricTitleAndroid => 'Usar impressão digital ou desbloqueio facial para entrar da próxima vez?';
 }

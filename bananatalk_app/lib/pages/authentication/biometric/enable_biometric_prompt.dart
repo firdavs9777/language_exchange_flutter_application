@@ -6,6 +6,13 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 /// Modal shown after a successful first login asking the user if they want
 /// to enable biometric login for next time. Returns true if user tapped
 /// Enable, false if Skip / dismissed.
+/// The prompt title: "Face ID" is an Apple name, so other platforms get the
+/// generic fingerprint / face unlock wording.
+String enableBiometricTitleFor(AppLocalizations l10n, TargetPlatform platform) =>
+    platform == TargetPlatform.iOS || platform == TargetPlatform.macOS
+        ? l10n.enableBiometricTitle
+        : l10n.enableBiometricTitleAndroid;
+
 Future<bool> showEnableBiometricPrompt(BuildContext context) async {
   final result = await showDialog<bool>(
     context: context,
@@ -60,7 +67,7 @@ class _EnableBiometricDialog extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             Text(
-              l10n.enableBiometricTitle,
+              enableBiometricTitleFor(l10n, Theme.of(context).platform),
               textAlign: TextAlign.center,
               style: context.titleLarge.copyWith(
                 fontWeight: FontWeight.w800,

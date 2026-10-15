@@ -12,6 +12,7 @@ import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/pages/authentication/post_login_error.dart';
 
 class ForgotPasswordEmail extends ConsumerStatefulWidget {
   const ForgotPasswordEmail({super.key});
@@ -117,7 +118,11 @@ class _ForgotPasswordEmailState extends ConsumerState<ForgotPasswordEmail> {
         default:
           showAuthSnackBar(
             context,
-            message: result['message'] ?? 'Failed to send reset code',
+            message: authResultMessage(
+              l10n,
+              result,
+              fallback: l10n.authSendResetCodeFailed,
+            ),
             type: AuthSnackBarType.error,
           );
       }

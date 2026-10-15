@@ -1,4 +1,5 @@
 import 'package:bananatalk_app/pages/authentication/auth_error_codes.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/providers/provider_models/users_model.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/user_limits_provider.dart';
@@ -1168,12 +1169,13 @@ class AuthService extends ChangeNotifier {
   /// Requirements: Minimum 8 characters, at least one uppercase, one lowercase, one number
   static Map<String, dynamic> validatePassword(String password) {
     if (password.isEmpty) {
-      return {'valid': false, 'message': 'Password is required'};
+      return {'valid': false, 'rule': 'required', 'message': 'Password is required'};
     }
 
     if (password.length < 8) {
       return {
         'valid': false,
+        'rule': 'length',
         'message': 'Password must be at least 8 characters long',
       };
     }
@@ -1181,6 +1183,7 @@ class AuthService extends ChangeNotifier {
     if (!password.contains(RegExp(r'[A-Z]'))) {
       return {
         'valid': false,
+        'rule': 'uppercase',
         'message': 'Password must contain at least one uppercase letter',
       };
     }
@@ -1188,6 +1191,7 @@ class AuthService extends ChangeNotifier {
     if (!password.contains(RegExp(r'[a-z]'))) {
       return {
         'valid': false,
+        'rule': 'lowercase',
         'message': 'Password must contain at least one lowercase letter',
       };
     }
@@ -1195,11 +1199,26 @@ class AuthService extends ChangeNotifier {
     if (!password.contains(RegExp(r'[0-9]'))) {
       return {
         'valid': false,
+        'rule': 'number',
         'message': 'Password must contain at least one number',
       };
     }
 
     return {'valid': true, 'message': 'Password is valid'};
+  }
+
+  /// The localized reason [password] fails [validatePassword], or null when
+  /// it is valid. The English `message` in that map is for logs only.
+  static String? passwordErrorText(String password, AppLocalizations l10n) {
+    final result = validatePassword(password);
+    if (result['valid'] == true) return null;
+    return switch (result['rule']) {
+      'required' => l10n.pleaseEnterAPassword,
+      'length' => l10n.passwordErrorLength,
+      'uppercase' => l10n.passwordErrorUppercase,
+      'lowercase' => l10n.passwordErrorLowercase,
+      _ => l10n.passwordErrorNumber,
+    };
   }
 
   /// Validate email format

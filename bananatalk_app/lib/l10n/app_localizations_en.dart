@@ -2878,7 +2878,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get tapToDetectLocation => 'Tap to detect location';
 
   @override
-  String get optionalHelpsNearbyPartners => 'Required — helps match you with partners nearby';
+  String get optionalHelpsNearbyPartners => 'Optional — helps match you with partners nearby';
 
   @override
   String get startLearning => 'Start Learning!';
@@ -11439,4 +11439,59 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get coinsAlreadyCredited => 'These coins were already added to your account.';
+
+  @override
+  String get authLockedTitle => 'Account temporarily locked';
+
+  @override
+  String authLockedBodyMinutes(Object minutes) {
+    return 'Too many failed attempts. Try again in $minutes min.';
+  }
+
+  @override
+  String get authLockedBodyLater => 'Too many failed attempts. Try again later.';
+
+  @override
+  String get authRateLimitedTitle => 'Slow down a moment';
+
+  @override
+  String authRateLimitedBodySeconds(Object seconds) {
+    return 'Too many attempts. Try again in ${seconds}s.';
+  }
+
+  @override
+  String get authRateLimitedBodyShortly => 'Too many attempts. Try again shortly.';
+
+  @override
+  String get passwordErrorLength => 'Password must be at least 8 characters long';
+
+  @override
+  String get passwordErrorUppercase => 'Password must contain at least one uppercase letter';
+
+  @override
+  String get passwordErrorLowercase => 'Password must contain at least one lowercase letter';
+
+  @override
+  String get passwordErrorNumber => 'Password must contain at least one number';
+
+  @override
+  String get authCodeExpired => 'This code has expired. Please request a new one.';
+
+  @override
+  String get authCodeIncorrect => 'Incorrect code. Please try again.';
+
+  @override
+  String get authVerificationFailed => 'Verification failed';
+
+  @override
+  String get authResendCodeFailed => 'Failed to resend code';
+
+  @override
+  String get authSendResetCodeFailed => 'Failed to send reset code';
+
+  @override
+  String get authResetPasswordFailed => 'Failed to reset password';
+
+  @override
+  String get enableBiometricTitleAndroid => 'Use fingerprint or face unlock to log in next time?';
 }

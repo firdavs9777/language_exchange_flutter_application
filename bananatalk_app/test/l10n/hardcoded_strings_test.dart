@@ -530,6 +530,26 @@ const Map<String, List<String>> _keysByTask = {
     'coinsPurchaseLinkedElsewhere',
     'coinsAlreadyCredited',
   ],
+  // Remaining hardcoded English: property literals, enum labels, snackbars (L14 sweep).
+  'l10n-sweep': [
+    'authLockedTitle',
+    'authLockedBodyMinutes',
+    'authLockedBodyLater',
+    'authRateLimitedTitle',
+    'authRateLimitedBodySeconds',
+    'authRateLimitedBodyShortly',
+    'passwordErrorLength',
+    'passwordErrorUppercase',
+    'passwordErrorLowercase',
+    'passwordErrorNumber',
+    'authCodeExpired',
+    'authCodeIncorrect',
+    'authVerificationFailed',
+    'authResendCodeFailed',
+    'authSendResetCodeFailed',
+    'authResetPasswordFailed',
+    'enableBiometricTitleAndroid',
+  ],
 };
 
 /// Files (under lib/) each task must leave with no English Text literal.
@@ -753,6 +773,11 @@ const Map<String, List<String>> _filesByTask = {
   ],
   'payments-batch': [
     'pages/coins/coin_shop_screen.dart',
+  ],
+  'l10n-sweep': [
+    'pages/authentication/widgets/auth_error_state.dart',
+    'pages/authentication/widgets/password_strength_meter.dart',
+    'pages/authentication/biometric/enable_biometric_prompt.dart',
   ],
 };
 

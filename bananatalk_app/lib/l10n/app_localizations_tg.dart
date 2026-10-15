@@ -2878,7 +2878,7 @@ class AppLocalizationsTg extends AppLocalizations {
   String get tapToDetectLocation => 'Барои муайян кардани ҷойгиршавӣ зер кунед';
 
   @override
-  String get optionalHelpsNearbyPartners => 'Ҳатмӣ — дар ёфтани шарикони наздик кӯмак мекунад';
+  String get optionalHelpsNearbyPartners => 'Ихтиёрӣ — дар ёфтани шарикони наздик кӯмак мекунад';
 
   @override
   String get startLearning => 'Омӯзишро оғоз кунед!';
@@ -11434,4 +11434,59 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get coinsAlreadyCredited => 'Ин тангаҳо аллакай ба ҳисоби шумо илова шудаанд.';
+
+  @override
+  String get authLockedTitle => 'Ҳисоб муваққатан баста шуд';
+
+  @override
+  String authLockedBodyMinutes(Object minutes) {
+    return 'Кӯшишҳои ноком хеле зиёданд. Пас аз $minutes дақ. дубора кӯшиш кунед.';
+  }
+
+  @override
+  String get authLockedBodyLater => 'Кӯшишҳои ноком хеле зиёданд. Баъдтар дубора кӯшиш кунед.';
+
+  @override
+  String get authRateLimitedTitle => 'Каме оҳистатар';
+
+  @override
+  String authRateLimitedBodySeconds(Object seconds) {
+    return 'Кӯшишҳо хеле зиёданд. Пас аз $seconds сония дубора кӯшиш кунед.';
+  }
+
+  @override
+  String get authRateLimitedBodyShortly => 'Кӯшишҳо хеле зиёданд. Пас аз каме дубора кӯшиш кунед.';
+
+  @override
+  String get passwordErrorLength => 'Парол бояд на камтар аз 8 аломат бошад';
+
+  @override
+  String get passwordErrorUppercase => 'Парол бояд ақаллан як ҳарфи калон дошта бошад';
+
+  @override
+  String get passwordErrorLowercase => 'Парол бояд ақаллан як ҳарфи хурд дошта бошад';
+
+  @override
+  String get passwordErrorNumber => 'Парол бояд ақаллан як рақам дошта бошад';
+
+  @override
+  String get authCodeExpired => 'Мӯҳлати ин рамз гузашт. Лутфан рамзи навро дархост кунед.';
+
+  @override
+  String get authCodeIncorrect => 'Рамз нодуруст аст. Лутфан дубора кӯшиш кунед.';
+
+  @override
+  String get authVerificationFailed => 'Тасдиқ ноком шуд';
+
+  @override
+  String get authResendCodeFailed => 'Рамзро дубора фиристодан нашуд';
+
+  @override
+  String get authSendResetCodeFailed => 'Рамзи барқароркуниро фиристодан нашуд';
+
+  @override
+  String get authResetPasswordFailed => 'Паролро барқарор кардан нашуд';
+
+  @override
+  String get enableBiometricTitleAndroid => 'Дафъаи оянда бо изи ангушт ё рӯй ворид шавед?';
 }

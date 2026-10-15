@@ -2872,7 +2872,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get tapToDetectLocation => 'انقر لاكتشاف الموقع';
 
   @override
-  String get optionalHelpsNearbyPartners => 'مطلوب — يساعد في مطابقتك مع شركاء قريبين';
+  String get optionalHelpsNearbyPartners => 'اختياري — يساعد في مطابقتك مع شركاء قريبين';
 
   @override
   String get startLearning => 'ابدأ التعلم!';
@@ -11488,4 +11488,59 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get coinsAlreadyCredited => 'تمت إضافة هذه العملات إلى حسابك مسبقًا.';
+
+  @override
+  String get authLockedTitle => 'الحساب مقفل مؤقتًا';
+
+  @override
+  String authLockedBodyMinutes(Object minutes) {
+    return 'محاولات فاشلة كثيرة جدًا. حاول مرة أخرى بعد $minutes دقيقة.';
+  }
+
+  @override
+  String get authLockedBodyLater => 'محاولات فاشلة كثيرة جدًا. حاول مرة أخرى لاحقًا.';
+
+  @override
+  String get authRateLimitedTitle => 'تمهّل قليلًا';
+
+  @override
+  String authRateLimitedBodySeconds(Object seconds) {
+    return 'محاولات كثيرة جدًا. حاول مرة أخرى بعد $seconds ث.';
+  }
+
+  @override
+  String get authRateLimitedBodyShortly => 'محاولات كثيرة جدًا. حاول مرة أخرى بعد قليل.';
+
+  @override
+  String get passwordErrorLength => 'يجب أن تتكون كلمة المرور من 8 أحرف على الأقل';
+
+  @override
+  String get passwordErrorUppercase => 'يجب أن تحتوي كلمة المرور على حرف كبير واحد على الأقل';
+
+  @override
+  String get passwordErrorLowercase => 'يجب أن تحتوي كلمة المرور على حرف صغير واحد على الأقل';
+
+  @override
+  String get passwordErrorNumber => 'يجب أن تحتوي كلمة المرور على رقم واحد على الأقل';
+
+  @override
+  String get authCodeExpired => 'انتهت صلاحية هذا الرمز. يرجى طلب رمز جديد.';
+
+  @override
+  String get authCodeIncorrect => 'الرمز غير صحيح. يرجى المحاولة مرة أخرى.';
+
+  @override
+  String get authVerificationFailed => 'فشل التحقق';
+
+  @override
+  String get authResendCodeFailed => 'تعذّر إعادة إرسال الرمز';
+
+  @override
+  String get authSendResetCodeFailed => 'تعذّر إرسال رمز إعادة التعيين';
+
+  @override
+  String get authResetPasswordFailed => 'تعذّر إعادة تعيين كلمة المرور';
+
+  @override
+  String get enableBiometricTitleAndroid => 'هل تريد استخدام بصمة الإصبع أو فتح القفل بالوجه لتسجيل الدخول في المرة القادمة؟';
 }

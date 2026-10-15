@@ -2872,7 +2872,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get tapToDetectLocation => 'Nhấn để phát hiện vị trí';
 
   @override
-  String get optionalHelpsNearbyPartners => 'Bắt buộc — giúp kết nối với đối tác gần bạn';
+  String get optionalHelpsNearbyPartners => 'Không bắt buộc — giúp kết nối với đối tác gần bạn';
 
   @override
   String get startLearning => 'Bắt đầu học';
@@ -11414,4 +11414,59 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get coinsAlreadyCredited => 'Số xu này đã được cộng vào tài khoản của bạn.';
+
+  @override
+  String get authLockedTitle => 'Tài khoản tạm thời bị khóa';
+
+  @override
+  String authLockedBodyMinutes(Object minutes) {
+    return 'Quá nhiều lần thử thất bại. Hãy thử lại sau $minutes phút.';
+  }
+
+  @override
+  String get authLockedBodyLater => 'Quá nhiều lần thử thất bại. Hãy thử lại sau.';
+
+  @override
+  String get authRateLimitedTitle => 'Chậm lại một chút';
+
+  @override
+  String authRateLimitedBodySeconds(Object seconds) {
+    return 'Quá nhiều lần thử. Hãy thử lại sau $seconds giây.';
+  }
+
+  @override
+  String get authRateLimitedBodyShortly => 'Quá nhiều lần thử. Hãy thử lại sau ít phút.';
+
+  @override
+  String get passwordErrorLength => 'Mật khẩu phải có ít nhất 8 ký tự';
+
+  @override
+  String get passwordErrorUppercase => 'Mật khẩu phải chứa ít nhất một chữ in hoa';
+
+  @override
+  String get passwordErrorLowercase => 'Mật khẩu phải chứa ít nhất một chữ thường';
+
+  @override
+  String get passwordErrorNumber => 'Mật khẩu phải chứa ít nhất một chữ số';
+
+  @override
+  String get authCodeExpired => 'Mã này đã hết hạn. Vui lòng yêu cầu mã mới.';
+
+  @override
+  String get authCodeIncorrect => 'Mã không đúng. Vui lòng thử lại.';
+
+  @override
+  String get authVerificationFailed => 'Xác minh thất bại';
+
+  @override
+  String get authResendCodeFailed => 'Không gửi lại được mã';
+
+  @override
+  String get authSendResetCodeFailed => 'Không gửi được mã đặt lại';
+
+  @override
+  String get authResetPasswordFailed => 'Không đặt lại được mật khẩu';
+
+  @override
+  String get enableBiometricTitleAndroid => 'Dùng vân tay hoặc mở khóa bằng khuôn mặt để đăng nhập lần sau?';
 }

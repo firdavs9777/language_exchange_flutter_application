@@ -2872,7 +2872,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get tapToDetectLocation => 'I-tap para i-detect ang lokasyon';
 
   @override
-  String get optionalHelpsNearbyPartners => 'Kinakailangan — nakatutulong sa paghahanap ng mga kasosyo sa malapit';
+  String get optionalHelpsNearbyPartners => 'Opsyonal — nakatutulong sa paghahanap ng mga kasosyo sa malapit';
 
   @override
   String get startLearning => 'Magsimulang matuto';
@@ -11433,4 +11433,59 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get coinsAlreadyCredited => 'Naidagdag na ang mga coin na ito sa iyong account.';
+
+  @override
+  String get authLockedTitle => 'Pansamantalang naka-lock ang account';
+
+  @override
+  String authLockedBodyMinutes(Object minutes) {
+    return 'Masyadong maraming bigong pagsubok. Subukan ulit sa loob ng $minutes min.';
+  }
+
+  @override
+  String get authLockedBodyLater => 'Masyadong maraming bigong pagsubok. Subukan ulit mamaya.';
+
+  @override
+  String get authRateLimitedTitle => 'Dahan-dahan muna';
+
+  @override
+  String authRateLimitedBodySeconds(Object seconds) {
+    return 'Masyadong maraming pagsubok. Subukan ulit sa loob ng ${seconds}s.';
+  }
+
+  @override
+  String get authRateLimitedBodyShortly => 'Masyadong maraming pagsubok. Subukan ulit maya-maya.';
+
+  @override
+  String get passwordErrorLength => 'Dapat hindi bababa sa 8 character ang password';
+
+  @override
+  String get passwordErrorUppercase => 'Dapat may kahit isang malaking titik ang password';
+
+  @override
+  String get passwordErrorLowercase => 'Dapat may kahit isang maliit na titik ang password';
+
+  @override
+  String get passwordErrorNumber => 'Dapat may kahit isang numero ang password';
+
+  @override
+  String get authCodeExpired => 'Nag-expire na ang code na ito. Humiling ng bago.';
+
+  @override
+  String get authCodeIncorrect => 'Mali ang code. Pakisubukan ulit.';
+
+  @override
+  String get authVerificationFailed => 'Nabigo ang beripikasyon';
+
+  @override
+  String get authResendCodeFailed => 'Hindi naipadala ulit ang code';
+
+  @override
+  String get authSendResetCodeFailed => 'Hindi naipadala ang reset code';
+
+  @override
+  String get authResetPasswordFailed => 'Hindi na-reset ang password';
+
+  @override
+  String get enableBiometricTitleAndroid => 'Gamitin ang fingerprint o face unlock para mag-log in sa susunod?';
 }

@@ -2872,7 +2872,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get tapToDetectLocation => '点击检测位置';
 
   @override
-  String get optionalHelpsNearbyPartners => '必填 — 帮助匹配附近的伙伴';
+  String get optionalHelpsNearbyPartners => '选填 — 帮助匹配附近的伙伴';
 
   @override
   String get startLearning => '开始学习！';
@@ -11414,6 +11414,61 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get coinsAlreadyCredited => '这些金币已经添加到你的账号中。';
+
+  @override
+  String get authLockedTitle => '账号已暂时锁定';
+
+  @override
+  String authLockedBodyMinutes(Object minutes) {
+    return '失败次数过多。请在 $minutes 分钟后重试。';
+  }
+
+  @override
+  String get authLockedBodyLater => '失败次数过多。请稍后重试。';
+
+  @override
+  String get authRateLimitedTitle => '请稍等片刻';
+
+  @override
+  String authRateLimitedBodySeconds(Object seconds) {
+    return '尝试次数过多。请在 $seconds 秒后重试。';
+  }
+
+  @override
+  String get authRateLimitedBodyShortly => '尝试次数过多。请稍后重试。';
+
+  @override
+  String get passwordErrorLength => '密码至少需要 8 个字符';
+
+  @override
+  String get passwordErrorUppercase => '密码必须至少包含一个大写字母';
+
+  @override
+  String get passwordErrorLowercase => '密码必须至少包含一个小写字母';
+
+  @override
+  String get passwordErrorNumber => '密码必须至少包含一个数字';
+
+  @override
+  String get authCodeExpired => '此验证码已过期，请重新获取。';
+
+  @override
+  String get authCodeIncorrect => '验证码错误，请重试。';
+
+  @override
+  String get authVerificationFailed => '验证失败';
+
+  @override
+  String get authResendCodeFailed => '重新发送验证码失败';
+
+  @override
+  String get authSendResetCodeFailed => '发送重置验证码失败';
+
+  @override
+  String get authResetPasswordFailed => '重置密码失败';
+
+  @override
+  String get enableBiometricTitleAndroid => '下次使用指纹或面部解锁登录？';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -14284,7 +14339,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get tapToDetectLocation => '點擊偵測位置';
 
   @override
-  String get optionalHelpsNearbyPartners => '必填 — 有助於配對附近的夥伴';
+  String get optionalHelpsNearbyPartners => '選填 — 有助於配對附近的夥伴';
 
   @override
   String get startLearning => '開始學習！';
@@ -22826,4 +22881,59 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get coinsAlreadyCredited => '這些金幣已經加入你的帳號。';
+
+  @override
+  String get authLockedTitle => '帳號已暫時鎖定';
+
+  @override
+  String authLockedBodyMinutes(Object minutes) {
+    return '失敗次數過多。請在 $minutes 分鐘後再試。';
+  }
+
+  @override
+  String get authLockedBodyLater => '失敗次數過多。請稍後再試。';
+
+  @override
+  String get authRateLimitedTitle => '請稍等片刻';
+
+  @override
+  String authRateLimitedBodySeconds(Object seconds) {
+    return '嘗試次數過多。請在 $seconds 秒後再試。';
+  }
+
+  @override
+  String get authRateLimitedBodyShortly => '嘗試次數過多。請稍後再試。';
+
+  @override
+  String get passwordErrorLength => '密碼至少需要 8 個字元';
+
+  @override
+  String get passwordErrorUppercase => '密碼必須至少包含一個大寫字母';
+
+  @override
+  String get passwordErrorLowercase => '密碼必須至少包含一個小寫字母';
+
+  @override
+  String get passwordErrorNumber => '密碼必須至少包含一個數字';
+
+  @override
+  String get authCodeExpired => '此驗證碼已過期，請重新取得。';
+
+  @override
+  String get authCodeIncorrect => '驗證碼錯誤，請再試一次。';
+
+  @override
+  String get authVerificationFailed => '驗證失敗';
+
+  @override
+  String get authResendCodeFailed => '重新傳送驗證碼失敗';
+
+  @override
+  String get authSendResetCodeFailed => '傳送重設驗證碼失敗';
+
+  @override
+  String get authResetPasswordFailed => '重設密碼失敗';
+
+  @override
+  String get enableBiometricTitleAndroid => '下次使用指紋或臉部解鎖登入？';
 }

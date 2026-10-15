@@ -2872,7 +2872,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get tapToDetectLocation => 'Konumu algılamak için dokunun';
 
   @override
-  String get optionalHelpsNearbyPartners => 'Gerekli — yakındaki ortakları bulmanıza yardımcı olur';
+  String get optionalHelpsNearbyPartners => 'İsteğe bağlı — yakındaki ortakları bulmanıza yardımcı olur';
 
   @override
   String get startLearning => 'Öğrenmeye başla';
@@ -11431,4 +11431,59 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get coinsAlreadyCredited => 'Bu jetonlar hesabına zaten eklendi.';
+
+  @override
+  String get authLockedTitle => 'Hesap geçici olarak kilitlendi';
+
+  @override
+  String authLockedBodyMinutes(Object minutes) {
+    return 'Çok fazla başarısız deneme. $minutes dk sonra tekrar dene.';
+  }
+
+  @override
+  String get authLockedBodyLater => 'Çok fazla başarısız deneme. Daha sonra tekrar dene.';
+
+  @override
+  String get authRateLimitedTitle => 'Biraz yavaşla';
+
+  @override
+  String authRateLimitedBodySeconds(Object seconds) {
+    return 'Çok fazla deneme. $seconds sn sonra tekrar dene.';
+  }
+
+  @override
+  String get authRateLimitedBodyShortly => 'Çok fazla deneme. Birazdan tekrar dene.';
+
+  @override
+  String get passwordErrorLength => 'Şifre en az 8 karakter olmalıdır';
+
+  @override
+  String get passwordErrorUppercase => 'Şifre en az bir büyük harf içermelidir';
+
+  @override
+  String get passwordErrorLowercase => 'Şifre en az bir küçük harf içermelidir';
+
+  @override
+  String get passwordErrorNumber => 'Şifre en az bir rakam içermelidir';
+
+  @override
+  String get authCodeExpired => 'Bu kodun süresi doldu. Lütfen yeni bir kod iste.';
+
+  @override
+  String get authCodeIncorrect => 'Kod yanlış. Lütfen tekrar dene.';
+
+  @override
+  String get authVerificationFailed => 'Doğrulama başarısız';
+
+  @override
+  String get authResendCodeFailed => 'Kod yeniden gönderilemedi';
+
+  @override
+  String get authSendResetCodeFailed => 'Sıfırlama kodu gönderilemedi';
+
+  @override
+  String get authResetPasswordFailed => 'Şifre sıfırlanamadı';
+
+  @override
+  String get enableBiometricTitleAndroid => 'Bir dahaki sefere parmak izi veya yüz tanıma ile giriş yapılsın mı?';
 }

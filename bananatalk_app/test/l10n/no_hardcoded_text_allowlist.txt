@@ -1,4 +1,3 @@
-["lib/main.dart", "Session expired."]
 ["lib/pages/ai/conversation/ai_conversation_screen.dart", "This will end the current conversation and show your summary."]
 ["lib/pages/ai/conversation/ai_conversation_screen.dart", "End"]
 ["lib/pages/ai/conversation/ai_conversation_screen.dart", "Feedback"]

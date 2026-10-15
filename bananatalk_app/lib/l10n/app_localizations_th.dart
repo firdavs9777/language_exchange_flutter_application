@@ -2872,7 +2872,7 @@ class AppLocalizationsTh extends AppLocalizations {
   String get tapToDetectLocation => 'แตะเพื่อตรวจหาตำแหน่ง';
 
   @override
-  String get optionalHelpsNearbyPartners => 'จำเป็น — ช่วยจับคู่กับพาร์ทเนอร์ใกล้เคียง';
+  String get optionalHelpsNearbyPartners => 'ไม่บังคับ — ช่วยจับคู่กับพาร์ทเนอร์ใกล้เคียง';
 
   @override
   String get startLearning => 'เริ่มเรียน';
@@ -11414,4 +11414,59 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get coinsAlreadyCredited => 'เหรียญเหล่านี้ถูกเพิ่มเข้าบัญชีของคุณแล้ว';
+
+  @override
+  String get authLockedTitle => 'บัญชีถูกล็อกชั่วคราว';
+
+  @override
+  String authLockedBodyMinutes(Object minutes) {
+    return 'ลองผิดหลายครั้งเกินไป ลองอีกครั้งใน $minutes นาที';
+  }
+
+  @override
+  String get authLockedBodyLater => 'ลองผิดหลายครั้งเกินไป ลองอีกครั้งภายหลัง';
+
+  @override
+  String get authRateLimitedTitle => 'ช้าลงสักครู่';
+
+  @override
+  String authRateLimitedBodySeconds(Object seconds) {
+    return 'ลองหลายครั้งเกินไป ลองอีกครั้งใน $seconds วินาที';
+  }
+
+  @override
+  String get authRateLimitedBodyShortly => 'ลองหลายครั้งเกินไป ลองอีกครั้งในอีกสักครู่';
+
+  @override
+  String get passwordErrorLength => 'รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษร';
+
+  @override
+  String get passwordErrorUppercase => 'รหัสผ่านต้องมีตัวพิมพ์ใหญ่อย่างน้อยหนึ่งตัว';
+
+  @override
+  String get passwordErrorLowercase => 'รหัสผ่านต้องมีตัวพิมพ์เล็กอย่างน้อยหนึ่งตัว';
+
+  @override
+  String get passwordErrorNumber => 'รหัสผ่านต้องมีตัวเลขอย่างน้อยหนึ่งตัว';
+
+  @override
+  String get authCodeExpired => 'รหัสนี้หมดอายุแล้ว โปรดขอรหัสใหม่';
+
+  @override
+  String get authCodeIncorrect => 'รหัสไม่ถูกต้อง โปรดลองอีกครั้ง';
+
+  @override
+  String get authVerificationFailed => 'การยืนยันล้มเหลว';
+
+  @override
+  String get authResendCodeFailed => 'ส่งรหัสอีกครั้งไม่สำเร็จ';
+
+  @override
+  String get authSendResetCodeFailed => 'ส่งรหัสรีเซ็ตไม่สำเร็จ';
+
+  @override
+  String get authResetPasswordFailed => 'รีเซ็ตรหัสผ่านไม่สำเร็จ';
+
+  @override
+  String get enableBiometricTitleAndroid => 'ใช้ลายนิ้วมือหรือการปลดล็อกด้วยใบหน้าเพื่อเข้าสู่ระบบครั้งหน้าไหม';
 }

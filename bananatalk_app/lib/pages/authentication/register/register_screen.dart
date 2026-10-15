@@ -199,11 +199,12 @@ class _RegisterState extends State<Register> {
       setState(() => _passwordError = l10n.pleaseEnterAPassword);
       isValid = false;
     } else {
-      final passwordValidation = AuthService.validatePassword(
+      final passwordError = AuthService.passwordErrorText(
         _passwordController.text,
+        l10n,
       );
-      if (!passwordValidation['valid']) {
-        setState(() => _passwordError = passwordValidation['message']);
+      if (passwordError != null) {
+        setState(() => _passwordError = passwordError);
         isValid = false;
       } else if (_passwordController.text != _passwordConfirmController.text) {
         setState(() => _passwordError = l10n.passwordsDoNotMatch);

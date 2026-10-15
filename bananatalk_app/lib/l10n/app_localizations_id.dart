@@ -2872,7 +2872,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get tapToDetectLocation => 'Ketuk untuk mendeteksi lokasi';
 
   @override
-  String get optionalHelpsNearbyPartners => 'Diperlukan — membantu menemukan partner terdekat';
+  String get optionalHelpsNearbyPartners => 'Opsional — membantu menemukan partner terdekat';
 
   @override
   String get startLearning => 'Mulai belajar';
@@ -11425,4 +11425,59 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get coinsAlreadyCredited => 'Koin ini sudah ditambahkan ke akunmu.';
+
+  @override
+  String get authLockedTitle => 'Akun dikunci sementara';
+
+  @override
+  String authLockedBodyMinutes(Object minutes) {
+    return 'Terlalu banyak percobaan gagal. Coba lagi dalam $minutes menit.';
+  }
+
+  @override
+  String get authLockedBodyLater => 'Terlalu banyak percobaan gagal. Coba lagi nanti.';
+
+  @override
+  String get authRateLimitedTitle => 'Pelan-pelan sebentar';
+
+  @override
+  String authRateLimitedBodySeconds(Object seconds) {
+    return 'Terlalu banyak percobaan. Coba lagi dalam $seconds dtk.';
+  }
+
+  @override
+  String get authRateLimitedBodyShortly => 'Terlalu banyak percobaan. Coba lagi sebentar lagi.';
+
+  @override
+  String get passwordErrorLength => 'Kata sandi minimal 8 karakter';
+
+  @override
+  String get passwordErrorUppercase => 'Kata sandi harus berisi minimal satu huruf besar';
+
+  @override
+  String get passwordErrorLowercase => 'Kata sandi harus berisi minimal satu huruf kecil';
+
+  @override
+  String get passwordErrorNumber => 'Kata sandi harus berisi minimal satu angka';
+
+  @override
+  String get authCodeExpired => 'Kode ini sudah kedaluwarsa. Silakan minta kode baru.';
+
+  @override
+  String get authCodeIncorrect => 'Kode salah. Silakan coba lagi.';
+
+  @override
+  String get authVerificationFailed => 'Verifikasi gagal';
+
+  @override
+  String get authResendCodeFailed => 'Gagal mengirim ulang kode';
+
+  @override
+  String get authSendResetCodeFailed => 'Gagal mengirim kode reset';
+
+  @override
+  String get authResetPasswordFailed => 'Gagal mengatur ulang kata sandi';
+
+  @override
+  String get enableBiometricTitleAndroid => 'Gunakan sidik jari atau buka dengan wajah untuk masuk lain kali?';
 }

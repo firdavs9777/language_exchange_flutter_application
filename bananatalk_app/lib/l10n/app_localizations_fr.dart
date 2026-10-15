@@ -2872,7 +2872,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get tapToDetectLocation => 'Appuyez pour détecter la position';
 
   @override
-  String get optionalHelpsNearbyPartners => 'Obligatoire — aide à trouver des partenaires à proximité';
+  String get optionalHelpsNearbyPartners => 'Facultatif — aide à trouver des partenaires à proximité';
 
   @override
   String get startLearning => 'Commencer à apprendre';
@@ -11433,4 +11433,59 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get coinsAlreadyCredited => 'Ces pièces ont déjà été ajoutées à ton compte.';
+
+  @override
+  String get authLockedTitle => 'Compte temporairement verrouillé';
+
+  @override
+  String authLockedBodyMinutes(Object minutes) {
+    return 'Trop de tentatives échouées. Réessaie dans $minutes min.';
+  }
+
+  @override
+  String get authLockedBodyLater => 'Trop de tentatives échouées. Réessaie plus tard.';
+
+  @override
+  String get authRateLimitedTitle => 'Ralentis un instant';
+
+  @override
+  String authRateLimitedBodySeconds(Object seconds) {
+    return 'Trop de tentatives. Réessaie dans $seconds s.';
+  }
+
+  @override
+  String get authRateLimitedBodyShortly => 'Trop de tentatives. Réessaie dans un instant.';
+
+  @override
+  String get passwordErrorLength => 'Le mot de passe doit contenir au moins 8 caractères';
+
+  @override
+  String get passwordErrorUppercase => 'Le mot de passe doit contenir au moins une majuscule';
+
+  @override
+  String get passwordErrorLowercase => 'Le mot de passe doit contenir au moins une minuscule';
+
+  @override
+  String get passwordErrorNumber => 'Le mot de passe doit contenir au moins un chiffre';
+
+  @override
+  String get authCodeExpired => 'Ce code a expiré. Demande-en un nouveau.';
+
+  @override
+  String get authCodeIncorrect => 'Code incorrect. Réessaie.';
+
+  @override
+  String get authVerificationFailed => 'Échec de la vérification';
+
+  @override
+  String get authResendCodeFailed => 'Impossible de renvoyer le code';
+
+  @override
+  String get authSendResetCodeFailed => 'Impossible d\'envoyer le code de réinitialisation';
+
+  @override
+  String get authResetPasswordFailed => 'Impossible de réinitialiser le mot de passe';
+
+  @override
+  String get enableBiometricTitleAndroid => 'Utiliser l\'empreinte ou le déverrouillage facial pour te connecter la prochaine fois ?';
 }

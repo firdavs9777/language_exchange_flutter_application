@@ -2872,7 +2872,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get tapToDetectLocation => 'Tippen, um Standort zu erkennen';
 
   @override
-  String get optionalHelpsNearbyPartners => 'Erforderlich — hilft bei der Partnersuche in der Nähe';
+  String get optionalHelpsNearbyPartners => 'Optional — hilft bei der Partnersuche in der Nähe';
 
   @override
   String get startLearning => 'Lernen beginnen';
@@ -11433,4 +11433,59 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get coinsAlreadyCredited => 'Diese Münzen wurden deinem Konto bereits gutgeschrieben.';
+
+  @override
+  String get authLockedTitle => 'Konto vorübergehend gesperrt';
+
+  @override
+  String authLockedBodyMinutes(Object minutes) {
+    return 'Zu viele fehlgeschlagene Versuche. Versuche es in $minutes Min. erneut.';
+  }
+
+  @override
+  String get authLockedBodyLater => 'Zu viele fehlgeschlagene Versuche. Versuche es später erneut.';
+
+  @override
+  String get authRateLimitedTitle => 'Einen Moment langsamer';
+
+  @override
+  String authRateLimitedBodySeconds(Object seconds) {
+    return 'Zu viele Versuche. Versuche es in $seconds s erneut.';
+  }
+
+  @override
+  String get authRateLimitedBodyShortly => 'Zu viele Versuche. Versuche es gleich noch einmal.';
+
+  @override
+  String get passwordErrorLength => 'Das Passwort muss mindestens 8 Zeichen lang sein';
+
+  @override
+  String get passwordErrorUppercase => 'Das Passwort muss mindestens einen Großbuchstaben enthalten';
+
+  @override
+  String get passwordErrorLowercase => 'Das Passwort muss mindestens einen Kleinbuchstaben enthalten';
+
+  @override
+  String get passwordErrorNumber => 'Das Passwort muss mindestens eine Zahl enthalten';
+
+  @override
+  String get authCodeExpired => 'Dieser Code ist abgelaufen. Bitte fordere einen neuen an.';
+
+  @override
+  String get authCodeIncorrect => 'Falscher Code. Bitte versuche es erneut.';
+
+  @override
+  String get authVerificationFailed => 'Verifizierung fehlgeschlagen';
+
+  @override
+  String get authResendCodeFailed => 'Code konnte nicht erneut gesendet werden';
+
+  @override
+  String get authSendResetCodeFailed => 'Zurücksetzungscode konnte nicht gesendet werden';
+
+  @override
+  String get authResetPasswordFailed => 'Passwort konnte nicht zurückgesetzt werden';
+
+  @override
+  String get enableBiometricTitleAndroid => 'Beim nächsten Mal mit Fingerabdruck oder Gesichtsentsperrung anmelden?';
 }

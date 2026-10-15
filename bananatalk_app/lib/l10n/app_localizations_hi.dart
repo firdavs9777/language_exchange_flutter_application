@@ -2872,7 +2872,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get tapToDetectLocation => 'स्थान पता करने के लिए टैप करें';
 
   @override
-  String get optionalHelpsNearbyPartners => 'आवश्यक — पास के साझेदारों से मिलान में मदद करता है';
+  String get optionalHelpsNearbyPartners => 'वैकल्पिक — पास के साझेदारों से मिलान में मदद करता है';
 
   @override
   String get startLearning => 'सीखना शुरू करें';
@@ -11433,4 +11433,59 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get coinsAlreadyCredited => 'ये सिक्के आपके खाते में पहले ही जोड़े जा चुके हैं।';
+
+  @override
+  String get authLockedTitle => 'खाता अस्थायी रूप से लॉक है';
+
+  @override
+  String authLockedBodyMinutes(Object minutes) {
+    return 'बहुत अधिक असफल प्रयास। $minutes मिनट बाद फिर कोशिश करें।';
+  }
+
+  @override
+  String get authLockedBodyLater => 'बहुत अधिक असफल प्रयास। बाद में फिर कोशिश करें।';
+
+  @override
+  String get authRateLimitedTitle => 'थोड़ा रुकिए';
+
+  @override
+  String authRateLimitedBodySeconds(Object seconds) {
+    return 'बहुत अधिक प्रयास। $seconds सेकंड बाद फिर कोशिश करें।';
+  }
+
+  @override
+  String get authRateLimitedBodyShortly => 'बहुत अधिक प्रयास। थोड़ी देर में फिर कोशिश करें।';
+
+  @override
+  String get passwordErrorLength => 'पासवर्ड कम से कम 8 अक्षरों का होना चाहिए';
+
+  @override
+  String get passwordErrorUppercase => 'पासवर्ड में कम से कम एक बड़ा अक्षर होना चाहिए';
+
+  @override
+  String get passwordErrorLowercase => 'पासवर्ड में कम से कम एक छोटा अक्षर होना चाहिए';
+
+  @override
+  String get passwordErrorNumber => 'पासवर्ड में कम से कम एक अंक होना चाहिए';
+
+  @override
+  String get authCodeExpired => 'यह कोड समाप्त हो गया है। कृपया नया कोड मँगाएँ।';
+
+  @override
+  String get authCodeIncorrect => 'गलत कोड। कृपया फिर से कोशिश करें।';
+
+  @override
+  String get authVerificationFailed => 'सत्यापन विफल रहा';
+
+  @override
+  String get authResendCodeFailed => 'कोड दोबारा भेजा नहीं जा सका';
+
+  @override
+  String get authSendResetCodeFailed => 'रीसेट कोड भेजा नहीं जा सका';
+
+  @override
+  String get authResetPasswordFailed => 'पासवर्ड रीसेट नहीं हो सका';
+
+  @override
+  String get enableBiometricTitleAndroid => 'अगली बार लॉग इन के लिए फ़िंगरप्रिंट या फ़ेस अनलॉक इस्तेमाल करें?';
 }

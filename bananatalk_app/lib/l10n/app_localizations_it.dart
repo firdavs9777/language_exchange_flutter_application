@@ -2872,7 +2872,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get tapToDetectLocation => 'Tocca per rilevare la posizione';
 
   @override
-  String get optionalHelpsNearbyPartners => 'Obbligatorio — aiuta a trovare partner nelle vicinanze';
+  String get optionalHelpsNearbyPartners => 'Facoltativo — aiuta a trovare partner nelle vicinanze';
 
   @override
   String get startLearning => 'Inizia ad imparare';
@@ -11433,4 +11433,59 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get coinsAlreadyCredited => 'Queste monete sono già state aggiunte al tuo account.';
+
+  @override
+  String get authLockedTitle => 'Account temporaneamente bloccato';
+
+  @override
+  String authLockedBodyMinutes(Object minutes) {
+    return 'Troppi tentativi falliti. Riprova tra $minutes min.';
+  }
+
+  @override
+  String get authLockedBodyLater => 'Troppi tentativi falliti. Riprova più tardi.';
+
+  @override
+  String get authRateLimitedTitle => 'Rallenta un attimo';
+
+  @override
+  String authRateLimitedBodySeconds(Object seconds) {
+    return 'Troppi tentativi. Riprova tra $seconds s.';
+  }
+
+  @override
+  String get authRateLimitedBodyShortly => 'Troppi tentativi. Riprova tra poco.';
+
+  @override
+  String get passwordErrorLength => 'La password deve contenere almeno 8 caratteri';
+
+  @override
+  String get passwordErrorUppercase => 'La password deve contenere almeno una lettera maiuscola';
+
+  @override
+  String get passwordErrorLowercase => 'La password deve contenere almeno una lettera minuscola';
+
+  @override
+  String get passwordErrorNumber => 'La password deve contenere almeno un numero';
+
+  @override
+  String get authCodeExpired => 'Questo codice è scaduto. Richiedine uno nuovo.';
+
+  @override
+  String get authCodeIncorrect => 'Codice errato. Riprova.';
+
+  @override
+  String get authVerificationFailed => 'Verifica non riuscita';
+
+  @override
+  String get authResendCodeFailed => 'Impossibile inviare di nuovo il codice';
+
+  @override
+  String get authSendResetCodeFailed => 'Impossibile inviare il codice di reimpostazione';
+
+  @override
+  String get authResetPasswordFailed => 'Impossibile reimpostare la password';
+
+  @override
+  String get enableBiometricTitleAndroid => 'Usare l\'impronta o lo sblocco con il volto per accedere la prossima volta?';
 }

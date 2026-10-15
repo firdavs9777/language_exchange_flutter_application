@@ -2872,7 +2872,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get tapToDetectLocation => 'タップして位置を検出';
 
   @override
-  String get optionalHelpsNearbyPartners => '必須 — 近くのパートナーとのマッチングに役立ちます';
+  String get optionalHelpsNearbyPartners => '任意 — 近くのパートナーとのマッチングに役立ちます';
 
   @override
   String get startLearning => '学習を始めよう！';
@@ -11414,4 +11414,59 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get coinsAlreadyCredited => 'このコインはすでにアカウントに追加されています。';
+
+  @override
+  String get authLockedTitle => 'アカウントが一時的にロックされています';
+
+  @override
+  String authLockedBodyMinutes(Object minutes) {
+    return '失敗した試行が多すぎます。$minutes分後にもう一度お試しください。';
+  }
+
+  @override
+  String get authLockedBodyLater => '失敗した試行が多すぎます。後でもう一度お試しください。';
+
+  @override
+  String get authRateLimitedTitle => '少しお待ちください';
+
+  @override
+  String authRateLimitedBodySeconds(Object seconds) {
+    return '試行回数が多すぎます。$seconds秒後にもう一度お試しください。';
+  }
+
+  @override
+  String get authRateLimitedBodyShortly => '試行回数が多すぎます。しばらくしてからもう一度お試しください。';
+
+  @override
+  String get passwordErrorLength => 'パスワードは8文字以上にしてください';
+
+  @override
+  String get passwordErrorUppercase => 'パスワードには大文字を1文字以上含めてください';
+
+  @override
+  String get passwordErrorLowercase => 'パスワードには小文字を1文字以上含めてください';
+
+  @override
+  String get passwordErrorNumber => 'パスワードには数字を1文字以上含めてください';
+
+  @override
+  String get authCodeExpired => 'このコードは有効期限が切れています。新しいコードをリクエストしてください。';
+
+  @override
+  String get authCodeIncorrect => 'コードが正しくありません。もう一度お試しください。';
+
+  @override
+  String get authVerificationFailed => '認証に失敗しました';
+
+  @override
+  String get authResendCodeFailed => 'コードを再送信できませんでした';
+
+  @override
+  String get authSendResetCodeFailed => 'リセットコードを送信できませんでした';
+
+  @override
+  String get authResetPasswordFailed => 'パスワードをリセットできませんでした';
+
+  @override
+  String get enableBiometricTitleAndroid => '次回から指紋認証または顔認証でログインしますか？';
 }

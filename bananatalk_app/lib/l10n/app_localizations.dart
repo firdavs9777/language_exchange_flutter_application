@@ -5609,7 +5609,7 @@ abstract class AppLocalizations {
   /// No description provided for @optionalHelpsNearbyPartners.
   ///
   /// In en, this message translates to:
-  /// **'Required — helps match you with partners nearby'**
+  /// **'Optional — helps match you with partners nearby'**
   String get optionalHelpsNearbyPartners;
 
   /// No description provided for @startLearning.
@@ -20845,6 +20845,108 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'These coins were already added to your account.'**
   String get coinsAlreadyCredited;
+
+  /// No description provided for @authLockedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Account temporarily locked'**
+  String get authLockedTitle;
+
+  /// No description provided for @authLockedBodyMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many failed attempts. Try again in {minutes} min.'**
+  String authLockedBodyMinutes(Object minutes);
+
+  /// No description provided for @authLockedBodyLater.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many failed attempts. Try again later.'**
+  String get authLockedBodyLater;
+
+  /// No description provided for @authRateLimitedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Slow down a moment'**
+  String get authRateLimitedTitle;
+
+  /// No description provided for @authRateLimitedBodySeconds.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many attempts. Try again in {seconds}s.'**
+  String authRateLimitedBodySeconds(Object seconds);
+
+  /// No description provided for @authRateLimitedBodyShortly.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many attempts. Try again shortly.'**
+  String get authRateLimitedBodyShortly;
+
+  /// No description provided for @passwordErrorLength.
+  ///
+  /// In en, this message translates to:
+  /// **'Password must be at least 8 characters long'**
+  String get passwordErrorLength;
+
+  /// No description provided for @passwordErrorUppercase.
+  ///
+  /// In en, this message translates to:
+  /// **'Password must contain at least one uppercase letter'**
+  String get passwordErrorUppercase;
+
+  /// No description provided for @passwordErrorLowercase.
+  ///
+  /// In en, this message translates to:
+  /// **'Password must contain at least one lowercase letter'**
+  String get passwordErrorLowercase;
+
+  /// No description provided for @passwordErrorNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Password must contain at least one number'**
+  String get passwordErrorNumber;
+
+  /// No description provided for @authCodeExpired.
+  ///
+  /// In en, this message translates to:
+  /// **'This code has expired. Please request a new one.'**
+  String get authCodeExpired;
+
+  /// No description provided for @authCodeIncorrect.
+  ///
+  /// In en, this message translates to:
+  /// **'Incorrect code. Please try again.'**
+  String get authCodeIncorrect;
+
+  /// No description provided for @authVerificationFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Verification failed'**
+  String get authVerificationFailed;
+
+  /// No description provided for @authResendCodeFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to resend code'**
+  String get authResendCodeFailed;
+
+  /// No description provided for @authSendResetCodeFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to send reset code'**
+  String get authSendResetCodeFailed;
+
+  /// No description provided for @authResetPasswordFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to reset password'**
+  String get authResetPasswordFailed;
+
+  /// No description provided for @enableBiometricTitleAndroid.
+  ///
+  /// In en, this message translates to:
+  /// **'Use fingerprint or face unlock to log in next time?'**
+  String get enableBiometricTitleAndroid;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
