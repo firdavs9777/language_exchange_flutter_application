@@ -349,6 +349,11 @@ class _LoginState extends ConsumerState<Login> {
         } catch (e) {
           debugPrint('[login] post-login user fetch failed: $e');
           if (!mounted) return;
+          final suspension = suspensionFromPostLoginError(e);
+          if (suspension != null && await openAccountSuspended(suspension)) {
+            return;
+          }
+          if (!mounted) return;
           if (classifyPostLoginError(e) == PostLoginFailure.retryable) {
             // The server accepted the password a moment ago; a dropped
             // connection is not an expired session. Stay signed in and let
@@ -388,6 +393,14 @@ class _LoginState extends ConsumerState<Login> {
           type: AuthSnackBarType.success,
         );
       } else {
+        // Suspended account (403 ACCOUNT_BANNED): the suspension screen, with
+        // the reason, instead of a snackbar.
+        final suspension = suspensionFromAuthResult(response);
+        if (suspension != null && await openAccountSuspended(suspension)) {
+          return;
+        }
+        if (!mounted) return;
+
         // `accountLocked` / `rateLimited` keep their existing countdown
         // flows — auth_providers.dart already folds lockUntil/retryAfter
         // into `message`, so the snackbar path here just surfaces it as-is.

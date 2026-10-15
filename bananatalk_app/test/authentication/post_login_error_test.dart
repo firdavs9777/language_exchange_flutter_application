@@ -36,6 +36,64 @@ void main() {
     });
   });
 
+  group('account suspension', () {
+    test('a suspended 403 on /auth/me is a suspension, not "session expired"',
+        () {
+      final e = Exception('Failed to load user info: 403 '
+          '{"success":false,"error":"Your account has been suspended. Reason: spam",'
+          '"code":"ACCOUNT_BANNED","banReason":"spam"}');
+      expect(classifyPostLoginError(e), PostLoginFailure.suspended);
+      expect(suspensionFromPostLoginError(e)?.reason, 'spam');
+    });
+
+    test('older backend: no banReason key, reason read from the message', () {
+      final e = Exception('Failed to load user info: 403 '
+          '{"success":false,"error":"Your account has been suspended. Reason: abuse"}');
+      expect(classifyPostLoginError(e), PostLoginFailure.suspended);
+      expect(suspensionFromPostLoginError(e)?.reason, 'abuse');
+    });
+
+    test('any other 403 is still a session rejection', () {
+      final e = Exception('Failed to load user info: 403 {"error":"Forbidden"}');
+      expect(classifyPostLoginError(e), PostLoginFailure.sessionRejected);
+      expect(suspensionFromPostLoginError(e), isNull);
+    });
+
+    test('a refused login result (403 ACCOUNT_BANNED) is a suspension', () {
+      final s = suspensionFromAuthResult({
+        'success': false,
+        'message': 'Your account has been suspended.',
+        'code': 'ACCOUNT_BANNED',
+        'banReason': null,
+      });
+      expect(s, isNotNull);
+      expect(s!.reason, isNull);
+      expect(
+          suspensionFromAuthResult({
+            'success': false,
+            'message': 'Your account has been suspended. Reason: x',
+            'code': 'ACCOUNT_BANNED',
+            'banReason': '  x ',
+          })?.reason,
+          'x');
+    });
+
+    test('other refusals are not suspensions', () {
+      expect(
+          suspensionFromAuthResult(
+              {'success': false, 'message': 'Invalid credentials', 'code': null}),
+          isNull);
+      // Permanently deleted (BannedIdentity) accounts have their own copy.
+      expect(
+          suspensionFromAuthResult({
+            'success': false,
+            'message':
+                'This account has been permanently suspended and cannot be reactivated.',
+          }),
+          isNull);
+    });
+  });
+
   group('no raw exception text reaches the user', () {
     test('ClientException maps to the offline string', () {
       final msg = retryablePostLoginMessage(

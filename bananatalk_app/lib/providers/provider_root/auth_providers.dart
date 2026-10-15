@@ -158,6 +158,7 @@ class AuthService extends ChangeNotifier {
         'message': data['message'] ?? data['error'] ?? 'An error occurred',
         'error': data['error'],
         'code': data['code'],
+        'banReason': data['banReason'],
         'statusCode': response.statusCode,
         'lockUntil': data['lockUntil'],
         'remainingAttempts': data['remainingAttempts'],
@@ -328,6 +329,7 @@ class AuthService extends ChangeNotifier {
           'success': false,
           'message': errorData['message'] ?? 'Invalid email or password',
           'code': errorData['code'],
+          'banReason': errorData['banReason'],
         };
       }
     } catch (e) {
@@ -408,6 +410,9 @@ class AuthService extends ChangeNotifier {
               errorData['message'] ??
               errorData['error'] ??
               'Server error: ${response.statusCode}',
+          // 403 ACCOUNT_BANNED: the screen opens AccountSuspendedScreen.
+          'code': errorData['code'],
+          'banReason': errorData['banReason'],
         };
       }
     } catch (e) {
@@ -594,6 +599,9 @@ class AuthService extends ChangeNotifier {
               errorData['message'] ??
               errorData['error'] ??
               'Server error: ${response.statusCode}',
+          // 403 ACCOUNT_BANNED: the screen opens AccountSuspendedScreen.
+          'code': errorData['code'],
+          'banReason': errorData['banReason'],
         };
       }
     } catch (e) {
@@ -726,6 +734,9 @@ class AuthService extends ChangeNotifier {
               errorData['message'] ??
               errorData['error'] ??
               'Server error: ${response.statusCode}',
+          // 403 ACCOUNT_BANNED: the screen opens AccountSuspendedScreen.
+          'code': errorData['code'],
+          'banReason': errorData['banReason'],
         };
       }
     } catch (e) {
