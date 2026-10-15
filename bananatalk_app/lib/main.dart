@@ -19,6 +19,7 @@ import 'package:bananatalk_app/providers/ad_providers.dart';
 import 'package:bananatalk_app/services/deep_link_service.dart';
 import 'package:bananatalk_app/widgets/tutor/persona_upgrade_sheet.dart';
 import 'package:bananatalk_app/providers/call_provider.dart';
+import 'package:bananatalk_app/services/call/call_launcher.dart';
 import 'package:bananatalk_app/pages/authentication/account_suspended_screen.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/call_model.dart';
@@ -302,6 +303,10 @@ class _MyAppState extends ConsumerState<MyApp> {
       // CallManager opens the incoming screen itself (one UI per callId);
       // the callback only keeps the provider's listeners in sync.
       callNotifier.setIncomingCallCallback((_) {});
+
+      // One presenter for every in-call error, whichever screen started or
+      // accepted the call (CallLauncher swaps in its own during a start).
+      callNotifier.setCallErrorCallback(CallLauncher.showCallErrorOnOverlay);
 
       _callManagerInitialized = true;
     } catch (e, stack) {
