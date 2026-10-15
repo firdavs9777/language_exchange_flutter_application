@@ -11489,4 +11489,153 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get enableBiometricTitleAndroid => 'Дафъаи оянда бо изи ангушт ё рӯй ворид шавед?';
+
+  @override
+  String chatLastSeenDate(Object date) {
+    return 'Охирин бор $date дида шуд';
+  }
+
+  @override
+  String get chatLastSeenRecently => 'Ба наздикӣ дида шуд';
+
+  @override
+  String chatMediaTabMedia(Object count) {
+    return 'Медиа ($count)';
+  }
+
+  @override
+  String chatMediaTabLinks(Object count) {
+    return 'Пайвандҳо ($count)';
+  }
+
+  @override
+  String chatMediaTabDocs(Object count) {
+    return 'Ҳуҷҷатҳо ($count)';
+  }
+
+  @override
+  String get chatMediaNoMedia => 'Ҳоло ягон акс ё видео мубодила нашудааст';
+
+  @override
+  String get chatMediaNoLinks => 'Ҳоло ягон пайванд мубодила нашудааст';
+
+  @override
+  String get chatMediaNoDocs => 'Ҳоло ягон ҳуҷҷат мубодила нашудааст';
+
+  @override
+  String get chatMediaUnknownSize => 'Андозаи номаълум';
+
+  @override
+  String chatDeleteMinutesLeft(Object minutes) {
+    return '$minutes дақ. монд';
+  }
+
+  @override
+  String chatDeleteRemovesForBoth(Object name) {
+    return 'Барои шумо ва $name нест мешавад';
+  }
+
+  @override
+  String get chatUnsupportedMessageType => 'Навъи паём дастгирӣ намешавад';
+
+  @override
+  String get chatStoryUnavailable => 'Ин ҳикоя дигар дастрас нест';
+
+  @override
+  String get chatWallpapersUnlocked => 'Тасвирҳои заминаи премиум кушода шуданд!';
+
+  @override
+  String get chatEditFailed => 'Паёмро таҳрир кардан нашуд';
+
+  @override
+  String get chatPinFailed => 'Ҳолати мустаҳкамкуниро нав кардан нашуд';
+
+  @override
+  String get chatMessagePinned => 'Паём мустаҳкам шуд';
+
+  @override
+  String get chatMessageUnpinned => 'Паём аз мустаҳкамӣ озод шуд';
+
+  @override
+  String get chatForwardFailed => 'Паёмро фиристодан нашуд';
+
+  @override
+  String get chatShareLocationFailed => 'Ҷойгиршавиро мубодила кардан нашуд';
+
+  @override
+  String chatFileTooLarge(Object size) {
+    return 'Ин файл хеле калон аст. Ҳадди аксар $size МБ.';
+  }
+
+  @override
+  String get chatSendMediaFailed => 'Медиаро фиристодан нашуд';
+
+  @override
+  String get chatSendVideoFailed => 'Видеоро фиристодан нашуд';
+
+  @override
+  String get chatVideoTooLong => 'Видео бояд аз 10 дақиқа кӯтоҳтар бошад';
+
+  @override
+  String get chatVideoTooLarge => 'Видео бояд аз 1 ГБ хурдтар бошад. Лутфан онро фишурда кунед.';
+
+  @override
+  String get chatSendVoiceFailed => 'Паёми овозиро фиристодан нашуд';
+
+  @override
+  String get chatVoiceTooLong => 'Паёми овозӣ бояд аз 5 дақиқа кӯтоҳтар бошад';
+
+  @override
+  String get chatVoiceTooLarge => 'Файли паёми овозӣ хеле калон аст';
+
+  @override
+  String get voiceRecorderInitFailed => 'Сабткунакро омода кардан нашуд';
+
+  @override
+  String get voiceRecorderStartFailed => 'Сабтро оғоз кардан нашуд';
+
+  @override
+  String get voiceRecorderFileMissing => 'Файли сабт ёфт нашуд';
+
+  @override
+  String get voiceRecorderTooShort => 'Сабт хеле кӯтоҳ аст (ақаллан 1 сония)';
+
+  @override
+  String get voiceRecorderResume => 'Идома додан';
+
+  @override
+  String get voiceRecorderPause => 'Таваққуф';
+
+  @override
+  String get voiceRecorderPaused => 'Сабт таваққуф шуд - барои идома тугмаи пахшро зер кунед';
+
+  @override
+  String get voiceRecorderRecording => 'Сабт мешавад... ҳангоми анҷом таваққуф ё фиристодро зер кунед';
+
+  @override
+  String get voiceRecorderInitializing => 'Омода мешавад...';
+
+  @override
+  String get chatGifSearchFailed => 'Ҷустуҷӯ ноком шуд. Лутфан дубора кӯшиш кунед.';
+
+  @override
+  String chatGifResultsFor(Object query) {
+    return 'Натиҷаҳо барои «$query»';
+  }
+
+  @override
+  String get chatYouSharedStory => 'Шумо ҳикояро мубодила кардед';
+
+  @override
+  String chatUserSharedStory(Object name) {
+    return '$name ҳикояро мубодила кард';
+  }
+
+  @override
+  String chatUserNotInChats(Object name) {
+    return '@$name дар чатҳои шумо нест';
+  }
+
+  @override
+  String get chatDeleteMessageFailed => 'Паёмро нест кардан нашуд';
 }

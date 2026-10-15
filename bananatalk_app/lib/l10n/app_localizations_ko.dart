@@ -11469,4 +11469,153 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get enableBiometricTitleAndroid => '다음에는 지문 또는 얼굴 인식으로 로그인할까요?';
+
+  @override
+  String chatLastSeenDate(Object date) {
+    return '마지막 접속 $date';
+  }
+
+  @override
+  String get chatLastSeenRecently => '최근 접속';
+
+  @override
+  String chatMediaTabMedia(Object count) {
+    return '미디어 ($count)';
+  }
+
+  @override
+  String chatMediaTabLinks(Object count) {
+    return '링크 ($count)';
+  }
+
+  @override
+  String chatMediaTabDocs(Object count) {
+    return '문서 ($count)';
+  }
+
+  @override
+  String get chatMediaNoMedia => '아직 공유된 사진이나 동영상이 없습니다';
+
+  @override
+  String get chatMediaNoLinks => '아직 공유된 링크가 없습니다';
+
+  @override
+  String get chatMediaNoDocs => '아직 공유된 문서가 없습니다';
+
+  @override
+  String get chatMediaUnknownSize => '알 수 없는 크기';
+
+  @override
+  String chatDeleteMinutesLeft(Object minutes) {
+    return '$minutes분 남음';
+  }
+
+  @override
+  String chatDeleteRemovesForBoth(Object name) {
+    return '나와 $name에게서 삭제됩니다';
+  }
+
+  @override
+  String get chatUnsupportedMessageType => '지원되지 않는 메시지 유형';
+
+  @override
+  String get chatStoryUnavailable => '이 스토리는 더 이상 볼 수 없습니다';
+
+  @override
+  String get chatWallpapersUnlocked => '프리미엄 배경화면이 잠금 해제되었습니다!';
+
+  @override
+  String get chatEditFailed => '메시지를 수정하지 못했습니다';
+
+  @override
+  String get chatPinFailed => '고정 상태를 변경하지 못했습니다';
+
+  @override
+  String get chatMessagePinned => '메시지를 고정했습니다';
+
+  @override
+  String get chatMessageUnpinned => '메시지 고정을 해제했습니다';
+
+  @override
+  String get chatForwardFailed => '메시지를 전달하지 못했습니다';
+
+  @override
+  String get chatShareLocationFailed => '위치를 공유하지 못했습니다';
+
+  @override
+  String chatFileTooLarge(Object size) {
+    return '파일이 너무 큽니다. 최대 ${size}MB까지 가능합니다.';
+  }
+
+  @override
+  String get chatSendMediaFailed => '미디어를 보내지 못했습니다';
+
+  @override
+  String get chatSendVideoFailed => '동영상을 보내지 못했습니다';
+
+  @override
+  String get chatVideoTooLong => '동영상은 10분 미만이어야 합니다';
+
+  @override
+  String get chatVideoTooLarge => '동영상은 1GB 미만이어야 합니다. 압축해 주세요.';
+
+  @override
+  String get chatSendVoiceFailed => '음성 메시지를 보내지 못했습니다';
+
+  @override
+  String get chatVoiceTooLong => '음성 메시지는 5분 미만이어야 합니다';
+
+  @override
+  String get chatVoiceTooLarge => '음성 메시지 파일이 너무 큽니다';
+
+  @override
+  String get voiceRecorderInitFailed => '녹음기를 준비하지 못했습니다';
+
+  @override
+  String get voiceRecorderStartFailed => '녹음을 시작하지 못했습니다';
+
+  @override
+  String get voiceRecorderFileMissing => '녹음 파일을 찾을 수 없습니다';
+
+  @override
+  String get voiceRecorderTooShort => '녹음이 너무 짧습니다(최소 1초)';
+
+  @override
+  String get voiceRecorderResume => '계속';
+
+  @override
+  String get voiceRecorderPause => '일시정지';
+
+  @override
+  String get voiceRecorderPaused => '녹음 일시정지됨 - 재생을 눌러 계속하세요';
+
+  @override
+  String get voiceRecorderRecording => '녹음 중... 끝나면 일시정지 또는 보내기를 누르세요';
+
+  @override
+  String get voiceRecorderInitializing => '준비 중...';
+
+  @override
+  String get chatGifSearchFailed => '검색에 실패했습니다. 다시 시도하세요.';
+
+  @override
+  String chatGifResultsFor(Object query) {
+    return '\"$query\" 검색 결과';
+  }
+
+  @override
+  String get chatYouSharedStory => '스토리를 공유했습니다';
+
+  @override
+  String chatUserSharedStory(Object name) {
+    return '$name님이 스토리를 공유했습니다';
+  }
+
+  @override
+  String chatUserNotInChats(Object name) {
+    return '@$name님은 채팅 목록에 없습니다';
+  }
+
+  @override
+  String get chatDeleteMessageFailed => '메시지를 삭제하지 못했습니다';
 }

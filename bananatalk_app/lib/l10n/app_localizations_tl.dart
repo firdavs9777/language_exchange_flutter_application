@@ -11488,4 +11488,153 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get enableBiometricTitleAndroid => 'Gamitin ang fingerprint o face unlock para mag-log in sa susunod?';
+
+  @override
+  String chatLastSeenDate(Object date) {
+    return 'Huling nakita $date';
+  }
+
+  @override
+  String get chatLastSeenRecently => 'Kamakailang nakita';
+
+  @override
+  String chatMediaTabMedia(Object count) {
+    return 'Media ($count)';
+  }
+
+  @override
+  String chatMediaTabLinks(Object count) {
+    return 'Mga link ($count)';
+  }
+
+  @override
+  String chatMediaTabDocs(Object count) {
+    return 'Mga dokumento ($count)';
+  }
+
+  @override
+  String get chatMediaNoMedia => 'Wala pang naibahaging larawan o video';
+
+  @override
+  String get chatMediaNoLinks => 'Wala pang naibahaging link';
+
+  @override
+  String get chatMediaNoDocs => 'Wala pang naibahaging dokumento';
+
+  @override
+  String get chatMediaUnknownSize => 'Hindi alam ang laki';
+
+  @override
+  String chatDeleteMinutesLeft(Object minutes) {
+    return '${minutes}m na lang';
+  }
+
+  @override
+  String chatDeleteRemovesForBoth(Object name) {
+    return 'Matatanggal para sa iyo at kay $name';
+  }
+
+  @override
+  String get chatUnsupportedMessageType => 'Hindi suportadong uri ng mensahe';
+
+  @override
+  String get chatStoryUnavailable => 'Hindi na available ang story na ito';
+
+  @override
+  String get chatWallpapersUnlocked => 'Na-unlock ang mga premium na wallpaper!';
+
+  @override
+  String get chatEditFailed => 'Hindi na-edit ang mensahe';
+
+  @override
+  String get chatPinFailed => 'Hindi na-update ang pin';
+
+  @override
+  String get chatMessagePinned => 'Na-pin ang mensahe';
+
+  @override
+  String get chatMessageUnpinned => 'Na-unpin ang mensahe';
+
+  @override
+  String get chatForwardFailed => 'Hindi naipasa ang mensahe';
+
+  @override
+  String get chatShareLocationFailed => 'Hindi naibahagi ang lokasyon';
+
+  @override
+  String chatFileTooLarge(Object size) {
+    return 'Masyadong malaki ang file na ito. Ang limitasyon ay $size MB.';
+  }
+
+  @override
+  String get chatSendMediaFailed => 'Hindi naipadala ang media';
+
+  @override
+  String get chatSendVideoFailed => 'Hindi naipadala ang video';
+
+  @override
+  String get chatVideoTooLong => 'Dapat wala pang 10 minuto ang video';
+
+  @override
+  String get chatVideoTooLarge => 'Dapat wala pang 1GB ang video. Paki-compress ito.';
+
+  @override
+  String get chatSendVoiceFailed => 'Hindi naipadala ang voice message';
+
+  @override
+  String get chatVoiceTooLong => 'Dapat wala pang 5 minuto ang voice message';
+
+  @override
+  String get chatVoiceTooLarge => 'Masyadong malaki ang file ng voice message';
+
+  @override
+  String get voiceRecorderInitFailed => 'Hindi naihanda ang recorder';
+
+  @override
+  String get voiceRecorderStartFailed => 'Hindi nasimulan ang pag-record';
+
+  @override
+  String get voiceRecorderFileMissing => 'Hindi nahanap ang file ng recording';
+
+  @override
+  String get voiceRecorderTooShort => 'Masyadong maikli ang recording (hindi bababa sa 1 segundo)';
+
+  @override
+  String get voiceRecorderResume => 'Ituloy';
+
+  @override
+  String get voiceRecorderPause => 'I-pause';
+
+  @override
+  String get voiceRecorderPaused => 'Naka-pause ang recording - i-tap ang play para ituloy';
+
+  @override
+  String get voiceRecorderRecording => 'Nagre-record... i-tap ang pause o send kapag tapos na';
+
+  @override
+  String get voiceRecorderInitializing => 'Inihahanda...';
+
+  @override
+  String get chatGifSearchFailed => 'Nabigo ang paghahanap. Pakisubukan ulit.';
+
+  @override
+  String chatGifResultsFor(Object query) {
+    return 'Mga resulta para sa \"$query\"';
+  }
+
+  @override
+  String get chatYouSharedStory => 'Nagbahagi ka ng story';
+
+  @override
+  String chatUserSharedStory(Object name) {
+    return 'Nagbahagi si $name ng story';
+  }
+
+  @override
+  String chatUserNotInChats(Object name) {
+    return 'Wala si @$name sa iyong mga chat';
+  }
+
+  @override
+  String get chatDeleteMessageFailed => 'Hindi natanggal ang mensahe';
 }

@@ -294,7 +294,7 @@ class _TextMessageViewState extends State<TextMessageView> {
       } else if (context.mounted) {
         showChatSnackBar(
           context,
-          message: 'Story is no longer available',
+          message: AppLocalizations.of(context)!.chatStoryUnavailable,
           type: ChatSnackBarType.info,
         );
       }

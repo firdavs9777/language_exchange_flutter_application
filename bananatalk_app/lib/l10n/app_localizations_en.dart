@@ -11494,4 +11494,153 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get enableBiometricTitleAndroid => 'Use fingerprint or face unlock to log in next time?';
+
+  @override
+  String chatLastSeenDate(Object date) {
+    return 'Last seen $date';
+  }
+
+  @override
+  String get chatLastSeenRecently => 'Last seen recently';
+
+  @override
+  String chatMediaTabMedia(Object count) {
+    return 'Media ($count)';
+  }
+
+  @override
+  String chatMediaTabLinks(Object count) {
+    return 'Links ($count)';
+  }
+
+  @override
+  String chatMediaTabDocs(Object count) {
+    return 'Docs ($count)';
+  }
+
+  @override
+  String get chatMediaNoMedia => 'No photos or videos shared yet';
+
+  @override
+  String get chatMediaNoLinks => 'No links shared yet';
+
+  @override
+  String get chatMediaNoDocs => 'No documents shared yet';
+
+  @override
+  String get chatMediaUnknownSize => 'Unknown size';
+
+  @override
+  String chatDeleteMinutesLeft(Object minutes) {
+    return '${minutes}m left';
+  }
+
+  @override
+  String chatDeleteRemovesForBoth(Object name) {
+    return 'Removes for you and $name';
+  }
+
+  @override
+  String get chatUnsupportedMessageType => 'Unsupported message type';
+
+  @override
+  String get chatStoryUnavailable => 'This story is no longer available';
+
+  @override
+  String get chatWallpapersUnlocked => 'Premium wallpapers unlocked!';
+
+  @override
+  String get chatEditFailed => 'Failed to edit message';
+
+  @override
+  String get chatPinFailed => 'Failed to update pin status';
+
+  @override
+  String get chatMessagePinned => 'Message pinned';
+
+  @override
+  String get chatMessageUnpinned => 'Message unpinned';
+
+  @override
+  String get chatForwardFailed => 'Failed to forward message';
+
+  @override
+  String get chatShareLocationFailed => 'Failed to share location';
+
+  @override
+  String chatFileTooLarge(Object size) {
+    return 'This file is too large. The limit is $size MB.';
+  }
+
+  @override
+  String get chatSendMediaFailed => 'Failed to send media';
+
+  @override
+  String get chatSendVideoFailed => 'Failed to send video';
+
+  @override
+  String get chatVideoTooLong => 'Video must be under 10 minutes';
+
+  @override
+  String get chatVideoTooLarge => 'Video must be under 1GB. Please compress the video.';
+
+  @override
+  String get chatSendVoiceFailed => 'Failed to send voice message';
+
+  @override
+  String get chatVoiceTooLong => 'Voice message must be under 5 minutes';
+
+  @override
+  String get chatVoiceTooLarge => 'Voice message file too large';
+
+  @override
+  String get voiceRecorderInitFailed => 'Failed to initialize recorder';
+
+  @override
+  String get voiceRecorderStartFailed => 'Failed to start recording';
+
+  @override
+  String get voiceRecorderFileMissing => 'Recording file not found';
+
+  @override
+  String get voiceRecorderTooShort => 'Recording too short (minimum 1 second)';
+
+  @override
+  String get voiceRecorderResume => 'Resume';
+
+  @override
+  String get voiceRecorderPause => 'Pause';
+
+  @override
+  String get voiceRecorderPaused => 'Recording paused - tap play to continue';
+
+  @override
+  String get voiceRecorderRecording => 'Recording... tap pause or send when done';
+
+  @override
+  String get voiceRecorderInitializing => 'Initializing...';
+
+  @override
+  String get chatGifSearchFailed => 'Search failed. Please try again.';
+
+  @override
+  String chatGifResultsFor(Object query) {
+    return 'Results for \"$query\"';
+  }
+
+  @override
+  String get chatYouSharedStory => 'You shared a story';
+
+  @override
+  String chatUserSharedStory(Object name) {
+    return '$name shared a story';
+  }
+
+  @override
+  String chatUserNotInChats(Object name) {
+    return 'User @$name not in your chats';
+  }
+
+  @override
+  String get chatDeleteMessageFailed => 'Failed to delete message';
 }

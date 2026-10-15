@@ -330,6 +330,7 @@ class MediaService {
         final maxSizeMB = (maxSize / (1024 * 1024)).toStringAsFixed(0);
         return {
           'valid': false,
+          'maxSizeMB': maxSizeMB,
           'error':
               'File size exceeds maximum allowed size of ${maxSizeMB}MB for $detectedType files',
         };

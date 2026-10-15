@@ -434,8 +434,8 @@ class _WallpaperPickerScreenState extends ConsumerState<WallpaperPickerScreen> {
         showChatSnackBar(
           context,
           message: result['success'] == true
-              ? 'Wallpaper updated'
-              : 'Wallpaper saved locally',
+              ? AppLocalizations.of(context)!.wallpaperUpdated
+              : AppLocalizations.of(context)!.wallpaperSavedLocally,
           type: ChatSnackBarType.success,
         );
       }
@@ -673,19 +673,19 @@ class _WallpaperPickerScreenState extends ConsumerState<WallpaperPickerScreen> {
         });
         showChatSnackBar(
           context,
-          message: 'Premium wallpapers unlocked!',
+          message: AppLocalizations.of(context)!.chatWallpapersUnlocked,
           type: ChatSnackBarType.success,
         );
       } else if (response.statusCode == 402) {
         showChatSnackBar(
           context,
-          message: 'Not enough coins for that.',
+          message: AppLocalizations.of(context)!.notEnoughCoins,
           type: ChatSnackBarType.error,
         );
       } else {
         showChatSnackBar(
           context,
-          message: response.error ?? 'Could not unlock right now.',
+          message: AppLocalizations.of(context)!.unlockFailed,
           type: ChatSnackBarType.error,
         );
       }

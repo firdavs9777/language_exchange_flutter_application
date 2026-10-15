@@ -11543,4 +11543,153 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get enableBiometricTitleAndroid => 'هل تريد استخدام بصمة الإصبع أو فتح القفل بالوجه لتسجيل الدخول في المرة القادمة؟';
+
+  @override
+  String chatLastSeenDate(Object date) {
+    return 'آخر ظهور $date';
+  }
+
+  @override
+  String get chatLastSeenRecently => 'آخر ظهور مؤخرًا';
+
+  @override
+  String chatMediaTabMedia(Object count) {
+    return 'الوسائط ($count)';
+  }
+
+  @override
+  String chatMediaTabLinks(Object count) {
+    return 'الروابط ($count)';
+  }
+
+  @override
+  String chatMediaTabDocs(Object count) {
+    return 'المستندات ($count)';
+  }
+
+  @override
+  String get chatMediaNoMedia => 'لم تتم مشاركة صور أو فيديوهات بعد';
+
+  @override
+  String get chatMediaNoLinks => 'لم تتم مشاركة روابط بعد';
+
+  @override
+  String get chatMediaNoDocs => 'لم تتم مشاركة مستندات بعد';
+
+  @override
+  String get chatMediaUnknownSize => 'حجم غير معروف';
+
+  @override
+  String chatDeleteMinutesLeft(Object minutes) {
+    return 'متبقٍ $minutes د';
+  }
+
+  @override
+  String chatDeleteRemovesForBoth(Object name) {
+    return 'يُحذف لديك ولدى $name';
+  }
+
+  @override
+  String get chatUnsupportedMessageType => 'نوع رسالة غير مدعوم';
+
+  @override
+  String get chatStoryUnavailable => 'هذه القصة لم تعد متاحة';
+
+  @override
+  String get chatWallpapersUnlocked => 'تم فتح الخلفيات المميزة!';
+
+  @override
+  String get chatEditFailed => 'تعذّر تعديل الرسالة';
+
+  @override
+  String get chatPinFailed => 'تعذّر تحديث حالة التثبيت';
+
+  @override
+  String get chatMessagePinned => 'تم تثبيت الرسالة';
+
+  @override
+  String get chatMessageUnpinned => 'تم إلغاء تثبيت الرسالة';
+
+  @override
+  String get chatForwardFailed => 'تعذّر إعادة توجيه الرسالة';
+
+  @override
+  String get chatShareLocationFailed => 'تعذّرت مشاركة الموقع';
+
+  @override
+  String chatFileTooLarge(Object size) {
+    return 'هذا الملف كبير جدًا. الحد الأقصى $size ميغابايت.';
+  }
+
+  @override
+  String get chatSendMediaFailed => 'تعذّر إرسال الوسائط';
+
+  @override
+  String get chatSendVideoFailed => 'تعذّر إرسال الفيديو';
+
+  @override
+  String get chatVideoTooLong => 'يجب أن يكون الفيديو أقل من 10 دقائق';
+
+  @override
+  String get chatVideoTooLarge => 'يجب أن يكون الفيديو أقل من 1 غيغابايت. يرجى ضغطه.';
+
+  @override
+  String get chatSendVoiceFailed => 'تعذّر إرسال الرسالة الصوتية';
+
+  @override
+  String get chatVoiceTooLong => 'يجب أن تكون الرسالة الصوتية أقل من 5 دقائق';
+
+  @override
+  String get chatVoiceTooLarge => 'ملف الرسالة الصوتية كبير جدًا';
+
+  @override
+  String get voiceRecorderInitFailed => 'تعذّر تشغيل المسجّل';
+
+  @override
+  String get voiceRecorderStartFailed => 'تعذّر بدء التسجيل';
+
+  @override
+  String get voiceRecorderFileMissing => 'لم يتم العثور على ملف التسجيل';
+
+  @override
+  String get voiceRecorderTooShort => 'التسجيل قصير جدًا (ثانية واحدة على الأقل)';
+
+  @override
+  String get voiceRecorderResume => 'استئناف';
+
+  @override
+  String get voiceRecorderPause => 'إيقاف مؤقت';
+
+  @override
+  String get voiceRecorderPaused => 'التسجيل متوقف مؤقتًا - اضغط تشغيل للمتابعة';
+
+  @override
+  String get voiceRecorderRecording => 'جارٍ التسجيل... اضغط إيقاف مؤقت أو إرسال عند الانتهاء';
+
+  @override
+  String get voiceRecorderInitializing => 'جارٍ التهيئة...';
+
+  @override
+  String get chatGifSearchFailed => 'فشل البحث. يرجى المحاولة مرة أخرى.';
+
+  @override
+  String chatGifResultsFor(Object query) {
+    return 'نتائج \"$query\"';
+  }
+
+  @override
+  String get chatYouSharedStory => 'شاركتَ قصة';
+
+  @override
+  String chatUserSharedStory(Object name) {
+    return 'شارك $name قصة';
+  }
+
+  @override
+  String chatUserNotInChats(Object name) {
+    return 'المستخدم @$name ليس ضمن محادثاتك';
+  }
+
+  @override
+  String get chatDeleteMessageFailed => 'تعذّر حذف الرسالة';
 }

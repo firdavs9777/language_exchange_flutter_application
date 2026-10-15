@@ -11469,4 +11469,153 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get enableBiometricTitleAndroid => 'ใช้ลายนิ้วมือหรือการปลดล็อกด้วยใบหน้าเพื่อเข้าสู่ระบบครั้งหน้าไหม';
+
+  @override
+  String chatLastSeenDate(Object date) {
+    return 'ใช้งานล่าสุด $date';
+  }
+
+  @override
+  String get chatLastSeenRecently => 'ใช้งานเมื่อเร็วๆ นี้';
+
+  @override
+  String chatMediaTabMedia(Object count) {
+    return 'สื่อ ($count)';
+  }
+
+  @override
+  String chatMediaTabLinks(Object count) {
+    return 'ลิงก์ ($count)';
+  }
+
+  @override
+  String chatMediaTabDocs(Object count) {
+    return 'เอกสาร ($count)';
+  }
+
+  @override
+  String get chatMediaNoMedia => 'ยังไม่มีรูปภาพหรือวิดีโอที่แชร์';
+
+  @override
+  String get chatMediaNoLinks => 'ยังไม่มีลิงก์ที่แชร์';
+
+  @override
+  String get chatMediaNoDocs => 'ยังไม่มีเอกสารที่แชร์';
+
+  @override
+  String get chatMediaUnknownSize => 'ไม่ทราบขนาด';
+
+  @override
+  String chatDeleteMinutesLeft(Object minutes) {
+    return 'เหลือ $minutes นาที';
+  }
+
+  @override
+  String chatDeleteRemovesForBoth(Object name) {
+    return 'ลบสำหรับคุณและ $name';
+  }
+
+  @override
+  String get chatUnsupportedMessageType => 'ไม่รองรับประเภทข้อความนี้';
+
+  @override
+  String get chatStoryUnavailable => 'สตอรี่นี้ไม่พร้อมใช้งานแล้ว';
+
+  @override
+  String get chatWallpapersUnlocked => 'ปลดล็อกวอลเปเปอร์พรีเมียมแล้ว!';
+
+  @override
+  String get chatEditFailed => 'แก้ไขข้อความไม่สำเร็จ';
+
+  @override
+  String get chatPinFailed => 'อัปเดตการปักหมุดไม่สำเร็จ';
+
+  @override
+  String get chatMessagePinned => 'ปักหมุดข้อความแล้ว';
+
+  @override
+  String get chatMessageUnpinned => 'เลิกปักหมุดข้อความแล้ว';
+
+  @override
+  String get chatForwardFailed => 'ส่งต่อข้อความไม่สำเร็จ';
+
+  @override
+  String get chatShareLocationFailed => 'แชร์ตำแหน่งไม่สำเร็จ';
+
+  @override
+  String chatFileTooLarge(Object size) {
+    return 'ไฟล์นี้ใหญ่เกินไป จำกัดที่ $size MB';
+  }
+
+  @override
+  String get chatSendMediaFailed => 'ส่งสื่อไม่สำเร็จ';
+
+  @override
+  String get chatSendVideoFailed => 'ส่งวิดีโอไม่สำเร็จ';
+
+  @override
+  String get chatVideoTooLong => 'วิดีโอต้องยาวไม่เกิน 10 นาที';
+
+  @override
+  String get chatVideoTooLarge => 'วิดีโอต้องมีขนาดไม่เกิน 1GB โปรดบีบอัดวิดีโอ';
+
+  @override
+  String get chatSendVoiceFailed => 'ส่งข้อความเสียงไม่สำเร็จ';
+
+  @override
+  String get chatVoiceTooLong => 'ข้อความเสียงต้องยาวไม่เกิน 5 นาที';
+
+  @override
+  String get chatVoiceTooLarge => 'ไฟล์ข้อความเสียงใหญ่เกินไป';
+
+  @override
+  String get voiceRecorderInitFailed => 'เตรียมเครื่องบันทึกเสียงไม่สำเร็จ';
+
+  @override
+  String get voiceRecorderStartFailed => 'เริ่มบันทึกไม่สำเร็จ';
+
+  @override
+  String get voiceRecorderFileMissing => 'ไม่พบไฟล์บันทึกเสียง';
+
+  @override
+  String get voiceRecorderTooShort => 'บันทึกสั้นเกินไป (อย่างน้อย 1 วินาที)';
+
+  @override
+  String get voiceRecorderResume => 'ทำต่อ';
+
+  @override
+  String get voiceRecorderPause => 'หยุดชั่วคราว';
+
+  @override
+  String get voiceRecorderPaused => 'หยุดบันทึกชั่วคราว - แตะเล่นเพื่อทำต่อ';
+
+  @override
+  String get voiceRecorderRecording => 'กำลังบันทึก... แตะหยุดชั่วคราวหรือส่งเมื่อเสร็จ';
+
+  @override
+  String get voiceRecorderInitializing => 'กำลังเตรียม...';
+
+  @override
+  String get chatGifSearchFailed => 'การค้นหาล้มเหลว โปรดลองอีกครั้ง';
+
+  @override
+  String chatGifResultsFor(Object query) {
+    return 'ผลลัพธ์สำหรับ \"$query\"';
+  }
+
+  @override
+  String get chatYouSharedStory => 'คุณแชร์สตอรี่';
+
+  @override
+  String chatUserSharedStory(Object name) {
+    return '$name แชร์สตอรี่';
+  }
+
+  @override
+  String chatUserNotInChats(Object name) {
+    return '@$name ไม่อยู่ในแชทของคุณ';
+  }
+
+  @override
+  String get chatDeleteMessageFailed => 'ลบข้อความไม่สำเร็จ';
 }

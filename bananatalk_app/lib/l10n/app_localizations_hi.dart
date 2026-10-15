@@ -11488,4 +11488,153 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get enableBiometricTitleAndroid => 'अगली बार लॉग इन के लिए फ़िंगरप्रिंट या फ़ेस अनलॉक इस्तेमाल करें?';
+
+  @override
+  String chatLastSeenDate(Object date) {
+    return 'आखिरी बार $date को देखा गया';
+  }
+
+  @override
+  String get chatLastSeenRecently => 'हाल ही में देखा गया';
+
+  @override
+  String chatMediaTabMedia(Object count) {
+    return 'मीडिया ($count)';
+  }
+
+  @override
+  String chatMediaTabLinks(Object count) {
+    return 'लिंक ($count)';
+  }
+
+  @override
+  String chatMediaTabDocs(Object count) {
+    return 'दस्तावेज़ ($count)';
+  }
+
+  @override
+  String get chatMediaNoMedia => 'अभी तक कोई फ़ोटो या वीडियो साझा नहीं किया गया';
+
+  @override
+  String get chatMediaNoLinks => 'अभी तक कोई लिंक साझा नहीं किया गया';
+
+  @override
+  String get chatMediaNoDocs => 'अभी तक कोई दस्तावेज़ साझा नहीं किया गया';
+
+  @override
+  String get chatMediaUnknownSize => 'अज्ञात आकार';
+
+  @override
+  String chatDeleteMinutesLeft(Object minutes) {
+    return '$minutes मि. बाकी';
+  }
+
+  @override
+  String chatDeleteRemovesForBoth(Object name) {
+    return 'आपके और $name के लिए हटाता है';
+  }
+
+  @override
+  String get chatUnsupportedMessageType => 'असमर्थित संदेश प्रकार';
+
+  @override
+  String get chatStoryUnavailable => 'यह स्टोरी अब उपलब्ध नहीं है';
+
+  @override
+  String get chatWallpapersUnlocked => 'प्रीमियम वॉलपेपर अनलॉक हो गए!';
+
+  @override
+  String get chatEditFailed => 'संदेश संपादित नहीं हो सका';
+
+  @override
+  String get chatPinFailed => 'पिन स्थिति अपडेट नहीं हो सकी';
+
+  @override
+  String get chatMessagePinned => 'संदेश पिन किया गया';
+
+  @override
+  String get chatMessageUnpinned => 'संदेश अनपिन किया गया';
+
+  @override
+  String get chatForwardFailed => 'संदेश फ़ॉरवर्ड नहीं हो सका';
+
+  @override
+  String get chatShareLocationFailed => 'स्थान साझा नहीं हो सका';
+
+  @override
+  String chatFileTooLarge(Object size) {
+    return 'यह फ़ाइल बहुत बड़ी है। सीमा $size MB है।';
+  }
+
+  @override
+  String get chatSendMediaFailed => 'मीडिया भेजा नहीं जा सका';
+
+  @override
+  String get chatSendVideoFailed => 'वीडियो भेजा नहीं जा सका';
+
+  @override
+  String get chatVideoTooLong => 'वीडियो 10 मिनट से छोटा होना चाहिए';
+
+  @override
+  String get chatVideoTooLarge => 'वीडियो 1GB से छोटा होना चाहिए। कृपया उसे कंप्रेस करें।';
+
+  @override
+  String get chatSendVoiceFailed => 'वॉइस संदेश भेजा नहीं जा सका';
+
+  @override
+  String get chatVoiceTooLong => 'वॉइस संदेश 5 मिनट से छोटा होना चाहिए';
+
+  @override
+  String get chatVoiceTooLarge => 'वॉइस संदेश फ़ाइल बहुत बड़ी है';
+
+  @override
+  String get voiceRecorderInitFailed => 'रिकॉर्डर शुरू नहीं हो सका';
+
+  @override
+  String get voiceRecorderStartFailed => 'रिकॉर्डिंग शुरू नहीं हो सकी';
+
+  @override
+  String get voiceRecorderFileMissing => 'रिकॉर्डिंग फ़ाइल नहीं मिली';
+
+  @override
+  String get voiceRecorderTooShort => 'रिकॉर्डिंग बहुत छोटी है (कम से कम 1 सेकंड)';
+
+  @override
+  String get voiceRecorderResume => 'फिर से शुरू करें';
+
+  @override
+  String get voiceRecorderPause => 'रोकें';
+
+  @override
+  String get voiceRecorderPaused => 'रिकॉर्डिंग रुकी है - जारी रखने के लिए प्ले पर टैप करें';
+
+  @override
+  String get voiceRecorderRecording => 'रिकॉर्ड हो रहा है... पूरा होने पर रोकें या भेजें पर टैप करें';
+
+  @override
+  String get voiceRecorderInitializing => 'शुरू हो रहा है...';
+
+  @override
+  String get chatGifSearchFailed => 'खोज विफल रही। कृपया फिर से कोशिश करें।';
+
+  @override
+  String chatGifResultsFor(Object query) {
+    return '\"$query\" के परिणाम';
+  }
+
+  @override
+  String get chatYouSharedStory => 'आपने एक स्टोरी साझा की';
+
+  @override
+  String chatUserSharedStory(Object name) {
+    return '$name ने एक स्टोरी साझा की';
+  }
+
+  @override
+  String chatUserNotInChats(Object name) {
+    return '@$name आपकी चैट में नहीं है';
+  }
+
+  @override
+  String get chatDeleteMessageFailed => 'संदेश हटाया नहीं जा सका';
 }

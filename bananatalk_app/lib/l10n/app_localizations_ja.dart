@@ -11469,4 +11469,153 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get enableBiometricTitleAndroid => '次回から指紋認証または顔認証でログインしますか？';
+
+  @override
+  String chatLastSeenDate(Object date) {
+    return '最終オンライン $date';
+  }
+
+  @override
+  String get chatLastSeenRecently => '最近オンライン';
+
+  @override
+  String chatMediaTabMedia(Object count) {
+    return 'メディア ($count)';
+  }
+
+  @override
+  String chatMediaTabLinks(Object count) {
+    return 'リンク ($count)';
+  }
+
+  @override
+  String chatMediaTabDocs(Object count) {
+    return 'ドキュメント ($count)';
+  }
+
+  @override
+  String get chatMediaNoMedia => 'まだ写真や動画は共有されていません';
+
+  @override
+  String get chatMediaNoLinks => 'まだリンクは共有されていません';
+
+  @override
+  String get chatMediaNoDocs => 'まだドキュメントは共有されていません';
+
+  @override
+  String get chatMediaUnknownSize => 'サイズ不明';
+
+  @override
+  String chatDeleteMinutesLeft(Object minutes) {
+    return '残り$minutes分';
+  }
+
+  @override
+  String chatDeleteRemovesForBoth(Object name) {
+    return 'あなたと$nameの両方から削除されます';
+  }
+
+  @override
+  String get chatUnsupportedMessageType => 'サポートされていないメッセージ形式です';
+
+  @override
+  String get chatStoryUnavailable => 'このストーリーはもう表示できません';
+
+  @override
+  String get chatWallpapersUnlocked => 'プレミアム壁紙のロックを解除しました！';
+
+  @override
+  String get chatEditFailed => 'メッセージを編集できませんでした';
+
+  @override
+  String get chatPinFailed => 'ピン留めを更新できませんでした';
+
+  @override
+  String get chatMessagePinned => 'メッセージをピン留めしました';
+
+  @override
+  String get chatMessageUnpinned => 'メッセージのピン留めを解除しました';
+
+  @override
+  String get chatForwardFailed => 'メッセージを転送できませんでした';
+
+  @override
+  String get chatShareLocationFailed => '位置情報を共有できませんでした';
+
+  @override
+  String chatFileTooLarge(Object size) {
+    return 'このファイルは大きすぎます。上限は${size}MBです。';
+  }
+
+  @override
+  String get chatSendMediaFailed => 'メディアを送信できませんでした';
+
+  @override
+  String get chatSendVideoFailed => '動画を送信できませんでした';
+
+  @override
+  String get chatVideoTooLong => '動画は10分未満にしてください';
+
+  @override
+  String get chatVideoTooLarge => '動画は1GB未満にしてください。圧縮してください。';
+
+  @override
+  String get chatSendVoiceFailed => 'ボイスメッセージを送信できませんでした';
+
+  @override
+  String get chatVoiceTooLong => 'ボイスメッセージは5分未満にしてください';
+
+  @override
+  String get chatVoiceTooLarge => 'ボイスメッセージのファイルが大きすぎます';
+
+  @override
+  String get voiceRecorderInitFailed => '録音を準備できませんでした';
+
+  @override
+  String get voiceRecorderStartFailed => '録音を開始できませんでした';
+
+  @override
+  String get voiceRecorderFileMissing => '録音ファイルが見つかりません';
+
+  @override
+  String get voiceRecorderTooShort => '録音が短すぎます（最低1秒）';
+
+  @override
+  String get voiceRecorderResume => '再開';
+
+  @override
+  String get voiceRecorderPause => '一時停止';
+
+  @override
+  String get voiceRecorderPaused => '録音を一時停止中 - 再生をタップして続ける';
+
+  @override
+  String get voiceRecorderRecording => '録音中… 終わったら一時停止か送信をタップ';
+
+  @override
+  String get voiceRecorderInitializing => '準備中…';
+
+  @override
+  String get chatGifSearchFailed => '検索に失敗しました。もう一度お試しください。';
+
+  @override
+  String chatGifResultsFor(Object query) {
+    return '「$query」の結果';
+  }
+
+  @override
+  String get chatYouSharedStory => 'ストーリーをシェアしました';
+
+  @override
+  String chatUserSharedStory(Object name) {
+    return '$nameさんがストーリーをシェアしました';
+  }
+
+  @override
+  String chatUserNotInChats(Object name) {
+    return '@$name はチャットにいません';
+  }
+
+  @override
+  String get chatDeleteMessageFailed => 'メッセージを削除できませんでした';
 }

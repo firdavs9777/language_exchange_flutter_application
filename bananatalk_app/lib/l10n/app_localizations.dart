@@ -20947,6 +20947,264 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Use fingerprint or face unlock to log in next time?'**
   String get enableBiometricTitleAndroid;
+
+  /// No description provided for @chatLastSeenDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Last seen {date}'**
+  String chatLastSeenDate(Object date);
+
+  /// No description provided for @chatLastSeenRecently.
+  ///
+  /// In en, this message translates to:
+  /// **'Last seen recently'**
+  String get chatLastSeenRecently;
+
+  /// No description provided for @chatMediaTabMedia.
+  ///
+  /// In en, this message translates to:
+  /// **'Media ({count})'**
+  String chatMediaTabMedia(Object count);
+
+  /// No description provided for @chatMediaTabLinks.
+  ///
+  /// In en, this message translates to:
+  /// **'Links ({count})'**
+  String chatMediaTabLinks(Object count);
+
+  /// No description provided for @chatMediaTabDocs.
+  ///
+  /// In en, this message translates to:
+  /// **'Docs ({count})'**
+  String chatMediaTabDocs(Object count);
+
+  /// No description provided for @chatMediaNoMedia.
+  ///
+  /// In en, this message translates to:
+  /// **'No photos or videos shared yet'**
+  String get chatMediaNoMedia;
+
+  /// No description provided for @chatMediaNoLinks.
+  ///
+  /// In en, this message translates to:
+  /// **'No links shared yet'**
+  String get chatMediaNoLinks;
+
+  /// No description provided for @chatMediaNoDocs.
+  ///
+  /// In en, this message translates to:
+  /// **'No documents shared yet'**
+  String get chatMediaNoDocs;
+
+  /// No description provided for @chatMediaUnknownSize.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown size'**
+  String get chatMediaUnknownSize;
+
+  /// No description provided for @chatDeleteMinutesLeft.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes}m left'**
+  String chatDeleteMinutesLeft(Object minutes);
+
+  /// No description provided for @chatDeleteRemovesForBoth.
+  ///
+  /// In en, this message translates to:
+  /// **'Removes for you and {name}'**
+  String chatDeleteRemovesForBoth(Object name);
+
+  /// No description provided for @chatUnsupportedMessageType.
+  ///
+  /// In en, this message translates to:
+  /// **'Unsupported message type'**
+  String get chatUnsupportedMessageType;
+
+  /// No description provided for @chatStoryUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'This story is no longer available'**
+  String get chatStoryUnavailable;
+
+  /// No description provided for @chatWallpapersUnlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Premium wallpapers unlocked!'**
+  String get chatWallpapersUnlocked;
+
+  /// No description provided for @chatEditFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to edit message'**
+  String get chatEditFailed;
+
+  /// No description provided for @chatPinFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to update pin status'**
+  String get chatPinFailed;
+
+  /// No description provided for @chatMessagePinned.
+  ///
+  /// In en, this message translates to:
+  /// **'Message pinned'**
+  String get chatMessagePinned;
+
+  /// No description provided for @chatMessageUnpinned.
+  ///
+  /// In en, this message translates to:
+  /// **'Message unpinned'**
+  String get chatMessageUnpinned;
+
+  /// No description provided for @chatForwardFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to forward message'**
+  String get chatForwardFailed;
+
+  /// No description provided for @chatShareLocationFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to share location'**
+  String get chatShareLocationFailed;
+
+  /// No description provided for @chatFileTooLarge.
+  ///
+  /// In en, this message translates to:
+  /// **'This file is too large. The limit is {size} MB.'**
+  String chatFileTooLarge(Object size);
+
+  /// No description provided for @chatSendMediaFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to send media'**
+  String get chatSendMediaFailed;
+
+  /// No description provided for @chatSendVideoFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to send video'**
+  String get chatSendVideoFailed;
+
+  /// No description provided for @chatVideoTooLong.
+  ///
+  /// In en, this message translates to:
+  /// **'Video must be under 10 minutes'**
+  String get chatVideoTooLong;
+
+  /// No description provided for @chatVideoTooLarge.
+  ///
+  /// In en, this message translates to:
+  /// **'Video must be under 1GB. Please compress the video.'**
+  String get chatVideoTooLarge;
+
+  /// No description provided for @chatSendVoiceFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to send voice message'**
+  String get chatSendVoiceFailed;
+
+  /// No description provided for @chatVoiceTooLong.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice message must be under 5 minutes'**
+  String get chatVoiceTooLong;
+
+  /// No description provided for @chatVoiceTooLarge.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice message file too large'**
+  String get chatVoiceTooLarge;
+
+  /// No description provided for @voiceRecorderInitFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to initialize recorder'**
+  String get voiceRecorderInitFailed;
+
+  /// No description provided for @voiceRecorderStartFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to start recording'**
+  String get voiceRecorderStartFailed;
+
+  /// No description provided for @voiceRecorderFileMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'Recording file not found'**
+  String get voiceRecorderFileMissing;
+
+  /// No description provided for @voiceRecorderTooShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Recording too short (minimum 1 second)'**
+  String get voiceRecorderTooShort;
+
+  /// No description provided for @voiceRecorderResume.
+  ///
+  /// In en, this message translates to:
+  /// **'Resume'**
+  String get voiceRecorderResume;
+
+  /// No description provided for @voiceRecorderPause.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause'**
+  String get voiceRecorderPause;
+
+  /// No description provided for @voiceRecorderPaused.
+  ///
+  /// In en, this message translates to:
+  /// **'Recording paused - tap play to continue'**
+  String get voiceRecorderPaused;
+
+  /// No description provided for @voiceRecorderRecording.
+  ///
+  /// In en, this message translates to:
+  /// **'Recording... tap pause or send when done'**
+  String get voiceRecorderRecording;
+
+  /// No description provided for @voiceRecorderInitializing.
+  ///
+  /// In en, this message translates to:
+  /// **'Initializing...'**
+  String get voiceRecorderInitializing;
+
+  /// No description provided for @chatGifSearchFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Search failed. Please try again.'**
+  String get chatGifSearchFailed;
+
+  /// No description provided for @chatGifResultsFor.
+  ///
+  /// In en, this message translates to:
+  /// **'Results for \"{query}\"'**
+  String chatGifResultsFor(Object query);
+
+  /// No description provided for @chatYouSharedStory.
+  ///
+  /// In en, this message translates to:
+  /// **'You shared a story'**
+  String get chatYouSharedStory;
+
+  /// No description provided for @chatUserSharedStory.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} shared a story'**
+  String chatUserSharedStory(Object name);
+
+  /// No description provided for @chatUserNotInChats.
+  ///
+  /// In en, this message translates to:
+  /// **'User @{name} not in your chats'**
+  String chatUserNotInChats(Object name);
+
+  /// No description provided for @chatDeleteMessageFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to delete message'**
+  String get chatDeleteMessageFailed;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

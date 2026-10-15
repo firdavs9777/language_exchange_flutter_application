@@ -13,6 +13,7 @@ import 'package:bananatalk_app/pages/chat/widgets/chat_snackbar.dart';
 import 'package:bananatalk_app/pages/chat/widgets/chat_empty_state.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/friendly_error.dart';
+import 'package:bananatalk_app/utils/date_format_locale.dart';
 
 /// Screen showing all media, links, and documents shared in a conversation
 class ChatMediaScreen extends ConsumerStatefulWidget {
@@ -117,27 +118,26 @@ class _ChatMediaScreenState extends ConsumerState<ChatMediaScreen>
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          AppLocalizations.of(
-            context,
-          )!.chatListMediaTitle(widget.otherUserName),
+          l10n.chatListMediaTitle(widget.otherUserName),
         ),
         bottom: TabBar(
           controller: _tabController,
           tabs: [
             Tab(
               icon: const Icon(Icons.photo_library),
-              text: 'Media (${_mediaMessages.length})',
+              text: l10n.chatMediaTabMedia(_mediaMessages.length),
             ),
             Tab(
               icon: const Icon(Icons.link),
-              text: 'Links (${_linkMessages.length})',
+              text: l10n.chatMediaTabLinks(_linkMessages.length),
             ),
             Tab(
               icon: const Icon(Icons.insert_drive_file),
-              text: 'Docs (${_documentMessages.length})',
+              text: l10n.chatMediaTabDocs(_documentMessages.length),
             ),
           ],
         ),
@@ -174,7 +174,7 @@ class _ChatMediaScreenState extends ConsumerState<ChatMediaScreen>
     if (_mediaMessages.isEmpty) {
       return _buildEmptyState(
         icon: Icons.photo_library_outlined,
-        message: 'No photos or videos shared yet',
+        message: AppLocalizations.of(context)!.chatMediaNoMedia,
       );
     }
 
@@ -229,7 +229,7 @@ class _ChatMediaScreenState extends ConsumerState<ChatMediaScreen>
     if (_linkMessages.isEmpty) {
       return _buildEmptyState(
         icon: Icons.link_off,
-        message: 'No links shared yet',
+        message: AppLocalizations.of(context)!.chatMediaNoLinks,
       );
     }
 
@@ -281,7 +281,7 @@ class _ChatMediaScreenState extends ConsumerState<ChatMediaScreen>
     if (_documentMessages.isEmpty) {
       return _buildEmptyState(
         icon: Icons.folder_off,
-        message: 'No documents shared yet',
+        message: AppLocalizations.of(context)!.chatMediaNoDocs,
       );
     }
 
@@ -305,7 +305,7 @@ class _ChatMediaScreenState extends ConsumerState<ChatMediaScreen>
               child: Icon(_getFileIcon(media.mimeType), color: Colors.orange),
             ),
             title: Text(
-              media.fileName ?? 'Document',
+              media.fileName ?? AppLocalizations.of(context)!.document,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
@@ -354,7 +354,7 @@ class _ChatMediaScreenState extends ConsumerState<ChatMediaScreen>
         if (mounted) {
           showChatSnackBar(
             context,
-            message: 'Cannot open: $url',
+            message: AppLocalizations.of(context)!.couldNotOpenLink,
             type: ChatSnackBarType.error,
           );
         }
@@ -386,7 +386,7 @@ class _ChatMediaScreenState extends ConsumerState<ChatMediaScreen>
   }
 
   String _formatFileSize(int? size) {
-    if (size == null) return 'Unknown size';
+    if (size == null) return AppLocalizations.of(context)!.chatMediaUnknownSize;
     if (size < 1024) return '$size B';
     if (size < 1024 * 1024) return '${(size / 1024).toStringAsFixed(1)} KB';
     return '${(size / (1024 * 1024)).toStringAsFixed(1)} MB';
@@ -398,10 +398,11 @@ class _ChatMediaScreenState extends ConsumerState<ChatMediaScreen>
       final now = getKoreaNow();
       final diff = now.difference(date);
 
-      if (diff.inDays == 0) return 'Today';
-      if (diff.inDays == 1) return 'Yesterday';
-      if (diff.inDays < 7) return '${diff.inDays} days ago';
-      return '${date.day}/${date.month}/${date.year}';
+      final l10n = AppLocalizations.of(context)!;
+      if (diff.inDays == 0) return l10n.today;
+      if (diff.inDays == 1) return l10n.yesterday;
+      if (diff.inDays < 7) return l10n.daysAgo(diff.inDays);
+      return formatNumericDateForLocale(context, date);
     } catch (e) {
       return '';
     }

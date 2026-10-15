@@ -11488,4 +11488,153 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get enableBiometricTitleAndroid => 'Utiliser l\'empreinte ou le déverrouillage facial pour te connecter la prochaine fois ?';
+
+  @override
+  String chatLastSeenDate(Object date) {
+    return 'Vu(e) le $date';
+  }
+
+  @override
+  String get chatLastSeenRecently => 'Vu(e) récemment';
+
+  @override
+  String chatMediaTabMedia(Object count) {
+    return 'Médias ($count)';
+  }
+
+  @override
+  String chatMediaTabLinks(Object count) {
+    return 'Liens ($count)';
+  }
+
+  @override
+  String chatMediaTabDocs(Object count) {
+    return 'Documents ($count)';
+  }
+
+  @override
+  String get chatMediaNoMedia => 'Aucune photo ni vidéo partagée pour l\'instant';
+
+  @override
+  String get chatMediaNoLinks => 'Aucun lien partagé pour l\'instant';
+
+  @override
+  String get chatMediaNoDocs => 'Aucun document partagé pour l\'instant';
+
+  @override
+  String get chatMediaUnknownSize => 'Taille inconnue';
+
+  @override
+  String chatDeleteMinutesLeft(Object minutes) {
+    return 'encore $minutes min';
+  }
+
+  @override
+  String chatDeleteRemovesForBoth(Object name) {
+    return 'Supprimé pour toi et $name';
+  }
+
+  @override
+  String get chatUnsupportedMessageType => 'Type de message non pris en charge';
+
+  @override
+  String get chatStoryUnavailable => 'Cette story n\'est plus disponible';
+
+  @override
+  String get chatWallpapersUnlocked => 'Fonds d\'écran premium débloqués !';
+
+  @override
+  String get chatEditFailed => 'Impossible de modifier le message';
+
+  @override
+  String get chatPinFailed => 'Impossible de modifier l\'épinglage';
+
+  @override
+  String get chatMessagePinned => 'Message épinglé';
+
+  @override
+  String get chatMessageUnpinned => 'Message désépinglé';
+
+  @override
+  String get chatForwardFailed => 'Impossible de transférer le message';
+
+  @override
+  String get chatShareLocationFailed => 'Impossible de partager la position';
+
+  @override
+  String chatFileTooLarge(Object size) {
+    return 'Ce fichier est trop volumineux. La limite est de $size Mo.';
+  }
+
+  @override
+  String get chatSendMediaFailed => 'Impossible d\'envoyer le média';
+
+  @override
+  String get chatSendVideoFailed => 'Impossible d\'envoyer la vidéo';
+
+  @override
+  String get chatVideoTooLong => 'La vidéo doit durer moins de 10 minutes';
+
+  @override
+  String get chatVideoTooLarge => 'La vidéo doit faire moins de 1 Go. Compresse-la.';
+
+  @override
+  String get chatSendVoiceFailed => 'Impossible d\'envoyer le message vocal';
+
+  @override
+  String get chatVoiceTooLong => 'Le message vocal doit durer moins de 5 minutes';
+
+  @override
+  String get chatVoiceTooLarge => 'Le fichier du message vocal est trop volumineux';
+
+  @override
+  String get voiceRecorderInitFailed => 'Impossible d\'initialiser l\'enregistreur';
+
+  @override
+  String get voiceRecorderStartFailed => 'Impossible de démarrer l\'enregistrement';
+
+  @override
+  String get voiceRecorderFileMissing => 'Fichier d\'enregistrement introuvable';
+
+  @override
+  String get voiceRecorderTooShort => 'Enregistrement trop court (1 seconde minimum)';
+
+  @override
+  String get voiceRecorderResume => 'Reprendre';
+
+  @override
+  String get voiceRecorderPause => 'Pause';
+
+  @override
+  String get voiceRecorderPaused => 'Enregistrement en pause - appuie sur lecture pour continuer';
+
+  @override
+  String get voiceRecorderRecording => 'Enregistrement... appuie sur pause ou envoyer quand tu as fini';
+
+  @override
+  String get voiceRecorderInitializing => 'Initialisation...';
+
+  @override
+  String get chatGifSearchFailed => 'La recherche a échoué. Réessaie.';
+
+  @override
+  String chatGifResultsFor(Object query) {
+    return 'Résultats pour « $query »';
+  }
+
+  @override
+  String get chatYouSharedStory => 'Tu as partagé une story';
+
+  @override
+  String chatUserSharedStory(Object name) {
+    return '$name a partagé une story';
+  }
+
+  @override
+  String chatUserNotInChats(Object name) {
+    return '@$name n\'est pas dans tes discussions';
+  }
+
+  @override
+  String get chatDeleteMessageFailed => 'Impossible de supprimer le message';
 }

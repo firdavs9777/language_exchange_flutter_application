@@ -11486,4 +11486,153 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get enableBiometricTitleAndroid => 'Bir dahaki sefere parmak izi veya yüz tanıma ile giriş yapılsın mı?';
+
+  @override
+  String chatLastSeenDate(Object date) {
+    return 'Son görülme $date';
+  }
+
+  @override
+  String get chatLastSeenRecently => 'Yakın zamanda görüldü';
+
+  @override
+  String chatMediaTabMedia(Object count) {
+    return 'Medya ($count)';
+  }
+
+  @override
+  String chatMediaTabLinks(Object count) {
+    return 'Bağlantılar ($count)';
+  }
+
+  @override
+  String chatMediaTabDocs(Object count) {
+    return 'Belgeler ($count)';
+  }
+
+  @override
+  String get chatMediaNoMedia => 'Henüz fotoğraf veya video paylaşılmadı';
+
+  @override
+  String get chatMediaNoLinks => 'Henüz bağlantı paylaşılmadı';
+
+  @override
+  String get chatMediaNoDocs => 'Henüz belge paylaşılmadı';
+
+  @override
+  String get chatMediaUnknownSize => 'Bilinmeyen boyut';
+
+  @override
+  String chatDeleteMinutesLeft(Object minutes) {
+    return '$minutes dk kaldı';
+  }
+
+  @override
+  String chatDeleteRemovesForBoth(Object name) {
+    return 'Senin ve $name için kaldırılır';
+  }
+
+  @override
+  String get chatUnsupportedMessageType => 'Desteklenmeyen mesaj türü';
+
+  @override
+  String get chatStoryUnavailable => 'Bu hikaye artık mevcut değil';
+
+  @override
+  String get chatWallpapersUnlocked => 'Premium duvar kâğıtlarının kilidi açıldı!';
+
+  @override
+  String get chatEditFailed => 'Mesaj düzenlenemedi';
+
+  @override
+  String get chatPinFailed => 'Sabitleme durumu güncellenemedi';
+
+  @override
+  String get chatMessagePinned => 'Mesaj sabitlendi';
+
+  @override
+  String get chatMessageUnpinned => 'Mesajın sabitlemesi kaldırıldı';
+
+  @override
+  String get chatForwardFailed => 'Mesaj iletilemedi';
+
+  @override
+  String get chatShareLocationFailed => 'Konum paylaşılamadı';
+
+  @override
+  String chatFileTooLarge(Object size) {
+    return 'Bu dosya çok büyük. Sınır $size MB.';
+  }
+
+  @override
+  String get chatSendMediaFailed => 'Medya gönderilemedi';
+
+  @override
+  String get chatSendVideoFailed => 'Video gönderilemedi';
+
+  @override
+  String get chatVideoTooLong => 'Video 10 dakikadan kısa olmalı';
+
+  @override
+  String get chatVideoTooLarge => 'Video 1 GB\'tan küçük olmalı. Lütfen videoyu sıkıştır.';
+
+  @override
+  String get chatSendVoiceFailed => 'Sesli mesaj gönderilemedi';
+
+  @override
+  String get chatVoiceTooLong => 'Sesli mesaj 5 dakikadan kısa olmalı';
+
+  @override
+  String get chatVoiceTooLarge => 'Sesli mesaj dosyası çok büyük';
+
+  @override
+  String get voiceRecorderInitFailed => 'Kaydedici başlatılamadı';
+
+  @override
+  String get voiceRecorderStartFailed => 'Kayıt başlatılamadı';
+
+  @override
+  String get voiceRecorderFileMissing => 'Kayıt dosyası bulunamadı';
+
+  @override
+  String get voiceRecorderTooShort => 'Kayıt çok kısa (en az 1 saniye)';
+
+  @override
+  String get voiceRecorderResume => 'Devam et';
+
+  @override
+  String get voiceRecorderPause => 'Duraklat';
+
+  @override
+  String get voiceRecorderPaused => 'Kayıt duraklatıldı - devam etmek için oynat\'a dokun';
+
+  @override
+  String get voiceRecorderRecording => 'Kaydediliyor... bitince duraklat\'a veya gönder\'e dokun';
+
+  @override
+  String get voiceRecorderInitializing => 'Hazırlanıyor...';
+
+  @override
+  String get chatGifSearchFailed => 'Arama başarısız. Lütfen tekrar dene.';
+
+  @override
+  String chatGifResultsFor(Object query) {
+    return '\"$query\" için sonuçlar';
+  }
+
+  @override
+  String get chatYouSharedStory => 'Bir hikaye paylaştın';
+
+  @override
+  String chatUserSharedStory(Object name) {
+    return '$name bir hikaye paylaştı';
+  }
+
+  @override
+  String chatUserNotInChats(Object name) {
+    return '@$name sohbetlerinde yok';
+  }
+
+  @override
+  String get chatDeleteMessageFailed => 'Mesaj silinemedi';
 }

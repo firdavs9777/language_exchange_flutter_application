@@ -11469,6 +11469,155 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get enableBiometricTitleAndroid => '下次使用指纹或面部解锁登录？';
+
+  @override
+  String chatLastSeenDate(Object date) {
+    return '最后上线 $date';
+  }
+
+  @override
+  String get chatLastSeenRecently => '最近上线';
+
+  @override
+  String chatMediaTabMedia(Object count) {
+    return '媒体 ($count)';
+  }
+
+  @override
+  String chatMediaTabLinks(Object count) {
+    return '链接 ($count)';
+  }
+
+  @override
+  String chatMediaTabDocs(Object count) {
+    return '文档 ($count)';
+  }
+
+  @override
+  String get chatMediaNoMedia => '还没有分享过照片或视频';
+
+  @override
+  String get chatMediaNoLinks => '还没有分享过链接';
+
+  @override
+  String get chatMediaNoDocs => '还没有分享过文档';
+
+  @override
+  String get chatMediaUnknownSize => '大小未知';
+
+  @override
+  String chatDeleteMinutesLeft(Object minutes) {
+    return '剩余 $minutes 分钟';
+  }
+
+  @override
+  String chatDeleteRemovesForBoth(Object name) {
+    return '将为你和 $name 删除';
+  }
+
+  @override
+  String get chatUnsupportedMessageType => '不支持的消息类型';
+
+  @override
+  String get chatStoryUnavailable => '此快拍已不可用';
+
+  @override
+  String get chatWallpapersUnlocked => '高级壁纸已解锁！';
+
+  @override
+  String get chatEditFailed => '编辑消息失败';
+
+  @override
+  String get chatPinFailed => '更新置顶状态失败';
+
+  @override
+  String get chatMessagePinned => '消息已置顶';
+
+  @override
+  String get chatMessageUnpinned => '已取消置顶消息';
+
+  @override
+  String get chatForwardFailed => '转发消息失败';
+
+  @override
+  String get chatShareLocationFailed => '分享位置失败';
+
+  @override
+  String chatFileTooLarge(Object size) {
+    return '文件过大，上限为 $size MB。';
+  }
+
+  @override
+  String get chatSendMediaFailed => '发送媒体失败';
+
+  @override
+  String get chatSendVideoFailed => '发送视频失败';
+
+  @override
+  String get chatVideoTooLong => '视频时长须少于 10 分钟';
+
+  @override
+  String get chatVideoTooLarge => '视频须小于 1GB，请先压缩。';
+
+  @override
+  String get chatSendVoiceFailed => '发送语音消息失败';
+
+  @override
+  String get chatVoiceTooLong => '语音消息须少于 5 分钟';
+
+  @override
+  String get chatVoiceTooLarge => '语音消息文件过大';
+
+  @override
+  String get voiceRecorderInitFailed => '录音器初始化失败';
+
+  @override
+  String get voiceRecorderStartFailed => '无法开始录音';
+
+  @override
+  String get voiceRecorderFileMissing => '未找到录音文件';
+
+  @override
+  String get voiceRecorderTooShort => '录音太短（至少 1 秒）';
+
+  @override
+  String get voiceRecorderResume => '继续';
+
+  @override
+  String get voiceRecorderPause => '暂停';
+
+  @override
+  String get voiceRecorderPaused => '录音已暂停 - 点击播放继续';
+
+  @override
+  String get voiceRecorderRecording => '录音中…完成后点击暂停或发送';
+
+  @override
+  String get voiceRecorderInitializing => '正在初始化…';
+
+  @override
+  String get chatGifSearchFailed => '搜索失败，请重试。';
+
+  @override
+  String chatGifResultsFor(Object query) {
+    return '“$query”的结果';
+  }
+
+  @override
+  String get chatYouSharedStory => '你分享了一条快拍';
+
+  @override
+  String chatUserSharedStory(Object name) {
+    return '$name 分享了一条快拍';
+  }
+
+  @override
+  String chatUserNotInChats(Object name) {
+    return '@$name 不在你的聊天中';
+  }
+
+  @override
+  String get chatDeleteMessageFailed => '删除消息失败';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -22936,4 +23085,153 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get enableBiometricTitleAndroid => '下次使用指紋或臉部解鎖登入？';
+
+  @override
+  String chatLastSeenDate(Object date) {
+    return '最後上線 $date';
+  }
+
+  @override
+  String get chatLastSeenRecently => '最近上線';
+
+  @override
+  String chatMediaTabMedia(Object count) {
+    return '媒體 ($count)';
+  }
+
+  @override
+  String chatMediaTabLinks(Object count) {
+    return '連結 ($count)';
+  }
+
+  @override
+  String chatMediaTabDocs(Object count) {
+    return '文件 ($count)';
+  }
+
+  @override
+  String get chatMediaNoMedia => '還沒有分享過照片或影片';
+
+  @override
+  String get chatMediaNoLinks => '還沒有分享過連結';
+
+  @override
+  String get chatMediaNoDocs => '還沒有分享過文件';
+
+  @override
+  String get chatMediaUnknownSize => '大小未知';
+
+  @override
+  String chatDeleteMinutesLeft(Object minutes) {
+    return '剩餘 $minutes 分鐘';
+  }
+
+  @override
+  String chatDeleteRemovesForBoth(Object name) {
+    return '將為你和 $name 刪除';
+  }
+
+  @override
+  String get chatUnsupportedMessageType => '不支援的訊息類型';
+
+  @override
+  String get chatStoryUnavailable => '此限時動態已無法查看';
+
+  @override
+  String get chatWallpapersUnlocked => '進階桌布已解鎖！';
+
+  @override
+  String get chatEditFailed => '編輯訊息失敗';
+
+  @override
+  String get chatPinFailed => '更新置頂狀態失敗';
+
+  @override
+  String get chatMessagePinned => '訊息已置頂';
+
+  @override
+  String get chatMessageUnpinned => '已取消置頂訊息';
+
+  @override
+  String get chatForwardFailed => '轉寄訊息失敗';
+
+  @override
+  String get chatShareLocationFailed => '分享位置失敗';
+
+  @override
+  String chatFileTooLarge(Object size) {
+    return '檔案過大，上限為 $size MB。';
+  }
+
+  @override
+  String get chatSendMediaFailed => '傳送媒體失敗';
+
+  @override
+  String get chatSendVideoFailed => '傳送影片失敗';
+
+  @override
+  String get chatVideoTooLong => '影片長度須少於 10 分鐘';
+
+  @override
+  String get chatVideoTooLarge => '影片須小於 1GB，請先壓縮。';
+
+  @override
+  String get chatSendVoiceFailed => '傳送語音訊息失敗';
+
+  @override
+  String get chatVoiceTooLong => '語音訊息須少於 5 分鐘';
+
+  @override
+  String get chatVoiceTooLarge => '語音訊息檔案過大';
+
+  @override
+  String get voiceRecorderInitFailed => '錄音器初始化失敗';
+
+  @override
+  String get voiceRecorderStartFailed => '無法開始錄音';
+
+  @override
+  String get voiceRecorderFileMissing => '找不到錄音檔案';
+
+  @override
+  String get voiceRecorderTooShort => '錄音太短（至少 1 秒）';
+
+  @override
+  String get voiceRecorderResume => '繼續';
+
+  @override
+  String get voiceRecorderPause => '暫停';
+
+  @override
+  String get voiceRecorderPaused => '錄音已暫停 - 點播放繼續';
+
+  @override
+  String get voiceRecorderRecording => '錄音中…完成後點暫停或傳送';
+
+  @override
+  String get voiceRecorderInitializing => '正在初始化…';
+
+  @override
+  String get chatGifSearchFailed => '搜尋失敗，請再試一次。';
+
+  @override
+  String chatGifResultsFor(Object query) {
+    return '「$query」的結果';
+  }
+
+  @override
+  String get chatYouSharedStory => '你分享了一則限時動態';
+
+  @override
+  String chatUserSharedStory(Object name) {
+    return '$name 分享了一則限時動態';
+  }
+
+  @override
+  String chatUserNotInChats(Object name) {
+    return '@$name 不在你的聊天中';
+  }
+
+  @override
+  String get chatDeleteMessageFailed => '刪除訊息失敗';
 }

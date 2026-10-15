@@ -11532,4 +11532,153 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get enableBiometricTitleAndroid => 'Входить в следующий раз по отпечатку пальца или лицу?';
+
+  @override
+  String chatLastSeenDate(Object date) {
+    return 'Был(а) в сети $date';
+  }
+
+  @override
+  String get chatLastSeenRecently => 'Был(а) недавно';
+
+  @override
+  String chatMediaTabMedia(Object count) {
+    return 'Медиа ($count)';
+  }
+
+  @override
+  String chatMediaTabLinks(Object count) {
+    return 'Ссылки ($count)';
+  }
+
+  @override
+  String chatMediaTabDocs(Object count) {
+    return 'Документы ($count)';
+  }
+
+  @override
+  String get chatMediaNoMedia => 'Пока нет общих фото и видео';
+
+  @override
+  String get chatMediaNoLinks => 'Пока нет общих ссылок';
+
+  @override
+  String get chatMediaNoDocs => 'Пока нет общих документов';
+
+  @override
+  String get chatMediaUnknownSize => 'Размер неизвестен';
+
+  @override
+  String chatDeleteMinutesLeft(Object minutes) {
+    return 'осталось $minutes мин';
+  }
+
+  @override
+  String chatDeleteRemovesForBoth(Object name) {
+    return 'Удалится у вас и у $name';
+  }
+
+  @override
+  String get chatUnsupportedMessageType => 'Неподдерживаемый тип сообщения';
+
+  @override
+  String get chatStoryUnavailable => 'Эта история больше недоступна';
+
+  @override
+  String get chatWallpapersUnlocked => 'Премиум-обои разблокированы!';
+
+  @override
+  String get chatEditFailed => 'Не удалось изменить сообщение';
+
+  @override
+  String get chatPinFailed => 'Не удалось изменить закрепление';
+
+  @override
+  String get chatMessagePinned => 'Сообщение закреплено';
+
+  @override
+  String get chatMessageUnpinned => 'Сообщение откреплено';
+
+  @override
+  String get chatForwardFailed => 'Не удалось переслать сообщение';
+
+  @override
+  String get chatShareLocationFailed => 'Не удалось поделиться местоположением';
+
+  @override
+  String chatFileTooLarge(Object size) {
+    return 'Файл слишком большой. Ограничение — $size МБ.';
+  }
+
+  @override
+  String get chatSendMediaFailed => 'Не удалось отправить медиафайл';
+
+  @override
+  String get chatSendVideoFailed => 'Не удалось отправить видео';
+
+  @override
+  String get chatVideoTooLong => 'Видео должно быть короче 10 минут';
+
+  @override
+  String get chatVideoTooLarge => 'Видео должно быть меньше 1 ГБ. Сожмите его.';
+
+  @override
+  String get chatSendVoiceFailed => 'Не удалось отправить голосовое сообщение';
+
+  @override
+  String get chatVoiceTooLong => 'Голосовое сообщение должно быть короче 5 минут';
+
+  @override
+  String get chatVoiceTooLarge => 'Файл голосового сообщения слишком большой';
+
+  @override
+  String get voiceRecorderInitFailed => 'Не удалось запустить диктофон';
+
+  @override
+  String get voiceRecorderStartFailed => 'Не удалось начать запись';
+
+  @override
+  String get voiceRecorderFileMissing => 'Файл записи не найден';
+
+  @override
+  String get voiceRecorderTooShort => 'Запись слишком короткая (минимум 1 секунда)';
+
+  @override
+  String get voiceRecorderResume => 'Продолжить';
+
+  @override
+  String get voiceRecorderPause => 'Пауза';
+
+  @override
+  String get voiceRecorderPaused => 'Запись на паузе — нажмите «Воспроизвести», чтобы продолжить';
+
+  @override
+  String get voiceRecorderRecording => 'Идёт запись… нажмите паузу или «Отправить», когда закончите';
+
+  @override
+  String get voiceRecorderInitializing => 'Подготовка…';
+
+  @override
+  String get chatGifSearchFailed => 'Не удалось выполнить поиск. Попробуйте ещё раз.';
+
+  @override
+  String chatGifResultsFor(Object query) {
+    return 'Результаты по запросу «$query»';
+  }
+
+  @override
+  String get chatYouSharedStory => 'Вы поделились историей';
+
+  @override
+  String chatUserSharedStory(Object name) {
+    return '$name поделился(-ась) историей';
+  }
+
+  @override
+  String chatUserNotInChats(Object name) {
+    return '@$name нет в ваших чатах';
+  }
+
+  @override
+  String get chatDeleteMessageFailed => 'Не удалось удалить сообщение';
 }

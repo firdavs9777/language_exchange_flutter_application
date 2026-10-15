@@ -11488,4 +11488,153 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get enableBiometricTitleAndroid => 'Beim nächsten Mal mit Fingerabdruck oder Gesichtsentsperrung anmelden?';
+
+  @override
+  String chatLastSeenDate(Object date) {
+    return 'Zuletzt online $date';
+  }
+
+  @override
+  String get chatLastSeenRecently => 'Kürzlich online';
+
+  @override
+  String chatMediaTabMedia(Object count) {
+    return 'Medien ($count)';
+  }
+
+  @override
+  String chatMediaTabLinks(Object count) {
+    return 'Links ($count)';
+  }
+
+  @override
+  String chatMediaTabDocs(Object count) {
+    return 'Dokumente ($count)';
+  }
+
+  @override
+  String get chatMediaNoMedia => 'Noch keine Fotos oder Videos geteilt';
+
+  @override
+  String get chatMediaNoLinks => 'Noch keine Links geteilt';
+
+  @override
+  String get chatMediaNoDocs => 'Noch keine Dokumente geteilt';
+
+  @override
+  String get chatMediaUnknownSize => 'Unbekannte Größe';
+
+  @override
+  String chatDeleteMinutesLeft(Object minutes) {
+    return 'noch $minutes Min.';
+  }
+
+  @override
+  String chatDeleteRemovesForBoth(Object name) {
+    return 'Wird für dich und $name entfernt';
+  }
+
+  @override
+  String get chatUnsupportedMessageType => 'Nicht unterstützter Nachrichtentyp';
+
+  @override
+  String get chatStoryUnavailable => 'Diese Story ist nicht mehr verfügbar';
+
+  @override
+  String get chatWallpapersUnlocked => 'Premium-Hintergründe freigeschaltet!';
+
+  @override
+  String get chatEditFailed => 'Nachricht konnte nicht bearbeitet werden';
+
+  @override
+  String get chatPinFailed => 'Anheften konnte nicht geändert werden';
+
+  @override
+  String get chatMessagePinned => 'Nachricht angeheftet';
+
+  @override
+  String get chatMessageUnpinned => 'Nachricht losgelöst';
+
+  @override
+  String get chatForwardFailed => 'Nachricht konnte nicht weitergeleitet werden';
+
+  @override
+  String get chatShareLocationFailed => 'Standort konnte nicht geteilt werden';
+
+  @override
+  String chatFileTooLarge(Object size) {
+    return 'Diese Datei ist zu groß. Das Limit liegt bei $size MB.';
+  }
+
+  @override
+  String get chatSendMediaFailed => 'Medien konnten nicht gesendet werden';
+
+  @override
+  String get chatSendVideoFailed => 'Video konnte nicht gesendet werden';
+
+  @override
+  String get chatVideoTooLong => 'Das Video muss kürzer als 10 Minuten sein';
+
+  @override
+  String get chatVideoTooLarge => 'Das Video muss kleiner als 1 GB sein. Bitte komprimiere es.';
+
+  @override
+  String get chatSendVoiceFailed => 'Sprachnachricht konnte nicht gesendet werden';
+
+  @override
+  String get chatVoiceTooLong => 'Die Sprachnachricht muss kürzer als 5 Minuten sein';
+
+  @override
+  String get chatVoiceTooLarge => 'Die Sprachnachricht ist zu groß';
+
+  @override
+  String get voiceRecorderInitFailed => 'Rekorder konnte nicht gestartet werden';
+
+  @override
+  String get voiceRecorderStartFailed => 'Aufnahme konnte nicht gestartet werden';
+
+  @override
+  String get voiceRecorderFileMissing => 'Aufnahmedatei nicht gefunden';
+
+  @override
+  String get voiceRecorderTooShort => 'Aufnahme zu kurz (mindestens 1 Sekunde)';
+
+  @override
+  String get voiceRecorderResume => 'Fortsetzen';
+
+  @override
+  String get voiceRecorderPause => 'Pausieren';
+
+  @override
+  String get voiceRecorderPaused => 'Aufnahme pausiert – tippe auf Play, um fortzufahren';
+
+  @override
+  String get voiceRecorderRecording => 'Aufnahme läuft … tippe auf Pause oder Senden, wenn du fertig bist';
+
+  @override
+  String get voiceRecorderInitializing => 'Wird vorbereitet …';
+
+  @override
+  String get chatGifSearchFailed => 'Suche fehlgeschlagen. Bitte versuche es erneut.';
+
+  @override
+  String chatGifResultsFor(Object query) {
+    return 'Ergebnisse für „$query“';
+  }
+
+  @override
+  String get chatYouSharedStory => 'Du hast eine Story geteilt';
+
+  @override
+  String chatUserSharedStory(Object name) {
+    return '$name hat eine Story geteilt';
+  }
+
+  @override
+  String chatUserNotInChats(Object name) {
+    return '@$name ist nicht in deinen Chats';
+  }
+
+  @override
+  String get chatDeleteMessageFailed => 'Nachricht konnte nicht gelöscht werden';
 }

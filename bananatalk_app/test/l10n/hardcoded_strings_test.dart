@@ -549,6 +549,49 @@ const Map<String, List<String>> _keysByTask = {
     'authSendResetCodeFailed',
     'authResetPasswordFailed',
     'enableBiometricTitleAndroid',
+    'chatLastSeenDate',
+    'chatLastSeenRecently',
+    'chatMediaTabMedia',
+    'chatMediaTabLinks',
+    'chatMediaTabDocs',
+    'chatMediaNoMedia',
+    'chatMediaNoLinks',
+    'chatMediaNoDocs',
+    'chatMediaUnknownSize',
+    'chatDeleteMinutesLeft',
+    'chatDeleteRemovesForBoth',
+    'chatUnsupportedMessageType',
+    'chatStoryUnavailable',
+    'chatWallpapersUnlocked',
+    'chatEditFailed',
+    'chatPinFailed',
+    'chatMessagePinned',
+    'chatMessageUnpinned',
+    'chatForwardFailed',
+    'chatShareLocationFailed',
+    'chatFileTooLarge',
+    'chatSendMediaFailed',
+    'chatSendVideoFailed',
+    'chatVideoTooLong',
+    'chatVideoTooLarge',
+    'chatSendVoiceFailed',
+    'chatVoiceTooLong',
+    'chatVoiceTooLarge',
+    'voiceRecorderInitFailed',
+    'voiceRecorderStartFailed',
+    'voiceRecorderFileMissing',
+    'voiceRecorderTooShort',
+    'voiceRecorderResume',
+    'voiceRecorderPause',
+    'voiceRecorderPaused',
+    'voiceRecorderRecording',
+    'voiceRecorderInitializing',
+    'chatGifSearchFailed',
+    'chatGifResultsFor',
+    'chatYouSharedStory',
+    'chatUserSharedStory',
+    'chatUserNotInChats',
+    'chatDeleteMessageFailed',
   ],
 };
 
@@ -778,6 +821,11 @@ const Map<String, List<String>> _filesByTask = {
     'pages/authentication/widgets/auth_error_state.dart',
     'pages/authentication/widgets/password_strength_meter.dart',
     'pages/authentication/biometric/enable_biometric_prompt.dart',
+    'pages/chat/media/chat_media_screen.dart',
+    'pages/chat/dialogs/delete_message_dialog.dart',
+    'widgets/voice_recorder/voice_recorder_mobile.dart',
+    'widgets/media_message_widget.dart',
+    'pages/chat/panels/gif_picker_panel.dart',
   ],
 };
 
@@ -826,6 +874,9 @@ const Map<String, Set<String>> _mayMatchEnglish = {
   'storyEditVideo': {'id'}, // id "Edit Video" is the same phrase
   'storyVotes': {'fr'}, // fr "{totalVotes} votes" is the same word
   'promoAdsPerkXp': {'tl', 'tr'}, // tl/tr keep "+10 bonus\nXP" as written ("bonus" is the local loanword)
+  'chatMediaTabMedia': {'id', 'tl'}, // id/tl use the loanword "Media"
+  'chatMediaTabLinks': {'de', 'pt'}, // de/pt use the loanword "Links"
+  'voiceRecorderPause': {'fr'}, // fr "Pause" is the same word
 };
 
 final _placeholder = RegExp(r'\{(\w+)[,}]');

@@ -11469,4 +11469,153 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get enableBiometricTitleAndroid => 'Dùng vân tay hoặc mở khóa bằng khuôn mặt để đăng nhập lần sau?';
+
+  @override
+  String chatLastSeenDate(Object date) {
+    return 'Hoạt động lần cuối $date';
+  }
+
+  @override
+  String get chatLastSeenRecently => 'Hoạt động gần đây';
+
+  @override
+  String chatMediaTabMedia(Object count) {
+    return 'Phương tiện ($count)';
+  }
+
+  @override
+  String chatMediaTabLinks(Object count) {
+    return 'Liên kết ($count)';
+  }
+
+  @override
+  String chatMediaTabDocs(Object count) {
+    return 'Tài liệu ($count)';
+  }
+
+  @override
+  String get chatMediaNoMedia => 'Chưa có ảnh hoặc video nào được chia sẻ';
+
+  @override
+  String get chatMediaNoLinks => 'Chưa có liên kết nào được chia sẻ';
+
+  @override
+  String get chatMediaNoDocs => 'Chưa có tài liệu nào được chia sẻ';
+
+  @override
+  String get chatMediaUnknownSize => 'Không rõ kích thước';
+
+  @override
+  String chatDeleteMinutesLeft(Object minutes) {
+    return 'còn $minutes phút';
+  }
+
+  @override
+  String chatDeleteRemovesForBoth(Object name) {
+    return 'Xóa ở cả bạn và $name';
+  }
+
+  @override
+  String get chatUnsupportedMessageType => 'Loại tin nhắn không được hỗ trợ';
+
+  @override
+  String get chatStoryUnavailable => 'Tin này không còn khả dụng';
+
+  @override
+  String get chatWallpapersUnlocked => 'Đã mở khóa hình nền cao cấp!';
+
+  @override
+  String get chatEditFailed => 'Không sửa được tin nhắn';
+
+  @override
+  String get chatPinFailed => 'Không cập nhật được trạng thái ghim';
+
+  @override
+  String get chatMessagePinned => 'Đã ghim tin nhắn';
+
+  @override
+  String get chatMessageUnpinned => 'Đã bỏ ghim tin nhắn';
+
+  @override
+  String get chatForwardFailed => 'Không chuyển tiếp được tin nhắn';
+
+  @override
+  String get chatShareLocationFailed => 'Không chia sẻ được vị trí';
+
+  @override
+  String chatFileTooLarge(Object size) {
+    return 'Tệp này quá lớn. Giới hạn là $size MB.';
+  }
+
+  @override
+  String get chatSendMediaFailed => 'Không gửi được tệp phương tiện';
+
+  @override
+  String get chatSendVideoFailed => 'Không gửi được video';
+
+  @override
+  String get chatVideoTooLong => 'Video phải dưới 10 phút';
+
+  @override
+  String get chatVideoTooLarge => 'Video phải dưới 1GB. Vui lòng nén video.';
+
+  @override
+  String get chatSendVoiceFailed => 'Không gửi được tin nhắn thoại';
+
+  @override
+  String get chatVoiceTooLong => 'Tin nhắn thoại phải dưới 5 phút';
+
+  @override
+  String get chatVoiceTooLarge => 'Tệp tin nhắn thoại quá lớn';
+
+  @override
+  String get voiceRecorderInitFailed => 'Không khởi tạo được trình ghi âm';
+
+  @override
+  String get voiceRecorderStartFailed => 'Không bắt đầu ghi âm được';
+
+  @override
+  String get voiceRecorderFileMissing => 'Không tìm thấy tệp ghi âm';
+
+  @override
+  String get voiceRecorderTooShort => 'Bản ghi quá ngắn (tối thiểu 1 giây)';
+
+  @override
+  String get voiceRecorderResume => 'Tiếp tục';
+
+  @override
+  String get voiceRecorderPause => 'Tạm dừng';
+
+  @override
+  String get voiceRecorderPaused => 'Đã tạm dừng ghi âm - nhấn phát để tiếp tục';
+
+  @override
+  String get voiceRecorderRecording => 'Đang ghi âm... nhấn tạm dừng hoặc gửi khi xong';
+
+  @override
+  String get voiceRecorderInitializing => 'Đang khởi tạo...';
+
+  @override
+  String get chatGifSearchFailed => 'Tìm kiếm thất bại. Vui lòng thử lại.';
+
+  @override
+  String chatGifResultsFor(Object query) {
+    return 'Kết quả cho \"$query\"';
+  }
+
+  @override
+  String get chatYouSharedStory => 'Bạn đã chia sẻ một tin';
+
+  @override
+  String chatUserSharedStory(Object name) {
+    return '$name đã chia sẻ một tin';
+  }
+
+  @override
+  String chatUserNotInChats(Object name) {
+    return '@$name không có trong các cuộc trò chuyện của bạn';
+  }
+
+  @override
+  String get chatDeleteMessageFailed => 'Không xóa được tin nhắn';
 }

@@ -122,7 +122,7 @@ class _GifPickerPanelState extends ConsumerState<GifPickerPanel> {
         setState(() {
           _model = _model.copyWith(
             state: _PickerState.error,
-            errorMessage: 'Could not load trending GIFs.',
+            errorMessage: AppLocalizations.of(context)!.failedToLoadGifs,
           );
         });
       }
@@ -152,7 +152,7 @@ class _GifPickerPanelState extends ConsumerState<GifPickerPanel> {
         setState(() {
           _model = _model.copyWith(
             state: _PickerState.error,
-            errorMessage: 'Search failed. Please try again.',
+            errorMessage: AppLocalizations.of(context)!.chatGifSearchFailed,
           );
         });
       }
@@ -278,8 +278,8 @@ class _GifPickerPanelState extends ConsumerState<GifPickerPanel> {
 
   Widget _buildSectionLabel() {
     final label = _model.isSearching && _searchController.text.isNotEmpty
-        ? 'Results for "${_searchController.text}"'
-        : 'Trending';
+        ? AppLocalizations.of(context)!.chatGifResultsFor(_searchController.text)
+        : AppLocalizations.of(context)!.trendingGifs;
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 8, 16, 4),

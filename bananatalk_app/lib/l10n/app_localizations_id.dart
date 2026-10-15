@@ -11480,4 +11480,153 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get enableBiometricTitleAndroid => 'Gunakan sidik jari atau buka dengan wajah untuk masuk lain kali?';
+
+  @override
+  String chatLastSeenDate(Object date) {
+    return 'Terakhir dilihat $date';
+  }
+
+  @override
+  String get chatLastSeenRecently => 'Terakhir dilihat baru-baru ini';
+
+  @override
+  String chatMediaTabMedia(Object count) {
+    return 'Media ($count)';
+  }
+
+  @override
+  String chatMediaTabLinks(Object count) {
+    return 'Tautan ($count)';
+  }
+
+  @override
+  String chatMediaTabDocs(Object count) {
+    return 'Dokumen ($count)';
+  }
+
+  @override
+  String get chatMediaNoMedia => 'Belum ada foto atau video yang dibagikan';
+
+  @override
+  String get chatMediaNoLinks => 'Belum ada tautan yang dibagikan';
+
+  @override
+  String get chatMediaNoDocs => 'Belum ada dokumen yang dibagikan';
+
+  @override
+  String get chatMediaUnknownSize => 'Ukuran tidak diketahui';
+
+  @override
+  String chatDeleteMinutesLeft(Object minutes) {
+    return 'sisa $minutes mnt';
+  }
+
+  @override
+  String chatDeleteRemovesForBoth(Object name) {
+    return 'Dihapus untuk kamu dan $name';
+  }
+
+  @override
+  String get chatUnsupportedMessageType => 'Jenis pesan tidak didukung';
+
+  @override
+  String get chatStoryUnavailable => 'Cerita ini sudah tidak tersedia';
+
+  @override
+  String get chatWallpapersUnlocked => 'Wallpaper premium terbuka!';
+
+  @override
+  String get chatEditFailed => 'Gagal mengedit pesan';
+
+  @override
+  String get chatPinFailed => 'Gagal memperbarui status sematan';
+
+  @override
+  String get chatMessagePinned => 'Pesan disematkan';
+
+  @override
+  String get chatMessageUnpinned => 'Sematan pesan dilepas';
+
+  @override
+  String get chatForwardFailed => 'Gagal meneruskan pesan';
+
+  @override
+  String get chatShareLocationFailed => 'Gagal membagikan lokasi';
+
+  @override
+  String chatFileTooLarge(Object size) {
+    return 'File ini terlalu besar. Batasnya $size MB.';
+  }
+
+  @override
+  String get chatSendMediaFailed => 'Gagal mengirim media';
+
+  @override
+  String get chatSendVideoFailed => 'Gagal mengirim video';
+
+  @override
+  String get chatVideoTooLong => 'Video harus kurang dari 10 menit';
+
+  @override
+  String get chatVideoTooLarge => 'Video harus kurang dari 1GB. Silakan kompres videonya.';
+
+  @override
+  String get chatSendVoiceFailed => 'Gagal mengirim pesan suara';
+
+  @override
+  String get chatVoiceTooLong => 'Pesan suara harus kurang dari 5 menit';
+
+  @override
+  String get chatVoiceTooLarge => 'File pesan suara terlalu besar';
+
+  @override
+  String get voiceRecorderInitFailed => 'Gagal menyiapkan perekam';
+
+  @override
+  String get voiceRecorderStartFailed => 'Gagal mulai merekam';
+
+  @override
+  String get voiceRecorderFileMissing => 'File rekaman tidak ditemukan';
+
+  @override
+  String get voiceRecorderTooShort => 'Rekaman terlalu pendek (minimal 1 detik)';
+
+  @override
+  String get voiceRecorderResume => 'Lanjutkan';
+
+  @override
+  String get voiceRecorderPause => 'Jeda';
+
+  @override
+  String get voiceRecorderPaused => 'Rekaman dijeda - ketuk putar untuk melanjutkan';
+
+  @override
+  String get voiceRecorderRecording => 'Merekam... ketuk jeda atau kirim jika sudah selesai';
+
+  @override
+  String get voiceRecorderInitializing => 'Menyiapkan...';
+
+  @override
+  String get chatGifSearchFailed => 'Pencarian gagal. Silakan coba lagi.';
+
+  @override
+  String chatGifResultsFor(Object query) {
+    return 'Hasil untuk \"$query\"';
+  }
+
+  @override
+  String get chatYouSharedStory => 'Kamu membagikan cerita';
+
+  @override
+  String chatUserSharedStory(Object name) {
+    return '$name membagikan cerita';
+  }
+
+  @override
+  String chatUserNotInChats(Object name) {
+    return '@$name tidak ada di chat kamu';
+  }
+
+  @override
+  String get chatDeleteMessageFailed => 'Gagal menghapus pesan';
 }

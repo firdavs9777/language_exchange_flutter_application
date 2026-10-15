@@ -892,7 +892,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
               controller: usernameController,
               autofocus: true,
               decoration: InputDecoration(
-                hintText: '@username',
+                hintText: AppLocalizations.of(context)!.usernameHint,
                 prefixIcon: const Icon(Icons.alternate_email),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
@@ -996,7 +996,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
       } else {
         showChatSnackBar(
           context,
-          message: 'User @$username not found',
+          message: AppLocalizations.of(context)!.communityUserNotFound(username),
           type: ChatSnackBarType.error,
         );
       }

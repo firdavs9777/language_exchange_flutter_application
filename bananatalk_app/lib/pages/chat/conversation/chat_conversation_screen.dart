@@ -1019,8 +1019,6 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     } else if (errorMessage.toLowerCase().contains('unauthorized') ||
         errorMessage.toLowerCase().contains('401')) {
       displayMessage = l10n.sessionExpired;
-    } else {
-      displayMessage = errorMessage;
     }
 
     ScaffoldMessenger.of(context).showSnackBar(
@@ -1426,17 +1424,19 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         }
       } else {
         if (mounted) {
-          String errorMsg = result['error'] ?? 'Failed to send video';
-          if (errorMsg.contains('duration') ||
-              errorMsg.contains('600 seconds') ||
-              errorMsg.contains('10 minutes')) {
-            errorMsg = 'Video must be under 10 minutes';
-          } else if (errorMsg.contains('size') ||
-              errorMsg.contains('1024MB') ||
-              errorMsg.contains('1GB')) {
-            errorMsg = 'Video must be under 1GB. Please compress the video.';
-          } else if (errorMsg.contains('format')) {
-            errorMsg = 'Unsupported video format. Use MP4, MOV, or WebM.';
+          final l10n = AppLocalizations.of(context)!;
+          final serverError = result['error']?.toString() ?? '';
+          var errorMsg = l10n.chatSendVideoFailed;
+          if (serverError.contains('duration') ||
+              serverError.contains('600 seconds') ||
+              serverError.contains('10 minutes')) {
+            errorMsg = l10n.chatVideoTooLong;
+          } else if (serverError.contains('size') ||
+              serverError.contains('1024MB') ||
+              serverError.contains('1GB')) {
+            errorMsg = l10n.chatVideoTooLarge;
+          } else if (serverError.contains('format')) {
+            errorMsg = l10n.unsupportedVideoFormat('MP4, MOV, WebM');
           }
           showChatSnackBar(
             context,
@@ -1508,11 +1508,13 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         } catch (_) {}
       } else {
         if (mounted) {
-          String errorMsg = result['error'] ?? 'Failed to send voice message';
-          if (errorMsg.contains('duration')) {
-            errorMsg = 'Voice message must be under 5 minutes';
-          } else if (errorMsg.contains('size')) {
-            errorMsg = 'Voice message file too large';
+          final l10n = AppLocalizations.of(context)!;
+          final serverError = result['error']?.toString() ?? '';
+          var errorMsg = l10n.chatSendVoiceFailed;
+          if (serverError.contains('duration')) {
+            errorMsg = l10n.chatVoiceTooLong;
+          } else if (serverError.contains('size')) {
+            errorMsg = l10n.chatVoiceTooLarge;
           }
           showChatSnackBar(
             context,
@@ -1576,7 +1578,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         if (mounted) {
           showChatSnackBar(
             context,
-            message: 'Location permission is required to share location',
+            message: AppLocalizations.of(context)!.locationPermissionRequired,
             type: ChatSnackBarType.info,
           );
         }
@@ -1650,7 +1652,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       } else {
         showChatSnackBar(
           context,
-          message: result['error'] ?? 'Failed to share location',
+          message: AppLocalizations.of(context)!.chatShareLocationFailed,
           type: ChatSnackBarType.error,
         );
       }
@@ -1697,7 +1699,9 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         if (mounted) {
           showChatSnackBar(
             context,
-            message: validation['error'] ?? 'Invalid file',
+            message: AppLocalizations.of(
+                context,
+              )!.chatFileTooLarge(validation['maxSizeMB']?.toString() ?? ''),
             type: ChatSnackBarType.error,
           );
         }
@@ -1748,7 +1752,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         if (mounted) {
           showChatSnackBar(
             context,
-            message: result['error'] ?? 'Failed to send media',
+            message: AppLocalizations.of(context)!.chatSendMediaFailed,
             type: ChatSnackBarType.error,
           );
         }

@@ -11488,4 +11488,153 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get enableBiometricTitleAndroid => '¿Usar huella o desbloqueo facial para iniciar sesión la próxima vez?';
+
+  @override
+  String chatLastSeenDate(Object date) {
+    return 'Última vez $date';
+  }
+
+  @override
+  String get chatLastSeenRecently => 'Visto recientemente';
+
+  @override
+  String chatMediaTabMedia(Object count) {
+    return 'Multimedia ($count)';
+  }
+
+  @override
+  String chatMediaTabLinks(Object count) {
+    return 'Enlaces ($count)';
+  }
+
+  @override
+  String chatMediaTabDocs(Object count) {
+    return 'Documentos ($count)';
+  }
+
+  @override
+  String get chatMediaNoMedia => 'Aún no se han compartido fotos ni videos';
+
+  @override
+  String get chatMediaNoLinks => 'Aún no se han compartido enlaces';
+
+  @override
+  String get chatMediaNoDocs => 'Aún no se han compartido documentos';
+
+  @override
+  String get chatMediaUnknownSize => 'Tamaño desconocido';
+
+  @override
+  String chatDeleteMinutesLeft(Object minutes) {
+    return 'quedan $minutes min';
+  }
+
+  @override
+  String chatDeleteRemovesForBoth(Object name) {
+    return 'Se elimina para ti y para $name';
+  }
+
+  @override
+  String get chatUnsupportedMessageType => 'Tipo de mensaje no compatible';
+
+  @override
+  String get chatStoryUnavailable => 'Esta historia ya no está disponible';
+
+  @override
+  String get chatWallpapersUnlocked => '¡Fondos premium desbloqueados!';
+
+  @override
+  String get chatEditFailed => 'No se pudo editar el mensaje';
+
+  @override
+  String get chatPinFailed => 'No se pudo actualizar el fijado';
+
+  @override
+  String get chatMessagePinned => 'Mensaje fijado';
+
+  @override
+  String get chatMessageUnpinned => 'Mensaje desfijado';
+
+  @override
+  String get chatForwardFailed => 'No se pudo reenviar el mensaje';
+
+  @override
+  String get chatShareLocationFailed => 'No se pudo compartir la ubicación';
+
+  @override
+  String chatFileTooLarge(Object size) {
+    return 'Este archivo es demasiado grande. El límite es de $size MB.';
+  }
+
+  @override
+  String get chatSendMediaFailed => 'No se pudo enviar el archivo';
+
+  @override
+  String get chatSendVideoFailed => 'No se pudo enviar el video';
+
+  @override
+  String get chatVideoTooLong => 'El video debe durar menos de 10 minutos';
+
+  @override
+  String get chatVideoTooLarge => 'El video debe pesar menos de 1 GB. Comprímelo, por favor.';
+
+  @override
+  String get chatSendVoiceFailed => 'No se pudo enviar el mensaje de voz';
+
+  @override
+  String get chatVoiceTooLong => 'El mensaje de voz debe durar menos de 5 minutos';
+
+  @override
+  String get chatVoiceTooLarge => 'El archivo del mensaje de voz es demasiado grande';
+
+  @override
+  String get voiceRecorderInitFailed => 'No se pudo iniciar la grabadora';
+
+  @override
+  String get voiceRecorderStartFailed => 'No se pudo empezar a grabar';
+
+  @override
+  String get voiceRecorderFileMissing => 'No se encontró el archivo de la grabación';
+
+  @override
+  String get voiceRecorderTooShort => 'Grabación demasiado corta (mínimo 1 segundo)';
+
+  @override
+  String get voiceRecorderResume => 'Reanudar';
+
+  @override
+  String get voiceRecorderPause => 'Pausar';
+
+  @override
+  String get voiceRecorderPaused => 'Grabación en pausa: toca reproducir para continuar';
+
+  @override
+  String get voiceRecorderRecording => 'Grabando... toca pausa o enviar cuando termines';
+
+  @override
+  String get voiceRecorderInitializing => 'Iniciando...';
+
+  @override
+  String get chatGifSearchFailed => 'La búsqueda falló. Inténtalo de nuevo.';
+
+  @override
+  String chatGifResultsFor(Object query) {
+    return 'Resultados para «$query»';
+  }
+
+  @override
+  String get chatYouSharedStory => 'Compartiste una historia';
+
+  @override
+  String chatUserSharedStory(Object name) {
+    return '$name compartió una historia';
+  }
+
+  @override
+  String chatUserNotInChats(Object name) {
+    return '@$name no está en tus chats';
+  }
+
+  @override
+  String get chatDeleteMessageFailed => 'No se pudo eliminar el mensaje';
 }

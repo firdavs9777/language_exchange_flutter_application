@@ -79,7 +79,7 @@ Future<void> handleEditMessage({
       chatNotifier.updateMessageLocally(message.id, newText: message.message);
       showChatSnackBar(
         context,
-        message: result['error'] ?? 'Failed to edit message',
+        message: AppLocalizations.of(context)!.chatEditFailed,
         type: ChatSnackBarType.error,
       );
     }
@@ -133,7 +133,7 @@ Future<void> handleDeleteMessage({
 
       if (result['success'] != true && context.mounted) {
         // Revert on failure — reload messages
-        final errorMessage = result['error'] ?? 'Failed to delete message';
+        final errorMessage = AppLocalizations.of(context)!.chatDeleteMessageFailed;
         await onReloadMessages();
         if (context.mounted) {
           showChatSnackBar(
@@ -183,13 +183,15 @@ Future<void> handlePinMessage({
     chatNotifier.togglePinLocally(message.id);
     showChatSnackBar(
       context,
-      message: result['error'] ?? 'Failed to update pin status',
+      message: AppLocalizations.of(context)!.chatPinFailed,
       type: ChatSnackBarType.error,
     );
   } else {
     showChatSnackBar(
       context,
-      message: message.isPinned ? 'Message unpinned' : 'Message pinned',
+      message: message.isPinned
+          ? AppLocalizations.of(context)!.chatMessageUnpinned
+          : AppLocalizations.of(context)!.chatMessagePinned,
       type: ChatSnackBarType.success,
     );
   }
@@ -236,7 +238,7 @@ Future<void> handleForwardMessage({
     } else if (context.mounted) {
       showChatSnackBar(
         context,
-        message: forwardResult['error'] ?? 'Failed to forward message',
+        message: AppLocalizations.of(context)!.chatForwardFailed,
         type: ChatSnackBarType.error,
       );
     }
@@ -273,7 +275,7 @@ void handleDeleteFailedMessage({
 
   showChatSnackBar(
     context,
-    message: 'Message deleted',
+    message: AppLocalizations.of(context)!.messageDeleted,
     type: ChatSnackBarType.success,
   );
 }

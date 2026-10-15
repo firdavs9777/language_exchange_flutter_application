@@ -11488,4 +11488,153 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get enableBiometricTitleAndroid => 'Usar impressão digital ou desbloqueio facial para entrar da próxima vez?';
+
+  @override
+  String chatLastSeenDate(Object date) {
+    return 'Visto por último $date';
+  }
+
+  @override
+  String get chatLastSeenRecently => 'Visto recentemente';
+
+  @override
+  String chatMediaTabMedia(Object count) {
+    return 'Mídia ($count)';
+  }
+
+  @override
+  String chatMediaTabLinks(Object count) {
+    return 'Links ($count)';
+  }
+
+  @override
+  String chatMediaTabDocs(Object count) {
+    return 'Documentos ($count)';
+  }
+
+  @override
+  String get chatMediaNoMedia => 'Nenhuma foto ou vídeo compartilhado ainda';
+
+  @override
+  String get chatMediaNoLinks => 'Nenhum link compartilhado ainda';
+
+  @override
+  String get chatMediaNoDocs => 'Nenhum documento compartilhado ainda';
+
+  @override
+  String get chatMediaUnknownSize => 'Tamanho desconhecido';
+
+  @override
+  String chatDeleteMinutesLeft(Object minutes) {
+    return 'faltam $minutes min';
+  }
+
+  @override
+  String chatDeleteRemovesForBoth(Object name) {
+    return 'Remove para você e para $name';
+  }
+
+  @override
+  String get chatUnsupportedMessageType => 'Tipo de mensagem não suportado';
+
+  @override
+  String get chatStoryUnavailable => 'Este story não está mais disponível';
+
+  @override
+  String get chatWallpapersUnlocked => 'Papéis de parede premium desbloqueados!';
+
+  @override
+  String get chatEditFailed => 'Falha ao editar a mensagem';
+
+  @override
+  String get chatPinFailed => 'Falha ao atualizar a fixação';
+
+  @override
+  String get chatMessagePinned => 'Mensagem fixada';
+
+  @override
+  String get chatMessageUnpinned => 'Mensagem desafixada';
+
+  @override
+  String get chatForwardFailed => 'Falha ao encaminhar a mensagem';
+
+  @override
+  String get chatShareLocationFailed => 'Falha ao compartilhar a localização';
+
+  @override
+  String chatFileTooLarge(Object size) {
+    return 'Este arquivo é grande demais. O limite é $size MB.';
+  }
+
+  @override
+  String get chatSendMediaFailed => 'Falha ao enviar a mídia';
+
+  @override
+  String get chatSendVideoFailed => 'Falha ao enviar o vídeo';
+
+  @override
+  String get chatVideoTooLong => 'O vídeo deve ter menos de 10 minutos';
+
+  @override
+  String get chatVideoTooLarge => 'O vídeo deve ter menos de 1 GB. Comprima o vídeo.';
+
+  @override
+  String get chatSendVoiceFailed => 'Falha ao enviar a mensagem de voz';
+
+  @override
+  String get chatVoiceTooLong => 'A mensagem de voz deve ter menos de 5 minutos';
+
+  @override
+  String get chatVoiceTooLarge => 'Arquivo da mensagem de voz muito grande';
+
+  @override
+  String get voiceRecorderInitFailed => 'Falha ao iniciar o gravador';
+
+  @override
+  String get voiceRecorderStartFailed => 'Falha ao iniciar a gravação';
+
+  @override
+  String get voiceRecorderFileMissing => 'Arquivo da gravação não encontrado';
+
+  @override
+  String get voiceRecorderTooShort => 'Gravação curta demais (mínimo de 1 segundo)';
+
+  @override
+  String get voiceRecorderResume => 'Retomar';
+
+  @override
+  String get voiceRecorderPause => 'Pausar';
+
+  @override
+  String get voiceRecorderPaused => 'Gravação pausada - toque em reproduzir para continuar';
+
+  @override
+  String get voiceRecorderRecording => 'Gravando... toque em pausar ou enviar quando terminar';
+
+  @override
+  String get voiceRecorderInitializing => 'Iniciando...';
+
+  @override
+  String get chatGifSearchFailed => 'A pesquisa falhou. Tente novamente.';
+
+  @override
+  String chatGifResultsFor(Object query) {
+    return 'Resultados para \"$query\"';
+  }
+
+  @override
+  String get chatYouSharedStory => 'Você compartilhou um story';
+
+  @override
+  String chatUserSharedStory(Object name) {
+    return '$name compartilhou um story';
+  }
+
+  @override
+  String chatUserNotInChats(Object name) {
+    return '@$name não está nas suas conversas';
+  }
+
+  @override
+  String get chatDeleteMessageFailed => 'Falha ao excluir a mensagem';
 }

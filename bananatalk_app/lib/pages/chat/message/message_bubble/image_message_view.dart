@@ -190,7 +190,7 @@ class ImageMessageView extends StatelessWidget {
       } else if (context.mounted) {
         showChatSnackBar(
           context,
-          message: 'Story is no longer available',
+          message: AppLocalizations.of(context)!.chatStoryUnavailable,
           type: ChatSnackBarType.info,
         );
       }
