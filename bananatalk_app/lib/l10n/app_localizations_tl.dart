@@ -11696,4 +11696,263 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get coinHistoryLoadFailed => 'Hindi ma-load ang kasaysayan ng coins.';
+
+  @override
+  String get waveAlreadySentTooltip => 'Nakakaway ka na — magpadala na lang ng mensahe';
+
+  @override
+  String waveAlreadySentTo(Object name) {
+    return 'Nakaway mo na si $name — padalhan mo na lang siya ng mensahe.';
+  }
+
+  @override
+  String get waveAlreadyWaved => 'Nakakaway na';
+
+  @override
+  String get communityCountryDetectFailed => 'Hindi matukoy ang bansa';
+
+  @override
+  String get roomPickCategoryError => 'Pumili ng kategorya';
+
+  @override
+  String get blockUserSuccess => 'Na-block ang user';
+
+  @override
+  String get blockUserFailed => 'Hindi ma-block ang user na ito';
+
+  @override
+  String get unblockUserSuccess => 'Na-unblock ang user';
+
+  @override
+  String get unblockUserFailed => 'Hindi ma-unblock ang user na ito';
+
+  @override
+  String get clubDeleteFailed => 'Hindi matanggal ang club';
+
+  @override
+  String get clubMemberUpdateFailed => 'Hindi ma-update ang miyembrong ito';
+
+  @override
+  String get groupCoverUploadFailed => 'Hindi ma-upload ang larawan';
+
+  @override
+  String get groupCoverRemoveFailed => 'Hindi maalis ang larawan';
+
+  @override
+  String get clubStatusArchived => 'Naka-archive';
+
+  @override
+  String get matchTagSimilarAge => 'Magkasing-edad';
+
+  @override
+  String matchTagBothLike(Object topic) {
+    return 'Pareho ninyong gusto ang $topic';
+  }
+
+  @override
+  String get topicNameCooking => 'Pagluluto';
+
+  @override
+  String get topicNameCoffee => 'Kape at Tsaa';
+
+  @override
+  String get topicNameEatingOut => 'Pagkain sa Labas';
+
+  @override
+  String get topicNameBaking => 'Pagbe-bake';
+
+  @override
+  String get topicNameDrinking => 'Inuman';
+
+  @override
+  String get topicNameStreetFood => 'Street Food';
+
+  @override
+  String get topicNameTravel => 'Paglalakbay';
+
+  @override
+  String get topicNameBackpacking => 'Backpacking';
+
+  @override
+  String get topicNameBeaches => 'Mga Beach';
+
+  @override
+  String get topicNameMountains => 'Mga Bundok';
+
+  @override
+  String get topicNameCamping => 'Camping';
+
+  @override
+  String get topicNameGym => 'Gym';
+
+  @override
+  String get topicNameRunning => 'Pagtakbo';
+
+  @override
+  String get topicNameYoga => 'Yoga';
+
+  @override
+  String get topicNameFootball => 'Football';
+
+  @override
+  String get topicNameBasketball => 'Basketball';
+
+  @override
+  String get topicNameHiking => 'Hiking';
+
+  @override
+  String get topicNameCycling => 'Pagbibisikleta';
+
+  @override
+  String get topicNameDancing => 'Pagsasayaw';
+
+  @override
+  String get topicNameSwimming => 'Paglangoy';
+
+  @override
+  String get topicNameMovies => 'Mga Pelikula';
+
+  @override
+  String get topicNameTvShows => 'Mga Palabas sa TV';
+
+  @override
+  String get topicNameMusic => 'Musika';
+
+  @override
+  String get topicNameGaming => 'Gaming';
+
+  @override
+  String get topicNameAnime => 'Anime at Manga';
+
+  @override
+  String get topicNameKpop => 'K-Pop';
+
+  @override
+  String get topicNameKdrama => 'K-Drama';
+
+  @override
+  String get topicNamePodcasts => 'Mga Podcast';
+
+  @override
+  String get topicNameArt => 'Sining';
+
+  @override
+  String get topicNamePhotography => 'Potograpiya';
+
+  @override
+  String get topicNameBooks => 'Mga Libro';
+
+  @override
+  String get topicNameWriting => 'Pagsusulat';
+
+  @override
+  String get topicNameHistory => 'Kasaysayan';
+
+  @override
+  String get topicNameDesign => 'Disenyo';
+
+  @override
+  String get topicNameFashion => 'Moda';
+
+  @override
+  String get topicNameBeauty => 'Kagandahan at Skincare';
+
+  @override
+  String get topicNameShopping => 'Pamimili';
+
+  @override
+  String get topicNameGardening => 'Paghahalaman';
+
+  @override
+  String get topicNameDiy => 'Gawang-kamay (DIY)';
+
+  @override
+  String get topicNameDogs => 'Mga Aso';
+
+  @override
+  String get topicNameCats => 'Mga Pusa';
+
+  @override
+  String get topicNameNature => 'Kalikasan';
+
+  @override
+  String get topicNameAnimals => 'Mga Hayop';
+
+  @override
+  String get topicNameLanguageExchange => 'Palitan ng Wika';
+
+  @override
+  String get topicNameStudyAbroad => 'Pag-aaral sa Ibang Bansa';
+
+  @override
+  String get topicNameTechnology => 'Teknolohiya';
+
+  @override
+  String get topicNameProgramming => 'Programming';
+
+  @override
+  String get topicNameBusiness => 'Negosyo';
+
+  @override
+  String get topicNameScience => 'Agham';
+
+  @override
+  String get topicNameDailyLife => 'Pang-araw-araw na Buhay';
+
+  @override
+  String get topicNameMakingFriends => 'Pakikipagkaibigan';
+
+  @override
+  String get topicNameRelationships => 'Mga Relasyon';
+
+  @override
+  String get topicNameFamily => 'Pamilya';
+
+  @override
+  String get topicNameNightlife => 'Nightlife';
+
+  @override
+  String get topicNameMentalHealth => 'Kalusugang Pangkaisipan';
+
+  @override
+  String get topicNameMeditation => 'Meditasyon';
+
+  @override
+  String get topicNameNutrition => 'Nutrisyon';
+
+  @override
+  String get topicNameSelfImprovement => 'Pagpapaunlad ng Sarili';
+
+  @override
+  String get topicCategoryFoodDrink => 'Pagkain at Inumin';
+
+  @override
+  String get topicCategoryTravel => 'Paglalakbay at Pakikipagsapalaran';
+
+  @override
+  String get topicCategorySports => 'Sports at Fitness';
+
+  @override
+  String get topicCategoryEntertainment => 'Libangan at Musika';
+
+  @override
+  String get topicCategoryArts => 'Sining at Kultura';
+
+  @override
+  String get topicCategoryLifestyle => 'Pamumuhay';
+
+  @override
+  String get topicCategoryPetsNature => 'Alagang Hayop at Kalikasan';
+
+  @override
+  String get topicCategoryLearning => 'Pag-aaral at Karera';
+
+  @override
+  String get topicCategorySocial => 'Pakikisalamuha';
+
+  @override
+  String get topicCategoryHealth => 'Kalusugan at Kagalingan';
+
+  @override
+  String get waveTooMany => 'Masyadong maraming kaway. Dahan-dahan lang!';
 }

@@ -199,20 +199,15 @@ class _SendWaveSheetState extends ConsumerState<_SendWaveSheet> {
         await _markAlreadyWaved(widget.targetUserId);
         if (!mounted) return;
       }
-      // Surface the backend's actual error string when available so the
-      // user knows *why* it failed (e.g. "Cannot wave at yourself",
-      // "Cannot wave to this user", "User not found", or the permanent
-      // ALREADY_WAVED message). Fall back to the localized generic only if
-      // the exception message is empty/useless.
-      final backendMessage = raw.replaceFirst('Exception: ', '').trim();
-      final fallback = l10n.waveCouldntSend;
+      // The backend's error strings are English-only, so map the known
+      // cases to localized text and everything else to the generic.
       showCommunitySnackBar(
         context,
         message: isRateLimited
             ? l10n.waveCooldown(widget.targetUserName, '24h')
-            : (backendMessage.isEmpty || backendMessage == 'Failed to send wave'
-                  ? fallback
-                  : backendMessage),
+            : isAlreadyWaved
+            ? l10n.waveAlreadySentTo(widget.targetUserName)
+            : l10n.waveCouldntSend,
         type: CommunitySnackBarType.error,
       );
     }

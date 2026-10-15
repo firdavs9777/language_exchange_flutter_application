@@ -163,7 +163,12 @@ class _TopicsTabState extends ConsumerState<TopicsTab> {
               alignment: Alignment.center,
               child: Builder(
                 builder: (context) => Text(
-                  isAllCategory ? AppLocalizations.of(context)!.all : Topic.getCategoryLabel(category),
+                  isAllCategory
+                      ? AppLocalizations.of(context)!.all
+                      : Topic.getCategoryLabel(
+                          category,
+                          AppLocalizations.of(context)!,
+                        ),
                   style: context.labelMedium.copyWith(
                     fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
                     color: isSelected ? primaryColor : context.textSecondary,
@@ -255,7 +260,10 @@ class _TopicsTabState extends ConsumerState<TopicsTab> {
                   builder: (context) => Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(selectedTopic.name, style: context.titleMedium),
+                      Text(
+                        selectedTopic.localizedName(AppLocalizations.of(context)!),
+                        style: context.titleMedium,
+                      ),
                       Text(
                         AppLocalizations.of(context)!.communityPeopleInterestedInTopic,
                         style: context.caption,
@@ -453,7 +461,7 @@ class _TopicCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      topic.name,
+                      topic.localizedName(AppLocalizations.of(context)!),
                       style: context.labelMedium.copyWith(
                         fontWeight: FontWeight.w600,
                         color: context.textPrimary,

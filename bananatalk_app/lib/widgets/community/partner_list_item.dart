@@ -487,7 +487,7 @@ class _WaveButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     return Tooltip(
-      message: 'Wave',
+      message: AppLocalizations.of(context)!.wave,
       child: Container(
         width: 44,
         height: 44,

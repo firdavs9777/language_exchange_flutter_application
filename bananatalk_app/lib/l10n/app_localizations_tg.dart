@@ -11697,4 +11697,263 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get coinHistoryLoadFailed => 'Таърихи тангаҳоро бор кардан нашуд.';
+
+  @override
+  String get waveAlreadySentTooltip => 'Аллакай даст афшондед — ба ҷояш паём фиристед';
+
+  @override
+  String waveAlreadySentTo(Object name) {
+    return 'Шумо аллакай ба $name даст афшондед — ба ҷояш паём фиристед.';
+  }
+
+  @override
+  String get waveAlreadyWaved => 'Даст афшонда шуд';
+
+  @override
+  String get communityCountryDetectFailed => 'Кишварро муайян кардан нашуд';
+
+  @override
+  String get roomPickCategoryError => 'Лутфан категорияро интихоб кунед';
+
+  @override
+  String get blockUserSuccess => 'Корбар баста шуд';
+
+  @override
+  String get blockUserFailed => 'Ин корбарро бастан нашуд';
+
+  @override
+  String get unblockUserSuccess => 'Корбар кушода шуд';
+
+  @override
+  String get unblockUserFailed => 'Ин корбарро кушодан нашуд';
+
+  @override
+  String get clubDeleteFailed => 'Клубро нест кардан нашуд';
+
+  @override
+  String get clubMemberUpdateFailed => 'Ин аъзоро нав кардан нашуд';
+
+  @override
+  String get groupCoverUploadFailed => 'Аксро бор кардан нашуд';
+
+  @override
+  String get groupCoverRemoveFailed => 'Аксро нест кардан нашуд';
+
+  @override
+  String get clubStatusArchived => 'Бойгонӣ шуд';
+
+  @override
+  String get matchTagSimilarAge => 'Синну соли наздик';
+
+  @override
+  String matchTagBothLike(Object topic) {
+    return 'Ҳарду $topic-ро дӯст медоред';
+  }
+
+  @override
+  String get topicNameCooking => 'Пухтупаз';
+
+  @override
+  String get topicNameCoffee => 'Қаҳва ва чой';
+
+  @override
+  String get topicNameEatingOut => 'Хӯрок дар берун';
+
+  @override
+  String get topicNameBaking => 'Нонпазӣ';
+
+  @override
+  String get topicNameDrinking => 'Нӯшокиҳо';
+
+  @override
+  String get topicNameStreetFood => 'Хӯроки кӯчагӣ';
+
+  @override
+  String get topicNameTravel => 'Сафар';
+
+  @override
+  String get topicNameBackpacking => 'Сафар бо ҷузвдон';
+
+  @override
+  String get topicNameBeaches => 'Соҳилҳо';
+
+  @override
+  String get topicNameMountains => 'Кӯҳҳо';
+
+  @override
+  String get topicNameCamping => 'Хаймазанӣ';
+
+  @override
+  String get topicNameGym => 'Толори варзиш';
+
+  @override
+  String get topicNameRunning => 'Давидан';
+
+  @override
+  String get topicNameYoga => 'Йога';
+
+  @override
+  String get topicNameFootball => 'Футбол';
+
+  @override
+  String get topicNameBasketball => 'Баскетбол';
+
+  @override
+  String get topicNameHiking => 'Кӯҳгардӣ';
+
+  @override
+  String get topicNameCycling => 'Велосипедронӣ';
+
+  @override
+  String get topicNameDancing => 'Рақс';
+
+  @override
+  String get topicNameSwimming => 'Шиноварӣ';
+
+  @override
+  String get topicNameMovies => 'Филмҳо';
+
+  @override
+  String get topicNameTvShows => 'Намоишҳои телевизионӣ';
+
+  @override
+  String get topicNameMusic => 'Мусиқӣ';
+
+  @override
+  String get topicNameGaming => 'Бозиҳои видеоӣ';
+
+  @override
+  String get topicNameAnime => 'Аниме ва манга';
+
+  @override
+  String get topicNameKpop => 'K-pop';
+
+  @override
+  String get topicNameKdrama => 'Драмаҳои кореягӣ';
+
+  @override
+  String get topicNamePodcasts => 'Подкастҳо';
+
+  @override
+  String get topicNameArt => 'Санъат';
+
+  @override
+  String get topicNamePhotography => 'Аксбардорӣ';
+
+  @override
+  String get topicNameBooks => 'Китобҳо';
+
+  @override
+  String get topicNameWriting => 'Навиштан';
+
+  @override
+  String get topicNameHistory => 'Таърих';
+
+  @override
+  String get topicNameDesign => 'Дизайн';
+
+  @override
+  String get topicNameFashion => 'Мӯд';
+
+  @override
+  String get topicNameBeauty => 'Зебоӣ ва нигоҳубини пӯст';
+
+  @override
+  String get topicNameShopping => 'Харид';
+
+  @override
+  String get topicNameGardening => 'Боғдорӣ';
+
+  @override
+  String get topicNameDiy => 'Бо дасти худ';
+
+  @override
+  String get topicNameDogs => 'Сагҳо';
+
+  @override
+  String get topicNameCats => 'Гурбаҳо';
+
+  @override
+  String get topicNameNature => 'Табиат';
+
+  @override
+  String get topicNameAnimals => 'Ҳайвонот';
+
+  @override
+  String get topicNameLanguageExchange => 'Мубодилаи забон';
+
+  @override
+  String get topicNameStudyAbroad => 'Таҳсил дар хориҷа';
+
+  @override
+  String get topicNameTechnology => 'Технология';
+
+  @override
+  String get topicNameProgramming => 'Барномасозӣ';
+
+  @override
+  String get topicNameBusiness => 'Тиҷорат';
+
+  @override
+  String get topicNameScience => 'Илм';
+
+  @override
+  String get topicNameDailyLife => 'Ҳаёти ҳаррӯза';
+
+  @override
+  String get topicNameMakingFriends => 'Дӯстёбӣ';
+
+  @override
+  String get topicNameRelationships => 'Муносибатҳо';
+
+  @override
+  String get topicNameFamily => 'Оила';
+
+  @override
+  String get topicNameNightlife => 'Ҳаёти шабона';
+
+  @override
+  String get topicNameMentalHealth => 'Солимии равонӣ';
+
+  @override
+  String get topicNameMeditation => 'Мулоҳиза';
+
+  @override
+  String get topicNameNutrition => 'Ғизо';
+
+  @override
+  String get topicNameSelfImprovement => 'Худинкишофдиҳӣ';
+
+  @override
+  String get topicCategoryFoodDrink => 'Хӯрок ва нӯшокӣ';
+
+  @override
+  String get topicCategoryTravel => 'Сафар ва саёҳат';
+
+  @override
+  String get topicCategorySports => 'Варзиш ва фитнес';
+
+  @override
+  String get topicCategoryEntertainment => 'Фароғат ва мусиқӣ';
+
+  @override
+  String get topicCategoryArts => 'Санъат ва фарҳанг';
+
+  @override
+  String get topicCategoryLifestyle => 'Тарзи зиндагӣ';
+
+  @override
+  String get topicCategoryPetsNature => 'Ҳайвоноти хонагӣ ва табиат';
+
+  @override
+  String get topicCategoryLearning => 'Таҳсил ва касб';
+
+  @override
+  String get topicCategorySocial => 'Иҷтимоӣ';
+
+  @override
+  String get topicCategoryHealth => 'Саломатӣ ва некӯаҳволӣ';
+
+  @override
+  String get waveTooMany => 'Даст афшондан аз ҳад зиёд. Лутфан оҳистатар!';
 }

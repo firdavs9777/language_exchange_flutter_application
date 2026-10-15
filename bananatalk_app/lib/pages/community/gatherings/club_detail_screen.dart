@@ -178,7 +178,7 @@ class _ClubDetailScreenState extends State<ClubDetailScreen> {
       if (result.success) _future = _api.getClub(widget.clubId);
     });
     if (!result.success) {
-      showCommunitySnackBar(context, message: result.error ?? '');
+      showCommunitySnackBar(context, message: AppLocalizations.of(context)!.failedToSave);
     }
   }
 
@@ -218,7 +218,7 @@ class _ClubDetailScreenState extends State<ClubDetailScreen> {
     if (result.success) {
       Navigator.of(context).pop(true);
     } else {
-      showCommunitySnackBar(context, message: result.error ?? '');
+      showCommunitySnackBar(context, message: AppLocalizations.of(context)!.clubDeleteFailed);
     }
   }
 
@@ -276,7 +276,7 @@ class _ClubDetailScreenState extends State<ClubDetailScreen> {
       if (result.success) _future = _api.getClub(widget.clubId);
     });
     if (!result.success) {
-      showCommunitySnackBar(context, message: result.error ?? '');
+      showCommunitySnackBar(context, message: AppLocalizations.of(context)!.clubMemberUpdateFailed);
     }
   }
 
@@ -291,7 +291,7 @@ class _ClubDetailScreenState extends State<ClubDetailScreen> {
       if (result.success) _future = _api.getClub(widget.clubId);
     });
     if (!result.success) {
-      showCommunitySnackBar(context, message: result.error ?? '');
+      showCommunitySnackBar(context, message: AppLocalizations.of(context)!.groupCoverUploadFailed);
     }
   }
 
@@ -340,7 +340,7 @@ class _ClubDetailScreenState extends State<ClubDetailScreen> {
         if (result.success) _future = _api.getClub(widget.clubId);
       });
       if (!result.success) {
-        showCommunitySnackBar(context, message: result.error ?? '');
+        showCommunitySnackBar(context, message: AppLocalizations.of(context)!.groupCoverRemoveFailed);
       }
       return;
     }
@@ -362,7 +362,7 @@ class _ClubDetailScreenState extends State<ClubDetailScreen> {
       if (result.success) _future = _api.getClub(widget.clubId);
     });
     if (!result.success) {
-      showCommunitySnackBar(context, message: result.error ?? '');
+      showCommunitySnackBar(context, message: AppLocalizations.of(context)!.groupCoverUploadFailed);
     }
   }
 

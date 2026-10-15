@@ -258,7 +258,7 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab>
                     (topic) => Padding(
                       padding: const EdgeInsets.only(right: 8),
                       child: CommunityFilterChip(
-                        label: topic.name,
+                        label: topic.localizedName(AppLocalizations.of(context)!),
                         emoji: topic.icon,
                         isSelected: _selectedTopic == topic.id,
                         onTap: () => _setTopicFilter(

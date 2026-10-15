@@ -11751,4 +11751,263 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get coinHistoryLoadFailed => 'تعذّر تحميل سجل العملات.';
+
+  @override
+  String get waveAlreadySentTooltip => 'لوّحت بالفعل — أرسل رسالة بدلًا من ذلك';
+
+  @override
+  String waveAlreadySentTo(Object name) {
+    return 'لقد لوّحت لـ $name بالفعل — أرسل له رسالة بدلًا من ذلك.';
+  }
+
+  @override
+  String get waveAlreadyWaved => 'تم التلويح';
+
+  @override
+  String get communityCountryDetectFailed => 'تعذّر تحديد الدولة';
+
+  @override
+  String get roomPickCategoryError => 'يرجى اختيار فئة';
+
+  @override
+  String get blockUserSuccess => 'تم حظر المستخدم';
+
+  @override
+  String get blockUserFailed => 'تعذّر حظر هذا المستخدم';
+
+  @override
+  String get unblockUserSuccess => 'تم إلغاء حظر المستخدم';
+
+  @override
+  String get unblockUserFailed => 'تعذّر إلغاء حظر هذا المستخدم';
+
+  @override
+  String get clubDeleteFailed => 'تعذّر حذف النادي';
+
+  @override
+  String get clubMemberUpdateFailed => 'تعذّر تحديث هذا العضو';
+
+  @override
+  String get groupCoverUploadFailed => 'تعذّر رفع الصورة';
+
+  @override
+  String get groupCoverRemoveFailed => 'تعذّرت إزالة الصورة';
+
+  @override
+  String get clubStatusArchived => 'مؤرشف';
+
+  @override
+  String get matchTagSimilarAge => 'عمر متقارب';
+
+  @override
+  String matchTagBothLike(Object topic) {
+    return 'كلاكما يحب $topic';
+  }
+
+  @override
+  String get topicNameCooking => 'الطبخ';
+
+  @override
+  String get topicNameCoffee => 'القهوة والشاي';
+
+  @override
+  String get topicNameEatingOut => 'تناول الطعام في الخارج';
+
+  @override
+  String get topicNameBaking => 'الخَبز';
+
+  @override
+  String get topicNameDrinking => 'المشروبات';
+
+  @override
+  String get topicNameStreetFood => 'طعام الشارع';
+
+  @override
+  String get topicNameTravel => 'السفر';
+
+  @override
+  String get topicNameBackpacking => 'السفر بحقيبة الظهر';
+
+  @override
+  String get topicNameBeaches => 'الشواطئ';
+
+  @override
+  String get topicNameMountains => 'الجبال';
+
+  @override
+  String get topicNameCamping => 'التخييم';
+
+  @override
+  String get topicNameGym => 'النادي الرياضي';
+
+  @override
+  String get topicNameRunning => 'الجري';
+
+  @override
+  String get topicNameYoga => 'اليوغا';
+
+  @override
+  String get topicNameFootball => 'كرة القدم';
+
+  @override
+  String get topicNameBasketball => 'كرة السلة';
+
+  @override
+  String get topicNameHiking => 'المشي لمسافات طويلة';
+
+  @override
+  String get topicNameCycling => 'ركوب الدراجات';
+
+  @override
+  String get topicNameDancing => 'الرقص';
+
+  @override
+  String get topicNameSwimming => 'السباحة';
+
+  @override
+  String get topicNameMovies => 'الأفلام';
+
+  @override
+  String get topicNameTvShows => 'البرامج التلفزيونية';
+
+  @override
+  String get topicNameMusic => 'الموسيقى';
+
+  @override
+  String get topicNameGaming => 'ألعاب الفيديو';
+
+  @override
+  String get topicNameAnime => 'الأنمي والمانغا';
+
+  @override
+  String get topicNameKpop => 'الكي-بوب';
+
+  @override
+  String get topicNameKdrama => 'الدراما الكورية';
+
+  @override
+  String get topicNamePodcasts => 'البودكاست';
+
+  @override
+  String get topicNameArt => 'الفن';
+
+  @override
+  String get topicNamePhotography => 'التصوير';
+
+  @override
+  String get topicNameBooks => 'الكتب';
+
+  @override
+  String get topicNameWriting => 'الكتابة';
+
+  @override
+  String get topicNameHistory => 'التاريخ';
+
+  @override
+  String get topicNameDesign => 'التصميم';
+
+  @override
+  String get topicNameFashion => 'الموضة';
+
+  @override
+  String get topicNameBeauty => 'الجمال والعناية بالبشرة';
+
+  @override
+  String get topicNameShopping => 'التسوق';
+
+  @override
+  String get topicNameGardening => 'البستنة';
+
+  @override
+  String get topicNameDiy => 'اصنعها بنفسك';
+
+  @override
+  String get topicNameDogs => 'الكلاب';
+
+  @override
+  String get topicNameCats => 'القطط';
+
+  @override
+  String get topicNameNature => 'الطبيعة';
+
+  @override
+  String get topicNameAnimals => 'الحيوانات';
+
+  @override
+  String get topicNameLanguageExchange => 'تبادل اللغات';
+
+  @override
+  String get topicNameStudyAbroad => 'الدراسة في الخارج';
+
+  @override
+  String get topicNameTechnology => 'التكنولوجيا';
+
+  @override
+  String get topicNameProgramming => 'البرمجة';
+
+  @override
+  String get topicNameBusiness => 'الأعمال';
+
+  @override
+  String get topicNameScience => 'العلوم';
+
+  @override
+  String get topicNameDailyLife => 'الحياة اليومية';
+
+  @override
+  String get topicNameMakingFriends => 'تكوين صداقات';
+
+  @override
+  String get topicNameRelationships => 'العلاقات';
+
+  @override
+  String get topicNameFamily => 'العائلة';
+
+  @override
+  String get topicNameNightlife => 'الحياة الليلية';
+
+  @override
+  String get topicNameMentalHealth => 'الصحة النفسية';
+
+  @override
+  String get topicNameMeditation => 'التأمل';
+
+  @override
+  String get topicNameNutrition => 'التغذية';
+
+  @override
+  String get topicNameSelfImprovement => 'تطوير الذات';
+
+  @override
+  String get topicCategoryFoodDrink => 'الطعام والشراب';
+
+  @override
+  String get topicCategoryTravel => 'السفر والمغامرة';
+
+  @override
+  String get topicCategorySports => 'الرياضة واللياقة';
+
+  @override
+  String get topicCategoryEntertainment => 'الترفيه والموسيقى';
+
+  @override
+  String get topicCategoryArts => 'الفنون والثقافة';
+
+  @override
+  String get topicCategoryLifestyle => 'أسلوب الحياة';
+
+  @override
+  String get topicCategoryPetsNature => 'الحيوانات الأليفة والطبيعة';
+
+  @override
+  String get topicCategoryLearning => 'التعلم والمسار المهني';
+
+  @override
+  String get topicCategorySocial => 'اجتماعي';
+
+  @override
+  String get topicCategoryHealth => 'الصحة والعافية';
+
+  @override
+  String get waveTooMany => 'تلويحات كثيرة جدًا. تمهّل قليلًا!';
 }

@@ -210,6 +210,9 @@ class Gathering {
   /// decides whether to grey the button before the round trip.
   bool get isFull => going >= capacity;
 
+  /// RSVPs are requests the host approves (`joinMode: 'approval'`).
+  bool get needsApproval => joinMode == 'approval';
+
   bool get isOpenForRsvp =>
       status == GatheringStatus.scheduled || status == GatheringStatus.confirmed;
 
@@ -329,6 +332,9 @@ class Club {
   final GatheringHost owner;
   final int memberCount;
   final String status;
+
+  /// Server statuses are 'active' and 'archived'.
+  bool get isArchived => status == 'archived';
   final bool viewerIsMember;
   final bool viewerIsOwner;
 

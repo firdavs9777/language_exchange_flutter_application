@@ -4,6 +4,7 @@ import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 enum MatchTagKind { isNew, similarAge, sharedTopic, repliesFast }
 
@@ -87,11 +88,12 @@ class CommunityMatchTags extends ConsumerWidget {
 
   Widget _chip(BuildContext context, MatchTag tag) {
     final isBanana = tag.kind == MatchTagKind.isNew;
+    final l10n = AppLocalizations.of(context)!;
     final label = switch (tag.kind) {
-      MatchTagKind.isNew => 'New',
-      MatchTagKind.similarAge => 'Similar age',
-      MatchTagKind.sharedTopic => 'Both like ${tag.value}',
-      MatchTagKind.repliesFast => 'Replies fast',
+      MatchTagKind.isNew => l10n.highlightNewBadge,
+      MatchTagKind.similarAge => l10n.matchTagSimilarAge,
+      MatchTagKind.sharedTopic => l10n.matchTagBothLike(tag.value ?? ''),
+      MatchTagKind.repliesFast => l10n.matchRepliesFast,
     };
 
     return Container(

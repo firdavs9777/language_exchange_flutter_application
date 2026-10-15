@@ -1311,7 +1311,9 @@ class _SwipeBackground extends StatelessWidget {
           ),
           Spacing.gapSM,
           Text(
-            isWave ? 'Wave' : 'Skip',
+            isWave
+                ? AppLocalizations.of(context)!.wave
+                : AppLocalizations.of(context)!.skip,
             style: context.titleLarge.copyWith(
               color: isWave ? AppColors.success : context.textMuted,
             ),

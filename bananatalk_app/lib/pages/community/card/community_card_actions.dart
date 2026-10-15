@@ -8,6 +8,7 @@ import 'package:bananatalk_app/pages/community/widgets/send_wave_sheet.dart';
 import 'package:bananatalk_app/pages/community/widgets/conversation_starter_ribbon.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 /// Actions block for [CommunityCard].
 ///
@@ -74,8 +75,8 @@ class CommunityCardActions extends ConsumerWidget {
     final isActive = !alreadyWaved;
     return Tooltip(
       message: alreadyWaved
-          ? 'Already waved — send a message instead'
-          : 'Send a wave',
+          ? AppLocalizations.of(context)!.waveAlreadySentTooltip
+          : AppLocalizations.of(context)!.sendWave,
       child: Container(
         width: 50,
         height: 50,

@@ -11677,4 +11677,263 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get coinHistoryLoadFailed => 'Không tải được lịch sử xu.';
+
+  @override
+  String get waveAlreadySentTooltip => 'Đã vẫy tay — hãy gửi tin nhắn';
+
+  @override
+  String waveAlreadySentTo(Object name) {
+    return 'Bạn đã vẫy tay với $name — hãy gửi tin nhắn.';
+  }
+
+  @override
+  String get waveAlreadyWaved => 'Đã vẫy tay';
+
+  @override
+  String get communityCountryDetectFailed => 'Không xác định được quốc gia';
+
+  @override
+  String get roomPickCategoryError => 'Vui lòng chọn danh mục';
+
+  @override
+  String get blockUserSuccess => 'Đã chặn người dùng';
+
+  @override
+  String get blockUserFailed => 'Không chặn được người dùng này';
+
+  @override
+  String get unblockUserSuccess => 'Đã bỏ chặn người dùng';
+
+  @override
+  String get unblockUserFailed => 'Không bỏ chặn được người dùng này';
+
+  @override
+  String get clubDeleteFailed => 'Không xóa được câu lạc bộ';
+
+  @override
+  String get clubMemberUpdateFailed => 'Không cập nhật được thành viên này';
+
+  @override
+  String get groupCoverUploadFailed => 'Không tải ảnh lên được';
+
+  @override
+  String get groupCoverRemoveFailed => 'Không gỡ được ảnh';
+
+  @override
+  String get clubStatusArchived => 'Đã lưu trữ';
+
+  @override
+  String get matchTagSimilarAge => 'Tuổi tương đồng';
+
+  @override
+  String matchTagBothLike(Object topic) {
+    return 'Cùng thích $topic';
+  }
+
+  @override
+  String get topicNameCooking => 'Nấu ăn';
+
+  @override
+  String get topicNameCoffee => 'Cà phê & Trà';
+
+  @override
+  String get topicNameEatingOut => 'Ăn ngoài';
+
+  @override
+  String get topicNameBaking => 'Làm bánh';
+
+  @override
+  String get topicNameDrinking => 'Đồ uống';
+
+  @override
+  String get topicNameStreetFood => 'Ẩm thực đường phố';
+
+  @override
+  String get topicNameTravel => 'Du lịch';
+
+  @override
+  String get topicNameBackpacking => 'Du lịch bụi';
+
+  @override
+  String get topicNameBeaches => 'Bãi biển';
+
+  @override
+  String get topicNameMountains => 'Núi';
+
+  @override
+  String get topicNameCamping => 'Cắm trại';
+
+  @override
+  String get topicNameGym => 'Phòng gym';
+
+  @override
+  String get topicNameRunning => 'Chạy bộ';
+
+  @override
+  String get topicNameYoga => 'Yoga';
+
+  @override
+  String get topicNameFootball => 'Bóng đá';
+
+  @override
+  String get topicNameBasketball => 'Bóng rổ';
+
+  @override
+  String get topicNameHiking => 'Leo núi';
+
+  @override
+  String get topicNameCycling => 'Đạp xe';
+
+  @override
+  String get topicNameDancing => 'Khiêu vũ';
+
+  @override
+  String get topicNameSwimming => 'Bơi lội';
+
+  @override
+  String get topicNameMovies => 'Phim ảnh';
+
+  @override
+  String get topicNameTvShows => 'Chương trình TV';
+
+  @override
+  String get topicNameMusic => 'Âm nhạc';
+
+  @override
+  String get topicNameGaming => 'Chơi game';
+
+  @override
+  String get topicNameAnime => 'Anime & Manga';
+
+  @override
+  String get topicNameKpop => 'K-Pop';
+
+  @override
+  String get topicNameKdrama => 'Phim Hàn';
+
+  @override
+  String get topicNamePodcasts => 'Podcast';
+
+  @override
+  String get topicNameArt => 'Nghệ thuật';
+
+  @override
+  String get topicNamePhotography => 'Nhiếp ảnh';
+
+  @override
+  String get topicNameBooks => 'Sách';
+
+  @override
+  String get topicNameWriting => 'Viết lách';
+
+  @override
+  String get topicNameHistory => 'Lịch sử';
+
+  @override
+  String get topicNameDesign => 'Thiết kế';
+
+  @override
+  String get topicNameFashion => 'Thời trang';
+
+  @override
+  String get topicNameBeauty => 'Làm đẹp & Chăm sóc da';
+
+  @override
+  String get topicNameShopping => 'Mua sắm';
+
+  @override
+  String get topicNameGardening => 'Làm vườn';
+
+  @override
+  String get topicNameDiy => 'Tự làm (DIY)';
+
+  @override
+  String get topicNameDogs => 'Chó';
+
+  @override
+  String get topicNameCats => 'Mèo';
+
+  @override
+  String get topicNameNature => 'Thiên nhiên';
+
+  @override
+  String get topicNameAnimals => 'Động vật';
+
+  @override
+  String get topicNameLanguageExchange => 'Trao đổi ngôn ngữ';
+
+  @override
+  String get topicNameStudyAbroad => 'Du học';
+
+  @override
+  String get topicNameTechnology => 'Công nghệ';
+
+  @override
+  String get topicNameProgramming => 'Lập trình';
+
+  @override
+  String get topicNameBusiness => 'Kinh doanh';
+
+  @override
+  String get topicNameScience => 'Khoa học';
+
+  @override
+  String get topicNameDailyLife => 'Cuộc sống hằng ngày';
+
+  @override
+  String get topicNameMakingFriends => 'Kết bạn';
+
+  @override
+  String get topicNameRelationships => 'Các mối quan hệ';
+
+  @override
+  String get topicNameFamily => 'Gia đình';
+
+  @override
+  String get topicNameNightlife => 'Cuộc sống về đêm';
+
+  @override
+  String get topicNameMentalHealth => 'Sức khỏe tinh thần';
+
+  @override
+  String get topicNameMeditation => 'Thiền';
+
+  @override
+  String get topicNameNutrition => 'Dinh dưỡng';
+
+  @override
+  String get topicNameSelfImprovement => 'Phát triển bản thân';
+
+  @override
+  String get topicCategoryFoodDrink => 'Ẩm thực & Đồ uống';
+
+  @override
+  String get topicCategoryTravel => 'Du lịch & Phiêu lưu';
+
+  @override
+  String get topicCategorySports => 'Thể thao & Thể hình';
+
+  @override
+  String get topicCategoryEntertainment => 'Giải trí & Âm nhạc';
+
+  @override
+  String get topicCategoryArts => 'Nghệ thuật & Văn hóa';
+
+  @override
+  String get topicCategoryLifestyle => 'Lối sống';
+
+  @override
+  String get topicCategoryPetsNature => 'Thú cưng & Thiên nhiên';
+
+  @override
+  String get topicCategoryLearning => 'Học tập & Sự nghiệp';
+
+  @override
+  String get topicCategorySocial => 'Xã hội';
+
+  @override
+  String get topicCategoryHealth => 'Sức khỏe & Tinh thần';
+
+  @override
+  String get waveTooMany => 'Vẫy tay quá nhiều. Chậm lại nhé!';
 }

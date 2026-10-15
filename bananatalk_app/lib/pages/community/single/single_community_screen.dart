@@ -369,7 +369,9 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
     if (mounted) {
       showCommunitySnackBar(
         context,
-        message: result['message'] ?? 'Operation completed',
+        message: result['success'] == true
+            ? AppLocalizations.of(context)!.unblockUserSuccess
+            : AppLocalizations.of(context)!.unblockUserFailed,
         type: result['success']
             ? CommunitySnackBarType.success
             : CommunitySnackBarType.error,

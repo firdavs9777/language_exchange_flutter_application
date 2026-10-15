@@ -292,7 +292,7 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
         if (mounted) {
           showCommunitySnackBar(
             context,
-            message: 'Location permission is required',
+            message: AppLocalizations.of(context)!.locationPermissionRequired,
             type: CommunitySnackBarType.info,
           );
         }
@@ -346,7 +346,7 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
       if (mounted) {
         showCommunitySnackBar(
           context,
-          message: 'Could not detect country',
+          message: AppLocalizations.of(context)!.communityCountryDetectFailed,
           type: CommunitySnackBarType.info,
         );
       }

@@ -54,7 +54,7 @@ class _CreateRoomSheetState extends ConsumerState<CreateRoomSheet> {
     if (titleEmpty || categoryEmpty) {
       setState(() {
         _titleError = titleEmpty ? l10n.pleaseEnterRoomTitle : null;
-        _categoryError = categoryEmpty ? 'Please pick a category' : null;
+        _categoryError = categoryEmpty ? l10n.roomPickCategoryError : null;
       });
       // Toast the first missing field for visibility on screens that
       // scroll the form below the fold.
@@ -62,7 +62,7 @@ class _CreateRoomSheetState extends ConsumerState<CreateRoomSheet> {
         context,
         message: titleEmpty
             ? l10n.pleaseEnterRoomTitle
-            : 'Please pick a category',
+            : l10n.roomPickCategoryError,
         type: CommunitySnackBarType.error,
       );
       return;
@@ -497,7 +497,7 @@ class _CreateRoomSheetState extends ConsumerState<CreateRoomSheet> {
                 Text(topic.icon, style: const TextStyle(fontSize: 16)),
                 Spacing.hGapSM,
                 Text(
-                  topic.name,
+                  topic.localizedName(AppLocalizations.of(context)!),
                   style: TextStyle(
                     fontSize: 13,
                     fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,

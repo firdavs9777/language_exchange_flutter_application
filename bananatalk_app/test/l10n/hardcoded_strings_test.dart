@@ -611,6 +611,91 @@ const Map<String, List<String>> _keysByTask = {
     'networkWifi',
     'networkMobileData',
     'networkEthernet',
+    'waveAlreadySentTooltip',
+    'waveAlreadySentTo',
+    'waveAlreadyWaved',
+    'communityCountryDetectFailed',
+    'roomPickCategoryError',
+    'blockUserSuccess',
+    'blockUserFailed',
+    'unblockUserSuccess',
+    'unblockUserFailed',
+    'clubDeleteFailed',
+    'clubMemberUpdateFailed',
+    'groupCoverUploadFailed',
+    'groupCoverRemoveFailed',
+    'clubStatusArchived',
+    'matchTagSimilarAge',
+    'matchTagBothLike',
+    'topicNameCooking',
+    'topicNameCoffee',
+    'topicNameEatingOut',
+    'topicNameBaking',
+    'topicNameDrinking',
+    'topicNameStreetFood',
+    'topicNameTravel',
+    'topicNameBackpacking',
+    'topicNameBeaches',
+    'topicNameMountains',
+    'topicNameCamping',
+    'topicNameGym',
+    'topicNameRunning',
+    'topicNameYoga',
+    'topicNameFootball',
+    'topicNameBasketball',
+    'topicNameHiking',
+    'topicNameCycling',
+    'topicNameDancing',
+    'topicNameSwimming',
+    'topicNameMovies',
+    'topicNameTvShows',
+    'topicNameMusic',
+    'topicNameGaming',
+    'topicNameAnime',
+    'topicNameKpop',
+    'topicNameKdrama',
+    'topicNamePodcasts',
+    'topicNameArt',
+    'topicNamePhotography',
+    'topicNameBooks',
+    'topicNameWriting',
+    'topicNameHistory',
+    'topicNameDesign',
+    'topicNameFashion',
+    'topicNameBeauty',
+    'topicNameShopping',
+    'topicNameGardening',
+    'topicNameDiy',
+    'topicNameDogs',
+    'topicNameCats',
+    'topicNameNature',
+    'topicNameAnimals',
+    'topicNameLanguageExchange',
+    'topicNameStudyAbroad',
+    'topicNameTechnology',
+    'topicNameProgramming',
+    'topicNameBusiness',
+    'topicNameScience',
+    'topicNameDailyLife',
+    'topicNameMakingFriends',
+    'topicNameRelationships',
+    'topicNameFamily',
+    'topicNameNightlife',
+    'topicNameMentalHealth',
+    'topicNameMeditation',
+    'topicNameNutrition',
+    'topicNameSelfImprovement',
+    'topicCategoryFoodDrink',
+    'topicCategoryTravel',
+    'topicCategorySports',
+    'topicCategoryEntertainment',
+    'topicCategoryArts',
+    'topicCategoryLifestyle',
+    'topicCategoryPetsNature',
+    'topicCategoryLearning',
+    'topicCategorySocial',
+    'topicCategoryHealth',
+    'waveTooMany',
   ],
 };
 
@@ -852,6 +937,10 @@ const Map<String, List<String>> _filesByTask = {
     'pages/settings/notification_preferences_screen.dart',
     'pages/settings/account_deletion.dart',
     'pages/coins/coin_history_screen.dart',
+    'models/community/topic_model.dart',
+    'pages/community/single/single_community_actions.dart',
+    'pages/community/widgets/wave_error_snackbar.dart',
+    'pages/community/card/community_match_tags.dart',
   ],
 };
 
@@ -908,6 +997,31 @@ const Map<String, Set<String>> _mayMatchEnglish = {
   'networkWifi': {'es', 'fr', 'id', 'it', 'ja', 'pt', 'ru', 'tg', 'th', 'tl', 'tr', 'vi', 'zh_TW'}, // es/fr/id/it/ja/pt/ru/tg/th/tl/tr/vi/zh_TW: same word / loanword as English
   'networkMobileData': {'tl'}, // tl: same word / loanword as English
   'networkEthernet': {'de', 'es', 'fr', 'id', 'it', 'pt', 'ru', 'tg', 'tl', 'tr', 'vi'}, // de/es/fr/id/it/pt/ru/tg/tl/tr/vi: same word / loanword as English
+  'topicNameStreetFood': {'tl'}, // tl: same word / loanword as English
+  'topicNameBackpacking': {'id', 'tl'}, // id/tl: same word / loanword as English
+  'topicNameCamping': {'de', 'fr', 'tl'}, // de/fr/tl: same word / loanword as English
+  'topicNameGym': {'id', 'tl'}, // id/tl: same word / loanword as English
+  'topicNameYoga': {'de', 'es', 'fr', 'id', 'it', 'tl', 'tr', 'vi'}, // de/es/fr/id/it/tl/tr/vi: same word / loanword as English
+  'topicNameFootball': {'fr', 'tl'}, // fr/tl: same word / loanword as English
+  'topicNameBasketball': {'de', 'tl'}, // de/tl: same word / loanword as English
+  'topicNameHiking': {'tl'}, // tl: same word / loanword as English
+  'topicNameGaming': {'de', 'tl'}, // de/tl: same word / loanword as English
+  'topicNameAnime': {'de', 'id', 'tr', 'vi'}, // de/id/tr/vi: same word / loanword as English
+  'topicNameKpop': {'de', 'id', 'tl', 'tr', 'vi'}, // de/id/tl/tr/vi: same word / loanword as English
+  'topicNameKdrama': {'de', 'tl'}, // de/tl: same word / loanword as English
+  'topicNamePodcasts': {'de', 'fr', 'pt'}, // de/fr/pt: same word / loanword as English
+  'topicNameArt': {'fr'}, // fr: same word / loanword as English
+  'topicNameDesign': {'de', 'fr', 'it', 'pt'}, // de/fr/it/pt: same word / loanword as English
+  'topicNameShopping': {'de', 'fr', 'it'}, // de/fr/it: same word / loanword as English
+  'topicNameDiy': {'ja', 'ko'}, // ja/ko: same word / loanword as English
+  'topicNameNature': {'fr'}, // fr: same word / loanword as English
+  'topicNameProgramming': {'tl'}, // tl: same word / loanword as English
+  'topicNameBusiness': {'it'}, // it: same word / loanword as English
+  'topicNameNightlife': {'tl'}, // tl: same word / loanword as English
+  'topicNameMeditation': {'de'}, // de: same word / loanword as English
+  'topicNameNutrition': {'fr'}, // fr: same word / loanword as English
+  'topicCategoryLifestyle': {'de'}, // de: same word / loanword as English
+  'topicCategorySocial': {'es', 'fr', 'pt'}, // es/fr/pt: same word / loanword as English
 };
 
 final _placeholder = RegExp(r'\{(\w+)[,}]');

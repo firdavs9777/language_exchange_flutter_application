@@ -107,7 +107,7 @@ class ConversationStartersCard extends ConsumerWidget {
       );
       starters.add(StarterSuggestion(
         icon: topic.icon,
-        text: l10n.communityConversationStartersTopic(topic.name),
+        text: l10n.communityConversationStartersTopic(topic.localizedName(l10n)),
         actionText:
             "Hey! I saw you're into ${topic.name} too. What's your favorite?",
         type: StarterType.sharedTopic,

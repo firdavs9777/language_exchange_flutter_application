@@ -10,19 +10,19 @@ import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/widgets/limit_exceeded_dialog.dart';
 
 /// Surfaces a failed `sendWave` to the user, mirroring send_wave_sheet.dart:
-/// the backend's own message (e.g. the permanent ALREADY_WAVED text) when
-/// there is one, the localized generic otherwise.
+/// the legacy 429 ("too many waves") and the permanent ALREADY_WAVED case
+/// get their own localized text, anything else the localized generic (the
+/// backend's message is English-only).
 void showWaveError(BuildContext context, Object error) {
   final l10n = AppLocalizations.of(context)!;
-  final backendMessage = error
-      .toString()
-      .replaceFirst('Exception: ', '')
-      .trim();
+  final lower = error.toString().toLowerCase();
   showCommunitySnackBar(
     context,
-    message: (backendMessage.isEmpty || backendMessage == 'Failed to send wave')
-        ? l10n.waveCouldntSend
-        : backendMessage,
+    message: lower.contains('too many waves')
+        ? l10n.waveTooMany
+        : lower.contains('already waved')
+        ? l10n.waveAlreadySentTooltip
+        : l10n.waveCouldntSend,
     type: CommunitySnackBarType.error,
   );
 }

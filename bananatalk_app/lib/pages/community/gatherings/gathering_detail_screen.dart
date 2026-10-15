@@ -87,7 +87,7 @@ class _GatheringDetailScreenState extends State<GatheringDetailScreen> {
       if (result.success) {
         await _reload();
       } else {
-        showCommunitySnackBar(context, message: result.error ?? '');
+        showCommunitySnackBar(context, message: AppLocalizations.of(context)!.groupCoverRemoveFailed);
       }
       return;
     }
@@ -104,7 +104,7 @@ class _GatheringDetailScreenState extends State<GatheringDetailScreen> {
     if (result.success) {
       await _reload();
     } else {
-      showCommunitySnackBar(context, message: result.error ?? '');
+      showCommunitySnackBar(context, message: AppLocalizations.of(context)!.groupCoverUploadFailed);
     }
   }
 
@@ -548,7 +548,7 @@ class _GatheringDetailScreenState extends State<GatheringDetailScreen> {
           child: Text(
             gathering.isFull
                 ? l10n.gatheringFull
-                : gathering.joinMode == 'approval'
+                : gathering.needsApproval
                 ? l10n.gatheringAskToJoin
                 : l10n.gatheringJoin,
           ),

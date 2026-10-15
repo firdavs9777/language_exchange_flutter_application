@@ -11677,4 +11677,263 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get coinHistoryLoadFailed => 'コイン履歴を読み込めませんでした。';
+
+  @override
+  String get waveAlreadySentTooltip => '手を振り済み — メッセージを送りましょう';
+
+  @override
+  String waveAlreadySentTo(Object name) {
+    return '$nameさんにはすでに手を振りました。メッセージを送りましょう。';
+  }
+
+  @override
+  String get waveAlreadyWaved => '手を振り済み';
+
+  @override
+  String get communityCountryDetectFailed => '国を検出できませんでした';
+
+  @override
+  String get roomPickCategoryError => 'カテゴリを選んでください';
+
+  @override
+  String get blockUserSuccess => 'ユーザーをブロックしました';
+
+  @override
+  String get blockUserFailed => 'このユーザーをブロックできませんでした';
+
+  @override
+  String get unblockUserSuccess => 'ブロックを解除しました';
+
+  @override
+  String get unblockUserFailed => 'ブロックを解除できませんでした';
+
+  @override
+  String get clubDeleteFailed => 'クラブを削除できませんでした';
+
+  @override
+  String get clubMemberUpdateFailed => 'このメンバーを更新できませんでした';
+
+  @override
+  String get groupCoverUploadFailed => '写真をアップロードできませんでした';
+
+  @override
+  String get groupCoverRemoveFailed => '写真を削除できませんでした';
+
+  @override
+  String get clubStatusArchived => 'アーカイブ済み';
+
+  @override
+  String get matchTagSimilarAge => '同年代';
+
+  @override
+  String matchTagBothLike(Object topic) {
+    return '共通の趣味: $topic';
+  }
+
+  @override
+  String get topicNameCooking => '料理';
+
+  @override
+  String get topicNameCoffee => 'コーヒー＆紅茶';
+
+  @override
+  String get topicNameEatingOut => '外食';
+
+  @override
+  String get topicNameBaking => 'お菓子作り';
+
+  @override
+  String get topicNameDrinking => 'お酒';
+
+  @override
+  String get topicNameStreetFood => '屋台グルメ';
+
+  @override
+  String get topicNameTravel => '旅行';
+
+  @override
+  String get topicNameBackpacking => 'バックパッカー';
+
+  @override
+  String get topicNameBeaches => 'ビーチ';
+
+  @override
+  String get topicNameMountains => '山';
+
+  @override
+  String get topicNameCamping => 'キャンプ';
+
+  @override
+  String get topicNameGym => 'ジム';
+
+  @override
+  String get topicNameRunning => 'ランニング';
+
+  @override
+  String get topicNameYoga => 'ヨガ';
+
+  @override
+  String get topicNameFootball => 'サッカー';
+
+  @override
+  String get topicNameBasketball => 'バスケットボール';
+
+  @override
+  String get topicNameHiking => 'ハイキング';
+
+  @override
+  String get topicNameCycling => 'サイクリング';
+
+  @override
+  String get topicNameDancing => 'ダンス';
+
+  @override
+  String get topicNameSwimming => '水泳';
+
+  @override
+  String get topicNameMovies => '映画';
+
+  @override
+  String get topicNameTvShows => 'テレビ番組';
+
+  @override
+  String get topicNameMusic => '音楽';
+
+  @override
+  String get topicNameGaming => 'ゲーム';
+
+  @override
+  String get topicNameAnime => 'アニメ・マンガ';
+
+  @override
+  String get topicNameKpop => 'K-POP';
+
+  @override
+  String get topicNameKdrama => '韓国ドラマ';
+
+  @override
+  String get topicNamePodcasts => 'ポッドキャスト';
+
+  @override
+  String get topicNameArt => 'アート';
+
+  @override
+  String get topicNamePhotography => '写真';
+
+  @override
+  String get topicNameBooks => '本';
+
+  @override
+  String get topicNameWriting => '執筆';
+
+  @override
+  String get topicNameHistory => '歴史';
+
+  @override
+  String get topicNameDesign => 'デザイン';
+
+  @override
+  String get topicNameFashion => 'ファッション';
+
+  @override
+  String get topicNameBeauty => '美容・スキンケア';
+
+  @override
+  String get topicNameShopping => 'ショッピング';
+
+  @override
+  String get topicNameGardening => 'ガーデニング';
+
+  @override
+  String get topicNameDiy => 'DIY';
+
+  @override
+  String get topicNameDogs => '犬';
+
+  @override
+  String get topicNameCats => '猫';
+
+  @override
+  String get topicNameNature => '自然';
+
+  @override
+  String get topicNameAnimals => '動物';
+
+  @override
+  String get topicNameLanguageExchange => '言語交換';
+
+  @override
+  String get topicNameStudyAbroad => '留学';
+
+  @override
+  String get topicNameTechnology => 'テクノロジー';
+
+  @override
+  String get topicNameProgramming => 'プログラミング';
+
+  @override
+  String get topicNameBusiness => 'ビジネス';
+
+  @override
+  String get topicNameScience => '科学';
+
+  @override
+  String get topicNameDailyLife => '日常生活';
+
+  @override
+  String get topicNameMakingFriends => '友達づくり';
+
+  @override
+  String get topicNameRelationships => '恋愛・人間関係';
+
+  @override
+  String get topicNameFamily => '家族';
+
+  @override
+  String get topicNameNightlife => 'ナイトライフ';
+
+  @override
+  String get topicNameMentalHealth => 'メンタルヘルス';
+
+  @override
+  String get topicNameMeditation => '瞑想';
+
+  @override
+  String get topicNameNutrition => '栄養';
+
+  @override
+  String get topicNameSelfImprovement => '自己成長';
+
+  @override
+  String get topicCategoryFoodDrink => '食べ物・飲み物';
+
+  @override
+  String get topicCategoryTravel => '旅行・アドベンチャー';
+
+  @override
+  String get topicCategorySports => 'スポーツ・フィットネス';
+
+  @override
+  String get topicCategoryEntertainment => 'エンタメ・音楽';
+
+  @override
+  String get topicCategoryArts => 'アート・文化';
+
+  @override
+  String get topicCategoryLifestyle => 'ライフスタイル';
+
+  @override
+  String get topicCategoryPetsNature => 'ペット・自然';
+
+  @override
+  String get topicCategoryLearning => '学び・キャリア';
+
+  @override
+  String get topicCategorySocial => '交流';
+
+  @override
+  String get topicCategoryHealth => '健康・ウェルネス';
+
+  @override
+  String get waveTooMany => '手を振りすぎです。少しペースを落としてください！';
 }

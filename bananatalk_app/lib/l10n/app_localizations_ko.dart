@@ -11677,4 +11677,263 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get coinHistoryLoadFailed => '코인 내역을 불러오지 못했습니다.';
+
+  @override
+  String get waveAlreadySentTooltip => '이미 손을 흔들었어요 — 대신 메시지를 보내세요';
+
+  @override
+  String waveAlreadySentTo(Object name) {
+    return '$name님에게 이미 손을 흔들었어요. 대신 메시지를 보내세요.';
+  }
+
+  @override
+  String get waveAlreadyWaved => '손 흔들기 완료';
+
+  @override
+  String get communityCountryDetectFailed => '국가를 감지하지 못했습니다';
+
+  @override
+  String get roomPickCategoryError => '카테고리를 선택하세요';
+
+  @override
+  String get blockUserSuccess => '사용자를 차단했습니다';
+
+  @override
+  String get blockUserFailed => '이 사용자를 차단하지 못했습니다';
+
+  @override
+  String get unblockUserSuccess => '차단을 해제했습니다';
+
+  @override
+  String get unblockUserFailed => '차단을 해제하지 못했습니다';
+
+  @override
+  String get clubDeleteFailed => '클럽을 삭제하지 못했습니다';
+
+  @override
+  String get clubMemberUpdateFailed => '이 멤버를 업데이트하지 못했습니다';
+
+  @override
+  String get groupCoverUploadFailed => '사진을 업로드하지 못했습니다';
+
+  @override
+  String get groupCoverRemoveFailed => '사진을 삭제하지 못했습니다';
+
+  @override
+  String get clubStatusArchived => '보관됨';
+
+  @override
+  String get matchTagSimilarAge => '비슷한 나이';
+
+  @override
+  String matchTagBothLike(Object topic) {
+    return '둘 다 $topic 좋아함';
+  }
+
+  @override
+  String get topicNameCooking => '요리';
+
+  @override
+  String get topicNameCoffee => '커피 & 차';
+
+  @override
+  String get topicNameEatingOut => '외식';
+
+  @override
+  String get topicNameBaking => '베이킹';
+
+  @override
+  String get topicNameDrinking => '술';
+
+  @override
+  String get topicNameStreetFood => '길거리 음식';
+
+  @override
+  String get topicNameTravel => '여행';
+
+  @override
+  String get topicNameBackpacking => '배낭여행';
+
+  @override
+  String get topicNameBeaches => '해변';
+
+  @override
+  String get topicNameMountains => '산';
+
+  @override
+  String get topicNameCamping => '캠핑';
+
+  @override
+  String get topicNameGym => '헬스';
+
+  @override
+  String get topicNameRunning => '러닝';
+
+  @override
+  String get topicNameYoga => '요가';
+
+  @override
+  String get topicNameFootball => '축구';
+
+  @override
+  String get topicNameBasketball => '농구';
+
+  @override
+  String get topicNameHiking => '하이킹';
+
+  @override
+  String get topicNameCycling => '자전거';
+
+  @override
+  String get topicNameDancing => '댄스';
+
+  @override
+  String get topicNameSwimming => '수영';
+
+  @override
+  String get topicNameMovies => '영화';
+
+  @override
+  String get topicNameTvShows => 'TV 프로그램';
+
+  @override
+  String get topicNameMusic => '음악';
+
+  @override
+  String get topicNameGaming => '게임';
+
+  @override
+  String get topicNameAnime => '애니메이션 & 만화';
+
+  @override
+  String get topicNameKpop => 'K-팝';
+
+  @override
+  String get topicNameKdrama => 'K-드라마';
+
+  @override
+  String get topicNamePodcasts => '팟캐스트';
+
+  @override
+  String get topicNameArt => '미술';
+
+  @override
+  String get topicNamePhotography => '사진';
+
+  @override
+  String get topicNameBooks => '책';
+
+  @override
+  String get topicNameWriting => '글쓰기';
+
+  @override
+  String get topicNameHistory => '역사';
+
+  @override
+  String get topicNameDesign => '디자인';
+
+  @override
+  String get topicNameFashion => '패션';
+
+  @override
+  String get topicNameBeauty => '뷰티 & 스킨케어';
+
+  @override
+  String get topicNameShopping => '쇼핑';
+
+  @override
+  String get topicNameGardening => '원예';
+
+  @override
+  String get topicNameDiy => 'DIY';
+
+  @override
+  String get topicNameDogs => '강아지';
+
+  @override
+  String get topicNameCats => '고양이';
+
+  @override
+  String get topicNameNature => '자연';
+
+  @override
+  String get topicNameAnimals => '동물';
+
+  @override
+  String get topicNameLanguageExchange => '언어 교환';
+
+  @override
+  String get topicNameStudyAbroad => '유학';
+
+  @override
+  String get topicNameTechnology => '기술';
+
+  @override
+  String get topicNameProgramming => '프로그래밍';
+
+  @override
+  String get topicNameBusiness => '비즈니스';
+
+  @override
+  String get topicNameScience => '과학';
+
+  @override
+  String get topicNameDailyLife => '일상';
+
+  @override
+  String get topicNameMakingFriends => '친구 사귀기';
+
+  @override
+  String get topicNameRelationships => '연애';
+
+  @override
+  String get topicNameFamily => '가족';
+
+  @override
+  String get topicNameNightlife => '나이트라이프';
+
+  @override
+  String get topicNameMentalHealth => '정신 건강';
+
+  @override
+  String get topicNameMeditation => '명상';
+
+  @override
+  String get topicNameNutrition => '영양';
+
+  @override
+  String get topicNameSelfImprovement => '자기계발';
+
+  @override
+  String get topicCategoryFoodDrink => '음식 & 음료';
+
+  @override
+  String get topicCategoryTravel => '여행 & 모험';
+
+  @override
+  String get topicCategorySports => '스포츠 & 피트니스';
+
+  @override
+  String get topicCategoryEntertainment => '엔터테인먼트 & 음악';
+
+  @override
+  String get topicCategoryArts => '예술 & 문화';
+
+  @override
+  String get topicCategoryLifestyle => '라이프스타일';
+
+  @override
+  String get topicCategoryPetsNature => '반려동물 & 자연';
+
+  @override
+  String get topicCategoryLearning => '학습 & 커리어';
+
+  @override
+  String get topicCategorySocial => '소셜';
+
+  @override
+  String get topicCategoryHealth => '건강 & 웰빙';
+
+  @override
+  String get waveTooMany => '손 흔들기가 너무 많아요. 천천히 해 주세요!';
 }

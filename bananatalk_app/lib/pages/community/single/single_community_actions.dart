@@ -166,8 +166,8 @@ class SingleCommunityActionBar extends ConsumerWidget {
     final color = alreadyWaved ? context.textMuted : AppColors.primary;
     return Tooltip(
       message: alreadyWaved
-          ? 'Already waved — send a message instead'
-          : 'Send a wave',
+          ? AppLocalizations.of(context)!.waveAlreadySentTooltip
+          : AppLocalizations.of(context)!.sendWave,
       child: SizedBox(
         width: 46,
         height: 46,
@@ -176,8 +176,7 @@ class SingleCommunityActionBar extends ConsumerWidget {
             if (alreadyWaved) {
               showCommunitySnackBar(
                 context,
-                message:
-                    "You've already waved at ${community.name} — send them a message instead.",
+                message: AppLocalizations.of(context)!.waveAlreadySentTo(community.name),
                 type: CommunitySnackBarType.info,
               );
               return;

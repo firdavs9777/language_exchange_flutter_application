@@ -21319,6 +21319,516 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Could not load coin history.'**
   String get coinHistoryLoadFailed;
+
+  /// No description provided for @waveAlreadySentTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Already waved — send a message instead'**
+  String get waveAlreadySentTooltip;
+
+  /// No description provided for @waveAlreadySentTo.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'ve already waved at {name} — send them a message instead.'**
+  String waveAlreadySentTo(Object name);
+
+  /// No description provided for @waveAlreadyWaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Already waved'**
+  String get waveAlreadyWaved;
+
+  /// No description provided for @communityCountryDetectFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not detect country'**
+  String get communityCountryDetectFailed;
+
+  /// No description provided for @roomPickCategoryError.
+  ///
+  /// In en, this message translates to:
+  /// **'Please pick a category'**
+  String get roomPickCategoryError;
+
+  /// No description provided for @blockUserSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'User blocked'**
+  String get blockUserSuccess;
+
+  /// No description provided for @blockUserFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t block this user'**
+  String get blockUserFailed;
+
+  /// No description provided for @unblockUserSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'User unblocked'**
+  String get unblockUserSuccess;
+
+  /// No description provided for @unblockUserFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t unblock this user'**
+  String get unblockUserFailed;
+
+  /// No description provided for @clubDeleteFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t delete the club'**
+  String get clubDeleteFailed;
+
+  /// No description provided for @clubMemberUpdateFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t update this member'**
+  String get clubMemberUpdateFailed;
+
+  /// No description provided for @groupCoverUploadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t upload the photo'**
+  String get groupCoverUploadFailed;
+
+  /// No description provided for @groupCoverRemoveFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t remove the photo'**
+  String get groupCoverRemoveFailed;
+
+  /// No description provided for @clubStatusArchived.
+  ///
+  /// In en, this message translates to:
+  /// **'Archived'**
+  String get clubStatusArchived;
+
+  /// No description provided for @matchTagSimilarAge.
+  ///
+  /// In en, this message translates to:
+  /// **'Similar age'**
+  String get matchTagSimilarAge;
+
+  /// No description provided for @matchTagBothLike.
+  ///
+  /// In en, this message translates to:
+  /// **'Both like {topic}'**
+  String matchTagBothLike(Object topic);
+
+  /// No description provided for @topicNameCooking.
+  ///
+  /// In en, this message translates to:
+  /// **'Cooking'**
+  String get topicNameCooking;
+
+  /// No description provided for @topicNameCoffee.
+  ///
+  /// In en, this message translates to:
+  /// **'Coffee & Tea'**
+  String get topicNameCoffee;
+
+  /// No description provided for @topicNameEatingOut.
+  ///
+  /// In en, this message translates to:
+  /// **'Eating Out'**
+  String get topicNameEatingOut;
+
+  /// No description provided for @topicNameBaking.
+  ///
+  /// In en, this message translates to:
+  /// **'Baking'**
+  String get topicNameBaking;
+
+  /// No description provided for @topicNameDrinking.
+  ///
+  /// In en, this message translates to:
+  /// **'Drinking'**
+  String get topicNameDrinking;
+
+  /// No description provided for @topicNameStreetFood.
+  ///
+  /// In en, this message translates to:
+  /// **'Street Food'**
+  String get topicNameStreetFood;
+
+  /// No description provided for @topicNameTravel.
+  ///
+  /// In en, this message translates to:
+  /// **'Travel'**
+  String get topicNameTravel;
+
+  /// No description provided for @topicNameBackpacking.
+  ///
+  /// In en, this message translates to:
+  /// **'Backpacking'**
+  String get topicNameBackpacking;
+
+  /// No description provided for @topicNameBeaches.
+  ///
+  /// In en, this message translates to:
+  /// **'Beaches'**
+  String get topicNameBeaches;
+
+  /// No description provided for @topicNameMountains.
+  ///
+  /// In en, this message translates to:
+  /// **'Mountains'**
+  String get topicNameMountains;
+
+  /// No description provided for @topicNameCamping.
+  ///
+  /// In en, this message translates to:
+  /// **'Camping'**
+  String get topicNameCamping;
+
+  /// No description provided for @topicNameGym.
+  ///
+  /// In en, this message translates to:
+  /// **'Gym'**
+  String get topicNameGym;
+
+  /// No description provided for @topicNameRunning.
+  ///
+  /// In en, this message translates to:
+  /// **'Running'**
+  String get topicNameRunning;
+
+  /// No description provided for @topicNameYoga.
+  ///
+  /// In en, this message translates to:
+  /// **'Yoga'**
+  String get topicNameYoga;
+
+  /// No description provided for @topicNameFootball.
+  ///
+  /// In en, this message translates to:
+  /// **'Football'**
+  String get topicNameFootball;
+
+  /// No description provided for @topicNameBasketball.
+  ///
+  /// In en, this message translates to:
+  /// **'Basketball'**
+  String get topicNameBasketball;
+
+  /// No description provided for @topicNameHiking.
+  ///
+  /// In en, this message translates to:
+  /// **'Hiking'**
+  String get topicNameHiking;
+
+  /// No description provided for @topicNameCycling.
+  ///
+  /// In en, this message translates to:
+  /// **'Cycling'**
+  String get topicNameCycling;
+
+  /// No description provided for @topicNameDancing.
+  ///
+  /// In en, this message translates to:
+  /// **'Dancing'**
+  String get topicNameDancing;
+
+  /// No description provided for @topicNameSwimming.
+  ///
+  /// In en, this message translates to:
+  /// **'Swimming'**
+  String get topicNameSwimming;
+
+  /// No description provided for @topicNameMovies.
+  ///
+  /// In en, this message translates to:
+  /// **'Movies'**
+  String get topicNameMovies;
+
+  /// No description provided for @topicNameTvShows.
+  ///
+  /// In en, this message translates to:
+  /// **'TV Shows'**
+  String get topicNameTvShows;
+
+  /// No description provided for @topicNameMusic.
+  ///
+  /// In en, this message translates to:
+  /// **'Music'**
+  String get topicNameMusic;
+
+  /// No description provided for @topicNameGaming.
+  ///
+  /// In en, this message translates to:
+  /// **'Gaming'**
+  String get topicNameGaming;
+
+  /// No description provided for @topicNameAnime.
+  ///
+  /// In en, this message translates to:
+  /// **'Anime & Manga'**
+  String get topicNameAnime;
+
+  /// No description provided for @topicNameKpop.
+  ///
+  /// In en, this message translates to:
+  /// **'K-Pop'**
+  String get topicNameKpop;
+
+  /// No description provided for @topicNameKdrama.
+  ///
+  /// In en, this message translates to:
+  /// **'K-Drama'**
+  String get topicNameKdrama;
+
+  /// No description provided for @topicNamePodcasts.
+  ///
+  /// In en, this message translates to:
+  /// **'Podcasts'**
+  String get topicNamePodcasts;
+
+  /// No description provided for @topicNameArt.
+  ///
+  /// In en, this message translates to:
+  /// **'Art'**
+  String get topicNameArt;
+
+  /// No description provided for @topicNamePhotography.
+  ///
+  /// In en, this message translates to:
+  /// **'Photography'**
+  String get topicNamePhotography;
+
+  /// No description provided for @topicNameBooks.
+  ///
+  /// In en, this message translates to:
+  /// **'Books'**
+  String get topicNameBooks;
+
+  /// No description provided for @topicNameWriting.
+  ///
+  /// In en, this message translates to:
+  /// **'Writing'**
+  String get topicNameWriting;
+
+  /// No description provided for @topicNameHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'History'**
+  String get topicNameHistory;
+
+  /// No description provided for @topicNameDesign.
+  ///
+  /// In en, this message translates to:
+  /// **'Design'**
+  String get topicNameDesign;
+
+  /// No description provided for @topicNameFashion.
+  ///
+  /// In en, this message translates to:
+  /// **'Fashion'**
+  String get topicNameFashion;
+
+  /// No description provided for @topicNameBeauty.
+  ///
+  /// In en, this message translates to:
+  /// **'Beauty & Skincare'**
+  String get topicNameBeauty;
+
+  /// No description provided for @topicNameShopping.
+  ///
+  /// In en, this message translates to:
+  /// **'Shopping'**
+  String get topicNameShopping;
+
+  /// No description provided for @topicNameGardening.
+  ///
+  /// In en, this message translates to:
+  /// **'Gardening'**
+  String get topicNameGardening;
+
+  /// No description provided for @topicNameDiy.
+  ///
+  /// In en, this message translates to:
+  /// **'DIY'**
+  String get topicNameDiy;
+
+  /// No description provided for @topicNameDogs.
+  ///
+  /// In en, this message translates to:
+  /// **'Dogs'**
+  String get topicNameDogs;
+
+  /// No description provided for @topicNameCats.
+  ///
+  /// In en, this message translates to:
+  /// **'Cats'**
+  String get topicNameCats;
+
+  /// No description provided for @topicNameNature.
+  ///
+  /// In en, this message translates to:
+  /// **'Nature'**
+  String get topicNameNature;
+
+  /// No description provided for @topicNameAnimals.
+  ///
+  /// In en, this message translates to:
+  /// **'Animals'**
+  String get topicNameAnimals;
+
+  /// No description provided for @topicNameLanguageExchange.
+  ///
+  /// In en, this message translates to:
+  /// **'Language Exchange'**
+  String get topicNameLanguageExchange;
+
+  /// No description provided for @topicNameStudyAbroad.
+  ///
+  /// In en, this message translates to:
+  /// **'Study Abroad'**
+  String get topicNameStudyAbroad;
+
+  /// No description provided for @topicNameTechnology.
+  ///
+  /// In en, this message translates to:
+  /// **'Technology'**
+  String get topicNameTechnology;
+
+  /// No description provided for @topicNameProgramming.
+  ///
+  /// In en, this message translates to:
+  /// **'Programming'**
+  String get topicNameProgramming;
+
+  /// No description provided for @topicNameBusiness.
+  ///
+  /// In en, this message translates to:
+  /// **'Business'**
+  String get topicNameBusiness;
+
+  /// No description provided for @topicNameScience.
+  ///
+  /// In en, this message translates to:
+  /// **'Science'**
+  String get topicNameScience;
+
+  /// No description provided for @topicNameDailyLife.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily Life'**
+  String get topicNameDailyLife;
+
+  /// No description provided for @topicNameMakingFriends.
+  ///
+  /// In en, this message translates to:
+  /// **'Making Friends'**
+  String get topicNameMakingFriends;
+
+  /// No description provided for @topicNameRelationships.
+  ///
+  /// In en, this message translates to:
+  /// **'Relationships'**
+  String get topicNameRelationships;
+
+  /// No description provided for @topicNameFamily.
+  ///
+  /// In en, this message translates to:
+  /// **'Family'**
+  String get topicNameFamily;
+
+  /// No description provided for @topicNameNightlife.
+  ///
+  /// In en, this message translates to:
+  /// **'Nightlife'**
+  String get topicNameNightlife;
+
+  /// No description provided for @topicNameMentalHealth.
+  ///
+  /// In en, this message translates to:
+  /// **'Mental Health'**
+  String get topicNameMentalHealth;
+
+  /// No description provided for @topicNameMeditation.
+  ///
+  /// In en, this message translates to:
+  /// **'Meditation'**
+  String get topicNameMeditation;
+
+  /// No description provided for @topicNameNutrition.
+  ///
+  /// In en, this message translates to:
+  /// **'Nutrition'**
+  String get topicNameNutrition;
+
+  /// No description provided for @topicNameSelfImprovement.
+  ///
+  /// In en, this message translates to:
+  /// **'Self Improvement'**
+  String get topicNameSelfImprovement;
+
+  /// No description provided for @topicCategoryFoodDrink.
+  ///
+  /// In en, this message translates to:
+  /// **'Food & Drink'**
+  String get topicCategoryFoodDrink;
+
+  /// No description provided for @topicCategoryTravel.
+  ///
+  /// In en, this message translates to:
+  /// **'Travel & Adventure'**
+  String get topicCategoryTravel;
+
+  /// No description provided for @topicCategorySports.
+  ///
+  /// In en, this message translates to:
+  /// **'Sports & Fitness'**
+  String get topicCategorySports;
+
+  /// No description provided for @topicCategoryEntertainment.
+  ///
+  /// In en, this message translates to:
+  /// **'Entertainment & Music'**
+  String get topicCategoryEntertainment;
+
+  /// No description provided for @topicCategoryArts.
+  ///
+  /// In en, this message translates to:
+  /// **'Arts & Culture'**
+  String get topicCategoryArts;
+
+  /// No description provided for @topicCategoryLifestyle.
+  ///
+  /// In en, this message translates to:
+  /// **'Lifestyle'**
+  String get topicCategoryLifestyle;
+
+  /// No description provided for @topicCategoryPetsNature.
+  ///
+  /// In en, this message translates to:
+  /// **'Pets & Nature'**
+  String get topicCategoryPetsNature;
+
+  /// No description provided for @topicCategoryLearning.
+  ///
+  /// In en, this message translates to:
+  /// **'Learning & Career'**
+  String get topicCategoryLearning;
+
+  /// No description provided for @topicCategorySocial.
+  ///
+  /// In en, this message translates to:
+  /// **'Social'**
+  String get topicCategorySocial;
+
+  /// No description provided for @topicCategoryHealth.
+  ///
+  /// In en, this message translates to:
+  /// **'Health & Wellness'**
+  String get topicCategoryHealth;
+
+  /// No description provided for @waveTooMany.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many waves. Please slow down!'**
+  String get waveTooMany;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

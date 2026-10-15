@@ -485,7 +485,9 @@ class _ChatOptionsMenuState extends ConsumerState<ChatOptionsMenu> {
             if (context.mounted) {
               showChatSnackBar(
                 context,
-                message: result['message'] ?? l10n.operationCompleted,
+                message: result['success'] == true
+                    ? l10n.unblockUserSuccess
+                    : l10n.unblockUserFailed,
                 type: result['success'] == true
                     ? ChatSnackBarType.success
                     : ChatSnackBarType.error,

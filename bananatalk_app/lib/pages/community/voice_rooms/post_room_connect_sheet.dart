@@ -28,7 +28,8 @@ Future<void> showPostRoomConnectSheet(
     context: context,
     backgroundColor: Colors.transparent,
     isScrollControlled: true,
-    builder: (sheetContext) => _PostRoomConnectSheet(participants: participants),
+    builder: (sheetContext) =>
+        _PostRoomConnectSheet(participants: participants),
   );
 }
 
@@ -124,7 +125,9 @@ class _ParticipantRow extends StatelessWidget {
           const SizedBox(width: 12),
           Expanded(
             child: Text(
-              participant.name.isNotEmpty ? participant.name : AppLocalizations.of(context)!.communitySomeone,
+              participant.name.isNotEmpty
+                  ? participant.name
+                  : AppLocalizations.of(context)!.communitySomeone,
               style: context.bodyLarge,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
@@ -136,10 +139,11 @@ class _ParticipantRow extends StatelessWidget {
               final alreadyWaved = snapshot.data ?? false;
               return WaveButton(
                 targetUserId: participant.id,
-                targetUserName:
-                    participant.name.isNotEmpty ? participant.name : 'this user',
+                targetUserName: participant.name.isNotEmpty
+                    ? participant.name
+                    : AppLocalizations.of(context)!.storyUserFallback,
                 greyedOut: alreadyWaved,
-                cooldownText: 'Already waved',
+                cooldownText: AppLocalizations.of(context)!.waveAlreadyWaved,
               );
             },
           ),

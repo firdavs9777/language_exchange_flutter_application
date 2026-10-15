@@ -51,7 +51,7 @@ class PersonalSection extends StatelessWidget {
             (t) => t.id == id,
             orElse: () => Topic(id: id, name: id, icon: '', category: ''),
           );
-          return topic.name;
+          return topic.localizedName(l10n);
         })
         .take(3)
         .toList();

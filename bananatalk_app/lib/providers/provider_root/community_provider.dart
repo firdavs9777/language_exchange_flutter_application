@@ -679,7 +679,7 @@ class WaveResponse {
     return WaveResponse(
       waveId: json['waveId'] ?? '',
       isMutual: json['isMutual'] as bool? ?? false,
-      message: json['message'] ?? 'Wave sent!',
+      message: json['message'] ?? '',
     );
   }
 }

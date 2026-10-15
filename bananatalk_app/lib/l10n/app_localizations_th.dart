@@ -11677,4 +11677,263 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get coinHistoryLoadFailed => 'โหลดประวัติเหรียญไม่ได้';
+
+  @override
+  String get waveAlreadySentTooltip => 'โบกมือไปแล้ว — ส่งข้อความแทน';
+
+  @override
+  String waveAlreadySentTo(Object name) {
+    return 'คุณโบกมือให้ $name ไปแล้ว — ส่งข้อความแทนนะ';
+  }
+
+  @override
+  String get waveAlreadyWaved => 'โบกมือแล้ว';
+
+  @override
+  String get communityCountryDetectFailed => 'ตรวจหาประเทศไม่ได้';
+
+  @override
+  String get roomPickCategoryError => 'โปรดเลือกหมวดหมู่';
+
+  @override
+  String get blockUserSuccess => 'บล็อกผู้ใช้แล้ว';
+
+  @override
+  String get blockUserFailed => 'บล็อกผู้ใช้นี้ไม่ได้';
+
+  @override
+  String get unblockUserSuccess => 'เลิกบล็อกผู้ใช้แล้ว';
+
+  @override
+  String get unblockUserFailed => 'เลิกบล็อกผู้ใช้นี้ไม่ได้';
+
+  @override
+  String get clubDeleteFailed => 'ลบคลับไม่ได้';
+
+  @override
+  String get clubMemberUpdateFailed => 'อัปเดตสมาชิกนี้ไม่ได้';
+
+  @override
+  String get groupCoverUploadFailed => 'อัปโหลดรูปภาพไม่ได้';
+
+  @override
+  String get groupCoverRemoveFailed => 'ลบรูปภาพไม่ได้';
+
+  @override
+  String get clubStatusArchived => 'เก็บถาวรแล้ว';
+
+  @override
+  String get matchTagSimilarAge => 'อายุใกล้กัน';
+
+  @override
+  String matchTagBothLike(Object topic) {
+    return 'ชอบ $topic เหมือนกัน';
+  }
+
+  @override
+  String get topicNameCooking => 'ทำอาหาร';
+
+  @override
+  String get topicNameCoffee => 'กาแฟและชา';
+
+  @override
+  String get topicNameEatingOut => 'กินข้าวนอกบ้าน';
+
+  @override
+  String get topicNameBaking => 'อบขนม';
+
+  @override
+  String get topicNameDrinking => 'เครื่องดื่ม';
+
+  @override
+  String get topicNameStreetFood => 'อาหารริมทาง';
+
+  @override
+  String get topicNameTravel => 'ท่องเที่ยว';
+
+  @override
+  String get topicNameBackpacking => 'แบ็กแพ็ก';
+
+  @override
+  String get topicNameBeaches => 'ชายหาด';
+
+  @override
+  String get topicNameMountains => 'ภูเขา';
+
+  @override
+  String get topicNameCamping => 'ตั้งแคมป์';
+
+  @override
+  String get topicNameGym => 'ฟิตเนส';
+
+  @override
+  String get topicNameRunning => 'วิ่ง';
+
+  @override
+  String get topicNameYoga => 'โยคะ';
+
+  @override
+  String get topicNameFootball => 'ฟุตบอล';
+
+  @override
+  String get topicNameBasketball => 'บาสเกตบอล';
+
+  @override
+  String get topicNameHiking => 'เดินป่า';
+
+  @override
+  String get topicNameCycling => 'ปั่นจักรยาน';
+
+  @override
+  String get topicNameDancing => 'เต้น';
+
+  @override
+  String get topicNameSwimming => 'ว่ายน้ำ';
+
+  @override
+  String get topicNameMovies => 'ภาพยนตร์';
+
+  @override
+  String get topicNameTvShows => 'รายการทีวี';
+
+  @override
+  String get topicNameMusic => 'ดนตรี';
+
+  @override
+  String get topicNameGaming => 'เกม';
+
+  @override
+  String get topicNameAnime => 'อนิเมะและมังงะ';
+
+  @override
+  String get topicNameKpop => 'เคป็อป';
+
+  @override
+  String get topicNameKdrama => 'ซีรีส์เกาหลี';
+
+  @override
+  String get topicNamePodcasts => 'พอดแคสต์';
+
+  @override
+  String get topicNameArt => 'ศิลปะ';
+
+  @override
+  String get topicNamePhotography => 'ถ่ายภาพ';
+
+  @override
+  String get topicNameBooks => 'หนังสือ';
+
+  @override
+  String get topicNameWriting => 'การเขียน';
+
+  @override
+  String get topicNameHistory => 'ประวัติศาสตร์';
+
+  @override
+  String get topicNameDesign => 'การออกแบบ';
+
+  @override
+  String get topicNameFashion => 'แฟชั่น';
+
+  @override
+  String get topicNameBeauty => 'ความงามและสกินแคร์';
+
+  @override
+  String get topicNameShopping => 'ช้อปปิ้ง';
+
+  @override
+  String get topicNameGardening => 'ทำสวน';
+
+  @override
+  String get topicNameDiy => 'งาน DIY';
+
+  @override
+  String get topicNameDogs => 'สุนัข';
+
+  @override
+  String get topicNameCats => 'แมว';
+
+  @override
+  String get topicNameNature => 'ธรรมชาติ';
+
+  @override
+  String get topicNameAnimals => 'สัตว์';
+
+  @override
+  String get topicNameLanguageExchange => 'แลกเปลี่ยนภาษา';
+
+  @override
+  String get topicNameStudyAbroad => 'เรียนต่อต่างประเทศ';
+
+  @override
+  String get topicNameTechnology => 'เทคโนโลยี';
+
+  @override
+  String get topicNameProgramming => 'การเขียนโปรแกรม';
+
+  @override
+  String get topicNameBusiness => 'ธุรกิจ';
+
+  @override
+  String get topicNameScience => 'วิทยาศาสตร์';
+
+  @override
+  String get topicNameDailyLife => 'ชีวิตประจำวัน';
+
+  @override
+  String get topicNameMakingFriends => 'หาเพื่อนใหม่';
+
+  @override
+  String get topicNameRelationships => 'ความสัมพันธ์';
+
+  @override
+  String get topicNameFamily => 'ครอบครัว';
+
+  @override
+  String get topicNameNightlife => 'ไนท์ไลฟ์';
+
+  @override
+  String get topicNameMentalHealth => 'สุขภาพจิต';
+
+  @override
+  String get topicNameMeditation => 'การทำสมาธิ';
+
+  @override
+  String get topicNameNutrition => 'โภชนาการ';
+
+  @override
+  String get topicNameSelfImprovement => 'การพัฒนาตนเอง';
+
+  @override
+  String get topicCategoryFoodDrink => 'อาหารและเครื่องดื่ม';
+
+  @override
+  String get topicCategoryTravel => 'ท่องเที่ยวและผจญภัย';
+
+  @override
+  String get topicCategorySports => 'กีฬาและฟิตเนส';
+
+  @override
+  String get topicCategoryEntertainment => 'บันเทิงและดนตรี';
+
+  @override
+  String get topicCategoryArts => 'ศิลปะและวัฒนธรรม';
+
+  @override
+  String get topicCategoryLifestyle => 'ไลฟ์สไตล์';
+
+  @override
+  String get topicCategoryPetsNature => 'สัตว์เลี้ยงและธรรมชาติ';
+
+  @override
+  String get topicCategoryLearning => 'การเรียนและอาชีพ';
+
+  @override
+  String get topicCategorySocial => 'สังคม';
+
+  @override
+  String get topicCategoryHealth => 'สุขภาพและความเป็นอยู่ที่ดี';
+
+  @override
+  String get waveTooMany => 'โบกมือบ่อยเกินไป ช้าลงหน่อยนะ!';
 }

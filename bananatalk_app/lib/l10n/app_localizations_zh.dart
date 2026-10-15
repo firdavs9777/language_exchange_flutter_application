@@ -11677,6 +11677,265 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get coinHistoryLoadFailed => '无法加载金币记录。';
+
+  @override
+  String get waveAlreadySentTooltip => '已经打过招呼——改发消息吧';
+
+  @override
+  String waveAlreadySentTo(Object name) {
+    return '你已经和 $name 打过招呼了——改发消息吧。';
+  }
+
+  @override
+  String get waveAlreadyWaved => '已打招呼';
+
+  @override
+  String get communityCountryDetectFailed => '无法检测国家';
+
+  @override
+  String get roomPickCategoryError => '请选择一个类别';
+
+  @override
+  String get blockUserSuccess => '已屏蔽该用户';
+
+  @override
+  String get blockUserFailed => '无法屏蔽该用户';
+
+  @override
+  String get unblockUserSuccess => '已取消屏蔽';
+
+  @override
+  String get unblockUserFailed => '无法取消屏蔽';
+
+  @override
+  String get clubDeleteFailed => '无法删除俱乐部';
+
+  @override
+  String get clubMemberUpdateFailed => '无法更新该成员';
+
+  @override
+  String get groupCoverUploadFailed => '无法上传照片';
+
+  @override
+  String get groupCoverRemoveFailed => '无法移除照片';
+
+  @override
+  String get clubStatusArchived => '已归档';
+
+  @override
+  String get matchTagSimilarAge => '年龄相仿';
+
+  @override
+  String matchTagBothLike(Object topic) {
+    return '都喜欢$topic';
+  }
+
+  @override
+  String get topicNameCooking => '烹饪';
+
+  @override
+  String get topicNameCoffee => '咖啡与茶';
+
+  @override
+  String get topicNameEatingOut => '下馆子';
+
+  @override
+  String get topicNameBaking => '烘焙';
+
+  @override
+  String get topicNameDrinking => '饮品';
+
+  @override
+  String get topicNameStreetFood => '街头小吃';
+
+  @override
+  String get topicNameTravel => '旅行';
+
+  @override
+  String get topicNameBackpacking => '背包旅行';
+
+  @override
+  String get topicNameBeaches => '海滩';
+
+  @override
+  String get topicNameMountains => '山';
+
+  @override
+  String get topicNameCamping => '露营';
+
+  @override
+  String get topicNameGym => '健身房';
+
+  @override
+  String get topicNameRunning => '跑步';
+
+  @override
+  String get topicNameYoga => '瑜伽';
+
+  @override
+  String get topicNameFootball => '足球';
+
+  @override
+  String get topicNameBasketball => '篮球';
+
+  @override
+  String get topicNameHiking => '徒步';
+
+  @override
+  String get topicNameCycling => '骑行';
+
+  @override
+  String get topicNameDancing => '跳舞';
+
+  @override
+  String get topicNameSwimming => '游泳';
+
+  @override
+  String get topicNameMovies => '电影';
+
+  @override
+  String get topicNameTvShows => '电视剧';
+
+  @override
+  String get topicNameMusic => '音乐';
+
+  @override
+  String get topicNameGaming => '游戏';
+
+  @override
+  String get topicNameAnime => '动漫';
+
+  @override
+  String get topicNameKpop => 'K-pop';
+
+  @override
+  String get topicNameKdrama => '韩剧';
+
+  @override
+  String get topicNamePodcasts => '播客';
+
+  @override
+  String get topicNameArt => '艺术';
+
+  @override
+  String get topicNamePhotography => '摄影';
+
+  @override
+  String get topicNameBooks => '书籍';
+
+  @override
+  String get topicNameWriting => '写作';
+
+  @override
+  String get topicNameHistory => '历史';
+
+  @override
+  String get topicNameDesign => '设计';
+
+  @override
+  String get topicNameFashion => '时尚';
+
+  @override
+  String get topicNameBeauty => '美妆护肤';
+
+  @override
+  String get topicNameShopping => '购物';
+
+  @override
+  String get topicNameGardening => '园艺';
+
+  @override
+  String get topicNameDiy => '手工DIY';
+
+  @override
+  String get topicNameDogs => '狗';
+
+  @override
+  String get topicNameCats => '猫';
+
+  @override
+  String get topicNameNature => '大自然';
+
+  @override
+  String get topicNameAnimals => '动物';
+
+  @override
+  String get topicNameLanguageExchange => '语言交换';
+
+  @override
+  String get topicNameStudyAbroad => '留学';
+
+  @override
+  String get topicNameTechnology => '科技';
+
+  @override
+  String get topicNameProgramming => '编程';
+
+  @override
+  String get topicNameBusiness => '商业';
+
+  @override
+  String get topicNameScience => '科学';
+
+  @override
+  String get topicNameDailyLife => '日常生活';
+
+  @override
+  String get topicNameMakingFriends => '交朋友';
+
+  @override
+  String get topicNameRelationships => '感情';
+
+  @override
+  String get topicNameFamily => '家庭';
+
+  @override
+  String get topicNameNightlife => '夜生活';
+
+  @override
+  String get topicNameMentalHealth => '心理健康';
+
+  @override
+  String get topicNameMeditation => '冥想';
+
+  @override
+  String get topicNameNutrition => '营养';
+
+  @override
+  String get topicNameSelfImprovement => '自我提升';
+
+  @override
+  String get topicCategoryFoodDrink => '美食饮品';
+
+  @override
+  String get topicCategoryTravel => '旅行探险';
+
+  @override
+  String get topicCategorySports => '运动健身';
+
+  @override
+  String get topicCategoryEntertainment => '娱乐音乐';
+
+  @override
+  String get topicCategoryArts => '艺术文化';
+
+  @override
+  String get topicCategoryLifestyle => '生活方式';
+
+  @override
+  String get topicCategoryPetsNature => '宠物与自然';
+
+  @override
+  String get topicCategoryLearning => '学习与职业';
+
+  @override
+  String get topicCategorySocial => '社交';
+
+  @override
+  String get topicCategoryHealth => '健康养生';
+
+  @override
+  String get waveTooMany => '打招呼太频繁了，请慢一点！';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -23352,4 +23611,263 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get coinHistoryLoadFailed => '無法載入金幣紀錄。';
+
+  @override
+  String get waveAlreadySentTooltip => '已經打過招呼——改傳訊息吧';
+
+  @override
+  String waveAlreadySentTo(Object name) {
+    return '你已經和 $name 打過招呼了——改傳訊息吧。';
+  }
+
+  @override
+  String get waveAlreadyWaved => '已打招呼';
+
+  @override
+  String get communityCountryDetectFailed => '無法偵測國家';
+
+  @override
+  String get roomPickCategoryError => '請選擇一個類別';
+
+  @override
+  String get blockUserSuccess => '已封鎖該使用者';
+
+  @override
+  String get blockUserFailed => '無法封鎖該使用者';
+
+  @override
+  String get unblockUserSuccess => '已解除封鎖';
+
+  @override
+  String get unblockUserFailed => '無法解除封鎖';
+
+  @override
+  String get clubDeleteFailed => '無法刪除社團';
+
+  @override
+  String get clubMemberUpdateFailed => '無法更新該成員';
+
+  @override
+  String get groupCoverUploadFailed => '無法上傳相片';
+
+  @override
+  String get groupCoverRemoveFailed => '無法移除相片';
+
+  @override
+  String get clubStatusArchived => '已封存';
+
+  @override
+  String get matchTagSimilarAge => '年齡相仿';
+
+  @override
+  String matchTagBothLike(Object topic) {
+    return '都喜歡$topic';
+  }
+
+  @override
+  String get topicNameCooking => '烹飪';
+
+  @override
+  String get topicNameCoffee => '咖啡與茶';
+
+  @override
+  String get topicNameEatingOut => '外出用餐';
+
+  @override
+  String get topicNameBaking => '烘焙';
+
+  @override
+  String get topicNameDrinking => '飲品';
+
+  @override
+  String get topicNameStreetFood => '街頭小吃';
+
+  @override
+  String get topicNameTravel => '旅行';
+
+  @override
+  String get topicNameBackpacking => '背包旅行';
+
+  @override
+  String get topicNameBeaches => '海灘';
+
+  @override
+  String get topicNameMountains => '山';
+
+  @override
+  String get topicNameCamping => '露營';
+
+  @override
+  String get topicNameGym => '健身房';
+
+  @override
+  String get topicNameRunning => '跑步';
+
+  @override
+  String get topicNameYoga => '瑜伽';
+
+  @override
+  String get topicNameFootball => '足球';
+
+  @override
+  String get topicNameBasketball => '籃球';
+
+  @override
+  String get topicNameHiking => '健行';
+
+  @override
+  String get topicNameCycling => '騎單車';
+
+  @override
+  String get topicNameDancing => '跳舞';
+
+  @override
+  String get topicNameSwimming => '游泳';
+
+  @override
+  String get topicNameMovies => '電影';
+
+  @override
+  String get topicNameTvShows => '電視劇';
+
+  @override
+  String get topicNameMusic => '音樂';
+
+  @override
+  String get topicNameGaming => '遊戲';
+
+  @override
+  String get topicNameAnime => '動漫';
+
+  @override
+  String get topicNameKpop => 'K-pop';
+
+  @override
+  String get topicNameKdrama => '韓劇';
+
+  @override
+  String get topicNamePodcasts => 'Podcast';
+
+  @override
+  String get topicNameArt => '藝術';
+
+  @override
+  String get topicNamePhotography => '攝影';
+
+  @override
+  String get topicNameBooks => '書籍';
+
+  @override
+  String get topicNameWriting => '寫作';
+
+  @override
+  String get topicNameHistory => '歷史';
+
+  @override
+  String get topicNameDesign => '設計';
+
+  @override
+  String get topicNameFashion => '時尚';
+
+  @override
+  String get topicNameBeauty => '美妝保養';
+
+  @override
+  String get topicNameShopping => '購物';
+
+  @override
+  String get topicNameGardening => '園藝';
+
+  @override
+  String get topicNameDiy => '手作DIY';
+
+  @override
+  String get topicNameDogs => '狗';
+
+  @override
+  String get topicNameCats => '貓';
+
+  @override
+  String get topicNameNature => '大自然';
+
+  @override
+  String get topicNameAnimals => '動物';
+
+  @override
+  String get topicNameLanguageExchange => '語言交換';
+
+  @override
+  String get topicNameStudyAbroad => '留學';
+
+  @override
+  String get topicNameTechnology => '科技';
+
+  @override
+  String get topicNameProgramming => '程式設計';
+
+  @override
+  String get topicNameBusiness => '商業';
+
+  @override
+  String get topicNameScience => '科學';
+
+  @override
+  String get topicNameDailyLife => '日常生活';
+
+  @override
+  String get topicNameMakingFriends => '交朋友';
+
+  @override
+  String get topicNameRelationships => '感情';
+
+  @override
+  String get topicNameFamily => '家庭';
+
+  @override
+  String get topicNameNightlife => '夜生活';
+
+  @override
+  String get topicNameMentalHealth => '心理健康';
+
+  @override
+  String get topicNameMeditation => '冥想';
+
+  @override
+  String get topicNameNutrition => '營養';
+
+  @override
+  String get topicNameSelfImprovement => '自我成長';
+
+  @override
+  String get topicCategoryFoodDrink => '美食飲品';
+
+  @override
+  String get topicCategoryTravel => '旅行冒險';
+
+  @override
+  String get topicCategorySports => '運動健身';
+
+  @override
+  String get topicCategoryEntertainment => '娛樂音樂';
+
+  @override
+  String get topicCategoryArts => '藝術文化';
+
+  @override
+  String get topicCategoryLifestyle => '生活風格';
+
+  @override
+  String get topicCategoryPetsNature => '寵物與自然';
+
+  @override
+  String get topicCategoryLearning => '學習與職涯';
+
+  @override
+  String get topicCategorySocial => '社交';
+
+  @override
+  String get topicCategoryHealth => '健康養生';
+
+  @override
+  String get waveTooMany => '打招呼太頻繁了，請慢一點！';
 }
