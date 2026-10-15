@@ -241,4 +241,26 @@ void main() {
     await h.manager.endCall();
     await tester.pump(const Duration(seconds: 2));
   });
+
+  testWidgets('each control is one labelled button; switch camera is labelled', (tester) async {
+    final semantics = tester.ensureSemantics();
+    final h = CallHarness();
+    CallManager.debugSetInstance(h.manager);
+    await h.startOutgoing(type: CallType.video);
+    await h.state('active');
+    h.liveKit.onPeerConnected!();
+    await pumpScreen(tester, h);
+    for (final label in ['Mute', 'End', 'Video Off']) {
+      expect(find.bySemanticsLabel(label), findsOneWidget, reason: label);
+      expect(tester.getSemantics(find.bySemanticsLabel(label)),
+          containsSemantics(label: label, isButton: true, hasTapAction: true),
+          reason: label);
+    }
+    // The floating button's tooltip is what screen readers announce.
+    expect(tester.getSemantics(find.byTooltip('Switch Camera')),
+        containsSemantics(tooltip: 'Switch Camera', isButton: true, hasTapAction: true));
+    await h.manager.endCall();
+    await tester.pump(const Duration(seconds: 2));
+    semantics.dispose();
+  });
 }

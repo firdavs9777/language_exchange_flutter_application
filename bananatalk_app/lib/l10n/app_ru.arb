@@ -4429,5 +4429,7 @@
   "guideStudyHubCta": "Начать набор на сегодня",
   "guideStudyHubSecondary": "Все функции",
   "supportBananaTalkRow": "Поддержать BananaTalk",
-  "supportBananaTalkRowSubtitle": "Помогите одному разработчику продолжать работу"
+  "supportBananaTalkRowSubtitle": "Помогите одному разработчику продолжать работу",
+  "callVoiceCallButton": "Голосовой звонок",
+  "callVideoCallButton": "Видеозвонок"
 }

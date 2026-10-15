@@ -11358,4 +11358,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => 'Help a solo developer keep building';
+
+  @override
+  String get callVoiceCallButton => 'Voice call';
+
+  @override
+  String get callVideoCallButton => 'Video call';
 }

@@ -11333,4 +11333,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => 'Giúp một lập trình viên độc lập tiếp tục phát triển';
+
+  @override
+  String get callVoiceCallButton => 'Gọi thoại';
+
+  @override
+  String get callVideoCallButton => 'Gọi video';
 }

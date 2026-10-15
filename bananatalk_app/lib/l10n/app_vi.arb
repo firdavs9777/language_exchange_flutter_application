@@ -4399,5 +4399,7 @@
   "guideStudyHubCta": "Bắt đầu gói hôm nay",
   "guideStudyHubSecondary": "Xem tất cả tính năng",
   "supportBananaTalkRow": "Ủng hộ BananaTalk",
-  "supportBananaTalkRowSubtitle": "Giúp một lập trình viên độc lập tiếp tục phát triển"
+  "supportBananaTalkRowSubtitle": "Giúp một lập trình viên độc lập tiếp tục phát triển",
+  "callVoiceCallButton": "Gọi thoại",
+  "callVideoCallButton": "Gọi video"
 }

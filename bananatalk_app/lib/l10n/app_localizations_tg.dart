@@ -11353,4 +11353,10 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => 'Ба як барномасози танҳо барои идома додан кӯмак кунед';
+
+  @override
+  String get callVoiceCallButton => 'Занги овозӣ';
+
+  @override
+  String get callVideoCallButton => 'Занги видеоӣ';
 }

@@ -118,4 +118,12 @@ void main() {
     expect(container.read(missedCallsProvider), 0);
     expect(fake.seen, 1);
   });
+
+  testWidgets('the call-back button has a screen-reader label', (tester) async {
+    final semantics = tester.ensureSemantics();
+    await _pump(tester, _FakeHistory({1: CallLogPage([_entry('1', 'in', 'no_answer')], false)}));
+    expect(tester.getSemantics(find.byTooltip('Call back')),
+        containsSemantics(tooltip: 'Call back', isButton: true, hasTapAction: true));
+    semantics.dispose();
+  });
 }

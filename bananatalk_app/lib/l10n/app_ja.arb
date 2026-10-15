@@ -4399,5 +4399,7 @@
   "guideStudyHubCta": "今日のパックを始める",
   "guideStudyHubSecondary": "すべての機能を見る",
   "supportBananaTalkRow": "BananaTalkを応援",
-  "supportBananaTalkRowSubtitle": "個人開発者の開発を支えてください"
+  "supportBananaTalkRowSubtitle": "個人開発者の開発を支えてください",
+  "callVoiceCallButton": "音声通話",
+  "callVideoCallButton": "ビデオ通話"
 }

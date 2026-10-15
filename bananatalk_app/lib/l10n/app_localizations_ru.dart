@@ -11396,4 +11396,10 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => 'Помогите одному разработчику продолжать работу';
+
+  @override
+  String get callVoiceCallButton => 'Голосовой звонок';
+
+  @override
+  String get callVideoCallButton => 'Видеозвонок';
 }

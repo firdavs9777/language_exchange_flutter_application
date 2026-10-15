@@ -7311,5 +7311,7 @@
   "guideStudyHubCta": "Start today's pack",
   "guideStudyHubSecondary": "See all features",
   "supportBananaTalkRow": "Support BananaTalk",
-  "supportBananaTalkRowSubtitle": "Help a solo developer keep building"
+  "supportBananaTalkRowSubtitle": "Help a solo developer keep building",
+  "callVoiceCallButton": "Voice call",
+  "callVideoCallButton": "Video call"
 }

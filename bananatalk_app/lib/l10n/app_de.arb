@@ -4639,5 +4639,7 @@
   "guideStudyHubCta": "Heutiges Paket starten",
   "guideStudyHubSecondary": "Alle Funktionen ansehen",
   "supportBananaTalkRow": "BananaTalk unterstützen",
-  "supportBananaTalkRowSubtitle": "Hilf einem Solo-Entwickler weiterzumachen"
+  "supportBananaTalkRowSubtitle": "Hilf einem Solo-Entwickler weiterzumachen",
+  "callVoiceCallButton": "Sprachanruf",
+  "callVideoCallButton": "Videoanruf"
 }

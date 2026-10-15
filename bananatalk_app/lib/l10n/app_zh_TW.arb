@@ -4090,5 +4090,7 @@
   "guideStudyHubCta": "開始今日學習包",
   "guideStudyHubSecondary": "查看全部功能",
   "supportBananaTalkRow": "支持 BananaTalk",
-  "supportBananaTalkRowSubtitle": "幫助獨立開發者持續打磨產品"
+  "supportBananaTalkRowSubtitle": "幫助獨立開發者持續打磨產品",
+  "callVoiceCallButton": "語音通話",
+  "callVideoCallButton": "視訊通話"
 }

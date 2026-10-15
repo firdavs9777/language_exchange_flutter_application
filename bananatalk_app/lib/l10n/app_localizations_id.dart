@@ -11344,4 +11344,10 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => 'Bantu pengembang tunggal terus berkarya';
+
+  @override
+  String get callVoiceCallButton => 'Panggilan suara';
+
+  @override
+  String get callVideoCallButton => 'Panggilan video';
 }

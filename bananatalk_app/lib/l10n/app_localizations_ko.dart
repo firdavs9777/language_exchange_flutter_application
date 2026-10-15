@@ -11333,4 +11333,10 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => '1인 개발자가 계속 만들 수 있도록 도와주세요';
+
+  @override
+  String get callVoiceCallButton => '음성 통화';
+
+  @override
+  String get callVideoCallButton => '영상 통화';
 }

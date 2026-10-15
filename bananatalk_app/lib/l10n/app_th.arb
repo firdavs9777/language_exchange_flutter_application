@@ -4399,5 +4399,7 @@
   "guideStudyHubCta": "เริ่มชุดวันนี้",
   "guideStudyHubSecondary": "ดูฟีเจอร์ทั้งหมด",
   "supportBananaTalkRow": "สนับสนุน BananaTalk",
-  "supportBananaTalkRowSubtitle": "ช่วยนักพัฒนาคนเดียวให้สร้างต่อไป"
+  "supportBananaTalkRowSubtitle": "ช่วยนักพัฒนาคนเดียวให้สร้างต่อไป",
+  "callVoiceCallButton": "โทรด้วยเสียง",
+  "callVideoCallButton": "วิดีโอคอล"
 }

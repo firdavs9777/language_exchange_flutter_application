@@ -3892,5 +3892,7 @@
   "guideStudyHubCta": "Бастаи имрӯзро оғоз кунед",
   "guideStudyHubSecondary": "Ҳамаи имкониятҳоро бинед",
   "supportBananaTalkRow": "BananaTalk-ро дастгирӣ кунед",
-  "supportBananaTalkRowSubtitle": "Ба як барномасози танҳо барои идома додан кӯмак кунед"
+  "supportBananaTalkRowSubtitle": "Ба як барномасози танҳо барои идома додан кӯмак кунед",
+  "callVoiceCallButton": "Занги овозӣ",
+  "callVideoCallButton": "Занги видеоӣ"
 }

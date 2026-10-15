@@ -11350,4 +11350,10 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => 'Tek başına çalışan bir geliştiricinin devam etmesine yardım et';
+
+  @override
+  String get callVoiceCallButton => 'Sesli arama';
+
+  @override
+  String get callVideoCallButton => 'Görüntülü arama';
 }

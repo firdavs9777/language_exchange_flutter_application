@@ -349,6 +349,7 @@ class ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
         // Video call button
         _CallButton(
           icon: Icons.videocam_rounded,
+          label: AppLocalizations.of(context)!.callVideoCallButton,
           isEnabled: canCall,
           onPressed: canCall && userId != null
               ? () => _initiateCall(context, ref, CallType.video)
@@ -357,6 +358,7 @@ class ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
         // Audio call button
         _CallButton(
           icon: Icons.call_rounded,
+          label: AppLocalizations.of(context)!.callVoiceCallButton,
           isEnabled: canCall,
           onPressed: canCall && userId != null
               ? () => _initiateCall(context, ref, CallType.audio)
@@ -404,11 +406,13 @@ class ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
 /// Animated call button with hover effect
 class _CallButton extends StatelessWidget {
   final IconData icon;
+  final String label;
   final bool isEnabled;
   final VoidCallback onPressed;
 
   const _CallButton({
     required this.icon,
+    required this.label,
     required this.isEnabled,
     required this.onPressed,
   });
@@ -417,25 +421,29 @@ class _CallButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 2),
-      child: Material(
-        color: Colors.transparent,
-        borderRadius: AppRadius.borderMD,
-        child: InkWell(
-          onTap: onPressed,
+      child: Semantics(
+        button: true,
+        label: label,
+        child: Material(
+          color: Colors.transparent,
           borderRadius: AppRadius.borderMD,
-          child: Container(
-            width: 40,
-            height: 40,
-            decoration: BoxDecoration(
-              borderRadius: AppRadius.borderMD,
-              color: isEnabled
-                  ? AppColors.primary.withValues(alpha: 0.1)
-                  : Colors.transparent,
-            ),
-            child: Icon(
-              icon,
-              size: 22,
-              color: isEnabled ? AppColors.primary : context.textSecondary,
+          child: InkWell(
+            onTap: onPressed,
+            borderRadius: AppRadius.borderMD,
+            child: Container(
+              width: 40,
+              height: 40,
+              decoration: BoxDecoration(
+                borderRadius: AppRadius.borderMD,
+                color: isEnabled
+                    ? AppColors.primary.withValues(alpha: 0.1)
+                    : Colors.transparent,
+              ),
+              child: Icon(
+                icon,
+                size: 22,
+                color: isEnabled ? AppColors.primary : context.textSecondary,
+              ),
             ),
           ),
         ),

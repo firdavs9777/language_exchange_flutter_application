@@ -11352,4 +11352,10 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => 'Hilf einem Solo-Entwickler weiterzumachen';
+
+  @override
+  String get callVoiceCallButton => 'Sprachanruf';
+
+  @override
+  String get callVideoCallButton => 'Videoanruf';
 }

@@ -20683,6 +20683,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Help a solo developer keep building'**
   String get supportBananaTalkRowSubtitle;
+
+  /// No description provided for @callVoiceCallButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice call'**
+  String get callVoiceCallButton;
+
+  /// No description provided for @callVideoCallButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Video call'**
+  String get callVideoCallButton;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

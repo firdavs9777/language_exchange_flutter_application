@@ -4399,5 +4399,7 @@
   "guideStudyHubCta": "Mulai paket hari ini",
   "guideStudyHubSecondary": "Lihat semua fitur",
   "supportBananaTalkRow": "Dukung BananaTalk",
-  "supportBananaTalkRowSubtitle": "Bantu pengembang tunggal terus berkarya"
+  "supportBananaTalkRowSubtitle": "Bantu pengembang tunggal terus berkarya",
+  "callVoiceCallButton": "Panggilan suara",
+  "callVideoCallButton": "Panggilan video"
 }

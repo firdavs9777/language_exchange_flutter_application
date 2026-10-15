@@ -549,6 +549,7 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
                   child: FloatingActionButton(
                     mini: true,
                     backgroundColor: Colors.white24,
+                    tooltip: l10n.switchCamera,
                     child: const Icon(Icons.cameraswitch, color: Colors.white),
                     onPressed: () async {
                       await callManager.switchCamera();
@@ -856,31 +857,39 @@ class _ControlButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Container(
-          width: size,
-          height: size,
-          decoration: BoxDecoration(
-            color: backgroundColor,
-            shape: BoxShape.circle,
+    // One screen-reader button with the visible label, not an unlabelled
+    // icon button followed by a separate text.
+    return Semantics(
+      button: true,
+      label: label,
+      onTap: onPressed,
+      excludeSemantics: true,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            width: size,
+            height: size,
+            decoration: BoxDecoration(
+              color: backgroundColor,
+              shape: BoxShape.circle,
+            ),
+            child: IconButton(
+              icon: Icon(icon, color: iconColor),
+              iconSize: size * 0.5,
+              onPressed: onPressed,
+            ),
           ),
-          child: IconButton(
-            icon: Icon(icon, color: iconColor),
-            iconSize: size * 0.5,
-            onPressed: onPressed,
+          const SizedBox(height: 8),
+          Text(
+            label,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 12,
+            ),
           ),
-        ),
-        const SizedBox(height: 8),
-        Text(
-          label,
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 12,
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

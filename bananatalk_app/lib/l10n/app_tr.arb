@@ -4611,5 +4611,7 @@
   "guideStudyHubCta": "Bugünün paketini başlat",
   "guideStudyHubSecondary": "Tüm özellikleri gör",
   "supportBananaTalkRow": "BananaTalk'a destek ol",
-  "supportBananaTalkRowSubtitle": "Tek başına çalışan bir geliştiricinin devam etmesine yardım et"
+  "supportBananaTalkRowSubtitle": "Tek başına çalışan bir geliştiricinin devam etmesine yardım et",
+  "callVoiceCallButton": "Sesli arama",
+  "callVideoCallButton": "Görüntülü arama"
 }

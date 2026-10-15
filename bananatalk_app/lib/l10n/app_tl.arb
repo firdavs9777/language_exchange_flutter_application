@@ -4372,5 +4372,7 @@
   "guideStudyHubCta": "Simulan ang pack ngayon",
   "guideStudyHubSecondary": "Tingnan ang lahat ng feature",
   "supportBananaTalkRow": "Suportahan ang BananaTalk",
-  "supportBananaTalkRowSubtitle": "Tulungan ang nag-iisang developer na magpatuloy"
+  "supportBananaTalkRowSubtitle": "Tulungan ang nag-iisang developer na magpatuloy",
+  "callVoiceCallButton": "Voice call",
+  "callVideoCallButton": "Video call"
 }
