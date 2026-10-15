@@ -612,12 +612,9 @@ class CallManager with WidgetsBindingObserver {
   /// would evict that device. With no call in memory, the native call UI is
   /// the only record that this device accepted it.
   Future<bool> _acceptedOnThisDevice(Map<String, dynamic> summary) async {
-    final callId = summary['id']?.toString() ?? '';
-    if (callId.isEmpty) return false;
-    final uuid = CallKitIds.uuidFor(callId: callId, callUuid: summary['callUuid']?.toString());
+    if ((summary['id']?.toString() ?? '').isEmpty) return false;
     final entries = await _deps.platform.activeCallUis();
-    return entries.any((e) =>
-        e.accepted && (CallKitIds.same(e.uuid, uuid) || _sameId(e.callId, callId)));
+    return entries.any((e) => e.accepted && _entryIsCall(e, summary));
   }
 
   Future<void> _rejoin(
@@ -928,8 +925,15 @@ class CallManager with WidgetsBindingObserver {
   /// before Flutter ran, so the accept event was never delivered. Join it.
   /// (A decline in that state is not observable here; the server's 45 s
   /// timeout closes it.)
+  ///
+  /// An accepted entry for a call already active on the server was answered
+  /// here before the kill: accepting again is a 409 that would finish it and
+  /// end the native entry. It is left for [recoverCallState], which rejoins
+  /// it (main.dart runs that right after).
   Future<void> reconcileCallKitOnColdStart() async {
     final entries = await _deps.platform.activeCallUis();
+    Map<String, dynamic>? active;
+    var asked = false;
     for (final entry in entries) {
       if (!entry.accepted) continue;
       final cur = currentCall;
@@ -938,11 +942,38 @@ class CallManager with WidgetsBindingObserver {
           !_sameId(cur.callId, entry.callId)) {
         continue;
       }
+      if (!asked) {
+        // Asked once, and only when an accepted entry exists. A failed ask
+        // keeps the killed-state accept: the call is most likely ringing.
+        asked = true;
+        active = await _activeServerCall();
+      }
+      if (active != null && _entryIsCall(entry, active)) continue;
       await handleCallKitAccept(entry.uuid, entry.extra);
       // A stale entry (Android can keep isAccepted after the call is over)
       // fails to accept and finishes; keep looking for the real one.
       if (currentCall != null) return;
     }
+  }
+
+  /// The server's current call summary when it is active, else null.
+  Future<Map<String, dynamic>?> _activeServerCall() async {
+    try {
+      final res = await _deps.api.current();
+      final raw = res.ok ? res.data['call'] : null;
+      if (raw is! Map || raw['status']?.toString() != 'active') return null;
+      return Map<String, dynamic>.from(raw);
+    } catch (e) {
+      debugPrint('📞 cold start current-call check failed: $e');
+      return null;
+    }
+  }
+
+  bool _entryIsCall(CallKitEntry entry, Map<String, dynamic> summary) {
+    final callId = summary['id']?.toString() ?? '';
+    if (callId.isEmpty) return false;
+    final uuid = CallKitIds.uuidFor(callId: callId, callUuid: summary['callUuid']?.toString());
+    return CallKitIds.same(entry.uuid, uuid) || _sameId(entry.callId, callId);
   }
 
   /// A native decline / ended event that must not touch [cur]: the echo of
