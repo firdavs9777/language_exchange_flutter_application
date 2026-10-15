@@ -11354,4 +11354,28 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get restorePurchasesFailed => 'ไม่สามารถกู้คืนการซื้อได้ โปรดลองอีกครั้ง';
+
+  @override
+  String get callVoiceCallButton => 'โทรด้วยเสียง';
+
+  @override
+  String get callVideoCallButton => 'วิดีโอคอล';
+
+  @override
+  String get callPermissionMicSettings => 'โปรดเปิดการเข้าถึงไมโครโฟนในการตั้งค่าเพื่อโทร';
+
+  @override
+  String get callPermissionCameraSettings => 'โปรดเปิดการเข้าถึงกล้องในการตั้งค่าเพื่อวิดีโอคอล';
+
+  @override
+  String get callPermissionMicCameraSettings => 'โปรดเปิดการเข้าถึงไมโครโฟนและกล้องในการตั้งค่าเพื่อวิดีโอคอล';
+
+  @override
+  String get callQualityExcellent => 'คุณภาพดีมาก';
+
+  @override
+  String get callQualityGood => 'คุณภาพดี';
+
+  @override
+  String get callConnectionLost => 'การเชื่อมต่อขาดหาย';
 }

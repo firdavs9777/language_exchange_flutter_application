@@ -6365,21 +6365,69 @@
     }
   },
   "callLabelOutgoing": "{type, select, video{Outgoing video call} other{Outgoing voice call}}",
-  "@callLabelOutgoing": {"placeholders": {"type": {"type": "String"}}},
+  "@callLabelOutgoing": {
+    "placeholders": {
+      "type": {
+        "type": "String"
+      }
+    }
+  },
   "callLabelIncoming": "{type, select, video{Incoming video call} other{Incoming voice call}}",
-  "@callLabelIncoming": {"placeholders": {"type": {"type": "String"}}},
+  "@callLabelIncoming": {
+    "placeholders": {
+      "type": {
+        "type": "String"
+      }
+    }
+  },
   "callLabelNoAnswer": "{type, select, video{Video call · No answer} other{Voice call · No answer}}",
-  "@callLabelNoAnswer": {"placeholders": {"type": {"type": "String"}}},
+  "@callLabelNoAnswer": {
+    "placeholders": {
+      "type": {
+        "type": "String"
+      }
+    }
+  },
   "callLabelMissed": "{type, select, video{Missed video call} other{Missed voice call}}",
-  "@callLabelMissed": {"placeholders": {"type": {"type": "String"}}},
+  "@callLabelMissed": {
+    "placeholders": {
+      "type": {
+        "type": "String"
+      }
+    }
+  },
   "callLabelCancelled": "{type, select, video{Cancelled video call} other{Cancelled voice call}}",
-  "@callLabelCancelled": {"placeholders": {"type": {"type": "String"}}},
+  "@callLabelCancelled": {
+    "placeholders": {
+      "type": {
+        "type": "String"
+      }
+    }
+  },
   "callLabelDeclinedOutgoing": "{type, select, video{Video call declined} other{Voice call declined}}",
-  "@callLabelDeclinedOutgoing": {"placeholders": {"type": {"type": "String"}}},
+  "@callLabelDeclinedOutgoing": {
+    "placeholders": {
+      "type": {
+        "type": "String"
+      }
+    }
+  },
   "callLabelDeclinedIncoming": "{type, select, video{Declined video call} other{Declined voice call}}",
-  "@callLabelDeclinedIncoming": {"placeholders": {"type": {"type": "String"}}},
+  "@callLabelDeclinedIncoming": {
+    "placeholders": {
+      "type": {
+        "type": "String"
+      }
+    }
+  },
   "callLabelBusy": "{name} was on another call",
-  "@callLabelBusy": {"placeholders": {"name": {"type": "String"}}},
+  "@callLabelBusy": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "callsTitle": "Calls",
   "callsEmpty": "No calls yet",
   "callCameraPaused": "Camera paused",
@@ -6393,7 +6441,9 @@
   "@firstSessionMatchesTitle": {
     "description": "First line of the first-session panel on the Matches tab",
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
   "firstSessionMatchesBody": "Say hi — a first message is all it takes.",
@@ -6631,20 +6681,26 @@
   "@guideProgress": {
     "description": "Footer on every first-week guide card: how many of the four first actions are done",
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
   "chatDailyLimitBody": "Free users can chat with up to {count} people per day.\nUpgrade to VIP for unlimited conversations!",
   "@chatDailyLimitBody": {
     "placeholders": {
-      "count": { "type": "Object" }
+      "count": {
+        "type": "Object"
+      }
     }
   },
   "chatCompressingVideo": "Compressing video...",
   "chatShareLocationBody": "Send your current location to {name}. Only do this with people you trust.",
   "@chatShareLocationBody": {
     "placeholders": {
-      "name": { "type": "Object" }
+      "name": {
+        "type": "Object"
+      }
     }
   },
   "chatShareLocationThisChat": "this chat",
@@ -6653,27 +6709,35 @@
   "chatReplyingTo": "Replying to {name}",
   "@chatReplyingTo": {
     "placeholders": {
-      "name": { "type": "Object" }
+      "name": {
+        "type": "Object"
+      }
     }
   },
   "chatReplyingToFallback": "user",
   "chatSendingMedia": "Sending {mediaType}...",
   "@chatSendingMedia": {
     "placeholders": {
-      "mediaType": { "type": "Object" }
+      "mediaType": {
+        "type": "Object"
+      }
     }
   },
   "chatEnterUsernameStart": "Enter username to start a chat",
   "chatSearching": "Searching for @{username}...",
   "@chatSearching": {
     "placeholders": {
-      "username": { "type": "Object" }
+      "username": {
+        "type": "Object"
+      }
     }
   },
   "chatDeleteConversationBody": "Delete your conversation with {name}? This cannot be undone.",
   "@chatDeleteConversationBody": {
     "placeholders": {
-      "name": { "type": "Object" }
+      "name": {
+        "type": "Object"
+      }
     }
   },
   "chatQrCode": "QR Code",
@@ -6685,7 +6749,9 @@
   "chatMessagesRemainingToday": "{count, plural, =1{1 message remaining today} other{{count} messages remaining today}}",
   "@chatMessagesRemainingToday": {
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
   "chatTranslatePreviewHint": "Start typing to see the translation",
@@ -6704,21 +6770,51 @@
   "chatEdited": "edited",
   "chatPremium": "Premium ✨",
   "chatUnlockPremiumWallpapers": "Unlock all Premium ✨ wallpapers for 💎{cost} coins? This unlocks the whole pack for good.",
-  "@chatUnlockPremiumWallpapers": { "placeholders": { "cost": { "type": "Object" } } },
+  "@chatUnlockPremiumWallpapers": {
+    "placeholders": {
+      "cost": {
+        "type": "Object"
+      }
+    }
+  },
   "chatWallpaperForName": "Chat wallpaper for {userName}",
-  "@chatWallpaperForName": { "placeholders": { "userName": { "type": "Object" } } },
+  "@chatWallpaperForName": {
+    "placeholders": {
+      "userName": {
+        "type": "Object"
+      }
+    }
+  },
   "chatChooseGallery": "Choose from gallery",
   "chatHiThere": "Hi there! 😊",
   "chatCorrected": "{correctorName} corrected",
-  "@chatCorrected": { "placeholders": { "correctorName": { "type": "Object" } } },
+  "@chatCorrected": {
+    "placeholders": {
+      "correctorName": {
+        "type": "Object"
+      }
+    }
+  },
   "chatCorrectionAccepted": "Correction accepted ✓",
   "chatForwarded": "Forwarded from {senderName}",
-  "@chatForwarded": { "placeholders": { "senderName": { "type": "Object" } } },
+  "@chatForwarded": {
+    "placeholders": {
+      "senderName": {
+        "type": "Object"
+      }
+    }
+  },
   "chatCached": "Cached",
   "chatWordBreakdown": "Word Breakdown",
   "chatAlternatives": "Alternatives",
   "chatTranslationAlso": "Also: {items}",
-  "@chatTranslationAlso": { "placeholders": { "items": { "type": "Object" } } },
+  "@chatTranslationAlso": {
+    "placeholders": {
+      "items": {
+        "type": "Object"
+      }
+    }
+  },
   "chatAudioUnavailable": "Audio unavailable",
   "chatHideTranslation": "Hide translation",
   "chatStoryExpired": "Story expired",
@@ -6726,14 +6822,26 @@
   "chatAccepting": "Accepting…",
   "chatSaveToVocabularyAction": "Save to Vocabulary",
   "momentsMore": "+{hidden} more",
-  "@momentsMore": { "placeholders": { "hidden": { "type": "Object" } } },
+  "@momentsMore": {
+    "placeholders": {
+      "hidden": {
+        "type": "Object"
+      }
+    }
+  },
   "momentsAllow": "Allow",
   "momentsCompressed": "Compressed",
   "momentsPromptDay": "Prompt of the day",
   "momentsAnswer": "Answer",
   "momentsAnswerCamera": "🎥 Answer on camera",
   "momentsPracticeWriting": "Practice writing in {langName}",
-  "@momentsPracticeWriting": { "placeholders": { "langName": { "type": "Object" } } },
+  "@momentsPracticeWriting": {
+    "placeholders": {
+      "langName": {
+        "type": "Object"
+      }
+    }
+  },
   "momentsReelPolicyBody": "Reels are short language-learning videos — prompt answers, speaking practice, native-speaker explainers, and culture clips.\n\nBananatalk has zero tolerance for objectionable content: no nudity, hate speech, harassment, violence, or illegal content. Reported videos are automatically hidden pending review after 2 reports, and violations can result in content removal or account bans.\n\nYou can report or block from any reel at any time.",
   "momentsIAgree": "I agree",
   "momentsWhyReportingReel": "Why are you reporting this reel?",
@@ -6743,29 +6851,71 @@
   "momentsErrorLoadingVideo": "Error loading video",
   "momentsLoadingVideo": "Loading video...",
   "momentsFileSizeMb": "{size}MB",
-  "@momentsFileSizeMb": { "placeholders": { "size": { "type": "Object" } } },
+  "@momentsFileSizeMb": {
+    "placeholders": {
+      "size": {
+        "type": "Object"
+      }
+    }
+  },
   "momentsMaxDuration": "Max {duration}",
-  "@momentsMaxDuration": { "placeholders": { "duration": { "type": "Object" } } },
+  "@momentsMaxDuration": {
+    "placeholders": {
+      "duration": {
+        "type": "Object"
+      }
+    }
+  },
   "momentsReportSubmitted": "Report submitted",
   "communityLive": "{count} live",
-  "@communityLive": {"placeholders": {"count": {"type": "Object"}}},
+  "@communityLive": {
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
   "communityFind": "Find",
   "communityFinding": "Finding @{username}...",
-  "@communityFinding": {"placeholders": {"username": {"type": "Object"}}},
+  "@communityFinding": {
+    "placeholders": {
+      "username": {
+        "type": "Object"
+      }
+    }
+  },
   "communitySeeAll": "See all",
   "communitySeeWhoLikes": "See who likes you",
   "communityUnlimitedBrowsingNoAds": "Unlimited browsing, no ads, priority matching",
   "communityMembersCount": "{count} members",
-  "@communityMembersCount": {"placeholders": {"count": {"type": "Object"}}},
+  "@communityMembersCount": {
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
   "communityPeopleCount": "{count} people",
-  "@communityPeopleCount": {"placeholders": {"count": {"type": "Object"}}},
+  "@communityPeopleCount": {
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
   "communityFailedLoadArchivedWaves": "Failed to load archived waves",
   "communityGreatChat": "Great chat! 🎉",
   "communityStayTouchPeopleJust": "Stay in touch with the people you just talked to",
   "communityNotNow": "Not now",
   "communityPerfect": "Perfect",
   "communityLv": "Lv.{level}",
-  "@communityLv": {"placeholders": {"level": {"type": "Object"}}},
+  "@communityLv": {
+    "placeholders": {
+      "level": {
+        "type": "Object"
+      }
+    }
+  },
   "communityReact": "React",
   "communityWavedAtYou": "Waved at you",
   "communitySomeone": "Someone",
@@ -6774,30 +6924,99 @@
   "learnTapStartRecording": "Tap to start recording",
   "learnWordBank": "Word Bank",
   "learnCorrectAnswer": "Correct answer: {correctAnswer}",
-  "@learnCorrectAnswer": {"placeholders": {"correctAnswer": {"type": "Object"}}},
+  "@learnCorrectAnswer": {
+    "placeholders": {
+      "correctAnswer": {
+        "type": "Object"
+      }
+    }
+  },
   "learnMatchingDataNotAvailable": "Matching data not available",
   "learnExerciseCouldNotLoad": "This exercise could not load the matching pairs. Please try regenerating the lesson.",
   "learnSkipExercise": "Skip Exercise",
   "learnTapItemLeftThen": "Tap an item on the left, then tap its match on the right",
   "learnMatchedOfTotal": "{count}/{count2} matched",
-  "@learnMatchedOfTotal": {"placeholders": {"count": {"type": "Object"}, "count2": {"type": "Object"}}},
+  "@learnMatchedOfTotal": {
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      },
+      "count2": {
+        "type": "Object"
+      }
+    }
+  },
   "learnCorrectOfTotal": "{correctCount}/{count} correct",
-  "@learnCorrectOfTotal": {"placeholders": {"correctCount": {"type": "Object"}, "count": {"type": "Object"}}},
+  "@learnCorrectOfTotal": {
+    "placeholders": {
+      "correctCount": {
+        "type": "Object"
+      },
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
   "learnDragDropReorderItems": "Drag and drop to reorder the items",
   "learnCorrectOrder": "Correct order: {order}",
-  "@learnCorrectOrder": {"placeholders": {"order": {"type": "Object"}}},
+  "@learnCorrectOrder": {
+    "placeholders": {
+      "order": {
+        "type": "Object"
+      }
+    }
+  },
   "learnWordsToReview": "{dueCount, plural, =1{1 word to review} other{{dueCount} words to review}}",
-  "@learnWordsToReview": {"placeholders": {"dueCount": {"type": "int"}}},
+  "@learnWordsToReview": {
+    "placeholders": {
+      "dueCount": {
+        "type": "int"
+      }
+    }
+  },
   "learnScore": "Score: {score} / 100",
-  "@learnScore": {"placeholders": {"score": {"type": "Object"}}},
+  "@learnScore": {
+    "placeholders": {
+      "score": {
+        "type": "Object"
+      }
+    }
+  },
   "learnGotCorrect": "You got {correct} of {count} correct.",
-  "@learnGotCorrect": {"placeholders": {"correct": {"type": "Object"}, "count": {"type": "Object"}}},
+  "@learnGotCorrect": {
+    "placeholders": {
+      "correct": {
+        "type": "Object"
+      },
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
   "learnQuestionOf": "Question {number} of {total}",
-  "@learnQuestionOf": {"placeholders": {"number": {"type": "Object"}, "total": {"type": "Object"}}},
+  "@learnQuestionOf": {
+    "placeholders": {
+      "number": {
+        "type": "Object"
+      },
+      "total": {
+        "type": "Object"
+      }
+    }
+  },
   "learnMatchEachWordIts": "Match each word to its meaning",
   "learnCouldNotLoadPacks": "Could not load packs",
   "learnWordsExercises": "{wordCount} words · {exerciseCount} exercises",
-  "@learnWordsExercises": {"placeholders": {"wordCount": {"type": "Object"}, "exerciseCount": {"type": "Object"}}},
+  "@learnWordsExercises": {
+    "placeholders": {
+      "wordCount": {
+        "type": "Object"
+      },
+      "exerciseCount": {
+        "type": "Object"
+      }
+    }
+  },
   "learnAiAutoFill": "AI Auto-fill",
   "learnPlay": "Play",
   "learnFinish": "Finish",
@@ -6805,35 +7024,86 @@
   "learnUnsupportedExercise": "Unsupported exercise",
   "learnFailedLoadAchievements": "Failed to load achievements",
   "learnUnlockedOn": "Unlocked on {date}",
-  "@learnUnlockedOn": {"placeholders": {"date": {"type": "Object"}}},
+  "@learnUnlockedOn": {
+    "placeholders": {
+      "date": {
+        "type": "Object"
+      }
+    }
+  },
   "learnChallenges": "Challenges",
   "learnFailedLoadChallenges": "Failed to load challenges",
   "learnNoChallenges": "No {type} Challenges",
-  "@learnNoChallenges": {"placeholders": {"type": {"type": "Object"}}},
+  "@learnNoChallenges": {
+    "placeholders": {
+      "type": {
+        "type": "Object"
+      }
+    }
+  },
   "learnCheckBackLater": "Check back later!",
   "learnActiveCount": "Active ({count})",
-  "@learnActiveCount": {"placeholders": {"count": {"type": "Object"}}},
+  "@learnActiveCount": {
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
   "learnCompletedCount": "Completed ({count})",
-  "@learnCompletedCount": {"placeholders": {"count": {"type": "Object"}}},
+  "@learnCompletedCount": {
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
   "learnProgress": "Progress",
   "learnXpReward": "XP Reward",
   "learnBonus": "Bonus",
   "learnExpires": "Expires in {timeRemainingFormatted}",
-  "@learnExpires": {"placeholders": {"timeRemainingFormatted": {"type": "Object"}}},
+  "@learnExpires": {
+    "placeholders": {
+      "timeRemainingFormatted": {
+        "type": "Object"
+      }
+    }
+  },
   "learnAchievementUnlocked": "Achievement Unlocked!",
   "learnTapContinue": "Tap to continue",
   "learnChallengeCompleted": "Completed",
   "learnDailyGoals": "Daily Goals",
   "learnLessons": "{completedCount}/{lessonsCount} lessons",
-  "@learnLessons": {"placeholders": {"completedCount": {"type": "Object"}, "lessonsCount": {"type": "Object"}}},
+  "@learnLessons": {
+    "placeholders": {
+      "completedCount": {
+        "type": "Object"
+      },
+      "lessonsCount": {
+        "type": "Object"
+      }
+    }
+  },
   "learnLongestDays": "Longest: {longestStreak} days",
-  "@learnLongestDays": {"placeholders": {"longestStreak": {"type": "Object"}}},
+  "@learnLongestDays": {
+    "placeholders": {
+      "longestStreak": {
+        "type": "Object"
+      }
+    }
+  },
   "learnTapReveal": "Tap to reveal",
   "learnNoAchievements": "No achievements",
   "learnDayStreak": "Day Streak",
   "learnDueForReview": "Due for review",
   "learnNextReview": "Next: {date}",
-  "@learnNextReview": {"placeholders": {"date": {"type": "Object"}}},
+  "@learnNextReview": {
+    "placeholders": {
+      "date": {
+        "type": "Object"
+      }
+    }
+  },
   "learnChallengeDaily": "Daily",
   "learnChallengeWeekly": "Weekly",
   "learnChallengeSpecial": "Special",
@@ -6843,33 +7113,90 @@
   "learnDateToday": "Today",
   "learnDateTomorrow": "Tomorrow",
   "learnInDays": "{count, plural, one{In {count} day} other{In {count} days}}",
-  "@learnInDays": { "placeholders": { "count": { "type": "int" } } },
+  "@learnInDays": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "learnInWeeks": "{count, plural, one{In {count} week} other{In {count} weeks}}",
-  "@learnInWeeks": { "placeholders": { "count": { "type": "int" } } },
+  "@learnInWeeks": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "learnInMonths": "{count, plural, one{In {count} month} other{In {count} months}}",
-  "@learnInMonths": { "placeholders": { "count": { "type": "int" } } },
+  "@learnInMonths": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "aiGenerateNewQuiz": "Generate New Quiz",
   "aiPreviousQuizzes": "Previous Quizzes",
   "aiGeneratingQuiz": "Generating your quiz…",
   "aiFocusArea": "Focus area: {name}",
-  "@aiFocusArea": { "placeholders": { "name": { "type": "Object" } } },
+  "@aiFocusArea": {
+    "placeholders": {
+      "name": {
+        "type": "Object"
+      }
+    }
+  },
   "aiQuizType": "Quiz Type",
   "aiDifficulty": "Difficulty",
   "aiQuestionsLabel": "Questions:",
   "aiGenerateQuiz": "Generate Quiz",
   "aiQuizQuestionCount": "{questionCount, plural, =1{1 question} other{{questionCount} questions}}",
-  "@aiQuizQuestionCount": { "placeholders": { "questionCount": { "type": "int" } } },
+  "@aiQuizQuestionCount": {
+    "placeholders": {
+      "questionCount": {
+        "type": "int"
+      }
+    }
+  },
   "aiCorrectOfTotal": "{correctCount}/{totalQuestions} correct",
-  "@aiCorrectOfTotal": { "placeholders": { "correctCount": { "type": "Object" }, "totalQuestions": { "type": "Object" } } },
+  "@aiCorrectOfTotal": {
+    "placeholders": {
+      "correctCount": {
+        "type": "Object"
+      },
+      "totalQuestions": {
+        "type": "Object"
+      }
+    }
+  },
   "aiNoQuizzesYet": "No quizzes yet",
   "aiGenerateFirstQuizAbove": "Generate your first quiz above!",
   "aiCorrectOutOf": "{correctCount} out of {totalQuestions} correct",
-  "@aiCorrectOutOf": { "placeholders": { "correctCount": { "type": "Object" }, "totalQuestions": { "type": "Object" } } },
+  "@aiCorrectOutOf": {
+    "placeholders": {
+      "correctCount": {
+        "type": "Object"
+      },
+      "totalQuestions": {
+        "type": "Object"
+      }
+    }
+  },
   "aiBackQuizHub": "Back to Quiz Hub",
   "aiNoQuestionsAvailable": "No questions available",
   "aiQuizHasNoQuestions": "This quiz has no questions to display.",
   "aiQuestionOf": "Question {number} of {count}",
-  "@aiQuestionOf": { "placeholders": { "number": { "type": "Object" }, "count": { "type": "Object" } } },
+  "@aiQuestionOf": {
+    "placeholders": {
+      "number": {
+        "type": "Object"
+      },
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
   "aiYourAnswerLabel": "Your answer:",
   "aiBonusXpWatching": "🎉 +10 Bonus XP for watching!",
   "aiNotQuiteRight": "Not quite right",
@@ -6877,7 +7204,13 @@
   "aiGotIt": "Got It",
   "aiHint": "Hint",
   "aiLevel": "Level {hintLevel}/3",
-  "@aiLevel": { "placeholders": { "hintLevel": { "type": "Object" } } },
+  "@aiLevel": {
+    "placeholders": {
+      "hintLevel": {
+        "type": "Object"
+      }
+    }
+  },
   "aiAskQuestion": "Ask a Question",
   "aiAsk": "Ask",
   "aiAssistantExamples": "Examples",
@@ -6898,7 +7231,13 @@
   "aiFailedToExplain": "Failed to explain",
   "aiFailedLoadHistory": "Failed to load history",
   "aiConversationMessageCount": "{count, plural, =1{1 message} other{{count} messages}}",
-  "@aiConversationMessageCount": { "placeholders": { "count": { "type": "int" } } },
+  "@aiConversationMessageCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "aiStartNewConversationSee": "Start a new conversation to see it here",
   "aiLoadingMessages": "Loading messages...",
   "aiNoMessagesConversation": "No messages in this conversation",
@@ -6909,11 +7248,23 @@
   "aiCheckGrammar": "Check Grammar",
   "aiLanguageLabel": "Language:",
   "aiGrammarIssuesFound": "{count, plural, =1{1 issue found} other{{count} issues found}}",
-  "@aiGrammarIssuesFound": { "placeholders": { "count": { "type": "int" } } },
+  "@aiGrammarIssuesFound": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "aiPerfect": "Perfect!",
   "aiNoGrammarIssuesFound": "No grammar issues found in your text.",
   "aiIssuesFound": "Issues Found ({count})",
-  "@aiIssuesFound": { "placeholders": { "count": { "type": "Object" } } },
+  "@aiIssuesFound": {
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
   "aiCorrected": "Corrected",
   "aiGrammarExamples": "Examples:",
   "aiImprovedSuggestions": "Improved Suggestions",
@@ -6922,7 +7273,13 @@
   "aiGenerateCustomLessons": "Generate Custom Lessons",
   "aiCreatesPersonalizedLessonsAny": "AI creates personalized lessons on any topic",
   "aiExercises": "Exercises: {exerciseCount}",
-  "@aiExercises": { "placeholders": { "exerciseCount": { "type": "Object" } } },
+  "@aiExercises": {
+    "placeholders": {
+      "exerciseCount": {
+        "type": "Object"
+      }
+    }
+  },
   "aiSuggestedTopics": "Suggested Topics",
   "aiCreatingLesson": "Creating your lesson...",
   "aiGeneratingExercisesContent": "AI is generating exercises and content",
@@ -6940,19 +7297,49 @@
   "aiGrammarNotes": "Grammar Notes",
   "aiIdiomsExpressions": "Idioms & Expressions",
   "aiLiteral": "Literal: {literalTranslation}",
-  "@aiLiteral": { "placeholders": { "literalTranslation": { "type": "Object" } } },
+  "@aiLiteral": {
+    "placeholders": {
+      "literalTranslation": {
+        "type": "Object"
+      }
+    }
+  },
   "aiMeaning": "Meaning: {meaning}",
-  "@aiMeaning": { "placeholders": { "meaning": { "type": "Object" } } },
+  "@aiMeaning": {
+    "placeholders": {
+      "meaning": {
+        "type": "Object"
+      }
+    }
+  },
   "aiEquivalent": "Equivalent: {equivalentIdiom}",
-  "@aiEquivalent": { "placeholders": { "equivalentIdiom": { "type": "Object" } } },
+  "@aiEquivalent": {
+    "placeholders": {
+      "equivalentIdiom": {
+        "type": "Object"
+      }
+    }
+  },
   "aiCulturalContext": "Cultural Context",
   "aiNoCompletedConversations": "No completed conversations",
   "aiNoActiveConversations": "No active conversations",
   "aiStartInLanguage": "Start in {language}",
-  "@aiStartInLanguage": { "placeholders": { "language": { "type": "Object" } } },
+  "@aiStartInLanguage": {
+    "placeholders": {
+      "language": {
+        "type": "Object"
+      }
+    }
+  },
   "aiSelect": "Select",
   "aiIssuesCount": "{count, plural, =1{1 issue} other{{count} issues}}",
-  "@aiIssuesCount": { "placeholders": { "count": { "type": "int" } } },
+  "@aiIssuesCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "aiGenerateLesson": "Generate Lesson",
   "aiGeneratingEllipsis": "Generating...",
   "aiAnalyzing": "Analyzing...",
@@ -6969,7 +7356,13 @@
   "profileNoTopicsCategory": "No topics in this category",
   "profileAdminTools": "Admin Tools",
   "profileCompletionAdd": "Add: {items}",
-  "@profileCompletionAdd": { "placeholders": { "items": { "type": "Object" } } },
+  "@profileCompletionAdd": {
+    "placeholders": {
+      "items": {
+        "type": "Object"
+      }
+    }
+  },
   "profileActive": "ACTIVE",
   "profileAutoSaveEnabled": "Auto-save enabled",
   "profileChangesSavedInstantlyWhen": "Changes are saved instantly when you toggle.",
@@ -6981,9 +7374,21 @@
   "profileNoReportsSubmitted": "No reports submitted",
   "profileReportsSubmitWillAppear": "Reports you submit will appear here",
   "profileReportTypeTitle": "{type} Report",
-  "@profileReportTypeTitle": { "placeholders": { "type": { "type": "Object" } } },
+  "@profileReportTypeTitle": {
+    "placeholders": {
+      "type": {
+        "type": "Object"
+      }
+    }
+  },
   "profileReportReason": "Reason: {reason}",
-  "@profileReportReason": { "placeholders": { "reason": { "type": "Object" } } },
+  "@profileReportReason": {
+    "placeholders": {
+      "reason": {
+        "type": "Object"
+      }
+    }
+  },
   "profileDeleteAccountFinalBody": "All your data will be permanently deleted.\n\nAre you absolutely sure?",
   "profileThanksForWatching": "Thanks for watching! 🙏",
   "profileNotificationsOn": "Notifications on",
@@ -7011,21 +7416,51 @@
   "storyPrompt": "Prompt",
   "storyTapAnywhereAddText": "Tap anywhere to add text",
   "storyHighlightStoryCount": "{storyCount, plural, =1{1 story} other{{storyCount} stories}}",
-  "@storyHighlightStoryCount": {"placeholders": {"storyCount": {"type": "int"}}},
+  "@storyHighlightStoryCount": {
+    "placeholders": {
+      "storyCount": {
+        "type": "int"
+      }
+    }
+  },
   "storySendFriends": "Send to friends",
   "storySelected": "{count} selected",
-  "@storySelected": {"placeholders": {"count": {"type": "Object"}}},
+  "@storySelected": {
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
   "storyShareSave": "Share/Save",
   "storySeenBy": "Seen by {viewCount}",
-  "@storySeenBy": {"placeholders": {"viewCount": {"type": "Object"}}},
+  "@storySeenBy": {
+    "placeholders": {
+      "viewCount": {
+        "type": "Object"
+      }
+    }
+  },
   "storyNoViewsYet": "No views yet",
   "storyEditVideo": "Edit Video",
   "storyVotes": "{totalVotes} votes",
-  "@storyVotes": {"placeholders": {"totalVotes": {"type": "Object"}}},
+  "@storyVotes": {
+    "placeholders": {
+      "totalVotes": {
+        "type": "Object"
+      }
+    }
+  },
   "storyCreatePoll": "Create Poll",
   "storySendAnonymously": "Send anonymously",
   "storyResponseCount": "{count, plural, =1{1 response} other{{count} responses}}",
-  "@storyResponseCount": {"placeholders": {"count": {"type": "int"}}},
+  "@storyResponseCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "storyViewResponses": "View responses",
   "storyResponsesTitle": "Responses",
   "storyNoResponsesYet": "No responses yet",
@@ -7034,10 +7469,25 @@
   "storyProcessing": "Processing...",
   "storyHd": "HD",
   "storyVideoMeta": "{duration} | {size}MB",
-  "@storyVideoMeta": {"placeholders": {"duration": {"type": "Object"}, "size": {"type": "Object"}}},
+  "@storyVideoMeta": {
+    "placeholders": {
+      "duration": {
+        "type": "Object"
+      },
+      "size": {
+        "type": "Object"
+      }
+    }
+  },
   "storyUserFallback": "User",
   "storySendCount": "Send ({count})",
-  "@storySendCount": {"placeholders": {"count": {"type": "int"}}},
+  "@storySendCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "storyFailedToDelete": "Failed to delete story",
   "storyAnonymous": "Anonymous",
   "vipNoCoinActivityYet": "No coin activity yet",
@@ -7045,16 +7495,37 @@
   "vipLimitReached": "Limit reached",
   "vipCoins": "coins",
   "vipBonusIncluded": "+{bonusCoins} bonus included",
-  "@vipBonusIncluded": {"placeholders": {"bonusCoins": {"type": "Object"}}},
+  "@vipBonusIncluded": {
+    "placeholders": {
+      "bonusCoins": {
+        "type": "Object"
+      }
+    }
+  },
   "vipVisitorModeLimitReached": "Visitor Mode Limit Reached",
   "vipWhatGetFreeAccount": "What You Get with a Free Account",
   "vipCreateFreeAccount": "Create Free Account",
   "vipGoUnlimitedAccess": "Go VIP for Unlimited Access",
   "vipContinueAsVisitor": "Continue as Visitor",
   "vipResets": "Resets at: {resetTime}",
-  "@vipResets": {"placeholders": {"resetTime": {"type": "Object"}}},
+  "@vipResets": {
+    "placeholders": {
+      "resetTime": {
+        "type": "Object"
+      }
+    }
+  },
   "vipUsedToday": "{currentUsage} / {maxAllowed} used today",
-  "@vipUsedToday": {"placeholders": {"currentUsage": {"type": "Object"}, "maxAllowed": {"type": "Object"}}},
+  "@vipUsedToday": {
+    "placeholders": {
+      "currentUsage": {
+        "type": "Object"
+      },
+      "maxAllowed": {
+        "type": "Object"
+      }
+    }
+  },
   "vipTierVisitor": "Visitor",
   "vipTierMember": "Member",
   "vipAd": "Ad",
@@ -7078,20 +7549,56 @@
   "commonMuted": "Muted",
   "commonPoorConnection": "Poor Connection",
   "commonBlockUserConfirmBody": "Are you sure you want to block {targetUserName}?\n\nYou will no longer see their messages, posts, or appear in each other's searches.",
-  "@commonBlockUserConfirmBody": { "placeholders": { "targetUserName": { "type": "Object" } } },
+  "@commonBlockUserConfirmBody": {
+    "placeholders": {
+      "targetUserName": {
+        "type": "Object"
+      }
+    }
+  },
   "commonVideoFile": "Video File",
   "commonPointCameraBananatalkQr": "Point your camera at a Bananatalk QR code",
   "commonReportSubmittedButSome": "Report submitted, but some evidence failed to upload",
   "commonReportTitle": "Report {typeLabel}",
-  "@commonReportTitle": { "placeholders": { "typeLabel": { "type": "Object" } } },
+  "@commonReportTitle": {
+    "placeholders": {
+      "typeLabel": {
+        "type": "Object"
+      }
+    }
+  },
   "commonWhyReporting": "Why are you reporting this {typeLabel}?",
-  "@commonWhyReporting": { "placeholders": { "typeLabel": { "type": "Object" } } },
+  "@commonWhyReporting": {
+    "placeholders": {
+      "typeLabel": {
+        "type": "Object"
+      }
+    }
+  },
   "commonAddEvidenceRequired": "Add Evidence (Required)",
   "commonUploadScreenshotsTextFiles": "Upload screenshots or text files to support your report",
   "commonAddEvidenceCount": "Add Evidence ({count}/{maxFiles})",
-  "@commonAddEvidenceCount": { "placeholders": { "count": { "type": "Object" }, "maxFiles": { "type": "Object" } } },
+  "@commonAddEvidenceCount": {
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      },
+      "maxFiles": {
+        "type": "Object"
+      }
+    }
+  },
   "commonReportTotalSize": "Total: {used} / {max}",
-  "@commonReportTotalSize": { "placeholders": { "max": { "type": "Object" }, "used": { "type": "Object" } } },
+  "@commonReportTotalSize": {
+    "placeholders": {
+      "max": {
+        "type": "Object"
+      },
+      "used": {
+        "type": "Object"
+      }
+    }
+  },
   "commonEvidence": "Evidence",
   "commonImageFailed": "Image failed",
   "commonShowMore": "Show more",
@@ -7243,7 +7750,13 @@
   "coinsAdCrediting": "Crediting…",
   "coinsWatchAdReward": "Watch ad (+5 💎)",
   "callUnavailable": "{name} isn't taking calls right now",
-  "@callUnavailable": { "placeholders": { "name": { "type": "String" } } },
+  "@callUnavailable": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "callDeclineWithMessage": "Message",
   "callDeclineSheetTitle": "Decline with a message",
   "callDeclineCannedLater": "Can't talk now. I'll call you back.",
@@ -7288,25 +7801,70 @@
   "studyTileLeaderboardDesc": "See this week's ranks",
   "studyBadgeVip": "VIP",
   "studyBadgeLeft": "{count} left",
-  "@studyBadgeLeft": {"placeholders": {"count": {"type": "int"}}},
+  "@studyBadgeLeft": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "studyBadgeDue": "{count} due",
-  "@studyBadgeDue": {"placeholders": {"count": {"type": "int"}}},
+  "@studyBadgeDue": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "studyBadgeNew": "NEW",
   "studyEnglishOnly": "English only for now",
   "studyTodayPack": "Today's pack",
   "studyTodayStart": "Start",
   "studyRecommended": "For you: {name} — {percent}% right · 5-min quiz",
-  "@studyRecommended": {"placeholders": {"name": {"type": "String"}, "percent": {"type": "int"}}},
+  "@studyRecommended": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
   "studyProgressTitle": "Your progress",
   "studyFullReport": "Full report",
   "studyStreakDays": "{count} day streak",
-  "@studyStreakDays": {"placeholders": {"count": {"type": "int"}}},
+  "@studyStreakDays": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "studyLevelShort": "Lv {level}",
-  "@studyLevelShort": {"placeholders": {"level": {"type": "int"}}},
+  "@studyLevelShort": {
+    "placeholders": {
+      "level": {
+        "type": "int"
+      }
+    }
+  },
   "studyUpgradeLockedTitle": "{feature} is a VIP feature",
-  "@studyUpgradeLockedTitle": {"placeholders": {"feature": {"type": "String"}}},
+  "@studyUpgradeLockedTitle": {
+    "placeholders": {
+      "feature": {
+        "type": "String"
+      }
+    }
+  },
   "studyUpgradeExhaustedTitle": "You've used today's {feature}",
-  "@studyUpgradeExhaustedTitle": {"placeholders": {"feature": {"type": "String"}}},
+  "@studyUpgradeExhaustedTitle": {
+    "placeholders": {
+      "feature": {
+        "type": "String"
+      }
+    }
+  },
   "studyUpgradeBenefitUnlimited": "Unlimited AI practice every day",
   "studyUpgradeBenefitNoAds": "No ads anywhere in the app",
   "studyUpgradeGetVip": "Get VIP — unlimited",
@@ -7321,5 +7879,13 @@
   "restorePurchasesSuccess": "Purchases restored. Your VIP is active.",
   "restorePurchasesAlreadyActive": "Your VIP subscription is already active.",
   "restorePurchasesNothing": "No purchases to restore.",
-  "restorePurchasesFailed": "Couldn't restore purchases. Please try again."
+  "restorePurchasesFailed": "Couldn't restore purchases. Please try again.",
+  "callVoiceCallButton": "Voice call",
+  "callVideoCallButton": "Video call",
+  "callPermissionMicSettings": "Please enable microphone access in Settings for calls.",
+  "callPermissionCameraSettings": "Please enable camera access in Settings for video calls.",
+  "callPermissionMicCameraSettings": "Please enable microphone and camera access in Settings for video calls.",
+  "callQualityExcellent": "Excellent quality",
+  "callQualityGood": "Good quality",
+  "callConnectionLost": "Connection lost"
 }

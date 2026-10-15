@@ -4422,5 +4422,13 @@
   "restorePurchasesSuccess": "Compras restauradas. Seu VIP está ativo.",
   "restorePurchasesAlreadyActive": "Sua assinatura VIP já está ativa.",
   "restorePurchasesNothing": "Nenhuma compra para restaurar.",
-  "restorePurchasesFailed": "Não foi possível restaurar as compras. Tente novamente."
+  "restorePurchasesFailed": "Não foi possível restaurar as compras. Tente novamente.",
+  "callVoiceCallButton": "Chamada de voz",
+  "callVideoCallButton": "Videochamada",
+  "callPermissionMicSettings": "Ative o acesso ao microfone nos Ajustes para fazer chamadas.",
+  "callPermissionCameraSettings": "Ative o acesso à câmera nos Ajustes para videochamadas.",
+  "callPermissionMicCameraSettings": "Ative o acesso ao microfone e à câmera nos Ajustes para videochamadas.",
+  "callQualityExcellent": "Qualidade excelente",
+  "callQualityGood": "Boa qualidade",
+  "callConnectionLost": "Conexão perdida"
 }

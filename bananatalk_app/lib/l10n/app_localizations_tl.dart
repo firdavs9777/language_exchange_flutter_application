@@ -11373,4 +11373,28 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get restorePurchasesFailed => 'Hindi ma-restore ang mga binili. Pakisubukang muli.';
+
+  @override
+  String get callVoiceCallButton => 'Voice call';
+
+  @override
+  String get callVideoCallButton => 'Video call';
+
+  @override
+  String get callPermissionMicSettings => 'Paki-enable ang access sa mikropono sa Settings para sa mga tawag.';
+
+  @override
+  String get callPermissionCameraSettings => 'Paki-enable ang access sa camera sa Settings para sa mga video call.';
+
+  @override
+  String get callPermissionMicCameraSettings => 'Paki-enable ang access sa mikropono at camera sa Settings para sa mga video call.';
+
+  @override
+  String get callQualityExcellent => 'Napakahusay na kalidad';
+
+  @override
+  String get callQualityGood => 'Mahusay na kalidad';
+
+  @override
+  String get callConnectionLost => 'Nawala ang koneksyon';
 }

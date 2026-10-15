@@ -4379,5 +4379,13 @@
   "restorePurchasesSuccess": "Na-restore ang mga binili. Aktibo na ang VIP mo.",
   "restorePurchasesAlreadyActive": "Aktibo na ang VIP subscription mo.",
   "restorePurchasesNothing": "Walang binili na mare-restore.",
-  "restorePurchasesFailed": "Hindi ma-restore ang mga binili. Pakisubukang muli."
+  "restorePurchasesFailed": "Hindi ma-restore ang mga binili. Pakisubukang muli.",
+  "callVoiceCallButton": "Voice call",
+  "callVideoCallButton": "Video call",
+  "callPermissionMicSettings": "Paki-enable ang access sa mikropono sa Settings para sa mga tawag.",
+  "callPermissionCameraSettings": "Paki-enable ang access sa camera sa Settings para sa mga video call.",
+  "callPermissionMicCameraSettings": "Paki-enable ang access sa mikropono at camera sa Settings para sa mga video call.",
+  "callQualityExcellent": "Napakahusay na kalidad",
+  "callQualityGood": "Mahusay na kalidad",
+  "callConnectionLost": "Nawala ang koneksyon"
 }

@@ -11374,4 +11374,28 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get restorePurchasesFailed => 'Харидҳоро барқарор кардан нашуд. Лутфан бори дигар кӯшиш кунед.';
+
+  @override
+  String get callVoiceCallButton => 'Занги овозӣ';
+
+  @override
+  String get callVideoCallButton => 'Занги видеоӣ';
+
+  @override
+  String get callPermissionMicSettings => 'Лутфан дар Танзимот дастрасӣ ба микрофонро барои зангҳо фаъол кунед.';
+
+  @override
+  String get callPermissionCameraSettings => 'Лутфан дар Танзимот дастрасӣ ба камераро барои зангҳои видеоӣ фаъол кунед.';
+
+  @override
+  String get callPermissionMicCameraSettings => 'Лутфан дар Танзимот дастрасӣ ба микрофон ва камераро барои зангҳои видеоӣ фаъол кунед.';
+
+  @override
+  String get callQualityExcellent => 'Сифати аъло';
+
+  @override
+  String get callQualityGood => 'Сифати хуб';
+
+  @override
+  String get callConnectionLost => 'Пайвастшавӣ қатъ шуд';
 }

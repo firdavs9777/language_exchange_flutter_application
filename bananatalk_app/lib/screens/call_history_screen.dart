@@ -191,6 +191,7 @@ class _CallLogTile extends ConsumerWidget {
       ),
       trailing: IconButton(
         icon: Icon(isVideo ? Icons.videocam : Icons.call),
+        tooltip: AppLocalizations.of(context)!.callBackAction,
         onPressed: entry.otherId.isEmpty
             ? null
             : () => CallLauncher.start(

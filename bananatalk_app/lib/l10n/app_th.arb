@@ -4406,5 +4406,13 @@
   "restorePurchasesSuccess": "กู้คืนการซื้อแล้ว VIP ของคุณใช้งานได้แล้ว",
   "restorePurchasesAlreadyActive": "การสมัครสมาชิก VIP ของคุณใช้งานอยู่แล้ว",
   "restorePurchasesNothing": "ไม่มีการซื้อที่จะกู้คืน",
-  "restorePurchasesFailed": "ไม่สามารถกู้คืนการซื้อได้ โปรดลองอีกครั้ง"
+  "restorePurchasesFailed": "ไม่สามารถกู้คืนการซื้อได้ โปรดลองอีกครั้ง",
+  "callVoiceCallButton": "โทรด้วยเสียง",
+  "callVideoCallButton": "วิดีโอคอล",
+  "callPermissionMicSettings": "โปรดเปิดการเข้าถึงไมโครโฟนในการตั้งค่าเพื่อโทร",
+  "callPermissionCameraSettings": "โปรดเปิดการเข้าถึงกล้องในการตั้งค่าเพื่อวิดีโอคอล",
+  "callPermissionMicCameraSettings": "โปรดเปิดการเข้าถึงไมโครโฟนและกล้องในการตั้งค่าเพื่อวิดีโอคอล",
+  "callQualityExcellent": "คุณภาพดีมาก",
+  "callQualityGood": "คุณภาพดี",
+  "callConnectionLost": "การเชื่อมต่อขาดหาย"
 }

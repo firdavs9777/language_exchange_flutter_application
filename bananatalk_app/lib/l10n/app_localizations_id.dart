@@ -11365,4 +11365,28 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get restorePurchasesFailed => 'Tidak dapat memulihkan pembelian. Silakan coba lagi.';
+
+  @override
+  String get callVoiceCallButton => 'Panggilan suara';
+
+  @override
+  String get callVideoCallButton => 'Panggilan video';
+
+  @override
+  String get callPermissionMicSettings => 'Aktifkan akses mikrofon di Pengaturan untuk panggilan.';
+
+  @override
+  String get callPermissionCameraSettings => 'Aktifkan akses kamera di Pengaturan untuk panggilan video.';
+
+  @override
+  String get callPermissionMicCameraSettings => 'Aktifkan akses mikrofon dan kamera di Pengaturan untuk panggilan video.';
+
+  @override
+  String get callQualityExcellent => 'Kualitas sangat baik';
+
+  @override
+  String get callQualityGood => 'Kualitas baik';
+
+  @override
+  String get callConnectionLost => 'Koneksi terputus';
 }

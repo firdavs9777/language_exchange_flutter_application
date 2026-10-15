@@ -11354,4 +11354,28 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get restorePurchasesFailed => '購入を復元できませんでした。もう一度お試しください。';
+
+  @override
+  String get callVoiceCallButton => '音声通話';
+
+  @override
+  String get callVideoCallButton => 'ビデオ通話';
+
+  @override
+  String get callPermissionMicSettings => '通話するには、設定でマイクへのアクセスを許可してください。';
+
+  @override
+  String get callPermissionCameraSettings => 'ビデオ通話をするには、設定でカメラへのアクセスを許可してください。';
+
+  @override
+  String get callPermissionMicCameraSettings => 'ビデオ通話をするには、設定でマイクとカメラへのアクセスを許可してください。';
+
+  @override
+  String get callQualityExcellent => '通話品質：非常に良好';
+
+  @override
+  String get callQualityGood => '通話品質：良好';
+
+  @override
+  String get callConnectionLost => '接続が切れました';
 }

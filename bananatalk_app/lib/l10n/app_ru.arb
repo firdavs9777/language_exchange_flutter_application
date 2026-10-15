@@ -4436,5 +4436,13 @@
   "restorePurchasesSuccess": "Покупки восстановлены. Ваш VIP активен.",
   "restorePurchasesAlreadyActive": "Ваша подписка VIP уже активна.",
   "restorePurchasesNothing": "Нет покупок для восстановления.",
-  "restorePurchasesFailed": "Не удалось восстановить покупки. Попробуйте ещё раз."
+  "restorePurchasesFailed": "Не удалось восстановить покупки. Попробуйте ещё раз.",
+  "callVoiceCallButton": "Голосовой звонок",
+  "callVideoCallButton": "Видеозвонок",
+  "callPermissionMicSettings": "Разрешите доступ к микрофону в Настройках, чтобы звонить.",
+  "callPermissionCameraSettings": "Разрешите доступ к камере в Настройках для видеозвонков.",
+  "callPermissionMicCameraSettings": "Разрешите доступ к микрофону и камере в Настройках для видеозвонков.",
+  "callQualityExcellent": "Отличное качество",
+  "callQualityGood": "Хорошее качество",
+  "callConnectionLost": "Соединение потеряно"
 }

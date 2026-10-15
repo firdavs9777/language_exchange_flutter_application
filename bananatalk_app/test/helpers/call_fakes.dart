@@ -171,6 +171,16 @@ class FakeLiveKit extends CallLiveKitManager {
 
   @override
   Future<void> setSpeakerOn(bool on) async => speakerCalls.add(on);
+
+  /// Automatic video routes (loudspeaker unless a headset is connected);
+  /// also recorded in [speakerCalls] as a speaker route.
+  int videoRoutes = 0;
+
+  @override
+  Future<void> routeAudioForVideo() async {
+    videoRoutes++;
+    speakerCalls.add(true);
+  }
 }
 
 /// A CallManager wired to fakes, recording everything it does.

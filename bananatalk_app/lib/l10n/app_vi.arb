@@ -4406,5 +4406,13 @@
   "restorePurchasesSuccess": "Đã khôi phục giao dịch mua. VIP của bạn đang hoạt động.",
   "restorePurchasesAlreadyActive": "Gói VIP của bạn đã đang hoạt động.",
   "restorePurchasesNothing": "Không có giao dịch mua nào để khôi phục.",
-  "restorePurchasesFailed": "Không thể khôi phục giao dịch mua. Vui lòng thử lại."
+  "restorePurchasesFailed": "Không thể khôi phục giao dịch mua. Vui lòng thử lại.",
+  "callVoiceCallButton": "Gọi thoại",
+  "callVideoCallButton": "Gọi video",
+  "callPermissionMicSettings": "Vui lòng bật quyền truy cập micrô trong Cài đặt để gọi điện.",
+  "callPermissionCameraSettings": "Vui lòng bật quyền truy cập camera trong Cài đặt để gọi video.",
+  "callPermissionMicCameraSettings": "Vui lòng bật quyền truy cập micrô và camera trong Cài đặt để gọi video.",
+  "callQualityExcellent": "Chất lượng rất tốt",
+  "callQualityGood": "Chất lượng tốt",
+  "callConnectionLost": "Mất kết nối"
 }

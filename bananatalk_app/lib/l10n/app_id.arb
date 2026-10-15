@@ -4406,5 +4406,13 @@
   "restorePurchasesSuccess": "Pembelian dipulihkan. VIP kamu aktif.",
   "restorePurchasesAlreadyActive": "Langganan VIP kamu sudah aktif.",
   "restorePurchasesNothing": "Tidak ada pembelian untuk dipulihkan.",
-  "restorePurchasesFailed": "Tidak dapat memulihkan pembelian. Silakan coba lagi."
+  "restorePurchasesFailed": "Tidak dapat memulihkan pembelian. Silakan coba lagi.",
+  "callVoiceCallButton": "Panggilan suara",
+  "callVideoCallButton": "Panggilan video",
+  "callPermissionMicSettings": "Aktifkan akses mikrofon di Pengaturan untuk panggilan.",
+  "callPermissionCameraSettings": "Aktifkan akses kamera di Pengaturan untuk panggilan video.",
+  "callPermissionMicCameraSettings": "Aktifkan akses mikrofon dan kamera di Pengaturan untuk panggilan video.",
+  "callQualityExcellent": "Kualitas sangat baik",
+  "callQualityGood": "Kualitas baik",
+  "callConnectionLost": "Koneksi terputus"
 }

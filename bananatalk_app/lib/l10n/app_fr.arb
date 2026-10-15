@@ -4646,5 +4646,13 @@
   "restorePurchasesSuccess": "Achats restaurés. Votre VIP est actif.",
   "restorePurchasesAlreadyActive": "Votre abonnement VIP est déjà actif.",
   "restorePurchasesNothing": "Aucun achat à restaurer.",
-  "restorePurchasesFailed": "Impossible de restaurer les achats. Veuillez réessayer."
+  "restorePurchasesFailed": "Impossible de restaurer les achats. Veuillez réessayer.",
+  "callVoiceCallButton": "Appel vocal",
+  "callVideoCallButton": "Appel vidéo",
+  "callPermissionMicSettings": "Autorisez l'accès au micro dans les Réglages pour les appels.",
+  "callPermissionCameraSettings": "Autorisez l'accès à la caméra dans les Réglages pour les appels vidéo.",
+  "callPermissionMicCameraSettings": "Autorisez l'accès au micro et à la caméra dans les Réglages pour les appels vidéo.",
+  "callQualityExcellent": "Excellente qualité",
+  "callQualityGood": "Bonne qualité",
+  "callConnectionLost": "Connexion perdue"
 }

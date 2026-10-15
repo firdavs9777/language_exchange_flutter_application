@@ -4097,5 +4097,13 @@
   "restorePurchasesSuccess": "已恢復購買，你的 VIP 已生效。",
   "restorePurchasesAlreadyActive": "你的 VIP 訂閱已在有效狀態。",
   "restorePurchasesNothing": "沒有可恢復的購買項目。",
-  "restorePurchasesFailed": "無法恢復購買，請再試一次。"
+  "restorePurchasesFailed": "無法恢復購買，請再試一次。",
+  "callVoiceCallButton": "語音通話",
+  "callVideoCallButton": "視訊通話",
+  "callPermissionMicSettings": "請在設定中允許存取麥克風以進行通話。",
+  "callPermissionCameraSettings": "請在設定中允許存取相機以進行視訊通話。",
+  "callPermissionMicCameraSettings": "請在設定中允許存取麥克風和相機以進行視訊通話。",
+  "callQualityExcellent": "通話品質極佳",
+  "callQualityGood": "通話品質良好",
+  "callConnectionLost": "連線已中斷"
 }

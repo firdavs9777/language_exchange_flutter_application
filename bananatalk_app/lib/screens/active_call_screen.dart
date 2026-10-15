@@ -18,6 +18,20 @@ import 'package:bananatalk_app/widgets/call/swappable_video_layout.dart';
 const double _kPipTopInset = 90;
 const double _kPipBottomInset = 200;
 
+/// Self-view mirroring: the front camera shows as a mirror, as people expect
+/// to see themselves; the rear camera shows the scene as is, so text reads
+/// the right way round.
+lk.VideoViewMirrorMode selfViewMirrorMode(lk.CameraPosition? position) =>
+    position == lk.CameraPosition.back
+        ? lk.VideoViewMirrorMode.off
+        : lk.VideoViewMirrorMode.mirror;
+
+lk.CameraPosition? _cameraPositionOf(lk.VideoTrack track) {
+  if (track is! lk.LocalVideoTrack) return null;
+  final options = track.currentOptions;
+  return options is lk.CameraCaptureOptions ? options.cameraPosition : null;
+}
+
 class ActiveCallScreen extends ConsumerStatefulWidget {
   final CallModel call;
 
@@ -318,7 +332,8 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
                             ? lk.VideoTrackRenderer(
                                 localTrack,
                                 fit: lk.VideoViewFit.cover,
-                                mirrorMode: lk.VideoViewMirrorMode.mirror,
+                                mirrorMode: selfViewMirrorMode(
+                                    _cameraPositionOf(localTrack)),
                               )
                             : Container(
                                 color: Theme.of(context)
@@ -534,9 +549,12 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
                   child: FloatingActionButton(
                     mini: true,
                     backgroundColor: Colors.white24,
+                    tooltip: l10n.switchCamera,
                     child: const Icon(Icons.cameraswitch, color: Colors.white),
-                    onPressed: () {
-                      callManager.switchCamera();
+                    onPressed: () async {
+                      await callManager.switchCamera();
+                      // Re-read the camera position for the mirroring.
+                      if (mounted) setState(() {});
                     },
                   ),
                 ),
@@ -768,6 +786,7 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
   /// [ConnectionQuality] to a single 18×18 icon with a long-press tooltip.
   /// Hidden when quality is unknown.
   Widget _buildQualityBadge(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final IconData icon;
     final Color color;
     final double iconSize;
@@ -777,25 +796,25 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
         icon = Icons.circle;
         color = Colors.green;
         iconSize = 10;
-        tooltip = 'Excellent quality';
+        tooltip = l10n.callQualityExcellent;
         break;
       case lk.ConnectionQuality.good:
         icon = Icons.circle;
         color = Colors.amber;
         iconSize = 10;
-        tooltip = 'Good quality';
+        tooltip = l10n.callQualityGood;
         break;
       case lk.ConnectionQuality.poor:
         icon = Icons.warning_amber_rounded;
         color = Colors.orange;
         iconSize = 14;
-        tooltip = 'Poor quality';
+        tooltip = l10n.commonPoorConnection;
         break;
       case lk.ConnectionQuality.lost:
         icon = Icons.signal_wifi_off;
         color = Colors.red;
         iconSize = 14;
-        tooltip = 'Connection lost';
+        tooltip = l10n.callConnectionLost;
         break;
       case lk.ConnectionQuality.unknown:
         return const SizedBox.shrink();
@@ -839,31 +858,39 @@ class _ControlButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Container(
-          width: size,
-          height: size,
-          decoration: BoxDecoration(
-            color: backgroundColor,
-            shape: BoxShape.circle,
+    // One screen-reader button with the visible label, not an unlabelled
+    // icon button followed by a separate text.
+    return Semantics(
+      button: true,
+      label: label,
+      onTap: onPressed,
+      excludeSemantics: true,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            width: size,
+            height: size,
+            decoration: BoxDecoration(
+              color: backgroundColor,
+              shape: BoxShape.circle,
+            ),
+            child: IconButton(
+              icon: Icon(icon, color: iconColor),
+              iconSize: size * 0.5,
+              onPressed: onPressed,
+            ),
           ),
-          child: IconButton(
-            icon: Icon(icon, color: iconColor),
-            iconSize: size * 0.5,
-            onPressed: onPressed,
+          const SizedBox(height: 8),
+          Text(
+            label,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 12,
+            ),
           ),
-        ),
-        const SizedBox(height: 8),
-        Text(
-          label,
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 12,
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

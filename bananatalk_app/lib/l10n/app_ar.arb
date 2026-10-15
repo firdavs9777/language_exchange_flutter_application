@@ -4436,5 +4436,13 @@
   "restorePurchasesSuccess": "تمت استعادة المشتريات. اشتراك VIP الخاص بك نشط.",
   "restorePurchasesAlreadyActive": "اشتراك VIP الخاص بك نشط بالفعل.",
   "restorePurchasesNothing": "لا توجد مشتريات لاستعادتها.",
-  "restorePurchasesFailed": "تعذّرت استعادة المشتريات. يُرجى المحاولة مرة أخرى."
+  "restorePurchasesFailed": "تعذّرت استعادة المشتريات. يُرجى المحاولة مرة أخرى.",
+  "callVoiceCallButton": "مكالمة صوتية",
+  "callVideoCallButton": "مكالمة فيديو",
+  "callPermissionMicSettings": "يُرجى تفعيل الوصول إلى الميكروفون من الإعدادات لإجراء المكالمات.",
+  "callPermissionCameraSettings": "يُرجى تفعيل الوصول إلى الكاميرا من الإعدادات لمكالمات الفيديو.",
+  "callPermissionMicCameraSettings": "يُرجى تفعيل الوصول إلى الميكروفون والكاميرا من الإعدادات لمكالمات الفيديو.",
+  "callQualityExcellent": "جودة ممتازة",
+  "callQualityGood": "جودة جيدة",
+  "callConnectionLost": "انقطع الاتصال"
 }

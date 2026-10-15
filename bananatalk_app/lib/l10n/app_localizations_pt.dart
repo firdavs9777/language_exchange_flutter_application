@@ -11373,4 +11373,28 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get restorePurchasesFailed => 'Não foi possível restaurar as compras. Tente novamente.';
+
+  @override
+  String get callVoiceCallButton => 'Chamada de voz';
+
+  @override
+  String get callVideoCallButton => 'Videochamada';
+
+  @override
+  String get callPermissionMicSettings => 'Ative o acesso ao microfone nos Ajustes para fazer chamadas.';
+
+  @override
+  String get callPermissionCameraSettings => 'Ative o acesso à câmera nos Ajustes para videochamadas.';
+
+  @override
+  String get callPermissionMicCameraSettings => 'Ative o acesso ao microfone e à câmera nos Ajustes para videochamadas.';
+
+  @override
+  String get callQualityExcellent => 'Qualidade excelente';
+
+  @override
+  String get callQualityGood => 'Boa qualidade';
+
+  @override
+  String get callConnectionLost => 'Conexão perdida';
 }

@@ -11354,6 +11354,30 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get restorePurchasesFailed => '无法恢复购买，请重试。';
+
+  @override
+  String get callVoiceCallButton => '语音通话';
+
+  @override
+  String get callVideoCallButton => '视频通话';
+
+  @override
+  String get callPermissionMicSettings => '请在设置中允许访问麦克风以进行通话。';
+
+  @override
+  String get callPermissionCameraSettings => '请在设置中允许访问相机以进行视频通话。';
+
+  @override
+  String get callPermissionMicCameraSettings => '请在设置中允许访问麦克风和相机以进行视频通话。';
+
+  @override
+  String get callQualityExcellent => '通话质量极佳';
+
+  @override
+  String get callQualityGood => '通话质量良好';
+
+  @override
+  String get callConnectionLost => '连接已断开';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -22706,4 +22730,28 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get restorePurchasesFailed => '無法恢復購買，請再試一次。';
+
+  @override
+  String get callVoiceCallButton => '語音通話';
+
+  @override
+  String get callVideoCallButton => '視訊通話';
+
+  @override
+  String get callPermissionMicSettings => '請在設定中允許存取麥克風以進行通話。';
+
+  @override
+  String get callPermissionCameraSettings => '請在設定中允許存取相機以進行視訊通話。';
+
+  @override
+  String get callPermissionMicCameraSettings => '請在設定中允許存取麥克風和相機以進行視訊通話。';
+
+  @override
+  String get callQualityExcellent => '通話品質極佳';
+
+  @override
+  String get callQualityGood => '通話品質良好';
+
+  @override
+  String get callConnectionLost => '連線已中斷';
 }

@@ -4406,5 +4406,13 @@
   "restorePurchasesSuccess": "購入を復元しました。VIPが有効になりました。",
   "restorePurchasesAlreadyActive": "VIPサブスクリプションはすでに有効です。",
   "restorePurchasesNothing": "復元できる購入はありません。",
-  "restorePurchasesFailed": "購入を復元できませんでした。もう一度お試しください。"
+  "restorePurchasesFailed": "購入を復元できませんでした。もう一度お試しください。",
+  "callVoiceCallButton": "音声通話",
+  "callVideoCallButton": "ビデオ通話",
+  "callPermissionMicSettings": "通話するには、設定でマイクへのアクセスを許可してください。",
+  "callPermissionCameraSettings": "ビデオ通話をするには、設定でカメラへのアクセスを許可してください。",
+  "callPermissionMicCameraSettings": "ビデオ通話をするには、設定でマイクとカメラへのアクセスを許可してください。",
+  "callQualityExcellent": "通話品質：非常に良好",
+  "callQualityGood": "通話品質：良好",
+  "callConnectionLost": "接続が切れました"
 }
