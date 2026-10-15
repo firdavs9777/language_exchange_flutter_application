@@ -84,7 +84,7 @@ class DailyMatchesResult {
   final DateTime? nextRefreshAt;
   final List<DailyMatch> matches;
 
-  /// True when the endpoint is off (kill switch 404) or failed; the tab
+  /// True when the endpoint is off (kill switch 404); the tab
   /// hides itself instead of showing an error.
   final bool unavailable;
 
