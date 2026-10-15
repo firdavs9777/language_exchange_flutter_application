@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 // ignore: unused_import
 import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/pages/community/widgets/wave_error_snackbar.dart';
 import 'package:bananatalk_app/pages/community/widgets/community_snackbar.dart';
@@ -24,6 +25,20 @@ import 'package:bananatalk_app/pages/community/widgets/community_error_state.dar
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
+
+/// Search centre from the profile's saved location (GeoJSON `[lng, lat]`),
+/// used by "Browse by City/Country" when GPS is off. Null when the profile
+/// has no usable coordinates.
+@visibleForTesting
+({double latitude, double longitude})? profileSearchCenter(Location? loc) {
+  final c = loc?.coordinates;
+  if (c == null || c.length < 2) return null;
+  final lng = c[0];
+  final lat = c[1];
+  if (lat == 0 && lng == 0) return null;
+  if (lat < -90 || lat > 90 || lng < -180 || lng > 180) return null;
+  return (latitude: lat, longitude: lng);
+}
 
 /// Nearby Tab - Grid view of nearby users with real distance calculation
 class NearbyTab extends ConsumerStatefulWidget {
@@ -43,6 +58,16 @@ class NearbyTab extends ConsumerStatefulWidget {
 class _NearbyTabState extends ConsumerState<NearbyTab> {
   String _userId = '';
   Position? _userPosition;
+
+  /// Profile-location centre for "Browse by City/Country" without GPS.
+  ({double latitude, double longitude})? _profileCenter;
+
+  /// GPS when granted, else the profile's saved location.
+  ({double latitude, double longitude})? get _searchCenter {
+    final p = _userPosition;
+    if (p != null) return (latitude: p.latitude, longitude: p.longitude);
+    return _profileCenter;
+  }
   bool _locationLoading = true;
   bool _locationDenied = false;
   final LocationService _locationService = LocationService();
@@ -117,7 +142,7 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
   }
 
   Future<void> _loadNearbyUsers() async {
-    if (_userPosition == null) return;
+    if (_searchCenter == null) return;
 
     if (mounted) {
       setState(() {
@@ -131,12 +156,13 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
   }
 
   Future<void> _loadMoreUsers() async {
-    if (_isLoadingMore || !_hasMore || _userPosition == null) return;
+    if (_isLoadingMore || !_hasMore || _searchCenter == null) return;
     await _fetchNearbyUsers();
   }
 
   Future<void> _fetchNearbyUsers() async {
-    if (_userPosition == null) return;
+    final center = _searchCenter;
+    if (center == null) return;
 
     // Only the newest fetch may commit. Changing the radius (or filters)
     // while one is in flight used to append both responses into the same
@@ -169,8 +195,8 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
       }
 
       final response = await service.getNearbyUsers(
-        latitude: _userPosition!.latitude,
-        longitude: _userPosition!.longitude,
+        latitude: center.latitude,
+        longitude: center.longitude,
         radius: _selectedRadius,
         limit: 20,
         offset: _currentOffset,
@@ -261,7 +287,7 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
     // responses all appended into one list (duplicate cards) and each bumped
     // `_currentOffset`, so real pagination then skipped users.
     if (!mapEquals(oldWidget.filters, widget.filters) &&
-        _userPosition != null) {
+        _searchCenter != null) {
       _loadNearbyUsers();
     }
   }
@@ -286,15 +312,15 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
       );
     }
 
-    // Show empty state if no users
-    if (_nearbyUsers.isEmpty && !_isLoadingMore) {
-      return _buildEmptyState();
-    }
+    // Empty results keep the header and radius chips (widening the radius is
+    // the fix "try expanding your search" suggests) and pull-to-refresh.
+    final isEmpty = _nearbyUsers.isEmpty && !_isLoadingMore;
 
     return RefreshIndicator(
       onRefresh: _loadNearbyUsers,
       child: CustomScrollView(
         controller: _scrollController,
+        physics: const AlwaysScrollableScrollPhysics(),
         slivers: [
           // Location header with radius selector
           SliverToBoxAdapter(
@@ -375,10 +401,21 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
                 ),
               ),
             ),
-          // Bottom padding: clear the floating tab bar
-          SliverToBoxAdapter(
-            child: SizedBox(height: FloatingTabBar.clearance(context)),
-          ),
+          if (isEmpty)
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: Padding(
+                padding: EdgeInsets.only(
+                  bottom: FloatingTabBar.clearance(context),
+                ),
+                child: _buildEmptyState(),
+              ),
+            )
+          else
+            // Bottom padding: clear the floating tab bar
+            SliverToBoxAdapter(
+              child: SizedBox(height: FloatingTabBar.clearance(context)),
+            ),
         ],
       ),
     );
@@ -532,13 +569,7 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
             ),
             Spacing.gapLG,
             TextButton(
-              onPressed: () {
-                // Skip GPS - show users sorted by location from profile
-                setState(() {
-                  _locationDenied = false;
-                  _locationLoading = false;
-                });
-              },
+              onPressed: _browseByProfileLocation,
               child: Text(
                 AppLocalizations.of(context)!.browseByCityCountry,
                 style: context.labelLarge.copyWith(color: context.primaryColor),
@@ -548,6 +579,35 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
         ),
       ),
     );
+  }
+
+  /// Skip GPS: search around the city saved on the profile. This used to
+  /// clear the flags only, and with no position nothing was ever fetched, so
+  /// the tab claimed "no nearby users".
+  Future<void> _browseByProfileLocation() async {
+    final l10n = AppLocalizations.of(context)!;
+    Community? me = ref.read(userProvider).valueOrNull;
+    if (me == null) {
+      try {
+        me = await ref.read(userProvider.future);
+      } catch (_) {}
+    }
+    if (!mounted) return;
+    final center = profileSearchCenter(me?.location);
+    if (center == null) {
+      showCommunitySnackBar(
+        context,
+        message: l10n.setLocationReminder,
+        type: CommunitySnackBarType.info,
+      );
+      return;
+    }
+    setState(() {
+      _profileCenter = center;
+      _locationDenied = false;
+      _locationLoading = false;
+    });
+    await _loadNearbyUsers();
   }
 
   Widget _buildLocationHeader() {
