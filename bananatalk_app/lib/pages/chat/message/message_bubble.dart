@@ -25,6 +25,7 @@ import 'package:bananatalk_app/pages/chat/message/chat_tip_row.dart';
 import 'package:bananatalk_app/services/learning_service.dart';
 import 'package:bananatalk_app/services/translation_service.dart';
 import 'package:bananatalk_app/pages/chat/dialogs/translate_unlock_sheet.dart';
+import 'package:bananatalk_app/pages/chat/message/inline_translate_error.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/pages/chat/message/bubble/bubble_actions_menu.dart';
@@ -475,7 +476,8 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
 
       // Daily translation cap hit — offer the coin unlock and retry once
       // if the user unlocks. Gated on coins being enabled server-side;
-      // otherwise fall through to the existing silent-failure behavior.
+      // otherwise the cap message is shown below.
+      var unlockDeclined = false;
       if (result['success'] != true && _isTranslationLimitError(result)) {
         final coinsEnabled = ref
             .read(appConfigProvider)
@@ -486,6 +488,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
         if (coinsEnabled) {
           final unlocked = await showTranslateUnlockSheet(context);
           if (!mounted) return;
+          unlockDeclined = !unlocked;
           if (unlocked) {
             result = await TranslationService.translateMessage(
               messageId: widget.message.id,
@@ -514,8 +517,28 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
         _inlineTranslation = hasTranslation ? translated : null;
         _inlineTranslating = false;
       });
-    } catch (_) {
-      if (mounted) setState(() => _inlineTranslating = false);
+      final error = inlineTranslateErrorText(
+        AppLocalizations.of(context)!,
+        hasTranslation: hasTranslation,
+        limitReached:
+            result['success'] != true && _isTranslationLimitError(result),
+        unlockDeclined: unlockDeclined,
+      );
+      if (error != null) {
+        showChatSnackBar(
+          context,
+          message: error,
+          type: ChatSnackBarType.error,
+        );
+      }
+    } catch (e) {
+      if (!mounted) return;
+      setState(() => _inlineTranslating = false);
+      showChatSnackBar(
+        context,
+        message: friendlyErrorMessage(AppLocalizations.of(context)!, e),
+        type: ChatSnackBarType.error,
+      );
     }
   }
 
