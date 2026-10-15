@@ -3,8 +3,9 @@ import 'dart:io';
 /// Scope: English string literals anywhere in the FIRST argument of a
 /// `Text(` / `SelectableText(` call (plain, ternary, `??`, parenthesised).
 /// Index keys such as `m['error']` are ignored.
-/// Out of scope: `TextSpan(text:)`, `hintText`, `labelText`, `tooltip`,
-/// `title:` and other named-parameter strings.
+/// [scanPropertySource] covers the user-facing named parameters in
+/// [userFacingProperties] (`hintText:`, `tooltip:`, `message:` …) the same way.
+/// Out of scope: `TextSpan(text:)`, `title:` and other named-parameter strings.
 ///
 /// One English `Text('…')` / `SelectableText('…')` literal found in source.
 class HardcodedText {
@@ -17,6 +18,20 @@ class HardcodedText {
 }
 
 final _call = RegExp(r'(?<![\w.])(?:Text|SelectableText)\(\s*');
+
+/// Named parameters whose string reaches the user (field hints, tooltips,
+/// snackbar / toast messages, screen-reader labels).
+const userFacingProperties = [
+  'hintText',
+  'labelText',
+  'helperText',
+  'errorText',
+  'tooltip',
+  'message',
+  'semanticsLabel',
+  'semanticLabel',
+];
+final _property = RegExp('(?<![\\w.])(?:${userFacingProperties.join('|')})\\s*:\\s*');
 final _interp = RegExp(r'\$\{[^}]*\}|\$[A-Za-z_]\w*');
 final _escape = RegExp(r'\\.');
 final _letters = RegExp(r'[A-Za-z]{2,}');
@@ -143,10 +158,16 @@ bool _isIndexKey(String s, int start, int end) {
 }
 
 /// English-bearing Text literals in [source]; adjacent literals are joined.
-List<HardcodedText> scanSource(String path, String source) {
+List<HardcodedText> scanSource(String path, String source) => _scan(path, source, _call);
+
+/// English-bearing literals passed to a [userFacingProperties] parameter.
+List<HardcodedText> scanPropertySource(String path, String source) =>
+    _scan(path, source, _property);
+
+List<HardcodedText> _scan(String path, String source, RegExp start) {
   final src = _stripLineComments(source);
   final hits = <HardcodedText>[];
-  for (final m in _call.allMatches(src)) {
+  for (final m in start.allMatches(src)) {
     final end = _firstArgEnd(src, m.end);
     final arg = src.substring(m.end, end);
     // Collect every string literal in the argument (nested calls included).
@@ -180,3 +201,6 @@ List<HardcodedText> scanSource(String path, String source) {
 
 List<HardcodedText> scanFiles(Iterable<String> paths) =>
     [for (final p in paths) ...scanSource(p, File(p).readAsStringSync())];
+
+List<HardcodedText> scanPropertyFiles(Iterable<String> paths) =>
+    [for (final p in paths) ...scanPropertySource(p, File(p).readAsStringSync())];
