@@ -19,6 +19,11 @@ class StoryQuestionBoxWidget extends StatefulWidget {
   /// should pause) and `false` when it loses focus (playback should resume).
   final ValueChanged<bool>? onFocusChanged;
 
+  /// The viewer already answered (server `hasAnswered`, or an answer sent
+  /// earlier in this session): open straight on the "answer sent" state
+  /// instead of offering the input again.
+  final bool hasAnswered;
+
   const StoryQuestionBoxWidget({
     Key? key,
     required this.questionBox,
@@ -26,6 +31,7 @@ class StoryQuestionBoxWidget extends StatefulWidget {
     this.onSubmitAnswer,
     this.onViewResponses,
     this.onFocusChanged,
+    this.hasAnswered = false,
   }) : super(key: key);
 
   @override
@@ -42,7 +48,16 @@ class _StoryQuestionBoxWidgetState extends State<StoryQuestionBoxWidget> {
   @override
   void initState() {
     super.initState();
+    _hasSubmitted = !widget.isOwner && widget.hasAnswered;
     _answerFocusNode.addListener(_handleFocusChange);
+  }
+
+  @override
+  void didUpdateWidget(covariant StoryQuestionBoxWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (!widget.isOwner && widget.hasAnswered && !_hasSubmitted) {
+      _hasSubmitted = true;
+    }
   }
 
   void _handleFocusChange() {
@@ -176,7 +191,7 @@ class _StoryQuestionBoxWidgetState extends State<StoryQuestionBoxWidget> {
             ),
           ] else if (widget.isOwner) ...[
             Text(
-              AppLocalizations.of(context)!.storyResponseCount(widget.questionBox.responses.length),
+              AppLocalizations.of(context)!.storyResponseCount(widget.questionBox.totalResponses),
               style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 14),
             ),
             const SizedBox(height: 8),

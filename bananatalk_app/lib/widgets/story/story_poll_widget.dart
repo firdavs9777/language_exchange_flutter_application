@@ -47,6 +47,17 @@ class _StoryPollWidgetState extends State<StoryPollWidget>
   }
 
   @override
+  void didUpdateWidget(covariant StoryPollWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // The poll can arrive resolved later (server result after a vote, or
+    // the vote derived once the viewer's id is known): adopt it, but never
+    // overwrite a choice made in this widget.
+    if (_selectedIndex == null && widget.poll.userVoteIndex != null) {
+      _selectedIndex = widget.poll.userVoteIndex;
+    }
+  }
+
+  @override
   void dispose() {
     _animationController.dispose();
     super.dispose();
