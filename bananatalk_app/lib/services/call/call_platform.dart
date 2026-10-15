@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -130,14 +132,39 @@ class DeviceCallPlatform implements CallPlatform {
   @override
   Future<String> deviceId() => NotificationService().getDeviceId();
 
+  /// The runtime permissions to ask for when a call starts or is accepted.
+  /// Android 12+ also needs BLUETOOTH_CONNECT before a Bluetooth headset can
+  /// be selected: it is asked together with the microphone (or alone), never
+  /// on iOS, and never blocks the call.
+  @visibleForTesting
+  static List<Permission> callPermissionsToRequest({
+    required bool video,
+    required bool isAndroid,
+    required PermissionStatus mic,
+    required PermissionStatus cam,
+    required PermissionStatus bluetooth,
+  }) =>
+      [
+        if (!mic.isGranted) Permission.microphone,
+        if (video && !cam.isGranted) Permission.camera,
+        if (isAndroid && !bluetooth.isGranted && !bluetooth.isPermanentlyDenied)
+          Permission.bluetoothConnect,
+      ];
+
   @override
   Future<bool> ensurePermissions({required bool video}) async {
     final mic = await Permission.microphone.status;
     final cam = video ? await Permission.camera.status : PermissionStatus.granted;
-    if (mic.isGranted && cam.isGranted) return true;
     if (mic.isPermanentlyDenied || (video && cam.isPermanentlyDenied)) return false;
-    final statuses = await [Permission.microphone, if (video) Permission.camera].request();
-    return statuses.values.every((s) => s.isGranted);
+    final android = Platform.isAndroid;
+    final bluetooth =
+        android ? await Permission.bluetoothConnect.status : PermissionStatus.granted;
+    final toAsk = callPermissionsToRequest(
+        video: video, isAndroid: android, mic: mic, cam: cam, bluetooth: bluetooth);
+    final statuses = toAsk.isEmpty ? const <Permission, PermissionStatus>{} : await toAsk.request();
+    // Only the microphone (and camera) decide; a Bluetooth denial does not.
+    return (statuses[Permission.microphone] ?? mic).isGranted &&
+        (statuses[Permission.camera] ?? cam).isGranted;
   }
 
   @override

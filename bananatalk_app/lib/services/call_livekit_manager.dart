@@ -146,15 +146,14 @@ class CallLiveKitManager {
     // user is holding the phone in front of them); voice calls default to
     // earpiece (held to the ear like a phone call). Bluetooth / wired
     // headsets override this via the system route picker — LiveKit's audio
-    // session honours the active route. The user can also toggle via
-    // [CallManager.setSpeakerOn]. Swallow errors; routing is best-effort.
+    // session honours the active route; on Android [routeAudioForVideo]
+    // leaves a connected headset selected. The user can also toggle via
+    // [CallManager.setSpeakerOn]. Routing is best-effort.
     final speaker = speakerOnConnect(type: type, publishCamera: publishCamera);
-    if (speaker != null) {
-      try {
-        await Hardware.instance.setSpeakerphoneOn(speaker);
-      } catch (e) {
-        debugPrint('CallLiveKitManager: setSpeakerphoneOn failed: $e');
-      }
+    if (speaker == true) {
+      await routeAudioForVideo();
+    } else if (speaker == false) {
+      await setSpeakerOn(false);
     }
 
     _wireRoomEvents();
@@ -182,6 +181,37 @@ class CallLiveKitManager {
       await Hardware.instance.setSpeakerphoneOn(on);
     } catch (e) {
       debugPrint('CallLiveKitManager: setSpeakerphoneOn failed: $e');
+    }
+  }
+
+  static const _headsetOutputs = {'bluetooth', 'wired-headset'};
+
+  /// Whether a video call's automatic route should select the loudspeaker.
+  /// On Android flutter_webrtc selects Speakerphone outright, overriding a
+  /// connected Bluetooth or wired headset ([outputIds] are its audio-output
+  /// ids), so a headset keeps the audio there. iOS keeps headsets ahead of
+  /// the speaker by itself.
+  static bool selectSpeakerForVideo({
+    required bool isAndroid,
+    required Iterable<String> outputIds,
+  }) =>
+      !isAndroid || !outputIds.any(_headsetOutputs.contains);
+
+  /// The automatic route of a call that is (or just became) video: the
+  /// loudspeaker, unless a headset is connected ([selectSpeakerForVideo]).
+  /// An explicit user choice goes through [setSpeakerOn] instead.
+  Future<void> routeAudioForVideo() async {
+    try {
+      final android = !kIsWeb && defaultTargetPlatform == TargetPlatform.android;
+      final outputs =
+          android ? await Hardware.instance.audioOutputs() : const <MediaDevice>[];
+      if (!selectSpeakerForVideo(
+          isAndroid: android, outputIds: outputs.map((d) => d.deviceId))) {
+        return;
+      }
+      await Hardware.instance.setSpeakerphoneOn(true);
+    } catch (e) {
+      debugPrint('CallLiveKitManager: video audio route failed: $e');
     }
   }
 

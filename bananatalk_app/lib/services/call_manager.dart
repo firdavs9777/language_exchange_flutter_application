@@ -1483,12 +1483,14 @@ class CallManager with WidgetsBindingObserver {
     }
   }
 
-  /// A call that just became video routes audio to the loudspeaker, as a
-  /// call started as video does at connect ([CallLiveKitManager.connect]).
-  /// The previous route is kept for [_rollBackUpgrade].
+  /// A call that just became video routes audio to the loudspeaker (a
+  /// connected headset keeps it on Android), as a call started as video does
+  /// at connect ([CallLiveKitManager.connect]). The previous route is kept
+  /// for [_rollBackUpgrade].
   void _routeAudioForVideo() {
     _speakerBeforeUpgrade ??= _isSpeakerOn;
-    unawaited(setSpeakerOn(true));
+    _isSpeakerOn = true;
+    unawaited(_liveKit.routeAudioForVideo());
   }
 
   void _rollBackUpgrade(String callId) {

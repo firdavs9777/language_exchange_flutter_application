@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:bananatalk_app/models/call_model.dart';
 import 'package:bananatalk_app/services/call/call_api.dart';
+import 'package:bananatalk_app/services/call_livekit_manager.dart';
 import 'package:bananatalk_app/services/call_manager.dart';
 
 import '../helpers/call_fakes.dart';
@@ -230,6 +231,25 @@ void main() {
     expect(await h2.manager.upgradeToVideo(), isFalse);
     expect(h2.liveKit.speakerCalls, [true, false]);
     expect(h2.manager.isSpeakerOn, isFalse);
+  });
+
+  test('an upgrade routes for video (headset first); a speaker tap forces the loudspeaker', () async {
+    final h = await connectedVoice();
+    expect(await h.manager.upgradeToVideo(), isTrue);
+    expect(h.liveKit.videoRoutes, 1);
+    await h.manager.setSpeakerOn(false);
+    await h.manager.setSpeakerOn(true);
+    expect(h.liveKit.videoRoutes, 1, reason: 'the user toggle selects the route it names');
+  });
+
+  test('video routing: Android keeps a connected headset, iOS leaves it to the system', () {
+    bool speaker(bool android, List<String> outputs) =>
+        CallLiveKitManager.selectSpeakerForVideo(isAndroid: android, outputIds: outputs);
+    expect(speaker(true, ['earpiece', 'speaker']), isTrue);
+    expect(speaker(true, ['earpiece', 'speaker', 'bluetooth']), isFalse);
+    expect(speaker(true, ['wired-headset', 'speaker']), isFalse);
+    expect(speaker(true, const []), isTrue);
+    expect(speaker(false, ['bluetooth']), isTrue, reason: 'iOS keeps headsets ahead of the speaker itself');
   });
 
   test('a rollback restores a speaker the user had already turned on', () async {
