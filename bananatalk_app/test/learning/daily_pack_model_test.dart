@@ -34,7 +34,10 @@ Map<String, dynamic> _packJson() => {
           'status': 'todo',
           'payload': {
             'clips': [
-              {'id': 'c0', 'text': 'She is waiting outside.', 'word': 'waiting'}
+              {
+                'id': 'c0', 'text': 'She is waiting outside.', 'word': 'waiting',
+                'options': ['salary', 'waiting', 'colleague'],
+              }
             ]
           }
         },
@@ -82,6 +85,12 @@ void main() {
     final payload =
         DailyPack.fromJson(_packJson()).stationOf('listening')!.payload as ListeningPayload;
     expect(payload.clips.single.text, 'She is waiting outside.');
+    expect(payload.clips.single.options, ['salary', 'waiting', 'colleague']);
+  });
+
+  test('a listening clip from an older server has no options', () {
+    final clip = ListeningClip.fromJson({'id': 'c0', 'text': 't', 'word': 'w'});
+    expect(clip.options, isEmpty);
   });
 
   test('needsLanguage responses parse without any stations', () {
