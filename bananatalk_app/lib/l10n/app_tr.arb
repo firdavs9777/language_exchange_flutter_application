@@ -4612,5 +4612,11 @@
   "guideStudyHubCta": "Bugünün paketini başlat",
   "guideStudyHubSecondary": "Tüm özellikleri gör",
   "supportBananaTalkRow": "BananaTalk'a destek ol",
-  "supportBananaTalkRowSubtitle": "Tek başına çalışan bir geliştiricinin devam etmesine yardım et"
+  "supportBananaTalkRowSubtitle": "Tek başına çalışan bir geliştiricinin devam etmesine yardım et",
+  "restorePurchases": "Satın alımları geri yükle",
+  "restorePurchasesInProgress": "Satın alımlar geri yükleniyor…",
+  "restorePurchasesSuccess": "Satın alımlar geri yüklendi. VIP üyeliğin aktif.",
+  "restorePurchasesAlreadyActive": "VIP aboneliğin zaten aktif.",
+  "restorePurchasesNothing": "Geri yüklenecek satın alım yok.",
+  "restorePurchasesFailed": "Satın alımlar geri yüklenemedi. Lütfen tekrar dene."
 }

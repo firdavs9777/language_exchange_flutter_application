@@ -493,6 +493,15 @@ const Map<String, List<String>> _keysByTask = {
     'lookingGood',
     'almostThere',
   ],
+  // Restore Purchases (App Store 3.1.1) on the VIP plans / status screens.
+  'restore-purchases': [
+    'restorePurchases',
+    'restorePurchasesInProgress',
+    'restorePurchasesSuccess',
+    'restorePurchasesAlreadyActive',
+    'restorePurchasesNothing',
+    'restorePurchasesFailed',
+  ],
 };
 
 /// Files (under lib/) each task must leave with no English Text literal.
@@ -698,6 +707,9 @@ const Map<String, List<String>> _filesByTask = {
   ],
   'final-fix': [
     'pages/profile/profile_main/sections/profile_highlights_tab.dart',
+  ],
+  'restore-purchases': [
+    'widgets/restore_purchases_button.dart',
   ],
 };
 

@@ -11353,4 +11353,22 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => 'Tek başına çalışan bir geliştiricinin devam etmesine yardım et';
+
+  @override
+  String get restorePurchases => 'Satın alımları geri yükle';
+
+  @override
+  String get restorePurchasesInProgress => 'Satın alımlar geri yükleniyor…';
+
+  @override
+  String get restorePurchasesSuccess => 'Satın alımlar geri yüklendi. VIP üyeliğin aktif.';
+
+  @override
+  String get restorePurchasesAlreadyActive => 'VIP aboneliğin zaten aktif.';
+
+  @override
+  String get restorePurchasesNothing => 'Geri yüklenecek satın alım yok.';
+
+  @override
+  String get restorePurchasesFailed => 'Satın alımlar geri yüklenemedi. Lütfen tekrar dene.';
 }

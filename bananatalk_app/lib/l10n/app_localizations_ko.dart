@@ -11336,4 +11336,22 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => '1인 개발자가 계속 만들 수 있도록 도와주세요';
+
+  @override
+  String get restorePurchases => '구매 복원';
+
+  @override
+  String get restorePurchasesInProgress => '구매를 복원하는 중…';
+
+  @override
+  String get restorePurchasesSuccess => '구매가 복원되었습니다. VIP가 활성화되었습니다.';
+
+  @override
+  String get restorePurchasesAlreadyActive => 'VIP 구독이 이미 활성화되어 있습니다.';
+
+  @override
+  String get restorePurchasesNothing => '복원할 구매 내역이 없습니다.';
+
+  @override
+  String get restorePurchasesFailed => '구매를 복원하지 못했습니다. 다시 시도해 주세요.';
 }

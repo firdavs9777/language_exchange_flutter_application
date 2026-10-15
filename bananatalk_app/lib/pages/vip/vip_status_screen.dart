@@ -10,6 +10,7 @@ import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/subscription_links.dart';
+import 'package:bananatalk_app/widgets/restore_purchases_button.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 class VipStatusScreen extends ConsumerStatefulWidget {
@@ -138,6 +139,8 @@ class _VipStatusScreenState extends ConsumerState<VipStatusScreen> {
                     ),
                     child: Text(localizations.becomeVIP),
                   ),
+                  SizedBox(height: AppSpacing.md),
+                  RestorePurchasesButton(userId: widget.userId),
                 ],
               ),
             ),
@@ -308,6 +311,9 @@ class _VipStatusScreenState extends ConsumerState<VipStatusScreen> {
                     : localizations.manageSubscription),
               ),
             ),
+
+            // Renewed on another device / reinstalled: pull it back in.
+            RestorePurchasesButton(userId: widget.userId),
 
             SizedBox(height: AppSpacing.xxxl),
           ],

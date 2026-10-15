@@ -11336,6 +11336,24 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => '帮助独立开发者继续打磨产品';
+
+  @override
+  String get restorePurchases => '恢复购买';
+
+  @override
+  String get restorePurchasesInProgress => '正在恢复购买…';
+
+  @override
+  String get restorePurchasesSuccess => '已恢复购买，你的 VIP 已生效。';
+
+  @override
+  String get restorePurchasesAlreadyActive => '你的 VIP 订阅已处于有效状态。';
+
+  @override
+  String get restorePurchasesNothing => '没有可恢复的购买。';
+
+  @override
+  String get restorePurchasesFailed => '无法恢复购买，请重试。';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -22670,4 +22688,22 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get supportBananaTalkRowSubtitle => '幫助獨立開發者持續打磨產品';
+
+  @override
+  String get restorePurchases => '恢復購買';
+
+  @override
+  String get restorePurchasesInProgress => '正在恢復購買…';
+
+  @override
+  String get restorePurchasesSuccess => '已恢復購買，你的 VIP 已生效。';
+
+  @override
+  String get restorePurchasesAlreadyActive => '你的 VIP 訂閱已在有效狀態。';
+
+  @override
+  String get restorePurchasesNothing => '沒有可恢復的購買項目。';
+
+  @override
+  String get restorePurchasesFailed => '無法恢復購買，請再試一次。';
 }

@@ -11355,4 +11355,22 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => 'Aidez un développeur indépendant à continuer';
+
+  @override
+  String get restorePurchases => 'Restaurer les achats';
+
+  @override
+  String get restorePurchasesInProgress => 'Restauration des achats…';
+
+  @override
+  String get restorePurchasesSuccess => 'Achats restaurés. Votre VIP est actif.';
+
+  @override
+  String get restorePurchasesAlreadyActive => 'Votre abonnement VIP est déjà actif.';
+
+  @override
+  String get restorePurchasesNothing => 'Aucun achat à restaurer.';
+
+  @override
+  String get restorePurchasesFailed => 'Impossible de restaurer les achats. Veuillez réessayer.';
 }

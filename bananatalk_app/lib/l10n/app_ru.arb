@@ -4430,5 +4430,11 @@
   "guideStudyHubCta": "Начать набор на сегодня",
   "guideStudyHubSecondary": "Все функции",
   "supportBananaTalkRow": "Поддержать BananaTalk",
-  "supportBananaTalkRowSubtitle": "Помогите одному разработчику продолжать работу"
+  "supportBananaTalkRowSubtitle": "Помогите одному разработчику продолжать работу",
+  "restorePurchases": "Восстановить покупки",
+  "restorePurchasesInProgress": "Восстанавливаем покупки…",
+  "restorePurchasesSuccess": "Покупки восстановлены. Ваш VIP активен.",
+  "restorePurchasesAlreadyActive": "Ваша подписка VIP уже активна.",
+  "restorePurchasesNothing": "Нет покупок для восстановления.",
+  "restorePurchasesFailed": "Не удалось восстановить покупки. Попробуйте ещё раз."
 }

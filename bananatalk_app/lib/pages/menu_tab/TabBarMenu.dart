@@ -23,6 +23,7 @@ import 'package:bananatalk_app/widgets/navigation/tab_reselect_scroll_to_top.dar
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:bananatalk_app/providers/provider_root/purchase_restore_provider.dart';
 
 /// Global tab-selection state shared between [TabsScreen] and any surface
 /// (drawer, deep-link handler, modal) that needs to switch tabs without
@@ -130,7 +131,19 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref.read(badgeCountProvider.notifier).fetchBadgeCount();
       _runLaunchModals();
+      // Listen to the store from launch (Apple's guidance) so redelivered,
+      // renewed or deferred transactions reach backend verification instead
+      // of waiting until a store screen happens to be opened.
+      if (mounted) _redeliveryToken = installPurchaseRedelivery(ref);
     });
+  }
+
+  Object? _redeliveryToken;
+
+  @override
+  void dispose() {
+    uninstallPurchaseRedelivery(_redeliveryToken);
+    super.dispose();
   }
 
   /// Whether this shell is the visible route, so a pop-up would land on it

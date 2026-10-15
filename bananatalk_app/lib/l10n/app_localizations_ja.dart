@@ -11336,4 +11336,22 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => '個人開発者の開発を支えてください';
+
+  @override
+  String get restorePurchases => '購入を復元';
+
+  @override
+  String get restorePurchasesInProgress => '購入を復元しています…';
+
+  @override
+  String get restorePurchasesSuccess => '購入を復元しました。VIPが有効になりました。';
+
+  @override
+  String get restorePurchasesAlreadyActive => 'VIPサブスクリプションはすでに有効です。';
+
+  @override
+  String get restorePurchasesNothing => '復元できる購入はありません。';
+
+  @override
+  String get restorePurchasesFailed => '購入を復元できませんでした。もう一度お試しください。';
 }

@@ -4400,5 +4400,11 @@
   "guideStudyHubCta": "今日のパックを始める",
   "guideStudyHubSecondary": "すべての機能を見る",
   "supportBananaTalkRow": "BananaTalkを応援",
-  "supportBananaTalkRowSubtitle": "個人開発者の開発を支えてください"
+  "supportBananaTalkRowSubtitle": "個人開発者の開発を支えてください",
+  "restorePurchases": "購入を復元",
+  "restorePurchasesInProgress": "購入を復元しています…",
+  "restorePurchasesSuccess": "購入を復元しました。VIPが有効になりました。",
+  "restorePurchasesAlreadyActive": "VIPサブスクリプションはすでに有効です。",
+  "restorePurchasesNothing": "復元できる購入はありません。",
+  "restorePurchasesFailed": "購入を復元できませんでした。もう一度お試しください。"
 }

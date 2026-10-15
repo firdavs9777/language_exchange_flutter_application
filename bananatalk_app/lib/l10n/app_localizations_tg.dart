@@ -11356,4 +11356,22 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => 'Ба як барномасози танҳо барои идома додан кӯмак кунед';
+
+  @override
+  String get restorePurchases => 'Барқарор кардани харидҳо';
+
+  @override
+  String get restorePurchasesInProgress => 'Харидҳо барқарор карда мешаванд…';
+
+  @override
+  String get restorePurchasesSuccess => 'Харидҳо барқарор шуданд. VIP-и шумо фаъол аст.';
+
+  @override
+  String get restorePurchasesAlreadyActive => 'Обунаи VIP-и шумо аллакай фаъол аст.';
+
+  @override
+  String get restorePurchasesNothing => 'Ягон хариде барои барқароркунӣ нест.';
+
+  @override
+  String get restorePurchasesFailed => 'Харидҳоро барқарор кардан нашуд. Лутфан бори дигар кӯшиш кунед.';
 }

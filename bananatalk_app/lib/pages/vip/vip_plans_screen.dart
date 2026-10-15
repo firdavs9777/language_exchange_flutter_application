@@ -14,6 +14,7 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/widgets/restore_purchases_button.dart';
 
 class VipPlansScreen extends ConsumerStatefulWidget {
   final String? userId;
@@ -148,7 +149,11 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
               _buildComparisonTable(),
               const SizedBox(height: 24),
               _buildContinueButton(),
-              const SizedBox(height: 16),
+              const SizedBox(height: 8),
+              // App Store guideline 3.1.1: subscriptions need a visible
+              // restore mechanism next to where they are sold.
+              Center(child: RestorePurchasesButton(userId: widget.userId)),
+              const SizedBox(height: 8),
               _buildSubscriptionDisclosure(),
             ],
           ),

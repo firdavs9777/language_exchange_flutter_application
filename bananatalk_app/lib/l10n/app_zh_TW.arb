@@ -4091,5 +4091,11 @@
   "guideStudyHubCta": "開始今日學習包",
   "guideStudyHubSecondary": "查看全部功能",
   "supportBananaTalkRow": "支持 BananaTalk",
-  "supportBananaTalkRowSubtitle": "幫助獨立開發者持續打磨產品"
+  "supportBananaTalkRowSubtitle": "幫助獨立開發者持續打磨產品",
+  "restorePurchases": "恢復購買",
+  "restorePurchasesInProgress": "正在恢復購買…",
+  "restorePurchasesSuccess": "已恢復購買，你的 VIP 已生效。",
+  "restorePurchasesAlreadyActive": "你的 VIP 訂閱已在有效狀態。",
+  "restorePurchasesNothing": "沒有可恢復的購買項目。",
+  "restorePurchasesFailed": "無法恢復購買，請再試一次。"
 }

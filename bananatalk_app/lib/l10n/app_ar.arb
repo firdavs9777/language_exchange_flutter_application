@@ -4430,5 +4430,11 @@
   "guideStudyHubCta": "ابدأ حزمة اليوم",
   "guideStudyHubSecondary": "عرض كل الميزات",
   "supportBananaTalkRow": "ادعم BananaTalk",
-  "supportBananaTalkRowSubtitle": "ساعد مطوّرًا مستقلًا على مواصلة العمل"
+  "supportBananaTalkRowSubtitle": "ساعد مطوّرًا مستقلًا على مواصلة العمل",
+  "restorePurchases": "استعادة المشتريات",
+  "restorePurchasesInProgress": "جارٍ استعادة المشتريات…",
+  "restorePurchasesSuccess": "تمت استعادة المشتريات. اشتراك VIP الخاص بك نشط.",
+  "restorePurchasesAlreadyActive": "اشتراك VIP الخاص بك نشط بالفعل.",
+  "restorePurchasesNothing": "لا توجد مشتريات لاستعادتها.",
+  "restorePurchasesFailed": "تعذّرت استعادة المشتريات. يُرجى المحاولة مرة أخرى."
 }

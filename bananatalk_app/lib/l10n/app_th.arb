@@ -4400,5 +4400,11 @@
   "guideStudyHubCta": "เริ่มชุดวันนี้",
   "guideStudyHubSecondary": "ดูฟีเจอร์ทั้งหมด",
   "supportBananaTalkRow": "สนับสนุน BananaTalk",
-  "supportBananaTalkRowSubtitle": "ช่วยนักพัฒนาคนเดียวให้สร้างต่อไป"
+  "supportBananaTalkRowSubtitle": "ช่วยนักพัฒนาคนเดียวให้สร้างต่อไป",
+  "restorePurchases": "กู้คืนการซื้อ",
+  "restorePurchasesInProgress": "กำลังกู้คืนการซื้อ…",
+  "restorePurchasesSuccess": "กู้คืนการซื้อแล้ว VIP ของคุณใช้งานได้แล้ว",
+  "restorePurchasesAlreadyActive": "การสมัครสมาชิก VIP ของคุณใช้งานอยู่แล้ว",
+  "restorePurchasesNothing": "ไม่มีการซื้อที่จะกู้คืน",
+  "restorePurchasesFailed": "ไม่สามารถกู้คืนการซื้อได้ โปรดลองอีกครั้ง"
 }

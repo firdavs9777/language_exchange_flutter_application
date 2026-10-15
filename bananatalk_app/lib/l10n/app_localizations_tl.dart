@@ -11355,4 +11355,22 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => 'Tulungan ang nag-iisang developer na magpatuloy';
+
+  @override
+  String get restorePurchases => 'I-restore ang mga Binili';
+
+  @override
+  String get restorePurchasesInProgress => 'Nire-restore ang mga binili…';
+
+  @override
+  String get restorePurchasesSuccess => 'Na-restore ang mga binili. Aktibo na ang VIP mo.';
+
+  @override
+  String get restorePurchasesAlreadyActive => 'Aktibo na ang VIP subscription mo.';
+
+  @override
+  String get restorePurchasesNothing => 'Walang binili na mare-restore.';
+
+  @override
+  String get restorePurchasesFailed => 'Hindi ma-restore ang mga binili. Pakisubukang muli.';
 }
