@@ -162,6 +162,8 @@ Suspected bugs from the full regression suite (2026-10-15, code reading only —
 - [ ] Calls: in-call errors go to the last chat screen's handler (may show nothing — CALL2-10); `CallRoutes.closeAll` stops at a non-call route; self-view mirrored on the rear camera; speaker forced on every video call (BT risk beyond upgrades); missing a11y labels on call buttons. S
 - [ ] Notifications / app-wide: announcement "seen" is per device and wiped at logout (repeat pop-up after re-login); iOS badge never cleared (`clearBadge` no-op); cold-start deep links skip the shell and the login redirect; Tajik missing from iOS `CFBundleLocalizations`; check exported iOS build has production `aps-environment`; some interstitials bypass the per-session cap. S–M
 - [ ] Hardcoded English found across auth, chat (swipe labels, header status), calls (permission/quality strings), moments composer, profile drawer, coin shop, topics — fold into the L14 localization item. M
+Moments / stories audit follow-ups (branch `fix/moments-stories-audit`, 2026-10-15)
+- [ ] Profile → Edit moment: removing an existing photo is a no-op — the server ignores `images` on update and has no delete-photo endpoint. Needs a backend route (or hide the remove button). S
 - Note: the memory/doc claim "AI Tools = sub-tab 0, Learn = sub-tab 1" is stale — legacy AI Study has Today / Practice / Exam Study (Today first).
 
 Later, gated on dashboard numbers (no work until then)

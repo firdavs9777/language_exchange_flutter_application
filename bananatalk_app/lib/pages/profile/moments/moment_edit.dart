@@ -26,10 +26,8 @@ class _EditMomentScreenState extends ConsumerState<EditMomentScreen> {
   bool _isFocused = false;
 
   late List<String> imageUrls;
-  late List<String> originalImages;
   late List<String> _initialImageUrls;
   late String _initialDescription;
-  late Map<String, String> _urlToFilenameMap;
 
   @override
   void initState() {
@@ -40,12 +38,6 @@ class _EditMomentScreenState extends ConsumerState<EditMomentScreen> {
     _initialDescription = widget.moment.description;
     imageUrls = List<String>.from(widget.moment.imageUrls);
     _initialImageUrls = List<String>.from(widget.moment.imageUrls);
-    originalImages = List<String>.from(widget.moment.images);
-
-    _urlToFilenameMap = {};
-    for (int i = 0; i < imageUrls.length && i < originalImages.length; i++) {
-      _urlToFilenameMap[imageUrls[i]] = originalImages[i];
-    }
 
     _descriptionFocus = FocusNode();
     _descriptionFocus.addListener(() {
@@ -92,38 +84,6 @@ class _EditMomentScreenState extends ConsumerState<EditMomentScreen> {
     }
   }
 
-  String _extractFilenameFromUrl(String url) {
-    try {
-      String decodedUrl = url;
-      if (url.contains('%')) {
-        decodedUrl = Uri.decodeComponent(url);
-      }
-      final uri = Uri.parse(decodedUrl);
-      String path = uri.path;
-      String filename = path.split('/').last;
-      if (path.contains('uploads/')) {
-        final uploadsIndex = path.indexOf('uploads/');
-        filename = path.substring(uploadsIndex + 8);
-      }
-      filename = filename.split('?').first;
-      return filename;
-    } catch (e) {
-      final parts = url.split('/');
-      return parts.last.split('?').first;
-    }
-  }
-
-  List<String> _getUpdatedImagesList() {
-    final remainingFilenames = <String>[];
-    for (final url in imageUrls) {
-      final filename = _urlToFilenameMap[url] ?? _extractFilenameFromUrl(url);
-      if (filename.isNotEmpty && !remainingFilenames.contains(filename)) {
-        remainingFilenames.add(filename);
-      }
-    }
-    return remainingFilenames;
-  }
-
   Future<void> _saveChanges() async {
     if (_isSaving) return;
     final l10n = AppLocalizations.of(context)!;
@@ -137,17 +97,11 @@ class _EditMomentScreenState extends ConsumerState<EditMomentScreen> {
     setState(() => _isSaving = true);
 
     try {
-      final updatedImages = _getUpdatedImagesList();
-
       final updatedMoment = await ref
           .read(momentsServiceProvider)
           .updateMoment(
             id: widget.moment.id,
             description: descriptionController.text.trim(),
-            category: widget.moment.category,
-            mood: widget.moment.mood,
-            tags: widget.moment.tags,
-            images: updatedImages,
           );
 
       if (_selectedImages.isNotEmpty) {
