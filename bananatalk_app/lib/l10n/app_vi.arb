@@ -4401,5 +4401,11 @@
   "supportBananaTalkRow": "Ủng hộ BananaTalk",
   "supportBananaTalkRowSubtitle": "Giúp một lập trình viên độc lập tiếp tục phát triển",
   "callVoiceCallButton": "Gọi thoại",
-  "callVideoCallButton": "Gọi video"
+  "callVideoCallButton": "Gọi video",
+  "callPermissionMicSettings": "Vui lòng bật quyền truy cập micrô trong Cài đặt để gọi điện.",
+  "callPermissionCameraSettings": "Vui lòng bật quyền truy cập camera trong Cài đặt để gọi video.",
+  "callPermissionMicCameraSettings": "Vui lòng bật quyền truy cập micrô và camera trong Cài đặt để gọi video.",
+  "callQualityExcellent": "Chất lượng rất tốt",
+  "callQualityGood": "Chất lượng tốt",
+  "callConnectionLost": "Mất kết nối"
 }

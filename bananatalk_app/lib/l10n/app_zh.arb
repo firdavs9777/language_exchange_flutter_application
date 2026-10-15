@@ -4415,5 +4415,11 @@
   "supportBananaTalkRow": "支持 BananaTalk",
   "supportBananaTalkRowSubtitle": "帮助独立开发者继续打磨产品",
   "callVoiceCallButton": "语音通话",
-  "callVideoCallButton": "视频通话"
+  "callVideoCallButton": "视频通话",
+  "callPermissionMicSettings": "请在设置中允许访问麦克风以进行通话。",
+  "callPermissionCameraSettings": "请在设置中允许访问相机以进行视频通话。",
+  "callPermissionMicCameraSettings": "请在设置中允许访问麦克风和相机以进行视频通话。",
+  "callQualityExcellent": "通话质量极佳",
+  "callQualityGood": "通话质量良好",
+  "callConnectionLost": "连接已断开"
 }

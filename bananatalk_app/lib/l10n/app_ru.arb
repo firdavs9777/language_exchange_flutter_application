@@ -4431,5 +4431,11 @@
   "supportBananaTalkRow": "Поддержать BananaTalk",
   "supportBananaTalkRowSubtitle": "Помогите одному разработчику продолжать работу",
   "callVoiceCallButton": "Голосовой звонок",
-  "callVideoCallButton": "Видеозвонок"
+  "callVideoCallButton": "Видеозвонок",
+  "callPermissionMicSettings": "Разрешите доступ к микрофону в Настройках, чтобы звонить.",
+  "callPermissionCameraSettings": "Разрешите доступ к камере в Настройках для видеозвонков.",
+  "callPermissionMicCameraSettings": "Разрешите доступ к микрофону и камере в Настройках для видеозвонков.",
+  "callQualityExcellent": "Отличное качество",
+  "callQualityGood": "Хорошее качество",
+  "callConnectionLost": "Соединение потеряно"
 }

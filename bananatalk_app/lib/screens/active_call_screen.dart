@@ -786,6 +786,7 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
   /// [ConnectionQuality] to a single 18×18 icon with a long-press tooltip.
   /// Hidden when quality is unknown.
   Widget _buildQualityBadge(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final IconData icon;
     final Color color;
     final double iconSize;
@@ -795,25 +796,25 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
         icon = Icons.circle;
         color = Colors.green;
         iconSize = 10;
-        tooltip = 'Excellent quality';
+        tooltip = l10n.callQualityExcellent;
         break;
       case lk.ConnectionQuality.good:
         icon = Icons.circle;
         color = Colors.amber;
         iconSize = 10;
-        tooltip = 'Good quality';
+        tooltip = l10n.callQualityGood;
         break;
       case lk.ConnectionQuality.poor:
         icon = Icons.warning_amber_rounded;
         color = Colors.orange;
         iconSize = 14;
-        tooltip = 'Poor quality';
+        tooltip = l10n.commonPoorConnection;
         break;
       case lk.ConnectionQuality.lost:
         icon = Icons.signal_wifi_off;
         color = Colors.red;
         iconSize = 14;
-        tooltip = 'Connection lost';
+        tooltip = l10n.callConnectionLost;
         break;
       case lk.ConnectionQuality.unknown:
         return const SizedBox.shrink();

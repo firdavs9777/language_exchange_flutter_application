@@ -67,6 +67,8 @@ class CallManagerDeps {
     this.afterIncomingCall = CallManagerDeps._noop,
     this.isAppResumed = CallManagerDeps._resumed,
     this.callFailedMessage = CallManagerDeps._callFailed,
+    this.connectionLostMessage = CallManagerDeps._connectionLost,
+    this.connectFailedMessage = CallManagerDeps._connectFailed,
     this.isIos = CallManagerDeps._notIos,
     this.declineMessageNotSent = CallManagerDeps._noop,
   });
@@ -86,11 +88,11 @@ class CallManagerDeps {
         }),
         isAppResumed: () => WidgetsBinding.instance.lifecycleState == AppLifecycleState.resumed,
         isIos: () => Platform.isIOS,
-        callFailedMessage: () {
-          final ctx = callOverlayNavigatorKey.currentContext;
-          final l10n = ctx != null ? AppLocalizations.of(ctx) : null;
-          return l10n?.callFailed ?? _callFailed();
-        },
+        callFailedMessage: () => _overlayL10n()?.callFailed ?? _callFailed(),
+        connectionLostMessage: () =>
+            _overlayL10n()?.callConnectionLost ?? _connectionLost(),
+        connectFailedMessage: () =>
+            _overlayL10n()?.callConnectionFailed ?? _connectFailed(),
         declineMessageNotSent: () =>
             CallRoutes.showDeclineMessageNotSent(callOverlayNavigatorKey.currentContext),
       );
@@ -112,6 +114,12 @@ class CallManagerDeps {
   /// The localized "Call failed" message shown when the server fails a call.
   final String Function() callFailedMessage;
 
+  /// The localized message for a call that dropped and did not come back.
+  final String Function() connectionLostMessage;
+
+  /// The localized message for a call whose media never connected.
+  final String Function() connectFailedMessage;
+
   /// The call was declined but its message was not delivered (the server
   /// dropped it: blocked / daily cap, or refused it). Production shows a
   /// short snackbar; the incoming screen is already gone by then.
@@ -126,6 +134,13 @@ class CallManagerDeps {
   static void _noop() {}
   static bool _resumed() => true;
   static String _callFailed() => 'Call Failed';
+  static String _connectionLost() => 'Connection lost';
+  static String _connectFailed() => 'Could not connect. Please try again.';
+
+  static AppLocalizations? _overlayL10n() {
+    final ctx = callOverlayNavigatorKey.currentContext;
+    return ctx != null ? AppLocalizations.of(ctx) : null;
+  }
   static bool _notIos() => false;
 }
 
@@ -824,7 +839,7 @@ class CallManager with WidgetsBindingObserver {
       return;
     }
     if (c.callId.isNotEmpty) unawaited(_deps.api.end(c.callId));
-    onCallError?.call('Connection lost');
+    onCallError?.call(_deps.connectionLostMessage());
     unawaited(_finish(CallExitReason.connectionLost));
   }
 
@@ -858,7 +873,7 @@ class CallManager with WidgetsBindingObserver {
       final c = currentCall;
       if (c == null || c.callId != callId) return;
       if (c.callId.isNotEmpty) unawaited(_deps.api.end(c.callId)); // best effort; 409 ignored
-      onCallError?.call('Connection lost');
+      onCallError?.call(_deps.connectionLostMessage());
       unawaited(_finish(CallExitReason.connectionLost));
     });
   }
@@ -1062,7 +1077,7 @@ class CallManager with WidgetsBindingObserver {
       // 403 CONVERSATION_START_LIMIT: a call to a stranger counts as starting a
       // conversation. Like the chat send path, show the server's own message
       // (ApiClient skips its global 403 toast for this code).
-      final err = res.error ?? 'Failed to start call';
+      final err = res.error ?? _deps.callFailedMessage();
       onCallError?.call(err);
       return InitiateResult(InitiateStatus.failed, err);
     }
@@ -1072,7 +1087,7 @@ class CallManager with WidgetsBindingObserver {
     if (serverId == null || token == null || url == null) {
       currentCall = null;
       if (serverId != null) unawaited(_deps.api.end(serverId));
-      onCallError?.call('Server response missing call data');
+      onCallError?.call(_deps.callFailedMessage());
       return const InitiateResult(InitiateStatus.failed);
     }
 
@@ -1094,7 +1109,7 @@ class CallManager with WidgetsBindingObserver {
       if (!_sameId(currentCall?.callId, serverId)) return const InitiateResult(InitiateStatus.failed);
       debugPrint('📞 LiveKit connect failed: $e');
       unawaited(_deps.api.end(serverId));
-      onCallError?.call('Failed to connect to call');
+      onCallError?.call(_deps.connectFailedMessage());
       await _finish(CallExitReason.error);
       return const InitiateResult(InitiateStatus.failed);
     }
@@ -1170,7 +1185,7 @@ class CallManager with WidgetsBindingObserver {
     final token = res.data['token']?.toString();
     final url = res.data['url']?.toString();
     if (!res.ok || token == null || url == null) {
-      onCallError?.call(res.error ?? 'Failed to accept call');
+      onCallError?.call(res.error ?? _deps.callFailedMessage());
       unawaited(_deps.api.end(call.callId));
       await _finish(CallExitReason.error);
       return;
@@ -1195,7 +1210,7 @@ class CallManager with WidgetsBindingObserver {
       if (!_sameId(currentCall?.callId, call.callId)) return;
       debugPrint('📞 LiveKit connect failed: $e');
       unawaited(_deps.api.end(call.callId));
-      onCallError?.call('Failed to connect to call');
+      onCallError?.call(_deps.connectFailedMessage());
       await _finish(CallExitReason.error);
       return;
     }

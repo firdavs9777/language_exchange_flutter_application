@@ -4613,5 +4613,11 @@
   "supportBananaTalkRow": "BananaTalk'a destek ol",
   "supportBananaTalkRowSubtitle": "Tek başına çalışan bir geliştiricinin devam etmesine yardım et",
   "callVoiceCallButton": "Sesli arama",
-  "callVideoCallButton": "Görüntülü arama"
+  "callVideoCallButton": "Görüntülü arama",
+  "callPermissionMicSettings": "Aramalar için lütfen Ayarlar'dan mikrofon erişimine izin ver.",
+  "callPermissionCameraSettings": "Görüntülü aramalar için lütfen Ayarlar'dan kamera erişimine izin ver.",
+  "callPermissionMicCameraSettings": "Görüntülü aramalar için lütfen Ayarlar'dan mikrofon ve kamera erişimine izin ver.",
+  "callQualityExcellent": "Mükemmel kalite",
+  "callQualityGood": "İyi kalite",
+  "callConnectionLost": "Bağlantı kesildi"
 }

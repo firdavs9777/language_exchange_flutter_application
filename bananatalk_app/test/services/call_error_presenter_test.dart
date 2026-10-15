@@ -68,4 +68,23 @@ void main() {
     expect(chatErrors, isEmpty);
     expect(find.text('Connection lost'), findsOneWidget);
   });
+
+  testWidgets('"Connection lost" and connect failures are in the app language', (tester) async {
+    await tester.pumpWidget(MaterialApp(
+      locale: const Locale('de'),
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      builder: (context, child) => Navigator(
+        key: callOverlayNavigatorKey,
+        onDidRemovePage: (_) {},
+        pages: [MaterialPage(child: child ?? const SizedBox())],
+      ),
+      home: const SizedBox(),
+    ));
+    final de = lookupAppLocalizations(const Locale('de'));
+    final deps = CallManagerDeps.production();
+    expect(deps.connectionLostMessage(), de.callConnectionLost);
+    expect(deps.connectFailedMessage(), de.callConnectionFailed);
+    expect(deps.callFailedMessage(), de.callFailed);
+  });
 }

@@ -4641,5 +4641,11 @@
   "supportBananaTalkRow": "BananaTalk unterstützen",
   "supportBananaTalkRowSubtitle": "Hilf einem Solo-Entwickler weiterzumachen",
   "callVoiceCallButton": "Sprachanruf",
-  "callVideoCallButton": "Videoanruf"
+  "callVideoCallButton": "Videoanruf",
+  "callPermissionMicSettings": "Bitte erlaube in den Einstellungen den Mikrofonzugriff für Anrufe.",
+  "callPermissionCameraSettings": "Bitte erlaube in den Einstellungen den Kamerazugriff für Videoanrufe.",
+  "callPermissionMicCameraSettings": "Bitte erlaube in den Einstellungen den Mikrofon- und Kamerazugriff für Videoanrufe.",
+  "callQualityExcellent": "Ausgezeichnete Qualität",
+  "callQualityGood": "Gute Qualität",
+  "callConnectionLost": "Verbindung verloren"
 }

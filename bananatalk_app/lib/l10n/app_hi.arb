@@ -4417,5 +4417,11 @@
   "supportBananaTalkRow": "BananaTalk का साथ दें",
   "supportBananaTalkRowSubtitle": "एक अकेले डेवलपर को काम जारी रखने में मदद करें",
   "callVoiceCallButton": "वॉइस कॉल",
-  "callVideoCallButton": "वीडियो कॉल"
+  "callVideoCallButton": "वीडियो कॉल",
+  "callPermissionMicSettings": "कॉल के लिए कृपया सेटिंग्स में माइक्रोफ़ोन की अनुमति चालू करें।",
+  "callPermissionCameraSettings": "वीडियो कॉल के लिए कृपया सेटिंग्स में कैमरे की अनुमति चालू करें।",
+  "callPermissionMicCameraSettings": "वीडियो कॉल के लिए कृपया सेटिंग्स में माइक्रोफ़ोन और कैमरे की अनुमति चालू करें।",
+  "callQualityExcellent": "बेहतरीन गुणवत्ता",
+  "callQualityGood": "अच्छी गुणवत्ता",
+  "callConnectionLost": "कनेक्शन टूट गया"
 }

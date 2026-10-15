@@ -20695,6 +20695,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Video call'**
   String get callVideoCallButton;
+
+  /// No description provided for @callPermissionMicSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enable microphone access in Settings for calls.'**
+  String get callPermissionMicSettings;
+
+  /// No description provided for @callPermissionCameraSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enable camera access in Settings for video calls.'**
+  String get callPermissionCameraSettings;
+
+  /// No description provided for @callPermissionMicCameraSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enable microphone and camera access in Settings for video calls.'**
+  String get callPermissionMicCameraSettings;
+
+  /// No description provided for @callQualityExcellent.
+  ///
+  /// In en, this message translates to:
+  /// **'Excellent quality'**
+  String get callQualityExcellent;
+
+  /// No description provided for @callQualityGood.
+  ///
+  /// In en, this message translates to:
+  /// **'Good quality'**
+  String get callQualityGood;
+
+  /// No description provided for @callConnectionLost.
+  ///
+  /// In en, this message translates to:
+  /// **'Connection lost'**
+  String get callConnectionLost;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

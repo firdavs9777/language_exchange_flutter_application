@@ -1,6 +1,8 @@
+import 'package:flutter/widgets.dart' show Locale;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/services/call/call_platform.dart';
 
 void main() {
@@ -41,6 +43,25 @@ void main() {
 
     test('nothing to ask when everything is granted', () {
       expect(ask(video: true), isEmpty);
+    });
+  });
+
+  group('permission messages are localized', () {
+    final de = lookupAppLocalizations(const Locale('de'));
+    String msg({bool video = false, PermissionStatus mic = granted, PermissionStatus cam = granted}) =>
+        DeviceCallPlatform.permissionMessage(de, video: video, mic: mic, cam: cam);
+
+    test('permanently denied: a Settings message', () {
+      expect(msg(mic: permanentlyDenied), 'PERMANENTLY_DENIED:${de.callPermissionMicSettings}');
+      expect(msg(video: true, cam: permanentlyDenied), 'PERMANENTLY_DENIED:${de.callPermissionCameraSettings}');
+      expect(msg(video: true, mic: permanentlyDenied, cam: permanentlyDenied),
+          'PERMANENTLY_DENIED:${de.callPermissionMicCameraSettings}');
+    });
+
+    test('denied: the short message', () {
+      expect(msg(mic: denied), 'DENIED:${de.callPermissionDenied}');
+      expect(msg(video: true, cam: denied), 'DENIED:${de.cameraPermissionDenied}');
+      expect(msg(video: true, mic: denied, cam: denied), 'DENIED:${de.callPermissionDenied}');
     });
   });
 }

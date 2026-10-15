@@ -11356,4 +11356,22 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get callVideoCallButton => 'Görüntülü arama';
+
+  @override
+  String get callPermissionMicSettings => 'Aramalar için lütfen Ayarlar\'dan mikrofon erişimine izin ver.';
+
+  @override
+  String get callPermissionCameraSettings => 'Görüntülü aramalar için lütfen Ayarlar\'dan kamera erişimine izin ver.';
+
+  @override
+  String get callPermissionMicCameraSettings => 'Görüntülü aramalar için lütfen Ayarlar\'dan mikrofon ve kamera erişimine izin ver.';
+
+  @override
+  String get callQualityExcellent => 'Mükemmel kalite';
+
+  @override
+  String get callQualityGood => 'İyi kalite';
+
+  @override
+  String get callConnectionLost => 'Bağlantı kesildi';
 }

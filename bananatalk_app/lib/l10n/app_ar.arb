@@ -4431,5 +4431,11 @@
   "supportBananaTalkRow": "ادعم BananaTalk",
   "supportBananaTalkRowSubtitle": "ساعد مطوّرًا مستقلًا على مواصلة العمل",
   "callVoiceCallButton": "مكالمة صوتية",
-  "callVideoCallButton": "مكالمة فيديو"
+  "callVideoCallButton": "مكالمة فيديو",
+  "callPermissionMicSettings": "يُرجى تفعيل الوصول إلى الميكروفون من الإعدادات لإجراء المكالمات.",
+  "callPermissionCameraSettings": "يُرجى تفعيل الوصول إلى الكاميرا من الإعدادات لمكالمات الفيديو.",
+  "callPermissionMicCameraSettings": "يُرجى تفعيل الوصول إلى الميكروفون والكاميرا من الإعدادات لمكالمات الفيديو.",
+  "callQualityExcellent": "جودة ممتازة",
+  "callQualityGood": "جودة جيدة",
+  "callConnectionLost": "انقطع الاتصال"
 }

@@ -11364,4 +11364,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get callVideoCallButton => 'Video call';
+
+  @override
+  String get callPermissionMicSettings => 'Please enable microphone access in Settings for calls.';
+
+  @override
+  String get callPermissionCameraSettings => 'Please enable camera access in Settings for video calls.';
+
+  @override
+  String get callPermissionMicCameraSettings => 'Please enable microphone and camera access in Settings for video calls.';
+
+  @override
+  String get callQualityExcellent => 'Excellent quality';
+
+  @override
+  String get callQualityGood => 'Good quality';
+
+  @override
+  String get callConnectionLost => 'Connection lost';
 }

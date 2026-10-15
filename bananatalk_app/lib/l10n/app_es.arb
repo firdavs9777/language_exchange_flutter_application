@@ -4431,5 +4431,11 @@
   "supportBananaTalkRow": "Apoya a BananaTalk",
   "supportBananaTalkRowSubtitle": "Ayuda a un desarrollador independiente a seguir creando",
   "callVoiceCallButton": "Llamada de voz",
-  "callVideoCallButton": "Videollamada"
+  "callVideoCallButton": "Videollamada",
+  "callPermissionMicSettings": "Activa el acceso al micrófono en Ajustes para las llamadas.",
+  "callPermissionCameraSettings": "Activa el acceso a la cámara en Ajustes para las videollamadas.",
+  "callPermissionMicCameraSettings": "Activa el acceso al micrófono y a la cámara en Ajustes para las videollamadas.",
+  "callQualityExcellent": "Calidad excelente",
+  "callQualityGood": "Buena calidad",
+  "callConnectionLost": "Conexión perdida"
 }

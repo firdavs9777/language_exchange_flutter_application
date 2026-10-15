@@ -38,6 +38,14 @@ const _callKeys = [
   'callCameraFailed',
   'callSelfViewLabel',
   'callSelfViewSwapHint',
+  'callVoiceCallButton',
+  'callVideoCallButton',
+  'callPermissionMicSettings',
+  'callPermissionCameraSettings',
+  'callPermissionMicCameraSettings',
+  'callQualityExcellent',
+  'callQualityGood',
+  'callConnectionLost',
 ];
 
 void main() {

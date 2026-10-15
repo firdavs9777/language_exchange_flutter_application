@@ -11358,4 +11358,22 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get callVideoCallButton => 'Videollamada';
+
+  @override
+  String get callPermissionMicSettings => 'Activa el acceso al micrófono en Ajustes para las llamadas.';
+
+  @override
+  String get callPermissionCameraSettings => 'Activa el acceso a la cámara en Ajustes para las videollamadas.';
+
+  @override
+  String get callPermissionMicCameraSettings => 'Activa el acceso al micrófono y a la cámara en Ajustes para las videollamadas.';
+
+  @override
+  String get callQualityExcellent => 'Calidad excelente';
+
+  @override
+  String get callQualityGood => 'Buena calidad';
+
+  @override
+  String get callConnectionLost => 'Conexión perdida';
 }

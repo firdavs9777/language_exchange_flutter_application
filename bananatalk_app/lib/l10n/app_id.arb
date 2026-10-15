@@ -4401,5 +4401,11 @@
   "supportBananaTalkRow": "Dukung BananaTalk",
   "supportBananaTalkRowSubtitle": "Bantu pengembang tunggal terus berkarya",
   "callVoiceCallButton": "Panggilan suara",
-  "callVideoCallButton": "Panggilan video"
+  "callVideoCallButton": "Panggilan video",
+  "callPermissionMicSettings": "Aktifkan akses mikrofon di Pengaturan untuk panggilan.",
+  "callPermissionCameraSettings": "Aktifkan akses kamera di Pengaturan untuk panggilan video.",
+  "callPermissionMicCameraSettings": "Aktifkan akses mikrofon dan kamera di Pengaturan untuk panggilan video.",
+  "callQualityExcellent": "Kualitas sangat baik",
+  "callQualityGood": "Kualitas baik",
+  "callConnectionLost": "Koneksi terputus"
 }

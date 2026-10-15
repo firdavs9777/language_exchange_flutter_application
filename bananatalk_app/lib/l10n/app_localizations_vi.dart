@@ -11339,4 +11339,22 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get callVideoCallButton => 'Gọi video';
+
+  @override
+  String get callPermissionMicSettings => 'Vui lòng bật quyền truy cập micrô trong Cài đặt để gọi điện.';
+
+  @override
+  String get callPermissionCameraSettings => 'Vui lòng bật quyền truy cập camera trong Cài đặt để gọi video.';
+
+  @override
+  String get callPermissionMicCameraSettings => 'Vui lòng bật quyền truy cập micrô và camera trong Cài đặt để gọi video.';
+
+  @override
+  String get callQualityExcellent => 'Chất lượng rất tốt';
+
+  @override
+  String get callQualityGood => 'Chất lượng tốt';
+
+  @override
+  String get callConnectionLost => 'Mất kết nối';
 }

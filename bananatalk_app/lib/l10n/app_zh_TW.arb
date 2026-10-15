@@ -4092,5 +4092,11 @@
   "supportBananaTalkRow": "支持 BananaTalk",
   "supportBananaTalkRowSubtitle": "幫助獨立開發者持續打磨產品",
   "callVoiceCallButton": "語音通話",
-  "callVideoCallButton": "視訊通話"
+  "callVideoCallButton": "視訊通話",
+  "callPermissionMicSettings": "請在設定中允許存取麥克風以進行通話。",
+  "callPermissionCameraSettings": "請在設定中允許存取相機以進行視訊通話。",
+  "callPermissionMicCameraSettings": "請在設定中允許存取麥克風和相機以進行視訊通話。",
+  "callQualityExcellent": "通話品質極佳",
+  "callQualityGood": "通話品質良好",
+  "callConnectionLost": "連線已中斷"
 }

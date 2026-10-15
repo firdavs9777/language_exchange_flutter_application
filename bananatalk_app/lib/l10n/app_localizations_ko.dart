@@ -11339,4 +11339,22 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get callVideoCallButton => '영상 통화';
+
+  @override
+  String get callPermissionMicSettings => '통화하려면 설정에서 마이크 접근을 허용해 주세요.';
+
+  @override
+  String get callPermissionCameraSettings => '영상 통화를 하려면 설정에서 카메라 접근을 허용해 주세요.';
+
+  @override
+  String get callPermissionMicCameraSettings => '영상 통화를 하려면 설정에서 마이크와 카메라 접근을 허용해 주세요.';
+
+  @override
+  String get callQualityExcellent => '통화 품질 매우 좋음';
+
+  @override
+  String get callQualityGood => '통화 품질 좋음';
+
+  @override
+  String get callConnectionLost => '연결이 끊겼습니다';
 }

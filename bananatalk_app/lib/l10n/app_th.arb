@@ -4401,5 +4401,11 @@
   "supportBananaTalkRow": "สนับสนุน BananaTalk",
   "supportBananaTalkRowSubtitle": "ช่วยนักพัฒนาคนเดียวให้สร้างต่อไป",
   "callVoiceCallButton": "โทรด้วยเสียง",
-  "callVideoCallButton": "วิดีโอคอล"
+  "callVideoCallButton": "วิดีโอคอล",
+  "callPermissionMicSettings": "โปรดเปิดการเข้าถึงไมโครโฟนในการตั้งค่าเพื่อโทร",
+  "callPermissionCameraSettings": "โปรดเปิดการเข้าถึงกล้องในการตั้งค่าเพื่อวิดีโอคอล",
+  "callPermissionMicCameraSettings": "โปรดเปิดการเข้าถึงไมโครโฟนและกล้องในการตั้งค่าเพื่อวิดีโอคอล",
+  "callQualityExcellent": "คุณภาพดีมาก",
+  "callQualityGood": "คุณภาพดี",
+  "callConnectionLost": "การเชื่อมต่อขาดหาย"
 }

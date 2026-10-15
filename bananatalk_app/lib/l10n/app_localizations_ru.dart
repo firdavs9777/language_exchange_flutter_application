@@ -11402,4 +11402,22 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get callVideoCallButton => 'Видеозвонок';
+
+  @override
+  String get callPermissionMicSettings => 'Разрешите доступ к микрофону в Настройках, чтобы звонить.';
+
+  @override
+  String get callPermissionCameraSettings => 'Разрешите доступ к камере в Настройках для видеозвонков.';
+
+  @override
+  String get callPermissionMicCameraSettings => 'Разрешите доступ к микрофону и камере в Настройках для видеозвонков.';
+
+  @override
+  String get callQualityExcellent => 'Отличное качество';
+
+  @override
+  String get callQualityGood => 'Хорошее качество';
+
+  @override
+  String get callConnectionLost => 'Соединение потеряно';
 }

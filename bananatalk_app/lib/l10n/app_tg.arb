@@ -3894,5 +3894,11 @@
   "supportBananaTalkRow": "BananaTalk-ро дастгирӣ кунед",
   "supportBananaTalkRowSubtitle": "Ба як барномасози танҳо барои идома додан кӯмак кунед",
   "callVoiceCallButton": "Занги овозӣ",
-  "callVideoCallButton": "Занги видеоӣ"
+  "callVideoCallButton": "Занги видеоӣ",
+  "callPermissionMicSettings": "Лутфан дар Танзимот дастрасӣ ба микрофонро барои зангҳо фаъол кунед.",
+  "callPermissionCameraSettings": "Лутфан дар Танзимот дастрасӣ ба камераро барои зангҳои видеоӣ фаъол кунед.",
+  "callPermissionMicCameraSettings": "Лутфан дар Танзимот дастрасӣ ба микрофон ва камераро барои зангҳои видеоӣ фаъол кунед.",
+  "callQualityExcellent": "Сифати аъло",
+  "callQualityGood": "Сифати хуб",
+  "callConnectionLost": "Пайвастшавӣ қатъ шуд"
 }

@@ -10,6 +10,7 @@ import 'package:bananatalk_app/models/call_model.dart';
 import 'package:bananatalk_app/router/app_router.dart';
 import 'package:bananatalk_app/services/call/call_foreground_service.dart';
 import 'package:bananatalk_app/services/call/callkit_ids.dart';
+import 'package:bananatalk_app/services/call/missed_call_actions.dart' show notificationL10n;
 import 'package:bananatalk_app/services/callkit_service.dart';
 import 'package:bananatalk_app/services/notification_service.dart';
 
@@ -171,25 +172,30 @@ class DeviceCallPlatform implements CallPlatform {
   Future<String> permissionError({required bool video, required bool accepting}) async {
     final mic = await Permission.microphone.status;
     final cam = video ? await Permission.camera.status : PermissionStatus.granted;
-    final verb = accepting ? 'answer' : 'make';
-    final scope = video ? 'video calls' : 'calls';
-    if (video) {
-      if (mic.isPermanentlyDenied && cam.isPermanentlyDenied) {
-        return 'PERMANENTLY_DENIED:Please enable microphone and camera access in Settings to $verb $scope.';
-      }
-      if (mic.isPermanentlyDenied) {
-        return 'PERMANENTLY_DENIED:Please enable microphone access in Settings to $verb calls.';
-      }
-      if (cam.isPermanentlyDenied) {
-        return 'PERMANENTLY_DENIED:Please enable camera access in Settings to $verb video calls.';
-      }
-      if (!mic.isGranted) return 'DENIED:Microphone permission is required to $verb calls.';
-      return 'DENIED:Camera permission is required to $verb video calls.';
+    final ctx = callOverlayNavigatorKey.currentContext;
+    final l10n = (ctx != null && ctx.mounted ? AppLocalizations.of(ctx) : null) ??
+        await notificationL10n();
+    return permissionMessage(l10n, video: video, mic: mic, cam: cam);
+  }
+
+  /// The permission error for CallLauncher.showCallError:
+  /// `PERMANENTLY_DENIED:` (a Settings dialog) or `DENIED:` (a snackbar).
+  @visibleForTesting
+  static String permissionMessage(
+    AppLocalizations l10n, {
+    required bool video,
+    required PermissionStatus mic,
+    required PermissionStatus cam,
+  }) {
+    if (video && mic.isPermanentlyDenied && cam.isPermanentlyDenied) {
+      return 'PERMANENTLY_DENIED:${l10n.callPermissionMicCameraSettings}';
     }
-    if (mic.isPermanentlyDenied) {
-      return 'PERMANENTLY_DENIED:Please enable microphone access in Settings to $verb calls.';
+    if (mic.isPermanentlyDenied) return 'PERMANENTLY_DENIED:${l10n.callPermissionMicSettings}';
+    if (video && cam.isPermanentlyDenied) {
+      return 'PERMANENTLY_DENIED:${l10n.callPermissionCameraSettings}';
     }
-    return 'DENIED:Microphone permission is required to $verb calls.';
+    if (!mic.isGranted) return 'DENIED:${l10n.callPermissionDenied}';
+    return 'DENIED:${l10n.cameraPermissionDenied}';
   }
 
   @override

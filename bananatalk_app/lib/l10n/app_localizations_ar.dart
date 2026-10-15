@@ -11413,4 +11413,22 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get callVideoCallButton => 'مكالمة فيديو';
+
+  @override
+  String get callPermissionMicSettings => 'يُرجى تفعيل الوصول إلى الميكروفون من الإعدادات لإجراء المكالمات.';
+
+  @override
+  String get callPermissionCameraSettings => 'يُرجى تفعيل الوصول إلى الكاميرا من الإعدادات لمكالمات الفيديو.';
+
+  @override
+  String get callPermissionMicCameraSettings => 'يُرجى تفعيل الوصول إلى الميكروفون والكاميرا من الإعدادات لمكالمات الفيديو.';
+
+  @override
+  String get callQualityExcellent => 'جودة ممتازة';
+
+  @override
+  String get callQualityGood => 'جودة جيدة';
+
+  @override
+  String get callConnectionLost => 'انقطع الاتصال';
 }

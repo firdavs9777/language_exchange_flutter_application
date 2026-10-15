@@ -11358,4 +11358,22 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get callVideoCallButton => 'वीडियो कॉल';
+
+  @override
+  String get callPermissionMicSettings => 'कॉल के लिए कृपया सेटिंग्स में माइक्रोफ़ोन की अनुमति चालू करें।';
+
+  @override
+  String get callPermissionCameraSettings => 'वीडियो कॉल के लिए कृपया सेटिंग्स में कैमरे की अनुमति चालू करें।';
+
+  @override
+  String get callPermissionMicCameraSettings => 'वीडियो कॉल के लिए कृपया सेटिंग्स में माइक्रोफ़ोन और कैमरे की अनुमति चालू करें।';
+
+  @override
+  String get callQualityExcellent => 'बेहतरीन गुणवत्ता';
+
+  @override
+  String get callQualityGood => 'अच्छी गुणवत्ता';
+
+  @override
+  String get callConnectionLost => 'कनेक्शन टूट गया';
 }

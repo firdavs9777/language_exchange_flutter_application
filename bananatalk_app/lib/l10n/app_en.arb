@@ -7313,5 +7313,11 @@
   "supportBananaTalkRow": "Support BananaTalk",
   "supportBananaTalkRowSubtitle": "Help a solo developer keep building",
   "callVoiceCallButton": "Voice call",
-  "callVideoCallButton": "Video call"
+  "callVideoCallButton": "Video call",
+  "callPermissionMicSettings": "Please enable microphone access in Settings for calls.",
+  "callPermissionCameraSettings": "Please enable camera access in Settings for video calls.",
+  "callPermissionMicCameraSettings": "Please enable microphone and camera access in Settings for video calls.",
+  "callQualityExcellent": "Excellent quality",
+  "callQualityGood": "Good quality",
+  "callConnectionLost": "Connection lost"
 }

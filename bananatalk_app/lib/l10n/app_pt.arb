@@ -4417,5 +4417,11 @@
   "supportBananaTalkRow": "Apoie o BananaTalk",
   "supportBananaTalkRowSubtitle": "Ajude um desenvolvedor independente a continuar",
   "callVoiceCallButton": "Chamada de voz",
-  "callVideoCallButton": "Videochamada"
+  "callVideoCallButton": "Videochamada",
+  "callPermissionMicSettings": "Ative o acesso ao microfone nos Ajustes para fazer chamadas.",
+  "callPermissionCameraSettings": "Ative o acesso à câmera nos Ajustes para videochamadas.",
+  "callPermissionMicCameraSettings": "Ative o acesso ao microfone e à câmera nos Ajustes para videochamadas.",
+  "callQualityExcellent": "Qualidade excelente",
+  "callQualityGood": "Boa qualidade",
+  "callConnectionLost": "Conexão perdida"
 }
