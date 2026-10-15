@@ -64,6 +64,10 @@ class MomentsFeedWidget extends ConsumerWidget {
   /// no search/filter is active.
   final MomentsFeedTab activeTab;
 
+  /// Another page may exist: a spinner closes the list while the parent
+  /// fetches it (see `MomentsMain._maybeLoadMore`).
+  final bool hasMore;
+
   const MomentsFeedWidget({
     super.key,
     required this.momentsAsync,
@@ -71,6 +75,7 @@ class MomentsFeedWidget extends ConsumerWidget {
     required this.isSearching,
     required this.onRefresh,
     required this.activeTab,
+    this.hasMore = false,
   });
 
   @override
@@ -99,8 +104,26 @@ class MomentsFeedWidget extends ConsumerWidget {
           padding: EdgeInsets.only(
             bottom: FloatingTabBar.clearance(context) + FloatingTabBar.fabSpace,
           ),
-          itemCount: items.length,
+          itemCount: items.length + (hasMore ? 1 : 0),
           itemBuilder: (context, index) {
+            if (index == items.length) {
+              return Padding(
+                key: const ValueKey('feed-load-more'),
+                padding: const EdgeInsets.symmetric(vertical: 24),
+                child: Center(
+                  child: SizedBox(
+                    width: 24,
+                    height: 24,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2,
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                        Theme.of(context).colorScheme.primary,
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            }
             final item = items[index];
             if (item is! Moments) {
               // Keyed for the same reason MomentCard below is: without a key,

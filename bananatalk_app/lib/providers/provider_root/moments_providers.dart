@@ -27,7 +27,7 @@ class MomentsService {
 
   // Updated getMoments with pagination support
   Future<Map<String, dynamic>> getMoments(
-      {int page = 1, int limit = 10, String? feed}) async {
+      {int page = 1, int limit = 10, String? feed, String? q}) async {
     // Enforce max limit of 50 per page
     if (limit > 50) {
       limit = 50;
@@ -40,6 +40,10 @@ class MomentsService {
     var url = '${Endpoints.baseURL}${Endpoints.momentsURL}?page=$page&limit=$limit';
     if (feed != null) {
       url += '&feed=$feed';
+    }
+    // Server-side search (title, caption, tags; lib/momentFilters).
+    if (q != null && q.trim().isNotEmpty) {
+      url += '&q=${Uri.encodeQueryComponent(q.trim())}';
     }
 
     final response = await http.get(
@@ -832,9 +836,15 @@ void refreshMomentsIfStale(WidgetRef ref,
     {Duration maxAge = const Duration(seconds: 60)}) {
   final last = ref.read(momentsFeedFreshnessProvider);
   if (last != null && DateTime.now().difference(last) < maxAge) return;
-  ref.invalidate(forYouMomentsProvider);
-  ref.invalidate(followingMomentsProvider);
-  ref.invalidate(trendingMomentsProvider);
+  // The paged tabs re-read page 1 in place and keep the pages scrolled
+  // past, so the list never collapses under the reader.
+  for (final provider in [
+    forYouMomentsProvider,
+    followingMomentsProvider,
+    trendingMomentsProvider,
+  ]) {
+    if (ref.exists(provider)) ref.read(provider.notifier).softRefresh();
+  }
   ref.invalidate(momentsFeedProvider);
 }
 
@@ -860,7 +870,9 @@ void refreshMomentsIfStale(WidgetRef ref,
 void invalidateMomentFeeds(WidgetRef ref) {
   ref.invalidate(momentsFeedProvider);
   final activeTab = ref.read(momentsFeedTabProvider);
-  ref.invalidate(baseProviderFor(activeTab));
+  // Soft: page 1 is re-read, the pages loaded below it are kept (a like on
+  // the 120th card must not snap the feed back to 50).
+  ref.read(baseProviderFor(activeTab).notifier).softRefresh();
 }
 
 /// Provider that returns a single, denormalized list of moments that can be
@@ -890,52 +902,158 @@ final momentsFeedProvider = FutureProvider<List<Moments>>((ref) async {
   return <Moments>[];
 });
 
+/// Page size of the card feed tabs (the backend caps a page at 50).
+const int kMomentsFeedPageSize = 50;
+
+/// One page of a feed endpoint.
+class MomentsFeedPage {
+  final List<Moments> moments;
+  final bool hasMore;
+  const MomentsFeedPage(this.moments, {required this.hasMore});
+}
+
+typedef MomentsPageFetcher = Future<MomentsFeedPage> Function(
+    Ref ref, int page);
+
+/// [current] with its first page replaced by [freshFirstPage]: the items
+/// that came from page 1 ([oldFirstPageCount] of them) are dropped, and the
+/// pages below are kept minus anything page 1 now already shows.
+List<Moments> mergeFreshFirstPage(
+  List<Moments> freshFirstPage,
+  List<Moments> current,
+  int oldFirstPageCount,
+) {
+  final seen = freshFirstPage.map((m) => m.id).toSet();
+  final tail = current
+      .skip(oldFirstPageCount.clamp(0, current.length))
+      .where((m) => seen.add(m.id));
+  return [...freshFirstPage, ...tail];
+}
+
+/// [current] followed by the items of [nextPage] it does not already show
+/// (a ranked or fast-moving feed can repeat an item across pages).
+List<Moments> appendMomentsPage(List<Moments> current, List<Moments> nextPage) {
+  final seen = current.map((m) => m.id).toSet();
+  return [...current, ...nextPage.where((m) => seen.add(m.id))];
+}
+
+/// A card feed tab that pages: [build] loads page 1, [loadMore] appends the
+/// next one as the reader nears the end (the feed used to load 50 and stop).
+///
+/// A plain `ref.invalidate` reloads from page 1 (pull-to-refresh, a new
+/// post, sign-out); [softRefresh] re-reads page 1 in place and keeps the
+/// pages already scrolled past.
+class PagedMomentsFeedNotifier extends AsyncNotifier<List<Moments>> {
+  PagedMomentsFeedNotifier(this._fetch);
+
+  final MomentsPageFetcher _fetch;
+  int _page = 1;
+  int _firstPageCount = 0;
+  bool _hasMore = false;
+  bool _loadingMore = false;
+
+  /// Whether another page may exist below the loaded ones.
+  bool get hasMore => _hasMore;
+
+  void _stampFreshness() {
+    // Deferred so no other provider is written synchronously from a build.
+    Future.microtask(() {
+      ref.read(momentsFeedFreshnessProvider.notifier).state = DateTime.now();
+    });
+  }
+
+  @override
+  Future<List<Moments>> build() async {
+    _page = 1;
+    _hasMore = false;
+    _loadingMore = false;
+    final first = await _fetch(ref, 1);
+    _firstPageCount = first.moments.length;
+    _hasMore = first.hasMore && first.moments.isNotEmpty;
+    _stampFreshness();
+    return first.moments;
+  }
+
+  /// Appends the next page. No-op while one is loading, before the first
+  /// page arrives, or once the end is reached. A failure keeps what is
+  /// shown; the next scroll retries.
+  Future<void> loadMore() async {
+    final current = state.valueOrNull;
+    if (current == null || state.isLoading || !_hasMore || _loadingMore) {
+      return;
+    }
+    _loadingMore = true;
+    try {
+      final next = await _fetch(ref, _page + 1);
+      // Reloaded meanwhile: this page belongs to the old list.
+      if (!identical(state.valueOrNull, current)) return;
+      _page += 1;
+      _hasMore = next.hasMore && next.moments.isNotEmpty;
+      state = AsyncData(appendMomentsPage(current, next.moments));
+    } catch (_) {
+      // Keep the loaded list; the next scroll to the end retries.
+    } finally {
+      _loadingMore = false;
+    }
+  }
+
+  /// Re-reads page 1 and keeps the pages below it. Falls back to a full
+  /// reload when only one page is loaded (the same result, simpler).
+  Future<void> softRefresh() async {
+    final current = state.valueOrNull;
+    if (current == null || _page <= 1 || state.isLoading) {
+      ref.invalidateSelf();
+      return;
+    }
+    try {
+      final first = await _fetch(ref, 1);
+      if (!identical(state.valueOrNull, current)) return;
+      state = AsyncData(
+        mergeFreshFirstPage(first.moments, current, _firstPageCount),
+      );
+      _firstPageCount = first.moments.length;
+      _stampFreshness();
+    } catch (_) {
+      // Keep what is shown.
+    }
+  }
+}
+
+/// A [MomentsPageFetcher] over `GET /moments` for [feed].
+MomentsPageFetcher momentsFeedFetcher(String feed) => (ref, page) async {
+      final service = ref.read(momentsServiceProvider);
+      final response = await service.getMoments(
+        page: page,
+        limit: kMomentsFeedPageSize,
+        feed: feed,
+      );
+      final raw = response['moments'];
+      final moments = raw is List ? raw.cast<Moments>() : <Moments>[];
+      final pagination = response['pagination'];
+      final hasNext = pagination is Map ? pagination['hasNextPage'] : null;
+      return MomentsFeedPage(
+        moments,
+        hasMore: hasNext is bool
+            ? hasNext
+            : moments.length >= kMomentsFeedPageSize,
+      );
+    };
+
 /// "For You" feed tab — personalized feed filtered/sorted server-side by
 /// the user's native/learning languages when eligible; falls back to the
 /// default feed otherwise (see backend `feed=forYou` contract).
-final forYouMomentsProvider = FutureProvider<List<Moments>>((ref) async {
-  final service = ref.watch(momentsServiceProvider);
-  final response = await service.getMoments(page: 1, limit: 50, feed: 'forYou');
-  final moments = response['moments'];
-
-  Future.microtask(() {
-    ref.read(momentsFeedFreshnessProvider.notifier).state = DateTime.now();
-  });
-
-  if (moments is List<Moments>) {
-    return moments;
-  }
-
-  if (moments is List) {
-    return moments.cast<Moments>();
-  }
-
-  return <Moments>[];
-});
+final forYouMomentsProvider =
+    AsyncNotifierProvider<PagedMomentsFeedNotifier, List<Moments>>(
+  () => PagedMomentsFeedNotifier(momentsFeedFetcher('forYou')),
+);
 
 /// "Following" feed tab — moments authored by users the current user
 /// follows; falls back to the default feed server-side when the user
 /// follows no one (see backend `feed=following` contract).
-final followingMomentsProvider = FutureProvider<List<Moments>>((ref) async {
-  final service = ref.watch(momentsServiceProvider);
-  final response =
-      await service.getMoments(page: 1, limit: 50, feed: 'following');
-  final moments = response['moments'];
-
-  Future.microtask(() {
-    ref.read(momentsFeedFreshnessProvider.notifier).state = DateTime.now();
-  });
-
-  if (moments is List<Moments>) {
-    return moments;
-  }
-
-  if (moments is List) {
-    return moments.cast<Moments>();
-  }
-
-  return <Moments>[];
-});
+final followingMomentsProvider =
+    AsyncNotifierProvider<PagedMomentsFeedNotifier, List<Moments>>(
+  () => PagedMomentsFeedNotifier(momentsFeedFetcher('following')),
+);
 
 /// Deterministic prompt-of-the-day shown above the feed tabs.
 final promptOfDayProvider = FutureProvider<Map<String, dynamic>>((ref) async {
@@ -960,16 +1078,28 @@ final exploreMomentsProvider = FutureProvider<List<Moments>>((ref) async {
   return <Moments>[];
 });
 
-/// Provider for trending moments (backend trending endpoint)
-final trendingMomentsProvider = FutureProvider<List<Moments>>((ref) async {
-  final response = await MomentsServiceAPI.getTrendingMoments();
+/// Trending page size, as it was before trending paged (Explore shows it too).
+const int kTrendingPageSize = 10;
 
-  Future.microtask(() {
-    ref.read(momentsFeedFreshnessProvider.notifier).state = DateTime.now();
-  });
-
-  if (response.success) {
-    return response.data;
-  }
-  return <Moments>[];
-});
+/// Provider for trending moments (backend trending endpoint). Paged like the
+/// other card tabs; the endpoint returns no pagination block, so a full page
+/// means there may be another.
+final trendingMomentsProvider =
+    AsyncNotifierProvider<PagedMomentsFeedNotifier, List<Moments>>(
+  () => PagedMomentsFeedNotifier((ref, page) async {
+    final response = await MomentsServiceAPI.getTrendingMoments(
+      page: page,
+      limit: kTrendingPageSize,
+    );
+    if (!response.success) {
+      // Page 1 keeps its old behaviour (an empty list); a later page throws
+      // so loadMore keeps what is shown and retries on the next scroll.
+      if (page > 1) throw Exception(response.error ?? 'trending failed');
+      return const MomentsFeedPage(<Moments>[], hasMore: false);
+    }
+    return MomentsFeedPage(
+      response.data,
+      hasMore: response.data.length >= kTrendingPageSize,
+    );
+  }),
+);
