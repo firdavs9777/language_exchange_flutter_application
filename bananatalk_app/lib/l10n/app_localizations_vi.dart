@@ -11333,4 +11333,22 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => 'Giúp một lập trình viên độc lập tiếp tục phát triển';
+
+  @override
+  String get restorePurchases => 'Khôi phục giao dịch mua';
+
+  @override
+  String get restorePurchasesInProgress => 'Đang khôi phục giao dịch mua…';
+
+  @override
+  String get restorePurchasesSuccess => 'Đã khôi phục giao dịch mua. VIP của bạn đang hoạt động.';
+
+  @override
+  String get restorePurchasesAlreadyActive => 'Gói VIP của bạn đã đang hoạt động.';
+
+  @override
+  String get restorePurchasesNothing => 'Không có giao dịch mua nào để khôi phục.';
+
+  @override
+  String get restorePurchasesFailed => 'Không thể khôi phục giao dịch mua. Vui lòng thử lại.';
 }

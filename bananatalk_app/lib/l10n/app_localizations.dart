@@ -20683,6 +20683,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Help a solo developer keep building'**
   String get supportBananaTalkRowSubtitle;
+
+  /// No description provided for @restorePurchases.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore Purchases'**
+  String get restorePurchases;
+
+  /// No description provided for @restorePurchasesInProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Restoring purchases…'**
+  String get restorePurchasesInProgress;
+
+  /// No description provided for @restorePurchasesSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchases restored. Your VIP is active.'**
+  String get restorePurchasesSuccess;
+
+  /// No description provided for @restorePurchasesAlreadyActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Your VIP subscription is already active.'**
+  String get restorePurchasesAlreadyActive;
+
+  /// No description provided for @restorePurchasesNothing.
+  ///
+  /// In en, this message translates to:
+  /// **'No purchases to restore.'**
+  String get restorePurchasesNothing;
+
+  /// No description provided for @restorePurchasesFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t restore purchases. Please try again.'**
+  String get restorePurchasesFailed;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

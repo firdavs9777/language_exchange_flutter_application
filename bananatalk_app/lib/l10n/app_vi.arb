@@ -4399,5 +4399,11 @@
   "guideStudyHubCta": "Bắt đầu gói hôm nay",
   "guideStudyHubSecondary": "Xem tất cả tính năng",
   "supportBananaTalkRow": "Ủng hộ BananaTalk",
-  "supportBananaTalkRowSubtitle": "Giúp một lập trình viên độc lập tiếp tục phát triển"
+  "supportBananaTalkRowSubtitle": "Giúp một lập trình viên độc lập tiếp tục phát triển",
+  "restorePurchases": "Khôi phục giao dịch mua",
+  "restorePurchasesInProgress": "Đang khôi phục giao dịch mua…",
+  "restorePurchasesSuccess": "Đã khôi phục giao dịch mua. VIP của bạn đang hoạt động.",
+  "restorePurchasesAlreadyActive": "Gói VIP của bạn đã đang hoạt động.",
+  "restorePurchasesNothing": "Không có giao dịch mua nào để khôi phục.",
+  "restorePurchasesFailed": "Không thể khôi phục giao dịch mua. Vui lòng thử lại."
 }

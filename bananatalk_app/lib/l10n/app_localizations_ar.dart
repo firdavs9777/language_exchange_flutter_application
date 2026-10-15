@@ -11407,4 +11407,22 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => 'ساعد مطوّرًا مستقلًا على مواصلة العمل';
+
+  @override
+  String get restorePurchases => 'استعادة المشتريات';
+
+  @override
+  String get restorePurchasesInProgress => 'جارٍ استعادة المشتريات…';
+
+  @override
+  String get restorePurchasesSuccess => 'تمت استعادة المشتريات. اشتراك VIP الخاص بك نشط.';
+
+  @override
+  String get restorePurchasesAlreadyActive => 'اشتراك VIP الخاص بك نشط بالفعل.';
+
+  @override
+  String get restorePurchasesNothing => 'لا توجد مشتريات لاستعادتها.';
+
+  @override
+  String get restorePurchasesFailed => 'تعذّرت استعادة المشتريات. يُرجى المحاولة مرة أخرى.';
 }

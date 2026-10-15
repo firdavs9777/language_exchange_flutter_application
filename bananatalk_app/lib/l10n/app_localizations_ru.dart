@@ -11396,4 +11396,22 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => 'Помогите одному разработчику продолжать работу';
+
+  @override
+  String get restorePurchases => 'Восстановить покупки';
+
+  @override
+  String get restorePurchasesInProgress => 'Восстанавливаем покупки…';
+
+  @override
+  String get restorePurchasesSuccess => 'Покупки восстановлены. Ваш VIP активен.';
+
+  @override
+  String get restorePurchasesAlreadyActive => 'Ваша подписка VIP уже активна.';
+
+  @override
+  String get restorePurchasesNothing => 'Нет покупок для восстановления.';
+
+  @override
+  String get restorePurchasesFailed => 'Не удалось восстановить покупки. Попробуйте ещё раз.';
 }

@@ -11352,4 +11352,22 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => 'Ajude um desenvolvedor independente a continuar';
+
+  @override
+  String get restorePurchases => 'Restaurar compras';
+
+  @override
+  String get restorePurchasesInProgress => 'Restaurando compras…';
+
+  @override
+  String get restorePurchasesSuccess => 'Compras restauradas. Seu VIP está ativo.';
+
+  @override
+  String get restorePurchasesAlreadyActive => 'Sua assinatura VIP já está ativa.';
+
+  @override
+  String get restorePurchasesNothing => 'Nenhuma compra para restaurar.';
+
+  @override
+  String get restorePurchasesFailed => 'Não foi possível restaurar as compras. Tente novamente.';
 }

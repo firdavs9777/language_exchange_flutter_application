@@ -4399,5 +4399,11 @@
   "guideStudyHubCta": "Mulai paket hari ini",
   "guideStudyHubSecondary": "Lihat semua fitur",
   "supportBananaTalkRow": "Dukung BananaTalk",
-  "supportBananaTalkRowSubtitle": "Bantu pengembang tunggal terus berkarya"
+  "supportBananaTalkRowSubtitle": "Bantu pengembang tunggal terus berkarya",
+  "restorePurchases": "Pulihkan Pembelian",
+  "restorePurchasesInProgress": "Memulihkan pembelian…",
+  "restorePurchasesSuccess": "Pembelian dipulihkan. VIP kamu aktif.",
+  "restorePurchasesAlreadyActive": "Langganan VIP kamu sudah aktif.",
+  "restorePurchasesNothing": "Tidak ada pembelian untuk dipulihkan.",
+  "restorePurchasesFailed": "Tidak dapat memulihkan pembelian. Silakan coba lagi."
 }

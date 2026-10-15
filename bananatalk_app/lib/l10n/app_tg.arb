@@ -3892,5 +3892,11 @@
   "guideStudyHubCta": "Бастаи имрӯзро оғоз кунед",
   "guideStudyHubSecondary": "Ҳамаи имкониятҳоро бинед",
   "supportBananaTalkRow": "BananaTalk-ро дастгирӣ кунед",
-  "supportBananaTalkRowSubtitle": "Ба як барномасози танҳо барои идома додан кӯмак кунед"
+  "supportBananaTalkRowSubtitle": "Ба як барномасози танҳо барои идома додан кӯмак кунед",
+  "restorePurchases": "Барқарор кардани харидҳо",
+  "restorePurchasesInProgress": "Харидҳо барқарор карда мешаванд…",
+  "restorePurchasesSuccess": "Харидҳо барқарор шуданд. VIP-и шумо фаъол аст.",
+  "restorePurchasesAlreadyActive": "Обунаи VIP-и шумо аллакай фаъол аст.",
+  "restorePurchasesNothing": "Ягон хариде барои барқароркунӣ нест.",
+  "restorePurchasesFailed": "Харидҳоро барқарор кардан нашуд. Лутфан бори дигар кӯшиш кунед."
 }

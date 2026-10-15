@@ -11352,4 +11352,22 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => 'Hilf einem Solo-Entwickler weiterzumachen';
+
+  @override
+  String get restorePurchases => 'Käufe wiederherstellen';
+
+  @override
+  String get restorePurchasesInProgress => 'Käufe werden wiederhergestellt…';
+
+  @override
+  String get restorePurchasesSuccess => 'Käufe wiederhergestellt. Dein VIP ist aktiv.';
+
+  @override
+  String get restorePurchasesAlreadyActive => 'Dein VIP-Abo ist bereits aktiv.';
+
+  @override
+  String get restorePurchasesNothing => 'Keine Käufe zum Wiederherstellen.';
+
+  @override
+  String get restorePurchasesFailed => 'Käufe konnten nicht wiederhergestellt werden. Bitte versuche es erneut.';
 }

@@ -4429,5 +4429,11 @@
   "guideStudyHubCta": "Empezar el pack de hoy",
   "guideStudyHubSecondary": "Ver todas las funciones",
   "supportBananaTalkRow": "Apoya a BananaTalk",
-  "supportBananaTalkRowSubtitle": "Ayuda a un desarrollador independiente a seguir creando"
+  "supportBananaTalkRowSubtitle": "Ayuda a un desarrollador independiente a seguir creando",
+  "restorePurchases": "Restaurar compras",
+  "restorePurchasesInProgress": "Restaurando compras…",
+  "restorePurchasesSuccess": "Compras restauradas. Tu VIP está activo.",
+  "restorePurchasesAlreadyActive": "Tu suscripción VIP ya está activa.",
+  "restorePurchasesNothing": "No hay compras para restaurar.",
+  "restorePurchasesFailed": "No se pudieron restaurar las compras. Inténtalo de nuevo."
 }

@@ -11352,4 +11352,22 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => 'एक अकेले डेवलपर को काम जारी रखने में मदद करें';
+
+  @override
+  String get restorePurchases => 'खरीदारी पुनर्स्थापित करें';
+
+  @override
+  String get restorePurchasesInProgress => 'खरीदारी पुनर्स्थापित की जा रही है…';
+
+  @override
+  String get restorePurchasesSuccess => 'खरीदारी पुनर्स्थापित हो गई। आपका VIP सक्रिय है।';
+
+  @override
+  String get restorePurchasesAlreadyActive => 'आपकी VIP सदस्यता पहले से सक्रिय है।';
+
+  @override
+  String get restorePurchasesNothing => 'पुनर्स्थापित करने के लिए कोई खरीदारी नहीं है।';
+
+  @override
+  String get restorePurchasesFailed => 'खरीदारी पुनर्स्थापित नहीं हो सकी। कृपया फिर से कोशिश करें।';
 }

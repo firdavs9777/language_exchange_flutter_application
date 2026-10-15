@@ -11333,4 +11333,22 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => 'ช่วยนักพัฒนาคนเดียวให้สร้างต่อไป';
+
+  @override
+  String get restorePurchases => 'กู้คืนการซื้อ';
+
+  @override
+  String get restorePurchasesInProgress => 'กำลังกู้คืนการซื้อ…';
+
+  @override
+  String get restorePurchasesSuccess => 'กู้คืนการซื้อแล้ว VIP ของคุณใช้งานได้แล้ว';
+
+  @override
+  String get restorePurchasesAlreadyActive => 'การสมัครสมาชิก VIP ของคุณใช้งานอยู่แล้ว';
+
+  @override
+  String get restorePurchasesNothing => 'ไม่มีการซื้อที่จะกู้คืน';
+
+  @override
+  String get restorePurchasesFailed => 'ไม่สามารถกู้คืนการซื้อได้ โปรดลองอีกครั้ง';
 }

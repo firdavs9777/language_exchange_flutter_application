@@ -4639,5 +4639,11 @@
   "guideStudyHubCta": "Heutiges Paket starten",
   "guideStudyHubSecondary": "Alle Funktionen ansehen",
   "supportBananaTalkRow": "BananaTalk unterstützen",
-  "supportBananaTalkRowSubtitle": "Hilf einem Solo-Entwickler weiterzumachen"
+  "supportBananaTalkRowSubtitle": "Hilf einem Solo-Entwickler weiterzumachen",
+  "restorePurchases": "Käufe wiederherstellen",
+  "restorePurchasesInProgress": "Käufe werden wiederhergestellt…",
+  "restorePurchasesSuccess": "Käufe wiederhergestellt. Dein VIP ist aktiv.",
+  "restorePurchasesAlreadyActive": "Dein VIP-Abo ist bereits aktiv.",
+  "restorePurchasesNothing": "Keine Käufe zum Wiederherstellen.",
+  "restorePurchasesFailed": "Käufe konnten nicht wiederhergestellt werden. Bitte versuche es erneut."
 }

@@ -11344,4 +11344,22 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => 'Bantu pengembang tunggal terus berkarya';
+
+  @override
+  String get restorePurchases => 'Pulihkan Pembelian';
+
+  @override
+  String get restorePurchasesInProgress => 'Memulihkan pembelian…';
+
+  @override
+  String get restorePurchasesSuccess => 'Pembelian dipulihkan. VIP kamu aktif.';
+
+  @override
+  String get restorePurchasesAlreadyActive => 'Langganan VIP kamu sudah aktif.';
+
+  @override
+  String get restorePurchasesNothing => 'Tidak ada pembelian untuk dipulihkan.';
+
+  @override
+  String get restorePurchasesFailed => 'Tidak dapat memulihkan pembelian. Silakan coba lagi.';
 }

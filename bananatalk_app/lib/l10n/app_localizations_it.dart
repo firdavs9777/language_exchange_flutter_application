@@ -11352,4 +11352,22 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => 'Aiuta uno sviluppatore indipendente a continuare';
+
+  @override
+  String get restorePurchases => 'Ripristina acquisti';
+
+  @override
+  String get restorePurchasesInProgress => 'Ripristino degli acquisti…';
+
+  @override
+  String get restorePurchasesSuccess => 'Acquisti ripristinati. Il tuo VIP è attivo.';
+
+  @override
+  String get restorePurchasesAlreadyActive => 'Il tuo abbonamento VIP è già attivo.';
+
+  @override
+  String get restorePurchasesNothing => 'Nessun acquisto da ripristinare.';
+
+  @override
+  String get restorePurchasesFailed => 'Impossibile ripristinare gli acquisti. Riprova.';
 }
