@@ -98,6 +98,78 @@ class MomentAudio {
   }
 }
 
+/// The daily prompt a moment answers (populated `prompt` on the wire).
+class MomentPrompt {
+  final String id;
+  final String text;
+  final String emoji;
+  final String language;
+
+  const MomentPrompt({
+    required this.id,
+    required this.text,
+    this.emoji = '',
+    this.language = '',
+  });
+
+  /// Returns null for anything that is not a populated prompt with text
+  /// (older backends send no `prompt`; a bare id string is not enough).
+  static MomentPrompt? tryParse(dynamic json) {
+    if (json is! Map) return null;
+    final text = json['text']?.toString().trim() ?? '';
+    if (text.isEmpty) return null;
+    return MomentPrompt(
+      id: json['_id']?.toString() ?? json['id']?.toString() ?? '',
+      text: text,
+      emoji: json['emoji']?.toString().trim() ?? '',
+      language: json['language']?.toString() ?? '',
+    );
+  }
+
+  /// "{emoji} {text}", or just the text when there is no emoji.
+  String get display => emoji.isEmpty ? text : '$emoji $text';
+
+  Map<String, dynamic> toJson() => {
+        '_id': id,
+        'text': text,
+        'emoji': emoji,
+        'language': language,
+      };
+}
+
+/// Parses a moment's GeoJSON-ish `location` without trusting its shape.
+/// Returns null when absent or when it carries neither coordinates nor an
+/// address.
+Location? parseMomentLocation(dynamic json) {
+  if (json is! Map) return null;
+  String str(dynamic v) => v == null ? '' : v.toString();
+  final coords = json['coordinates'] is List
+      ? (json['coordinates'] as List)
+          .whereType<num>()
+          .map((e) => e.toDouble())
+          .toList()
+      : <double>[];
+  final address = str(json['formattedAddress']);
+  final city = str(json['city']);
+  final country = str(json['country']);
+  if (coords.length < 2 &&
+      address.isEmpty &&
+      city.isEmpty &&
+      country.isEmpty) {
+    return null;
+  }
+  return Location(
+    type: str(json['type']),
+    coordinates: coords,
+    formattedAddress: address,
+    street: str(json['street']),
+    city: city,
+    state: str(json['state']),
+    zipcode: str(json['zipcode']),
+    country: country,
+  );
+}
+
 class Moments {
   const Moments({
     required this.id,
@@ -136,6 +208,11 @@ class Moments {
     // Reactions
     this.reactions = const [],
     this.reactionCount = 0,
+    // Prompt / reel / location
+    this.promptId,
+    this.prompt,
+    this.location,
+    this.isReel = false,
   });
 
   final String id;
@@ -182,6 +259,19 @@ class Moments {
   // Reactions
   final List<CommentReaction> reactions;
   final int reactionCount;
+
+  /// Raw id of the daily prompt this moment answers (null when none).
+  final String? promptId;
+
+  /// Populated prompt (newer backends); null on older ones or when the
+  /// moment does not answer a prompt.
+  final MomentPrompt? prompt;
+
+  /// Where the moment was posted from, if the author attached a location.
+  final Location? location;
+
+  /// True for reels (surfaced only via the reels feed).
+  final bool isReel;
 
   /// Check if this moment has a video
   bool get hasVideo => video != null && video!.url.isNotEmpty;
@@ -309,7 +399,26 @@ class Moments {
               .toList()
           : [],
       reactionCount: json['reactionCount'] is int ? json['reactionCount'] : 0,
+      promptId: _parsePromptId(json['promptId'], json['prompt']),
+      prompt: MomentPrompt.tryParse(json['prompt']),
+      location: parseMomentLocation(json['location']),
+      isReel: json['isReel'] == true,
     );
+  }
+
+  /// `promptId` is a raw id string, but tolerate a populated object too, and
+  /// fall back to the populated `prompt`'s id.
+  static String? _parsePromptId(dynamic raw, dynamic prompt) {
+    String? id;
+    if (raw is String) {
+      id = raw;
+    } else if (raw is Map) {
+      id = raw['_id']?.toString();
+    }
+    if ((id == null || id.isEmpty) && prompt is Map) {
+      id = prompt['_id']?.toString();
+    }
+    return (id == null || id.isEmpty) ? null : id;
   }
 
   // Add toJson method for completeness
@@ -340,6 +449,9 @@ class Moments {
       'mediaType': mediaType,
       'backgroundColor': backgroundColor,
       'reactionCount': reactionCount,
+      if (promptId != null) 'promptId': promptId,
+      if (prompt != null) 'prompt': prompt!.toJson(),
+      'isReel': isReel,
     };
   }
 
@@ -374,6 +486,10 @@ class Moments {
     String? backgroundColor,
     List<CommentReaction>? reactions,
     int? reactionCount,
+    String? promptId,
+    MomentPrompt? prompt,
+    Location? location,
+    bool? isReel,
   }) {
     return Moments(
       id: id ?? this.id,
@@ -405,6 +521,10 @@ class Moments {
       backgroundColor: backgroundColor ?? this.backgroundColor,
       reactions: reactions ?? this.reactions,
       reactionCount: reactionCount ?? this.reactionCount,
+      promptId: promptId ?? this.promptId,
+      prompt: prompt ?? this.prompt,
+      location: location ?? this.location,
+      isReel: isReel ?? this.isReel,
     );
   }
 }
