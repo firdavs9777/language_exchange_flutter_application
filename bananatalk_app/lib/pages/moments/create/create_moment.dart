@@ -1405,7 +1405,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
               language: _languages[_selectedLanguage] ?? 'en',
               mood: _selectedMood != null ? _moods[_selectedMood] : null,
               tags: _tags.isNotEmpty ? _tags : null,
-              scheduledFor: _scheduledDate?.toIso8601String(),
+              scheduledFor: _scheduledDate?.toUtc().toIso8601String(),
               location: locationData,
               backgroundColor: _selectedBackgroundColor.isNotEmpty
                   ? _selectedBackgroundColor
