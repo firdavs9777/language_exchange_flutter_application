@@ -76,10 +76,14 @@ After release (production data):
 ## 4. Code work — open
 
 Localization
-- [ ] Shrink the 103-entry `test/l10n/no_hardcoded_text_allowlist.txt` to zero (~19 of its files are unreachable: delete or localize). M
-- [ ] L14: ~54 property literals (`hintText:`/`labelText:`/`tooltip:`/`message:`) + enum labels listed in the 2026-10-11 sweep (image_viewer 'Rotate', word_card 'Listen', message_bubble 'Report', chat/moments snackbars, upload_queue progress…), with a property-literal guard. M
+- [x] Allowlist 103 → 17 (2026-10-15 sweep; 20 unreachable files deleted). The 17 left are all in `lib/pages/moments`, `comments`, `stories` — localize next. S–M
+- [ ] Localize the last 17 allowlisted files (moments/comments/stories: image_viewer 'Rotate', reels Mute/Unmute, create_moment snackbars, upload_queue progress). S–M
+- [x] L14 (done 2026-10-15; property-literal guard added): ~54 property literals (`hintText:`/`labelText:`/`tooltip:`/`message:`) + enum labels listed in the 2026-10-11 sweep (image_viewer 'Rotate', word_card 'Listen', message_bubble 'Report', chat/moments snackbars, upload_queue progress…), with a property-literal guard. M
 - [x] Native CallKit Accept/Decline labels and missed-call subtitle are hardcoded English (`callkit_service.dart:225`); add an "Accept" key and feed them from `notificationL10n()`. S
-- [ ] Russian `{coins} монет` is not plural-aware (e.g. `referralClaimed`); needs an ICU plural in the en source. S
+- [x] Coin strings are ICU plurals in all 19 locales (ru one/few/many, ar few). 
+- [ ] ~70 other Russian keys still lack number agreement ("{count} просмотров", "{count} минут назад"…): convert to ICU plurals. M
+- [ ] Friendly-error pass: many provider exceptions still reach snackbars as "failedToUpdate: <raw exception>". M
+- [ ] Country names (~200, filter list + city tab) and chat wallpaper names are English data; a localized country table would fix the first. M
 
 Calls
 - [x] **Rejoin after kill never happened** — fixed 2026-10-15 (91b5002d): reconcile asks `/calls/current` once and leaves an entry whose call is already `active` to `recoverCallState`; 3 reconcile-then-recover tests. Device row CALL2-23 still open. Original finding: `main.dart` runs `reconcileCallKitOnColdStart()` then `recoverCallState()`; reconcile finds the still-accepted native entry and calls `handleCallKitAccept` → `POST /accept` on a call that is already `active` → server 409 `CALL_STATE` → `_finish(acceptConflict)` ends the native entry and remembers the id, so `recoverCallState` finds no accepted entry (and `_rejoin` would skip the remembered id anyway). The peer sees "Reconnecting..." and the call ends after ~20 s. Tests only cover `recoverCallState()` alone. Fix idea: in reconcile, ask `/calls/current` first and leave an entry whose call is already `active` to `recoverCallState`. Device row: calls-matrix CALL2-23. M
