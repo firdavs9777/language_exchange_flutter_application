@@ -321,6 +321,9 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
     try {
       final result = await _videoCompressionService.processVideoForUpload(
         videoFile,
+        // pickVideo's maxDuration only limits camera recordings; a gallery
+        // video of any length came through. Stories are 60 s at most.
+        maxDurationSecondsOverride: 60,
         onProgress: (progress) {
           if (mounted) {
             setState(() {
