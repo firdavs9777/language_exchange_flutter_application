@@ -29,6 +29,9 @@ class _TutorChatScreenState extends ConsumerState<TutorChatScreen> {
   final _scrollCtl = ScrollController();
   final _voice = TutorVoiceService();
   bool _started = false;
+
+  /// Set when a send failed; its text is back in the input for a retry.
+  bool _sendFailed = false;
   bool _voiceMode = false;
   bool _adShownAtMilestone = false;
   bool _recording = false;
@@ -51,19 +54,18 @@ class _TutorChatScreenState extends ConsumerState<TutorChatScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       _userTier = ref.read(userProvider).valueOrNull?.isVip == true ? 'vip' : 'free';
       AnalyticsService.instance.tutorChipUsed(chipName: 'chat', userTier: _userTier);
-      try {
-        await ref.read(tutorChatControllerProvider.notifier).start();
-        if (!mounted) return;
-        setState(() => _started = true);
-        _scrollToBottom();
-      } catch (e) {
-        if (!mounted) return;
-        final l10n = AppLocalizations.of(context)!;
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(l10n.aiTutorChatStartFailed(e.toString()))),
-        );
-      }
+      await _start();
     });
+  }
+
+  /// start() records a failure in state.error rather than throwing; build
+  /// shows a retry view while there is no session.
+  Future<void> _start() async {
+    if (_started) setState(() => _started = false);
+    await ref.read(tutorChatControllerProvider.notifier).start();
+    if (!mounted) return;
+    setState(() => _started = true);
+    _scrollToBottom();
   }
 
   void _scrollToBottom() {
@@ -81,8 +83,20 @@ class _TutorChatScreenState extends ConsumerState<TutorChatScreen> {
   Future<void> _send() async {
     final text = _controller.text.trim();
     if (text.isEmpty) return;
+    if (ref.read(tutorChatControllerProvider).session == null) return;
     _controller.clear();
-    await ref.read(tutorChatControllerProvider.notifier).send(text);
+    setState(() => _sendFailed = false);
+    final ok = await ref
+        .read(tutorChatControllerProvider.notifier)
+        .send(text, rollbackOnError: true);
+    if (!mounted) return;
+    if (!ok) {
+      // Put the text back so nothing the learner typed is lost; the banner
+      // above the input offers the retry.
+      if (_controller.text.trim().isEmpty) _controller.text = text;
+      setState(() => _sendFailed = true);
+      return;
+    }
     _scrollToBottom();
     _maybeSpeakLatestReply();
     // Show rewarded ad every 5 user messages
@@ -125,7 +139,15 @@ class _TutorChatScreenState extends ConsumerState<TutorChatScreen> {
       if (!mounted) return;
       setState(() => _transcribing = false);
       if (text != null && text.trim().isNotEmpty) {
-        await ref.read(tutorChatControllerProvider.notifier).send(text.trim());
+        final ok = await ref
+            .read(tutorChatControllerProvider.notifier)
+            .send(text.trim(), rollbackOnError: true);
+        if (!mounted) return;
+        if (!ok) {
+          _controller.text = text.trim();
+          setState(() => _sendFailed = true);
+          return;
+        }
         _scrollToBottom();
         _maybeSpeakLatestReply();
       } else {
@@ -185,6 +207,7 @@ class _TutorChatScreenState extends ConsumerState<TutorChatScreen> {
     final l10n = AppLocalizations.of(context)!;
     final state = ref.watch(tutorChatControllerProvider);
     final messages = state.session?.messages ?? const <TutorMessage>[];
+    final noSession = _started && state.session == null;
 
     return Scaffold(
       appBar: AppBar(
@@ -209,7 +232,30 @@ class _TutorChatScreenState extends ConsumerState<TutorChatScreen> {
           Expanded(
             child: !_started
                 ? const Center(child: CircularProgressIndicator())
-                : ListView.builder(
+                : noSession
+                    ? Center(
+                        key: const Key('tutor-start-error'),
+                        child: Padding(
+                          padding: const EdgeInsets.all(24),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                l10n.somethingWentWrong,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(color: context.textPrimary),
+                              ),
+                              const SizedBox(height: 12),
+                              FilledButton(
+                                key: const Key('tutor-start-retry'),
+                                onPressed: _start,
+                                child: Text(l10n.retry),
+                              ),
+                            ],
+                          ),
+                        ),
+                      )
+                    : ListView.builder(
                     controller: _scrollCtl,
                     padding: const EdgeInsets.all(12),
                     itemCount: messages.length + (state.sending ? 1 : 0),
@@ -232,6 +278,29 @@ class _TutorChatScreenState extends ConsumerState<TutorChatScreen> {
                     },
                   ),
           ),
+          if (_sendFailed && !state.sending)
+            Padding(
+              key: const Key('tutor-send-error'),
+              padding: const EdgeInsets.fromLTRB(16, 4, 8, 0),
+              child: Row(
+                children: [
+                  Icon(Icons.error_outline,
+                      size: 18, color: Theme.of(context).colorScheme.error),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      l10n.failedToSendMessage,
+                      style: TextStyle(color: Theme.of(context).colorScheme.error),
+                    ),
+                  ),
+                  TextButton(
+                    key: const Key('tutor-send-retry'),
+                    onPressed: _send,
+                    child: Text(l10n.retry),
+                  ),
+                ],
+              ),
+            ),
           SafeArea(
             child: Padding(
               padding: const EdgeInsets.all(12),
@@ -260,7 +329,7 @@ class _TutorChatScreenState extends ConsumerState<TutorChatScreen> {
                       controller: _controller,
                       minLines: 1,
                       maxLines: 4,
-                      enabled: !_recording && !_transcribing,
+                      enabled: !_recording && !_transcribing && !noSession,
                       onSubmitted: (_) => _send(),
                       style: TextStyle(color: context.textPrimary),
                       decoration: InputDecoration(
@@ -281,10 +350,12 @@ class _TutorChatScreenState extends ConsumerState<TutorChatScreen> {
                   ),
                   const SizedBox(width: 8),
                   IconButton.filled(
-                    onPressed:
-                        (state.sending || _recording || _transcribing)
-                            ? null
-                            : _send,
+                    onPressed: (state.sending ||
+                            _recording ||
+                            _transcribing ||
+                            state.session == null)
+                        ? null
+                        : _send,
                     icon: const Icon(Icons.send),
                   ),
                 ],
