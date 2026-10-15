@@ -32,4 +32,20 @@ void main() {
         step: 1, fields: {}, savedAt: DateTime.now().subtract(const Duration(days: 8))));
     expect(await svc.load(), isNull);
   });
+
+  // Shared devices: progress saved by one person must not be offered to the
+  // next person signing up with another (already verified) email.
+  test('loadFor only returns progress saved for that email', () async {
+    final svc = RegistrationProgressService();
+    await svc.save(RegistrationProgress(
+        step: 0, fields: {'email': 'Ann@Example.com', 'name': 'Ann'}));
+    expect(await svc.loadFor('bob@example.com'), isNull);
+    expect((await svc.loadFor(' ann@example.com '))!.fields['name'], 'Ann');
+  });
+
+  test('loadFor ignores progress saved without an email', () async {
+    final svc = RegistrationProgressService();
+    await svc.save(RegistrationProgress(step: 0, fields: {'name': 'Ann'}));
+    expect(await svc.loadFor('ann@example.com'), isNull);
+  });
 }

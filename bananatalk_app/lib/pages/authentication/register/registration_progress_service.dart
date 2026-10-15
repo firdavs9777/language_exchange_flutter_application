@@ -54,6 +54,16 @@ class RegistrationProgressService {
     }
   }
 
+  /// [load], but only when the progress was saved for [email] -- on a
+  /// shared device someone else's name, birth date and gender must not be
+  /// offered to the next person signing up.
+  Future<RegistrationProgress?> loadFor(String email) async {
+    final progress = await load();
+    final saved = progress?.fields['email']?.trim().toLowerCase() ?? '';
+    if (saved.isEmpty || saved != email.trim().toLowerCase()) return null;
+    return progress;
+  }
+
   Future<void> clear() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove(_key);
