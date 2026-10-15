@@ -6,6 +6,7 @@ import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 import 'package:bananatalk_app/widgets/learning/daily_goal_widget.dart';
 import 'package:bananatalk_app/widgets/learning/challenge_card.dart';
 import 'package:bananatalk_app/pages/learning/vocabulary/vocabulary_screen.dart';
+import 'package:bananatalk_app/pages/learning/vocabulary/vocab_packs_screen.dart';
 import 'package:bananatalk_app/pages/learning/vocabulary/vocabulary_review_screen.dart';
 import 'package:bananatalk_app/pages/learning/vocabulary/srs_dashboard_screen.dart';
 import 'package:bananatalk_app/pages/learning/lessons/lessons_screen.dart';
@@ -522,6 +523,20 @@ class LearnTab extends ConsumerWidget {
           onTap: () => Navigator.push(
             context,
             AppPageRoute(builder: (_) => const VocabularyScreen()),
+          ),
+        ),
+        const SizedBox(height: 10),
+        // Packs follow the learner's target language server-side; this was
+        // otherwise only reachable from the English exam row.
+        _LearningNavCard(
+          icon: Icons.style_rounded,
+          title: AppLocalizations.of(context)!.vocabularyPacks,
+          subtitle: AppLocalizations.of(context)!.learnThemedWordSetsBuild,
+          color: const Color(0xFF14B8A6),
+          isDark: isDark,
+          onTap: () => Navigator.push(
+            context,
+            AppPageRoute(builder: (_) => const VocabPacksScreen()),
           ),
         ),
         const SizedBox(height: 10),

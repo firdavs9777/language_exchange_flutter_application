@@ -4,6 +4,7 @@ import 'package:bananatalk_app/models/learning/learning_progress_model.dart';
 import 'package:bananatalk_app/pages/learning/achievements/achievements_screen.dart';
 import 'package:bananatalk_app/pages/learning/main/study_hub_metrics.dart';
 import 'package:bananatalk_app/pages/learning/vocabulary/srs_dashboard_screen.dart';
+import 'package:bananatalk_app/pages/learning/vocabulary/vocab_packs_screen.dart';
 import 'package:bananatalk_app/pages/learning/vocabulary/vocabulary_screen.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 
@@ -91,6 +92,12 @@ class ProgressCard extends StatelessWidget {
               ActionChip(
                   label: Text(l.review),
                   onPressed: () => _go(context, const SrsDashboardScreen())),
+              // Packs follow the learner's target language server-side; this
+              // was otherwise only reachable from the English exam row.
+              ActionChip(
+                  key: const Key('progress-vocab-packs'),
+                  label: Text(l.vocabularyPacks),
+                  onPressed: () => _go(context, const VocabPacksScreen())),
             ],
           ),
         ],
