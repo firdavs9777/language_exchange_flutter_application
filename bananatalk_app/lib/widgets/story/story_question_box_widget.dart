@@ -227,10 +227,17 @@ class StoryQuestionResponsesList extends StatelessWidget {
   final List<StoryQuestionResponse> responses;
   final bool isLoading;
 
+  /// The responses could not be loaded: show an error with [onRetry]
+  /// instead of an empty or half-populated list.
+  final bool hasError;
+  final VoidCallback? onRetry;
+
   const StoryQuestionResponsesList({
     super.key,
     required this.responses,
     this.isLoading = false,
+    this.hasError = false,
+    this.onRetry,
   });
 
   @override
@@ -261,6 +268,26 @@ class StoryQuestionResponsesList extends StatelessWidget {
           child: isLoading
               ? const Center(
                   child: CircularProgressIndicator(color: Colors.white),
+                )
+              : hasError
+              ? Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        AppLocalizations.of(context)!.somethingWentWrong,
+                        style: const TextStyle(color: Colors.grey),
+                      ),
+                      if (onRetry != null)
+                        TextButton(
+                          onPressed: onRetry,
+                          child: Text(
+                            AppLocalizations.of(context)!.retry,
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                        ),
+                    ],
+                  ),
                 )
               : responses.isEmpty
               ? Center(
@@ -301,6 +328,15 @@ class StoryQuestionResponsesList extends StatelessWidget {
                                   child: response.user!.imageUrls.isEmpty
                                       ? Text(response.user!.name.isNotEmpty ? response.user!.name[0] : '?')
                                       : null,
+                                )
+                              else
+                                // Unpopulated author (a bare id): a neutral
+                                // placeholder rather than a blank gap.
+                                const CircleAvatar(
+                                  key: Key('response-placeholder-avatar'),
+                                  radius: 16,
+                                  backgroundColor: Colors.grey,
+                                  child: Icon(Icons.person_outline, size: 18, color: Colors.white),
                                 ),
                               const SizedBox(width: 8),
                               Text(

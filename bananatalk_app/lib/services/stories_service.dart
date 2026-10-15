@@ -674,7 +674,12 @@ class StoriesService {
           'success': true,
           'prompt': data['data']?['prompt'],
           'responses': (data['data']?['responses'] as List?)
-              ?.map((r) => StoryQuestionResponse.fromJson(r)).toList() ?? [],
+                  ?.whereType<Map>()
+                  .map((r) => StoryQuestionResponse.fromJson(
+                        Map<String, dynamic>.from(r),
+                      ))
+                  .toList() ??
+              <StoryQuestionResponse>[],
         };
       }
       return {'success': false};

@@ -610,8 +610,10 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
   }
 
   /// Shows a sheet with live question responses for the owner, fetched via
-  /// `getQuestionResponses`. Shows a loading state while the request is in
-  /// flight and falls back to the embedded responses on failure.
+  /// `getQuestionResponses`, the only source with populated (and
+  /// anonymity-redacted) authors. On failure it shows an error with Retry;
+  /// it no longer falls back to the embedded responses, whose authors are
+  /// bare ids and rendered as blank rows.
   void _showQuestionResponses(Story story) {
     _pauseStory();
     showModalBottomSheet(
@@ -624,23 +626,7 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
       builder: (ctx) {
         return FractionallySizedBox(
           heightFactor: 0.7,
-          child: FutureBuilder<Map<String, dynamic>>(
-            future: StoriesService.getQuestionResponses(storyId: story.id),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState != ConnectionState.done) {
-                return const StoryQuestionResponsesList(
-                  responses: [],
-                  isLoading: true,
-                );
-              }
-              final data = snapshot.data;
-              final responses = (data != null && data['success'] == true)
-                  ? (data['responses'] as List<StoryQuestionResponse>?) ??
-                        const []
-                  : (story.questionBox?.responses ?? const []);
-              return StoryQuestionResponsesList(responses: responses);
-            },
-          ),
+          child: _QuestionResponsesSheet(storyId: story.id),
         );
       },
     ).then((_) {
@@ -1940,5 +1926,50 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
     } else {
       return '${diff.inDays}d ago';
     }
+  }
+}
+
+/// Owner's question-responses sheet: loads from the responses endpoint,
+/// with a loading state and an error state that can retry.
+class _QuestionResponsesSheet extends StatefulWidget {
+  final String storyId;
+  const _QuestionResponsesSheet({required this.storyId});
+
+  @override
+  State<_QuestionResponsesSheet> createState() =>
+      _QuestionResponsesSheetState();
+}
+
+class _QuestionResponsesSheetState extends State<_QuestionResponsesSheet> {
+  late Future<Map<String, dynamic>> _future = _load();
+
+  Future<Map<String, dynamic>> _load() =>
+      StoriesService.getQuestionResponses(storyId: widget.storyId);
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<Map<String, dynamic>>(
+      future: _future,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState != ConnectionState.done) {
+          return const StoryQuestionResponsesList(
+            responses: [],
+            isLoading: true,
+          );
+        }
+        final data = snapshot.data;
+        if (data == null || data['success'] != true) {
+          return StoryQuestionResponsesList(
+            responses: const [],
+            hasError: true,
+            onRetry: () => setState(() => _future = _load()),
+          );
+        }
+        return StoryQuestionResponsesList(
+          responses:
+              (data['responses'] as List<StoryQuestionResponse>?) ?? const [],
+        );
+      },
+    );
   }
 }
