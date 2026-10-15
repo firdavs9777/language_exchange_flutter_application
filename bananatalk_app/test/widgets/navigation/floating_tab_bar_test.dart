@@ -459,4 +459,42 @@ void main() {
       expect(find.text('AI Study').hitTestable(), findsOneWidget);
     });
   });
+
+  for (final inset in [0.0, 34.0, 48.0]) {
+    testWidgets('fabLift puts a Scaffold FAB on clearance (inset $inset)', (
+      t,
+    ) async {
+      late double clearance;
+      await t.pumpWidget(
+        MaterialApp(
+          home: MediaQuery(
+            data: MediaQueryData(
+              size: const Size(390, 844),
+              padding: EdgeInsets.only(bottom: inset),
+              viewPadding: EdgeInsets.only(bottom: inset),
+            ),
+            child: Builder(
+              builder: (context) {
+                clearance = FloatingTabBar.clearance(context);
+                return Scaffold(
+                  floatingActionButton: Padding(
+                    padding: EdgeInsets.only(
+                      bottom: FloatingTabBar.fabLift(context),
+                    ),
+                    child: FloatingActionButton(
+                      onPressed: () {},
+                      child: const Icon(Icons.add),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+        ),
+      );
+      final screenBottom = t.getBottomLeft(find.byType(Scaffold)).dy;
+      final fabBottom = t.getBottomLeft(find.byType(FloatingActionButton)).dy;
+      expect(screenBottom - fabBottom, moreOrLessEquals(clearance));
+    });
+  }
 }

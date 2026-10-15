@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:bananatalk_app/widgets/navigation/floating_tab_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/models/community/voice_room_model.dart';
 import 'package:bananatalk_app/services/chat_socket_service.dart';
@@ -203,7 +204,7 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab>
         },
       ),
       floatingActionButton: Padding(
-        padding: const EdgeInsets.only(bottom: 72),
+        padding: EdgeInsets.only(bottom: FloatingTabBar.fabLift(context)),
         child: FloatingActionButton.extended(
           heroTag: 'voice_rooms_tab_create_fab',
           onPressed: _createRoom,
@@ -418,7 +419,13 @@ class _VoiceRoomsTabState extends ConsumerState<VoiceRoomsTab>
                 }, childCount: rooms.length),
               ),
             ),
-          const SliverToBoxAdapter(child: SizedBox(height: 100)),
+          // The create FAB sits on the bar, so the last card clears both.
+          SliverToBoxAdapter(
+            child: SizedBox(
+              height:
+                  FloatingTabBar.clearance(context) + FloatingTabBar.fabSpace,
+            ),
+          ),
         ],
       ),
     );

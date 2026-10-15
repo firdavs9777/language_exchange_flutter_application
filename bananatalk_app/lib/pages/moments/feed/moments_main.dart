@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:bananatalk_app/widgets/navigation/floating_tab_bar.dart';
 import 'package:bananatalk_app/pages/moments/create/create_moment.dart';
 import 'package:bananatalk_app/pages/moments/filter/moment_filter_bar.dart';
 import 'package:bananatalk_app/pages/moments/filter/moment_filter_model.dart';
@@ -495,7 +496,7 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
       floatingActionButton: isReelsTab
           ? null
           : Padding(
-              padding: const EdgeInsets.only(bottom: 72),
+              padding: EdgeInsets.only(bottom: FloatingTabBar.fabLift(context)),
               child: FutureBuilder<String?>(
                 future: SharedPreferences.getInstance().then(
                   (prefs) => prefs.getString('userId'),

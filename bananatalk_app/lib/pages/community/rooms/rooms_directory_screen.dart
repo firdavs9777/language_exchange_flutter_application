@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:bananatalk_app/widgets/navigation/floating_tab_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/room.dart';
@@ -61,10 +62,10 @@ class RoomsDirectoryScreen extends ConsumerWidget {
 
     return Scaffold(
       backgroundColor: Colors.transparent,
-      // Lift the FAB above the floating "swimming" tab pill (see TabBarMenu),
-      // which sits ~60px tall at the bottom — a default-position FAB overlaps it.
+      // Lift the FAB above the floating tab bar (see TabBarMenu) — a
+      // default-position FAB overlaps it.
       floatingActionButton: Padding(
-        padding: const EdgeInsets.only(bottom: 72),
+        padding: EdgeInsets.only(bottom: FloatingTabBar.fabLift(context)),
         child: FloatingActionButton.extended(
           heroTag: 'rooms-directory-fab',
           onPressed: () => _createTopicRoom(context, ref),
@@ -213,11 +214,12 @@ class _RoomsListState extends ConsumerState<_RoomsList> {
     }
 
     return ListView.builder(
-      padding: const EdgeInsets.fromLTRB(
+      padding: EdgeInsets.fromLTRB(
         Spacing.md,
         Spacing.md,
         Spacing.md,
-        80, // keep the last card clear of the FAB
+        // keep the last card clear of the bar and the FAB sitting on it
+        FloatingTabBar.clearance(context) + FloatingTabBar.fabSpace,
       ),
       itemCount: items.length,
       itemBuilder: (context, index) {

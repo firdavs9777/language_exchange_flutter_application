@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:bananatalk_app/widgets/navigation/floating_tab_bar.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/community/gathering_model.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
@@ -282,6 +283,9 @@ class _GatheringsTabState extends ConsumerState<GatheringsTab>
               onRefresh: _refresh,
               child: ListView(
                 physics: const AlwaysScrollableScrollPhysics(),
+                padding: EdgeInsets.only(
+                  bottom: FloatingTabBar.clearance(context),
+                ),
                 children: [
                   if (_filters.isEmpty)
                     _emptyState(context, data.clubs.isEmpty)
@@ -336,7 +340,9 @@ class _GatheringsTabState extends ConsumerState<GatheringsTab>
                     );
                   },
                 ),
-                const SliverToBoxAdapter(child: SizedBox(height: 80)),
+                SliverToBoxAdapter(
+                  child: SizedBox(height: FloatingTabBar.clearance(context)),
+                ),
               ],
             ),
           ),
@@ -425,7 +431,9 @@ class _GatheringsTabState extends ConsumerState<GatheringsTab>
                 },
               ),
             ),
-          const SliverToBoxAdapter(child: SizedBox(height: 80)),
+          SliverToBoxAdapter(
+            child: SizedBox(height: FloatingTabBar.clearance(context)),
+          ),
         ],
       ),
     );
@@ -440,6 +448,7 @@ class _GatheringsTabState extends ConsumerState<GatheringsTab>
   /// person who can do it.
   Widget _emptyState(BuildContext context, bool noClubsEither) {
     final l10n = AppLocalizations.of(context)!;
+    // clearance-exempt: always a child of the empty-state ListView, which pads
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,

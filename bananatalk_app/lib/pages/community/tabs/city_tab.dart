@@ -609,6 +609,7 @@ class _CityTabState extends ConsumerState<CityTab> {
                     _loadWorldwidePreview(),
                   ]);
                 },
+                // clearance-exempt: top overlay card on the map, not a list end
                 child: SingleChildScrollView(
                   physics: const AlwaysScrollableScrollPhysics(),
                   child: _buildWorldwideCard(),
