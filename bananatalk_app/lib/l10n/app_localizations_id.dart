@@ -11389,4 +11389,10 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get callConnectionLost => 'Koneksi terputus';
+
+  @override
+  String get biometricLoginSetting => 'Masuk dengan Face ID / sidik jari';
+
+  @override
+  String get biometricLoginSettingDesc => 'Tampilkan \"Lanjutkan sebagai\" di layar masuk setelah Anda keluar';
 }

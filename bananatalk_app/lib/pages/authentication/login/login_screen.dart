@@ -33,7 +33,11 @@ import 'package:bananatalk_app/services/session_reset.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends ConsumerStatefulWidget {
-  const Login({Key? key}) : super(key: key);
+  const Login({Key? key, this.autoBiometric = false}) : super(key: key);
+
+  /// Opened from the Welcome screen's "Continue as" button: start the
+  /// biometric sign-in at once (when it can still be offered).
+  final bool autoBiometric;
 
   @override
   _LoginState createState() => _LoginState();
@@ -92,6 +96,7 @@ class _LoginState extends ConsumerState<Login> {
       _biometricVisible = true;
       _biometricUserName = name;
     });
+    if (widget.autoBiometric) unawaited(_biometricLogin());
   }
 
   Future<void> _biometricLogin() async {
@@ -304,7 +309,9 @@ class _LoginState extends ConsumerState<Login> {
                 .read(authServiceProvider)
                 .getLoggedInUser();
             if (!updatedUser.termsAccepted) {
-              // User didn't accept terms, stay on login screen
+              // User didn't accept terms: stay on the login screen, signed
+              // OUT, like the splash path does on a declined Terms.
+              await signOutAndReset(ref.read(authServiceProvider));
               return;
             }
           }
@@ -349,6 +356,11 @@ class _LoginState extends ConsumerState<Login> {
         } catch (e) {
           debugPrint('[login] post-login user fetch failed: $e');
           if (!mounted) return;
+          final suspension = suspensionFromPostLoginError(e);
+          if (suspension != null && await openAccountSuspended(suspension)) {
+            return;
+          }
+          if (!mounted) return;
           if (classifyPostLoginError(e) == PostLoginFailure.retryable) {
             // The server accepted the password a moment ago; a dropped
             // connection is not an expired session. Stay signed in and let
@@ -388,6 +400,14 @@ class _LoginState extends ConsumerState<Login> {
           type: AuthSnackBarType.success,
         );
       } else {
+        // Suspended account (403 ACCOUNT_BANNED): the suspension screen, with
+        // the reason, instead of a snackbar.
+        final suspension = suspensionFromAuthResult(response);
+        if (suspension != null && await openAccountSuspended(suspension)) {
+          return;
+        }
+        if (!mounted) return;
+
         // `accountLocked` / `rateLimited` keep their existing countdown
         // flows — auth_providers.dart already folds lockUntil/retryAfter
         // into `message`, so the snackbar path here just surfaces it as-is.

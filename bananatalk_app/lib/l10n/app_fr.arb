@@ -4654,5 +4654,7 @@
   "callPermissionMicCameraSettings": "Autorisez l'accès au micro et à la caméra dans les Réglages pour les appels vidéo.",
   "callQualityExcellent": "Excellente qualité",
   "callQualityGood": "Bonne qualité",
-  "callConnectionLost": "Connexion perdue"
+  "callConnectionLost": "Connexion perdue",
+  "biometricLoginSetting": "Se connecter avec Face ID / empreinte",
+  "biometricLoginSettingDesc": "Afficher « Continuer en tant que » sur l’écran de connexion après la déconnexion"
 }

@@ -11378,6 +11378,12 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get callConnectionLost => '连接已断开';
+
+  @override
+  String get biometricLoginSetting => '使用面容 ID / 指纹登录';
+
+  @override
+  String get biometricLoginSettingDesc => '退出登录后在登录页显示“以…身份继续”';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -22754,4 +22760,10 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get callConnectionLost => '連線已中斷';
+
+  @override
+  String get biometricLoginSetting => '使用 Face ID / 指紋登入';
+
+  @override
+  String get biometricLoginSettingDesc => '登出後在登入畫面顯示「以…身分繼續」';
 }

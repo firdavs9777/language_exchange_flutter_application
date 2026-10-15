@@ -4414,5 +4414,7 @@
   "callPermissionMicCameraSettings": "ビデオ通話をするには、設定でマイクとカメラへのアクセスを許可してください。",
   "callQualityExcellent": "通話品質：非常に良好",
   "callQualityGood": "通話品質：良好",
-  "callConnectionLost": "接続が切れました"
+  "callConnectionLost": "接続が切れました",
+  "biometricLoginSetting": "Face ID / 指紋でサインイン",
+  "biometricLoginSettingDesc": "ログアウト後、ログイン画面に「〜として続行」を表示します"
 }

@@ -158,6 +158,7 @@ class AuthService extends ChangeNotifier {
         'message': data['message'] ?? data['error'] ?? 'An error occurred',
         'error': data['error'],
         'code': data['code'],
+        'banReason': data['banReason'],
         'statusCode': response.statusCode,
         'lockUntil': data['lockUntil'],
         'remainingAttempts': data['remainingAttempts'],
@@ -328,6 +329,7 @@ class AuthService extends ChangeNotifier {
           'success': false,
           'message': errorData['message'] ?? 'Invalid email or password',
           'code': errorData['code'],
+          'banReason': errorData['banReason'],
         };
       }
     } catch (e) {
@@ -408,6 +410,9 @@ class AuthService extends ChangeNotifier {
               errorData['message'] ??
               errorData['error'] ??
               'Server error: ${response.statusCode}',
+          // 403 ACCOUNT_BANNED: the screen opens AccountSuspendedScreen.
+          'code': errorData['code'],
+          'banReason': errorData['banReason'],
         };
       }
     } catch (e) {
@@ -594,6 +599,9 @@ class AuthService extends ChangeNotifier {
               errorData['message'] ??
               errorData['error'] ??
               'Server error: ${response.statusCode}',
+          // 403 ACCOUNT_BANNED: the screen opens AccountSuspendedScreen.
+          'code': errorData['code'],
+          'banReason': errorData['banReason'],
         };
       }
     } catch (e) {
@@ -726,6 +734,9 @@ class AuthService extends ChangeNotifier {
               errorData['message'] ??
               errorData['error'] ??
               'Server error: ${response.statusCode}',
+          // 403 ACCOUNT_BANNED: the screen opens AccountSuspendedScreen.
+          'code': errorData['code'],
+          'banReason': errorData['banReason'],
         };
       }
     } catch (e) {
@@ -882,7 +893,7 @@ class AuthService extends ChangeNotifier {
   Future<void> clearLocalSession() => _clearAuthData();
 
   /// Every path that starts a session (password, Google, Apple, Facebook,
-  /// register, password reset) calls this once the tokens are stored:
+  /// register) calls this once the tokens are stored:
   ///  - ApiClient drops any bearer it cached from a previous session;
   ///  - the biometric snapshot follows the new tokens if it belongs to this
   ///    account, and is WIPED if it belongs to another one -- user A's Face
@@ -1498,41 +1509,16 @@ class AuthService extends ChangeNotifier {
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
 
-        // Handle both old and new response formats
-        userId =
-            data['user']?['_id'] ??
-            data['user']?['id'] ??
-            data['data']?['user']?['_id'] ??
-            '';
-        token = data['token'] ?? data['data']?['token'] ?? '';
-        refreshToken =
-            data['refreshToken'] ?? data['data']?['refreshToken'] ?? '';
-
-        final prefs = await SharedPreferences.getInstance();
-        await prefs.setString('token', token);
-        await prefs.setString('refreshToken', refreshToken);
-        await prefs.setString('userId', userId);
-        await _afterSignIn();
-        isLoggedIn = true;
-
-        // Re-enable socket reconnection for password reset login
-        final socketService = SocketService();
-        socketService.enableReconnection();
-
-        // Connect chat socket service
-        try {
-          final chatSocketService = ChatSocketService();
-          chatSocketService.enableReconnection();
-          await chatSocketService.connect();
-        } catch (e) {}
-
-        notifyListeners();
+        // The server answers with a session, but the screen tells the user
+        // to log in with the new password and routes to /login. Storing it
+        // (and connecting the socket) left them signed in on the login
+        // screen. Drop any session instead -- a reset revokes the old ones
+        // server-side anyway -- and let the login screen start the new one.
+        await _clearAuthData();
 
         return {
           'success': true,
           'message': 'Password reset successful',
-          'token': token,
-          'refreshToken': refreshToken,
           'user': data['user'] ?? data['data']?['user'],
         };
       } else {

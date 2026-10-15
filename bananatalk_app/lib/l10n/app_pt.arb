@@ -4430,5 +4430,7 @@
   "callPermissionMicCameraSettings": "Ative o acesso ao microfone e à câmera nos Ajustes para videochamadas.",
   "callQualityExcellent": "Qualidade excelente",
   "callQualityGood": "Boa qualidade",
-  "callConnectionLost": "Conexão perdida"
+  "callConnectionLost": "Conexão perdida",
+  "biometricLoginSetting": "Entrar com Face ID / impressão digital",
+  "biometricLoginSettingDesc": "Mostrar \"Continuar como\" na tela de login depois de sair"
 }

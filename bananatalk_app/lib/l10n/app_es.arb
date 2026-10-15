@@ -4444,5 +4444,7 @@
   "callPermissionMicCameraSettings": "Activa el acceso al micrófono y a la cámara en Ajustes para las videollamadas.",
   "callQualityExcellent": "Calidad excelente",
   "callQualityGood": "Buena calidad",
-  "callConnectionLost": "Conexión perdida"
+  "callConnectionLost": "Conexión perdida",
+  "biometricLoginSetting": "Iniciar sesión con Face ID / huella",
+  "biometricLoginSettingDesc": "Mostrar \"Continuar como\" en la pantalla de inicio de sesión después de cerrar sesión"
 }

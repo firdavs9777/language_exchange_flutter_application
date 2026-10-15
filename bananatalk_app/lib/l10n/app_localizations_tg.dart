@@ -11398,4 +11398,10 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get callConnectionLost => 'Пайвастшавӣ қатъ шуд';
+
+  @override
+  String get biometricLoginSetting => 'Ворид шудан бо Face ID / изи ангушт';
+
+  @override
+  String get biometricLoginSettingDesc => 'Пас аз баромадан дар экрани воридшавӣ «Идома ҳамчун»-ро нишон диҳед';
 }

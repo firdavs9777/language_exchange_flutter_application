@@ -4654,5 +4654,7 @@
   "callPermissionMicCameraSettings": "Attiva l'accesso a microfono e fotocamera nelle Impostazioni per le videochiamate.",
   "callQualityExcellent": "Qualità eccellente",
   "callQualityGood": "Buona qualità",
-  "callConnectionLost": "Connessione persa"
+  "callConnectionLost": "Connessione persa",
+  "biometricLoginSetting": "Accedi con Face ID / impronta",
+  "biometricLoginSettingDesc": "Mostra \"Continua come\" nella schermata di accesso dopo il logout"
 }

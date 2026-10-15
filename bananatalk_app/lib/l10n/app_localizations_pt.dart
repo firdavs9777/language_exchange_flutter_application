@@ -11397,4 +11397,10 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get callConnectionLost => 'Conexão perdida';
+
+  @override
+  String get biometricLoginSetting => 'Entrar com Face ID / impressão digital';
+
+  @override
+  String get biometricLoginSettingDesc => 'Mostrar \"Continuar como\" na tela de login depois de sair';
 }

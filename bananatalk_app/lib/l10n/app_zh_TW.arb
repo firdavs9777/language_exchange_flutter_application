@@ -4105,5 +4105,7 @@
   "callPermissionMicCameraSettings": "請在設定中允許存取麥克風和相機以進行視訊通話。",
   "callQualityExcellent": "通話品質極佳",
   "callQualityGood": "通話品質良好",
-  "callConnectionLost": "連線已中斷"
+  "callConnectionLost": "連線已中斷",
+  "biometricLoginSetting": "使用 Face ID / 指紋登入",
+  "biometricLoginSettingDesc": "登出後在登入畫面顯示「以…身分繼續」"
 }

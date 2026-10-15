@@ -11452,4 +11452,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get callConnectionLost => 'انقطع الاتصال';
+
+  @override
+  String get biometricLoginSetting => 'تسجيل الدخول ببصمة الوجه / الإصبع';
+
+  @override
+  String get biometricLoginSettingDesc => 'إظهار \"المتابعة باسم\" في شاشة تسجيل الدخول بعد تسجيل الخروج';
 }

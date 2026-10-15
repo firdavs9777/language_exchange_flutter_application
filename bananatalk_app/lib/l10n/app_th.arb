@@ -4414,5 +4414,7 @@
   "callPermissionMicCameraSettings": "โปรดเปิดการเข้าถึงไมโครโฟนและกล้องในการตั้งค่าเพื่อวิดีโอคอล",
   "callQualityExcellent": "คุณภาพดีมาก",
   "callQualityGood": "คุณภาพดี",
-  "callConnectionLost": "การเชื่อมต่อขาดหาย"
+  "callConnectionLost": "การเชื่อมต่อขาดหาย",
+  "biometricLoginSetting": "ลงชื่อเข้าใช้ด้วย Face ID / ลายนิ้วมือ",
+  "biometricLoginSettingDesc": "แสดง \"ดำเนินการต่อในชื่อ\" บนหน้าจอเข้าสู่ระบบหลังจากออกจากระบบ"
 }

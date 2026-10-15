@@ -11378,4 +11378,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get callConnectionLost => 'Mất kết nối';
+
+  @override
+  String get biometricLoginSetting => 'Đăng nhập bằng Face ID / vân tay';
+
+  @override
+  String get biometricLoginSettingDesc => 'Hiển thị \"Tiếp tục với tư cách\" trên màn hình đăng nhập sau khi đăng xuất';
 }

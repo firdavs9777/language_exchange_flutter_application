@@ -3907,5 +3907,7 @@
   "callPermissionMicCameraSettings": "Лутфан дар Танзимот дастрасӣ ба микрофон ва камераро барои зангҳои видеоӣ фаъол кунед.",
   "callQualityExcellent": "Сифати аъло",
   "callQualityGood": "Сифати хуб",
-  "callConnectionLost": "Пайвастшавӣ қатъ шуд"
+  "callConnectionLost": "Пайвастшавӣ қатъ шуд",
+  "biometricLoginSetting": "Ворид шудан бо Face ID / изи ангушт",
+  "biometricLoginSettingDesc": "Пас аз баромадан дар экрани воридшавӣ «Идома ҳамчун»-ро нишон диҳед"
 }

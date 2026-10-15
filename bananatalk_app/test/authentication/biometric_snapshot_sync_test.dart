@@ -105,4 +105,39 @@ void main() {
     expect(prefs.getString('refreshToken'), 'rt-fresh');
     expect(_read(s).refreshToken, 'rt-fresh');
   });
+
+  // Biometric sign-in could be turned on (one-time offer at login) but
+  // never off again, and not back on once declined.
+  group('settings switch', () {
+    test('on: snapshots the signed-in session', () async {
+      SharedPreferences.setMockInitialValues(
+          {'token': 't1', 'refreshToken': 'rt1', 'userId': 'A'});
+      final s = _FakeStorage();
+      final ok = await enableBiometricForCurrentSession(
+          userName: 'Ann', storage: s);
+      expect(ok, isTrue);
+      expect(_read(s).refreshToken, 'rt1');
+      expect(_read(s).userName, 'Ann');
+      final prefs = await SharedPreferences.getInstance();
+      expect(prefs.getBool('biometric_enabled'), isTrue);
+    });
+
+    test('on without a stored session: refused, nothing stored', () async {
+      SharedPreferences.setMockInitialValues({'token': 't1', 'userId': 'A'});
+      final s = _FakeStorage();
+      expect(
+          await enableBiometricForCurrentSession(userName: 'Ann', storage: s),
+          isFalse);
+      expect(s.value, isNull);
+    });
+
+    test('off: snapshot wiped, flag off', () async {
+      SharedPreferences.setMockInitialValues({'biometric_enabled': true});
+      final s = _FakeStorage()..value = _snap('A', 'rt1');
+      await BiometricService(storage: s).disable();
+      expect(s.value, isNull);
+      final prefs = await SharedPreferences.getInstance();
+      expect(prefs.getBool('biometric_enabled'), isNull);
+    });
+  });
 }

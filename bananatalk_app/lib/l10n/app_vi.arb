@@ -4414,5 +4414,7 @@
   "callPermissionMicCameraSettings": "Vui lòng bật quyền truy cập micrô và camera trong Cài đặt để gọi video.",
   "callQualityExcellent": "Chất lượng rất tốt",
   "callQualityGood": "Chất lượng tốt",
-  "callConnectionLost": "Mất kết nối"
+  "callConnectionLost": "Mất kết nối",
+  "biometricLoginSetting": "Đăng nhập bằng Face ID / vân tay",
+  "biometricLoginSettingDesc": "Hiển thị \"Tiếp tục với tư cách\" trên màn hình đăng nhập sau khi đăng xuất"
 }

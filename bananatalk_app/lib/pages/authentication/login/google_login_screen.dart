@@ -227,6 +227,12 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
             } catch (e) {
               debugPrint('[google-login] post-login user fetch failed: $e');
               if (!mounted) return;
+              final suspension = suspensionFromPostLoginError(e);
+              if (suspension != null &&
+                  await openAccountSuspended(suspension)) {
+                return;
+              }
+              if (!mounted) return;
               if (classifyPostLoginError(e) == PostLoginFailure.retryable) {
                 // Signed in a moment ago; a dropped connection is not an
                 // expired session. Keep it and let the user retry.
@@ -279,6 +285,11 @@ class _GoogleLoginState extends ConsumerState<GoogleLogin> {
           }
         }
       } else {
+        // Suspended account (403 ACCOUNT_BANNED): the suspension screen.
+        final suspension = suspensionFromAuthResult(result);
+        if (suspension != null && await openAccountSuspended(suspension)) {
+          return;
+        }
         if (!mounted) return;
         setState(() {
           _errorMessage = authResultMessage(

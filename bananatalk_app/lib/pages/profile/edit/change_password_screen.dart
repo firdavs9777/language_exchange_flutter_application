@@ -32,10 +32,6 @@ class ChangePasswordScreen extends ConsumerStatefulWidget {
 }
 
 class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
-  // Mirrors backend strongPasswordRegex (auth.js:1342). Keep in sync.
-  static final RegExp _strongPassword =
-      RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d@$!%*?&]{8,}$');
-
   final _currentController = TextEditingController();
   final _newController = TextEditingController();
   final _confirmController = TextEditingController();
@@ -71,8 +67,10 @@ class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
     super.dispose();
   }
 
+  // Same rule as the checklist below and the backend's isStrongPassword:
+  // 8+ chars, lower, upper, digit, any other characters allowed.
   bool get _newPasswordIsStrong =>
-      _strongPassword.hasMatch(_newController.text);
+      AuthService.validatePassword(_newController.text)['valid'] == true;
 
   bool get _confirmMatches =>
       _newController.text.isNotEmpty &&

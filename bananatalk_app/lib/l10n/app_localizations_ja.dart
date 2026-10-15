@@ -11378,4 +11378,10 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get callConnectionLost => '接続が切れました';
+
+  @override
+  String get biometricLoginSetting => 'Face ID / 指紋でサインイン';
+
+  @override
+  String get biometricLoginSettingDesc => 'ログアウト後、ログイン画面に「〜として続行」を表示します';
 }

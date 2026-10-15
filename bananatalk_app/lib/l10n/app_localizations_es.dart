@@ -11397,4 +11397,10 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get callConnectionLost => 'Conexión perdida';
+
+  @override
+  String get biometricLoginSetting => 'Iniciar sesión con Face ID / huella';
+
+  @override
+  String get biometricLoginSettingDesc => 'Mostrar \"Continuar como\" en la pantalla de inicio de sesión después de cerrar sesión';
 }

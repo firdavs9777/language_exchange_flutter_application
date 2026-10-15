@@ -11441,4 +11441,10 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get callConnectionLost => 'Соединение потеряно';
+
+  @override
+  String get biometricLoginSetting => 'Вход по Face ID / отпечатку';
+
+  @override
+  String get biometricLoginSettingDesc => 'Показывать «Продолжить как» на экране входа после выхода';
 }

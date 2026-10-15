@@ -4387,5 +4387,7 @@
   "callPermissionMicCameraSettings": "Paki-enable ang access sa mikropono at camera sa Settings para sa mga video call.",
   "callQualityExcellent": "Napakahusay na kalidad",
   "callQualityGood": "Mahusay na kalidad",
-  "callConnectionLost": "Nawala ang koneksyon"
+  "callConnectionLost": "Nawala ang koneksyon",
+  "biometricLoginSetting": "Mag-sign in gamit ang Face ID / fingerprint",
+  "biometricLoginSettingDesc": "Ipakita ang \"Magpatuloy bilang\" sa login screen pagkatapos mong mag-log out"
 }

@@ -11378,4 +11378,10 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get callConnectionLost => '연결이 끊겼습니다';
+
+  @override
+  String get biometricLoginSetting => 'Face ID / 지문으로 로그인';
+
+  @override
+  String get biometricLoginSettingDesc => '로그아웃 후 로그인 화면에 \"~(으)로 계속\"을 표시합니다';
 }

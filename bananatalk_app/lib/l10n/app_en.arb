@@ -7887,5 +7887,13 @@
   "callPermissionMicCameraSettings": "Please enable microphone and camera access in Settings for video calls.",
   "callQualityExcellent": "Excellent quality",
   "callQualityGood": "Good quality",
-  "callConnectionLost": "Connection lost"
+  "callConnectionLost": "Connection lost",
+  "biometricLoginSetting": "Sign in with Face ID / fingerprint",
+  "biometricLoginSettingDesc": "Show \"Continue as\" on the login screen after you log out",
+  "@biometricLoginSetting": {
+    "description": "Settings switch: turn biometric (Continue as) sign-in on or off"
+  },
+  "@biometricLoginSettingDesc": {
+    "description": "Subtitle under the biometric sign-in switch in Settings"
+  }
 }

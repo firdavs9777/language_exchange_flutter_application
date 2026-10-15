@@ -4444,5 +4444,7 @@
   "callPermissionMicCameraSettings": "Разрешите доступ к микрофону и камере в Настройках для видеозвонков.",
   "callQualityExcellent": "Отличное качество",
   "callQualityGood": "Хорошее качество",
-  "callConnectionLost": "Соединение потеряно"
+  "callConnectionLost": "Соединение потеряно",
+  "biometricLoginSetting": "Вход по Face ID / отпечатку",
+  "biometricLoginSettingDesc": "Показывать «Продолжить как» на экране входа после выхода"
 }

@@ -4654,5 +4654,7 @@
   "callPermissionMicCameraSettings": "Bitte erlaube in den Einstellungen den Mikrofon- und Kamerazugriff für Videoanrufe.",
   "callQualityExcellent": "Ausgezeichnete Qualität",
   "callQualityGood": "Gute Qualität",
-  "callConnectionLost": "Verbindung verloren"
+  "callConnectionLost": "Verbindung verloren",
+  "biometricLoginSetting": "Mit Face ID / Fingerabdruck anmelden",
+  "biometricLoginSettingDesc": "„Weiter als“ nach dem Abmelden auf dem Anmeldebildschirm anzeigen"
 }

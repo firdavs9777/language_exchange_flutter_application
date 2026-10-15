@@ -20773,6 +20773,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Connection lost'**
   String get callConnectionLost;
+
+  /// Settings switch: turn biometric (Continue as) sign-in on or off
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in with Face ID / fingerprint'**
+  String get biometricLoginSetting;
+
+  /// Subtitle under the biometric sign-in switch in Settings
+  ///
+  /// In en, this message translates to:
+  /// **'Show \"Continue as\" on the login screen after you log out'**
+  String get biometricLoginSettingDesc;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

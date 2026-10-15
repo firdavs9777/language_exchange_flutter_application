@@ -4626,5 +4626,7 @@
   "callPermissionMicCameraSettings": "Görüntülü aramalar için lütfen Ayarlar'dan mikrofon ve kamera erişimine izin ver.",
   "callQualityExcellent": "Mükemmel kalite",
   "callQualityGood": "İyi kalite",
-  "callConnectionLost": "Bağlantı kesildi"
+  "callConnectionLost": "Bağlantı kesildi",
+  "biometricLoginSetting": "Face ID / parmak izi ile giriş yap",
+  "biometricLoginSettingDesc": "Çıkış yaptıktan sonra giriş ekranında \"Şu şekilde devam et\" seçeneğini göster"
 }

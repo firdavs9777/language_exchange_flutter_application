@@ -11395,4 +11395,10 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get callConnectionLost => 'Bağlantı kesildi';
+
+  @override
+  String get biometricLoginSetting => 'Face ID / parmak izi ile giriş yap';
+
+  @override
+  String get biometricLoginSettingDesc => 'Çıkış yaptıktan sonra giriş ekranında \"Şu şekilde devam et\" seçeneğini göster';
 }

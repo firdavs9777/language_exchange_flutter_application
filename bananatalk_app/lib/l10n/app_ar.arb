@@ -4444,5 +4444,7 @@
   "callPermissionMicCameraSettings": "يُرجى تفعيل الوصول إلى الميكروفون والكاميرا من الإعدادات لمكالمات الفيديو.",
   "callQualityExcellent": "جودة ممتازة",
   "callQualityGood": "جودة جيدة",
-  "callConnectionLost": "انقطع الاتصال"
+  "callConnectionLost": "انقطع الاتصال",
+  "biometricLoginSetting": "تسجيل الدخول ببصمة الوجه / الإصبع",
+  "biometricLoginSettingDesc": "إظهار \"المتابعة باسم\" في شاشة تسجيل الدخول بعد تسجيل الخروج"
 }

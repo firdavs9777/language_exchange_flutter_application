@@ -4428,5 +4428,7 @@
   "callPermissionMicCameraSettings": "请在设置中允许访问麦克风和相机以进行视频通话。",
   "callQualityExcellent": "通话质量极佳",
   "callQualityGood": "通话质量良好",
-  "callConnectionLost": "连接已断开"
+  "callConnectionLost": "连接已断开",
+  "biometricLoginSetting": "使用面容 ID / 指纹登录",
+  "biometricLoginSettingDesc": "退出登录后在登录页显示“以…身份继续”"
 }

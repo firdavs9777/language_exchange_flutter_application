@@ -4414,5 +4414,7 @@
   "callPermissionMicCameraSettings": "Aktifkan akses mikrofon dan kamera di Pengaturan untuk panggilan video.",
   "callQualityExcellent": "Kualitas sangat baik",
   "callQualityGood": "Kualitas baik",
-  "callConnectionLost": "Koneksi terputus"
+  "callConnectionLost": "Koneksi terputus",
+  "biometricLoginSetting": "Masuk dengan Face ID / sidik jari",
+  "biometricLoginSettingDesc": "Tampilkan \"Lanjutkan sebagai\" di layar masuk setelah Anda keluar"
 }

@@ -11397,4 +11397,10 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get callConnectionLost => 'Verbindung verloren';
+
+  @override
+  String get biometricLoginSetting => 'Mit Face ID / Fingerabdruck anmelden';
+
+  @override
+  String get biometricLoginSettingDesc => '„Weiter als“ nach dem Abmelden auf dem Anmeldebildschirm anzeigen';
 }
