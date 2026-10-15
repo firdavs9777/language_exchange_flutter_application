@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:bananatalk_app/widgets/navigation/floating_tab_bar.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
@@ -227,7 +228,10 @@ class _WavesTabState extends ConsumerState<WavesTab> {
       onRefresh: _loadWaves,
       color: const Color(0xFF00BFA5),
       child: ListView.builder(
-        padding: const EdgeInsets.symmetric(vertical: 8),
+        padding: EdgeInsets.only(
+          top: 8,
+          bottom: FloatingTabBar.clearance(context),
+        ),
         // +1 for the archive header row
         itemCount: rows.length + 1,
         itemBuilder: (context, index) {

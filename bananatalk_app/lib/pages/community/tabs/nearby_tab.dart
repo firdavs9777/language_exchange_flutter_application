@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart' show mapEquals;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:bananatalk_app/widgets/navigation/floating_tab_bar.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -374,8 +375,10 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
                 ),
               ),
             ),
-          // Bottom padding
-          const SliverToBoxAdapter(child: SizedBox(height: 100)),
+          // Bottom padding: clear the floating tab bar
+          SliverToBoxAdapter(
+            child: SizedBox(height: FloatingTabBar.clearance(context)),
+          ),
         ],
       ),
     );

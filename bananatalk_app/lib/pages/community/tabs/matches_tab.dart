@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/widgets/navigation/floating_tab_bar.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/chat/conversation/chat_conversation_screen.dart';
 import 'package:bananatalk_app/pages/coins/boost_screen.dart';
@@ -371,7 +372,7 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
           onRefresh: _refresh,
           child: ListView.builder(
             physics: const AlwaysScrollableScrollPhysics(),
-            padding: const EdgeInsets.only(bottom: 24),
+            padding: EdgeInsets.only(bottom: FloatingTabBar.clearance(context)),
             itemCount: matches.length + 1 + (showExtra ? 1 : 0),
             itemBuilder: (context, i) {
               if (i == 0) {

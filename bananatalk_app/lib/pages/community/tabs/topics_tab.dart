@@ -316,7 +316,12 @@ class _TopicsTabState extends ConsumerState<TopicsTab> {
                     return false;
                   },
                   child: ListView.builder(
-                    padding: const EdgeInsets.all(16),
+                    padding: EdgeInsets.fromLTRB(
+                      16,
+                      16,
+                      16,
+                      FloatingTabBar.clearance(context),
+                    ),
                     itemCount: users.length + (topicUsersState.hasMore ? 1 : 0),
                     itemBuilder: (context, index) {
                       if (index >= users.length) {

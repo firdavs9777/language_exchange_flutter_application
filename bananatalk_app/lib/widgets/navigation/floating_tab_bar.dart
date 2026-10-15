@@ -195,6 +195,21 @@ class FloatingTabBar extends StatefulWidget {
     return _gap(context) + height + _breathing;
   }
 
+  /// Room a list leaves above [clearance] for a create FAB that sits on the
+  /// bar (an extended FAB is 48 tall, plus a 16 gap to the last item).
+  static const double fabSpace = 64;
+
+  /// Bottom padding for a `Scaffold.floatingActionButton` on a tab page so
+  /// the button's bottom edge lands on [clearance], like the reels FAB.
+  /// The Scaffold already lifts a FAB by its 16 margin plus the bottom
+  /// view padding, so only the rest is added here.
+  static double fabLift(BuildContext context) {
+    final lift = clearance(context) -
+        kFloatingActionButtonMargin -
+        MediaQuery.viewPaddingOf(context).bottom;
+    return lift < 0 ? 0 : lift;
+  }
+
   @override
   State<FloatingTabBar> createState() => _FloatingTabBarState();
 }

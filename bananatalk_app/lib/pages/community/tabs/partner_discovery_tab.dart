@@ -939,7 +939,12 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
 
         return Center(
           child: SingleChildScrollView(
-            padding: const EdgeInsets.all(Spacing.xxxl),
+            padding: EdgeInsets.fromLTRB(
+              Spacing.xxxl,
+              Spacing.xxxl,
+              Spacing.xxxl,
+              FloatingTabBar.clearance(context),
+            ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

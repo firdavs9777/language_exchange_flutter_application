@@ -1,6 +1,7 @@
 import 'package:bananatalk_app/services/activation_store.dart';
 import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 import 'package:bananatalk_app/widgets/notifications/notification_bell.dart';
+import 'package:bananatalk_app/widgets/navigation/floating_tab_bar.dart';
 import 'package:bananatalk_app/widgets/coins/coin_balance_pill.dart';
 import 'package:bananatalk_app/pages/admin/admin_home_screen.dart';
 import 'package:bananatalk_app/pages/profile/edit_main/edit_main.dart'
@@ -324,7 +325,7 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
                       ).animate().fadeIn(duration: 350.ms, delay: 350.ms),
                     if (user.isAdmin) const SizedBox(height: 20),
                     _buildLogoutButton(context),
-                    const SizedBox(height: 100),
+                    SizedBox(height: FloatingTabBar.clearance(context)),
                   ],
                 ),
               ),
