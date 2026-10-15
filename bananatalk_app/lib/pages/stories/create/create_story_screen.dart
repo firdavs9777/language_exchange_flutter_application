@@ -536,6 +536,8 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
           location: _pickedLocation,
           mentions: _mentions,
           link: _link,
+          poll: _poll,
+          questionBox: _questionBox,
         );
 
         if (mounted) {
@@ -1487,28 +1489,73 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
       child: SafeArea(
         child: Column(
           children: [
-            // Top bar: close button
-            Align(
-              alignment: Alignment.topRight,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 8, right: 8),
-                child: GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      _isTextStory = false;
-                      _selectedColor = null;
-                      _overlays.clear();
-                    });
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: Colors.black26,
-                      borderRadius: BorderRadius.circular(20),
+            // Top bar: attached sticker chips on the left; sticker menu
+            // (poll / question / location / mention / link, same as a media
+            // story) and close on the right.
+            Padding(
+              padding: const EdgeInsets.only(top: 8, left: 16, right: 8),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        if (_poll != null || _questionBox != null) ...[
+                          _buildAttachedStickerChip(),
+                          const SizedBox(height: 8),
+                        ],
+                        if (_pickedLocation != null) ...[
+                          _buildLocationChip(),
+                          const SizedBox(height: 8),
+                        ],
+                        if (_mentions.isNotEmpty) _buildMentionChips(),
+                      ],
                     ),
-                    child: const Icon(Icons.close, color: Colors.white),
                   ),
-                ),
+                  GestureDetector(
+                    key: const Key('text-story-stickers'),
+                    onTap: _openStickerMenu,
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: Colors.black26,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(Icons.auto_awesome,
+                              color: Colors.white, size: 20),
+                          const SizedBox(width: 4),
+                          Text(
+                            AppLocalizations.of(context)!.stickerMedia,
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        _isTextStory = false;
+                        _selectedColor = null;
+                        _overlays.clear();
+                      });
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: Colors.black26,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: const Icon(Icons.close, color: Colors.white),
+                    ),
+                  ),
+                ],
               ),
             ),
 
