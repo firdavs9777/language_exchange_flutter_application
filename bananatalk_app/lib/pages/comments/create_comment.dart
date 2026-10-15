@@ -99,7 +99,13 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
 
   Future<void> _pickImage() async {
     final picker = ImagePicker();
-    final picked = await picker.pickImage(source: ImageSource.gallery, maxWidth: 1200);
+    // imageQuality makes the picker re-encode (HEIC included) to JPEG, a
+    // type the comment upload accepts.
+    final picked = await picker.pickImage(
+      source: ImageSource.gallery,
+      maxWidth: 1200,
+      imageQuality: 85,
+    );
     // The picker suspends the app; the user can background it and never come
     // back to this route, in which case setState throws after dispose.
     if (!mounted) return;
@@ -151,13 +157,15 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
     }
 
     try {
-      // Create the comment (or reply), passing GIF URL if set
-      // Backend requires text - use space if only media is sent
-      final textToSend = commentText.isNotEmpty ? commentText : ' ';
+      // Create the comment (or reply) with the picked photo (uploaded) or
+      // GIF (by URL). Text may be empty when media is attached; the server
+      // refuses a comment with neither.
+      final textToSend = commentText;
 
       // Clear input immediately (optimistic UI - feels instant)
       commentController.clear();
       final savedGifUrl = _selectedGifUrl;
+      final savedImage = _selectedImage;
       setState(() {
         _selectedImage = null;
         _selectedGifUrl = null;
@@ -174,7 +182,8 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
         title: textToSend,
         id: widget.id,
         parentCommentId: widget.parentCommentId,
-        imageUrl: savedGifUrl,
+        imageUrl: savedImage == null ? savedGifUrl : null,
+        image: savedImage,
       );
 
       // Refresh comments list to show the confirmed comment
