@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:livekit_client/livekit_client.dart' as lk;
 
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/call_model.dart';
@@ -12,6 +13,12 @@ import 'package:bananatalk_app/services/call_manager.dart';
 import '../helpers/call_fakes.dart';
 
 void main() {
+  test('self-view is mirrored for the front camera only (audit B #18)', () {
+    expect(selfViewMirrorMode(lk.CameraPosition.front), lk.VideoViewMirrorMode.mirror);
+    expect(selfViewMirrorMode(lk.CameraPosition.back), lk.VideoViewMirrorMode.off);
+    expect(selfViewMirrorMode(null), lk.VideoViewMirrorMode.mirror, reason: 'calls start on the front camera');
+  });
+
   testWidgets('shows the reconnect overlay, then the caller outcome banner', (tester) async {
     final h = CallHarness();
     CallManager.debugSetInstance(h.manager);

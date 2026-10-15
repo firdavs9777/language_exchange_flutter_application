@@ -18,6 +18,20 @@ import 'package:bananatalk_app/widgets/call/swappable_video_layout.dart';
 const double _kPipTopInset = 90;
 const double _kPipBottomInset = 200;
 
+/// Self-view mirroring: the front camera shows as a mirror, as people expect
+/// to see themselves; the rear camera shows the scene as is, so text reads
+/// the right way round.
+lk.VideoViewMirrorMode selfViewMirrorMode(lk.CameraPosition? position) =>
+    position == lk.CameraPosition.back
+        ? lk.VideoViewMirrorMode.off
+        : lk.VideoViewMirrorMode.mirror;
+
+lk.CameraPosition? _cameraPositionOf(lk.VideoTrack track) {
+  if (track is! lk.LocalVideoTrack) return null;
+  final options = track.currentOptions;
+  return options is lk.CameraCaptureOptions ? options.cameraPosition : null;
+}
+
 class ActiveCallScreen extends ConsumerStatefulWidget {
   final CallModel call;
 
@@ -318,7 +332,8 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
                             ? lk.VideoTrackRenderer(
                                 localTrack,
                                 fit: lk.VideoViewFit.cover,
-                                mirrorMode: lk.VideoViewMirrorMode.mirror,
+                                mirrorMode: selfViewMirrorMode(
+                                    _cameraPositionOf(localTrack)),
                               )
                             : Container(
                                 color: Theme.of(context)
@@ -535,8 +550,10 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
                     mini: true,
                     backgroundColor: Colors.white24,
                     child: const Icon(Icons.cameraswitch, color: Colors.white),
-                    onPressed: () {
-                      callManager.switchCamera();
+                    onPressed: () async {
+                      await callManager.switchCamera();
+                      // Re-read the camera position for the mirroring.
+                      if (mounted) setState(() {});
                     },
                   ),
                 ),
