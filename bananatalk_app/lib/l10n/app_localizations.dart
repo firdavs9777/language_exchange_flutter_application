@@ -9119,7 +9119,7 @@ abstract class AppLocalizations {
   /// No description provided for @helpEmailSupportSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'support@bananatalk.com'**
+  /// **'support@banatalk.com'**
   String get helpEmailSupportSubtitle;
 
   /// No description provided for @helpReportBug.

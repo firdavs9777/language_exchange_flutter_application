@@ -4741,7 +4741,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get helpEmailSupport => '邮件支持';
 
   @override
-  String get helpEmailSupportSubtitle => 'support@bananatalk.com';
+  String get helpEmailSupportSubtitle => 'support@banatalk.com';
 
   @override
   String get helpReportBug => '报告问题';
@@ -16093,7 +16093,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get helpEmailSupport => '電子郵件支援';
 
   @override
-  String get helpEmailSupportSubtitle => 'support@bananatalk.com';
+  String get helpEmailSupportSubtitle => 'support@banatalk.com';
 
   @override
   String get helpReportBug => '回報問題';

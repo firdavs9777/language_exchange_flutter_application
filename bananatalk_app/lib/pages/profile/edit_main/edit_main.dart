@@ -2,10 +2,10 @@ import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/pages/profile/edit/intent_edit.dart';
-import 'package:bananatalk_app/pages/profile/edit_main/completion_calculator.dart';
 import 'package:bananatalk_app/pages/profile/edit_main/sections/basic_info_tile.dart';
 import 'package:bananatalk_app/pages/profile/edit_main/sections/language_section.dart';
 import 'package:bananatalk_app/pages/profile/edit_main/sections/personal_section.dart';
+import 'package:bananatalk_app/pages/profile/profile_completion.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
@@ -97,7 +97,7 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
   void _onLearnLangChanged(String lang) =>
       setState(() => selectedLanguageToLearn = lang);
 
-  void _onLanguageLevelChanged(String level) =>
+  void _onLanguageLevelChanged(String? level) =>
       setState(() => selectedLanguageLevel = level);
 
   void _onMBTIChanged(String mbti) => setState(() => selectedMBTI = mbti);
@@ -139,18 +139,26 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
 
-    final completion = calculateProfileCompletion(
-      name: selectedName,
-      gender: selectedGender,
-      bio: selectedBio,
-      nativeLanguage: selectedNatLanguage,
-      languageToLearn: selectedLanguageToLearn,
-      languageLevel: selectedLanguageLevel,
-      mbti: selectedMBTI,
-      address: selectedAddress,
-      topics: selectedTopics,
-      intents: selectedIntents,
-    );
+    // Picture and birth year are not edited here; they come from the saved
+    // user. Everything else reflects this screen's current values.
+    const notSet = 'Not Set';
+    final saved = ref.watch(userProvider).valueOrNull ?? _cachedUser;
+    final completion = calculateProfileCompletion({
+      if (saved != null) ...profileCompletionFieldsOf(saved),
+      ProfileCompletionField.name: selectedName != notSet,
+      ProfileCompletionField.gender: selectedGender != notSet,
+      ProfileCompletionField.bio: selectedBio != notSet,
+      ProfileCompletionField.nativeLanguage: selectedNatLanguage != notSet,
+      ProfileCompletionField.learningLanguage:
+          selectedLanguageToLearn != notSet,
+      ProfileCompletionField.languageLevel: selectedLanguageLevel != null,
+      ProfileCompletionField.location: selectedAddress != notSet ||
+          widget.location.country.isNotEmpty ||
+          widget.location.city.isNotEmpty,
+      ProfileCompletionField.topics: selectedTopics.isNotEmpty,
+      ProfileCompletionField.mbti: selectedMBTI != notSet,
+      ProfileCompletionField.intents: selectedIntents.isNotEmpty,
+    });
 
     return Scaffold(
       backgroundColor: context.scaffoldBackground,

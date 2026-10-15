@@ -46,8 +46,18 @@ const Set<String> kDeviceLevelPrefsKeys = {
   'study_hub_enabled_last',
 };
 
+/// Key prefixes that survive a logout. Only for keys that carry the user id
+/// in the key itself, so a different account never reads them.
+const Set<String> kDeviceLevelPrefsPrefixes = {
+  // Announcement pop-ups seen, per user id (AnnouncementSeenStore): "once
+  // per user" must hold across a logout and re-login.
+  'announcements_seen_ids_',
+};
+
 /// True when [key] must survive a logout.
-bool isDeviceLevelPrefsKey(String key) => kDeviceLevelPrefsKeys.contains(key);
+bool isDeviceLevelPrefsKey(String key) =>
+    kDeviceLevelPrefsKeys.contains(key) ||
+    kDeviceLevelPrefsPrefixes.any(key.startsWith);
 
 /// Removes every user/session key from [prefs], keeping [kDeviceLevelPrefsKeys].
 Future<void> clearUserScopedPrefs(SharedPreferences prefs) async {

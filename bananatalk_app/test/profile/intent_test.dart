@@ -1,26 +1,18 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:bananatalk_app/pages/profile/edit/intent_edit.dart';
-import 'package:bananatalk_app/pages/profile/edit_main/completion_calculator.dart';
+import 'package:bananatalk_app/pages/profile/profile_completion.dart';
 
 ProfileCompletion _completion({List<String> intents = const []}) =>
-    calculateProfileCompletion(
-      name: 'Ana',
-      gender: 'female',
-      bio: 'hi',
-      nativeLanguage: 'Korean',
-      languageToLearn: 'English',
-      languageLevel: 'B1',
-      mbti: 'INTJ',
-      address: 'Seoul',
-      topics: const ['music'],
-      intents: intents,
-    );
+    calculateProfileCompletion({
+      for (final f in ProfileCompletionField.values) f: true,
+      ProfileCompletionField.intents: intents.isNotEmpty,
+    });
 
 void main() {
   test('intents count toward profile completion', () {
-    expect(_completion().totalFields, 10);
-    expect(_completion().completedFields, 9);
-    expect(_completion(intents: const ['learn']).completedFields, 10);
+    expect(_completion().totalFields, 12);
+    expect(_completion().completedFields, 11);
+    expect(_completion(intents: const ['learn']).completedFields, 12);
   });
 
   test('a fully filled profile with an intent reads 100%', () {

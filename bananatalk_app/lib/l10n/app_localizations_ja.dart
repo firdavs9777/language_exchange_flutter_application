@@ -4741,7 +4741,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get helpEmailSupport => 'メールサポート';
 
   @override
-  String get helpEmailSupportSubtitle => 'support@bananatalk.com';
+  String get helpEmailSupportSubtitle => 'support@banatalk.com';
 
   @override
   String get helpReportBug => 'バグを報告';

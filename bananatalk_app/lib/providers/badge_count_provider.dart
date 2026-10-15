@@ -4,6 +4,9 @@ import 'package:bananatalk_app/services/notification_api_client.dart';
 import 'package:bananatalk_app/services/notification_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+/// Every change also sets the iOS app icon badge to the unread-MESSAGE count,
+/// the same number the server sends as `aps.badge`, so the icon does not
+/// flip between "messages" (after a push) and "messages + notifications".
 class BadgeCountNotifier extends StateNotifier<BadgeCount> {
   final NotificationApiClient _apiClient = NotificationApiClient();
   final NotificationService _notificationService = NotificationService();
@@ -65,13 +68,13 @@ class BadgeCountNotifier extends StateNotifier<BadgeCount> {
       if (badgeCount != null) {
         state = badgeCount;
         // Update iOS badge
-        await _notificationService.updateBadgeCount(badgeCount.total);
+        await _notificationService.updateBadgeCount(badgeCount.messages);
       } else {
         // Fallback to regular getBadgeCount if sync fails
         final fallbackCount = await _apiClient.getBadgeCount();
         if (fallbackCount != null) {
           state = fallbackCount;
-          await _notificationService.updateBadgeCount(fallbackCount.total);
+          await _notificationService.updateBadgeCount(fallbackCount.messages);
         }
       }
 
@@ -102,7 +105,7 @@ class BadgeCountNotifier extends StateNotifier<BadgeCount> {
       }
 
       // Update iOS badge
-      await _notificationService.updateBadgeCount(state.total);
+      await _notificationService.updateBadgeCount(state.messages);
 
       // Update on backend
       final result = await _apiClient.resetBadge(type);
@@ -120,20 +123,20 @@ class BadgeCountNotifier extends StateNotifier<BadgeCount> {
   /// Increment messages badge (local update)
   void incrementMessages() {
     state = state.copyWith(messages: state.messages + 1);
-    _notificationService.updateBadgeCount(state.total);
+    _notificationService.updateBadgeCount(state.messages);
   }
 
   /// Increment notifications badge (local update)
   void incrementNotifications() {
     state = state.copyWith(notifications: state.notifications + 1);
-    _notificationService.updateBadgeCount(state.total);
+    _notificationService.updateBadgeCount(state.messages);
   }
 
   /// Decrement messages badge (local update)
   void decrementMessages() {
     if (state.messages > 0) {
       state = state.copyWith(messages: state.messages - 1);
-      _notificationService.updateBadgeCount(state.total);
+      _notificationService.updateBadgeCount(state.messages);
     }
   }
 
@@ -141,20 +144,20 @@ class BadgeCountNotifier extends StateNotifier<BadgeCount> {
   void decrementNotifications() {
     if (state.notifications > 0) {
       state = state.copyWith(notifications: state.notifications - 1);
-      _notificationService.updateBadgeCount(state.total);
+      _notificationService.updateBadgeCount(state.messages);
     }
   }
 
   /// Set notification count directly (for syncing with actual unread count)
   void setNotificationCount(int count) {
     state = state.copyWith(notifications: count);
-    _notificationService.updateBadgeCount(state.total);
+    _notificationService.updateBadgeCount(state.messages);
   }
 
   /// Update message badge count directly (for real-time updates)
   void updateMessageCount(int count) {
     state = state.copyWith(messages: count);
-    _notificationService.updateBadgeCount(state.total);
+    _notificationService.updateBadgeCount(state.messages);
   }
 
   /// Reset all badge counts (for logout)
