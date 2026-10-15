@@ -33,7 +33,7 @@ class _FakeCommunity implements CommunityService {
 Widget _app(CommunityService community, {TextDirection? dir}) =>
     ProviderScope(
       overrides: [
-        appConfigProvider.overrideWith((ref) async => AppConfig(
+        appConfigProvider.overrideWith((ref) async => const AppConfig(
               minVersion: '0.0.0',
               latestVersion: '0.0.0',
               forceUpdate: false,
