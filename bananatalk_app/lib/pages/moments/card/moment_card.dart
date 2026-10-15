@@ -344,9 +344,23 @@ class _MomentCardState extends ConsumerState<MomentCard> {
   /// "N comments" text) so they behave identically instead of two of them
   /// pushing the stale `widget.moments` snapshot directly.
   Future<void> _openMomentDetail() async {
-    final singleMoment = await ref
-        .read(momentsServiceProvider)
-        .getSingleMoment(id: widget.moments.id);
+    final Moments singleMoment;
+    try {
+      singleMoment = await ref
+          .read(momentsServiceProvider)
+          .getSingleMoment(id: widget.moments.id);
+    } catch (e) {
+      // Offline, or the moment is gone / no longer visible: the tap used to
+      // do nothing at all (an unhandled async error).
+      if (mounted) {
+        showMomentsSnackBar(
+          context,
+          message: friendlyErrorMessage(AppLocalizations.of(context)!, e),
+          type: MomentsSnackBarType.error,
+        );
+      }
+      return;
+    }
 
     ref.invalidate(commentsProvider(singleMoment.id));
 
