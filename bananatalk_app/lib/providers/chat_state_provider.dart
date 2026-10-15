@@ -607,6 +607,20 @@ class ChatStateNotifier extends StateNotifier<ChatState> with WidgetsBindingObse
     }
   }
 
+  /// Put a failed bubble back into the sending state so it can be resent in
+  /// place. Returns false when there is no failed bubble with [localId]
+  /// (already removed, or not failed), in which case the caller should send
+  /// a new message instead.
+  bool prepareRetry(String localId) {
+    final messages = List<Message>.from(state.messages);
+    final index = messages.indexWhere((m) => m.localId == localId);
+    if (index == -1 || !messages[index].isFailed) return false;
+    messages[index] =
+        messages[index].copyWithStatus(MessageSendingStatus.sending);
+    state = state.copyWith(messages: messages);
+    return true;
+  }
+
   /// Retry sending a failed message
   Future<Map<String, dynamic>> retrySendMessage(String localId) async {
     final message = state.messages.firstWhere(

@@ -278,41 +278,9 @@ Future<void> handleForwardMessage({
   }
 }
 
-// ---------------------------------------------------------------------------
-// handleRetryMessage
-// ---------------------------------------------------------------------------
-
-Future<void> handleRetryMessage({
-  required BuildContext context,
-  required WidgetRef ref,
-  required Message message,
-  required String chatPartnerId,
-  required String currentUserId,
-
-  /// Orchestrator's _sendMessage — signature mirrors the State method.
-  required Future<void> Function({String? messageText, String? messageType})
-  onSendMessage,
-}) async {
-  if (!context.mounted) return;
-
-  final messageText = message.message;
-  if (messageText == null || messageText.isEmpty) return;
-
-  final chatNotifier = ref.read(
-    chatStateProvider(
-      ChatProviderParams(
-        chatPartnerId: chatPartnerId,
-        currentUserId: currentUserId,
-      ),
-    ).notifier,
-  );
-
-  // Remove the failed message first
-  chatNotifier.removeMessageLocally(message.localId ?? message.id);
-
-  // Send again (only supports text retry for now)
-  await onSendMessage(messageText: messageText);
-}
+// Retrying a failed message lives in the screen (_retrySend): it resends the
+// failed bubble in place through the same limit-checked send path, which a
+// free function here cannot reach.
 
 // ---------------------------------------------------------------------------
 // handleDeleteFailedMessage

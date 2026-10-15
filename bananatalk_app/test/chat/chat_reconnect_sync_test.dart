@@ -287,4 +287,56 @@ void main() {
     expect(notifier.state.messages.map((m) => m.id), ['a']);
     expect(notifier.state.error, isEmpty);
   });
+
+  group('retry', () {
+    test('resends the same failed bubble instead of adding a new one',
+        () async {
+      final h = _Harness();
+      await h.init();
+      final localId = h.notifier.addOptimisticMessage(
+        message: '🙂',
+        currentUserId: _me,
+        receiverId: _partner,
+        type: 'sticker',
+      );
+      await h.notifier.sendMessage('🙂', localId: localId, messageType: 'sticker');
+      expect(h.notifier.state.messages.single.isFailed, isTrue);
+
+      expect(h.notifier.prepareRetry(localId), isTrue);
+      expect(h.notifier.state.messages, hasLength(1));
+      expect(
+        h.notifier.state.messages.single.sendingStatus,
+        MessageSendingStatus.sending,
+      );
+
+      h.manager.nextSendResult = {
+        'status': 'success',
+        'message': {
+          '_id': 'srv3',
+          'sender': {'_id': _me},
+          'receiver': {'_id': _partner},
+          'message': '🙂',
+          'messageType': 'sticker',
+          'createdAt': DateTime.utc(2026, 1, 1, 11).toIso8601String(),
+        },
+      };
+      await h.notifier.sendMessage('🙂', localId: localId, messageType: 'sticker');
+
+      expect(h.notifier.state.messages, hasLength(1));
+      expect(h.notifier.state.messages.single.id, 'srv3');
+      expect(h.notifier.state.messages.single.type, 'sticker');
+    });
+
+    test('refuses to retry a bubble that is not failed', () async {
+      final h = _Harness();
+      await h.init();
+      final localId = h.notifier.addOptimisticMessage(
+        message: 'x',
+        currentUserId: _me,
+        receiverId: _partner,
+      );
+      expect(h.notifier.prepareRetry(localId), isFalse);
+      expect(h.notifier.prepareRetry('missing'), isFalse);
+    });
+  });
 }
