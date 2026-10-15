@@ -62,7 +62,7 @@ void main() {
       }),
     ];
     await h.manager.reconcileCallKitOnColdStart();
-    expect(h.api.calls, ['accept:call-1']);
+    expect(h.api.calls, ['current', 'accept:call-1']);
     expect(h.opened, ['active:call-1']);
   });
 
@@ -94,10 +94,66 @@ void main() {
       }),
     ];
     await h.manager.reconcileCallKitOnColdStart();
-    expect(h.api.calls, ['accept:call-0', 'accept:call-1']);
+    expect(h.api.calls, ['current', 'accept:call-0', 'accept:call-1'], reason: 'current asked once');
     expect(h.opened, ['active:call-1']);
     expect(h.manager.currentCall!.callId, 'call-1');
     expect(h.manager.currentCall!.status, CallStatus.connecting);
+  });
+
+  group('cold start: reconcile then recover (as main.dart runs them)', () {
+    const acceptedEntry = CallKitEntry(uuid: '6F1C2B8E-3C1D-4A8E-9B7F-0A1B2C3D4E5F', accepted: true, extra: {
+      'callId': 'call-1', 'callUuid': kCallUuid, 'callerId': 'u-caller', 'callerName': 'Ada', 'callType': 'video',
+    });
+
+    CallApiResult serverCall(String status) => CallApiResult(ok: true, statusCode: 200, data: {
+          'call': {
+            'id': 'call-1', 'callUuid': kCallUuid, 'type': 'video', 'status': status, 'direction': 'in',
+            'otherParty': {'id': 'u-caller', 'name': 'Ada', 'avatar': null}, 'roomName': 'call:call-1',
+          },
+          if (status == 'active') ...{'token': 'tok-rejoin', 'url': 'wss://lk.test'},
+        });
+
+    Future<void> coldStart(CallHarness h) async {
+      await h.manager.reconcileCallKitOnColdStart();
+      await h.manager.recoverCallState();
+    }
+
+    test('a call answered here before the kill (active on the server) is rejoined, not re-accepted', () async {
+      final h = CallHarness();
+      h.platform.activeEntries = const [acceptedEntry];
+      h.api.currentResult = serverCall('active');
+      await coldStart(h);
+      expect(h.api.calls.where((c) => c.startsWith('accept')), isEmpty,
+          reason: 'accept from active is a 409 that would finish the call');
+      expect(h.liveKit.connectArgs.single, (type: CallType.video, camera: false));
+      expect(h.opened, ['active:call-1']);
+      expect(h.manager.currentCall!.callId, 'call-1');
+      expect(h.finishes, isEmpty);
+      expect(h.platform.log.where((l) => l.startsWith('endUi')), isEmpty,
+          reason: 'the native entry is the record that this device accepted it');
+    });
+
+    test('killed-state accept: an accepted entry still ringing on the server is accepted and joined', () async {
+      final h = CallHarness();
+      h.platform.activeEntries = const [acceptedEntry];
+      h.api.currentResult = serverCall('ringing');
+      await coldStart(h);
+      expect(h.api.calls.where((c) => c.startsWith('accept')), ['accept:call-1']);
+      expect(h.liveKit.connectArgs.single, (type: CallType.video, camera: true));
+      expect(h.opened, ['active:call-1']);
+      expect(h.manager.currentCall!.status, CallStatus.connecting);
+    });
+
+    test('a stale accepted entry (nothing live on the server) finishes cleanly, no rejoin', () async {
+      final h = CallHarness();
+      h.platform.activeEntries = const [acceptedEntry];
+      h.api.acceptResult = const CallApiResult(ok: false, statusCode: 409, errorCode: 'CALL_STATE');
+      await coldStart(h);
+      expect(h.finishes.single.reason, CallExitReason.acceptConflict);
+      expect(h.liveKits.expand((lk) => lk.connectArgs), isEmpty);
+      expect(h.opened, isEmpty);
+      expect(h.manager.currentCall, isNull);
+    });
   });
 
   group('one ring UI per call', () {
