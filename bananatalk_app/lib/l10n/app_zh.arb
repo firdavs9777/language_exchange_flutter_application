@@ -4413,5 +4413,6 @@
   "guideStudyHubCta": "开始今日学习包",
   "guideStudyHubSecondary": "查看全部功能",
   "supportBananaTalkRow": "支持 BananaTalk",
-  "supportBananaTalkRowSubtitle": "帮助独立开发者继续打磨产品"
+  "supportBananaTalkRowSubtitle": "帮助独立开发者继续打磨产品",
+  "momentAnsweringPrompt": "回答：{prompt}"
 }

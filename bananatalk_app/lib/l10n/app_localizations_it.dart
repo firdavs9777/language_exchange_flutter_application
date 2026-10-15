@@ -11352,4 +11352,9 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => 'Aiuta uno sviluppatore indipendente a continuare';
+
+  @override
+  String momentAnsweringPrompt(String prompt) {
+    return 'In risposta a: $prompt';
+  }
 }

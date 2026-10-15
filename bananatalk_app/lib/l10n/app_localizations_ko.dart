@@ -11333,4 +11333,9 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => '1인 개발자가 계속 만들 수 있도록 도와주세요';
+
+  @override
+  String momentAnsweringPrompt(String prompt) {
+    return '질문 답변: $prompt';
+  }
 }

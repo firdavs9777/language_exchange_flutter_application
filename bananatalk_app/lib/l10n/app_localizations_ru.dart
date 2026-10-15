@@ -11396,4 +11396,9 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => 'Помогите одному разработчику продолжать работу';
+
+  @override
+  String momentAnsweringPrompt(String prompt) {
+    return 'Ответ на: $prompt';
+  }
 }

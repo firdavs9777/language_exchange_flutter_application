@@ -4415,5 +4415,6 @@
   "guideStudyHubCta": "Começar o pacote de hoje",
   "guideStudyHubSecondary": "Ver todos os recursos",
   "supportBananaTalkRow": "Apoie o BananaTalk",
-  "supportBananaTalkRowSubtitle": "Ajude um desenvolvedor independente a continuar"
+  "supportBananaTalkRowSubtitle": "Ajude um desenvolvedor independente a continuar",
+  "momentAnsweringPrompt": "Respondendo: {prompt}"
 }

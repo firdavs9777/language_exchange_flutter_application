@@ -283,6 +283,16 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     }
   }
 
+  /// The prompt chip names the prompt being answered, so a reel (whose
+  /// caption is blank) still shows what it answers. Falls back to the
+  /// generic label when the prompt text was not passed in.
+  String _promptChipLabel(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final text = widget.prefillPrompt?.trim() ?? '';
+    if (text.isEmpty) return l10n.momentAnsweringPromptOfDay;
+    return l10n.momentAnsweringPrompt(text);
+  }
+
   /// Reverse-looks-up an ISO 639-1 code (e.g. `'ko'`) into `_languages`'
   /// display name (e.g. `'Korean'`), used to default the language dropdown
   /// in reel mode. Falls back to English if the code isn't in the list.
@@ -1795,12 +1805,13 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                 const SizedBox(width: 6),
                 Flexible(
                   child: Text(
-                    AppLocalizations.of(context)!.momentAnsweringPromptOfDay,
+                    _promptChipLabel(context),
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w600,
                       color: Color(0xFFC9A415),
                     ),
+                    maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),

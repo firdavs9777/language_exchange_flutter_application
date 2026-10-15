@@ -7311,5 +7311,14 @@
   "guideStudyHubCta": "Start today's pack",
   "guideStudyHubSecondary": "See all features",
   "supportBananaTalkRow": "Support BananaTalk",
-  "supportBananaTalkRowSubtitle": "Help a solo developer keep building"
+  "supportBananaTalkRowSubtitle": "Help a solo developer keep building",
+  "momentAnsweringPrompt": "Answering: {prompt}",
+  "@momentAnsweringPrompt": {
+    "description": "Label on a moment (composer chip, card, detail) that answers the prompt of the day; {prompt} is the prompt's emoji and text",
+    "placeholders": {
+      "prompt": {
+        "type": "String"
+      }
+    }
+  }
 }

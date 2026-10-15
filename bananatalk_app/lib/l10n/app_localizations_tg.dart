@@ -11353,4 +11353,9 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => 'Ба як барномасози танҳо барои идома додан кӯмак кунед';
+
+  @override
+  String momentAnsweringPrompt(String prompt) {
+    return 'Ҷавоб ба: $prompt';
+  }
 }

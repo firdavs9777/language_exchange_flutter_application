@@ -4415,5 +4415,6 @@
   "guideStudyHubCta": "आज का पैक शुरू करें",
   "guideStudyHubSecondary": "सभी फ़ीचर देखें",
   "supportBananaTalkRow": "BananaTalk का साथ दें",
-  "supportBananaTalkRowSubtitle": "एक अकेले डेवलपर को काम जारी रखने में मदद करें"
+  "supportBananaTalkRowSubtitle": "एक अकेले डेवलपर को काम जारी रखने में मदद करें",
+  "momentAnsweringPrompt": "जवाब: {prompt}"
 }

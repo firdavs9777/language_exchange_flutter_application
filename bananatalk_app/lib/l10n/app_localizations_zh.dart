@@ -11333,6 +11333,11 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => '帮助独立开发者继续打磨产品';
+
+  @override
+  String momentAnsweringPrompt(String prompt) {
+    return '回答：$prompt';
+  }
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -22664,4 +22669,9 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get supportBananaTalkRowSubtitle => '幫助獨立開發者持續打磨產品';
+
+  @override
+  String momentAnsweringPrompt(String prompt) {
+    return '回答：$prompt';
+  }
 }

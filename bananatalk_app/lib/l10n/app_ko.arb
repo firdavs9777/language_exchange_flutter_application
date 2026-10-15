@@ -4420,5 +4420,6 @@
   "guideStudyHubCta": "오늘의 팩 시작하기",
   "guideStudyHubSecondary": "모든 기능 보기",
   "supportBananaTalkRow": "BananaTalk 후원하기",
-  "supportBananaTalkRowSubtitle": "1인 개발자가 계속 만들 수 있도록 도와주세요"
+  "supportBananaTalkRowSubtitle": "1인 개발자가 계속 만들 수 있도록 도와주세요",
+  "momentAnsweringPrompt": "질문 답변: {prompt}"
 }

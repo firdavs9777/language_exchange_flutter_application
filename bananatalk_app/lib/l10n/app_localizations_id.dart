@@ -11344,4 +11344,9 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => 'Bantu pengembang tunggal terus berkarya';
+
+  @override
+  String momentAnsweringPrompt(String prompt) {
+    return 'Menjawab: $prompt';
+  }
 }

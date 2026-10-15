@@ -11407,4 +11407,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => 'ساعد مطوّرًا مستقلًا على مواصلة العمل';
+
+  @override
+  String momentAnsweringPrompt(String prompt) {
+    return 'إجابة على: $prompt';
+  }
 }

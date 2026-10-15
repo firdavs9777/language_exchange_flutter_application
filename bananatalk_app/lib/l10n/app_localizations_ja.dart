@@ -11333,4 +11333,9 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => '個人開発者の開発を支えてください';
+
+  @override
+  String momentAnsweringPrompt(String prompt) {
+    return 'お題への回答: $prompt';
+  }
 }

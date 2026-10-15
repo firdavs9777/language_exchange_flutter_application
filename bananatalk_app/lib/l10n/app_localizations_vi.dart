@@ -11333,4 +11333,9 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => 'Giúp một lập trình viên độc lập tiếp tục phát triển';
+
+  @override
+  String momentAnsweringPrompt(String prompt) {
+    return 'Trả lời: $prompt';
+  }
 }

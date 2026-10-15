@@ -4639,5 +4639,6 @@
   "guideStudyHubCta": "Démarrer le pack du jour",
   "guideStudyHubSecondary": "Voir toutes les fonctionnalités",
   "supportBananaTalkRow": "Soutenir BananaTalk",
-  "supportBananaTalkRowSubtitle": "Aidez un développeur indépendant à continuer"
+  "supportBananaTalkRowSubtitle": "Aidez un développeur indépendant à continuer",
+  "momentAnsweringPrompt": "En réponse à : {prompt}"
 }
