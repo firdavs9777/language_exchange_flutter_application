@@ -831,6 +831,7 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                   ),
                   CommentsMain(
                     id: widget.moment.id,
+                    momentOwnerId: widget.moment.user.id,
                     paginated: true,
                     onReply: (commentId, userName) {
                       setState(() {
