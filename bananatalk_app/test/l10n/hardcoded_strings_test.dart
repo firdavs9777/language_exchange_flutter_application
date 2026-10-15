@@ -502,6 +502,10 @@ const Map<String, List<String>> _keysByTask = {
     'restorePurchasesNothing',
     'restorePurchasesFailed',
   ],
+  // Chat reconnect 2026-10-15: rate-limited send fails at once.
+  'chat-reconnect': [
+    'chatSendTooFast',
+  ],
   // Auth batch 2026-10-15: the biometric sign-in switch in Settings.
   'auth-batch': [
     'biometricLoginSetting',
