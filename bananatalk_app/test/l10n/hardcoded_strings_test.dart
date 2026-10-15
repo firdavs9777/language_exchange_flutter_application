@@ -493,6 +493,13 @@ const Map<String, List<String>> _keysByTask = {
     'lookingGood',
     'almostThere',
   ],
+  // AI Study fix batch: the persona upgrade sheet's headlines.
+  'study-batch': [
+    'personaUpgradeNana',
+    'personaUpgradeSensei',
+    'personaUpgradeRiko',
+    'personaUpgradeGeneric',
+  ],
 };
 
 /// Files (under lib/) each task must leave with no English Text literal.
@@ -698,6 +705,9 @@ const Map<String, List<String>> _filesByTask = {
   ],
   'final-fix': [
     'pages/profile/profile_main/sections/profile_highlights_tab.dart',
+  ],
+  'study-batch': [
+    'widgets/tutor/persona_upgrade_sheet.dart',
   ],
 };
 
