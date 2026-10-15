@@ -11403,4 +11403,16 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get biometricLoginSettingDesc => 'Mostra \"Continua come\" nella schermata di accesso dopo il logout';
+
+  @override
+  String get personaUpgradeNana => 'Vuoi continuare a chattare con Nana? 🐻\nPassa a VIP per l\'uso illimitato.';
+
+  @override
+  String get personaUpgradeSensei => 'Continua il tuo allenamento con Sensei. 🤖\nPassa a VIP per esercitarti senza limiti.';
+
+  @override
+  String get personaUpgradeRiko => 'Riko si sta appena scaldando! 🐙\nPassa a VIP e andiamo avanti.';
+
+  @override
+  String get personaUpgradeGeneric => 'Vuoi continuare?\nPassa a VIP per lo studio IA illimitato.';
 }

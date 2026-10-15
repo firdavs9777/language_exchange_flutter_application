@@ -11384,6 +11384,18 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get biometricLoginSettingDesc => '退出登录后在登录页显示“以…身份继续”';
+
+  @override
+  String get personaUpgradeNana => '想继续和 Nana 聊天吗？🐻\n升级即可无限畅聊。';
+
+  @override
+  String get personaUpgradeSensei => '和 Sensei 继续训练吧。🤖\n升级即可不受限制地练习。';
+
+  @override
+  String get personaUpgradeRiko => 'Riko 才刚刚热身！🐙\n升级后我们继续。';
+
+  @override
+  String get personaUpgradeGeneric => '想继续吗？\n升级即可无限使用 AI 学习。';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -22766,4 +22778,16 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get biometricLoginSettingDesc => '登出後在登入畫面顯示「以…身分繼續」';
+
+  @override
+  String get personaUpgradeNana => '想繼續和 Nana 聊天嗎？🐻\n升級即可無限暢聊。';
+
+  @override
+  String get personaUpgradeSensei => '和 Sensei 繼續訓練吧。🤖\n升級即可不受限制地練習。';
+
+  @override
+  String get personaUpgradeRiko => 'Riko 才剛剛熱身！🐙\n升級後我們繼續。';
+
+  @override
+  String get personaUpgradeGeneric => '想繼續嗎？\n升級即可無限使用 AI 學習。';
 }

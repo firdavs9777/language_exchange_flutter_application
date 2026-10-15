@@ -4389,5 +4389,9 @@
   "callQualityGood": "Mahusay na kalidad",
   "callConnectionLost": "Nawala ang koneksyon",
   "biometricLoginSetting": "Mag-sign in gamit ang Face ID / fingerprint",
-  "biometricLoginSettingDesc": "Ipakita ang \"Magpatuloy bilang\" sa login screen pagkatapos mong mag-log out"
+  "biometricLoginSettingDesc": "Ipakita ang \"Magpatuloy bilang\" sa login screen pagkatapos mong mag-log out",
+  "personaUpgradeNana": "Gusto mo pa bang makipag-chat kay Nana? 🐻\nMag-upgrade para walang limitasyon.",
+  "personaUpgradeSensei": "Ituloy ang iyong pagsasanay kasama si Sensei. 🤖\nMag-upgrade para sa walang limitasyong pagsasanay.",
+  "personaUpgradeRiko": "Nag-iinit pa lang si Riko! 🐙\nMag-upgrade at ituloy natin.",
+  "personaUpgradeGeneric": "Gusto mo pang magpatuloy?\nMag-upgrade para sa walang limitasyong AI Study."
 }

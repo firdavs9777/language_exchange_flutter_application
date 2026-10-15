@@ -4416,5 +4416,9 @@
   "callQualityGood": "คุณภาพดี",
   "callConnectionLost": "การเชื่อมต่อขาดหาย",
   "biometricLoginSetting": "ลงชื่อเข้าใช้ด้วย Face ID / ลายนิ้วมือ",
-  "biometricLoginSettingDesc": "แสดง \"ดำเนินการต่อในชื่อ\" บนหน้าจอเข้าสู่ระบบหลังจากออกจากระบบ"
+  "biometricLoginSettingDesc": "แสดง \"ดำเนินการต่อในชื่อ\" บนหน้าจอเข้าสู่ระบบหลังจากออกจากระบบ",
+  "personaUpgradeNana": "อยากคุยกับนานะต่อไหม? 🐻\nอัปเกรดเพื่อใช้ได้ไม่จำกัด",
+  "personaUpgradeSensei": "ฝึกต่อกับเซนเซย์ 🤖\nอัปเกรดเพื่อฝึกได้ไม่จำกัด",
+  "personaUpgradeRiko": "ริโกะเพิ่งเริ่มวอร์มอัปเอง! 🐙\nอัปเกรดแล้วไปต่อกัน",
+  "personaUpgradeGeneric": "อยากไปต่อไหม?\nอัปเกรดเพื่อเรียนกับ AI ได้ไม่จำกัด"
 }

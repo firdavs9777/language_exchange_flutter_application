@@ -511,6 +511,13 @@ const Map<String, List<String>> _keysByTask = {
     'biometricLoginSetting',
     'biometricLoginSettingDesc',
   ],
+  // AI Study fix batch: the persona upgrade sheet's headlines.
+  'study-batch': [
+    'personaUpgradeNana',
+    'personaUpgradeSensei',
+    'personaUpgradeRiko',
+    'personaUpgradeGeneric',
+  ],
 };
 
 /// Files (under lib/) each task must leave with no English Text literal.
@@ -722,6 +729,9 @@ const Map<String, List<String>> _filesByTask = {
   ],
   'auth-batch': [
     'pages/profile/settings.dart',
+  ],
+  'study-batch': [
+    'widgets/tutor/persona_upgrade_sheet.dart',
   ],
 };
 

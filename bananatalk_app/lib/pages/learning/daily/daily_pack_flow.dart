@@ -83,6 +83,7 @@ class _DailyPackFlowState extends State<DailyPackFlow> {
     List<int> answers = const [],
     List<Map<String, dynamic>> reviews = const [],
     String text = '',
+    List<String>? answerWords,
   }) async {
     final result = widget.submit != null
         ? await widget.submit!(station, answers: answers, reviews: reviews, text: text)
@@ -91,6 +92,7 @@ class _DailyPackFlowState extends State<DailyPackFlow> {
             answers: answers,
             reviews: reviews,
             text: text,
+            answerWords: answerWords,
           );
     // completeStation throws on any failure, so reaching here is a success.
     // A station finished is a lesson done; idempotent after the first.
@@ -127,7 +129,7 @@ class _DailyPackFlowState extends State<DailyPackFlow> {
         return ListeningStation(
           payload: station.payload as ListeningPayload,
           language: widget.pack.language ?? 'en',
-          onSubmit: (a) => _submit('listening', answers: a),
+          onSubmit: (w, a) => _submit('listening', answers: a, answerWords: w),
           onDone: _advance,
         );
       case 'review':

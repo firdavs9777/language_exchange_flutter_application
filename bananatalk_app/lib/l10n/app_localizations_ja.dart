@@ -11384,4 +11384,16 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get biometricLoginSettingDesc => 'ログアウト後、ログイン画面に「〜として続行」を表示します';
+
+  @override
+  String get personaUpgradeNana => 'ナナともっと話したい？🐻\nアップグレードで無制限に。';
+
+  @override
+  String get personaUpgradeSensei => 'センセイとトレーニングを続けよう。🤖\nアップグレードで制限なく練習できます。';
+
+  @override
+  String get personaUpgradeRiko => 'リコはまだウォーミングアップ中！🐙\nアップグレードして続けよう。';
+
+  @override
+  String get personaUpgradeGeneric => 'もっと続けたい？\nアップグレードでAI学習が無制限に。';
 }

@@ -4656,5 +4656,9 @@
   "callQualityGood": "Buona qualità",
   "callConnectionLost": "Connessione persa",
   "biometricLoginSetting": "Accedi con Face ID / impronta",
-  "biometricLoginSettingDesc": "Mostra \"Continua come\" nella schermata di accesso dopo il logout"
+  "biometricLoginSettingDesc": "Mostra \"Continua come\" nella schermata di accesso dopo il logout",
+  "personaUpgradeNana": "Vuoi continuare a chattare con Nana? 🐻\nPassa a VIP per l'uso illimitato.",
+  "personaUpgradeSensei": "Continua il tuo allenamento con Sensei. 🤖\nPassa a VIP per esercitarti senza limiti.",
+  "personaUpgradeRiko": "Riko si sta appena scaldando! 🐙\nPassa a VIP e andiamo avanti.",
+  "personaUpgradeGeneric": "Vuoi continuare?\nPassa a VIP per lo studio IA illimitato."
 }

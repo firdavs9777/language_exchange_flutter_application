@@ -4430,5 +4430,9 @@
   "callQualityGood": "通话质量良好",
   "callConnectionLost": "连接已断开",
   "biometricLoginSetting": "使用面容 ID / 指纹登录",
-  "biometricLoginSettingDesc": "退出登录后在登录页显示“以…身份继续”"
+  "biometricLoginSettingDesc": "退出登录后在登录页显示“以…身份继续”",
+  "personaUpgradeNana": "想继续和 Nana 聊天吗？🐻\n升级即可无限畅聊。",
+  "personaUpgradeSensei": "和 Sensei 继续训练吧。🤖\n升级即可不受限制地练习。",
+  "personaUpgradeRiko": "Riko 才刚刚热身！🐙\n升级后我们继续。",
+  "personaUpgradeGeneric": "想继续吗？\n升级即可无限使用 AI 学习。"
 }

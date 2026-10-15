@@ -10,9 +10,9 @@ import 'package:bananatalk_app/widgets/coins/unlock_cta.dart';
 
 /// Persona-aware variant of VipUpgradeSheet. Copy matches the user's
 /// selected persona — falls back to generic if persona is unset.
-/// Fires paywall_shown on first build, paywall_cta_tapped on Upgrade.
+/// Fires paywall_shown once when shown, paywall_cta_tapped on Upgrade.
 /// Step 13A.
-class PersonaUpgradeSheet extends ConsumerWidget {
+class PersonaUpgradeSheet extends ConsumerStatefulWidget {
   final String triggerChip;
   final String reason; // 'quota_exceeded' | 'locked_feature'
 
@@ -22,27 +22,39 @@ class PersonaUpgradeSheet extends ConsumerWidget {
     this.reason = 'quota_exceeded',
   });
 
-  String _copyForPersona(String? persona) {
+  @override
+  ConsumerState<PersonaUpgradeSheet> createState() => _PersonaUpgradeSheetState();
+}
+
+class _PersonaUpgradeSheetState extends ConsumerState<PersonaUpgradeSheet> {
+  String get triggerChip => widget.triggerChip;
+
+  @override
+  void initState() {
+    super.initState();
+    // Once per showing. Firing from build counted every rebuild (memory
+    // loading, keyboard insets, catalog) as another paywall view.
+    AnalyticsService.instance
+        .paywallShown(triggerChip: widget.triggerChip, reason: widget.reason);
+  }
+
+  String _copyForPersona(AppLocalizations l10n, String? persona) {
     switch (persona) {
       case 'nana':
-        return "Want to keep chatting with Nana? 🐻\nUpgrade for unlimited.";
+        return l10n.personaUpgradeNana;
       case 'sensei':
-        return "Continue your training with Sensei. 🤖\nUpgrade for unrestricted practice.";
+        return l10n.personaUpgradeSensei;
       case 'riko':
-        return "Riko's just getting warmed up! 🐙\nUpgrade and let's keep going.";
+        return l10n.personaUpgradeRiko;
       default:
-        return "Want to keep going?\nUpgrade for unlimited AI Study.";
+        return l10n.personaUpgradeGeneric;
     }
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final memAsync = ref.watch(tutorMemoryProvider);
     final persona = memAsync.valueOrNull?.persona;
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      AnalyticsService.instance.paywallShown(triggerChip: triggerChip, reason: reason);
-    });
 
     return Container(
       decoration: const BoxDecoration(
@@ -64,7 +76,7 @@ class PersonaUpgradeSheet extends ConsumerWidget {
           ),
           const SizedBox(height: 20),
           Text(
-            _copyForPersona(persona),
+            _copyForPersona(AppLocalizations.of(context)!, persona),
             textAlign: TextAlign.center,
             style: const TextStyle(
               color: Colors.white,
@@ -109,7 +121,12 @@ class PersonaUpgradeSheet extends ConsumerWidget {
               // (main.dart) with no handle back to the chat screen that
               // triggered it, so there's no gated action to retry inline
               // here — closing the sheet lets the user tap the chip again.
-              onUnlocked: () => Navigator.pop(context),
+              // Refresh the quota so the chip's indicator shows the new uses
+              // instead of 0 until the next gated call.
+              onUnlocked: () {
+                ref.invalidate(tutorMemoryAndQuotasProvider);
+                Navigator.pop(context);
+              },
             ),
           ),
           const SizedBox(height: 8),

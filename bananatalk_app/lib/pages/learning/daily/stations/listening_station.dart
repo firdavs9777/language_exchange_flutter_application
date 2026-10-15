@@ -11,9 +11,15 @@ import 'package:bananatalk_app/pages/learning/daily/stations/station_scaffold.da
 /// tap: showing the sentence first would make this a reading exercise. If TTS
 /// is unavailable the text is still revealed, because a listening station that
 /// silently does nothing is worse than one that degrades to reading.
+///
+/// Answers are submitted as the chosen words: the server grades the word, so
+/// the option order on screen cannot make a right answer score as wrong.
+typedef SubmitListening = Future<StationResult> Function(
+    List<String> answerWords, List<int> answers);
+
 class ListeningStation extends StatefulWidget {
   final ListeningPayload payload;
-  final SubmitAnswers onSubmit;
+  final SubmitListening onSubmit;
   final VoidCallback onDone;
   final String language;
 
@@ -72,18 +78,31 @@ class _ListeningStationState extends State<ListeningStation> {
     }
   }
 
+  /// The server's options, or — from an older server — the clip word and the
+  /// sentence's first and last words, de-duplicated so no option repeats.
+  late final List<List<String>> _options = widget.payload.clips.map((c) {
+    if (c.options.isNotEmpty) return c.options;
+    final tokens = c.text.split(' ');
+    return {c.word, tokens.first, tokens.last}.toList()..shuffle();
+  }).toList();
+
+  Future<StationResult> _submit(List<int> answers) {
+    final words = List.generate(answers.length, (i) {
+      final a = answers[i];
+      return a >= 0 && a < _options[i].length ? _options[i][a] : '';
+    });
+    return widget.onSubmit(words, answers);
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     return CheckSequence(
-      checks: widget.payload.clips
-          .map((c) => PackCheck(
-                prompt: l10n.packListeningPrompt,
-                options: [c.word, c.text.split(' ').first, c.text.split(' ').last],
-              ))
+      checks: _options
+          .map((o) => PackCheck(prompt: l10n.packListeningPrompt, options: o))
           .toList(),
-      onSubmit: widget.onSubmit,
+      onSubmit: _submit,
       onDone: widget.onDone,
       header: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

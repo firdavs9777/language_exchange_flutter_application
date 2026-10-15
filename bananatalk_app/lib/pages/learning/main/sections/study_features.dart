@@ -12,7 +12,9 @@ enum StudyFeature {
   roleplay('roleplay', StudyGroup.talk, quotaKey: 'roleplay'),
   story('story', StudyGroup.talk, quotaKey: 'story'),
   photo('photo', StudyGroup.talk, quotaKey: 'photo'),
-  speak('speak', StudyGroup.practice, quotaKey: 'pronunciation'),
+  // No quotaKey: PronunciationScreen calls /speech/pronunciation/evaluate,
+  // which spends no tutor quota (only the tutor's pronunciation summary does).
+  speak('speak', StudyGroup.practice),
   review('review', StudyGroup.practice),
   writing('writing', StudyGroup.practice),
   quizzes('quizzes', StudyGroup.practice),

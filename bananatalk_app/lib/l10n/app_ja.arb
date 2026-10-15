@@ -4416,5 +4416,9 @@
   "callQualityGood": "通話品質：良好",
   "callConnectionLost": "接続が切れました",
   "biometricLoginSetting": "Face ID / 指紋でサインイン",
-  "biometricLoginSettingDesc": "ログアウト後、ログイン画面に「〜として続行」を表示します"
+  "biometricLoginSettingDesc": "ログアウト後、ログイン画面に「〜として続行」を表示します",
+  "personaUpgradeNana": "ナナともっと話したい？🐻\nアップグレードで無制限に。",
+  "personaUpgradeSensei": "センセイとトレーニングを続けよう。🤖\nアップグレードで制限なく練習できます。",
+  "personaUpgradeRiko": "リコはまだウォーミングアップ中！🐙\nアップグレードして続けよう。",
+  "personaUpgradeGeneric": "もっと続けたい？\nアップグレードでAI学習が無制限に。"
 }

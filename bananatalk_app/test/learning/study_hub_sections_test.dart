@@ -212,6 +212,13 @@ void main() {
       await t.tap(find.text('Full report'));
       expect(tapped, isTrue);
     });
+    testWidgets('Vocabulary packs are reachable whatever the target language', (t) async {
+      // The packs follow the learner's language server-side, but the only
+      // entry point used to be the English exam row.
+      await t.pumpWidget(app(SingleChildScrollView(
+          child: ProgressCard(progress: progress(), onFullReport: () {}))));
+      expect(find.byKey(const Key('progress-vocab-packs')), findsOneWidget);
+    });
     testWidgets('null progress: no overflow at 320 wide, scale 1.3', (t) async {
       await t.pumpWidget(app(
           SingleChildScrollView(child: ProgressCard(progress: null, onFullReport: () {})),

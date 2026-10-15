@@ -1489,6 +1489,7 @@ class LearningService {
     List<int> answers = const [],
     List<Map<String, dynamic>> reviews = const [],
     String text = '',
+    List<String>? answerWords,
   }) async {
     final token = await _getToken();
     final url =
@@ -1496,7 +1497,13 @@ class LearningService {
     final response = await http.post(
       url,
       headers: _getHeaders(token),
-      body: jsonEncode({'answers': answers, 'reviews': reviews, 'text': text}),
+      body: jsonEncode({
+        'answers': answers,
+        'reviews': reviews,
+        'text': text,
+        // Listening is graded on the word picked, not its position.
+        if (answerWords != null) 'answerWords': answerWords,
+      }),
     );
     final data = _safeJsonDecode(response.body);
     if (response.statusCode == 200 && data != null && data['data'] != null) {

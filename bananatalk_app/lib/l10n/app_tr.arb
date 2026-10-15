@@ -4628,5 +4628,9 @@
   "callQualityGood": "İyi kalite",
   "callConnectionLost": "Bağlantı kesildi",
   "biometricLoginSetting": "Face ID / parmak izi ile giriş yap",
-  "biometricLoginSettingDesc": "Çıkış yaptıktan sonra giriş ekranında \"Şu şekilde devam et\" seçeneğini göster"
+  "biometricLoginSettingDesc": "Çıkış yaptıktan sonra giriş ekranında \"Şu şekilde devam et\" seçeneğini göster",
+  "personaUpgradeNana": "Nana ile sohbete devam etmek ister misin? 🐻\nSınırsız kullanım için yükselt.",
+  "personaUpgradeSensei": "Sensei ile antrenmanına devam et. 🤖\nSınırsız pratik için yükselt.",
+  "personaUpgradeRiko": "Riko daha yeni ısınıyor! 🐙\nYükselt ve devam edelim.",
+  "personaUpgradeGeneric": "Devam etmek ister misin?\nSınırsız AI Çalışma için yükselt."
 }

@@ -11384,4 +11384,16 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get biometricLoginSettingDesc => 'Hiển thị \"Tiếp tục với tư cách\" trên màn hình đăng nhập sau khi đăng xuất';
+
+  @override
+  String get personaUpgradeNana => 'Muốn tiếp tục trò chuyện với Nana? 🐻\nNâng cấp để dùng không giới hạn.';
+
+  @override
+  String get personaUpgradeSensei => 'Tiếp tục luyện tập cùng Sensei. 🤖\nNâng cấp để luyện tập không giới hạn.';
+
+  @override
+  String get personaUpgradeRiko => 'Riko mới chỉ khởi động thôi! 🐙\nNâng cấp và cùng tiếp tục nhé.';
+
+  @override
+  String get personaUpgradeGeneric => 'Muốn tiếp tục?\nNâng cấp để học AI không giới hạn.';
 }

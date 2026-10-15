@@ -11458,4 +11458,16 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get biometricLoginSettingDesc => 'إظهار \"المتابعة باسم\" في شاشة تسجيل الدخول بعد تسجيل الخروج';
+
+  @override
+  String get personaUpgradeNana => 'هل تريد مواصلة الدردشة مع نانا؟ 🐻\nقم بالترقية للحصول على استخدام غير محدود.';
+
+  @override
+  String get personaUpgradeSensei => 'واصل تدريبك مع سينسي. 🤖\nقم بالترقية لممارسة بلا قيود.';
+
+  @override
+  String get personaUpgradeRiko => 'ريكو بدأ للتو! 🐙\nقم بالترقية ولنواصل.';
+
+  @override
+  String get personaUpgradeGeneric => 'هل تريد المتابعة؟\nقم بالترقية لدراسة غير محدودة بالذكاء الاصطناعي.';
 }

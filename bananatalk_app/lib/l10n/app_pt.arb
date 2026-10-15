@@ -4432,5 +4432,9 @@
   "callQualityGood": "Boa qualidade",
   "callConnectionLost": "Conexão perdida",
   "biometricLoginSetting": "Entrar com Face ID / impressão digital",
-  "biometricLoginSettingDesc": "Mostrar \"Continuar como\" na tela de login depois de sair"
+  "biometricLoginSettingDesc": "Mostrar \"Continuar como\" na tela de login depois de sair",
+  "personaUpgradeNana": "Quer continuar conversando com a Nana? 🐻\nFaça upgrade para uso ilimitado.",
+  "personaUpgradeSensei": "Continue seu treino com o Sensei. 🤖\nFaça upgrade para praticar sem limites.",
+  "personaUpgradeRiko": "O Riko está só se aquecendo! 🐙\nFaça upgrade e vamos continuar.",
+  "personaUpgradeGeneric": "Quer continuar?\nFaça upgrade para Estudo com IA ilimitado."
 }

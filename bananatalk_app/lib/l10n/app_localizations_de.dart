@@ -11403,4 +11403,16 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get biometricLoginSettingDesc => '„Weiter als“ nach dem Abmelden auf dem Anmeldebildschirm anzeigen';
+
+  @override
+  String get personaUpgradeNana => 'Möchtest du weiter mit Nana chatten? 🐻\nUpgrade für unbegrenzte Nutzung.';
+
+  @override
+  String get personaUpgradeSensei => 'Setze dein Training mit Sensei fort. 🤖\nUpgrade für uneingeschränktes Üben.';
+
+  @override
+  String get personaUpgradeRiko => 'Riko kommt gerade erst in Fahrt! 🐙\nUpgrade und lass uns weitermachen.';
+
+  @override
+  String get personaUpgradeGeneric => 'Möchtest du weitermachen?\nUpgrade für unbegrenztes KI-Lernen.';
 }

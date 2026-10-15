@@ -111,12 +111,24 @@ class ListeningClip {
   final String text;
   final String word;
 
-  const ListeningClip({required this.id, required this.text, required this.word});
+  /// Server-built answer options (distinct, shuffled). Empty from a server
+  /// older than the listening grading fix.
+  final List<String> options;
+
+  const ListeningClip({
+    required this.id,
+    required this.text,
+    required this.word,
+    this.options = const [],
+  });
 
   factory ListeningClip.fromJson(Map<String, dynamic> json) => ListeningClip(
         id: json['id'].toString(),
         text: json['text'] as String? ?? '',
         word: json['word'] as String? ?? '',
+        options: (json['options'] as List? ?? const [])
+            .map((e) => e.toString())
+            .toList(),
       );
 }
 

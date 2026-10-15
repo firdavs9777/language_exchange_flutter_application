@@ -4416,5 +4416,9 @@
   "callQualityGood": "Chất lượng tốt",
   "callConnectionLost": "Mất kết nối",
   "biometricLoginSetting": "Đăng nhập bằng Face ID / vân tay",
-  "biometricLoginSettingDesc": "Hiển thị \"Tiếp tục với tư cách\" trên màn hình đăng nhập sau khi đăng xuất"
+  "biometricLoginSettingDesc": "Hiển thị \"Tiếp tục với tư cách\" trên màn hình đăng nhập sau khi đăng xuất",
+  "personaUpgradeNana": "Muốn tiếp tục trò chuyện với Nana? 🐻\nNâng cấp để dùng không giới hạn.",
+  "personaUpgradeSensei": "Tiếp tục luyện tập cùng Sensei. 🤖\nNâng cấp để luyện tập không giới hạn.",
+  "personaUpgradeRiko": "Riko mới chỉ khởi động thôi! 🐙\nNâng cấp và cùng tiếp tục nhé.",
+  "personaUpgradeGeneric": "Muốn tiếp tục?\nNâng cấp để học AI không giới hạn."
 }

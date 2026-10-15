@@ -11403,4 +11403,16 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get biometricLoginSettingDesc => 'Mostrar \"Continuar como\" en la pantalla de inicio de sesión después de cerrar sesión';
+
+  @override
+  String get personaUpgradeNana => '¿Quieres seguir charlando con Nana? 🐻\nMejora para uso ilimitado.';
+
+  @override
+  String get personaUpgradeSensei => 'Continúa tu entrenamiento con Sensei. 🤖\nMejora para practicar sin límites.';
+
+  @override
+  String get personaUpgradeRiko => '¡Riko apenas está calentando! 🐙\nMejora y sigamos.';
+
+  @override
+  String get personaUpgradeGeneric => '¿Quieres continuar?\nMejora para estudiar con IA sin límites.';
 }

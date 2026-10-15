@@ -4656,5 +4656,9 @@
   "callQualityGood": "Gute Qualität",
   "callConnectionLost": "Verbindung verloren",
   "biometricLoginSetting": "Mit Face ID / Fingerabdruck anmelden",
-  "biometricLoginSettingDesc": "„Weiter als“ nach dem Abmelden auf dem Anmeldebildschirm anzeigen"
+  "biometricLoginSettingDesc": "„Weiter als“ nach dem Abmelden auf dem Anmeldebildschirm anzeigen",
+  "personaUpgradeNana": "Möchtest du weiter mit Nana chatten? 🐻\nUpgrade für unbegrenzte Nutzung.",
+  "personaUpgradeSensei": "Setze dein Training mit Sensei fort. 🤖\nUpgrade für uneingeschränktes Üben.",
+  "personaUpgradeRiko": "Riko kommt gerade erst in Fahrt! 🐙\nUpgrade und lass uns weitermachen.",
+  "personaUpgradeGeneric": "Möchtest du weitermachen?\nUpgrade für unbegrenztes KI-Lernen."
 }

@@ -4656,5 +4656,9 @@
   "callQualityGood": "Bonne qualité",
   "callConnectionLost": "Connexion perdue",
   "biometricLoginSetting": "Se connecter avec Face ID / empreinte",
-  "biometricLoginSettingDesc": "Afficher « Continuer en tant que » sur l’écran de connexion après la déconnexion"
+  "biometricLoginSettingDesc": "Afficher « Continuer en tant que » sur l’écran de connexion après la déconnexion",
+  "personaUpgradeNana": "Envie de continuer à discuter avec Nana ? 🐻\nPasse à la version supérieure pour un usage illimité.",
+  "personaUpgradeSensei": "Poursuis ton entraînement avec Sensei. 🤖\nPasse à la version supérieure pour pratiquer sans limite.",
+  "personaUpgradeRiko": "Riko ne fait que s'échauffer ! 🐙\nPasse à la version supérieure et continuons.",
+  "personaUpgradeGeneric": "Envie de continuer ?\nPasse à la version supérieure pour l'étude IA illimitée."
 }

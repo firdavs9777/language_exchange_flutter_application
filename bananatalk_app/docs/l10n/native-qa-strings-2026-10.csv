@@ -11438,3 +11438,219 @@ app,zh,biometricLoginSetting,Sign in with Face ID / fingerprint,使用面容 ID 
 app,zh,biometricLoginSettingDesc,"Show ""Continue as"" on the login screen after you log out",退出登录后在登录页显示“以…身份继续”,
 app,zh_TW,biometricLoginSetting,Sign in with Face ID / fingerprint,使用 Face ID / 指紋登入,
 app,zh_TW,biometricLoginSettingDesc,"Show ""Continue as"" on the login screen after you log out",登出後在登入畫面顯示「以…身分繼續」,
+app,ar,personaUpgradeNana,"Want to keep chatting with Nana? 🐻
+Upgrade for unlimited.","هل تريد مواصلة الدردشة مع نانا؟ 🐻
+قم بالترقية للحصول على استخدام غير محدود.",
+app,ar,personaUpgradeSensei,"Continue your training with Sensei. 🤖
+Upgrade for unrestricted practice.","واصل تدريبك مع سينسي. 🤖
+قم بالترقية لممارسة بلا قيود.",
+app,ar,personaUpgradeRiko,"Riko's just getting warmed up! 🐙
+Upgrade and let's keep going.","ريكو بدأ للتو! 🐙
+قم بالترقية ولنواصل.",
+app,ar,personaUpgradeGeneric,"Want to keep going?
+Upgrade for unlimited AI Study.","هل تريد المتابعة؟
+قم بالترقية لدراسة غير محدودة بالذكاء الاصطناعي.",
+app,de,personaUpgradeNana,"Want to keep chatting with Nana? 🐻
+Upgrade for unlimited.","Möchtest du weiter mit Nana chatten? 🐻
+Upgrade für unbegrenzte Nutzung.",
+app,de,personaUpgradeSensei,"Continue your training with Sensei. 🤖
+Upgrade for unrestricted practice.","Setze dein Training mit Sensei fort. 🤖
+Upgrade für uneingeschränktes Üben.",
+app,de,personaUpgradeRiko,"Riko's just getting warmed up! 🐙
+Upgrade and let's keep going.","Riko kommt gerade erst in Fahrt! 🐙
+Upgrade und lass uns weitermachen.",
+app,de,personaUpgradeGeneric,"Want to keep going?
+Upgrade for unlimited AI Study.","Möchtest du weitermachen?
+Upgrade für unbegrenztes KI-Lernen.",
+app,es,personaUpgradeNana,"Want to keep chatting with Nana? 🐻
+Upgrade for unlimited.","¿Quieres seguir charlando con Nana? 🐻
+Mejora para uso ilimitado.",
+app,es,personaUpgradeSensei,"Continue your training with Sensei. 🤖
+Upgrade for unrestricted practice.","Continúa tu entrenamiento con Sensei. 🤖
+Mejora para practicar sin límites.",
+app,es,personaUpgradeRiko,"Riko's just getting warmed up! 🐙
+Upgrade and let's keep going.","¡Riko apenas está calentando! 🐙
+Mejora y sigamos.",
+app,es,personaUpgradeGeneric,"Want to keep going?
+Upgrade for unlimited AI Study.","¿Quieres continuar?
+Mejora para estudiar con IA sin límites.",
+app,fr,personaUpgradeNana,"Want to keep chatting with Nana? 🐻
+Upgrade for unlimited.","Envie de continuer à discuter avec Nana ? 🐻
+Passe à la version supérieure pour un usage illimité.",
+app,fr,personaUpgradeSensei,"Continue your training with Sensei. 🤖
+Upgrade for unrestricted practice.","Poursuis ton entraînement avec Sensei. 🤖
+Passe à la version supérieure pour pratiquer sans limite.",
+app,fr,personaUpgradeRiko,"Riko's just getting warmed up! 🐙
+Upgrade and let's keep going.","Riko ne fait que s'échauffer ! 🐙
+Passe à la version supérieure et continuons.",
+app,fr,personaUpgradeGeneric,"Want to keep going?
+Upgrade for unlimited AI Study.","Envie de continuer ?
+Passe à la version supérieure pour l'étude IA illimitée.",
+app,hi,personaUpgradeNana,"Want to keep chatting with Nana? 🐻
+Upgrade for unlimited.","नाना से बात करते रहना चाहते हैं? 🐻
+असीमित के लिए अपग्रेड करें।",
+app,hi,personaUpgradeSensei,"Continue your training with Sensei. 🤖
+Upgrade for unrestricted practice.","सेंसेई के साथ अपना प्रशिक्षण जारी रखें। 🤖
+बिना रोक-टोक अभ्यास के लिए अपग्रेड करें।",
+app,hi,personaUpgradeRiko,"Riko's just getting warmed up! 🐙
+Upgrade and let's keep going.","रिको तो अभी शुरू ही हुआ है! 🐙
+अपग्रेड करें और आगे बढ़ते रहें।",
+app,hi,personaUpgradeGeneric,"Want to keep going?
+Upgrade for unlimited AI Study.","जारी रखना चाहते हैं?
+असीमित AI अध्ययन के लिए अपग्रेड करें।",
+app,id,personaUpgradeNana,"Want to keep chatting with Nana? 🐻
+Upgrade for unlimited.","Mau terus mengobrol dengan Nana? 🐻
+Upgrade untuk tanpa batas.",
+app,id,personaUpgradeSensei,"Continue your training with Sensei. 🤖
+Upgrade for unrestricted practice.","Lanjutkan latihanmu dengan Sensei. 🤖
+Upgrade untuk latihan tanpa batas.",
+app,id,personaUpgradeRiko,"Riko's just getting warmed up! 🐙
+Upgrade and let's keep going.","Riko baru saja pemanasan! 🐙
+Upgrade dan ayo lanjut.",
+app,id,personaUpgradeGeneric,"Want to keep going?
+Upgrade for unlimited AI Study.","Mau lanjut?
+Upgrade untuk Belajar AI tanpa batas.",
+app,it,personaUpgradeNana,"Want to keep chatting with Nana? 🐻
+Upgrade for unlimited.","Vuoi continuare a chattare con Nana? 🐻
+Passa a VIP per l'uso illimitato.",
+app,it,personaUpgradeSensei,"Continue your training with Sensei. 🤖
+Upgrade for unrestricted practice.","Continua il tuo allenamento con Sensei. 🤖
+Passa a VIP per esercitarti senza limiti.",
+app,it,personaUpgradeRiko,"Riko's just getting warmed up! 🐙
+Upgrade and let's keep going.","Riko si sta appena scaldando! 🐙
+Passa a VIP e andiamo avanti.",
+app,it,personaUpgradeGeneric,"Want to keep going?
+Upgrade for unlimited AI Study.","Vuoi continuare?
+Passa a VIP per lo studio IA illimitato.",
+app,ja,personaUpgradeNana,"Want to keep chatting with Nana? 🐻
+Upgrade for unlimited.","ナナともっと話したい？🐻
+アップグレードで無制限に。",
+app,ja,personaUpgradeSensei,"Continue your training with Sensei. 🤖
+Upgrade for unrestricted practice.","センセイとトレーニングを続けよう。🤖
+アップグレードで制限なく練習できます。",
+app,ja,personaUpgradeRiko,"Riko's just getting warmed up! 🐙
+Upgrade and let's keep going.","リコはまだウォーミングアップ中！🐙
+アップグレードして続けよう。",
+app,ja,personaUpgradeGeneric,"Want to keep going?
+Upgrade for unlimited AI Study.","もっと続けたい？
+アップグレードでAI学習が無制限に。",
+app,ko,personaUpgradeNana,"Want to keep chatting with Nana? 🐻
+Upgrade for unlimited.","나나와 계속 대화하고 싶나요? 🐻
+업그레이드하면 무제한이에요.",
+app,ko,personaUpgradeSensei,"Continue your training with Sensei. 🤖
+Upgrade for unrestricted practice.","센세이와 훈련을 계속하세요. 🤖
+업그레이드하면 제한 없이 연습할 수 있어요.",
+app,ko,personaUpgradeRiko,"Riko's just getting warmed up! 🐙
+Upgrade and let's keep going.","리코는 이제 막 몸을 풀었어요! 🐙
+업그레이드하고 계속해요.",
+app,ko,personaUpgradeGeneric,"Want to keep going?
+Upgrade for unlimited AI Study.","계속하고 싶나요?
+업그레이드하면 AI 학습이 무제한이에요.",
+app,pt,personaUpgradeNana,"Want to keep chatting with Nana? 🐻
+Upgrade for unlimited.","Quer continuar conversando com a Nana? 🐻
+Faça upgrade para uso ilimitado.",
+app,pt,personaUpgradeSensei,"Continue your training with Sensei. 🤖
+Upgrade for unrestricted practice.","Continue seu treino com o Sensei. 🤖
+Faça upgrade para praticar sem limites.",
+app,pt,personaUpgradeRiko,"Riko's just getting warmed up! 🐙
+Upgrade and let's keep going.","O Riko está só se aquecendo! 🐙
+Faça upgrade e vamos continuar.",
+app,pt,personaUpgradeGeneric,"Want to keep going?
+Upgrade for unlimited AI Study.","Quer continuar?
+Faça upgrade para Estudo com IA ilimitado.",
+app,ru,personaUpgradeNana,"Want to keep chatting with Nana? 🐻
+Upgrade for unlimited.","Хотите продолжить общение с Наной? 🐻
+Оформите подписку для безлимита.",
+app,ru,personaUpgradeSensei,"Continue your training with Sensei. 🤖
+Upgrade for unrestricted practice.","Продолжайте тренировку с Сенсеем. 🤖
+Оформите подписку для практики без ограничений.",
+app,ru,personaUpgradeRiko,"Riko's just getting warmed up! 🐙
+Upgrade and let's keep going.","Рико только разогревается! 🐙
+Оформите подписку и продолжим.",
+app,ru,personaUpgradeGeneric,"Want to keep going?
+Upgrade for unlimited AI Study.","Хотите продолжить?
+Оформите подписку для безлимитного ИИ-обучения.",
+app,tg,personaUpgradeNana,"Want to keep chatting with Nana? 🐻
+Upgrade for unlimited.","Мехоҳед бо Нана сӯҳбатро идома диҳед? 🐻
+Барои истифодаи беҳудуд навсозӣ кунед.",
+app,tg,personaUpgradeSensei,"Continue your training with Sensei. 🤖
+Upgrade for unrestricted practice.","Машқи худро бо Сенсей идома диҳед. 🤖
+Барои машқи бемаҳдуд навсозӣ кунед.",
+app,tg,personaUpgradeRiko,"Riko's just getting warmed up! 🐙
+Upgrade and let's keep going.","Рико навакак гарм шуда истодааст! 🐙
+Навсозӣ кунед ва идома диҳем.",
+app,tg,personaUpgradeGeneric,"Want to keep going?
+Upgrade for unlimited AI Study.","Мехоҳед идома диҳед?
+Барои Омӯзиши AI-и беҳудуд навсозӣ кунед.",
+app,th,personaUpgradeNana,"Want to keep chatting with Nana? 🐻
+Upgrade for unlimited.","อยากคุยกับนานะต่อไหม? 🐻
+อัปเกรดเพื่อใช้ได้ไม่จำกัด",
+app,th,personaUpgradeSensei,"Continue your training with Sensei. 🤖
+Upgrade for unrestricted practice.","ฝึกต่อกับเซนเซย์ 🤖
+อัปเกรดเพื่อฝึกได้ไม่จำกัด",
+app,th,personaUpgradeRiko,"Riko's just getting warmed up! 🐙
+Upgrade and let's keep going.","ริโกะเพิ่งเริ่มวอร์มอัปเอง! 🐙
+อัปเกรดแล้วไปต่อกัน",
+app,th,personaUpgradeGeneric,"Want to keep going?
+Upgrade for unlimited AI Study.","อยากไปต่อไหม?
+อัปเกรดเพื่อเรียนกับ AI ได้ไม่จำกัด",
+app,tl,personaUpgradeNana,"Want to keep chatting with Nana? 🐻
+Upgrade for unlimited.","Gusto mo pa bang makipag-chat kay Nana? 🐻
+Mag-upgrade para walang limitasyon.",
+app,tl,personaUpgradeSensei,"Continue your training with Sensei. 🤖
+Upgrade for unrestricted practice.","Ituloy ang iyong pagsasanay kasama si Sensei. 🤖
+Mag-upgrade para sa walang limitasyong pagsasanay.",
+app,tl,personaUpgradeRiko,"Riko's just getting warmed up! 🐙
+Upgrade and let's keep going.","Nag-iinit pa lang si Riko! 🐙
+Mag-upgrade at ituloy natin.",
+app,tl,personaUpgradeGeneric,"Want to keep going?
+Upgrade for unlimited AI Study.","Gusto mo pang magpatuloy?
+Mag-upgrade para sa walang limitasyong AI Study.",
+app,tr,personaUpgradeNana,"Want to keep chatting with Nana? 🐻
+Upgrade for unlimited.","Nana ile sohbete devam etmek ister misin? 🐻
+Sınırsız kullanım için yükselt.",
+app,tr,personaUpgradeSensei,"Continue your training with Sensei. 🤖
+Upgrade for unrestricted practice.","Sensei ile antrenmanına devam et. 🤖
+Sınırsız pratik için yükselt.",
+app,tr,personaUpgradeRiko,"Riko's just getting warmed up! 🐙
+Upgrade and let's keep going.","Riko daha yeni ısınıyor! 🐙
+Yükselt ve devam edelim.",
+app,tr,personaUpgradeGeneric,"Want to keep going?
+Upgrade for unlimited AI Study.","Devam etmek ister misin?
+Sınırsız AI Çalışma için yükselt.",
+app,vi,personaUpgradeNana,"Want to keep chatting with Nana? 🐻
+Upgrade for unlimited.","Muốn tiếp tục trò chuyện với Nana? 🐻
+Nâng cấp để dùng không giới hạn.",
+app,vi,personaUpgradeSensei,"Continue your training with Sensei. 🤖
+Upgrade for unrestricted practice.","Tiếp tục luyện tập cùng Sensei. 🤖
+Nâng cấp để luyện tập không giới hạn.",
+app,vi,personaUpgradeRiko,"Riko's just getting warmed up! 🐙
+Upgrade and let's keep going.","Riko mới chỉ khởi động thôi! 🐙
+Nâng cấp và cùng tiếp tục nhé.",
+app,vi,personaUpgradeGeneric,"Want to keep going?
+Upgrade for unlimited AI Study.","Muốn tiếp tục?
+Nâng cấp để học AI không giới hạn.",
+app,zh,personaUpgradeNana,"Want to keep chatting with Nana? 🐻
+Upgrade for unlimited.","想继续和 Nana 聊天吗？🐻
+升级即可无限畅聊。",
+app,zh,personaUpgradeSensei,"Continue your training with Sensei. 🤖
+Upgrade for unrestricted practice.","和 Sensei 继续训练吧。🤖
+升级即可不受限制地练习。",
+app,zh,personaUpgradeRiko,"Riko's just getting warmed up! 🐙
+Upgrade and let's keep going.","Riko 才刚刚热身！🐙
+升级后我们继续。",
+app,zh,personaUpgradeGeneric,"Want to keep going?
+Upgrade for unlimited AI Study.","想继续吗？
+升级即可无限使用 AI 学习。",
+app,zh_TW,personaUpgradeNana,"Want to keep chatting with Nana? 🐻
+Upgrade for unlimited.","想繼續和 Nana 聊天嗎？🐻
+升級即可無限暢聊。",
+app,zh_TW,personaUpgradeSensei,"Continue your training with Sensei. 🤖
+Upgrade for unrestricted practice.","和 Sensei 繼續訓練吧。🤖
+升級即可不受限制地練習。",
+app,zh_TW,personaUpgradeRiko,"Riko's just getting warmed up! 🐙
+Upgrade and let's keep going.","Riko 才剛剛熱身！🐙
+升級後我們繼續。",
+app,zh_TW,personaUpgradeGeneric,"Want to keep going?
+Upgrade for unlimited AI Study.","想繼續嗎？
+升級即可無限使用 AI 學習。",

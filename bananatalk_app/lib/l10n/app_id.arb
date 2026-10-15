@@ -4416,5 +4416,9 @@
   "callQualityGood": "Kualitas baik",
   "callConnectionLost": "Koneksi terputus",
   "biometricLoginSetting": "Masuk dengan Face ID / sidik jari",
-  "biometricLoginSettingDesc": "Tampilkan \"Lanjutkan sebagai\" di layar masuk setelah Anda keluar"
+  "biometricLoginSettingDesc": "Tampilkan \"Lanjutkan sebagai\" di layar masuk setelah Anda keluar",
+  "personaUpgradeNana": "Mau terus mengobrol dengan Nana? 🐻\nUpgrade untuk tanpa batas.",
+  "personaUpgradeSensei": "Lanjutkan latihanmu dengan Sensei. 🤖\nUpgrade untuk latihan tanpa batas.",
+  "personaUpgradeRiko": "Riko baru saja pemanasan! 🐙\nUpgrade dan ayo lanjut.",
+  "personaUpgradeGeneric": "Mau lanjut?\nUpgrade untuk Belajar AI tanpa batas."
 }

@@ -4432,5 +4432,9 @@
   "callQualityGood": "अच्छी गुणवत्ता",
   "callConnectionLost": "कनेक्शन टूट गया",
   "biometricLoginSetting": "Face ID / फ़िंगरप्रिंट से साइन इन करें",
-  "biometricLoginSettingDesc": "लॉग आउट के बाद लॉगिन स्क्रीन पर \"इस रूप में जारी रखें\" दिखाएँ"
+  "biometricLoginSettingDesc": "लॉग आउट के बाद लॉगिन स्क्रीन पर \"इस रूप में जारी रखें\" दिखाएँ",
+  "personaUpgradeNana": "नाना से बात करते रहना चाहते हैं? 🐻\nअसीमित के लिए अपग्रेड करें।",
+  "personaUpgradeSensei": "सेंसेई के साथ अपना प्रशिक्षण जारी रखें। 🤖\nबिना रोक-टोक अभ्यास के लिए अपग्रेड करें।",
+  "personaUpgradeRiko": "रिको तो अभी शुरू ही हुआ है! 🐙\nअपग्रेड करें और आगे बढ़ते रहें।",
+  "personaUpgradeGeneric": "जारी रखना चाहते हैं?\nअसीमित AI अध्ययन के लिए अपग्रेड करें।"
 }

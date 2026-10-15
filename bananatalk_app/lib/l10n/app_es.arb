@@ -4446,5 +4446,9 @@
   "callQualityGood": "Buena calidad",
   "callConnectionLost": "Conexión perdida",
   "biometricLoginSetting": "Iniciar sesión con Face ID / huella",
-  "biometricLoginSettingDesc": "Mostrar \"Continuar como\" en la pantalla de inicio de sesión después de cerrar sesión"
+  "biometricLoginSettingDesc": "Mostrar \"Continuar como\" en la pantalla de inicio de sesión después de cerrar sesión",
+  "personaUpgradeNana": "¿Quieres seguir charlando con Nana? 🐻\nMejora para uso ilimitado.",
+  "personaUpgradeSensei": "Continúa tu entrenamiento con Sensei. 🤖\nMejora para practicar sin límites.",
+  "personaUpgradeRiko": "¡Riko apenas está calentando! 🐙\nMejora y sigamos.",
+  "personaUpgradeGeneric": "¿Quieres continuar?\nMejora para estudiar con IA sin límites."
 }

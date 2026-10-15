@@ -11384,4 +11384,16 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get biometricLoginSettingDesc => '로그아웃 후 로그인 화면에 \"~(으)로 계속\"을 표시합니다';
+
+  @override
+  String get personaUpgradeNana => '나나와 계속 대화하고 싶나요? 🐻\n업그레이드하면 무제한이에요.';
+
+  @override
+  String get personaUpgradeSensei => '센세이와 훈련을 계속하세요. 🤖\n업그레이드하면 제한 없이 연습할 수 있어요.';
+
+  @override
+  String get personaUpgradeRiko => '리코는 이제 막 몸을 풀었어요! 🐙\n업그레이드하고 계속해요.';
+
+  @override
+  String get personaUpgradeGeneric => '계속하고 싶나요?\n업그레이드하면 AI 학습이 무제한이에요.';
 }

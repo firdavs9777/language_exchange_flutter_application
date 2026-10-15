@@ -4107,5 +4107,9 @@
   "callQualityGood": "通話品質良好",
   "callConnectionLost": "連線已中斷",
   "biometricLoginSetting": "使用 Face ID / 指紋登入",
-  "biometricLoginSettingDesc": "登出後在登入畫面顯示「以…身分繼續」"
+  "biometricLoginSettingDesc": "登出後在登入畫面顯示「以…身分繼續」",
+  "personaUpgradeNana": "想繼續和 Nana 聊天嗎？🐻\n升級即可無限暢聊。",
+  "personaUpgradeSensei": "和 Sensei 繼續訓練吧。🤖\n升級即可不受限制地練習。",
+  "personaUpgradeRiko": "Riko 才剛剛熱身！🐙\n升級後我們繼續。",
+  "personaUpgradeGeneric": "想繼續嗎？\n升級即可無限使用 AI 學習。"
 }
