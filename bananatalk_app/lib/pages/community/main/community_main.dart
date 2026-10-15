@@ -160,6 +160,16 @@ const int communityMatchesSubTab = 0;
 /// `length - 1`, which is Waves in all four layouts.
 const int communityWavesSubTab = 99;
 
+/// Where the app bar's "N live" pill goes. It counts live ad-hoc voice
+/// rooms, but with gatherings on, slot 2 is the Gatherings tab (which lists
+/// none) and `VoiceRoomsTab` is not in the strip at all.
+enum LiveRoomsPillTarget { voiceRoomsTab, voiceRoomsScreen }
+
+LiveRoomsPillTarget liveRoomsPillTarget({required bool gatheringsEnabled}) =>
+    gatheringsEnabled
+        ? LiveRoomsPillTarget.voiceRoomsScreen
+        : LiveRoomsPillTarget.voiceRoomsTab;
+
 /// Where a freshly registered user lands. With the Matches layout on, the
 /// Community tab (top-level index 1) whose first sub-tab is Matches; otherwise
 /// exactly today's `/home`.
@@ -494,9 +504,7 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
         isSearching: _isSearching,
         onSearchToggle: _toggleSearch,
         onFilterTap: _openFilters,
-        // Voice Rooms / Gatherings is index 2 in both layouts (after
-        // All+Gender legacy, or Matches+Partners new).
-        onLiveRoomsTap: () => _tabController.animateTo(2),
+        onLiveRoomsTap: () => _openLiveRooms(gatheringsEnabled),
         matchesLayout: matchesLayout,
       ),
       body: Column(
@@ -592,6 +600,27 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
         ],
       ),
     );
+  }
+
+  void _openLiveRooms(bool gatheringsEnabled) {
+    switch (liveRoomsPillTarget(gatheringsEnabled: gatheringsEnabled)) {
+      case LiveRoomsPillTarget.voiceRoomsTab:
+        // Voice Rooms is index 2 in both layouts (after All+Gender legacy,
+        // or Matches+Partners new) when gatherings are off.
+        _tabController.animateTo(communityVoiceRoomsSubTab);
+      case LiveRoomsPillTarget.voiceRoomsScreen:
+        Navigator.push(
+          context,
+          AppPageRoute<void>(
+            builder: (context) => Scaffold(
+              appBar: AppBar(
+                title: Text(AppLocalizations.of(context)!.voiceRooms),
+              ),
+              body: const VoiceRoomsTab(),
+            ),
+          ),
+        );
+    }
   }
 
   Widget _buildSearchBar(ColorScheme colorScheme) {

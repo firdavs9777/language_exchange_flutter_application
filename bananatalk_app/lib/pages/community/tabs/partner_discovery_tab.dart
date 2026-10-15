@@ -11,7 +11,6 @@ import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/block_provider.dart';
-import 'package:bananatalk_app/providers/provider_root/message_provider.dart';
 import 'package:bananatalk_app/services/interaction_service.dart';
 import 'package:bananatalk_app/widgets/community/partner_card.dart';
 import 'package:bananatalk_app/widgets/community/partner_list_item.dart';
@@ -27,6 +26,7 @@ import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/community/widgets/community_filter_chip.dart';
 import 'package:bananatalk_app/pages/community/widgets/visitor_recall_card.dart';
 import 'package:bananatalk_app/pages/community/widgets/partner_segment_chips.dart';
+import 'package:bananatalk_app/pages/community/widgets/send_wave_sheet.dart';
 
 /// View mode for partner discovery
 enum PartnerViewMode { list, swipe }
@@ -261,16 +261,6 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
     }).toList();
   }
 
-  /// Send wave sticker message in background (fire and forget).
-  Future<void> _sendWaveSticker(String receiverId) async {
-    try {
-      final messageService = ref.read(messageServiceProvider);
-      await messageService.sendMessage(receiver: receiverId, message: '👋');
-    } catch (_) {
-      // Non-fatal: wave still recorded server-side via waveUser.
-    }
-  }
-
   void _navigateToChat(Community community) {
     Navigator.push(
       context,
@@ -285,24 +275,37 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
     );
   }
 
+  /// Same flow as every other surface: the send-wave sheet posts to
+  /// `community/wave` (Waves inbox entry, wave cap, one wave per pair) and
+  /// shows the sent / mutual-wave feedback itself.
+  void _showWaveSheet(Community community, {VoidCallback? onSent}) {
+    showSendWaveSheet(
+      context,
+      targetUserId: community.id,
+      targetUserName: community.name,
+      targetUserCountry: community.location.country.isNotEmpty
+          ? community.location.country
+          : null,
+      onSent: onSent,
+    );
+  }
+
   void _onWaveFromButton(Community community) {
     HapticFeedback.mediumImpact();
-    _sessionWavedUsers.add(community.id);
-    InteractionService.waveUser(community.id);
-    _navigateToChat(community);
-    _sendWaveSticker(community.id);
+    _showWaveSheet(
+      community,
+      onSent: () {
+        if (mounted) setState(() => _sessionWavedUsers.add(community.id));
+      },
+    );
   }
 
   void _onWaveFromSwipe(Community community) {
     HapticFeedback.mediumImpact();
+    // The Dismissible is gone, so the card has to leave the deck now.
     _sessionWavedUsers.add(community.id);
-    InteractionService.waveUser(community.id);
     setState(() => _isProcessingSwipe = false);
-
-    Future.delayed(const Duration(milliseconds: 150), () {
-      if (mounted) _navigateToChat(community);
-    });
-    _sendWaveSticker(community.id);
+    _showWaveSheet(community);
   }
 
   void _onMessage(Community community) => _navigateToChat(community);
