@@ -727,6 +727,9 @@ const Map<String, List<String>> _filesByTask = {
   'restore-purchases': [
     'widgets/restore_purchases_button.dart',
   ],
+  'chat-reconnect': [
+    'pages/chat/conversation/chat_conversation_screen.dart',
+  ],
   'auth-batch': [
     'pages/profile/settings.dart',
   ],
