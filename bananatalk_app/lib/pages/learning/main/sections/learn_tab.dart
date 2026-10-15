@@ -25,6 +25,8 @@ import 'package:bananatalk_app/models/learning/daily_pack_model.dart';
 import 'package:bananatalk_app/providers/provider_root/learning/daily_pack_providers.dart';
 import 'package:bananatalk_app/services/learning_service.dart';
 import 'package:bananatalk_app/widgets/language_selection/show_language_picker.dart';
+import 'package:bananatalk_app/models/language_model.dart';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 
 /// The "Learn" tab inside the Study Hub.
 class LearnTab extends ConsumerWidget {
@@ -610,12 +612,30 @@ void openProgress(BuildContext context, WidgetRef ref) {
 
 /// Ask the active users with a blank `language_to_learn` what they are
 /// learning, then persist it and refresh today's pack (spec §4.1).
-Future<void> pickLearningLanguage(BuildContext context, WidgetRef ref) async {
-  final picked = await showLanguagePickerSheet(context);
-  if (picked == null) return;
-  await LearningService.setLearningLanguage(picked.name);
+///
+/// [pick] and [save] are test seams for the picker sheet and the save call.
+Future<void> pickLearningLanguage(
+  BuildContext context,
+  WidgetRef ref, {
+  Future<Language?> Function(BuildContext context)? pick,
+  Future<void> Function(String language)? save,
+}) async {
+  final picked = await (pick ?? showLanguagePickerSheet)(context);
+  if (picked == null || !context.mounted) return;
+  try {
+    await (save ?? LearningService.setLearningLanguage)(picked.name);
+  } catch (_) {
+    if (!context.mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(AppLocalizations.of(context)!.failedToSave)),
+    );
+    return;
+  }
   if (!context.mounted) return;
   ref.invalidate(dailyPackProvider);
+  // The hub's "language · level" chip and every other reader of the user's
+  // language_to_learn would otherwise stay stale until the next refetch.
+  ref.invalidate(userProvider);
 
   // 6 of the 137 catalog languages (Dari, Hawaiian and the four sign
   // languages) do not resolve through the server's toBaseLanguage, so the save
