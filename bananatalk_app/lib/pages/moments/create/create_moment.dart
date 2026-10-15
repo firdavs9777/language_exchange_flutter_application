@@ -1510,7 +1510,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
             backgroundColor: _selectedBackgroundColor.isNotEmpty
                 ? _selectedBackgroundColor
                 : null,
-            promptId: widget.isReel && _showPromptChip ? _promptId : null,
+            promptId: _showPromptChip ? _promptId : null,
             isReel: widget.isReel,
           );
 
