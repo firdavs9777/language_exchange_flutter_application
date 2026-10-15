@@ -31,6 +31,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/utils/compact_count.dart';
+import 'package:bananatalk_app/pages/moments/widgets/moment_prompt_label.dart';
 
 class MomentCard extends ConsumerStatefulWidget {
   final Moments moments;
@@ -732,6 +733,13 @@ class _MomentCardState extends ConsumerState<MomentCard> {
               },
               onMenuTap: () => _showMoreOptions(context),
             ),
+
+            // ── Prompt being answered ───────────────────────────────────────
+            if (widget.moments.prompt != null)
+              MomentPromptLabel(
+                prompt: widget.moments.prompt,
+                padding: const EdgeInsets.fromLTRB(12, 0, 12, 8),
+              ),
 
             // ── Caption (skipped for gradient posts) ────────────────────────
             // The original text always shows; the translation panel
