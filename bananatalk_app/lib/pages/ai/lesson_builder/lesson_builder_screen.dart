@@ -86,8 +86,9 @@ class _LessonBuilderScreenState extends ConsumerState<LessonBuilderScreen> {
       exerciseCount: _exerciseCount,
     );
 
-    // Show interstitial before AI generation begins
-    await AdService().showInterstitial();
+    // Interstitial before AI generation begins — capped (every-N, min gap,
+    // once per session when rewardedLimitsEnabled), not on every lesson.
+    await AdService().maybeShowInterstitial(everyN: 1);
     final result = await AIService.generateLesson(request);
 
     if (mounted) {

@@ -198,8 +198,13 @@ class AdService {
     );
   }
 
+  /// Shows the loaded interstitial with no frequency cap of its own — screens
+  /// call [maybeShowInterstitial] / [maybeShowInterstitialOncePerSession].
+  /// Records the impression either way, so the caps see every interstitial.
   Future<void> showInterstitial() async {
     if (!canShowFullScreenAd || _interstitialAd == null) return;
+    _lastInterstitialAt = DateTime.now();
+    if (rewardedLimitsFlag) _interstitialShownThisSession = true;
     await _interstitialAd!.show();
   }
 
