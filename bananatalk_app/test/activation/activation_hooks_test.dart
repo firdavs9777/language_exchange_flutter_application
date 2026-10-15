@@ -40,7 +40,7 @@ void main() {
 
   const hooks = <String, (String, int)>{
     'lib/pages/moments/create/create_moment.dart': ('ActivationAction.moment', 1),
-    'lib/services/upload_queue_service.dart': ('ActivationAction.moment', 2),
+    'lib/services/upload_queue_service.dart': ('ActivationAction.moment', 1),
     'lib/providers/provider_root/learning/lessons_providers.dart':
         ('ActivationAction.lesson', 1),
     'lib/providers/provider_root/learning/quizzes_providers.dart':

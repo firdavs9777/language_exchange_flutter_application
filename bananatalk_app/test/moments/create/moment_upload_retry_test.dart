@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:bananatalk_app/pages/moments/create/moment_media_rules.dart';
 import 'package:bananatalk_app/pages/moments/create/moment_upload_retry.dart';
 
 void main() {
@@ -69,6 +70,41 @@ void main() {
       expect(last, contains('already posted'),
           reason: 'the moment survived; only the voice note did not');
       expect(last, contains('editing'));
+    });
+  });
+
+  group('afterMediaUploadFailed', () {
+    test('photos or video failing rolls the moment back, caption or not', () {
+      // Keeping a caption-only post is what made the second tap on Post
+      // produce a duplicate: the user retries the whole post, not the photo.
+      for (final hasCaption in [true, false]) {
+        expect(
+          afterMediaUploadFailed(
+              kind: MomentMediaKind.images, hasCaption: hasCaption),
+          MediaFailureAction.rollBack,
+        );
+        expect(
+          afterMediaUploadFailed(
+              kind: MomentMediaKind.video, hasCaption: hasCaption),
+          MediaFailureAction.rollBack,
+        );
+      }
+    });
+
+    test('a voice note on a captioned moment keeps the post and offers retry',
+        () {
+      expect(
+        afterMediaUploadFailed(kind: MomentMediaKind.audio, hasCaption: true),
+        MediaFailureAction.keepAndOfferRetry,
+      );
+    });
+
+    test('a voice note that IS the whole post is rolled back', () {
+      // Otherwise an empty moment -- no words, no media -- is left in the feed.
+      expect(
+        afterMediaUploadFailed(kind: MomentMediaKind.audio, hasCaption: false),
+        MediaFailureAction.rollBack,
+      );
     });
   });
 }

@@ -5,8 +5,8 @@
 /// state fields, no tests — which meant the rule governing whether anyone can
 /// post at all was unverifiable.
 ///
-/// Nothing here changes behaviour. Each function reproduces exactly what the
-/// widget already did; the point is that it can now be pinned down.
+/// Extracted without behaviour change; since then the caption rule was
+/// relaxed to "caption or media" (see [validateMomentDraft]).
 library;
 
 /// Images per moment. Also the number quoted to the poster when they exceed it.
@@ -18,11 +18,22 @@ const int kMaxDescriptionLength = 2000;
 /// Tags per moment. This was a bare `5` inside a validation branch.
 const int kMaxTags = 5;
 
+/// Whether the draft has anything to post: words, or media.
+///
+/// Drives the Post button's enabled state. Same rule as `canAdvanceFrom` for
+/// the compose step: a photo needs no words, a text post needs no photo.
+bool draftHasContent({required String description, required bool hasMedia}) =>
+    hasMedia || description.trim().isNotEmpty;
+
 /// Returns the reason a draft cannot be posted, or null when it can.
 ///
-/// Order is deliberate and preserved from the original: caption problems are
-/// reported before tag or schedule problems, because an empty caption is the
-/// more basic failure and reporting the subtler one first would be confusing.
+/// A moment is a caption OR media (photos, a video, or a voice note) — the
+/// guide promises "A photo or one line", and the compose step already let a
+/// photo alone through. This used to demand a caption unconditionally, so a
+/// photo-only draft passed Next and then died on Post.
+///
+/// Order is deliberate: a reel without its video, then content/caption
+/// problems, then tag and schedule problems — the more basic failure first.
 ///
 /// [now] is a parameter rather than `DateTime.now()` so the schedule rule can
 /// be tested without waiting for a clock.
@@ -31,11 +42,19 @@ String? validateMomentDraft({
   required List<String> tags,
   DateTime? scheduledDate,
   required DateTime now,
+  bool hasMedia = false,
+  bool isReel = false,
+  bool hasVideo = false,
 }) {
   final trimmed = description.trim();
 
-  if (trimmed.isEmpty) {
-    return 'Caption is required';
+  // A reel IS its video; the server's reel feed drops reels without one, so
+  // posting it would publish something nobody can ever see.
+  if (isReel && !hasVideo) {
+    return 'A reel needs a video';
+  }
+  if (trimmed.isEmpty && !hasMedia) {
+    return 'Caption is required — or add a photo, video or voice note';
   }
   if (trimmed.length > kMaxDescriptionLength) {
     return 'Caption must be $kMaxDescriptionLength characters or less';

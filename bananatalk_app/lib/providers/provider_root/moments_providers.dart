@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
+import 'package:bananatalk_app/pages/moments/create/moment_media_rules.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:bananatalk_app/service/endpoints.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -405,32 +406,16 @@ class MomentsService {
 
     // Validate and add files
     for (var imageFile in imageFiles) {
-      // Check file size (10MB max)
-      final fileSize = await imageFile.length();
-      if (fileSize > 10 * 1024 * 1024) {
-        throw Exception('Image size exceeds 10MB limit: ${imageFile.path}');
-      }
+      // Same rule the composer and the upload queue check BEFORE creating
+      // the moment (moment_media_rules.dart); kept here as the last guard.
+      final problem = momentImageProblem(
+        path: imageFile.path,
+        sizeBytes: await imageFile.length(),
+      );
+      if (problem != null) throw Exception(problem);
 
-      // Determine content type from file extension
       final extension = imageFile.path.split('.').last.toLowerCase();
-      String? mimeType;
-      switch (extension) {
-        case 'jpg':
-        case 'jpeg':
-          mimeType = 'image/jpeg';
-          break;
-        case 'png':
-          mimeType = 'image/png';
-          break;
-        case 'gif':
-          mimeType = 'image/gif';
-          break;
-        case 'webp':
-          mimeType = 'image/webp';
-          break;
-        default:
-          throw Exception('Unsupported image format: $extension. Supported: JPEG, PNG, GIF, WEBP');
-      }
+      final mimeType = kMomentImageMimeTypes[extension]!;
 
       request.files.add(
         await http.MultipartFile.fromPath(

@@ -669,7 +669,8 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                         ),
                       ),
                     )
-                  else if (widget.moment.backgroundColor.isEmpty) ...[
+                  else if (widget.moment.backgroundColor.isEmpty &&
+                      widget.moment.description.trim().isNotEmpty) ...[
                     Padding(
                       padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
                       child: Text(
