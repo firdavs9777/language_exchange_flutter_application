@@ -85,7 +85,7 @@ The carousel only appears when there are live announcements.
 | 4.6 | 360 pt phone, default text size, English: every tab's active name shows whole (no "…"). At 320 pt or text 1.3 the name may truncate or drop (never overflows) | |
 | 4.6a | The pill is centred and hugs the tabs; at most 8 pt from the side edges (narrow phone / large text). Bottom: 8 pt above the screen edge with no system inset, otherwise inset − 4. Inactive icons are 48 pt targets, no gaps | |
 | 4.7 | Unread badges on tab icons: no overflow, count moves onto the icon when tight | |
-| 4.8 | Nothing floats over content: with the bar showing at the end of a list, the last item clears it. **Check especially Community > Waves, Matches, Gatherings, Nearby, Voice rooms, and Profile (logout button)** on gesture AND 3-button nav — these use fixed bottom padding instead of `FloatingTabBar.clearance` (≈ 98 pt iPhone, ≈ 88 gesture, ≈ 112 3-button); expect failures | |
+| 4.8 | Nothing floats over content: with the bar showing at the end of a list, the last item clears it. **Check especially Community > Waves, Matches, Gatherings (+ clubs, empty), Nearby, Voice rooms, Rooms, Topics user list, and Profile (logout button)** on gesture AND 3-button nav — moved to `FloatingTabBar.clearance` on 2026-10-15 (ef1f9ba4). Create FABs (Moments, Voice rooms, Rooms, Reels) now sit level with each other just above the bar, and lists under them end with room for the FAB | |
 | 4.9 | Reels create FAB sits on the shared bar clearance, not overlapping the bar | |
 | 4.10 | Chat list refresh button clears the bar | |
 | 4.11 | Hide/show feel on iOS and on Android (no jitter, no flicker on short lists) | |

@@ -95,7 +95,10 @@ class MomentsFeedWidget extends ConsumerWidget {
         return ListView.builder(
           controller: scrollController,
           physics: const AlwaysScrollableScrollPhysics(),
-          padding: EdgeInsets.only(bottom: FloatingTabBar.clearance(context)),
+          // The create FAB sits on the bar, so the last post clears both.
+          padding: EdgeInsets.only(
+            bottom: FloatingTabBar.clearance(context) + FloatingTabBar.fabSpace,
+          ),
           itemCount: items.length,
           itemBuilder: (context, index) {
             final item = items[index];

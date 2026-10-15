@@ -13,7 +13,7 @@ Preconditions:
 - **AI Study has two guides**, picked by `STUDY_HUB_ENABLED` (see `study-hub-matrix.md` §0; a flip applies from the second cold start):
   off (2.7.0 default) "Practise before you have to" with "Open AI Tools" / "Exam Study"; on "Your daily language gym" with
   "Start today's pack" / "See all features".
-- **Section 4 can only pass on iOS** — see the note there.
+- **Section 4 on Android 13+ needs a fresh install** (or cleared app data) — see the note there.
 
 ## 1. New account, first week
 
@@ -67,9 +67,10 @@ Order: update -> announcement -> ads notice -> feature spotlight.
 
 ## 4. Notification priming
 
-**Android: no prime is expected on 2.7.0 as of 2026-10-15.** firebase_messaging on Android only reports authorized/denied, never
-"not asked", so a fresh Android 13+ install reads as denied → `recover` → no prime (and Android ≤ 12 is authorized by default).
-Run this section on iOS; on Android just record that no prime shows. Code item in REMAINING_WORK.
+**Android (fixed 2026-10-15, fb3dc453):** Android 13+ reports "denied" until asked, so a never-asked install now gets the prime
+and "Turn on" raises the real POST_NOTIFICATIONS dialog. Run the section on iOS and on a fresh Android 13+ install. Extra Android rows:
+granting from the prime delivers a foreground chat notification in the same session (no relaunch); after "Not now" or a deny, the next
+launch shows the notifications-off card instead; Android 12 and below: already allowed, no prime.
 
 | Trigger | Expected | Result |
 |---|---|---|
