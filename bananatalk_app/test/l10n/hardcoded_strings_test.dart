@@ -493,6 +493,11 @@ const Map<String, List<String>> _keysByTask = {
     'lookingGood',
     'almostThere',
   ],
+  // Auth batch 2026-10-15: the biometric sign-in switch in Settings.
+  'auth-batch': [
+    'biometricLoginSetting',
+    'biometricLoginSettingDesc',
+  ],
 };
 
 /// Files (under lib/) each task must leave with no English Text literal.
@@ -698,6 +703,9 @@ const Map<String, List<String>> _filesByTask = {
   ],
   'final-fix': [
     'pages/profile/profile_main/sections/profile_highlights_tab.dart',
+  ],
+  'auth-batch': [
+    'pages/profile/settings.dart',
   ],
 };
 

@@ -11353,4 +11353,10 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => 'Ба як барномасози танҳо барои идома додан кӯмак кунед';
+
+  @override
+  String get biometricLoginSetting => 'Ворид шудан бо Face ID / изи ангушт';
+
+  @override
+  String get biometricLoginSettingDesc => 'Пас аз баромадан дар экрани воридшавӣ «Идома ҳамчун»-ро нишон диҳед';
 }

@@ -147,3 +147,27 @@ Future<void> syncBiometricSnapshotAfterSignIn({
     debugPrint('[biometric] snapshot sync failed: $e');
   }
 }
+
+/// Turns biometric sign-in on for the signed-in session: the switch in
+/// Settings, and the same snapshot the login screen's one-time offer takes.
+/// The caller has just passed a biometric prompt. False (nothing stored)
+/// when there is no complete stored session to snapshot.
+Future<bool> enableBiometricForCurrentSession({
+  required String userName,
+  BiometricTokenStorage? storage,
+}) async {
+  final prefs = await SharedPreferences.getInstance();
+  final token = prefs.getString('token') ?? '';
+  final refreshToken = prefs.getString('refreshToken') ?? '';
+  final userId = prefs.getString('userId') ?? '';
+  if (token.isEmpty || refreshToken.isEmpty || userId.isEmpty) return false;
+  await BiometricService(storage: storage ?? BiometricTokenStorage()).enable(
+    BiometricAuthState(
+      token: token,
+      refreshToken: refreshToken,
+      userId: userId,
+      userName: userName,
+    ),
+  );
+  return true;
+}

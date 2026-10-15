@@ -11352,4 +11352,10 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => 'Hilf einem Solo-Entwickler weiterzumachen';
+
+  @override
+  String get biometricLoginSetting => 'Mit Face ID / Fingerabdruck anmelden';
+
+  @override
+  String get biometricLoginSettingDesc => '„Weiter als“ nach dem Abmelden auf dem Anmeldebildschirm anzeigen';
 }

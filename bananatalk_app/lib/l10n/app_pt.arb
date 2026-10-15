@@ -4415,5 +4415,7 @@
   "guideStudyHubCta": "Começar o pacote de hoje",
   "guideStudyHubSecondary": "Ver todos os recursos",
   "supportBananaTalkRow": "Apoie o BananaTalk",
-  "supportBananaTalkRowSubtitle": "Ajude um desenvolvedor independente a continuar"
+  "supportBananaTalkRowSubtitle": "Ajude um desenvolvedor independente a continuar",
+  "biometricLoginSetting": "Entrar com Face ID / impressão digital",
+  "biometricLoginSettingDesc": "Mostrar \"Continuar como\" na tela de login depois de sair"
 }

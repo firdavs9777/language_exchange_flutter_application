@@ -4429,5 +4429,7 @@
   "guideStudyHubCta": "Начать набор на сегодня",
   "guideStudyHubSecondary": "Все функции",
   "supportBananaTalkRow": "Поддержать BananaTalk",
-  "supportBananaTalkRowSubtitle": "Помогите одному разработчику продолжать работу"
+  "supportBananaTalkRowSubtitle": "Помогите одному разработчику продолжать работу",
+  "biometricLoginSetting": "Вход по Face ID / отпечатку",
+  "biometricLoginSettingDesc": "Показывать «Продолжить как» на экране входа после выхода"
 }

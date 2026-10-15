@@ -11352,4 +11352,10 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => 'Aiuta uno sviluppatore indipendente a continuare';
+
+  @override
+  String get biometricLoginSetting => 'Accedi con Face ID / impronta';
+
+  @override
+  String get biometricLoginSettingDesc => 'Mostra \"Continua come\" nella schermata di accesso dopo il logout';
 }

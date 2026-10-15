@@ -11333,4 +11333,10 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => 'ช่วยนักพัฒนาคนเดียวให้สร้างต่อไป';
+
+  @override
+  String get biometricLoginSetting => 'ลงชื่อเข้าใช้ด้วย Face ID / ลายนิ้วมือ';
+
+  @override
+  String get biometricLoginSettingDesc => 'แสดง \"ดำเนินการต่อในชื่อ\" บนหน้าจอเข้าสู่ระบบหลังจากออกจากระบบ';
 }

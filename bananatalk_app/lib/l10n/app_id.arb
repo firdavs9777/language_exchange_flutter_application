@@ -4399,5 +4399,7 @@
   "guideStudyHubCta": "Mulai paket hari ini",
   "guideStudyHubSecondary": "Lihat semua fitur",
   "supportBananaTalkRow": "Dukung BananaTalk",
-  "supportBananaTalkRowSubtitle": "Bantu pengembang tunggal terus berkarya"
+  "supportBananaTalkRowSubtitle": "Bantu pengembang tunggal terus berkarya",
+  "biometricLoginSetting": "Masuk dengan Face ID / sidik jari",
+  "biometricLoginSettingDesc": "Tampilkan \"Lanjutkan sebagai\" di layar masuk setelah Anda keluar"
 }

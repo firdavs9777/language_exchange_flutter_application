@@ -2,10 +2,12 @@ import 'dart:async';
 import 'dart:io' show Platform;
 
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/pages/authentication/biometric/biometric_service.dart';
 import 'package:bananatalk_app/pages/authentication/login/apple_login_screen.dart';
 import 'package:bananatalk_app/pages/authentication/login/google_login_screen.dart';
 import 'package:bananatalk_app/pages/authentication/login/login_screen.dart';
 import 'package:bananatalk_app/pages/authentication/widgets/animated_banana_title.dart';
+import 'package:bananatalk_app/pages/authentication/widgets/biometric_login_button.dart';
 import 'package:bananatalk_app/pages/authentication/widgets/social_login_button.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:flutter/material.dart';
@@ -58,9 +60,14 @@ class _HomePageState extends State<HomePage>
   int _page = 0;
   Timer? _autoAdvance;
 
+  // "Continue as <name>" after a logout, when biometric sign-in is on. It
+  // used to exist only on the email Login screen, one tap deeper.
+  String? _biometricUserName;
+
   @override
   void initState() {
     super.initState();
+    _checkBiometric();
     _autoAdvance = Timer.periodic(const Duration(seconds: 3), (_) {
       if (!mounted) return;
       final next = (_page + 1) % _featureCount;
@@ -70,6 +77,14 @@ class _HomePageState extends State<HomePage>
         curve: Curves.easeInOutCubic,
       );
     });
+  }
+
+  Future<void> _checkBiometric() async {
+    final biometric = BiometricService();
+    if (!await biometric.canOfferLogin()) return;
+    final name = await biometric.readUserNameDisplay();
+    if (!mounted) return;
+    setState(() => _biometricUserName = name ?? '');
   }
 
   @override
@@ -169,6 +184,20 @@ class _HomePageState extends State<HomePage>
                       ),
                       const SizedBox(height: 20),
 
+                      if (_biometricUserName != null) ...[
+                        BiometricLoginButton(
+                          userName: _biometricUserName!,
+                          // The Login screen runs the prompt and the
+                          // refresh-token exchange, as for its own chip.
+                          onPressed: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) =>
+                                  const Login(autoBiometric: true),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                      ],
                       if (Platform.isIOS) ...[
                         SocialLoginButton(
                           provider: SocialProvider.apple,

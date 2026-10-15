@@ -4429,5 +4429,7 @@
   "guideStudyHubCta": "Empezar el pack de hoy",
   "guideStudyHubSecondary": "Ver todas las funciones",
   "supportBananaTalkRow": "Apoya a BananaTalk",
-  "supportBananaTalkRowSubtitle": "Ayuda a un desarrollador independiente a seguir creando"
+  "supportBananaTalkRowSubtitle": "Ayuda a un desarrollador independiente a seguir creando",
+  "biometricLoginSetting": "Iniciar sesión con Face ID / huella",
+  "biometricLoginSettingDesc": "Mostrar \"Continuar como\" en la pantalla de inicio de sesión después de cerrar sesión"
 }

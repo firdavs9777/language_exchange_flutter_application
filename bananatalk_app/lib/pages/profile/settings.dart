@@ -1,3 +1,5 @@
+import 'package:bananatalk_app/pages/authentication/biometric/biometric_service.dart';
+import 'package:bananatalk_app/pages/authentication/biometric/biometric_session.dart';
 import 'package:bananatalk_app/pages/profile/edit/change_password_screen.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
@@ -32,12 +34,63 @@ class _ProfileSettingsState extends ConsumerState<ProfileSettings> {
   bool _isUpdatingLocation = false;
   String? _savingKey; // tracks which toggle is currently saving
 
+  // Biometric ("Continue as") sign-in: device-local, not a privacy setting.
+  // The login screen offers it once; this switch is the only way to turn it
+  // off again, or back on after skipping the offer.
+  final BiometricService _biometric = BiometricService();
+  bool _biometricAvailable = false;
+  bool _biometricEnabled = false;
+  static const _biometricKey = 'biometricLogin';
+
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _loadPrivacySettings();
     });
+    _loadBiometricState();
+  }
+
+  Future<void> _loadBiometricState() async {
+    final available = await _biometric.isAvailable();
+    final enabled = available && await _biometric.isEnabled();
+    if (!mounted) return;
+    setState(() {
+      _biometricAvailable = available;
+      _biometricEnabled = enabled;
+    });
+  }
+
+  Future<void> _setBiometricLogin(bool enable) async {
+    if (_savingKey != null) return;
+    final l10n = AppLocalizations.of(context)!;
+    setState(() => _savingKey = _biometricKey);
+    try {
+      if (!enable) {
+        await _biometric.disable();
+      } else {
+        final result = await _biometric.authenticateWithResult(
+          reason: l10n.biometricSignInPrompt,
+        );
+        if (!mounted) return;
+        if (result != BiometricAuthResult.success) {
+          final message = biometricResultMessage(l10n, result);
+          if (message != null) _showErrorSnackBar(message);
+          return;
+        }
+        final userName = ref.read(userProvider).valueOrNull?.name ?? '';
+        if (!await enableBiometricForCurrentSession(userName: userName)) {
+          if (mounted) _showErrorSnackBar(l10n.somethingWentWrong);
+          return;
+        }
+      }
+      if (mounted) setState(() => _biometricEnabled = enable);
+    } catch (e) {
+      debugPrint('[settings] biometric toggle failed: $e');
+      if (mounted) _showErrorSnackBar(l10n.somethingWentWrong);
+    } finally {
+      if (mounted) setState(() => _savingKey = null);
+    }
   }
 
   Future<void> _loadPrivacySettings() async {
@@ -629,7 +682,9 @@ class _ProfileSettingsState extends ConsumerState<ProfileSettings> {
               final hasOAuth =
                   (user.googleId != null && user.googleId!.isNotEmpty) ||
                       (user.appleId != null && user.appleId!.isNotEmpty);
-              if (hasOAuth) return const SizedBox.shrink();
+              if (hasOAuth && !_biometricAvailable) {
+                return const SizedBox.shrink();
+              }
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -640,21 +695,37 @@ class _ProfileSettingsState extends ConsumerState<ProfileSettings> {
                   ),
                   const SizedBox(height: 10),
                   _buildSectionContainer([
-                    _buildNavTile(
-                      icon: Icons.lock_outline_rounded,
-                      iconColor: AppColors.error,
-                      title: AppLocalizations.of(context)!.changePassword,
-                      subtitle: AppLocalizations.of(context)!
-                          .changePasswordTileSubtitle,
-                      onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => const ChangePasswordScreen(),
-                        ),
+                    if (_biometricAvailable)
+                      _buildToggleTile(
+                        icon: Icons.fingerprint_rounded,
+                        iconColor: AppColors.primary,
+                        title: AppLocalizations.of(context)!
+                            .biometricLoginSetting,
+                        subtitle: AppLocalizations.of(context)!
+                            .biometricLoginSettingDesc,
+                        value: _biometricEnabled,
+                        settingKey: _biometricKey,
+                        onChanged: _setBiometricLogin,
+                        isFirst: true,
+                        isLast: hasOAuth,
                       ),
-                      isFirst: true,
-                      isLast: true,
-                    ),
+                    if (_biometricAvailable && !hasOAuth) _buildDivider(),
+                    if (!hasOAuth)
+                      _buildNavTile(
+                        icon: Icons.lock_outline_rounded,
+                        iconColor: AppColors.error,
+                        title: AppLocalizations.of(context)!.changePassword,
+                        subtitle: AppLocalizations.of(context)!
+                            .changePasswordTileSubtitle,
+                        onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const ChangePasswordScreen(),
+                          ),
+                        ),
+                        isFirst: !_biometricAvailable,
+                        isLast: true,
+                      ),
                   ]),
                 ],
               );
@@ -866,11 +937,16 @@ class _ProfileSettingsState extends ConsumerState<ProfileSettings> {
     required String subtitle,
     required bool value,
     required String settingKey,
+    ValueChanged<bool>? onChanged,
     bool isFirst = false,
     bool isLast = false,
   }) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final isSaving = _savingKey == settingKey;
+    // Privacy toggles save to the server; [onChanged] overrides that for a
+    // device-local switch (biometric sign-in).
+    final change =
+        onChanged ?? (bool v) => _updatePrivacySetting(settingKey, v);
     final radius = BorderRadius.only(
       topLeft: Radius.circular(isFirst ? 18 : 0),
       topRight: Radius.circular(isFirst ? 18 : 0),
@@ -881,9 +957,7 @@ class _ProfileSettingsState extends ConsumerState<ProfileSettings> {
     return Material(
       color: Colors.transparent,
       child: InkWell(
-        onTap: isSaving
-            ? null
-            : () => _updatePrivacySetting(settingKey, !value),
+        onTap: isSaving ? null : () => change(!value),
         borderRadius: radius,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
@@ -937,8 +1011,7 @@ class _ProfileSettingsState extends ConsumerState<ProfileSettings> {
               else
                 Switch.adaptive(
                   value: value,
-                  onChanged: (newVal) =>
-                      _updatePrivacySetting(settingKey, newVal),
+                  onChanged: change,
                   activeThumbColor: AppColors.primary,
                   activeTrackColor: AppColors.primary.withValues(alpha: 0.5),
                 ),

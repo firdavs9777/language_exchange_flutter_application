@@ -11344,4 +11344,10 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => 'Bantu pengembang tunggal terus berkarya';
+
+  @override
+  String get biometricLoginSetting => 'Masuk dengan Face ID / sidik jari';
+
+  @override
+  String get biometricLoginSettingDesc => 'Tampilkan \"Lanjutkan sebagai\" di layar masuk setelah Anda keluar';
 }

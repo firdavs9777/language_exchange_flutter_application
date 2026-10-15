@@ -11350,4 +11350,10 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => 'Tek başına çalışan bir geliştiricinin devam etmesine yardım et';
+
+  @override
+  String get biometricLoginSetting => 'Face ID / parmak izi ile giriş yap';
+
+  @override
+  String get biometricLoginSettingDesc => 'Çıkış yaptıktan sonra giriş ekranında \"Şu şekilde devam et\" seçeneğini göster';
 }

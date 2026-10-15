@@ -7311,5 +7311,13 @@
   "guideStudyHubCta": "Start today's pack",
   "guideStudyHubSecondary": "See all features",
   "supportBananaTalkRow": "Support BananaTalk",
-  "supportBananaTalkRowSubtitle": "Help a solo developer keep building"
+  "supportBananaTalkRowSubtitle": "Help a solo developer keep building",
+  "biometricLoginSetting": "Sign in with Face ID / fingerprint",
+  "biometricLoginSettingDesc": "Show \"Continue as\" on the login screen after you log out",
+  "@biometricLoginSetting": {
+    "description": "Settings switch: turn biometric (Continue as) sign-in on or off"
+  },
+  "@biometricLoginSettingDesc": {
+    "description": "Subtitle under the biometric sign-in switch in Settings"
+  }
 }

@@ -33,7 +33,11 @@ import 'package:bananatalk_app/services/session_reset.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends ConsumerStatefulWidget {
-  const Login({Key? key}) : super(key: key);
+  const Login({Key? key, this.autoBiometric = false}) : super(key: key);
+
+  /// Opened from the Welcome screen's "Continue as" button: start the
+  /// biometric sign-in at once (when it can still be offered).
+  final bool autoBiometric;
 
   @override
   _LoginState createState() => _LoginState();
@@ -92,6 +96,7 @@ class _LoginState extends ConsumerState<Login> {
       _biometricVisible = true;
       _biometricUserName = name;
     });
+    if (widget.autoBiometric) unawaited(_biometricLogin());
   }
 
   Future<void> _biometricLogin() async {

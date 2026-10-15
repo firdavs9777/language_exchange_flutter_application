@@ -4090,5 +4090,7 @@
   "guideStudyHubCta": "開始今日學習包",
   "guideStudyHubSecondary": "查看全部功能",
   "supportBananaTalkRow": "支持 BananaTalk",
-  "supportBananaTalkRowSubtitle": "幫助獨立開發者持續打磨產品"
+  "supportBananaTalkRowSubtitle": "幫助獨立開發者持續打磨產品",
+  "biometricLoginSetting": "使用 Face ID / 指紋登入",
+  "biometricLoginSettingDesc": "登出後在登入畫面顯示「以…身分繼續」"
 }

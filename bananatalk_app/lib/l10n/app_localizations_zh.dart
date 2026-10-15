@@ -11333,6 +11333,12 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => '帮助独立开发者继续打磨产品';
+
+  @override
+  String get biometricLoginSetting => '使用面容 ID / 指纹登录';
+
+  @override
+  String get biometricLoginSettingDesc => '退出登录后在登录页显示“以…身份继续”';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -22664,4 +22670,10 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get supportBananaTalkRowSubtitle => '幫助獨立開發者持續打磨產品';
+
+  @override
+  String get biometricLoginSetting => '使用 Face ID / 指紋登入';
+
+  @override
+  String get biometricLoginSettingDesc => '登出後在登入畫面顯示「以…身分繼續」';
 }

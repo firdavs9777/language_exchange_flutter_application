@@ -11352,4 +11352,10 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => 'एक अकेले डेवलपर को काम जारी रखने में मदद करें';
+
+  @override
+  String get biometricLoginSetting => 'Face ID / फ़िंगरप्रिंट से साइन इन करें';
+
+  @override
+  String get biometricLoginSettingDesc => 'लॉग आउट के बाद लॉगिन स्क्रीन पर \"इस रूप में जारी रखें\" दिखाएँ';
 }

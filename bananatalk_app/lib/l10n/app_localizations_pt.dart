@@ -11352,4 +11352,10 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => 'Ajude um desenvolvedor independente a continuar';
+
+  @override
+  String get biometricLoginSetting => 'Entrar com Face ID / impressão digital';
+
+  @override
+  String get biometricLoginSettingDesc => 'Mostrar \"Continuar como\" na tela de login depois de sair';
 }

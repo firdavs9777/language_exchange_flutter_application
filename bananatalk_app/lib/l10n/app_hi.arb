@@ -4415,5 +4415,7 @@
   "guideStudyHubCta": "आज का पैक शुरू करें",
   "guideStudyHubSecondary": "सभी फ़ीचर देखें",
   "supportBananaTalkRow": "BananaTalk का साथ दें",
-  "supportBananaTalkRowSubtitle": "एक अकेले डेवलपर को काम जारी रखने में मदद करें"
+  "supportBananaTalkRowSubtitle": "एक अकेले डेवलपर को काम जारी रखने में मदद करें",
+  "biometricLoginSetting": "Face ID / फ़िंगरप्रिंट से साइन इन करें",
+  "biometricLoginSettingDesc": "लॉग आउट के बाद लॉगिन स्क्रीन पर \"इस रूप में जारी रखें\" दिखाएँ"
 }

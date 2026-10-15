@@ -11352,4 +11352,10 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => 'Tulungan ang nag-iisang developer na magpatuloy';
+
+  @override
+  String get biometricLoginSetting => 'Mag-sign in gamit ang Face ID / fingerprint';
+
+  @override
+  String get biometricLoginSettingDesc => 'Ipakita ang \"Magpatuloy bilang\" sa login screen pagkatapos mong mag-log out';
 }

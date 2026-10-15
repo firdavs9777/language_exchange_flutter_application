@@ -4399,5 +4399,7 @@
   "guideStudyHubCta": "今日のパックを始める",
   "guideStudyHubSecondary": "すべての機能を見る",
   "supportBananaTalkRow": "BananaTalkを応援",
-  "supportBananaTalkRowSubtitle": "個人開発者の開発を支えてください"
+  "supportBananaTalkRowSubtitle": "個人開発者の開発を支えてください",
+  "biometricLoginSetting": "Face ID / 指紋でサインイン",
+  "biometricLoginSettingDesc": "ログアウト後、ログイン画面に「〜として続行」を表示します"
 }

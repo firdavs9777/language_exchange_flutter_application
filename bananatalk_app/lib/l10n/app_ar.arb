@@ -4429,5 +4429,7 @@
   "guideStudyHubCta": "ابدأ حزمة اليوم",
   "guideStudyHubSecondary": "عرض كل الميزات",
   "supportBananaTalkRow": "ادعم BananaTalk",
-  "supportBananaTalkRowSubtitle": "ساعد مطوّرًا مستقلًا على مواصلة العمل"
+  "supportBananaTalkRowSubtitle": "ساعد مطوّرًا مستقلًا على مواصلة العمل",
+  "biometricLoginSetting": "تسجيل الدخول ببصمة الوجه / الإصبع",
+  "biometricLoginSettingDesc": "إظهار \"المتابعة باسم\" في شاشة تسجيل الدخول بعد تسجيل الخروج"
 }

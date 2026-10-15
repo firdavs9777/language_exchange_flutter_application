@@ -4399,5 +4399,7 @@
   "guideStudyHubCta": "เริ่มชุดวันนี้",
   "guideStudyHubSecondary": "ดูฟีเจอร์ทั้งหมด",
   "supportBananaTalkRow": "สนับสนุน BananaTalk",
-  "supportBananaTalkRowSubtitle": "ช่วยนักพัฒนาคนเดียวให้สร้างต่อไป"
+  "supportBananaTalkRowSubtitle": "ช่วยนักพัฒนาคนเดียวให้สร้างต่อไป",
+  "biometricLoginSetting": "ลงชื่อเข้าใช้ด้วย Face ID / ลายนิ้วมือ",
+  "biometricLoginSettingDesc": "แสดง \"ดำเนินการต่อในชื่อ\" บนหน้าจอเข้าสู่ระบบหลังจากออกจากระบบ"
 }

@@ -11333,4 +11333,10 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => '1인 개발자가 계속 만들 수 있도록 도와주세요';
+
+  @override
+  String get biometricLoginSetting => 'Face ID / 지문으로 로그인';
+
+  @override
+  String get biometricLoginSettingDesc => '로그아웃 후 로그인 화면에 \"~(으)로 계속\"을 표시합니다';
 }

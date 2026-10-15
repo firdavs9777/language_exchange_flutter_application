@@ -11396,4 +11396,10 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => 'Помогите одному разработчику продолжать работу';
+
+  @override
+  String get biometricLoginSetting => 'Вход по Face ID / отпечатку';
+
+  @override
+  String get biometricLoginSettingDesc => 'Показывать «Продолжить как» на экране входа после выхода';
 }
