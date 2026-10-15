@@ -136,8 +136,38 @@ void main() {
     expect(ids.contains('id0'), isFalse);
   });
 
-  test('seen key is user-scoped: not on the device allow-list', () {
+  test('the signed-out seen key is still cleared at logout', () {
     expect(isDeviceLevelPrefsKey(kAnnouncementsSeenKey), isFalse);
+  });
+
+  test('seen survives logout and re-login of the same user', () async {
+    SharedPreferences.setMockInitialValues({'userId': 'u1'});
+    await AnnouncementSeenStore.add('a1');
+    final prefs = await SharedPreferences.getInstance();
+    expect(prefs.getStringList(announcementsSeenKeyFor('u1')), ['a1']);
+    expect(isDeviceLevelPrefsKey(announcementsSeenKeyFor('u1')), isTrue);
+
+    await clearUserScopedPrefs(prefs);
+    await prefs.setString('userId', 'u1');
+    expect(await AnnouncementSeenStore.read(), contains('a1'));
+  });
+
+  test('seen is per user: another account on the phone still sees it',
+      () async {
+    SharedPreferences.setMockInitialValues({'userId': 'u1'});
+    await AnnouncementSeenStore.add('a1');
+    final prefs = await SharedPreferences.getInstance();
+    await clearUserScopedPrefs(prefs);
+    await prefs.setString('userId', 'u2');
+    expect(await AnnouncementSeenStore.read(), isNot(contains('a1')));
+  });
+
+  test('ids seen before the per-user key still count', () async {
+    SharedPreferences.setMockInitialValues({
+      'userId': 'u1',
+      kAnnouncementsSeenKey: <String>['old'],
+    });
+    expect(await AnnouncementSeenStore.read(), contains('old'));
   });
 
   test('hasButton hardening: backslash, bananatalk:foo, case, whitespace', () {
