@@ -205,7 +205,7 @@ class PartnerListItem extends StatelessWidget {
               const SizedBox(width: 6),
               _buildNewBadge(context),
             ],
-            if (user.isVip) ...[
+            if (PrivacyUtils.showsVipBadge(user)) ...[
               const SizedBox(width: 6),
               _buildVipBadge(context),
             ],

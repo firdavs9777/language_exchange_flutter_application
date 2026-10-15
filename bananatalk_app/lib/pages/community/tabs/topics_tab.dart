@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/utils/privacy_utils.dart';
 import 'package:bananatalk_app/widgets/navigation/floating_tab_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -89,7 +90,7 @@ class _TopicsTabState extends ConsumerState<TopicsTab> {
           userId: user.id,
           userName: user.name,
           profilePicture: user.profileImageUrl,
-          isVip: user.isVip,
+          isVip: PrivacyUtils.showsVipBadge(user),
         ),
       ),
     );

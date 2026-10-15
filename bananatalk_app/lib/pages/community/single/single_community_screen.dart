@@ -422,7 +422,7 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
           userId: _community.id,
           userName: _community.name,
           profilePicture: _getProfileImageUrl(),
-          isVip: _community.isVip,
+          isVip: PrivacyUtils.showsVipBadge(_community),
         ),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           return SlideTransition(

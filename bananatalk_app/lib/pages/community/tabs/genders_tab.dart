@@ -677,7 +677,7 @@ class _GendersTabState extends ConsumerState<GendersTab> {
           userId: user.id,
           userName: user.name,
           profilePicture: user.profileImageUrl,
-          isVip: user.isVip,
+          isVip: PrivacyUtils.showsVipBadge(user),
         ),
       ),
     );
@@ -772,7 +772,7 @@ class _GenderUserCard extends StatelessWidget {
               child: Row(
                 children: [
                   // VIP badge
-                  if (user.isVip)
+                  if (PrivacyUtils.showsVipBadge(user))
                     Container(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 6,
@@ -813,7 +813,7 @@ class _GenderUserCard extends StatelessWidget {
                       ),
                     ),
                   // New user badge
-                  if (!user.isVip && user.isNewUser)
+                  if (!PrivacyUtils.showsVipBadge(user) && user.isNewUser)
                     Container(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 6,

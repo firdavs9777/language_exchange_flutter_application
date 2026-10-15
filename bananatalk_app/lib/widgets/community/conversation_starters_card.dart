@@ -251,7 +251,7 @@ class ConversationStartersCard extends ConsumerWidget {
           userId: profile.id,
           userName: profile.name,
           profilePicture: profile.profileImageUrl,
-          isVip: profile.isVip,
+          isVip: PrivacyUtils.showsVipBadge(profile),
         ),
       ),
     );

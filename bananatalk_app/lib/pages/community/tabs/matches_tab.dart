@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/utils/privacy_utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -193,7 +194,7 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
           userId: u.id,
           userName: u.name,
           profilePicture: u.profileImageUrl,
-          isVip: u.isVip,
+          isVip: PrivacyUtils.showsVipBadge(u),
         ),
       ),
     );
