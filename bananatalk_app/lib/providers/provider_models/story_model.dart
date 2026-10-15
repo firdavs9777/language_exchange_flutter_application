@@ -221,9 +221,7 @@ class Story {
   factory Story.fromJson(Map<String, dynamic> json) {
     return Story(
       id: json['_id']?.toString() ?? '',
-      user: json['user'] != null
-          ? Community.fromJson(json['user'])
-          : _defaultUser(),
+      user: userFromJson(json['user']),
       mediaUrl: json['mediaUrl']?.toString()
           ?? json['media']?.toString()
           ?? (json['mediaUrls'] != null && json['mediaUrls'] is List && (json['mediaUrls'] as List).isNotEmpty
@@ -241,18 +239,29 @@ class Story {
       textColor: json['textColor']?.toString() ?? '#FFFFFF',
       fontStyle: json['fontStyle']?.toString() ?? 'normal',
       privacy: StoryPrivacy.fromString(json['privacy']?.toString()),
-      views: json['views'] != null
-          ? (json['views'] as List).map((v) => StoryView.fromJson(v)).toList()
+      // Lists of maps only: an unpopulated or redacted entry is skipped
+      // rather than crashing the whole story.
+      views: json['views'] is List
+          ? (json['views'] as List)
+              .whereType<Map>()
+              .map((v) => StoryView.fromJson(Map<String, dynamic>.from(v)))
+              .toList()
           : [],
       viewCount: json['viewCount'] ?? json['views']?.length ?? 0,
-      reactions: json['reactions'] != null
-          ? (json['reactions'] as List).map((r) => StoryReaction.fromJson(r)).toList()
+      reactions: json['reactions'] is List
+          ? (json['reactions'] as List)
+              .whereType<Map>()
+              .map((r) => StoryReaction.fromJson(Map<String, dynamic>.from(r)))
+              .toList()
           : [],
       reactionCount: json['reactionCount'] ?? json['reactions']?.length ?? 0,
       userReaction: json['userReaction']?.toString(),
       replyCount: json['replyCount'] ?? 0,
-      mentions: json['mentions'] != null
-          ? (json['mentions'] as List).map((m) => StoryMention.fromJson(m)).toList()
+      mentions: json['mentions'] is List
+          ? (json['mentions'] as List)
+              .whereType<Map>()
+              .map((m) => StoryMention.fromJson(Map<String, dynamic>.from(m)))
+              .toList()
           : [],
       location: json['location'] != null ? StoryLocation.fromJson(json['location']) : null,
       link: json['link'] != null ? StoryLink.fromJson(json['link']) : null,
@@ -293,8 +302,19 @@ class Story {
     );
   }
 
-  static Community _defaultUser() => Community(
-    id: '', appleId: '', googleId: '', name: '', email: '',
+  /// The story's author. A populated user is parsed; an unpopulated one
+  /// (a bare id string — e.g. older archive responses) keeps just the id,
+  /// so it never reaches Community.fromJson and throws a TypeError.
+  static Community userFromJson(Object? user) {
+    if (user is Map) {
+      return Community.fromJson(Map<String, dynamic>.from(user));
+    }
+    if (user is String && user.isNotEmpty) return _defaultUser(id: user);
+    return _defaultUser();
+  }
+
+  static Community _defaultUser({String id = ''}) => Community(
+    id: id, appleId: '', googleId: '', name: '', email: '',
     mbti: '', bloodType: '', bio: '', images: [], birth_day: '',
     birth_month: '', gender: '', birth_year: '', native_language: '',
     language_to_learn: '', imageUrls: [], createdAt: '', version: 0,
@@ -491,8 +511,11 @@ class UserStories {
   });
 
   factory UserStories.fromJson(Map<String, dynamic> json, String currentUserId) {
-    final stories = json['stories'] != null
-        ? (json['stories'] as List).map((s) => Story.fromJson(s)).toList()
+    final stories = json['stories'] is List
+        ? (json['stories'] as List)
+            .whereType<Map>()
+            .map((s) => Story.fromJson(Map<String, dynamic>.from(s)))
+            .toList()
         : <Story>[];
 
     final activeStories = stories.where((s) => s.isStillActive).toList();
@@ -505,14 +528,16 @@ class UserStories {
     final finalUnviewedCount = apiUnviewedCount > 0 ? apiUnviewedCount : unviewedCount;
     
     return UserStories(
-      user: json['user'] != null
-          ? Community.fromJson(json['user'])
-          : stories.isNotEmpty ? stories.first.user : Story._defaultUser(),
+      user: json['user'] is Map
+          ? Story.userFromJson(json['user'])
+          : stories.isNotEmpty
+              ? stories.first.user
+              : Story.userFromJson(json['user']),
       stories: stories,
       hasUnviewed: finalUnviewedCount > 0,
       unviewedCount: finalUnviewedCount,
-      latestStory: json['latestStory'] != null 
-          ? Story.fromJson(json['latestStory'])
+      latestStory: json['latestStory'] is Map
+          ? Story.fromJson(Map<String, dynamic>.from(json['latestStory']))
           : (activeStories.isNotEmpty ? activeStories.last : null),
     );
   }
@@ -800,8 +825,13 @@ class StoryQuestionBox {
   factory StoryQuestionBox.fromJson(Map<String, dynamic> json) {
     return StoryQuestionBox(
       prompt: json['prompt']?.toString() ?? 'Ask me anything!',
-      responses: json['responses'] != null
-          ? (json['responses'] as List).map((r) => StoryQuestionResponse.fromJson(r)).toList()
+      responses: json['responses'] is List
+          ? (json['responses'] as List)
+              .whereType<Map>()
+              .map((r) => StoryQuestionResponse.fromJson(
+                    Map<String, dynamic>.from(r),
+                  ))
+              .toList()
           : [],
     );
   }
@@ -921,12 +951,20 @@ class StoryHighlight {
       coverImage: json['coverImage']?.toString(),
       stories: json['stories'] != null
           ? (json['stories'] as List).map((s) {
-              // Backend returns { story: {...}, addedAt: ... } or populated story object
-              if (s is Map<String, dynamic>) {
-                if (s.containsKey('story') && s['story'] is Map<String, dynamic>) {
-                  return Story.fromJson(s['story']);
+              // Backend returns { story: {...}, addedAt: ... } or a populated
+              // story object. Right after createHighlight / addStory the
+              // entry is { story: "<id>", addedAt } — unpopulated. Building a
+              // Story from that entry would give it the SUBDOCUMENT's _id, so
+              // it is skipped; callers refetch the highlights for the real
+              // stories (storyCount below still counts it).
+              if (s is Map) {
+                if (s.containsKey('story')) {
+                  final inner = s['story'];
+                  return inner is Map
+                      ? Story.fromJson(Map<String, dynamic>.from(inner))
+                      : null;
                 }
-                return Story.fromJson(s);
+                return Story.fromJson(Map<String, dynamic>.from(s));
               }
               return null;
             }).whereType<Story>().toList()
