@@ -88,7 +88,7 @@ class _StudyPlanSetupScreenState
                 FilteringTextInputFormatter.allow(RegExp(r'[\d.]')),
               ],
               decoration: InputDecoration(
-                hintText: 'e.g. ${(maxScore * 0.75).toStringAsFixed(0)}',
+                hintText: AppLocalizations.of(context)!.examTargetScoreHint((maxScore * 0.75).toStringAsFixed(0)),
                 filled: true,
                 fillColor: context.surfaceColor,
                 border: OutlineInputBorder(

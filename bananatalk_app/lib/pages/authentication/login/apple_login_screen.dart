@@ -56,7 +56,7 @@ class _AppleLoginState extends ConsumerState<AppleLogin> {
 
       if (identityToken == null) {
         setState(() {
-          _errorMessage = 'Failed to get identity token from Apple';
+          _errorMessage = AppLocalizations.of(context)!.authAppleTokenFailed;
           _isLoading = false;
         });
         return;

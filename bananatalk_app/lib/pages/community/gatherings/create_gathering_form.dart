@@ -236,7 +236,7 @@ class _CreateGatheringFormState extends State<CreateGatheringForm> {
       if (!upload.success) {
         showCommunitySnackBar(
           context,
-          message: upload.error ?? '',
+          message: AppLocalizations.of(context)!.groupCoverUploadFailed,
           type: CommunitySnackBarType.error,
         );
       }

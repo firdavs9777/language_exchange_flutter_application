@@ -36,7 +36,7 @@ class FilterTopicsSection extends StatelessWidget {
         children: topics.map((topic) {
           final isSelected = selectedTopics.contains(topic.id);
           return CommunityFilterChip(
-            label: topic.name,
+            label: topic.localizedName(AppLocalizations.of(context)!),
             emoji: topic.icon,
             isSelected: isSelected,
             onTap: () {

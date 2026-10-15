@@ -5,6 +5,7 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/widgets/voice_message_player.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 class MediaMessageWidget extends StatelessWidget {
   final MessageMedia media;
@@ -187,7 +188,7 @@ class MediaMessageWidget extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    media.fileName ?? 'Document',
+                    media.fileName ?? AppLocalizations.of(context)!.document,
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       color: context.textPrimary,
@@ -257,7 +258,9 @@ class MediaMessageWidget extends StatelessWidget {
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
-                    location.placeName ?? location.address ?? 'Location',
+                    location.placeName ??
+                        location.address ??
+                        AppLocalizations.of(context)!.location,
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       color: context.textPrimary,

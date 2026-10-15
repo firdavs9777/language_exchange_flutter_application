@@ -1,3 +1,5 @@
+import 'package:bananatalk_app/l10n/app_localizations.dart';
+
 /// Topic Model for community interests
 class Topic {
   final String id;
@@ -33,6 +35,70 @@ class Topic {
       'userCount': userCount,
     };
   }
+
+  /// [name] in the app language for the predefined topics; a topic the
+  /// server added (unknown id) keeps its own [name].
+  String localizedName(AppLocalizations l10n) => switch (id) {
+      'cooking' => l10n.topicNameCooking,
+      'coffee' => l10n.topicNameCoffee,
+      'eating_out' => l10n.topicNameEatingOut,
+      'baking' => l10n.topicNameBaking,
+      'drinking' => l10n.topicNameDrinking,
+      'street_food' => l10n.topicNameStreetFood,
+      'travel' => l10n.topicNameTravel,
+      'backpacking' => l10n.topicNameBackpacking,
+      'beaches' => l10n.topicNameBeaches,
+      'mountains' => l10n.topicNameMountains,
+      'camping' => l10n.topicNameCamping,
+      'gym' => l10n.topicNameGym,
+      'running' => l10n.topicNameRunning,
+      'yoga' => l10n.topicNameYoga,
+      'football' => l10n.topicNameFootball,
+      'basketball' => l10n.topicNameBasketball,
+      'hiking' => l10n.topicNameHiking,
+      'cycling' => l10n.topicNameCycling,
+      'dancing' => l10n.topicNameDancing,
+      'swimming' => l10n.topicNameSwimming,
+      'movies' => l10n.topicNameMovies,
+      'tv_shows' => l10n.topicNameTvShows,
+      'music' => l10n.topicNameMusic,
+      'gaming' => l10n.topicNameGaming,
+      'anime' => l10n.topicNameAnime,
+      'kpop' => l10n.topicNameKpop,
+      'kdrama' => l10n.topicNameKdrama,
+      'podcasts' => l10n.topicNamePodcasts,
+      'art' => l10n.topicNameArt,
+      'photography' => l10n.topicNamePhotography,
+      'books' => l10n.topicNameBooks,
+      'writing' => l10n.topicNameWriting,
+      'history' => l10n.topicNameHistory,
+      'design' => l10n.topicNameDesign,
+      'fashion' => l10n.topicNameFashion,
+      'beauty' => l10n.topicNameBeauty,
+      'shopping' => l10n.topicNameShopping,
+      'gardening' => l10n.topicNameGardening,
+      'diy' => l10n.topicNameDiy,
+      'dogs' => l10n.topicNameDogs,
+      'cats' => l10n.topicNameCats,
+      'nature' => l10n.topicNameNature,
+      'animals' => l10n.topicNameAnimals,
+      'language_exchange' => l10n.topicNameLanguageExchange,
+      'study_abroad' => l10n.topicNameStudyAbroad,
+      'technology' => l10n.topicNameTechnology,
+      'programming' => l10n.topicNameProgramming,
+      'business' => l10n.topicNameBusiness,
+      'science' => l10n.topicNameScience,
+      'daily_life' => l10n.topicNameDailyLife,
+      'making_friends' => l10n.topicNameMakingFriends,
+      'relationships' => l10n.topicNameRelationships,
+      'family' => l10n.topicNameFamily,
+      'nightlife' => l10n.topicNameNightlife,
+      'mental_health' => l10n.topicNameMentalHealth,
+      'meditation' => l10n.topicNameMeditation,
+      'nutrition' => l10n.topicNameNutrition,
+      'self_improvement' => l10n.topicNameSelfImprovement,
+      _ => name,
+    };
 
   /// Predefined topics for language exchange
   static List<Topic> get defaultTopics => [
@@ -128,30 +194,19 @@ class Topic {
     'health',
   ];
 
-  static String getCategoryLabel(String category) {
-    switch (category) {
-      case 'food_drink':
-        return 'Food & Drink';
-      case 'travel':
-        return 'Travel & Adventure';
-      case 'sports':
-        return 'Sports & Fitness';
-      case 'entertainment':
-        return 'Entertainment & Music';
-      case 'arts':
-        return 'Arts & Culture';
-      case 'lifestyle':
-        return 'Lifestyle';
-      case 'pets_nature':
-        return 'Pets & Nature';
-      case 'learning':
-        return 'Learning & Career';
-      case 'social':
-        return 'Social';
-      case 'health':
-        return 'Health & Wellness';
-      default:
-        return category;
-    }
+  static String getCategoryLabel(String category, AppLocalizations l10n) {
+    return switch (category) {
+      'food_drink' => l10n.topicCategoryFoodDrink,
+      'travel' => l10n.topicCategoryTravel,
+      'sports' => l10n.topicCategorySports,
+      'entertainment' => l10n.topicCategoryEntertainment,
+      'arts' => l10n.topicCategoryArts,
+      'lifestyle' => l10n.topicCategoryLifestyle,
+      'pets_nature' => l10n.topicCategoryPetsNature,
+      'learning' => l10n.topicCategoryLearning,
+      'social' => l10n.topicCategorySocial,
+      'health' => l10n.topicCategoryHealth,
+      _ => category,
+    };
   }
 }

@@ -1430,7 +1430,7 @@
   "locationOptional": "Please set your location to continue",
   "maximum6Photos": "Maximum 6 photos",
   "tapToDetectLocation": "Tap to detect location",
-  "optionalHelpsNearbyPartners": "Required — helps match you with partners nearby",
+  "optionalHelpsNearbyPartners": "Optional — helps match you with partners nearby",
   "startLearning": "Start Learning!",
   "photoLocationOptional": "Photo & location are optional — you can add them later",
   "pleaseAcceptTerms": "Please accept the Terms of Service",
@@ -6015,7 +6015,7 @@
   "@referralCopied": {
     "description": "Referral screen string"
   },
-  "referralClaimed": "You earned {coins} coins!",
+  "referralClaimed": "{coins, plural, one{You earned {coins} coin!} other{You earned {coins} coins!}}",
   "@referralClaimed": {
     "description": "Referral screen string",
     "placeholders": {
@@ -6048,7 +6048,7 @@
   "@boostCapacityFull": {
     "description": "Profile Boost string"
   },
-  "extraMatchesCta": "+3 more matches — {cost} coins",
+  "extraMatchesCta": "{cost, plural, one{+3 more matches — {cost} coin} other{+3 more matches — {cost} coins}}",
   "@extraMatchesCta": {
     "description": "Profile Boost string",
     "placeholders": {
@@ -6061,7 +6061,7 @@
   "@boostExplain": {
     "description": "Profile Boost string"
   },
-  "boostCostLine": "Cost: {cost} coins",
+  "boostCostLine": "{cost, plural, one{Cost: {cost} coin} other{Cost: {cost} coins}}",
   "@boostCostLine": {
     "description": "Profile Boost string",
     "placeholders": {
@@ -6070,7 +6070,7 @@
       }
     }
   },
-  "boostBalanceLine": "Your balance: {balance} coins",
+  "boostBalanceLine": "{balance, plural, one{Your balance: {balance} coin} other{Your balance: {balance} coins}}",
   "@boostBalanceLine": {
     "description": "Profile Boost string",
     "placeholders": {
@@ -6117,7 +6117,7 @@
   "@wavesMaskedTitle": {
     "description": "Reveal gating / VIP perks string"
   },
-  "wavesMaskedBody": "Reveal who for {cost} coins, or go VIP",
+  "wavesMaskedBody": "{cost, plural, one{Reveal who for {cost} coin, or go VIP} other{Reveal who for {cost} coins, or go VIP}}",
   "@wavesMaskedBody": {
     "description": "Reveal gating / VIP perks string",
     "placeholders": {
@@ -6188,7 +6188,7 @@
       }
     }
   },
-  "visitorsMaskedBody": "See who for {cost} coins, or go VIP",
+  "visitorsMaskedBody": "{cost, plural, one{See who for {cost} coin, or go VIP} other{See who for {cost} coins, or go VIP}}",
   "@visitorsMaskedBody": {
     "description": "Tranche C final fix pass",
     "placeholders": {
@@ -6769,11 +6769,11 @@
   "chatHi": "Hi!",
   "chatEdited": "edited",
   "chatPremium": "Premium ✨",
-  "chatUnlockPremiumWallpapers": "Unlock all Premium ✨ wallpapers for 💎{cost} coins? This unlocks the whole pack for good.",
+  "chatUnlockPremiumWallpapers": "{cost, plural, one{Unlock all Premium ✨ wallpapers for 💎{cost} coin? This unlocks the whole pack for good.} other{Unlock all Premium ✨ wallpapers for 💎{cost} coins? This unlocks the whole pack for good.}}",
   "@chatUnlockPremiumWallpapers": {
     "placeholders": {
       "cost": {
-        "type": "Object"
+        "type": "int"
       }
     }
   },
@@ -7918,5 +7918,243 @@
   "chatListConversationActionFailed": "Couldn't update this conversation. Please try again.",
   "coinsPurchaseLinkedElsewhere": "This purchase is already linked to another BananaTalk account, so no coins were added here.",
   "coinsAlreadyCredited": "These coins were already added to your account.",
-  "pleaseRemoveImagesFirstToAddVoiceNote": "Please remove images first to add a voice note"
+  "pleaseRemoveImagesFirstToAddVoiceNote": "Please remove images first to add a voice note",
+  "authLockedTitle": "Account temporarily locked",
+  "authLockedBodyMinutes": "Too many failed attempts. Try again in {minutes} min.",
+  "authLockedBodyLater": "Too many failed attempts. Try again later.",
+  "authRateLimitedTitle": "Slow down a moment",
+  "authRateLimitedBodySeconds": "Too many attempts. Try again in {seconds}s.",
+  "authRateLimitedBodyShortly": "Too many attempts. Try again shortly.",
+  "passwordErrorLength": "Password must be at least 8 characters long",
+  "passwordErrorUppercase": "Password must contain at least one uppercase letter",
+  "passwordErrorLowercase": "Password must contain at least one lowercase letter",
+  "passwordErrorNumber": "Password must contain at least one number",
+  "authCodeExpired": "This code has expired. Please request a new one.",
+  "authCodeIncorrect": "Incorrect code. Please try again.",
+  "authVerificationFailed": "Verification failed",
+  "authResendCodeFailed": "Failed to resend code",
+  "authSendResetCodeFailed": "Failed to send reset code",
+  "authResetPasswordFailed": "Failed to reset password",
+  "enableBiometricTitleAndroid": "Use fingerprint or face unlock to log in next time?",
+  "chatLastSeenDate": "Last seen {date}",
+  "chatLastSeenRecently": "Last seen recently",
+  "chatMediaTabMedia": "Media ({count})",
+  "chatMediaTabLinks": "Links ({count})",
+  "chatMediaTabDocs": "Docs ({count})",
+  "chatMediaNoMedia": "No photos or videos shared yet",
+  "chatMediaNoLinks": "No links shared yet",
+  "chatMediaNoDocs": "No documents shared yet",
+  "chatMediaUnknownSize": "Unknown size",
+  "chatDeleteMinutesLeft": "{minutes}m left",
+  "chatDeleteRemovesForBoth": "Removes for you and {name}",
+  "chatUnsupportedMessageType": "Unsupported message type",
+  "chatStoryUnavailable": "This story is no longer available",
+  "chatWallpapersUnlocked": "Premium wallpapers unlocked!",
+  "chatEditFailed": "Failed to edit message",
+  "chatPinFailed": "Failed to update pin status",
+  "chatMessagePinned": "Message pinned",
+  "chatMessageUnpinned": "Message unpinned",
+  "chatForwardFailed": "Failed to forward message",
+  "chatShareLocationFailed": "Failed to share location",
+  "chatFileTooLarge": "This file is too large. The limit is {size} MB.",
+  "chatSendMediaFailed": "Failed to send media",
+  "chatSendVideoFailed": "Failed to send video",
+  "chatVideoTooLong": "Video must be under 10 minutes",
+  "chatVideoTooLarge": "Video must be under 1GB. Please compress the video.",
+  "chatSendVoiceFailed": "Failed to send voice message",
+  "chatVoiceTooLong": "Voice message must be under 5 minutes",
+  "chatVoiceTooLarge": "Voice message file too large",
+  "voiceRecorderInitFailed": "Failed to initialize recorder",
+  "voiceRecorderStartFailed": "Failed to start recording",
+  "voiceRecorderFileMissing": "Recording file not found",
+  "voiceRecorderTooShort": "Recording too short (minimum 1 second)",
+  "voiceRecorderResume": "Resume",
+  "voiceRecorderPause": "Pause",
+  "voiceRecorderPaused": "Recording paused - tap play to continue",
+  "voiceRecorderRecording": "Recording... tap pause or send when done",
+  "voiceRecorderInitializing": "Initializing...",
+  "chatGifSearchFailed": "Search failed. Please try again.",
+  "chatGifResultsFor": "Results for \"{query}\"",
+  "chatYouSharedStory": "You shared a story",
+  "chatUserSharedStory": "{name} shared a story",
+  "chatUserNotInChats": "User @{name} not in your chats",
+  "chatDeleteMessageFailed": "Failed to delete message",
+  "themeAutomatic": "Automatic",
+  "themeManual": "Manual",
+  "themeFollowingSystem": "Following system",
+  "profileAdminToolsSubtitle": "Reports, users, audit log",
+  "appVersionLabel": "Version {version}",
+  "privacyVisitAnonymously": "Visit profiles anonymously",
+  "privacyVisitAnonymouslyDesc": "Your name won't appear in the visited user's recent visitors list.",
+  "profilePhotoUploading": "Uploading...",
+  "profilePhotoRemoving": "Removing...",
+  "profileCropPhoto": "Crop photo",
+  "networkWifi": "Wi-Fi",
+  "networkMobileData": "Mobile data",
+  "networkEthernet": "Ethernet",
+  "notifPrefResetFailed": "Failed to reset preferences",
+  "notifPrefNewFollower": "New follower",
+  "notifPrefVipRenewalWarning": "VIP renewal reminders",
+  "accountDeletedSuccess": "Account deleted successfully",
+  "accountDeleteFailed": "Failed to delete account",
+  "coinHistoryLoadFailed": "Could not load coin history.",
+  "waveAlreadySentTooltip": "Already waved — send a message instead",
+  "waveAlreadySentTo": "You've already waved at {name} — send them a message instead.",
+  "waveAlreadyWaved": "Already waved",
+  "communityCountryDetectFailed": "Could not detect country",
+  "roomPickCategoryError": "Please pick a category",
+  "blockUserSuccess": "User blocked",
+  "blockUserFailed": "Couldn't block this user",
+  "unblockUserSuccess": "User unblocked",
+  "unblockUserFailed": "Couldn't unblock this user",
+  "clubDeleteFailed": "Couldn't delete the club",
+  "clubMemberUpdateFailed": "Couldn't update this member",
+  "groupCoverUploadFailed": "Couldn't upload the photo",
+  "groupCoverRemoveFailed": "Couldn't remove the photo",
+  "clubStatusArchived": "Archived",
+  "matchTagSimilarAge": "Similar age",
+  "matchTagBothLike": "Both like {topic}",
+  "topicNameCooking": "Cooking",
+  "topicNameCoffee": "Coffee & Tea",
+  "topicNameEatingOut": "Eating Out",
+  "topicNameBaking": "Baking",
+  "topicNameDrinking": "Drinking",
+  "topicNameStreetFood": "Street Food",
+  "topicNameTravel": "Travel",
+  "topicNameBackpacking": "Backpacking",
+  "topicNameBeaches": "Beaches",
+  "topicNameMountains": "Mountains",
+  "topicNameCamping": "Camping",
+  "topicNameGym": "Gym",
+  "topicNameRunning": "Running",
+  "topicNameYoga": "Yoga",
+  "topicNameFootball": "Football",
+  "topicNameBasketball": "Basketball",
+  "topicNameHiking": "Hiking",
+  "topicNameCycling": "Cycling",
+  "topicNameDancing": "Dancing",
+  "topicNameSwimming": "Swimming",
+  "topicNameMovies": "Movies",
+  "topicNameTvShows": "TV Shows",
+  "topicNameMusic": "Music",
+  "topicNameGaming": "Gaming",
+  "topicNameAnime": "Anime & Manga",
+  "topicNameKpop": "K-Pop",
+  "topicNameKdrama": "K-Drama",
+  "topicNamePodcasts": "Podcasts",
+  "topicNameArt": "Art",
+  "topicNamePhotography": "Photography",
+  "topicNameBooks": "Books",
+  "topicNameWriting": "Writing",
+  "topicNameHistory": "History",
+  "topicNameDesign": "Design",
+  "topicNameFashion": "Fashion",
+  "topicNameBeauty": "Beauty & Skincare",
+  "topicNameShopping": "Shopping",
+  "topicNameGardening": "Gardening",
+  "topicNameDiy": "DIY",
+  "topicNameDogs": "Dogs",
+  "topicNameCats": "Cats",
+  "topicNameNature": "Nature",
+  "topicNameAnimals": "Animals",
+  "topicNameLanguageExchange": "Language Exchange",
+  "topicNameStudyAbroad": "Study Abroad",
+  "topicNameTechnology": "Technology",
+  "topicNameProgramming": "Programming",
+  "topicNameBusiness": "Business",
+  "topicNameScience": "Science",
+  "topicNameDailyLife": "Daily Life",
+  "topicNameMakingFriends": "Making Friends",
+  "topicNameRelationships": "Relationships",
+  "topicNameFamily": "Family",
+  "topicNameNightlife": "Nightlife",
+  "topicNameMentalHealth": "Mental Health",
+  "topicNameMeditation": "Meditation",
+  "topicNameNutrition": "Nutrition",
+  "topicNameSelfImprovement": "Self Improvement",
+  "topicCategoryFoodDrink": "Food & Drink",
+  "topicCategoryTravel": "Travel & Adventure",
+  "topicCategorySports": "Sports & Fitness",
+  "topicCategoryEntertainment": "Entertainment & Music",
+  "topicCategoryArts": "Arts & Culture",
+  "topicCategoryLifestyle": "Lifestyle",
+  "topicCategoryPetsNature": "Pets & Nature",
+  "topicCategoryLearning": "Learning & Career",
+  "topicCategorySocial": "Social",
+  "topicCategoryHealth": "Health & Wellness",
+  "waveTooMany": "Too many waves. Please slow down!",
+  "aiTutorNoSummary": "(no summary)",
+  "vocabPackAllSaved": "{count, plural, =1{This word is already in your vocabulary} other{All {count} words are already in your vocabulary}}",
+  "vocabPackAdded": "{count, plural, =1{Added 1 word to your vocabulary} other{Added {count} words to your vocabulary}}",
+  "vocabPackAddedSomeSaved": "{count, plural, =1{Added 1 word to your vocabulary ({saved} already saved)} other{Added {count} words to your vocabulary ({saved} already saved)}}",
+  "vocabPackNoExercises": "No exercises",
+  "vocabPackPractice": "Practice ({count})",
+  "aiQuizPlayAgain": "Play again",
+  "aiLessonAskHint": "Ask anything about this lesson...",
+  "aiLessonConceptHint": "What concept do you want explained?",
+  "examTargetScoreHint": "e.g. {score}",
+  "vocabWordAdded": "Word added!",
+  "vocabWordAddFailed": "Couldn't add the word",
+  "vocabEnterWordFirst": "Enter a word first",
+  "vocabAiFilled": "AI filled in!",
+  "vocabAiFillFailed": "AI fill failed. Please try again.",
+  "authSendCodeFailed": "Failed to send verification code",
+  "authServerConfigError": "Server configuration error. Please contact support.",
+  "authAppleTokenFailed": "Couldn't sign in with Apple. Please try again.",
+  "authRegistrationFailed": "Registration failed",
+  "authEmailAlreadyExists": "Email already exists. Please use a different email.",
+  "reportEvidenceAddFailed": "Could not add photos",
+  "reportEvidenceMaxFiles": "Max {count} files per report",
+  "reportEvidenceFileTooLarge": "{name} is too large (max 5 MB)",
+  "reportEvidenceTotalTooLarge": "Total size would exceed 25 MB",
+  "blockedContentUnavailableToYou": "This content is not available to you.",
+  "blockedCantViewUserContent": "You can't view {name}'s content.",
+  "blockedCantViewThisUserContent": "You can't view this user's content.",
+  "blockedCantViewUserProfile": "You can't view {name}'s profile.",
+  "blockedProfileUnavailable": "This profile is not available.",
+  "blockedContentUnavailable": "This content is not available.",
+  "blockedCantViewStories": "You can't view these stories.",
+  "blockedCantMessageUser": "You can't send messages to {name}.",
+  "blockedCantMessageThisUser": "You can't send messages to this user.",
+  "blockedActionNotAllowed": "You can't perform this action",
+  "blockedCantLike": "You can't like this content",
+  "blockedCantComment": "You can't comment on this content",
+  "@vocabPackAllSaved": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@vocabPackAdded": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@vocabPackAddedSomeSaved": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "saved": {
+        "type": "int"
+      }
+    }
+  },
+  "@vocabPackPractice": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@reportEvidenceMaxFiles": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
 }

@@ -11,6 +11,7 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'dart:async';
+import 'package:bananatalk_app/pages/authentication/post_login_error.dart';
 
 class EmailVerification extends ConsumerStatefulWidget {
   final String email;
@@ -137,10 +138,7 @@ class _EmailVerificationState extends ConsumerState<EmailVerification>
         case AuthErrorCode.codeExpired:
           showAuthSnackBar(
             context,
-            message:
-                result['message'] ??
-                'This code has expired. Please '
-                    'request a new one.',
+            message: l10n.authCodeExpired,
             type: AuthSnackBarType.error,
           );
           // Surface the resend affordance immediately instead of making the
@@ -154,14 +152,18 @@ class _EmailVerificationState extends ConsumerState<EmailVerification>
           _otpKey.currentState?.shakeAndClear();
           showAuthSnackBar(
             context,
-            message: result['message'] ?? 'Incorrect code. Please try again.',
+            message: l10n.authCodeIncorrect,
             type: AuthSnackBarType.error,
           );
           break;
         default:
           showAuthSnackBar(
             context,
-            message: result['message'] ?? 'Verification failed',
+            message: authResultMessage(
+              l10n,
+              result,
+              fallback: l10n.authVerificationFailed,
+            ),
             type: AuthSnackBarType.error,
           );
       }
@@ -192,7 +194,7 @@ class _EmailVerificationState extends ConsumerState<EmailVerification>
     } else {
       showAuthSnackBar(
         context,
-        message: result['message'] ?? 'Failed to resend code',
+        message: authResultMessage(l10n, result, fallback: l10n.authResendCodeFailed),
         type: AuthSnackBarType.error,
       );
     }

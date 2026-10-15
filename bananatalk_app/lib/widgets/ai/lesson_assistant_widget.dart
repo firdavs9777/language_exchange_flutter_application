@@ -223,7 +223,7 @@ class _LessonAssistantWidgetState extends State<LessonAssistantWidget>
                 maxLines: 3,
                 autofocus: true,
                 decoration: InputDecoration(
-                  hintText: 'Ask anything about this lesson...',
+                  hintText: AppLocalizations.of(context)!.aiLessonAskHint,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
@@ -477,7 +477,7 @@ class _LessonAssistantWidgetState extends State<LessonAssistantWidget>
                 controller: controller,
                 autofocus: true,
                 decoration: InputDecoration(
-                  hintText: 'What concept do you want explained?',
+                  hintText: AppLocalizations.of(context)!.aiLessonConceptHint,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),

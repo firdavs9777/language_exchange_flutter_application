@@ -143,7 +143,7 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
           _error = AppLocalizations.of(context)!.aiUnexpectedResponseFormat;
         }
       } else {
-        _error = result['message']?.toString() ?? AppLocalizations.of(context)!.aiAnalysisFailed;
+        _error = AppLocalizations.of(context)!.aiAnalysisFailed;
       }
     });
   }

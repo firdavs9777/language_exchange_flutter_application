@@ -394,7 +394,7 @@ class _RecentSessions extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 4),
                   child: Text(
-                    s.summary ?? '(no summary)',
+                    s.summary ?? AppLocalizations.of(context)!.aiTutorNoSummary,
                     style: context.bodySmall.copyWith(color: context.textSecondary),
                   ),
                 ),

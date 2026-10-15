@@ -263,7 +263,7 @@ class GatheringCard extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: Spacing.lg),
       ),
       child: Text(
-        gathering.joinMode == 'approval'
+        gathering.needsApproval
             ? l10n.gatheringAskToJoin
             : l10n.gatheringJoin,
       ),

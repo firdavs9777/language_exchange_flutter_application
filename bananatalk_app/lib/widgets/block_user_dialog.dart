@@ -93,8 +93,9 @@ class BlockUserDialog {
               const SizedBox(width: 12),
               Expanded(
                 child: Text(
-                  result['message'] ??
-                      AppLocalizations.of(context)!.operationCompleted,
+                  result['success'] == true
+                      ? AppLocalizations.of(context)!.blockUserSuccess
+                      : AppLocalizations.of(context)!.blockUserFailed,
                 ),
               ),
             ],

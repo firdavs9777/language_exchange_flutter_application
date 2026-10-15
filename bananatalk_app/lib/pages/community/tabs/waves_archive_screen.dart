@@ -69,7 +69,7 @@ class _WavesArchiveScreenState extends ConsumerState<WavesArchiveScreen> {
       if (mounted) {
         showCommunitySnackBar(
           context,
-          message: 'Failed to load profile',
+          message: AppLocalizations.of(context)!.failedToLoadProfile,
           type: CommunitySnackBarType.error,
         );
       }

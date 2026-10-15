@@ -3,6 +3,7 @@ import 'package:bananatalk_app/providers/badge_count_provider.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 /// App-bar notification bell with an unread-count badge, opening the
 /// notification inbox ([NotificationHistoryScreen]).
@@ -24,7 +25,7 @@ class NotificationBell extends ConsumerWidget {
     final notificationCount = ref.watch(badgeCountProvider).notifications;
 
     return IconButton(
-      tooltip: 'Notifications',
+      tooltip: AppLocalizations.of(context)!.notifications,
       icon: Stack(
         clipBehavior: Clip.none,
         children: [

@@ -288,7 +288,9 @@ class ChatListTile extends StatelessWidget {
             backgroundColor: const Color(0xFF2196F3),
             foregroundColor: Colors.white,
             icon: partner.isPinned ? Icons.push_pin : Icons.push_pin_outlined,
-            label: partner.isPinned ? 'Unpin' : 'Pin',
+            label: partner.isPinned
+                ? AppLocalizations.of(context)!.unpin
+                : AppLocalizations.of(context)!.pin,
             borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(12),
               bottomLeft: Radius.circular(12),
@@ -302,7 +304,9 @@ class ChatListTile extends StatelessWidget {
             icon: partner.isMuted
                 ? Icons.notifications
                 : Icons.notifications_off,
-            label: partner.isMuted ? 'Unmute' : 'Mute',
+            label: partner.isMuted
+                ? AppLocalizations.of(context)!.unmute
+                : AppLocalizations.of(context)!.mute,
           ),
           // Delete
           SlidableAction(

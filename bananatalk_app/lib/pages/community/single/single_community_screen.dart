@@ -208,7 +208,8 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
           .read(communityServiceProvider)
           .followUser(userId: userId, targetUserId: _community.id);
 
-      if (result == 'success' || result == 'already_following') {
+      final alreadyFollowing = result == 'already_following';
+      if (result == 'success' || alreadyFollowing) {
         if (!mounted) return;
         setState(() => isFollower = true);
         ref.invalidate(userProvider);
@@ -218,7 +219,7 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
           final l10n = AppLocalizations.of(context)!;
           showCommunitySnackBar(
             context,
-            message: result == 'already_following'
+            message: alreadyFollowing
                 ? '${l10n.alreadyFollowing} ${_community.name}'
                 : l10n.youFollowedUser(_community.name),
             type: CommunitySnackBarType.success,
@@ -281,7 +282,8 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
           .read(communityServiceProvider)
           .unfollowUser(userId: userId, targetUserId: _community.id);
 
-      if (result == 'success' || result == 'not_following') {
+      final notFollowing = result == 'not_following';
+      if (result == 'success' || notFollowing) {
         if (!mounted) return;
         setState(() => isFollower = false);
         ref.invalidate(userProvider);
@@ -291,7 +293,7 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
           final l10n2 = AppLocalizations.of(context)!;
           showCommunitySnackBar(
             context,
-            message: result == 'not_following'
+            message: notFollowing
                 ? l10n2.notFollowingUser(_community.name)
                 : l10n2.youUnfollowedUser(_community.name),
             type: CommunitySnackBarType.success,
@@ -369,7 +371,9 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
     if (mounted) {
       showCommunitySnackBar(
         context,
-        message: result['message'] ?? 'Operation completed',
+        message: result['success'] == true
+            ? AppLocalizations.of(context)!.unblockUserSuccess
+            : AppLocalizations.of(context)!.unblockUserFailed,
         type: result['success']
             ? CommunitySnackBarType.success
             : CommunitySnackBarType.error,

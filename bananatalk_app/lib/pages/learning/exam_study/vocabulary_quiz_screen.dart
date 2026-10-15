@@ -6,6 +6,9 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+/// Error code the server sends when the user has too few words for a quiz.
+const _notEnoughWordsCode = 'NOT_ENOUGH_WORDS';
+
 /// 10-Q MC vocabulary quiz with inline result screen on completion.
 class VocabularyQuizScreen extends ConsumerStatefulWidget {
   const VocabularyQuizScreen({
@@ -485,7 +488,7 @@ class _VocabularyQuizScreenState extends ConsumerState<VocabularyQuizScreen> {
           Icon(Icons.cloud_off_rounded, size: 40, color: context.textMuted),
           const SizedBox(height: 12),
           Text(
-            err.contains('NOT_ENOUGH_WORDS')
+            err.contains(_notEnoughWordsCode)
                 ? l10n.examVocabQuizNotEnough
                 : l10n.examStudyError,
             textAlign: TextAlign.center,

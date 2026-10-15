@@ -394,7 +394,7 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
         content: Text(
           result['success'] == true
               ? l10n.roomReportSubmitted
-              : (result['message'] ?? l10n.roomReportSubmitFailed),
+              : l10n.roomReportSubmitFailed,
         ),
         backgroundColor: result['success'] == true ? AppColors.success : AppColors.error,
       ),

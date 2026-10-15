@@ -10,7 +10,7 @@ import 'package:bananatalk_app/services/coin_api_client.dart';
 import 'package:bananatalk_app/services/rewarded_unlock_policy.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/widgets/coins/unlock_cta.dart';
-import 'package:intl/intl.dart';
+import 'package:bananatalk_app/utils/date_format_locale.dart';
 
 /// The "Watch ad" reward handler, extracted so it is testable without the ad
 /// SDK. Flag off / feature not rewardable -> `'rewarded'` with no call (the
@@ -315,7 +315,7 @@ class LimitExceededDialog extends ConsumerWidget {
                           ),
                           const SizedBox(height: 2),
                           Text(
-                            DateFormat('MMM d, y • h:mm a').format(resetTime!),
+                            formatDateTimeForLocale(context, resetTime!),
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w600,

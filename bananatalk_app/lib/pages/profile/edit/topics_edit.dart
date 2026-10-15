@@ -175,7 +175,7 @@ class _ProfileTopicsEditState extends ConsumerState<ProfileTopicsEdit> {
               ...Topic.categories.map(
                 (cat) => _buildCategoryChip(
                   cat,
-                  Topic.getCategoryLabel(cat),
+                  Topic.getCategoryLabel(cat, AppLocalizations.of(context)!),
                   _getCategoryIcon(cat),
                 ),
               ),
@@ -610,7 +610,7 @@ class _TopicCard extends StatelessWidget {
                       const SizedBox(width: 8),
                       Expanded(
                         child: Text(
-                          topic.name,
+                          topic.localizedName(AppLocalizations.of(context)!),
                           style: TextStyle(
                             fontSize: 13,
                             fontWeight: isSelected

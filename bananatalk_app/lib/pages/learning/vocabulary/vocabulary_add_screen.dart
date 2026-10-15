@@ -80,10 +80,16 @@ class _VocabularyAddScreenState extends ConsumerState<VocabularyAddScreen> {
 
       if (mounted) {
         if (result['success'] == true) {
-          showLearningSnackBar(context, 'Word added successfully!');
+          showLearningSnackBar(
+            context,
+            AppLocalizations.of(context)!.vocabWordAdded,
+          );
           Navigator.pop(context);
         } else {
-          showLearningSnackBar(context, result['error'] ?? 'Failed to add word');
+          showLearningSnackBar(
+            context,
+            AppLocalizations.of(context)!.vocabWordAddFailed,
+          );
         }
       }
     } finally {
@@ -94,7 +100,7 @@ class _VocabularyAddScreenState extends ConsumerState<VocabularyAddScreen> {
   Future<void> _onAiFill() async {
     final word = _wordController.text.trim();
     if (word.isEmpty) {
-      showLearningSnackBar(context, 'Enter a word first');
+      showLearningSnackBar(context, AppLocalizations.of(context)!.vocabEnterWordFirst);
       return;
     }
     setState(() => _aiFilling = true);
@@ -134,10 +140,10 @@ class _VocabularyAddScreenState extends ConsumerState<VocabularyAddScreen> {
           _notesController.text = notes.join('\n');
         }
       });
-      if (mounted) showLearningSnackBar(context, 'AI filled in!');
+      if (mounted) showLearningSnackBar(context, AppLocalizations.of(context)!.vocabAiFilled);
     } catch (e) {
       if (!mounted) return;
-      showLearningSnackBar(context, 'AI fill failed. Please try again.');
+      showLearningSnackBar(context, AppLocalizations.of(context)!.vocabAiFillFailed);
     } finally {
       if (mounted) setState(() => _aiFilling = false);
     }

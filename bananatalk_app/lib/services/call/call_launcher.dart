@@ -12,6 +12,9 @@ import 'package:bananatalk_app/services/call_manager.dart' show InitiateStatus;
 /// The one way the UI starts a call: chat header, call buttons, call bubble
 /// ("call back") and the Calls list all come through here, so busy and
 /// error handling is identical everywhere.
+/// Prefix of a call permission error that needs the Settings dialog.
+const _permanentlyDeniedPrefix = 'PERMANENTLY_DENIED:';
+
 class CallLauncher {
   const CallLauncher._();
 
@@ -81,12 +84,12 @@ class CallLauncher {
   /// Permission errors arrive as `PERMANENTLY_DENIED:<msg>` / `DENIED:<msg>`.
   static void showCallError(BuildContext context, String error) {
     final l10n = AppLocalizations.of(context)!;
-    if (error.startsWith('PERMANENTLY_DENIED:')) {
+    if (error.startsWith(_permanentlyDeniedPrefix)) {
       showDialog<void>(
         context: context,
         builder: (ctx) => AlertDialog(
           title: Text(l10n.permissionsRequired),
-          content: Text(error.substring('PERMANENTLY_DENIED:'.length)),
+          content: Text(error.substring(_permanentlyDeniedPrefix.length)),
           actions: [
             TextButton(onPressed: () => Navigator.pop(ctx), child: Text(l10n.cancel)),
             TextButton(

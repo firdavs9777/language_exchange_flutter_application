@@ -386,8 +386,8 @@ class LeftDrawer extends ConsumerWidget {
                         DrawerMenuItem(
                           icon: Icons.admin_panel_settings_rounded,
                           iconColor: const Color(0xFF9C27B0),
-                          title: 'Admin Tools',
-                          subtitle: 'Reports, users, audit log',
+                          title: l10n.profileAdminTools,
+                          subtitle: l10n.profileAdminToolsSubtitle,
                           showAdminBadge: true,
                           isLast: true,
                           onTap: () {
@@ -471,7 +471,7 @@ class LeftDrawer extends ConsumerWidget {
                         title: l10n.aboutBananatalk,
                         subtitle: appVersion.isEmpty
                             ? l10n.aboutBananatalk
-                            : 'Version $appVersion',
+                            : l10n.appVersionLabel(appVersion),
                         isLast: !kDebugMode,
                         onTap: () {
                           Navigator.pop(context);
@@ -709,14 +709,20 @@ class LeftDrawer extends ConsumerWidget {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                _buildHeaderStat('${user.followers.length}', 'Followers'),
+                _buildHeaderStat(
+                  '${user.followers.length}',
+                  AppLocalizations.of(context)!.followers,
+                ),
                 Container(
                   width: 1,
                   height: 24,
                   margin: const EdgeInsets.symmetric(horizontal: 16),
                   color: Colors.white.withValues(alpha: 0.3),
                 ),
-                _buildHeaderStat('${user.followings.length}', 'Following'),
+                _buildHeaderStat(
+                  '${user.followings.length}',
+                  AppLocalizations.of(context)!.following,
+                ),
               ],
             ),
           ),

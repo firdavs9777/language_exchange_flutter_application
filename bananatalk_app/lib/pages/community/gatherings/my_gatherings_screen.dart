@@ -248,7 +248,7 @@ class _MyClubsTabState extends State<MyClubsTab> {
                     l10n.clubMembers(club.memberCount, formatCompactNumberForLocale(context, club.memberCount)),
                     // Shown, not hidden: an owner whose club was archived
                     // should learn that here rather than wonder where it went.
-                    if (club.status != 'active') club.status,
+                    if (club.isArchived) l10n.clubStatusArchived,
                   ].join(' · '),
                   style: context.captionSmall
                       .copyWith(color: context.textSecondary),

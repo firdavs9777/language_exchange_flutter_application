@@ -2872,7 +2872,7 @@ class AppLocalizationsTl extends AppLocalizations {
   String get tapToDetectLocation => 'I-tap para i-detect ang lokasyon';
 
   @override
-  String get optionalHelpsNearbyPartners => 'Kinakailangan — nakatutulong sa paghahanap ng mga kasosyo sa malapit';
+  String get optionalHelpsNearbyPartners => 'Opsyonal — nakatutulong sa paghahanap ng mga kasosyo sa malapit';
 
   @override
   String get startLearning => 'Magsimulang matuto';
@@ -8643,7 +8643,12 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String referralClaimed(int coins) {
-    return 'Nakakuha ka ng $coins coins!';
+    String _temp0 = intl.Intl.pluralLogic(
+      coins,
+      locale: localeName,
+      other: 'Nakakuha ka ng $coins coins!',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8666,7 +8671,12 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String extraMatchesCta(int cost) {
-    return '+3 pang match — $cost coins';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: '+3 pang match — $cost coins',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8674,12 +8684,22 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String boostCostLine(int cost) {
-    return 'Halaga: $cost coins';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: 'Halaga: $cost coins',
+    );
+    return '$_temp0';
   }
 
   @override
   String boostBalanceLine(int balance) {
-    return 'Balanse mo: $balance coins';
+    String _temp0 = intl.Intl.pluralLogic(
+      balance,
+      locale: localeName,
+      other: 'Balanse mo: $balance coins',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8709,7 +8729,12 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String wavesMaskedBody(int cost) {
-    return 'Alamin kung sino sa halagang $cost coins, o mag-VIP';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: 'Alamin kung sino sa halagang $cost coins, o mag-VIP',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8769,7 +8794,12 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String visitorsMaskedBody(int cost) {
-    return 'Alamin kung sino sa $cost coins, o mag-VIP';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: 'Alamin kung sino sa $cost coins, o mag-VIP',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -9685,8 +9715,13 @@ class AppLocalizationsTl extends AppLocalizations {
   String get chatPremium => 'Premium ✨';
 
   @override
-  String chatUnlockPremiumWallpapers(Object cost) {
-    return 'I-unlock ang lahat ng Premium ✨ wallpaper para sa 💎$cost coins? Permanenteng ina-unlock nito ang buong pack.';
+  String chatUnlockPremiumWallpapers(int cost) {
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: 'I-unlock ang lahat ng Premium ✨ wallpaper para sa 💎$cost coins? Permanenteng ina-unlock nito ang buong pack.',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -11436,4 +11471,672 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get pleaseRemoveImagesFirstToAddVoiceNote => 'Pakialis muna ang mga larawan para makapagdagdag ng voice note';
+
+  @override
+  String get authLockedTitle => 'Pansamantalang naka-lock ang account';
+
+  @override
+  String authLockedBodyMinutes(Object minutes) {
+    return 'Masyadong maraming bigong pagsubok. Subukan ulit sa loob ng $minutes min.';
+  }
+
+  @override
+  String get authLockedBodyLater => 'Masyadong maraming bigong pagsubok. Subukan ulit mamaya.';
+
+  @override
+  String get authRateLimitedTitle => 'Dahan-dahan muna';
+
+  @override
+  String authRateLimitedBodySeconds(Object seconds) {
+    return 'Masyadong maraming pagsubok. Subukan ulit sa loob ng ${seconds}s.';
+  }
+
+  @override
+  String get authRateLimitedBodyShortly => 'Masyadong maraming pagsubok. Subukan ulit maya-maya.';
+
+  @override
+  String get passwordErrorLength => 'Dapat hindi bababa sa 8 character ang password';
+
+  @override
+  String get passwordErrorUppercase => 'Dapat may kahit isang malaking titik ang password';
+
+  @override
+  String get passwordErrorLowercase => 'Dapat may kahit isang maliit na titik ang password';
+
+  @override
+  String get passwordErrorNumber => 'Dapat may kahit isang numero ang password';
+
+  @override
+  String get authCodeExpired => 'Nag-expire na ang code na ito. Humiling ng bago.';
+
+  @override
+  String get authCodeIncorrect => 'Mali ang code. Pakisubukan ulit.';
+
+  @override
+  String get authVerificationFailed => 'Nabigo ang beripikasyon';
+
+  @override
+  String get authResendCodeFailed => 'Hindi naipadala ulit ang code';
+
+  @override
+  String get authSendResetCodeFailed => 'Hindi naipadala ang reset code';
+
+  @override
+  String get authResetPasswordFailed => 'Hindi na-reset ang password';
+
+  @override
+  String get enableBiometricTitleAndroid => 'Gamitin ang fingerprint o face unlock para mag-log in sa susunod?';
+
+  @override
+  String chatLastSeenDate(Object date) {
+    return 'Huling nakita $date';
+  }
+
+  @override
+  String get chatLastSeenRecently => 'Kamakailang nakita';
+
+  @override
+  String chatMediaTabMedia(Object count) {
+    return 'Media ($count)';
+  }
+
+  @override
+  String chatMediaTabLinks(Object count) {
+    return 'Mga link ($count)';
+  }
+
+  @override
+  String chatMediaTabDocs(Object count) {
+    return 'Mga dokumento ($count)';
+  }
+
+  @override
+  String get chatMediaNoMedia => 'Wala pang naibahaging larawan o video';
+
+  @override
+  String get chatMediaNoLinks => 'Wala pang naibahaging link';
+
+  @override
+  String get chatMediaNoDocs => 'Wala pang naibahaging dokumento';
+
+  @override
+  String get chatMediaUnknownSize => 'Hindi alam ang laki';
+
+  @override
+  String chatDeleteMinutesLeft(Object minutes) {
+    return '${minutes}m na lang';
+  }
+
+  @override
+  String chatDeleteRemovesForBoth(Object name) {
+    return 'Matatanggal para sa iyo at kay $name';
+  }
+
+  @override
+  String get chatUnsupportedMessageType => 'Hindi suportadong uri ng mensahe';
+
+  @override
+  String get chatStoryUnavailable => 'Hindi na available ang story na ito';
+
+  @override
+  String get chatWallpapersUnlocked => 'Na-unlock ang mga premium na wallpaper!';
+
+  @override
+  String get chatEditFailed => 'Hindi na-edit ang mensahe';
+
+  @override
+  String get chatPinFailed => 'Hindi na-update ang pin';
+
+  @override
+  String get chatMessagePinned => 'Na-pin ang mensahe';
+
+  @override
+  String get chatMessageUnpinned => 'Na-unpin ang mensahe';
+
+  @override
+  String get chatForwardFailed => 'Hindi naipasa ang mensahe';
+
+  @override
+  String get chatShareLocationFailed => 'Hindi naibahagi ang lokasyon';
+
+  @override
+  String chatFileTooLarge(Object size) {
+    return 'Masyadong malaki ang file na ito. Ang limitasyon ay $size MB.';
+  }
+
+  @override
+  String get chatSendMediaFailed => 'Hindi naipadala ang media';
+
+  @override
+  String get chatSendVideoFailed => 'Hindi naipadala ang video';
+
+  @override
+  String get chatVideoTooLong => 'Dapat wala pang 10 minuto ang video';
+
+  @override
+  String get chatVideoTooLarge => 'Dapat wala pang 1GB ang video. Paki-compress ito.';
+
+  @override
+  String get chatSendVoiceFailed => 'Hindi naipadala ang voice message';
+
+  @override
+  String get chatVoiceTooLong => 'Dapat wala pang 5 minuto ang voice message';
+
+  @override
+  String get chatVoiceTooLarge => 'Masyadong malaki ang file ng voice message';
+
+  @override
+  String get voiceRecorderInitFailed => 'Hindi naihanda ang recorder';
+
+  @override
+  String get voiceRecorderStartFailed => 'Hindi nasimulan ang pag-record';
+
+  @override
+  String get voiceRecorderFileMissing => 'Hindi nahanap ang file ng recording';
+
+  @override
+  String get voiceRecorderTooShort => 'Masyadong maikli ang recording (hindi bababa sa 1 segundo)';
+
+  @override
+  String get voiceRecorderResume => 'Ituloy';
+
+  @override
+  String get voiceRecorderPause => 'I-pause';
+
+  @override
+  String get voiceRecorderPaused => 'Naka-pause ang recording - i-tap ang play para ituloy';
+
+  @override
+  String get voiceRecorderRecording => 'Nagre-record... i-tap ang pause o send kapag tapos na';
+
+  @override
+  String get voiceRecorderInitializing => 'Inihahanda...';
+
+  @override
+  String get chatGifSearchFailed => 'Nabigo ang paghahanap. Pakisubukan ulit.';
+
+  @override
+  String chatGifResultsFor(Object query) {
+    return 'Mga resulta para sa \"$query\"';
+  }
+
+  @override
+  String get chatYouSharedStory => 'Nagbahagi ka ng story';
+
+  @override
+  String chatUserSharedStory(Object name) {
+    return 'Nagbahagi si $name ng story';
+  }
+
+  @override
+  String chatUserNotInChats(Object name) {
+    return 'Wala si @$name sa iyong mga chat';
+  }
+
+  @override
+  String get chatDeleteMessageFailed => 'Hindi natanggal ang mensahe';
+
+  @override
+  String get themeAutomatic => 'Awtomatiko';
+
+  @override
+  String get themeManual => 'Mano-mano';
+
+  @override
+  String get themeFollowingSystem => 'Sumusunod sa system';
+
+  @override
+  String get profileAdminToolsSubtitle => 'Mga ulat, user, audit log';
+
+  @override
+  String appVersionLabel(Object version) {
+    return 'Bersyon $version';
+  }
+
+  @override
+  String get privacyVisitAnonymously => 'Bisitahin ang mga profile nang anonymous';
+
+  @override
+  String get privacyVisitAnonymouslyDesc => 'Hindi lalabas ang pangalan mo sa listahan ng mga kamakailang bisita ng user.';
+
+  @override
+  String get profilePhotoUploading => 'Nag-a-upload...';
+
+  @override
+  String get profilePhotoRemoving => 'Inaalis...';
+
+  @override
+  String get profileCropPhoto => 'I-crop ang larawan';
+
+  @override
+  String get networkWifi => 'Wi-Fi';
+
+  @override
+  String get networkMobileData => 'Mobile data';
+
+  @override
+  String get networkEthernet => 'Ethernet';
+
+  @override
+  String get notifPrefResetFailed => 'Hindi na-reset ang mga kagustuhan';
+
+  @override
+  String get notifPrefNewFollower => 'Bagong follower';
+
+  @override
+  String get notifPrefVipRenewalWarning => 'Mga paalala sa pag-renew ng VIP';
+
+  @override
+  String get accountDeletedSuccess => 'Matagumpay na natanggal ang account';
+
+  @override
+  String get accountDeleteFailed => 'Hindi natanggal ang account';
+
+  @override
+  String get coinHistoryLoadFailed => 'Hindi ma-load ang kasaysayan ng coins.';
+
+  @override
+  String get waveAlreadySentTooltip => 'Nakakaway ka na — magpadala na lang ng mensahe';
+
+  @override
+  String waveAlreadySentTo(Object name) {
+    return 'Nakaway mo na si $name — padalhan mo na lang siya ng mensahe.';
+  }
+
+  @override
+  String get waveAlreadyWaved => 'Nakakaway na';
+
+  @override
+  String get communityCountryDetectFailed => 'Hindi matukoy ang bansa';
+
+  @override
+  String get roomPickCategoryError => 'Pumili ng kategorya';
+
+  @override
+  String get blockUserSuccess => 'Na-block ang user';
+
+  @override
+  String get blockUserFailed => 'Hindi ma-block ang user na ito';
+
+  @override
+  String get unblockUserSuccess => 'Na-unblock ang user';
+
+  @override
+  String get unblockUserFailed => 'Hindi ma-unblock ang user na ito';
+
+  @override
+  String get clubDeleteFailed => 'Hindi matanggal ang club';
+
+  @override
+  String get clubMemberUpdateFailed => 'Hindi ma-update ang miyembrong ito';
+
+  @override
+  String get groupCoverUploadFailed => 'Hindi ma-upload ang larawan';
+
+  @override
+  String get groupCoverRemoveFailed => 'Hindi maalis ang larawan';
+
+  @override
+  String get clubStatusArchived => 'Naka-archive';
+
+  @override
+  String get matchTagSimilarAge => 'Magkasing-edad';
+
+  @override
+  String matchTagBothLike(Object topic) {
+    return 'Pareho ninyong gusto ang $topic';
+  }
+
+  @override
+  String get topicNameCooking => 'Pagluluto';
+
+  @override
+  String get topicNameCoffee => 'Kape at Tsaa';
+
+  @override
+  String get topicNameEatingOut => 'Pagkain sa Labas';
+
+  @override
+  String get topicNameBaking => 'Pagbe-bake';
+
+  @override
+  String get topicNameDrinking => 'Inuman';
+
+  @override
+  String get topicNameStreetFood => 'Street Food';
+
+  @override
+  String get topicNameTravel => 'Paglalakbay';
+
+  @override
+  String get topicNameBackpacking => 'Backpacking';
+
+  @override
+  String get topicNameBeaches => 'Mga Beach';
+
+  @override
+  String get topicNameMountains => 'Mga Bundok';
+
+  @override
+  String get topicNameCamping => 'Camping';
+
+  @override
+  String get topicNameGym => 'Gym';
+
+  @override
+  String get topicNameRunning => 'Pagtakbo';
+
+  @override
+  String get topicNameYoga => 'Yoga';
+
+  @override
+  String get topicNameFootball => 'Football';
+
+  @override
+  String get topicNameBasketball => 'Basketball';
+
+  @override
+  String get topicNameHiking => 'Hiking';
+
+  @override
+  String get topicNameCycling => 'Pagbibisikleta';
+
+  @override
+  String get topicNameDancing => 'Pagsasayaw';
+
+  @override
+  String get topicNameSwimming => 'Paglangoy';
+
+  @override
+  String get topicNameMovies => 'Mga Pelikula';
+
+  @override
+  String get topicNameTvShows => 'Mga Palabas sa TV';
+
+  @override
+  String get topicNameMusic => 'Musika';
+
+  @override
+  String get topicNameGaming => 'Gaming';
+
+  @override
+  String get topicNameAnime => 'Anime at Manga';
+
+  @override
+  String get topicNameKpop => 'K-Pop';
+
+  @override
+  String get topicNameKdrama => 'K-Drama';
+
+  @override
+  String get topicNamePodcasts => 'Mga Podcast';
+
+  @override
+  String get topicNameArt => 'Sining';
+
+  @override
+  String get topicNamePhotography => 'Potograpiya';
+
+  @override
+  String get topicNameBooks => 'Mga Libro';
+
+  @override
+  String get topicNameWriting => 'Pagsusulat';
+
+  @override
+  String get topicNameHistory => 'Kasaysayan';
+
+  @override
+  String get topicNameDesign => 'Disenyo';
+
+  @override
+  String get topicNameFashion => 'Moda';
+
+  @override
+  String get topicNameBeauty => 'Kagandahan at Skincare';
+
+  @override
+  String get topicNameShopping => 'Pamimili';
+
+  @override
+  String get topicNameGardening => 'Paghahalaman';
+
+  @override
+  String get topicNameDiy => 'Gawang-kamay (DIY)';
+
+  @override
+  String get topicNameDogs => 'Mga Aso';
+
+  @override
+  String get topicNameCats => 'Mga Pusa';
+
+  @override
+  String get topicNameNature => 'Kalikasan';
+
+  @override
+  String get topicNameAnimals => 'Mga Hayop';
+
+  @override
+  String get topicNameLanguageExchange => 'Palitan ng Wika';
+
+  @override
+  String get topicNameStudyAbroad => 'Pag-aaral sa Ibang Bansa';
+
+  @override
+  String get topicNameTechnology => 'Teknolohiya';
+
+  @override
+  String get topicNameProgramming => 'Programming';
+
+  @override
+  String get topicNameBusiness => 'Negosyo';
+
+  @override
+  String get topicNameScience => 'Agham';
+
+  @override
+  String get topicNameDailyLife => 'Pang-araw-araw na Buhay';
+
+  @override
+  String get topicNameMakingFriends => 'Pakikipagkaibigan';
+
+  @override
+  String get topicNameRelationships => 'Mga Relasyon';
+
+  @override
+  String get topicNameFamily => 'Pamilya';
+
+  @override
+  String get topicNameNightlife => 'Nightlife';
+
+  @override
+  String get topicNameMentalHealth => 'Kalusugang Pangkaisipan';
+
+  @override
+  String get topicNameMeditation => 'Meditasyon';
+
+  @override
+  String get topicNameNutrition => 'Nutrisyon';
+
+  @override
+  String get topicNameSelfImprovement => 'Pagpapaunlad ng Sarili';
+
+  @override
+  String get topicCategoryFoodDrink => 'Pagkain at Inumin';
+
+  @override
+  String get topicCategoryTravel => 'Paglalakbay at Pakikipagsapalaran';
+
+  @override
+  String get topicCategorySports => 'Sports at Fitness';
+
+  @override
+  String get topicCategoryEntertainment => 'Libangan at Musika';
+
+  @override
+  String get topicCategoryArts => 'Sining at Kultura';
+
+  @override
+  String get topicCategoryLifestyle => 'Pamumuhay';
+
+  @override
+  String get topicCategoryPetsNature => 'Alagang Hayop at Kalikasan';
+
+  @override
+  String get topicCategoryLearning => 'Pag-aaral at Karera';
+
+  @override
+  String get topicCategorySocial => 'Pakikisalamuha';
+
+  @override
+  String get topicCategoryHealth => 'Kalusugan at Kagalingan';
+
+  @override
+  String get waveTooMany => 'Masyadong maraming kaway. Dahan-dahan lang!';
+
+  @override
+  String get aiTutorNoSummary => '(walang buod)';
+
+  @override
+  String vocabPackAllSaved(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Nasa bokabularyo mo na ang lahat ng $count salita',
+      one: 'Nasa bokabularyo mo na ang salitang ito',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String vocabPackAdded(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Naidagdag ang $count salita sa iyong bokabularyo',
+      one: 'Naidagdag ang 1 salita sa iyong bokabularyo',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String vocabPackAddedSomeSaved(int count, int saved) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Naidagdag ang $count salita ($saved naka-save na)',
+      one: 'Naidagdag ang 1 salita ($saved naka-save na)',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get vocabPackNoExercises => 'Walang pagsasanay';
+
+  @override
+  String vocabPackPractice(int count) {
+    return 'Magsanay ($count)';
+  }
+
+  @override
+  String get aiQuizPlayAgain => 'Maglaro ulit';
+
+  @override
+  String get aiLessonAskHint => 'Magtanong ng kahit ano tungkol sa araling ito...';
+
+  @override
+  String get aiLessonConceptHint => 'Anong konsepto ang gusto mong ipaliwanag?';
+
+  @override
+  String examTargetScoreHint(Object score) {
+    return 'hal. $score';
+  }
+
+  @override
+  String get vocabWordAdded => 'Naidagdag ang salita!';
+
+  @override
+  String get vocabWordAddFailed => 'Hindi maidagdag ang salita';
+
+  @override
+  String get vocabEnterWordFirst => 'Maglagay muna ng salita';
+
+  @override
+  String get vocabAiFilled => 'Pinunan ng AI!';
+
+  @override
+  String get vocabAiFillFailed => 'Nabigo ang AI fill. Pakisubukan ulit.';
+
+  @override
+  String get authSendCodeFailed => 'Hindi naipadala ang verification code';
+
+  @override
+  String get authServerConfigError => 'Error sa configuration ng server. Makipag-ugnayan sa support.';
+
+  @override
+  String get authAppleTokenFailed => 'Hindi makapag-sign in gamit ang Apple. Pakisubukan ulit.';
+
+  @override
+  String get authRegistrationFailed => 'Nabigo ang pagpaparehistro';
+
+  @override
+  String get authEmailAlreadyExists => 'Ginagamit na ang email na ito. Gumamit ng ibang email.';
+
+  @override
+  String get reportEvidenceAddFailed => 'Hindi maidagdag ang mga larawan';
+
+  @override
+  String reportEvidenceMaxFiles(int count) {
+    return 'Hanggang $count file bawat ulat';
+  }
+
+  @override
+  String reportEvidenceFileTooLarge(Object name) {
+    return 'Masyadong malaki ang $name (max 5 MB)';
+  }
+
+  @override
+  String get reportEvidenceTotalTooLarge => 'Lalampas sa 25 MB ang kabuuang laki';
+
+  @override
+  String get blockedContentUnavailableToYou => 'Hindi available sa iyo ang nilalamang ito.';
+
+  @override
+  String blockedCantViewUserContent(Object name) {
+    return 'Hindi mo makikita ang nilalaman ni $name.';
+  }
+
+  @override
+  String get blockedCantViewThisUserContent => 'Hindi mo makikita ang nilalaman ng user na ito.';
+
+  @override
+  String blockedCantViewUserProfile(Object name) {
+    return 'Hindi mo makikita ang profile ni $name.';
+  }
+
+  @override
+  String get blockedProfileUnavailable => 'Hindi available ang profile na ito.';
+
+  @override
+  String get blockedContentUnavailable => 'Hindi available ang nilalamang ito.';
+
+  @override
+  String get blockedCantViewStories => 'Hindi mo makikita ang mga story na ito.';
+
+  @override
+  String blockedCantMessageUser(Object name) {
+    return 'Hindi ka makakapagpadala ng mensahe kay $name.';
+  }
+
+  @override
+  String get blockedCantMessageThisUser => 'Hindi ka makakapagpadala ng mensahe sa user na ito.';
+
+  @override
+  String get blockedActionNotAllowed => 'Hindi mo magagawa ang aksyong ito';
+
+  @override
+  String get blockedCantLike => 'Hindi mo mai-like ang nilalamang ito';
+
+  @override
+  String get blockedCantComment => 'Hindi ka makakapag-comment sa nilalamang ito';
 }

@@ -2872,7 +2872,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get tapToDetectLocation => 'Ketuk untuk mendeteksi lokasi';
 
   @override
-  String get optionalHelpsNearbyPartners => 'Diperlukan — membantu menemukan partner terdekat';
+  String get optionalHelpsNearbyPartners => 'Opsional — membantu menemukan partner terdekat';
 
   @override
   String get startLearning => 'Mulai belajar';
@@ -8640,7 +8640,12 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String referralClaimed(int coins) {
-    return 'Kamu mendapatkan $coins koin!';
+    String _temp0 = intl.Intl.pluralLogic(
+      coins,
+      locale: localeName,
+      other: 'Kamu mendapatkan $coins koin!',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8663,7 +8668,12 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String extraMatchesCta(int cost) {
-    return '+3 kecocokan lagi — $cost koin';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: '+3 kecocokan lagi — $cost koin',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8671,12 +8681,22 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String boostCostLine(int cost) {
-    return 'Biaya: $cost koin';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: 'Biaya: $cost koin',
+    );
+    return '$_temp0';
   }
 
   @override
   String boostBalanceLine(int balance) {
-    return 'Saldomu: $balance koin';
+    String _temp0 = intl.Intl.pluralLogic(
+      balance,
+      locale: localeName,
+      other: 'Saldomu: $balance koin',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8706,7 +8726,12 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String wavesMaskedBody(int cost) {
-    return 'Lihat siapa dengan $cost koin, atau jadi VIP';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: 'Lihat siapa dengan $cost koin, atau jadi VIP',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8766,7 +8791,12 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String visitorsMaskedBody(int cost) {
-    return 'Lihat siapa dengan $cost koin, atau jadi VIP';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: 'Lihat siapa dengan $cost koin, atau jadi VIP',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -9682,8 +9712,13 @@ class AppLocalizationsId extends AppLocalizations {
   String get chatPremium => 'Premium ✨';
 
   @override
-  String chatUnlockPremiumWallpapers(Object cost) {
-    return 'Buka semua wallpaper Premium ✨ seharga 💎$cost koin? Ini membuka seluruh paket selamanya.';
+  String chatUnlockPremiumWallpapers(int cost) {
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: 'Buka semua wallpaper Premium ✨ seharga 💎$cost koin? Ini membuka seluruh paket selamanya.',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -11428,4 +11463,669 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get pleaseRemoveImagesFirstToAddVoiceNote => 'Hapus gambar terlebih dahulu untuk menambahkan pesan suara';
+
+  @override
+  String get authLockedTitle => 'Akun dikunci sementara';
+
+  @override
+  String authLockedBodyMinutes(Object minutes) {
+    return 'Terlalu banyak percobaan gagal. Coba lagi dalam $minutes menit.';
+  }
+
+  @override
+  String get authLockedBodyLater => 'Terlalu banyak percobaan gagal. Coba lagi nanti.';
+
+  @override
+  String get authRateLimitedTitle => 'Pelan-pelan sebentar';
+
+  @override
+  String authRateLimitedBodySeconds(Object seconds) {
+    return 'Terlalu banyak percobaan. Coba lagi dalam $seconds dtk.';
+  }
+
+  @override
+  String get authRateLimitedBodyShortly => 'Terlalu banyak percobaan. Coba lagi sebentar lagi.';
+
+  @override
+  String get passwordErrorLength => 'Kata sandi minimal 8 karakter';
+
+  @override
+  String get passwordErrorUppercase => 'Kata sandi harus berisi minimal satu huruf besar';
+
+  @override
+  String get passwordErrorLowercase => 'Kata sandi harus berisi minimal satu huruf kecil';
+
+  @override
+  String get passwordErrorNumber => 'Kata sandi harus berisi minimal satu angka';
+
+  @override
+  String get authCodeExpired => 'Kode ini sudah kedaluwarsa. Silakan minta kode baru.';
+
+  @override
+  String get authCodeIncorrect => 'Kode salah. Silakan coba lagi.';
+
+  @override
+  String get authVerificationFailed => 'Verifikasi gagal';
+
+  @override
+  String get authResendCodeFailed => 'Gagal mengirim ulang kode';
+
+  @override
+  String get authSendResetCodeFailed => 'Gagal mengirim kode reset';
+
+  @override
+  String get authResetPasswordFailed => 'Gagal mengatur ulang kata sandi';
+
+  @override
+  String get enableBiometricTitleAndroid => 'Gunakan sidik jari atau buka dengan wajah untuk masuk lain kali?';
+
+  @override
+  String chatLastSeenDate(Object date) {
+    return 'Terakhir dilihat $date';
+  }
+
+  @override
+  String get chatLastSeenRecently => 'Terakhir dilihat baru-baru ini';
+
+  @override
+  String chatMediaTabMedia(Object count) {
+    return 'Media ($count)';
+  }
+
+  @override
+  String chatMediaTabLinks(Object count) {
+    return 'Tautan ($count)';
+  }
+
+  @override
+  String chatMediaTabDocs(Object count) {
+    return 'Dokumen ($count)';
+  }
+
+  @override
+  String get chatMediaNoMedia => 'Belum ada foto atau video yang dibagikan';
+
+  @override
+  String get chatMediaNoLinks => 'Belum ada tautan yang dibagikan';
+
+  @override
+  String get chatMediaNoDocs => 'Belum ada dokumen yang dibagikan';
+
+  @override
+  String get chatMediaUnknownSize => 'Ukuran tidak diketahui';
+
+  @override
+  String chatDeleteMinutesLeft(Object minutes) {
+    return 'sisa $minutes mnt';
+  }
+
+  @override
+  String chatDeleteRemovesForBoth(Object name) {
+    return 'Dihapus untuk kamu dan $name';
+  }
+
+  @override
+  String get chatUnsupportedMessageType => 'Jenis pesan tidak didukung';
+
+  @override
+  String get chatStoryUnavailable => 'Cerita ini sudah tidak tersedia';
+
+  @override
+  String get chatWallpapersUnlocked => 'Wallpaper premium terbuka!';
+
+  @override
+  String get chatEditFailed => 'Gagal mengedit pesan';
+
+  @override
+  String get chatPinFailed => 'Gagal memperbarui status sematan';
+
+  @override
+  String get chatMessagePinned => 'Pesan disematkan';
+
+  @override
+  String get chatMessageUnpinned => 'Sematan pesan dilepas';
+
+  @override
+  String get chatForwardFailed => 'Gagal meneruskan pesan';
+
+  @override
+  String get chatShareLocationFailed => 'Gagal membagikan lokasi';
+
+  @override
+  String chatFileTooLarge(Object size) {
+    return 'File ini terlalu besar. Batasnya $size MB.';
+  }
+
+  @override
+  String get chatSendMediaFailed => 'Gagal mengirim media';
+
+  @override
+  String get chatSendVideoFailed => 'Gagal mengirim video';
+
+  @override
+  String get chatVideoTooLong => 'Video harus kurang dari 10 menit';
+
+  @override
+  String get chatVideoTooLarge => 'Video harus kurang dari 1GB. Silakan kompres videonya.';
+
+  @override
+  String get chatSendVoiceFailed => 'Gagal mengirim pesan suara';
+
+  @override
+  String get chatVoiceTooLong => 'Pesan suara harus kurang dari 5 menit';
+
+  @override
+  String get chatVoiceTooLarge => 'File pesan suara terlalu besar';
+
+  @override
+  String get voiceRecorderInitFailed => 'Gagal menyiapkan perekam';
+
+  @override
+  String get voiceRecorderStartFailed => 'Gagal mulai merekam';
+
+  @override
+  String get voiceRecorderFileMissing => 'File rekaman tidak ditemukan';
+
+  @override
+  String get voiceRecorderTooShort => 'Rekaman terlalu pendek (minimal 1 detik)';
+
+  @override
+  String get voiceRecorderResume => 'Lanjutkan';
+
+  @override
+  String get voiceRecorderPause => 'Jeda';
+
+  @override
+  String get voiceRecorderPaused => 'Rekaman dijeda - ketuk putar untuk melanjutkan';
+
+  @override
+  String get voiceRecorderRecording => 'Merekam... ketuk jeda atau kirim jika sudah selesai';
+
+  @override
+  String get voiceRecorderInitializing => 'Menyiapkan...';
+
+  @override
+  String get chatGifSearchFailed => 'Pencarian gagal. Silakan coba lagi.';
+
+  @override
+  String chatGifResultsFor(Object query) {
+    return 'Hasil untuk \"$query\"';
+  }
+
+  @override
+  String get chatYouSharedStory => 'Kamu membagikan cerita';
+
+  @override
+  String chatUserSharedStory(Object name) {
+    return '$name membagikan cerita';
+  }
+
+  @override
+  String chatUserNotInChats(Object name) {
+    return '@$name tidak ada di chat kamu';
+  }
+
+  @override
+  String get chatDeleteMessageFailed => 'Gagal menghapus pesan';
+
+  @override
+  String get themeAutomatic => 'Otomatis';
+
+  @override
+  String get themeManual => 'Manual';
+
+  @override
+  String get themeFollowingSystem => 'Mengikuti sistem';
+
+  @override
+  String get profileAdminToolsSubtitle => 'Laporan, pengguna, log audit';
+
+  @override
+  String appVersionLabel(Object version) {
+    return 'Versi $version';
+  }
+
+  @override
+  String get privacyVisitAnonymously => 'Kunjungi profil secara anonim';
+
+  @override
+  String get privacyVisitAnonymouslyDesc => 'Namamu tidak akan muncul di daftar pengunjung terbaru pengguna tersebut.';
+
+  @override
+  String get profilePhotoUploading => 'Mengunggah...';
+
+  @override
+  String get profilePhotoRemoving => 'Menghapus...';
+
+  @override
+  String get profileCropPhoto => 'Pangkas foto';
+
+  @override
+  String get networkWifi => 'Wi-Fi';
+
+  @override
+  String get networkMobileData => 'Data seluler';
+
+  @override
+  String get networkEthernet => 'Ethernet';
+
+  @override
+  String get notifPrefResetFailed => 'Gagal mengatur ulang preferensi';
+
+  @override
+  String get notifPrefNewFollower => 'Pengikut baru';
+
+  @override
+  String get notifPrefVipRenewalWarning => 'Pengingat perpanjangan VIP';
+
+  @override
+  String get accountDeletedSuccess => 'Akun berhasil dihapus';
+
+  @override
+  String get accountDeleteFailed => 'Gagal menghapus akun';
+
+  @override
+  String get coinHistoryLoadFailed => 'Riwayat koin tidak dapat dimuat.';
+
+  @override
+  String get waveAlreadySentTooltip => 'Sudah melambai — kirim pesan saja';
+
+  @override
+  String waveAlreadySentTo(Object name) {
+    return 'Kamu sudah melambai ke $name — kirim pesan saja.';
+  }
+
+  @override
+  String get waveAlreadyWaved => 'Sudah melambai';
+
+  @override
+  String get communityCountryDetectFailed => 'Negara tidak dapat dideteksi';
+
+  @override
+  String get roomPickCategoryError => 'Silakan pilih kategori';
+
+  @override
+  String get blockUserSuccess => 'Pengguna diblokir';
+
+  @override
+  String get blockUserFailed => 'Tidak dapat memblokir pengguna ini';
+
+  @override
+  String get unblockUserSuccess => 'Blokir pengguna dibuka';
+
+  @override
+  String get unblockUserFailed => 'Tidak dapat membuka blokir pengguna ini';
+
+  @override
+  String get clubDeleteFailed => 'Gagal menghapus klub';
+
+  @override
+  String get clubMemberUpdateFailed => 'Gagal memperbarui anggota ini';
+
+  @override
+  String get groupCoverUploadFailed => 'Gagal mengunggah foto';
+
+  @override
+  String get groupCoverRemoveFailed => 'Gagal menghapus foto';
+
+  @override
+  String get clubStatusArchived => 'Diarsipkan';
+
+  @override
+  String get matchTagSimilarAge => 'Usia mirip';
+
+  @override
+  String matchTagBothLike(Object topic) {
+    return 'Sama-sama suka $topic';
+  }
+
+  @override
+  String get topicNameCooking => 'Memasak';
+
+  @override
+  String get topicNameCoffee => 'Kopi & Teh';
+
+  @override
+  String get topicNameEatingOut => 'Makan di Luar';
+
+  @override
+  String get topicNameBaking => 'Membuat Kue';
+
+  @override
+  String get topicNameDrinking => 'Minuman';
+
+  @override
+  String get topicNameStreetFood => 'Jajanan Kaki Lima';
+
+  @override
+  String get topicNameTravel => 'Traveling';
+
+  @override
+  String get topicNameBackpacking => 'Backpacking';
+
+  @override
+  String get topicNameBeaches => 'Pantai';
+
+  @override
+  String get topicNameMountains => 'Gunung';
+
+  @override
+  String get topicNameCamping => 'Berkemah';
+
+  @override
+  String get topicNameGym => 'Gym';
+
+  @override
+  String get topicNameRunning => 'Lari';
+
+  @override
+  String get topicNameYoga => 'Yoga';
+
+  @override
+  String get topicNameFootball => 'Sepak Bola';
+
+  @override
+  String get topicNameBasketball => 'Bola Basket';
+
+  @override
+  String get topicNameHiking => 'Mendaki';
+
+  @override
+  String get topicNameCycling => 'Bersepeda';
+
+  @override
+  String get topicNameDancing => 'Menari';
+
+  @override
+  String get topicNameSwimming => 'Berenang';
+
+  @override
+  String get topicNameMovies => 'Film';
+
+  @override
+  String get topicNameTvShows => 'Acara TV';
+
+  @override
+  String get topicNameMusic => 'Musik';
+
+  @override
+  String get topicNameGaming => 'Game';
+
+  @override
+  String get topicNameAnime => 'Anime & Manga';
+
+  @override
+  String get topicNameKpop => 'K-Pop';
+
+  @override
+  String get topicNameKdrama => 'Drama Korea';
+
+  @override
+  String get topicNamePodcasts => 'Podcast';
+
+  @override
+  String get topicNameArt => 'Seni';
+
+  @override
+  String get topicNamePhotography => 'Fotografi';
+
+  @override
+  String get topicNameBooks => 'Buku';
+
+  @override
+  String get topicNameWriting => 'Menulis';
+
+  @override
+  String get topicNameHistory => 'Sejarah';
+
+  @override
+  String get topicNameDesign => 'Desain';
+
+  @override
+  String get topicNameFashion => 'Fesyen';
+
+  @override
+  String get topicNameBeauty => 'Kecantikan & Perawatan Kulit';
+
+  @override
+  String get topicNameShopping => 'Belanja';
+
+  @override
+  String get topicNameGardening => 'Berkebun';
+
+  @override
+  String get topicNameDiy => 'Kerajinan DIY';
+
+  @override
+  String get topicNameDogs => 'Anjing';
+
+  @override
+  String get topicNameCats => 'Kucing';
+
+  @override
+  String get topicNameNature => 'Alam';
+
+  @override
+  String get topicNameAnimals => 'Hewan';
+
+  @override
+  String get topicNameLanguageExchange => 'Pertukaran Bahasa';
+
+  @override
+  String get topicNameStudyAbroad => 'Kuliah di Luar Negeri';
+
+  @override
+  String get topicNameTechnology => 'Teknologi';
+
+  @override
+  String get topicNameProgramming => 'Pemrograman';
+
+  @override
+  String get topicNameBusiness => 'Bisnis';
+
+  @override
+  String get topicNameScience => 'Sains';
+
+  @override
+  String get topicNameDailyLife => 'Kehidupan Sehari-hari';
+
+  @override
+  String get topicNameMakingFriends => 'Mencari Teman';
+
+  @override
+  String get topicNameRelationships => 'Hubungan';
+
+  @override
+  String get topicNameFamily => 'Keluarga';
+
+  @override
+  String get topicNameNightlife => 'Kehidupan Malam';
+
+  @override
+  String get topicNameMentalHealth => 'Kesehatan Mental';
+
+  @override
+  String get topicNameMeditation => 'Meditasi';
+
+  @override
+  String get topicNameNutrition => 'Gizi';
+
+  @override
+  String get topicNameSelfImprovement => 'Pengembangan Diri';
+
+  @override
+  String get topicCategoryFoodDrink => 'Makanan & Minuman';
+
+  @override
+  String get topicCategoryTravel => 'Traveling & Petualangan';
+
+  @override
+  String get topicCategorySports => 'Olahraga & Kebugaran';
+
+  @override
+  String get topicCategoryEntertainment => 'Hiburan & Musik';
+
+  @override
+  String get topicCategoryArts => 'Seni & Budaya';
+
+  @override
+  String get topicCategoryLifestyle => 'Gaya Hidup';
+
+  @override
+  String get topicCategoryPetsNature => 'Hewan Peliharaan & Alam';
+
+  @override
+  String get topicCategoryLearning => 'Belajar & Karier';
+
+  @override
+  String get topicCategorySocial => 'Sosial';
+
+  @override
+  String get topicCategoryHealth => 'Kesehatan & Kebugaran';
+
+  @override
+  String get waveTooMany => 'Terlalu banyak lambaian. Pelan-pelan ya!';
+
+  @override
+  String get aiTutorNoSummary => '(tanpa ringkasan)';
+
+  @override
+  String vocabPackAllSaved(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Semua $count kata sudah ada di kosakatamu',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String vocabPackAdded(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count kata ditambahkan ke kosakatamu',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String vocabPackAddedSomeSaved(int count, int saved) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count kata ditambahkan ke kosakatamu ($saved sudah tersimpan)',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get vocabPackNoExercises => 'Tidak ada latihan';
+
+  @override
+  String vocabPackPractice(int count) {
+    return 'Latihan ($count)';
+  }
+
+  @override
+  String get aiQuizPlayAgain => 'Main lagi';
+
+  @override
+  String get aiLessonAskHint => 'Tanyakan apa saja tentang pelajaran ini...';
+
+  @override
+  String get aiLessonConceptHint => 'Konsep apa yang ingin dijelaskan?';
+
+  @override
+  String examTargetScoreHint(Object score) {
+    return 'mis. $score';
+  }
+
+  @override
+  String get vocabWordAdded => 'Kata ditambahkan!';
+
+  @override
+  String get vocabWordAddFailed => 'Gagal menambahkan kata';
+
+  @override
+  String get vocabEnterWordFirst => 'Masukkan kata dulu';
+
+  @override
+  String get vocabAiFilled => 'Diisi oleh AI!';
+
+  @override
+  String get vocabAiFillFailed => 'Pengisian AI gagal. Silakan coba lagi.';
+
+  @override
+  String get authSendCodeFailed => 'Gagal mengirim kode verifikasi';
+
+  @override
+  String get authServerConfigError => 'Kesalahan konfigurasi server. Silakan hubungi dukungan.';
+
+  @override
+  String get authAppleTokenFailed => 'Gagal masuk dengan Apple. Silakan coba lagi.';
+
+  @override
+  String get authRegistrationFailed => 'Pendaftaran gagal';
+
+  @override
+  String get authEmailAlreadyExists => 'Email sudah terdaftar. Gunakan email lain.';
+
+  @override
+  String get reportEvidenceAddFailed => 'Gagal menambahkan foto';
+
+  @override
+  String reportEvidenceMaxFiles(int count) {
+    return 'Maks. $count file per laporan';
+  }
+
+  @override
+  String reportEvidenceFileTooLarge(Object name) {
+    return '$name terlalu besar (maks. 5 MB)';
+  }
+
+  @override
+  String get reportEvidenceTotalTooLarge => 'Total ukuran akan melebihi 25 MB';
+
+  @override
+  String get blockedContentUnavailableToYou => 'Konten ini tidak tersedia untukmu.';
+
+  @override
+  String blockedCantViewUserContent(Object name) {
+    return 'Kamu tidak dapat melihat konten $name.';
+  }
+
+  @override
+  String get blockedCantViewThisUserContent => 'Kamu tidak dapat melihat konten pengguna ini.';
+
+  @override
+  String blockedCantViewUserProfile(Object name) {
+    return 'Kamu tidak dapat melihat profil $name.';
+  }
+
+  @override
+  String get blockedProfileUnavailable => 'Profil ini tidak tersedia.';
+
+  @override
+  String get blockedContentUnavailable => 'Konten ini tidak tersedia.';
+
+  @override
+  String get blockedCantViewStories => 'Kamu tidak dapat melihat cerita ini.';
+
+  @override
+  String blockedCantMessageUser(Object name) {
+    return 'Kamu tidak dapat mengirim pesan ke $name.';
+  }
+
+  @override
+  String get blockedCantMessageThisUser => 'Kamu tidak dapat mengirim pesan ke pengguna ini.';
+
+  @override
+  String get blockedActionNotAllowed => 'Kamu tidak dapat melakukan tindakan ini';
+
+  @override
+  String get blockedCantLike => 'Kamu tidak dapat menyukai konten ini';
+
+  @override
+  String get blockedCantComment => 'Kamu tidak dapat mengomentari konten ini';
 }

@@ -759,7 +759,9 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit>
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  _isUploading ? 'Uploading...' : 'Removing...',
+                  _isUploading
+                        ? AppLocalizations.of(context)!.profilePhotoUploading
+                        : AppLocalizations.of(context)!.profilePhotoRemoving,
                   style: context.titleSmall.copyWith(
                     fontWeight: FontWeight.w600,
                     color: context.textPrimary,

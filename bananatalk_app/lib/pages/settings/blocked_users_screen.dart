@@ -115,7 +115,9 @@ class _BlockedUsersScreenState extends State<BlockedUsersScreen> {
       if (mounted) {
         showSettingsSnackBar(
           context,
-          message: unblockResult['message'] ?? l10n.operationCompleted,
+          message: unblockResult['success'] == true
+              ? l10n.unblockUserSuccess
+              : l10n.unblockUserFailed,
           type: unblockResult['success']
               ? SettingsSnackBarType.success
               : SettingsSnackBarType.error,

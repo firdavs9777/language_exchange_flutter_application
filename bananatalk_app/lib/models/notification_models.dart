@@ -60,6 +60,9 @@ class NotificationItem {
   final int bundleSize;
   final String? suppressedReason;
 
+  /// Held back by the user's quiet hours (vs. the daily cap).
+  bool get suppressedByQuietHours => suppressedReason == 'quiet_hours';
+
   NotificationItem({
     required this.id,
     required this.type,

@@ -2872,7 +2872,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get tapToDetectLocation => 'انقر لاكتشاف الموقع';
 
   @override
-  String get optionalHelpsNearbyPartners => 'مطلوب — يساعد في مطابقتك مع شركاء قريبين';
+  String get optionalHelpsNearbyPartners => 'اختياري — يساعد في مطابقتك مع شركاء قريبين';
 
   @override
   String get startLearning => 'ابدأ التعلم!';
@@ -8655,7 +8655,17 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String referralClaimed(int coins) {
-    return 'لقد ربحت $coins عملة!';
+    String _temp0 = intl.Intl.pluralLogic(
+      coins,
+      locale: localeName,
+      other: 'لقد ربحت $coins عملة!',
+      many: 'لقد ربحت $coins عملة!',
+      few: 'لقد ربحت $coins عملات!',
+      two: 'لقد ربحت $coins عملة!',
+      one: 'لقد ربحت $coins عملة!',
+      zero: 'لقد ربحت $coins عملة!',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8678,7 +8688,17 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String extraMatchesCta(int cost) {
-    return '+3 تطابقات إضافية — $cost عملة';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: '+3 تطابقات إضافية — $cost عملة',
+      many: '+3 تطابقات إضافية — $cost عملة',
+      few: '+3 تطابقات إضافية — $cost عملات',
+      two: '+3 تطابقات إضافية — $cost عملة',
+      one: '+3 تطابقات إضافية — $cost عملة',
+      zero: '+3 تطابقات إضافية — $cost عملة',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8686,12 +8706,32 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String boostCostLine(int cost) {
-    return 'التكلفة: $cost عملة';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: 'التكلفة: $cost عملة',
+      many: 'التكلفة: $cost عملة',
+      few: 'التكلفة: $cost عملات',
+      two: 'التكلفة: $cost عملة',
+      one: 'التكلفة: $cost عملة',
+      zero: 'التكلفة: $cost عملة',
+    );
+    return '$_temp0';
   }
 
   @override
   String boostBalanceLine(int balance) {
-    return 'رصيدك: $balance عملة';
+    String _temp0 = intl.Intl.pluralLogic(
+      balance,
+      locale: localeName,
+      other: 'رصيدك: $balance عملة',
+      many: 'رصيدك: $balance عملة',
+      few: 'رصيدك: $balance عملات',
+      two: 'رصيدك: $balance عملة',
+      one: 'رصيدك: $balance عملة',
+      zero: 'رصيدك: $balance عملة',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8721,7 +8761,17 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String wavesMaskedBody(int cost) {
-    return 'اكشف من هو مقابل $cost عملة، أو اشترك في VIP';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: 'اكشف من هو مقابل $cost عملة، أو اشترك في VIP',
+      many: 'اكشف من هو مقابل $cost عملة، أو اشترك في VIP',
+      few: 'اكشف من هو مقابل $cost عملات، أو اشترك في VIP',
+      two: 'اكشف من هو مقابل $cost عملة، أو اشترك في VIP',
+      one: 'اكشف من هو مقابل $cost عملة، أو اشترك في VIP',
+      zero: 'اكشف من هو مقابل $cost عملة، أو اشترك في VIP',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8781,7 +8831,17 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String visitorsMaskedBody(int cost) {
-    return 'اعرف من هم مقابل $cost عملة، أو اشترك في VIP';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: 'اعرف من هم مقابل $cost عملة، أو اشترك في VIP',
+      many: 'اعرف من هم مقابل $cost عملة، أو اشترك في VIP',
+      few: 'اعرف من هم مقابل $cost عملات، أو اشترك في VIP',
+      two: 'اعرف من هم مقابل $cost عملة، أو اشترك في VIP',
+      one: 'اعرف من هم مقابل $cost عملة، أو اشترك في VIP',
+      zero: 'اعرف من هم مقابل $cost عملة، أو اشترك في VIP',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -9700,8 +9760,18 @@ class AppLocalizationsAr extends AppLocalizations {
   String get chatPremium => 'بريميوم ✨';
 
   @override
-  String chatUnlockPremiumWallpapers(Object cost) {
-    return 'هل تريد فتح جميع خلفيات بريميوم ✨ مقابل 💎$cost عملة؟ سيؤدي هذا إلى فتح الحزمة بالكامل بشكل دائم.';
+  String chatUnlockPremiumWallpapers(int cost) {
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: 'هل تريد فتح جميع خلفيات بريميوم ✨ مقابل 💎$cost عملة؟ سيؤدي هذا إلى فتح الحزمة بالكامل بشكل دائم.',
+      many: 'هل تريد فتح جميع خلفيات بريميوم ✨ مقابل 💎$cost عملة؟ سيؤدي هذا إلى فتح الحزمة بالكامل بشكل دائم.',
+      few: 'هل تريد فتح جميع خلفيات بريميوم ✨ مقابل 💎$cost عملات؟ سيؤدي هذا إلى فتح الحزمة بالكامل بشكل دائم.',
+      two: 'هل تريد فتح جميع خلفيات بريميوم ✨ مقابل 💎$cost عملة؟ سيؤدي هذا إلى فتح الحزمة بالكامل بشكل دائم.',
+      one: 'هل تريد فتح جميع خلفيات بريميوم ✨ مقابل 💎$cost عملة؟ سيؤدي هذا إلى فتح الحزمة بالكامل بشكل دائم.',
+      zero: 'هل تريد فتح جميع خلفيات بريميوم ✨ مقابل 💎$cost عملة؟ سيؤدي هذا إلى فتح الحزمة بالكامل بشكل دائم.',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -11491,4 +11561,672 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get pleaseRemoveImagesFirstToAddVoiceNote => 'يرجى إزالة الصور أولاً لإضافة رسالة صوتية';
+
+  @override
+  String get authLockedTitle => 'الحساب مقفل مؤقتًا';
+
+  @override
+  String authLockedBodyMinutes(Object minutes) {
+    return 'محاولات فاشلة كثيرة جدًا. حاول مرة أخرى بعد $minutes دقيقة.';
+  }
+
+  @override
+  String get authLockedBodyLater => 'محاولات فاشلة كثيرة جدًا. حاول مرة أخرى لاحقًا.';
+
+  @override
+  String get authRateLimitedTitle => 'تمهّل قليلًا';
+
+  @override
+  String authRateLimitedBodySeconds(Object seconds) {
+    return 'محاولات كثيرة جدًا. حاول مرة أخرى بعد $seconds ث.';
+  }
+
+  @override
+  String get authRateLimitedBodyShortly => 'محاولات كثيرة جدًا. حاول مرة أخرى بعد قليل.';
+
+  @override
+  String get passwordErrorLength => 'يجب أن تتكون كلمة المرور من 8 أحرف على الأقل';
+
+  @override
+  String get passwordErrorUppercase => 'يجب أن تحتوي كلمة المرور على حرف كبير واحد على الأقل';
+
+  @override
+  String get passwordErrorLowercase => 'يجب أن تحتوي كلمة المرور على حرف صغير واحد على الأقل';
+
+  @override
+  String get passwordErrorNumber => 'يجب أن تحتوي كلمة المرور على رقم واحد على الأقل';
+
+  @override
+  String get authCodeExpired => 'انتهت صلاحية هذا الرمز. يرجى طلب رمز جديد.';
+
+  @override
+  String get authCodeIncorrect => 'الرمز غير صحيح. يرجى المحاولة مرة أخرى.';
+
+  @override
+  String get authVerificationFailed => 'فشل التحقق';
+
+  @override
+  String get authResendCodeFailed => 'تعذّر إعادة إرسال الرمز';
+
+  @override
+  String get authSendResetCodeFailed => 'تعذّر إرسال رمز إعادة التعيين';
+
+  @override
+  String get authResetPasswordFailed => 'تعذّر إعادة تعيين كلمة المرور';
+
+  @override
+  String get enableBiometricTitleAndroid => 'هل تريد استخدام بصمة الإصبع أو فتح القفل بالوجه لتسجيل الدخول في المرة القادمة؟';
+
+  @override
+  String chatLastSeenDate(Object date) {
+    return 'آخر ظهور $date';
+  }
+
+  @override
+  String get chatLastSeenRecently => 'آخر ظهور مؤخرًا';
+
+  @override
+  String chatMediaTabMedia(Object count) {
+    return 'الوسائط ($count)';
+  }
+
+  @override
+  String chatMediaTabLinks(Object count) {
+    return 'الروابط ($count)';
+  }
+
+  @override
+  String chatMediaTabDocs(Object count) {
+    return 'المستندات ($count)';
+  }
+
+  @override
+  String get chatMediaNoMedia => 'لم تتم مشاركة صور أو فيديوهات بعد';
+
+  @override
+  String get chatMediaNoLinks => 'لم تتم مشاركة روابط بعد';
+
+  @override
+  String get chatMediaNoDocs => 'لم تتم مشاركة مستندات بعد';
+
+  @override
+  String get chatMediaUnknownSize => 'حجم غير معروف';
+
+  @override
+  String chatDeleteMinutesLeft(Object minutes) {
+    return 'متبقٍ $minutes د';
+  }
+
+  @override
+  String chatDeleteRemovesForBoth(Object name) {
+    return 'يُحذف لديك ولدى $name';
+  }
+
+  @override
+  String get chatUnsupportedMessageType => 'نوع رسالة غير مدعوم';
+
+  @override
+  String get chatStoryUnavailable => 'هذه القصة لم تعد متاحة';
+
+  @override
+  String get chatWallpapersUnlocked => 'تم فتح الخلفيات المميزة!';
+
+  @override
+  String get chatEditFailed => 'تعذّر تعديل الرسالة';
+
+  @override
+  String get chatPinFailed => 'تعذّر تحديث حالة التثبيت';
+
+  @override
+  String get chatMessagePinned => 'تم تثبيت الرسالة';
+
+  @override
+  String get chatMessageUnpinned => 'تم إلغاء تثبيت الرسالة';
+
+  @override
+  String get chatForwardFailed => 'تعذّر إعادة توجيه الرسالة';
+
+  @override
+  String get chatShareLocationFailed => 'تعذّرت مشاركة الموقع';
+
+  @override
+  String chatFileTooLarge(Object size) {
+    return 'هذا الملف كبير جدًا. الحد الأقصى $size ميغابايت.';
+  }
+
+  @override
+  String get chatSendMediaFailed => 'تعذّر إرسال الوسائط';
+
+  @override
+  String get chatSendVideoFailed => 'تعذّر إرسال الفيديو';
+
+  @override
+  String get chatVideoTooLong => 'يجب أن يكون الفيديو أقل من 10 دقائق';
+
+  @override
+  String get chatVideoTooLarge => 'يجب أن يكون الفيديو أقل من 1 غيغابايت. يرجى ضغطه.';
+
+  @override
+  String get chatSendVoiceFailed => 'تعذّر إرسال الرسالة الصوتية';
+
+  @override
+  String get chatVoiceTooLong => 'يجب أن تكون الرسالة الصوتية أقل من 5 دقائق';
+
+  @override
+  String get chatVoiceTooLarge => 'ملف الرسالة الصوتية كبير جدًا';
+
+  @override
+  String get voiceRecorderInitFailed => 'تعذّر تشغيل المسجّل';
+
+  @override
+  String get voiceRecorderStartFailed => 'تعذّر بدء التسجيل';
+
+  @override
+  String get voiceRecorderFileMissing => 'لم يتم العثور على ملف التسجيل';
+
+  @override
+  String get voiceRecorderTooShort => 'التسجيل قصير جدًا (ثانية واحدة على الأقل)';
+
+  @override
+  String get voiceRecorderResume => 'استئناف';
+
+  @override
+  String get voiceRecorderPause => 'إيقاف مؤقت';
+
+  @override
+  String get voiceRecorderPaused => 'التسجيل متوقف مؤقتًا - اضغط تشغيل للمتابعة';
+
+  @override
+  String get voiceRecorderRecording => 'جارٍ التسجيل... اضغط إيقاف مؤقت أو إرسال عند الانتهاء';
+
+  @override
+  String get voiceRecorderInitializing => 'جارٍ التهيئة...';
+
+  @override
+  String get chatGifSearchFailed => 'فشل البحث. يرجى المحاولة مرة أخرى.';
+
+  @override
+  String chatGifResultsFor(Object query) {
+    return 'نتائج \"$query\"';
+  }
+
+  @override
+  String get chatYouSharedStory => 'شاركتَ قصة';
+
+  @override
+  String chatUserSharedStory(Object name) {
+    return 'شارك $name قصة';
+  }
+
+  @override
+  String chatUserNotInChats(Object name) {
+    return 'المستخدم @$name ليس ضمن محادثاتك';
+  }
+
+  @override
+  String get chatDeleteMessageFailed => 'تعذّر حذف الرسالة';
+
+  @override
+  String get themeAutomatic => 'تلقائي';
+
+  @override
+  String get themeManual => 'يدوي';
+
+  @override
+  String get themeFollowingSystem => 'يتبع إعدادات النظام';
+
+  @override
+  String get profileAdminToolsSubtitle => 'البلاغات، المستخدمون، سجل التدقيق';
+
+  @override
+  String appVersionLabel(Object version) {
+    return 'الإصدار $version';
+  }
+
+  @override
+  String get privacyVisitAnonymously => 'زيارة الملفات الشخصية بشكل مجهول';
+
+  @override
+  String get privacyVisitAnonymouslyDesc => 'لن يظهر اسمك في قائمة الزوار الأخيرين لدى المستخدم الذي زرته.';
+
+  @override
+  String get profilePhotoUploading => 'جارٍ الرفع...';
+
+  @override
+  String get profilePhotoRemoving => 'جارٍ الإزالة...';
+
+  @override
+  String get profileCropPhoto => 'قص الصورة';
+
+  @override
+  String get networkWifi => 'واي فاي';
+
+  @override
+  String get networkMobileData => 'بيانات الجوال';
+
+  @override
+  String get networkEthernet => 'إيثرنت';
+
+  @override
+  String get notifPrefResetFailed => 'تعذّرت إعادة تعيين التفضيلات';
+
+  @override
+  String get notifPrefNewFollower => 'متابع جديد';
+
+  @override
+  String get notifPrefVipRenewalWarning => 'تذكيرات تجديد VIP';
+
+  @override
+  String get accountDeletedSuccess => 'تم حذف الحساب بنجاح';
+
+  @override
+  String get accountDeleteFailed => 'تعذّر حذف الحساب';
+
+  @override
+  String get coinHistoryLoadFailed => 'تعذّر تحميل سجل العملات.';
+
+  @override
+  String get waveAlreadySentTooltip => 'لوّحت بالفعل — أرسل رسالة بدلًا من ذلك';
+
+  @override
+  String waveAlreadySentTo(Object name) {
+    return 'لقد لوّحت لـ $name بالفعل — أرسل له رسالة بدلًا من ذلك.';
+  }
+
+  @override
+  String get waveAlreadyWaved => 'تم التلويح';
+
+  @override
+  String get communityCountryDetectFailed => 'تعذّر تحديد الدولة';
+
+  @override
+  String get roomPickCategoryError => 'يرجى اختيار فئة';
+
+  @override
+  String get blockUserSuccess => 'تم حظر المستخدم';
+
+  @override
+  String get blockUserFailed => 'تعذّر حظر هذا المستخدم';
+
+  @override
+  String get unblockUserSuccess => 'تم إلغاء حظر المستخدم';
+
+  @override
+  String get unblockUserFailed => 'تعذّر إلغاء حظر هذا المستخدم';
+
+  @override
+  String get clubDeleteFailed => 'تعذّر حذف النادي';
+
+  @override
+  String get clubMemberUpdateFailed => 'تعذّر تحديث هذا العضو';
+
+  @override
+  String get groupCoverUploadFailed => 'تعذّر رفع الصورة';
+
+  @override
+  String get groupCoverRemoveFailed => 'تعذّرت إزالة الصورة';
+
+  @override
+  String get clubStatusArchived => 'مؤرشف';
+
+  @override
+  String get matchTagSimilarAge => 'عمر متقارب';
+
+  @override
+  String matchTagBothLike(Object topic) {
+    return 'كلاكما يحب $topic';
+  }
+
+  @override
+  String get topicNameCooking => 'الطبخ';
+
+  @override
+  String get topicNameCoffee => 'القهوة والشاي';
+
+  @override
+  String get topicNameEatingOut => 'تناول الطعام في الخارج';
+
+  @override
+  String get topicNameBaking => 'الخَبز';
+
+  @override
+  String get topicNameDrinking => 'المشروبات';
+
+  @override
+  String get topicNameStreetFood => 'طعام الشارع';
+
+  @override
+  String get topicNameTravel => 'السفر';
+
+  @override
+  String get topicNameBackpacking => 'السفر بحقيبة الظهر';
+
+  @override
+  String get topicNameBeaches => 'الشواطئ';
+
+  @override
+  String get topicNameMountains => 'الجبال';
+
+  @override
+  String get topicNameCamping => 'التخييم';
+
+  @override
+  String get topicNameGym => 'النادي الرياضي';
+
+  @override
+  String get topicNameRunning => 'الجري';
+
+  @override
+  String get topicNameYoga => 'اليوغا';
+
+  @override
+  String get topicNameFootball => 'كرة القدم';
+
+  @override
+  String get topicNameBasketball => 'كرة السلة';
+
+  @override
+  String get topicNameHiking => 'المشي لمسافات طويلة';
+
+  @override
+  String get topicNameCycling => 'ركوب الدراجات';
+
+  @override
+  String get topicNameDancing => 'الرقص';
+
+  @override
+  String get topicNameSwimming => 'السباحة';
+
+  @override
+  String get topicNameMovies => 'الأفلام';
+
+  @override
+  String get topicNameTvShows => 'البرامج التلفزيونية';
+
+  @override
+  String get topicNameMusic => 'الموسيقى';
+
+  @override
+  String get topicNameGaming => 'ألعاب الفيديو';
+
+  @override
+  String get topicNameAnime => 'الأنمي والمانغا';
+
+  @override
+  String get topicNameKpop => 'الكي-بوب';
+
+  @override
+  String get topicNameKdrama => 'الدراما الكورية';
+
+  @override
+  String get topicNamePodcasts => 'البودكاست';
+
+  @override
+  String get topicNameArt => 'الفن';
+
+  @override
+  String get topicNamePhotography => 'التصوير';
+
+  @override
+  String get topicNameBooks => 'الكتب';
+
+  @override
+  String get topicNameWriting => 'الكتابة';
+
+  @override
+  String get topicNameHistory => 'التاريخ';
+
+  @override
+  String get topicNameDesign => 'التصميم';
+
+  @override
+  String get topicNameFashion => 'الموضة';
+
+  @override
+  String get topicNameBeauty => 'الجمال والعناية بالبشرة';
+
+  @override
+  String get topicNameShopping => 'التسوق';
+
+  @override
+  String get topicNameGardening => 'البستنة';
+
+  @override
+  String get topicNameDiy => 'اصنعها بنفسك';
+
+  @override
+  String get topicNameDogs => 'الكلاب';
+
+  @override
+  String get topicNameCats => 'القطط';
+
+  @override
+  String get topicNameNature => 'الطبيعة';
+
+  @override
+  String get topicNameAnimals => 'الحيوانات';
+
+  @override
+  String get topicNameLanguageExchange => 'تبادل اللغات';
+
+  @override
+  String get topicNameStudyAbroad => 'الدراسة في الخارج';
+
+  @override
+  String get topicNameTechnology => 'التكنولوجيا';
+
+  @override
+  String get topicNameProgramming => 'البرمجة';
+
+  @override
+  String get topicNameBusiness => 'الأعمال';
+
+  @override
+  String get topicNameScience => 'العلوم';
+
+  @override
+  String get topicNameDailyLife => 'الحياة اليومية';
+
+  @override
+  String get topicNameMakingFriends => 'تكوين صداقات';
+
+  @override
+  String get topicNameRelationships => 'العلاقات';
+
+  @override
+  String get topicNameFamily => 'العائلة';
+
+  @override
+  String get topicNameNightlife => 'الحياة الليلية';
+
+  @override
+  String get topicNameMentalHealth => 'الصحة النفسية';
+
+  @override
+  String get topicNameMeditation => 'التأمل';
+
+  @override
+  String get topicNameNutrition => 'التغذية';
+
+  @override
+  String get topicNameSelfImprovement => 'تطوير الذات';
+
+  @override
+  String get topicCategoryFoodDrink => 'الطعام والشراب';
+
+  @override
+  String get topicCategoryTravel => 'السفر والمغامرة';
+
+  @override
+  String get topicCategorySports => 'الرياضة واللياقة';
+
+  @override
+  String get topicCategoryEntertainment => 'الترفيه والموسيقى';
+
+  @override
+  String get topicCategoryArts => 'الفنون والثقافة';
+
+  @override
+  String get topicCategoryLifestyle => 'أسلوب الحياة';
+
+  @override
+  String get topicCategoryPetsNature => 'الحيوانات الأليفة والطبيعة';
+
+  @override
+  String get topicCategoryLearning => 'التعلم والمسار المهني';
+
+  @override
+  String get topicCategorySocial => 'اجتماعي';
+
+  @override
+  String get topicCategoryHealth => 'الصحة والعافية';
+
+  @override
+  String get waveTooMany => 'تلويحات كثيرة جدًا. تمهّل قليلًا!';
+
+  @override
+  String get aiTutorNoSummary => '(لا يوجد ملخص)';
+
+  @override
+  String vocabPackAllSaved(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'كل الكلمات ($count) موجودة بالفعل في مفرداتك',
+      one: 'هذه الكلمة موجودة بالفعل في مفرداتك',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String vocabPackAdded(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'تمت إضافة $count كلمات إلى مفرداتك',
+      one: 'تمت إضافة كلمة واحدة إلى مفرداتك',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String vocabPackAddedSomeSaved(int count, int saved) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'تمت إضافة $count كلمات إلى مفرداتك ($saved محفوظة مسبقًا)',
+      one: 'تمت إضافة كلمة واحدة إلى مفرداتك ($saved محفوظة مسبقًا)',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get vocabPackNoExercises => 'لا توجد تمارين';
+
+  @override
+  String vocabPackPractice(int count) {
+    return 'تدرّب ($count)';
+  }
+
+  @override
+  String get aiQuizPlayAgain => 'العب مرة أخرى';
+
+  @override
+  String get aiLessonAskHint => 'اسأل أي شيء عن هذا الدرس...';
+
+  @override
+  String get aiLessonConceptHint => 'ما المفهوم الذي تريد شرحه؟';
+
+  @override
+  String examTargetScoreHint(Object score) {
+    return 'مثلًا $score';
+  }
+
+  @override
+  String get vocabWordAdded => 'تمت إضافة الكلمة!';
+
+  @override
+  String get vocabWordAddFailed => 'تعذّرت إضافة الكلمة';
+
+  @override
+  String get vocabEnterWordFirst => 'أدخل كلمة أولًا';
+
+  @override
+  String get vocabAiFilled => 'ملأ الذكاء الاصطناعي الحقول!';
+
+  @override
+  String get vocabAiFillFailed => 'تعذّر الملء بالذكاء الاصطناعي. حاول مرة أخرى.';
+
+  @override
+  String get authSendCodeFailed => 'تعذّر إرسال رمز التحقق';
+
+  @override
+  String get authServerConfigError => 'خطأ في إعدادات الخادم. يرجى التواصل مع الدعم.';
+
+  @override
+  String get authAppleTokenFailed => 'تعذّر تسجيل الدخول باستخدام Apple. حاول مرة أخرى.';
+
+  @override
+  String get authRegistrationFailed => 'فشل التسجيل';
+
+  @override
+  String get authEmailAlreadyExists => 'البريد الإلكتروني مستخدم بالفعل. يرجى استخدام بريد آخر.';
+
+  @override
+  String get reportEvidenceAddFailed => 'تعذّرت إضافة الصور';
+
+  @override
+  String reportEvidenceMaxFiles(int count) {
+    return '$count ملفات كحد أقصى لكل بلاغ';
+  }
+
+  @override
+  String reportEvidenceFileTooLarge(Object name) {
+    return '$name كبير جدًا (5 ميغابايت كحد أقصى)';
+  }
+
+  @override
+  String get reportEvidenceTotalTooLarge => 'سيتجاوز الحجم الإجمالي 25 ميغابايت';
+
+  @override
+  String get blockedContentUnavailableToYou => 'هذا المحتوى غير متاح لك.';
+
+  @override
+  String blockedCantViewUserContent(Object name) {
+    return 'لا يمكنك عرض محتوى $name.';
+  }
+
+  @override
+  String get blockedCantViewThisUserContent => 'لا يمكنك عرض محتوى هذا المستخدم.';
+
+  @override
+  String blockedCantViewUserProfile(Object name) {
+    return 'لا يمكنك عرض ملف $name الشخصي.';
+  }
+
+  @override
+  String get blockedProfileUnavailable => 'هذا الملف الشخصي غير متاح.';
+
+  @override
+  String get blockedContentUnavailable => 'هذا المحتوى غير متاح.';
+
+  @override
+  String get blockedCantViewStories => 'لا يمكنك عرض هذه القصص.';
+
+  @override
+  String blockedCantMessageUser(Object name) {
+    return 'لا يمكنك إرسال رسائل إلى $name.';
+  }
+
+  @override
+  String get blockedCantMessageThisUser => 'لا يمكنك إرسال رسائل إلى هذا المستخدم.';
+
+  @override
+  String get blockedActionNotAllowed => 'لا يمكنك تنفيذ هذا الإجراء';
+
+  @override
+  String get blockedCantLike => 'لا يمكنك الإعجاب بهذا المحتوى';
+
+  @override
+  String get blockedCantComment => 'لا يمكنك التعليق على هذا المحتوى';
 }

@@ -2872,7 +2872,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get tapToDetectLocation => '탭하여 위치 감지';
 
   @override
-  String get optionalHelpsNearbyPartners => '필수 — 근처 파트너 매칭에 도움됩니다';
+  String get optionalHelpsNearbyPartners => '선택 — 근처 파트너 매칭에 도움됩니다';
 
   @override
   String get startLearning => '학습 시작!';
@@ -8633,7 +8633,12 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String referralClaimed(int coins) {
-    return '$coins 코인을 받았어요!';
+    String _temp0 = intl.Intl.pluralLogic(
+      coins,
+      locale: localeName,
+      other: '$coins 코인을 받았어요!',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8656,7 +8661,12 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String extraMatchesCta(int cost) {
-    return '+3명 더 매칭 — $cost 코인';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: '+3명 더 매칭 — $cost 코인',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8664,12 +8674,22 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String boostCostLine(int cost) {
-    return '비용: $cost 코인';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: '비용: $cost 코인',
+    );
+    return '$_temp0';
   }
 
   @override
   String boostBalanceLine(int balance) {
-    return '내 잔액: $balance 코인';
+    String _temp0 = intl.Intl.pluralLogic(
+      balance,
+      locale: localeName,
+      other: '내 잔액: $balance 코인',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8699,7 +8719,12 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String wavesMaskedBody(int cost) {
-    return '$cost 코인으로 누구인지 확인하거나 VIP가 되세요';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: '$cost 코인으로 누구인지 확인하거나 VIP가 되세요',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8759,7 +8784,12 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String visitorsMaskedBody(int cost) {
-    return '$cost 코인으로 누구인지 확인하거나 VIP가 되세요';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: '$cost 코인으로 누구인지 확인하거나 VIP가 되세요',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -9675,8 +9705,13 @@ class AppLocalizationsKo extends AppLocalizations {
   String get chatPremium => '프리미엄 ✨';
 
   @override
-  String chatUnlockPremiumWallpapers(Object cost) {
-    return '💎$cost 코인으로 모든 프리미엄 ✨ 배경화면을 잠금 해제할까요? 팩 전체가 영구적으로 잠금 해제됩니다.';
+  String chatUnlockPremiumWallpapers(int cost) {
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: '💎$cost 코인으로 모든 프리미엄 ✨ 배경화면을 잠금 해제할까요? 팩 전체가 영구적으로 잠금 해제됩니다.',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -11417,4 +11452,669 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get pleaseRemoveImagesFirstToAddVoiceNote => '음성 메모를 추가하려면 먼저 이미지를 삭제하세요';
+
+  @override
+  String get authLockedTitle => '계정이 일시적으로 잠겼습니다';
+
+  @override
+  String authLockedBodyMinutes(Object minutes) {
+    return '실패한 시도가 너무 많습니다. $minutes분 후에 다시 시도하세요.';
+  }
+
+  @override
+  String get authLockedBodyLater => '실패한 시도가 너무 많습니다. 나중에 다시 시도하세요.';
+
+  @override
+  String get authRateLimitedTitle => '잠시 천천히 해 주세요';
+
+  @override
+  String authRateLimitedBodySeconds(Object seconds) {
+    return '시도가 너무 많습니다. $seconds초 후에 다시 시도하세요.';
+  }
+
+  @override
+  String get authRateLimitedBodyShortly => '시도가 너무 많습니다. 잠시 후 다시 시도하세요.';
+
+  @override
+  String get passwordErrorLength => '비밀번호는 8자 이상이어야 합니다';
+
+  @override
+  String get passwordErrorUppercase => '비밀번호에는 대문자가 하나 이상 포함되어야 합니다';
+
+  @override
+  String get passwordErrorLowercase => '비밀번호에는 소문자가 하나 이상 포함되어야 합니다';
+
+  @override
+  String get passwordErrorNumber => '비밀번호에는 숫자가 하나 이상 포함되어야 합니다';
+
+  @override
+  String get authCodeExpired => '이 코드는 만료되었습니다. 새 코드를 요청하세요.';
+
+  @override
+  String get authCodeIncorrect => '코드가 올바르지 않습니다. 다시 시도하세요.';
+
+  @override
+  String get authVerificationFailed => '인증에 실패했습니다';
+
+  @override
+  String get authResendCodeFailed => '코드를 다시 보내지 못했습니다';
+
+  @override
+  String get authSendResetCodeFailed => '재설정 코드를 보내지 못했습니다';
+
+  @override
+  String get authResetPasswordFailed => '비밀번호를 재설정하지 못했습니다';
+
+  @override
+  String get enableBiometricTitleAndroid => '다음에는 지문 또는 얼굴 인식으로 로그인할까요?';
+
+  @override
+  String chatLastSeenDate(Object date) {
+    return '마지막 접속 $date';
+  }
+
+  @override
+  String get chatLastSeenRecently => '최근 접속';
+
+  @override
+  String chatMediaTabMedia(Object count) {
+    return '미디어 ($count)';
+  }
+
+  @override
+  String chatMediaTabLinks(Object count) {
+    return '링크 ($count)';
+  }
+
+  @override
+  String chatMediaTabDocs(Object count) {
+    return '문서 ($count)';
+  }
+
+  @override
+  String get chatMediaNoMedia => '아직 공유된 사진이나 동영상이 없습니다';
+
+  @override
+  String get chatMediaNoLinks => '아직 공유된 링크가 없습니다';
+
+  @override
+  String get chatMediaNoDocs => '아직 공유된 문서가 없습니다';
+
+  @override
+  String get chatMediaUnknownSize => '알 수 없는 크기';
+
+  @override
+  String chatDeleteMinutesLeft(Object minutes) {
+    return '$minutes분 남음';
+  }
+
+  @override
+  String chatDeleteRemovesForBoth(Object name) {
+    return '나와 $name에게서 삭제됩니다';
+  }
+
+  @override
+  String get chatUnsupportedMessageType => '지원되지 않는 메시지 유형';
+
+  @override
+  String get chatStoryUnavailable => '이 스토리는 더 이상 볼 수 없습니다';
+
+  @override
+  String get chatWallpapersUnlocked => '프리미엄 배경화면이 잠금 해제되었습니다!';
+
+  @override
+  String get chatEditFailed => '메시지를 수정하지 못했습니다';
+
+  @override
+  String get chatPinFailed => '고정 상태를 변경하지 못했습니다';
+
+  @override
+  String get chatMessagePinned => '메시지를 고정했습니다';
+
+  @override
+  String get chatMessageUnpinned => '메시지 고정을 해제했습니다';
+
+  @override
+  String get chatForwardFailed => '메시지를 전달하지 못했습니다';
+
+  @override
+  String get chatShareLocationFailed => '위치를 공유하지 못했습니다';
+
+  @override
+  String chatFileTooLarge(Object size) {
+    return '파일이 너무 큽니다. 최대 ${size}MB까지 가능합니다.';
+  }
+
+  @override
+  String get chatSendMediaFailed => '미디어를 보내지 못했습니다';
+
+  @override
+  String get chatSendVideoFailed => '동영상을 보내지 못했습니다';
+
+  @override
+  String get chatVideoTooLong => '동영상은 10분 미만이어야 합니다';
+
+  @override
+  String get chatVideoTooLarge => '동영상은 1GB 미만이어야 합니다. 압축해 주세요.';
+
+  @override
+  String get chatSendVoiceFailed => '음성 메시지를 보내지 못했습니다';
+
+  @override
+  String get chatVoiceTooLong => '음성 메시지는 5분 미만이어야 합니다';
+
+  @override
+  String get chatVoiceTooLarge => '음성 메시지 파일이 너무 큽니다';
+
+  @override
+  String get voiceRecorderInitFailed => '녹음기를 준비하지 못했습니다';
+
+  @override
+  String get voiceRecorderStartFailed => '녹음을 시작하지 못했습니다';
+
+  @override
+  String get voiceRecorderFileMissing => '녹음 파일을 찾을 수 없습니다';
+
+  @override
+  String get voiceRecorderTooShort => '녹음이 너무 짧습니다(최소 1초)';
+
+  @override
+  String get voiceRecorderResume => '계속';
+
+  @override
+  String get voiceRecorderPause => '일시정지';
+
+  @override
+  String get voiceRecorderPaused => '녹음 일시정지됨 - 재생을 눌러 계속하세요';
+
+  @override
+  String get voiceRecorderRecording => '녹음 중... 끝나면 일시정지 또는 보내기를 누르세요';
+
+  @override
+  String get voiceRecorderInitializing => '준비 중...';
+
+  @override
+  String get chatGifSearchFailed => '검색에 실패했습니다. 다시 시도하세요.';
+
+  @override
+  String chatGifResultsFor(Object query) {
+    return '\"$query\" 검색 결과';
+  }
+
+  @override
+  String get chatYouSharedStory => '스토리를 공유했습니다';
+
+  @override
+  String chatUserSharedStory(Object name) {
+    return '$name님이 스토리를 공유했습니다';
+  }
+
+  @override
+  String chatUserNotInChats(Object name) {
+    return '@$name님은 채팅 목록에 없습니다';
+  }
+
+  @override
+  String get chatDeleteMessageFailed => '메시지를 삭제하지 못했습니다';
+
+  @override
+  String get themeAutomatic => '자동';
+
+  @override
+  String get themeManual => '수동';
+
+  @override
+  String get themeFollowingSystem => '시스템 설정 따름';
+
+  @override
+  String get profileAdminToolsSubtitle => '신고, 사용자, 감사 로그';
+
+  @override
+  String appVersionLabel(Object version) {
+    return '버전 $version';
+  }
+
+  @override
+  String get privacyVisitAnonymously => '익명으로 프로필 방문';
+
+  @override
+  String get privacyVisitAnonymouslyDesc => '방문한 사용자의 최근 방문자 목록에 내 이름이 표시되지 않습니다.';
+
+  @override
+  String get profilePhotoUploading => '업로드 중...';
+
+  @override
+  String get profilePhotoRemoving => '삭제 중...';
+
+  @override
+  String get profileCropPhoto => '사진 자르기';
+
+  @override
+  String get networkWifi => '와이파이';
+
+  @override
+  String get networkMobileData => '모바일 데이터';
+
+  @override
+  String get networkEthernet => '이더넷';
+
+  @override
+  String get notifPrefResetFailed => '환경설정을 초기화하지 못했습니다';
+
+  @override
+  String get notifPrefNewFollower => '새 팔로워';
+
+  @override
+  String get notifPrefVipRenewalWarning => 'VIP 갱신 알림';
+
+  @override
+  String get accountDeletedSuccess => '계정이 삭제되었습니다';
+
+  @override
+  String get accountDeleteFailed => '계정을 삭제하지 못했습니다';
+
+  @override
+  String get coinHistoryLoadFailed => '코인 내역을 불러오지 못했습니다.';
+
+  @override
+  String get waveAlreadySentTooltip => '이미 손을 흔들었어요 — 대신 메시지를 보내세요';
+
+  @override
+  String waveAlreadySentTo(Object name) {
+    return '$name님에게 이미 손을 흔들었어요. 대신 메시지를 보내세요.';
+  }
+
+  @override
+  String get waveAlreadyWaved => '손 흔들기 완료';
+
+  @override
+  String get communityCountryDetectFailed => '국가를 감지하지 못했습니다';
+
+  @override
+  String get roomPickCategoryError => '카테고리를 선택하세요';
+
+  @override
+  String get blockUserSuccess => '사용자를 차단했습니다';
+
+  @override
+  String get blockUserFailed => '이 사용자를 차단하지 못했습니다';
+
+  @override
+  String get unblockUserSuccess => '차단을 해제했습니다';
+
+  @override
+  String get unblockUserFailed => '차단을 해제하지 못했습니다';
+
+  @override
+  String get clubDeleteFailed => '클럽을 삭제하지 못했습니다';
+
+  @override
+  String get clubMemberUpdateFailed => '이 멤버를 업데이트하지 못했습니다';
+
+  @override
+  String get groupCoverUploadFailed => '사진을 업로드하지 못했습니다';
+
+  @override
+  String get groupCoverRemoveFailed => '사진을 삭제하지 못했습니다';
+
+  @override
+  String get clubStatusArchived => '보관됨';
+
+  @override
+  String get matchTagSimilarAge => '비슷한 나이';
+
+  @override
+  String matchTagBothLike(Object topic) {
+    return '둘 다 $topic 좋아함';
+  }
+
+  @override
+  String get topicNameCooking => '요리';
+
+  @override
+  String get topicNameCoffee => '커피 & 차';
+
+  @override
+  String get topicNameEatingOut => '외식';
+
+  @override
+  String get topicNameBaking => '베이킹';
+
+  @override
+  String get topicNameDrinking => '술';
+
+  @override
+  String get topicNameStreetFood => '길거리 음식';
+
+  @override
+  String get topicNameTravel => '여행';
+
+  @override
+  String get topicNameBackpacking => '배낭여행';
+
+  @override
+  String get topicNameBeaches => '해변';
+
+  @override
+  String get topicNameMountains => '산';
+
+  @override
+  String get topicNameCamping => '캠핑';
+
+  @override
+  String get topicNameGym => '헬스';
+
+  @override
+  String get topicNameRunning => '러닝';
+
+  @override
+  String get topicNameYoga => '요가';
+
+  @override
+  String get topicNameFootball => '축구';
+
+  @override
+  String get topicNameBasketball => '농구';
+
+  @override
+  String get topicNameHiking => '하이킹';
+
+  @override
+  String get topicNameCycling => '자전거';
+
+  @override
+  String get topicNameDancing => '댄스';
+
+  @override
+  String get topicNameSwimming => '수영';
+
+  @override
+  String get topicNameMovies => '영화';
+
+  @override
+  String get topicNameTvShows => 'TV 프로그램';
+
+  @override
+  String get topicNameMusic => '음악';
+
+  @override
+  String get topicNameGaming => '게임';
+
+  @override
+  String get topicNameAnime => '애니메이션 & 만화';
+
+  @override
+  String get topicNameKpop => 'K-팝';
+
+  @override
+  String get topicNameKdrama => 'K-드라마';
+
+  @override
+  String get topicNamePodcasts => '팟캐스트';
+
+  @override
+  String get topicNameArt => '미술';
+
+  @override
+  String get topicNamePhotography => '사진';
+
+  @override
+  String get topicNameBooks => '책';
+
+  @override
+  String get topicNameWriting => '글쓰기';
+
+  @override
+  String get topicNameHistory => '역사';
+
+  @override
+  String get topicNameDesign => '디자인';
+
+  @override
+  String get topicNameFashion => '패션';
+
+  @override
+  String get topicNameBeauty => '뷰티 & 스킨케어';
+
+  @override
+  String get topicNameShopping => '쇼핑';
+
+  @override
+  String get topicNameGardening => '원예';
+
+  @override
+  String get topicNameDiy => 'DIY';
+
+  @override
+  String get topicNameDogs => '강아지';
+
+  @override
+  String get topicNameCats => '고양이';
+
+  @override
+  String get topicNameNature => '자연';
+
+  @override
+  String get topicNameAnimals => '동물';
+
+  @override
+  String get topicNameLanguageExchange => '언어 교환';
+
+  @override
+  String get topicNameStudyAbroad => '유학';
+
+  @override
+  String get topicNameTechnology => '기술';
+
+  @override
+  String get topicNameProgramming => '프로그래밍';
+
+  @override
+  String get topicNameBusiness => '비즈니스';
+
+  @override
+  String get topicNameScience => '과학';
+
+  @override
+  String get topicNameDailyLife => '일상';
+
+  @override
+  String get topicNameMakingFriends => '친구 사귀기';
+
+  @override
+  String get topicNameRelationships => '연애';
+
+  @override
+  String get topicNameFamily => '가족';
+
+  @override
+  String get topicNameNightlife => '나이트라이프';
+
+  @override
+  String get topicNameMentalHealth => '정신 건강';
+
+  @override
+  String get topicNameMeditation => '명상';
+
+  @override
+  String get topicNameNutrition => '영양';
+
+  @override
+  String get topicNameSelfImprovement => '자기계발';
+
+  @override
+  String get topicCategoryFoodDrink => '음식 & 음료';
+
+  @override
+  String get topicCategoryTravel => '여행 & 모험';
+
+  @override
+  String get topicCategorySports => '스포츠 & 피트니스';
+
+  @override
+  String get topicCategoryEntertainment => '엔터테인먼트 & 음악';
+
+  @override
+  String get topicCategoryArts => '예술 & 문화';
+
+  @override
+  String get topicCategoryLifestyle => '라이프스타일';
+
+  @override
+  String get topicCategoryPetsNature => '반려동물 & 자연';
+
+  @override
+  String get topicCategoryLearning => '학습 & 커리어';
+
+  @override
+  String get topicCategorySocial => '소셜';
+
+  @override
+  String get topicCategoryHealth => '건강 & 웰빙';
+
+  @override
+  String get waveTooMany => '손 흔들기가 너무 많아요. 천천히 해 주세요!';
+
+  @override
+  String get aiTutorNoSummary => '(요약 없음)';
+
+  @override
+  String vocabPackAllSaved(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count개 단어가 모두 이미 단어장에 있습니다',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String vocabPackAdded(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '단어장에 $count개 단어를 추가했습니다',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String vocabPackAddedSomeSaved(int count, int saved) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '단어장에 $count개 단어를 추가했습니다 ($saved개는 이미 저장됨)',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get vocabPackNoExercises => '연습 문제 없음';
+
+  @override
+  String vocabPackPractice(int count) {
+    return '연습 ($count)';
+  }
+
+  @override
+  String get aiQuizPlayAgain => '다시 하기';
+
+  @override
+  String get aiLessonAskHint => '이 레슨에 대해 무엇이든 물어보세요...';
+
+  @override
+  String get aiLessonConceptHint => '어떤 개념을 설명해 드릴까요?';
+
+  @override
+  String examTargetScoreHint(Object score) {
+    return '예: $score';
+  }
+
+  @override
+  String get vocabWordAdded => '단어를 추가했습니다!';
+
+  @override
+  String get vocabWordAddFailed => '단어를 추가하지 못했습니다';
+
+  @override
+  String get vocabEnterWordFirst => '먼저 단어를 입력하세요';
+
+  @override
+  String get vocabAiFilled => 'AI가 채웠습니다!';
+
+  @override
+  String get vocabAiFillFailed => 'AI 채우기에 실패했습니다. 다시 시도하세요.';
+
+  @override
+  String get authSendCodeFailed => '인증 코드를 보내지 못했습니다';
+
+  @override
+  String get authServerConfigError => '서버 설정 오류입니다. 고객 지원에 문의하세요.';
+
+  @override
+  String get authAppleTokenFailed => 'Apple로 로그인하지 못했습니다. 다시 시도하세요.';
+
+  @override
+  String get authRegistrationFailed => '가입에 실패했습니다';
+
+  @override
+  String get authEmailAlreadyExists => '이미 사용 중인 이메일입니다. 다른 이메일을 사용하세요.';
+
+  @override
+  String get reportEvidenceAddFailed => '사진을 추가하지 못했습니다';
+
+  @override
+  String reportEvidenceMaxFiles(int count) {
+    return '신고당 최대 $count개 파일';
+  }
+
+  @override
+  String reportEvidenceFileTooLarge(Object name) {
+    return '$name 파일이 너무 큽니다(최대 5MB)';
+  }
+
+  @override
+  String get reportEvidenceTotalTooLarge => '전체 크기가 25MB를 초과합니다';
+
+  @override
+  String get blockedContentUnavailableToYou => '이 콘텐츠를 볼 수 없습니다.';
+
+  @override
+  String blockedCantViewUserContent(Object name) {
+    return '$name님의 콘텐츠를 볼 수 없습니다.';
+  }
+
+  @override
+  String get blockedCantViewThisUserContent => '이 사용자의 콘텐츠를 볼 수 없습니다.';
+
+  @override
+  String blockedCantViewUserProfile(Object name) {
+    return '$name님의 프로필을 볼 수 없습니다.';
+  }
+
+  @override
+  String get blockedProfileUnavailable => '이 프로필을 볼 수 없습니다.';
+
+  @override
+  String get blockedContentUnavailable => '이 콘텐츠는 볼 수 없습니다.';
+
+  @override
+  String get blockedCantViewStories => '이 스토리를 볼 수 없습니다.';
+
+  @override
+  String blockedCantMessageUser(Object name) {
+    return '$name님에게 메시지를 보낼 수 없습니다.';
+  }
+
+  @override
+  String get blockedCantMessageThisUser => '이 사용자에게 메시지를 보낼 수 없습니다.';
+
+  @override
+  String get blockedActionNotAllowed => '이 작업을 할 수 없습니다';
+
+  @override
+  String get blockedCantLike => '이 콘텐츠에 좋아요를 누를 수 없습니다';
+
+  @override
+  String get blockedCantComment => '이 콘텐츠에 댓글을 달 수 없습니다';
 }

@@ -49,7 +49,7 @@ class _ProfileThemeState extends ConsumerState<ProfileTheme> {
 
             // Auto switch (system mode)
             _buildSectionTitle(
-              'Automatic',
+              l10n.themeAutomatic,
               Icons.brightness_auto_rounded,
               const Color(0xFF7C4DFF),
             ),
@@ -60,7 +60,7 @@ class _ProfileThemeState extends ConsumerState<ProfileTheme> {
 
             // Manual selection
             _buildSectionTitle(
-              'Manual',
+              l10n.themeManual,
               Icons.palette_rounded,
               AppColors.primary,
             ),
@@ -120,7 +120,7 @@ class _ProfileThemeState extends ConsumerState<ProfileTheme> {
         : Icons.light_mode_rounded;
 
     final modeLabel = themeMode == ThemeMode.system
-        ? 'Following system'
+        ? l10n.themeFollowingSystem
         : themeMode == ThemeMode.dark
         ? l10n.themeDarkMode
         : l10n.themeLightMode;

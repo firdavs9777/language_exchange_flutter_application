@@ -12,6 +12,7 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/pages/settings/widgets/settings_snackbar.dart';
 import 'package:bananatalk_app/pages/settings/deletion_reason_picker.dart';
+import 'package:bananatalk_app/pages/authentication/post_login_error.dart';
 
 class DeleteAccountScreen extends ConsumerStatefulWidget {
   final bool isOAuthUser; // Google, Facebook, or Apple user
@@ -111,7 +112,7 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
         if (result['success'] == true) {
           showSettingsSnackBar(
             context,
-            message: result['message'] ?? 'Account deleted successfully',
+            message: AppLocalizations.of(context)!.accountDeletedSuccess,
             type: SettingsSnackBarType.success,
           );
 
@@ -119,7 +120,11 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
         } else {
           showSettingsSnackBar(
             context,
-            message: result['message'] ?? 'Failed to delete account',
+            message: authResultMessage(
+                AppLocalizations.of(context)!,
+                result,
+                fallback: AppLocalizations.of(context)!.accountDeleteFailed,
+              ),
             type: SettingsSnackBarType.error,
           );
         }

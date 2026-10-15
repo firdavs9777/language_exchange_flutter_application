@@ -40,7 +40,7 @@ class ChatListEmptyState extends StatelessWidget {
         icon: Icons.search_off,
         title: l10n.noResultsFound,
         body: isUsernameSearch
-            ? 'User @$searchTerm not in your chats'
+            ? l10n.chatUserNotInChats(searchTerm)
             : l10n.tryDifferentSearch,
         cta: isUsernameSearch && searchTerm.isNotEmpty && onFindUser != null
             ? ElevatedButton.icon(

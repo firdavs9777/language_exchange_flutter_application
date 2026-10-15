@@ -2872,7 +2872,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get tapToDetectLocation => 'स्थान पता करने के लिए टैप करें';
 
   @override
-  String get optionalHelpsNearbyPartners => 'आवश्यक — पास के साझेदारों से मिलान में मदद करता है';
+  String get optionalHelpsNearbyPartners => 'वैकल्पिक — पास के साझेदारों से मिलान में मदद करता है';
 
   @override
   String get startLearning => 'सीखना शुरू करें';
@@ -8643,7 +8643,13 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String referralClaimed(int coins) {
-    return 'आपने $coins सिक्के कमाए!';
+    String _temp0 = intl.Intl.pluralLogic(
+      coins,
+      locale: localeName,
+      other: 'आपने $coins सिक्के कमाए!',
+      one: 'आपने $coins सिक्का कमाए!',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8666,7 +8672,13 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String extraMatchesCta(int cost) {
-    return '+3 और मैच — $cost सिक्के';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: '+3 और मैच — $cost सिक्के',
+      one: '+3 और मैच — $cost सिक्का',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8674,12 +8686,24 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String boostCostLine(int cost) {
-    return 'कीमत: $cost सिक्के';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: 'कीमत: $cost सिक्के',
+      one: 'कीमत: $cost सिक्का',
+    );
+    return '$_temp0';
   }
 
   @override
   String boostBalanceLine(int balance) {
-    return 'आपका बैलेंस: $balance सिक्के';
+    String _temp0 = intl.Intl.pluralLogic(
+      balance,
+      locale: localeName,
+      other: 'आपका बैलेंस: $balance सिक्के',
+      one: 'आपका बैलेंस: $balance सिक्का',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8709,7 +8733,13 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String wavesMaskedBody(int cost) {
-    return '$cost सिक्कों में जानें कौन, या VIP बनें';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: '$cost सिक्कों में जानें कौन, या VIP बनें',
+      one: '$cost सिक्के में जानें कौन, या VIP बनें',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8769,7 +8799,13 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String visitorsMaskedBody(int cost) {
-    return '$cost कॉइन में देखें कौन है, या VIP बनें';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: '$cost कॉइन में देखें कौन है, या VIP बनें',
+      one: '$cost कॉइन में देखें कौन है, या VIP बनें',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -9685,8 +9721,14 @@ class AppLocalizationsHi extends AppLocalizations {
   String get chatPremium => 'प्रीमियम ✨';
 
   @override
-  String chatUnlockPremiumWallpapers(Object cost) {
-    return 'क्या 💎$cost सिक्कों में सभी प्रीमियम ✨ वॉलपेपर अनलॉक करें? इससे पूरा पैक हमेशा के लिए अनलॉक हो जाता है।';
+  String chatUnlockPremiumWallpapers(int cost) {
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: 'क्या 💎$cost सिक्कों में सभी प्रीमियम ✨ वॉलपेपर अनलॉक करें? इससे पूरा पैक हमेशा के लिए अनलॉक हो जाता है।',
+      one: 'क्या 💎$cost सिक्के में सभी प्रीमियम ✨ वॉलपेपर अनलॉक करें? इससे पूरा पैक हमेशा के लिए अनलॉक हो जाता है।',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -11436,4 +11478,672 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get pleaseRemoveImagesFirstToAddVoiceNote => 'वॉइस नोट जोड़ने के लिए पहले तस्वीरें हटाएँ';
+
+  @override
+  String get authLockedTitle => 'खाता अस्थायी रूप से लॉक है';
+
+  @override
+  String authLockedBodyMinutes(Object minutes) {
+    return 'बहुत अधिक असफल प्रयास। $minutes मिनट बाद फिर कोशिश करें।';
+  }
+
+  @override
+  String get authLockedBodyLater => 'बहुत अधिक असफल प्रयास। बाद में फिर कोशिश करें।';
+
+  @override
+  String get authRateLimitedTitle => 'थोड़ा रुकिए';
+
+  @override
+  String authRateLimitedBodySeconds(Object seconds) {
+    return 'बहुत अधिक प्रयास। $seconds सेकंड बाद फिर कोशिश करें।';
+  }
+
+  @override
+  String get authRateLimitedBodyShortly => 'बहुत अधिक प्रयास। थोड़ी देर में फिर कोशिश करें।';
+
+  @override
+  String get passwordErrorLength => 'पासवर्ड कम से कम 8 अक्षरों का होना चाहिए';
+
+  @override
+  String get passwordErrorUppercase => 'पासवर्ड में कम से कम एक बड़ा अक्षर होना चाहिए';
+
+  @override
+  String get passwordErrorLowercase => 'पासवर्ड में कम से कम एक छोटा अक्षर होना चाहिए';
+
+  @override
+  String get passwordErrorNumber => 'पासवर्ड में कम से कम एक अंक होना चाहिए';
+
+  @override
+  String get authCodeExpired => 'यह कोड समाप्त हो गया है। कृपया नया कोड मँगाएँ।';
+
+  @override
+  String get authCodeIncorrect => 'गलत कोड। कृपया फिर से कोशिश करें।';
+
+  @override
+  String get authVerificationFailed => 'सत्यापन विफल रहा';
+
+  @override
+  String get authResendCodeFailed => 'कोड दोबारा भेजा नहीं जा सका';
+
+  @override
+  String get authSendResetCodeFailed => 'रीसेट कोड भेजा नहीं जा सका';
+
+  @override
+  String get authResetPasswordFailed => 'पासवर्ड रीसेट नहीं हो सका';
+
+  @override
+  String get enableBiometricTitleAndroid => 'अगली बार लॉग इन के लिए फ़िंगरप्रिंट या फ़ेस अनलॉक इस्तेमाल करें?';
+
+  @override
+  String chatLastSeenDate(Object date) {
+    return 'आखिरी बार $date को देखा गया';
+  }
+
+  @override
+  String get chatLastSeenRecently => 'हाल ही में देखा गया';
+
+  @override
+  String chatMediaTabMedia(Object count) {
+    return 'मीडिया ($count)';
+  }
+
+  @override
+  String chatMediaTabLinks(Object count) {
+    return 'लिंक ($count)';
+  }
+
+  @override
+  String chatMediaTabDocs(Object count) {
+    return 'दस्तावेज़ ($count)';
+  }
+
+  @override
+  String get chatMediaNoMedia => 'अभी तक कोई फ़ोटो या वीडियो साझा नहीं किया गया';
+
+  @override
+  String get chatMediaNoLinks => 'अभी तक कोई लिंक साझा नहीं किया गया';
+
+  @override
+  String get chatMediaNoDocs => 'अभी तक कोई दस्तावेज़ साझा नहीं किया गया';
+
+  @override
+  String get chatMediaUnknownSize => 'अज्ञात आकार';
+
+  @override
+  String chatDeleteMinutesLeft(Object minutes) {
+    return '$minutes मि. बाकी';
+  }
+
+  @override
+  String chatDeleteRemovesForBoth(Object name) {
+    return 'आपके और $name के लिए हटाता है';
+  }
+
+  @override
+  String get chatUnsupportedMessageType => 'असमर्थित संदेश प्रकार';
+
+  @override
+  String get chatStoryUnavailable => 'यह स्टोरी अब उपलब्ध नहीं है';
+
+  @override
+  String get chatWallpapersUnlocked => 'प्रीमियम वॉलपेपर अनलॉक हो गए!';
+
+  @override
+  String get chatEditFailed => 'संदेश संपादित नहीं हो सका';
+
+  @override
+  String get chatPinFailed => 'पिन स्थिति अपडेट नहीं हो सकी';
+
+  @override
+  String get chatMessagePinned => 'संदेश पिन किया गया';
+
+  @override
+  String get chatMessageUnpinned => 'संदेश अनपिन किया गया';
+
+  @override
+  String get chatForwardFailed => 'संदेश फ़ॉरवर्ड नहीं हो सका';
+
+  @override
+  String get chatShareLocationFailed => 'स्थान साझा नहीं हो सका';
+
+  @override
+  String chatFileTooLarge(Object size) {
+    return 'यह फ़ाइल बहुत बड़ी है। सीमा $size MB है।';
+  }
+
+  @override
+  String get chatSendMediaFailed => 'मीडिया भेजा नहीं जा सका';
+
+  @override
+  String get chatSendVideoFailed => 'वीडियो भेजा नहीं जा सका';
+
+  @override
+  String get chatVideoTooLong => 'वीडियो 10 मिनट से छोटा होना चाहिए';
+
+  @override
+  String get chatVideoTooLarge => 'वीडियो 1GB से छोटा होना चाहिए। कृपया उसे कंप्रेस करें।';
+
+  @override
+  String get chatSendVoiceFailed => 'वॉइस संदेश भेजा नहीं जा सका';
+
+  @override
+  String get chatVoiceTooLong => 'वॉइस संदेश 5 मिनट से छोटा होना चाहिए';
+
+  @override
+  String get chatVoiceTooLarge => 'वॉइस संदेश फ़ाइल बहुत बड़ी है';
+
+  @override
+  String get voiceRecorderInitFailed => 'रिकॉर्डर शुरू नहीं हो सका';
+
+  @override
+  String get voiceRecorderStartFailed => 'रिकॉर्डिंग शुरू नहीं हो सकी';
+
+  @override
+  String get voiceRecorderFileMissing => 'रिकॉर्डिंग फ़ाइल नहीं मिली';
+
+  @override
+  String get voiceRecorderTooShort => 'रिकॉर्डिंग बहुत छोटी है (कम से कम 1 सेकंड)';
+
+  @override
+  String get voiceRecorderResume => 'फिर से शुरू करें';
+
+  @override
+  String get voiceRecorderPause => 'रोकें';
+
+  @override
+  String get voiceRecorderPaused => 'रिकॉर्डिंग रुकी है - जारी रखने के लिए प्ले पर टैप करें';
+
+  @override
+  String get voiceRecorderRecording => 'रिकॉर्ड हो रहा है... पूरा होने पर रोकें या भेजें पर टैप करें';
+
+  @override
+  String get voiceRecorderInitializing => 'शुरू हो रहा है...';
+
+  @override
+  String get chatGifSearchFailed => 'खोज विफल रही। कृपया फिर से कोशिश करें।';
+
+  @override
+  String chatGifResultsFor(Object query) {
+    return '\"$query\" के परिणाम';
+  }
+
+  @override
+  String get chatYouSharedStory => 'आपने एक स्टोरी साझा की';
+
+  @override
+  String chatUserSharedStory(Object name) {
+    return '$name ने एक स्टोरी साझा की';
+  }
+
+  @override
+  String chatUserNotInChats(Object name) {
+    return '@$name आपकी चैट में नहीं है';
+  }
+
+  @override
+  String get chatDeleteMessageFailed => 'संदेश हटाया नहीं जा सका';
+
+  @override
+  String get themeAutomatic => 'स्वचालित';
+
+  @override
+  String get themeManual => 'मैन्युअल';
+
+  @override
+  String get themeFollowingSystem => 'सिस्टम के अनुसार';
+
+  @override
+  String get profileAdminToolsSubtitle => 'रिपोर्ट, उपयोगकर्ता, ऑडिट लॉग';
+
+  @override
+  String appVersionLabel(Object version) {
+    return 'संस्करण $version';
+  }
+
+  @override
+  String get privacyVisitAnonymously => 'प्रोफ़ाइल गुमनाम रूप से देखें';
+
+  @override
+  String get privacyVisitAnonymouslyDesc => 'आपका नाम उस उपयोगकर्ता की हाल के विज़िटर सूची में नहीं दिखेगा।';
+
+  @override
+  String get profilePhotoUploading => 'अपलोड हो रहा है...';
+
+  @override
+  String get profilePhotoRemoving => 'हटाया जा रहा है...';
+
+  @override
+  String get profileCropPhoto => 'फ़ोटो क्रॉप करें';
+
+  @override
+  String get networkWifi => 'वाई-फ़ाई';
+
+  @override
+  String get networkMobileData => 'मोबाइल डेटा';
+
+  @override
+  String get networkEthernet => 'ईथरनेट';
+
+  @override
+  String get notifPrefResetFailed => 'प्राथमिकताएँ रीसेट नहीं हो सकीं';
+
+  @override
+  String get notifPrefNewFollower => 'नया फ़ॉलोअर';
+
+  @override
+  String get notifPrefVipRenewalWarning => 'VIP नवीनीकरण रिमाइंडर';
+
+  @override
+  String get accountDeletedSuccess => 'खाता सफलतापूर्वक हटाया गया';
+
+  @override
+  String get accountDeleteFailed => 'खाता हटाया नहीं जा सका';
+
+  @override
+  String get coinHistoryLoadFailed => 'सिक्कों का इतिहास लोड नहीं हो सका।';
+
+  @override
+  String get waveAlreadySentTooltip => 'पहले ही वेव कर चुके हैं — अब संदेश भेजें';
+
+  @override
+  String waveAlreadySentTo(Object name) {
+    return 'आप $name को पहले ही वेव कर चुके हैं — अब उन्हें संदेश भेजें।';
+  }
+
+  @override
+  String get waveAlreadyWaved => 'वेव कर चुके';
+
+  @override
+  String get communityCountryDetectFailed => 'देश का पता नहीं चल सका';
+
+  @override
+  String get roomPickCategoryError => 'कृपया एक श्रेणी चुनें';
+
+  @override
+  String get blockUserSuccess => 'उपयोगकर्ता ब्लॉक किया गया';
+
+  @override
+  String get blockUserFailed => 'इस उपयोगकर्ता को ब्लॉक नहीं किया जा सका';
+
+  @override
+  String get unblockUserSuccess => 'उपयोगकर्ता अनब्लॉक किया गया';
+
+  @override
+  String get unblockUserFailed => 'इस उपयोगकर्ता को अनब्लॉक नहीं किया जा सका';
+
+  @override
+  String get clubDeleteFailed => 'क्लब हटाया नहीं जा सका';
+
+  @override
+  String get clubMemberUpdateFailed => 'इस सदस्य को अपडेट नहीं किया जा सका';
+
+  @override
+  String get groupCoverUploadFailed => 'फ़ोटो अपलोड नहीं हो सकी';
+
+  @override
+  String get groupCoverRemoveFailed => 'फ़ोटो हटाई नहीं जा सकी';
+
+  @override
+  String get clubStatusArchived => 'संग्रहीत';
+
+  @override
+  String get matchTagSimilarAge => 'समान उम्र';
+
+  @override
+  String matchTagBothLike(Object topic) {
+    return 'दोनों को $topic पसंद है';
+  }
+
+  @override
+  String get topicNameCooking => 'खाना बनाना';
+
+  @override
+  String get topicNameCoffee => 'कॉफ़ी और चाय';
+
+  @override
+  String get topicNameEatingOut => 'बाहर खाना';
+
+  @override
+  String get topicNameBaking => 'बेकिंग';
+
+  @override
+  String get topicNameDrinking => 'पेय';
+
+  @override
+  String get topicNameStreetFood => 'स्ट्रीट फ़ूड';
+
+  @override
+  String get topicNameTravel => 'यात्रा';
+
+  @override
+  String get topicNameBackpacking => 'बैकपैकिंग';
+
+  @override
+  String get topicNameBeaches => 'समुद्र तट';
+
+  @override
+  String get topicNameMountains => 'पहाड़';
+
+  @override
+  String get topicNameCamping => 'कैंपिंग';
+
+  @override
+  String get topicNameGym => 'जिम';
+
+  @override
+  String get topicNameRunning => 'दौड़ना';
+
+  @override
+  String get topicNameYoga => 'योग';
+
+  @override
+  String get topicNameFootball => 'फ़ुटबॉल';
+
+  @override
+  String get topicNameBasketball => 'बास्केटबॉल';
+
+  @override
+  String get topicNameHiking => 'हाइकिंग';
+
+  @override
+  String get topicNameCycling => 'साइकिलिंग';
+
+  @override
+  String get topicNameDancing => 'नृत्य';
+
+  @override
+  String get topicNameSwimming => 'तैराकी';
+
+  @override
+  String get topicNameMovies => 'फ़िल्में';
+
+  @override
+  String get topicNameTvShows => 'टीवी शो';
+
+  @override
+  String get topicNameMusic => 'संगीत';
+
+  @override
+  String get topicNameGaming => 'गेमिंग';
+
+  @override
+  String get topicNameAnime => 'एनीमे और मांगा';
+
+  @override
+  String get topicNameKpop => 'के-पॉप';
+
+  @override
+  String get topicNameKdrama => 'के-ड्रामा';
+
+  @override
+  String get topicNamePodcasts => 'पॉडकास्ट';
+
+  @override
+  String get topicNameArt => 'कला';
+
+  @override
+  String get topicNamePhotography => 'फ़ोटोग्राफ़ी';
+
+  @override
+  String get topicNameBooks => 'किताबें';
+
+  @override
+  String get topicNameWriting => 'लेखन';
+
+  @override
+  String get topicNameHistory => 'इतिहास';
+
+  @override
+  String get topicNameDesign => 'डिज़ाइन';
+
+  @override
+  String get topicNameFashion => 'फ़ैशन';
+
+  @override
+  String get topicNameBeauty => 'सौंदर्य और त्वचा की देखभाल';
+
+  @override
+  String get topicNameShopping => 'खरीदारी';
+
+  @override
+  String get topicNameGardening => 'बागवानी';
+
+  @override
+  String get topicNameDiy => 'खुद करें (DIY)';
+
+  @override
+  String get topicNameDogs => 'कुत्ते';
+
+  @override
+  String get topicNameCats => 'बिल्लियाँ';
+
+  @override
+  String get topicNameNature => 'प्रकृति';
+
+  @override
+  String get topicNameAnimals => 'जानवर';
+
+  @override
+  String get topicNameLanguageExchange => 'भाषा आदान-प्रदान';
+
+  @override
+  String get topicNameStudyAbroad => 'विदेश में पढ़ाई';
+
+  @override
+  String get topicNameTechnology => 'तकनीक';
+
+  @override
+  String get topicNameProgramming => 'प्रोग्रामिंग';
+
+  @override
+  String get topicNameBusiness => 'व्यापार';
+
+  @override
+  String get topicNameScience => 'विज्ञान';
+
+  @override
+  String get topicNameDailyLife => 'रोज़मर्रा की ज़िंदगी';
+
+  @override
+  String get topicNameMakingFriends => 'दोस्त बनाना';
+
+  @override
+  String get topicNameRelationships => 'रिश्ते';
+
+  @override
+  String get topicNameFamily => 'परिवार';
+
+  @override
+  String get topicNameNightlife => 'नाइटलाइफ़';
+
+  @override
+  String get topicNameMentalHealth => 'मानसिक स्वास्थ्य';
+
+  @override
+  String get topicNameMeditation => 'ध्यान';
+
+  @override
+  String get topicNameNutrition => 'पोषण';
+
+  @override
+  String get topicNameSelfImprovement => 'आत्म-सुधार';
+
+  @override
+  String get topicCategoryFoodDrink => 'खाना-पीना';
+
+  @override
+  String get topicCategoryTravel => 'यात्रा और रोमांच';
+
+  @override
+  String get topicCategorySports => 'खेल और फ़िटनेस';
+
+  @override
+  String get topicCategoryEntertainment => 'मनोरंजन और संगीत';
+
+  @override
+  String get topicCategoryArts => 'कला और संस्कृति';
+
+  @override
+  String get topicCategoryLifestyle => 'जीवनशैली';
+
+  @override
+  String get topicCategoryPetsNature => 'पालतू जानवर और प्रकृति';
+
+  @override
+  String get topicCategoryLearning => 'पढ़ाई और करियर';
+
+  @override
+  String get topicCategorySocial => 'सामाजिक';
+
+  @override
+  String get topicCategoryHealth => 'स्वास्थ्य और कल्याण';
+
+  @override
+  String get waveTooMany => 'बहुत सारे वेव। कृपया थोड़ा धीरे!';
+
+  @override
+  String get aiTutorNoSummary => '(कोई सारांश नहीं)';
+
+  @override
+  String vocabPackAllSaved(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'सभी $count शब्द पहले से आपकी शब्दावली में हैं',
+      one: 'यह शब्द पहले से आपकी शब्दावली में है',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String vocabPackAdded(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'आपकी शब्दावली में $count शब्द जोड़े गए',
+      one: 'आपकी शब्दावली में 1 शब्द जोड़ा गया',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String vocabPackAddedSomeSaved(int count, int saved) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'शब्दावली में $count शब्द जोड़े गए ($saved पहले से सहेजे हुए)',
+      one: 'शब्दावली में 1 शब्द जोड़ा गया ($saved पहले से सहेजे हुए)',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get vocabPackNoExercises => 'कोई अभ्यास नहीं';
+
+  @override
+  String vocabPackPractice(int count) {
+    return 'अभ्यास ($count)';
+  }
+
+  @override
+  String get aiQuizPlayAgain => 'फिर से खेलें';
+
+  @override
+  String get aiLessonAskHint => 'इस पाठ के बारे में कुछ भी पूछें...';
+
+  @override
+  String get aiLessonConceptHint => 'आप कौन सी अवधारणा समझना चाहते हैं?';
+
+  @override
+  String examTargetScoreHint(Object score) {
+    return 'जैसे $score';
+  }
+
+  @override
+  String get vocabWordAdded => 'शब्द जोड़ा गया!';
+
+  @override
+  String get vocabWordAddFailed => 'शब्द जोड़ा नहीं जा सका';
+
+  @override
+  String get vocabEnterWordFirst => 'पहले एक शब्द लिखें';
+
+  @override
+  String get vocabAiFilled => 'AI ने भर दिया!';
+
+  @override
+  String get vocabAiFillFailed => 'AI से भरना विफल रहा। कृपया फिर से कोशिश करें।';
+
+  @override
+  String get authSendCodeFailed => 'सत्यापन कोड भेजा नहीं जा सका';
+
+  @override
+  String get authServerConfigError => 'सर्वर कॉन्फ़िगरेशन त्रुटि। कृपया सहायता से संपर्क करें।';
+
+  @override
+  String get authAppleTokenFailed => 'Apple से साइन इन नहीं हो सका। कृपया फिर से कोशिश करें।';
+
+  @override
+  String get authRegistrationFailed => 'पंजीकरण विफल रहा';
+
+  @override
+  String get authEmailAlreadyExists => 'यह ईमेल पहले से मौजूद है। कृपया दूसरा ईमेल इस्तेमाल करें।';
+
+  @override
+  String get reportEvidenceAddFailed => 'फ़ोटो जोड़ी नहीं जा सकीं';
+
+  @override
+  String reportEvidenceMaxFiles(int count) {
+    return 'हर रिपोर्ट में अधिकतम $count फ़ाइलें';
+  }
+
+  @override
+  String reportEvidenceFileTooLarge(Object name) {
+    return '$name बहुत बड़ी है (अधिकतम 5 MB)';
+  }
+
+  @override
+  String get reportEvidenceTotalTooLarge => 'कुल आकार 25 MB से अधिक हो जाएगा';
+
+  @override
+  String get blockedContentUnavailableToYou => 'यह सामग्री आपके लिए उपलब्ध नहीं है।';
+
+  @override
+  String blockedCantViewUserContent(Object name) {
+    return 'आप $name की सामग्री नहीं देख सकते।';
+  }
+
+  @override
+  String get blockedCantViewThisUserContent => 'आप इस उपयोगकर्ता की सामग्री नहीं देख सकते।';
+
+  @override
+  String blockedCantViewUserProfile(Object name) {
+    return 'आप $name की प्रोफ़ाइल नहीं देख सकते।';
+  }
+
+  @override
+  String get blockedProfileUnavailable => 'यह प्रोफ़ाइल उपलब्ध नहीं है।';
+
+  @override
+  String get blockedContentUnavailable => 'यह सामग्री उपलब्ध नहीं है।';
+
+  @override
+  String get blockedCantViewStories => 'आप ये स्टोरी नहीं देख सकते।';
+
+  @override
+  String blockedCantMessageUser(Object name) {
+    return 'आप $name को संदेश नहीं भेज सकते।';
+  }
+
+  @override
+  String get blockedCantMessageThisUser => 'आप इस उपयोगकर्ता को संदेश नहीं भेज सकते।';
+
+  @override
+  String get blockedActionNotAllowed => 'आप यह कार्य नहीं कर सकते';
+
+  @override
+  String get blockedCantLike => 'आप इस सामग्री को पसंद नहीं कर सकते';
+
+  @override
+  String get blockedCantComment => 'आप इस सामग्री पर टिप्पणी नहीं कर सकते';
 }

@@ -16,6 +16,7 @@ import 'package:bananatalk_app/pages/chat/widgets/chat_snackbar.dart';
 import 'package:bananatalk_app/widgets/navigation/app_back_button.dart';
 import 'package:bananatalk_app/widgets/coins/coin_balance_pill.dart';
 import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
+import 'package:bananatalk_app/utils/date_format_locale.dart';
 
 class ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
   final String userName;
@@ -83,6 +84,7 @@ class ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
   }
 
   Widget _buildConnectionStatus(BuildContext context, ConnectionStatus status) {
+    final l10n = AppLocalizations.of(context)!;
     Color dotColor;
     String statusText;
     bool showPulse = false;
@@ -90,21 +92,21 @@ class ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
     switch (status) {
       case ConnectionStatus.connecting:
         dotColor = AppColors.warning;
-        statusText = 'Connecting...';
+        statusText = l10n.connecting;
         showPulse = true;
         break;
       case ConnectionStatus.reconnecting:
         dotColor = AppColors.warning;
-        statusText = 'Reconnecting...';
+        statusText = l10n.callReconnecting;
         showPulse = true;
         break;
       case ConnectionStatus.disconnected:
         dotColor = AppColors.error;
-        statusText = 'Offline';
+        statusText = l10n.offline;
         break;
       case ConnectionStatus.connected:
         dotColor = AppColors.online;
-        statusText = 'Connected';
+        statusText = l10n.callConnected;
         break;
     }
 
@@ -162,26 +164,13 @@ class ChatAppBar extends ConsumerWidget implements PreferredSizeWidget {
       } else if (difference.inDays < 7) {
         return l10n.chatActiveDaysAgo(difference.inDays);
       } else {
-        // Show actual date for 7+ days ago
-        final months = [
-          'Jan',
-          'Feb',
-          'Mar',
-          'Apr',
-          'May',
-          'Jun',
-          'Jul',
-          'Aug',
-          'Sep',
-          'Oct',
-          'Nov',
-          'Dec',
-        ];
-        final month = months[lastSeenDate.month - 1];
-        return 'Last seen $month ${lastSeenDate.day}';
+        // Show actual date for 7+ days ago, in the app language
+        return l10n.chatLastSeenDate(
+          formatMonthDayForLocale(context, lastSeenDate),
+        );
       }
     } catch (e) {
-      return 'Last seen recently';
+      return l10n.chatLastSeenRecently;
     }
   }
 

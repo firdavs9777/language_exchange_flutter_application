@@ -100,7 +100,7 @@ class _ChatSearchScreenState extends State<ChatSearchScreen> {
           });
         } else {
           setState(() {
-            _error = result['error'] ?? 'Search failed';
+            _error = AppLocalizations.of(context)!.chatGifSearchFailed;
             _isLoading = false;
           });
         }

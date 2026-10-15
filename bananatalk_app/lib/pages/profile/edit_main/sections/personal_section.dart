@@ -12,6 +12,7 @@ import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:bananatalk_app/pages/profile/edit_main/profile_not_set.dart';
 
 /// Renders the "Personal Information" card (MBTI, blood type, hometown)
 /// and the "Interests" card (topics).
@@ -50,7 +51,7 @@ class PersonalSection extends StatelessWidget {
             (t) => t.id == id,
             orElse: () => Topic(id: id, name: id, icon: '', category: ''),
           );
-          return topic.name;
+          return topic.localizedName(l10n);
         })
         .take(3)
         .toList();
@@ -81,8 +82,8 @@ class PersonalSection extends StatelessWidget {
             icon: Icons.psychology_rounded,
             iconColor: AppColors.accent,
             title: l10n.mbti,
-            subtitle: selectedMBTI == 'Not Set' ? null : selectedMBTI,
-            trailingChip: selectedMBTI != 'Not Set' ? selectedMBTI : null,
+            subtitle: selectedMBTI == profileNotSet ? null : selectedMBTI,
+            trailingChip: selectedMBTI != profileNotSet ? selectedMBTI : null,
             isFirst: true,
             onTap: () async {
               final updated = await Navigator.push<String>(
@@ -103,9 +104,9 @@ class PersonalSection extends StatelessWidget {
             iconColor: AppColors.error,
             title: l10n.bloodType,
             subtitle:
-                selectedBloodType == 'Not Set' ? null : selectedBloodType,
+                selectedBloodType == profileNotSet ? null : selectedBloodType,
             trailingChip:
-                selectedBloodType != 'Not Set' ? selectedBloodType : null,
+                selectedBloodType != profileNotSet ? selectedBloodType : null,
             onTap: () async {
               final updated = await Navigator.push<String>(
                     context,
@@ -125,7 +126,7 @@ class PersonalSection extends StatelessWidget {
             icon: Icons.location_on_rounded,
             iconColor: AppColors.success,
             title: l10n.hometown,
-            subtitle: selectedAddress == 'Not Set' ? null : selectedAddress,
+            subtitle: selectedAddress == profileNotSet ? null : selectedAddress,
             onTap: () async {
               final updated = await Navigator.push<String>(
                     context,

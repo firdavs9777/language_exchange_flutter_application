@@ -2872,7 +2872,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get tapToDetectLocation => 'Konumu algılamak için dokunun';
 
   @override
-  String get optionalHelpsNearbyPartners => 'Gerekli — yakındaki ortakları bulmanıza yardımcı olur';
+  String get optionalHelpsNearbyPartners => 'İsteğe bağlı — yakındaki ortakları bulmanıza yardımcı olur';
 
   @override
   String get startLearning => 'Öğrenmeye başla';
@@ -8641,7 +8641,12 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String referralClaimed(int coins) {
-    return '$coins coin kazandın!';
+    String _temp0 = intl.Intl.pluralLogic(
+      coins,
+      locale: localeName,
+      other: '$coins coin kazandın!',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8664,7 +8669,12 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String extraMatchesCta(int cost) {
-    return '+3 eşleşme daha — $cost jeton';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: '+3 eşleşme daha — $cost jeton',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8672,12 +8682,22 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String boostCostLine(int cost) {
-    return 'Ücret: $cost jeton';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: 'Ücret: $cost jeton',
+    );
+    return '$_temp0';
   }
 
   @override
   String boostBalanceLine(int balance) {
-    return 'Bakiyen: $balance jeton';
+    String _temp0 = intl.Intl.pluralLogic(
+      balance,
+      locale: localeName,
+      other: 'Bakiyen: $balance jeton',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8707,7 +8727,12 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String wavesMaskedBody(int cost) {
-    return '$cost jetona kimin olduğunu öğren veya VIP ol';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: '$cost jetona kimin olduğunu öğren veya VIP ol',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8767,7 +8792,12 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String visitorsMaskedBody(int cost) {
-    return '$cost jetonla kim olduğunu gör ya da VIP ol';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: '$cost jetonla kim olduğunu gör ya da VIP ol',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -9683,8 +9713,13 @@ class AppLocalizationsTr extends AppLocalizations {
   String get chatPremium => 'Premium ✨';
 
   @override
-  String chatUnlockPremiumWallpapers(Object cost) {
-    return 'Tüm Premium ✨ duvar kâğıtlarının kilidini 💎$cost jetonla açmak ister misiniz? Bu, tüm paketin kilidini kalıcı olarak açar.';
+  String chatUnlockPremiumWallpapers(int cost) {
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: 'Tüm Premium ✨ duvar kâğıtlarının kilidini 💎$cost jetonla açmak ister misiniz? Bu, tüm paketin kilidini kalıcı olarak açar.',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -11434,4 +11469,670 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get pleaseRemoveImagesFirstToAddVoiceNote => 'Sesli not eklemek için önce görselleri kaldırın';
+
+  @override
+  String get authLockedTitle => 'Hesap geçici olarak kilitlendi';
+
+  @override
+  String authLockedBodyMinutes(Object minutes) {
+    return 'Çok fazla başarısız deneme. $minutes dk sonra tekrar dene.';
+  }
+
+  @override
+  String get authLockedBodyLater => 'Çok fazla başarısız deneme. Daha sonra tekrar dene.';
+
+  @override
+  String get authRateLimitedTitle => 'Biraz yavaşla';
+
+  @override
+  String authRateLimitedBodySeconds(Object seconds) {
+    return 'Çok fazla deneme. $seconds sn sonra tekrar dene.';
+  }
+
+  @override
+  String get authRateLimitedBodyShortly => 'Çok fazla deneme. Birazdan tekrar dene.';
+
+  @override
+  String get passwordErrorLength => 'Şifre en az 8 karakter olmalıdır';
+
+  @override
+  String get passwordErrorUppercase => 'Şifre en az bir büyük harf içermelidir';
+
+  @override
+  String get passwordErrorLowercase => 'Şifre en az bir küçük harf içermelidir';
+
+  @override
+  String get passwordErrorNumber => 'Şifre en az bir rakam içermelidir';
+
+  @override
+  String get authCodeExpired => 'Bu kodun süresi doldu. Lütfen yeni bir kod iste.';
+
+  @override
+  String get authCodeIncorrect => 'Kod yanlış. Lütfen tekrar dene.';
+
+  @override
+  String get authVerificationFailed => 'Doğrulama başarısız';
+
+  @override
+  String get authResendCodeFailed => 'Kod yeniden gönderilemedi';
+
+  @override
+  String get authSendResetCodeFailed => 'Sıfırlama kodu gönderilemedi';
+
+  @override
+  String get authResetPasswordFailed => 'Şifre sıfırlanamadı';
+
+  @override
+  String get enableBiometricTitleAndroid => 'Bir dahaki sefere parmak izi veya yüz tanıma ile giriş yapılsın mı?';
+
+  @override
+  String chatLastSeenDate(Object date) {
+    return 'Son görülme $date';
+  }
+
+  @override
+  String get chatLastSeenRecently => 'Yakın zamanda görüldü';
+
+  @override
+  String chatMediaTabMedia(Object count) {
+    return 'Medya ($count)';
+  }
+
+  @override
+  String chatMediaTabLinks(Object count) {
+    return 'Bağlantılar ($count)';
+  }
+
+  @override
+  String chatMediaTabDocs(Object count) {
+    return 'Belgeler ($count)';
+  }
+
+  @override
+  String get chatMediaNoMedia => 'Henüz fotoğraf veya video paylaşılmadı';
+
+  @override
+  String get chatMediaNoLinks => 'Henüz bağlantı paylaşılmadı';
+
+  @override
+  String get chatMediaNoDocs => 'Henüz belge paylaşılmadı';
+
+  @override
+  String get chatMediaUnknownSize => 'Bilinmeyen boyut';
+
+  @override
+  String chatDeleteMinutesLeft(Object minutes) {
+    return '$minutes dk kaldı';
+  }
+
+  @override
+  String chatDeleteRemovesForBoth(Object name) {
+    return 'Senin ve $name için kaldırılır';
+  }
+
+  @override
+  String get chatUnsupportedMessageType => 'Desteklenmeyen mesaj türü';
+
+  @override
+  String get chatStoryUnavailable => 'Bu hikaye artık mevcut değil';
+
+  @override
+  String get chatWallpapersUnlocked => 'Premium duvar kâğıtlarının kilidi açıldı!';
+
+  @override
+  String get chatEditFailed => 'Mesaj düzenlenemedi';
+
+  @override
+  String get chatPinFailed => 'Sabitleme durumu güncellenemedi';
+
+  @override
+  String get chatMessagePinned => 'Mesaj sabitlendi';
+
+  @override
+  String get chatMessageUnpinned => 'Mesajın sabitlemesi kaldırıldı';
+
+  @override
+  String get chatForwardFailed => 'Mesaj iletilemedi';
+
+  @override
+  String get chatShareLocationFailed => 'Konum paylaşılamadı';
+
+  @override
+  String chatFileTooLarge(Object size) {
+    return 'Bu dosya çok büyük. Sınır $size MB.';
+  }
+
+  @override
+  String get chatSendMediaFailed => 'Medya gönderilemedi';
+
+  @override
+  String get chatSendVideoFailed => 'Video gönderilemedi';
+
+  @override
+  String get chatVideoTooLong => 'Video 10 dakikadan kısa olmalı';
+
+  @override
+  String get chatVideoTooLarge => 'Video 1 GB\'tan küçük olmalı. Lütfen videoyu sıkıştır.';
+
+  @override
+  String get chatSendVoiceFailed => 'Sesli mesaj gönderilemedi';
+
+  @override
+  String get chatVoiceTooLong => 'Sesli mesaj 5 dakikadan kısa olmalı';
+
+  @override
+  String get chatVoiceTooLarge => 'Sesli mesaj dosyası çok büyük';
+
+  @override
+  String get voiceRecorderInitFailed => 'Kaydedici başlatılamadı';
+
+  @override
+  String get voiceRecorderStartFailed => 'Kayıt başlatılamadı';
+
+  @override
+  String get voiceRecorderFileMissing => 'Kayıt dosyası bulunamadı';
+
+  @override
+  String get voiceRecorderTooShort => 'Kayıt çok kısa (en az 1 saniye)';
+
+  @override
+  String get voiceRecorderResume => 'Devam et';
+
+  @override
+  String get voiceRecorderPause => 'Duraklat';
+
+  @override
+  String get voiceRecorderPaused => 'Kayıt duraklatıldı - devam etmek için oynat\'a dokun';
+
+  @override
+  String get voiceRecorderRecording => 'Kaydediliyor... bitince duraklat\'a veya gönder\'e dokun';
+
+  @override
+  String get voiceRecorderInitializing => 'Hazırlanıyor...';
+
+  @override
+  String get chatGifSearchFailed => 'Arama başarısız. Lütfen tekrar dene.';
+
+  @override
+  String chatGifResultsFor(Object query) {
+    return '\"$query\" için sonuçlar';
+  }
+
+  @override
+  String get chatYouSharedStory => 'Bir hikaye paylaştın';
+
+  @override
+  String chatUserSharedStory(Object name) {
+    return '$name bir hikaye paylaştı';
+  }
+
+  @override
+  String chatUserNotInChats(Object name) {
+    return '@$name sohbetlerinde yok';
+  }
+
+  @override
+  String get chatDeleteMessageFailed => 'Mesaj silinemedi';
+
+  @override
+  String get themeAutomatic => 'Otomatik';
+
+  @override
+  String get themeManual => 'Manuel';
+
+  @override
+  String get themeFollowingSystem => 'Sistemi takip ediyor';
+
+  @override
+  String get profileAdminToolsSubtitle => 'Şikayetler, kullanıcılar, denetim kaydı';
+
+  @override
+  String appVersionLabel(Object version) {
+    return 'Sürüm $version';
+  }
+
+  @override
+  String get privacyVisitAnonymously => 'Profilleri anonim ziyaret et';
+
+  @override
+  String get privacyVisitAnonymouslyDesc => 'Adın, ziyaret ettiğin kişinin son ziyaretçiler listesinde görünmez.';
+
+  @override
+  String get profilePhotoUploading => 'Yükleniyor...';
+
+  @override
+  String get profilePhotoRemoving => 'Kaldırılıyor...';
+
+  @override
+  String get profileCropPhoto => 'Fotoğrafı kırp';
+
+  @override
+  String get networkWifi => 'Wi-Fi';
+
+  @override
+  String get networkMobileData => 'Mobil veri';
+
+  @override
+  String get networkEthernet => 'Ethernet';
+
+  @override
+  String get notifPrefResetFailed => 'Tercihler sıfırlanamadı';
+
+  @override
+  String get notifPrefNewFollower => 'Yeni takipçi';
+
+  @override
+  String get notifPrefVipRenewalWarning => 'VIP yenileme hatırlatmaları';
+
+  @override
+  String get accountDeletedSuccess => 'Hesap silindi';
+
+  @override
+  String get accountDeleteFailed => 'Hesap silinemedi';
+
+  @override
+  String get coinHistoryLoadFailed => 'Jeton geçmişi yüklenemedi.';
+
+  @override
+  String get waveAlreadySentTooltip => 'Zaten el salladın — bunun yerine mesaj gönder';
+
+  @override
+  String waveAlreadySentTo(Object name) {
+    return '$name kişisine zaten el salladın — bunun yerine mesaj gönder.';
+  }
+
+  @override
+  String get waveAlreadyWaved => 'El sallandı';
+
+  @override
+  String get communityCountryDetectFailed => 'Ülke algılanamadı';
+
+  @override
+  String get roomPickCategoryError => 'Lütfen bir kategori seç';
+
+  @override
+  String get blockUserSuccess => 'Kullanıcı engellendi';
+
+  @override
+  String get blockUserFailed => 'Bu kullanıcı engellenemedi';
+
+  @override
+  String get unblockUserSuccess => 'Kullanıcının engeli kaldırıldı';
+
+  @override
+  String get unblockUserFailed => 'Bu kullanıcının engeli kaldırılamadı';
+
+  @override
+  String get clubDeleteFailed => 'Kulüp silinemedi';
+
+  @override
+  String get clubMemberUpdateFailed => 'Bu üye güncellenemedi';
+
+  @override
+  String get groupCoverUploadFailed => 'Fotoğraf yüklenemedi';
+
+  @override
+  String get groupCoverRemoveFailed => 'Fotoğraf kaldırılamadı';
+
+  @override
+  String get clubStatusArchived => 'Arşivlendi';
+
+  @override
+  String get matchTagSimilarAge => 'Benzer yaş';
+
+  @override
+  String matchTagBothLike(Object topic) {
+    return 'İkiniz de $topic seviyorsunuz';
+  }
+
+  @override
+  String get topicNameCooking => 'Yemek Yapmak';
+
+  @override
+  String get topicNameCoffee => 'Kahve & Çay';
+
+  @override
+  String get topicNameEatingOut => 'Dışarıda Yemek';
+
+  @override
+  String get topicNameBaking => 'Pastacılık';
+
+  @override
+  String get topicNameDrinking => 'İçecekler';
+
+  @override
+  String get topicNameStreetFood => 'Sokak Lezzetleri';
+
+  @override
+  String get topicNameTravel => 'Seyahat';
+
+  @override
+  String get topicNameBackpacking => 'Sırt Çantalı Gezi';
+
+  @override
+  String get topicNameBeaches => 'Plajlar';
+
+  @override
+  String get topicNameMountains => 'Dağlar';
+
+  @override
+  String get topicNameCamping => 'Kamp';
+
+  @override
+  String get topicNameGym => 'Spor Salonu';
+
+  @override
+  String get topicNameRunning => 'Koşu';
+
+  @override
+  String get topicNameYoga => 'Yoga';
+
+  @override
+  String get topicNameFootball => 'Futbol';
+
+  @override
+  String get topicNameBasketball => 'Basketbol';
+
+  @override
+  String get topicNameHiking => 'Doğa Yürüyüşü';
+
+  @override
+  String get topicNameCycling => 'Bisiklet';
+
+  @override
+  String get topicNameDancing => 'Dans';
+
+  @override
+  String get topicNameSwimming => 'Yüzme';
+
+  @override
+  String get topicNameMovies => 'Filmler';
+
+  @override
+  String get topicNameTvShows => 'Diziler';
+
+  @override
+  String get topicNameMusic => 'Müzik';
+
+  @override
+  String get topicNameGaming => 'Oyun';
+
+  @override
+  String get topicNameAnime => 'Anime & Manga';
+
+  @override
+  String get topicNameKpop => 'K-Pop';
+
+  @override
+  String get topicNameKdrama => 'Kore Dizileri';
+
+  @override
+  String get topicNamePodcasts => 'Podcast\'ler';
+
+  @override
+  String get topicNameArt => 'Sanat';
+
+  @override
+  String get topicNamePhotography => 'Fotoğrafçılık';
+
+  @override
+  String get topicNameBooks => 'Kitaplar';
+
+  @override
+  String get topicNameWriting => 'Yazı Yazmak';
+
+  @override
+  String get topicNameHistory => 'Tarih';
+
+  @override
+  String get topicNameDesign => 'Tasarım';
+
+  @override
+  String get topicNameFashion => 'Moda';
+
+  @override
+  String get topicNameBeauty => 'Güzellik & Cilt Bakımı';
+
+  @override
+  String get topicNameShopping => 'Alışveriş';
+
+  @override
+  String get topicNameGardening => 'Bahçecilik';
+
+  @override
+  String get topicNameDiy => 'Kendin Yap';
+
+  @override
+  String get topicNameDogs => 'Köpekler';
+
+  @override
+  String get topicNameCats => 'Kediler';
+
+  @override
+  String get topicNameNature => 'Doğa';
+
+  @override
+  String get topicNameAnimals => 'Hayvanlar';
+
+  @override
+  String get topicNameLanguageExchange => 'Dil Değişimi';
+
+  @override
+  String get topicNameStudyAbroad => 'Yurt Dışında Eğitim';
+
+  @override
+  String get topicNameTechnology => 'Teknoloji';
+
+  @override
+  String get topicNameProgramming => 'Programlama';
+
+  @override
+  String get topicNameBusiness => 'İş Dünyası';
+
+  @override
+  String get topicNameScience => 'Bilim';
+
+  @override
+  String get topicNameDailyLife => 'Günlük Yaşam';
+
+  @override
+  String get topicNameMakingFriends => 'Arkadaş Edinmek';
+
+  @override
+  String get topicNameRelationships => 'İlişkiler';
+
+  @override
+  String get topicNameFamily => 'Aile';
+
+  @override
+  String get topicNameNightlife => 'Gece Hayatı';
+
+  @override
+  String get topicNameMentalHealth => 'Ruh Sağlığı';
+
+  @override
+  String get topicNameMeditation => 'Meditasyon';
+
+  @override
+  String get topicNameNutrition => 'Beslenme';
+
+  @override
+  String get topicNameSelfImprovement => 'Kişisel Gelişim';
+
+  @override
+  String get topicCategoryFoodDrink => 'Yeme & İçme';
+
+  @override
+  String get topicCategoryTravel => 'Seyahat & Macera';
+
+  @override
+  String get topicCategorySports => 'Spor & Fitness';
+
+  @override
+  String get topicCategoryEntertainment => 'Eğlence & Müzik';
+
+  @override
+  String get topicCategoryArts => 'Sanat & Kültür';
+
+  @override
+  String get topicCategoryLifestyle => 'Yaşam Tarzı';
+
+  @override
+  String get topicCategoryPetsNature => 'Evcil Hayvanlar & Doğa';
+
+  @override
+  String get topicCategoryLearning => 'Öğrenme & Kariyer';
+
+  @override
+  String get topicCategorySocial => 'Sosyal';
+
+  @override
+  String get topicCategoryHealth => 'Sağlık & Esenlik';
+
+  @override
+  String get waveTooMany => 'Çok fazla el salladın. Biraz yavaşla!';
+
+  @override
+  String get aiTutorNoSummary => '(özet yok)';
+
+  @override
+  String vocabPackAllSaved(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count kelimenin hepsi zaten kelime listende',
+      one: 'Bu kelime zaten kelime listende',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String vocabPackAdded(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Kelime listene $count kelime eklendi',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String vocabPackAddedSomeSaved(int count, int saved) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Kelime listene $count kelime eklendi ($saved tanesi zaten kayıtlı)',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get vocabPackNoExercises => 'Alıştırma yok';
+
+  @override
+  String vocabPackPractice(int count) {
+    return 'Pratik yap ($count)';
+  }
+
+  @override
+  String get aiQuizPlayAgain => 'Tekrar oyna';
+
+  @override
+  String get aiLessonAskHint => 'Bu dersle ilgili her şeyi sor...';
+
+  @override
+  String get aiLessonConceptHint => 'Hangi kavramın açıklanmasını istiyorsun?';
+
+  @override
+  String examTargetScoreHint(Object score) {
+    return 'ör. $score';
+  }
+
+  @override
+  String get vocabWordAdded => 'Kelime eklendi!';
+
+  @override
+  String get vocabWordAddFailed => 'Kelime eklenemedi';
+
+  @override
+  String get vocabEnterWordFirst => 'Önce bir kelime gir';
+
+  @override
+  String get vocabAiFilled => 'Yapay zekâ doldurdu!';
+
+  @override
+  String get vocabAiFillFailed => 'Yapay zekâ dolduramadı. Lütfen tekrar dene.';
+
+  @override
+  String get authSendCodeFailed => 'Doğrulama kodu gönderilemedi';
+
+  @override
+  String get authServerConfigError => 'Sunucu yapılandırma hatası. Lütfen destekle iletişime geç.';
+
+  @override
+  String get authAppleTokenFailed => 'Apple ile giriş yapılamadı. Lütfen tekrar dene.';
+
+  @override
+  String get authRegistrationFailed => 'Kayıt başarısız';
+
+  @override
+  String get authEmailAlreadyExists => 'Bu e-posta zaten kayıtlı. Lütfen başka bir e-posta kullan.';
+
+  @override
+  String get reportEvidenceAddFailed => 'Fotoğraflar eklenemedi';
+
+  @override
+  String reportEvidenceMaxFiles(int count) {
+    return 'Şikayet başına en fazla $count dosya';
+  }
+
+  @override
+  String reportEvidenceFileTooLarge(Object name) {
+    return '$name çok büyük (en fazla 5 MB)';
+  }
+
+  @override
+  String get reportEvidenceTotalTooLarge => 'Toplam boyut 25 MB\'ı aşar';
+
+  @override
+  String get blockedContentUnavailableToYou => 'Bu içerik sana açık değil.';
+
+  @override
+  String blockedCantViewUserContent(Object name) {
+    return '$name kişisinin içeriğini göremezsin.';
+  }
+
+  @override
+  String get blockedCantViewThisUserContent => 'Bu kullanıcının içeriğini göremezsin.';
+
+  @override
+  String blockedCantViewUserProfile(Object name) {
+    return '$name kişisinin profilini göremezsin.';
+  }
+
+  @override
+  String get blockedProfileUnavailable => 'Bu profil kullanılamıyor.';
+
+  @override
+  String get blockedContentUnavailable => 'Bu içerik kullanılamıyor.';
+
+  @override
+  String get blockedCantViewStories => 'Bu hikayeleri göremezsin.';
+
+  @override
+  String blockedCantMessageUser(Object name) {
+    return '$name kişisine mesaj gönderemezsin.';
+  }
+
+  @override
+  String get blockedCantMessageThisUser => 'Bu kullanıcıya mesaj gönderemezsin.';
+
+  @override
+  String get blockedActionNotAllowed => 'Bu işlemi yapamazsın';
+
+  @override
+  String get blockedCantLike => 'Bu içeriği beğenemezsin';
+
+  @override
+  String get blockedCantComment => 'Bu içeriğe yorum yapamazsın';
 }

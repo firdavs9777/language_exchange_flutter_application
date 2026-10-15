@@ -5,12 +5,18 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'hardcoded_text_scanner.dart';
 
-/// Guard: no NEW English `Text('...')` / `SelectableText('...')` literal in lib/.
+/// Guard: no NEW English `Text('...')` / `SelectableText('...')` literal in lib/,
+/// and no NEW English literal passed to a user-facing named parameter
+/// (`hintText:`, `labelText:`, `tooltip:`, `message:`, `semanticsLabel:` …, see
+/// [userFacingProperties]) in UI code. Services, providers and models are not
+/// property-scanned: they have no BuildContext, and their `message:` fields are
+/// data (exception text, API envelopes), not what a screen shows.
 ///
 /// Three layers decide whether a scanner hit is acceptable:
 ///  1. [_allowedPaths] / [_allowedTexts] / [_brandTokens]: English by design.
 ///  2. `no_hardcoded_text_allowlist.txt`: a frozen snapshot of the literals that
-///     already existed when this guard landed (2026-10-12). Each line is a JSON
+///     already existed when this guard landed (Text: 2026-10-12, properties:
+///     2026-10-15). Each line is a JSON
 ///     `[path, text]` pair, matched by path + text (never line number, so edits
 ///     above a literal do not break it). The same pair may appear several times:
 ///     each line allows one occurrence.
@@ -31,9 +37,14 @@ const _allowedPaths = <String, String>{
   'lib/screens/livekit_test_screen.dart': 'debug-only test screen',
 };
 
-/// Exact literals allowed in one file. Empty: the VIP payment debug block is
-/// now `kDebugMode`-only and built outside a `Text('...')` literal.
-const _allowedTexts = <String, Set<String>>{};
+/// Exact literals allowed in one file, each with its reason.
+const _allowedTexts = <String, Set<String>>{
+  // Birthdate input mask: digit order matches the input formatter, same in every locale.
+  'lib/pages/authentication/register/register_two/personal_info_step.dart': {'YYYY.MM.DD'},
+};
+
+/// Data layers: no BuildContext, so no property scan (Text literals still count).
+const _noPropertyScan = ['lib/services/', 'lib/providers/', 'lib/models/'];
 
 /// Words that are the same in every locale: brands and units.
 const _brandTokens = {'VIP', 'XP', 'HD', 'MB', 'km', 'GIPHY', 'Bananatalk', 'BananaTalk', 'firdavsDev'};
@@ -62,7 +73,10 @@ List<HardcodedText> _scanLib() {
       .where((p) => p.endsWith('.dart') && !p.startsWith('lib/l10n/') && !p.endsWith('.g.dart'))
       .toList()
     ..sort();
-  return scanFiles(files);
+  return [
+    ...scanFiles(files),
+    ...scanPropertyFiles(files.where((p) => !_noPropertyScan.any(p.startsWith))),
+  ];
 }
 
 void main() {
@@ -74,6 +88,13 @@ void main() {
     expect(scanSource('x.dart', "// Text('Hello')"), isEmpty);
     expect(scanSource('x.dart', "Text('\${n}')"), isEmpty);
     expect(scanSource('x.dart', "RichText(text: x)"), isEmpty);
+    expect(scanPropertySource('x.dart', "InputDecoration(hintText: 'Type here')"), hasLength(1));
+    expect(scanPropertySource('x.dart', "IconButton(tooltip: ok ? 'Pin' : 'Unpin')").single.text,
+        'PinUnpin');
+    expect(scanPropertySource('x.dart', "showSnack(context, message:\n  'Saved')"), hasLength(1));
+    expect(scanPropertySource('x.dart', 'Tooltip(message: l10n.wave)'), isEmpty);
+    expect(scanPropertySource('x.dart', "Text('x', semanticsLabel: '\${n}')"), isEmpty);
+    expect(scanPropertySource('x.dart', "AppBar(title: Text(x))"), isEmpty);
   });
 
   test('every by-design path still exists', () {

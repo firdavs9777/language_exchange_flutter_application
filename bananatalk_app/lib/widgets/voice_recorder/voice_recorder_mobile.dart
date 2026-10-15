@@ -108,7 +108,7 @@ class _VoiceRecorderWidgetState extends State<VoiceRecorderWidget>
       await _startRecording();
     } catch (e) {
       setState(() {
-        _error = 'Failed to initialize recorder';
+        _error = AppLocalizations.of(context)!.voiceRecorderInitFailed;
       });
       Future.delayed(const Duration(seconds: 2), () {
         widget.onCancel?.call();
@@ -157,7 +157,7 @@ class _VoiceRecorderWidgetState extends State<VoiceRecorderWidget>
       setState(() => _isRecording = true);
     } catch (e) {
       setState(() {
-        _error = 'Failed to start recording';
+        _error = AppLocalizations.of(context)!.voiceRecorderStartFailed;
       });
     }
   }
@@ -206,11 +206,11 @@ class _VoiceRecorderWidgetState extends State<VoiceRecorderWidget>
             waveform,
           );
         } else {
-          _showError('Recording file not found');
+          _showError(AppLocalizations.of(context)!.voiceRecorderFileMissing);
           widget.onCancel?.call();
         }
       } else {
-        _showError('Recording too short (minimum 1 second)');
+        _showError(AppLocalizations.of(context)!.voiceRecorderTooShort);
         widget.onCancel?.call();
       }
     } catch (e) {
@@ -333,7 +333,7 @@ class _VoiceRecorderWidgetState extends State<VoiceRecorderWidget>
                   onPressed: _cancelRecording,
                   icon: const Icon(Icons.delete_outline),
                   color: Colors.red,
-                  tooltip: 'Cancel',
+                  tooltip: AppLocalizations.of(context)!.cancel,
                 ),
 
                 // Duration display with recording indicator
@@ -389,7 +389,9 @@ class _VoiceRecorderWidgetState extends State<VoiceRecorderWidget>
                           _isPaused ? Icons.play_arrow : Icons.pause,
                           size: 28,
                         ),
-                        tooltip: _isPaused ? 'Resume' : 'Pause',
+                        tooltip: _isPaused
+                            ? AppLocalizations.of(context)!.voiceRecorderResume
+                            : AppLocalizations.of(context)!.voiceRecorderPause,
                       ),
                       const SizedBox(width: 8),
                       GestureDetector(
@@ -421,10 +423,10 @@ class _VoiceRecorderWidgetState extends State<VoiceRecorderWidget>
             const SizedBox(height: 8),
             Text(
               _isPaused
-                  ? 'Recording paused - tap play to continue'
+                  ? AppLocalizations.of(context)!.voiceRecorderPaused
                   : _isRecording
-                      ? 'Recording... tap pause or send when done'
-                      : 'Initializing...',
+                      ? AppLocalizations.of(context)!.voiceRecorderRecording
+                      : AppLocalizations.of(context)!.voiceRecorderInitializing,
               style: TextStyle(
                 fontSize: 12,
                 color: Colors.grey.shade600,
@@ -535,7 +537,7 @@ class _VoiceRecordButtonState extends State<VoiceRecordButton> {
             ? Colors.red
             : (widget.enabled ? Colors.grey[600] : Colors.grey[400]),
       ),
-      tooltip: 'Voice message',
+      tooltip: AppLocalizations.of(context)!.voiceMessage,
     );
   }
 }

@@ -12,6 +12,7 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:bananatalk_app/pages/authentication/post_login_error.dart';
 
 class ResetPassword extends ConsumerStatefulWidget {
   final String email;
@@ -88,13 +89,11 @@ class _ResetPasswordState extends ConsumerState<ResetPassword> {
       return;
     }
 
-    final passwordValidation = AuthService.validatePassword(password);
-    if (!passwordValidation['valid']) {
+    final passwordError = AuthService.passwordErrorText(password, l10n);
+    if (passwordError != null) {
       showAuthSnackBar(
         context,
-        message:
-            passwordValidation['message'] ??
-            'Password does not meet requirements',
+        message: passwordError,
         type: AuthSnackBarType.error,
       );
       return;
@@ -149,12 +148,17 @@ class _ResetPasswordState extends ConsumerState<ResetPassword> {
       // returns a typed `code`, so a "Network error: ..." message is the
       // only reliable signal we have for the illustrated network state.
       final message = result['message']?.toString() ?? '';
-      if (message.startsWith('Network error')) {
+      if (result['isNetworkError'] == true ||
+          message.startsWith('Network error')) {
         setState(() => _errorKind = AuthErrorKind.network);
       } else {
         showAuthSnackBar(
           context,
-          message: result['message'] ?? 'Failed to reset password',
+          message: authResultMessage(
+            l10n,
+            result,
+            fallback: l10n.authResetPasswordFailed,
+          ),
           type: AuthSnackBarType.error,
         );
       }

@@ -305,8 +305,10 @@ class _ChatOptionsMenuState extends ConsumerState<ChatOptionsMenu> {
             showChatSnackBar(
               context,
               message: widget.isMuted
-                  ? 'Notifications unmuted for ${widget.userName}'
-                  : 'Notifications muted for ${widget.userName}',
+                  ? AppLocalizations.of(context)!
+                        .notificationsUnmutedFor(widget.userName)
+                  : AppLocalizations.of(context)!
+                        .notificationsMutedFor(widget.userName),
               type: ChatSnackBarType.info,
             );
           }
@@ -483,7 +485,9 @@ class _ChatOptionsMenuState extends ConsumerState<ChatOptionsMenu> {
             if (context.mounted) {
               showChatSnackBar(
                 context,
-                message: result['message'] ?? l10n.operationCompleted,
+                message: result['success'] == true
+                    ? l10n.unblockUserSuccess
+                    : l10n.unblockUserFailed,
                 type: result['success'] == true
                     ? ChatSnackBarType.success
                     : ChatSnackBarType.error,
@@ -550,7 +554,7 @@ class _ChatOptionsMenuState extends ConsumerState<ChatOptionsMenu> {
         if (context.mounted) {
           showChatSnackBar(
             context,
-            message: 'Unknown action: $value',
+            message: AppLocalizations.of(context)!.somethingWentWrong,
             type: ChatSnackBarType.info,
           );
         }

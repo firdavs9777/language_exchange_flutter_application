@@ -45,7 +45,7 @@ class DeleteMessageDialog extends StatelessWidget {
       if (remainingMinutes > 30) {
         return AppLocalizations.of(context)!.available;
       } else {
-        return '${remainingMinutes}m left';
+        return AppLocalizations.of(context)!.chatDeleteMinutesLeft(remainingMinutes);
       }
     } catch (e) {
       return null;
@@ -81,7 +81,7 @@ class DeleteMessageDialog extends StatelessWidget {
             icon: Icons.people_outline_rounded,
             title: l10n.deleteForEveryone,
             subtitle: canDeleteForEveryone
-                ? 'Removes for you and $otherUserName'
+                ? l10n.chatDeleteRemovesForBoth(otherUserName)
                 : l10n.availableWithinOneHour,
             trailing: deleteForEveryoneTimeRemaining(context),
             enabled: canDeleteForEveryone,

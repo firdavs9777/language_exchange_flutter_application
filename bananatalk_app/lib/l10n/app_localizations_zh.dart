@@ -2872,7 +2872,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get tapToDetectLocation => '点击检测位置';
 
   @override
-  String get optionalHelpsNearbyPartners => '必填 — 帮助匹配附近的伙伴';
+  String get optionalHelpsNearbyPartners => '选填 — 帮助匹配附近的伙伴';
 
   @override
   String get startLearning => '开始学习！';
@@ -8633,7 +8633,12 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String referralClaimed(int coins) {
-    return '你获得了 $coins 金币！';
+    String _temp0 = intl.Intl.pluralLogic(
+      coins,
+      locale: localeName,
+      other: '你获得了 $coins 金币！',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8656,7 +8661,12 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String extraMatchesCta(int cost) {
-    return '再多 3 个匹配 — $cost 金币';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: '再多 3 个匹配 — $cost 金币',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8664,12 +8674,22 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String boostCostLine(int cost) {
-    return '费用：$cost 金币';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: '费用：$cost 金币',
+    );
+    return '$_temp0';
   }
 
   @override
   String boostBalanceLine(int balance) {
-    return '你的余额：$balance 金币';
+    String _temp0 = intl.Intl.pluralLogic(
+      balance,
+      locale: localeName,
+      other: '你的余额：$balance 金币',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8699,7 +8719,12 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String wavesMaskedBody(int cost) {
-    return '花 $cost 金币查看是谁，或升级 VIP';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: '花 $cost 金币查看是谁，或升级 VIP',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8759,7 +8784,12 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String visitorsMaskedBody(int cost) {
-    return '花 $cost 金币查看是谁，或升级 VIP';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: '花 $cost 金币查看是谁，或升级 VIP',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -9675,8 +9705,13 @@ class AppLocalizationsZh extends AppLocalizations {
   String get chatPremium => '高级 ✨';
 
   @override
-  String chatUnlockPremiumWallpapers(Object cost) {
-    return '用 💎$cost 金币解锁所有高级 ✨ 壁纸吗？这将永久解锁整个壁纸包。';
+  String chatUnlockPremiumWallpapers(int cost) {
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: '用 💎$cost 金币解锁所有高级 ✨ 壁纸吗？这将永久解锁整个壁纸包。',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -11417,6 +11452,671 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get pleaseRemoveImagesFirstToAddVoiceNote => '请先删除图片再添加语音';
+
+  @override
+  String get authLockedTitle => '账号已暂时锁定';
+
+  @override
+  String authLockedBodyMinutes(Object minutes) {
+    return '失败次数过多。请在 $minutes 分钟后重试。';
+  }
+
+  @override
+  String get authLockedBodyLater => '失败次数过多。请稍后重试。';
+
+  @override
+  String get authRateLimitedTitle => '请稍等片刻';
+
+  @override
+  String authRateLimitedBodySeconds(Object seconds) {
+    return '尝试次数过多。请在 $seconds 秒后重试。';
+  }
+
+  @override
+  String get authRateLimitedBodyShortly => '尝试次数过多。请稍后重试。';
+
+  @override
+  String get passwordErrorLength => '密码至少需要 8 个字符';
+
+  @override
+  String get passwordErrorUppercase => '密码必须至少包含一个大写字母';
+
+  @override
+  String get passwordErrorLowercase => '密码必须至少包含一个小写字母';
+
+  @override
+  String get passwordErrorNumber => '密码必须至少包含一个数字';
+
+  @override
+  String get authCodeExpired => '此验证码已过期，请重新获取。';
+
+  @override
+  String get authCodeIncorrect => '验证码错误，请重试。';
+
+  @override
+  String get authVerificationFailed => '验证失败';
+
+  @override
+  String get authResendCodeFailed => '重新发送验证码失败';
+
+  @override
+  String get authSendResetCodeFailed => '发送重置验证码失败';
+
+  @override
+  String get authResetPasswordFailed => '重置密码失败';
+
+  @override
+  String get enableBiometricTitleAndroid => '下次使用指纹或面部解锁登录？';
+
+  @override
+  String chatLastSeenDate(Object date) {
+    return '最后上线 $date';
+  }
+
+  @override
+  String get chatLastSeenRecently => '最近上线';
+
+  @override
+  String chatMediaTabMedia(Object count) {
+    return '媒体 ($count)';
+  }
+
+  @override
+  String chatMediaTabLinks(Object count) {
+    return '链接 ($count)';
+  }
+
+  @override
+  String chatMediaTabDocs(Object count) {
+    return '文档 ($count)';
+  }
+
+  @override
+  String get chatMediaNoMedia => '还没有分享过照片或视频';
+
+  @override
+  String get chatMediaNoLinks => '还没有分享过链接';
+
+  @override
+  String get chatMediaNoDocs => '还没有分享过文档';
+
+  @override
+  String get chatMediaUnknownSize => '大小未知';
+
+  @override
+  String chatDeleteMinutesLeft(Object minutes) {
+    return '剩余 $minutes 分钟';
+  }
+
+  @override
+  String chatDeleteRemovesForBoth(Object name) {
+    return '将为你和 $name 删除';
+  }
+
+  @override
+  String get chatUnsupportedMessageType => '不支持的消息类型';
+
+  @override
+  String get chatStoryUnavailable => '此快拍已不可用';
+
+  @override
+  String get chatWallpapersUnlocked => '高级壁纸已解锁！';
+
+  @override
+  String get chatEditFailed => '编辑消息失败';
+
+  @override
+  String get chatPinFailed => '更新置顶状态失败';
+
+  @override
+  String get chatMessagePinned => '消息已置顶';
+
+  @override
+  String get chatMessageUnpinned => '已取消置顶消息';
+
+  @override
+  String get chatForwardFailed => '转发消息失败';
+
+  @override
+  String get chatShareLocationFailed => '分享位置失败';
+
+  @override
+  String chatFileTooLarge(Object size) {
+    return '文件过大，上限为 $size MB。';
+  }
+
+  @override
+  String get chatSendMediaFailed => '发送媒体失败';
+
+  @override
+  String get chatSendVideoFailed => '发送视频失败';
+
+  @override
+  String get chatVideoTooLong => '视频时长须少于 10 分钟';
+
+  @override
+  String get chatVideoTooLarge => '视频须小于 1GB，请先压缩。';
+
+  @override
+  String get chatSendVoiceFailed => '发送语音消息失败';
+
+  @override
+  String get chatVoiceTooLong => '语音消息须少于 5 分钟';
+
+  @override
+  String get chatVoiceTooLarge => '语音消息文件过大';
+
+  @override
+  String get voiceRecorderInitFailed => '录音器初始化失败';
+
+  @override
+  String get voiceRecorderStartFailed => '无法开始录音';
+
+  @override
+  String get voiceRecorderFileMissing => '未找到录音文件';
+
+  @override
+  String get voiceRecorderTooShort => '录音太短（至少 1 秒）';
+
+  @override
+  String get voiceRecorderResume => '继续';
+
+  @override
+  String get voiceRecorderPause => '暂停';
+
+  @override
+  String get voiceRecorderPaused => '录音已暂停 - 点击播放继续';
+
+  @override
+  String get voiceRecorderRecording => '录音中…完成后点击暂停或发送';
+
+  @override
+  String get voiceRecorderInitializing => '正在初始化…';
+
+  @override
+  String get chatGifSearchFailed => '搜索失败，请重试。';
+
+  @override
+  String chatGifResultsFor(Object query) {
+    return '“$query”的结果';
+  }
+
+  @override
+  String get chatYouSharedStory => '你分享了一条快拍';
+
+  @override
+  String chatUserSharedStory(Object name) {
+    return '$name 分享了一条快拍';
+  }
+
+  @override
+  String chatUserNotInChats(Object name) {
+    return '@$name 不在你的聊天中';
+  }
+
+  @override
+  String get chatDeleteMessageFailed => '删除消息失败';
+
+  @override
+  String get themeAutomatic => '自动';
+
+  @override
+  String get themeManual => '手动';
+
+  @override
+  String get themeFollowingSystem => '跟随系统';
+
+  @override
+  String get profileAdminToolsSubtitle => '举报、用户、审计日志';
+
+  @override
+  String appVersionLabel(Object version) {
+    return '版本 $version';
+  }
+
+  @override
+  String get privacyVisitAnonymously => '匿名访问主页';
+
+  @override
+  String get privacyVisitAnonymouslyDesc => '你的名字不会出现在对方的最近访客列表中。';
+
+  @override
+  String get profilePhotoUploading => '正在上传…';
+
+  @override
+  String get profilePhotoRemoving => '正在移除…';
+
+  @override
+  String get profileCropPhoto => '裁剪照片';
+
+  @override
+  String get networkWifi => '无线网络';
+
+  @override
+  String get networkMobileData => '移动数据';
+
+  @override
+  String get networkEthernet => '以太网';
+
+  @override
+  String get notifPrefResetFailed => '重置偏好设置失败';
+
+  @override
+  String get notifPrefNewFollower => '新粉丝';
+
+  @override
+  String get notifPrefVipRenewalWarning => 'VIP 续费提醒';
+
+  @override
+  String get accountDeletedSuccess => '账号已删除';
+
+  @override
+  String get accountDeleteFailed => '删除账号失败';
+
+  @override
+  String get coinHistoryLoadFailed => '无法加载金币记录。';
+
+  @override
+  String get waveAlreadySentTooltip => '已经打过招呼——改发消息吧';
+
+  @override
+  String waveAlreadySentTo(Object name) {
+    return '你已经和 $name 打过招呼了——改发消息吧。';
+  }
+
+  @override
+  String get waveAlreadyWaved => '已打招呼';
+
+  @override
+  String get communityCountryDetectFailed => '无法检测国家';
+
+  @override
+  String get roomPickCategoryError => '请选择一个类别';
+
+  @override
+  String get blockUserSuccess => '已屏蔽该用户';
+
+  @override
+  String get blockUserFailed => '无法屏蔽该用户';
+
+  @override
+  String get unblockUserSuccess => '已取消屏蔽';
+
+  @override
+  String get unblockUserFailed => '无法取消屏蔽';
+
+  @override
+  String get clubDeleteFailed => '无法删除俱乐部';
+
+  @override
+  String get clubMemberUpdateFailed => '无法更新该成员';
+
+  @override
+  String get groupCoverUploadFailed => '无法上传照片';
+
+  @override
+  String get groupCoverRemoveFailed => '无法移除照片';
+
+  @override
+  String get clubStatusArchived => '已归档';
+
+  @override
+  String get matchTagSimilarAge => '年龄相仿';
+
+  @override
+  String matchTagBothLike(Object topic) {
+    return '都喜欢$topic';
+  }
+
+  @override
+  String get topicNameCooking => '烹饪';
+
+  @override
+  String get topicNameCoffee => '咖啡与茶';
+
+  @override
+  String get topicNameEatingOut => '下馆子';
+
+  @override
+  String get topicNameBaking => '烘焙';
+
+  @override
+  String get topicNameDrinking => '饮品';
+
+  @override
+  String get topicNameStreetFood => '街头小吃';
+
+  @override
+  String get topicNameTravel => '旅行';
+
+  @override
+  String get topicNameBackpacking => '背包旅行';
+
+  @override
+  String get topicNameBeaches => '海滩';
+
+  @override
+  String get topicNameMountains => '山';
+
+  @override
+  String get topicNameCamping => '露营';
+
+  @override
+  String get topicNameGym => '健身房';
+
+  @override
+  String get topicNameRunning => '跑步';
+
+  @override
+  String get topicNameYoga => '瑜伽';
+
+  @override
+  String get topicNameFootball => '足球';
+
+  @override
+  String get topicNameBasketball => '篮球';
+
+  @override
+  String get topicNameHiking => '徒步';
+
+  @override
+  String get topicNameCycling => '骑行';
+
+  @override
+  String get topicNameDancing => '跳舞';
+
+  @override
+  String get topicNameSwimming => '游泳';
+
+  @override
+  String get topicNameMovies => '电影';
+
+  @override
+  String get topicNameTvShows => '电视剧';
+
+  @override
+  String get topicNameMusic => '音乐';
+
+  @override
+  String get topicNameGaming => '游戏';
+
+  @override
+  String get topicNameAnime => '动漫';
+
+  @override
+  String get topicNameKpop => 'K-pop';
+
+  @override
+  String get topicNameKdrama => '韩剧';
+
+  @override
+  String get topicNamePodcasts => '播客';
+
+  @override
+  String get topicNameArt => '艺术';
+
+  @override
+  String get topicNamePhotography => '摄影';
+
+  @override
+  String get topicNameBooks => '书籍';
+
+  @override
+  String get topicNameWriting => '写作';
+
+  @override
+  String get topicNameHistory => '历史';
+
+  @override
+  String get topicNameDesign => '设计';
+
+  @override
+  String get topicNameFashion => '时尚';
+
+  @override
+  String get topicNameBeauty => '美妆护肤';
+
+  @override
+  String get topicNameShopping => '购物';
+
+  @override
+  String get topicNameGardening => '园艺';
+
+  @override
+  String get topicNameDiy => '手工DIY';
+
+  @override
+  String get topicNameDogs => '狗';
+
+  @override
+  String get topicNameCats => '猫';
+
+  @override
+  String get topicNameNature => '大自然';
+
+  @override
+  String get topicNameAnimals => '动物';
+
+  @override
+  String get topicNameLanguageExchange => '语言交换';
+
+  @override
+  String get topicNameStudyAbroad => '留学';
+
+  @override
+  String get topicNameTechnology => '科技';
+
+  @override
+  String get topicNameProgramming => '编程';
+
+  @override
+  String get topicNameBusiness => '商业';
+
+  @override
+  String get topicNameScience => '科学';
+
+  @override
+  String get topicNameDailyLife => '日常生活';
+
+  @override
+  String get topicNameMakingFriends => '交朋友';
+
+  @override
+  String get topicNameRelationships => '感情';
+
+  @override
+  String get topicNameFamily => '家庭';
+
+  @override
+  String get topicNameNightlife => '夜生活';
+
+  @override
+  String get topicNameMentalHealth => '心理健康';
+
+  @override
+  String get topicNameMeditation => '冥想';
+
+  @override
+  String get topicNameNutrition => '营养';
+
+  @override
+  String get topicNameSelfImprovement => '自我提升';
+
+  @override
+  String get topicCategoryFoodDrink => '美食饮品';
+
+  @override
+  String get topicCategoryTravel => '旅行探险';
+
+  @override
+  String get topicCategorySports => '运动健身';
+
+  @override
+  String get topicCategoryEntertainment => '娱乐音乐';
+
+  @override
+  String get topicCategoryArts => '艺术文化';
+
+  @override
+  String get topicCategoryLifestyle => '生活方式';
+
+  @override
+  String get topicCategoryPetsNature => '宠物与自然';
+
+  @override
+  String get topicCategoryLearning => '学习与职业';
+
+  @override
+  String get topicCategorySocial => '社交';
+
+  @override
+  String get topicCategoryHealth => '健康养生';
+
+  @override
+  String get waveTooMany => '打招呼太频繁了，请慢一点！';
+
+  @override
+  String get aiTutorNoSummary => '（无摘要）';
+
+  @override
+  String vocabPackAllSaved(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '全部 $count 个单词已在你的词汇表中',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String vocabPackAdded(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '已将 $count 个单词加入词汇表',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String vocabPackAddedSomeSaved(int count, int saved) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '已将 $count 个单词加入词汇表（$saved 个已保存）',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get vocabPackNoExercises => '没有练习';
+
+  @override
+  String vocabPackPractice(int count) {
+    return '练习 ($count)';
+  }
+
+  @override
+  String get aiQuizPlayAgain => '再玩一次';
+
+  @override
+  String get aiLessonAskHint => '关于这节课，问什么都行…';
+
+  @override
+  String get aiLessonConceptHint => '你想让我解释哪个概念？';
+
+  @override
+  String examTargetScoreHint(Object score) {
+    return '例如 $score';
+  }
+
+  @override
+  String get vocabWordAdded => '单词已添加！';
+
+  @override
+  String get vocabWordAddFailed => '无法添加单词';
+
+  @override
+  String get vocabEnterWordFirst => '请先输入单词';
+
+  @override
+  String get vocabAiFilled => 'AI 已填写！';
+
+  @override
+  String get vocabAiFillFailed => 'AI 填写失败，请重试。';
+
+  @override
+  String get authSendCodeFailed => '发送验证码失败';
+
+  @override
+  String get authServerConfigError => '服务器配置错误，请联系客服。';
+
+  @override
+  String get authAppleTokenFailed => '无法使用 Apple 登录，请重试。';
+
+  @override
+  String get authRegistrationFailed => '注册失败';
+
+  @override
+  String get authEmailAlreadyExists => '该邮箱已存在，请使用其他邮箱。';
+
+  @override
+  String get reportEvidenceAddFailed => '无法添加照片';
+
+  @override
+  String reportEvidenceMaxFiles(int count) {
+    return '每次举报最多 $count 个文件';
+  }
+
+  @override
+  String reportEvidenceFileTooLarge(Object name) {
+    return '$name 过大（最大 5 MB）';
+  }
+
+  @override
+  String get reportEvidenceTotalTooLarge => '总大小将超过 25 MB';
+
+  @override
+  String get blockedContentUnavailableToYou => '你无法查看此内容。';
+
+  @override
+  String blockedCantViewUserContent(Object name) {
+    return '你无法查看 $name 的内容。';
+  }
+
+  @override
+  String get blockedCantViewThisUserContent => '你无法查看该用户的内容。';
+
+  @override
+  String blockedCantViewUserProfile(Object name) {
+    return '你无法查看 $name 的主页。';
+  }
+
+  @override
+  String get blockedProfileUnavailable => '该主页不可用。';
+
+  @override
+  String get blockedContentUnavailable => '此内容不可用。';
+
+  @override
+  String get blockedCantViewStories => '你无法查看这些快拍。';
+
+  @override
+  String blockedCantMessageUser(Object name) {
+    return '你无法给 $name 发消息。';
+  }
+
+  @override
+  String get blockedCantMessageThisUser => '你无法给该用户发消息。';
+
+  @override
+  String get blockedActionNotAllowed => '你无法执行此操作';
+
+  @override
+  String get blockedCantLike => '你无法点赞此内容';
+
+  @override
+  String get blockedCantComment => '你无法评论此内容';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -14287,7 +14987,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get tapToDetectLocation => '點擊偵測位置';
 
   @override
-  String get optionalHelpsNearbyPartners => '必填 — 有助於配對附近的夥伴';
+  String get optionalHelpsNearbyPartners => '選填 — 有助於配對附近的夥伴';
 
   @override
   String get startLearning => '開始學習！';
@@ -20048,7 +20748,12 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String referralClaimed(int coins) {
-    return '你獲得了 $coins 金幣！';
+    String _temp0 = intl.Intl.pluralLogic(
+      coins,
+      locale: localeName,
+      other: '你獲得了 $coins 金幣！',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -20071,7 +20776,12 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String extraMatchesCta(int cost) {
-    return '再多 3 個配對 — $cost 金幣';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: '再多 3 個配對 — $cost 金幣',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -20079,12 +20789,22 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String boostCostLine(int cost) {
-    return '費用：$cost 金幣';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: '費用：$cost 金幣',
+    );
+    return '$_temp0';
   }
 
   @override
   String boostBalanceLine(int balance) {
-    return '你的餘額：$balance 金幣';
+    String _temp0 = intl.Intl.pluralLogic(
+      balance,
+      locale: localeName,
+      other: '你的餘額：$balance 金幣',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -20114,7 +20834,12 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String wavesMaskedBody(int cost) {
-    return '花 $cost 金幣查看是誰，或升級 VIP';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: '花 $cost 金幣查看是誰，或升級 VIP',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -20174,7 +20899,12 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String visitorsMaskedBody(int cost) {
-    return '花 $cost 金幣查看是誰，或升級 VIP';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: '花 $cost 金幣查看是誰，或升級 VIP',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -21090,8 +21820,13 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get chatPremium => '進階 ✨';
 
   @override
-  String chatUnlockPremiumWallpapers(Object cost) {
-    return '要用 💎$cost 金幣解鎖所有進階 ✨ 桌布嗎？這將永久解鎖整個桌布包。';
+  String chatUnlockPremiumWallpapers(int cost) {
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: '要用 💎$cost 金幣解鎖所有進階 ✨ 桌布嗎？這將永久解鎖整個桌布包。',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -22832,4 +23567,669 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get pleaseRemoveImagesFirstToAddVoiceNote => '請先刪除圖片再新增語音';
+
+  @override
+  String get authLockedTitle => '帳號已暫時鎖定';
+
+  @override
+  String authLockedBodyMinutes(Object minutes) {
+    return '失敗次數過多。請在 $minutes 分鐘後再試。';
+  }
+
+  @override
+  String get authLockedBodyLater => '失敗次數過多。請稍後再試。';
+
+  @override
+  String get authRateLimitedTitle => '請稍等片刻';
+
+  @override
+  String authRateLimitedBodySeconds(Object seconds) {
+    return '嘗試次數過多。請在 $seconds 秒後再試。';
+  }
+
+  @override
+  String get authRateLimitedBodyShortly => '嘗試次數過多。請稍後再試。';
+
+  @override
+  String get passwordErrorLength => '密碼至少需要 8 個字元';
+
+  @override
+  String get passwordErrorUppercase => '密碼必須至少包含一個大寫字母';
+
+  @override
+  String get passwordErrorLowercase => '密碼必須至少包含一個小寫字母';
+
+  @override
+  String get passwordErrorNumber => '密碼必須至少包含一個數字';
+
+  @override
+  String get authCodeExpired => '此驗證碼已過期，請重新取得。';
+
+  @override
+  String get authCodeIncorrect => '驗證碼錯誤，請再試一次。';
+
+  @override
+  String get authVerificationFailed => '驗證失敗';
+
+  @override
+  String get authResendCodeFailed => '重新傳送驗證碼失敗';
+
+  @override
+  String get authSendResetCodeFailed => '傳送重設驗證碼失敗';
+
+  @override
+  String get authResetPasswordFailed => '重設密碼失敗';
+
+  @override
+  String get enableBiometricTitleAndroid => '下次使用指紋或臉部解鎖登入？';
+
+  @override
+  String chatLastSeenDate(Object date) {
+    return '最後上線 $date';
+  }
+
+  @override
+  String get chatLastSeenRecently => '最近上線';
+
+  @override
+  String chatMediaTabMedia(Object count) {
+    return '媒體 ($count)';
+  }
+
+  @override
+  String chatMediaTabLinks(Object count) {
+    return '連結 ($count)';
+  }
+
+  @override
+  String chatMediaTabDocs(Object count) {
+    return '文件 ($count)';
+  }
+
+  @override
+  String get chatMediaNoMedia => '還沒有分享過照片或影片';
+
+  @override
+  String get chatMediaNoLinks => '還沒有分享過連結';
+
+  @override
+  String get chatMediaNoDocs => '還沒有分享過文件';
+
+  @override
+  String get chatMediaUnknownSize => '大小未知';
+
+  @override
+  String chatDeleteMinutesLeft(Object minutes) {
+    return '剩餘 $minutes 分鐘';
+  }
+
+  @override
+  String chatDeleteRemovesForBoth(Object name) {
+    return '將為你和 $name 刪除';
+  }
+
+  @override
+  String get chatUnsupportedMessageType => '不支援的訊息類型';
+
+  @override
+  String get chatStoryUnavailable => '此限時動態已無法查看';
+
+  @override
+  String get chatWallpapersUnlocked => '進階桌布已解鎖！';
+
+  @override
+  String get chatEditFailed => '編輯訊息失敗';
+
+  @override
+  String get chatPinFailed => '更新置頂狀態失敗';
+
+  @override
+  String get chatMessagePinned => '訊息已置頂';
+
+  @override
+  String get chatMessageUnpinned => '已取消置頂訊息';
+
+  @override
+  String get chatForwardFailed => '轉寄訊息失敗';
+
+  @override
+  String get chatShareLocationFailed => '分享位置失敗';
+
+  @override
+  String chatFileTooLarge(Object size) {
+    return '檔案過大，上限為 $size MB。';
+  }
+
+  @override
+  String get chatSendMediaFailed => '傳送媒體失敗';
+
+  @override
+  String get chatSendVideoFailed => '傳送影片失敗';
+
+  @override
+  String get chatVideoTooLong => '影片長度須少於 10 分鐘';
+
+  @override
+  String get chatVideoTooLarge => '影片須小於 1GB，請先壓縮。';
+
+  @override
+  String get chatSendVoiceFailed => '傳送語音訊息失敗';
+
+  @override
+  String get chatVoiceTooLong => '語音訊息須少於 5 分鐘';
+
+  @override
+  String get chatVoiceTooLarge => '語音訊息檔案過大';
+
+  @override
+  String get voiceRecorderInitFailed => '錄音器初始化失敗';
+
+  @override
+  String get voiceRecorderStartFailed => '無法開始錄音';
+
+  @override
+  String get voiceRecorderFileMissing => '找不到錄音檔案';
+
+  @override
+  String get voiceRecorderTooShort => '錄音太短（至少 1 秒）';
+
+  @override
+  String get voiceRecorderResume => '繼續';
+
+  @override
+  String get voiceRecorderPause => '暫停';
+
+  @override
+  String get voiceRecorderPaused => '錄音已暫停 - 點播放繼續';
+
+  @override
+  String get voiceRecorderRecording => '錄音中…完成後點暫停或傳送';
+
+  @override
+  String get voiceRecorderInitializing => '正在初始化…';
+
+  @override
+  String get chatGifSearchFailed => '搜尋失敗，請再試一次。';
+
+  @override
+  String chatGifResultsFor(Object query) {
+    return '「$query」的結果';
+  }
+
+  @override
+  String get chatYouSharedStory => '你分享了一則限時動態';
+
+  @override
+  String chatUserSharedStory(Object name) {
+    return '$name 分享了一則限時動態';
+  }
+
+  @override
+  String chatUserNotInChats(Object name) {
+    return '@$name 不在你的聊天中';
+  }
+
+  @override
+  String get chatDeleteMessageFailed => '刪除訊息失敗';
+
+  @override
+  String get themeAutomatic => '自動';
+
+  @override
+  String get themeManual => '手動';
+
+  @override
+  String get themeFollowingSystem => '跟隨系統';
+
+  @override
+  String get profileAdminToolsSubtitle => '檢舉、使用者、稽核紀錄';
+
+  @override
+  String appVersionLabel(Object version) {
+    return '版本 $version';
+  }
+
+  @override
+  String get privacyVisitAnonymously => '匿名造訪個人檔案';
+
+  @override
+  String get privacyVisitAnonymouslyDesc => '你的名字不會出現在對方的最近訪客清單中。';
+
+  @override
+  String get profilePhotoUploading => '正在上傳…';
+
+  @override
+  String get profilePhotoRemoving => '正在移除…';
+
+  @override
+  String get profileCropPhoto => '裁切相片';
+
+  @override
+  String get networkWifi => 'Wi-Fi';
+
+  @override
+  String get networkMobileData => '行動數據';
+
+  @override
+  String get networkEthernet => '乙太網路';
+
+  @override
+  String get notifPrefResetFailed => '重設偏好設定失敗';
+
+  @override
+  String get notifPrefNewFollower => '新追蹤者';
+
+  @override
+  String get notifPrefVipRenewalWarning => 'VIP 續訂提醒';
+
+  @override
+  String get accountDeletedSuccess => '帳號已刪除';
+
+  @override
+  String get accountDeleteFailed => '刪除帳號失敗';
+
+  @override
+  String get coinHistoryLoadFailed => '無法載入金幣紀錄。';
+
+  @override
+  String get waveAlreadySentTooltip => '已經打過招呼——改傳訊息吧';
+
+  @override
+  String waveAlreadySentTo(Object name) {
+    return '你已經和 $name 打過招呼了——改傳訊息吧。';
+  }
+
+  @override
+  String get waveAlreadyWaved => '已打招呼';
+
+  @override
+  String get communityCountryDetectFailed => '無法偵測國家';
+
+  @override
+  String get roomPickCategoryError => '請選擇一個類別';
+
+  @override
+  String get blockUserSuccess => '已封鎖該使用者';
+
+  @override
+  String get blockUserFailed => '無法封鎖該使用者';
+
+  @override
+  String get unblockUserSuccess => '已解除封鎖';
+
+  @override
+  String get unblockUserFailed => '無法解除封鎖';
+
+  @override
+  String get clubDeleteFailed => '無法刪除社團';
+
+  @override
+  String get clubMemberUpdateFailed => '無法更新該成員';
+
+  @override
+  String get groupCoverUploadFailed => '無法上傳相片';
+
+  @override
+  String get groupCoverRemoveFailed => '無法移除相片';
+
+  @override
+  String get clubStatusArchived => '已封存';
+
+  @override
+  String get matchTagSimilarAge => '年齡相仿';
+
+  @override
+  String matchTagBothLike(Object topic) {
+    return '都喜歡$topic';
+  }
+
+  @override
+  String get topicNameCooking => '烹飪';
+
+  @override
+  String get topicNameCoffee => '咖啡與茶';
+
+  @override
+  String get topicNameEatingOut => '外出用餐';
+
+  @override
+  String get topicNameBaking => '烘焙';
+
+  @override
+  String get topicNameDrinking => '飲品';
+
+  @override
+  String get topicNameStreetFood => '街頭小吃';
+
+  @override
+  String get topicNameTravel => '旅行';
+
+  @override
+  String get topicNameBackpacking => '背包旅行';
+
+  @override
+  String get topicNameBeaches => '海灘';
+
+  @override
+  String get topicNameMountains => '山';
+
+  @override
+  String get topicNameCamping => '露營';
+
+  @override
+  String get topicNameGym => '健身房';
+
+  @override
+  String get topicNameRunning => '跑步';
+
+  @override
+  String get topicNameYoga => '瑜伽';
+
+  @override
+  String get topicNameFootball => '足球';
+
+  @override
+  String get topicNameBasketball => '籃球';
+
+  @override
+  String get topicNameHiking => '健行';
+
+  @override
+  String get topicNameCycling => '騎單車';
+
+  @override
+  String get topicNameDancing => '跳舞';
+
+  @override
+  String get topicNameSwimming => '游泳';
+
+  @override
+  String get topicNameMovies => '電影';
+
+  @override
+  String get topicNameTvShows => '電視劇';
+
+  @override
+  String get topicNameMusic => '音樂';
+
+  @override
+  String get topicNameGaming => '遊戲';
+
+  @override
+  String get topicNameAnime => '動漫';
+
+  @override
+  String get topicNameKpop => 'K-pop';
+
+  @override
+  String get topicNameKdrama => '韓劇';
+
+  @override
+  String get topicNamePodcasts => 'Podcast';
+
+  @override
+  String get topicNameArt => '藝術';
+
+  @override
+  String get topicNamePhotography => '攝影';
+
+  @override
+  String get topicNameBooks => '書籍';
+
+  @override
+  String get topicNameWriting => '寫作';
+
+  @override
+  String get topicNameHistory => '歷史';
+
+  @override
+  String get topicNameDesign => '設計';
+
+  @override
+  String get topicNameFashion => '時尚';
+
+  @override
+  String get topicNameBeauty => '美妝保養';
+
+  @override
+  String get topicNameShopping => '購物';
+
+  @override
+  String get topicNameGardening => '園藝';
+
+  @override
+  String get topicNameDiy => '手作DIY';
+
+  @override
+  String get topicNameDogs => '狗';
+
+  @override
+  String get topicNameCats => '貓';
+
+  @override
+  String get topicNameNature => '大自然';
+
+  @override
+  String get topicNameAnimals => '動物';
+
+  @override
+  String get topicNameLanguageExchange => '語言交換';
+
+  @override
+  String get topicNameStudyAbroad => '留學';
+
+  @override
+  String get topicNameTechnology => '科技';
+
+  @override
+  String get topicNameProgramming => '程式設計';
+
+  @override
+  String get topicNameBusiness => '商業';
+
+  @override
+  String get topicNameScience => '科學';
+
+  @override
+  String get topicNameDailyLife => '日常生活';
+
+  @override
+  String get topicNameMakingFriends => '交朋友';
+
+  @override
+  String get topicNameRelationships => '感情';
+
+  @override
+  String get topicNameFamily => '家庭';
+
+  @override
+  String get topicNameNightlife => '夜生活';
+
+  @override
+  String get topicNameMentalHealth => '心理健康';
+
+  @override
+  String get topicNameMeditation => '冥想';
+
+  @override
+  String get topicNameNutrition => '營養';
+
+  @override
+  String get topicNameSelfImprovement => '自我成長';
+
+  @override
+  String get topicCategoryFoodDrink => '美食飲品';
+
+  @override
+  String get topicCategoryTravel => '旅行冒險';
+
+  @override
+  String get topicCategorySports => '運動健身';
+
+  @override
+  String get topicCategoryEntertainment => '娛樂音樂';
+
+  @override
+  String get topicCategoryArts => '藝術文化';
+
+  @override
+  String get topicCategoryLifestyle => '生活風格';
+
+  @override
+  String get topicCategoryPetsNature => '寵物與自然';
+
+  @override
+  String get topicCategoryLearning => '學習與職涯';
+
+  @override
+  String get topicCategorySocial => '社交';
+
+  @override
+  String get topicCategoryHealth => '健康養生';
+
+  @override
+  String get waveTooMany => '打招呼太頻繁了，請慢一點！';
+
+  @override
+  String get aiTutorNoSummary => '（無摘要）';
+
+  @override
+  String vocabPackAllSaved(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '全部 $count 個單字已在你的單字庫中',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String vocabPackAdded(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '已將 $count 個單字加入單字庫',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String vocabPackAddedSomeSaved(int count, int saved) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '已將 $count 個單字加入單字庫（$saved 個已儲存）',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get vocabPackNoExercises => '沒有練習';
+
+  @override
+  String vocabPackPractice(int count) {
+    return '練習 ($count)';
+  }
+
+  @override
+  String get aiQuizPlayAgain => '再玩一次';
+
+  @override
+  String get aiLessonAskHint => '關於這堂課，問什麼都可以…';
+
+  @override
+  String get aiLessonConceptHint => '你想讓我解釋哪個概念？';
+
+  @override
+  String examTargetScoreHint(Object score) {
+    return '例如 $score';
+  }
+
+  @override
+  String get vocabWordAdded => '單字已新增！';
+
+  @override
+  String get vocabWordAddFailed => '無法新增單字';
+
+  @override
+  String get vocabEnterWordFirst => '請先輸入單字';
+
+  @override
+  String get vocabAiFilled => 'AI 已填寫！';
+
+  @override
+  String get vocabAiFillFailed => 'AI 填寫失敗，請再試一次。';
+
+  @override
+  String get authSendCodeFailed => '傳送驗證碼失敗';
+
+  @override
+  String get authServerConfigError => '伺服器設定錯誤，請聯絡客服。';
+
+  @override
+  String get authAppleTokenFailed => '無法使用 Apple 登入，請再試一次。';
+
+  @override
+  String get authRegistrationFailed => '註冊失敗';
+
+  @override
+  String get authEmailAlreadyExists => '此電子郵件已存在，請使用其他電子郵件。';
+
+  @override
+  String get reportEvidenceAddFailed => '無法新增相片';
+
+  @override
+  String reportEvidenceMaxFiles(int count) {
+    return '每次檢舉最多 $count 個檔案';
+  }
+
+  @override
+  String reportEvidenceFileTooLarge(Object name) {
+    return '$name 過大（最大 5 MB）';
+  }
+
+  @override
+  String get reportEvidenceTotalTooLarge => '總大小將超過 25 MB';
+
+  @override
+  String get blockedContentUnavailableToYou => '你無法查看此內容。';
+
+  @override
+  String blockedCantViewUserContent(Object name) {
+    return '你無法查看 $name 的內容。';
+  }
+
+  @override
+  String get blockedCantViewThisUserContent => '你無法查看該使用者的內容。';
+
+  @override
+  String blockedCantViewUserProfile(Object name) {
+    return '你無法查看 $name 的個人檔案。';
+  }
+
+  @override
+  String get blockedProfileUnavailable => '此個人檔案無法查看。';
+
+  @override
+  String get blockedContentUnavailable => '此內容無法查看。';
+
+  @override
+  String get blockedCantViewStories => '你無法查看這些限時動態。';
+
+  @override
+  String blockedCantMessageUser(Object name) {
+    return '你無法傳訊息給 $name。';
+  }
+
+  @override
+  String get blockedCantMessageThisUser => '你無法傳訊息給該使用者。';
+
+  @override
+  String get blockedActionNotAllowed => '你無法執行此操作';
+
+  @override
+  String get blockedCantLike => '你無法對此內容按讚';
+
+  @override
+  String get blockedCantComment => '你無法留言此內容';
 }

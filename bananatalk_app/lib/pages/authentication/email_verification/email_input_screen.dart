@@ -11,6 +11,7 @@ import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/pages/authentication/post_login_error.dart';
 
 class EmailInput extends ConsumerStatefulWidget {
   const EmailInput({super.key});
@@ -74,14 +75,18 @@ class _EmailInputState extends ConsumerState<EmailInput> {
       );
     } else {
       // Handle error — check if it's a registration validation error (wrong endpoint)
-      String errorMessage =
-          result['message'] ?? 'Failed to send verification code';
+      final serverMessage = result['message']?.toString() ?? '';
+      var errorMessage = authResultMessage(
+        AppLocalizations.of(context)!,
+        result,
+        fallback: AppLocalizations.of(context)!.authSendCodeFailed,
+      );
 
-      if (errorMessage.contains('language to learn') ||
-          errorMessage.contains('native language') ||
-          errorMessage.contains('birth day') ||
-          errorMessage.contains('password')) {
-        errorMessage = 'Server configuration error. Please contact support.';
+      if (serverMessage.contains('language to learn') ||
+          serverMessage.contains('native language') ||
+          serverMessage.contains('birth day') ||
+          serverMessage.contains('password')) {
+        errorMessage = AppLocalizations.of(context)!.authServerConfigError;
       }
 
       showAuthSnackBar(

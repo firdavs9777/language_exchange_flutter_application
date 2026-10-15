@@ -667,7 +667,10 @@ class _ProfileVisitorsScreenState
     final source = visitor['source'] ?? 'direct';
 
     final userId = user['_id'];
-    final userName = sanitize(user['name'], 'Unknown User');
+    final userName = sanitize(
+      user['name'],
+      AppLocalizations.of(context)!.storyUserFallback,
+    );
     final userPhoto = user['imageUrls'] != null && user['imageUrls'].isNotEmpty
         ? user['imageUrls'][0]
         : null;

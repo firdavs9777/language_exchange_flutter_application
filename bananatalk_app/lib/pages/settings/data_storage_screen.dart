@@ -29,6 +29,18 @@ class _DataStorageScreenState extends ConsumerState<DataStorageScreen> {
 
   String _networkType = 'Unknown';
 
+  /// `_showClearConfirmation` / `_clearCache` type that clears everything.
+  static const _clearAllType = 'all';
+
+  /// [_networkType] (StorageService's English token) in the app language.
+  String _networkLabel(AppLocalizations l10n) => switch (_networkType) {
+        'WiFi' => l10n.networkWifi,
+        'Mobile Data' => l10n.networkMobileData,
+        'Ethernet' => l10n.networkEthernet,
+        'No Connection' => l10n.noInternetConnection,
+        _ => l10n.unknown,
+      };
+
   @override
   void initState() {
     super.initState();
@@ -155,7 +167,7 @@ class _DataStorageScreenState extends ConsumerState<DataStorageScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              type == 'all'
+              type == _clearAllType
                   ? l10n.clearAllCacheConfirmation
                   : l10n.clearCacheConfirmationFor(title),
               style: const TextStyle(fontSize: 15),
@@ -268,7 +280,7 @@ class _DataStorageScreenState extends ConsumerState<DataStorageScreen> {
                           onPressed: _isClearing
                               ? null
                               : () => _showClearConfirmation(
-                                    'all',
+                                    _clearAllType,
                                     l10n.allCache,
                                     _storageBreakdown?.total ?? 0,
                                   ),
@@ -347,7 +359,7 @@ class _DataStorageScreenState extends ConsumerState<DataStorageScreen> {
           ),
           const SizedBox(width: 8),
           Text(
-            '${l10n.currentNetwork}: $_networkType',
+            '${l10n.currentNetwork}: ${_networkLabel(l10n)}',
             style: context.bodySmall.copyWith(color: AppColors.info),
           ),
         ],

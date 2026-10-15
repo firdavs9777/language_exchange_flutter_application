@@ -334,7 +334,7 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
         _result = res['data'] as PronunciationResult?;
       } else {
         _error =
-            res['message']?.toString() ?? AppLocalizations.of(context)!.aiFailedToEvaluatePronunciation;
+            AppLocalizations.of(context)!.aiFailedToEvaluatePronunciation;
       }
     });
   }
@@ -373,7 +373,7 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
       }
     } else {
       setState(() {
-        _error = result['message']?.toString() ?? AppLocalizations.of(context)!.aiFailedToGenerateSpeech;
+        _error = AppLocalizations.of(context)!.aiFailedToGenerateSpeech;
       });
     }
   }

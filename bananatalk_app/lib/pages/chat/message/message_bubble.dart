@@ -744,7 +744,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
             Clipboard.setData(ClipboardData(text: widget.message.message!));
             showChatSnackBar(
               context,
-              message: 'Copied',
+              message: AppLocalizations.of(context)!.referralCopied,
               type: ChatSnackBarType.success,
             );
           },
@@ -810,7 +810,9 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
         icon: widget.message.isPinned
             ? Icons.push_pin_outlined
             : Icons.push_pin_rounded,
-        label: widget.message.isPinned ? 'Unpin' : 'Pin',
+        label: widget.message.isPinned
+            ? AppLocalizations.of(context)!.unpin
+            : AppLocalizations.of(context)!.pin,
         onTap: () {
           _hideReactionPicker();
           if (widget.message.isPinned) {
@@ -870,7 +872,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
       menuItems.add(
         MessageContextMenuItem(
           icon: Icons.flag_rounded,
-          label: 'Report',
+          label: AppLocalizations.of(context)!.report,
           isDestructive: true,
           onTap: () {
             _hideReactionPicker();
@@ -1271,7 +1273,9 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
     }
 
     // Unknown type — safe fallback
-    return SystemBubble(text: 'Unsupported message type');
+    return SystemBubble(
+      text: AppLocalizations.of(context)!.chatUnsupportedMessageType,
+    );
   }
 
   // ---------- Build ----------

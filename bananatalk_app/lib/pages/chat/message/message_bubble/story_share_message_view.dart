@@ -57,7 +57,7 @@ class _StoryShareMessageViewState extends State<StoryShareMessageView> {
     if (_expired || !_hasStoryId) {
       showChatSnackBar(
         context,
-        message: 'This story is no longer available',
+        message: AppLocalizations.of(context)!.chatStoryUnavailable,
         type: ChatSnackBarType.info,
       );
       setState(() => _expired = true);
@@ -88,7 +88,7 @@ class _StoryShareMessageViewState extends State<StoryShareMessageView> {
         setState(() => _expired = true);
         showChatSnackBar(
           context,
-          message: 'This story is no longer available',
+          message: AppLocalizations.of(context)!.chatStoryUnavailable,
           type: ChatSnackBarType.info,
         );
       }
@@ -97,7 +97,7 @@ class _StoryShareMessageViewState extends State<StoryShareMessageView> {
       setState(() => _expired = true);
       showChatSnackBar(
         context,
-        message: 'This story is no longer available',
+        message: AppLocalizations.of(context)!.chatStoryUnavailable,
         type: ChatSnackBarType.info,
       );
     } finally {
@@ -113,8 +113,8 @@ class _StoryShareMessageViewState extends State<StoryShareMessageView> {
     final isDisabled = _expired || !_hasStoryId;
     final senderName = widget.message.sender.name;
     final caption = widget.isMe
-        ? 'You shared a story'
-        : '$senderName shared a story';
+        ? AppLocalizations.of(context)!.chatYouSharedStory
+        : AppLocalizations.of(context)!.chatUserSharedStory(senderName);
 
     return GestureDetector(
       onTap: _handleTap,

@@ -105,7 +105,7 @@ class _CreateClubSheetState extends State<CreateClubSheet> {
       if (!upload.success) {
         showCommunitySnackBar(
           context,
-          message: upload.error ?? '',
+          message: AppLocalizations.of(context)!.groupCoverUploadFailed,
           type: CommunitySnackBarType.error,
         );
       }

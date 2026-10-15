@@ -172,10 +172,11 @@ void _showSessionExpiredLogin() {
   WidgetsBinding.instance.addPostFrameCallback((_) {
     final ctx = callOverlayNavigatorKey.currentContext;
     if (ctx == null) return;
-    final l10n = AppLocalizations.of(ctx);
+    final l10n =
+        AppLocalizations.of(ctx) ?? lookupAppLocalizations(const Locale('en'));
     ScaffoldMessenger.maybeOf(ctx)?.showSnackBar(
       SnackBar(
-        content: Text(l10n?.sessionExpired ?? 'Session expired.'),
+        content: Text(l10n.sessionExpired),
         behavior: SnackBarBehavior.floating,
       ),
     );
