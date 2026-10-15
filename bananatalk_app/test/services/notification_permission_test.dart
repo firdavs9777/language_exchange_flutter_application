@@ -14,6 +14,7 @@ void main() {
           notificationActionFor(
             permission: NotificationPermission.authorized,
             alreadyPrompted: prompted,
+            isAndroid: false,
           ),
           NotificationAction.none,
         );
@@ -25,6 +26,7 @@ void main() {
         notificationActionFor(
           permission: NotificationPermission.provisional,
           alreadyPrompted: false,
+          isAndroid: false,
         ),
         NotificationAction.upgrade,
       );
@@ -32,6 +34,7 @@ void main() {
         notificationActionFor(
           permission: NotificationPermission.provisional,
           alreadyPrompted: true,
+          isAndroid: false,
         ),
         NotificationAction.none,
       );
@@ -42,6 +45,7 @@ void main() {
         notificationActionFor(
           permission: NotificationPermission.notDetermined,
           alreadyPrompted: false,
+          isAndroid: false,
         ),
         NotificationAction.ask,
       );
@@ -49,12 +53,13 @@ void main() {
         notificationActionFor(
           permission: NotificationPermission.notDetermined,
           alreadyPrompted: true,
+          isAndroid: false,
         ),
         NotificationAction.none,
       );
     });
 
-    test('a denied user is offered recovery, and is never asked again', () {
+    test('a denied iOS user is offered recovery, and is never asked again', () {
       // The OS will not show the dialog a second time, so returning `ask` here
       // would be a silent no-op that burns the one chance the UI has to say
       // something useful.
@@ -63,6 +68,7 @@ void main() {
           notificationActionFor(
             permission: NotificationPermission.denied,
             alreadyPrompted: prompted,
+            isAndroid: false,
           ),
           NotificationAction.recover,
         );
@@ -73,10 +79,100 @@ void main() {
       // Guards the switch against a future enum value falling through.
       for (final p in NotificationPermission.values) {
         expect(
-          () => notificationActionFor(permission: p, alreadyPrompted: false),
+          () => notificationActionFor(
+            permission: p,
+            alreadyPrompted: false,
+            isAndroid: false,
+          ),
+          returnsNormally,
+        );
+        expect(
+          () => notificationActionFor(
+            permission: p,
+            alreadyPrompted: false,
+            isAndroid: true,
+          ),
           returnsNormally,
         );
       }
+    });
+  });
+
+  group('notificationActionFor on Android', () {
+    // firebase_messaging on Android only ever reports authorized or denied --
+    // never notDetermined. On Android 13+ a fresh install that has not yet
+    // been granted POST_NOTIFICATIONS reads as `denied`, so treating that as
+    // a real refusal meant no Android 13+ user was ever asked.
+    test('denied, never prompted on this install: ask at a primed moment', () {
+      expect(
+        notificationActionFor(
+          permission: NotificationPermission.denied,
+          alreadyPrompted: false,
+          isAndroid: true,
+        ),
+        NotificationAction.ask,
+      );
+    });
+
+    test('denied after we already asked: recover, never ask again', () {
+      expect(
+        notificationActionFor(
+          permission: NotificationPermission.denied,
+          alreadyPrompted: true,
+          isAndroid: true,
+        ),
+        NotificationAction.recover,
+      );
+    });
+
+    test('authorized (granted, or Android 12 and below): none', () {
+      for (final prompted in [true, false]) {
+        expect(
+          notificationActionFor(
+            permission: NotificationPermission.authorized,
+            alreadyPrompted: prompted,
+            isAndroid: true,
+          ),
+          NotificationAction.none,
+        );
+      }
+    });
+
+    test('iOS reports notDetermined itself, so a denial there stays final', () {
+      expect(
+        notificationActionFor(
+          permission: NotificationPermission.denied,
+          alreadyPrompted: false,
+          isAndroid: false,
+        ),
+        NotificationAction.recover,
+      );
+    });
+  });
+
+  group('needsDeliverySetUpAfterGrant', () {
+    test('a grant from the prime finishes the set-up start-up skipped', () {
+      // Start-up skips handlers and local notifications for a `denied` status,
+      // which on Android 13+ is every never-asked user.
+      expect(
+        needsDeliverySetUpAfterGrant(granted: true, deliverySetUp: false),
+        isTrue,
+      );
+    });
+
+    test('never repeats set-up, and never sets up without a grant', () {
+      expect(
+        needsDeliverySetUpAfterGrant(granted: true, deliverySetUp: true),
+        isFalse,
+      );
+      expect(
+        needsDeliverySetUpAfterGrant(granted: false, deliverySetUp: false),
+        isFalse,
+      );
+      expect(
+        needsDeliverySetUpAfterGrant(granted: false, deliverySetUp: true),
+        isFalse,
+      );
     });
   });
 
