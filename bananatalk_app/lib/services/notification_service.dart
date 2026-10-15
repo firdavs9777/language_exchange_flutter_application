@@ -168,48 +168,60 @@ class NotificationService {
       _pendingAction = notificationActionFor(
         permission: permission,
         alreadyPrompted: alreadyPrompted,
+        isAndroid: defaultTargetPlatform == TargetPlatform.android,
       );
 
-      // Handlers and local-notification set-up run for everyone except a hard
-      // denial: a notDetermined Android user may grant later in this session,
-      // and nothing below shows the user anything by itself.
+      // Handlers and local-notification set-up run for everyone except a
+      // `denied` status: a notDetermined user may grant later in this session,
+      // and nothing in the set-up shows the user anything by itself. On
+      // Android 13+ `denied` also covers a user we have not asked yet; if they
+      // grant from the prime, requestFullAuthorization runs the set-up then.
       if (permission != NotificationPermission.denied) {
-
-        // Initialize local notifications
-        await _initializeLocalNotifications();
-
-        // IMPORTANT: Disable Firebase auto-display for foreground messages
-        // We handle foreground notifications manually to filter out chat messages
-        await _fcm!.setForegroundNotificationPresentationOptions(
-          alert: false,  // Don't auto-show banner (we show via local notifications)
-          badge: true,   // Allow badge updates
-          sound: false,  // Don't auto-play sound (we play via local notifications)
-        );
-
-        // Get FCM token
-        await _getFCMToken();
-
-        // Setup message handlers
-        _setupMessageHandlers();
-
-        // Check if app was opened from terminated state via notification
-        final initialMessage = await _fcm!.getInitialMessage();
-        if (initialMessage != null) {
-          // Delay navigation to ensure app and GoRouter are fully initialized
-          Future.delayed(const Duration(milliseconds: 1000), () {
-            // Use goRouter directly - no context needed
-            NotificationRouter.handleNotification(null, initialMessage.data);
-          });
-        }
-
-        _isInitialized = true;
+        await _setUpDelivery();
       } else {
-        // Denied. Nothing to set up -- the OS discards everything we send --
-        // but _pendingAction is already NotificationAction.recover, which is
-        // what surfaces the settings deep-link.
+        // Denied. Nothing to set up yet -- the OS discards everything we send.
+        // _pendingAction is `recover` (settings deep-link) or, for an unasked
+        // Android user, `ask` (the priming sheet).
       }
     } catch (e) {
     }
+  }
+
+  /// Local notifications, foreground presentation, token and message handlers.
+  ///
+  /// Runs once per process: from [initialize] for any non-denied status, or
+  /// from [requestFullAuthorization] when a user start-up skipped grants.
+  Future<void> _setUpDelivery() async {
+    if (_isInitialized || _fcm == null) return;
+
+    // Initialize local notifications
+    await _initializeLocalNotifications();
+
+    // IMPORTANT: Disable Firebase auto-display for foreground messages
+    // We handle foreground notifications manually to filter out chat messages
+    await _fcm!.setForegroundNotificationPresentationOptions(
+      alert: false,  // Don't auto-show banner (we show via local notifications)
+      badge: true,   // Allow badge updates
+      sound: false,  // Don't auto-play sound (we play via local notifications)
+    );
+
+    // Get FCM token
+    await _getFCMToken();
+
+    // Setup message handlers
+    _setupMessageHandlers();
+
+    // Check if app was opened from terminated state via notification
+    final initialMessage = await _fcm!.getInitialMessage();
+    if (initialMessage != null) {
+      // Delay navigation to ensure app and GoRouter are fully initialized
+      Future.delayed(const Duration(milliseconds: 1000), () {
+        // Use goRouter directly - no context needed
+        NotificationRouter.handleNotification(null, initialMessage.data);
+      });
+    }
+
+    _isInitialized = true;
   }
 
   /// Request notification permissions
@@ -269,9 +281,23 @@ class NotificationService {
     final granted =
         settings.authorizationStatus == AuthorizationStatus.authorized;
 
-    if (granted) {
-      // An Android user had no token at all until this moment; an iOS user had
-      // a provisional one whose authorization level is now stale on the server.
+    if (needsDeliverySetUpAfterGrant(
+      granted: granted,
+      deliverySetUp: _isInitialized,
+    )) {
+      // Start-up skipped the set-up because the status read `denied` -- an
+      // Android 13+ user who had not been asked yet. Run all of it now so this
+      // session gets foreground display, tap routing and channels, not just a
+      // token. _setUpDelivery fetches the token itself. A set-up failure must
+      // not turn a real grant into a "declined" result for the caller.
+      try {
+        await _setUpDelivery();
+      } catch (e) {
+        debugPrint('[NotificationService] post-grant set-up failed: $e');
+      }
+    } else if (granted) {
+      // An iOS user had a provisional token whose authorization level is now
+      // stale on the server.
       await _getFCMToken();
     }
     return granted;

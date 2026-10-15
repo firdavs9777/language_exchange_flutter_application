@@ -35,15 +35,27 @@ const String kPromptedPrefsKey = 'notification_prompt_shown';
 /// recovery is a piece of UI the user can act on whenever they like, not a
 /// one-shot OS dialog, and someone who denied months ago should still be told
 /// why their notifications are silent.
+///
+/// [isAndroid] matters for `denied` only. firebase_messaging on Android never
+/// reports notDetermined: Android 12 and below read as authorized, and Android
+/// 13+ reads as denied until POST_NOTIFICATIONS is granted -- including on a
+/// fresh install that has never been asked. So on Android a `denied` we have
+/// not prompted for is really "not asked yet" and gets [NotificationAction.ask];
+/// only once [alreadyPrompted] is set is it a real refusal. If the OS has in
+/// fact stopped showing the dialog, the prime's request simply comes back
+/// denied and the sheet records a decline.
 NotificationAction notificationActionFor({
   required NotificationPermission permission,
   required bool alreadyPrompted,
+  required bool isAndroid,
 }) {
   switch (permission) {
     case NotificationPermission.authorized:
       return NotificationAction.none;
     case NotificationPermission.denied:
-      return NotificationAction.recover;
+      return isAndroid && !alreadyPrompted
+          ? NotificationAction.ask
+          : NotificationAction.recover;
     case NotificationPermission.provisional:
       return alreadyPrompted
           ? NotificationAction.none
@@ -99,3 +111,15 @@ bool shouldRequestProvisionalAtStartup({
 /// means the service has not initialised yet.
 bool shouldPrimeNotifications(NotificationAction? action) =>
     action == NotificationAction.ask || action == NotificationAction.upgrade;
+
+/// Whether a grant needs the handler and local-notification set-up run now.
+///
+/// Start-up skips that set-up for a `denied` status, which on Android 13+ is
+/// every user who has not yet been asked. Without this, someone who grants
+/// from the priming sheet would get a token but no foreground display, tap
+/// routing or notification channels until the next cold start.
+bool needsDeliverySetUpAfterGrant({
+  required bool granted,
+  required bool deliverySetUp,
+}) =>
+    granted && !deliverySetUp;
