@@ -11352,4 +11352,16 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => 'Tulungan ang nag-iisang developer na magpatuloy';
+
+  @override
+  String get personaUpgradeNana => 'Gusto mo pa bang makipag-chat kay Nana? 🐻\nMag-upgrade para walang limitasyon.';
+
+  @override
+  String get personaUpgradeSensei => 'Ituloy ang iyong pagsasanay kasama si Sensei. 🤖\nMag-upgrade para sa walang limitasyong pagsasanay.';
+
+  @override
+  String get personaUpgradeRiko => 'Nag-iinit pa lang si Riko! 🐙\nMag-upgrade at ituloy natin.';
+
+  @override
+  String get personaUpgradeGeneric => 'Gusto mo pang magpatuloy?\nMag-upgrade para sa walang limitasyong AI Study.';
 }

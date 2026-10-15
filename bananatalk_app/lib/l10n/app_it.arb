@@ -4639,5 +4639,9 @@
   "guideStudyHubCta": "Inizia il pacchetto di oggi",
   "guideStudyHubSecondary": "Vedi tutte le funzioni",
   "supportBananaTalkRow": "Sostieni BananaTalk",
-  "supportBananaTalkRowSubtitle": "Aiuta uno sviluppatore indipendente a continuare"
+  "supportBananaTalkRowSubtitle": "Aiuta uno sviluppatore indipendente a continuare",
+  "personaUpgradeNana": "Vuoi continuare a chattare con Nana? 🐻\nPassa a VIP per l'uso illimitato.",
+  "personaUpgradeSensei": "Continua il tuo allenamento con Sensei. 🤖\nPassa a VIP per esercitarti senza limiti.",
+  "personaUpgradeRiko": "Riko si sta appena scaldando! 🐙\nPassa a VIP e andiamo avanti.",
+  "personaUpgradeGeneric": "Vuoi continuare?\nPassa a VIP per lo studio IA illimitato."
 }

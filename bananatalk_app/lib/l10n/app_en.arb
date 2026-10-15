@@ -7311,5 +7311,13 @@
   "guideStudyHubCta": "Start today's pack",
   "guideStudyHubSecondary": "See all features",
   "supportBananaTalkRow": "Support BananaTalk",
-  "supportBananaTalkRowSubtitle": "Help a solo developer keep building"
+  "supportBananaTalkRowSubtitle": "Help a solo developer keep building",
+  "personaUpgradeNana": "Want to keep chatting with Nana? 🐻\nUpgrade for unlimited.",
+  "@personaUpgradeNana": {"description": "Upgrade sheet headline when the tutor persona is Nana (a bear). Keep the line break."},
+  "personaUpgradeSensei": "Continue your training with Sensei. 🤖\nUpgrade for unrestricted practice.",
+  "@personaUpgradeSensei": {"description": "Upgrade sheet headline when the tutor persona is Sensei (a robot). Keep the line break."},
+  "personaUpgradeRiko": "Riko's just getting warmed up! 🐙\nUpgrade and let's keep going.",
+  "@personaUpgradeRiko": {"description": "Upgrade sheet headline when the tutor persona is Riko (an octopus). Keep the line break."},
+  "personaUpgradeGeneric": "Want to keep going?\nUpgrade for unlimited AI Study.",
+  "@personaUpgradeGeneric": {"description": "Upgrade sheet headline when no tutor persona is set. Keep the line break."}
 }

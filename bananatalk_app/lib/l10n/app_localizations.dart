@@ -20683,6 +20683,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Help a solo developer keep building'**
   String get supportBananaTalkRowSubtitle;
+
+  /// Upgrade sheet headline when the tutor persona is Nana (a bear). Keep the line break.
+  ///
+  /// In en, this message translates to:
+  /// **'Want to keep chatting with Nana? 🐻\nUpgrade for unlimited.'**
+  String get personaUpgradeNana;
+
+  /// Upgrade sheet headline when the tutor persona is Sensei (a robot). Keep the line break.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue your training with Sensei. 🤖\nUpgrade for unrestricted practice.'**
+  String get personaUpgradeSensei;
+
+  /// Upgrade sheet headline when the tutor persona is Riko (an octopus). Keep the line break.
+  ///
+  /// In en, this message translates to:
+  /// **'Riko\'s just getting warmed up! 🐙\nUpgrade and let\'s keep going.'**
+  String get personaUpgradeRiko;
+
+  /// Upgrade sheet headline when no tutor persona is set. Keep the line break.
+  ///
+  /// In en, this message translates to:
+  /// **'Want to keep going?\nUpgrade for unlimited AI Study.'**
+  String get personaUpgradeGeneric;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

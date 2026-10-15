@@ -11352,4 +11352,16 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => 'Aidez un développeur indépendant à continuer';
+
+  @override
+  String get personaUpgradeNana => 'Envie de continuer à discuter avec Nana ? 🐻\nPasse à la version supérieure pour un usage illimité.';
+
+  @override
+  String get personaUpgradeSensei => 'Poursuis ton entraînement avec Sensei. 🤖\nPasse à la version supérieure pour pratiquer sans limite.';
+
+  @override
+  String get personaUpgradeRiko => 'Riko ne fait que s\'échauffer ! 🐙\nPasse à la version supérieure et continuons.';
+
+  @override
+  String get personaUpgradeGeneric => 'Envie de continuer ?\nPasse à la version supérieure pour l\'étude IA illimitée.';
 }

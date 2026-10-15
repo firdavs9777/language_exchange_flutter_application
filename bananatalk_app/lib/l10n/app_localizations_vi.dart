@@ -11333,4 +11333,16 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => 'Giúp một lập trình viên độc lập tiếp tục phát triển';
+
+  @override
+  String get personaUpgradeNana => 'Muốn tiếp tục trò chuyện với Nana? 🐻\nNâng cấp để dùng không giới hạn.';
+
+  @override
+  String get personaUpgradeSensei => 'Tiếp tục luyện tập cùng Sensei. 🤖\nNâng cấp để luyện tập không giới hạn.';
+
+  @override
+  String get personaUpgradeRiko => 'Riko mới chỉ khởi động thôi! 🐙\nNâng cấp và cùng tiếp tục nhé.';
+
+  @override
+  String get personaUpgradeGeneric => 'Muốn tiếp tục?\nNâng cấp để học AI không giới hạn.';
 }

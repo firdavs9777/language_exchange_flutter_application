@@ -11353,4 +11353,16 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => 'Ба як барномасози танҳо барои идома додан кӯмак кунед';
+
+  @override
+  String get personaUpgradeNana => 'Мехоҳед бо Нана сӯҳбатро идома диҳед? 🐻\nБарои истифодаи беҳудуд навсозӣ кунед.';
+
+  @override
+  String get personaUpgradeSensei => 'Машқи худро бо Сенсей идома диҳед. 🤖\nБарои машқи бемаҳдуд навсозӣ кунед.';
+
+  @override
+  String get personaUpgradeRiko => 'Рико навакак гарм шуда истодааст! 🐙\nНавсозӣ кунед ва идома диҳем.';
+
+  @override
+  String get personaUpgradeGeneric => 'Мехоҳед идома диҳед?\nБарои Омӯзиши AI-и беҳудуд навсозӣ кунед.';
 }

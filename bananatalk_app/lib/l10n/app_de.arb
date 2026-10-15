@@ -4639,5 +4639,9 @@
   "guideStudyHubCta": "Heutiges Paket starten",
   "guideStudyHubSecondary": "Alle Funktionen ansehen",
   "supportBananaTalkRow": "BananaTalk unterstützen",
-  "supportBananaTalkRowSubtitle": "Hilf einem Solo-Entwickler weiterzumachen"
+  "supportBananaTalkRowSubtitle": "Hilf einem Solo-Entwickler weiterzumachen",
+  "personaUpgradeNana": "Möchtest du weiter mit Nana chatten? 🐻\nUpgrade für unbegrenzte Nutzung.",
+  "personaUpgradeSensei": "Setze dein Training mit Sensei fort. 🤖\nUpgrade für uneingeschränktes Üben.",
+  "personaUpgradeRiko": "Riko kommt gerade erst in Fahrt! 🐙\nUpgrade und lass uns weitermachen.",
+  "personaUpgradeGeneric": "Möchtest du weitermachen?\nUpgrade für unbegrenztes KI-Lernen."
 }

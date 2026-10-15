@@ -11358,4 +11358,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => 'Help a solo developer keep building';
+
+  @override
+  String get personaUpgradeNana => 'Want to keep chatting with Nana? 🐻\nUpgrade for unlimited.';
+
+  @override
+  String get personaUpgradeSensei => 'Continue your training with Sensei. 🤖\nUpgrade for unrestricted practice.';
+
+  @override
+  String get personaUpgradeRiko => 'Riko\'s just getting warmed up! 🐙\nUpgrade and let\'s keep going.';
+
+  @override
+  String get personaUpgradeGeneric => 'Want to keep going?\nUpgrade for unlimited AI Study.';
 }

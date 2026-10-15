@@ -11350,4 +11350,16 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => 'Tek başına çalışan bir geliştiricinin devam etmesine yardım et';
+
+  @override
+  String get personaUpgradeNana => 'Nana ile sohbete devam etmek ister misin? 🐻\nSınırsız kullanım için yükselt.';
+
+  @override
+  String get personaUpgradeSensei => 'Sensei ile antrenmanına devam et. 🤖\nSınırsız pratik için yükselt.';
+
+  @override
+  String get personaUpgradeRiko => 'Riko daha yeni ısınıyor! 🐙\nYükselt ve devam edelim.';
+
+  @override
+  String get personaUpgradeGeneric => 'Devam etmek ister misin?\nSınırsız AI Çalışma için yükselt.';
 }

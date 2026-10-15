@@ -3892,5 +3892,9 @@
   "guideStudyHubCta": "Бастаи имрӯзро оғоз кунед",
   "guideStudyHubSecondary": "Ҳамаи имкониятҳоро бинед",
   "supportBananaTalkRow": "BananaTalk-ро дастгирӣ кунед",
-  "supportBananaTalkRowSubtitle": "Ба як барномасози танҳо барои идома додан кӯмак кунед"
+  "supportBananaTalkRowSubtitle": "Ба як барномасози танҳо барои идома додан кӯмак кунед",
+  "personaUpgradeNana": "Мехоҳед бо Нана сӯҳбатро идома диҳед? 🐻\nБарои истифодаи беҳудуд навсозӣ кунед.",
+  "personaUpgradeSensei": "Машқи худро бо Сенсей идома диҳед. 🤖\nБарои машқи бемаҳдуд навсозӣ кунед.",
+  "personaUpgradeRiko": "Рико навакак гарм шуда истодааст! 🐙\nНавсозӣ кунед ва идома диҳем.",
+  "personaUpgradeGeneric": "Мехоҳед идома диҳед?\nБарои Омӯзиши AI-и беҳудуд навсозӣ кунед."
 }

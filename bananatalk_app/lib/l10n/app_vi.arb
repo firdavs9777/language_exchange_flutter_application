@@ -4399,5 +4399,9 @@
   "guideStudyHubCta": "Bắt đầu gói hôm nay",
   "guideStudyHubSecondary": "Xem tất cả tính năng",
   "supportBananaTalkRow": "Ủng hộ BananaTalk",
-  "supportBananaTalkRowSubtitle": "Giúp một lập trình viên độc lập tiếp tục phát triển"
+  "supportBananaTalkRowSubtitle": "Giúp một lập trình viên độc lập tiếp tục phát triển",
+  "personaUpgradeNana": "Muốn tiếp tục trò chuyện với Nana? 🐻\nNâng cấp để dùng không giới hạn.",
+  "personaUpgradeSensei": "Tiếp tục luyện tập cùng Sensei. 🤖\nNâng cấp để luyện tập không giới hạn.",
+  "personaUpgradeRiko": "Riko mới chỉ khởi động thôi! 🐙\nNâng cấp và cùng tiếp tục nhé.",
+  "personaUpgradeGeneric": "Muốn tiếp tục?\nNâng cấp để học AI không giới hạn."
 }

@@ -11352,4 +11352,16 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => 'एक अकेले डेवलपर को काम जारी रखने में मदद करें';
+
+  @override
+  String get personaUpgradeNana => 'नाना से बात करते रहना चाहते हैं? 🐻\nअसीमित के लिए अपग्रेड करें।';
+
+  @override
+  String get personaUpgradeSensei => 'सेंसेई के साथ अपना प्रशिक्षण जारी रखें। 🤖\nबिना रोक-टोक अभ्यास के लिए अपग्रेड करें।';
+
+  @override
+  String get personaUpgradeRiko => 'रिको तो अभी शुरू ही हुआ है! 🐙\nअपग्रेड करें और आगे बढ़ते रहें।';
+
+  @override
+  String get personaUpgradeGeneric => 'जारी रखना चाहते हैं?\nअसीमित AI अध्ययन के लिए अपग्रेड करें।';
 }

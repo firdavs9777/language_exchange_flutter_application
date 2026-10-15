@@ -11396,4 +11396,16 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => 'Помогите одному разработчику продолжать работу';
+
+  @override
+  String get personaUpgradeNana => 'Хотите продолжить общение с Наной? 🐻\nОформите подписку для безлимита.';
+
+  @override
+  String get personaUpgradeSensei => 'Продолжайте тренировку с Сенсеем. 🤖\nОформите подписку для практики без ограничений.';
+
+  @override
+  String get personaUpgradeRiko => 'Рико только разогревается! 🐙\nОформите подписку и продолжим.';
+
+  @override
+  String get personaUpgradeGeneric => 'Хотите продолжить?\nОформите подписку для безлимитного ИИ-обучения.';
 }

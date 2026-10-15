@@ -4415,5 +4415,9 @@
   "guideStudyHubCta": "आज का पैक शुरू करें",
   "guideStudyHubSecondary": "सभी फ़ीचर देखें",
   "supportBananaTalkRow": "BananaTalk का साथ दें",
-  "supportBananaTalkRowSubtitle": "एक अकेले डेवलपर को काम जारी रखने में मदद करें"
+  "supportBananaTalkRowSubtitle": "एक अकेले डेवलपर को काम जारी रखने में मदद करें",
+  "personaUpgradeNana": "नाना से बात करते रहना चाहते हैं? 🐻\nअसीमित के लिए अपग्रेड करें।",
+  "personaUpgradeSensei": "सेंसेई के साथ अपना प्रशिक्षण जारी रखें। 🤖\nबिना रोक-टोक अभ्यास के लिए अपग्रेड करें।",
+  "personaUpgradeRiko": "रिको तो अभी शुरू ही हुआ है! 🐙\nअपग्रेड करें और आगे बढ़ते रहें।",
+  "personaUpgradeGeneric": "जारी रखना चाहते हैं?\nअसीमित AI अध्ययन के लिए अपग्रेड करें।"
 }

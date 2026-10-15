@@ -4399,5 +4399,9 @@
   "guideStudyHubCta": "今日のパックを始める",
   "guideStudyHubSecondary": "すべての機能を見る",
   "supportBananaTalkRow": "BananaTalkを応援",
-  "supportBananaTalkRowSubtitle": "個人開発者の開発を支えてください"
+  "supportBananaTalkRowSubtitle": "個人開発者の開発を支えてください",
+  "personaUpgradeNana": "ナナともっと話したい？🐻\nアップグレードで無制限に。",
+  "personaUpgradeSensei": "センセイとトレーニングを続けよう。🤖\nアップグレードで制限なく練習できます。",
+  "personaUpgradeRiko": "リコはまだウォーミングアップ中！🐙\nアップグレードして続けよう。",
+  "personaUpgradeGeneric": "もっと続けたい？\nアップグレードでAI学習が無制限に。"
 }

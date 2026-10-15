@@ -4090,5 +4090,9 @@
   "guideStudyHubCta": "開始今日學習包",
   "guideStudyHubSecondary": "查看全部功能",
   "supportBananaTalkRow": "支持 BananaTalk",
-  "supportBananaTalkRowSubtitle": "幫助獨立開發者持續打磨產品"
+  "supportBananaTalkRowSubtitle": "幫助獨立開發者持續打磨產品",
+  "personaUpgradeNana": "想繼續和 Nana 聊天嗎？🐻\n升級即可無限暢聊。",
+  "personaUpgradeSensei": "和 Sensei 繼續訓練吧。🤖\n升級即可不受限制地練習。",
+  "personaUpgradeRiko": "Riko 才剛剛熱身！🐙\n升級後我們繼續。",
+  "personaUpgradeGeneric": "想繼續嗎？\n升級即可無限使用 AI 學習。"
 }

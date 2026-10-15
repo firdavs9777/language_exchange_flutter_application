@@ -4429,5 +4429,9 @@
   "guideStudyHubCta": "Начать набор на сегодня",
   "guideStudyHubSecondary": "Все функции",
   "supportBananaTalkRow": "Поддержать BananaTalk",
-  "supportBananaTalkRowSubtitle": "Помогите одному разработчику продолжать работу"
+  "supportBananaTalkRowSubtitle": "Помогите одному разработчику продолжать работу",
+  "personaUpgradeNana": "Хотите продолжить общение с Наной? 🐻\nОформите подписку для безлимита.",
+  "personaUpgradeSensei": "Продолжайте тренировку с Сенсеем. 🤖\nОформите подписку для практики без ограничений.",
+  "personaUpgradeRiko": "Рико только разогревается! 🐙\nОформите подписку и продолжим.",
+  "personaUpgradeGeneric": "Хотите продолжить?\nОформите подписку для безлимитного ИИ-обучения."
 }
