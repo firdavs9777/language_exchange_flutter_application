@@ -116,4 +116,43 @@ void main() {
       expect(maxVideoSeconds(isReel: false), 600);
     });
   });
+
+  group('momentImageProblem', () {
+    test('a normal jpeg/png/gif/webp under the limit is fine', () {
+      for (final ext in ['jpg', 'jpeg', 'JPG', 'png', 'gif', 'webp']) {
+        expect(momentImageProblem(path: '/x/a.$ext', sizeBytes: 1024), isNull,
+            reason: ext);
+      }
+    });
+
+    test('exactly the limit is fine, one byte over is not', () {
+      expect(momentImageProblem(path: 'a.jpg', sizeBytes: kMaxMomentImageBytes),
+          isNull);
+      expect(
+          momentImageProblem(
+              path: 'a.jpg', sizeBytes: kMaxMomentImageBytes + 1),
+          contains('10MB'));
+    });
+
+    test('HEIC (Android gallery) is refused before anything is created', () {
+      expect(momentImageProblem(path: '/x/IMG_1.heic', sizeBytes: 10),
+          isNotNull);
+      expect(momentImageProblem(path: '/x/IMG_1.HEIF', sizeBytes: 10),
+          isNotNull);
+    });
+
+    test('firstMomentImageProblem reports the first bad file, null if none',
+        () {
+      expect(
+        firstMomentImageProblem(
+            [('a.jpg', 10), ('b.png', 20)]),
+        isNull,
+      );
+      expect(
+        firstMomentImageProblem(
+            [('a.jpg', 10), ('b.heic', 20), ('c.jpg', kMaxMomentImageBytes * 2)]),
+        contains('heic'),
+      );
+    });
+  });
 }

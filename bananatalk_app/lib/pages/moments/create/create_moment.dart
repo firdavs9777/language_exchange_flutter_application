@@ -299,7 +299,9 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
   }
 
   void _updateButtonState() {
-    isButtonEnabled.value = descriptionController.text.isNotEmpty;
+    // Caption OR media enables Post; media changes rebuild via setState, so
+    // the notifier is recomputed in build too (see the Post button).
+    isButtonEnabled.value = _hasPostableContent;
     // Trigger rebuild to update character counter
     if (mounted) setState(() {});
   }
@@ -1240,7 +1242,28 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     tags: _tags,
     scheduledDate: _scheduledDate,
     now: DateTime.now(),
+    hasMedia: _hasMedia,
+    isReel: widget.isReel && !isEditMode,
+    hasVideo: _selectedVideo != null,
   );
+
+  /// Why a selected photo would be refused by the upload step, checked
+  /// BEFORE the moment is created. Checking only inside the upload (after
+  /// create) left a caption-only post behind for a 12MB photo or an Android
+  /// HEIC, and the next tap on Post duplicated it.
+  Future<String?> _imageProblemBeforeCreate() async => firstMomentImageProblem([
+    for (final f in _selectedImages) (f.path, await f.length()),
+  ]);
+
+  /// Deletes a moment whose media upload failed, so the post is
+  /// all-or-nothing and Post can simply be tapped again. Best effort.
+  Future<void> _rollBackMoment(String momentId) async {
+    try {
+      await ref.read(momentsServiceProvider).deleteUserMoment(id: momentId);
+    } catch (e) {
+      debugPrint('Rollback of moment $momentId failed: $e');
+    }
+  }
 
   // Format location data for backend (GeoJSON format)
   Map<String, dynamic>? _formatLocationData() {
@@ -1269,6 +1292,17 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     final validationError = _validateInputs();
     if (validationError != null) {
       showMomentsSnackBar(context, message: validationError);
+      return;
+    }
+
+    final imageProblem = await _imageProblemBeforeCreate();
+    if (imageProblem != null) {
+      if (!mounted) return;
+      showMomentsSnackBar(
+        context,
+        message: imageProblem,
+        type: MomentsSnackBarType.error,
+      );
       return;
     }
 
@@ -1377,16 +1411,27 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
         // The server created it: that is the milestone, uploads or not.
         activation.markDone(ActivationAction.moment).ignore();
 
-        // Upload images if any
+        final hasCaption = descriptionController.text.trim().isNotEmpty;
+
+        // Upload images if any. On failure the moment is deleted again
+        // (afterMediaUploadFailed: photos are all-or-nothing) and the error
+        // surfaces below with the draft intact, so tapping Post again makes
+        // ONE complete moment instead of a duplicate of a caption-only half.
         if (_selectedImages.isNotEmpty) {
-          await ref
-              .read(momentsServiceProvider)
-              .uploadMomentPhotos(moment.id, _selectedImages);
+          try {
+            await ref
+                .read(momentsServiceProvider)
+                .uploadMomentPhotos(moment.id, _selectedImages);
+          } catch (_) {
+            await _rollBackMoment(moment.id);
+            rethrow;
+          }
         }
 
-        // Upload recorded audio (voice note) if any. The moment already
-        // exists at this point, so a failure here should not block the
-        // user from seeing their post — surface a retry snackbar instead.
+        // Upload recorded audio (voice note) if any. With a caption the
+        // moment stands on its own, so a failure keeps it and offers a retry
+        // dialog. Without one the voice note IS the post: roll back and let
+        // the user tap Post again, rather than leave an empty moment.
         bool audioUploadFailed = false;
         String? audioUploadError;
         if (_recordedAudio != null) {
@@ -1400,6 +1445,14 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                   waveform: _recordedAudioWaveform,
                 );
           } catch (e) {
+            if (afterMediaUploadFailed(
+                  kind: MomentMediaKind.audio,
+                  hasCaption: hasCaption,
+                ) ==
+                MediaFailureAction.rollBack) {
+              await _rollBackMoment(moment.id);
+              rethrow;
+            }
             audioUploadFailed = true;
             audioUploadError = e.toString().replaceFirst('Exception: ', '');
           }
@@ -1598,10 +1651,22 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     ..._sectionSchedule(),
   ];
 
+  /// Media on the draft — newly picked, or (when editing) already on the
+  /// moment, so clearing the caption of a photo moment can still be saved.
   bool get _hasMedia =>
       _selectedImages.isNotEmpty ||
       _selectedVideo != null ||
-      _recordedAudio != null;
+      _recordedAudio != null ||
+      (widget.momentToEdit?.hasImages ?? false) ||
+      (widget.momentToEdit?.hasVideo ?? false) ||
+      (widget.momentToEdit?.hasAudio ?? false);
+
+  /// Post is enabled by a caption OR media — never caption-only, which is
+  /// what refused photo-only moments the compose step had already accepted.
+  bool get _hasPostableContent => draftHasContent(
+    description: descriptionController.text,
+    hasMedia: _hasMedia,
+  );
 
   bool get _canAdvance => canAdvanceFrom(
     stage: _stage,
@@ -1676,7 +1741,10 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
           else
             ValueListenableBuilder<bool>(
               valueListenable: isButtonEnabled,
-              builder: (context, isEnabled, child) {
+              builder: (context, _, child) {
+                // Recomputed here, not only in the listener: picking or
+                // removing media changes it without touching the caption.
+                final isEnabled = _hasPostableContent;
                 return TextButton(
                   onPressed: isEnabled && !_isLoading ? _createMoment : null,
                   child: _isLoading

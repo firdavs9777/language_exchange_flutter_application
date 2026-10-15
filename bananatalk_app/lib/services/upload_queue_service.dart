@@ -5,9 +5,17 @@ import 'package:bananatalk_app/services/activation_store.dart';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/models/upload_task.dart';
+import 'package:bananatalk_app/pages/moments/create/moment_media_rules.dart';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
 import 'package:bananatalk_app/services/stories_service.dart';
 import 'package:bananatalk_app/providers/provider_models/story_model.dart';
+
+/// Task-metadata key holding the id of the moment this task already created.
+///
+/// Stored in metadata (which is persisted with the task) so a retry — even
+/// one after an app restart — re-runs only the failed media step instead of
+/// creating the moment again.
+const String kCreatedMomentIdKey = 'createdMomentId';
 
 /// Service for managing background upload queue
 /// Handles moments and stories uploads with persistence and retry logic
@@ -18,6 +26,14 @@ class UploadQueueService {
 
   static const String _storageKey = 'upload_queue_tasks';
   static const int _maxRetries = 3;
+
+  static Duration defaultRetryDelay(int attempt) =>
+      Duration(seconds: 2 * attempt);
+
+  /// Pause before automatic retry number [attempt]. Swappable so tests do not
+  /// wait real seconds.
+  @visibleForTesting
+  static Duration Function(int attempt) retryDelay = defaultRetryDelay;
 
   final MomentsService _momentsService = MomentsService();
 
@@ -274,6 +290,13 @@ class UploadQueueService {
       final newRetryCount = task.retryCount + 1;
       final shouldRetry = newRetryCount < _maxRetries;
 
+      if (!shouldRetry &&
+          (task.type == UploadType.moment ||
+              task.type == UploadType.momentVideo)) {
+        await _rollBackCreatedMoment(task);
+        if (gen != _sessionGeneration) return;
+      }
+
       _tasks[taskIndex] = task.copyWith(
         status: shouldRetry ? UploadStatus.queued : UploadStatus.failed,
         error: e.toString(),
@@ -290,16 +313,39 @@ class UploadQueueService {
 
       // If should retry, add a delay before next attempt
       if (shouldRetry) {
-        await Future.delayed(Duration(seconds: 2 * newRetryCount));
+        await Future.delayed(retryDelay(newRetryCount));
       }
     }
   }
 
-  /// Upload a moment (text + optional images, no video)
-  Future<String?> _uploadMoment(UploadTask task, int taskIndex, int gen) async {
-    final metadata = task.metadata;
+  /// The image files of a moment task, or empty.
+  List<File> _imageFiles(Map<String, dynamic> metadata) {
+    final imagePaths = metadata['imagePaths'];
+    if (imagePaths is! List || imagePaths.isEmpty) return const [];
+    return imagePaths.map((p) => File(p.toString())).toList();
+  }
 
-    // Create the moment first
+  /// Creates the task's moment, or returns the one an earlier attempt of this
+  /// same task already created.
+  ///
+  /// The id is written into the task's metadata the moment the server
+  /// answers, and saved, so a retry -- automatic, manual, or after an app
+  /// restart -- re-runs only the media step that failed. Before this, every
+  /// retry created another moment: a photo or video step that failed twice
+  /// left three caption-only copies in the feed.
+  Future<String> _createOrReuseMoment(
+      UploadTask task, int taskIndex, int gen) async {
+    final metadata = task.metadata;
+    final existing = metadata[kCreatedMomentIdKey];
+    if (existing is String && existing.isNotEmpty) return existing;
+
+    // Refuse a photo the upload step would refuse, BEFORE anything exists.
+    final images = _imageFiles(metadata);
+    final problem = firstMomentImageProblem([
+      for (final f in images) (f.path, await f.length()),
+    ]);
+    if (problem != null) throw Exception(problem);
+
     _notifyProgress(task.id, 0.1, UploadStatus.uploading, message: 'Creating moment...');
 
     final moment = await _momentsService.createMoments(
@@ -315,45 +361,54 @@ class UploadQueueService {
       isReel: metadata['isReel'] == true,
     );
     _checkSession(gen);
+    metadata[kCreatedMomentIdKey] = moment.id;
+    await _saveTasks();
     ActivationStore().markDone(ActivationAction.moment).ignore();
+    return moment.id;
+  }
+
+  /// A moment task failed for the last time after its moment was created:
+  /// delete that moment rather than leave a caption-only (or, for a
+  /// photo/video-only post, completely empty) half in the feed. See
+  /// `afterMediaUploadFailed` -- photos and video are all-or-nothing.
+  ///
+  /// Best effort: if the delete itself fails the id is kept, so a manual
+  /// retry still attaches the media to the existing moment instead of
+  /// creating a duplicate.
+  Future<void> _rollBackCreatedMoment(UploadTask task) async {
+    final id = task.metadata[kCreatedMomentIdKey];
+    if (id is! String || id.isEmpty) return;
+    try {
+      await _momentsService.deleteUserMoment(id: id);
+      task.metadata.remove(kCreatedMomentIdKey);
+    } catch (e) {
+      debugPrint('Upload rollback: could not delete moment $id: $e');
+    }
+  }
+
+  /// Upload a moment (text + optional images, no video)
+  Future<String?> _uploadMoment(UploadTask task, int taskIndex, int gen) async {
+    final momentId = await _createOrReuseMoment(task, taskIndex, gen);
 
     // Update progress
     _tasks[taskIndex] = _tasks[taskIndex].copyWith(progress: 0.3);
     _notifyProgress(task.id, 0.3, UploadStatus.uploading, message: 'Uploading images...');
 
     // Upload images if any
-    final imagePaths = metadata['imagePaths'];
-    if (imagePaths != null && (imagePaths as List).isNotEmpty) {
-      final imageFiles = imagePaths.map((p) => File(p.toString())).toList();
-      await _momentsService.uploadMomentPhotos(moment.id, imageFiles);
+    final imageFiles = _imageFiles(task.metadata);
+    if (imageFiles.isNotEmpty) {
+      await _momentsService.uploadMomentPhotos(momentId, imageFiles);
     }
 
     _tasks[taskIndex] = _tasks[taskIndex].copyWith(progress: 1.0);
-    return moment.id;
+    return momentId;
   }
 
   /// Upload a moment with video
   Future<String?> _uploadMomentWithVideo(
       UploadTask task, int taskIndex, int gen) async {
     final metadata = task.metadata;
-
-    // Create the moment first
-    _notifyProgress(task.id, 0.1, UploadStatus.uploading, message: 'Creating moment...');
-
-    final moment = await _momentsService.createMoments(
-      description: metadata['description'] ?? '',
-      privacy: metadata['privacy'] ?? 'public',
-      category: metadata['category'] ?? 'general',
-      language: metadata['language'] ?? 'en',
-      mood: metadata['mood'],
-      tags: metadata['tags'] != null ? List<String>.from(metadata['tags']) : null,
-      location: metadata['location'],
-      backgroundColor: metadata['backgroundColor'],
-      promptId: metadata['promptId'],
-      isReel: metadata['isReel'] == true,
-    );
-    _checkSession(gen);
-    ActivationStore().markDone(ActivationAction.moment).ignore();
+    final momentId = await _createOrReuseMoment(task, taskIndex, gen);
 
     // Update progress
     _tasks[taskIndex] = _tasks[taskIndex].copyWith(progress: 0.2);
@@ -364,7 +419,7 @@ class UploadQueueService {
     if (videoPath != null) {
       final videoFile = File(videoPath);
       await _momentsService.uploadMomentVideo(
-        moment.id,
+        momentId,
         videoFile,
         onProgress: (progress) {
           if (gen != _sessionGeneration) return;
@@ -380,15 +435,14 @@ class UploadQueueService {
     _checkSession(gen);
 
     // Upload images if any
-    final imagePaths = metadata['imagePaths'];
-    if (imagePaths != null && (imagePaths as List).isNotEmpty) {
+    final imageFiles = _imageFiles(metadata);
+    if (imageFiles.isNotEmpty) {
       _notifyProgress(task.id, 0.95, UploadStatus.uploading, message: 'Uploading images...');
-      final imageFiles = imagePaths.map((p) => File(p.toString())).toList();
-      await _momentsService.uploadMomentPhotos(moment.id, imageFiles);
+      await _momentsService.uploadMomentPhotos(momentId, imageFiles);
     }
 
     _tasks[taskIndex] = _tasks[taskIndex].copyWith(progress: 1.0);
-    return moment.id;
+    return momentId;
   }
 
   /// Upload a story (image or video)

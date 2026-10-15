@@ -504,7 +504,8 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                     );
                   },
                 ),
-              if (!isOwnMoment)
+              if (!isOwnMoment &&
+                  widget.moments.description.trim().isNotEmpty)
                 ListTile(
                   leading: const Icon(
                     Icons.spellcheck_rounded,
@@ -738,7 +739,9 @@ class _MomentCardState extends ConsumerState<MomentCard> {
             // expands directly underneath when the user opts in via the
             // inline "Translate" chip (more discoverable than the action
             // row's translate icon was).
-            if (!isGradient)
+            // Photo/video/voice-only moments have no caption: render no empty
+            // caption line and no translate chip with nothing to translate.
+            if (!isGradient && fullText.trim().isNotEmpty)
               Padding(
                 padding: const EdgeInsets.fromLTRB(12, 0, 12, 8),
                 child: Column(
