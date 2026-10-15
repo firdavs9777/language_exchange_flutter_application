@@ -4097,5 +4097,9 @@
   "restorePurchasesSuccess": "已恢復購買，你的 VIP 已生效。",
   "restorePurchasesAlreadyActive": "你的 VIP 訂閱已在有效狀態。",
   "restorePurchasesNothing": "沒有可恢復的購買項目。",
-  "restorePurchasesFailed": "無法恢復購買，請再試一次。"
+  "restorePurchasesFailed": "無法恢復購買，請再試一次。",
+  "chatListConversationPinned": "已置頂對話",
+  "chatListConversationUnpinned": "已取消置頂對話",
+  "chatListConversationDeleted": "已刪除對話",
+  "chatListConversationActionFailed": "無法更新此對話，請再試一次。"
 }

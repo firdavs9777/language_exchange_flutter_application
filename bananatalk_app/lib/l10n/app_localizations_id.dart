@@ -11365,4 +11365,16 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get restorePurchasesFailed => 'Tidak dapat memulihkan pembelian. Silakan coba lagi.';
+
+  @override
+  String get chatListConversationPinned => 'Percakapan disematkan';
+
+  @override
+  String get chatListConversationUnpinned => 'Sematan percakapan dilepas';
+
+  @override
+  String get chatListConversationDeleted => 'Percakapan dihapus';
+
+  @override
+  String get chatListConversationActionFailed => 'Tidak dapat memperbarui percakapan ini. Silakan coba lagi.';
 }

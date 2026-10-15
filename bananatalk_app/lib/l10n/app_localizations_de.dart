@@ -11373,4 +11373,16 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get restorePurchasesFailed => 'Käufe konnten nicht wiederhergestellt werden. Bitte versuche es erneut.';
+
+  @override
+  String get chatListConversationPinned => 'Unterhaltung angeheftet';
+
+  @override
+  String get chatListConversationUnpinned => 'Unterhaltung losgelöst';
+
+  @override
+  String get chatListConversationDeleted => 'Unterhaltung gelöscht';
+
+  @override
+  String get chatListConversationActionFailed => 'Diese Unterhaltung konnte nicht aktualisiert werden. Bitte versuche es erneut.';
 }

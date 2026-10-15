@@ -11374,4 +11374,16 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get restorePurchasesFailed => 'Харидҳоро барқарор кардан нашуд. Лутфан бори дигар кӯшиш кунед.';
+
+  @override
+  String get chatListConversationPinned => 'Сӯҳбат васл шуд';
+
+  @override
+  String get chatListConversationUnpinned => 'Сӯҳбат аз васл озод шуд';
+
+  @override
+  String get chatListConversationDeleted => 'Сӯҳбат нест карда шуд';
+
+  @override
+  String get chatListConversationActionFailed => 'Ин сӯҳбатро нав кардан нашуд. Лутфан бори дигар кӯшиш кунед.';
 }

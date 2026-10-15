@@ -4427,5 +4427,9 @@
   "restorePurchasesSuccess": "구매가 복원되었습니다. VIP가 활성화되었습니다.",
   "restorePurchasesAlreadyActive": "VIP 구독이 이미 활성화되어 있습니다.",
   "restorePurchasesNothing": "복원할 구매 내역이 없습니다.",
-  "restorePurchasesFailed": "구매를 복원하지 못했습니다. 다시 시도해 주세요."
+  "restorePurchasesFailed": "구매를 복원하지 못했습니다. 다시 시도해 주세요.",
+  "chatListConversationPinned": "대화를 고정했어요",
+  "chatListConversationUnpinned": "대화 고정을 해제했어요",
+  "chatListConversationDeleted": "대화를 삭제했어요",
+  "chatListConversationActionFailed": "이 대화를 업데이트하지 못했어요. 다시 시도해 주세요."
 }

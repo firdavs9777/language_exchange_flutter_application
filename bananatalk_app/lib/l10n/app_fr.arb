@@ -4646,5 +4646,9 @@
   "restorePurchasesSuccess": "Achats restaurés. Votre VIP est actif.",
   "restorePurchasesAlreadyActive": "Votre abonnement VIP est déjà actif.",
   "restorePurchasesNothing": "Aucun achat à restaurer.",
-  "restorePurchasesFailed": "Impossible de restaurer les achats. Veuillez réessayer."
+  "restorePurchasesFailed": "Impossible de restaurer les achats. Veuillez réessayer.",
+  "chatListConversationPinned": "Conversation épinglée",
+  "chatListConversationUnpinned": "Conversation désépinglée",
+  "chatListConversationDeleted": "Conversation supprimée",
+  "chatListConversationActionFailed": "Impossible de mettre à jour cette conversation. Veuillez réessayer."
 }

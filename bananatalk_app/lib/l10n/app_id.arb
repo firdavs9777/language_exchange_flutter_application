@@ -4406,5 +4406,9 @@
   "restorePurchasesSuccess": "Pembelian dipulihkan. VIP kamu aktif.",
   "restorePurchasesAlreadyActive": "Langganan VIP kamu sudah aktif.",
   "restorePurchasesNothing": "Tidak ada pembelian untuk dipulihkan.",
-  "restorePurchasesFailed": "Tidak dapat memulihkan pembelian. Silakan coba lagi."
+  "restorePurchasesFailed": "Tidak dapat memulihkan pembelian. Silakan coba lagi.",
+  "chatListConversationPinned": "Percakapan disematkan",
+  "chatListConversationUnpinned": "Sematan percakapan dilepas",
+  "chatListConversationDeleted": "Percakapan dihapus",
+  "chatListConversationActionFailed": "Tidak dapat memperbarui percakapan ini. Silakan coba lagi."
 }

@@ -4422,5 +4422,9 @@
   "restorePurchasesSuccess": "Compras restauradas. Seu VIP está ativo.",
   "restorePurchasesAlreadyActive": "Sua assinatura VIP já está ativa.",
   "restorePurchasesNothing": "Nenhuma compra para restaurar.",
-  "restorePurchasesFailed": "Não foi possível restaurar as compras. Tente novamente."
+  "restorePurchasesFailed": "Não foi possível restaurar as compras. Tente novamente.",
+  "chatListConversationPinned": "Conversa fixada",
+  "chatListConversationUnpinned": "Conversa desafixada",
+  "chatListConversationDeleted": "Conversa excluída",
+  "chatListConversationActionFailed": "Não foi possível atualizar esta conversa. Tente novamente."
 }

@@ -11373,4 +11373,16 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get restorePurchasesFailed => 'खरीदारी पुनर्स्थापित नहीं हो सकी। कृपया फिर से कोशिश करें।';
+
+  @override
+  String get chatListConversationPinned => 'बातचीत पिन की गई';
+
+  @override
+  String get chatListConversationUnpinned => 'बातचीत अनपिन की गई';
+
+  @override
+  String get chatListConversationDeleted => 'बातचीत हटाई गई';
+
+  @override
+  String get chatListConversationActionFailed => 'यह बातचीत अपडेट नहीं हो सकी। कृपया फिर से कोशिश करें।';
 }

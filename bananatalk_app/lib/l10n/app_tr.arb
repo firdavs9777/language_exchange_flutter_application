@@ -4618,5 +4618,9 @@
   "restorePurchasesSuccess": "Satın alımlar geri yüklendi. VIP üyeliğin aktif.",
   "restorePurchasesAlreadyActive": "VIP aboneliğin zaten aktif.",
   "restorePurchasesNothing": "Geri yüklenecek satın alım yok.",
-  "restorePurchasesFailed": "Satın alımlar geri yüklenemedi. Lütfen tekrar dene."
+  "restorePurchasesFailed": "Satın alımlar geri yüklenemedi. Lütfen tekrar dene.",
+  "chatListConversationPinned": "Sohbet sabitlendi",
+  "chatListConversationUnpinned": "Sohbetin sabitlemesi kaldırıldı",
+  "chatListConversationDeleted": "Sohbet silindi",
+  "chatListConversationActionFailed": "Bu sohbet güncellenemedi. Lütfen tekrar deneyin."
 }

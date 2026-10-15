@@ -11417,4 +11417,16 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get restorePurchasesFailed => 'Не удалось восстановить покупки. Попробуйте ещё раз.';
+
+  @override
+  String get chatListConversationPinned => 'Чат закреплён';
+
+  @override
+  String get chatListConversationUnpinned => 'Чат откреплён';
+
+  @override
+  String get chatListConversationDeleted => 'Чат удалён';
+
+  @override
+  String get chatListConversationActionFailed => 'Не удалось обновить этот чат. Попробуйте ещё раз.';
 }

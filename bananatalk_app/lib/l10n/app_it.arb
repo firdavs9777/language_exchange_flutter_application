@@ -4646,5 +4646,9 @@
   "restorePurchasesSuccess": "Acquisti ripristinati. Il tuo VIP è attivo.",
   "restorePurchasesAlreadyActive": "Il tuo abbonamento VIP è già attivo.",
   "restorePurchasesNothing": "Nessun acquisto da ripristinare.",
-  "restorePurchasesFailed": "Impossibile ripristinare gli acquisti. Riprova."
+  "restorePurchasesFailed": "Impossibile ripristinare gli acquisti. Riprova.",
+  "chatListConversationPinned": "Conversazione fissata",
+  "chatListConversationUnpinned": "Conversazione non più fissata",
+  "chatListConversationDeleted": "Conversazione eliminata",
+  "chatListConversationActionFailed": "Impossibile aggiornare questa conversazione. Riprova."
 }

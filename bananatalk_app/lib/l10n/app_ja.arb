@@ -4406,5 +4406,9 @@
   "restorePurchasesSuccess": "購入を復元しました。VIPが有効になりました。",
   "restorePurchasesAlreadyActive": "VIPサブスクリプションはすでに有効です。",
   "restorePurchasesNothing": "復元できる購入はありません。",
-  "restorePurchasesFailed": "購入を復元できませんでした。もう一度お試しください。"
+  "restorePurchasesFailed": "購入を復元できませんでした。もう一度お試しください。",
+  "chatListConversationPinned": "会話をピン留めしました",
+  "chatListConversationUnpinned": "会話のピン留めを解除しました",
+  "chatListConversationDeleted": "会話を削除しました",
+  "chatListConversationActionFailed": "この会話を更新できませんでした。もう一度お試しください。"
 }

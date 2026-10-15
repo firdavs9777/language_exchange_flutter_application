@@ -4406,5 +4406,9 @@
   "restorePurchasesSuccess": "Đã khôi phục giao dịch mua. VIP của bạn đang hoạt động.",
   "restorePurchasesAlreadyActive": "Gói VIP của bạn đã đang hoạt động.",
   "restorePurchasesNothing": "Không có giao dịch mua nào để khôi phục.",
-  "restorePurchasesFailed": "Không thể khôi phục giao dịch mua. Vui lòng thử lại."
+  "restorePurchasesFailed": "Không thể khôi phục giao dịch mua. Vui lòng thử lại.",
+  "chatListConversationPinned": "Đã ghim cuộc trò chuyện",
+  "chatListConversationUnpinned": "Đã bỏ ghim cuộc trò chuyện",
+  "chatListConversationDeleted": "Đã xóa cuộc trò chuyện",
+  "chatListConversationActionFailed": "Không thể cập nhật cuộc trò chuyện này. Vui lòng thử lại."
 }

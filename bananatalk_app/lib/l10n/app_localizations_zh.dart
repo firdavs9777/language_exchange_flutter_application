@@ -11354,6 +11354,18 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get restorePurchasesFailed => '无法恢复购买，请重试。';
+
+  @override
+  String get chatListConversationPinned => '已置顶对话';
+
+  @override
+  String get chatListConversationUnpinned => '已取消置顶对话';
+
+  @override
+  String get chatListConversationDeleted => '已删除对话';
+
+  @override
+  String get chatListConversationActionFailed => '无法更新此对话，请重试。';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -22706,4 +22718,16 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get restorePurchasesFailed => '無法恢復購買，請再試一次。';
+
+  @override
+  String get chatListConversationPinned => '已置頂對話';
+
+  @override
+  String get chatListConversationUnpinned => '已取消置頂對話';
+
+  @override
+  String get chatListConversationDeleted => '已刪除對話';
+
+  @override
+  String get chatListConversationActionFailed => '無法更新此對話，請再試一次。';
 }

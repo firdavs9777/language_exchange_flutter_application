@@ -4379,5 +4379,9 @@
   "restorePurchasesSuccess": "Na-restore ang mga binili. Aktibo na ang VIP mo.",
   "restorePurchasesAlreadyActive": "Aktibo na ang VIP subscription mo.",
   "restorePurchasesNothing": "Walang binili na mare-restore.",
-  "restorePurchasesFailed": "Hindi ma-restore ang mga binili. Pakisubukang muli."
+  "restorePurchasesFailed": "Hindi ma-restore ang mga binili. Pakisubukang muli.",
+  "chatListConversationPinned": "Na-pin ang usapan",
+  "chatListConversationUnpinned": "Na-unpin ang usapan",
+  "chatListConversationDeleted": "Nabura ang usapan",
+  "chatListConversationActionFailed": "Hindi ma-update ang usapang ito. Pakisubukang muli."
 }

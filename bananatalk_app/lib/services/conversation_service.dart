@@ -102,6 +102,18 @@ class ConversationService {
     }
   }
 
+  /// The id of the 1:1 conversation with [userId], for chat-list rows built
+  /// from messages (they carry the partner's user id, not a conversation id).
+  /// Null when there is none or the list could not be fetched.
+  Future<String?> findConversationIdWith(String userId) async {
+    final result = await getConversations();
+    if (result['success'] != true) return null;
+    return conversationIdWithUser(
+      (result['data'] as List).cast<Conversation>(),
+      userId,
+    );
+  }
+
   /// Get single conversation
   Future<Map<String, dynamic>> getConversation({
     required String conversationId,
@@ -669,6 +681,18 @@ class QuickReply {
       useCount: json['useCount'] ?? 0,
     );
   }
+}
+
+/// The 1:1 conversation in [conversations] whose other member is [userId].
+String? conversationIdWithUser(List<Conversation> conversations, String userId) {
+  for (final c in conversations) {
+    if (c.id.isEmpty || c.participants.length > 2) continue;
+    if (c.otherParticipant?.id == userId ||
+        c.participants.any((p) => p.id == userId)) {
+      return c.id;
+    }
+  }
+  return null;
 }
 
 class Conversation {

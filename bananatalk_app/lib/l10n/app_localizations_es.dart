@@ -11373,4 +11373,16 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get restorePurchasesFailed => 'No se pudieron restaurar las compras. Inténtalo de nuevo.';
+
+  @override
+  String get chatListConversationPinned => 'Conversación fijada';
+
+  @override
+  String get chatListConversationUnpinned => 'Conversación desfijada';
+
+  @override
+  String get chatListConversationDeleted => 'Conversación eliminada';
+
+  @override
+  String get chatListConversationActionFailed => 'No se pudo actualizar esta conversación. Inténtalo de nuevo.';
 }

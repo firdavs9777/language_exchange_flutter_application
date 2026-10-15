@@ -4420,5 +4420,9 @@
   "restorePurchasesSuccess": "已恢复购买，你的 VIP 已生效。",
   "restorePurchasesAlreadyActive": "你的 VIP 订阅已处于有效状态。",
   "restorePurchasesNothing": "没有可恢复的购买。",
-  "restorePurchasesFailed": "无法恢复购买，请重试。"
+  "restorePurchasesFailed": "无法恢复购买，请重试。",
+  "chatListConversationPinned": "已置顶对话",
+  "chatListConversationUnpinned": "已取消置顶对话",
+  "chatListConversationDeleted": "已删除对话",
+  "chatListConversationActionFailed": "无法更新此对话，请重试。"
 }

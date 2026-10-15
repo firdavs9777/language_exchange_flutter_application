@@ -1028,58 +1028,115 @@ class _ChatMainState extends ConsumerState<ChatMain>
 
   // ─── Swipe action handlers ─────────────────────────────────────────────────
 
+  /// Replaces the row for [partnerId], if it is still listed.
+  void _updatePartnerRow(
+    String partnerId,
+    ChatPartner Function(ChatPartner partner) update,
+  ) {
+    if (!mounted) return;
+    setState(() {
+      _chatPartners = [
+        for (final p in _chatPartners) p.id == partnerId ? update(p) : p,
+      ];
+    });
+  }
+
+  /// Rows built from messages (the legacy fallback) carry only the partner's
+  /// user id; sending that as a conversation id always failed. Look the real
+  /// id up instead, and remember it on the row.
+  Future<String?> _conversationIdFor(ChatPartner partner) async {
+    final known = partner.conversationId;
+    if (known != null && known.isNotEmpty) return known;
+    final found = await ConversationService().findConversationIdWith(
+      partner.id,
+    );
+    if (found != null) {
+      _updatePartnerRow(partner.id, (p) => p.copyWith(conversationId: found));
+    }
+    return found;
+  }
+
+  void _showConversationActionFailed() {
+    if (!mounted) return;
+    showChatSnackBar(
+      context,
+      message: AppLocalizations.of(context)!.chatListConversationActionFailed,
+      type: ChatSnackBarType.error,
+    );
+  }
+
   Future<void> _handlePinConversation(ChatPartner partner) async {
-    final conversationService = ConversationService();
+    final wasPinned = partner.isPinned;
+    _updatePartnerRow(partner.id, (p) => p.copyWith(isPinned: !wasPinned));
 
+    var ok = false;
     try {
-      final result = partner.isPinned
-          ? await conversationService.unpinConversation(
-              conversationId: partner.conversationId ?? partner.id,
-            )
-          : await conversationService.pinConversation(
-              conversationId: partner.conversationId ?? partner.id,
-            );
-
-      if (result['success'] == true) {
-        _silentRefresh();
-        if (mounted) {
-          showChatSnackBar(
-            context,
-            message: partner.isPinned
-                ? 'Conversation unpinned'
-                : 'Conversation pinned',
-            type: ChatSnackBarType.success,
-          );
-        }
+      final conversationId = await _conversationIdFor(partner);
+      if (conversationId != null) {
+        final conversationService = ConversationService();
+        final result = wasPinned
+            ? await conversationService.unpinConversation(
+                conversationId: conversationId,
+              )
+            : await conversationService.pinConversation(
+                conversationId: conversationId,
+              );
+        ok = result['success'] == true;
       }
-    } catch (e) {}
+    } catch (_) {}
+
+    if (!mounted) return;
+    if (!ok) {
+      _updatePartnerRow(partner.id, (p) => p.copyWith(isPinned: wasPinned));
+      _showConversationActionFailed();
+      return;
+    }
+    _silentRefresh();
+    final l10n = AppLocalizations.of(context)!;
+    showChatSnackBar(
+      context,
+      message: wasPinned
+          ? l10n.chatListConversationUnpinned
+          : l10n.chatListConversationPinned,
+      type: ChatSnackBarType.success,
+    );
   }
 
   Future<void> _handleMuteConversation(ChatPartner partner) async {
-    final conversationService = ConversationService();
+    final wasMuted = partner.isMuted;
+    _updatePartnerRow(partner.id, (p) => p.copyWith(isMuted: !wasMuted));
 
+    var ok = false;
     try {
-      final result = partner.isMuted
-          ? await conversationService.unmuteConversation(
-              conversationId: partner.conversationId ?? partner.id,
-            )
-          : await conversationService.muteConversation(
-              conversationId: partner.conversationId ?? partner.id,
-            );
-
-      if (result['success'] == true) {
-        _silentRefresh();
-        if (mounted) {
-          showChatSnackBar(
-            context,
-            message: partner.isMuted
-                ? 'Notifications enabled'
-                : 'Conversation muted',
-            type: ChatSnackBarType.success,
-          );
-        }
+      final conversationId = await _conversationIdFor(partner);
+      if (conversationId != null) {
+        final conversationService = ConversationService();
+        final result = wasMuted
+            ? await conversationService.unmuteConversation(
+                conversationId: conversationId,
+              )
+            : await conversationService.muteConversation(
+                conversationId: conversationId,
+              );
+        ok = result['success'] == true;
       }
-    } catch (e) {}
+    } catch (_) {}
+
+    if (!mounted) return;
+    if (!ok) {
+      _updatePartnerRow(partner.id, (p) => p.copyWith(isMuted: wasMuted));
+      _showConversationActionFailed();
+      return;
+    }
+    _silentRefresh();
+    final l10n = AppLocalizations.of(context)!;
+    showChatSnackBar(
+      context,
+      message: wasMuted
+          ? l10n.notificationsUnmutedFor(partner.name)
+          : l10n.notificationsMutedFor(partner.name),
+      type: ChatSnackBarType.success,
+    );
   }
 
   Future<void> _handleDeleteConversation(ChatPartner partner) async {
@@ -1104,29 +1161,47 @@ class _ChatMainState extends ConsumerState<ChatMain>
       ),
     );
 
-    if (confirmed != true) return;
+    if (confirmed != true || !mounted) return;
 
-    final conversationService = ConversationService();
+    // Remove the row now; put it back where it was if the delete fails.
+    final index = _chatPartners.indexWhere((p) => p.id == partner.id);
+    final removed = index >= 0 ? _chatPartners[index] : null;
+    if (removed != null) {
+      setState(() {
+        _chatPartners = List.of(_chatPartners)..removeAt(index);
+      });
+    }
 
+    String? conversationId;
+    var ok = false;
     try {
-      final result = await conversationService.deleteConversation(
-        conversationId: partner.conversationId ?? partner.id,
-      );
-
-      if (result['success'] == true) {
-        if (partner.conversationId != null) {
-          _deletedConversationIds.add(partner.conversationId!);
-        }
-        _silentRefresh();
-        if (mounted) {
-          showChatSnackBar(
-            context,
-            message: 'Conversation deleted',
-            type: ChatSnackBarType.success,
-          );
-        }
+      conversationId = await _conversationIdFor(partner);
+      if (conversationId != null) {
+        final result = await ConversationService().deleteConversation(
+          conversationId: conversationId,
+        );
+        ok = result['success'] == true;
       }
-    } catch (e) {}
+    } catch (_) {}
+
+    if (!mounted) return;
+    if (!ok) {
+      if (removed != null && !_chatPartners.any((p) => p.id == partner.id)) {
+        setState(() {
+          _chatPartners = List.of(_chatPartners)
+            ..insert(index.clamp(0, _chatPartners.length), removed);
+        });
+      }
+      _showConversationActionFailed();
+      return;
+    }
+    _deletedConversationIds.add(conversationId!);
+    _silentRefresh();
+    showChatSnackBar(
+      context,
+      message: AppLocalizations.of(context)!.chatListConversationDeleted,
+      type: ChatSnackBarType.success,
+    );
   }
 
   // ─── Build helpers ─────────────────────────────────────────────────────────

@@ -11354,4 +11354,16 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get restorePurchasesFailed => 'Không thể khôi phục giao dịch mua. Vui lòng thử lại.';
+
+  @override
+  String get chatListConversationPinned => 'Đã ghim cuộc trò chuyện';
+
+  @override
+  String get chatListConversationUnpinned => 'Đã bỏ ghim cuộc trò chuyện';
+
+  @override
+  String get chatListConversationDeleted => 'Đã xóa cuộc trò chuyện';
+
+  @override
+  String get chatListConversationActionFailed => 'Không thể cập nhật cuộc trò chuyện này. Vui lòng thử lại.';
 }

@@ -11373,4 +11373,16 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get restorePurchasesFailed => 'Hindi ma-restore ang mga binili. Pakisubukang muli.';
+
+  @override
+  String get chatListConversationPinned => 'Na-pin ang usapan';
+
+  @override
+  String get chatListConversationUnpinned => 'Na-unpin ang usapan';
+
+  @override
+  String get chatListConversationDeleted => 'Nabura ang usapan';
+
+  @override
+  String get chatListConversationActionFailed => 'Hindi ma-update ang usapang ito. Pakisubukang muli.';
 }

@@ -11428,4 +11428,16 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get restorePurchasesFailed => 'تعذّرت استعادة المشتريات. يُرجى المحاولة مرة أخرى.';
+
+  @override
+  String get chatListConversationPinned => 'تم تثبيت المحادثة';
+
+  @override
+  String get chatListConversationUnpinned => 'تم إلغاء تثبيت المحادثة';
+
+  @override
+  String get chatListConversationDeleted => 'تم حذف المحادثة';
+
+  @override
+  String get chatListConversationActionFailed => 'تعذّر تحديث هذه المحادثة. يُرجى المحاولة مرة أخرى.';
 }

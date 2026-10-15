@@ -11354,4 +11354,16 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get restorePurchasesFailed => 'ไม่สามารถกู้คืนการซื้อได้ โปรดลองอีกครั้ง';
+
+  @override
+  String get chatListConversationPinned => 'ปักหมุดการสนทนาแล้ว';
+
+  @override
+  String get chatListConversationUnpinned => 'เลิกปักหมุดการสนทนาแล้ว';
+
+  @override
+  String get chatListConversationDeleted => 'ลบการสนทนาแล้ว';
+
+  @override
+  String get chatListConversationActionFailed => 'ไม่สามารถอัปเดตการสนทนานี้ได้ โปรดลองอีกครั้ง';
 }

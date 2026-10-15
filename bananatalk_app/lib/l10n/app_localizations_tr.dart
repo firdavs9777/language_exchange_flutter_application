@@ -11371,4 +11371,16 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get restorePurchasesFailed => 'Satın alımlar geri yüklenemedi. Lütfen tekrar dene.';
+
+  @override
+  String get chatListConversationPinned => 'Sohbet sabitlendi';
+
+  @override
+  String get chatListConversationUnpinned => 'Sohbetin sabitlemesi kaldırıldı';
+
+  @override
+  String get chatListConversationDeleted => 'Sohbet silindi';
+
+  @override
+  String get chatListConversationActionFailed => 'Bu sohbet güncellenemedi. Lütfen tekrar deneyin.';
 }

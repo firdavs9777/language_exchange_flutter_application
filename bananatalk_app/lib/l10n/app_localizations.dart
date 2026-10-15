@@ -20725,6 +20725,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Couldn\'t restore purchases. Please try again.'**
   String get restorePurchasesFailed;
+
+  /// No description provided for @chatListConversationPinned.
+  ///
+  /// In en, this message translates to:
+  /// **'Conversation pinned'**
+  String get chatListConversationPinned;
+
+  /// No description provided for @chatListConversationUnpinned.
+  ///
+  /// In en, this message translates to:
+  /// **'Conversation unpinned'**
+  String get chatListConversationUnpinned;
+
+  /// No description provided for @chatListConversationDeleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Conversation deleted'**
+  String get chatListConversationDeleted;
+
+  /// No description provided for @chatListConversationActionFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t update this conversation. Please try again.'**
+  String get chatListConversationActionFailed;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

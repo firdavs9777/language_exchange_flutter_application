@@ -4406,5 +4406,9 @@
   "restorePurchasesSuccess": "กู้คืนการซื้อแล้ว VIP ของคุณใช้งานได้แล้ว",
   "restorePurchasesAlreadyActive": "การสมัครสมาชิก VIP ของคุณใช้งานอยู่แล้ว",
   "restorePurchasesNothing": "ไม่มีการซื้อที่จะกู้คืน",
-  "restorePurchasesFailed": "ไม่สามารถกู้คืนการซื้อได้ โปรดลองอีกครั้ง"
+  "restorePurchasesFailed": "ไม่สามารถกู้คืนการซื้อได้ โปรดลองอีกครั้ง",
+  "chatListConversationPinned": "ปักหมุดการสนทนาแล้ว",
+  "chatListConversationUnpinned": "เลิกปักหมุดการสนทนาแล้ว",
+  "chatListConversationDeleted": "ลบการสนทนาแล้ว",
+  "chatListConversationActionFailed": "ไม่สามารถอัปเดตการสนทนานี้ได้ โปรดลองอีกครั้ง"
 }
