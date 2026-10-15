@@ -4454,5 +4454,7 @@
   "chatListConversationPinned": "Чат закреплён",
   "chatListConversationUnpinned": "Чат откреплён",
   "chatListConversationDeleted": "Чат удалён",
-  "chatListConversationActionFailed": "Не удалось обновить этот чат. Попробуйте ещё раз."
+  "chatListConversationActionFailed": "Не удалось обновить этот чат. Попробуйте ещё раз.",
+  "coinsPurchaseLinkedElsewhere": "Эта покупка уже привязана к другому аккаунту BananaTalk, поэтому монеты здесь не начислены.",
+  "coinsAlreadyCredited": "Эти монеты уже зачислены на ваш аккаунт."
 }

@@ -46,8 +46,9 @@ class _StorySetupScreenState extends ConsumerState<StorySetupScreen> {
   Future<void> _generate() async {
     setState(() => _generating = true);
     try {
-      // Show interstitial before AI generation begins
-      await AdService().showInterstitial();
+      // Interstitial before AI generation begins — capped (every-N, min gap,
+      // once per session when rewardedLimitsEnabled), not on every story.
+      await AdService().maybeShowInterstitial(everyN: 1);
       final story = await ref
           .read(tutorServiceProvider)
           .generateStory(wordCount: _wordCount, theme: _theme);

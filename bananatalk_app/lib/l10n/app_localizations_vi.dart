@@ -11408,4 +11408,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get chatListConversationActionFailed => 'Không thể cập nhật cuộc trò chuyện này. Vui lòng thử lại.';
+
+  @override
+  String get coinsPurchaseLinkedElsewhere => 'Giao dịch mua này đã được liên kết với một tài khoản BananaTalk khác nên không có xu nào được cộng ở đây.';
+
+  @override
+  String get coinsAlreadyCredited => 'Số xu này đã được cộng vào tài khoản của bạn.';
 }

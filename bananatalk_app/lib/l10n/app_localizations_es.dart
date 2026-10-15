@@ -11427,4 +11427,10 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get chatListConversationActionFailed => 'No se pudo actualizar esta conversación. Inténtalo de nuevo.';
+
+  @override
+  String get coinsPurchaseLinkedElsewhere => 'Esta compra ya está vinculada a otra cuenta de BananaTalk, así que no se añadieron monedas aquí.';
+
+  @override
+  String get coinsAlreadyCredited => 'Estas monedas ya se añadieron a tu cuenta.';
 }

@@ -11408,6 +11408,12 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get chatListConversationActionFailed => '无法更新此对话，请重试。';
+
+  @override
+  String get coinsPurchaseLinkedElsewhere => '此购买已关联到另一个 BananaTalk 账号，因此这里没有添加金币。';
+
+  @override
+  String get coinsAlreadyCredited => '这些金币已经添加到你的账号中。';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -22814,4 +22820,10 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get chatListConversationActionFailed => '無法更新此對話，請再試一次。';
+
+  @override
+  String get coinsPurchaseLinkedElsewhere => '此購買已連結到另一個 BananaTalk 帳號，因此這裡沒有加入金幣。';
+
+  @override
+  String get coinsAlreadyCredited => '這些金幣已經加入你的帳號。';
 }

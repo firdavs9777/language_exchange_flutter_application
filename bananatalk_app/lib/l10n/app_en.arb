@@ -7915,5 +7915,7 @@
   "chatListConversationPinned": "Conversation pinned",
   "chatListConversationUnpinned": "Conversation unpinned",
   "chatListConversationDeleted": "Conversation deleted",
-  "chatListConversationActionFailed": "Couldn't update this conversation. Please try again."
+  "chatListConversationActionFailed": "Couldn't update this conversation. Please try again.",
+  "coinsPurchaseLinkedElsewhere": "This purchase is already linked to another BananaTalk account, so no coins were added here.",
+  "coinsAlreadyCredited": "These coins were already added to your account."
 }

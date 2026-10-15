@@ -4424,5 +4424,7 @@
   "chatListConversationPinned": "Đã ghim cuộc trò chuyện",
   "chatListConversationUnpinned": "Đã bỏ ghim cuộc trò chuyện",
   "chatListConversationDeleted": "Đã xóa cuộc trò chuyện",
-  "chatListConversationActionFailed": "Không thể cập nhật cuộc trò chuyện này. Vui lòng thử lại."
+  "chatListConversationActionFailed": "Không thể cập nhật cuộc trò chuyện này. Vui lòng thử lại.",
+  "coinsPurchaseLinkedElsewhere": "Giao dịch mua này đã được liên kết với một tài khoản BananaTalk khác nên không có xu nào được cộng ở đây.",
+  "coinsAlreadyCredited": "Số xu này đã được cộng vào tài khoản của bạn."
 }

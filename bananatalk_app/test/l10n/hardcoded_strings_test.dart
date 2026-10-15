@@ -525,6 +525,11 @@ const Map<String, List<String>> _keysByTask = {
     'chatListConversationDeleted',
     'chatListConversationActionFailed',
   ],
+  // Coin shop verify outcomes (payments batch, audit_a N3 / #20).
+  'payments-batch': [
+    'coinsPurchaseLinkedElsewhere',
+    'coinsAlreadyCredited',
+  ],
 };
 
 /// Files (under lib/) each task must leave with no English Text literal.
@@ -745,6 +750,9 @@ const Map<String, List<String>> _filesByTask = {
   ],
   'chat-list-actions': [
     'pages/chat/list/chat_list_screen.dart',
+  ],
+  'payments-batch': [
+    'pages/coins/coin_shop_screen.dart',
   ],
 };
 

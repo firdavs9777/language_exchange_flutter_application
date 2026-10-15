@@ -4424,5 +4424,7 @@
   "chatListConversationPinned": "Percakapan disematkan",
   "chatListConversationUnpinned": "Sematan percakapan dilepas",
   "chatListConversationDeleted": "Percakapan dihapus",
-  "chatListConversationActionFailed": "Tidak dapat memperbarui percakapan ini. Silakan coba lagi."
+  "chatListConversationActionFailed": "Tidak dapat memperbarui percakapan ini. Silakan coba lagi.",
+  "coinsPurchaseLinkedElsewhere": "Pembelian ini sudah tertaut ke akun BananaTalk lain, jadi tidak ada koin yang ditambahkan di sini.",
+  "coinsAlreadyCredited": "Koin ini sudah ditambahkan ke akunmu."
 }

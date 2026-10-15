@@ -4445,5 +4445,7 @@
   "chatListConversationPinned": "대화를 고정했어요",
   "chatListConversationUnpinned": "대화 고정을 해제했어요",
   "chatListConversationDeleted": "대화를 삭제했어요",
-  "chatListConversationActionFailed": "이 대화를 업데이트하지 못했어요. 다시 시도해 주세요."
+  "chatListConversationActionFailed": "이 대화를 업데이트하지 못했어요. 다시 시도해 주세요.",
+  "coinsPurchaseLinkedElsewhere": "이 구매는 이미 다른 BananaTalk 계정에 연결되어 있어 여기에는 코인이 추가되지 않았습니다.",
+  "coinsAlreadyCredited": "이 코인은 이미 계정에 추가되었습니다."
 }

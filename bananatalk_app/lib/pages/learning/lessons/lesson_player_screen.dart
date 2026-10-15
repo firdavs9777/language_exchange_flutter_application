@@ -509,7 +509,10 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () async {
-                      await ref.read(adServiceProvider).showInterstitial();
+                      // Capped, like every other interstitial site.
+                      await ref
+                          .read(adServiceProvider)
+                          .maybeShowInterstitial(everyN: 1);
                       ref.read(lessonPlayerProvider.notifier).reset();
                       if (context.mounted) Navigator.pop(context);
                     },

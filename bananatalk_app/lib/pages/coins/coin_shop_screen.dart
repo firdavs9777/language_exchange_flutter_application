@@ -122,9 +122,11 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
         transactionId: transactionId,
       );
 
-      if (response.success) {
+      final outcome = coinVerifyOutcome(response);
+      if (outcome.finishesPurchase) {
         // Only now is it safe to finish/consume — the backend confirmed
-        // the receipt and credited coins, so the store transaction is
+        // the receipt and credited coins (or refused it for good because
+        // another account already has it), so the store transaction is
         // done and the pack becomes repurchasable.
         if (_isIOS) {
           await IOSPurchaseService.completeCoinPurchase(purchase);
@@ -133,7 +135,13 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
         }
         refreshCoinBalance(ref);
         if (mounted) {
-          _showSnack(AppLocalizations.of(context)!.coinsAdded);
+          final l10n = AppLocalizations.of(context)!;
+          _showSnack(switch (outcome) {
+            CoinVerifyOutcome.linkedToAnotherAccount =>
+              l10n.coinsPurchaseLinkedElsewhere,
+            CoinVerifyOutcome.alreadyCredited => l10n.coinsAlreadyCredited,
+            _ => l10n.coinsAdded,
+          });
         }
       } else {
         // Verify failed after the store charged the user — leave the
@@ -394,8 +402,11 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
         ),
         const SizedBox(height: 10),
         _buildDailyRewardCard(),
-        const SizedBox(height: 10),
-        _buildWatchAdCard(),
+        // VIP sees no ads: no watch-ad card, and no gap where it was.
+        if (ref.watch(showAdsProvider)) ...[
+          const SizedBox(height: 10),
+          _buildWatchAdCard(),
+        ],
       ],
     );
   }

@@ -11408,4 +11408,10 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get chatListConversationActionFailed => 'この会話を更新できませんでした。もう一度お試しください。';
+
+  @override
+  String get coinsPurchaseLinkedElsewhere => 'この購入はすでに別のBananaTalkアカウントに紐付けられているため、ここではコインは追加されませんでした。';
+
+  @override
+  String get coinsAlreadyCredited => 'このコインはすでにアカウントに追加されています。';
 }

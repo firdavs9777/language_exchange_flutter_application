@@ -4440,5 +4440,7 @@
   "chatListConversationPinned": "Conversa fixada",
   "chatListConversationUnpinned": "Conversa desafixada",
   "chatListConversationDeleted": "Conversa excluída",
-  "chatListConversationActionFailed": "Não foi possível atualizar esta conversa. Tente novamente."
+  "chatListConversationActionFailed": "Não foi possível atualizar esta conversa. Tente novamente.",
+  "coinsPurchaseLinkedElsewhere": "Esta compra já está vinculada a outra conta BananaTalk, por isso nenhuma moeda foi adicionada aqui.",
+  "coinsAlreadyCredited": "Estas moedas já foram adicionadas à sua conta."
 }

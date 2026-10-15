@@ -11419,4 +11419,10 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get chatListConversationActionFailed => 'Tidak dapat memperbarui percakapan ini. Silakan coba lagi.';
+
+  @override
+  String get coinsPurchaseLinkedElsewhere => 'Pembelian ini sudah tertaut ke akun BananaTalk lain, jadi tidak ada koin yang ditambahkan di sini.';
+
+  @override
+  String get coinsAlreadyCredited => 'Koin ini sudah ditambahkan ke akunmu.';
 }

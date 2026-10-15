@@ -10,6 +10,7 @@ import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/user_limits_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/vip_provider.dart';
 import 'package:bananatalk_app/services/android_purchase_service.dart';
+import 'package:bananatalk_app/services/coin_api_client.dart';
 import 'package:bananatalk_app/services/ios_purchase_service.dart';
 import 'package:bananatalk_app/services/purchase_redelivery.dart';
 import 'package:bananatalk_app/services/purchase_restorer.dart';
@@ -135,7 +136,9 @@ Object? installPurchaseRedelivery(WidgetRef ref) {
             receipt: p.receipt,
             transactionId: transactionId,
           );
-      return response.success;
+      // A receipt another account already redeemed is final too: finish it
+      // rather than leave it unfinished forever.
+      return coinVerifyOutcome(response).finishesPurchase;
     },
     completeCoinPack: (p) async {
       final source = p.source;

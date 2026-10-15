@@ -4636,5 +4636,7 @@
   "chatListConversationPinned": "Sohbet sabitlendi",
   "chatListConversationUnpinned": "Sohbetin sabitlemesi kaldırıldı",
   "chatListConversationDeleted": "Sohbet silindi",
-  "chatListConversationActionFailed": "Bu sohbet güncellenemedi. Lütfen tekrar deneyin."
+  "chatListConversationActionFailed": "Bu sohbet güncellenemedi. Lütfen tekrar deneyin.",
+  "coinsPurchaseLinkedElsewhere": "Bu satın alma zaten başka bir BananaTalk hesabına bağlı, bu yüzden burada jeton eklenmedi.",
+  "coinsAlreadyCredited": "Bu jetonlar hesabına zaten eklendi."
 }

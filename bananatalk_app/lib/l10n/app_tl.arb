@@ -4397,5 +4397,7 @@
   "chatListConversationPinned": "Na-pin ang usapan",
   "chatListConversationUnpinned": "Na-unpin ang usapan",
   "chatListConversationDeleted": "Nabura ang usapan",
-  "chatListConversationActionFailed": "Hindi ma-update ang usapang ito. Pakisubukang muli."
+  "chatListConversationActionFailed": "Hindi ma-update ang usapang ito. Pakisubukang muli.",
+  "coinsPurchaseLinkedElsewhere": "Naka-link na ang pagbiling ito sa ibang BananaTalk account, kaya walang coins na naidagdag dito.",
+  "coinsAlreadyCredited": "Naidagdag na ang mga coin na ito sa iyong account."
 }

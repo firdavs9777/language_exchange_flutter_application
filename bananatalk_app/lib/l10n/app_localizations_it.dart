@@ -11427,4 +11427,10 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get chatListConversationActionFailed => 'Impossibile aggiornare questa conversazione. Riprova.';
+
+  @override
+  String get coinsPurchaseLinkedElsewhere => 'Questo acquisto è già collegato a un altro account BananaTalk, quindi qui non sono state aggiunte monete.';
+
+  @override
+  String get coinsAlreadyCredited => 'Queste monete sono già state aggiunte al tuo account.';
 }
