@@ -18,6 +18,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 
+/// The server's limit on a comment's text (models/Comment.js).
+const int kCommentMaxLength = 500;
+
 /// A simple data class to represent a mention within a comment.
 class CommentMention {
   final String userId;
@@ -128,9 +131,22 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
     String commentText = commentController.text.trim();
     final bool hasMedia = _selectedImage != null || _selectedGifUrl != null;
     if (commentText.isEmpty && !hasMedia) return;
-    _isSubmitting = true;
+    // One outer try/finally: every exit (the limit dialog included) frees
+    // the box again. The dialog path used to return with this still true,
+    // so every later send was ignored until the widget remounted.
+    setState(() => _isSubmitting = true);
+    try {
+      await _submit(commentText);
+    } finally {
+      if (mounted) {
+        setState(() => _isSubmitting = false);
+      } else {
+        _isSubmitting = false;
+      }
+    }
+  }
 
-
+  Future<void> _submit(String commentText) async {
     // Check limits before submitting
     try {
       final prefs = await SharedPreferences.getInstance();
@@ -160,31 +176,34 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
       // Create the comment (or reply) with the picked photo (uploaded) or
       // GIF (by URL). Text may be empty when media is attached; the server
       // refuses a comment with neither.
-      final textToSend = commentText;
-
-      // Clear input immediately (optimistic UI - feels instant)
-      commentController.clear();
       final savedGifUrl = _selectedGifUrl;
       final savedImage = _selectedImage;
-      setState(() {
-        _selectedImage = null;
-        _selectedGifUrl = null;
-      });
 
-      // Clear reply state
-      widget.onCancelReply?.call();
-
-      // Call the callback to update comment count in parent immediately
-      widget.onCommentAdded();
-
-      // Send to API in background
+      // The text, media and reply target stay until the server accepts the
+      // comment, and the count moves only then: a failure used to have
+      // cleared all of it and bumped the count already, with no way back.
       await ref.read(commentsServiceProvider).createComment(
-        title: textToSend,
+        title: commentText,
         id: widget.id,
         parentCommentId: widget.parentCommentId,
         imageUrl: savedImage == null ? savedGifUrl : null,
         image: savedImage,
       );
+
+      if (mounted) {
+        commentController.clear();
+        setState(() {
+          _selectedImage = null;
+          _selectedGifUrl = null;
+        });
+      }
+
+      // Clear reply state
+      widget.onCancelReply?.call();
+
+      // Update the comment count in the parent
+      widget.onCommentAdded();
+      if (!mounted) return;
 
       // Refresh comments list to show the confirmed comment
       ref.invalidate(commentsProvider(widget.id));
@@ -266,8 +285,6 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
           ),
         );
       }
-    } finally {
-      _isSubmitting = false;
     }
   }
 
@@ -386,6 +403,18 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
                       },
                       focusNode: widget.focusNode,
                       controller: commentController,
+                      maxLength: kCommentMaxLength,
+                      // The counter only appears near the limit.
+                      buildCounter: (context,
+                              {required currentLength,
+                              required isFocused,
+                              maxLength}) =>
+                          currentLength >= kCommentMaxLength - 50
+                              ? Text(
+                                  '$currentLength/$kCommentMaxLength',
+                                  style: context.bodySmall,
+                                )
+                              : null,
                       style: context.bodyMedium,
                       decoration: InputDecoration(
                         hintText: widget.parentCommentId != null
@@ -432,7 +461,8 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
                     ),
                     child: IconButton(
                       icon: Icon(Icons.send, color: AppColors.white),
-                      onPressed: hasContent ? submitComment : null,
+                      onPressed:
+                          hasContent && !_isSubmitting ? submitComment : null,
                     ),
                   );
                 },
