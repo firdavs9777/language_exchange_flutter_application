@@ -209,6 +209,7 @@
   "goBack": "Zurückgehen",
   "messageSendTimeout": "Zeitüberschreitung beim Senden. Bitte überprüfen Sie Ihre Verbindung.",
   "failedToSendMessage": "Nachricht konnte nicht gesendet werden",
+  "chatSendTooFast": "Du sendest Nachrichten zu schnell. Warte einen Moment und versuche es erneut.",
   "dailyMessageLimitExceeded": "Tägliches Nachrichtenlimit überschritten. Upgrade auf VIP für unbegrenzte Nachrichten.",
   "cannotSendMessageUserMayBeBlocked": "Nachricht kann nicht gesendet werden. Benutzer ist möglicherweise blockiert.",
   "sessionExpired": "Sitzung abgelaufen. Bitte erneut anmelden.",

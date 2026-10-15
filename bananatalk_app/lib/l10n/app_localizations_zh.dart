@@ -932,6 +932,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get failedToSendMessage => '发送消息失败';
 
   @override
+  String get chatSendTooFast => '你发送消息太快了。请稍等片刻再试。';
+
+  @override
   String get dailyMessageLimitExceeded => '已达到每日消息限制。升级到VIP可享受无限消息。';
 
   @override
@@ -12261,6 +12264,9 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get failedToSendMessage => '傳送訊息失敗';
+
+  @override
+  String get chatSendTooFast => '你傳送訊息太快了。請稍候再試一次。';
 
   @override
   String get dailyMessageLimitExceeded => '已超過每日訊息限制。升級為 VIP 以獲得無限訊息。';

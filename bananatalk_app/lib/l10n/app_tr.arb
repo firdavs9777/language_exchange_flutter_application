@@ -209,6 +209,7 @@
   "goBack": "Geri",
   "messageSendTimeout": "Mesaj gönderme zaman aşımı. Lütfen bağlantınızı kontrol edin.",
   "failedToSendMessage": "Mesaj gönderilemedi",
+  "chatSendTooFast": "Çok hızlı mesaj gönderiyorsun. Biraz bekle ve tekrar dene.",
   "dailyMessageLimitExceeded": "Günlük mesaj limiti aşıldı. Sınırsız mesaj için VIP'e yükseltin.",
   "cannotSendMessageUserMayBeBlocked": "Mesaj gönderilemiyor. Kullanıcı engellenmiş olabilir.",
   "sessionExpired": "Oturum süresi doldu. Lütfen tekrar giriş yapın.",

@@ -175,6 +175,7 @@
   "goBack": "Bumalik",
   "messageSendTimeout": "Nag-timeout ang pagpapadala ng mensahe. Suriin ang iyong koneksyon.",
   "failedToSendMessage": "Nabigo ang pagpapadala ng mensahe",
+  "chatSendTooFast": "Masyadong mabilis ang pagpapadala mo ng mensahe. Maghintay sandali at subukang muli.",
   "dailyMessageLimitExceeded": "Nalampasan na ang daily message limit. Mag-upgrade sa VIP para sa unlimited na mga mensahe.",
   "cannotSendMessageUserMayBeBlocked": "Hindi maipadala ang mensahe. Maaaring naka-block ang user.",
   "sessionExpired": "Nag-expire na ang session. Mag-login muli.",

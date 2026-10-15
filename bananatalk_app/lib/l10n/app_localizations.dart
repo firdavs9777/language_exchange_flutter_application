@@ -1886,6 +1886,12 @@ abstract class AppLocalizations {
   /// **'Failed to send message'**
   String get failedToSendMessage;
 
+  /// Snackbar when the server refuses a chat message because the user is sending too many too quickly (rate limit).
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re sending messages too fast. Wait a moment and try again.'**
+  String get chatSendTooFast;
+
   /// No description provided for @dailyMessageLimitExceeded.
   ///
   /// In en, this message translates to:

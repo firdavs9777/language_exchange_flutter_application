@@ -932,6 +932,9 @@ class AppLocalizationsTl extends AppLocalizations {
   String get failedToSendMessage => 'Nabigo ang pagpapadala ng mensahe';
 
   @override
+  String get chatSendTooFast => 'Masyadong mabilis ang pagpapadala mo ng mensahe. Maghintay sandali at subukang muli.';
+
+  @override
   String get dailyMessageLimitExceeded => 'Nalampasan na ang daily message limit. Mag-upgrade sa VIP para sa unlimited na mga mensahe.';
 
   @override

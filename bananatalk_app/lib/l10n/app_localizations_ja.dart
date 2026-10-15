@@ -932,6 +932,9 @@ class AppLocalizationsJa extends AppLocalizations {
   String get failedToSendMessage => 'メッセージの送信に失敗しました';
 
   @override
+  String get chatSendTooFast => 'メッセージの送信が速すぎます。少し待ってからもう一度お試しください。';
+
+  @override
   String get dailyMessageLimitExceeded => '1日のメッセージ上限を超えました。VIPにアップグレードして無制限のメッセージを。';
 
   @override

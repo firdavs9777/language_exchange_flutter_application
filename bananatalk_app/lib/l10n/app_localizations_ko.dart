@@ -932,6 +932,9 @@ class AppLocalizationsKo extends AppLocalizations {
   String get failedToSendMessage => '메시지 전송 실패';
 
   @override
+  String get chatSendTooFast => '메시지를 너무 빨리 보내고 있어요. 잠시 후 다시 시도해 주세요.';
+
+  @override
   String get dailyMessageLimitExceeded => '일일 메시지 한도 초과. 무제한 메시지를 위해 VIP로 업그레이드하세요.';
 
   @override

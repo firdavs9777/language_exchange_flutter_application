@@ -174,6 +174,7 @@
   "goBack": "戻る",
   "messageSendTimeout": "メッセージ送信がタイムアウトしました。接続を確認してください。",
   "failedToSendMessage": "メッセージの送信に失敗しました",
+  "chatSendTooFast": "メッセージの送信が速すぎます。少し待ってからもう一度お試しください。",
   "dailyMessageLimitExceeded": "1日のメッセージ上限を超えました。VIPにアップグレードして無制限のメッセージを。",
   "cannotSendMessageUserMayBeBlocked": "メッセージを送信できません。ユーザーがブロックされている可能性があります。",
   "sessionExpired": "セッションが期限切れです。再度ログインしてください。",

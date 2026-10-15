@@ -18,6 +18,7 @@ import 'package:bananatalk_app/widgets/chat/opener_chips.dart';
 import 'package:bananatalk_app/widgets/chat/stall_rescue_banner.dart';
 import 'package:bananatalk_app/widgets/limit_exceeded_dialog.dart';
 import 'package:bananatalk_app/pages/chat/conversation/chat_limit_outcome.dart';
+import 'package:bananatalk_app/pages/chat/conversation/reply_routing.dart';
 import 'package:bananatalk_app/providers/coins_provider.dart';
 import 'package:bananatalk_app/widgets/image_preview_dialog.dart';
 import 'package:bananatalk_app/utils/api_error_handler.dart';
@@ -748,8 +749,12 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       ).notifier,
     );
 
-    // Handle replies via API (can't use optimistic for replies yet)
-    if (_replyingToMessage != null) {
+    // Handle replies via API (can't use optimistic for replies yet). Stickers
+    // and GIFs skip it: the reply endpoint would store them as plain text.
+    if (sendViaReplyApi(
+      isReplying: _replyingToMessage != null,
+      messageType: messageType,
+    )) {
       setState(() => _isSending = true);
       try {
         final messageService = ref.read(messageServiceProvider);
@@ -792,6 +797,15 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
             _messageController.clear();
             ref.invalidate(userLimitsProvider(_currentUserId!));
           }
+        } else if (mounted) {
+          // replyToMessage reports failures in its result rather than
+          // throwing, so without this a failed reply vanished silently
+          // (the input had already been cleared).
+          _showSendError(
+            result['error']?.toString() ?? 'Failed to send',
+            text,
+            messageType,
+          );
         }
       } catch (e) {
         if (mounted) {
@@ -954,7 +968,13 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         _maybePromptForReview();
       } else {
         // Show error to user
-        _showSendError(result['error'] ?? 'Failed to send', text, messageType);
+        _showSendError(
+          result['error'] ?? 'Failed to send',
+          text,
+          messageType,
+          code: result['code'] as String?,
+          localId: localId,
+        );
       }
     } catch (error) {
       if (ApiErrorHandler.isLimitExceededError(error) && mounted) {
@@ -970,14 +990,21 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
   void _showSendError(
     String errorMessage,
     String originalText,
-    String? messageType,
-  ) {
+    String? messageType, {
+    String? code,
+    String? localId,
+  }) {
     if (!mounted) return;
 
     final l10n = AppLocalizations.of(context)!;
     String displayMessage = l10n.failedToSendMessage;
 
-    if (errorMessage.toLowerCase().contains('until') &&
+    if (code == ChatSocketService.rateLimitedCode ||
+        errorMessage.toLowerCase().contains('too many messages')) {
+      // Server-side burst limit (not the daily quota): the send was refused
+      // outright, so say so instead of echoing the raw server string.
+      displayMessage = l10n.chatSendTooFast;
+    } else if (errorMessage.toLowerCase().contains('until') &&
         errorMessage.toLowerCase().contains('reply')) {
       // First-chat limit - show the exact message
       displayMessage = errorMessage;
@@ -1004,14 +1031,37 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         action: SnackBarAction(
           label: l10n.retry,
           textColor: Colors.white,
-          onPressed: () {
-            if (mounted) {
-              _sendMessage(messageText: originalText, messageType: messageType);
-            }
-          },
+          onPressed: () => _retrySend(localId, originalText, messageType),
         ),
       ),
     );
+  }
+
+  /// Resend a failed message.
+  ///
+  /// With a [localId] the failed bubble itself is resent in place (same
+  /// temp id, same type) so there is never a second copy. If that bubble is
+  /// gone or no longer failed — deleted, retried from the bubble already,
+  /// or found delivered by a reconnect catch-up — nothing is sent. Without
+  /// a [localId] (the reply path, which has no optimistic bubble) the text
+  /// is sent again as a new message.
+  void _retrySend(String? localId, String text, String? messageType) {
+    if (!mounted || _currentUserId == null) return;
+    if (localId == null) {
+      _sendMessage(messageText: text, messageType: messageType);
+      return;
+    }
+    final chatNotifier = ref.read(
+      chatStateProvider(
+        ChatProviderParams(
+          chatPartnerId: widget.userId,
+          currentUserId: _currentUserId!,
+        ),
+      ).notifier,
+    );
+    if (chatNotifier.prepareRetry(localId)) {
+      _sendMessageInBackground(text, localId, messageType);
+    }
   }
 
   /// Send sticker immediately on tap (Telegram-style)
@@ -1805,14 +1855,14 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
   }
 
   void _handleRetryMessage(Message message) {
-    if (_currentUserId == null) return;
-    handleRetryMessage(
-      context: context,
-      ref: ref,
-      message: message,
-      chatPartnerId: widget.userId,
-      currentUserId: _currentUserId!,
-      onSendMessage: _sendMessage,
+    final text = message.message;
+    if (text == null || text.isEmpty) return;
+    // Same in-place resend as the snackbar's Retry: keeps the bubble's
+    // position and its type (a sticker/GIF used to come back as text).
+    _retrySend(
+      message.localId ?? message.id,
+      text,
+      message.type == 'text' ? null : message.type,
     );
   }
 

@@ -175,6 +175,7 @@
   "goBack": "ย้อนกลับ",
   "messageSendTimeout": "หมดเวลาส่งข้อความ กรุณาตรวจสอบการเชื่อมต่อ",
   "failedToSendMessage": "ส่งข้อความล้มเหลว",
+  "chatSendTooFast": "คุณส่งข้อความเร็วเกินไป รอสักครู่แล้วลองอีกครั้ง",
   "dailyMessageLimitExceeded": "เกินขีดจำกัดข้อความรายวัน อัปเกรดเป็น VIP เพื่อส่งข้อความไม่จำกัด",
   "cannotSendMessageUserMayBeBlocked": "ไม่สามารถส่งข้อความ ผู้ใช้อาจถูกบล็อก",
   "sessionExpired": "เซสชันหมดอายุ กรุณาเข้าสู่ระบบอีกครั้ง",

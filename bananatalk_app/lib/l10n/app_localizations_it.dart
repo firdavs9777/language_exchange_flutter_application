@@ -932,6 +932,9 @@ class AppLocalizationsIt extends AppLocalizations {
   String get failedToSendMessage => 'Invio messaggio fallito';
 
   @override
+  String get chatSendTooFast => 'Stai inviando messaggi troppo velocemente. Attendi un momento e riprova.';
+
+  @override
   String get dailyMessageLimitExceeded => 'Limite giornaliero messaggi superato. Passa a VIP per messaggi illimitati.';
 
   @override
