@@ -8647,7 +8647,12 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String referralClaimed(int coins) {
-    return 'Шумо $coins танга гирифтед!';
+    String _temp0 = intl.Intl.pluralLogic(
+      coins,
+      locale: localeName,
+      other: 'Шумо $coins танга гирифтед!',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8670,7 +8675,12 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String extraMatchesCta(int cost) {
-    return '+3 мувофиқати бештар — $cost танга';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: '+3 мувофиқати бештар — $cost танга',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8678,12 +8688,22 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String boostCostLine(int cost) {
-    return 'Нарх: $cost танга';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: 'Нарх: $cost танга',
+    );
+    return '$_temp0';
   }
 
   @override
   String boostBalanceLine(int balance) {
-    return 'Тавозуни шумо: $balance танга';
+    String _temp0 = intl.Intl.pluralLogic(
+      balance,
+      locale: localeName,
+      other: 'Тавозуни шумо: $balance танга',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8713,7 +8733,12 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String wavesMaskedBody(int cost) {
-    return 'Бо $cost танга бифаҳмед кӣ, ё VIP шавед';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: 'Бо $cost танга бифаҳмед кӣ, ё VIP шавед',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8773,7 +8798,12 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String visitorsMaskedBody(int cost) {
-    return 'Бо $cost танга бубинед кист, ё VIP шавед';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: 'Бо $cost танга бубинед кист, ё VIP шавед',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -9689,8 +9719,13 @@ class AppLocalizationsTg extends AppLocalizations {
   String get chatPremium => 'Премиум ✨';
 
   @override
-  String chatUnlockPremiumWallpapers(Object cost) {
-    return 'Ҳамаи заминаҳои Премиум ✨-ро бо 💎$cost танга кушоед? Ин тамоми бастаро ба таври доимӣ мекушояд.';
+  String chatUnlockPremiumWallpapers(int cost) {
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: 'Ҳамаи заминаҳои Премиум ✨-ро бо 💎$cost танга кушоед? Ин тамоми бастаро ба таври доимӣ мекушояд.',
+    );
+    return '$_temp0';
   }
 
   @override

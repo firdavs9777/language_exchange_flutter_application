@@ -8633,7 +8633,12 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String referralClaimed(int coins) {
-    return 'คุณได้รับ $coins เหรียญ!';
+    String _temp0 = intl.Intl.pluralLogic(
+      coins,
+      locale: localeName,
+      other: 'คุณได้รับ $coins เหรียญ!',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8656,7 +8661,12 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String extraMatchesCta(int cost) {
-    return '+3 แมตช์เพิ่ม — $cost เหรียญ';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: '+3 แมตช์เพิ่ม — $cost เหรียญ',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8664,12 +8674,22 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String boostCostLine(int cost) {
-    return 'ค่าใช้จ่าย: $cost เหรียญ';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: 'ค่าใช้จ่าย: $cost เหรียญ',
+    );
+    return '$_temp0';
   }
 
   @override
   String boostBalanceLine(int balance) {
-    return 'ยอดคงเหลือ: $balance เหรียญ';
+    String _temp0 = intl.Intl.pluralLogic(
+      balance,
+      locale: localeName,
+      other: 'ยอดคงเหลือ: $balance เหรียญ',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8699,7 +8719,12 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String wavesMaskedBody(int cost) {
-    return 'ดูว่าใครด้วย $cost เหรียญ หรืออัปเกรดเป็น VIP';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: 'ดูว่าใครด้วย $cost เหรียญ หรืออัปเกรดเป็น VIP',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8759,7 +8784,12 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String visitorsMaskedBody(int cost) {
-    return 'ดูว่าเป็นใครด้วย $cost เหรียญ หรือสมัคร VIP';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: 'ดูว่าเป็นใครด้วย $cost เหรียญ หรือสมัคร VIP',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -9675,8 +9705,13 @@ class AppLocalizationsTh extends AppLocalizations {
   String get chatPremium => 'พรีเมียม ✨';
 
   @override
-  String chatUnlockPremiumWallpapers(Object cost) {
-    return 'ปลดล็อกวอลเปเปอร์พรีเมียม ✨ ทั้งหมดด้วย 💎$cost เหรียญหรือไม่ การปลดล็อกนี้จะใช้ได้ทั้งชุดตลอดไป';
+  String chatUnlockPremiumWallpapers(int cost) {
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: 'ปลดล็อกวอลเปเปอร์พรีเมียม ✨ ทั้งหมดด้วย 💎$cost เหรียญหรือไม่ การปลดล็อกนี้จะใช้ได้ทั้งชุดตลอดไป',
+    );
+    return '$_temp0';
   }
 
   @override

@@ -8633,7 +8633,12 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String referralClaimed(int coins) {
-    return '你获得了 $coins 金币！';
+    String _temp0 = intl.Intl.pluralLogic(
+      coins,
+      locale: localeName,
+      other: '你获得了 $coins 金币！',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8656,7 +8661,12 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String extraMatchesCta(int cost) {
-    return '再多 3 个匹配 — $cost 金币';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: '再多 3 个匹配 — $cost 金币',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8664,12 +8674,22 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String boostCostLine(int cost) {
-    return '费用：$cost 金币';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: '费用：$cost 金币',
+    );
+    return '$_temp0';
   }
 
   @override
   String boostBalanceLine(int balance) {
-    return '你的余额：$balance 金币';
+    String _temp0 = intl.Intl.pluralLogic(
+      balance,
+      locale: localeName,
+      other: '你的余额：$balance 金币',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8699,7 +8719,12 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String wavesMaskedBody(int cost) {
-    return '花 $cost 金币查看是谁，或升级 VIP';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: '花 $cost 金币查看是谁，或升级 VIP',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8759,7 +8784,12 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String visitorsMaskedBody(int cost) {
-    return '花 $cost 金币查看是谁，或升级 VIP';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: '花 $cost 金币查看是谁，或升级 VIP',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -9675,8 +9705,13 @@ class AppLocalizationsZh extends AppLocalizations {
   String get chatPremium => '高级 ✨';
 
   @override
-  String chatUnlockPremiumWallpapers(Object cost) {
-    return '用 💎$cost 金币解锁所有高级 ✨ 壁纸吗？这将永久解锁整个壁纸包。';
+  String chatUnlockPremiumWallpapers(int cost) {
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: '用 💎$cost 金币解锁所有高级 ✨ 壁纸吗？这将永久解锁整个壁纸包。',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -20710,7 +20745,12 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String referralClaimed(int coins) {
-    return '你獲得了 $coins 金幣！';
+    String _temp0 = intl.Intl.pluralLogic(
+      coins,
+      locale: localeName,
+      other: '你獲得了 $coins 金幣！',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -20733,7 +20773,12 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String extraMatchesCta(int cost) {
-    return '再多 3 個配對 — $cost 金幣';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: '再多 3 個配對 — $cost 金幣',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -20741,12 +20786,22 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String boostCostLine(int cost) {
-    return '費用：$cost 金幣';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: '費用：$cost 金幣',
+    );
+    return '$_temp0';
   }
 
   @override
   String boostBalanceLine(int balance) {
-    return '你的餘額：$balance 金幣';
+    String _temp0 = intl.Intl.pluralLogic(
+      balance,
+      locale: localeName,
+      other: '你的餘額：$balance 金幣',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -20776,7 +20831,12 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String wavesMaskedBody(int cost) {
-    return '花 $cost 金幣查看是誰，或升級 VIP';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: '花 $cost 金幣查看是誰，或升級 VIP',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -20836,7 +20896,12 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String visitorsMaskedBody(int cost) {
-    return '花 $cost 金幣查看是誰，或升級 VIP';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: '花 $cost 金幣查看是誰，或升級 VIP',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -21752,8 +21817,13 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get chatPremium => '進階 ✨';
 
   @override
-  String chatUnlockPremiumWallpapers(Object cost) {
-    return '要用 💎$cost 金幣解鎖所有進階 ✨ 桌布嗎？這將永久解鎖整個桌布包。';
+  String chatUnlockPremiumWallpapers(int cost) {
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: '要用 💎$cost 金幣解鎖所有進階 ✨ 桌布嗎？這將永久解鎖整個桌布包。',
+    );
+    return '$_temp0';
   }
 
   @override

@@ -8643,7 +8643,13 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String referralClaimed(int coins) {
-    return 'आपने $coins सिक्के कमाए!';
+    String _temp0 = intl.Intl.pluralLogic(
+      coins,
+      locale: localeName,
+      other: 'आपने $coins सिक्के कमाए!',
+      one: 'आपने $coins सिक्का कमाए!',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8666,7 +8672,13 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String extraMatchesCta(int cost) {
-    return '+3 और मैच — $cost सिक्के';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: '+3 और मैच — $cost सिक्के',
+      one: '+3 और मैच — $cost सिक्का',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8674,12 +8686,24 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String boostCostLine(int cost) {
-    return 'कीमत: $cost सिक्के';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: 'कीमत: $cost सिक्के',
+      one: 'कीमत: $cost सिक्का',
+    );
+    return '$_temp0';
   }
 
   @override
   String boostBalanceLine(int balance) {
-    return 'आपका बैलेंस: $balance सिक्के';
+    String _temp0 = intl.Intl.pluralLogic(
+      balance,
+      locale: localeName,
+      other: 'आपका बैलेंस: $balance सिक्के',
+      one: 'आपका बैलेंस: $balance सिक्का',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8709,7 +8733,13 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String wavesMaskedBody(int cost) {
-    return '$cost सिक्कों में जानें कौन, या VIP बनें';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: '$cost सिक्कों में जानें कौन, या VIP बनें',
+      one: '$cost सिक्के में जानें कौन, या VIP बनें',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8769,7 +8799,13 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String visitorsMaskedBody(int cost) {
-    return '$cost कॉइन में देखें कौन है, या VIP बनें';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: '$cost कॉइन में देखें कौन है, या VIP बनें',
+      one: '$cost कॉइन में देखें कौन है, या VIP बनें',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -9685,8 +9721,14 @@ class AppLocalizationsHi extends AppLocalizations {
   String get chatPremium => 'प्रीमियम ✨';
 
   @override
-  String chatUnlockPremiumWallpapers(Object cost) {
-    return 'क्या 💎$cost सिक्कों में सभी प्रीमियम ✨ वॉलपेपर अनलॉक करें? इससे पूरा पैक हमेशा के लिए अनलॉक हो जाता है।';
+  String chatUnlockPremiumWallpapers(int cost) {
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: 'क्या 💎$cost सिक्कों में सभी प्रीमियम ✨ वॉलपेपर अनलॉक करें? इससे पूरा पैक हमेशा के लिए अनलॉक हो जाता है।',
+      one: 'क्या 💎$cost सिक्के में सभी प्रीमियम ✨ वॉलपेपर अनलॉक करें? इससे पूरा पैक हमेशा के लिए अनलॉक हो जाता है।',
+    );
+    return '$_temp0';
   }
 
   @override

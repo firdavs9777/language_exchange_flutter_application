@@ -8633,7 +8633,12 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String referralClaimed(int coins) {
-    return '$coins 코인을 받았어요!';
+    String _temp0 = intl.Intl.pluralLogic(
+      coins,
+      locale: localeName,
+      other: '$coins 코인을 받았어요!',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8656,7 +8661,12 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String extraMatchesCta(int cost) {
-    return '+3명 더 매칭 — $cost 코인';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: '+3명 더 매칭 — $cost 코인',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8664,12 +8674,22 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String boostCostLine(int cost) {
-    return '비용: $cost 코인';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: '비용: $cost 코인',
+    );
+    return '$_temp0';
   }
 
   @override
   String boostBalanceLine(int balance) {
-    return '내 잔액: $balance 코인';
+    String _temp0 = intl.Intl.pluralLogic(
+      balance,
+      locale: localeName,
+      other: '내 잔액: $balance 코인',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8699,7 +8719,12 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String wavesMaskedBody(int cost) {
-    return '$cost 코인으로 누구인지 확인하거나 VIP가 되세요';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: '$cost 코인으로 누구인지 확인하거나 VIP가 되세요',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8759,7 +8784,12 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String visitorsMaskedBody(int cost) {
-    return '$cost 코인으로 누구인지 확인하거나 VIP가 되세요';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: '$cost 코인으로 누구인지 확인하거나 VIP가 되세요',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -9675,8 +9705,13 @@ class AppLocalizationsKo extends AppLocalizations {
   String get chatPremium => '프리미엄 ✨';
 
   @override
-  String chatUnlockPremiumWallpapers(Object cost) {
-    return '💎$cost 코인으로 모든 프리미엄 ✨ 배경화면을 잠금 해제할까요? 팩 전체가 영구적으로 잠금 해제됩니다.';
+  String chatUnlockPremiumWallpapers(int cost) {
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: '💎$cost 코인으로 모든 프리미엄 ✨ 배경화면을 잠금 해제할까요? 팩 전체가 영구적으로 잠금 해제됩니다.',
+    );
+    return '$_temp0';
   }
 
   @override

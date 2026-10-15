@@ -8633,7 +8633,12 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String referralClaimed(int coins) {
-    return 'Bạn đã nhận được $coins xu!';
+    String _temp0 = intl.Intl.pluralLogic(
+      coins,
+      locale: localeName,
+      other: 'Bạn đã nhận được $coins xu!',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8656,7 +8661,12 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String extraMatchesCta(int cost) {
-    return '+3 lượt ghép nữa — $cost xu';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: '+3 lượt ghép nữa — $cost xu',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8664,12 +8674,22 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String boostCostLine(int cost) {
-    return 'Chi phí: $cost xu';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: 'Chi phí: $cost xu',
+    );
+    return '$_temp0';
   }
 
   @override
   String boostBalanceLine(int balance) {
-    return 'Số dư của bạn: $balance xu';
+    String _temp0 = intl.Intl.pluralLogic(
+      balance,
+      locale: localeName,
+      other: 'Số dư của bạn: $balance xu',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8699,7 +8719,12 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String wavesMaskedBody(int cost) {
-    return 'Xem đó là ai với $cost xu, hoặc nâng cấp VIP';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: 'Xem đó là ai với $cost xu, hoặc nâng cấp VIP',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8759,7 +8784,12 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String visitorsMaskedBody(int cost) {
-    return 'Xem là ai với $cost xu, hoặc nâng cấp VIP';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: 'Xem là ai với $cost xu, hoặc nâng cấp VIP',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -9675,8 +9705,13 @@ class AppLocalizationsVi extends AppLocalizations {
   String get chatPremium => 'Cao cấp ✨';
 
   @override
-  String chatUnlockPremiumWallpapers(Object cost) {
-    return 'Mở khóa tất cả hình nền Cao cấp ✨ với 💎$cost xu? Thao tác này mở khóa vĩnh viễn toàn bộ gói.';
+  String chatUnlockPremiumWallpapers(int cost) {
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: 'Mở khóa tất cả hình nền Cao cấp ✨ với 💎$cost xu? Thao tác này mở khóa vĩnh viễn toàn bộ gói.',
+    );
+    return '$_temp0';
   }
 
   @override

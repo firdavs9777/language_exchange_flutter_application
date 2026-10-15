@@ -8643,7 +8643,13 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String referralClaimed(int coins) {
-    return 'Vous avez gagné $coins pièces !';
+    String _temp0 = intl.Intl.pluralLogic(
+      coins,
+      locale: localeName,
+      other: 'Vous avez gagné $coins pièces !',
+      one: 'Vous avez gagné $coins pièce !',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8666,7 +8672,13 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String extraMatchesCta(int cost) {
-    return '+3 correspondances — $cost pièces';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: '+3 correspondances — $cost pièces',
+      one: '+3 correspondances — $cost pièce',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8674,12 +8686,24 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String boostCostLine(int cost) {
-    return 'Coût : $cost pièces';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: 'Coût : $cost pièces',
+      one: 'Coût : $cost pièce',
+    );
+    return '$_temp0';
   }
 
   @override
   String boostBalanceLine(int balance) {
-    return 'Votre solde : $balance pièces';
+    String _temp0 = intl.Intl.pluralLogic(
+      balance,
+      locale: localeName,
+      other: 'Votre solde : $balance pièces',
+      one: 'Votre solde : $balance pièce',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8709,7 +8733,13 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String wavesMaskedBody(int cost) {
-    return 'Découvrez qui pour $cost pièces, ou passez VIP';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: 'Découvrez qui pour $cost pièces, ou passez VIP',
+      one: 'Découvrez qui pour $cost pièce, ou passez VIP',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8769,7 +8799,13 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String visitorsMaskedBody(int cost) {
-    return 'Découvrez qui pour $cost pièces, ou passez VIP';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: 'Découvrez qui pour $cost pièces, ou passez VIP',
+      one: 'Découvrez qui pour $cost pièce, ou passez VIP',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -9685,8 +9721,14 @@ class AppLocalizationsFr extends AppLocalizations {
   String get chatPremium => 'Premium ✨';
 
   @override
-  String chatUnlockPremiumWallpapers(Object cost) {
-    return 'Débloquer tous les fonds d\'écran Premium ✨ pour 💎$cost pièces ? Cela débloque tout le pack définitivement.';
+  String chatUnlockPremiumWallpapers(int cost) {
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: 'Débloquer tous les fonds d\'écran Premium ✨ pour 💎$cost pièces ? Cela débloque tout le pack définitivement.',
+      one: 'Débloquer tous les fonds d\'écran Premium ✨ pour 💎$cost pièce ? Cela débloque tout le pack définitivement.',
+    );
+    return '$_temp0';
   }
 
   @override

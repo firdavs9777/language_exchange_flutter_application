@@ -16025,7 +16025,7 @@ abstract class AppLocalizations {
   /// Referral screen string
   ///
   /// In en, this message translates to:
-  /// **'You earned {coins} coins!'**
+  /// **'{coins, plural, one{You earned {coins} coin!} other{You earned {coins} coins!}}'**
   String referralClaimed(int coins);
 
   /// Referral screen string
@@ -16067,7 +16067,7 @@ abstract class AppLocalizations {
   /// Profile Boost string
   ///
   /// In en, this message translates to:
-  /// **'+3 more matches — {cost} coins'**
+  /// **'{cost, plural, one{+3 more matches — {cost} coin} other{+3 more matches — {cost} coins}}'**
   String extraMatchesCta(int cost);
 
   /// Profile Boost string
@@ -16079,13 +16079,13 @@ abstract class AppLocalizations {
   /// Profile Boost string
   ///
   /// In en, this message translates to:
-  /// **'Cost: {cost} coins'**
+  /// **'{cost, plural, one{Cost: {cost} coin} other{Cost: {cost} coins}}'**
   String boostCostLine(int cost);
 
   /// Profile Boost string
   ///
   /// In en, this message translates to:
-  /// **'Your balance: {balance} coins'**
+  /// **'{balance, plural, one{Your balance: {balance} coin} other{Your balance: {balance} coins}}'**
   String boostBalanceLine(int balance);
 
   /// Profile Boost string
@@ -16133,7 +16133,7 @@ abstract class AppLocalizations {
   /// Reveal gating / VIP perks string
   ///
   /// In en, this message translates to:
-  /// **'Reveal who for {cost} coins, or go VIP'**
+  /// **'{cost, plural, one{Reveal who for {cost} coin, or go VIP} other{Reveal who for {cost} coins, or go VIP}}'**
   String wavesMaskedBody(int cost);
 
   /// Reveal gating / VIP perks string
@@ -16217,7 +16217,7 @@ abstract class AppLocalizations {
   /// Tranche C final fix pass
   ///
   /// In en, this message translates to:
-  /// **'See who for {cost} coins, or go VIP'**
+  /// **'{cost, plural, one{See who for {cost} coin, or go VIP} other{See who for {cost} coins, or go VIP}}'**
   String visitorsMaskedBody(int cost);
 
   /// Tranche C final fix pass
@@ -17801,8 +17801,8 @@ abstract class AppLocalizations {
   /// No description provided for @chatUnlockPremiumWallpapers.
   ///
   /// In en, this message translates to:
-  /// **'Unlock all Premium ✨ wallpapers for 💎{cost} coins? This unlocks the whole pack for good.'**
-  String chatUnlockPremiumWallpapers(Object cost);
+  /// **'{cost, plural, one{Unlock all Premium ✨ wallpapers for 💎{cost} coin? This unlocks the whole pack for good.} other{Unlock all Premium ✨ wallpapers for 💎{cost} coins? This unlocks the whole pack for good.}}'**
+  String chatUnlockPremiumWallpapers(int cost);
 
   /// No description provided for @chatWallpaperForName.
   ///

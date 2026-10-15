@@ -8665,7 +8665,15 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String referralClaimed(int coins) {
-    return 'Вы получили $coins монет!';
+    String _temp0 = intl.Intl.pluralLogic(
+      coins,
+      locale: localeName,
+      other: 'Вы получили $coins монеты!',
+      many: 'Вы получили $coins монет!',
+      few: 'Вы получили $coins монеты!',
+      one: 'Вы получили $coins монету!',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8688,7 +8696,15 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String extraMatchesCta(int cost) {
-    return '+3 совпадения — $cost монет';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: '+3 совпадения — $cost монеты',
+      many: '+3 совпадения — $cost монет',
+      few: '+3 совпадения — $cost монеты',
+      one: '+3 совпадения — $cost монета',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8696,12 +8712,28 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String boostCostLine(int cost) {
-    return 'Стоимость: $cost монет';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: 'Стоимость: $cost монеты',
+      many: 'Стоимость: $cost монет',
+      few: 'Стоимость: $cost монеты',
+      one: 'Стоимость: $cost монета',
+    );
+    return '$_temp0';
   }
 
   @override
   String boostBalanceLine(int balance) {
-    return 'Ваш баланс: $balance монет';
+    String _temp0 = intl.Intl.pluralLogic(
+      balance,
+      locale: localeName,
+      other: 'Ваш баланс: $balance монеты',
+      many: 'Ваш баланс: $balance монет',
+      few: 'Ваш баланс: $balance монеты',
+      one: 'Ваш баланс: $balance монета',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8731,7 +8763,15 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String wavesMaskedBody(int cost) {
-    return 'Узнайте, кто, за $cost монет — или станьте VIP';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: 'Узнайте, кто, за $cost монеты — или станьте VIP',
+      many: 'Узнайте, кто, за $cost монет — или станьте VIP',
+      few: 'Узнайте, кто, за $cost монеты — или станьте VIP',
+      one: 'Узнайте, кто, за $cost монету — или станьте VIP',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8791,7 +8831,15 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String visitorsMaskedBody(int cost) {
-    return 'Узнайте, кто это, за $cost монет или станьте VIP';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: 'Узнайте, кто это, за $cost монеты или станьте VIP',
+      many: 'Узнайте, кто это, за $cost монет или станьте VIP',
+      few: 'Узнайте, кто это, за $cost монеты или станьте VIP',
+      one: 'Узнайте, кто это, за $cost монету или станьте VIP',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -9709,8 +9757,16 @@ class AppLocalizationsRu extends AppLocalizations {
   String get chatPremium => 'Премиум ✨';
 
   @override
-  String chatUnlockPremiumWallpapers(Object cost) {
-    return 'Разблокировать все премиум-обои ✨ за 💎$cost монет? Весь набор будет разблокирован навсегда.';
+  String chatUnlockPremiumWallpapers(int cost) {
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: 'Разблокировать все премиум-обои ✨ за 💎$cost монеты? Весь набор будет разблокирован навсегда.',
+      many: 'Разблокировать все премиум-обои ✨ за 💎$cost монет? Весь набор будет разблокирован навсегда.',
+      few: 'Разблокировать все премиум-обои ✨ за 💎$cost монеты? Весь набор будет разблокирован навсегда.',
+      one: 'Разблокировать все премиум-обои ✨ за 💎$cost монету? Весь набор будет разблокирован навсегда.',
+    );
+    return '$_temp0';
   }
 
   @override

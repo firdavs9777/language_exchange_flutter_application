@@ -8633,7 +8633,12 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String referralClaimed(int coins) {
-    return '$coinsコインを獲得しました！';
+    String _temp0 = intl.Intl.pluralLogic(
+      coins,
+      locale: localeName,
+      other: '$coinsコインを獲得しました！',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8656,7 +8661,12 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String extraMatchesCta(int cost) {
-    return '+3人のマッチ — $costコイン';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: '+3人のマッチ — $costコイン',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8664,12 +8674,22 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String boostCostLine(int cost) {
-    return '料金: $costコイン';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: '料金: $costコイン',
+    );
+    return '$_temp0';
   }
 
   @override
   String boostBalanceLine(int balance) {
-    return '残高: $balanceコイン';
+    String _temp0 = intl.Intl.pluralLogic(
+      balance,
+      locale: localeName,
+      other: '残高: $balanceコイン',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8699,7 +8719,12 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String wavesMaskedBody(int cost) {
-    return '$costコインで誰か確認、またはVIPに登録';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: '$costコインで誰か確認、またはVIPに登録',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8759,7 +8784,12 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String visitorsMaskedBody(int cost) {
-    return '$costコインで誰か確認、またはVIPに';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: '$costコインで誰か確認、またはVIPに',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -9675,8 +9705,13 @@ class AppLocalizationsJa extends AppLocalizations {
   String get chatPremium => 'プレミアム ✨';
 
   @override
-  String chatUnlockPremiumWallpapers(Object cost) {
-    return '💎$costコインでプレミアム ✨ 壁紙をすべてアンロックしますか？パック全体が永久にアンロックされます。';
+  String chatUnlockPremiumWallpapers(int cost) {
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: '💎$costコインでプレミアム ✨ 壁紙をすべてアンロックしますか？パック全体が永久にアンロックされます。',
+    );
+    return '$_temp0';
   }
 
   @override

@@ -6015,7 +6015,7 @@
   "@referralCopied": {
     "description": "Referral screen string"
   },
-  "referralClaimed": "You earned {coins} coins!",
+  "referralClaimed": "{coins, plural, one{You earned {coins} coin!} other{You earned {coins} coins!}}",
   "@referralClaimed": {
     "description": "Referral screen string",
     "placeholders": {
@@ -6048,7 +6048,7 @@
   "@boostCapacityFull": {
     "description": "Profile Boost string"
   },
-  "extraMatchesCta": "+3 more matches — {cost} coins",
+  "extraMatchesCta": "{cost, plural, one{+3 more matches — {cost} coin} other{+3 more matches — {cost} coins}}",
   "@extraMatchesCta": {
     "description": "Profile Boost string",
     "placeholders": {
@@ -6061,7 +6061,7 @@
   "@boostExplain": {
     "description": "Profile Boost string"
   },
-  "boostCostLine": "Cost: {cost} coins",
+  "boostCostLine": "{cost, plural, one{Cost: {cost} coin} other{Cost: {cost} coins}}",
   "@boostCostLine": {
     "description": "Profile Boost string",
     "placeholders": {
@@ -6070,7 +6070,7 @@
       }
     }
   },
-  "boostBalanceLine": "Your balance: {balance} coins",
+  "boostBalanceLine": "{balance, plural, one{Your balance: {balance} coin} other{Your balance: {balance} coins}}",
   "@boostBalanceLine": {
     "description": "Profile Boost string",
     "placeholders": {
@@ -6117,7 +6117,7 @@
   "@wavesMaskedTitle": {
     "description": "Reveal gating / VIP perks string"
   },
-  "wavesMaskedBody": "Reveal who for {cost} coins, or go VIP",
+  "wavesMaskedBody": "{cost, plural, one{Reveal who for {cost} coin, or go VIP} other{Reveal who for {cost} coins, or go VIP}}",
   "@wavesMaskedBody": {
     "description": "Reveal gating / VIP perks string",
     "placeholders": {
@@ -6188,7 +6188,7 @@
       }
     }
   },
-  "visitorsMaskedBody": "See who for {cost} coins, or go VIP",
+  "visitorsMaskedBody": "{cost, plural, one{See who for {cost} coin, or go VIP} other{See who for {cost} coins, or go VIP}}",
   "@visitorsMaskedBody": {
     "description": "Tranche C final fix pass",
     "placeholders": {
@@ -6769,11 +6769,11 @@
   "chatHi": "Hi!",
   "chatEdited": "edited",
   "chatPremium": "Premium ✨",
-  "chatUnlockPremiumWallpapers": "Unlock all Premium ✨ wallpapers for 💎{cost} coins? This unlocks the whole pack for good.",
+  "chatUnlockPremiumWallpapers": "{cost, plural, one{Unlock all Premium ✨ wallpapers for 💎{cost} coin? This unlocks the whole pack for good.} other{Unlock all Premium ✨ wallpapers for 💎{cost} coins? This unlocks the whole pack for good.}}",
   "@chatUnlockPremiumWallpapers": {
     "placeholders": {
       "cost": {
-        "type": "Object"
+        "type": "int"
       }
     }
   },

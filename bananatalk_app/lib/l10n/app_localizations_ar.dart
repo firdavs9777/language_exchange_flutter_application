@@ -8655,7 +8655,17 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String referralClaimed(int coins) {
-    return 'لقد ربحت $coins عملة!';
+    String _temp0 = intl.Intl.pluralLogic(
+      coins,
+      locale: localeName,
+      other: 'لقد ربحت $coins عملة!',
+      many: 'لقد ربحت $coins عملة!',
+      few: 'لقد ربحت $coins عملات!',
+      two: 'لقد ربحت $coins عملة!',
+      one: 'لقد ربحت $coins عملة!',
+      zero: 'لقد ربحت $coins عملة!',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8678,7 +8688,17 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String extraMatchesCta(int cost) {
-    return '+3 تطابقات إضافية — $cost عملة';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: '+3 تطابقات إضافية — $cost عملة',
+      many: '+3 تطابقات إضافية — $cost عملة',
+      few: '+3 تطابقات إضافية — $cost عملات',
+      two: '+3 تطابقات إضافية — $cost عملة',
+      one: '+3 تطابقات إضافية — $cost عملة',
+      zero: '+3 تطابقات إضافية — $cost عملة',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8686,12 +8706,32 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String boostCostLine(int cost) {
-    return 'التكلفة: $cost عملة';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: 'التكلفة: $cost عملة',
+      many: 'التكلفة: $cost عملة',
+      few: 'التكلفة: $cost عملات',
+      two: 'التكلفة: $cost عملة',
+      one: 'التكلفة: $cost عملة',
+      zero: 'التكلفة: $cost عملة',
+    );
+    return '$_temp0';
   }
 
   @override
   String boostBalanceLine(int balance) {
-    return 'رصيدك: $balance عملة';
+    String _temp0 = intl.Intl.pluralLogic(
+      balance,
+      locale: localeName,
+      other: 'رصيدك: $balance عملة',
+      many: 'رصيدك: $balance عملة',
+      few: 'رصيدك: $balance عملات',
+      two: 'رصيدك: $balance عملة',
+      one: 'رصيدك: $balance عملة',
+      zero: 'رصيدك: $balance عملة',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8721,7 +8761,17 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String wavesMaskedBody(int cost) {
-    return 'اكشف من هو مقابل $cost عملة، أو اشترك في VIP';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: 'اكشف من هو مقابل $cost عملة، أو اشترك في VIP',
+      many: 'اكشف من هو مقابل $cost عملة، أو اشترك في VIP',
+      few: 'اكشف من هو مقابل $cost عملات، أو اشترك في VIP',
+      two: 'اكشف من هو مقابل $cost عملة، أو اشترك في VIP',
+      one: 'اكشف من هو مقابل $cost عملة، أو اشترك في VIP',
+      zero: 'اكشف من هو مقابل $cost عملة، أو اشترك في VIP',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8781,7 +8831,17 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String visitorsMaskedBody(int cost) {
-    return 'اعرف من هم مقابل $cost عملة، أو اشترك في VIP';
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: 'اعرف من هم مقابل $cost عملة، أو اشترك في VIP',
+      many: 'اعرف من هم مقابل $cost عملة، أو اشترك في VIP',
+      few: 'اعرف من هم مقابل $cost عملات، أو اشترك في VIP',
+      two: 'اعرف من هم مقابل $cost عملة، أو اشترك في VIP',
+      one: 'اعرف من هم مقابل $cost عملة، أو اشترك في VIP',
+      zero: 'اعرف من هم مقابل $cost عملة، أو اشترك في VIP',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -9700,8 +9760,18 @@ class AppLocalizationsAr extends AppLocalizations {
   String get chatPremium => 'بريميوم ✨';
 
   @override
-  String chatUnlockPremiumWallpapers(Object cost) {
-    return 'هل تريد فتح جميع خلفيات بريميوم ✨ مقابل 💎$cost عملة؟ سيؤدي هذا إلى فتح الحزمة بالكامل بشكل دائم.';
+  String chatUnlockPremiumWallpapers(int cost) {
+    String _temp0 = intl.Intl.pluralLogic(
+      cost,
+      locale: localeName,
+      other: 'هل تريد فتح جميع خلفيات بريميوم ✨ مقابل 💎$cost عملة؟ سيؤدي هذا إلى فتح الحزمة بالكامل بشكل دائم.',
+      many: 'هل تريد فتح جميع خلفيات بريميوم ✨ مقابل 💎$cost عملة؟ سيؤدي هذا إلى فتح الحزمة بالكامل بشكل دائم.',
+      few: 'هل تريد فتح جميع خلفيات بريميوم ✨ مقابل 💎$cost عملات؟ سيؤدي هذا إلى فتح الحزمة بالكامل بشكل دائم.',
+      two: 'هل تريد فتح جميع خلفيات بريميوم ✨ مقابل 💎$cost عملة؟ سيؤدي هذا إلى فتح الحزمة بالكامل بشكل دائم.',
+      one: 'هل تريد فتح جميع خلفيات بريميوم ✨ مقابل 💎$cost عملة؟ سيؤدي هذا إلى فتح الحزمة بالكامل بشكل دائم.',
+      zero: 'هل تريد فتح جميع خلفيات بريميوم ✨ مقابل 💎$cost عملة؟ سيؤدي هذا إلى فتح الحزمة بالكامل بشكل دائم.',
+    );
+    return '$_temp0';
   }
 
   @override
