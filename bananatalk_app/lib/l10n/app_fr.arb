@@ -209,6 +209,7 @@
   "goBack": "Retour",
   "messageSendTimeout": "Délai d'envoi du message expiré. Veuillez vérifier votre connexion.",
   "failedToSendMessage": "Échec de l'envoi du message",
+  "chatSendTooFast": "Vous envoyez des messages trop vite. Patientez un instant puis réessayez.",
   "dailyMessageLimitExceeded": "Limite quotidienne de messages dépassée. Passez au VIP pour des messages illimités.",
   "cannotSendMessageUserMayBeBlocked": "Impossible d'envoyer le message. L'utilisateur est peut-être bloqué.",
   "sessionExpired": "Session expirée. Veuillez vous reconnecter.",

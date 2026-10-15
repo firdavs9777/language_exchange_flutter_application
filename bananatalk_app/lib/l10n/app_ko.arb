@@ -175,6 +175,7 @@
   "goBack": "뒤로",
   "messageSendTimeout": "메시지 전송 시간 초과. 연결을 확인하세요.",
   "failedToSendMessage": "메시지 전송 실패",
+  "chatSendTooFast": "메시지를 너무 빨리 보내고 있어요. 잠시 후 다시 시도해 주세요.",
   "dailyMessageLimitExceeded": "일일 메시지 한도 초과. 무제한 메시지를 위해 VIP로 업그레이드하세요.",
   "cannotSendMessageUserMayBeBlocked": "메시지를 보낼 수 없습니다. 사용자가 차단되었을 수 있습니다.",
   "sessionExpired": "세션이 만료되었습니다. 다시 로그인하세요.",

@@ -954,7 +954,12 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         _maybePromptForReview();
       } else {
         // Show error to user
-        _showSendError(result['error'] ?? 'Failed to send', text, messageType);
+        _showSendError(
+          result['error'] ?? 'Failed to send',
+          text,
+          messageType,
+          code: result['code'] as String?,
+        );
       }
     } catch (error) {
       if (ApiErrorHandler.isLimitExceededError(error) && mounted) {
@@ -970,14 +975,20 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
   void _showSendError(
     String errorMessage,
     String originalText,
-    String? messageType,
-  ) {
+    String? messageType, {
+    String? code,
+  }) {
     if (!mounted) return;
 
     final l10n = AppLocalizations.of(context)!;
     String displayMessage = l10n.failedToSendMessage;
 
-    if (errorMessage.toLowerCase().contains('until') &&
+    if (code == ChatSocketService.rateLimitedCode ||
+        errorMessage.toLowerCase().contains('too many messages')) {
+      // Server-side burst limit (not the daily quota): the send was refused
+      // outright, so say so instead of echoing the raw server string.
+      displayMessage = l10n.chatSendTooFast;
+    } else if (errorMessage.toLowerCase().contains('until') &&
         errorMessage.toLowerCase().contains('reply')) {
       // First-chat limit - show the exact message
       displayMessage = errorMessage;

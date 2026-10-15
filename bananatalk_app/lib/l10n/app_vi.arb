@@ -175,6 +175,7 @@
   "goBack": "Quay lại",
   "messageSendTimeout": "Hết thời gian gửi tin nhắn. Vui lòng kiểm tra kết nối.",
   "failedToSendMessage": "Gửi tin nhắn thất bại",
+  "chatSendTooFast": "Bạn đang gửi tin nhắn quá nhanh. Hãy đợi một chút rồi thử lại.",
   "dailyMessageLimitExceeded": "Đã vượt quá giới hạn tin nhắn hàng ngày. Nâng cấp VIP để gửi không giới hạn.",
   "cannotSendMessageUserMayBeBlocked": "Không thể gửi tin nhắn. Người dùng có thể đã bị chặn.",
   "sessionExpired": "Phiên đã hết hạn. Vui lòng đăng nhập lại.",

@@ -174,6 +174,7 @@
   "goBack": "वापस जाएँ",
   "messageSendTimeout": "संदेश भेजने का समय समाप्त। कृपया कनेक्शन जांचें।",
   "failedToSendMessage": "संदेश भेजने में विफल",
+  "chatSendTooFast": "आप बहुत तेज़ी से संदेश भेज रहे हैं। थोड़ा रुकें और फिर से कोशिश करें।",
   "dailyMessageLimitExceeded": "दैनिक संदेश सीमा पार। असीमित संदेशों के लिए VIP में अपग्रेड करें।",
   "cannotSendMessageUserMayBeBlocked": "संदेश नहीं भेज सकते। उपयोगकर्ता ब्लॉक हो सकता है।",
   "sessionExpired": "सत्र समाप्त। कृपया फिर से लॉगिन करें।",

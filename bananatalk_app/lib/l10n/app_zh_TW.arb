@@ -175,6 +175,7 @@
   "goBack": "返回",
   "messageSendTimeout": "訊息傳送逾時。請檢查您的連線。",
   "failedToSendMessage": "傳送訊息失敗",
+  "chatSendTooFast": "你傳送訊息太快了。請稍候再試一次。",
   "dailyMessageLimitExceeded": "已超過每日訊息限制。升級為 VIP 以獲得無限訊息。",
   "cannotSendMessageUserMayBeBlocked": "無法傳送訊息。用戶可能已被封鎖。",
   "sessionExpired": "工作階段已過期，請重新登入。",

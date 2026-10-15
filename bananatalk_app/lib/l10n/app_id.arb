@@ -175,6 +175,7 @@
   "goBack": "Kembali",
   "messageSendTimeout": "Waktu kirim pesan habis. Periksa koneksi Anda.",
   "failedToSendMessage": "Gagal mengirim pesan",
+  "chatSendTooFast": "Kamu mengirim pesan terlalu cepat. Tunggu sebentar lalu coba lagi.",
   "dailyMessageLimitExceeded": "Batas pesan harian tercapai. Upgrade ke VIP untuk pesan tanpa batas.",
   "cannotSendMessageUserMayBeBlocked": "Tidak dapat mengirim pesan. Pengguna mungkin diblokir.",
   "sessionExpired": "Sesi berakhir. Silakan login kembali.",

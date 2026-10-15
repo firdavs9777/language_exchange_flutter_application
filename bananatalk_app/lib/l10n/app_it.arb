@@ -209,6 +209,7 @@
   "goBack": "Indietro",
   "messageSendTimeout": "Timeout invio messaggio. Controlla la connessione.",
   "failedToSendMessage": "Invio messaggio fallito",
+  "chatSendTooFast": "Stai inviando messaggi troppo velocemente. Attendi un momento e riprova.",
   "dailyMessageLimitExceeded": "Limite giornaliero messaggi superato. Passa a VIP per messaggi illimitati.",
   "cannotSendMessageUserMayBeBlocked": "Impossibile inviare messaggio. L'utente potrebbe essere bloccato.",
   "sessionExpired": "Sessione scaduta. Accedi di nuovo.",

@@ -932,6 +932,9 @@ class AppLocalizationsTg extends AppLocalizations {
   String get failedToSendMessage => 'Паём фиристода нашуд';
 
   @override
+  String get chatSendTooFast => 'Шумо паёмҳоро хеле зуд мефиристед. Каме сабр кунед ва дубора кӯшиш кунед.';
+
+  @override
   String get dailyMessageLimitExceeded => 'Лимити ҳаррӯзаи паёмҳо гузашт. Барои паёмҳои бемаҳдуд ба VIP гузаред.';
 
   @override

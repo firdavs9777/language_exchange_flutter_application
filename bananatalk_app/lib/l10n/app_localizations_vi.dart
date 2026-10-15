@@ -932,6 +932,9 @@ class AppLocalizationsVi extends AppLocalizations {
   String get failedToSendMessage => 'Gửi tin nhắn thất bại';
 
   @override
+  String get chatSendTooFast => 'Bạn đang gửi tin nhắn quá nhanh. Hãy đợi một chút rồi thử lại.';
+
+  @override
   String get dailyMessageLimitExceeded => 'Đã vượt quá giới hạn tin nhắn hàng ngày. Nâng cấp VIP để gửi không giới hạn.';
 
   @override

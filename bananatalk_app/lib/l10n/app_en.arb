@@ -480,6 +480,10 @@
   "goBack": "Go Back",
   "messageSendTimeout": "Message send timeout. Please check your connection.",
   "failedToSendMessage": "Failed to send message",
+  "chatSendTooFast": "You're sending messages too fast. Wait a moment and try again.",
+  "@chatSendTooFast": {
+    "description": "Snackbar when the server refuses a chat message because the user is sending too many too quickly (rate limit)."
+  },
   "dailyMessageLimitExceeded": "Daily message limit exceeded. Upgrade to VIP for unlimited messages.",
   "cannotSendMessageUserMayBeBlocked": "Cannot send message. User may be blocked.",
   "sessionExpired": "Session expired. Please login again.",

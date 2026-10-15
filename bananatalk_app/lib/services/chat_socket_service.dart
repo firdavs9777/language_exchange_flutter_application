@@ -18,6 +18,13 @@ class ChatSocketService {
 
   IO.Socket? _socket;
   String? _currentUserId;
+
+  /// `code` on a send result the server refused for sending too fast.
+  static const rateLimitedCode = 'rate_limited';
+
+  /// Completers of `sendMessage` calls still waiting for their ack, oldest
+  /// first. See the `messageSendError` listener for why this exists.
+  final List<Completer<Map<String, dynamic>>> _inFlightSends = [];
   String? _deviceId;
   bool _shouldAllowReconnection = true;
   bool _isConnecting = false; // Prevent concurrent connection attempts
@@ -475,6 +482,24 @@ class ChatSocketService {
       });
     });
 
+    // The server's sendMessage rate limiter answers a refused send with this
+    // event and never calls the ack, so without it the bubble waits out the
+    // full ack timeout. The payload is only `{ error }` — no message id. The
+    // limiter runs synchronously before any await on the server, so a
+    // refused send is answered before earlier, accepted sends finish their
+    // database writes and ack: the newest in-flight send is the refused one.
+    _socket?.on('messageSendError', (data) {
+      if (_inFlightSends.isEmpty) return;
+      final completer = _inFlightSends.removeLast();
+      if (completer.isCompleted) return;
+      final error = data is Map ? data['error']?.toString() : null;
+      completer.complete({
+        'status': 'error',
+        'error': error ?? 'Too many messages',
+        'code': rateLimitedCode,
+      });
+    });
+
     // Message reaction events (real-time reaction updates)
     _socket?.on('messageReaction', (data) {
       _safeAdd(_messageReactionController, data);
@@ -714,6 +739,14 @@ class ChatSocketService {
 
     // Use timer for timeout instead of future.timeout to avoid race condition
     Timer? timeoutTimer;
+
+    _inFlightSends.add(completer);
+    unawaited(
+      completer.future.whenComplete(() {
+        _inFlightSends.remove(completer);
+        timeoutTimer?.cancel();
+      }),
+    );
 
     try {
       // Set up timeout timer
