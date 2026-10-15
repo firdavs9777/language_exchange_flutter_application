@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 
 /// Gold gradient "VIP" pill with a small red "Up" badge — the standard
@@ -9,7 +11,10 @@ import 'package:bananatalk_app/utils/app_page_route.dart';
 ///
 /// Tap pushes [VipPlansScreen]. The pill is compact enough to sit alongside
 /// other AppBar actions or as part of a `leading` row.
-class VipUpPill extends StatelessWidget {
+///
+/// Renders nothing for an active VIP: an upsell there only leads to buying
+/// a second, concurrent subscription.
+class VipUpPill extends ConsumerWidget {
   const VipUpPill({super.key, this.onTap, this.onLight = true});
 
   /// Override tap behavior. When null the pill pushes [VipPlansScreen]
@@ -22,7 +27,9 @@ class VipUpPill extends StatelessWidget {
   final bool onLight;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isVip = ref.watch(userProvider).valueOrNull?.isVip ?? false;
+    if (isVip) return const SizedBox.shrink();
     final scaffoldBg = Theme.of(context).colorScheme.surface;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 10),

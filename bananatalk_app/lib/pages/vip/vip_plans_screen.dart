@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:bananatalk_app/models/vip_subscription.dart';
 import 'package:bananatalk_app/pages/vip/vip_payment_screen.dart';
+import 'package:bananatalk_app/pages/vip/vip_status_screen.dart';
 import 'package:bananatalk_app/providers/provider_root/vip_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
 import 'package:bananatalk_app/services/ios_purchase_service.dart';
@@ -108,6 +109,10 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
     // selected". User can override; we just want the CTA enabled on entry.
     selectedPlan ??= VipPlan.yearly;
     final l10n = AppLocalizations.of(context)!;
+    // An active VIP who lands here (a paywall, a deep link) must not be able
+    // to start a second subscription: on Android each plan is its own
+    // product, so that would be two concurrent charges.
+    final isVip = ref.watch(userProvider).valueOrNull?.isVip ?? false;
 
     return Scaffold(
       backgroundColor: context.scaffoldBackground,
@@ -124,17 +129,21 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
             children: [
               _buildBrandedHeader(),
               const SizedBox(height: 24),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Text(
-                  l10n.vipSelectPlan,
-                  style: context.titleLarge.copyWith(
-                    fontWeight: FontWeight.w800,
+              if (isVip)
+                _buildVipActiveCard()
+              else ...[
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Text(
+                    l10n.vipSelectPlan,
+                    style: context.titleLarge.copyWith(
+                      fontWeight: FontWeight.w800,
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 12),
-              _buildPlanGrid(),
+                const SizedBox(height: 12),
+                _buildPlanGrid(),
+              ],
               const SizedBox(height: 28),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -148,8 +157,10 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
               const SizedBox(height: 12),
               _buildComparisonTable(),
               const SizedBox(height: 24),
-              _buildContinueButton(),
-              const SizedBox(height: 8),
+              if (!isVip) ...[
+                _buildContinueButton(),
+                const SizedBox(height: 8),
+              ],
               // App Store guideline 3.1.1: subscriptions need a visible
               // restore mechanism next to where they are sold.
               Center(child: RestorePurchasesButton(userId: widget.userId)),
@@ -248,6 +259,70 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
             ],
           ),
         ],
+      ),
+    );
+  }
+
+  // ── Already-VIP card (replaces the plan grid) ───────────────────────────
+  Widget _buildVipActiveCard() {
+    final l10n = AppLocalizations.of(context)!;
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: const Color(0xFFFFA000).withValues(alpha: 0.08),
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: const Color(0xFFFFA000), width: 1.5),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                const Icon(
+                  Icons.workspace_premium_rounded,
+                  color: Color(0xFFFFA000),
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  l10n.vipMember,
+                  style: context.titleMedium.copyWith(
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Text(
+              l10n.restorePurchasesAlreadyActive,
+              style: context.bodyMedium.copyWith(
+                color: context.textSecondary,
+              ),
+            ),
+            const SizedBox(height: 12),
+            SizedBox(
+              width: double.infinity,
+              child: OutlinedButton(
+                key: const ValueKey('vip-active-manage'),
+                onPressed: () {
+                  final userId = widget.userId ??
+                      ref.read(userProvider).valueOrNull?.id ??
+                      '';
+                  if (userId.isEmpty) return;
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => VipStatusScreen(userId: userId),
+                    ),
+                  );
+                },
+                child: Text(l10n.manageSubscription),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
