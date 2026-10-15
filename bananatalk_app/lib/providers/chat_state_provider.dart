@@ -7,6 +7,7 @@ import 'package:bananatalk_app/services/chat_socket_state_manager.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/unread_count_provider.dart';
+import 'package:bananatalk_app/providers/provider_root/message_provider.dart';
 import 'package:bananatalk_app/pages/community/first_session/first_message_reporter.dart';
 
 /// Connection status enum for clearer state management
@@ -79,6 +80,19 @@ class ChatStateNotifier extends StateNotifier<ChatState> with WidgetsBindingObse
   bool _isInitialized = false;
   Timer? _disconnectDebounceTimer;
 
+  // Test seams; production builds these from [_ref].
+  final ChatSocketStateManager Function()? _stateManagerFactory;
+  final Future<List<Message>> Function()? _fetchLatestMessages;
+  final bool Function()? _isActiveChat;
+
+  /// Set once the screen has loaded the conversation. Before that there is
+  /// nothing to catch up on: the screen's own first load covers it.
+  bool _hasLoadedMessages = false;
+
+  /// The catch-up fetch in flight, so a burst of reconnect / resume events
+  /// shares one request.
+  Future<void>? _catchUp;
+
   // Track app foreground state
   bool _isAppInForeground = true;
 
@@ -89,13 +103,21 @@ class ChatStateNotifier extends StateNotifier<ChatState> with WidgetsBindingObse
     required this.chatPartnerId,
     required this.currentUserId,
     Ref? ref,
-  }) : _ref = ref, super(ChatState()) {
+    @visibleForTesting ChatSocketStateManager Function()? stateManagerFactory,
+    @visibleForTesting Future<List<Message>> Function()? fetchLatestMessages,
+    @visibleForTesting bool Function()? isActiveChat,
+  })  : _ref = ref,
+        _stateManagerFactory = stateManagerFactory,
+        _fetchLatestMessages = fetchLatestMessages,
+        _isActiveChat = isActiveChat,
+        super(ChatState()) {
     // Start observing app lifecycle
     WidgetsBinding.instance.addObserver(this);
   }
 
   /// Check if THIS chat is the currently active one (from global provider)
   bool get _isThisChatActive {
+    if (_isActiveChat != null) return _isActiveChat();
     if (_ref == null) return false;
     try {
       final activeChatId = _ref.read(chatPartnersProvider).activeChatUserId;
@@ -113,6 +135,12 @@ class ChatStateNotifier extends StateNotifier<ChatState> with WidgetsBindingObse
     // When returning to foreground and THIS chat is the active one, mark messages as read
     if (_isAppInForeground && !wasInForeground && _isThisChatActive) {
       _stateManager?.markAsRead();
+      // The socket may have stayed up while the OS suspended the app, in
+      // which case no reconnect fires and events delivered meanwhile were
+      // never processed. If it did drop, the reconnect handler catches up.
+      if (_stateManager?.isConnected ?? false) {
+        unawaited(catchUpMissedMessages());
+      }
     }
   }
 
@@ -135,10 +163,11 @@ class ChatStateNotifier extends StateNotifier<ChatState> with WidgetsBindingObse
     }
 
 
-    _stateManager = ChatSocketStateManager(
-      chatPartnerId: chatPartnerId,
-      currentUserId: currentUserId,
-    );
+    _stateManager = _stateManagerFactory?.call() ??
+        ChatSocketStateManager(
+          chatPartnerId: chatPartnerId,
+          currentUserId: currentUserId,
+        );
 
     // Setup callbacks
     _stateManager!.onConnectionChanged = (isConnected) {
@@ -160,6 +189,10 @@ class ChatStateNotifier extends StateNotifier<ChatState> with WidgetsBindingObse
           if (state.messages.isNotEmpty && _isAppInForeground) {
             _stateManager?.markAsRead();
           }
+
+          // The server stores messages sent while this socket was down but
+          // does not replay them over the socket, so re-read the latest page.
+          unawaited(catchUpMissedMessages());
         }
       } else {
         // Disconnected - debounce before showing reconnecting status
@@ -380,7 +413,110 @@ class ChatStateNotifier extends StateNotifier<ChatState> with WidgetsBindingObse
 
   void setMessages(List<Message> messages) {
     final withBubbles = _withCorrectionBubbles(messages);
+    _hasLoadedMessages = true;
     state = state.copyWith(messages: withBubbles);
+  }
+
+  /// Re-read the latest page of the conversation and merge it into state.
+  ///
+  /// Called on socket reconnect and app resume for the active chat. Safe to
+  /// call repeatedly: concurrent calls share one request, and a failed fetch
+  /// leaves the conversation untouched.
+  Future<void> catchUpMissedMessages() {
+    if (!_hasLoadedMessages || !_isThisChatActive) return Future.value();
+    return _catchUp ??= _runCatchUp().whenComplete(() => _catchUp = null);
+  }
+
+  Future<void> _runCatchUp() async {
+    final List<Message> latest;
+    try {
+      latest = await (_fetchLatestMessages ?? _defaultFetchLatest)();
+    } catch (e) {
+      debugPrint('Chat catch-up fetch failed: $e');
+      return;
+    }
+    if (!mounted) return;
+    state = state.copyWith(messages: mergeLatestPage(state.messages, latest));
+
+    if (_shouldAutoMarkAsRead &&
+        latest.any((m) => m.sender.id == chatPartnerId && !m.read)) {
+      _stateManager?.markAsRead();
+    }
+  }
+
+  Future<List<Message>> _defaultFetchLatest() async {
+    final ref = _ref;
+    if (ref == null) return const [];
+    // Same request the conversation screen makes on open.
+    final result = await ref.read(messageServiceProvider).getConversation(
+          senderId: currentUserId,
+          receiverId: chatPartnerId,
+          page: 1,
+          limit: 100,
+        );
+    final messages = result['messages'];
+    return messages is List<Message> ? messages : const [];
+  }
+
+  /// Merge a freshly fetched page into [current].
+  ///
+  /// - Server copies replace local copies with the same id (picks up edits,
+  ///   read receipts, reactions that happened while offline).
+  /// - Messages outside the page (older pages, local pending/failed bubbles)
+  ///   are kept.
+  /// - An own message the server stored while its send was still pending
+  ///   replaces that pending bubble instead of appearing next to it.
+  ///   Failed bubbles are never touched.
+  /// - Correction bubbles are rebuilt from the merged list.
+  @visibleForTesting
+  List<Message> mergeLatestPage(List<Message> current, List<Message> latest) {
+    final merged = current
+        .where((m) => !(m.type == 'correction' && m.id.startsWith('correction_')))
+        .toList();
+    final indexById = <String, int>{
+      for (var i = 0; i < merged.length; i++) merged[i].id: i,
+    };
+
+    for (final incoming in latest) {
+      if (incoming.id.isEmpty) continue;
+      final existing = indexById[incoming.id];
+      if (existing != null) {
+        if (merged[existing].localId == null) merged[existing] = incoming;
+        continue;
+      }
+      final pendingIndex = incoming.sender.id == currentUserId
+          ? merged.indexWhere(
+              (m) =>
+                  m.localId != null &&
+                  m.sendingStatus == MessageSendingStatus.sending &&
+                  m.message == incoming.message &&
+                  m.type == incoming.type,
+            )
+          : -1;
+      if (pendingIndex != -1) {
+        merged[pendingIndex] = incoming;
+      } else {
+        merged.add(incoming);
+      }
+      indexById[incoming.id] = pendingIndex != -1 ? pendingIndex : merged.length - 1;
+    }
+
+    // Stable sort by time; unparseable timestamps keep their place at the end.
+    final indexed = merged.asMap().entries.toList()
+      ..sort((a, b) {
+        final ta = DateTime.tryParse(a.value.createdAt);
+        final tb = DateTime.tryParse(b.value.createdAt);
+        if (ta != null && tb != null) {
+          final c = ta.compareTo(tb);
+          if (c != 0) return c;
+        } else if (ta == null && tb != null) {
+          return 1;
+        } else if (ta != null && tb == null) {
+          return -1;
+        }
+        return a.key.compareTo(b.key);
+      });
+    return _withCorrectionBubbles(indexed.map((e) => e.value).toList());
   }
 
   void setLoading(bool isLoading) {
@@ -455,8 +591,14 @@ class ChatStateNotifier extends StateNotifier<ChatState> with WidgetsBindingObse
 
     if (index != -1) {
       if (confirmedMessage != null) {
-        // Replace with confirmed message
+        // Replace with confirmed message. The socket echo or a catch-up fetch
+        // may already have added the same server message: drop that copy.
         messages[index] = confirmedMessage;
+        for (var i = messages.length - 1; i >= 0; i--) {
+          if (i != index && messages[i].id == confirmedMessage.id) {
+            messages.removeAt(i);
+          }
+        }
       } else if (failed) {
         // Mark as failed
         messages[index] = messages[index].copyWithStatus(MessageSendingStatus.failed);

@@ -85,6 +85,10 @@ class _ChatMainState extends ConsumerState<ChatMain>
   StreamSubscription? _messageReadSub;
   StreamSubscription? _connectionStateSub;
 
+  /// The socket dropped since the list last caught up; the next connect
+  /// refetches the list.
+  bool _sawSocketDrop = false;
+
   final TextEditingController _searchController = TextEditingController();
   final FocusNode _searchFocusNode = FocusNode();
   late AnimationController _fadeController;
@@ -290,8 +294,19 @@ class _ChatMainState extends ConsumerState<ChatMain>
     _connectionStateSub = _chatSocketService.onConnectionStateChange.listen((
       isConnected,
     ) {
-      if (isConnected && _chatPartners.isNotEmpty) {
+      if (!isConnected) {
+        _sawSocketDrop = true;
+        return;
+      }
+      if (_chatPartners.isNotEmpty) {
         _requestStatusUpdatesInBatches();
+      }
+      // Messages sent while the socket was down are stored but not replayed
+      // over the socket, so last-message previews and unread counts would
+      // stay stale until the next resume. Re-read the list once per drop.
+      if (_sawSocketDrop) {
+        _sawSocketDrop = false;
+        _fetchMessages(silent: true);
       }
     }, onError: onStreamError);
   }
