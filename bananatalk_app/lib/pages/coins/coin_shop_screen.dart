@@ -400,8 +400,11 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
         ),
         const SizedBox(height: 10),
         _buildDailyRewardCard(),
-        const SizedBox(height: 10),
-        _buildWatchAdCard(),
+        // VIP sees no ads: no watch-ad card, and no gap where it was.
+        if (ref.watch(showAdsProvider)) ...[
+          const SizedBox(height: 10),
+          _buildWatchAdCard(),
+        ],
       ],
     );
   }
