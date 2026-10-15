@@ -54,7 +54,7 @@ class _BannerAdWidgetState extends ConsumerState<BannerAdWidget> {
     _bannerAd = BannerAd(
       adUnitId: adService.bannerAdUnitId,
       size: adSize,
-      request: const AdRequest(),
+      request: adService.adRequest,
       listener: BannerAdListener(
         onAdLoaded: (ad) {
           if (mounted) setState(() => _isLoaded = true);
@@ -132,7 +132,7 @@ class _SmallBannerAdWidgetState extends ConsumerState<SmallBannerAdWidget> {
     _bannerAd = BannerAd(
       adUnitId: adService.bannerAdUnitId,
       size: AdSize.banner, // 320x50 standard banner
-      request: const AdRequest(),
+      request: adService.adRequest,
       listener: BannerAdListener(
         onAdLoaded: (ad) {
           if (mounted) setState(() => _isLoaded = true);
@@ -203,7 +203,7 @@ class _NativeAdWidgetState extends ConsumerState<NativeAdWidget> {
 
     _nativeAd = NativeAd(
       adUnitId: adService.nativeAdUnitId,
-      request: const AdRequest(),
+      request: adService.adRequest,
       listener: NativeAdListener(
         onAdLoaded: (ad) {
           if (mounted) setState(() => _isLoaded = true);

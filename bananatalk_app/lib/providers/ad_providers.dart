@@ -11,10 +11,19 @@ final showAdsProvider = Provider<bool>((ref) {
   return !isVip;
 });
 
+/// The user's `privacySettings.personalizedAds`; null until the user loads.
+/// No stored settings means the backend default (true).
+final personalizedAdsProvider = Provider<bool?>((ref) {
+  final user = ref.watch(userProvider).valueOrNull;
+  if (user == null) return null;
+  return user.privacySettings?.personalizedAds ?? true;
+});
+
 /// Singleton AdService provider that reactively updates adFree flag
 final adServiceProvider = Provider<AdService>((ref) {
   final showAds = ref.watch(showAdsProvider);
   final adService = AdService();
+  adService.setPersonalizedAds(ref.watch(personalizedAdsProvider));
   adService.setAdFree(!showAds);
   return adService;
 });

@@ -39,6 +39,16 @@ bool nativeAdUnitIsDistinct({
   return native != bannerAdUnitId.trim();
 }
 
+/// The ad request to send for a user's `personalizedAds` privacy setting.
+///
+/// [personalizedAds] is null while the setting isn't known yet (user still
+/// loading); that is treated as an opt-out, so a user who turned personalised
+/// ads off is never sent a personalised request by default.
+AdRequest buildAdRequest({required bool? personalizedAds}) =>
+    personalizedAds == true
+        ? const AdRequest()
+        : const AdRequest(nonPersonalizedAds: true);
+
 class AdService {
   static final AdService _instance = AdService._internal();
   factory AdService() => _instance;
@@ -50,6 +60,9 @@ class AdService {
   /// False until [setAdFree] has been called at least once, i.e. until VIP
   /// status is actually known. Until then no full-screen ad may show.
   bool _adFreeKnown = false;
+
+  /// The user's `privacySettings.personalizedAds`; null until known.
+  bool? _personalizedAds;
 
   InterstitialAd? _interstitialAd;
   RewardedAd? _rewardedAd;
@@ -122,6 +135,25 @@ class AdService {
         nativeAdUnitId: _nativeAdUnitId,
       );
 
+  /// The request every ad load must use, honouring `personalizedAds`.
+  AdRequest get adRequest => buildAdRequest(personalizedAds: _personalizedAds);
+
+  /// Applies the user's `personalizedAds` setting (null = not known yet).
+  /// Preloaded full-screen ads were requested under the old setting, so a
+  /// change throws them away and requests new ones.
+  void setPersonalizedAds(bool? personalized) {
+    if (personalized == _personalizedAds) return;
+    _personalizedAds = personalized;
+    final hadInterstitial = _interstitialAd != null;
+    final hadRewarded = _rewardedAd != null;
+    _interstitialAd?.dispose();
+    _interstitialAd = null;
+    _rewardedAd?.dispose();
+    _rewardedAd = null;
+    if (hadInterstitial) loadInterstitial();
+    if (hadRewarded) loadRewarded();
+  }
+
   bool get isAdFree => _isAdFree;
   bool get isInitialized => _initialized;
 
@@ -163,7 +195,7 @@ class AdService {
     if (_isAdFree || !_initialized) return;
     InterstitialAd.load(
       adUnitId: _interstitialAdUnitId,
-      request: const AdRequest(),
+      request: adRequest,
       adLoadCallback: InterstitialAdLoadCallback(
         onAdLoaded: (ad) {
           _interstitialAd = ad;
@@ -262,7 +294,7 @@ class AdService {
     if (_isAdFree || !_initialized) return;
     RewardedAd.load(
       adUnitId: _rewardedAdUnitId,
-      request: const AdRequest(),
+      request: adRequest,
       rewardedAdLoadCallback: RewardedAdLoadCallback(
         onAdLoaded: (ad) {
           _rewardedAd = ad;
