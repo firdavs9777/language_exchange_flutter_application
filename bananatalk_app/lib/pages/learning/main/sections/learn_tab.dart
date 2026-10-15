@@ -592,9 +592,14 @@ void openProgress(BuildContext context, WidgetRef ref) {
         onOpenWeeklyReport: () => Navigator.of(context).push(
           AppPageRoute(
             builder: (_) => Consumer(
-              builder: (_, r, __) => WeeklyReportScreen(
-                report: r.watch(weeklyReportProvider).valueOrNull,
-              ),
+              builder: (_, r, __) {
+              final report = r.watch(weeklyReportProvider);
+              return WeeklyReportScreen(
+                report: report.valueOrNull,
+                failed: report.hasError && !report.isLoading,
+                onRetry: () => r.invalidate(weeklyReportProvider),
+              );
+            },
             ),
           ),
         ),

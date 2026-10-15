@@ -34,6 +34,9 @@ final masteryProvider = FutureProvider<MasterySummary>((ref) async {
 });
 
 /// The learner's most recently finished week in the pack.
-final weeklyReportProvider = FutureProvider<WeeklyReport>((ref) async {
+///
+/// autoDispose so a failed load (or last week's numbers) is not kept for the
+/// whole session: each opening of the report fetches afresh.
+final weeklyReportProvider = FutureProvider.autoDispose<WeeklyReport>((ref) async {
   return LearningService.getWeeklyReport();
 });
