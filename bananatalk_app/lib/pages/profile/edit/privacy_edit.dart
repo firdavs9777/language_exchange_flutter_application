@@ -6,6 +6,7 @@ import 'package:bananatalk_app/pages/profile/widgets/gradient_save_button.dart';
 import 'package:bananatalk_app/pages/profile/widgets/profile_snackbar.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/services/location_service.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
@@ -75,37 +76,35 @@ class _ProfilePrivacyState extends ConsumerState<ProfilePrivacy> {
     setState(() => _isLoading = true);
 
     try {
-      final userAsync = ref.read(userProvider);
-      userAsync.whenData((user) {
-        if (!mounted) return;
-        if (user.privacySettings != null) {
-          final s = user.privacySettings!;
-          setState(() {
-            _showCountryRegion = s.showCountryRegion;
-            _showCity = s.showCity;
-            _showAge = s.showAge;
-            _showZodiac = s.showZodiac;
-            _showOnlineStatus = s.showOnlineStatus;
-            _showGiftingLevel = s.showGiftingLevel;
-            _birthdayNotification = s.birthdayNotification;
-            _personalizedAds = s.personalizedAds;
-            _anonymousProfileVisits = s.anonymousProfileVisits;
-            _initialSettings = _captureSettings();
-          });
-        }
-        if (user.location.city.isNotEmpty || user.location.country.isNotEmpty) {
-          setState(() {
-            _currentCity = user.location.city.isNotEmpty
-                ? user.location.city
-                : null;
-            _currentCountry = user.location.country.isNotEmpty
-                ? user.location.country
-                : null;
-          });
+      // Wait for the user rather than reading whatever is cached right now:
+      // a still-loading provider used to leave the toggles on defaults.
+      final user = await ref.read(userProvider.future);
+      if (!mounted) return;
+      // No stored settings means the account is on the backend defaults,
+      // which are also the baseline for the unsaved-changes check.
+      final s = user.privacySettings ?? const PrivacySettings();
+      setState(() {
+        _showCountryRegion = s.showCountryRegion;
+        _showCity = s.showCity;
+        _showAge = s.showAge;
+        _showZodiac = s.showZodiac;
+        _showOnlineStatus = s.showOnlineStatus;
+        _showGiftingLevel = s.showGiftingLevel;
+        _birthdayNotification = s.birthdayNotification;
+        _personalizedAds = s.personalizedAds;
+        _anonymousProfileVisits = s.anonymousProfileVisits;
+        _initialSettings = _captureSettings();
+        if (user.location.city.isNotEmpty ||
+            user.location.country.isNotEmpty) {
+          _currentCity =
+              user.location.city.isNotEmpty ? user.location.city : null;
+          _currentCountry =
+              user.location.country.isNotEmpty ? user.location.country : null;
         }
       });
     } catch (_) {
-      // Settings will default to true if loading fails
+      // Toggles stay on the defaults (and _initialSettings matches them).
+      // A save still only sends the keys the user changes.
     } finally {
       if (mounted) setState(() => _isLoading = false);
     }
