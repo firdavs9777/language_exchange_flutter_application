@@ -96,6 +96,9 @@ class _ForgotPasswordEmailState extends ConsumerState<ForgotPasswordEmail> {
           builder: (ctx) => ForgotPasswordVerification(email: email),
         ),
       );
+    } else if (result['isNetworkError'] == true) {
+      // sendPasswordResetCode returns (never throws) on a transport failure.
+      setState(() => _errorKind = AuthErrorKind.network);
     } else {
       final errorCode = parseAuthErrorCode(result['code']?.toString());
       switch (errorCode) {
