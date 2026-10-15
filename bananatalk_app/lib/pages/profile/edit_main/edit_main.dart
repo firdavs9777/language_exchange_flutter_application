@@ -97,7 +97,7 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
   void _onLearnLangChanged(String lang) =>
       setState(() => selectedLanguageToLearn = lang);
 
-  void _onLanguageLevelChanged(String level) =>
+  void _onLanguageLevelChanged(String? level) =>
       setState(() => selectedLanguageLevel = level);
 
   void _onMBTIChanged(String mbti) => setState(() => selectedMBTI = mbti);
