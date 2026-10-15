@@ -38,7 +38,11 @@ class NotificationSettingsNotifier
     return settings.copyWith(quietHours: settings.quietHours.copyWith(timezone: tz));
   }
 
-  /// Fetch notification settings from backend
+  /// Fetch notification settings from backend.
+  ///
+  /// A failed load stays an error (the screen offers a retry). It must never
+  /// become defaults: every save sends the full settings object, so one toggle
+  /// on top of defaults would overwrite every other server value.
   Future<void> fetchSettings() async {
     try {
       state = const AsyncValue.loading();
@@ -50,20 +54,22 @@ class NotificationSettingsNotifier
         // Cache a quietHours snapshot for the foreground handler.
         await _cacheQuietHoursSnapshot(settings.quietHours);
       } else {
-        // Use default settings if fetch fails
-        final fallback = NotificationSettings.defaultSettings();
-        state = AsyncValue.data(fallback);
-        await _cacheQuietHoursSnapshot(fallback.quietHours);
+        state = AsyncValue.error(
+          StateError('Notification settings failed to load'),
+          StackTrace.current,
+        );
       }
     } catch (e, stack) {
       state = AsyncValue.error(e, stack);
-      // Fallback to default settings
-      state = AsyncValue.data(NotificationSettings.defaultSettings());
     }
   }
 
   /// Update notification settings
   Future<void> updateSettings(NotificationSettings settings) async {
+    // The last settings the server is known to hold. Without them (load
+    // failed or still running) there is nothing safe to build a save on.
+    final previous = state.valueOrNull;
+    if (previous == null) return;
     try {
       settings = await _withDeviceZone(settings);
 
@@ -75,21 +81,23 @@ class NotificationSettingsNotifier
 
       final result = await _apiClient.updateSettings(settings);
 
-      if (result['success'] == true) {
-      } else {
-        // Revert on failure
-        await fetchSettings();
+      if (result['success'] != true) {
+        await _revertTo(previous);
       }
     } catch (e) {
-      // Revert on error
-      await fetchSettings();
+      await _revertTo(previous);
     }
+  }
+
+  Future<void> _revertTo(NotificationSettings previous) async {
+    state = AsyncValue.data(previous);
+    await _cacheQuietHoursSnapshot(previous.quietHours);
   }
 
   /// Update only the quiet hours window. Persists through the standard
   /// updateSettings path so the API client and snapshot stay consistent.
   Future<void> updateQuietHours(QuietHours qh) async {
-    final current = state.value;
+    final current = state.valueOrNull;
     if (current == null) return;
     await updateSettings(current.copyWith(quietHours: qh));
   }
@@ -107,7 +115,7 @@ class NotificationSettingsNotifier
 
   /// Toggle a specific setting
   Future<void> toggleSetting(String settingName, bool value) async {
-    final currentSettings = state.value;
+    final currentSettings = state.valueOrNull;
     if (currentSettings == null) return;
 
     NotificationSettings updatedSettings;
@@ -188,7 +196,7 @@ class NotificationSettingsNotifier
 
   /// Check if a conversation is muted
   bool isConversationMuted(String conversationId) {
-    final settings = state.value;
+    final settings = state.valueOrNull;
     if (settings == null) return false;
     return settings.mutedConversations.contains(conversationId);
   }

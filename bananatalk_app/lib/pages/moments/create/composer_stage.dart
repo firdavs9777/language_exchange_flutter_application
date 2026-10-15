@@ -45,3 +45,28 @@ bool canAdvanceFrom({
   // photo. Requiring both would refuse half the posts this app exists for.
   return hasCaption || hasMedia;
 }
+
+/// What system back (Android back, iOS swipe) or the leading button does.
+enum ComposerBackAction {
+  /// Close the composer.
+  leave,
+
+  /// Step back to compose, keeping the draft — as the on-screen arrow does.
+  previousStage,
+
+  /// Ask before closing: the draft would be lost.
+  confirmDiscard,
+}
+
+/// Back from the details step goes to compose; back from compose closes,
+/// after asking when there is something to lose. System back used to pop
+/// the whole composer from either step, dropping caption, media and tags.
+ComposerBackAction composerBackAction({
+  required ComposerStage stage,
+  required bool hasUnsavedContent,
+}) {
+  if (!stage.isFirst) return ComposerBackAction.previousStage;
+  return hasUnsavedContent
+      ? ComposerBackAction.confirmDiscard
+      : ComposerBackAction.leave;
+}

@@ -86,5 +86,19 @@ void main() {
       expect(tester.takeException(), isNull);
       expect(find.byType(CircularProgressIndicator), findsOneWidget);
     });
+
+    testWidgets('a failed load shows an error with retry, not an endless spinner',
+        (tester) async {
+      var retried = 0;
+      await tester.pumpWidget(MaterialApp(
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        home: WeeklyReportScreen(report: null, failed: true, onRetry: () => retried++),
+      ));
+      expect(find.byType(CircularProgressIndicator), findsNothing);
+      expect(find.byKey(const Key('weekly-error')), findsOneWidget);
+      await tester.tap(find.byKey(const Key('weekly-retry')));
+      expect(retried, 1);
+    });
   });
 }

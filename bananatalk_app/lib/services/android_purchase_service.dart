@@ -4,6 +4,8 @@ import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:in_app_purchase_android/in_app_purchase_android.dart';
 import 'package:bananatalk_app/models/coin_pack.dart';
 import 'package:bananatalk_app/models/vip_subscription.dart';
+import 'package:bananatalk_app/services/purchase_call_guard.dart';
+import 'package:bananatalk_app/services/purchase_restorer.dart';
 
 /// Callback for purchase completion
 typedef PurchaseCallback = void Function(
@@ -18,7 +20,6 @@ class AndroidPurchaseService {
   static final InAppPurchase _inAppPurchase = InAppPurchase.instance;
   static StreamSubscription<List<PurchaseDetails>>? _subscription;
   static bool _isAvailable = false;
-  static bool _purchasePending = false;
   static String? _queryProductError;
 
   // Track initialization state to prevent multiple concurrent initializations
@@ -29,8 +30,20 @@ class AndroidPurchaseService {
   // Callback for when purchase completes
   static PurchaseCallback? _purchaseCallback;
 
-  // Completer for purchase result
-  static Completer<PurchaseDetails?>? _purchaseCompleter;
+  /// The one purchase call that may be waiting for the store. Always
+  /// released when the call ends (success, failure, cancel or timeout), so a
+  /// purchase abandoned in the store sheet no longer blocks the next one.
+  static final PurchaseCallGuard _call = PurchaseCallGuard();
+
+  /// Restore in progress: restored VIP transactions are collected here
+  /// instead of going to the redelivery handler.
+  static bool _restoring = false;
+  static final List<RestoredPurchase> _restoreBuffer = [];
+  static int _restoreEventCount = 0;
+
+  /// Receives purchased/restored transactions no purchase call or restore is
+  /// waiting for (see `PurchaseRedeliveryHandler`).
+  static void Function(RestoredPurchase purchase)? _redeliveryHandler;
 
   /// VIP subscription product IDs (must match Google Play Console).
   ///
@@ -187,46 +200,30 @@ class AndroidPurchaseService {
       return null;
     }
 
-    if (_purchasePending) {
+    if (!_call.begin(productId)) {
       return null;
     }
-
-    _purchasePending = true;
-
-    // Create a completer to wait for purchase result
-    _purchaseCompleter = Completer<PurchaseDetails?>();
 
     final PurchaseParam purchaseParam = PurchaseParam(
       productDetails: productDetails,
     );
 
     try {
-
       // For subscriptions, use buyNonConsumable
       final bool initiated = await _inAppPurchase.buyNonConsumable(
         purchaseParam: purchaseParam,
       );
 
       if (!initiated) {
-        _purchasePending = false;
-        _purchaseCompleter = null;
+        _call.abort();
         return null;
       }
 
-
-      // Wait for the purchase to complete (with timeout)
-      final result = await _purchaseCompleter!.future.timeout(
-        const Duration(minutes: 5),
-        onTimeout: () {
-          return null;
-        },
-      );
-
-      _purchaseCompleter = null;
-      return result;
+      // Wait for the purchase to complete (with timeout). wait() releases
+      // the guard however it ends.
+      return await _call.wait(timeout: const Duration(minutes: 5));
     } catch (e) {
-      _purchasePending = false;
-      _purchaseCompleter = null;
+      _call.abort();
       return null;
     }
   }
@@ -264,12 +261,9 @@ class AndroidPurchaseService {
       return null;
     }
 
-    if (_purchasePending) {
+    if (!_call.begin(productId)) {
       return null;
     }
-
-    _purchasePending = true;
-    _purchaseCompleter = Completer<PurchaseDetails?>();
 
     final PurchaseParam purchaseParam = PurchaseParam(
       productDetails: productDetails,
@@ -282,23 +276,15 @@ class AndroidPurchaseService {
       );
 
       if (!initiated) {
-        _purchasePending = false;
-        _purchaseCompleter = null;
+        _call.abort();
         return null;
       }
 
-      final result = await _purchaseCompleter!.future.timeout(
-        const Duration(minutes: 5),
-        onTimeout: () {
-          return null;
-        },
-      );
-
-      _purchaseCompleter = null;
-      return result;
+      // Wait for the purchase to complete (with timeout). wait() releases
+      // the guard however it ends.
+      return await _call.wait(timeout: const Duration(minutes: 5));
     } catch (e) {
-      _purchasePending = false;
-      _purchaseCompleter = null;
+      _call.abort();
       return null;
     }
   }
@@ -331,62 +317,68 @@ class AndroidPurchaseService {
     _purchaseCallback = null;
   }
 
-  /// Handle purchase updates from Google Play
+  /// Handle purchase updates from Google Play.
+  ///
+  /// Each transaction goes to exactly one owner:
+  ///   1. the purchase call waiting for THIS product ([PurchaseCallGuard]);
+  ///   2. else, during a restore, a restored VIP subscription is collected
+  ///      for [restoreAndCollect];
+  ///   3. else the redelivery handler (unfinished/renewed/deferred
+  ///      transactions nobody is waiting for) — previously these were
+  ///      dropped, so the backend never heard about them.
   static void _onPurchaseUpdate(List<PurchaseDetails> purchaseDetailsList) {
+    if (_restoring) _restoreEventCount++;
     for (final PurchaseDetails purchaseDetails in purchaseDetailsList) {
-      if (purchaseDetails.status == PurchaseStatus.pending) {
-        _purchasePending = true;
-      } else {
-        _purchasePending = false;
+      final takenByCall = _call.offer(purchaseDetails);
+      final status = purchaseDetails.status;
 
-        if (purchaseDetails.status == PurchaseStatus.error) {
+      if (status == PurchaseStatus.pending) {
+        continue;
+      }
 
-          // Complete the completer with null to indicate failure
-          if (_purchaseCompleter != null && !_purchaseCompleter!.isCompleted) {
-            _purchaseCompleter!.complete(null);
-          }
-
-          // Call callback if set
-          _purchaseCallback?.call(
-              purchaseDetails, false, purchaseDetails.error?.message);
-        } else if (purchaseDetails.status == PurchaseStatus.purchased ||
-            purchaseDetails.status == PurchaseStatus.restored) {
-
-          // Add to purchases list
-          if (!_purchases.contains(purchaseDetails)) {
-            _purchases.add(purchaseDetails);
-          }
-
-          // Complete the completer with the purchase details
-          if (_purchaseCompleter != null && !_purchaseCompleter!.isCompleted) {
-            _purchaseCompleter!.complete(purchaseDetails);
-          }
-
-          // Call callback if set
-          _purchaseCallback?.call(purchaseDetails, true, null);
-        } else if (purchaseDetails.status == PurchaseStatus.canceled) {
-
-          // Complete the completer with null
-          if (_purchaseCompleter != null && !_purchaseCompleter!.isCompleted) {
-            _purchaseCompleter!.complete(null);
-          }
-
-          // Call callback if set
-          _purchaseCallback?.call(
-              purchaseDetails, false, 'Purchase was canceled');
+      if (status == PurchaseStatus.error) {
+        _purchaseCallback?.call(
+            purchaseDetails, false, purchaseDetails.error?.message);
+      } else if (status == PurchaseStatus.purchased ||
+          status == PurchaseStatus.restored) {
+        if (!_purchases.contains(purchaseDetails)) {
+          _purchases.add(purchaseDetails);
         }
 
-        // Complete/acknowledge the purchase (required for Google Play).
-        // Coins v1 (Task 7): consumable coin-pack purchases are
-        // deliberately excluded — the coin shop flow consumes them via
-        // [completeCoinPurchase] only after the backend verify succeeds,
-        // so a failed verify leaves the purchase retryable/refundable.
-        if (purchaseDetails.pendingCompletePurchase &&
-            !_coinProductIds.contains(purchaseDetails.productID)) {
-          _inAppPurchase.completePurchase(purchaseDetails);
+        if (!takenByCall) {
+          final restored = toRestoredPurchase(purchaseDetails);
+          if (_restoring &&
+              status == PurchaseStatus.restored &&
+              _vipProductIds.contains(purchaseDetails.productID)) {
+            _restoreBuffer.add(restored);
+          } else {
+            _redeliveryHandler?.call(restored);
+          }
         }
+
+        _purchaseCallback?.call(purchaseDetails, true, null);
+      } else if (status == PurchaseStatus.canceled) {
+        _purchaseCallback?.call(
+            purchaseDetails, false, 'Purchase was canceled');
+      }
+
+      // Complete/acknowledge the purchase (required for Google Play).
+      // Coins v1 (Task 7): consumable coin-pack purchases are
+      // deliberately excluded — they are finished via
+      // [completeCoinPurchase] only after the backend verify succeeds
+      // (coin shop, or the redelivery handler), so a failed verify leaves
+      // the transaction retryable/refundable.
+      if (purchaseDetails.pendingCompletePurchase &&
+          !_coinProductIds.contains(purchaseDetails.productID)) {
+        _inAppPurchase.completePurchase(purchaseDetails);
       }
     }
+  }
+
+  /// Routes transactions nobody is waiting for. Pass null to stop.
+  static void setRedeliveryHandler(
+      void Function(RestoredPurchase purchase)? handler) {
+    _redeliveryHandler = handler;
   }
 
   /// Get the purchase token for backend verification
@@ -399,6 +391,19 @@ class AndroidPurchaseService {
     }
 
     return null;
+  }
+
+  /// Reduces a Play Billing purchase to what the backend verify needs: the
+  /// purchase token is the receipt, the order id the transaction id.
+  static RestoredPurchase toRestoredPurchase(PurchaseDetails purchase) {
+    final ms = int.tryParse(purchase.transactionDate ?? '');
+    return RestoredPurchase(
+      productId: purchase.productID,
+      receipt: getPurchaseToken(purchase) ?? '',
+      transactionId: purchase.purchaseID,
+      renewedAt: ms == null ? null : DateTime.fromMillisecondsSinceEpoch(ms),
+      source: purchase,
+    );
   }
 
   /// Get the order ID from purchase details
@@ -426,15 +431,40 @@ class AndroidPurchaseService {
     return _purchases.last.purchaseID;
   }
 
-  /// Restore previous purchases
-  static Future<void> restorePurchases() async {
+  /// Restore previous purchases and return the VIP subscriptions the store
+  /// redelivered. Throws when the store is unavailable or the restore fails
+  /// (the old fire-and-forget `restorePurchases` swallowed both).
+  ///
+  /// Coin packs are never returned here: they are consumables, so a restore
+  /// does not grant them. An un-finished coin pack the store returns goes to
+  /// the redelivery handler, whose verify the server dedupes per transaction.
+  static Future<List<RestoredPurchase>> restoreAndCollect({
+    Duration settle = const Duration(milliseconds: 1200),
+    Duration maxWait = const Duration(seconds: 6),
+  }) async {
     if (!_isAvailable) {
-      await initializeStore();
+      final ok = await initializeStore();
+      if (!ok) throw StateError(_queryProductError ?? 'Store not available');
     }
+    if (_restoring) throw StateError('Restore already in progress');
 
+    _restoring = true;
+    _restoreBuffer.clear();
+    _restoreEventCount = 0;
     try {
       await _inAppPurchase.restorePurchases();
-    } catch (e) {
+      // Restored transactions can trail the future; wait until the stream
+      // goes quiet.
+      final deadline = DateTime.now().add(maxWait);
+      var seen = -1;
+      while (_restoreEventCount != seen && DateTime.now().isBefore(deadline)) {
+        seen = _restoreEventCount;
+        await Future<void>.delayed(settle);
+      }
+      return List<RestoredPurchase>.of(_restoreBuffer);
+    } finally {
+      _restoring = false;
+      _restoreBuffer.clear();
     }
   }
 
@@ -444,7 +474,7 @@ class AndroidPurchaseService {
   }
 
   /// Check if purchase is pending
-  static bool get isPurchasePending => _purchasePending;
+  static bool get isPurchasePending => _call.inFlight;
 
   /// Check if store is available
   static bool get isAvailable => _isAvailable;
@@ -461,13 +491,15 @@ class AndroidPurchaseService {
     _subscription = null;
     _products.clear();
     _purchases.clear();
-    _purchasePending = false;
+    _call.abort();
+    _restoring = false;
+    _restoreBuffer.clear();
+    _redeliveryHandler = null;
     _isAvailable = false;
     _isInitializing = false;
     _isLoadingProducts = false;
     _initializationCompleter = null;
     _queryProductError = null;
     _purchaseCallback = null;
-    _purchaseCompleter = null;
   }
 }

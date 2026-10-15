@@ -380,10 +380,14 @@ class TutorChatController extends StateNotifier<TutorChatState> {
 
   /// Optimistically appends the user message, calls send, then appends the
   /// AI reply on success. On error, surfaces the error but leaves the
-  /// user message in place so the user sees what they sent.
-  Future<void> send(String content) async {
+  /// user message in place so the user sees what they sent — unless
+  /// [rollbackOnError], for a screen that puts the text back in its input
+  /// instead (a retry would otherwise show the message twice).
+  ///
+  /// Returns whether the reply arrived.
+  Future<bool> send(String content, {bool rollbackOnError = false}) async {
     final s = state.session;
-    if (s == null) return;
+    if (s == null) return false;
 
     final optimistic = TutorSession(
       id: s.id,
@@ -420,8 +424,14 @@ class TutorChatController extends StateNotifier<TutorChatState> {
       // first successful reply, not on end(), which screens rarely call.
       ActivationStore().markDone(ActivationAction.lesson).ignore();
       _refreshQuotas();
+      return true;
     } catch (e) {
-      _safeSet(state.copyWith(sending: false, error: e.toString()));
+      _safeSet(state.copyWith(
+        session: rollbackOnError ? s : null,
+        sending: false,
+        error: e.toString(),
+      ));
+      return false;
     }
   }
 

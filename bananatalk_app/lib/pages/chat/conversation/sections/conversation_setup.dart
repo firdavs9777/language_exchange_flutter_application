@@ -10,27 +10,19 @@
 // _themeChangeSubscription and closes over widget.userId, setState, and
 // mounted — too many mutable State fields for a clean extraction.
 
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:bananatalk_app/providers/call_provider.dart';
 
 // ---------------------------------------------------------------------------
 // setupCallListeners
 // ---------------------------------------------------------------------------
 
-/// Registers the call-error callback on [CallNotifier] in a post-frame
-/// callback so it is safe to call from initState.
-///
-/// [onCallError] is invoked (with the error string) whenever the call
-/// provider encounters an error.
+/// Used to register the chat screen as the call-error handler, overwriting
+/// the previous one and never clearing it: errors of calls accepted outside
+/// a chat went to a disposed screen and were never shown. In-call errors now
+/// have one app-level presenter (`CallLauncher.showCallErrorOnOverlay`,
+/// registered in main.dart), so a chat screen no longer takes them over.
+/// Kept as a no-op until the chat screen drops its call.
 void setupCallListeners({
   required WidgetRef ref,
   required void Function(String error) onCallError,
-}) {
-  WidgetsBinding.instance.addPostFrameCallback((_) {
-    final callNotifier = ref.read(callProvider.notifier);
-    // Incoming call callback is set globally in main.dart; only the error
-    // callback is wired here so the screen can surface it locally.
-    callNotifier.setCallErrorCallback(onCallError);
-  });
-}
+}) {}

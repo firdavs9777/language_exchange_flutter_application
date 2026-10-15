@@ -932,6 +932,9 @@ class AppLocalizationsJa extends AppLocalizations {
   String get failedToSendMessage => 'メッセージの送信に失敗しました';
 
   @override
+  String get chatSendTooFast => 'メッセージの送信が速すぎます。少し待ってからもう一度お試しください。';
+
+  @override
   String get dailyMessageLimitExceeded => '1日のメッセージ上限を超えました。VIPにアップグレードして無制限のメッセージを。';
 
   @override
@@ -4738,7 +4741,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get helpEmailSupport => 'メールサポート';
 
   @override
-  String get helpEmailSupportSubtitle => 'support@bananatalk.com';
+  String get helpEmailSupportSubtitle => 'support@banatalk.com';
 
   @override
   String get helpReportBug => 'バグを報告';
@@ -11333,6 +11336,87 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => '個人開発者の開発を支えてください';
+
+  @override
+  String get restorePurchases => '購入を復元';
+
+  @override
+  String get restorePurchasesInProgress => '購入を復元しています…';
+
+  @override
+  String get restorePurchasesSuccess => '購入を復元しました。VIPが有効になりました。';
+
+  @override
+  String get restorePurchasesAlreadyActive => 'VIPサブスクリプションはすでに有効です。';
+
+  @override
+  String get restorePurchasesNothing => '復元できる購入はありません。';
+
+  @override
+  String get restorePurchasesFailed => '購入を復元できませんでした。もう一度お試しください。';
+
+  @override
+  String get callVoiceCallButton => '音声通話';
+
+  @override
+  String get callVideoCallButton => 'ビデオ通話';
+
+  @override
+  String get callPermissionMicSettings => '通話するには、設定でマイクへのアクセスを許可してください。';
+
+  @override
+  String get callPermissionCameraSettings => 'ビデオ通話をするには、設定でカメラへのアクセスを許可してください。';
+
+  @override
+  String get callPermissionMicCameraSettings => 'ビデオ通話をするには、設定でマイクとカメラへのアクセスを許可してください。';
+
+  @override
+  String get callQualityExcellent => '通話品質：非常に良好';
+
+  @override
+  String get callQualityGood => '通話品質：良好';
+
+  @override
+  String get callConnectionLost => '接続が切れました';
+
+  @override
+  String get biometricLoginSetting => 'Face ID / 指紋でサインイン';
+
+  @override
+  String get biometricLoginSettingDesc => 'ログアウト後、ログイン画面に「〜として続行」を表示します';
+
+  @override
+  String get personaUpgradeNana => 'ナナともっと話したい？🐻\nアップグレードで無制限に。';
+
+  @override
+  String get personaUpgradeSensei => 'センセイとトレーニングを続けよう。🤖\nアップグレードで制限なく練習できます。';
+
+  @override
+  String get personaUpgradeRiko => 'リコはまだウォーミングアップ中！🐙\nアップグレードして続けよう。';
+
+  @override
+  String get personaUpgradeGeneric => 'もっと続けたい？\nアップグレードでAI学習が無制限に。';
+
+  @override
+  String get chatListConversationPinned => '会話をピン留めしました';
+
+  @override
+  String get chatListConversationUnpinned => '会話のピン留めを解除しました';
+
+  @override
+  String get chatListConversationDeleted => '会話を削除しました';
+
+  @override
+  String get chatListConversationActionFailed => 'この会話を更新できませんでした。もう一度お試しください。';
+
+  @override
+  String get coinsPurchaseLinkedElsewhere => 'この購入はすでに別のBananaTalkアカウントに紐付けられているため、ここではコインは追加されませんでした。';
+
+  @override
+  String get coinsAlreadyCredited => 'このコインはすでにアカウントに追加されています。';
+
+  @override
+  String get pleaseRemoveImagesFirstToAddVoiceNote => 'ボイスメモを追加するには、先に画像を削除してください';
 
   @override
   String momentAnsweringPrompt(String prompt) {

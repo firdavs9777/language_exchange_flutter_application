@@ -1057,6 +1057,7 @@ class _ReelCommentsSheetState extends ConsumerState<_ReelCommentsSheet> {
                 controller: scrollController,
                 child: CommentsMain(
                   id: widget.reel.id,
+                  momentOwnerId: widget.reel.user.id,
                   paginated: true,
                   onReply: (commentId, userName) {
                     setState(() {

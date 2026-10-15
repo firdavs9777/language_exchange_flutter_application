@@ -67,6 +67,16 @@ class AdService {
   InterstitialAd? _interstitialAd;
   RewardedAd? _rewardedAd;
 
+  /// Whether a rewarded ad is loaded and may be offered. Listenable so the
+  /// watch-ad button enables itself when the ad finishes loading (or
+  /// reloads after one was watched) instead of reading readiness once.
+  final ValueNotifier<bool> rewardedReady = ValueNotifier<bool>(false);
+
+  void _setRewarded(RewardedAd? ad) {
+    _rewardedAd = ad;
+    rewardedReady.value = isRewardedAdReady;
+  }
+
   // Google's official sample ad units, used in debug builds only.
   //
   // Debug runs previously hit the PRODUCTION units. Google classifies
@@ -184,7 +194,7 @@ class AdService {
       _interstitialAd?.dispose();
       _interstitialAd = null;
       _rewardedAd?.dispose();
-      _rewardedAd = null;
+      _setRewarded(null);
     } else if (_initialized) {
       loadInterstitial();
       loadRewarded();
@@ -220,8 +230,13 @@ class AdService {
     );
   }
 
+  /// Shows the loaded interstitial with no frequency cap of its own — screens
+  /// call [maybeShowInterstitial] / [maybeShowInterstitialOncePerSession].
+  /// Records the impression either way, so the caps see every interstitial.
   Future<void> showInterstitial() async {
     if (!canShowFullScreenAd || _interstitialAd == null) return;
+    _lastInterstitialAt = DateTime.now();
+    if (rewardedLimitsFlag) _interstitialShownThisSession = true;
     await _interstitialAd!.show();
   }
 
@@ -297,23 +312,23 @@ class AdService {
       request: adRequest,
       rewardedAdLoadCallback: RewardedAdLoadCallback(
         onAdLoaded: (ad) {
-          _rewardedAd = ad;
+          _setRewarded(ad);
           ad.fullScreenContentCallback = FullScreenContentCallback(
             onAdDismissedFullScreenContent: (ad) {
               ad.dispose();
-              _rewardedAd = null;
+              _setRewarded(null);
               loadRewarded();
             },
             onAdFailedToShowFullScreenContent: (ad, error) {
               ad.dispose();
-              _rewardedAd = null;
+              _setRewarded(null);
               loadRewarded();
             },
           );
         },
         onAdFailedToLoad: (error) {
           debugPrint('AdService: Rewarded ad failed to load - ${error.message}');
-          _rewardedAd = null;
+          _setRewarded(null);
         },
       ),
     );

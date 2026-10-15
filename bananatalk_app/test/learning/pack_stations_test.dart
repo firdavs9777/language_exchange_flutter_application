@@ -132,7 +132,7 @@ void main() {
       payload: _listening,
       fetchAudioUrl: (_, __) async => 'https://cdn/clip.mp3',
       playAudio: (_) async {},
-      onSubmit: (_) async => _ok(), onDone: () {},
+      onSubmit: (_, __) async => _ok(), onDone: () {},
     )));
     expect(find.text('She is waiting outside.'), findsNothing);
     expect(find.byKey(const Key('clip-play-0')), findsOneWidget);
@@ -150,7 +150,7 @@ void main() {
       language: 'en',
       fetchAudioUrl: (text, lang) async { asked = text; return 'https://cdn/clip.mp3'; },
       playAudio: (url) async { played = url; },
-      onSubmit: (_) async => _ok(),
+      onSubmit: (_, __) async => _ok(),
       onDone: () {},
     )));
     await tester.tap(find.byKey(const Key('clip-play-0')));
@@ -165,7 +165,7 @@ void main() {
       payload: _listening,
       fetchAudioUrl: (_, __) async => null,
       playAudio: (_) async {},
-      onSubmit: (_) async => _ok(),
+      onSubmit: (_, __) async => _ok(),
       onDone: () {},
     )));
     await tester.tap(find.byKey(const Key('clip-play-0')));
@@ -178,7 +178,7 @@ void main() {
       payload: _listening,
       fetchAudioUrl: (_, __) async => throw Exception('offline'),
       playAudio: (_) async {},
-      onSubmit: (_) async => _ok(),
+      onSubmit: (_, __) async => _ok(),
       onDone: () {},
     )));
     await tester.tap(find.byKey(const Key('clip-play-0')));
@@ -187,6 +187,41 @@ void main() {
     // and can read the line instead.
     expect(find.text('She is waiting outside.'), findsOneWidget);
     expect(find.byKey(const Key('clip-play-0')), findsOneWidget);
+  });
+
+  testWidgets('listening shows the server options and submits the chosen word', (tester) async {
+    List<String>? words;
+    await tester.pumpWidget(_host(ListeningStation(
+      payload: const ListeningPayload(clips: [
+        ListeningClip(
+          id: 'c0', text: 'She is waiting outside.', word: 'waiting',
+          options: ['salary', 'waiting', 'colleague'],
+        ),
+      ]),
+      onSubmit: (w, _) async { words = w; return _ok(); },
+      onDone: () {},
+    )));
+    expect(find.text('salary'), findsOneWidget);
+    await tester.tap(find.byKey(const Key('check-q0-opt1')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('station-submit')));
+    await tester.pumpAndSettle();
+    expect(words, ['waiting']);
+  });
+
+  testWidgets('listening without server options never repeats an option', (tester) async {
+    await tester.pumpWidget(_host(ListeningStation(
+      // The clip word opens the sentence: the old layout showed "She" twice.
+      payload: const ListeningPayload(clips: [
+        ListeningClip(id: 'c0', text: 'She is waiting outside.', word: 'She'),
+      ]),
+      onSubmit: (_, __) async => _ok(),
+      onDone: () {},
+    )));
+    expect(find.byKey(const Key('check-q0-opt0')), findsOneWidget);
+    expect(find.byKey(const Key('check-q0-opt1')), findsOneWidget);
+    expect(find.byKey(const Key('check-q0-opt2')), findsNothing);
+    expect(find.text('She'), findsOneWidget);
   });
 
   testWidgets('a checked station marks which answer was right and which was wrong',

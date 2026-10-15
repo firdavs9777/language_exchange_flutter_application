@@ -11,13 +11,54 @@ class WeeklyReportScreen extends StatelessWidget {
   final WeeklyReport? report;
   final VoidCallback? onStart;
 
-  const WeeklyReportScreen({super.key, this.report, this.onStart});
+  /// The load failed; with no report this shows an error instead of a
+  /// spinner that never ends.
+  final bool failed;
+  final VoidCallback? onRetry;
+
+  const WeeklyReportScreen({
+    super.key,
+    this.report,
+    this.onStart,
+    this.failed = false,
+    this.onRetry,
+  });
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     final r = report;
+
+    if (r == null && failed) {
+      return Scaffold(
+        appBar: AppBar(title: Text(l10n.weeklyReportTitle)),
+        body: Center(
+          child: Padding(
+            key: const Key('weekly-error'),
+            padding: const EdgeInsets.all(32),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  l10n.somethingWentWrong,
+                  style: theme.textTheme.bodyLarge,
+                  textAlign: TextAlign.center,
+                ),
+                if (onRetry != null) ...[
+                  const SizedBox(height: 20),
+                  FilledButton(
+                    key: const Key('weekly-retry'),
+                    onPressed: onRetry,
+                    child: Text(l10n.retry),
+                  ),
+                ],
+              ],
+            ),
+          ),
+        ),
+      );
+    }
 
     if (r == null) {
       return Scaffold(

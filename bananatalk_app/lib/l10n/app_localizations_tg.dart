@@ -932,6 +932,9 @@ class AppLocalizationsTg extends AppLocalizations {
   String get failedToSendMessage => 'Паём фиристода нашуд';
 
   @override
+  String get chatSendTooFast => 'Шумо паёмҳоро хеле зуд мефиристед. Каме сабр кунед ва дубора кӯшиш кунед.';
+
+  @override
   String get dailyMessageLimitExceeded => 'Лимити ҳаррӯзаи паёмҳо гузашт. Барои паёмҳои бемаҳдуд ба VIP гузаред.';
 
   @override
@@ -4744,7 +4747,7 @@ class AppLocalizationsTg extends AppLocalizations {
   String get helpEmailSupport => 'Дастгирии почтаи электронӣ';
 
   @override
-  String get helpEmailSupportSubtitle => 'support@bananatalk.com';
+  String get helpEmailSupportSubtitle => 'support@banatalk.com';
 
   @override
   String get helpReportBug => 'Дар бораи хато хабар диҳед';
@@ -11353,6 +11356,87 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => 'Ба як барномасози танҳо барои идома додан кӯмак кунед';
+
+  @override
+  String get restorePurchases => 'Барқарор кардани харидҳо';
+
+  @override
+  String get restorePurchasesInProgress => 'Харидҳо барқарор карда мешаванд…';
+
+  @override
+  String get restorePurchasesSuccess => 'Харидҳо барқарор шуданд. VIP-и шумо фаъол аст.';
+
+  @override
+  String get restorePurchasesAlreadyActive => 'Обунаи VIP-и шумо аллакай фаъол аст.';
+
+  @override
+  String get restorePurchasesNothing => 'Ягон хариде барои барқароркунӣ нест.';
+
+  @override
+  String get restorePurchasesFailed => 'Харидҳоро барқарор кардан нашуд. Лутфан бори дигар кӯшиш кунед.';
+
+  @override
+  String get callVoiceCallButton => 'Занги овозӣ';
+
+  @override
+  String get callVideoCallButton => 'Занги видеоӣ';
+
+  @override
+  String get callPermissionMicSettings => 'Лутфан дар Танзимот дастрасӣ ба микрофонро барои зангҳо фаъол кунед.';
+
+  @override
+  String get callPermissionCameraSettings => 'Лутфан дар Танзимот дастрасӣ ба камераро барои зангҳои видеоӣ фаъол кунед.';
+
+  @override
+  String get callPermissionMicCameraSettings => 'Лутфан дар Танзимот дастрасӣ ба микрофон ва камераро барои зангҳои видеоӣ фаъол кунед.';
+
+  @override
+  String get callQualityExcellent => 'Сифати аъло';
+
+  @override
+  String get callQualityGood => 'Сифати хуб';
+
+  @override
+  String get callConnectionLost => 'Пайвастшавӣ қатъ шуд';
+
+  @override
+  String get biometricLoginSetting => 'Ворид шудан бо Face ID / изи ангушт';
+
+  @override
+  String get biometricLoginSettingDesc => 'Пас аз баромадан дар экрани воридшавӣ «Идома ҳамчун»-ро нишон диҳед';
+
+  @override
+  String get personaUpgradeNana => 'Мехоҳед бо Нана сӯҳбатро идома диҳед? 🐻\nБарои истифодаи беҳудуд навсозӣ кунед.';
+
+  @override
+  String get personaUpgradeSensei => 'Машқи худро бо Сенсей идома диҳед. 🤖\nБарои машқи бемаҳдуд навсозӣ кунед.';
+
+  @override
+  String get personaUpgradeRiko => 'Рико навакак гарм шуда истодааст! 🐙\nНавсозӣ кунед ва идома диҳем.';
+
+  @override
+  String get personaUpgradeGeneric => 'Мехоҳед идома диҳед?\nБарои Омӯзиши AI-и беҳудуд навсозӣ кунед.';
+
+  @override
+  String get chatListConversationPinned => 'Сӯҳбат васл шуд';
+
+  @override
+  String get chatListConversationUnpinned => 'Сӯҳбат аз васл озод шуд';
+
+  @override
+  String get chatListConversationDeleted => 'Сӯҳбат нест карда шуд';
+
+  @override
+  String get chatListConversationActionFailed => 'Ин сӯҳбатро нав кардан нашуд. Лутфан бори дигар кӯшиш кунед.';
+
+  @override
+  String get coinsPurchaseLinkedElsewhere => 'Ин харид аллакай ба ҳисоби дигари BananaTalk пайваст аст, бинобар ин дар ин ҷо танга илова нашуд.';
+
+  @override
+  String get coinsAlreadyCredited => 'Ин тангаҳо аллакай ба ҳисоби шумо илова шудаанд.';
+
+  @override
+  String get pleaseRemoveImagesFirstToAddVoiceNote => 'Барои илова кардани паёми овозӣ аввал тасвирҳоро хориҷ кунед';
 
   @override
   String momentAnsweringPrompt(String prompt) {

@@ -4,6 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/moments/card/moment_card.dart';
+import 'package:bananatalk_app/widgets/moment_translate_chip.dart';
 
 import '../support/moment_fixture.dart';
 
@@ -54,5 +55,28 @@ void main() {
     await tester.pump(const Duration(milliseconds: 300));
 
     expect(find.textContaining('more'), findsNothing);
+  });
+
+  // Photo-only moments are postable now. With no caption the card must not
+  // render an empty caption line, nor offer to translate nothing.
+  testWidgets('a photo moment with no caption shows no translate chip',
+      (tester) async {
+    await tester.pumpWidget(_host(MomentCard(
+      moments: buildMoment(description: '', images: const ['a.jpg']),
+    )));
+    await tester.pump(const Duration(milliseconds: 300));
+
+    expect(find.byType(MomentTranslateChip), findsNothing);
+    expect(_renderedText(tester), isNot(contains('null')));
+  });
+
+  testWidgets('a photo moment WITH a caption keeps its translate chip',
+      (tester) async {
+    await tester.pumpWidget(_host(MomentCard(
+      moments: buildMoment(description: 'Hello', images: const ['a.jpg']),
+    )));
+    await tester.pump(const Duration(milliseconds: 300));
+
+    expect(find.byType(MomentTranslateChip), findsOneWidget);
   });
 }

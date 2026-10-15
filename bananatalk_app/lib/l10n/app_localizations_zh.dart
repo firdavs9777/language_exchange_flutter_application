@@ -932,6 +932,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get failedToSendMessage => '发送消息失败';
 
   @override
+  String get chatSendTooFast => '你发送消息太快了。请稍等片刻再试。';
+
+  @override
   String get dailyMessageLimitExceeded => '已达到每日消息限制。升级到VIP可享受无限消息。';
 
   @override
@@ -4738,7 +4741,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get helpEmailSupport => '邮件支持';
 
   @override
-  String get helpEmailSupportSubtitle => 'support@bananatalk.com';
+  String get helpEmailSupportSubtitle => 'support@banatalk.com';
 
   @override
   String get helpReportBug => '报告问题';
@@ -11335,6 +11338,87 @@ class AppLocalizationsZh extends AppLocalizations {
   String get supportBananaTalkRowSubtitle => '帮助独立开发者继续打磨产品';
 
   @override
+  String get restorePurchases => '恢复购买';
+
+  @override
+  String get restorePurchasesInProgress => '正在恢复购买…';
+
+  @override
+  String get restorePurchasesSuccess => '已恢复购买，你的 VIP 已生效。';
+
+  @override
+  String get restorePurchasesAlreadyActive => '你的 VIP 订阅已处于有效状态。';
+
+  @override
+  String get restorePurchasesNothing => '没有可恢复的购买。';
+
+  @override
+  String get restorePurchasesFailed => '无法恢复购买，请重试。';
+
+  @override
+  String get callVoiceCallButton => '语音通话';
+
+  @override
+  String get callVideoCallButton => '视频通话';
+
+  @override
+  String get callPermissionMicSettings => '请在设置中允许访问麦克风以进行通话。';
+
+  @override
+  String get callPermissionCameraSettings => '请在设置中允许访问相机以进行视频通话。';
+
+  @override
+  String get callPermissionMicCameraSettings => '请在设置中允许访问麦克风和相机以进行视频通话。';
+
+  @override
+  String get callQualityExcellent => '通话质量极佳';
+
+  @override
+  String get callQualityGood => '通话质量良好';
+
+  @override
+  String get callConnectionLost => '连接已断开';
+
+  @override
+  String get biometricLoginSetting => '使用面容 ID / 指纹登录';
+
+  @override
+  String get biometricLoginSettingDesc => '退出登录后在登录页显示“以…身份继续”';
+
+  @override
+  String get personaUpgradeNana => '想继续和 Nana 聊天吗？🐻\n升级即可无限畅聊。';
+
+  @override
+  String get personaUpgradeSensei => '和 Sensei 继续训练吧。🤖\n升级即可不受限制地练习。';
+
+  @override
+  String get personaUpgradeRiko => 'Riko 才刚刚热身！🐙\n升级后我们继续。';
+
+  @override
+  String get personaUpgradeGeneric => '想继续吗？\n升级即可无限使用 AI 学习。';
+
+  @override
+  String get chatListConversationPinned => '已置顶对话';
+
+  @override
+  String get chatListConversationUnpinned => '已取消置顶对话';
+
+  @override
+  String get chatListConversationDeleted => '已删除对话';
+
+  @override
+  String get chatListConversationActionFailed => '无法更新此对话，请重试。';
+
+  @override
+  String get coinsPurchaseLinkedElsewhere => '此购买已关联到另一个 BananaTalk 账号，因此这里没有添加金币。';
+
+  @override
+  String get coinsAlreadyCredited => '这些金币已经添加到你的账号中。';
+
+  @override
+  String get pleaseRemoveImagesFirstToAddVoiceNote => '请先删除图片再添加语音';
+
+  @override
   String momentAnsweringPrompt(String prompt) {
     return '回答：$prompt';
   }
@@ -12266,6 +12350,9 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get failedToSendMessage => '傳送訊息失敗';
+
+  @override
+  String get chatSendTooFast => '你傳送訊息太快了。請稍候再試一次。';
 
   @override
   String get dailyMessageLimitExceeded => '已超過每日訊息限制。升級為 VIP 以獲得無限訊息。';
@@ -16074,7 +16161,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get helpEmailSupport => '電子郵件支援';
 
   @override
-  String get helpEmailSupportSubtitle => 'support@bananatalk.com';
+  String get helpEmailSupportSubtitle => 'support@banatalk.com';
 
   @override
   String get helpReportBug => '回報問題';
@@ -22669,6 +22756,87 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get supportBananaTalkRowSubtitle => '幫助獨立開發者持續打磨產品';
+
+  @override
+  String get restorePurchases => '恢復購買';
+
+  @override
+  String get restorePurchasesInProgress => '正在恢復購買…';
+
+  @override
+  String get restorePurchasesSuccess => '已恢復購買，你的 VIP 已生效。';
+
+  @override
+  String get restorePurchasesAlreadyActive => '你的 VIP 訂閱已在有效狀態。';
+
+  @override
+  String get restorePurchasesNothing => '沒有可恢復的購買項目。';
+
+  @override
+  String get restorePurchasesFailed => '無法恢復購買，請再試一次。';
+
+  @override
+  String get callVoiceCallButton => '語音通話';
+
+  @override
+  String get callVideoCallButton => '視訊通話';
+
+  @override
+  String get callPermissionMicSettings => '請在設定中允許存取麥克風以進行通話。';
+
+  @override
+  String get callPermissionCameraSettings => '請在設定中允許存取相機以進行視訊通話。';
+
+  @override
+  String get callPermissionMicCameraSettings => '請在設定中允許存取麥克風和相機以進行視訊通話。';
+
+  @override
+  String get callQualityExcellent => '通話品質極佳';
+
+  @override
+  String get callQualityGood => '通話品質良好';
+
+  @override
+  String get callConnectionLost => '連線已中斷';
+
+  @override
+  String get biometricLoginSetting => '使用 Face ID / 指紋登入';
+
+  @override
+  String get biometricLoginSettingDesc => '登出後在登入畫面顯示「以…身分繼續」';
+
+  @override
+  String get personaUpgradeNana => '想繼續和 Nana 聊天嗎？🐻\n升級即可無限暢聊。';
+
+  @override
+  String get personaUpgradeSensei => '和 Sensei 繼續訓練吧。🤖\n升級即可不受限制地練習。';
+
+  @override
+  String get personaUpgradeRiko => 'Riko 才剛剛熱身！🐙\n升級後我們繼續。';
+
+  @override
+  String get personaUpgradeGeneric => '想繼續嗎？\n升級即可無限使用 AI 學習。';
+
+  @override
+  String get chatListConversationPinned => '已置頂對話';
+
+  @override
+  String get chatListConversationUnpinned => '已取消置頂對話';
+
+  @override
+  String get chatListConversationDeleted => '已刪除對話';
+
+  @override
+  String get chatListConversationActionFailed => '無法更新此對話，請再試一次。';
+
+  @override
+  String get coinsPurchaseLinkedElsewhere => '此購買已連結到另一個 BananaTalk 帳號，因此這裡沒有加入金幣。';
+
+  @override
+  String get coinsAlreadyCredited => '這些金幣已經加入你的帳號。';
+
+  @override
+  String get pleaseRemoveImagesFirstToAddVoiceNote => '請先刪除圖片再新增語音';
 
   @override
   String momentAnsweringPrompt(String prompt) {

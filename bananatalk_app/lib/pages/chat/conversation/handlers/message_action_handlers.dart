@@ -12,7 +12,6 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/providers/chat_state_provider.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
 import 'package:bananatalk_app/providers/provider_root/message_provider.dart';
-import 'package:bananatalk_app/providers/unread_count_provider.dart';
 import 'package:bananatalk_app/pages/chat/widgets/chat_snackbar.dart';
 import 'package:bananatalk_app/pages/chat/dialogs/delete_message_dialog.dart';
 import 'package:bananatalk_app/pages/chat/dialogs/forward_message_dialog.dart';
@@ -207,51 +206,17 @@ Future<void> handleForwardMessage({
   required String chatPartnerId,
   required String currentUserId,
 }) async {
-  // Get list of chat partners from unread counts (user IDs)
-  final chatPartnersState = ref.read(chatPartnersProvider);
-  final userIds = chatPartnersState.unreadCounts.keys
-      .where((id) => id != chatPartnerId)
-      .toList();
-
-  // If no chat partners from unread counts, try to get from current messages
-  if (userIds.isEmpty) {
-    final chatState = ref.read(
-      chatStateProvider(
-        ChatProviderParams(
-          chatPartnerId: chatPartnerId,
-          currentUserId: currentUserId,
-        ),
-      ),
-    );
-
-    final uniqueUserIds = <String>{};
-    for (final msg in chatState.messages) {
-      if (msg.sender.id != currentUserId && msg.sender.id != chatPartnerId) {
-        uniqueUserIds.add(msg.sender.id);
-      }
-      if (msg.receiver.id != currentUserId &&
-          msg.receiver.id != chatPartnerId) {
-        uniqueUserIds.add(msg.receiver.id);
-      }
-    }
-    userIds.addAll(uniqueUserIds);
-  }
-
-  if (userIds.isEmpty) {
-    showChatSnackBar(
-      context,
-      message: 'No other users to forward to',
-      type: ChatSnackBarType.info,
-    );
-    return;
-  }
-
+  // The dialog loads the full conversation list itself (it used to get only
+  // partners with unread counts, so it was usually empty).
   final messageService = ref.read(messageServiceProvider);
 
   final result = await showDialog<List<String>>(
     context: context,
-    builder: (context) =>
-        ForwardMessageDialog(userIds: userIds, messageService: messageService),
+    builder: (context) => ForwardMessageDialog(
+      currentUserId: currentUserId,
+      currentPartnerId: chatPartnerId,
+      messageService: messageService,
+    ),
   );
 
   if (result != null && result.isNotEmpty && context.mounted) {
@@ -278,41 +243,9 @@ Future<void> handleForwardMessage({
   }
 }
 
-// ---------------------------------------------------------------------------
-// handleRetryMessage
-// ---------------------------------------------------------------------------
-
-Future<void> handleRetryMessage({
-  required BuildContext context,
-  required WidgetRef ref,
-  required Message message,
-  required String chatPartnerId,
-  required String currentUserId,
-
-  /// Orchestrator's _sendMessage — signature mirrors the State method.
-  required Future<void> Function({String? messageText, String? messageType})
-  onSendMessage,
-}) async {
-  if (!context.mounted) return;
-
-  final messageText = message.message;
-  if (messageText == null || messageText.isEmpty) return;
-
-  final chatNotifier = ref.read(
-    chatStateProvider(
-      ChatProviderParams(
-        chatPartnerId: chatPartnerId,
-        currentUserId: currentUserId,
-      ),
-    ).notifier,
-  );
-
-  // Remove the failed message first
-  chatNotifier.removeMessageLocally(message.localId ?? message.id);
-
-  // Send again (only supports text retry for now)
-  await onSendMessage(messageText: messageText);
-}
+// Retrying a failed message lives in the screen (_retrySend): it resends the
+// failed bubble in place through the same limit-checked send path, which a
+// free function here cannot reach.
 
 // ---------------------------------------------------------------------------
 // handleDeleteFailedMessage

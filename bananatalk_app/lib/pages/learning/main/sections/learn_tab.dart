@@ -6,6 +6,7 @@ import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 import 'package:bananatalk_app/widgets/learning/daily_goal_widget.dart';
 import 'package:bananatalk_app/widgets/learning/challenge_card.dart';
 import 'package:bananatalk_app/pages/learning/vocabulary/vocabulary_screen.dart';
+import 'package:bananatalk_app/pages/learning/vocabulary/vocab_packs_screen.dart';
 import 'package:bananatalk_app/pages/learning/vocabulary/vocabulary_review_screen.dart';
 import 'package:bananatalk_app/pages/learning/vocabulary/srs_dashboard_screen.dart';
 import 'package:bananatalk_app/pages/learning/lessons/lessons_screen.dart';
@@ -25,6 +26,8 @@ import 'package:bananatalk_app/models/learning/daily_pack_model.dart';
 import 'package:bananatalk_app/providers/provider_root/learning/daily_pack_providers.dart';
 import 'package:bananatalk_app/services/learning_service.dart';
 import 'package:bananatalk_app/widgets/language_selection/show_language_picker.dart';
+import 'package:bananatalk_app/models/language_model.dart';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 
 /// The "Learn" tab inside the Study Hub.
 class LearnTab extends ConsumerWidget {
@@ -523,6 +526,20 @@ class LearnTab extends ConsumerWidget {
           ),
         ),
         const SizedBox(height: 10),
+        // Packs follow the learner's target language server-side; this was
+        // otherwise only reachable from the English exam row.
+        _LearningNavCard(
+          icon: Icons.style_rounded,
+          title: AppLocalizations.of(context)!.vocabularyPacks,
+          subtitle: AppLocalizations.of(context)!.learnThemedWordSetsBuild,
+          color: const Color(0xFF14B8A6),
+          isDark: isDark,
+          onTap: () => Navigator.push(
+            context,
+            AppPageRoute(builder: (_) => const VocabPacksScreen()),
+          ),
+        ),
+        const SizedBox(height: 10),
         _LearningNavCard(
           icon: Icons.emoji_events_rounded,
           title: AppLocalizations.of(context)!.achievements,
@@ -592,9 +609,14 @@ void openProgress(BuildContext context, WidgetRef ref) {
         onOpenWeeklyReport: () => Navigator.of(context).push(
           AppPageRoute(
             builder: (_) => Consumer(
-              builder: (_, r, __) => WeeklyReportScreen(
-                report: r.watch(weeklyReportProvider).valueOrNull,
-              ),
+              builder: (_, r, __) {
+              final report = r.watch(weeklyReportProvider);
+              return WeeklyReportScreen(
+                report: report.valueOrNull,
+                failed: report.hasError && !report.isLoading,
+                onRetry: () => r.invalidate(weeklyReportProvider),
+              );
+            },
             ),
           ),
         ),
@@ -605,12 +627,30 @@ void openProgress(BuildContext context, WidgetRef ref) {
 
 /// Ask the active users with a blank `language_to_learn` what they are
 /// learning, then persist it and refresh today's pack (spec §4.1).
-Future<void> pickLearningLanguage(BuildContext context, WidgetRef ref) async {
-  final picked = await showLanguagePickerSheet(context);
-  if (picked == null) return;
-  await LearningService.setLearningLanguage(picked.name);
+///
+/// [pick] and [save] are test seams for the picker sheet and the save call.
+Future<void> pickLearningLanguage(
+  BuildContext context,
+  WidgetRef ref, {
+  Future<Language?> Function(BuildContext context)? pick,
+  Future<void> Function(String language)? save,
+}) async {
+  final picked = await (pick ?? showLanguagePickerSheet)(context);
+  if (picked == null || !context.mounted) return;
+  try {
+    await (save ?? LearningService.setLearningLanguage)(picked.name);
+  } catch (_) {
+    if (!context.mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(AppLocalizations.of(context)!.failedToSave)),
+    );
+    return;
+  }
   if (!context.mounted) return;
   ref.invalidate(dailyPackProvider);
+  // The hub's "language · level" chip and every other reader of the user's
+  // language_to_learn would otherwise stay stale until the next refetch.
+  ref.invalidate(userProvider);
 
   // 6 of the 137 catalog languages (Dari, Hawaiian and the four sign
   // languages) do not resolve through the server's toBaseLanguage, so the save

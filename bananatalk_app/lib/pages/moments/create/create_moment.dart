@@ -101,6 +101,11 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
   // Video processing state
   double _videoCompressionProgress = 0;
   String _videoProcessingStatus = '';
+
+  // The processing dialog is its own route: setState here never rebuilt it,
+  // so its % and status froze at their first values. Bumped on every
+  // progress/status change; the dialog listens to it.
+  final ValueNotifier<int> _videoProgressTick = ValueNotifier(0);
   VideoProcessResult? _videoProcessResult;
   final VideoCompressionService _videoCompressionService =
       VideoCompressionService();
@@ -322,11 +327,14 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     descriptionController.removeListener(_updateButtonState);
     descriptionController.dispose();
     isButtonEnabled.dispose();
+    _videoProgressTick.dispose();
     super.dispose();
   }
 
   void _updateButtonState() {
-    isButtonEnabled.value = descriptionController.text.isNotEmpty;
+    // Caption OR media enables Post; media changes rebuild via setState, so
+    // the notifier is recomputed in build too (see the Post button).
+    isButtonEnabled.value = _hasPostableContent;
     // Trigger rebuild to update character counter
     if (mounted) setState(() {});
   }
@@ -403,7 +411,11 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     final message = switch (block.present) {
       MomentMediaKind.audio => 'Please remove the voice note first',
       MomentMediaKind.video => 'Please remove the video first',
-      _ => l10n.pleaseRemoveImagesFirst,
+      // Images block both a video and a voice note; name the one wanted
+      // (this always said "to add a video", even for a voice note).
+      _ => block.wanted == MomentMediaKind.audio
+          ? l10n.pleaseRemoveImagesFirstToAddVoiceNote
+          : l10n.pleaseRemoveImagesFirstToAddVideo,
     };
     showMomentsSnackBar(context, message: message);
     return true;
@@ -579,6 +591,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
             setState(() {
               _videoCompressionProgress = progress;
             });
+            _videoProgressTick.value++;
           }
         },
         onStatus: (status) {
@@ -586,6 +599,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
             setState(() {
               _videoProcessingStatus = status;
             });
+            _videoProgressTick.value++;
           }
         },
         maxDurationSecondsOverride: widget.isReel ? 180 : null,
@@ -645,8 +659,9 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (context) => StatefulBuilder(
-        builder: (context, setDialogState) {
+      builder: (context) => ValueListenableBuilder<int>(
+        valueListenable: _videoProgressTick,
+        builder: (context, _, __) {
           return AlertDialog(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),
@@ -1275,7 +1290,28 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     tags: _tags,
     scheduledDate: _scheduledDate,
     now: DateTime.now(),
+    hasMedia: _hasMedia,
+    isReel: widget.isReel && !isEditMode,
+    hasVideo: _selectedVideo != null,
   );
+
+  /// Why a selected photo would be refused by the upload step, checked
+  /// BEFORE the moment is created. Checking only inside the upload (after
+  /// create) left a caption-only post behind for a 12MB photo or an Android
+  /// HEIC, and the next tap on Post duplicated it.
+  Future<String?> _imageProblemBeforeCreate() async => firstMomentImageProblem([
+    for (final f in _selectedImages) (f.path, await f.length()),
+  ]);
+
+  /// Deletes a moment whose media upload failed, so the post is
+  /// all-or-nothing and Post can simply be tapped again. Best effort.
+  Future<void> _rollBackMoment(String momentId) async {
+    try {
+      await ref.read(momentsServiceProvider).deleteUserMoment(id: momentId);
+    } catch (e) {
+      debugPrint('Rollback of moment $momentId failed: $e');
+    }
+  }
 
   // Format location data for backend (GeoJSON format)
   Map<String, dynamic>? _formatLocationData() {
@@ -1304,6 +1340,17 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     final validationError = _validateInputs();
     if (validationError != null) {
       showMomentsSnackBar(context, message: validationError);
+      return;
+    }
+
+    final imageProblem = await _imageProblemBeforeCreate();
+    if (imageProblem != null) {
+      if (!mounted) return;
+      showMomentsSnackBar(
+        context,
+        message: imageProblem,
+        type: MomentsSnackBarType.error,
+      );
       return;
     }
 
@@ -1416,16 +1463,27 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
         // The server created it: that is the milestone, uploads or not.
         activation.markDone(ActivationAction.moment).ignore();
 
-        // Upload images if any
+        final hasCaption = descriptionController.text.trim().isNotEmpty;
+
+        // Upload images if any. On failure the moment is deleted again
+        // (afterMediaUploadFailed: photos are all-or-nothing) and the error
+        // surfaces below with the draft intact, so tapping Post again makes
+        // ONE complete moment instead of a duplicate of a caption-only half.
         if (_selectedImages.isNotEmpty) {
-          await ref
-              .read(momentsServiceProvider)
-              .uploadMomentPhotos(moment.id, _selectedImages);
+          try {
+            await ref
+                .read(momentsServiceProvider)
+                .uploadMomentPhotos(moment.id, _selectedImages);
+          } catch (_) {
+            await _rollBackMoment(moment.id);
+            rethrow;
+          }
         }
 
-        // Upload recorded audio (voice note) if any. The moment already
-        // exists at this point, so a failure here should not block the
-        // user from seeing their post — surface a retry snackbar instead.
+        // Upload recorded audio (voice note) if any. With a caption the
+        // moment stands on its own, so a failure keeps it and offers a retry
+        // dialog. Without one the voice note IS the post: roll back and let
+        // the user tap Post again, rather than leave an empty moment.
         bool audioUploadFailed = false;
         String? audioUploadError;
         if (_recordedAudio != null) {
@@ -1439,6 +1497,14 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                   waveform: _recordedAudioWaveform,
                 );
           } catch (e) {
+            if (afterMediaUploadFailed(
+                  kind: MomentMediaKind.audio,
+                  hasCaption: hasCaption,
+                ) ==
+                MediaFailureAction.rollBack) {
+              await _rollBackMoment(moment.id);
+              rethrow;
+            }
             audioUploadFailed = true;
             audioUploadError = e.toString().replaceFirst('Exception: ', '');
           }
@@ -1637,10 +1703,22 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     ..._sectionSchedule(),
   ];
 
+  /// Media on the draft — newly picked, or (when editing) already on the
+  /// moment, so clearing the caption of a photo moment can still be saved.
   bool get _hasMedia =>
       _selectedImages.isNotEmpty ||
       _selectedVideo != null ||
-      _recordedAudio != null;
+      _recordedAudio != null ||
+      (widget.momentToEdit?.hasImages ?? false) ||
+      (widget.momentToEdit?.hasVideo ?? false) ||
+      (widget.momentToEdit?.hasAudio ?? false);
+
+  /// Post is enabled by a caption OR media — never caption-only, which is
+  /// what refused photo-only moments the compose step had already accepted.
+  bool get _hasPostableContent => draftHasContent(
+    description: descriptionController.text,
+    hasMedia: _hasMedia,
+  );
 
   bool get _canAdvance => canAdvanceFrom(
     stage: _stage,
@@ -1651,6 +1729,60 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
   void _goToStage(ComposerStage stage) {
     FocusScope.of(context).unfocus();
     setState(() => _stage = stage);
+  }
+
+  /// The caption the composer opened with: the moment's own when editing,
+  /// the prompt's when answering one, otherwise nothing.
+  String get _initialCaption {
+    if (widget.momentToEdit != null) return widget.momentToEdit!.description;
+    if (!widget.isReel) return widget.prefillPrompt ?? '';
+    return '';
+  }
+
+  /// Something leaving would throw away: an edited caption or newly picked
+  /// media.
+  bool get _hasUnsavedContent =>
+      descriptionController.text.trim() != _initialCaption.trim() ||
+      _selectedImages.isNotEmpty ||
+      _selectedVideo != null ||
+      _recordedAudio != null;
+
+  ComposerBackAction get _backAction => composerBackAction(
+    stage: _stage,
+    hasUnsavedContent: _hasUnsavedContent,
+  );
+
+  /// System back, iOS swipe and the leading button all come through here.
+  Future<void> _handleBack() async {
+    switch (_backAction) {
+      case ComposerBackAction.previousStage:
+        _goToStage(_stage.previous);
+      case ComposerBackAction.leave:
+        Navigator.pop(context);
+      case ComposerBackAction.confirmDiscard:
+        final l10n = AppLocalizations.of(context)!;
+        final discard = await showDialog<bool>(
+          context: context,
+          builder: (dialogContext) => AlertDialog(
+            content: Text(l10n.unsavedChanges),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(dialogContext, false),
+                child: Text(l10n.cancel),
+              ),
+              TextButton(
+                key: const Key('composer-discard'),
+                onPressed: () => Navigator.pop(dialogContext, true),
+                child: Text(
+                  l10n.discard,
+                  style: const TextStyle(color: AppColors.error),
+                ),
+              ),
+            ],
+          ),
+        );
+        if (discard == true && mounted) Navigator.pop(context);
+    }
   }
 
   @override
@@ -1672,7 +1804,14 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
       }
     });
 
-    return Scaffold(
+    // System back / iOS swipe: step 2 goes back to step 1 (like the arrow),
+    // and leaving with a draft asks first, instead of dropping it.
+    return PopScope(
+      canPop: _backAction == ComposerBackAction.leave,
+      onPopInvokedWithResult: (didPop, _) {
+        if (!didPop) _handleBack();
+      },
+      child: Scaffold(
       backgroundColor: context.scaffoldBackground,
       appBar: AppBar(
         elevation: 0,
@@ -1686,9 +1825,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
             _stage.isFirst ? Icons.close : Icons.arrow_back,
             color: context.textPrimary,
           ),
-          onPressed: _stage.isFirst
-              ? () => Navigator.pop(context)
-              : () => _goToStage(_stage.previous),
+          onPressed: _handleBack,
         ),
         title: Text(
           isEditMode
@@ -1715,7 +1852,10 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
           else
             ValueListenableBuilder<bool>(
               valueListenable: isButtonEnabled,
-              builder: (context, isEnabled, child) {
+              builder: (context, _, child) {
+                // Recomputed here, not only in the listener: picking or
+                // removing media changes it without touching the caption.
+                final isEnabled = _hasPostableContent;
                 return TextButton(
                   onPressed: isEnabled && !_isLoading ? _createMoment : null,
                   child: _isLoading
@@ -1802,6 +1942,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
             ],
           ),
         ),
+      ),
       ),
     );
   }

@@ -676,7 +676,8 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                         ),
                       ),
                     )
-                  else if (widget.moment.backgroundColor.isEmpty) ...[
+                  else if (widget.moment.backgroundColor.isEmpty &&
+                      widget.moment.description.trim().isNotEmpty) ...[
                     Padding(
                       padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
                       child: Text(
@@ -837,6 +838,7 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                   ),
                   CommentsMain(
                     id: widget.moment.id,
+                    momentOwnerId: widget.moment.user.id,
                     paginated: true,
                     onReply: (commentId, userName) {
                       setState(() {

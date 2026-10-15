@@ -1,6 +1,6 @@
 # Remaining work — BananaTalk app
 
-Last updated: 2026-10-15. Keep this current: tick items off in the same commit that finishes them.
+Last updated: 2026-10-15 (bug-fix wave). Keep this current: tick items off in the same commit that finishes them.
 
 See also: backend `language_exchange_backend_application/docs/REMAINING_WORK.md` (server env, prod DB, flags, ops) ·
 web `docs/REMAINING_WORK.md` in the web repo (admin console, `assetlinks.json`, nginx).
@@ -78,13 +78,13 @@ After release (production data):
 Localization
 - [ ] Shrink the 103-entry `test/l10n/no_hardcoded_text_allowlist.txt` to zero (~19 of its files are unreachable: delete or localize). M
 - [ ] L14: ~54 property literals (`hintText:`/`labelText:`/`tooltip:`/`message:`) + enum labels listed in the 2026-10-11 sweep (image_viewer 'Rotate', word_card 'Listen', message_bubble 'Report', chat/moments snackbars, upload_queue progress…), with a property-literal guard. M
-- [ ] Native CallKit Accept/Decline labels and missed-call subtitle are hardcoded English (`callkit_service.dart:225`); add an "Accept" key and feed them from `notificationL10n()`. S
+- [x] Native CallKit Accept/Decline labels and missed-call subtitle are hardcoded English (`callkit_service.dart:225`); add an "Accept" key and feed them from `notificationL10n()`. S
 - [ ] Russian `{coins} монет` is not plural-aware (e.g. `referralClaimed`); needs an ICU plural in the en source. S
 
 Calls
 - [x] **Rejoin after kill never happened** — fixed 2026-10-15 (91b5002d): reconcile asks `/calls/current` once and leaves an entry whose call is already `active` to `recoverCallState`; 3 reconcile-then-recover tests. Device row CALL2-23 still open. Original finding: `main.dart` runs `reconcileCallKitOnColdStart()` then `recoverCallState()`; reconcile finds the still-accepted native entry and calls `handleCallKitAccept` → `POST /accept` on a call that is already `active` → server 409 `CALL_STATE` → `_finish(acceptConflict)` ends the native entry and remembers the id, so `recoverCallState` finds no accepted entry (and `_rejoin` would skip the remembered id anyway). The peer sees "Reconnecting..." and the call ends after ~20 s. Tests only cover `recoverCallState()` alone. Fix idea: in reconcile, ask `/calls/current` first and leave an entry whose call is already `active` to `recoverCallState`. Device row: calls-matrix CALL2-23. M
-- [ ] Android 12+ BT headset: a local upgrade / first "Video On" calls `setSpeakerOn(true)`, which in flutter_webrtc 1.4.0 forces `Speakerphone` over a connected headset (iOS keeps BT). Prefer speaker only when no headset is connected. Device row CALL2-22. S
-- [ ] Request BLUETOOTH_CONNECT at runtime with the mic if the device QA shows the headset is not selectable on Android 12+. S
+- [x] Android 12+ BT headset (fixed 2026-10-15, calls batch): a local upgrade / first "Video On" calls `setSpeakerOn(true)`, which in flutter_webrtc 1.4.0 forces `Speakerphone` over a connected headset (iOS keeps BT). Prefer speaker only when no headset is connected. Device row CALL2-22. S
+- [x] Request BLUETOOTH_CONNECT at runtime (done 2026-10-15) with the mic if the device QA shows the headset is not selectable on Android 12+. S
 
 Notifications
 - [x] **Android 13+ fresh installs were never asked for notification permission** — fixed 2026-10-15 (fb3dc453): Android `denied` with `notification_prompt_shown` unset → `ask`; delivery set-up (`_setUpDelivery`) now also runs after a grant from the prime. Device rows onboarding §4 still open. Original finding (since 2.4.0, 9a2368c8): firebase_messaging 15.2.10 on Android reports only authorized/denied, so "not asked yet" reads as `denied` → `NotificationAction.recover` → no priming sheet, and `NotificationService.initialize` also skips handler/local-notification set-up for `denied`. Affects chat pushes and incoming calls for every new Android 13+ user (push reach, calls answered rate). Fix idea: on Android, treat `denied` with `notification_prompt_shown` unset as `notDetermined` (Android allows the dialog twice); re-check the set-up skip. Device row: onboarding §4. M
@@ -149,6 +149,30 @@ AI Study hub + floating tab bar (branch `feat/ai-study-hub`)
 - [ ] Delete `LearnTab` / `AIToolsTab` / `LegacyStudyHub` / `practice_entries.dart` / `study_hub_tabs.dart` once `studyHubEnabled` has been on for a full release. S
 - [ ] Per-tab announcement targeting (later, not scheduled). S
 - [ ] Language coverage: backend has no hard English-only restriction, so no tile shows "English only for now"; revisit if content gaps show up in baseline queries. S
+
+Bug-fix wave 2026-10-15 (from the full regression suite + two adversarial audits; ~60 confirmed bugs, all fixed on branches, merged to `main`, unit/widget-tested; NONE seen on a device yet — every fix has a case in `docs/qa/regression-suite.csv`)
+- [x] Payments: Restore Purchases button (plans + status screens) verifying the newest subscription through the purchase endpoints; redelivered transactions verified (coins credited once); one purchase guard (no stuck "canceled"); VIP users can't buy a second plan; per-month price/savings in the store currency; watch-ad button reacts to ad load; interstitial caps can't be bypassed; replayed coin receipt says "already added"; cross-account coin receipt finishes on 409.
+- [x] Moments: photo/voice/video-only moments postable (backend description optional); reel needs a video; upload retries reuse the created moment (no duplicates), bad photos rejected before create; composer back goes to step 1 / asks to discard; feed pagination + server search; comment photos uploaded, GIF comments kept, empty comments refused; comment box never dead, failed comment keeps text, 500-char cap; owner can delete comments; video-editor filter row removed (never applied); story gallery videos capped 60 s; RTL story taps; processing % moves; offline card tap message.
+- [x] Chats: catch-up fetch after socket reconnect/resume (+ list refetch); rate-limited send fails at once; Retry resends the failed bubble; sticker/GIF reply keeps type; Forward lists all partners (+search); translate errors shown; mic permanently denied → Open Settings; chat-list pin/mute/delete use the real conversation id, roll back + show errors.
+- [x] Auth: suspended accounts refused at login (backend 403 ACCOUNT_BANNED) → suspension screen; new-device email fixed (backend); password reset clears the session; declining Terms signs out; biometric switch in Settings → Privacy + "Continue as" on Welcome; forgot-password offline panel; signup resume tied to the email; change-password rule matches the checklist/backend.
+- [x] Profile/notifications: Help Center rows (support mail, bug report with device info, FAQ page); admin email comma; failed settings load can't overwrite server settings; language level rolls back on failure; one profile-completion calculator (12 fields); SupportSheet follows the app theme; announcement "seen" kept per user across logout; iOS icon badge = unread count, cleared on logout; cold-start deep links go through splash/auth and open on top of the tabs.
+- [x] Community: Matches tab Retry on failure; skips hidden all day (backend filters skips); Partners wave uses /community/wave; Nearby browse-by-city loads + empty state can widen radius; Waves archive from an empty inbox (RTL-aware); "N live" opens voice rooms.
+- [x] AI Study: listening station options distinct/shuffled and graded by word (backend grades 2.6.1 payloads correctly too); tutor send/start failures keep text + Retry; placement retry/no 9th answer/back; persona sheet localized + quota refresh + analytics once; weekly report error+retry; language pick refreshes the hub; Speak tile ungated; Vocab Packs for every target language; STUDY_VIP_ONLY_FEATURES enforced server-side.
+- [x] Calls: one app-level call-error presenter; self-view mirrored only on the front camera; Android keeps BT/wired headsets on video calls (speaker only without a headset); BLUETOOTH_CONNECT requested with the mic (denial never blocks); a11y labels on call buttons; call strings + native CallKit labels localized.
+- [ ] **Deploy the backend fixes** (backend repo REMAINING_WORK has the list): privacy leak (moment detail/comments/og), VIP repeat-verify + expired iOS receipt, cross-account coin 409, suspended login, listening grading, matching skips, VIP-only enforcement (flag empty), photo-only moments, comment media. All are safe before the app; the app's photo-only posts and comment photos need the backend. S
+- [ ] Device QA of the whole wave: run `docs/qa/regression-suite.csv` (P0 at least) on iOS + Android; the agents' manual checks are summarised per area in the suite. L
+- [ ] Decide the support address: the app now uses `support@banatalk.com` (what backend emails send; ARBs had `support@bananatalk.com`), but banatalk.com/support lists `bananatalkmain@gmail.com`. S
+- [ ] Check prod `isStrongPassword` accepts symbols like `#._-` (the 2026-10-08 backend rule fix may be undeployed); otherwise `New.Pass_1` fails server-side after the app now allows it. S
+- [ ] Watch new-device login email volume after deploy (device check is coarse: Mobile/Desktop + IP). S
+- [ ] Listening scores stored before the fix stay wrong (mastery / weekly listening stats); XP unaffected. Decide whether to reset. S
+- [ ] STUDY_VIP_ONLY_FEATURES on speak/writing/quizzes: those screens use raw http, so a lock shows the server message, not the upgrade sheet. S
+- [ ] Android plan switching (ChangeSubscriptionParam) not built — a VIP can't change plan in-app (double-buy is blocked). S–M
+- [ ] Restore also recovers an unconsumed Android coin pack (credited once by the ledger) — keep or restrict to subscriptions. S
+- [ ] iOS restore skips clearly lapsed subscriptions by heuristic until the backend expired-receipt fix is deployed (sandbox can't tell). S
+- [ ] Old app builds posting a photo-only comment now get a 400 instead of a blank comment (after the backend deploy). Accepted. 
+- [ ] Partners waves via /community/wave don't write the UserInteraction wave record, so a waved user can reappear in Partners later (re-wave gets "already waved"). S
+- [ ] Tidy after merge: remove the now-unused `_setupCallListeners` / `_handleCallError` from chat_conversation_screen.dart and `setupCallListeners`/`handleCallError` in message_action_handlers.dart. S
+- Not bugs (left on purpose): the daily chat-partner limit and the profile-view daily limit are dormant with the VIP paywalls (9945ac83); `aps-environment` in source is fine (App Store export sets production); Tajik in iOS `CFBundleLocalizations` only affects the per-app language list.
 
 Suspected bugs from the full regression suite (2026-10-15, code reading only — confirm on device; each has a case in `docs/qa/regression-suite.csv`)
 - [ ] **No Restore Purchases button anywhere** — `restorePurchases()` exists in both purchase services but nothing calls it; App Store guideline 3.1.1 requires one, and `coinsVerifyRetry` tells users to restore. Likely App Review risk for iOS 2.7.0. S

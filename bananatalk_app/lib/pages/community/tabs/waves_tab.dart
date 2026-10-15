@@ -132,6 +132,66 @@ class _WavesTabState extends ConsumerState<WavesTab> {
     }
   }
 
+  Widget _buildArchiveHeader(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 4, 16, 4),
+      child: Align(
+        alignment: AlignmentDirectional.centerEnd,
+        child: TextButton.icon(
+          icon: const Icon(Icons.history, size: 16),
+          label: Text(AppLocalizations.of(context)!.viewArchive),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => const WavesArchiveScreen(),
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+
+  Widget _buildEmptyState() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            padding: const EdgeInsets.all(24),
+            decoration: BoxDecoration(
+              color: const Color(0xFF00BFA5).withValues(alpha: 0.1),
+              shape: BoxShape.circle,
+            ),
+            child: const Icon(
+              Icons.waving_hand,
+              size: 48,
+              color: Color(0xFF00BFA5),
+            ),
+          ),
+          Spacing.gapLG,
+          Builder(
+            builder: (context) => Text(
+              AppLocalizations.of(context)!.wavesEmptyTitle,
+              style: context.titleMedium.copyWith(color: context.textPrimary),
+            ),
+          ),
+          Spacing.gapSM,
+          Builder(
+            builder: (context) => Text(
+              AppLocalizations.of(context)!.wavesEmptyBody2,
+              textAlign: TextAlign.center,
+              style: context.bodyMedium.copyWith(
+                color: context.textSecondary,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     if (_isLoading) {
@@ -171,37 +231,27 @@ class _WavesTabState extends ConsumerState<WavesTab> {
     }
 
     if (_waves.isEmpty) {
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              padding: const EdgeInsets.all(24),
-              decoration: BoxDecoration(
-                color: const Color(0xFF00BFA5).withValues(alpha: 0.1),
-                shape: BoxShape.circle,
-              ),
-              child: const Icon(
-                Icons.waving_hand,
-                size: 48,
-                color: Color(0xFF00BFA5),
+      // The main list is the last 7 days only, so the archive (and a
+      // refresh) must stay reachable with nothing in it.
+      return RefreshIndicator(
+        onRefresh: _loadWaves,
+        color: const Color(0xFF00BFA5),
+        child: CustomScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          slivers: [
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 8),
+                child: _buildArchiveHeader(context),
               ),
             ),
-            Spacing.gapLG,
-            Builder(
-              builder: (context) => Text(
-                AppLocalizations.of(context)!.wavesEmptyTitle,
-                style: context.titleMedium.copyWith(color: context.textPrimary),
-              ),
-            ),
-            Spacing.gapSM,
-            Builder(
-              builder: (context) => Text(
-                AppLocalizations.of(context)!.wavesEmptyBody2,
-                textAlign: TextAlign.center,
-                style: context.bodyMedium.copyWith(
-                  color: context.textSecondary,
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: Padding(
+                padding: EdgeInsets.only(
+                  bottom: FloatingTabBar.clearance(context),
                 ),
+                child: _buildEmptyState(),
               ),
             ),
           ],
@@ -236,24 +286,7 @@ class _WavesTabState extends ConsumerState<WavesTab> {
         itemCount: rows.length + 1,
         itemBuilder: (context, index) {
           if (index == 0) {
-            return Padding(
-              padding: const EdgeInsets.fromLTRB(16, 4, 16, 4),
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: TextButton.icon(
-                  icon: const Icon(Icons.history, size: 16),
-                  label: Text(AppLocalizations.of(context)!.viewArchive),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => const WavesArchiveScreen(),
-                      ),
-                    );
-                  },
-                ),
-              ),
-            );
+            return _buildArchiveHeader(context);
           }
           final wave = rows[index - 1];
           if (wave == null) {

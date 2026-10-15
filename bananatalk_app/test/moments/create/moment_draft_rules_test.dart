@@ -9,20 +9,79 @@ void main() {
       String description = 'hello',
       List<String> tags = const [],
       DateTime? scheduledDate,
+      bool hasMedia = false,
+      bool isReel = false,
+      bool hasVideo = false,
     }) =>
         validateMomentDraft(
           description: description,
           tags: tags,
           scheduledDate: scheduledDate,
           now: now,
+          hasMedia: hasMedia,
+          isReel: isReel,
+          hasVideo: hasVideo,
         );
 
     test('a normal draft is valid', () {
       expect(validate(), isNull);
     });
 
-    test('an empty caption is rejected', () {
+    test('an empty caption with no media is rejected', () {
       expect(validate(description: ''), isNotNull);
+    });
+
+    test('caption only is valid', () {
+      expect(validate(description: 'hello', hasMedia: false), isNull);
+    });
+
+    test('BUG: media only (no caption) is valid -- "A photo or one line"', () {
+      // The guide promised a photo alone was a moment and the Next button let
+      // you through, but the Post step then refused with "Caption is required".
+      expect(validate(description: '', hasMedia: true), isNull);
+      expect(validate(description: '   ', hasMedia: true), isNull);
+    });
+
+    test('neither caption nor media is rejected', () {
+      expect(validate(description: '  ', hasMedia: false), isNotNull);
+    });
+
+    test('media does not excuse the other rules', () {
+      expect(
+        validate(description: 'a' * (kMaxDescriptionLength + 1), hasMedia: true),
+        isNotNull,
+      );
+      expect(
+        validate(
+          description: '',
+          hasMedia: true,
+          tags: List.generate(kMaxTags + 1, (i) => 't$i'),
+        ),
+        isNotNull,
+      );
+      expect(
+        validate(
+          description: '',
+          hasMedia: true,
+          scheduledDate: now.subtract(const Duration(minutes: 1)),
+        ),
+        isNotNull,
+      );
+    });
+
+    test('a reel without a video is rejected, even with a caption', () {
+      expect(validate(description: 'hello', isReel: true), isNotNull);
+      expect(
+        validate(description: 'hello', isReel: true, hasVideo: false),
+        contains('video'),
+      );
+    });
+
+    test('a reel with a video and no caption is valid', () {
+      expect(
+        validate(description: '', isReel: true, hasVideo: true, hasMedia: true),
+        isNull,
+      );
     });
 
     test('a whitespace-only caption is rejected', () {
@@ -63,6 +122,14 @@ void main() {
       // caption is the more basic problem.
       final message = validate(description: '', tags: List.generate(9, (i) => 't$i'));
       expect(message, contains('Caption'));
+    });
+  });
+
+  group('draftHasContent', () {
+    test('caption or media is content; neither is not', () {
+      expect(draftHasContent(description: 'hi', hasMedia: false), isTrue);
+      expect(draftHasContent(description: '', hasMedia: true), isTrue);
+      expect(draftHasContent(description: ' \n ', hasMedia: false), isFalse);
     });
   });
 

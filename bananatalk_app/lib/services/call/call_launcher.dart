@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/call_model.dart';
 import 'package:bananatalk_app/providers/call_provider.dart';
+import 'package:bananatalk_app/router/app_router.dart' show callOverlayNavigatorKey;
 import 'package:bananatalk_app/services/call/call_routes.dart';
 import 'package:bananatalk_app/services/call_manager.dart' show InitiateStatus;
 
@@ -66,6 +67,15 @@ class CallLauncher {
     ScaffoldMessenger.maybeOf(context)?.showSnackBar(
       SnackBar(content: Text(message), behavior: SnackBarBehavior.floating),
     );
+  }
+
+  /// The app-wide in-call error presenter, registered once in main.dart.
+  /// Calls accepted or started outside a chat (lock screen, Calls list,
+  /// missed-call "Call back") have no screen of their own to show errors,
+  /// so they go to the overlay navigator, above whatever is open.
+  static void showCallErrorOnOverlay(String error) {
+    final ctx = callOverlayNavigatorKey.currentContext;
+    if (ctx != null && ctx.mounted) showCallError(ctx, error);
   }
 
   /// Permission errors arrive as `PERMANENTLY_DENIED:<msg>` / `DENIED:<msg>`.

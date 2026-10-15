@@ -6,7 +6,9 @@ import 'package:flutter_callkit_incoming/flutter_callkit_incoming.dart';
 import 'package:flutter_callkit_incoming/entities/entities.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/services/call/callkit_ids.dart';
+import 'package:bananatalk_app/services/call/missed_call_actions.dart' show notificationL10n;
 
 import 'package:bananatalk_app/services/notification_api_client.dart';
 import 'package:bananatalk_app/services/notification_service.dart';
@@ -200,8 +202,11 @@ class CallKitService {
     String? livekitUrl,
     String? roomName,
     @visibleForTesting bool? isAndroid,
+    AppLocalizations? l10n,
   }) {
     final android = isAndroid ?? Platform.isAndroid;
+    // Native UI strings in the app language (notificationL10n), else English.
+    final strings = l10n ?? lookupAppLocalizations(const ui.Locale('en'));
     // CallKit ids MUST be UUIDs (the plugin force-unwraps UUID(uuidString:)
     // on iOS); the 24-hex Mongo id crashed backgrounded iPhones.
     final uuid = CallKitIds.uuidFor(callId: callId, callUuid: callUuid);
@@ -222,8 +227,8 @@ class CallKitService {
       avatar: callerAvatar,
       handle: callerName,
       type: isVideo ? 1 : 0, // 0 = audio, 1 = video
-      textAccept: 'Accept',
-      textDecline: 'Decline',
+      textAccept: strings.acceptCall,
+      textDecline: strings.declineCall,
       // Android: the server's data-only missed_call push is drawn by the app
       // (missed_call_actions.dart) with working Call back / Message buttons.
       // The plugin's own notification (after its 50 s timeout) duplicated it,
@@ -231,7 +236,7 @@ class CallKitService {
       missedCallNotification: NotificationParams(
         showNotification: !android,
         isShowCallback: true,
-        subtitle: 'Missed call',
+        subtitle: strings.callMissed,
       ),
       duration: 50000, // Outlasts the server's 45 s ring; the server ends the call
       extra: extra,
@@ -285,6 +290,7 @@ class CallKitService {
       isVideo: isVideo,
       livekitUrl: livekitUrl,
       roomName: roomName,
+      l10n: await notificationL10n(),
     );
     final uuid = params.id!;
     _activeCallUuid = uuid;

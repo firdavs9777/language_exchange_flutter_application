@@ -32,13 +32,9 @@ class CommunityAppBar extends ConsumerWidget implements PreferredSizeWidget {
   final VoidCallback onSearchToggle;
   final VoidCallback onFilterTap;
 
-  /// Tapped when the "N live" pill is shown. `null` (the current default —
-  /// no caller passes this yet) means the pill still renders but taps are a
-  /// no-op: switching to the Voice Rooms tab needs the `TabController` that
-  /// lives in `community_main.dart`, which isn't wired up yet. See
-  /// `.superpowers/sdd/rooms-task-8-report.md` for the follow-up needed in
-  /// that file (`CommunityAppBar(... onLiveRoomsTap: () => _tabController
-  /// .animateTo(voiceRoomsTabIndex))`).
+  /// Tapped when the "N live" pill is shown; `null` makes taps a no-op.
+  /// `community_main.dart` opens the voice-rooms list (see
+  /// `liveRoomsPillTarget`).
   final VoidCallback? onLiveRoomsTap;
 
   @override

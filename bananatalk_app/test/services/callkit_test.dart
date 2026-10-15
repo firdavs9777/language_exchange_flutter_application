@@ -1,11 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:flutter/widgets.dart' show Locale;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/call_model.dart';
 import 'package:bananatalk_app/service/endpoints.dart';
 import 'package:bananatalk_app/services/call/call_api.dart';
@@ -26,6 +28,15 @@ void main() {
     final ios = CallKitService.buildIncomingParams(
         callId: 'call-1', callerName: 'Ada', isAndroid: false);
     expect(ios.missedCallNotification!.showNotification, isTrue, reason: 'iOS unchanged');
+  });
+
+  test('native Accept / Decline / missed-call labels follow the app language', () {
+    final de = lookupAppLocalizations(const Locale('de'));
+    final p = CallKitService.buildIncomingParams(callId: 'call-1', callerName: 'Ada', l10n: de);
+    expect(p.textAccept, de.acceptCall);
+    expect(p.textDecline, de.declineCall);
+    expect(p.missedCallNotification!.subtitle, de.callMissed);
+    expect(p.textAccept, isNot('Accept'));
   });
 
   test('CallKit id is the lowercase callUuid; extra carries ids and caller, never a token', () {

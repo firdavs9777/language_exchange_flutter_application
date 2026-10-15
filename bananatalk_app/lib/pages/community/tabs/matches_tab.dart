@@ -67,8 +67,6 @@ class MatchesTab extends ConsumerStatefulWidget {
 }
 
 class _MatchesTabState extends ConsumerState<MatchesTab> {
-  final Set<String> _skipped = {};
-
   /// One view per app run, not per rebuild AND not per tab remount. The
   /// ListView header rebuilds every scroll frame, and TabBarView rebuilds a
   /// fresh State whenever the user returns from a non-adjacent tab -- three
@@ -213,7 +211,8 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
   }
 
   void _skip(DailyMatch m) {
-    setState(() => _skipped.add(m.user.id));
+    final skipped = ref.read(dailyMatchesSkippedProvider.notifier);
+    skipped.state = {...skipped.state, m.user.id};
     InteractionService.skipUser(m.user.id);
   }
 
@@ -254,6 +253,7 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
           orElse: () => false,
         );
     final async = ref.watch(dailyMatchesProvider);
+    final skipped = ref.watch(dailyMatchesSkippedProvider);
     return async.when(
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (_, __) => RefreshIndicator(
@@ -272,7 +272,7 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
         if (result.unavailable) return const SizedBox.shrink();
         _maybeRollOver(result);
         final matches = result.matches
-            .where((m) => m.user.id.isNotEmpty && !_skipped.contains(m.user.id))
+            .where((m) => m.user.id.isNotEmpty && !skipped.contains(m.user.id))
             .toList();
         if (matches.isEmpty) {
           _hasMatches = false;

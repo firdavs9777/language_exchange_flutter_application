@@ -2,8 +2,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:intl/intl.dart';
 import 'package:bananatalk_app/models/vip_subscription.dart';
 import 'package:bananatalk_app/pages/vip/vip_payment_screen.dart';
+import 'package:bananatalk_app/pages/vip/vip_status_screen.dart';
 import 'package:bananatalk_app/providers/provider_root/vip_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
 import 'package:bananatalk_app/services/ios_purchase_service.dart';
@@ -14,6 +16,38 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/widgets/restore_purchases_button.dart';
+
+/// Per-month equivalent of [product]'s store price, in the store's currency,
+/// for the localized "{price} / mo" template ([AppLocalizations.vipPerMonth]).
+/// Null without store details: a USD guess next to a local price misleads.
+@visibleForTesting
+String? vipPerMonthPrice(ProductDetails? product, int months) {
+  if (product == null || months <= 0) return null;
+  final format = NumberFormat.currency(
+    name: product.currencyCode,
+    symbol: product.currencySymbol,
+  );
+  return format.format(product.rawPrice / months);
+}
+
+/// Savings of [plan] versus paying [monthly] for [months] months, from the
+/// store prices. Null when either is missing, the currencies differ, or the
+/// saving is under 5%.
+@visibleForTesting
+int? vipSavingsPercent({
+  required ProductDetails? plan,
+  required ProductDetails? monthly,
+  required int months,
+}) {
+  if (plan == null || monthly == null || months <= 1) return null;
+  if (plan.currencyCode != monthly.currencyCode) return null;
+  if (monthly.rawPrice <= 0) return null;
+  final perMonth = plan.rawPrice / months;
+  final pct = (1 - perMonth / monthly.rawPrice) * 100;
+  if (pct < 5) return null;
+  return pct.round();
+}
 
 class VipPlansScreen extends ConsumerStatefulWidget {
   final String? userId;
@@ -107,6 +141,10 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
     // selected". User can override; we just want the CTA enabled on entry.
     selectedPlan ??= VipPlan.yearly;
     final l10n = AppLocalizations.of(context)!;
+    // An active VIP who lands here (a paywall, a deep link) must not be able
+    // to start a second subscription: on Android each plan is its own
+    // product, so that would be two concurrent charges.
+    final isVip = ref.watch(userProvider).valueOrNull?.isVip ?? false;
 
     return Scaffold(
       backgroundColor: context.scaffoldBackground,
@@ -123,17 +161,21 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
             children: [
               _buildBrandedHeader(),
               const SizedBox(height: 24),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Text(
-                  l10n.vipSelectPlan,
-                  style: context.titleLarge.copyWith(
-                    fontWeight: FontWeight.w800,
+              if (isVip)
+                _buildVipActiveCard()
+              else ...[
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Text(
+                    l10n.vipSelectPlan,
+                    style: context.titleLarge.copyWith(
+                      fontWeight: FontWeight.w800,
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 12),
-              _buildPlanGrid(),
+                const SizedBox(height: 12),
+                _buildPlanGrid(),
+              ],
               const SizedBox(height: 28),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -147,8 +189,14 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
               const SizedBox(height: 12),
               _buildComparisonTable(),
               const SizedBox(height: 24),
-              _buildContinueButton(),
-              const SizedBox(height: 16),
+              if (!isVip) ...[
+                _buildContinueButton(),
+                const SizedBox(height: 8),
+              ],
+              // App Store guideline 3.1.1: subscriptions need a visible
+              // restore mechanism next to where they are sold.
+              Center(child: RestorePurchasesButton(userId: widget.userId)),
+              const SizedBox(height: 8),
               _buildSubscriptionDisclosure(),
             ],
           ),
@@ -247,6 +295,70 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
     );
   }
 
+  // ── Already-VIP card (replaces the plan grid) ───────────────────────────
+  Widget _buildVipActiveCard() {
+    final l10n = AppLocalizations.of(context)!;
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: const Color(0xFFFFA000).withValues(alpha: 0.08),
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: const Color(0xFFFFA000), width: 1.5),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                const Icon(
+                  Icons.workspace_premium_rounded,
+                  color: Color(0xFFFFA000),
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  l10n.vipMember,
+                  style: context.titleMedium.copyWith(
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Text(
+              l10n.restorePurchasesAlreadyActive,
+              style: context.bodyMedium.copyWith(
+                color: context.textSecondary,
+              ),
+            ),
+            const SizedBox(height: 12),
+            SizedBox(
+              width: double.infinity,
+              child: OutlinedButton(
+                key: const ValueKey('vip-active-manage'),
+                onPressed: () {
+                  final userId = widget.userId ??
+                      ref.read(userProvider).valueOrNull?.id ??
+                      '';
+                  if (userId.isEmpty) return;
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => VipStatusScreen(userId: userId),
+                    ),
+                  );
+                },
+                child: Text(l10n.manageSubscription),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   // ── 3-column plan grid ──────────────────────────────────────────────────
   Widget _buildPlanGrid() {
     return Padding(
@@ -267,23 +379,6 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
     );
   }
 
-  /// Per-month equivalent. Returns a raw '$X.XX' string used inside the
-  /// localized "{price} / mo" template via [AppLocalizations.vipPerMonth].
-  String _formatPerMonth(double total, int months) {
-    final perMonth = total / months;
-    return '\$${perMonth.toStringAsFixed(2)}';
-  }
-
-  /// Computed savings vs monthly. Returns null when below threshold.
-  int? _savingsPercent(VipPlan plan) {
-    if (plan == VipPlan.monthly) return null;
-    final months = plan == VipPlan.quarterly ? 3 : 12;
-    final perMonth = plan.price / months;
-    final pct = (1 - perMonth / VipPlan.monthly.price) * 100;
-    if (pct < 5) return null;
-    return pct.round();
-  }
-
   String _planTitle(BuildContext context, VipPlan plan) {
     final l10n = AppLocalizations.of(context)!;
     switch (plan) {
@@ -296,35 +391,40 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
     }
   }
 
+  ProductDetails? _storeProduct(VipPlan plan) {
+    final productId = plan.productId(_isIOS);
+    final AsyncValue<List<ProductDetails>>? productsAsync = _isIOS
+        ? ref.watch(iosProductsProvider)
+        : _isAndroid
+            ? ref.watch(androidProductsProvider)
+            : null;
+    final products = productsAsync?.valueOrNull ?? const <ProductDetails>[];
+    for (final p in products) {
+      if (p.id == productId) return p;
+    }
+    return null;
+  }
+
   Widget _buildPlanColumn(VipPlan plan) {
     final isSelected = selectedPlan == plan;
     final isYearly = plan == VipPlan.yearly;
 
     // Use store price when available, otherwise fall back to the plan const.
-    final productId = plan.productId(_isIOS);
-
-    ProductDetails? product;
-    if (_isIOS) {
-      ref.watch(iosProductsProvider).whenData((products) {
-        try {
-          product = products.firstWhere((p) => p.id == productId);
-        } catch (_) {}
-      });
-    } else if (_isAndroid) {
-      ref.watch(androidProductsProvider).whenData((products) {
-        try {
-          product = products.firstWhere((p) => p.id == productId);
-        } catch (_) {}
-      });
-    }
+    final product = _storeProduct(plan);
     final priceText = product?.price ?? '\$${plan.price.toStringAsFixed(2)}';
     final months = plan == VipPlan.monthly
         ? 1
         : plan == VipPlan.quarterly
             ? 3
             : 12;
-    final perMonthText = _formatPerMonth(plan.price, months);
-    final savingsPct = _savingsPercent(plan);
+    // Both from the store's own price + currency; hidden when the store
+    // details are missing rather than guessed in USD.
+    final perMonthText = vipPerMonthPrice(product, months);
+    final savingsPct = vipSavingsPercent(
+      plan: product,
+      monthly: _storeProduct(VipPlan.monthly),
+      months: months,
+    );
     final l10n = AppLocalizations.of(context)!;
 
     final accent = isYearly
@@ -419,7 +519,11 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
             Padding(
               padding: const EdgeInsets.only(top: 12),
               child: Text(
-                isYearly ? l10n.vipOneTime : l10n.vipPerMonth(perMonthText),
+                isYearly
+                    ? l10n.vipOneTime
+                    : perMonthText == null
+                        ? ''
+                        : l10n.vipPerMonth(perMonthText),
                 style: TextStyle(
                   fontSize: 11,
                   color: context.textMuted,

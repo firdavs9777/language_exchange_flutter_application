@@ -80,3 +80,42 @@ class MomentMediaBlock {
 /// cap. The trimmer will not let a longer window be selected, so this is the
 /// single place the number is decided.
 int maxVideoSeconds({required bool isReel}) => isReel ? 180 : 600;
+
+/// Largest photo the upload endpoint accepts, in bytes.
+const int kMaxMomentImageBytes = 10 * 1024 * 1024;
+
+/// Photo formats the upload step accepts, by extension, with their MIME type.
+const Map<String, String> kMomentImageMimeTypes = {
+  'jpg': 'image/jpeg',
+  'jpeg': 'image/jpeg',
+  'png': 'image/png',
+  'gif': 'image/gif',
+  'webp': 'image/webp',
+};
+
+/// Why this photo would be refused by the upload step, or null if it is fine.
+///
+/// Checked BEFORE the moment is created. It used to be checked only inside
+/// `uploadMomentPhotos`, i.e. after the moment already existed — so a 12MB
+/// photo or an Android HEIC left a caption-only post behind, and tapping Post
+/// again made a duplicate.
+String? momentImageProblem({required String path, required int sizeBytes}) {
+  final dot = path.lastIndexOf('.');
+  final ext = dot == -1 ? '' : path.substring(dot + 1).toLowerCase();
+  if (!kMomentImageMimeTypes.containsKey(ext)) {
+    return 'Unsupported image format: $ext. Supported: JPEG, PNG, GIF, WEBP';
+  }
+  if (sizeBytes > kMaxMomentImageBytes) {
+    return 'Image size exceeds 10MB limit';
+  }
+  return null;
+}
+
+/// The first problem among `(path, sizeBytes)` photos, or null if all are fine.
+String? firstMomentImageProblem(Iterable<(String, int)> images) {
+  for (final (path, size) in images) {
+    final problem = momentImageProblem(path: path, sizeBytes: size);
+    if (problem != null) return problem;
+  }
+  return null;
+}

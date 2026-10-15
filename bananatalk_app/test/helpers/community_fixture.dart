@@ -1,9 +1,11 @@
+import 'package:bananatalk_app/models/vip_subscription.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 
 Community communityFixture({
   int daysOld = 1,
   String bio = '',
   List<String> imageUrls = const [],
+  bool vip = false,
 }) =>
     Community(
       id: 'me',
@@ -28,4 +30,5 @@ Community communityFixture({
       followers: const [],
       followings: const [],
       location: Location.defaultLocation(),
+      userMode: vip ? UserMode.vip : UserMode.regular,
     );

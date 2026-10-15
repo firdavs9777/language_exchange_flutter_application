@@ -115,7 +115,7 @@ class _RegisterState extends State<Register> {
   }
 
   Future<void> _loadSavedProgress() async {
-    final saved = await _progressService.load();
+    final saved = await _progressService.loadFor(widget.userEmail);
     if (saved == null || !mounted) return;
     setState(() {
       _pendingResume = saved;

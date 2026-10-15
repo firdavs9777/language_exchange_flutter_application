@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:bananatalk_app/widgets/navigation/floating_tab_bar.dart';
 import 'package:bananatalk_app/pages/moments/create/create_moment.dart';
@@ -167,11 +168,12 @@ final momentsFeedTabProvider =
 /// Public (not `_`-prefixed) so `invalidateMomentFeeds` in
 /// `moments_providers.dart` can reuse this exact tab→provider mapping
 /// instead of duplicating the switch (see moments audit I2/P1). Typed as
-/// `FutureProvider<List<Moments>>` (not the broader `ProviderListenable`)
-/// so callers can both `ref.watch(...)` it (as before) and
-/// `ref.invalidate(...)` it — `invalidate` requires a `ProviderOrFamily`,
-/// which `ProviderListenable` alone doesn't satisfy.
-FutureProvider<List<Moments>> baseProviderFor(MomentsFeedTab tab) {
+/// the concrete paged provider (not the broader `ProviderListenable`)
+/// so callers can `ref.watch(...)` it, `ref.invalidate(...)` it, and reach
+/// its notifier for `loadMore` / `softRefresh`.
+AsyncNotifierProvider<PagedMomentsFeedNotifier, List<Moments>> baseProviderFor(
+  MomentsFeedTab tab,
+) {
   switch (tab) {
     case MomentsFeedTab.forYou:
       return forYouMomentsProvider;
@@ -222,10 +224,21 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
   bool _showSearch = false;
   List<Moments> _searchResults = [];
   final ValueNotifier<int> _storiesRefreshNotifier = ValueNotifier(0);
+  Timer? _searchDebounce;
+  int _searchGeneration = 0;
+
+  /// How close to the end of the list (in pixels) the next page is asked
+  /// for.
+  static const double _loadMoreThreshold = 800;
+
+  /// Below this many loaded moments, a list too short to scroll (e.g. most
+  /// of a page hidden by filters) fetches the next page by itself.
+  static const int _autoFillLimit = 200;
 
   @override
   void initState() {
     super.initState();
+    _scrollController.addListener(_maybeLoadMore);
     // Stale-while-revalidate: pick up new moments on first mount if the
     // feed hasn't been fetched in the last 60s, without a spinner flash
     // (see `refreshMomentsIfStale` / the `skipLoadingOn*` flags on
@@ -237,8 +250,31 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
     });
   }
 
+  /// Asks the active tab for its next page when the reader nears the end.
+  /// Not while searching (results are one server page) or on Reels (its
+  /// own provider pages itself).
+  void _maybeLoadMore() {
+    if (!mounted || !_scrollController.hasClients) return;
+    if (_showSearch && _searchController.text.isNotEmpty) return;
+    final tab = ref.read(momentsFeedTabProvider);
+    if (tab == MomentsFeedTab.reels) return;
+    final position = _scrollController.position;
+    if (position.extentAfter > _loadMoreThreshold) return;
+    final provider = baseProviderFor(tab);
+    final notifier = ref.read(provider.notifier);
+    if (!notifier.hasMore) return;
+    // A list too short to scroll asks by itself, but only up to a bound so
+    // a filter that hides everything cannot page through the whole feed.
+    final scrollable = position.maxScrollExtent > 0;
+    final loaded = ref.read(provider).valueOrNull?.length ?? 0;
+    if (!scrollable && loaded >= _autoFillLimit) return;
+    notifier.loadMore();
+  }
+
   @override
   void dispose() {
+    _searchDebounce?.cancel();
+    _scrollController.removeListener(_maybeLoadMore);
     _scrollController.dispose();
     _searchController.dispose();
     super.dispose();
@@ -254,20 +290,37 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
     });
   }
 
+  /// Searches the server (caption, title and tags across every moment, not
+  /// just the loaded page), debounced, plus author-name matches among the
+  /// moments already loaded — the server search does not cover names.
   void _performSearch(String query) {
-    // Search always operates over the default (unfiltered) feed regardless
-    // of the active tab, matching prior search behavior.
-    final momentsAsync = ref.read(momentsFeedProvider);
-    if (query.isEmpty) {
+    _searchDebounce?.cancel();
+    final generation = ++_searchGeneration;
+    final trimmed = query.trim();
+    if (trimmed.isEmpty) {
       setState(() => _searchResults = []);
       return;
     }
 
-    momentsAsync.whenData((moments) {
-      if (!mounted) return;
-      setState(() {
-        _searchResults = MomentFilterUtility.searchMoments(moments, query);
-      });
+    final tab = ref.read(momentsFeedTabProvider);
+    final loaded = tab == MomentsFeedTab.reels
+        ? const <Moments>[]
+        : ref.read(baseProviderFor(tab)).valueOrNull ?? const <Moments>[];
+    final local = MomentFilterUtility.searchMoments(loaded, trimmed);
+    setState(() => _searchResults = local);
+
+    _searchDebounce = Timer(const Duration(milliseconds: 350), () async {
+      try {
+        final response = await ref
+            .read(momentsServiceProvider)
+            .getMoments(page: 1, limit: kMomentsFeedPageSize, q: trimmed);
+        final raw = response['moments'];
+        final remote = raw is List ? raw.cast<Moments>() : <Moments>[];
+        if (!mounted || generation != _searchGeneration) return;
+        setState(() => _searchResults = appendMomentsPage(remote, local));
+      } catch (_) {
+        // Offline / server error: the local matches stay.
+      }
     });
   }
 
@@ -296,14 +349,10 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
     }
 
     // Only invalidate the active tab's provider, so switching tabs doesn't
-    // force a redundant re-fetch of tabs the user hasn't looked at.
-    final Future<List<Moments>> activeTabFuture = switch (activeTab) {
-      MomentsFeedTab.forYou => ref.refresh(forYouMomentsProvider.future),
-      MomentsFeedTab.following => ref.refresh(followingMomentsProvider.future),
-      MomentsFeedTab.trending => ref.refresh(trendingMomentsProvider.future),
-      // Unreachable — handled above.
-      MomentsFeedTab.reels => Future.value(const <Moments>[]),
-    };
+    // force a redundant re-fetch of tabs the user hasn't looked at. A full
+    // reload: back to page 1.
+    final Future<List<Moments>> activeTabFuture =
+        ref.refresh(baseProviderFor(activeTab).future);
     await activeTabFuture;
   }
 
@@ -339,9 +388,20 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
     final filteredMomentsAsync = isReelsTab
         ? const AsyncValue<List<Moments>>.data(<Moments>[])
         : ref.watch(filteredMomentsForTabProvider(effectiveTab));
-    final displayedList = _showSearch && _searchController.text.isNotEmpty
+    final isSearching = _showSearch && _searchController.text.isNotEmpty;
+    final displayedList = isSearching
         ? AsyncValue.data(_searchResults)
         : filteredMomentsAsync;
+    // Watched so the trailing spinner follows the paged state.
+    final hasMorePages = !isReelsTab &&
+        !isSearching &&
+        ref.watch(baseProviderFor(effectiveTab)).hasValue &&
+        ref.read(baseProviderFor(effectiveTab).notifier).hasMore;
+    // A page that did not fill the screen (filters, blocks) asks for the
+    // next one by itself; a scroll would never come.
+    if (hasMorePages) {
+      WidgetsBinding.instance.addPostFrameCallback((_) => _maybeLoadMore());
+    }
     final colorScheme = Theme.of(context).colorScheme;
     final textPrimary = context.textPrimary;
 
@@ -484,10 +544,10 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
                     child: MomentsFeedWidget(
                       momentsAsync: displayedList,
                       scrollController: _scrollController,
-                      isSearching:
-                          _showSearch && _searchController.text.isNotEmpty,
+                      isSearching: isSearching,
                       onRefresh: _refresh,
                       activeTab: effectiveTab,
+                      hasMore: hasMorePages,
                     ),
                   ),
           ),

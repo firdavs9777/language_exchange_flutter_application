@@ -113,6 +113,9 @@ dependencies:
 
   mime: any
   in_app_purchase_android: any
+  # Restore Purchases reads the original transaction of a restored StoreKit
+  # transaction (AppStorePurchaseDetails); version pinned by in_app_purchase.
+  in_app_purchase_storekit: any
 dev_dependencies:
   flutter_test:
     sdk: flutter

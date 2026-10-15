@@ -932,6 +932,9 @@ class AppLocalizationsVi extends AppLocalizations {
   String get failedToSendMessage => 'Gửi tin nhắn thất bại';
 
   @override
+  String get chatSendTooFast => 'Bạn đang gửi tin nhắn quá nhanh. Hãy đợi một chút rồi thử lại.';
+
+  @override
   String get dailyMessageLimitExceeded => 'Đã vượt quá giới hạn tin nhắn hàng ngày. Nâng cấp VIP để gửi không giới hạn.';
 
   @override
@@ -4738,7 +4741,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get helpEmailSupport => 'Hỗ trợ qua email';
 
   @override
-  String get helpEmailSupportSubtitle => 'support@bananatalk.com';
+  String get helpEmailSupportSubtitle => 'support@banatalk.com';
 
   @override
   String get helpReportBug => 'Báo cáo lỗi';
@@ -11333,6 +11336,87 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => 'Giúp một lập trình viên độc lập tiếp tục phát triển';
+
+  @override
+  String get restorePurchases => 'Khôi phục giao dịch mua';
+
+  @override
+  String get restorePurchasesInProgress => 'Đang khôi phục giao dịch mua…';
+
+  @override
+  String get restorePurchasesSuccess => 'Đã khôi phục giao dịch mua. VIP của bạn đang hoạt động.';
+
+  @override
+  String get restorePurchasesAlreadyActive => 'Gói VIP của bạn đã đang hoạt động.';
+
+  @override
+  String get restorePurchasesNothing => 'Không có giao dịch mua nào để khôi phục.';
+
+  @override
+  String get restorePurchasesFailed => 'Không thể khôi phục giao dịch mua. Vui lòng thử lại.';
+
+  @override
+  String get callVoiceCallButton => 'Gọi thoại';
+
+  @override
+  String get callVideoCallButton => 'Gọi video';
+
+  @override
+  String get callPermissionMicSettings => 'Vui lòng bật quyền truy cập micrô trong Cài đặt để gọi điện.';
+
+  @override
+  String get callPermissionCameraSettings => 'Vui lòng bật quyền truy cập camera trong Cài đặt để gọi video.';
+
+  @override
+  String get callPermissionMicCameraSettings => 'Vui lòng bật quyền truy cập micrô và camera trong Cài đặt để gọi video.';
+
+  @override
+  String get callQualityExcellent => 'Chất lượng rất tốt';
+
+  @override
+  String get callQualityGood => 'Chất lượng tốt';
+
+  @override
+  String get callConnectionLost => 'Mất kết nối';
+
+  @override
+  String get biometricLoginSetting => 'Đăng nhập bằng Face ID / vân tay';
+
+  @override
+  String get biometricLoginSettingDesc => 'Hiển thị \"Tiếp tục với tư cách\" trên màn hình đăng nhập sau khi đăng xuất';
+
+  @override
+  String get personaUpgradeNana => 'Muốn tiếp tục trò chuyện với Nana? 🐻\nNâng cấp để dùng không giới hạn.';
+
+  @override
+  String get personaUpgradeSensei => 'Tiếp tục luyện tập cùng Sensei. 🤖\nNâng cấp để luyện tập không giới hạn.';
+
+  @override
+  String get personaUpgradeRiko => 'Riko mới chỉ khởi động thôi! 🐙\nNâng cấp và cùng tiếp tục nhé.';
+
+  @override
+  String get personaUpgradeGeneric => 'Muốn tiếp tục?\nNâng cấp để học AI không giới hạn.';
+
+  @override
+  String get chatListConversationPinned => 'Đã ghim cuộc trò chuyện';
+
+  @override
+  String get chatListConversationUnpinned => 'Đã bỏ ghim cuộc trò chuyện';
+
+  @override
+  String get chatListConversationDeleted => 'Đã xóa cuộc trò chuyện';
+
+  @override
+  String get chatListConversationActionFailed => 'Không thể cập nhật cuộc trò chuyện này. Vui lòng thử lại.';
+
+  @override
+  String get coinsPurchaseLinkedElsewhere => 'Giao dịch mua này đã được liên kết với một tài khoản BananaTalk khác nên không có xu nào được cộng ở đây.';
+
+  @override
+  String get coinsAlreadyCredited => 'Số xu này đã được cộng vào tài khoản của bạn.';
+
+  @override
+  String get pleaseRemoveImagesFirstToAddVoiceNote => 'Vui lòng xóa ảnh trước để thêm ghi chú thoại';
 
   @override
   String momentAnsweringPrompt(String prompt) {

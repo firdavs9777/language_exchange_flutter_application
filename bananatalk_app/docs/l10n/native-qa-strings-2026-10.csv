@@ -11132,6 +11132,654 @@ app,zh_TW,guideStudyHubCta,Start today's pack,開始今日學習包,
 app,zh_TW,guideStudyHubSecondary,See all features,查看全部功能,
 app,zh_TW,supportBananaTalkRow,Support BananaTalk,支持 BananaTalk,
 app,zh_TW,supportBananaTalkRowSubtitle,Help a solo developer keep building,幫助獨立開發者持續打磨產品,
+app,ar,chatSendTooFast,You're sending messages too fast. Wait a moment and try again.,أنت ترسل الرسائل بسرعة كبيرة. انتظر لحظة ثم حاول مرة أخرى.,
+app,de,chatSendTooFast,You're sending messages too fast. Wait a moment and try again.,Du sendest Nachrichten zu schnell. Warte einen Moment und versuche es erneut.,
+app,es,chatSendTooFast,You're sending messages too fast. Wait a moment and try again.,Estás enviando mensajes demasiado rápido. Espera un momento e inténtalo de nuevo.,
+app,fr,chatSendTooFast,You're sending messages too fast. Wait a moment and try again.,Vous envoyez des messages trop vite. Patientez un instant puis réessayez.,
+app,hi,chatSendTooFast,You're sending messages too fast. Wait a moment and try again.,आप बहुत तेज़ी से संदेश भेज रहे हैं। थोड़ा रुकें और फिर से कोशिश करें।,
+app,id,chatSendTooFast,You're sending messages too fast. Wait a moment and try again.,Kamu mengirim pesan terlalu cepat. Tunggu sebentar lalu coba lagi.,
+app,it,chatSendTooFast,You're sending messages too fast. Wait a moment and try again.,Stai inviando messaggi troppo velocemente. Attendi un momento e riprova.,
+app,ja,chatSendTooFast,You're sending messages too fast. Wait a moment and try again.,メッセージの送信が速すぎます。少し待ってからもう一度お試しください。,
+app,ko,chatSendTooFast,You're sending messages too fast. Wait a moment and try again.,메시지를 너무 빨리 보내고 있어요. 잠시 후 다시 시도해 주세요.,
+app,pt,chatSendTooFast,You're sending messages too fast. Wait a moment and try again.,Você está enviando mensagens rápido demais. Aguarde um momento e tente novamente.,
+app,ru,chatSendTooFast,You're sending messages too fast. Wait a moment and try again.,Вы отправляете сообщения слишком быстро. Подождите немного и попробуйте снова.,
+app,tg,chatSendTooFast,You're sending messages too fast. Wait a moment and try again.,Шумо паёмҳоро хеле зуд мефиристед. Каме сабр кунед ва дубора кӯшиш кунед.,
+app,th,chatSendTooFast,You're sending messages too fast. Wait a moment and try again.,คุณส่งข้อความเร็วเกินไป รอสักครู่แล้วลองอีกครั้ง,
+app,tl,chatSendTooFast,You're sending messages too fast. Wait a moment and try again.,Masyadong mabilis ang pagpapadala mo ng mensahe. Maghintay sandali at subukang muli.,
+app,tr,chatSendTooFast,You're sending messages too fast. Wait a moment and try again.,Çok hızlı mesaj gönderiyorsun. Biraz bekle ve tekrar dene.,
+app,vi,chatSendTooFast,You're sending messages too fast. Wait a moment and try again.,Bạn đang gửi tin nhắn quá nhanh. Hãy đợi một chút rồi thử lại.,
+app,zh,chatSendTooFast,You're sending messages too fast. Wait a moment and try again.,你发送消息太快了。请稍等片刻再试。,
+app,zh_TW,chatSendTooFast,You're sending messages too fast. Wait a moment and try again.,你傳送訊息太快了。請稍候再試一次。,
+app,ar,restorePurchases,Restore Purchases,استعادة المشتريات,
+app,ar,restorePurchasesInProgress,Restoring purchases…,جارٍ استعادة المشتريات…,
+app,ar,restorePurchasesSuccess,Purchases restored. Your VIP is active.,تمت استعادة المشتريات. اشتراك VIP الخاص بك نشط.,
+app,ar,restorePurchasesAlreadyActive,Your VIP subscription is already active.,اشتراك VIP الخاص بك نشط بالفعل.,
+app,ar,restorePurchasesNothing,No purchases to restore.,لا توجد مشتريات لاستعادتها.,
+app,ar,restorePurchasesFailed,Couldn't restore purchases. Please try again.,تعذّرت استعادة المشتريات. يُرجى المحاولة مرة أخرى.,
+app,de,restorePurchases,Restore Purchases,Käufe wiederherstellen,
+app,de,restorePurchasesInProgress,Restoring purchases…,Käufe werden wiederhergestellt…,
+app,de,restorePurchasesSuccess,Purchases restored. Your VIP is active.,Käufe wiederhergestellt. Dein VIP ist aktiv.,
+app,de,restorePurchasesAlreadyActive,Your VIP subscription is already active.,Dein VIP-Abo ist bereits aktiv.,
+app,de,restorePurchasesNothing,No purchases to restore.,Keine Käufe zum Wiederherstellen.,
+app,de,restorePurchasesFailed,Couldn't restore purchases. Please try again.,Käufe konnten nicht wiederhergestellt werden. Bitte versuche es erneut.,
+app,es,restorePurchases,Restore Purchases,Restaurar compras,
+app,es,restorePurchasesInProgress,Restoring purchases…,Restaurando compras…,
+app,es,restorePurchasesSuccess,Purchases restored. Your VIP is active.,Compras restauradas. Tu VIP está activo.,
+app,es,restorePurchasesAlreadyActive,Your VIP subscription is already active.,Tu suscripción VIP ya está activa.,
+app,es,restorePurchasesNothing,No purchases to restore.,No hay compras para restaurar.,
+app,es,restorePurchasesFailed,Couldn't restore purchases. Please try again.,No se pudieron restaurar las compras. Inténtalo de nuevo.,
+app,fr,restorePurchases,Restore Purchases,Restaurer les achats,
+app,fr,restorePurchasesInProgress,Restoring purchases…,Restauration des achats…,
+app,fr,restorePurchasesSuccess,Purchases restored. Your VIP is active.,Achats restaurés. Votre VIP est actif.,
+app,fr,restorePurchasesAlreadyActive,Your VIP subscription is already active.,Votre abonnement VIP est déjà actif.,
+app,fr,restorePurchasesNothing,No purchases to restore.,Aucun achat à restaurer.,
+app,fr,restorePurchasesFailed,Couldn't restore purchases. Please try again.,Impossible de restaurer les achats. Veuillez réessayer.,
+app,hi,restorePurchases,Restore Purchases,खरीदारी पुनर्स्थापित करें,
+app,hi,restorePurchasesInProgress,Restoring purchases…,खरीदारी पुनर्स्थापित की जा रही है…,
+app,hi,restorePurchasesSuccess,Purchases restored. Your VIP is active.,खरीदारी पुनर्स्थापित हो गई। आपका VIP सक्रिय है।,
+app,hi,restorePurchasesAlreadyActive,Your VIP subscription is already active.,आपकी VIP सदस्यता पहले से सक्रिय है।,
+app,hi,restorePurchasesNothing,No purchases to restore.,पुनर्स्थापित करने के लिए कोई खरीदारी नहीं है।,
+app,hi,restorePurchasesFailed,Couldn't restore purchases. Please try again.,खरीदारी पुनर्स्थापित नहीं हो सकी। कृपया फिर से कोशिश करें।,
+app,id,restorePurchases,Restore Purchases,Pulihkan Pembelian,
+app,id,restorePurchasesInProgress,Restoring purchases…,Memulihkan pembelian…,
+app,id,restorePurchasesSuccess,Purchases restored. Your VIP is active.,Pembelian dipulihkan. VIP kamu aktif.,
+app,id,restorePurchasesAlreadyActive,Your VIP subscription is already active.,Langganan VIP kamu sudah aktif.,
+app,id,restorePurchasesNothing,No purchases to restore.,Tidak ada pembelian untuk dipulihkan.,
+app,id,restorePurchasesFailed,Couldn't restore purchases. Please try again.,Tidak dapat memulihkan pembelian. Silakan coba lagi.,
+app,it,restorePurchases,Restore Purchases,Ripristina acquisti,
+app,it,restorePurchasesInProgress,Restoring purchases…,Ripristino degli acquisti…,
+app,it,restorePurchasesSuccess,Purchases restored. Your VIP is active.,Acquisti ripristinati. Il tuo VIP è attivo.,
+app,it,restorePurchasesAlreadyActive,Your VIP subscription is already active.,Il tuo abbonamento VIP è già attivo.,
+app,it,restorePurchasesNothing,No purchases to restore.,Nessun acquisto da ripristinare.,
+app,it,restorePurchasesFailed,Couldn't restore purchases. Please try again.,Impossibile ripristinare gli acquisti. Riprova.,
+app,ja,restorePurchases,Restore Purchases,購入を復元,
+app,ja,restorePurchasesInProgress,Restoring purchases…,購入を復元しています…,
+app,ja,restorePurchasesSuccess,Purchases restored. Your VIP is active.,購入を復元しました。VIPが有効になりました。,
+app,ja,restorePurchasesAlreadyActive,Your VIP subscription is already active.,VIPサブスクリプションはすでに有効です。,
+app,ja,restorePurchasesNothing,No purchases to restore.,復元できる購入はありません。,
+app,ja,restorePurchasesFailed,Couldn't restore purchases. Please try again.,購入を復元できませんでした。もう一度お試しください。,
+app,ko,restorePurchases,Restore Purchases,구매 복원,
+app,ko,restorePurchasesInProgress,Restoring purchases…,구매를 복원하는 중…,
+app,ko,restorePurchasesSuccess,Purchases restored. Your VIP is active.,구매가 복원되었습니다. VIP가 활성화되었습니다.,
+app,ko,restorePurchasesAlreadyActive,Your VIP subscription is already active.,VIP 구독이 이미 활성화되어 있습니다.,
+app,ko,restorePurchasesNothing,No purchases to restore.,복원할 구매 내역이 없습니다.,
+app,ko,restorePurchasesFailed,Couldn't restore purchases. Please try again.,구매를 복원하지 못했습니다. 다시 시도해 주세요.,
+app,pt,restorePurchases,Restore Purchases,Restaurar compras,
+app,pt,restorePurchasesInProgress,Restoring purchases…,Restaurando compras…,
+app,pt,restorePurchasesSuccess,Purchases restored. Your VIP is active.,Compras restauradas. Seu VIP está ativo.,
+app,pt,restorePurchasesAlreadyActive,Your VIP subscription is already active.,Sua assinatura VIP já está ativa.,
+app,pt,restorePurchasesNothing,No purchases to restore.,Nenhuma compra para restaurar.,
+app,pt,restorePurchasesFailed,Couldn't restore purchases. Please try again.,Não foi possível restaurar as compras. Tente novamente.,
+app,ru,restorePurchases,Restore Purchases,Восстановить покупки,
+app,ru,restorePurchasesInProgress,Restoring purchases…,Восстанавливаем покупки…,
+app,ru,restorePurchasesSuccess,Purchases restored. Your VIP is active.,Покупки восстановлены. Ваш VIP активен.,
+app,ru,restorePurchasesAlreadyActive,Your VIP subscription is already active.,Ваша подписка VIP уже активна.,
+app,ru,restorePurchasesNothing,No purchases to restore.,Нет покупок для восстановления.,
+app,ru,restorePurchasesFailed,Couldn't restore purchases. Please try again.,Не удалось восстановить покупки. Попробуйте ещё раз.,
+app,tg,restorePurchases,Restore Purchases,Барқарор кардани харидҳо,
+app,tg,restorePurchasesInProgress,Restoring purchases…,Харидҳо барқарор карда мешаванд…,
+app,tg,restorePurchasesSuccess,Purchases restored. Your VIP is active.,Харидҳо барқарор шуданд. VIP-и шумо фаъол аст.,
+app,tg,restorePurchasesAlreadyActive,Your VIP subscription is already active.,Обунаи VIP-и шумо аллакай фаъол аст.,
+app,tg,restorePurchasesNothing,No purchases to restore.,Ягон хариде барои барқароркунӣ нест.,
+app,tg,restorePurchasesFailed,Couldn't restore purchases. Please try again.,Харидҳоро барқарор кардан нашуд. Лутфан бори дигар кӯшиш кунед.,
+app,th,restorePurchases,Restore Purchases,กู้คืนการซื้อ,
+app,th,restorePurchasesInProgress,Restoring purchases…,กำลังกู้คืนการซื้อ…,
+app,th,restorePurchasesSuccess,Purchases restored. Your VIP is active.,กู้คืนการซื้อแล้ว VIP ของคุณใช้งานได้แล้ว,
+app,th,restorePurchasesAlreadyActive,Your VIP subscription is already active.,การสมัครสมาชิก VIP ของคุณใช้งานอยู่แล้ว,
+app,th,restorePurchasesNothing,No purchases to restore.,ไม่มีการซื้อที่จะกู้คืน,
+app,th,restorePurchasesFailed,Couldn't restore purchases. Please try again.,ไม่สามารถกู้คืนการซื้อได้ โปรดลองอีกครั้ง,
+app,tl,restorePurchases,Restore Purchases,I-restore ang mga Binili,
+app,tl,restorePurchasesInProgress,Restoring purchases…,Nire-restore ang mga binili…,
+app,tl,restorePurchasesSuccess,Purchases restored. Your VIP is active.,Na-restore ang mga binili. Aktibo na ang VIP mo.,
+app,tl,restorePurchasesAlreadyActive,Your VIP subscription is already active.,Aktibo na ang VIP subscription mo.,
+app,tl,restorePurchasesNothing,No purchases to restore.,Walang binili na mare-restore.,
+app,tl,restorePurchasesFailed,Couldn't restore purchases. Please try again.,Hindi ma-restore ang mga binili. Pakisubukang muli.,
+app,tr,restorePurchases,Restore Purchases,Satın alımları geri yükle,
+app,tr,restorePurchasesInProgress,Restoring purchases…,Satın alımlar geri yükleniyor…,
+app,tr,restorePurchasesSuccess,Purchases restored. Your VIP is active.,Satın alımlar geri yüklendi. VIP üyeliğin aktif.,
+app,tr,restorePurchasesAlreadyActive,Your VIP subscription is already active.,VIP aboneliğin zaten aktif.,
+app,tr,restorePurchasesNothing,No purchases to restore.,Geri yüklenecek satın alım yok.,
+app,tr,restorePurchasesFailed,Couldn't restore purchases. Please try again.,Satın alımlar geri yüklenemedi. Lütfen tekrar dene.,
+app,vi,restorePurchases,Restore Purchases,Khôi phục giao dịch mua,
+app,vi,restorePurchasesInProgress,Restoring purchases…,Đang khôi phục giao dịch mua…,
+app,vi,restorePurchasesSuccess,Purchases restored. Your VIP is active.,Đã khôi phục giao dịch mua. VIP của bạn đang hoạt động.,
+app,vi,restorePurchasesAlreadyActive,Your VIP subscription is already active.,Gói VIP của bạn đã đang hoạt động.,
+app,vi,restorePurchasesNothing,No purchases to restore.,Không có giao dịch mua nào để khôi phục.,
+app,vi,restorePurchasesFailed,Couldn't restore purchases. Please try again.,Không thể khôi phục giao dịch mua. Vui lòng thử lại.,
+app,zh,restorePurchases,Restore Purchases,恢复购买,
+app,zh,restorePurchasesInProgress,Restoring purchases…,正在恢复购买…,
+app,zh,restorePurchasesSuccess,Purchases restored. Your VIP is active.,已恢复购买，你的 VIP 已生效。,
+app,zh,restorePurchasesAlreadyActive,Your VIP subscription is already active.,你的 VIP 订阅已处于有效状态。,
+app,zh,restorePurchasesNothing,No purchases to restore.,没有可恢复的购买。,
+app,zh,restorePurchasesFailed,Couldn't restore purchases. Please try again.,无法恢复购买，请重试。,
+app,zh_TW,restorePurchases,Restore Purchases,恢復購買,
+app,zh_TW,restorePurchasesInProgress,Restoring purchases…,正在恢復購買…,
+app,zh_TW,restorePurchasesSuccess,Purchases restored. Your VIP is active.,已恢復購買，你的 VIP 已生效。,
+app,zh_TW,restorePurchasesAlreadyActive,Your VIP subscription is already active.,你的 VIP 訂閱已在有效狀態。,
+app,zh_TW,restorePurchasesNothing,No purchases to restore.,沒有可恢復的購買項目。,
+app,zh_TW,restorePurchasesFailed,Couldn't restore purchases. Please try again.,無法恢復購買，請再試一次。,
+app,ar,callVoiceCallButton,Voice call,مكالمة صوتية,
+app,ar,callVideoCallButton,Video call,مكالمة فيديو,
+app,de,callVoiceCallButton,Voice call,Sprachanruf,
+app,de,callVideoCallButton,Video call,Videoanruf,
+app,es,callVoiceCallButton,Voice call,Llamada de voz,
+app,es,callVideoCallButton,Video call,Videollamada,
+app,fr,callVoiceCallButton,Voice call,Appel vocal,
+app,fr,callVideoCallButton,Video call,Appel vidéo,
+app,hi,callVoiceCallButton,Voice call,वॉइस कॉल,
+app,hi,callVideoCallButton,Video call,वीडियो कॉल,
+app,id,callVoiceCallButton,Voice call,Panggilan suara,
+app,id,callVideoCallButton,Video call,Panggilan video,
+app,it,callVoiceCallButton,Voice call,Chiamata vocale,
+app,it,callVideoCallButton,Video call,Videochiamata,
+app,ja,callVoiceCallButton,Voice call,音声通話,
+app,ja,callVideoCallButton,Video call,ビデオ通話,
+app,ko,callVoiceCallButton,Voice call,음성 통화,
+app,ko,callVideoCallButton,Video call,영상 통화,
+app,pt,callVoiceCallButton,Voice call,Chamada de voz,
+app,pt,callVideoCallButton,Video call,Videochamada,
+app,ru,callVoiceCallButton,Voice call,Голосовой звонок,
+app,ru,callVideoCallButton,Video call,Видеозвонок,
+app,tg,callVoiceCallButton,Voice call,Занги овозӣ,
+app,tg,callVideoCallButton,Video call,Занги видеоӣ,
+app,th,callVoiceCallButton,Voice call,โทรด้วยเสียง,
+app,th,callVideoCallButton,Video call,วิดีโอคอล,
+app,tl,callVoiceCallButton,Voice call,Voice call,
+app,tl,callVideoCallButton,Video call,Video call,
+app,tr,callVoiceCallButton,Voice call,Sesli arama,
+app,tr,callVideoCallButton,Video call,Görüntülü arama,
+app,vi,callVoiceCallButton,Voice call,Gọi thoại,
+app,vi,callVideoCallButton,Video call,Gọi video,
+app,zh,callVoiceCallButton,Voice call,语音通话,
+app,zh,callVideoCallButton,Video call,视频通话,
+app,zh_TW,callVoiceCallButton,Voice call,語音通話,
+app,zh_TW,callVideoCallButton,Video call,視訊通話,
+app,ar,callPermissionMicSettings,Please enable microphone access in Settings for calls.,يُرجى تفعيل الوصول إلى الميكروفون من الإعدادات لإجراء المكالمات.,
+app,ar,callPermissionCameraSettings,Please enable camera access in Settings for video calls.,يُرجى تفعيل الوصول إلى الكاميرا من الإعدادات لمكالمات الفيديو.,
+app,ar,callPermissionMicCameraSettings,Please enable microphone and camera access in Settings for video calls.,يُرجى تفعيل الوصول إلى الميكروفون والكاميرا من الإعدادات لمكالمات الفيديو.,
+app,ar,callQualityExcellent,Excellent quality,جودة ممتازة,
+app,ar,callQualityGood,Good quality,جودة جيدة,
+app,ar,callConnectionLost,Connection lost,انقطع الاتصال,
+app,de,callPermissionMicSettings,Please enable microphone access in Settings for calls.,Bitte erlaube in den Einstellungen den Mikrofonzugriff für Anrufe.,
+app,de,callPermissionCameraSettings,Please enable camera access in Settings for video calls.,Bitte erlaube in den Einstellungen den Kamerazugriff für Videoanrufe.,
+app,de,callPermissionMicCameraSettings,Please enable microphone and camera access in Settings for video calls.,Bitte erlaube in den Einstellungen den Mikrofon- und Kamerazugriff für Videoanrufe.,
+app,de,callQualityExcellent,Excellent quality,Ausgezeichnete Qualität,
+app,de,callQualityGood,Good quality,Gute Qualität,
+app,de,callConnectionLost,Connection lost,Verbindung verloren,
+app,es,callPermissionMicSettings,Please enable microphone access in Settings for calls.,Activa el acceso al micrófono en Ajustes para las llamadas.,
+app,es,callPermissionCameraSettings,Please enable camera access in Settings for video calls.,Activa el acceso a la cámara en Ajustes para las videollamadas.,
+app,es,callPermissionMicCameraSettings,Please enable microphone and camera access in Settings for video calls.,Activa el acceso al micrófono y a la cámara en Ajustes para las videollamadas.,
+app,es,callQualityExcellent,Excellent quality,Calidad excelente,
+app,es,callQualityGood,Good quality,Buena calidad,
+app,es,callConnectionLost,Connection lost,Conexión perdida,
+app,fr,callPermissionMicSettings,Please enable microphone access in Settings for calls.,Autorisez l'accès au micro dans les Réglages pour les appels.,
+app,fr,callPermissionCameraSettings,Please enable camera access in Settings for video calls.,Autorisez l'accès à la caméra dans les Réglages pour les appels vidéo.,
+app,fr,callPermissionMicCameraSettings,Please enable microphone and camera access in Settings for video calls.,Autorisez l'accès au micro et à la caméra dans les Réglages pour les appels vidéo.,
+app,fr,callQualityExcellent,Excellent quality,Excellente qualité,
+app,fr,callQualityGood,Good quality,Bonne qualité,
+app,fr,callConnectionLost,Connection lost,Connexion perdue,
+app,hi,callPermissionMicSettings,Please enable microphone access in Settings for calls.,कॉल के लिए कृपया सेटिंग्स में माइक्रोफ़ोन की अनुमति चालू करें।,
+app,hi,callPermissionCameraSettings,Please enable camera access in Settings for video calls.,वीडियो कॉल के लिए कृपया सेटिंग्स में कैमरे की अनुमति चालू करें।,
+app,hi,callPermissionMicCameraSettings,Please enable microphone and camera access in Settings for video calls.,वीडियो कॉल के लिए कृपया सेटिंग्स में माइक्रोफ़ोन और कैमरे की अनुमति चालू करें।,
+app,hi,callQualityExcellent,Excellent quality,बेहतरीन गुणवत्ता,
+app,hi,callQualityGood,Good quality,अच्छी गुणवत्ता,
+app,hi,callConnectionLost,Connection lost,कनेक्शन टूट गया,
+app,id,callPermissionMicSettings,Please enable microphone access in Settings for calls.,Aktifkan akses mikrofon di Pengaturan untuk panggilan.,
+app,id,callPermissionCameraSettings,Please enable camera access in Settings for video calls.,Aktifkan akses kamera di Pengaturan untuk panggilan video.,
+app,id,callPermissionMicCameraSettings,Please enable microphone and camera access in Settings for video calls.,Aktifkan akses mikrofon dan kamera di Pengaturan untuk panggilan video.,
+app,id,callQualityExcellent,Excellent quality,Kualitas sangat baik,
+app,id,callQualityGood,Good quality,Kualitas baik,
+app,id,callConnectionLost,Connection lost,Koneksi terputus,
+app,it,callPermissionMicSettings,Please enable microphone access in Settings for calls.,Attiva l'accesso al microfono nelle Impostazioni per le chiamate.,
+app,it,callPermissionCameraSettings,Please enable camera access in Settings for video calls.,Attiva l'accesso alla fotocamera nelle Impostazioni per le videochiamate.,
+app,it,callPermissionMicCameraSettings,Please enable microphone and camera access in Settings for video calls.,Attiva l'accesso a microfono e fotocamera nelle Impostazioni per le videochiamate.,
+app,it,callQualityExcellent,Excellent quality,Qualità eccellente,
+app,it,callQualityGood,Good quality,Buona qualità,
+app,it,callConnectionLost,Connection lost,Connessione persa,
+app,ja,callPermissionMicSettings,Please enable microphone access in Settings for calls.,通話するには、設定でマイクへのアクセスを許可してください。,
+app,ja,callPermissionCameraSettings,Please enable camera access in Settings for video calls.,ビデオ通話をするには、設定でカメラへのアクセスを許可してください。,
+app,ja,callPermissionMicCameraSettings,Please enable microphone and camera access in Settings for video calls.,ビデオ通話をするには、設定でマイクとカメラへのアクセスを許可してください。,
+app,ja,callQualityExcellent,Excellent quality,通話品質：非常に良好,
+app,ja,callQualityGood,Good quality,通話品質：良好,
+app,ja,callConnectionLost,Connection lost,接続が切れました,
+app,ko,callPermissionMicSettings,Please enable microphone access in Settings for calls.,통화하려면 설정에서 마이크 접근을 허용해 주세요.,
+app,ko,callPermissionCameraSettings,Please enable camera access in Settings for video calls.,영상 통화를 하려면 설정에서 카메라 접근을 허용해 주세요.,
+app,ko,callPermissionMicCameraSettings,Please enable microphone and camera access in Settings for video calls.,영상 통화를 하려면 설정에서 마이크와 카메라 접근을 허용해 주세요.,
+app,ko,callQualityExcellent,Excellent quality,통화 품질 매우 좋음,
+app,ko,callQualityGood,Good quality,통화 품질 좋음,
+app,ko,callConnectionLost,Connection lost,연결이 끊겼습니다,
+app,pt,callPermissionMicSettings,Please enable microphone access in Settings for calls.,Ative o acesso ao microfone nos Ajustes para fazer chamadas.,
+app,pt,callPermissionCameraSettings,Please enable camera access in Settings for video calls.,Ative o acesso à câmera nos Ajustes para videochamadas.,
+app,pt,callPermissionMicCameraSettings,Please enable microphone and camera access in Settings for video calls.,Ative o acesso ao microfone e à câmera nos Ajustes para videochamadas.,
+app,pt,callQualityExcellent,Excellent quality,Qualidade excelente,
+app,pt,callQualityGood,Good quality,Boa qualidade,
+app,pt,callConnectionLost,Connection lost,Conexão perdida,
+app,ru,callPermissionMicSettings,Please enable microphone access in Settings for calls.,"Разрешите доступ к микрофону в Настройках, чтобы звонить.",
+app,ru,callPermissionCameraSettings,Please enable camera access in Settings for video calls.,Разрешите доступ к камере в Настройках для видеозвонков.,
+app,ru,callPermissionMicCameraSettings,Please enable microphone and camera access in Settings for video calls.,Разрешите доступ к микрофону и камере в Настройках для видеозвонков.,
+app,ru,callQualityExcellent,Excellent quality,Отличное качество,
+app,ru,callQualityGood,Good quality,Хорошее качество,
+app,ru,callConnectionLost,Connection lost,Соединение потеряно,
+app,tg,callPermissionMicSettings,Please enable microphone access in Settings for calls.,Лутфан дар Танзимот дастрасӣ ба микрофонро барои зангҳо фаъол кунед.,
+app,tg,callPermissionCameraSettings,Please enable camera access in Settings for video calls.,Лутфан дар Танзимот дастрасӣ ба камераро барои зангҳои видеоӣ фаъол кунед.,
+app,tg,callPermissionMicCameraSettings,Please enable microphone and camera access in Settings for video calls.,Лутфан дар Танзимот дастрасӣ ба микрофон ва камераро барои зангҳои видеоӣ фаъол кунед.,
+app,tg,callQualityExcellent,Excellent quality,Сифати аъло,
+app,tg,callQualityGood,Good quality,Сифати хуб,
+app,tg,callConnectionLost,Connection lost,Пайвастшавӣ қатъ шуд,
+app,th,callPermissionMicSettings,Please enable microphone access in Settings for calls.,โปรดเปิดการเข้าถึงไมโครโฟนในการตั้งค่าเพื่อโทร,
+app,th,callPermissionCameraSettings,Please enable camera access in Settings for video calls.,โปรดเปิดการเข้าถึงกล้องในการตั้งค่าเพื่อวิดีโอคอล,
+app,th,callPermissionMicCameraSettings,Please enable microphone and camera access in Settings for video calls.,โปรดเปิดการเข้าถึงไมโครโฟนและกล้องในการตั้งค่าเพื่อวิดีโอคอล,
+app,th,callQualityExcellent,Excellent quality,คุณภาพดีมาก,
+app,th,callQualityGood,Good quality,คุณภาพดี,
+app,th,callConnectionLost,Connection lost,การเชื่อมต่อขาดหาย,
+app,tl,callPermissionMicSettings,Please enable microphone access in Settings for calls.,Paki-enable ang access sa mikropono sa Settings para sa mga tawag.,
+app,tl,callPermissionCameraSettings,Please enable camera access in Settings for video calls.,Paki-enable ang access sa camera sa Settings para sa mga video call.,
+app,tl,callPermissionMicCameraSettings,Please enable microphone and camera access in Settings for video calls.,Paki-enable ang access sa mikropono at camera sa Settings para sa mga video call.,
+app,tl,callQualityExcellent,Excellent quality,Napakahusay na kalidad,
+app,tl,callQualityGood,Good quality,Mahusay na kalidad,
+app,tl,callConnectionLost,Connection lost,Nawala ang koneksyon,
+app,tr,callPermissionMicSettings,Please enable microphone access in Settings for calls.,Aramalar için lütfen Ayarlar'dan mikrofon erişimine izin ver.,
+app,tr,callPermissionCameraSettings,Please enable camera access in Settings for video calls.,Görüntülü aramalar için lütfen Ayarlar'dan kamera erişimine izin ver.,
+app,tr,callPermissionMicCameraSettings,Please enable microphone and camera access in Settings for video calls.,Görüntülü aramalar için lütfen Ayarlar'dan mikrofon ve kamera erişimine izin ver.,
+app,tr,callQualityExcellent,Excellent quality,Mükemmel kalite,
+app,tr,callQualityGood,Good quality,İyi kalite,
+app,tr,callConnectionLost,Connection lost,Bağlantı kesildi,
+app,vi,callPermissionMicSettings,Please enable microphone access in Settings for calls.,Vui lòng bật quyền truy cập micrô trong Cài đặt để gọi điện.,
+app,vi,callPermissionCameraSettings,Please enable camera access in Settings for video calls.,Vui lòng bật quyền truy cập camera trong Cài đặt để gọi video.,
+app,vi,callPermissionMicCameraSettings,Please enable microphone and camera access in Settings for video calls.,Vui lòng bật quyền truy cập micrô và camera trong Cài đặt để gọi video.,
+app,vi,callQualityExcellent,Excellent quality,Chất lượng rất tốt,
+app,vi,callQualityGood,Good quality,Chất lượng tốt,
+app,vi,callConnectionLost,Connection lost,Mất kết nối,
+app,zh,callPermissionMicSettings,Please enable microphone access in Settings for calls.,请在设置中允许访问麦克风以进行通话。,
+app,zh,callPermissionCameraSettings,Please enable camera access in Settings for video calls.,请在设置中允许访问相机以进行视频通话。,
+app,zh,callPermissionMicCameraSettings,Please enable microphone and camera access in Settings for video calls.,请在设置中允许访问麦克风和相机以进行视频通话。,
+app,zh,callQualityExcellent,Excellent quality,通话质量极佳,
+app,zh,callQualityGood,Good quality,通话质量良好,
+app,zh,callConnectionLost,Connection lost,连接已断开,
+app,zh_TW,callPermissionMicSettings,Please enable microphone access in Settings for calls.,請在設定中允許存取麥克風以進行通話。,
+app,zh_TW,callPermissionCameraSettings,Please enable camera access in Settings for video calls.,請在設定中允許存取相機以進行視訊通話。,
+app,zh_TW,callPermissionMicCameraSettings,Please enable microphone and camera access in Settings for video calls.,請在設定中允許存取麥克風和相機以進行視訊通話。,
+app,zh_TW,callQualityExcellent,Excellent quality,通話品質極佳,
+app,zh_TW,callQualityGood,Good quality,通話品質良好,
+app,zh_TW,callConnectionLost,Connection lost,連線已中斷,
+app,ar,biometricLoginSetting,Sign in with Face ID / fingerprint,تسجيل الدخول ببصمة الوجه / الإصبع,
+app,ar,biometricLoginSettingDesc,"Show ""Continue as"" on the login screen after you log out","إظهار ""المتابعة باسم"" في شاشة تسجيل الدخول بعد تسجيل الخروج",
+app,de,biometricLoginSetting,Sign in with Face ID / fingerprint,Mit Face ID / Fingerabdruck anmelden,
+app,de,biometricLoginSettingDesc,"Show ""Continue as"" on the login screen after you log out",„Weiter als“ nach dem Abmelden auf dem Anmeldebildschirm anzeigen,
+app,es,biometricLoginSetting,Sign in with Face ID / fingerprint,Iniciar sesión con Face ID / huella,
+app,es,biometricLoginSettingDesc,"Show ""Continue as"" on the login screen after you log out","Mostrar ""Continuar como"" en la pantalla de inicio de sesión después de cerrar sesión",
+app,fr,biometricLoginSetting,Sign in with Face ID / fingerprint,Se connecter avec Face ID / empreinte,
+app,fr,biometricLoginSettingDesc,"Show ""Continue as"" on the login screen after you log out",Afficher « Continuer en tant que » sur l’écran de connexion après la déconnexion,
+app,hi,biometricLoginSetting,Sign in with Face ID / fingerprint,Face ID / फ़िंगरप्रिंट से साइन इन करें,
+app,hi,biometricLoginSettingDesc,"Show ""Continue as"" on the login screen after you log out","लॉग आउट के बाद लॉगिन स्क्रीन पर ""इस रूप में जारी रखें"" दिखाएँ",
+app,id,biometricLoginSetting,Sign in with Face ID / fingerprint,Masuk dengan Face ID / sidik jari,
+app,id,biometricLoginSettingDesc,"Show ""Continue as"" on the login screen after you log out","Tampilkan ""Lanjutkan sebagai"" di layar masuk setelah Anda keluar",
+app,it,biometricLoginSetting,Sign in with Face ID / fingerprint,Accedi con Face ID / impronta,
+app,it,biometricLoginSettingDesc,"Show ""Continue as"" on the login screen after you log out","Mostra ""Continua come"" nella schermata di accesso dopo il logout",
+app,ja,biometricLoginSetting,Sign in with Face ID / fingerprint,Face ID / 指紋でサインイン,
+app,ja,biometricLoginSettingDesc,"Show ""Continue as"" on the login screen after you log out",ログアウト後、ログイン画面に「〜として続行」を表示します,
+app,ko,biometricLoginSetting,Sign in with Face ID / fingerprint,Face ID / 지문으로 로그인,
+app,ko,biometricLoginSettingDesc,"Show ""Continue as"" on the login screen after you log out","로그아웃 후 로그인 화면에 ""~(으)로 계속""을 표시합니다",
+app,pt,biometricLoginSetting,Sign in with Face ID / fingerprint,Entrar com Face ID / impressão digital,
+app,pt,biometricLoginSettingDesc,"Show ""Continue as"" on the login screen after you log out","Mostrar ""Continuar como"" na tela de login depois de sair",
+app,ru,biometricLoginSetting,Sign in with Face ID / fingerprint,Вход по Face ID / отпечатку,
+app,ru,biometricLoginSettingDesc,"Show ""Continue as"" on the login screen after you log out",Показывать «Продолжить как» на экране входа после выхода,
+app,tg,biometricLoginSetting,Sign in with Face ID / fingerprint,Ворид шудан бо Face ID / изи ангушт,
+app,tg,biometricLoginSettingDesc,"Show ""Continue as"" on the login screen after you log out",Пас аз баромадан дар экрани воридшавӣ «Идома ҳамчун»-ро нишон диҳед,
+app,th,biometricLoginSetting,Sign in with Face ID / fingerprint,ลงชื่อเข้าใช้ด้วย Face ID / ลายนิ้วมือ,
+app,th,biometricLoginSettingDesc,"Show ""Continue as"" on the login screen after you log out","แสดง ""ดำเนินการต่อในชื่อ"" บนหน้าจอเข้าสู่ระบบหลังจากออกจากระบบ",
+app,tl,biometricLoginSetting,Sign in with Face ID / fingerprint,Mag-sign in gamit ang Face ID / fingerprint,
+app,tl,biometricLoginSettingDesc,"Show ""Continue as"" on the login screen after you log out","Ipakita ang ""Magpatuloy bilang"" sa login screen pagkatapos mong mag-log out",
+app,tr,biometricLoginSetting,Sign in with Face ID / fingerprint,Face ID / parmak izi ile giriş yap,
+app,tr,biometricLoginSettingDesc,"Show ""Continue as"" on the login screen after you log out","Çıkış yaptıktan sonra giriş ekranında ""Şu şekilde devam et"" seçeneğini göster",
+app,vi,biometricLoginSetting,Sign in with Face ID / fingerprint,Đăng nhập bằng Face ID / vân tay,
+app,vi,biometricLoginSettingDesc,"Show ""Continue as"" on the login screen after you log out","Hiển thị ""Tiếp tục với tư cách"" trên màn hình đăng nhập sau khi đăng xuất",
+app,zh,biometricLoginSetting,Sign in with Face ID / fingerprint,使用面容 ID / 指纹登录,
+app,zh,biometricLoginSettingDesc,"Show ""Continue as"" on the login screen after you log out",退出登录后在登录页显示“以…身份继续”,
+app,zh_TW,biometricLoginSetting,Sign in with Face ID / fingerprint,使用 Face ID / 指紋登入,
+app,zh_TW,biometricLoginSettingDesc,"Show ""Continue as"" on the login screen after you log out",登出後在登入畫面顯示「以…身分繼續」,
+app,ar,personaUpgradeNana,"Want to keep chatting with Nana? 🐻
+Upgrade for unlimited.","هل تريد مواصلة الدردشة مع نانا؟ 🐻
+قم بالترقية للحصول على استخدام غير محدود.",
+app,ar,personaUpgradeSensei,"Continue your training with Sensei. 🤖
+Upgrade for unrestricted practice.","واصل تدريبك مع سينسي. 🤖
+قم بالترقية لممارسة بلا قيود.",
+app,ar,personaUpgradeRiko,"Riko's just getting warmed up! 🐙
+Upgrade and let's keep going.","ريكو بدأ للتو! 🐙
+قم بالترقية ولنواصل.",
+app,ar,personaUpgradeGeneric,"Want to keep going?
+Upgrade for unlimited AI Study.","هل تريد المتابعة؟
+قم بالترقية لدراسة غير محدودة بالذكاء الاصطناعي.",
+app,de,personaUpgradeNana,"Want to keep chatting with Nana? 🐻
+Upgrade for unlimited.","Möchtest du weiter mit Nana chatten? 🐻
+Upgrade für unbegrenzte Nutzung.",
+app,de,personaUpgradeSensei,"Continue your training with Sensei. 🤖
+Upgrade for unrestricted practice.","Setze dein Training mit Sensei fort. 🤖
+Upgrade für uneingeschränktes Üben.",
+app,de,personaUpgradeRiko,"Riko's just getting warmed up! 🐙
+Upgrade and let's keep going.","Riko kommt gerade erst in Fahrt! 🐙
+Upgrade und lass uns weitermachen.",
+app,de,personaUpgradeGeneric,"Want to keep going?
+Upgrade for unlimited AI Study.","Möchtest du weitermachen?
+Upgrade für unbegrenztes KI-Lernen.",
+app,es,personaUpgradeNana,"Want to keep chatting with Nana? 🐻
+Upgrade for unlimited.","¿Quieres seguir charlando con Nana? 🐻
+Mejora para uso ilimitado.",
+app,es,personaUpgradeSensei,"Continue your training with Sensei. 🤖
+Upgrade for unrestricted practice.","Continúa tu entrenamiento con Sensei. 🤖
+Mejora para practicar sin límites.",
+app,es,personaUpgradeRiko,"Riko's just getting warmed up! 🐙
+Upgrade and let's keep going.","¡Riko apenas está calentando! 🐙
+Mejora y sigamos.",
+app,es,personaUpgradeGeneric,"Want to keep going?
+Upgrade for unlimited AI Study.","¿Quieres continuar?
+Mejora para estudiar con IA sin límites.",
+app,fr,personaUpgradeNana,"Want to keep chatting with Nana? 🐻
+Upgrade for unlimited.","Envie de continuer à discuter avec Nana ? 🐻
+Passe à la version supérieure pour un usage illimité.",
+app,fr,personaUpgradeSensei,"Continue your training with Sensei. 🤖
+Upgrade for unrestricted practice.","Poursuis ton entraînement avec Sensei. 🤖
+Passe à la version supérieure pour pratiquer sans limite.",
+app,fr,personaUpgradeRiko,"Riko's just getting warmed up! 🐙
+Upgrade and let's keep going.","Riko ne fait que s'échauffer ! 🐙
+Passe à la version supérieure et continuons.",
+app,fr,personaUpgradeGeneric,"Want to keep going?
+Upgrade for unlimited AI Study.","Envie de continuer ?
+Passe à la version supérieure pour l'étude IA illimitée.",
+app,hi,personaUpgradeNana,"Want to keep chatting with Nana? 🐻
+Upgrade for unlimited.","नाना से बात करते रहना चाहते हैं? 🐻
+असीमित के लिए अपग्रेड करें।",
+app,hi,personaUpgradeSensei,"Continue your training with Sensei. 🤖
+Upgrade for unrestricted practice.","सेंसेई के साथ अपना प्रशिक्षण जारी रखें। 🤖
+बिना रोक-टोक अभ्यास के लिए अपग्रेड करें।",
+app,hi,personaUpgradeRiko,"Riko's just getting warmed up! 🐙
+Upgrade and let's keep going.","रिको तो अभी शुरू ही हुआ है! 🐙
+अपग्रेड करें और आगे बढ़ते रहें।",
+app,hi,personaUpgradeGeneric,"Want to keep going?
+Upgrade for unlimited AI Study.","जारी रखना चाहते हैं?
+असीमित AI अध्ययन के लिए अपग्रेड करें।",
+app,id,personaUpgradeNana,"Want to keep chatting with Nana? 🐻
+Upgrade for unlimited.","Mau terus mengobrol dengan Nana? 🐻
+Upgrade untuk tanpa batas.",
+app,id,personaUpgradeSensei,"Continue your training with Sensei. 🤖
+Upgrade for unrestricted practice.","Lanjutkan latihanmu dengan Sensei. 🤖
+Upgrade untuk latihan tanpa batas.",
+app,id,personaUpgradeRiko,"Riko's just getting warmed up! 🐙
+Upgrade and let's keep going.","Riko baru saja pemanasan! 🐙
+Upgrade dan ayo lanjut.",
+app,id,personaUpgradeGeneric,"Want to keep going?
+Upgrade for unlimited AI Study.","Mau lanjut?
+Upgrade untuk Belajar AI tanpa batas.",
+app,it,personaUpgradeNana,"Want to keep chatting with Nana? 🐻
+Upgrade for unlimited.","Vuoi continuare a chattare con Nana? 🐻
+Passa a VIP per l'uso illimitato.",
+app,it,personaUpgradeSensei,"Continue your training with Sensei. 🤖
+Upgrade for unrestricted practice.","Continua il tuo allenamento con Sensei. 🤖
+Passa a VIP per esercitarti senza limiti.",
+app,it,personaUpgradeRiko,"Riko's just getting warmed up! 🐙
+Upgrade and let's keep going.","Riko si sta appena scaldando! 🐙
+Passa a VIP e andiamo avanti.",
+app,it,personaUpgradeGeneric,"Want to keep going?
+Upgrade for unlimited AI Study.","Vuoi continuare?
+Passa a VIP per lo studio IA illimitato.",
+app,ja,personaUpgradeNana,"Want to keep chatting with Nana? 🐻
+Upgrade for unlimited.","ナナともっと話したい？🐻
+アップグレードで無制限に。",
+app,ja,personaUpgradeSensei,"Continue your training with Sensei. 🤖
+Upgrade for unrestricted practice.","センセイとトレーニングを続けよう。🤖
+アップグレードで制限なく練習できます。",
+app,ja,personaUpgradeRiko,"Riko's just getting warmed up! 🐙
+Upgrade and let's keep going.","リコはまだウォーミングアップ中！🐙
+アップグレードして続けよう。",
+app,ja,personaUpgradeGeneric,"Want to keep going?
+Upgrade for unlimited AI Study.","もっと続けたい？
+アップグレードでAI学習が無制限に。",
+app,ko,personaUpgradeNana,"Want to keep chatting with Nana? 🐻
+Upgrade for unlimited.","나나와 계속 대화하고 싶나요? 🐻
+업그레이드하면 무제한이에요.",
+app,ko,personaUpgradeSensei,"Continue your training with Sensei. 🤖
+Upgrade for unrestricted practice.","센세이와 훈련을 계속하세요. 🤖
+업그레이드하면 제한 없이 연습할 수 있어요.",
+app,ko,personaUpgradeRiko,"Riko's just getting warmed up! 🐙
+Upgrade and let's keep going.","리코는 이제 막 몸을 풀었어요! 🐙
+업그레이드하고 계속해요.",
+app,ko,personaUpgradeGeneric,"Want to keep going?
+Upgrade for unlimited AI Study.","계속하고 싶나요?
+업그레이드하면 AI 학습이 무제한이에요.",
+app,pt,personaUpgradeNana,"Want to keep chatting with Nana? 🐻
+Upgrade for unlimited.","Quer continuar conversando com a Nana? 🐻
+Faça upgrade para uso ilimitado.",
+app,pt,personaUpgradeSensei,"Continue your training with Sensei. 🤖
+Upgrade for unrestricted practice.","Continue seu treino com o Sensei. 🤖
+Faça upgrade para praticar sem limites.",
+app,pt,personaUpgradeRiko,"Riko's just getting warmed up! 🐙
+Upgrade and let's keep going.","O Riko está só se aquecendo! 🐙
+Faça upgrade e vamos continuar.",
+app,pt,personaUpgradeGeneric,"Want to keep going?
+Upgrade for unlimited AI Study.","Quer continuar?
+Faça upgrade para Estudo com IA ilimitado.",
+app,ru,personaUpgradeNana,"Want to keep chatting with Nana? 🐻
+Upgrade for unlimited.","Хотите продолжить общение с Наной? 🐻
+Оформите подписку для безлимита.",
+app,ru,personaUpgradeSensei,"Continue your training with Sensei. 🤖
+Upgrade for unrestricted practice.","Продолжайте тренировку с Сенсеем. 🤖
+Оформите подписку для практики без ограничений.",
+app,ru,personaUpgradeRiko,"Riko's just getting warmed up! 🐙
+Upgrade and let's keep going.","Рико только разогревается! 🐙
+Оформите подписку и продолжим.",
+app,ru,personaUpgradeGeneric,"Want to keep going?
+Upgrade for unlimited AI Study.","Хотите продолжить?
+Оформите подписку для безлимитного ИИ-обучения.",
+app,tg,personaUpgradeNana,"Want to keep chatting with Nana? 🐻
+Upgrade for unlimited.","Мехоҳед бо Нана сӯҳбатро идома диҳед? 🐻
+Барои истифодаи беҳудуд навсозӣ кунед.",
+app,tg,personaUpgradeSensei,"Continue your training with Sensei. 🤖
+Upgrade for unrestricted practice.","Машқи худро бо Сенсей идома диҳед. 🤖
+Барои машқи бемаҳдуд навсозӣ кунед.",
+app,tg,personaUpgradeRiko,"Riko's just getting warmed up! 🐙
+Upgrade and let's keep going.","Рико навакак гарм шуда истодааст! 🐙
+Навсозӣ кунед ва идома диҳем.",
+app,tg,personaUpgradeGeneric,"Want to keep going?
+Upgrade for unlimited AI Study.","Мехоҳед идома диҳед?
+Барои Омӯзиши AI-и беҳудуд навсозӣ кунед.",
+app,th,personaUpgradeNana,"Want to keep chatting with Nana? 🐻
+Upgrade for unlimited.","อยากคุยกับนานะต่อไหม? 🐻
+อัปเกรดเพื่อใช้ได้ไม่จำกัด",
+app,th,personaUpgradeSensei,"Continue your training with Sensei. 🤖
+Upgrade for unrestricted practice.","ฝึกต่อกับเซนเซย์ 🤖
+อัปเกรดเพื่อฝึกได้ไม่จำกัด",
+app,th,personaUpgradeRiko,"Riko's just getting warmed up! 🐙
+Upgrade and let's keep going.","ริโกะเพิ่งเริ่มวอร์มอัปเอง! 🐙
+อัปเกรดแล้วไปต่อกัน",
+app,th,personaUpgradeGeneric,"Want to keep going?
+Upgrade for unlimited AI Study.","อยากไปต่อไหม?
+อัปเกรดเพื่อเรียนกับ AI ได้ไม่จำกัด",
+app,tl,personaUpgradeNana,"Want to keep chatting with Nana? 🐻
+Upgrade for unlimited.","Gusto mo pa bang makipag-chat kay Nana? 🐻
+Mag-upgrade para walang limitasyon.",
+app,tl,personaUpgradeSensei,"Continue your training with Sensei. 🤖
+Upgrade for unrestricted practice.","Ituloy ang iyong pagsasanay kasama si Sensei. 🤖
+Mag-upgrade para sa walang limitasyong pagsasanay.",
+app,tl,personaUpgradeRiko,"Riko's just getting warmed up! 🐙
+Upgrade and let's keep going.","Nag-iinit pa lang si Riko! 🐙
+Mag-upgrade at ituloy natin.",
+app,tl,personaUpgradeGeneric,"Want to keep going?
+Upgrade for unlimited AI Study.","Gusto mo pang magpatuloy?
+Mag-upgrade para sa walang limitasyong AI Study.",
+app,tr,personaUpgradeNana,"Want to keep chatting with Nana? 🐻
+Upgrade for unlimited.","Nana ile sohbete devam etmek ister misin? 🐻
+Sınırsız kullanım için yükselt.",
+app,tr,personaUpgradeSensei,"Continue your training with Sensei. 🤖
+Upgrade for unrestricted practice.","Sensei ile antrenmanına devam et. 🤖
+Sınırsız pratik için yükselt.",
+app,tr,personaUpgradeRiko,"Riko's just getting warmed up! 🐙
+Upgrade and let's keep going.","Riko daha yeni ısınıyor! 🐙
+Yükselt ve devam edelim.",
+app,tr,personaUpgradeGeneric,"Want to keep going?
+Upgrade for unlimited AI Study.","Devam etmek ister misin?
+Sınırsız AI Çalışma için yükselt.",
+app,vi,personaUpgradeNana,"Want to keep chatting with Nana? 🐻
+Upgrade for unlimited.","Muốn tiếp tục trò chuyện với Nana? 🐻
+Nâng cấp để dùng không giới hạn.",
+app,vi,personaUpgradeSensei,"Continue your training with Sensei. 🤖
+Upgrade for unrestricted practice.","Tiếp tục luyện tập cùng Sensei. 🤖
+Nâng cấp để luyện tập không giới hạn.",
+app,vi,personaUpgradeRiko,"Riko's just getting warmed up! 🐙
+Upgrade and let's keep going.","Riko mới chỉ khởi động thôi! 🐙
+Nâng cấp và cùng tiếp tục nhé.",
+app,vi,personaUpgradeGeneric,"Want to keep going?
+Upgrade for unlimited AI Study.","Muốn tiếp tục?
+Nâng cấp để học AI không giới hạn.",
+app,zh,personaUpgradeNana,"Want to keep chatting with Nana? 🐻
+Upgrade for unlimited.","想继续和 Nana 聊天吗？🐻
+升级即可无限畅聊。",
+app,zh,personaUpgradeSensei,"Continue your training with Sensei. 🤖
+Upgrade for unrestricted practice.","和 Sensei 继续训练吧。🤖
+升级即可不受限制地练习。",
+app,zh,personaUpgradeRiko,"Riko's just getting warmed up! 🐙
+Upgrade and let's keep going.","Riko 才刚刚热身！🐙
+升级后我们继续。",
+app,zh,personaUpgradeGeneric,"Want to keep going?
+Upgrade for unlimited AI Study.","想继续吗？
+升级即可无限使用 AI 学习。",
+app,zh_TW,personaUpgradeNana,"Want to keep chatting with Nana? 🐻
+Upgrade for unlimited.","想繼續和 Nana 聊天嗎？🐻
+升級即可無限暢聊。",
+app,zh_TW,personaUpgradeSensei,"Continue your training with Sensei. 🤖
+Upgrade for unrestricted practice.","和 Sensei 繼續訓練吧。🤖
+升級即可不受限制地練習。",
+app,zh_TW,personaUpgradeRiko,"Riko's just getting warmed up! 🐙
+Upgrade and let's keep going.","Riko 才剛剛熱身！🐙
+升級後我們繼續。",
+app,zh_TW,personaUpgradeGeneric,"Want to keep going?
+Upgrade for unlimited AI Study.","想繼續嗎？
+升級即可無限使用 AI 學習。",
+app,ar,chatListConversationPinned,Conversation pinned,تم تثبيت المحادثة,
+app,ar,chatListConversationUnpinned,Conversation unpinned,تم إلغاء تثبيت المحادثة,
+app,ar,chatListConversationDeleted,Conversation deleted,تم حذف المحادثة,
+app,ar,chatListConversationActionFailed,Couldn't update this conversation. Please try again.,تعذّر تحديث هذه المحادثة. يُرجى المحاولة مرة أخرى.,
+app,de,chatListConversationPinned,Conversation pinned,Unterhaltung angeheftet,
+app,de,chatListConversationUnpinned,Conversation unpinned,Unterhaltung losgelöst,
+app,de,chatListConversationDeleted,Conversation deleted,Unterhaltung gelöscht,
+app,de,chatListConversationActionFailed,Couldn't update this conversation. Please try again.,Diese Unterhaltung konnte nicht aktualisiert werden. Bitte versuche es erneut.,
+app,es,chatListConversationPinned,Conversation pinned,Conversación fijada,
+app,es,chatListConversationUnpinned,Conversation unpinned,Conversación desfijada,
+app,es,chatListConversationDeleted,Conversation deleted,Conversación eliminada,
+app,es,chatListConversationActionFailed,Couldn't update this conversation. Please try again.,No se pudo actualizar esta conversación. Inténtalo de nuevo.,
+app,fr,chatListConversationPinned,Conversation pinned,Conversation épinglée,
+app,fr,chatListConversationUnpinned,Conversation unpinned,Conversation désépinglée,
+app,fr,chatListConversationDeleted,Conversation deleted,Conversation supprimée,
+app,fr,chatListConversationActionFailed,Couldn't update this conversation. Please try again.,Impossible de mettre à jour cette conversation. Veuillez réessayer.,
+app,hi,chatListConversationPinned,Conversation pinned,बातचीत पिन की गई,
+app,hi,chatListConversationUnpinned,Conversation unpinned,बातचीत अनपिन की गई,
+app,hi,chatListConversationDeleted,Conversation deleted,बातचीत हटाई गई,
+app,hi,chatListConversationActionFailed,Couldn't update this conversation. Please try again.,यह बातचीत अपडेट नहीं हो सकी। कृपया फिर से कोशिश करें।,
+app,id,chatListConversationPinned,Conversation pinned,Percakapan disematkan,
+app,id,chatListConversationUnpinned,Conversation unpinned,Sematan percakapan dilepas,
+app,id,chatListConversationDeleted,Conversation deleted,Percakapan dihapus,
+app,id,chatListConversationActionFailed,Couldn't update this conversation. Please try again.,Tidak dapat memperbarui percakapan ini. Silakan coba lagi.,
+app,it,chatListConversationPinned,Conversation pinned,Conversazione fissata,
+app,it,chatListConversationUnpinned,Conversation unpinned,Conversazione non più fissata,
+app,it,chatListConversationDeleted,Conversation deleted,Conversazione eliminata,
+app,it,chatListConversationActionFailed,Couldn't update this conversation. Please try again.,Impossibile aggiornare questa conversazione. Riprova.,
+app,ja,chatListConversationPinned,Conversation pinned,会話をピン留めしました,
+app,ja,chatListConversationUnpinned,Conversation unpinned,会話のピン留めを解除しました,
+app,ja,chatListConversationDeleted,Conversation deleted,会話を削除しました,
+app,ja,chatListConversationActionFailed,Couldn't update this conversation. Please try again.,この会話を更新できませんでした。もう一度お試しください。,
+app,ko,chatListConversationPinned,Conversation pinned,대화를 고정했어요,
+app,ko,chatListConversationUnpinned,Conversation unpinned,대화 고정을 해제했어요,
+app,ko,chatListConversationDeleted,Conversation deleted,대화를 삭제했어요,
+app,ko,chatListConversationActionFailed,Couldn't update this conversation. Please try again.,이 대화를 업데이트하지 못했어요. 다시 시도해 주세요.,
+app,pt,chatListConversationPinned,Conversation pinned,Conversa fixada,
+app,pt,chatListConversationUnpinned,Conversation unpinned,Conversa desafixada,
+app,pt,chatListConversationDeleted,Conversation deleted,Conversa excluída,
+app,pt,chatListConversationActionFailed,Couldn't update this conversation. Please try again.,Não foi possível atualizar esta conversa. Tente novamente.,
+app,ru,chatListConversationPinned,Conversation pinned,Чат закреплён,
+app,ru,chatListConversationUnpinned,Conversation unpinned,Чат откреплён,
+app,ru,chatListConversationDeleted,Conversation deleted,Чат удалён,
+app,ru,chatListConversationActionFailed,Couldn't update this conversation. Please try again.,Не удалось обновить этот чат. Попробуйте ещё раз.,
+app,tg,chatListConversationPinned,Conversation pinned,Сӯҳбат васл шуд,
+app,tg,chatListConversationUnpinned,Conversation unpinned,Сӯҳбат аз васл озод шуд,
+app,tg,chatListConversationDeleted,Conversation deleted,Сӯҳбат нест карда шуд,
+app,tg,chatListConversationActionFailed,Couldn't update this conversation. Please try again.,Ин сӯҳбатро нав кардан нашуд. Лутфан бори дигар кӯшиш кунед.,
+app,th,chatListConversationPinned,Conversation pinned,ปักหมุดการสนทนาแล้ว,
+app,th,chatListConversationUnpinned,Conversation unpinned,เลิกปักหมุดการสนทนาแล้ว,
+app,th,chatListConversationDeleted,Conversation deleted,ลบการสนทนาแล้ว,
+app,th,chatListConversationActionFailed,Couldn't update this conversation. Please try again.,ไม่สามารถอัปเดตการสนทนานี้ได้ โปรดลองอีกครั้ง,
+app,tl,chatListConversationPinned,Conversation pinned,Na-pin ang usapan,
+app,tl,chatListConversationUnpinned,Conversation unpinned,Na-unpin ang usapan,
+app,tl,chatListConversationDeleted,Conversation deleted,Nabura ang usapan,
+app,tl,chatListConversationActionFailed,Couldn't update this conversation. Please try again.,Hindi ma-update ang usapang ito. Pakisubukang muli.,
+app,tr,chatListConversationPinned,Conversation pinned,Sohbet sabitlendi,
+app,tr,chatListConversationUnpinned,Conversation unpinned,Sohbetin sabitlemesi kaldırıldı,
+app,tr,chatListConversationDeleted,Conversation deleted,Sohbet silindi,
+app,tr,chatListConversationActionFailed,Couldn't update this conversation. Please try again.,Bu sohbet güncellenemedi. Lütfen tekrar deneyin.,
+app,vi,chatListConversationPinned,Conversation pinned,Đã ghim cuộc trò chuyện,
+app,vi,chatListConversationUnpinned,Conversation unpinned,Đã bỏ ghim cuộc trò chuyện,
+app,vi,chatListConversationDeleted,Conversation deleted,Đã xóa cuộc trò chuyện,
+app,vi,chatListConversationActionFailed,Couldn't update this conversation. Please try again.,Không thể cập nhật cuộc trò chuyện này. Vui lòng thử lại.,
+app,zh,chatListConversationPinned,Conversation pinned,已置顶对话,
+app,zh,chatListConversationUnpinned,Conversation unpinned,已取消置顶对话,
+app,zh,chatListConversationDeleted,Conversation deleted,已删除对话,
+app,zh,chatListConversationActionFailed,Couldn't update this conversation. Please try again.,无法更新此对话，请重试。,
+app,zh_TW,chatListConversationPinned,Conversation pinned,已置頂對話,
+app,zh_TW,chatListConversationUnpinned,Conversation unpinned,已取消置頂對話,
+app,zh_TW,chatListConversationDeleted,Conversation deleted,已刪除對話,
+app,zh_TW,chatListConversationActionFailed,Couldn't update this conversation. Please try again.,無法更新此對話，請再試一次。,
+app,ar,coinsPurchaseLinkedElsewhere,"This purchase is already linked to another BananaTalk account, so no coins were added here.",هذا الشراء مرتبط بالفعل بحساب BananaTalk آخر، لذلك لم تتم إضافة عملات هنا.,
+app,de,coinsPurchaseLinkedElsewhere,"This purchase is already linked to another BananaTalk account, so no coins were added here.","Dieser Kauf ist bereits mit einem anderen BananaTalk-Konto verknüpft, daher wurden hier keine Münzen hinzugefügt.",
+app,es,coinsPurchaseLinkedElsewhere,"This purchase is already linked to another BananaTalk account, so no coins were added here.","Esta compra ya está vinculada a otra cuenta de BananaTalk, así que no se añadieron monedas aquí.",
+app,fr,coinsPurchaseLinkedElsewhere,"This purchase is already linked to another BananaTalk account, so no coins were added here.","Cet achat est déjà lié à un autre compte BananaTalk, aucune pièce n'a donc été ajoutée ici.",
+app,hi,coinsPurchaseLinkedElsewhere,"This purchase is already linked to another BananaTalk account, so no coins were added here.","यह खरीदारी पहले से किसी दूसरे BananaTalk खाते से जुड़ी है, इसलिए यहाँ कोई सिक्के नहीं जोड़े गए।",
+app,id,coinsPurchaseLinkedElsewhere,"This purchase is already linked to another BananaTalk account, so no coins were added here.","Pembelian ini sudah tertaut ke akun BananaTalk lain, jadi tidak ada koin yang ditambahkan di sini.",
+app,it,coinsPurchaseLinkedElsewhere,"This purchase is already linked to another BananaTalk account, so no coins were added here.","Questo acquisto è già collegato a un altro account BananaTalk, quindi qui non sono state aggiunte monete.",
+app,ja,coinsPurchaseLinkedElsewhere,"This purchase is already linked to another BananaTalk account, so no coins were added here.",この購入はすでに別のBananaTalkアカウントに紐付けられているため、ここではコインは追加されませんでした。,
+app,ko,coinsPurchaseLinkedElsewhere,"This purchase is already linked to another BananaTalk account, so no coins were added here.",이 구매는 이미 다른 BananaTalk 계정에 연결되어 있어 여기에는 코인이 추가되지 않았습니다.,
+app,pt,coinsPurchaseLinkedElsewhere,"This purchase is already linked to another BananaTalk account, so no coins were added here.","Esta compra já está vinculada a outra conta BananaTalk, por isso nenhuma moeda foi adicionada aqui.",
+app,ru,coinsPurchaseLinkedElsewhere,"This purchase is already linked to another BananaTalk account, so no coins were added here.","Эта покупка уже привязана к другому аккаунту BananaTalk, поэтому монеты здесь не начислены.",
+app,tg,coinsPurchaseLinkedElsewhere,"This purchase is already linked to another BananaTalk account, so no coins were added here.","Ин харид аллакай ба ҳисоби дигари BananaTalk пайваст аст, бинобар ин дар ин ҷо танга илова нашуд.",
+app,th,coinsPurchaseLinkedElsewhere,"This purchase is already linked to another BananaTalk account, so no coins were added here.",การซื้อนี้เชื่อมโยงกับบัญชี BananaTalk อื่นแล้ว จึงไม่มีการเพิ่มเหรียญที่นี่,
+app,tl,coinsPurchaseLinkedElsewhere,"This purchase is already linked to another BananaTalk account, so no coins were added here.","Naka-link na ang pagbiling ito sa ibang BananaTalk account, kaya walang coins na naidagdag dito.",
+app,tr,coinsPurchaseLinkedElsewhere,"This purchase is already linked to another BananaTalk account, so no coins were added here.","Bu satın alma zaten başka bir BananaTalk hesabına bağlı, bu yüzden burada jeton eklenmedi.",
+app,vi,coinsPurchaseLinkedElsewhere,"This purchase is already linked to another BananaTalk account, so no coins were added here.",Giao dịch mua này đã được liên kết với một tài khoản BananaTalk khác nên không có xu nào được cộng ở đây.,
+app,zh,coinsPurchaseLinkedElsewhere,"This purchase is already linked to another BananaTalk account, so no coins were added here.",此购买已关联到另一个 BananaTalk 账号，因此这里没有添加金币。,
+app,zh_TW,coinsPurchaseLinkedElsewhere,"This purchase is already linked to another BananaTalk account, so no coins were added here.",此購買已連結到另一個 BananaTalk 帳號，因此這裡沒有加入金幣。,
+app,ar,coinsAlreadyCredited,These coins were already added to your account.,تمت إضافة هذه العملات إلى حسابك مسبقًا.,
+app,de,coinsAlreadyCredited,These coins were already added to your account.,Diese Münzen wurden deinem Konto bereits gutgeschrieben.,
+app,es,coinsAlreadyCredited,These coins were already added to your account.,Estas monedas ya se añadieron a tu cuenta.,
+app,fr,coinsAlreadyCredited,These coins were already added to your account.,Ces pièces ont déjà été ajoutées à ton compte.,
+app,hi,coinsAlreadyCredited,These coins were already added to your account.,ये सिक्के आपके खाते में पहले ही जोड़े जा चुके हैं।,
+app,id,coinsAlreadyCredited,These coins were already added to your account.,Koin ini sudah ditambahkan ke akunmu.,
+app,it,coinsAlreadyCredited,These coins were already added to your account.,Queste monete sono già state aggiunte al tuo account.,
+app,ja,coinsAlreadyCredited,These coins were already added to your account.,このコインはすでにアカウントに追加されています。,
+app,ko,coinsAlreadyCredited,These coins were already added to your account.,이 코인은 이미 계정에 추가되었습니다.,
+app,pt,coinsAlreadyCredited,These coins were already added to your account.,Estas moedas já foram adicionadas à sua conta.,
+app,ru,coinsAlreadyCredited,These coins were already added to your account.,Эти монеты уже зачислены на ваш аккаунт.,
+app,tg,coinsAlreadyCredited,These coins were already added to your account.,Ин тангаҳо аллакай ба ҳисоби шумо илова шудаанд.,
+app,th,coinsAlreadyCredited,These coins were already added to your account.,เหรียญเหล่านี้ถูกเพิ่มเข้าบัญชีของคุณแล้ว,
+app,tl,coinsAlreadyCredited,These coins were already added to your account.,Naidagdag na ang mga coin na ito sa iyong account.,
+app,tr,coinsAlreadyCredited,These coins were already added to your account.,Bu jetonlar hesabına zaten eklendi.,
+app,vi,coinsAlreadyCredited,These coins were already added to your account.,Số xu này đã được cộng vào tài khoản của bạn.,
+app,zh,coinsAlreadyCredited,These coins were already added to your account.,这些金币已经添加到你的账号中。,
+app,zh_TW,coinsAlreadyCredited,These coins were already added to your account.,這些金幣已經加入你的帳號。,
+app,ar,pleaseRemoveImagesFirstToAddVoiceNote,Please remove images first to add a voice note,يرجى إزالة الصور أولاً لإضافة رسالة صوتية,
+app,de,pleaseRemoveImagesFirstToAddVoiceNote,Please remove images first to add a voice note,"Bitte entferne zuerst die Bilder, um eine Sprachnachricht hinzuzufügen",
+app,es,pleaseRemoveImagesFirstToAddVoiceNote,Please remove images first to add a voice note,Elimina primero las imágenes para añadir una nota de voz,
+app,fr,pleaseRemoveImagesFirstToAddVoiceNote,Please remove images first to add a voice note,Veuillez d'abord supprimer les images pour ajouter une note vocale,
+app,hi,pleaseRemoveImagesFirstToAddVoiceNote,Please remove images first to add a voice note,वॉइस नोट जोड़ने के लिए पहले तस्वीरें हटाएँ,
+app,id,pleaseRemoveImagesFirstToAddVoiceNote,Please remove images first to add a voice note,Hapus gambar terlebih dahulu untuk menambahkan pesan suara,
+app,it,pleaseRemoveImagesFirstToAddVoiceNote,Please remove images first to add a voice note,Rimuovi prima le immagini per aggiungere una nota vocale,
+app,ja,pleaseRemoveImagesFirstToAddVoiceNote,Please remove images first to add a voice note,ボイスメモを追加するには、先に画像を削除してください,
+app,ko,pleaseRemoveImagesFirstToAddVoiceNote,Please remove images first to add a voice note,음성 메모를 추가하려면 먼저 이미지를 삭제하세요,
+app,pt,pleaseRemoveImagesFirstToAddVoiceNote,Please remove images first to add a voice note,Remova as imagens primeiro para adicionar uma nota de voz,
+app,ru,pleaseRemoveImagesFirstToAddVoiceNote,Please remove images first to add a voice note,"Сначала удалите изображения, чтобы добавить голосовую заметку",
+app,tg,pleaseRemoveImagesFirstToAddVoiceNote,Please remove images first to add a voice note,Барои илова кардани паёми овозӣ аввал тасвирҳоро хориҷ кунед,
+app,th,pleaseRemoveImagesFirstToAddVoiceNote,Please remove images first to add a voice note,โปรดลบรูปภาพก่อนเพื่อเพิ่มข้อความเสียง,
+app,tl,pleaseRemoveImagesFirstToAddVoiceNote,Please remove images first to add a voice note,Pakialis muna ang mga larawan para makapagdagdag ng voice note,
+app,tr,pleaseRemoveImagesFirstToAddVoiceNote,Please remove images first to add a voice note,Sesli not eklemek için önce görselleri kaldırın,
+app,vi,pleaseRemoveImagesFirstToAddVoiceNote,Please remove images first to add a voice note,Vui lòng xóa ảnh trước để thêm ghi chú thoại,
+app,zh,pleaseRemoveImagesFirstToAddVoiceNote,Please remove images first to add a voice note,请先删除图片再添加语音,
+app,zh_TW,pleaseRemoveImagesFirstToAddVoiceNote,Please remove images first to add a voice note,請先刪除圖片再新增語音,
 app,ar,momentAnsweringPrompt,Answering: {prompt},إجابة على: {prompt},
 app,de,momentAnsweringPrompt,Answering: {prompt},Antwort auf: {prompt},
 app,es,momentAnsweringPrompt,Answering: {prompt},Respondiendo: {prompt},

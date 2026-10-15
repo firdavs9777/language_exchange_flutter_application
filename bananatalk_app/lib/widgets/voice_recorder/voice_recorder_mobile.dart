@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_sound/flutter_sound.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:audio_session/audio_session.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/services/voice_message_service.dart';
 
 class VoiceRecorderWidget extends StatefulWidget {
@@ -34,6 +35,10 @@ class _VoiceRecorderWidgetState extends State<VoiceRecorderWidget>
   List<double> _amplitudes = [];
   String? _error;
 
+  /// The OS will not ask again (iOS after one denial): the only way forward
+  /// is the app's Settings page, so the error offers that instead of closing.
+  bool _micPermanentlyDenied = false;
+
   late AnimationController _pulseController;
 
   @override
@@ -52,12 +57,21 @@ class _VoiceRecorderWidgetState extends State<VoiceRecorderWidget>
 
     // Request microphone permission
     final status = await Permission.microphone.request();
+    if (!mounted) return;
     if (!status.isGranted) {
+      final l10n = AppLocalizations.of(context)!;
+      if (status.isPermanentlyDenied || status.isRestricted) {
+        setState(() {
+          _micPermanentlyDenied = true;
+          _error = l10n.aiMicPermissionDeniedSettings;
+        });
+        return;
+      }
       setState(() {
-        _error = 'Microphone permission is required';
+        _error = l10n.micPermissionNeeded;
       });
       Future.delayed(const Duration(seconds: 2), () {
-        widget.onCancel?.call();
+        if (mounted) widget.onCancel?.call();
       });
       return;
     }
@@ -281,10 +295,24 @@ class _VoiceRecorderWidgetState extends State<VoiceRecorderWidget>
                   children: [
                     const Icon(Icons.error_outline, color: Colors.red, size: 18),
                     const SizedBox(width: 8),
-                    Text(
-                      _error!,
-                      style: TextStyle(color: Colors.red.shade700),
+                    Expanded(
+                      child: Text(
+                        _error!,
+                        style: TextStyle(color: Colors.red.shade700),
+                      ),
                     ),
+                    if (_micPermanentlyDenied)
+                      TextButton(
+                        onPressed: () {
+                          // Close first: the permission is re-requested when
+                          // the user comes back and taps the mic again.
+                          widget.onCancel?.call();
+                          openAppSettings();
+                        },
+                        child: Text(
+                          AppLocalizations.of(context)!.openSettings,
+                        ),
+                      ),
                   ],
                 ),
               ),

@@ -1886,6 +1886,12 @@ abstract class AppLocalizations {
   /// **'Failed to send message'**
   String get failedToSendMessage;
 
+  /// Snackbar when the server refuses a chat message because the user is sending too many too quickly (rate limit).
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re sending messages too fast. Wait a moment and try again.'**
+  String get chatSendTooFast;
+
   /// No description provided for @dailyMessageLimitExceeded.
   ///
   /// In en, this message translates to:
@@ -9113,7 +9119,7 @@ abstract class AppLocalizations {
   /// No description provided for @helpEmailSupportSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'support@bananatalk.com'**
+  /// **'support@banatalk.com'**
   String get helpEmailSupportSubtitle;
 
   /// No description provided for @helpReportBug.
@@ -20683,6 +20689,168 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Help a solo developer keep building'**
   String get supportBananaTalkRowSubtitle;
+
+  /// No description provided for @restorePurchases.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore Purchases'**
+  String get restorePurchases;
+
+  /// No description provided for @restorePurchasesInProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Restoring purchases…'**
+  String get restorePurchasesInProgress;
+
+  /// No description provided for @restorePurchasesSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchases restored. Your VIP is active.'**
+  String get restorePurchasesSuccess;
+
+  /// No description provided for @restorePurchasesAlreadyActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Your VIP subscription is already active.'**
+  String get restorePurchasesAlreadyActive;
+
+  /// No description provided for @restorePurchasesNothing.
+  ///
+  /// In en, this message translates to:
+  /// **'No purchases to restore.'**
+  String get restorePurchasesNothing;
+
+  /// No description provided for @restorePurchasesFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t restore purchases. Please try again.'**
+  String get restorePurchasesFailed;
+
+  /// No description provided for @callVoiceCallButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice call'**
+  String get callVoiceCallButton;
+
+  /// No description provided for @callVideoCallButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Video call'**
+  String get callVideoCallButton;
+
+  /// No description provided for @callPermissionMicSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enable microphone access in Settings for calls.'**
+  String get callPermissionMicSettings;
+
+  /// No description provided for @callPermissionCameraSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enable camera access in Settings for video calls.'**
+  String get callPermissionCameraSettings;
+
+  /// No description provided for @callPermissionMicCameraSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enable microphone and camera access in Settings for video calls.'**
+  String get callPermissionMicCameraSettings;
+
+  /// No description provided for @callQualityExcellent.
+  ///
+  /// In en, this message translates to:
+  /// **'Excellent quality'**
+  String get callQualityExcellent;
+
+  /// No description provided for @callQualityGood.
+  ///
+  /// In en, this message translates to:
+  /// **'Good quality'**
+  String get callQualityGood;
+
+  /// No description provided for @callConnectionLost.
+  ///
+  /// In en, this message translates to:
+  /// **'Connection lost'**
+  String get callConnectionLost;
+
+  /// Settings switch: turn biometric (Continue as) sign-in on or off
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in with Face ID / fingerprint'**
+  String get biometricLoginSetting;
+
+  /// Subtitle under the biometric sign-in switch in Settings
+  ///
+  /// In en, this message translates to:
+  /// **'Show \"Continue as\" on the login screen after you log out'**
+  String get biometricLoginSettingDesc;
+
+  /// Upgrade sheet headline when the tutor persona is Nana (a bear). Keep the line break.
+  ///
+  /// In en, this message translates to:
+  /// **'Want to keep chatting with Nana? 🐻\nUpgrade for unlimited.'**
+  String get personaUpgradeNana;
+
+  /// Upgrade sheet headline when the tutor persona is Sensei (a robot). Keep the line break.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue your training with Sensei. 🤖\nUpgrade for unrestricted practice.'**
+  String get personaUpgradeSensei;
+
+  /// Upgrade sheet headline when the tutor persona is Riko (an octopus). Keep the line break.
+  ///
+  /// In en, this message translates to:
+  /// **'Riko\'s just getting warmed up! 🐙\nUpgrade and let\'s keep going.'**
+  String get personaUpgradeRiko;
+
+  /// Upgrade sheet headline when no tutor persona is set. Keep the line break.
+  ///
+  /// In en, this message translates to:
+  /// **'Want to keep going?\nUpgrade for unlimited AI Study.'**
+  String get personaUpgradeGeneric;
+
+  /// No description provided for @chatListConversationPinned.
+  ///
+  /// In en, this message translates to:
+  /// **'Conversation pinned'**
+  String get chatListConversationPinned;
+
+  /// No description provided for @chatListConversationUnpinned.
+  ///
+  /// In en, this message translates to:
+  /// **'Conversation unpinned'**
+  String get chatListConversationUnpinned;
+
+  /// No description provided for @chatListConversationDeleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Conversation deleted'**
+  String get chatListConversationDeleted;
+
+  /// No description provided for @chatListConversationActionFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t update this conversation. Please try again.'**
+  String get chatListConversationActionFailed;
+
+  /// No description provided for @coinsPurchaseLinkedElsewhere.
+  ///
+  /// In en, this message translates to:
+  /// **'This purchase is already linked to another BananaTalk account, so no coins were added here.'**
+  String get coinsPurchaseLinkedElsewhere;
+
+  /// No description provided for @coinsAlreadyCredited.
+  ///
+  /// In en, this message translates to:
+  /// **'These coins were already added to your account.'**
+  String get coinsAlreadyCredited;
+
+  /// No description provided for @pleaseRemoveImagesFirstToAddVoiceNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Please remove images first to add a voice note'**
+  String get pleaseRemoveImagesFirstToAddVoiceNote;
 
   /// Label on a moment (composer chip, card, detail) that answers the prompt of the day; {prompt} is the prompt's emoji and text
   ///

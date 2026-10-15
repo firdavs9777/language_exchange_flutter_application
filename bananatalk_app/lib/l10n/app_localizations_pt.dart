@@ -932,6 +932,9 @@ class AppLocalizationsPt extends AppLocalizations {
   String get failedToSendMessage => 'Falha ao enviar mensagem';
 
   @override
+  String get chatSendTooFast => 'Você está enviando mensagens rápido demais. Aguarde um momento e tente novamente.';
+
+  @override
   String get dailyMessageLimitExceeded => 'Limite diário de mensagens excedido. Atualize para VIP para mensagens ilimitadas.';
 
   @override
@@ -4738,7 +4741,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get helpEmailSupport => 'Suporte por e-mail';
 
   @override
-  String get helpEmailSupportSubtitle => 'support@bananatalk.com';
+  String get helpEmailSupportSubtitle => 'support@banatalk.com';
 
   @override
   String get helpReportBug => 'Reportar um bug';
@@ -11352,6 +11355,87 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => 'Ajude um desenvolvedor independente a continuar';
+
+  @override
+  String get restorePurchases => 'Restaurar compras';
+
+  @override
+  String get restorePurchasesInProgress => 'Restaurando compras…';
+
+  @override
+  String get restorePurchasesSuccess => 'Compras restauradas. Seu VIP está ativo.';
+
+  @override
+  String get restorePurchasesAlreadyActive => 'Sua assinatura VIP já está ativa.';
+
+  @override
+  String get restorePurchasesNothing => 'Nenhuma compra para restaurar.';
+
+  @override
+  String get restorePurchasesFailed => 'Não foi possível restaurar as compras. Tente novamente.';
+
+  @override
+  String get callVoiceCallButton => 'Chamada de voz';
+
+  @override
+  String get callVideoCallButton => 'Videochamada';
+
+  @override
+  String get callPermissionMicSettings => 'Ative o acesso ao microfone nos Ajustes para fazer chamadas.';
+
+  @override
+  String get callPermissionCameraSettings => 'Ative o acesso à câmera nos Ajustes para videochamadas.';
+
+  @override
+  String get callPermissionMicCameraSettings => 'Ative o acesso ao microfone e à câmera nos Ajustes para videochamadas.';
+
+  @override
+  String get callQualityExcellent => 'Qualidade excelente';
+
+  @override
+  String get callQualityGood => 'Boa qualidade';
+
+  @override
+  String get callConnectionLost => 'Conexão perdida';
+
+  @override
+  String get biometricLoginSetting => 'Entrar com Face ID / impressão digital';
+
+  @override
+  String get biometricLoginSettingDesc => 'Mostrar \"Continuar como\" na tela de login depois de sair';
+
+  @override
+  String get personaUpgradeNana => 'Quer continuar conversando com a Nana? 🐻\nFaça upgrade para uso ilimitado.';
+
+  @override
+  String get personaUpgradeSensei => 'Continue seu treino com o Sensei. 🤖\nFaça upgrade para praticar sem limites.';
+
+  @override
+  String get personaUpgradeRiko => 'O Riko está só se aquecendo! 🐙\nFaça upgrade e vamos continuar.';
+
+  @override
+  String get personaUpgradeGeneric => 'Quer continuar?\nFaça upgrade para Estudo com IA ilimitado.';
+
+  @override
+  String get chatListConversationPinned => 'Conversa fixada';
+
+  @override
+  String get chatListConversationUnpinned => 'Conversa desafixada';
+
+  @override
+  String get chatListConversationDeleted => 'Conversa excluída';
+
+  @override
+  String get chatListConversationActionFailed => 'Não foi possível atualizar esta conversa. Tente novamente.';
+
+  @override
+  String get coinsPurchaseLinkedElsewhere => 'Esta compra já está vinculada a outra conta BananaTalk, por isso nenhuma moeda foi adicionada aqui.';
+
+  @override
+  String get coinsAlreadyCredited => 'Estas moedas já foram adicionadas à sua conta.';
+
+  @override
+  String get pleaseRemoveImagesFirstToAddVoiceNote => 'Remova as imagens primeiro para adicionar uma nota de voz';
 
   @override
   String momentAnsweringPrompt(String prompt) {

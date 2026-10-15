@@ -493,6 +493,47 @@ const Map<String, List<String>> _keysByTask = {
     'lookingGood',
     'almostThere',
   ],
+  // Restore Purchases (App Store 3.1.1) on the VIP plans / status screens.
+  'restore-purchases': [
+    'restorePurchases',
+    'restorePurchasesInProgress',
+    'restorePurchasesSuccess',
+    'restorePurchasesAlreadyActive',
+    'restorePurchasesNothing',
+    'restorePurchasesFailed',
+  ],
+  // Chat reconnect 2026-10-15: rate-limited send fails at once.
+  'chat-reconnect': [
+    'chatSendTooFast',
+  ],
+  // Auth batch 2026-10-15: the biometric sign-in switch in Settings.
+  'auth-batch': [
+    'biometricLoginSetting',
+    'biometricLoginSettingDesc',
+  ],
+  // AI Study fix batch: the persona upgrade sheet's headlines.
+  'study-batch': [
+    'personaUpgradeNana',
+    'personaUpgradeSensei',
+    'personaUpgradeRiko',
+    'personaUpgradeGeneric',
+  ],
+  // Chat list pin/mute/delete results (audit_b #23).
+  'chat-list-actions': [
+    'chatListConversationPinned',
+    'chatListConversationUnpinned',
+    'chatListConversationDeleted',
+    'chatListConversationActionFailed',
+  ],
+  // Coin shop verify outcomes (payments batch, audit_a N3 / #20).
+  'payments-batch': [
+    'coinsPurchaseLinkedElsewhere',
+    'coinsAlreadyCredited',
+  ],
+  // Moment composer: images block a voice note (was "...to add a video").
+  'moments-batch-2': [
+    'pleaseRemoveImagesFirstToAddVoiceNote',
+  ],
 };
 
 /// Files (under lib/) each task must leave with no English Text literal.
@@ -699,6 +740,27 @@ const Map<String, List<String>> _filesByTask = {
   'final-fix': [
     'pages/profile/profile_main/sections/profile_highlights_tab.dart',
   ],
+  'restore-purchases': [
+    'widgets/restore_purchases_button.dart',
+  ],
+  'chat-reconnect': [
+    'pages/chat/conversation/chat_conversation_screen.dart',
+  ],
+  'auth-batch': [
+    'pages/profile/settings.dart',
+  ],
+  'study-batch': [
+    'widgets/tutor/persona_upgrade_sheet.dart',
+  ],
+  'chat-list-actions': [
+    'pages/chat/list/chat_list_screen.dart',
+  ],
+  'payments-batch': [
+    'pages/coins/coin_shop_screen.dart',
+  ],
+  // create_moment.dart still has other English literals; the key is checked
+  // above, the file is not listed.
+  'moments-batch-2': [],
 };
 
 /// Keys whose draft may legitimately equal the English, per locale (loanwords,

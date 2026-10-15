@@ -20,7 +20,8 @@ class LanguageSection extends ConsumerStatefulWidget {
   final String? selectedLanguageLevel;
   final void Function(String) onNativeLanguageChanged;
   final void Function(String) onLanguageToLearnChanged;
-  final void Function(String) onLanguageLevelChanged;
+  /// Called with null only to roll back to an unset level after a failed save.
+  final void Function(String?) onLanguageLevelChanged;
 
   const LanguageSection({
     super.key,
@@ -307,6 +308,7 @@ class _LanguageSectionState extends ConsumerState<LanguageSection> {
   Future<void> _onLevelSelected(BuildContext sheetCtx, String level) async {
     final l10n = AppLocalizations.of(context)!;
     Navigator.pop(sheetCtx);
+    final previous = widget.selectedLanguageLevel;
     widget.onLanguageLevelChanged(level);
     try {
       await ref
@@ -333,6 +335,8 @@ class _LanguageSectionState extends ConsumerState<LanguageSection> {
         );
       }
     } catch (e) {
+      // The server kept the old level; show that again.
+      widget.onLanguageLevelChanged(previous);
       if (mounted) {
         final colorScheme = Theme.of(context).colorScheme;
         ScaffoldMessenger.of(context).showSnackBar(

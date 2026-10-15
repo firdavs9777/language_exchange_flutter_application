@@ -3,6 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/community/tabs/matches_tab.dart';
 import 'package:bananatalk_app/providers/provider_models/daily_match_model.dart';
@@ -89,5 +90,41 @@ void main() {
         _wrap(dailyMatchesProvider.overrideWith((ref) async => _result())));
     await tester.pumpAndSettle();
     expect(find.text('refreshes at midnight'), findsOneWidget);
+  });
+
+  testWidgets('a skipped match stays hidden when the tab is rebuilt',
+      (tester) async {
+    SharedPreferences.setMockInitialValues({});
+    final container = ProviderContainer(overrides: [
+      dailyMatchesProvider.overrideWith((ref) async => _result()),
+    ]);
+    addTearDown(container.dispose);
+    Widget app(bool showTab) => UncontrolledProviderScope(
+          container: container,
+          child: MaterialApp(
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+            ],
+            supportedLocales: AppLocalizations.supportedLocales,
+            home: Scaffold(
+              body: showTab ? const MatchesTab() : const SizedBox(),
+            ),
+          ),
+        );
+    await tester.pumpWidget(app(true));
+    await tester.pumpAndSettle();
+    expect(find.text('Minji'), findsOneWidget);
+
+    await tester.tap(find.byKey(const Key('match-skip')));
+    await tester.pumpAndSettle();
+    expect(find.text('Minji'), findsNothing);
+
+    // TabBarView builds a fresh State on remount; the skip must survive it.
+    await tester.pumpWidget(app(false));
+    await tester.pumpWidget(app(true));
+    await tester.pumpAndSettle();
+    expect(find.text('Minji'), findsNothing);
   });
 }

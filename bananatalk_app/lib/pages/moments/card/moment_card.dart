@@ -345,9 +345,23 @@ class _MomentCardState extends ConsumerState<MomentCard> {
   /// "N comments" text) so they behave identically instead of two of them
   /// pushing the stale `widget.moments` snapshot directly.
   Future<void> _openMomentDetail() async {
-    final singleMoment = await ref
-        .read(momentsServiceProvider)
-        .getSingleMoment(id: widget.moments.id);
+    final Moments singleMoment;
+    try {
+      singleMoment = await ref
+          .read(momentsServiceProvider)
+          .getSingleMoment(id: widget.moments.id);
+    } catch (e) {
+      // Offline, or the moment is gone / no longer visible: the tap used to
+      // do nothing at all (an unhandled async error).
+      if (mounted) {
+        showMomentsSnackBar(
+          context,
+          message: friendlyErrorMessage(AppLocalizations.of(context)!, e),
+          type: MomentsSnackBarType.error,
+        );
+      }
+      return;
+    }
 
     ref.invalidate(commentsProvider(singleMoment.id));
 
@@ -505,7 +519,8 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                     );
                   },
                 ),
-              if (!isOwnMoment)
+              if (!isOwnMoment &&
+                  widget.moments.description.trim().isNotEmpty)
                 ListTile(
                   leading: const Icon(
                     Icons.spellcheck_rounded,
@@ -746,7 +761,9 @@ class _MomentCardState extends ConsumerState<MomentCard> {
             // expands directly underneath when the user opts in via the
             // inline "Translate" chip (more discoverable than the action
             // row's translate icon was).
-            if (!isGradient)
+            // Photo/video/voice-only moments have no caption: render no empty
+            // caption line and no translate chip with nothing to translate.
+            if (!isGradient && fullText.trim().isNotEmpty)
               Padding(
                 padding: const EdgeInsets.fromLTRB(12, 0, 12, 8),
                 child: Column(

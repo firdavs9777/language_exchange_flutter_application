@@ -36,7 +36,13 @@ void main() {
     });
     test('quota keys match tutorQuotaProvider keys', () {
       expect(StudyFeature.tutor.quotaKey, 'chat');
-      expect(StudyFeature.speak.quotaKey, 'pronunciation');
+      expect(StudyFeature.review.quotaKey, isNull);
+    });
+    test('speak has no tutor quota: PronunciationScreen never spends one', () {
+      // The tutor "pronunciation" quota is spent only by the tutor's
+      // pronunciation summary; gating the Speak tile on it showed
+      // "exhausted" and sold coins for a screen that is not capped.
+      expect(StudyFeature.speak.quotaKey, isNull);
       expect(StudyFeature.review.quotaKey, isNull);
     });
   });

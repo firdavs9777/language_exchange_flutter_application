@@ -313,26 +313,34 @@ class RewardedAdButton extends ConsumerWidget {
     if (!showAds) return const SizedBox.shrink();
 
     final adService = ref.watch(adServiceProvider);
-    final isReady = enabled && adService.isRewardedAdReady;
 
-    return OutlinedButton.icon(
-      onPressed: isReady
-          ? () => adService.showRewarded(onRewarded: onRewarded)
-          : null,
-      icon: const Icon(Icons.play_circle_outline, size: 20),
-      label: Text(label ?? AppLocalizations.of(context)!.adsRewardedButtonLabel),
-      style: OutlinedButton.styleFrom(
-        foregroundColor: const Color(0xFF667EEA),
-        side: BorderSide(
-          color: isReady
-              ? const Color(0xFF667EEA)
-              : Colors.grey.withValues(alpha: 0.3),
-        ),
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
-      ),
+    // Rebuilds on load/reload: readiness changes without anything else
+    // rebuilding this widget.
+    return ValueListenableBuilder<bool>(
+      valueListenable: adService.rewardedReady,
+      builder: (context, rewardedReady, _) {
+        final isReady = enabled && rewardedReady;
+        return OutlinedButton.icon(
+          onPressed: isReady
+              ? () => adService.showRewarded(onRewarded: onRewarded)
+              : null,
+          icon: const Icon(Icons.play_circle_outline, size: 20),
+          label: Text(
+              label ?? AppLocalizations.of(context)!.adsRewardedButtonLabel),
+          style: OutlinedButton.styleFrom(
+            foregroundColor: const Color(0xFF667EEA),
+            side: BorderSide(
+              color: isReady
+                  ? const Color(0xFF667EEA)
+                  : Colors.grey.withValues(alpha: 0.3),
+            ),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+        );
+      },
     );
   }
 }

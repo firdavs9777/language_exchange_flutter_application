@@ -1,6 +1,7 @@
 import 'package:app_settings/app_settings.dart';
 import 'package:bananatalk_app/providers/notification_settings_provider.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -35,7 +36,8 @@ class NotificationSettingsScreen extends ConsumerWidget {
         data: (settings) => _buildContent(context, ref, settings, l10n),
         loading: () => _buildLoadingState(context),
         error: (error, stack) =>
-            _buildErrorState(context, ref, error.toString(), l10n),
+            _buildErrorState(
+                context, ref, friendlyErrorMessage(l10n, error), l10n),
       ),
     );
   }

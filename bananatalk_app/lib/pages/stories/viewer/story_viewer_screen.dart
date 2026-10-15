@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/pages/stories/viewer/story_tap_zones.dart';
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/services/video_sound_preference.dart';
 import 'package:flutter/services.dart';
@@ -829,13 +830,16 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
             onTapDown: (details) => _pauseStory(),
             onTapUp: (details) {
               _resumeStory();
-              final screenWidth = MediaQuery.of(context).size.width;
-              // Tap left 30% for previous, right 70% for next
-              if (details.globalPosition.dx < screenWidth * 0.3) {
-                HapticFeedback.selectionClick();
+              // Reading-start 30% for previous, the rest for next
+              // (mirrored in RTL; see story_tap_zones.dart).
+              HapticFeedback.selectionClick();
+              if (storyTapGoesBack(
+                dx: details.globalPosition.dx,
+                width: MediaQuery.of(context).size.width,
+                direction: Directionality.of(context),
+              )) {
                 _previousStory();
-              } else if (details.globalPosition.dx > screenWidth * 0.3) {
-                HapticFeedback.selectionClick();
+              } else {
                 _nextStory();
               }
             },

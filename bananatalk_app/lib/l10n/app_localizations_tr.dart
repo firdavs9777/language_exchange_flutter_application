@@ -932,6 +932,9 @@ class AppLocalizationsTr extends AppLocalizations {
   String get failedToSendMessage => 'Mesaj gönderilemedi';
 
   @override
+  String get chatSendTooFast => 'Çok hızlı mesaj gönderiyorsun. Biraz bekle ve tekrar dene.';
+
+  @override
   String get dailyMessageLimitExceeded => 'Günlük mesaj limiti aşıldı. Sınırsız mesaj için VIP\'e yükseltin.';
 
   @override
@@ -4738,7 +4741,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get helpEmailSupport => 'E-posta Desteği';
 
   @override
-  String get helpEmailSupportSubtitle => 'support@bananatalk.com';
+  String get helpEmailSupportSubtitle => 'support@banatalk.com';
 
   @override
   String get helpReportBug => 'Hata Bildir';
@@ -11350,6 +11353,87 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get supportBananaTalkRowSubtitle => 'Tek başına çalışan bir geliştiricinin devam etmesine yardım et';
+
+  @override
+  String get restorePurchases => 'Satın alımları geri yükle';
+
+  @override
+  String get restorePurchasesInProgress => 'Satın alımlar geri yükleniyor…';
+
+  @override
+  String get restorePurchasesSuccess => 'Satın alımlar geri yüklendi. VIP üyeliğin aktif.';
+
+  @override
+  String get restorePurchasesAlreadyActive => 'VIP aboneliğin zaten aktif.';
+
+  @override
+  String get restorePurchasesNothing => 'Geri yüklenecek satın alım yok.';
+
+  @override
+  String get restorePurchasesFailed => 'Satın alımlar geri yüklenemedi. Lütfen tekrar dene.';
+
+  @override
+  String get callVoiceCallButton => 'Sesli arama';
+
+  @override
+  String get callVideoCallButton => 'Görüntülü arama';
+
+  @override
+  String get callPermissionMicSettings => 'Aramalar için lütfen Ayarlar\'dan mikrofon erişimine izin ver.';
+
+  @override
+  String get callPermissionCameraSettings => 'Görüntülü aramalar için lütfen Ayarlar\'dan kamera erişimine izin ver.';
+
+  @override
+  String get callPermissionMicCameraSettings => 'Görüntülü aramalar için lütfen Ayarlar\'dan mikrofon ve kamera erişimine izin ver.';
+
+  @override
+  String get callQualityExcellent => 'Mükemmel kalite';
+
+  @override
+  String get callQualityGood => 'İyi kalite';
+
+  @override
+  String get callConnectionLost => 'Bağlantı kesildi';
+
+  @override
+  String get biometricLoginSetting => 'Face ID / parmak izi ile giriş yap';
+
+  @override
+  String get biometricLoginSettingDesc => 'Çıkış yaptıktan sonra giriş ekranında \"Şu şekilde devam et\" seçeneğini göster';
+
+  @override
+  String get personaUpgradeNana => 'Nana ile sohbete devam etmek ister misin? 🐻\nSınırsız kullanım için yükselt.';
+
+  @override
+  String get personaUpgradeSensei => 'Sensei ile antrenmanına devam et. 🤖\nSınırsız pratik için yükselt.';
+
+  @override
+  String get personaUpgradeRiko => 'Riko daha yeni ısınıyor! 🐙\nYükselt ve devam edelim.';
+
+  @override
+  String get personaUpgradeGeneric => 'Devam etmek ister misin?\nSınırsız AI Çalışma için yükselt.';
+
+  @override
+  String get chatListConversationPinned => 'Sohbet sabitlendi';
+
+  @override
+  String get chatListConversationUnpinned => 'Sohbetin sabitlemesi kaldırıldı';
+
+  @override
+  String get chatListConversationDeleted => 'Sohbet silindi';
+
+  @override
+  String get chatListConversationActionFailed => 'Bu sohbet güncellenemedi. Lütfen tekrar deneyin.';
+
+  @override
+  String get coinsPurchaseLinkedElsewhere => 'Bu satın alma zaten başka bir BananaTalk hesabına bağlı, bu yüzden burada jeton eklenmedi.';
+
+  @override
+  String get coinsAlreadyCredited => 'Bu jetonlar hesabına zaten eklendi.';
+
+  @override
+  String get pleaseRemoveImagesFirstToAddVoiceNote => 'Sesli not eklemek için önce görselleri kaldırın';
 
   @override
   String momentAnsweringPrompt(String prompt) {
