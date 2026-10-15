@@ -304,7 +304,9 @@ class _LoginState extends ConsumerState<Login> {
                 .read(authServiceProvider)
                 .getLoggedInUser();
             if (!updatedUser.termsAccepted) {
-              // User didn't accept terms, stay on login screen
+              // User didn't accept terms: stay on the login screen, signed
+              // OUT, like the splash path does on a declined Terms.
+              await signOutAndReset(ref.read(authServiceProvider));
               return;
             }
           }
