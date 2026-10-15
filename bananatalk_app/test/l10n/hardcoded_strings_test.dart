@@ -502,6 +502,11 @@ const Map<String, List<String>> _keysByTask = {
     'restorePurchasesNothing',
     'restorePurchasesFailed',
   ],
+  // Coin shop verify outcomes (payments batch, audit_a N3 / #20).
+  'payments-batch': [
+    'coinsPurchaseLinkedElsewhere',
+    'coinsAlreadyCredited',
+  ],
 };
 
 /// Files (under lib/) each task must leave with no English Text literal.
@@ -710,6 +715,9 @@ const Map<String, List<String>> _filesByTask = {
   ],
   'restore-purchases': [
     'widgets/restore_purchases_button.dart',
+  ],
+  'payments-batch': [
+    'pages/coins/coin_shop_screen.dart',
   ],
 };
 
