@@ -4738,7 +4738,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get helpEmailSupport => 'Suporte por e-mail';
 
   @override
-  String get helpEmailSupportSubtitle => 'support@bananatalk.com';
+  String get helpEmailSupportSubtitle => 'support@banatalk.com';
 
   @override
   String get helpReportBug => 'Reportar um bug';

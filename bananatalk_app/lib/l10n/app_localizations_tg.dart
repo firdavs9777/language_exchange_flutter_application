@@ -4744,7 +4744,7 @@ class AppLocalizationsTg extends AppLocalizations {
   String get helpEmailSupport => 'Дастгирии почтаи электронӣ';
 
   @override
-  String get helpEmailSupportSubtitle => 'support@bananatalk.com';
+  String get helpEmailSupportSubtitle => 'support@banatalk.com';
 
   @override
   String get helpReportBug => 'Дар бораи хато хабар диҳед';

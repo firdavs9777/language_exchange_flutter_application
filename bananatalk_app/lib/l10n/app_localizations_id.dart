@@ -4738,7 +4738,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get helpEmailSupport => 'Dukungan Email';
 
   @override
-  String get helpEmailSupportSubtitle => 'support@bananatalk.com';
+  String get helpEmailSupportSubtitle => 'support@banatalk.com';
 
   @override
   String get helpReportBug => 'Laporkan Bug';

@@ -23,6 +23,8 @@ import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/theme_mode_provider.dart';
+import 'package:bananatalk_app/utils/client_info.dart';
+import 'package:bananatalk_app/utils/help_links.dart';
 import 'package:bananatalk_app/utils/image_utils.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
@@ -32,6 +34,7 @@ import 'package:bananatalk_app/pages/ai/tutor/persona_picker_screen.dart';
 import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:bananatalk_app/services/session_reset.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/pages/profile/widgets/profile_snackbar.dart';
@@ -1013,7 +1016,10 @@ class LeftDrawer extends ConsumerWidget {
                   color: const Color(0xFF2196F3),
                   title: l10n.helpEmailSupport,
                   subtitle: l10n.helpEmailSupportSubtitle,
-                  onTap: () => Navigator.pop(ctx),
+                  onTap: () {
+                    Navigator.pop(ctx);
+                    _openHelpLink(context, HelpLinks.supportEmailUri());
+                  },
                 ),
                 const SizedBox(height: 8),
                 _buildHelpTile(
@@ -1022,7 +1028,18 @@ class LeftDrawer extends ConsumerWidget {
                   color: const Color(0xFFFF9800),
                   title: l10n.helpReportBug,
                   subtitle: l10n.helpReportBugSubtitle,
-                  onTap: () => Navigator.pop(ctx),
+                  onTap: () async {
+                    Navigator.pop(ctx);
+                    final info = await ClientInfo.collect();
+                    if (!context.mounted) return;
+                    _openHelpLink(
+                      context,
+                      HelpLinks.bugReportUri(
+                        subject: l10n.helpReportBug,
+                        clientInfo: info,
+                      ),
+                    );
+                  },
                 ),
                 const SizedBox(height: 8),
                 _buildHelpTile(
@@ -1031,7 +1048,10 @@ class LeftDrawer extends ConsumerWidget {
                   color: const Color(0xFF7C4DFF),
                   title: l10n.helpFaqs,
                   subtitle: l10n.helpFaqsSubtitle,
-                  onTap: () => Navigator.pop(ctx),
+                  onTap: () {
+                    Navigator.pop(ctx);
+                    _openHelpLink(context, HelpLinks.faqUri);
+                  },
                 ),
                 const SizedBox(height: 16),
                 SizedBox(
@@ -1060,6 +1080,20 @@ class LeftDrawer extends ConsumerWidget {
         );
       },
     );
+  }
+
+  Future<void> _openHelpLink(BuildContext context, Uri uri) async {
+    var opened = false;
+    try {
+      opened = await launchUrl(uri, mode: LaunchMode.externalApplication);
+    } catch (_) {}
+    if (!opened && context.mounted) {
+      showProfileSnackBar(
+        context,
+        message: AppLocalizations.of(context)!.couldNotOpenLink,
+        type: ProfileSnackBarType.error,
+      );
+    }
   }
 
   Widget _buildHelpTile({

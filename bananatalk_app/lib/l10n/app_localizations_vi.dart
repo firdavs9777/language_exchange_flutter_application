@@ -4738,7 +4738,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get helpEmailSupport => 'Hỗ trợ qua email';
 
   @override
-  String get helpEmailSupportSubtitle => 'support@bananatalk.com';
+  String get helpEmailSupportSubtitle => 'support@banatalk.com';
 
   @override
   String get helpReportBug => 'Báo cáo lỗi';
