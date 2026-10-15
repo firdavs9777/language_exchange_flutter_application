@@ -98,6 +98,11 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
   // Video processing state
   double _videoCompressionProgress = 0;
   String _videoProcessingStatus = '';
+
+  // The processing dialog is its own route: setState here never rebuilt it,
+  // so its % and status froze at their first values. Bumped on every
+  // progress/status change; the dialog listens to it.
+  final ValueNotifier<int> _videoProgressTick = ValueNotifier(0);
   VideoProcessResult? _videoProcessResult;
   final VideoCompressionService _videoCompressionService =
       VideoCompressionService();
@@ -295,6 +300,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     descriptionController.removeListener(_updateButtonState);
     descriptionController.dispose();
     isButtonEnabled.dispose();
+    _videoProgressTick.dispose();
     super.dispose();
   }
 
@@ -558,6 +564,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
             setState(() {
               _videoCompressionProgress = progress;
             });
+            _videoProgressTick.value++;
           }
         },
         onStatus: (status) {
@@ -565,6 +572,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
             setState(() {
               _videoProcessingStatus = status;
             });
+            _videoProgressTick.value++;
           }
         },
         maxDurationSecondsOverride: widget.isReel ? 180 : null,
@@ -624,8 +632,9 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (context) => StatefulBuilder(
-        builder: (context, setDialogState) {
+      builder: (context) => ValueListenableBuilder<int>(
+        valueListenable: _videoProgressTick,
+        builder: (context, _, __) {
           return AlertDialog(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),

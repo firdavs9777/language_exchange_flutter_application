@@ -106,6 +106,11 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
   VideoPlayerController? _videoController;
   double _videoCompressionProgress = 0;
   String _videoProcessingStatus = '';
+
+  // The processing dialog is its own route: setState here never rebuilt it,
+  // so its % and status froze at their first values. Bumped on every
+  // progress/status change; the dialog listens to it.
+  final ValueNotifier<int> _videoProgressTick = ValueNotifier(0);
   VideoProcessResult? _videoProcessResult;
 
   final List<String> _backgroundColors = [
@@ -127,6 +132,7 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
     _hashtagController.dispose();
     _videoController?.dispose();
     _videoCompressionService.deleteAllCache();
+    _videoProgressTick.dispose();
     super.dispose();
   }
 
@@ -329,6 +335,7 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
             setState(() {
               _videoCompressionProgress = progress;
             });
+            _videoProgressTick.value++;
           }
         },
         onStatus: (status) {
@@ -336,6 +343,7 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
             setState(() {
               _videoProcessingStatus = status;
             });
+            _videoProgressTick.value++;
           }
         },
       );
@@ -401,7 +409,9 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (context) => AlertDialog(
+      builder: (context) => ValueListenableBuilder<int>(
+        valueListenable: _videoProgressTick,
+        builder: (context, _, __) => AlertDialog(
         backgroundColor: Colors.grey[900],
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         content: Column(
@@ -463,6 +473,7 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
             const SizedBox(height: 16),
           ],
         ),
+      ),
       ),
     );
   }
