@@ -69,7 +69,7 @@ Order: update -> announcement -> ads notice -> feature spotlight.
 
 **Android (fixed 2026-10-15, fb3dc453):** Android 13+ reports "denied" until asked, so a never-asked install now gets the prime
 and "Turn on" raises the real POST_NOTIFICATIONS dialog. Run the section on iOS and on a fresh Android 13+ install. Extra Android rows:
-granting from the prime delivers a foreground chat notification in the same session (no relaunch); after "Not now" or a deny, the next
+granting from the prime delivers a chat push with the app in the background in the same session (no relaunch; chat pushes are deliberately not shown while the app is open); after "Not now" or a deny, the next
 launch shows the notifications-off card instead; Android 12 and below: already allowed, no prime.
 
 | Trigger | Expected | Result |
