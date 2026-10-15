@@ -7322,5 +7322,6 @@
   "restorePurchasesAlreadyActive": "Your VIP subscription is already active.",
   "restorePurchasesNothing": "No purchases to restore.",
   "restorePurchasesFailed": "Couldn't restore purchases. Please try again.",
-  "coinsPurchaseLinkedElsewhere": "This purchase is already linked to another BananaTalk account, so no coins were added here."
+  "coinsPurchaseLinkedElsewhere": "This purchase is already linked to another BananaTalk account, so no coins were added here.",
+  "coinsAlreadyCredited": "These coins were already added to your account."
 }

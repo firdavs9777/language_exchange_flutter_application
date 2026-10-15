@@ -20731,6 +20731,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This purchase is already linked to another BananaTalk account, so no coins were added here.'**
   String get coinsPurchaseLinkedElsewhere;
+
+  /// No description provided for @coinsAlreadyCredited.
+  ///
+  /// In en, this message translates to:
+  /// **'These coins were already added to your account.'**
+  String get coinsAlreadyCredited;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

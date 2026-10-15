@@ -11420,4 +11420,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get coinsPurchaseLinkedElsewhere => 'Эта покупка уже привязана к другому аккаунту BananaTalk, поэтому монеты здесь не начислены.';
+
+  @override
+  String get coinsAlreadyCredited => 'Эти монеты уже зачислены на ваш аккаунт.';
 }

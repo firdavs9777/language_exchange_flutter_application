@@ -4407,5 +4407,6 @@
   "restorePurchasesAlreadyActive": "Langganan VIP kamu sudah aktif.",
   "restorePurchasesNothing": "Tidak ada pembelian untuk dipulihkan.",
   "restorePurchasesFailed": "Tidak dapat memulihkan pembelian. Silakan coba lagi.",
-  "coinsPurchaseLinkedElsewhere": "Pembelian ini sudah tertaut ke akun BananaTalk lain, jadi tidak ada koin yang ditambahkan di sini."
+  "coinsPurchaseLinkedElsewhere": "Pembelian ini sudah tertaut ke akun BananaTalk lain, jadi tidak ada koin yang ditambahkan di sini.",
+  "coinsAlreadyCredited": "Koin ini sudah ditambahkan ke akunmu."
 }

@@ -11376,4 +11376,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get coinsPurchaseLinkedElsewhere => 'Cet achat est déjà lié à un autre compte BananaTalk, aucune pièce n\'a donc été ajoutée ici.';
+
+  @override
+  String get coinsAlreadyCredited => 'Ces pièces ont déjà été ajoutées à ton compte.';
 }

@@ -11357,4 +11357,7 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get coinsPurchaseLinkedElsewhere => 'การซื้อนี้เชื่อมโยงกับบัญชี BananaTalk อื่นแล้ว จึงไม่มีการเพิ่มเหรียญที่นี่';
+
+  @override
+  String get coinsAlreadyCredited => 'เหรียญเหล่านี้ถูกเพิ่มเข้าบัญชีของคุณแล้ว';
 }

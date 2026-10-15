@@ -15,6 +15,16 @@ void main() {
       expect(coinVerifyOutcome(r).finishesPurchase, isTrue);
     });
 
+    test('a replay the server had already credited is not "Coins added!"', () {
+      final r = ApiResponse(
+        success: true,
+        statusCode: 200,
+        data: {'balance': 200, 'credited': 0, 'alreadyCredited': true},
+      );
+      expect(coinVerifyOutcome(r), CoinVerifyOutcome.alreadyCredited);
+      expect(coinVerifyOutcome(r).finishesPurchase, isTrue);
+    });
+
     test('a receipt linked to another account is final: finish it', () {
       final r = ApiResponse(
         success: false,

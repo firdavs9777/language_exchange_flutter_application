@@ -4647,5 +4647,6 @@
   "restorePurchasesAlreadyActive": "Votre abonnement VIP est déjà actif.",
   "restorePurchasesNothing": "Aucun achat à restaurer.",
   "restorePurchasesFailed": "Impossible de restaurer les achats. Veuillez réessayer.",
-  "coinsPurchaseLinkedElsewhere": "Cet achat est déjà lié à un autre compte BananaTalk, aucune pièce n'a donc été ajoutée ici."
+  "coinsPurchaseLinkedElsewhere": "Cet achat est déjà lié à un autre compte BananaTalk, aucune pièce n'a donc été ajoutée ici.",
+  "coinsAlreadyCredited": "Ces pièces ont déjà été ajoutées à ton compte."
 }

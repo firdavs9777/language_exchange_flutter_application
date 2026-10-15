@@ -247,6 +247,10 @@ class CoinApiClient {
 enum CoinVerifyOutcome {
   credited,
 
+  /// 200 with `alreadyCredited`: this exact purchase was credited on an
+  /// earlier attempt; nothing new was added now.
+  alreadyCredited,
+
   /// 409: the receipt was already credited to a different BananaTalk
   /// account (same store account). Final — retrying can never succeed.
   linkedToAnotherAccount,
@@ -261,7 +265,12 @@ enum CoinVerifyOutcome {
 }
 
 CoinVerifyOutcome coinVerifyOutcome(ApiResponse response) {
-  if (response.success) return CoinVerifyOutcome.credited;
+  if (response.success) {
+    final data = response.data;
+    return data is Map && data['alreadyCredited'] == true
+        ? CoinVerifyOutcome.alreadyCredited
+        : CoinVerifyOutcome.credited;
+  }
   if (response.statusCode == 409 &&
       response.errorCode == 'ALREADY_LINKED_TO_ANOTHER_ACCOUNT') {
     return CoinVerifyOutcome.linkedToAnotherAccount;

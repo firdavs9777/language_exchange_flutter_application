@@ -3900,5 +3900,6 @@
   "restorePurchasesAlreadyActive": "Обунаи VIP-и шумо аллакай фаъол аст.",
   "restorePurchasesNothing": "Ягон хариде барои барқароркунӣ нест.",
   "restorePurchasesFailed": "Харидҳоро барқарор кардан нашуд. Лутфан бори дигар кӯшиш кунед.",
-  "coinsPurchaseLinkedElsewhere": "Ин харид аллакай ба ҳисоби дигари BananaTalk пайваст аст, бинобар ин дар ин ҷо танга илова нашуд."
+  "coinsPurchaseLinkedElsewhere": "Ин харид аллакай ба ҳисоби дигари BananaTalk пайваст аст, бинобар ин дар ин ҷо танга илова нашуд.",
+  "coinsAlreadyCredited": "Ин тангаҳо аллакай ба ҳисоби шумо илова шудаанд."
 }

@@ -4421,5 +4421,6 @@
   "restorePurchasesAlreadyActive": "你的 VIP 订阅已处于有效状态。",
   "restorePurchasesNothing": "没有可恢复的购买。",
   "restorePurchasesFailed": "无法恢复购买，请重试。",
-  "coinsPurchaseLinkedElsewhere": "此购买已关联到另一个 BananaTalk 账号，因此这里没有添加金币。"
+  "coinsPurchaseLinkedElsewhere": "此购买已关联到另一个 BananaTalk 账号，因此这里没有添加金币。",
+  "coinsAlreadyCredited": "这些金币已经添加到你的账号中。"
 }

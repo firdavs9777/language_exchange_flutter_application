@@ -4619,5 +4619,6 @@
   "restorePurchasesAlreadyActive": "VIP aboneliğin zaten aktif.",
   "restorePurchasesNothing": "Geri yüklenecek satın alım yok.",
   "restorePurchasesFailed": "Satın alımlar geri yüklenemedi. Lütfen tekrar dene.",
-  "coinsPurchaseLinkedElsewhere": "Bu satın alma zaten başka bir BananaTalk hesabına bağlı, bu yüzden burada jeton eklenmedi."
+  "coinsPurchaseLinkedElsewhere": "Bu satın alma zaten başka bir BananaTalk hesabına bağlı, bu yüzden burada jeton eklenmedi.",
+  "coinsAlreadyCredited": "Bu jetonlar hesabına zaten eklendi."
 }

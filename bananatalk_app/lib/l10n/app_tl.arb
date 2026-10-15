@@ -4380,5 +4380,6 @@
   "restorePurchasesAlreadyActive": "Aktibo na ang VIP subscription mo.",
   "restorePurchasesNothing": "Walang binili na mare-restore.",
   "restorePurchasesFailed": "Hindi ma-restore ang mga binili. Pakisubukang muli.",
-  "coinsPurchaseLinkedElsewhere": "Naka-link na ang pagbiling ito sa ibang BananaTalk account, kaya walang coins na naidagdag dito."
+  "coinsPurchaseLinkedElsewhere": "Naka-link na ang pagbiling ito sa ibang BananaTalk account, kaya walang coins na naidagdag dito.",
+  "coinsAlreadyCredited": "Naidagdag na ang mga coin na ito sa iyong account."
 }

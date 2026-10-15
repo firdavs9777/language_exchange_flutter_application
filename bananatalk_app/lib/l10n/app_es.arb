@@ -4437,5 +4437,6 @@
   "restorePurchasesAlreadyActive": "Tu suscripción VIP ya está activa.",
   "restorePurchasesNothing": "No hay compras para restaurar.",
   "restorePurchasesFailed": "No se pudieron restaurar las compras. Inténtalo de nuevo.",
-  "coinsPurchaseLinkedElsewhere": "Esta compra ya está vinculada a otra cuenta de BananaTalk, así que no se añadieron monedas aquí."
+  "coinsPurchaseLinkedElsewhere": "Esta compra ya está vinculada a otra cuenta de BananaTalk, así que no se añadieron monedas aquí.",
+  "coinsAlreadyCredited": "Estas monedas ya se añadieron a tu cuenta."
 }

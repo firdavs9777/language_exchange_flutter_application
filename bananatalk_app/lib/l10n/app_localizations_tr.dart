@@ -11374,4 +11374,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get coinsPurchaseLinkedElsewhere => 'Bu satın alma zaten başka bir BananaTalk hesabına bağlı, bu yüzden burada jeton eklenmedi.';
+
+  @override
+  String get coinsAlreadyCredited => 'Bu jetonlar hesabına zaten eklendi.';
 }

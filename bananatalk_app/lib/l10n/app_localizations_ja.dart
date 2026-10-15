@@ -11357,4 +11357,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get coinsPurchaseLinkedElsewhere => 'この購入はすでに別のBananaTalkアカウントに紐付けられているため、ここではコインは追加されませんでした。';
+
+  @override
+  String get coinsAlreadyCredited => 'このコインはすでにアカウントに追加されています。';
 }

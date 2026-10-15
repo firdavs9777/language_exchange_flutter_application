@@ -4407,5 +4407,6 @@
   "restorePurchasesAlreadyActive": "Gói VIP của bạn đã đang hoạt động.",
   "restorePurchasesNothing": "Không có giao dịch mua nào để khôi phục.",
   "restorePurchasesFailed": "Không thể khôi phục giao dịch mua. Vui lòng thử lại.",
-  "coinsPurchaseLinkedElsewhere": "Giao dịch mua này đã được liên kết với một tài khoản BananaTalk khác nên không có xu nào được cộng ở đây."
+  "coinsPurchaseLinkedElsewhere": "Giao dịch mua này đã được liên kết với một tài khoản BananaTalk khác nên không có xu nào được cộng ở đây.",
+  "coinsAlreadyCredited": "Số xu này đã được cộng vào tài khoản của bạn."
 }

@@ -11431,4 +11431,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get coinsPurchaseLinkedElsewhere => 'هذا الشراء مرتبط بالفعل بحساب BananaTalk آخر، لذلك لم تتم إضافة عملات هنا.';
+
+  @override
+  String get coinsAlreadyCredited => 'تمت إضافة هذه العملات إلى حسابك مسبقًا.';
 }

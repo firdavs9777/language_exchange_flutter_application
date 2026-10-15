@@ -4407,5 +4407,6 @@
   "restorePurchasesAlreadyActive": "การสมัครสมาชิก VIP ของคุณใช้งานอยู่แล้ว",
   "restorePurchasesNothing": "ไม่มีการซื้อที่จะกู้คืน",
   "restorePurchasesFailed": "ไม่สามารถกู้คืนการซื้อได้ โปรดลองอีกครั้ง",
-  "coinsPurchaseLinkedElsewhere": "การซื้อนี้เชื่อมโยงกับบัญชี BananaTalk อื่นแล้ว จึงไม่มีการเพิ่มเหรียญที่นี่"
+  "coinsPurchaseLinkedElsewhere": "การซื้อนี้เชื่อมโยงกับบัญชี BananaTalk อื่นแล้ว จึงไม่มีการเพิ่มเหรียญที่นี่",
+  "coinsAlreadyCredited": "เหรียญเหล่านี้ถูกเพิ่มเข้าบัญชีของคุณแล้ว"
 }

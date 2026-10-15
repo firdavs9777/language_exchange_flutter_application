@@ -4423,5 +4423,6 @@
   "restorePurchasesAlreadyActive": "आपकी VIP सदस्यता पहले से सक्रिय है।",
   "restorePurchasesNothing": "पुनर्स्थापित करने के लिए कोई खरीदारी नहीं है।",
   "restorePurchasesFailed": "खरीदारी पुनर्स्थापित नहीं हो सकी। कृपया फिर से कोशिश करें।",
-  "coinsPurchaseLinkedElsewhere": "यह खरीदारी पहले से किसी दूसरे BananaTalk खाते से जुड़ी है, इसलिए यहाँ कोई सिक्के नहीं जोड़े गए।"
+  "coinsPurchaseLinkedElsewhere": "यह खरीदारी पहले से किसी दूसरे BananaTalk खाते से जुड़ी है, इसलिए यहाँ कोई सिक्के नहीं जोड़े गए।",
+  "coinsAlreadyCredited": "ये सिक्के आपके खाते में पहले ही जोड़े जा चुके हैं।"
 }

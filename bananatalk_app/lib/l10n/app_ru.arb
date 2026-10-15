@@ -4437,5 +4437,6 @@
   "restorePurchasesAlreadyActive": "Ваша подписка VIP уже активна.",
   "restorePurchasesNothing": "Нет покупок для восстановления.",
   "restorePurchasesFailed": "Не удалось восстановить покупки. Попробуйте ещё раз.",
-  "coinsPurchaseLinkedElsewhere": "Эта покупка уже привязана к другому аккаунту BananaTalk, поэтому монеты здесь не начислены."
+  "coinsPurchaseLinkedElsewhere": "Эта покупка уже привязана к другому аккаунту BananaTalk, поэтому монеты здесь не начислены.",
+  "coinsAlreadyCredited": "Эти монеты уже зачислены на ваш аккаунт."
 }

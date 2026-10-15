@@ -4647,5 +4647,6 @@
   "restorePurchasesAlreadyActive": "Il tuo abbonamento VIP è già attivo.",
   "restorePurchasesNothing": "Nessun acquisto da ripristinare.",
   "restorePurchasesFailed": "Impossibile ripristinare gli acquisti. Riprova.",
-  "coinsPurchaseLinkedElsewhere": "Questo acquisto è già collegato a un altro account BananaTalk, quindi qui non sono state aggiunte monete."
+  "coinsPurchaseLinkedElsewhere": "Questo acquisto è già collegato a un altro account BananaTalk, quindi qui non sono state aggiunte monete.",
+  "coinsAlreadyCredited": "Queste monete sono già state aggiunte al tuo account."
 }

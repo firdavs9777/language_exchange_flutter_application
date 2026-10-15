@@ -135,11 +135,13 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
         }
         refreshCoinBalance(ref);
         if (mounted) {
-          _showSnack(
-            outcome == CoinVerifyOutcome.linkedToAnotherAccount
-                ? AppLocalizations.of(context)!.coinsPurchaseLinkedElsewhere
-                : AppLocalizations.of(context)!.coinsAdded,
-          );
+          final l10n = AppLocalizations.of(context)!;
+          _showSnack(switch (outcome) {
+            CoinVerifyOutcome.linkedToAnotherAccount =>
+              l10n.coinsPurchaseLinkedElsewhere,
+            CoinVerifyOutcome.alreadyCredited => l10n.coinsAlreadyCredited,
+            _ => l10n.coinsAdded,
+          });
         }
       } else {
         // Verify failed after the store charged the user — leave the
