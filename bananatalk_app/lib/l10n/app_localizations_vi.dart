@@ -11618,4 +11618,63 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get chatDeleteMessageFailed => 'Không xóa được tin nhắn';
+
+  @override
+  String get themeAutomatic => 'Tự động';
+
+  @override
+  String get themeManual => 'Thủ công';
+
+  @override
+  String get themeFollowingSystem => 'Theo hệ thống';
+
+  @override
+  String get profileAdminToolsSubtitle => 'Báo cáo, người dùng, nhật ký kiểm tra';
+
+  @override
+  String appVersionLabel(Object version) {
+    return 'Phiên bản $version';
+  }
+
+  @override
+  String get privacyVisitAnonymously => 'Xem hồ sơ ẩn danh';
+
+  @override
+  String get privacyVisitAnonymouslyDesc => 'Tên bạn sẽ không xuất hiện trong danh sách khách truy cập gần đây của người đó.';
+
+  @override
+  String get profilePhotoUploading => 'Đang tải lên...';
+
+  @override
+  String get profilePhotoRemoving => 'Đang xóa...';
+
+  @override
+  String get profileCropPhoto => 'Cắt ảnh';
+
+  @override
+  String get networkWifi => 'Wi-Fi';
+
+  @override
+  String get networkMobileData => 'Dữ liệu di động';
+
+  @override
+  String get networkEthernet => 'Ethernet';
+
+  @override
+  String get notifPrefResetFailed => 'Không đặt lại được tùy chọn';
+
+  @override
+  String get notifPrefNewFollower => 'Người theo dõi mới';
+
+  @override
+  String get notifPrefVipRenewalWarning => 'Nhắc gia hạn VIP';
+
+  @override
+  String get accountDeletedSuccess => 'Đã xóa tài khoản';
+
+  @override
+  String get accountDeleteFailed => 'Không xóa được tài khoản';
+
+  @override
+  String get coinHistoryLoadFailed => 'Không tải được lịch sử xu.';
 }

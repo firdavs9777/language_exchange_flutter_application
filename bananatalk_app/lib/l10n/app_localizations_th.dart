@@ -11618,4 +11618,63 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get chatDeleteMessageFailed => 'ลบข้อความไม่สำเร็จ';
+
+  @override
+  String get themeAutomatic => 'อัตโนมัติ';
+
+  @override
+  String get themeManual => 'กำหนดเอง';
+
+  @override
+  String get themeFollowingSystem => 'ตามระบบ';
+
+  @override
+  String get profileAdminToolsSubtitle => 'รายงาน ผู้ใช้ บันทึกการตรวจสอบ';
+
+  @override
+  String appVersionLabel(Object version) {
+    return 'เวอร์ชัน $version';
+  }
+
+  @override
+  String get privacyVisitAnonymously => 'เยี่ยมชมโปรไฟล์แบบไม่ระบุตัวตน';
+
+  @override
+  String get privacyVisitAnonymouslyDesc => 'ชื่อของคุณจะไม่ปรากฏในรายชื่อผู้เข้าชมล่าสุดของผู้ใช้นั้น';
+
+  @override
+  String get profilePhotoUploading => 'กำลังอัปโหลด...';
+
+  @override
+  String get profilePhotoRemoving => 'กำลังลบ...';
+
+  @override
+  String get profileCropPhoto => 'ครอปรูปภาพ';
+
+  @override
+  String get networkWifi => 'Wi-Fi';
+
+  @override
+  String get networkMobileData => 'อินเทอร์เน็ตมือถือ';
+
+  @override
+  String get networkEthernet => 'อีเทอร์เน็ต';
+
+  @override
+  String get notifPrefResetFailed => 'รีเซ็ตการตั้งค่าไม่สำเร็จ';
+
+  @override
+  String get notifPrefNewFollower => 'ผู้ติดตามใหม่';
+
+  @override
+  String get notifPrefVipRenewalWarning => 'การแจ้งเตือนต่ออายุ VIP';
+
+  @override
+  String get accountDeletedSuccess => 'ลบบัญชีเรียบร้อยแล้ว';
+
+  @override
+  String get accountDeleteFailed => 'ลบบัญชีไม่สำเร็จ';
+
+  @override
+  String get coinHistoryLoadFailed => 'โหลดประวัติเหรียญไม่ได้';
 }

@@ -11618,4 +11618,63 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get chatDeleteMessageFailed => '메시지를 삭제하지 못했습니다';
+
+  @override
+  String get themeAutomatic => '자동';
+
+  @override
+  String get themeManual => '수동';
+
+  @override
+  String get themeFollowingSystem => '시스템 설정 따름';
+
+  @override
+  String get profileAdminToolsSubtitle => '신고, 사용자, 감사 로그';
+
+  @override
+  String appVersionLabel(Object version) {
+    return '버전 $version';
+  }
+
+  @override
+  String get privacyVisitAnonymously => '익명으로 프로필 방문';
+
+  @override
+  String get privacyVisitAnonymouslyDesc => '방문한 사용자의 최근 방문자 목록에 내 이름이 표시되지 않습니다.';
+
+  @override
+  String get profilePhotoUploading => '업로드 중...';
+
+  @override
+  String get profilePhotoRemoving => '삭제 중...';
+
+  @override
+  String get profileCropPhoto => '사진 자르기';
+
+  @override
+  String get networkWifi => '와이파이';
+
+  @override
+  String get networkMobileData => '모바일 데이터';
+
+  @override
+  String get networkEthernet => '이더넷';
+
+  @override
+  String get notifPrefResetFailed => '환경설정을 초기화하지 못했습니다';
+
+  @override
+  String get notifPrefNewFollower => '새 팔로워';
+
+  @override
+  String get notifPrefVipRenewalWarning => 'VIP 갱신 알림';
+
+  @override
+  String get accountDeletedSuccess => '계정이 삭제되었습니다';
+
+  @override
+  String get accountDeleteFailed => '계정을 삭제하지 못했습니다';
+
+  @override
+  String get coinHistoryLoadFailed => '코인 내역을 불러오지 못했습니다.';
 }

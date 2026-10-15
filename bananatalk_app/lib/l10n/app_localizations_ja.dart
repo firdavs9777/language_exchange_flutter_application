@@ -11618,4 +11618,63 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get chatDeleteMessageFailed => 'メッセージを削除できませんでした';
+
+  @override
+  String get themeAutomatic => '自動';
+
+  @override
+  String get themeManual => '手動';
+
+  @override
+  String get themeFollowingSystem => 'システムに従う';
+
+  @override
+  String get profileAdminToolsSubtitle => '通報・ユーザー・監査ログ';
+
+  @override
+  String appVersionLabel(Object version) {
+    return 'バージョン $version';
+  }
+
+  @override
+  String get privacyVisitAnonymously => '匿名でプロフィールを閲覧';
+
+  @override
+  String get privacyVisitAnonymouslyDesc => '訪問した相手の最近の訪問者リストにあなたの名前は表示されません。';
+
+  @override
+  String get profilePhotoUploading => 'アップロード中…';
+
+  @override
+  String get profilePhotoRemoving => '削除中…';
+
+  @override
+  String get profileCropPhoto => '写真を切り抜く';
+
+  @override
+  String get networkWifi => 'Wi-Fi';
+
+  @override
+  String get networkMobileData => 'モバイルデータ';
+
+  @override
+  String get networkEthernet => 'イーサネット';
+
+  @override
+  String get notifPrefResetFailed => '設定をリセットできませんでした';
+
+  @override
+  String get notifPrefNewFollower => '新しいフォロワー';
+
+  @override
+  String get notifPrefVipRenewalWarning => 'VIP更新のリマインダー';
+
+  @override
+  String get accountDeletedSuccess => 'アカウントを削除しました';
+
+  @override
+  String get accountDeleteFailed => 'アカウントを削除できませんでした';
+
+  @override
+  String get coinHistoryLoadFailed => 'コイン履歴を読み込めませんでした。';
 }

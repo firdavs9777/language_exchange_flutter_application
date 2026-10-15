@@ -11635,4 +11635,63 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get chatDeleteMessageFailed => 'Mesaj silinemedi';
+
+  @override
+  String get themeAutomatic => 'Otomatik';
+
+  @override
+  String get themeManual => 'Manuel';
+
+  @override
+  String get themeFollowingSystem => 'Sistemi takip ediyor';
+
+  @override
+  String get profileAdminToolsSubtitle => 'Şikayetler, kullanıcılar, denetim kaydı';
+
+  @override
+  String appVersionLabel(Object version) {
+    return 'Sürüm $version';
+  }
+
+  @override
+  String get privacyVisitAnonymously => 'Profilleri anonim ziyaret et';
+
+  @override
+  String get privacyVisitAnonymouslyDesc => 'Adın, ziyaret ettiğin kişinin son ziyaretçiler listesinde görünmez.';
+
+  @override
+  String get profilePhotoUploading => 'Yükleniyor...';
+
+  @override
+  String get profilePhotoRemoving => 'Kaldırılıyor...';
+
+  @override
+  String get profileCropPhoto => 'Fotoğrafı kırp';
+
+  @override
+  String get networkWifi => 'Wi-Fi';
+
+  @override
+  String get networkMobileData => 'Mobil veri';
+
+  @override
+  String get networkEthernet => 'Ethernet';
+
+  @override
+  String get notifPrefResetFailed => 'Tercihler sıfırlanamadı';
+
+  @override
+  String get notifPrefNewFollower => 'Yeni takipçi';
+
+  @override
+  String get notifPrefVipRenewalWarning => 'VIP yenileme hatırlatmaları';
+
+  @override
+  String get accountDeletedSuccess => 'Hesap silindi';
+
+  @override
+  String get accountDeleteFailed => 'Hesap silinemedi';
+
+  @override
+  String get coinHistoryLoadFailed => 'Jeton geçmişi yüklenemedi.';
 }

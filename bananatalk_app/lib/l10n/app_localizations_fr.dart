@@ -11637,4 +11637,63 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get chatDeleteMessageFailed => 'Impossible de supprimer le message';
+
+  @override
+  String get themeAutomatic => 'Automatique';
+
+  @override
+  String get themeManual => 'Manuel';
+
+  @override
+  String get themeFollowingSystem => 'Suit le système';
+
+  @override
+  String get profileAdminToolsSubtitle => 'Signalements, utilisateurs, journal d\'audit';
+
+  @override
+  String appVersionLabel(Object version) {
+    return 'Version $version';
+  }
+
+  @override
+  String get privacyVisitAnonymously => 'Visiter les profils anonymement';
+
+  @override
+  String get privacyVisitAnonymouslyDesc => 'Ton nom n\'apparaîtra pas dans la liste des visiteurs récents de la personne.';
+
+  @override
+  String get profilePhotoUploading => 'Envoi en cours...';
+
+  @override
+  String get profilePhotoRemoving => 'Suppression...';
+
+  @override
+  String get profileCropPhoto => 'Recadrer la photo';
+
+  @override
+  String get networkWifi => 'Wi-Fi';
+
+  @override
+  String get networkMobileData => 'Données mobiles';
+
+  @override
+  String get networkEthernet => 'Ethernet';
+
+  @override
+  String get notifPrefResetFailed => 'Impossible de réinitialiser les préférences';
+
+  @override
+  String get notifPrefNewFollower => 'Nouvel abonné';
+
+  @override
+  String get notifPrefVipRenewalWarning => 'Rappels de renouvellement VIP';
+
+  @override
+  String get accountDeletedSuccess => 'Compte supprimé';
+
+  @override
+  String get accountDeleteFailed => 'Impossible de supprimer le compte';
+
+  @override
+  String get coinHistoryLoadFailed => 'Impossible de charger l\'historique des pièces.';
 }

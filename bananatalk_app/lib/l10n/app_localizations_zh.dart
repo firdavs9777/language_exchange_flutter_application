@@ -11618,6 +11618,65 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get chatDeleteMessageFailed => '删除消息失败';
+
+  @override
+  String get themeAutomatic => '自动';
+
+  @override
+  String get themeManual => '手动';
+
+  @override
+  String get themeFollowingSystem => '跟随系统';
+
+  @override
+  String get profileAdminToolsSubtitle => '举报、用户、审计日志';
+
+  @override
+  String appVersionLabel(Object version) {
+    return '版本 $version';
+  }
+
+  @override
+  String get privacyVisitAnonymously => '匿名访问主页';
+
+  @override
+  String get privacyVisitAnonymouslyDesc => '你的名字不会出现在对方的最近访客列表中。';
+
+  @override
+  String get profilePhotoUploading => '正在上传…';
+
+  @override
+  String get profilePhotoRemoving => '正在移除…';
+
+  @override
+  String get profileCropPhoto => '裁剪照片';
+
+  @override
+  String get networkWifi => '无线网络';
+
+  @override
+  String get networkMobileData => '移动数据';
+
+  @override
+  String get networkEthernet => '以太网';
+
+  @override
+  String get notifPrefResetFailed => '重置偏好设置失败';
+
+  @override
+  String get notifPrefNewFollower => '新粉丝';
+
+  @override
+  String get notifPrefVipRenewalWarning => 'VIP 续费提醒';
+
+  @override
+  String get accountDeletedSuccess => '账号已删除';
+
+  @override
+  String get accountDeleteFailed => '删除账号失败';
+
+  @override
+  String get coinHistoryLoadFailed => '无法加载金币记录。';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -23234,4 +23293,63 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get chatDeleteMessageFailed => '刪除訊息失敗';
+
+  @override
+  String get themeAutomatic => '自動';
+
+  @override
+  String get themeManual => '手動';
+
+  @override
+  String get themeFollowingSystem => '跟隨系統';
+
+  @override
+  String get profileAdminToolsSubtitle => '檢舉、使用者、稽核紀錄';
+
+  @override
+  String appVersionLabel(Object version) {
+    return '版本 $version';
+  }
+
+  @override
+  String get privacyVisitAnonymously => '匿名造訪個人檔案';
+
+  @override
+  String get privacyVisitAnonymouslyDesc => '你的名字不會出現在對方的最近訪客清單中。';
+
+  @override
+  String get profilePhotoUploading => '正在上傳…';
+
+  @override
+  String get profilePhotoRemoving => '正在移除…';
+
+  @override
+  String get profileCropPhoto => '裁切相片';
+
+  @override
+  String get networkWifi => 'Wi-Fi';
+
+  @override
+  String get networkMobileData => '行動數據';
+
+  @override
+  String get networkEthernet => '乙太網路';
+
+  @override
+  String get notifPrefResetFailed => '重設偏好設定失敗';
+
+  @override
+  String get notifPrefNewFollower => '新追蹤者';
+
+  @override
+  String get notifPrefVipRenewalWarning => 'VIP 續訂提醒';
+
+  @override
+  String get accountDeletedSuccess => '帳號已刪除';
+
+  @override
+  String get accountDeleteFailed => '刪除帳號失敗';
+
+  @override
+  String get coinHistoryLoadFailed => '無法載入金幣紀錄。';
 }

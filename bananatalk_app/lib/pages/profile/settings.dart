@@ -200,7 +200,7 @@ class _ProfileSettingsState extends ConsumerState<ProfileSettings> {
         _savingKey = null;
       });
 
-      _showErrorSnackBar('Error: ${e.toString()}');
+      _showErrorSnackBar(AppLocalizations.of(context)!.failedToUpdateSetting);
     }
   }
 

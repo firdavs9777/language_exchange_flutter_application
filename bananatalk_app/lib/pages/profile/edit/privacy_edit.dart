@@ -361,7 +361,7 @@ class _ProfilePrivacyState extends ConsumerState<ProfilePrivacy> {
 
                 // Profile Visits (Step 14 safety wave)
                 _buildSectionTitle(
-                  'Profile Visits',
+                  l10n.profileVisits,
                   Icons.remove_red_eye_outlined,
                   const Color(0xFF607D8B),
                 ),
@@ -370,9 +370,8 @@ class _ProfilePrivacyState extends ConsumerState<ProfilePrivacy> {
                   _buildToggleTile(
                     icon: Icons.visibility_off_rounded,
                     iconColor: const Color(0xFF607D8B),
-                    title: 'Visit profiles anonymously',
-                    subtitle:
-                        "Your name won't appear in the visited user's recent visitors list.",
+                    title: l10n.privacyVisitAnonymously,
+                    subtitle: l10n.privacyVisitAnonymouslyDesc,
                     value: _anonymousProfileVisits,
                     onChanged: (v) =>
                         _onToggle(() => _anonymousProfileVisits = v),

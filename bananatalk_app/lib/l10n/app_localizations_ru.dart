@@ -11681,4 +11681,63 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get chatDeleteMessageFailed => 'Не удалось удалить сообщение';
+
+  @override
+  String get themeAutomatic => 'Автоматически';
+
+  @override
+  String get themeManual => 'Вручную';
+
+  @override
+  String get themeFollowingSystem => 'Как в системе';
+
+  @override
+  String get profileAdminToolsSubtitle => 'Жалобы, пользователи, журнал аудита';
+
+  @override
+  String appVersionLabel(Object version) {
+    return 'Версия $version';
+  }
+
+  @override
+  String get privacyVisitAnonymously => 'Посещать профили анонимно';
+
+  @override
+  String get privacyVisitAnonymouslyDesc => 'Ваше имя не появится в списке недавних гостей этого пользователя.';
+
+  @override
+  String get profilePhotoUploading => 'Загрузка…';
+
+  @override
+  String get profilePhotoRemoving => 'Удаление…';
+
+  @override
+  String get profileCropPhoto => 'Обрезать фото';
+
+  @override
+  String get networkWifi => 'Wi-Fi';
+
+  @override
+  String get networkMobileData => 'Мобильные данные';
+
+  @override
+  String get networkEthernet => 'Ethernet';
+
+  @override
+  String get notifPrefResetFailed => 'Не удалось сбросить настройки';
+
+  @override
+  String get notifPrefNewFollower => 'Новый подписчик';
+
+  @override
+  String get notifPrefVipRenewalWarning => 'Напоминания о продлении VIP';
+
+  @override
+  String get accountDeletedSuccess => 'Аккаунт удалён';
+
+  @override
+  String get accountDeleteFailed => 'Не удалось удалить аккаунт';
+
+  @override
+  String get coinHistoryLoadFailed => 'Не удалось загрузить историю монет.';
 }

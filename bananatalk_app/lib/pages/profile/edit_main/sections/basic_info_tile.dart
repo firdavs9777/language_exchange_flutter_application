@@ -10,6 +10,8 @@ import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:bananatalk_app/pages/profile/edit_main/profile_not_set.dart';
+import 'package:bananatalk_app/utils/date_format_locale.dart';
 
 /// Renders the "Basic Information" card: profile picture, name/gender, bio.
 ///
@@ -76,8 +78,8 @@ class BasicInfoSection extends ConsumerWidget {
             icon: Icons.badge_rounded,
             iconColor: AppColors.info,
             title: l10n.nameAndGender,
-            subtitle: selectedName == 'Not Set' ? null : selectedName,
-            trailingChip: selectedGender != 'Not Set' ? selectedGender : null,
+            subtitle: selectedName == profileNotSet ? null : selectedName,
+            trailingChip: selectedGender != profileNotSet ? selectedGender : null,
             onTap: () async {
               final result = await Navigator.push<Map<String, String>>(
                 context,
@@ -102,7 +104,7 @@ class BasicInfoSection extends ConsumerWidget {
             icon: Icons.description_rounded,
             iconColor: AppColors.accent,
             title: l10n.bio,
-            subtitle: selectedBio == 'Not Set'
+            subtitle: selectedBio == profileNotSet
                 ? null
                 : (selectedBio.length > 60
                       ? '${selectedBio.substring(0, 60)}...'
@@ -113,7 +115,7 @@ class BasicInfoSection extends ConsumerWidget {
                     AppPageRoute(
                       builder: (context) => ProfileBioEdit(
                         currentBio:
-                            selectedBio == 'Not Set' ? '' : selectedBio,
+                            selectedBio == profileNotSet ? '' : selectedBio,
                       ),
                     ),
                   ) ??
@@ -132,8 +134,8 @@ class BasicInfoSection extends ConsumerWidget {
                 context: context,
                 icon: Icons.cake_rounded,
                 iconColor: const Color(0xFFE91E63),
-                title: 'Birthdate',
-                subtitle: _formatBirthdate(user),
+                title: AppLocalizations.of(context)!.birthdate,
+                subtitle: _formatBirthdate(context, user),
                 isLast: true,
                 onTap: () async {
                   await Navigator.push(
@@ -153,9 +155,10 @@ class BasicInfoSection extends ConsumerWidget {
   }
 }
 
-/// Returns a human-readable birthdate ("Mar 15, 1995") or null when no birth
-/// fields are populated. Falls back to year-only when month/day are missing.
-String? _formatBirthdate(Community user) {
+/// Returns a human-readable birthdate ("Mar 15, 1995" in en, app locale) or
+/// null when no birth fields are populated. Falls back to year-only when
+/// month/day are missing.
+String? _formatBirthdate(BuildContext context, Community user) {
   final y = int.tryParse(user.birth_year);
   if (y == null) return null;
   final m = int.tryParse(user.birth_month);
@@ -163,11 +166,7 @@ String? _formatBirthdate(Community user) {
   if (m == null || d == null || m < 1 || m > 12 || d < 1 || d > 31) {
     return '$y';
   }
-  const months = [
-    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
-  ];
-  return '${months[m - 1]} $d, $y';
+  return formatDateForLocale(context, DateTime(y, m, d));
 }
 
 // ─── Shared tile helpers (file-private) ──────────────────────────────────────

@@ -52,9 +52,7 @@ class _CoinHistoryScreenState extends ConsumerState<CoinHistoryScreen> {
     } catch (e) {
       if (!mounted) return;
       setState(() {
-        _error = e is CoinApiException
-            ? e.message
-            : 'Could not load coin history.';
+        _error = AppLocalizations.of(context)!.coinHistoryLoadFailed;
         _isLoading = false;
       });
     }

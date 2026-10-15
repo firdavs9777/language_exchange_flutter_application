@@ -11692,4 +11692,63 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get chatDeleteMessageFailed => 'تعذّر حذف الرسالة';
+
+  @override
+  String get themeAutomatic => 'تلقائي';
+
+  @override
+  String get themeManual => 'يدوي';
+
+  @override
+  String get themeFollowingSystem => 'يتبع إعدادات النظام';
+
+  @override
+  String get profileAdminToolsSubtitle => 'البلاغات، المستخدمون، سجل التدقيق';
+
+  @override
+  String appVersionLabel(Object version) {
+    return 'الإصدار $version';
+  }
+
+  @override
+  String get privacyVisitAnonymously => 'زيارة الملفات الشخصية بشكل مجهول';
+
+  @override
+  String get privacyVisitAnonymouslyDesc => 'لن يظهر اسمك في قائمة الزوار الأخيرين لدى المستخدم الذي زرته.';
+
+  @override
+  String get profilePhotoUploading => 'جارٍ الرفع...';
+
+  @override
+  String get profilePhotoRemoving => 'جارٍ الإزالة...';
+
+  @override
+  String get profileCropPhoto => 'قص الصورة';
+
+  @override
+  String get networkWifi => 'واي فاي';
+
+  @override
+  String get networkMobileData => 'بيانات الجوال';
+
+  @override
+  String get networkEthernet => 'إيثرنت';
+
+  @override
+  String get notifPrefResetFailed => 'تعذّرت إعادة تعيين التفضيلات';
+
+  @override
+  String get notifPrefNewFollower => 'متابع جديد';
+
+  @override
+  String get notifPrefVipRenewalWarning => 'تذكيرات تجديد VIP';
+
+  @override
+  String get accountDeletedSuccess => 'تم حذف الحساب بنجاح';
+
+  @override
+  String get accountDeleteFailed => 'تعذّر حذف الحساب';
+
+  @override
+  String get coinHistoryLoadFailed => 'تعذّر تحميل سجل العملات.';
 }

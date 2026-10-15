@@ -11637,4 +11637,63 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get chatDeleteMessageFailed => 'Nachricht konnte nicht gelöscht werden';
+
+  @override
+  String get themeAutomatic => 'Automatisch';
+
+  @override
+  String get themeManual => 'Manuell';
+
+  @override
+  String get themeFollowingSystem => 'Folgt dem System';
+
+  @override
+  String get profileAdminToolsSubtitle => 'Meldungen, Nutzer, Prüfprotokoll';
+
+  @override
+  String appVersionLabel(Object version) {
+    return 'Version $version';
+  }
+
+  @override
+  String get privacyVisitAnonymously => 'Profile anonym besuchen';
+
+  @override
+  String get privacyVisitAnonymouslyDesc => 'Dein Name erscheint nicht in der Besucherliste der besuchten Person.';
+
+  @override
+  String get profilePhotoUploading => 'Wird hochgeladen …';
+
+  @override
+  String get profilePhotoRemoving => 'Wird entfernt …';
+
+  @override
+  String get profileCropPhoto => 'Foto zuschneiden';
+
+  @override
+  String get networkWifi => 'WLAN';
+
+  @override
+  String get networkMobileData => 'Mobile Daten';
+
+  @override
+  String get networkEthernet => 'Ethernet';
+
+  @override
+  String get notifPrefResetFailed => 'Einstellungen konnten nicht zurückgesetzt werden';
+
+  @override
+  String get notifPrefNewFollower => 'Neuer Follower';
+
+  @override
+  String get notifPrefVipRenewalWarning => 'VIP-Verlängerungserinnerungen';
+
+  @override
+  String get accountDeletedSuccess => 'Konto erfolgreich gelöscht';
+
+  @override
+  String get accountDeleteFailed => 'Konto konnte nicht gelöscht werden';
+
+  @override
+  String get coinHistoryLoadFailed => 'Münzverlauf konnte nicht geladen werden.';
 }

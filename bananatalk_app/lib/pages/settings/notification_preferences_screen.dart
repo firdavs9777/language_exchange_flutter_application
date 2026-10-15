@@ -66,7 +66,7 @@ class _NotificationPreferencesScreenState
       if (!mounted) return;
       setState(() {
         _isLoading = false;
-        _error = e.toString();
+        _error = AppLocalizations.of(context)!.failedToLoadPreferences;
       });
     }
   }
@@ -84,7 +84,7 @@ class _NotificationPreferencesScreenState
       setState(() => _prefs = old);
       showSettingsSnackBar(
         context,
-        message: 'Failed to update preference',
+        message: AppLocalizations.of(context)!.failedToUpdateSetting,
         type: SettingsSnackBarType.error,
       );
     }
@@ -103,7 +103,7 @@ class _NotificationPreferencesScreenState
       if (old != null) setState(() => _prefs = old);
       showSettingsSnackBar(
         context,
-        message: 'Failed to reset preferences',
+        message: AppLocalizations.of(context)!.notifPrefResetFailed,
         type: SettingsSnackBarType.error,
       );
     }
@@ -118,12 +118,9 @@ class _NotificationPreferencesScreenState
       'followerMoment' => l10n.notifPrefFollowerMoment,
       'visitorAlert' => l10n.notifPrefVisitorAlert,
       'matchAlert' => l10n.notifPrefMatchAlert,
-      // Step 16 — hardcoded English fallbacks; l10n keys queued as a
-      // follow-up alongside the new push types. The .arb file would
-      // need notifPrefNewFollower / notifPrefComment / notifPrefVipRenewalWarning.
-      'newFollower' => 'New follower',
-      'comment' => 'Comments',
-      'vipRenewalWarning' => 'VIP renewal reminders',
+      'newFollower' => l10n.notifPrefNewFollower,
+      'comment' => l10n.comments,
+      'vipRenewalWarning' => l10n.notifPrefVipRenewalWarning,
       _ => key,
     };
   }

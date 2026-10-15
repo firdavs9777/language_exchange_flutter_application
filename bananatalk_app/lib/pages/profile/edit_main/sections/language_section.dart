@@ -7,6 +7,7 @@ import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:bananatalk_app/pages/profile/edit_main/profile_not_set.dart';
 
 /// Renders the "Language Exchange" card: native language, language to learn,
 /// and language level (with its bottom-sheet picker).
@@ -57,7 +58,7 @@ class _LanguageSectionState extends ConsumerState<LanguageSection> {
             icon: Icons.translate_rounded,
             iconColor: AppColors.info,
             title: l10n.nativeLanguage,
-            subtitle: widget.selectedNativeLanguage == 'Not Set'
+            subtitle: widget.selectedNativeLanguage == profileNotSet
                 ? null
                 : widget.selectedNativeLanguage,
             isFirst: true,
@@ -84,7 +85,7 @@ class _LanguageSectionState extends ConsumerState<LanguageSection> {
             icon: Icons.school_rounded,
             iconColor: AppColors.warning,
             title: l10n.languageToLearn,
-            subtitle: widget.selectedLanguageToLearn == 'Not Set'
+            subtitle: widget.selectedLanguageToLearn == profileNotSet
                 ? null
                 : widget.selectedLanguageToLearn,
             onTap: () async {
@@ -184,7 +185,7 @@ class _LanguageSectionState extends ConsumerState<LanguageSection> {
                       const SizedBox(height: 4),
                       Text(
                         l10n.howWellDoYouSpeak(
-                          widget.selectedLanguageToLearn != 'Not Set'
+                          widget.selectedLanguageToLearn != profileNotSet
                               ? widget.selectedLanguageToLearn
                               : l10n.theLanguage,
                         ),

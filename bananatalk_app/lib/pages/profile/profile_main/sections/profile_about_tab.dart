@@ -156,7 +156,7 @@ class _LanguageCard extends StatelessWidget {
                 : user.native_language,
             flag: LanguageFlags.getFlagByName(user.native_language),
             color: AppColors.primary,
-            level: 'Native',
+            level: null,
             isNative: true,
             isDark: isDark,
           ),
@@ -289,20 +289,20 @@ class _ProficiencyBar extends StatelessWidget {
 
   static const _levels = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
 
-  static String _levelDesc(String level) {
+  static String _levelDesc(AppLocalizations l10n, String level) {
     switch (level.toUpperCase()) {
       case 'A1':
-        return 'Beginner';
+        return l10n.levelBeginner;
       case 'A2':
-        return 'Elementary';
+        return l10n.levelElementary;
       case 'B1':
-        return 'Intermediate';
+        return l10n.levelIntermediate;
       case 'B2':
-        return 'Upper Intermediate';
+        return l10n.levelUpperIntermediate;
       case 'C1':
-        return 'Advanced';
+        return l10n.levelAdvanced;
       case 'C2':
-        return 'Proficient';
+        return l10n.levelProficient;
       default:
         return level;
     }
@@ -311,7 +311,7 @@ class _ProficiencyBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final currentIndex = _levels.indexOf(level.toUpperCase());
-    final desc = _levelDesc(level);
+    final desc = _levelDesc(AppLocalizations.of(context)!, level);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

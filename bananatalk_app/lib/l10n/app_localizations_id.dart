@@ -11629,4 +11629,63 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get chatDeleteMessageFailed => 'Gagal menghapus pesan';
+
+  @override
+  String get themeAutomatic => 'Otomatis';
+
+  @override
+  String get themeManual => 'Manual';
+
+  @override
+  String get themeFollowingSystem => 'Mengikuti sistem';
+
+  @override
+  String get profileAdminToolsSubtitle => 'Laporan, pengguna, log audit';
+
+  @override
+  String appVersionLabel(Object version) {
+    return 'Versi $version';
+  }
+
+  @override
+  String get privacyVisitAnonymously => 'Kunjungi profil secara anonim';
+
+  @override
+  String get privacyVisitAnonymouslyDesc => 'Namamu tidak akan muncul di daftar pengunjung terbaru pengguna tersebut.';
+
+  @override
+  String get profilePhotoUploading => 'Mengunggah...';
+
+  @override
+  String get profilePhotoRemoving => 'Menghapus...';
+
+  @override
+  String get profileCropPhoto => 'Pangkas foto';
+
+  @override
+  String get networkWifi => 'Wi-Fi';
+
+  @override
+  String get networkMobileData => 'Data seluler';
+
+  @override
+  String get networkEthernet => 'Ethernet';
+
+  @override
+  String get notifPrefResetFailed => 'Gagal mengatur ulang preferensi';
+
+  @override
+  String get notifPrefNewFollower => 'Pengikut baru';
+
+  @override
+  String get notifPrefVipRenewalWarning => 'Pengingat perpanjangan VIP';
+
+  @override
+  String get accountDeletedSuccess => 'Akun berhasil dihapus';
+
+  @override
+  String get accountDeleteFailed => 'Gagal menghapus akun';
+
+  @override
+  String get coinHistoryLoadFailed => 'Riwayat koin tidak dapat dimuat.';
 }

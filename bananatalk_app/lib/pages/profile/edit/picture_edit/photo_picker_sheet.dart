@@ -11,8 +11,8 @@ import 'package:bananatalk_app/pages/profile/widgets/profile_snackbar.dart';
 
 /// Runs [path] through ImageCropper with a square aspect ratio (profile
 /// photos are circular crops on square). Returns the cropped file, or null
-/// if the user cancelled the cropper.
-Future<File?> _cropToSquare(String path) async {
+/// if the user cancelled the cropper. [title] is the cropper's toolbar title.
+Future<File?> _cropToSquare(String path, String title) async {
   final cropped = await ImageCropper().cropImage(
     sourcePath: path,
     // Cap output dimensions so uCrop never holds a full-res bitmap — prevents
@@ -23,7 +23,7 @@ Future<File?> _cropToSquare(String path) async {
     aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
     uiSettings: [
       AndroidUiSettings(
-        toolbarTitle: 'Crop photo',
+        toolbarTitle: title,
         toolbarColor: AppColors.primary,
         toolbarWidgetColor: Colors.white,
         initAspectRatio: CropAspectRatioPreset.square,
@@ -31,7 +31,7 @@ Future<File?> _cropToSquare(String path) async {
         hideBottomControls: true,
       ),
       IOSUiSettings(
-        title: 'Crop photo',
+        title: title,
         aspectRatioLockEnabled: true,
         resetAspectRatioEnabled: false,
         aspectRatioPickerButtonHidden: true,
@@ -161,7 +161,10 @@ class _PhotoPickerSheet extends StatelessWidget {
     if (imagesToAdd.length == 1) {
       final File? cropped;
       try {
-        cropped = await _cropToSquare(imagesToAdd.first.path);
+        cropped = await _cropToSquare(
+          imagesToAdd.first.path,
+          l10n.profileCropPhoto,
+        );
       } on PlatformException catch (_) {
         // uCrop can fail on cache-write errors, native OOM, or unsupported
         // content URIs — surface a clean error instead of an unhandled crash.
@@ -203,7 +206,7 @@ class _PhotoPickerSheet extends StatelessWidget {
     // Camera shots always run through the cropper (single image).
     final File? cropped;
     try {
-      cropped = await _cropToSquare(pickedFile.path);
+      cropped = await _cropToSquare(pickedFile.path, l10n.profileCropPhoto);
     } on PlatformException catch (_) {
       onError(l10n.failedToPickImage);
       return;

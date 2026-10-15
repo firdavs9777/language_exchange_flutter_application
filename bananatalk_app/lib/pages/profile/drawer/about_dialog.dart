@@ -55,7 +55,9 @@ void showProfileAboutDialog(BuildContext context, String appVersion) {
               ),
               const SizedBox(height: 4),
               Text(
-                appVersion.isEmpty ? '' : 'Version $appVersion',
+                appVersion.isEmpty
+                    ? ''
+                    : AppLocalizations.of(context)!.appVersionLabel(appVersion),
                 style: ctx.captionSmall.copyWith(
                   color: ctx.textMuted,
                   fontWeight: FontWeight.w500,

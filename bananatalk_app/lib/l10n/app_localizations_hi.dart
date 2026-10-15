@@ -11637,4 +11637,63 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get chatDeleteMessageFailed => 'संदेश हटाया नहीं जा सका';
+
+  @override
+  String get themeAutomatic => 'स्वचालित';
+
+  @override
+  String get themeManual => 'मैन्युअल';
+
+  @override
+  String get themeFollowingSystem => 'सिस्टम के अनुसार';
+
+  @override
+  String get profileAdminToolsSubtitle => 'रिपोर्ट, उपयोगकर्ता, ऑडिट लॉग';
+
+  @override
+  String appVersionLabel(Object version) {
+    return 'संस्करण $version';
+  }
+
+  @override
+  String get privacyVisitAnonymously => 'प्रोफ़ाइल गुमनाम रूप से देखें';
+
+  @override
+  String get privacyVisitAnonymouslyDesc => 'आपका नाम उस उपयोगकर्ता की हाल के विज़िटर सूची में नहीं दिखेगा।';
+
+  @override
+  String get profilePhotoUploading => 'अपलोड हो रहा है...';
+
+  @override
+  String get profilePhotoRemoving => 'हटाया जा रहा है...';
+
+  @override
+  String get profileCropPhoto => 'फ़ोटो क्रॉप करें';
+
+  @override
+  String get networkWifi => 'वाई-फ़ाई';
+
+  @override
+  String get networkMobileData => 'मोबाइल डेटा';
+
+  @override
+  String get networkEthernet => 'ईथरनेट';
+
+  @override
+  String get notifPrefResetFailed => 'प्राथमिकताएँ रीसेट नहीं हो सकीं';
+
+  @override
+  String get notifPrefNewFollower => 'नया फ़ॉलोअर';
+
+  @override
+  String get notifPrefVipRenewalWarning => 'VIP नवीनीकरण रिमाइंडर';
+
+  @override
+  String get accountDeletedSuccess => 'खाता सफलतापूर्वक हटाया गया';
+
+  @override
+  String get accountDeleteFailed => 'खाता हटाया नहीं जा सका';
+
+  @override
+  String get coinHistoryLoadFailed => 'सिक्कों का इतिहास लोड नहीं हो सका।';
 }

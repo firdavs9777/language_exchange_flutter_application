@@ -214,18 +214,16 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
         _showSnack(AppLocalizations.of(context)!.coinsAdThanks);
       } else if (response.statusCode == 429) {
         setState(() => _adCapReached = true);
-        // Explicit friendly literal, not `response.error` — the backend's
+        // Explicit friendly string, not `response.error` — the backend's
         // 'daily ad reward limit reached' message doesn't match any of
         // `_getReadableRateLimitError`'s substrings, so `response.error`
         // would otherwise be the generic "Too many requests. Please wait a
         // moment" fallback. `claimAdReward` also sets
         // `suppressRateLimitToast: true`, so this is the ONLY snackbar shown
         // for the ad cap (no duplicate global rate-limit toast).
-        _showSnack(
-          "You've reached today's ad reward limit — come back tomorrow!",
-        );
+        _showSnack(AppLocalizations.of(context)!.coinsAdLimitReached);
       } else {
-        _showSnack(response.error ?? AppLocalizations.of(context)!.coinsAdCreditFailed);
+        _showSnack(AppLocalizations.of(context)!.coinsAdCreditFailed);
       }
     } finally {
       if (mounted) setState(() => _adClaiming = false);

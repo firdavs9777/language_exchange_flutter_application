@@ -11637,4 +11637,63 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get chatDeleteMessageFailed => 'Hindi natanggal ang mensahe';
+
+  @override
+  String get themeAutomatic => 'Awtomatiko';
+
+  @override
+  String get themeManual => 'Mano-mano';
+
+  @override
+  String get themeFollowingSystem => 'Sumusunod sa system';
+
+  @override
+  String get profileAdminToolsSubtitle => 'Mga ulat, user, audit log';
+
+  @override
+  String appVersionLabel(Object version) {
+    return 'Bersyon $version';
+  }
+
+  @override
+  String get privacyVisitAnonymously => 'Bisitahin ang mga profile nang anonymous';
+
+  @override
+  String get privacyVisitAnonymouslyDesc => 'Hindi lalabas ang pangalan mo sa listahan ng mga kamakailang bisita ng user.';
+
+  @override
+  String get profilePhotoUploading => 'Nag-a-upload...';
+
+  @override
+  String get profilePhotoRemoving => 'Inaalis...';
+
+  @override
+  String get profileCropPhoto => 'I-crop ang larawan';
+
+  @override
+  String get networkWifi => 'Wi-Fi';
+
+  @override
+  String get networkMobileData => 'Mobile data';
+
+  @override
+  String get networkEthernet => 'Ethernet';
+
+  @override
+  String get notifPrefResetFailed => 'Hindi na-reset ang mga kagustuhan';
+
+  @override
+  String get notifPrefNewFollower => 'Bagong follower';
+
+  @override
+  String get notifPrefVipRenewalWarning => 'Mga paalala sa pag-renew ng VIP';
+
+  @override
+  String get accountDeletedSuccess => 'Matagumpay na natanggal ang account';
+
+  @override
+  String get accountDeleteFailed => 'Hindi natanggal ang account';
+
+  @override
+  String get coinHistoryLoadFailed => 'Hindi ma-load ang kasaysayan ng coins.';
 }

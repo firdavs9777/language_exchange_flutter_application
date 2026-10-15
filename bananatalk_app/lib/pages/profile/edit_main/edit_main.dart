@@ -12,6 +12,7 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:bananatalk_app/pages/profile/edit_main/profile_not_set.dart';
 
 class ProfileEdit extends ConsumerStatefulWidget {
   final String userName;
@@ -63,7 +64,7 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
   @override
   void initState() {
     super.initState();
-    const notSet = 'Not Set';
+    const notSet = profileNotSet;
     selectedAddress = widget.location.formattedAddress.isEmpty
         ? notSet
         : widget.location.formattedAddress;
@@ -141,7 +142,7 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
 
     // Picture and birth year are not edited here; they come from the saved
     // user. Everything else reflects this screen's current values.
-    const notSet = 'Not Set';
+    const notSet = profileNotSet;
     final saved = ref.watch(userProvider).valueOrNull ?? _cachedUser;
     final completion = calculateProfileCompletion({
       if (saved != null) ...profileCompletionFieldsOf(saved),
@@ -347,7 +348,7 @@ class _HeroHeader extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  selectedName == 'Not Set'
+                  selectedName == profileNotSet
                       ? AppLocalizations.of(context)!.editProfile
                       : selectedName,
                   style: context.titleMedium.copyWith(

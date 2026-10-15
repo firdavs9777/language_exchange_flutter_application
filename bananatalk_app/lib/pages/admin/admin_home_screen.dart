@@ -10,6 +10,7 @@ import 'package:bananatalk_app/pages/admin/admin_ai_usage_screen.dart';
 import 'package:bananatalk_app/pages/admin/admin_activity_screen.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 /// Step 15 — landing screen for the admin toolset. Replaces the
 /// previous direct-to-reports entry on the profile menu and drawer.
@@ -208,18 +209,18 @@ class _NotAuthorizedScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: const Center(
+      body: Center(
         child: Padding(
-          padding: EdgeInsets.all(24),
+          padding: const EdgeInsets.all(24),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(Icons.lock_outline_rounded, size: 56, color: Colors.black45),
-              SizedBox(height: 16),
+              const Icon(Icons.lock_outline_rounded, size: 56, color: Colors.black45),
+              const SizedBox(height: 16),
               Text(
-                "This page isn't available.",
+                AppLocalizations.of(context)!.adminPageUnavailable,
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
               ),
             ],
           ),

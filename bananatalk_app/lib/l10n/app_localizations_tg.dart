@@ -11638,4 +11638,63 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get chatDeleteMessageFailed => 'Паёмро нест кардан нашуд';
+
+  @override
+  String get themeAutomatic => 'Худкор';
+
+  @override
+  String get themeManual => 'Дастӣ';
+
+  @override
+  String get themeFollowingSystem => 'Мувофиқи система';
+
+  @override
+  String get profileAdminToolsSubtitle => 'Шикоятҳо, корбарон, сабти аудит';
+
+  @override
+  String appVersionLabel(Object version) {
+    return 'Версия $version';
+  }
+
+  @override
+  String get privacyVisitAnonymously => 'Профилҳоро ношинос боздид кунед';
+
+  @override
+  String get privacyVisitAnonymouslyDesc => 'Номи шумо дар рӯйхати меҳмонони охири корбар намоён намешавад.';
+
+  @override
+  String get profilePhotoUploading => 'Бор шуда истодааст...';
+
+  @override
+  String get profilePhotoRemoving => 'Нест шуда истодааст...';
+
+  @override
+  String get profileCropPhoto => 'Буридани акс';
+
+  @override
+  String get networkWifi => 'Wi-Fi';
+
+  @override
+  String get networkMobileData => 'Интернети мобилӣ';
+
+  @override
+  String get networkEthernet => 'Ethernet';
+
+  @override
+  String get notifPrefResetFailed => 'Танзимотро барқарор кардан нашуд';
+
+  @override
+  String get notifPrefNewFollower => 'Пайравии нав';
+
+  @override
+  String get notifPrefVipRenewalWarning => 'Ёдраскуниҳои тамдиди VIP';
+
+  @override
+  String get accountDeletedSuccess => 'Ҳисоб бомуваффақият нест карда шуд';
+
+  @override
+  String get accountDeleteFailed => 'Ҳисобро нест кардан нашуд';
+
+  @override
+  String get coinHistoryLoadFailed => 'Таърихи тангаҳоро бор кардан нашуд.';
 }

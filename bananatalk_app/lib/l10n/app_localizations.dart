@@ -21205,6 +21205,120 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Failed to delete message'**
   String get chatDeleteMessageFailed;
+
+  /// No description provided for @themeAutomatic.
+  ///
+  /// In en, this message translates to:
+  /// **'Automatic'**
+  String get themeAutomatic;
+
+  /// No description provided for @themeManual.
+  ///
+  /// In en, this message translates to:
+  /// **'Manual'**
+  String get themeManual;
+
+  /// No description provided for @themeFollowingSystem.
+  ///
+  /// In en, this message translates to:
+  /// **'Following system'**
+  String get themeFollowingSystem;
+
+  /// No description provided for @profileAdminToolsSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reports, users, audit log'**
+  String get profileAdminToolsSubtitle;
+
+  /// No description provided for @appVersionLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Version {version}'**
+  String appVersionLabel(Object version);
+
+  /// No description provided for @privacyVisitAnonymously.
+  ///
+  /// In en, this message translates to:
+  /// **'Visit profiles anonymously'**
+  String get privacyVisitAnonymously;
+
+  /// No description provided for @privacyVisitAnonymouslyDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Your name won\'t appear in the visited user\'s recent visitors list.'**
+  String get privacyVisitAnonymouslyDesc;
+
+  /// No description provided for @profilePhotoUploading.
+  ///
+  /// In en, this message translates to:
+  /// **'Uploading...'**
+  String get profilePhotoUploading;
+
+  /// No description provided for @profilePhotoRemoving.
+  ///
+  /// In en, this message translates to:
+  /// **'Removing...'**
+  String get profilePhotoRemoving;
+
+  /// No description provided for @profileCropPhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Crop photo'**
+  String get profileCropPhoto;
+
+  /// No description provided for @networkWifi.
+  ///
+  /// In en, this message translates to:
+  /// **'Wi-Fi'**
+  String get networkWifi;
+
+  /// No description provided for @networkMobileData.
+  ///
+  /// In en, this message translates to:
+  /// **'Mobile data'**
+  String get networkMobileData;
+
+  /// No description provided for @networkEthernet.
+  ///
+  /// In en, this message translates to:
+  /// **'Ethernet'**
+  String get networkEthernet;
+
+  /// No description provided for @notifPrefResetFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to reset preferences'**
+  String get notifPrefResetFailed;
+
+  /// No description provided for @notifPrefNewFollower.
+  ///
+  /// In en, this message translates to:
+  /// **'New follower'**
+  String get notifPrefNewFollower;
+
+  /// No description provided for @notifPrefVipRenewalWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'VIP renewal reminders'**
+  String get notifPrefVipRenewalWarning;
+
+  /// No description provided for @accountDeletedSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Account deleted successfully'**
+  String get accountDeletedSuccess;
+
+  /// No description provided for @accountDeleteFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to delete account'**
+  String get accountDeleteFailed;
+
+  /// No description provided for @coinHistoryLoadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load coin history.'**
+  String get coinHistoryLoadFailed;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -592,6 +592,25 @@ const Map<String, List<String>> _keysByTask = {
     'chatUserSharedStory',
     'chatUserNotInChats',
     'chatDeleteMessageFailed',
+    'themeAutomatic',
+    'themeFollowingSystem',
+    'profileAdminToolsSubtitle',
+    'privacyVisitAnonymously',
+    'privacyVisitAnonymouslyDesc',
+    'profilePhotoUploading',
+    'profilePhotoRemoving',
+    'profileCropPhoto',
+    'notifPrefResetFailed',
+    'notifPrefNewFollower',
+    'notifPrefVipRenewalWarning',
+    'accountDeletedSuccess',
+    'accountDeleteFailed',
+    'coinHistoryLoadFailed',
+    'themeManual',
+    'appVersionLabel',
+    'networkWifi',
+    'networkMobileData',
+    'networkEthernet',
   ],
 };
 
@@ -826,6 +845,13 @@ const Map<String, List<String>> _filesByTask = {
     'widgets/voice_recorder/voice_recorder_mobile.dart',
     'widgets/media_message_widget.dart',
     'pages/chat/panels/gif_picker_panel.dart',
+    'pages/profile/theme.dart',
+    'pages/profile/drawer/profile_drawer.dart',
+    'pages/profile/edit/privacy_edit.dart',
+    'pages/profile/edit/picture_edit.dart',
+    'pages/settings/notification_preferences_screen.dart',
+    'pages/settings/account_deletion.dart',
+    'pages/coins/coin_history_screen.dart',
   ],
 };
 
@@ -877,6 +903,11 @@ const Map<String, Set<String>> _mayMatchEnglish = {
   'chatMediaTabMedia': {'id', 'tl'}, // id/tl use the loanword "Media"
   'chatMediaTabLinks': {'de', 'pt'}, // de/pt use the loanword "Links"
   'voiceRecorderPause': {'fr'}, // fr "Pause" is the same word
+  'themeManual': {'es', 'id', 'pt'}, // es/id/pt: same word / loanword as English
+  'appVersionLabel': {'de', 'fr'}, // de/fr: same word / loanword as English
+  'networkWifi': {'es', 'fr', 'id', 'it', 'ja', 'pt', 'ru', 'tg', 'th', 'tl', 'tr', 'vi', 'zh_TW'}, // es/fr/id/it/ja/pt/ru/tg/th/tl/tr/vi/zh_TW: same word / loanword as English
+  'networkMobileData': {'tl'}, // tl: same word / loanword as English
+  'networkEthernet': {'de', 'es', 'fr', 'id', 'it', 'pt', 'ru', 'tg', 'tl', 'tr', 'vi'}, // de/es/fr/id/it/pt/ru/tg/tl/tr/vi: same word / loanword as English
 };
 
 final _placeholder = RegExp(r'\{(\w+)[,}]');

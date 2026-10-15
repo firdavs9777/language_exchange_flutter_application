@@ -17,6 +17,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/utils/compact_count.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 
 class ProfileSingleMoment extends ConsumerStatefulWidget {
   final Moments moment;
@@ -100,7 +101,9 @@ class _ProfileSingleMomentState extends ConsumerState<ProfileSingleMoment> {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(e.toString().replaceFirst('Exception: ', '')),
+          content: Text(
+            friendlyErrorMessage(AppLocalizations.of(context)!, e),
+          ),
           backgroundColor: AppColors.error,
           behavior: SnackBarBehavior.floating,
           margin: const EdgeInsets.all(16),

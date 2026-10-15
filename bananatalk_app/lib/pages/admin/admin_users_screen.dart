@@ -6,6 +6,7 @@ import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/pages/admin/admin_user_detail_screen.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 /// Step 15 F3 — admin user search screen.
 ///
@@ -421,7 +422,9 @@ class _NotAuthorizedScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: const Center(child: Text("This page isn't available.")),
+      body: Center(
+        child: Text(AppLocalizations.of(context)!.adminPageUnavailable),
+      ),
     );
   }
 }

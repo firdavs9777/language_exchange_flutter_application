@@ -11637,4 +11637,63 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get chatDeleteMessageFailed => 'Falha ao excluir a mensagem';
+
+  @override
+  String get themeAutomatic => 'Automático';
+
+  @override
+  String get themeManual => 'Manual';
+
+  @override
+  String get themeFollowingSystem => 'Seguindo o sistema';
+
+  @override
+  String get profileAdminToolsSubtitle => 'Denúncias, usuários, registro de auditoria';
+
+  @override
+  String appVersionLabel(Object version) {
+    return 'Versão $version';
+  }
+
+  @override
+  String get privacyVisitAnonymously => 'Visitar perfis anonimamente';
+
+  @override
+  String get privacyVisitAnonymouslyDesc => 'Seu nome não aparecerá na lista de visitantes recentes da pessoa.';
+
+  @override
+  String get profilePhotoUploading => 'Enviando...';
+
+  @override
+  String get profilePhotoRemoving => 'Removendo...';
+
+  @override
+  String get profileCropPhoto => 'Cortar foto';
+
+  @override
+  String get networkWifi => 'Wi-Fi';
+
+  @override
+  String get networkMobileData => 'Dados móveis';
+
+  @override
+  String get networkEthernet => 'Ethernet';
+
+  @override
+  String get notifPrefResetFailed => 'Falha ao redefinir as preferências';
+
+  @override
+  String get notifPrefNewFollower => 'Novo seguidor';
+
+  @override
+  String get notifPrefVipRenewalWarning => 'Lembretes de renovação VIP';
+
+  @override
+  String get accountDeletedSuccess => 'Conta excluída com sucesso';
+
+  @override
+  String get accountDeleteFailed => 'Falha ao excluir a conta';
+
+  @override
+  String get coinHistoryLoadFailed => 'Não foi possível carregar o histórico de moedas.';
 }
