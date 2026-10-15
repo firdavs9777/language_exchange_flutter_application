@@ -93,16 +93,10 @@ class _ProfileSettingsState extends ConsumerState<ProfileSettings> {
     });
 
     try {
-      final privacySettingsMap = {
-        'showCountryRegion': _showCountryRegion,
-        'showCity': _showCity,
-        'showAge': _showAge,
-        'showZodiac': _showZodiac,
-        'showOnlineStatus': _showOnlineStatus,
-        'showGiftingLevel': _showGiftingLevel,
-        'birthdayNotification': _birthdayNotification,
-        'personalizedAds': _personalizedAds,
-      };
+      // Only the toggled key: updatePrivacySettings lays it over the stored
+      // settings, so keys this page doesn't show (anonymous visits, email
+      // opt-outs) keep their values.
+      final privacySettingsMap = {setting: value};
 
       await ref
           .read(authServiceProvider)

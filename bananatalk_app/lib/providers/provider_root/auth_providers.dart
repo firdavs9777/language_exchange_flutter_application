@@ -1978,11 +1978,18 @@ class AuthService extends ChangeNotifier {
     );
   }
 
+  /// Saves the privacy keys in [privacySettings] (only the ones that changed
+  /// are needed).
+  ///
+  /// `PUT /auth/users/:id` has replaced the whole stored privacySettings
+  /// object, resetting every key it was not sent. So this reads the user's
+  /// stored settings fresh from `auth/me` (the cached user can be stale, e.g.
+  /// after the email preferences screen saved) and always sends the complete
+  /// object with [privacySettings] laid over it. If the stored settings can't
+  /// be read it fails rather than sending a partial object.
   Future<Community> updatePrivacySettings({
     required Map<String, bool> privacySettings,
   }) async {
-    final url = Uri.parse('${Endpoints.baseURL}${Endpoints.usersURL}/$userId');
-
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');
 
@@ -1990,9 +1997,37 @@ class AuthService extends ChangeNotifier {
       throw Exception('Authentication required. Please login again.');
     }
 
+    final meResponse = await http.get(
+      Uri.parse('${Endpoints.baseURL}auth/me'),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
+    if (meResponse.statusCode != 200) {
+      throw Exception('Could not load your current privacy settings');
+    }
+    final meData = json.decode(meResponse.body);
+    final me = (meData is Map && meData['data'] is Map)
+        ? meData['data'] as Map
+        : (meData is Map && meData['user'] is Map)
+            ? meData['user'] as Map
+            : null;
+    if (me == null || me['_id'] == null) {
+      throw Exception('Could not load your current privacy settings');
+    }
+    final stored = me['privacySettings'] is Map
+        ? Map<String, dynamic>.from(me['privacySettings'] as Map)
+        : null;
+    final id = userId.isNotEmpty ? userId : me['_id'].toString();
+
+    final url = Uri.parse('${Endpoints.baseURL}${Endpoints.usersURL}/$id');
     final response = await http.put(
       url,
-      body: json.encode({'privacySettings': privacySettings}),
+      body: json.encode({
+        'privacySettings':
+            PrivacySettings.completeUpdate(stored, privacySettings),
+      }),
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',

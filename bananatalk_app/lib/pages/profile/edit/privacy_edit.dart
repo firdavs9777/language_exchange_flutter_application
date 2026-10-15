@@ -230,9 +230,16 @@ class _ProfilePrivacyState extends ConsumerState<ProfilePrivacy> {
 
       if (userId == null) throw Exception('User not found');
 
+      // Send only what changed; updatePrivacySettings lays it over the
+      // stored settings so nothing else (e.g. email opt-outs) is reset.
+      final current = _captureSettings();
+      final changed = <String, bool>{
+        for (final key in current.keys)
+          if (current[key] != _initialSettings[key]) key: current[key]!,
+      };
       await ref
           .read(authServiceProvider)
-          .updatePrivacySettings(privacySettings: _captureSettings());
+          .updatePrivacySettings(privacySettings: changed);
 
       ref.invalidate(userProvider);
 
