@@ -41,7 +41,7 @@ class _MyReportsScreenState extends ConsumerState<MyReportsScreen> {
         });
       } else {
         setState(() {
-          _error = result['error'] ?? AppLocalizations.of(context)!.myReportsFailedToLoad;
+          _error = AppLocalizations.of(context)!.myReportsFailedToLoad;
           _isLoading = false;
         });
       }

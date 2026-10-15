@@ -12010,4 +12010,150 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get waveTooMany => 'تلويحات كثيرة جدًا. تمهّل قليلًا!';
+
+  @override
+  String get aiTutorNoSummary => '(لا يوجد ملخص)';
+
+  @override
+  String vocabPackAllSaved(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'كل الكلمات ($count) موجودة بالفعل في مفرداتك',
+      one: 'هذه الكلمة موجودة بالفعل في مفرداتك',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String vocabPackAdded(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'تمت إضافة $count كلمات إلى مفرداتك',
+      one: 'تمت إضافة كلمة واحدة إلى مفرداتك',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String vocabPackAddedSomeSaved(int count, int saved) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'تمت إضافة $count كلمات إلى مفرداتك ($saved محفوظة مسبقًا)',
+      one: 'تمت إضافة كلمة واحدة إلى مفرداتك ($saved محفوظة مسبقًا)',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get vocabPackNoExercises => 'لا توجد تمارين';
+
+  @override
+  String vocabPackPractice(int count) {
+    return 'تدرّب ($count)';
+  }
+
+  @override
+  String get aiQuizPlayAgain => 'العب مرة أخرى';
+
+  @override
+  String get aiLessonAskHint => 'اسأل أي شيء عن هذا الدرس...';
+
+  @override
+  String get aiLessonConceptHint => 'ما المفهوم الذي تريد شرحه؟';
+
+  @override
+  String examTargetScoreHint(Object score) {
+    return 'مثلًا $score';
+  }
+
+  @override
+  String get vocabWordAdded => 'تمت إضافة الكلمة!';
+
+  @override
+  String get vocabWordAddFailed => 'تعذّرت إضافة الكلمة';
+
+  @override
+  String get vocabEnterWordFirst => 'أدخل كلمة أولًا';
+
+  @override
+  String get vocabAiFilled => 'ملأ الذكاء الاصطناعي الحقول!';
+
+  @override
+  String get vocabAiFillFailed => 'تعذّر الملء بالذكاء الاصطناعي. حاول مرة أخرى.';
+
+  @override
+  String get authSendCodeFailed => 'تعذّر إرسال رمز التحقق';
+
+  @override
+  String get authServerConfigError => 'خطأ في إعدادات الخادم. يرجى التواصل مع الدعم.';
+
+  @override
+  String get authAppleTokenFailed => 'تعذّر تسجيل الدخول باستخدام Apple. حاول مرة أخرى.';
+
+  @override
+  String get authRegistrationFailed => 'فشل التسجيل';
+
+  @override
+  String get authEmailAlreadyExists => 'البريد الإلكتروني مستخدم بالفعل. يرجى استخدام بريد آخر.';
+
+  @override
+  String get reportEvidenceAddFailed => 'تعذّرت إضافة الصور';
+
+  @override
+  String reportEvidenceMaxFiles(int count) {
+    return '$count ملفات كحد أقصى لكل بلاغ';
+  }
+
+  @override
+  String reportEvidenceFileTooLarge(Object name) {
+    return '$name كبير جدًا (5 ميغابايت كحد أقصى)';
+  }
+
+  @override
+  String get reportEvidenceTotalTooLarge => 'سيتجاوز الحجم الإجمالي 25 ميغابايت';
+
+  @override
+  String get blockedContentUnavailableToYou => 'هذا المحتوى غير متاح لك.';
+
+  @override
+  String blockedCantViewUserContent(Object name) {
+    return 'لا يمكنك عرض محتوى $name.';
+  }
+
+  @override
+  String get blockedCantViewThisUserContent => 'لا يمكنك عرض محتوى هذا المستخدم.';
+
+  @override
+  String blockedCantViewUserProfile(Object name) {
+    return 'لا يمكنك عرض ملف $name الشخصي.';
+  }
+
+  @override
+  String get blockedProfileUnavailable => 'هذا الملف الشخصي غير متاح.';
+
+  @override
+  String get blockedContentUnavailable => 'هذا المحتوى غير متاح.';
+
+  @override
+  String get blockedCantViewStories => 'لا يمكنك عرض هذه القصص.';
+
+  @override
+  String blockedCantMessageUser(Object name) {
+    return 'لا يمكنك إرسال رسائل إلى $name.';
+  }
+
+  @override
+  String get blockedCantMessageThisUser => 'لا يمكنك إرسال رسائل إلى هذا المستخدم.';
+
+  @override
+  String get blockedActionNotAllowed => 'لا يمكنك تنفيذ هذا الإجراء';
+
+  @override
+  String get blockedCantLike => 'لا يمكنك الإعجاب بهذا المحتوى';
+
+  @override
+  String get blockedCantComment => 'لا يمكنك التعليق على هذا المحتوى';
 }

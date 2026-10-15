@@ -5,6 +5,9 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 class BlockedContentWidget extends StatelessWidget {
   final String? title;
   final String? message;
+
+  /// Localized [message] for the factories, resolved in [build].
+  final String Function(AppLocalizations l10n)? _localizedMessage;
   final IconData icon;
   final VoidCallback? onRetry;
   final bool showRetry;
@@ -18,13 +21,22 @@ class BlockedContentWidget extends StatelessWidget {
     this.onRetry,
     this.showRetry = false,
     this.padding = const EdgeInsets.all(32),
-  }) : super(key: key);
+  })  : _localizedMessage = null,
+        super(key: key);
+
+  const BlockedContentWidget._localized(
+    this._localizedMessage, {
+    required this.icon,
+    this.onRetry,
+    this.showRetry = false,
+  })  : title = null,
+        message = null,
+        padding = const EdgeInsets.all(32);
 
   /// Standard blocked content display
   factory BlockedContentWidget.standard({String? message, VoidCallback? onRetry}) {
-    return BlockedContentWidget(
-      title: 'Content not available',
-      message: message ?? 'This content is not available to you.',
+    return BlockedContentWidget._localized(
+      (l10n) => message ?? l10n.blockedContentUnavailableToYou,
       icon: Icons.visibility_off,
       onRetry: onRetry,
     );
@@ -32,31 +44,28 @@ class BlockedContentWidget extends StatelessWidget {
 
   /// User blocked display
   factory BlockedContentWidget.userBlocked({String? userName}) {
-    return BlockedContentWidget(
-      title: 'Content not available',
-      message: userName != null
-          ? "You can't view $userName's content."
-          : "You can't view this user's content.",
+    return BlockedContentWidget._localized(
+      (l10n) => userName != null
+          ? l10n.blockedCantViewUserContent(userName)
+          : l10n.blockedCantViewThisUserContent,
       icon: Icons.person_off,
     );
   }
 
   /// Profile blocked display (for profile pages)
   factory BlockedContentWidget.profile({String? userName}) {
-    return BlockedContentWidget(
-      title: null, // Will be localized in build method
-      message: userName != null
-          ? "You can't view $userName's profile."
-          : "This profile is not available.",
+    return BlockedContentWidget._localized(
+      (l10n) => userName != null
+          ? l10n.blockedCantViewUserProfile(userName)
+          : l10n.blockedProfileUnavailable,
       icon: Icons.person_off,
     );
   }
 
   /// Moments blocked display
   factory BlockedContentWidget.moments({VoidCallback? onRetry}) {
-    return BlockedContentWidget(
-      title: null, // Will be localized in build method
-      message: 'This content is not available.',
+    return BlockedContentWidget._localized(
+      (l10n) => l10n.blockedContentUnavailable,
       icon: Icons.photo_library_outlined,
       onRetry: onRetry,
       showRetry: onRetry != null,
@@ -65,20 +74,18 @@ class BlockedContentWidget extends StatelessWidget {
 
   /// Stories blocked display
   factory BlockedContentWidget.stories() {
-    return BlockedContentWidget(
-      title: null, // Will be localized in build method
-      message: "You can't view these stories.",
+    return BlockedContentWidget._localized(
+      (l10n) => l10n.blockedCantViewStories,
       icon: Icons.auto_stories,
     );
   }
 
   /// Chat blocked display
   factory BlockedContentWidget.chat({String? userName}) {
-    return BlockedContentWidget(
-      title: null, // Will be localized in build method
-      message: userName != null
-          ? "You can't send messages to $userName."
-          : "You can't send messages to this user.",
+    return BlockedContentWidget._localized(
+      (l10n) => userName != null
+          ? l10n.blockedCantMessageUser(userName)
+          : l10n.blockedCantMessageThisUser,
       icon: Icons.chat_bubble_outline,
     );
   }
@@ -87,6 +94,7 @@ class BlockedContentWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     String? displayTitle = title;
+    final displayMessage = message ?? _localizedMessage?.call(l10n);
     
     // Localize title based on icon if title is null (from factory methods)
     if (displayTitle == null) {
@@ -133,10 +141,10 @@ class BlockedContentWidget extends StatelessWidget {
             ),
             textAlign: TextAlign.center,
           ),
-          if (message != null) ...[
+          if (displayMessage != null) ...[
             const SizedBox(height: 8),
             Text(
-              message!,
+              displayMessage,
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.grey[500],
@@ -202,7 +210,9 @@ class BlockedContentSnackbar {
   static void show(BuildContext context, {String? message}) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(message ?? "You can't perform this action"),
+        content: Text(
+          message ?? AppLocalizations.of(context)!.blockedActionNotAllowed,
+        ),
         backgroundColor: Colors.orange,
         behavior: SnackBarBehavior.floating,
       ),
@@ -210,19 +220,19 @@ class BlockedContentSnackbar {
   }
 
   static void showCannotLike(BuildContext context) {
-    show(context, message: "You can't like this content");
+    show(context, message: AppLocalizations.of(context)!.blockedCantLike);
   }
 
   static void showCannotComment(BuildContext context) {
-    show(context, message: "You can't comment on this content");
+    show(context, message: AppLocalizations.of(context)!.blockedCantComment);
   }
 
   static void showCannotMessage(BuildContext context) {
-    show(context, message: "You can't message this user");
+    show(context, message: AppLocalizations.of(context)!.cantMessageThisUser);
   }
 
   static void showContentNotAvailable(BuildContext context) {
-    show(context, message: 'This content is not available');
+    show(context, message: AppLocalizations.of(context)!.blockedContentUnavailable);
   }
 }
 
@@ -235,7 +245,7 @@ extension BlockedResponseHandler on Map<String, dynamic> {
       (this['blocked'] == true || this['error']?.toString().contains('block') == true);
   
   String get blockMessage =>
-      this['message'] ?? this['error'] ?? 'Content not available';
+      this['message'] ?? this['error'] ?? '';
 }
 
 /// Mixin for handling blocked content in StatefulWidgets

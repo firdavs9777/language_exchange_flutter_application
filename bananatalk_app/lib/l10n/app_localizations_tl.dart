@@ -11955,4 +11955,150 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get waveTooMany => 'Masyadong maraming kaway. Dahan-dahan lang!';
+
+  @override
+  String get aiTutorNoSummary => '(walang buod)';
+
+  @override
+  String vocabPackAllSaved(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Nasa bokabularyo mo na ang lahat ng $count salita',
+      one: 'Nasa bokabularyo mo na ang salitang ito',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String vocabPackAdded(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Naidagdag ang $count salita sa iyong bokabularyo',
+      one: 'Naidagdag ang 1 salita sa iyong bokabularyo',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String vocabPackAddedSomeSaved(int count, int saved) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Naidagdag ang $count salita ($saved naka-save na)',
+      one: 'Naidagdag ang 1 salita ($saved naka-save na)',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get vocabPackNoExercises => 'Walang pagsasanay';
+
+  @override
+  String vocabPackPractice(int count) {
+    return 'Magsanay ($count)';
+  }
+
+  @override
+  String get aiQuizPlayAgain => 'Maglaro ulit';
+
+  @override
+  String get aiLessonAskHint => 'Magtanong ng kahit ano tungkol sa araling ito...';
+
+  @override
+  String get aiLessonConceptHint => 'Anong konsepto ang gusto mong ipaliwanag?';
+
+  @override
+  String examTargetScoreHint(Object score) {
+    return 'hal. $score';
+  }
+
+  @override
+  String get vocabWordAdded => 'Naidagdag ang salita!';
+
+  @override
+  String get vocabWordAddFailed => 'Hindi maidagdag ang salita';
+
+  @override
+  String get vocabEnterWordFirst => 'Maglagay muna ng salita';
+
+  @override
+  String get vocabAiFilled => 'Pinunan ng AI!';
+
+  @override
+  String get vocabAiFillFailed => 'Nabigo ang AI fill. Pakisubukan ulit.';
+
+  @override
+  String get authSendCodeFailed => 'Hindi naipadala ang verification code';
+
+  @override
+  String get authServerConfigError => 'Error sa configuration ng server. Makipag-ugnayan sa support.';
+
+  @override
+  String get authAppleTokenFailed => 'Hindi makapag-sign in gamit ang Apple. Pakisubukan ulit.';
+
+  @override
+  String get authRegistrationFailed => 'Nabigo ang pagpaparehistro';
+
+  @override
+  String get authEmailAlreadyExists => 'Ginagamit na ang email na ito. Gumamit ng ibang email.';
+
+  @override
+  String get reportEvidenceAddFailed => 'Hindi maidagdag ang mga larawan';
+
+  @override
+  String reportEvidenceMaxFiles(int count) {
+    return 'Hanggang $count file bawat ulat';
+  }
+
+  @override
+  String reportEvidenceFileTooLarge(Object name) {
+    return 'Masyadong malaki ang $name (max 5 MB)';
+  }
+
+  @override
+  String get reportEvidenceTotalTooLarge => 'Lalampas sa 25 MB ang kabuuang laki';
+
+  @override
+  String get blockedContentUnavailableToYou => 'Hindi available sa iyo ang nilalamang ito.';
+
+  @override
+  String blockedCantViewUserContent(Object name) {
+    return 'Hindi mo makikita ang nilalaman ni $name.';
+  }
+
+  @override
+  String get blockedCantViewThisUserContent => 'Hindi mo makikita ang nilalaman ng user na ito.';
+
+  @override
+  String blockedCantViewUserProfile(Object name) {
+    return 'Hindi mo makikita ang profile ni $name.';
+  }
+
+  @override
+  String get blockedProfileUnavailable => 'Hindi available ang profile na ito.';
+
+  @override
+  String get blockedContentUnavailable => 'Hindi available ang nilalamang ito.';
+
+  @override
+  String get blockedCantViewStories => 'Hindi mo makikita ang mga story na ito.';
+
+  @override
+  String blockedCantMessageUser(Object name) {
+    return 'Hindi ka makakapagpadala ng mensahe kay $name.';
+  }
+
+  @override
+  String get blockedCantMessageThisUser => 'Hindi ka makakapagpadala ng mensahe sa user na ito.';
+
+  @override
+  String get blockedActionNotAllowed => 'Hindi mo magagawa ang aksyong ito';
+
+  @override
+  String get blockedCantLike => 'Hindi mo mai-like ang nilalamang ito';
+
+  @override
+  String get blockedCantComment => 'Hindi ka makakapag-comment sa nilalamang ito';
 }

@@ -11961,4 +11961,150 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get waveTooMany => 'Too many waves. Please slow down!';
+
+  @override
+  String get aiTutorNoSummary => '(no summary)';
+
+  @override
+  String vocabPackAllSaved(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'All $count words are already in your vocabulary',
+      one: 'This word is already in your vocabulary',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String vocabPackAdded(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Added $count words to your vocabulary',
+      one: 'Added 1 word to your vocabulary',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String vocabPackAddedSomeSaved(int count, int saved) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Added $count words to your vocabulary ($saved already saved)',
+      one: 'Added 1 word to your vocabulary ($saved already saved)',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get vocabPackNoExercises => 'No exercises';
+
+  @override
+  String vocabPackPractice(int count) {
+    return 'Practice ($count)';
+  }
+
+  @override
+  String get aiQuizPlayAgain => 'Play again';
+
+  @override
+  String get aiLessonAskHint => 'Ask anything about this lesson...';
+
+  @override
+  String get aiLessonConceptHint => 'What concept do you want explained?';
+
+  @override
+  String examTargetScoreHint(Object score) {
+    return 'e.g. $score';
+  }
+
+  @override
+  String get vocabWordAdded => 'Word added!';
+
+  @override
+  String get vocabWordAddFailed => 'Couldn\'t add the word';
+
+  @override
+  String get vocabEnterWordFirst => 'Enter a word first';
+
+  @override
+  String get vocabAiFilled => 'AI filled in!';
+
+  @override
+  String get vocabAiFillFailed => 'AI fill failed. Please try again.';
+
+  @override
+  String get authSendCodeFailed => 'Failed to send verification code';
+
+  @override
+  String get authServerConfigError => 'Server configuration error. Please contact support.';
+
+  @override
+  String get authAppleTokenFailed => 'Couldn\'t sign in with Apple. Please try again.';
+
+  @override
+  String get authRegistrationFailed => 'Registration failed';
+
+  @override
+  String get authEmailAlreadyExists => 'Email already exists. Please use a different email.';
+
+  @override
+  String get reportEvidenceAddFailed => 'Could not add photos';
+
+  @override
+  String reportEvidenceMaxFiles(int count) {
+    return 'Max $count files per report';
+  }
+
+  @override
+  String reportEvidenceFileTooLarge(Object name) {
+    return '$name is too large (max 5 MB)';
+  }
+
+  @override
+  String get reportEvidenceTotalTooLarge => 'Total size would exceed 25 MB';
+
+  @override
+  String get blockedContentUnavailableToYou => 'This content is not available to you.';
+
+  @override
+  String blockedCantViewUserContent(Object name) {
+    return 'You can\'t view $name\'s content.';
+  }
+
+  @override
+  String get blockedCantViewThisUserContent => 'You can\'t view this user\'s content.';
+
+  @override
+  String blockedCantViewUserProfile(Object name) {
+    return 'You can\'t view $name\'s profile.';
+  }
+
+  @override
+  String get blockedProfileUnavailable => 'This profile is not available.';
+
+  @override
+  String get blockedContentUnavailable => 'This content is not available.';
+
+  @override
+  String get blockedCantViewStories => 'You can\'t view these stories.';
+
+  @override
+  String blockedCantMessageUser(Object name) {
+    return 'You can\'t send messages to $name.';
+  }
+
+  @override
+  String get blockedCantMessageThisUser => 'You can\'t send messages to this user.';
+
+  @override
+  String get blockedActionNotAllowed => 'You can\'t perform this action';
+
+  @override
+  String get blockedCantLike => 'You can\'t like this content';
+
+  @override
+  String get blockedCantComment => 'You can\'t comment on this content';
 }

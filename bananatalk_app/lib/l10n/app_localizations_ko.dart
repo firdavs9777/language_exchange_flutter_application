@@ -11936,4 +11936,147 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get waveTooMany => '손 흔들기가 너무 많아요. 천천히 해 주세요!';
+
+  @override
+  String get aiTutorNoSummary => '(요약 없음)';
+
+  @override
+  String vocabPackAllSaved(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count개 단어가 모두 이미 단어장에 있습니다',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String vocabPackAdded(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '단어장에 $count개 단어를 추가했습니다',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String vocabPackAddedSomeSaved(int count, int saved) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '단어장에 $count개 단어를 추가했습니다 ($saved개는 이미 저장됨)',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get vocabPackNoExercises => '연습 문제 없음';
+
+  @override
+  String vocabPackPractice(int count) {
+    return '연습 ($count)';
+  }
+
+  @override
+  String get aiQuizPlayAgain => '다시 하기';
+
+  @override
+  String get aiLessonAskHint => '이 레슨에 대해 무엇이든 물어보세요...';
+
+  @override
+  String get aiLessonConceptHint => '어떤 개념을 설명해 드릴까요?';
+
+  @override
+  String examTargetScoreHint(Object score) {
+    return '예: $score';
+  }
+
+  @override
+  String get vocabWordAdded => '단어를 추가했습니다!';
+
+  @override
+  String get vocabWordAddFailed => '단어를 추가하지 못했습니다';
+
+  @override
+  String get vocabEnterWordFirst => '먼저 단어를 입력하세요';
+
+  @override
+  String get vocabAiFilled => 'AI가 채웠습니다!';
+
+  @override
+  String get vocabAiFillFailed => 'AI 채우기에 실패했습니다. 다시 시도하세요.';
+
+  @override
+  String get authSendCodeFailed => '인증 코드를 보내지 못했습니다';
+
+  @override
+  String get authServerConfigError => '서버 설정 오류입니다. 고객 지원에 문의하세요.';
+
+  @override
+  String get authAppleTokenFailed => 'Apple로 로그인하지 못했습니다. 다시 시도하세요.';
+
+  @override
+  String get authRegistrationFailed => '가입에 실패했습니다';
+
+  @override
+  String get authEmailAlreadyExists => '이미 사용 중인 이메일입니다. 다른 이메일을 사용하세요.';
+
+  @override
+  String get reportEvidenceAddFailed => '사진을 추가하지 못했습니다';
+
+  @override
+  String reportEvidenceMaxFiles(int count) {
+    return '신고당 최대 $count개 파일';
+  }
+
+  @override
+  String reportEvidenceFileTooLarge(Object name) {
+    return '$name 파일이 너무 큽니다(최대 5MB)';
+  }
+
+  @override
+  String get reportEvidenceTotalTooLarge => '전체 크기가 25MB를 초과합니다';
+
+  @override
+  String get blockedContentUnavailableToYou => '이 콘텐츠를 볼 수 없습니다.';
+
+  @override
+  String blockedCantViewUserContent(Object name) {
+    return '$name님의 콘텐츠를 볼 수 없습니다.';
+  }
+
+  @override
+  String get blockedCantViewThisUserContent => '이 사용자의 콘텐츠를 볼 수 없습니다.';
+
+  @override
+  String blockedCantViewUserProfile(Object name) {
+    return '$name님의 프로필을 볼 수 없습니다.';
+  }
+
+  @override
+  String get blockedProfileUnavailable => '이 프로필을 볼 수 없습니다.';
+
+  @override
+  String get blockedContentUnavailable => '이 콘텐츠는 볼 수 없습니다.';
+
+  @override
+  String get blockedCantViewStories => '이 스토리를 볼 수 없습니다.';
+
+  @override
+  String blockedCantMessageUser(Object name) {
+    return '$name님에게 메시지를 보낼 수 없습니다.';
+  }
+
+  @override
+  String get blockedCantMessageThisUser => '이 사용자에게 메시지를 보낼 수 없습니다.';
+
+  @override
+  String get blockedActionNotAllowed => '이 작업을 할 수 없습니다';
+
+  @override
+  String get blockedCantLike => '이 콘텐츠에 좋아요를 누를 수 없습니다';
+
+  @override
+  String get blockedCantComment => '이 콘텐츠에 댓글을 달 수 없습니다';
 }

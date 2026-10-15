@@ -11956,4 +11956,147 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get waveTooMany => 'Даст афшондан аз ҳад зиёд. Лутфан оҳистатар!';
+
+  @override
+  String get aiTutorNoSummary => '(хулоса нест)';
+
+  @override
+  String vocabPackAllSaved(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Ҳамаи $count калима аллакай дар луғати шумо ҳаст',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String vocabPackAdded(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Ба луғати шумо $count калима илова шуд',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String vocabPackAddedSomeSaved(int count, int saved) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Ба луғат $count калима илова шуд ($saved аллакай захира шудааст)',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get vocabPackNoExercises => 'Машқ нест';
+
+  @override
+  String vocabPackPractice(int count) {
+    return 'Машқ ($count)';
+  }
+
+  @override
+  String get aiQuizPlayAgain => 'Боз бозӣ кунед';
+
+  @override
+  String get aiLessonAskHint => 'Дар бораи ин дарс ҳар чизе пурсед...';
+
+  @override
+  String get aiLessonConceptHint => 'Кадом мафҳумро шарҳ диҳем?';
+
+  @override
+  String examTargetScoreHint(Object score) {
+    return 'масалан, $score';
+  }
+
+  @override
+  String get vocabWordAdded => 'Калима илова шуд!';
+
+  @override
+  String get vocabWordAddFailed => 'Калимаро илова кардан нашуд';
+
+  @override
+  String get vocabEnterWordFirst => 'Аввал калимаро ворид кунед';
+
+  @override
+  String get vocabAiFilled => 'AI пур кард!';
+
+  @override
+  String get vocabAiFillFailed => 'Пуркунии AI ноком шуд. Дубора кӯшиш кунед.';
+
+  @override
+  String get authSendCodeFailed => 'Рамзи тасдиқро фиристодан нашуд';
+
+  @override
+  String get authServerConfigError => 'Хатои танзими сервер. Лутфан ба дастгирӣ муроҷиат кунед.';
+
+  @override
+  String get authAppleTokenFailed => 'Бо Apple ворид шудан нашуд. Дубора кӯшиш кунед.';
+
+  @override
+  String get authRegistrationFailed => 'Бақайдгирӣ ноком шуд';
+
+  @override
+  String get authEmailAlreadyExists => 'Ин почтаи электронӣ аллакай мавҷуд аст. Почтаи дигар истифода баред.';
+
+  @override
+  String get reportEvidenceAddFailed => 'Аксҳоро илова кардан нашуд';
+
+  @override
+  String reportEvidenceMaxFiles(int count) {
+    return 'Дар як шикоят ҳадди аксар $count файл';
+  }
+
+  @override
+  String reportEvidenceFileTooLarge(Object name) {
+    return '$name хеле калон аст (ҳадди аксар 5 МБ)';
+  }
+
+  @override
+  String get reportEvidenceTotalTooLarge => 'Андозаи умумӣ аз 25 МБ зиёд мешавад';
+
+  @override
+  String get blockedContentUnavailableToYou => 'Ин мундариҷа барои шумо дастрас нест.';
+
+  @override
+  String blockedCantViewUserContent(Object name) {
+    return 'Шумо мундариҷаи $name-ро дида наметавонед.';
+  }
+
+  @override
+  String get blockedCantViewThisUserContent => 'Шумо мундариҷаи ин корбарро дида наметавонед.';
+
+  @override
+  String blockedCantViewUserProfile(Object name) {
+    return 'Шумо профили $name-ро дида наметавонед.';
+  }
+
+  @override
+  String get blockedProfileUnavailable => 'Ин профил дастрас нест.';
+
+  @override
+  String get blockedContentUnavailable => 'Ин мундариҷа дастрас нест.';
+
+  @override
+  String get blockedCantViewStories => 'Шумо ин ҳикояҳоро дида наметавонед.';
+
+  @override
+  String blockedCantMessageUser(Object name) {
+    return 'Шумо ба $name паём фиристода наметавонед.';
+  }
+
+  @override
+  String get blockedCantMessageThisUser => 'Шумо ба ин корбар паём фиристода наметавонед.';
+
+  @override
+  String get blockedActionNotAllowed => 'Шумо ин амалро иҷро карда наметавонед';
+
+  @override
+  String get blockedCantLike => 'Шумо ин мундариҷаро писанд карда наметавонед';
+
+  @override
+  String get blockedCantComment => 'Шумо ба ин мундариҷа шарҳ навишта наметавонед';
 }

@@ -11953,4 +11953,148 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get waveTooMany => 'Çok fazla el salladın. Biraz yavaşla!';
+
+  @override
+  String get aiTutorNoSummary => '(özet yok)';
+
+  @override
+  String vocabPackAllSaved(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count kelimenin hepsi zaten kelime listende',
+      one: 'Bu kelime zaten kelime listende',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String vocabPackAdded(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Kelime listene $count kelime eklendi',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String vocabPackAddedSomeSaved(int count, int saved) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Kelime listene $count kelime eklendi ($saved tanesi zaten kayıtlı)',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get vocabPackNoExercises => 'Alıştırma yok';
+
+  @override
+  String vocabPackPractice(int count) {
+    return 'Pratik yap ($count)';
+  }
+
+  @override
+  String get aiQuizPlayAgain => 'Tekrar oyna';
+
+  @override
+  String get aiLessonAskHint => 'Bu dersle ilgili her şeyi sor...';
+
+  @override
+  String get aiLessonConceptHint => 'Hangi kavramın açıklanmasını istiyorsun?';
+
+  @override
+  String examTargetScoreHint(Object score) {
+    return 'ör. $score';
+  }
+
+  @override
+  String get vocabWordAdded => 'Kelime eklendi!';
+
+  @override
+  String get vocabWordAddFailed => 'Kelime eklenemedi';
+
+  @override
+  String get vocabEnterWordFirst => 'Önce bir kelime gir';
+
+  @override
+  String get vocabAiFilled => 'Yapay zekâ doldurdu!';
+
+  @override
+  String get vocabAiFillFailed => 'Yapay zekâ dolduramadı. Lütfen tekrar dene.';
+
+  @override
+  String get authSendCodeFailed => 'Doğrulama kodu gönderilemedi';
+
+  @override
+  String get authServerConfigError => 'Sunucu yapılandırma hatası. Lütfen destekle iletişime geç.';
+
+  @override
+  String get authAppleTokenFailed => 'Apple ile giriş yapılamadı. Lütfen tekrar dene.';
+
+  @override
+  String get authRegistrationFailed => 'Kayıt başarısız';
+
+  @override
+  String get authEmailAlreadyExists => 'Bu e-posta zaten kayıtlı. Lütfen başka bir e-posta kullan.';
+
+  @override
+  String get reportEvidenceAddFailed => 'Fotoğraflar eklenemedi';
+
+  @override
+  String reportEvidenceMaxFiles(int count) {
+    return 'Şikayet başına en fazla $count dosya';
+  }
+
+  @override
+  String reportEvidenceFileTooLarge(Object name) {
+    return '$name çok büyük (en fazla 5 MB)';
+  }
+
+  @override
+  String get reportEvidenceTotalTooLarge => 'Toplam boyut 25 MB\'ı aşar';
+
+  @override
+  String get blockedContentUnavailableToYou => 'Bu içerik sana açık değil.';
+
+  @override
+  String blockedCantViewUserContent(Object name) {
+    return '$name kişisinin içeriğini göremezsin.';
+  }
+
+  @override
+  String get blockedCantViewThisUserContent => 'Bu kullanıcının içeriğini göremezsin.';
+
+  @override
+  String blockedCantViewUserProfile(Object name) {
+    return '$name kişisinin profilini göremezsin.';
+  }
+
+  @override
+  String get blockedProfileUnavailable => 'Bu profil kullanılamıyor.';
+
+  @override
+  String get blockedContentUnavailable => 'Bu içerik kullanılamıyor.';
+
+  @override
+  String get blockedCantViewStories => 'Bu hikayeleri göremezsin.';
+
+  @override
+  String blockedCantMessageUser(Object name) {
+    return '$name kişisine mesaj gönderemezsin.';
+  }
+
+  @override
+  String get blockedCantMessageThisUser => 'Bu kullanıcıya mesaj gönderemezsin.';
+
+  @override
+  String get blockedActionNotAllowed => 'Bu işlemi yapamazsın';
+
+  @override
+  String get blockedCantLike => 'Bu içeriği beğenemezsin';
+
+  @override
+  String get blockedCantComment => 'Bu içeriğe yorum yapamazsın';
 }

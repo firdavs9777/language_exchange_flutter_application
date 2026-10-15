@@ -97,7 +97,7 @@ class _LessonBuilderScreenState extends ConsumerState<LessonBuilderScreen> {
         if (result['success'] == true && result['data'] != null) {
           _generatedLesson = result['data'] as GeneratedLessonResponse;
         } else {
-          _error = result['message'] ?? AppLocalizations.of(context)!.aiFailedToGenerateLesson;
+          _error = AppLocalizations.of(context)!.aiFailedToGenerateLesson;
         }
       });
     }

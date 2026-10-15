@@ -94,7 +94,7 @@ class _MuteDialogState extends State<MuteDialog> {
           final l10n = AppLocalizations.of(context)!;
           showChatSnackBar(
             context,
-            message: result['error'] ?? l10n.failedToUpdateMuteSettings,
+            message: l10n.failedToUpdateMuteSettings,
             type: ChatSnackBarType.error,
           );
           setState(() => _isLoading = false);

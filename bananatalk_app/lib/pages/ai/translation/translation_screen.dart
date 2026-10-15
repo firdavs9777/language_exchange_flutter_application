@@ -143,7 +143,7 @@ class _TranslationScreenState extends ConsumerState<TranslationScreen> {
           _error = AppLocalizations.of(context)!.aiUnexpectedResponseFormat;
         }
       } else {
-        _error = result['message']?.toString() ?? 'Translation failed';
+        _error = AppLocalizations.of(context)!.translationFailed;
       }
     });
   }
@@ -444,7 +444,7 @@ class _TranslationScreenState extends ConsumerState<TranslationScreen> {
                   size: 20,
                   color: _saved ? AppColors.primary : context.iconColor,
                 ),
-                tooltip: _saved ? 'Saved to vocab' : 'Save to vocab',
+                tooltip: _saved ? AppLocalizations.of(context)!.savedToVocabulary : AppLocalizations.of(context)!.chatSaveToVocabularyAction,
                 onPressed: (_saving || _saved) ? null : _saveToVocab,
               ),
             ],
@@ -486,7 +486,7 @@ class _TranslationScreenState extends ConsumerState<TranslationScreen> {
       } else {
         setState(() => _saving = false);
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(res.error ?? AppLocalizations.of(context)!.failedToSave)),
+          SnackBar(content: Text(AppLocalizations.of(context)!.failedToSave)),
         );
       }
     } catch (e) {

@@ -16,11 +16,13 @@ import 'package:bananatalk_app/widgets/limit_exceeded_dialog.dart';
 void showWaveError(BuildContext context, Object error) {
   final l10n = AppLocalizations.of(context)!;
   final lower = error.toString().toLowerCase();
+  final tooMany = lower.contains('too many waves');
+  final alreadyWaved = lower.contains('already waved');
   showCommunitySnackBar(
     context,
-    message: lower.contains('too many waves')
+    message: tooMany
         ? l10n.waveTooMany
-        : lower.contains('already waved')
+        : alreadyWaved
         ? l10n.waveAlreadySentTooltip
         : l10n.waveCouldntSend,
     type: CommunitySnackBarType.error,

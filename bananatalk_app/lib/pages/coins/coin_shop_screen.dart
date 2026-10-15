@@ -189,7 +189,7 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
               : AppLocalizations.of(context)!.coinsDailyClaimed,
         );
       } else {
-        _showSnack(response.error ?? AppLocalizations.of(context)!.coinsClaimFailed);
+        _showSnack(AppLocalizations.of(context)!.coinsClaimFailed);
       }
     } finally {
       if (mounted) setState(() => _dailyClaiming = false);

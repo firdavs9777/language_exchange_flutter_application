@@ -11955,4 +11955,150 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get waveTooMany => 'Demasiados saludos. ¡Ve más despacio!';
+
+  @override
+  String get aiTutorNoSummary => '(sin resumen)';
+
+  @override
+  String vocabPackAllSaved(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Las $count palabras ya están en tu vocabulario',
+      one: 'Esta palabra ya está en tu vocabulario',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String vocabPackAdded(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Se añadieron $count palabras a tu vocabulario',
+      one: 'Se añadió 1 palabra a tu vocabulario',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String vocabPackAddedSomeSaved(int count, int saved) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Se añadieron $count palabras a tu vocabulario ($saved ya guardadas)',
+      one: 'Se añadió 1 palabra a tu vocabulario ($saved ya guardadas)',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get vocabPackNoExercises => 'Sin ejercicios';
+
+  @override
+  String vocabPackPractice(int count) {
+    return 'Practicar ($count)';
+  }
+
+  @override
+  String get aiQuizPlayAgain => 'Jugar de nuevo';
+
+  @override
+  String get aiLessonAskHint => 'Pregunta lo que quieras sobre esta lección...';
+
+  @override
+  String get aiLessonConceptHint => '¿Qué concepto quieres que te expliquen?';
+
+  @override
+  String examTargetScoreHint(Object score) {
+    return 'p. ej. $score';
+  }
+
+  @override
+  String get vocabWordAdded => '¡Palabra añadida!';
+
+  @override
+  String get vocabWordAddFailed => 'No se pudo añadir la palabra';
+
+  @override
+  String get vocabEnterWordFirst => 'Escribe una palabra primero';
+
+  @override
+  String get vocabAiFilled => '¡La IA lo completó!';
+
+  @override
+  String get vocabAiFillFailed => 'La IA no pudo completarlo. Inténtalo de nuevo.';
+
+  @override
+  String get authSendCodeFailed => 'No se pudo enviar el código de verificación';
+
+  @override
+  String get authServerConfigError => 'Error de configuración del servidor. Contacta con soporte.';
+
+  @override
+  String get authAppleTokenFailed => 'No se pudo iniciar sesión con Apple. Inténtalo de nuevo.';
+
+  @override
+  String get authRegistrationFailed => 'Error en el registro';
+
+  @override
+  String get authEmailAlreadyExists => 'Ese correo ya existe. Usa otro.';
+
+  @override
+  String get reportEvidenceAddFailed => 'No se pudieron añadir las fotos';
+
+  @override
+  String reportEvidenceMaxFiles(int count) {
+    return 'Máximo $count archivos por reporte';
+  }
+
+  @override
+  String reportEvidenceFileTooLarge(Object name) {
+    return '$name es demasiado grande (máx. 5 MB)';
+  }
+
+  @override
+  String get reportEvidenceTotalTooLarge => 'El tamaño total superaría los 25 MB';
+
+  @override
+  String get blockedContentUnavailableToYou => 'Este contenido no está disponible para ti.';
+
+  @override
+  String blockedCantViewUserContent(Object name) {
+    return 'No puedes ver el contenido de $name.';
+  }
+
+  @override
+  String get blockedCantViewThisUserContent => 'No puedes ver el contenido de este usuario.';
+
+  @override
+  String blockedCantViewUserProfile(Object name) {
+    return 'No puedes ver el perfil de $name.';
+  }
+
+  @override
+  String get blockedProfileUnavailable => 'Este perfil no está disponible.';
+
+  @override
+  String get blockedContentUnavailable => 'Este contenido no está disponible.';
+
+  @override
+  String get blockedCantViewStories => 'No puedes ver estas historias.';
+
+  @override
+  String blockedCantMessageUser(Object name) {
+    return 'No puedes enviar mensajes a $name.';
+  }
+
+  @override
+  String get blockedCantMessageThisUser => 'No puedes enviar mensajes a este usuario.';
+
+  @override
+  String get blockedActionNotAllowed => 'No puedes realizar esta acción';
+
+  @override
+  String get blockedCantLike => 'No puedes dar me gusta a este contenido';
+
+  @override
+  String get blockedCantComment => 'No puedes comentar este contenido';
 }

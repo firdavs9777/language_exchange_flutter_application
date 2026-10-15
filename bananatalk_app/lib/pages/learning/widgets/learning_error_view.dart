@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 class LearningErrorView extends StatelessWidget {
   final String message;
@@ -36,7 +37,7 @@ class LearningErrorView extends StatelessWidget {
               FilledButton.icon(
                 onPressed: onRetry,
                 icon: const Icon(Icons.refresh),
-                label: Text(retryLabel ?? 'Retry'),
+                label: Text(retryLabel ?? AppLocalizations.of(context)!.retry),
               ),
             ],
           ],

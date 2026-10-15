@@ -158,7 +158,7 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
       if (!mounted) return;
       setState(() {
         _isLoadingLanguages = false;
-        _errorMessage = 'Failed to load languages. Please try again.';
+        _errorMessage = AppLocalizations.of(context)!.failedToLoadLanguages;
       });
       if (kDebugMode) debugPrint('fetchLanguages failed: $e');
     }

@@ -11936,6 +11936,149 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get waveTooMany => '打招呼太频繁了，请慢一点！';
+
+  @override
+  String get aiTutorNoSummary => '（无摘要）';
+
+  @override
+  String vocabPackAllSaved(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '全部 $count 个单词已在你的词汇表中',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String vocabPackAdded(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '已将 $count 个单词加入词汇表',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String vocabPackAddedSomeSaved(int count, int saved) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '已将 $count 个单词加入词汇表（$saved 个已保存）',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get vocabPackNoExercises => '没有练习';
+
+  @override
+  String vocabPackPractice(int count) {
+    return '练习 ($count)';
+  }
+
+  @override
+  String get aiQuizPlayAgain => '再玩一次';
+
+  @override
+  String get aiLessonAskHint => '关于这节课，问什么都行…';
+
+  @override
+  String get aiLessonConceptHint => '你想让我解释哪个概念？';
+
+  @override
+  String examTargetScoreHint(Object score) {
+    return '例如 $score';
+  }
+
+  @override
+  String get vocabWordAdded => '单词已添加！';
+
+  @override
+  String get vocabWordAddFailed => '无法添加单词';
+
+  @override
+  String get vocabEnterWordFirst => '请先输入单词';
+
+  @override
+  String get vocabAiFilled => 'AI 已填写！';
+
+  @override
+  String get vocabAiFillFailed => 'AI 填写失败，请重试。';
+
+  @override
+  String get authSendCodeFailed => '发送验证码失败';
+
+  @override
+  String get authServerConfigError => '服务器配置错误，请联系客服。';
+
+  @override
+  String get authAppleTokenFailed => '无法使用 Apple 登录，请重试。';
+
+  @override
+  String get authRegistrationFailed => '注册失败';
+
+  @override
+  String get authEmailAlreadyExists => '该邮箱已存在，请使用其他邮箱。';
+
+  @override
+  String get reportEvidenceAddFailed => '无法添加照片';
+
+  @override
+  String reportEvidenceMaxFiles(int count) {
+    return '每次举报最多 $count 个文件';
+  }
+
+  @override
+  String reportEvidenceFileTooLarge(Object name) {
+    return '$name 过大（最大 5 MB）';
+  }
+
+  @override
+  String get reportEvidenceTotalTooLarge => '总大小将超过 25 MB';
+
+  @override
+  String get blockedContentUnavailableToYou => '你无法查看此内容。';
+
+  @override
+  String blockedCantViewUserContent(Object name) {
+    return '你无法查看 $name 的内容。';
+  }
+
+  @override
+  String get blockedCantViewThisUserContent => '你无法查看该用户的内容。';
+
+  @override
+  String blockedCantViewUserProfile(Object name) {
+    return '你无法查看 $name 的主页。';
+  }
+
+  @override
+  String get blockedProfileUnavailable => '该主页不可用。';
+
+  @override
+  String get blockedContentUnavailable => '此内容不可用。';
+
+  @override
+  String get blockedCantViewStories => '你无法查看这些快拍。';
+
+  @override
+  String blockedCantMessageUser(Object name) {
+    return '你无法给 $name 发消息。';
+  }
+
+  @override
+  String get blockedCantMessageThisUser => '你无法给该用户发消息。';
+
+  @override
+  String get blockedActionNotAllowed => '你无法执行此操作';
+
+  @override
+  String get blockedCantLike => '你无法点赞此内容';
+
+  @override
+  String get blockedCantComment => '你无法评论此内容';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -23870,4 +24013,147 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get waveTooMany => '打招呼太頻繁了，請慢一點！';
+
+  @override
+  String get aiTutorNoSummary => '（無摘要）';
+
+  @override
+  String vocabPackAllSaved(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '全部 $count 個單字已在你的單字庫中',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String vocabPackAdded(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '已將 $count 個單字加入單字庫',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String vocabPackAddedSomeSaved(int count, int saved) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '已將 $count 個單字加入單字庫（$saved 個已儲存）',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get vocabPackNoExercises => '沒有練習';
+
+  @override
+  String vocabPackPractice(int count) {
+    return '練習 ($count)';
+  }
+
+  @override
+  String get aiQuizPlayAgain => '再玩一次';
+
+  @override
+  String get aiLessonAskHint => '關於這堂課，問什麼都可以…';
+
+  @override
+  String get aiLessonConceptHint => '你想讓我解釋哪個概念？';
+
+  @override
+  String examTargetScoreHint(Object score) {
+    return '例如 $score';
+  }
+
+  @override
+  String get vocabWordAdded => '單字已新增！';
+
+  @override
+  String get vocabWordAddFailed => '無法新增單字';
+
+  @override
+  String get vocabEnterWordFirst => '請先輸入單字';
+
+  @override
+  String get vocabAiFilled => 'AI 已填寫！';
+
+  @override
+  String get vocabAiFillFailed => 'AI 填寫失敗，請再試一次。';
+
+  @override
+  String get authSendCodeFailed => '傳送驗證碼失敗';
+
+  @override
+  String get authServerConfigError => '伺服器設定錯誤，請聯絡客服。';
+
+  @override
+  String get authAppleTokenFailed => '無法使用 Apple 登入，請再試一次。';
+
+  @override
+  String get authRegistrationFailed => '註冊失敗';
+
+  @override
+  String get authEmailAlreadyExists => '此電子郵件已存在，請使用其他電子郵件。';
+
+  @override
+  String get reportEvidenceAddFailed => '無法新增相片';
+
+  @override
+  String reportEvidenceMaxFiles(int count) {
+    return '每次檢舉最多 $count 個檔案';
+  }
+
+  @override
+  String reportEvidenceFileTooLarge(Object name) {
+    return '$name 過大（最大 5 MB）';
+  }
+
+  @override
+  String get reportEvidenceTotalTooLarge => '總大小將超過 25 MB';
+
+  @override
+  String get blockedContentUnavailableToYou => '你無法查看此內容。';
+
+  @override
+  String blockedCantViewUserContent(Object name) {
+    return '你無法查看 $name 的內容。';
+  }
+
+  @override
+  String get blockedCantViewThisUserContent => '你無法查看該使用者的內容。';
+
+  @override
+  String blockedCantViewUserProfile(Object name) {
+    return '你無法查看 $name 的個人檔案。';
+  }
+
+  @override
+  String get blockedProfileUnavailable => '此個人檔案無法查看。';
+
+  @override
+  String get blockedContentUnavailable => '此內容無法查看。';
+
+  @override
+  String get blockedCantViewStories => '你無法查看這些限時動態。';
+
+  @override
+  String blockedCantMessageUser(Object name) {
+    return '你無法傳訊息給 $name。';
+  }
+
+  @override
+  String get blockedCantMessageThisUser => '你無法傳訊息給該使用者。';
+
+  @override
+  String get blockedActionNotAllowed => '你無法執行此操作';
+
+  @override
+  String get blockedCantLike => '你無法對此內容按讚';
+
+  @override
+  String get blockedCantComment => '你無法留言此內容';
 }

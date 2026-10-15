@@ -796,7 +796,7 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
                     icon: const Icon(Icons.replay_rounded, color: AppColors.error, size: 20),
                     padding: EdgeInsets.zero,
                     constraints: const BoxConstraints(),
-                    tooltip: 'Play Again',
+                    tooltip: AppLocalizations.of(context)!.aiQuizPlayAgain,
                     onPressed: () => _quickStart(quiz.type, quiz.difficulty, quiz.questionCount),
                   ),
                 ] else

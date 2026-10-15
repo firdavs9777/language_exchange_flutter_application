@@ -899,7 +899,7 @@ class QuotaError {
         resetAt: j['resetAt'] != null
             ? DateTime.tryParse(j['resetAt'].toString())
             : null,
-        message: j['message']?.toString() ?? "You've hit your daily limit.",
+        message: j['message']?.toString() ?? '',
         upgradeAvailable: j['upgradeAvailable'] == true,
       );
 }

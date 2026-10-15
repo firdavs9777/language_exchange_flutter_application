@@ -11999,4 +11999,156 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get waveTooMany => 'Слишком много приветствий. Помедленнее!';
+
+  @override
+  String get aiTutorNoSummary => '(нет сводки)';
+
+  @override
+  String vocabPackAllSaved(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Все $count слова уже есть в вашем словаре',
+      many: 'Все $count слов уже есть в вашем словаре',
+      few: 'Все $count слова уже есть в вашем словаре',
+      one: '$count слово уже есть в вашем словаре',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String vocabPackAdded(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'В словарь добавлено $count слова',
+      many: 'В словарь добавлено $count слов',
+      few: 'В словарь добавлено $count слова',
+      one: 'В словарь добавлено $count слово',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String vocabPackAddedSomeSaved(int count, int saved) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'В словарь добавлено $count слова (уже сохранено: $saved)',
+      many: 'В словарь добавлено $count слов (уже сохранено: $saved)',
+      few: 'В словарь добавлено $count слова (уже сохранено: $saved)',
+      one: 'В словарь добавлено $count слово (уже сохранено: $saved)',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get vocabPackNoExercises => 'Нет упражнений';
+
+  @override
+  String vocabPackPractice(int count) {
+    return 'Практика ($count)';
+  }
+
+  @override
+  String get aiQuizPlayAgain => 'Играть снова';
+
+  @override
+  String get aiLessonAskHint => 'Спросите что угодно об этом уроке…';
+
+  @override
+  String get aiLessonConceptHint => 'Какое понятие объяснить?';
+
+  @override
+  String examTargetScoreHint(Object score) {
+    return 'например, $score';
+  }
+
+  @override
+  String get vocabWordAdded => 'Слово добавлено!';
+
+  @override
+  String get vocabWordAddFailed => 'Не удалось добавить слово';
+
+  @override
+  String get vocabEnterWordFirst => 'Сначала введите слово';
+
+  @override
+  String get vocabAiFilled => 'ИИ заполнил поля!';
+
+  @override
+  String get vocabAiFillFailed => 'ИИ не смог заполнить поля. Попробуйте ещё раз.';
+
+  @override
+  String get authSendCodeFailed => 'Не удалось отправить код подтверждения';
+
+  @override
+  String get authServerConfigError => 'Ошибка настройки сервера. Обратитесь в поддержку.';
+
+  @override
+  String get authAppleTokenFailed => 'Не удалось войти через Apple. Попробуйте ещё раз.';
+
+  @override
+  String get authRegistrationFailed => 'Не удалось зарегистрироваться';
+
+  @override
+  String get authEmailAlreadyExists => 'Этот email уже зарегистрирован. Используйте другой.';
+
+  @override
+  String get reportEvidenceAddFailed => 'Не удалось добавить фото';
+
+  @override
+  String reportEvidenceMaxFiles(int count) {
+    return 'Не более $count файлов в одной жалобе';
+  }
+
+  @override
+  String reportEvidenceFileTooLarge(Object name) {
+    return '$name слишком большой (макс. 5 МБ)';
+  }
+
+  @override
+  String get reportEvidenceTotalTooLarge => 'Общий размер превысит 25 МБ';
+
+  @override
+  String get blockedContentUnavailableToYou => 'Этот контент вам недоступен.';
+
+  @override
+  String blockedCantViewUserContent(Object name) {
+    return 'Вы не можете просматривать контент $name.';
+  }
+
+  @override
+  String get blockedCantViewThisUserContent => 'Вы не можете просматривать контент этого пользователя.';
+
+  @override
+  String blockedCantViewUserProfile(Object name) {
+    return 'Вы не можете просматривать профиль $name.';
+  }
+
+  @override
+  String get blockedProfileUnavailable => 'Этот профиль недоступен.';
+
+  @override
+  String get blockedContentUnavailable => 'Этот контент недоступен.';
+
+  @override
+  String get blockedCantViewStories => 'Вы не можете просматривать эти истории.';
+
+  @override
+  String blockedCantMessageUser(Object name) {
+    return 'Вы не можете писать $name.';
+  }
+
+  @override
+  String get blockedCantMessageThisUser => 'Вы не можете писать этому пользователю.';
+
+  @override
+  String get blockedActionNotAllowed => 'Это действие недоступно';
+
+  @override
+  String get blockedCantLike => 'Вы не можете поставить лайк';
+
+  @override
+  String get blockedCantComment => 'Вы не можете комментировать этот контент';
 }

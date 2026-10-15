@@ -73,7 +73,7 @@ class _TermsOfServiceScreenState extends ConsumerState<TermsOfServiceScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: BananaText(
-              result['message'] ?? AppLocalizations.of(context)!.termsErrorAccepting,
+              AppLocalizations.of(context)!.termsErrorAccepting,
               BanaStyles: BananaTextStyles.error,
             ),
             duration: const Duration(seconds: 3),

@@ -33,9 +33,10 @@ class _VocabPackDetailScreenState extends ConsumerState<VocabPackDetailScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(added == 0
-              ? 'All ${result['totalWords'] ?? ''} words are already in your vocabulary'
-              : 'Added $added words to your vocabulary'
-                  '${alreadyHad > 0 ? ' ($alreadyHad already saved)' : ''}'),
+              ? AppLocalizations.of(context)!.vocabPackAllSaved(result['totalWords'] ?? 0)
+              : alreadyHad > 0
+              ? AppLocalizations.of(context)!.vocabPackAddedSomeSaved(added, alreadyHad)
+              : AppLocalizations.of(context)!.vocabPackAdded(added)),
         ),
       );
     } catch (e) {
@@ -150,8 +151,8 @@ class _VocabPackDetailScreenState extends ConsumerState<VocabPackDetailScreen> {
                                 ),
                         icon: const Icon(Icons.fitness_center_rounded),
                         label: Text(pack.exercises.isEmpty
-                            ? 'No exercises'
-                            : 'Practice (${pack.exercises.length})'),
+                            ? AppLocalizations.of(context)!.vocabPackNoExercises
+                            : AppLocalizations.of(context)!.vocabPackPractice(pack.exercises.length)),
                       ),
                     ),
                   ],

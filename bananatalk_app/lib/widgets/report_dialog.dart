@@ -133,7 +133,7 @@ class _ReportDialogState extends State<ReportDialog> {
         if (!added) break;
       }
     } catch (e) {
-      _showEvidenceNotice('Could not add photos: $e');
+      _showEvidenceNotice(AppLocalizations.of(context)!.reportEvidenceAddFailed);
     }
   }
 
@@ -160,15 +160,15 @@ class _ReportDialogState extends State<ReportDialog> {
   /// (added, or skipped because this one file was too large).
   bool _tryAddFile(PlatformFile file) {
     if (_selectedFiles.length >= maxFiles) {
-      _showEvidenceNotice('Max $maxFiles files per report');
+      _showEvidenceNotice(AppLocalizations.of(context)!.reportEvidenceMaxFiles(maxFiles));
       return false;
     }
     if (file.size > maxFileSize) {
-      _showEvidenceNotice('${file.name} is too large (max 5 MB)');
+      _showEvidenceNotice(AppLocalizations.of(context)!.reportEvidenceFileTooLarge(file.name));
       return true; // skip this one, allow the rest
     }
     if (_totalFileSize + file.size > maxTotalSize) {
-      _showEvidenceNotice('Total size would exceed 25 MB');
+      _showEvidenceNotice(AppLocalizations.of(context)!.reportEvidenceTotalTooLarge);
       return false;
     }
     setState(() {

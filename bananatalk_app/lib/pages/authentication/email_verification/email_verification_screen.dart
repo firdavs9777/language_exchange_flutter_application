@@ -194,7 +194,7 @@ class _EmailVerificationState extends ConsumerState<EmailVerification>
     } else {
       showAuthSnackBar(
         context,
-        message: result['message'] ?? 'Failed to resend code',
+        message: authResultMessage(l10n, result, fallback: l10n.authResendCodeFailed),
         type: AuthSnackBarType.error,
       );
     }

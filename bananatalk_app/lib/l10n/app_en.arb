@@ -8081,5 +8081,79 @@
   "topicCategoryLearning": "Learning & Career",
   "topicCategorySocial": "Social",
   "topicCategoryHealth": "Health & Wellness",
-  "waveTooMany": "Too many waves. Please slow down!"
+  "waveTooMany": "Too many waves. Please slow down!",
+  "aiTutorNoSummary": "(no summary)",
+  "vocabPackAllSaved": "{count, plural, =1{This word is already in your vocabulary} other{All {count} words are already in your vocabulary}}",
+  "vocabPackAdded": "{count, plural, =1{Added 1 word to your vocabulary} other{Added {count} words to your vocabulary}}",
+  "vocabPackAddedSomeSaved": "{count, plural, =1{Added 1 word to your vocabulary ({saved} already saved)} other{Added {count} words to your vocabulary ({saved} already saved)}}",
+  "vocabPackNoExercises": "No exercises",
+  "vocabPackPractice": "Practice ({count})",
+  "aiQuizPlayAgain": "Play again",
+  "aiLessonAskHint": "Ask anything about this lesson...",
+  "aiLessonConceptHint": "What concept do you want explained?",
+  "examTargetScoreHint": "e.g. {score}",
+  "vocabWordAdded": "Word added!",
+  "vocabWordAddFailed": "Couldn't add the word",
+  "vocabEnterWordFirst": "Enter a word first",
+  "vocabAiFilled": "AI filled in!",
+  "vocabAiFillFailed": "AI fill failed. Please try again.",
+  "authSendCodeFailed": "Failed to send verification code",
+  "authServerConfigError": "Server configuration error. Please contact support.",
+  "authAppleTokenFailed": "Couldn't sign in with Apple. Please try again.",
+  "authRegistrationFailed": "Registration failed",
+  "authEmailAlreadyExists": "Email already exists. Please use a different email.",
+  "reportEvidenceAddFailed": "Could not add photos",
+  "reportEvidenceMaxFiles": "Max {count} files per report",
+  "reportEvidenceFileTooLarge": "{name} is too large (max 5 MB)",
+  "reportEvidenceTotalTooLarge": "Total size would exceed 25 MB",
+  "blockedContentUnavailableToYou": "This content is not available to you.",
+  "blockedCantViewUserContent": "You can't view {name}'s content.",
+  "blockedCantViewThisUserContent": "You can't view this user's content.",
+  "blockedCantViewUserProfile": "You can't view {name}'s profile.",
+  "blockedProfileUnavailable": "This profile is not available.",
+  "blockedContentUnavailable": "This content is not available.",
+  "blockedCantViewStories": "You can't view these stories.",
+  "blockedCantMessageUser": "You can't send messages to {name}.",
+  "blockedCantMessageThisUser": "You can't send messages to this user.",
+  "blockedActionNotAllowed": "You can't perform this action",
+  "blockedCantLike": "You can't like this content",
+  "blockedCantComment": "You can't comment on this content",
+  "@vocabPackAllSaved": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@vocabPackAdded": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@vocabPackAddedSomeSaved": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "saved": {
+        "type": "int"
+      }
+    }
+  },
+  "@vocabPackPractice": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@reportEvidenceMaxFiles": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
 }

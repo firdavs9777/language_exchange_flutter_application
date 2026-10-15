@@ -11947,4 +11947,147 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get waveTooMany => 'Terlalu banyak lambaian. Pelan-pelan ya!';
+
+  @override
+  String get aiTutorNoSummary => '(tanpa ringkasan)';
+
+  @override
+  String vocabPackAllSaved(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Semua $count kata sudah ada di kosakatamu',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String vocabPackAdded(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count kata ditambahkan ke kosakatamu',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String vocabPackAddedSomeSaved(int count, int saved) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count kata ditambahkan ke kosakatamu ($saved sudah tersimpan)',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get vocabPackNoExercises => 'Tidak ada latihan';
+
+  @override
+  String vocabPackPractice(int count) {
+    return 'Latihan ($count)';
+  }
+
+  @override
+  String get aiQuizPlayAgain => 'Main lagi';
+
+  @override
+  String get aiLessonAskHint => 'Tanyakan apa saja tentang pelajaran ini...';
+
+  @override
+  String get aiLessonConceptHint => 'Konsep apa yang ingin dijelaskan?';
+
+  @override
+  String examTargetScoreHint(Object score) {
+    return 'mis. $score';
+  }
+
+  @override
+  String get vocabWordAdded => 'Kata ditambahkan!';
+
+  @override
+  String get vocabWordAddFailed => 'Gagal menambahkan kata';
+
+  @override
+  String get vocabEnterWordFirst => 'Masukkan kata dulu';
+
+  @override
+  String get vocabAiFilled => 'Diisi oleh AI!';
+
+  @override
+  String get vocabAiFillFailed => 'Pengisian AI gagal. Silakan coba lagi.';
+
+  @override
+  String get authSendCodeFailed => 'Gagal mengirim kode verifikasi';
+
+  @override
+  String get authServerConfigError => 'Kesalahan konfigurasi server. Silakan hubungi dukungan.';
+
+  @override
+  String get authAppleTokenFailed => 'Gagal masuk dengan Apple. Silakan coba lagi.';
+
+  @override
+  String get authRegistrationFailed => 'Pendaftaran gagal';
+
+  @override
+  String get authEmailAlreadyExists => 'Email sudah terdaftar. Gunakan email lain.';
+
+  @override
+  String get reportEvidenceAddFailed => 'Gagal menambahkan foto';
+
+  @override
+  String reportEvidenceMaxFiles(int count) {
+    return 'Maks. $count file per laporan';
+  }
+
+  @override
+  String reportEvidenceFileTooLarge(Object name) {
+    return '$name terlalu besar (maks. 5 MB)';
+  }
+
+  @override
+  String get reportEvidenceTotalTooLarge => 'Total ukuran akan melebihi 25 MB';
+
+  @override
+  String get blockedContentUnavailableToYou => 'Konten ini tidak tersedia untukmu.';
+
+  @override
+  String blockedCantViewUserContent(Object name) {
+    return 'Kamu tidak dapat melihat konten $name.';
+  }
+
+  @override
+  String get blockedCantViewThisUserContent => 'Kamu tidak dapat melihat konten pengguna ini.';
+
+  @override
+  String blockedCantViewUserProfile(Object name) {
+    return 'Kamu tidak dapat melihat profil $name.';
+  }
+
+  @override
+  String get blockedProfileUnavailable => 'Profil ini tidak tersedia.';
+
+  @override
+  String get blockedContentUnavailable => 'Konten ini tidak tersedia.';
+
+  @override
+  String get blockedCantViewStories => 'Kamu tidak dapat melihat cerita ini.';
+
+  @override
+  String blockedCantMessageUser(Object name) {
+    return 'Kamu tidak dapat mengirim pesan ke $name.';
+  }
+
+  @override
+  String get blockedCantMessageThisUser => 'Kamu tidak dapat mengirim pesan ke pengguna ini.';
+
+  @override
+  String get blockedActionNotAllowed => 'Kamu tidak dapat melakukan tindakan ini';
+
+  @override
+  String get blockedCantLike => 'Kamu tidak dapat menyukai konten ini';
+
+  @override
+  String get blockedCantComment => 'Kamu tidak dapat mengomentari konten ini';
 }

@@ -11936,4 +11936,147 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get waveTooMany => 'โบกมือบ่อยเกินไป ช้าลงหน่อยนะ!';
+
+  @override
+  String get aiTutorNoSummary => '(ไม่มีสรุป)';
+
+  @override
+  String vocabPackAllSaved(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'คำทั้ง $count คำอยู่ในคลังคำศัพท์ของคุณแล้ว',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String vocabPackAdded(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'เพิ่ม $count คำลงในคลังคำศัพท์แล้ว',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String vocabPackAddedSomeSaved(int count, int saved) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'เพิ่ม $count คำลงในคลังคำศัพท์แล้ว (บันทึกไว้แล้ว $saved คำ)',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get vocabPackNoExercises => 'ไม่มีแบบฝึกหัด';
+
+  @override
+  String vocabPackPractice(int count) {
+    return 'ฝึก ($count)';
+  }
+
+  @override
+  String get aiQuizPlayAgain => 'เล่นอีกครั้ง';
+
+  @override
+  String get aiLessonAskHint => 'ถามอะไรก็ได้เกี่ยวกับบทเรียนนี้...';
+
+  @override
+  String get aiLessonConceptHint => 'อยากให้อธิบายแนวคิดอะไร';
+
+  @override
+  String examTargetScoreHint(Object score) {
+    return 'เช่น $score';
+  }
+
+  @override
+  String get vocabWordAdded => 'เพิ่มคำแล้ว!';
+
+  @override
+  String get vocabWordAddFailed => 'เพิ่มคำไม่ได้';
+
+  @override
+  String get vocabEnterWordFirst => 'ใส่คำก่อน';
+
+  @override
+  String get vocabAiFilled => 'AI กรอกให้แล้ว!';
+
+  @override
+  String get vocabAiFillFailed => 'AI กรอกไม่สำเร็จ โปรดลองอีกครั้ง';
+
+  @override
+  String get authSendCodeFailed => 'ส่งรหัสยืนยันไม่สำเร็จ';
+
+  @override
+  String get authServerConfigError => 'เซิร์ฟเวอร์ตั้งค่าผิดพลาด โปรดติดต่อฝ่ายสนับสนุน';
+
+  @override
+  String get authAppleTokenFailed => 'ลงชื่อเข้าใช้ด้วย Apple ไม่ได้ โปรดลองอีกครั้ง';
+
+  @override
+  String get authRegistrationFailed => 'ลงทะเบียนไม่สำเร็จ';
+
+  @override
+  String get authEmailAlreadyExists => 'อีเมลนี้มีอยู่แล้ว โปรดใช้อีเมลอื่น';
+
+  @override
+  String get reportEvidenceAddFailed => 'เพิ่มรูปภาพไม่ได้';
+
+  @override
+  String reportEvidenceMaxFiles(int count) {
+    return 'สูงสุด $count ไฟล์ต่อรายงาน';
+  }
+
+  @override
+  String reportEvidenceFileTooLarge(Object name) {
+    return '$name ใหญ่เกินไป (สูงสุด 5 MB)';
+  }
+
+  @override
+  String get reportEvidenceTotalTooLarge => 'ขนาดรวมจะเกิน 25 MB';
+
+  @override
+  String get blockedContentUnavailableToYou => 'เนื้อหานี้ไม่พร้อมให้คุณดู';
+
+  @override
+  String blockedCantViewUserContent(Object name) {
+    return 'คุณดูเนื้อหาของ $name ไม่ได้';
+  }
+
+  @override
+  String get blockedCantViewThisUserContent => 'คุณดูเนื้อหาของผู้ใช้นี้ไม่ได้';
+
+  @override
+  String blockedCantViewUserProfile(Object name) {
+    return 'คุณดูโปรไฟล์ของ $name ไม่ได้';
+  }
+
+  @override
+  String get blockedProfileUnavailable => 'โปรไฟล์นี้ไม่พร้อมใช้งาน';
+
+  @override
+  String get blockedContentUnavailable => 'เนื้อหานี้ไม่พร้อมใช้งาน';
+
+  @override
+  String get blockedCantViewStories => 'คุณดูสตอรี่เหล่านี้ไม่ได้';
+
+  @override
+  String blockedCantMessageUser(Object name) {
+    return 'คุณส่งข้อความถึง $name ไม่ได้';
+  }
+
+  @override
+  String get blockedCantMessageThisUser => 'คุณส่งข้อความถึงผู้ใช้นี้ไม่ได้';
+
+  @override
+  String get blockedActionNotAllowed => 'คุณทำสิ่งนี้ไม่ได้';
+
+  @override
+  String get blockedCantLike => 'คุณกดถูกใจเนื้อหานี้ไม่ได้';
+
+  @override
+  String get blockedCantComment => 'คุณแสดงความคิดเห็นในเนื้อหานี้ไม่ได้';
 }

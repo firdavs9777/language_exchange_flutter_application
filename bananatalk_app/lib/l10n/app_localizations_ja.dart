@@ -11936,4 +11936,147 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get waveTooMany => '手を振りすぎです。少しペースを落としてください！';
+
+  @override
+  String get aiTutorNoSummary => '（要約なし）';
+
+  @override
+  String vocabPackAllSaved(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count語すべてが単語帳に登録済みです',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String vocabPackAdded(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '単語帳に$count語を追加しました',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String vocabPackAddedSomeSaved(int count, int saved) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '単語帳に$count語を追加しました（$saved語は登録済み）',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get vocabPackNoExercises => '練習問題なし';
+
+  @override
+  String vocabPackPractice(int count) {
+    return '練習する ($count)';
+  }
+
+  @override
+  String get aiQuizPlayAgain => 'もう一度プレイ';
+
+  @override
+  String get aiLessonAskHint => 'このレッスンについて何でも質問してください…';
+
+  @override
+  String get aiLessonConceptHint => '説明してほしい概念は何ですか？';
+
+  @override
+  String examTargetScoreHint(Object score) {
+    return '例: $score';
+  }
+
+  @override
+  String get vocabWordAdded => '単語を追加しました！';
+
+  @override
+  String get vocabWordAddFailed => '単語を追加できませんでした';
+
+  @override
+  String get vocabEnterWordFirst => 'まず単語を入力してください';
+
+  @override
+  String get vocabAiFilled => 'AIが入力しました！';
+
+  @override
+  String get vocabAiFillFailed => 'AIの入力に失敗しました。もう一度お試しください。';
+
+  @override
+  String get authSendCodeFailed => '認証コードを送信できませんでした';
+
+  @override
+  String get authServerConfigError => 'サーバー設定エラーです。サポートにお問い合わせください。';
+
+  @override
+  String get authAppleTokenFailed => 'Appleでサインインできませんでした。もう一度お試しください。';
+
+  @override
+  String get authRegistrationFailed => '登録に失敗しました';
+
+  @override
+  String get authEmailAlreadyExists => 'このメールアドレスは既に使われています。別のアドレスを使ってください。';
+
+  @override
+  String get reportEvidenceAddFailed => '写真を追加できませんでした';
+
+  @override
+  String reportEvidenceMaxFiles(int count) {
+    return '1件の通報につき最大$countファイル';
+  }
+
+  @override
+  String reportEvidenceFileTooLarge(Object name) {
+    return '$nameは大きすぎます（最大5MB）';
+  }
+
+  @override
+  String get reportEvidenceTotalTooLarge => '合計サイズが25MBを超えます';
+
+  @override
+  String get blockedContentUnavailableToYou => 'このコンテンツは表示できません。';
+
+  @override
+  String blockedCantViewUserContent(Object name) {
+    return '$nameさんのコンテンツは表示できません。';
+  }
+
+  @override
+  String get blockedCantViewThisUserContent => 'このユーザーのコンテンツは表示できません。';
+
+  @override
+  String blockedCantViewUserProfile(Object name) {
+    return '$nameさんのプロフィールは表示できません。';
+  }
+
+  @override
+  String get blockedProfileUnavailable => 'このプロフィールは表示できません。';
+
+  @override
+  String get blockedContentUnavailable => 'このコンテンツは表示できません。';
+
+  @override
+  String get blockedCantViewStories => 'これらのストーリーは表示できません。';
+
+  @override
+  String blockedCantMessageUser(Object name) {
+    return '$nameさんにはメッセージを送れません。';
+  }
+
+  @override
+  String get blockedCantMessageThisUser => 'このユーザーにはメッセージを送れません。';
+
+  @override
+  String get blockedActionNotAllowed => 'この操作はできません';
+
+  @override
+  String get blockedCantLike => 'このコンテンツにはいいねできません';
+
+  @override
+  String get blockedCantComment => 'このコンテンツにはコメントできません';
 }

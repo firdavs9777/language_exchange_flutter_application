@@ -11936,4 +11936,147 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get waveTooMany => 'Vẫy tay quá nhiều. Chậm lại nhé!';
+
+  @override
+  String get aiTutorNoSummary => '(không có tóm tắt)';
+
+  @override
+  String vocabPackAllSaved(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Cả $count từ đã có trong vốn từ của bạn',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String vocabPackAdded(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Đã thêm $count từ vào vốn từ của bạn',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String vocabPackAddedSomeSaved(int count, int saved) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Đã thêm $count từ vào vốn từ ($saved từ đã lưu trước đó)',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get vocabPackNoExercises => 'Không có bài tập';
+
+  @override
+  String vocabPackPractice(int count) {
+    return 'Luyện tập ($count)';
+  }
+
+  @override
+  String get aiQuizPlayAgain => 'Chơi lại';
+
+  @override
+  String get aiLessonAskHint => 'Hỏi bất cứ điều gì về bài học này...';
+
+  @override
+  String get aiLessonConceptHint => 'Bạn muốn giải thích khái niệm nào?';
+
+  @override
+  String examTargetScoreHint(Object score) {
+    return 'vd. $score';
+  }
+
+  @override
+  String get vocabWordAdded => 'Đã thêm từ!';
+
+  @override
+  String get vocabWordAddFailed => 'Không thêm được từ';
+
+  @override
+  String get vocabEnterWordFirst => 'Nhập một từ trước';
+
+  @override
+  String get vocabAiFilled => 'AI đã điền xong!';
+
+  @override
+  String get vocabAiFillFailed => 'AI điền thất bại. Vui lòng thử lại.';
+
+  @override
+  String get authSendCodeFailed => 'Không gửi được mã xác minh';
+
+  @override
+  String get authServerConfigError => 'Lỗi cấu hình máy chủ. Vui lòng liên hệ hỗ trợ.';
+
+  @override
+  String get authAppleTokenFailed => 'Không đăng nhập được bằng Apple. Vui lòng thử lại.';
+
+  @override
+  String get authRegistrationFailed => 'Đăng ký thất bại';
+
+  @override
+  String get authEmailAlreadyExists => 'Email đã tồn tại. Vui lòng dùng email khác.';
+
+  @override
+  String get reportEvidenceAddFailed => 'Không thêm được ảnh';
+
+  @override
+  String reportEvidenceMaxFiles(int count) {
+    return 'Tối đa $count tệp mỗi báo cáo';
+  }
+
+  @override
+  String reportEvidenceFileTooLarge(Object name) {
+    return '$name quá lớn (tối đa 5 MB)';
+  }
+
+  @override
+  String get reportEvidenceTotalTooLarge => 'Tổng dung lượng sẽ vượt quá 25 MB';
+
+  @override
+  String get blockedContentUnavailableToYou => 'Nội dung này không khả dụng với bạn.';
+
+  @override
+  String blockedCantViewUserContent(Object name) {
+    return 'Bạn không thể xem nội dung của $name.';
+  }
+
+  @override
+  String get blockedCantViewThisUserContent => 'Bạn không thể xem nội dung của người dùng này.';
+
+  @override
+  String blockedCantViewUserProfile(Object name) {
+    return 'Bạn không thể xem hồ sơ của $name.';
+  }
+
+  @override
+  String get blockedProfileUnavailable => 'Hồ sơ này không khả dụng.';
+
+  @override
+  String get blockedContentUnavailable => 'Nội dung này không khả dụng.';
+
+  @override
+  String get blockedCantViewStories => 'Bạn không thể xem các tin này.';
+
+  @override
+  String blockedCantMessageUser(Object name) {
+    return 'Bạn không thể gửi tin nhắn cho $name.';
+  }
+
+  @override
+  String get blockedCantMessageThisUser => 'Bạn không thể gửi tin nhắn cho người dùng này.';
+
+  @override
+  String get blockedActionNotAllowed => 'Bạn không thể thực hiện thao tác này';
+
+  @override
+  String get blockedCantLike => 'Bạn không thể thích nội dung này';
+
+  @override
+  String get blockedCantComment => 'Bạn không thể bình luận nội dung này';
 }

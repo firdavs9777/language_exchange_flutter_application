@@ -36,6 +36,7 @@ import 'package:bananatalk_app/providers/provider_models/location_modal.dart';
 import 'package:bananatalk_app/service/endpoints.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/pages/authentication/register/registration_steps.dart';
+import 'package:bananatalk_app/pages/authentication/post_login_error.dart';
 
 /// Multi-step registration wizard (Step 2 of 2).
 ///
@@ -301,13 +302,13 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
       } else {
         if (mounted) {
           setState(() => _isLoadingLanguages = false);
-          _showError('Failed to load languages');
+          _showError(AppLocalizations.of(context)!.failedToLoadLanguages);
         }
       }
     } catch (e) {
       if (mounted) {
         setState(() => _isLoadingLanguages = false);
-        _showError('Error loading languages');
+        _showError(AppLocalizations.of(context)!.failedToLoadLanguages);
       }
     }
   }
@@ -511,7 +512,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
 
     bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
-      _showError('Please enable location services');
+      _showError(AppLocalizations.of(context)!.locationServicesDisabled);
       return;
     }
 
@@ -519,12 +520,12 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-        _showError('Location permission denied');
+        _showError(AppLocalizations.of(context)!.locationPermissionDenied);
         return;
       }
     }
     if (permission == LocationPermission.deniedForever) {
-      _showError('Location permission permanently denied. Enable in Settings.');
+      _showError(AppLocalizations.of(context)!.locationPermissionPermanentlyDenied);
       return;
     }
 
@@ -801,13 +802,13 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
           }
         } else {
           setState(() => _isSubmitting = false);
-          _showError(response['message'] ?? 'Registration failed');
+          _showError(authResultMessage(AppLocalizations.of(context)!, response, fallback: AppLocalizations.of(context)!.authRegistrationFailed));
         }
       } catch (e) {
         setState(() => _isSubmitting = false);
-        String msg = 'An unknown error occurred';
+        var msg = AppLocalizations.of(context)!.somethingWentWrong;
         if (e.toString().contains('Duplicate field value')) {
-          msg = 'Email already exists. Please use a different email.';
+          msg = AppLocalizations.of(context)!.authEmailAlreadyExists;
         }
         _showError(msg);
       }

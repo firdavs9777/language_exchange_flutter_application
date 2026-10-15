@@ -11955,4 +11955,150 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get waveTooMany => 'बहुत सारे वेव। कृपया थोड़ा धीरे!';
+
+  @override
+  String get aiTutorNoSummary => '(कोई सारांश नहीं)';
+
+  @override
+  String vocabPackAllSaved(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'सभी $count शब्द पहले से आपकी शब्दावली में हैं',
+      one: 'यह शब्द पहले से आपकी शब्दावली में है',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String vocabPackAdded(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'आपकी शब्दावली में $count शब्द जोड़े गए',
+      one: 'आपकी शब्दावली में 1 शब्द जोड़ा गया',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String vocabPackAddedSomeSaved(int count, int saved) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'शब्दावली में $count शब्द जोड़े गए ($saved पहले से सहेजे हुए)',
+      one: 'शब्दावली में 1 शब्द जोड़ा गया ($saved पहले से सहेजे हुए)',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get vocabPackNoExercises => 'कोई अभ्यास नहीं';
+
+  @override
+  String vocabPackPractice(int count) {
+    return 'अभ्यास ($count)';
+  }
+
+  @override
+  String get aiQuizPlayAgain => 'फिर से खेलें';
+
+  @override
+  String get aiLessonAskHint => 'इस पाठ के बारे में कुछ भी पूछें...';
+
+  @override
+  String get aiLessonConceptHint => 'आप कौन सी अवधारणा समझना चाहते हैं?';
+
+  @override
+  String examTargetScoreHint(Object score) {
+    return 'जैसे $score';
+  }
+
+  @override
+  String get vocabWordAdded => 'शब्द जोड़ा गया!';
+
+  @override
+  String get vocabWordAddFailed => 'शब्द जोड़ा नहीं जा सका';
+
+  @override
+  String get vocabEnterWordFirst => 'पहले एक शब्द लिखें';
+
+  @override
+  String get vocabAiFilled => 'AI ने भर दिया!';
+
+  @override
+  String get vocabAiFillFailed => 'AI से भरना विफल रहा। कृपया फिर से कोशिश करें।';
+
+  @override
+  String get authSendCodeFailed => 'सत्यापन कोड भेजा नहीं जा सका';
+
+  @override
+  String get authServerConfigError => 'सर्वर कॉन्फ़िगरेशन त्रुटि। कृपया सहायता से संपर्क करें।';
+
+  @override
+  String get authAppleTokenFailed => 'Apple से साइन इन नहीं हो सका। कृपया फिर से कोशिश करें।';
+
+  @override
+  String get authRegistrationFailed => 'पंजीकरण विफल रहा';
+
+  @override
+  String get authEmailAlreadyExists => 'यह ईमेल पहले से मौजूद है। कृपया दूसरा ईमेल इस्तेमाल करें।';
+
+  @override
+  String get reportEvidenceAddFailed => 'फ़ोटो जोड़ी नहीं जा सकीं';
+
+  @override
+  String reportEvidenceMaxFiles(int count) {
+    return 'हर रिपोर्ट में अधिकतम $count फ़ाइलें';
+  }
+
+  @override
+  String reportEvidenceFileTooLarge(Object name) {
+    return '$name बहुत बड़ी है (अधिकतम 5 MB)';
+  }
+
+  @override
+  String get reportEvidenceTotalTooLarge => 'कुल आकार 25 MB से अधिक हो जाएगा';
+
+  @override
+  String get blockedContentUnavailableToYou => 'यह सामग्री आपके लिए उपलब्ध नहीं है।';
+
+  @override
+  String blockedCantViewUserContent(Object name) {
+    return 'आप $name की सामग्री नहीं देख सकते।';
+  }
+
+  @override
+  String get blockedCantViewThisUserContent => 'आप इस उपयोगकर्ता की सामग्री नहीं देख सकते।';
+
+  @override
+  String blockedCantViewUserProfile(Object name) {
+    return 'आप $name की प्रोफ़ाइल नहीं देख सकते।';
+  }
+
+  @override
+  String get blockedProfileUnavailable => 'यह प्रोफ़ाइल उपलब्ध नहीं है।';
+
+  @override
+  String get blockedContentUnavailable => 'यह सामग्री उपलब्ध नहीं है।';
+
+  @override
+  String get blockedCantViewStories => 'आप ये स्टोरी नहीं देख सकते।';
+
+  @override
+  String blockedCantMessageUser(Object name) {
+    return 'आप $name को संदेश नहीं भेज सकते।';
+  }
+
+  @override
+  String get blockedCantMessageThisUser => 'आप इस उपयोगकर्ता को संदेश नहीं भेज सकते।';
+
+  @override
+  String get blockedActionNotAllowed => 'आप यह कार्य नहीं कर सकते';
+
+  @override
+  String get blockedCantLike => 'आप इस सामग्री को पसंद नहीं कर सकते';
+
+  @override
+  String get blockedCantComment => 'आप इस सामग्री पर टिप्पणी नहीं कर सकते';
 }

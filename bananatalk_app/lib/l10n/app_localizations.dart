@@ -21829,6 +21829,222 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Too many waves. Please slow down!'**
   String get waveTooMany;
+
+  /// No description provided for @aiTutorNoSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'(no summary)'**
+  String get aiTutorNoSummary;
+
+  /// No description provided for @vocabPackAllSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{This word is already in your vocabulary} other{All {count} words are already in your vocabulary}}'**
+  String vocabPackAllSaved(int count);
+
+  /// No description provided for @vocabPackAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Added 1 word to your vocabulary} other{Added {count} words to your vocabulary}}'**
+  String vocabPackAdded(int count);
+
+  /// No description provided for @vocabPackAddedSomeSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Added 1 word to your vocabulary ({saved} already saved)} other{Added {count} words to your vocabulary ({saved} already saved)}}'**
+  String vocabPackAddedSomeSaved(int count, int saved);
+
+  /// No description provided for @vocabPackNoExercises.
+  ///
+  /// In en, this message translates to:
+  /// **'No exercises'**
+  String get vocabPackNoExercises;
+
+  /// No description provided for @vocabPackPractice.
+  ///
+  /// In en, this message translates to:
+  /// **'Practice ({count})'**
+  String vocabPackPractice(int count);
+
+  /// No description provided for @aiQuizPlayAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Play again'**
+  String get aiQuizPlayAgain;
+
+  /// No description provided for @aiLessonAskHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Ask anything about this lesson...'**
+  String get aiLessonAskHint;
+
+  /// No description provided for @aiLessonConceptHint.
+  ///
+  /// In en, this message translates to:
+  /// **'What concept do you want explained?'**
+  String get aiLessonConceptHint;
+
+  /// No description provided for @examTargetScoreHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. {score}'**
+  String examTargetScoreHint(Object score);
+
+  /// No description provided for @vocabWordAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'Word added!'**
+  String get vocabWordAdded;
+
+  /// No description provided for @vocabWordAddFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t add the word'**
+  String get vocabWordAddFailed;
+
+  /// No description provided for @vocabEnterWordFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a word first'**
+  String get vocabEnterWordFirst;
+
+  /// No description provided for @vocabAiFilled.
+  ///
+  /// In en, this message translates to:
+  /// **'AI filled in!'**
+  String get vocabAiFilled;
+
+  /// No description provided for @vocabAiFillFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'AI fill failed. Please try again.'**
+  String get vocabAiFillFailed;
+
+  /// No description provided for @authSendCodeFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to send verification code'**
+  String get authSendCodeFailed;
+
+  /// No description provided for @authServerConfigError.
+  ///
+  /// In en, this message translates to:
+  /// **'Server configuration error. Please contact support.'**
+  String get authServerConfigError;
+
+  /// No description provided for @authAppleTokenFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t sign in with Apple. Please try again.'**
+  String get authAppleTokenFailed;
+
+  /// No description provided for @authRegistrationFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Registration failed'**
+  String get authRegistrationFailed;
+
+  /// No description provided for @authEmailAlreadyExists.
+  ///
+  /// In en, this message translates to:
+  /// **'Email already exists. Please use a different email.'**
+  String get authEmailAlreadyExists;
+
+  /// No description provided for @reportEvidenceAddFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not add photos'**
+  String get reportEvidenceAddFailed;
+
+  /// No description provided for @reportEvidenceMaxFiles.
+  ///
+  /// In en, this message translates to:
+  /// **'Max {count} files per report'**
+  String reportEvidenceMaxFiles(int count);
+
+  /// No description provided for @reportEvidenceFileTooLarge.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} is too large (max 5 MB)'**
+  String reportEvidenceFileTooLarge(Object name);
+
+  /// No description provided for @reportEvidenceTotalTooLarge.
+  ///
+  /// In en, this message translates to:
+  /// **'Total size would exceed 25 MB'**
+  String get reportEvidenceTotalTooLarge;
+
+  /// No description provided for @blockedContentUnavailableToYou.
+  ///
+  /// In en, this message translates to:
+  /// **'This content is not available to you.'**
+  String get blockedContentUnavailableToYou;
+
+  /// No description provided for @blockedCantViewUserContent.
+  ///
+  /// In en, this message translates to:
+  /// **'You can\'t view {name}\'s content.'**
+  String blockedCantViewUserContent(Object name);
+
+  /// No description provided for @blockedCantViewThisUserContent.
+  ///
+  /// In en, this message translates to:
+  /// **'You can\'t view this user\'s content.'**
+  String get blockedCantViewThisUserContent;
+
+  /// No description provided for @blockedCantViewUserProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'You can\'t view {name}\'s profile.'**
+  String blockedCantViewUserProfile(Object name);
+
+  /// No description provided for @blockedProfileUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'This profile is not available.'**
+  String get blockedProfileUnavailable;
+
+  /// No description provided for @blockedContentUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'This content is not available.'**
+  String get blockedContentUnavailable;
+
+  /// No description provided for @blockedCantViewStories.
+  ///
+  /// In en, this message translates to:
+  /// **'You can\'t view these stories.'**
+  String get blockedCantViewStories;
+
+  /// No description provided for @blockedCantMessageUser.
+  ///
+  /// In en, this message translates to:
+  /// **'You can\'t send messages to {name}.'**
+  String blockedCantMessageUser(Object name);
+
+  /// No description provided for @blockedCantMessageThisUser.
+  ///
+  /// In en, this message translates to:
+  /// **'You can\'t send messages to this user.'**
+  String get blockedCantMessageThisUser;
+
+  /// No description provided for @blockedActionNotAllowed.
+  ///
+  /// In en, this message translates to:
+  /// **'You can\'t perform this action'**
+  String get blockedActionNotAllowed;
+
+  /// No description provided for @blockedCantLike.
+  ///
+  /// In en, this message translates to:
+  /// **'You can\'t like this content'**
+  String get blockedCantLike;
+
+  /// No description provided for @blockedCantComment.
+  ///
+  /// In en, this message translates to:
+  /// **'You can\'t comment on this content'**
+  String get blockedCantComment;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

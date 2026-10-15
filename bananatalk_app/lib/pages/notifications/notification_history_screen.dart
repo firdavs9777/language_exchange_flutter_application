@@ -776,7 +776,7 @@ class _NotificationHistoryScreenState
                             const SizedBox(width: 6),
                             Tooltip(
                               message:
-                                  notification.suppressedReason == 'quiet_hours'
+                                  notification.suppressedByQuietHours
                                   ? AppLocalizations.of(
                                       context,
                                     )!.silencedByQuietHours

@@ -141,7 +141,7 @@ class _WordCardState extends State<WordCard> {
                       : Icons.play_circle_outline_rounded,
                   color: context.primaryColor,
                 ),
-                tooltip: 'Listen',
+                tooltip: AppLocalizations.of(context)!.ttsListen,
               ),
             ],
           ),
