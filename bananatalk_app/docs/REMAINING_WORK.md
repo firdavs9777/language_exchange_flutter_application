@@ -246,7 +246,11 @@ Web ↔ app parity (spec `docs/superpowers/specs/2026-10-16-web-app-parity-desig
 - [ ] (build env) Android Studio's bundled JBR is now Java 25, which Gradle 8.11.1 cannot run on (`flutter build apk` fails in settings.gradle with "> 25.0.3"). Workaround used for the P2 gate: `cd android && JAVA_HOME=<openjdk@17> ./gradlew assembleDebug`. Fix: `flutter config --jdk-dir <openjdk@17>` (owner, machine-level) or a Gradle upgrade. S
 - [x] Phase 3: web bug fixes — all four units deployed 2026-10-16 (links, community, moments, chat; web suite 3,820 pass); backend message search fixed (500 → works). Native review of new web strings open.
 - [x] Phase 4: web features deployed dark 2026-10-16 — reels, gatherings/clubs, voice + language rooms, City/Genders tabs, Sign in with Apple (all behind web* flags, off); browser calls dropped by owner decision → website chats show "Call in the app" (live). Open: bundle budget over; native review of new web strings; backend voice-room speaker role/kick + raise-hand event names; city search ignores location.city.
-- [ ] Phase 5: owner steps — written up in `docs/ops/2026-10-16-web-hosting-steps.md` (www cert, nginx snippet, Play fingerprints, prod env checks, Apple Services ID, flags one at a time, AASA after 2.7.0, release-build JDK). S
+- [x] Phase 5 step 1 (2026-10-16): banatalk.com certificate now covers www (expires 2027-01-14); renewal dry-run OK for banatalk.com.
+- [x] Phase 5 step 2 (2026-10-16): website nginx config applied (www → apex 301, AASA as application/json, link-preview bots → api /og cards, dead-URL redirects); verified live. Backup on server in /root/nginx-banatalk-backup-*.conf.
+- [ ] **URGENT before 2026-10-29:** `cdn.banatalk.com` certificate (DigitalOcean Spaces CDN custom domain; DNS is at Namecheap so it can't auto-renew). New cert issued on the server but its key was exposed in a chat — re-issue with `certbot certonly --manual --preferred-challenges dns -d cdn.banatalk.com --force-renewal --new-key`, upload cert/key/chain to DO Spaces → CDN → custom domain. Media on cdn.banatalk.com breaks if it expires. Permanent fix: move banatalk.com DNS to DigitalOcean. S
+- [ ] flame.banatalk.com certificate expired 2026-08-16 and fails renewal — remove it if the site is dead. S
+- [ ] Phase 5 remaining owner steps —  in `docs/ops/2026-10-16-web-hosting-steps.md` (www cert, nginx snippet, Play fingerprints, prod env checks, Apple Services ID, flags one at a time, AASA after 2.7.0, release-build JDK). S
 
 ## 5. Decided / won't fix
 
