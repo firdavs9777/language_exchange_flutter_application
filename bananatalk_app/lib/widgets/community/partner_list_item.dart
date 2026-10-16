@@ -399,7 +399,7 @@ class PartnerListItem extends StatelessWidget {
   }
 
   Widget _buildLocationRow(BuildContext context) {
-    final locationText = PrivacyUtils.getLocationText(user);
+    final locationText = PrivacyUtils.getLocationText(user, locale: Localizations.localeOf(context));
 
     if (locationText.isEmpty) return const SizedBox.shrink();
 

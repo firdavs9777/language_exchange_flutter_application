@@ -496,7 +496,7 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
   Widget build(BuildContext context) {
     final calculatedAge = ageFrom(_community.birth_year, _community.birth_month, _community.birth_day);
     final age = PrivacyUtils.getAge(_community, calculatedAge);
-    final locationText = PrivacyUtils.getLocationText(_community);
+    final locationText = PrivacyUtils.getLocationText(_community, locale: Localizations.localeOf(context));
     final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(

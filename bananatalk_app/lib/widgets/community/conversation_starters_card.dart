@@ -128,7 +128,7 @@ class ConversationStartersCard extends ConsumerWidget {
     }
 
     // 3. Location-based (only if privacy allows)
-    final locationText = PrivacyUtils.getLocationText(profile);
+    final locationText = PrivacyUtils.getLocationText(profile, locale: Localizations.localeOf(context));
     if (locationText.isNotEmpty) {
       starters.add(StarterSuggestion(
         icon: '📍',

@@ -17,6 +17,7 @@ import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/pages/community/single/single_community_screen.dart';
 import 'package:bananatalk_app/pages/chat/conversation/chat_conversation_screen.dart';
 import 'package:bananatalk_app/utils/language_flags.dart';
+import 'package:bananatalk_app/utils/country_names.dart';
 import 'package:bananatalk_app/widgets/community/user_skeleton.dart';
 import 'package:bananatalk_app/services/location_service.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
@@ -68,6 +69,7 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
     if (p != null) return (latitude: p.latitude, longitude: p.longitude);
     return _profileCenter;
   }
+
   bool _locationLoading = true;
   bool _locationDenied = false;
   final LocationService _locationService = LocationService();
@@ -849,9 +851,9 @@ class _NearbyUserCardFromApi extends StatelessWidget {
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
-                          if (_getPrivacyLocationText() != null)
+                          if (_getPrivacyLocationText(context) != null)
                             Text(
-                              _getPrivacyLocationText()!,
+                              _getPrivacyLocationText(context)!,
                               style: TextStyle(
                                 color: Colors.white.withValues(alpha: 0.8),
                                 fontSize: 11,
@@ -992,12 +994,14 @@ class _NearbyUserCardFromApi extends StatelessWidget {
       LanguageFlags.getFlagByName(language);
 
   /// Returns location text respecting privacy settings, or null if hidden
-  String? _getPrivacyLocationText() {
+  String? _getPrivacyLocationText(BuildContext context) {
     final showCity = user.privacySettings?.showCity ?? true;
     final showCountry = user.privacySettings?.showCountryRegion ?? true;
 
     final city = showCity ? user.city : null;
-    final country = showCountry ? user.country : null;
+    final country = showCountry && user.country != null
+        ? CountryNames.of(context, user.country!)
+        : null;
 
     if (city != null && country != null) return '$city, $country';
     if (city != null) return city;

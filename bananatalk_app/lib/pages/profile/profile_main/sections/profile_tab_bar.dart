@@ -43,7 +43,7 @@ class ProfileTabBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final age = PrivacyUtils.getAge(user, calculatedAge);
-    final locationText = PrivacyUtils.getLocationText(user);
+    final locationText = PrivacyUtils.getLocationText(user, locale: Localizations.localeOf(context));
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),

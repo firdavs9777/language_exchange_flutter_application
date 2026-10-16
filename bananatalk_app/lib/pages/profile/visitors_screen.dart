@@ -10,6 +10,7 @@ import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart
 import 'package:bananatalk_app/widgets/masked_person_tile.dart';
 import 'package:flutter/services.dart';
 import 'package:bananatalk_app/utils/time_ago.dart';
+import 'package:bananatalk_app/utils/country_names.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/utils/string_sanitizer.dart';
 import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
@@ -675,7 +676,10 @@ class _ProfileVisitorsScreenState
         ? user['imageUrls'][0]
         : null;
     final city = user['city'] ?? '';
-    final country = user['country'] ?? '';
+    final String storedCountry = user['country'] ?? '';
+    final country = storedCountry.isEmpty
+        ? ''
+        : CountryNames.of(context, storedCountry);
     final nativeLanguage = user['native_language'] ?? '';
     final learningLanguage = user['language_to_learn'] ?? '';
 

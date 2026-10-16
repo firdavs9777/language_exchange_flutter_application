@@ -20,7 +20,10 @@ class SingleCommunityLocationCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final locationText = PrivacyUtils.getLocationText(community);
+    final locationText = PrivacyUtils.getLocationText(
+      community,
+      locale: Localizations.localeOf(context),
+    );
 
     final coordinates = community.location.coordinates;
     final hasCoords =

@@ -436,7 +436,10 @@ class SingleCommunityAbout extends ConsumerWidget {
         coordinates.length >= 2 &&
         (coordinates[0] != 0.0 || coordinates[1] != 0.0);
     final canShowMap = hasCoords && PrivacyUtils.shouldShowLocation(community);
-    final locationText = PrivacyUtils.getLocationText(community);
+    final locationText = PrivacyUtils.getLocationText(
+      community,
+      locale: Localizations.localeOf(context),
+    );
 
     // Nothing to show at all — no coords and no city/country text.
     if (!canShowMap && locationText.isEmpty) {

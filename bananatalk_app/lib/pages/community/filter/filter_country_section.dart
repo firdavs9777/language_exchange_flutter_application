@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/utils/country_names.dart';
 
 /// Complete list of all countries with flags (alphabetically sorted).
 const List<Map<String, String>> kAllCountries = [
@@ -216,6 +217,18 @@ String getCountryFlag(String? countryName) {
   return country['flag'] ?? '🌍';
 }
 
+/// The label to show for a stored (English) [countryName] in [locale].
+/// The stored value itself is what gets saved and sent; only this label
+/// is localized.
+String countryDisplayName(String countryName, Locale locale) {
+  for (final c in kAllCountries) {
+    if (c['name'] == countryName) {
+      return CountryNames.forCode(c['code'], locale) ?? countryName;
+    }
+  }
+  return CountryNames.display(countryName, locale);
+}
+
 /// Country selector card + auto-detect button.
 ///
 /// The auto-detect action and the open-picker action are callbacks so the
@@ -313,7 +326,12 @@ class FilterCountrySelector extends StatelessWidget {
                 ),
                 Expanded(
                   child: Text(
-                    selectedCountry ?? AppLocalizations.of(context)!.anyCountry,
+                    selectedCountry != null
+                        ? countryDisplayName(
+                            selectedCountry!,
+                            Localizations.localeOf(context),
+                          )
+                        : AppLocalizations.of(context)!.anyCountry,
                     style: context.titleMedium.copyWith(
                       color: selectedCountry != null
                           ? context.textPrimary
@@ -369,12 +387,31 @@ class CountryPickerSheet extends StatefulWidget {
 
 class _CountryPickerSheetState extends State<CountryPickerSheet> {
   final TextEditingController _searchController = TextEditingController();
+
+  /// [kAllCountries] entries plus a localized 'label', sorted by label.
+  /// 'name' (English) stays the value passed to [CountryPickerSheet.onSelect].
+  List<Map<String, String>> _countries = [];
   List<Map<String, String>> _filteredCountries = [];
+  Locale? _locale;
 
   @override
-  void initState() {
-    super.initState();
-    _filteredCountries = kAllCountries;
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final locale = Localizations.localeOf(context);
+    if (locale == _locale) return;
+    _locale = locale;
+    _countries =
+        [
+          for (final c in kAllCountries)
+            {
+              ...c,
+              'label': CountryNames.forCode(c['code'], locale) ?? c['name']!,
+            },
+        ]..sort(
+          (a, b) =>
+              a['label']!.toLowerCase().compareTo(b['label']!.toLowerCase()),
+        );
+    _applyFilter(_searchController.text);
   }
 
   @override
@@ -383,20 +420,22 @@ class _CountryPickerSheetState extends State<CountryPickerSheet> {
     super.dispose();
   }
 
+  void _applyFilter(String query) {
+    final q = query.trim().toLowerCase();
+    _filteredCountries = q.isEmpty
+        ? _countries
+        : _countries
+              .where(
+                (c) =>
+                    c['label']!.toLowerCase().contains(q) ||
+                    c['name']!.toLowerCase().contains(q) ||
+                    c['code']!.toLowerCase().contains(q),
+              )
+              .toList();
+  }
+
   void _filterCountries(String query) {
-    setState(() {
-      if (query.isEmpty) {
-        _filteredCountries = kAllCountries;
-      } else {
-        _filteredCountries = kAllCountries
-            .where(
-              (c) =>
-                  c['name']!.toLowerCase().contains(query.toLowerCase()) ||
-                  c['code']!.toLowerCase().contains(query.toLowerCase()),
-            )
-            .toList();
-      }
-    });
+    setState(() => _applyFilter(query));
   }
 
   @override
@@ -487,7 +526,7 @@ class _CountryPickerSheetState extends State<CountryPickerSheet> {
                     style: const TextStyle(fontSize: 28),
                   ),
                   title: Text(
-                    country['name']!,
+                    country['label']!,
                     style: context.titleSmall.copyWith(
                       fontWeight: isSelected
                           ? FontWeight.w600

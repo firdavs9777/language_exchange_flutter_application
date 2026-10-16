@@ -115,7 +115,10 @@ class ConversationUserInfoHeader extends ConsumerWidget {
 
         String? location;
         if (user != null) {
-          final locText = PrivacyUtils.getLocationText(user);
+          final locText = PrivacyUtils.getLocationText(
+            user,
+            locale: Localizations.localeOf(context),
+          );
           if (locText.isNotEmpty) location = locText;
         }
 

@@ -4,6 +4,7 @@ import 'package:bananatalk_app/pages/profile/edit/change_password_screen.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/utils/country_names.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/services/location_service.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
@@ -524,9 +525,9 @@ class _ProfileSettingsState extends ConsumerState<ProfileSettings> {
   Widget _buildContent(Community user, AppLocalizations l10n) {
     final locationText =
         user.location.city.isNotEmpty && user.location.country.isNotEmpty
-        ? '${user.location.city}, ${user.location.country}'
+        ? '${user.location.city}, ${CountryNames.of(context, user.location.country)}'
         : user.location.country.isNotEmpty
-        ? user.location.country
+        ? CountryNames.of(context, user.location.country)
         : l10n.locationNotAvailable;
     final hasLocation =
         user.location.city.isNotEmpty || user.location.country.isNotEmpty;

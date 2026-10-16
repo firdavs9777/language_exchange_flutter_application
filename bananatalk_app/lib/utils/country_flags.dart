@@ -296,13 +296,12 @@ class CountryFlags {
     );
   }
 
-  /// Flag emoji for a country display name, or `null` when the name
-  /// doesn't resolve — callers decide the fallback (identity badges fall
-  /// back to the native-language flag via [userBadgeFlag]).
+  /// ISO 3166-1 alpha-2 code for a country display name, or `null` when
+  /// the name doesn't resolve.
   ///
   /// Handles: case/whitespace, a trailing parenthetical
   /// ("Myanmar (Burma)" → also tried as "Myanmar"), and raw ISO-2 codes.
-  static String? getFlag(String? countryName) {
+  static String? isoCode(String? countryName) {
     if (countryName == null) return null;
     final trimmed = countryName.trim();
     if (trimmed.isEmpty) return null;
@@ -310,22 +309,29 @@ class CountryFlags {
     final lower = trimmed.toLowerCase();
 
     final direct = _nameToIso2[lower];
-    if (direct != null) return _iso2ToEmoji(direct);
+    if (direct != null) return direct;
 
     // "Name (Variant)" → try the part before the parenthetical.
     final parenIndex = lower.indexOf('(');
     if (parenIndex > 0) {
       final base = _nameToIso2[lower.substring(0, parenIndex).trim()];
-      if (base != null) return _iso2ToEmoji(base);
+      if (base != null) return base;
     }
 
     // Already an ISO-2 code? Accept only if it maps to a known country
     // (guards against 2-letter non-codes rendering as bogus flags).
-    if (lower.length == 2 && _nameToIso2.containsValue(lower.toUpperCase())) {
-      return _iso2ToEmoji(lower);
-    }
+    final upper = lower.toUpperCase();
+    if (lower.length == 2 && _nameToIso2.containsValue(upper)) return upper;
 
     return null;
+  }
+
+  /// Flag emoji for a country display name, or `null` when the name
+  /// doesn't resolve — callers decide the fallback (identity badges fall
+  /// back to the native-language flag via [userBadgeFlag]).
+  static String? getFlag(String? countryName) {
+    final iso = isoCode(countryName);
+    return iso == null ? null : _iso2ToEmoji(iso);
   }
 
   /// The flag for a user-identity avatar badge: the user's country flag

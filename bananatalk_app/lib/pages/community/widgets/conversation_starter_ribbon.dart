@@ -4,6 +4,7 @@ import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/utils/country_names.dart';
 
 class ConversationStarterRibbon extends StatelessWidget {
   final Community community;
@@ -30,7 +31,8 @@ class ConversationStarterRibbon extends StatelessWidget {
       l10n.starterAskMoment,
       l10n.starterSayHi,
       l10n.starterCurious,
-      if (country.isNotEmpty) l10n.starterFromCountry(country),
+      if (country.isNotEmpty)
+        l10n.starterFromCountry(CountryNames.of(context, country)),
       if (language.isNotEmpty) l10n.starterPracticeLang(language),
     ];
     if (candidates.isEmpty) return l10n.starterSayHi;

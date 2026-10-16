@@ -929,7 +929,7 @@ class _GenderUserCard extends StatelessWidget {
                     ),
                     Builder(
                       builder: (context) {
-                        final locationText = PrivacyUtils.getLocationText(user);
+                        final locationText = PrivacyUtils.getLocationText(user, locale: Localizations.localeOf(context));
                         if (locationText.isEmpty)
                           return const SizedBox.shrink();
                         return Padding(
