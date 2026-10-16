@@ -4651,5 +4651,10 @@
   "vipSwitchScheduledTitle": "Naka-iskedyul ang pagpalit ng plan",
   "vipSwitchScheduledBody": "Magsisimula ang bagong plan mo kapag natapos ang kasalukuyan. VIP ka pa rin hanggang doon.",
   "videoTooLongMax": "Masyadong mahaba ang video na ito. Ang limit ay {seconds} segundo.",
-  "momentAnsweringPrompt": "Sumasagot sa: {prompt}"
+  "momentAnsweringPrompt": "Sumasagot sa: {prompt}",
+  "referralHaveCode": "May code ng imbitasyon ka ba?",
+  "referralEnterCodeHint": "Code ng imbitasyon",
+  "referralApply": "Gamitin",
+  "referralCodeUnknown": "Walang ganyang code ng imbitasyon. Suriin ito at subukang muli.",
+  "referralCodeNotAccepted": "Hindi magagamit ang code ng imbitasyong ito sa account mo."
 }

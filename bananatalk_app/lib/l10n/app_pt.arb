@@ -4694,5 +4694,10 @@
   "vipSwitchScheduledTitle": "Mudança de plano agendada",
   "vipSwitchScheduledBody": "Seu novo plano começa quando o atual terminar. Você continua VIP até lá.",
   "videoTooLongMax": "Este vídeo é longo demais. O limite é de {seconds} segundos.",
-  "momentAnsweringPrompt": "Respondendo: {prompt}"
+  "momentAnsweringPrompt": "Respondendo: {prompt}",
+  "referralHaveCode": "Tem um código de convite?",
+  "referralEnterCodeHint": "Código de convite",
+  "referralApply": "Aplicar",
+  "referralCodeUnknown": "Esse código de convite não existe. Confira e tente novamente.",
+  "referralCodeNotAccepted": "Este código de convite não pode ser usado na sua conta."
 }

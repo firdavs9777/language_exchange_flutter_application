@@ -12294,4 +12294,19 @@ class AppLocalizationsId extends AppLocalizations {
   String momentAnsweringPrompt(String prompt) {
     return 'Menjawab: $prompt';
   }
+
+  @override
+  String get referralHaveCode => 'Punya kode undangan?';
+
+  @override
+  String get referralEnterCodeHint => 'Kode undangan';
+
+  @override
+  String get referralApply => 'Terapkan';
+
+  @override
+  String get referralCodeUnknown => 'Kode undangan itu tidak ada. Periksa lalu coba lagi.';
+
+  @override
+  String get referralCodeNotAccepted => 'Kode undangan ini tidak bisa dipakai di akunmu.';
 }

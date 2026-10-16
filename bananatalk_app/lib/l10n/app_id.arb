@@ -4678,5 +4678,10 @@
   "vipSwitchScheduledTitle": "Penggantian paket dijadwalkan",
   "vipSwitchScheduledBody": "Paket baru Anda dimulai saat paket saat ini berakhir. Anda tetap VIP sampai saat itu.",
   "videoTooLongMax": "Video ini terlalu panjang. Batasnya {seconds} detik.",
-  "momentAnsweringPrompt": "Menjawab: {prompt}"
+  "momentAnsweringPrompt": "Menjawab: {prompt}",
+  "referralHaveCode": "Punya kode undangan?",
+  "referralEnterCodeHint": "Kode undangan",
+  "referralApply": "Terapkan",
+  "referralCodeUnknown": "Kode undangan itu tidak ada. Periksa lalu coba lagi.",
+  "referralCodeNotAccepted": "Kode undangan ini tidak bisa dipakai di akunmu."
 }

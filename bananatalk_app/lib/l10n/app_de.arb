@@ -4918,5 +4918,10 @@
   "vipSwitchScheduledTitle": "Tarifwechsel geplant",
   "vipSwitchScheduledBody": "Dein neuer Tarif beginnt, wenn dein aktueller Tarif endet. Bis dahin bleibst du VIP.",
   "videoTooLongMax": "Dieses Video ist zu lang. Das Limit liegt bei {seconds} Sekunden.",
-  "momentAnsweringPrompt": "Antwort auf: {prompt}"
+  "momentAnsweringPrompt": "Antwort auf: {prompt}",
+  "referralHaveCode": "Hast du einen Einladungscode?",
+  "referralEnterCodeHint": "Einladungscode",
+  "referralApply": "Einlösen",
+  "referralCodeUnknown": "Diesen Einladungscode gibt es nicht. Prüfe ihn und versuche es erneut.",
+  "referralCodeNotAccepted": "Dieser Einladungscode kann für dein Konto nicht verwendet werden."
 }

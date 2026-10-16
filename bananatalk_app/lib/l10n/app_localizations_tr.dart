@@ -12301,4 +12301,19 @@ class AppLocalizationsTr extends AppLocalizations {
   String momentAnsweringPrompt(String prompt) {
     return 'Yanıt: $prompt';
   }
+
+  @override
+  String get referralHaveCode => 'Davet kodun var mı?';
+
+  @override
+  String get referralEnterCodeHint => 'Davet kodu';
+
+  @override
+  String get referralApply => 'Uygula';
+
+  @override
+  String get referralCodeUnknown => 'Böyle bir davet kodu yok. Kontrol edip tekrar dene.';
+
+  @override
+  String get referralCodeNotAccepted => 'Bu davet kodu hesabında kullanılamaz.';
 }

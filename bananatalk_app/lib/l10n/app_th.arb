@@ -4678,5 +4678,10 @@
   "vipSwitchScheduledTitle": "กำหนดการเปลี่ยนแพ็กเกจแล้ว",
   "vipSwitchScheduledBody": "แพ็กเกจใหม่จะเริ่มเมื่อแพ็กเกจปัจจุบันสิ้นสุด คุณยังเป็น VIP จนถึงตอนนั้น",
   "videoTooLongMax": "วิดีโอนี้ยาวเกินไป จำกัดไว้ที่ {seconds} วินาที",
-  "momentAnsweringPrompt": "ตอบคำถาม: {prompt}"
+  "momentAnsweringPrompt": "ตอบคำถาม: {prompt}",
+  "referralHaveCode": "มีรหัสเชิญไหม?",
+  "referralEnterCodeHint": "รหัสเชิญ",
+  "referralApply": "ใช้",
+  "referralCodeUnknown": "ไม่มีรหัสเชิญนี้ ตรวจสอบแล้วลองอีกครั้ง",
+  "referralCodeNotAccepted": "ใช้รหัสเชิญนี้กับบัญชีของคุณไม่ได้"
 }

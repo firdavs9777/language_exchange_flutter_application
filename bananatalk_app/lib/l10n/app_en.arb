@@ -8269,5 +8269,25 @@
         "type": "String"
       }
     }
+  },
+  "referralHaveCode": "Have an invite code?",
+  "@referralHaveCode": {
+    "description": "Title of the invite-code entry card on the Invite friends screen (accounts under 14 days old)"
+  },
+  "referralEnterCodeHint": "Invite code",
+  "@referralEnterCodeHint": {
+    "description": "Hint in the invite-code text field"
+  },
+  "referralApply": "Apply",
+  "@referralApply": {
+    "description": "Button that claims the typed invite code"
+  },
+  "referralCodeUnknown": "That invite code doesn't exist. Check it and try again.",
+  "@referralCodeUnknown": {
+    "description": "Error under the invite-code field: the code matches no user (or is not a valid code)"
+  },
+  "referralCodeNotAccepted": "This invite code can't be used on your account.",
+  "@referralCodeNotAccepted": {
+    "description": "Error under the invite-code field: server refused (already used a code, own code, account too old, inviter at limit)"
   }
 }

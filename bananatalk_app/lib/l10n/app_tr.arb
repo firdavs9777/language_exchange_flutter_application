@@ -4890,5 +4890,10 @@
   "vipSwitchScheduledTitle": "Plan değişikliği planlandı",
   "vipSwitchScheduledBody": "Yeni planın mevcut planın bittiğinde başlar. O zamana kadar VIP kalırsın.",
   "videoTooLongMax": "Bu video çok uzun. Sınır {seconds} saniye.",
-  "momentAnsweringPrompt": "Yanıt: {prompt}"
+  "momentAnsweringPrompt": "Yanıt: {prompt}",
+  "referralHaveCode": "Davet kodun var mı?",
+  "referralEnterCodeHint": "Davet kodu",
+  "referralApply": "Uygula",
+  "referralCodeUnknown": "Böyle bir davet kodu yok. Kontrol edip tekrar dene.",
+  "referralCodeNotAccepted": "Bu davet kodu hesabında kullanılamaz."
 }

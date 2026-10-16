@@ -4692,5 +4692,10 @@
   "vipSwitchScheduledTitle": "方案变更已安排",
   "vipSwitchScheduledBody": "新方案将在当前方案结束时开始。在此之前你仍是 VIP。",
   "videoTooLongMax": "视频太长了。最长 {seconds} 秒。",
-  "momentAnsweringPrompt": "回答：{prompt}"
+  "momentAnsweringPrompt": "回答：{prompt}",
+  "referralHaveCode": "有邀请码吗？",
+  "referralEnterCodeHint": "邀请码",
+  "referralApply": "使用",
+  "referralCodeUnknown": "该邀请码不存在，请检查后重试。",
+  "referralCodeNotAccepted": "此邀请码无法用于你的账号。"
 }

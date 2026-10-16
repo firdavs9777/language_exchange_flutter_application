@@ -4918,5 +4918,10 @@
   "vipSwitchScheduledTitle": "Cambio piano programmato",
   "vipSwitchScheduledBody": "Il nuovo piano inizia quando finisce quello attuale. Fino ad allora resti VIP.",
   "videoTooLongMax": "Questo video è troppo lungo. Il limite è di {seconds} secondi.",
-  "momentAnsweringPrompt": "In risposta a: {prompt}"
+  "momentAnsweringPrompt": "In risposta a: {prompt}",
+  "referralHaveCode": "Hai un codice invito?",
+  "referralEnterCodeHint": "Codice invito",
+  "referralApply": "Applica",
+  "referralCodeUnknown": "Questo codice invito non esiste. Controllalo e riprova.",
+  "referralCodeNotAccepted": "Questo codice invito non può essere usato sul tuo account."
 }

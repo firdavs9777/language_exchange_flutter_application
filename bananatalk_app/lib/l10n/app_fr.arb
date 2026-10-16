@@ -4918,5 +4918,10 @@
   "vipSwitchScheduledTitle": "Changement de formule programmé",
   "vipSwitchScheduledBody": "Votre nouvelle formule commence à la fin de la formule actuelle. Vous restez VIP jusque-là.",
   "videoTooLongMax": "Cette vidéo est trop longue. La limite est de {seconds} secondes.",
-  "momentAnsweringPrompt": "En réponse à : {prompt}"
+  "momentAnsweringPrompt": "En réponse à : {prompt}",
+  "referralHaveCode": "Vous avez un code d'invitation ?",
+  "referralEnterCodeHint": "Code d'invitation",
+  "referralApply": "Appliquer",
+  "referralCodeUnknown": "Ce code d'invitation n'existe pas. Vérifiez-le et réessayez.",
+  "referralCodeNotAccepted": "Ce code d'invitation ne peut pas être utilisé sur votre compte."
 }

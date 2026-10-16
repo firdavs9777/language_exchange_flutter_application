@@ -12283,4 +12283,19 @@ class AppLocalizationsTh extends AppLocalizations {
   String momentAnsweringPrompt(String prompt) {
     return 'ตอบคำถาม: $prompt';
   }
+
+  @override
+  String get referralHaveCode => 'มีรหัสเชิญไหม?';
+
+  @override
+  String get referralEnterCodeHint => 'รหัสเชิญ';
+
+  @override
+  String get referralApply => 'ใช้';
+
+  @override
+  String get referralCodeUnknown => 'ไม่มีรหัสเชิญนี้ ตรวจสอบแล้วลองอีกครั้ง';
+
+  @override
+  String get referralCodeNotAccepted => 'ใช้รหัสเชิญนี้กับบัญชีของคุณไม่ได้';
 }

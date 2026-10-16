@@ -12400,4 +12400,19 @@ class AppLocalizationsAr extends AppLocalizations {
   String momentAnsweringPrompt(String prompt) {
     return 'إجابة على: $prompt';
   }
+
+  @override
+  String get referralHaveCode => 'هل لديك رمز دعوة؟';
+
+  @override
+  String get referralEnterCodeHint => 'رمز الدعوة';
+
+  @override
+  String get referralApply => 'تطبيق';
+
+  @override
+  String get referralCodeUnknown => 'رمز الدعوة هذا غير موجود. تحقق منه وحاول مرة أخرى.';
+
+  @override
+  String get referralCodeNotAccepted => 'لا يمكن استخدام رمز الدعوة هذا على حسابك.';
 }

@@ -3,6 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/pages/profile/referral_invite_code_card.dart';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart'
+    show userProvider;
 import 'package:bananatalk_app/services/referral_service.dart';
 
 class ReferralScreen extends ConsumerStatefulWidget {
@@ -28,6 +31,9 @@ class _ReferralScreenState extends ConsumerState<ReferralScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final me = ref.watch(userProvider).valueOrNull;
+    final showInviteEntry =
+        me != null && canEnterInviteCode(me.createdAt, DateTime.now());
     return Scaffold(
       appBar: AppBar(title: Text(l10n.referralTitle)),
       body: FutureBuilder<ReferralInfo>(
@@ -50,6 +56,10 @@ class _ReferralScreenState extends ConsumerState<ReferralScreen> {
           return ListView(
             padding: const EdgeInsets.all(24),
             children: [
+              if (showInviteEntry) ...[
+                const InviteCodeEntryCard(),
+                const SizedBox(height: 24),
+              ],
               Text(l10n.referralHowItWorks, textAlign: TextAlign.center),
               const SizedBox(height: 24),
               Text(

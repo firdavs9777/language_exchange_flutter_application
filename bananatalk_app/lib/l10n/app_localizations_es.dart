@@ -12313,4 +12313,19 @@ class AppLocalizationsEs extends AppLocalizations {
   String momentAnsweringPrompt(String prompt) {
     return 'Respondiendo: $prompt';
   }
+
+  @override
+  String get referralHaveCode => '¿Tienes un código de invitación?';
+
+  @override
+  String get referralEnterCodeHint => 'Código de invitación';
+
+  @override
+  String get referralApply => 'Aplicar';
+
+  @override
+  String get referralCodeUnknown => 'Ese código de invitación no existe. Revísalo e inténtalo de nuevo.';
+
+  @override
+  String get referralCodeNotAccepted => 'Este código de invitación no se puede usar en tu cuenta.';
 }

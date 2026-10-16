@@ -12283,4 +12283,19 @@ class AppLocalizationsJa extends AppLocalizations {
   String momentAnsweringPrompt(String prompt) {
     return 'お題への回答: $prompt';
   }
+
+  @override
+  String get referralHaveCode => '招待コードをお持ちですか？';
+
+  @override
+  String get referralEnterCodeHint => '招待コード';
+
+  @override
+  String get referralApply => '適用';
+
+  @override
+  String get referralCodeUnknown => 'その招待コードは存在しません。確認してもう一度お試しください。';
+
+  @override
+  String get referralCodeNotAccepted => 'この招待コードはお使いのアカウントでは使用できません。';
 }

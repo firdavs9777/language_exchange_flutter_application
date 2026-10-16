@@ -22357,6 +22357,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Answering: {prompt}'**
   String momentAnsweringPrompt(String prompt);
+
+  /// Title of the invite-code entry card on the Invite friends screen (accounts under 14 days old)
+  ///
+  /// In en, this message translates to:
+  /// **'Have an invite code?'**
+  String get referralHaveCode;
+
+  /// Hint in the invite-code text field
+  ///
+  /// In en, this message translates to:
+  /// **'Invite code'**
+  String get referralEnterCodeHint;
+
+  /// Button that claims the typed invite code
+  ///
+  /// In en, this message translates to:
+  /// **'Apply'**
+  String get referralApply;
+
+  /// Error under the invite-code field: the code matches no user (or is not a valid code)
+  ///
+  /// In en, this message translates to:
+  /// **'That invite code doesn\'t exist. Check it and try again.'**
+  String get referralCodeUnknown;
+
+  /// Error under the invite-code field: server refused (already used a code, own code, account too old, inviter at limit)
+  ///
+  /// In en, this message translates to:
+  /// **'This invite code can\'t be used on your account.'**
+  String get referralCodeNotAccepted;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

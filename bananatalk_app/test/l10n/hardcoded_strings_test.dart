@@ -802,6 +802,12 @@ const Map<String, List<String>> _keysByTask = {
   // moment cards / detail / composer.
   'moments-stories-audit': [
     'momentAnsweringPrompt',
+  ],  'web-parity-p2': [
+    'referralHaveCode',
+    'referralEnterCodeHint',
+    'referralApply',
+    'referralCodeUnknown',
+    'referralCodeNotAccepted',
   ],
 };
 
@@ -1082,6 +1088,7 @@ const Map<String, List<String>> _filesByTask = {
   ],
   'web-parity-p2': [
     'pages/stories/viewer/story_link_screen.dart',
+    'pages/profile/referral_invite_code_card.dart',
   ],
 };
 
