@@ -172,7 +172,7 @@ Bug-fix wave 2026-10-15 (from the full regression suite + two adversarial audits
 - [ ] STUDY_VIP_ONLY_FEATURES on speak/writing/quizzes: those screens use raw http, so a lock shows the server message, not the upgrade sheet. S
 - [ ] Android plan switching (ChangeSubscriptionParam) not built — a VIP can't change plan in-app (double-buy is blocked). S–M
 - [ ] Restore also recovers an unconsumed Android coin pack (credited once by the ledger) — keep or restrict to subscriptions. S
-- [ ] iOS restore skips clearly lapsed subscriptions by heuristic until the backend expired-receipt fix is deployed (sandbox can't tell). S
+- [x] iOS restore skips clearly lapsed subscriptions by heuristic — kept as a pre-check now that the backend refuses expired receipts (deployed 479b2d2); comments updated. S
 - [ ] Old app builds posting a photo-only comment now get a 400 instead of a blank comment (after the backend deploy). Accepted. 
 - [x] (backend 9a1acef, deploys with the next backend push) Partners waves via /community/wave don't write the UserInteraction wave record, so a waved user can reappear in Partners later (re-wave gets "already waved"). S
 - [x] Tidy after merge: removed the now-unused `_setupCallListeners` / `_handleCallError` from chat_conversation_screen.dart and `setupCallListeners`/`handleCallError` in message_action_handlers.dart. S

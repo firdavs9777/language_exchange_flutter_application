@@ -88,11 +88,11 @@ class PurchaseRestorer {
   /// Length of one billing period for a VIP product.
   final Duration? Function(String productId) planPeriod;
 
-  /// iOS restores return lapsed subscriptions too (every past transaction),
-  /// and the backend treats an expired iOS receipt as a fresh activation, so
-  /// the client skips subscriptions whose last period clearly ended. Google
-  /// Play only returns subscriptions the user still owns, so Android leaves
-  /// this off.
+  /// iOS restores return lapsed subscriptions too (every past transaction).
+  /// The backend refuses expired iOS receipts (since 479b2d2), so this only
+  /// saves a verify that would fail: subscriptions whose last period clearly
+  /// ended are skipped. Google Play only returns subscriptions the user still
+  /// owns, so Android leaves this off.
   final bool checkExpiry;
   final Duration grace;
   final DateTime Function() now;
@@ -109,8 +109,8 @@ class PurchaseRestorer {
         restored.where((p) => vipProductIds.contains(p.productId)).toList();
     if (subs.isEmpty) return RestoreOutcome.nothingToRestore;
 
-    // The backend extends an active subscription by a full period on every
-    // verify call, so an active VIP must not re-verify.
+    // An active VIP has nothing to restore (older backends also extended the
+    // subscription on every verify call).
     bool active = false;
     try {
       active = await isVipActive();
@@ -131,7 +131,6 @@ class PurchaseRestorer {
   }
 
   /// Exactly one subscription is verified: the most recently renewed one.
-  /// Each extra verify would extend VIP again on the server.
   RestoredPurchase? _pickCandidate(List<RestoredPurchase> subs) {
     if (subs.isEmpty) return null;
     final sorted = [...subs]..sort((a, b) {
