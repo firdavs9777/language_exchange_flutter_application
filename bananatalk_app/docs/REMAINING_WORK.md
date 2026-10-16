@@ -200,7 +200,7 @@ Later, gated on dashboard numbers (no work until then)
 - Guides reach only accounts in the 7-day guide period; revisit if the goal becomes reactivating dormant accounts.
 
 Web ↔ app parity (spec `docs/superpowers/specs/2026-10-16-web-app-parity-design.md`, audits in `docs/audits/2026-10-16-web-parity/`)
-- [ ] Phase 0: web repo — 23 unpushed commits as one commit, tests restored, pushed. S
+- [x] Phase 0: web repo — 23 unpushed commits as one commit (web fba6208), tests restored (3,190 pass), pushed + deployed 2026-10-16.
 - [ ] Phase 1: backend — profile visibility helper, blocks, chat contract, story/moment fixes, voice-note AAC transcode, email links, web-feature endpoints + flags. L
 - [ ] Phase 2: app — story/QR links, Flutter deep linking off, /chat links, text-story stickers, moments branch merge, invite code entry. M
 - [ ] Phase 3: web bug fixes — chat, moments, community, links. L
