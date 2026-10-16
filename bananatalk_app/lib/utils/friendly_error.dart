@@ -55,18 +55,69 @@ ErrorKind classifyError(Object? error) {
 /// than "something went wrong" — a failed follow, say. It is used only for
 /// non-network failures; a dropped connection always reports as one.
 ///
-/// A caller holding a message the SERVER wrote ("this club is full", "you
-/// already removed this word") should pass it as [fallback]. This function
-/// cannot tell a server's sentence from an exception dump, so it treats
-/// everything unrecognised as opaque — which would throw away exactly the
-/// refusals worth reading. The caller knows which it has; this does not.
+/// Without a [fallback], a non-network failure that reads like a sentence our
+/// backend wrote ("this club is full", "you already removed this word") is
+/// shown as-is — see [serverMessageOf]. Anything else becomes the generic
+/// localized "something went wrong".
+///
+/// [prefix] is for screens that used to show `'$failedToUpdate: $e'`: a
+/// server sentence keeps the prefix in front of it ("Failed to update: Name
+/// is too long"), and an opaque failure shows the prefix alone.
 String friendlyErrorMessage(
   AppLocalizations l10n,
   Object? error, {
   String? fallback,
+  String? prefix,
 }) {
-  return switch (classifyError(error)) {
-    ErrorKind.offline => l10n.noInternetConnection,
-    ErrorKind.unknown => fallback ?? l10n.somethingWentWrong,
-  };
+  if (classifyError(error) == ErrorKind.offline) {
+    return l10n.noInternetConnection;
+  }
+  if (fallback != null) return fallback;
+  final server = serverMessageOf(error);
+  if (prefix != null) return server == null ? prefix : '$prefix: $server';
+  return server ?? l10n.somethingWentWrong;
+}
+
+/// The human-readable sentence inside [error], or null when there is none.
+///
+/// Services mostly `throw Exception(body['message'] ?? 'Failed to ...')`, so
+/// a refusal from the server reaches the UI as `Exception: This club is
+/// full` — worth showing once the prefix is gone. What must NOT reach a user
+/// is everything else that travels the same road: re-wrapped chains
+/// (`Failed to update: Exception: ...`), JSON bodies, HTML error pages, Dart
+/// type errors. This is a conservative guess: when in doubt it says null and
+/// the caller shows its generic message.
+String? serverMessageOf(Object? error) {
+  if (error == null) return null;
+  String text;
+  if (error is Map) {
+    final value = error['message'] ?? error['error'];
+    if (value is! String) return null;
+    text = value;
+  } else if (error is Error || error is FormatException) {
+    // Programming errors (type casts, null checks, bad state) and parse
+    // failures never carry a sentence meant for a user.
+    return null;
+  } else {
+    text = error.toString();
+  }
+
+  text = text.trim();
+  while (text.startsWith('Exception:')) {
+    text = text.substring('Exception:'.length).trim();
+  }
+  if (text.isEmpty || text.length > 200) return null;
+  if (!RegExp(r'[A-Za-zÀ-￿]').hasMatch(text)) return null;
+
+  final lower = text.toLowerCase();
+  const opaqueMarkers = [
+    '{', '}', '[', '<', '\n', ': ', '#0', //
+    'exception', 'error:', 'subtype', 'null check', 'nosuchmethod',
+    'instance of', 'dart:', 'package:', 'http://', 'https://',
+    'statuscode', 'status code', 'bad state', 'stack',
+  ];
+  for (final marker in opaqueMarkers) {
+    if (lower.contains(marker)) return null;
+  }
+  return text;
 }
