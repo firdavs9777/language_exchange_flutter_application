@@ -34,10 +34,9 @@ void main() {
     // (offline vs. everything else); an English "Network error: " /
     // "Error: " prefix in front of it was shown verbatim by screens that
     // echoed the string, and called a JSON parse failure a network error.
-    // vip_service (owned by the VIP work) and admin_provider (admin-only
-    // screens that show raw text on purpose) are the known exceptions.
+    // admin_provider (admin-only screens that show raw text on purpose) is
+    // the known exception.
     const allowed = {
-      'lib/services/vip_service.dart',
       'lib/providers/provider_root/admin_provider.dart',
     };
     final pattern = RegExp(r"'(Network error|Error): \$\{?e\b");

@@ -243,8 +243,8 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
         ref.read(purchaseErrorProvider.notifier).state = verifyResult['error'];
         _showErrorDialog(
           AppLocalizations.of(context)!.vipErrorVerifyTitle,
-          verifyResult['error'] ??
-              AppLocalizations.of(context)!.vipErrorVerifyServer,
+          _errorText(verifyResult['error'],
+              AppLocalizations.of(context)!.vipErrorVerifyServer),
         );
       }
     } catch (e) {
@@ -435,8 +435,8 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
         ref.read(purchaseErrorProvider.notifier).state = verifyResult['error'];
         _showErrorDialog(
           AppLocalizations.of(context)!.vipErrorVerifyTitle,
-          verifyResult['error'] ??
-              AppLocalizations.of(context)!.vipErrorVerifyServer,
+          _errorText(verifyResult['error'],
+              AppLocalizations.of(context)!.vipErrorVerifyServer),
         );
       }
     } catch (e) {
@@ -503,7 +503,8 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
     } else {
       _showErrorDialog(
         AppLocalizations.of(context)!.vipErrorPaymentFailed,
-        result['error'] ?? AppLocalizations.of(context)!.vipErrorPaymentFailed,
+        _errorText(result['error'],
+            AppLocalizations.of(context)!.vipErrorPaymentFailed),
       );
     }
   }
@@ -569,6 +570,15 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
   /// Payment-error diagnostics for developer builds ([kDebugMode] only).
   String _debugInfo() =>
       'Debug Info:\nUser ID: ${widget.userId}\nPlan: ${widget.plan.name}\nPayment: $selectedPaymentMethod';
+
+  /// Offline → "no connection"; a clean server sentence is kept; anything
+  /// raw (exceptions, JSON) → [generic].
+  String _errorText(Object? error, String generic) {
+    final l10n = AppLocalizations.of(context)!;
+    if (error == null) return generic;
+    if (classifyError(error) == ErrorKind.offline) return l10n.noInternetConnection;
+    return serverMessageOf(error) ?? generic;
+  }
 
   void _showErrorDialog(String title, String message) {
     showDialog(
