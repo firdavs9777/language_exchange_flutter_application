@@ -5,7 +5,6 @@
 // it needs through named parameters so the orchestrator (chat_conversation_screen.dart)
 // can call it in a single line.
 
-import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
@@ -278,39 +277,4 @@ void handleDeleteFailedMessage({
     message: AppLocalizations.of(context)!.messageDeleted,
     type: ChatSnackBarType.success,
   );
-}
-
-// ---------------------------------------------------------------------------
-// handleCallError
-// ---------------------------------------------------------------------------
-
-void handleCallError({required BuildContext context, required String error}) {
-  if (error.startsWith('PERMANENTLY_DENIED:')) {
-    final message = error.substring('PERMANENTLY_DENIED:'.length);
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(AppLocalizations.of(context)!.permissionsRequired),
-        content: Text(message),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text(AppLocalizations.of(context)!.cancel),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-              AppSettings.openAppSettings();
-            },
-            child: Text(AppLocalizations.of(context)!.openSettings),
-          ),
-        ],
-      ),
-    );
-  } else if (error.startsWith('DENIED:')) {
-    final message = error.substring('DENIED:'.length);
-    showChatSnackBar(context, message: message, type: ChatSnackBarType.info);
-  } else {
-    showChatSnackBar(context, message: error, type: ChatSnackBarType.error);
-  }
 }

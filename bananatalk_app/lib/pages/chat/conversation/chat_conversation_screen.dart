@@ -50,7 +50,6 @@ import 'package:bananatalk_app/services/ad_service.dart';
 import 'package:bananatalk_app/pages/chat/conversation/conversation_input_area.dart';
 import 'package:bananatalk_app/pages/chat/conversation/handlers/message_action_handlers.dart';
 import 'package:bananatalk_app/pages/chat/conversation/sections/conversation_scroll_helpers.dart';
-import 'package:bananatalk_app/pages/chat/conversation/sections/conversation_setup.dart';
 import 'package:bananatalk_app/utils/haptic_utils.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/pages/chat/wallpaper/premium_wallpapers.dart';
@@ -141,7 +140,6 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     _initializeAnimations();
     _loadCurrentUser();
     _loadChatWallpaper();
-    _setupCallListeners();
     _setupScrollListener();
     _setupThemeChangeListener();
     // Priming moved: first live incoming message (listener in build) and first
@@ -614,15 +612,6 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       }
     });
   }
-
-  /// Registers call-error callback.
-  /// Delegates to [setupCallListeners] in conversation_setup.dart.
-  void _setupCallListeners() => setupCallListeners(
-    ref: ref,
-    onCallError: (error) {
-      if (mounted) _handleCallError(context, error);
-    },
-  );
 
   @override
   void didChangeDependencies() {
@@ -1879,10 +1868,6 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       chatPartnerId: widget.userId,
       currentUserId: _currentUserId!,
     );
-  }
-
-  void _handleCallError(BuildContext context, String error) {
-    handleCallError(context: context, error: error);
   }
 
   @override

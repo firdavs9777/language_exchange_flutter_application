@@ -163,10 +163,10 @@ Bug-fix wave 2026-10-15 (from the full regression suite + two adversarial audits
 - [x] Community: Matches tab Retry on failure; skips hidden all day (backend filters skips); Partners wave uses /community/wave; Nearby browse-by-city loads + empty state can widen radius; Waves archive from an empty inbox (RTL-aware); "N live" opens voice rooms.
 - [x] AI Study: listening station options distinct/shuffled and graded by word (backend grades 2.6.1 payloads correctly too); tutor send/start failures keep text + Retry; placement retry/no 9th answer/back; persona sheet localized + quota refresh + analytics once; weekly report error+retry; language pick refreshes the hub; Speak tile ungated; Vocab Packs for every target language; STUDY_VIP_ONLY_FEATURES enforced server-side.
 - [x] Calls: one app-level call-error presenter; self-view mirrored only on the front camera; Android keeps BT/wired headsets on video calls (speaker only without a headset); BLUETOOTH_CONNECT requested with the mic (denial never blocks); a11y labels on call buttons; call strings + native CallKit labels localized.
-- [ ] **Deploy the backend fixes** (backend repo REMAINING_WORK has the list): privacy leak (moment detail/comments/og), VIP repeat-verify + expired iOS receipt, cross-account coin 409, suspended login, listening grading, matching skips, VIP-only enforcement (flag empty), photo-only moments, comment media. All are safe before the app; the app's photo-only posts and comment photos need the backend. S
+- [x] **Deploy the backend fixes** — deployed 2026-10-15 (backend 479b2d2) (backend repo REMAINING_WORK has the list): privacy leak (moment detail/comments/og), VIP repeat-verify + expired iOS receipt, cross-account coin 409, suspended login, listening grading, matching skips, VIP-only enforcement (flag empty), photo-only moments, comment media. All are safe before the app; the app's photo-only posts and comment photos need the backend. S
 - [ ] Device QA of the whole wave: run `docs/qa/regression-suite.csv` (P0 at least) on iOS + Android; the agents' manual checks are summarised per area in the suite. L
 - [ ] Decide the support address: the app now uses `support@banatalk.com` (what backend emails send; ARBs had `support@bananatalk.com`), but banatalk.com/support lists `bananatalkmain@gmail.com`. S
-- [ ] Check prod `isStrongPassword` accepts symbols like `#._-` (the 2026-10-08 backend rule fix may be undeployed); otherwise `New.Pass_1` fails server-side after the app now allows it. S
+- [x] Check prod `isStrongPassword` accepts symbols like `#._-` — yes, backend a1a1b8b is live in 479b2d2 (the 2026-10-08 backend rule fix may be undeployed); otherwise `New.Pass_1` fails server-side after the app now allows it. S
 - [ ] Watch new-device login email volume after deploy (device check is coarse: Mobile/Desktop + IP). S
 - [ ] Listening scores stored before the fix stay wrong (mastery / weekly listening stats); XP unaffected. Decide whether to reset. S
 - [ ] STUDY_VIP_ONLY_FEATURES on speak/writing/quizzes: those screens use raw http, so a lock shows the server message, not the upgrade sheet. S
@@ -174,8 +174,8 @@ Bug-fix wave 2026-10-15 (from the full regression suite + two adversarial audits
 - [ ] Restore also recovers an unconsumed Android coin pack (credited once by the ledger) — keep or restrict to subscriptions. S
 - [ ] iOS restore skips clearly lapsed subscriptions by heuristic until the backend expired-receipt fix is deployed (sandbox can't tell). S
 - [ ] Old app builds posting a photo-only comment now get a 400 instead of a blank comment (after the backend deploy). Accepted. 
-- [ ] Partners waves via /community/wave don't write the UserInteraction wave record, so a waved user can reappear in Partners later (re-wave gets "already waved"). S
-- [ ] Tidy after merge: remove the now-unused `_setupCallListeners` / `_handleCallError` from chat_conversation_screen.dart and `setupCallListeners`/`handleCallError` in message_action_handlers.dart. S
+- [x] (backend 9a1acef, deploys with the next backend push) Partners waves via /community/wave don't write the UserInteraction wave record, so a waved user can reappear in Partners later (re-wave gets "already waved"). S
+- [x] Tidy after merge: removed the now-unused `_setupCallListeners` / `_handleCallError` from chat_conversation_screen.dart and `setupCallListeners`/`handleCallError` in message_action_handlers.dart. S
 - Not bugs (left on purpose): the daily chat-partner limit and the profile-view daily limit are dormant with the VIP paywalls (9945ac83); `aps-environment` in source is fine (App Store export sets production); Tajik in iOS `CFBundleLocalizations` only affects the per-app language list.
 
 Later, gated on dashboard numbers (no work until then)
