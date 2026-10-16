@@ -75,6 +75,10 @@ After release (production data):
 
 ## 4. Code work — open
 
+Web parity Phase 1 — wrong domains (spec 2026-10-16, links#19)
+- [x] Wrong-domain references in docs (VOICE_MESSAGES curl, PROF-068 support address) — `api.banatalk.com`, `bananatalkmain@gmail.com`.
+- [ ] Story share URL still uses the parked bananatalk.com domain (`lib/pages/stories/viewer/story_viewer_screen.dart:736`) — fixed in web parity Phase 2 (story share). S
+
 Localization
 - [x] Allowlist 103 → 17 (2026-10-15 sweep; 20 unreachable files deleted). The 17 left are all in `lib/pages/moments`, `comments`, `stories` — localize next. S–M
 - [x] Localize the last 17 allowlisted files (done 2026-10-16, fix/moments-l10n-errors): image_viewer 'Rotate', reels Mute/Unmute, moment-not-found, stories 'Try again', create_moment snackbars and the voice-note retry dialog (`moment_upload_retry.dart`, ICU plural "tries left") are ARB keys; the `link_sticker_editor` 'https://' hint is allowed by design. `no_hardcoded_text_allowlist.txt` is empty. (upload_queue progress `message:` strings are never shown, so they stay.)
