@@ -62,12 +62,13 @@ Release-mode smoke (Android, internal track — handoff §3; rows in `docs/qa/ca
 - [ ] Rewarded ad, QR scan, reel upload (video_compress), `bananatalk://` deep link.
 - [ ] Biometric smoke (Android 7–8, 13+, iPhone Face ID): enable → logout → Continue as → live chat; second account by password → Continue-as gone.
 - [ ] Quiet hours, phone in a non-Seoul zone, 22:00–08:00 → server `quietHours.timezone` = phone zone; pushes held in local night.
-- [ ] After assetlinks deploy: `adb shell pm verify-app-links --re-verify com.bananatalk.app` then `pm get-app-links` → `verified`; only `/moment/`, `/profile/`, `/community/`, `/i/` open the app.
+- [ ] After assetlinks deploy: `adb shell pm verify-app-links --re-verify com.bananatalk.app` then `pm get-app-links` → `verified`; only `/moment/`, `/profile/`, `/community/`, `/story/`, `/chat/`, `/i/` open the app (story/chat added in web-parity P2-2).
 - [ ] Every row of `docs/qa/onboarding-matrix.md` (incl. update vs welcome-back, notification tap within 1 s).
 - [ ] Guides device pass 2: re-run after the PulseHighlight ticker fix, confirm a clean log.
 - [ ] Debug build: open a chat whose partner was last seen long ago (header ~99 px) → `[null-log] … from <frame>` names the source of the bare `flutter: null`; fix it or record as package noise.
 - [ ] New account sends one message → `first_message_sent` observed in analytics.
 
+- [ ] Accepted gap: a 2.7.0 profile QR (https) scanned with 2.6.1's in-app scanner shows "Invalid QR code"; the system camera opens it fine.
 After release (production data):
 - [ ] One week after 2.7.0: re-measure calls answered rate (baseline 1/30, target ≥ 40 %).
 - [ ] `notification_prime_shown` per new signup, before vs after (ads notice now waits for the guide period).
@@ -225,7 +226,7 @@ Web ↔ app parity (spec `docs/superpowers/specs/2026-10-16-web-app-parity-desig
   - [x] P2-1 merge `fix/moments-stories-audit` (moments#6 prompt/location/isReel, moments#7 UTC scheduling) — 39 l10n conflicts, per-key ARB merge.
   - [x] P2-2 parser + Android manifest learn `/story/`, `/chat/`, legacy `bananatalk://user/` (links#1, #6, #8).
   - [x] P2-3 story share link `shareUrl('story', id)` + `/story/:id` screen (links#1, moments#1).
-  - [ ] P2-4 profile QR encodes `https://banatalk.com/profile/<id>`; scanner accepts both (links#8).
+  - [x] P2-4 profile QR encodes `https://banatalk.com/profile/<id>`; scanner accepts both (links#8).
   - [ ] P2-5 `FlutterDeepLinkingEnabled=false` / `flutter_deeplinking_enabled=false` (links#7).
   - [ ] P2-6 text stories draw poll/question/link/location, header and reply bar (moments#3).
   - [ ] P2-7 invite code manual entry for new accounts (links#10).
