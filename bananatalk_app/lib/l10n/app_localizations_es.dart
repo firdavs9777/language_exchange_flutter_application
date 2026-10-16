@@ -12248,4 +12248,15 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get wallpaperPresetDiamondShine => 'Brillo de diamante';
+
+  @override
+  String get communityWorldwide => 'Todo el mundo';
+
+  @override
+  String communitySearchTitle(String query) {
+    return 'Búsqueda: $query';
+  }
+
+  @override
+  String get communityFilterNew => 'Nuevos';
 }

@@ -4682,5 +4682,8 @@
   "wallpaperPresetGalaxy": "갤럭시",
   "wallpaperPresetEmeraldLuxe": "에메랄드 럭스",
   "wallpaperPresetRoyalVelvet": "로열 벨벳",
-  "wallpaperPresetDiamondShine": "다이아몬드 샤인"
+  "wallpaperPresetDiamondShine": "다이아몬드 샤인",
+  "communityWorldwide": "전 세계",
+  "communitySearchTitle": "검색: {query}",
+  "communityFilterNew": "신규"
 }

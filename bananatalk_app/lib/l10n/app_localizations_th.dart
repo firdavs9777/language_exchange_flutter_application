@@ -12219,4 +12219,15 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get wallpaperPresetDiamondShine => 'ประกายเพชร';
+
+  @override
+  String get communityWorldwide => 'ทั่วโลก';
+
+  @override
+  String communitySearchTitle(String query) {
+    return 'ค้นหา: $query';
+  }
+
+  @override
+  String get communityFilterNew => 'ใหม่';
 }

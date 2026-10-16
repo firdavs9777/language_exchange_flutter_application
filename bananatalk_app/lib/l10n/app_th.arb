@@ -4661,5 +4661,8 @@
   "wallpaperPresetGalaxy": "กาแล็กซี",
   "wallpaperPresetEmeraldLuxe": "มรกตหรู",
   "wallpaperPresetRoyalVelvet": "กำมะหยี่หลวง",
-  "wallpaperPresetDiamondShine": "ประกายเพชร"
+  "wallpaperPresetDiamondShine": "ประกายเพชร",
+  "communityWorldwide": "ทั่วโลก",
+  "communitySearchTitle": "ค้นหา: {query}",
+  "communityFilterNew": "ใหม่"
 }

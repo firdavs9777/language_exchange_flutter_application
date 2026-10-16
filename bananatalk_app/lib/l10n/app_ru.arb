@@ -4691,5 +4691,8 @@
   "wallpaperPresetGalaxy": "Галактика",
   "wallpaperPresetEmeraldLuxe": "Изумрудная роскошь",
   "wallpaperPresetRoyalVelvet": "Королевский бархат",
-  "wallpaperPresetDiamondShine": "Алмазный блеск"
+  "wallpaperPresetDiamondShine": "Алмазный блеск",
+  "communityWorldwide": "Весь мир",
+  "communitySearchTitle": "Поиск: {query}",
+  "communityFilterNew": "Новые"
 }

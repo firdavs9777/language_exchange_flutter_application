@@ -772,6 +772,9 @@ const Map<String, List<String>> _keysByTask = {
     'wallpaperPresetEmeraldLuxe',
     'wallpaperPresetRoyalVelvet',
     'wallpaperPresetDiamondShine',
+    'communityWorldwide',
+    'communitySearchTitle',
+    'communityFilterNew',
   ],
 };
 

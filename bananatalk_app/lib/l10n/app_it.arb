@@ -4901,5 +4901,8 @@
   "wallpaperPresetGalaxy": "Galassia",
   "wallpaperPresetEmeraldLuxe": "Smeraldo lusso",
   "wallpaperPresetRoyalVelvet": "Velluto reale",
-  "wallpaperPresetDiamondShine": "Splendore di diamante"
+  "wallpaperPresetDiamondShine": "Splendore di diamante",
+  "communityWorldwide": "In tutto il mondo",
+  "communitySearchTitle": "Ricerca: {query}",
+  "communityFilterNew": "Nuovi"
 }

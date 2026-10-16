@@ -4352,5 +4352,8 @@
   "wallpaperPresetGalaxy": "銀河",
   "wallpaperPresetEmeraldLuxe": "奢華翡翠",
   "wallpaperPresetRoyalVelvet": "皇家天鵝絨",
-  "wallpaperPresetDiamondShine": "鑽石光輝"
+  "wallpaperPresetDiamondShine": "鑽石光輝",
+  "communityWorldwide": "全球",
+  "communitySearchTitle": "搜尋：{query}",
+  "communityFilterNew": "新人"
 }

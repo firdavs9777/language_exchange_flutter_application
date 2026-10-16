@@ -4661,5 +4661,8 @@
   "wallpaperPresetGalaxy": "Galaksi",
   "wallpaperPresetEmeraldLuxe": "Zamrud Mewah",
   "wallpaperPresetRoyalVelvet": "Beludru Kerajaan",
-  "wallpaperPresetDiamondShine": "Kilau Berlian"
+  "wallpaperPresetDiamondShine": "Kilau Berlian",
+  "communityWorldwide": "Seluruh Dunia",
+  "communitySearchTitle": "Cari: {query}",
+  "communityFilterNew": "Baru"
 }

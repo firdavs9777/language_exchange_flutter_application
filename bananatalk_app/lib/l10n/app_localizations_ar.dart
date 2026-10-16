@@ -12331,4 +12331,15 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get wallpaperPresetDiamondShine => 'بريق الماس';
+
+  @override
+  String get communityWorldwide => 'حول العالم';
+
+  @override
+  String communitySearchTitle(String query) {
+    return 'بحث: $query';
+  }
+
+  @override
+  String get communityFilterNew => 'جدد';
 }

@@ -12219,4 +12219,15 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get wallpaperPresetDiamondShine => 'ダイヤモンドシャイン';
+
+  @override
+  String get communityWorldwide => '世界中';
+
+  @override
+  String communitySearchTitle(String query) {
+    return '検索: $query';
+  }
+
+  @override
+  String get communityFilterNew => '新規';
 }

@@ -8190,5 +8190,15 @@
   "wallpaperPresetGalaxy": "Galaxy",
   "wallpaperPresetEmeraldLuxe": "Emerald Luxe",
   "wallpaperPresetRoyalVelvet": "Royal Velvet",
-  "wallpaperPresetDiamondShine": "Diamond Shine"
+  "wallpaperPresetDiamondShine": "Diamond Shine",
+  "communityWorldwide": "Worldwide",
+  "communitySearchTitle": "Search: {query}",
+  "@communitySearchTitle": {
+    "placeholders": {
+      "query": {
+        "type": "String"
+      }
+    }
+  },
+  "communityFilterNew": "New"
 }

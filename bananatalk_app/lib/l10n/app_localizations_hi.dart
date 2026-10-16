@@ -12248,4 +12248,15 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get wallpaperPresetDiamondShine => 'हीरे की चमक';
+
+  @override
+  String get communityWorldwide => 'दुनिया भर में';
+
+  @override
+  String communitySearchTitle(String query) {
+    return 'खोज: $query';
+  }
+
+  @override
+  String get communityFilterNew => 'नए';
 }

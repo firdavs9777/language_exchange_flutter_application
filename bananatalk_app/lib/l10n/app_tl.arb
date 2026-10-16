@@ -4634,5 +4634,8 @@
   "wallpaperPresetGalaxy": "Galaksiya",
   "wallpaperPresetEmeraldLuxe": "Marangyang Esmeralda",
   "wallpaperPresetRoyalVelvet": "Maharlikang Pelus",
-  "wallpaperPresetDiamondShine": "Kinang ng Diyamante"
+  "wallpaperPresetDiamondShine": "Kinang ng Diyamante",
+  "communityWorldwide": "Buong Mundo",
+  "communitySearchTitle": "Hanapin: {query}",
+  "communityFilterNew": "Bago"
 }

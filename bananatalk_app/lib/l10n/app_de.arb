@@ -4901,5 +4901,8 @@
   "wallpaperPresetGalaxy": "Galaxie",
   "wallpaperPresetEmeraldLuxe": "Smaragd-Luxus",
   "wallpaperPresetRoyalVelvet": "Königlicher Samt",
-  "wallpaperPresetDiamondShine": "Diamantglanz"
+  "wallpaperPresetDiamondShine": "Diamantglanz",
+  "communityWorldwide": "Weltweit",
+  "communitySearchTitle": "Suche: {query}",
+  "communityFilterNew": "Neu"
 }

@@ -42,6 +42,18 @@ class _CountryPin {
   });
 }
 
+/// Header of the user list: the worldwide view, the picked country's
+/// (already localized) name, or the city search query.
+String cityListTitle(
+  AppLocalizations l10n, {
+  required bool worldwide,
+  required String? country,
+  required String citySearch,
+}) {
+  if (worldwide) return '🌍 ${l10n.communityWorldwide}';
+  return country ?? l10n.communitySearchTitle(citySearch);
+}
+
 /// City Tab — interactive map with country markers showing user counts
 class CityTab extends ConsumerStatefulWidget {
   final Map<String, dynamic> filters;
@@ -822,11 +834,14 @@ class _CityTabState extends ConsumerState<CityTab> {
   }
 
   Widget _buildUserList() {
-    final title = _isWorldwideView
-        ? '🌍 Worldwide'
-        : (_selectedCountry != null
-              ? CountryNames.of(context, _selectedCountry!)
-              : 'Search: $_citySearch');
+    final title = cityListTitle(
+      AppLocalizations.of(context)!,
+      worldwide: _isWorldwideView,
+      country: _selectedCountry != null
+          ? CountryNames.of(context, _selectedCountry!)
+          : null,
+      citySearch: _citySearch,
+    );
 
     return Column(
       children: [

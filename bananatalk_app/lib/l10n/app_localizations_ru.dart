@@ -12696,4 +12696,15 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get wallpaperPresetDiamondShine => 'Алмазный блеск';
+
+  @override
+  String get communityWorldwide => 'Весь мир';
+
+  @override
+  String communitySearchTitle(String query) {
+    return 'Поиск: $query';
+  }
+
+  @override
+  String get communityFilterNew => 'Новые';
 }

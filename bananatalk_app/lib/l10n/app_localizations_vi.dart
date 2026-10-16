@@ -12219,4 +12219,15 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get wallpaperPresetDiamondShine => 'Ánh kim cương';
+
+  @override
+  String get communityWorldwide => 'Toàn cầu';
+
+  @override
+  String communitySearchTitle(String query) {
+    return 'Tìm kiếm: $query';
+  }
+
+  @override
+  String get communityFilterNew => 'Mới';
 }

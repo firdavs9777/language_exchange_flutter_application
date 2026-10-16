@@ -4873,5 +4873,8 @@
   "wallpaperPresetGalaxy": "Galaksi",
   "wallpaperPresetEmeraldLuxe": "Lüks Zümrüt",
   "wallpaperPresetRoyalVelvet": "Kraliyet Kadifesi",
-  "wallpaperPresetDiamondShine": "Elmas Parıltısı"
+  "wallpaperPresetDiamondShine": "Elmas Parıltısı",
+  "communityWorldwide": "Dünya Geneli",
+  "communitySearchTitle": "Arama: {query}",
+  "communityFilterNew": "Yeni"
 }

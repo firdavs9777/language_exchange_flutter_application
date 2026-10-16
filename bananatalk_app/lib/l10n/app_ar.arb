@@ -4691,5 +4691,8 @@
   "wallpaperPresetGalaxy": "مجرة",
   "wallpaperPresetEmeraldLuxe": "زمرد فاخر",
   "wallpaperPresetRoyalVelvet": "مخمل ملكي",
-  "wallpaperPresetDiamondShine": "بريق الماس"
+  "wallpaperPresetDiamondShine": "بريق الماس",
+  "communityWorldwide": "حول العالم",
+  "communitySearchTitle": "بحث: {query}",
+  "communityFilterNew": "جدد"
 }

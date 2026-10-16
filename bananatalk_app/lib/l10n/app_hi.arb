@@ -4677,5 +4677,8 @@
   "wallpaperPresetGalaxy": "आकाशगंगा",
   "wallpaperPresetEmeraldLuxe": "पन्ना लक्स",
   "wallpaperPresetRoyalVelvet": "शाही मखमल",
-  "wallpaperPresetDiamondShine": "हीरे की चमक"
+  "wallpaperPresetDiamondShine": "हीरे की चमक",
+  "communityWorldwide": "दुनिया भर में",
+  "communitySearchTitle": "खोज: {query}",
+  "communityFilterNew": "नए"
 }

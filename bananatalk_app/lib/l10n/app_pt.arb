@@ -4677,5 +4677,8 @@
   "wallpaperPresetGalaxy": "Galáxia",
   "wallpaperPresetEmeraldLuxe": "Esmeralda luxo",
   "wallpaperPresetRoyalVelvet": "Veludo real",
-  "wallpaperPresetDiamondShine": "Brilho de diamante"
+  "wallpaperPresetDiamondShine": "Brilho de diamante",
+  "communityWorldwide": "Mundo todo",
+  "communitySearchTitle": "Pesquisa: {query}",
+  "communityFilterNew": "Novos"
 }

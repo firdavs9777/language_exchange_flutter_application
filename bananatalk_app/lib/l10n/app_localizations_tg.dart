@@ -12239,4 +12239,15 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get wallpaperPresetDiamondShine => 'Дурахши алмос';
+
+  @override
+  String get communityWorldwide => 'Тамоми ҷаҳон';
+
+  @override
+  String communitySearchTitle(String query) {
+    return 'Ҷустуҷӯ: $query';
+  }
+
+  @override
+  String get communityFilterNew => 'Нав';
 }

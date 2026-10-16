@@ -22255,6 +22255,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Diamond Shine'**
   String get wallpaperPresetDiamondShine;
+
+  /// No description provided for @communityWorldwide.
+  ///
+  /// In en, this message translates to:
+  /// **'Worldwide'**
+  String get communityWorldwide;
+
+  /// No description provided for @communitySearchTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Search: {query}'**
+  String communitySearchTitle(String query);
+
+  /// No description provided for @communityFilterNew.
+  ///
+  /// In en, this message translates to:
+  /// **'New'**
+  String get communityFilterNew;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

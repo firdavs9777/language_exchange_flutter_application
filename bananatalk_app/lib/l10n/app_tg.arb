@@ -4154,5 +4154,8 @@
   "wallpaperPresetGalaxy": "Каҳкашон",
   "wallpaperPresetEmeraldLuxe": "Зумуради боҳашамат",
   "wallpaperPresetRoyalVelvet": "Бахмали шоҳона",
-  "wallpaperPresetDiamondShine": "Дурахши алмос"
+  "wallpaperPresetDiamondShine": "Дурахши алмос",
+  "communityWorldwide": "Тамоми ҷаҳон",
+  "communitySearchTitle": "Ҷустуҷӯ: {query}",
+  "communityFilterNew": "Нав"
 }

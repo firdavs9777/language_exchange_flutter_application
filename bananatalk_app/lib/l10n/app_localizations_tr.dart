@@ -12237,4 +12237,15 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get wallpaperPresetDiamondShine => 'Elmas Parıltısı';
+
+  @override
+  String get communityWorldwide => 'Dünya Geneli';
+
+  @override
+  String communitySearchTitle(String query) {
+    return 'Arama: $query';
+  }
+
+  @override
+  String get communityFilterNew => 'Yeni';
 }

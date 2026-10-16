@@ -12241,4 +12241,15 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get wallpaperPresetDiamondShine => 'Kinang ng Diyamante';
+
+  @override
+  String get communityWorldwide => 'Buong Mundo';
+
+  @override
+  String communitySearchTitle(String query) {
+    return 'Hanapin: $query';
+  }
+
+  @override
+  String get communityFilterNew => 'Bago';
 }

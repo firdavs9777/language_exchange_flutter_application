@@ -12219,6 +12219,17 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get wallpaperPresetDiamondShine => '钻石光辉';
+
+  @override
+  String get communityWorldwide => '全球';
+
+  @override
+  String communitySearchTitle(String query) {
+    return '搜索：$query';
+  }
+
+  @override
+  String get communityFilterNew => '新人';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -24436,4 +24447,15 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get wallpaperPresetDiamondShine => '鑽石光輝';
+
+  @override
+  String get communityWorldwide => '全球';
+
+  @override
+  String communitySearchTitle(String query) {
+    return '搜尋：$query';
+  }
+
+  @override
+  String get communityFilterNew => '新人';
 }

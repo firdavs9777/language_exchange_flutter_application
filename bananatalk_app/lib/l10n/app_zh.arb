@@ -4675,5 +4675,8 @@
   "wallpaperPresetGalaxy": "银河",
   "wallpaperPresetEmeraldLuxe": "奢华翡翠",
   "wallpaperPresetRoyalVelvet": "皇家天鹅绒",
-  "wallpaperPresetDiamondShine": "钻石光辉"
+  "wallpaperPresetDiamondShine": "钻石光辉",
+  "communityWorldwide": "全球",
+  "communitySearchTitle": "搜索：{query}",
+  "communityFilterNew": "新人"
 }

@@ -4661,5 +4661,8 @@
   "wallpaperPresetGalaxy": "ギャラクシー",
   "wallpaperPresetEmeraldLuxe": "エメラルドリュクス",
   "wallpaperPresetRoyalVelvet": "ロイヤルベルベット",
-  "wallpaperPresetDiamondShine": "ダイヤモンドシャイン"
+  "wallpaperPresetDiamondShine": "ダイヤモンドシャイン",
+  "communityWorldwide": "世界中",
+  "communitySearchTitle": "検索: {query}",
+  "communityFilterNew": "新規"
 }

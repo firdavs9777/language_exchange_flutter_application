@@ -12230,4 +12230,15 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get wallpaperPresetDiamondShine => 'Kilau Berlian';
+
+  @override
+  String get communityWorldwide => 'Seluruh Dunia';
+
+  @override
+  String communitySearchTitle(String query) {
+    return 'Cari: $query';
+  }
+
+  @override
+  String get communityFilterNew => 'Baru';
 }
