@@ -20,7 +20,7 @@ import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/pages/community/widgets/community_error_state.dart';
-import 'package:bananatalk_app/utils/compact_count.dart';
+import 'package:bananatalk_app/utils/number_format_locale.dart';
 
 /// Topics Tab - Topic-based discovery
 class TopicsTab extends ConsumerStatefulWidget {
@@ -471,7 +471,7 @@ class _TopicCard extends StatelessWidget {
                     ),
                     if (topic.userCount > 0)
                       Text(
-                        AppLocalizations.of(context)!.communityPeopleCount(formatCompactCount(topic.userCount)),
+                        AppLocalizations.of(context)!.communityPeopleCount(compactPluralCount(topic.userCount), formatCompactNumberForLocale(context, topic.userCount)),
                         style: context.caption.copyWith(
                           color: context.textMuted,
                         ),

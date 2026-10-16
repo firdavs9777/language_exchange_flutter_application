@@ -9872,13 +9872,13 @@ class AppLocalizationsIt extends AppLocalizations {
   String get communityUnlimitedBrowsingNoAds => 'Navigazione illimitata, niente pubblicità, abbinamento prioritario';
 
   @override
-  String communityMembersCount(Object count) {
-    return '$count membri';
+  String communityMembersCount(int count, String countLabel) {
+    return '$countLabel membri';
   }
 
   @override
-  String communityPeopleCount(Object count) {
-    return '$count persone';
+  String communityPeopleCount(int count, String countLabel) {
+    return '$countLabel persone';
   }
 
   @override
@@ -12175,4 +12175,117 @@ class AppLocalizationsIt extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get wallpaperPresetDefault => 'Predefinito';
+
+  @override
+  String get wallpaperPresetDark => 'Scuro';
+
+  @override
+  String get wallpaperPresetMidnight => 'Mezzanotte';
+
+  @override
+  String get wallpaperPresetCharcoal => 'Antracite';
+
+  @override
+  String get wallpaperPresetNavy => 'Blu navy';
+
+  @override
+  String get wallpaperPresetOcean => 'Oceano';
+
+  @override
+  String get wallpaperPresetTeal => 'Verde acqua';
+
+  @override
+  String get wallpaperPresetForest => 'Foresta';
+
+  @override
+  String get wallpaperPresetSage => 'Salvia';
+
+  @override
+  String get wallpaperPresetWine => 'Vinaccia';
+
+  @override
+  String get wallpaperPresetPlum => 'Prugna';
+
+  @override
+  String get wallpaperPresetRose => 'Rosa';
+
+  @override
+  String get wallpaperPresetMocha => 'Moka';
+
+  @override
+  String get wallpaperPresetSlate => 'Ardesia';
+
+  @override
+  String get wallpaperPresetEmber => 'Brace';
+
+  @override
+  String get wallpaperPresetDeepSea => 'Mare profondo';
+
+  @override
+  String get wallpaperPresetCream => 'Crema';
+
+  @override
+  String get wallpaperPresetBlush => 'Cipria';
+
+  @override
+  String get wallpaperPresetPeach => 'Pesca';
+
+  @override
+  String get wallpaperPresetSunset => 'Tramonto';
+
+  @override
+  String get wallpaperPresetAurora => 'Aurora';
+
+  @override
+  String get wallpaperPresetCosmic => 'Cosmico';
+
+  @override
+  String get wallpaperPresetRoseGold => 'Oro rosa';
+
+  @override
+  String get wallpaperPresetCandy => 'Caramella';
+
+  @override
+  String get wallpaperPresetNeon => 'Neon';
+
+  @override
+  String get wallpaperPresetFire => 'Fuoco';
+
+  @override
+  String get wallpaperPresetWinter => 'Inverno';
+
+  @override
+  String get wallpaperPresetLavender => 'Lavanda';
+
+  @override
+  String get wallpaperPresetAuroraBorealis => 'Aurora boreale';
+
+  @override
+  String get wallpaperPresetGoldenHour => 'Ora d\'oro';
+
+  @override
+  String get wallpaperPresetGalaxy => 'Galassia';
+
+  @override
+  String get wallpaperPresetEmeraldLuxe => 'Smeraldo lusso';
+
+  @override
+  String get wallpaperPresetRoyalVelvet => 'Velluto reale';
+
+  @override
+  String get wallpaperPresetDiamondShine => 'Splendore di diamante';
+
+  @override
+  String get communityWorldwide => 'In tutto il mondo';
+
+  @override
+  String communitySearchTitle(String query) {
+    return 'Ricerca: $query';
+  }
+
+  @override
+  String get communityFilterNew => 'Nuovi';
 }

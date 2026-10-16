@@ -6887,19 +6887,29 @@
   "communitySeeAll": "See all",
   "communitySeeWhoLikes": "See who likes you",
   "communityUnlimitedBrowsingNoAds": "Unlimited browsing, no ads, priority matching",
-  "communityMembersCount": "{count} members",
+  "communityMembersCount": "{count, plural, one{{countLabel} member} other{{countLabel} members}}",
   "@communityMembersCount": {
     "placeholders": {
       "count": {
-        "type": "Object"
+        "type": "int",
+        "description": "raw count through compactPluralCount; picks the plural form"
+      },
+      "countLabel": {
+        "type": "String",
+        "description": "count, already formatted (formatCompactNumberForLocale; tg-safe)"
       }
     }
   },
-  "communityPeopleCount": "{count} people",
+  "communityPeopleCount": "{count, plural, one{{countLabel} person} other{{countLabel} people}}",
   "@communityPeopleCount": {
     "placeholders": {
       "count": {
-        "type": "Object"
+        "type": "int",
+        "description": "raw count through compactPluralCount; picks the plural form"
+      },
+      "countLabel": {
+        "type": "String",
+        "description": "count, already formatted (formatCompactNumberForLocale; tg-safe)"
       }
     }
   },
@@ -8189,5 +8199,49 @@
         "type": "int"
       }
     }
-  }
+  },
+  "wallpaperPresetDefault": "Default",
+  "wallpaperPresetDark": "Dark",
+  "wallpaperPresetMidnight": "Midnight",
+  "wallpaperPresetCharcoal": "Charcoal",
+  "wallpaperPresetNavy": "Navy",
+  "wallpaperPresetOcean": "Ocean",
+  "wallpaperPresetTeal": "Teal",
+  "wallpaperPresetForest": "Forest",
+  "wallpaperPresetSage": "Sage",
+  "wallpaperPresetWine": "Wine",
+  "wallpaperPresetPlum": "Plum",
+  "wallpaperPresetRose": "Rose",
+  "wallpaperPresetMocha": "Mocha",
+  "wallpaperPresetSlate": "Slate",
+  "wallpaperPresetEmber": "Ember",
+  "wallpaperPresetDeepSea": "Deep Sea",
+  "wallpaperPresetCream": "Cream",
+  "wallpaperPresetBlush": "Blush",
+  "wallpaperPresetPeach": "Peach",
+  "wallpaperPresetSunset": "Sunset",
+  "wallpaperPresetAurora": "Aurora",
+  "wallpaperPresetCosmic": "Cosmic",
+  "wallpaperPresetRoseGold": "Rose Gold",
+  "wallpaperPresetCandy": "Candy",
+  "wallpaperPresetNeon": "Neon",
+  "wallpaperPresetFire": "Fire",
+  "wallpaperPresetWinter": "Winter",
+  "wallpaperPresetLavender": "Lavender",
+  "wallpaperPresetAuroraBorealis": "Aurora Borealis",
+  "wallpaperPresetGoldenHour": "Golden Hour",
+  "wallpaperPresetGalaxy": "Galaxy",
+  "wallpaperPresetEmeraldLuxe": "Emerald Luxe",
+  "wallpaperPresetRoyalVelvet": "Royal Velvet",
+  "wallpaperPresetDiamondShine": "Diamond Shine",
+  "communityWorldwide": "Worldwide",
+  "communitySearchTitle": "Search: {query}",
+  "@communitySearchTitle": {
+    "placeholders": {
+      "query": {
+        "type": "String"
+      }
+    }
+  },
+  "communityFilterNew": "New"
 }

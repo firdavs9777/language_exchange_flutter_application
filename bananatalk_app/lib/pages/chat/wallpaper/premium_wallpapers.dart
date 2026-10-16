@@ -27,12 +27,10 @@ bool isPremiumWallpaperName(String name) =>
 
 class PremiumWallpaper {
   final String name;
-  final String label;
   final List<Color> colors;
 
   const PremiumWallpaper({
     required this.name,
-    required this.label,
     required this.colors,
   });
 
@@ -49,32 +47,26 @@ class PremiumWallpaper {
 const List<PremiumWallpaper> premiumWallpapers = [
   PremiumWallpaper(
     name: 'premium_aurora_borealis',
-    label: 'Aurora Borealis',
     colors: [Color(0xFF00C9FF), Color(0xFF92FE9D), Color(0xFFFC466B)],
   ),
   PremiumWallpaper(
     name: 'premium_golden_hour',
-    label: 'Golden Hour',
     colors: [Color(0xFFFFD700), Color(0xFFFF8C00), Color(0xFFFF4500)],
   ),
   PremiumWallpaper(
     name: 'premium_galaxy',
-    label: 'Galaxy',
     colors: [Color(0xFF0F0C29), Color(0xFF302B63), Color(0xFF24243E)],
   ),
   PremiumWallpaper(
     name: 'premium_emerald_luxe',
-    label: 'Emerald Luxe',
     colors: [Color(0xFF11998E), Color(0xFF38EF7D)],
   ),
   PremiumWallpaper(
     name: 'premium_royal_velvet',
-    label: 'Royal Velvet',
     colors: [Color(0xFF360033), Color(0xFF0B8793)],
   ),
   PremiumWallpaper(
     name: 'premium_diamond_shine',
-    label: 'Diamond Shine',
     colors: [Color(0xFFB993D6), Color(0xFF8CA6DB)],
   ),
 ];

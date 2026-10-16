@@ -9865,13 +9865,13 @@ class AppLocalizationsTl extends AppLocalizations {
   String get communityUnlimitedBrowsingNoAds => 'Walang limitasyong pag-browse, walang ad, priority matching';
 
   @override
-  String communityMembersCount(Object count) {
-    return '$count miyembro';
+  String communityMembersCount(int count, String countLabel) {
+    return '$countLabel miyembro';
   }
 
   @override
-  String communityPeopleCount(Object count) {
-    return '$count tao';
+  String communityPeopleCount(int count, String countLabel) {
+    return '$countLabel tao';
   }
 
   @override
@@ -12168,4 +12168,117 @@ class AppLocalizationsTl extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get wallpaperPresetDefault => 'Nakatakda';
+
+  @override
+  String get wallpaperPresetDark => 'Madilim';
+
+  @override
+  String get wallpaperPresetMidnight => 'Hatinggabi';
+
+  @override
+  String get wallpaperPresetCharcoal => 'Uling';
+
+  @override
+  String get wallpaperPresetNavy => 'Asul-marino';
+
+  @override
+  String get wallpaperPresetOcean => 'Karagatan';
+
+  @override
+  String get wallpaperPresetTeal => 'Asul-berde';
+
+  @override
+  String get wallpaperPresetForest => 'Kagubatan';
+
+  @override
+  String get wallpaperPresetSage => 'Berdeng Sage';
+
+  @override
+  String get wallpaperPresetWine => 'Alak';
+
+  @override
+  String get wallpaperPresetPlum => 'Siruwelas';
+
+  @override
+  String get wallpaperPresetRose => 'Rosas';
+
+  @override
+  String get wallpaperPresetMocha => 'Moka';
+
+  @override
+  String get wallpaperPresetSlate => 'Pisarra';
+
+  @override
+  String get wallpaperPresetEmber => 'Baga';
+
+  @override
+  String get wallpaperPresetDeepSea => 'Malalim na Dagat';
+
+  @override
+  String get wallpaperPresetCream => 'Krema';
+
+  @override
+  String get wallpaperPresetBlush => 'Pamumula';
+
+  @override
+  String get wallpaperPresetPeach => 'Melokoton';
+
+  @override
+  String get wallpaperPresetSunset => 'Paglubog ng Araw';
+
+  @override
+  String get wallpaperPresetAurora => 'Bukang-liwayway';
+
+  @override
+  String get wallpaperPresetCosmic => 'Kosmiko';
+
+  @override
+  String get wallpaperPresetRoseGold => 'Rosas na Ginto';
+
+  @override
+  String get wallpaperPresetCandy => 'Kendi';
+
+  @override
+  String get wallpaperPresetNeon => 'Neon';
+
+  @override
+  String get wallpaperPresetFire => 'Apoy';
+
+  @override
+  String get wallpaperPresetWinter => 'Taglamig';
+
+  @override
+  String get wallpaperPresetLavender => 'Lavender';
+
+  @override
+  String get wallpaperPresetAuroraBorealis => 'Hilagang Aurora';
+
+  @override
+  String get wallpaperPresetGoldenHour => 'Gintong Oras';
+
+  @override
+  String get wallpaperPresetGalaxy => 'Galaksiya';
+
+  @override
+  String get wallpaperPresetEmeraldLuxe => 'Marangyang Esmeralda';
+
+  @override
+  String get wallpaperPresetRoyalVelvet => 'Maharlikang Pelus';
+
+  @override
+  String get wallpaperPresetDiamondShine => 'Kinang ng Diyamante';
+
+  @override
+  String get communityWorldwide => 'Buong Mundo';
+
+  @override
+  String communitySearchTitle(String query) {
+    return 'Hanapin: $query';
+  }
+
+  @override
+  String get communityFilterNew => 'Bago';
 }

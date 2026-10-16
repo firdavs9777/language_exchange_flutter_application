@@ -9869,13 +9869,13 @@ class AppLocalizationsTg extends AppLocalizations {
   String get communityUnlimitedBrowsingNoAds => 'Тамошои бемаҳдуд, бе реклама, ҷуфтсозии афзалиятнок';
 
   @override
-  String communityMembersCount(Object count) {
-    return '$count аъзо';
+  String communityMembersCount(int count, String countLabel) {
+    return '$countLabel аъзо';
   }
 
   @override
-  String communityPeopleCount(Object count) {
-    return '$count нафар';
+  String communityPeopleCount(int count, String countLabel) {
+    return '$countLabel нафар';
   }
 
   @override
@@ -12165,4 +12165,117 @@ class AppLocalizationsTg extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get wallpaperPresetDefault => 'Пешфарз';
+
+  @override
+  String get wallpaperPresetDark => 'Торик';
+
+  @override
+  String get wallpaperPresetMidnight => 'Нисфи шаб';
+
+  @override
+  String get wallpaperPresetCharcoal => 'Ангиштӣ';
+
+  @override
+  String get wallpaperPresetNavy => 'Кабуди баҳрӣ';
+
+  @override
+  String get wallpaperPresetOcean => 'Уқёнус';
+
+  @override
+  String get wallpaperPresetTeal => 'Фирӯзаранг';
+
+  @override
+  String get wallpaperPresetForest => 'Ҷангал';
+
+  @override
+  String get wallpaperPresetSage => 'Мармарак';
+
+  @override
+  String get wallpaperPresetWine => 'Шаробӣ';
+
+  @override
+  String get wallpaperPresetPlum => 'Олуӣ';
+
+  @override
+  String get wallpaperPresetRose => 'Гулобӣ';
+
+  @override
+  String get wallpaperPresetMocha => 'Мокко';
+
+  @override
+  String get wallpaperPresetSlate => 'Шифер';
+
+  @override
+  String get wallpaperPresetEmber => 'Ахгар';
+
+  @override
+  String get wallpaperPresetDeepSea => 'Қаъри баҳр';
+
+  @override
+  String get wallpaperPresetCream => 'Қаймоқӣ';
+
+  @override
+  String get wallpaperPresetBlush => 'Сурхча';
+
+  @override
+  String get wallpaperPresetPeach => 'Шафтолуӣ';
+
+  @override
+  String get wallpaperPresetSunset => 'Ғуруби офтоб';
+
+  @override
+  String get wallpaperPresetAurora => 'Шафақ';
+
+  @override
+  String get wallpaperPresetCosmic => 'Кайҳонӣ';
+
+  @override
+  String get wallpaperPresetRoseGold => 'Тиллои гулобӣ';
+
+  @override
+  String get wallpaperPresetCandy => 'Конфет';
+
+  @override
+  String get wallpaperPresetNeon => 'Неон';
+
+  @override
+  String get wallpaperPresetFire => 'Оташ';
+
+  @override
+  String get wallpaperPresetWinter => 'Зимистон';
+
+  @override
+  String get wallpaperPresetLavender => 'Лаванда';
+
+  @override
+  String get wallpaperPresetAuroraBorealis => 'Шафақи қутбӣ';
+
+  @override
+  String get wallpaperPresetGoldenHour => 'Соати тиллоӣ';
+
+  @override
+  String get wallpaperPresetGalaxy => 'Каҳкашон';
+
+  @override
+  String get wallpaperPresetEmeraldLuxe => 'Зумуради боҳашамат';
+
+  @override
+  String get wallpaperPresetRoyalVelvet => 'Бахмали шоҳона';
+
+  @override
+  String get wallpaperPresetDiamondShine => 'Дурахши алмос';
+
+  @override
+  String get communityWorldwide => 'Тамоми ҷаҳон';
+
+  @override
+  String communitySearchTitle(String query) {
+    return 'Ҷустуҷӯ: $query';
+  }
+
+  @override
+  String get communityFilterNew => 'Нав';
 }

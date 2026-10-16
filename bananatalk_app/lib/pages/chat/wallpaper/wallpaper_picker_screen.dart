@@ -11,6 +11,7 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/pages/chat/widgets/chat_snackbar.dart';
 import 'package:bananatalk_app/pages/chat/wallpaper/premium_wallpapers.dart';
+import 'package:bananatalk_app/pages/chat/wallpaper/wallpaper_names.dart';
 import 'package:bananatalk_app/providers/coins_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
 
@@ -44,97 +45,81 @@ class _WallpaperPickerScreenState extends ConsumerState<WallpaperPickerScreen> {
           // Dark mode: all dark-friendly wallpapers
           {
             'name': 'default',
-            'label': 'Default',
             'backgroundColor': AppColors.backgroundDark,
             'icon': Icons.brightness_auto,
           },
           {
             'name': 'dark',
-            'label': 'Dark',
             'backgroundColor': const Color(0xFF0D0D0D),
             'icon': Icons.dark_mode,
           },
           {
             'name': 'midnight',
-            'label': 'Midnight',
             'backgroundColor': const Color(0xFF1A1A2E),
             'icon': Icons.nights_stay,
           },
           {
             'name': 'charcoal',
-            'label': 'Charcoal',
             'backgroundColor': const Color(0xFF2D2D2D),
             'icon': Icons.circle,
           },
           {
             'name': 'navy',
-            'label': 'Navy',
             'backgroundColor': const Color(0xFF0A1628),
             'icon': Icons.anchor,
           },
           {
             'name': 'ocean',
-            'label': 'Ocean',
             'backgroundColor': const Color(0xFF1E3A5F),
             'icon': Icons.water,
           },
           {
             'name': 'teal',
-            'label': 'Teal',
             'backgroundColor': const Color(0xFF115E59),
             'icon': Icons.spa,
           },
           {
             'name': 'forest',
-            'label': 'Forest',
             'backgroundColor': const Color(0xFF1B4332),
             'icon': Icons.park,
           },
           {
             'name': 'sage',
-            'label': 'Sage',
             'backgroundColor': const Color(0xFF4A5D4A),
             'icon': Icons.eco,
           },
           {
             'name': 'wine',
-            'label': 'Wine',
             'backgroundColor': const Color(0xFF4A1942),
             'icon': Icons.wine_bar,
           },
           {
             'name': 'plum',
-            'label': 'Plum',
             'backgroundColor': const Color(0xFF5B2C6F),
             'icon': Icons.auto_awesome,
           },
           {
             'name': 'rose',
-            'label': 'Rose',
             'backgroundColor': const Color(0xFF5C1A3A),
             'icon': Icons.favorite,
           },
           {
             'name': 'mocha',
-            'label': 'Mocha',
             'backgroundColor': const Color(0xFF4A3728),
             'icon': Icons.coffee,
           },
           {
             'name': 'slate',
-            'label': 'Slate',
             'backgroundColor': const Color(0xFF1E293B),
             'icon': Icons.layers,
           },
           {
             'name': 'ember',
-            'label': 'Ember',
             'backgroundColor': const Color(0xFF3B1A1A),
             'icon': Icons.local_fire_department,
           },
           {
             'name': 'deep_sea',
-            'label': 'Deep Sea',
             'backgroundColor': const Color(0xFF0B2545),
             'icon': Icons.scuba_diving,
           },
@@ -143,97 +128,81 @@ class _WallpaperPickerScreenState extends ConsumerState<WallpaperPickerScreen> {
           // Light mode: mix of light and medium wallpapers
           {
             'name': 'default',
-            'label': 'Default',
             'backgroundColor': const Color(0xFFF5F5F5),
             'icon': Icons.brightness_auto,
           },
           {
             'name': 'cream',
-            'label': 'Cream',
             'backgroundColor': const Color(0xFFF5E6D3),
             'icon': Icons.light_mode,
           },
           {
             'name': 'blush',
-            'label': 'Blush',
             'backgroundColor': const Color(0xFFE8B4BC),
             'icon': Icons.favorite_border,
           },
           {
             'name': 'peach',
-            'label': 'Peach',
             'backgroundColor': const Color(0xFFE6A67C),
             'icon': Icons.wb_sunny,
           },
           {
             'name': 'sage',
-            'label': 'Sage',
             'backgroundColor': const Color(0xFF4A5D4A),
             'icon': Icons.eco,
           },
           {
             'name': 'ocean',
-            'label': 'Ocean',
             'backgroundColor': const Color(0xFF1E3A5F),
             'icon': Icons.water,
           },
           {
             'name': 'teal',
-            'label': 'Teal',
             'backgroundColor': const Color(0xFF115E59),
             'icon': Icons.spa,
           },
           {
             'name': 'forest',
-            'label': 'Forest',
             'backgroundColor': const Color(0xFF1B4332),
             'icon': Icons.park,
           },
           {
             'name': 'rose',
-            'label': 'Rose',
             'backgroundColor': const Color(0xFF8B3A62),
             'icon': Icons.favorite,
           },
           {
             'name': 'wine',
-            'label': 'Wine',
             'backgroundColor': const Color(0xFF4A1942),
             'icon': Icons.wine_bar,
           },
           {
             'name': 'plum',
-            'label': 'Plum',
             'backgroundColor': const Color(0xFF5B2C6F),
             'icon': Icons.auto_awesome,
           },
           {
             'name': 'navy',
-            'label': 'Navy',
             'backgroundColor': const Color(0xFF0A1628),
             'icon': Icons.anchor,
           },
           {
             'name': 'mocha',
-            'label': 'Mocha',
             'backgroundColor': const Color(0xFF4A3728),
             'icon': Icons.coffee,
           },
           {
             'name': 'charcoal',
-            'label': 'Charcoal',
             'backgroundColor': const Color(0xFF2D2D2D),
             'icon': Icons.circle,
           },
           {
             'name': 'midnight',
-            'label': 'Midnight',
             'backgroundColor': const Color(0xFF1A1A2E),
             'icon': Icons.nights_stay,
           },
           {
             'name': 'dark',
-            'label': 'Dark',
             'backgroundColor': const Color(0xFF0D0D0D),
             'icon': Icons.dark_mode,
           },
@@ -243,17 +212,14 @@ class _WallpaperPickerScreenState extends ConsumerState<WallpaperPickerScreen> {
   final List<Map<String, dynamic>> _gradients = [
     {
       'name': 'gradient_sunset',
-      'label': 'Sunset',
       'colors': [const Color(0xFFFF512F), const Color(0xFFDD2476)],
     },
     {
       'name': 'gradient_ocean',
-      'label': 'Ocean',
       'colors': [const Color(0xFF2193B0), const Color(0xFF6DD5ED)],
     },
     {
       'name': 'gradient_aurora',
-      'label': 'Aurora',
       'colors': [
         const Color(0xFF0F2027),
         const Color(0xFF203A43),
@@ -262,47 +228,38 @@ class _WallpaperPickerScreenState extends ConsumerState<WallpaperPickerScreen> {
     },
     {
       'name': 'gradient_purple',
-      'label': 'Cosmic',
       'colors': [const Color(0xFF667EEA), const Color(0xFF764BA2)],
     },
     {
       'name': 'gradient_midnight',
-      'label': 'Midnight',
       'colors': [const Color(0xFF232526), const Color(0xFF414345)],
     },
     {
       'name': 'gradient_forest',
-      'label': 'Forest',
       'colors': [const Color(0xFF134E5E), const Color(0xFF71B280)],
     },
     {
       'name': 'gradient_rose',
-      'label': 'Rose Gold',
       'colors': [const Color(0xFFB76E79), const Color(0xFFE8B4B8)],
     },
     {
       'name': 'gradient_candy',
-      'label': 'Candy',
       'colors': [const Color(0xFFFF9A9E), const Color(0xFFFECFEF)],
     },
     {
       'name': 'gradient_neon',
-      'label': 'Neon',
       'colors': [const Color(0xFF00F260), const Color(0xFF0575E6)],
     },
     {
       'name': 'gradient_fire',
-      'label': 'Fire',
       'colors': [const Color(0xFFF12711), const Color(0xFFF5AF19)],
     },
     {
       'name': 'gradient_winter',
-      'label': 'Winter',
       'colors': [const Color(0xFFE6DADA), const Color(0xFF274046)],
     },
     {
       'name': 'gradient_lavender',
-      'label': 'Lavender',
       'colors': [const Color(0xFFEE9CA7), const Color(0xFFFFDDE1)],
     },
   ];
@@ -592,7 +549,7 @@ class _WallpaperPickerScreenState extends ConsumerState<WallpaperPickerScreen> {
                 ),
                 Spacing.gapXS,
                 Text(
-                  wallpaper.label,
+                  wallpaperDisplayName(l10n, wallpaper.name),
                   style: TextStyle(
                     fontSize: 11,
                     color: context.textPrimary,
@@ -802,7 +759,7 @@ class _WallpaperPickerScreenState extends ConsumerState<WallpaperPickerScreen> {
                           ),
                           Spacing.gapXS,
                           Text(
-                            preset['label'],
+                            wallpaperDisplayName(l10n, preset['name']),
                             style: TextStyle(
                               fontSize: 11,
                               color: context.textPrimary,
@@ -884,7 +841,7 @@ class _WallpaperPickerScreenState extends ConsumerState<WallpaperPickerScreen> {
                           ),
                           Spacing.gapXS,
                           Text(
-                            gradient['label'],
+                            wallpaperDisplayName(l10n, gradient['name']),
                             style: TextStyle(
                               fontSize: 11,
                               color: context.textPrimary,

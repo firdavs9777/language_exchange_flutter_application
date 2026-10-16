@@ -9855,13 +9855,13 @@ class AppLocalizationsZh extends AppLocalizations {
   String get communityUnlimitedBrowsingNoAds => '无限浏览、无广告、优先匹配';
 
   @override
-  String communityMembersCount(Object count) {
-    return '$count 位成员';
+  String communityMembersCount(int count, String countLabel) {
+    return '$countLabel 位成员';
   }
 
   @override
-  String communityPeopleCount(Object count) {
-    return '$count 人';
+  String communityPeopleCount(int count, String countLabel) {
+    return '$countLabel 人';
   }
 
   @override
@@ -12145,6 +12145,119 @@ class AppLocalizationsZh extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get wallpaperPresetDefault => '默认';
+
+  @override
+  String get wallpaperPresetDark => '深色';
+
+  @override
+  String get wallpaperPresetMidnight => '午夜';
+
+  @override
+  String get wallpaperPresetCharcoal => '炭灰';
+
+  @override
+  String get wallpaperPresetNavy => '海军蓝';
+
+  @override
+  String get wallpaperPresetOcean => '海洋';
+
+  @override
+  String get wallpaperPresetTeal => '青绿';
+
+  @override
+  String get wallpaperPresetForest => '森林';
+
+  @override
+  String get wallpaperPresetSage => '鼠尾草绿';
+
+  @override
+  String get wallpaperPresetWine => '酒红';
+
+  @override
+  String get wallpaperPresetPlum => '梅紫';
+
+  @override
+  String get wallpaperPresetRose => '玫瑰';
+
+  @override
+  String get wallpaperPresetMocha => '摩卡';
+
+  @override
+  String get wallpaperPresetSlate => '石板灰';
+
+  @override
+  String get wallpaperPresetEmber => '余烬';
+
+  @override
+  String get wallpaperPresetDeepSea => '深海';
+
+  @override
+  String get wallpaperPresetCream => '奶油';
+
+  @override
+  String get wallpaperPresetBlush => '腮红';
+
+  @override
+  String get wallpaperPresetPeach => '蜜桃';
+
+  @override
+  String get wallpaperPresetSunset => '日落';
+
+  @override
+  String get wallpaperPresetAurora => '极光';
+
+  @override
+  String get wallpaperPresetCosmic => '宇宙';
+
+  @override
+  String get wallpaperPresetRoseGold => '玫瑰金';
+
+  @override
+  String get wallpaperPresetCandy => '糖果';
+
+  @override
+  String get wallpaperPresetNeon => '霓虹';
+
+  @override
+  String get wallpaperPresetFire => '火焰';
+
+  @override
+  String get wallpaperPresetWinter => '冬日';
+
+  @override
+  String get wallpaperPresetLavender => '薰衣草';
+
+  @override
+  String get wallpaperPresetAuroraBorealis => '北极光';
+
+  @override
+  String get wallpaperPresetGoldenHour => '黄金时刻';
+
+  @override
+  String get wallpaperPresetGalaxy => '银河';
+
+  @override
+  String get wallpaperPresetEmeraldLuxe => '奢华翡翠';
+
+  @override
+  String get wallpaperPresetRoyalVelvet => '皇家天鹅绒';
+
+  @override
+  String get wallpaperPresetDiamondShine => '钻石光辉';
+
+  @override
+  String get communityWorldwide => '全球';
+
+  @override
+  String communitySearchTitle(String query) {
+    return '搜索：$query';
+  }
+
+  @override
+  String get communityFilterNew => '新人';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -21998,13 +22111,13 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get communityUnlimitedBrowsingNoAds => '無限瀏覽、無廣告、優先配對';
 
   @override
-  String communityMembersCount(Object count) {
-    return '$count 位成員';
+  String communityMembersCount(int count, String countLabel) {
+    return '$countLabel 位成員';
   }
 
   @override
-  String communityPeopleCount(Object count) {
-    return '$count 人';
+  String communityPeopleCount(int count, String countLabel) {
+    return '$countLabel 人';
   }
 
   @override
@@ -24288,4 +24401,117 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
     );
     return '$_temp0';
   }
+
+  @override
+  String get wallpaperPresetDefault => '預設';
+
+  @override
+  String get wallpaperPresetDark => '深色';
+
+  @override
+  String get wallpaperPresetMidnight => '午夜';
+
+  @override
+  String get wallpaperPresetCharcoal => '炭灰';
+
+  @override
+  String get wallpaperPresetNavy => '海軍藍';
+
+  @override
+  String get wallpaperPresetOcean => '海洋';
+
+  @override
+  String get wallpaperPresetTeal => '青綠';
+
+  @override
+  String get wallpaperPresetForest => '森林';
+
+  @override
+  String get wallpaperPresetSage => '鼠尾草綠';
+
+  @override
+  String get wallpaperPresetWine => '酒紅';
+
+  @override
+  String get wallpaperPresetPlum => '梅紫';
+
+  @override
+  String get wallpaperPresetRose => '玫瑰';
+
+  @override
+  String get wallpaperPresetMocha => '摩卡';
+
+  @override
+  String get wallpaperPresetSlate => '石板灰';
+
+  @override
+  String get wallpaperPresetEmber => '餘燼';
+
+  @override
+  String get wallpaperPresetDeepSea => '深海';
+
+  @override
+  String get wallpaperPresetCream => '奶油';
+
+  @override
+  String get wallpaperPresetBlush => '腮紅';
+
+  @override
+  String get wallpaperPresetPeach => '蜜桃';
+
+  @override
+  String get wallpaperPresetSunset => '日落';
+
+  @override
+  String get wallpaperPresetAurora => '極光';
+
+  @override
+  String get wallpaperPresetCosmic => '宇宙';
+
+  @override
+  String get wallpaperPresetRoseGold => '玫瑰金';
+
+  @override
+  String get wallpaperPresetCandy => '糖果';
+
+  @override
+  String get wallpaperPresetNeon => '霓虹';
+
+  @override
+  String get wallpaperPresetFire => '火焰';
+
+  @override
+  String get wallpaperPresetWinter => '冬日';
+
+  @override
+  String get wallpaperPresetLavender => '薰衣草';
+
+  @override
+  String get wallpaperPresetAuroraBorealis => '北極光';
+
+  @override
+  String get wallpaperPresetGoldenHour => '黃金時刻';
+
+  @override
+  String get wallpaperPresetGalaxy => '銀河';
+
+  @override
+  String get wallpaperPresetEmeraldLuxe => '奢華翡翠';
+
+  @override
+  String get wallpaperPresetRoyalVelvet => '皇家天鵝絨';
+
+  @override
+  String get wallpaperPresetDiamondShine => '鑽石光輝';
+
+  @override
+  String get communityWorldwide => '全球';
+
+  @override
+  String communitySearchTitle(String query) {
+    return '搜尋：$query';
+  }
+
+  @override
+  String get communityFilterNew => '新人';
 }

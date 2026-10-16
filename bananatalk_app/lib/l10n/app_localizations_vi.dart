@@ -9855,13 +9855,13 @@ class AppLocalizationsVi extends AppLocalizations {
   String get communityUnlimitedBrowsingNoAds => 'Duyệt không giới hạn, không quảng cáo, ghép đôi ưu tiên';
 
   @override
-  String communityMembersCount(Object count) {
-    return '$count thành viên';
+  String communityMembersCount(int count, String countLabel) {
+    return '$countLabel thành viên';
   }
 
   @override
-  String communityPeopleCount(Object count) {
-    return '$count người';
+  String communityPeopleCount(int count, String countLabel) {
+    return '$countLabel người';
   }
 
   @override
@@ -12145,4 +12145,117 @@ class AppLocalizationsVi extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get wallpaperPresetDefault => 'Mặc định';
+
+  @override
+  String get wallpaperPresetDark => 'Tối';
+
+  @override
+  String get wallpaperPresetMidnight => 'Nửa đêm';
+
+  @override
+  String get wallpaperPresetCharcoal => 'Than chì';
+
+  @override
+  String get wallpaperPresetNavy => 'Xanh hải quân';
+
+  @override
+  String get wallpaperPresetOcean => 'Đại dương';
+
+  @override
+  String get wallpaperPresetTeal => 'Xanh mòng két';
+
+  @override
+  String get wallpaperPresetForest => 'Rừng';
+
+  @override
+  String get wallpaperPresetSage => 'Xanh xô thơm';
+
+  @override
+  String get wallpaperPresetWine => 'Đỏ rượu vang';
+
+  @override
+  String get wallpaperPresetPlum => 'Mận';
+
+  @override
+  String get wallpaperPresetRose => 'Hồng';
+
+  @override
+  String get wallpaperPresetMocha => 'Nâu mocha';
+
+  @override
+  String get wallpaperPresetSlate => 'Đá phiến';
+
+  @override
+  String get wallpaperPresetEmber => 'Than hồng';
+
+  @override
+  String get wallpaperPresetDeepSea => 'Biển sâu';
+
+  @override
+  String get wallpaperPresetCream => 'Kem';
+
+  @override
+  String get wallpaperPresetBlush => 'Hồng phấn';
+
+  @override
+  String get wallpaperPresetPeach => 'Đào';
+
+  @override
+  String get wallpaperPresetSunset => 'Hoàng hôn';
+
+  @override
+  String get wallpaperPresetAurora => 'Cực quang';
+
+  @override
+  String get wallpaperPresetCosmic => 'Vũ trụ';
+
+  @override
+  String get wallpaperPresetRoseGold => 'Vàng hồng';
+
+  @override
+  String get wallpaperPresetCandy => 'Kẹo ngọt';
+
+  @override
+  String get wallpaperPresetNeon => 'Đèn neon';
+
+  @override
+  String get wallpaperPresetFire => 'Lửa';
+
+  @override
+  String get wallpaperPresetWinter => 'Mùa đông';
+
+  @override
+  String get wallpaperPresetLavender => 'Oải hương';
+
+  @override
+  String get wallpaperPresetAuroraBorealis => 'Bắc cực quang';
+
+  @override
+  String get wallpaperPresetGoldenHour => 'Giờ vàng';
+
+  @override
+  String get wallpaperPresetGalaxy => 'Thiên hà';
+
+  @override
+  String get wallpaperPresetEmeraldLuxe => 'Ngọc lục bảo sang trọng';
+
+  @override
+  String get wallpaperPresetRoyalVelvet => 'Nhung hoàng gia';
+
+  @override
+  String get wallpaperPresetDiamondShine => 'Ánh kim cương';
+
+  @override
+  String get communityWorldwide => 'Toàn cầu';
+
+  @override
+  String communitySearchTitle(String query) {
+    return 'Tìm kiếm: $query';
+  }
+
+  @override
+  String get communityFilterNew => 'Mới';
 }

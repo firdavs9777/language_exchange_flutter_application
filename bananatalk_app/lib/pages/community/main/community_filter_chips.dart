@@ -44,6 +44,7 @@ class CommunityFilterChips extends StatelessWidget {
     BuildContext context,
     Map<String, dynamic> f,
   ) {
+    final l10n = AppLocalizations.of(context)!;
     final chips = <FilterChipData>[];
 
     if (f['nativeLanguage'] != null) {
@@ -62,16 +63,21 @@ class CommunityFilterChips extends StatelessWidget {
     }
     if (f['gender'] != null) {
       final g = f['gender'] as String;
-      chips.add(FilterChipData(g == 'male' ? '♂ Male' : '♀ Female', 'gender'));
+      chips.add(
+        FilterChipData(
+          g == 'male' ? '♂ ${l10n.male}' : '♀ ${l10n.female}',
+          'gender',
+        ),
+      );
     }
     if (f['languageLevel'] != null) {
       chips.add(FilterChipData('🎯 ${f['languageLevel']}', 'languageLevel'));
     }
     if (f['onlineOnly'] == true) {
-      chips.add(const FilterChipData('🟢 Online', 'onlineOnly'));
+      chips.add(FilterChipData('🟢 ${l10n.online}', 'onlineOnly'));
     }
     if (f['newUsersOnly'] == true) {
-      chips.add(const FilterChipData('✨ New', 'newUsersOnly'));
+      chips.add(FilterChipData('✨ ${l10n.communityFilterNew}', 'newUsersOnly'));
     }
     if ((f['minAge'] as int?) != null && (f['minAge'] as int) > 18 ||
         (f['maxAge'] as int?) != null && (f['maxAge'] as int) < 100) {

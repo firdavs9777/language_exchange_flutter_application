@@ -23,7 +23,7 @@ import 'package:bananatalk_app/widgets/community/user_skeleton.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/privacy_utils.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
-import 'package:bananatalk_app/utils/compact_count.dart';
+import 'package:bananatalk_app/utils/number_format_locale.dart';
 
 /// Genders Tab — browse users filtered by gender with a polished UI
 class GendersTab extends ConsumerStatefulWidget {
@@ -476,7 +476,7 @@ class _GendersTabState extends ConsumerState<GendersTab> {
                     if (_countsLoaded) ...[
                       const SizedBox(height: 2),
                       Text(
-                        AppLocalizations.of(context)!.communityMembersCount(formatCompactCount(_femaleCount)),
+                        AppLocalizations.of(context)!.communityMembersCount(compactPluralCount(_femaleCount), formatCompactNumberForLocale(context, _femaleCount)),
                         style: TextStyle(
                           fontSize: 11,
                           fontWeight: FontWeight.w500,
@@ -544,7 +544,7 @@ class _GendersTabState extends ConsumerState<GendersTab> {
                     if (_countsLoaded) ...[
                       const SizedBox(height: 2),
                       Text(
-                        AppLocalizations.of(context)!.communityMembersCount(formatCompactCount(_maleCount)),
+                        AppLocalizations.of(context)!.communityMembersCount(compactPluralCount(_maleCount), formatCompactNumberForLocale(context, _maleCount)),
                         style: TextStyle(
                           fontSize: 11,
                           fontWeight: FontWeight.w500,

@@ -9855,13 +9855,13 @@ class AppLocalizationsJa extends AppLocalizations {
   String get communityUnlimitedBrowsingNoAds => '無制限の閲覧、広告なし、優先マッチング';
 
   @override
-  String communityMembersCount(Object count) {
-    return 'メンバー $count人';
+  String communityMembersCount(int count, String countLabel) {
+    return 'メンバー $countLabel人';
   }
 
   @override
-  String communityPeopleCount(Object count) {
-    return '$count人';
+  String communityPeopleCount(int count, String countLabel) {
+    return '$countLabel人';
   }
 
   @override
@@ -12145,4 +12145,117 @@ class AppLocalizationsJa extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get wallpaperPresetDefault => 'デフォルト';
+
+  @override
+  String get wallpaperPresetDark => 'ダーク';
+
+  @override
+  String get wallpaperPresetMidnight => 'ミッドナイト';
+
+  @override
+  String get wallpaperPresetCharcoal => 'チャコール';
+
+  @override
+  String get wallpaperPresetNavy => 'ネイビー';
+
+  @override
+  String get wallpaperPresetOcean => 'オーシャン';
+
+  @override
+  String get wallpaperPresetTeal => 'ティール';
+
+  @override
+  String get wallpaperPresetForest => 'フォレスト';
+
+  @override
+  String get wallpaperPresetSage => 'セージ';
+
+  @override
+  String get wallpaperPresetWine => 'ワイン';
+
+  @override
+  String get wallpaperPresetPlum => 'プラム';
+
+  @override
+  String get wallpaperPresetRose => 'ローズ';
+
+  @override
+  String get wallpaperPresetMocha => 'モカ';
+
+  @override
+  String get wallpaperPresetSlate => 'スレート';
+
+  @override
+  String get wallpaperPresetEmber => 'エンバー';
+
+  @override
+  String get wallpaperPresetDeepSea => 'ディープシー';
+
+  @override
+  String get wallpaperPresetCream => 'クリーム';
+
+  @override
+  String get wallpaperPresetBlush => 'ブラッシュ';
+
+  @override
+  String get wallpaperPresetPeach => 'ピーチ';
+
+  @override
+  String get wallpaperPresetSunset => 'サンセット';
+
+  @override
+  String get wallpaperPresetAurora => 'オーロラ';
+
+  @override
+  String get wallpaperPresetCosmic => 'コズミック';
+
+  @override
+  String get wallpaperPresetRoseGold => 'ローズゴールド';
+
+  @override
+  String get wallpaperPresetCandy => 'キャンディ';
+
+  @override
+  String get wallpaperPresetNeon => 'ネオン';
+
+  @override
+  String get wallpaperPresetFire => 'ファイア';
+
+  @override
+  String get wallpaperPresetWinter => 'ウィンター';
+
+  @override
+  String get wallpaperPresetLavender => 'ラベンダー';
+
+  @override
+  String get wallpaperPresetAuroraBorealis => 'オーロラ・ボレアリス';
+
+  @override
+  String get wallpaperPresetGoldenHour => 'ゴールデンアワー';
+
+  @override
+  String get wallpaperPresetGalaxy => 'ギャラクシー';
+
+  @override
+  String get wallpaperPresetEmeraldLuxe => 'エメラルドリュクス';
+
+  @override
+  String get wallpaperPresetRoyalVelvet => 'ロイヤルベルベット';
+
+  @override
+  String get wallpaperPresetDiamondShine => 'ダイヤモンドシャイン';
+
+  @override
+  String get communityWorldwide => '世界中';
+
+  @override
+  String communitySearchTitle(String query) {
+    return '検索: $query';
+  }
+
+  @override
+  String get communityFilterNew => '新規';
 }

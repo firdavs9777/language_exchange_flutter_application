@@ -9872,13 +9872,13 @@ class AppLocalizationsHi extends AppLocalizations {
   String get communityUnlimitedBrowsingNoAds => 'असीमित ब्राउज़िंग, कोई विज्ञापन नहीं, प्राथमिकता मैचिंग';
 
   @override
-  String communityMembersCount(Object count) {
-    return '$count सदस्य';
+  String communityMembersCount(int count, String countLabel) {
+    return '$countLabel सदस्य';
   }
 
   @override
-  String communityPeopleCount(Object count) {
-    return '$count लोग';
+  String communityPeopleCount(int count, String countLabel) {
+    return '$countLabel लोग';
   }
 
   @override
@@ -12175,4 +12175,117 @@ class AppLocalizationsHi extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get wallpaperPresetDefault => 'डिफ़ॉल्ट';
+
+  @override
+  String get wallpaperPresetDark => 'गहरा';
+
+  @override
+  String get wallpaperPresetMidnight => 'आधी रात';
+
+  @override
+  String get wallpaperPresetCharcoal => 'चारकोल';
+
+  @override
+  String get wallpaperPresetNavy => 'नेवी ब्लू';
+
+  @override
+  String get wallpaperPresetOcean => 'महासागर';
+
+  @override
+  String get wallpaperPresetTeal => 'हरा-नीला';
+
+  @override
+  String get wallpaperPresetForest => 'वन';
+
+  @override
+  String get wallpaperPresetSage => 'सेज';
+
+  @override
+  String get wallpaperPresetWine => 'वाइन';
+
+  @override
+  String get wallpaperPresetPlum => 'बेर';
+
+  @override
+  String get wallpaperPresetRose => 'गुलाबी';
+
+  @override
+  String get wallpaperPresetMocha => 'मोचा';
+
+  @override
+  String get wallpaperPresetSlate => 'स्लेट';
+
+  @override
+  String get wallpaperPresetEmber => 'अंगारा';
+
+  @override
+  String get wallpaperPresetDeepSea => 'गहरा समुद्र';
+
+  @override
+  String get wallpaperPresetCream => 'क्रीम';
+
+  @override
+  String get wallpaperPresetBlush => 'ब्लश';
+
+  @override
+  String get wallpaperPresetPeach => 'आड़ू';
+
+  @override
+  String get wallpaperPresetSunset => 'सूर्यास्त';
+
+  @override
+  String get wallpaperPresetAurora => 'अरोरा';
+
+  @override
+  String get wallpaperPresetCosmic => 'ब्रह्मांडीय';
+
+  @override
+  String get wallpaperPresetRoseGold => 'रोज़ गोल्ड';
+
+  @override
+  String get wallpaperPresetCandy => 'कैंडी';
+
+  @override
+  String get wallpaperPresetNeon => 'नियॉन';
+
+  @override
+  String get wallpaperPresetFire => 'आग';
+
+  @override
+  String get wallpaperPresetWinter => 'सर्दी';
+
+  @override
+  String get wallpaperPresetLavender => 'लैवेंडर';
+
+  @override
+  String get wallpaperPresetAuroraBorealis => 'उत्तरी ध्रुवीय ज्योति';
+
+  @override
+  String get wallpaperPresetGoldenHour => 'सुनहरा पल';
+
+  @override
+  String get wallpaperPresetGalaxy => 'आकाशगंगा';
+
+  @override
+  String get wallpaperPresetEmeraldLuxe => 'पन्ना लक्स';
+
+  @override
+  String get wallpaperPresetRoyalVelvet => 'शाही मखमल';
+
+  @override
+  String get wallpaperPresetDiamondShine => 'हीरे की चमक';
+
+  @override
+  String get communityWorldwide => 'दुनिया भर में';
+
+  @override
+  String communitySearchTitle(String query) {
+    return 'खोज: $query';
+  }
+
+  @override
+  String get communityFilterNew => 'नए';
 }

@@ -9878,13 +9878,25 @@ class AppLocalizationsEn extends AppLocalizations {
   String get communityUnlimitedBrowsingNoAds => 'Unlimited browsing, no ads, priority matching';
 
   @override
-  String communityMembersCount(Object count) {
-    return '$count members';
+  String communityMembersCount(int count, String countLabel) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countLabel members',
+      one: '$countLabel member',
+    );
+    return '$_temp0';
   }
 
   @override
-  String communityPeopleCount(Object count) {
-    return '$count people';
+  String communityPeopleCount(int count, String countLabel) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countLabel people',
+      one: '$countLabel person',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -12181,4 +12193,117 @@ class AppLocalizationsEn extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get wallpaperPresetDefault => 'Default';
+
+  @override
+  String get wallpaperPresetDark => 'Dark';
+
+  @override
+  String get wallpaperPresetMidnight => 'Midnight';
+
+  @override
+  String get wallpaperPresetCharcoal => 'Charcoal';
+
+  @override
+  String get wallpaperPresetNavy => 'Navy';
+
+  @override
+  String get wallpaperPresetOcean => 'Ocean';
+
+  @override
+  String get wallpaperPresetTeal => 'Teal';
+
+  @override
+  String get wallpaperPresetForest => 'Forest';
+
+  @override
+  String get wallpaperPresetSage => 'Sage';
+
+  @override
+  String get wallpaperPresetWine => 'Wine';
+
+  @override
+  String get wallpaperPresetPlum => 'Plum';
+
+  @override
+  String get wallpaperPresetRose => 'Rose';
+
+  @override
+  String get wallpaperPresetMocha => 'Mocha';
+
+  @override
+  String get wallpaperPresetSlate => 'Slate';
+
+  @override
+  String get wallpaperPresetEmber => 'Ember';
+
+  @override
+  String get wallpaperPresetDeepSea => 'Deep Sea';
+
+  @override
+  String get wallpaperPresetCream => 'Cream';
+
+  @override
+  String get wallpaperPresetBlush => 'Blush';
+
+  @override
+  String get wallpaperPresetPeach => 'Peach';
+
+  @override
+  String get wallpaperPresetSunset => 'Sunset';
+
+  @override
+  String get wallpaperPresetAurora => 'Aurora';
+
+  @override
+  String get wallpaperPresetCosmic => 'Cosmic';
+
+  @override
+  String get wallpaperPresetRoseGold => 'Rose Gold';
+
+  @override
+  String get wallpaperPresetCandy => 'Candy';
+
+  @override
+  String get wallpaperPresetNeon => 'Neon';
+
+  @override
+  String get wallpaperPresetFire => 'Fire';
+
+  @override
+  String get wallpaperPresetWinter => 'Winter';
+
+  @override
+  String get wallpaperPresetLavender => 'Lavender';
+
+  @override
+  String get wallpaperPresetAuroraBorealis => 'Aurora Borealis';
+
+  @override
+  String get wallpaperPresetGoldenHour => 'Golden Hour';
+
+  @override
+  String get wallpaperPresetGalaxy => 'Galaxy';
+
+  @override
+  String get wallpaperPresetEmeraldLuxe => 'Emerald Luxe';
+
+  @override
+  String get wallpaperPresetRoyalVelvet => 'Royal Velvet';
+
+  @override
+  String get wallpaperPresetDiamondShine => 'Diamond Shine';
+
+  @override
+  String get communityWorldwide => 'Worldwide';
+
+  @override
+  String communitySearchTitle(String query) {
+    return 'Search: $query';
+  }
+
+  @override
+  String get communityFilterNew => 'New';
 }
