@@ -64,7 +64,7 @@ class ReportService {
     } catch (e) {
       return {
         'success': false,
-        'message': 'Error: ${e.toString()}',
+        'message': e.toString(),
       };
     }
   }
@@ -116,7 +116,7 @@ class ReportService {
     } catch (e) {
       return {
         'success': false,
-        'message': 'Error: ${e.toString()}',
+        'message': e.toString(),
       };
     }
   }
@@ -209,7 +209,7 @@ class ReportService {
     } catch (e) {
       return {
         'success': false,
-        'message': 'Error: ${e.toString()}',
+        'message': e.toString(),
       };
     }
   }
@@ -273,7 +273,7 @@ class ReportService {
     } catch (e) {
       return {
         'success': false,
-        'message': 'Error: ${e.toString()}',
+        'message': e.toString(),
       };
     }
   }

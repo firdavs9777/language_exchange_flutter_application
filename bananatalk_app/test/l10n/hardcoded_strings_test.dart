@@ -552,6 +552,10 @@ const Map<String, List<String>> _keysByTask = {
     'vipSwitchScheduledTitle',
     'vipSwitchScheduledBody',
   ],
+  // Video processing / story post failures were English service sentences.
+  'service-error-text': [
+    'videoTooLongMax',
+  ],
   // Remaining hardcoded English: property literals, enum labels, snackbars (L14 sweep).
   'l10n-sweep': [
     'authLockedTitle',
@@ -1035,6 +1039,10 @@ const Map<String, List<String>> _filesByTask = {
   // The VIP screens still have other English literals (mock payment
   // methods); the keys are checked above, the files are not listed.
   'android-plan-switch': [],
+  'service-error-text': [
+    'utils/media_failure_text.dart',
+    'pages/stories/create/create_story_screen.dart',
+  ],
   'l10n-sweep': [
     'pages/authentication/widgets/auth_error_state.dart',
     'pages/authentication/widgets/password_strength_meter.dart',

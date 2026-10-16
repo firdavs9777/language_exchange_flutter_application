@@ -90,7 +90,7 @@ class LearningService {
         };
       }
     } catch (e) {
-      return {'success': false, 'error': 'Network error: ${e.toString()}'};
+      return {'success': false, 'error': e.toString()};
     }
   }
 
@@ -129,7 +129,7 @@ class LearningService {
         };
       }
     } catch (e) {
-      return {'success': false, 'error': 'Network error: ${e.toString()}'};
+      return {'success': false, 'error': e.toString()};
     }
   }
 
@@ -178,7 +178,7 @@ class LearningService {
       }
     } catch (e) {
       _log('❌ Exception: $e');
-      return {'success': false, 'error': 'Network error: ${e.toString()}'};
+      return {'success': false, 'error': e.toString()};
     }
   }
 
@@ -225,7 +225,7 @@ class LearningService {
       }
     } catch (e) {
       _log('❌ Exception: $e');
-      return {'success': false, 'error': 'Network error: ${e.toString()}'};
+      return {'success': false, 'error': e.toString()};
     }
   }
 
@@ -270,7 +270,7 @@ class LearningService {
       }
     } catch (e) {
       _log('❌ Exception: $e');
-      return {'success': false, 'error': 'Network error: ${e.toString()}'};
+      return {'success': false, 'error': e.toString()};
     }
   }
 
@@ -308,7 +308,7 @@ class LearningService {
       }
     } catch (e) {
       _log('❌ Exception: $e');
-      return {'success': false, 'error': 'Network error: ${e.toString()}'};
+      return {'success': false, 'error': e.toString()};
     }
   }
 
@@ -337,7 +337,7 @@ class LearningService {
         };
       }
     } catch (e) {
-      return {'success': false, 'error': 'Network error: ${e.toString()}'};
+      return {'success': false, 'error': e.toString()};
     }
   }
 
@@ -373,7 +373,7 @@ class LearningService {
         };
       }
     } catch (e) {
-      return {'success': false, 'error': 'Network error: ${e.toString()}'};
+      return {'success': false, 'error': e.toString()};
     }
   }
 
@@ -444,7 +444,7 @@ class LearningService {
         };
       }
     } catch (e) {
-      return {'success': false, 'error': 'Network error: ${e.toString()}'};
+      return {'success': false, 'error': e.toString()};
     }
   }
 
@@ -499,7 +499,7 @@ class LearningService {
         };
       }
     } catch (e) {
-      return {'success': false, 'error': 'Network error: ${e.toString()}'};
+      return {'success': false, 'error': e.toString()};
     }
   }
 
@@ -549,7 +549,7 @@ class LearningService {
         };
       }
     } catch (e) {
-      return {'success': false, 'error': 'Network error: ${e.toString()}'};
+      return {'success': false, 'error': e.toString()};
     }
   }
 
@@ -574,7 +574,7 @@ class LearningService {
         };
       }
     } catch (e) {
-      return {'success': false, 'error': 'Network error: ${e.toString()}'};
+      return {'success': false, 'error': e.toString()};
     }
   }
 
@@ -611,7 +611,7 @@ class LearningService {
         };
       }
     } catch (e) {
-      return {'success': false, 'error': 'Network error: ${e.toString()}'};
+      return {'success': false, 'error': e.toString()};
     }
   }
 
@@ -649,7 +649,7 @@ class LearningService {
         };
       }
     } catch (e) {
-      return {'success': false, 'error': 'Network error: ${e.toString()}'};
+      return {'success': false, 'error': e.toString()};
     }
   }
 
@@ -692,7 +692,7 @@ class LearningService {
         };
       }
     } catch (e) {
-      return {'success': false, 'error': 'Network error: ${e.toString()}'};
+      return {'success': false, 'error': e.toString()};
     }
   }
 
@@ -760,7 +760,7 @@ class LearningService {
         );
       }
     } catch (e) {
-      return {'success': false, 'error': 'Network error: ${e.toString()}'};
+      return {'success': false, 'error': e.toString()};
     }
   }
 
@@ -858,7 +858,7 @@ class LearningService {
         };
       }
     } catch (e) {
-      return {'success': false, 'error': 'Network error: ${e.toString()}'};
+      return {'success': false, 'error': e.toString()};
     }
   }
 
@@ -955,7 +955,7 @@ class LearningService {
         'error': _getErrorMessage(data, 'Failed to fetch lesson'),
       };
     } catch (e) {
-      return {'success': false, 'error': 'Network error: ${e.toString()}'};
+      return {'success': false, 'error': e.toString()};
     }
   }
 
@@ -1020,7 +1020,7 @@ class LearningService {
         'error': _getErrorMessage(data, 'Failed to start lesson'),
       };
     } catch (e) {
-      return {'success': false, 'error': 'Network error: ${e.toString()}'};
+      return {'success': false, 'error': e.toString()};
     }
   }
 
@@ -1144,7 +1144,7 @@ class LearningService {
         };
       }
     } catch (e) {
-      return {'success': false, 'error': 'Network error: ${e.toString()}'};
+      return {'success': false, 'error': e.toString()};
     }
   }
 
@@ -1173,7 +1173,7 @@ class LearningService {
         };
       }
     } catch (e) {
-      return {'success': false, 'error': 'Network error: ${e.toString()}'};
+      return {'success': false, 'error': e.toString()};
     }
   }
 
@@ -1210,7 +1210,7 @@ class LearningService {
         };
       }
     } catch (e) {
-      return {'success': false, 'error': 'Network error: ${e.toString()}'};
+      return {'success': false, 'error': e.toString()};
     }
   }
 
@@ -1241,7 +1241,7 @@ class LearningService {
         };
       }
     } catch (e) {
-      return {'success': false, 'error': 'Network error: ${e.toString()}'};
+      return {'success': false, 'error': e.toString()};
     }
   }
 
@@ -1277,7 +1277,7 @@ class LearningService {
         };
       }
     } catch (e) {
-      return {'success': false, 'error': 'Network error: ${e.toString()}'};
+      return {'success': false, 'error': e.toString()};
     }
   }
 
@@ -1331,7 +1331,7 @@ class LearningService {
         };
       }
     } catch (e) {
-      return {'success': false, 'error': 'Network error: ${e.toString()}'};
+      return {'success': false, 'error': e.toString()};
     }
   }
 

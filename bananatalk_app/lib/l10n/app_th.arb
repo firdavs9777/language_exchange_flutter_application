@@ -4676,5 +4676,6 @@
   "vipCurrentPlan": "แพ็กเกจปัจจุบัน",
   "vipSwitchPlanUnavailable": "ไม่พบการสมัครสมาชิก Google Play ที่จะเปลี่ยนในบัญชีนี้ จัดการการสมัครสมาชิกได้ใน Google Play",
   "vipSwitchScheduledTitle": "กำหนดการเปลี่ยนแพ็กเกจแล้ว",
-  "vipSwitchScheduledBody": "แพ็กเกจใหม่จะเริ่มเมื่อแพ็กเกจปัจจุบันสิ้นสุด คุณยังเป็น VIP จนถึงตอนนั้น"
+  "vipSwitchScheduledBody": "แพ็กเกจใหม่จะเริ่มเมื่อแพ็กเกจปัจจุบันสิ้นสุด คุณยังเป็น VIP จนถึงตอนนั้น",
+  "videoTooLongMax": "วิดีโอนี้ยาวเกินไป จำกัดไว้ที่ {seconds} วินาที"
 }

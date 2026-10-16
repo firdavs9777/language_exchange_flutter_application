@@ -4888,5 +4888,6 @@
   "vipCurrentPlan": "Mevcut plan",
   "vipSwitchPlanUnavailable": "Bu hesapta değiştirilecek bir Google Play aboneliği bulunamadı. Aboneliğini Google Play'den yönet.",
   "vipSwitchScheduledTitle": "Plan değişikliği planlandı",
-  "vipSwitchScheduledBody": "Yeni planın mevcut planın bittiğinde başlar. O zamana kadar VIP kalırsın."
+  "vipSwitchScheduledBody": "Yeni planın mevcut planın bittiğinde başlar. O zamana kadar VIP kalırsın.",
+  "videoTooLongMax": "Bu video çok uzun. Sınır {seconds} saniye."
 }

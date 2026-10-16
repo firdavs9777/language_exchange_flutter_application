@@ -12303,4 +12303,9 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get vipSwitchScheduledBody => 'Votre nouvelle formule commence à la fin de la formule actuelle. Vous restez VIP jusque-là.';
+
+  @override
+  String videoTooLongMax(int seconds) {
+    return 'Cette vidéo est trop longue. La limite est de $seconds secondes.';
+  }
 }

@@ -29,6 +29,32 @@ void main() {
     expect(offenders, isEmpty, reason: 'Use friendlyErrorMessage:\n${offenders.join('\n')}');
   });
 
+  test('services return raw failure text, not English wrapped round it', () {
+    // Screens classify the raw `e.toString()` with friendlyErrorMessage
+    // (offline vs. everything else); an English "Network error: " /
+    // "Error: " prefix in front of it was shown verbatim by screens that
+    // echoed the string, and called a JSON parse failure a network error.
+    // vip_service (owned by the VIP work) and admin_provider (admin-only
+    // screens that show raw text on purpose) are the known exceptions.
+    const allowed = {
+      'lib/services/vip_service.dart',
+      'lib/providers/provider_root/admin_provider.dart',
+    };
+    final pattern = RegExp(r"'(Network error|Error): \$\{?e\b");
+    final offenders = <String>[];
+    for (final dir in ['lib/services', 'lib/providers']) {
+      for (final f in dartFiles(dir)) {
+        if (allowed.contains(f.path)) continue;
+        final lines = f.readAsLinesSync();
+        for (var i = 0; i < lines.length; i++) {
+          if (lines[i].trimLeft().startsWith('//')) continue;
+          if (pattern.hasMatch(lines[i])) offenders.add('${f.path}:${i + 1}');
+        }
+      }
+    }
+    expect(offenders, isEmpty, reason: 'Return e.toString():\n${offenders.join('\n')}');
+  });
+
   test('moments/stories services do not label every failure a network error', () {
     for (final path in ['lib/services/moments_service.dart', 'lib/services/stories_service.dart']) {
       expect(File(path).readAsStringSync(), isNot(contains("'Network error: ")), reason: path);

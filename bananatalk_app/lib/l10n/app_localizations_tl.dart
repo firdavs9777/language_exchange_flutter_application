@@ -12296,4 +12296,9 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get vipSwitchScheduledBody => 'Magsisimula ang bagong plan mo kapag natapos ang kasalukuyan. VIP ka pa rin hanggang doon.';
+
+  @override
+  String videoTooLongMax(int seconds) {
+    return 'Masyadong mahaba ang video na ito. Ang limit ay $seconds segundo.';
+  }
 }

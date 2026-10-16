@@ -63,7 +63,7 @@ class PollService {
     } catch (e) {
       return {
         'success': false,
-        'error': 'Network error: ${e.toString()}',
+        'error': e.toString(),
       };
     }
   }
@@ -100,7 +100,7 @@ class PollService {
     } catch (e) {
       return {
         'success': false,
-        'error': 'Network error: ${e.toString()}',
+        'error': e.toString(),
       };
     }
   }
@@ -134,7 +134,7 @@ class PollService {
     } catch (e) {
       return {
         'success': false,
-        'error': 'Network error: ${e.toString()}',
+        'error': e.toString(),
       };
     }
   }
@@ -169,7 +169,7 @@ class PollService {
     } catch (e) {
       return {
         'success': false,
-        'error': 'Network error: ${e.toString()}',
+        'error': e.toString(),
       };
     }
   }

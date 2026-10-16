@@ -26,10 +26,12 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/friendly_error.dart';
+import 'package:bananatalk_app/utils/media_failure_text.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:bananatalk_app/pages/moments/widgets/moments_snackbar.dart';
 import 'package:bananatalk_app/pages/moments/create/moment_draft_rules.dart';
 import 'package:bananatalk_app/pages/moments/create/moment_media_rules.dart';
+import 'package:bananatalk_app/pages/moments/create/moment_location.dart';
 import 'package:bananatalk_app/pages/moments/create/composer_stage.dart';
 import 'package:bananatalk_app/pages/moments/create/moment_upload_retry.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
@@ -554,7 +556,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
 
     setState(() {
       _videoCompressionProgress = 0;
-      _videoProcessingStatus = 'Preparing video...';
+      _videoProcessingStatus = AppLocalizations.of(context)!.preparingVideo;
     });
 
     try {
@@ -569,10 +571,13 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
             _videoProgressTick.value++;
           }
         },
-        onStatus: (status) {
+        onStatus: (stage) {
           if (mounted) {
             setState(() {
-              _videoProcessingStatus = status;
+              _videoProcessingStatus = videoProcessStageText(
+                AppLocalizations.of(context)!,
+                stage,
+              );
             });
             _videoProgressTick.value++;
           }
@@ -608,10 +613,9 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
         if (mounted) {
           showMomentsSnackBar(
             context,
-            message: friendlyErrorMessage(
+            message: videoProcessFailureText(
               AppLocalizations.of(context)!,
-              result.error,
-              prefix: AppLocalizations.of(context)!.failedToProcessVideo,
+              result,
             ),
             type: MomentsSnackBarType.error,
           );
@@ -983,43 +987,25 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
         desiredAccuracy: LocationAccuracy.high,
       );
 
-      await setLocaleIdentifier('en_US');
-      List<Placemark> placemarks = await placemarkFromCoordinates(
-        _currentPosition!.latitude,
-        _currentPosition!.longitude,
-      );
-
-      if (placemarks.isNotEmpty) {
-        Placemark place = placemarks[0];
-        // Build formatted address
-        final addressParts = <String>[];
-        if (place.street != null && place.street!.isNotEmpty) {
-          addressParts.add(place.street!);
-        }
-        if (place.locality != null && place.locality!.isNotEmpty) {
-          addressParts.add(place.locality!);
-        }
-        if (place.administrativeArea != null &&
-            place.administrativeArea!.isNotEmpty) {
-          addressParts.add(place.administrativeArea!);
-        }
-        if (place.postalCode != null && place.postalCode!.isNotEmpty) {
-          addressParts.add(place.postalCode!);
-        }
-        if (place.country != null && place.country!.isNotEmpty) {
-          addressParts.add(place.country!);
-        }
-
-        setState(() {
-          _formattedAddress = addressParts.isNotEmpty
-              ? addressParts.join(', ')
-              : "${place.locality ?? ''}, ${place.country ?? ''}";
-        });
-      } else {
-        setState(() {
-          _formattedAddress = "Location added";
-        });
+      // The address is a nicety: coordinates alone are a valid location, so
+      // a failed or empty reverse lookup leaves it null (the chip shows the
+      // localized locationAdded label) instead of failing the whole pick.
+      String? address;
+      try {
+        await setLocaleIdentifier('en_US');
+        final placemarks = await placemarkFromCoordinates(
+          _currentPosition!.latitude,
+          _currentPosition!.longitude,
+        );
+        if (placemarks.isNotEmpty) address = placemarkAddress(placemarks[0]);
+      } catch (e) {
+        debugPrint('Reverse geocoding failed: $e');
       }
+
+      if (!mounted) return;
+      setState(() {
+        _formattedAddress = address;
+      });
 
       if (mounted) {
         showMomentsSnackBar(
@@ -1294,15 +1280,11 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     if (_currentPosition == null) return null;
 
     try {
-      // Get placemark for address details
-      return {
-        'coordinates': [
-          _currentPosition!.longitude, // Note: [lng, lat] not [lat, lng]
-          _currentPosition!.latitude,
-        ],
-        'formattedAddress': _formattedAddress ?? 'Location',
-        // Additional fields can be added if needed from placemark
-      };
+      return momentLocationPayload(
+        latitude: _currentPosition!.latitude,
+        longitude: _currentPosition!.longitude,
+        formattedAddress: _formattedAddress,
+      );
     } catch (e) {
       debugPrint('Error formatting location: $e');
       return null;

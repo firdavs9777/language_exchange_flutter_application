@@ -12390,4 +12390,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get vipSwitchScheduledBody => 'تبدأ خطتك الجديدة عند انتهاء خطتك الحالية. تبقى VIP حتى ذلك الحين.';
+
+  @override
+  String videoTooLongMax(int seconds) {
+    return 'هذا الفيديو طويل جدًا. الحد الأقصى $seconds ثانية.';
+  }
 }

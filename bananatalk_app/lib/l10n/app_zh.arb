@@ -4690,5 +4690,6 @@
   "vipCurrentPlan": "当前方案",
   "vipSwitchPlanUnavailable": "此账号上没有可切换的 Google Play 订阅。请在 Google Play 中管理你的订阅。",
   "vipSwitchScheduledTitle": "方案变更已安排",
-  "vipSwitchScheduledBody": "新方案将在当前方案结束时开始。在此之前你仍是 VIP。"
+  "vipSwitchScheduledBody": "新方案将在当前方案结束时开始。在此之前你仍是 VIP。",
+  "videoTooLongMax": "视频太长了。最长 {seconds} 秒。"
 }

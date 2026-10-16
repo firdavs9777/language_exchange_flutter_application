@@ -12273,6 +12273,11 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get vipSwitchScheduledBody => '新方案将在当前方案结束时开始。在此之前你仍是 VIP。';
+
+  @override
+  String videoTooLongMax(int seconds) {
+    return '视频太长了。最长 $seconds 秒。';
+  }
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -24544,4 +24549,9 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get vipSwitchScheduledBody => '新方案將在目前方案結束時開始。在此之前你仍是 VIP。';
+
+  @override
+  String videoTooLongMax(int seconds) {
+    return '影片太長了。最長 $seconds 秒。';
+  }
 }

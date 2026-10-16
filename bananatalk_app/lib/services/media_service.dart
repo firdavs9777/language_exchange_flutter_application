@@ -214,7 +214,7 @@ class MediaService {
     } catch (e) {
       return {
         'success': false,
-        'error': 'Network error: ${e.toString()}',
+        'error': e.toString(),
       };
     }
   }
@@ -278,7 +278,7 @@ class MediaService {
     } catch (e) {
       return {
         'success': false,
-        'error': 'Network error: ${e.toString()}',
+        'error': e.toString(),
       };
     }
   }

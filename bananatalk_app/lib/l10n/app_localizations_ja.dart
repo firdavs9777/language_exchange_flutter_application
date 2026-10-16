@@ -12273,4 +12273,9 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get vipSwitchScheduledBody => '新しいプランは現在のプランの終了時に始まります。それまで VIP のままです。';
+
+  @override
+  String videoTooLongMax(int seconds) {
+    return 'この動画は長すぎます。上限は$seconds秒です。';
+  }
 }

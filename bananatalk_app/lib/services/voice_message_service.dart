@@ -93,7 +93,7 @@ class VoiceMessageService {
     } catch (e) {
       return {
         'success': false,
-        'error': 'Network error: ${e.toString()}',
+        'error': e.toString(),
       };
     }
   }

@@ -97,7 +97,7 @@ class NotificationApiClient {
         };
       }
     } catch (e) {
-      return {'success': false, 'message': 'Error: ${e.toString()}'};
+      return {'success': false, 'message': e.toString()};
     }
   }
 
@@ -135,7 +135,7 @@ class NotificationApiClient {
         'message': 'Failed to register VoIP token: ${response.statusCode}',
       };
     } catch (e) {
-      return {'success': false, 'message': 'Error: ${e.toString()}'};
+      return {'success': false, 'message': e.toString()};
     }
   }
 
@@ -158,7 +158,7 @@ class NotificationApiClient {
         };
       }
     } catch (e) {
-      return {'success': false, 'message': 'Error: ${e.toString()}'};
+      return {'success': false, 'message': e.toString()};
     }
   }
 
@@ -205,7 +205,7 @@ class NotificationApiClient {
         };
       }
     } catch (e) {
-      return {'success': false, 'message': 'Error: ${e.toString()}'};
+      return {'success': false, 'message': e.toString()};
     }
   }
 
@@ -227,7 +227,7 @@ class NotificationApiClient {
         };
       }
     } catch (e) {
-      return {'success': false, 'message': 'Error: ${e.toString()}'};
+      return {'success': false, 'message': e.toString()};
     }
   }
 
@@ -249,7 +249,7 @@ class NotificationApiClient {
         };
       }
     } catch (e) {
-      return {'success': false, 'message': 'Error: ${e.toString()}'};
+      return {'success': false, 'message': e.toString()};
     }
   }
 
@@ -324,7 +324,7 @@ class NotificationApiClient {
         };
       }
     } catch (e) {
-      return {'success': false, 'message': 'Error: ${e.toString()}'};
+      return {'success': false, 'message': e.toString()};
     }
   }
 
@@ -345,7 +345,7 @@ class NotificationApiClient {
         };
       }
     } catch (e) {
-      return {'success': false, 'message': 'Error: ${e.toString()}'};
+      return {'success': false, 'message': e.toString()};
     }
   }
 
@@ -366,7 +366,7 @@ class NotificationApiClient {
         };
       }
     } catch (e) {
-      return {'success': false, 'message': 'Error: ${e.toString()}'};
+      return {'success': false, 'message': e.toString()};
     }
   }
 
@@ -410,7 +410,7 @@ class NotificationApiClient {
         };
       }
     } catch (e) {
-      return {'success': false, 'message': 'Error: ${e.toString()}'};
+      return {'success': false, 'message': e.toString()};
     }
   }
 
@@ -532,7 +532,7 @@ class NotificationApiClient {
         };
       }
     } catch (e) {
-      return {'success': false, 'message': 'Error: ${e.toString()}'};
+      return {'success': false, 'message': e.toString()};
     }
   }
 }

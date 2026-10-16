@@ -8251,5 +8251,14 @@
   "vipSwitchScheduledBody": "Your new plan starts when your current plan ends. You keep VIP until then.",
   "@vipSwitchScheduledBody": {
     "description": "Shown after an Android VIP switches to a shorter plan (Google Play defers it)."
+  },
+  "videoTooLongMax": "This video is too long. The limit is {seconds} seconds.",
+  "@videoTooLongMax": {
+    "description": "Moment/story/reel composer: picked video exceeds the duration cap",
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
   }
 }

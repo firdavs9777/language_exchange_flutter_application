@@ -177,7 +177,7 @@ class VideoCompressionService {
   Future<VideoProcessResult> processVideoForUpload(
     File videoFile, {
     Function(double)? onProgress,
-    Function(String)? onStatus,
+    Function(VideoProcessStage)? onStatus,
     int? maxDurationSecondsOverride,
   }) async {
     try {
@@ -185,29 +185,27 @@ class VideoCompressionService {
       if (!await videoFile.exists()) {
         return VideoProcessResult(
           success: false,
+          failure: VideoProcessFailure.notFound,
           error: 'Video file not found',
         );
       }
 
-      // Check file size
       final originalSize = await videoFile.length();
-      if (originalSize > maxFileSizeBytes) {
-        onStatus?.call('Video is too large, compressing...');
-      }
 
       // Check duration
-      onStatus?.call('Checking video duration...');
+      onStatus?.call(VideoProcessStage.checkingDuration);
       final effectiveMaxSeconds =
           maxDurationSecondsOverride ?? maxDurationSeconds;
       final isValid =
           await isValidDuration(videoFile, maxSeconds: effectiveMaxSeconds);
       if (!isValid) {
         final duration = await getVideoDuration(videoFile);
-        final maxMinutes = (effectiveMaxSeconds / 60).round();
         return VideoProcessResult(
           success: false,
-          error: 'Video is too long (${duration.toStringAsFixed(0)}s). '
-              'Maximum is ${effectiveMaxSeconds}s ($maxMinutes minutes).',
+          failure: VideoProcessFailure.tooLong,
+          maxDurationSeconds: effectiveMaxSeconds,
+          error: 'Video is too long (${duration.toStringAsFixed(0)}s), '
+              'max ${effectiveMaxSeconds}s',
         );
       }
 
@@ -216,7 +214,7 @@ class VideoCompressionService {
 
       File processedFile = videoFile;
       if (shouldCompress) {
-        onStatus?.call('Compressing video...');
+        onStatus?.call(VideoProcessStage.compressing);
         processedFile = await compressVideo(
           videoFile,
           onProgress: onProgress,
@@ -228,14 +226,16 @@ class VideoCompressionService {
       if (finalSize > maxFileSizeBytes) {
         return VideoProcessResult(
           success: false,
-          error: 'Video is still too large after compression (${(finalSize / 1024 / 1024).toStringAsFixed(1)}MB). Please use a shorter or lower quality video.',
+          failure: VideoProcessFailure.tooLarge,
+          error: 'Video still too large after compression '
+              '(${(finalSize / 1024 / 1024).toStringAsFixed(1)}MB)',
         );
       }
 
       // Get final video info
       final info = await getVideoInfo(processedFile);
 
-      onStatus?.call('Video ready for upload');
+      onStatus?.call(VideoProcessStage.ready);
 
       return VideoProcessResult(
         success: true,
@@ -248,11 +248,19 @@ class VideoCompressionService {
     } catch (e) {
       return VideoProcessResult(
         success: false,
-        error: 'Error processing video: $e',
+        failure: VideoProcessFailure.failed,
+        error: e.toString(),
       );
     }
   }
 }
+
+/// Where [VideoCompressionService.processVideoForUpload] is up to. Screens
+/// turn it into localized text; the service has no BuildContext.
+enum VideoProcessStage { checkingDuration, compressing, ready }
+
+/// Why processing failed, for the screen to say in the user's language.
+enum VideoProcessFailure { notFound, tooLong, tooLarge, failed }
 
 /// Result of video processing
 class VideoProcessResult {
@@ -262,6 +270,14 @@ class VideoProcessResult {
   final int? processedSize;
   final double? duration;
   final bool wasCompressed;
+
+  /// Set whenever [success] is false.
+  final VideoProcessFailure? failure;
+
+  /// The limit that was exceeded, for [VideoProcessFailure.tooLong].
+  final int? maxDurationSeconds;
+
+  /// English diagnostic for logs only — never shown; use [failure].
   final String? error;
 
   VideoProcessResult({
@@ -271,6 +287,8 @@ class VideoProcessResult {
     this.processedSize,
     this.duration,
     this.wasCompressed = false,
+    this.failure,
+    this.maxDurationSeconds,
     this.error,
   });
 

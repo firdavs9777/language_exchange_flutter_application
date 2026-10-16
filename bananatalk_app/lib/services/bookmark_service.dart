@@ -48,7 +48,7 @@ class BookmarkService {
     } catch (e) {
       return {
         'success': false,
-        'error': 'Network error: ${e.toString()}',
+        'error': e.toString(),
       };
     }
   }
@@ -81,7 +81,7 @@ class BookmarkService {
     } catch (e) {
       return {
         'success': false,
-        'error': 'Network error: ${e.toString()}',
+        'error': e.toString(),
       };
     }
   }
@@ -128,7 +128,7 @@ class BookmarkService {
     } catch (e) {
       return {
         'success': false,
-        'error': 'Network error: ${e.toString()}',
+        'error': e.toString(),
       };
     }
   }

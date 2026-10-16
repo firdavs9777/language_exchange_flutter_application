@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/services/ai_service.dart';
 import 'package:bananatalk_app/models/ai/lesson_assistant_model.dart';
 import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
@@ -58,7 +59,7 @@ class _LessonSummarySheetState extends State<LessonSummarySheet> {
         if (result['success'] == true && result['data'] != null) {
           _summary = result['data'] as LessonSummaryResponse;
         } else {
-          _error = result['message'] ?? AppLocalizations.of(context)!.aiFailedToLoadSummary;
+          _error = friendlyErrorMessage(AppLocalizations.of(context)!, result['message'], fallback: AppLocalizations.of(context)!.aiFailedToLoadSummary);
         }
       });
     }

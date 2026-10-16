@@ -7,6 +7,7 @@ import 'package:bananatalk_app/models/ai/translation_model.dart';
 import 'package:bananatalk_app/services/translation_service.dart';
 import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
 import 'package:bananatalk_app/widgets/coins/unlock_cta.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 
 /// HelloTalk-style translation bottom sheet with word breakdown, TTS, and vocabulary saving.
 class TranslationBottomSheet extends StatefulWidget {
@@ -156,9 +157,11 @@ class _TranslationBottomSheetState extends State<TranslationBottomSheet> {
         _isLimitReached = errorCode == 'TRANSLATION_LIMIT_REACHED';
         _error = _isLimitReached
             ? null
-            : (result['message']?.toString() ??
-                  result['error']?.toString() ??
-                  AppLocalizations.of(context)!.translationFailed);
+            : friendlyErrorMessage(
+                AppLocalizations.of(context)!,
+                result['message'] ?? result['error'],
+                fallback: AppLocalizations.of(context)!.translationFailed,
+              );
         _isLoading = false;
       });
     }
@@ -209,7 +212,11 @@ class _TranslationBottomSheetState extends State<TranslationBottomSheet> {
         try {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(result['error']?.toString() ?? AppLocalizations.of(context)!.ttsUnavailable),
+              content: Text(friendlyErrorMessage(
+                AppLocalizations.of(context)!,
+                result['error'],
+                fallback: AppLocalizations.of(context)!.ttsUnavailable,
+              )),
             ),
           );
         } catch (_) {}
@@ -892,7 +899,11 @@ class _WordDetailSheetState extends State<_WordDetailSheet> {
       setState(() => _isSaving = false);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(result['error']?.toString() ?? l10n.failedToSave),
+          content: Text(friendlyErrorMessage(
+            l10n,
+            result['error'],
+            fallback: l10n.failedToSave,
+          )),
         ),
       );
     }

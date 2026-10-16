@@ -22345,6 +22345,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Your new plan starts when your current plan ends. You keep VIP until then.'**
   String get vipSwitchScheduledBody;
+
+  /// Moment/story/reel composer: picked video exceeds the duration cap
+  ///
+  /// In en, this message translates to:
+  /// **'This video is too long. The limit is {seconds} seconds.'**
+  String videoTooLongMax(int seconds);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

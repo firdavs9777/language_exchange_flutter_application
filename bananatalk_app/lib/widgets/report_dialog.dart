@@ -337,19 +337,22 @@ class _ReportDialogState extends State<ReportDialog> {
 
           messenger.showSnackBar(
             SnackBar(
-              content: Text(
-                result['message'] ?? l10n.commonReportSubmittedSuccessfully,
-              ),
+              // The server's "Report submitted successfully" is English.
+              content: Text(l10n.commonReportSubmittedSuccessfully),
               backgroundColor: Colors.green,
               duration: const Duration(seconds: 2),
             ),
           );
         } else {
           // Show detailed error message
-          final errorMessage = result['error'] ?? AppLocalizations.of(context)!.roomReportSubmitFailed;
+          final errorMessage = result['error']?.toString() ?? '';
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(errorMessage),
+              content: Text(friendlyErrorMessage(
+                AppLocalizations.of(context)!,
+                result['error'],
+                fallback: AppLocalizations.of(context)!.roomReportSubmitFailed,
+              )),
               backgroundColor: Colors.red,
               duration: const Duration(seconds: 4),
             ),

@@ -59,7 +59,7 @@ class TranslationService {
     } catch (e) {
       return {
         'success': false,
-        'error': 'Network error: ${e.toString()}',
+        'error': e.toString(),
       };
     }
   }
@@ -96,7 +96,7 @@ class TranslationService {
     } catch (e) {
       return {
         'success': false,
-        'error': 'Network error: ${e.toString()}',
+        'error': e.toString(),
       };
     }
   }
@@ -211,7 +211,7 @@ class TranslationService {
     } catch (e) {
       return {
         'success': false,
-        'error': 'Network error: ${e.toString()}',
+        'error': e.toString(),
       };
     }
   }
@@ -248,7 +248,7 @@ class TranslationService {
     } catch (e) {
       return {
         'success': false,
-        'error': 'Network error: ${e.toString()}',
+        'error': e.toString(),
       };
     }
   }
@@ -288,7 +288,7 @@ class TranslationService {
     } catch (e) {
       return {
         'success': false,
-        'error': 'Network error: ${e.toString()}',
+        'error': e.toString(),
       };
     }
   }
@@ -334,7 +334,7 @@ class TranslationService {
     } catch (e) {
       return {
         'success': false,
-        'error': 'Network error: ${e.toString()}',
+        'error': e.toString(),
       };
     }
   }

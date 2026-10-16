@@ -12321,4 +12321,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get vipSwitchScheduledBody => 'Your new plan starts when your current plan ends. You keep VIP until then.';
+
+  @override
+  String videoTooLongMax(int seconds) {
+    return 'This video is too long. The limit is $seconds seconds.';
+  }
 }

@@ -56,7 +56,7 @@ class BlockService {
     } catch (e) {
       return {
         'success': false,
-        'message': 'Error: ${e.toString()}',
+        'message': e.toString(),
       };
     }
   }
@@ -94,7 +94,7 @@ class BlockService {
     } catch (e) {
       return {
         'success': false,
-        'message': 'Error: ${e.toString()}',
+        'message': e.toString(),
       };
     }
   }
@@ -172,7 +172,7 @@ class BlockService {
     } catch (e) {
       return {
         'success': false,
-        'error': 'Network error: ${e.toString()}',
+        'error': e.toString(),
       };
     }
   }

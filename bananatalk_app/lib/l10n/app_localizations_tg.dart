@@ -12293,4 +12293,9 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get vipSwitchScheduledBody => 'Нақшаи нави шумо пас аз анҷоми нақшаи ҷорӣ оғоз мешавад. То он вақт шумо VIP мемонед.';
+
+  @override
+  String videoTooLongMax(int seconds) {
+    return 'Ин видео хеле дароз аст. Ҳадди аксар $seconds сония.';
+  }
 }

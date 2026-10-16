@@ -10,6 +10,7 @@ import 'package:bananatalk_app/services/stories_service.dart';
 import 'package:bananatalk_app/services/video_compression_service.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/friendly_error.dart';
+import 'package:bananatalk_app/utils/media_failure_text.dart';
 import 'package:bananatalk_app/pages/stories/widgets/stories_snackbar.dart';
 import 'package:bananatalk_app/pages/stories/create/gradient_picker.dart';
 import 'package:bananatalk_app/pages/stories/models/story_gradient.dart';
@@ -321,7 +322,7 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
 
     setState(() {
       _videoCompressionProgress = 0;
-      _videoProcessingStatus = 'Preparing video...';
+      _videoProcessingStatus = AppLocalizations.of(context)!.preparingVideo;
     });
 
     try {
@@ -338,10 +339,13 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
             _videoProgressTick.value++;
           }
         },
-        onStatus: (status) {
+        onStatus: (stage) {
           if (mounted) {
             setState(() {
-              _videoProcessingStatus = status;
+              _videoProcessingStatus = videoProcessStageText(
+                AppLocalizations.of(context)!,
+                stage,
+              );
             });
             _videoProgressTick.value++;
           }
@@ -386,7 +390,10 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
         if (mounted) {
           showStoriesSnackBar(
             context,
-            message: result.error ?? AppLocalizations.of(context)!.failedToProcessVideo,
+            message: videoProcessFailureText(
+              AppLocalizations.of(context)!,
+              result,
+            ),
             type: StoriesSnackBarType.error,
           );
         }
@@ -565,10 +572,9 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
             setState(() => _isUploading = false);
             showStoriesSnackBar(
               context,
-              message: friendlyErrorMessage(
+              message: storyPostFailureText(
                 AppLocalizations.of(context)!,
-                result.error,
-                prefix: AppLocalizations.of(context)!.storyPostFailed,
+                result,
               ),
               type: StoriesSnackBarType.error,
             );
@@ -613,10 +619,9 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
             setState(() => _isUploading = false);
             showStoriesSnackBar(
               context,
-              message: friendlyErrorMessage(
+              message: storyPostFailureText(
                 AppLocalizations.of(context)!,
-                result.error,
-                prefix: AppLocalizations.of(context)!.storyPostFailed,
+                result,
               ),
               type: StoriesSnackBarType.error,
             );

@@ -12273,4 +12273,9 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get vipSwitchScheduledBody => 'Gói mới bắt đầu khi gói hiện tại kết thúc. Bạn vẫn là VIP đến lúc đó.';
+
+  @override
+  String videoTooLongMax(int seconds) {
+    return 'Video này quá dài. Giới hạn là $seconds giây.';
+  }
 }

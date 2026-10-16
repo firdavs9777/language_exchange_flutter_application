@@ -12769,4 +12769,9 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get vipSwitchScheduledBody => 'Новый тариф начнётся, когда закончится текущий. До этого VIP сохраняется.';
+
+  @override
+  String videoTooLongMax(int seconds) {
+    return 'Это видео слишком длинное. Максимум — $seconds с.';
+  }
 }
