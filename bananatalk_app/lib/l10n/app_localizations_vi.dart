@@ -1206,7 +1206,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get noStories => 'Không có story';
 
   @override
-  String views(String count) {
+  String views(int count) {
     return '$count lượt xem';
   }
 
@@ -1736,12 +1736,12 @@ class AppLocalizationsVi extends AppLocalizations {
   String get justNow => 'vừa xong';
 
   @override
-  String minutesAgo(String count) {
+  String minutesAgo(int count) {
     return '$count phút trước';
   }
 
   @override
-  String hoursAgo(String count) {
+  String hoursAgo(int count) {
     return '$count giờ trước';
   }
 
@@ -2688,7 +2688,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get searchByCity => 'Tìm theo thành phố';
 
   @override
-  String usersWorldwide(String count) {
+  String usersWorldwide(int count) {
     return '$count người dùng trên toàn thế giới';
   }
 
@@ -2699,7 +2699,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get tryDifferentCity => 'Thử thành phố khác';
 
   @override
-  String usersCount(String count) {
+  String usersCount(int count) {
     return '$count người dùng';
   }
 
@@ -9583,7 +9583,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get notifyAnnouncementsSubtitle => 'Tin tức và cập nhật từ đội ngũ BananaTalk';
 
   @override
-  String chatDailyLimitBody(Object count) {
+  String chatDailyLimitBody(int count) {
     return 'Người dùng miễn phí có thể trò chuyện với tối đa $count người mỗi ngày.\nNâng cấp lên VIP để trò chuyện không giới hạn!';
   }
 
@@ -9972,7 +9972,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get learnCouldNotLoadPacks => 'Không thể tải các gói';
 
   @override
-  String learnWordsExercises(Object wordCount, Object exerciseCount) {
+  String learnWordsExercises(int wordCount, int exerciseCount) {
     return '$wordCount từ · $exerciseCount bài tập';
   }
 

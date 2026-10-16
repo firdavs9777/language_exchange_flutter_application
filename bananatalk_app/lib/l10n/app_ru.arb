@@ -269,11 +269,11 @@
   "deleteStory": "Удалить историю?",
   "thisStoryWillBeRemovedPermanently": "Эта история будет удалена навсегда.",
   "noStories": "Нет историй",
-  "views": "{count} просмотров",
+  "views": "{count, plural, one{{count} просмотр} few{{count} просмотра} many{{count} просмотров} other{{count} просмотра}}",
   "@views": {
     "placeholders": {
       "count": {
-        "type": "String"
+        "type": "int"
       }
     }
   },
@@ -470,8 +470,8 @@
   "offline": "Офлайн",
   "lastSeen": "Был(а) в сети",
   "justNow": "только что",
-  "minutesAgo": "{count} минут назад",
-  "hoursAgo": "{count} часов назад",
+  "minutesAgo": "{count, plural, one{{count} минуту назад} few{{count} минуты назад} many{{count} минут назад} other{{count} минуты назад}}",
+  "hoursAgo": "{count, plural, one{{count} час назад} few{{count} часа назад} many{{count} часов назад} other{{count} часа назад}}",
   "yesterday": "Вчера",
   "signInWithEmail": "Войти через почту",
   "partners": "Партнёры",
@@ -527,7 +527,7 @@
   "connecting": "Подключение...",
   "daysAgo": "{count}д назад",
   "maxTagsAllowed": "Максимум 5 тегов",
-  "maxImagesAllowed": "Максимум {count} изображений",
+  "maxImagesAllowed": "{count, plural, one{Максимум {count} изображение} few{Максимум {count} изображения} many{Максимум {count} изображений} other{Максимум {count} изображения}}",
   "pleaseRemoveImagesFirst": "Сначала удалите изображения",
   "exchange3MessagesBeforeCall": "Прежде чем звонить, обменяйтесь хотя бы 5 сообщениями",
   "mediaWithUser": "Медиа с {name}",
@@ -651,7 +651,7 @@
   "edited": "(изменено)",
   "now": "сейчас",
   "weeksAgo": "{count}нед назад",
-  "viewRepliesCount": "── Показать {count} ответов",
+  "viewRepliesCount": "{count, plural, one{── Показать {count} ответ} few{── Показать {count} ответа} many{── Показать {count} ответов} other{── Показать {count} ответа}}",
   "hideReplies": "── Скрыть ответы",
   "saveMoment": "Сохранить момент",
   "removeFromSaved": "Удалить из сохранённых",
@@ -667,9 +667,9 @@
   "tapBookmarkToSave": "Нажмите на закладку, чтобы сохранить момент",
   "failedToLoadVideo": "Не удалось загрузить видео",
   "titleRequired": "Заголовок обязателен",
-  "titleTooLong": "Заголовок должен быть не более {max} символов",
+  "titleTooLong": "{max, plural, one{Заголовок должен быть не более {max} символа} few{Заголовок должен быть не более {max} символов} many{Заголовок должен быть не более {max} символов} other{Заголовок должен быть не более {max} символа}}",
   "descriptionRequired": "Описание обязательно",
-  "descriptionTooLong": "Описание должно быть не более {max} символов",
+  "descriptionTooLong": "{max, plural, one{Описание должно быть не более {max} символа} few{Описание должно быть не более {max} символов} many{Описание должно быть не более {max} символов} other{Описание должно быть не более {max} символа}}",
   "scheduledDateMustBeFuture": "Запланированная дата должна быть в будущем",
   "recent": "Новые",
   "popular": "Популярные",
@@ -735,10 +735,10 @@
   "seeUserCountsPerCountry": "Посмотреть количество пользователей по странам",
   "upgradeToVip": "Перейти на VIP",
   "searchByCity": "Поиск по городу",
-  "usersWorldwide": "{count} пользователей по всему миру",
+  "usersWorldwide": "{count, plural, one{{count} пользователь по всему миру} few{{count} пользователя по всему миру} many{{count} пользователей по всему миру} other{{count} пользователя по всему миру}}",
   "noUsersFound": "Пользователи не найдены",
   "tryDifferentCity": "Попробуйте другой город",
-  "usersCount": "{count} пользователей",
+  "usersCount": "{count, plural, one{{count} пользователь} few{{count} пользователя} many{{count} пользователей} other{{count} пользователя}}",
   "searchCountry": "Поиск страны...",
   "wave": "Помахать",
   "newUser": "Новый",
@@ -989,7 +989,7 @@
   "roomTopic": "Тема",
   "roomLanguage": "Язык",
   "roomHost": "Ведущий",
-  "roomParticipants": "{count} участников",
+  "roomParticipants": "{count, plural, one{{count} участник} few{{count} участника} many{{count} участников} other{{count} участника}}",
   "@roomParticipants": {
     "placeholders": {
       "count": {
@@ -997,7 +997,7 @@
       }
     }
   },
-  "roomMaxParticipants": "Макс. {count} участников",
+  "roomMaxParticipants": "{count, plural, one{Макс. {count} участник} few{Макс. {count} участника} many{Макс. {count} участников} other{Макс. {count} участника}}",
   "@roomMaxParticipants": {
     "placeholders": {
       "count": {
@@ -1040,7 +1040,7 @@
   "pleaseEnterRoomTitle": "Пожалуйста, введите название комнаты",
   "startLiveConversation": "Начать живой разговор",
   "maxParticipants": "Макс. участников",
-  "nPeople": "{count} человек",
+  "nPeople": "{count, plural, one{{count} человек} few{{count} человека} many{{count} человек} other{{count} человека}}",
   "@nPeople": {
     "placeholders": {
       "count": {
@@ -1187,7 +1187,7 @@
   "learningLanguageCannotBeSame": "Изучаемый язык не может совпадать с родным",
   "pleaseSelectALanguage": "Пожалуйста, выберите язык",
   "editInterests": "Изменить Интересы",
-  "maxTopicsAllowed": "Максимум {count} тем",
+  "maxTopicsAllowed": "{count, plural, one{Максимум {count} тема} few{Максимум {count} темы} many{Максимум {count} тем} other{Максимум {count} темы}}",
   "@maxTopicsAllowed": {
     "placeholders": {
       "count": {
@@ -1239,7 +1239,7 @@
   "noProfilePicturesToRemove": "Нет фото для удаления",
   "authenticationTokenNotFound": "Токен не найден",
   "saveChangesQuestion": "Сохранить Изменения?",
-  "youHaveUnuploadedImages": "{count} изображений не загружено. Загрузить?",
+  "youHaveUnuploadedImages": "{count, plural, one{{count} изображение не загружено. Загрузить?} few{{count} изображения не загружено. Загрузить?} many{{count} изображений не загружено. Загрузить?} other{{count} изображения не загружено. Загрузить?}}",
   "@youHaveUnuploadedImages": {
     "placeholders": {
       "count": {
@@ -1249,7 +1249,7 @@
   },
   "discard": "Отменить",
   "upload": "Загрузить",
-  "maxImagesInfo": "Максимум {max} изображений. Текущее: {current}/{max}",
+  "maxImagesInfo": "{max, plural, one{Максимум {max} изображение. Текущее: {current}/{max}} few{Максимум {max} изображения. Текущее: {current}/{max}} many{Максимум {max} изображений. Текущее: {current}/{max}} other{Максимум {max} изображения. Текущее: {current}/{max}}}",
   "@maxImagesInfo": {
     "placeholders": {
       "max": {
@@ -1272,7 +1272,7 @@
     }
   },
   "maxImagesPerUpload": "Максимум 5 изображений за раз",
-  "canOnlyHaveMaxImages": "Максимум {max} изображений",
+  "canOnlyHaveMaxImages": "{max, plural, one{Максимум {max} изображение} few{Максимум {max} изображения} many{Максимум {max} изображений} other{Максимум {max} изображения}}",
   "@canOnlyHaveMaxImages": {
     "placeholders": {
       "max": {
@@ -1297,7 +1297,7 @@
   "words": "Слова",
   "quickActions": "Быстрые действия",
   "review": "Повторение",
-  "wordsDue": "{count} слов к повторению",
+  "wordsDue": "{count, plural, one{{count} слово к повторению} few{{count} слова к повторению} many{{count} слов к повторению} other{{count} слова к повторению}}",
   "addWords": "Добавить слова",
   "buildVocabulary": "Пополнить словарь",
   "practiceWithAI": "Практика с ИИ",
@@ -1387,7 +1387,7 @@
   "videoMustBeUnder1GB": "Видео должно быть меньше 1 ГБ.",
   "documentMustBeUnder50MB": "Документ должен быть меньше 50 МБ.",
   "editWithin15Minutes": "Сообщения можно редактировать только в течение 15 минут",
-  "messageForwardedTo": "Сообщение переслано {count} пользователю(ям)",
+  "messageForwardedTo": "{count, plural, one{Сообщение переслано {count} пользователю} few{Сообщение переслано {count} пользователям} many{Сообщение переслано {count} пользователям} other{Сообщение переслано {count} пользователю}}",
   "@messageForwardedTo": {
     "placeholders": {
       "count": {
@@ -1435,7 +1435,7 @@
     }
   },
   "captionRequired": "Подпись обязательна",
-  "captionTooLong": "Подпись должна содержать не более {maxLength} символов",
+  "captionTooLong": "{maxLength, plural, one{Подпись должна содержать не более {maxLength} символа} few{Подпись должна содержать не более {maxLength} символов} many{Подпись должна содержать не более {maxLength} символов} other{Подпись должна содержать не более {maxLength} символа}}",
   "@captionTooLong": {
     "placeholders": {
       "maxLength": {
@@ -1444,7 +1444,7 @@
     }
   },
   "maximumImagesReached": "Достигнут максимум изображений",
-  "maximumImagesReachedDescription": "Вы можете загрузить до {maxImages} изображений на один момент.",
+  "maximumImagesReachedDescription": "{maxImages, plural, one{Вы можете загрузить до {maxImages} изображения на один момент.} few{Вы можете загрузить до {maxImages} изображений на один момент.} many{Вы можете загрузить до {maxImages} изображений на один момент.} other{Вы можете загрузить до {maxImages} изображения на один момент.}}",
   "@maximumImagesReachedDescription": {
     "placeholders": {
       "maxImages": {
@@ -1452,7 +1452,7 @@
       }
     }
   },
-  "maximumImagesAddedPartial": "Максимум {maxImages} изображений. Добавлено только {added}.",
+  "maximumImagesAddedPartial": "{maxImages, plural, one{Максимум {maxImages} изображение. Добавлено только {added}.} few{Максимум {maxImages} изображения. Добавлено только {added}.} many{Максимум {maxImages} изображений. Добавлено только {added}.} other{Максимум {maxImages} изображения. Добавлено только {added}.}}",
   "@maximumImagesAddedPartial": {
     "placeholders": {
       "maxImages": {
@@ -1482,7 +1482,7 @@
     }
   },
   "chooseBackground": "Выбрать фон",
-  "likedByXPeople": "Понравилось {count} людям",
+  "likedByXPeople": "{count, plural, one{Понравилось {count} человеку} few{Понравилось {count} людям} many{Понравилось {count} людям} other{Понравилось {count} человеку}}",
   "@likedByXPeople": {
     "placeholders": {
       "count": {
@@ -1490,7 +1490,7 @@
       }
     }
   },
-  "xComments": "{count} комментариев",
+  "xComments": "{count, plural, one{{count} комментарий} few{{count} комментария} many{{count} комментариев} other{{count} комментария}}",
   "@xComments": {
     "placeholders": {
       "count": {
@@ -1500,7 +1500,7 @@
   },
   "oneComment": "1 комментарий",
   "addAComment": "Добавить комментарий...",
-  "viewXReplies": "Показать {count} ответов",
+  "viewXReplies": "{count, plural, one{Показать {count} ответ} few{Показать {count} ответа} many{Показать {count} ответов} other{Показать {count} ответа}}",
   "@viewXReplies": {
     "placeholders": {
       "count": {
@@ -1604,7 +1604,7 @@
   "updateLocationCta": "Обновить местоположение",
   "enterYourName": "Введите ваше имя",
   "unsavedChanges": "У вас есть несохранённые изменения",
-  "tapBelowToBrowseLanguages": "Нажмите ниже, чтобы выбрать из {count} языков",
+  "tapBelowToBrowseLanguages": "{count, plural, one{Нажмите ниже, чтобы выбрать из {count} языка} few{Нажмите ниже, чтобы выбрать из {count} языков} many{Нажмите ниже, чтобы выбрать из {count} языков} other{Нажмите ниже, чтобы выбрать из {count} языка}}",
   "@tapBelowToBrowseLanguages": {
     "placeholders": {
       "count": {
@@ -2337,7 +2337,7 @@
   "aiTutorStoryTitle": "Прочитать историю",
   "aiTutorStoryLength": "Длина",
   "aiTutorStoryTheme": "Тема",
-  "aiTutorStoryWordCount": "{count} слов",
+  "aiTutorStoryWordCount": "{count, plural, one{{count} слово} few{{count} слова} many{{count} слов} other{{count} слова}}",
   "@aiTutorStoryWordCount": {
     "placeholders": {
       "count": {
@@ -2355,7 +2355,7 @@
       }
     }
   },
-  "aiTutorStoryWordCountHint": "ИИ использует до {n} слов из вашего списка.",
+  "aiTutorStoryWordCountHint": "{n, plural, one{ИИ использует до {n} слова из вашего списка.} few{ИИ использует до {n} слов из вашего списка.} many{ИИ использует до {n} слов из вашего списка.} other{ИИ использует до {n} слова из вашего списка.}}",
   "@aiTutorStoryWordCountHint": {
     "placeholders": {
       "n": {
@@ -2433,7 +2433,7 @@
   "aiTutorCardReviewStarting": "Запуск…",
   "aiTutorCardTryIt": "Попробуйте",
   "aiTutorCardPracticing": "Практика…",
-  "aiTutorPlanSrsReview": "Повторите {count} SRS-карточек ({done} сделано)",
+  "aiTutorPlanSrsReview": "{count, plural, one{Повторите {count} SRS-карточку ({done} сделано)} few{Повторите {count} SRS-карточки ({done} сделано)} many{Повторите {count} SRS-карточек ({done} сделано)} other{Повторите {count} SRS-карточки ({done} сделано)}}",
   "@aiTutorPlanSrsReview": {
     "placeholders": {
       "count": {
@@ -2692,9 +2692,9 @@
   "birthdate": "Дата рождения",
   "birthdateSelectHelp": "Выберите дату рождения",
   "birthdateSelectPlaceholder": "Выбрать дату",
-  "birthdateMinAgeError": "Вам должно быть не менее {age} лет.",
-  "birthdateQuotaRemaining": "Осталось {remaining} из {max} изменений даты рождения в ближайшие 60 дней.",
-  "birthdateQuotaLocked": "Вы использовали все {max} изменения даты рождения за этот 60-дневный период.",
+  "birthdateMinAgeError": "{age, plural, one{Вам должно быть не менее {age} года.} few{Вам должно быть не менее {age} лет.} many{Вам должно быть не менее {age} лет.} other{Вам должно быть не менее {age} года.}}",
+  "birthdateQuotaRemaining": "{max, plural, one{Осталось {remaining} из {max} изменения даты рождения в ближайшие 60 дней.} few{Осталось {remaining} из {max} изменений даты рождения в ближайшие 60 дней.} many{Осталось {remaining} из {max} изменений даты рождения в ближайшие 60 дней.} other{Осталось {remaining} из {max} изменения даты рождения в ближайшие 60 дней.}}",
+  "birthdateQuotaLocked": "{max, plural, one{Вы использовали все {max} изменение даты рождения за этот 60-дневный период.} few{Вы использовали все {max} изменения даты рождения за этот 60-дневный период.} many{Вы использовали все {max} изменений даты рождения за этот 60-дневный период.} other{Вы использовали все {max} изменения даты рождения за этот 60-дневный период.}}",
   "birthdateNextChangeOn": "Следующее изменение будет доступно {date}.",
   "birthdateRateLimited": "Дату рождения можно менять не более 3 раз за 60 дней.",
   "birthdateRateLimitedUntil": "Дату рождения можно менять не более 3 раз за 60 дней. Повторите попытку {date}.",
@@ -2821,8 +2821,8 @@
   "examPracticeBackToDashboard": "Назад к обзору",
   "examPracticeProgress": "{current} из {total}",
   "examEssayPrompt": "Напишите эссе",
-  "examEssayMinChars": "В эссе должно быть не менее {min} символов",
-  "examEssayMaxChars": "Эссе не должно превышать {max} символов",
+  "examEssayMinChars": "{min, plural, one{В эссе должно быть не менее {min} символа} few{В эссе должно быть не менее {min} символов} many{В эссе должно быть не менее {min} символов} other{В эссе должно быть не менее {min} символа}}",
+  "examEssayMaxChars": "{max, plural, one{Эссе не должно превышать {max} символ} few{Эссе не должно превышать {max} символа} many{Эссе не должно превышать {max} символов} other{Эссе не должно превышать {max} символа}}",
   "examEssayWordCount": "Слов: {count}",
   "examEssayCharCount": "Символов: {count}",
   "examEssaySubmit": "Отправить эссе",
@@ -2954,7 +2954,7 @@
   "roomRequestsMenuItem": "Запросы ({count})",
   "roomViewMembers": "Посмотреть участников",
   "roomLeaveHubMenuItem": "Покинуть хаб",
-  "roomMemberOnlineCount": "{members} участников · {online} онлайн",
+  "roomMemberOnlineCount": "{members, plural, one{{members} участник · {online} онлайн} few{{members} участника · {online} онлайн} many{{members} участников · {online} онлайн} other{{members} участника · {online} онлайн}}",
   "roomBannedRequestMessage": "Вы были удалены из этой комнаты. Отправьте запрос, чтобы присоединиться снова — владельцу нужно его одобрить.",
   "roomModeratedRequestMessage": "Это модерируемая комната. Отправьте запрос на вступление, чтобы начать общение.",
   "roomRequestPending": "Запрос ожидает рассмотрения",
@@ -3034,7 +3034,7 @@
   "selected": "Выбрано",
   "categories": "Категории",
   "moods": "Настроения",
-  "applyNFilters": "Применить {count} фильтров",
+  "applyNFilters": "{count, plural, one{Применить {count} фильтр} few{Применить {count} фильтра} many{Применить {count} фильтров} other{Применить {count} фильтра}}",
   "failedToRecordVideo": "Не удалось записать видео",
   "errorSendingVideo": "Ошибка при отправке видео",
   "errorSendingVoiceMessage": "Ошибка при отправке голосового сообщения",
@@ -3180,9 +3180,9 @@
   "masteryNotStarted": "Ещё не начато",
   "masteryVocabularyCaption": "усвоено {mastered} · в изучении {learning} · к повторению {due}",
   "masteryGrammarCaption": "Раздел {mastered} из {total}",
-  "masteryAccuracyCaption": "{percent}% за {samples} занятий",
+  "masteryAccuracyCaption": "{samples, plural, one{{percent}% за {samples} занятие} few{{percent}% за {samples} занятия} many{{percent}% за {samples} занятий} other{{percent}% за {samples} занятия}}",
   "masteryConsistency": "Последние 30 дней",
-  "masteryDueCta": "Повторить {count} слов сейчас",
+  "masteryDueCta": "{count, plural, one{Повторить {count} слово сейчас} few{Повторить {count} слова сейчас} many{Повторить {count} слов сейчас} other{Повторить {count} слова сейчас}}",
   "placementTitle": "Определите свой уровень",
   "placementSkip": "Пропустить",
   "placementProgress": "Вопрос {current} из {total}",
@@ -3239,8 +3239,8 @@
   "gatheringNeedsFuture": "Выберите время в будущем",
   "gatheringDetailTitle": "Встреча",
   "gatheringNotFound": "Эта встреча больше недоступна",
-  "gatheringDuration": "{minutes} минут",
-  "gatheringSeatsTaken": "Занято {going} из {capacity} мест",
+  "gatheringDuration": "{minutes, plural, one{{minutes} минута} few{{minutes} минуты} many{{minutes} минут} other{{minutes} минуты}}",
+  "gatheringSeatsTaken": "{capacity, plural, one{Занято {going} из {capacity} места} few{Занято {going} из {capacity} мест} many{Занято {going} из {capacity} мест} other{Занято {going} из {capacity} места}}",
   "gatheringCancelled": "Отменена",
   "gatheringEnded": "Эта встреча завершена",
   "gatheringCancelRsvp": "Отменить участие",
@@ -3269,7 +3269,7 @@
   "clubDescriptionLabel": "О клубе",
   "clubCreate": "Создать клуб",
   "clubNeedsName": "Сначала назовите клуб",
-  "gatheringRequests": "{count} ожидают вступления",
+  "gatheringRequests": "{count, plural, one{{count} ожидает вступления} few{{count} ожидают вступления} many{{count} ожидают вступления} other{{count} ожидают вступления}}",
   "@gatheringRequests": {
     "description": "모임 / gatherings",
     "placeholders": {
@@ -3625,7 +3625,7 @@
   "boostConfirm": "Подтвердить продвижение",
   "boostActiveTitle": "Продвижение активно",
   "boostTimeLeft": "Осталось {time}",
-  "boostSeenBy": "Пока вас увидели {count} человек",
+  "boostSeenBy": "{count, plural, one{Пока вас увидел {count} человек} few{Пока вас увидели {count} человека} many{Пока вас увидели {count} человек} other{Пока вас увидели {count} человека}}",
   "boostFailed": "Не удалось запустить продвижение. Попробуйте ещё раз.",
   "rewardedLimitReached": "Вы использовали сегодняшние бесплатные разблокировки — попробуйте завтра",
   "wavesMaskedTitle": "Кто-то помахал вам",
@@ -3674,7 +3674,7 @@
   "vipBenefitUnlimitedMessages": "Безлимитные сообщения",
   "vipBenefitUnlimitedProfileViews": "Безлимитные просмотры профилей",
   "vipBenefitAiStudyTools": "Инструменты ИИ для учёбы",
-  "chatBonusMessagesUnlocked": "Вы получили {count} бонусных сообщения! Продолжайте общение.",
+  "chatBonusMessagesUnlocked": "{count, plural, one{Вы получили {count} бонусное сообщение! Продолжайте общение.} few{Вы получили {count} бонусных сообщения! Продолжайте общение.} many{Вы получили {count} бонусных сообщений! Продолжайте общение.} other{Вы получили {count} бонусных сообщения! Продолжайте общение.}}",
   "callLabelOutgoing": "{type, select, video{Исходящий видеозвонок} other{Исходящий голосовой звонок}}",
   "callLabelIncoming": "{type, select, video{Входящий видеозвонок} other{Входящий голосовой звонок}}",
   "callLabelNoAnswer": "{type, select, video{Видеозвонок · Нет ответа} other{Голосовой звонок · Нет ответа}}",
@@ -3915,7 +3915,7 @@
   "announcementUnavailable": "Это объявление больше недоступно.",
   "notifyAnnouncementsTitle": "Объявления",
   "notifyAnnouncementsSubtitle": "Новости и обновления от команды BananaTalk",
-  "chatDailyLimitBody": "Бесплатные пользователи могут общаться не более чем с {count} людьми в день.\nПерейдите на VIP для безлимитного общения!",
+  "chatDailyLimitBody": "{count, plural, one{Бесплатные пользователи могут общаться не более чем с {count} человеком в день.\nПерейдите на VIP для безлимитного общения!} few{Бесплатные пользователи могут общаться не более чем с {count} людьми в день.\nПерейдите на VIP для безлимитного общения!} many{Бесплатные пользователи могут общаться не более чем с {count} людьми в день.\nПерейдите на VIP для безлимитного общения!} other{Бесплатные пользователи могут общаться не более чем с {count} человеком в день.\nПерейдите на VIP для безлимитного общения!}}",
   "chatCompressingVideo": "Сжатие видео...",
   "chatShareLocationBody": "Отправьте своё текущее местоположение пользователю {name}. Делайте это только с теми, кому доверяете.",
   "chatShareLocationThisChat": "этому чату",
@@ -4020,7 +4020,7 @@
   "learnQuestionOf": "Вопрос {number} из {total}",
   "learnMatchEachWordIts": "Сопоставьте каждое слово с его значением",
   "learnCouldNotLoadPacks": "Не удалось загрузить наборы",
-  "learnWordsExercises": "{wordCount} слов · {exerciseCount} упражнений",
+  "learnWordsExercises": "{wordCount, plural, one{{wordCount} слово} few{{wordCount} слова} many{{wordCount} слов} other{{wordCount} слова}} · {exerciseCount, plural, one{{exerciseCount} упражнение} few{{exerciseCount} упражнения} many{{exerciseCount} упражнений} other{{exerciseCount} упражнения}}",
   "learnAiAutoFill": "Автозаполнение ИИ",
   "learnPlay": "Воспроизвести",
   "learnFinish": "Завершить",
@@ -4317,8 +4317,8 @@
   "storyAnswerFailed": "Не удалось отправить ответ",
   "storyAlreadyInHighlight": "Уже сохранено в актуальном",
   "storyAddedToHighlight": "Добавлено в актуальное",
-  "storyMaxHashtags": "Можно добавить до {max} хештегов",
-  "storyMaxMentions": "Можно упомянуть до {max} человек",
+  "storyMaxHashtags": "{max, plural, one{Можно добавить до {max} хештега} few{Можно добавить до {max} хештегов} many{Можно добавить до {max} хештегов} other{Можно добавить до {max} хештега}}",
+  "storyMaxMentions": "{max, plural, one{Можно упомянуть до {max} человека} few{Можно упомянуть до {max} человек} many{Можно упомянуть до {max} человек} other{Можно упомянуть до {max} человека}}",
   "coinHistoryActivity": "Операция с монетами",
   "coinHistoryAdReward": "Просмотр рекламы",
   "coinHistoryPurchase": "Покупка монет",
@@ -4643,7 +4643,7 @@
   "authRegistrationFailed": "Не удалось зарегистрироваться",
   "authEmailAlreadyExists": "Этот email уже зарегистрирован. Используйте другой.",
   "reportEvidenceAddFailed": "Не удалось добавить фото",
-  "reportEvidenceMaxFiles": "Не более {count} файлов в одной жалобе",
+  "reportEvidenceMaxFiles": "{count, plural, one{Не более {count} файла в одной жалобе} few{Не более {count} файлов в одной жалобе} many{Не более {count} файлов в одной жалобе} other{Не более {count} файла в одной жалобе}}",
   "reportEvidenceFileTooLarge": "{name} слишком большой (макс. 5 МБ)",
   "reportEvidenceTotalTooLarge": "Общий размер превысит 25 МБ",
   "blockedContentUnavailableToYou": "Этот контент вам недоступен.",

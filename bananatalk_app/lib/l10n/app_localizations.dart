@@ -2418,7 +2418,7 @@ abstract class AppLocalizations {
   ///
   /// In en, this message translates to:
   /// **'{count} views'**
-  String views(String count);
+  String views(int count);
 
   /// No description provided for @reportStory.
   ///
@@ -3474,13 +3474,13 @@ abstract class AppLocalizations {
   ///
   /// In en, this message translates to:
   /// **'{count} minutes ago'**
-  String minutesAgo(String count);
+  String minutesAgo(int count);
 
   /// No description provided for @hoursAgo.
   ///
   /// In en, this message translates to:
   /// **'{count} hours ago'**
-  String hoursAgo(String count);
+  String hoursAgo(int count);
 
   /// No description provided for @yesterday.
   ///
@@ -5250,7 +5250,7 @@ abstract class AppLocalizations {
   ///
   /// In en, this message translates to:
   /// **'{count} users worldwide'**
-  String usersWorldwide(String count);
+  String usersWorldwide(int count);
 
   /// No description provided for @noUsersFound.
   ///
@@ -5268,7 +5268,7 @@ abstract class AppLocalizations {
   ///
   /// In en, this message translates to:
   /// **'{count} users'**
-  String usersCount(String count);
+  String usersCount(int count);
 
   /// No description provided for @searchCountry.
   ///
@@ -17598,7 +17598,7 @@ abstract class AppLocalizations {
   ///
   /// In en, this message translates to:
   /// **'Free users can chat with up to {count} people per day.\nUpgrade to VIP for unlimited conversations!'**
-  String chatDailyLimitBody(Object count);
+  String chatDailyLimitBody(int count);
 
   /// No description provided for @chatCompressingVideo.
   ///
@@ -18228,7 +18228,7 @@ abstract class AppLocalizations {
   ///
   /// In en, this message translates to:
   /// **'{wordCount} words · {exerciseCount} exercises'**
-  String learnWordsExercises(Object wordCount, Object exerciseCount);
+  String learnWordsExercises(int wordCount, int exerciseCount);
 
   /// No description provided for @learnAiAutoFill.
   ///

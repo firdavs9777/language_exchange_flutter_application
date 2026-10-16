@@ -1206,7 +1206,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get noStories => 'Hikaye yok';
 
   @override
-  String views(String count) {
+  String views(int count) {
     return '$count görüntüleme';
   }
 
@@ -1736,12 +1736,12 @@ class AppLocalizationsTr extends AppLocalizations {
   String get justNow => 'şimdi';
 
   @override
-  String minutesAgo(String count) {
+  String minutesAgo(int count) {
     return '$count dakika önce';
   }
 
   @override
-  String hoursAgo(String count) {
+  String hoursAgo(int count) {
     return '$count saat önce';
   }
 
@@ -2688,7 +2688,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get searchByCity => 'Şehre göre ara';
 
   @override
-  String usersWorldwide(String count) {
+  String usersWorldwide(int count) {
     return 'Dünya genelinde $count kullanıcı';
   }
 
@@ -2699,7 +2699,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get tryDifferentCity => 'Farklı bir şehir deneyin';
 
   @override
-  String usersCount(String count) {
+  String usersCount(int count) {
     return '$count kullanıcı';
   }
 
@@ -9591,7 +9591,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get notifyAnnouncementsSubtitle => 'BananaTalk ekibinden haberler ve güncellemeler';
 
   @override
-  String chatDailyLimitBody(Object count) {
+  String chatDailyLimitBody(int count) {
     return 'Ücretsiz kullanıcılar günde en fazla $count kişiyle sohbet edebilir.\nSınırsız sohbet için VIP\'e yükseltin!';
   }
 
@@ -9981,7 +9981,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get learnCouldNotLoadPacks => 'Paketler yüklenemedi';
 
   @override
-  String learnWordsExercises(Object wordCount, Object exerciseCount) {
+  String learnWordsExercises(int wordCount, int exerciseCount) {
     return '$wordCount kelime · $exerciseCount alıştırma';
   }
 

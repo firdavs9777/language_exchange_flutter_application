@@ -1206,7 +1206,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get noStories => 'ストーリーがありません';
 
   @override
-  String views(String count) {
+  String views(int count) {
     return '$count回閲覧';
   }
 
@@ -1736,12 +1736,12 @@ class AppLocalizationsJa extends AppLocalizations {
   String get justNow => 'たった今';
 
   @override
-  String minutesAgo(String count) {
+  String minutesAgo(int count) {
     return '$count分前';
   }
 
   @override
-  String hoursAgo(String count) {
+  String hoursAgo(int count) {
     return '$count時間前';
   }
 
@@ -2688,7 +2688,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get searchByCity => '都市を検索...';
 
   @override
-  String usersWorldwide(String count) {
+  String usersWorldwide(int count) {
     return '世界中の$count人';
   }
 
@@ -2699,7 +2699,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get tryDifferentCity => '別の都市や国を試してみてください';
 
   @override
-  String usersCount(String count) {
+  String usersCount(int count) {
     return '$count人';
   }
 
@@ -9583,7 +9583,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get notifyAnnouncementsSubtitle => 'BananaTalkチームからのニュースとアップデート';
 
   @override
-  String chatDailyLimitBody(Object count) {
+  String chatDailyLimitBody(int count) {
     return '無料ユーザーは1日に最大$count人までチャットできます。\nVIPにアップグレードすると無制限に会話できます!';
   }
 
@@ -9972,7 +9972,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get learnCouldNotLoadPacks => 'パックを読み込めませんでした';
 
   @override
-  String learnWordsExercises(Object wordCount, Object exerciseCount) {
+  String learnWordsExercises(int wordCount, int exerciseCount) {
     return '$wordCount 語 · $exerciseCount 問';
   }
 

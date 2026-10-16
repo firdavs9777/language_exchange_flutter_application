@@ -81,7 +81,8 @@ Localization
 - [x] L14 (done 2026-10-15; property-literal guard added): ~54 property literals (`hintText:`/`labelText:`/`tooltip:`/`message:`) + enum labels listed in the 2026-10-11 sweep (image_viewer 'Rotate', word_card 'Listen', message_bubble 'Report', chat/moments snackbars, upload_queue progress…), with a property-literal guard. M
 - [x] Native CallKit Accept/Decline labels and missed-call subtitle are hardcoded English (`callkit_service.dart:225`); add an "Accept" key and feed them from `notificationL10n()`. S
 - [x] Coin strings are ICU plurals in all 19 locales (ru one/few/many, ar few). 
-- [ ] ~70 other Russian keys still lack number agreement ("{count} просмотров", "{count} минут назад"…): convert to ICU plurals. M
+- [x] Russian number agreement (done 2026-10-16, `test/l10n/ru_plurals_test.dart`): 47 ru keys converted to one/few/many plurals ("1 просмотр / 2 просмотра / 5 просмотров", "1 минуту назад", "до 21 хештега", "увидел 1 человек"…); `views`, `minutesAgo`, `hoursAgo`, `usersWorldwide`, `usersCount`, `chatDailyLimitBody`, `learnWordsExercises` retyped String/Object → int. The rest of the ~70 were already correct (label forms "Слов: {count}", "X из {total}", abbreviations "мин"/"ч"/"дн.", fractions "{count}/500 символов"). Rows added to `docs/l10n/native-qa-strings-2026-10.csv` for native review.
+- [ ] `communityMembersCount` / `communityPeopleCount` ("{count} участников", "{count} человек") are still unagreed in ru: callers pass a compact string ("1.2K"), so a plural needs an int placeholder with `"format": "compact"` and checking that ru compact output reads right. S
 - [ ] Friendly-error pass: many provider exceptions still reach snackbars as "failedToUpdate: <raw exception>". M
 - [ ] Country names (~200, filter list + city tab) and chat wallpaper names are English data; a localized country table would fix the first. M
 
