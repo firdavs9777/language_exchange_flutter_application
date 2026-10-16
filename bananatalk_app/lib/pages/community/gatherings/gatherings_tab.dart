@@ -566,7 +566,7 @@ class _ClubRow extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final subtitle = [
-      l10n.clubMembers(club.memberCount, formatCompactNumberForLocale(context, club.memberCount)),
+      l10n.clubMembers(compactPluralCount(club.memberCount), formatCompactNumberForLocale(context, club.memberCount)),
       if (club.interest.isNotEmpty) club.interest,
     ].join(' · ');
 

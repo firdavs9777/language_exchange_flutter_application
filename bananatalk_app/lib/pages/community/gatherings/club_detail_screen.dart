@@ -479,7 +479,7 @@ class _ClubDetailScreenState extends State<ClubDetailScreen> {
                     ),
                     Spacing.hGapXS,
                     Text(
-                      l10n.clubMembers(club.memberCount, formatCompactNumberForLocale(context, club.memberCount)),
+                      l10n.clubMembers(compactPluralCount(club.memberCount), formatCompactNumberForLocale(context, club.memberCount)),
                       style: context.bodyMedium.copyWith(
                         color: context.primaryColor,
                         fontWeight: FontWeight.w600,

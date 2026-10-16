@@ -67,4 +67,12 @@ void main() {
     expect(compactPluralCount(12345), 12300);
     expect(compactPluralCount(1234567), 1230000);
   });
+
+  test('ru club members use the rounded count too', () {
+    String club(int n) => plain(lookupAppLocalizations(const Locale('ru'))
+        .clubMembers(compactPluralCount(n), formatCompactNumberForLocaleName('ru', n)));
+    expect(club(21), contains('21 '));
+    expect(club(1001), club(1000));
+    expect(club(1001), isNot(club(1)));
+  });
 }

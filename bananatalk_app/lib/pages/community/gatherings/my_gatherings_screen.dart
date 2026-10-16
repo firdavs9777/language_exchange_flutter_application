@@ -245,7 +245,7 @@ class _MyClubsTabState extends State<MyClubsTab> {
                 subtitle: Text(
                   [
                     if (club.displayLanguage.isNotEmpty) club.displayLanguage,
-                    l10n.clubMembers(club.memberCount, formatCompactNumberForLocale(context, club.memberCount)),
+                    l10n.clubMembers(compactPluralCount(club.memberCount), formatCompactNumberForLocale(context, club.memberCount)),
                     // Shown, not hidden: an owner whose club was archived
                     // should learn that here rather than wonder where it went.
                     if (club.isArchived) l10n.clubStatusArchived,
