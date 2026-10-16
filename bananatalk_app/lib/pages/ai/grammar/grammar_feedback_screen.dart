@@ -13,6 +13,7 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/widgets/study/study_vip_lock.dart';
 
 /// Grammar Feedback Analysis Screen
 class GrammarFeedbackScreen extends ConsumerStatefulWidget {
@@ -130,6 +131,11 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
     );
 
     final result = await AIService.analyzeGrammar(request);
+    if (!mounted) return;
+    // A VIP lock opens the upgrade sheet instead of an error.
+    setState(() => _isAnalyzing = false);
+    if (await showStudyVipLockIfAny(context, result)) return;
+    if (!mounted) return;
 
     setState(() {
       _isAnalyzing = false;

@@ -19,6 +19,7 @@ import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
+import 'package:bananatalk_app/widgets/study/study_vip_lock.dart';
 
 /// Pronunciation Practice Screen
 class PronunciationScreen extends ConsumerStatefulWidget {
@@ -327,6 +328,10 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
       langCode,
     );
 
+    if (!mounted) return;
+    // A VIP lock opens the upgrade sheet instead of an error.
+    setState(() => _isAnalyzing = false);
+    if (await showStudyVipLockIfAny(context, res)) return;
     if (!mounted) return;
     setState(() {
       _isAnalyzing = false;

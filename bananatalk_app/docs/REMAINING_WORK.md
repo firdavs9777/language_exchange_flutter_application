@@ -169,7 +169,7 @@ Bug-fix wave 2026-10-15 (from the full regression suite + two adversarial audits
 - [ ] Check prod `isStrongPassword` accepts symbols like `#._-` (the 2026-10-08 backend rule fix may be undeployed); otherwise `New.Pass_1` fails server-side after the app now allows it. S
 - [ ] Watch new-device login email volume after deploy (device check is coarse: Mobile/Desktop + IP). S
 - [ ] Listening scores stored before the fix stay wrong (mastery / weekly listening stats); XP unaffected. Decide whether to reset. S
-- [ ] STUDY_VIP_ONLY_FEATURES on speak/writing/quizzes: those screens use raw http, so a lock shows the server message, not the upgrade sheet. S
+- [x] STUDY_VIP_ONLY_FEATURES on speak/writing/quizzes: those screens use raw http, so a lock shows the server message, not the upgrade sheet. Done: `AIService` tags the `vip_only_<slug>` 429 (`services/study_vip_lock.dart`) and the Speak, Writing and Quizzes screens open the hub's VIP-lock sheet (Get VIP + Not now, no coins) via `widgets/study/study_vip_lock.dart`; tested.
 - [ ] Android plan switching (ChangeSubscriptionParam) not built — a VIP can't change plan in-app (double-buy is blocked). S–M
 - [ ] Restore also recovers an unconsumed Android coin pack (credited once by the ledger) — keep or restrict to subscriptions. S
 - [ ] iOS restore skips clearly lapsed subscriptions by heuristic until the backend expired-receipt fix is deployed (sandbox can't tell). S

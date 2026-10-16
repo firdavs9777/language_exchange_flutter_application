@@ -13,6 +13,7 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/widgets/study/study_vip_lock.dart';
 
 /// AI Quiz Hub Screen
 class AIQuizScreen extends ConsumerStatefulWidget {
@@ -166,7 +167,9 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
           builder: (_) => const QuizPlayerScreen(),
         ),
       );
-    } else {
+    } else if (!await showStudyVipLockSheet(
+        context, ref.read(aiQuizProvider).vipLock)) {
+      if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(AppLocalizations.of(context)!.aiQuizFailedToGenerate)),
       );
