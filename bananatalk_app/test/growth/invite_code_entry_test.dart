@@ -13,9 +13,9 @@ import 'package:bananatalk_app/services/referral_service.dart';
 import '../helpers/community_fixture.dart';
 
 class _FakeService implements ReferralService {
-  _FakeService({this.error, this.invitee = 50});
+  _FakeService({this.error});
   final Object? error;
-  final int invitee;
+  final int invitee = 50;
   final claimed = <String>[];
 
   @override
