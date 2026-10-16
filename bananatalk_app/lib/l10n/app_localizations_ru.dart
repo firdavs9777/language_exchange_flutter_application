@@ -10254,13 +10254,29 @@ class AppLocalizationsRu extends AppLocalizations {
   String get communityUnlimitedBrowsingNoAds => 'Безлимитный просмотр, без рекламы, приоритетный подбор';
 
   @override
-  String communityMembersCount(Object count) {
-    return '$count участников';
+  String communityMembersCount(int count, String countLabel) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countLabel участника',
+      many: '$countLabel участников',
+      few: '$countLabel участника',
+      one: '$countLabel участник',
+    );
+    return '$_temp0';
   }
 
   @override
-  String communityPeopleCount(Object count) {
-    return '$count человек';
+  String communityPeopleCount(int count, String countLabel) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countLabel человека',
+      many: '$countLabel человек',
+      few: '$countLabel человека',
+      one: '$countLabel человек',
+    );
+    return '$_temp0';
   }
 
   @override

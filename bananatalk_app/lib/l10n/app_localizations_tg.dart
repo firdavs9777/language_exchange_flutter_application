@@ -9869,13 +9869,13 @@ class AppLocalizationsTg extends AppLocalizations {
   String get communityUnlimitedBrowsingNoAds => 'Тамошои бемаҳдуд, бе реклама, ҷуфтсозии афзалиятнок';
 
   @override
-  String communityMembersCount(Object count) {
-    return '$count аъзо';
+  String communityMembersCount(int count, String countLabel) {
+    return '$countLabel аъзо';
   }
 
   @override
-  String communityPeopleCount(Object count) {
-    return '$count нафар';
+  String communityPeopleCount(int count, String countLabel) {
+    return '$countLabel нафар';
   }
 
   @override

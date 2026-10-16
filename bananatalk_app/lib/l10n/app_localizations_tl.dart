@@ -9865,13 +9865,13 @@ class AppLocalizationsTl extends AppLocalizations {
   String get communityUnlimitedBrowsingNoAds => 'Walang limitasyong pag-browse, walang ad, priority matching';
 
   @override
-  String communityMembersCount(Object count) {
-    return '$count miyembro';
+  String communityMembersCount(int count, String countLabel) {
+    return '$countLabel miyembro';
   }
 
   @override
-  String communityPeopleCount(Object count) {
-    return '$count tao';
+  String communityPeopleCount(int count, String countLabel) {
+    return '$countLabel tao';
   }
 
   @override

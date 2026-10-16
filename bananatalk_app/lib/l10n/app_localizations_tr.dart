@@ -9863,13 +9863,13 @@ class AppLocalizationsTr extends AppLocalizations {
   String get communityUnlimitedBrowsingNoAds => 'Sınırsız gezinme, reklamsız, öncelikli eşleştirme';
 
   @override
-  String communityMembersCount(Object count) {
-    return '$count üye';
+  String communityMembersCount(int count, String countLabel) {
+    return '$countLabel üye';
   }
 
   @override
-  String communityPeopleCount(Object count) {
-    return '$count kişi';
+  String communityPeopleCount(int count, String countLabel) {
+    return '$countLabel kişi';
   }
 
   @override

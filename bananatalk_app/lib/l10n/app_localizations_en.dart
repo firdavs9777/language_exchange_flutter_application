@@ -9878,13 +9878,25 @@ class AppLocalizationsEn extends AppLocalizations {
   String get communityUnlimitedBrowsingNoAds => 'Unlimited browsing, no ads, priority matching';
 
   @override
-  String communityMembersCount(Object count) {
-    return '$count members';
+  String communityMembersCount(int count, String countLabel) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countLabel members',
+      one: '$countLabel member',
+    );
+    return '$_temp0';
   }
 
   @override
-  String communityPeopleCount(Object count) {
-    return '$count people';
+  String communityPeopleCount(int count, String countLabel) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countLabel people',
+      one: '$countLabel person',
+    );
+    return '$_temp0';
   }
 
   @override

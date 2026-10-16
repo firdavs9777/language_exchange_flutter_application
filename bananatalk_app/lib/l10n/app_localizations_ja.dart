@@ -9855,13 +9855,13 @@ class AppLocalizationsJa extends AppLocalizations {
   String get communityUnlimitedBrowsingNoAds => '無制限の閲覧、広告なし、優先マッチング';
 
   @override
-  String communityMembersCount(Object count) {
-    return 'メンバー $count人';
+  String communityMembersCount(int count, String countLabel) {
+    return 'メンバー $countLabel人';
   }
 
   @override
-  String communityPeopleCount(Object count) {
-    return '$count人';
+  String communityPeopleCount(int count, String countLabel) {
+    return '$countLabel人';
   }
 
   @override

@@ -9855,13 +9855,13 @@ class AppLocalizationsVi extends AppLocalizations {
   String get communityUnlimitedBrowsingNoAds => 'Duyệt không giới hạn, không quảng cáo, ghép đôi ưu tiên';
 
   @override
-  String communityMembersCount(Object count) {
-    return '$count thành viên';
+  String communityMembersCount(int count, String countLabel) {
+    return '$countLabel thành viên';
   }
 
   @override
-  String communityPeopleCount(Object count) {
-    return '$count người';
+  String communityPeopleCount(int count, String countLabel) {
+    return '$countLabel người';
   }
 
   @override

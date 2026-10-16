@@ -9855,13 +9855,13 @@ class AppLocalizationsZh extends AppLocalizations {
   String get communityUnlimitedBrowsingNoAds => '无限浏览、无广告、优先匹配';
 
   @override
-  String communityMembersCount(Object count) {
-    return '$count 位成员';
+  String communityMembersCount(int count, String countLabel) {
+    return '$countLabel 位成员';
   }
 
   @override
-  String communityPeopleCount(Object count) {
-    return '$count 人';
+  String communityPeopleCount(int count, String countLabel) {
+    return '$countLabel 人';
   }
 
   @override
@@ -22083,13 +22083,13 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get communityUnlimitedBrowsingNoAds => '無限瀏覽、無廣告、優先配對';
 
   @override
-  String communityMembersCount(Object count) {
-    return '$count 位成員';
+  String communityMembersCount(int count, String countLabel) {
+    return '$countLabel 位成員';
   }
 
   @override
-  String communityPeopleCount(Object count) {
-    return '$count 人';
+  String communityPeopleCount(int count, String countLabel) {
+    return '$countLabel 人';
   }
 
   @override

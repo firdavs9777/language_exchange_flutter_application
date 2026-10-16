@@ -6887,19 +6887,29 @@
   "communitySeeAll": "See all",
   "communitySeeWhoLikes": "See who likes you",
   "communityUnlimitedBrowsingNoAds": "Unlimited browsing, no ads, priority matching",
-  "communityMembersCount": "{count} members",
+  "communityMembersCount": "{count, plural, one{{countLabel} member} other{{countLabel} members}}",
   "@communityMembersCount": {
     "placeholders": {
       "count": {
-        "type": "Object"
+        "type": "int",
+        "description": "raw count through compactPluralCount; picks the plural form"
+      },
+      "countLabel": {
+        "type": "String",
+        "description": "count, already formatted (formatCompactNumberForLocale; tg-safe)"
       }
     }
   },
-  "communityPeopleCount": "{count} people",
+  "communityPeopleCount": "{count, plural, one{{countLabel} person} other{{countLabel} people}}",
   "@communityPeopleCount": {
     "placeholders": {
       "count": {
-        "type": "Object"
+        "type": "int",
+        "description": "raw count through compactPluralCount; picks the plural form"
+      },
+      "countLabel": {
+        "type": "String",
+        "description": "count, already formatted (formatCompactNumberForLocale; tg-safe)"
       }
     }
   },

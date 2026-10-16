@@ -18047,14 +18047,14 @@ abstract class AppLocalizations {
   /// No description provided for @communityMembersCount.
   ///
   /// In en, this message translates to:
-  /// **'{count} members'**
-  String communityMembersCount(Object count);
+  /// **'{count, plural, one{{countLabel} member} other{{countLabel} members}}'**
+  String communityMembersCount(int count, String countLabel);
 
   /// No description provided for @communityPeopleCount.
   ///
   /// In en, this message translates to:
-  /// **'{count} people'**
-  String communityPeopleCount(Object count);
+  /// **'{count, plural, one{{countLabel} person} other{{countLabel} people}}'**
+  String communityPeopleCount(int count, String countLabel);
 
   /// No description provided for @communityFailedLoadArchivedWaves.
   ///

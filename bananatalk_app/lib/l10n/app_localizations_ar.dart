@@ -9915,13 +9915,13 @@ class AppLocalizationsAr extends AppLocalizations {
   String get communityUnlimitedBrowsingNoAds => 'تصفح غير محدود، بدون إعلانات، وأولوية في المطابقة';
 
   @override
-  String communityMembersCount(Object count) {
-    return '$count عضو';
+  String communityMembersCount(int count, String countLabel) {
+    return '$countLabel عضو';
   }
 
   @override
-  String communityPeopleCount(Object count) {
-    return '$count شخص';
+  String communityPeopleCount(int count, String countLabel) {
+    return '$countLabel شخص';
   }
 
   @override

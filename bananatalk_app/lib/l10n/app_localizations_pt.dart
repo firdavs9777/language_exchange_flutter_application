@@ -9872,13 +9872,13 @@ class AppLocalizationsPt extends AppLocalizations {
   String get communityUnlimitedBrowsingNoAds => 'Navegação ilimitada, sem anúncios e combinação prioritária';
 
   @override
-  String communityMembersCount(Object count) {
-    return '$count membros';
+  String communityMembersCount(int count, String countLabel) {
+    return '$countLabel membros';
   }
 
   @override
-  String communityPeopleCount(Object count) {
-    return '$count pessoas';
+  String communityPeopleCount(int count, String countLabel) {
+    return '$countLabel pessoas';
   }
 
   @override
