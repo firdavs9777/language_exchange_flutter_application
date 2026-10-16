@@ -10,6 +10,7 @@ import 'package:bananatalk_app/providers/provider_root/auth_providers.dart'
     show userProvider;
 import 'package:bananatalk_app/pages/community/single/single_community_screen.dart';
 import 'package:bananatalk_app/services/stories_service.dart';
+import 'package:bananatalk_app/services/link_constants.dart';
 import 'package:bananatalk_app/pages/stories/highlights/highlight_editor_sheet.dart';
 import 'package:bananatalk_app/widgets/blocked_content_widget.dart';
 import 'package:bananatalk_app/widgets/report_dialog.dart';
@@ -738,7 +739,7 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
         ? '\n"${story.text}"'
         : '';
     final shareText =
-        'Check out $userName\'s story on Bananatalk!$storyText\n\nhttps://bananatalk.com/story/${story.id}';
+        'Check out $userName\'s story on Bananatalk!$storyText\n\n${shareUrl('story', story.id)}';
 
     Share.share(shareText);
   }

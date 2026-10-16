@@ -1080,6 +1080,9 @@ const Map<String, List<String>> _filesByTask = {
     'pages/moments/widgets/moment_prompt_label.dart',
     'pages/moments/create/create_moment.dart',
   ],
+  'web-parity-p2': [
+    'pages/stories/viewer/story_link_screen.dart',
+  ],
 };
 
 /// Keys whose draft may legitimately equal the English, per locale (loanwords,
