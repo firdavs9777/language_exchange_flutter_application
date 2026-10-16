@@ -223,7 +223,7 @@ Web ↔ app parity (spec `docs/superpowers/specs/2026-10-16-web-app-parity-desig
 - [ ] Phase 1: backend — profile visibility helper, blocks, chat contract, story/moment fixes, voice-note AAC transcode, email links, web-feature endpoints + flags. L
 - [ ] Phase 2: app (plan `docs/superpowers/plans/2026-10-16-web-app-parity-phase2.md`). M
   - [x] P2-1 merge `fix/moments-stories-audit` (moments#6 prompt/location/isReel, moments#7 UTC scheduling) — 39 l10n conflicts, per-key ARB merge.
-  - [ ] P2-2 parser + Android manifest learn `/story/`, `/chat/`, legacy `bananatalk://user/` (links#1, #6, #8).
+  - [x] P2-2 parser + Android manifest learn `/story/`, `/chat/`, legacy `bananatalk://user/` (links#1, #6, #8).
   - [ ] P2-3 story share link `shareUrl('story', id)` + `/story/:id` screen (links#1, moments#1).
   - [ ] P2-4 profile QR encodes `https://banatalk.com/profile/<id>`; scanner accepts both (links#8).
   - [ ] P2-5 `FlutterDeepLinkingEnabled=false` / `flutter_deeplinking_enabled=false` (links#7).
@@ -231,6 +231,7 @@ Web ↔ app parity (spec `docs/superpowers/specs/2026-10-16-web-app-parity-desig
   - [ ] P2-7 invite code manual entry for new accounts (links#10).
   - [ ] P2-8 Play Install Referrer pickup (links#10).
   - [ ] P2-9 phase gate: full suite, analyze, debug build, QA rows, push.
+- [ ] (app, links#15) Parser still accepts any id for /profile/ and /community/ (so /profile/edit, /profile/stats open a broken profile once App Links verify); add the ObjectId check there too after checking 2.6.1 share links only ever carry ObjectIds. S
 - [ ] Phase 3: web bug fixes — chat, moments, community, links. L
 - [ ] Phase 4: web features (flagged) — reels, gatherings/clubs, voice rooms, calls, Sign in with Apple. XL
 - [ ] Phase 5: owner steps — www cert, nginx snippet + crawler rule, Play fingerprints, Apple Services ID, prod env checks. S

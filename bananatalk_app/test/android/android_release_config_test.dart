@@ -61,21 +61,31 @@ void main() {
     });
 
     test('every claimed prefix is a route the app handles', () {
+      // story/chat ids must be ObjectIds; invite codes are A-Z2-7.
       for (final p in prefixes) {
-        final uri = Uri.parse('https://banatalk.com${p}ABCDEFGH');
+        final id = p == '/i/' ? 'ABCDEFGH' : '64b7f0c2a1b2c3d4e5f60718';
+        final uri = Uri.parse('https://banatalk.com$p$id');
         expect(routePathFromUri(uri), isNotNull, reason: p);
       }
     });
 
     test('every link shape the app handles is claimed', () {
-      for (final path in ['/moment/123', '/profile/u1', '/community/matches', '/community/waves', '/i/ABCDEFGH']) {
+      for (final path in [
+        '/moment/123',
+        '/profile/u1',
+        '/community/matches',
+        '/community/waves',
+        '/story/64b7f0c2a1b2c3d4e5f60718',
+        '/chat/64b7f0c2a1b2c3d4e5f60718',
+        '/i/ABCDEFGH',
+      ]) {
         expect(routePathFromUri(Uri.parse('https://banatalk.com$path')), isNotNull, reason: path);
         expect(claimed(path), isTrue, reason: path);
       }
     });
 
     test('legal pages and the web home stay in the browser', () {
-      for (final path in ['/', '/privacy-policy', '/terms-of-use', '/moments/123', '/delete-account']) {
+      for (final path in ['/', '/privacy-policy', '/terms-of-use', '/moments/123', '/delete-account', '/stories/abc']) {
         expect(claimed(path), isFalse, reason: path);
       }
     });

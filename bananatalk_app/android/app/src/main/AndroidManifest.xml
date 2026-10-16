@@ -153,6 +153,8 @@
                 <data android:pathPrefix="/moment/" />
                 <data android:pathPrefix="/profile/" />
                 <data android:pathPrefix="/community/" />
+                <data android:pathPrefix="/story/" />
+                <data android:pathPrefix="/chat/" />
                 <data android:pathPrefix="/i/" />
             </intent-filter>
 
