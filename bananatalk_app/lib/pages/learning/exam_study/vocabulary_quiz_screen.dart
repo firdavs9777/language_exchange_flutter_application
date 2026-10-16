@@ -66,7 +66,7 @@ class _VocabularyQuizScreenState extends ConsumerState<VocabularyQuizScreen> {
     } catch (e) {
       if (!mounted) return;
       setState(() {
-        _loadError = e.toString();
+        _loadError = friendlyErrorMessage(AppLocalizations.of(context)!, e);
         _loading = false;
       });
     }

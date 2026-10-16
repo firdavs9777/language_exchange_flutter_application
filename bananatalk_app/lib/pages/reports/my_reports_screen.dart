@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/providers/provider_root/report_provider.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
@@ -47,7 +48,7 @@ class _MyReportsScreenState extends ConsumerState<MyReportsScreen> {
       }
     } catch (e) {
       setState(() {
-        _error = AppLocalizations.of(context)!.commonError(e.toString());
+        _error = AppLocalizations.of(context)!.commonError(friendlyErrorMessage(AppLocalizations.of(context)!, e));
         _isLoading = false;
       });
     }

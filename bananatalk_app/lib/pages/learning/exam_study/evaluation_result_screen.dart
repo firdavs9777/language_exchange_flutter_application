@@ -4,6 +4,7 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/providers/provider_models/exam/evaluation_status.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/exam_study_provider.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -81,7 +82,12 @@ class _EvaluationResultScreenState
       }
     } catch (e) {
       if (!mounted) return;
-      setState(() => _errorMessage = e.toString());
+      debugPrint('EvaluationResultScreen poll failed: $e');
+      setState(() => _errorMessage = friendlyErrorMessage(
+            AppLocalizations.of(context)!,
+            e,
+            fallback: AppLocalizations.of(context)!.examStudyError,
+          ));
       _stopPolling();
     }
   }

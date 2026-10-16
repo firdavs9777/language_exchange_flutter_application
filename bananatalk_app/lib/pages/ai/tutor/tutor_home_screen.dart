@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/pages/ai/conversation/conversation_history_screen.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:bananatalk_app/models/tutor/tutor_memory.dart';
@@ -45,7 +46,7 @@ class TutorHomeScreen extends ConsumerWidget {
       ),
       body: memoryAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (e, _) => Center(child: Text(AppLocalizations.of(context)!.aiTutorCouldNotLoad(e.toString()))),
+        error: (e, _) => Center(child: Text(AppLocalizations.of(context)!.aiTutorCouldNotLoad(friendlyErrorMessage(AppLocalizations.of(context)!, e)))),
         data: (memory) {
           if (memory.persona == null) {
             // First-time user — bounce to picker.
@@ -154,7 +155,7 @@ class _PlanCard extends StatelessWidget {
           height: 80,
           child: Center(child: CircularProgressIndicator()),
         ),
-        error: (e, _) => Text(AppLocalizations.of(context)!.aiTutorPlanUnavailable(e.toString())),
+        error: (e, _) => Text(AppLocalizations.of(context)!.aiTutorPlanUnavailable(friendlyErrorMessage(AppLocalizations.of(context)!, e))),
         data: (plan) {
           if (plan == null || plan.tasks.isEmpty) {
             return Text(l10n.aiTutorHomePlanEmpty, style: context.bodyMedium);

@@ -87,7 +87,7 @@ class _ChatMediaScreenState extends ConsumerState<ChatMediaScreen>
       if (mounted) {
         setState(() {
           _isLoading = false;
-          _error = e.toString();
+          _error = friendlyErrorMessage(AppLocalizations.of(context)!, e);
         });
       }
     }

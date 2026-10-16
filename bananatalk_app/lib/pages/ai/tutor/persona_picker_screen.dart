@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:bananatalk_app/providers/tutor_provider.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
@@ -45,7 +46,7 @@ class _PersonaPickerScreenState extends ConsumerState<PersonaPickerScreen> {
       setState(() => _selecting = null);
       final l10n = AppLocalizations.of(context)!;
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(l10n.aiTutorPickerSaveError(e.toString()))),
+        SnackBar(content: Text(l10n.aiTutorPickerSaveError(friendlyErrorMessage(l10n, e)))),
       );
     }
   }
