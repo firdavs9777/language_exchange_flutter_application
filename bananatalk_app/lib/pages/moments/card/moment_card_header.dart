@@ -41,9 +41,9 @@ class MomentCardHeader extends StatelessWidget {
     if (difference.inMinutes < 1) {
       return l10n.justNow;
     } else if (difference.inMinutes < 60) {
-      return l10n.minutesAgo('${difference.inMinutes}');
+      return l10n.minutesAgo(difference.inMinutes);
     } else if (difference.inHours < 24) {
-      return l10n.hoursAgo('${difference.inHours}');
+      return l10n.hoursAgo(difference.inHours);
     } else if (difference.inDays < 7) {
       return l10n.daysAgo(difference.inDays);
     } else {

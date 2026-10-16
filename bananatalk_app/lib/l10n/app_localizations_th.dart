@@ -1206,7 +1206,7 @@ class AppLocalizationsTh extends AppLocalizations {
   String get noStories => 'ไม่มีสตอรี่';
 
   @override
-  String views(String count) {
+  String views(int count) {
     return '$count ครั้ง';
   }
 
@@ -1736,12 +1736,12 @@ class AppLocalizationsTh extends AppLocalizations {
   String get justNow => 'เมื่อสักครู่';
 
   @override
-  String minutesAgo(String count) {
+  String minutesAgo(int count) {
     return '$count นาทีที่แล้ว';
   }
 
   @override
-  String hoursAgo(String count) {
+  String hoursAgo(int count) {
     return '$count ชั่วโมงที่แล้ว';
   }
 
@@ -2688,7 +2688,7 @@ class AppLocalizationsTh extends AppLocalizations {
   String get searchByCity => 'ค้นหาตามเมือง';
 
   @override
-  String usersWorldwide(String count) {
+  String usersWorldwide(int count) {
     return '$count ผู้ใช้ทั่วโลก';
   }
 
@@ -2699,7 +2699,7 @@ class AppLocalizationsTh extends AppLocalizations {
   String get tryDifferentCity => 'ลองเมืองอื่น';
 
   @override
-  String usersCount(String count) {
+  String usersCount(int count) {
     return '$count ผู้ใช้';
   }
 
@@ -9583,7 +9583,7 @@ class AppLocalizationsTh extends AppLocalizations {
   String get notifyAnnouncementsSubtitle => 'ข่าวสารและอัปเดตจากทีม BananaTalk';
 
   @override
-  String chatDailyLimitBody(Object count) {
+  String chatDailyLimitBody(int count) {
     return 'ผู้ใช้ฟรีแชทได้สูงสุด $count คนต่อวัน\nอัปเกรดเป็น VIP เพื่อสนทนาได้ไม่จำกัด!';
   }
 
@@ -9972,7 +9972,7 @@ class AppLocalizationsTh extends AppLocalizations {
   String get learnCouldNotLoadPacks => 'โหลดแพ็กไม่ได้';
 
   @override
-  String learnWordsExercises(Object wordCount, Object exerciseCount) {
+  String learnWordsExercises(int wordCount, int exerciseCount) {
     return '$wordCount คำ · $exerciseCount แบบฝึกหัด';
   }
 

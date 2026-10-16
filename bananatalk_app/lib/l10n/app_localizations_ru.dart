@@ -560,7 +560,15 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String aiTutorStoryWordCount(int count) {
-    return '$count слов';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count слова',
+      many: '$count слов',
+      few: '$count слова',
+      one: '$count слово',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -576,7 +584,15 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String aiTutorStoryWordCountHint(int n) {
-    return 'ИИ использует до $n слов из вашего списка.';
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: 'ИИ использует до $n слова из вашего списка.',
+      many: 'ИИ использует до $n слов из вашего списка.',
+      few: 'ИИ использует до $n слов из вашего списка.',
+      one: 'ИИ использует до $n слова из вашего списка.',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -712,7 +728,15 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String aiTutorPlanSrsReview(int count, int done) {
-    return 'Повторите $count SRS-карточек ($done сделано)';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Повторите $count SRS-карточки ($done сделано)',
+      many: 'Повторите $count SRS-карточек ($done сделано)',
+      few: 'Повторите $count SRS-карточки ($done сделано)',
+      one: 'Повторите $count SRS-карточку ($done сделано)',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -1206,8 +1230,16 @@ class AppLocalizationsRu extends AppLocalizations {
   String get noStories => 'Нет историй';
 
   @override
-  String views(String count) {
-    return '$count просмотров';
+  String views(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count просмотра',
+      many: '$count просмотров',
+      few: '$count просмотра',
+      one: '$count просмотр',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -1736,13 +1768,29 @@ class AppLocalizationsRu extends AppLocalizations {
   String get justNow => 'только что';
 
   @override
-  String minutesAgo(String count) {
-    return '$count минут назад';
+  String minutesAgo(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count минуты назад',
+      many: '$count минут назад',
+      few: '$count минуты назад',
+      one: '$count минуту назад',
+    );
+    return '$_temp0';
   }
 
   @override
-  String hoursAgo(String count) {
-    return '$count часов назад';
+  String hoursAgo(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count часа назад',
+      many: '$count часов назад',
+      few: '$count часа назад',
+      one: '$count час назад',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -1940,7 +1988,15 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String maxImagesAllowed(int count) {
-    return 'Максимум $count изображений';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Максимум $count изображения',
+      many: 'Максимум $count изображений',
+      few: 'Максимум $count изображения',
+      one: 'Максимум $count изображение',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -2386,7 +2442,15 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String applyNFilters(int count) {
-    return 'Применить $count фильтров';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Применить $count фильтра',
+      many: 'Применить $count фильтров',
+      few: 'Применить $count фильтра',
+      one: 'Применить $count фильтр',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -2438,7 +2502,15 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String viewRepliesCount(int count) {
-    return '── Показать $count ответов';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '── Показать $count ответа',
+      many: '── Показать $count ответов',
+      few: '── Показать $count ответа',
+      one: '── Показать $count ответ',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -2494,7 +2566,15 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String titleTooLong(int max) {
-    return 'Заголовок должен быть не более $max символов';
+    String _temp0 = intl.Intl.pluralLogic(
+      max,
+      locale: localeName,
+      other: 'Заголовок должен быть не более $max символа',
+      many: 'Заголовок должен быть не более $max символов',
+      few: 'Заголовок должен быть не более $max символов',
+      one: 'Заголовок должен быть не более $max символа',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -2502,7 +2582,15 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String descriptionTooLong(int max) {
-    return 'Описание должно быть не более $max символов';
+    String _temp0 = intl.Intl.pluralLogic(
+      max,
+      locale: localeName,
+      other: 'Описание должно быть не более $max символа',
+      many: 'Описание должно быть не более $max символов',
+      few: 'Описание должно быть не более $max символов',
+      one: 'Описание должно быть не более $max символа',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -2688,8 +2776,16 @@ class AppLocalizationsRu extends AppLocalizations {
   String get searchByCity => 'Поиск по городу';
 
   @override
-  String usersWorldwide(String count) {
-    return '$count пользователей по всему миру';
+  String usersWorldwide(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count пользователя по всему миру',
+      many: '$count пользователей по всему миру',
+      few: '$count пользователя по всему миру',
+      one: '$count пользователь по всему миру',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -2699,8 +2795,16 @@ class AppLocalizationsRu extends AppLocalizations {
   String get tryDifferentCity => 'Попробуйте другой город';
 
   @override
-  String usersCount(String count) {
-    return '$count пользователей';
+  String usersCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count пользователя',
+      many: '$count пользователей',
+      few: '$count пользователя',
+      one: '$count пользователь',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -3359,12 +3463,28 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String roomParticipants(int count) {
-    return '$count участников';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count участника',
+      many: '$count участников',
+      few: '$count участника',
+      one: '$count участник',
+    );
+    return '$_temp0';
   }
 
   @override
   String roomMaxParticipants(int count) {
-    return 'Макс. $count участников';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Макс. $count участника',
+      many: 'Макс. $count участников',
+      few: 'Макс. $count участника',
+      one: 'Макс. $count участник',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -3455,7 +3575,15 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String nPeople(int count) {
-    return '$count человек';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count человека',
+      many: '$count человек',
+      few: '$count человека',
+      one: '$count человек',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -3896,7 +4024,15 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String maxTopicsAllowed(int count) {
-    return 'Максимум $count тем';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Максимум $count темы',
+      many: 'Максимум $count тем',
+      few: 'Максимум $count темы',
+      one: 'Максимум $count тема',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -3986,7 +4122,15 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String youHaveUnuploadedImages(int count) {
-    return '$count изображений не загружено. Загрузить?';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count изображения не загружено. Загрузить?',
+      many: '$count изображений не загружено. Загрузить?',
+      few: '$count изображения не загружено. Загрузить?',
+      one: '$count изображение не загружено. Загрузить?',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -3997,7 +4141,15 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String maxImagesInfo(int max, int current) {
-    return 'Максимум $max изображений. Текущее: $current/$max';
+    String _temp0 = intl.Intl.pluralLogic(
+      max,
+      locale: localeName,
+      other: 'Максимум $max изображения. Текущее: $current/$max',
+      many: 'Максимум $max изображений. Текущее: $current/$max',
+      few: 'Максимум $max изображения. Текущее: $current/$max',
+      one: 'Максимум $max изображение. Текущее: $current/$max',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -4010,7 +4162,15 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String canOnlyHaveMaxImages(int max) {
-    return 'Максимум $max изображений';
+    String _temp0 = intl.Intl.pluralLogic(
+      max,
+      locale: localeName,
+      other: 'Максимум $max изображения',
+      many: 'Максимум $max изображений',
+      few: 'Максимум $max изображения',
+      one: 'Максимум $max изображение',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -4066,7 +4226,15 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String wordsDue(int count) {
-    return '$count слов к повторению';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count слова к повторению',
+      many: '$count слов к повторению',
+      few: '$count слова к повторению',
+      one: '$count слово к повторению',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -4326,7 +4494,15 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String messageForwardedTo(int count) {
-    return 'Сообщение переслано $count пользователю(ям)';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Сообщение переслано $count пользователю',
+      many: 'Сообщение переслано $count пользователям',
+      few: 'Сообщение переслано $count пользователям',
+      one: 'Сообщение переслано $count пользователю',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -4410,7 +4586,15 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String captionTooLong(int maxLength) {
-    return 'Подпись должна содержать не более $maxLength символов';
+    String _temp0 = intl.Intl.pluralLogic(
+      maxLength,
+      locale: localeName,
+      other: 'Подпись должна содержать не более $maxLength символа',
+      many: 'Подпись должна содержать не более $maxLength символов',
+      few: 'Подпись должна содержать не более $maxLength символов',
+      one: 'Подпись должна содержать не более $maxLength символа',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -4418,12 +4602,28 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String maximumImagesReachedDescription(int maxImages) {
-    return 'Вы можете загрузить до $maxImages изображений на один момент.';
+    String _temp0 = intl.Intl.pluralLogic(
+      maxImages,
+      locale: localeName,
+      other: 'Вы можете загрузить до $maxImages изображения на один момент.',
+      many: 'Вы можете загрузить до $maxImages изображений на один момент.',
+      few: 'Вы можете загрузить до $maxImages изображений на один момент.',
+      one: 'Вы можете загрузить до $maxImages изображения на один момент.',
+    );
+    return '$_temp0';
   }
 
   @override
   String maximumImagesAddedPartial(int maxImages, int added) {
-    return 'Максимум $maxImages изображений. Добавлено только $added.';
+    String _temp0 = intl.Intl.pluralLogic(
+      maxImages,
+      locale: localeName,
+      other: 'Максимум $maxImages изображения. Добавлено только $added.',
+      many: 'Максимум $maxImages изображений. Добавлено только $added.',
+      few: 'Максимум $maxImages изображения. Добавлено только $added.',
+      one: 'Максимум $maxImages изображение. Добавлено только $added.',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -4466,12 +4666,28 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String likedByXPeople(int count) {
-    return 'Понравилось $count людям';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Понравилось $count человеку',
+      many: 'Понравилось $count людям',
+      few: 'Понравилось $count людям',
+      one: 'Понравилось $count человеку',
+    );
+    return '$_temp0';
   }
 
   @override
   String xComments(int count) {
-    return '$count комментариев';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count комментария',
+      many: '$count комментариев',
+      few: '$count комментария',
+      one: '$count комментарий',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -4482,7 +4698,15 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String viewXReplies(int count) {
-    return 'Показать $count ответов';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Показать $count ответа',
+      many: 'Показать $count ответов',
+      few: 'Показать $count ответа',
+      one: 'Показать $count ответ',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -4701,7 +4925,15 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String tapBelowToBrowseLanguages(int count) {
-    return 'Нажмите ниже, чтобы выбрать из $count языков';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Нажмите ниже, чтобы выбрать из $count языка',
+      many: 'Нажмите ниже, чтобы выбрать из $count языков',
+      few: 'Нажмите ниже, чтобы выбрать из $count языков',
+      one: 'Нажмите ниже, чтобы выбрать из $count языка',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -6446,17 +6678,41 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String birthdateMinAgeError(int age) {
-    return 'Вам должно быть не менее $age лет.';
+    String _temp0 = intl.Intl.pluralLogic(
+      age,
+      locale: localeName,
+      other: 'Вам должно быть не менее $age года.',
+      many: 'Вам должно быть не менее $age лет.',
+      few: 'Вам должно быть не менее $age лет.',
+      one: 'Вам должно быть не менее $age года.',
+    );
+    return '$_temp0';
   }
 
   @override
   String birthdateQuotaRemaining(int remaining, int max) {
-    return 'Осталось $remaining из $max изменений даты рождения в ближайшие 60 дней.';
+    String _temp0 = intl.Intl.pluralLogic(
+      max,
+      locale: localeName,
+      other: 'Осталось $remaining из $max изменения даты рождения в ближайшие 60 дней.',
+      many: 'Осталось $remaining из $max изменений даты рождения в ближайшие 60 дней.',
+      few: 'Осталось $remaining из $max изменений даты рождения в ближайшие 60 дней.',
+      one: 'Осталось $remaining из $max изменения даты рождения в ближайшие 60 дней.',
+    );
+    return '$_temp0';
   }
 
   @override
   String birthdateQuotaLocked(int max) {
-    return 'Вы использовали все $max изменения даты рождения за этот 60-дневный период.';
+    String _temp0 = intl.Intl.pluralLogic(
+      max,
+      locale: localeName,
+      other: 'Вы использовали все $max изменения даты рождения за этот 60-дневный период.',
+      many: 'Вы использовали все $max изменений даты рождения за этот 60-дневный период.',
+      few: 'Вы использовали все $max изменения даты рождения за этот 60-дневный период.',
+      one: 'Вы использовали все $max изменение даты рождения за этот 60-дневный период.',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -6867,12 +7123,28 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String examEssayMinChars(int min) {
-    return 'В эссе должно быть не менее $min символов';
+    String _temp0 = intl.Intl.pluralLogic(
+      min,
+      locale: localeName,
+      other: 'В эссе должно быть не менее $min символа',
+      many: 'В эссе должно быть не менее $min символов',
+      few: 'В эссе должно быть не менее $min символов',
+      one: 'В эссе должно быть не менее $min символа',
+    );
+    return '$_temp0';
   }
 
   @override
   String examEssayMaxChars(int max) {
-    return 'Эссе не должно превышать $max символов';
+    String _temp0 = intl.Intl.pluralLogic(
+      max,
+      locale: localeName,
+      other: 'Эссе не должно превышать $max символа',
+      many: 'Эссе не должно превышать $max символов',
+      few: 'Эссе не должно превышать $max символа',
+      one: 'Эссе не должно превышать $max символ',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -7312,7 +7584,15 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String roomMemberOnlineCount(int members, int online) {
-    return '$members участников · $online онлайн';
+    String _temp0 = intl.Intl.pluralLogic(
+      members,
+      locale: localeName,
+      other: '$members участника · $online онлайн',
+      many: '$members участников · $online онлайн',
+      few: '$members участника · $online онлайн',
+      one: '$members участник · $online онлайн',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -7617,7 +7897,15 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String masteryAccuracyCaption(int percent, int samples) {
-    return '$percent% за $samples занятий';
+    String _temp0 = intl.Intl.pluralLogic(
+      samples,
+      locale: localeName,
+      other: '$percent% за $samples занятия',
+      many: '$percent% за $samples занятий',
+      few: '$percent% за $samples занятия',
+      one: '$percent% за $samples занятие',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -7625,7 +7913,15 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String masteryDueCta(int count) {
-    return 'Повторить $count слов сейчас';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Повторить $count слова сейчас',
+      many: 'Повторить $count слов сейчас',
+      few: 'Повторить $count слова сейчас',
+      one: 'Повторить $count слово сейчас',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -7827,12 +8123,28 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String gatheringDuration(int minutes) {
-    return '$minutes минут';
+    String _temp0 = intl.Intl.pluralLogic(
+      minutes,
+      locale: localeName,
+      other: '$minutes минуты',
+      many: '$minutes минут',
+      few: '$minutes минуты',
+      one: '$minutes минута',
+    );
+    return '$_temp0';
   }
 
   @override
   String gatheringSeatsTaken(int going, int capacity) {
-    return 'Занято $going из $capacity мест';
+    String _temp0 = intl.Intl.pluralLogic(
+      capacity,
+      locale: localeName,
+      other: 'Занято $going из $capacity места',
+      many: 'Занято $going из $capacity мест',
+      few: 'Занято $going из $capacity мест',
+      one: 'Занято $going из $capacity места',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -7951,7 +8263,15 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String gatheringRequests(int count) {
-    return '$count ожидают вступления';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ожидают вступления',
+      many: '$count ожидают вступления',
+      few: '$count ожидают вступления',
+      one: '$count ожидает вступления',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8749,7 +9069,15 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String boostSeenBy(int count) {
-    return 'Пока вас увидели $count человек';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Пока вас увидели $count человека',
+      many: 'Пока вас увидели $count человек',
+      few: 'Пока вас увидели $count человека',
+      one: 'Пока вас увидел $count человек',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -8946,7 +9274,15 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String chatBonusMessagesUnlocked(int count) {
-    return 'Вы получили $count бонусных сообщения! Продолжайте общение.';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Вы получили $count бонусных сообщения! Продолжайте общение.',
+      many: 'Вы получили $count бонусных сообщений! Продолжайте общение.',
+      few: 'Вы получили $count бонусных сообщения! Продолжайте общение.',
+      one: 'Вы получили $count бонусное сообщение! Продолжайте общение.',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -9633,8 +9969,16 @@ class AppLocalizationsRu extends AppLocalizations {
   String get notifyAnnouncementsSubtitle => 'Новости и обновления от команды BananaTalk';
 
   @override
-  String chatDailyLimitBody(Object count) {
-    return 'Бесплатные пользователи могут общаться не более чем с $count людьми в день.\nПерейдите на VIP для безлимитного общения!';
+  String chatDailyLimitBody(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Бесплатные пользователи могут общаться не более чем с $count человеком в день.\nПерейдите на VIP для безлимитного общения!',
+      many: 'Бесплатные пользователи могут общаться не более чем с $count людьми в день.\nПерейдите на VIP для безлимитного общения!',
+      few: 'Бесплатные пользователи могут общаться не более чем с $count людьми в день.\nПерейдите на VIP для безлимитного общения!',
+      one: 'Бесплатные пользователи могут общаться не более чем с $count человеком в день.\nПерейдите на VIP для безлимитного общения!',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -10030,8 +10374,24 @@ class AppLocalizationsRu extends AppLocalizations {
   String get learnCouldNotLoadPacks => 'Не удалось загрузить наборы';
 
   @override
-  String learnWordsExercises(Object wordCount, Object exerciseCount) {
-    return '$wordCount слов · $exerciseCount упражнений';
+  String learnWordsExercises(int wordCount, int exerciseCount) {
+    String _temp0 = intl.Intl.pluralLogic(
+      wordCount,
+      locale: localeName,
+      other: '$wordCount слова',
+      many: '$wordCount слов',
+      few: '$wordCount слова',
+      one: '$wordCount слово',
+    );
+    String _temp1 = intl.Intl.pluralLogic(
+      exerciseCount,
+      locale: localeName,
+      other: '$exerciseCount упражнения',
+      many: '$exerciseCount упражнений',
+      few: '$exerciseCount упражнения',
+      one: '$exerciseCount упражнение',
+    );
+    return '$_temp0 · $_temp1';
   }
 
   @override
@@ -11088,12 +11448,28 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String storyMaxHashtags(int max) {
-    return 'Можно добавить до $max хештегов';
+    String _temp0 = intl.Intl.pluralLogic(
+      max,
+      locale: localeName,
+      other: 'Можно добавить до $max хештега',
+      many: 'Можно добавить до $max хештегов',
+      few: 'Можно добавить до $max хештегов',
+      one: 'Можно добавить до $max хештега',
+    );
+    return '$_temp0';
   }
 
   @override
   String storyMaxMentions(int max) {
-    return 'Можно упомянуть до $max человек';
+    String _temp0 = intl.Intl.pluralLogic(
+      max,
+      locale: localeName,
+      other: 'Можно упомянуть до $max человека',
+      many: 'Можно упомянуть до $max человек',
+      few: 'Можно упомянуть до $max человек',
+      one: 'Можно упомянуть до $max человека',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -12158,7 +12534,15 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String reportEvidenceMaxFiles(int count) {
-    return 'Не более $count файлов в одной жалобе';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Не более $count файла в одной жалобе',
+      many: 'Не более $count файлов в одной жалобе',
+      few: 'Не более $count файлов в одной жалобе',
+      one: 'Не более $count файла в одной жалобе',
+    );
+    return '$_temp0';
   }
 
   @override

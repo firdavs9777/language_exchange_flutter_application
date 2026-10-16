@@ -672,7 +672,7 @@ class _CityTabState extends ConsumerState<CityTab> {
                         ? AppLocalizations.of(context)!.loading
                         : AppLocalizations.of(
                             context,
-                          )!.usersWorldwide(total.toString()),
+                          )!.usersWorldwide(total),
                     style: context.labelMedium.copyWith(
                       fontWeight: FontWeight.w700,
                     ),
@@ -854,7 +854,7 @@ class _CityTabState extends ConsumerState<CityTab> {
                 Text(
                   AppLocalizations.of(
                     context,
-                  )!.usersCount(_users.length.toString()),
+                  )!.usersCount(_users.length),
                   style: context.bodySmall.copyWith(
                     color: context.textSecondary,
                   ),

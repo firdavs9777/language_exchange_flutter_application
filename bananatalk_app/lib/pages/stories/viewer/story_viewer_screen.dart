@@ -1308,7 +1308,7 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
                               title: Text(
                                 AppLocalizations.of(
                                   context,
-                                )!.views('${story.viewCount}'),
+                                )!.views(story.viewCount),
                                 style: TextStyle(
                                   color: Theme.of(
                                     context,

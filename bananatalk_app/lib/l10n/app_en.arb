@@ -610,7 +610,7 @@
   "@views": {
     "placeholders": {
       "count": {
-        "type": "String"
+        "type": "int"
       }
     }
   },
@@ -811,7 +811,7 @@
   "@minutesAgo": {
     "placeholders": {
       "count": {
-        "type": "String"
+        "type": "int"
       }
     }
   },
@@ -819,7 +819,7 @@
   "@hoursAgo": {
     "placeholders": {
       "count": {
-        "type": "String"
+        "type": "int"
       }
     }
   },
@@ -1330,7 +1330,7 @@
   "@usersWorldwide": {
     "placeholders": {
       "count": {
-        "type": "String"
+        "type": "int"
       }
     }
   },
@@ -1340,7 +1340,7 @@
   "@usersCount": {
     "placeholders": {
       "count": {
-        "type": "String"
+        "type": "int"
       }
     }
   },
@@ -6690,7 +6690,7 @@
   "@chatDailyLimitBody": {
     "placeholders": {
       "count": {
-        "type": "Object"
+        "type": "int"
       }
     }
   },
@@ -7010,10 +7010,10 @@
   "@learnWordsExercises": {
     "placeholders": {
       "wordCount": {
-        "type": "Object"
+        "type": "int"
       },
       "exerciseCount": {
-        "type": "Object"
+        "type": "int"
       }
     }
   },

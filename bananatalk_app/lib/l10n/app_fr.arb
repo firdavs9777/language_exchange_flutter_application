@@ -336,7 +336,7 @@
   "@views": {
     "placeholders": {
       "count": {
-        "type": "String"
+        "type": "int"
       }
     }
   },
@@ -537,7 +537,7 @@
   "@minutesAgo": {
     "placeholders": {
       "count": {
-        "type": "String"
+        "type": "int"
       }
     }
   },
@@ -545,7 +545,7 @@
   "@hoursAgo": {
     "placeholders": {
       "count": {
-        "type": "String"
+        "type": "int"
       }
     }
   },

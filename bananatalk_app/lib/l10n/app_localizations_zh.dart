@@ -1206,7 +1206,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get noStories => '暂无故事';
 
   @override
-  String views(String count) {
+  String views(int count) {
     return '$count 次查看';
   }
 
@@ -1736,12 +1736,12 @@ class AppLocalizationsZh extends AppLocalizations {
   String get justNow => '刚刚';
 
   @override
-  String minutesAgo(String count) {
+  String minutesAgo(int count) {
     return '$count 分钟前';
   }
 
   @override
-  String hoursAgo(String count) {
+  String hoursAgo(int count) {
     return '$count 小时前';
   }
 
@@ -2688,7 +2688,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get searchByCity => '搜索城市...';
 
   @override
-  String usersWorldwide(String count) {
+  String usersWorldwide(int count) {
     return '全球$count人';
   }
 
@@ -2699,7 +2699,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get tryDifferentCity => '试试其他城市或国家';
 
   @override
-  String usersCount(String count) {
+  String usersCount(int count) {
     return '$count人';
   }
 
@@ -9583,7 +9583,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get notifyAnnouncementsSubtitle => '来自 BananaTalk 团队的新闻和更新';
 
   @override
-  String chatDailyLimitBody(Object count) {
+  String chatDailyLimitBody(int count) {
     return '免费用户每天最多可与 $count 人聊天。\n升级到 VIP 即可无限畅聊!';
   }
 
@@ -9972,7 +9972,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get learnCouldNotLoadPacks => '无法加载词汇包';
 
   @override
-  String learnWordsExercises(Object wordCount, Object exerciseCount) {
+  String learnWordsExercises(int wordCount, int exerciseCount) {
     return '$wordCount 个单词 · $exerciseCount 个练习';
   }
 
@@ -13321,7 +13321,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get noStories => '沒有限時動態';
 
   @override
-  String views(String count) {
+  String views(int count) {
     return '$count 次觀看';
   }
 
@@ -13851,12 +13851,12 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get justNow => '剛才';
 
   @override
-  String minutesAgo(String count) {
+  String minutesAgo(int count) {
     return '$count 分鐘前';
   }
 
   @override
-  String hoursAgo(String count) {
+  String hoursAgo(int count) {
     return '$count 小時前';
   }
 
@@ -14803,7 +14803,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get searchByCity => '搜索城市...';
 
   @override
-  String usersWorldwide(String count) {
+  String usersWorldwide(int count) {
     return '全球$count人';
   }
 
@@ -14814,7 +14814,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get tryDifferentCity => '試試其他城市或國家';
 
   @override
-  String usersCount(String count) {
+  String usersCount(int count) {
     return '$count人';
   }
 
@@ -21698,7 +21698,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get notifyAnnouncementsSubtitle => '來自 BananaTalk 團隊的消息與更新';
 
   @override
-  String chatDailyLimitBody(Object count) {
+  String chatDailyLimitBody(int count) {
     return '免費用戶每天最多可與 $count 人聊天。\n升級至 VIP 即可無限暢聊!';
   }
 
@@ -22087,7 +22087,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get learnCouldNotLoadPacks => '無法載入字詞包';
 
   @override
-  String learnWordsExercises(Object wordCount, Object exerciseCount) {
+  String learnWordsExercises(int wordCount, int exerciseCount) {
     return '$wordCount 個單字 · $exerciseCount 個練習';
   }
 

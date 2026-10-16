@@ -1206,7 +1206,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get noStories => 'Keine Stories';
 
   @override
-  String views(String count) {
+  String views(int count) {
     return '$count Aufrufe';
   }
 
@@ -1736,12 +1736,12 @@ class AppLocalizationsDe extends AppLocalizations {
   String get justNow => 'gerade eben';
 
   @override
-  String minutesAgo(String count) {
+  String minutesAgo(int count) {
     return 'vor $count Minuten';
   }
 
   @override
-  String hoursAgo(String count) {
+  String hoursAgo(int count) {
     return 'vor $count Stunden';
   }
 
@@ -2688,7 +2688,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get searchByCity => 'Nach Stadt suchen';
 
   @override
-  String usersWorldwide(String count) {
+  String usersWorldwide(int count) {
     return '$count Benutzer weltweit';
   }
 
@@ -2699,7 +2699,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get tryDifferentCity => 'Versuche eine andere Stadt';
 
   @override
-  String usersCount(String count) {
+  String usersCount(int count) {
     return '$count Benutzer';
   }
 
@@ -9599,7 +9599,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get notifyAnnouncementsSubtitle => 'Neuigkeiten und Updates vom BananaTalk-Team';
 
   @override
-  String chatDailyLimitBody(Object count) {
+  String chatDailyLimitBody(int count) {
     return 'Kostenlose Nutzer können pro Tag mit bis zu $count Personen chatten.\nWerde VIP für unbegrenzte Unterhaltungen!';
   }
 
@@ -9990,7 +9990,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get learnCouldNotLoadPacks => 'Pakete konnten nicht geladen werden';
 
   @override
-  String learnWordsExercises(Object wordCount, Object exerciseCount) {
+  String learnWordsExercises(int wordCount, int exerciseCount) {
     return '$wordCount Wörter · $exerciseCount Übungen';
   }
 
