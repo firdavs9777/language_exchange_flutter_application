@@ -36,6 +36,7 @@ class PurchaseRedeliveryHandler {
     required this.completeCoinPack,
     this.onVipChanged,
     this.onCoinsChanged,
+    this.verifyWhenVipActive = false,
   });
 
   final Set<String> vipProductIds;
@@ -49,6 +50,13 @@ class PurchaseRedeliveryHandler {
   final Future<void> Function(RestoredPurchase) completeCoinPack;
   final void Function()? onVipChanged;
   final void Function()? onCoinsChanged;
+
+  /// Android: Play does not redeliver renewals, so a VIP purchase arriving
+  /// for an active VIP is a plan switch whose result came after the payment
+  /// screen stopped waiting. Verify it, or the server keeps following the
+  /// replaced token. Safe since the backend dedupes by order id and takes
+  /// the end date from the store (479b2d2).
+  final bool verifyWhenVipActive;
 
   final Set<String> _inFlight = {};
 
@@ -74,7 +82,7 @@ class PurchaseRedeliveryHandler {
     try {
       active = await isVipActive();
     } catch (_) {}
-    if (active) return RedeliveryAction.skippedAlreadyVip;
+    if (active && !verifyWhenVipActive) return RedeliveryAction.skippedAlreadyVip;
     final ok = await verifySubscription(purchase);
     if (!ok) return RedeliveryAction.verifyFailed;
     onVipChanged?.call();

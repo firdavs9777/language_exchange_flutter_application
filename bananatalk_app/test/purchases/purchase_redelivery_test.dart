@@ -20,7 +20,10 @@ class _Harness {
     this.vipActive = false,
     this.subOk = true,
     this.coinOk = true,
+    this.verifyWhenVipActive = false,
   });
+
+  final bool verifyWhenVipActive;
 
   final bool signedIn;
   final bool vipActive;
@@ -51,6 +54,7 @@ class _Harness {
         completeCoinPack: (p) async => coinCompleted.add(p.transactionId!),
         onVipChanged: () => vipRefreshes++,
         onCoinsChanged: () => coinRefreshes++,
+        verifyWhenVipActive: verifyWhenVipActive,
       );
 }
 
@@ -71,6 +75,14 @@ void main() {
           RedeliveryAction.skippedAlreadyVip);
       expect(h.subVerified, isEmpty,
           reason: 'the backend would extend the subscription a second time');
+    });
+
+    test('Android: a late plan-switch purchase is verified for an active VIP',
+        () async {
+      final h = _Harness(vipActive: true, verifyWhenVipActive: true);
+      expect(await h.build().handle(_p(_year)),
+          RedeliveryAction.verifiedSubscription);
+      expect(h.subVerified, ['tx-1']);
     });
 
     test('a rejected subscription verify does not refresh VIP', () async {

@@ -120,6 +120,7 @@ Object? installPurchaseRedelivery(WidgetRef ref) {
   final handler = PurchaseRedeliveryHandler(
     vipProductIds: VipPlan.productIdsFor(isIOS),
     coinProductIds: CoinPack.all.map((p) => p.productId(isIOS)).toSet(),
+    verifyWhenVipActive: !isIOS,
     canVerify: () => _currentUserId(ref, null) != null,
     isVipActive: () => _isVipActive(_currentUserId(ref, null)),
     verifySubscription: (p) async =>
