@@ -13,6 +13,7 @@ import 'package:bananatalk_app/pages/learning/lessons/exercises/ordering_widget.
 import 'package:bananatalk_app/widgets/ai/lesson_assistant_widget.dart';
 import 'package:bananatalk_app/widgets/ai/answer_feedback_sheet.dart';
 import 'package:bananatalk_app/widgets/ai/lesson_summary_sheet.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/pages/learning/animations/xp_gain_overlay.dart';
@@ -285,7 +286,7 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
                 Text(AppLocalizations.of(context)!.lessonFailedToLoad,
                     style: context.bodyMedium.copyWith(color: context.textSecondary)),
                 Spacing.gapSM,
-                Text('$error',
+                Text(friendlyErrorMessage(AppLocalizations.of(context)!, error),
                     style: context.caption),
                 Spacing.gapLG,
                 ElevatedButton(

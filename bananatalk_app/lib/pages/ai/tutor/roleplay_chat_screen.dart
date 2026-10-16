@@ -91,7 +91,7 @@ class _RoleplayChatScreenState extends ConsumerState<RoleplayChatScreen> {
     final err = ref.read(tutorChatControllerProvider).error;
     if (err != null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(AppLocalizations.of(context)!.aiRoleplaySendFailed(err.toString()))),
+        SnackBar(content: Text(AppLocalizations.of(context)!.aiRoleplaySendFailed(friendlyErrorMessage(AppLocalizations.of(context)!, err)))),
       );
     }
     _scrollToBottom();

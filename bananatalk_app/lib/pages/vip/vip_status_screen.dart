@@ -73,7 +73,7 @@ class _VipStatusScreenState extends ConsumerState<VipStatusScreen> {
                 ),
                 SizedBox(height: AppSpacing.lg),
                 Text(
-                  error.toString(),
+                  friendlyErrorMessage(AppLocalizations.of(context)!, error),
                   textAlign: TextAlign.center,
                   style: context.bodyMedium,
                 ),

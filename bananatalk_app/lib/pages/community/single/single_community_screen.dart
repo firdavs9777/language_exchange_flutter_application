@@ -16,6 +16,7 @@ import 'package:bananatalk_app/services/block_service.dart';
 import 'package:bananatalk_app/services/link_constants.dart';
 import 'package:bananatalk_app/services/profile_visitor_service.dart';
 import 'package:bananatalk_app/utils/feature_gate.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/widgets/limit_exceeded_dialog.dart';
 import 'package:bananatalk_app/utils/privacy_utils.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
@@ -238,8 +239,11 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
       if (mounted) {
         showCommunitySnackBar(
           context,
-          message:
-              '${AppLocalizations.of(context)!.failedToFollowUser}: ${e.toString().replaceAll('Exception: ', '')}',
+          message: friendlyErrorMessage(
+            AppLocalizations.of(context)!,
+            e,
+            prefix: AppLocalizations.of(context)!.failedToFollowUser,
+          ),
           type: CommunitySnackBarType.error,
         );
       }
@@ -312,8 +316,11 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
       if (mounted) {
         showCommunitySnackBar(
           context,
-          message:
-              '${AppLocalizations.of(context)!.failedToUnfollowUser}: ${e.toString().replaceAll('Exception: ', '')}',
+          message: friendlyErrorMessage(
+            AppLocalizations.of(context)!,
+            e,
+            prefix: AppLocalizations.of(context)!.failedToUnfollowUser,
+          ),
           type: CommunitySnackBarType.error,
         );
       }

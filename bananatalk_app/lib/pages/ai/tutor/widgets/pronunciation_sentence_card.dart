@@ -5,6 +5,7 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/providers/pronunciation_provider.dart';
 import 'package:bananatalk_app/providers/tutor_provider.dart'
     show PronunciationWordScore;
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 
 /// Renders the active sentence and the primary action button for the
@@ -124,7 +125,10 @@ class _PronunciationSentenceCardState extends State<PronunciationSentenceCard> {
             Padding(
               padding: const EdgeInsets.only(top: 8, bottom: 4),
               child: Text(
-                widget.errorMessage!,
+                friendlyErrorMessage(
+                  AppLocalizations.of(context)!,
+                  widget.errorMessage,
+                ),
                 textAlign: TextAlign.center,
                 style: const TextStyle(color: Colors.red, fontSize: 12),
               ),

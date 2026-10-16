@@ -472,7 +472,10 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       });
     } catch (error) {
       if (mounted) {
-        chatNotifier.setError('Failed to load messages: $error');
+        debugPrint('ChatConversation: failed to load messages: $error');
+        chatNotifier.setError(
+          friendlyErrorMessage(AppLocalizations.of(context)!, error),
+        );
       }
     } finally {
       if (mounted) {

@@ -9,6 +9,7 @@ import 'package:bananatalk_app/services/ad_service.dart';
 import 'package:bananatalk_app/pages/profile/profile_wrapper.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/pages/community/widgets/community_snackbar.dart';
 import 'package:bananatalk_app/pages/community/voice_rooms/voice_room_header.dart';
 import 'package:bananatalk_app/pages/community/voice_rooms/voice_room_info_bar.dart';
@@ -367,7 +368,7 @@ class _VoiceRoomScreenState extends ConsumerState<VoiceRoomScreen>
         if (reason != null && reason.isNotEmpty) {
           showCommunitySnackBar(
             context,
-            message: reason,
+            message: friendlyErrorMessage(AppLocalizations.of(context)!, reason),
             type: CommunitySnackBarType.error,
           );
         }

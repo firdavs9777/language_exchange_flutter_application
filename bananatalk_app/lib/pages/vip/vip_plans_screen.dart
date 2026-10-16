@@ -110,7 +110,11 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
                   Icon(Icons.error_outline, size: 48, color: AppColors.error),
                   SizedBox(height: AppSpacing.lg),
                   Text(
-                    '${AppLocalizations.of(context)!.errorLoadingProducts}: $error',
+                    friendlyErrorMessage(
+                      AppLocalizations.of(context)!,
+                      error,
+                      prefix: AppLocalizations.of(context)!.errorLoadingProducts,
+                    ),
                     style: context.bodyMedium,
                     textAlign: TextAlign.center,
                   ),

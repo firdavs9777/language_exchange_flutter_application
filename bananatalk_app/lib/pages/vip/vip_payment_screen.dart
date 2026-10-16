@@ -250,7 +250,7 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
       });
       _showErrorDialog(
         AppLocalizations.of(context)!.vipErrorPurchaseTitle,
-        e.toString().replaceAll('Exception: ', ''),
+        friendlyErrorMessage(AppLocalizations.of(context)!, e),
       );
     }
   }
@@ -415,7 +415,7 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
       });
       _showErrorDialog(
         AppLocalizations.of(context)!.vipErrorPurchaseTitle,
-        e.toString().replaceAll('Exception: ', ''),
+        friendlyErrorMessage(AppLocalizations.of(context)!, e),
       );
     }
   }
