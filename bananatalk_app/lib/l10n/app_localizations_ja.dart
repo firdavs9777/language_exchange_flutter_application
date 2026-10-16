@@ -12117,4 +12117,106 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get blockedCantComment => 'このコンテンツにはコメントできません';
+
+  @override
+  String get wallpaperPresetDefault => 'デフォルト';
+
+  @override
+  String get wallpaperPresetDark => 'ダーク';
+
+  @override
+  String get wallpaperPresetMidnight => 'ミッドナイト';
+
+  @override
+  String get wallpaperPresetCharcoal => 'チャコール';
+
+  @override
+  String get wallpaperPresetNavy => 'ネイビー';
+
+  @override
+  String get wallpaperPresetOcean => 'オーシャン';
+
+  @override
+  String get wallpaperPresetTeal => 'ティール';
+
+  @override
+  String get wallpaperPresetForest => 'フォレスト';
+
+  @override
+  String get wallpaperPresetSage => 'セージ';
+
+  @override
+  String get wallpaperPresetWine => 'ワイン';
+
+  @override
+  String get wallpaperPresetPlum => 'プラム';
+
+  @override
+  String get wallpaperPresetRose => 'ローズ';
+
+  @override
+  String get wallpaperPresetMocha => 'モカ';
+
+  @override
+  String get wallpaperPresetSlate => 'スレート';
+
+  @override
+  String get wallpaperPresetEmber => 'エンバー';
+
+  @override
+  String get wallpaperPresetDeepSea => 'ディープシー';
+
+  @override
+  String get wallpaperPresetCream => 'クリーム';
+
+  @override
+  String get wallpaperPresetBlush => 'ブラッシュ';
+
+  @override
+  String get wallpaperPresetPeach => 'ピーチ';
+
+  @override
+  String get wallpaperPresetSunset => 'サンセット';
+
+  @override
+  String get wallpaperPresetAurora => 'オーロラ';
+
+  @override
+  String get wallpaperPresetCosmic => 'コズミック';
+
+  @override
+  String get wallpaperPresetRoseGold => 'ローズゴールド';
+
+  @override
+  String get wallpaperPresetCandy => 'キャンディ';
+
+  @override
+  String get wallpaperPresetNeon => 'ネオン';
+
+  @override
+  String get wallpaperPresetFire => 'ファイア';
+
+  @override
+  String get wallpaperPresetWinter => 'ウィンター';
+
+  @override
+  String get wallpaperPresetLavender => 'ラベンダー';
+
+  @override
+  String get wallpaperPresetAuroraBorealis => 'オーロラ・ボレアリス';
+
+  @override
+  String get wallpaperPresetGoldenHour => 'ゴールデンアワー';
+
+  @override
+  String get wallpaperPresetGalaxy => 'ギャラクシー';
+
+  @override
+  String get wallpaperPresetEmeraldLuxe => 'エメラルドリュクス';
+
+  @override
+  String get wallpaperPresetRoyalVelvet => 'ロイヤルベルベット';
+
+  @override
+  String get wallpaperPresetDiamondShine => 'ダイヤモンドシャイン';
 }

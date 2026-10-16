@@ -12117,4 +12117,106 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get blockedCantComment => '이 콘텐츠에 댓글을 달 수 없습니다';
+
+  @override
+  String get wallpaperPresetDefault => '기본';
+
+  @override
+  String get wallpaperPresetDark => '다크';
+
+  @override
+  String get wallpaperPresetMidnight => '미드나잇';
+
+  @override
+  String get wallpaperPresetCharcoal => '차콜';
+
+  @override
+  String get wallpaperPresetNavy => '네이비';
+
+  @override
+  String get wallpaperPresetOcean => '오션';
+
+  @override
+  String get wallpaperPresetTeal => '틸';
+
+  @override
+  String get wallpaperPresetForest => '포레스트';
+
+  @override
+  String get wallpaperPresetSage => '세이지';
+
+  @override
+  String get wallpaperPresetWine => '와인';
+
+  @override
+  String get wallpaperPresetPlum => '플럼';
+
+  @override
+  String get wallpaperPresetRose => '로즈';
+
+  @override
+  String get wallpaperPresetMocha => '모카';
+
+  @override
+  String get wallpaperPresetSlate => '슬레이트';
+
+  @override
+  String get wallpaperPresetEmber => '엠버';
+
+  @override
+  String get wallpaperPresetDeepSea => '심해';
+
+  @override
+  String get wallpaperPresetCream => '크림';
+
+  @override
+  String get wallpaperPresetBlush => '블러시';
+
+  @override
+  String get wallpaperPresetPeach => '피치';
+
+  @override
+  String get wallpaperPresetSunset => '선셋';
+
+  @override
+  String get wallpaperPresetAurora => '오로라';
+
+  @override
+  String get wallpaperPresetCosmic => '코즈믹';
+
+  @override
+  String get wallpaperPresetRoseGold => '로즈 골드';
+
+  @override
+  String get wallpaperPresetCandy => '캔디';
+
+  @override
+  String get wallpaperPresetNeon => '네온';
+
+  @override
+  String get wallpaperPresetFire => '파이어';
+
+  @override
+  String get wallpaperPresetWinter => '윈터';
+
+  @override
+  String get wallpaperPresetLavender => '라벤더';
+
+  @override
+  String get wallpaperPresetAuroraBorealis => '북극광';
+
+  @override
+  String get wallpaperPresetGoldenHour => '골든 아워';
+
+  @override
+  String get wallpaperPresetGalaxy => '갤럭시';
+
+  @override
+  String get wallpaperPresetEmeraldLuxe => '에메랄드 럭스';
+
+  @override
+  String get wallpaperPresetRoyalVelvet => '로열 벨벳';
+
+  @override
+  String get wallpaperPresetDiamondShine => '다이아몬드 샤인';
 }

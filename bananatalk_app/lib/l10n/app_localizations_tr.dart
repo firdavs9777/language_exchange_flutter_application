@@ -12135,4 +12135,106 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get blockedCantComment => 'Bu içeriğe yorum yapamazsın';
+
+  @override
+  String get wallpaperPresetDefault => 'Varsayılan';
+
+  @override
+  String get wallpaperPresetDark => 'Koyu';
+
+  @override
+  String get wallpaperPresetMidnight => 'Gece Yarısı';
+
+  @override
+  String get wallpaperPresetCharcoal => 'Antrasit';
+
+  @override
+  String get wallpaperPresetNavy => 'Lacivert';
+
+  @override
+  String get wallpaperPresetOcean => 'Okyanus';
+
+  @override
+  String get wallpaperPresetTeal => 'Petrol Mavisi';
+
+  @override
+  String get wallpaperPresetForest => 'Orman';
+
+  @override
+  String get wallpaperPresetSage => 'Adaçayı';
+
+  @override
+  String get wallpaperPresetWine => 'Şarap';
+
+  @override
+  String get wallpaperPresetPlum => 'Erik';
+
+  @override
+  String get wallpaperPresetRose => 'Gül';
+
+  @override
+  String get wallpaperPresetMocha => 'Moka';
+
+  @override
+  String get wallpaperPresetSlate => 'Arduvaz';
+
+  @override
+  String get wallpaperPresetEmber => 'Kor';
+
+  @override
+  String get wallpaperPresetDeepSea => 'Derin Deniz';
+
+  @override
+  String get wallpaperPresetCream => 'Krem';
+
+  @override
+  String get wallpaperPresetBlush => 'Allık';
+
+  @override
+  String get wallpaperPresetPeach => 'Şeftali';
+
+  @override
+  String get wallpaperPresetSunset => 'Gün Batımı';
+
+  @override
+  String get wallpaperPresetAurora => 'Şafak';
+
+  @override
+  String get wallpaperPresetCosmic => 'Kozmik';
+
+  @override
+  String get wallpaperPresetRoseGold => 'Pembe Altın';
+
+  @override
+  String get wallpaperPresetCandy => 'Şeker';
+
+  @override
+  String get wallpaperPresetNeon => 'Neon';
+
+  @override
+  String get wallpaperPresetFire => 'Ateş';
+
+  @override
+  String get wallpaperPresetWinter => 'Kış';
+
+  @override
+  String get wallpaperPresetLavender => 'Lavanta';
+
+  @override
+  String get wallpaperPresetAuroraBorealis => 'Kuzey Işıkları';
+
+  @override
+  String get wallpaperPresetGoldenHour => 'Altın Saat';
+
+  @override
+  String get wallpaperPresetGalaxy => 'Galaksi';
+
+  @override
+  String get wallpaperPresetEmeraldLuxe => 'Lüks Zümrüt';
+
+  @override
+  String get wallpaperPresetRoyalVelvet => 'Kraliyet Kadifesi';
+
+  @override
+  String get wallpaperPresetDiamondShine => 'Elmas Parıltısı';
 }

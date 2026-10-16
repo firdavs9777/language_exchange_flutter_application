@@ -737,6 +737,42 @@ const Map<String, List<String>> _keysByTask = {
     'blockedCantLike',
     'blockedCantComment',
   ],
+  'l10n-leftovers': [
+    'wallpaperPresetDefault',
+    'wallpaperPresetDark',
+    'wallpaperPresetMidnight',
+    'wallpaperPresetCharcoal',
+    'wallpaperPresetNavy',
+    'wallpaperPresetOcean',
+    'wallpaperPresetTeal',
+    'wallpaperPresetForest',
+    'wallpaperPresetSage',
+    'wallpaperPresetWine',
+    'wallpaperPresetPlum',
+    'wallpaperPresetRose',
+    'wallpaperPresetMocha',
+    'wallpaperPresetSlate',
+    'wallpaperPresetEmber',
+    'wallpaperPresetDeepSea',
+    'wallpaperPresetCream',
+    'wallpaperPresetBlush',
+    'wallpaperPresetPeach',
+    'wallpaperPresetSunset',
+    'wallpaperPresetAurora',
+    'wallpaperPresetCosmic',
+    'wallpaperPresetRoseGold',
+    'wallpaperPresetCandy',
+    'wallpaperPresetNeon',
+    'wallpaperPresetFire',
+    'wallpaperPresetWinter',
+    'wallpaperPresetLavender',
+    'wallpaperPresetAuroraBorealis',
+    'wallpaperPresetGoldenHour',
+    'wallpaperPresetGalaxy',
+    'wallpaperPresetEmeraldLuxe',
+    'wallpaperPresetRoyalVelvet',
+    'wallpaperPresetDiamondShine',
+  ],
 };
 
 /// Files (under lib/) each task must leave with no English Text literal.
@@ -989,6 +1025,9 @@ const Map<String, List<String>> _filesByTask = {
     'pages/learning/vocabulary/vocab_pack_detail_screen.dart',
     'pages/learning/widgets/learning_error_view.dart',
   ],
+  'l10n-leftovers': [
+    'pages/chat/wallpaper/wallpaper_picker_screen.dart',
+  ],
 };
 
 /// Keys whose draft may legitimately equal the English, per locale (loanwords,
@@ -1069,6 +1108,11 @@ const Map<String, Set<String>> _mayMatchEnglish = {
   'topicNameNutrition': {'fr'}, // fr: same word / loanword as English
   'topicCategoryLifestyle': {'de'}, // de: same word / loanword as English
   'topicCategorySocial': {'es', 'fr', 'pt'}, // es/fr/pt: same word / loanword as English
+  'wallpaperPresetRose': {'fr'}, // fr "Rose" is the colour word
+  'wallpaperPresetAurora': {'es', 'it', 'pt'}, // es/it/pt "Aurora" is the same word
+  'wallpaperPresetNeon': {'de', 'id', 'it', 'tl', 'tr'}, // de/id/it/tl/tr: same word / loanword as English
+  'wallpaperPresetWinter': {'de'}, // de "Winter" is the same word
+  'wallpaperPresetLavender': {'id', 'tl'}, // id/tl use the loanword "lavender"
 };
 
 final _placeholder = RegExp(r'\{(\w+)[,}]');

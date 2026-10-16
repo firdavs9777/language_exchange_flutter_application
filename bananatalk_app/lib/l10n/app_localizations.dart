@@ -22051,6 +22051,210 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You can\'t comment on this content'**
   String get blockedCantComment;
+
+  /// No description provided for @wallpaperPresetDefault.
+  ///
+  /// In en, this message translates to:
+  /// **'Default'**
+  String get wallpaperPresetDefault;
+
+  /// No description provided for @wallpaperPresetDark.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark'**
+  String get wallpaperPresetDark;
+
+  /// No description provided for @wallpaperPresetMidnight.
+  ///
+  /// In en, this message translates to:
+  /// **'Midnight'**
+  String get wallpaperPresetMidnight;
+
+  /// No description provided for @wallpaperPresetCharcoal.
+  ///
+  /// In en, this message translates to:
+  /// **'Charcoal'**
+  String get wallpaperPresetCharcoal;
+
+  /// No description provided for @wallpaperPresetNavy.
+  ///
+  /// In en, this message translates to:
+  /// **'Navy'**
+  String get wallpaperPresetNavy;
+
+  /// No description provided for @wallpaperPresetOcean.
+  ///
+  /// In en, this message translates to:
+  /// **'Ocean'**
+  String get wallpaperPresetOcean;
+
+  /// No description provided for @wallpaperPresetTeal.
+  ///
+  /// In en, this message translates to:
+  /// **'Teal'**
+  String get wallpaperPresetTeal;
+
+  /// No description provided for @wallpaperPresetForest.
+  ///
+  /// In en, this message translates to:
+  /// **'Forest'**
+  String get wallpaperPresetForest;
+
+  /// No description provided for @wallpaperPresetSage.
+  ///
+  /// In en, this message translates to:
+  /// **'Sage'**
+  String get wallpaperPresetSage;
+
+  /// No description provided for @wallpaperPresetWine.
+  ///
+  /// In en, this message translates to:
+  /// **'Wine'**
+  String get wallpaperPresetWine;
+
+  /// No description provided for @wallpaperPresetPlum.
+  ///
+  /// In en, this message translates to:
+  /// **'Plum'**
+  String get wallpaperPresetPlum;
+
+  /// No description provided for @wallpaperPresetRose.
+  ///
+  /// In en, this message translates to:
+  /// **'Rose'**
+  String get wallpaperPresetRose;
+
+  /// No description provided for @wallpaperPresetMocha.
+  ///
+  /// In en, this message translates to:
+  /// **'Mocha'**
+  String get wallpaperPresetMocha;
+
+  /// No description provided for @wallpaperPresetSlate.
+  ///
+  /// In en, this message translates to:
+  /// **'Slate'**
+  String get wallpaperPresetSlate;
+
+  /// No description provided for @wallpaperPresetEmber.
+  ///
+  /// In en, this message translates to:
+  /// **'Ember'**
+  String get wallpaperPresetEmber;
+
+  /// No description provided for @wallpaperPresetDeepSea.
+  ///
+  /// In en, this message translates to:
+  /// **'Deep Sea'**
+  String get wallpaperPresetDeepSea;
+
+  /// No description provided for @wallpaperPresetCream.
+  ///
+  /// In en, this message translates to:
+  /// **'Cream'**
+  String get wallpaperPresetCream;
+
+  /// No description provided for @wallpaperPresetBlush.
+  ///
+  /// In en, this message translates to:
+  /// **'Blush'**
+  String get wallpaperPresetBlush;
+
+  /// No description provided for @wallpaperPresetPeach.
+  ///
+  /// In en, this message translates to:
+  /// **'Peach'**
+  String get wallpaperPresetPeach;
+
+  /// No description provided for @wallpaperPresetSunset.
+  ///
+  /// In en, this message translates to:
+  /// **'Sunset'**
+  String get wallpaperPresetSunset;
+
+  /// No description provided for @wallpaperPresetAurora.
+  ///
+  /// In en, this message translates to:
+  /// **'Aurora'**
+  String get wallpaperPresetAurora;
+
+  /// No description provided for @wallpaperPresetCosmic.
+  ///
+  /// In en, this message translates to:
+  /// **'Cosmic'**
+  String get wallpaperPresetCosmic;
+
+  /// No description provided for @wallpaperPresetRoseGold.
+  ///
+  /// In en, this message translates to:
+  /// **'Rose Gold'**
+  String get wallpaperPresetRoseGold;
+
+  /// No description provided for @wallpaperPresetCandy.
+  ///
+  /// In en, this message translates to:
+  /// **'Candy'**
+  String get wallpaperPresetCandy;
+
+  /// No description provided for @wallpaperPresetNeon.
+  ///
+  /// In en, this message translates to:
+  /// **'Neon'**
+  String get wallpaperPresetNeon;
+
+  /// No description provided for @wallpaperPresetFire.
+  ///
+  /// In en, this message translates to:
+  /// **'Fire'**
+  String get wallpaperPresetFire;
+
+  /// No description provided for @wallpaperPresetWinter.
+  ///
+  /// In en, this message translates to:
+  /// **'Winter'**
+  String get wallpaperPresetWinter;
+
+  /// No description provided for @wallpaperPresetLavender.
+  ///
+  /// In en, this message translates to:
+  /// **'Lavender'**
+  String get wallpaperPresetLavender;
+
+  /// No description provided for @wallpaperPresetAuroraBorealis.
+  ///
+  /// In en, this message translates to:
+  /// **'Aurora Borealis'**
+  String get wallpaperPresetAuroraBorealis;
+
+  /// No description provided for @wallpaperPresetGoldenHour.
+  ///
+  /// In en, this message translates to:
+  /// **'Golden Hour'**
+  String get wallpaperPresetGoldenHour;
+
+  /// No description provided for @wallpaperPresetGalaxy.
+  ///
+  /// In en, this message translates to:
+  /// **'Galaxy'**
+  String get wallpaperPresetGalaxy;
+
+  /// No description provided for @wallpaperPresetEmeraldLuxe.
+  ///
+  /// In en, this message translates to:
+  /// **'Emerald Luxe'**
+  String get wallpaperPresetEmeraldLuxe;
+
+  /// No description provided for @wallpaperPresetRoyalVelvet.
+  ///
+  /// In en, this message translates to:
+  /// **'Royal Velvet'**
+  String get wallpaperPresetRoyalVelvet;
+
+  /// No description provided for @wallpaperPresetDiamondShine.
+  ///
+  /// In en, this message translates to:
+  /// **'Diamond Shine'**
+  String get wallpaperPresetDiamondShine;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

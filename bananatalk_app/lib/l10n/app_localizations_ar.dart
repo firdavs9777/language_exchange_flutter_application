@@ -12229,4 +12229,106 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get blockedCantComment => 'لا يمكنك التعليق على هذا المحتوى';
+
+  @override
+  String get wallpaperPresetDefault => 'الافتراضي';
+
+  @override
+  String get wallpaperPresetDark => 'داكن';
+
+  @override
+  String get wallpaperPresetMidnight => 'منتصف الليل';
+
+  @override
+  String get wallpaperPresetCharcoal => 'فحمي';
+
+  @override
+  String get wallpaperPresetNavy => 'كحلي';
+
+  @override
+  String get wallpaperPresetOcean => 'محيط';
+
+  @override
+  String get wallpaperPresetTeal => 'أزرق مخضر';
+
+  @override
+  String get wallpaperPresetForest => 'غابة';
+
+  @override
+  String get wallpaperPresetSage => 'مريمية';
+
+  @override
+  String get wallpaperPresetWine => 'نبيذي';
+
+  @override
+  String get wallpaperPresetPlum => 'برقوقي';
+
+  @override
+  String get wallpaperPresetRose => 'وردي';
+
+  @override
+  String get wallpaperPresetMocha => 'موكا';
+
+  @override
+  String get wallpaperPresetSlate => 'أردوازي';
+
+  @override
+  String get wallpaperPresetEmber => 'جمر';
+
+  @override
+  String get wallpaperPresetDeepSea => 'أعماق البحر';
+
+  @override
+  String get wallpaperPresetCream => 'كريمي';
+
+  @override
+  String get wallpaperPresetBlush => 'وردي خجول';
+
+  @override
+  String get wallpaperPresetPeach => 'خوخي';
+
+  @override
+  String get wallpaperPresetSunset => 'غروب الشمس';
+
+  @override
+  String get wallpaperPresetAurora => 'الشفق';
+
+  @override
+  String get wallpaperPresetCosmic => 'كوني';
+
+  @override
+  String get wallpaperPresetRoseGold => 'ذهبي وردي';
+
+  @override
+  String get wallpaperPresetCandy => 'حلوى';
+
+  @override
+  String get wallpaperPresetNeon => 'نيون';
+
+  @override
+  String get wallpaperPresetFire => 'نار';
+
+  @override
+  String get wallpaperPresetWinter => 'شتاء';
+
+  @override
+  String get wallpaperPresetLavender => 'لافندر';
+
+  @override
+  String get wallpaperPresetAuroraBorealis => 'الشفق القطبي';
+
+  @override
+  String get wallpaperPresetGoldenHour => 'الساعة الذهبية';
+
+  @override
+  String get wallpaperPresetGalaxy => 'مجرة';
+
+  @override
+  String get wallpaperPresetEmeraldLuxe => 'زمرد فاخر';
+
+  @override
+  String get wallpaperPresetRoyalVelvet => 'مخمل ملكي';
+
+  @override
+  String get wallpaperPresetDiamondShine => 'بريق الماس';
 }

@@ -12146,4 +12146,106 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get blockedCantComment => 'No puedes comentar este contenido';
+
+  @override
+  String get wallpaperPresetDefault => 'Predeterminado';
+
+  @override
+  String get wallpaperPresetDark => 'Oscuro';
+
+  @override
+  String get wallpaperPresetMidnight => 'Medianoche';
+
+  @override
+  String get wallpaperPresetCharcoal => 'Carbón';
+
+  @override
+  String get wallpaperPresetNavy => 'Azul marino';
+
+  @override
+  String get wallpaperPresetOcean => 'Océano';
+
+  @override
+  String get wallpaperPresetTeal => 'Verde azulado';
+
+  @override
+  String get wallpaperPresetForest => 'Bosque';
+
+  @override
+  String get wallpaperPresetSage => 'Salvia';
+
+  @override
+  String get wallpaperPresetWine => 'Vino';
+
+  @override
+  String get wallpaperPresetPlum => 'Ciruela';
+
+  @override
+  String get wallpaperPresetRose => 'Rosa';
+
+  @override
+  String get wallpaperPresetMocha => 'Moca';
+
+  @override
+  String get wallpaperPresetSlate => 'Pizarra';
+
+  @override
+  String get wallpaperPresetEmber => 'Brasa';
+
+  @override
+  String get wallpaperPresetDeepSea => 'Mar profundo';
+
+  @override
+  String get wallpaperPresetCream => 'Crema';
+
+  @override
+  String get wallpaperPresetBlush => 'Rubor';
+
+  @override
+  String get wallpaperPresetPeach => 'Melocotón';
+
+  @override
+  String get wallpaperPresetSunset => 'Atardecer';
+
+  @override
+  String get wallpaperPresetAurora => 'Aurora';
+
+  @override
+  String get wallpaperPresetCosmic => 'Cósmico';
+
+  @override
+  String get wallpaperPresetRoseGold => 'Oro rosa';
+
+  @override
+  String get wallpaperPresetCandy => 'Caramelo';
+
+  @override
+  String get wallpaperPresetNeon => 'Neón';
+
+  @override
+  String get wallpaperPresetFire => 'Fuego';
+
+  @override
+  String get wallpaperPresetWinter => 'Invierno';
+
+  @override
+  String get wallpaperPresetLavender => 'Lavanda';
+
+  @override
+  String get wallpaperPresetAuroraBorealis => 'Aurora boreal';
+
+  @override
+  String get wallpaperPresetGoldenHour => 'Hora dorada';
+
+  @override
+  String get wallpaperPresetGalaxy => 'Galaxia';
+
+  @override
+  String get wallpaperPresetEmeraldLuxe => 'Esmeralda de lujo';
+
+  @override
+  String get wallpaperPresetRoyalVelvet => 'Terciopelo real';
+
+  @override
+  String get wallpaperPresetDiamondShine => 'Brillo de diamante';
 }

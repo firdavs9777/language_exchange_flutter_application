@@ -12117,4 +12117,106 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get blockedCantComment => 'คุณแสดงความคิดเห็นในเนื้อหานี้ไม่ได้';
+
+  @override
+  String get wallpaperPresetDefault => 'ค่าเริ่มต้น';
+
+  @override
+  String get wallpaperPresetDark => 'มืด';
+
+  @override
+  String get wallpaperPresetMidnight => 'เที่ยงคืน';
+
+  @override
+  String get wallpaperPresetCharcoal => 'ถ่าน';
+
+  @override
+  String get wallpaperPresetNavy => 'กรมท่า';
+
+  @override
+  String get wallpaperPresetOcean => 'มหาสมุทร';
+
+  @override
+  String get wallpaperPresetTeal => 'เขียวหัวเป็ด';
+
+  @override
+  String get wallpaperPresetForest => 'ป่าไม้';
+
+  @override
+  String get wallpaperPresetSage => 'เขียวเสจ';
+
+  @override
+  String get wallpaperPresetWine => 'ไวน์แดง';
+
+  @override
+  String get wallpaperPresetPlum => 'พลัม';
+
+  @override
+  String get wallpaperPresetRose => 'กุหลาบ';
+
+  @override
+  String get wallpaperPresetMocha => 'มอคค่า';
+
+  @override
+  String get wallpaperPresetSlate => 'หินชนวน';
+
+  @override
+  String get wallpaperPresetEmber => 'ถ่านไฟ';
+
+  @override
+  String get wallpaperPresetDeepSea => 'ทะเลลึก';
+
+  @override
+  String get wallpaperPresetCream => 'ครีม';
+
+  @override
+  String get wallpaperPresetBlush => 'ชมพูอ่อน';
+
+  @override
+  String get wallpaperPresetPeach => 'พีช';
+
+  @override
+  String get wallpaperPresetSunset => 'พระอาทิตย์ตก';
+
+  @override
+  String get wallpaperPresetAurora => 'แสงออโรรา';
+
+  @override
+  String get wallpaperPresetCosmic => 'จักรวาล';
+
+  @override
+  String get wallpaperPresetRoseGold => 'โรสโกลด์';
+
+  @override
+  String get wallpaperPresetCandy => 'ลูกอม';
+
+  @override
+  String get wallpaperPresetNeon => 'นีออน';
+
+  @override
+  String get wallpaperPresetFire => 'ไฟ';
+
+  @override
+  String get wallpaperPresetWinter => 'ฤดูหนาว';
+
+  @override
+  String get wallpaperPresetLavender => 'ลาเวนเดอร์';
+
+  @override
+  String get wallpaperPresetAuroraBorealis => 'แสงเหนือ';
+
+  @override
+  String get wallpaperPresetGoldenHour => 'ชั่วโมงทอง';
+
+  @override
+  String get wallpaperPresetGalaxy => 'กาแล็กซี';
+
+  @override
+  String get wallpaperPresetEmeraldLuxe => 'มรกตหรู';
+
+  @override
+  String get wallpaperPresetRoyalVelvet => 'กำมะหยี่หลวง';
+
+  @override
+  String get wallpaperPresetDiamondShine => 'ประกายเพชร';
 }

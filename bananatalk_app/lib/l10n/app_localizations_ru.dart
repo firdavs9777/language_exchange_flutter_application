@@ -12594,4 +12594,106 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get blockedCantComment => 'Вы не можете комментировать этот контент';
+
+  @override
+  String get wallpaperPresetDefault => 'По умолчанию';
+
+  @override
+  String get wallpaperPresetDark => 'Тёмный';
+
+  @override
+  String get wallpaperPresetMidnight => 'Полночь';
+
+  @override
+  String get wallpaperPresetCharcoal => 'Графит';
+
+  @override
+  String get wallpaperPresetNavy => 'Тёмно-синий';
+
+  @override
+  String get wallpaperPresetOcean => 'Океан';
+
+  @override
+  String get wallpaperPresetTeal => 'Бирюзовый';
+
+  @override
+  String get wallpaperPresetForest => 'Лес';
+
+  @override
+  String get wallpaperPresetSage => 'Шалфей';
+
+  @override
+  String get wallpaperPresetWine => 'Винный';
+
+  @override
+  String get wallpaperPresetPlum => 'Сливовый';
+
+  @override
+  String get wallpaperPresetRose => 'Розовый';
+
+  @override
+  String get wallpaperPresetMocha => 'Мокко';
+
+  @override
+  String get wallpaperPresetSlate => 'Сланец';
+
+  @override
+  String get wallpaperPresetEmber => 'Угли';
+
+  @override
+  String get wallpaperPresetDeepSea => 'Глубины моря';
+
+  @override
+  String get wallpaperPresetCream => 'Кремовый';
+
+  @override
+  String get wallpaperPresetBlush => 'Румянец';
+
+  @override
+  String get wallpaperPresetPeach => 'Персиковый';
+
+  @override
+  String get wallpaperPresetSunset => 'Закат';
+
+  @override
+  String get wallpaperPresetAurora => 'Аврора';
+
+  @override
+  String get wallpaperPresetCosmic => 'Космос';
+
+  @override
+  String get wallpaperPresetRoseGold => 'Розовое золото';
+
+  @override
+  String get wallpaperPresetCandy => 'Конфета';
+
+  @override
+  String get wallpaperPresetNeon => 'Неон';
+
+  @override
+  String get wallpaperPresetFire => 'Огонь';
+
+  @override
+  String get wallpaperPresetWinter => 'Зима';
+
+  @override
+  String get wallpaperPresetLavender => 'Лаванда';
+
+  @override
+  String get wallpaperPresetAuroraBorealis => 'Северное сияние';
+
+  @override
+  String get wallpaperPresetGoldenHour => 'Золотой час';
+
+  @override
+  String get wallpaperPresetGalaxy => 'Галактика';
+
+  @override
+  String get wallpaperPresetEmeraldLuxe => 'Изумрудная роскошь';
+
+  @override
+  String get wallpaperPresetRoyalVelvet => 'Королевский бархат';
+
+  @override
+  String get wallpaperPresetDiamondShine => 'Алмазный блеск';
 }
