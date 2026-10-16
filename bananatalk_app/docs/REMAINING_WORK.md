@@ -205,7 +205,7 @@ Later, gated on dashboard numbers (no work until then)
 
 Web ↔ app parity (spec `docs/superpowers/specs/2026-10-16-web-app-parity-design.md`, audits in `docs/audits/2026-10-16-web-parity/`)
 - [x] Phase 0: web repo — 23 unpushed commits as one commit (web fba6208), tests restored (3,190 pass), pushed + deployed 2026-10-16.
-- [ ] Phase 1: backend — profile visibility helper, blocks, chat contract, story/moment fixes, voice-note AAC transcode, email links, web-feature endpoints + flags. L
+- [x] Phase 1: backend — deployed 2026-10-16 (07febec): other session's moments-stories branch merged; privacy redaction for signed-out/blocked viewers, follow only as yourself + block check; socket block check fixed; chat contract (no "Conversation started", delete/edit aliases, real unread, filters); highlights/translation; web voice notes → AAC; email links, invite OG, Pub/Sub audience; six web flags; Google one-time code; Apple web login (dark); contract tests. Verified live: signed-out /public has no coordinates/birth date/followers/presence.
 - [ ] Phase 2: app — story/QR links, Flutter deep linking off, /chat links, text-story stickers, moments branch merge, invite code entry. M
 - [ ] Phase 3: web bug fixes — chat, moments, community, links. L
 - [ ] Phase 4: web features (flagged) — reels, gatherings/clubs, voice rooms, calls, Sign in with Apple. XL
