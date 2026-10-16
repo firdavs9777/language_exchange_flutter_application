@@ -153,7 +153,7 @@ class CompactUserTile extends StatelessWidget {
                     // Location or last active
                     Builder(
                       builder: (context) {
-                        final locationText = PrivacyUtils.getLocationText(user);
+                        final locationText = PrivacyUtils.getLocationText(user, locale: Localizations.localeOf(context));
                         final hasLocation = showDistance && distance != null || locationText.isNotEmpty;
                         return Row(
                           children: [

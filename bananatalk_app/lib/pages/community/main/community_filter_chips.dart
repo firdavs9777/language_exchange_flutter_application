@@ -2,6 +2,7 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/utils/language_flags.dart';
+import 'package:bananatalk_app/utils/country_names.dart';
 
 /// Immutable data holder for a single active-filter chip.
 class FilterChipData {
@@ -39,7 +40,10 @@ class CommunityFilterChips extends StatelessWidget {
         (f['maxAge'] != null && (f['maxAge'] as int) < 100);
   }
 
-  List<FilterChipData> _buildChips(Map<String, dynamic> f) {
+  List<FilterChipData> _buildChips(
+    BuildContext context,
+    Map<String, dynamic> f,
+  ) {
     final chips = <FilterChipData>[];
 
     if (f['nativeLanguage'] != null) {
@@ -53,7 +57,8 @@ class CommunityFilterChips extends StatelessWidget {
       chips.add(FilterChipData('$flag $lang', 'learningLanguage'));
     }
     if (f['country'] != null) {
-      chips.add(FilterChipData('📍 ${f['country']}', 'country'));
+      final country = CountryNames.of(context, f['country'] as String);
+      chips.add(FilterChipData('📍 $country', 'country'));
     }
     if (f['gender'] != null) {
       final g = f['gender'] as String;
@@ -80,7 +85,7 @@ class CommunityFilterChips extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final chips = _buildChips(filters);
+    final chips = _buildChips(context, filters);
     if (chips.isEmpty) return const SizedBox.shrink();
 
     return Container(

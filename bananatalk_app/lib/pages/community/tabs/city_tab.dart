@@ -22,6 +22,7 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/utils/compact_count.dart';
+import 'package:bananatalk_app/utils/country_names.dart';
 
 /// Country pin on the map
 class _CountryPin {
@@ -802,7 +803,7 @@ class _CityTabState extends ConsumerState<CityTab> {
         children: [
           for (int i = 0; i < countries.length; i++) ...[
             Text(
-              '${countries[i].flag} ${countries[i].name} ${countries[i].userCount}',
+              '${countries[i].flag} ${CountryNames.of(context, countries[i].name)} ${countries[i].userCount}',
               style: TextStyle(
                 fontSize: 11,
                 fontWeight: FontWeight.w600,
@@ -823,7 +824,9 @@ class _CityTabState extends ConsumerState<CityTab> {
   Widget _buildUserList() {
     final title = _isWorldwideView
         ? '🌍 Worldwide'
-        : (_selectedCountry ?? 'Search: $_citySearch');
+        : (_selectedCountry != null
+              ? CountryNames.of(context, _selectedCountry!)
+              : 'Search: $_citySearch');
 
     return Column(
       children: [

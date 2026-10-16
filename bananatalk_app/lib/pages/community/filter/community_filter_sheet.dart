@@ -332,9 +332,12 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
           if (mounted) {
             showCommunitySnackBar(
               context,
-              message: AppLocalizations.of(
-                context,
-              )!.communityLocationDetected(_selectedCountry ?? ''),
+              message: AppLocalizations.of(context)!.communityLocationDetected(
+                countryDisplayName(
+                  _selectedCountry ?? '',
+                  Localizations.localeOf(context),
+                ),
+              ),
               type: CommunitySnackBarType.success,
             );
           }

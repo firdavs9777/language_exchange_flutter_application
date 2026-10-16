@@ -6,6 +6,7 @@ Community communityFixture({
   String bio = '',
   List<String> imageUrls = const [],
   bool vip = false,
+  Location? location,
 }) =>
     Community(
       id: 'me',
@@ -29,6 +30,6 @@ Community communityFixture({
       version: 0,
       followers: const [],
       followings: const [],
-      location: Location.defaultLocation(),
+      location: location ?? Location.defaultLocation(),
       userMode: vip ? UserMode.vip : UserMode.regular,
     );

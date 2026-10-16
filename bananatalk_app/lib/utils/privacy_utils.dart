@@ -1,11 +1,22 @@
+import 'package:flutter/widgets.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
+import 'package:bananatalk_app/utils/country_names.dart';
 
 class PrivacyUtils {
   /// Get formatted location text based on privacy settings
-  /// Returns empty string if location should be hidden
-  static String getLocationText(Community user) {
+  /// Returns empty string if location should be hidden.
+  ///
+  /// With [locale], the country is shown in that language (the stored
+  /// English name is only the fallback).
+  static String getLocationText(Community user, {Locale? locale}) {
     final privacy = user.privacySettings;
-    final location = user.location;
+    final stored = user.location;
+    final location = (
+      city: stored.city,
+      country: locale == null || stored.country.isEmpty
+          ? stored.country
+          : CountryNames.display(stored.country, locale),
+    );
 
     // If no privacy settings, show everything (default behavior)
     if (privacy == null) {
