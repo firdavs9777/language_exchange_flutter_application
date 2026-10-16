@@ -4741,7 +4741,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get helpEmailSupport => '邮件支持';
 
   @override
-  String get helpEmailSupportSubtitle => 'support@banatalk.com';
+  String get helpEmailSupportSubtitle => 'bananatalkmain@gmail.com';
 
   @override
   String get helpReportBug => '报告问题';
@@ -9502,7 +9502,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get suspendedTitle => '你的账号已被停用';
 
   @override
-  String get suspendedContact => '如果你认为这是误判，请用你的用户名发邮件至 appeal@banatalk.com。';
+  String get suspendedContact => '如果你认为这是误判，请用你的用户名发邮件至 bananatalkmain@gmail.com。';
 
   @override
   String get suspendedNoAccess => '你的账号已无法访问。';
@@ -17017,7 +17017,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get helpEmailSupport => '電子郵件支援';
 
   @override
-  String get helpEmailSupportSubtitle => 'support@banatalk.com';
+  String get helpEmailSupportSubtitle => 'bananatalkmain@gmail.com';
 
   @override
   String get helpReportBug => '回報問題';
@@ -21778,7 +21778,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get suspendedTitle => '你的帳號已被停用';
 
   @override
-  String get suspendedContact => '如果你認為這是誤判，請用你的使用者名稱寄信至 appeal@banatalk.com。';
+  String get suspendedContact => '如果你認為這是誤判，請用你的使用者名稱寄信至 bananatalkmain@gmail.com。';
 
   @override
   String get suspendedNoAccess => '你的帳號已無法存取。';

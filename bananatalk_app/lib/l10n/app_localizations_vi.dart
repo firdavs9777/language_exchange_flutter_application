@@ -4741,7 +4741,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get helpEmailSupport => 'Hỗ trợ qua email';
 
   @override
-  String get helpEmailSupportSubtitle => 'support@banatalk.com';
+  String get helpEmailSupportSubtitle => 'bananatalkmain@gmail.com';
 
   @override
   String get helpReportBug => 'Báo cáo lỗi';
@@ -9502,7 +9502,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get suspendedTitle => 'Tài khoản của bạn đã bị đình chỉ';
 
   @override
-  String get suspendedContact => 'Nếu bạn cho rằng đây là nhầm lẫn, hãy gửi email tới appeal@banatalk.com kèm tên người dùng.';
+  String get suspendedContact => 'Nếu bạn cho rằng đây là nhầm lẫn, hãy gửi email tới bananatalkmain@gmail.com kèm tên người dùng.';
 
   @override
   String get suspendedNoAccess => 'Tài khoản của bạn không còn truy cập được.';

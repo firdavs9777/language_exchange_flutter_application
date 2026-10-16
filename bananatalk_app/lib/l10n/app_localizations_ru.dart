@@ -4973,7 +4973,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get helpEmailSupport => 'Поддержка по email';
 
   @override
-  String get helpEmailSupportSubtitle => 'support@banatalk.com';
+  String get helpEmailSupportSubtitle => 'bananatalkmain@gmail.com';
 
   @override
   String get helpReportBug => 'Сообщить об ошибке';
@@ -9888,7 +9888,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get suspendedTitle => 'Ваш аккаунт заблокирован';
 
   @override
-  String get suspendedContact => 'Если считаете это ошибкой, напишите на appeal@banatalk.com и укажите своё имя пользователя.';
+  String get suspendedContact => 'Если считаете это ошибкой, напишите на bananatalkmain@gmail.com и укажите своё имя пользователя.';
 
   @override
   String get suspendedNoAccess => 'Доступ к аккаунту закрыт.';

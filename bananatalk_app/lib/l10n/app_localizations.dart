@@ -9119,7 +9119,7 @@ abstract class AppLocalizations {
   /// No description provided for @helpEmailSupportSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'support@banatalk.com'**
+  /// **'bananatalkmain@gmail.com'**
   String get helpEmailSupportSubtitle;
 
   /// No description provided for @helpReportBug.
@@ -17447,7 +17447,7 @@ abstract class AppLocalizations {
   /// No description provided for @suspendedContact.
   ///
   /// In en, this message translates to:
-  /// **'If you believe this was made in error, contact appeal@banatalk.com with your username.'**
+  /// **'If you believe this was made in error, contact bananatalkmain@gmail.com with your username.'**
   String get suspendedContact;
 
   /// No description provided for @suspendedNoAccess.

@@ -4741,7 +4741,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get helpEmailSupport => 'メールサポート';
 
   @override
-  String get helpEmailSupportSubtitle => 'support@banatalk.com';
+  String get helpEmailSupportSubtitle => 'bananatalkmain@gmail.com';
 
   @override
   String get helpReportBug => 'バグを報告';
@@ -9502,7 +9502,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get suspendedTitle => 'アカウントが停止されました';
 
   @override
-  String get suspendedContact => '誤りだと思われる場合は、ユーザー名を添えて appeal@banatalk.com までご連絡ください。';
+  String get suspendedContact => '誤りだと思われる場合は、ユーザー名を添えて bananatalkmain@gmail.com までご連絡ください。';
 
   @override
   String get suspendedNoAccess => 'このアカウントはご利用いただけません。';

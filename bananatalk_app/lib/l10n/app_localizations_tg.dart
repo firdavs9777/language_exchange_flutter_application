@@ -4747,7 +4747,7 @@ class AppLocalizationsTg extends AppLocalizations {
   String get helpEmailSupport => 'Дастгирии почтаи электронӣ';
 
   @override
-  String get helpEmailSupportSubtitle => 'support@banatalk.com';
+  String get helpEmailSupportSubtitle => 'bananatalkmain@gmail.com';
 
   @override
   String get helpReportBug => 'Дар бораи хато хабар диҳед';
@@ -9516,7 +9516,7 @@ class AppLocalizationsTg extends AppLocalizations {
   String get suspendedTitle => 'Ҳисоби шумо боздошта шуд';
 
   @override
-  String get suspendedContact => 'Агар фикр кунед, ки ин хатост, бо номи корбарии худ ба appeal@banatalk.com нависед.';
+  String get suspendedContact => 'Агар фикр кунед, ки ин хатост, бо номи корбарии худ ба bananatalkmain@gmail.com нависед.';
 
   @override
   String get suspendedNoAccess => 'Ҳисоби шумо дигар дастрас нест.';

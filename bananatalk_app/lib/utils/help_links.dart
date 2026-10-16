@@ -4,7 +4,7 @@
 /// transactional email (`SUPPORT_EMAIL` in utils/emailTemplates.js). The FAQ
 /// lives on the public, prerendered https://banatalk.com/support page.
 class HelpLinks {
-  static const String supportEmail = 'support@banatalk.com';
+  static const String supportEmail = 'bananatalkmain@gmail.com';
 
   static final Uri faqUri = Uri.parse('https://banatalk.com/support');
 

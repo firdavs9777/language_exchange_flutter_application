@@ -5,7 +5,7 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 /// 403 with body.error starting with AppLocalizations.of(context)!.suspendedTitle.
 /// Pushed via callOverlayNavigatorKey with pushAndRemoveUntil so the user
 /// can't navigate back into the authenticated app. No appeal flow is wired
-/// in v1 — user must email appeal@banatalk.com.
+/// in v1 — user must email bananatalkmain@gmail.com.
 class AccountSuspendedScreen extends StatelessWidget {
   final String? reason;
   const AccountSuspendedScreen({super.key, this.reason});

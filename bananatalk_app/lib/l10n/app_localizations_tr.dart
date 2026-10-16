@@ -4741,7 +4741,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get helpEmailSupport => 'E-posta Desteği';
 
   @override
-  String get helpEmailSupportSubtitle => 'support@banatalk.com';
+  String get helpEmailSupportSubtitle => 'bananatalkmain@gmail.com';
 
   @override
   String get helpReportBug => 'Hata Bildir';
@@ -9510,7 +9510,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get suspendedTitle => 'Hesabın askıya alındı';
 
   @override
-  String get suspendedContact => 'Bunun bir hata olduğunu düşünüyorsan, kullanıcı adınla birlikte appeal@banatalk.com adresine yaz.';
+  String get suspendedContact => 'Bunun bir hata olduğunu düşünüyorsan, kullanıcı adınla birlikte bananatalkmain@gmail.com adresine yaz.';
 
   @override
   String get suspendedNoAccess => 'Hesabına artık erişilemiyor.';

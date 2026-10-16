@@ -7,7 +7,7 @@ void main() {
       final uri = HelpLinks.supportEmailUri();
       expect(uri.scheme, 'mailto');
       expect(uri.path, HelpLinks.supportEmail);
-      expect(HelpLinks.supportEmail, 'support@banatalk.com');
+      expect(HelpLinks.supportEmail, 'bananatalkmain@gmail.com');
     });
 
     test('bug report carries subject and device details', () {

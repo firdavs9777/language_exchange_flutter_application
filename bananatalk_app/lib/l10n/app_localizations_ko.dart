@@ -4741,7 +4741,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get helpEmailSupport => '이메일 지원';
 
   @override
-  String get helpEmailSupportSubtitle => 'support@banatalk.com';
+  String get helpEmailSupportSubtitle => 'bananatalkmain@gmail.com';
 
   @override
   String get helpReportBug => '버그 신고';
@@ -9502,7 +9502,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get suspendedTitle => '계정이 정지되었어요';
 
   @override
-  String get suspendedContact => '착오라고 생각되면 사용자 이름과 함께 appeal@banatalk.com 으로 연락해 주세요.';
+  String get suspendedContact => '착오라고 생각되면 사용자 이름과 함께 bananatalkmain@gmail.com 으로 연락해 주세요.';
 
   @override
   String get suspendedNoAccess => '이 계정은 더 이상 이용할 수 없어요.';

@@ -4747,7 +4747,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get helpEmailSupport => 'Email Support';
 
   @override
-  String get helpEmailSupportSubtitle => 'support@banatalk.com';
+  String get helpEmailSupportSubtitle => 'bananatalkmain@gmail.com';
 
   @override
   String get helpReportBug => 'Report a Bug';
@@ -9524,7 +9524,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get suspendedTitle => 'Your account has been suspended';
 
   @override
-  String get suspendedContact => 'If you believe this was made in error, contact appeal@banatalk.com with your username.';
+  String get suspendedContact => 'If you believe this was made in error, contact bananatalkmain@gmail.com with your username.';
 
   @override
   String get suspendedNoAccess => 'Your account is no longer accessible.';
