@@ -227,7 +227,7 @@ Web ↔ app parity (spec `docs/superpowers/specs/2026-10-16-web-app-parity-desig
   - [x] P2-2 parser + Android manifest learn `/story/`, `/chat/`, legacy `bananatalk://user/` (links#1, #6, #8).
   - [x] P2-3 story share link `shareUrl('story', id)` + `/story/:id` screen (links#1, moments#1).
   - [x] P2-4 profile QR encodes `https://banatalk.com/profile/<id>`; scanner accepts both (links#8).
-  - [ ] P2-5 `FlutterDeepLinkingEnabled=false` / `flutter_deeplinking_enabled=false` (links#7).
+  - [x] P2-5 `FlutterDeepLinkingEnabled=false` / `flutter_deeplinking_enabled=false` (links#7).
   - [ ] P2-6 text stories draw poll/question/link/location, header and reply bar (moments#3).
   - [ ] P2-7 invite code manual entry for new accounts (links#10).
   - [ ] P2-8 Play Install Referrer pickup (links#10).

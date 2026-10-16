@@ -78,6 +78,8 @@
 	<string>4f4f3a3f65843de17d811422356f731d</string>
 	<key>FacebookDisplayName</key>
 	<string>Bananatalk</string>
+	<key>FlutterDeepLinkingEnabled</key>
+	<false/>
 	<key>GIDClientID</key>
 	<string>810869785173-6jl1i1b32lghpsdq6lp92a7b1vuedoh4.apps.googleusercontent.com</string>
 	<key>LSApplicationQueriesSchemes</key>
