@@ -22051,6 +22051,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You can\'t comment on this content'**
   String get blockedCantComment;
+
+  /// Image viewer app-bar button that rotates the photo
+  ///
+  /// In en, this message translates to:
+  /// **'Rotate'**
+  String get imageViewerRotate;
+
+  /// Moment link opened but the moment is missing
+  ///
+  /// In en, this message translates to:
+  /// **'Moment not found'**
+  String get momentNotFound;
+
+  /// Moment composer: a voice note longer than 60 s was cut to 60 s
+  ///
+  /// In en, this message translates to:
+  /// **'Recording capped at 60 seconds'**
+  String get momentRecordingCapped;
+
+  /// Moment composer: retried voice note upload succeeded
+  ///
+  /// In en, this message translates to:
+  /// **'Voice note uploaded'**
+  String get momentVoiceNoteUploaded;
+
+  /// Voice note retry dialog: generic reason when none is known
+  ///
+  /// In en, this message translates to:
+  /// **'The upload did not complete.'**
+  String get momentUploadDidNotComplete;
+
+  /// Voice note retry dialog after the last failed attempt
+  ///
+  /// In en, this message translates to:
+  /// **'That was the last attempt — it\'s likely the connection rather than the file. Your moment is already posted; you can add the voice note later by editing it.'**
+  String get momentUploadGiveUp;
+
+  /// Voice note retry dialog: attempts remaining
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 try left.} other{{count} tries left.}}'**
+  String momentUploadTriesLeft(int count);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -8156,5 +8156,38 @@
         "type": "int"
       }
     }
+  },
+  "imageViewerRotate": "Rotate",
+  "@imageViewerRotate": {
+    "description": "Image viewer app-bar button that rotates the photo"
+  },
+  "momentNotFound": "Moment not found",
+  "@momentNotFound": {
+    "description": "Moment link opened but the moment is missing"
+  },
+  "momentRecordingCapped": "Recording capped at 60 seconds",
+  "@momentRecordingCapped": {
+    "description": "Moment composer: a voice note longer than 60 s was cut to 60 s"
+  },
+  "momentVoiceNoteUploaded": "Voice note uploaded",
+  "@momentVoiceNoteUploaded": {
+    "description": "Moment composer: retried voice note upload succeeded"
+  },
+  "momentUploadDidNotComplete": "The upload did not complete.",
+  "@momentUploadDidNotComplete": {
+    "description": "Voice note retry dialog: generic reason when none is known"
+  },
+  "momentUploadGiveUp": "That was the last attempt — it's likely the connection rather than the file. Your moment is already posted; you can add the voice note later by editing it.",
+  "@momentUploadGiveUp": {
+    "description": "Voice note retry dialog after the last failed attempt"
+  },
+  "momentUploadTriesLeft": "{count, plural, =1{1 try left.} other{{count} tries left.}}",
+  "@momentUploadTriesLeft": {
+    "description": "Voice note retry dialog: attempts remaining",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   }
 }

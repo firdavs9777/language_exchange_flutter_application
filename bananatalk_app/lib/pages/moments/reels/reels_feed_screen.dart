@@ -914,7 +914,9 @@ class _ReelFeedItemState extends State<_ReelFeedItem> {
                   icon: widget.muted
                       ? Icons.volume_off_rounded
                       : Icons.volume_up_rounded,
-                  tooltip: widget.muted ? 'Unmute' : 'Mute',
+                  tooltip: widget.muted
+                      ? AppLocalizations.of(context)!.unmute
+                      : AppLocalizations.of(context)!.mute,
                   onTap: widget.onToggleMute,
                 ),
               ],

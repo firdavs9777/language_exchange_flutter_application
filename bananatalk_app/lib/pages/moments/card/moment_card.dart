@@ -139,8 +139,11 @@ class _MomentCardState extends ConsumerState<MomentCard> {
         setState(() => isSaved = previousSaved);
         showMomentsSnackBar(
           context,
-          message:
-              result['error'] ?? AppLocalizations.of(context)!.failedToSave,
+          message: friendlyErrorMessage(
+            AppLocalizations.of(context)!,
+            result['error'],
+            prefix: AppLocalizations.of(context)!.failedToSave,
+          ),
           type: MomentsSnackBarType.error,
         );
       }
@@ -183,6 +186,7 @@ class _MomentCardState extends ConsumerState<MomentCard> {
         invalidateMomentFeeds(ref);
       }
     } catch (e) {
+      debugPrint('Moment like failed: $e');
       if (mounted) {
         setState(() {
           isLiked = previousLiked;
@@ -190,7 +194,7 @@ class _MomentCardState extends ConsumerState<MomentCard> {
         });
         showMomentsSnackBar(
           context,
-          message: e.toString().replaceFirst('Exception: ', ''),
+          message: friendlyErrorMessage(AppLocalizations.of(context)!, e),
           type: MomentsSnackBarType.error,
           duration: const Duration(seconds: 2),
         );

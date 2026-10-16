@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/services/image_rotation_store.dart';
 import 'package:bananatalk_app/utils/image_utils.dart';
 
@@ -63,7 +64,7 @@ class _ImageGalleryState extends State<ImageGallery> {
         actions: [
           IconButton(
             icon: const Icon(Icons.rotate_right),
-            tooltip: 'Rotate',
+            tooltip: AppLocalizations.of(context)!.imageViewerRotate,
             onPressed: () {
               HapticFeedback.selectionClick();
               ImageRotationStore.instance.rotateClockwise(

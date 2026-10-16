@@ -41,6 +41,8 @@ const _allowedPaths = <String, String>{
 const _allowedTexts = <String, Set<String>>{
   // Birthdate input mask: digit order matches the input formatter, same in every locale.
   'lib/pages/authentication/register/register_two/personal_info_step.dart': {'YYYY.MM.DD'},
+  // Link sticker URL field: the scheme placeholder is the same in every locale.
+  'lib/pages/stories/create/link_sticker_editor.dart': {'https://'},
 };
 
 /// Data layers: no BuildContext, so no property scan (Text literals still count).

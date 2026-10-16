@@ -77,7 +77,7 @@ After release (production data):
 
 Localization
 - [x] Allowlist 103 → 17 (2026-10-15 sweep; 20 unreachable files deleted). The 17 left are all in `lib/pages/moments`, `comments`, `stories` — localize next. S–M
-- [ ] Localize the last 17 allowlisted files (moments/comments/stories: image_viewer 'Rotate', reels Mute/Unmute, create_moment snackbars, upload_queue progress). S–M
+- [x] Localize the last 17 allowlisted files (done 2026-10-16, fix/moments-l10n-errors): image_viewer 'Rotate', reels Mute/Unmute, moment-not-found, stories 'Try again', create_moment snackbars and the voice-note retry dialog (`moment_upload_retry.dart`, ICU plural "tries left") are ARB keys; the `link_sticker_editor` 'https://' hint is allowed by design. `no_hardcoded_text_allowlist.txt` is empty. (upload_queue progress `message:` strings are never shown, so they stay.)
 - [x] L14 (done 2026-10-15; property-literal guard added): ~54 property literals (`hintText:`/`labelText:`/`tooltip:`/`message:`) + enum labels listed in the 2026-10-11 sweep (image_viewer 'Rotate', word_card 'Listen', message_bubble 'Report', chat/moments snackbars, upload_queue progress…), with a property-literal guard. M
 - [x] Native CallKit Accept/Decline labels and missed-call subtitle are hardcoded English (`callkit_service.dart:225`); add an "Accept" key and feed them from `notificationL10n()`. S
 - [x] Coin strings are ICU plurals in all 19 locales (ru one/few/many, ar few). 

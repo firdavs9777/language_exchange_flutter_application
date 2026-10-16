@@ -4120,5 +4120,12 @@
   "blockedCantMessageThisUser": "Шумо ба ин корбар паём фиристода наметавонед.",
   "blockedActionNotAllowed": "Шумо ин амалро иҷро карда наметавонед",
   "blockedCantLike": "Шумо ин мундариҷаро писанд карда наметавонед",
-  "blockedCantComment": "Шумо ба ин мундариҷа шарҳ навишта наметавонед"
+  "blockedCantComment": "Шумо ба ин мундариҷа шарҳ навишта наметавонед",
+  "imageViewerRotate": "Гардондан",
+  "momentNotFound": "Лаҳза ёфт нашуд",
+  "momentRecordingCapped": "Сабт то 60 сония маҳдуд карда шуд",
+  "momentVoiceNoteUploaded": "Ёддошти овозӣ бор карда шуд",
+  "momentUploadDidNotComplete": "Боркунӣ ба анҷом нарасид.",
+  "momentUploadGiveUp": "Ин кӯшиши охирин буд — эҳтимол мушкил дар пайвастшавӣ аст, на дар файл. Лаҳзаи шумо аллакай нашр шудааст; шумо метавонед баъдтар бо таҳрир ёддошти овозиро илова кунед.",
+  "momentUploadTriesLeft": "{count, plural, other{{count} кӯшиш боқӣ мондааст.}}"
 }

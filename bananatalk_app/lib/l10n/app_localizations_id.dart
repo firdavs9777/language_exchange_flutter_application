@@ -12128,4 +12128,32 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get blockedCantComment => 'Kamu tidak dapat mengomentari konten ini';
+
+  @override
+  String get imageViewerRotate => 'Putar';
+
+  @override
+  String get momentNotFound => 'Momen tidak ditemukan';
+
+  @override
+  String get momentRecordingCapped => 'Rekaman dibatasi hingga 60 detik';
+
+  @override
+  String get momentVoiceNoteUploaded => 'Catatan suara diunggah';
+
+  @override
+  String get momentUploadDidNotComplete => 'Unggahan tidak selesai.';
+
+  @override
+  String get momentUploadGiveUp => 'Itu percobaan terakhir — kemungkinan masalahnya ada di koneksi, bukan di file. Momenmu sudah diposting; kamu bisa menambahkan catatan suara nanti dengan mengeditnya.';
+
+  @override
+  String momentUploadTriesLeft(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Tersisa $count percobaan.',
+    );
+    return '$_temp0';
+  }
 }
