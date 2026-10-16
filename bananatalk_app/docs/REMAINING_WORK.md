@@ -245,8 +245,8 @@ Web ↔ app parity (spec `docs/superpowers/specs/2026-10-16-web-app-parity-desig
 - [ ] Device QA: install from a Play internal-testing link with &referrer=code%3D<CODE>, register, coins credited (row WEB-APP-08; needs REFERRALS_ENABLED on a test backend).
 - [ ] (build env) Android Studio's bundled JBR is now Java 25, which Gradle 8.11.1 cannot run on (`flutter build apk` fails in settings.gradle with "> 25.0.3"). Workaround used for the P2 gate: `cd android && JAVA_HOME=<openjdk@17> ./gradlew assembleDebug`. Fix: `flutter config --jdk-dir <openjdk@17>` (owner, machine-level) or a Gradle upgrade. S
 - [x] Phase 3: web bug fixes — all four units deployed 2026-10-16 (links, community, moments, chat; web suite 3,820 pass); backend message search fixed (500 → works). Native review of new web strings open.
-- [ ] Phase 4: web features (flagged) — reels, gatherings/clubs, voice rooms, calls, Sign in with Apple. XL
-- [ ] Phase 5: owner steps — www cert, nginx snippet + crawler rule, Play fingerprints, Apple Services ID, prod env checks. S
+- [x] Phase 4: web features deployed dark 2026-10-16 — reels, gatherings/clubs, voice + language rooms, City/Genders tabs, Sign in with Apple (all behind web* flags, off); browser calls dropped by owner decision → website chats show "Call in the app" (live). Open: bundle budget over; native review of new web strings; backend voice-room speaker role/kick + raise-hand event names; city search ignores location.city.
+- [ ] Phase 5: owner steps — written up in `docs/ops/2026-10-16-web-hosting-steps.md` (www cert, nginx snippet, Play fingerprints, prod env checks, Apple Services ID, flags one at a time, AASA after 2.7.0, release-build JDK). S
 
 ## 5. Decided / won't fix
 
