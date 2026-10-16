@@ -8,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:mime/mime.dart' show lookupMimeType;
 
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/providers/tutor_provider.dart' show tutorMemoryAndQuotasProvider;
 import 'package:bananatalk_app/services/analytics_service.dart';
 import 'package:bananatalk_app/widgets/tutor/tutor_quota_indicator.dart';
@@ -91,7 +92,7 @@ class _ImageVocabScreenState extends ConsumerState<ImageVocabScreen> {
       final l10n = AppLocalizations.of(context)!;
       setState(() {
         _loading = false;
-        _error = l10n.aiTutorImagePickError(e.toString());
+        _error = l10n.aiTutorImagePickError(friendlyErrorMessage(l10n, e));
       });
     }
   }
@@ -119,7 +120,7 @@ class _ImageVocabScreenState extends ConsumerState<ImageVocabScreen> {
       if (!mounted) return;
       setState(() {
         _loading = false;
-        _error = e.toString();
+        _error = friendlyErrorMessage(AppLocalizations.of(context)!, e);
       });
     }
   }
@@ -159,7 +160,7 @@ class _ImageVocabScreenState extends ConsumerState<ImageVocabScreen> {
       setState(() {
         _stage = _Stage.describe;
         _loading = false;
-        _error = e.toString();
+        _error = friendlyErrorMessage(AppLocalizations.of(context)!, e);
       });
     }
   }

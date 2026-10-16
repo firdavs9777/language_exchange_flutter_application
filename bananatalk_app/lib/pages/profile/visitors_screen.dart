@@ -9,6 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
 import 'package:bananatalk_app/widgets/masked_person_tile.dart';
 import 'package:flutter/services.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/utils/time_ago.dart';
 import 'package:bananatalk_app/utils/country_names.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
@@ -276,7 +277,7 @@ class _ProfileVisitorsScreenState
                     ),
                     const SizedBox(height: 6),
                     Text(
-                      _error!,
+                      friendlyErrorMessage(l10n, _error),
                       style: context.bodySmall.copyWith(
                         color: context.textSecondary,
                         height: 1.4,

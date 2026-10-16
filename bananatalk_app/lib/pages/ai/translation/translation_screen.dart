@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:bananatalk_app/services/ai_service.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/services/api_client.dart';
 import 'package:bananatalk_app/models/ai/translation_model.dart';
 import 'package:bananatalk_app/models/language_model.dart';
@@ -80,7 +81,7 @@ class _TranslationScreenState extends ConsumerState<TranslationScreen> {
     } catch (e) {
       setState(() {
         _isLoadingLanguages = false;
-        _error = AppLocalizations.of(context)!.aiErrorLoadingLanguages(e.toString());
+        _error = AppLocalizations.of(context)!.aiErrorLoadingLanguages(friendlyErrorMessage(AppLocalizations.of(context)!, e));
       });
     }
   }
@@ -493,7 +494,7 @@ class _TranslationScreenState extends ConsumerState<TranslationScreen> {
       if (!mounted) return;
       setState(() => _saving = false);
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(AppLocalizations.of(context)!.aiTranslationCouldNotSave(e.toString()))),
+        SnackBar(content: Text(AppLocalizations.of(context)!.aiTranslationCouldNotSave(friendlyErrorMessage(AppLocalizations.of(context)!, e)))),
       );
     }
   }

@@ -5,6 +5,7 @@ import 'package:bananatalk_app/pages/profile/widgets/gradient_save_button.dart';
 import 'package:bananatalk_app/pages/profile/widgets/profile_snackbar.dart';
 import 'package:bananatalk_app/pages/profile/widgets/section_label.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -105,10 +106,9 @@ class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
     } catch (e) {
       if (!mounted) return;
       setState(() => _isSaving = false);
-      final msg = e.toString().replaceFirst('Exception: ', '');
       showProfileSnackBar(
         context,
-        message: '${l10n.failedToUpdate}: $msg',
+        message: friendlyErrorMessage(l10n, e, prefix: l10n.failedToUpdate),
         type: ProfileSnackBarType.error,
       );
     }

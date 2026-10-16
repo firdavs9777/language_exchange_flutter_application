@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:bananatalk_app/models/tutor/tutor_session.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/tutor_provider.dart';
 import 'package:bananatalk_app/services/analytics_service.dart';
@@ -51,7 +52,7 @@ class _RoleplayChatScreenState extends ConsumerState<RoleplayChatScreen> {
       } catch (e) {
         if (!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(AppLocalizations.of(context)!.aiScenariosCouldNotStart(e.toString()))),
+          SnackBar(content: Text(AppLocalizations.of(context)!.aiScenariosCouldNotStart(friendlyErrorMessage(AppLocalizations.of(context)!, e)))),
         );
       }
     });
@@ -90,7 +91,7 @@ class _RoleplayChatScreenState extends ConsumerState<RoleplayChatScreen> {
     final err = ref.read(tutorChatControllerProvider).error;
     if (err != null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(AppLocalizations.of(context)!.aiRoleplaySendFailed(err.toString()))),
+        SnackBar(content: Text(AppLocalizations.of(context)!.aiRoleplaySendFailed(friendlyErrorMessage(AppLocalizations.of(context)!, err)))),
       );
     }
     _scrollToBottom();
@@ -188,7 +189,7 @@ class _RoleplayChatScreenState extends ConsumerState<RoleplayChatScreen> {
       if (!mounted) return;
       final l10n = AppLocalizations.of(context)!;
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(l10n.aiTutorRoleplayEndFailed(e.toString()))),
+        SnackBar(content: Text(l10n.aiTutorRoleplayEndFailed(friendlyErrorMessage(l10n, e)))),
       );
     } finally {
       if (mounted) setState(() => _ending = false);

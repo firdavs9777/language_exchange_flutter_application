@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/models/community/topic_model.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/pages/profile/widgets/profile_snackbar.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
@@ -109,7 +110,7 @@ class _ProfileTopicsEditState extends ConsumerState<ProfileTopicsEdit> {
       showProfileSnackBar(
         context,
         message:
-            '${l10n.failedToUpdateTopics}: ${e.toString().replaceFirst('Exception: ', '')}',
+            friendlyErrorMessage(l10n, e, prefix: l10n.failedToUpdateTopics),
         type: ProfileSnackBarType.error,
       );
     } finally {

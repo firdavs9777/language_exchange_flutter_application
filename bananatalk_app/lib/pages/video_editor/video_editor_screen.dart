@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:video_trimmer/video_trimmer.dart';
 import 'package:bananatalk_app/services/video_editor_service.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 
@@ -57,8 +58,10 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
         _isLoading = false;
       });
     } catch (e) {
+      debugPrint('VideoEditor: failed to load video: $e');
+      if (!mounted) return;
       setState(() {
-        _errorMessage = 'Failed to load video: $e';
+        _errorMessage = AppLocalizations.of(context)!.failedToLoadVideo;
         _isLoading = false;
       });
     }
@@ -111,7 +114,9 @@ class _VideoEditorScreenState extends State<VideoEditorScreen> {
       setState(() {
         _isProcessing = false;
       });
-      _showError('Error saving video: $e');
+      debugPrint('VideoEditor: failed to save video: $e');
+      if (!mounted) return;
+      _showError(friendlyErrorMessage(AppLocalizations.of(context)!, e));
     }
   }
 

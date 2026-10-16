@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:bananatalk_app/services/ai_service.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/models/ai/speech_model.dart';
 import 'package:bananatalk_app/providers/provider_root/ai_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
@@ -293,7 +294,7 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
     } catch (e) {
       if (!mounted) return;
       setState(() {
-        _error = e.toString();
+        _error = friendlyErrorMessage(AppLocalizations.of(context)!, e);
       });
     }
   }

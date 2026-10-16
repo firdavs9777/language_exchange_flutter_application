@@ -1,4 +1,5 @@
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/providers/provider_models/exam/vocabulary_word.dart';
 import 'package:bananatalk_app/services/translation_service.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
@@ -80,7 +81,7 @@ class _WordCardState extends State<WordCard> {
       if (!mounted) return;
       setState(() {
         _loading = false;
-        _error = e.toString();
+        _error = friendlyErrorMessage(AppLocalizations.of(context)!, e);
       });
     }
   }

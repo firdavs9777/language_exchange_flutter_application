@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:bananatalk_app/models/tutor/tutor_session.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/providers/tutor_provider.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
@@ -42,7 +43,7 @@ class ScenarioPickerScreen extends ConsumerWidget {
       ),
       body: scenariosAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (e, _) => Center(child: Text(AppLocalizations.of(context)!.aiScenariosCouldNotLoad(e.toString()))),
+        error: (e, _) => Center(child: Text(AppLocalizations.of(context)!.aiScenariosCouldNotLoad(friendlyErrorMessage(AppLocalizations.of(context)!, e)))),
         data: (resp) {
           if (resp.scenarios.isEmpty) {
             return Center(child: Text(AppLocalizations.of(context)!.aiScenariosNoneAvailable));
@@ -232,7 +233,7 @@ class _ScenarioCardState extends ConsumerState<_ScenarioCard> {
     } catch (e) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(AppLocalizations.of(context)!.aiScenariosCouldNotStart(e.toString()))),
+        SnackBar(content: Text(AppLocalizations.of(context)!.aiScenariosCouldNotStart(friendlyErrorMessage(AppLocalizations.of(context)!, e)))),
       );
     } finally {
       if (mounted) setState(() => _starting = false);

@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/utils/image_utils.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
@@ -160,7 +161,11 @@ class _EditMomentScreenState extends ConsumerState<EditMomentScreen> {
         } catch (e) {
           if (mounted) {
             _showErrorSnackBar(
-              '${l10n.momentUpdatedImageFailed}: ${e.toString()}',
+              friendlyErrorMessage(
+                l10n,
+                e,
+                prefix: l10n.momentUpdatedImageFailed,
+              ),
             );
           }
         } finally {
@@ -175,7 +180,7 @@ class _EditMomentScreenState extends ConsumerState<EditMomentScreen> {
       if (mounted) {
         setState(() => _isSaving = false);
         _showErrorSnackBar(
-          '${l10n.error}: ${e.toString().replaceFirst('Exception: ', '')}',
+          friendlyErrorMessage(l10n, e),
         );
       }
     }

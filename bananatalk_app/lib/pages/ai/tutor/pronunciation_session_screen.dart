@@ -7,6 +7,7 @@ import 'package:bananatalk_app/pages/ai/tutor/widgets/pronunciation_summary_shee
 import 'package:bananatalk_app/providers/pronunciation_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/services/analytics_service.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/widgets/tutor/tutor_quota_indicator.dart';
 
 class PronunciationSessionScreen extends ConsumerStatefulWidget {
@@ -126,7 +127,7 @@ class _PronunciationSessionScreenState
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 24),
                   child: Text(
-                    state.errorMessage!,
+                    friendlyErrorMessage(l10n, state.errorMessage),
                     textAlign: TextAlign.center,
                     style: const TextStyle(color: Colors.red, fontSize: 12),
                   ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/services/block_service.dart';
 import 'package:bananatalk_app/models/blocked_user.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
@@ -67,7 +68,7 @@ class _BlockedUsersScreenState extends State<BlockedUsersScreen> {
       if (mounted) {
         final l10n = AppLocalizations.of(context)!;
         setState(() {
-          _error = l10n.errorLoadingBlockedUsers(e.toString());
+          _error = l10n.errorLoadingBlockedUsers(friendlyErrorMessage(l10n, e));
           _isLoading = false;
         });
       }

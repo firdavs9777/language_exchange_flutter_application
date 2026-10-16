@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:bananatalk_app/services/api_client.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
@@ -54,7 +55,7 @@ class _VocabCardState extends ConsumerState<VocabCard> {
       if (mounted) {
         setState(() {
           _adding = false;
-          _error = e.toString();
+          _error = friendlyErrorMessage(AppLocalizations.of(context)!, e);
         });
       }
     }

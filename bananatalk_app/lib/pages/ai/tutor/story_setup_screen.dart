@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/providers/tutor_provider.dart';
 import 'package:bananatalk_app/services/analytics_service.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
@@ -63,7 +64,7 @@ class _StorySetupScreenState extends ConsumerState<StorySetupScreen> {
       if (!mounted) return;
       final l10n = AppLocalizations.of(context)!;
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(l10n.aiTutorStoryGenerateFailed(e.toString()))),
+        SnackBar(content: Text(l10n.aiTutorStoryGenerateFailed(friendlyErrorMessage(l10n, e)))),
       );
     } finally {
       if (mounted) setState(() => _generating = false);

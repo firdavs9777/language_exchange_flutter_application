@@ -212,8 +212,11 @@ class _ProfileSingleMomentState extends ConsumerState<ProfileSingleMoment> {
       ScaffoldMessenger.of(this.context).showSnackBar(
         SnackBar(
           content: Text(
-            '${AppLocalizations.of(this.context)!.failedToDeleteMoment}: '
-            '${e.toString().replaceFirst('Exception: ', '')}',
+            friendlyErrorMessage(
+              AppLocalizations.of(this.context)!,
+              e,
+              prefix: AppLocalizations.of(this.context)!.failedToDeleteMoment,
+            ),
           ),
           backgroundColor: AppColors.error,
           behavior: SnackBarBehavior.floating,
@@ -340,7 +343,7 @@ class _ProfileSingleMomentState extends ConsumerState<ProfileSingleMoment> {
                     ScaffoldMessenger.of(this.context).showSnackBar(
                       SnackBar(
                         content: Text(
-                          '${l10n.error}: ${e.toString().replaceFirst('Exception: ', '')}',
+                          friendlyErrorMessage(l10n, e),
                         ),
                         backgroundColor: AppColors.error,
                         behavior: SnackBarBehavior.floating,

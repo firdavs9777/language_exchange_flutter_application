@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/providers/pronunciation_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/services/analytics_service.dart';
@@ -39,7 +40,7 @@ class _PronunciationSummarySheetState
       if (!mounted) return;
       setState(() {
         _saving = false;
-        _saveError = e.toString();
+        _saveError = friendlyErrorMessage(AppLocalizations.of(context)!, e);
       });
     }
   }

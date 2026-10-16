@@ -1,4 +1,5 @@
 import 'package:bananatalk_app/pages/profile/widgets/edit_screen_scaffold.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/pages/profile/widgets/gradient_save_button.dart';
 import 'package:bananatalk_app/pages/profile/widgets/profile_snackbar.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
@@ -120,7 +121,7 @@ class _ProfileHometownEditState extends ConsumerState<ProfileHometownEdit> {
       showProfileSnackBar(
         context,
         message:
-            '${l10n.failedToGetLocation}: ${e.toString().replaceFirst('Exception: ', '')}',
+            friendlyErrorMessage(l10n, e, prefix: l10n.failedToGetLocation),
         type: ProfileSnackBarType.error,
       );
     } finally {
@@ -159,7 +160,7 @@ class _ProfileHometownEditState extends ConsumerState<ProfileHometownEdit> {
       showProfileSnackBar(
         context,
         message:
-            '${l10n.failedToSave}: ${e.toString().replaceFirst('Exception: ', '')}',
+            friendlyErrorMessage(l10n, e, prefix: l10n.failedToSave),
         type: ProfileSnackBarType.error,
       );
     }
