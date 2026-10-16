@@ -28,7 +28,7 @@ written into the QA sheet.
     stay invisible.
   - Backend changes are **backward compatible** with the live website (origin/main) and app 2.6.1:
     old request shapes keep working, response changes are additive, nothing a live client reads is
-    removed — except fields removed for privacy (§3.1), which no client may rely on.
+    removed — except fields removed for privacy (Phase 1 items 1–2), which no client may rely on.
 - App changes ship with 2.7.0 (not built yet), so they are not live on push.
 - House rules: `package:` imports (app); `docs/REMAINING_WORK.md` updated in every commit in all
   three repos (the web repo has one); no AI attribution in commits.
@@ -55,7 +55,8 @@ deletes every unit test.
    `redactUserForViewer` (`lib/privacySettings.js`) and applies it to `controllers/users.js` lists and
    `controllers/matching.js`, plus story viewer-data privacy and `userReaction` (moments#20). Resolve
    conflicts with main, run the suite, then re-check community#1, community#6 and links#11 against
-   the merged code before item 1.
+   the merged code before item 1. The branch also covers moments#18 (video stories keep the link
+   sticker, 44bdacf) and the backend part of moments#25 (`link.host` persisted, 1df438c).
 1. **Profile field visibility (community#1, #6, links#11).** Extend `redactUserForViewer` — no second
    helper — to every remaining path: `GET /auth/users/:id` (app profile), `/:id/public` (web profile,
    including anonymous viewers), recommendations, topic users, and blocked viewers. Anonymous viewers
@@ -78,19 +79,20 @@ deletes every unit test.
    - Socket unread count is the real count, not 1.
    - Wave mirror and `story_share` messages populate `sender` like other messages.
    - Edit accepts `content` as an alias of `message` (old web), so Phase 3 and live web both work.
-4. **Moments/stories (moments#12, #18, #19, #20).** Merge backend `fix/moments-stories-audit`
-   (viewer-data privacy, `userReaction`); video stories parse `link`; highlights select the full
-   story field set; translation validator uses `SUPPORTED_LANGUAGES` + `tl`, `uz`, `az`, `kk`, `ky`,
-   `tg`, `tk`.
+4. **Moments/stories (moments#12, #19).** (moments#18, #20 and `link.host` come with item 0.)
+   Highlights select the full story field set (overlays, mentions, link, font) the viewers use;
+   translation validator uses `SUPPORTED_LANGUAGES` plus `tl`, `uz`, `az`, `kk`, `ky`, `tg`, `tk`.
 5. **Voice notes (moments#2, chat#13).** Audio uploads (moment voice note, chat voice message)
-   whose type is not AAC/MP4/MP3 are transcoded **synchronously** before the response: those two
+   whose declared MIME type is not on the pass-through list (`audio/mpeg`, `audio/mp3`, `audio/aac`,
+   `audio/x-aac`, `audio/mp4`, `audio/m4a`, `audio/x-m4a` — the AAC/MP3 types already in the upload
+   whitelist) are transcoded **synchronously** before the response: those two
    routes stage the upload to local disk (not multer-s3 streaming), run the system ffmpeg
    (`/usr/bin/ffmpeg`, as `utils/videoTranscode.js` does) to AAC `.m4a`, upload that to Spaces, and
    return/store only the AAC URL; the original is deleted locally and never stored. On ffmpeg failure
    the original is uploaded unchanged and the failure logged (today's behaviour, no worse). Voice
    notes are short (moment ≤ the existing cap, chat ≤ the existing cap), so the added latency is
    small. Already-stored WebM notes are not migrated (non-goal).
-6. **Links/emails (links#9, #13, #16).** Email buttons point at existing web routes (`/communities`,
+6. **Links/emails (links#9, #13, #17, #18).** Email buttons point at existing web routes (`/communities`,
    `/chat`, `/chat/<id>`, `/profile`, admin report link); names URL-encoded. OG endpoint gains an
    `i` (invite) type. Pub/Sub audience fallback uses `api.banatalk.com`.
 7. **Endpoints for web features (Phase 4).** Phase 4 reuses the app's endpoints: reels feed/create
@@ -103,7 +105,7 @@ deletes every unit test.
    - Google web login: callback returns a short-lived one-time code exchanged via POST for tokens.
      The old `?token=` callback stays until the Phase 3 web is live, then is removed.
    - Flags (§4) exposed in app-config.
-8. **Leftover wrong-domain references (links#17).** `api.bananatalk.com` / `support@bananatalk.com`
+8. **Leftover wrong-domain references (links#19).** `api.bananatalk.com` / `support@bananatalk.com`
    in docs fixed in all three repos.
 
 ### Phase 2 — app (ships with 2.7.0)
@@ -138,8 +140,8 @@ deletes every unit test.
   (moments#22); comments: GIF picker, photo-only comments sent in one request, mentions rendered
   (moments#21); fix `uploadMomentPhotos` typing, drop `mediaType: "text"`, delete dead `reportMoment`
   (moments#23); story rendering parity — font style, solid-overlay plate colour, overlay/mention
-  placement, hashtags shown, `allowReplies`/`allowSharing` honoured, `link.host` kept (moments#25,
-  backend schema part in Phase 1); Saved Moments and other missing i18n keys (moments#24).
+  placement, hashtags shown, `allowReplies`/`allowSharing` honoured in the web viewer, `link.host` read (moments#25;
+  the backend part comes with Phase 1 item 0); Saved Moments and other missing i18n keys (moments#24).
   Accepted gap: stickers on web text stories stay invisible to app 2.6.1 users until they update to
   2.7.0 (moments#3); the web keeps offering them.
 - **Community:** Nearby params/fields/route/privacy; username search path; language filter from the
