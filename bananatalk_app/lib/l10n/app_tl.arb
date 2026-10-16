@@ -4600,5 +4600,12 @@
   "blockedCantMessageThisUser": "Hindi ka makakapagpadala ng mensahe sa user na ito.",
   "blockedActionNotAllowed": "Hindi mo magagawa ang aksyong ito",
   "blockedCantLike": "Hindi mo mai-like ang nilalamang ito",
-  "blockedCantComment": "Hindi ka makakapag-comment sa nilalamang ito"
+  "blockedCantComment": "Hindi ka makakapag-comment sa nilalamang ito",
+  "imageViewerRotate": "Iikot",
+  "momentNotFound": "Hindi nahanap ang moment",
+  "momentRecordingCapped": "Nilimitahan ang recording sa 60 segundo",
+  "momentVoiceNoteUploaded": "Na-upload ang voice note",
+  "momentUploadDidNotComplete": "Hindi natapos ang pag-upload.",
+  "momentUploadGiveUp": "Iyon na ang huling subok — malamang koneksyon ang problema, hindi ang file. Naka-post na ang moment mo; puwede mong idagdag ang voice note mamaya sa pag-edit nito.",
+  "momentUploadTriesLeft": "{count, plural, =1{1 subok na lang.} other{{count} subok na lang.}}"
 }

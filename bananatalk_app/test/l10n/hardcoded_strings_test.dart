@@ -534,6 +534,16 @@ const Map<String, List<String>> _keysByTask = {
   'moments-batch-2': [
     'pleaseRemoveImagesFirstToAddVoiceNote',
   ],
+  // Last allowlisted moments/stories literals + voice-note retry dialog.
+  'moments-l10n': [
+    'imageViewerRotate',
+    'momentNotFound',
+    'momentRecordingCapped',
+    'momentVoiceNoteUploaded',
+    'momentUploadDidNotComplete',
+    'momentUploadGiveUp',
+    'momentUploadTriesLeft',
+  ],
   // Remaining hardcoded English: property literals, enum labels, snackbars (L14 sweep).
   'l10n-sweep': [
     'authLockedTitle',
@@ -961,9 +971,20 @@ const Map<String, List<String>> _filesByTask = {
   'payments-batch': [
     'pages/coins/coin_shop_screen.dart',
   ],
-  // create_moment.dart still has other English literals; the key is checked
-  // above, the file is not listed.
+  // create_moment.dart is listed under moments-l10n now.
   'moments-batch-2': [],
+  'moments-l10n': [
+    'pages/comments/create_comment.dart',
+    'pages/moments/moment_detail_wrapper.dart',
+    'pages/stories/widgets/stories_error_state.dart',
+    'pages/moments/card/moment_card.dart',
+    'pages/moments/corrections/correction_sheet.dart',
+    'pages/moments/create/create_moment.dart',
+    'pages/moments/create/moment_upload_retry.dart',
+    'pages/moments/reels/reels_feed_screen.dart',
+    'pages/moments/single/single_moment.dart',
+    'pages/moments/viewer/image_viewer.dart',
+  ],
   'l10n-sweep': [
     'pages/authentication/widgets/auth_error_state.dart',
     'pages/authentication/widgets/password_strength_meter.dart',

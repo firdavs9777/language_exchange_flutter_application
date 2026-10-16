@@ -5,6 +5,7 @@ import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/pages/moments/widgets/moments_snackbar.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 
 /// The operation a [DiffSpan] represents relative to the original text.
 enum DiffOp { equal, removed, added }
@@ -141,10 +142,11 @@ class _CorrectionSheetState extends State<CorrectionSheet> {
       );
       if (mounted) Navigator.pop(context, true);
     } catch (e) {
+      debugPrint('Correction submit failed: $e');
       if (mounted) {
         showMomentsSnackBar(
           context,
-          message: e.toString().replaceFirst('Exception: ', ''),
+          message: friendlyErrorMessage(AppLocalizations.of(context)!, e),
           type: MomentsSnackBarType.error,
         );
       }

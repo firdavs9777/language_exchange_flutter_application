@@ -1,8 +1,12 @@
+import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/moments/create/moment_media_rules.dart';
 import 'package:bananatalk_app/pages/moments/create/moment_upload_retry.dart';
 
 void main() {
+  final l10n = lookupAppLocalizations(const Locale('en'));
+
   group('decideRetry', () {
     test('offers a retry while attempts remain', () {
       for (var made = 0; made < kMaxUploadRetries; made++) {
@@ -35,6 +39,7 @@ void main() {
   group('uploadFailureMessage', () {
     test('strips the Exception prefix users should never see', () {
       final msg = uploadFailureMessage(
+        l10n,
         attemptsMade: 0,
         reason: 'Exception: connection closed',
       );
@@ -43,7 +48,7 @@ void main() {
     });
 
     test('an empty reason still says something useful', () {
-      final msg = uploadFailureMessage(attemptsMade: 0, reason: '   ');
+      final msg = uploadFailureMessage(l10n, attemptsMade: 0, reason: '   ');
       expect(msg.trim(), isNotEmpty);
       expect(msg, contains('did not complete'));
     });
@@ -51,13 +56,13 @@ void main() {
     test('the message changes as attempts are used up', () {
       // The old code said "Upload failed again" on the tenth try exactly as on
       // the second, which is what makes a retry button feel broken.
-      final first = uploadFailureMessage(attemptsMade: 0, reason: 'x');
-      final second = uploadFailureMessage(attemptsMade: 1, reason: 'x');
+      final first = uploadFailureMessage(l10n, attemptsMade: 0, reason: 'x');
+      final second = uploadFailureMessage(l10n, attemptsMade: 1, reason: 'x');
       expect(first, isNot(equals(second)));
     });
 
     test('singular and plural are both right', () {
-      final one = uploadFailureMessage(
+      final one = uploadFailureMessage(l10n,
           attemptsMade: kMaxUploadRetries - 1, reason: 'x');
       expect(one, contains('1 try left'));
       expect(one, isNot(contains('1 tries')));
@@ -65,11 +70,28 @@ void main() {
 
     test('the final message stops promising a retry and says what to do', () {
       final last =
-          uploadFailureMessage(attemptsMade: kMaxUploadRetries, reason: 'x');
+          uploadFailureMessage(l10n, attemptsMade: kMaxUploadRetries, reason: 'x');
       expect(last, isNot(contains('tries left')));
       expect(last, contains('already posted'),
           reason: 'the moment survived; only the voice note did not');
       expect(last, contains('editing'));
+    });
+  });
+
+  group('uploadFailureMessage is localized', () {
+    test('Russian uses the right plural for tries left', () {
+      final ru = lookupAppLocalizations(const Locale('ru'));
+      expect(uploadFailureMessage(ru, attemptsMade: kMaxUploadRetries - 1, reason: 'x'),
+          contains('1 попытка'));
+      expect(uploadFailureMessage(ru, attemptsMade: 0, reason: 'x'),
+          contains('$kMaxUploadRetries попытки'));
+    });
+
+    test('an empty reason is localized too', () {
+      final ko = lookupAppLocalizations(const Locale('ko'));
+      final msg = uploadFailureMessage(ko, attemptsMade: 0, reason: '');
+      expect(msg, contains(ko.momentUploadDidNotComplete));
+      expect(msg, isNot(contains('did not complete')));
     });
   });
 

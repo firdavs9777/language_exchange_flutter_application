@@ -565,7 +565,11 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
             setState(() => _isUploading = false);
             showStoriesSnackBar(
               context,
-              message: result.error ?? AppLocalizations.of(context)!.storyPostFailed,
+              message: friendlyErrorMessage(
+                AppLocalizations.of(context)!,
+                result.error,
+                prefix: AppLocalizations.of(context)!.storyPostFailed,
+              ),
               type: StoriesSnackBarType.error,
             );
           }
@@ -609,7 +613,11 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
             setState(() => _isUploading = false);
             showStoriesSnackBar(
               context,
-              message: result.error ?? AppLocalizations.of(context)!.storyPostFailed,
+              message: friendlyErrorMessage(
+                AppLocalizations.of(context)!,
+                result.error,
+                prefix: AppLocalizations.of(context)!.storyPostFailed,
+              ),
               type: StoriesSnackBarType.error,
             );
           }

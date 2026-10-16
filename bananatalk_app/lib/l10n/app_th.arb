@@ -4627,5 +4627,12 @@
   "blockedCantMessageThisUser": "คุณส่งข้อความถึงผู้ใช้นี้ไม่ได้",
   "blockedActionNotAllowed": "คุณทำสิ่งนี้ไม่ได้",
   "blockedCantLike": "คุณกดถูกใจเนื้อหานี้ไม่ได้",
-  "blockedCantComment": "คุณแสดงความคิดเห็นในเนื้อหานี้ไม่ได้"
+  "blockedCantComment": "คุณแสดงความคิดเห็นในเนื้อหานี้ไม่ได้",
+  "imageViewerRotate": "หมุน",
+  "momentNotFound": "ไม่พบโมเมนต์",
+  "momentRecordingCapped": "จำกัดการบันทึกไว้ที่ 60 วินาที",
+  "momentVoiceNoteUploaded": "อัปโหลดข้อความเสียงแล้ว",
+  "momentUploadDidNotComplete": "อัปโหลดไม่สำเร็จ",
+  "momentUploadGiveUp": "นี่เป็นครั้งสุดท้ายแล้ว — ปัญหาน่าจะอยู่ที่การเชื่อมต่อมากกว่าไฟล์ โมเมนต์ของคุณโพสต์แล้ว คุณสามารถแก้ไขเพื่อเพิ่มข้อความเสียงภายหลังได้",
+  "momentUploadTriesLeft": "{count, plural, other{เหลืออีก {count} ครั้ง}}"
 }

@@ -12146,4 +12146,33 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get blockedCantComment => 'Você não pode comentar este conteúdo';
+
+  @override
+  String get imageViewerRotate => 'Girar';
+
+  @override
+  String get momentNotFound => 'Momento não encontrado';
+
+  @override
+  String get momentRecordingCapped => 'Gravação limitada a 60 segundos';
+
+  @override
+  String get momentVoiceNoteUploaded => 'Nota de voz enviada';
+
+  @override
+  String get momentUploadDidNotComplete => 'O envio não foi concluído.';
+
+  @override
+  String get momentUploadGiveUp => 'Essa foi a última tentativa — provavelmente o problema é a conexão, não o arquivo. Seu momento já foi publicado; você pode adicionar a nota de voz depois editando-o.';
+
+  @override
+  String momentUploadTriesLeft(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Restam $count tentativas.',
+      one: 'Resta 1 tentativa.',
+    );
+    return '$_temp0';
+  }
 }

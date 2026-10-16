@@ -12139,4 +12139,33 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get blockedCantComment => 'Hindi ka makakapag-comment sa nilalamang ito';
+
+  @override
+  String get imageViewerRotate => 'Iikot';
+
+  @override
+  String get momentNotFound => 'Hindi nahanap ang moment';
+
+  @override
+  String get momentRecordingCapped => 'Nilimitahan ang recording sa 60 segundo';
+
+  @override
+  String get momentVoiceNoteUploaded => 'Na-upload ang voice note';
+
+  @override
+  String get momentUploadDidNotComplete => 'Hindi natapos ang pag-upload.';
+
+  @override
+  String get momentUploadGiveUp => 'Iyon na ang huling subok — malamang koneksyon ang problema, hindi ang file. Naka-post na ang moment mo; puwede mong idagdag ang voice note mamaya sa pag-edit nito.';
+
+  @override
+  String momentUploadTriesLeft(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count subok na lang.',
+      one: '1 subok na lang.',
+    );
+    return '$_temp0';
+  }
 }

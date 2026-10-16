@@ -161,12 +161,15 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> with Widg
         );
       });
     } catch (e) {
+      // _error only switches the row to its localized retry state; the raw
+      // text is for the log.
+      debugPrint('Failed to load stories: $e');
       if (mounted) {
         setState(() {
           _isLoading = false;
           _error = storiesFeedError(
             succeeded: false,
-            error: 'Failed to load stories: $e',
+            error: e.toString(),
             hasCachedStories: hasCached,
           );
         });

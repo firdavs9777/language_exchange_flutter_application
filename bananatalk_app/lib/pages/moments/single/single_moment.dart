@@ -239,6 +239,7 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
         invalidateMomentFeeds(ref);
       }
     } catch (e) {
+      debugPrint('Moment like failed: $e');
       if (mounted) {
         setState(() {
           isLiked = previousLiked;
@@ -246,7 +247,7 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
         });
         showMomentsSnackBar(
           context,
-          message: e.toString().replaceFirst('Exception: ', ''),
+          message: friendlyErrorMessage(AppLocalizations.of(context)!, e),
           type: MomentsSnackBarType.error,
         );
       }

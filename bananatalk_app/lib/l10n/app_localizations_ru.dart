@@ -12594,4 +12594,35 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get blockedCantComment => 'Вы не можете комментировать этот контент';
+
+  @override
+  String get imageViewerRotate => 'Повернуть';
+
+  @override
+  String get momentNotFound => 'Момент не найден';
+
+  @override
+  String get momentRecordingCapped => 'Запись обрезана до 60 секунд';
+
+  @override
+  String get momentVoiceNoteUploaded => 'Голосовая заметка загружена';
+
+  @override
+  String get momentUploadDidNotComplete => 'Загрузка не завершилась.';
+
+  @override
+  String get momentUploadGiveUp => 'Это была последняя попытка — скорее всего, дело в соединении, а не в файле. Момент уже опубликован; голосовую заметку можно добавить позже, отредактировав его.';
+
+  @override
+  String momentUploadTriesLeft(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Осталось $count попытки.',
+      many: 'Осталось $count попыток.',
+      few: 'Осталось $count попытки.',
+      one: 'Осталась $count попытка.',
+    );
+    return '$_temp0';
+  }
 }

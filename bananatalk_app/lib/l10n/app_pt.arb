@@ -4643,5 +4643,12 @@
   "blockedCantMessageThisUser": "Você não pode enviar mensagens para este usuário.",
   "blockedActionNotAllowed": "Você não pode realizar esta ação",
   "blockedCantLike": "Você não pode curtir este conteúdo",
-  "blockedCantComment": "Você não pode comentar este conteúdo"
+  "blockedCantComment": "Você não pode comentar este conteúdo",
+  "imageViewerRotate": "Girar",
+  "momentNotFound": "Momento não encontrado",
+  "momentRecordingCapped": "Gravação limitada a 60 segundos",
+  "momentVoiceNoteUploaded": "Nota de voz enviada",
+  "momentUploadDidNotComplete": "O envio não foi concluído.",
+  "momentUploadGiveUp": "Essa foi a última tentativa — provavelmente o problema é a conexão, não o arquivo. Seu momento já foi publicado; você pode adicionar a nota de voz depois editando-o.",
+  "momentUploadTriesLeft": "{count, plural, =1{Resta 1 tentativa.} other{Restam {count} tentativas.}}"
 }

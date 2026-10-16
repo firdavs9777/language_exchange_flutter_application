@@ -4657,5 +4657,12 @@
   "blockedCantMessageThisUser": "No puedes enviar mensajes a este usuario.",
   "blockedActionNotAllowed": "No puedes realizar esta acción",
   "blockedCantLike": "No puedes dar me gusta a este contenido",
-  "blockedCantComment": "No puedes comentar este contenido"
+  "blockedCantComment": "No puedes comentar este contenido",
+  "imageViewerRotate": "Girar",
+  "momentNotFound": "No se encontró el momento",
+  "momentRecordingCapped": "La grabación se limitó a 60 segundos",
+  "momentVoiceNoteUploaded": "Nota de voz subida",
+  "momentUploadDidNotComplete": "La subida no se completó.",
+  "momentUploadGiveUp": "Ese fue el último intento: probablemente sea la conexión y no el archivo. Tu momento ya está publicado; puedes añadir la nota de voz más tarde editándolo.",
+  "momentUploadTriesLeft": "{count, plural, =1{Queda 1 intento.} other{Quedan {count} intentos.}}"
 }

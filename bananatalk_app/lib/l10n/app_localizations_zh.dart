@@ -12117,6 +12117,34 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get blockedCantComment => '你无法评论此内容';
+
+  @override
+  String get imageViewerRotate => '旋转';
+
+  @override
+  String get momentNotFound => '未找到动态';
+
+  @override
+  String get momentRecordingCapped => '录音已限制为 60 秒';
+
+  @override
+  String get momentVoiceNoteUploaded => '语音已上传';
+
+  @override
+  String get momentUploadDidNotComplete => '上传未完成。';
+
+  @override
+  String get momentUploadGiveUp => '这是最后一次尝试——问题很可能出在网络连接而不是文件。你的动态已经发布，之后可以编辑动态再添加语音。';
+
+  @override
+  String momentUploadTriesLeft(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '还可以尝试 $count 次。',
+    );
+    return '$_temp0';
+  }
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -24232,4 +24260,32 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get blockedCantComment => '你無法留言此內容';
+
+  @override
+  String get imageViewerRotate => '旋轉';
+
+  @override
+  String get momentNotFound => '找不到動態';
+
+  @override
+  String get momentRecordingCapped => '錄音已限制為 60 秒';
+
+  @override
+  String get momentVoiceNoteUploaded => '語音已上傳';
+
+  @override
+  String get momentUploadDidNotComplete => '上傳未完成。';
+
+  @override
+  String get momentUploadGiveUp => '這是最後一次嘗試——問題很可能出在網路連線而不是檔案。你的動態已經發布，之後可以編輯動態再加入語音。';
+
+  @override
+  String momentUploadTriesLeft(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '還可以嘗試 $count 次。',
+    );
+    return '$_temp0';
+  }
 }

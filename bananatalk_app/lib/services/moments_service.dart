@@ -6,6 +6,8 @@ import 'package:bananatalk_app/service/endpoints.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:bananatalk_app/services/link_constants.dart';
 
+/// On a thrown failure (offline, timeout, bad JSON) `error` is the raw
+/// exception text: show it through `friendlyErrorMessage`, not as-is.
 class MomentsService {
   static Future<String?> _getToken() async {
     final prefs = await SharedPreferences.getInstance();
@@ -53,9 +55,10 @@ class MomentsService {
         };
       }
     } catch (e) {
+      debugPrint('MomentsService.saveMoment failed: $e');
       return {
         'success': false,
-        'error': 'Network error: ${e.toString()}',
+        'error': e.toString(),
       };
     }
   }
@@ -91,9 +94,10 @@ class MomentsService {
         };
       }
     } catch (e) {
+      debugPrint('MomentsService.unsaveMoment failed: $e');
       return {
         'success': false,
-        'error': 'Network error: ${e.toString()}',
+        'error': e.toString(),
       };
     }
   }
@@ -138,9 +142,10 @@ class MomentsService {
         );
       }
     } catch (e) {
+      debugPrint('MomentsService.getSavedMoments failed: $e');
       return MomentsResponse(
         success: false,
-        error: 'Network error: ${e.toString()}',
+        error: e.toString(),
       );
     }
   }
@@ -174,9 +179,10 @@ class MomentsService {
         };
       }
     } catch (e) {
+      debugPrint('MomentsService.shareMoment failed: $e');
       return {
         'success': false,
-        'error': 'Network error: ${e.toString()}',
+        'error': e.toString(),
       };
     }
   }
@@ -229,9 +235,10 @@ class MomentsService {
         };
       }
     } catch (e) {
+      debugPrint('MomentsService.reportMoment failed: $e');
       return {
         'success': false,
-        'error': 'Network error: ${e.toString()}',
+        'error': e.toString(),
       };
     }
   }
@@ -266,9 +273,10 @@ class MomentsService {
         );
       }
     } catch (e) {
+      debugPrint('MomentsService.getTrendingMoments failed: $e');
       return MomentsResponse(
         success: false,
-        error: 'Network error: ${e.toString()}',
+        error: e.toString(),
       );
     }
   }
@@ -301,9 +309,10 @@ class MomentsService {
         );
       }
     } catch (e) {
+      debugPrint('MomentsService.exploreMoments failed: $e');
       return MomentsResponse(
         success: false,
-        error: 'Network error: ${e.toString()}',
+        error: e.toString(),
       );
     }
   }
@@ -346,9 +355,10 @@ class MomentsService {
         );
       }
     } catch (e) {
+      debugPrint('MomentsService.getUserMoments failed: $e');
       return MomentsResponse(
         success: false,
-        error: 'Network error: ${e.toString()}',
+        error: e.toString(),
       );
     }
   }
@@ -387,9 +397,10 @@ class MomentsService {
         };
       }
     } catch (e) {
+      debugPrint('MomentsService.getMoment failed: $e');
       return {
         'success': false,
-        'error': 'Network error: ${e.toString()}',
+        'error': e.toString(),
       };
     }
   }
@@ -429,9 +440,10 @@ class MomentsService {
         };
       }
     } catch (e) {
+      debugPrint('MomentsService.likeMoment failed: $e');
       return {
         'success': false,
-        'error': 'Network error: ${e.toString()}',
+        'error': e.toString(),
       };
     }
   }
@@ -471,9 +483,10 @@ class MomentsService {
         };
       }
     } catch (e) {
+      debugPrint('MomentsService.dislikeMoment failed: $e');
       return {
         'success': false,
-        'error': 'Network error: ${e.toString()}',
+        'error': e.toString(),
       };
     }
   }
@@ -517,9 +530,10 @@ class MomentsService {
         };
       }
     } catch (e) {
+      debugPrint('MomentsService.getComments failed: $e');
       return {
         'success': false,
-        'error': 'Network error: ${e.toString()}',
+        'error': e.toString(),
       };
     }
   }
@@ -563,9 +577,10 @@ class MomentsService {
         };
       }
     } catch (e) {
+      debugPrint('MomentsService.addComment failed: $e');
       return {
         'success': false,
-        'error': 'Network error: ${e.toString()}',
+        'error': e.toString(),
       };
     }
   }
@@ -600,9 +615,10 @@ class MomentsService {
         };
       }
     } catch (e) {
+      debugPrint('MomentsService.deleteComment failed: $e');
       return {
         'success': false,
-        'error': 'Network error: ${e.toString()}',
+        'error': e.toString(),
       };
     }
   }
@@ -635,7 +651,8 @@ class MomentsService {
         };
       }
     } catch (e) {
-      return {'success': false, 'error': 'Network error: ${e.toString()}'};
+      debugPrint('MomentsService.editComment failed: $e');
+      return {'success': false, 'error': e.toString()};
     }
   }
 
@@ -675,7 +692,7 @@ class MomentsService {
       }
     } catch (e) {
       debugPrint('💬❤️ [Service] likeComment EXCEPTION: $e');
-      return {'success': false, 'error': 'Network error: ${e.toString()}'};
+      return {'success': false, 'error': e.toString()};
     }
   }
 
@@ -757,7 +774,8 @@ class MomentsService {
         return {'success': false, 'error': 'Failed to get replies'};
       }
     } catch (e) {
-      return {'success': false, 'error': 'Network error: ${e.toString()}'};
+      debugPrint('MomentsService.getReplies failed: $e');
+      return {'success': false, 'error': e.toString()};
     }
   }
 
@@ -793,9 +811,10 @@ class MomentsService {
         };
       }
     } catch (e) {
+      debugPrint('MomentsService.translateMoment failed: $e');
       return {
         'success': false,
-        'error': 'Network error: ${e.toString()}',
+        'error': e.toString(),
       };
     }
   }
@@ -828,9 +847,10 @@ class MomentsService {
         };
       }
     } catch (e) {
+      debugPrint('MomentsService.getMomentTranslations failed: $e');
       return {
         'success': false,
-        'error': 'Network error: ${e.toString()}',
+        'error': e.toString(),
       };
     }
   }
@@ -866,9 +886,10 @@ class MomentsService {
         };
       }
     } catch (e) {
+      debugPrint('MomentsService.translateComment failed: $e');
       return {
         'success': false,
-        'error': 'Network error: ${e.toString()}',
+        'error': e.toString(),
       };
     }
   }
@@ -902,9 +923,10 @@ class MomentsService {
         };
       }
     } catch (e) {
+      debugPrint('MomentsService.getCommentTranslations failed: $e');
       return {
         'success': false,
-        'error': 'Network error: ${e.toString()}',
+        'error': e.toString(),
       };
     }
   }

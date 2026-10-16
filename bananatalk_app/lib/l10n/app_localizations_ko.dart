@@ -12117,4 +12117,32 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get blockedCantComment => '이 콘텐츠에 댓글을 달 수 없습니다';
+
+  @override
+  String get imageViewerRotate => '회전';
+
+  @override
+  String get momentNotFound => '모먼트를 찾을 수 없어요';
+
+  @override
+  String get momentRecordingCapped => '녹음은 60초까지만 저장돼요';
+
+  @override
+  String get momentVoiceNoteUploaded => '음성 메모를 올렸어요';
+
+  @override
+  String get momentUploadDidNotComplete => '업로드가 완료되지 않았어요.';
+
+  @override
+  String get momentUploadGiveUp => '마지막 시도였어요. 파일보다는 연결 문제일 가능성이 커요. 모먼트는 이미 올라갔으니 나중에 수정해서 음성 메모를 추가할 수 있어요.';
+
+  @override
+  String momentUploadTriesLeft(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count번 더 시도할 수 있어요.',
+    );
+    return '$_temp0';
+  }
 }

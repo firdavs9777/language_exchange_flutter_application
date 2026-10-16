@@ -4839,5 +4839,12 @@
   "blockedCantMessageThisUser": "Bu kullanıcıya mesaj gönderemezsin.",
   "blockedActionNotAllowed": "Bu işlemi yapamazsın",
   "blockedCantLike": "Bu içeriği beğenemezsin",
-  "blockedCantComment": "Bu içeriğe yorum yapamazsın"
+  "blockedCantComment": "Bu içeriğe yorum yapamazsın",
+  "imageViewerRotate": "Döndür",
+  "momentNotFound": "An bulunamadı",
+  "momentRecordingCapped": "Kayıt 60 saniyeyle sınırlandı",
+  "momentVoiceNoteUploaded": "Sesli not yüklendi",
+  "momentUploadDidNotComplete": "Yükleme tamamlanmadı.",
+  "momentUploadGiveUp": "Bu son denemeydi — sorun büyük ihtimalle dosyada değil bağlantıda. Momentin zaten paylaşıldı; sesli notu daha sonra düzenleyerek ekleyebilirsin.",
+  "momentUploadTriesLeft": "{count, plural, other{{count} deneme hakkın kaldı.}}"
 }

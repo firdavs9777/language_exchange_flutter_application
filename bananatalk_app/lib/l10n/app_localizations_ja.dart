@@ -12117,4 +12117,32 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get blockedCantComment => 'このコンテンツにはコメントできません';
+
+  @override
+  String get imageViewerRotate => '回転';
+
+  @override
+  String get momentNotFound => 'モーメントが見つかりません';
+
+  @override
+  String get momentRecordingCapped => '録音は60秒までに制限されました';
+
+  @override
+  String get momentVoiceNoteUploaded => 'ボイスメモをアップロードしました';
+
+  @override
+  String get momentUploadDidNotComplete => 'アップロードが完了しませんでした。';
+
+  @override
+  String get momentUploadGiveUp => 'これが最後の試行でした。ファイルではなく通信状況が原因の可能性があります。モーメントはすでに投稿済みです。後で編集してボイスメモを追加できます。';
+
+  @override
+  String momentUploadTriesLeft(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '残り$count回です。',
+    );
+    return '$_temp0';
+  }
 }

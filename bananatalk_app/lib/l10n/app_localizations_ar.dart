@@ -12229,4 +12229,37 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get blockedCantComment => 'لا يمكنك التعليق على هذا المحتوى';
+
+  @override
+  String get imageViewerRotate => 'تدوير';
+
+  @override
+  String get momentNotFound => 'لم يتم العثور على اللحظة';
+
+  @override
+  String get momentRecordingCapped => 'تم قص التسجيل إلى 60 ثانية';
+
+  @override
+  String get momentVoiceNoteUploaded => 'تم رفع المقطع الصوتي';
+
+  @override
+  String get momentUploadDidNotComplete => 'لم يكتمل الرفع.';
+
+  @override
+  String get momentUploadGiveUp => 'كانت هذه المحاولة الأخيرة — على الأرجح أن المشكلة في الاتصال وليست في الملف. لحظتك منشورة بالفعل؛ يمكنك إضافة المقطع الصوتي لاحقًا بتعديلها.';
+
+  @override
+  String momentUploadTriesLeft(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'تبقّت $count محاولة.',
+      many: 'تبقّت $count محاولة.',
+      few: 'تبقّت $count محاولات.',
+      two: 'تبقّت محاولتان.',
+      one: 'تبقّت محاولة واحدة.',
+      zero: 'لم تتبقَّ محاولات.',
+    );
+    return '$_temp0';
+  }
 }

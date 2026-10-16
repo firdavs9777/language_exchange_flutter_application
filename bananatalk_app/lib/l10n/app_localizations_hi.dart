@@ -12146,4 +12146,33 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get blockedCantComment => 'आप इस सामग्री पर टिप्पणी नहीं कर सकते';
+
+  @override
+  String get imageViewerRotate => 'घुमाएँ';
+
+  @override
+  String get momentNotFound => 'मोमेंट नहीं मिला';
+
+  @override
+  String get momentRecordingCapped => 'रिकॉर्डिंग 60 सेकंड तक सीमित की गई';
+
+  @override
+  String get momentVoiceNoteUploaded => 'वॉइस नोट अपलोड हो गया';
+
+  @override
+  String get momentUploadDidNotComplete => 'अपलोड पूरा नहीं हुआ।';
+
+  @override
+  String get momentUploadGiveUp => 'यह आख़िरी कोशिश थी — समस्या शायद फ़ाइल नहीं, कनेक्शन में है। आपका मोमेंट पहले ही पोस्ट हो चुका है; आप बाद में उसे एडिट करके वॉइस नोट जोड़ सकते हैं।';
+
+  @override
+  String momentUploadTriesLeft(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count कोशिशें बाकी हैं।',
+      one: '1 कोशिश बाकी है।',
+    );
+    return '$_temp0';
+  }
 }

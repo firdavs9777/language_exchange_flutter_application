@@ -417,8 +417,9 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     if (pickedFiles.length > remainingSlots) {
       showMomentsSnackBar(
         context,
-        message:
-            'Maximum $maxImages images allowed. Only $remainingSlots images added.',
+        message: AppLocalizations.of(
+          context,
+        )!.maximumImagesAddedPartial(maxImages, remainingSlots),
       );
     }
 
@@ -506,8 +507,9 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
         if (mounted) {
           showMomentsSnackBar(
             context,
-            message:
-                'Unsupported format. Use: ${allowedExtensions.join(", ").toUpperCase()}',
+            message: AppLocalizations.of(context)!.unsupportedVideoFormat(
+              allowedExtensions.join(", ").toUpperCase(),
+            ),
             type: MomentsSnackBarType.error,
           );
         }
@@ -593,8 +595,10 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
         if (mounted && result.wasCompressed) {
           showMomentsSnackBar(
             context,
-            message:
-                'Video compressed: ${result.fileSizeMB}MB (saved ${result.compressionSavings.toStringAsFixed(0)}%)',
+            message: AppLocalizations.of(context)!.videoOptimized(
+              result.fileSizeMB,
+              result.compressionSavings.toStringAsFixed(0),
+            ),
             type: MomentsSnackBarType.success,
           );
         }
@@ -604,7 +608,11 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
         if (mounted) {
           showMomentsSnackBar(
             context,
-            message: result.error ?? 'Failed to process video',
+            message: friendlyErrorMessage(
+              AppLocalizations.of(context)!,
+              result.error,
+              prefix: AppLocalizations.of(context)!.failedToProcessVideo,
+            ),
             type: MomentsSnackBarType.error,
           );
         }
@@ -756,7 +764,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
           if (durationSeconds > 60) {
             showMomentsSnackBar(
               context,
-              message: 'Recording capped at 60 seconds',
+              message: AppLocalizations.of(context)!.momentRecordingCapped,
             );
           }
           _updateButtonState();
@@ -805,12 +813,14 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     String momentId,
     String initialReason,
   ) async {
+    final l10n = AppLocalizations.of(context)!;
     var attemptsMade = 0;
     var reason = initialReason;
 
     while (true) {
       final decision = decideRetry(attemptsMade: attemptsMade);
       final message = uploadFailureMessage(
+        l10n,
         attemptsMade: attemptsMade,
         reason: reason,
       );
@@ -885,14 +895,15 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
         if (mounted) {
           showMomentsSnackBar(
             context,
-            message: 'Voice note uploaded',
+            message: AppLocalizations.of(context)!.momentVoiceNoteUploaded,
             type: MomentsSnackBarType.success,
           );
         }
         return;
       } catch (e) {
         // Round the loop again with the new reason and one more attempt spent.
-        reason = e.toString();
+        debugPrint('Voice note retry failed: $e');
+        reason = friendlyErrorMessage(l10n, e);
       }
     }
   }
@@ -1013,7 +1024,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
       if (mounted) {
         showMomentsSnackBar(
           context,
-          message: '✓ Location added',
+          message: '✓ ${AppLocalizations.of(context)!.locationAdded}',
           type: MomentsSnackBarType.success,
           duration: const Duration(seconds: 1),
         );
@@ -1446,7 +1457,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
         // dialog. Without one the voice note IS the post: roll back and let
         // the user tap Post again, rather than leave an empty moment.
         bool audioUploadFailed = false;
-        String? audioUploadError;
+        Object? audioUploadError;
         if (_recordedAudio != null) {
           try {
             await ref
@@ -1466,8 +1477,9 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
               await _rollBackMoment(moment.id);
               rethrow;
             }
+            debugPrint('Voice note upload failed: $e');
             audioUploadFailed = true;
-            audioUploadError = e.toString().replaceFirst('Exception: ', '');
+            audioUploadError = e;
           }
         }
 
@@ -1498,7 +1510,10 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
           if (audioUploadFailed) {
             await _showAudioUploadErrorDialog(
               moment.id,
-              audioUploadError ?? 'Failed to upload audio',
+              friendlyErrorMessage(
+                AppLocalizations.of(context)!,
+                audioUploadError,
+              ),
             );
           }
 
@@ -1530,10 +1545,10 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
             debugPrint('Error handling limit error: $err');
           }
         } else {
-          final errorMessage = e.toString().replaceFirst('Exception: ', '');
+          debugPrint('Create moment failed: $e');
           showMomentsSnackBar(
             context,
-            message: errorMessage,
+            message: friendlyErrorMessage(AppLocalizations.of(context)!, e),
             type: MomentsSnackBarType.error,
             duration: const Duration(seconds: 4),
           );
@@ -1632,11 +1647,15 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
         );
       }
     } catch (e) {
+      debugPrint('Queue moment upload failed: $e');
       if (mounted) {
         showMomentsSnackBar(
           context,
-          message:
-              'Failed to queue upload: ${e.toString().replaceFirst('Exception: ', '')}',
+          message: friendlyErrorMessage(
+            AppLocalizations.of(context)!,
+            e,
+            prefix: AppLocalizations.of(context)!.failedToQueueUpload,
+          ),
           type: MomentsSnackBarType.error,
         );
       }

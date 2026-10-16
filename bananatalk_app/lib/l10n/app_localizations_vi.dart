@@ -12117,4 +12117,32 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get blockedCantComment => 'Bạn không thể bình luận nội dung này';
+
+  @override
+  String get imageViewerRotate => 'Xoay';
+
+  @override
+  String get momentNotFound => 'Không tìm thấy khoảnh khắc';
+
+  @override
+  String get momentRecordingCapped => 'Bản ghi âm được giới hạn ở 60 giây';
+
+  @override
+  String get momentVoiceNoteUploaded => 'Đã tải lên ghi âm';
+
+  @override
+  String get momentUploadDidNotComplete => 'Tải lên chưa hoàn tất.';
+
+  @override
+  String get momentUploadGiveUp => 'Đó là lần thử cuối cùng — có lẽ do kết nối chứ không phải do tệp. Khoảnh khắc của bạn đã được đăng; bạn có thể thêm ghi âm sau bằng cách chỉnh sửa.';
+
+  @override
+  String momentUploadTriesLeft(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Còn $count lần thử.',
+    );
+    return '$_temp0';
+  }
 }

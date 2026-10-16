@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/services/stories_service.dart';
 import 'package:bananatalk_app/providers/provider_models/story_model.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
@@ -126,10 +127,15 @@ class _CreateHighlightSheetState extends State<_CreateHighlightSheet> {
         });
       }
     } catch (e) {
+      debugPrint('Highlight create failed: $e');
       if (!mounted) return;
       setState(() {
         _isSaving = false;
-        _error = e.toString().replaceFirst('Exception: ', '');
+        _error = friendlyErrorMessage(
+          AppLocalizations.of(context)!,
+          e,
+          prefix: AppLocalizations.of(context)!.storyHighlightCreateFailed,
+        );
       });
     }
   }
@@ -260,10 +266,15 @@ class _EditHighlightSheetState extends State<_EditHighlightSheet> {
         });
       }
     } catch (e) {
+      debugPrint('Highlight rename failed: $e');
       if (!mounted) return;
       setState(() {
         _isSaving = false;
-        _error = e.toString().replaceFirst('Exception: ', '');
+        _error = friendlyErrorMessage(
+          AppLocalizations.of(context)!,
+          e,
+          prefix: AppLocalizations.of(context)!.storyHighlightRenameFailed,
+        );
       });
     }
   }
@@ -320,10 +331,15 @@ class _EditHighlightSheetState extends State<_EditHighlightSheet> {
         });
       }
     } catch (e) {
+      debugPrint('Highlight delete failed: $e');
       if (!mounted) return;
       setState(() {
         _isSaving = false;
-        _error = e.toString().replaceFirst('Exception: ', '');
+        _error = friendlyErrorMessage(
+          AppLocalizations.of(context)!,
+          e,
+          prefix: AppLocalizations.of(context)!.storyHighlightDeleteFailed,
+        );
       });
     }
   }
