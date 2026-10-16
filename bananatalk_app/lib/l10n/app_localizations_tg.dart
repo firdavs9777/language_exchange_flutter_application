@@ -12318,4 +12318,10 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get referralCodeNotAccepted => 'Ин рамзи даъватро дар ҳисоби шумо истифода бурдан мумкин нест.';
+
+  @override
+  String get rateBananaTalkRow => 'Ба BananaTalk баҳо диҳед';
+
+  @override
+  String get rateBananaTalkRowSubtitle => 'Дар мағоза шарҳ гузоред';
 }

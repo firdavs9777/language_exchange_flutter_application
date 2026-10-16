@@ -4923,5 +4923,7 @@
   "referralEnterCodeHint": "Code d'invitation",
   "referralApply": "Appliquer",
   "referralCodeUnknown": "Ce code d'invitation n'existe pas. Vérifiez-le et réessayez.",
-  "referralCodeNotAccepted": "Ce code d'invitation ne peut pas être utilisé sur votre compte."
+  "referralCodeNotAccepted": "Ce code d'invitation ne peut pas être utilisé sur votre compte.",
+  "rateBananaTalkRow": "Noter BananaTalk",
+  "rateBananaTalkRowSubtitle": "Laissez un avis sur le store"
 }

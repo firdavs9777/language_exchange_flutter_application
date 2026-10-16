@@ -12298,4 +12298,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get referralCodeNotAccepted => 'Không thể dùng mã mời này cho tài khoản của bạn.';
+
+  @override
+  String get rateBananaTalkRow => 'Đánh giá BananaTalk';
+
+  @override
+  String get rateBananaTalkRowSubtitle => 'Để lại đánh giá trên cửa hàng';
 }

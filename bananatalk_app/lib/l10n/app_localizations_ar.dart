@@ -12415,4 +12415,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get referralCodeNotAccepted => 'لا يمكن استخدام رمز الدعوة هذا على حسابك.';
+
+  @override
+  String get rateBananaTalkRow => 'قيّم BananaTalk';
+
+  @override
+  String get rateBananaTalkRowSubtitle => 'اترك تقييمًا في المتجر';
 }

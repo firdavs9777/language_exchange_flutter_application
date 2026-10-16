@@ -39,6 +39,8 @@ const Set<String> kDeviceLevelPrefsKeys = {
   'auto_download_documents',
   // Store review / app-update / ads-notice nags are per install.
   'review_prompt_at',
+  'review_prompt_count',
+  'review_prompt_first_seen_at',
   'app_update_last_soft_prompt_ms',
   'ads_notice_shown_v1',
   // Last server value of studyHubEnabled (StudyHubFlagCache): describes the

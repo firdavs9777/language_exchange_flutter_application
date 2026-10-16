@@ -12328,4 +12328,10 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get referralCodeNotAccepted => 'यह आमंत्रण कोड आपके खाते पर इस्तेमाल नहीं किया जा सकता।';
+
+  @override
+  String get rateBananaTalkRow => 'BananaTalk को रेट करें';
+
+  @override
+  String get rateBananaTalkRowSubtitle => 'स्टोर पर समीक्षा लिखें';
 }

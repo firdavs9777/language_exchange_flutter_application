@@ -190,6 +190,11 @@ class AnalyticsService {
   Future<void> logNotificationPrimeShown(String trigger) =>
       _log('notification_prime_shown', {'trigger': trigger});
 
+  /// The native store-review dialog was requested (the OS may still choose
+  /// not to show it). [trigger] is a `RatePromptTrigger.slug`.
+  Future<void> ratePromptShown({required String trigger}) =>
+      _log('rate_prompt_shown', {'trigger': trigger});
+
   /// AI Study hub (spec 2026-10-13 §9). [badge] is the tile's badge at tap
   /// time ('locked' | 'exhausted' | 'low' | 'due' | 'new'), omitted when none.
   Future<void> studyTileTap({required String feature, String? badge}) =>

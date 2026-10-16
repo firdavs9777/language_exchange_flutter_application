@@ -22387,6 +22387,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This invite code can\'t be used on your account.'**
   String get referralCodeNotAccepted;
+
+  /// Drawer > Support row that opens the App Store / Play Store page
+  ///
+  /// In en, this message translates to:
+  /// **'Rate BananaTalk'**
+  String get rateBananaTalkRow;
+
+  /// Subtitle under the Rate BananaTalk row
+  ///
+  /// In en, this message translates to:
+  /// **'Leave a review in the store'**
+  String get rateBananaTalkRowSubtitle;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

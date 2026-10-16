@@ -25,6 +25,7 @@ import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/theme_mode_provider.dart';
 import 'package:bananatalk_app/utils/client_info.dart';
 import 'package:bananatalk_app/utils/help_links.dart';
+import 'package:bananatalk_app/services/review_prompt_service.dart';
 import 'package:bananatalk_app/utils/image_utils.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
@@ -430,6 +431,17 @@ class LeftDrawer extends ConsumerWidget {
                         onTap: () {
                           Navigator.pop(context);
                           SupportSheet.show(context);
+                        },
+                      ),
+                      const DrawerDivider(),
+                      DrawerMenuItem(
+                        icon: Icons.star_rate_rounded,
+                        iconColor: const Color(0xFFFFB300),
+                        title: l10n.rateBananaTalkRow,
+                        subtitle: l10n.rateBananaTalkRowSubtitle,
+                        onTap: () {
+                          Navigator.pop(context);
+                          ReviewPromptService.openStoreListing();
                         },
                       ),
                       const DrawerDivider(),

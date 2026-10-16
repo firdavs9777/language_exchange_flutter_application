@@ -8289,5 +8289,13 @@
   "referralCodeNotAccepted": "This invite code can't be used on your account.",
   "@referralCodeNotAccepted": {
     "description": "Error under the invite-code field: server refused (already used a code, own code, account too old, inviter at limit)"
+  },
+  "rateBananaTalkRow": "Rate BananaTalk",
+  "@rateBananaTalkRow": {
+    "description": "Drawer > Support row that opens the App Store / Play Store page"
+  },
+  "rateBananaTalkRowSubtitle": "Leave a review in the store",
+  "@rateBananaTalkRowSubtitle": {
+    "description": "Subtitle under the Rate BananaTalk row"
   }
 }

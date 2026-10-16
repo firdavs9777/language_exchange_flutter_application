@@ -4374,5 +4374,7 @@
   "referralEnterCodeHint": "邀請碼",
   "referralApply": "使用",
   "referralCodeUnknown": "此邀請碼不存在，請檢查後再試一次。",
-  "referralCodeNotAccepted": "此邀請碼無法用於你的帳號。"
+  "referralCodeNotAccepted": "此邀請碼無法用於你的帳號。",
+  "rateBananaTalkRow": "為 BananaTalk 評分",
+  "rateBananaTalkRowSubtitle": "在應用程式商店留下評價"
 }

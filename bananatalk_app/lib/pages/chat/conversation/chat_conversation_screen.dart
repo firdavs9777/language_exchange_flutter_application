@@ -127,6 +127,8 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
   // Priming on the first live incoming message (spec 4.2).
   final DateTime _openedAt = DateTime.now();
   bool _primedOnReceive = false;
+  // Store-review ask on the first live reply, once per screen.
+  bool _reviewAskedOnReceive = false;
   // The first finished history load is the baseline, not a live message.
   bool _chatBaselined = false;
 
@@ -297,13 +299,26 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
           ))
           .messages;
       final mine = messages.where((m) => m.sender.id == me).length;
-      unawaited(
-        ReviewPromptService().maybePrompt(
-          myMessages: mine,
-          theirMessages: messages.length - mine,
-        ),
-      );
+      if (!isRealConversation(
+          myMessages: mine, theirMessages: messages.length - mine)) {
+        return;
+      }
+      _askForReviewLater(RatePromptTrigger.conversation, delay: Duration.zero);
     } catch (_) {}
+  }
+
+  void _askForReviewLater(
+    RatePromptTrigger trigger, {
+    Duration delay = const Duration(seconds: 2),
+  }) {
+    DateTime? joinedAt;
+    try {
+      joinedAt = parseJoinedAt(ref.read(userProvider).valueOrNull?.createdAt);
+    } catch (_) {}
+    unawaited(Future<void>.delayed(delay, () async {
+      if (!mounted) return;
+      await ReviewPromptService().maybePrompt(trigger, joinedAt: joinedAt);
+    }));
   }
 
   /// Scroll to a specific message by ID
@@ -2006,7 +2021,9 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
             isHistoryLoadComplete(
                 previousLoading: previous.isLoading,
                 nextLoading: next.isLoading);
-      } else if (previous != null && !_primedOnReceive && !next.isLoading) {
+      } else if (previous != null &&
+          (!_primedOnReceive || !_reviewAskedOnReceive) &&
+          !next.isLoading) {
         final live = shouldTreatAsLive(
           baselineSet: true,
           beforeIds: {for (final m in previous.messages) m.id},
@@ -2017,7 +2034,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
           me: _currentUserId,
           openedAt: _openedAt,
         );
-        if (live) {
+        if (live && !_primedOnReceive) {
           _primedOnReceive = true;
           WidgetsBinding.instance.addPostFrameCallback((_) {
             if (mounted) {
@@ -2025,6 +2042,17 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                   trigger: 'first_message_received');
             }
           });
+        }
+        final me = _currentUserId;
+        if (live &&
+            !_reviewAskedOnReceive &&
+            me != null &&
+            next.messages.any((m) => m.sender.id == me)) {
+          // A reply to something I sent: a positive moment for a store
+          // review. Waits so notification priming (same event, higher
+          // priority) takes the shared pop-up budget first if it shows.
+          _reviewAskedOnReceive = true;
+          _askForReviewLater(RatePromptTrigger.firstReply);
         }
       }
       // Check if a new message was added (not just loading initial messages)

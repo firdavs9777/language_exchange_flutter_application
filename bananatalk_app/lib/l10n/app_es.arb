@@ -4713,5 +4713,7 @@
   "referralEnterCodeHint": "Código de invitación",
   "referralApply": "Aplicar",
   "referralCodeUnknown": "Ese código de invitación no existe. Revísalo e inténtalo de nuevo.",
-  "referralCodeNotAccepted": "Este código de invitación no se puede usar en tu cuenta."
+  "referralCodeNotAccepted": "Este código de invitación no se puede usar en tu cuenta.",
+  "rateBananaTalkRow": "Valora BananaTalk",
+  "rateBananaTalkRowSubtitle": "Deja una reseña en la tienda"
 }

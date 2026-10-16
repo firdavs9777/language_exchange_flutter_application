@@ -4697,5 +4697,7 @@
   "referralEnterCodeHint": "邀请码",
   "referralApply": "使用",
   "referralCodeUnknown": "该邀请码不存在，请检查后重试。",
-  "referralCodeNotAccepted": "此邀请码无法用于你的账号。"
+  "referralCodeNotAccepted": "此邀请码无法用于你的账号。",
+  "rateBananaTalkRow": "给 BananaTalk 评分",
+  "rateBananaTalkRowSubtitle": "在应用商店留下评价"
 }

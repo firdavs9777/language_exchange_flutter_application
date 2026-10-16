@@ -12328,4 +12328,10 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get referralCodeNotAccepted => 'Dieser Einladungscode kann für dein Konto nicht verwendet werden.';
+
+  @override
+  String get rateBananaTalkRow => 'BananaTalk bewerten';
+
+  @override
+  String get rateBananaTalkRowSubtitle => 'Hinterlasse eine Bewertung im Store';
 }

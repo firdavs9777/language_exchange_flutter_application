@@ -12794,4 +12794,10 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get referralCodeNotAccepted => 'Этот код приглашения нельзя использовать в вашем аккаунте.';
+
+  @override
+  String get rateBananaTalkRow => 'Оценить BananaTalk';
+
+  @override
+  String get rateBananaTalkRowSubtitle => 'Оставьте отзыв в магазине приложений';
 }

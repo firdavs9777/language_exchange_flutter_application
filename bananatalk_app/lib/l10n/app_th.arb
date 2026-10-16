@@ -4683,5 +4683,7 @@
   "referralEnterCodeHint": "รหัสเชิญ",
   "referralApply": "ใช้",
   "referralCodeUnknown": "ไม่มีรหัสเชิญนี้ ตรวจสอบแล้วลองอีกครั้ง",
-  "referralCodeNotAccepted": "ใช้รหัสเชิญนี้กับบัญชีของคุณไม่ได้"
+  "referralCodeNotAccepted": "ใช้รหัสเชิญนี้กับบัญชีของคุณไม่ได้",
+  "rateBananaTalkRow": "ให้คะแนน BananaTalk",
+  "rateBananaTalkRowSubtitle": "เขียนรีวิวใน Store"
 }

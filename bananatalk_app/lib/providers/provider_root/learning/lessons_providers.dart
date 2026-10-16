@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/services/learning_service.dart';
 import 'package:bananatalk_app/models/learning/lesson_model.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'package:bananatalk_app/services/review_prompt_service.dart';
 
 // ==================== LESSON PROVIDERS ====================
 
@@ -186,7 +187,11 @@ class LessonPlayerState {
 
 /// Lesson player notifier
 class LessonPlayerNotifier extends StateNotifier<LessonPlayerState> {
-  LessonPlayerNotifier() : super(const LessonPlayerState());
+  LessonPlayerNotifier({this.onLessonCompleted})
+      : super(const LessonPlayerState());
+
+  /// Called once a submitted lesson succeeds (store-review moment).
+  final void Function()? onLessonCompleted;
 
   void startLesson(Lesson lesson) {
     state = LessonPlayerState(
@@ -382,6 +387,9 @@ class LessonPlayerNotifier extends StateNotifier<LessonPlayerState> {
 
     if (result['success'] == true) {
       ActivationStore().markDone(ActivationAction.lesson).ignore();
+      try {
+        onLessonCompleted?.call();
+      } catch (_) {}
     }
 
     state = state.copyWith(
@@ -398,5 +406,13 @@ class LessonPlayerNotifier extends StateNotifier<LessonPlayerState> {
 /// Lesson player provider
 final lessonPlayerProvider =
     StateNotifierProvider<LessonPlayerNotifier, LessonPlayerState>((ref) {
-  return LessonPlayerNotifier();
+  return LessonPlayerNotifier(onLessonCompleted: () {
+    DateTime? joinedAt;
+    try {
+      joinedAt = parseJoinedAt(ref.read(userProvider).valueOrNull?.createdAt);
+    } catch (_) {}
+    ReviewPromptService()
+        .maybePrompt(RatePromptTrigger.lesson, joinedAt: joinedAt)
+        .ignore();
+  });
 });

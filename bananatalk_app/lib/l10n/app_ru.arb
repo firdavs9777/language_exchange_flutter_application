@@ -4713,5 +4713,7 @@
   "referralEnterCodeHint": "Код приглашения",
   "referralApply": "Применить",
   "referralCodeUnknown": "Такого кода приглашения нет. Проверьте его и попробуйте ещё раз.",
-  "referralCodeNotAccepted": "Этот код приглашения нельзя использовать в вашем аккаунте."
+  "referralCodeNotAccepted": "Этот код приглашения нельзя использовать в вашем аккаунте.",
+  "rateBananaTalkRow": "Оценить BananaTalk",
+  "rateBananaTalkRowSubtitle": "Оставьте отзыв в магазине приложений"
 }
