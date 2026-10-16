@@ -12137,4 +12137,19 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get blockedCantComment => 'Шумо ба ин мундариҷа шарҳ навишта наметавонед';
+
+  @override
+  String get vipSwitchPlan => 'Иваз кардани нақша';
+
+  @override
+  String get vipCurrentPlan => 'Нақшаи ҷорӣ';
+
+  @override
+  String get vipSwitchPlanUnavailable => 'Дар ин ҳисоб обунаи Google Play барои иваз ёфт нашуд. Обунаи худро дар Google Play идора кунед.';
+
+  @override
+  String get vipSwitchScheduledTitle => 'Ивази нақша ба нақша гирифта шуд';
+
+  @override
+  String get vipSwitchScheduledBody => 'Нақшаи нави шумо пас аз анҷоми нақшаи ҷорӣ оғоз мешавад. То он вақт шумо VIP мемонед.';
 }

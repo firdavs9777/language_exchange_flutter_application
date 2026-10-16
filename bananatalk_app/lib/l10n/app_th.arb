@@ -4627,5 +4627,10 @@
   "blockedCantMessageThisUser": "คุณส่งข้อความถึงผู้ใช้นี้ไม่ได้",
   "blockedActionNotAllowed": "คุณทำสิ่งนี้ไม่ได้",
   "blockedCantLike": "คุณกดถูกใจเนื้อหานี้ไม่ได้",
-  "blockedCantComment": "คุณแสดงความคิดเห็นในเนื้อหานี้ไม่ได้"
+  "blockedCantComment": "คุณแสดงความคิดเห็นในเนื้อหานี้ไม่ได้",
+  "vipSwitchPlan": "เปลี่ยนแพ็กเกจ",
+  "vipCurrentPlan": "แพ็กเกจปัจจุบัน",
+  "vipSwitchPlanUnavailable": "ไม่พบการสมัครสมาชิก Google Play ที่จะเปลี่ยนในบัญชีนี้ จัดการการสมัครสมาชิกได้ใน Google Play",
+  "vipSwitchScheduledTitle": "กำหนดการเปลี่ยนแพ็กเกจแล้ว",
+  "vipSwitchScheduledBody": "แพ็กเกจใหม่จะเริ่มเมื่อแพ็กเกจปัจจุบันสิ้นสุด คุณยังเป็น VIP จนถึงตอนนั้น"
 }

@@ -12117,4 +12117,19 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get blockedCantComment => 'คุณแสดงความคิดเห็นในเนื้อหานี้ไม่ได้';
+
+  @override
+  String get vipSwitchPlan => 'เปลี่ยนแพ็กเกจ';
+
+  @override
+  String get vipCurrentPlan => 'แพ็กเกจปัจจุบัน';
+
+  @override
+  String get vipSwitchPlanUnavailable => 'ไม่พบการสมัครสมาชิก Google Play ที่จะเปลี่ยนในบัญชีนี้ จัดการการสมัครสมาชิกได้ใน Google Play';
+
+  @override
+  String get vipSwitchScheduledTitle => 'กำหนดการเปลี่ยนแพ็กเกจแล้ว';
+
+  @override
+  String get vipSwitchScheduledBody => 'แพ็กเกจใหม่จะเริ่มเมื่อแพ็กเกจปัจจุบันสิ้นสุด คุณยังเป็น VIP จนถึงตอนนั้น';
 }

@@ -4657,5 +4657,10 @@
   "blockedCantMessageThisUser": "Вы не можете писать этому пользователю.",
   "blockedActionNotAllowed": "Это действие недоступно",
   "blockedCantLike": "Вы не можете поставить лайк",
-  "blockedCantComment": "Вы не можете комментировать этот контент"
+  "blockedCantComment": "Вы не можете комментировать этот контент",
+  "vipSwitchPlan": "Сменить тариф",
+  "vipCurrentPlan": "Текущий тариф",
+  "vipSwitchPlanUnavailable": "В этом аккаунте не найдена подписка Google Play для смены. Управляйте подпиской в Google Play.",
+  "vipSwitchScheduledTitle": "Смена тарифа запланирована",
+  "vipSwitchScheduledBody": "Новый тариф начнётся, когда закончится текущий. До этого VIP сохраняется."
 }

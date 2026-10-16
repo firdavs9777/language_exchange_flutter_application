@@ -4657,5 +4657,10 @@
   "blockedCantMessageThisUser": "لا يمكنك إرسال رسائل إلى هذا المستخدم.",
   "blockedActionNotAllowed": "لا يمكنك تنفيذ هذا الإجراء",
   "blockedCantLike": "لا يمكنك الإعجاب بهذا المحتوى",
-  "blockedCantComment": "لا يمكنك التعليق على هذا المحتوى"
+  "blockedCantComment": "لا يمكنك التعليق على هذا المحتوى",
+  "vipSwitchPlan": "تغيير الخطة",
+  "vipCurrentPlan": "الخطة الحالية",
+  "vipSwitchPlanUnavailable": "لم نعثر على اشتراك Google Play على هذا الحساب لتغييره. أدر اشتراكك من Google Play.",
+  "vipSwitchScheduledTitle": "تمت جدولة تغيير الخطة",
+  "vipSwitchScheduledBody": "تبدأ خطتك الجديدة عند انتهاء خطتك الحالية. تبقى VIP حتى ذلك الحين."
 }

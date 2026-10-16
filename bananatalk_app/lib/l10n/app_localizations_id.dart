@@ -12128,4 +12128,19 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get blockedCantComment => 'Kamu tidak dapat mengomentari konten ini';
+
+  @override
+  String get vipSwitchPlan => 'Ganti paket';
+
+  @override
+  String get vipCurrentPlan => 'Paket saat ini';
+
+  @override
+  String get vipSwitchPlanUnavailable => 'Kami tidak menemukan langganan Google Play untuk diganti di akun ini. Kelola langganan Anda di Google Play.';
+
+  @override
+  String get vipSwitchScheduledTitle => 'Penggantian paket dijadwalkan';
+
+  @override
+  String get vipSwitchScheduledBody => 'Paket baru Anda dimulai saat paket saat ini berakhir. Anda tetap VIP sampai saat itu.';
 }

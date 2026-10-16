@@ -12135,4 +12135,19 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get blockedCantComment => 'Bu içeriğe yorum yapamazsın';
+
+  @override
+  String get vipSwitchPlan => 'Planı değiştir';
+
+  @override
+  String get vipCurrentPlan => 'Mevcut plan';
+
+  @override
+  String get vipSwitchPlanUnavailable => 'Bu hesapta değiştirilecek bir Google Play aboneliği bulunamadı. Aboneliğini Google Play\'den yönet.';
+
+  @override
+  String get vipSwitchScheduledTitle => 'Plan değişikliği planlandı';
+
+  @override
+  String get vipSwitchScheduledBody => 'Yeni planın mevcut planın bittiğinde başlar. O zamana kadar VIP kalırsın.';
 }

@@ -12117,4 +12117,19 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get blockedCantComment => '이 콘텐츠에 댓글을 달 수 없습니다';
+
+  @override
+  String get vipSwitchPlan => '플랜 변경';
+
+  @override
+  String get vipCurrentPlan => '현재 플랜';
+
+  @override
+  String get vipSwitchPlanUnavailable => '이 계정에서 변경할 Google Play 구독을 찾을 수 없습니다. Google Play에서 구독을 관리하세요.';
+
+  @override
+  String get vipSwitchScheduledTitle => '플랜 변경 예약됨';
+
+  @override
+  String get vipSwitchScheduledBody => '새 플랜은 현재 플랜이 끝나면 시작됩니다. 그때까지 VIP가 유지됩니다.';
 }

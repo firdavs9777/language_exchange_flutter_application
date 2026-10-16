@@ -4839,5 +4839,10 @@
   "blockedCantMessageThisUser": "Bu kullanıcıya mesaj gönderemezsin.",
   "blockedActionNotAllowed": "Bu işlemi yapamazsın",
   "blockedCantLike": "Bu içeriği beğenemezsin",
-  "blockedCantComment": "Bu içeriğe yorum yapamazsın"
+  "blockedCantComment": "Bu içeriğe yorum yapamazsın",
+  "vipSwitchPlan": "Planı değiştir",
+  "vipCurrentPlan": "Mevcut plan",
+  "vipSwitchPlanUnavailable": "Bu hesapta değiştirilecek bir Google Play aboneliği bulunamadı. Aboneliğini Google Play'den yönet.",
+  "vipSwitchScheduledTitle": "Plan değişikliği planlandı",
+  "vipSwitchScheduledBody": "Yeni planın mevcut planın bittiğinde başlar. O zamana kadar VIP kalırsın."
 }

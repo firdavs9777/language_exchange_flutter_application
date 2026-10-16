@@ -4120,5 +4120,10 @@
   "blockedCantMessageThisUser": "Шумо ба ин корбар паём фиристода наметавонед.",
   "blockedActionNotAllowed": "Шумо ин амалро иҷро карда наметавонед",
   "blockedCantLike": "Шумо ин мундариҷаро писанд карда наметавонед",
-  "blockedCantComment": "Шумо ба ин мундариҷа шарҳ навишта наметавонед"
+  "blockedCantComment": "Шумо ба ин мундариҷа шарҳ навишта наметавонед",
+  "vipSwitchPlan": "Иваз кардани нақша",
+  "vipCurrentPlan": "Нақшаи ҷорӣ",
+  "vipSwitchPlanUnavailable": "Дар ин ҳисоб обунаи Google Play барои иваз ёфт нашуд. Обунаи худро дар Google Play идора кунед.",
+  "vipSwitchScheduledTitle": "Ивази нақша ба нақша гирифта шуд",
+  "vipSwitchScheduledBody": "Нақшаи нави шумо пас аз анҷоми нақшаи ҷорӣ оғоз мешавад. То он вақт шумо VIP мемонед."
 }

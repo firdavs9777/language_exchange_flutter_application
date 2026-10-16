@@ -4627,5 +4627,10 @@
   "blockedCantMessageThisUser": "このユーザーにはメッセージを送れません。",
   "blockedActionNotAllowed": "この操作はできません",
   "blockedCantLike": "このコンテンツにはいいねできません",
-  "blockedCantComment": "このコンテンツにはコメントできません"
+  "blockedCantComment": "このコンテンツにはコメントできません",
+  "vipSwitchPlan": "プランを変更",
+  "vipCurrentPlan": "現在のプラン",
+  "vipSwitchPlanUnavailable": "このアカウントで変更できる Google Play の定期購入が見つかりません。Google Play で定期購入を管理してください。",
+  "vipSwitchScheduledTitle": "プラン変更を予約しました",
+  "vipSwitchScheduledBody": "新しいプランは現在のプランの終了時に始まります。それまで VIP のままです。"
 }

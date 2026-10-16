@@ -141,7 +141,8 @@ class VipPlanSwitcher {
     VipPlan target,
     PurchaseDetails oldPurchase,
     ReplacementMode mode,
-  ) buy;
+  )
+  buy;
 
   Future<VipPlanSwitchResult> run(VipPlan target) async {
     final PurchaseDetails? owned;
@@ -150,7 +151,9 @@ class VipPlanSwitcher {
     } catch (_) {
       return const VipPlanSwitchResult(VipPlanSwitchStatus.canceled);
     }
-    final from = owned == null ? null : vipPlanForAndroidProduct(owned.productID);
+    final from = owned == null
+        ? null
+        : vipPlanForAndroidProduct(owned.productID);
     if (owned == null || from == null) {
       return const VipPlanSwitchResult(VipPlanSwitchStatus.noSubscription);
     }

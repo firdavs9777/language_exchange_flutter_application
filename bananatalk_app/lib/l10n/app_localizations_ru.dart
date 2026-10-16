@@ -12594,4 +12594,19 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get blockedCantComment => 'Вы не можете комментировать этот контент';
+
+  @override
+  String get vipSwitchPlan => 'Сменить тариф';
+
+  @override
+  String get vipCurrentPlan => 'Текущий тариф';
+
+  @override
+  String get vipSwitchPlanUnavailable => 'В этом аккаунте не найдена подписка Google Play для смены. Управляйте подпиской в Google Play.';
+
+  @override
+  String get vipSwitchScheduledTitle => 'Смена тарифа запланирована';
+
+  @override
+  String get vipSwitchScheduledBody => 'Новый тариф начнётся, когда закончится текущий. До этого VIP сохраняется.';
 }

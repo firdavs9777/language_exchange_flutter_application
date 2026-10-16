@@ -4627,5 +4627,10 @@
   "blockedCantMessageThisUser": "Bạn không thể gửi tin nhắn cho người dùng này.",
   "blockedActionNotAllowed": "Bạn không thể thực hiện thao tác này",
   "blockedCantLike": "Bạn không thể thích nội dung này",
-  "blockedCantComment": "Bạn không thể bình luận nội dung này"
+  "blockedCantComment": "Bạn không thể bình luận nội dung này",
+  "vipSwitchPlan": "Đổi gói",
+  "vipCurrentPlan": "Gói hiện tại",
+  "vipSwitchPlanUnavailable": "Không tìm thấy gói đăng ký Google Play nào để đổi trên tài khoản này. Hãy quản lý gói đăng ký trong Google Play.",
+  "vipSwitchScheduledTitle": "Đã lên lịch đổi gói",
+  "vipSwitchScheduledBody": "Gói mới bắt đầu khi gói hiện tại kết thúc. Bạn vẫn là VIP đến lúc đó."
 }

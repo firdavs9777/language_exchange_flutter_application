@@ -4867,5 +4867,10 @@
   "blockedCantMessageThisUser": "Non puoi inviare messaggi a questo utente.",
   "blockedActionNotAllowed": "Non puoi eseguire questa azione",
   "blockedCantLike": "Non puoi mettere mi piace a questo contenuto",
-  "blockedCantComment": "Non puoi commentare questo contenuto"
+  "blockedCantComment": "Non puoi commentare questo contenuto",
+  "vipSwitchPlan": "Cambia piano",
+  "vipCurrentPlan": "Piano attuale",
+  "vipSwitchPlanUnavailable": "Non abbiamo trovato un abbonamento Google Play da cambiare su questo account. Gestisci l'abbonamento in Google Play.",
+  "vipSwitchScheduledTitle": "Cambio piano programmato",
+  "vipSwitchScheduledBody": "Il nuovo piano inizia quando finisce quello attuale. Fino ad allora resti VIP."
 }

@@ -12117,4 +12117,19 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get blockedCantComment => 'Bạn không thể bình luận nội dung này';
+
+  @override
+  String get vipSwitchPlan => 'Đổi gói';
+
+  @override
+  String get vipCurrentPlan => 'Gói hiện tại';
+
+  @override
+  String get vipSwitchPlanUnavailable => 'Không tìm thấy gói đăng ký Google Play nào để đổi trên tài khoản này. Hãy quản lý gói đăng ký trong Google Play.';
+
+  @override
+  String get vipSwitchScheduledTitle => 'Đã lên lịch đổi gói';
+
+  @override
+  String get vipSwitchScheduledBody => 'Gói mới bắt đầu khi gói hiện tại kết thúc. Bạn vẫn là VIP đến lúc đó.';
 }

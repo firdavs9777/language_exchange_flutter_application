@@ -12152,4 +12152,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get blockedCantComment => 'You can\'t comment on this content';
+
+  @override
+  String get vipSwitchPlan => 'Switch plan';
+
+  @override
+  String get vipCurrentPlan => 'Current plan';
+
+  @override
+  String get vipSwitchPlanUnavailable => 'We couldn\'t find a Google Play subscription to switch on this account. Manage your subscription in Google Play.';
+
+  @override
+  String get vipSwitchScheduledTitle => 'Plan change scheduled';
+
+  @override
+  String get vipSwitchScheduledBody => 'Your new plan starts when your current plan ends. You keep VIP until then.';
 }

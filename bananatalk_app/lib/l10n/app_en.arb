@@ -8156,5 +8156,13 @@
         "type": "int"
       }
     }
+  },
+  "vipSwitchPlan": "Switch plan",
+  "vipCurrentPlan": "Current plan",
+  "vipSwitchPlanUnavailable": "We couldn't find a Google Play subscription to switch on this account. Manage your subscription in Google Play.",
+  "vipSwitchScheduledTitle": "Plan change scheduled",
+  "vipSwitchScheduledBody": "Your new plan starts when your current plan ends. You keep VIP until then.",
+  "@vipSwitchScheduledBody": {
+    "description": "Shown after an Android VIP switches to a shorter plan (Google Play defers it)."
   }
 }

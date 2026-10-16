@@ -4643,5 +4643,10 @@
   "blockedCantMessageThisUser": "आप इस उपयोगकर्ता को संदेश नहीं भेज सकते।",
   "blockedActionNotAllowed": "आप यह कार्य नहीं कर सकते",
   "blockedCantLike": "आप इस सामग्री को पसंद नहीं कर सकते",
-  "blockedCantComment": "आप इस सामग्री पर टिप्पणी नहीं कर सकते"
+  "blockedCantComment": "आप इस सामग्री पर टिप्पणी नहीं कर सकते",
+  "vipSwitchPlan": "प्लान बदलें",
+  "vipCurrentPlan": "मौजूदा प्लान",
+  "vipSwitchPlanUnavailable": "इस खाते पर बदलने के लिए कोई Google Play सदस्यता नहीं मिली। अपनी सदस्यता Google Play में प्रबंधित करें।",
+  "vipSwitchScheduledTitle": "प्लान बदलाव तय हो गया",
+  "vipSwitchScheduledBody": "आपका नया प्लान मौजूदा प्लान खत्म होने पर शुरू होगा। तब तक आप VIP रहेंगे।"
 }

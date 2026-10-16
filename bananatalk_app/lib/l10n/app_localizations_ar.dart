@@ -12229,4 +12229,19 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get blockedCantComment => 'لا يمكنك التعليق على هذا المحتوى';
+
+  @override
+  String get vipSwitchPlan => 'تغيير الخطة';
+
+  @override
+  String get vipCurrentPlan => 'الخطة الحالية';
+
+  @override
+  String get vipSwitchPlanUnavailable => 'لم نعثر على اشتراك Google Play على هذا الحساب لتغييره. أدر اشتراكك من Google Play.';
+
+  @override
+  String get vipSwitchScheduledTitle => 'تمت جدولة تغيير الخطة';
+
+  @override
+  String get vipSwitchScheduledBody => 'تبدأ خطتك الجديدة عند انتهاء خطتك الحالية. تبقى VIP حتى ذلك الحين.';
 }

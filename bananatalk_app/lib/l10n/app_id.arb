@@ -4627,5 +4627,10 @@
   "blockedCantMessageThisUser": "Kamu tidak dapat mengirim pesan ke pengguna ini.",
   "blockedActionNotAllowed": "Kamu tidak dapat melakukan tindakan ini",
   "blockedCantLike": "Kamu tidak dapat menyukai konten ini",
-  "blockedCantComment": "Kamu tidak dapat mengomentari konten ini"
+  "blockedCantComment": "Kamu tidak dapat mengomentari konten ini",
+  "vipSwitchPlan": "Ganti paket",
+  "vipCurrentPlan": "Paket saat ini",
+  "vipSwitchPlanUnavailable": "Kami tidak menemukan langganan Google Play untuk diganti di akun ini. Kelola langganan Anda di Google Play.",
+  "vipSwitchScheduledTitle": "Penggantian paket dijadwalkan",
+  "vipSwitchScheduledBody": "Paket baru Anda dimulai saat paket saat ini berakhir. Anda tetap VIP sampai saat itu."
 }

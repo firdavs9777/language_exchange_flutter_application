@@ -9,18 +9,17 @@ PurchaseDetails _purchase(
   String productId, {
   PurchaseStatus status = PurchaseStatus.purchased,
   String token = 'token',
-}) =>
-    PurchaseDetails(
-      productID: productId,
-      purchaseID: 'GPA.$productId',
-      verificationData: PurchaseVerificationData(
-        localVerificationData: '{}',
-        serverVerificationData: token,
-        source: 'google_play',
-      ),
-      transactionDate: '0',
-      status: status,
-    );
+}) => PurchaseDetails(
+  productID: productId,
+  purchaseID: 'GPA.$productId',
+  verificationData: PurchaseVerificationData(
+    localVerificationData: '{}',
+    serverVerificationData: token,
+    source: 'google_play',
+  ),
+  transactionDate: '0',
+  status: status,
+);
 
 final _monthly = VipPlan.monthly.androidProductId;
 final _yearly = VipPlan.yearly.androidProductId;
@@ -36,59 +35,82 @@ class _FakeStore {
   final calls = <(VipPlan, PurchaseDetails, ReplacementMode)>[];
 
   VipPlanSwitcher switcher() => VipPlanSwitcher(
-        queryOwned: () async {
-          if (queryThrows) throw Exception('billing unavailable');
-          return owned;
-        },
-        buy: (target, old, mode) async {
-          calls.add((target, old, mode));
-          return result;
-        },
-      );
+    queryOwned: () async {
+      if (queryThrows) throw Exception('billing unavailable');
+      return owned;
+    },
+    buy: (target, old, mode) async {
+      calls.add((target, old, mode));
+      return result;
+    },
+  );
 }
 
 void main() {
   group('vipReplacementMode', () {
     test('to a longer plan charges the full price now', () {
-      expect(vipReplacementMode(from: VipPlan.monthly, to: VipPlan.yearly),
-          ReplacementMode.chargeFullPrice);
-      expect(vipReplacementMode(from: VipPlan.quarterly, to: VipPlan.yearly),
-          ReplacementMode.chargeFullPrice);
+      expect(
+        vipReplacementMode(from: VipPlan.monthly, to: VipPlan.yearly),
+        ReplacementMode.chargeFullPrice,
+      );
+      expect(
+        vipReplacementMode(from: VipPlan.quarterly, to: VipPlan.yearly),
+        ReplacementMode.chargeFullPrice,
+      );
     });
 
     test('to a shorter plan waits for the paid period to end', () {
-      expect(vipReplacementMode(from: VipPlan.yearly, to: VipPlan.monthly),
-          ReplacementMode.deferred);
-      expect(vipReplacementMode(from: VipPlan.quarterly, to: VipPlan.monthly),
-          ReplacementMode.deferred);
+      expect(
+        vipReplacementMode(from: VipPlan.yearly, to: VipPlan.monthly),
+        ReplacementMode.deferred,
+      );
+      expect(
+        vipReplacementMode(from: VipPlan.quarterly, to: VipPlan.monthly),
+        ReplacementMode.deferred,
+      );
     });
   });
 
   group('vipPlanOffer', () {
     test('a non-VIP buys any plan', () {
       for (final plan in VipPlan.values) {
-        expect(vipPlanOffer(isVip: false, ownedPlan: null, plan: plan),
-            VipPlanOffer.buy);
+        expect(
+          vipPlanOffer(isVip: false, ownedPlan: null, plan: plan),
+          VipPlanOffer.buy,
+        );
       }
     });
 
     test('a VIP never re-buys the plan they have; others are switches', () {
       expect(
-          vipPlanOffer(
-              isVip: true, ownedPlan: VipPlan.monthly, plan: VipPlan.monthly),
-          VipPlanOffer.current);
+        vipPlanOffer(
+          isVip: true,
+          ownedPlan: VipPlan.monthly,
+          plan: VipPlan.monthly,
+        ),
+        VipPlanOffer.current,
+      );
       expect(
-          vipPlanOffer(
-              isVip: true, ownedPlan: VipPlan.monthly, plan: VipPlan.yearly),
-          VipPlanOffer.switchPlan);
+        vipPlanOffer(
+          isVip: true,
+          ownedPlan: VipPlan.monthly,
+          plan: VipPlan.yearly,
+        ),
+        VipPlanOffer.switchPlan,
+      );
     });
 
-    test('a VIP without a Play subscription (iOS, promo) is offered nothing',
-        () {
-      for (final plan in VipPlan.values) {
-        expect(vipPlanOffer(isVip: true, ownedPlan: null, plan: plan), isNull);
-      }
-    });
+    test(
+      'a VIP without a Play subscription (iOS, promo) is offered nothing',
+      () {
+        for (final plan in VipPlan.values) {
+          expect(
+            vipPlanOffer(isVip: true, ownedPlan: null, plan: plan),
+            isNull,
+          );
+        }
+      },
+    );
   });
 
   group('ownedVipSubscription', () {
@@ -99,9 +121,11 @@ void main() {
 
     test('skips a pending purchase', () {
       expect(
-          ownedVipSubscription(
-              [_purchase(_monthly, status: PurchaseStatus.pending)]),
-          isNull);
+        ownedVipSubscription([
+          _purchase(_monthly, status: PurchaseStatus.pending),
+        ]),
+        isNull,
+      );
     });
 
     test('none owned -> null', () {
@@ -155,8 +179,11 @@ void main() {
         final store = _FakeStore(owned: owned);
         final result = await store.switcher().run(VipPlan.yearly);
         expect(result.status, VipPlanSwitchStatus.noSubscription);
-        expect(store.calls, isEmpty,
-            reason: 'a plain purchase here would be a second subscription');
+        expect(
+          store.calls,
+          isEmpty,
+          reason: 'a plain purchase here would be a second subscription',
+        );
       }
     });
 
@@ -173,14 +200,16 @@ void main() {
       expect(result.status, VipPlanSwitchStatus.canceled);
     });
 
-    test('a purchase for some other product is not taken as the switch',
-        () async {
-      final store = _FakeStore(
-        owned: _purchase(_monthly),
-        result: _purchase('coins.100'),
-      );
-      final result = await store.switcher().run(VipPlan.yearly);
-      expect(result.status, VipPlanSwitchStatus.canceled);
-    });
+    test(
+      'a purchase for some other product is not taken as the switch',
+      () async {
+        final store = _FakeStore(
+          owned: _purchase(_monthly),
+          result: _purchase('coins.100'),
+        );
+        final result = await store.switcher().run(VipPlan.yearly);
+        expect(result.status, VipPlanSwitchStatus.canceled);
+      },
+    );
   });
 }
