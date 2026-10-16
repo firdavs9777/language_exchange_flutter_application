@@ -433,7 +433,7 @@ Common errors and handling:
 
 ```bash
 # Test voice message upload
-curl -X POST https://api.bananatalk.com/api/v1/messages/voice \
+curl -X POST https://api.banatalk.com/api/v1/messages/voice \
   -H "Authorization: Bearer YOUR_TOKEN" \
   -F "voice=@/path/to/audio.m4a" \
   -F "receiver=USER_ID" \
