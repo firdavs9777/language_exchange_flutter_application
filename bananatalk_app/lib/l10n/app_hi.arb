@@ -4643,5 +4643,12 @@
   "blockedCantMessageThisUser": "आप इस उपयोगकर्ता को संदेश नहीं भेज सकते।",
   "blockedActionNotAllowed": "आप यह कार्य नहीं कर सकते",
   "blockedCantLike": "आप इस सामग्री को पसंद नहीं कर सकते",
-  "blockedCantComment": "आप इस सामग्री पर टिप्पणी नहीं कर सकते"
+  "blockedCantComment": "आप इस सामग्री पर टिप्पणी नहीं कर सकते",
+  "imageViewerRotate": "घुमाएँ",
+  "momentNotFound": "मोमेंट नहीं मिला",
+  "momentRecordingCapped": "रिकॉर्डिंग 60 सेकंड तक सीमित की गई",
+  "momentVoiceNoteUploaded": "वॉइस नोट अपलोड हो गया",
+  "momentUploadDidNotComplete": "अपलोड पूरा नहीं हुआ।",
+  "momentUploadGiveUp": "यह आख़िरी कोशिश थी — समस्या शायद फ़ाइल नहीं, कनेक्शन में है। आपका मोमेंट पहले ही पोस्ट हो चुका है; आप बाद में उसे एडिट करके वॉइस नोट जोड़ सकते हैं।",
+  "momentUploadTriesLeft": "{count, plural, =1{1 कोशिश बाकी है।} other{{count} कोशिशें बाकी हैं।}}"
 }

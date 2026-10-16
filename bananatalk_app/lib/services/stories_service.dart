@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -7,6 +8,8 @@ import 'package:bananatalk_app/service/endpoints.dart';
 import 'package:bananatalk_app/providers/provider_models/story_model.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 
+/// On a thrown failure (offline, timeout, bad JSON) `error` is the raw
+/// exception text: show it through `friendlyErrorMessage`, not as-is.
 class StoriesService {
   static Future<String?> _getToken() async {
     final prefs = await SharedPreferences.getInstance();
@@ -326,7 +329,8 @@ class StoriesService {
 
       return SingleStoryResponse(success: false, error: errorMessage);
     } catch (e) {
-      return SingleStoryResponse(success: false, error: 'Network error: ${e.toString()}');
+      debugPrint('StoriesService.createStory failed: $e');
+      return SingleStoryResponse(success: false, error: e.toString());
     }
   }
 
@@ -421,7 +425,8 @@ class StoriesService {
 
       return SingleStoryResponse(success: false, error: errorMessage);
     } catch (e) {
-      return SingleStoryResponse(success: false, error: 'Network error: ${e.toString()}');
+      debugPrint('StoriesService.createTextStory failed: $e');
+      return SingleStoryResponse(success: false, error: e.toString());
     }
   }
 

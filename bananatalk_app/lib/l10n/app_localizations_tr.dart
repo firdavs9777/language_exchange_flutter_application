@@ -12135,4 +12135,32 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get blockedCantComment => 'Bu içeriğe yorum yapamazsın';
+
+  @override
+  String get imageViewerRotate => 'Döndür';
+
+  @override
+  String get momentNotFound => 'An bulunamadı';
+
+  @override
+  String get momentRecordingCapped => 'Kayıt 60 saniyeyle sınırlandı';
+
+  @override
+  String get momentVoiceNoteUploaded => 'Sesli not yüklendi';
+
+  @override
+  String get momentUploadDidNotComplete => 'Yükleme tamamlanmadı.';
+
+  @override
+  String get momentUploadGiveUp => 'Bu son denemeydi — sorun büyük ihtimalle dosyada değil bağlantıda. Momentin zaten paylaşıldı; sesli notu daha sonra düzenleyerek ekleyebilirsin.';
+
+  @override
+  String momentUploadTriesLeft(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count deneme hakkın kaldı.',
+    );
+    return '$_temp0';
+  }
 }

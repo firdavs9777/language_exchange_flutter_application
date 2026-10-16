@@ -4318,5 +4318,12 @@
   "blockedCantMessageThisUser": "你無法傳訊息給該使用者。",
   "blockedActionNotAllowed": "你無法執行此操作",
   "blockedCantLike": "你無法對此內容按讚",
-  "blockedCantComment": "你無法留言此內容"
+  "blockedCantComment": "你無法留言此內容",
+  "imageViewerRotate": "旋轉",
+  "momentNotFound": "找不到動態",
+  "momentRecordingCapped": "錄音已限制為 60 秒",
+  "momentVoiceNoteUploaded": "語音已上傳",
+  "momentUploadDidNotComplete": "上傳未完成。",
+  "momentUploadGiveUp": "這是最後一次嘗試——問題很可能出在網路連線而不是檔案。你的動態已經發布，之後可以編輯動態再加入語音。",
+  "momentUploadTriesLeft": "{count, plural, other{還可以嘗試 {count} 次。}}"
 }

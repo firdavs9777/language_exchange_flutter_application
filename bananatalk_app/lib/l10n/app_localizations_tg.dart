@@ -12137,4 +12137,32 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get blockedCantComment => 'Шумо ба ин мундариҷа шарҳ навишта наметавонед';
+
+  @override
+  String get imageViewerRotate => 'Гардондан';
+
+  @override
+  String get momentNotFound => 'Лаҳза ёфт нашуд';
+
+  @override
+  String get momentRecordingCapped => 'Сабт то 60 сония маҳдуд карда шуд';
+
+  @override
+  String get momentVoiceNoteUploaded => 'Ёддошти овозӣ бор карда шуд';
+
+  @override
+  String get momentUploadDidNotComplete => 'Боркунӣ ба анҷом нарасид.';
+
+  @override
+  String get momentUploadGiveUp => 'Ин кӯшиши охирин буд — эҳтимол мушкил дар пайвастшавӣ аст, на дар файл. Лаҳзаи шумо аллакай нашр шудааст; шумо метавонед баъдтар бо таҳрир ёддошти овозиро илова кунед.';
+
+  @override
+  String momentUploadTriesLeft(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count кӯшиш боқӣ мондааст.',
+    );
+    return '$_temp0';
+  }
 }

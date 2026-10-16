@@ -79,7 +79,7 @@ class _MomentDetailWrapperState extends ConsumerState<MomentDetailWrapper> {
               const Icon(Icons.error_outline, size: 64, color: Colors.red),
               const SizedBox(height: 16),
               Text(
-                _error ?? 'Moment not found',
+                _error ?? AppLocalizations.of(context)!.momentNotFound,
                 style: const TextStyle(fontSize: 16),
               ),
               const SizedBox(height: 16),

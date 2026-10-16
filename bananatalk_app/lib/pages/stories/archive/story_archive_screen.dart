@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/providers/provider_models/story_model.dart';
 import 'package:bananatalk_app/services/stories_service.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
@@ -71,7 +72,10 @@ class _StoryArchiveScreenState extends State<StoryArchiveScreen> {
     setState(() {
       _loading = false;
       if (!res.success) {
-        _error = res.error;
+        _error = friendlyErrorMessage(
+          AppLocalizations.of(context)!,
+          res.error,
+        );
         return;
       }
       _stories.addAll(res.data);
@@ -242,7 +246,7 @@ class _StoryArchiveScreenState extends State<StoryArchiveScreen> {
       SnackBar(
         content: Text(ok
             ? l10n.storyArchiveAdded
-            : (result['error']?.toString() ?? l10n.somethingWentWrong)),
+            : friendlyErrorMessage(l10n, result['error'])),
       ),
     );
     // Refresh so the star appears on the tile that is now highlighted.

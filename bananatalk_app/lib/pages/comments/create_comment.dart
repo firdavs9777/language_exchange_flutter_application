@@ -268,17 +268,14 @@ class _CreateCommentState extends ConsumerState<CreateComment> {
         }
       } else {
         // Show error message
+        debugPrint('Create comment failed: $e');
         if (!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            // Was the raw exception text. The server's own refusal is worth
-            // reading, so it is the fallback rather than the whole message.
+            // Was the raw exception text. A clean server refusal still reads
+            // through (serverMessageOf); anything else is the generic text.
             content: Text(
-              friendlyErrorMessage(
-                AppLocalizations.of(context)!,
-                e,
-                fallback: e.toString().replaceFirst('Exception: ', ''),
-              ),
+              friendlyErrorMessage(AppLocalizations.of(context)!, e),
             ),
             duration: const Duration(seconds: 3),
             backgroundColor: AppColors.error,

@@ -4648,5 +4648,12 @@
   "blockedCantMessageThisUser": "이 사용자에게 메시지를 보낼 수 없습니다.",
   "blockedActionNotAllowed": "이 작업을 할 수 없습니다",
   "blockedCantLike": "이 콘텐츠에 좋아요를 누를 수 없습니다",
-  "blockedCantComment": "이 콘텐츠에 댓글을 달 수 없습니다"
+  "blockedCantComment": "이 콘텐츠에 댓글을 달 수 없습니다",
+  "imageViewerRotate": "회전",
+  "momentNotFound": "모먼트를 찾을 수 없어요",
+  "momentRecordingCapped": "녹음은 60초까지만 저장돼요",
+  "momentVoiceNoteUploaded": "음성 메모를 올렸어요",
+  "momentUploadDidNotComplete": "업로드가 완료되지 않았어요.",
+  "momentUploadGiveUp": "마지막 시도였어요. 파일보다는 연결 문제일 가능성이 커요. 모먼트는 이미 올라갔으니 나중에 수정해서 음성 메모를 추가할 수 있어요.",
+  "momentUploadTriesLeft": "{count, plural, other{{count}번 더 시도할 수 있어요.}}"
 }

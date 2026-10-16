@@ -8,6 +8,7 @@
 /// did on the second.
 library;
 
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/moments/create/moment_media_rules.dart';
 
 /// Attempts after the first upload has already failed.
@@ -42,21 +43,20 @@ int retriesRemaining({required int attemptsMade}) {
 /// Carries the attempt number rather than a fixed "again", because a user on
 /// their third try being told the same thing as on their first is what makes
 /// a retry button feel broken.
-String uploadFailureMessage({
+String uploadFailureMessage(
+  AppLocalizations l10n, {
   required int attemptsMade,
   required String reason,
 }) {
   final cleaned = reason.replaceFirst('Exception: ', '').trim();
-  final detail = cleaned.isEmpty ? 'The upload did not complete.' : cleaned;
+  final detail = cleaned.isEmpty ? l10n.momentUploadDidNotComplete : cleaned;
 
   if (decideRetry(attemptsMade: attemptsMade) == UploadRetryDecision.giveUp) {
-    return "$detail\n\nThat's $attemptsMade attempts — it's likely the "
-        'connection rather than the file. Your moment is already posted; you '
-        'can add the voice note later by editing it.';
+    return '$detail\n\n${l10n.momentUploadGiveUp}';
   }
 
   final left = retriesRemaining(attemptsMade: attemptsMade);
-  return '$detail\n\n$left ${left == 1 ? 'try' : 'tries'} left.';
+  return '$detail\n\n${l10n.momentUploadTriesLeft(left)}';
 }
 
 /// What to do with a just-created moment whose media upload failed.

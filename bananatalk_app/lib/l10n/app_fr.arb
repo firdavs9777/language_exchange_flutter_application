@@ -4867,5 +4867,12 @@
   "blockedCantMessageThisUser": "Tu ne peux pas envoyer de messages à cet utilisateur.",
   "blockedActionNotAllowed": "Tu ne peux pas effectuer cette action",
   "blockedCantLike": "Tu ne peux pas aimer ce contenu",
-  "blockedCantComment": "Tu ne peux pas commenter ce contenu"
+  "blockedCantComment": "Tu ne peux pas commenter ce contenu",
+  "imageViewerRotate": "Pivoter",
+  "momentNotFound": "Moment introuvable",
+  "momentRecordingCapped": "Enregistrement limité à 60 secondes",
+  "momentVoiceNoteUploaded": "Note vocale envoyée",
+  "momentUploadDidNotComplete": "L'envoi n'a pas abouti.",
+  "momentUploadGiveUp": "C'était la dernière tentative : le problème vient sans doute de la connexion plutôt que du fichier. Votre moment est déjà publié ; vous pourrez ajouter la note vocale plus tard en le modifiant.",
+  "momentUploadTriesLeft": "{count, plural, =1{Encore 1 essai.} other{Encore {count} essais.}}"
 }

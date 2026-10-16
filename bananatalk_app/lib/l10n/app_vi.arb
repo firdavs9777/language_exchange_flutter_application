@@ -4627,5 +4627,12 @@
   "blockedCantMessageThisUser": "Bạn không thể gửi tin nhắn cho người dùng này.",
   "blockedActionNotAllowed": "Bạn không thể thực hiện thao tác này",
   "blockedCantLike": "Bạn không thể thích nội dung này",
-  "blockedCantComment": "Bạn không thể bình luận nội dung này"
+  "blockedCantComment": "Bạn không thể bình luận nội dung này",
+  "imageViewerRotate": "Xoay",
+  "momentNotFound": "Không tìm thấy khoảnh khắc",
+  "momentRecordingCapped": "Bản ghi âm được giới hạn ở 60 giây",
+  "momentVoiceNoteUploaded": "Đã tải lên ghi âm",
+  "momentUploadDidNotComplete": "Tải lên chưa hoàn tất.",
+  "momentUploadGiveUp": "Đó là lần thử cuối cùng — có lẽ do kết nối chứ không phải do tệp. Khoảnh khắc của bạn đã được đăng; bạn có thể thêm ghi âm sau bằng cách chỉnh sửa.",
+  "momentUploadTriesLeft": "{count, plural, other{Còn {count} lần thử.}}"
 }

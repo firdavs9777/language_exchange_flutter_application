@@ -4627,5 +4627,12 @@
   "blockedCantMessageThisUser": "このユーザーにはメッセージを送れません。",
   "blockedActionNotAllowed": "この操作はできません",
   "blockedCantLike": "このコンテンツにはいいねできません",
-  "blockedCantComment": "このコンテンツにはコメントできません"
+  "blockedCantComment": "このコンテンツにはコメントできません",
+  "imageViewerRotate": "回転",
+  "momentNotFound": "モーメントが見つかりません",
+  "momentRecordingCapped": "録音は60秒までに制限されました",
+  "momentVoiceNoteUploaded": "ボイスメモをアップロードしました",
+  "momentUploadDidNotComplete": "アップロードが完了しませんでした。",
+  "momentUploadGiveUp": "これが最後の試行でした。ファイルではなく通信状況が原因の可能性があります。モーメントはすでに投稿済みです。後で編集してボイスメモを追加できます。",
+  "momentUploadTriesLeft": "{count, plural, other{残り{count}回です。}}"
 }

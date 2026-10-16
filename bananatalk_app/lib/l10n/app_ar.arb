@@ -4657,5 +4657,12 @@
   "blockedCantMessageThisUser": "لا يمكنك إرسال رسائل إلى هذا المستخدم.",
   "blockedActionNotAllowed": "لا يمكنك تنفيذ هذا الإجراء",
   "blockedCantLike": "لا يمكنك الإعجاب بهذا المحتوى",
-  "blockedCantComment": "لا يمكنك التعليق على هذا المحتوى"
+  "blockedCantComment": "لا يمكنك التعليق على هذا المحتوى",
+  "imageViewerRotate": "تدوير",
+  "momentNotFound": "لم يتم العثور على اللحظة",
+  "momentRecordingCapped": "تم قص التسجيل إلى 60 ثانية",
+  "momentVoiceNoteUploaded": "تم رفع المقطع الصوتي",
+  "momentUploadDidNotComplete": "لم يكتمل الرفع.",
+  "momentUploadGiveUp": "كانت هذه المحاولة الأخيرة — على الأرجح أن المشكلة في الاتصال وليست في الملف. لحظتك منشورة بالفعل؛ يمكنك إضافة المقطع الصوتي لاحقًا بتعديلها.",
+  "momentUploadTriesLeft": "{count, plural, zero{لم تتبقَّ محاولات.} one{تبقّت محاولة واحدة.} two{تبقّت محاولتان.} few{تبقّت {count} محاولات.} many{تبقّت {count} محاولة.} other{تبقّت {count} محاولة.}}"
 }

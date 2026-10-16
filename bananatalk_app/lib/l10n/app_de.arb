@@ -4867,5 +4867,12 @@
   "blockedCantMessageThisUser": "Du kannst dieser Person keine Nachrichten senden.",
   "blockedActionNotAllowed": "Diese Aktion ist nicht möglich",
   "blockedCantLike": "Du kannst diesen Inhalt nicht liken",
-  "blockedCantComment": "Du kannst diesen Inhalt nicht kommentieren"
+  "blockedCantComment": "Du kannst diesen Inhalt nicht kommentieren",
+  "imageViewerRotate": "Drehen",
+  "momentNotFound": "Moment nicht gefunden",
+  "momentRecordingCapped": "Aufnahme auf 60 Sekunden gekürzt",
+  "momentVoiceNoteUploaded": "Sprachnotiz hochgeladen",
+  "momentUploadDidNotComplete": "Der Upload wurde nicht abgeschlossen.",
+  "momentUploadGiveUp": "Das war der letzte Versuch – wahrscheinlich liegt es an der Verbindung, nicht an der Datei. Dein Moment ist bereits veröffentlicht; du kannst die Sprachnotiz später beim Bearbeiten hinzufügen.",
+  "momentUploadTriesLeft": "{count, plural, =1{Noch 1 Versuch.} other{Noch {count} Versuche.}}"
 }
