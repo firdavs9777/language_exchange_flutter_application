@@ -4325,5 +4325,6 @@
   "momentVoiceNoteUploaded": "語音已上傳",
   "momentUploadDidNotComplete": "上傳未完成。",
   "momentUploadGiveUp": "這是最後一次嘗試——問題很可能出在網路連線而不是檔案。你的動態已經發布，之後可以編輯動態再加入語音。",
-  "momentUploadTriesLeft": "{count, plural, other{還可以嘗試 {count} 次。}}"
+  "momentUploadTriesLeft": "{count, plural, other{還可以嘗試 {count} 次。}}",
+  "videoTooLongMax": "影片太長了。最長 {seconds} 秒。"
 }

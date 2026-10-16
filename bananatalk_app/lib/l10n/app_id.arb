@@ -4634,5 +4634,6 @@
   "momentVoiceNoteUploaded": "Catatan suara diunggah",
   "momentUploadDidNotComplete": "Unggahan tidak selesai.",
   "momentUploadGiveUp": "Itu percobaan terakhir — kemungkinan masalahnya ada di koneksi, bukan di file. Momenmu sudah diposting; kamu bisa menambahkan catatan suara nanti dengan mengeditnya.",
-  "momentUploadTriesLeft": "{count, plural, other{Tersisa {count} percobaan.}}"
+  "momentUploadTriesLeft": "{count, plural, other{Tersisa {count} percobaan.}}",
+  "videoTooLongMax": "Video ini terlalu panjang. Batasnya {seconds} detik."
 }

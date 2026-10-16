@@ -4664,5 +4664,6 @@
   "momentVoiceNoteUploaded": "Голосовая заметка загружена",
   "momentUploadDidNotComplete": "Загрузка не завершилась.",
   "momentUploadGiveUp": "Это была последняя попытка — скорее всего, дело в соединении, а не в файле. Момент уже опубликован; голосовую заметку можно добавить позже, отредактировав его.",
-  "momentUploadTriesLeft": "{count, plural, one{Осталась {count} попытка.} few{Осталось {count} попытки.} many{Осталось {count} попыток.} other{Осталось {count} попытки.}}"
+  "momentUploadTriesLeft": "{count, plural, one{Осталась {count} попытка.} few{Осталось {count} попытки.} many{Осталось {count} попыток.} other{Осталось {count} попытки.}}",
+  "videoTooLongMax": "Это видео слишком длинное. Максимум — {seconds} с."
 }

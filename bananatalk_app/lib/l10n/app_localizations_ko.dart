@@ -12145,4 +12145,9 @@ class AppLocalizationsKo extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String videoTooLongMax(int seconds) {
+    return '동영상이 너무 길어요. 최대 $seconds초까지 가능해요.';
+  }
 }

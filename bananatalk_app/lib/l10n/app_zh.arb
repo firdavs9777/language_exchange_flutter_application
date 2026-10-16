@@ -4648,5 +4648,6 @@
   "momentVoiceNoteUploaded": "语音已上传",
   "momentUploadDidNotComplete": "上传未完成。",
   "momentUploadGiveUp": "这是最后一次尝试——问题很可能出在网络连接而不是文件。你的动态已经发布，之后可以编辑动态再添加语音。",
-  "momentUploadTriesLeft": "{count, plural, other{还可以尝试 {count} 次。}}"
+  "momentUploadTriesLeft": "{count, plural, other{还可以尝试 {count} 次。}}",
+  "videoTooLongMax": "视频太长了。最长 {seconds} 秒。"
 }

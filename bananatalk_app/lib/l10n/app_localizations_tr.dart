@@ -12163,4 +12163,9 @@ class AppLocalizationsTr extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String videoTooLongMax(int seconds) {
+    return 'Bu video çok uzun. Sınır $seconds saniye.';
+  }
 }

@@ -8189,5 +8189,14 @@
         "type": "int"
       }
     }
+  },
+  "videoTooLongMax": "This video is too long. The limit is {seconds} seconds.",
+  "@videoTooLongMax": {
+    "description": "Moment/story/reel composer: picked video exceeds the duration cap",
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
   }
 }

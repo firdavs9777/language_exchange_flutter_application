@@ -12625,4 +12625,9 @@ class AppLocalizationsRu extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String videoTooLongMax(int seconds) {
+    return 'Это видео слишком длинное. Максимум — $seconds с.';
+  }
 }

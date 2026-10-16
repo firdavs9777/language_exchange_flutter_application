@@ -22093,6 +22093,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{count, plural, =1{1 try left.} other{{count} tries left.}}'**
   String momentUploadTriesLeft(int count);
+
+  /// Moment/story/reel composer: picked video exceeds the duration cap
+  ///
+  /// In en, this message translates to:
+  /// **'This video is too long. The limit is {seconds} seconds.'**
+  String videoTooLongMax(int seconds);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

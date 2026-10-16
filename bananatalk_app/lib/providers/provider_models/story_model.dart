@@ -1019,13 +1019,23 @@ class StoriesResponse {
 
 }
 
+/// A story post refused before it reached the server, for the screen to say
+/// in the user's language (the service has no BuildContext).
+enum StoryPostFailure { noMedia, noText, videoTooLarge }
+
 class SingleStoryResponse {
   final bool success;
   final Story? data;
   final bool blocked;
+
+  /// A server sentence, a raw exception, or null when there is nothing
+  /// better than the screen's own localized "couldn't post".
   final String? error;
 
-  SingleStoryResponse({required this.success, this.data, this.blocked = false, this.error});
+  /// Set for client-side refusals; takes precedence over [error].
+  final StoryPostFailure? failure;
+
+  SingleStoryResponse({required this.success, this.data, this.blocked = false, this.error, this.failure});
 
   factory SingleStoryResponse.fromJson(Map<String, dynamic> json) {
     return SingleStoryResponse(

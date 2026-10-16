@@ -12262,4 +12262,9 @@ class AppLocalizationsAr extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String videoTooLongMax(int seconds) {
+    return 'هذا الفيديو طويل جدًا. الحد الأقصى $seconds ثانية.';
+  }
 }

@@ -26,6 +26,7 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/friendly_error.dart';
+import 'package:bananatalk_app/utils/media_failure_text.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:bananatalk_app/pages/moments/widgets/moments_snackbar.dart';
 import 'package:bananatalk_app/pages/moments/create/moment_draft_rules.dart';
@@ -554,7 +555,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
 
     setState(() {
       _videoCompressionProgress = 0;
-      _videoProcessingStatus = 'Preparing video...';
+      _videoProcessingStatus = AppLocalizations.of(context)!.preparingVideo;
     });
 
     try {
@@ -569,10 +570,13 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
             _videoProgressTick.value++;
           }
         },
-        onStatus: (status) {
+        onStatus: (stage) {
           if (mounted) {
             setState(() {
-              _videoProcessingStatus = status;
+              _videoProcessingStatus = videoProcessStageText(
+                AppLocalizations.of(context)!,
+                stage,
+              );
             });
             _videoProgressTick.value++;
           }
@@ -608,10 +612,9 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
         if (mounted) {
           showMomentsSnackBar(
             context,
-            message: friendlyErrorMessage(
+            message: videoProcessFailureText(
               AppLocalizations.of(context)!,
-              result.error,
-              prefix: AppLocalizations.of(context)!.failedToProcessVideo,
+              result,
             ),
             type: MomentsSnackBarType.error,
           );

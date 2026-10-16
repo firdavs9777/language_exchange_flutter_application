@@ -544,6 +544,10 @@ const Map<String, List<String>> _keysByTask = {
     'momentUploadGiveUp',
     'momentUploadTriesLeft',
   ],
+  // Video processing / story post failures were English service sentences.
+  'service-error-text': [
+    'videoTooLongMax',
+  ],
   // Remaining hardcoded English: property literals, enum labels, snackbars (L14 sweep).
   'l10n-sweep': [
     'authLockedTitle',
@@ -984,6 +988,10 @@ const Map<String, List<String>> _filesByTask = {
     'pages/moments/reels/reels_feed_screen.dart',
     'pages/moments/single/single_moment.dart',
     'pages/moments/viewer/image_viewer.dart',
+  ],
+  'service-error-text': [
+    'utils/media_failure_text.dart',
+    'pages/stories/create/create_story_screen.dart',
   ],
   'l10n-sweep': [
     'pages/authentication/widgets/auth_error_state.dart',

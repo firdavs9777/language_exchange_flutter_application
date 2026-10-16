@@ -4846,5 +4846,6 @@
   "momentVoiceNoteUploaded": "Sesli not yüklendi",
   "momentUploadDidNotComplete": "Yükleme tamamlanmadı.",
   "momentUploadGiveUp": "Bu son denemeydi — sorun büyük ihtimalle dosyada değil bağlantıda. Momentin zaten paylaşıldı; sesli notu daha sonra düzenleyerek ekleyebilirsin.",
-  "momentUploadTriesLeft": "{count, plural, other{{count} deneme hakkın kaldı.}}"
+  "momentUploadTriesLeft": "{count, plural, other{{count} deneme hakkın kaldı.}}",
+  "videoTooLongMax": "Bu video çok uzun. Sınır {seconds} saniye."
 }

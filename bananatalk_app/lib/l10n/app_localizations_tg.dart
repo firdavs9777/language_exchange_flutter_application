@@ -12165,4 +12165,9 @@ class AppLocalizationsTg extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String videoTooLongMax(int seconds) {
+    return 'Ин видео хеле дароз аст. Ҳадди аксар $seconds сония.';
+  }
 }

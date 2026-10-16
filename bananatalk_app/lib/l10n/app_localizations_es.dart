@@ -12175,4 +12175,9 @@ class AppLocalizationsEs extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String videoTooLongMax(int seconds) {
+    return 'Este video es demasiado largo. El límite es de $seconds segundos.';
+  }
 }

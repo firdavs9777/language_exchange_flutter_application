@@ -4874,5 +4874,6 @@
   "momentVoiceNoteUploaded": "Sprachnotiz hochgeladen",
   "momentUploadDidNotComplete": "Der Upload wurde nicht abgeschlossen.",
   "momentUploadGiveUp": "Das war der letzte Versuch – wahrscheinlich liegt es an der Verbindung, nicht an der Datei. Dein Moment ist bereits veröffentlicht; du kannst die Sprachnotiz später beim Bearbeiten hinzufügen.",
-  "momentUploadTriesLeft": "{count, plural, =1{Noch 1 Versuch.} other{Noch {count} Versuche.}}"
+  "momentUploadTriesLeft": "{count, plural, =1{Noch 1 Versuch.} other{Noch {count} Versuche.}}",
+  "videoTooLongMax": "Dieses Video ist zu lang. Das Limit liegt bei {seconds} Sekunden."
 }

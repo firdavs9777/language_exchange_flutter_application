@@ -4664,5 +4664,6 @@
   "momentVoiceNoteUploaded": "Nota de voz subida",
   "momentUploadDidNotComplete": "La subida no se completó.",
   "momentUploadGiveUp": "Ese fue el último intento: probablemente sea la conexión y no el archivo. Tu momento ya está publicado; puedes añadir la nota de voz más tarde editándolo.",
-  "momentUploadTriesLeft": "{count, plural, =1{Queda 1 intento.} other{Quedan {count} intentos.}}"
+  "momentUploadTriesLeft": "{count, plural, =1{Queda 1 intento.} other{Quedan {count} intentos.}}",
+  "videoTooLongMax": "Este video es demasiado largo. El límite es de {seconds} segundos."
 }

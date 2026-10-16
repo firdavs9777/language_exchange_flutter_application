@@ -4127,5 +4127,6 @@
   "momentVoiceNoteUploaded": "Ёддошти овозӣ бор карда шуд",
   "momentUploadDidNotComplete": "Боркунӣ ба анҷом нарасид.",
   "momentUploadGiveUp": "Ин кӯшиши охирин буд — эҳтимол мушкил дар пайвастшавӣ аст, на дар файл. Лаҳзаи шумо аллакай нашр шудааст; шумо метавонед баъдтар бо таҳрир ёддошти овозиро илова кунед.",
-  "momentUploadTriesLeft": "{count, plural, other{{count} кӯшиш боқӣ мондааст.}}"
+  "momentUploadTriesLeft": "{count, plural, other{{count} кӯшиш боқӣ мондааст.}}",
+  "videoTooLongMax": "Ин видео хеле дароз аст. Ҳадди аксар {seconds} сония."
 }

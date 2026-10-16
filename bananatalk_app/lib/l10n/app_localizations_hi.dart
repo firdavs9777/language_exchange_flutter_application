@@ -12175,4 +12175,9 @@ class AppLocalizationsHi extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String videoTooLongMax(int seconds) {
+    return 'यह वीडियो बहुत लंबा है। सीमा $seconds सेकंड है।';
+  }
 }

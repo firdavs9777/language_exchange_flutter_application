@@ -4650,5 +4650,6 @@
   "momentVoiceNoteUploaded": "वॉइस नोट अपलोड हो गया",
   "momentUploadDidNotComplete": "अपलोड पूरा नहीं हुआ।",
   "momentUploadGiveUp": "यह आख़िरी कोशिश थी — समस्या शायद फ़ाइल नहीं, कनेक्शन में है। आपका मोमेंट पहले ही पोस्ट हो चुका है; आप बाद में उसे एडिट करके वॉइस नोट जोड़ सकते हैं।",
-  "momentUploadTriesLeft": "{count, plural, =1{1 कोशिश बाकी है।} other{{count} कोशिशें बाकी हैं।}}"
+  "momentUploadTriesLeft": "{count, plural, =1{1 कोशिश बाकी है।} other{{count} कोशिशें बाकी हैं।}}",
+  "videoTooLongMax": "यह वीडियो बहुत लंबा है। सीमा {seconds} सेकंड है।"
 }

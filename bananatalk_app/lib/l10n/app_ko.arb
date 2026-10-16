@@ -4655,5 +4655,6 @@
   "momentVoiceNoteUploaded": "음성 메모를 올렸어요",
   "momentUploadDidNotComplete": "업로드가 완료되지 않았어요.",
   "momentUploadGiveUp": "마지막 시도였어요. 파일보다는 연결 문제일 가능성이 커요. 모먼트는 이미 올라갔으니 나중에 수정해서 음성 메모를 추가할 수 있어요.",
-  "momentUploadTriesLeft": "{count, plural, other{{count}번 더 시도할 수 있어요.}}"
+  "momentUploadTriesLeft": "{count, plural, other{{count}번 더 시도할 수 있어요.}}",
+  "videoTooLongMax": "동영상이 너무 길어요. 최대 {seconds}초까지 가능해요."
 }

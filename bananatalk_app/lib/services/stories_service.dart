@@ -85,10 +85,10 @@ class StoriesService {
         
         return StoriesResponse(
           success: false,
-          error: data['error'] ?? data['message'] ?? 'Failed to load stories',
+          error: data['error'] ?? data['message'],
         );
       }
-      return StoriesResponse(success: false, error: 'Failed to load stories');
+      return StoriesResponse(success: false, error: null);
     } catch (e) {
       return StoriesResponse(success: false, error: e.toString());
     }
@@ -121,10 +121,10 @@ class StoriesService {
         
         return StoriesResponse(
           success: false,
-          error: data['error'] ?? data['message'] ?? 'Failed to load stories',
+          error: data['error'] ?? data['message'],
         );
       }
-      return StoriesResponse(success: false, error: 'Failed to load stories');
+      return StoriesResponse(success: false, error: null);
     } catch (e) {
       return StoriesResponse(success: false, error: e.toString());
     }
@@ -152,7 +152,7 @@ class StoriesService {
       } else if (response.statusCode == 403) {
         return StoriesResponse(success: true, blocked: true, message: 'Content not available');
       }
-      return StoriesResponse(success: false, error: 'Failed to load stories');
+      return StoriesResponse(success: false, error: null);
     } catch (e) {
       return StoriesResponse(success: false, error: e.toString());
     }
@@ -170,7 +170,7 @@ class StoriesService {
       } else if (response.statusCode == 403) {
         return SingleStoryResponse(success: false, blocked: true, error: 'Content not available');
       }
-      return SingleStoryResponse(success: false, error: 'Failed to load story');
+      return SingleStoryResponse(success: false, error: null);
     } catch (e) {
       return SingleStoryResponse(success: false, error: e.toString());
     }
@@ -204,7 +204,7 @@ class StoriesService {
       if (mediaFiles == null || mediaFiles.isEmpty) {
         return SingleStoryResponse(
           success: false,
-          error: 'Please select an image or video for your story',
+          failure: StoryPostFailure.noMedia,
         );
       }
 
@@ -232,7 +232,7 @@ class StoriesService {
         if (fileSize > 1024 * 1024 * 1024) {
           return SingleStoryResponse(
             success: false,
-            error: 'Video size exceeds 1GB limit',
+            failure: StoryPostFailure.videoTooLarge,
           );
         }
 
@@ -318,16 +318,10 @@ class StoriesService {
         return SingleStoryResponse.fromJson(data);
       }
 
-      // Parse error message from backend
-      String errorMessage = 'Failed to create story';
-      try {
-        final errorData = jsonDecode(response.body);
-        errorMessage = errorData['message'] ?? errorData['error'] ?? 'Failed to create story (${response.statusCode})';
-      } catch (parseError) {
-        errorMessage = 'Failed to create story: Server error (${response.statusCode})';
-      }
-
-      return SingleStoryResponse(success: false, error: errorMessage);
+      return SingleStoryResponse(
+        success: false,
+        error: _serverErrorOf(response, 'createStory'),
+      );
     } catch (e) {
       debugPrint('StoriesService.createStory failed: $e');
       return SingleStoryResponse(success: false, error: e.toString());
@@ -379,7 +373,7 @@ class StoriesService {
       if (text.trim().isEmpty) {
         return SingleStoryResponse(
           success: false,
-          error: 'Please enter some text for your story',
+          failure: StoryPostFailure.noText,
         );
       }
 
@@ -415,15 +409,10 @@ class StoriesService {
         return SingleStoryResponse.fromJson(data);
       }
 
-      String errorMessage = 'Failed to create story';
-      try {
-        final errorData = jsonDecode(response.body);
-        errorMessage = errorData['message'] ?? errorData['error'] ?? 'Failed to create story (${response.statusCode})';
-      } catch (_) {
-        errorMessage = 'Server error (${response.statusCode})';
-      }
-
-      return SingleStoryResponse(success: false, error: errorMessage);
+      return SingleStoryResponse(
+        success: false,
+        error: _serverErrorOf(response, 'createTextStory'),
+      );
     } catch (e) {
       debugPrint('StoriesService.createTextStory failed: $e');
       return SingleStoryResponse(success: false, error: e.toString());
@@ -440,7 +429,7 @@ class StoriesService {
       if (response.statusCode == 200) {
         return {'success': true};
       }
-      return {'success': false, 'error': 'Failed to delete story'};
+      return {'success': false, 'error': serverErrorOf(response)};
     } catch (e) {
       return {'success': false, 'error': e.toString()};
     }
@@ -720,7 +709,7 @@ class StoriesService {
       if (response.statusCode == 200) {
         return ArchiveResponse.fromJson(jsonDecode(response.body));
       }
-      return ArchiveResponse(success: false, error: 'Failed to load archive');
+      return ArchiveResponse(success: false, error: null);
     } catch (e) {
       return ArchiveResponse(success: false, error: e.toString());
     }
@@ -754,7 +743,7 @@ class StoriesService {
       if (response.statusCode == 200) {
         return HighlightsResponse.fromJson(jsonDecode(response.body));
       }
-      return HighlightsResponse(success: false, error: 'Failed to load highlights');
+      return HighlightsResponse(success: false, error: null);
     } catch (e) {
       return HighlightsResponse(success: false, error: e.toString());
     }
@@ -770,7 +759,7 @@ class StoriesService {
       if (response.statusCode == 200) {
         return HighlightsResponse.fromJson(jsonDecode(response.body));
       }
-      return HighlightsResponse(success: false, error: 'Failed to load highlights');
+      return HighlightsResponse(success: false, error: null);
     } catch (e) {
       return HighlightsResponse(success: false, error: e.toString());
     }
@@ -953,6 +942,31 @@ class StoriesService {
   }
 
   // ==================== HELPERS ====================
+
+  /// The backend's own sentence from a failed response, or null.
+  ///
+  /// There used to be an English fallback here ("Failed to create story
+  /// (500)"), which the screen showed as-is; with null the screen shows its
+  /// localized "couldn't post story" instead.
+  @visibleForTesting
+  static String? serverErrorOf(http.Response response) {
+    try {
+      final body = jsonDecode(response.body);
+      if (body is! Map) return null;
+      final message = body['message'] ?? body['error'];
+      return message is String && message.trim().isNotEmpty ? message : null;
+    } catch (_) {
+      return null;
+    }
+  }
+
+  static String? _serverErrorOf(http.Response response, String call) {
+    final message = serverErrorOf(response);
+    if (message == null) {
+      debugPrint('StoriesService.$call failed: HTTP ${response.statusCode}');
+    }
+    return message;
+  }
 
   static String _getMimeType(String filePath) {
     final extension = filePath.split('.').last.toLowerCase();

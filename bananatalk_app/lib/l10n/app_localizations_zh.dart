@@ -12145,6 +12145,11 @@ class AppLocalizationsZh extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String videoTooLongMax(int seconds) {
+    return '视频太长了。最长 $seconds 秒。';
+  }
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -24287,5 +24292,10 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
       other: '還可以嘗試 $count 次。',
     );
     return '$_temp0';
+  }
+
+  @override
+  String videoTooLongMax(int seconds) {
+    return '影片太長了。最長 $seconds 秒。';
   }
 }

@@ -12145,4 +12145,9 @@ class AppLocalizationsVi extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String videoTooLongMax(int seconds) {
+    return 'Video này quá dài. Giới hạn là $seconds giây.';
+  }
 }

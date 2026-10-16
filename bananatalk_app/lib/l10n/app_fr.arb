@@ -4874,5 +4874,6 @@
   "momentVoiceNoteUploaded": "Note vocale envoyée",
   "momentUploadDidNotComplete": "L'envoi n'a pas abouti.",
   "momentUploadGiveUp": "C'était la dernière tentative : le problème vient sans doute de la connexion plutôt que du fichier. Votre moment est déjà publié ; vous pourrez ajouter la note vocale plus tard en le modifiant.",
-  "momentUploadTriesLeft": "{count, plural, =1{Encore 1 essai.} other{Encore {count} essais.}}"
+  "momentUploadTriesLeft": "{count, plural, =1{Encore 1 essai.} other{Encore {count} essais.}}",
+  "videoTooLongMax": "Cette vidéo est trop longue. La limite est de {seconds} secondes."
 }

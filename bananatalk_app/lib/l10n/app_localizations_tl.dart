@@ -12168,4 +12168,9 @@ class AppLocalizationsTl extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String videoTooLongMax(int seconds) {
+    return 'Masyadong mahaba ang video na ito. Ang limit ay $seconds segundo.';
+  }
 }
