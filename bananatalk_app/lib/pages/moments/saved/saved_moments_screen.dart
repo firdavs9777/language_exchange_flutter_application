@@ -63,7 +63,11 @@ class _SavedMomentsScreenState extends State<SavedMomentsScreen> {
           });
         } else {
           setState(() {
-            _error = response.error;
+            _error = friendlyErrorMessage(
+              AppLocalizations.of(context)!,
+              response.error,
+              prefix: AppLocalizations.of(context)!.failedToLoadSavedMoments,
+            );
             _isLoading = false;
           });
         }

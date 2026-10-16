@@ -386,7 +386,13 @@ class _CommentItemState extends State<_CommentItem> with SingleTickerProviderSta
           });
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(result['error'] ?? AppLocalizations.of(context)!.failedToSave),
+              content: Text(
+                friendlyErrorMessage(
+                  AppLocalizations.of(context)!,
+                  result['error'],
+                  prefix: AppLocalizations.of(context)!.failedToSave,
+                ),
+              ),
               backgroundColor: AppColors.error,
             ),
           );
@@ -439,7 +445,13 @@ class _CommentItemState extends State<_CommentItem> with SingleTickerProviderSta
       } else if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(result['error'] ?? AppLocalizations.of(context)!.failedToSave),
+            content: Text(
+              friendlyErrorMessage(
+                AppLocalizations.of(context)!,
+                result['error'],
+                prefix: AppLocalizations.of(context)!.failedToSave,
+              ),
+            ),
             backgroundColor: AppColors.error,
           ),
         );
@@ -487,7 +499,13 @@ class _CommentItemState extends State<_CommentItem> with SingleTickerProviderSta
       } else if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(result['error'] ?? AppLocalizations.of(context)!.failedToSave),
+            content: Text(
+              friendlyErrorMessage(
+                AppLocalizations.of(context)!,
+                result['error'],
+                prefix: AppLocalizations.of(context)!.failedToSave,
+              ),
+            ),
             backgroundColor: AppColors.error,
           ),
         );
@@ -1187,7 +1205,13 @@ class _ReplyItemState extends State<_ReplyItem> {
           });
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(result['error'] ?? AppLocalizations.of(context)!.failedToSave),
+              content: Text(
+                friendlyErrorMessage(
+                  AppLocalizations.of(context)!,
+                  result['error'],
+                  prefix: AppLocalizations.of(context)!.failedToSave,
+                ),
+              ),
               backgroundColor: AppColors.error,
             ),
           );
@@ -1241,7 +1265,13 @@ class _ReplyItemState extends State<_ReplyItem> {
       } else if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(result['error'] ?? l10n.failedToSave),
+            content: Text(
+              friendlyErrorMessage(
+                l10n,
+                result['error'],
+                prefix: l10n.failedToSave,
+              ),
+            ),
             backgroundColor: AppColors.error,
           ),
         );
@@ -1290,7 +1320,13 @@ class _ReplyItemState extends State<_ReplyItem> {
       } else if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(result['error'] ?? l10n.failedToSave),
+            content: Text(
+              friendlyErrorMessage(
+                l10n,
+                result['error'],
+                prefix: l10n.failedToSave,
+              ),
+            ),
             backgroundColor: AppColors.error,
           ),
         );

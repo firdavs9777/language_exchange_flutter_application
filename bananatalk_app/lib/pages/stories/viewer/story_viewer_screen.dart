@@ -14,6 +14,7 @@ import 'package:bananatalk_app/widgets/report_dialog.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/widgets/story/story_progress_bar.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/widgets/block_user_action.dart';
 import 'package:bananatalk_app/utils/image_utils.dart';
 import 'package:bananatalk_app/pages/stories/create/create_story_screen.dart';
@@ -672,7 +673,11 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
-                result['error']?.toString() ?? AppLocalizations.of(context)!.storyFailedToDelete,
+                friendlyErrorMessage(
+                  AppLocalizations.of(context)!,
+                  result['error'],
+                  prefix: AppLocalizations.of(context)!.storyFailedToDelete,
+                ),
               ),
               backgroundColor: Colors.red,
             ),
