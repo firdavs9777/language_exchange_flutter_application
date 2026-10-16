@@ -244,7 +244,7 @@ Web ↔ app parity (spec `docs/superpowers/specs/2026-10-16-web-app-parity-desig
 - [ ] (web, Phase 3 links) Invite page "Get it on Google Play" → https://play.google.com/store/apps/details?id=com.bananatalk.app&referrer=code%3D<CODE> so P2-8 can pick the code up.
 - [ ] Device QA: install from a Play internal-testing link with &referrer=code%3D<CODE>, register, coins credited (row WEB-APP-08; needs REFERRALS_ENABLED on a test backend).
 - [ ] (build env) Android Studio's bundled JBR is now Java 25, which Gradle 8.11.1 cannot run on (`flutter build apk` fails in settings.gradle with "> 25.0.3"). Workaround used for the P2 gate: `cd android && JAVA_HOME=<openjdk@17> ./gradlew assembleDebug`. Fix: `flutter config --jdk-dir <openjdk@17>` (owner, machine-level) or a Gradle upgrade. S
-- [ ] Phase 3: web bug fixes — chat, moments, community, links. L
+- [x] Phase 3: web bug fixes — all four units deployed 2026-10-16 (links, community, moments, chat; web suite 3,820 pass); backend message search fixed (500 → works). Native review of new web strings open.
 - [ ] Phase 4: web features (flagged) — reels, gatherings/clubs, voice rooms, calls, Sign in with Apple. XL
 - [ ] Phase 5: owner steps — www cert, nginx snippet + crawler rule, Play fingerprints, Apple Services ID, prod env checks. S
 
