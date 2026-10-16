@@ -4,8 +4,9 @@ Date: 2026-10-16. Source: the four read-only audits in `docs/audits/2026-10-16-w
 (`chat.md`, `moments.md`, `community.md`, `links.md`). Each finding there has a number; this spec
 refers to them as `chat#3`, `moments#13`, `community#1`, `links#9`.
 
-Repos: app `bananatalk_app` (this repo), backend `language_exchange_backend_application`,
-web `language_exchange_web_front` (CRA/React/TS, pushes to `main` deploy live via GitHub Actions).
+Repos (work happens in integration worktrees of each): app `bananatalk_app` (this repo; worktree
+`bt-integration`), backend `language_exchange_backend_application` (worktree `be-integration`),
+web `language_exchange_web_front` (CRA/React/TS; pushes to `main` deploy live via GitHub Actions).
 
 ## 1. Goal
 
@@ -29,9 +30,8 @@ written into the QA sheet.
     old request shapes keep working, response changes are additive, nothing a live client reads is
     removed — except fields removed for privacy (§3.1), which no client may rely on.
 - App changes ship with 2.7.0 (not built yet), so they are not live on push.
-- House rules: `package:` imports (app); REMAINING_WORK.md updated in every commit (app + backend;
-  web: `docs/` if it has a tracker, else the app's REMAINING_WORK carries web items); no AI
-  attribution in commits.
+- House rules: `package:` imports (app); `docs/REMAINING_WORK.md` updated in every commit in all
+  three repos (the web repo has one); no AI attribution in commits.
 
 ## 3. Phases
 
@@ -51,20 +51,29 @@ deletes every unit test.
 
 ### Phase 1 — backend
 
-1. **Profile field visibility (community#1, #6, links#11).** One helper, e.g.
-   `lib/profileVisibility.js` `visibleProfile(user, viewer)`, applying the user's privacy toggles
-   (hide age, city/location, online, VIP, gifting level) and the relationship (self, follower,
-   stranger, anonymous, blocked). Used by: `GET /auth/users` list, `/matching/daily`,
-   recommendations, topic users, `GET /auth/users/:id` (app profile), `/:id/public` (web profile).
-   Anonymous viewers never receive coordinates, full birth date, follower/following lists.
-   Response keeps the same field names; hidden values become absent/null.
+0. **Merge backend `fix/moments-stories-audit` first** (29 commits, not on main). It already adds
+   `redactUserForViewer` (`lib/privacySettings.js`) and applies it to `controllers/users.js` lists and
+   `controllers/matching.js`, plus story viewer-data privacy and `userReaction` (moments#20). Resolve
+   conflicts with main, run the suite, then re-check community#1, community#6 and links#11 against
+   the merged code before item 1.
+1. **Profile field visibility (community#1, #6, links#11).** Extend `redactUserForViewer` — no second
+   helper — to every remaining path: `GET /auth/users/:id` (app profile), `/:id/public` (web profile,
+   including anonymous viewers), recommendations, topic users, and blocked viewers. Anonymous viewers
+   never receive coordinates, full birth date, follower/following lists. Field names stay; hidden
+   values become absent/null. `/:id/public` gains `hasActiveStory` (community#6).
 2. **Blocks (community#5).** `followUser` refuses (403) when either side blocked the other;
    public/profile endpoints give blocked viewers a minimal profile (404 for the blocker's view of
    a blocker is not needed — minimal card is enough).
 3. **Chat (chat#2, #3, #8, #10, #11).**
-   - `POST /messages/conversations` creates/returns a conversation **without** creating a message;
-     it runs the block check and the new-conversation cap.
-   - `DELETE /messages/:id` accepts `forEveryone` from query **or** body.
+   - `POST /messages/conversations` no longer creates a "Conversation started" message; it runs the
+     block check and the new-conversation cap (live web will now show 403 toasts for those — intended).
+     Response shape is unchanged: `{isNew, participants, lastMessage (null allowed), isGroupMessage}`
+     with **no** top-level `data._id` (live `NewChat.tsx:94` would navigate to a wrong thread if one
+     appeared).
+   - `DELETE /messages/:id` treats it as delete-for-everyone when body `deleteForEveryone === true`
+     **or** query `forEveryone=true` (live web sends the query; Phase 3 web sends the body key).
+   - `conversations.js` `lastMessage` populate includes `media.type` so lists show "Photo/Voice/Call"
+     instead of blank (chat#10).
    - Thread and `/messages/user/:id` endpoints filter `deletedFor` and deleted/blocked conversations.
    - Socket unread count is the real count, not 1.
    - Wave mirror and `story_share` messages populate `sender` like other messages.
@@ -73,26 +82,42 @@ deletes every unit test.
    (viewer-data privacy, `userReaction`); video stories parse `link`; highlights select the full
    story field set; translation validator uses `SUPPORTED_LANGUAGES` + `tl`, `uz`, `az`, `kk`, `ky`,
    `tg`, `tk`.
-5. **Voice notes (moments#2, chat#13).** Uploaded audio (moments + chat voice) that is not
-   AAC/MP4/MP3 is transcoded to AAC (`.m4a`) with ffmpeg (already used for video); the stored URL
-   points at the AAC file.
+5. **Voice notes (moments#2, chat#13).** Audio uploads (moment voice note, chat voice message)
+   whose type is not AAC/MP4/MP3 are transcoded **synchronously** before the response: those two
+   routes stage the upload to local disk (not multer-s3 streaming), run the system ffmpeg
+   (`/usr/bin/ffmpeg`, as `utils/videoTranscode.js` does) to AAC `.m4a`, upload that to Spaces, and
+   return/store only the AAC URL; the original is deleted locally and never stored. On ffmpeg failure
+   the original is uploaded unchanged and the failure logged (today's behaviour, no worse). Voice
+   notes are short (moment ≤ the existing cap, chat ≤ the existing cap), so the added latency is
+   small. Already-stored WebM notes are not migrated (non-goal).
 6. **Links/emails (links#9, #13, #16).** Email buttons point at existing web routes (`/communities`,
    `/chat`, `/chat/<id>`, `/profile`, admin report link); names URL-encoded. OG endpoint gains an
    `i` (invite) type. Pub/Sub audience fallback uses `api.banatalk.com`.
-7. **Endpoints for web features (§3.5).** Reuse the app's endpoints. New: web Sign in with Apple
-   (verify Apple identity token for a configured Services ID, `APPLE_WEB_SERVICES_ID`); Google web
-   login returns a one-time code exchanged for tokens (keep the old `?token=` path until the new
-   web is live, then remove). Flags in app-config: `webReelsEnabled`, `webGatheringsEnabled`,
-   `webVoiceRoomsEnabled`, `webCallsEnabled`, `webAppleSignInEnabled` (env, default false).
+7. **Endpoints for web features (Phase 4).** Phase 4 reuses the app's endpoints: reels feed/create
+   (`routes/moments.js`), gatherings + clubs (`routes/gatherings.js`, `routes/clubs.js`), voice rooms
+   (`routes/voiceRooms.js` + its LiveKit token route), language rooms (`routes/rooms.js`), calls
+   (`routes/calls.js`, `callController` LiveKit tokens + socket signalling). Each gets a contract test
+   for the exact request the web sends and the fields it reads. New endpoints:
+   - Web Sign in with Apple: verify an Apple identity token for `APPLE_WEB_SERVICES_ID`; returns
+     the same token pair as other logins. **Refused (404) while `WEB_APPLE_SIGNIN_ENABLED` is false.**
+   - Google web login: callback returns a short-lived one-time code exchanged via POST for tokens.
+     The old `?token=` callback stays until the Phase 3 web is live, then is removed.
+   - Flags (§4) exposed in app-config.
+8. **Leftover wrong-domain references (links#17).** `api.bananatalk.com` / `support@bananatalk.com`
+   in docs fixed in all three repos.
 
 ### Phase 2 — app (ships with 2.7.0)
 
-- Story share uses `shareUrl('story', id)` → `https://banatalk.com/story/<id>`; parser, manifest,
-  AASA learn `story` (links#1, moments#1).
+- Story share uses `shareUrl('story', id)` → `https://banatalk.com/story/<id>`; the app's parser
+  and Android manifest learn `story` (links#1, moments#1). The **AASA** (web repo, live) does not
+  claim `/story/*` yet: 2.6.1 would receive links it drops. The web `/story/:id` page (Phase 3) is the
+  fallback; claiming `/story/*` and `/chat/*` is an owner step once 2.7.0 is most of the iOS base
+  (Phase 5). Until then `/chat/*` is **removed** from the AASA (2.6.1 drops it today).
 - QR code encodes `https://banatalk.com/profile/<id>`; scanner accepts both (links#8).
 - `FlutterDeepLinkingEnabled=false` (Info.plist) and `flutter_deeplinking_enabled=false`
   (manifest) so only the existing deep-link handler runs (links#7).
-- `/chat/<userId>` links open that chat (parser + manifest), matching the AASA claim (links#6).
+- `/chat/<userId>` links open that chat (parser + manifest) so the AASA can claim it again later
+  (links#6).
 - Text stories draw stickers (poll, question, link, location), header and reply bar (moments#3).
 - Merge app `fix/moments-stories-audit` (UTC scheduling, prompt/location/isReel parsing,
   moments#6, #7) — after conflict resolution with main.
@@ -100,20 +125,31 @@ deletes every unit test.
 
 ### Phase 3 — web bug fixes (each area its own push)
 
-- **Chat:** edit sends `message`; delete sends body; render `call`, `location`, wave and story
-  messages like the app; limit/paywall/block errors open dialogs; no REST fallback after a slow
-  ack (or idempotency key); conversation list from conversations endpoint only; unread from
-  server; refetch after reconnect + `forceDisconnect` recovery; `messagePinned`, edited label,
-  forwarded chip, deleted placeholder; video via `/messages/video`; premium wallpapers; i18n.
+- **Chat:** edit sends `{message}`; delete sends body `{deleteForEveryone: true}`; render `call`,
+  `location`, wave and story messages like the app (location send too); limit/paywall/block errors
+  open dialogs; **no REST fallback** after a slow socket ack — the bubble is marked failed with Retry,
+  as in the app (chat#5); conversation list from the conversations endpoint only; unread from server;
+  refetch after reconnect + `forceDisconnect` recovery; `messagePinned`, edited label, forwarded chip,
+  deleted placeholder; video via `/messages/video`; premium wallpapers; message search, bookmarks
+  list + unbookmark, archive, mute durations, "you're blocked" banner (chat#17); i18n.
 - **Moments:** media-only posts and edits; the app's 20 gradients exactly; remove Title field;
   owner deletes comments; report comment/story + block author; saved paging and media renderer;
-  stories limited to 1 image, show location; MediaRecorder prefers `audio/mp4`; feed chips;
-  remaining moments P2s and i18n.
+  stories limited to 1 image, show location; MediaRecorder prefers `audio/mp4`; feed chips
+  (moments#22); comments: GIF picker, photo-only comments sent in one request, mentions rendered
+  (moments#21); fix `uploadMomentPhotos` typing, drop `mediaType: "text"`, delete dead `reportMoment`
+  (moments#23); story rendering parity — font style, solid-overlay plate colour, overlay/mention
+  placement, hashtags shown, `allowReplies`/`allowSharing` honoured, `link.host` kept (moments#25,
+  backend schema part in Phase 1); Saved Moments and other missing i18n keys (moments#24).
+  Accepted gap: stickers on web text stories stay invisible to app 2.6.1 users until they update to
+  2.7.0 (moments#3); the web keeps offering them.
 - **Community:** Nearby params/fields/route/privacy; username search path; language filter from the
   catalog; waves archive + reveal + avatars; wave-cap dialog; Serious segment, smart sort,
   reciprocal; suggested members params; Today tab marks waved cards; dead endpoints removed; i18n.
 - **Links:** smart banner/app banner targets the current page; AASA excludes web-only pages
-  (`/profile/edit`, `/community/nearby` …); `/story/:id` web route.
+  (`/profile/edit`, `/community/nearby` …) and drops `/chat/*` (see Phase 2); `/story/:id` web route;
+  write the crawler rule into `deploy/nginx.snippet.conf` (bot user agents on
+  `/(moment|profile|community|story|i)/<id>` proxied to `api.banatalk.com/og/<type>/<id>`) so the owner
+  can apply it in Phase 5.
 
 ### Phase 4 — web features (dark until flagged)
 
@@ -126,7 +162,9 @@ deletes every unit test.
   signalling). Incoming ring while any web tab is open; accept/decline (incl. decline message);
   camera on/off, mute, hang up; call history + missed-call entries. No ring when no tab is open
   (browser limit) — the app's push still rings the user's phone.
-- **Sign in with Apple** on login/register using Apple JS; backend verifies (§3.1 item 7).
+- **Language rooms** (`routes/rooms.js`) and the community **City** and **Genders** tabs
+  (community#7), same data as the app.
+- **Sign in with Apple** on login/register using Apple JS; backend verifies (Phase 1 item 7).
 
 ### Phase 5 — owner steps (written to `docs/ops/2026-10-16-web-hosting-steps.md`)
 
@@ -134,14 +172,18 @@ Certificate for `www.banatalk.com` + 301 to apex; apply `deploy/nginx.snippet.co
 `application/json`, SPA 404s) plus a crawler rule proxying `/(moment|profile|community|story|i)/…`
 to `api.banatalk.com/og/…`; Play upload + app-signing SHA-256 → `assetlinks.json`; Apple Services
 ID + return URLs; check prod `GOOGLE_PUBSUB_AUDIENCE`/`DOMAIN`, `GOOGLE_PUBSUB_SERVICE_ACCOUNT`;
-turn on web feature flags one at a time after QA; `REFERRALS_ENABLED` after Android links verify.
+turn on web feature flags one at a time after QA; `REFERRALS_ENABLED` after Android links verify;
+once 2.7.0 is most of the iOS base, add `/story/*` and `/chat/*` to the AASA.
 
 ## 4. Flags
 
-Server env → `/app-config` booleans, default false: `WEB_REELS_ENABLED`, `WEB_GATHERINGS_ENABLED`,
-`WEB_VOICE_ROOMS_ENABLED`, `WEB_CALLS_ENABLED`, `WEB_APPLE_SIGNIN_ENABLED`. The website hides the
-nav entry, routes and buttons while false. Existing `GATHERINGS_ENABLED`, `ROOMS_ENABLED`,
-`REELS_ENABLED` still gate the feature for everyone.
+Server env (`config/limitations.js`) → `/app-config` booleans, default false: `WEB_REELS_ENABLED`,
+`WEB_GATHERINGS_ENABLED`, `WEB_VOICE_ROOMS_ENABLED`, `WEB_LANGUAGE_ROOMS_ENABLED`, `WEB_CALLS_ENABLED`,
+`WEB_APPLE_SIGNIN_ENABLED`. The website hides the nav entry, routes and buttons while false;
+`WEB_APPLE_SIGNIN_ENABLED` also gates its backend endpoint. Existing global switches still apply for
+everyone: `REELS_ENABLED` (reels), `GATHERINGS_ENABLED` (gatherings/clubs), `ROOMS_ENABLED`
+(**language** rooms, `routes/rooms.js`). Voice rooms have no global switch (only tier limits via
+`checkVoiceRoomAccess`); the web flag is their only gate and no global switch is added.
 
 ## 5. Testing
 
