@@ -134,6 +134,13 @@
                 android:name="io.flutter.embedding.android.NormalTheme"
                 android:resource="@style/NormalTheme" />
 
+            <!-- Links are handled only by app_links + DeepLinkGate
+                 (lib/services/deep_link_service.dart); Flutter's own deep
+                 linking would also push the raw path into GoRouter (links#7). -->
+            <meta-data
+                android:name="flutter_deeplinking_enabled"
+                android:value="false" />
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -153,6 +160,8 @@
                 <data android:pathPrefix="/moment/" />
                 <data android:pathPrefix="/profile/" />
                 <data android:pathPrefix="/community/" />
+                <data android:pathPrefix="/story/" />
+                <data android:pathPrefix="/chat/" />
                 <data android:pathPrefix="/i/" />
             </intent-filter>
 

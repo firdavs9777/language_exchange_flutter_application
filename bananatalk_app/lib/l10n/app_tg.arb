@@ -4170,5 +4170,11 @@
   "vipSwitchPlanUnavailable": "Дар ин ҳисоб обунаи Google Play барои иваз ёфт нашуд. Обунаи худро дар Google Play идора кунед.",
   "vipSwitchScheduledTitle": "Ивази нақша ба нақша гирифта шуд",
   "vipSwitchScheduledBody": "Нақшаи нави шумо пас аз анҷоми нақшаи ҷорӣ оғоз мешавад. То он вақт шумо VIP мемонед.",
-  "videoTooLongMax": "Ин видео хеле дароз аст. Ҳадди аксар {seconds} сония."
+  "videoTooLongMax": "Ин видео хеле дароз аст. Ҳадди аксар {seconds} сония.",
+  "momentAnsweringPrompt": "Ҷавоб ба: {prompt}",
+  "referralHaveCode": "Рамзи даъват доред?",
+  "referralEnterCodeHint": "Рамзи даъват",
+  "referralApply": "Татбиқ кардан",
+  "referralCodeUnknown": "Чунин рамзи даъват вуҷуд надорад. Санҷед ва бори дигар кӯшиш кунед.",
+  "referralCodeNotAccepted": "Ин рамзи даъватро дар ҳисоби шумо истифода бурдан мумкин нест."
 }

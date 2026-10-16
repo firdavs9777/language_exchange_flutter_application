@@ -124,7 +124,7 @@ class _CommunityCardState extends State<CommunityCard>
           country: (widget.community.privacySettings?.showCountryRegion ?? true)
               ? widget.community.location.country
               : null,
-          isVip: widget.community.isVip,
+          isVip: PrivacyUtils.showsVipBadge(widget.community),
           userId: PrivacyUtils.shouldShowOnlineStatus(widget.community)
               ? widget.community.id
               : null,

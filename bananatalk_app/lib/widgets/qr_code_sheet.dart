@@ -1,6 +1,8 @@
 // lib/widgets/qr_code_sheet.dart
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/services/deep_link_parser.dart';
+import 'package:bananatalk_app/services/link_constants.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -16,7 +18,9 @@ class QrCodeSheet extends StatefulWidget {
   final String userName;
   final String? avatarUrl;
 
-  /// Called when a valid `bananatalk://user/<id>` is scanned.
+  /// Called when a scanned code is a BananaTalk profile: the
+  /// `https://banatalk.com/profile/<id>` link (2.7.0+) or the older
+  /// `bananatalk://user/<id>`.
   /// The sheet is already popped before this is invoked.
   final void Function(String scannedUserId) onUserScanned;
 
@@ -37,7 +41,10 @@ class _QrCodeSheetState extends State<QrCodeSheet>
   late final TabController _tabController;
   bool _navigating = false;
 
-  String get _qrData => 'bananatalk://user/${widget.userId}';
+  /// An https link: tappable in other chat apps and opens the web profile
+  /// when the app isn't installed (links#8). The app's link handler and the
+  /// scanner below both accept it.
+  String get _qrData => shareUrl('profile', widget.userId);
 
   @override
   void initState() {
@@ -58,10 +65,8 @@ class _QrCodeSheetState extends State<QrCodeSheet>
       final raw = barcode.rawValue;
       if (raw == null) continue;
 
-      if (raw.startsWith('bananatalk://user/')) {
-        final scannedId = raw.substring('bananatalk://user/'.length).trim();
-        if (scannedId.isEmpty) continue;
-
+      final scannedId = userIdFromQrPayload(raw);
+      if (scannedId != null) {
         _navigating = true;
         // Pop the sheet first, then invoke the callback
         Navigator.of(context).pop();

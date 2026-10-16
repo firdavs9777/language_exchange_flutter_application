@@ -12298,4 +12298,24 @@ class AppLocalizationsTg extends AppLocalizations {
   String videoTooLongMax(int seconds) {
     return 'Ин видео хеле дароз аст. Ҳадди аксар $seconds сония.';
   }
+
+  @override
+  String momentAnsweringPrompt(String prompt) {
+    return 'Ҷавоб ба: $prompt';
+  }
+
+  @override
+  String get referralHaveCode => 'Рамзи даъват доред?';
+
+  @override
+  String get referralEnterCodeHint => 'Рамзи даъват';
+
+  @override
+  String get referralApply => 'Татбиқ кардан';
+
+  @override
+  String get referralCodeUnknown => 'Чунин рамзи даъват вуҷуд надорад. Санҷед ва бори дигар кӯшиш кунед.';
+
+  @override
+  String get referralCodeNotAccepted => 'Ин рамзи даъватро дар ҳисоби шумо истифода бурдан мумкин нест.';
 }

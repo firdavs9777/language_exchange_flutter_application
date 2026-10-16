@@ -75,7 +75,7 @@ class CompactUserTile extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
-                        if (user.isVip) ...[
+                        if (PrivacyUtils.showsVipBadge(user)) ...[
                           const SizedBox(width: 6),
                           Container(
                             padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
@@ -246,7 +246,7 @@ class CompactUserTile extends StatelessWidget {
                 end: Alignment.bottomRight,
               )
             : null,
-        boxShadow: user.isVip
+        boxShadow: PrivacyUtils.showsVipBadge(user)
             ? null // VipAvatarFrame adds its own shadow
             : [
                 BoxShadow(
@@ -273,15 +273,15 @@ class CompactUserTile extends StatelessWidget {
       children: [
         // Avatar with optional VIP frame
         VipAvatarFrameCompact(
-          isVip: user.isVip,
+          isVip: PrivacyUtils.showsVipBadge(user),
           size: 56,
           child: avatarContent,
         ),
         // Online indicator
         if (PrivacyUtils.shouldShowOnlineStatus(user) && user.isOnline)
           Positioned(
-            right: user.isVip ? 2 : 0,
-            bottom: user.isVip ? 2 : 0,
+            right: PrivacyUtils.showsVipBadge(user) ? 2 : 0,
+            bottom: PrivacyUtils.showsVipBadge(user) ? 2 : 0,
             child: Container(
               width: 14,
               height: 14,

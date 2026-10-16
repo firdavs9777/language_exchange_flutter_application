@@ -28,6 +28,9 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/utils/media_failure_text.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
+import 'package:bananatalk_app/providers/provider_models/community_model.dart'
+    as community
+    show Location;
 import 'package:bananatalk_app/pages/moments/widgets/moments_snackbar.dart';
 import 'package:bananatalk_app/pages/moments/create/moment_draft_rules.dart';
 import 'package:bananatalk_app/pages/moments/create/moment_media_rules.dart';
@@ -117,6 +120,12 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
   List<String> _tags = [];
   DateTime? _scheduledDate;
   String _selectedBackgroundColor = '';
+
+  // Edit mode: the moment's saved location (until the user clears or
+  // replaces it) and the schedule it opened with, so the update sends
+  // location / scheduledFor only when the user actually changed them.
+  community.Location? _existingLocation;
+  DateTime? _initialScheduledDate;
 
   // Prompt-of-the-day prefill state
   bool _showPromptChip = false;
@@ -236,6 +245,14 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
         _selectedMood = moodEntry.key.isNotEmpty ? moodEntry.key : null;
       }
       _selectedBackgroundColor = moment.backgroundColor;
+      _existingLocation = moment.location;
+      // Only a still-pending schedule is editable; a past one means the
+      // moment is already published.
+      final scheduled = moment.scheduledFor;
+      if (scheduled != null && scheduled.isAfter(DateTime.now())) {
+        _scheduledDate = scheduled.toLocal();
+      }
+      _initialScheduledDate = _scheduledDate;
 
       // Prefill language + privacy so edit mode reflects the moment as-is.
       final languageEntry = _languages.entries.firstWhere(
@@ -288,6 +305,16 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
       _showPromptChip = true;
       _updateButtonState();
     }
+  }
+
+  /// The prompt chip names the prompt being answered, so a reel (whose
+  /// caption is blank) still shows what it answers. Falls back to the
+  /// generic label when the prompt text was not passed in.
+  String _promptChipLabel(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final text = widget.prefillPrompt?.trim() ?? '';
+    if (text.isEmpty) return l10n.momentAnsweringPromptOfDay;
+    return l10n.momentAnsweringPrompt(text);
   }
 
   /// Reverse-looks-up an ISO 639-1 code (e.g. `'ko'`) into `_languages`'
@@ -986,6 +1013,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
       _currentPosition = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high,
       );
+      _existingLocation = null;
 
       // The address is a nicety: coordinates alone are a valid location, so
       // a failed or empty reverse lookup leaves it null (the chip shows the
@@ -1031,8 +1059,15 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     setState(() {
       _currentPosition = null;
       _formattedAddress = null;
+      _existingLocation = null;
     });
   }
+
+  /// Edit mode: true when the user added a new location or removed the
+  /// saved one.
+  bool get _locationEdited =>
+      _currentPosition != null ||
+      (widget.momentToEdit?.location != null && _existingLocation == null);
 
   void _showLocationServiceDisabledDialog() {
     showDialog(
@@ -1360,13 +1395,17 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
               id: widget.momentToEdit!.id,
               description: descriptionController.text.trim(),
               category: _categoryToBackend[_selectedCategory] ?? 'general',
-              mood: _selectedMood != null ? _moods[_selectedMood] : null,
-              tags: _tags.isNotEmpty ? _tags : null,
-              backgroundColor: _selectedBackgroundColor.isNotEmpty
-                  ? _selectedBackgroundColor
-                  : null,
+              // Always sent, empty included: an empty value is how the
+              // user's "cleared it" reaches the server.
+              mood: _selectedMood != null ? (_moods[_selectedMood] ?? '') : '',
+              tags: List<String>.from(_tags),
+              backgroundColor: _selectedBackgroundColor,
               language: _languages[_selectedLanguage] ?? 'en',
               privacy: _selectedPrivacy.toLowerCase(),
+              includeLocation: _locationEdited,
+              location: _formatLocationData(),
+              includeScheduledFor: _scheduledDate != _initialScheduledDate,
+              scheduledFor: _scheduledDate?.toUtc().toIso8601String(),
             );
 
         // Upload new images if any were added
@@ -1406,7 +1445,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
               language: _languages[_selectedLanguage] ?? 'en',
               mood: _selectedMood != null ? _moods[_selectedMood] : null,
               tags: _tags.isNotEmpty ? _tags : null,
-              scheduledFor: _scheduledDate?.toIso8601String(),
+              scheduledFor: _scheduledDate?.toUtc().toIso8601String(),
               location: locationData,
               backgroundColor: _selectedBackgroundColor.isNotEmpty
                   ? _selectedBackgroundColor
@@ -1573,7 +1612,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
             backgroundColor: _selectedBackgroundColor.isNotEmpty
                 ? _selectedBackgroundColor
                 : null,
-            promptId: widget.isReel && _showPromptChip ? _promptId : null,
+            promptId: _showPromptChip ? _promptId : null,
             isReel: widget.isReel,
           );
 
@@ -1937,12 +1976,13 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                 const SizedBox(width: 6),
                 Flexible(
                   child: Text(
-                    AppLocalizations.of(context)!.momentAnsweringPromptOfDay,
+                    _promptChipLabel(context),
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w600,
                       color: Color(0xFFC9A415),
                     ),
+                    maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
@@ -2659,8 +2699,8 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
   /// flow can order and group them without touching their contents.
   List<Widget> _sectionLocation() {
     return [
-      // Location Display
-      if (_currentPosition != null) ...[
+      // Location Display (a new one, or the saved one in edit mode)
+      if (_currentPosition != null || _existingLocation != null) ...[
         Container(
           padding: Spacing.paddingMD,
           decoration: BoxDecoration(
@@ -2674,7 +2714,9 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
               Expanded(
                 child: Text(
                   _formattedAddress ??
-                      AppLocalizations.of(context)!.locationAdded,
+                      ((_existingLocation?.formattedAddress ?? '').isNotEmpty
+                          ? _existingLocation!.formattedAddress
+                          : AppLocalizations.of(context)!.locationAdded),
                   style: context.bodyMedium.copyWith(
                     color: AppColors.primary,
                     fontWeight: FontWeight.w500,

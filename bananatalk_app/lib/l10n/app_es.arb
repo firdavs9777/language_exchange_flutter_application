@@ -4707,5 +4707,11 @@
   "vipSwitchPlanUnavailable": "No encontramos una suscripción de Google Play para cambiar en esta cuenta. Gestiona tu suscripción en Google Play.",
   "vipSwitchScheduledTitle": "Cambio de plan programado",
   "vipSwitchScheduledBody": "Tu nuevo plan empieza cuando termine el actual. Sigues siendo VIP hasta entonces.",
-  "videoTooLongMax": "Este video es demasiado largo. El límite es de {seconds} segundos."
+  "videoTooLongMax": "Este video es demasiado largo. El límite es de {seconds} segundos.",
+  "momentAnsweringPrompt": "Respondiendo: {prompt}",
+  "referralHaveCode": "¿Tienes un código de invitación?",
+  "referralEnterCodeHint": "Código de invitación",
+  "referralApply": "Aplicar",
+  "referralCodeUnknown": "Ese código de invitación no existe. Revísalo e inténtalo de nuevo.",
+  "referralCodeNotAccepted": "Este código de invitación no se puede usar en tu cuenta."
 }

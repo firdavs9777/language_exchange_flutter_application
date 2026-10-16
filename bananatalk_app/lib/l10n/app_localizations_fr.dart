@@ -12308,4 +12308,24 @@ class AppLocalizationsFr extends AppLocalizations {
   String videoTooLongMax(int seconds) {
     return 'Cette vidéo est trop longue. La limite est de $seconds secondes.';
   }
+
+  @override
+  String momentAnsweringPrompt(String prompt) {
+    return 'En réponse à : $prompt';
+  }
+
+  @override
+  String get referralHaveCode => 'Vous avez un code d\'invitation ?';
+
+  @override
+  String get referralEnterCodeHint => 'Code d\'invitation';
+
+  @override
+  String get referralApply => 'Appliquer';
+
+  @override
+  String get referralCodeUnknown => 'Ce code d\'invitation n\'existe pas. Vérifiez-le et réessayez.';
+
+  @override
+  String get referralCodeNotAccepted => 'Ce code d\'invitation ne peut pas être utilisé sur votre compte.';
 }

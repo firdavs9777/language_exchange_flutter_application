@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/utils/privacy_utils.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
@@ -918,8 +919,8 @@ class ChatPartnerData {
           ? LastMessageData.fromJson(json['lastMessage'])
           : null,
       unreadCount: (json['unreadCount'] as num?)?.toInt() ?? 0,
-      isVip: json['userMode'] == 'vip' ||
-             (json['vipSubscription'] as Map?)?['isActive'] == true,
+      // The VIP badge follows the partner's showGiftingLevel setting.
+      isVip: PrivacyUtils.showsVipBadgeFromJson(json),
       isPinned: json['isPinned'] == true,
       isMuted: json['isMuted'] == true,
       conversationId: json['conversationId']?.toString(),

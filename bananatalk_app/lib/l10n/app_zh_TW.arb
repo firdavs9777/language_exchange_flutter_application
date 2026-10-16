@@ -4368,5 +4368,11 @@
   "vipSwitchPlanUnavailable": "此帳號上沒有可切換的 Google Play 訂閱。請在 Google Play 中管理你的訂閱。",
   "vipSwitchScheduledTitle": "方案變更已排定",
   "vipSwitchScheduledBody": "新方案將在目前方案結束時開始。在此之前你仍是 VIP。",
-  "videoTooLongMax": "影片太長了。最長 {seconds} 秒。"
+  "videoTooLongMax": "影片太長了。最長 {seconds} 秒。",
+  "momentAnsweringPrompt": "回答：{prompt}",
+  "referralHaveCode": "有邀請碼嗎？",
+  "referralEnterCodeHint": "邀請碼",
+  "referralApply": "使用",
+  "referralCodeUnknown": "此邀請碼不存在，請檢查後再試一次。",
+  "referralCodeNotAccepted": "此邀請碼無法用於你的帳號。"
 }

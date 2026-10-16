@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/utils/privacy_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/utils/time_ago.dart';
@@ -88,7 +89,7 @@ class _SingleCommunityHeaderState extends ConsumerState<SingleCommunityHeader> {
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
-              if (community.isVip) ...[
+              if (PrivacyUtils.showsVipBadge(community)) ...[
                 const SizedBox(width: 8),
                 _buildVipBadge(),
               ],
@@ -200,7 +201,7 @@ class _SingleCommunityHeaderState extends ConsumerState<SingleCommunityHeader> {
         animate: false,
         child: inner,
       );
-    } else if (community.isVip) {
+    } else if (PrivacyUtils.showsVipBadge(community)) {
       avatar = VipAvatarFrame(
         isVip: true,
         size: size,

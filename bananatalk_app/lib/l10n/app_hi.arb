@@ -4693,5 +4693,11 @@
   "vipSwitchPlanUnavailable": "इस खाते पर बदलने के लिए कोई Google Play सदस्यता नहीं मिली। अपनी सदस्यता Google Play में प्रबंधित करें।",
   "vipSwitchScheduledTitle": "प्लान बदलाव तय हो गया",
   "vipSwitchScheduledBody": "आपका नया प्लान मौजूदा प्लान खत्म होने पर शुरू होगा। तब तक आप VIP रहेंगे।",
-  "videoTooLongMax": "यह वीडियो बहुत लंबा है। सीमा {seconds} सेकंड है।"
+  "videoTooLongMax": "यह वीडियो बहुत लंबा है। सीमा {seconds} सेकंड है।",
+  "momentAnsweringPrompt": "जवाब: {prompt}",
+  "referralHaveCode": "क्या आपके पास आमंत्रण कोड है?",
+  "referralEnterCodeHint": "आमंत्रण कोड",
+  "referralApply": "लागू करें",
+  "referralCodeUnknown": "यह आमंत्रण कोड मौजूद नहीं है। जाँचें और फिर से कोशिश करें।",
+  "referralCodeNotAccepted": "यह आमंत्रण कोड आपके खाते पर इस्तेमाल नहीं किया जा सकता।"
 }

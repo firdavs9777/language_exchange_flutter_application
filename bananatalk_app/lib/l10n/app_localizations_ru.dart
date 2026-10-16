@@ -12774,4 +12774,24 @@ class AppLocalizationsRu extends AppLocalizations {
   String videoTooLongMax(int seconds) {
     return 'Это видео слишком длинное. Максимум — $seconds с.';
   }
+
+  @override
+  String momentAnsweringPrompt(String prompt) {
+    return 'Ответ на: $prompt';
+  }
+
+  @override
+  String get referralHaveCode => 'Есть код приглашения?';
+
+  @override
+  String get referralEnterCodeHint => 'Код приглашения';
+
+  @override
+  String get referralApply => 'Применить';
+
+  @override
+  String get referralCodeUnknown => 'Такого кода приглашения нет. Проверьте его и попробуйте ещё раз.';
+
+  @override
+  String get referralCodeNotAccepted => 'Этот код приглашения нельзя использовать в вашем аккаунте.';
 }

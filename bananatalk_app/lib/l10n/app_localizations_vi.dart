@@ -12278,4 +12278,24 @@ class AppLocalizationsVi extends AppLocalizations {
   String videoTooLongMax(int seconds) {
     return 'Video này quá dài. Giới hạn là $seconds giây.';
   }
+
+  @override
+  String momentAnsweringPrompt(String prompt) {
+    return 'Trả lời: $prompt';
+  }
+
+  @override
+  String get referralHaveCode => 'Bạn có mã mời không?';
+
+  @override
+  String get referralEnterCodeHint => 'Mã mời';
+
+  @override
+  String get referralApply => 'Áp dụng';
+
+  @override
+  String get referralCodeUnknown => 'Mã mời này không tồn tại. Hãy kiểm tra và thử lại.';
+
+  @override
+  String get referralCodeNotAccepted => 'Không thể dùng mã mời này cho tài khoản của bạn.';
 }

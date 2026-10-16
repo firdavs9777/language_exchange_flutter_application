@@ -14,6 +14,7 @@ web `docs/REMAINING_WORK.md` in the web repo (admin console, `assetlinks.json`, 
 - Backend `main` 9d36fe0 (2026-10-14) and web `main` 2ce0c93 are **deployed**, so the deploy order
   backend → web → app is satisfied; 2.7.0 can ship as soon as it is built.
 - All new server flags are still off (dark); see the backend file for the flag table.
+- fix/moments-stories-audit merged into main (2026-10-16, web-parity P2-1); its device rows are in docs/audits/2026-10-16-web-parity/moments.md.
 
 ## 2. Owner — manual steps (in order)
 
@@ -41,7 +42,7 @@ web `docs/REMAINING_WORK.md` in the web repo (admin console, `assetlinks.json`, 
 
 ## 3. Device / production QA
 
-**Full regression suite (whole app, 1,040 cases, one tab per area): `docs/qa/regression-suite.csv`** (also as a Google-Sheets-ready workbook). 2.7.0 release run: **`docs/qa/2.7.0-weekend-run.md`** (order, setup, flags, known failures, release-smoke rows R-1…R-12). All four matrices were re-checked against the code on 2026-10-15; rows that were wrong were corrected and ~40 rows added.
+**Full regression suite (whole app, 1,048 cases, one tab per area): `docs/qa/regression-suite.csv`** (also as a Google-Sheets-ready workbook). 2.7.0 release run: **`docs/qa/2.7.0-weekend-run.md`** (order, setup, flags, known failures, release-smoke rows R-1…R-12). All four matrices were re-checked against the code on 2026-10-15; rows that were wrong were corrected and ~40 rows added.
 
 Release-mode smoke (Android, internal track — handoff §3; rows in `docs/qa/calls-matrix.md`, `docs/qa/onboarding-matrix.md`, `docs/qa/study-hub-matrix.md`):
 - [ ] Incoming call, killed + locked → full-screen UI; Accept/Decline from CallKit screen and from the notification (CallKit permission is now `signature`).
@@ -61,12 +62,16 @@ Release-mode smoke (Android, internal track — handoff §3; rows in `docs/qa/ca
 - [ ] Rewarded ad, QR scan, reel upload (video_compress), `bananatalk://` deep link.
 - [ ] Biometric smoke (Android 7–8, 13+, iPhone Face ID): enable → logout → Continue as → live chat; second account by password → Continue-as gone.
 - [ ] Quiet hours, phone in a non-Seoul zone, 22:00–08:00 → server `quietHours.timezone` = phone zone; pushes held in local night.
-- [ ] After assetlinks deploy: `adb shell pm verify-app-links --re-verify com.bananatalk.app` then `pm get-app-links` → `verified`; only `/moment/`, `/profile/`, `/community/`, `/i/` open the app.
+- [ ] After assetlinks deploy: `adb shell pm verify-app-links --re-verify com.bananatalk.app` then `pm get-app-links` → `verified`; only `/moment/`, `/profile/`, `/community/`, `/story/`, `/chat/`, `/i/` open the app (story/chat added in web-parity P2-2).
 - [ ] Every row of `docs/qa/onboarding-matrix.md` (incl. update vs welcome-back, notification tap within 1 s).
 - [ ] Guides device pass 2: re-run after the PulseHighlight ticker fix, confirm a clean log.
 - [ ] Debug build: open a chat whose partner was last seen long ago (header ~99 px) → `[null-log] … from <frame>` names the source of the bare `flutter: null`; fix it or record as package noise.
 - [ ] New account sends one message → `first_message_sent` observed in analytics.
 
+- [ ] Accepted gap: a 2.7.0 profile QR (https) scanned with 2.6.1's in-app scanner shows "Invalid QR code"; the system camera opens it fine.
+- [ ] Text story with poll / question / link / location (posted from web and from the app): stickers tappable, poll vote and answer work, header avatar opens the profile, reply sends (row WEB-APP-05).
+- [ ] REFERRALS_ENABLED stays off until Android App Links verify (assetlinks fingerprints) — then device-check the invite card (row WEB-APP-07).
+- [ ] Web/app parity rows WEB-APP-01…08 (docs/qa/regression-suite.csv, Tab "Web").
 After release (production data):
 - [ ] One week after 2.7.0: re-measure calls answered rate (baseline 1/30, target ≥ 40 %).
 - [ ] `notification_prime_shown` per new signup, before vs after (ads notice now waits for the guide period).
@@ -197,6 +202,24 @@ Bug-fix wave 2026-10-15 (from the full regression suite + two adversarial audits
 - [x] Tidy after merge: removed the now-unused `_setupCallListeners` / `_handleCallError` from chat_conversation_screen.dart and `setupCallListeners`/`handleCallError` in message_action_handlers.dart. S
 - Not bugs (left on purpose): the daily chat-partner limit and the profile-view daily limit are dormant with the VIP paywalls (9945ac83); `aps-environment` in source is fine (App Store export sets production); Tajik in iOS `CFBundleLocalizations` only affects the per-app language list.
 
+Suspected bugs from the full regression suite (2026-10-15, code reading only — confirm on device; each has a case in `docs/qa/regression-suite.csv`)
+- [ ] **No Restore Purchases button anywhere** — `restorePurchases()` exists in both purchase services but nothing calls it; App Store guideline 3.1.1 requires one, and `coinsVerifyRetry` tells users to restore. Likely App Review risk for iOS 2.7.0. S
+- [ ] Payments: failed verifies never retried (no purchase callback registered; `coin_shop_screen.dart` `_purchase` has no catch); Android `_purchasePending` never reset after timeout/abandon → later buys show "canceled" until restart; Android Manage Subscription may no-op (`canLaunchUrl` without a manifest `<queries>` block — R-3); VIP users can start a second subscription; per-month price always USD. M
+- [ ] Moments: photo-only moment can't be posted (caption required, contradicts the guide copy); reel can be posted with no video; upload-queue retry and >10 MB / Android HEIC photos create duplicate caption-only posts; no visible upload progress/failure; system back on composer step 2 drops the draft; video-editor filter is preview-only; comment box can stay dead after the limit dialog and a failed comment loses its text; backend moment detail ignores privacy / auto-hide. M
+- [ ] Chats: rate-limited sends hang 10 s (`messageSendError` not listened to); an open conversation doesn't re-fetch after a socket reconnect (missed messages until reopen); snackbar Retry duplicates the message; sticker/GIF sent while replying arrives as text; Forward list built only from unread partners; silent failures (translate cap with coins off, pin/mute/delete, mic permanently denied has no Settings link). M
+- [ ] Auth: suspended user logging in again sees "Session expired" instead of the suspension screen (`/auth/me` 403); password reset stores a token but shows login (kill → straight in); declining Terms after email login keeps the session; no setting to turn biometric off; backend new-device email never sent (`controllers/auth.js:789` vs `:820`); Forgot-password offline panel never shows. M
+- [ ] Profile: Help Center rows (Email Support, Report a Bug, FAQs) do nothing; admin email list missing a comma (`profile_drawer.dart:1161`); change-password Save stays disabled for symbols outside `@$!%*?&`; a failed notification-settings load then any toggle overwrites the server settings with defaults; two completion calculators disagree; SupportSheet follows the system theme, not the app's. S–M
+- [ ] Community: Matches tab blank with no retry on any failure; skipped matches return the same day; Partners-list wave uses `/interactions/wave` (no Waves entry); Nearby "Browse by City/Country" loads nothing and the empty state can't widen the radius; Waves archive unreachable from an empty inbox; "N live" pill opens Gatherings. S–M
+- [ ] AI Study: tutor chat never shows its error state; placement submit failure leaves the user stuck (and >8 answers); weekly report spins forever on error; picking a language doesn't refresh the hub chip; Speak tile gated on a quota its screen doesn't use; listening-station options never shuffled (answer always first); Vocab Packs only reachable under the English exam; `STUDY_VIP_ONLY_FEATURES` is client-side only. S–M
+- [ ] Calls: in-call errors go to the last chat screen's handler (may show nothing — CALL2-10); `CallRoutes.closeAll` stops at a non-call route; self-view mirrored on the rear camera; speaker forced on every video call (BT risk beyond upgrades); missing a11y labels on call buttons. S
+- [ ] Notifications / app-wide: announcement "seen" is per device and wiped at logout (repeat pop-up after re-login); iOS badge never cleared (`clearBadge` no-op); cold-start deep links skip the shell and the login redirect; Tajik missing from iOS `CFBundleLocalizations`; check exported iOS build has production `aps-environment`; some interstitials bypass the per-session cap. S–M
+- [ ] Hardcoded English found across auth, chat (swipe labels, header status), calls (permission/quality strings), moments composer, profile drawer, coin shop, topics — fold into the L14 localization item. M
+Moments / stories audit follow-ups (branch `fix/moments-stories-audit`, 2026-10-15)
+- [ ] Profile → Edit moment: removing an existing photo is a no-op — the server ignores `images` on update and has no delete-photo endpoint. Needs a backend route (or hide the remove button). S
+- [ ] Story viewer "Add to highlight" does not update the in-memory story's `highlightId`, so a second tap offers the picker again (server side dedupes). S
+- [ ] Device QA for the audit: prompt label on card/detail; edit clears mood/tags, removes/adds location, reschedules/clears a schedule; text story with a poll/question; reopening a voted poll / answered question / reacted story (new and old backend); web-made text story with a hex background. S
+- Note: the memory/doc claim "AI Tools = sub-tab 0, Learn = sub-tab 1" is stale — legacy AI Study has Today / Practice / Exam Study (Today first).
+
 Later, gated on dashboard numbers (no work until then)
 - Phase E (weeks 3–8): Boost price test (150 vs 100), coin-pack prices, 3-day VIP trial, interstitial frequency, more rewarded placements, smart sort when 2.6.x+ is the majority.
 - Phase F (only when D7 ≥ 20 %): new-conversation cap, paid installs (Apple Search Ads RU/IN/EG), Moment Boost, AI tutor in VIP.
@@ -206,7 +229,21 @@ Later, gated on dashboard numbers (no work until then)
 Web ↔ app parity (spec `docs/superpowers/specs/2026-10-16-web-app-parity-design.md`, audits in `docs/audits/2026-10-16-web-parity/`)
 - [x] Phase 0: web repo — 23 unpushed commits as one commit (web fba6208), tests restored (3,190 pass), pushed + deployed 2026-10-16.
 - [x] Phase 1: backend — deployed 2026-10-16 (07febec): other session's moments-stories branch merged; privacy redaction for signed-out/blocked viewers, follow only as yourself + block check; socket block check fixed; chat contract (no "Conversation started", delete/edit aliases, real unread, filters); highlights/translation; web voice notes → AAC; email links, invite OG, Pub/Sub audience; six web flags; Google one-time code; Apple web login (dark); contract tests. Verified live: signed-out /public has no coordinates/birth date/followers/presence.
-- [ ] Phase 2: app — story/QR links, Flutter deep linking off, /chat links, text-story stickers, moments branch merge, invite code entry. M
+- [x] Phase 2: app (plan `docs/superpowers/plans/2026-10-16-web-app-parity-phase2.md`) — done on branch `parity/app` 2026-10-16 (full suite 3,050 pass, analyze 0 errors/warnings, debug APK builds); ships with 2.7.0. M
+  - [x] P2-1 merge `fix/moments-stories-audit` (moments#6 prompt/location/isReel, moments#7 UTC scheduling) — 39 l10n conflicts, per-key ARB merge.
+  - [x] P2-2 parser + Android manifest learn `/story/`, `/chat/`, legacy `bananatalk://user/` (links#1, #6, #8).
+  - [x] P2-3 story share link `shareUrl('story', id)` + `/story/:id` screen (links#1, moments#1).
+  - [x] P2-4 profile QR encodes `https://banatalk.com/profile/<id>`; scanner accepts both (links#8).
+  - [x] P2-5 `FlutterDeepLinkingEnabled=false` / `flutter_deeplinking_enabled=false` (links#7).
+  - [x] P2-6 text stories draw poll/question/link/location, header and reply bar (moments#3).
+  - [x] P2-7 invite code manual entry for new accounts (links#10).
+  - [x] P2-8 Play Install Referrer pickup (links#10).
+  - [x] P2-9 phase gate: full suite, analyze, debug build, QA rows (push by the coordinator).
+- [ ] (app, links#15) Parser still accepts any id for /profile/ and /community/ (so /profile/edit, /profile/stats open a broken profile once App Links verify); add the ObjectId check there too after checking 2.6.1 share links only ever carry ObjectIds. S
+- [x] (web, Phase 3 links — live 2026-10-16) /story/:id page must be live before 2.7.0 ships: 2.6.1 and iOS 2.7.0 (AASA does not claim /story/* until Phase 5) open shared story links in the browser.
+- [ ] (web, Phase 3 links) Invite page "Get it on Google Play" → https://play.google.com/store/apps/details?id=com.bananatalk.app&referrer=code%3D<CODE> so P2-8 can pick the code up.
+- [ ] Device QA: install from a Play internal-testing link with &referrer=code%3D<CODE>, register, coins credited (row WEB-APP-08; needs REFERRALS_ENABLED on a test backend).
+- [ ] (build env) Android Studio's bundled JBR is now Java 25, which Gradle 8.11.1 cannot run on (`flutter build apk` fails in settings.gradle with "> 25.0.3"). Workaround used for the P2 gate: `cd android && JAVA_HOME=<openjdk@17> ./gradlew assembleDebug`. Fix: `flutter config --jdk-dir <openjdk@17>` (owner, machine-level) or a Gradle upgrade. S
 - [ ] Phase 3: web bug fixes — chat, moments, community, links. L
 - [ ] Phase 4: web features (flagged) — reels, gatherings/clubs, voice rooms, calls, Sign in with Apple. XL
 - [ ] Phase 5: owner steps — www cert, nginx snippet + crawler rule, Play fingerprints, Apple Services ID, prod env checks. S
@@ -223,6 +260,7 @@ Web ↔ app parity (spec `docs/superpowers/specs/2026-10-16-web-app-parity-desig
 
 ## 6. Done (changelog)
 
+- 2026-10-15 — Moments/stories audit (branch `fix/moments-stories-audit`, not merged): prompt id kept on video moments, prompt chip/card/detail show "Answering: {prompt}", Moments parse prompt/promptId/location/isReel, edit can clear mood/tags and edit location/schedule (no more `images`), scheduled time sent as UTC; stories tolerate unpopulated user/story ids, send fontStyle/allowReplies/allowSharing, text stories take poll/question stickers, viewer restores own vote/answer/reaction (`userVoteIndex`/`hasAnswered`/`myReaction` with old-backend fallbacks), hex/CSS backgrounds parsed safely, question responses only from the endpoint with retry.
 - 2026-10-13 — Release prep 2.7.0 (10580): version, notes, Android handoff (7fcf15b8, 545d1958).
 - 2026-10-13 — Android release audit: FCM default channel `high_importance_channel` + monochrome `ic_notification`; App Links only for routed paths + `/moment/` share link; tg-TJ locale + RTL; optional hardware features; unused permissions and dead Facebook SDK entries removed; CallKit `signature` permission; no duplicate CallKit missed-call notification; backups skip session/secure storage; Android VIP "Manage Subscription" (2dc340b8…c8df9c8d).
 - 2026-10-13 — App audit fixes: rejoin with camera off and no forced speaker (0951f6f8, a61abe74, dcd9d7a8); decline message in UTF-16 units, IME-safe (83db771f, 577d3bb4); "Failed to send message" on undelivered decline text (4206a481); peer upgrade keeps route + wakelock/video service (8129f60b); missed accept + upgrade connects as video (95700b6c); launch-state reset on logout (45d6ec70); ads notice waits for the guide period (f48b74bb); quiet hours stamped with the device zone (efea3f6a); tg compact counts (b443e32a); CLDR `one` plural fix (30271353).

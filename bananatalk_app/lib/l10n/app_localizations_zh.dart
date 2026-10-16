@@ -12278,6 +12278,26 @@ class AppLocalizationsZh extends AppLocalizations {
   String videoTooLongMax(int seconds) {
     return '视频太长了。最长 $seconds 秒。';
   }
+
+  @override
+  String momentAnsweringPrompt(String prompt) {
+    return '回答：$prompt';
+  }
+
+  @override
+  String get referralHaveCode => '有邀请码吗？';
+
+  @override
+  String get referralEnterCodeHint => '邀请码';
+
+  @override
+  String get referralApply => '使用';
+
+  @override
+  String get referralCodeUnknown => '该邀请码不存在，请检查后重试。';
+
+  @override
+  String get referralCodeNotAccepted => '此邀请码无法用于你的账号。';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -24554,4 +24574,24 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String videoTooLongMax(int seconds) {
     return '影片太長了。最長 $seconds 秒。';
   }
+
+  @override
+  String momentAnsweringPrompt(String prompt) {
+    return '回答：$prompt';
+  }
+
+  @override
+  String get referralHaveCode => '有邀請碼嗎？';
+
+  @override
+  String get referralEnterCodeHint => '邀請碼';
+
+  @override
+  String get referralApply => '使用';
+
+  @override
+  String get referralCodeUnknown => '此邀請碼不存在，請檢查後再試一次。';
+
+  @override
+  String get referralCodeNotAccepted => '此邀請碼無法用於你的帳號。';
 }

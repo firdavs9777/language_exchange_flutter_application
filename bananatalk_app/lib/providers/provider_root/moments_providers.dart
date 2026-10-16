@@ -270,16 +270,27 @@ class MomentsService {
     }
   }
 
+  /// Updates a moment. Nullable fields are omitted when null; a non-null
+  /// empty value is SENT, so `mood: ''`, `tags: []` and
+  /// `backgroundColor: ''` clear the field (the server accepts all three).
+  ///
+  /// [location] / [scheduledFor] are sent only when [includeLocation] /
+  /// [includeScheduledFor] is true, and then a null value clears them
+  /// (the server publishes a scheduled moment immediately when its schedule
+  /// is cleared). `images` is not sent: the server ignores it on update.
   Future<Moments> updateMoment({
     required String id,
     required String description,
     String? category,
     String? mood,
     List<String>? tags,
-    List<String>? images,
     String? backgroundColor,
     String? language,
     String? privacy,
+    bool includeLocation = false,
+    Map<String, dynamic>? location,
+    bool includeScheduledFor = false,
+    String? scheduledFor,
   }) async {
     final url = Uri.parse('${Endpoints.baseURL}${Endpoints.momentsURL}/$id');
 
@@ -290,35 +301,19 @@ class MomentsService {
       throw Exception('Authentication required. Please login again.');
     }
 
-    // Build the request body
-    final Map<String, dynamic> body = {
-      'description': description.trim(),
-    };
-
-    // Add optional fields only if they have values
-    if (category != null && category.isNotEmpty) {
-      body['category'] = category;
-    }
-    if (mood != null && mood.isNotEmpty) {
-      body['mood'] = mood;
-    }
-    if (tags != null && tags.isNotEmpty) {
-      // Enforce max 5 tags
-      body['tags'] = tags.take(5).toList();
-    }
-    if (images != null) {
-      // Send updated images array (filenames only)
-      body['images'] = images;
-    }
-    if (backgroundColor != null) {
-      body['backgroundColor'] = backgroundColor;
-    }
-    if (language != null && language.isNotEmpty) {
-      body['language'] = language;
-    }
-    if (privacy != null && privacy.isNotEmpty) {
-      body['privacy'] = privacy;
-    }
+    final body = momentUpdateBody(
+      description: description,
+      category: category,
+      mood: mood,
+      tags: tags,
+      backgroundColor: backgroundColor,
+      language: language,
+      privacy: privacy,
+      includeLocation: includeLocation,
+      location: location,
+      includeScheduledFor: includeScheduledFor,
+      scheduledFor: scheduledFor,
+    );
 
     final response = await http.put(
       url,
@@ -1103,3 +1098,51 @@ final trendingMomentsProvider =
     );
   }),
 );
+
+/// The PUT /moments/:id body for [MomentsService.updateMoment]. See there
+/// for which values are omitted and which are sent to clear a field.
+Map<String, dynamic> momentUpdateBody({
+  required String description,
+  String? category,
+  String? mood,
+  List<String>? tags,
+  String? backgroundColor,
+  String? language,
+  String? privacy,
+  bool includeLocation = false,
+  Map<String, dynamic>? location,
+  bool includeScheduledFor = false,
+  String? scheduledFor,
+}) {
+  final Map<String, dynamic> body = {
+    'description': description.trim(),
+  };
+
+  if (category != null && category.isNotEmpty) {
+    body['category'] = category;
+  }
+  // Empty mood / tags are sent on purpose: that is how they are cleared.
+  if (mood != null) {
+    body['mood'] = mood;
+  }
+  if (tags != null) {
+    // Enforce max 5 tags
+    body['tags'] = tags.take(5).toList();
+  }
+  if (includeLocation) {
+    body['location'] = location;
+  }
+  if (includeScheduledFor) {
+    body['scheduledFor'] = scheduledFor;
+  }
+  if (backgroundColor != null) {
+    body['backgroundColor'] = backgroundColor;
+  }
+  if (language != null && language.isNotEmpty) {
+    body['language'] = language;
+  }
+  if (privacy != null && privacy.isNotEmpty) {
+    body['privacy'] = privacy;
+  }
+  return body;
+}

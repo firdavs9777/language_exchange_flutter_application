@@ -17,6 +17,7 @@ import 'package:bananatalk_app/providers/app_provider_container.dart';
 import 'package:bananatalk_app/services/ad_service.dart';
 import 'package:bananatalk_app/providers/ad_providers.dart';
 import 'package:bananatalk_app/services/deep_link_service.dart';
+import 'package:bananatalk_app/services/install_referrer_pickup.dart';
 import 'package:bananatalk_app/widgets/tutor/persona_upgrade_sheet.dart';
 import 'package:bananatalk_app/providers/call_provider.dart';
 import 'package:bananatalk_app/services/call/call_launcher.dart';
@@ -163,6 +164,13 @@ Future<void> _main() async {
   // route them through the existing GoRouter. Fire-and-forget: runs after
   // the router/app are initialized above.
   DeepLinkService(goRouter).start();
+
+  // Android: keep an invite code from the Play Store install referrer
+  // (fresh installs from banatalk.com/i/CODE). Once per install, never blocks.
+  unawaited(pickUpInstallReferrer(
+    read: readPlayInstallReferrer,
+    isAndroid: !kIsWeb && defaultTargetPlatform == TargetPlatform.android,
+  ));
 }
 
 /// Routes to login after the session died, with the existing localized
@@ -338,6 +346,10 @@ class _MyAppState extends ConsumerState<MyApp> {
     // only after VIP status later changes. `setAdFree` is idempotent, so
     // calling it each build is cheap, and it marks the state *known*, which is
     // what lets AdService refuse full-screen ads until VIP status is in.
+    // Same for the personalizedAds privacy setting: every AdRequest is built
+    // from it, so a user who opted out gets non-personalised ads. Set before
+    // the ad-free flag, whose change may start preloading full-screen ads.
+    AdService().setPersonalizedAds(ref.watch(personalizedAdsProvider));
     AdService().setAdFree(!ref.watch(showAdsProvider));
 
     return MaterialApp.router(

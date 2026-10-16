@@ -4677,5 +4677,11 @@
   "vipSwitchPlanUnavailable": "Không tìm thấy gói đăng ký Google Play nào để đổi trên tài khoản này. Hãy quản lý gói đăng ký trong Google Play.",
   "vipSwitchScheduledTitle": "Đã lên lịch đổi gói",
   "vipSwitchScheduledBody": "Gói mới bắt đầu khi gói hiện tại kết thúc. Bạn vẫn là VIP đến lúc đó.",
-  "videoTooLongMax": "Video này quá dài. Giới hạn là {seconds} giây."
+  "videoTooLongMax": "Video này quá dài. Giới hạn là {seconds} giây.",
+  "momentAnsweringPrompt": "Trả lời: {prompt}",
+  "referralHaveCode": "Bạn có mã mời không?",
+  "referralEnterCodeHint": "Mã mời",
+  "referralApply": "Áp dụng",
+  "referralCodeUnknown": "Mã mời này không tồn tại. Hãy kiểm tra và thử lại.",
+  "referralCodeNotAccepted": "Không thể dùng mã mời này cho tài khoản của bạn."
 }

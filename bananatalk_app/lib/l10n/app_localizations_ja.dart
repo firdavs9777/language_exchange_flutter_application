@@ -12278,4 +12278,24 @@ class AppLocalizationsJa extends AppLocalizations {
   String videoTooLongMax(int seconds) {
     return 'この動画は長すぎます。上限は$seconds秒です。';
   }
+
+  @override
+  String momentAnsweringPrompt(String prompt) {
+    return 'お題への回答: $prompt';
+  }
+
+  @override
+  String get referralHaveCode => '招待コードをお持ちですか？';
+
+  @override
+  String get referralEnterCodeHint => '招待コード';
+
+  @override
+  String get referralApply => '適用';
+
+  @override
+  String get referralCodeUnknown => 'その招待コードは存在しません。確認してもう一度お試しください。';
+
+  @override
+  String get referralCodeNotAccepted => 'この招待コードはお使いのアカウントでは使用できません。';
 }

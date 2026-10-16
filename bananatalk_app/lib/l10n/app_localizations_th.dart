@@ -12278,4 +12278,24 @@ class AppLocalizationsTh extends AppLocalizations {
   String videoTooLongMax(int seconds) {
     return 'วิดีโอนี้ยาวเกินไป จำกัดไว้ที่ $seconds วินาที';
   }
+
+  @override
+  String momentAnsweringPrompt(String prompt) {
+    return 'ตอบคำถาม: $prompt';
+  }
+
+  @override
+  String get referralHaveCode => 'มีรหัสเชิญไหม?';
+
+  @override
+  String get referralEnterCodeHint => 'รหัสเชิญ';
+
+  @override
+  String get referralApply => 'ใช้';
+
+  @override
+  String get referralCodeUnknown => 'ไม่มีรหัสเชิญนี้ ตรวจสอบแล้วลองอีกครั้ง';
+
+  @override
+  String get referralCodeNotAccepted => 'ใช้รหัสเชิญนี้กับบัญชีของคุณไม่ได้';
 }

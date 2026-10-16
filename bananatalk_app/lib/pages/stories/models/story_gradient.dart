@@ -43,4 +43,50 @@ class StoryGradient {
 
   static StoryGradient byId(String id) =>
       presets.firstWhere((g) => g.id == id, orElse: () => presets.first);
+
+  /// The gradient used when a story's background is missing or unreadable.
+  static StoryGradient get fallback => presets.first;
+
+  /// Parses a story colour the way both clients write it.
+  ///
+  /// `#`-prefixed values follow CSS (the web composer): `#RGB`, `#RGBA`,
+  /// `#RRGGBB`, `#RRGGBBAA` (alpha LAST). Bare hex is the app's legacy form:
+  /// `RRGGBB`, or `AARRGGBB` (alpha first, Flutter order). Anything else —
+  /// named / functional CSS colours, junk — returns null; it never throws.
+  static Color? parseHexColor(String? raw) {
+    final value = raw?.trim() ?? '';
+    if (value.isEmpty) return null;
+    final hasHash = value.startsWith('#');
+    var hex = hasHash ? value.substring(1) : value;
+    if (!RegExp(r'^[0-9a-fA-F]+$').hasMatch(hex)) return null;
+    if (hasHash && (hex.length == 3 || hex.length == 4)) {
+      hex = hex.split('').map((c) => '$c$c').join();
+    }
+    switch (hex.length) {
+      case 6:
+        return Color(0xFF000000 | int.parse(hex, radix: 16));
+      case 8:
+        if (hasHash) {
+          final rgb = int.parse(hex.substring(0, 6), radix: 16);
+          final alpha = int.parse(hex.substring(6), radix: 16);
+          return Color((alpha << 24) | rgb);
+        }
+        return Color(int.parse(hex, radix: 16));
+      default:
+        return null;
+    }
+  }
+
+  /// Background for a story's `backgroundColor`, which is either an app
+  /// gradient id (`gradient_*`) or a colour (hex, possibly from the web).
+  /// Unknown or unreadable values fall back to the default gradient.
+  static BoxDecoration backgroundDecoration(String? hint) {
+    final value = hint?.trim() ?? '';
+    if (value.startsWith('gradient_')) {
+      return BoxDecoration(gradient: byId(value).toLinearGradient());
+    }
+    final color = parseHexColor(value);
+    if (color != null) return BoxDecoration(color: color);
+    return BoxDecoration(gradient: fallback.toLinearGradient());
+  }
 }

@@ -96,21 +96,25 @@ class _ProfileSettingsState extends ConsumerState<ProfileSettings> {
   }
 
   Future<void> _loadPrivacySettings() async {
-    final userAsync = ref.read(userProvider);
-    userAsync.whenData((user) {
-      if (mounted && user.privacySettings != null) {
-        setState(() {
-          _showCountryRegion = user.privacySettings!.showCountryRegion;
-          _showCity = user.privacySettings!.showCity;
-          _showAge = user.privacySettings!.showAge;
-          _showZodiac = user.privacySettings!.showZodiac;
-          _showOnlineStatus = user.privacySettings!.showOnlineStatus;
-          _showGiftingLevel = user.privacySettings!.showGiftingLevel;
-          _birthdayNotification = user.privacySettings!.birthdayNotification;
-          _personalizedAds = user.privacySettings!.personalizedAds;
-        });
-      }
-    });
+    // Wait for the user: reading a still-loading provider left the toggles
+    // on defaults. No stored settings means the backend defaults.
+    try {
+      final user = await ref.read(userProvider.future);
+      if (!mounted) return;
+      final s = user.privacySettings ?? const PrivacySettings();
+      setState(() {
+        _showCountryRegion = s.showCountryRegion;
+        _showCity = s.showCity;
+        _showAge = s.showAge;
+        _showZodiac = s.showZodiac;
+        _showOnlineStatus = s.showOnlineStatus;
+        _showGiftingLevel = s.showGiftingLevel;
+        _birthdayNotification = s.birthdayNotification;
+        _personalizedAds = s.personalizedAds;
+      });
+    } catch (_) {
+      // Toggles stay on the defaults.
+    }
   }
 
   Future<void> _updatePrivacySetting(String setting, bool value) async {
@@ -148,16 +152,10 @@ class _ProfileSettingsState extends ConsumerState<ProfileSettings> {
     });
 
     try {
-      final privacySettingsMap = {
-        'showCountryRegion': _showCountryRegion,
-        'showCity': _showCity,
-        'showAge': _showAge,
-        'showZodiac': _showZodiac,
-        'showOnlineStatus': _showOnlineStatus,
-        'showGiftingLevel': _showGiftingLevel,
-        'birthdayNotification': _birthdayNotification,
-        'personalizedAds': _personalizedAds,
-      };
+      // Only the toggled key: updatePrivacySettings lays it over the stored
+      // settings, so keys this page doesn't show (anonymous visits, email
+      // opt-outs) keep their values.
+      final privacySettingsMap = {setting: value};
 
       await ref
           .read(authServiceProvider)

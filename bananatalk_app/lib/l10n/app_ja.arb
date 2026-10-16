@@ -4677,5 +4677,11 @@
   "vipSwitchPlanUnavailable": "このアカウントで変更できる Google Play の定期購入が見つかりません。Google Play で定期購入を管理してください。",
   "vipSwitchScheduledTitle": "プラン変更を予約しました",
   "vipSwitchScheduledBody": "新しいプランは現在のプランの終了時に始まります。それまで VIP のままです。",
-  "videoTooLongMax": "この動画は長すぎます。上限は{seconds}秒です。"
+  "videoTooLongMax": "この動画は長すぎます。上限は{seconds}秒です。",
+  "momentAnsweringPrompt": "お題への回答: {prompt}",
+  "referralHaveCode": "招待コードをお持ちですか？",
+  "referralEnterCodeHint": "招待コード",
+  "referralApply": "適用",
+  "referralCodeUnknown": "その招待コードは存在しません。確認してもう一度お試しください。",
+  "referralCodeNotAccepted": "この招待コードはお使いのアカウントでは使用できません。"
 }

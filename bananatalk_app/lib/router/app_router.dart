@@ -7,6 +7,7 @@ import 'package:bananatalk_app/pages/home/Home.dart';
 import 'package:bananatalk_app/pages/home/splash_screen.dart';
 import 'package:bananatalk_app/pages/menu_tab/TabBarMenu.dart';
 import 'package:bananatalk_app/pages/moments/moment_detail_wrapper.dart';
+import 'package:bananatalk_app/pages/stories/viewer/story_link_screen.dart';
 import 'package:bananatalk_app/pages/profile/profile_wrapper.dart';
 import 'package:bananatalk_app/pages/community/rooms/room_screen_wrapper.dart';
 import 'package:bananatalk_app/pages/matching/smart_matching_screen.dart';
@@ -236,6 +237,18 @@ final goRouter = GoRouter(
           child: MomentDetailWrapper(momentId: momentId),
         );
       },
+    ),
+
+    // Shared story link: https://banatalk.com/story/<id> (links#1). Reached
+    // only through DeepLinkGate, so the user is signed in.
+    GoRoute(
+      path: '/story/:storyId',
+      pageBuilder: (context, state) => _buildFadeTransition(
+        state: state,
+        child: StoryLinkScreen(storyId: state.pathParameters['storyId']!),
+        duration: const Duration(milliseconds: 200),
+        curve: Curves.easeOut,
+      ),
     ),
 
     // Slide from right + fade — standard navigation push feel.

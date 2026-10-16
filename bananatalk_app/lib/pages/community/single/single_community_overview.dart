@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/utils/privacy_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
@@ -33,7 +34,7 @@ class SingleCommunityOverview extends ConsumerWidget {
       padding: const EdgeInsets.all(16),
       children: [
         // VIP Upsell Banner
-        if (community.isVip) ...[
+        if (PrivacyUtils.showsVipBadge(community)) ...[
           Builder(
             builder: (context) {
               final userAsync = ref.watch(userProvider);

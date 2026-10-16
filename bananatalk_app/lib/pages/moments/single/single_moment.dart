@@ -31,6 +31,7 @@ import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/widgets/language_flag_badge.dart';
 import 'package:bananatalk_app/widgets/navigation/app_back_button.dart';
 import 'package:bananatalk_app/utils/compact_count.dart';
+import 'package:bananatalk_app/pages/moments/widgets/moment_prompt_label.dart';
 
 class SingleMoment extends ConsumerStatefulWidget {
   final Moments moment;
@@ -631,6 +632,12 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                       ),
                     ),
                   ),
+                  if (widget.moment.prompt != null)
+                    MomentPromptLabel(
+                      prompt: widget.moment.prompt,
+                      maxLines: null,
+                      padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
+                    ),
                   if ((widget.moment.mediaType == 'text' ||
                           widget.moment.backgroundColor.isNotEmpty) &&
                       widget.moment.imageUrls.isEmpty &&

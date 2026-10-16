@@ -12278,4 +12278,24 @@ class AppLocalizationsKo extends AppLocalizations {
   String videoTooLongMax(int seconds) {
     return '동영상이 너무 길어요. 최대 $seconds초까지 가능해요.';
   }
+
+  @override
+  String momentAnsweringPrompt(String prompt) {
+    return '질문 답변: $prompt';
+  }
+
+  @override
+  String get referralHaveCode => '초대 코드가 있나요?';
+
+  @override
+  String get referralEnterCodeHint => '초대 코드';
+
+  @override
+  String get referralApply => '적용';
+
+  @override
+  String get referralCodeUnknown => '존재하지 않는 초대 코드예요. 확인 후 다시 시도해 주세요.';
+
+  @override
+  String get referralCodeNotAccepted => '이 초대 코드는 내 계정에 사용할 수 없어요.';
 }

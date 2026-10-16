@@ -4,7 +4,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/profile/referral_screen.dart';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/services/referral_service.dart';
+
+import '../helpers/community_fixture.dart';
 
 class _FakeService implements ReferralService {
   _FakeService({this.fail = false});
@@ -23,7 +26,10 @@ class _FakeService implements ReferralService {
 
 Future<void> _pump(WidgetTester tester, ReferralService service) async {
   await tester.pumpWidget(ProviderScope(
-    overrides: [referralServiceProvider.overrideWithValue(service)],
+    overrides: [
+      referralServiceProvider.overrideWithValue(service),
+      userProvider.overrideWith((ref) async => communityFixture(daysOld: 30)),
+    ],
     child: const MaterialApp(
       localizationsDelegates: [
         AppLocalizations.delegate,

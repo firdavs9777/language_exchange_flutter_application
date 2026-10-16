@@ -116,6 +116,7 @@ dependencies:
   # Restore Purchases reads the original transaction of a restored StoreKit
   # transaction (AppStorePurchaseDetails); version pinned by in_app_purchase.
   in_app_purchase_storekit: any
+  play_install_referrer: ^0.5.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

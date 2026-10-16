@@ -313,7 +313,15 @@ class StoriesService {
           request.fields['mentions'] = jsonEncode(_mentionsToBackendJson(mentions));
         }
       }
-
+      // Accepted by both POST /stories and POST /stories/video
+      // (parseStoryToggles) and previously never sent, so "replies off"
+      // never stuck on a photo or video story. Music is not sent: the
+      // server ignores it.
+      if (fontStyle != null && fontStyle.isNotEmpty) {
+        request.fields['fontStyle'] = fontStyle;
+      }
+      request.fields['allowReplies'] = allowReplies.toString();
+      request.fields['allowSharing'] = allowSharing.toString();
 
       final streamedResponse = await request.send();
       final response = await http.Response.fromStream(streamedResponse);
@@ -372,6 +380,9 @@ class StoriesService {
     List<StoryMention>? mentions,
     /// A text story carries a link just as usefully as a photo one.
     StoryLink? link,
+    /// Poll or question sticker (mutually exclusive, as on media stories).
+    StoryPoll? poll,
+    StoryQuestionBox? questionBox,
   }) async {
     try {
       final token = await _getToken();
@@ -401,6 +412,8 @@ class StoriesService {
         if (location != null) 'location': location.toJson(),
         if (mentions != null && mentions.isNotEmpty)
           'mentions': _mentionsToBackendJson(mentions),
+        if (poll != null) 'poll': poll.toJson(),
+        if (questionBox != null) 'questionBox': questionBox.toJson(),
       };
 
       final response = await http.post(
@@ -661,7 +674,12 @@ class StoriesService {
           'success': true,
           'prompt': data['data']?['prompt'],
           'responses': (data['data']?['responses'] as List?)
-              ?.map((r) => StoryQuestionResponse.fromJson(r)).toList() ?? [],
+                  ?.whereType<Map>()
+                  .map((r) => StoryQuestionResponse.fromJson(
+                        Map<String, dynamic>.from(r),
+                      ))
+                  .toList() ??
+              <StoryQuestionResponse>[],
         };
       }
       return {'success': false};

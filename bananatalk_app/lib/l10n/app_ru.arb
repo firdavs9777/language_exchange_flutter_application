@@ -4707,5 +4707,11 @@
   "vipSwitchPlanUnavailable": "В этом аккаунте не найдена подписка Google Play для смены. Управляйте подпиской в Google Play.",
   "vipSwitchScheduledTitle": "Смена тарифа запланирована",
   "vipSwitchScheduledBody": "Новый тариф начнётся, когда закончится текущий. До этого VIP сохраняется.",
-  "videoTooLongMax": "Это видео слишком длинное. Максимум — {seconds} с."
+  "videoTooLongMax": "Это видео слишком длинное. Максимум — {seconds} с.",
+  "momentAnsweringPrompt": "Ответ на: {prompt}",
+  "referralHaveCode": "Есть код приглашения?",
+  "referralEnterCodeHint": "Код приглашения",
+  "referralApply": "Применить",
+  "referralCodeUnknown": "Такого кода приглашения нет. Проверьте его и попробуйте ещё раз.",
+  "referralCodeNotAccepted": "Этот код приглашения нельзя использовать в вашем аккаунте."
 }

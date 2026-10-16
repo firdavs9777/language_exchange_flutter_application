@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/pages/stories/models/story_gradient.dart';
 
 /// Typed representation of a story overlay loaded from JSON.
 class StoryOverlay {
@@ -45,11 +46,10 @@ class ViewerOverlayLayer extends StatelessWidget {
 
   const ViewerOverlayLayer({super.key, required this.overlays});
 
-  Color _parseColor(String hex) {
-    final cleaned = hex.replaceAll('#', '');
-    final padded = cleaned.length == 6 ? 'FF$cleaned' : cleaned;
-    return Color(int.parse(padded, radix: 16));
-  }
+  // Overlays now also come from the web (its main text is an overlay), so
+  // the colour may be CSS-style; an unreadable one is white, never a throw.
+  Color _parseColor(String hex) =>
+      StoryGradient.parseHexColor(hex) ?? Colors.white;
 
   @override
   Widget build(BuildContext context) {

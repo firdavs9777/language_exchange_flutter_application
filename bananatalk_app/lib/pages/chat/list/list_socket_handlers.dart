@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/utils/privacy_utils.dart';
 import 'dart:async';
 import 'package:bananatalk_app/pages/chat/models/chat_partner.dart';
 import 'package:bananatalk_app/utils/string_sanitizer.dart';
@@ -100,9 +101,9 @@ void handleNewMessage(ListSocketContext ctx, dynamic data) {
             ?.map((e) => e.toString())
             .toList() ??
         [];
+    final sender = messageData['sender'];
     final senderIsVip =
-        messageData['sender']?['userMode'] == 'vip' ||
-        messageData['sender']?['vipSubscription']?['isActive'] == true;
+        PrivacyUtils.showsVipBadgeFromJson(sender is Map ? sender : null);
 
     final createdAt = messageData['createdAt'] != null
         ? DateTime.parse(messageData['createdAt'].toString())
@@ -169,9 +170,9 @@ void handleMessageSent(ListSocketContext ctx, dynamic data) {
             ?.map((e) => e.toString())
             .toList() ??
         [];
+    final receiver = messageData['receiver'];
     final receiverIsVip =
-        messageData['receiver']?['userMode'] == 'vip' ||
-        messageData['receiver']?['vipSubscription']?['isActive'] == true;
+        PrivacyUtils.showsVipBadgeFromJson(receiver is Map ? receiver : null);
 
     final createdAt = messageData['createdAt'] != null
         ? DateTime.parse(messageData['createdAt'].toString())
