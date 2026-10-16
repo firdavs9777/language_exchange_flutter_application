@@ -997,91 +997,50 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
 
     final parsedOverlays = _parseOverlays(story);
 
-    // Text stories render their own full-screen layer; no image/video stack needed.
-    if (story.mediaType == 'text') {
-      return Stack(
-        fit: StackFit.expand,
-        children: [
-          // Old text stories (created before overlays existed) still carry
-          // their content in `story.text` and have no overlays — render it
-          // as before. Newer text stories carry their content entirely in
-          // `overlays[]` (rendered below); `story.text` on those is either
-          // real (for old-client compatibility) or a placeholder space, and
-          // rendering it here too would duplicate the same words as a second
-          // centered block. So: suppress this block whenever overlays exist,
-          // and let ViewerTextStoryLayer contribute only its background.
+    // Text stories used to return early here with only the background,
+    // overlays, mentions and progress bar: no header, no poll / question /
+    // link / location, no reply bar, so stickers on web text stories were
+    // invisible in the app (moments#3). All story types now share one stack;
+    // only the bottom layer differs.
+    final isTextStory = story.mediaType == 'text';
+
+    // A text story's text IS the story (drawn by ViewerTextStoryLayer);
+    // showing it again as a caption would print it twice.
+    final caption = isTextStory ? null : story.text;
+
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        // Story background: text layer, video or image.
+        if (isTextStory)
+          // Old text stories (created before overlays existed) carry their
+          // content in `story.text` and have no overlays, so render it here.
+          // Newer text stories carry their content in `overlays[]` (rendered
+          // below), and `story.text` on those is either a copy for old clients
+          // or a placeholder space, so it is suppressed whenever overlays exist.
           ViewerTextStoryLayer(
             text: parsedOverlays.isNotEmpty ? '' : (story.text ?? ''),
             backgroundColorHint: story.backgroundColor,
             textColor: story.textColor,
             fontStyle: story.fontStyle,
-          ),
-
-          // Overlay layer (text / emoji annotations)
-          if (parsedOverlays.isNotEmpty)
-            Positioned.fill(
-              child: overlay_layer.ViewerOverlayLayer(overlays: parsedOverlays),
-            ),
-
-          // @mention pills
-          ..._buildMentionPills(story),
-
-          // Gradient overlay (top fade for progress bar legibility)
-          Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.center,
-                colors: [
-                  Colors.black.withValues(alpha: 0.5),
-                  Colors.transparent,
-                ],
-              ),
-            ),
-          ),
-
-          // Progress bars - enhanced with StoryProgressBar
-          Positioned(
-            top: MediaQuery.of(context).padding.top + 8,
-            left: 12,
-            right: 12,
-            child: AnimatedBuilder(
-              animation: _progressController,
-              builder: (context, child) {
-                return StoryProgressBar(
-                  totalSegments: _currentStories.length,
-                  currentSegment: _currentStoryIndex,
-                  currentProgress: _progressController.value,
-                  height: 2.5,
-                  spacing: 4,
-                );
-              },
-            ),
-          ),
-        ],
-      );
-    }
-
-    return Stack(
-      fit: StackFit.expand,
-      children: [
-        // Story image/video
-        story.isVideo
-            ? _buildVideoPlayer(story)
-            : CachedImageWidget(
-                imageUrl: story.mediaUrl,
-                fit: BoxFit.contain,
-                errorWidget: Container(
-                  color: Colors.grey[900],
-                  child: const Center(
-                    child: Icon(
-                      Icons.broken_image,
-                      color: Colors.white54,
-                      size: 64,
-                    ),
-                  ),
+          )
+        else if (story.isVideo)
+          _buildVideoPlayer(story)
+        else
+          CachedImageWidget(
+            imageUrl: story.mediaUrl,
+            fit: BoxFit.contain,
+            errorWidget: Container(
+              color: Colors.grey[900],
+              child: const Center(
+                child: Icon(
+                  Icons.broken_image,
+                  color: Colors.white54,
+                  size: 64,
                 ),
               ),
+            ),
+          ),
 
         // Overlay layer (text / emoji annotations on top of media)
         if (parsedOverlays.isNotEmpty)
@@ -1098,7 +1057,10 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
             gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.center,
-              colors: [Colors.black.withValues(alpha: 0.7), Colors.transparent],
+              colors: [
+                Colors.black.withValues(alpha: isTextStory ? 0.5 : 0.7),
+                Colors.transparent,
+              ],
             ),
           ),
         ),
@@ -1499,7 +1461,7 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
         // them, so tagging a story looked like it did nothing. They are
         // labels rather than links because no hashtag search exists to send
         // anyone to; a tappable chip that goes nowhere is the worse bug.
-        if ((story.text != null && story.text!.isNotEmpty) ||
+        if ((caption != null && caption.isNotEmpty) ||
             story.hashtags.isNotEmpty)
           Positioned(
             bottom: _showReplyField ? 80 : 120,
@@ -1508,9 +1470,9 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                if (story.text != null && story.text!.isNotEmpty)
+                if (caption != null && caption.isNotEmpty)
                   Text(
-                    story.text!,
+                    caption,
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 16,

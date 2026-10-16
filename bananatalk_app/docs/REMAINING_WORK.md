@@ -69,6 +69,7 @@ Release-mode smoke (Android, internal track — handoff §3; rows in `docs/qa/ca
 - [ ] New account sends one message → `first_message_sent` observed in analytics.
 
 - [ ] Accepted gap: a 2.7.0 profile QR (https) scanned with 2.6.1's in-app scanner shows "Invalid QR code"; the system camera opens it fine.
+- [ ] Text story with poll / question / link / location (posted from web and from the app): stickers tappable, poll vote and answer work, header avatar opens the profile, reply sends (row WEB-APP-05).
 After release (production data):
 - [ ] One week after 2.7.0: re-measure calls answered rate (baseline 1/30, target ≥ 40 %).
 - [ ] `notification_prime_shown` per new signup, before vs after (ads notice now waits for the guide period).
@@ -228,7 +229,7 @@ Web ↔ app parity (spec `docs/superpowers/specs/2026-10-16-web-app-parity-desig
   - [x] P2-3 story share link `shareUrl('story', id)` + `/story/:id` screen (links#1, moments#1).
   - [x] P2-4 profile QR encodes `https://banatalk.com/profile/<id>`; scanner accepts both (links#8).
   - [x] P2-5 `FlutterDeepLinkingEnabled=false` / `flutter_deeplinking_enabled=false` (links#7).
-  - [ ] P2-6 text stories draw poll/question/link/location, header and reply bar (moments#3).
+  - [x] P2-6 text stories draw poll/question/link/location, header and reply bar (moments#3).
   - [ ] P2-7 invite code manual entry for new accounts (links#10).
   - [ ] P2-8 Play Install Referrer pickup (links#10).
   - [ ] P2-9 phase gate: full suite, analyze, debug build, QA rows, push.

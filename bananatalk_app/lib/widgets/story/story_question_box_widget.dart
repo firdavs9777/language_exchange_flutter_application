@@ -154,9 +154,13 @@ class _StoryQuestionBoxWidgetState extends State<StoryQuestionBoxWidget> {
                   checkColor: Colors.purple,
                   fillColor: WidgetStateProperty.all(Colors.white),
                 ),
-                Text(
-                  AppLocalizations.of(context)!.storySendAnonymously,
-                  style: TextStyle(color: Colors.white, fontSize: 14),
+                // Flexible: the card is ~270 px wide, and the label overflowed
+                // it in longer locales (and in the test font).
+                Flexible(
+                  child: Text(
+                    AppLocalizations.of(context)!.storySendAnonymously,
+                    style: TextStyle(color: Colors.white, fontSize: 14),
+                  ),
                 ),
               ],
             ),
