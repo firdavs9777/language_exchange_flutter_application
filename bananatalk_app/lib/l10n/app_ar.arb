@@ -4707,5 +4707,6 @@
   "vipSwitchPlanUnavailable": "لم نعثر على اشتراك Google Play على هذا الحساب لتغييره. أدر اشتراكك من Google Play.",
   "vipSwitchScheduledTitle": "تمت جدولة تغيير الخطة",
   "vipSwitchScheduledBody": "تبدأ خطتك الجديدة عند انتهاء خطتك الحالية. تبقى VIP حتى ذلك الحين.",
-  "videoTooLongMax": "هذا الفيديو طويل جدًا. الحد الأقصى {seconds} ثانية."
+  "videoTooLongMax": "هذا الفيديو طويل جدًا. الحد الأقصى {seconds} ثانية.",
+  "momentAnsweringPrompt": "إجابة على: {prompt}"
 }

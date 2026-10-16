@@ -221,9 +221,7 @@ class Story {
   factory Story.fromJson(Map<String, dynamic> json) {
     return Story(
       id: json['_id']?.toString() ?? '',
-      user: json['user'] != null
-          ? Community.fromJson(json['user'])
-          : _defaultUser(),
+      user: userFromJson(json['user']),
       mediaUrl: json['mediaUrl']?.toString()
           ?? json['media']?.toString()
           ?? (json['mediaUrls'] != null && json['mediaUrls'] is List && (json['mediaUrls'] as List).isNotEmpty
@@ -241,18 +239,31 @@ class Story {
       textColor: json['textColor']?.toString() ?? '#FFFFFF',
       fontStyle: json['fontStyle']?.toString() ?? 'normal',
       privacy: StoryPrivacy.fromString(json['privacy']?.toString()),
-      views: json['views'] != null
-          ? (json['views'] as List).map((v) => StoryView.fromJson(v)).toList()
+      // Lists of maps only: an unpopulated or redacted entry is skipped
+      // rather than crashing the whole story.
+      views: json['views'] is List
+          ? (json['views'] as List)
+              .whereType<Map>()
+              .map((v) => StoryView.fromJson(Map<String, dynamic>.from(v)))
+              .toList()
           : [],
       viewCount: json['viewCount'] ?? json['views']?.length ?? 0,
-      reactions: json['reactions'] != null
-          ? (json['reactions'] as List).map((r) => StoryReaction.fromJson(r)).toList()
+      reactions: json['reactions'] is List
+          ? (json['reactions'] as List)
+              .whereType<Map>()
+              .map((r) => StoryReaction.fromJson(Map<String, dynamic>.from(r)))
+              .toList()
           : [],
       reactionCount: json['reactionCount'] ?? json['reactions']?.length ?? 0,
-      userReaction: json['userReaction']?.toString(),
+      // `myReaction` is the newer name for the same value; either may be
+      // absent (older backends send neither).
+      userReaction: (json['myReaction'] ?? json['userReaction'])?.toString(),
       replyCount: json['replyCount'] ?? 0,
-      mentions: json['mentions'] != null
-          ? (json['mentions'] as List).map((m) => StoryMention.fromJson(m)).toList()
+      mentions: json['mentions'] is List
+          ? (json['mentions'] as List)
+              .whereType<Map>()
+              .map((m) => StoryMention.fromJson(Map<String, dynamic>.from(m)))
+              .toList()
           : [],
       location: json['location'] != null ? StoryLocation.fromJson(json['location']) : null,
       link: json['link'] != null ? StoryLink.fromJson(json['link']) : null,
@@ -293,8 +304,19 @@ class Story {
     );
   }
 
-  static Community _defaultUser() => Community(
-    id: '', appleId: '', googleId: '', name: '', email: '',
+  /// The story's author. A populated user is parsed; an unpopulated one
+  /// (a bare id string — e.g. older archive responses) keeps just the id,
+  /// so it never reaches Community.fromJson and throws a TypeError.
+  static Community userFromJson(Object? user) {
+    if (user is Map) {
+      return Community.fromJson(Map<String, dynamic>.from(user));
+    }
+    if (user is String && user.isNotEmpty) return _defaultUser(id: user);
+    return _defaultUser();
+  }
+
+  static Community _defaultUser({String id = ''}) => Community(
+    id: id, appleId: '', googleId: '', name: '', email: '',
     mbti: '', bloodType: '', bio: '', images: [], birth_day: '',
     birth_month: '', gender: '', birth_year: '', native_language: '',
     language_to_learn: '', imageUrls: [], createdAt: '', version: 0,
@@ -340,6 +362,17 @@ class Story {
   }
 
   bool hasViewed(String userId) => views.any((v) => v.userId == userId);
+
+  /// The viewer's own reaction emoji: the server's `myReaction` /
+  /// `userReaction`, else (older backends) found in [reactions].
+  String? reactionOf(String? userId) {
+    if (userReaction != null && userReaction!.isNotEmpty) return userReaction;
+    if (userId == null || userId.isEmpty) return null;
+    for (final r in reactions) {
+      if (r.userId == userId) return r.emoji;
+    }
+    return null;
+  }
 
   /// Check if this story is a video
   bool get isVideo => mediaType == 'video';
@@ -491,8 +524,11 @@ class UserStories {
   });
 
   factory UserStories.fromJson(Map<String, dynamic> json, String currentUserId) {
-    final stories = json['stories'] != null
-        ? (json['stories'] as List).map((s) => Story.fromJson(s)).toList()
+    final stories = json['stories'] is List
+        ? (json['stories'] as List)
+            .whereType<Map>()
+            .map((s) => Story.fromJson(Map<String, dynamic>.from(s)))
+            .toList()
         : <Story>[];
 
     final activeStories = stories.where((s) => s.isStillActive).toList();
@@ -505,14 +541,16 @@ class UserStories {
     final finalUnviewedCount = apiUnviewedCount > 0 ? apiUnviewedCount : unviewedCount;
     
     return UserStories(
-      user: json['user'] != null
-          ? Community.fromJson(json['user'])
-          : stories.isNotEmpty ? stories.first.user : Story._defaultUser(),
+      user: json['user'] is Map
+          ? Story.userFromJson(json['user'])
+          : stories.isNotEmpty
+              ? stories.first.user
+              : Story.userFromJson(json['user']),
       stories: stories,
       hasUnviewed: finalUnviewedCount > 0,
       unviewedCount: finalUnviewedCount,
-      latestStory: json['latestStory'] != null 
-          ? Story.fromJson(json['latestStory'])
+      latestStory: json['latestStory'] is Map
+          ? Story.fromJson(Map<String, dynamic>.from(json['latestStory']))
           : (activeStories.isNotEmpty ? activeStories.last : null),
     );
   }
@@ -730,7 +768,37 @@ class StoryPoll {
       expiresAt: json['expiresAt'] != null
           ? DateTime.tryParse(json['expiresAt'].toString())
           : null,
-      userVoteIndex: json['userVoteIndex'],
+      userVoteIndex: _voteIndexFrom(json),
+    );
+  }
+
+  /// `userVoteIndex` when the server sends it (newer backends), else the
+  /// first option flagged `voted`. Null when neither says anything.
+  static int? _voteIndexFrom(Map<String, dynamic> json) {
+    final raw = json['userVoteIndex'];
+    if (raw is num) return raw.toInt();
+    final options = json['options'];
+    if (options is List) {
+      for (var i = 0; i < options.length; i++) {
+        final o = options[i];
+        if (o is Map && o['voted'] == true) return i;
+      }
+    }
+    return null;
+  }
+
+  /// This poll with [userVoteIndex] filled in from the option voter lists
+  /// when the server did not send it (older backends send every voter id).
+  StoryPoll resolvedFor(String? userId) {
+    if (hasUserVoted || userId == null || userId.isEmpty) return this;
+    final i = options.indexWhere((o) => o.voterIds.contains(userId));
+    if (i < 0) return this;
+    return StoryPoll(
+      question: question,
+      options: options,
+      isAnonymous: isAnonymous,
+      expiresAt: expiresAt,
+      userVoteIndex: i,
     );
   }
 
@@ -754,21 +822,36 @@ class StoryPollOption {
   final double percentage;
   final bool voted;
 
+  /// Voter ids as sent. The owner gets every voter; other viewers get at
+  /// most their own id (newer backends) — so never use this for counts.
+  final List<String> voterIds;
+
   const StoryPollOption({
     required this.index,
     required this.text,
     this.voteCount = 0,
     this.percentage = 0,
     this.voted = false,
+    this.voterIds = const [],
   });
 
   factory StoryPollOption.fromJson(Map<String, dynamic> json, int index) {
+    final votes = json['votes'] is List ? json['votes'] as List : const [];
     return StoryPollOption(
-      index: json['index'] ?? index,
+      index: json['index'] is num ? (json['index'] as num).toInt() : index,
       text: sanitize(json['text']),
-      voteCount: json['voteCount'] ?? json['votes']?.length ?? 0,
-      percentage: (json['percentage'] ?? 0).toDouble(),
+      voteCount: json['voteCount'] is num
+          ? (json['voteCount'] as num).toInt()
+          : votes.length,
+      percentage: json['percentage'] is num
+          ? (json['percentage'] as num).toDouble()
+          : 0,
       voted: json['voted'] == true,
+      voterIds: votes
+          .map((v) => v is Map ? v['_id']?.toString() : v?.toString())
+          .whereType<String>()
+          .where((id) => id.isNotEmpty)
+          .toList(),
     );
   }
 
@@ -782,12 +865,33 @@ class StoryPollOption {
 /// Question box in a story
 class StoryQuestionBox {
   final String prompt;
+
+  /// Every response for the owner; for anyone else (newer backends) only
+  /// their own.
   final List<StoryQuestionResponse> responses;
+
+  /// Whether the requesting viewer has answered (newer backends).
+  final bool hasAnswered;
+
+  /// Total responses, sent alongside the redacted list (newer backends).
+  final int? responseCount;
 
   const StoryQuestionBox({
     required this.prompt,
     this.responses = const [],
+    this.hasAnswered = false,
+    this.responseCount,
   });
+
+  /// [hasAnswered], or (older backends, which sent every response) whether
+  /// [userId] is among the responders.
+  bool hasAnsweredBy(String? userId) {
+    if (hasAnswered) return true;
+    if (userId == null || userId.isEmpty) return false;
+    return responses.any((r) => r.userId == userId);
+  }
+
+  int get totalResponses => responseCount ?? responses.length;
 
   /// Null unless the box carries the thing that makes it a box: a prompt.
   static StoryQuestionBox? fromJsonOrNull(Object? json) {
@@ -800,9 +904,18 @@ class StoryQuestionBox {
   factory StoryQuestionBox.fromJson(Map<String, dynamic> json) {
     return StoryQuestionBox(
       prompt: json['prompt']?.toString() ?? 'Ask me anything!',
-      responses: json['responses'] != null
-          ? (json['responses'] as List).map((r) => StoryQuestionResponse.fromJson(r)).toList()
+      responses: json['responses'] is List
+          ? (json['responses'] as List)
+              .whereType<Map>()
+              .map((r) => StoryQuestionResponse.fromJson(
+                    Map<String, dynamic>.from(r),
+                  ))
+              .toList()
           : [],
+      hasAnswered: json['hasAnswered'] == true,
+      responseCount: json['responseCount'] is num
+          ? (json['responseCount'] as num).toInt()
+          : null,
     );
   }
 
@@ -921,12 +1034,20 @@ class StoryHighlight {
       coverImage: json['coverImage']?.toString(),
       stories: json['stories'] != null
           ? (json['stories'] as List).map((s) {
-              // Backend returns { story: {...}, addedAt: ... } or populated story object
-              if (s is Map<String, dynamic>) {
-                if (s.containsKey('story') && s['story'] is Map<String, dynamic>) {
-                  return Story.fromJson(s['story']);
+              // Backend returns { story: {...}, addedAt: ... } or a populated
+              // story object. Right after createHighlight / addStory the
+              // entry is { story: "<id>", addedAt } — unpopulated. Building a
+              // Story from that entry would give it the SUBDOCUMENT's _id, so
+              // it is skipped; callers refetch the highlights for the real
+              // stories (storyCount below still counts it).
+              if (s is Map) {
+                if (s.containsKey('story')) {
+                  final inner = s['story'];
+                  return inner is Map
+                      ? Story.fromJson(Map<String, dynamic>.from(inner))
+                      : null;
                 }
-                return Story.fromJson(s);
+                return Story.fromJson(Map<String, dynamic>.from(s));
               }
               return null;
             }).whereType<Story>().toList()

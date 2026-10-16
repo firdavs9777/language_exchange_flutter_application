@@ -4650,5 +4650,6 @@
   "vipSwitchPlanUnavailable": "Walang nakitang Google Play subscription na mapapalitan sa account na ito. Pamahalaan ang subscription mo sa Google Play.",
   "vipSwitchScheduledTitle": "Naka-iskedyul ang pagpalit ng plan",
   "vipSwitchScheduledBody": "Magsisimula ang bagong plan mo kapag natapos ang kasalukuyan. VIP ka pa rin hanggang doon.",
-  "videoTooLongMax": "Masyadong mahaba ang video na ito. Ang limit ay {seconds} segundo."
+  "videoTooLongMax": "Masyadong mahaba ang video na ito. Ang limit ay {seconds} segundo.",
+  "momentAnsweringPrompt": "Sumasagot sa: {prompt}"
 }

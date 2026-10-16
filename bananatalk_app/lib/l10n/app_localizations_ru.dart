@@ -12774,4 +12774,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String videoTooLongMax(int seconds) {
     return 'Это видео слишком длинное. Максимум — $seconds с.';
   }
+
+  @override
+  String momentAnsweringPrompt(String prompt) {
+    return 'Ответ на: $prompt';
+  }
 }

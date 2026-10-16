@@ -12308,4 +12308,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String videoTooLongMax(int seconds) {
     return 'Dieses Video ist zu lang. Das Limit liegt bei $seconds Sekunden.';
   }
+
+  @override
+  String momentAnsweringPrompt(String prompt) {
+    return 'Antwort auf: $prompt';
+  }
 }

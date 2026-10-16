@@ -112,6 +112,8 @@ final Map<String, ProviderOrFamily> userScopedProviders = {
   'purchaseStateProvider': purchaseStateProvider,
   'purchaseErrorProvider': purchaseErrorProvider,
   'showAdsProvider': showAdsProvider,
+  // The user's privacySettings.personalizedAds (fix/moments-stories-audit).
+  'personalizedAdsProvider': personalizedAdsProvider,
   'myVisitorStatsProvider': myVisitorStatsProvider,
   'referralServiceProvider': referralServiceProvider,
   'boostApiClientProvider': boostApiClientProvider,

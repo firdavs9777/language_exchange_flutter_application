@@ -4677,5 +4677,6 @@
   "vipSwitchPlanUnavailable": "このアカウントで変更できる Google Play の定期購入が見つかりません。Google Play で定期購入を管理してください。",
   "vipSwitchScheduledTitle": "プラン変更を予約しました",
   "vipSwitchScheduledBody": "新しいプランは現在のプランの終了時に始まります。それまで VIP のままです。",
-  "videoTooLongMax": "この動画は長すぎます。上限は{seconds}秒です。"
+  "videoTooLongMax": "この動画は長すぎます。上限は{seconds}秒です。",
+  "momentAnsweringPrompt": "お題への回答: {prompt}"
 }

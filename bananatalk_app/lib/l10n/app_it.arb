@@ -4917,5 +4917,6 @@
   "vipSwitchPlanUnavailable": "Non abbiamo trovato un abbonamento Google Play da cambiare su questo account. Gestisci l'abbonamento in Google Play.",
   "vipSwitchScheduledTitle": "Cambio piano programmato",
   "vipSwitchScheduledBody": "Il nuovo piano inizia quando finisce quello attuale. Fino ad allora resti VIP.",
-  "videoTooLongMax": "Questo video è troppo lungo. Il limite è di {seconds} secondi."
+  "videoTooLongMax": "Questo video è troppo lungo. Il limite è di {seconds} secondi.",
+  "momentAnsweringPrompt": "In risposta a: {prompt}"
 }

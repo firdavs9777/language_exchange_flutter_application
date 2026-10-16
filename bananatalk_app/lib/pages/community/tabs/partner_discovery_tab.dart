@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/utils/privacy_utils.dart';
 import 'package:bananatalk_app/widgets/navigation/floating_tab_bar.dart';
 import 'dart:math' as math;
 import 'package:flutter/foundation.dart' show mapEquals;
@@ -269,7 +270,7 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
           userId: community.id,
           userName: community.name,
           profilePicture: community.profileImageUrl,
-          isVip: community.isVip,
+          isVip: PrivacyUtils.showsVipBadge(community),
         ),
       ),
     );

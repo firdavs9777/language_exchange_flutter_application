@@ -8260,5 +8260,14 @@
         "type": "int"
       }
     }
+  },
+  "momentAnsweringPrompt": "Answering: {prompt}",
+  "@momentAnsweringPrompt": {
+    "description": "Label on a moment (composer chip, card, detail) that answers the prompt of the day; {prompt} is the prompt's emoji and text",
+    "placeholders": {
+      "prompt": {
+        "type": "String"
+      }
+    }
   }
 }

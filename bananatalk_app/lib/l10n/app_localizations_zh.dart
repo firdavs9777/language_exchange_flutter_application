@@ -12278,6 +12278,11 @@ class AppLocalizationsZh extends AppLocalizations {
   String videoTooLongMax(int seconds) {
     return '视频太长了。最长 $seconds 秒。';
   }
+
+  @override
+  String momentAnsweringPrompt(String prompt) {
+    return '回答：$prompt';
+  }
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -24553,5 +24558,10 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   @override
   String videoTooLongMax(int seconds) {
     return '影片太長了。最長 $seconds 秒。';
+  }
+
+  @override
+  String momentAnsweringPrompt(String prompt) {
+    return '回答：$prompt';
   }
 }

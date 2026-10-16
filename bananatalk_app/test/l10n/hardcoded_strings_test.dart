@@ -798,6 +798,11 @@ const Map<String, List<String>> _keysByTask = {
     'communitySearchTitle',
     'communityFilterNew',
   ],
+  // fix/moments-stories-audit (merged in web-parity Phase 2): prompt chip on
+  // moment cards / detail / composer.
+  'moments-stories-audit': [
+    'momentAnsweringPrompt',
+  ],
 };
 
 /// Files (under lib/) each task must leave with no English Text literal.
@@ -1070,6 +1075,10 @@ const Map<String, List<String>> _filesByTask = {
   ],
   'l10n-leftovers': [
     'pages/chat/wallpaper/wallpaper_picker_screen.dart',
+  ],
+  'moments-stories-audit': [
+    'pages/moments/widgets/moment_prompt_label.dart',
+    'pages/moments/create/create_moment.dart',
   ],
 };
 

@@ -4917,5 +4917,6 @@
   "vipSwitchPlanUnavailable": "Wir haben auf diesem Konto kein Google-Play-Abo zum Wechseln gefunden. Verwalte dein Abo in Google Play.",
   "vipSwitchScheduledTitle": "Tarifwechsel geplant",
   "vipSwitchScheduledBody": "Dein neuer Tarif beginnt, wenn dein aktueller Tarif endet. Bis dahin bleibst du VIP.",
-  "videoTooLongMax": "Dieses Video ist zu lang. Das Limit liegt bei {seconds} Sekunden."
+  "videoTooLongMax": "Dieses Video ist zu lang. Das Limit liegt bei {seconds} Sekunden.",
+  "momentAnsweringPrompt": "Antwort auf: {prompt}"
 }

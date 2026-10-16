@@ -12298,4 +12298,9 @@ class AppLocalizationsTg extends AppLocalizations {
   String videoTooLongMax(int seconds) {
     return 'Ин видео хеле дароз аст. Ҳадди аксар $seconds сония.';
   }
+
+  @override
+  String momentAnsweringPrompt(String prompt) {
+    return 'Ҷавоб ба: $prompt';
+  }
 }

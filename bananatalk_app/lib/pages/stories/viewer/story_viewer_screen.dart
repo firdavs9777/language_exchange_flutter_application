@@ -6,6 +6,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/providers/provider_models/story_model.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart'
+    show userProvider;
 import 'package:bananatalk_app/pages/community/single/single_community_screen.dart';
 import 'package:bananatalk_app/services/stories_service.dart';
 import 'package:bananatalk_app/pages/stories/highlights/highlight_editor_sheet.dart';
@@ -100,6 +102,20 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
   // Poll voting — track optimistic per-story vote state locally so the UI
   // reflects the vote immediately, then reconcile with server results.
   final Map<String, StoryPoll> _pollOverrides = {};
+
+  /// Reactions sent / questions answered in this session, so the viewer's
+  /// own state survives paging away from a story and back (the story
+  /// objects themselves are not refetched).
+  final Map<String, String> _reactionOverrides = {};
+  final Set<String> _answeredStoryIds = {};
+
+  /// The signed-in user's id, used to recover the viewer's own vote /
+  /// answer / reaction from older backends that do not send
+  /// userVoteIndex / hasAnswered / myReaction.
+  String? get _myUserId => ref.read(userProvider).valueOrNull?.id;
+
+  StoryPoll _pollFor(Story story) =>
+      (_pollOverrides[story.id] ?? story.poll!).resolvedFor(_myUserId);
 
   /// The grouped story list actually driving the viewer. When [StoryViewerScreen.stories]
   /// is provided (e.g. a single highlight's stories), it is wrapped into one
@@ -450,6 +466,7 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
           message: AppLocalizations.of(context)!.storyCantReact,
         );
       } else if (result['success'] == true) {
+        setState(() => _reactionOverrides[story.id] = emoji);
         showStoriesSnackBar(
           context,
           message: AppLocalizations.of(context)!.sent(emoji),
@@ -513,8 +530,9 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
   /// while the request is in flight, then reconciles with the server's
   /// authoritative counts/percentages.
   Future<void> _votePoll(Story story, int optionIndex) async {
-    final currentPoll = _pollOverrides[story.id] ?? story.poll;
-    if (currentPoll == null || currentPoll.hasUserVoted) return;
+    if (story.poll == null) return;
+    final currentPoll = _pollFor(story);
+    if (currentPoll.hasUserVoted) return;
 
     // Optimistic local update: mark the chosen option as voted so the
     // widget flips into its "voted" state immediately.
@@ -578,6 +596,7 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
 
     if (!mounted) return;
     if (result['success'] == true) {
+      _answeredStoryIds.add(story.id);
       showStoriesSnackBar(
         context,
         message: AppLocalizations.of(context)!.answerSent,
@@ -593,8 +612,10 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
   }
 
   /// Shows a sheet with live question responses for the owner, fetched via
-  /// `getQuestionResponses`. Shows a loading state while the request is in
-  /// flight and falls back to the embedded responses on failure.
+  /// `getQuestionResponses`, the only source with populated (and
+  /// anonymity-redacted) authors. On failure it shows an error with Retry;
+  /// it no longer falls back to the embedded responses, whose authors are
+  /// bare ids and rendered as blank rows.
   void _showQuestionResponses(Story story) {
     _pauseStory();
     showModalBottomSheet(
@@ -607,23 +628,7 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
       builder: (ctx) {
         return FractionallySizedBox(
           heightFactor: 0.7,
-          child: FutureBuilder<Map<String, dynamic>>(
-            future: StoriesService.getQuestionResponses(storyId: story.id),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState != ConnectionState.done) {
-                return const StoryQuestionResponsesList(
-                  responses: [],
-                  isLoading: true,
-                );
-              }
-              final data = snapshot.data;
-              final responses = (data != null && data['success'] == true)
-                  ? (data['responses'] as List<StoryQuestionResponse>?) ??
-                        const []
-                  : (story.questionBox?.responses ?? const []);
-              return StoryQuestionResponsesList(responses: responses);
-            },
-          ),
+          child: _QuestionResponsesSheet(storyId: story.id),
         );
       },
     ).then((_) {
@@ -1549,7 +1554,7 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
                 (widget.isOwnStory ? 100 : 180),
             child: StoryPollWidget(
               key: ValueKey('poll_${story.id}'),
-              poll: _pollOverrides[story.id] ?? story.poll!,
+              poll: _pollFor(story),
               isOwner: widget.isOwnStory,
               onVote: widget.isOwnStory
                   ? null
@@ -1573,6 +1578,9 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
               key: ValueKey('question_${story.id}'),
               questionBox: story.questionBox!,
               isOwner: widget.isOwnStory,
+              hasAnswered: !widget.isOwnStory &&
+                  (_answeredStoryIds.contains(story.id) ||
+                      story.questionBox!.hasAnsweredBy(_myUserId)),
               onSubmitAnswer: widget.isOwnStory
                   ? null
                   : (text, isAnonymous) =>
@@ -1796,15 +1804,29 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
   }
 
   Widget _buildQuickReaction(String emoji) {
+    final story = _currentStory;
+    final mine = story == null
+        ? null
+        : (_reactionOverrides[story.id] ?? story.reactionOf(_myUserId));
+    final isMine = mine == emoji;
     return GestureDetector(
+      key: ValueKey('quick-reaction-$emoji'),
       onTap: () {
         HapticFeedback.lightImpact();
         _sendReaction(emoji);
         // Show brief animation feedback
         _showReactionAnimation(emoji);
       },
+      // The viewer's own reaction (server myReaction, or sent this session)
+      // is ringed so it reads as already chosen.
       child: Container(
         padding: const EdgeInsets.all(6),
+        decoration: isMine
+            ? BoxDecoration(
+                color: Colors.white.withValues(alpha: 0.25),
+                shape: BoxShape.circle,
+              )
+            : null,
         child: Text(emoji, style: const TextStyle(fontSize: 26)),
       ),
     );
@@ -1913,5 +1935,50 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
     } else {
       return '${diff.inDays}d ago';
     }
+  }
+}
+
+/// Owner's question-responses sheet: loads from the responses endpoint,
+/// with a loading state and an error state that can retry.
+class _QuestionResponsesSheet extends StatefulWidget {
+  final String storyId;
+  const _QuestionResponsesSheet({required this.storyId});
+
+  @override
+  State<_QuestionResponsesSheet> createState() =>
+      _QuestionResponsesSheetState();
+}
+
+class _QuestionResponsesSheetState extends State<_QuestionResponsesSheet> {
+  late Future<Map<String, dynamic>> _future = _load();
+
+  Future<Map<String, dynamic>> _load() =>
+      StoriesService.getQuestionResponses(storyId: widget.storyId);
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<Map<String, dynamic>>(
+      future: _future,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState != ConnectionState.done) {
+          return const StoryQuestionResponsesList(
+            responses: [],
+            isLoading: true,
+          );
+        }
+        final data = snapshot.data;
+        if (data == null || data['success'] != true) {
+          return StoryQuestionResponsesList(
+            responses: const [],
+            hasError: true,
+            onRetry: () => setState(() => _future = _load()),
+          );
+        }
+        return StoryQuestionResponsesList(
+          responses:
+              (data['responses'] as List<StoryQuestionResponse>?) ?? const [],
+        );
+      },
+    );
   }
 }

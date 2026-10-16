@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/pages/stories/models/story_gradient.dart';
 
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/friendly_error.dart';
@@ -178,7 +179,8 @@ class _StoryArchiveScreenState extends State<StoryArchiveScreen> {
             // Text stories keep their own background, so a tile still looks
             // like the story it came from.
             Container(
-              color: _colorOf(story.backgroundColor),
+              decoration:
+                  StoryGradient.backgroundDecoration(story.backgroundColor),
               padding: const EdgeInsets.all(6),
               alignment: Alignment.center,
               child: Text(
@@ -319,13 +321,6 @@ class _StoryArchiveScreenState extends State<StoryArchiveScreen> {
         ],
       ],
     );
-  }
-
-  static Color _colorOf(String hex) {
-    final cleaned = hex.replaceFirst('#', '');
-    final value = int.tryParse(cleaned, radix: 16);
-    if (value == null) return Colors.black;
-    return Color(cleaned.length == 6 ? 0xFF000000 | value : value);
   }
 
   String _ageOf(Story story) {

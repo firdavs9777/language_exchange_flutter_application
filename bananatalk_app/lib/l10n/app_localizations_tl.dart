@@ -12301,4 +12301,9 @@ class AppLocalizationsTl extends AppLocalizations {
   String videoTooLongMax(int seconds) {
     return 'Masyadong mahaba ang video na ito. Ang limit ay $seconds segundo.';
   }
+
+  @override
+  String momentAnsweringPrompt(String prompt) {
+    return 'Sumasagot sa: $prompt';
+  }
 }

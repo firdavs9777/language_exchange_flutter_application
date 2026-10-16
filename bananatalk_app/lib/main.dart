@@ -338,6 +338,10 @@ class _MyAppState extends ConsumerState<MyApp> {
     // only after VIP status later changes. `setAdFree` is idempotent, so
     // calling it each build is cheap, and it marks the state *known*, which is
     // what lets AdService refuse full-screen ads until VIP status is in.
+    // Same for the personalizedAds privacy setting: every AdRequest is built
+    // from it, so a user who opted out gets non-personalised ads. Set before
+    // the ad-free flag, whose change may start preloading full-screen ads.
+    AdService().setPersonalizedAds(ref.watch(personalizedAdsProvider));
     AdService().setAdFree(!ref.watch(showAdsProvider));
 
     return MaterialApp.router(

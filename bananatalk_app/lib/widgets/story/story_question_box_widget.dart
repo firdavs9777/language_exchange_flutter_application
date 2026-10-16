@@ -19,6 +19,11 @@ class StoryQuestionBoxWidget extends StatefulWidget {
   /// should pause) and `false` when it loses focus (playback should resume).
   final ValueChanged<bool>? onFocusChanged;
 
+  /// The viewer already answered (server `hasAnswered`, or an answer sent
+  /// earlier in this session): open straight on the "answer sent" state
+  /// instead of offering the input again.
+  final bool hasAnswered;
+
   const StoryQuestionBoxWidget({
     Key? key,
     required this.questionBox,
@@ -26,6 +31,7 @@ class StoryQuestionBoxWidget extends StatefulWidget {
     this.onSubmitAnswer,
     this.onViewResponses,
     this.onFocusChanged,
+    this.hasAnswered = false,
   }) : super(key: key);
 
   @override
@@ -42,7 +48,16 @@ class _StoryQuestionBoxWidgetState extends State<StoryQuestionBoxWidget> {
   @override
   void initState() {
     super.initState();
+    _hasSubmitted = !widget.isOwner && widget.hasAnswered;
     _answerFocusNode.addListener(_handleFocusChange);
+  }
+
+  @override
+  void didUpdateWidget(covariant StoryQuestionBoxWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (!widget.isOwner && widget.hasAnswered && !_hasSubmitted) {
+      _hasSubmitted = true;
+    }
   }
 
   void _handleFocusChange() {
@@ -176,7 +191,7 @@ class _StoryQuestionBoxWidgetState extends State<StoryQuestionBoxWidget> {
             ),
           ] else if (widget.isOwner) ...[
             Text(
-              AppLocalizations.of(context)!.storyResponseCount(widget.questionBox.responses.length),
+              AppLocalizations.of(context)!.storyResponseCount(widget.questionBox.totalResponses),
               style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 14),
             ),
             const SizedBox(height: 8),
@@ -212,10 +227,17 @@ class StoryQuestionResponsesList extends StatelessWidget {
   final List<StoryQuestionResponse> responses;
   final bool isLoading;
 
+  /// The responses could not be loaded: show an error with [onRetry]
+  /// instead of an empty or half-populated list.
+  final bool hasError;
+  final VoidCallback? onRetry;
+
   const StoryQuestionResponsesList({
     super.key,
     required this.responses,
     this.isLoading = false,
+    this.hasError = false,
+    this.onRetry,
   });
 
   @override
@@ -246,6 +268,26 @@ class StoryQuestionResponsesList extends StatelessWidget {
           child: isLoading
               ? const Center(
                   child: CircularProgressIndicator(color: Colors.white),
+                )
+              : hasError
+              ? Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        AppLocalizations.of(context)!.somethingWentWrong,
+                        style: const TextStyle(color: Colors.grey),
+                      ),
+                      if (onRetry != null)
+                        TextButton(
+                          onPressed: onRetry,
+                          child: Text(
+                            AppLocalizations.of(context)!.retry,
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                        ),
+                    ],
+                  ),
                 )
               : responses.isEmpty
               ? Center(
@@ -286,6 +328,15 @@ class StoryQuestionResponsesList extends StatelessWidget {
                                   child: response.user!.imageUrls.isEmpty
                                       ? Text(response.user!.name.isNotEmpty ? response.user!.name[0] : '?')
                                       : null,
+                                )
+                              else
+                                // Unpopulated author (a bare id): a neutral
+                                // placeholder rather than a blank gap.
+                                const CircleAvatar(
+                                  key: Key('response-placeholder-avatar'),
+                                  radius: 16,
+                                  backgroundColor: Colors.grey,
+                                  child: Icon(Icons.person_outline, size: 18, color: Colors.white),
                                 ),
                               const SizedBox(width: 8),
                               Text(

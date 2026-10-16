@@ -4693,5 +4693,6 @@
   "vipSwitchPlanUnavailable": "Não encontramos uma assinatura do Google Play para mudar nesta conta. Gerencie sua assinatura no Google Play.",
   "vipSwitchScheduledTitle": "Mudança de plano agendada",
   "vipSwitchScheduledBody": "Seu novo plano começa quando o atual terminar. Você continua VIP até lá.",
-  "videoTooLongMax": "Este vídeo é longo demais. O limite é de {seconds} segundos."
+  "videoTooLongMax": "Este vídeo é longo demais. O limite é de {seconds} segundos.",
+  "momentAnsweringPrompt": "Respondendo: {prompt}"
 }

@@ -223,7 +223,7 @@ class PartnerCard extends StatelessWidget {
                       ],
                     ),
                   ),
-                if (user.isVip) ...[
+                if (PrivacyUtils.showsVipBadge(user)) ...[
                   if (PrivacyUtils.shouldShowOnlineStatus(user) && user.isOnline) const SizedBox(width: 6),
                   Container(
                     padding: const EdgeInsets.symmetric(

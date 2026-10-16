@@ -4677,5 +4677,6 @@
   "vipSwitchPlanUnavailable": "Kami tidak menemukan langganan Google Play untuk diganti di akun ini. Kelola langganan Anda di Google Play.",
   "vipSwitchScheduledTitle": "Penggantian paket dijadwalkan",
   "vipSwitchScheduledBody": "Paket baru Anda dimulai saat paket saat ini berakhir. Anda tetap VIP sampai saat itu.",
-  "videoTooLongMax": "Video ini terlalu panjang. Batasnya {seconds} detik."
+  "videoTooLongMax": "Video ini terlalu panjang. Batasnya {seconds} detik.",
+  "momentAnsweringPrompt": "Menjawab: {prompt}"
 }

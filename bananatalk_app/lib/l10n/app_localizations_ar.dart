@@ -12395,4 +12395,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String videoTooLongMax(int seconds) {
     return 'هذا الفيديو طويل جدًا. الحد الأقصى $seconds ثانية.';
   }
+
+  @override
+  String momentAnsweringPrompt(String prompt) {
+    return 'إجابة على: $prompt';
+  }
 }

@@ -12278,4 +12278,9 @@ class AppLocalizationsKo extends AppLocalizations {
   String videoTooLongMax(int seconds) {
     return '동영상이 너무 길어요. 최대 $seconds초까지 가능해요.';
   }
+
+  @override
+  String momentAnsweringPrompt(String prompt) {
+    return '질문 답변: $prompt';
+  }
 }

@@ -22351,6 +22351,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This video is too long. The limit is {seconds} seconds.'**
   String videoTooLongMax(int seconds);
+
+  /// Label on a moment (composer chip, card, detail) that answers the prompt of the day; {prompt} is the prompt's emoji and text
+  ///
+  /// In en, this message translates to:
+  /// **'Answering: {prompt}'**
+  String momentAnsweringPrompt(String prompt);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

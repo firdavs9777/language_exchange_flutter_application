@@ -12278,4 +12278,9 @@ class AppLocalizationsVi extends AppLocalizations {
   String videoTooLongMax(int seconds) {
     return 'Video này quá dài. Giới hạn là $seconds giây.';
   }
+
+  @override
+  String momentAnsweringPrompt(String prompt) {
+    return 'Trả lời: $prompt';
+  }
 }

@@ -102,5 +102,24 @@ class PrivacyUtils {
     if (privacy == null) return true; // Default: show gifting level
     return privacy.showGiftingLevel;
   }
-}
 
+  /// Whether to show another user's VIP badge / frame.
+  ///
+  /// The VIP badge is the app's gifting-level badge, so it follows
+  /// `showGiftingLevel`. The backend drops `vipSubscription` for users who
+  /// hide it, but `userMode` still says vip, so the client must check too.
+  /// Only for other users: your own profile always shows your status.
+  static bool showsVipBadge(Community user) =>
+      user.isVip && shouldShowGiftingLevel(user);
+
+  /// [showsVipBadge] for a raw user JSON (chat partners, socket payloads).
+  static bool showsVipBadgeFromJson(Map? user) {
+    if (user == null) return false;
+    final sub = user['vipSubscription'];
+    final isVip =
+        user['userMode'] == 'vip' || (sub is Map && sub['isActive'] == true);
+    final privacy = user['privacySettings'];
+    final hidden = privacy is Map && privacy['showGiftingLevel'] == false;
+    return isVip && !hidden;
+  }
+}

@@ -386,6 +386,11 @@ class PrivacySettings {
     this.showGiftingLevel = true,
     this.birthdayNotification = true,
     this.personalizedAds = true,
+    this.emailNotifications = true,
+    this.weeklyDigest = true,
+    this.newMessageEmails = true,
+    this.newFollowerEmails = true,
+    this.securityAlerts = true,
     this.anonymousProfileVisits = false,
   });
 
@@ -397,23 +402,36 @@ class PrivacySettings {
   final bool showGiftingLevel;
   final bool birthdayNotification;
   final bool personalizedAds;
+  // Email channel opt-outs (edited on the email preferences screen).
+  final bool emailNotifications;
+  final bool weeklyDigest;
+  final bool newMessageEmails;
+  final bool newFollowerEmails;
+  final bool securityAlerts;
   final bool anonymousProfileVisits;
+
+  static bool _b(dynamic v, bool fallback) => v is bool ? v : fallback;
 
   factory PrivacySettings.fromJson(Map<String, dynamic> json) {
     return PrivacySettings(
-      showCountryRegion: json['showCountryRegion'] ?? true,
-      showCity: json['showCity'] ?? true,
-      showAge: json['showAge'] ?? true,
-      showZodiac: json['showZodiac'] ?? true,
-      showOnlineStatus: json['showOnlineStatus'] ?? true,
-      showGiftingLevel: json['showGiftingLevel'] ?? true,
-      birthdayNotification: json['birthdayNotification'] ?? true,
-      personalizedAds: json['personalizedAds'] ?? true,
-      anonymousProfileVisits: json['anonymousProfileVisits'] ?? false,
+      showCountryRegion: _b(json['showCountryRegion'], true),
+      showCity: _b(json['showCity'], true),
+      showAge: _b(json['showAge'], true),
+      showZodiac: _b(json['showZodiac'], true),
+      showOnlineStatus: _b(json['showOnlineStatus'], true),
+      showGiftingLevel: _b(json['showGiftingLevel'], true),
+      birthdayNotification: _b(json['birthdayNotification'], true),
+      personalizedAds: _b(json['personalizedAds'], true),
+      emailNotifications: _b(json['emailNotifications'], true),
+      weeklyDigest: _b(json['weeklyDigest'], true),
+      newMessageEmails: _b(json['newMessageEmails'], true),
+      newFollowerEmails: _b(json['newFollowerEmails'], true),
+      securityAlerts: _b(json['securityAlerts'], true),
+      anonymousProfileVisits: _b(json['anonymousProfileVisits'], false),
     );
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, bool> toJson() {
     return {
       'showCountryRegion': showCountryRegion,
       'showCity': showCity,
@@ -423,8 +441,30 @@ class PrivacySettings {
       'showGiftingLevel': showGiftingLevel,
       'birthdayNotification': birthdayNotification,
       'personalizedAds': personalizedAds,
+      'emailNotifications': emailNotifications,
+      'weeklyDigest': weeklyDigest,
+      'newMessageEmails': newMessageEmails,
+      'newFollowerEmails': newFollowerEmails,
+      'securityAlerts': securityAlerts,
       'anonymousProfileVisits': anonymousProfileVisits,
     };
+  }
+
+  /// The complete privacySettings object to send to `PUT /auth/users/:id`.
+  ///
+  /// That endpoint has replaced the whole stored object, so any key left out
+  /// fell back to its schema default (email opt-outs back on, anonymous
+  /// visits off). This lays [changes] over the user's [stored] settings and
+  /// returns every key, so nothing the user did not touch moves.
+  static Map<String, bool> completeUpdate(
+    Map<String, dynamic>? stored,
+    Map<String, bool> changes,
+  ) {
+    final full = PrivacySettings.fromJson(stored ?? const {}).toJson();
+    for (final entry in changes.entries) {
+      if (full.containsKey(entry.key)) full[entry.key] = entry.value;
+    }
+    return full;
   }
 
   PrivacySettings copyWith({
@@ -436,6 +476,11 @@ class PrivacySettings {
     bool? showGiftingLevel,
     bool? birthdayNotification,
     bool? personalizedAds,
+    bool? emailNotifications,
+    bool? weeklyDigest,
+    bool? newMessageEmails,
+    bool? newFollowerEmails,
+    bool? securityAlerts,
     bool? anonymousProfileVisits,
   }) {
     return PrivacySettings(
@@ -447,7 +492,13 @@ class PrivacySettings {
       showGiftingLevel: showGiftingLevel ?? this.showGiftingLevel,
       birthdayNotification: birthdayNotification ?? this.birthdayNotification,
       personalizedAds: personalizedAds ?? this.personalizedAds,
-      anonymousProfileVisits: anonymousProfileVisits ?? this.anonymousProfileVisits,
+      emailNotifications: emailNotifications ?? this.emailNotifications,
+      weeklyDigest: weeklyDigest ?? this.weeklyDigest,
+      newMessageEmails: newMessageEmails ?? this.newMessageEmails,
+      newFollowerEmails: newFollowerEmails ?? this.newFollowerEmails,
+      securityAlerts: securityAlerts ?? this.securityAlerts,
+      anonymousProfileVisits:
+          anonymousProfileVisits ?? this.anonymousProfileVisits,
     );
   }
 }

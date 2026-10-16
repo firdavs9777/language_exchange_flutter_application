@@ -12278,4 +12278,9 @@ class AppLocalizationsJa extends AppLocalizations {
   String videoTooLongMax(int seconds) {
     return 'この動画は長すぎます。上限は$seconds秒です。';
   }
+
+  @override
+  String momentAnsweringPrompt(String prompt) {
+    return 'お題への回答: $prompt';
+  }
 }

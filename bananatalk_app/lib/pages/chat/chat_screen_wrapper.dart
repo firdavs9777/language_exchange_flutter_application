@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/utils/privacy_utils.dart';
 import 'package:bananatalk_app/models/call_model.dart';
 import 'package:bananatalk_app/pages/chat/conversation/chat_conversation_screen.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
@@ -230,7 +231,7 @@ class _ChatScreenWrapperState extends ConsumerState<ChatScreenWrapper> {
       userId: widget.userId,
       userName: _userData!.name,
       profilePicture: _userData!.profileImageUrl,
-      isVip: _userData!.isVip,
+      isVip: PrivacyUtils.showsVipBadge(_userData!),
       prefillMessage: widget.prefillMessage,
     );
   }

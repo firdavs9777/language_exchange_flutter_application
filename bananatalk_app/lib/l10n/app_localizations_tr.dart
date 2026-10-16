@@ -12296,4 +12296,9 @@ class AppLocalizationsTr extends AppLocalizations {
   String videoTooLongMax(int seconds) {
     return 'Bu video çok uzun. Sınır $seconds saniye.';
   }
+
+  @override
+  String momentAnsweringPrompt(String prompt) {
+    return 'Yanıt: $prompt';
+  }
 }

@@ -14,6 +14,7 @@ web `docs/REMAINING_WORK.md` in the web repo (admin console, `assetlinks.json`, 
 - Backend `main` 9d36fe0 (2026-10-14) and web `main` 2ce0c93 are **deployed**, so the deploy order
   backend → web → app is satisfied; 2.7.0 can ship as soon as it is built.
 - All new server flags are still off (dark); see the backend file for the flag table.
+- fix/moments-stories-audit merged into main (2026-10-16, web-parity P2-1); its device rows are in docs/audits/2026-10-16-web-parity/moments.md.
 
 ## 2. Owner — manual steps (in order)
 
@@ -193,6 +194,24 @@ Bug-fix wave 2026-10-15 (from the full regression suite + two adversarial audits
 - [x] Tidy after merge: removed the now-unused `_setupCallListeners` / `_handleCallError` from chat_conversation_screen.dart and `setupCallListeners`/`handleCallError` in message_action_handlers.dart. S
 - Not bugs (left on purpose): the daily chat-partner limit and the profile-view daily limit are dormant with the VIP paywalls (9945ac83); `aps-environment` in source is fine (App Store export sets production); Tajik in iOS `CFBundleLocalizations` only affects the per-app language list.
 
+Suspected bugs from the full regression suite (2026-10-15, code reading only — confirm on device; each has a case in `docs/qa/regression-suite.csv`)
+- [ ] **No Restore Purchases button anywhere** — `restorePurchases()` exists in both purchase services but nothing calls it; App Store guideline 3.1.1 requires one, and `coinsVerifyRetry` tells users to restore. Likely App Review risk for iOS 2.7.0. S
+- [ ] Payments: failed verifies never retried (no purchase callback registered; `coin_shop_screen.dart` `_purchase` has no catch); Android `_purchasePending` never reset after timeout/abandon → later buys show "canceled" until restart; Android Manage Subscription may no-op (`canLaunchUrl` without a manifest `<queries>` block — R-3); VIP users can start a second subscription; per-month price always USD. M
+- [ ] Moments: photo-only moment can't be posted (caption required, contradicts the guide copy); reel can be posted with no video; upload-queue retry and >10 MB / Android HEIC photos create duplicate caption-only posts; no visible upload progress/failure; system back on composer step 2 drops the draft; video-editor filter is preview-only; comment box can stay dead after the limit dialog and a failed comment loses its text; backend moment detail ignores privacy / auto-hide. M
+- [ ] Chats: rate-limited sends hang 10 s (`messageSendError` not listened to); an open conversation doesn't re-fetch after a socket reconnect (missed messages until reopen); snackbar Retry duplicates the message; sticker/GIF sent while replying arrives as text; Forward list built only from unread partners; silent failures (translate cap with coins off, pin/mute/delete, mic permanently denied has no Settings link). M
+- [ ] Auth: suspended user logging in again sees "Session expired" instead of the suspension screen (`/auth/me` 403); password reset stores a token but shows login (kill → straight in); declining Terms after email login keeps the session; no setting to turn biometric off; backend new-device email never sent (`controllers/auth.js:789` vs `:820`); Forgot-password offline panel never shows. M
+- [ ] Profile: Help Center rows (Email Support, Report a Bug, FAQs) do nothing; admin email list missing a comma (`profile_drawer.dart:1161`); change-password Save stays disabled for symbols outside `@$!%*?&`; a failed notification-settings load then any toggle overwrites the server settings with defaults; two completion calculators disagree; SupportSheet follows the system theme, not the app's. S–M
+- [ ] Community: Matches tab blank with no retry on any failure; skipped matches return the same day; Partners-list wave uses `/interactions/wave` (no Waves entry); Nearby "Browse by City/Country" loads nothing and the empty state can't widen the radius; Waves archive unreachable from an empty inbox; "N live" pill opens Gatherings. S–M
+- [ ] AI Study: tutor chat never shows its error state; placement submit failure leaves the user stuck (and >8 answers); weekly report spins forever on error; picking a language doesn't refresh the hub chip; Speak tile gated on a quota its screen doesn't use; listening-station options never shuffled (answer always first); Vocab Packs only reachable under the English exam; `STUDY_VIP_ONLY_FEATURES` is client-side only. S–M
+- [ ] Calls: in-call errors go to the last chat screen's handler (may show nothing — CALL2-10); `CallRoutes.closeAll` stops at a non-call route; self-view mirrored on the rear camera; speaker forced on every video call (BT risk beyond upgrades); missing a11y labels on call buttons. S
+- [ ] Notifications / app-wide: announcement "seen" is per device and wiped at logout (repeat pop-up after re-login); iOS badge never cleared (`clearBadge` no-op); cold-start deep links skip the shell and the login redirect; Tajik missing from iOS `CFBundleLocalizations`; check exported iOS build has production `aps-environment`; some interstitials bypass the per-session cap. S–M
+- [ ] Hardcoded English found across auth, chat (swipe labels, header status), calls (permission/quality strings), moments composer, profile drawer, coin shop, topics — fold into the L14 localization item. M
+Moments / stories audit follow-ups (branch `fix/moments-stories-audit`, 2026-10-15)
+- [ ] Profile → Edit moment: removing an existing photo is a no-op — the server ignores `images` on update and has no delete-photo endpoint. Needs a backend route (or hide the remove button). S
+- [ ] Story viewer "Add to highlight" does not update the in-memory story's `highlightId`, so a second tap offers the picker again (server side dedupes). S
+- [ ] Device QA for the audit: prompt label on card/detail; edit clears mood/tags, removes/adds location, reschedules/clears a schedule; text story with a poll/question; reopening a voted poll / answered question / reacted story (new and old backend); web-made text story with a hex background. S
+- Note: the memory/doc claim "AI Tools = sub-tab 0, Learn = sub-tab 1" is stale — legacy AI Study has Today / Practice / Exam Study (Today first).
+
 Later, gated on dashboard numbers (no work until then)
 - Phase E (weeks 3–8): Boost price test (150 vs 100), coin-pack prices, 3-day VIP trial, interstitial frequency, more rewarded placements, smart sort when 2.6.x+ is the majority.
 - Phase F (only when D7 ≥ 20 %): new-conversation cap, paid installs (Apple Search Ads RU/IN/EG), Moment Boost, AI tutor in VIP.
@@ -202,7 +221,16 @@ Later, gated on dashboard numbers (no work until then)
 Web ↔ app parity (spec `docs/superpowers/specs/2026-10-16-web-app-parity-design.md`, audits in `docs/audits/2026-10-16-web-parity/`)
 - [x] Phase 0: web repo — 23 unpushed commits as one commit (web fba6208), tests restored (3,190 pass), pushed + deployed 2026-10-16.
 - [ ] Phase 1: backend — profile visibility helper, blocks, chat contract, story/moment fixes, voice-note AAC transcode, email links, web-feature endpoints + flags. L
-- [ ] Phase 2: app — story/QR links, Flutter deep linking off, /chat links, text-story stickers, moments branch merge, invite code entry. M
+- [ ] Phase 2: app (plan `docs/superpowers/plans/2026-10-16-web-app-parity-phase2.md`). M
+  - [x] P2-1 merge `fix/moments-stories-audit` (moments#6 prompt/location/isReel, moments#7 UTC scheduling) — 39 l10n conflicts, per-key ARB merge.
+  - [ ] P2-2 parser + Android manifest learn `/story/`, `/chat/`, legacy `bananatalk://user/` (links#1, #6, #8).
+  - [ ] P2-3 story share link `shareUrl('story', id)` + `/story/:id` screen (links#1, moments#1).
+  - [ ] P2-4 profile QR encodes `https://banatalk.com/profile/<id>`; scanner accepts both (links#8).
+  - [ ] P2-5 `FlutterDeepLinkingEnabled=false` / `flutter_deeplinking_enabled=false` (links#7).
+  - [ ] P2-6 text stories draw poll/question/link/location, header and reply bar (moments#3).
+  - [ ] P2-7 invite code manual entry for new accounts (links#10).
+  - [ ] P2-8 Play Install Referrer pickup (links#10).
+  - [ ] P2-9 phase gate: full suite, analyze, debug build, QA rows, push.
 - [ ] Phase 3: web bug fixes — chat, moments, community, links. L
 - [ ] Phase 4: web features (flagged) — reels, gatherings/clubs, voice rooms, calls, Sign in with Apple. XL
 - [ ] Phase 5: owner steps — www cert, nginx snippet + crawler rule, Play fingerprints, Apple Services ID, prod env checks. S
@@ -219,6 +247,7 @@ Web ↔ app parity (spec `docs/superpowers/specs/2026-10-16-web-app-parity-desig
 
 ## 6. Done (changelog)
 
+- 2026-10-15 — Moments/stories audit (branch `fix/moments-stories-audit`, not merged): prompt id kept on video moments, prompt chip/card/detail show "Answering: {prompt}", Moments parse prompt/promptId/location/isReel, edit can clear mood/tags and edit location/schedule (no more `images`), scheduled time sent as UTC; stories tolerate unpopulated user/story ids, send fontStyle/allowReplies/allowSharing, text stories take poll/question stickers, viewer restores own vote/answer/reaction (`userVoteIndex`/`hasAnswered`/`myReaction` with old-backend fallbacks), hex/CSS backgrounds parsed safely, question responses only from the endpoint with retry.
 - 2026-10-13 — Release prep 2.7.0 (10580): version, notes, Android handoff (7fcf15b8, 545d1958).
 - 2026-10-13 — Android release audit: FCM default channel `high_importance_channel` + monochrome `ic_notification`; App Links only for routed paths + `/moment/` share link; tg-TJ locale + RTL; optional hardware features; unused permissions and dead Facebook SDK entries removed; CallKit `signature` permission; no duplicate CallKit missed-call notification; backups skip session/secure storage; Android VIP "Manage Subscription" (2dc340b8…c8df9c8d).
 - 2026-10-13 — App audit fixes: rejoin with camera off and no forced speaker (0951f6f8, a61abe74, dcd9d7a8); decline message in UTF-16 units, IME-safe (83db771f, 577d3bb4); "Failed to send message" on undelivered decline text (4206a481); peer upgrade keeps route + wakelock/video service (8129f60b); missed accept + upgrade connects as video (95700b6c); launch-state reset on logout (45d6ec70); ads notice waits for the guide period (f48b74bb); quiet hours stamped with the device zone (efea3f6a); tg compact counts (b443e32a); CLDR `one` plural fix (30271353).

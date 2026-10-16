@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/utils/privacy_utils.dart';
 import 'package:bananatalk_app/widgets/navigation/floating_tab_bar.dart';
 import 'dart:async';
 import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
@@ -603,7 +604,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
             imageUrls: otherUser.imageUrls,
             status: statusDisplay,
             lastSeen: lastSeen,
-            isVip: otherUser.isVip,
+            isVip: PrivacyUtils.showsVipBadge(otherUser),
             nativeLanguage: otherUser.native_language.isNotEmpty
                 ? otherUser.native_language
                 : null,
