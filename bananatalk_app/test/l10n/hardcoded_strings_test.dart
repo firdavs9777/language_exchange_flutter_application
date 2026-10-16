@@ -809,6 +809,11 @@ const Map<String, List<String>> _keysByTask = {
     'referralCodeUnknown',
     'referralCodeNotAccepted',
   ],
+  // feat/rate-prompt: Drawer > Support "Rate BananaTalk" row.
+  'rate-prompt': [
+    'rateBananaTalkRow',
+    'rateBananaTalkRowSubtitle',
+  ],
 };
 
 /// Files (under lib/) each task must leave with no English Text literal.
@@ -1089,6 +1094,9 @@ const Map<String, List<String>> _filesByTask = {
   'web-parity-p2': [
     'pages/stories/viewer/story_link_screen.dart',
     'pages/profile/referral_invite_code_card.dart',
+  ],
+  'rate-prompt': [
+    'pages/profile/drawer/profile_drawer.dart',
   ],
 };
 

@@ -1,6 +1,6 @@
 # Remaining work — BananaTalk app
 
-Last updated: 2026-10-15 (bug-fix wave). Keep this current: tick items off in the same commit that finishes them.
+Last updated: 2026-10-16 (rate prompt). Keep this current: tick items off in the same commit that finishes them.
 
 See also: backend `language_exchange_backend_application/docs/REMAINING_WORK.md` (server env, prod DB, flags, ops) ·
 web `docs/REMAINING_WORK.md` in the web repo (admin console, `assetlinks.json`, nginx).
@@ -79,6 +79,12 @@ After release (production data):
 - [ ] `guide_cta_tapped` by `target` before adding a third destination anywhere.
 
 ## 4. Code work — open
+
+Store rating prompt (branch `feat/rate-prompt`, not merged; App Store had 0 ratings)
+- [x] Native in-app review (`in_app_review`, no sentiment pre-gate) at positive moments: daily pack finished (`streak_7` when the streak is a multiple of 7), lesson submitted, live reply in a conversation I wrote in, and the old 3+3-message conversation rule. Rules in `lib/services/review_prompt_service.dart` (`isEligibleForRatePrompt`): not in the first 3 days after signup (install first-seen stamp when `createdAt` is unknown), once per 120 days, max 3 ever; per-install prefs survive logout; never during a call; spends the shared `PopupBudget` so it never stacks (a launch pop-up this process blocks it). `rate_prompt_shown {trigger}` analytics. Drawer > Support > "Rate BananaTalk" opens the store page (App Store id 6755862146). Tests `test/growth/review_prompt_test.dart`, `review_prompt_trigger_test.dart`.
+- [ ] Device check: iOS (TestFlight never shows the StoreKit sheet — check on a release build or in the simulator debug run) and Android internal track (Play shows it only for store-installed builds); "Rate BananaTalk" row opens the App Store / Play page. S
+- [ ] Native review of `rateBananaTalkRow` / `rateBananaTalkRowSubtitle` (rows appended to the CSV in Owner step 10). S
+- [ ] After release: `rate_prompt_shown` by `trigger` vs new store ratings per week; if one trigger dominates without ratings, drop it. S
 
 Web parity Phase 1 — wrong domains (spec 2026-10-16, links#19)
 - [x] Wrong-domain references in docs (VOICE_MESSAGES curl, PROF-068 support address) — `api.banatalk.com`, `bananatalkmain@gmail.com`.
@@ -264,6 +270,7 @@ Web ↔ app parity (spec `docs/superpowers/specs/2026-10-16-web-app-parity-desig
 
 ## 6. Done (changelog)
 
+- 2026-10-16 — Store rating prompt (branch `feat/rate-prompt`): native review at positive moments with 3-day / 120-day / 3-ever rules, pop-up budget, call guard, `rate_prompt_shown`, Drawer "Rate BananaTalk" row in 19 locales.
 - 2026-10-15 — Moments/stories audit (branch `fix/moments-stories-audit`, not merged): prompt id kept on video moments, prompt chip/card/detail show "Answering: {prompt}", Moments parse prompt/promptId/location/isReel, edit can clear mood/tags and edit location/schedule (no more `images`), scheduled time sent as UTC; stories tolerate unpopulated user/story ids, send fontStyle/allowReplies/allowSharing, text stories take poll/question stickers, viewer restores own vote/answer/reaction (`userVoteIndex`/`hasAnswered`/`myReaction` with old-backend fallbacks), hex/CSS backgrounds parsed safely, question responses only from the endpoint with retry.
 - 2026-10-13 — Release prep 2.7.0 (10580): version, notes, Android handoff (7fcf15b8, 545d1958).
 - 2026-10-13 — Android release audit: FCM default channel `high_importance_channel` + monochrome `ic_notification`; App Links only for routed paths + `/moment/` share link; tg-TJ locale + RTL; optional hardware features; unused permissions and dead Facebook SDK entries removed; CallKit `signature` permission; no duplicate CallKit missed-call notification; backups skip session/secure storage; Android VIP "Manage Subscription" (2dc340b8…c8df9c8d).

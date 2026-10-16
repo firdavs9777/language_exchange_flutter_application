@@ -4923,5 +4923,7 @@
   "referralEnterCodeHint": "Einladungscode",
   "referralApply": "Einlösen",
   "referralCodeUnknown": "Diesen Einladungscode gibt es nicht. Prüfe ihn und versuche es erneut.",
-  "referralCodeNotAccepted": "Dieser Einladungscode kann für dein Konto nicht verwendet werden."
+  "referralCodeNotAccepted": "Dieser Einladungscode kann für dein Konto nicht verwendet werden.",
+  "rateBananaTalkRow": "BananaTalk bewerten",
+  "rateBananaTalkRowSubtitle": "Hinterlasse eine Bewertung im Store"
 }

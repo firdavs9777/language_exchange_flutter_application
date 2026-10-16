@@ -4683,5 +4683,7 @@
   "referralEnterCodeHint": "Kode undangan",
   "referralApply": "Terapkan",
   "referralCodeUnknown": "Kode undangan itu tidak ada. Periksa lalu coba lagi.",
-  "referralCodeNotAccepted": "Kode undangan ini tidak bisa dipakai di akunmu."
+  "referralCodeNotAccepted": "Kode undangan ini tidak bisa dipakai di akunmu.",
+  "rateBananaTalkRow": "Beri nilai BananaTalk",
+  "rateBananaTalkRowSubtitle": "Tulis ulasan di toko aplikasi"
 }

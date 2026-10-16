@@ -4895,5 +4895,7 @@
   "referralEnterCodeHint": "Davet kodu",
   "referralApply": "Uygula",
   "referralCodeUnknown": "Böyle bir davet kodu yok. Kontrol edip tekrar dene.",
-  "referralCodeNotAccepted": "Bu davet kodu hesabında kullanılamaz."
+  "referralCodeNotAccepted": "Bu davet kodu hesabında kullanılamaz.",
+  "rateBananaTalkRow": "BananaTalk'u değerlendir",
+  "rateBananaTalkRowSubtitle": "Mağazada bir değerlendirme bırak"
 }

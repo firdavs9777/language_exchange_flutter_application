@@ -4176,5 +4176,7 @@
   "referralEnterCodeHint": "Рамзи даъват",
   "referralApply": "Татбиқ кардан",
   "referralCodeUnknown": "Чунин рамзи даъват вуҷуд надорад. Санҷед ва бори дигар кӯшиш кунед.",
-  "referralCodeNotAccepted": "Ин рамзи даъватро дар ҳисоби шумо истифода бурдан мумкин нест."
+  "referralCodeNotAccepted": "Ин рамзи даъватро дар ҳисоби шумо истифода бурдан мумкин нест.",
+  "rateBananaTalkRow": "Ба BananaTalk баҳо диҳед",
+  "rateBananaTalkRowSubtitle": "Дар мағоза шарҳ гузоред"
 }

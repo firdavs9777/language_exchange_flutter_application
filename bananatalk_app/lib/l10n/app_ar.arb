@@ -4713,5 +4713,7 @@
   "referralEnterCodeHint": "رمز الدعوة",
   "referralApply": "تطبيق",
   "referralCodeUnknown": "رمز الدعوة هذا غير موجود. تحقق منه وحاول مرة أخرى.",
-  "referralCodeNotAccepted": "لا يمكن استخدام رمز الدعوة هذا على حسابك."
+  "referralCodeNotAccepted": "لا يمكن استخدام رمز الدعوة هذا على حسابك.",
+  "rateBananaTalkRow": "قيّم BananaTalk",
+  "rateBananaTalkRowSubtitle": "اترك تقييمًا في المتجر"
 }

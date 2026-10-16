@@ -12316,4 +12316,10 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get referralCodeNotAccepted => 'Bu davet kodu hesabında kullanılamaz.';
+
+  @override
+  String get rateBananaTalkRow => 'BananaTalk\'u değerlendir';
+
+  @override
+  String get rateBananaTalkRowSubtitle => 'Mağazada bir değerlendirme bırak';
 }

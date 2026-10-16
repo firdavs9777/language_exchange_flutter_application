@@ -11,6 +11,9 @@ import 'package:bananatalk_app/pages/learning/daily/stations/wrap_station.dart';
 import 'package:bananatalk_app/pages/learning/daily/widgets/day_complete_sheet.dart';
 import 'package:bananatalk_app/pages/learning/daily/widgets/station_rail.dart';
 import 'package:bananatalk_app/services/learning_service.dart';
+import 'package:bananatalk_app/services/review_prompt_service.dart';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 typedef SubmitStation = Future<StationResult> Function(
   String station, {
@@ -30,12 +33,17 @@ class DailyPackFlow extends StatefulWidget {
   final SubmitStation? submit;
   final VoidCallback? onExit;
 
+  /// Store-review prompt on a finished pack. Defaults to the real service
+  /// only when [submit] is the real backend, so tests stay quiet.
+  final ReviewPromptService? reviewPrompt;
+
   const DailyPackFlow({
     super.key,
     required this.pack,
     this.initialIndex = 0,
     this.submit,
     this.onExit,
+    this.reviewPrompt,
   });
 
   @override
@@ -57,6 +65,7 @@ class _DailyPackFlowState extends State<DailyPackFlow> {
   late List<PackStation> _outstanding;
   late int _index;
   bool _finished = false;
+  bool _reviewAsked = false;
   StationResult? _last;
 
   @override
@@ -109,6 +118,30 @@ class _DailyPackFlowState extends State<DailyPackFlow> {
       return;
     }
     setState(() => _finished = true);
+    if (_last?.packComplete ?? false) _maybeAskForReview();
+  }
+
+  /// A finished day (or a 7-day streak) is a positive moment. Fired once per
+  /// flow, after the completion screen has painted. The service applies the
+  /// cooldown / signup / pop-up-budget rules and never throws.
+  void _maybeAskForReview() {
+    if (_reviewAsked) return;
+    final service = widget.reviewPrompt ??
+        (widget.submit == null ? ReviewPromptService() : null);
+    if (service == null) return;
+    _reviewAsked = true;
+    DateTime? joinedAt;
+    try {
+      joinedAt = parseJoinedAt(ProviderScope.containerOf(context, listen: false)
+          .read(userProvider)
+          .valueOrNull
+          ?.createdAt);
+    } catch (_) {}
+    final trigger = dailyPackTrigger(_last?.streak);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      service.maybePrompt(trigger, joinedAt: joinedAt).ignore();
+    });
   }
 
   Widget _stationBody(PackStation station) {

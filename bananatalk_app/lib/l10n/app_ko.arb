@@ -4704,5 +4704,7 @@
   "referralEnterCodeHint": "초대 코드",
   "referralApply": "적용",
   "referralCodeUnknown": "존재하지 않는 초대 코드예요. 확인 후 다시 시도해 주세요.",
-  "referralCodeNotAccepted": "이 초대 코드는 내 계정에 사용할 수 없어요."
+  "referralCodeNotAccepted": "이 초대 코드는 내 계정에 사용할 수 없어요.",
+  "rateBananaTalkRow": "BananaTalk 평가하기",
+  "rateBananaTalkRowSubtitle": "스토어에 리뷰 남기기"
 }

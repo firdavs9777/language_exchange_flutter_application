@@ -12309,4 +12309,10 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get referralCodeNotAccepted => 'Kode undangan ini tidak bisa dipakai di akunmu.';
+
+  @override
+  String get rateBananaTalkRow => 'Beri nilai BananaTalk';
+
+  @override
+  String get rateBananaTalkRowSubtitle => 'Tulis ulasan di toko aplikasi';
 }

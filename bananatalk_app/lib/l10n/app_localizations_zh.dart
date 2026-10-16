@@ -12298,6 +12298,12 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get referralCodeNotAccepted => '此邀请码无法用于你的账号。';
+
+  @override
+  String get rateBananaTalkRow => '给 BananaTalk 评分';
+
+  @override
+  String get rateBananaTalkRowSubtitle => '在应用商店留下评价';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -24594,4 +24600,10 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get referralCodeNotAccepted => '此邀請碼無法用於你的帳號。';
+
+  @override
+  String get rateBananaTalkRow => '為 BananaTalk 評分';
+
+  @override
+  String get rateBananaTalkRowSubtitle => '在應用程式商店留下評價';
 }

@@ -12321,4 +12321,10 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get referralCodeNotAccepted => 'Hindi magagamit ang code ng imbitasyong ito sa account mo.';
+
+  @override
+  String get rateBananaTalkRow => 'I-rate ang BananaTalk';
+
+  @override
+  String get rateBananaTalkRowSubtitle => 'Mag-iwan ng review sa store';
 }

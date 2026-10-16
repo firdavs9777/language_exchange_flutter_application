@@ -12298,4 +12298,10 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get referralCodeNotAccepted => '이 초대 코드는 내 계정에 사용할 수 없어요.';
+
+  @override
+  String get rateBananaTalkRow => 'BananaTalk 평가하기';
+
+  @override
+  String get rateBananaTalkRowSubtitle => '스토어에 리뷰 남기기';
 }

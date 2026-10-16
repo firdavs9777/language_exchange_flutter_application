@@ -4699,5 +4699,7 @@
   "referralEnterCodeHint": "आमंत्रण कोड",
   "referralApply": "लागू करें",
   "referralCodeUnknown": "यह आमंत्रण कोड मौजूद नहीं है। जाँचें और फिर से कोशिश करें।",
-  "referralCodeNotAccepted": "यह आमंत्रण कोड आपके खाते पर इस्तेमाल नहीं किया जा सकता।"
+  "referralCodeNotAccepted": "यह आमंत्रण कोड आपके खाते पर इस्तेमाल नहीं किया जा सकता।",
+  "rateBananaTalkRow": "BananaTalk को रेट करें",
+  "rateBananaTalkRowSubtitle": "स्टोर पर समीक्षा लिखें"
 }
