@@ -82,7 +82,8 @@ Localization
 - [x] Native CallKit Accept/Decline labels and missed-call subtitle are hardcoded English (`callkit_service.dart:225`); add an "Accept" key and feed them from `notificationL10n()`. S
 - [x] Coin strings are ICU plurals in all 19 locales (ru one/few/many, ar few). 
 - [ ] ~70 other Russian keys still lack number agreement ("{count} просмотров", "{count} минут назад"…): convert to ICU plurals. M
-- [ ] Friendly-error pass: many provider exceptions still reach snackbars as "failedToUpdate: <raw exception>". M
+- [x] Friendly-error pass (done 2026-10-16, fix/friendly-errors): `friendlyErrorMessage` now keeps clean server sentences (`serverMessageOf`) and takes a `prefix:`; ~60 call sites in profile, settings, VIP, chat, community, AI tutor, exam study, lessons, voice rooms moved off `'$prefix: $e'`.
+- [ ] Friendly-error remainder in moments/comments/stories (left for the moments audit branch): `moments/card/moment_card.dart:193`, `moments/single/single_moment.dart:249`, `moments/corrections/correction_sheet.dart:147`, `moments/create/create_moment.dart:895,1470,1533,1639`, `comments/create_comment.dart:280` (raw text as fallback), `stories/feed/stories_feed_widget.dart:169`, `stories/highlights/highlight_editor_sheet.dart:132,266,326`; plus `moments_service`/`stories_service` returning `'Network error: $e'` as `error`. Admin-only screens (`admin_reports_screen.dart:78`) and `livekit_test_screen` still show raw text on purpose. S
 - [ ] Country names (~200, filter list + city tab) and chat wallpaper names are English data; a localized country table would fix the first. M
 
 Calls
