@@ -12288,4 +12288,19 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get communityFilterNew => 'नए';
+
+  @override
+  String get vipSwitchPlan => 'प्लान बदलें';
+
+  @override
+  String get vipCurrentPlan => 'मौजूदा प्लान';
+
+  @override
+  String get vipSwitchPlanUnavailable => 'इस खाते पर बदलने के लिए कोई Google Play सदस्यता नहीं मिली। अपनी सदस्यता Google Play में प्रबंधित करें।';
+
+  @override
+  String get vipSwitchScheduledTitle => 'प्लान बदलाव तय हो गया';
+
+  @override
+  String get vipSwitchScheduledBody => 'आपका नया प्लान मौजूदा प्लान खत्म होने पर शुरू होगा। तब तक आप VIP रहेंगे।';
 }

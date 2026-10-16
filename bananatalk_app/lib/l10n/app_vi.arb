@@ -4671,5 +4671,10 @@
   "wallpaperPresetDiamondShine": "Ánh kim cương",
   "communityWorldwide": "Toàn cầu",
   "communitySearchTitle": "Tìm kiếm: {query}",
-  "communityFilterNew": "Mới"
+  "communityFilterNew": "Mới",
+  "vipSwitchPlan": "Đổi gói",
+  "vipCurrentPlan": "Gói hiện tại",
+  "vipSwitchPlanUnavailable": "Không tìm thấy gói đăng ký Google Play nào để đổi trên tài khoản này. Hãy quản lý gói đăng ký trong Google Play.",
+  "vipSwitchScheduledTitle": "Đã lên lịch đổi gói",
+  "vipSwitchScheduledBody": "Gói mới bắt đầu khi gói hiện tại kết thúc. Bạn vẫn là VIP đến lúc đó."
 }

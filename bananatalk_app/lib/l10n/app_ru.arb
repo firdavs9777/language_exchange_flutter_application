@@ -4701,5 +4701,10 @@
   "wallpaperPresetDiamondShine": "Алмазный блеск",
   "communityWorldwide": "Весь мир",
   "communitySearchTitle": "Поиск: {query}",
-  "communityFilterNew": "Новые"
+  "communityFilterNew": "Новые",
+  "vipSwitchPlan": "Сменить тариф",
+  "vipCurrentPlan": "Текущий тариф",
+  "vipSwitchPlanUnavailable": "В этом аккаунте не найдена подписка Google Play для смены. Управляйте подпиской в Google Play.",
+  "vipSwitchScheduledTitle": "Смена тарифа запланирована",
+  "vipSwitchScheduledBody": "Новый тариф начнётся, когда закончится текущий. До этого VIP сохраняется."
 }

@@ -4911,5 +4911,10 @@
   "wallpaperPresetDiamondShine": "Éclat de diamant",
   "communityWorldwide": "Monde entier",
   "communitySearchTitle": "Recherche : {query}",
-  "communityFilterNew": "Nouveaux"
+  "communityFilterNew": "Nouveaux",
+  "vipSwitchPlan": "Changer de formule",
+  "vipCurrentPlan": "Formule actuelle",
+  "vipSwitchPlanUnavailable": "Aucun abonnement Google Play à changer n'a été trouvé sur ce compte. Gérez votre abonnement dans Google Play.",
+  "vipSwitchScheduledTitle": "Changement de formule programmé",
+  "vipSwitchScheduledBody": "Votre nouvelle formule commence à la fin de la formule actuelle. Vous restez VIP jusque-là."
 }

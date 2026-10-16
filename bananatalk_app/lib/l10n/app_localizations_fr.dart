@@ -12288,4 +12288,19 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get communityFilterNew => 'Nouveaux';
+
+  @override
+  String get vipSwitchPlan => 'Changer de formule';
+
+  @override
+  String get vipCurrentPlan => 'Formule actuelle';
+
+  @override
+  String get vipSwitchPlanUnavailable => 'Aucun abonnement Google Play à changer n\'a été trouvé sur ce compte. Gérez votre abonnement dans Google Play.';
+
+  @override
+  String get vipSwitchScheduledTitle => 'Changement de formule programmé';
+
+  @override
+  String get vipSwitchScheduledBody => 'Votre nouvelle formule commence à la fin de la formule actuelle. Vous restez VIP jusque-là.';
 }

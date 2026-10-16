@@ -4692,5 +4692,10 @@
   "wallpaperPresetDiamondShine": "다이아몬드 샤인",
   "communityWorldwide": "전 세계",
   "communitySearchTitle": "검색: {query}",
-  "communityFilterNew": "신규"
+  "communityFilterNew": "신규",
+  "vipSwitchPlan": "플랜 변경",
+  "vipCurrentPlan": "현재 플랜",
+  "vipSwitchPlanUnavailable": "이 계정에서 변경할 Google Play 구독을 찾을 수 없습니다. Google Play에서 구독을 관리하세요.",
+  "vipSwitchScheduledTitle": "플랜 변경 예약됨",
+  "vipSwitchScheduledBody": "새 플랜은 현재 플랜이 끝나면 시작됩니다. 그때까지 VIP가 유지됩니다."
 }

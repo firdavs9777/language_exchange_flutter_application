@@ -4701,5 +4701,10 @@
   "wallpaperPresetDiamondShine": "Brillo de diamante",
   "communityWorldwide": "Todo el mundo",
   "communitySearchTitle": "Búsqueda: {query}",
-  "communityFilterNew": "Nuevos"
+  "communityFilterNew": "Nuevos",
+  "vipSwitchPlan": "Cambiar de plan",
+  "vipCurrentPlan": "Plan actual",
+  "vipSwitchPlanUnavailable": "No encontramos una suscripción de Google Play para cambiar en esta cuenta. Gestiona tu suscripción en Google Play.",
+  "vipSwitchScheduledTitle": "Cambio de plan programado",
+  "vipSwitchScheduledBody": "Tu nuevo plan empieza cuando termine el actual. Sigues siendo VIP hasta entonces."
 }

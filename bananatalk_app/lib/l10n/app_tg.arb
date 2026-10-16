@@ -4164,5 +4164,10 @@
   "wallpaperPresetDiamondShine": "Дурахши алмос",
   "communityWorldwide": "Тамоми ҷаҳон",
   "communitySearchTitle": "Ҷустуҷӯ: {query}",
-  "communityFilterNew": "Нав"
+  "communityFilterNew": "Нав",
+  "vipSwitchPlan": "Иваз кардани нақша",
+  "vipCurrentPlan": "Нақшаи ҷорӣ",
+  "vipSwitchPlanUnavailable": "Дар ин ҳисоб обунаи Google Play барои иваз ёфт нашуд. Обунаи худро дар Google Play идора кунед.",
+  "vipSwitchScheduledTitle": "Ивази нақша ба нақша гирифта шуд",
+  "vipSwitchScheduledBody": "Нақшаи нави шумо пас аз анҷоми нақшаи ҷорӣ оғоз мешавад. То он вақт шумо VIP мемонед."
 }

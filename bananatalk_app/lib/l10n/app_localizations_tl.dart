@@ -12281,4 +12281,19 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get communityFilterNew => 'Bago';
+
+  @override
+  String get vipSwitchPlan => 'Palitan ang plan';
+
+  @override
+  String get vipCurrentPlan => 'Kasalukuyang plan';
+
+  @override
+  String get vipSwitchPlanUnavailable => 'Walang nakitang Google Play subscription na mapapalitan sa account na ito. Pamahalaan ang subscription mo sa Google Play.';
+
+  @override
+  String get vipSwitchScheduledTitle => 'Naka-iskedyul ang pagpalit ng plan';
+
+  @override
+  String get vipSwitchScheduledBody => 'Magsisimula ang bagong plan mo kapag natapos ang kasalukuyan. VIP ka pa rin hanggang doon.';
 }

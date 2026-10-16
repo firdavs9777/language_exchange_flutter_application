@@ -4671,5 +4671,10 @@
   "wallpaperPresetDiamondShine": "Kilau Berlian",
   "communityWorldwide": "Seluruh Dunia",
   "communitySearchTitle": "Cari: {query}",
-  "communityFilterNew": "Baru"
+  "communityFilterNew": "Baru",
+  "vipSwitchPlan": "Ganti paket",
+  "vipCurrentPlan": "Paket saat ini",
+  "vipSwitchPlanUnavailable": "Kami tidak menemukan langganan Google Play untuk diganti di akun ini. Kelola langganan Anda di Google Play.",
+  "vipSwitchScheduledTitle": "Penggantian paket dijadwalkan",
+  "vipSwitchScheduledBody": "Paket baru Anda dimulai saat paket saat ini berakhir. Anda tetap VIP sampai saat itu."
 }

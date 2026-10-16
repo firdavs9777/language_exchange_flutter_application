@@ -3,6 +3,8 @@ import 'package:bananatalk_app/services/vip_service.dart';
 import 'package:bananatalk_app/services/ios_purchase_service.dart';
 import 'package:bananatalk_app/services/android_purchase_service.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:bananatalk_app/models/vip_subscription.dart';
+import 'package:bananatalk_app/services/vip_plan_switch.dart';
 
 /// FutureProvider for VIP status
 final vipStatusProvider = FutureProvider.family<Map<String, dynamic>, String>(
@@ -26,6 +28,21 @@ final androidProductsProvider = FutureProvider<List<ProductDetails>>(
     // initializeStore() already loads products, no need to call loadProducts() separately
     await AndroidPurchaseService.initializeStore();
     return AndroidPurchaseService.getProducts();
+  },
+);
+
+/// The VIP plan of the Play subscription this device's Google account owns
+/// — what an Android plan switch replaces. Null on iOS, without one (VIP
+/// from iOS, a promo, another Google account) or when Play can't be
+/// reached; the plans screen then offers no switch.
+final androidOwnedVipPlanProvider = FutureProvider.autoDispose<VipPlan?>(
+  (ref) async {
+    try {
+      final owned = await AndroidPurchaseService.queryOwnedVipSubscription();
+      return owned == null ? null : vipPlanForAndroidProduct(owned.productID);
+    } catch (_) {
+      return null;
+    }
   },
 );
 

@@ -10,6 +10,7 @@ import 'package:bananatalk_app/providers/provider_root/vip_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
 import 'package:bananatalk_app/services/ios_purchase_service.dart';
 import 'package:bananatalk_app/services/android_purchase_service.dart';
+import 'package:bananatalk_app/services/vip_plan_switch.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
@@ -60,6 +61,7 @@ class VipPlansScreen extends ConsumerStatefulWidget {
 
 class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
   VipPlan? selectedPlan;
+  bool _switchDefaultApplied = false;
   bool _isIOS = Platform.isIOS;
   bool _isAndroid = Platform.isAndroid;
 
@@ -147,8 +149,19 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
     final l10n = AppLocalizations.of(context)!;
     // An active VIP who lands here (a paywall, a deep link) must not be able
     // to start a second subscription: on Android each plan is its own
-    // product, so that would be two concurrent charges.
+    // product, so that would be two concurrent charges. With a Play
+    // subscription on this device they can SWITCH to another plan (Play
+    // replaces the old one); without one they only get the active card.
     final isVip = ref.watch(userProvider).valueOrNull?.isVip ?? false;
+    final ownedPlan =
+        isVip ? ref.watch(androidOwnedVipPlanProvider).valueOrNull : null;
+    final switching = ownedPlan != null;
+    if (switching && !_switchDefaultApplied) {
+      _switchDefaultApplied = true;
+      if (selectedPlan == ownedPlan) {
+        selectedPlan = VipPlan.visible.firstWhere((p) => p != ownedPlan);
+      }
+    }
 
     return Scaffold(
       backgroundColor: context.scaffoldBackground,
@@ -165,7 +178,7 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
             children: [
               _buildBrandedHeader(),
               const SizedBox(height: 24),
-              if (isVip)
+              if (isVip && !switching)
                 _buildVipActiveCard()
               else ...[
                 Padding(
@@ -178,7 +191,7 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
                   ),
                 ),
                 const SizedBox(height: 12),
-                _buildPlanGrid(),
+                _buildPlanGrid(isVip: isVip, ownedPlan: ownedPlan),
               ],
               const SizedBox(height: 28),
               Padding(
@@ -193,8 +206,8 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
               const SizedBox(height: 12),
               _buildComparisonTable(),
               const SizedBox(height: 24),
-              if (!isVip) ...[
-                _buildContinueButton(),
+              if (!isVip || switching) ...[
+                _buildContinueButton(ownedPlan: ownedPlan),
                 const SizedBox(height: 8),
               ],
               // App Store guideline 3.1.1: subscriptions need a visible
@@ -364,7 +377,7 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
   }
 
   // ── 3-column plan grid ──────────────────────────────────────────────────
-  Widget _buildPlanGrid() {
+  Widget _buildPlanGrid({required bool isVip, required VipPlan? ownedPlan}) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: IntrinsicHeight(
@@ -375,7 +388,16 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
             // but is no longer sold.
             for (final plan in VipPlan.visible) ...[
               if (plan != VipPlan.visible.first) const SizedBox(width: 8),
-              Expanded(child: _buildPlanColumn(plan)),
+              Expanded(
+                child: _buildPlanColumn(
+                  plan,
+                  offer: vipPlanOffer(
+                    isVip: isVip,
+                    ownedPlan: ownedPlan,
+                    plan: plan,
+                  ),
+                ),
+              ),
             ],
           ],
         ),
@@ -409,8 +431,9 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
     return null;
   }
 
-  Widget _buildPlanColumn(VipPlan plan) {
-    final isSelected = selectedPlan == plan;
+  Widget _buildPlanColumn(VipPlan plan, {VipPlanOffer? offer}) {
+    final isCurrent = offer == VipPlanOffer.current;
+    final isSelected = selectedPlan == plan && !isCurrent;
     final isYearly = plan == VipPlan.yearly;
 
     // Use store price when available, otherwise fall back to the plan const.
@@ -437,7 +460,8 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
 
     return GestureDetector(
       key: ValueKey('vip-plan-${plan.name}'),
-      onTap: () => setState(() => selectedPlan = plan),
+      // The plan the user already has is never bought again.
+      onTap: isCurrent ? null : () => setState(() => selectedPlan = plan),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 14),
@@ -456,7 +480,30 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
           children: [
             Column(
               children: [
-                if (isYearly) ...[
+                if (isCurrent) ...[
+                  Container(
+                    key: const ValueKey('vip-plan-current-badge'),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 3,
+                    ),
+                    decoration: BoxDecoration(
+                      color: context.textSecondary,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Text(
+                      l10n.vipCurrentPlan.toUpperCase(),
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 9,
+                        fontWeight: FontWeight.w800,
+                        letterSpacing: 0.5,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                ] else if (isYearly) ...[
                   Container(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 8,
@@ -719,8 +766,10 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
   }
 
   // ── Continue button (gradient) ──────────────────────────────────────────
-  Widget _buildContinueButton() {
-    final disabled = selectedPlan == null;
+  Widget _buildContinueButton({VipPlan? ownedPlan}) {
+    // ownedPlan set = an Android VIP switching plans (see _buildContent).
+    final switching = ownedPlan != null;
+    final disabled = selectedPlan == null || selectedPlan == ownedPlan;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: GestureDetector(
@@ -746,6 +795,7 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
                     builder: (_) => VipPaymentScreen(
                       userId: userId,
                       plan: selectedPlan!,
+                      isPlanSwitch: switching,
                     ),
                   ),
                 );
@@ -771,7 +821,10 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
               ],
             ),
             child: Text(
-              AppLocalizations.of(context)!.continueButton.toUpperCase(),
+              (switching
+                      ? AppLocalizations.of(context)!.vipSwitchPlan
+                      : AppLocalizations.of(context)!.continueButton)
+                  .toUpperCase(),
               style: const TextStyle(
                 color: Colors.white,
                 fontSize: 16,

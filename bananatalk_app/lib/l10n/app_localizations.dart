@@ -22315,6 +22315,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'New'**
   String get communityFilterNew;
+
+  /// No description provided for @vipSwitchPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Switch plan'**
+  String get vipSwitchPlan;
+
+  /// No description provided for @vipCurrentPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Current plan'**
+  String get vipCurrentPlan;
+
+  /// No description provided for @vipSwitchPlanUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn\'t find a Google Play subscription to switch on this account. Manage your subscription in Google Play.'**
+  String get vipSwitchPlanUnavailable;
+
+  /// No description provided for @vipSwitchScheduledTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Plan change scheduled'**
+  String get vipSwitchScheduledTitle;
+
+  /// Shown after an Android VIP switches to a shorter plan (Google Play defers it).
+  ///
+  /// In en, this message translates to:
+  /// **'Your new plan starts when your current plan ends. You keep VIP until then.'**
+  String get vipSwitchScheduledBody;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

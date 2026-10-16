@@ -4685,5 +4685,10 @@
   "wallpaperPresetDiamondShine": "钻石光辉",
   "communityWorldwide": "全球",
   "communitySearchTitle": "搜索：{query}",
-  "communityFilterNew": "新人"
+  "communityFilterNew": "新人",
+  "vipSwitchPlan": "切换方案",
+  "vipCurrentPlan": "当前方案",
+  "vipSwitchPlanUnavailable": "此账号上没有可切换的 Google Play 订阅。请在 Google Play 中管理你的订阅。",
+  "vipSwitchScheduledTitle": "方案变更已安排",
+  "vipSwitchScheduledBody": "新方案将在当前方案结束时开始。在此之前你仍是 VIP。"
 }

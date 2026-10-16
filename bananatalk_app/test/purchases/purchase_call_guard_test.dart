@@ -103,6 +103,25 @@ void main() {
       expect(guard.inFlight, isTrue);
     });
 
+    test('a plan-switch call takes the empty-product "purchased" event '
+        '(deferred switch)', () async {
+      final guard = PurchaseCallGuard();
+      guard.begin('vip.month', acceptAnonymousSuccess: true);
+      final waiting = guard.wait(timeout: const Duration(seconds: 5));
+      final deferred = _details('', PurchaseStatus.purchased);
+      expect(guard.offer(deferred), isTrue);
+      expect(await waiting, same(deferred));
+      expect(guard.inFlight, isFalse);
+    });
+
+    test('accepting the anonymous success does not outlive its call', () async {
+      final guard = PurchaseCallGuard();
+      guard.begin('vip.month', acceptAnonymousSuccess: true);
+      guard.abort();
+      guard.begin('vip.year');
+      expect(guard.offer(_details('', PurchaseStatus.purchased)), isFalse);
+    });
+
     test('offer with nothing in flight returns false', () {
       final guard = PurchaseCallGuard();
       expect(guard.offer(_details('vip.year', PurchaseStatus.purchased)),

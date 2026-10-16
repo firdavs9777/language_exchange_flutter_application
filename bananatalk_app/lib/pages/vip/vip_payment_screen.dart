@@ -2,10 +2,12 @@ import 'dart:io';
 import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:bananatalk_app/models/vip_subscription.dart';
 import 'package:bananatalk_app/services/vip_service.dart';
 import 'package:bananatalk_app/services/ios_purchase_service.dart';
 import 'package:bananatalk_app/services/android_purchase_service.dart';
+import 'package:bananatalk_app/services/vip_plan_switch.dart';
 import 'package:bananatalk_app/providers/provider_root/vip_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/user_limits_provider.dart';
@@ -21,10 +23,15 @@ class VipPaymentScreen extends ConsumerStatefulWidget {
   final String userId;
   final VipPlan plan;
 
+  /// Android only: the user is VIP on another plan and this replaces it
+  /// through Play (never a second subscription).
+  final bool isPlanSwitch;
+
   const VipPaymentScreen({
     Key? key,
     required this.userId,
     required this.plan,
+    this.isPlanSwitch = false,
   }) : super(key: key);
 
   @override
@@ -317,9 +324,36 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
       }
 
 
-      // Initiate purchase and wait for completion
-      final purchaseDetails =
-          await AndroidPurchaseService.purchaseProductAndWait(productId);
+      // Initiate purchase and wait for completion. A plan switch replaces
+      // the owned subscription instead of buying a second one.
+      final PurchaseDetails? purchaseDetails;
+      if (widget.isPlanSwitch) {
+        final result =
+            await AndroidPurchaseService.switchVipPlanAndWait(widget.plan);
+        if (!mounted) return;
+        switch (result.status) {
+          case VipPlanSwitchStatus.switched:
+            purchaseDetails = result.purchase;
+          case VipPlanSwitchStatus.scheduled:
+            setState(() => isProcessing = false);
+            ref.read(purchaseStateProvider.notifier).state = PurchaseState.idle;
+            _showSwitchScheduledDialog();
+            return;
+          case VipPlanSwitchStatus.samePlan:
+          case VipPlanSwitchStatus.noSubscription:
+            setState(() => isProcessing = false);
+            _showErrorDialog(
+              AppLocalizations.of(context)!.vipErrorPurchaseTitle,
+              AppLocalizations.of(context)!.vipSwitchPlanUnavailable,
+            );
+            return;
+          case VipPlanSwitchStatus.canceled:
+            purchaseDetails = null;
+        }
+      } else {
+        purchaseDetails =
+            await AndroidPurchaseService.purchaseProductAndWait(productId);
+      }
 
       if (purchaseDetails == null) {
         // Purchase was canceled or failed
@@ -418,6 +452,31 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
         friendlyErrorMessage(AppLocalizations.of(context)!, e),
       );
     }
+  }
+
+  /// A switch to a shorter plan starts when the current period ends; Play
+  /// has nothing to verify until then.
+  void _showSwitchScheduledDialog() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (dialogContext) => AlertDialog(
+        title: Text(AppLocalizations.of(dialogContext)!.vipSwitchScheduledTitle),
+        content: Text(AppLocalizations.of(dialogContext)!.vipSwitchScheduledBody),
+        actions: [
+          TextButton(
+            onPressed: () {
+              // Same navigator capture as the success dialog.
+              final nav = Navigator.of(dialogContext, rootNavigator: true);
+              nav.pop(); // close dialog
+              if (nav.canPop()) nav.pop(); // close payment screen
+              if (nav.canPop()) nav.pop(); // close plans screen
+            },
+            child: Text(AppLocalizations.of(dialogContext)!.ok),
+          ),
+        ],
+      ),
+    );
   }
 
   Future<void> _processMockupPayment() async {
@@ -826,8 +885,11 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
                               ? AppLocalizations.of(context)!
                                   .vipPaymentPurchaseAppStore
                               : _isAndroid
-                                  ? AppLocalizations.of(context)!
-                                      .vipPaymentPurchaseGooglePlay
+                                  ? (widget.isPlanSwitch
+                                      ? AppLocalizations.of(context)!
+                                          .vipSwitchPlan
+                                      : AppLocalizations.of(context)!
+                                          .vipPaymentPurchaseGooglePlay)
                                   : AppLocalizations.of(context)!
                                       .vipPaymentPayPrice(
                                       '\$${widget.plan.price}',

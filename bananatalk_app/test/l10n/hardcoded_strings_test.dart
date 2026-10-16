@@ -544,6 +544,14 @@ const Map<String, List<String>> _keysByTask = {
     'momentUploadGiveUp',
     'momentUploadTriesLeft',
   ],
+  // Android VIP plan switch (plans + payment screens).
+  'android-plan-switch': [
+    'vipSwitchPlan',
+    'vipCurrentPlan',
+    'vipSwitchPlanUnavailable',
+    'vipSwitchScheduledTitle',
+    'vipSwitchScheduledBody',
+  ],
   // Remaining hardcoded English: property literals, enum labels, snackbars (L14 sweep).
   'l10n-sweep': [
     'authLockedTitle',
@@ -1024,6 +1032,9 @@ const Map<String, List<String>> _filesByTask = {
     'pages/moments/single/single_moment.dart',
     'pages/moments/viewer/image_viewer.dart',
   ],
+  // The VIP screens still have other English literals (mock payment
+  // methods); the keys are checked above, the files are not listed.
+  'android-plan-switch': [],
   'l10n-sweep': [
     'pages/authentication/widgets/auth_error_state.dart',
     'pages/authentication/widgets/password_strength_meter.dart',

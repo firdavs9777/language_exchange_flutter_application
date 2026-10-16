@@ -4701,5 +4701,10 @@
   "wallpaperPresetDiamondShine": "بريق الماس",
   "communityWorldwide": "حول العالم",
   "communitySearchTitle": "بحث: {query}",
-  "communityFilterNew": "جدد"
+  "communityFilterNew": "جدد",
+  "vipSwitchPlan": "تغيير الخطة",
+  "vipCurrentPlan": "الخطة الحالية",
+  "vipSwitchPlanUnavailable": "لم نعثر على اشتراك Google Play على هذا الحساب لتغييره. أدر اشتراكك من Google Play.",
+  "vipSwitchScheduledTitle": "تمت جدولة تغيير الخطة",
+  "vipSwitchScheduledBody": "تبدأ خطتك الجديدة عند انتهاء خطتك الحالية. تبقى VIP حتى ذلك الحين."
 }

@@ -22,6 +22,7 @@ class PurchaseCallGuard {
   Completer<PurchaseDetails?>? _completer;
   String? _productId;
   bool _storePending = false;
+  bool _acceptAnonymousSuccess = false;
 
   /// A purchase call is waiting for the store.
   bool get inFlight => _completer != null;
@@ -34,11 +35,17 @@ class PurchaseCallGuard {
 
   /// Starts a call for [productId]. Returns false (and changes nothing) when
   /// another call is already in flight.
-  bool begin(String productId) {
+  ///
+  /// [acceptAnonymousSuccess]: a deferred Google Play plan switch succeeds
+  /// with NO purchase, which the plugin reports as a "purchased" event with
+  /// an empty product id. Only a plan-switch call expects that; any other
+  /// call would wait for its product until the timeout.
+  bool begin(String productId, {bool acceptAnonymousSuccess = false}) {
     if (inFlight) return false;
     _completer = Completer<PurchaseDetails?>();
     _productId = productId;
     _storePending = false;
+    _acceptAnonymousSuccess = acceptAnonymousSuccess;
     return true;
   }
 
@@ -59,7 +66,14 @@ class PurchaseCallGuard {
     // EMPTY product id — it can only belong to the call in flight.
     final anonymousFailure = details.productID.isEmpty &&
         (status == PurchaseStatus.canceled || status == PurchaseStatus.error);
-    if (details.productID != _productId && !anonymousFailure) return false;
+    final anonymousSuccess = _acceptAnonymousSuccess &&
+        details.productID.isEmpty &&
+        status == PurchaseStatus.purchased;
+    if (details.productID != _productId &&
+        !anonymousFailure &&
+        !anonymousSuccess) {
+      return false;
+    }
     switch (status) {
       case PurchaseStatus.purchased:
       case PurchaseStatus.restored:
@@ -102,6 +116,7 @@ class PurchaseCallGuard {
       _completer = null;
       _productId = null;
       _storePending = false;
+      _acceptAnonymousSuccess = false;
     }
   }
 }

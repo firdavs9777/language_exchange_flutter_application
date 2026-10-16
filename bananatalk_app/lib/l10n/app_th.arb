@@ -4671,5 +4671,10 @@
   "wallpaperPresetDiamondShine": "ประกายเพชร",
   "communityWorldwide": "ทั่วโลก",
   "communitySearchTitle": "ค้นหา: {query}",
-  "communityFilterNew": "ใหม่"
+  "communityFilterNew": "ใหม่",
+  "vipSwitchPlan": "เปลี่ยนแพ็กเกจ",
+  "vipCurrentPlan": "แพ็กเกจปัจจุบัน",
+  "vipSwitchPlanUnavailable": "ไม่พบการสมัครสมาชิก Google Play ที่จะเปลี่ยนในบัญชีนี้ จัดการการสมัครสมาชิกได้ใน Google Play",
+  "vipSwitchScheduledTitle": "กำหนดการเปลี่ยนแพ็กเกจแล้ว",
+  "vipSwitchScheduledBody": "แพ็กเกจใหม่จะเริ่มเมื่อแพ็กเกจปัจจุบันสิ้นสุด คุณยังเป็น VIP จนถึงตอนนั้น"
 }

@@ -1,11 +1,13 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:in_app_purchase_android/billing_client_wrappers.dart';
 import 'package:in_app_purchase_android/in_app_purchase_android.dart';
 import 'package:bananatalk_app/models/coin_pack.dart';
 import 'package:bananatalk_app/models/vip_subscription.dart';
 import 'package:bananatalk_app/services/purchase_call_guard.dart';
 import 'package:bananatalk_app/services/purchase_restorer.dart';
+import 'package:bananatalk_app/services/vip_plan_switch.dart';
 
 /// Callback for purchase completion
 typedef PurchaseCallback = void Function(
@@ -221,6 +223,71 @@ class AndroidPurchaseService {
 
       // Wait for the purchase to complete (with timeout). wait() releases
       // the guard however it ends.
+      return await _call.wait(timeout: const Duration(minutes: 5));
+    } catch (e) {
+      _call.abort();
+      return null;
+    }
+  }
+
+  /// The VIP subscription this device's Google account owns, straight from
+  /// Play (not the backend: its token is what a plan switch replaces).
+  /// Null when there is none or Play can't be reached.
+  static Future<GooglePlayPurchaseDetails?> queryOwnedVipSubscription() async {
+    if (!Platform.isAndroid) return null;
+    if (!_isAvailable) {
+      final initialized = await initializeStore();
+      if (!initialized) return null;
+    }
+    final addition = _inAppPurchase
+        .getPlatformAddition<InAppPurchaseAndroidPlatformAddition>();
+    final response = await addition.queryPastPurchases();
+    final owned = ownedVipSubscription(response.pastPurchases);
+    return owned is GooglePlayPurchaseDetails ? owned : null;
+  }
+
+  /// Switches the owned VIP subscription to [target] through Play's
+  /// replacement flow (see `vip_plan_switch.dart` for the modes). Never a
+  /// plain purchase: with nothing to replace it returns
+  /// [VipPlanSwitchStatus.noSubscription] instead of a second subscription.
+  static Future<VipPlanSwitchResult> switchVipPlanAndWait(VipPlan target) {
+    return VipPlanSwitcher(
+      queryOwned: queryOwnedVipSubscription,
+      buy: _buyReplacement,
+    ).run(target);
+  }
+
+  static Future<PurchaseDetails?> _buyReplacement(
+    VipPlan target,
+    PurchaseDetails oldPurchase,
+    ReplacementMode mode,
+  ) async {
+    if (oldPurchase is! GooglePlayPurchaseDetails) return null;
+    if (_products.isEmpty) {
+      await loadProducts();
+    }
+    final productId = target.androidProductId;
+    final productDetails = getProduct(productId);
+    if (productDetails == null) return null;
+
+    if (!_call.begin(productId, acceptAnonymousSuccess: true)) {
+      return null;
+    }
+
+    try {
+      final bool initiated = await _inAppPurchase.buyNonConsumable(
+        purchaseParam: GooglePlayPurchaseParam(
+          productDetails: productDetails,
+          changeSubscriptionParam: ChangeSubscriptionParam(
+            oldPurchaseDetails: oldPurchase,
+            replacementMode: mode,
+          ),
+        ),
+      );
+      if (!initiated) {
+        _call.abort();
+        return null;
+      }
       return await _call.wait(timeout: const Duration(minutes: 5));
     } catch (e) {
       _call.abort();

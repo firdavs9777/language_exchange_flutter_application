@@ -12288,4 +12288,19 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get communityFilterNew => 'Neu';
+
+  @override
+  String get vipSwitchPlan => 'Tarif wechseln';
+
+  @override
+  String get vipCurrentPlan => 'Aktueller Tarif';
+
+  @override
+  String get vipSwitchPlanUnavailable => 'Wir haben auf diesem Konto kein Google-Play-Abo zum Wechseln gefunden. Verwalte dein Abo in Google Play.';
+
+  @override
+  String get vipSwitchScheduledTitle => 'Tarifwechsel geplant';
+
+  @override
+  String get vipSwitchScheduledBody => 'Dein neuer Tarif beginnt, wenn dein aktueller Tarif endet. Bis dahin bleibst du VIP.';
 }

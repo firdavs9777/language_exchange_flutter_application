@@ -12258,4 +12258,19 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get communityFilterNew => '新規';
+
+  @override
+  String get vipSwitchPlan => 'プランを変更';
+
+  @override
+  String get vipCurrentPlan => '現在のプラン';
+
+  @override
+  String get vipSwitchPlanUnavailable => 'このアカウントで変更できる Google Play の定期購入が見つかりません。Google Play で定期購入を管理してください。';
+
+  @override
+  String get vipSwitchScheduledTitle => 'プラン変更を予約しました';
+
+  @override
+  String get vipSwitchScheduledBody => '新しいプランは現在のプランの終了時に始まります。それまで VIP のままです。';
 }

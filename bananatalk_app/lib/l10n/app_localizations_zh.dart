@@ -12258,6 +12258,21 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get communityFilterNew => '新人';
+
+  @override
+  String get vipSwitchPlan => '切换方案';
+
+  @override
+  String get vipCurrentPlan => '当前方案';
+
+  @override
+  String get vipSwitchPlanUnavailable => '此账号上没有可切换的 Google Play 订阅。请在 Google Play 中管理你的订阅。';
+
+  @override
+  String get vipSwitchScheduledTitle => '方案变更已安排';
+
+  @override
+  String get vipSwitchScheduledBody => '新方案将在当前方案结束时开始。在此之前你仍是 VIP。';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -24514,4 +24529,19 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get communityFilterNew => '新人';
+
+  @override
+  String get vipSwitchPlan => '切換方案';
+
+  @override
+  String get vipCurrentPlan => '目前方案';
+
+  @override
+  String get vipSwitchPlanUnavailable => '此帳號上沒有可切換的 Google Play 訂閱。請在 Google Play 中管理你的訂閱。';
+
+  @override
+  String get vipSwitchScheduledTitle => '方案變更已排定';
+
+  @override
+  String get vipSwitchScheduledBody => '新方案將在目前方案結束時開始。在此之前你仍是 VIP。';
 }

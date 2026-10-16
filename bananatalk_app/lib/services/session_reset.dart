@@ -278,6 +278,9 @@ const Set<String> kAppScopedProviderNames = {
   'runningAppVersionProvider',
   'iosProductsProvider', // store catalog
   'androidProductsProvider',
+  // The device's Google Play account, not the app user; autoDispose, so the
+  // plans screen re-queries it on every visit.
+  'androidOwnedVipPlanProvider',
   'pronunciationVoiceServiceProvider', // TTS engine
   'giphyServiceProvider',
   // The upload queue is a singleton the providers only observe; its tasks

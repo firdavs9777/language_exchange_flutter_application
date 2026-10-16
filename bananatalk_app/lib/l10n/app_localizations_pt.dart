@@ -12288,4 +12288,19 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get communityFilterNew => 'Novos';
+
+  @override
+  String get vipSwitchPlan => 'Mudar de plano';
+
+  @override
+  String get vipCurrentPlan => 'Plano atual';
+
+  @override
+  String get vipSwitchPlanUnavailable => 'Não encontramos uma assinatura do Google Play para mudar nesta conta. Gerencie sua assinatura no Google Play.';
+
+  @override
+  String get vipSwitchScheduledTitle => 'Mudança de plano agendada';
+
+  @override
+  String get vipSwitchScheduledBody => 'Seu novo plano começa quando o atual terminar. Você continua VIP até lá.';
 }

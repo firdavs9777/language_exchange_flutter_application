@@ -4362,5 +4362,10 @@
   "wallpaperPresetDiamondShine": "鑽石光輝",
   "communityWorldwide": "全球",
   "communitySearchTitle": "搜尋：{query}",
-  "communityFilterNew": "新人"
+  "communityFilterNew": "新人",
+  "vipSwitchPlan": "切換方案",
+  "vipCurrentPlan": "目前方案",
+  "vipSwitchPlanUnavailable": "此帳號上沒有可切換的 Google Play 訂閱。請在 Google Play 中管理你的訂閱。",
+  "vipSwitchScheduledTitle": "方案變更已排定",
+  "vipSwitchScheduledBody": "新方案將在目前方案結束時開始。在此之前你仍是 VIP。"
 }
