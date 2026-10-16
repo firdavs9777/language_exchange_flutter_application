@@ -134,7 +134,7 @@ class AIService {
       }
       return {'success': false, 'message': _getErrorMessage(data, 'Failed to start conversation')};
     } catch (e) {
-      return {'success': false, 'message': 'Error: ${e.toString()}'};
+      return {'success': false, 'message': e.toString()};
     }
   }
 
@@ -206,7 +206,7 @@ class AIService {
       }
       return {'success': false, 'message': _getErrorMessage(data, 'Failed to send message')};
     } catch (e) {
-      return {'success': false, 'message': 'Error: ${e.toString()}'};
+      return {'success': false, 'message': e.toString()};
     }
   }
 
@@ -236,7 +236,7 @@ class AIService {
       }
       return {'success': false, 'message': _getErrorMessage(data, 'Failed to end conversation')};
     } catch (e) {
-      return {'success': false, 'message': 'Error: ${e.toString()}'};
+      return {'success': false, 'message': e.toString()};
     }
   }
 
@@ -270,7 +270,7 @@ class AIService {
       }
       return {'success': true, 'data': <AIConversation>[]};
     } catch (e) {
-      return {'success': false, 'message': 'Error: ${e.toString()}'};
+      return {'success': false, 'message': e.toString()};
     }
   }
 
@@ -296,7 +296,7 @@ class AIService {
       }
       return {'success': false, 'message': _getErrorMessage(data, 'Failed to fetch conversation')};
     } catch (e) {
-      return {'success': false, 'message': 'Error: ${e.toString()}'};
+      return {'success': false, 'message': e.toString()};
     }
   }
 
@@ -326,7 +326,7 @@ class AIService {
       }
       return {'success': true, 'data': <ConversationTopic>[]};
     } catch (e) {
-      return {'success': false, 'message': 'Error: ${e.toString()}'};
+      return {'success': false, 'message': e.toString()};
     }
   }
 
@@ -356,7 +356,7 @@ class AIService {
       }
       return {'success': true, 'data': <PracticeScenario>[]};
     } catch (e) {
-      return {'success': false, 'message': 'Error: ${e.toString()}'};
+      return {'success': false, 'message': e.toString()};
     }
   }
 
@@ -401,7 +401,7 @@ class AIService {
       }
       return _studyFailure(response, data, 'Failed to analyze grammar');
     } catch (e) {
-      return {'success': false, 'message': 'Error: ${e.toString()}'};
+      return {'success': false, 'message': e.toString()};
     }
   }
 
@@ -427,7 +427,7 @@ class AIService {
       }
       return {'success': false, 'message': _getErrorMessage(data, 'Failed to fetch feedback')};
     } catch (e) {
-      return {'success': false, 'message': 'Error: ${e.toString()}'};
+      return {'success': false, 'message': e.toString()};
     }
   }
 
@@ -460,7 +460,7 @@ class AIService {
       }
       return {'success': true, 'data': <GrammarFeedback>[]};
     } catch (e) {
-      return {'success': false, 'message': 'Error: ${e.toString()}'};
+      return {'success': false, 'message': e.toString()};
     }
   }
 
@@ -475,7 +475,7 @@ class AIService {
 
       return {'success': response.statusCode == 200};
     } catch (e) {
-      return {'success': false, 'message': 'Error: ${e.toString()}'};
+      return {'success': false, 'message': e.toString()};
     }
   }
 
@@ -502,7 +502,7 @@ class AIService {
       }
       return {'success': false, 'message': _getErrorMessage(data, 'Failed to explain rule')};
     } catch (e) {
-      return {'success': false, 'message': 'Error: ${e.toString()}'};
+      return {'success': false, 'message': e.toString()};
     }
   }
 
@@ -533,7 +533,7 @@ class AIService {
       }
       return {'success': false, 'message': _getErrorMessage(data, 'Failed to generate audio')};
     } catch (e) {
-      return {'success': false, 'message': 'Error: ${e.toString()}'};
+      return {'success': false, 'message': e.toString()};
     }
   }
 
@@ -575,7 +575,7 @@ class AIService {
       }
       return {'success': false, 'message': _getErrorMessage(data, 'Failed to transcribe audio')};
     } catch (e) {
-      return {'success': false, 'message': 'Error: ${e.toString()}'};
+      return {'success': false, 'message': e.toString()};
     }
   }
 
@@ -626,7 +626,7 @@ class AIService {
       }
       return _studyFailure(response, data, 'Failed to evaluate pronunciation');
     } catch (e) {
-      return {'success': false, 'message': 'Error: ${e.toString()}'};
+      return {'success': false, 'message': e.toString()};
     }
   }
 
@@ -660,7 +660,7 @@ class AIService {
       }
       return {'success': true, 'data': <PronunciationResult>[]};
     } catch (e) {
-      return {'success': false, 'message': 'Error: ${e.toString()}'};
+      return {'success': false, 'message': e.toString()};
     }
   }
 
@@ -686,7 +686,7 @@ class AIService {
       }
       return {'success': false, 'message': _getErrorMessage(data, 'Failed to fetch stats')};
     } catch (e) {
-      return {'success': false, 'message': 'Error: ${e.toString()}'};
+      return {'success': false, 'message': e.toString()};
     }
   }
 
@@ -716,7 +716,7 @@ class AIService {
       }
       return {'success': true, 'data': <VoiceOption>[]};
     } catch (e) {
-      return {'success': false, 'message': 'Error: ${e.toString()}'};
+      return {'success': false, 'message': e.toString()};
     }
   }
 
@@ -761,7 +761,7 @@ class AIService {
       }
       return {'success': false, 'message': _getErrorMessage(data, 'Failed to translate')};
     } catch (e) {
-      return {'success': false, 'message': 'Error: ${e.toString()}'};
+      return {'success': false, 'message': e.toString()};
     }
   }
 
@@ -800,7 +800,7 @@ class AIService {
       }
       return {'success': true, 'data': <IdiomInfo>[]};
     } catch (e) {
-      return {'success': false, 'message': 'Error: ${e.toString()}'};
+      return {'success': false, 'message': e.toString()};
     }
   }
 
@@ -828,7 +828,7 @@ class AIService {
       }
       return {'success': false, 'message': _getErrorMessage(data, 'Failed to translate')};
     } catch (e) {
-      return {'success': false, 'message': 'Error: ${e.toString()}'};
+      return {'success': false, 'message': e.toString()};
     }
   }
 
@@ -861,7 +861,7 @@ class AIService {
       }
       return {'success': true, 'data': <PopularTranslation>[]};
     } catch (e) {
-      return {'success': false, 'message': 'Error: ${e.toString()}'};
+      return {'success': false, 'message': e.toString()};
     }
   }
 
@@ -911,7 +911,7 @@ class AIService {
       }
       return _studyFailure(response, data, 'Failed to generate quiz');
     } catch (e) {
-      return {'success': false, 'message': 'Error: ${e.toString()}'};
+      return {'success': false, 'message': e.toString()};
     }
   }
 
@@ -952,7 +952,7 @@ class AIService {
       }
       return {'success': true, 'data': <AIQuiz>[]};
     } catch (e) {
-      return {'success': false, 'message': 'Error: ${e.toString()}'};
+      return {'success': false, 'message': e.toString()};
     }
   }
 
@@ -997,7 +997,7 @@ class AIService {
       }
       return {'success': false, 'message': _getErrorMessage(data, 'Failed to start quiz')};
     } catch (e) {
-      return {'success': false, 'message': 'Error: ${e.toString()}'};
+      return {'success': false, 'message': e.toString()};
     }
   }
 
@@ -1028,7 +1028,7 @@ class AIService {
       }
       return {'success': false, 'message': _getErrorMessage(data, 'Failed to submit answer')};
     } catch (e) {
-      return {'success': false, 'message': 'Error: ${e.toString()}'};
+      return {'success': false, 'message': e.toString()};
     }
   }
 
@@ -1061,7 +1061,7 @@ class AIService {
       }
       return {'success': false, 'message': _getErrorMessage(data, 'Failed to complete quiz')};
     } catch (e) {
-      return {'success': false, 'message': 'Error: ${e.toString()}'};
+      return {'success': false, 'message': e.toString()};
     }
   }
 
@@ -1087,7 +1087,7 @@ class AIService {
       }
       return {'success': false, 'message': _getErrorMessage(data, 'Failed to fetch stats')};
     } catch (e) {
-      return {'success': false, 'message': 'Error: ${e.toString()}'};
+      return {'success': false, 'message': e.toString()};
     }
   }
 
@@ -1117,7 +1117,7 @@ class AIService {
       }
       return {'success': false, 'message': _getErrorMessage(data, 'Failed to fetch recommendations')};
     } catch (e) {
-      return {'success': false, 'message': 'Error: ${e.toString()}'};
+      return {'success': false, 'message': e.toString()};
     }
   }
 
@@ -1143,7 +1143,7 @@ class AIService {
       }
       return {'success': false, 'message': _getErrorMessage(data, 'Failed to refresh')};
     } catch (e) {
-      return {'success': false, 'message': 'Error: ${e.toString()}'};
+      return {'success': false, 'message': e.toString()};
     }
   }
 
@@ -1173,7 +1173,7 @@ class AIService {
       }
       return {'success': true, 'data': <WeakArea>[]};
     } catch (e) {
-      return {'success': false, 'message': 'Error: ${e.toString()}'};
+      return {'success': false, 'message': e.toString()};
     }
   }
 
@@ -1211,7 +1211,7 @@ class AIService {
       }
       return {'success': false, 'message': _getErrorMessage(data, 'Failed to get hint')};
     } catch (e) {
-      return {'success': false, 'message': 'Error: ${e.toString()}'};
+      return {'success': false, 'message': e.toString()};
     }
   }
 
@@ -1245,7 +1245,7 @@ class AIService {
       }
       return {'success': false, 'message': _getErrorMessage(data, 'Failed to explain concept')};
     } catch (e) {
-      return {'success': false, 'message': 'Error: ${e.toString()}'};
+      return {'success': false, 'message': e.toString()};
     }
   }
 
@@ -1279,7 +1279,7 @@ class AIService {
       }
       return {'success': false, 'message': _getErrorMessage(data, 'Failed to get feedback')};
     } catch (e) {
-      return {'success': false, 'message': 'Error: ${e.toString()}'};
+      return {'success': false, 'message': e.toString()};
     }
   }
 
@@ -1311,7 +1311,7 @@ class AIService {
       }
       return {'success': false, 'message': _getErrorMessage(data, 'Failed to get answer')};
     } catch (e) {
-      return {'success': false, 'message': 'Error: ${e.toString()}'};
+      return {'success': false, 'message': e.toString()};
     }
   }
 
@@ -1345,7 +1345,7 @@ class AIService {
       }
       return {'success': false, 'message': _getErrorMessage(data, 'Failed to generate practice')};
     } catch (e) {
-      return {'success': false, 'message': 'Error: ${e.toString()}'};
+      return {'success': false, 'message': e.toString()};
     }
   }
 
@@ -1371,7 +1371,7 @@ class AIService {
       }
       return {'success': false, 'message': _getErrorMessage(data, 'Failed to get summary')};
     } catch (e) {
-      return {'success': false, 'message': 'Error: ${e.toString()}'};
+      return {'success': false, 'message': e.toString()};
     }
   }
 
@@ -1408,7 +1408,7 @@ class AIService {
       }
       return {'success': false, 'message': _getErrorMessage(data, 'Failed to translate')};
     } catch (e) {
-      return {'success': false, 'message': 'Error: ${e.toString()}'};
+      return {'success': false, 'message': e.toString()};
     }
   }
 
@@ -1448,7 +1448,7 @@ class AIService {
       }
       return {'success': false, 'message': _getErrorMessage(data, 'Failed to generate lesson')};
     } catch (e) {
-      return {'success': false, 'message': 'Error: ${e.toString()}'};
+      return {'success': false, 'message': e.toString()};
     }
   }
 
@@ -1484,7 +1484,7 @@ class AIService {
       }
       return {'success': false, 'message': _getErrorMessage(data, 'Failed to generate exercises')};
     } catch (e) {
-      return {'success': false, 'message': 'Error: ${e.toString()}'};
+      return {'success': false, 'message': e.toString()};
     }
   }
 
@@ -1520,7 +1520,7 @@ class AIService {
       }
       return {'success': false, 'message': _getErrorMessage(data, 'Failed to generate vocabulary')};
     } catch (e) {
-      return {'success': false, 'message': 'Error: ${e.toString()}'};
+      return {'success': false, 'message': e.toString()};
     }
   }
 
@@ -1556,7 +1556,7 @@ class AIService {
       }
       return {'success': false, 'message': _getErrorMessage(data, 'Failed to generate curriculum')};
     } catch (e) {
-      return {'success': false, 'message': 'Error: ${e.toString()}'};
+      return {'success': false, 'message': e.toString()};
     }
   }
 
@@ -1595,7 +1595,7 @@ class AIService {
       }
       return {'success': false, 'message': _getErrorMessage(data, 'Failed to enhance lesson')};
     } catch (e) {
-      return {'success': false, 'message': 'Error: ${e.toString()}'};
+      return {'success': false, 'message': e.toString()};
     }
   }
 
@@ -1643,7 +1643,7 @@ class AIService {
       }
       return {'success': true, 'data': <GeneratedLesson>[]};
     } catch (e) {
-      return {'success': false, 'message': 'Error: ${e.toString()}'};
+      return {'success': false, 'message': e.toString()};
     }
   }
 
@@ -1669,7 +1669,7 @@ class AIService {
       }
       return {'success': false, 'message': _getErrorMessage(data, 'Failed to fetch templates')};
     } catch (e) {
-      return {'success': false, 'message': 'Error: ${e.toString()}'};
+      return {'success': false, 'message': e.toString()};
     }
   }
 
@@ -1695,7 +1695,7 @@ class AIService {
       }
       return {'success': false, 'message': _getErrorMessage(data, 'Failed to fetch stats')};
     } catch (e) {
-      return {'success': false, 'message': 'Error: ${e.toString()}'};
+      return {'success': false, 'message': e.toString()};
     }
   }
 }

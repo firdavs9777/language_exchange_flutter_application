@@ -7,6 +7,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:video_player/video_player.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/pages/comments/comments_main.dart';
 import 'package:bananatalk_app/pages/comments/create_comment.dart';
 import 'package:bananatalk_app/pages/community/single/single_community_screen.dart';
@@ -567,8 +568,11 @@ class _ReelsFeedScreenState extends ConsumerState<ReelsFeedScreen>
         content: Text(
           result['success'] == true
               ? AppLocalizations.of(context)!.momentsReportSubmitted
-              : (result['message']?.toString() ??
-                    AppLocalizations.of(context)!.roomReportSubmitFailed),
+              : friendlyErrorMessage(
+                  AppLocalizations.of(context)!,
+                  result['message'],
+                  fallback: AppLocalizations.of(context)!.roomReportSubmitFailed,
+                ),
         ),
       ),
     );

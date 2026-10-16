@@ -3,6 +3,7 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/services.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/services/correction_service.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 
 /// Bottom sheet for correcting another user's message (Tandem/HelloTalk style).
 /// Shows the original text in an editable field, lets user fix it and add explanation.
@@ -80,7 +81,11 @@ class _CorrectionBottomSheetState extends State<CorrectionBottomSheet> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
-            result['error']?.toString() ?? AppLocalizations.of(context)!.correctionFailedToSend,
+            friendlyErrorMessage(
+              AppLocalizations.of(context)!,
+              result['error'],
+              fallback: AppLocalizations.of(context)!.correctionFailedToSend,
+            ),
           ),
         ),
       );

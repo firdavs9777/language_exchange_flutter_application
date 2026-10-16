@@ -69,7 +69,7 @@ class CorrectionService {
     } catch (e) {
       return {
         'success': false,
-        'error': 'Network error: ${e.toString()}',
+        'error': e.toString(),
       };
     }
   }
@@ -106,7 +106,7 @@ class CorrectionService {
     } catch (e) {
       return {
         'success': false,
-        'error': 'Network error: ${e.toString()}',
+        'error': e.toString(),
       };
     }
   }
@@ -140,13 +140,14 @@ class CorrectionService {
         final errorData = jsonDecode(response.body);
         return {
           'success': false,
-          'error': errorData['error'] ?? 'Failed to accept correction',
+          // No English fallback: the screen localizes a missing reason.
+          'error': errorData['error'],
         };
       }
     } catch (e) {
       return {
         'success': false,
-        'error': 'Network error: ${e.toString()}',
+        'error': e.toString(),
       };
     }
   }

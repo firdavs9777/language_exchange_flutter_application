@@ -50,7 +50,7 @@ class UserLimitsService {
       if (e is Exception) {
         rethrow;
       }
-      throw Exception('Network error: ${e.toString()}');
+      throw Exception(e.toString());
     }
   }
 

@@ -97,7 +97,7 @@ class MatchingService {
       }
     } catch (e) {
       _log('❌ Exception: $e');
-      return {'success': false, 'error': 'Network error: ${e.toString()}'};
+      return {'success': false, 'error': e.toString()};
     }
   }
 
@@ -145,7 +145,7 @@ class MatchingService {
       }
     } catch (e) {
       _log('❌ Exception: $e');
-      return {'success': false, 'error': 'Network error: ${e.toString()}'};
+      return {'success': false, 'error': e.toString()};
     }
   }
 
@@ -193,7 +193,7 @@ class MatchingService {
       }
     } catch (e) {
       _log('❌ Exception: $e');
-      return {'success': false, 'error': 'Network error: ${e.toString()}'};
+      return {'success': false, 'error': e.toString()};
     }
   }
 
@@ -239,7 +239,7 @@ class MatchingService {
       }
     } catch (e) {
       _log('❌ Exception: $e');
-      return {'success': false, 'error': 'Network error: ${e.toString()}'};
+      return {'success': false, 'error': e.toString()};
     }
   }
 }

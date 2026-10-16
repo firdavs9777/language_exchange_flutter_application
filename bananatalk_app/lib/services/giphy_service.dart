@@ -146,7 +146,7 @@ class GiphyService {
     } on GiphyException {
       rethrow;
     } catch (e) {
-      throw GiphyException('Network error: $e');
+      throw GiphyException(e.toString());
     }
   }
 }

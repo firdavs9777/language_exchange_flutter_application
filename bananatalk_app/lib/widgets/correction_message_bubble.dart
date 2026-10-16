@@ -56,9 +56,13 @@ class _CorrectionMessageBubbleState
       if (result['success'] == true) {
         setState(() => _accepted = true);
       } else {
-        final error = result['error'] ?? 'Failed to accept correction';
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(error)),
+          SnackBar(
+            content: Text(friendlyErrorMessage(
+              AppLocalizations.of(context)!,
+              result['error'],
+            )),
+          ),
         );
       }
     } catch (e) {

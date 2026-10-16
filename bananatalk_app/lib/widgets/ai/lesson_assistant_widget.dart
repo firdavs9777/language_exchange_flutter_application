@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/services/ai_service.dart';
 import 'package:bananatalk_app/models/ai/lesson_assistant_model.dart';
 
@@ -90,7 +91,7 @@ class _LessonAssistantWidgetState extends State<LessonAssistantWidget>
     } else {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(result['message'] ?? AppLocalizations.of(context)!.aiFailedToGetHint)),
+          SnackBar(content: Text(friendlyErrorMessage(AppLocalizations.of(context)!, result['message'], fallback: AppLocalizations.of(context)!.aiFailedToGetHint))),
         );
       }
     }
@@ -274,7 +275,7 @@ class _LessonAssistantWidgetState extends State<LessonAssistantWidget>
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(result['message'] ?? AppLocalizations.of(context)!.aiFailedToGetAnswer),
+              content: Text(friendlyErrorMessage(AppLocalizations.of(context)!, result['message'], fallback: AppLocalizations.of(context)!.aiFailedToGetAnswer)),
             ),
           );
         }
@@ -528,7 +529,7 @@ class _LessonAssistantWidgetState extends State<LessonAssistantWidget>
       } else {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(result['message'] ?? AppLocalizations.of(context)!.aiFailedToExplain)),
+            SnackBar(content: Text(friendlyErrorMessage(AppLocalizations.of(context)!, result['message'], fallback: AppLocalizations.of(context)!.aiFailedToExplain))),
           );
         }
       }
