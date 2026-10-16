@@ -4,6 +4,8 @@ import 'package:bananatalk_app/models/ai/ai_conversation_model.dart';
 import 'package:bananatalk_app/models/ai/grammar_feedback_model.dart';
 import 'package:bananatalk_app/models/ai/speech_model.dart';
 import 'package:bananatalk_app/models/ai/ai_quiz_model.dart';
+import 'package:bananatalk_app/pages/learning/main/sections/study_features.dart';
+import 'package:bananatalk_app/services/study_vip_lock.dart';
 
 // ============================================
 // AI CONVERSATION PROVIDERS
@@ -378,6 +380,10 @@ class AIQuizState {
   final AIQuizResult? result;
   final DateTime? startTime;
 
+  /// Set when the last generate call hit a STUDY_VIP_ONLY_FEATURES lock.
+  /// Like [error], not carried over by [copyWith].
+  final StudyFeature? vipLock;
+
   AIQuizState({
     this.quiz,
     this.currentIndex = 0,
@@ -386,6 +392,7 @@ class AIQuizState {
     this.error,
     this.result,
     this.startTime,
+    this.vipLock,
   });
 
   AIQuizState copyWith({
@@ -396,8 +403,10 @@ class AIQuizState {
     String? error,
     AIQuizResult? result,
     DateTime? startTime,
+    StudyFeature? vipLock,
   }) {
     return AIQuizState(
+      vipLock: vipLock,
       quiz: quiz ?? this.quiz,
       currentIndex: currentIndex ?? this.currentIndex,
       answers: answers ?? this.answers,
@@ -448,6 +457,7 @@ class AIQuizNotifier extends StateNotifier<AIQuizState> {
     state = state.copyWith(
       isLoading: false,
       error: result['message']?.toString() ?? 'Failed to generate quiz',
+      vipLock: result[studyVipLockKey] as StudyFeature?,
     );
     return false;
   }

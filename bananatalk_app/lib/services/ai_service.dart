@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/service/endpoints.dart';
+import 'package:bananatalk_app/services/study_vip_lock.dart';
 import 'package:bananatalk_app/models/ai/ai_conversation_model.dart';
 import 'package:bananatalk_app/models/ai/grammar_feedback_model.dart';
 import 'package:bananatalk_app/models/ai/speech_model.dart';
@@ -52,6 +53,19 @@ class AIService {
     } catch (e) {
       return null;
     }
+  }
+
+  /// Failure result for an AI Study call. Carries the refused feature under
+  /// [studyVipLockKey] when STUDY_VIP_ONLY_FEATURES locked it, so the screen
+  /// can open the upgrade sheet instead of an error.
+  static Map<String, dynamic> _studyFailure(
+      http.Response response, Map<String, dynamic> data, String defaultMsg) {
+    final locked = studyVipLockFeature(response.statusCode, data);
+    return {
+      'success': false,
+      'message': _getErrorMessage(data, defaultMsg),
+      if (locked != null) studyVipLockKey: locked,
+    };
   }
 
   /// Extract error message from response
@@ -385,7 +399,7 @@ class AIService {
         }
         return {'success': false, 'message': 'Invalid feedback format'};
       }
-      return {'success': false, 'message': _getErrorMessage(data, 'Failed to analyze grammar')};
+      return _studyFailure(response, data, 'Failed to analyze grammar');
     } catch (e) {
       return {'success': false, 'message': 'Error: ${e.toString()}'};
     }
@@ -610,7 +624,7 @@ class AIService {
           'data': PronunciationResult.fromJson(data['data']),
         };
       }
-      return {'success': false, 'message': _getErrorMessage(data, 'Failed to evaluate pronunciation')};
+      return _studyFailure(response, data, 'Failed to evaluate pronunciation');
     } catch (e) {
       return {'success': false, 'message': 'Error: ${e.toString()}'};
     }
@@ -895,7 +909,7 @@ class AIService {
           'data': quiz,
         };
       }
-      return {'success': false, 'message': _getErrorMessage(data, 'Failed to generate quiz')};
+      return _studyFailure(response, data, 'Failed to generate quiz');
     } catch (e) {
       return {'success': false, 'message': 'Error: ${e.toString()}'};
     }
