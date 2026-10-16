@@ -10,6 +10,12 @@ import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 
 /// On a thrown failure (offline, timeout, bad JSON) `error` is the raw
 /// exception text: show it through `friendlyErrorMessage`, not as-is.
+/// A text story needs text or at least one overlay. An emoji-only story has
+/// no text overlay, so the composer sends a single space (the backend only
+/// asks for non-empty `text`) — refusing blank text alone blocked it.
+bool textStoryHasContent(String text, List<Map<String, dynamic>>? overlays) =>
+    text.trim().isNotEmpty || (overlays?.isNotEmpty ?? false);
+
 class StoriesService {
   static Future<String?> _getToken() async {
     final prefs = await SharedPreferences.getInstance();
@@ -370,7 +376,7 @@ class StoriesService {
     try {
       final token = await _getToken();
 
-      if (text.trim().isEmpty) {
+      if (!textStoryHasContent(text, overlays)) {
         return SingleStoryResponse(
           success: false,
           failure: StoryPostFailure.noText,
