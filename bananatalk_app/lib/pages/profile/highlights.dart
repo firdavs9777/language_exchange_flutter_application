@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
@@ -196,7 +197,7 @@ class _ProfileHighlightsState extends State<ProfileHighlights> {
                   const SizedBox(width: 12),
                   Expanded(
                     child: Text(
-                      '${l10n.error}: ${e.toString().replaceFirst("Exception: ", "")}',
+                      friendlyErrorMessage(l10n, e),
                       style: const TextStyle(fontWeight: FontWeight.w500),
                     ),
                   ),
@@ -344,7 +345,7 @@ class _ProfileHighlightsState extends State<ProfileHighlights> {
                 const SizedBox(width: 12),
                 Expanded(
                   child: Text(
-                    '${l10n.error}: ${e.toString().replaceFirst("Exception: ", "")}',
+                    friendlyErrorMessage(l10n, e),
                     style: const TextStyle(fontWeight: FontWeight.w500),
                   ),
                 ),

@@ -1,6 +1,7 @@
 import 'package:bananatalk_app/pages/profile/moments/moment_card.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/utils/image_utils.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/widgets/community/user_skeleton.dart';
@@ -316,7 +317,7 @@ class _ProfileMomentsState extends ConsumerState<ProfileMoments> {
                   ),
                   const SizedBox(height: 6),
                   Text(
-                    error.toString(),
+                    friendlyErrorMessage(l10n, error),
                     style: context.bodySmall.copyWith(
                       color: context.textSecondary,
                       height: 1.4,

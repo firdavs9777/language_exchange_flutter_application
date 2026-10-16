@@ -490,7 +490,7 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
             ),
             const SizedBox(height: 16),
             Text(
-              '${l10n.error}: $error',
+              friendlyErrorMessage(l10n, error),
               style: context.bodyMedium,
               textAlign: TextAlign.center,
             ),

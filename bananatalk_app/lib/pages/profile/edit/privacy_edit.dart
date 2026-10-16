@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/pages/profile/widgets/edit_screen_scaffold.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/pages/profile/widgets/gradient_save_button.dart';
 import 'package:bananatalk_app/pages/profile/widgets/profile_snackbar.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
@@ -209,8 +210,11 @@ class _ProfilePrivacyState extends ConsumerState<ProfilePrivacy> {
       showProfileSnackBar(
         context,
         message:
-            '${AppLocalizations.of(context)!.locationCouldNotBeUpdated}: '
-            '${e.toString().replaceFirst('Exception: ', '')}',
+            friendlyErrorMessage(
+              AppLocalizations.of(context)!,
+              e,
+              prefix: AppLocalizations.of(context)!.locationCouldNotBeUpdated,
+            ),
         type: ProfileSnackBarType.error,
       );
     } finally {
@@ -248,8 +252,11 @@ class _ProfilePrivacyState extends ConsumerState<ProfilePrivacy> {
       showProfileSnackBar(
         context,
         message:
-            '${AppLocalizations.of(context)!.failedToSave}: '
-            '${e.toString().replaceFirst('Exception: ', '')}',
+            friendlyErrorMessage(
+              AppLocalizations.of(context)!,
+              e,
+              prefix: AppLocalizations.of(context)!.failedToSave,
+            ),
         type: ProfileSnackBarType.error,
       );
     } finally {

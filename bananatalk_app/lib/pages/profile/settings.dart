@@ -1,4 +1,5 @@
 import 'package:bananatalk_app/pages/authentication/biometric/biometric_service.dart';
+import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/pages/authentication/biometric/biometric_session.dart';
 import 'package:bananatalk_app/pages/profile/edit/change_password_screen.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
@@ -283,7 +284,7 @@ class _ProfileSettingsState extends ConsumerState<ProfileSettings> {
     } catch (e) {
       if (mounted) {
         _showErrorSnackBar(
-          '${l10n.locationCouldNotBeUpdated}: ${e.toString().replaceFirst('Exception: ', '')}',
+          friendlyErrorMessage(l10n, e, prefix: l10n.locationCouldNotBeUpdated),
         );
       }
     } finally {
@@ -438,7 +439,9 @@ class _ProfileSettingsState extends ConsumerState<ProfileSettings> {
             ],
           ),
         ),
-        error: (error, stack) => _buildErrorState(error.toString()),
+        error: (error, stack) => _buildErrorState(
+          friendlyErrorMessage(AppLocalizations.of(context)!, error),
+        ),
       ),
     );
   }
@@ -469,12 +472,16 @@ class _ProfileSettingsState extends ConsumerState<ProfileSettings> {
               l10n.somethingWentWrong,
               style: context.titleMedium.copyWith(fontWeight: FontWeight.w700),
             ),
-            const SizedBox(height: 6),
-            Text(
-              error,
-              style: context.bodySmall.copyWith(color: context.textSecondary),
-              textAlign: TextAlign.center,
-            ),
+            // The title already says "something went wrong"; repeat nothing.
+            if (error != l10n.somethingWentWrong) ...[
+              const SizedBox(height: 6),
+              Text(
+                error,
+                style:
+                    context.bodySmall.copyWith(color: context.textSecondary),
+                textAlign: TextAlign.center,
+              ),
+            ],
             const SizedBox(height: 20),
             Material(
               color: Colors.transparent,
