@@ -89,6 +89,14 @@ Placement result and test language (branch `feat/placement-review`, 2026-10-17; 
 - [ ] English bank topics/explanations are English only (hand-written); localize them if English learners with a non-English UI need it. S
 - [ ] Still offered to every unplaced learner; a target with no test now says so, but the entry itself could be hidden once the server reports `PLACEMENT_UNAVAILABLE` for the language. S
 
+Visitors + privacy (branch `fix/visitors-privacy`, 2026-10-17; backend same branch)
+- [x] Visitors screen: a free account's hidden visitors (`locked`) were dropped by the service, so it showed one person next to a count of hundreds; now a "N people viewed your profile" unlock/VIP tile. VIP lists loaded 50 and stopped; now page on scroll. Badge shows the real total.
+- [x] Two quick privacy toggles could revert each other (each save read auth/me then wrote all 14 keys). Saves now run one at a time.
+- [x] Own profile hid the owner's own age and location when those toggles were off.
+- [x] Privacy screen failed with "User not found" when the stored userId was missing; the save falls back to auth/me's id.
+- [ ] Device check: free account with several visitors → one visible + locked tile; VIP with 50+ → scrolls past 50; toggle two privacy switches fast in Profile settings → both stick after reopen. S
+- [ ] Once backend 7989e9d (key-by-key privacy merge) is confirmed deployed, send only the changed keys instead of all 14. S
+
 Moments main screen (branch `fix/moments-feed`, 2026-10-17; backend same branch)
 - [x] For You showed only "Answer today's prompt to get the conversation started": the server filtered it to the viewer's native/learning language and 152 of 157 public moments are tagged `en`. Backend now ranks those languages first instead of filtering.
 - [x] Every tab was re-sorted on the phone by date (default sort "Recent"), so For You and Trending never showed the server's ranking and loaded pages reshuffled as more arrived. No client-side sort any more; the filter sheet's "Sort" tab is now "Time period" only.

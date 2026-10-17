@@ -16,12 +16,13 @@ import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/utils/string_sanitizer.dart';
 import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 
-typedef VisitorsFetcher = Future<Map<String, dynamic>> Function({
-  required String userId,
-  int limit,
-  int page,
-  bool reveal,
-});
+typedef VisitorsFetcher =
+    Future<Map<String, dynamic>> Function({
+      required String userId,
+      int limit,
+      int page,
+      bool reveal,
+    });
 
 class ProfileVisitorsScreen extends ConsumerStatefulWidget {
   final String userId;
@@ -36,14 +37,24 @@ class ProfileVisitorsScreen extends ConsumerStatefulWidget {
   }) : super(key: key);
 
   @override
-  ConsumerState<ProfileVisitorsScreen> createState() => _ProfileVisitorsScreenState();
+  ConsumerState<ProfileVisitorsScreen> createState() =>
+      _ProfileVisitorsScreenState();
 }
 
-class _ProfileVisitorsScreenState
-    extends ConsumerState<ProfileVisitorsScreen> {
+class _ProfileVisitorsScreenState extends ConsumerState<ProfileVisitorsScreen> {
   List<dynamic> _visitors = [];
   Map<String, dynamic>? _stats;
   int? _maskedCount;
+
+  /// Visitors this account cannot see (free accounts get the most recent one).
+  int _locked = 0;
+
+  /// Paging: the screen used to load page 1 (50) and stop, so a VIP with more
+  /// than 50 visitors in the 90-day window never saw the rest.
+  static const int _pageSize = 50;
+  int _page = 1;
+  bool _hasMore = false;
+  bool _loadingMore = false;
   bool _isLoading = true;
   String? _error;
 
@@ -76,17 +87,24 @@ class _ProfileVisitorsScreenState
       final result = await widget.fetchVisitors(
         userId: widget.userId,
         page: page,
-        limit: 50,
+        limit: _pageSize,
         reveal: reveal,
       );
 
       if (mounted) {
         if (result['success']) {
           setState(() {
-            _visitors = result['visitors'] ?? [];
+            final fetched = List<dynamic>.from(result['visitors'] ?? const []);
+            _visitors = page == 1 ? fetched : [..._visitors, ...fetched];
+            _page = page;
+            // A full page may have more behind it; a free account always gets
+            // one row and never pages.
+            _hasMore = fetched.length >= _pageSize;
             _stats = result['stats'];
             final mc = result['maskedCount'];
             _maskedCount = mc is num ? mc.toInt() : null;
+            final locked = result['locked'];
+            _locked = locked is num ? locked.toInt() : 0;
             _isLoading = false;
           });
         } else if (!silent) {
@@ -103,6 +121,21 @@ class _ProfileVisitorsScreenState
           _isLoading = false;
         });
       }
+    }
+  }
+
+  int? get _uniqueVisitors {
+    final v = _stats?['uniqueVisitors'];
+    return v is num ? v.toInt() : null;
+  }
+
+  Future<void> _loadMore() async {
+    if (_loadingMore || !_hasMore || _isLoading) return;
+    setState(() => _loadingMore = true);
+    try {
+      await _fetchVisitors(page: _page + 1, silent: true);
+    } finally {
+      if (mounted) setState(() => _loadingMore = false);
     }
   }
 
@@ -188,42 +221,71 @@ class _ProfileVisitorsScreenState
       }
     }
 
+    // The legacy (no ?reveal) shape sends no masked rows: a free account's
+    // hidden visitors arrive only as `locked`, and used to be dropped silently.
+    final showLockedTile = !maskedPlaced && _locked > 0;
+
     return RefreshIndicator(
       onRefresh: _refreshVisitors,
       color: AppColors.primary,
-      child: CustomScrollView(
-        physics: const BouncingScrollPhysics(
-          parent: AlwaysScrollableScrollPhysics(),
+      child: NotificationListener<ScrollNotification>(
+        onNotification: (n) {
+          if (n.metrics.axis == Axis.vertical && n.metrics.extentAfter < 400) {
+            _loadMore();
+          }
+          return false;
+        },
+        child: CustomScrollView(
+          physics: const BouncingScrollPhysics(
+            parent: AlwaysScrollableScrollPhysics(),
+          ),
+          slivers: [
+            const SliverToBoxAdapter(
+              child: BannerAdWidget(key: ValueKey('visitors-banner')),
+            ),
+            if (_stats != null) SliverToBoxAdapter(child: _buildStatsHeader()),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(20, 4, 20, 12),
+                child: _buildSectionTitle(),
+              ),
+            ),
+            SliverPadding(
+              padding: const EdgeInsets.fromLTRB(20, 0, 20, 32),
+              sliver: SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) {
+                    if (index == rows.length) {
+                      return showLockedTile
+                          ? _buildMaskedTile(_locked)
+                          : const Padding(
+                              padding: EdgeInsets.symmetric(vertical: 16),
+                              child: Center(child: CircularProgressIndicator()),
+                            );
+                    }
+                    final visitor = rows[index];
+                    if (visitor == null) {
+                      return _buildMaskedTile(maskedLocal + _locked);
+                    }
+                    return _buildVisitorCard(visitor);
+                  },
+                  childCount:
+                      rows.length +
+                      ((showLockedTile || (_hasMore && _loadingMore)) ? 1 : 0),
+                ),
+              ),
+            ),
+          ],
         ),
-        slivers: [
-          const SliverToBoxAdapter(
-            child: BannerAdWidget(key: ValueKey('visitors-banner')),
-          ),
-          if (_stats != null) SliverToBoxAdapter(child: _buildStatsHeader()),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(20, 4, 20, 12),
-              child: _buildSectionTitle(),
-            ),
-          ),
-          SliverPadding(
-            padding: const EdgeInsets.fromLTRB(20, 0, 20, 32),
-            sliver: SliverList(
-              delegate: SliverChildBuilderDelegate((context, index) {
-                final visitor = rows[index];
-                if (visitor == null) return _buildMaskedTile(maskedLocal);
-                return _buildVisitorCard(visitor);
-              }, childCount: rows.length),
-            ),
-          ),
-        ],
       ),
     );
   }
 
   Widget _buildMaskedTile(int maskedLocal) {
     final l10n = AppLocalizations.of(context)!;
-    final count = (_maskedCount != null && _maskedCount! > 0)
+    // The server's maskedCount used to be the masked rows on this page (1 for
+    // a free account) rather than everyone hidden; take whichever is larger.
+    final count = (_maskedCount != null && _maskedCount! > maskedLocal)
         ? _maskedCount!
         : maskedLocal;
     return MaskedPersonTile(
@@ -646,7 +708,8 @@ class _ProfileVisitorsScreenState
             borderRadius: BorderRadius.circular(10),
           ),
           child: Text(
-            '${_visitors.length}',
+            // Everyone who visited, not just the rows loaded so far.
+            '${_uniqueVisitors ?? _visitors.length}',
             style: TextStyle(
               color: AppColors.primary,
               fontWeight: FontWeight.w800,

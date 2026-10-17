@@ -13,7 +13,6 @@ import 'package:bananatalk_app/services/location_service.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePrivacy extends ConsumerStatefulWidget {
   const ProfilePrivacy({super.key});
@@ -228,10 +227,8 @@ class _ProfilePrivacyState extends ConsumerState<ProfilePrivacy> {
     setState(() => _isSaving = true);
 
     try {
-      final prefs = await SharedPreferences.getInstance();
-      final userId = prefs.getString('userId');
-
-      if (userId == null) throw Exception('User not found');
+      // No stored userId check: updatePrivacySettings falls back to the id
+      // from auth/me, so a missing local id no longer fails the save.
 
       // Send only what changed; updatePrivacySettings lays it over the
       // stored settings so nothing else (e.g. email opt-outs) is reset.

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:bananatalk_app/pages/authentication/auth_error_codes.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/providers/provider_models/users_model.dart';
@@ -1992,9 +1993,31 @@ class AuthService extends ChangeNotifier {
   /// after the email preferences screen saved) and always sends the complete
   /// object with [privacySettings] laid over it. If the stored settings can't
   /// be read it fails rather than sending a partial object.
+  ///
+  /// Saves run one at a time. Two quick toggles used to race: the second
+  /// read `auth/me` before the first had written, then wrote the first key
+  /// back to its old value.
   Future<Community> updatePrivacySettings({
     required Map<String, bool> privacySettings,
   }) async {
+    // A lock that always releases normally, so a failed save never holds up
+    // (or throws into) the next one.
+    final previous = _privacySaveTail;
+    final done = Completer<void>();
+    _privacySaveTail = done.future;
+    try {
+      await previous;
+      return await _updatePrivacySettingsNow(privacySettings);
+    } finally {
+      done.complete();
+    }
+  }
+
+  static Future<void> _privacySaveTail = Future<void>.value();
+
+  Future<Community> _updatePrivacySettingsNow(
+    Map<String, bool> privacySettings,
+  ) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');
 
