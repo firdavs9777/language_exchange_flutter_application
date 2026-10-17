@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/utils/privacy_utils.dart';
@@ -63,28 +64,30 @@ class EngagementStatsBar extends StatelessWidget {
   }
 
   Widget _buildOnlineStatus(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final isOnline = profile.isOnline;
-    final lastActiveText = profile.lastActiveText;
+    final since = profile.sinceLastActive;
 
     Color dotColor;
     String text;
 
+    // Colors by time since last seen, not by parsing English text (which
+    // broke in every other language).
     if (isOnline) {
       dotColor = AppColors.online;
-      text = 'Online';
-    } else if (lastActiveText.isNotEmpty) {
-      // Determine color based on how long ago
-      if (lastActiveText.contains('m ago') || lastActiveText.contains('just now')) {
+      text = l10n.online;
+    } else if (since != null) {
+      if (since.inHours < 1) {
         dotColor = AppColors.away; // Yellow for recently active
-      } else if (lastActiveText.contains('h ago')) {
+      } else if (since.inHours < 24) {
         dotColor = AppColors.gray500;
       } else {
         dotColor = AppColors.offline;
       }
-      text = lastActiveText.replaceAll('Active ', '');
+      text = profile.lastActiveLabel(l10n);
     } else {
       dotColor = AppColors.offline;
-      text = 'Offline';
+      text = l10n.offline;
     }
 
     return _StatChip(

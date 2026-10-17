@@ -86,6 +86,8 @@ Camera on Android: app killed while the camera is open (2026-10-17, Galaxy Tab S
 - [ ] Same recovery for the other camera entry points (moment composer, chat camera, story camera, profile photo, gathering/club cover); each currently loses the photo if the app is killed. M
 - [ ] Device check in a RELEASE build on the tablet: Talk → Photo → camera → photo comes back (killed or not). S
 - [x] Korean: AI Study tile "롤플레이" → "일상 회화"; the two descriptions that said 롤플레이 reworded to match.
+- [x] Community → Partners in a non-English UI: "Active 2h ago" / "Online now" came from an English getter on the model (`Community.lastActiveText`), and "Speaks/Learning <language>" put the stored English language name into the translated sentence. Now `Community.lastActiveLabel(l10n)` (Partners row, compact user tile, profile stats bar — which also parsed the English text for its dot colour) and `LanguageNames` (CLDR names, `lib/utils/language_names.g.dart`, regenerate with `node tool/build_language_names.js`). Test `test/utils/language_names_test.dart`.
+- [ ] Other places that print a stored English language name (profile language row, filters, match cards, chat header) should use `LanguageNames.of(context, …)` too. S–M
 - [x] Pack topics are stored "<target-language name> (<English gloss>)" (64 glosses, all English); a non-English UI showed the English bracket (Arabic: "규칙과 예절 (Rules and manners)"). The gloss now shows only for an English UI (`lib/utils/pack_topic.dart`; Today row, pack card/flow/complete sheet, vocab packs list, detail, practice). Localized glosses would be ~1,200 strings; not planned.
 
 Dark mode (2026-10-17, found on AI Study > Review)

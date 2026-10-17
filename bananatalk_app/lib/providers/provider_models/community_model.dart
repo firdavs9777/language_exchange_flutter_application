@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/vip_subscription.dart';
 
 // Strips lone UTF-16 surrogates that make Flutter's text engine throw.
@@ -345,6 +346,22 @@ class Community {
       return null;
     }
   }
+
+  /// "Active 5m ago" in the app's language. [lastActiveText] below is the
+  /// English original, kept for non-UI callers; every screen uses this.
+  String lastActiveLabel(AppLocalizations l10n) {
+    if (isOnline) return l10n.partnerTagActiveNow;
+    final since = sinceLastActive;
+    if (since == null) return '';
+    if (since.inMinutes < 1) return l10n.chatActiveJustNow;
+    if (since.inMinutes < 60) return l10n.chatActiveMinAgo(since.inMinutes);
+    if (since.inHours < 24) return l10n.chatActiveHoursAgo(since.inHours);
+    return l10n.chatActiveDaysAgo(since.inDays);
+  }
+
+  /// Time since [lastActive], or null when unknown.
+  Duration? get sinceLastActive =>
+      lastActive == null ? null : DateTime.now().difference(lastActive!);
 
   /// Get last active text (e.g., "Active 5m ago")
   String get lastActiveText {

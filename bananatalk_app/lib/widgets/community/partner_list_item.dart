@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/utils/language_names.dart';
 import 'package:flutter/services.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
@@ -252,8 +253,8 @@ class PartnerListItem extends StatelessWidget {
     if (showOnline) {
       if (user.isOnline) {
         chips.add(_chip(context, l10n.partnerTagActiveNow, AppColors.success));
-      } else if (user.lastActiveText.isNotEmpty) {
-        chips.add(_chip(context, user.lastActiveText, context.textMuted));
+      } else if (user.lastActiveLabel(l10n).isNotEmpty) {
+        chips.add(_chip(context, user.lastActiveLabel(l10n), context.textMuted));
       }
     }
 
@@ -337,14 +338,14 @@ class PartnerListItem extends StatelessWidget {
         currentUser!.language_to_learn.isNotEmpty &&
         user.native_language.toLowerCase() ==
             currentUser!.language_to_learn.toLowerCase()) {
-      return l10n.partnerTagSpeaks(_formatLang(user.native_language));
+      return l10n.partnerTagSpeaks(LanguageNames.of(context, user.native_language));
     }
 
     if (user.language_to_learn.isNotEmpty &&
         currentUser!.native_language.isNotEmpty &&
         user.language_to_learn.toLowerCase() ==
             currentUser!.native_language.toLowerCase()) {
-      return l10n.partnerTagLearning(_formatLang(user.language_to_learn));
+      return l10n.partnerTagLearning(LanguageNames.of(context, user.language_to_learn));
     }
 
     return null;
@@ -355,11 +356,6 @@ class PartnerListItem extends StatelessWidget {
     final joined = DateTime.tryParse(user.createdAt);
     if (joined == null) return null;
     return DateTime.now().difference(joined).inDays;
-  }
-
-  String _formatLang(String lang) {
-    if (lang.isEmpty) return lang;
-    return '${lang[0].toUpperCase()}${lang.substring(1).toLowerCase()}';
   }
 
   String _getLanguageFlag(String language) => LanguageFlags.getFlagByName(language);

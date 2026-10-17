@@ -465,6 +465,19 @@ class LanguageFlags {
     return '🌐';
   }
 
+  /// The code for a stored language value: an exact (case-insensitive) name
+  /// ("Korean", "Chinese (Simplified)") or already a code ("ko", "en-gb").
+  /// Null when it cannot be resolved -- no partial matching, so a display
+  /// lookup never shows the wrong language.
+  static String? codeForName(String language) {
+    final lower = language.toLowerCase().trim();
+    if (lower.isEmpty) return null;
+    final byName = _nameToCode[lower];
+    if (byName != null) return byName;
+    if (_nameToCode.containsValue(lower)) return lower;
+    return null;
+  }
+
   /// Human-readable language name for a value that may be a display name
   /// ("German"), a lowercase name ("german"), or a code ("de"). Returns the
   /// input unchanged if it can't be resolved (e.g. "🔥 Popular"). Use for

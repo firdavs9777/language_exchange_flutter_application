@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/widgets/community/language_level_badge.dart';
@@ -190,7 +191,7 @@ class CompactUserTile extends StatelessWidget {
                                 ),
                               ),
                             ],
-                            if (PrivacyUtils.shouldShowOnlineStatus(user) && user.lastActiveText.isNotEmpty) ...[
+                            if (PrivacyUtils.shouldShowOnlineStatus(user) && user.lastActiveLabel(AppLocalizations.of(context)!).isNotEmpty) ...[
                               if (hasLocation)
                                 Text(
                                   ' · ',
@@ -200,7 +201,7 @@ class CompactUserTile extends StatelessWidget {
                                   ),
                                 ),
                               Text(
-                                user.lastActiveText,
+                                user.lastActiveLabel(AppLocalizations.of(context)!),
                                 style: TextStyle(
                                   fontSize: 12,
                                   color: user.isOnline
