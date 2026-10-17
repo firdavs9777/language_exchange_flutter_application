@@ -72,6 +72,7 @@ Release-mode smoke (Android, internal track — handoff §3; rows in `docs/qa/ca
 - [ ] Text story with poll / question / link / location (posted from web and from the app): stickers tappable, poll vote and answer work, header avatar opens the profile, reply sends (row WEB-APP-05).
 - [ ] REFERRALS_ENABLED stays off until Android App Links verify (assetlinks fingerprints) — then device-check the invite card (row WEB-APP-07).
 - [ ] Web/app parity rows WEB-APP-01…08 (docs/qa/regression-suite.csv, Tab "Web").
+- [ ] 2026-10-17 rows in docs/qa/regression-suite.csv: 26 new (STUDY-114…117, MOM-118…125, COMM-104…107, PROF-101…105, NOTIF-078, PAY-070/071, APP-067/068) and 15 updated ("Updated 2026-10-17" in the 2.7.0 ref column) for placement review, Moments layout, visitors, privacy and Boost everywhere. Excel run sheet built from the CSV.
 After release (production data):
 - [ ] One week after 2.7.0: re-measure calls answered rate (baseline 1/30, target ≥ 40 %).
 - [ ] `notification_prime_shown` per new signup, before vs after (ads notice now waits for the guide period).
