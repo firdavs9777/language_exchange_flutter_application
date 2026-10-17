@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/pages/vip/vip_price.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:intl/intl.dart';
@@ -417,19 +418,8 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
     }
   }
 
-  ProductDetails? _storeProduct(VipPlan plan) {
-    final productId = plan.productId(_isIOS);
-    final AsyncValue<List<ProductDetails>>? productsAsync = _isIOS
-        ? ref.watch(iosProductsProvider)
-        : _isAndroid
-            ? ref.watch(androidProductsProvider)
-            : null;
-    final products = productsAsync?.valueOrNull ?? const <ProductDetails>[];
-    for (final p in products) {
-      if (p.id == productId) return p;
-    }
-    return null;
-  }
+  ProductDetails? _storeProduct(VipPlan plan) =>
+      vipStoreProduct(ref, plan, isIOS: _isIOS, isAndroid: _isAndroid);
 
   Widget _buildPlanColumn(VipPlan plan, {VipPlanOffer? offer}) {
     final isCurrent = offer == VipPlanOffer.current;
@@ -438,7 +428,7 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
 
     // Use store price when available, otherwise fall back to the plan const.
     final product = _storeProduct(plan);
-    final priceText = product?.price ?? '\$${plan.price.toStringAsFixed(2)}';
+    final priceText = vipPriceText(ref, plan, isIOS: _isIOS, isAndroid: _isAndroid);
     final months = plan == VipPlan.monthly
         ? 1
         : plan == VipPlan.quarterly

@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/foundation.dart' show kDebugMode;
+import 'package:bananatalk_app/pages/vip/vip_price.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
@@ -681,14 +682,16 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
                         style: context.bodyLarge,
                       ),
                       Text(
-                        '\$${widget.plan.price}',
+                        vipPriceText(ref, widget.plan, isIOS: _isIOS, isAndroid: _isAndroid),
                         style: context.displaySmall,
                       ),
                     ],
                   ),
                   Spacing.gapSM,
+                  // Was plan.description ("\$3.99/month"): English and in USD
+                  // whatever the store charges. The localized length instead.
                   Text(
-                    widget.plan.description,
+                    _getSubscriptionLength(),
                     style: context.bodySmall,
                   ),
                 ],
@@ -821,7 +824,7 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
                     ),
                     _buildSubscriptionInfoRow(
                       AppLocalizations.of(context)!.vipPaymentInfoLabelPrice,
-                      '\$${widget.plan.price}',
+                      vipPriceText(ref, widget.plan, isIOS: _isIOS, isAndroid: _isAndroid),
                     ),
                     Spacing.gapLG,
                     Divider(color: context.dividerColor),
@@ -902,7 +905,7 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
                                           .vipPaymentPurchaseGooglePlay)
                                   : AppLocalizations.of(context)!
                                       .vipPaymentPayPrice(
-                                      '\$${widget.plan.price}',
+                                      vipPriceText(ref, widget.plan, isIOS: _isIOS, isAndroid: _isAndroid),
                                     ),
                           style: context.titleMedium.copyWith(
                             color: AppColors.white,
