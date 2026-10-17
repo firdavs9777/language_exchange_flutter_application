@@ -5,312 +5,181 @@ import 'package:bananatalk_app/pages/moments/filter/moment_filter_sheet.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 
-class MomentFilterBar extends StatelessWidget {
+/// Opens the language / category / mood / time-period sheet.
+void showMomentFilterSheet(
+  BuildContext context, {
+  required MomentFilter currentFilter,
+  required ValueChanged<MomentFilter> onFilterChanged,
+}) {
+  showModalBottomSheet(
+    context: context,
+    isScrollControlled: true,
+    backgroundColor: Colors.transparent,
+    builder: (context) => DraggableScrollableSheet(
+      initialChildSize: 0.75,
+      minChildSize: 0.5,
+      maxChildSize: 0.95,
+      builder: (context, scrollController) => MomentFilterSheet(
+        currentFilter: currentFilter,
+        onApplyFilter: onFilterChanged,
+      ),
+    ),
+  );
+}
+
+/// The filter icon at the end of the feed tab row, with a count when filters
+/// are on. Replaces the old full-width bar whose Recent / Popular chips
+/// re-sorted the feed client-side against each tab's own order.
+class MomentFilterButton extends StatelessWidget {
   final MomentFilter currentFilter;
   final ValueChanged<MomentFilter> onFilterChanged;
 
-  const MomentFilterBar({
+  const MomentFilterButton({
     super.key,
     required this.currentFilter,
     required this.onFilterChanged,
   });
 
-  void _showFilterSheet(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (context) => DraggableScrollableSheet(
-        initialChildSize: 0.75,
-        minChildSize: 0.5,
-        maxChildSize: 0.95,
-        builder: (context, scrollController) => MomentFilterSheet(
-          currentFilter: currentFilter,
-          onApplyFilter: onFilterChanged,
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final secondaryText = context.textSecondary;
+    final active = currentFilter.hasActiveFilters;
+    final count = currentFilter.activeFilterCount;
 
-    return Container(
-      color: colorScheme.surface,
-      child: Column(
-        children: [
-          Container(
-            height: 48,
-            padding: const EdgeInsets.symmetric(horizontal: 12),
-            child: Row(
-              children: [
-                Expanded(
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                      _buildQuickTab(
-                        context: context,
-                        label: AppLocalizations.of(context)!.recent,
-                        icon: Icons.access_time,
-                        isActive: currentFilter.sortBy == 'recent',
-                        onTap: () => onFilterChanged(
-                          currentFilter.copyWith(sortBy: 'recent'),
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      _buildQuickTab(
-                        context: context,
-                        label: AppLocalizations.of(context)!.popular,
-                        icon: Icons.trending_up,
-                        isActive: currentFilter.sortBy == 'popular',
-                        onTap: () => onFilterChanged(
-                          currentFilter.copyWith(sortBy: 'popular'),
-                        ),
-                      ),
-                      // "Trending" quick-sort chip removed: it duplicated the
-                      // top feed-tab bar's "Trending" tab and the filter
-                      // sheet's "Sort by" section (see moments audit, Top Tab
-                      // Bar section) — same label rendered 3x on one screen.
-                      // Trending remains selectable as a feed tab and in the
-                      // filter sheet; sortBy state/logic is unchanged.
-                    ],
-                  ),
-                ),
-                InkWell(
-                  onTap: () => _showFilterSheet(context),
-                  borderRadius: BorderRadius.circular(20),
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 8,
-                    ),
-                    decoration: BoxDecoration(
-                      color: currentFilter.hasActiveFilters
-                          ? colorScheme.primary.withValues(alpha: 0.15)
-                          : colorScheme.surfaceVariant,
-                      borderRadius: BorderRadius.circular(20),
-                      border: Border.all(
-                        color: currentFilter.hasActiveFilters
-                            ? colorScheme.primary
-                            : colorScheme.outlineVariant,
-                      ),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(
-                          Icons.tune,
-                          size: 18,
-                          color: currentFilter.hasActiveFilters
-                              ? colorScheme.primary
-                              : secondaryText,
-                        ),
-                        if (currentFilter.activeFilterCount > 0) ...[
-                          const SizedBox(width: 4),
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 6,
-                              vertical: 2,
-                            ),
-                            decoration: BoxDecoration(
-                              color: colorScheme.primary,
-                              shape: BoxShape.circle,
-                            ),
-                            child: Text(
-                              '${currentFilter.activeFilterCount}',
-                              style: TextStyle(
-                                color: colorScheme.onPrimary,
-                                fontSize: 10,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          if (currentFilter.hasActiveFilters)
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    ...currentFilter.languages.map((lang) {
-                      final langData = FilterOptions.languages.firstWhere(
-                        (item) => item['code'] == lang,
-                        orElse: () => {
-                          'code': lang,
-                          'name': lang,
-                          'flag': '🌍',
-                        },
-                      );
-                      return Padding(
-                        padding: const EdgeInsets.only(right: 6),
-                        child: _buildActiveFilterChip(
-                          context: context,
-                          label: '${langData['flag']} ${langData['name']}',
-                          onRemove: () {
-                            final languages = List<String>.from(
-                              currentFilter.languages,
-                            )..remove(lang);
-                            onFilterChanged(
-                              currentFilter.copyWith(languages: languages),
-                            );
-                          },
-                        ),
-                      );
-                    }),
-                    ...currentFilter.categories.map((category) {
-                      final icon =
-                          FilterOptions.categoryIcons[category] ?? '🌐';
-                      final label =
-                          FilterOptions.categoryLabels[category] ?? category;
-                      return Padding(
-                        padding: const EdgeInsets.only(right: 6),
-                        child: _buildActiveFilterChip(
-                          context: context,
-                          label: '$icon $label',
-                          onRemove: () {
-                            final categories = List<String>.from(
-                              currentFilter.categories,
-                            )..remove(category);
-                            onFilterChanged(
-                              currentFilter.copyWith(categories: categories),
-                            );
-                          },
-                        ),
-                      );
-                    }),
-                    ...currentFilter.moods.map((mood) {
-                      final emoji = FilterOptions.moodEmojis[mood] ?? '😊';
-                      return Padding(
-                        padding: const EdgeInsets.only(right: 6),
-                        child: _buildActiveFilterChip(
-                          context: context,
-                          label: '$emoji ${mood.capitalize()}',
-                          onRemove: () {
-                            final moods = List<String>.from(currentFilter.moods)
-                              ..remove(mood);
-                            onFilterChanged(
-                              currentFilter.copyWith(moods: moods),
-                            );
-                          },
-                        ),
-                      );
-                    }),
-                    TextButton(
-                      onPressed: () =>
-                          onFilterChanged(currentFilter.clearAll()),
-                      style: TextButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(horizontal: 12),
-                        minimumSize: Size.zero,
-                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      ),
-                      child: Text(
-                        AppLocalizations.of(context)!.clearAll,
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: secondaryText,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          Container(height: 1, color: context.dividerColor),
-        ],
+    return IconButton(
+      key: const Key('moments-filter-button'),
+      tooltip: AppLocalizations.of(context)!.filters,
+      onPressed: () => showMomentFilterSheet(
+        context,
+        currentFilter: currentFilter,
+        onFilterChanged: onFilterChanged,
+      ),
+      icon: Badge(
+        isLabelVisible: count > 0,
+        label: Text('$count'),
+        backgroundColor: colorScheme.primary,
+        textColor: colorScheme.onPrimary,
+        child: Icon(
+          Icons.tune,
+          size: 22,
+          color: active ? colorScheme.primary : context.textSecondary,
+        ),
       ),
     );
   }
+}
 
-  Widget _buildQuickTab({
-    required BuildContext context,
-    required String label,
-    required IconData icon,
-    required bool isActive,
-    required VoidCallback onTap,
-  }) {
-    final colorScheme = Theme.of(context).colorScheme;
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(20),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-        decoration: BoxDecoration(
-          color: isActive
-              ? colorScheme.primary.withValues(alpha: 0.12)
-              : Colors.transparent,
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(
-            color: isActive ? colorScheme.primary : Colors.transparent,
-          ),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(
-              icon,
-              size: 16,
-              color: isActive
-                  ? colorScheme.primary
-                  : colorScheme.onSurfaceVariant,
+/// The filters in effect, each removable, plus "Clear all". Renders nothing
+/// when no filter is on, so the feed header stays one row tall.
+class MomentActiveFilters extends StatelessWidget {
+  final MomentFilter currentFilter;
+  final ValueChanged<MomentFilter> onFilterChanged;
+
+  const MomentActiveFilters({
+    super.key,
+    required this.currentFilter,
+    required this.onFilterChanged,
+  });
+
+  /// Height of the row when it shows.
+  static const double height = 40;
+
+  @override
+  Widget build(BuildContext context) {
+    if (!currentFilter.hasActiveFilters) return const SizedBox.shrink();
+
+    return SizedBox(
+      height: height,
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+        children: [
+          ...currentFilter.languages.map((lang) {
+            final langData = FilterOptions.languages.firstWhere(
+              (item) => item['code'] == lang,
+              orElse: () => {'code': lang, 'name': lang, 'flag': '🌍'},
+            );
+            return _chip(
+              context,
+              '${langData['flag']} ${langData['name']}',
+              () => onFilterChanged(currentFilter.copyWith(
+                languages: List<String>.from(currentFilter.languages)..remove(lang),
+              )),
+            );
+          }),
+          ...currentFilter.categories.map((category) {
+            final icon = FilterOptions.categoryIcons[category] ?? '🌐';
+            final label = FilterOptions.categoryLabels[category] ?? category;
+            return _chip(
+              context,
+              '$icon $label',
+              () => onFilterChanged(currentFilter.copyWith(
+                categories: List<String>.from(currentFilter.categories)
+                  ..remove(category),
+              )),
+            );
+          }),
+          ...currentFilter.moods.map((mood) {
+            final emoji = FilterOptions.moodEmojis[mood] ?? '😊';
+            return _chip(
+              context,
+              '$emoji ${mood.capitalize()}',
+              () => onFilterChanged(currentFilter.copyWith(
+                moods: List<String>.from(currentFilter.moods)..remove(mood),
+              )),
+            );
+          }),
+          TextButton(
+            onPressed: () => onFilterChanged(currentFilter.clearAll()),
+            style: TextButton.styleFrom(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              minimumSize: Size.zero,
+              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
             ),
-            const SizedBox(width: 6),
-            Text(
-              label,
+            child: Text(
+              AppLocalizations.of(context)!.clearAll,
               style: TextStyle(
-                fontSize: 13,
-                fontWeight: isActive ? FontWeight.w600 : FontWeight.w500,
-                color: isActive
-                    ? colorScheme.primary
-                    : colorScheme.onSurfaceVariant,
+                fontSize: 12,
+                color: context.textSecondary,
+                fontWeight: FontWeight.w600,
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
 
-  Widget _buildActiveFilterChip({
-    required BuildContext context,
-    required String label,
-    required VoidCallback onRemove,
-  }) {
+  Widget _chip(BuildContext context, String label, VoidCallback onRemove) {
     final colorScheme = Theme.of(context).colorScheme;
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-      decoration: BoxDecoration(
-        color: colorScheme.primary.withValues(alpha: 0.15),
+    return Padding(
+      padding: const EdgeInsets.only(right: 6),
+      child: InkWell(
+        onTap: onRemove,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: colorScheme.primary.withValues(alpha: 0.3)),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
-              color: colorScheme.primary,
-            ),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: colorScheme.primary.withValues(alpha: 0.12),
+            borderRadius: BorderRadius.circular(16),
           ),
-          const SizedBox(width: 6),
-          InkWell(
-            onTap: onRemove,
-            child: Icon(Icons.close, size: 14, color: colorScheme.primary),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                label,
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  color: colorScheme.primary,
+                ),
+              ),
+              const SizedBox(width: 4),
+              Icon(Icons.close, size: 14, color: colorScheme.primary),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

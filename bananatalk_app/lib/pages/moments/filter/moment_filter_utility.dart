@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:bananatalk_app/pages/moments/filter/moment_filter_model.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 
@@ -38,22 +36,10 @@ class MomentFilterUtility {
       return true;
     }).toList();
 
-    switch (filter.sortBy) {
-      case 'popular':
-        filtered.sort((a, b) => b.likeCount.compareTo(a.likeCount));
-        break;
-      case 'trending':
-        filtered.sort(
-          (a, b) =>
-              _calculateTrendingScore(b).compareTo(_calculateTrendingScore(a)),
-        );
-        break;
-      case 'recent':
-      default:
-        filtered.sort((a, b) => b.createdAt.compareTo(a.createdAt));
-        break;
-    }
-
+    // No client-side sort: each feed tab is already in its own order (For You
+    // and Trending ranked by the server, Following newest first). Re-sorting
+    // here by date overrode that ranking on every tab, and re-sorted the loaded
+    // pages so posts jumped around as more pages arrived.
     return filtered;
   }
 
@@ -77,22 +63,6 @@ class MomentFilterUtility {
       case DateFilterType.allTime:
         return true;
     }
-  }
-
-  static double _calculateTrendingScore(Moments moment) {
-    final engagementScore = (moment.likeCount * 2) + (moment.commentCount * 3);
-    final hours = max(1, DateTime.now().difference(moment.createdAt).inHours);
-
-    double recencyMultiplier;
-    if (hours <= 24) {
-      recencyMultiplier = 2.0;
-    } else if (hours <= 72) {
-      recencyMultiplier = 1.5;
-    } else {
-      recencyMultiplier = 1.0;
-    }
-
-    return engagementScore * recencyMultiplier;
   }
 
   static List<Moments> searchMoments(List<Moments> moments, String query) {

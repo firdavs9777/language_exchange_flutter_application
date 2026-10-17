@@ -8,7 +8,9 @@ class MomentFilter {
   final List<String> languages;
   final List<String> categories;
   final List<String> moods;
-  final String sortBy; // recent, popular, trending
+  /// Kept for saved filters from older builds; no longer applied. Each feed
+  /// tab has its own order (see MomentFilterUtility.filterMoments).
+  final String sortBy;
   final DateFilterType dateFilter;
 
   const MomentFilter({
@@ -230,12 +232,6 @@ class FilterOptions {
     'motivated': '💪',
     'grateful': '🙏',
   };
-
-  static const List<Map<String, String>> sortOptions = [
-    {'label': 'Most Recent', 'value': 'recent'},
-    {'label': 'Most Popular', 'value': 'popular'},
-    {'label': 'Trending', 'value': 'trending'},
-  ];
 
   static const List<Map<String, dynamic>> dateFilters = [
     {'label': 'All Time', 'value': DateFilterType.allTime},

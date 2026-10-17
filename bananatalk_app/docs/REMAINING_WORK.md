@@ -80,6 +80,12 @@ After release (production data):
 
 ## 4. Code work — open
 
+Moments main screen (branch `fix/moments-feed`, 2026-10-17; backend same branch)
+- [x] For You showed only "Answer today's prompt to get the conversation started": the server filtered it to the viewer's native/learning language and 152 of 157 public moments are tagged `en`. Backend now ranks those languages first instead of filtering.
+- [x] Every tab was re-sorted on the phone by date (default sort "Recent"), so For You and Trending never showed the server's ranking and loaded pages reshuffled as more arrived. No client-side sort any more; the filter sheet's "Sort" tab is now "Time period" only.
+- [x] Layout: guide, stories (130 → 104 px) and today's prompt scroll away with the feed (NestedScrollView); one pinned 48 px row holds the tabs and the filter button; active filter chips appear under it only when set. Recent/Popular chip row and the duplicate app-bar "+" removed. Tests `test/moments/moments_main_layout_test.dart`, `moment_filter_order_test.dart`.
+- [ ] Device check on a small phone (iPhone SE) and a large one, light and dark: header scrolls away, tab row pinned, pull-to-refresh from the top, paging, Reels tab grid, search mode, a long locale (ru/tl) in the tab row. S
+
 Store rating prompt (branch `feat/rate-prompt`, not merged; App Store had 0 ratings)
 - [x] Native in-app review (`in_app_review`, no sentiment pre-gate) at positive moments: daily pack finished (`streak_7` when the streak is a multiple of 7), lesson submitted, live reply in a conversation I wrote in, and the old 3+3-message conversation rule. Rules in `lib/services/review_prompt_service.dart` (`isEligibleForRatePrompt`): not in the first 3 days after signup (install first-seen stamp when `createdAt` is unknown), once per 120 days, max 3 ever; per-install prefs survive logout; never during a call; spends the shared `PopupBudget` so it never stacks (a launch pop-up this process blocks it). `rate_prompt_shown {trigger}` analytics. Drawer > Support > "Rate BananaTalk" opens the store page (App Store id 6755862146). Tests `test/growth/review_prompt_test.dart`, `review_prompt_trigger_test.dart`.
 - [ ] Device check: iOS (TestFlight never shows the StoreKit sheet — check on a release build or in the simulator debug run) and Android internal track (Play shows it only for store-installed builds); "Rate BananaTalk" row opens the App Store / Play page. S

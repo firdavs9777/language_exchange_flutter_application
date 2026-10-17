@@ -219,7 +219,10 @@ class MomentsMain extends ConsumerStatefulWidget {
 }
 
 class _MomentsMainState extends ConsumerState<MomentsMain> {
-  final ScrollController _scrollController = ScrollController();
+  /// The feed list's latest scroll metrics. The list is the inner scrollable
+  /// of a NestedScrollView, which must own its controller, so paging reads
+  /// the metrics from its notifications instead of a controller of our own.
+  ScrollMetrics? _feedMetrics;
   final TextEditingController _searchController = TextEditingController();
   bool _showSearch = false;
   List<Moments> _searchResults = [];
@@ -238,7 +241,6 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
   @override
   void initState() {
     super.initState();
-    _scrollController.addListener(_maybeLoadMore);
     // Stale-while-revalidate: pick up new moments on first mount if the
     // feed hasn't been fetched in the last 60s, without a spinner flash
     // (see `refreshMomentsIfStale` / the `skipLoadingOn*` flags on
@@ -254,18 +256,20 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
   /// Not while searching (results are one server page) or on Reels (its
   /// own provider pages itself).
   void _maybeLoadMore() {
-    if (!mounted || !_scrollController.hasClients) return;
+    if (!mounted) return;
     if (_showSearch && _searchController.text.isNotEmpty) return;
     final tab = ref.read(momentsFeedTabProvider);
     if (tab == MomentsFeedTab.reels) return;
-    final position = _scrollController.position;
-    if (position.extentAfter > _loadMoreThreshold) return;
+    final metrics = _feedMetrics;
+    // Not laid out yet: its metrics notification will call back.
+    if (metrics == null) return;
+    if (metrics.extentAfter > _loadMoreThreshold) return;
     final provider = baseProviderFor(tab);
     final notifier = ref.read(provider.notifier);
     if (!notifier.hasMore) return;
     // A list too short to scroll asks by itself, but only up to a bound so
     // a filter that hides everything cannot page through the whole feed.
-    final scrollable = position.maxScrollExtent > 0;
+    final scrollable = metrics.maxScrollExtent > 0;
     final loaded = ref.read(provider).valueOrNull?.length ?? 0;
     if (!scrollable && loaded >= _autoFillLimit) return;
     notifier.loadMore();
@@ -274,8 +278,6 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
   @override
   void dispose() {
     _searchDebounce?.cancel();
-    _scrollController.removeListener(_maybeLoadMore);
-    _scrollController.dispose();
     _searchController.dispose();
     super.dispose();
   }
@@ -471,87 +473,113 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
             ),
             onPressed: _toggleSearch,
           ),
-          IconButton(
-            icon: Icon(Icons.add_circle_outline, color: textPrimary),
-            onPressed: () {
-              Navigator.of(context)
-                  .push(AppPageRoute(builder: (_) => const CreateMoment()))
-                  .then((_) => _refresh());
-            },
-          ),
         ],
       ),
-      body: Column(
-        children: [
-          // Hidden on the Reels grid: that tab is a full-bleed thumbnail
-          // wall, and a tinted card at the top of it reads as a broken cell.
-          if (!isReelsTab)
-            PageGuide(
-              surface: GuideSurface.moments,
-              icon: Icons.add_a_photo_rounded,
-              accent: AppColors.accent,
-              title: AppLocalizations.of(context)!.guideMomentsTitle,
-              body: AppLocalizations.of(context)!.guideMomentsBody,
-              ctaLabel: AppLocalizations.of(context)!.guideMomentsCta,
-              onCta: () => Navigator.of(context)
-                  .push(AppPageRoute(builder: (_) => const CreateMoment())),
-            ),
-          // Stories + Highlights combined section — not shown on the Reels
-          // grid, which is a distinct full-bleed thumbnail landing.
-          if (!_showSearch && !isReelsTab)
-            Container(
-              decoration: BoxDecoration(
-                color: context.surfaceColor,
-                border: Border(
-                  bottom: BorderSide(color: context.dividerColor, width: 0.5),
+      // One scroll: the guide, stories and today's prompt scroll away with
+      // the feed; only the tab row (with the filter button) stays pinned.
+      // Before, six fixed bands stacked above the list and left a sliver of
+      // screen for the moments themselves.
+      body: RefreshIndicator(
+        onRefresh: _refresh,
+        color: const Color(0xFF00BFA5),
+        // The feed list is the NestedScrollView's inner scrollable (depth 1);
+        // a pull on the header itself is the outer one (depth 0).
+        notificationPredicate: (n) => n.depth <= 1,
+        child: NestedScrollView(
+          headerSliverBuilder: (context, innerBoxIsScrolled) => [
+            // Hidden on the Reels grid: that tab is a full-bleed thumbnail
+            // wall, and a tinted card at the top of it reads as a broken cell.
+            if (!isReelsTab)
+              SliverToBoxAdapter(
+                child: PageGuide(
+                  surface: GuideSurface.moments,
+                  icon: Icons.add_a_photo_rounded,
+                  accent: AppColors.accent,
+                  title: AppLocalizations.of(context)!.guideMomentsTitle,
+                  body: AppLocalizations.of(context)!.guideMomentsBody,
+                  ctaLabel: AppLocalizations.of(context)!.guideMomentsCta,
+                  onCta: () => Navigator.of(context)
+                      .push(AppPageRoute(builder: (_) => const CreateMoment())),
                 ),
               ),
-              child: StoriesFeedWidget(
-                height: 130,
-                avatarSize: 64,
-                refreshNotifier: _storiesRefreshNotifier,
+            if (!_showSearch && !isReelsTab)
+              SliverToBoxAdapter(
+                child: StoriesFeedWidget(
+                  height: 104,
+                  avatarSize: 56,
+                  refreshNotifier: _storiesRefreshNotifier,
+                ),
               ),
-            ),
-          if (!_showSearch)
-            _MomentsFeedTabBar(
-              activeTab: effectiveTab,
-              onTabChanged: (tab) {
-                if (tab == activeTab) return;
-                ref.read(momentsFeedTabProvider.notifier).setTab(tab);
-              },
-            ),
-          // The mood/tag/language filter bar only applies to the shared
-          // card-feed query — Reels has its own ranking, not a client-side
-          // filter.
-          if (!_showSearch && !isReelsTab)
-            MomentFilterBar(
-              currentFilter: currentFilter,
-              onFilterChanged: (filter) =>
-                  ref.read(momentFilterProvider.notifier).setFilter(filter),
-            ),
-          if (!_showSearch && effectiveTab == MomentsFeedTab.forYou)
-            const PromptOfDayCard(),
-          Expanded(
-            child: isReelsTab
-                ? ReelsGridScreen(
-                    onPolicyDeclined: () => ref
-                        .read(momentsFeedTabProvider.notifier)
-                        .setTab(MomentsFeedTab.forYou),
-                  )
-                : RefreshIndicator(
-                    onRefresh: _refresh,
-                    color: const Color(0xFF00BFA5),
-                    child: MomentsFeedWidget(
-                      momentsAsync: displayedList,
-                      scrollController: _scrollController,
-                      isSearching: isSearching,
-                      onRefresh: _refresh,
-                      activeTab: effectiveTab,
-                      hasMore: hasMorePages,
-                    ),
+            if (!_showSearch && effectiveTab == MomentsFeedTab.forYou)
+              const SliverToBoxAdapter(child: PromptOfDayCard()),
+            if (!_showSearch)
+              SliverPersistentHeader(
+                pinned: true,
+                delegate: _FeedHeaderDelegate(
+                  showActiveFilters:
+                      !isReelsTab && currentFilter.hasActiveFilters,
+                  child: Column(
+                    children: [
+                      _MomentsFeedTabBar(
+                        activeTab: effectiveTab,
+                        onTabChanged: (tab) {
+                          if (tab == activeTab) return;
+                          ref.read(momentsFeedTabProvider.notifier).setTab(tab);
+                        },
+                        // The filters only apply to the card feeds; Reels has
+                        // its own ranking.
+                        trailing: isReelsTab
+                            ? null
+                            : MomentFilterButton(
+                                currentFilter: currentFilter,
+                                onFilterChanged: (filter) => ref
+                                    .read(momentFilterProvider.notifier)
+                                    .setFilter(filter),
+                              ),
+                      ),
+                      if (!isReelsTab)
+                        MomentActiveFilters(
+                          currentFilter: currentFilter,
+                          onFilterChanged: (filter) => ref
+                              .read(momentFilterProvider.notifier)
+                              .setFilter(filter),
+                        ),
+                    ],
                   ),
-          ),
-        ],
+                ),
+              ),
+          ],
+          body: isReelsTab
+              ? ReelsGridScreen(
+                  onPolicyDeclined: () => ref
+                      .read(momentsFeedTabProvider.notifier)
+                      .setTab(MomentsFeedTab.forYou),
+                )
+              : NotificationListener<Notification>(
+                  // Scroll updates, plus the metrics notification a list sends
+                  // after layout, so a first page too short to scroll still
+                  // asks for the next one.
+                  onNotification: (n) {
+                    final ScrollMetrics? m = n is ScrollNotification && n.depth == 0
+                        ? n.metrics
+                        : n is ScrollMetricsNotification && n.depth == 0
+                            ? n.metrics
+                            : null;
+                    if (m != null && m.axis == Axis.vertical) {
+                      _feedMetrics = m;
+                      _maybeLoadMore();
+                    }
+                    return false;
+                  },
+                  child: MomentsFeedWidget(
+                    momentsAsync: displayedList,
+                    isSearching: isSearching,
+                    onRefresh: _refresh,
+                    activeTab: effectiveTab,
+                    hasMore: hasMorePages,
+                  ),
+                ),
+        ),
       ),
       floatingActionButton: isReelsTab
           ? null
@@ -779,20 +807,56 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
   }
 }
 
-/// Segmented tab control for switching between the For You / Following /
-/// Trending / Reels moments feeds. Mostly presentational — selection state
-/// and data loading live in [momentsFeedTabProvider] and the per-tab feed
-/// providers — but it's a [ConsumerWidget] so it can hide the Reels segment
-/// entirely while the server-side `reelsEnabled` kill switch is off.
+/// Pinned header of the feed: the tab row, plus the active-filter chips when
+/// any filter is on. Its height follows that, so it is never taller than
+/// what it shows.
+class _FeedHeaderDelegate extends SliverPersistentHeaderDelegate {
+  final Widget child;
+  final bool showActiveFilters;
+
+  _FeedHeaderDelegate({required this.child, required this.showActiveFilters});
+
+  double get _height =>
+      _MomentsFeedTabBar.height +
+      (showActiveFilters ? MomentActiveFilters.height : 0);
+
+  @override
+  double get minExtent => _height;
+
+  @override
+  double get maxExtent => _height;
+
+  @override
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return Material(
+      color: context.surfaceColor,
+      elevation: overlapsContent || shrinkOffset > 0 ? 1 : 0,
+      child: child,
+    );
+  }
+
+  @override
+  bool shouldRebuild(_FeedHeaderDelegate oldDelegate) => true;
+}
+
+/// For You / Reels / Following / Trending as one compact, left-aligned row
+/// that scrolls sideways when a locale's labels do not fit, with [trailing]
+/// (the filter button) pinned at the end. Selection state and data loading
+/// live in [momentsFeedTabProvider] and the per-tab feed providers; it is a
+/// [ConsumerWidget] only to hide Reels while the server's `reelsEnabled`
+/// kill switch is off.
 class _MomentsFeedTabBar extends ConsumerWidget {
   final MomentsFeedTab activeTab;
   final ValueChanged<MomentsFeedTab> onTabChanged;
+  final Widget? trailing;
 
   const _MomentsFeedTabBar({
     required this.activeTab,
     required this.onTabChanged,
+    this.trailing,
   });
 
+  static const double height = 48;
   static const Color _tealIndicator = Color(0xFF00BFA5);
 
   @override
@@ -805,8 +869,7 @@ class _MomentsFeedTabBar extends ConsumerWidget {
           orElse: () => false,
         );
     // Insertion order is the on-screen order. Reels sits directly after
-    // For You so it's the first thing reachable from the default tab
-    // instead of being buried at the end of the strip.
+    // For You so it's the first thing reachable from the default tab.
     final tabs = <MomentsFeedTab, String>{
       MomentsFeedTab.forYou: l10n.momentsTabForYou,
       if (reelsEnabled) MomentsFeedTab.reels: l10n.momentsTabReels,
@@ -815,43 +878,53 @@ class _MomentsFeedTabBar extends ConsumerWidget {
     };
 
     return Container(
+      height: height,
       decoration: BoxDecoration(
-        color: context.surfaceColor,
         border: Border(
           bottom: BorderSide(color: context.dividerColor, width: 0.5),
         ),
       ),
       child: Row(
-        children: tabs.entries.map((entry) {
-          final tab = entry.key;
-          final label = entry.value;
-          final isActive = tab == activeTab;
-          return Expanded(
-            child: InkWell(
-              onTap: () => onTabChanged(tab),
-              child: Container(
-                padding: const EdgeInsets.symmetric(vertical: 12),
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(
-                      color: isActive ? _tealIndicator : Colors.transparent,
-                      width: 2,
+        children: [
+          Expanded(
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              children: tabs.entries.map((entry) {
+                final tab = entry.key;
+                final isActive = tab == activeTab;
+                return Semantics(
+                  selected: isActive,
+                  button: true,
+                  child: InkWell(
+                    key: Key('moments-tab-${tab.name}'),
+                    onTap: () => onTabChanged(tab),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        border: Border(
+                          bottom: BorderSide(
+                            color: isActive ? _tealIndicator : Colors.transparent,
+                            width: 2.5,
+                          ),
+                        ),
+                      ),
+                      child: Text(
+                        entry.value,
+                        style: context.titleSmall.copyWith(
+                          fontWeight: isActive ? FontWeight.w700 : FontWeight.w500,
+                          color: isActive ? context.textPrimary : context.textSecondary,
+                        ),
+                      ),
                     ),
                   ),
-                ),
-                child: Text(
-                  label,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: isActive ? FontWeight.w700 : FontWeight.w500,
-                    color: isActive ? _tealIndicator : context.textSecondary,
-                  ),
-                ),
-              ),
+                );
+              }).toList(),
             ),
-          );
-        }).toList(),
+          ),
+          if (trailing != null) trailing!,
+        ],
       ),
     );
   }
