@@ -1,4 +1,5 @@
 import 'package:bananatalk_app/pages/learning/vocabulary/vocab_pack_practice_screen.dart';
+import 'package:bananatalk_app/utils/pack_topic.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/providers/provider_root/learning/vocab_packs_providers.dart';
@@ -55,7 +56,7 @@ class _VocabPackDetailScreenState extends ConsumerState<VocabPackDetailScreen> {
     final theme = Theme.of(context);
 
     return Scaffold(
-      appBar: AppBar(title: Text(widget.topic)),
+      appBar: AppBar(title: Text(context.packTopic(widget.topic))),
       body: packAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (e, __) => Center(

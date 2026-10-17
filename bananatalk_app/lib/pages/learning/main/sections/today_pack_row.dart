@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/utils/pack_topic.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/learning/daily_pack_model.dart';
 import 'package:bananatalk_app/pages/learning/main/study_hub_metrics.dart';
@@ -44,7 +45,9 @@ class TodayPackRow extends StatelessWidget {
       offerPlacement = !pack.levelPlaced;
     } else {
       caption = l.studyTodayPack;
-      title = pack.theme?.topic ?? l.studyTodayPack;
+      title = pack.theme?.topic != null
+          ? context.packTopic(pack.theme!.topic)
+          : l.studyTodayPack;
       trailing = FilledButton.tonal(onPressed: onOpen, child: Text(l.studyTodayStart));
       offerPlacement = !pack.levelPlaced;
     }

@@ -1,4 +1,5 @@
 import 'package:bananatalk_app/services/activation_store.dart';
+import 'package:bananatalk_app/utils/pack_topic.dart';
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/learning/daily_pack_model.dart';
@@ -207,7 +208,9 @@ class _DailyPackFlowState extends State<DailyPackFlow> {
               child: DayCompleteSheet(
                 streak: _last?.streak,
                 xpAwarded: _last?.xpAwarded ?? 0,
-                themeTopic: widget.pack.theme?.topic,
+                themeTopic: widget.pack.theme?.topic != null
+                    ? context.packTopic(widget.pack.theme!.topic)
+                    : null,
                 onClose: _exit,
               ),
             ),
@@ -219,7 +222,9 @@ class _DailyPackFlowState extends State<DailyPackFlow> {
     final station = _outstanding[_index];
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.pack.theme?.topic ?? l10n.today),
+        title: Text(widget.pack.theme?.topic != null
+            ? context.packTopic(widget.pack.theme!.topic)
+            : l10n.today),
         leading: IconButton(
           key: const Key('pack-close'),
           icon: const Icon(Icons.close),

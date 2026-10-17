@@ -86,6 +86,7 @@ Camera on Android: app killed while the camera is open (2026-10-17, Galaxy Tab S
 - [ ] Same recovery for the other camera entry points (moment composer, chat camera, story camera, profile photo, gathering/club cover); each currently loses the photo if the app is killed. M
 - [ ] Device check in a RELEASE build on the tablet: Talk → Photo → camera → photo comes back (killed or not). S
 - [x] Korean: AI Study tile "롤플레이" → "일상 회화"; the two descriptions that said 롤플레이 reworded to match.
+- [x] Pack topics are stored "<target-language name> (<English gloss>)" (64 glosses, all English); a non-English UI showed the English bracket (Arabic: "규칙과 예절 (Rules and manners)"). The gloss now shows only for an English UI (`lib/utils/pack_topic.dart`; Today row, pack card/flow/complete sheet, vocab packs list, detail, practice). Localized glosses would be ~1,200 strings; not planned.
 
 Dark mode (2026-10-17, found on AI Study > Review)
 - [x] Review flashcard was hardcoded white: the word (white theme text) was invisible, and so was the example on the back. `vocabulary_card.dart` (flashcard + list card) now uses theme colors.

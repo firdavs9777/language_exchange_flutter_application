@@ -1,4 +1,5 @@
 import 'package:bananatalk_app/models/learning/vocab_pack_model.dart';
+import 'package:bananatalk_app/utils/pack_topic.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
@@ -127,7 +128,7 @@ class _VocabPackPracticeScreenState extends State<VocabPackPracticeScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.topic),
+        title: Text(context.packTopic(widget.topic)),
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(4),
           child: LinearProgressIndicator(value: (_index + 1) / total),

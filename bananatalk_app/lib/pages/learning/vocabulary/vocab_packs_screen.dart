@@ -1,4 +1,5 @@
 import 'package:bananatalk_app/models/learning/vocab_pack_model.dart';
+import 'package:bananatalk_app/utils/pack_topic.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/learning/vocabulary/vocab_pack_detail_screen.dart';
 import 'package:bananatalk_app/providers/provider_root/learning/vocab_packs_providers.dart';
@@ -226,7 +227,7 @@ class _PackCard extends StatelessWidget {
                   Row(
                     children: [
                       Expanded(
-                        child: Text(pack.topic,
+                        child: Text(context.packTopic(pack.topic),
                             style: theme.textTheme.titleMedium
                                 ?.copyWith(fontWeight: FontWeight.w600)),
                       ),

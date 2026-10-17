@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/utils/pack_topic.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/learning/daily_pack_model.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
@@ -98,7 +99,9 @@ class DailyPackHeroCard extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        pack.theme?.topic ?? l10n.today,
+                        pack.theme?.topic != null
+                            ? context.packTopic(pack.theme!.topic)
+                            : l10n.today,
                         style: theme.textTheme.titleLarge,
                       ),
                     ),
