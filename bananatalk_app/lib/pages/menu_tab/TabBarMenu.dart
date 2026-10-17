@@ -17,6 +17,8 @@ import 'package:bananatalk_app/services/version_check_coordinator.dart';
 import 'package:bananatalk_app/pages/coins/coin_shop_screen.dart';
 import 'package:bananatalk_app/services/promo_service.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
+import 'package:bananatalk_app/services/camera_recovery.dart';
+import 'package:bananatalk_app/pages/ai/tutor/image_vocab_screen.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/widgets/navigation/floating_tab_bar.dart';
 import 'package:bananatalk_app/widgets/navigation/tab_reselect_scroll_to_top.dart';
@@ -135,10 +137,23 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
       // renewed or deferred transactions reach backend verification instead
       // of waiting until a store screen happens to be opened.
       if (mounted) _redeliveryToken = installPurchaseRedelivery(ref);
+      _recoverCameraPhoto();
     });
   }
 
   Object? _redeliveryToken;
+
+  /// Android may kill the app while the camera is open; a photo taken then
+  /// is reopened in the screen that asked for it (see [CameraRecovery]).
+  Future<void> _recoverCameraPhoto() async {
+    final lost = await CameraRecovery.takeLost();
+    if (lost == null || !mounted) return;
+    if (lost.target == CameraRecovery.imageVocab) {
+      Navigator.of(context).push(AppPageRoute(
+        builder: (_) => ImageVocabScreen(initialImage: lost.file),
+      ));
+    }
+  }
 
   @override
   void dispose() {

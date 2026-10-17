@@ -15,7 +15,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get aiStudyPromoTitle => 'AI 시나리오로 연습하세요';
 
   @override
-  String get aiStudyPromoBody => 'AI 튜터와 실제 대화를 롤플레이하며 말하기 자신감을 키워보세요.';
+  String get aiStudyPromoBody => 'AI 튜터와 실제 상황처럼 대화하며 말하기 자신감을 키워보세요.';
 
   @override
   String get aiStudyPromoCTA => '시나리오 체험하기';
@@ -486,7 +486,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get aiTutorHomePracticeScenarios => '연습 시나리오';
 
   @override
-  String get aiTutorHomePracticeScenariosSubtitle => '실제 대화를 롤플레이 — 식당, 면접, 호텔…';
+  String get aiTutorHomePracticeScenariosSubtitle => '실제 상황 대화 연습 — 식당, 면접, 호텔…';
 
   @override
   String get aiTutorHomeReadStory => '이야기 읽기';
@@ -11259,7 +11259,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get studyTileTutorDesc => '무엇이든 이야기해요';
 
   @override
-  String get studyTileRoleplay => '롤플레이';
+  String get studyTileRoleplay => '일상 회화';
 
   @override
   String get studyTileRoleplayDesc => '실생활 상황';

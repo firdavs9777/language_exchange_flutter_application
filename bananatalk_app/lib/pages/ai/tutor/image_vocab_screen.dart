@@ -13,6 +13,7 @@ import 'package:bananatalk_app/providers/tutor_provider.dart' show tutorMemoryAn
 import 'package:bananatalk_app/services/analytics_service.dart';
 import 'package:bananatalk_app/widgets/tutor/tutor_quota_indicator.dart';
 import 'package:bananatalk_app/services/api_client.dart';
+import 'package:bananatalk_app/services/camera_recovery.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
@@ -24,7 +25,11 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 /// Stage 2: user writes a description → backend grades it → result
 ///          card with score, feedback, grammar notes, missing items.
 class ImageVocabScreen extends ConsumerStatefulWidget {
-  const ImageVocabScreen({super.key});
+  const ImageVocabScreen({super.key, this.initialImage});
+
+  /// A camera photo recovered after Android killed the app while the camera
+  /// was open (see [CameraRecovery]); the exercise starts with it.
+  final XFile? initialImage;
 
   @override
   ConsumerState<ImageVocabScreen> createState() => _ImageVocabScreenState();
@@ -56,6 +61,14 @@ class _ImageVocabScreenState extends ConsumerState<ImageVocabScreen> {
   @override
   void initState() {
     super.initState();
+    final recovered = widget.initialImage;
+    if (recovered != null) {
+      _image = recovered;
+      _loading = true;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) _requestPrompt();
+      });
+    }
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _userTier = ref.read(userProvider).valueOrNull?.isVip == true ? 'vip' : 'free';
       AnalyticsService.instance.tutorChipUsed(
@@ -74,12 +87,17 @@ class _ImageVocabScreenState extends ConsumerState<ImageVocabScreen> {
   }
 
   Future<void> _pick(ImageSource source) async {
+    final camera = source == ImageSource.camera;
     try {
+      // The camera may get this app killed for memory; remember who asked so
+      // the photo can be recovered on restart (CameraRecovery).
+      if (camera) await CameraRecovery.markPending(CameraRecovery.imageVocab);
       final picked = await _picker.pickImage(
         source: source,
         maxWidth: 1280,
         imageQuality: 80,
       );
+      if (camera) await CameraRecovery.clear();
       if (picked == null) return;
       setState(() {
         _image = picked;
