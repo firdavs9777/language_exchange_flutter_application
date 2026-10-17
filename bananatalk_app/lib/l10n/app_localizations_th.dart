@@ -7625,6 +7625,29 @@ class AppLocalizationsTh extends AppLocalizations {
   String get placementStart => 'เริ่มเรียน';
 
   @override
+  String placementScore(int correct, int total) {
+    return 'ถูก $correct จาก $total ข้อ';
+  }
+
+  @override
+  String get placementReviewTitle => 'คำตอบของคุณ';
+
+  @override
+  String get placementFocusTitle => 'สิ่งที่ควรฝึกต่อ';
+
+  @override
+  String get placementAllCorrect => 'คุณตอบถูกทุกข้อ แบบทดสอบนี้วัดได้ถึงระดับ B2 และบทเรียนจะปรับตามคุณไปเรื่อย ๆ';
+
+  @override
+  String get placementNotAnswered => 'ไม่ได้ตอบ';
+
+  @override
+  String get placementUnavailable => 'ยังไม่มีแบบทดสอบระดับสำหรับภาษาที่คุณกำลังเรียน คุณตั้งระดับของคุณเองได้ในโปรไฟล์';
+
+  @override
+  String get placementPreparing => 'กำลังเตรียมแบบทดสอบของคุณ…';
+
+  @override
   String get packNotGraded => 'บันทึกแล้ว — ยังตรวจให้ไม่ได้ตอนนี้';
 
   @override

@@ -35,6 +35,71 @@ class PackCheck {
       );
 }
 
+/// One placement question after submit: what was picked and what was right.
+/// `given` is null when the learner skipped before reaching the question.
+class PlacementReviewItem {
+  final PackCheck check;
+  final int? given;
+  final int answerIndex;
+  final bool correct;
+  final String topic;
+  final String explanation;
+
+  const PlacementReviewItem({
+    required this.check,
+    required this.given,
+    required this.answerIndex,
+    required this.correct,
+    this.topic = '',
+    this.explanation = '',
+  });
+
+  factory PlacementReviewItem.fromJson(Map<String, dynamic> json) => PlacementReviewItem(
+        check: PackCheck.fromJson(json),
+        given: (json['given'] as num?)?.toInt(),
+        answerIndex: (json['answerIndex'] as num?)?.toInt() ?? 0,
+        correct: json['correct'] == true,
+        topic: json['topic'] as String? ?? '',
+        explanation: json['explanation'] as String? ?? '',
+      );
+}
+
+/// The placement submit response. `review` is empty after a skip and from an
+/// older server that only sends the level; the screen then shows the level alone.
+class PlacementResult {
+  final String level;
+  final int correct;
+  final int total;
+  final List<PlacementReviewItem> review;
+
+  /// Topics the learner missed, easiest first (at most three).
+  final List<String> focusTopics;
+
+  const PlacementResult({
+    required this.level,
+    this.correct = 0,
+    this.total = 0,
+    this.review = const [],
+    this.focusTopics = const [],
+  });
+
+  factory PlacementResult.fromJson(Map<String, dynamic> json) {
+    final focus = json['focus'];
+    return PlacementResult(
+      level: '${json['level'] ?? ''}',
+      correct: (json['correct'] as num?)?.toInt() ?? 0,
+      total: (json['total'] as num?)?.toInt() ?? 0,
+      review: (json['review'] as List? ?? const [])
+          .whereType<Map>()
+          .map((e) => PlacementReviewItem.fromJson(Map<String, dynamic>.from(e)))
+          .toList(),
+      focusTopics: focus is Map
+          ? (focus['topics'] as List? ?? const []).map((e) => e.toString()).toList()
+          : const [],
+    );
+  }
+}
+
 class PackWord {
   final String word;
   final String definition;

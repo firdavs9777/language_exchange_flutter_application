@@ -7625,6 +7625,29 @@ class AppLocalizationsVi extends AppLocalizations {
   String get placementStart => 'Bắt đầu học';
 
   @override
+  String placementScore(int correct, int total) {
+    return 'Đúng $correct/$total câu';
+  }
+
+  @override
+  String get placementReviewTitle => 'Câu trả lời của bạn';
+
+  @override
+  String get placementFocusTitle => 'Nên luyện gì tiếp theo';
+
+  @override
+  String get placementAllCorrect => 'Bạn trả lời đúng hết. Bài kiểm tra này đo đến trình độ B2, và bài học sẽ điều chỉnh dần theo bạn.';
+
+  @override
+  String get placementNotAnswered => 'Chưa trả lời';
+
+  @override
+  String get placementUnavailable => 'Ngôn ngữ bạn đang học chưa có bài kiểm tra trình độ. Bạn có thể tự đặt trình độ trong hồ sơ.';
+
+  @override
+  String get placementPreparing => 'Đang chuẩn bị bài kiểm tra…';
+
+  @override
   String get packNotGraded => 'Đã lưu — hiện chưa chấm được.';
 
   @override

@@ -3,13 +3,29 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/learning/daily_pack_model.dart';
 import 'package:bananatalk_app/pages/learning/daily/widgets/check_question.dart';
 import 'package:bananatalk_app/services/learning_service.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
 
 /// Eight questions, one screen each, to set a starting level.
+///
+/// The questions are in the learner's target language: English uses the
+/// hand-written bank, every other language an AI-written set the server has
+/// checked. For a language with no such set the screen says so instead of
+/// offering a retry.
 ///
 /// 697 of 758 active learners have no level at all, so the pack is otherwise
 /// guessing. Skipping is always allowed and the server falls back to its
 /// default level — a forced test at the door costs more learners than a
 /// slightly wrong starting level does.
+/// The app locale as the placement API takes it: the language code, plus
+/// `zh_TW` for Traditional Chinese.
+String placementLocaleTag(Locale locale) {
+  if (locale.languageCode == 'zh' &&
+      (locale.countryCode == 'TW' || locale.scriptCode == 'Hant')) {
+    return 'zh_TW';
+  }
+  return locale.languageCode;
+}
+
 class PlacementScreen extends StatefulWidget {
   final Future<List<PackCheck>> Function()? load;
   final Future<Map<String, dynamic>> Function(List<int>)? submit;
@@ -27,6 +43,9 @@ class _PlacementScreenState extends State<PlacementScreen> {
   int _index = 0;
   Map<String, dynamic>? _result;
   bool _failed = false;
+  bool _unavailable = false;
+  bool _started = false;
+  String _locale = 'en';
 
   /// A submit is in flight; further taps and skips are ignored so a fast
   /// double tap cannot send twice.
@@ -34,16 +53,21 @@ class _PlacementScreenState extends State<PlacementScreen> {
   bool _submitFailed = false;
 
   @override
-  void initState() {
-    super.initState();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_started) return;
+    _started = true;
+    _locale = placementLocaleTag(Localizations.localeOf(context));
     _loadQuestions();
   }
 
   Future<void> _loadQuestions() async {
     try {
-      final loader = widget.load ?? LearningService.getPlacement;
+      final loader = widget.load ?? () => LearningService.getPlacement(locale: _locale);
       final questions = await loader();
       if (mounted) setState(() => _questions = questions);
+    } on PlacementUnavailableException {
+      if (mounted) setState(() => _unavailable = true);
     } catch (_) {
       if (mounted) setState(() => _failed = true);
     }
@@ -56,7 +80,8 @@ class _PlacementScreenState extends State<PlacementScreen> {
       _submitFailed = false;
     });
     try {
-      final submitter = widget.submit ?? LearningService.submitPlacement;
+      final submitter = widget.submit ??
+          (List<int> a) => LearningService.submitPlacement(a, locale: _locale);
       // Never more answers than questions: the server rejects that with a
       // 400 on every retry.
       final result = await submitter(
@@ -91,6 +116,29 @@ class _PlacementScreenState extends State<PlacementScreen> {
     final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
 
+    if (_unavailable) {
+      return Scaffold(
+        appBar: AppBar(title: Text(l10n.placementTitle)),
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(32),
+            child: Column(
+              key: const Key('placement-unavailable'),
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(l10n.placementUnavailable, textAlign: TextAlign.center),
+                const SizedBox(height: 12),
+                FilledButton(
+                  onPressed: () => Navigator.of(context).maybePop(),
+                  child: Text(l10n.packContinue),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
+
     if (_failed && _result == null && _questions == null) {
       return Scaffold(
         appBar: AppBar(title: Text(l10n.placementTitle)),
@@ -118,26 +166,9 @@ class _PlacementScreenState extends State<PlacementScreen> {
     }
 
     if (_result != null) {
-      return Scaffold(
-        body: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(32),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text('${_result!['level']}', style: theme.textTheme.displaySmall),
-                const SizedBox(height: 8),
-                Text(l10n.placementResult, textAlign: TextAlign.center),
-                const SizedBox(height: 24),
-                FilledButton(
-                  key: const Key('placement-start'),
-                  onPressed: widget.onFinished ?? () => Navigator.of(context).maybePop(),
-                  child: Text(l10n.placementStart),
-                ),
-              ],
-            ),
-          ),
-        ),
+      return _PlacementResultView(
+        result: PlacementResult.fromJson(_result!),
+        onStart: widget.onFinished ?? () => Navigator.of(context).maybePop(),
       );
     }
 
@@ -145,7 +176,18 @@ class _PlacementScreenState extends State<PlacementScreen> {
     if (questions == null) {
       return Scaffold(
         appBar: AppBar(title: Text(l10n.placementTitle)),
-        body: const Center(child: CircularProgressIndicator()),
+        body: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const CircularProgressIndicator(),
+              const SizedBox(height: 16),
+              // The first learner of a language waits while the test is written.
+              Text(l10n.placementPreparing,
+                  style: theme.textTheme.bodyMedium?.copyWith(color: context.textSecondary)),
+            ],
+          ),
+        ),
       );
     }
 
@@ -200,6 +242,170 @@ class _PlacementScreenState extends State<PlacementScreen> {
                 ],
               ),
             ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Level, score, what to work on next, then every question with the learner's
+/// pick and the right answer. After a skip (or from an older server) there is
+/// no review, so only the level and the start button show.
+class _PlacementResultView extends StatelessWidget {
+  final PlacementResult result;
+  final VoidCallback onStart;
+
+  const _PlacementResultView({required this.result, required this.onStart});
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final theme = Theme.of(context);
+    final hasReview = result.review.isNotEmpty;
+
+    return Scaffold(
+      appBar: AppBar(title: Text(l10n.placementTitle)),
+      body: SafeArea(
+        child: Column(
+          children: [
+            Expanded(
+              child: ListView(
+                padding: const EdgeInsets.fromLTRB(20, 8, 20, 20),
+                children: [
+                  Center(
+                    child: Text(result.level,
+                        key: const Key('placement-level'),
+                        style: theme.textTheme.displaySmall),
+                  ),
+                  if (hasReview) ...[
+                    const SizedBox(height: 4),
+                    Center(
+                      child: Text(
+                        l10n.placementScore(result.correct, result.total),
+                        key: const Key('placement-score'),
+                        style: theme.textTheme.titleMedium,
+                      ),
+                    ),
+                  ],
+                  const SizedBox(height: 8),
+                  Text(l10n.placementResult,
+                      textAlign: TextAlign.center,
+                      style: theme.textTheme.bodyMedium
+                          ?.copyWith(color: context.textSecondary)),
+                  if (hasReview) ...[
+                    const SizedBox(height: 20),
+                    _FocusCard(topics: result.focusTopics),
+                    const SizedBox(height: 24),
+                    Text(l10n.placementReviewTitle, style: theme.textTheme.titleMedium),
+                    const SizedBox(height: 12),
+                    for (var i = 0; i < result.review.length; i++)
+                      _ReviewItem(item: result.review[i], index: i),
+                  ],
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 8, 20, 16),
+              child: SizedBox(
+                width: double.infinity,
+                child: FilledButton(
+                  key: const Key('placement-start'),
+                  onPressed: onStart,
+                  child: Text(l10n.placementStart),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _FocusCard extends StatelessWidget {
+  final List<String> topics;
+
+  const _FocusCard({required this.topics});
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final theme = Theme.of(context);
+    return Container(
+      key: const Key('placement-focus'),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: theme.colorScheme.primaryContainer.withValues(alpha: 0.4),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(l10n.placementFocusTitle, style: theme.textTheme.titleSmall),
+          const SizedBox(height: 8),
+          if (topics.isEmpty)
+            Text(l10n.placementAllCorrect, style: theme.textTheme.bodyMedium)
+          else
+            for (final topic in topics)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 4),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Icon(Icons.arrow_right, size: 20, color: theme.colorScheme.primary),
+                    const SizedBox(width: 4),
+                    Expanded(child: Text(topic, style: theme.textTheme.bodyMedium)),
+                  ],
+                ),
+              ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ReviewItem extends StatelessWidget {
+  final PlacementReviewItem item;
+  final int index;
+
+  const _ReviewItem({required this.item, required this.index});
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final theme = Theme.of(context);
+    final color = item.correct ? theme.colorScheme.primary : theme.colorScheme.error;
+    // Status as icon AND text, never colour alone.
+    final status = item.correct
+        ? l10n.lessonResultCorrect
+        : (item.given == null ? l10n.placementNotAnswered : l10n.lessonResultIncorrect);
+    return Padding(
+      key: Key('placement-review-$index'),
+      padding: const EdgeInsets.only(bottom: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(item.correct ? Icons.check_circle : Icons.cancel, size: 18, color: color),
+              const SizedBox(width: 6),
+              Expanded(
+                child: Text(
+                  item.topic.isEmpty ? status : '$status · ${item.topic}',
+                  style: theme.textTheme.labelMedium?.copyWith(color: color),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          CheckQuestion(
+            check: item.check,
+            index: index,
+            selected: item.given,
+            correctIndex: item.answerIndex,
+            explanation: item.correct ? null : item.explanation,
+            onSelect: (_) {},
+          ),
         ],
       ),
     );

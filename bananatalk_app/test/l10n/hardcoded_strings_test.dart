@@ -814,6 +814,16 @@ const Map<String, List<String>> _keysByTask = {
     'rateBananaTalkRow',
     'rateBananaTalkRowSubtitle',
   ],
+  // feat/placement-review: score, per-question review and next-step card.
+  'placement-review': [
+    'placementScore',
+    'placementReviewTitle',
+    'placementFocusTitle',
+    'placementAllCorrect',
+    'placementNotAnswered',
+    'placementUnavailable',
+    'placementPreparing',
+  ],
 };
 
 /// Files (under lib/) each task must leave with no English Text literal.
@@ -1097,6 +1107,9 @@ const Map<String, List<String>> _filesByTask = {
   ],
   'rate-prompt': [
     'pages/profile/drawer/profile_drawer.dart',
+  ],
+  'placement-review': [
+    'pages/learning/daily/placement/placement_screen.dart',
   ],
 };
 

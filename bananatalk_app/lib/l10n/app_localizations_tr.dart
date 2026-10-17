@@ -7633,6 +7633,29 @@ class AppLocalizationsTr extends AppLocalizations {
   String get placementStart => 'Öğrenmeye başla';
 
   @override
+  String placementScore(int correct, int total) {
+    return '$total sorudan $correct doğru';
+  }
+
+  @override
+  String get placementReviewTitle => 'Cevapların';
+
+  @override
+  String get placementFocusTitle => 'Sırada çalışman gerekenler';
+
+  @override
+  String get placementAllCorrect => 'Tüm cevapların doğruydu. Bu test B2\'ye kadar ölçer; derslerin ilerledikçe sana göre ayarlanır.';
+
+  @override
+  String get placementNotAnswered => 'Cevaplanmadı';
+
+  @override
+  String get placementUnavailable => 'Öğrendiğin dil için henüz seviye testi yok. Seviyeni profilinden kendin ayarlayabilirsin.';
+
+  @override
+  String get placementPreparing => 'Testin hazırlanıyor…';
+
+  @override
   String get packNotGraded => 'Kaydedildi — şu anda değerlendiremedik.';
 
   @override

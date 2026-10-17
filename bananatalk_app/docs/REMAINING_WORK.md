@@ -80,6 +80,15 @@ After release (production data):
 
 ## 4. Code work — open
 
+Placement result and test language (branch `feat/placement-review`, 2026-10-17; backend same branch)
+- [x] "Find your level" result showed only the level. Now: score, "What to work on next" (missed topics, or all-right note), then every question with the pick, the right answer and why (icon + text, not colour alone). A skip or an older server shows the level only.
+- [x] Placement is in the learner's target language (server-side AI set for non-English); the screen sends `?locale` on GET and POST, shows "Preparing your test…" during the first ~20 s generation, and "no level test for your language yet" (no retry) on 503 `PLACEMENT_UNAVAILABLE`.
+- [x] Basque, Catalan, Galician, Latin, Welsh, Scottish Gaelic, Breton, Kurdish, Esperanto show 🌐 instead of a state flag (🇪🇸 for Basque read as "speaks Spanish"). Owner decision 2026-10-17.
+- [ ] Device check: English target → review + focus card; Italian target → "Preparing your test…" then Italian questions; Basque target → unavailable message; Korean UI → Korean topics/explanations. S
+- [ ] Native review of `placementScore`, `placementReviewTitle`, `placementFocusTitle`, `placementAllCorrect`, `placementNotAnswered`, `placementUnavailable`, `placementPreparing` (rows appended to the CSV). S
+- [ ] English bank topics/explanations are English only (hand-written); localize them if English learners with a non-English UI need it. S
+- [ ] Still offered to every unplaced learner; a target with no test now says so, but the entry itself could be hidden once the server reports `PLACEMENT_UNAVAILABLE` for the language. S
+
 Store rating prompt (branch `feat/rate-prompt`, not merged; App Store had 0 ratings)
 - [x] Native in-app review (`in_app_review`, no sentiment pre-gate) at positive moments: daily pack finished (`streak_7` when the streak is a multiple of 7), lesson submitted, live reply in a conversation I wrote in, and the old 3+3-message conversation rule. Rules in `lib/services/review_prompt_service.dart` (`isEligibleForRatePrompt`): not in the first 3 days after signup (install first-seen stamp when `createdAt` is unknown), once per 120 days, max 3 ever; per-install prefs survive logout; never during a call; spends the shared `PopupBudget` so it never stacks (a launch pop-up this process blocks it). `rate_prompt_shown {trigger}` analytics. Drawer > Support > "Rate BananaTalk" opens the store page (App Store id 6755862146). Tests `test/growth/review_prompt_test.dart`, `review_prompt_trigger_test.dart`.
 - [ ] Device check: iOS (TestFlight never shows the StoreKit sheet — check on a release build or in the simulator debug run) and Android internal track (Play shows it only for store-installed builds); "Rate BananaTalk" row opens the App Store / Play page. S

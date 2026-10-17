@@ -5055,6 +5055,42 @@
   "@placementStart": {
     "description": "Leaves placement and opens the pack"
   },
+  "placementScore": "{correct} of {total} correct",
+  "@placementScore": {
+    "description": "Placement result: how many of the questions were answered correctly",
+    "placeholders": {
+      "correct": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "placementReviewTitle": "Your answers",
+  "@placementReviewTitle": {
+    "description": "Heading above the per-question review on the placement result"
+  },
+  "placementFocusTitle": "What to work on next",
+  "@placementFocusTitle": {
+    "description": "Heading of the recommendation card listing grammar topics the learner missed"
+  },
+  "placementAllCorrect": "Every answer was right. This test goes up to B2, and your lessons will adjust as you go.",
+  "@placementAllCorrect": {
+    "description": "Recommendation when every placement answer was right; B2 is the highest level the test checks"
+  },
+  "placementNotAnswered": "Not answered",
+  "@placementNotAnswered": {
+    "description": "Review label for a placement question the learner skipped"
+  },
+  "placementUnavailable": "There's no level test for the language you're learning yet. You can set your level yourself in your profile.",
+  "@placementUnavailable": {
+    "description": "Shown when the server has no checked level test for the learner's target language; the level can be set by hand in the profile"
+  },
+  "placementPreparing": "Preparing your test…",
+  "@placementPreparing": {
+    "description": "Under the spinner while the placement test loads; the first learner of a language waits while the test is written"
+  },
   "packNotGraded": "Saved — we couldn't grade it just now.",
   "@packNotGraded": {
     "description": "Shown when a translation was stored but the grader was unavailable"

@@ -7942,6 +7942,29 @@ class AppLocalizationsRu extends AppLocalizations {
   String get placementStart => 'Начать учиться';
 
   @override
+  String placementScore(int correct, int total) {
+    return 'Правильно: $correct из $total';
+  }
+
+  @override
+  String get placementReviewTitle => 'Ваши ответы';
+
+  @override
+  String get placementFocusTitle => 'Над чем поработать дальше';
+
+  @override
+  String get placementAllCorrect => 'Все ответы верны. Тест проверяет уровень до B2, а уроки подстроятся под вас по ходу занятий.';
+
+  @override
+  String get placementNotAnswered => 'Без ответа';
+
+  @override
+  String get placementUnavailable => 'Для языка, который вы изучаете, пока нет теста уровня. Вы можете указать свой уровень в профиле.';
+
+  @override
+  String get placementPreparing => 'Готовим ваш тест…';
+
+  @override
   String get packNotGraded => 'Сохранено — сейчас не удалось проверить.';
 
   @override

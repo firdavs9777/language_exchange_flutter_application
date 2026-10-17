@@ -7633,6 +7633,29 @@ class AppLocalizationsPt extends AppLocalizations {
   String get placementStart => 'Começar a aprender';
 
   @override
+  String placementScore(int correct, int total) {
+    return '$correct de $total corretas';
+  }
+
+  @override
+  String get placementReviewTitle => 'Suas respostas';
+
+  @override
+  String get placementFocusTitle => 'No que trabalhar agora';
+
+  @override
+  String get placementAllCorrect => 'Todas as respostas estavam certas. Este teste vai até o B2, e suas lições vão se ajustar com o tempo.';
+
+  @override
+  String get placementNotAnswered => 'Sem resposta';
+
+  @override
+  String get placementUnavailable => 'Ainda não há teste de nível para o idioma que você está aprendendo. Você pode definir seu nível no seu perfil.';
+
+  @override
+  String get placementPreparing => 'Preparando seu teste…';
+
+  @override
   String get packNotGraded => 'Salvo — não conseguimos corrigir agora.';
 
   @override

@@ -7625,6 +7625,29 @@ class AppLocalizationsKo extends AppLocalizations {
   String get placementStart => '학습 시작';
 
   @override
+  String placementScore(int correct, int total) {
+    return '$total문제 중 $correct문제 정답';
+  }
+
+  @override
+  String get placementReviewTitle => '내 답변';
+
+  @override
+  String get placementFocusTitle => '다음에 연습할 부분';
+
+  @override
+  String get placementAllCorrect => '모두 정답이에요. 이 테스트는 B2까지 확인하며, 학습하면서 레슨 수준이 조정돼요.';
+
+  @override
+  String get placementNotAnswered => '답하지 않음';
+
+  @override
+  String get placementUnavailable => '학습 중인 언어의 레벨 테스트가 아직 없어요. 프로필에서 직접 레벨을 설정할 수 있어요.';
+
+  @override
+  String get placementPreparing => '테스트를 준비하고 있어요…';
+
+  @override
   String get packNotGraded => '저장했어요 — 지금은 채점할 수 없었어요.';
 
   @override

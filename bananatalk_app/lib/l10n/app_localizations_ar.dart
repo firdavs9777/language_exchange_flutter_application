@@ -7643,6 +7643,29 @@ class AppLocalizationsAr extends AppLocalizations {
   String get placementStart => 'ابدأ التعلّم';
 
   @override
+  String placementScore(int correct, int total) {
+    return '$correct من $total صحيحة';
+  }
+
+  @override
+  String get placementReviewTitle => 'إجاباتك';
+
+  @override
+  String get placementFocusTitle => 'ما الذي تتدرّب عليه بعد ذلك';
+
+  @override
+  String get placementAllCorrect => 'كل إجاباتك صحيحة. يصل هذا الاختبار إلى المستوى B2، وستتكيّف دروسك معك مع الوقت.';
+
+  @override
+  String get placementNotAnswered => 'بلا إجابة';
+
+  @override
+  String get placementUnavailable => 'لا يوجد بعد اختبار مستوى للغة التي تتعلّمها. يمكنك تحديد مستواك بنفسك من ملفك الشخصي.';
+
+  @override
+  String get placementPreparing => 'جارٍ تجهيز اختبارك…';
+
+  @override
   String get packNotGraded => 'تم الحفظ — تعذّر تقييمه الآن.';
 
   @override

@@ -7639,6 +7639,29 @@ class AppLocalizationsTg extends AppLocalizations {
   String get placementStart => 'Ба омӯзиш шурӯъ кунед';
 
   @override
+  String placementScore(int correct, int total) {
+    return '$correct аз $total дуруст';
+  }
+
+  @override
+  String get placementReviewTitle => 'Ҷавобҳои шумо';
+
+  @override
+  String get placementFocusTitle => 'Минбаъд дар чӣ кор кунед';
+
+  @override
+  String get placementAllCorrect => 'Ҳамаи ҷавобҳо дуруст буданд. Ин санҷиш то сатҳи B2 аст ва дарсҳо бо гузашти вақт ба шумо мутобиқ мешаванд.';
+
+  @override
+  String get placementNotAnswered => 'Бе ҷавоб';
+
+  @override
+  String get placementUnavailable => 'Барои забоне, ки шумо меомӯзед, ҳоло санҷиши сатҳ нест. Шумо метавонед сатҳи худро дар профил муайян кунед.';
+
+  @override
+  String get placementPreparing => 'Санҷиши шумо омода мешавад…';
+
+  @override
   String get packNotGraded => 'Сабт шуд — ҳоло баҳо дода натавонистем.';
 
   @override

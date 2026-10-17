@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/learning/daily_pack_model.dart';
 import 'package:bananatalk_app/pages/learning/daily/placement/placement_screen.dart';
+import 'package:bananatalk_app/services/learning_service.dart';
 
 final _questions = List.generate(
   8,
@@ -144,5 +145,100 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.byKey(const Key('placement-error')), findsOneWidget);
     expect(find.byType(BackButton), findsOneWidget);
+  });
+
+  Map<String, dynamic> reviewed() => {
+        'level': 'A2',
+        'book': 'elementary',
+        'correct': 6,
+        'total': 8,
+        'review': List.generate(8, (i) {
+          final wrong = i == 3 || i == 7;
+          return {
+            'prompt': 'Question $i',
+            'options': ['a', 'b', 'c'],
+            'given': i == 7 ? null : (wrong ? 2 : 1),
+            'answerIndex': 1,
+            'correct': !wrong,
+            'topic': 'Topic $i',
+            'explanation': 'Because $i',
+          };
+        }),
+        'focus': {
+          'level': 'A2',
+          'topics': ['Topic 3', 'Topic 7'],
+        },
+      };
+
+  Future<void> finishAll(WidgetTester tester) async {
+    for (var i = 0; i < 8; i++) {
+      await tester.tap(find.byKey(Key('check-q$i-opt1')));
+      await tester.pumpAndSettle();
+    }
+  }
+
+  testWidgets('the result shows the score, what to work on and each answer',
+      (tester) async {
+    await tester.pumpWidget(_host(submit: (_) async => reviewed()));
+    await tester.pumpAndSettle();
+    await finishAll(tester);
+
+    expect(find.byKey(const Key('placement-level')), findsOneWidget);
+    expect(find.text('6 of 8 correct'), findsOneWidget);
+    expect(find.text('What to work on next'), findsOneWidget);
+    expect(find.text('Topic 3'), findsOneWidget);
+
+    final review3 = find.byKey(const Key('placement-review-3'));
+    await tester.scrollUntilVisible(review3, 200);
+    expect(find.descendant(of: review3, matching: find.textContaining('Incorrect')),
+        findsOneWidget);
+    expect(find.descendant(of: review3, matching: find.text('Because 3')), findsOneWidget);
+    expect(find.descendant(of: review3, matching: find.byIcon(Icons.cancel)), findsWidgets);
+    // A right answer shows no explanation.
+    expect(find.text('Because 0'), findsNothing);
+
+    final review7 = find.byKey(const Key('placement-review-7'));
+    await tester.scrollUntilVisible(review7, 200);
+    expect(find.descendant(of: review7, matching: find.textContaining('Not answered')),
+        findsOneWidget);
+  });
+
+  testWidgets('all right says so instead of listing topics', (tester) async {
+    final all = reviewed()
+      ..['correct'] = 8
+      ..['focus'] = {'level': null, 'topics': <String>[]};
+    await tester.pumpWidget(_host(submit: (_) async => all));
+    await tester.pumpAndSettle();
+    await finishAll(tester);
+    expect(find.textContaining('Every answer was right'), findsOneWidget);
+  });
+
+  testWidgets('a skip (no review) shows only the level and the start button',
+      (tester) async {
+    await tester.pumpWidget(_host(submit: (_) async =>
+        {'level': 'A2', 'book': 'elementary', 'correct': 0, 'total': 8, 'review': [], 'focus': null}));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('placement-skip')));
+    await tester.pumpAndSettle();
+    expect(find.byKey(const Key('placement-level')), findsOneWidget);
+    expect(find.byKey(const Key('placement-score')), findsNothing);
+    expect(find.byKey(const Key('placement-focus')), findsNothing);
+    expect(find.byKey(const Key('placement-start')), findsOneWidget);
+  });
+
+  testWidgets('a language with no level test says so, with no retry', (tester) async {
+    await tester.pumpWidget(
+        _host(load: () async => throw const PlacementUnavailableException()));
+    await tester.pumpAndSettle();
+    expect(find.byKey(const Key('placement-unavailable')), findsOneWidget);
+    expect(find.textContaining('no level test'), findsOneWidget);
+    expect(find.byKey(const Key('placement-error')), findsNothing);
+  });
+
+  test('placementLocaleTag sends zh_TW for Traditional Chinese, else the language code', () {
+    expect(placementLocaleTag(const Locale('ko')), 'ko');
+    expect(placementLocaleTag(const Locale('zh', 'TW')), 'zh_TW');
+    expect(placementLocaleTag(const Locale('zh')), 'zh');
+    expect(placementLocaleTag(const Locale('pt', 'BR')), 'pt');
   });
 }

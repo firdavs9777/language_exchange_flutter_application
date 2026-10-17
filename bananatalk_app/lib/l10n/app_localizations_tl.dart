@@ -7633,6 +7633,29 @@ class AppLocalizationsTl extends AppLocalizations {
   String get placementStart => 'Simulan ang pag-aaral';
 
   @override
+  String placementScore(int correct, int total) {
+    return '$correct sa $total ang tama';
+  }
+
+  @override
+  String get placementReviewTitle => 'Mga sagot mo';
+
+  @override
+  String get placementFocusTitle => 'Ano ang susunod na pag-aaralan';
+
+  @override
+  String get placementAllCorrect => 'Tama lahat ng sagot mo. Hanggang B2 ang test na ito, at mag-a-adjust ang mga aralin mo habang tumatagal.';
+
+  @override
+  String get placementNotAnswered => 'Walang sagot';
+
+  @override
+  String get placementUnavailable => 'Wala pang level test para sa wikang pinag-aaralan mo. Puwede mong itakda ang level mo sa iyong profile.';
+
+  @override
+  String get placementPreparing => 'Inihahanda ang test mo…';
+
+  @override
   String get packNotGraded => 'Na-save — hindi namin ito nasuri ngayon.';
 
   @override

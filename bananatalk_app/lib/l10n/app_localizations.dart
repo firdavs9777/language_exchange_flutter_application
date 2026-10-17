@@ -14180,6 +14180,48 @@ abstract class AppLocalizations {
   /// **'Start learning'**
   String get placementStart;
 
+  /// Placement result: how many of the questions were answered correctly
+  ///
+  /// In en, this message translates to:
+  /// **'{correct} of {total} correct'**
+  String placementScore(int correct, int total);
+
+  /// Heading above the per-question review on the placement result
+  ///
+  /// In en, this message translates to:
+  /// **'Your answers'**
+  String get placementReviewTitle;
+
+  /// Heading of the recommendation card listing grammar topics the learner missed
+  ///
+  /// In en, this message translates to:
+  /// **'What to work on next'**
+  String get placementFocusTitle;
+
+  /// Recommendation when every placement answer was right; B2 is the highest level the test checks
+  ///
+  /// In en, this message translates to:
+  /// **'Every answer was right. This test goes up to B2, and your lessons will adjust as you go.'**
+  String get placementAllCorrect;
+
+  /// Review label for a placement question the learner skipped
+  ///
+  /// In en, this message translates to:
+  /// **'Not answered'**
+  String get placementNotAnswered;
+
+  /// Shown when the server has no checked level test for the learner's target language; the level can be set by hand in the profile
+  ///
+  /// In en, this message translates to:
+  /// **'There\'s no level test for the language you\'re learning yet. You can set your level yourself in your profile.'**
+  String get placementUnavailable;
+
+  /// Under the spinner while the placement test loads; the first learner of a language waits while the test is written
+  ///
+  /// In en, this message translates to:
+  /// **'Preparing your test…'**
+  String get placementPreparing;
+
   /// Shown when a translation was stored but the grader was unavailable
   ///
   /// In en, this message translates to:

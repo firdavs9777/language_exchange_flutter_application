@@ -89,7 +89,7 @@ class LanguageFlags {
     'ur': '🇵🇰', // Urdu
     'fa': '🇮🇷', // Persian/Farsi
     'ps': '🇦🇫', // Pashto
-    'ku': '🇮🇶', // Kurdish
+    'ku': '🌐', // Kurdish (spoken across several countries; no flag of its own)
     'gu': '🇮🇳', // Gujarati
     'kn': '🇮🇳', // Kannada
     'ml': '🇮🇳', // Malayalam
@@ -114,9 +114,9 @@ class LanguageFlags {
     'sq': '🇦🇱', // Albanian
     'be': '🇧🇾', // Belarusian
     'bs': '🇧🇦', // Bosnian
-    'ca': '🇪🇸', // Catalan
+    'ca': '🌐', // Catalan (no emoji flag of its own; 🇪🇸 misread as Spanish)
     'et': '🇪🇪', // Estonian
-    'gl': '🇪🇸', // Galician
+    'gl': '🌐', // Galician (no emoji flag of its own)
     'is': '🇮🇸', // Icelandic
     'ga': '🇮🇪', // Irish
     'lv': '🇱🇻', // Latvian
@@ -124,10 +124,10 @@ class LanguageFlags {
     'lb': '🇱🇺', // Luxembourgish
     'mk': '🇲🇰', // Macedonian
     'mt': '🇲🇹', // Maltese
-    'eu': '🇪🇸', // Basque
-    'cy': '🇬🇧', // Welsh
-    'gd': '🇬🇧', // Scottish Gaelic
-    'br': '🇫🇷', // Breton
+    'eu': '🌐', // Basque (no emoji flag of its own)
+    'cy': '🌐', // Welsh (subdivision flags render as 🏴 on Android)
+    'gd': '🌐', // Scottish Gaelic (subdivision flags render as 🏴 on Android)
+    'br': '🌐', // Breton (no emoji flag of its own)
     'co': '🇫🇷', // Corsican
     'fy': '🇳🇱', // Western Frisian
     'fo': '🇫🇴', // Faroese
@@ -165,8 +165,8 @@ class LanguageFlags {
     'ht': '🇭🇹', // Haitian Creole
     
     // Other Languages
-    'eo': '🌍', // Esperanto (global)
-    'la': '🇻🇦', // Latin
+    'eo': '🌐', // Esperanto (global)
+    'la': '🌐', // Latin (no country)
     'sa': '🇮🇳', // Sanskrit
     'jv': '🇮🇩', // Javanese
     'su': '🇮🇩', // Sundanese

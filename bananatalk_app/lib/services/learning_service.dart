@@ -1512,26 +1512,31 @@ class LearningService {
     throw Exception(_getErrorMessage(data, 'Failed to submit this station'));
   }
 
-  /// The placement questions. No answer key is ever sent to the client.
-  static Future<List<PackCheck>> getPlacement() async {
+  /// The placement questions, in the learner's target language. No answer
+  /// key is ever sent to the client. [locale] (an app locale such as `ko` or
+  /// `zh_TW`) picks the language of the topics and explanations; GET and POST
+  /// must send the same one so the answers are scored against the same set.
+  /// The first request for a language can take ~20 s while the server writes
+  /// and checks the test.
+  static Future<List<PackCheck>> getPlacement({String? locale}) async {
     final token = await _getToken();
-    final url = Uri.parse('${Endpoints.baseURL}${Endpoints.placementURL}');
-    final response = await http.get(url, headers: _getHeaders(token));
+    final response = await http.get(_placementUrl(locale), headers: _getHeaders(token));
     final data = _safeJsonDecode(response.body);
     if (response.statusCode == 200 && data != null && data['data'] != null) {
       return ((data['data'] as Map<String, dynamic>)['questions'] as List? ?? const [])
           .map((e) => PackCheck.fromJson(e as Map<String, dynamic>))
           .toList();
     }
+    _throwIfPlacementUnavailable(data);
     throw Exception(_getErrorMessage(data, 'Failed to load the placement test'));
   }
 
   /// Submit placement answers; the server sets the caller's level.
-  static Future<Map<String, dynamic>> submitPlacement(List<int> answers) async {
+  static Future<Map<String, dynamic>> submitPlacement(List<int> answers,
+      {String? locale}) async {
     final token = await _getToken();
-    final url = Uri.parse('${Endpoints.baseURL}${Endpoints.placementURL}');
     final response = await http.post(
-      url,
+      _placementUrl(locale),
       headers: _getHeaders(token),
       body: jsonEncode({'answers': answers}),
     );
@@ -1539,7 +1544,21 @@ class LearningService {
     if (response.statusCode == 200 && data != null && data['data'] != null) {
       return data['data'] as Map<String, dynamic>;
     }
+    _throwIfPlacementUnavailable(data);
     throw Exception(_getErrorMessage(data, 'Failed to save your level'));
+  }
+
+  static Uri _placementUrl(String? locale) {
+    final url = Uri.parse('${Endpoints.baseURL}${Endpoints.placementURL}');
+    return (locale == null || locale.isEmpty)
+        ? url
+        : url.replace(queryParameters: {'locale': locale});
+  }
+
+  static void _throwIfPlacementUnavailable(Map<String, dynamic>? data) {
+    if (data != null && data['code'] == 'PLACEMENT_UNAVAILABLE') {
+      throw const PlacementUnavailableException();
+    }
   }
 
   /// The learner's week in the daily pack.
@@ -1585,4 +1604,10 @@ class LearningService {
       throw Exception('Failed to save learning language');
     }
   }
+}
+
+/// The server has no checked level test for the learner's target language
+/// (the AI could not write one it trusted). Retrying will not help for days.
+class PlacementUnavailableException implements Exception {
+  const PlacementUnavailableException();
 }

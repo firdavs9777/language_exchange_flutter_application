@@ -7625,6 +7625,29 @@ class AppLocalizationsJa extends AppLocalizations {
   String get placementStart => '学習を始める';
 
   @override
+  String placementScore(int correct, int total) {
+    return '$total問中$correct問正解';
+  }
+
+  @override
+  String get placementReviewTitle => 'あなたの回答';
+
+  @override
+  String get placementFocusTitle => '次に取り組むこと';
+
+  @override
+  String get placementAllCorrect => 'すべて正解でした。このテストはB2までなので、レッスンは進めながら調整されます。';
+
+  @override
+  String get placementNotAnswered => '未回答';
+
+  @override
+  String get placementUnavailable => '学習中の言語にはまだレベルテストがありません。プロフィールで自分のレベルを設定できます。';
+
+  @override
+  String get placementPreparing => 'テストを準備しています…';
+
+  @override
   String get packNotGraded => '保存しました。今は採点できませんでした。';
 
   @override

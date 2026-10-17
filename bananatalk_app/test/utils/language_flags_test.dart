@@ -5,7 +5,8 @@ import 'package:bananatalk_app/utils/language_flags.dart';
 /// (127 entries, verified against prod 2026-07-15 + seeds/languages.js).
 /// Every one of these is a name a user can pick as native_language /
 /// language_to_learn — and every one MUST render a flag on profile and
-/// community surfaces (getFlagByName), never the 🌐 fallback.
+/// community surfaces (getFlagByName), never the 🌐 fallback — except the
+/// languages in [kGlobeByChoice].
 const List<String> kAllBackendLanguageNames = [
   'English', 'Korean', 'Tagalog', 'Filipino', 'Arabic', 'Japanese',
   'Vietnamese', 'Thai', 'Indonesian', 'Malay', 'Burmese',
@@ -36,11 +37,20 @@ const List<String> kAllBackendLanguageNames = [
   'Arabic (Moroccan Darija)',
 ];
 
+/// Languages with no emoji flag of their own. Showing a state flag (🇪🇸 for
+/// Basque, 🇬🇧 for Welsh) reads as "speaks Spanish / English", so they show
+/// the globe on purpose (owner decision, 2026-10-17).
+const Set<String> kGlobeByChoice = {
+  'Basque', 'Catalan', 'Galician', 'Latin', 'Welsh', 'Scottish Gaelic',
+  'Breton', 'Kurdish', 'Esperanto',
+};
+
 void main() {
   group('LanguageFlags — international completeness', () {
     test('every backend language name resolves to a flag (never 🌐)', () {
       final missing = <String>[];
       for (final name in kAllBackendLanguageNames) {
+        if (kGlobeByChoice.contains(name)) continue;
         if (LanguageFlags.getFlagByName(name) == '🌐') {
           missing.add(name);
         }
@@ -81,6 +91,15 @@ void main() {
       expect(LanguageFlags.getFlagByName('English'), '🇬🇧');
       expect(LanguageFlags.getFlagByName('Spanish'), '🇪🇸');
       expect(LanguageFlags.getFlagByName('Chinese'), '🇨🇳');
+    });
+
+    test('languages with no flag of their own show the globe, not a state flag', () {
+      // A Basque speaker shown 🇪🇸 reads as "speaks Spanish".
+      for (final name in kGlobeByChoice) {
+        expect(LanguageFlags.getFlagByName(name), '🌐', reason: name);
+      }
+      expect(LanguageFlags.getFlag('eu'), '🌐');
+      expect(LanguageFlags.getFlag('la'), '🌐');
     });
 
     test('sign languages render the sign-language hand, not a country flag', () {

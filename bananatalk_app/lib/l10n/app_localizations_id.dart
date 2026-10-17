@@ -7632,6 +7632,29 @@ class AppLocalizationsId extends AppLocalizations {
   String get placementStart => 'Mulai belajar';
 
   @override
+  String placementScore(int correct, int total) {
+    return '$correct dari $total benar';
+  }
+
+  @override
+  String get placementReviewTitle => 'Jawaban kamu';
+
+  @override
+  String get placementFocusTitle => 'Yang perlu dilatih berikutnya';
+
+  @override
+  String get placementAllCorrect => 'Semua jawaban benar. Tes ini sampai level B2, dan pelajaranmu akan menyesuaikan seiring waktu.';
+
+  @override
+  String get placementNotAnswered => 'Tidak dijawab';
+
+  @override
+  String get placementUnavailable => 'Belum ada tes level untuk bahasa yang kamu pelajari. Kamu bisa mengatur levelmu sendiri di profil.';
+
+  @override
+  String get placementPreparing => 'Menyiapkan tesmu…';
+
+  @override
   String get packNotGraded => 'Tersimpan — belum bisa dinilai sekarang.';
 
   @override

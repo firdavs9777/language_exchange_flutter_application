@@ -7625,6 +7625,29 @@ class AppLocalizationsZh extends AppLocalizations {
   String get placementStart => '开始学习';
 
   @override
+  String placementScore(int correct, int total) {
+    return '$total 题答对 $correct 题';
+  }
+
+  @override
+  String get placementReviewTitle => '你的答案';
+
+  @override
+  String get placementFocusTitle => '接下来练习什么';
+
+  @override
+  String get placementAllCorrect => '全部答对了。本测试最高到 B2，课程会随着你的学习不断调整。';
+
+  @override
+  String get placementNotAnswered => '未作答';
+
+  @override
+  String get placementUnavailable => '你正在学习的语言还没有水平测试。你可以在个人资料中自行设置水平。';
+
+  @override
+  String get placementPreparing => '正在准备你的测试…';
+
+  @override
   String get packNotGraded => '已保存——暂时无法批改。';
 
   @override
@@ -19925,6 +19948,29 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get placementStart => '開始學習';
+
+  @override
+  String placementScore(int correct, int total) {
+    return '$total 題答對 $correct 題';
+  }
+
+  @override
+  String get placementReviewTitle => '你的答案';
+
+  @override
+  String get placementFocusTitle => '接下來練習什麼';
+
+  @override
+  String get placementAllCorrect => '全部答對了。本測驗最高到 B2，課程會隨著你的學習不斷調整。';
+
+  @override
+  String get placementNotAnswered => '未作答';
+
+  @override
+  String get placementUnavailable => '你正在學習的語言還沒有程度測驗。你可以在個人檔案中自行設定程度。';
+
+  @override
+  String get placementPreparing => '正在準備你的測驗…';
 
   @override
   String get packNotGraded => '已儲存——暫時無法批改。';
