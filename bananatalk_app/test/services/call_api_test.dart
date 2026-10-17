@@ -153,4 +153,32 @@ void main() {
     expect((await upgrade(404, {'success': false, 'error': 'Call not found'})).ok, isFalse);
     expect((await upgrade(403, {'success': false, 'error': 'Not authorized to change this call'})).ok, isFalse);
   });
+
+  test('current: signed out answers "no call" without asking the server', () async {
+    SharedPreferences.setMockInitialValues({});
+    ApiClient().clearTokenCache();
+    var requests = 0;
+    final result = await http.runWithClient(
+      () => RestCallApi().current(),
+      () => MockClient((req) async {
+        requests++;
+        return http.Response('{}', 401);
+      }),
+    );
+    expect(requests, 0, reason: 'a fresh install used to get a 401 on every cold start');
+    expect(result.ok, isTrue);
+    expect(result.data['call'], isNull);
+  });
+
+  test('current: signed in still asks the server', () async {
+    final seen = <http.Request>[];
+    await http.runWithClient(
+      () => RestCallApi().current(),
+      () => MockClient((req) async {
+        seen.add(req);
+        return http.Response(jsonEncode({'success': true, 'data': {'call': null}}), 200);
+      }),
+    );
+    expect(seen.single.url.toString(), 'http://api.test/api/v1/calls/current');
+  });
 }

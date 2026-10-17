@@ -212,19 +212,33 @@ void main() {
       expect(find.byType(CircularProgressIndicator), findsNothing);
     });
 
-    testWidgets('nothing remembered (first launch): legacy at once, and a '
-        'later "on" applies from the next launch, not mid-session', (t) async {
+    testWidgets('nothing remembered (first launch): waits for the server, '
+        'then shows the hub when it is on', (t) async {
       final c = Completer<AppConfig?>();
       await pump(t, true, config: () => c.future, noCache: true);
+      // A brief spinner, not the legacy page every new user used to get.
+      expect(find.byType(LegacyStudyHub), findsNothing);
+      expect(find.byType(StudyHub), findsNothing);
+      c.complete(cfg(true));
+      await t.pump();
+      await t.pump();
+      expect(find.byType(StudyHub), findsOneWidget);
+      expect(StudyHubFlagCache.lastKnown, isTrue);
+      final prefs = await SharedPreferences.getInstance();
+      expect(prefs.getBool(StudyHubFlagCache.prefsKey), isTrue);
+    });
+
+    testWidgets('nothing remembered and the server is slow: legacy after the '
+        'wait, and it stays for this launch', (t) async {
+      final c = Completer<AppConfig?>();
+      await pump(t, true, config: () => c.future, noCache: true);
+      await t.pump(LearningMain.firstLaunchWaitForTests);
       expect(find.byType(LegacyStudyHub), findsOneWidget);
       c.complete(cfg(true));
       await t.pump();
       await t.pump();
       expect(find.byType(LegacyStudyHub), findsOneWidget);
-      expect(find.byType(StudyHub), findsNothing);
       expect(StudyHubFlagCache.lastKnown, isTrue);
-      final prefs = await SharedPreferences.getInstance();
-      expect(prefs.getBool(StudyHubFlagCache.prefsKey), isTrue);
     });
 
     testWidgets('remembered on but the server turned it off: the hub stays '

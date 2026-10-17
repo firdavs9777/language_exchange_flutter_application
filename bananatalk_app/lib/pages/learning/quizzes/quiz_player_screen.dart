@@ -42,13 +42,16 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
     final quizAsync = ref.watch(quizDetailProvider(widget.quizId));
     final playerState = ref.watch(quizPlayerProvider);
 
-    return WillPopScope(
-      onWillPop: () async {
+    // PopScope, not WillPopScope: the old one does not see Android's
+    // predictive back gesture, so a swipe could leave mid-way unasked.
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, _) async {
+        if (didPop) return;
         final shouldExit = await _showExitDialog();
-        if (shouldExit) {
-          ref.read(quizPlayerProvider.notifier).reset();
-        }
-        return shouldExit;
+        if (!shouldExit || !context.mounted) return;
+        ref.read(quizPlayerProvider.notifier).reset();
+        Navigator.of(context).pop();
       },
       child: Scaffold(
         backgroundColor: context.scaffoldBackground,

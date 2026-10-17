@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/pages/learning/main/legacy_study_hub.dart';
@@ -16,6 +18,11 @@ import 'package:bananatalk_app/services/study_hub_flag_cache.dart';
 class LearningMain extends ConsumerStatefulWidget {
   const LearningMain({super.key});
 
+  /// How long a fresh install waits for the server before showing the
+  /// legacy page.
+  @visibleForTesting
+  static const Duration firstLaunchWaitForTests = _LearningMainState.firstLaunchWait;
+
   @override
   ConsumerState<LearningMain> createState() => _LearningMainState();
 }
@@ -28,24 +35,52 @@ class _LearningMainState extends ConsumerState<LearningMain> {
   // client-side only; unseen achievements will re-fire on the next cold start.
   final Set<String> _seenAchievementIds = {};
 
-  /// Which page this mount shows, decided once in [initState] and never
-  /// changed, so the page cannot swap under the user (see
-  /// [StudyHubFlagCache]).
-  late final bool _showHub;
+  /// Which page this mount shows. Decided once and never changed, so the
+  /// page cannot swap under the user (see [StudyHubFlagCache]): from the
+  /// loaded config, else the value remembered from the last launch.
+  ///
+  /// With neither (a fresh install), it waits for the server's answer, up to
+  /// [firstLaunchWait], behind a spinner. It used to pick the legacy page at
+  /// once, so every new user's first session showed the old AI Study page
+  /// even with the hub switched on.
+  bool? _showHub;
+  Timer? _firstLaunchTimeout;
+
+  static const Duration firstLaunchWait = Duration(seconds: 4);
+
+  void _decide(bool showHub) {
+    _firstLaunchTimeout?.cancel();
+    if (!mounted || _showHub != null) return;
+    setState(() => _showHub = showHub);
+  }
 
   @override
   void initState() {
     super.initState();
     final config = ref.read(appConfigProvider);
-    _showHub = config.hasValue
-        ? (config.value?.studyHubEnabled ?? false)
-        : (StudyHubFlagCache.lastKnown ?? false);
+    if (config.hasValue) {
+      _showHub = config.value?.studyHubEnabled ?? false;
+    } else if (StudyHubFlagCache.lastKnown != null) {
+      _showHub = StudyHubFlagCache.lastKnown;
+    } else {
+      _firstLaunchTimeout = Timer(firstLaunchWait, () => _decide(false));
+    }
     // Remember the server's answer for the next launch -- including a value
     // that was already loaded before this page mounted (e.g. after re-login).
     ref.listenManual(appConfigProvider, (previous, next) {
       final value = next.valueOrNull;
       if (value != null) StudyHubFlagCache.remember(value.studyHubEnabled);
+      if (_showHub == null) {
+        if (next.hasValue) _decide(value?.studyHubEnabled ?? false);
+        if (next.hasError) _decide(false);
+      }
     }, fireImmediately: true);
+  }
+
+  @override
+  void dispose() {
+    _firstLaunchTimeout?.cancel();
+    super.dispose();
   }
 
   @override
@@ -103,6 +138,10 @@ class _LearningMainState extends ConsumerState<LearningMain> {
       });
     });
 
-    return _showHub ? const StudyHub() : const LegacyStudyHub();
+    final showHub = _showHub;
+    if (showHub == null) {
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    }
+    return showHub ? const StudyHub() : const LegacyStudyHub();
   }
 }

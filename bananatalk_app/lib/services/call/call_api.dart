@@ -1,6 +1,7 @@
 import 'package:bananatalk_app/models/call_model.dart';
 import 'package:bananatalk_app/services/api_client.dart';
 import 'package:bananatalk_app/utils/utf16_length.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// The backend cap on a decline message, in UTF-16 code units (it checks
 /// JS `.length` after trimming).
@@ -50,9 +51,21 @@ abstract class CallApi {
 }
 
 class RestCallApi implements CallApi {
-  RestCallApi([ApiClient? client]) : _client = client ?? ApiClient();
+  RestCallApi([ApiClient? client, Future<bool> Function()? signedIn])
+      : _client = client ?? ApiClient(),
+        _signedIn = signedIn ?? _hasStoredToken;
 
   final ApiClient _client;
+  final Future<bool> Function() _signedIn;
+
+  static Future<bool> _hasStoredToken() async {
+    try {
+      final token = (await SharedPreferences.getInstance()).getString('token');
+      return token != null && token.isNotEmpty;
+    } catch (_) {
+      return true; // unknown: ask the server as before
+    }
+  }
 
   Map<String, dynamic> _device(String? deviceId) =>
       {if (deviceId != null && deviceId.isNotEmpty) 'deviceId': deviceId};
@@ -85,9 +98,15 @@ class RestCallApi implements CallApi {
   Future<CallApiResult> end(String callId) async =>
       CallApiResult.fromResponse(await _client.post('calls/$callId/end'));
 
+  /// Signed out (fresh install, logged out): nothing can be live, and asking
+  /// only earned a 401 on every cold start. Answers "no call" locally.
   @override
-  Future<CallApiResult> current() async =>
-      CallApiResult.fromResponse(await _client.get('calls/current'));
+  Future<CallApiResult> current() async {
+    if (!await _signedIn()) {
+      return const CallApiResult(ok: true, statusCode: 200, data: {'call': null});
+    }
+    return CallApiResult.fromResponse(await _client.get('calls/current'));
+  }
 
   @override
   Future<CallApiResult> get(String callId) async =>

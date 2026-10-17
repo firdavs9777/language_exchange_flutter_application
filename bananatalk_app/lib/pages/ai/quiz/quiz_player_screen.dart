@@ -335,8 +335,12 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
       );
     }
 
-    return WillPopScope(
-      onWillPop: () async {
+    // PopScope, not WillPopScope: the old one does not see Android's
+    // predictive back gesture, so a swipe could leave mid-quiz unasked.
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, _) async {
+        if (didPop) return;
         final confirmed = await showDialog<bool>(
           context: context,
           builder: (context) => AlertDialog(
@@ -355,10 +359,9 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
             ],
           ),
         );
-        if (confirmed == true) {
-          ref.read(aiQuizProvider.notifier).reset();
-        }
-        return confirmed ?? false;
+        if (confirmed != true || !context.mounted) return;
+        ref.read(aiQuizProvider.notifier).reset();
+        Navigator.of(context).pop();
       },
       child: Scaffold(
         backgroundColor: context.scaffoldBackground,

@@ -186,13 +186,16 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
     final lessonAsync = ref.watch(lessonDetailProvider(widget.lessonId));
     final playerState = ref.watch(lessonPlayerProvider);
 
-    return WillPopScope(
-      onWillPop: () async {
+    // PopScope, not WillPopScope: the old one does not see Android's
+    // predictive back gesture, so a swipe could leave mid-way unasked.
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, _) async {
+        if (didPop) return;
         final shouldExit = await _showExitDialog();
-        if (shouldExit) {
-          ref.read(lessonPlayerProvider.notifier).reset();
-        }
-        return shouldExit;
+        if (!shouldExit || !context.mounted) return;
+        ref.read(lessonPlayerProvider.notifier).reset();
+        Navigator.of(context).pop();
       },
       child: Scaffold(
         backgroundColor: context.scaffoldBackground,
