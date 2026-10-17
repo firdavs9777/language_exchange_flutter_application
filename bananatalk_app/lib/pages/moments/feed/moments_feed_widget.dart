@@ -55,7 +55,9 @@ List<Object> _buildFeedItems(List<Moments> moments) {
 /// state's "Go to Community" action).
 class MomentsFeedWidget extends ConsumerWidget {
   final AsyncValue<List<Moments>> momentsAsync;
-  final ScrollController scrollController;
+  /// Null inside a NestedScrollView, whose inner list must use the scroll
+  /// controller the NestedScrollView provides.
+  final ScrollController? scrollController;
   final bool isSearching;
   final VoidCallback onRefresh;
 
@@ -71,7 +73,7 @@ class MomentsFeedWidget extends ConsumerWidget {
   const MomentsFeedWidget({
     super.key,
     required this.momentsAsync,
-    required this.scrollController,
+    this.scrollController,
     required this.isSearching,
     required this.onRefresh,
     required this.activeTab,

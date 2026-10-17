@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:bananatalk_app/pages/moments/filter/moment_filter_model.dart';
 import 'package:bananatalk_app/pages/moments/filter/filter_chips.dart';
-import 'package:bananatalk_app/pages/moments/filter/filter_sort_section.dart';
+import 'package:bananatalk_app/pages/moments/filter/filter_time_section.dart';
 import 'package:bananatalk_app/pages/moments/filter/filter_language_section.dart';
 import 'package:bananatalk_app/pages/moments/filter/filter_category_section.dart';
 import 'package:bananatalk_app/pages/moments/filter/filter_mood_section.dart';
@@ -98,9 +98,9 @@ class _MomentFilterSheetState extends State<MomentFilterSheet>
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        const Icon(Icons.sort, size: 16),
+                        const Icon(Icons.calendar_today, size: 16),
                         const SizedBox(width: 4),
-                        Text(AppLocalizations.of(context)!.sort),
+                        Text(AppLocalizations.of(context)!.timePeriod),
                       ],
                     ),
                   ),
@@ -154,7 +154,7 @@ class _MomentFilterSheetState extends State<MomentFilterSheet>
               child: TabBarView(
                 controller: _tabController,
                 children: [
-                  FilterSortSection(
+                  FilterTimeSection(
                     tempFilter: _tempFilter,
                     onChanged: (f) => setState(() => _tempFilter = f),
                   ),
