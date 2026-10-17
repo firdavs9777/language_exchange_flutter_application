@@ -705,6 +705,42 @@ class AppTheme {
       ),
       margin: EdgeInsets.zero,
     ),
+    // The dark theme had no button themes, so an ElevatedButton that only set
+    // backgroundColor (common across the app) fell back to Material 3's
+    // default foreground -- colorScheme.primary -- and drew teal text on a
+    // teal button. Same styles as the light theme; disabled colors for dark.
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        elevation: 0,
+        backgroundColor: AppColors.primary,
+        foregroundColor: AppColors.white,
+        disabledBackgroundColor: AppColors.gray800,
+        disabledForegroundColor: AppColors.gray500,
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+        shape: RoundedRectangleBorder(
+          borderRadius: AppRadius.borderMD,
+        ),
+        textStyle: AppTypography.buttonMedium,
+      ),
+    ),
+    outlinedButtonTheme: OutlinedButtonThemeData(
+      style: OutlinedButton.styleFrom(
+        foregroundColor: AppColors.primary,
+        side: const BorderSide(color: AppColors.primary, width: 1.5),
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+        shape: RoundedRectangleBorder(
+          borderRadius: AppRadius.borderMD,
+        ),
+        textStyle: AppTypography.buttonMedium,
+      ),
+    ),
+    textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(
+        foregroundColor: AppColors.primary,
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        textStyle: AppTypography.buttonMedium,
+      ),
+    ),
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: AppColors.gray800,

@@ -1,5 +1,6 @@
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/models/learning/vocabulary_model.dart';
 
 /// Vocabulary card widget for displaying a vocabulary item
@@ -48,9 +49,10 @@ class VocabularyCard extends StatelessWidget {
                       children: [
                         Text(
                           item.word,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
+                            color: context.textPrimary,
                           ),
                         ),
                         if (item.pronunciation != null) ...[
@@ -59,7 +61,7 @@ class VocabularyCard extends StatelessWidget {
                             item.pronunciation!,
                             style: TextStyle(
                               fontSize: 13,
-                              color: Colors.grey[500],
+                              color: context.textMuted,
                               fontStyle: FontStyle.italic,
                             ),
                           ),
@@ -69,7 +71,7 @@ class VocabularyCard extends StatelessWidget {
                           item.translation,
                           style: TextStyle(
                             fontSize: 15,
-                            color: Colors.grey[700],
+                            color: context.textSecondary,
                           ),
                         ),
                       ],
@@ -97,7 +99,7 @@ class VocabularyCard extends StatelessWidget {
                                   child: Icon(
                                     Icons.edit_outlined,
                                     size: 18,
-                                    color: Colors.grey[500],
+                                    color: context.textMuted,
                                   ),
                                 ),
                               ),
@@ -128,7 +130,7 @@ class VocabularyCard extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color: Colors.grey[50],
+                    color: Theme.of(context).colorScheme.surfaceContainerHighest,
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Column(
@@ -136,9 +138,10 @@ class VocabularyCard extends StatelessWidget {
                     children: [
                       Text(
                         item.exampleSentence!,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 13,
                           fontStyle: FontStyle.italic,
+                          color: context.textPrimary,
                         ),
                       ),
                       if (item.exampleTranslation != null) ...[
@@ -147,7 +150,7 @@ class VocabularyCard extends StatelessWidget {
                           item.exampleTranslation!,
                           style: TextStyle(
                             fontSize: 12,
-                            color: Colors.grey[600],
+                            color: context.textSecondary,
                           ),
                         ),
                       ],
@@ -190,7 +193,7 @@ class VocabularyCard extends StatelessWidget {
                     Icon(
                       Icons.access_time,
                       size: 14,
-                      color: item.isDue ? Colors.orange : Colors.grey[400],
+                      color: item.isDue ? Colors.orange : context.textHint,
                     ),
                     const SizedBox(width: 4),
                     Text(
@@ -199,7 +202,7 @@ class VocabularyCard extends StatelessWidget {
                           : AppLocalizations.of(context)!.learnNextReview(_formatDate(context, item.nextReview!)),
                       style: TextStyle(
                         fontSize: 11,
-                        color: item.isDue ? Colors.orange : Colors.grey[500],
+                        color: item.isDue ? Colors.orange : context.textMuted,
                       ),
                     ),
                   ],
@@ -274,7 +277,7 @@ class VocabularyFlashcard extends StatelessWidget {
         transitionBuilder: (child, animation) {
           return FadeTransition(opacity: animation, child: child);
         },
-        child: isFlipped ? _buildBack() : _buildFront(context),
+        child: isFlipped ? _buildBack(context) : _buildFront(context),
       ),
     );
   }
@@ -285,7 +288,9 @@ class VocabularyFlashcard extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(32),
       decoration: BoxDecoration(
-        color: Colors.white,
+        // Was Colors.white: in dark mode the word (theme text = white) was
+        // white on white.
+        color: context.cardBackground,
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
@@ -300,9 +305,10 @@ class VocabularyFlashcard extends StatelessWidget {
         children: [
           Text(
             item.word,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 32,
               fontWeight: FontWeight.bold,
+              color: context.textPrimary,
             ),
             textAlign: TextAlign.center,
           ),
@@ -312,7 +318,7 @@ class VocabularyFlashcard extends StatelessWidget {
               item.pronunciation!,
               style: TextStyle(
                 fontSize: 16,
-                color: Colors.grey[500],
+                color: context.textMuted,
                 fontStyle: FontStyle.italic,
               ),
             ),
@@ -322,7 +328,7 @@ class VocabularyFlashcard extends StatelessWidget {
             AppLocalizations.of(context)!.learnTapReveal,
             style: TextStyle(
               fontSize: 14,
-              color: Colors.grey[400],
+              color: context.textHint,
             ),
           ),
         ],
@@ -330,7 +336,7 @@ class VocabularyFlashcard extends StatelessWidget {
     );
   }
 
-  Widget _buildBack() {
+  Widget _buildBack(BuildContext context) {
     return Container(
       key: const ValueKey('back'),
       width: double.infinity,
@@ -360,16 +366,17 @@ class VocabularyFlashcard extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: context.cardBackground,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Column(
                 children: [
                   Text(
                     item.exampleSentence!,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 14,
                       fontStyle: FontStyle.italic,
+                      color: context.textPrimary,
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -379,7 +386,7 @@ class VocabularyFlashcard extends StatelessWidget {
                       item.exampleTranslation!,
                       style: TextStyle(
                         fontSize: 13,
-                        color: Colors.grey[600],
+                        color: context.textSecondary,
                       ),
                       textAlign: TextAlign.center,
                     ),
