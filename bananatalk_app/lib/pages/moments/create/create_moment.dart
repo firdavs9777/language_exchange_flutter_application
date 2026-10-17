@@ -1,6 +1,8 @@
 import 'package:bananatalk_app/services/activation_store.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/pages/coins/boost_screen.dart';
+import 'package:bananatalk_app/widgets/boost/boost_entry.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
@@ -1539,11 +1541,26 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
           }
 
           if (mounted) {
-            Navigator.of(context).pop();
+            final l10n = AppLocalizations.of(context)!;
+            // The action runs after this screen is gone, so it uses the
+            // navigator underneath, captured now -- never this State.
+            final navigator = Navigator.of(context);
+            final offerBoost = boostsEnabledNow(ref);
+            navigator.pop();
             showMomentsSnackBar(
               context,
-              message: AppLocalizations.of(context)!.momentCreatedSuccessfully,
+              message: l10n.momentCreatedSuccessfully,
               type: MomentsSnackBarType.success,
+              duration: Duration(seconds: offerBoost ? 6 : 3),
+              action: offerBoost
+                  ? SnackBarAction(
+                      label: l10n.boostTitle,
+                      textColor: Colors.white,
+                      onPressed: () => navigator.push(
+                        AppPageRoute<void>(builder: (_) => const BoostScreen()),
+                      ),
+                    )
+                  : null,
             );
           }
         }

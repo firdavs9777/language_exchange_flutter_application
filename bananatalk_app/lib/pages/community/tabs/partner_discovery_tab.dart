@@ -3,6 +3,7 @@ import 'package:bananatalk_app/widgets/navigation/floating_tab_bar.dart';
 import 'dart:math' as math;
 import 'package:flutter/foundation.dart' show mapEquals;
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/widgets/boost/boost_entry.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -764,7 +765,12 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
           // visitors, so it scrolls away with the list and never pins the top.
           if (index == 0) {
             // Ad banner temporarily hidden — re-enable once AdMob issues resolved.
-            return const VisitorRecallCard();
+            // The Boost row scrolls away with the list too (nothing while
+            // boosts are off).
+            return const Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [BoostEntryRow(), VisitorRecallCard()],
+            );
           }
 
           final bodyIndex = index - 1;

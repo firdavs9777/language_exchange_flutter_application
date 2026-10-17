@@ -8,6 +8,7 @@ void showMomentsSnackBar(
   required String message,
   MomentsSnackBarType type = MomentsSnackBarType.info,
   Duration duration = const Duration(seconds: 3),
+  SnackBarAction? action,
 }) {
   final color = switch (type) {
     MomentsSnackBarType.success => AppColors.primary,
@@ -21,6 +22,7 @@ void showMomentsSnackBar(
       behavior: SnackBarBehavior.floating,
       shape: RoundedRectangleBorder(borderRadius: AppRadius.borderMD),
       duration: duration,
+      action: action,
     ),
   );
 }

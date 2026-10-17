@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:bananatalk_app/widgets/boost/boost_entry.dart';
 
 import 'package:bananatalk_app/pages/chat/message/chat_tip_row.dart';
 import 'package:bananatalk_app/pages/authentication/biometric/biometric_service.dart';
@@ -120,6 +121,8 @@ final Map<String, ProviderOrFamily> userScopedProviders = {
   // Coins
   'coinApiClientProvider': coinApiClientProvider,
   'coinBalanceProvider': coinBalanceProvider,
+  // The signed-in user's live Profile Boost (Partners / Moments entry rows).
+  'myActiveBoostProvider': myActiveBoostProvider,
   'coinUnlockCatalogProvider': coinUnlockCatalogProvider,
   'coinUnlockedFeaturesProvider': coinUnlockedFeaturesProvider,
   'dailyRewardStatusProvider': dailyRewardStatusProvider,

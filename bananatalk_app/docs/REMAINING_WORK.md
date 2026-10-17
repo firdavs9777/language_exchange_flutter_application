@@ -83,6 +83,8 @@ After release (production data):
 Boost everywhere (branch `feat/boost-everywhere`, 2026-10-17; backend same branch)
 - [x] Boost screen says a Boost also places you near the top of Partners and features your latest moment (`boostExplainMore`, 19 locales, CSV rows appended).
 - [x] Moment cards show a "Boosted" label (`moment-boosted`) when the server marks the booster's latest moment; Partners rows already showed `boosted`. Partners paging lists a booster placed on page 1 only once.
+- [x] Boost entry points beyond the profile drawer: a slim row at the top of the Partners list ("Boost my profile", or "Your boost is live · Xh left"; scrolls away; hidden while boosts are off), "Boost my profile" in the ••• menu of your own moments, and a Boost action on the "moment posted" snackbar. Existing strings only. `lib/widgets/boost/boost_entry.dart`.
+- [ ] The app reads app-config once per launch, so a switch flipped server-side (e.g. BOOSTS_ENABLED) shows only after a full restart. Re-read it on resume. S
 - [ ] Device check with a test account boosted: Partners page 1 shows them 3rd with "Boosted"; their latest moment in For You shows "Boosted"; Boost screen line reads well in ko/ru/ar. S
 - [ ] Native review of `boostExplainMore`. S
 

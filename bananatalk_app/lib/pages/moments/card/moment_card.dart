@@ -26,6 +26,7 @@ import 'package:bananatalk_app/widgets/block_user_action.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/widgets/boost/boost_entry.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -506,6 +507,20 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                   _shareMoment(context, widget.moments.id);
                 },
               ),
+              // Your own moment: a Boost features your latest moment in For
+              // You (and you in Partners).
+              if (isOwnMoment && boostsEnabledNow(ref))
+                ListTile(
+                  key: const Key('moment-menu-boost'),
+                  leading: const Icon(Icons.rocket_launch_rounded,
+                      color: Color(0xFFFFB300)),
+                  title: Text(AppLocalizations.of(context)!.boostTitle),
+                  subtitle: Text(AppLocalizations.of(context)!.boostSubtitle),
+                  onTap: () {
+                    Navigator.pop(context);
+                    openBoostScreen(this.context, ref);
+                  },
+                ),
               if (!isOwnMoment)
                 ListTile(
                   leading: const Icon(Icons.visibility_off_outlined),
