@@ -124,6 +124,9 @@ class TutorService {
   Future<TutorSession> startSession() async {
     final res = await _api.post('tutor/sessions');
     if (!res.success || res.data == null) {
+      if (isPersonaRequired(res.errorCode, res.error)) {
+        throw const PersonaRequiredException();
+      }
       throw StateError(res.error ?? 'Failed to start session');
     }
     return TutorSession.fromJson(_dataObj(res.data));
@@ -320,11 +323,31 @@ final tutorScenariosProvider = FutureProvider<ScenariosResponse>((ref) {
   return ref.read(tutorServiceProvider).listScenarios();
 });
 
+/// The server refused to start a chat because the account has no tutor
+/// persona yet (400 "Pick a persona first", code PERSONA_REQUIRED). The chat
+/// screen sends the user to the persona picker instead of a dead-end retry.
+class PersonaRequiredException implements Exception {
+  const PersonaRequiredException();
+}
+
+/// Matches the backend's persona refusal by code (newer servers) or by its
+/// message (servers deployed before the code existed).
+bool isPersonaRequired(String? code, String? message) =>
+    code == 'PERSONA_REQUIRED' || (message ?? '').contains('Pick a persona');
+
 class TutorChatState {
   final TutorSession? session;
   final bool sending;
   final String? error;
-  const TutorChatState({this.session, this.sending = false, this.error});
+
+  /// The account has no persona yet; the screen opens the picker.
+  final bool personaRequired;
+  const TutorChatState({
+    this.session,
+    this.sending = false,
+    this.error,
+    this.personaRequired = false,
+  });
 
   TutorChatState copyWith({TutorSession? session, bool? sending, String? error}) =>
       TutorChatState(
@@ -363,6 +386,8 @@ class TutorChatController extends StateNotifier<TutorChatState> {
     try {
       final s = await _svc.startSession();
       _safeSet(TutorChatState(session: s));
+    } on PersonaRequiredException {
+      _safeSet(const TutorChatState(personaRequired: true));
     } catch (e) {
       _safeSet(state.copyWith(error: e.toString()));
     }

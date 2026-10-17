@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/models/tutor/tutor_session.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/tutor_provider.dart';
+import 'package:bananatalk_app/pages/ai/tutor/persona_picker_screen.dart';
 import 'package:bananatalk_app/services/analytics_service.dart';
 import 'package:bananatalk_app/services/tutor_voice_service.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
@@ -64,6 +65,17 @@ class _TutorChatScreenState extends ConsumerState<TutorChatScreen> {
     if (_started) setState(() => _started = false);
     await ref.read(tutorChatControllerProvider.notifier).start();
     if (!mounted) return;
+    // No persona yet: pick one, then come back to this chat. Retrying here
+    // could never succeed (it used to show "Something went wrong / Retry").
+    if (ref.read(tutorChatControllerProvider).personaRequired) {
+      ref.invalidate(tutorMemoryProvider);
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (_) => const PersonaPickerScreen(
+          destinationAfterPick: TutorChatScreen(),
+        ),
+      ));
+      return;
+    }
     setState(() => _started = true);
     _scrollToBottom();
   }
