@@ -131,27 +131,74 @@ class _UnlockButtonState extends ConsumerState<_UnlockButton> {
       } else if (response.statusCode == 402) {
         _showInsufficientCoinsDialog();
       } else if (isExtraMatchesMaxed(response.statusCode, response.error)) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(l10n.extraMatchesMaxed)),
-        );
+        _notify(l10n.extraMatchesMaxed);
         setState(() => _maxed = true);
         widget.onMaxed?.call();
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(response.error ?? l10n.unlockFailed)),
-        );
+        _notify(response.error ?? l10n.unlockFailed);
       }
     } finally {
       if (mounted) setState(() => _busy = false);
     }
   }
 
+  /// Inside a bottom sheet or dialog a SnackBar lands on the Scaffold
+  /// UNDER the sheet and is never seen (2026-10-17: "not enough coins" on
+  /// the tutor upgrade sheet). There, tell the user in a dialog instead.
+  bool get _inPopup => ModalRoute.of(context) is PopupRoute;
+
+  void _notify(String message) {
+    if (_inPopup) {
+      showDialog<void>(
+        context: context,
+        builder: (dialogContext) => AlertDialog(
+          content: Text(message),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(dialogContext),
+              child: Text(MaterialLocalizations.of(dialogContext).okButtonLabel),
+            ),
+          ],
+        ),
+      );
+      return;
+    }
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
+  }
+
   void _showInsufficientCoinsDialog() {
+    final l10n = AppLocalizations.of(context)!;
+    if (_inPopup) {
+      showDialog<void>(
+        context: context,
+        builder: (dialogContext) => AlertDialog(
+          key: const Key('unlock-not-enough-coins'),
+          content: Text(l10n.notEnoughCoins),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(dialogContext),
+              child: Text(l10n.cancel),
+            ),
+            FilledButton(
+              onPressed: () {
+                Navigator.pop(dialogContext);
+                Navigator.push(
+                  context,
+                  AppPageRoute(builder: (_) => const CoinShopScreen()),
+                );
+              },
+              child: Text(l10n.getMoreCoins),
+            ),
+          ],
+        ),
+      );
+      return;
+    }
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(AppLocalizations.of(context)!.notEnoughCoins),
+        content: Text(l10n.notEnoughCoins),
         action: SnackBarAction(
-          label: AppLocalizations.of(context)!.getMoreCoins,
+          label: l10n.getMoreCoins,
           onPressed: () {
             Navigator.push(
               context,
