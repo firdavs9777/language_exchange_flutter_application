@@ -5,6 +5,7 @@ import 'package:bananatalk_app/utils/language_flags.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/profile/edit/intent_edit.dart';
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/utils/language_names.dart';
 
 /// The "About" content section of the own-profile page.
 ///
@@ -153,7 +154,7 @@ class _LanguageCard extends StatelessWidget {
             label: l10n.nativeLanguage,
             language: user.native_language.isEmpty
                 ? l10n.notSet
-                : user.native_language,
+                : LanguageNames.of(context, user.native_language),
             flag: LanguageFlags.getFlagByName(user.native_language),
             color: AppColors.primary,
             level: null,
@@ -170,7 +171,7 @@ class _LanguageCard extends StatelessWidget {
             label: l10n.learning,
             language: user.language_to_learn.isEmpty
                 ? l10n.notSet
-                : user.language_to_learn,
+                : LanguageNames.of(context, user.language_to_learn),
             flag: LanguageFlags.getFlagByName(user.language_to_learn),
             color: const Color(0xFFFF9800),
             level: user.languageLevel,

@@ -6,6 +6,7 @@ import 'package:bananatalk_app/providers/provider_models/daily_match_model.dart'
 import 'package:bananatalk_app/utils/country_flags.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/widgets/guides/pulse_highlight.dart';
+import 'package:bananatalk_app/utils/language_names.dart';
 
 /// One daily-match card: avatar, identity row, language pair, reasons, actions.
 class MatchCard extends StatelessWidget {
@@ -42,6 +43,7 @@ class MatchCard extends StatelessWidget {
     final repliesFast = match.responseRate != null && match.responseRate! >= 0.7;
     final pair = [user.native_language, user.language_to_learn]
         .where((s) => s.isNotEmpty)
+        .map((s) => LanguageNames.of(context, s))
         .join(' → ');
 
     return Container(

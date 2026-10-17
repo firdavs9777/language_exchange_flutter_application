@@ -15,6 +15,7 @@ import 'package:bananatalk_app/utils/country_names.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/utils/string_sanitizer.dart';
 import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
+import 'package:bananatalk_app/utils/language_names.dart';
 
 typedef VisitorsFetcher =
     Future<Map<String, dynamic>> Function({
@@ -897,7 +898,7 @@ class _ProfileVisitorsScreenState extends ConsumerState<ProfileVisitorsScreen> {
                               const SizedBox(width: 3),
                               Flexible(
                                 child: Text(
-                                  nativeLanguage,
+                                  LanguageNames.of(context, nativeLanguage),
                                   style: context.captionSmall.copyWith(
                                     fontWeight: FontWeight.w600,
                                     color: AppColors.primary,
@@ -922,7 +923,7 @@ class _ProfileVisitorsScreenState extends ConsumerState<ProfileVisitorsScreen> {
                             if (learningLanguage.isNotEmpty)
                               Flexible(
                                 child: Text(
-                                  learningLanguage,
+                                  LanguageNames.of(context, learningLanguage),
                                   style: context.captionSmall.copyWith(
                                     fontWeight: FontWeight.w600,
                                     color: const Color(0xFFFF9800),

@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
+import 'package:bananatalk_app/utils/language_names.dart';
 
 class ProfileFollowers extends ConsumerStatefulWidget {
   const ProfileFollowers({
@@ -425,7 +426,7 @@ class _UserCard extends StatelessWidget {
                                         size: 12, color: Colors.blue[700]),
                                     const SizedBox(width: 4),
                                     Text(
-                                      community.native_language,
+                                      LanguageNames.of(context, community.native_language),
                                       style: TextStyle(
                                         fontSize: 11,
                                         color: Colors.blue[700],
@@ -452,7 +453,7 @@ class _UserCard extends StatelessWidget {
                                         size: 12, color: Colors.orange[700]),
                                     const SizedBox(width: 4),
                                     Text(
-                                      community.language_to_learn,
+                                      LanguageNames.of(context, community.language_to_learn),
                                       style: TextStyle(
                                         fontSize: 11,
                                         color: Colors.orange[700],

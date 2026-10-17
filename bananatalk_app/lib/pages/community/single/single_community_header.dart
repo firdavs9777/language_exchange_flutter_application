@@ -15,6 +15,7 @@ import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/utils/language_flags.dart';
 import 'package:bananatalk_app/widgets/language_flag_badge.dart';
+import 'package:bananatalk_app/utils/language_names.dart';
 
 /// Instagram-style header for the community/profile detail screen:
 /// ringed avatar + display-only stat counters (Posts/Followers/Following),
@@ -281,7 +282,7 @@ class _SingleCommunityHeaderState extends ConsumerState<SingleCommunityHeader> {
         const SizedBox(width: 4),
         Flexible(
           child: Text(
-            community.native_language,
+            LanguageNames.of(context, community.native_language),
             style: context.bodySmall.copyWith(
               color: context.textPrimary,
               fontWeight: FontWeight.w600,
@@ -297,7 +298,7 @@ class _SingleCommunityHeaderState extends ConsumerState<SingleCommunityHeader> {
         const SizedBox(width: 4),
         Flexible(
           child: Text(
-            community.language_to_learn,
+            LanguageNames.of(context, community.language_to_learn),
             style: context.bodySmall.copyWith(
               color: context.textPrimary,
               fontWeight: FontWeight.w600,

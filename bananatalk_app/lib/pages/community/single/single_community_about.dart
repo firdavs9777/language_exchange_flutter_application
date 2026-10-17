@@ -7,6 +7,7 @@ import 'package:bananatalk_app/utils/language_flags.dart';
 import 'package:bananatalk_app/pages/community/single/single_community_topics.dart';
 import 'package:bananatalk_app/pages/community/single/single_community_location_card.dart';
 import 'package:bananatalk_app/utils/privacy_utils.dart';
+import 'package:bananatalk_app/utils/language_names.dart';
 
 /// About tab body: bio, story highlights, languages, interests, personal info.
 class SingleCommunityAbout extends ConsumerWidget {
@@ -212,7 +213,7 @@ class SingleCommunityAbout extends ConsumerWidget {
                 child: _buildLanguageCard(
                   context,
                   label: l10n.native,
-                  language: community.native_language,
+                  language: LanguageNames.of(context, community.native_language),
                   flag: LanguageFlags.getFlagByName(community.native_language),
                   icon: Icons.home_rounded,
                   color: Colors.orange,
@@ -230,7 +231,7 @@ class SingleCommunityAbout extends ConsumerWidget {
                 child: _buildLanguageCard(
                   context,
                   label: l10n.learning,
-                  language: community.language_to_learn,
+                  language: LanguageNames.of(context, community.language_to_learn),
                   flag: LanguageFlags.getFlagByName(
                     community.language_to_learn,
                   ),

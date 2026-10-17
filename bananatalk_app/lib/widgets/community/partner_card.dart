@@ -9,6 +9,7 @@ import 'package:bananatalk_app/utils/language_flags.dart';
 import 'package:bananatalk_app/utils/image_utils.dart';
 import 'package:bananatalk_app/utils/privacy_utils.dart';
 import 'package:bananatalk_app/widgets/story/story_gradient_ring.dart';
+import 'package:bananatalk_app/utils/language_names.dart';
 
 /// Swipeable partner card for discovery
 class PartnerCard extends StatelessWidget {
@@ -416,7 +417,7 @@ class PartnerCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 3),
                 Text(
-                  _formatLanguageName(user.native_language),
+                  LanguageNames.of(context, user.native_language),
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 13,
@@ -475,7 +476,7 @@ class PartnerCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 3),
                 Text(
-                  _formatLanguageName(user.language_to_learn),
+                  LanguageNames.of(context, user.language_to_learn),
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 13,
@@ -492,18 +493,6 @@ class PartnerCard extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  /// Format language name with proper capitalization
-  String _formatLanguageName(String language) {
-    if (language.isEmpty) return '';
-    // Capitalize first letter of each word
-    return language
-        .split(' ')
-        .map((word) => word.isNotEmpty
-            ? '${word[0].toUpperCase()}${word.substring(1).toLowerCase()}'
-            : '')
-        .join(' ');
   }
 
   Widget _buildTopics() {

@@ -6,6 +6,7 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/utils/language_flags.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/language_names.dart';
 
 enum MatchType { perfect, youLearnTheirs, theyLearnYours, sameNative, none }
 
@@ -154,7 +155,7 @@ class LanguageMatchCard extends ConsumerWidget {
           Text(flag, style: const TextStyle(fontSize: 32)),
           const SizedBox(height: 6),
           Text(
-            language,
+            LanguageNames.of(context, language),
             style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w600,
