@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:bananatalk_app/services/camera_recovery.dart';
 import 'package:video_player/video_player.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/providers/provider_models/story_model.dart';
@@ -28,7 +29,10 @@ import 'package:bananatalk_app/pages/stories/create/studio/text_overlay_editor.d
 class CreateStoryScreen extends ConsumerStatefulWidget {
   final VoidCallback? onStoryCreated;
 
-  const CreateStoryScreen({super.key, this.onStoryCreated});
+  /// A camera photo taken before Android killed the app (CameraRecovery).
+  final XFile? initialImage;
+
+  const CreateStoryScreen({super.key, this.onStoryCreated, this.initialImage});
 
   @override
   ConsumerState<CreateStoryScreen> createState() => _CreateStoryScreenState();
@@ -128,6 +132,17 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+    final recovered = widget.initialImage;
+    if (recovered != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) _useCameraPhoto(File(recovered.path));
+      });
+    }
+  }
+
+  @override
   void dispose() {
     _captionController.dispose();
     _hashtagController.dispose();
@@ -223,26 +238,34 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
     }
   }
 
+  void _useCameraPhoto(File file) {
+    setState(() {
+      _mediaFile = file;
+      _mediaType = 'image';
+      _isTextStory = false;
+      _filterIndex = 0;
+      _strokes.clear();
+      _drawMode = false;
+    });
+    _updateMediaAspect(file);
+  }
+
   Future<void> _takePhoto() async {
     try {
       final picker = ImagePicker();
-      final pickedFile = await picker.pickImage(
-        source: ImageSource.camera,
-        imageQuality: 80,
-      );
-
-      if (pickedFile != null) {
-        final file = File(pickedFile.path);
-        setState(() {
-          _mediaFile = file;
-          _mediaType = 'image';
-          _isTextStory = false;
-          _filterIndex = 0;
-          _strokes.clear();
-          _drawMode = false;
-        });
-        _updateMediaAspect(file);
+      // The camera may get this app killed for memory (CameraRecovery).
+      await CameraRecovery.markPending(CameraRecovery.story);
+      final XFile? pickedFile;
+      try {
+        pickedFile = await picker.pickImage(
+          source: ImageSource.camera,
+          imageQuality: 80,
+        );
+      } finally {
+        await CameraRecovery.clear();
       }
+
+      if (pickedFile != null && mounted) _useCameraPhoto(File(pickedFile.path));
     } catch (e) {
       if (mounted) {
         showStoriesSnackBar(

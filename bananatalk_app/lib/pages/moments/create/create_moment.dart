@@ -5,6 +5,7 @@ import 'package:bananatalk_app/pages/coins/boost_screen.dart';
 import 'package:bananatalk_app/widgets/boost/boost_entry.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:bananatalk_app/services/camera_recovery.dart';
 import 'dart:io';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
@@ -72,6 +73,9 @@ class CreateMoment extends ConsumerStatefulWidget {
   /// caller — see `CreateReelFlow`). ISO 639-1 code, e.g. `'ko'`.
   final String? prefillLanguage;
 
+  /// A camera photo taken before Android killed the app (CameraRecovery).
+  final XFile? initialImage;
+
   const CreateMoment({
     Key? key,
     this.momentToEdit,
@@ -79,6 +83,7 @@ class CreateMoment extends ConsumerStatefulWidget {
     this.prefillPromptId,
     this.isReel = false,
     this.prefillLanguage,
+    this.initialImage,
   }) : super(key: key);
 
   @override
@@ -219,6 +224,8 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
   void initState() {
     super.initState();
     descriptionController.addListener(_updateButtonState);
+    final recovered = widget.initialImage;
+    if (recovered != null) _selectedImages.add(File(recovered.path));
 
     // Pre-fill form if editing
     if (widget.momentToEdit != null) {
@@ -467,11 +474,18 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     }
 
     final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.camera);
+    // The camera may get this app killed for memory (CameraRecovery).
+    await CameraRecovery.markPending(CameraRecovery.moment);
+    final XFile? pickedFile;
+    try {
+      pickedFile = await picker.pickImage(source: ImageSource.camera);
+    } finally {
+      await CameraRecovery.clear();
+    }
 
-    if (pickedFile != null) {
+    if (pickedFile != null && mounted) {
       setState(() {
-        _selectedImages.add(File(pickedFile.path));
+        _selectedImages.add(File(pickedFile!.path));
       });
     }
   }

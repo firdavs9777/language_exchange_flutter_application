@@ -18,6 +18,9 @@ import 'package:bananatalk_app/pages/coins/coin_shop_screen.dart';
 import 'package:bananatalk_app/services/promo_service.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/services/camera_recovery.dart';
+import 'package:bananatalk_app/pages/chat/conversation/chat_conversation_screen.dart';
+import 'package:bananatalk_app/pages/moments/create/create_moment.dart';
+import 'package:bananatalk_app/pages/stories/create/create_story_screen.dart';
 import 'package:bananatalk_app/pages/ai/tutor/image_vocab_screen.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/widgets/navigation/floating_tab_bar.dart';
@@ -148,11 +151,21 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
   Future<void> _recoverCameraPhoto() async {
     final lost = await CameraRecovery.takeLost();
     if (lost == null || !mounted) return;
-    if (lost.target == CameraRecovery.imageVocab) {
-      Navigator.of(context).push(AppPageRoute(
-        builder: (_) => ImageVocabScreen(initialImage: lost.file),
-      ));
-    }
+    final Widget? screen = switch (lost.target) {
+      CameraRecovery.imageVocab => ImageVocabScreen(initialImage: lost.file),
+      CameraRecovery.moment => CreateMoment(initialImage: lost.file),
+      CameraRecovery.story => CreateStoryScreen(initialImage: lost.file),
+      CameraRecovery.chat when (lost.extra['userId'] ?? '').isNotEmpty =>
+        ChatScreen(
+          userId: lost.extra['userId']!,
+          userName: lost.extra['userName'] ?? '',
+          profilePicture: lost.extra['profilePicture'],
+          initialCameraImage: lost.file,
+        ),
+      _ => null,
+    };
+    if (screen == null) return;
+    Navigator.of(context).push(AppPageRoute(builder: (_) => screen));
   }
 
   @override

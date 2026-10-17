@@ -28,6 +28,7 @@ import 'package:bananatalk_app/services/media_service.dart';
 import 'package:bananatalk_app/services/conversation_service.dart';
 import 'package:bananatalk_app/widgets/notifications/notification_priming_sheet.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:bananatalk_app/services/camera_recovery.dart';
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:geolocator/geolocator.dart';
@@ -62,6 +63,10 @@ class ChatScreen extends ConsumerStatefulWidget {
 
   final String? prefillMessage;
 
+  /// A camera photo taken before Android killed the app (CameraRecovery);
+  /// opens in the send preview.
+  final XFile? initialCameraImage;
+
   const ChatScreen({
     super.key,
     required this.userId,
@@ -69,6 +74,7 @@ class ChatScreen extends ConsumerStatefulWidget {
     this.profilePicture,
     this.isVip = false,
     this.prefillMessage,
+    this.initialCameraImage,
   });
 
   @override
@@ -143,6 +149,12 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     _loadCurrentUser();
     _loadChatWallpaper();
     _setupScrollListener();
+    final recovered = widget.initialCameraImage;
+    if (recovered != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) _previewCameraPhoto(File(recovered.path));
+      });
+    }
     _setupThemeChangeListener();
     // Priming moved: first live incoming message (listener in build) and first
     // message sent (first_message_reporter.dart). Every-open priming removed.
@@ -1151,23 +1163,38 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     }
   }
 
+  Future<void> _previewCameraPhoto(File file) async {
+    await ImagePreviewDialog.show(
+      context: context,
+      imageFile: file,
+      onSend: (caption) async {
+        await _sendMediaFile(file, 'image', caption: caption);
+      },
+    );
+  }
+
   Future<void> _pickImageFromCamera() async {
     try {
       final picker = ImagePicker();
-      final pickedFile = await picker.pickImage(
-        source: ImageSource.camera,
-        imageQuality: 85,
-      );
+      // The camera may get this app killed for memory (CameraRecovery).
+      await CameraRecovery.markPending(CameraRecovery.chat, extra: {
+        'userId': widget.userId,
+        'userName': widget.userName,
+        if (widget.profilePicture != null)
+          'profilePicture': widget.profilePicture!,
+      });
+      final XFile? pickedFile;
+      try {
+        pickedFile = await picker.pickImage(
+          source: ImageSource.camera,
+          imageQuality: 85,
+        );
+      } finally {
+        await CameraRecovery.clear();
+      }
 
       if (pickedFile != null && mounted) {
-        final file = File(pickedFile.path);
-        await ImagePreviewDialog.show(
-          context: context,
-          imageFile: file,
-          onSend: (caption) async {
-            await _sendMediaFile(file, 'image', caption: caption);
-          },
-        );
+        await _previewCameraPhoto(File(pickedFile.path));
       }
     } catch (e) {
       if (mounted) {

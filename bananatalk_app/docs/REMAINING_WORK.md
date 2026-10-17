@@ -85,7 +85,8 @@ After release (production data):
 
 Camera on Android: app killed while the camera is open (2026-10-17, Galaxy Tab S7 FE)
 - [x] Talk → Photo: taking a picture "crashed" the app. Logcat: `lmkd: Reclaim 'com.bananatalk.app' ... low watermark is breached` → `Process com.bananatalk.app has died` → restarted for the ImagePickerFileProvider. Not an exception: Android killed the backgrounded app for memory (debug build ~650 MB). `CameraRecovery` marks the screen before opening the camera; on restart the shell reads `ImagePicker.retrieveLostData()` and reopens Talk → Photo with the photo. Test `test/services/camera_recovery_test.dart`.
-- [ ] Same recovery for the other camera entry points (moment composer, chat camera, story camera, profile photo, gathering/club cover); each currently loses the photo if the app is killed. M
+- [x] Same recovery for the moment composer (photo comes back in the composer; the typed caption is still lost), story camera (opens the story editor with the photo) and chat camera (reopens that chat with the photo in the send preview; `CameraRecovery.markPending(..., extra:)` keeps which chat).
+- [ ] Still not recovered: camera VIDEO (moment/chat), profile photo, gathering/club cover. S–M
 - [ ] Device check in a RELEASE build on the tablet: Talk → Photo → camera → photo comes back (killed or not). S
 - [x] Korean: AI Study tile "롤플레이" → "일상 회화"; the two descriptions that said 롤플레이 reworded to match.
 - [x] VIP price mismatch: the plans screen showed the store price (₩14,000) but the payment screen hardcoded USD ($3.99, and "$3.99/month" under it). Both now use `vipPriceText` (lib/pages/vip/vip_price.dart): the store's localized price, USD only before the store answers; the description line is the localized plan length. Test `test/purchases/vip_price_text_test.dart`.

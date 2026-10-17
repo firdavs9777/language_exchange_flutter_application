@@ -60,4 +60,24 @@ void main() {
     await CameraRecovery.markPending(CameraRecovery.imageVocab);
     expect(await CameraRecovery.takeLost(picker: _Picker(photo), isAndroid: false), isNull);
   });
+
+  test('a chat photo comes back with the chat it was taken for', () async {
+    SharedPreferences.setMockInitialValues({});
+    await CameraRecovery.markPending(CameraRecovery.chat,
+        extra: {'userId': 'u1', 'userName': 'Mina'});
+    final lost = await CameraRecovery.takeLost(picker: _Picker(photo), isAndroid: true);
+    expect(lost?.target, CameraRecovery.chat);
+    expect(lost?.extra, {'userId': 'u1', 'userName': 'Mina'});
+    final prefs = await SharedPreferences.getInstance();
+    expect(prefs.getString(CameraRecovery.extraPrefsKey), isNull);
+  });
+
+  test('a mark without extra drops the extra of an earlier mark', () async {
+    SharedPreferences.setMockInitialValues({});
+    await CameraRecovery.markPending(CameraRecovery.chat, extra: {'userId': 'u1'});
+    await CameraRecovery.markPending(CameraRecovery.moment);
+    final lost = await CameraRecovery.takeLost(picker: _Picker(photo), isAndroid: true);
+    expect(lost?.target, CameraRecovery.moment);
+    expect(lost?.extra, isEmpty);
+  });
 }
