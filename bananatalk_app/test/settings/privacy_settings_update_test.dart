@@ -140,5 +140,34 @@ void main() {
       );
       expect(puts, 0);
     });
+
+    test('two quick saves do not undo each other', () async {
+      // A server that stores what it is sent and answers auth/me from it.
+      var stored = <String, dynamic>{for (final k in _allKeys) k: k != 'anonymousProfileVisits'};
+      final server = MockClient((req) async {
+        if (req.method == 'GET' && req.url.path.endsWith('auth/me')) {
+          return http.Response(jsonEncode({'data': _user(Map.of(stored))}), 200);
+        }
+        if (req.method == 'PUT') {
+          // Slow write: the second save's read would land before it.
+          await Future<void>.delayed(const Duration(milliseconds: 20));
+          stored = Map<String, dynamic>.from(
+              jsonDecode(req.body)['privacySettings'] as Map);
+          return http.Response(jsonEncode({'data': _user(stored)}), 200);
+        }
+        return http.Response('{}', 404);
+      });
+
+      await http.runWithClient(() async {
+        final auth = AuthService();
+        await Future.wait([
+          auth.updatePrivacySettings(privacySettings: {'showAge': false}),
+          auth.updatePrivacySettings(privacySettings: {'showCity': false}),
+        ]);
+      }, () => server);
+
+      expect(stored['showAge'], isFalse, reason: 'the second save reverted the first');
+      expect(stored['showCity'], isFalse);
+    });
   });
 }

@@ -8,8 +8,10 @@ class PrivacyUtils {
   ///
   /// With [locale], the country is shown in that language (the stored
   /// English name is only the fallback).
-  static String getLocationText(Community user, {Locale? locale}) {
-    final privacy = user.privacySettings;
+  /// [isOwner]: the user is looking at their own profile, where their own
+  /// show* toggles do not apply (they hide data from others, not from them).
+  static String getLocationText(Community user, {Locale? locale, bool isOwner = false}) {
+    final privacy = isOwner ? null : user.privacySettings;
     final stored = user.location;
     final location = (
       city: stored.city,

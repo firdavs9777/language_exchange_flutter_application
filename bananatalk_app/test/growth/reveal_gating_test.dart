@@ -231,5 +231,89 @@ void main() {
       await tester.pumpAndSettle();
       expect(calls, [false]);
     });
+
+    Map<String, dynamic> visibleVisitor(String id) => {
+          'user': {'_id': id, 'name': 'Visitor $id'},
+          'lastVisit': '2026-10-16T10:00:00.000Z',
+          'visitCount': 1,
+        };
+
+    testWidgets('a free account sees its one visitor plus a tile for the locked rest',
+        (tester) async {
+      Future<Map<String, dynamic>> fetch({
+        required String userId,
+        int limit = 20,
+        int page = 1,
+        bool reveal = false,
+      }) async =>
+          {
+            'success': true,
+            'visitors': [visibleVisitor('a')],
+            'locked': 5,
+            'stats': {'uniqueVisitors': 6, 'totalVisits': 9},
+          };
+
+      await tester.pumpWidget(_app(
+        ProfileVisitorsScreen(userId: 'me', fetchVisitors: fetch),
+        _ov(boosts: false),
+      ));
+      await tester.pumpAndSettle();
+      expect(find.text('Visitor a'), findsOneWidget);
+      // Used to stop at the one row with no sign of the other five.
+      await tester.scrollUntilVisible(find.byType(MaskedPersonTile), 200);
+      expect(find.text('5 people viewed your profile'), findsOneWidget);
+    });
+
+    testWidgets('the masked tile counts everyone hidden, not just the masked row',
+        (tester) async {
+      Future<Map<String, dynamic>> fetch({
+        required String userId,
+        int limit = 20,
+        int page = 1,
+        bool reveal = false,
+      }) async =>
+          {
+            'success': true,
+            'visitors': [maskedVisitor()],
+            'maskedCount': 1, // what older servers sent for a free account
+            'locked': 9,
+          };
+
+      await tester.pumpWidget(_app(
+        ProfileVisitorsScreen(userId: 'me', fetchVisitors: fetch),
+        _ov(),
+      ));
+      await tester.pumpAndSettle();
+      expect(find.text('10 people viewed your profile'), findsOneWidget);
+    });
+
+    testWidgets('a VIP list loads the next page on scroll', (tester) async {
+      final pages = <int>[];
+      Future<Map<String, dynamic>> fetch({
+        required String userId,
+        int limit = 20,
+        int page = 1,
+        bool reveal = false,
+      }) async {
+        pages.add(page);
+        final n = page == 1 ? 50 : 3;
+        return {
+          'success': true,
+          'visitors': List.generate(n, (i) => visibleVisitor('$page-$i')),
+          'locked': 0,
+          'stats': {'uniqueVisitors': 53, 'totalVisits': 80},
+        };
+      }
+
+      await tester.pumpWidget(_app(
+        ProfileVisitorsScreen(userId: 'me', fetchVisitors: fetch),
+        _ov(boosts: false),
+      ));
+      await tester.pumpAndSettle();
+      expect(pages, [1]);
+      await tester.scrollUntilVisible(find.text('Visitor 2-2'), 600,
+          maxScrolls: 100);
+      expect(pages, [1, 2]);
+    });
   });
 }

@@ -42,8 +42,11 @@ class ProfileTabBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final age = PrivacyUtils.getAge(user, calculatedAge);
-    final locationText = PrivacyUtils.getLocationText(user, locale: Localizations.localeOf(context));
+    // This is the owner's own profile: their show* toggles hide their age
+    // and location from OTHER people, so they still see their own.
+    final age = (calculatedAge != null && calculatedAge! > 0) ? calculatedAge : null;
+    final locationText = PrivacyUtils.getLocationText(user,
+        locale: Localizations.localeOf(context), isOwner: true);
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),

@@ -111,6 +111,8 @@ class ProfileVisitorService {
           'count': data['count'] ?? 0,
           'stats': data['stats'],
           'visitors': data['data'] ?? [],
+          // Visitors a free account cannot see (it gets the most recent one).
+          'locked': data['locked'] ?? 0,
           // Present only on the gated (?reveal=1) shape.
           if (data['maskedCount'] != null) 'maskedCount': data['maskedCount'],
         };
