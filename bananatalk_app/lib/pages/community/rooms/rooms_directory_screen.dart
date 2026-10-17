@@ -14,6 +14,7 @@ import 'package:bananatalk_app/providers/rooms_provider.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/utils/language_flags.dart';
+import 'package:bananatalk_app/utils/language_names.dart';
 import 'package:bananatalk_app/widgets/community/user_skeleton.dart';
 
 /// Directory of public Language Rooms ("hubs") plus user-created topic
@@ -234,7 +235,7 @@ class _RoomsListState extends ConsumerState<_RoomsList> {
                 left: 4,
               ),
               child: Text(
-                LanguageFlags.displayName(item),
+                LanguageNames.of(context, item),
                 style: context.titleSmall.copyWith(
                   fontWeight: FontWeight.w700,
                   color: context.textSecondary,
@@ -299,7 +300,7 @@ class _LanguageFilterBar extends StatelessWidget {
             _chip(
               context,
               label:
-                  '${LanguageFlags.getFlagByName(lang)} ${LanguageFlags.displayName(lang)}',
+                  '${LanguageFlags.getFlagByName(lang)} ${LanguageNames.of(context, lang)}',
               value: lang,
             ),
         ],

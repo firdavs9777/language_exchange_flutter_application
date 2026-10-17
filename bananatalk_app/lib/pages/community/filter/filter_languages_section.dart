@@ -3,6 +3,7 @@ import 'package:bananatalk_app/models/language_model.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/utils/language_names.dart';
 
 /// A tappable language selector card (used for both native and learning language).
 class FilterLanguageSelector extends StatelessWidget {
@@ -56,8 +57,9 @@ class FilterLanguageSelector extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    selectedLanguage?.name ??
-                        AppLocalizations.of(context)!.anyLanguage,
+                    selectedLanguage != null
+                        ? LanguageNames.of(context, selectedLanguage!.name)
+                        : AppLocalizations.of(context)!.anyLanguage,
                     style: context.titleMedium.copyWith(
                       color: selectedLanguage != null
                           ? context.textPrimary
