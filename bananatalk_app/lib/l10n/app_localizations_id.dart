@@ -8703,6 +8703,9 @@ class AppLocalizationsId extends AppLocalizations {
   String get boostExplain => 'Jadilah kecocokan ke-6 bagi semua orang yang bahasanya cocok denganmu selama 24 jam.';
 
   @override
+  String get boostExplainMore => 'Kamu juga muncul di dekat atas daftar Partner, dan momen terbarumu ditampilkan di Untukmu.';
+
+  @override
   String boostCostLine(int cost) {
     String _temp0 = intl.Intl.pluralLogic(
       cost,

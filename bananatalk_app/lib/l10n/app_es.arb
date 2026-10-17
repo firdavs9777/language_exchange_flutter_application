@@ -3627,6 +3627,7 @@
   "boostCapacityFull": "Todos los cupos de impulso están ocupados ahora — inténtalo de nuevo en unas horas",
   "extraMatchesCta": "{cost, plural, one{+3 coincidencias más — {cost} moneda} other{+3 coincidencias más — {cost} monedas}}",
   "boostExplain": "Sé la 6.ª coincidencia de todos los que encajan con tus idiomas durante 24 horas.",
+  "boostExplainMore": "También apareces cerca del principio de Compañeros y tu momento más reciente se destaca en Para ti.",
   "boostCostLine": "{cost, plural, one{Coste: {cost} moneda} other{Coste: {cost} monedas}}",
   "boostBalanceLine": "{balance, plural, one{Tu saldo: {balance} moneda} other{Tu saldo: {balance} monedas}}",
   "boostConfirm": "Confirmar impulso",

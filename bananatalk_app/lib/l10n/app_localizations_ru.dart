@@ -9054,6 +9054,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get boostExplain => 'Станьте 6-м совпадением для всех, чьи языки вам подходят, на 24 часа.';
 
   @override
+  String get boostExplainMore => 'Вы также появитесь вверху списка партнёров, а ваш последний момент будет выделен в разделе «Для вас».';
+
+  @override
   String boostCostLine(int cost) {
     String _temp0 = intl.Intl.pluralLogic(
       cost,

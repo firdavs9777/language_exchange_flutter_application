@@ -3570,6 +3570,7 @@
   "boostCapacityFull": "Puno na ang lahat ng boost slot ngayon — subukan ulit sa loob ng ilang oras",
   "extraMatchesCta": "{cost, plural, other{+3 pang match — {cost} coins}}",
   "boostExplain": "Maging ika-6 na match ng lahat ng may katugmang wika sa loob ng 24 oras.",
+  "boostExplainMore": "Lalabas ka rin malapit sa itaas ng Partners, at itatampok ang pinakabago mong moment sa Para sa Iyo.",
   "boostCostLine": "{cost, plural, other{Halaga: {cost} coins}}",
   "boostBalanceLine": "{balance, plural, other{Balanse mo: {balance} coins}}",
   "boostConfirm": "Kumpirmahin ang boost",

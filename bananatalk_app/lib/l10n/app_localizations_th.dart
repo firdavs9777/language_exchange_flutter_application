@@ -8696,6 +8696,9 @@ class AppLocalizationsTh extends AppLocalizations {
   String get boostExplain => 'เป็นแมตช์ที่ 6 ของทุกคนที่ภาษาตรงกับคุณ เป็นเวลา 24 ชั่วโมง';
 
   @override
+  String get boostExplainMore => 'คุณจะแสดงใกล้ด้านบนของพาร์ทเนอร์ด้วย และโมเมนต์ล่าสุดของคุณจะถูกแนะนำใน สำหรับคุณ';
+
+  @override
   String boostCostLine(int cost) {
     String _temp0 = intl.Intl.pluralLogic(
       cost,

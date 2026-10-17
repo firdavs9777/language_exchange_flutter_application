@@ -8706,6 +8706,9 @@ class AppLocalizationsTl extends AppLocalizations {
   String get boostExplain => 'Maging ika-6 na match ng lahat ng may katugmang wika sa loob ng 24 oras.';
 
   @override
+  String get boostExplainMore => 'Lalabas ka rin malapit sa itaas ng Partners, at itatampok ang pinakabago mong moment sa Para sa Iyo.';
+
+  @override
   String boostCostLine(int cost) {
     String _temp0 = intl.Intl.pluralLogic(
       cost,

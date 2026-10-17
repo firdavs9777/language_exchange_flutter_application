@@ -16118,6 +16118,12 @@ abstract class AppLocalizations {
   /// **'Be the 6th match for everyone whose languages fit you, for 24 hours.'**
   String get boostExplain;
 
+  /// Boost screen, under boostExplain: a Profile Boost also places you near the top of the Partners list and features your latest moment in Moments For You
+  ///
+  /// In en, this message translates to:
+  /// **'You also appear near the top of Partners, and your latest moment is featured in For You.'**
+  String get boostExplainMore;
+
   /// Profile Boost string
   ///
   /// In en, this message translates to:

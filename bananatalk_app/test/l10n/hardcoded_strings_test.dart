@@ -824,6 +824,10 @@ const Map<String, List<String>> _keysByTask = {
     'placementUnavailable',
     'placementPreparing',
   ],
+  // feat/boost-everywhere: Boost also covers Partners and the latest moment.
+  'boost-everywhere': [
+    'boostExplainMore',
+  ],
 };
 
 /// Files (under lib/) each task must leave with no English Text literal.
@@ -1110,6 +1114,10 @@ const Map<String, List<String>> _filesByTask = {
   ],
   'placement-review': [
     'pages/learning/daily/placement/placement_screen.dart',
+  ],
+  'boost-everywhere': [
+    'pages/coins/boost_screen.dart',
+    'pages/moments/card/moment_card.dart',
   ],
 };
 

@@ -162,6 +162,13 @@ class _BoostScreenState extends ConsumerState<BoostScreen> {
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.bodyLarge,
         ),
+        const SizedBox(height: 8),
+        Text(
+          l10n.boostExplainMore,
+          key: const Key('boost-explain-more'),
+          textAlign: TextAlign.center,
+          style: Theme.of(context).textTheme.bodyMedium,
+        ),
         const SizedBox(height: 20),
         Text(
           l10n.boostCostLine(kProfileBoostCostCoins),

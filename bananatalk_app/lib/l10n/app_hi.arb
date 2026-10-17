@@ -3613,6 +3613,7 @@
   "boostCapacityFull": "अभी सभी बूस्ट स्लॉट भरे हुए हैं — कुछ घंटों बाद फिर कोशिश करें",
   "extraMatchesCta": "{cost, plural, one{+3 और मैच — {cost} सिक्का} other{+3 और मैच — {cost} सिक्के}}",
   "boostExplain": "24 घंटे के लिए उन सभी के 6वें मैच बनें जिनकी भाषाएँ आपसे मेल खाती हैं।",
+  "boostExplainMore": "आप पार्टनर्स में ऊपर भी दिखेंगे, और आपका नया मोमेंट 'आपके लिए' में दिखाया जाएगा।",
   "boostCostLine": "{cost, plural, one{कीमत: {cost} सिक्का} other{कीमत: {cost} सिक्के}}",
   "boostBalanceLine": "{balance, plural, one{आपका बैलेंस: {balance} सिक्का} other{आपका बैलेंस: {balance} सिक्के}}",
   "boostConfirm": "बूस्ट की पुष्टि करें",

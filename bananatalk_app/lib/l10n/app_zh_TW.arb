@@ -3288,6 +3288,7 @@
   "boostCapacityFull": "目前所有提升名額已滿 — 請幾小時後再試",
   "extraMatchesCta": "{cost, plural, other{再多 3 個配對 — {cost} 金幣}}",
   "boostExplain": "在 24 小時內，成為所有語言相符使用者的第 6 個配對。",
+  "boostExplainMore": "你也會出現在夥伴列表靠前的位置，你的最新動態也會在「為你推薦」中被推薦。",
   "boostCostLine": "{cost, plural, other{費用：{cost} 金幣}}",
   "boostBalanceLine": "{balance, plural, other{你的餘額：{balance} 金幣}}",
   "boostConfirm": "確認提升",

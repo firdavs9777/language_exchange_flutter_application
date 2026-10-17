@@ -8708,6 +8708,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get boostExplain => 'Soyez la 6e correspondance de toutes les personnes dont les langues vous conviennent, pendant 24 heures.';
 
   @override
+  String get boostExplainMore => 'Tu apparais aussi en haut des Partenaires, et ton dernier moment est mis en avant dans Pour toi.';
+
+  @override
   String boostCostLine(int cost) {
     String _temp0 = intl.Intl.pluralLogic(
       cost,

@@ -80,6 +80,12 @@ After release (production data):
 
 ## 4. Code work — open
 
+Boost everywhere (branch `feat/boost-everywhere`, 2026-10-17; backend same branch)
+- [x] Boost screen says a Boost also places you near the top of Partners and features your latest moment (`boostExplainMore`, 19 locales, CSV rows appended).
+- [x] Moment cards show a "Boosted" label (`moment-boosted`) when the server marks the booster's latest moment; Partners rows already showed `boosted`. Partners paging lists a booster placed on page 1 only once.
+- [ ] Device check with a test account boosted: Partners page 1 shows them 3rd with "Boosted"; their latest moment in For You shows "Boosted"; Boost screen line reads well in ko/ru/ar. S
+- [ ] Native review of `boostExplainMore`. S
+
 Placement result and test language (branch `feat/placement-review`, 2026-10-17; backend same branch)
 - [x] "Find your level" result showed only the level. Now: score, "What to work on next" (missed topics, or all-right note), then every question with the pick, the right answer and why (icon + text, not colour alone). A skip or an older server shows the level only.
 - [x] Placement is in the learner's target language (server-side AI set for non-English); the screen sends `?locale` on GET and POST, shows "Preparing your test…" during the first ~20 s generation, and "no level test for your language yet" (no retry) on 503 `PLACEMENT_UNAVAILABLE`.

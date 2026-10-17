@@ -1400,7 +1400,13 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
       final hasMore = response.users.isNotEmpty && response.hasMore;
 
       state = state.copyWith(
-        users: [...state.users, ...response.users],
+        // A Profile Boost puts a booster on page 1 out of order, so the same
+        // person can come back on a later page; list them once.
+        users: [
+          ...state.users,
+          ...response.users.where(
+              (u) => !state.users.any((seen) => seen.id == u.id)),
+        ],
         currentPage: nextPage,
         total: response.total,
         hasMore: hasMore,

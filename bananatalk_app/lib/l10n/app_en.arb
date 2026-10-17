@@ -6097,6 +6097,10 @@
   "@boostExplain": {
     "description": "Profile Boost string"
   },
+  "boostExplainMore": "You also appear near the top of Partners, and your latest moment is featured in For You.",
+  "@boostExplainMore": {
+    "description": "Boost screen, under boostExplain: a Profile Boost also places you near the top of the Partners list and features your latest moment in Moments For You"
+  },
   "boostCostLine": "{cost, plural, one{Cost: {cost} coin} other{Cost: {cost} coins}}",
   "@boostCostLine": {
     "description": "Profile Boost string",

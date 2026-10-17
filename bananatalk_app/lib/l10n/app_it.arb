@@ -3837,6 +3837,7 @@
   "boostCapacityFull": "Tutti gli slot di potenziamento sono occupati ora — riprova tra qualche ora",
   "extraMatchesCta": "{cost, plural, one{+3 match in più — {cost} moneta} other{+3 match in più — {cost} monete}}",
   "boostExplain": "Sii il 6° match per tutti quelli con lingue compatibili con le tue, per 24 ore.",
+  "boostExplainMore": "Compari anche in cima ai Partner e il tuo momento più recente viene messo in evidenza in Per te.",
   "boostCostLine": "{cost, plural, one{Costo: {cost} moneta} other{Costo: {cost} monete}}",
   "boostBalanceLine": "{balance, plural, one{Il tuo saldo: {balance} moneta} other{Il tuo saldo: {balance} monete}}",
   "boostConfirm": "Conferma potenziamento",

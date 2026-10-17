@@ -3090,6 +3090,7 @@
   "boostCapacityFull": "Ҳоло ҳамаи ҷойҳои пурзӯркунӣ банданд — пас аз чанд соат аз нав кӯшиш кунед",
   "extraMatchesCta": "{cost, plural, other{+3 мувофиқати бештар — {cost} танга}}",
   "boostExplain": "Дар 24 соат барои ҳама, ки забонҳояшон ба шумо мувофиқ аст, мувофиқати 6-ум шавед.",
+  "boostExplainMore": "Шумо инчунин дар болои рӯйхати Шарикон пайдо мешавед ва лаҳзаи охирини шумо дар «Барои шумо» намоиш дода мешавад.",
   "boostCostLine": "{cost, plural, other{Нарх: {cost} танга}}",
   "boostBalanceLine": "{balance, plural, other{Тавозуни шумо: {balance} танга}}",
   "boostConfirm": "Тасдиқи пурзӯркунӣ",

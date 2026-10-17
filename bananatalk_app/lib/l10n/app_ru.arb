@@ -3627,6 +3627,7 @@
   "boostCapacityFull": "Все места для продвижения сейчас заняты — попробуйте через несколько часов",
   "extraMatchesCta": "{cost, plural, one{+3 совпадения — {cost} монета} few{+3 совпадения — {cost} монеты} many{+3 совпадения — {cost} монет} other{+3 совпадения — {cost} монеты}}",
   "boostExplain": "Станьте 6-м совпадением для всех, чьи языки вам подходят, на 24 часа.",
+  "boostExplainMore": "Вы также появитесь вверху списка партнёров, а ваш последний момент будет выделен в разделе «Для вас».",
   "boostCostLine": "{cost, plural, one{Стоимость: {cost} монета} few{Стоимость: {cost} монеты} many{Стоимость: {cost} монет} other{Стоимость: {cost} монеты}}",
   "boostBalanceLine": "{balance, plural, one{Ваш баланс: {balance} монета} few{Ваш баланс: {balance} монеты} many{Ваш баланс: {balance} монет} other{Ваш баланс: {balance} монеты}}",
   "boostConfirm": "Подтвердить продвижение",

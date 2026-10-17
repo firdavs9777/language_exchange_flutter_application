@@ -8728,6 +8728,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get boostExplain => 'كن التطابق السادس لكل من تناسبه لغاتك، لمدة 24 ساعة.';
 
   @override
+  String get boostExplainMore => 'ستظهر أيضًا قرب أعلى قائمة الشركاء، وستُبرَز أحدث لحظة لك في «لك».';
+
+  @override
   String boostCostLine(int cost) {
     String _temp0 = intl.Intl.pluralLogic(
       cost,

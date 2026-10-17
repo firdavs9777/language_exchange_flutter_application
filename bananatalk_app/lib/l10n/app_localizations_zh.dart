@@ -8696,6 +8696,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get boostExplain => '在 24 小时内，成为所有语言相符用户的第 6 个匹配。';
 
   @override
+  String get boostExplainMore => '你还会出现在伙伴列表靠前的位置，你的最新动态也会在「为你推荐」中被推荐。';
+
+  @override
   String boostCostLine(int cost) {
     String _temp0 = intl.Intl.pluralLogic(
       cost,
@@ -21019,6 +21022,9 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get boostExplain => '在 24 小時內，成為所有語言相符使用者的第 6 個配對。';
+
+  @override
+  String get boostExplainMore => '你也會出現在夥伴列表靠前的位置，你的最新動態也會在「為你推薦」中被推薦。';
 
   @override
   String boostCostLine(int cost) {

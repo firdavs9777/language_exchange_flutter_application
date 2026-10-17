@@ -8710,6 +8710,9 @@ class AppLocalizationsTg extends AppLocalizations {
   String get boostExplain => 'Дар 24 соат барои ҳама, ки забонҳояшон ба шумо мувофиқ аст, мувофиқати 6-ум шавед.';
 
   @override
+  String get boostExplainMore => 'Шумо инчунин дар болои рӯйхати Шарикон пайдо мешавед ва лаҳзаи охирини шумо дар «Барои шумо» намоиш дода мешавад.';
+
+  @override
   String boostCostLine(int cost) {
     String _temp0 = intl.Intl.pluralLogic(
       cost,

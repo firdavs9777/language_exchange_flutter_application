@@ -8696,6 +8696,9 @@ class AppLocalizationsVi extends AppLocalizations {
   String get boostExplain => 'Trở thành lượt ghép thứ 6 của mọi người có ngôn ngữ phù hợp với bạn trong 24 giờ.';
 
   @override
+  String get boostExplainMore => 'Bạn cũng xuất hiện gần đầu danh sách Bạn học, và khoảnh khắc mới nhất của bạn được nổi bật trong Dành cho bạn.';
+
+  @override
   String boostCostLine(int cost) {
     String _temp0 = intl.Intl.pluralLogic(
       cost,

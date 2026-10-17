@@ -753,6 +753,39 @@ class _MomentCardState extends ConsumerState<MomentCard> {
               onMenuTap: () => _showMoreOptions(context),
             ),
 
+            // ── Boosted (the author's latest moment during a Profile Boost) ──
+            if (widget.moments.boosted)
+              Padding(
+                key: const Key('moment-boosted'),
+                padding: const EdgeInsets.fromLTRB(12, 0, 12, 8),
+                child: Align(
+                  alignment: AlignmentDirectional.centerStart,
+                  child: Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                    decoration: BoxDecoration(
+                      color: AppColors.matchAccent,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Icon(Icons.rocket_launch_rounded,
+                            size: 12, color: AppColors.matchInk),
+                        const SizedBox(width: 4),
+                        Text(
+                          AppLocalizations.of(context)!.boostedChip,
+                          style: context.labelSmall.copyWith(
+                            color: AppColors.matchInk,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+
             // ── Prompt being answered ───────────────────────────────────────
             if (widget.moments.prompt != null)
               MomentPromptLabel(

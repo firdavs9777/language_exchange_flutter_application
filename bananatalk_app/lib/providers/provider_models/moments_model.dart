@@ -213,6 +213,7 @@ class Moments {
     this.prompt,
     this.location,
     this.isReel = false,
+    this.boosted = false,
   });
 
   final String id;
@@ -272,6 +273,10 @@ class Moments {
 
   /// True for reels (surfaced only via the reels feed).
   final bool isReel;
+
+  /// The author's latest moment while they have a Profile Boost; For You
+  /// lifts it and the card says "Boosted".
+  final bool boosted;
 
   /// Check if this moment has a video
   bool get hasVideo => video != null && video!.url.isNotEmpty;
@@ -403,6 +408,7 @@ class Moments {
       prompt: MomentPrompt.tryParse(json['prompt']),
       location: parseMomentLocation(json['location']),
       isReel: json['isReel'] == true,
+      boosted: json['boosted'] == true,
     );
   }
 
@@ -490,6 +496,7 @@ class Moments {
     MomentPrompt? prompt,
     Location? location,
     bool? isReel,
+    bool? boosted,
   }) {
     return Moments(
       id: id ?? this.id,
@@ -525,6 +532,7 @@ class Moments {
       prompt: prompt ?? this.prompt,
       location: location ?? this.location,
       isReel: isReel ?? this.isReel,
+      boosted: boosted ?? this.boosted,
     );
   }
 }

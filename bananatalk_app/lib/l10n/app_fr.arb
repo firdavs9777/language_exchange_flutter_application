@@ -3837,6 +3837,7 @@
   "boostCapacityFull": "Tous les créneaux de boost sont pris pour le moment — réessayez dans quelques heures",
   "extraMatchesCta": "{cost, plural, one{+3 correspondances — {cost} pièce} other{+3 correspondances — {cost} pièces}}",
   "boostExplain": "Soyez la 6e correspondance de toutes les personnes dont les langues vous conviennent, pendant 24 heures.",
+  "boostExplainMore": "Tu apparais aussi en haut des Partenaires, et ton dernier moment est mis en avant dans Pour toi.",
   "boostCostLine": "{cost, plural, one{Coût : {cost} pièce} other{Coût : {cost} pièces}}",
   "boostBalanceLine": "{balance, plural, one{Votre solde : {balance} pièce} other{Votre solde : {balance} pièces}}",
   "boostConfirm": "Confirmer le boost",

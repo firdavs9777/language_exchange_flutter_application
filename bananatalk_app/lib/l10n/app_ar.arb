@@ -3627,6 +3627,7 @@
   "boostCapacityFull": "جميع أماكن التعزيز ممتلئة الآن — حاول مجددًا بعد ساعات قليلة",
   "extraMatchesCta": "{cost, plural, zero{+3 تطابقات إضافية — {cost} عملة} one{+3 تطابقات إضافية — {cost} عملة} two{+3 تطابقات إضافية — {cost} عملة} few{+3 تطابقات إضافية — {cost} عملات} many{+3 تطابقات إضافية — {cost} عملة} other{+3 تطابقات إضافية — {cost} عملة}}",
   "boostExplain": "كن التطابق السادس لكل من تناسبه لغاتك، لمدة 24 ساعة.",
+  "boostExplainMore": "ستظهر أيضًا قرب أعلى قائمة الشركاء، وستُبرَز أحدث لحظة لك في «لك».",
   "boostCostLine": "{cost, plural, zero{التكلفة: {cost} عملة} one{التكلفة: {cost} عملة} two{التكلفة: {cost} عملة} few{التكلفة: {cost} عملات} many{التكلفة: {cost} عملة} other{التكلفة: {cost} عملة}}",
   "boostBalanceLine": "{balance, plural, zero{رصيدك: {balance} عملة} one{رصيدك: {balance} عملة} two{رصيدك: {balance} عملة} few{رصيدك: {balance} عملات} many{رصيدك: {balance} عملة} other{رصيدك: {balance} عملة}}",
   "boostConfirm": "تأكيد التعزيز",

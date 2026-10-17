@@ -3618,6 +3618,7 @@
   "boostCapacityFull": "지금은 부스트 슬롯이 모두 찼어요 — 몇 시간 뒤에 다시 시도해 주세요",
   "extraMatchesCta": "{cost, plural, other{+3명 더 매칭 — {cost} 코인}}",
   "boostExplain": "언어가 맞는 모든 사람에게 24시간 동안 여섯 번째 매치로 보여요.",
+  "boostExplainMore": "파트너 목록 상단에도 표시되고, 최신 모먼트가 '추천'에 소개돼요.",
   "boostCostLine": "{cost, plural, other{비용: {cost} 코인}}",
   "boostBalanceLine": "{balance, plural, other{내 잔액: {balance} 코인}}",
   "boostConfirm": "부스트 확인",

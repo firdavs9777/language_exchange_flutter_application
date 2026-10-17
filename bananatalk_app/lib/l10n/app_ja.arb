@@ -3597,6 +3597,7 @@
   "boostCapacityFull": "現在ブーストの枠がすべて埋まっています — 数時間後にもう一度お試しください",
   "extraMatchesCta": "{cost, plural, other{+3人のマッチ — {cost}コイン}}",
   "boostExplain": "言語が合うすべての人に、24時間「6番目のマッチ」として表示されます。",
+  "boostExplainMore": "パートナー一覧の上位にも表示され、最新のモーメントが「おすすめ」で紹介されます。",
   "boostCostLine": "{cost, plural, other{料金: {cost}コイン}}",
   "boostBalanceLine": "{balance, plural, other{残高: {balance}コイン}}",
   "boostConfirm": "ブーストを確定",

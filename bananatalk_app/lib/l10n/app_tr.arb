@@ -3809,6 +3809,7 @@
   "boostCapacityFull": "Şu anda tüm boost yerleri dolu — birkaç saat sonra tekrar dene",
   "extraMatchesCta": "{cost, plural, other{+3 eşleşme daha — {cost} jeton}}",
   "boostExplain": "Dilleri sana uyan herkes için 24 saat boyunca 6. eşleşme ol.",
+  "boostExplainMore": "Ayrıca Partnerler listesinin üst sıralarında görünürsün ve en son anın Senin İçin'de öne çıkarılır.",
   "boostCostLine": "{cost, plural, other{Ücret: {cost} jeton}}",
   "boostBalanceLine": "{balance, plural, other{Bakiyen: {balance} jeton}}",
   "boostConfirm": "Boost'u onayla",

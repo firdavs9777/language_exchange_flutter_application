@@ -8696,6 +8696,9 @@ class AppLocalizationsJa extends AppLocalizations {
   String get boostExplain => '言語が合うすべての人に、24時間「6番目のマッチ」として表示されます。';
 
   @override
+  String get boostExplainMore => 'パートナー一覧の上位にも表示され、最新のモーメントが「おすすめ」で紹介されます。';
+
+  @override
   String boostCostLine(int cost) {
     String _temp0 = intl.Intl.pluralLogic(
       cost,

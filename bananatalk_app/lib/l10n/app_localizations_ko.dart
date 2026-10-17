@@ -8696,6 +8696,9 @@ class AppLocalizationsKo extends AppLocalizations {
   String get boostExplain => '언어가 맞는 모든 사람에게 24시간 동안 여섯 번째 매치로 보여요.';
 
   @override
+  String get boostExplainMore => '파트너 목록 상단에도 표시되고, 최신 모먼트가 \'추천\'에 소개돼요.';
+
+  @override
   String boostCostLine(int cost) {
     String _temp0 = intl.Intl.pluralLogic(
       cost,

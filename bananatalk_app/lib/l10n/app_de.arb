@@ -3837,6 +3837,7 @@
   "boostCapacityFull": "Alle Boost-Plätze sind gerade belegt — versuche es in ein paar Stunden erneut",
   "extraMatchesCta": "{cost, plural, one{+3 weitere Matches — {cost} Münze} other{+3 weitere Matches — {cost} Münzen}}",
   "boostExplain": "Sei 24 Stunden lang das 6. Match für alle, deren Sprachen zu dir passen.",
+  "boostExplainMore": "Außerdem erscheinst du weit oben bei Partnern, und dein neuester Moment wird in „Für dich“ hervorgehoben.",
   "boostCostLine": "{cost, plural, one{Kosten: {cost} Münze} other{Kosten: {cost} Münzen}}",
   "boostBalanceLine": "{balance, plural, one{Dein Guthaben: {balance} Münze} other{Dein Guthaben: {balance} Münzen}}",
   "boostConfirm": "Boost bestätigen",

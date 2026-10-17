@@ -8704,6 +8704,9 @@ class AppLocalizationsTr extends AppLocalizations {
   String get boostExplain => 'Dilleri sana uyan herkes için 24 saat boyunca 6. eşleşme ol.';
 
   @override
+  String get boostExplainMore => 'Ayrıca Partnerler listesinin üst sıralarında görünürsün ve en son anın Senin İçin\'de öne çıkarılır.';
+
+  @override
   String boostCostLine(int cost) {
     String _temp0 = intl.Intl.pluralLogic(
       cost,

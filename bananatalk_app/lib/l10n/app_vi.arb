@@ -3597,6 +3597,7 @@
   "boostCapacityFull": "Hiện tại tất cả suất đẩy đã đầy — hãy thử lại sau vài giờ",
   "extraMatchesCta": "{cost, plural, other{+3 lượt ghép nữa — {cost} xu}}",
   "boostExplain": "Trở thành lượt ghép thứ 6 của mọi người có ngôn ngữ phù hợp với bạn trong 24 giờ.",
+  "boostExplainMore": "Bạn cũng xuất hiện gần đầu danh sách Bạn học, và khoảnh khắc mới nhất của bạn được nổi bật trong Dành cho bạn.",
   "boostCostLine": "{cost, plural, other{Chi phí: {cost} xu}}",
   "boostBalanceLine": "{balance, plural, other{Số dư của bạn: {balance} xu}}",
   "boostConfirm": "Xác nhận đẩy hồ sơ",

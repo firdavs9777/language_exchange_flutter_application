@@ -3597,6 +3597,7 @@
   "boostCapacityFull": "Semua slot boost sedang penuh — coba lagi dalam beberapa jam",
   "extraMatchesCta": "{cost, plural, other{+3 kecocokan lagi — {cost} koin}}",
   "boostExplain": "Jadilah kecocokan ke-6 bagi semua orang yang bahasanya cocok denganmu selama 24 jam.",
+  "boostExplainMore": "Kamu juga muncul di dekat atas daftar Partner, dan momen terbarumu ditampilkan di Untukmu.",
   "boostCostLine": "{cost, plural, other{Biaya: {cost} koin}}",
   "boostBalanceLine": "{balance, plural, other{Saldomu: {balance} koin}}",
   "boostConfirm": "Konfirmasi boost",

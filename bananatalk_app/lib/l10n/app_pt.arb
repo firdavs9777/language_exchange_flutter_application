@@ -3613,6 +3613,7 @@
   "boostCapacityFull": "Todas as vagas de impulso estão ocupadas agora — tente de novo em algumas horas",
   "extraMatchesCta": "{cost, plural, one{+3 combinações — {cost} moeda} other{+3 combinações — {cost} moedas}}",
   "boostExplain": "Seja a 6ª combinação de todos cujos idiomas combinam com os seus, por 24 horas.",
+  "boostExplainMore": "Você também aparece no topo de Parceiros, e seu momento mais recente ganha destaque em Para você.",
   "boostCostLine": "{cost, plural, one{Custo: {cost} moeda} other{Custo: {cost} moedas}}",
   "boostBalanceLine": "{balance, plural, one{Seu saldo: {balance} moeda} other{Seu saldo: {balance} moedas}}",
   "boostConfirm": "Confirmar impulso",

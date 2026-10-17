@@ -3611,6 +3611,7 @@
   "boostCapacityFull": "目前所有提升名额已满 — 请几小时后再试",
   "extraMatchesCta": "{cost, plural, other{再多 3 个匹配 — {cost} 金币}}",
   "boostExplain": "在 24 小时内，成为所有语言相符用户的第 6 个匹配。",
+  "boostExplainMore": "你还会出现在伙伴列表靠前的位置，你的最新动态也会在「为你推荐」中被推荐。",
   "boostCostLine": "{cost, plural, other{费用：{cost} 金币}}",
   "boostBalanceLine": "{balance, plural, other{你的余额：{balance} 金币}}",
   "boostConfirm": "确认提升",

@@ -3597,6 +3597,7 @@
   "boostCapacityFull": "ช่องบูสต์เต็มทั้งหมดในตอนนี้ — ลองใหม่ในอีกไม่กี่ชั่วโมง",
   "extraMatchesCta": "{cost, plural, other{+3 แมตช์เพิ่ม — {cost} เหรียญ}}",
   "boostExplain": "เป็นแมตช์ที่ 6 ของทุกคนที่ภาษาตรงกับคุณ เป็นเวลา 24 ชั่วโมง",
+  "boostExplainMore": "คุณจะแสดงใกล้ด้านบนของพาร์ทเนอร์ด้วย และโมเมนต์ล่าสุดของคุณจะถูกแนะนำใน สำหรับคุณ",
   "boostCostLine": "{cost, plural, other{ค่าใช้จ่าย: {cost} เหรียญ}}",
   "boostBalanceLine": "{balance, plural, other{ยอดคงเหลือ: {balance} เหรียญ}}",
   "boostConfirm": "ยืนยันการบูสต์",
