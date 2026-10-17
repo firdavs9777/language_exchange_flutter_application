@@ -214,6 +214,62 @@ class NotificationSettingsScreen extends ConsumerWidget {
 
           const SizedBox(height: 24),
 
+          // Daily lesson reminder (the daily drop push)
+          _buildSectionTitle(
+            context,
+            l10n.dailyReminderTitle,
+            Icons.school_rounded,
+            const Color(0xFF4CAF50),
+          ),
+          const SizedBox(height: 10),
+          _buildSectionContainer(context, [
+            _buildToggleTile(
+              context: context,
+              icon: Icons.notifications_active_rounded,
+              iconColor: const Color(0xFF4CAF50),
+              title: l10n.dailyReminderTitle,
+              subtitle: l10n.dailyReminderSubtitle,
+              value: settings.dailyDropReminders,
+              enabled: true,
+              onChanged: (value) {
+                HapticFeedback.selectionClick();
+                ref
+                    .read(notificationSettingsProvider.notifier)
+                    .toggleSetting('dailyDropReminders', value);
+              },
+              isFirst: true,
+              isLast: !settings.dailyDropReminders,
+            ),
+            if (settings.dailyDropReminders) ...[
+              _buildDivider(context),
+              _buildTimeTile(
+                context: context,
+                icon: Icons.schedule_rounded,
+                iconColor: const Color(0xFF4CAF50),
+                title: l10n.dailyReminderTime,
+                time: TimeOfDay(hour: settings.dailyDropHour, minute: 0)
+                    .format(context),
+                isLast: true,
+                onTap: () async {
+                  HapticFeedback.lightImpact();
+                  final t = await showTimePicker(
+                    context: context,
+                    initialTime:
+                        TimeOfDay(hour: settings.dailyDropHour, minute: 0),
+                  );
+                  // The server sends on the hour; minutes are dropped.
+                  if (t != null) {
+                    ref
+                        .read(notificationSettingsProvider.notifier)
+                        .setDailyDropHour(t.hour);
+                  }
+                },
+              ),
+            ],
+          ]),
+
+          const SizedBox(height: 24),
+
           // Quiet Hours
           _buildSectionTitle(
             context,

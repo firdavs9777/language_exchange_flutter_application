@@ -11246,6 +11246,15 @@ class AppLocalizationsIt extends AppLocalizations {
   String get callsAllowSubtitle => 'Se disattivato, le chiamate non squillano. Chi chiama vedrà che non accetti chiamate.';
 
   @override
+  String get dailyReminderTitle => 'Promemoria lezione giornaliera';
+
+  @override
+  String get dailyReminderSubtitle => 'Una notifica con una breve lezione una volta al giorno';
+
+  @override
+  String get dailyReminderTime => 'Orario del promemoria';
+
+  @override
   String get callsQuietHoursNote => 'Con “Consenti notifiche urgenti” disattivato, anche le chiamate vengono trattenute durante le ore silenziose.';
 
   @override

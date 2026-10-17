@@ -11220,6 +11220,15 @@ class AppLocalizationsJa extends AppLocalizations {
   String get callsAllowSubtitle => 'オフにすると、あなたへの着信は鳴りません。発信者にはあなたが通話を受け付けていないことが表示されます。';
 
   @override
+  String get dailyReminderTitle => '毎日のレッスンリマインダー';
+
+  @override
+  String get dailyReminderSubtitle => '1日1回、短いレッスンの通知が届きます';
+
+  @override
+  String get dailyReminderTime => '通知の時刻';
+
+  @override
   String get callsQuietHoursNote => '「緊急通知を許可する」がオフの場合、サイレント時間中は着信も保留されます。';
 
   @override

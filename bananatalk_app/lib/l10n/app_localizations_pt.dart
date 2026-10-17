@@ -11246,6 +11246,15 @@ class AppLocalizationsPt extends AppLocalizations {
   String get callsAllowSubtitle => 'Quando desativado, as chamadas para você não tocam. Quem ligar verá que você não está aceitando chamadas.';
 
   @override
+  String get dailyReminderTitle => 'Lembrete de lição diária';
+
+  @override
+  String get dailyReminderSubtitle => 'Uma notificação com uma lição curta uma vez por dia';
+
+  @override
+  String get dailyReminderTime => 'Horário do lembrete';
+
+  @override
   String get callsQuietHoursNote => 'Com “Permitir notificações urgentes” desativado, as chamadas também ficam retidas durante o modo silencioso.';
 
   @override

@@ -11246,6 +11246,15 @@ class AppLocalizationsDe extends AppLocalizations {
   String get callsAllowSubtitle => 'Wenn aus, klingeln Anrufe bei dir nicht. Anrufer sehen, dass du keine Anrufe annimmst.';
 
   @override
+  String get dailyReminderTitle => 'Tägliche Lern-Erinnerung';
+
+  @override
+  String get dailyReminderSubtitle => 'Einmal am Tag eine kurze Lektion als Benachrichtigung';
+
+  @override
+  String get dailyReminderTime => 'Uhrzeit der Erinnerung';
+
+  @override
   String get callsQuietHoursNote => 'Wenn „Dringende Benachrichtigungen zulassen“ aus ist, werden auch Anrufe in den Ruhezeiten zurückgehalten.';
 
   @override

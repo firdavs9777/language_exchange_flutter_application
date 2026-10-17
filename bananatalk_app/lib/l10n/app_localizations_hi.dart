@@ -11246,6 +11246,15 @@ class AppLocalizationsHi extends AppLocalizations {
   String get callsAllowSubtitle => 'बंद होने पर, आपको की गई कॉल नहीं बजेंगी। कॉल करने वालों को दिखेगा कि आप कॉल नहीं ले रहे हैं।';
 
   @override
+  String get dailyReminderTitle => 'रोज़ाना पाठ रिमाइंडर';
+
+  @override
+  String get dailyReminderSubtitle => 'दिन में एक बार छोटे पाठ की सूचना';
+
+  @override
+  String get dailyReminderTime => 'रिमाइंडर का समय';
+
+  @override
   String get callsQuietHoursNote => '“जरूरी सूचनाओं की अनुमति दें” बंद होने पर, शांत घंटों के दौरान कॉल भी रोकी जाती हैं।';
 
   @override

@@ -11231,6 +11231,15 @@ class AppLocalizationsId extends AppLocalizations {
   String get callsAllowSubtitle => 'Saat nonaktif, panggilan untukmu tidak berdering. Penelepon akan melihat bahwa kamu tidak menerima panggilan.';
 
   @override
+  String get dailyReminderTitle => 'Pengingat pelajaran harian';
+
+  @override
+  String get dailyReminderSubtitle => 'Notifikasi pelajaran singkat sekali sehari';
+
+  @override
+  String get dailyReminderTime => 'Waktu pengingat';
+
+  @override
   String get callsQuietHoursNote => 'Jika “Izinkan notifikasi mendesak” nonaktif, panggilan juga ditahan selama jam tenang.';
 
   @override

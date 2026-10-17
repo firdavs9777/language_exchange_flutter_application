@@ -11220,6 +11220,15 @@ class AppLocalizationsZh extends AppLocalizations {
   String get callsAllowSubtitle => '关闭后，打给你的电话不会响铃。来电者会看到你不接听电话。';
 
   @override
+  String get dailyReminderTitle => '每日课程提醒';
+
+  @override
+  String get dailyReminderSubtitle => '每天一次简短的课程通知';
+
+  @override
+  String get dailyReminderTime => '提醒时间';
+
+  @override
   String get callsQuietHoursNote => '关闭“允许紧急通知”后，免打扰时段内的来电也会被拦截。';
 
   @override
@@ -23546,6 +23555,15 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get callsAllowSubtitle => '關閉後，打給你的通話不會響鈴。來電者會看到你不接聽通話。';
+
+  @override
+  String get dailyReminderTitle => '每日課程提醒';
+
+  @override
+  String get dailyReminderSubtitle => '每天一次簡短的課程通知';
+
+  @override
+  String get dailyReminderTime => '提醒時間';
 
   @override
   String get callsQuietHoursNote => '關閉「允許緊急通知」後，免打擾時段內的來電也會被攔截。';

@@ -113,6 +113,13 @@ class NotificationSettingsNotifier
     }
   }
 
+  /// The local hour (0-23) the daily lesson reminder arrives.
+  Future<void> setDailyDropHour(int hour) async {
+    final current = state.valueOrNull;
+    if (current == null || hour < 0 || hour > 23) return;
+    await updateSettings(current.copyWith(dailyDropHour: hour));
+  }
+
   /// Toggle a specific setting
   Future<void> toggleSetting(String settingName, bool value) async {
     final currentSettings = state.valueOrNull;
@@ -156,6 +163,9 @@ class NotificationSettingsNotifier
         break;
       case 'showPreview':
         updatedSettings = currentSettings.copyWith(showPreview: value);
+        break;
+      case 'dailyDropReminders':
+        updatedSettings = currentSettings.copyWith(dailyDropReminders: value);
         break;
       default:
         return;

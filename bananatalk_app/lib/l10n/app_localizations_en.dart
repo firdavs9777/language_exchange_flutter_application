@@ -11264,6 +11264,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get callsAllowSubtitle => 'When off, calls to you don\'t ring. Callers see that you\'re not taking calls.';
 
   @override
+  String get dailyReminderTitle => 'Daily lesson reminder';
+
+  @override
+  String get dailyReminderSubtitle => 'A short lesson notification once a day';
+
+  @override
+  String get dailyReminderTime => 'Reminder time';
+
+  @override
   String get callsQuietHoursNote => 'With “Allow urgent notifications” off, calls are held during quiet hours too.';
 
   @override

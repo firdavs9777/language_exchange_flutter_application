@@ -11329,6 +11329,15 @@ class AppLocalizationsAr extends AppLocalizations {
   String get callsAllowSubtitle => 'عند الإيقاف، لن ترن المكالمات الموجهة إليك. سيرى المتصلون أنك لا تستقبل المكالمات.';
 
   @override
+  String get dailyReminderTitle => 'تذكير الدرس اليومي';
+
+  @override
+  String get dailyReminderSubtitle => 'إشعار بدرس قصير مرة واحدة يوميًا';
+
+  @override
+  String get dailyReminderTime => 'وقت التذكير';
+
+  @override
   String get callsQuietHoursNote => 'عند إيقاف «السماح بالإشعارات العاجلة»، يتم أيضًا حجب المكالمات خلال ساعات الهدوء.';
 
   @override

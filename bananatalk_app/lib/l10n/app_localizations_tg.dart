@@ -11240,6 +11240,15 @@ class AppLocalizationsTg extends AppLocalizations {
   String get callsAllowSubtitle => 'Агар хомӯш бошад, зангҳо ба шумо садо намедиҳанд. Занганда мебинад, ки шумо занг қабул намекунед.';
 
   @override
+  String get dailyReminderTitle => 'Ёдраси дарси ҳаррӯза';
+
+  @override
+  String get dailyReminderSubtitle => 'Огоҳиномаи дарси кӯтоҳ рӯзе як бор';
+
+  @override
+  String get dailyReminderTime => 'Вақти ёдраскунӣ';
+
+  @override
   String get callsQuietHoursNote => 'Агар «Огоҳномаҳои таъҷилиро иҷозат диҳед» хомӯш бошад, зангҳо низ дар соатҳои оромӣ нигоҳ дошта мешаванд.';
 
   @override

@@ -149,6 +149,12 @@ class NotificationSettings {
   final List<String> mutedConversations;
   final QuietHours quietHours;
 
+  /// The daily lesson ("daily drop") push: on/off, and the local hour (0-23)
+  /// it arrives. The server had both; the app never showed them, so everyone
+  /// got it at 19:00 with no way to move or stop it.
+  final bool dailyDropReminders;
+  final int dailyDropHour;
+
   NotificationSettings({
     required this.enabled,
     required this.chatMessages,
@@ -164,6 +170,8 @@ class NotificationSettings {
     this.announcements = true,
     this.allowCalls = true,
     this.quietHours = const QuietHours(),
+    this.dailyDropReminders = true,
+    this.dailyDropHour = 19,
   });
 
   factory NotificationSettings.defaultSettings() {
@@ -208,7 +216,14 @@ class NotificationSettings {
       quietHours: json['quietHours'] != null
           ? QuietHours.fromJson(Map<String, dynamic>.from(json['quietHours']))
           : const QuietHours(),
+      dailyDropReminders: json['dailyDropReminders'] ?? true,
+      dailyDropHour: _hourOr19(json['dailyDropHour']),
     );
+  }
+
+  static int _hourOr19(dynamic v) {
+    final h = v is num ? v.toInt() : int.tryParse('$v');
+    return (h != null && h >= 0 && h <= 23) ? h : 19;
   }
 
   Map<String, dynamic> toJson() {
@@ -227,6 +242,8 @@ class NotificationSettings {
       'showPreview': showPreview,
       'mutedChats': mutedConversations, // Backend expects 'mutedChats'
       'quietHours': quietHours.toJson(),
+      'dailyDropReminders': dailyDropReminders,
+      'dailyDropHour': dailyDropHour,
     };
   }
 
@@ -245,6 +262,8 @@ class NotificationSettings {
     bool? showPreview,
     List<String>? mutedConversations,
     QuietHours? quietHours,
+    bool? dailyDropReminders,
+    int? dailyDropHour,
   }) {
     return NotificationSettings(
       enabled: enabled ?? this.enabled,
@@ -261,6 +280,8 @@ class NotificationSettings {
       showPreview: showPreview ?? this.showPreview,
       mutedConversations: mutedConversations ?? this.mutedConversations,
       quietHours: quietHours ?? this.quietHours,
+      dailyDropReminders: dailyDropReminders ?? this.dailyDropReminders,
+      dailyDropHour: dailyDropHour ?? this.dailyDropHour,
     );
   }
 }

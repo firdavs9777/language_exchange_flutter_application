@@ -11696,6 +11696,15 @@ class AppLocalizationsRu extends AppLocalizations {
   String get callsAllowSubtitle => 'Если выключено, звонки вам не звонят. Звонящие видят, что вы не принимаете звонки.';
 
   @override
+  String get dailyReminderTitle => 'Ежедневное напоминание об уроке';
+
+  @override
+  String get dailyReminderSubtitle => 'Уведомление с коротким уроком раз в день';
+
+  @override
+  String get dailyReminderTime => 'Время напоминания';
+
+  @override
   String get callsQuietHoursNote => 'Если «Разрешить срочные уведомления» выключено, звонки в тихие часы тоже откладываются.';
 
   @override

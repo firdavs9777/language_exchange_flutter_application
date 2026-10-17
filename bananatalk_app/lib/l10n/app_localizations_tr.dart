@@ -11237,6 +11237,15 @@ class AppLocalizationsTr extends AppLocalizations {
   String get callsAllowSubtitle => 'Kapalıyken sana yapılan aramalar çalmaz. Arayanlar arama kabul etmediğini görür.';
 
   @override
+  String get dailyReminderTitle => 'Günlük ders hatırlatıcısı';
+
+  @override
+  String get dailyReminderSubtitle => 'Günde bir kez kısa bir ders bildirimi';
+
+  @override
+  String get dailyReminderTime => 'Hatırlatma saati';
+
+  @override
   String get callsQuietHoursNote => '“Acil bildirimlere izin ver” kapalıyken aramalar da sessiz saatlerde bekletilir.';
 
   @override

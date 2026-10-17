@@ -11246,6 +11246,15 @@ class AppLocalizationsFr extends AppLocalizations {
   String get callsAllowSubtitle => 'Si désactivé, les appels ne sonneront pas. Les appelants verront que tu ne prends pas d\'appels.';
 
   @override
+  String get dailyReminderTitle => 'Rappel de leçon quotidien';
+
+  @override
+  String get dailyReminderSubtitle => 'Une notification de courte leçon une fois par jour';
+
+  @override
+  String get dailyReminderTime => 'Heure du rappel';
+
+  @override
   String get callsQuietHoursNote => 'Si « Autoriser les notifications urgentes » est désactivé, les appels sont aussi retenus pendant les heures calmes.';
 
   @override

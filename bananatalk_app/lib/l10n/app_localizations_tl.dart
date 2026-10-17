@@ -11239,6 +11239,15 @@ class AppLocalizationsTl extends AppLocalizations {
   String get callsAllowSubtitle => 'Kapag naka-off, hindi magri-ring ang mga tawag sa iyo. Makikita ng mga tumatawag na hindi ka tumatanggap ng tawag.';
 
   @override
+  String get dailyReminderTitle => 'Paalala sa araw-araw na aralin';
+
+  @override
+  String get dailyReminderSubtitle => 'Isang maikling abiso ng aralin isang beses sa isang araw';
+
+  @override
+  String get dailyReminderTime => 'Oras ng paalala';
+
+  @override
   String get callsQuietHoursNote => 'Kapag naka-off ang “Payagan ang mahahalagang notification,” pinipigil din ang mga tawag sa quiet hours.';
 
   @override

@@ -11220,6 +11220,15 @@ class AppLocalizationsKo extends AppLocalizations {
   String get callsAllowSubtitle => '끄면 내게 오는 전화가 울리지 않아요. 발신자에게는 통화를 받지 않는 상태로 표시돼요.';
 
   @override
+  String get dailyReminderTitle => '매일 학습 알림';
+
+  @override
+  String get dailyReminderSubtitle => '하루에 한 번 짧은 학습 알림을 보내요';
+
+  @override
+  String get dailyReminderTime => '알림 시간';
+
+  @override
   String get callsQuietHoursNote => '‘긴급 알림 허용’이 꺼져 있으면 방해 금지 시간에는 통화도 보류돼요.';
 
   @override

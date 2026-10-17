@@ -81,6 +81,11 @@ After release (production data):
 
 ## 4. Code work — open
 
+Daily lesson reminder time (2026-10-17)
+- [x] Notification settings has a "Daily lesson reminder" section: on/off (`dailyDropReminders`) and "Reminder time" (`dailyDropHour`, whole hours). The server already accepted both on PUT /notifications/settings; the app never showed them, so everyone got the daily drop push at 19:00 with no way to move or stop it. 3 strings × 19 locales (CSV rows appended). Test `test/settings/daily_reminder_setting_test.dart`.
+- [ ] Device check: set the time to the next hour → the daily drop push arrives then (and STUDY-042 can use it instead of a server command); switch off → no push next day. S
+- [ ] Native review of `dailyReminderTitle` / `dailyReminderSubtitle` / `dailyReminderTime`. S
+
 Android device run fixes (2026-10-17, Galaxy Tab S7 FE)
 - [x] Fresh install showed the OLD AI Study page for the whole first session: the page is chosen once per launch from the loaded config or the remembered flag, and a fresh install has neither yet, so it picked legacy. It now waits for the server (up to 4 s, spinner) when nothing is remembered. Every new user was affected, not only Android.
 - [x] `GET calls/current` ran at cold start while signed out and got a 401 every time; it now answers "no call" locally without a token.

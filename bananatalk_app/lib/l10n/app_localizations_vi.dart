@@ -11220,6 +11220,15 @@ class AppLocalizationsVi extends AppLocalizations {
   String get callsAllowSubtitle => 'Khi tắt, cuộc gọi đến bạn sẽ không đổ chuông. Người gọi sẽ thấy bạn không nhận cuộc gọi.';
 
   @override
+  String get dailyReminderTitle => 'Nhắc bài học hằng ngày';
+
+  @override
+  String get dailyReminderSubtitle => 'Một thông báo bài học ngắn mỗi ngày một lần';
+
+  @override
+  String get dailyReminderTime => 'Giờ nhắc';
+
+  @override
   String get callsQuietHoursNote => 'Khi tắt “Cho phép thông báo khẩn cấp”, cuộc gọi cũng bị giữ lại trong giờ yên tĩnh.';
 
   @override

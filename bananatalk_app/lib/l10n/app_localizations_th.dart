@@ -11220,6 +11220,15 @@ class AppLocalizationsTh extends AppLocalizations {
   String get callsAllowSubtitle => 'เมื่อปิด สายที่โทรหาคุณจะไม่ดัง ผู้โทรจะเห็นว่าคุณไม่รับสาย';
 
   @override
+  String get dailyReminderTitle => 'เตือนบทเรียนประจำวัน';
+
+  @override
+  String get dailyReminderSubtitle => 'แจ้งเตือนบทเรียนสั้น ๆ วันละครั้ง';
+
+  @override
+  String get dailyReminderTime => 'เวลาแจ้งเตือน';
+
+  @override
   String get callsQuietHoursNote => 'เมื่อปิด “อนุญาตการแจ้งเตือนเร่งด่วน” สายเรียกเข้าจะถูกพักไว้ในช่วงเวลาเงียบด้วย';
 
   @override

@@ -7817,6 +7817,18 @@
   "callMessageAction": "Message",
   "callsAllowTitle": "Allow calls",
   "callsAllowSubtitle": "When off, calls to you don't ring. Callers see that you're not taking calls.",
+  "dailyReminderTitle": "Daily lesson reminder",
+  "@dailyReminderTitle": {
+    "description": "Notification settings: section and switch for the daily lesson (daily drop) push"
+  },
+  "dailyReminderSubtitle": "A short lesson notification once a day",
+  "@dailyReminderSubtitle": {
+    "description": "Under the daily lesson reminder switch"
+  },
+  "dailyReminderTime": "Reminder time",
+  "@dailyReminderTime": {
+    "description": "Notification settings: the hour the daily lesson reminder arrives (whole hours)"
+  },
   "callsQuietHoursNote": "With “Allow urgent notifications” off, calls are held during quiet hours too.",
   "callTurnOnCamera": "Camera",
   "callCameraFailed": "Couldn't turn the camera on",

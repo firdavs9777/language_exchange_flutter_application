@@ -20408,6 +20408,24 @@ abstract class AppLocalizations {
   /// **'When off, calls to you don\'t ring. Callers see that you\'re not taking calls.'**
   String get callsAllowSubtitle;
 
+  /// Notification settings: section and switch for the daily lesson (daily drop) push
+  ///
+  /// In en, this message translates to:
+  /// **'Daily lesson reminder'**
+  String get dailyReminderTitle;
+
+  /// Under the daily lesson reminder switch
+  ///
+  /// In en, this message translates to:
+  /// **'A short lesson notification once a day'**
+  String get dailyReminderSubtitle;
+
+  /// Notification settings: the hour the daily lesson reminder arrives (whole hours)
+  ///
+  /// In en, this message translates to:
+  /// **'Reminder time'**
+  String get dailyReminderTime;
+
   /// No description provided for @callsQuietHoursNote.
   ///
   /// In en, this message translates to:
