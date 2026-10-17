@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
 
 import 'package:bananatalk_app/services/study_hub_flag_cache.dart';
 import 'package:bananatalk_app/router/app_router.dart'
@@ -274,16 +275,31 @@ class MyApp extends ConsumerStatefulWidget {
   ConsumerState<MyApp> createState() => _MyAppState();
 }
 
-class _MyAppState extends ConsumerState<MyApp> {
+class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
   bool _callManagerInitialized = false;
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     // Initialize call manager once after first frame.
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _initializeCallManager();
     });
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    // Server switches flipped while the app was away show on return.
+    if (state == AppLifecycleState.resumed) {
+      unawaited(refreshAppConfig(appProviderContainer));
+    }
   }
 
   void _initializeCallManager() {

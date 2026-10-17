@@ -280,6 +280,7 @@ const Set<String> kAppScopedProviderNames = {
   'voiceRoomLanguagesProvider',
   'appConfigServiceProvider',
   'appConfigProvider',
+  'appConfigRefreshStateProvider', // last app-config fetch time
   'runningAppVersionProvider',
   'iosProductsProvider', // store catalog
   'androidProductsProvider',
