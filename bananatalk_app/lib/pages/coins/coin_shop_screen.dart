@@ -60,6 +60,11 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
   @override
   void initState() {
     super.initState();
+    // Coins can change outside this device (an admin grant, a purchase on
+    // another device); show the server's balance, not the session's cache.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) refreshCoinBalance(ref);
+    });
     if (_isIOS) {
       IOSPurchaseService.initializeStore();
     } else if (_isAndroid) {

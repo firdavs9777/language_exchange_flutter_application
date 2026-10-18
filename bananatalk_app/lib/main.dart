@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
+import 'package:bananatalk_app/providers/coins_provider.dart';
 
 import 'package:bananatalk_app/services/study_hub_flag_cache.dart';
 import 'package:bananatalk_app/router/app_router.dart'
@@ -299,6 +300,8 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
     // Server switches flipped while the app was away show on return.
     if (state == AppLifecycleState.resumed) {
       unawaited(refreshAppConfig(appProviderContainer));
+      // The balance can change server-side (grant, another device).
+      appProviderContainer.invalidate(coinBalanceProvider);
     }
   }
 
