@@ -642,7 +642,8 @@
       "verified": "Terverifikasi",
       "joined": "Bergabung {{date}}",
       "active": "Aktif {{time}}",
-      "online": "Online sekarang"
+      "online": "Online sekarang",
+      "activeToday": "Aktif hari ini"
     },
     "block": {
       "title": "Blokir {{name}}?",
@@ -1359,7 +1360,8 @@
       "matchCount": "{{count}} kecocokan",
       "lockedByTab": "Diatur oleh tab {{tab}}",
       "reciprocal": "Hanya mitra yang pas",
-      "reciprocalHint": "Mereka menguasai bahasa yang kamu pelajari dan mempelajari bahasamu"
+      "reciprocalHint": "Mereka menguasai bahasa yang kamu pelajari dan mempelajari bahasamu",
+      "countryVipOnly": "Filter negara adalah fitur VIP"
     },
     "highlighted": {
       "title": "Profil unggulan",
@@ -1423,7 +1425,8 @@
       "error": "Gagal memuat kecocokan hari ini",
       "retry": "Coba lagi",
       "waved": "Sudah disapa"
-    }
+    },
+    "mutualExchange": "Kalian saling mempelajari bahasa masing-masing"
   },
   "communityDetail": {
     "errors": {
@@ -2177,16 +2180,23 @@
     "cancelSubscription": "Batalkan Langganan",
     "manageInApp": "Untuk mengelola langganan Anda, silakan gunakan aplikasi mobile BananaTalk.",
     "features": {
-      "limitedMessages": "Pesan terbatas per hari",
       "basicProfile": "Profil dasar",
       "basicSearch": "Pencarian dasar",
-      "unlimitedMessages": "Pesan tanpa batas",
-      "seeProfileVisitors": "Lihat siapa yang mengunjungi profil Anda",
-      "advancedFilters": "Filter pencarian lanjutan",
       "noAds": "Pengalaman tanpa iklan",
-      "prioritySupport": "Dukungan prioritas",
       "exclusiveBadge": "Lencana VIP eksklusif",
-      "translationFeature": "Terjemahan pesan"
+      "unlimitedTutor": "Tutor AI dan roleplay tanpa batas",
+      "seeAllVisitors": "Lihat semua yang melihat profilmu",
+      "moreMatches": "15 match harian, bukan 6",
+      "advancedPartnerFilters": "Filter partner lanjutan (negara)",
+      "unlimitedTranslations": "Terjemahan tanpa batas",
+      "freeMessaging": "Mengobrol dengan partner bahasa",
+      "freeMatches": "6 match harian",
+      "freeTranslations": "5 terjemahan per hari"
+    },
+    "limit": {
+      "title": "Batas harian tercapai",
+      "body": "Kuota gratis hari ini sudah habis. VIP menghapus batas harian.",
+      "cta": "Upgrade ke VIP"
     }
   },
   "linking": {
@@ -2941,7 +2951,8 @@
     "tryIncreaseRadius": "Coba perbesar radius pencarian",
     "unknownError": "Terjadi kesalahan",
     "usersFound_one": "{{count}} orang ditemukan",
-    "usersFound_other": "{{count}} orang ditemukan"
+    "usersFound_other": "{{count}} orang ditemukan",
+    "radiusLimit": "Akun gratis mencari hingga {{km}} km. Upgrade ke VIP untuk mencari lebih jauh."
   },
   "auth": {
     "apple": {

@@ -642,7 +642,8 @@
       "verified": "Verified",
       "joined": "Joined {{date}}",
       "active": "Active {{time}}",
-      "online": "Online now"
+      "online": "Online now",
+      "activeToday": "Active today"
     },
     "block": {
       "title": "Block {{name}}?",
@@ -1359,7 +1360,8 @@
       "matchCount": "{{count}} matches",
       "lockedByTab": "Set by the {{tab}} tab",
       "reciprocal": "Perfect partners only",
-      "reciprocalHint": "They speak what you learn and learn what you speak"
+      "reciprocalHint": "They speak what you learn and learn what you speak",
+      "countryVipOnly": "Country filter is a VIP feature"
     },
     "highlighted": {
       "title": "Highlighted Profiles",
@@ -1423,7 +1425,8 @@
       "error": "We couldn't load today's matches",
       "retry": "Try again",
       "waved": "Waved"
-    }
+    },
+    "mutualExchange": "You're learning each other's language"
   },
   "communityNearby": {
     "title": "Nearby Users",
@@ -1443,7 +1446,8 @@
     "refresh": "Refresh",
     "noUsers": "No users found nearby",
     "tryIncreaseRadius": "Try increasing the search radius",
-    "learning": "Learning: {{language}}"
+    "learning": "Learning: {{language}}",
+    "radiusLimit": "Free accounts search up to {{km}} km. Upgrade to VIP to search further."
   },
   "communityDetail": {
     "errors": {
@@ -2197,16 +2201,23 @@
     "cancelSubscription": "Cancel Subscription",
     "manageInApp": "To manage your subscription, please use the BananaTalk mobile app.",
     "features": {
-      "limitedMessages": "Limited messages per day",
       "basicProfile": "Basic profile",
       "basicSearch": "Basic search",
-      "unlimitedMessages": "Unlimited messages",
-      "seeProfileVisitors": "See who visited your profile",
-      "advancedFilters": "Advanced search filters",
-      "noAds": "Ad-free experience",
-      "prioritySupport": "Priority support",
+      "noAds": "No ads",
       "exclusiveBadge": "Exclusive VIP badge",
-      "translationFeature": "Message translation"
+      "unlimitedTutor": "Unlimited AI tutor and roleplay",
+      "seeAllVisitors": "See everyone who viewed you",
+      "moreMatches": "15 daily matches instead of 6",
+      "advancedPartnerFilters": "Advanced partner filters (country)",
+      "unlimitedTranslations": "Unlimited translations",
+      "freeMessaging": "Chat with language partners",
+      "freeMatches": "6 daily matches",
+      "freeTranslations": "5 translations a day"
+    },
+    "limit": {
+      "title": "Daily limit reached",
+      "body": "You've used today's free allowance. VIP removes the daily limits.",
+      "cta": "Upgrade to VIP"
     }
   },
   "linking": {

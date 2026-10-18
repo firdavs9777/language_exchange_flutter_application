@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { RootState } from "../../store";
 import { useGetVipStatusQuery } from "../../store/slices/usersSlice";
 import { isVipUser } from "../vip/vipStatus";
-import { VIP_PERKS, VipPerk } from "../vip/perks";
+import { VIP_PERKS } from "../vip/perks";
 // Not a marketing surface (this screen is behind auth, so it has no
 // placement), but the URLs it used to hard-code had drifted to a stale app
 // id and a stale package name. They come from the one source now.
@@ -28,7 +28,7 @@ import {
   Languages,
 } from "lucide-react";
 
-const PERK_ICONS: Record<VipPerk["id"], React.ReactNode> = {
+const PERK_ICONS: Record<string, React.ReactNode> = {
   noAds: <Ban className="w-5 h-5" />,
   unlimitedTutor: <Bot className="w-5 h-5" />,
   seeAllVisitors: <Eye className="w-5 h-5" />,

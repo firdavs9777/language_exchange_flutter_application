@@ -6,6 +6,7 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/room.dart';
 import 'package:bananatalk_app/pages/chat/header/user_avatar.dart';
 import 'package:bananatalk_app/providers/rooms_provider.dart';
+import 'package:bananatalk_app/utils/open_user_profile.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 
 /// Hub member list — Workstream D (Task 11), moderation wired up in Task 16
@@ -200,6 +201,8 @@ class _RoomMembersScreenState extends ConsumerState<RoomMembersScreen> {
                             shape: RoundedRectangleBorder(
                               borderRadius: AppRadius.borderMD,
                             ),
+                            // A member opens their profile.
+                            onTap: () => openUserProfile(context, _memberId(member)),
                             leading: UserAvatar(
                               profilePicture: _memberPicture(member),
                               userName: _memberName(member),

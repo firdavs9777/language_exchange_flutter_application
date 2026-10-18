@@ -642,7 +642,8 @@
       "verified": "已认证",
       "joined": "{{date}} 加入",
       "active": "{{time}}活跃",
-      "online": "当前在线"
+      "online": "当前在线",
+      "activeToday": "今天活跃"
     },
     "block": {
       "title": "确定拉黑 {{name}}？",
@@ -1359,7 +1360,8 @@
       "matchCount": "{{count}} 个匹配",
       "lockedByTab": "由“{{tab}}”标签设置",
       "reciprocal": "只看完美语伴",
-      "reciprocalHint": "对方说你在学的语言，也在学你说的语言"
+      "reciprocalHint": "对方说你在学的语言，也在学你说的语言",
+      "countryVipOnly": "按国家筛选是 VIP 功能"
     },
     "highlighted": {
       "title": "推荐资料",
@@ -1423,7 +1425,8 @@
       "error": "无法加载今日匹配",
       "retry": "重试",
       "waved": "已打招呼"
-    }
+    },
+    "mutualExchange": "你们正在学习彼此的语言"
   },
   "communityDetail": {
     "errors": {
@@ -2177,16 +2180,23 @@
     "cancelSubscription": "取消订阅",
     "manageInApp": "请在 BananaTalk 手机 App 内管理你的订阅。",
     "features": {
-      "limitedMessages": "每日消息数量有限",
       "basicProfile": "基础资料",
       "basicSearch": "基础搜索",
-      "unlimitedMessages": "消息不限量",
-      "seeProfileVisitors": "查看谁访问过你的资料",
-      "advancedFilters": "高级搜索筛选",
       "noAds": "无广告体验",
-      "prioritySupport": "优先客服",
       "exclusiveBadge": "VIP 专属徽章",
-      "translationFeature": "消息翻译"
+      "unlimitedTutor": "AI 导师和角色扮演无限次",
+      "seeAllVisitors": "查看所有看过你的人",
+      "moreMatches": "每日匹配从6人增至15人",
+      "advancedPartnerFilters": "高级伙伴筛选（国家）",
+      "unlimitedTranslations": "无限次翻译",
+      "freeMessaging": "与语言伙伴聊天",
+      "freeMatches": "每日6个匹配",
+      "freeTranslations": "每天5次翻译"
+    },
+    "limit": {
+      "title": "已达到每日上限",
+      "body": "你今天的免费额度已用完。VIP 没有每日上限。",
+      "cta": "升级到 VIP"
     }
   },
   "linking": {
@@ -2941,7 +2951,8 @@
     "tryIncreaseRadius": "试试扩大搜索范围",
     "unknownError": "出了点问题",
     "usersFound_one": "找到 {{count}} 人",
-    "usersFound_other": "找到 {{count}} 人"
+    "usersFound_other": "找到 {{count}} 人",
+    "radiusLimit": "免费账户最多搜索 {{km}} 公里。升级到 VIP 可搜索更远。"
   },
   "auth": {
     "apple": {

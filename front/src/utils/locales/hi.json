@@ -642,7 +642,8 @@
       "verified": "सत्यापित",
       "joined": "{{date}} से सदस्य",
       "active": "{{time}} ऐक्टिव",
-      "online": "अभी ऑनलाइन"
+      "online": "अभी ऑनलाइन",
+      "activeToday": "आज सक्रिय"
     },
     "block": {
       "title": "{{name}} को ब्लॉक करें?",
@@ -1359,7 +1360,8 @@
       "matchCount": "{{count}} मिलान",
       "lockedByTab": "{{tab}} टैब द्वारा सेट",
       "reciprocal": "सिर्फ़ परफ़ेक्ट पार्टनर",
-      "reciprocalHint": "वे वह भाषा बोलते हैं जो आप सीख रहे हैं, और वह भाषा सीख रहे हैं जो आप बोलते हैं"
+      "reciprocalHint": "वे वह भाषा बोलते हैं जो आप सीख रहे हैं, और वह भाषा सीख रहे हैं जो आप बोलते हैं",
+      "countryVipOnly": "देश फ़िल्टर एक VIP सुविधा है"
     },
     "highlighted": {
       "title": "चुनिंदा प्रोफ़ाइल",
@@ -1423,7 +1425,8 @@
       "error": "आज के मैच लोड नहीं हो सके",
       "retry": "फिर से कोशिश करें",
       "waved": "वेव भेजा"
-    }
+    },
+    "mutualExchange": "आप एक-दूसरे की भाषा सीख रहे हैं"
   },
   "communityDetail": {
     "errors": {
@@ -2177,16 +2180,23 @@
     "cancelSubscription": "सदस्यता रद्द करें",
     "manageInApp": "अपनी सदस्यता प्रबंधित करने के लिए, कृपया BananaTalk मोबाइल ऐप का उपयोग करें।",
     "features": {
-      "limitedMessages": "प्रतिदिन सीमित संदेश",
       "basicProfile": "बुनियादी प्रोफ़ाइल",
       "basicSearch": "बुनियादी खोज",
-      "unlimitedMessages": "असीमित संदेश",
-      "seeProfileVisitors": "देखें कि आपकी प्रोफ़ाइल किसने देखी",
-      "advancedFilters": "उन्नत खोज फ़िल्टर",
       "noAds": "विज्ञापन-मुक्त अनुभव",
-      "prioritySupport": "प्राथमिकता सहायता",
       "exclusiveBadge": "विशेष VIP बैज",
-      "translationFeature": "संदेश अनुवाद"
+      "unlimitedTutor": "असीमित AI ट्यूटर और रोलप्ले",
+      "seeAllVisitors": "सभी देखें जिन्होंने आपकी प्रोफ़ाइल देखी",
+      "moreMatches": "रोज़ 6 की जगह 15 मैच",
+      "advancedPartnerFilters": "उन्नत पार्टनर फ़िल्टर (देश)",
+      "unlimitedTranslations": "असीमित अनुवाद",
+      "freeMessaging": "भाषा पार्टनर्स से चैट करें",
+      "freeMatches": "रोज़ 6 मैच",
+      "freeTranslations": "रोज़ 5 अनुवाद"
+    },
+    "limit": {
+      "title": "दैनिक सीमा पूरी हुई",
+      "body": "आपने आज का मुफ़्त कोटा इस्तेमाल कर लिया है। VIP दैनिक सीमाएँ हटा देता है।",
+      "cta": "VIP में अपग्रेड करें"
     }
   },
   "linking": {
@@ -2941,7 +2951,8 @@
     "tryIncreaseRadius": "खोज का दायरा बढ़ाकर देखें",
     "unknownError": "एक त्रुटि हुई",
     "usersFound_one": "{{count}} व्यक्ति मिला",
-    "usersFound_other": "{{count}} लोग मिले"
+    "usersFound_other": "{{count}} लोग मिले",
+    "radiusLimit": "मुफ़्त खाते {{km}} km तक खोजते हैं। आगे खोजने के लिए VIP लें।"
   },
   "auth": {
     "apple": {

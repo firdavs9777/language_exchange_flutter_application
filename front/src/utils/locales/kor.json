@@ -642,7 +642,8 @@
       "verified": "인증됨",
       "joined": "{{date}} 가입",
       "active": "{{time}} 활동",
-      "online": "지금 접속 중"
+      "online": "지금 접속 중",
+      "activeToday": "오늘 활동"
     },
     "block": {
       "title": "{{name}}님을 차단할까요?",
@@ -1359,7 +1360,8 @@
       "matchCount": "{{count}}명 일치",
       "lockedByTab": "{{tab}} 탭에서 설정됨",
       "reciprocal": "완벽한 파트너만",
-      "reciprocalHint": "내가 배우는 언어를 쓰고, 내가 쓰는 언어를 배우는 사람"
+      "reciprocalHint": "내가 배우는 언어를 쓰고, 내가 쓰는 언어를 배우는 사람",
+      "countryVipOnly": "국가 필터는 VIP 기능이에요"
     },
     "highlighted": {
       "title": "추천 프로필",
@@ -1423,7 +1425,8 @@
       "error": "오늘의 매칭을 불러오지 못했어요",
       "retry": "다시 시도",
       "waved": "손 흔듦"
-    }
+    },
+    "mutualExchange": "서로의 언어를 배우고 있어요"
   },
   "communityDetail": {
     "errors": {
@@ -2177,16 +2180,23 @@
     "cancelSubscription": "구독 해지",
     "manageInApp": "구독은 BananaTalk 모바일 앱에서 관리할 수 있어요.",
     "features": {
-      "limitedMessages": "하루 메시지 수 제한",
       "basicProfile": "기본 프로필",
       "basicSearch": "기본 검색",
-      "unlimitedMessages": "메시지 무제한",
-      "seeProfileVisitors": "내 프로필 방문자 확인",
-      "advancedFilters": "상세 검색 필터",
       "noAds": "광고 없이 이용",
-      "prioritySupport": "우선 지원",
       "exclusiveBadge": "VIP 전용 배지",
-      "translationFeature": "메시지 번역"
+      "unlimitedTutor": "AI 튜터·롤플레이 무제한",
+      "seeAllVisitors": "내 프로필을 본 사람 모두 보기",
+      "moreMatches": "하루 매칭 6명 대신 15명",
+      "advancedPartnerFilters": "고급 파트너 필터 (국가)",
+      "unlimitedTranslations": "번역 무제한",
+      "freeMessaging": "언어 파트너와 채팅",
+      "freeMatches": "하루 6명 매칭",
+      "freeTranslations": "하루 번역 5회"
+    },
+    "limit": {
+      "title": "일일 한도에 도달했어요",
+      "body": "오늘의 무료 사용량을 모두 사용했어요. VIP는 일일 한도가 없어요.",
+      "cta": "VIP로 업그레이드"
     }
   },
   "linking": {
@@ -2941,7 +2951,8 @@
     "tryIncreaseRadius": "검색 반경을 넓혀 보세요",
     "unknownError": "문제가 생겼어요",
     "usersFound_one": "{{count}}명을 찾았어요",
-    "usersFound_other": "{{count}}명을 찾았어요"
+    "usersFound_other": "{{count}}명을 찾았어요",
+    "radiusLimit": "무료 계정은 {{km}}km까지 검색해요. 더 멀리 찾으려면 VIP로 업그레이드하세요."
   },
   "auth": {
     "apple": {

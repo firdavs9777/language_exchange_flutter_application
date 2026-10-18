@@ -623,7 +623,8 @@
       "verified": "Vérifié",
       "joined": "Membre depuis {{date}}",
       "active": "Actif {{time}}",
-      "online": "En ligne"
+      "online": "En ligne",
+      "activeToday": "Actif aujourd'hui"
     },
     "block": {
       "title": "Bloquer {{name}} ?",
@@ -1340,7 +1341,8 @@
       "matchCount": "{{count}} correspondances",
       "lockedByTab": "Défini par l’onglet {{tab}}",
       "reciprocal": "Partenaires idéaux uniquement",
-      "reciprocalHint": "Ils parlent ce que vous apprenez et apprennent ce que vous parlez"
+      "reciprocalHint": "Ils parlent ce que vous apprenez et apprennent ce que vous parlez",
+      "countryVipOnly": "Le filtre par pays est une fonction VIP"
     },
     "highlighted": {
       "title": "Profils en vedette",
@@ -1405,7 +1407,8 @@
       "error": "Impossible de charger les correspondances du jour",
       "retry": "Réessayer",
       "waved": "Salué"
-    }
+    },
+    "mutualExchange": "Vous apprenez chacun la langue de l'autre"
   },
   "communityDetail": {
     "errors": {
@@ -2159,16 +2162,23 @@
     "cancelSubscription": "Annuler l'abonnement",
     "manageInApp": "Pour gérer votre abonnement, veuillez utiliser l'application mobile BananaTalk.",
     "features": {
-      "limitedMessages": "Messages limités par jour",
       "basicProfile": "Profil de base",
       "basicSearch": "Recherche de base",
-      "unlimitedMessages": "Messages illimités",
-      "seeProfileVisitors": "Voir qui a visité votre profil",
-      "advancedFilters": "Filtres de recherche avancés",
       "noAds": "Expérience sans publicité",
-      "prioritySupport": "Support prioritaire",
       "exclusiveBadge": "Badge VIP exclusif",
-      "translationFeature": "Traduction des messages"
+      "unlimitedTutor": "Tuteur IA et jeux de rôle illimités",
+      "seeAllVisitors": "Voir tous ceux qui ont consulté votre profil",
+      "moreMatches": "15 matchs par jour au lieu de 6",
+      "advancedPartnerFilters": "Filtres avancés de partenaires (pays)",
+      "unlimitedTranslations": "Traductions illimitées",
+      "freeMessaging": "Discuter avec des partenaires linguistiques",
+      "freeMatches": "6 matchs par jour",
+      "freeTranslations": "5 traductions par jour"
+    },
+    "limit": {
+      "title": "Limite quotidienne atteinte",
+      "body": "Vous avez utilisé votre quota gratuit du jour. VIP supprime les limites quotidiennes.",
+      "cta": "Passer à VIP"
     }
   },
   "seo": {
@@ -2942,7 +2952,8 @@
     "tryIncreaseRadius": "Essayez d'élargir le rayon de recherche",
     "unknownError": "Une erreur s'est produite",
     "usersFound_one": "{{count}} personne trouvée",
-    "usersFound_other": "{{count}} personnes trouvées"
+    "usersFound_other": "{{count}} personnes trouvées",
+    "radiusLimit": "Les comptes gratuits cherchent jusqu'à {{km}} km. Passez à VIP pour chercher plus loin."
   },
   "auth": {
     "apple": {

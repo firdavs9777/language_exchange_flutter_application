@@ -34,6 +34,7 @@ import {
   withoutVipOnlyFilters,
 } from "./lib/buildCommunityQuery";
 import { useIsVip } from "../vip/useIsVip";
+import { isMutualExchange } from "./lib/presence";
 import { VIP_PATH } from "../vip/vipStatus";
 import * as filterStorage from "./lib/filterStorage";
 import { DEFAULT_FILTERS } from "./lib/filterStorage";
@@ -449,6 +450,16 @@ const ModernCommunity: React.FC = () => {
       language_to_learn: current?.language_to_learn || userInfo?.user?.language_to_learn,
     }),
     [current?.native_language, current?.language_to_learn, userInfo]
+  );
+
+  // One shared signal on the All list (app parity): each speaks what the
+  // other is learning. Built once so memoized cards see an equal entry.
+  const mutualChip = useMemo(
+    () => ({
+      text: t("communityMain.mutualExchange") || "You're learning each other's language",
+      primary: true,
+    }),
+    [t]
   );
 
   // Identifies the question the list is currently asking. Paging is tagged
@@ -1027,6 +1038,7 @@ const ModernCommunity: React.FC = () => {
                   <div className={CARD_SLOT}>
                     <MemberCard
                       user={member}
+                      reasons={isMutualExchange(member, me) ? [mutualChip] : undefined}
                       onOpen={handleOpenMember}
                       onWave={handleWaveMember}
                     />

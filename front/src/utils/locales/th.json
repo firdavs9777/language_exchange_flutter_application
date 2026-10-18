@@ -642,7 +642,8 @@
       "verified": "ยืนยันแล้ว",
       "joined": "เข้าร่วมเมื่อ {{date}}",
       "active": "ใช้งานเมื่อ {{time}}",
-      "online": "ออนไลน์อยู่"
+      "online": "ออนไลน์อยู่",
+      "activeToday": "ใช้งานวันนี้"
     },
     "block": {
       "title": "บล็อก {{name}} ไหม",
@@ -1359,7 +1360,8 @@
       "matchCount": "{{count}} รายการที่ตรงกัน",
       "lockedByTab": "กำหนดโดยแท็บ {{tab}}",
       "reciprocal": "เฉพาะคู่ฝึกที่ตรงกัน",
-      "reciprocalHint": "เขาพูดภาษาที่คุณเรียน และเรียนภาษาที่คุณพูด"
+      "reciprocalHint": "เขาพูดภาษาที่คุณเรียน และเรียนภาษาที่คุณพูด",
+      "countryVipOnly": "ตัวกรองประเทศเป็นฟีเจอร์ VIP"
     },
     "highlighted": {
       "title": "โปรไฟล์แนะนำ",
@@ -1423,7 +1425,8 @@
       "error": "โหลดคู่ของวันนี้ไม่สำเร็จ",
       "retry": "ลองอีกครั้ง",
       "waved": "โบกมือแล้ว"
-    }
+    },
+    "mutualExchange": "คุณกำลังเรียนภาษาของกันและกัน"
   },
   "communityDetail": {
     "errors": {
@@ -2177,16 +2180,23 @@
     "cancelSubscription": "ยกเลิกการสมัครสมาชิก",
     "manageInApp": "หากต้องการจัดการการสมัครสมาชิก กรุณาใช้แอปมือถือ BananaTalk",
     "features": {
-      "limitedMessages": "ข้อความจำกัดต่อวัน",
       "basicProfile": "โปรไฟล์พื้นฐาน",
       "basicSearch": "การค้นหาพื้นฐาน",
-      "unlimitedMessages": "ข้อความไม่จำกัด",
-      "seeProfileVisitors": "ดูว่าใครเยี่ยมชมโปรไฟล์ของคุณ",
-      "advancedFilters": "ตัวกรองการค้นหาขั้นสูง",
       "noAds": "ไม่มีโฆษณา",
-      "prioritySupport": "การสนับสนุนลำดับความสำคัญ",
       "exclusiveBadge": "ตราสัญลักษณ์ VIP พิเศษ",
-      "translationFeature": "การแปลข้อความ"
+      "unlimitedTutor": "ติวเตอร์ AI และบทบาทสมมติไม่จำกัด",
+      "seeAllVisitors": "ดูทุกคนที่เข้าชมโปรไฟล์ของคุณ",
+      "moreMatches": "แมตช์รายวัน 15 คนแทน 6 คน",
+      "advancedPartnerFilters": "ตัวกรองคู่สนทนาขั้นสูง (ประเทศ)",
+      "unlimitedTranslations": "แปลได้ไม่จำกัด",
+      "freeMessaging": "แชทกับคู่ฝึกภาษา",
+      "freeMatches": "แมตช์รายวัน 6 คน",
+      "freeTranslations": "แปลได้วันละ 5 ครั้ง"
+    },
+    "limit": {
+      "title": "ถึงขีดจำกัดรายวันแล้ว",
+      "body": "คุณใช้โควตาฟรีของวันนี้หมดแล้ว VIP ไม่มีขีดจำกัดรายวัน",
+      "cta": "อัปเกรดเป็น VIP"
     }
   },
   "linking": {
@@ -2941,7 +2951,8 @@
     "tryIncreaseRadius": "ลองเพิ่มรัศมีการค้นหา",
     "unknownError": "เกิดข้อผิดพลาด",
     "usersFound_one": "พบ {{count}} คน",
-    "usersFound_other": "พบ {{count}} คน"
+    "usersFound_other": "พบ {{count}} คน",
+    "radiusLimit": "บัญชีฟรีค้นหาได้ไกลสุด {{km}} กม. อัปเกรดเป็น VIP เพื่อค้นหาไกลขึ้น"
   },
   "auth": {
     "apple": {

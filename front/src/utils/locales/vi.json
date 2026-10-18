@@ -642,7 +642,8 @@
       "verified": "Đã xác minh",
       "joined": "Tham gia {{date}}",
       "active": "Hoạt động {{time}}",
-      "online": "Đang trực tuyến"
+      "online": "Đang trực tuyến",
+      "activeToday": "Hoạt động hôm nay"
     },
     "block": {
       "title": "Chặn {{name}}?",
@@ -1359,7 +1360,8 @@
       "matchCount": "{{count}} kết quả phù hợp",
       "lockedByTab": "Được đặt bởi thẻ {{tab}}",
       "reciprocal": "Chỉ đối tác phù hợp",
-      "reciprocalHint": "Họ nói ngôn ngữ bạn học và học ngôn ngữ bạn nói"
+      "reciprocalHint": "Họ nói ngôn ngữ bạn học và học ngôn ngữ bạn nói",
+      "countryVipOnly": "Bộ lọc quốc gia là tính năng VIP"
     },
     "highlighted": {
       "title": "Hồ sơ nổi bật",
@@ -1423,7 +1425,8 @@
       "error": "Không tải được người phù hợp hôm nay",
       "retry": "Thử lại",
       "waved": "Đã vẫy tay"
-    }
+    },
+    "mutualExchange": "Hai bạn đang học ngôn ngữ của nhau"
   },
   "communityDetail": {
     "errors": {
@@ -2177,16 +2180,23 @@
     "cancelSubscription": "Hủy Đăng Ký",
     "manageInApp": "Để quản lý đăng ký, vui lòng sử dụng ứng dụng di động BananaTalk.",
     "features": {
-      "limitedMessages": "Tin nhắn giới hạn mỗi ngày",
       "basicProfile": "Hồ sơ cơ bản",
       "basicSearch": "Tìm kiếm cơ bản",
-      "unlimitedMessages": "Tin nhắn không giới hạn",
-      "seeProfileVisitors": "Xem ai đã truy cập hồ sơ của bạn",
-      "advancedFilters": "Bộ lọc tìm kiếm nâng cao",
       "noAds": "Trải nghiệm không quảng cáo",
-      "prioritySupport": "Hỗ trợ ưu tiên",
       "exclusiveBadge": "Huy hiệu VIP độc quyền",
-      "translationFeature": "Dịch tin nhắn"
+      "unlimitedTutor": "Gia sư AI và nhập vai không giới hạn",
+      "seeAllVisitors": "Xem tất cả những người đã xem hồ sơ của bạn",
+      "moreMatches": "15 ghép đôi mỗi ngày thay vì 6",
+      "advancedPartnerFilters": "Bộ lọc đối tác nâng cao (quốc gia)",
+      "unlimitedTranslations": "Dịch không giới hạn",
+      "freeMessaging": "Trò chuyện với bạn học ngôn ngữ",
+      "freeMatches": "6 ghép đôi mỗi ngày",
+      "freeTranslations": "5 lượt dịch mỗi ngày"
+    },
+    "limit": {
+      "title": "Đã đạt giới hạn hằng ngày",
+      "body": "Bạn đã dùng hết lượt miễn phí hôm nay. VIP không có giới hạn hằng ngày.",
+      "cta": "Nâng cấp VIP"
     }
   },
   "linking": {
@@ -2941,7 +2951,8 @@
     "tryIncreaseRadius": "Hãy thử tăng bán kính tìm kiếm",
     "unknownError": "Đã xảy ra lỗi",
     "usersFound_one": "Tìm thấy {{count}} người",
-    "usersFound_other": "Tìm thấy {{count}} người"
+    "usersFound_other": "Tìm thấy {{count}} người",
+    "radiusLimit": "Tài khoản miễn phí tìm trong phạm vi {{km}} km. Nâng cấp VIP để tìm xa hơn."
   },
   "auth": {
     "apple": {

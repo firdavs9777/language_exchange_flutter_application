@@ -11,6 +11,7 @@ import 'package:bananatalk_app/pages/chat/message/typing_indicator.dart';
 import 'package:bananatalk_app/pages/chat/message/conversation_empty_state.dart';
 import 'package:bananatalk_app/pages/chat/error/chat_error_widget.dart';
 import 'package:bananatalk_app/pages/chat/message/chat_row.dart';
+import 'package:bananatalk_app/utils/open_user_profile.dart';
 import 'package:bananatalk_app/pages/chat/message/date_separator_chip.dart';
 
 class ChatMessagesList extends StatelessWidget {
@@ -331,14 +332,25 @@ class ChatMessagesList extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 2),
-                        child: Text(
-                          message.sender.name,
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                            color: context.textSecondary,
+                      // The sender's name opens their profile (like the
+                      // avatar does), rooms 2026-10-18.
+                      GestureDetector(
+                        key: ValueKey('group-sender-${message.id}'),
+                        behavior: HitTestBehavior.opaque,
+                        onTap: () => openUserProfile(
+                          context,
+                          message.sender.id,
+                          fallback: message.sender,
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 2),
+                          child: Text(
+                            message.sender.name,
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                              color: context.textSecondary,
+                            ),
                           ),
                         ),
                       ),

@@ -642,7 +642,8 @@
       "verified": "موثّق",
       "joined": "عضو منذ {{date}}",
       "active": "نشط {{time}}",
-      "online": "متصل الآن"
+      "online": "متصل الآن",
+      "activeToday": "نشط اليوم"
     },
     "block": {
       "title": "حظر {{name}}؟",
@@ -1359,7 +1360,8 @@
       "matchCount": "{{count}} تطابق",
       "lockedByTab": "محدد من علامة التبويب {{tab}}",
       "reciprocal": "الشركاء المثاليون فقط",
-      "reciprocalHint": "يتحدثون اللغة التي تتعلمها ويتعلمون اللغة التي تتحدثها"
+      "reciprocalHint": "يتحدثون اللغة التي تتعلمها ويتعلمون اللغة التي تتحدثها",
+      "countryVipOnly": "فلتر الدولة ميزة VIP"
     },
     "highlighted": {
       "title": "ملفات مميزة",
@@ -1427,7 +1429,8 @@
       "error": "تعذّر تحميل مطابقات اليوم",
       "retry": "حاول مجددًا",
       "waved": "تم التلويح"
-    }
+    },
+    "mutualExchange": "كل منكما يتعلم لغة الآخر"
   },
   "communityDetail": {
     "errors": {
@@ -2181,16 +2184,23 @@
     "cancelSubscription": "إلغاء الاشتراك",
     "manageInApp": "لإدارة اشتراكك، يرجى استخدام تطبيق BananaTalk للهاتف.",
     "features": {
-      "limitedMessages": "رسائل محدودة يومياً",
       "basicProfile": "ملف شخصي أساسي",
       "basicSearch": "بحث أساسي",
-      "unlimitedMessages": "رسائل غير محدودة",
-      "seeProfileVisitors": "اعرف من زار ملفك الشخصي",
-      "advancedFilters": "فلاتر بحث متقدمة",
       "noAds": "تجربة بدون إعلانات",
-      "prioritySupport": "دعم ذو أولوية",
       "exclusiveBadge": "شارة VIP حصرية",
-      "translationFeature": "ترجمة الرسائل"
+      "unlimitedTutor": "معلّم ذكي ولعب أدوار بلا حدود",
+      "seeAllVisitors": "شاهد كل من زار ملفك الشخصي",
+      "moreMatches": "15 مطابقة يوميًا بدلًا من 6",
+      "advancedPartnerFilters": "فلاتر متقدمة للشركاء (الدولة)",
+      "unlimitedTranslations": "ترجمات بلا حدود",
+      "freeMessaging": "الدردشة مع شركاء اللغة",
+      "freeMatches": "6 مطابقات يوميًا",
+      "freeTranslations": "5 ترجمات يوميًا"
+    },
+    "limit": {
+      "title": "تم بلوغ الحد اليومي",
+      "body": "لقد استخدمت الحصة المجانية لليوم. VIP يزيل الحدود اليومية.",
+      "cta": "الترقية إلى VIP"
     }
   },
   "linking": {
@@ -2949,7 +2959,8 @@
     "usersFound_zero": "لم يُعثر على أحد",
     "usersFound_two": "تم العثور على شخصين",
     "usersFound_few": "تم العثور على {{count}} أشخاص",
-    "usersFound_many": "تم العثور على {{count}} شخصًا"
+    "usersFound_many": "تم العثور على {{count}} شخصًا",
+    "radiusLimit": "الحسابات المجانية تبحث حتى {{km}} كم. قم بالترقية إلى VIP للبحث أبعد."
   },
   "auth": {
     "apple": {

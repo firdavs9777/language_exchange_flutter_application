@@ -642,7 +642,8 @@
       "verified": "Verified",
       "joined": "Sumali noong {{date}}",
       "active": "Aktibo {{time}}",
-      "online": "Online ngayon"
+      "online": "Online ngayon",
+      "activeToday": "Aktibo ngayong araw"
     },
     "block": {
       "title": "I-block {{name}}?",
@@ -1359,7 +1360,8 @@
       "matchCount": "{{count}} tugma",
       "lockedByTab": "Itinakda ng tab na {{tab}}",
       "reciprocal": "Perpektong kapartner lang",
-      "reciprocalHint": "Marunong sila ng wikang inaaral mo at inaaral nila ang wikang alam mo"
+      "reciprocalHint": "Marunong sila ng wikang inaaral mo at inaaral nila ang wikang alam mo",
+      "countryVipOnly": "VIP feature ang filter ng bansa"
     },
     "highlighted": {
       "title": "Mga itinatampok na profile",
@@ -1423,7 +1425,8 @@
       "error": "Hindi ma-load ang matches ngayon",
       "retry": "Subukan ulit",
       "waved": "Kinawayan na"
-    }
+    },
+    "mutualExchange": "Pinag-aaralan ninyo ang wika ng isa't isa"
   },
   "communityDetail": {
     "errors": {
@@ -2177,16 +2180,23 @@
     "cancelSubscription": "Kanselahin ang Subscription",
     "manageInApp": "Para pamahalaan ang iyong subscription, mangyaring gamitin ang BananaTalk mobile app.",
     "features": {
-      "limitedMessages": "Limitadong mga mensahe bawat araw",
       "basicProfile": "Basic na profile",
       "basicSearch": "Basic na paghahanap",
-      "unlimitedMessages": "Walang limitasyong mga mensahe",
-      "seeProfileVisitors": "Tingnan kung sino ang bumisita sa iyong profile",
-      "advancedFilters": "Advanced na mga filter sa paghahanap",
       "noAds": "Walang ads na karanasan",
-      "prioritySupport": "Priority na suporta",
       "exclusiveBadge": "Eksklusibong VIP badge",
-      "translationFeature": "Pagsasalin ng mensahe"
+      "unlimitedTutor": "Walang limitasyong AI tutor at roleplay",
+      "seeAllVisitors": "Tingnan ang lahat ng tumingin sa profile mo",
+      "moreMatches": "15 daily match sa halip na 6",
+      "advancedPartnerFilters": "Advanced na partner filters (bansa)",
+      "unlimitedTranslations": "Walang limitasyong pagsasalin",
+      "freeMessaging": "Makipag-chat sa mga language partner",
+      "freeMatches": "6 na daily match",
+      "freeTranslations": "5 pagsasalin bawat araw"
+    },
+    "limit": {
+      "title": "Naabot na ang daily limit",
+      "body": "Nagamit mo na ang libreng quota ngayong araw. Walang daily limit sa VIP.",
+      "cta": "Mag-upgrade sa VIP"
     }
   },
   "linking": {
@@ -2941,7 +2951,8 @@
     "tryIncreaseRadius": "Subukang palakihin ang radius ng paghahanap",
     "unknownError": "May naganap na error",
     "usersFound_one": "{{count}} tao ang nahanap",
-    "usersFound_other": "{{count}} tao ang nahanap"
+    "usersFound_other": "{{count}} tao ang nahanap",
+    "radiusLimit": "Hanggang {{km}} km lang ang paghahanap ng libreng account. Mag-VIP para maghanap nang mas malayo."
   },
   "auth": {
     "apple": {

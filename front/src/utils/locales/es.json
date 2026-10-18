@@ -623,7 +623,8 @@
       "verified": "Verificado",
       "joined": "Miembro desde {{date}}",
       "active": "Activo {{time}}",
-      "online": "En línea"
+      "online": "En línea",
+      "activeToday": "Activo hoy"
     },
     "block": {
       "title": "¿Bloquear a {{name}}?",
@@ -1340,7 +1341,8 @@
       "matchCount": "{{count}} coincidencias",
       "lockedByTab": "Definido por la pestaña {{tab}}",
       "reciprocal": "Solo compañeros ideales",
-      "reciprocalHint": "Hablan lo que aprendes y aprenden lo que hablas"
+      "reciprocalHint": "Hablan lo que aprendes y aprenden lo que hablas",
+      "countryVipOnly": "El filtro por país es una función VIP"
     },
     "highlighted": {
       "title": "Perfiles destacados",
@@ -1405,7 +1407,8 @@
       "error": "No pudimos cargar las coincidencias de hoy",
       "retry": "Reintentar",
       "waved": "Saludado"
-    }
+    },
+    "mutualExchange": "Estáis aprendiendo el idioma del otro"
   },
   "communityDetail": {
     "errors": {
@@ -2159,16 +2162,23 @@
     "cancelSubscription": "Cancelar Suscripción",
     "manageInApp": "Para administrar tu suscripción, por favor usa la app móvil de BananaTalk.",
     "features": {
-      "limitedMessages": "Mensajes limitados por día",
       "basicProfile": "Perfil básico",
       "basicSearch": "Búsqueda básica",
-      "unlimitedMessages": "Mensajes ilimitados",
-      "seeProfileVisitors": "Ver quién visitó tu perfil",
-      "advancedFilters": "Filtros de búsqueda avanzados",
       "noAds": "Experiencia sin anuncios",
-      "prioritySupport": "Soporte prioritario",
       "exclusiveBadge": "Insignia exclusiva VIP",
-      "translationFeature": "Traducción de mensajes"
+      "unlimitedTutor": "Tutor de IA y juegos de rol ilimitados",
+      "seeAllVisitors": "Mira a todos los que vieron tu perfil",
+      "moreMatches": "15 coincidencias diarias en vez de 6",
+      "advancedPartnerFilters": "Filtros avanzados de compañeros (país)",
+      "unlimitedTranslations": "Traducciones ilimitadas",
+      "freeMessaging": "Chatea con compañeros de idiomas",
+      "freeMatches": "6 coincidencias diarias",
+      "freeTranslations": "5 traducciones al día"
+    },
+    "limit": {
+      "title": "Límite diario alcanzado",
+      "body": "Has usado tu cupo gratuito de hoy. VIP elimina los límites diarios.",
+      "cta": "Hazte VIP"
     }
   },
   "seo": {
@@ -2942,7 +2952,8 @@
     "tryIncreaseRadius": "Prueba a ampliar el radio de búsqueda",
     "unknownError": "Ocurrió un error",
     "usersFound_one": "{{count}} persona encontrada",
-    "usersFound_other": "{{count}} personas encontradas"
+    "usersFound_other": "{{count}} personas encontradas",
+    "radiusLimit": "Las cuentas gratuitas buscan hasta {{km}} km. Hazte VIP para buscar más lejos."
   },
   "auth": {
     "apple": {

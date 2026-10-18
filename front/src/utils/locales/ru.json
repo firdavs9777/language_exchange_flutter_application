@@ -642,7 +642,8 @@
       "verified": "Подтверждён",
       "joined": "В BananaTalk с {{date}}",
       "active": "Активность {{time}}",
-      "online": "Сейчас в сети"
+      "online": "Сейчас в сети",
+      "activeToday": "Был(а) сегодня"
     },
     "block": {
       "title": "Заблокировать {{name}}?",
@@ -1359,7 +1360,8 @@
       "matchCount": "Совпадений: {{count}}",
       "lockedByTab": "Задано вкладкой «{{tab}}»",
       "reciprocal": "Только идеальные партнёры",
-      "reciprocalHint": "Они говорят на языке, который вы учите, и учат ваш язык"
+      "reciprocalHint": "Они говорят на языке, который вы учите, и учат ваш язык",
+      "countryVipOnly": "Фильтр по стране доступен в VIP"
     },
     "highlighted": {
       "title": "Рекомендуемые профили",
@@ -1425,7 +1427,8 @@
       "error": "Не удалось загрузить совпадения на сегодня",
       "retry": "Повторить",
       "waved": "Приветствие отправлено"
-    }
+    },
+    "mutualExchange": "Вы изучаете языки друг друга"
   },
   "communityDetail": {
     "errors": {
@@ -2179,16 +2182,23 @@
     "cancelSubscription": "Отменить Подписку",
     "manageInApp": "Для управления подпиской, пожалуйста, используйте мобильное приложение BananaTalk.",
     "features": {
-      "limitedMessages": "Ограниченное количество сообщений в день",
       "basicProfile": "Базовый профиль",
       "basicSearch": "Базовый поиск",
-      "unlimitedMessages": "Безлимитные сообщения",
-      "seeProfileVisitors": "Смотрите, кто посещал ваш профиль",
-      "advancedFilters": "Расширенные фильтры поиска",
       "noAds": "Без рекламы",
-      "prioritySupport": "Приоритетная поддержка",
       "exclusiveBadge": "Эксклюзивный значок VIP",
-      "translationFeature": "Перевод сообщений"
+      "unlimitedTutor": "Безлимитный ИИ-репетитор и ролевые диалоги",
+      "seeAllVisitors": "Все, кто смотрел ваш профиль",
+      "moreMatches": "15 собеседников в подборке дня вместо 6",
+      "advancedPartnerFilters": "Расширенные фильтры партнёров (страна)",
+      "unlimitedTranslations": "Безлимитные переводы",
+      "freeMessaging": "Общение с языковыми партнёрами",
+      "freeMatches": "6 собеседников в подборке дня",
+      "freeTranslations": "5 переводов в день"
+    },
+    "limit": {
+      "title": "Дневной лимит исчерпан",
+      "body": "Бесплатный лимит на сегодня израсходован. С VIP дневных лимитов нет.",
+      "cta": "Перейти на VIP"
     }
   },
   "linking": {
@@ -2945,7 +2955,8 @@
     "usersFound_one": "Найден {{count}} человек",
     "usersFound_other": "Найдено {{count}} человека",
     "usersFound_few": "Найдено {{count}} человека",
-    "usersFound_many": "Найдено {{count}} человек"
+    "usersFound_many": "Найдено {{count}} человек",
+    "radiusLimit": "Бесплатный поиск — до {{km}} км. Чтобы искать дальше, перейдите на VIP."
   },
   "auth": {
     "apple": {

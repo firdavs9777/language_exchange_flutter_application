@@ -1,6 +1,6 @@
 # Remaining work — web
 
-Last updated: 2026-10-16. Tick items off in the same commit that finishes them.
+Last updated: 2026-10-18. Tick items off in the same commit that finishes them.
 
 See also: app `bananatalk_app/docs/REMAINING_WORK.md` (release, store consoles, device QA) ·
 backend `language_exchange_backend_application/docs/REMAINING_WORK.md` (server env, prod DB, flags, ops).
@@ -179,7 +179,20 @@ Phase 4 Sign in with Apple (plan `bananatalk_app/docs/superpowers/plans/2026-10-
 - [x] P4-APPLE-5 Button on Login and Register; hidden while `webAppleSigninEnabled` is off or no Services ID is configured
 - [x] P4-APPLE-I18N New Apple sign-in strings in all 18 locales
 - [x] P4-APPLE-PUSH Push unit apple (suite + build green, deployed dark, production smoke recorded) — deployed dark 2026-10-16 (suite 3911 pass)
-- [ ] Bundle budget: `npm run test:budget` fails -- first-paint 331.0 KB vs 326 KB budget (origin/main a944011 was already 329.2 KB). Not run by the deploy workflow. S
+- [ ] Bundle budget: `npm run test:budget` fails -- first-paint 351.1 KB vs 326 KB budget, app code 317.6 vs 307 KB (main 661c06e was already 349.3 / 315.9; the VIP parity work below adds 1.8 KB). `npm run deploy` now runs `test:budget`, so a deploy through that script stops here until the budget or the bundle is fixed. S
+
+VIP parity with the app (2026-10-18; backend a71aa3c / b2836ac, app d769d971)
+- [x] Nearby radius 5/10/25/50/100/200 km; options above the server's `search.maxRadiusKm` (50 until it answers; VIP 500) show a lock and open `/settings/vip`
+- [x] VIP page and home pricing list the real perks (no ads, unlimited AI tutor and roleplay, everyone who viewed you, 15 daily matches instead of 6, country filter, unlimited translations); the server's stale plan `features` are no longer rendered
+- [x] Country filter is VIP-only: locked with a VIP badge for free members, not sent, not shown as a chip or counted (gender stays free)
+- [x] Daily limits (moments, comments, stories: 429; translation: 403 `TRANSLATION_LIMIT_REACHED`) show one "Upgrade to VIP" toast (`src/components/vip/dailyLimit.tsx`)
+- [x] Strangers' profiles: "Online now" / "Active today" / nothing (respects `showOnlineStatus`), no join month; the owner still sees both
+- [x] "You're learning each other's language" chip on the All list
+- [x] VIP status (`/auth/me`), the community list and Nearby re-read on tab focus (per query; the global `refetchOnFocus` stays off)
+- [x] New strings in all 18 locales (drafts; native review with the app's batch)
+- [ ] Backend: `GET /purchases/plans` still advertises unlimited messages / profile views / waves / voice rooms / premium support -- fix the source (controllers/iosPurchase.js) so the app store sheets match. S
+- [ ] Chat's daily-message limit dialog still says "Go VIP for unlimited messages" (`chatPage.sendErrors.dailyBody`) -- keep only while the server enforces a free message cap. S
+- [ ] Native review of the 2026-10-18 VIP strings (vip.features.*, vip.limit.*, countryVipOnly, mutualExchange, activeToday, radiusLimit). S
 
 ## 5. Decided / won't fix
 
