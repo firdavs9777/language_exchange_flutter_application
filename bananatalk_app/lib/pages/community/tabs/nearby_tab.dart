@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart' show mapEquals;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,6 +10,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 // ignore: unused_import
 import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:geocoding/geocoding.dart' show placemarkFromCoordinates;
+import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/pages/community/widgets/wave_error_snackbar.dart';
@@ -40,6 +44,11 @@ import 'package:bananatalk_app/utils/app_page_route.dart';
   if (lat < -90 || lat > 90 || lng < -180 || lng > 180) return null;
   return (latitude: lat, longitude: lng);
 }
+
+/// Whether a radius chip is above this account's limit. Before the server
+/// has said, assume the free 50 km cap.
+bool nearbyRadiusLocked(int radiusKm, int? maxRadiusKm) =>
+    radiusKm > (maxRadiusKm ?? 50);
 
 /// Nearby Tab - Grid view of nearby users with real distance calculation
 class NearbyTab extends ConsumerStatefulWidget {
@@ -74,6 +83,11 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
   bool _locationDenied = false;
   final LocationService _locationService = LocationService();
   int _selectedRadius = 50; // Default 50km radius
+
+  /// The most this account may search (from the server; free accounts are
+  /// capped). Wider chips show a lock that opens VIP instead of silently
+  /// searching the capped radius.
+  int? _maxRadiusKm;
   bool _isLoadingMore = false;
 
   /// Set when a fetch fails. Without it the catch below simply cleared the
@@ -129,17 +143,67 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
 
     final position = await _locationService.getCurrentPosition();
 
+    // No GPS: search around the location saved on the profile, if any,
+    // instead of stopping at the permission screen (2026-10-18).
+    ({double latitude, double longitude})? profileCenter;
+    if (position == null) {
+      Community? me = ref.read(userProvider).valueOrNull;
+      if (me == null) {
+        try {
+          me = await ref.read(userProvider.future);
+        } catch (_) {}
+      }
+      profileCenter = profileSearchCenter(me?.location);
+    }
+
     if (mounted) {
       setState(() {
         _userPosition = position;
+        _profileCenter = profileCenter ?? _profileCenter;
         _locationLoading = false;
-        _locationDenied = position == null;
+        _locationDenied = position == null && _profileCenter == null;
       });
     }
 
-    // Load nearby users once we have location
     if (position != null) {
+      unawaited(_saveLocationIfMissing(position));
+    }
+    if (_searchCenter != null) {
       _loadNearbyUsers();
+    }
+  }
+
+  /// The person allowed location access but their profile has no location
+  /// (so nobody else's Nearby can find them): save the device's city and
+  /// country to the profile, once per launch. Only ever after the system
+  /// permission was granted.
+  static bool _savedLocationThisLaunch = false;
+
+  Future<void> _saveLocationIfMissing(Position position) async {
+    if (_savedLocationThisLaunch) return;
+    final me = ref.read(userProvider).valueOrNull;
+    if (me == null || profileSearchCenter(me.location) != null) return;
+    _savedLocationThisLaunch = true;
+    try {
+      final places = await placemarkFromCoordinates(
+        position.latitude,
+        position.longitude,
+      );
+      final place = places.isNotEmpty ? places.first : null;
+      final city = (place?.locality?.isNotEmpty ?? false)
+          ? place!.locality!
+          : (place?.administrativeArea ?? '');
+      final country = place?.country ?? '';
+      if (country.isEmpty) return;
+      await ref.read(authServiceProvider).updateUserHometown(
+            city: city,
+            country: country,
+            latitude: position.latitude,
+            longitude: position.longitude,
+          );
+      ref.invalidate(userProvider);
+    } catch (_) {
+      // Best effort; Nearby itself works from the device position.
     }
   }
 
@@ -183,18 +247,15 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
       final filterNative = widget.filters['nativeLanguage']?.toString();
       final filterLearning = widget.filters['learningLanguage']?.toString();
 
-      // Default to user's learning language (find native speakers nearby) when no explicit filter
       String? langParam;
       if (filterNative != null && filterNative.isNotEmpty) {
         langParam = filterNative;
       } else if (filterLearning != null && filterLearning.isNotEmpty) {
         langParam = filterLearning;
-      } else {
-        final me = ref.read(userProvider).valueOrNull;
-        if (me != null && me.language_to_learn.isNotEmpty) {
-          langParam = me.language_to_learn;
-        }
       }
+      // No language filter unless one is chosen (2026-10-18): Nearby used to
+      // keep only people tied to the language you learn, so most areas
+      // looked empty even with users close by.
 
       final response = await service.getNearbyUsers(
         latitude: center.latitude,
@@ -226,6 +287,7 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
           _hasMore = response.pagination.hasMore;
           _isLoadingMore = false;
           _loadError = null;
+          _maxRadiusKm = response.maxRadiusKm ?? _maxRadiusKm;
         });
       }
     } catch (e) {
@@ -240,6 +302,16 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
         });
       }
     }
+  }
+
+  /// A wider radius is a VIP benefit: open the plans instead of quietly
+  /// searching the capped radius.
+  void _openVipForRadius() {
+    HapticFeedback.selectionClick();
+    Navigator.push(
+      context,
+      AppPageRoute(builder: (_) => VipPlansScreen(userId: _userId)),
+    );
   }
 
   void _onRadiusChanged(int radius) {
@@ -444,12 +516,20 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
               child: Row(
                 children: [5, 10, 25, 50, 100, 200].map((radius) {
                   final isSelected = _selectedRadius == radius;
+                  final locked = nearbyRadiusLocked(radius, _maxRadiusKm);
                   return Padding(
                     padding: const EdgeInsets.only(right: Spacing.sm),
                     child: ChoiceChip(
+                      key: ValueKey('nearby-radius-$radius'),
+                      avatar: locked
+                          ? Icon(Icons.lock_rounded,
+                              size: 14, color: AppColors.warning)
+                          : null,
                       label: Text('${radius}km'),
                       selected: isSelected,
-                      onSelected: (_) => _onRadiusChanged(radius),
+                      onSelected: (_) => locked
+                          ? _openVipForRadius()
+                          : _onRadiusChanged(radius),
                       selectedColor: context.primaryColor,
                       labelStyle: TextStyle(
                         color: isSelected

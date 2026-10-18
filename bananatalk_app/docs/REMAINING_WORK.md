@@ -372,3 +372,7 @@ Web ↔ app parity (spec `docs/superpowers/specs/2026-10-16-web-app-parity-desig
 ## Partners row (2026-10-18)
 - [x] Chips led with "Active 3h ago" + "Joined 12d ago" on nearly every row. Now (max 3, `partnerChipLabels`): exchange fit ("You're learning each other's language" / "Speaks X" / "Learning X") → shared interest (localized topic) → same city (only if the person shows their city) → replies fast → "Active now / Active today" (only if they show online status). Exact recency and account age are no longer shown to strangers. Chips are one line with "…" (no overflow at 320 px in de/ru/en).
 
+## Nearby (2026-10-18)
+- [x] Nearby looked empty: it silently kept only people tied to the viewer's learning language, free accounts were searched at 50 km whatever chip was picked (100/200 km did nothing), and without GPS it stopped at the permission screen even when the profile had a location. Now: no language filter unless chosen; chips above the account limit (server `search.maxRadiusKm`) show a lock and open VIP plans; without GPS it searches around the profile location; with GPS granted and no profile location, the device city/country is saved to the profile (so others can find them) — only after the system permission. Prod: 1,838 users have a location, 18 within 50 km of Seoul.
+- [ ] Device check: Nearby with GPS on lists people; 100 km chip shows a lock → VIP plans; a fresh account that allows location gets its city on the profile. S
+

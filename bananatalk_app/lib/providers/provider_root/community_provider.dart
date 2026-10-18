@@ -562,7 +562,17 @@ class NearbyUsersResponse {
   final List<NearbyUser> users;
   final NearbyPagination pagination;
 
-  NearbyUsersResponse({required this.users, required this.pagination});
+  /// The radius the server actually searched and the most this account may
+  /// ask for (free accounts are capped); null from older servers.
+  final int? searchedRadiusKm;
+  final int? maxRadiusKm;
+
+  NearbyUsersResponse({
+    required this.users,
+    required this.pagination,
+    this.searchedRadiusKm,
+    this.maxRadiusKm,
+  });
 
   factory NearbyUsersResponse.fromJson(Map<String, dynamic> json) {
     final dataList = json['data'] as List? ?? [];
@@ -573,6 +583,12 @@ class NearbyUsersResponse {
       pagination: NearbyPagination.fromJson(
         json['pagination'] as Map<String, dynamic>? ?? {},
       ),
+      searchedRadiusKm: (json['search'] is Map && json['search']['radiusKm'] is num)
+          ? (json['search']['radiusKm'] as num).round()
+          : null,
+      maxRadiusKm: (json['search'] is Map && json['search']['maxRadiusKm'] is num)
+          ? (json['search']['maxRadiusKm'] as num).round()
+          : null,
     );
   }
 }
