@@ -343,4 +343,18 @@ void main() {
     expect(find.text('Could not load gatherings'), findsOneWidget);
     expect(find.byType(CreateGatheringForm), findsNothing);
   });
+
+  testWidgets('retrying while a load is still failing raises no unhandled error', (
+    tester,
+  ) async {
+    // Seen on a device (2026-10-18): a replaced, failing load reported
+    // "Unhandled Exception: GatheringFetchException" to the console.
+    await tester.pumpWidget(_host(_FailingApi()));
+    await tester.pump();
+    final state = tester.state(find.byType(GatheringsTab)) as dynamic;
+    await state.refreshForTest();
+    await state.refreshForTest();
+    await tester.pumpAndSettle();
+    expect(find.text('Could not load gatherings'), findsOneWidget);
+  });
 }

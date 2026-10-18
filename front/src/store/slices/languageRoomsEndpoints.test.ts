@@ -83,3 +83,22 @@ describe("languageRoomErrorText", () => {
     [{ status: 500 }, "Something went wrong. Try again."],
   ])("%j", (err, text) => expect(languageRoomErrorText(err, t)).toBe(text));
 });
+
+it("edits a room, removes a message and uploads a photo with its caption and reply", async () => {
+  const calls = mockFetch();
+  const store = makeStore();
+  await store.dispatch(ep("updateLanguageRoom").initiate({ roomId: "r1", title: " Travel ", description: " Trips " }));
+  await store.dispatch(ep("deleteLanguageRoomMessage").initiate({ roomId: "r1", messageId: "m1" }));
+  const file = new File(["x"], "p.jpg", { type: "image/jpeg" });
+  await store.dispatch(ep("uploadLanguageRoomPhoto").initiate({ roomId: "r1", file, caption: " look ", replyTo: "m2" }));
+  expect([calls[0].method, path(calls[0])]).toEqual(["PUT", `${LANGUAGE_ROOMS_URL}/r1`]);
+  expect(JSON.parse(calls[0].body as string)).toEqual({ title: "Travel", description: "Trips" });
+  expect([calls[1].method, path(calls[1])]).toEqual(["DELETE", `${LANGUAGE_ROOMS_URL}/r1/messages/m1`]);
+  expect([calls[2].method, path(calls[2])]).toEqual(["POST", `${LANGUAGE_ROOMS_URL}/r1/media`]);
+});
+
+it("creates a room with an emoji flag only when one is given", async () => {
+  const calls = mockFetch();
+  await makeStore().dispatch(ep("createTopicRoom").initiate({ title: "Café", targetLanguage: "fr", emojiFlag: "🇫🇷" }));
+  expect(JSON.parse(calls[0].body as string)).toEqual({ title: "Café", targetLanguage: "fr", description: "", emojiFlag: "🇫🇷" });
+});

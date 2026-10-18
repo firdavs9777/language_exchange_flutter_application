@@ -87,7 +87,16 @@ class _GatheringsTabState extends ConsumerState<GatheringsTab>
   void initState() {
     super.initState();
     _tabs = TabController(length: 2, vsync: this);
-    _feed = _load();
+    _feed = _watched(_load());
+  }
+
+  /// The FutureBuilder shows a failed load as the tab's error state, but a
+  /// future it stopped listening to (replaced by a refresh or a filter
+  /// change while still failing) reported its error as unhandled. Mark it
+  /// handled; listeners still receive the error.
+  Future<_FeedData> _watched(Future<_FeedData> future) {
+    future.ignore();
+    return future;
   }
 
   Future<_FeedData> _load() async {
@@ -107,14 +116,20 @@ class _GatheringsTabState extends ConsumerState<GatheringsTab>
     );
   }
 
+  @visibleForTesting
+  Future<void> refreshForTest() => _refresh();
+
   Future<void> _refresh() async {
-    final next = _load();
+    final next = _watched(_load());
     // Block body, not an arrow: `() => _feed = next` evaluates to the assigned
     // Future, and setState rejects a callback that returns one.
     setState(() {
       _feed = next;
     });
-    await next;
+    // The error is shown by the FutureBuilder; the pull spinner just stops.
+    try {
+      await next;
+    } catch (_) {}
   }
 
   /// The viewer's target language, used to pre-fill the create form. Empty is
@@ -167,7 +182,7 @@ class _GatheringsTabState extends ConsumerState<GatheringsTab>
     if (next == _filters) return;
     setState(() {
       _filters = next;
-      _feed = _load();
+      _feed = _watched(_load());
     });
   }
 
