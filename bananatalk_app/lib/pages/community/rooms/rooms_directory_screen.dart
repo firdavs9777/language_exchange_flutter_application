@@ -218,8 +218,6 @@ class _RoomsListState extends ConsumerState<_RoomsList> {
     }
 
     return ListView.builder(
-      // Pull-to-refresh must work even when the rooms fit on one screen.
-      physics: const AlwaysScrollableScrollPhysics(),
       padding: EdgeInsets.fromLTRB(
         Spacing.md,
         Spacing.md,
@@ -227,6 +225,8 @@ class _RoomsListState extends ConsumerState<_RoomsList> {
         // keep the last card clear of the bar and the FAB sitting on it
         FloatingTabBar.clearance(context) + FloatingTabBar.fabSpace,
       ),
+      // Pull-to-refresh must work even when the rooms fit on one screen.
+      physics: const AlwaysScrollableScrollPhysics(),
       itemCount: items.length,
       itemBuilder: (context, index) {
         final item = items[index];

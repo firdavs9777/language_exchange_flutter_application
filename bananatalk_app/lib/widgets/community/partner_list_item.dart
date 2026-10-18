@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/models/community/topic_model.dart';
 import 'package:bananatalk_app/utils/language_names.dart';
 import 'package:flutter/services.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
@@ -235,61 +236,33 @@ class PartnerListItem extends StatelessWidget {
     );
   }
 
-  /// Build up to 3 contextual chips ranked by signal strength.
-  ///
-  /// Priority: Active status → Responsiveness → Shared topic/language →
-  /// MBTI → "Joined Xd ago" (only for the 7–30 day window; the NEW badge
-  /// in the name row covers ≤6 days).
+  /// Up to 3 chips about what this person and the viewer have in common,
+  /// most useful first (2026-10-18). It used to lead with "Active 3h ago"
+  /// and "Joined 12d ago", so nearly every row said the same two things;
+  /// the exact recency and account age also told strangers more than they
+  /// need. Now: exchange fit → shared interest → same city → replies fast
+  /// → active now/today (only when the person shows their online status).
   Widget _buildTagChips(BuildContext context) {
-    final showOnline = PrivacyUtils.shouldShowOnlineStatus(user);
     final l10n = AppLocalizations.of(context)!;
-    final chips = <Widget>[];
-
-    if (user.boosted) {
-      chips.add(_chip(context, l10n.boostedChip, AppColors.matchInk,
-          fill: AppColors.matchAccent));
-    }
-
-    if (showOnline) {
-      if (user.isOnline) {
-        chips.add(_chip(context, l10n.partnerTagActiveNow, AppColors.success));
-      } else if (user.lastActiveLabel(l10n).isNotEmpty) {
-        chips.add(_chip(context, user.lastActiveLabel(l10n), context.textMuted));
-      }
-    }
-
-    if (user.responseRate != null) {
-      if (user.responseRate! >= 80) {
-        chips.add(
-          _chip(context, l10n.partnerTagVeryResponsive, AppColors.primary),
-        );
-      } else if (user.responseRate! >= 50) {
-        chips.add(
-          _chip(context, l10n.partnerTagQuickToReply, AppColors.primary),
-        );
-      }
-    }
-
-    final shared = _sharedSignal(context);
-    if (shared != null) chips.add(_chip(context, shared, AppColors.primary));
-
-    if (user.mbti.isNotEmpty) {
-      chips.add(_chip(context, user.mbti, context.textSecondary));
-    }
-
-    if (!user.isNewUser) {
-      final days = _daysSinceJoin();
-      if (days != null && days <= 30) {
-        chips.add(
-          _chip(
-            context,
-            l10n.partnerTagJoinedDaysAgo(days),
-            context.textSecondary,
-          ),
-        );
-      }
-    }
-
+    final labels = partnerChipLabels(
+      l10n,
+      user,
+      currentUser,
+      languageName: (stored) => LanguageNames.of(context, stored),
+    );
+    final chips = <Widget>[
+      if (user.boosted)
+        _chip(context, l10n.boostedChip, AppColors.matchInk,
+            fill: AppColors.matchAccent),
+      for (final label in labels)
+        _chip(
+          context,
+          label.text,
+          label.kind == PartnerChipKind.activity
+              ? AppColors.success
+              : AppColors.primary,
+        ),
+    ];
     if (chips.isEmpty) return const SizedBox.shrink();
 
     return Padding(
@@ -309,8 +282,13 @@ class PartnerListItem extends StatelessWidget {
         color: fill ?? color.withValues(alpha: 0.12),
         borderRadius: BorderRadius.circular(10),
       ),
+      // One line, shortened with "…": a long chip (a German "you are
+      // learning each other's language") must never overflow the row.
       child: Text(
         label,
+        maxLines: 1,
+        softWrap: false,
+        overflow: TextOverflow.ellipsis,
         style: TextStyle(
           fontSize: 11,
           fontWeight: FontWeight.w600,
@@ -318,44 +296,6 @@ class PartnerListItem extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  /// Shared signal: first overlapping topic with currentUser, falling back
-  /// to a language-exchange match. Localized via [AppLocalizations].
-  String? _sharedSignal(BuildContext context) {
-    if (currentUser == null) return null;
-    final l10n = AppLocalizations.of(context)!;
-
-    if (user.topics.isNotEmpty && currentUser!.topics.isNotEmpty) {
-      for (final topic in user.topics) {
-        if (currentUser!.topics.contains(topic)) {
-          return l10n.partnerTagBothLike(topic);
-        }
-      }
-    }
-
-    if (user.native_language.isNotEmpty &&
-        currentUser!.language_to_learn.isNotEmpty &&
-        user.native_language.toLowerCase() ==
-            currentUser!.language_to_learn.toLowerCase()) {
-      return l10n.partnerTagSpeaks(LanguageNames.of(context, user.native_language));
-    }
-
-    if (user.language_to_learn.isNotEmpty &&
-        currentUser!.native_language.isNotEmpty &&
-        user.language_to_learn.toLowerCase() ==
-            currentUser!.native_language.toLowerCase()) {
-      return l10n.partnerTagLearning(LanguageNames.of(context, user.language_to_learn));
-    }
-
-    return null;
-  }
-
-  int? _daysSinceJoin() {
-    if (user.createdAt.isEmpty) return null;
-    final joined = DateTime.tryParse(user.createdAt);
-    if (joined == null) return null;
-    return DateTime.now().difference(joined).inDays;
   }
 
   String _getLanguageFlag(String language) => LanguageFlags.getFlagByName(language);
@@ -519,4 +459,83 @@ class _WaveButton extends StatelessWidget {
       ),
     );
   }
+}
+
+enum PartnerChipKind { fit, interest, place, replies, activity }
+
+class PartnerChipLabel {
+  const PartnerChipLabel(this.kind, this.text);
+  final PartnerChipKind kind;
+  final String text;
+}
+
+/// The Partners-row chips in priority order (pure, for tests). [viewer] is
+/// the signed-in user; without it only the person's own signals show.
+List<PartnerChipLabel> partnerChipLabels(
+  AppLocalizations l10n,
+  Community user,
+  Community? viewer, {
+  required String Function(String stored) languageName,
+  DateTime? now,
+}) {
+  final out = <PartnerChipLabel>[];
+  String norm(String v) => v.trim().toLowerCase();
+
+  if (viewer != null) {
+    final speaksMine = user.native_language.isNotEmpty &&
+        norm(user.native_language) == norm(viewer.language_to_learn);
+    final learnsMine = user.language_to_learn.isNotEmpty &&
+        norm(user.language_to_learn) == norm(viewer.native_language);
+    if (speaksMine && learnsMine) {
+      out.add(PartnerChipLabel(PartnerChipKind.fit, l10n.matchReasonReciprocal));
+    } else if (speaksMine) {
+      out.add(PartnerChipLabel(PartnerChipKind.fit,
+          l10n.partnerTagSpeaks(languageName(user.native_language))));
+    } else if (learnsMine) {
+      out.add(PartnerChipLabel(PartnerChipKind.fit,
+          l10n.partnerTagLearning(languageName(user.language_to_learn))));
+    }
+
+    final shared = user.topics.where(viewer.topics.contains).toList();
+    if (shared.isNotEmpty) {
+      out.add(PartnerChipLabel(PartnerChipKind.interest,
+          l10n.partnerTagBothLike(partnerTopicLabel(l10n, shared.first))));
+    }
+
+    // Only when the person shows their city.
+    final showsCity = user.privacySettings?.showCity ?? true;
+    if (showsCity &&
+        user.location.city.isNotEmpty &&
+        norm(user.location.city) == norm(viewer.location.city)) {
+      out.add(PartnerChipLabel(PartnerChipKind.place, l10n.matchReasonSameCity));
+    }
+  }
+
+  final rate = user.responseRate;
+  if (rate != null && rate >= 80) {
+    out.add(PartnerChipLabel(PartnerChipKind.replies, l10n.partnerTagVeryResponsive));
+  } else if (rate != null && rate >= 50) {
+    out.add(PartnerChipLabel(PartnerChipKind.replies, l10n.partnerTagQuickToReply));
+  }
+
+  // Coarse activity only, and only for people who show their online status.
+  if (PrivacyUtils.shouldShowOnlineStatus(user)) {
+    final since = user.lastActive == null
+        ? null
+        : (now ?? DateTime.now()).difference(user.lastActive!);
+    if (user.isOnline) {
+      out.add(PartnerChipLabel(PartnerChipKind.activity, l10n.partnerTagActiveNow));
+    } else if (since != null && since.inHours < 24) {
+      out.add(PartnerChipLabel(PartnerChipKind.activity, l10n.matchReasonActiveToday));
+    }
+  }
+  return out;
+}
+
+/// A topic id in the app's language (falls back to the id).
+String partnerTopicLabel(AppLocalizations l10n, String id) {
+  for (final t in Topic.defaultTopics) {
+    if (t.id == id) return t.localizedName(l10n);
+  }
+  return id;
 }

@@ -369,3 +369,6 @@ Web ↔ app parity (spec `docs/superpowers/specs/2026-10-16-web-app-parity-desig
 - [ ] Device check (rooms photos/replies/reactions, two accounts): send a photo with a caption, reply to it, react with ❤️ → the other side sees all three live; a failed photo upload says "Failed to send message". S
 - [ ] Device check: Community → Rooms shows the 17 hubs with right flags, your learning-language hub first with today's question; typing shows "<name> is typing"; airplane mode → send → "Failed to send message" and the text stays. S
 
+## Partners row (2026-10-18)
+- [x] Chips led with "Active 3h ago" + "Joined 12d ago" on nearly every row. Now (max 3, `partnerChipLabels`): exchange fit ("You're learning each other's language" / "Speaks X" / "Learning X") → shared interest (localized topic) → same city (only if the person shows their city) → replies fast → "Active now / Active today" (only if they show online status). Exact recency and account age are no longer shown to strangers. Chips are one line with "…" (no overflow at 320 px in de/ru/en).
+
