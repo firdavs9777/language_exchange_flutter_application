@@ -229,7 +229,7 @@ void main() {
     });
 
     testWidgets('nothing remembered and the server is slow: legacy after the '
-        'wait, and it stays for this launch', (t) async {
+        'wait, then the hub as soon as the server says on', (t) async {
       final c = Completer<AppConfig?>();
       await pump(t, true, config: () => c.future, noCache: true);
       await t.pump(LearningMain.firstLaunchWaitForTests);
@@ -237,8 +237,20 @@ void main() {
       c.complete(cfg(true));
       await t.pump();
       await t.pump();
-      expect(find.byType(LegacyStudyHub), findsOneWidget);
+      expect(find.byType(StudyHub), findsOneWidget);
+      expect(find.byType(LegacyStudyHub), findsNothing);
       expect(StudyHubFlagCache.lastKnown, isTrue);
+    });
+
+    testWidgets('remembered off (stale) but the server says on: the hub, '
+        'not the old page for the whole session', (t) async {
+      final c = Completer<AppConfig?>();
+      await pump(t, true, config: () => c.future, cached: false);
+      expect(find.byType(LegacyStudyHub), findsOneWidget);
+      c.complete(cfg(true));
+      await t.pump();
+      await t.pump();
+      expect(find.byType(StudyHub), findsOneWidget);
     });
 
     testWidgets('remembered on but the server turned it off: the hub stays '
@@ -265,10 +277,9 @@ void main() {
 
   testWidgets('config already loaded before the page mounts is still '
       'remembered (e.g. after re-login)', (t) async {
-    // pump() resolves config immediately; with nothing remembered the page
-    // is legacy, but the loaded value must still be stored for next launch.
     await pump(t, true, noCache: true);
     expect(StudyHubFlagCache.lastKnown, isTrue);
+    expect(find.byType(StudyHub), findsOneWidget);
   });
 
   test('the remembered flag survives logout (device-level key)', () {

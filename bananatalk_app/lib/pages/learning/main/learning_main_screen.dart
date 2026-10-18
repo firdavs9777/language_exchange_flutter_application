@@ -73,6 +73,11 @@ class _LearningMainState extends ConsumerState<LearningMain> {
       if (_showHub == null) {
         if (next.hasValue) _decide(value?.studyHubEnabled ?? false);
         if (next.hasError) _decide(false);
+      } else if (_showHub == false && value?.studyHubEnabled == true) {
+        // The legacy page was a guess (a stale remembered "off", or the
+        // server answered late or failed at first); the server says the hub
+        // is on, so switch now instead of keeping the old page all session.
+        setState(() => _showHub = true);
       }
     }, fireImmediately: true);
   }

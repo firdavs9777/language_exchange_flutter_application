@@ -114,6 +114,7 @@ Android device run fixes (2026-10-17, Galaxy Tab S7 FE)
 - [x] Fresh install showed the OLD AI Study page for the whole first session: the page is chosen once per launch from the loaded config or the remembered flag, and a fresh install has neither yet, so it picked legacy. It now waits for the server (up to 4 s, spinner) when nothing is remembered. Every new user was affected, not only Android.
 - [x] `GET calls/current` ran at cold start while signed out and got a 401 every time; it now answers "no call" locally without a token.
 - [x] Predictive back (Android 13+): `android:enableOnBackInvokedCallback="true"`; the last three WillPopScope screens (lesson player, two quiz players) moved to PopScope so the exit dialog still shows on a back swipe.
+- [x] First login still showed the OLD AI Study page (2026-10-18): the page was chosen once per launch, and a stale remembered "off" or a late/failed config read kept the legacy page for the whole session. Now the page switches to the hub as soon as the server says it is on (the reverse — hub → legacy — still waits for the next launch). Tests in `test/learning/study_hub_test.dart`.
 - [ ] Device check on Android 14: back swipe on a lesson / quiz shows the exit dialog (and the preview animation elsewhere); fresh install opens the new AI Study hub. S
 - [ ] Logcat `BLUETOOTH_CONNECT permission is missing` at startup is the WebView (ads), not the call code, which already asks for it at call start. The headset-in-a-call check in §3 still stands.
 
