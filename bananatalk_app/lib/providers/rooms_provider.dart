@@ -16,13 +16,17 @@ class RoomsNotifier extends StateNotifier<AsyncValue<List<Room>>> {
 
   final RoomApiClient _apiClient;
 
+  /// Re-reads the directory. With rooms already shown they stay on screen
+  /// while it loads (the list used to be swapped for the skeleton, which
+  /// also tore down the pull-to-refresh spinner mid-pull).
   Future<void> refresh() async {
-    state = const AsyncValue.loading();
+    if (!state.hasValue) state = const AsyncValue.loading();
     try {
       final rooms = await _apiClient.getRooms();
       state = AsyncValue.data(_pinnedFirst(rooms));
     } catch (e, st) {
-      state = AsyncValue.error(e, st);
+      // Keep the rooms already shown on a failed refresh.
+      if (!state.hasValue) state = AsyncValue.error(e, st);
     }
   }
 

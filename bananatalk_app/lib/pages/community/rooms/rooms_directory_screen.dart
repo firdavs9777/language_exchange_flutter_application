@@ -146,10 +146,13 @@ class _RoomsListState extends ConsumerState<_RoomsList> {
 
   Future<void> _refresh() => ref.read(roomsProvider.notifier).refresh();
 
-  void _openRoom(BuildContext context, Room room) {
-    Navigator.of(context).push(
+  /// Opens a room, then re-reads the directory so joins, leaves and
+  /// member/online counts from inside the room show on return.
+  Future<void> _openRoom(BuildContext context, Room room) async {
+    await Navigator.of(context).push(
       MaterialPageRoute(builder: (_) => RoomScreen(room: room)),
     );
+    if (mounted) _refresh();
   }
 
   @override
@@ -215,6 +218,8 @@ class _RoomsListState extends ConsumerState<_RoomsList> {
     }
 
     return ListView.builder(
+      // Pull-to-refresh must work even when the rooms fit on one screen.
+      physics: const AlwaysScrollableScrollPhysics(),
       padding: EdgeInsets.fromLTRB(
         Spacing.md,
         Spacing.md,
