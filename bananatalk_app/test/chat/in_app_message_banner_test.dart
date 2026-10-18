@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/services/global_chat_listener.dart';
 import 'package:bananatalk_app/widgets/in_app_message_banner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -51,5 +52,11 @@ void main() {
     expect(find.text('Bora'), findsNothing);
     expect(find.text('Chen'), findsOneWidget);
     InAppMessageBanner.hide();
+  });
+
+  test('the banner photo comes from the live payload\'s images', () {
+    const url = 'https://my-projects-media.sfo3.digitaloceanspaces.com/bananatalk/profiles/a.jpg';
+    expect(bannerAvatarFor({'_id': 'u', 'name': 'Mina', 'images': [url]}), url);
+    expect(bannerAvatarFor({'_id': 'u', 'name': 'Mina', 'images': []}), isNull);
   });
 }

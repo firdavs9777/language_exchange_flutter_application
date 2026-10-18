@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/pages/chat/list/list_socket_handlers.dart' show extractMessagePreview;
 import 'package:bananatalk_app/router/app_router.dart' show callOverlayNavigatorKey, goRouter;
 import 'package:bananatalk_app/widgets/in_app_message_banner.dart';
+import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 
 /// Global service that listens to socket events and updates unread counts
 /// Works independently of UI, so badge updates even when ChatMain isn't visible
@@ -68,12 +69,7 @@ class GlobalChatListener {
     final sender = messageData['sender'];
     final name = sender is Map ? (sender['name']?.toString() ?? '') : '';
     if (name.isEmpty) return;
-    String? avatar;
-    if (sender is Map) {
-      final urls = sender['imageUrls'];
-      if (urls is List && urls.isNotEmpty) avatar = urls.first?.toString();
-      avatar ??= sender['image']?.toString();
-    }
+    final avatar = sender is Map ? bannerAvatarFor(sender) : null;
     final preview = extractMessagePreview(messageData);
     InAppMessageBanner.show(
       overlay: overlay,
@@ -198,3 +194,15 @@ final globalChatListenerProvider = Provider<void>((ref) {
   return;
 });
 
+/// The sender's first photo from a live message's `sender` map. The payload
+/// carries `images` (not imageUrls), so it is resolved like everywhere else
+/// in the app; the banner showed only initials before (2026-10-18).
+String? bannerAvatarFor(Map sender) {
+  try {
+    final urls = Community.fromJson(Map<String, dynamic>.from(sender)).effectiveImageUrls;
+    if (urls.isNotEmpty) return urls.first;
+  } catch (_) {}
+  final urls = sender['imageUrls'];
+  if (urls is List && urls.isNotEmpty) return urls.first?.toString();
+  return null;
+}
