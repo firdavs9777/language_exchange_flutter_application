@@ -1156,7 +1156,11 @@ class SingleStoryResponse {
   /// Set for client-side refusals; takes precedence over [error].
   final StoryPostFailure? failure;
 
-  SingleStoryResponse({required this.success, this.data, this.blocked = false, this.error, this.failure});
+  /// The server refused because the daily story limit is reached (429):
+  /// the screen offers VIP instead of an error (2026-10-18).
+  final bool limitReached;
+
+  SingleStoryResponse({required this.success, this.data, this.blocked = false, this.error, this.failure, this.limitReached = false});
 
   factory SingleStoryResponse.fromJson(Map<String, dynamic> json) {
     return SingleStoryResponse(

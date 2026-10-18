@@ -164,10 +164,10 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
     }
   }
 
-  bool get _isVip {
-    // VIP gating disabled product-wide — filter restrictions removed.
-    return true;
-  }
+  /// Country and "prioritize nearby" are VIP filters again (2026-10-18;
+  /// they had been opened to everyone). Gender stays free: the Genders tab
+  /// browses by gender for everyone anyway.
+  bool get _isVip => ref.read(userProvider).valueOrNull?.isVip ?? false;
 
   void _showVipPrompt() {
     final user = ref.read(userProvider).valueOrNull;
@@ -525,35 +525,13 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
                     ),
                     childrenPadding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
                     children: [
-                      _isVip
-                          ? FilterGenderSection(
-                              selectedGender: _selectedGender,
-                              onChanged: (g) {
-                                setState(() => _selectedGender = g);
-                                _onAnyFilterChanged();
-                              },
-                            )
-                          : GestureDetector(
-                              onTap: _showVipPrompt,
-                              child: Stack(
-                                children: [
-                                  Opacity(
-                                    opacity: 0.5,
-                                    child: IgnorePointer(
-                                      child: FilterGenderSection(
-                                        selectedGender: _selectedGender,
-                                        onChanged: (_) {},
-                                      ),
-                                    ),
-                                  ),
-                                  Positioned(
-                                    top: 0,
-                                    right: 0,
-                                    child: _buildVipBadge(),
-                                  ),
-                                ],
-                              ),
-                            ),
+                      FilterGenderSection(
+                        selectedGender: _selectedGender,
+                        onChanged: (g) {
+                          setState(() => _selectedGender = g);
+                          _onAnyFilterChanged();
+                        },
+                      ),
                     ],
                   ),
                   ExpansionTile(

@@ -12368,4 +12368,19 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get boostAgain => 'Đẩy lại';
+
+  @override
+  String get perkMoreMatches => '15 ghép đôi mỗi ngày thay vì 6';
+
+  @override
+  String get perkSeeVisitors => 'Xem tất cả những người đã xem hồ sơ của bạn';
+
+  @override
+  String get perkUnlimitedTutor => 'Gia sư AI và nhập vai không giới hạn';
+
+  @override
+  String get perkUnlimitedTranslations => 'Dịch không giới hạn';
+
+  @override
+  String get vipMoreMatchesCta => 'VIP: 15 ghép đôi mỗi ngày';
 }

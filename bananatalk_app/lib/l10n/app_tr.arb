@@ -4917,5 +4917,10 @@
   "boostTipProfile": "Net bir fotoğraf ve kısa bir biyografi daha çok yanıt getirir.",
   "boostCountingHint": "İnsanlar Partnerler'i, günlük eşleşmelerini ve Senin İçin'i açtıkça gösterimler artar.",
   "boostLastResult": "Son boost'un {count} kez gösterildi",
-  "boostAgain": "Yeniden öne çıkar"
+  "boostAgain": "Yeniden öne çıkar",
+  "perkMoreMatches": "Günde 6 yerine 15 eşleşme",
+  "perkSeeVisitors": "Profiline bakan herkesi gör",
+  "perkUnlimitedTutor": "Sınırsız yapay zekâ öğretmeni ve rol yapma",
+  "perkUnlimitedTranslations": "Sınırsız çeviri",
+  "vipMoreMatchesCta": "VIP: Günde 15 eşleşme"
 }

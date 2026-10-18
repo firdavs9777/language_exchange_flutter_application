@@ -12386,4 +12386,19 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get boostAgain => 'Yeniden öne çıkar';
+
+  @override
+  String get perkMoreMatches => 'Günde 6 yerine 15 eşleşme';
+
+  @override
+  String get perkSeeVisitors => 'Profiline bakan herkesi gör';
+
+  @override
+  String get perkUnlimitedTutor => 'Sınırsız yapay zekâ öğretmeni ve rol yapma';
+
+  @override
+  String get perkUnlimitedTranslations => 'Sınırsız çeviri';
+
+  @override
+  String get vipMoreMatchesCta => 'VIP: Günde 15 eşleşme';
 }

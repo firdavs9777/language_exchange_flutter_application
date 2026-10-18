@@ -12485,4 +12485,19 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get boostAgain => 'عزّز مرة أخرى';
+
+  @override
+  String get perkMoreMatches => '15 مطابقة يوميًا بدلًا من 6';
+
+  @override
+  String get perkSeeVisitors => 'شاهد كل من زار ملفك الشخصي';
+
+  @override
+  String get perkUnlimitedTutor => 'معلّم ذكي ولعب أدوار بلا حدود';
+
+  @override
+  String get perkUnlimitedTranslations => 'ترجمات بلا حدود';
+
+  @override
+  String get vipMoreMatchesCta => 'VIP: 15 مطابقة يوميًا';
 }

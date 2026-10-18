@@ -828,6 +828,14 @@ const Map<String, List<String>> _keysByTask = {
   'boost-everywhere': [
     'boostExplainMore',
   ],
+  // fix/vip-honest-perks: perks VIP really delivers.
+  'vip-honest-perks': [
+    'perkMoreMatches',
+    'perkSeeVisitors',
+    'perkUnlimitedTutor',
+    'perkUnlimitedTranslations',
+    'vipMoreMatchesCta',
+  ],
   // feat/boost-progress: live progress, impressions by place, Boost again.
   'boost-progress': [
     'boostSourcePartners',
@@ -1135,6 +1143,11 @@ const Map<String, List<String>> _filesByTask = {
   'boost-everywhere': [
     'pages/coins/boost_screen.dart',
     'pages/moments/card/moment_card.dart',
+  ],
+  'vip-honest-perks': [
+    'widgets/limit_exceeded_dialog.dart',
+    'pages/vip/vip_status_screen.dart',
+    'pages/vip/vip_plans_screen.dart',
   ],
   'boost-progress': [
     'pages/coins/boost_screen.dart',

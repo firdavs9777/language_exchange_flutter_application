@@ -4735,5 +4735,10 @@
   "boostTipProfile": "Una foto clara y una biografía corta consiguen más respuestas.",
   "boostCountingHint": "Las visualizaciones suben cuando la gente abre Compañeros, sus coincidencias del día y Para ti.",
   "boostLastResult": "{count, plural, one{Tu último impulso se mostró 1 vez} other{Tu último impulso se mostró {count} veces}}",
-  "boostAgain": "Impulsar de nuevo"
+  "boostAgain": "Impulsar de nuevo",
+  "perkMoreMatches": "15 coincidencias diarias en vez de 6",
+  "perkSeeVisitors": "Mira a todos los que vieron tu perfil",
+  "perkUnlimitedTutor": "Tutor de IA y juegos de rol ilimitados",
+  "perkUnlimitedTranslations": "Traducciones ilimitadas",
+  "vipMoreMatchesCta": "VIP: 15 coincidencias al día"
 }

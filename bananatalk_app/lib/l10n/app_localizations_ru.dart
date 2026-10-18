@@ -12864,4 +12864,19 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get boostAgain => 'Продвинуть снова';
+
+  @override
+  String get perkMoreMatches => '15 собеседников в подборке дня вместо 6';
+
+  @override
+  String get perkSeeVisitors => 'Все, кто смотрел ваш профиль';
+
+  @override
+  String get perkUnlimitedTutor => 'Безлимитный ИИ-репетитор и ролевые диалоги';
+
+  @override
+  String get perkUnlimitedTranslations => 'Безлимитные переводы';
+
+  @override
+  String get vipMoreMatchesCta => 'VIP: 15 собеседников в день';
 }

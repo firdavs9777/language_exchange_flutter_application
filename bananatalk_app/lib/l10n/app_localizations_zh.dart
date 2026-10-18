@@ -12368,6 +12368,21 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get boostAgain => '再次提升';
+
+  @override
+  String get perkMoreMatches => '每日匹配从6人增至15人';
+
+  @override
+  String get perkSeeVisitors => '查看所有看过你的人';
+
+  @override
+  String get perkUnlimitedTutor => 'AI 导师和角色扮演无限次';
+
+  @override
+  String get perkUnlimitedTranslations => '无限次翻译';
+
+  @override
+  String get vipMoreMatchesCta => 'VIP：每天 15 个匹配';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -24734,4 +24749,19 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get boostAgain => '再次提升';
+
+  @override
+  String get perkMoreMatches => '每日配對從6人增至15人';
+
+  @override
+  String get perkSeeVisitors => '查看所有看過你的人';
+
+  @override
+  String get perkUnlimitedTutor => 'AI 導師和角色扮演無限次';
+
+  @override
+  String get perkUnlimitedTranslations => '無限次翻譯';
+
+  @override
+  String get vipMoreMatchesCta => 'VIP：每天 15 個配對';
 }

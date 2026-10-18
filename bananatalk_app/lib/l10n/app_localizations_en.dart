@@ -12428,4 +12428,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get boostAgain => 'Boost again';
+
+  @override
+  String get perkMoreMatches => '15 daily matches instead of 6';
+
+  @override
+  String get perkSeeVisitors => 'See everyone who viewed you';
+
+  @override
+  String get perkUnlimitedTutor => 'Unlimited AI tutor and roleplay';
+
+  @override
+  String get perkUnlimitedTranslations => 'Unlimited translations';
+
+  @override
+  String get vipMoreMatchesCta => 'VIP: 15 matches a day';
 }

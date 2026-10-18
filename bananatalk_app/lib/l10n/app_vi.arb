@@ -4705,5 +4705,10 @@
   "boostTipProfile": "Ảnh rõ nét và phần giới thiệu ngắn giúp nhận nhiều phản hồi hơn.",
   "boostCountingHint": "Lượt hiển thị tăng khi mọi người mở danh sách đối tác, ghép đôi hằng ngày và Dành cho bạn.",
   "boostLastResult": "Lượt đẩy trước được hiển thị {count} lần",
-  "boostAgain": "Đẩy lại"
+  "boostAgain": "Đẩy lại",
+  "perkMoreMatches": "15 ghép đôi mỗi ngày thay vì 6",
+  "perkSeeVisitors": "Xem tất cả những người đã xem hồ sơ của bạn",
+  "perkUnlimitedTutor": "Gia sư AI và nhập vai không giới hạn",
+  "perkUnlimitedTranslations": "Dịch không giới hạn",
+  "vipMoreMatchesCta": "VIP: 15 ghép đôi mỗi ngày"
 }

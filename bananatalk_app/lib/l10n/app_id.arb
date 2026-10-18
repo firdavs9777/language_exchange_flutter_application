@@ -4705,5 +4705,10 @@
   "boostTipProfile": "Foto yang jelas dan bio singkat mendapat lebih banyak balasan.",
   "boostCountingHint": "Tayangan bertambah saat orang membuka Partner, match harian mereka, dan Untuk Kamu.",
   "boostLastResult": "Boost terakhirmu ditampilkan {count} kali",
-  "boostAgain": "Boost lagi"
+  "boostAgain": "Boost lagi",
+  "perkMoreMatches": "15 match harian, bukan 6",
+  "perkSeeVisitors": "Lihat semua yang melihat profilmu",
+  "perkUnlimitedTutor": "Tutor AI dan roleplay tanpa batas",
+  "perkUnlimitedTranslations": "Terjemahan tanpa batas",
+  "vipMoreMatchesCta": "VIP: 15 match sehari"
 }

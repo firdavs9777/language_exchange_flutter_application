@@ -377,10 +377,12 @@ class LimitExceededDialog extends ConsumerWidget {
                     ],
                   ),
                   const SizedBox(height: 12),
-                  _buildVipBenefit(l10n.vipBenefitUnlimitedMessages),
-                  _buildVipBenefit(l10n.vipBenefitUnlimitedProfileViews),
-                  _buildVipBenefit(l10n.vipBenefitAdvancedFilters),
-                  _buildVipBenefit(l10n.vipBenefitAiStudyTools),
+                  // What VIP really adds (2026-10-18): free users already
+                  // have unlimited messages and profile views.
+                  _buildVipBenefit(l10n.perkUnlimitedTutor),
+                  _buildVipBenefit(l10n.perkSeeVisitors),
+                  _buildVipBenefit(l10n.perkMoreMatches),
+                  _buildVipBenefit(l10n.perkAdFree),
                 ],
               ),
             ),

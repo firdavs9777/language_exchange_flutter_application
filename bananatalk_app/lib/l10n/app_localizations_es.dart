@@ -12410,4 +12410,19 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get boostAgain => 'Impulsar de nuevo';
+
+  @override
+  String get perkMoreMatches => '15 coincidencias diarias en vez de 6';
+
+  @override
+  String get perkSeeVisitors => 'Mira a todos los que vieron tu perfil';
+
+  @override
+  String get perkUnlimitedTutor => 'Tutor de IA y juegos de rol ilimitados';
+
+  @override
+  String get perkUnlimitedTranslations => 'Traducciones ilimitadas';
+
+  @override
+  String get vipMoreMatchesCta => 'VIP: 15 coincidencias al día';
 }

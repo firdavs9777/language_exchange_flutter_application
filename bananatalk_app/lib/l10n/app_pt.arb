@@ -4721,5 +4721,10 @@
   "boostTipProfile": "Uma foto nítida e uma bio curta recebem mais respostas.",
   "boostCountingHint": "As visualizações aumentam quando as pessoas abrem Parceiros, as correspondências do dia e Para si.",
   "boostLastResult": "{count, plural, one{O seu último impulso foi mostrado 1 vez} other{O seu último impulso foi mostrado {count} vezes}}",
-  "boostAgain": "Impulsionar de novo"
+  "boostAgain": "Impulsionar de novo",
+  "perkMoreMatches": "15 correspondências diárias em vez de 6",
+  "perkSeeVisitors": "Veja todos que visitaram o seu perfil",
+  "perkUnlimitedTutor": "Tutor de IA e role-play ilimitados",
+  "perkUnlimitedTranslations": "Traduções ilimitadas",
+  "vipMoreMatchesCta": "VIP: 15 correspondências por dia"
 }

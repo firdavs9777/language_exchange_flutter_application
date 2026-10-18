@@ -12368,4 +12368,19 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get boostAgain => 'บูสต์อีกครั้ง';
+
+  @override
+  String get perkMoreMatches => 'แมตช์รายวัน 15 คนแทน 6 คน';
+
+  @override
+  String get perkSeeVisitors => 'ดูทุกคนที่เข้าชมโปรไฟล์ของคุณ';
+
+  @override
+  String get perkUnlimitedTutor => 'ติวเตอร์ AI และบทบาทสมมติไม่จำกัด';
+
+  @override
+  String get perkUnlimitedTranslations => 'แปลได้ไม่จำกัด';
+
+  @override
+  String get vipMoreMatchesCta => 'VIP: แมตช์วันละ 15 คน';
 }

@@ -4705,5 +4705,10 @@
   "boostTipProfile": "はっきりした写真と短い自己紹介があると返信が増えます。",
   "boostCountingHint": "パートナー一覧、今日のマッチ、おすすめが開かれるたびに表示回数が増えます。",
   "boostLastResult": "前回のブーストは{count}回表示されました",
-  "boostAgain": "もう一度ブースト"
+  "boostAgain": "もう一度ブースト",
+  "perkMoreMatches": "毎日のマッチが6人から15人に",
+  "perkSeeVisitors": "プロフィールを見た人を全員表示",
+  "perkUnlimitedTutor": "AIチューターとロールプレイが無制限",
+  "perkUnlimitedTranslations": "翻訳が無制限",
+  "vipMoreMatchesCta": "VIP：1日15人とマッチ"
 }

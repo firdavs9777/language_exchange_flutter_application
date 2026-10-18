@@ -4726,5 +4726,10 @@
   "boostTipProfile": "선명한 사진과 짧은 자기소개가 있으면 답장을 더 많이 받아요.",
   "boostCountingHint": "사람들이 파트너 목록, 오늘의 매칭, 추천을 열 때마다 노출 수가 올라가요.",
   "boostLastResult": "지난 부스트는 {count}회 노출되었어요",
-  "boostAgain": "다시 부스트하기"
+  "boostAgain": "다시 부스트하기",
+  "perkMoreMatches": "하루 매칭 6명 대신 15명",
+  "perkSeeVisitors": "내 프로필을 본 사람 모두 보기",
+  "perkUnlimitedTutor": "AI 튜터·롤플레이 무제한",
+  "perkUnlimitedTranslations": "번역 무제한",
+  "vipMoreMatchesCta": "VIP: 하루 15명 매칭"
 }

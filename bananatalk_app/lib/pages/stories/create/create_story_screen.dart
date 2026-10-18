@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:bananatalk_app/widgets/limit_exceeded_dialog.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/services/camera_recovery.dart';
 import 'package:video_player/video_player.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
@@ -595,6 +597,10 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
             );
           } else {
             setState(() => _isUploading = false);
+            if (result.limitReached) {
+              await _showStoryLimit();
+              return;
+            }
             showStoriesSnackBar(
               context,
               message: storyPostFailureText(
@@ -642,6 +648,10 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
             );
           } else {
             setState(() => _isUploading = false);
+            if (result.limitReached) {
+              await _showStoryLimit();
+              return;
+            }
             showStoriesSnackBar(
               context,
               message: storyPostFailureText(
@@ -663,6 +673,18 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
         );
       }
     }
+  }
+
+  /// Daily story limit reached: the same upgrade dialog as moments and
+  /// comments, instead of a dead-end error snackbar.
+  Future<void> _showStoryLimit() async {
+    final prefs = await SharedPreferences.getInstance();
+    if (!mounted) return;
+    await LimitExceededDialog.show(
+      context: context,
+      limitType: 'stories',
+      userId: prefs.getString('userId') ?? '',
+    );
   }
 
   @override

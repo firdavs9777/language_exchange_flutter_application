@@ -4396,5 +4396,10 @@
   "boostTipProfile": "清晰的照片和簡短的自我介紹能獲得更多回覆。",
   "boostCountingHint": "當有人打開夥伴列表、每日配對和「為你推薦」時，展示次數就會增加。",
   "boostLastResult": "上次提升展示了 {count} 次",
-  "boostAgain": "再次提升"
+  "boostAgain": "再次提升",
+  "perkMoreMatches": "每日配對從6人增至15人",
+  "perkSeeVisitors": "查看所有看過你的人",
+  "perkUnlimitedTutor": "AI 導師和角色扮演無限次",
+  "perkUnlimitedTranslations": "無限次翻譯",
+  "vipMoreMatchesCta": "VIP：每天 15 個配對"
 }

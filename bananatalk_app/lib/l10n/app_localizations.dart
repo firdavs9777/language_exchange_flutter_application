@@ -22519,6 +22519,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Boost again'**
   String get boostAgain;
+
+  /// Honest VIP perk (2026-10-18)
+  ///
+  /// In en, this message translates to:
+  /// **'15 daily matches instead of 6'**
+  String get perkMoreMatches;
+
+  /// Honest VIP perk (2026-10-18)
+  ///
+  /// In en, this message translates to:
+  /// **'See everyone who viewed you'**
+  String get perkSeeVisitors;
+
+  /// Honest VIP perk (2026-10-18)
+  ///
+  /// In en, this message translates to:
+  /// **'Unlimited AI tutor and roleplay'**
+  String get perkUnlimitedTutor;
+
+  /// Honest VIP perk (2026-10-18)
+  ///
+  /// In en, this message translates to:
+  /// **'Unlimited translations'**
+  String get perkUnlimitedTranslations;
+
+  /// Honest VIP perk (2026-10-18)
+  ///
+  /// In en, this message translates to:
+  /// **'VIP: 15 matches a day'**
+  String get vipMoreMatchesCta;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

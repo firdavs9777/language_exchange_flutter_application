@@ -4945,5 +4945,10 @@
   "boostTipProfile": "Ein klares Foto und eine kurze Bio bringen mehr Antworten.",
   "boostCountingHint": "Aufrufe kommen dazu, wenn Leute Partner, ihre täglichen Matches und Für dich öffnen.",
   "boostLastResult": "{count, plural, one{Dein letzter Boost wurde einmal angezeigt} other{Dein letzter Boost wurde {count}-mal angezeigt}}",
-  "boostAgain": "Erneut boosten"
+  "boostAgain": "Erneut boosten",
+  "perkMoreMatches": "15 tägliche Matches statt 6",
+  "perkSeeVisitors": "Alle sehen, die dein Profil angesehen haben",
+  "perkUnlimitedTutor": "Unbegrenzt KI-Tutor und Rollenspiele",
+  "perkUnlimitedTranslations": "Unbegrenzt Übersetzungen",
+  "vipMoreMatchesCta": "VIP: 15 Matches pro Tag"
 }

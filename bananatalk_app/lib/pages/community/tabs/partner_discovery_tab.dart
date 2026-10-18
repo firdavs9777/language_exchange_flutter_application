@@ -239,7 +239,11 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
       minAge: widget.filters['minAge'] as int?,
       maxAge: widget.filters['maxAge'] as int?,
       onlineOnly: widget.filters['onlineOnly'] == true || _quickOnlineOnly,
-      country: widget.filters['country']?.toString(),
+      // Country is a VIP filter (2026-10-18); a free user's saved one no
+      // longer applies (the server ignores it too).
+      country: (ref.read(userProvider).valueOrNull?.isVip ?? false)
+          ? widget.filters['country']?.toString()
+          : null,
       languageLevel: widget.filters['languageLevel']?.toString(),
       search: widget.searchQuery.isNotEmpty ? widget.searchQuery : null,
       sort: _sort,
@@ -373,7 +377,8 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
         }
 
         // Client-side: prioritize nearby (sort by distance).
-        if (widget.filters['prioritizeNearby'] == true) {
+        if (widget.filters['prioritizeNearby'] == true &&
+            (ref.read(userProvider).valueOrNull?.isVip ?? false)) {
           _sortByProximity(filteredCommunities, currentUser);
         }
 
@@ -431,6 +436,7 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
               ),
             ),
             if (widget.filters['prioritizeNearby'] == true &&
+                (ref.read(userProvider).valueOrNull?.isVip ?? false) &&
                 !userHasLocation &&
                 !_locationReminderDismissed)
               _buildLocationReminder(),

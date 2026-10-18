@@ -4945,5 +4945,10 @@
   "boostTipProfile": "Une photo nette et une courte bio obtiennent plus de réponses.",
   "boostCountingHint": "Les vues augmentent quand des gens ouvrent Partenaires, leurs matchs du jour et Pour vous.",
   "boostLastResult": "Votre dernier boost a été affiché {count} fois",
-  "boostAgain": "Booster à nouveau"
+  "boostAgain": "Booster à nouveau",
+  "perkMoreMatches": "15 matchs par jour au lieu de 6",
+  "perkSeeVisitors": "Voir tous ceux qui ont consulté votre profil",
+  "perkUnlimitedTutor": "Tuteur IA et jeux de rôle illimités",
+  "perkUnlimitedTranslations": "Traductions illimitées",
+  "vipMoreMatchesCta": "VIP : 15 matchs par jour"
 }

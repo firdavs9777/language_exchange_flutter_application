@@ -12410,4 +12410,19 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get boostAgain => 'Impulsionar de novo';
+
+  @override
+  String get perkMoreMatches => '15 correspondências diárias em vez de 6';
+
+  @override
+  String get perkSeeVisitors => 'Veja todos que visitaram o seu perfil';
+
+  @override
+  String get perkUnlimitedTutor => 'Tutor de IA e role-play ilimitados';
+
+  @override
+  String get perkUnlimitedTranslations => 'Traduções ilimitadas';
+
+  @override
+  String get vipMoreMatchesCta => 'VIP: 15 correspondências por dia';
 }

@@ -8390,5 +8390,25 @@
   "boostAgain": "Boost again",
   "@boostAgain": {
     "description": "Profile Boost progress (2026-10-18)"
+  },
+  "perkMoreMatches": "15 daily matches instead of 6",
+  "@perkMoreMatches": {
+    "description": "Honest VIP perk (2026-10-18)"
+  },
+  "perkSeeVisitors": "See everyone who viewed you",
+  "@perkSeeVisitors": {
+    "description": "Honest VIP perk (2026-10-18)"
+  },
+  "perkUnlimitedTutor": "Unlimited AI tutor and roleplay",
+  "@perkUnlimitedTutor": {
+    "description": "Honest VIP perk (2026-10-18)"
+  },
+  "perkUnlimitedTranslations": "Unlimited translations",
+  "@perkUnlimitedTranslations": {
+    "description": "Honest VIP perk (2026-10-18)"
+  },
+  "vipMoreMatchesCta": "VIP: 15 matches a day",
+  "@vipMoreMatchesCta": {
+    "description": "Honest VIP perk (2026-10-18)"
   }
 }

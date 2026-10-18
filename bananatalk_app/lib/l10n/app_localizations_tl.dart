@@ -12391,4 +12391,19 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get boostAgain => 'Mag-boost ulit';
+
+  @override
+  String get perkMoreMatches => '15 daily match sa halip na 6';
+
+  @override
+  String get perkSeeVisitors => 'Tingnan ang lahat ng tumingin sa profile mo';
+
+  @override
+  String get perkUnlimitedTutor => 'Walang limitasyong AI tutor at roleplay';
+
+  @override
+  String get perkUnlimitedTranslations => 'Walang limitasyong pagsasalin';
+
+  @override
+  String get vipMoreMatchesCta => 'VIP: 15 match bawat araw';
 }

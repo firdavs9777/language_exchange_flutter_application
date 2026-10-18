@@ -278,17 +278,18 @@ class _VipStatusScreenState extends ConsumerState<VipStatusScreen> {
                     style: context.titleLarge,
                   ),
                   SizedBox(height: AppSpacing.lg),
+                  // Perks VIP really delivers (2026-10-18).
                   _buildMissingFeatureItem(
-                    icon: Icons.message,
-                    title: localizations.unlimitedMessages,
+                    icon: Icons.smart_toy_rounded,
+                    title: localizations.perkUnlimitedTutor,
                   ),
                   _buildMissingFeatureItem(
                     icon: Icons.visibility,
-                    title: localizations.unlimitedProfileViews,
+                    title: localizations.perkSeeVisitors,
                   ),
                   _buildMissingFeatureItem(
-                    icon: Icons.support_agent,
-                    title: localizations.prioritySupport,
+                    icon: Icons.favorite_rounded,
+                    title: localizations.perkMoreMatches,
                   ),
                   _buildMissingFeatureItem(
                     icon: Icons.block,

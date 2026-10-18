@@ -12388,4 +12388,19 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get boostAgain => 'Боз пурзӯр кунед';
+
+  @override
+  String get perkMoreMatches => 'Ба ҷои 6 — 15 мувофиқат дар як рӯз';
+
+  @override
+  String get perkSeeVisitors => 'Ҳамаи онҳоеро, ки профили шуморо диданд, бинед';
+
+  @override
+  String get perkUnlimitedTutor => 'Омӯзгори AI ва нақшбозӣ бе маҳдудият';
+
+  @override
+  String get perkUnlimitedTranslations => 'Тарҷумаҳои бемаҳдуд';
+
+  @override
+  String get vipMoreMatchesCta => 'VIP: 15 мувофиқат дар як рӯз';
 }

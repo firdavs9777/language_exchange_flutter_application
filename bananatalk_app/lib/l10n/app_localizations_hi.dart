@@ -12398,4 +12398,19 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get boostAgain => 'फिर से बूस्ट करें';
+
+  @override
+  String get perkMoreMatches => 'रोज़ 6 की जगह 15 मैच';
+
+  @override
+  String get perkSeeVisitors => 'सभी देखें जिन्होंने आपकी प्रोफ़ाइल देखी';
+
+  @override
+  String get perkUnlimitedTutor => 'असीमित AI ट्यूटर और रोलप्ले';
+
+  @override
+  String get perkUnlimitedTranslations => 'असीमित अनुवाद';
+
+  @override
+  String get vipMoreMatchesCta => 'VIP: रोज़ 15 मैच';
 }

@@ -12368,4 +12368,19 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get boostAgain => 'もう一度ブースト';
+
+  @override
+  String get perkMoreMatches => '毎日のマッチが6人から15人に';
+
+  @override
+  String get perkSeeVisitors => 'プロフィールを見た人を全員表示';
+
+  @override
+  String get perkUnlimitedTutor => 'AIチューターとロールプレイが無制限';
+
+  @override
+  String get perkUnlimitedTranslations => '翻訳が無制限';
+
+  @override
+  String get vipMoreMatchesCta => 'VIP：1日15人とマッチ';
 }

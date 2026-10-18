@@ -8,7 +8,6 @@ import 'package:bananatalk_app/models/vip_subscription.dart';
 import 'package:bananatalk_app/pages/vip/vip_payment_screen.dart';
 import 'package:bananatalk_app/pages/vip/vip_status_screen.dart';
 import 'package:bananatalk_app/providers/provider_root/vip_provider.dart';
-import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
 import 'package:bananatalk_app/services/ios_purchase_service.dart';
 import 'package:bananatalk_app/services/android_purchase_service.dart';
 import 'package:bananatalk_app/services/vip_plan_switch.dart';
@@ -584,22 +583,18 @@ class _VipPlansScreenState extends ConsumerState<VipPlansScreen> {
   // is enforced; misleading claims are a worse problem than thin lists.
   Widget _buildComparisonTable() {
     final l10n = AppLocalizations.of(context)!;
-    // The three discovery perks are only promised once the server enforces
-    // them (boostsEnabled); the flag-off build keeps today's honest list.
-    final discoveryPerks = ref.watch(appConfigProvider).maybeWhen(
-          data: (config) => config?.boostsEnabled ?? false,
-          orElse: () => false,
-        );
     _BenefitRow perk(String label) => _BenefitRow(
           label: label,
           nonVip: const _BenefitValue.locked(),
           vip: const _BenefitValue.check(),
         );
+    // Only perks VIP really delivers (2026-10-18 audit): waves are free for
+    // everyone and the wave cap is off, so they are not sold here.
     final rows = <_BenefitRow>[
       perk(l10n.perkAdFree),
-      if (discoveryPerks) perk(l10n.perkUnlimitedMatches),
-      if (discoveryPerks) perk(l10n.perkRevealWaves),
-      if (discoveryPerks) perk(l10n.perkUnlimitedWaves),
+      perk(l10n.perkUnlimitedTutor),
+      perk(l10n.perkSeeVisitors),
+      perk(l10n.perkMoreMatches),
       perk(l10n.perkAdvancedFilters),
       _BenefitRow(
         label: l10n.vipBenefitDailyTranslations,

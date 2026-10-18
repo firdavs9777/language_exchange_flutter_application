@@ -12368,4 +12368,19 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get boostAgain => '다시 부스트하기';
+
+  @override
+  String get perkMoreMatches => '하루 매칭 6명 대신 15명';
+
+  @override
+  String get perkSeeVisitors => '내 프로필을 본 사람 모두 보기';
+
+  @override
+  String get perkUnlimitedTutor => 'AI 튜터·롤플레이 무제한';
+
+  @override
+  String get perkUnlimitedTranslations => '번역 무제한';
+
+  @override
+  String get vipMoreMatchesCta => 'VIP: 하루 15명 매칭';
 }

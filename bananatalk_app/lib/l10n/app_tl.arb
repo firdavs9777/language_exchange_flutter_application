@@ -4678,5 +4678,10 @@
   "boostTipProfile": "Mas maraming sagot ang nakukuha ng malinaw na larawan at maikling bio.",
   "boostCountingHint": "Nadaragdagan ang views kapag binubuksan ng mga tao ang Mga Partner, ang daily matches nila at Para Sa'yo.",
   "boostLastResult": "Naipakita nang {count} beses ang huling boost mo",
-  "boostAgain": "Mag-boost ulit"
+  "boostAgain": "Mag-boost ulit",
+  "perkMoreMatches": "15 daily match sa halip na 6",
+  "perkSeeVisitors": "Tingnan ang lahat ng tumingin sa profile mo",
+  "perkUnlimitedTutor": "Walang limitasyong AI tutor at roleplay",
+  "perkUnlimitedTranslations": "Walang limitasyong pagsasalin",
+  "vipMoreMatchesCta": "VIP: 15 match bawat araw"
 }

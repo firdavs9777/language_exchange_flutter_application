@@ -4705,5 +4705,10 @@
   "boostTipProfile": "รูปที่ชัดเจนและแนะนำตัวสั้นๆ ช่วยให้ได้คำตอบมากขึ้น",
   "boostCountingHint": "ยอดการแสดงจะเพิ่มขึ้นเมื่อผู้คนเปิดรายชื่อคู่หู แมตช์ประจำวัน และ สำหรับคุณ",
   "boostLastResult": "บูสต์ครั้งก่อนแสดง {count} ครั้ง",
-  "boostAgain": "บูสต์อีกครั้ง"
+  "boostAgain": "บูสต์อีกครั้ง",
+  "perkMoreMatches": "แมตช์รายวัน 15 คนแทน 6 คน",
+  "perkSeeVisitors": "ดูทุกคนที่เข้าชมโปรไฟล์ของคุณ",
+  "perkUnlimitedTutor": "ติวเตอร์ AI และบทบาทสมมติไม่จำกัด",
+  "perkUnlimitedTranslations": "แปลได้ไม่จำกัด",
+  "vipMoreMatchesCta": "VIP: แมตช์วันละ 15 คน"
 }

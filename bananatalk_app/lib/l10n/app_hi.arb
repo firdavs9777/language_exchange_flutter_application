@@ -4721,5 +4721,10 @@
   "boostTipProfile": "साफ़ फ़ोटो और छोटा परिचय ज़्यादा जवाब दिलाते हैं।",
   "boostCountingHint": "जब लोग साझेदार सूची, अपने आज के मैच और 'आपके लिए' खोलते हैं, तब व्यूज़ बढ़ते हैं।",
   "boostLastResult": "आपका पिछला बूस्ट {count} बार दिखाया गया",
-  "boostAgain": "फिर से बूस्ट करें"
+  "boostAgain": "फिर से बूस्ट करें",
+  "perkMoreMatches": "रोज़ 6 की जगह 15 मैच",
+  "perkSeeVisitors": "सभी देखें जिन्होंने आपकी प्रोफ़ाइल देखी",
+  "perkUnlimitedTutor": "असीमित AI ट्यूटर और रोलप्ले",
+  "perkUnlimitedTranslations": "असीमित अनुवाद",
+  "vipMoreMatchesCta": "VIP: रोज़ 15 मैच"
 }

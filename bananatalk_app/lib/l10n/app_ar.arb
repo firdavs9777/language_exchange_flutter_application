@@ -4735,5 +4735,10 @@
   "boostTipProfile": "الصورة الواضحة والنبذة القصيرة تجلبان ردودًا أكثر.",
   "boostCountingHint": "تزداد المشاهدات عندما يفتح الناس قائمة الشركاء ومطابقات اليوم و«لك».",
   "boostLastResult": "عدد مرات ظهور تعزيزك الأخير: {count}",
-  "boostAgain": "عزّز مرة أخرى"
+  "boostAgain": "عزّز مرة أخرى",
+  "perkMoreMatches": "15 مطابقة يوميًا بدلًا من 6",
+  "perkSeeVisitors": "شاهد كل من زار ملفك الشخصي",
+  "perkUnlimitedTutor": "معلّم ذكي ولعب أدوار بلا حدود",
+  "perkUnlimitedTranslations": "ترجمات بلا حدود",
+  "vipMoreMatchesCta": "VIP: 15 مطابقة يوميًا"
 }

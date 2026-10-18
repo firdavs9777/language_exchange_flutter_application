@@ -41,7 +41,7 @@ Future<void> _pump(WidgetTester tester, {required bool boosts}) async {
 }
 
 void main() {
-  testWidgets('shows exactly monthly + yearly, no quarterly, five perks',
+  testWidgets('shows exactly monthly + yearly, no quarterly, the real perks',
       (tester) async {
     await _pump(tester, boosts: true);
     expect(find.text(r'$3.99'), findsOneWidget);
@@ -51,15 +51,17 @@ void main() {
     expect(find.byKey(const ValueKey('vip-plan-monthly')), findsOneWidget);
     expect(find.byKey(const ValueKey('vip-plan-yearly')), findsOneWidget);
     expect(find.byKey(const ValueKey('vip-plan-quarterly')), findsNothing);
+    // Only what VIP really delivers (2026-10-18 audit).
     for (final s in [
       'No ads',
-      'Unlimited daily matches',
-      'See who waved and viewed you',
-      'Unlimited waves',
+      'Unlimited AI tutor and roleplay',
+      'See everyone who viewed you',
+      '15 daily matches instead of 6',
       'Advanced partner filters',
     ]) {
       expect(find.text(s), findsOneWidget, reason: s);
     }
+    expect(find.text('Unlimited waves'), findsNothing, reason: 'waves are free');
   });
 
   testWidgets('flag off: never promises the unshipped perks', (tester) async {

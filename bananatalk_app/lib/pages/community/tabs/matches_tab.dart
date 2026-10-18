@@ -534,7 +534,7 @@ class _Empty extends StatelessWidget {
                   AppPageRoute<void>(builder: (_) => const VipPlansScreen()),
                 ),
                 icon: const Icon(Icons.workspace_premium_rounded, size: 18),
-                label: Text(l10n.vipFromMatches),
+                label: Text(l10n.vipMoreMatchesCta),
               ),
             ],
           ],

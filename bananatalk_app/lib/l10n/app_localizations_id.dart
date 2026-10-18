@@ -12379,4 +12379,19 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get boostAgain => 'Boost lagi';
+
+  @override
+  String get perkMoreMatches => '15 match harian, bukan 6';
+
+  @override
+  String get perkSeeVisitors => 'Lihat semua yang melihat profilmu';
+
+  @override
+  String get perkUnlimitedTutor => 'Tutor AI dan roleplay tanpa batas';
+
+  @override
+  String get perkUnlimitedTranslations => 'Terjemahan tanpa batas';
+
+  @override
+  String get vipMoreMatchesCta => 'VIP: 15 match sehari';
 }

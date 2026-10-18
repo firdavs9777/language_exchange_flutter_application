@@ -335,6 +335,7 @@ class StoriesService {
       return SingleStoryResponse(
         success: false,
         error: _serverErrorOf(response, 'createStory'),
+        limitReached: response.statusCode == 429,
       );
     } catch (e) {
       debugPrint('StoriesService.createStory failed: $e');
@@ -431,6 +432,7 @@ class StoriesService {
       return SingleStoryResponse(
         success: false,
         error: _serverErrorOf(response, 'createTextStory'),
+        limitReached: response.statusCode == 429,
       );
     } catch (e) {
       debugPrint('StoriesService.createTextStory failed: $e');
