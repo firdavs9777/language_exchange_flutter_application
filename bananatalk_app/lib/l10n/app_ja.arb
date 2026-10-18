@@ -4710,5 +4710,7 @@
   "perkSeeVisitors": "プロフィールを見た人を全員表示",
   "perkUnlimitedTutor": "AIチューターとロールプレイが無制限",
   "perkUnlimitedTranslations": "翻訳が無制限",
-  "vipMoreMatchesCta": "VIP：1日15人とマッチ"
+  "vipMoreMatchesCta": "VIP：1日15人とマッチ",
+  "vocabPacksPromo": "テーマ別に用意された単語セット。1つ追加して毎日少しずつ覚えましょう。",
+  "vocabPacksBrowse": "単語セットを見る"
 }

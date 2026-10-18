@@ -12879,4 +12879,10 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get vipMoreMatchesCta => 'VIP: 15 собеседников в день';
+
+  @override
+  String get vocabPacksPromo => 'Готовые наборы слов по темам. Добавьте набор и учите понемногу каждый день.';
+
+  @override
+  String get vocabPacksBrowse => 'Смотреть наборы';
 }

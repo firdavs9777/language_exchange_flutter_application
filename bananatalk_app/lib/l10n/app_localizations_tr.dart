@@ -12401,4 +12401,10 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get vipMoreMatchesCta => 'VIP: Günde 15 eşleşme';
+
+  @override
+  String get vocabPacksPromo => 'Konulara göre hazır kelime setleri. Birini ekle, her gün biraz öğren.';
+
+  @override
+  String get vocabPacksBrowse => 'Setlere göz at';
 }

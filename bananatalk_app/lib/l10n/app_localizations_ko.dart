@@ -12383,4 +12383,10 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get vipMoreMatchesCta => 'VIP: 하루 15명 매칭';
+
+  @override
+  String get vocabPacksPromo => '주제별로 준비된 단어 세트예요. 하나 추가하고 매일 조금씩 익혀 보세요.';
+
+  @override
+  String get vocabPacksBrowse => '단어 세트 보기';
 }

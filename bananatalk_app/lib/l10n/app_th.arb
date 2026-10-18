@@ -4710,5 +4710,7 @@
   "perkSeeVisitors": "ดูทุกคนที่เข้าชมโปรไฟล์ของคุณ",
   "perkUnlimitedTutor": "ติวเตอร์ AI และบทบาทสมมติไม่จำกัด",
   "perkUnlimitedTranslations": "แปลได้ไม่จำกัด",
-  "vipMoreMatchesCta": "VIP: แมตช์วันละ 15 คน"
+  "vipMoreMatchesCta": "VIP: แมตช์วันละ 15 คน",
+  "vocabPacksPromo": "ชุดคำศัพท์พร้อมใช้ตามหัวข้อ เพิ่มสักชุดแล้วเรียนวันละนิด",
+  "vocabPacksBrowse": "ดูชุดคำศัพท์"
 }

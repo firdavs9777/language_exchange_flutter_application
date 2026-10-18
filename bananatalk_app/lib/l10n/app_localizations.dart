@@ -22549,6 +22549,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'VIP: 15 matches a day'**
   String get vipMoreMatchesCta;
+
+  /// AI Study vocab packs card (2026-10-18)
+  ///
+  /// In en, this message translates to:
+  /// **'Ready-made word sets by topic. Add one and learn a little every day.'**
+  String get vocabPacksPromo;
+
+  /// AI Study vocab packs card (2026-10-18)
+  ///
+  /// In en, this message translates to:
+  /// **'Browse packs'**
+  String get vocabPacksBrowse;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

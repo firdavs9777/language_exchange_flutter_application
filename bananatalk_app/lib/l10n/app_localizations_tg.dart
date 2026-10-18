@@ -12403,4 +12403,10 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get vipMoreMatchesCta => 'VIP: 15 мувофиқат дар як рӯз';
+
+  @override
+  String get vocabPacksPromo => 'Маҷмӯаҳои тайёри калимаҳо аз рӯи мавзӯъ. Яктоашро илова кунед ва ҳар рӯз каме омӯзед.';
+
+  @override
+  String get vocabPacksBrowse => 'Дидани маҷмӯаҳо';
 }

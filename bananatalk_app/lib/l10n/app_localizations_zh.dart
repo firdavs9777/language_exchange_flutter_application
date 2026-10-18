@@ -12383,6 +12383,12 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get vipMoreMatchesCta => 'VIP：每天 15 个匹配';
+
+  @override
+  String get vocabPacksPromo => '按主题准备好的词汇包。添加一个，每天学一点。';
+
+  @override
+  String get vocabPacksBrowse => '浏览词汇包';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -24764,4 +24770,10 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get vipMoreMatchesCta => 'VIP：每天 15 個配對';
+
+  @override
+  String get vocabPacksPromo => '依主題準備好的詞彙包。加入一個，每天學一點。';
+
+  @override
+  String get vocabPacksBrowse => '瀏覽詞彙包';
 }

@@ -12406,4 +12406,10 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get vipMoreMatchesCta => 'VIP: 15 match bawat araw';
+
+  @override
+  String get vocabPacksPromo => 'Handang set ng mga salita ayon sa paksa. Magdagdag ng isa at mag-aral nang kaunti araw-araw.';
+
+  @override
+  String get vocabPacksBrowse => 'Tingnan ang mga pack';
 }

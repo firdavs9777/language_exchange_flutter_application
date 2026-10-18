@@ -12425,4 +12425,10 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get vipMoreMatchesCta => 'VIP: 15 coincidencias al día';
+
+  @override
+  String get vocabPacksPromo => 'Conjuntos de palabras listos por tema. Añade uno y aprende un poco cada día.';
+
+  @override
+  String get vocabPacksBrowse => 'Ver paquetes';
 }

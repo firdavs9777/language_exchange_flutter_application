@@ -12383,4 +12383,10 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get vipMoreMatchesCta => 'VIP: แมตช์วันละ 15 คน';
+
+  @override
+  String get vocabPacksPromo => 'ชุดคำศัพท์พร้อมใช้ตามหัวข้อ เพิ่มสักชุดแล้วเรียนวันละนิด';
+
+  @override
+  String get vocabPacksBrowse => 'ดูชุดคำศัพท์';
 }

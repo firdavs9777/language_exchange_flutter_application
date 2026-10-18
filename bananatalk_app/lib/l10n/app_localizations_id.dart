@@ -12394,4 +12394,10 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get vipMoreMatchesCta => 'VIP: 15 match sehari';
+
+  @override
+  String get vocabPacksPromo => 'Kumpulan kata siap pakai per topik. Tambahkan satu dan belajar sedikit setiap hari.';
+
+  @override
+  String get vocabPacksBrowse => 'Lihat paket';
 }

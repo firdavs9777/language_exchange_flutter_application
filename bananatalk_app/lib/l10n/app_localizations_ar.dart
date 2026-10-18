@@ -12500,4 +12500,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get vipMoreMatchesCta => 'VIP: 15 مطابقة يوميًا';
+
+  @override
+  String get vocabPacksPromo => 'مجموعات كلمات جاهزة حسب الموضوع. أضف واحدة وتعلّم قليلًا كل يوم.';
+
+  @override
+  String get vocabPacksBrowse => 'تصفّح المجموعات';
 }

@@ -12383,4 +12383,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get vipMoreMatchesCta => 'VIP: 15 ghép đôi mỗi ngày';
+
+  @override
+  String get vocabPacksPromo => 'Bộ từ vựng soạn sẵn theo chủ đề. Thêm một bộ và học mỗi ngày một chút.';
+
+  @override
+  String get vocabPacksBrowse => 'Xem các bộ từ';
 }

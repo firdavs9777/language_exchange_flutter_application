@@ -5,6 +5,7 @@ import 'package:bananatalk_app/models/announcement.dart';
 import 'package:bananatalk_app/models/learning/daily_pack_model.dart';
 import 'package:bananatalk_app/pages/learning/main/sections/learn_tab.dart';
 import 'package:bananatalk_app/pages/learning/main/sections/progress_card.dart';
+import 'package:bananatalk_app/pages/learning/main/sections/vocab_packs_card.dart';
 import 'package:bananatalk_app/pages/learning/main/sections/recommended_tile.dart';
 import 'package:bananatalk_app/pages/learning/main/sections/spotlight_carousel.dart';
 import 'package:bananatalk_app/pages/learning/main/sections/study_feature_groups.dart';
@@ -192,6 +193,8 @@ class _StudyHubState extends ConsumerState<StudyHub> {
                     gap,
                     // Renders nothing until a weak area with enough attempts
                     // exists.
+                    const VocabPacksCard(),
+                    gap,
                     const RecommendedTile(),
                     const SizedBox(height: StudyHubMetrics.groupGap),
                     KeyedSubtree(

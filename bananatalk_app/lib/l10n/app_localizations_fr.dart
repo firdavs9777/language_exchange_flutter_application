@@ -12413,4 +12413,10 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get vipMoreMatchesCta => 'VIP : 15 matchs par jour';
+
+  @override
+  String get vocabPacksPromo => 'Des listes de mots prêtes par thème. Ajoutez-en une et apprenez un peu chaque jour.';
+
+  @override
+  String get vocabPacksBrowse => 'Voir les packs';
 }

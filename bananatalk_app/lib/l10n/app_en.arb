@@ -8410,5 +8410,13 @@
   "vipMoreMatchesCta": "VIP: 15 matches a day",
   "@vipMoreMatchesCta": {
     "description": "Honest VIP perk (2026-10-18)"
+  },
+  "vocabPacksPromo": "Ready-made word sets by topic. Add one and learn a little every day.",
+  "@vocabPacksPromo": {
+    "description": "AI Study vocab packs card (2026-10-18)"
+  },
+  "vocabPacksBrowse": "Browse packs",
+  "@vocabPacksBrowse": {
+    "description": "AI Study vocab packs card (2026-10-18)"
   }
 }

@@ -380,3 +380,8 @@ Web ↔ app parity (spec `docs/superpowers/specs/2026-10-16-web-app-parity-desig
 - [x] Owner picked 4 (2026-10-18): (1) country + "prioritize nearby" filters are VIP again, app + server (gender stays free — public Genders tab); (2) VIP daily matches 15 (backend a71aa3c); (3) honest perks in the limit dialog, VIP status and plans screens (no more "unlimited messages / profile views / priority support / unlimited waves"; now unlimited AI tutor, see everyone who viewed you, 15 daily matches, no ads) + Matches CTA "VIP: 15 matches a day" — 5 strings × 19 locales; (4) upgrade paths on dead-end limits: story limit → LimitExceededDialog, hourly AI limits → upgrade sheet (`quota_exceeded`), inline translate limit → "Go VIP · Unlimited translations".
 - [ ] Remaining audit items (translation cap on moments/comments, tutor quota holes, wave cap / study VIP features config). S–M
 
+## AI Study hub look (2026-10-18)
+- [x] "Your progress" is a purple→pink gradient card with three coloured tiles (🔥 streak, ⭐ level + total XP, 🎯 today's XP with a bar) and white shortcut pills with coloured icons (same labels/keys; overflow sweep passes).
+- [x] Vocabulary packs get their own teal card right after today's pack ("Ready-made word sets by topic…" + "Browse packs"); before, only a small chip at the bottom of the progress card. 2 strings × 19 locales.
+- [ ] Device look in light + dark mode; native review of `vocabPacksPromo` / `vocabPacksBrowse`. S
+

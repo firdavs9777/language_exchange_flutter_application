@@ -12413,4 +12413,10 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get vipMoreMatchesCta => 'VIP: रोज़ 15 मैच';
+
+  @override
+  String get vocabPacksPromo => 'विषय के अनुसार तैयार शब्द-सेट। एक जोड़ें और रोज़ थोड़ा-थोड़ा सीखें।';
+
+  @override
+  String get vocabPacksBrowse => 'सेट देखें';
 }
