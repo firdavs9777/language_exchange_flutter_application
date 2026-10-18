@@ -59,4 +59,10 @@ void main() {
     expect(bannerAvatarFor({'_id': 'u', 'name': 'Mina', 'images': [url]}), url);
     expect(bannerAvatarFor({'_id': 'u', 'name': 'Mina', 'images': []}), isNull);
   });
+
+  test('no banner for the chat you are in or a muted chat', () {
+    expect(shouldShowMessageBanner(inThatChat: false, muted: false), isTrue);
+    expect(shouldShowMessageBanner(inThatChat: true, muted: false), isFalse);
+    expect(shouldShowMessageBanner(inThatChat: false, muted: true), isFalse);
+  });
 }

@@ -8,6 +8,7 @@ import 'package:bananatalk_app/pages/chat/list/list_socket_handlers.dart' show e
 import 'package:bananatalk_app/router/app_router.dart' show callOverlayNavigatorKey, goRouter;
 import 'package:bananatalk_app/widgets/in_app_message_banner.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
+import 'package:bananatalk_app/providers/notification_settings_provider.dart';
 
 /// Global service that listens to socket events and updates unread counts
 /// Works independently of UI, so badge updates even when ChatMain isn't visible
@@ -30,6 +31,8 @@ class GlobalChatListener {
     
     _ref = ref;
     _isInitialized = true;
+    // Load the muted-chats list now, so the first banner already honours it.
+    ref.read(notificationSettingsProvider);
     _startListening();
   }
 
@@ -124,9 +127,15 @@ class GlobalChatListener {
         // Increment unread count - this will automatically update badgeCountProvider
         _ref!.read(chatPartnersProvider.notifier).incrementUnread(senderId);
 
-        // Not in that chat: show an in-app banner (the server sends no push
-        // while the socket is connected, 2026-10-18).
-        if (!_ref!.read(chatPartnersProvider).isInChat(senderId)) {
+        // Not in that chat, and the chat is not muted: show an in-app banner
+        // (the server sends no push while the socket is connected).
+        final conversationId = data is Map ? data['conversationId']?.toString() : null;
+        final muted = conversationId != null &&
+            _ref!.read(notificationSettingsProvider.notifier).isConversationMuted(conversationId);
+        if (shouldShowMessageBanner(
+          inThatChat: _ref!.read(chatPartnersProvider).isInChat(senderId),
+          muted: muted,
+        )) {
           _showBanner(senderId, messageData);
         }
         
@@ -206,3 +215,8 @@ String? bannerAvatarFor(Map sender) {
   if (urls is List && urls.isNotEmpty) return urls.first?.toString();
   return null;
 }
+
+/// The in-app banner shows for a message from another chat, never for the
+/// chat you are in or one you muted (2026-10-18).
+bool shouldShowMessageBanner({required bool inThatChat, required bool muted}) =>
+    !inThatChat && !muted;
