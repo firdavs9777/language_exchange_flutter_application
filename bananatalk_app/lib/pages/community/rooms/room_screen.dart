@@ -145,18 +145,10 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
     if (!mounted) return;
     _currentUserId = prefs.getString('userId');
 
-    // Join membership (REST) if we're not already a member. Safe to call
-    // even if already a member — the backend join is idempotent. Topic
-    // rooms are OPEN like hubs: any non-banned user auto-joins on open. Only
-    // a BANNED user (kicked by the owner) is blocked — they never auto-join
-    // and instead see a "Request to join" prompt (see `build`), becoming a
-    // member only once the owner/admin approves their request (Task 16).
-    if (!_room.isMember && !_room.isBanned) {
-      final joined = await ref.read(roomsProvider.notifier).join(_room.id);
-      if (joined && mounted) {
-        setState(() => _room = _room.copyWith(isMember: true));
-      }
-    }
+    // Opening a room no longer joins it (2026-10-18): a visitor reads and
+    // watches live, then joins with the "Join Room" bar. Peeking used to add
+    // them as a member and bump memberCount. A BANNED user (kicked) sees the
+    // "Request to join" prompt instead (Task 16).
 
     // Refresh room detail — picks up `isOwnerOrAdmin` (gates the member-list
     // moderation entry, Task 11) and the latest member/online counts, which
@@ -179,7 +171,9 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
     // State.
     if (!mounted) return;
 
-    if (_room.isMember) {
+    // Members and visitors both watch live (the server lets a non-banned
+    // visitor of a language room listen; only members can send).
+    if (!_room.isBanned) {
       _chatSocket.joinRoom(_room.id);
     }
     _listenToSocket();
@@ -654,6 +648,32 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
   /// required.
   bool get _canCompose => _room.isMember && !_room.isBanned;
 
+  /// A visitor (not a member, not banned) sees "Join Room" instead of the
+  /// composer.
+  bool get _showJoinBar => !_room.isMember && !_room.isBanned;
+
+  bool _isJoining = false;
+
+  Future<void> _joinFromBar() async {
+    if (_isJoining) return;
+    setState(() => _isJoining = true);
+    final joined = await ref.read(roomsProvider.notifier).join(_room.id);
+    if (!mounted) return;
+    setState(() {
+      _isJoining = false;
+      if (joined) {
+        _room = _room.copyWith(isMember: true, memberCount: _room.memberCount + 1);
+      }
+    });
+    if (joined) {
+      _chatSocket.joinRoom(_room.id);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(AppLocalizations.of(context)!.somethingWentWrong),
+      ));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
@@ -743,6 +763,28 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
               hasPendingRequest: _room.hasPendingRequest,
               isRequesting: _isRequestingJoin,
               onRequest: _requestToJoin,
+            )
+          else if (_showJoinBar)
+            SafeArea(
+              top: false,
+              child: Padding(
+                padding: const EdgeInsets.all(Spacing.md),
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 48,
+                  child: ElevatedButton(
+                    key: const Key('room-join-bar'),
+                    onPressed: _isJoining ? null : _joinFromBar,
+                    child: _isJoining
+                        ? const SizedBox(
+                            width: 18,
+                            height: 18,
+                            child: CircularProgressIndicator(strokeWidth: 2),
+                          )
+                        : Text(l10n.joinRoom),
+                  ),
+                ),
+              ),
             )
           else if (_canCompose)
             ChatInputBar(
