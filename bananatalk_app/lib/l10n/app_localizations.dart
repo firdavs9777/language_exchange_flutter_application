@@ -16154,10 +16154,10 @@ abstract class AppLocalizations {
   /// **'{time} left'**
   String boostTimeLeft(String time);
 
-  /// Profile Boost string
+  /// Profile Boost progress (2026-10-18)
   ///
   /// In en, this message translates to:
-  /// **'Seen by {count} people so far'**
+  /// **'{count, plural, one{Shown once so far} other{Shown {count} times so far}}'**
   String boostSeenBy(int count);
 
   /// Profile Boost string
@@ -22465,6 +22465,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Leave a review in the store'**
   String get rateBananaTalkRowSubtitle;
+
+  /// Profile Boost progress (2026-10-18)
+  ///
+  /// In en, this message translates to:
+  /// **'Partners list'**
+  String get boostSourcePartners;
+
+  /// Profile Boost progress (2026-10-18)
+  ///
+  /// In en, this message translates to:
+  /// **'Daily matches'**
+  String get boostSourceMatches;
+
+  /// Profile Boost progress (2026-10-18)
+  ///
+  /// In en, this message translates to:
+  /// **'Your moment in For You'**
+  String get boostSourceMoments;
+
+  /// Profile Boost progress (2026-10-18)
+  ///
+  /// In en, this message translates to:
+  /// **'Get more from your boost'**
+  String get boostTipsTitle;
+
+  /// Profile Boost progress (2026-10-18)
+  ///
+  /// In en, this message translates to:
+  /// **'Post a moment now: your newest moment is featured too.'**
+  String get boostTipMoment;
+
+  /// Profile Boost progress (2026-10-18)
+  ///
+  /// In en, this message translates to:
+  /// **'A clear photo and a short bio get more replies.'**
+  String get boostTipProfile;
+
+  /// Profile Boost progress (2026-10-18)
+  ///
+  /// In en, this message translates to:
+  /// **'Views add up as people open Partners, their daily matches and For You.'**
+  String get boostCountingHint;
+
+  /// Profile Boost progress (2026-10-18)
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{Your last boost was shown once} other{Your last boost was shown {count} times}}'**
+  String boostLastResult(int count);
+
+  /// Profile Boost progress (2026-10-18)
+  ///
+  /// In en, this message translates to:
+  /// **'Boost again'**
+  String get boostAgain;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -3633,7 +3633,7 @@
   "boostConfirm": "تأكيد التعزيز",
   "boostActiveTitle": "تعزيزك نشط",
   "boostTimeLeft": "المتبقي {time}",
-  "boostSeenBy": "شاهدك {count} أشخاص حتى الآن",
+  "boostSeenBy": "عدد مرات الظهور حتى الآن: {count}",
   "boostFailed": "تعذّر بدء التعزيز. يُرجى المحاولة مرة أخرى.",
   "rewardedLimitReached": "لقد استخدمت عمليات الفتح المجانية لهذا اليوم — حاول مجددًا غدًا",
   "wavesMaskedTitle": "لوّح لك أحدهم",
@@ -4726,5 +4726,14 @@
   "referralCodeUnknown": "رمز الدعوة هذا غير موجود. تحقق منه وحاول مرة أخرى.",
   "referralCodeNotAccepted": "لا يمكن استخدام رمز الدعوة هذا على حسابك.",
   "rateBananaTalkRow": "قيّم BananaTalk",
-  "rateBananaTalkRowSubtitle": "اترك تقييمًا في المتجر"
+  "rateBananaTalkRowSubtitle": "اترك تقييمًا في المتجر",
+  "boostSourcePartners": "قائمة الشركاء",
+  "boostSourceMatches": "مطابقات اليوم",
+  "boostSourceMoments": "لحظتك في «لك»",
+  "boostTipsTitle": "استفد أكثر من التعزيز",
+  "boostTipMoment": "انشر لحظة الآن: أحدث لحظاتك تُعرض أيضًا.",
+  "boostTipProfile": "الصورة الواضحة والنبذة القصيرة تجلبان ردودًا أكثر.",
+  "boostCountingHint": "تزداد المشاهدات عندما يفتح الناس قائمة الشركاء ومطابقات اليوم و«لك».",
+  "boostLastResult": "عدد مرات ظهور تعزيزك الأخير: {count}",
+  "boostAgain": "عزّز مرة أخرى"
 }

@@ -8745,7 +8745,7 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String boostSeenBy(int count) {
-    return 'То ҳол $count нафар дидаанд';
+    return 'То ҳол $count бор нишон дода шуд';
   }
 
   @override
@@ -12359,4 +12359,33 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get rateBananaTalkRowSubtitle => 'Дар мағоза шарҳ гузоред';
+
+  @override
+  String get boostSourcePartners => 'Рӯйхати шарикон';
+
+  @override
+  String get boostSourceMatches => 'Мувофиқатҳои рӯз';
+
+  @override
+  String get boostSourceMoments => 'Лаҳзаи шумо дар «Барои шумо»';
+
+  @override
+  String get boostTipsTitle => 'Аз пурзӯркунӣ бештар истифода баред';
+
+  @override
+  String get boostTipMoment => 'Ҳозир лаҳза нашр кунед: лаҳзаи навтарини шумо низ пешниҳод мешавад.';
+
+  @override
+  String get boostTipProfile => 'Акси равшан ва муаррифии кӯтоҳ ҷавобҳои бештар меоранд.';
+
+  @override
+  String get boostCountingHint => 'Вақте одамон рӯйхати шарикон, мувофиқатҳои рӯз ва «Барои шумо»-ро мекушоянд, нишондиҳӣ зиёд мешавад.';
+
+  @override
+  String boostLastResult(int count) {
+    return 'Пурзӯркунии охирини шумо $count бор нишон дода шуд';
+  }
+
+  @override
+  String get boostAgain => 'Боз пурзӯр кунед';
 }

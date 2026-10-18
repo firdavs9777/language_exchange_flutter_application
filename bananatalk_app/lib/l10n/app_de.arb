@@ -3843,7 +3843,7 @@
   "boostConfirm": "Boost bestätigen",
   "boostActiveTitle": "Dein Boost ist aktiv",
   "boostTimeLeft": "Noch {time}",
-  "boostSeenBy": "Bisher von {count} Personen gesehen",
+  "boostSeenBy": "{count, plural, one{Bisher einmal angezeigt} other{Bisher {count}-mal angezeigt}}",
   "boostFailed": "Dein Boost konnte nicht gestartet werden. Bitte versuche es erneut.",
   "rewardedLimitReached": "Du hast die heutigen kostenlosen Freischaltungen dafür aufgebraucht – versuche es morgen wieder",
   "wavesMaskedTitle": "Jemand hat dir gewinkt",
@@ -4936,5 +4936,14 @@
   "referralCodeUnknown": "Diesen Einladungscode gibt es nicht. Prüfe ihn und versuche es erneut.",
   "referralCodeNotAccepted": "Dieser Einladungscode kann für dein Konto nicht verwendet werden.",
   "rateBananaTalkRow": "BananaTalk bewerten",
-  "rateBananaTalkRowSubtitle": "Hinterlasse eine Bewertung im Store"
+  "rateBananaTalkRowSubtitle": "Hinterlasse eine Bewertung im Store",
+  "boostSourcePartners": "Partnerliste",
+  "boostSourceMatches": "Tägliche Matches",
+  "boostSourceMoments": "Dein Moment in Für dich",
+  "boostTipsTitle": "Hol mehr aus deinem Boost",
+  "boostTipMoment": "Poste jetzt einen Moment: Dein neuester Moment wird auch hervorgehoben.",
+  "boostTipProfile": "Ein klares Foto und eine kurze Bio bringen mehr Antworten.",
+  "boostCountingHint": "Aufrufe kommen dazu, wenn Leute Partner, ihre täglichen Matches und Für dich öffnen.",
+  "boostLastResult": "{count, plural, one{Dein letzter Boost wurde einmal angezeigt} other{Dein letzter Boost wurde {count}-mal angezeigt}}",
+  "boostAgain": "Erneut boosten"
 }

@@ -3096,7 +3096,7 @@
   "boostConfirm": "Тасдиқи пурзӯркунӣ",
   "boostActiveTitle": "Пурзӯркунии шумо фаъол аст",
   "boostTimeLeft": "{time} монд",
-  "boostSeenBy": "То ҳол {count} нафар дидаанд",
+  "boostSeenBy": "То ҳол {count} бор нишон дода шуд",
   "boostFailed": "Пурзӯркунӣ оғоз нашуд. Лутфан аз нав кӯшиш кунед.",
   "rewardedLimitReached": "Шумо кушодани ройгони имрӯзаро истифода бурдед — фардо бори дигар кӯшиш кунед",
   "wavesMaskedTitle": "Касе ба шумо даст ҷунбонд",
@@ -4189,5 +4189,14 @@
   "referralCodeUnknown": "Чунин рамзи даъват вуҷуд надорад. Санҷед ва бори дигар кӯшиш кунед.",
   "referralCodeNotAccepted": "Ин рамзи даъватро дар ҳисоби шумо истифода бурдан мумкин нест.",
   "rateBananaTalkRow": "Ба BananaTalk баҳо диҳед",
-  "rateBananaTalkRowSubtitle": "Дар мағоза шарҳ гузоред"
+  "rateBananaTalkRowSubtitle": "Дар мағоза шарҳ гузоред",
+  "boostSourcePartners": "Рӯйхати шарикон",
+  "boostSourceMatches": "Мувофиқатҳои рӯз",
+  "boostSourceMoments": "Лаҳзаи шумо дар «Барои шумо»",
+  "boostTipsTitle": "Аз пурзӯркунӣ бештар истифода баред",
+  "boostTipMoment": "Ҳозир лаҳза нашр кунед: лаҳзаи навтарини шумо низ пешниҳод мешавад.",
+  "boostTipProfile": "Акси равшан ва муаррифии кӯтоҳ ҷавобҳои бештар меоранд.",
+  "boostCountingHint": "Вақте одамон рӯйхати шарикон, мувофиқатҳои рӯз ва «Барои шумо»-ро мекушоянд, нишондиҳӣ зиёд мешавад.",
+  "boostLastResult": "Пурзӯркунии охирини шумо {count} бор нишон дода шуд",
+  "boostAgain": "Боз пурзӯр кунед"
 }

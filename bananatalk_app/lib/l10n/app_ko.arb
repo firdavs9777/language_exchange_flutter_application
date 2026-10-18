@@ -3624,7 +3624,7 @@
   "boostConfirm": "부스트 확인",
   "boostActiveTitle": "부스트가 진행 중이에요",
   "boostTimeLeft": "{time} 남음",
-  "boostSeenBy": "지금까지 {count}명이 봤어요",
+  "boostSeenBy": "지금까지 {count}회 노출",
   "boostFailed": "부스트를 시작하지 못했어요. 다시 시도해 주세요.",
   "rewardedLimitReached": "오늘의 무료 잠금 해제를 모두 사용했어요 — 내일 다시 시도해 주세요",
   "wavesMaskedTitle": "누군가 당신에게 손을 흔들었어요",
@@ -4717,5 +4717,14 @@
   "referralCodeUnknown": "존재하지 않는 초대 코드예요. 확인 후 다시 시도해 주세요.",
   "referralCodeNotAccepted": "이 초대 코드는 내 계정에 사용할 수 없어요.",
   "rateBananaTalkRow": "BananaTalk 평가하기",
-  "rateBananaTalkRowSubtitle": "스토어에 리뷰 남기기"
+  "rateBananaTalkRowSubtitle": "스토어에 리뷰 남기기",
+  "boostSourcePartners": "파트너 목록",
+  "boostSourceMatches": "오늘의 매칭",
+  "boostSourceMoments": "추천 피드의 내 모먼트",
+  "boostTipsTitle": "부스트 효과 높이기",
+  "boostTipMoment": "지금 모먼트를 올려 보세요. 가장 최근 모먼트도 함께 추천돼요.",
+  "boostTipProfile": "선명한 사진과 짧은 자기소개가 있으면 답장을 더 많이 받아요.",
+  "boostCountingHint": "사람들이 파트너 목록, 오늘의 매칭, 추천을 열 때마다 노출 수가 올라가요.",
+  "boostLastResult": "지난 부스트는 {count}회 노출되었어요",
+  "boostAgain": "다시 부스트하기"
 }

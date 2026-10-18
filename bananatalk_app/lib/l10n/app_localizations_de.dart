@@ -8745,7 +8745,13 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String boostSeenBy(int count) {
-    return 'Bisher von $count Personen gesehen';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Bisher $count-mal angezeigt',
+      one: 'Bisher einmal angezeigt',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -12369,4 +12375,39 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get rateBananaTalkRowSubtitle => 'Hinterlasse eine Bewertung im Store';
+
+  @override
+  String get boostSourcePartners => 'Partnerliste';
+
+  @override
+  String get boostSourceMatches => 'Tägliche Matches';
+
+  @override
+  String get boostSourceMoments => 'Dein Moment in Für dich';
+
+  @override
+  String get boostTipsTitle => 'Hol mehr aus deinem Boost';
+
+  @override
+  String get boostTipMoment => 'Poste jetzt einen Moment: Dein neuester Moment wird auch hervorgehoben.';
+
+  @override
+  String get boostTipProfile => 'Ein klares Foto und eine kurze Bio bringen mehr Antworten.';
+
+  @override
+  String get boostCountingHint => 'Aufrufe kommen dazu, wenn Leute Partner, ihre täglichen Matches und Für dich öffnen.';
+
+  @override
+  String boostLastResult(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Dein letzter Boost wurde $count-mal angezeigt',
+      one: 'Dein letzter Boost wurde einmal angezeigt',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get boostAgain => 'Erneut boosten';
 }

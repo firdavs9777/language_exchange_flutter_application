@@ -3633,7 +3633,7 @@
   "boostConfirm": "Подтвердить продвижение",
   "boostActiveTitle": "Продвижение активно",
   "boostTimeLeft": "Осталось {time}",
-  "boostSeenBy": "{count, plural, one{Пока вас увидел {count} человек} few{Пока вас увидели {count} человека} many{Пока вас увидели {count} человек} other{Пока вас увидели {count} человека}}",
+  "boostSeenBy": "{count, plural, one{Пока {count} показ} few{Пока {count} показа} many{Пока {count} показов} other{Пока {count} показа}}",
   "boostFailed": "Не удалось запустить продвижение. Попробуйте ещё раз.",
   "rewardedLimitReached": "Вы использовали сегодняшние бесплатные разблокировки — попробуйте завтра",
   "wavesMaskedTitle": "Кто-то помахал вам",
@@ -4726,5 +4726,14 @@
   "referralCodeUnknown": "Такого кода приглашения нет. Проверьте его и попробуйте ещё раз.",
   "referralCodeNotAccepted": "Этот код приглашения нельзя использовать в вашем аккаунте.",
   "rateBananaTalkRow": "Оценить BananaTalk",
-  "rateBananaTalkRowSubtitle": "Оставьте отзыв в магазине приложений"
+  "rateBananaTalkRowSubtitle": "Оставьте отзыв в магазине приложений",
+  "boostSourcePartners": "Список партнёров",
+  "boostSourceMatches": "Подборка дня",
+  "boostSourceMoments": "Ваш момент в «Для вас»",
+  "boostTipsTitle": "Как получить больше от продвижения",
+  "boostTipMoment": "Опубликуйте момент сейчас: ваш последний момент тоже продвигается.",
+  "boostTipProfile": "Чёткое фото и короткое описание приносят больше ответов.",
+  "boostCountingHint": "Показы растут, когда люди открывают список партнёров, подборку дня и «Для вас».",
+  "boostLastResult": "Прошлое продвижение: показов — {count}",
+  "boostAgain": "Продвинуть снова"
 }

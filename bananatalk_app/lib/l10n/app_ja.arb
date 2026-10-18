@@ -3603,7 +3603,7 @@
   "boostConfirm": "ブーストを確定",
   "boostActiveTitle": "ブースト実行中",
   "boostTimeLeft": "残り {time}",
-  "boostSeenBy": "これまで{count}人に表示されました",
+  "boostSeenBy": "これまでの表示回数：{count}回",
   "boostFailed": "ブーストを開始できませんでした。もう一度お試しください。",
   "rewardedLimitReached": "今日の無料アンロックは使い切りました。明日もう一度お試しください",
   "wavesMaskedTitle": "誰かがあなたに手を振りました",
@@ -4696,5 +4696,14 @@
   "referralCodeUnknown": "その招待コードは存在しません。確認してもう一度お試しください。",
   "referralCodeNotAccepted": "この招待コードはお使いのアカウントでは使用できません。",
   "rateBananaTalkRow": "BananaTalkを評価",
-  "rateBananaTalkRowSubtitle": "ストアでレビューを書く"
+  "rateBananaTalkRowSubtitle": "ストアでレビューを書く",
+  "boostSourcePartners": "パートナー一覧",
+  "boostSourceMatches": "今日のマッチ",
+  "boostSourceMoments": "おすすめに表示されたモーメント",
+  "boostTipsTitle": "ブーストの効果を高めるには",
+  "boostTipMoment": "今すぐモーメントを投稿しましょう。最新のモーメントもおすすめに表示されます。",
+  "boostTipProfile": "はっきりした写真と短い自己紹介があると返信が増えます。",
+  "boostCountingHint": "パートナー一覧、今日のマッチ、おすすめが開かれるたびに表示回数が増えます。",
+  "boostLastResult": "前回のブーストは{count}回表示されました",
+  "boostAgain": "もう一度ブースト"
 }

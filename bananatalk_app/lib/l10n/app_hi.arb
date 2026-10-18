@@ -3619,7 +3619,7 @@
   "boostConfirm": "बूस्ट की पुष्टि करें",
   "boostActiveTitle": "आपका बूस्ट चालू है",
   "boostTimeLeft": "{time} बाकी",
-  "boostSeenBy": "अब तक {count} लोगों ने देखा",
+  "boostSeenBy": "अब तक {count} बार दिखाया गया",
   "boostFailed": "बूस्ट शुरू नहीं हो सका। कृपया फिर कोशिश करें।",
   "rewardedLimitReached": "आपने इसके लिए आज के मुफ़्त अनलॉक इस्तेमाल कर लिए हैं — कल फिर कोशिश करें",
   "wavesMaskedTitle": "किसी ने आपको वेव किया",
@@ -4712,5 +4712,14 @@
   "referralCodeUnknown": "यह आमंत्रण कोड मौजूद नहीं है। जाँचें और फिर से कोशिश करें।",
   "referralCodeNotAccepted": "यह आमंत्रण कोड आपके खाते पर इस्तेमाल नहीं किया जा सकता।",
   "rateBananaTalkRow": "BananaTalk को रेट करें",
-  "rateBananaTalkRowSubtitle": "स्टोर पर समीक्षा लिखें"
+  "rateBananaTalkRowSubtitle": "स्टोर पर समीक्षा लिखें",
+  "boostSourcePartners": "साझेदार सूची",
+  "boostSourceMatches": "आज के मैच",
+  "boostSourceMoments": "'आपके लिए' में आपका मोमेंट",
+  "boostTipsTitle": "अपने बूस्ट का ज़्यादा फ़ायदा उठाएँ",
+  "boostTipMoment": "अभी एक मोमेंट पोस्ट करें: आपका सबसे नया मोमेंट भी दिखाया जाता है।",
+  "boostTipProfile": "साफ़ फ़ोटो और छोटा परिचय ज़्यादा जवाब दिलाते हैं।",
+  "boostCountingHint": "जब लोग साझेदार सूची, अपने आज के मैच और 'आपके लिए' खोलते हैं, तब व्यूज़ बढ़ते हैं।",
+  "boostLastResult": "आपका पिछला बूस्ट {count} बार दिखाया गया",
+  "boostAgain": "फिर से बूस्ट करें"
 }

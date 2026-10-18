@@ -3633,7 +3633,7 @@
   "boostConfirm": "Confirmar impulso",
   "boostActiveTitle": "Tu impulso está activo",
   "boostTimeLeft": "Quedan {time}",
-  "boostSeenBy": "Visto por {count} personas hasta ahora",
+  "boostSeenBy": "{count, plural, one{Mostrado 1 vez hasta ahora} other{Mostrado {count} veces hasta ahora}}",
   "boostFailed": "No se pudo iniciar tu impulso. Inténtalo de nuevo.",
   "rewardedLimitReached": "Has usado los desbloqueos gratuitos de hoy para esto — inténtalo de nuevo mañana",
   "wavesMaskedTitle": "Alguien te saludó",
@@ -4726,5 +4726,14 @@
   "referralCodeUnknown": "Ese código de invitación no existe. Revísalo e inténtalo de nuevo.",
   "referralCodeNotAccepted": "Este código de invitación no se puede usar en tu cuenta.",
   "rateBananaTalkRow": "Valora BananaTalk",
-  "rateBananaTalkRowSubtitle": "Deja una reseña en la tienda"
+  "rateBananaTalkRowSubtitle": "Deja una reseña en la tienda",
+  "boostSourcePartners": "Lista de compañeros",
+  "boostSourceMatches": "Coincidencias del día",
+  "boostSourceMoments": "Tu momento en Para ti",
+  "boostTipsTitle": "Saca más partido a tu impulso",
+  "boostTipMoment": "Publica un momento ahora: tu momento más reciente también se destaca.",
+  "boostTipProfile": "Una foto clara y una biografía corta consiguen más respuestas.",
+  "boostCountingHint": "Las visualizaciones suben cuando la gente abre Compañeros, sus coincidencias del día y Para ti.",
+  "boostLastResult": "{count, plural, one{Tu último impulso se mostró 1 vez} other{Tu último impulso se mostró {count} veces}}",
+  "boostAgain": "Impulsar de nuevo"
 }

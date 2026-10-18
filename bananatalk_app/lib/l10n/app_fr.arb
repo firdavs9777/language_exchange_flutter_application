@@ -3843,7 +3843,7 @@
   "boostConfirm": "Confirmer le boost",
   "boostActiveTitle": "Votre boost est actif",
   "boostTimeLeft": "{time} restant",
-  "boostSeenBy": "Vu par {count} personnes jusqu'ici",
+  "boostSeenBy": "Affiché {count} fois jusqu'ici",
   "boostFailed": "Impossible de lancer votre boost. Veuillez réessayer.",
   "rewardedLimitReached": "Vous avez utilisé les déblocages gratuits du jour pour cela — réessayez demain",
   "wavesMaskedTitle": "Quelqu'un vous a fait signe",
@@ -4936,5 +4936,14 @@
   "referralCodeUnknown": "Ce code d'invitation n'existe pas. Vérifiez-le et réessayez.",
   "referralCodeNotAccepted": "Ce code d'invitation ne peut pas être utilisé sur votre compte.",
   "rateBananaTalkRow": "Noter BananaTalk",
-  "rateBananaTalkRowSubtitle": "Laissez un avis sur le store"
+  "rateBananaTalkRowSubtitle": "Laissez un avis sur le store",
+  "boostSourcePartners": "Liste des partenaires",
+  "boostSourceMatches": "Matchs du jour",
+  "boostSourceMoments": "Votre moment dans Pour vous",
+  "boostTipsTitle": "Tirez le meilleur de votre boost",
+  "boostTipMoment": "Publiez un moment maintenant : votre moment le plus récent est aussi mis en avant.",
+  "boostTipProfile": "Une photo nette et une courte bio obtiennent plus de réponses.",
+  "boostCountingHint": "Les vues augmentent quand des gens ouvrent Partenaires, leurs matchs du jour et Pour vous.",
+  "boostLastResult": "Votre dernier boost a été affiché {count} fois",
+  "boostAgain": "Booster à nouveau"
 }

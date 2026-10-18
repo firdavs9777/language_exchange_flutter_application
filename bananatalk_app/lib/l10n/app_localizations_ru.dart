@@ -9098,10 +9098,10 @@ class AppLocalizationsRu extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: 'Пока вас увидели $count человека',
-      many: 'Пока вас увидели $count человек',
-      few: 'Пока вас увидели $count человека',
-      one: 'Пока вас увидел $count человек',
+      other: 'Пока $count показа',
+      many: 'Пока $count показов',
+      few: 'Пока $count показа',
+      one: 'Пока $count показ',
     );
     return '$_temp0';
   }
@@ -12835,4 +12835,33 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get rateBananaTalkRowSubtitle => 'Оставьте отзыв в магазине приложений';
+
+  @override
+  String get boostSourcePartners => 'Список партнёров';
+
+  @override
+  String get boostSourceMatches => 'Подборка дня';
+
+  @override
+  String get boostSourceMoments => 'Ваш момент в «Для вас»';
+
+  @override
+  String get boostTipsTitle => 'Как получить больше от продвижения';
+
+  @override
+  String get boostTipMoment => 'Опубликуйте момент сейчас: ваш последний момент тоже продвигается.';
+
+  @override
+  String get boostTipProfile => 'Чёткое фото и короткое описание приносят больше ответов.';
+
+  @override
+  String get boostCountingHint => 'Показы растут, когда люди открывают список партнёров, подборку дня и «Для вас».';
+
+  @override
+  String boostLastResult(int count) {
+    return 'Прошлое продвижение: показов — $count';
+  }
+
+  @override
+  String get boostAgain => 'Продвинуть снова';
 }

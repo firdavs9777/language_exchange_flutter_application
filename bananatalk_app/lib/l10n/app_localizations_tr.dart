@@ -8739,7 +8739,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String boostSeenBy(int count) {
-    return 'Şimdiye kadar $count kişi gördü';
+    return 'Şu ana kadar $count kez gösterildi';
   }
 
   @override
@@ -12357,4 +12357,33 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get rateBananaTalkRowSubtitle => 'Mağazada bir değerlendirme bırak';
+
+  @override
+  String get boostSourcePartners => 'Partner listesi';
+
+  @override
+  String get boostSourceMatches => 'Günlük eşleşmeler';
+
+  @override
+  String get boostSourceMoments => 'Senin İçin\'deki anın';
+
+  @override
+  String get boostTipsTitle => 'Boost\'undan daha fazla verim al';
+
+  @override
+  String get boostTipMoment => 'Şimdi bir an paylaş: en yeni anın da öne çıkarılır.';
+
+  @override
+  String get boostTipProfile => 'Net bir fotoğraf ve kısa bir biyografi daha çok yanıt getirir.';
+
+  @override
+  String get boostCountingHint => 'İnsanlar Partnerler\'i, günlük eşleşmelerini ve Senin İçin\'i açtıkça gösterimler artar.';
+
+  @override
+  String boostLastResult(int count) {
+    return 'Son boost\'un $count kez gösterildi';
+  }
+
+  @override
+  String get boostAgain => 'Yeniden öne çıkar';
 }

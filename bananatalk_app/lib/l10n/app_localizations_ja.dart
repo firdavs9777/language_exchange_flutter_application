@@ -8731,7 +8731,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String boostSeenBy(int count) {
-    return 'これまで$count人に表示されました';
+    return 'これまでの表示回数：$count回';
   }
 
   @override
@@ -12339,4 +12339,33 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get rateBananaTalkRowSubtitle => 'ストアでレビューを書く';
+
+  @override
+  String get boostSourcePartners => 'パートナー一覧';
+
+  @override
+  String get boostSourceMatches => '今日のマッチ';
+
+  @override
+  String get boostSourceMoments => 'おすすめに表示されたモーメント';
+
+  @override
+  String get boostTipsTitle => 'ブーストの効果を高めるには';
+
+  @override
+  String get boostTipMoment => '今すぐモーメントを投稿しましょう。最新のモーメントもおすすめに表示されます。';
+
+  @override
+  String get boostTipProfile => 'はっきりした写真と短い自己紹介があると返信が増えます。';
+
+  @override
+  String get boostCountingHint => 'パートナー一覧、今日のマッチ、おすすめが開かれるたびに表示回数が増えます。';
+
+  @override
+  String boostLastResult(int count) {
+    return '前回のブーストは$count回表示されました';
+  }
+
+  @override
+  String get boostAgain => 'もう一度ブースト';
 }

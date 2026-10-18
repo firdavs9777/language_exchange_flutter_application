@@ -8731,7 +8731,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String boostSeenBy(int count) {
-    return 'Đã có $count người thấy';
+    return 'Đã hiển thị $count lần';
   }
 
   @override
@@ -12339,4 +12339,33 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get rateBananaTalkRowSubtitle => 'Để lại đánh giá trên cửa hàng';
+
+  @override
+  String get boostSourcePartners => 'Danh sách đối tác';
+
+  @override
+  String get boostSourceMatches => 'Ghép đôi hằng ngày';
+
+  @override
+  String get boostSourceMoments => 'Khoảnh khắc của bạn trong Dành cho bạn';
+
+  @override
+  String get boostTipsTitle => 'Tận dụng tối đa lượt đẩy';
+
+  @override
+  String get boostTipMoment => 'Đăng một khoảnh khắc ngay: khoảnh khắc mới nhất của bạn cũng được đề xuất.';
+
+  @override
+  String get boostTipProfile => 'Ảnh rõ nét và phần giới thiệu ngắn giúp nhận nhiều phản hồi hơn.';
+
+  @override
+  String get boostCountingHint => 'Lượt hiển thị tăng khi mọi người mở danh sách đối tác, ghép đôi hằng ngày và Dành cho bạn.';
+
+  @override
+  String boostLastResult(int count) {
+    return 'Lượt đẩy trước được hiển thị $count lần';
+  }
+
+  @override
+  String get boostAgain => 'Đẩy lại';
 }

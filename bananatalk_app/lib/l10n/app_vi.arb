@@ -3603,7 +3603,7 @@
   "boostConfirm": "Xác nhận đẩy hồ sơ",
   "boostActiveTitle": "Lượt đẩy của bạn đang chạy",
   "boostTimeLeft": "Còn {time}",
-  "boostSeenBy": "Đã có {count} người thấy",
+  "boostSeenBy": "Đã hiển thị {count} lần",
   "boostFailed": "Không thể bắt đầu đẩy hồ sơ. Vui lòng thử lại.",
   "rewardedLimitReached": "Bạn đã dùng hết lượt mở khóa miễn phí hôm nay cho mục này — hãy thử lại vào ngày mai",
   "wavesMaskedTitle": "Ai đó đã vẫy tay chào bạn",
@@ -4696,5 +4696,14 @@
   "referralCodeUnknown": "Mã mời này không tồn tại. Hãy kiểm tra và thử lại.",
   "referralCodeNotAccepted": "Không thể dùng mã mời này cho tài khoản của bạn.",
   "rateBananaTalkRow": "Đánh giá BananaTalk",
-  "rateBananaTalkRowSubtitle": "Để lại đánh giá trên cửa hàng"
+  "rateBananaTalkRowSubtitle": "Để lại đánh giá trên cửa hàng",
+  "boostSourcePartners": "Danh sách đối tác",
+  "boostSourceMatches": "Ghép đôi hằng ngày",
+  "boostSourceMoments": "Khoảnh khắc của bạn trong Dành cho bạn",
+  "boostTipsTitle": "Tận dụng tối đa lượt đẩy",
+  "boostTipMoment": "Đăng một khoảnh khắc ngay: khoảnh khắc mới nhất của bạn cũng được đề xuất.",
+  "boostTipProfile": "Ảnh rõ nét và phần giới thiệu ngắn giúp nhận nhiều phản hồi hơn.",
+  "boostCountingHint": "Lượt hiển thị tăng khi mọi người mở danh sách đối tác, ghép đôi hằng ngày và Dành cho bạn.",
+  "boostLastResult": "Lượt đẩy trước được hiển thị {count} lần",
+  "boostAgain": "Đẩy lại"
 }

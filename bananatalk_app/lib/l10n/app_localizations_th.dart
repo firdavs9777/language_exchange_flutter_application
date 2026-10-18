@@ -8731,7 +8731,7 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String boostSeenBy(int count) {
-    return 'มีคนเห็นแล้ว $count คน';
+    return 'แสดงแล้ว $count ครั้ง';
   }
 
   @override
@@ -12339,4 +12339,33 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get rateBananaTalkRowSubtitle => 'เขียนรีวิวใน Store';
+
+  @override
+  String get boostSourcePartners => 'รายชื่อคู่หู';
+
+  @override
+  String get boostSourceMatches => 'แมตช์ประจำวัน';
+
+  @override
+  String get boostSourceMoments => 'โมเมนต์ของคุณใน สำหรับคุณ';
+
+  @override
+  String get boostTipsTitle => 'ใช้บูสต์ให้คุ้มที่สุด';
+
+  @override
+  String get boostTipMoment => 'โพสต์โมเมนต์ตอนนี้เลย โมเมนต์ล่าสุดของคุณจะถูกแนะนำด้วย';
+
+  @override
+  String get boostTipProfile => 'รูปที่ชัดเจนและแนะนำตัวสั้นๆ ช่วยให้ได้คำตอบมากขึ้น';
+
+  @override
+  String get boostCountingHint => 'ยอดการแสดงจะเพิ่มขึ้นเมื่อผู้คนเปิดรายชื่อคู่หู แมตช์ประจำวัน และ สำหรับคุณ';
+
+  @override
+  String boostLastResult(int count) {
+    return 'บูสต์ครั้งก่อนแสดง $count ครั้ง';
+  }
+
+  @override
+  String get boostAgain => 'บูสต์อีกครั้ง';
 }

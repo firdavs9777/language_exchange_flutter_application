@@ -16,6 +16,7 @@ class _FakeBoostClient implements BoostApiClient {
   _FakeBoostClient({this.error});
   final BoostError? error;
   Boost? active;
+  List<Boost> history = const [];
   int purchases = 0;
 
   Boost _live() => Boost(
@@ -40,7 +41,7 @@ class _FakeBoostClient implements BoostApiClient {
   Future<Boost?> getActive() async => active;
 
   @override
-  Future<List<Boost>> getHistory() async => const [];
+  Future<List<Boost>> getHistory() async => history;
 }
 
 Widget _app(Widget home, List<Override> overrides,
@@ -102,7 +103,7 @@ void main() {
     await tester.pump();
     expect(c.purchases, 1);
     expect(find.byKey(const ValueKey('boost_active')), findsOneWidget);
-    expect(find.text('Seen by 7 people so far'), findsOneWidget);
+    expect(find.text('Shown 7 times so far'), findsOneWidget);
     expect(find.byKey(const ValueKey('boost_confirm')), findsNothing);
     await tester.pumpWidget(const SizedBox.shrink()); // cancel countdown timer
   });
@@ -183,5 +184,80 @@ void main() {
 
   test('boost_receipt routes to /boost', () {
     expect(NotificationRouter.targetPathForType('boost_receipt', {}), '/boost');
+  });
+
+  group('progress and boost again (2026-10-18)', () {
+    Boost ended({int impressions = 12, Duration ago = const Duration(hours: 3), String status = 'expired'}) {
+      final end = DateTime.now().subtract(ago);
+      return Boost(
+        id: 'old',
+        startsAt: end.subtract(const Duration(hours: 24)),
+        endsAt: end,
+        impressions: impressions,
+        status: status,
+        fromPartners: 5,
+        fromMatches: 4,
+        fromMoments: 3,
+      );
+    }
+
+    testWidgets('a live boost shows progress, where it was shown, and tips', (tester) async {
+      final now = DateTime.now();
+      final c = _FakeBoostClient()
+        ..active = Boost(
+          id: 'b1',
+          startsAt: now.subtract(const Duration(hours: 12)),
+          endsAt: now.add(const Duration(hours: 12)),
+          impressions: 9,
+          status: 'active',
+          fromPartners: 4,
+          fromMatches: 2,
+          fromMoments: 3,
+        );
+      await tester.pumpWidget(_app(const BoostScreen(), _ov(c)));
+      await tester.pump();
+      await tester.pump();
+      final bar = tester.widget<LinearProgressIndicator>(find.byKey(const ValueKey('boost_progress')));
+      expect(bar.value, closeTo(0.5, 0.01));
+      expect(find.text('Shown 9 times so far'), findsOneWidget);
+      expect(find.text('Partners list'), findsOneWidget);
+      expect(find.text('Your moment in For You'), findsOneWidget);
+      expect(find.byKey(const ValueKey('boost_tips')), findsOneWidget);
+      expect(find.byKey(const ValueKey('boost_counting_hint')), findsNothing);
+      await tester.pumpWidget(const SizedBox.shrink());
+    });
+
+    testWidgets('no views yet: says how views add up', (tester) async {
+      final c = _FakeBoostClient()..active = _FakeBoostClient()._live();
+      c.active = Boost(id: 'b1', startsAt: DateTime.now(), endsAt: DateTime.now().add(const Duration(hours: 24)), status: 'active');
+      await tester.pumpWidget(_app(const BoostScreen(), _ov(c)));
+      await tester.pump();
+      await tester.pump();
+      expect(find.byKey(const ValueKey('boost_counting_hint')), findsOneWidget);
+      await tester.pumpWidget(const SizedBox.shrink());
+    });
+
+    testWidgets('after a boost ended: its result and "Boost again"', (tester) async {
+      final c = _FakeBoostClient()..history = [ended()];
+      await tester.pumpWidget(_app(const BoostScreen(), _ov(c)));
+      await tester.pump();
+      await tester.pump();
+      expect(find.byKey(const ValueKey('boost_last_result')), findsOneWidget);
+      expect(find.text('Your last boost was shown 12 times'), findsOneWidget);
+      expect(find.text('Boost again'), findsOneWidget);
+      await tester.tap(find.byKey(const ValueKey('boost_confirm')));
+      await tester.pump();
+      await tester.pump();
+      expect(c.purchases, 1);
+      await tester.pumpWidget(const SizedBox.shrink());
+    });
+
+    test('lastEndedBoost: within 7 days only, refunded skipped', () {
+      final now = DateTime.now();
+      expect(lastEndedBoost([ended()], now)?.id, 'old');
+      expect(lastEndedBoost([ended(ago: const Duration(days: 8))], now), isNull);
+      expect(lastEndedBoost([ended(status: 'refunded')], now), isNull);
+      expect(lastEndedBoost(const [], now), isNull);
+    });
   });
 }

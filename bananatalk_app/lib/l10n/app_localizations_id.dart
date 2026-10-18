@@ -8738,7 +8738,7 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String boostSeenBy(int count) {
-    return 'Sudah dilihat $count orang';
+    return 'Sudah ditampilkan $count kali';
   }
 
   @override
@@ -12350,4 +12350,33 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get rateBananaTalkRowSubtitle => 'Tulis ulasan di toko aplikasi';
+
+  @override
+  String get boostSourcePartners => 'Daftar partner';
+
+  @override
+  String get boostSourceMatches => 'Match harian';
+
+  @override
+  String get boostSourceMoments => 'Momenmu di Untuk Kamu';
+
+  @override
+  String get boostTipsTitle => 'Maksimalkan boost-mu';
+
+  @override
+  String get boostTipMoment => 'Posting momen sekarang: momen terbarumu juga ditampilkan.';
+
+  @override
+  String get boostTipProfile => 'Foto yang jelas dan bio singkat mendapat lebih banyak balasan.';
+
+  @override
+  String get boostCountingHint => 'Tayangan bertambah saat orang membuka Partner, match harian mereka, dan Untuk Kamu.';
+
+  @override
+  String boostLastResult(int count) {
+    return 'Boost terakhirmu ditampilkan $count kali';
+  }
+
+  @override
+  String get boostAgain => 'Boost lagi';
 }

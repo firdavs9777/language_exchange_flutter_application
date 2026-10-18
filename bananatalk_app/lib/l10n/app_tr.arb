@@ -3815,7 +3815,7 @@
   "boostConfirm": "Boost'u onayla",
   "boostActiveTitle": "Boost'un aktif",
   "boostTimeLeft": "{time} kaldı",
-  "boostSeenBy": "Şimdiye kadar {count} kişi gördü",
+  "boostSeenBy": "Şu ana kadar {count} kez gösterildi",
   "boostFailed": "Boost başlatılamadı. Lütfen tekrar dene.",
   "rewardedLimitReached": "Bunun için bugünkü ücretsiz kilit açmaları kullandın — yarın tekrar dene",
   "wavesMaskedTitle": "Biri sana el salladı",
@@ -4908,5 +4908,14 @@
   "referralCodeUnknown": "Böyle bir davet kodu yok. Kontrol edip tekrar dene.",
   "referralCodeNotAccepted": "Bu davet kodu hesabında kullanılamaz.",
   "rateBananaTalkRow": "BananaTalk'u değerlendir",
-  "rateBananaTalkRowSubtitle": "Mağazada bir değerlendirme bırak"
+  "rateBananaTalkRowSubtitle": "Mağazada bir değerlendirme bırak",
+  "boostSourcePartners": "Partner listesi",
+  "boostSourceMatches": "Günlük eşleşmeler",
+  "boostSourceMoments": "Senin İçin'deki anın",
+  "boostTipsTitle": "Boost'undan daha fazla verim al",
+  "boostTipMoment": "Şimdi bir an paylaş: en yeni anın da öne çıkarılır.",
+  "boostTipProfile": "Net bir fotoğraf ve kısa bir biyografi daha çok yanıt getirir.",
+  "boostCountingHint": "İnsanlar Partnerler'i, günlük eşleşmelerini ve Senin İçin'i açtıkça gösterimler artar.",
+  "boostLastResult": "Son boost'un {count} kez gösterildi",
+  "boostAgain": "Yeniden öne çıkar"
 }

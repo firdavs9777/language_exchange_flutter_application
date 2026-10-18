@@ -123,6 +123,7 @@ final Map<String, ProviderOrFamily> userScopedProviders = {
   'coinBalanceProvider': coinBalanceProvider,
   // The signed-in user's live Profile Boost (Partners / Moments entry rows).
   'myActiveBoostProvider': myActiveBoostProvider,
+  'myLastBoostProvider': myLastBoostProvider,
   'coinUnlockCatalogProvider': coinUnlockCatalogProvider,
   'coinUnlockedFeaturesProvider': coinUnlockedFeaturesProvider,
   'dailyRewardStatusProvider': dailyRewardStatusProvider,

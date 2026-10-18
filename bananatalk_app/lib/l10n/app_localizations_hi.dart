@@ -8745,7 +8745,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String boostSeenBy(int count) {
-    return 'अब तक $count लोगों ने देखा';
+    return 'अब तक $count बार दिखाया गया';
   }
 
   @override
@@ -12369,4 +12369,33 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get rateBananaTalkRowSubtitle => 'स्टोर पर समीक्षा लिखें';
+
+  @override
+  String get boostSourcePartners => 'साझेदार सूची';
+
+  @override
+  String get boostSourceMatches => 'आज के मैच';
+
+  @override
+  String get boostSourceMoments => '\'आपके लिए\' में आपका मोमेंट';
+
+  @override
+  String get boostTipsTitle => 'अपने बूस्ट का ज़्यादा फ़ायदा उठाएँ';
+
+  @override
+  String get boostTipMoment => 'अभी एक मोमेंट पोस्ट करें: आपका सबसे नया मोमेंट भी दिखाया जाता है।';
+
+  @override
+  String get boostTipProfile => 'साफ़ फ़ोटो और छोटा परिचय ज़्यादा जवाब दिलाते हैं।';
+
+  @override
+  String get boostCountingHint => 'जब लोग साझेदार सूची, अपने आज के मैच और \'आपके लिए\' खोलते हैं, तब व्यूज़ बढ़ते हैं।';
+
+  @override
+  String boostLastResult(int count) {
+    return 'आपका पिछला बूस्ट $count बार दिखाया गया';
+  }
+
+  @override
+  String get boostAgain => 'फिर से बूस्ट करें';
 }

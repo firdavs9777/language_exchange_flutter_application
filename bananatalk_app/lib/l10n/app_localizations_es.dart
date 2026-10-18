@@ -8745,7 +8745,13 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String boostSeenBy(int count) {
-    return 'Visto por $count personas hasta ahora';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Mostrado $count veces hasta ahora',
+      one: 'Mostrado 1 vez hasta ahora',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -12369,4 +12375,39 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get rateBananaTalkRowSubtitle => 'Deja una reseña en la tienda';
+
+  @override
+  String get boostSourcePartners => 'Lista de compañeros';
+
+  @override
+  String get boostSourceMatches => 'Coincidencias del día';
+
+  @override
+  String get boostSourceMoments => 'Tu momento en Para ti';
+
+  @override
+  String get boostTipsTitle => 'Saca más partido a tu impulso';
+
+  @override
+  String get boostTipMoment => 'Publica un momento ahora: tu momento más reciente también se destaca.';
+
+  @override
+  String get boostTipProfile => 'Una foto clara y una biografía corta consiguen más respuestas.';
+
+  @override
+  String get boostCountingHint => 'Las visualizaciones suben cuando la gente abre Compañeros, sus coincidencias del día y Para ti.';
+
+  @override
+  String boostLastResult(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Tu último impulso se mostró $count veces',
+      one: 'Tu último impulso se mostró 1 vez',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get boostAgain => 'Impulsar de nuevo';
 }

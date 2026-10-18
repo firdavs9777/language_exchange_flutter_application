@@ -8773,7 +8773,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String boostSeenBy(int count) {
-    return 'شاهدك $count أشخاص حتى الآن';
+    return 'عدد مرات الظهور حتى الآن: $count';
   }
 
   @override
@@ -12456,4 +12456,33 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get rateBananaTalkRowSubtitle => 'اترك تقييمًا في المتجر';
+
+  @override
+  String get boostSourcePartners => 'قائمة الشركاء';
+
+  @override
+  String get boostSourceMatches => 'مطابقات اليوم';
+
+  @override
+  String get boostSourceMoments => 'لحظتك في «لك»';
+
+  @override
+  String get boostTipsTitle => 'استفد أكثر من التعزيز';
+
+  @override
+  String get boostTipMoment => 'انشر لحظة الآن: أحدث لحظاتك تُعرض أيضًا.';
+
+  @override
+  String get boostTipProfile => 'الصورة الواضحة والنبذة القصيرة تجلبان ردودًا أكثر.';
+
+  @override
+  String get boostCountingHint => 'تزداد المشاهدات عندما يفتح الناس قائمة الشركاء ومطابقات اليوم و«لك».';
+
+  @override
+  String boostLastResult(int count) {
+    return 'عدد مرات ظهور تعزيزك الأخير: $count';
+  }
+
+  @override
+  String get boostAgain => 'عزّز مرة أخرى';
 }

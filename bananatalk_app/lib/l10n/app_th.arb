@@ -3603,7 +3603,7 @@
   "boostConfirm": "ยืนยันการบูสต์",
   "boostActiveTitle": "บูสต์ของคุณกำลังทำงาน",
   "boostTimeLeft": "เหลือ {time}",
-  "boostSeenBy": "มีคนเห็นแล้ว {count} คน",
+  "boostSeenBy": "แสดงแล้ว {count} ครั้ง",
   "boostFailed": "เริ่มบูสต์ไม่ได้ กรุณาลองอีกครั้ง",
   "rewardedLimitReached": "คุณใช้การปลดล็อกฟรีของวันนี้ครบแล้ว — ลองใหม่พรุ่งนี้",
   "wavesMaskedTitle": "มีคนโบกมือทักคุณ",
@@ -4696,5 +4696,14 @@
   "referralCodeUnknown": "ไม่มีรหัสเชิญนี้ ตรวจสอบแล้วลองอีกครั้ง",
   "referralCodeNotAccepted": "ใช้รหัสเชิญนี้กับบัญชีของคุณไม่ได้",
   "rateBananaTalkRow": "ให้คะแนน BananaTalk",
-  "rateBananaTalkRowSubtitle": "เขียนรีวิวใน Store"
+  "rateBananaTalkRowSubtitle": "เขียนรีวิวใน Store",
+  "boostSourcePartners": "รายชื่อคู่หู",
+  "boostSourceMatches": "แมตช์ประจำวัน",
+  "boostSourceMoments": "โมเมนต์ของคุณใน สำหรับคุณ",
+  "boostTipsTitle": "ใช้บูสต์ให้คุ้มที่สุด",
+  "boostTipMoment": "โพสต์โมเมนต์ตอนนี้เลย โมเมนต์ล่าสุดของคุณจะถูกแนะนำด้วย",
+  "boostTipProfile": "รูปที่ชัดเจนและแนะนำตัวสั้นๆ ช่วยให้ได้คำตอบมากขึ้น",
+  "boostCountingHint": "ยอดการแสดงจะเพิ่มขึ้นเมื่อผู้คนเปิดรายชื่อคู่หู แมตช์ประจำวัน และ สำหรับคุณ",
+  "boostLastResult": "บูสต์ครั้งก่อนแสดง {count} ครั้ง",
+  "boostAgain": "บูสต์อีกครั้ง"
 }

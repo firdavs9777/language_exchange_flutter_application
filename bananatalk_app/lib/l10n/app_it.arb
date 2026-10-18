@@ -3843,7 +3843,7 @@
   "boostConfirm": "Conferma potenziamento",
   "boostActiveTitle": "Il tuo potenziamento è attivo",
   "boostTimeLeft": "{time} rimanenti",
-  "boostSeenBy": "Visto da {count} persone finora",
+  "boostSeenBy": "{count, plural, one{Mostrato 1 volta finora} other{Mostrato {count} volte finora}}",
   "boostFailed": "Impossibile avviare il potenziamento. Riprova.",
   "rewardedLimitReached": "Hai usato gli sblocchi gratuiti di oggi per questo — riprova domani",
   "wavesMaskedTitle": "Qualcuno ti ha salutato",
@@ -4936,5 +4936,14 @@
   "referralCodeUnknown": "Questo codice invito non esiste. Controllalo e riprova.",
   "referralCodeNotAccepted": "Questo codice invito non può essere usato sul tuo account.",
   "rateBananaTalkRow": "Valuta BananaTalk",
-  "rateBananaTalkRowSubtitle": "Lascia una recensione nello store"
+  "rateBananaTalkRowSubtitle": "Lascia una recensione nello store",
+  "boostSourcePartners": "Lista partner",
+  "boostSourceMatches": "Match del giorno",
+  "boostSourceMoments": "Il tuo momento in Per te",
+  "boostTipsTitle": "Sfrutta al meglio il potenziamento",
+  "boostTipMoment": "Pubblica un momento ora: anche il tuo momento più recente viene messo in evidenza.",
+  "boostTipProfile": "Una foto nitida e una breve bio ricevono più risposte.",
+  "boostCountingHint": "Le visualizzazioni crescono quando le persone aprono Partner, i match del giorno e Per te.",
+  "boostLastResult": "{count, plural, one{Il tuo ultimo potenziamento è stato mostrato 1 volta} other{Il tuo ultimo potenziamento è stato mostrato {count} volte}}",
+  "boostAgain": "Potenzia di nuovo"
 }

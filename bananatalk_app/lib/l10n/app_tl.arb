@@ -3576,7 +3576,7 @@
   "boostConfirm": "Kumpirmahin ang boost",
   "boostActiveTitle": "Aktibo ang boost mo",
   "boostTimeLeft": "{time} na lang",
-  "boostSeenBy": "Nakita na ng {count} tao",
+  "boostSeenBy": "Naipakita na nang {count} beses",
   "boostFailed": "Hindi masimulan ang boost. Pakisubukan ulit.",
   "rewardedLimitReached": "Naubos mo na ang libreng unlock ngayong araw para dito — subukan ulit bukas",
   "wavesMaskedTitle": "May kumaway sa iyo",
@@ -4669,5 +4669,14 @@
   "referralCodeUnknown": "Walang ganyang code ng imbitasyon. Suriin ito at subukang muli.",
   "referralCodeNotAccepted": "Hindi magagamit ang code ng imbitasyong ito sa account mo.",
   "rateBananaTalkRow": "I-rate ang BananaTalk",
-  "rateBananaTalkRowSubtitle": "Mag-iwan ng review sa store"
+  "rateBananaTalkRowSubtitle": "Mag-iwan ng review sa store",
+  "boostSourcePartners": "Listahan ng mga partner",
+  "boostSourceMatches": "Mga match ngayong araw",
+  "boostSourceMoments": "Ang moment mo sa Para Sa'yo",
+  "boostTipsTitle": "Sulitin ang boost mo",
+  "boostTipMoment": "Mag-post ng moment ngayon: itatampok din ang pinakabago mong moment.",
+  "boostTipProfile": "Mas maraming sagot ang nakukuha ng malinaw na larawan at maikling bio.",
+  "boostCountingHint": "Nadaragdagan ang views kapag binubuksan ng mga tao ang Mga Partner, ang daily matches nila at Para Sa'yo.",
+  "boostLastResult": "Naipakita nang {count} beses ang huling boost mo",
+  "boostAgain": "Mag-boost ulit"
 }

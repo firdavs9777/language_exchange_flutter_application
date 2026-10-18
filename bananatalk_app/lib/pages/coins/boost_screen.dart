@@ -6,9 +6,11 @@ import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/boost.dart';
 import 'package:bananatalk_app/pages/coins/coin_shop_screen.dart';
+import 'package:bananatalk_app/pages/moments/create/create_moment.dart';
 import 'package:bananatalk_app/providers/coins_provider.dart';
 import 'package:bananatalk_app/services/boost_api_client.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
 
 /// Price shown on the confirm card. The server charges the authoritative
 /// amount (`BOOST_COST` backend-side); a mismatch surfaces as a 402.
@@ -23,8 +25,22 @@ String formatBoostRemaining(AppLocalizations l10n, Duration d) {
   return h > 0 ? l10n.boostDurationHm(h, m) : l10n.boostDurationM(m);
 }
 
-/// Profile Boost: explain, confirm, then show the live boost with a countdown
-/// and impression count. Reached only behind `boostsEnabled`.
+/// How long after a boost ends its result is still offered with "Boost again".
+const Duration kBoostResultWindow = Duration(days: 7);
+
+/// The most recent boost that has ended within [kBoostResultWindow], from
+/// `/boosts/history` (newest first); null when there is none.
+Boost? lastEndedBoost(List<Boost> history, DateTime now) {
+  for (final b in history) {
+    if (b.isLive || b.endsAt == null || b.status == 'refunded') continue;
+    return now.difference(b.endsAt!) <= kBoostResultWindow ? b : null;
+  }
+  return null;
+}
+
+/// Profile Boost: explain, confirm, then show the live boost with its
+/// progress (time used, impressions by place, tips). After it ends, the last
+/// result is shown with "Boost again". Reached only behind `boostsEnabled`.
 class BoostScreen extends ConsumerStatefulWidget {
   const BoostScreen({super.key});
 
@@ -34,7 +50,9 @@ class BoostScreen extends ConsumerStatefulWidget {
 
 class _BoostScreenState extends ConsumerState<BoostScreen> {
   Boost? _active;
+  Boost? _last;
   bool _loading = true;
+  int _ticks = 0;
   bool _busy = false;
   String? _message;
   Timer? _tick;
@@ -52,13 +70,36 @@ class _BoostScreenState extends ConsumerState<BoostScreen> {
   }
 
   Future<void> _load() async {
+    final client = ref.read(boostApiClientProvider);
     try {
-      final b = await ref.read(boostApiClientProvider).getActive();
+      final b = await client.getActive();
+      if (!mounted) return;
+      if (b == null || !b.isLive) await _loadLast();
       if (!mounted) return;
       _setActive(b);
     } catch (_) {
       if (mounted) setState(() => _loading = false);
     }
+  }
+
+  /// The last ended boost, for the result card. A failed read shows none.
+  Future<void> _loadLast() async {
+    try {
+      final history = await ref.read(boostApiClientProvider).getHistory();
+      _last = lastEndedBoost(history, DateTime.now());
+    } catch (_) {
+      _last = null;
+    }
+  }
+
+  /// Re-reads the live boost so its impressions move while the screen is
+  /// open; keeps the current one on a failed read.
+  Future<void> _refreshActive() async {
+    try {
+      final b = await ref.read(boostApiClientProvider).getActive();
+      if (!mounted || b == null || !b.isLive) return;
+      setState(() => _active = b);
+    } catch (_) {}
   }
 
   void _setActive(Boost? b) {
@@ -69,9 +110,15 @@ class _BoostScreenState extends ConsumerState<BoostScreen> {
         if (!mounted) return;
         if (_active != null && !_active!.isLive) {
           _tick?.cancel();
+          // Just ended: show its result with "Boost again".
+          _last = _active;
           setState(() => _active = null);
+          _loadLast().then((_) {
+            if (mounted) setState(() {});
+          });
         } else {
           setState(() {});
+          if (++_ticks % 2 == 0) _refreshActive();
         }
       });
     }
@@ -154,9 +201,14 @@ class _BoostScreenState extends ConsumerState<BoostScreen> {
 
   Widget _purchaseCard(AppLocalizations l10n) {
     final balance = ref.watch(coinBalanceProvider);
+    final last = _last;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+        if (last != null) ...[
+          _lastResultCard(l10n, last),
+          const SizedBox(height: 20),
+        ],
         Text(
           l10n.boostExplain,
           textAlign: TextAlign.center,
@@ -207,7 +259,7 @@ class _BoostScreenState extends ConsumerState<BoostScreen> {
                     child: CircularProgressIndicator(strokeWidth: 2),
                   )
                 : Text(
-                    l10n.boostConfirm,
+                    last != null ? l10n.boostAgain : l10n.boostConfirm,
                     style: const TextStyle(fontWeight: FontWeight.w700),
                   ),
           ),
@@ -226,7 +278,9 @@ class _BoostScreenState extends ConsumerState<BoostScreen> {
   }
 
   Widget _activeCard(AppLocalizations l10n, Boost b) {
-    final left = b.endsAt!.difference(DateTime.now());
+    final now = DateTime.now();
+    final left = b.endsAt!.difference(now);
+    final theme = Theme.of(context);
     return Column(
       key: const ValueKey('boost_active'),
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -234,9 +288,7 @@ class _BoostScreenState extends ConsumerState<BoostScreen> {
         Text(
           l10n.boostActiveTitle,
           textAlign: TextAlign.center,
-          style: Theme.of(
-            context,
-          ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w700),
+          style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w700),
         ),
         const SizedBox(height: 12),
         Text(
@@ -244,15 +296,113 @@ class _BoostScreenState extends ConsumerState<BoostScreen> {
               ? formatBoostRemaining(l10n, left)
               : l10n.boostTimeLeft(formatBoostRemaining(l10n, left)),
           textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.headlineSmall,
+          style: theme.textTheme.headlineSmall,
         ),
         const SizedBox(height: 12),
-        Text(
-          l10n.boostSeenBy(b.impressions),
-          textAlign: TextAlign.center,
-          style: const TextStyle(color: AppColors.matchMutedText),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(6),
+          child: LinearProgressIndicator(
+            key: const ValueKey('boost_progress'),
+            value: b.progressAt(now),
+            minHeight: 8,
+            backgroundColor: context.containerColor,
+            color: AppColors.matchAccent,
+          ),
         ),
+        const SizedBox(height: 20),
+        _impressionsCard(l10n, b, l10n.boostSeenBy(b.impressions)),
+        if (b.impressions == 0) ...[
+          const SizedBox(height: 8),
+          Text(
+            l10n.boostCountingHint,
+            key: const ValueKey('boost_counting_hint'),
+            textAlign: TextAlign.center,
+            style: theme.textTheme.bodySmall?.copyWith(color: context.textSecondary),
+          ),
+        ],
+        const SizedBox(height: 20),
+        _tipsCard(l10n),
       ],
     );
   }
+
+  /// Total impressions and where they happened.
+  Widget _impressionsCard(AppLocalizations l10n, Boost b, String headline) {
+    final theme = Theme.of(context);
+    Widget row(IconData icon, String label, int n) => Padding(
+          padding: const EdgeInsets.only(top: 8),
+          child: Row(
+            children: [
+              Icon(icon, size: 18, color: context.textSecondary),
+              const SizedBox(width: 8),
+              Expanded(child: Text(label, style: theme.textTheme.bodyMedium)),
+              Text('$n', style: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700)),
+            ],
+          ),
+        );
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: context.containerColor,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text(
+            headline,
+            key: const ValueKey('boost_impressions'),
+            textAlign: TextAlign.center,
+            style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
+          ),
+          row(Icons.people_alt_rounded, l10n.boostSourcePartners, b.fromPartners),
+          row(Icons.favorite_rounded, l10n.boostSourceMatches, b.fromMatches),
+          row(Icons.auto_awesome_rounded, l10n.boostSourceMoments, b.fromMoments),
+        ],
+      ),
+    );
+  }
+
+  Widget _tipsCard(AppLocalizations l10n) {
+    final theme = Theme.of(context);
+    return Container(
+      key: const ValueKey('boost_tips'),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        border: Border.all(color: context.dividerColor),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(l10n.boostTipsTitle,
+              style: theme.textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700)),
+          const SizedBox(height: 10),
+          Text('• ${l10n.boostTipMoment}', style: theme.textTheme.bodyMedium),
+          const SizedBox(height: 6),
+          Text('• ${l10n.boostTipProfile}', style: theme.textTheme.bodyMedium),
+          const SizedBox(height: 12),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: OutlinedButton.icon(
+              key: const ValueKey('boost_post_moment'),
+              icon: const Icon(Icons.add_photo_alternate_outlined, size: 18),
+              label: Text(l10n.guideMomentsCta),
+              onPressed: () => Navigator.push(
+                context,
+                AppPageRoute<void>(builder: (_) => const CreateMoment()),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// The last ended boost's result, above the purchase card.
+  Widget _lastResultCard(AppLocalizations l10n, Boost b) =>
+      KeyedSubtree(
+        key: const ValueKey('boost_last_result'),
+        child: _impressionsCard(l10n, b, l10n.boostLastResult(b.impressions)),
+      );
 }

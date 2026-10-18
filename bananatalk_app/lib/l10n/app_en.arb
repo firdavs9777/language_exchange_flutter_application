@@ -6136,9 +6136,9 @@
       }
     }
   },
-  "boostSeenBy": "Seen by {count} people so far",
+  "boostSeenBy": "{count, plural, one{Shown once so far} other{Shown {count} times so far}}",
   "@boostSeenBy": {
-    "description": "Profile Boost string",
+    "description": "Profile Boost progress (2026-10-18)",
     "placeholders": {
       "count": {
         "type": "int"
@@ -8349,5 +8349,46 @@
   "rateBananaTalkRowSubtitle": "Leave a review in the store",
   "@rateBananaTalkRowSubtitle": {
     "description": "Subtitle under the Rate BananaTalk row"
+  },
+  "boostSourcePartners": "Partners list",
+  "@boostSourcePartners": {
+    "description": "Profile Boost progress (2026-10-18)"
+  },
+  "boostSourceMatches": "Daily matches",
+  "@boostSourceMatches": {
+    "description": "Profile Boost progress (2026-10-18)"
+  },
+  "boostSourceMoments": "Your moment in For You",
+  "@boostSourceMoments": {
+    "description": "Profile Boost progress (2026-10-18)"
+  },
+  "boostTipsTitle": "Get more from your boost",
+  "@boostTipsTitle": {
+    "description": "Profile Boost progress (2026-10-18)"
+  },
+  "boostTipMoment": "Post a moment now: your newest moment is featured too.",
+  "@boostTipMoment": {
+    "description": "Profile Boost progress (2026-10-18)"
+  },
+  "boostTipProfile": "A clear photo and a short bio get more replies.",
+  "@boostTipProfile": {
+    "description": "Profile Boost progress (2026-10-18)"
+  },
+  "boostCountingHint": "Views add up as people open Partners, their daily matches and For You.",
+  "@boostCountingHint": {
+    "description": "Profile Boost progress (2026-10-18)"
+  },
+  "boostLastResult": "{count, plural, one{Your last boost was shown once} other{Your last boost was shown {count} times}}",
+  "@boostLastResult": {
+    "description": "Profile Boost progress (2026-10-18)",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "boostAgain": "Boost again",
+  "@boostAgain": {
+    "description": "Profile Boost progress (2026-10-18)"
   }
 }

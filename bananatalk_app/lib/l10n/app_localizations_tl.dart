@@ -8741,7 +8741,7 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String boostSeenBy(int count) {
-    return 'Nakita na ng $count tao';
+    return 'Naipakita na nang $count beses';
   }
 
   @override
@@ -12362,4 +12362,33 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get rateBananaTalkRowSubtitle => 'Mag-iwan ng review sa store';
+
+  @override
+  String get boostSourcePartners => 'Listahan ng mga partner';
+
+  @override
+  String get boostSourceMatches => 'Mga match ngayong araw';
+
+  @override
+  String get boostSourceMoments => 'Ang moment mo sa Para Sa\'yo';
+
+  @override
+  String get boostTipsTitle => 'Sulitin ang boost mo';
+
+  @override
+  String get boostTipMoment => 'Mag-post ng moment ngayon: itatampok din ang pinakabago mong moment.';
+
+  @override
+  String get boostTipProfile => 'Mas maraming sagot ang nakukuha ng malinaw na larawan at maikling bio.';
+
+  @override
+  String get boostCountingHint => 'Nadaragdagan ang views kapag binubuksan ng mga tao ang Mga Partner, ang daily matches nila at Para Sa\'yo.';
+
+  @override
+  String boostLastResult(int count) {
+    return 'Naipakita nang $count beses ang huling boost mo';
+  }
+
+  @override
+  String get boostAgain => 'Mag-boost ulit';
 }

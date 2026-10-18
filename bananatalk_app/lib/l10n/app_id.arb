@@ -3603,7 +3603,7 @@
   "boostConfirm": "Konfirmasi boost",
   "boostActiveTitle": "Boost-mu sedang aktif",
   "boostTimeLeft": "Sisa {time}",
-  "boostSeenBy": "Sudah dilihat {count} orang",
+  "boostSeenBy": "Sudah ditampilkan {count} kali",
   "boostFailed": "Tidak bisa memulai boost. Silakan coba lagi.",
   "rewardedLimitReached": "Kamu sudah memakai pembukaan gratis hari ini untuk ini — coba lagi besok",
   "wavesMaskedTitle": "Seseorang menyapamu",
@@ -4696,5 +4696,14 @@
   "referralCodeUnknown": "Kode undangan itu tidak ada. Periksa lalu coba lagi.",
   "referralCodeNotAccepted": "Kode undangan ini tidak bisa dipakai di akunmu.",
   "rateBananaTalkRow": "Beri nilai BananaTalk",
-  "rateBananaTalkRowSubtitle": "Tulis ulasan di toko aplikasi"
+  "rateBananaTalkRowSubtitle": "Tulis ulasan di toko aplikasi",
+  "boostSourcePartners": "Daftar partner",
+  "boostSourceMatches": "Match harian",
+  "boostSourceMoments": "Momenmu di Untuk Kamu",
+  "boostTipsTitle": "Maksimalkan boost-mu",
+  "boostTipMoment": "Posting momen sekarang: momen terbarumu juga ditampilkan.",
+  "boostTipProfile": "Foto yang jelas dan bio singkat mendapat lebih banyak balasan.",
+  "boostCountingHint": "Tayangan bertambah saat orang membuka Partner, match harian mereka, dan Untuk Kamu.",
+  "boostLastResult": "Boost terakhirmu ditampilkan {count} kali",
+  "boostAgain": "Boost lagi"
 }

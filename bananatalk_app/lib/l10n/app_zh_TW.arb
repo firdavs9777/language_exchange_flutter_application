@@ -3294,7 +3294,7 @@
   "boostConfirm": "確認提升",
   "boostActiveTitle": "你的提升正在進行",
   "boostTimeLeft": "剩餘 {time}",
-  "boostSeenBy": "目前已被 {count} 人看到",
+  "boostSeenBy": "目前已展示 {count} 次",
   "boostFailed": "無法開始提升，請重試。",
   "rewardedLimitReached": "你今天的免費解鎖次數已用完——請明天再試",
   "wavesMaskedTitle": "有人向你打招呼",
@@ -4387,5 +4387,14 @@
   "referralCodeUnknown": "此邀請碼不存在，請檢查後再試一次。",
   "referralCodeNotAccepted": "此邀請碼無法用於你的帳號。",
   "rateBananaTalkRow": "為 BananaTalk 評分",
-  "rateBananaTalkRowSubtitle": "在應用程式商店留下評價"
+  "rateBananaTalkRowSubtitle": "在應用程式商店留下評價",
+  "boostSourcePartners": "夥伴列表",
+  "boostSourceMatches": "每日配對",
+  "boostSourceMoments": "「為你推薦」中的你的動態",
+  "boostTipsTitle": "讓提升更有效",
+  "boostTipMoment": "現在發一則動態吧：你最新的動態也會被推薦。",
+  "boostTipProfile": "清晰的照片和簡短的自我介紹能獲得更多回覆。",
+  "boostCountingHint": "當有人打開夥伴列表、每日配對和「為你推薦」時，展示次數就會增加。",
+  "boostLastResult": "上次提升展示了 {count} 次",
+  "boostAgain": "再次提升"
 }

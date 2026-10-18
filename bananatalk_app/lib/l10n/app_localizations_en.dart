@@ -8751,7 +8751,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String boostSeenBy(int count) {
-    return 'Seen by $count people so far';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Shown $count times so far',
+      one: 'Shown once so far',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -12387,4 +12393,39 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get rateBananaTalkRowSubtitle => 'Leave a review in the store';
+
+  @override
+  String get boostSourcePartners => 'Partners list';
+
+  @override
+  String get boostSourceMatches => 'Daily matches';
+
+  @override
+  String get boostSourceMoments => 'Your moment in For You';
+
+  @override
+  String get boostTipsTitle => 'Get more from your boost';
+
+  @override
+  String get boostTipMoment => 'Post a moment now: your newest moment is featured too.';
+
+  @override
+  String get boostTipProfile => 'A clear photo and a short bio get more replies.';
+
+  @override
+  String get boostCountingHint => 'Views add up as people open Partners, their daily matches and For You.';
+
+  @override
+  String boostLastResult(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Your last boost was shown $count times',
+      one: 'Your last boost was shown once',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get boostAgain => 'Boost again';
 }

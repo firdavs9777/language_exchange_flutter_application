@@ -8745,7 +8745,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String boostSeenBy(int count) {
-    return 'Vu par $count personnes jusqu\'ici';
+    return 'Affiché $count fois jusqu\'ici';
   }
 
   @override
@@ -12369,4 +12369,33 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get rateBananaTalkRowSubtitle => 'Laissez un avis sur le store';
+
+  @override
+  String get boostSourcePartners => 'Liste des partenaires';
+
+  @override
+  String get boostSourceMatches => 'Matchs du jour';
+
+  @override
+  String get boostSourceMoments => 'Votre moment dans Pour vous';
+
+  @override
+  String get boostTipsTitle => 'Tirez le meilleur de votre boost';
+
+  @override
+  String get boostTipMoment => 'Publiez un moment maintenant : votre moment le plus récent est aussi mis en avant.';
+
+  @override
+  String get boostTipProfile => 'Une photo nette et une courte bio obtiennent plus de réponses.';
+
+  @override
+  String get boostCountingHint => 'Les vues augmentent quand des gens ouvrent Partenaires, leurs matchs du jour et Pour vous.';
+
+  @override
+  String boostLastResult(int count) {
+    return 'Votre dernier boost a été affiché $count fois';
+  }
+
+  @override
+  String get boostAgain => 'Booster à nouveau';
 }

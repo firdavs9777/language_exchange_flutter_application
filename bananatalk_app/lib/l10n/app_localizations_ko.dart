@@ -8731,7 +8731,7 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String boostSeenBy(int count) {
-    return '지금까지 $count명이 봤어요';
+    return '지금까지 $count회 노출';
   }
 
   @override
@@ -12339,4 +12339,33 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get rateBananaTalkRowSubtitle => '스토어에 리뷰 남기기';
+
+  @override
+  String get boostSourcePartners => '파트너 목록';
+
+  @override
+  String get boostSourceMatches => '오늘의 매칭';
+
+  @override
+  String get boostSourceMoments => '추천 피드의 내 모먼트';
+
+  @override
+  String get boostTipsTitle => '부스트 효과 높이기';
+
+  @override
+  String get boostTipMoment => '지금 모먼트를 올려 보세요. 가장 최근 모먼트도 함께 추천돼요.';
+
+  @override
+  String get boostTipProfile => '선명한 사진과 짧은 자기소개가 있으면 답장을 더 많이 받아요.';
+
+  @override
+  String get boostCountingHint => '사람들이 파트너 목록, 오늘의 매칭, 추천을 열 때마다 노출 수가 올라가요.';
+
+  @override
+  String boostLastResult(int count) {
+    return '지난 부스트는 $count회 노출되었어요';
+  }
+
+  @override
+  String get boostAgain => '다시 부스트하기';
 }

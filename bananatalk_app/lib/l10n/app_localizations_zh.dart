@@ -8731,7 +8731,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String boostSeenBy(int count) {
-    return '目前已被 $count 人看到';
+    return '目前已展示 $count 次';
   }
 
   @override
@@ -12339,6 +12339,35 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get rateBananaTalkRowSubtitle => '在应用商店留下评价';
+
+  @override
+  String get boostSourcePartners => '伙伴列表';
+
+  @override
+  String get boostSourceMatches => '每日匹配';
+
+  @override
+  String get boostSourceMoments => '“为你推荐”中的你的动态';
+
+  @override
+  String get boostTipsTitle => '让提升更有效';
+
+  @override
+  String get boostTipMoment => '现在发一条动态吧：你最新的动态也会被推荐。';
+
+  @override
+  String get boostTipProfile => '清晰的照片和简短的自我介绍能获得更多回复。';
+
+  @override
+  String get boostCountingHint => '当有人打开伙伴列表、每日匹配和“为你推荐”时，展示次数就会增加。';
+
+  @override
+  String boostLastResult(int count) {
+    return '上次提升展示了 $count 次';
+  }
+
+  @override
+  String get boostAgain => '再次提升';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -21068,7 +21097,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String boostSeenBy(int count) {
-    return '目前已被 $count 人看到';
+    return '目前已展示 $count 次';
   }
 
   @override
@@ -24676,4 +24705,33 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get rateBananaTalkRowSubtitle => '在應用程式商店留下評價';
+
+  @override
+  String get boostSourcePartners => '夥伴列表';
+
+  @override
+  String get boostSourceMatches => '每日配對';
+
+  @override
+  String get boostSourceMoments => '「為你推薦」中的你的動態';
+
+  @override
+  String get boostTipsTitle => '讓提升更有效';
+
+  @override
+  String get boostTipMoment => '現在發一則動態吧：你最新的動態也會被推薦。';
+
+  @override
+  String get boostTipProfile => '清晰的照片和簡短的自我介紹能獲得更多回覆。';
+
+  @override
+  String get boostCountingHint => '當有人打開夥伴列表、每日配對和「為你推薦」時，展示次數就會增加。';
+
+  @override
+  String boostLastResult(int count) {
+    return '上次提升展示了 $count 次';
+  }
+
+  @override
+  String get boostAgain => '再次提升';
 }

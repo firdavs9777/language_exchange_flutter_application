@@ -32,6 +32,17 @@ final myActiveBoostProvider = FutureProvider.autoDispose<Boost?>((ref) async {
   }
 });
 
+/// The signed-in user's last boost that ended within the result window, or
+/// null (also on a failed read). Drives "Boost again" in the entry row.
+final myLastBoostProvider = FutureProvider.autoDispose<Boost?>((ref) async {
+  try {
+    final history = await ref.read(boostApiClientProvider).getHistory();
+    return lastEndedBoost(history, DateTime.now());
+  } catch (_) {
+    return null;
+  }
+});
+
 /// Opens the Boost screen, then re-reads the live boost so the entry points
 /// switch to "Your boost is live" after a purchase.
 Future<void> openBoostScreen(BuildContext context, WidgetRef ref) async {
@@ -40,6 +51,7 @@ Future<void> openBoostScreen(BuildContext context, WidgetRef ref) async {
     AppPageRoute<void>(builder: (_) => const BoostScreen()),
   );
   ref.invalidate(myActiveBoostProvider);
+  ref.invalidate(myLastBoostProvider);
 }
 
 /// One slim row that starts a Boost where people look for partners and
@@ -56,11 +68,19 @@ class BoostEntryRow extends ConsumerWidget {
     final l10n = AppLocalizations.of(context)!;
     final active = ref.watch(myActiveBoostProvider).valueOrNull;
     final live = active != null && active.endsAt != null;
-    final title = live ? l10n.boostActiveTitle : l10n.boostTitle;
+    // Only asked for when no boost is live.
+    final last = live ? null : ref.watch(myLastBoostProvider).valueOrNull;
+    final title = live
+        ? l10n.boostActiveTitle
+        : last != null
+            ? l10n.boostAgain
+            : l10n.boostTitle;
     final subtitle = live
-        ? l10n.boostTimeLeft(formatBoostRemaining(
-            l10n, active.endsAt!.difference(DateTime.now())))
-        : l10n.boostSubtitle;
+        ? '${l10n.boostTimeLeft(formatBoostRemaining(l10n, active.endsAt!.difference(DateTime.now())))}'
+            ' · ${l10n.boostSeenBy(active.impressions)}'
+        : last != null
+            ? l10n.boostLastResult(last.impressions)
+            : l10n.boostSubtitle;
 
     return Padding(
       padding: margin,

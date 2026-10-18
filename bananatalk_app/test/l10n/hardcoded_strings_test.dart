@@ -828,6 +828,18 @@ const Map<String, List<String>> _keysByTask = {
   'boost-everywhere': [
     'boostExplainMore',
   ],
+  // feat/boost-progress: live progress, impressions by place, Boost again.
+  'boost-progress': [
+    'boostSourcePartners',
+    'boostSourceMatches',
+    'boostSourceMoments',
+    'boostTipsTitle',
+    'boostTipMoment',
+    'boostTipProfile',
+    'boostCountingHint',
+    'boostLastResult',
+    'boostAgain',
+  ],
   // feat/daily-reminder-time: daily lesson push on/off + hour in Notification settings.
   'daily-reminder-time': [
     'dailyReminderTitle',
@@ -1124,6 +1136,10 @@ const Map<String, List<String>> _filesByTask = {
   'boost-everywhere': [
     'pages/coins/boost_screen.dart',
     'pages/moments/card/moment_card.dart',
+  ],
+  'boost-progress': [
+    'pages/coins/boost_screen.dart',
+    'widgets/boost/boost_entry.dart',
   ],
   'daily-reminder-time': [
     'pages/notifications/notification_settings_screen.dart',
