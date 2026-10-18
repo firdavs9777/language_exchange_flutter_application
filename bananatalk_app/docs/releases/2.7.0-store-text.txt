@@ -1,0 +1,555 @@
+BananaTalk 2.7.0 - App Store text (Promotional Text + What's New)
+Generated 2026-10-18 from the commits since 2026-10-01 (docs/releases/2.7.0.md).
+Limits: Promotional Text <= 170 characters, What's New <= 4000. Character counts are shown per language.
+Not mentioned on purpose: invites/referrals and the wave cap (still switched off on the server).
+Dutch, Malay and Urdu: the app itself is not translated into these, so the text says '19 languages', not 'your language'.
+
+======================================================================
+English (U.S.)
+======================================================================
+--- Promotional Text (140/170) ---
+Daily matches who fit your languages, a new AI Study, and calls that just work. Practice with real people, now translated into 19 languages.
+
+--- What's New in This Version (804/4000) ---
+Thank you for using BananaTalk!
+
+Daily matches - partners picked for your languages every day, each with a reason to say hi.
+
+AI Study, redesigned - today's lesson, your progress, the AI tutor, roleplay and exam study on one page. You can also choose when the daily lesson reminder arrives.
+
+Calls - decline with a message, call back from a missed call, turn your camera on during a voice call, and choose whether to allow calls.
+
+Boost - be seen by more partners for 24 hours, near the top of Partners and in For You, and watch it work in real time.
+
+Getting started - a short guide on every tab for your first week.
+
+Announcements - news from the BananaTalk team, right in the app.
+
+Plus every screen translated into 19 languages, a cleaner tab bar, better dark mode, and many fixes.
+
+Happy practicing!
+
+======================================================================
+Arabic
+======================================================================
+--- Promotional Text (139/170) ---
+مطابقات يومية تناسب لغاتك، وقسم دراسة جديد بالذكاء الاصطناعي، ومكالمات تعمل بسلاسة. تدرّب مع أشخاص حقيقيين، والتطبيق الآن مترجم إلى 19 لغة.
+
+--- What's New in This Version (753/4000) ---
+شكرًا لاستخدامك BananaTalk!
+
+مطابقات يومية - شركاء يتم اختيارهم كل يوم حسب لغاتك، مع سبب لبدء المحادثة مع كل منهم.
+
+الدراسة بالذكاء الاصطناعي بتصميم جديد - درس اليوم وتقدّمك والمعلّم الذكي ولعب الأدوار والتحضير للامتحانات في صفحة واحدة. ويمكنك أيضًا اختيار موعد تذكير الدرس اليومي.
+
+المكالمات - ارفض المكالمة برسالة، وعاود الاتصال من إشعار المكالمة الفائتة، وشغّل الكاميرا أثناء المكالمة الصوتية، واختر ما إذا كنت تسمح بالمكالمات.
+
+التعزيز - اجعل المزيد من الشركاء يرونك لمدة 24 ساعة، في أعلى قائمة الشركاء وفي «لك»، وتابع النتائج مباشرة.
+
+البداية - دليل قصير في كل تبويب خلال أسبوعك الأول.
+
+الإعلانات - أخبار فريق BananaTalk داخل التطبيق.
+
+وأيضًا: كل الشاشات مترجمة إلى 19 لغة، وشريط تبويبات أبسط، ووضع داكن أفضل، والعديد من الإصلاحات.
+
+تدرّبًا موفقًا!
+
+======================================================================
+Chinese (Simplified)
+======================================================================
+--- Promotional Text (50/170) ---
+每日匹配适合你语言的伙伴，全新 AI 学习，通话更稳定。与真实的人一起练习，现已支持 19 种语言。
+
+--- What's New in This Version (321/4000) ---
+感谢使用 BananaTalk！
+
+每日匹配 - 每天按你的语言挑选伙伴，并告诉你打招呼的理由。
+
+全新 AI 学习 - 今日课程、学习进度、AI 导师、角色扮演和考试学习集中在一个页面。你还可以选择每日课程提醒的时间。
+
+通话 - 用消息拒接来电，从未接来电通知直接回拨，语音通话中打开摄像头，并可选择是否接听来电。
+
+提升 - 24 小时内让更多伙伴看到你：排在伙伴列表前面并出现在“为你推荐”中，还能实时查看效果。
+
+新手指南 - 第一周在每个标签页都有简短指南。
+
+公告 - 在应用内查看 BananaTalk 团队的最新消息。
+
+此外：所有页面已翻译成 19 种语言，标签栏更简洁，深色模式更好，并修复了大量问题。
+
+祝你练习愉快！
+
+======================================================================
+Chinese (Traditional)
+======================================================================
+--- Promotional Text (50/170) ---
+每日配對適合你語言的夥伴，全新 AI 學習，通話更穩定。與真實的人一起練習，現已支援 19 種語言。
+
+--- What's New in This Version (322/4000) ---
+感謝使用 BananaTalk！
+
+每日配對 - 每天依你的語言挑選夥伴，並告訴你打招呼的理由。
+
+全新 AI 學習 - 今日課程、學習進度、AI 導師、角色扮演和考試學習集中在一個頁面。你還可以選擇每日課程提醒的時間。
+
+通話 - 用訊息拒接來電，從未接來電通知直接回撥，語音通話中開啟相機，並可選擇是否接聽來電。
+
+提升 - 24 小時內讓更多夥伴看到你：排在夥伴列表前面並出現在「為你推薦」中，還能即時查看成效。
+
+新手指南 - 第一週在每個分頁都有簡短指南。
+
+公告 - 在 App 內查看 BananaTalk 團隊的最新消息。
+
+此外：所有頁面已翻譯成 19 種語言，分頁列更簡潔，深色模式更好，並修正了大量問題。
+
+祝你練習愉快！
+
+======================================================================
+Dutch
+======================================================================
+--- Promotional Text (142/170) ---
+Dagelijkse matches die bij jouw talen passen, een nieuwe AI Study en bellen dat gewoon werkt. Oefen met echte mensen, nu vertaald in 19 talen.
+
+--- What's New in This Version (870/4000) ---
+Bedankt dat je BananaTalk gebruikt!
+
+Dagelijkse matches - elke dag partners die bij jouw talen passen, telkens met een reden om hallo te zeggen.
+
+AI Study, vernieuwd - de les van vandaag, je voortgang, de AI-tutor, rollenspel en examenstudie op één pagina. Je kunt ook kiezen wanneer de dagelijkse lesherinnering komt.
+
+Bellen - weiger een oproep met een bericht, bel terug vanuit een gemiste oproep, zet je camera aan tijdens een spraakoproep en kies of je oproepen toestaat.
+
+Boost - word 24 uur lang door meer partners gezien, bovenaan Partners en in Voor jou, en zie live hoe het werkt.
+
+Aan de slag - een korte gids op elk tabblad in je eerste week.
+
+Aankondigingen - nieuws van het BananaTalk-team, gewoon in de app.
+
+Verder: elk scherm vertaald in 19 talen, een overzichtelijkere tabbalk, een betere donkere modus en veel verbeteringen.
+
+Veel plezier met oefenen!
+
+======================================================================
+French
+======================================================================
+--- Promotional Text (146/170) ---
+Des matchs quotidiens adaptés à vos langues, un nouvel AI Study et des appels qui fonctionnent. Pratiquez avec de vraies personnes, en 19 langues.
+
+--- What's New in This Version (951/4000) ---
+Merci d'utiliser BananaTalk !
+
+Matchs du jour - des partenaires choisis chaque jour selon vos langues, chacun avec une raison de dire bonjour.
+
+AI Study, repensé - la leçon du jour, vos progrès, le tuteur IA, les jeux de rôle et la préparation aux examens sur une seule page. Vous pouvez aussi choisir l'heure du rappel de leçon quotidien.
+
+Appels - refusez un appel avec un message, rappelez depuis un appel manqué, activez votre caméra pendant un appel vocal et choisissez d'autoriser ou non les appels.
+
+Boost - soyez vu par plus de partenaires pendant 24 heures, en haut de Partenaires et dans Pour vous, et suivez les résultats en direct.
+
+Premiers pas - un court guide sur chaque onglet pendant votre première semaine.
+
+Annonces - les nouvelles de l'équipe BananaTalk, directement dans l'app.
+
+Et aussi : chaque écran traduit en 19 langues, une barre d'onglets plus claire, un meilleur mode sombre et de nombreuses corrections.
+
+Bonne pratique !
+
+======================================================================
+German
+======================================================================
+--- Promotional Text (154/170) ---
+Tägliche Matches, die zu deinen Sprachen passen, ein neues AI Study und Anrufe, die einfach funktionieren. Übe mit echten Menschen – jetzt in 19 Sprachen.
+
+--- What's New in This Version (959/4000) ---
+Danke, dass du BananaTalk nutzt!
+
+Tägliche Matches - jeden Tag Partner, die zu deinen Sprachen passen, jeweils mit einem Grund, Hallo zu sagen.
+
+AI Study, neu gestaltet - die Lektion des Tages, dein Fortschritt, der KI-Tutor, Rollenspiele und Prüfungsvorbereitung auf einer Seite. Außerdem kannst du wählen, wann die tägliche Lern-Erinnerung kommt.
+
+Anrufe - lehne Anrufe mit einer Nachricht ab, ruf direkt aus einem verpassten Anruf zurück, schalte während eines Sprachanrufs die Kamera ein und entscheide, ob du Anrufe zulässt.
+
+Boost - werde 24 Stunden lang von mehr Partnern gesehen, oben in Partner und in Für dich, und verfolge die Wirkung live.
+
+Erste Schritte - eine kurze Anleitung auf jedem Tab in deiner ersten Woche.
+
+Ankündigungen - Neuigkeiten vom BananaTalk-Team direkt in der App.
+
+Außerdem: jeder Bildschirm in 19 Sprachen übersetzt, eine übersichtlichere Tab-Leiste, ein besserer Dunkelmodus und viele Fehlerbehebungen.
+
+Viel Spaß beim Üben!
+
+======================================================================
+Hindi
+======================================================================
+--- Promotional Text (118/170) ---
+आपकी भाषाओं के हिसाब से रोज़ के मैच, नया AI Study और बिना रुकावट कॉल। असली लोगों के साथ अभ्यास करें, अब 19 भाषाओं में।
+
+--- What's New in This Version (740/4000) ---
+BananaTalk इस्तेमाल करने के लिए धन्यवाद!
+
+रोज़ के मैच - हर दिन आपकी भाषाओं के हिसाब से चुने गए साझेदार, और हर एक से बात शुरू करने की वजह।
+
+नया AI Study - आज का पाठ, आपकी प्रगति, AI ट्यूटर, रोलप्ले और परीक्षा की तैयारी, सब एक ही पेज पर। आप रोज़ के पाठ के रिमाइंडर का समय भी चुन सकते हैं।
+
+कॉल - संदेश भेजकर कॉल अस्वीकार करें, मिस्ड कॉल से सीधे वापस कॉल करें, वॉइस कॉल के दौरान कैमरा चालू करें, और चुनें कि कॉल आने दें या नहीं।
+
+बूस्ट - 24 घंटे तक ज़्यादा साझेदारों को दिखें, साझेदार सूची में ऊपर और 'आपके लिए' में, और नतीजे लाइव देखें।
+
+शुरुआत - पहले हफ़्ते में हर टैब पर एक छोटी गाइड।
+
+घोषणाएँ - BananaTalk टीम की खबरें, ऐप के अंदर ही।
+
+साथ ही: हर स्क्रीन 19 भाषाओं में, साफ़-सुथरा टैब बार, बेहतर डार्क मोड और कई सुधार।
+
+अभ्यास का आनंद लें!
+
+======================================================================
+Indonesian
+======================================================================
+--- Promotional Text (146/170) ---
+Match harian yang cocok dengan bahasamu, AI Study baru, dan panggilan yang lancar. Berlatih dengan orang sungguhan, kini tersedia dalam 19 bahasa.
+
+--- What's New in This Version (905/4000) ---
+Terima kasih telah menggunakan BananaTalk!
+
+Match harian - partner yang dipilih setiap hari sesuai bahasamu, masing-masing dengan alasan untuk menyapa.
+
+AI Study versi baru - pelajaran hari ini, progresmu, tutor AI, roleplay, dan persiapan ujian dalam satu halaman. Kamu juga bisa memilih kapan pengingat pelajaran harian muncul.
+
+Panggilan - tolak panggilan dengan pesan, telepon balik dari panggilan tak terjawab, nyalakan kamera saat panggilan suara, dan pilih apakah kamu menerima panggilan.
+
+Boost - dilihat lebih banyak partner selama 24 jam, di bagian atas Partner dan di Untuk Kamu, dan pantau hasilnya secara langsung.
+
+Memulai - panduan singkat di setiap tab selama minggu pertamamu.
+
+Pengumuman - kabar dari tim BananaTalk, langsung di aplikasi.
+
+Selain itu: semua layar diterjemahkan ke 19 bahasa, bilah tab yang lebih rapi, mode gelap yang lebih baik, dan banyak perbaikan.
+
+Selamat berlatih!
+
+======================================================================
+Italian
+======================================================================
+--- Promotional Text (139/170) ---
+Match giornalieri adatti alle tue lingue, un nuovo AI Study e chiamate che funzionano. Pratica con persone vere, ora tradotto in 19 lingue.
+
+--- What's New in This Version (936/4000) ---
+Grazie per usare BananaTalk!
+
+Match del giorno - partner scelti ogni giorno in base alle tue lingue, ognuno con un motivo per salutarlo.
+
+AI Study rinnovato - la lezione di oggi, i tuoi progressi, il tutor IA, i giochi di ruolo e la preparazione agli esami in un'unica pagina. Puoi anche scegliere quando ricevere il promemoria della lezione quotidiana.
+
+Chiamate - rifiuta una chiamata con un messaggio, richiama da una chiamata persa, attiva la fotocamera durante una chiamata vocale e scegli se consentire le chiamate.
+
+Potenziamento - fatti vedere da più partner per 24 ore, in cima a Partner e in Per te, e segui i risultati in tempo reale.
+
+Per iniziare - una breve guida in ogni scheda durante la tua prima settimana.
+
+Annunci - le novità del team BananaTalk, direttamente nell'app.
+
+Inoltre: ogni schermata tradotta in 19 lingue, una barra delle schede più pulita, una modalità scura migliore e tante correzioni.
+
+Buona pratica!
+
+======================================================================
+Japanese
+======================================================================
+--- Promotional Text (57/170) ---
+あなたの言語に合う毎日のマッチ、新しいAI学習、つながりやすくなった通話。本物の相手と練習しよう。19言語に対応。
+
+--- What's New in This Version (438/4000) ---
+BananaTalkをご利用いただきありがとうございます！
+
+今日のマッチ - あなたの言語に合うパートナーを毎日ピックアップ。話しかけるきっかけも一緒に表示します。
+
+AI学習をリニューアル - 今日のレッスン、学習の進み具合、AIチューター、ロールプレイ、試験対策を1ページに。毎日のレッスン通知の時間も選べます。
+
+通話 - メッセージを添えて着信を断る、不在着信からかけ直す、音声通話中にカメラをオンにする、通話を受けるかどうかを選ぶ、ができるようになりました。
+
+ブースト - 24時間、より多くのパートナーに表示されます。パートナー一覧の上位と「おすすめ」に表示され、効果をリアルタイムで確認できます。
+
+はじめてガイド - 最初の1週間、各タブに短いガイドが表示されます。
+
+お知らせ - BananaTalkチームからのニュースをアプリ内で。
+
+さらに：全画面を19言語に翻訳、すっきりしたタブバー、改善したダークモード、多数の修正。
+
+楽しく練習しましょう！
+
+======================================================================
+Korean
+======================================================================
+--- Promotional Text (75/170) ---
+내 언어에 맞는 오늘의 매칭, 새로워진 AI 학습, 더 잘 연결되는 통화. 실제 사람들과 연습하세요. 이제 19개 언어로 번역되었어요.
+
+--- What's New in This Version (468/4000) ---
+BananaTalk를 이용해 주셔서 감사합니다!
+
+오늘의 매칭 - 매일 내 언어에 맞는 파트너를 골라 드리고, 인사를 건넬 이유도 함께 알려 드려요.
+
+새로워진 AI 학습 - 오늘의 레슨, 학습 진도, AI 튜터, 롤플레이, 시험 공부를 한 페이지에서. 매일 레슨 알림 시간도 직접 고를 수 있어요.
+
+통화 - 메시지로 전화 거절하기, 부재중 전화 알림에서 바로 다시 걸기, 음성 통화 중 카메라 켜기, 전화 허용 여부 선택하기가 가능해졌어요.
+
+부스트 - 24시간 동안 더 많은 파트너에게 보여요. 파트너 목록 상단과 추천에 노출되고, 효과를 실시간으로 확인할 수 있어요.
+
+시작 가이드 - 첫 주 동안 모든 탭에 짧은 가이드가 있어요.
+
+공지 - BananaTalk 팀의 소식을 앱에서 바로 확인하세요.
+
+그 밖에: 모든 화면 19개 언어 번역, 더 깔끔해진 탭 바, 개선된 다크 모드, 그리고 많은 버그 수정.
+
+즐겁게 연습하세요!
+
+======================================================================
+Malay
+======================================================================
+--- Promotional Text (142/170) ---
+Padanan harian yang sesuai dengan bahasa anda, AI Study baharu dan panggilan yang lancar. Berlatih dengan orang sebenar, kini dalam 19 bahasa.
+
+--- What's New in This Version (945/4000) ---
+Terima kasih kerana menggunakan BananaTalk!
+
+Padanan harian - rakan yang dipilih setiap hari mengikut bahasa anda, setiap satu dengan sebab untuk menegur.
+
+AI Study baharu - pelajaran hari ini, kemajuan anda, tutor AI, main peranan dan persediaan peperiksaan dalam satu halaman. Anda juga boleh memilih bila peringatan pelajaran harian tiba.
+
+Panggilan - tolak panggilan dengan mesej, hubungi semula daripada panggilan tidak dijawab, hidupkan kamera semasa panggilan suara, dan pilih sama ada anda membenarkan panggilan.
+
+Boost - dilihat oleh lebih ramai rakan selama 24 jam, di bahagian atas Partners dan dalam For You, dan lihat hasilnya secara langsung.
+
+Bermula - panduan ringkas pada setiap tab untuk minggu pertama anda.
+
+Pengumuman - berita daripada pasukan BananaTalk, terus dalam aplikasi.
+
+Selain itu: setiap skrin diterjemahkan ke 19 bahasa, bar tab yang lebih kemas, mod gelap yang lebih baik dan banyak pembaikan.
+
+Selamat berlatih!
+
+======================================================================
+Portuguese (Brazil)
+======================================================================
+--- Promotional Text (138/170) ---
+Matches diários que combinam com seus idiomas, um novo AI Study e chamadas que funcionam. Pratique com pessoas reais, agora em 19 idiomas.
+
+--- What's New in This Version (911/4000) ---
+Obrigado por usar o BananaTalk!
+
+Matches do dia - parceiros escolhidos todos os dias de acordo com seus idiomas, cada um com um motivo para dizer oi.
+
+AI Study renovado - a lição do dia, seu progresso, o tutor de IA, role-play e estudo para provas em uma única página. Você também pode escolher quando chega o lembrete da lição diária.
+
+Chamadas - recuse uma chamada com uma mensagem, ligue de volta a partir de uma chamada perdida, ligue a câmera durante uma chamada de voz e escolha se quer permitir chamadas.
+
+Impulso - seja visto por mais parceiros por 24 horas, no topo de Parceiros e em Para você, e acompanhe o resultado em tempo real.
+
+Primeiros passos - um guia rápido em cada aba na sua primeira semana.
+
+Anúncios - novidades da equipe BananaTalk, direto no app.
+
+E mais: todas as telas traduzidas para 19 idiomas, uma barra de abas mais limpa, um modo escuro melhor e muitas correções.
+
+Bons estudos!
+
+======================================================================
+Portuguese (Portugal)
+======================================================================
+--- Promotional Text (144/170) ---
+Correspondências diárias adequadas aos seus idiomas, um novo AI Study e chamadas que funcionam. Pratique com pessoas reais, agora em 19 idiomas.
+
+--- What's New in This Version (945/4000) ---
+Obrigado por utilizar o BananaTalk!
+
+Correspondências do dia - parceiros escolhidos todos os dias de acordo com os seus idiomas, cada um com um motivo para dizer olá.
+
+AI Study renovado - a lição do dia, o seu progresso, o tutor de IA, role-play e estudo para exames numa única página. Também pode escolher quando chega o lembrete da lição diária.
+
+Chamadas - recuse uma chamada com uma mensagem, ligue de volta a partir de uma chamada perdida, ligue a câmara durante uma chamada de voz e escolha se permite chamadas.
+
+Impulso - seja visto por mais parceiros durante 24 horas, no topo de Parceiros e em Para si, e acompanhe os resultados em tempo real.
+
+Primeiros passos - um guia curto em cada separador durante a sua primeira semana.
+
+Anúncios - novidades da equipa BananaTalk, diretamente na app.
+
+E ainda: todos os ecrãs traduzidos para 19 idiomas, uma barra de separadores mais limpa, um modo escuro melhor e muitas correções.
+
+Boa prática!
+
+======================================================================
+Russian
+======================================================================
+--- Promotional Text (151/170) ---
+Ежедневная подборка собеседников под ваши языки, новый AI Study и звонки, которые просто работают. Практикуйтесь с живыми людьми — теперь на 19 языках.
+
+--- What's New in This Version (890/4000) ---
+Спасибо, что пользуетесь BananaTalk!
+
+Подборка дня — каждый день партнёры под ваши языки и повод, чтобы начать разговор с каждым.
+
+Обновлённый AI Study — урок дня, ваш прогресс, ИИ-репетитор, ролевые диалоги и подготовка к экзаменам на одной странице. Можно выбрать, когда приходит напоминание о ежедневном уроке.
+
+Звонки — отклоняйте звонок с сообщением, перезванивайте из уведомления о пропущенном звонке, включайте камеру во время голосового звонка и решайте, принимать ли звонки.
+
+Продвижение — 24 часа вас видит больше партнёров: в начале списка партнёров и в «Для вас», а результат виден в реальном времени.
+
+Первые шаги — короткая подсказка на каждой вкладке в первую неделю.
+
+Объявления — новости команды BananaTalk прямо в приложении.
+
+А также: все экраны переведены на 19 языков, более аккуратная панель вкладок, улучшенная тёмная тема и множество исправлений.
+
+Приятной практики!
+
+======================================================================
+Spanish (Mexico)
+======================================================================
+--- Promotional Text (139/170) ---
+Matches diarios que encajan con tus idiomas, un nuevo AI Study y llamadas que funcionan. Practica con personas reales, ahora en 19 idiomas.
+
+--- What's New in This Version (929/4000) ---
+¡Gracias por usar BananaTalk!
+
+Matches del día - compañeros elegidos cada día según tus idiomas, cada uno con un motivo para saludar.
+
+AI Study renovado - la lección del día, tu progreso, el tutor de IA, juegos de rol y preparación de exámenes en una sola página. También puedes elegir a qué hora llega el recordatorio de la lección diaria.
+
+Llamadas - rechaza una llamada con un mensaje, devuelve la llamada desde una llamada perdida, enciende la cámara durante una llamada de voz y elige si permites llamadas.
+
+Impulso - que más compañeros te vean durante 24 horas, arriba en Compañeros y en Para ti, y ve los resultados en tiempo real.
+
+Primeros pasos - una guía breve en cada pestaña durante tu primera semana.
+
+Anuncios - noticias del equipo de BananaTalk, dentro de la app.
+
+Además: todas las pantallas traducidas a 19 idiomas, una barra de pestañas más limpia, un mejor modo oscuro y muchas correcciones.
+
+¡Feliz práctica!
+
+======================================================================
+Spanish (Spain)
+======================================================================
+--- Promotional Text (145/170) ---
+Coincidencias diarias que encajan con tus idiomas, un nuevo AI Study y llamadas que funcionan. Practica con personas reales, ahora en 19 idiomas.
+
+--- What's New in This Version (932/4000) ---
+¡Gracias por usar BananaTalk!
+
+Coincidencias del día - compañeros elegidos cada día según tus idiomas, cada uno con un motivo para saludar.
+
+AI Study renovado - la lección del día, tu progreso, el tutor de IA, juegos de rol y preparación de exámenes en una sola página. También puedes elegir cuándo llega el recordatorio de la lección diaria.
+
+Llamadas - rechaza una llamada con un mensaje, devuelve la llamada desde una llamada perdida, activa la cámara durante una llamada de voz y elige si permites llamadas.
+
+Impulso - que más compañeros te vean durante 24 horas, arriba en Compañeros y en Para ti, y sigue los resultados en tiempo real.
+
+Primeros pasos - una guía breve en cada pestaña durante tu primera semana.
+
+Anuncios - noticias del equipo de BananaTalk, dentro de la app.
+
+Además: todas las pantallas traducidas a 19 idiomas, una barra de pestañas más limpia, un mejor modo oscuro y muchas correcciones.
+
+¡Feliz práctica!
+
+======================================================================
+Thai
+======================================================================
+--- Promotional Text (113/170) ---
+แมตช์ประจำวันที่เข้ากับภาษาของคุณ AI Study โฉมใหม่ และการโทรที่ใช้งานได้ลื่นไหล ฝึกกับคนจริง ตอนนี้รองรับ 19 ภาษา
+
+--- What's New in This Version (686/4000) ---
+ขอบคุณที่ใช้ BananaTalk!
+
+แมตช์ประจำวัน - คู่หูที่คัดมาตามภาษาของคุณทุกวัน พร้อมเหตุผลให้เริ่มทักทาย
+
+AI Study โฉมใหม่ - บทเรียนวันนี้ ความคืบหน้า ติวเตอร์ AI บทบาทสมมติ และการเตรียมสอบ ในหน้าเดียว และคุณเลือกเวลาแจ้งเตือนบทเรียนประจำวันได้เอง
+
+การโทร - ปฏิเสธสายพร้อมข้อความ โทรกลับจากสายที่ไม่ได้รับ เปิดกล้องระหว่างโทรด้วยเสียง และเลือกได้ว่าจะรับสายหรือไม่
+
+บูสต์ - ให้คู่หูเห็นคุณมากขึ้นตลอด 24 ชั่วโมง ทั้งด้านบนของรายชื่อคู่หูและใน สำหรับคุณ พร้อมดูผลแบบเรียลไทม์
+
+เริ่มต้นใช้งาน - คำแนะนำสั้นๆ ในทุกแท็บช่วงสัปดาห์แรก
+
+ประกาศ - ข่าวจากทีม BananaTalk ภายในแอป
+
+นอกจากนี้: ทุกหน้าจอแปลเป็น 19 ภาษา แถบแท็บที่เรียบง่ายขึ้น โหมดมืดที่ดีขึ้น และการแก้ไขอีกมากมาย
+
+ขอให้สนุกกับการฝึก!
+
+======================================================================
+Turkish
+======================================================================
+--- Promotional Text (116/170) ---
+Dillerine uygun günlük eşleşmeler, yeni AI Study ve sorunsuz aramalar. Gerçek insanlarla pratik yap, artık 19 dilde.
+
+--- What's New in This Version (846/4000) ---
+BananaTalk'u kullandığın için teşekkürler!
+
+Günlük eşleşmeler - her gün dillerine göre seçilen partnerler, her biri için selam vermek üzere bir neden.
+
+Yenilenen AI Study - günün dersi, ilerlemen, yapay zekâ öğretmeni, rol yapma ve sınav hazırlığı tek sayfada. Günlük ders hatırlatıcısının ne zaman geleceğini de seçebilirsin.
+
+Aramalar - bir aramayı mesajla reddet, cevapsız aramadan geri ara, sesli arama sırasında kamerayı aç ve aramalara izin verip vermeyeceğini seç.
+
+Öne çıkar - 24 saat boyunca daha fazla partner seni görsün: Partnerler listesinin üstünde ve Senin İçin'de; sonuçları anlık izle.
+
+Başlangıç - ilk haftanda her sekmede kısa bir rehber.
+
+Duyurular - BananaTalk ekibinden haberler, doğrudan uygulamada.
+
+Ayrıca: her ekran 19 dile çevrildi, daha sade bir sekme çubuğu, daha iyi karanlık mod ve pek çok düzeltme.
+
+İyi pratikler!
+
+======================================================================
+Urdu
+======================================================================
+--- Promotional Text (110/170) ---
+آپ کی زبانوں کے مطابق روزانہ میچز، نیا AI Study اور بہتر کالز۔ حقیقی لوگوں کے ساتھ مشق کریں، اب 19 زبانوں میں۔
+
+--- What's New in This Version (770/4000) ---
+BananaTalk استعمال کرنے کا شکریہ!
+
+روزانہ میچز - ہر دن آپ کی زبانوں کے مطابق منتخب کیے گئے پارٹنرز، اور ہر ایک سے بات شروع کرنے کی وجہ۔
+
+نیا AI Study - آج کا سبق، آپ کی پیش رفت، AI ٹیوٹر، رول پلے اور امتحان کی تیاری، سب ایک ہی صفحے پر۔ آپ روزانہ سبق کی یاد دہانی کا وقت بھی منتخب کر سکتے ہیں۔
+
+کالز - پیغام کے ساتھ کال مسترد کریں، مسڈ کال سے واپس کال کریں، وائس کال کے دوران کیمرہ آن کریں، اور منتخب کریں کہ کالز کی اجازت دینی ہے یا نہیں۔
+
+بوسٹ - 24 گھنٹے تک زیادہ پارٹنرز آپ کو دیکھیں، پارٹنرز کی فہرست میں اوپر اور For You میں، اور نتائج براہِ راست دیکھیں۔
+
+آغاز - پہلے ہفتے میں ہر ٹیب پر ایک مختصر رہنمائی۔
+
+اعلانات - BananaTalk ٹیم کی خبریں، ایپ کے اندر ہی۔
+
+مزید: ہر اسکرین 19 زبانوں میں ترجمہ شدہ، صاف ستھرا ٹیب بار، بہتر ڈارک موڈ اور بہت سی اصلاحات۔
+
+خوشگوار مشق!
+
+======================================================================
+Vietnamese
+======================================================================
+--- Promotional Text (128/170) ---
+Ghép đôi hằng ngày hợp với ngôn ngữ của bạn, AI Study mới và cuộc gọi ổn định hơn. Luyện tập với người thật, nay có 19 ngôn ngữ.
+
+--- What's New in This Version (826/4000) ---
+Cảm ơn bạn đã sử dụng BananaTalk!
+
+Ghép đôi hằng ngày - mỗi ngày chọn đối tác hợp với ngôn ngữ của bạn, kèm lý do để bắt chuyện.
+
+AI Study mới - bài học hôm nay, tiến độ, gia sư AI, nhập vai và ôn thi trên cùng một trang. Bạn cũng có thể chọn giờ nhận nhắc nhở bài học hằng ngày.
+
+Cuộc gọi - từ chối cuộc gọi kèm tin nhắn, gọi lại từ cuộc gọi nhỡ, bật camera trong cuộc gọi thoại và chọn có cho phép cuộc gọi hay không.
+
+Đẩy hồ sơ - được nhiều đối tác thấy hơn trong 24 giờ, ở đầu danh sách đối tác và trong Dành cho bạn, và xem kết quả theo thời gian thực.
+
+Bắt đầu - hướng dẫn ngắn trên mỗi thẻ trong tuần đầu tiên.
+
+Thông báo - tin tức từ đội ngũ BananaTalk ngay trong ứng dụng.
+
+Ngoài ra: mọi màn hình được dịch sang 19 ngôn ngữ, thanh thẻ gọn gàng hơn, chế độ tối tốt hơn và nhiều bản sửa lỗi.
+
+Chúc bạn luyện tập vui vẻ!

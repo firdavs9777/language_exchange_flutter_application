@@ -27,6 +27,7 @@ web `docs/REMAINING_WORK.md` in the web repo (admin console, `assetlinks.json`, 
 3. Play Console: **Data safety** (contacts and phone state no longer collected), Advertising ID = Yes (handoff §4.4–4.5).
 3a. **Play warning "Billing Library 8.0.0 or later by Nov 1, 2026"** (seen 2026-10-18): the code already uses 8.0.0 — in_app_purchase_android 0.5.0 → `com.android.billingclient:billing:8.0.0`, the only billing artifact in `:app:dependencies` (releaseRuntimeClasspath), since 2.3.0 (lock at v2.6.1 is the same). The warning comes from an OLD bundle still active on some track: Releases overview → check every track (internal, closed, open, production) for a release older than 2.3.0 and replace it with 2.7.0 (or pause that track). Billing 9: no Flutter plugin release uses it yet (latest 0.5.4 is still 8.0.0 and needs Flutter 3.41; we are on 3.38.7), so stay on 8.
 4. **Store prices** — App Store Connect + Play Console: VIP monthly $3.99, yearly $24.99 (quarterly untouched).
+4a. App Store Connect → 2.7.0 → Promotional Text + "What's New" for all 22 store languages: paste from `docs/releases/2.7.0-store-text.txt` (also on the Desktop). Machine-drafted; a native look at ko/ja/zh at least is worth it.
 5. Upload to the Play **internal testing** track, run the release-mode smoke (section 3, handoff §3), then
    staged rollout 10–20 %; watch Android vitals for R8 crashes for 24 h. Tag `v2.7.0` once accepted.
 6. Paste the upload-key and Play app-signing SHA-256 into the web repo's `assetlinks.json` (web file, owner steps) — App Links stay dead until then.
