@@ -3456,5 +3456,34 @@
       "useHere": "Écouter ici",
       "you": "vous"
     }
+  },
+  "boost": {
+    "title": "Booster mon profil",
+    "subtitle": "Sois vu par plus de partenaires pendant 24 h",
+    "activeTitle": "Ton boost est actif",
+    "again": "Booster à nouveau",
+    "timeLeft": "Encore {{time}}",
+    "seenBy": "Affiché jusqu'ici : {{count}} fois",
+    "lastResult": "Ton dernier boost — affiché : {{count}} fois",
+    "endingSoon": "Se termine bientôt",
+    "durationHm": "{{hours}} h {{minutes}} min",
+    "durationM": "{{minutes}} min",
+    "sourcePartners": "Liste des partenaires",
+    "sourceMatches": "Matchs du jour",
+    "sourceMoments": "Ton moment dans Pour toi",
+    "countingHint": "Les vues s'ajoutent quand les gens ouvrent Partenaires, leurs matchs du jour et Pour toi.",
+    "tipsTitle": "Tire le meilleur de ton boost",
+    "tipMoment": "Publie un moment maintenant : ton moment le plus récent est aussi mis en avant.",
+    "tipProfile": "Une photo nette et une courte bio obtiennent plus de réponses.",
+    "postMoment": "Publier un moment",
+    "explain": "Sois le 6e match de tous ceux dont les langues te correspondent, pendant 24 heures.",
+    "explainMore": "Tu apparais aussi en haut des Partenaires, et ton dernier moment est mis en avant dans Pour toi.",
+    "costLine": "Coût : {{cost}} pièces",
+    "balanceLine": "Ton solde : {{balance}} pièces",
+    "confirm": "Confirmer le boost",
+    "failed": "Impossible de lancer ton boost. Réessaie.",
+    "capacityFull": "Toutes les places de boost sont prises — réessaie dans quelques heures",
+    "needCoins": "Il te faut {{cost}} pièces. Les pièces s'achètent dans l'app BananaTalk.",
+    "getApp": "Obtenir l'app"
   }
 }

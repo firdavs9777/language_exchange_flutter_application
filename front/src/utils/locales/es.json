@@ -3456,5 +3456,34 @@
       "useHere": "Escuchar aquí",
       "you": "tú"
     }
+  },
+  "boost": {
+    "title": "Impulsar mi perfil",
+    "subtitle": "Que más compañeros te vean durante 24 h",
+    "activeTitle": "Tu impulso está activo",
+    "again": "Impulsar de nuevo",
+    "timeLeft": "Quedan {{time}}",
+    "seenBy": "Veces mostrado hasta ahora: {{count}}",
+    "lastResult": "Tu último impulso — veces mostrado: {{count}}",
+    "endingSoon": "Termina pronto",
+    "durationHm": "{{hours}} h {{minutes}} min",
+    "durationM": "{{minutes}} min",
+    "sourcePartners": "Lista de compañeros",
+    "sourceMatches": "Coincidencias diarias",
+    "sourceMoments": "Tu momento en Para ti",
+    "countingHint": "Las vistas suman cuando la gente abre Compañeros, sus coincidencias diarias y Para ti.",
+    "tipsTitle": "Saca más partido a tu impulso",
+    "tipMoment": "Publica un momento ahora: tu momento más reciente también se destaca.",
+    "tipProfile": "Una foto clara y una bio corta consiguen más respuestas.",
+    "postMoment": "Publicar un momento",
+    "explain": "Sé la 6.ª coincidencia de todas las personas cuyos idiomas encajan contigo, durante 24 horas.",
+    "explainMore": "También apareces cerca del principio de Compañeros, y tu último momento se destaca en Para ti.",
+    "costLine": "Coste: {{cost}} monedas",
+    "balanceLine": "Tu saldo: {{balance}} monedas",
+    "confirm": "Confirmar impulso",
+    "failed": "No se pudo iniciar tu impulso. Inténtalo de nuevo.",
+    "capacityFull": "Ahora mismo no quedan plazas de impulso; vuelve a intentarlo en unas horas",
+    "needCoins": "Necesitas {{cost}} monedas. Las monedas se compran en la app de BananaTalk.",
+    "getApp": "Descargar la app"
   }
 }

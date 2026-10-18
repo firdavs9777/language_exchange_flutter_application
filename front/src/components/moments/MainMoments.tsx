@@ -549,6 +549,7 @@ const MainMoments: React.FC = () => {
                             location={moment.location}
                             backgroundColor={moment.backgroundColor}
                             scheduledFor={moment.scheduledFor}
+                            boosted={moment.boosted === true}
                           />
                         </div>
                       </div>

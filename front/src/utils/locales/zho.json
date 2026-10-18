@@ -3455,5 +3455,34 @@
       "useHere": "在这里收听",
       "you": "你"
     }
+  },
+  "boost": {
+    "title": "提升我的资料曝光",
+    "subtitle": "24 小时内被更多伙伴看到",
+    "activeTitle": "曝光提升进行中",
+    "again": "再次提升",
+    "timeLeft": "剩余 {{time}}",
+    "seenBy": "目前展示次数：{{count}}",
+    "lastResult": "上次提升的展示次数：{{count}}",
+    "endingSoon": "即将结束",
+    "durationHm": "{{hours}} 小时 {{minutes}} 分",
+    "durationM": "{{minutes}} 分",
+    "sourcePartners": "伙伴列表",
+    "sourceMatches": "每日匹配",
+    "sourceMoments": "推荐里的你的动态",
+    "countingHint": "每当有人打开伙伴、每日匹配和推荐时，展示次数就会增加。",
+    "tipsTitle": "让提升效果更好",
+    "tipMoment": "现在发一条动态：你最新的动态也会被推荐。",
+    "tipProfile": "清晰的照片和简短的介绍能收到更多回复。",
+    "postMoment": "发布动态",
+    "explain": "24 小时内，成为所有语言合适的人的第 6 个匹配。",
+    "explainMore": "你还会出现在伙伴列表前排，最新动态会在推荐中展示。",
+    "costLine": "费用：{{cost}} 金币",
+    "balanceLine": "你的余额：{{balance}} 金币",
+    "confirm": "确认提升",
+    "failed": "无法开始提升，请重试。",
+    "capacityFull": "目前提升名额已满，请几小时后再试",
+    "needCoins": "需要 {{cost}} 金币。金币可在 BananaTalk 应用中购买。",
+    "getApp": "获取应用"
   }
 }

@@ -4,7 +4,7 @@ import path from "path";
 // Namespaces introduced by the reach work. Every locale must carry exactly the
 // English key set, so a missing translation is a failing test rather than a
 // silent fallback. Later tasks append to this list.
-const NAMESPACES = ["seo", "notFound", "consent", "admin", "moments_section", "home", "download", "meet", "learnKorean", "communities", "errors", "growth", "profile", "editMoment", "communityMain", "communityDetail", "chatPage", "newChat", "topics", "stories", "card", "languageRooms"];
+const NAMESPACES = ["seo", "notFound", "consent", "admin", "moments_section", "home", "download", "meet", "learnKorean", "communities", "errors", "growth", "profile", "editMoment", "communityMain", "communityDetail", "chatPage", "newChat", "topics", "stories", "card", "languageRooms", "boost"];
 
 const dir = __dirname;
 const files = fs.readdirSync(dir).filter((f) => f.endsWith(".json"));

@@ -499,3 +499,12 @@ describe("localised reason chips", () => {
     expect(screen.getByTestId("member-card-reasons")).toHaveTextContent("B");
   });
 });
+
+describe("MemberCard boosted label", () => {
+  it("shows Boosted only when the API marks the member boosted", () => {
+    const { rerender } = render(<MemberCard user={{ ...baseUser, boosted: true }} onWave={jest.fn()} onOpen={jest.fn()} />);
+    expect(screen.getByTestId("member-card-boosted-badge")).toBeInTheDocument();
+    rerender(<MemberCard user={{ ...baseUser, boosted: false }} onWave={jest.fn()} onOpen={jest.fn()} />);
+    expect(screen.queryByTestId("member-card-boosted-badge")).not.toBeInTheDocument();
+  });
+});

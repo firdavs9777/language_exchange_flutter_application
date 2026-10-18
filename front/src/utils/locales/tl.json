@@ -3455,5 +3455,34 @@
       "useHere": "Dito na lang makinig",
       "you": "ikaw"
     }
+  },
+  "boost": {
+    "title": "I-boost ang profile ko",
+    "subtitle": "Makita ng mas maraming partner sa loob ng 24 oras",
+    "activeTitle": "Aktibo ang boost mo",
+    "again": "Mag-boost ulit",
+    "timeLeft": "{{time}} na lang",
+    "seenBy": "Ilang beses naipakita: {{count}}",
+    "lastResult": "Huling boost mo — ilang beses naipakita: {{count}}",
+    "endingSoon": "Malapit nang matapos",
+    "durationHm": "{{hours}}h {{minutes}}m",
+    "durationM": "{{minutes}}m",
+    "sourcePartners": "Listahan ng partners",
+    "sourceMatches": "Daily matches",
+    "sourceMoments": "Moment mo sa For You",
+    "countingHint": "Nadaragdagan ang views kapag binubuksan ng mga tao ang Partners, kanilang daily matches at For You.",
+    "tipsTitle": "Sulitin ang boost mo",
+    "tipMoment": "Mag-post ng moment ngayon: itinatampok din ang pinakabago mong moment.",
+    "tipProfile": "Mas maraming sagot ang malinaw na larawan at maikling bio.",
+    "postMoment": "Mag-post ng moment",
+    "explain": "Maging ika-6 na match ng lahat ng tugma ang wika sa iyo, sa loob ng 24 oras.",
+    "explainMore": "Lalabas ka rin malapit sa itaas ng Partners, at itatampok ang pinakabago mong moment sa For You.",
+    "costLine": "Halaga: {{cost}} coins",
+    "balanceLine": "Balanse mo: {{balance}} coins",
+    "confirm": "Kumpirmahin ang boost",
+    "failed": "Hindi nasimulan ang boost mo. Subukan ulit.",
+    "capacityFull": "Puno ang lahat ng boost slot ngayon — subukan ulit pagkalipas ng ilang oras",
+    "needCoins": "Kailangan mo ng {{cost}} coins. Nabibili ang coins sa BananaTalk app.",
+    "getApp": "Kunin ang app"
   }
 }

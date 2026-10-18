@@ -1,5 +1,6 @@
 import React from "react";
 import { MapPin, ArrowRight } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { languageFlag } from "../../utils/languages";
 import { ReasonChip } from "./lib/matchReasonChips";
 
@@ -28,6 +29,8 @@ export interface CommunityMemberCard {
   hasActiveStory?: boolean;
   isOnline?: boolean;
   followersCount?: number;
+  /** Profile Boost: the server marks a booster it placed in the list. */
+  boosted?: boolean;
 }
 
 export interface MemberCardProps {
@@ -91,6 +94,7 @@ const orderReasons = (reasons: Array<string | ReasonChip>): ReasonChip[] => {
 };
 
 const MemberCardRow: React.FC<MemberCardProps> = ({ user, reasons, compact, onWave, onOpen }) => {
+  const { t } = useTranslation();
   const age = getAge(user.birth_year);
   const isNew = !!user.isNew || isRecentlyCreated(user.createdAt);
   const locationLabel = formatLocation(user.location);
@@ -195,6 +199,15 @@ const MemberCardRow: React.FC<MemberCardProps> = ({ user, reasons, compact, onWa
               className="shrink-0 text-[10px] font-bold uppercase tracking-wide text-white bg-gradient-to-r from-teal-500 to-cyan-500 rounded-full px-2 py-0.5"
             >
               New
+            </span>
+          )}
+
+          {user.boosted && (
+            <span
+              data-testid="member-card-boosted-badge"
+              className="shrink-0 text-[10px] font-bold uppercase tracking-wide text-ink-800 bg-banana/40 rounded-full px-2 py-0.5"
+            >
+              {t("communityMain.today.boosted") || "Boosted"}
             </span>
           )}
 
@@ -359,6 +372,7 @@ export const areMemberRowsEqual = (
     a.createdAt === b.createdAt &&
     a.isNew === b.isNew &&
     a.isVIP === b.isVIP &&
+    a.boosted === b.boosted &&
     a.languageLevel === b.languageLevel &&
     a.hasActiveStory === b.hasActiveStory &&
     a.isOnline === b.isOnline &&

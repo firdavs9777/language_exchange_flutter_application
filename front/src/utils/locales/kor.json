@@ -3455,5 +3455,34 @@
       "useHere": "여기서 듣기",
       "you": "나"
     }
+  },
+  "boost": {
+    "title": "내 프로필 부스트",
+    "subtitle": "24시간 동안 더 많은 파트너에게 보여요",
+    "activeTitle": "부스트 진행 중",
+    "again": "다시 부스트",
+    "timeLeft": "{{time}} 남음",
+    "seenBy": "지금까지 노출 횟수: {{count}}",
+    "lastResult": "지난 부스트 노출 횟수: {{count}}",
+    "endingSoon": "곧 종료",
+    "durationHm": "{{hours}}시간 {{minutes}}분",
+    "durationM": "{{minutes}}분",
+    "sourcePartners": "파트너 목록",
+    "sourceMatches": "오늘의 매칭",
+    "sourceMoments": "추천 피드의 내 모먼트",
+    "countingHint": "사람들이 파트너, 오늘의 매칭, 추천 피드를 열 때마다 노출이 쌓여요.",
+    "tipsTitle": "부스트 효과 더 높이기",
+    "tipMoment": "지금 모먼트를 올려 보세요. 최신 모먼트도 함께 소개돼요.",
+    "tipProfile": "선명한 사진과 짧은 소개가 더 많은 답장을 받아요.",
+    "postMoment": "모먼트 올리기",
+    "explain": "24시간 동안 언어가 맞는 모든 사람에게 6번째 매칭으로 보여요.",
+    "explainMore": "파트너 목록 상단에도 나오고, 최신 모먼트가 추천 피드에 소개돼요.",
+    "costLine": "비용: {{cost}}코인",
+    "balanceLine": "내 잔액: {{balance}}코인",
+    "confirm": "부스트 시작",
+    "failed": "부스트를 시작하지 못했어요. 다시 시도해 주세요.",
+    "capacityFull": "지금은 부스트 자리가 모두 찼어요. 몇 시간 뒤에 다시 시도해 주세요",
+    "needCoins": "{{cost}}코인이 필요해요. 코인은 BananaTalk 앱에서 구매할 수 있어요.",
+    "getApp": "앱 받기"
   }
 }

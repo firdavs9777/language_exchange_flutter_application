@@ -3455,5 +3455,34 @@
       "useHere": "Nghe ở đây",
       "you": "bạn"
     }
+  },
+  "boost": {
+    "title": "Đẩy hồ sơ của tôi",
+    "subtitle": "Được nhiều bạn đồng hành thấy hơn trong 24 giờ",
+    "activeTitle": "Lượt đẩy của bạn đang chạy",
+    "again": "Đẩy lại",
+    "timeLeft": "Còn {{time}}",
+    "seenBy": "Số lần hiển thị đến nay: {{count}}",
+    "lastResult": "Lượt đẩy gần nhất — số lần hiển thị: {{count}}",
+    "endingSoon": "Sắp kết thúc",
+    "durationHm": "{{hours}} giờ {{minutes}} phút",
+    "durationM": "{{minutes}} phút",
+    "sourcePartners": "Danh sách bạn đồng hành",
+    "sourceMatches": "Ghép đôi hằng ngày",
+    "sourceMoments": "Khoảnh khắc của bạn trong Dành cho bạn",
+    "countingHint": "Lượt xem tăng dần khi mọi người mở Bạn đồng hành, ghép đôi hằng ngày và Dành cho bạn.",
+    "tipsTitle": "Tận dụng lượt đẩy tốt hơn",
+    "tipMoment": "Đăng một khoảnh khắc ngay: khoảnh khắc mới nhất của bạn cũng được nổi bật.",
+    "tipProfile": "Ảnh rõ nét và phần giới thiệu ngắn nhận được nhiều phản hồi hơn.",
+    "postMoment": "Đăng khoảnh khắc",
+    "explain": "Trở thành người ghép đôi thứ 6 của mọi người có ngôn ngữ phù hợp với bạn, trong 24 giờ.",
+    "explainMore": "Bạn cũng xuất hiện gần đầu danh sách Bạn đồng hành, và khoảnh khắc mới nhất được nổi bật trong Dành cho bạn.",
+    "costLine": "Giá: {{cost}} xu",
+    "balanceLine": "Số dư của bạn: {{balance}} xu",
+    "confirm": "Xác nhận đẩy",
+    "failed": "Không thể bắt đầu lượt đẩy. Vui lòng thử lại.",
+    "capacityFull": "Hiện đã hết chỗ đẩy — hãy thử lại sau vài giờ",
+    "needCoins": "Bạn cần {{cost}} xu. Xu được mua trong ứng dụng BananaTalk.",
+    "getApp": "Tải ứng dụng"
   }
 }

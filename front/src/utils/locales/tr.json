@@ -3455,5 +3455,34 @@
       "useHere": "Burada dinle",
       "you": "siz"
     }
+  },
+  "boost": {
+    "title": "Profilimi öne çıkar",
+    "subtitle": "24 saat boyunca daha çok partnere görün",
+    "activeTitle": "Öne çıkarman aktif",
+    "again": "Yeniden öne çıkar",
+    "timeLeft": "{{time}} kaldı",
+    "seenBy": "Şimdiye kadar gösterilme: {{count}}",
+    "lastResult": "Son öne çıkarman — gösterilme: {{count}}",
+    "endingSoon": "Yakında bitiyor",
+    "durationHm": "{{hours}} sa {{minutes}} dk",
+    "durationM": "{{minutes}} dk",
+    "sourcePartners": "Partner listesi",
+    "sourceMatches": "Günlük eşleşmeler",
+    "sourceMoments": "Senin İçin'deki anın",
+    "countingHint": "İnsanlar Partnerler'i, günlük eşleşmelerini ve Senin İçin'i açtıkça görüntülenmeler artar.",
+    "tipsTitle": "Öne çıkarmandan daha fazlasını al",
+    "tipMoment": "Şimdi bir an paylaş: en yeni anın da öne çıkarılır.",
+    "tipProfile": "Net bir fotoğraf ve kısa bir biyografi daha çok yanıt alır.",
+    "postMoment": "An paylaş",
+    "explain": "24 saat boyunca dilleri sana uyan herkesin 6. eşleşmesi ol.",
+    "explainMore": "Ayrıca Partnerler'in üst sıralarında görünürsün ve en yeni anın Senin İçin'de öne çıkarılır.",
+    "costLine": "Ücret: {{cost}} jeton",
+    "balanceLine": "Bakiyen: {{balance}} jeton",
+    "confirm": "Öne çıkarmayı onayla",
+    "failed": "Öne çıkarma başlatılamadı. Lütfen tekrar dene.",
+    "capacityFull": "Şu anda tüm öne çıkarma yerleri dolu — birkaç saat sonra tekrar dene",
+    "needCoins": "{{cost}} jetona ihtiyacın var. Jetonlar BananaTalk uygulamasından alınır.",
+    "getApp": "Uygulamayı indir"
   }
 }

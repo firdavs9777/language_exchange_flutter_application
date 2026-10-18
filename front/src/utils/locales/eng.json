@@ -3468,5 +3468,34 @@
   "nav": {
     "voiceRooms": "Voice rooms",
     "languageRooms": "Language rooms"
+  },
+  "boost": {
+    "title": "Boost my profile",
+    "subtitle": "Be seen by more partners for 24h",
+    "activeTitle": "Your boost is live",
+    "again": "Boost again",
+    "timeLeft": "{{time}} left",
+    "seenBy": "Times shown so far: {{count}}",
+    "lastResult": "Your last boost — times shown: {{count}}",
+    "endingSoon": "Ending soon",
+    "durationHm": "{{hours}}h {{minutes}}m",
+    "durationM": "{{minutes}}m",
+    "sourcePartners": "Partners list",
+    "sourceMatches": "Daily matches",
+    "sourceMoments": "Your moment in For You",
+    "countingHint": "Views add up as people open Partners, their daily matches and For You.",
+    "tipsTitle": "Get more from your boost",
+    "tipMoment": "Post a moment now: your newest moment is featured too.",
+    "tipProfile": "A clear photo and a short bio get more replies.",
+    "postMoment": "Post a moment",
+    "explain": "Be the 6th match for everyone whose languages fit you, for 24 hours.",
+    "explainMore": "You also appear near the top of Partners, and your latest moment is featured in For You.",
+    "costLine": "Cost: {{cost}} coins",
+    "balanceLine": "Your balance: {{balance}} coins",
+    "confirm": "Confirm boost",
+    "failed": "Couldn't start your boost. Please try again.",
+    "capacityFull": "All boost slots are taken right now — try again in a few hours",
+    "needCoins": "You need {{cost}} coins. Coins are bought in the BananaTalk app.",
+    "getApp": "Get the app"
   }
 }

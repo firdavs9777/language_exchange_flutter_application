@@ -3455,5 +3455,34 @@
       "useHere": "Stattdessen hier zuhören",
       "you": "du"
     }
+  },
+  "boost": {
+    "title": "Mein Profil boosten",
+    "subtitle": "24 Std. lang von mehr Partnern gesehen werden",
+    "activeTitle": "Dein Boost läuft",
+    "again": "Erneut boosten",
+    "timeLeft": "noch {{time}}",
+    "seenBy": "Bisher so oft angezeigt: {{count}}",
+    "lastResult": "Dein letzter Boost — so oft angezeigt: {{count}}",
+    "endingSoon": "Endet bald",
+    "durationHm": "{{hours}} Std. {{minutes}} Min.",
+    "durationM": "{{minutes}} Min.",
+    "sourcePartners": "Partnerliste",
+    "sourceMatches": "Tägliche Matches",
+    "sourceMoments": "Dein Moment in „Für dich“",
+    "countingHint": "Aufrufe kommen hinzu, wenn Leute Partner, ihre täglichen Matches und „Für dich“ öffnen.",
+    "tipsTitle": "Hol mehr aus deinem Boost",
+    "tipMoment": "Poste jetzt einen Moment: Dein neuester Moment wird auch hervorgehoben.",
+    "tipProfile": "Ein klares Foto und eine kurze Bio bringen mehr Antworten.",
+    "postMoment": "Moment posten",
+    "explain": "Sei 24 Stunden lang das 6. Match für alle, deren Sprachen zu dir passen.",
+    "explainMore": "Du erscheinst außerdem weit oben bei Partnern, und dein neuester Moment wird in „Für dich“ hervorgehoben.",
+    "costLine": "Kosten: {{cost}} Münzen",
+    "balanceLine": "Dein Guthaben: {{balance}} Münzen",
+    "confirm": "Boost bestätigen",
+    "failed": "Dein Boost konnte nicht gestartet werden. Bitte versuch es noch einmal.",
+    "capacityFull": "Alle Boost-Plätze sind gerade belegt — versuch es in ein paar Stunden",
+    "needCoins": "Du brauchst {{cost}} Münzen. Münzen kaufst du in der BananaTalk-App.",
+    "getApp": "App holen"
   }
 }

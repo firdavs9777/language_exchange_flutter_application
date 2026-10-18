@@ -45,6 +45,8 @@ export interface Moment {
   images: string[]; // Original image filenames
   imageUrls: string[]; // Full URLs to images
   scheduledFor: string | null;
+  /** Profile Boost: the server marks a booster's latest moment in For You. */
+  boosted?: boolean;
   createdAt: string;
   __v: number;
   refetch?: () => void;

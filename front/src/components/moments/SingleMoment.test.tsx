@@ -279,3 +279,30 @@ describe("feed card chips (moments#22)", () => {
     expect(screen.queryByTestId("moment-chip-location")).not.toBeInTheDocument();
   });
 });
+
+describe("SingleMoment boosted label", () => {
+  it("shows Boosted only on a moment the API marks boosted", () => {
+    const props = {
+      _id: "moment-b",
+      title: "",
+      description: "hi",
+      likeCount: 0,
+      likedUsers: [],
+      commentCount: 0,
+      createdAt: new Date().toISOString(),
+      user: { _id: "author-1", name: "Author" },
+    } as any;
+    const { rerender } = render(
+      <MemoryRouter>
+        <SingleMoment {...props} boosted />
+      </MemoryRouter>
+    );
+    expect(screen.getByTestId("moment-boosted-badge")).toBeInTheDocument();
+    rerender(
+      <MemoryRouter>
+        <SingleMoment {...props} />
+      </MemoryRouter>
+    );
+    expect(screen.queryByTestId("moment-boosted-badge")).not.toBeInTheDocument();
+  });
+});

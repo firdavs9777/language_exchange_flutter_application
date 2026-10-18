@@ -17,6 +17,7 @@ import {
   FaCalendarAlt,
   FaMicrophone,
   FaDoorOpen,
+  FaRocket,
 } from "react-icons/fa";
 import { useWebFlag } from "../../utils/webFlags";
 import { useTranslation } from "react-i18next";
@@ -72,6 +73,7 @@ const MainNavbar = () => {
   // Phase 4 rooms: dark until the owner turns the flags on.
   const voiceRoomsOn = useWebFlag("webVoiceRoomsEnabled");
   const languageRoomsOn = useWebFlag("webLanguageRoomsEnabled");
+  const boostsOn = useWebFlag("boostsEnabled");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { t, i18n } = useTranslation();
@@ -380,6 +382,11 @@ const MainNavbar = () => {
                     <NavLink to="/my-moments" className="dropdown-item" onClick={() => setIsUserDropdownOpen(false)}>
                       <FaGlobe /> {t("my_moments")}
                     </NavLink>
+                    {boostsOn && (
+                      <NavLink to="/boost" className="dropdown-item" data-testid="nav-boost" onClick={() => setIsUserDropdownOpen(false)}>
+                        <FaRocket /> {t("boost.title") || "Boost my profile"}
+                      </NavLink>
+                    )}
                     <NavLink to="/settings" className="dropdown-item" onClick={() => setIsUserDropdownOpen(false)}>
                       <FaCog /> {t("settings.title") || "Settings"}
                     </NavLink>
@@ -501,6 +508,11 @@ const MainNavbar = () => {
                 <NavLink to="/my-moments" className="mobile-nav-link" onClick={closeMobileMenu}>
                   <FaGlobe /> {t("my_moments")}
                 </NavLink>
+                {boostsOn && (
+                  <NavLink to="/boost" className="mobile-nav-link" data-testid="nav-boost-mobile" onClick={closeMobileMenu}>
+                    <FaRocket /> {t("boost.title") || "Boost my profile"}
+                  </NavLink>
+                )}
                 <NavLink to="/settings" className="mobile-nav-link" onClick={closeMobileMenu}>
                   <FaCog /> {t("settings.title") || "Settings"}
                 </NavLink>

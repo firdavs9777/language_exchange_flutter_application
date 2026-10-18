@@ -3456,5 +3456,34 @@
       "useHere": "Ascolta qui",
       "you": "tu"
     }
+  },
+  "boost": {
+    "title": "Potenzia il mio profilo",
+    "subtitle": "Fatti vedere da più partner per 24 h",
+    "activeTitle": "Il tuo boost è attivo",
+    "again": "Potenzia di nuovo",
+    "timeLeft": "Mancano {{time}}",
+    "seenBy": "Mostrato finora: {{count}} volte",
+    "lastResult": "Il tuo ultimo boost — mostrato: {{count}} volte",
+    "endingSoon": "Sta per finire",
+    "durationHm": "{{hours}} h {{minutes}} min",
+    "durationM": "{{minutes}} min",
+    "sourcePartners": "Elenco partner",
+    "sourceMatches": "Match del giorno",
+    "sourceMoments": "Il tuo momento in Per te",
+    "countingHint": "Le visualizzazioni crescono quando le persone aprono Partner, i loro match del giorno e Per te.",
+    "tipsTitle": "Sfrutta al meglio il boost",
+    "tipMoment": "Pubblica un momento ora: anche il tuo momento più recente viene messo in evidenza.",
+    "tipProfile": "Una foto nitida e una bio breve ricevono più risposte.",
+    "postMoment": "Pubblica un momento",
+    "explain": "Sii il 6º match di tutte le persone le cui lingue si adattano a te, per 24 ore.",
+    "explainMore": "Compari anche in cima ai Partner, e il tuo ultimo momento viene messo in evidenza in Per te.",
+    "costLine": "Costo: {{cost}} monete",
+    "balanceLine": "Il tuo saldo: {{balance}} monete",
+    "confirm": "Conferma boost",
+    "failed": "Impossibile avviare il boost. Riprova.",
+    "capacityFull": "Tutti i posti boost sono occupati — riprova tra qualche ora",
+    "needCoins": "Ti servono {{cost}} monete. Le monete si acquistano nell'app BananaTalk.",
+    "getApp": "Scarica l'app"
   }
 }

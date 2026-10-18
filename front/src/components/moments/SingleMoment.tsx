@@ -76,6 +76,8 @@ interface MomentProps {
   mood?: string;
   tags?: string[];
   location?: { formattedAddress?: string } | null;
+  /** Profile Boost: the author's latest moment, lifted in For You. */
+  boosted?: boolean;
 }
 
 interface AuthState {
@@ -113,6 +115,7 @@ const SingleMoment: React.FC<MomentProps> = ({
   mood,
   tags,
   location,
+  boosted,
 }) => {
   const userId = useSelector(
     (state: RootState) => state.auth.userInfo?.user?._id
@@ -412,6 +415,14 @@ const SingleMoment: React.FC<MomentProps> = ({
                   <h3 className="font-semibold text-gray-900 text-xs xs:text-sm sm:text-base md:text-lg truncate group-hover/user:text-blue-600 transition-colors no-underline">
                     {user?.name}
                   </h3>
+                  {boosted && (
+                    <span
+                      data-testid="moment-boosted-badge"
+                      className="shrink-0 rounded-full bg-banana/40 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-ink-800"
+                    >
+                      {t("communityMain.today.boosted") || "Boosted"}
+                    </span>
+                  )}
                 </div>
                 <div className="flex items-center gap-1 text-xs sm:text-sm text-gray-500 mt-0.5">
                   {isOwnScheduled ? (

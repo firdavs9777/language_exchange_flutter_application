@@ -10,6 +10,7 @@ const FLAGGED: Array<[string, string]> = [
   ["/rooms/r1", "webLanguageRoomsEnabled"],
   ["/community/city", "webLanguageRoomsEnabled"],
   ["/community/genders", "webLanguageRoomsEnabled"],
+  ["/boost", "boostsEnabled"],
 ];
 
 it.each(FLAGGED)("%s is a real route gated by %s", (path, flag) => {

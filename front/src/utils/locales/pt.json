@@ -3456,5 +3456,34 @@
       "useHere": "Ouvir aqui",
       "you": "você"
     }
+  },
+  "boost": {
+    "title": "Impulsionar meu perfil",
+    "subtitle": "Seja visto por mais parceiros por 24 h",
+    "activeTitle": "Seu impulso está ativo",
+    "again": "Impulsionar de novo",
+    "timeLeft": "Faltam {{time}}",
+    "seenBy": "Vezes exibido até agora: {{count}}",
+    "lastResult": "Seu último impulso — vezes exibido: {{count}}",
+    "endingSoon": "Termina em breve",
+    "durationHm": "{{hours}} h {{minutes}} min",
+    "durationM": "{{minutes}} min",
+    "sourcePartners": "Lista de parceiros",
+    "sourceMatches": "Matches diários",
+    "sourceMoments": "Seu momento em Para você",
+    "countingHint": "As visualizações aumentam quando as pessoas abrem Parceiros, seus matches diários e Para você.",
+    "tipsTitle": "Aproveite mais o seu impulso",
+    "tipMoment": "Publique um momento agora: seu momento mais recente também é destacado.",
+    "tipProfile": "Uma foto nítida e uma bio curta recebem mais respostas.",
+    "postMoment": "Publicar um momento",
+    "explain": "Seja o 6º match de todas as pessoas cujos idiomas combinam com você, por 24 horas.",
+    "explainMore": "Você também aparece perto do topo de Parceiros, e seu momento mais recente é destacado em Para você.",
+    "costLine": "Custo: {{cost}} moedas",
+    "balanceLine": "Seu saldo: {{balance}} moedas",
+    "confirm": "Confirmar impulso",
+    "failed": "Não foi possível iniciar seu impulso. Tente novamente.",
+    "capacityFull": "Todas as vagas de impulso estão ocupadas agora — tente em algumas horas",
+    "needCoins": "Você precisa de {{cost}} moedas. As moedas são compradas no app BananaTalk.",
+    "getApp": "Baixar o app"
   }
 }

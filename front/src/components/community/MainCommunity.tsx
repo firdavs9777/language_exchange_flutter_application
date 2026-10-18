@@ -26,6 +26,7 @@ import ActiveFilterChips from "./ActiveFilterChips";
 import QuickFilterChips from "./QuickFilterChips";
 import WaveSheet from "./WaveSheet";
 import RequireSignIn from "../gatherings/RequireSignIn";
+import BoostEntryRow from "../boost/BoostEntryRow";
 import AdUnit from "../ads/AdUnit";
 import { AD_SLOTS } from "../ads/adsenseConfig";
 import {
@@ -946,6 +947,7 @@ const ModernCommunity: React.FC = () => {
       />
 
       <div className="community-page__container">
+        {signedIn && <BoostEntryRow className="mb-3" />}
         {activeTab === "serious" && (
           // The app's explainer line under the active segment.
           <p data-testid="segment-hint" className="px-1 pb-2 text-xs text-ink-500 dark:text-ink-400">

@@ -3455,5 +3455,34 @@
       "useHere": "Dengarkan di sini saja",
       "you": "kamu"
     }
+  },
+  "boost": {
+    "title": "Boost profilku",
+    "subtitle": "Dilihat lebih banyak partner selama 24 jam",
+    "activeTitle": "Boost-mu sedang aktif",
+    "again": "Boost lagi",
+    "timeLeft": "Sisa {{time}}",
+    "seenBy": "Ditampilkan sejauh ini: {{count}} kali",
+    "lastResult": "Boost terakhirmu — ditampilkan: {{count}} kali",
+    "endingSoon": "Segera berakhir",
+    "durationHm": "{{hours}} j {{minutes}} m",
+    "durationM": "{{minutes}} m",
+    "sourcePartners": "Daftar partner",
+    "sourceMatches": "Match harian",
+    "sourceMoments": "Momenmu di Untukmu",
+    "countingHint": "Tayangan bertambah saat orang membuka Partner, match harian mereka, dan Untukmu.",
+    "tipsTitle": "Maksimalkan boost-mu",
+    "tipMoment": "Unggah momen sekarang: momen terbarumu juga ditampilkan.",
+    "tipProfile": "Foto yang jelas dan bio singkat mendapat lebih banyak balasan.",
+    "postMoment": "Unggah momen",
+    "explain": "Jadilah match ke-6 bagi semua orang yang bahasanya cocok denganmu, selama 24 jam.",
+    "explainMore": "Kamu juga muncul di bagian atas Partner, dan momen terbarumu ditampilkan di Untukmu.",
+    "costLine": "Biaya: {{cost}} koin",
+    "balanceLine": "Saldomu: {{balance}} koin",
+    "confirm": "Konfirmasi boost",
+    "failed": "Boost-mu gagal dimulai. Coba lagi.",
+    "capacityFull": "Semua slot boost sedang penuh — coba lagi beberapa jam lagi",
+    "needCoins": "Kamu butuh {{cost}} koin. Koin dibeli di aplikasi BananaTalk.",
+    "getApp": "Dapatkan aplikasinya"
   }
 }

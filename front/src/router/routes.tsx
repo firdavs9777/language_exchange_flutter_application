@@ -132,6 +132,8 @@ const VoiceRoomsPage = lazyWithRetry("../components/voiceRooms/VoiceRoomsPage", 
 const VoiceRoomPage = lazyWithRetry("../components/voiceRooms/VoiceRoomPage", () => import("../components/voiceRooms/VoiceRoomPage"));
 const LanguageRoomsPage = lazyWithRetry("../components/languageRooms/LanguageRoomsPage", () => import("../components/languageRooms/LanguageRoomsPage"));
 const LanguageRoomPage = lazyWithRetry("../components/languageRooms/LanguageRoomPage", () => import("../components/languageRooms/LanguageRoomPage"));
+// Profile Boost (dark until boostsEnabled), members only.
+const BoostPage = lazyWithRetry("../components/boost/BoostPage", () => import("../components/boost/BoostPage"));
 const CityPage = lazyWithRetry("../components/community/cityGenders/CityPage", () => import("../components/community/cityGenders/CityPage"));
 const GendersPage = lazyWithRetry("../components/community/cityGenders/GendersPage", () => import("../components/community/cityGenders/GendersPage"));
 
@@ -327,6 +329,7 @@ export const routes = createRoutesFromElements(
     <Route path="voice-rooms/:id" element={lazyRoute(<FlagRoute flag="webVoiceRoomsEnabled"><VoiceRoomPage /></FlagRoute>)} />
     <Route path="rooms" element={lazyRoute(<FlagRoute flag="webLanguageRoomsEnabled"><LanguageRoomsPage /></FlagRoute>)} />
     <Route path="rooms/:id" element={lazyRoute(<FlagRoute flag="webLanguageRoomsEnabled"><LanguageRoomPage /></FlagRoute>)} />
+    <Route path="boost" element={lazyRoute(<FlagRoute flag="boostsEnabled"><RequireSignIn><BoostPage /></RequireSignIn></FlagRoute>)} />
     <Route path="community/city" element={lazyRoute(<FlagRoute flag="webLanguageRoomsEnabled"><CityPage /></FlagRoute>)} />
     <Route path="community/genders" element={lazyRoute(<FlagRoute flag="webLanguageRoomsEnabled"><GendersPage /></FlagRoute>)} />
 

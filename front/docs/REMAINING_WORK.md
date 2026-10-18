@@ -206,6 +206,18 @@ Language rooms — app parity (2026-10-18; backend 468fa90, app 90b4e425). Still
 - [ ] Native review of the 2026-10-18 `languageRooms.*` drafts. S
 - [ ] Rooms show voice / GIF / sticker messages as a label ("open the app"); the web composer sends text and photos only. S
 
+Profile Boost on the website (2026-10-18; backend routes/boosts.js, app boost_screen.dart). Behind `boostsEnabled` (no web-only flag)
+- [x] `/boost` page (members only): explain (6th match, near the top of Partners, latest moment in For You), 150-coin cost + balance (`/coins/balance`, only while `coinsEnabled`), confirm; 402 → "you need 150 coins, bought in the app" + link to /download; 409 re-reads the live boost; `capacity_full` → slots-taken message
+- [x] While live: 24h progress bar, time left (ticks every 30s, impressions re-read every minute), "Times shown so far: N" with Partners / Daily matches / For You breakdown, hint at 0, tips with "Post a moment"
+- [x] After it ends (last ended boost within 7 days, refunds skipped): "Your last boost — times shown: N" + "Boost again"
+- [x] Entry points: row at the top of the Community list ("Boost my profile" / "Your boost is live · Xh left"), and "Boost my profile" in the navbar profile menu (desktop + mobile)
+- [x] "Boosted" label on community member cards and feed moments when the API sends `boosted: true` (daily matches already had it)
+- [x] New `boost.*` strings in all 18 locales (drafts, non-plural phrasing)
+- [ ] The website cannot buy coins: an empty wallet is sent to the app (/download). Decide whether web gets a coin shop. S
+- [ ] Live QA with `BOOSTS_ENABLED=true`: buy, live card, impressions moving, ended → Boost again, entry row states, Boosted labels on another account. S
+- [ ] Native review of the `boost.*` drafts. S
+- [ ] Bundle budget: now 353.9 KB first paint / 319.6 KB app code (was 351.1 / 317.6) after rooms + boost; the Community boost row and its slice are in the eager graph. S
+
 ## 5. Decided / won't fix
 
 - Audit M2: the client keeps the start < end rule on publish (the backend rejects `endsAt <= startsAt` and publish saves first); the message says to fix start or end.

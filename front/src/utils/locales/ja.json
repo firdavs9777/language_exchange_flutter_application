@@ -3455,5 +3455,34 @@
       "useHere": "ここで聞く",
       "you": "あなた"
     }
+  },
+  "boost": {
+    "title": "プロフィールをブースト",
+    "subtitle": "24時間、より多くのパートナーに表示",
+    "activeTitle": "ブースト中",
+    "again": "もう一度ブースト",
+    "timeLeft": "残り{{time}}",
+    "seenBy": "これまでの表示回数: {{count}}",
+    "lastResult": "前回のブーストの表示回数: {{count}}",
+    "endingSoon": "まもなく終了",
+    "durationHm": "{{hours}}時間{{minutes}}分",
+    "durationM": "{{minutes}}分",
+    "sourcePartners": "パートナー一覧",
+    "sourceMatches": "デイリーマッチ",
+    "sourceMoments": "おすすめのあなたのモーメント",
+    "countingHint": "パートナー、デイリーマッチ、おすすめが開かれるたびに表示回数が増えます。",
+    "tipsTitle": "ブーストをもっと活かす",
+    "tipMoment": "今すぐモーメントを投稿：最新のモーメントも紹介されます。",
+    "tipProfile": "はっきりした写真と短い自己紹介で返信が増えます。",
+    "postMoment": "モーメントを投稿",
+    "explain": "24時間、言語が合うすべての人の6番目のマッチになります。",
+    "explainMore": "パートナー一覧の上位にも表示され、最新のモーメントがおすすめで紹介されます。",
+    "costLine": "料金: {{cost}}コイン",
+    "balanceLine": "残高: {{balance}}コイン",
+    "confirm": "ブーストを確定",
+    "failed": "ブーストを開始できませんでした。もう一度お試しください。",
+    "capacityFull": "現在ブースト枠がすべて埋まっています。数時間後にお試しください",
+    "needCoins": "{{cost}}コインが必要です。コインはBananaTalkアプリで購入できます。",
+    "getApp": "アプリを入手"
   }
 }
