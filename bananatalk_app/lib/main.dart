@@ -269,6 +269,17 @@ class LanguageNotifier extends StateNotifier<Locale> {
   }
 }
 
+/// Reconnects the chat socket on resume when signed in and not connected.
+Future<void> reconnectChatIfSignedIn() async {
+  try {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token') ?? '';
+    final socket = ChatSocketService();
+    if (token.isEmpty || socket.isConnected || !socket.reconnectAllowed) return;
+    await socket.forceReconnect();
+  } catch (_) {}
+}
+
 class MyApp extends ConsumerStatefulWidget {
   const MyApp({super.key});
 
@@ -302,6 +313,10 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
       unawaited(refreshAppConfig(appProviderContainer));
       // The balance can change server-side (grant, another device).
       appProviderContainer.invalidate(coinBalanceProvider);
+      // Chat must be live on whatever screen the app resumes to (it used to
+      // reconnect only from the Chats screens, so AI Study after a sleep
+      // could stay disconnected and miss messages).
+      unawaited(reconnectChatIfSignedIn());
     }
   }
 

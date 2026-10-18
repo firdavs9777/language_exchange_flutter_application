@@ -159,6 +159,10 @@ class ChatSocketService {
       _voiceRoomHostChangedController.stream;
 
   bool get isConnected => _socket?.connected ?? false;
+
+  /// False after a logout or a server forceDisconnect: nothing should bring
+  /// the socket back until sign-in calls [forceReconnect] itself.
+  bool get reconnectAllowed => _shouldAllowReconnection;
   bool get shouldAllowReconnection => _shouldAllowReconnection;
   IO.Socket? get socket => _socket;
   String? get currentUserId => _currentUserId;
@@ -191,8 +195,10 @@ class ChatSocketService {
     final hasConnection =
         results.isNotEmpty && !results.contains(ConnectivityResult.none);
 
-    if (hasConnection && _wasOffline) {
-      // Network restored after being offline
+    // Any change that leaves a connection (offline -> online, but also a
+    // Wi-Fi <-> mobile switch, which never passes through "none") while the
+    // socket is down is a reason to retry now (2026-10-18).
+    if (hasConnection && (_wasOffline || !isConnected)) {
       _wasOffline = false;
       if (!_shouldAllowReconnection) return;
       // Reset reconnect attempts since this is a fresh network connection
@@ -688,16 +694,12 @@ class ChatSocketService {
       return;
     }
 
-    if (_reconnectAttempts >= _maxReconnectAttempts) {
-      _isPermanentlyDisconnected = true;
-      return;
-    }
-
     _reconnectTimer?.cancel();
 
-    final delay = Duration(
-      milliseconds: 1000 * (1 << _reconnectAttempts.clamp(0, 6)),
-    );
+    // Fast backoff for the first attempts, then a steady retry every minute.
+    // It used to give up for good after 10 attempts (~2 min), leaving chat
+    // dead while the app stayed open (seen on Android, 2026-10-18).
+    final delay = reconnectDelayFor(_reconnectAttempts, _maxReconnectAttempts);
 
     _reconnectTimer = Timer(delay, () {
       if (!_shouldAllowReconnection || _isPermanentlyDisconnected) {
@@ -1019,4 +1021,11 @@ class ChatSocketService {
     _voiceRoomHostChangedController.close();
     disconnect();
   }
+}
+
+/// Delay before reconnect attempt [attempt]: 1s, 2s, 4s … up to 64s for the
+/// first [fastAttempts], then every 60s indefinitely.
+Duration reconnectDelayFor(int attempt, int fastAttempts) {
+  if (attempt >= fastAttempts) return const Duration(seconds: 60);
+  return Duration(milliseconds: 1000 * (1 << attempt.clamp(0, 6)));
 }

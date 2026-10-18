@@ -395,3 +395,7 @@ Web ↔ app parity (spec `docs/superpowers/specs/2026-10-16-web-app-parity-desig
 - [x] A message received while the app was open showed nothing but a badge: the server sends no push while the chat socket is connected, and the app dropped foreground chat pushes. Now a banner slides down (sender, avatar, preview; tap opens that chat; swipe up or 4 s to dismiss) whenever the sender is not the chat you are in — also while chatting with someone else (HelloTalk-style). `InAppMessageBanner`, hooked in `GlobalChatListener`.
 - [ ] Banner ignores chat mute / quiet hours for now; decide whether muted chats should stay silent in-app. S
 
+## Chat socket on Android (2026-10-18)
+- [x] The socket gave up for good after 10 failed reconnects (~2 min), a Wi-Fi <-> mobile switch never reset that (only offline -> online did), and resume reconnected only from the Chats screens — so after a sleep, AI Study could stay disconnected and miss messages. Now: fast backoff then a retry every 60 s while the app is open (`reconnectDelayFor`), any connectivity change retries while disconnected, and every resume reconnects from the app root (not after logout / server forceDisconnect).
+- [ ] Device check on Android: toggle Wi-Fi/mobile and airplane mode with the app open on AI Study, then have someone message you → banner arrives within ~a minute. S
+
