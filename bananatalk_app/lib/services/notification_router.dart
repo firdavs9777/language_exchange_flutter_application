@@ -326,16 +326,9 @@ class NotificationRouter {
         final momentId = data['momentId']?.toString();
         return momentId != null ? '/moment/$momentId' : null;
 
-      // Workstream E-core Task 12 Step 1 — room_mention had no router
-      // case at all (tap fell through to home). Payload is
-      // { type: 'room_mention', userId: senderId, roomId }. There is no
-      // GoRoute for a room-by-id today (RoomScreen/VoiceRoomScreen both
-      // require a full room object and are reached via Navigator.push
-      // from within Community), so the best available deep link is the
-      // Community tab (index 1) — same "closest available surface"
-      // approach as story_comment/vip_renewal_warning below.
-      case 'room_mention':
-        return '/tabs/1';
+      // room_mention ({ userId: senderId, roomId }) opens the room itself
+      // through /room/:roomId like the topic-room payloads below (it used
+      // to stop at the Community tab, from before that route existed).
 
       // Task 16 (client layer C) — user-created topic room moderation +
       // notifications. All five payloads carry `roomId`; `/room/:roomId`
@@ -344,6 +337,7 @@ class NotificationRouter {
       // falling back to the Community tab itself if the room is gone
       // (deleted) or the fetch fails — same "closest available surface"
       // fallback `room_mention` above already uses, just one hop closer.
+      case 'room_mention':
       case 'room_message':
       case 'room_join':
       case 'room_join_request':

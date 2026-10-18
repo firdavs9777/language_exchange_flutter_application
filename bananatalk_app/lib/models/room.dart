@@ -45,6 +45,9 @@ class Room {
   /// know" without also checking [isOwnerOrAdmin].
   final int pendingRequestCount;
 
+  /// Last message or prompt in the room (`lastActivityAt`), or null.
+  final DateTime? lastActivityAt;
+
   const Room({
     required this.id,
     required this.title,
@@ -61,6 +64,7 @@ class Room {
     this.isBanned = false,
     this.hasPendingRequest = false,
     this.pendingRequestCount = 0,
+    this.lastActivityAt,
   });
 
   /// True for user-created topic rooms (as opposed to backend-seeded hubs).
@@ -85,6 +89,9 @@ class Room {
       isBanned: json['isBanned'] == true,
       hasPendingRequest: json['hasPendingRequest'] == true,
       pendingRequestCount: _asInt(json['pendingRequestCount']),
+      lastActivityAt: json['lastActivityAt'] == null
+          ? null
+          : DateTime.tryParse(json['lastActivityAt'].toString()),
     );
   }
 
@@ -121,6 +128,7 @@ class Room {
       isBanned: isBanned ?? this.isBanned,
       hasPendingRequest: hasPendingRequest ?? this.hasPendingRequest,
       pendingRequestCount: pendingRequestCount ?? this.pendingRequestCount,
+      lastActivityAt: lastActivityAt,
     );
   }
 

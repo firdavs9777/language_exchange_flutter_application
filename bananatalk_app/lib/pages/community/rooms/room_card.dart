@@ -13,6 +13,18 @@ import 'package:bananatalk_app/utils/language_flags.dart';
 /// Doubles as the row for both backend-seeded hubs and user-created topic
 /// rooms (`room.isTopicRoom`) — topic rooms get a small "Topic" chip so
 /// they read as distinct from the language hub they're nested under.
+
+/// "Active 5m ago" for a room's last message or prompt; null when unknown.
+String? roomActivityLabel(AppLocalizations l10n, DateTime? lastActivityAt,
+    {DateTime? now}) {
+  if (lastActivityAt == null) return null;
+  final since = (now ?? DateTime.now()).difference(lastActivityAt);
+  if (since.isNegative || since.inMinutes < 1) return l10n.chatActiveJustNow;
+  if (since.inMinutes < 60) return l10n.chatActiveMinAgo(since.inMinutes);
+  if (since.inHours < 24) return l10n.chatActiveHoursAgo(since.inHours);
+  return l10n.chatActiveDaysAgo(since.inDays);
+}
+
 class RoomCard extends StatelessWidget {
   const RoomCard({
     super.key,
@@ -43,7 +55,7 @@ class RoomCard extends StatelessWidget {
               _FlagAvatar(
                 emoji: room.emojiFlag.isNotEmpty
                     ? room.emojiFlag
-                    : LanguageFlags.getFlagByName(room.targetLanguage),
+                    : LanguageFlags.getFlag(room.targetLanguage),
               ),
               Spacing.hGapMD,
               Expanded(
@@ -141,6 +153,20 @@ class RoomCard extends StatelessWidget {
                             color: context.textMuted,
                           ),
                         ),
+                        if (roomActivityLabel(l10n, room.lastActivityAt) case final active?) ...[
+                          Spacing.hGapMD,
+                          Flexible(
+                            child: Text(
+                              active,
+                              key: const Key('room-card-activity'),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: context.caption.copyWith(
+                                color: context.textMuted,
+                              ),
+                            ),
+                          ),
+                        ],
                       ],
                     ),
                   ],
@@ -189,7 +215,7 @@ class _OnlineDot extends StatelessWidget {
       width: 8,
       height: 8,
       decoration: BoxDecoration(
-        color: online ? AppColors.success : Colors.grey,
+        color: online ? AppColors.success : context.textMuted,
         shape: BoxShape.circle,
       ),
     );

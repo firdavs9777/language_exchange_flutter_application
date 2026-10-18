@@ -33,6 +33,16 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 /// `ReportService.reportMessage` path, `type:'message'`) and an
 /// owner/admin-only "view members" entry that opens `RoomMembersScreen`
 /// for remove/mute moderation.
+
+/// Whether a room message payload is the daily prompt: a system message
+/// with a promptId (backend jobs/dailyRoomPromptJob.js).
+bool isDailyPromptJson(Map data) {
+  final promptId = data['promptId'];
+  return (data['messageType'] ?? data['type']) == 'system' &&
+      promptId != null &&
+      promptId.toString().isNotEmpty;
+}
+
 class RoomScreen extends ConsumerStatefulWidget {
   const RoomScreen({super.key, required this.room});
 
@@ -158,7 +168,9 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
       if (messageRoomId != null && messageRoomId != _room.id) return;
       try {
         final message = Message.fromJson(Map<String, dynamic>.from(data));
-        if (message.type == 'system') {
+        // Only the daily prompt (it carries a promptId) takes the prompt
+        // card; any other system line ("X joined") stays in the history.
+        if (isDailyPromptJson(data)) {
           setState(() => _dailyPrompt = message);
           return;
         }
@@ -216,8 +228,13 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
       for (final json in raw) {
         try {
           final message = Message.fromJson(json);
-          if (message.type == 'system') {
-            dailyPrompt ??= message;
+          if (isDailyPromptJson(json)) {
+            // The newest prompt wins, whatever order the page came in.
+            if (dailyPrompt == null ||
+                DateTime.parse(message.createdAt)
+                    .isAfter(DateTime.parse(dailyPrompt.createdAt))) {
+              dailyPrompt = message;
+            }
           } else {
             parsed.add(message);
           }
@@ -319,10 +336,21 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
     setState(() => _isSending = true);
 
     try {
-      _chatSocket.sendRoomMessage(_room.id, {
+      final error = await _chatSocket.sendRoomMessageAcked(_room.id, {
         'message': text,
         'messageType': messageType ?? 'text',
       });
+      if (error != null && mounted) {
+        // Not saved (offline, rate limit, not a member): give the text back
+        // and say so, instead of letting the message silently vanish.
+        if (messageText == null && _messageController.text.isEmpty) {
+          _messageController.text = text;
+        }
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          key: const Key('room-send-failed'),
+          content: Text(AppLocalizations.of(context)!.failedToSendMessage),
+        ));
+      }
     } finally {
       if (mounted) setState(() => _isSending = false);
     }
@@ -543,7 +571,7 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              '${_room.emojiFlag.isNotEmpty ? _room.emojiFlag : LanguageFlags.getFlagByName(_room.targetLanguage)} ${_room.title}'
+              '${_room.emojiFlag.isNotEmpty ? _room.emojiFlag : LanguageFlags.getFlag(_room.targetLanguage)} ${_room.title}'
                   .trim(),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,

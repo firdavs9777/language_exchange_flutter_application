@@ -888,6 +888,35 @@ class ChatSocketService {
     emit('room:message', {'roomId': roomId, ...payload});
   }
 
+  /// Sends a room message and waits for the server's ack: null when it was
+  /// saved, else the reason (offline, timeout, rate limit, not a member).
+  /// The fire-and-forget [sendRoomMessage] let such messages vanish.
+  Future<String?> sendRoomMessageAcked(
+    String roomId,
+    Map<String, dynamic> payload, {
+    Duration timeout = const Duration(seconds: 10),
+  }) {
+    final socket = _socket;
+    if (socket == null || !socket.connected) return Future.value('offline');
+    final done = Completer<String?>();
+    final timer = Timer(timeout, () {
+      if (!done.isCompleted) done.complete('timeout');
+    });
+    socket.emitWithAck(
+      'room:message',
+      {'roomId': roomId, ...payload},
+      ack: (response) {
+        timer.cancel();
+        if (done.isCompleted) return;
+        final ok = response is Map && response['status'] == 'success';
+        done.complete(ok
+            ? null
+            : (response is Map ? '${response['error'] ?? 'error'}' : 'error'));
+      },
+    );
+    return done.future;
+  }
+
   /// Send/clear the typing indicator for a room.
   void sendRoomTyping(String roomId, bool isTyping) {
     emit('room:typing', {'roomId': roomId, 'isTyping': isTyping});

@@ -252,7 +252,8 @@ class _RoomsListState extends ConsumerState<_RoomsList> {
                 ),
                 child: RoomCard(
                   room: room,
-                  isPinned: room.isMember,
+                  // "Your hub": the joined language hub, not every joined topic room.
+                  isPinned: room.isMember && !room.isTopicRoom,
                   onTap: () => _openRoom(context, room),
                 ),
               )
@@ -300,7 +301,7 @@ class _LanguageFilterBar extends StatelessWidget {
             _chip(
               context,
               label:
-                  '${LanguageFlags.getFlagByName(lang)} ${LanguageNames.of(context, lang)}',
+                  '${LanguageFlags.getFlag(lang)} ${LanguageNames.of(context, lang)}',
               value: lang,
             ),
         ],

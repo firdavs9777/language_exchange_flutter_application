@@ -360,3 +360,9 @@ Web ↔ app parity (spec `docs/superpowers/specs/2026-10-16-web-app-parity-desig
 - [ ] Device check: edit a text moment from Profile → My Moments, change its background colour, save → the card and the feed show the new background. S
 - [ ] Editing still cannot remove existing photos (it can only add); not asked for yet. S
 
+## Rooms (2026-10-18)
+- [x] Production had no language rooms; backend 351aa3d/1c6b537 seeded 17 hubs + 8 topic rooms, fixed the typing relay, throttled topic-room pushes, and posted a daily prompt in every hub.
+- [x] App: room language flags by exact code (getFlagByName turned es→🇯🇵, ar/hi→🇨🇳, pt→🇪🇬); only a system message with a promptId takes the daily-prompt card (newest wins), other system lines stay in the history; sends wait for the server ack and a failed send keeps the text and says "Failed to send message"; room_mention pushes open the room; room cards show "Active 5m ago"; "Your hub" only on the joined hub, not every joined topic room.
+- [ ] Not done (from the audit): media/replies/reactions/translation in rooms, real moderation in hubs (ban, maxMembers), cursor pagination, opening a room no longer auto-joins on peek, mentions never sent by the client. M–L each
+- [ ] Device check: Community → Rooms shows the 17 hubs with right flags, your learning-language hub first with today's question; typing shows "<name> is typing"; airplane mode → send → "Failed to send message" and the text stays. S
+
