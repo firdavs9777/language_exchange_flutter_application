@@ -6,10 +6,10 @@ import {
   AiOutlineComment,
   AiOutlineLike,
 } from "react-icons/ai";
-import { HiDotsHorizontal } from "react-icons/hi";
 import { Bookmark, Heart, Smile } from "lucide-react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { useHasHydrated } from "../../seo/prerender/useHasHydrated";
 import { Bounce, toast } from "react-toastify";
 import {
   useDislikeMomentMutation,
@@ -19,7 +19,17 @@ import {
   useShareMomentMutation,
   useSaveMomentMutation,
   useUnsaveMomentMutation,
+  useTranslateMomentMutation,
 } from "../../store/slices/momentsSlice";
+import { useTargetLanguage } from "../../hooks/useTargetLanguage";
+import { useMomentViews } from "./useMomentViews";
+import MomentOverflowMenu from "./actions/MomentOverflowMenu";
+import ScheduledBadge from "./ScheduledBadge";
+import { isScheduledLater } from "./lib/scheduling";
+import MomentChips from "./MomentChips";
+import TranslatableText from "./TranslatableText";
+import PromptAnswerTag from "./PromptAnswerTag";
+import { MomentPrompt } from "./types";
 import MomentReactionRow from "./actions/MomentReactionRow";
 import ShareButton from "../linking/ShareButton";
 import MomentVideoPlayer from "./media/MomentVideoPlayer";
@@ -61,6 +71,11 @@ interface MomentProps {
   };
   audio?: { url: string; duration: number; waveform: number[] };
   backgroundColor?: string;
+  scheduledFor?: string | null;
+  prompt?: MomentPrompt | null;
+  mood?: string;
+  tags?: string[];
+  location?: { formattedAddress?: string } | null;
 }
 
 interface AuthState {
@@ -93,10 +108,19 @@ const SingleMoment: React.FC<MomentProps> = ({
   video,
   audio,
   backgroundColor,
+  scheduledFor,
+  prompt,
+  mood,
+  tags,
+  location,
 }) => {
   const userId = useSelector(
     (state: RootState) => state.auth.userInfo?.user?._id
   );
+  // The author's own unpublished moment: its createdAt is in the future, so a
+  // relative time would read nonsense.
+  const isOwnScheduled =
+    Boolean(userId) && user?._id === userId && isScheduledLater({ scheduledFor });
 
   // Mock mutation hooks - replace with your actual hooks
   const [likeMoment] = useLikeMomentMutation();
@@ -106,6 +130,9 @@ const SingleMoment: React.FC<MomentProps> = ({
   const [shareMoment] = useShareMomentMutation();
   const [saveMoment] = useSaveMomentMutation();
   const [unsaveMoment] = useUnsaveMomentMutation();
+  const [translateMoment] = useTranslateMomentMutation();
+  const targetLanguage = useTargetLanguage();
+  const momentViewRef = useMomentViews({ momentId: _id, isLoggedIn: Boolean(userId) });
   const isLiking = false;
   const isDisliking = false;
 
@@ -224,7 +251,7 @@ const SingleMoment: React.FC<MomentProps> = ({
       e.stopPropagation();
 
       if (!userId) {
-        toast.error("Please login to like posts", {
+        toast.error(t("moments_section.card.loginToLike") || "Please log in to like posts", {
           autoClose: 3000,
           hideProgressBar: false,
           theme: "colored",
@@ -253,7 +280,7 @@ const SingleMoment: React.FC<MomentProps> = ({
       } catch (error) {
         setLiked(previousLiked);
         setCurrentLikeCount(previousCount);
-        toast.error("Something went wrong", {
+        toast.error(t("moments_section.card.likeFailed") || "Something went wrong", {
           autoClose: 3000,
           theme: "colored",
           transition: Bounce,
@@ -261,12 +288,64 @@ const SingleMoment: React.FC<MomentProps> = ({
         console.error("Like/unlike error:", error);
       }
     },
-    [userId, _id, currentLikeCount, isLoadingLike, navigate, refetch]
+    // `liked` belongs here: the body branches on it four times to choose
+    // like vs unlike. It was held out, and the only reason the toggle worked
+    // was that `currentLikeCount` happens to change on every tap and so
+    // rebuilt the callback anyway. Any render that flips `liked` WITHOUT
+    // moving the count — the sync effect above answering a refetch — left a
+    // callback that likes what it should unlike. `handleDoubleTapLike` right
+    // above already lists it.
+    [
+      userId,
+      _id,
+      liked,
+      currentLikeCount,
+      isLoadingLike,
+      navigate,
+      likeMoment,
+      dislikeMoment,
+      t,
+    ]
   );
 
-  const formatDate = (dateString: string): string => {
-    return moment(dateString).fromNow();
-  };
+  // Translate-on-tap for the moment body. The server answers with
+  // { success, data: { language, translatedText, translatedAt }, cached } --
+  // there is no source language, so TranslatableText infers "already in your
+  // language" from the text coming back unchanged.
+  const handleTranslateBody = useCallback(async () => {
+    const res: any = await translateMoment({
+      momentId: _id,
+      targetLanguage,
+    }).unwrap();
+    return { translatedText: (res && res.data && res.data.translatedText) || "" };
+  }, [translateMoment, _id, targetLanguage]);
+
+  // Same sign-in prompt the like button shows when logged out.
+  const handleRequireLogin = useCallback(() => {
+    toast.error(t("moments_section.moment_login_error"), {
+      autoClose: 3000,
+      hideProgressBar: false,
+      theme: "colored",
+      transition: Bounce,
+    });
+  }, [t]);
+
+  /**
+   * Relative time is a function of WHEN it is read, so it cannot be baked
+   * into prerendered markup: /moments is rendered once at build time and
+   * served as a static file, and "16 minutes ago" is already wrong by the
+   * time the first visitor sees it. React calls that a hydration text
+   * mismatch and recovers by discarding the server HTML and re-rendering the
+   * whole tree, which throws away the first paint the prerender exists to
+   * buy. So the server and the first client render both show the absolute
+   * date, and the relative form appears on the render after hydration.
+   */
+  const hasHydrated = useHasHydrated();
+  const formatDate = (dateString: string): string =>
+    // The stable form is written in UTC: the prerender runs on the deploy
+    // runner (UTC) and a visitor hydrates in their own timezone, so a local
+    // date reads "Oct 8" on one side of midnight and "Oct 7" on the other.
+    hasHydrated ? moment(dateString).fromNow() : moment.utc(dateString).format("ll");
 
   const toggleDescription = useCallback(() => {
     setShowFullDescription(!showFullDescription);
@@ -298,6 +377,7 @@ const SingleMoment: React.FC<MomentProps> = ({
   return (
     <Link to={`/moment/${_id}`} className="block no-underline">
       <article
+        ref={momentViewRef}
         className={`group relative w-full bg-white shadow-sm border border-gray-200 transition-all duration-300 hover:shadow-md ${
           isHovered ? "shadow-md" : ""
         } rounded-none sm:rounded-lg`}
@@ -305,16 +385,24 @@ const SingleMoment: React.FC<MomentProps> = ({
         onMouseLeave={() => setIsHovered(false)}
       >
         {/* Header */}
-        <header className="p-2 xs:p-3 sm:p-4 md:p-5">
+        <header className="p-2 xs:p-3 sm:p-4">
           <div className="flex items-center justify-between gap-2">
             <div
               onClick={handleUserClick}
               className="flex items-center flex-1 min-w-0 group/user no-underline cursor-pointer"
             >
               <div className="relative flex-shrink-0">
+                {/* Lazy, like the content image below it. Ten feed cards meant
+                    ten eager avatar requests competing with the photos people
+                    actually came to see. 56 is the largest the avatar renders
+                    (md:w-14), so the reserved box is never too small. */}
                 <img
                   src={user?.imageUrls?.[0] || defaultProfileImage}
                   alt={user?.name || "User"}
+                  width={56}
+                  height={56}
+                  loading="lazy"
+                  decoding="async"
                   className="w-8 h-8 xs:w-10 xs:h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full object-cover border-2 border-transparent group-hover/user:border-blue-100 transition-all duration-200"
                 />
               </div>
@@ -326,7 +414,11 @@ const SingleMoment: React.FC<MomentProps> = ({
                   </h3>
                 </div>
                 <div className="flex items-center gap-1 text-xs sm:text-sm text-gray-500 mt-0.5">
-                  <time className="truncate">{formatDate(createdAt)}</time>
+                  {isOwnScheduled ? (
+                    <ScheduledBadge at={scheduledFor as string} />
+                  ) : (
+                    <time dateTime={createdAt} className="truncate">{formatDate(createdAt)}</time>
+                  )}
                   <span className="hidden xs:inline">•</span>
                   <svg
                     className="w-3 h-3 text-gray-400 hidden xs:block"
@@ -343,17 +435,14 @@ const SingleMoment: React.FC<MomentProps> = ({
               </div>
             </div>
 
-            <button
-              className="flex-shrink-0 p-1 xs:p-2 -mr-1 xs:-mr-2 rounded-full hover:bg-gray-100 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-200"
-              aria-label="More options"
-            >
-              <HiDotsHorizontal className="w-4 h-4 xs:w-5 xs:h-5 text-gray-500" />
-            </button>
+            <MomentOverflowMenu momentId={_id} author={user} />
           </div>
         </header>
 
         {/* Content */}
-        <div className="px-2 xs:px-3 sm:px-4 md:px-5">
+        <div className="px-2 xs:px-3 sm:px-4">
+          <PromptAnswerTag prompt={prompt} />
+
           {/* Text Content */}
           {title && (
             <h2 className="font-semibold text-gray-900 text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl mb-1 xs:mb-2 leading-tight no-underline decoration-none">
@@ -363,26 +452,39 @@ const SingleMoment: React.FC<MomentProps> = ({
 
           {description && (
             <div className="text-gray-800 text-xs xs:text-sm sm:text-base md:text-lg leading-normal">
-              <p className="whitespace-pre-wrap break-words no-underline">
-                {displayDescription}
-                {shouldTruncateDescription && !showFullDescription && "..."}
-              </p>
+              {/* Tapping the body translates the moment into the viewer's UI
+                  language, the way the app does. The card shows a 200-char
+                  preview but the server translates the whole moment, so the
+                  translated line can be longer than the preview — and the
+                  same-language check has to compare against the untruncated
+                  `description` (`fullText`), not the preview. */}
+              <TranslatableText
+                as="p"
+                text={`${displayDescription}${
+                  shouldTruncateDescription && !showFullDescription ? "..." : ""
+                }`}
+                fullText={description}
+                onTranslate={handleTranslateBody}
+                isLoggedIn={Boolean(userId)}
+                onRequireLogin={handleRequireLogin}
+              />
 
               {shouldTruncateDescription && (
                 <button
                   onClick={toggleDescription}
                   className="text-blue-600 hover:text-blue-700 font-medium text-xs xs:text-sm mt-1 focus:outline-none focus:underline"
                 >
-                  {showFullDescription ? "See less" : "See more"}
+                  {showFullDescription ? t("moments_section.card.seeLess") || "See less" : t("moments_section.card.seeMore") || "See more"}
                 </button>
               )}
             </div>
           )}
+          <MomentChips mood={mood} tags={tags} location={location} />
         </div>
 
         {/* Media — precedence: video → audio → text/gradient → images */}
         {video?.url ? (
-          <div className="mt-2 xs:mt-3 px-2 xs:px-3 sm:px-4 md:px-5">
+          <div className="mt-2 xs:mt-3 px-2 xs:px-3 sm:px-4">
             <div className="relative" onDoubleClick={handleDoubleTapLike}>
               <MomentVideoPlayer video={video} />
               {showHeartBurst && (
@@ -393,12 +495,12 @@ const SingleMoment: React.FC<MomentProps> = ({
             </div>
           </div>
         ) : audio?.url ? (
-          <div className="mt-2 xs:mt-3 px-2 xs:px-3 sm:px-4 md:px-5">
+          <div className="mt-2 xs:mt-3 px-2 xs:px-3 sm:px-4">
             <VoiceNotePlayer audio={audio} />
           </div>
         ) : mediaType === "text" ||
           (backgroundColor && !(imageUrls && imageUrls.length > 0)) ? (
-          <div className="mt-2 xs:mt-3 px-2 xs:px-3 sm:px-4 md:px-5">
+          <div className="mt-2 xs:mt-3 px-2 xs:px-3 sm:px-4">
             <GradientMomentCard
               text={description}
               backgroundColor={backgroundColor}
@@ -415,6 +517,7 @@ const SingleMoment: React.FC<MomentProps> = ({
                 alt={title || "Post image"}
                 className="w-full h-auto max-h-64 xs:max-h-80 sm:max-h-96 md:max-h-[450px] lg:max-h-[500px] xl:max-h-[600px] object-cover transition-transform duration-300 group-hover:scale-[1.01]"
                 loading="lazy"
+                decoding="async"
               />
 
               {showHeartBurst && (
@@ -436,7 +539,7 @@ const SingleMoment: React.FC<MomentProps> = ({
 
         {/* Engagement Stats */}
         {(currentLikeCount > 0 || commentCountNumber > 0) && (
-          <div className="px-2 xs:px-3 sm:px-4 md:px-5 py-1.5 xs:py-2 border-b border-gray-100">
+          <div className="px-2 xs:px-3 sm:px-4 py-1.5 xs:py-2 border-b border-gray-100">
             <div className="flex items-center justify-between text-xs xs:text-sm text-gray-500">
               <div className="flex items-center gap-2 xs:gap-3">
                 {currentLikeCount > 0 && (
@@ -454,8 +557,7 @@ const SingleMoment: React.FC<MomentProps> = ({
               <div className="flex items-center gap-2 xs:gap-3">
                 {commentCountNumber > 0 && (
                   <span className="hover:text-blue-600 transition-colors font-medium">
-                    {commentCountNumber.toLocaleString()} comment
-                    {commentCountNumber !== 1 ? "s" : ""}
+                    {t("moments_section.commentsCount", { count: commentCountNumber }) || `${commentCountNumber.toLocaleString()} comments`}
                   </span>
                 )}
               </div>
@@ -465,7 +567,7 @@ const SingleMoment: React.FC<MomentProps> = ({
 
         {/* Reactions + Save bar */}
         <div
-          className="flex items-center justify-between gap-2 px-2 xs:px-3 sm:px-4 md:px-5 py-1.5 border-t border-gray-100"
+          className="flex items-center justify-between gap-2 px-2 xs:px-3 sm:px-4 py-1.5 border-t border-gray-100"
           onClick={stopLink}
         >
           <div className="flex items-center gap-1 min-w-0">
@@ -475,7 +577,7 @@ const SingleMoment: React.FC<MomentProps> = ({
                 stopLink(e);
                 setShowReactions((v) => !v);
               }}
-              aria-label="React"
+              aria-label={t("moments_section.commentEngagement.react") || "React"}
               aria-expanded={showReactions}
               className="flex-shrink-0 rounded-full p-1 text-gray-500 hover:bg-gray-100 hover:text-blue-600 dark:hover:bg-gray-700 transition-colors"
             >
@@ -495,7 +597,7 @@ const SingleMoment: React.FC<MomentProps> = ({
             type="button"
             onClick={handleSaveToggle}
             aria-pressed={saved}
-            aria-label={saved ? "Remove bookmark" : "Bookmark"}
+            aria-label={saved ? t("moments_section.card.removeBookmark") || "Remove bookmark" : t("moments_section.card.bookmark") || "Bookmark"}
             className={`flex-shrink-0 rounded-full p-1 transition-colors hover:bg-gray-100 dark:hover:bg-gray-700 ${
               saved ? "text-blue-600" : "text-gray-500 hover:text-blue-600"
             }`}
@@ -515,7 +617,7 @@ const SingleMoment: React.FC<MomentProps> = ({
             className={`flex items-center justify-center py-2 xs:py-2.5 sm:py-3 transition-all duration-200 hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed ${
               liked ? "text-blue-600" : "text-gray-600"
             }`}
-            aria-label={liked ? "Unlike" : "Like"}
+            aria-label={liked ? t("moments_section.card.unlike") || "Unlike" : t("moments_section.likeButton") || "Like"}
           >
             <div
               className={`flex items-center gap-1 xs:gap-2 ${
@@ -528,7 +630,7 @@ const SingleMoment: React.FC<MomentProps> = ({
                 <AiOutlineLike className="w-4 h-4 xs:w-5 xs:h-5 transition-transform hover:scale-110" />
               )}
               <span className="font-medium text-xs xs:text-sm hidden sm:inline">
-                {isLoadingLike ? (liked ? "Unliking..." : "Liking...") : "Like"}
+                {t("moments_section.likeButton") || "Like"}
               </span>
             </div>
           </button>
@@ -536,12 +638,12 @@ const SingleMoment: React.FC<MomentProps> = ({
           {/* Comment Button */}
           <div
             className="flex items-center justify-center py-2 xs:py-2.5 sm:py-3 text-gray-600 hover:text-blue-600 hover:bg-gray-50 transition-all duration-200 focus:outline-none focus:bg-gray-50 cursor-pointer"
-            aria-label="Comment"
+            aria-label={t("moments_section.commentButton") || "Comment"}
           >
             <div className="flex items-center gap-1 xs:gap-2">
               <AiOutlineComment className="w-4 h-4 xs:w-5 xs:h-5 transition-transform hover:scale-110" />
               <span className="font-medium text-xs xs:text-sm hidden sm:inline">
-                Comment
+                {t("moments_section.commentButton") || "Comment"}
               </span>
             </div>
           </div>

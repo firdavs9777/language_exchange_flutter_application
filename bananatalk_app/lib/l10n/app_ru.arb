@@ -4742,5 +4742,7 @@
   "perkUnlimitedTranslations": "Безлимитные переводы",
   "vipMoreMatchesCta": "VIP: 15 собеседников в день",
   "vocabPacksPromo": "Готовые наборы слов по темам. Добавьте набор и учите понемногу каждый день.",
-  "vocabPacksBrowse": "Смотреть наборы"
+  "vocabPacksBrowse": "Смотреть наборы",
+  "visitorsReveal24h": "Все гости на 24 часа за {cost} 💎 — или VIP",
+  "visitorsUnlockedLeft": "Открыто · осталось {time}"
 }

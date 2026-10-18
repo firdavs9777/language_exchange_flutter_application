@@ -22561,6 +22561,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Browse packs'**
   String get vocabPacksBrowse;
+
+  /// Visitors coin unlock: 24h (2026-10-18)
+  ///
+  /// In en, this message translates to:
+  /// **'See everyone for 24 hours for {cost} 💎, or go VIP'**
+  String visitorsReveal24h(int cost);
+
+  /// Visitors coin unlock time left (2026-10-18)
+  ///
+  /// In en, this message translates to:
+  /// **'Unlocked · {time} left'**
+  String visitorsUnlockedLeft(String time);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

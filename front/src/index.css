@@ -1,3 +1,429 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* ==========================================================================
+   A trap to know about before reaching for a spacing utility.
+
+   src/assets/styles/bootstrap.custom.css is a full Bootstrap 5.3 build and
+   its utility API ships `!important` on every declaration. Bootstrap and
+   Tailwind spell ~50 of their utilities identically -- `p-0` to `p-5`,
+   `m-*`, `px-*`, `py-*`, `gap-0` to `gap-5`, `rounded`, `shadow-sm`,
+   `top-0`, `text-white`, `text-center`, `overflow-hidden` -- and on every one
+   of those Bootstrap wins no matter which stylesheet loads last, because
+   `!important` beats source order and specificity alike. Bootstrap's spacer
+   is 1.2rem here, so a component asking Tailwind for `px-4` (1rem) is served
+   1.8rem instead.
+
+   Until that is untangled, prefer a spelling the two do not share wherever
+   the exact value matters: `h-10 w-10` over `p-3`, `p-2.5` over `p-2`,
+   `gap-x-2` over `gap-2`. A decimal step, an arbitrary value, or a scale
+   step above 5 is Tailwind's alone.
+   ========================================================================== */
+
+/* ==========================================================================
+   Typography and surface foundation.
+
+   Two families, one job each: Inter for anything you read at UI size, Plus
+   Jakarta Sans for anything you read as a headline. They are exposed as CSS
+   variables as well as Tailwind tokens because the navbar, footer and
+   community pages are .scss files that never see a Tailwind class.
+   src/design/typography.test.ts keeps the three in sync.
+   ========================================================================== */
+
+:root {
+  --bt-font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  --bt-font-display: "Plus Jakarta Sans", "Inter", system-ui, -apple-system,
+    "Segoe UI", sans-serif;
+
+  /* Brand */
+  --bt-brand: #00bfa5;
+  --bt-brand-dark: #008e76;
+  --bt-brand-light: #5df2d6;
+
+  /* Ink neutrals -- mirrors tailwind.config.js `ink` */
+  --bt-ink-50: #f7f8fa;
+  --bt-ink-100: #eef1f5;
+  --bt-ink-200: #dfe4eb;
+  --bt-ink-300: #c7cfda;
+  --bt-ink-400: #98a3b4;
+  --bt-ink-500: #6b7686;
+  --bt-ink-600: #4e5868;
+  --bt-ink-700: #3a4352;
+  --bt-ink-800: #262e3b;
+  --bt-ink-900: #171e29;
+  --bt-ink-950: #0d131c;
+
+  --bt-line: #e5e9f0;
+  --bt-radius-chip: 12px;
+  --bt-radius-card: 20px;
+
+  --bt-shadow-card: 0 1px 4px rgba(13, 19, 28, 0.04);
+  --bt-shadow-lift: 0 10px 30px -12px rgba(13, 19, 28, 0.18);
+
+  /* One easing for every transition in the app: motion that agrees with
+     itself is most of what "polished" means. */
+  --bt-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --bt-transition: 200ms var(--bt-ease);
+
+  /* Optical tracking, as variables rather than as literals, so one rule can
+     switch the whole system off per script (see below). Latin type set at
+     these sizes wants negative tracking; the values are unchanged from when
+     they were written inline. The last two are Tailwind's own `tracking-tight`
+     and `tracking-tighter` scale steps, re-pointed at variables in
+     tailwind.config.js -- the homepage hero sets its headline with
+     `tracking-tight`, and a utility class beats the h1 rule. */
+  --bt-track-tight: -0.006em; /* body copy at UI sizes */
+  --bt-track-display: -0.022em; /* h2-h6 */
+  --bt-track-display-lg: -0.03em; /* h1 */
+  --bt-track-tw-tight: -0.025em; /* Tailwind `tracking-tight` */
+  --bt-track-tw-tighter: -0.05em; /* Tailwind `tracking-tighter` */
+
+  /* Spacing scale. The community stylesheet grew nineteen distinct values with
+     no relation between them (2 3 4 5 6 8 10 11 12 14 16 18 20 24 26 28 38 48
+     64); this is the ladder new work climbs. */
+  --bt-space-1: 4px;
+  --bt-space-2: 8px;
+  --bt-space-3: 12px;
+  --bt-space-4: 16px;
+  --bt-space-5: 24px;
+  --bt-space-6: 32px;
+  --bt-space-7: 48px;
+
+  /* Type scale. Eleven sizes were in use, three of them within 1.2px of each
+     other (0.875 / 0.9375 / 0.95rem) -- steps nobody can see are noise, not
+     hierarchy. */
+  --bt-text-xs: 0.75rem;
+  --bt-text-sm: 0.875rem;
+  --bt-text-base: 1rem;
+  --bt-text-lg: 1.125rem;
+  --bt-text-xl: 1.25rem;
+}
+
+/* Negative tracking is a Latin typesetting convention. Applied to Hangul,
+   kana, Han, Thai, Arabic or Devanagari it is not a refinement but damage:
+   syllabic blocks collide, Thai above- and below-line marks stack over the
+   wrong base, and Arabic is joined script -- tightening it pulls the
+   connecting strokes into the letterforms. None of these scripts is rendered
+   by Inter or Plus Jakarta Sans in the first place (the system stack in
+   --bt-font-sans picks them up), which is exactly why the tracking the Latin
+   faces were tuned for has no business following them there.
+
+   `:lang()` matches on a prefix, so `ko` also covers the `ko-KR` that
+   i18next's navigator detection can produce (src/utils/i18n.ts's
+   `updateHtmlLang` writes i18n.language with "_" rewritten to "-", so zh_TW
+   reaches the DOM as zh-TW -- already matched by `zh`, and spelled out here
+   so the list reads as the set of scripts it is).
+
+   Outside @layer base on purpose: these are custom-property declarations, and
+   they have to beat the :root block above by specificity (0,1,1 against
+   0,1,0), which they do regardless of layer. */
+html:lang(ko),
+html:lang(ja),
+html:lang(zh),
+html:lang(zh-TW),
+html:lang(th),
+html:lang(ar),
+html:lang(hi) {
+  --bt-track-tight: 0;
+  --bt-track-display: 0;
+  --bt-track-display-lg: 0;
+  --bt-track-tw-tight: 0;
+  --bt-track-tw-tighter: 0;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    font-family: var(--bt-font-sans);
+    /* Geometric sans at 14-16px needs grayscale smoothing; without it the
+       stems thicken on macOS and the whole UI reads heavier than designed. */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "cv11", "ss01";
+    font-variant-ligatures: contextual;
+    letter-spacing: var(--bt-track-tight);
+    color: var(--bt-ink-900);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--bt-font-display);
+    font-weight: 700;
+    /* Optical tracking: the bigger the type, the tighter it has to be set.
+       Zero for the scripts reset at the top of this file. */
+    letter-spacing: var(--bt-track-display);
+    /* Deliberately no `color`. A declared colour beats an inherited one, so
+       `color: var(--bt-ink-950)` here turned every heading on a dark surface
+       near-black on near-black (ChatSettings' h1 on #1a1a2e was 1.09:1, i.e.
+       invisible; Login's h1 inside `.branding-content { color: white }`
+       flipped to near-black on teal). `body` already sets --bt-ink-900, so
+       headings on a light ground still read; headings on a dark ground now
+       inherit whatever that surface set. */
+    text-wrap: balance;
+  }
+
+  h1 {
+    letter-spacing: var(--bt-track-display-lg);
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Figures in stat blocks, prices and counters must not jitter as they
+     change, so give every number the same advance width. */
+  .bt-tabular,
+  time,
+  [data-numeric] {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum";
+  }
+
+  ::selection {
+    background: rgba(0, 191, 165, 0.22);
+    color: var(--bt-ink-950);
+  }
+
+  /* One visible focus ring everywhere, and only for keyboard users.
+
+     Ink, not brand: the ring has to clear 3:1 against the surface behind it,
+     and #00BFA5 on white is 2.33:1. Ink-950 on white is 18.6:1. The dark
+     surfaces flip it back to brand below. No `border-radius` here -- that
+     declaration reshaped the focused element itself, not the ring. */
+  :focus-visible {
+    outline: 2px solid var(--bt-ink-950);
+    outline-offset: 2px;
+  }
+
+  /* Dark grounds: the navbar bar, the footer, and anything that opts in with
+     data-dark. Ink-950 would be invisible on these; brand is 8.0:1 on
+     ink-950. */
+  .main-navbar :focus-visible,
+  .footer-modern :focus-visible,
+  [data-dark] :focus-visible {
+    outline-color: var(--bt-brand);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /* The eyebrow label above a section heading. Small, spaced, brand-coloured
+     -- the cheapest way to make a section look deliberate. */
+  .bt-eyebrow {
+    font-family: var(--bt-font-display);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    /* Not --bt-brand-dark (#008E76): 4.09:1 on white, under AA for 12px.
+       #00705C is 6.0:1. */
+    color: #00705c;
+  }
+}
+
+/* ==========================================================================
+   Chat surface tokens.
+
+   The chat folder is 26 hand-written stylesheets that named every colour by
+   hex, which is why it had no dark mode and no wallpapers: a literal cannot
+   be re-pointed. These tokens are the indirection. ChatContent.css,
+   MainChat.css and UsersList.css now reference nothing else, so one dark
+   block here themes all three, and a conversation wallpaper is a single
+   `--chat-bg` override on the pane (see the [data-chat-theme] rules below).
+
+   Values come from the brand/ink scale at the top of this file -- the same
+   scale tailwind.config.js exposes -- so the chat surface and the rest of the
+   app are the same design system rather than two that happen to look alike.
+   src/components/chat/chatStyling.test.ts is the guard.
+   ========================================================================== */
+
+:root {
+  /* brand.deep from tailwind.config.js: the member of the family that carries
+     small white text (4.89:1). The outgoing bubble runs deep -> DEFAULT so the
+     text sits on the accessible end of the gradient. */
+  --bt-brand-deep: #00806a;
+
+  /* The conversation pane. A wallpaper replaces exactly this one value. */
+  --chat-bg: #ffffff;
+  /* Header, composer, sidebar, menus -- the chrome around the pane. */
+  --chat-surface: #ffffff;
+
+  /* One brand gradient, two jobs: the outgoing bubble and the accent fills
+     (the empty-state medallion, the "new conversation" button, the avatar
+     placeholder) that used to repeat the same literal. */
+  --chat-accent-gradient: linear-gradient(135deg, var(--bt-brand-deep) 0%, var(--bt-brand) 100%);
+  --chat-bubble-out: var(--chat-accent-gradient);
+  --chat-bubble-out-text: #ffffff;
+  --chat-bubble-in: var(--bt-ink-100);
+  --chat-bubble-in-text: var(--bt-ink-900);
+
+  --chat-line: var(--bt-line);
+  --chat-text: var(--bt-ink-900);
+  --chat-muted: var(--bt-ink-500);
+
+  /* Tinted grounds: date chips, the composer field, hover states. */
+  --chat-subtle: var(--bt-ink-100);
+  --chat-hover: var(--bt-ink-200);
+  --chat-hover-strong: var(--bt-ink-300);
+
+  /* Accent as TEXT (brand on white is 2.33:1, deep is 4.89:1) and accent as a
+     FILL, which carries its own white text and may be the brighter one. */
+  --chat-accent: var(--bt-brand-deep);
+  --chat-accent-fill: var(--bt-brand);
+  --chat-accent-fill-hover: var(--bt-brand-dark);
+  --chat-on-accent: #ffffff;
+
+  --chat-online: #1f7a3a;
+  --chat-offline: var(--bt-ink-300);
+  --chat-scrollbar: var(--bt-ink-300);
+  --chat-scrollbar-hover: var(--bt-ink-400);
+  --chat-active: #e7f3ff;
+
+  --chat-danger: #dc2626;
+  --chat-danger-soft: #fef2f2;
+  --chat-danger-soft-strong: #fee2e2;
+  --chat-danger-line: #fecaca;
+  --chat-success: #047857;
+  --chat-success-soft: #d1fae5;
+  --chat-warning: #c2410c;
+  --chat-info: #1d4ed8;
+  --chat-read: #0284c7;
+  --chat-pin: #b45309;
+
+  /* The link card a message draws around its first URL. Two grounds, because
+     the card sits on the incoming bubble in one case and on the outgoing
+     gradient in the other, where a solid panel would punch a hole. */
+  --chat-card-in: var(--bt-ink-50);
+  --chat-card-out: rgba(255, 255, 255, 0.18);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --chat-bg: var(--bt-ink-950);
+    --chat-surface: var(--bt-ink-900);
+
+    /* The gradient does not flip: it is the brand, and white on it reads the
+       same on either ground. The incoming bubble is what has to move. */
+    --chat-bubble-in: var(--bt-ink-800);
+    --chat-bubble-in-text: var(--bt-ink-50);
+
+    --chat-line: #2f3641; /* line.dark */
+    --chat-text: var(--bt-ink-50);
+    --chat-muted: var(--bt-ink-400);
+
+    --chat-subtle: var(--bt-ink-800);
+    --chat-hover: var(--bt-ink-700);
+    --chat-hover-strong: var(--bt-ink-600);
+
+    --chat-accent: var(--bt-brand-light);
+    --chat-accent-fill: var(--bt-brand);
+    --chat-accent-fill-hover: var(--bt-brand-light);
+
+    --chat-online: #4ade80;
+    --chat-offline: var(--bt-ink-600);
+    --chat-scrollbar: var(--bt-ink-700);
+    --chat-scrollbar-hover: var(--bt-ink-600);
+    --chat-active: rgba(0, 191, 165, 0.14);
+
+    --chat-danger: #f87171;
+    --chat-danger-soft: rgba(248, 113, 113, 0.14);
+    --chat-danger-soft-strong: rgba(248, 113, 113, 0.24);
+    --chat-danger-line: rgba(248, 113, 113, 0.45);
+    --chat-success: #34d399;
+    --chat-success-soft: rgba(52, 211, 153, 0.18);
+    --chat-warning: #fb923c;
+    --chat-info: #93c5fd;
+    --chat-read: #4fc3f7;
+    --chat-pin: #fbbf24;
+
+    --chat-card-in: var(--bt-ink-900);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Conversation wallpapers.
+
+   The shared per-conversation theme (GET/PUT /conversations/:id/theme, socket
+   `themeChanged`) is a preset NAME. The colours live here rather than in the
+   picker so the chat components stay token-only, and the names are the app's
+   own (lib/pages/chat/wallpaper/wallpaper_picker_screen.dart) so a wallpaper
+   chosen on a phone renders here and the other way round. The coin-gated
+   `premium_*` pack is render-only (PREMIUM_WALLPAPERS in
+   src/design/chatWallpapers.ts): painted below, never offered by the picker.
+
+   src/design/chatWallpapers.ts holds the same list for the picker, and the
+   styling test fails if the two drift apart.
+   -------------------------------------------------------------------------- */
+
+/* Solid grounds */
+[data-chat-theme="cream"] { --chat-bg: #f5e6d3; }
+[data-chat-theme="blush"] { --chat-bg: #e8b4bc; }
+[data-chat-theme="peach"] { --chat-bg: #e6a67c; }
+[data-chat-theme="sage"] { --chat-bg: #4a5d4a; }
+[data-chat-theme="ocean"] { --chat-bg: #1e3a5f; }
+[data-chat-theme="teal"] { --chat-bg: #115e59; }
+[data-chat-theme="forest"] { --chat-bg: #1b4332; }
+[data-chat-theme="rose"] { --chat-bg: #8b3a62; }
+[data-chat-theme="wine"] { --chat-bg: #4a1942; }
+[data-chat-theme="plum"] { --chat-bg: #5b2c6f; }
+[data-chat-theme="navy"] { --chat-bg: #0a1628; }
+[data-chat-theme="mocha"] { --chat-bg: #4a3728; }
+[data-chat-theme="slate"] { --chat-bg: #1e293b; }
+[data-chat-theme="ember"] { --chat-bg: #3b1a1a; }
+[data-chat-theme="deep_sea"] { --chat-bg: #0b2545; }
+[data-chat-theme="charcoal"] { --chat-bg: #2d2d2d; }
+[data-chat-theme="midnight"] { --chat-bg: #1a1a2e; }
+[data-chat-theme="dark"] { --chat-bg: #0d0d0d; }
+
+/* Gradients */
+[data-chat-theme="gradient_sunset"] { --chat-bg: linear-gradient(160deg, #ff512f 0%, #dd2476 100%); }
+[data-chat-theme="gradient_ocean"] { --chat-bg: linear-gradient(160deg, #2193b0 0%, #6dd5ed 100%); }
+[data-chat-theme="gradient_aurora"] { --chat-bg: linear-gradient(160deg, #0f2027 0%, #203a43 50%, #2c5364 100%); }
+[data-chat-theme="gradient_purple"] { --chat-bg: linear-gradient(160deg, #667eea 0%, #764ba2 100%); }
+[data-chat-theme="gradient_midnight"] { --chat-bg: linear-gradient(160deg, #232526 0%, #414345 100%); }
+[data-chat-theme="gradient_forest"] { --chat-bg: linear-gradient(160deg, #134e5e 0%, #71b280 100%); }
+[data-chat-theme="gradient_rose"] { --chat-bg: linear-gradient(160deg, #b76e79 0%, #e8b4b8 100%); }
+[data-chat-theme="gradient_candy"] { --chat-bg: linear-gradient(160deg, #ff9a9e 0%, #fecfef 100%); }
+[data-chat-theme="gradient_neon"] { --chat-bg: linear-gradient(160deg, #00f260 0%, #0575e6 100%); }
+[data-chat-theme="gradient_fire"] { --chat-bg: linear-gradient(160deg, #f12711 0%, #f5af19 100%); }
+[data-chat-theme="gradient_winter"] { --chat-bg: linear-gradient(160deg, #e6dada 0%, #274046 100%); }
+[data-chat-theme="gradient_lavender"] { --chat-bg: linear-gradient(160deg, #ee9ca7 0%, #ffdde1 100%); }
+
+/* Premium pack (render only -- src/design/chatWallpapers.ts PREMIUM_WALLPAPERS).
+   The prefix rule comes first: a premium preset this build does not know yet
+   still reads as premium; the named rules below override it. */
+[data-chat-theme^="premium_"] { --chat-bg: linear-gradient(135deg, #302b63 0%, #b993d6 100%); }
+[data-chat-theme="premium_aurora_borealis"] { --chat-bg: linear-gradient(135deg, #00c9ff 0%, #92fe9d 50%, #fc466b 100%); }
+[data-chat-theme="premium_golden_hour"] { --chat-bg: linear-gradient(135deg, #ffd700 0%, #ff8c00 50%, #ff4500 100%); }
+[data-chat-theme="premium_galaxy"] { --chat-bg: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%); }
+[data-chat-theme="premium_emerald_luxe"] { --chat-bg: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); }
+[data-chat-theme="premium_royal_velvet"] { --chat-bg: linear-gradient(135deg, #360033 0%, #0b8793 100%); }
+[data-chat-theme="premium_diamond_shine"] { --chat-bg: linear-gradient(135deg, #b993d6 0%, #8ca6db 100%); }
+
+/* The picker's swatches paint themselves from the same rules: the swatch
+   carries data-chat-theme, so `background: var(--chat-bg)` is the preset. A
+   gradient wallpaper is a `linear-gradient` VALUE in --chat-bg, which is why
+   every consumer sets `background`, never `background-color`. */
+.chat-wallpaper-swatch {
+  background: var(--chat-bg);
+}

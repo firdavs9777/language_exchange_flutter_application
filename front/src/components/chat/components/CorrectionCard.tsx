@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { CheckCircle, BookCheck, Check } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { useAcceptCorrectionMutation } from "../../../store/slices/learningSlice";
 import "./CorrectionCard.scss";
 
@@ -30,6 +31,7 @@ const CorrectionCard: React.FC<CorrectionCardProps> = ({
   otherUserName,
   onAccepted,
 }) => {
+  const { t } = useTranslation();
   const [acceptCorrection, { isLoading }] = useAcceptCorrectionMutation();
   const [localAccepted, setLocalAccepted] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -38,7 +40,7 @@ const CorrectionCard: React.FC<CorrectionCardProps> = ({
   const isCorrector = correction.corrector?._id === currentUserId;
   const canAccept = isMe && !isCorrector;
   const correctorName = isCorrector
-    ? "You"
+    ? t("chatPage.correction.you") || "You"
     : correction.corrector?.name || otherUserName;
 
   const handleAccept = async () => {
@@ -48,7 +50,7 @@ const CorrectionCard: React.FC<CorrectionCardProps> = ({
       setLocalAccepted(true);
       onAccepted?.(correction._id);
     } catch (e: any) {
-      setError(e?.data?.message || "Failed to accept correction");
+      setError(e?.data?.message || t("chatPage.correction.acceptFailed") || "Failed to accept correction");
     }
   };
 
@@ -56,7 +58,9 @@ const CorrectionCard: React.FC<CorrectionCardProps> = ({
     <div className={`correction-card ${isMe ? "own" : "other"}`}>
       <div className="correction-header">
         <BookCheck size={14} />
-        <span className="corrector-name">{correctorName} corrected</span>
+        <span className="corrector-name">
+          {t("chatPage.correction.corrected", { name: correctorName }) || `${correctorName} corrected`}
+        </span>
         {accepted && <CheckCircle size={12} className="accepted-icon" />}
       </div>
 
@@ -80,14 +84,21 @@ const CorrectionCard: React.FC<CorrectionCardProps> = ({
           ) : (
             <Check size={16} />
           )}
-          <span>{isLoading ? "Accepting…" : "Accept correction"}</span>
+          <span>
+            {isLoading
+              ? t("chatPage.correction.accepting") || "Accepting…"
+              : t("chatPage.correction.accept") || "Accept correction"}
+          </span>
         </button>
       )}
 
       {canAccept && accepted && (
         <div className="correction-accepted-state">
           <CheckCircle size={14} />
-          <span>Correction accepted — added to your learning record</span>
+          <span>
+            {t("chatPage.correction.accepted") ||
+              "Correction accepted — added to your learning record"}
+          </span>
         </div>
       )}
 

@@ -9,7 +9,11 @@
       "about": "Hakkında",
       "services": "Hizmetler",
       "pricing": "Fiyatlandırma",
-      "contact": "İletişim"
+      "contact": "İletişim",
+      "communities": "Topluluklar",
+      "download": "Uygulamayı İndir",
+      "meet": "İnsanlarla tanış",
+      "learnKorean": "Korece öğren"
     },
     "contactInfo": "İletişim Bilgileri",
     "address": "Seoul, Güney Kore, Gangnam-gu",
@@ -23,7 +27,7 @@
   "chat": "Sohbet",
   "chatPage": {
     "messages": "Mesajlar",
-    "searchPlaceholder": "Konuşmalarda ara...",
+    "searchPlaceholder": "Konuşmalarda ara…",
     "startConversation": "Konuşma Başlat",
     "emptyDescription": "Kenar çubuğundan bir sohbet seçin veya dünya genelindeki dil ortaklarıyla bağlantı kurmak için yeni bir konuşma başlatın.",
     "newConversation": "Yeni Konuşma",
@@ -36,10 +40,10 @@
     "online": "Çevrimiçi",
     "offline": "Çevrimdışı",
     "lastSeen": "Son görülme",
-    "typing": "yazıyor...",
-    "loadingConversation": "Konuşma yükleniyor...",
+    "typing": "yazıyor…",
+    "loadingConversation": "Konuşma yükleniyor…",
     "errorLoading": "Konuşma yüklenirken hata",
-    "messagePlaceholder": "Mesajınızı yazın...",
+    "messagePlaceholder": "Mesajınızı yazın…",
     "justNow": "Az önce",
     "minutesAgo": "{{count}}dk önce",
     "hoursAgo": "{{count}}sa önce",
@@ -57,21 +61,26 @@
       "noMatchTitle": "Eşleşen sohbet yok",
       "noMatchSubtitle": "Aramanızı ayarlamayı deneyin",
       "emptyTitle": "Henüz sohbet yok",
-      "emptySubtitle": "Bir sohbet başlatın ve burada görelim"
+      "emptySubtitle": "Bir sohbet başlatın ve burada görelim",
+      "loadError": "Sohbetlerin yüklenemedi",
+      "loading": "Sohbetler yükleniyor…",
+      "noMessages": "Henüz mesaj yok",
+      "tryAgain": "Tekrar dene",
+      "typing": "yazıyor…"
     },
     "deleteModal": {
       "title": "Sohbeti sil",
-      "bodyPrefix": "Şu kullanıcıyla olan sohbetinizi silin:",
       "warning": "Bu işlem geri alınamaz.",
       "cancel": "İptal",
       "confirm": "Sil",
-      "deleting": "Siliniyor..."
+      "deleting": "Siliniyor…",
+      "body": "{{name}} ile sohbetini silmek istiyor musun?"
     },
     "gif": {
       "title": "GIF",
       "close": "GIF seçiciyi kapat",
-      "searchPlaceholder": "GIF ara...",
-      "loading": "GIF'ler yükleniyor...",
+      "searchPlaceholder": "GIF ara…",
+      "loading": "GIF'ler yükleniyor…",
       "noResults": "GIF bulunamadı",
       "poweredBy": "GIPHY ile destekleniyor",
       "altText": "GIF"
@@ -84,8 +93,372 @@
       "noConversationYet": "Sabitlemek için önce sohbeti başlatın",
       "pinFailed": "Sabitleme güncellenemedi",
       "deleteFailed": "Sohbet silinemedi",
-      "deleted": "Sohbet silindi"
+      "deleted": "Sohbet silindi",
+      "openProfile": "{{name}} adlı kullanıcının profilini aç",
+      "mute": "Sessize al",
+      "unmute": "Sesi aç",
+      "muted": "Bildirimler sessize alındı",
+      "unmuted": "Bildirimler tekrar açık",
+      "muteFailed": "Bildirimler güncellenemedi",
+      "unpinned": "Sabitleme kaldırıldı"
+    },
+    "viewProfileOf": "{{name}} adlı kullanıcının profilini gör",
+    "info": {
+      "title": "Sohbet bilgisi",
+      "close": "Kapat",
+      "viewProfile": "Profili gör",
+      "media": "Paylaşılan medya",
+      "mute": "Bildirimleri sessize al",
+      "unmute": "Bildirimlerin sesini aç",
+      "muted": "Bildirimler sessize alındı",
+      "unmuted": "Bildirimler tekrar açık",
+      "muteFailed": "Bildirimler güncellenemedi",
+      "wallpaper": "Duvar kağıdı",
+      "block": "Engelle",
+      "unblock": "Engeli kaldır",
+      "blockTitle": "{{name}} engellensin mi?",
+      "blockBody": "Sana mesaj gönderemez ve profilini göremez.",
+      "unblockTitle": "{{name}} adlı kullanıcının engeli kaldırılsın mı?",
+      "unblockBody": "Sana tekrar mesaj gönderebilir.",
+      "blocked": "Engellendi",
+      "unblocked": "Engel kaldırıldı",
+      "blockFailed": "Bu işe yaramadı. Tekrar dene.",
+      "report": "Şikayet Et",
+      "reportTitle": "{{name}} kullanıcısını şikayet et",
+      "reportBody": "Neyin yanlış olduğunu bize anlat. Her şikayet inceleniyor.",
+      "reportReason": "Sebep",
+      "reportDescription": "Detaylar (isteğe bağlı)",
+      "reportSubmit": "Şikayeti gönder",
+      "reported": "Teşekkürler — moderatörler inceleyecek",
+      "reportFailed": "Şikayet gönderilemedi",
+      "delete": "Sohbeti sil",
+      "cancel": "İptal",
+      "noConversationYet": "Önce bir şeyler yaz"
+    },
+    "reportReasons": {
+      "spam": "Spam",
+      "harassment": "Taciz veya zorbalık",
+      "hate_speech": "Nefret söylemi",
+      "violence": "Şiddet veya tehdit",
+      "nudity": "Çıplaklık veya cinsel içerik",
+      "false_information": "Yanlış bilgi",
+      "copyright": "Telif hakkı",
+      "other": "Başka bir şey"
+    },
+    "status": {
+      "sending": "Gönderiliyor",
+      "sent": "Gönderildi",
+      "delivered": "İletildi",
+      "read": "Okundu",
+      "failed": "Başarısız"
+    },
+    "loadEarlier": "Önceki mesajları yükle",
+    "loadingEarlier": "Önceki mesajlar yükleniyor",
+    "suggestCorrection": "Düzeltme öner",
+    "translateThis": "Bu mesajı çevir",
+    "addCaption": "Açıklama ekle...",
+    "conversationStarted": "Sohbet başladı",
+    "correct": "Düzelt",
+    "daysAgo": "{{count}}g önce",
+    "edit": "Mesajı düzenle",
+    "hide_translation": "Gizle",
+    "noMessages": "Henüz mesaj yok",
+    "retry": "Tekrar dene",
+    "today": "Bugün",
+    "translate": "Çevir",
+    "yesterday": "Dün",
+    "wallpaper": {
+      "title": "Duvar kağıdı",
+      "shared": "Seçtiğin duvar kağıdını ikiniz de görürsünüz.",
+      "plain": "Düz renk",
+      "gradients": "Gradyanlar",
+      "default": "Varsayılan",
+      "apply": "Uygula",
+      "cancel": "İptal",
+      "saved": "Duvar kağıdı güncellendi",
+      "failed": "Duvar kağıdı değiştirilemedi",
+      "cream": "Krem",
+      "blush": "Pudra",
+      "peach": "Şeftali",
+      "sage": "Adaçayı",
+      "ocean": "Okyanus",
+      "teal": "Petrol mavisi",
+      "forest": "Orman",
+      "rose": "Gül",
+      "wine": "Şarap",
+      "plum": "Erik",
+      "navy": "Lacivert",
+      "mocha": "Moka",
+      "slate": "Arduvaz",
+      "ember": "Kor",
+      "deep_sea": "Derin deniz",
+      "charcoal": "Kömür",
+      "midnight": "Gece yarısı",
+      "dark": "Koyu",
+      "gradient_sunset": "Gün batımı",
+      "gradient_ocean": "Okyanus",
+      "gradient_purple": "Kozmik",
+      "gradient_midnight": "Gece yarısı",
+      "gradient_forest": "Orman",
+      "gradient_rose": "Gül altın",
+      "gradient_candy": "Şeker",
+      "gradient_neon": "Neon",
+      "gradient_fire": "Ateş",
+      "gradient_winter": "Kış",
+      "gradient_lavender": "Lavanta",
+      "gradient_aurora": "Aurora",
+      "premiumInUse": "Bu sohbet uygulamadan bir Premium duvar kağıdı kullanıyor. Başka birini seçersen ikiniz için de değişir."
+    },
+    "jumpToLatest": "En son mesajlara git",
+    "archive": {
+      "archive": "Sohbeti arşivle",
+      "archived": "Web sitesinde arşivlendi. Uygulamada görünmeye devam ediyor.",
+      "back": "Sohbetlere dön",
+      "failed": "Arşiv güncellenemedi",
+      "toggle": "Arşivlenenler ({{count}})",
+      "unarchive": "Arşivden çıkar",
+      "unarchived": "Sohbetlerine geri taşındı"
+    },
+    "blocked": {
+      "byMe": "Bu kişiyi engelledin. Mesaj göndermek için engeli kaldır.",
+      "generic": "Bu sohbete mesaj gönderemezsin.",
+      "manage": "Yönet"
+    },
+    "bookmarks": {
+      "addFailed": "Mesaj kaydedilemedi",
+      "added": "Kaydedildi",
+      "attachment": "Ek",
+      "close": "Kapat",
+      "empty": "Henüz kaydedilen mesaj yok",
+      "error": "Kaydedilen mesajlar yüklenemedi",
+      "loading": "Kaydedilen mesajlar yükleniyor…",
+      "open": "Sohbeti aç",
+      "remove": "Kaydedilenlerden çıkar",
+      "removeFailed": "Kaldırılamadı",
+      "removed": "Kaydedilen mesajlardan çıkarıldı",
+      "title": "Kaydedilen mesajlar"
+    },
+    "call": {
+      "busy": "{{name}} başka bir aramadaydı",
+      "cancelledVideo": "İptal edilen görüntülü arama",
+      "cancelledVoice": "İptal edilen sesli arama",
+      "declinedIncomingVideo": "Reddedilen görüntülü arama",
+      "declinedIncomingVoice": "Reddedilen sesli arama",
+      "declinedOutgoingVideo": "Görüntülü arama reddedildi",
+      "declinedOutgoingVoice": "Sesli arama reddedildi",
+      "incomingVideo": "Gelen görüntülü arama",
+      "incomingVoice": "Gelen sesli arama",
+      "missedVideo": "Cevapsız görüntülü arama",
+      "missedVoice": "Cevapsız sesli arama",
+      "noAnswerVideo": "Görüntülü arama · Yanıt yok",
+      "noAnswerVoice": "Sesli arama · Yanıt yok",
+      "outgoingVideo": "Giden görüntülü arama",
+      "outgoingVoice": "Giden sesli arama"
+    },
+    "connection": {
+      "kicked": "Sohbet başka bir yerde açık olduğu için bu sekme artık mesaj almıyor.",
+      "reconnect": "Burada kullan"
+    },
+    "correction": {
+      "accept": "Düzeltmeyi kabul et",
+      "acceptFailed": "Düzeltme kabul edilemedi",
+      "accepted": "Düzeltme kabul edildi — öğrenme kaydına eklendi",
+      "accepting": "Kabul ediliyor…",
+      "corrected": "{{name}} düzeltti",
+      "you": "Sen"
+    },
+    "correctionModal": {
+      "cancel": "İptal",
+      "close": "Kapat",
+      "empty": "Lütfen bir düzeltme yaz",
+      "explanation": "Açıklama",
+      "explanationPlaceholder": "Bu düzeltmenin neden faydalı olduğunu açıkla…",
+      "hint": "ör. \"'goed' yerine 'went' kullan - düzensiz geçmiş zaman\"",
+      "optional": "(isteğe bağlı)",
+      "original": "Orijinal mesaj",
+      "submit": "Düzeltmeyi gönder",
+      "title": "Dil düzeltmesi",
+      "unchanged": "Düzeltme orijinalden farklı olmalı",
+      "yours": "Senin düzeltmen",
+      "yoursPlaceholder": "Düzeltilmiş hâlini yaz…"
+    },
+    "deleteMessage": {
+      "cancel": "İptal",
+      "failed": "Mesaj silinemedi. Tekrar dene.",
+      "forEveryone": "Herkesten sil",
+      "forMe": "Benden sil",
+      "placeholder": "Bu mesaj silindi",
+      "title": "Mesaj silinsin mi?",
+      "tooLate": "Bir mesajı herkesten yalnızca gönderdikten sonraki 1 saat içinde silebilirsin."
+    },
+    "editDialog": {
+      "cancel": "İptal",
+      "failed": "Mesaj düzenlenemedi. Tekrar dene.",
+      "label": "Mesaj",
+      "save": "Kaydet",
+      "title": "Mesajı düzenle",
+      "tooLate": "Bir mesajı yalnızca gönderdikten sonraki 15 dakika içinde düzenleyebilirsin."
+    },
+    "editedLabel": "düzenlendi",
+    "forward": {
+      "close": "Kapat",
+      "empty": "Sohbet bulunamadı.",
+      "error": "Sohbetler yüklenemedi.",
+      "loading": "Sohbetler yükleniyor…",
+      "search": "Ara",
+      "submit": "İlet",
+      "submitCount": "İlet ({{count}})",
+      "title": "Şuna ilet",
+      "unknownUser": "Bilinmiyor"
+    },
+    "forwarded": "İletildi",
+    "location": {
+      "cancel": "İptal",
+      "confirmTitle": "Konumun paylaşılsın mı?",
+      "denied": "Konum izni reddedildi",
+      "failed": "Konumun alınamadı",
+      "open": "Haritalar'da aç",
+      "send": "Gönder",
+      "sendFailed": "Konumun gönderilemedi",
+      "share": "Konum paylaş",
+      "title": "Konum",
+      "unsupported": "Bu tarayıcı konum paylaşamıyor"
+    },
+    "mediaGallery": {
+      "back": "Geri",
+      "emptyFiles": "Henüz paylaşılan dosya yok",
+      "emptyPhotos": "Henüz paylaşılan fotoğraf yok",
+      "emptyVideos": "Henüz paylaşılan video yok",
+      "error": "Medya yüklenirken hata oluştu",
+      "files": "Dosyalar",
+      "loading": "Medya yükleniyor…",
+      "photos": "Fotoğraflar",
+      "title": "Paylaşılan medya",
+      "unknownFile": "Bilinmeyen dosya",
+      "unknownSize": "Bilinmeyen boyut",
+      "videos": "Videolar"
+    },
+    "menu": {
+      "bookmark": "Kaydet",
+      "close": "Kapat",
+      "copy": "Kopyala",
+      "delete": "Sil",
+      "edit": "Düzenle",
+      "forward": "İlet",
+      "listen": "Dinle",
+      "pin": "Sabitle",
+      "reply": "Yanıtla"
+    },
+    "mute": {
+      "always": "Ben tekrar açana kadar",
+      "cancel": "İptal",
+      "eightHours": "8 saatliğine",
+      "oneHour": "1 saatliğine",
+      "oneWeek": "1 haftalığına",
+      "title": "{{name}} sessize alınsın mı?"
+    },
+    "pinnedBar": {
+      "count": "{{count}} sabitlenmiş",
+      "unpin": "Mesajın sabitlemesini kaldır"
+    },
+    "preview": {
+      "attachment": "📎 Ek",
+      "call": "📞 Arama",
+      "file": "📎 Dosya",
+      "gif": "GIF",
+      "location": "📍 Konum",
+      "photo": "🖼️ Fotoğraf",
+      "poll": "📊 Anket",
+      "story": "📖 Hikâye",
+      "video": "🎥 Video",
+      "voice": "🎤 Sesli mesaj"
+    },
+    "replyBar": {
+      "cancel": "Yanıtı iptal et",
+      "replyingTo": "{{name}} kişisine yanıt"
+    },
+    "search": {
+      "close": "Kapat",
+      "empty": "Mesaj bulunamadı",
+      "hint": "En az 2 karakter yaz",
+      "notLoaded": "Bu mesaj daha geride. Yüklemek için yukarı kaydır.",
+      "open": "Mesajlarda ara",
+      "placeholder": "Bu sohbette ara",
+      "searching": "Aranıyor…",
+      "title": "{{name}} ile mesajlarda ara",
+      "unavailable": "Arama şu anda kullanılamıyor",
+      "you": "Sen"
+    },
+    "sendErrors": {
+      "blockedBody": "Bu kişiye mesaj gönderemezsin.",
+      "blockedTitle": "Mesaj gönderilmedi",
+      "capBody": "Bugün başlatabileceğin tüm yeni sohbetleri başlattın. İstediğin kadar başlatmak için VIP'e geç.",
+      "capTitle": "Yeni sohbet sınırına ulaşıldı",
+      "dailyBody": "Bugünkü tüm mesajlarını gönderdin. Sınırsız mesaj için VIP'e geç ya da yarın tekrar gel.",
+      "dailyTitle": "Günlük mesaj sınırına ulaşıldı",
+      "firstChatBody": "Karşı taraf yanıt verene kadar 5 mesaj gönderebilirsin. Yanıt geldiğinde tekrar yazabilirsin.",
+      "firstChatTitle": "Yanıt bekle",
+      "generic": "Mesaj gönderilmedi. Tekrar denemek için Yeniden dene'ye dokun.",
+      "goVip": "VIP'e geç",
+      "ok": "Tamam",
+      "reattach": "Göndermek için dosyayı tekrar ekle.",
+      "tooFast": "Çok hızlı mesaj gönderiyorsun. Biraz bekle."
+    },
+    "story": {
+      "replied": "Hikâyene yanıt verdi",
+      "shared": "Bir hikâye paylaştı",
+      "unavailable": "Bu hikâye artık mevcut değil",
+      "youReplied": "Hikâyesine yanıt verdin",
+      "youShared": "Bir hikâye paylaştın"
+    },
+    "translation": {
+      "close": "Çeviriyi kapat",
+      "failed": "Mesaj çevrilemedi",
+      "label": "Çeviri · {{lang}}",
+      "save": "İfadeyi kaydet",
+      "saveFailed": "İfade kaydedilemedi",
+      "saved": "Çalışma listene kaydedildi",
+      "saving": "Kaydediliyor…",
+      "translating": "Çevriliyor…"
+    },
+    "video": {
+      "badType": "Bu video biçimi gönderilemiyor. MP4 dene.",
+      "tooBig": "Bu video çok büyük. Sınır {{mb}} MB.",
+      "tooLong": "Bu video çok uzun. Sınır {{minutes}} dakika."
+    },
+    "voice": {
+      "unavailable": "Ses kaydı kullanılamıyor. Bu site için mikrofon iznini kontrol et."
+    },
+    "wave": {
+      "hi": "Merhaba!"
+    },
+    "callInApp": {
+      "voice": "Sesli arama",
+      "video": "Görüntülü arama",
+      "title": "Aramalar BananaTalk uygulamasında yapılır",
+      "body": "{{name}} kişisini aramak için uygulamayı aç. Gelen aramalar telefonunda çalar.",
+      "openApp": "Uygulamayı aç",
+      "notNow": "Şimdi değil"
     }
+  },
+  "newChat": {
+    "title": "Yeni Sohbet",
+    "subtitle": "Bir konuşma başlatın",
+    "directMessage": "Birebir",
+    "groupChat": "Grup",
+    "searchPlaceholder": "İsim, @kullanıcı adı veya kullanıcı ID'sine göre arayın…",
+    "searchHint": "Sohbet başlatmak için kullanıcı arayın",
+    "hintName": "İsme göre arayın",
+    "hintUsername": "Kullanıcı adına göre bulmak için @kullaniciadi yazın",
+    "hintId": "Doğrudan bulmak için bir kullanıcı ID'si yapıştırın",
+    "searchByUsername": "Kullanıcı adına göre aranıyor",
+    "searchById": "Kullanıcı ID'sine göre aranıyor",
+    "noResults": "Kullanıcı bulunamadı",
+    "tryDifferent": "Farklı bir isim, @kullanıcı adı veya kullanıcı ID'si deneyin",
+    "createGroup": "Grup Oluştur",
+    "selectMoreUsers": "Grup sohbeti için en az 2 kullanıcı seçin",
+    "createError": "Sohbet oluşturulamadı",
+    "recently": "Son zamanlarda"
   },
   "notifications": "Bildirimler",
   "moments": "Anlar",
@@ -124,7 +497,18 @@
   "profile": {
     "title": "Profilim",
     "edit_profile": "Profili Düzenle",
-    "photos": "Fotoğraflar",
+    "photos": {
+      "title": "Fotoğraflar",
+      "add": "Fotoğraf ekle",
+      "alt": "{{name}}, fotoğraf {{index}}",
+      "open": "{{index}}. fotoğrafı aç",
+      "close": "Kapat",
+      "previous": "Önceki fotoğraf",
+      "next": "Sonraki fotoğraf",
+      "counter": "{{index}} / {{total}}",
+      "openAvatar": "{{name}} adlı kişinin fotoğrafını aç",
+      "openStory": "{{name}} adlı kişinin hikâyesini görüntüle"
+    },
     "messages": {
       "image_update_success": "Profil resmi başarıyla güncellendi",
       "image_update_failure": "Profil resmi güncellenemedi",
@@ -132,6 +516,7 @@
       "image_delete_failure": "Fotoğraf silinemedi",
       "profile_update_success": "Profil başarıyla güncellendi",
       "profile_update_failure": "Profil güncellenemedi",
+      "extras_update_failure": "Profilin kaydedildi, ancak bazı bilgiler güncellenmedi",
       "error_loading_profile": "Kullanıcı profili yüklenirken hata",
       "no_profile_data": "Kullanıcı profil verisi mevcut değil",
       "unknown_error": "Bilinmeyen bir hata oluştu",
@@ -146,7 +531,8 @@
       "no_following": "Henüz kimseyi takip etmiyorsunuz.",
       "following_error": "Takip listesi yüklenirken hata. Lütfen daha sonra tekrar deneyin.",
       "moments": "Anlar",
-      "visitors": "Ziyaretçiler"
+      "visitors": "Ziyaretçiler",
+      "visited": "Ziyaret edilenler"
     },
     "visitors": {
       "title": "Profil Ziyaretçileri",
@@ -165,7 +551,11 @@
       "vipOnly": "VIP Özelliği",
       "vipOnlyDesc": "VIP'e yükselerek profilinizi kimin ziyaret ettiğini görün. Bu özellik yalnızca VIP üyeler için mevcuttur.",
       "vipBenefits": "VIP Avantajları",
-      "learnMore": "VIP Hakkında Daha Fazla Bilgi"
+      "learnMore": "VIP Hakkında Daha Fazla Bilgi",
+      "clear": "Geçmişi temizle",
+      "clear_title": "Ziyaretçi geçmişin temizlensin mi?",
+      "clear_body": "Profiline bakan herkes silinir ve ziyaret sayaçların sıfırlanır. Bu geri alınamaz.",
+      "no_visited": "Baktığın profiller burada görünecek"
     },
     "sections": {
       "personal_info": "Kişisel Bilgiler",
@@ -207,7 +597,18 @@
       "save": "Kaydet",
       "cancel": "İptal",
       "edit_photo": "Fotoğrafı Düzenle",
-      "clear": "Seçimi temizle"
+      "clear": "Seçimi temizle",
+      "settings": "Ayarlar",
+      "message": "Mesaj",
+      "follow": "Takip Et",
+      "following": "Takip Ediliyor",
+      "more": "Daha fazla seçenek",
+      "block": "Engelle",
+      "report": "Şikayet Et",
+      "this_person": "bu kişi",
+      "action_failed": "Bu işe yaramadı. Tekrar dene.",
+      "unblock": "Engeli kaldır",
+      "followBlocked": "Bu kişiyi takip edemezsin"
     },
     "buttons": {
       "edit": "Düzenle",
@@ -235,13 +636,135 @@
       "kdrama": "K-Drama",
       "languages": "Diller",
       "culture": "Kültür"
+    },
+    "badges": {
+      "vip": "VIP",
+      "verified": "Doğrulanmış",
+      "joined": "Katıldı: {{date}}",
+      "active": "Son aktif: {{time}}",
+      "online": "Şu an çevrimiçi"
+    },
+    "block": {
+      "title": "{{name}} engellensin mi?",
+      "body": "Sana mesaj gönderemez ve profilini göremez."
+    },
+    "report": {
+      "title": "{{name}} şikayet edilsin mi?",
+      "body": "Neyin yanlış olduğunu bize anlat. Her şikayet inceleniyor.",
+      "reason": "Sebep"
+    },
+    "languages": {
+      "also_learning": "Ayrıca öğreniyor"
+    },
+    "about": {
+      "title": "Hakkında",
+      "occupation": "İş",
+      "school": "Okul",
+      "read_more": "Devamını oku",
+      "read_less": "Daha az göster"
+    },
+    "learning": {
+      "title": "Öğrenme ilerlemesi",
+      "streak": "Seri",
+      "days": "gün",
+      "xp": "Toplam XP",
+      "level": "Seviye"
+    },
+    "moments": {
+      "see_all": "Tümünü gör",
+      "empty_own": "İlk anını paylaş",
+      "empty_other": "Henüz an yok",
+      "photo_alt": "An fotoğrafı"
+    },
+    "page": {
+      "title": "Profil",
+      "error_title": "Bu profili yükleyemedik",
+      "error_body": "Bağlantını kontrol et ve tekrar dene.",
+      "retry": "Tekrar Dene",
+      "not_found_title": "Profil bulunamadı",
+      "not_found_body": "Bu profil artık yok ya da hiç var olmadı.",
+      "back_to_community": "Topluluğa göz at"
+    },
+    "lists": {
+      "title": "Bağlantıların",
+      "title_of": "{{name}} kullanıcısının bağlantıları",
+      "title_other": "Bağlantılar",
+      "search": "İsme göre ara",
+      "search_empty": "Burada “{{query}}” ile eşleşen kimse yok",
+      "empty_followers_own": "Henüz takipçin yok.",
+      "empty_followers_other": "Bu kişinin henüz takipçisi yok.",
+      "empty_following_own": "Henüz kimseyi takip etmiyorsun.",
+      "empty_following_other": "Bu kişi henüz kimseyi takip etmiyor.",
+      "error_title": "Bu listeyi yükleyemedik",
+      "error_body": "Bağlantını kontrol et ve tekrar dene.",
+      "retry": "Tekrar Dene"
+    },
+    "edit": {
+      "back": "Geri",
+      "about": "Hakkında",
+      "photos_hint": "İlk fotoğrafın, herkesin her yerde gördüğü fotoğraftır.",
+      "add_photo": "Fotoğraf ekle",
+      "photo_alt": "Fotoğraf {{index}}",
+      "delete_photo": "{{index}}. fotoğrafı sil",
+      "delete_photo_title": "Bu fotoğraf silinsin mi?",
+      "delete_photo_body": "Profilinden herkes için kaldırılır.",
+      "delete_photo_confirm": "Fotoğrafı sil",
+      "level": "Seviye",
+      "level_hint": "Öğrendiğin dildeki seviyen.",
+      "occupation": "Meslek",
+      "occupation_placeholder": "Ne iş yapıyorsun?",
+      "school": "Okul",
+      "school_placeholder": "Nerede okuyorsun?",
+      "saving": "Kaydediliyor",
+      "unsaved": "Kaydedilmemiş değişikliklerin var",
+      "leave_title": "Kaydetmeden çıkılsın mı?",
+      "leave_body": "Bu profildeki değişikliklerin kaybolacak.",
+      "leave_confirm": "Vazgeç",
+      "stay": "Düzenlemeye dön",
+      "intent_title": "Neden buradasın",
+      "intent_learn": "Öğrenmek için buradayım",
+      "intent_meet": "Yeni insanlarla tanışmaya açığım",
+      "intent_date": "Flörte açığım",
+      "intent_privacy_note": "Seçimlerini başkaları görür; flört seçeneği gizli kalır.",
+      "completion": "Profil Tamamlama"
+    },
+    "myMoments": {
+      "title": "Anlarım",
+      "create": "Bir An Paylaş",
+      "edit": "Anı düzenle",
+      "delete": "Anı sil",
+      "delete_title": "Bu an silinsin mi?",
+      "delete_body": "Beğenileri ve yorumlarıyla birlikte herkes için kaybolur.",
+      "delete_confirm": "Sil",
+      "delete_failed": "Bu anı silemedik. Tekrar dene.",
+      "empty_title": "Henüz an yok",
+      "empty_body": "İlk anını toplulukla paylaş.",
+      "error_title": "Anlarını yükleyemedik",
+      "error_body": "Bağlantını kontrol et ve tekrar dene.",
+      "retry": "Tekrar Dene",
+      "load_more": "Daha fazla yükle",
+      "loading_more": "Yükleniyor..."
+    },
+    "tabs": {
+      "label": "Profil bölümleri",
+      "moments": "Anlar",
+      "about": "Hakkında"
+    },
+    "unblock": {
+      "title": "{{name}} adlı kullanıcının engeli kaldırılsın mı?",
+      "body": "Sana tekrar mesaj gönderebilir ve profilini görebilir."
+    },
+    "blocked": {
+      "body": "Biriniz diğerini engellediği için birbirinize mesaj gönderemez, birbirinizi takip edemez ve gönderilerinizi göremezsiniz.",
+      "manage": "Engellenen kişileri yönet",
+      "title": "Bu profil kullanılamıyor"
     }
   },
   "moments_section": {
     "title": "Anlar",
     "question": "Aklında ne var,",
     "loading": "Yükleniyor",
-    "loading_moments": "Anlar Yükleniyor...",
+    "loading_moments": "Anlar Yükleniyor…",
     "error_loading": "Anlar yüklenirken hata",
     "error_info": "Anları yükleyemedik. Lütfen daha sonra tekrar deneyin.",
     "retry_btn": "Tekrar Dene",
@@ -255,7 +778,7 @@
     "moment_share": "Paylaş",
     "no_comments": "Henüz yorum yok. İlk yorumu yapan siz olun!",
     "invalidMomentId": "Geçersiz an ID'si",
-    "loadingMoment": "An detayları yükleniyor...",
+    "loadingMoment": "An detayları yükleniyor…",
     "noDetailsFound": "Detay bulunamadı",
     "goBack": "Geri Dön",
     "momentDetails": "An Detayları",
@@ -266,8 +789,8 @@
     "emptyCommentError": "Lütfen bir yorum ekleyin",
     "commentAdded": "Yorum eklendi",
     "failedToAddComment": "Yorum eklenemedi",
-    "loadingComments": "Yorumlar yükleniyor...",
-    "writeCommentPlaceholder": "Bir yorum yazın...",
+    "loadingComments": "Yorumlar yükleniyor…",
+    "writeCommentPlaceholder": "Bir yorum yazın…",
     "signInToComment": "Yorum yapmak için lütfen giriş yapın",
     "signIn": "giriş yap",
     "noCommentsYet": "Henüz yorum yok. İlk yorumu yapan siz olun!",
@@ -296,13 +819,236 @@
     },
     "create": {
       "header": "Moment oluştur",
-      "titlePlaceholder": "Başlık ekle...",
+      "titlePlaceholder": "Başlık ekle…",
       "addToMoment": "Moment'inize ekleyin",
       "addPhotos": "Fotoğraf ekle",
       "addMood": "Ruh hali ekle",
       "addLocation": "Konum ekle",
       "addTags": "Etiket ekle",
-      "tagPlaceholder": "Etiket ekle..."
+      "tagPlaceholder": "Etiket ekle…",
+      "attachVideo": "Video ekle",
+      "mediaFailedNothingPosted": "Yükleme başarısız oldu, bu yüzden hiçbir şey paylaşılmadı. Tekrar dene.",
+      "mediaFailedPosted": "Paylaşıldı ama medya yüklenemedi — eklemek için anı düzenlemeyi dene.",
+      "modePhoto": "Fotoğraf",
+      "modeText": "Metin",
+      "modeVideo": "Video",
+      "modeVoice": "Ses",
+      "moodQuestion": "Nasıl hissediyorsun?",
+      "placeholder": "Aklında ne var, {{name}}?",
+      "recordVoice": "Sesli not kaydet",
+      "remove": "Kaldır",
+      "share": "Paylaş",
+      "sharing": "Paylaşılıyor...",
+      "textPreview": "Metin anın",
+      "voiceNoteLength": "Sesli not · {{seconds}} sn"
+    },
+    "promo": {
+      "title": "Anlar artık uygulamada",
+      "subtitle": "Hikâyeler, AI Çalışma yanıtları ve tarayıcı sekmesi için değil telefon için tasarlanmış bir akış. Ücretsiz kur, hesap değiştirmen gerekmez.",
+      "appStore": "App Store'dan indir",
+      "playStore": "Google Play'den indir",
+      "appOnly": "Uygulamada",
+      "perks": {
+        "stories": {
+          "title": "Kaybolan hikâyeler",
+          "body": "Uygulama topluluğunun gerçekten kullandığı gibi, 24 saat kalan bir an paylaş."
+        },
+        "aiStudy": {
+          "title": "AI Çalışma yanıtları",
+          "body": "Öğrendiğin dilde paylaşım yap, yorumlarda doğrudan yapay zekâdan nazik bir düzeltme al."
+        },
+        "reactions": {
+          "title": "Daha zengin tepkiler",
+          "body": "Sesli tepkiler, tek dokunuşla çeviri ve form için değil akış için tasarlanmış yorum dizileri."
+        },
+        "notifications": {
+          "title": "Anlık bildirimler",
+          "body": "Hedef dilinden biri yanıt verdiği anda haberin olsun; tarayıcı sekmesini yenilemeye gerek yok."
+        }
+      }
+    },
+    "translate": {
+      "tap": "Çevirmek için dokun",
+      "loading": "Çevriliyor…",
+      "same": "Zaten senin dilinde",
+      "error": "Çevrilemedi. Yeniden denemek için dokun."
+    },
+    "tabs": {
+      "forYou": "Senin İçin",
+      "following": "Takip Edilenler",
+      "explore": "Keşfet",
+      "trending": "Gündem"
+    },
+    "following": {
+      "empty": "İnsanları takip et, anlarını burada gör",
+      "findPeople": "İnsanları Bul"
+    },
+    "commentEngagement": {
+      "attachImage": "Fotoğraf ekleyin",
+      "beFirst": "Düşüncenizi paylaşan ilk kişi olun!",
+      "cancel": "İptal",
+      "commentTab": "Yorum",
+      "correctedLabel": "Düzeltildi",
+      "correctedPlaceholder": "Bunu bir anadili konuşanın söyleyeceği gibi yazın",
+      "correction": "Düzeltme",
+      "correctionNotePlaceholder": "Not ekleyin (isteğe bağlı)",
+      "correctionTab": "Düzeltme",
+      "delete": "Sil",
+      "explanationLabel": "Açıklama",
+      "explanationPlaceholder": "Bu neden böyle yazılıyor? (isteğe bağlı)",
+      "hideReplies": "Yanıtları gizle",
+      "imageFailed": "Yorum gönderildi, ancak fotoğraf eklenemedi.",
+      "loadMoreComments": "Daha fazla yorum yükle",
+      "loadMoreReplies": "Daha fazla yükle",
+      "loadingReplies": "Yanıtlar yükleniyor…",
+      "originalLabel": "Orijinal",
+      "post": "Gönder",
+      "postCorrection": "Düzeltmeyi gönder",
+      "postFailed": "Gönderilemedi. Tekrar deneyin.",
+      "react": "Tepki ver",
+      "reply": "Yanıtla",
+      "replyPlaceholder": "Bir yanıt yazın…",
+      "viewReplies": "{{count}} yanıtı görüntüle",
+      "deleteOthersBody": "Senin anına yapılmış bir yorum, bu yüzden kaldırabilirsin. Bu işlem geri alınamaz.",
+      "deleteOthersTitle": "Bu yorum silinsin mi?",
+      "removeGif": "GIF'i kaldır"
+    },
+    "filters": {
+      "button": "Filtreler",
+      "searchPlaceholder": "Anlarda ara",
+      "search": "Ara",
+      "category": "Kategori",
+      "language": "Dil",
+      "mood": "Ruh hali",
+      "tag": "Etiket",
+      "tagPlaceholder": "Herhangi bir etiket",
+      "any": "Tümü",
+      "clear": "Filtreleri temizle",
+      "emptyTitle": "Bu filtrelere uyan an yok",
+      "emptyBody": "Bir filtreyi kaldırmayı ya da başka bir şey aramayı dene."
+    },
+    "categories": {
+      "general": "Genel",
+      "language-learning": "Dil öğrenme",
+      "culture": "Kültür",
+      "food": "Yemek",
+      "travel": "Seyahat",
+      "music": "Müzik",
+      "books": "Kitaplar",
+      "hobbies": "Hobiler",
+      "daily-life": "Günlük hayat",
+      "technology": "Teknoloji",
+      "entertainment": "Eğlence",
+      "sports": "Spor",
+      "movies": "Filmler",
+      "study": "Ders",
+      "work": "İş",
+      "question": "Soru"
+    },
+    "moods": {
+      "happy": "Mutlu",
+      "excited": "Heyecanlı",
+      "grateful": "Minnettar",
+      "motivated": "Motive",
+      "relaxed": "Rahat",
+      "curious": "Meraklı",
+      "sad": "Üzgün",
+      "love": "Aşık",
+      "funny": "Komik",
+      "thoughtful": "Düşünceli",
+      "cool": "Havalı",
+      "tired": "Yorgun"
+    },
+    "report": {
+      "menu": "Diğer seçenekler",
+      "report": "Bildir",
+      "title": "Bu anı bildir",
+      "reasonLabel": "Neden bildiriyorsun?",
+      "descriptionLabel": "Eklemek istediğin bir şey var mı? (isteğe bağlı)",
+      "submit": "Bildirimi gönder",
+      "cancel": "İptal",
+      "sent": "Teşekkürler — moderatörlerimiz inceleyecek.",
+      "already": "Bu anı zaten bildirdin.",
+      "failed": "Bildirim gönderilemedi. Tekrar dene.",
+      "reasons": {
+        "spam": "Spam",
+        "harassment": "Taciz",
+        "hate_speech": "Nefret söylemi",
+        "violence": "Şiddet",
+        "nudity": "Çıplaklık",
+        "false_information": "Yanlış bilgi",
+        "copyright": "Telif hakkı",
+        "other": "Başka bir şey"
+      },
+      "alreadyComment": "Bu yorumu zaten bildirdin.",
+      "alreadyStory": "Bu hikâyeyi zaten bildirdin.",
+      "titleComment": "Bu yorumu bildir",
+      "titleStory": "Bu hikâyeyi bildir"
+    },
+    "schedule": {
+      "label": "Zamanla",
+      "hint": "Hemen paylaşmak için boş bırak",
+      "past": "Gelecekte bir zaman seç",
+      "badge": "{{time}} için zamanlandı",
+      "clear": "Bunun yerine şimdi paylaş"
+    },
+    "fields": {
+      "privacy": "Kimler görebilir",
+      "privacyPublic": "Herkes",
+      "privacyFriends": "Arkadaşlar",
+      "privacyPrivate": "Yalnızca ben",
+      "background": "Arka plan",
+      "backgroundNone": "Yok",
+      "location": "Konum",
+      "addLocation": "Konumumu ekle",
+      "removeLocation": "Konumu kaldır",
+      "noMood": "Ruh hali yok",
+      "tags": "Etiketler",
+      "tagPlaceholder": "Etiket ekle…",
+      "addTag": "Ekle",
+      "tagsUsed": "{{count}}/5 etiket",
+      "tagsMax": "En fazla 5 etiket"
+    },
+    "prompt": {
+      "answeringPromptOfDay": "Günün sorusu yanıtlanıyor",
+      "dismissChip": "Soruyu yanıtlamayı bırak",
+      "answering": "Yanıt",
+      "answer": "Yanıtla",
+      "cardSubtitle": "Yazma pratiği",
+      "cardTitle": "Günün sorusu",
+      "dismissCard": "Günün sorusunu kapat"
+    },
+    "block": {
+      "done": "{{name}} engellendi."
+    },
+    "card": {
+      "bookmark": "Yer imlerine ekle",
+      "likeFailed": "Bir sorun oluştu",
+      "loginToLike": "Gönderileri beğenmek için giriş yap",
+      "removeBookmark": "Yer imlerinden kaldır",
+      "save": "Kaydet",
+      "saved": "Kaydedildi",
+      "seeLess": "Daha az göster",
+      "seeMore": "Devamını göster",
+      "unlike": "Beğenmekten vazgeç"
+    },
+    "saved": {
+      "browseMoments": "Anlara göz at",
+      "gridView": "Izgara görünümü",
+      "listView": "Liste görünümü",
+      "loadMore": "Daha fazla yükle",
+      "momentCount": "an kaydedildi",
+      "noMoments": "Henüz kaydedilmiş an yok",
+      "remove": "Kaldır",
+      "removeError": "An kaldırılamadı",
+      "removeSuccess": "Kaydedilenlerden kaldırıldı",
+      "title": "Kaydedilen Anlar"
+    },
+    "voice": {
+      "cancel": "Kaydı iptal et",
+      "denied": "Mikrofon erişimi reddedildi. Sesli not kaydetmek için mikrofon erişimine izin ver.",
+      "stop": "Kaydı durdur ve gönder",
+      "unsupported": "Bu tarayıcı ses kaydını desteklemiyor."
     }
   },
   "createMoment": {
@@ -316,7 +1062,7 @@
       "maxImagesText": "En fazla 10 resim yüklenebilir",
       "addMoreText": "Daha Fazla Ekle",
       "submitButton": "Paylaş",
-      "submittingButton": "Paylaşılıyor...",
+      "submittingButton": "Paylaşılıyor…",
       "cancelButton": "İptal"
     },
     "toast": {
@@ -337,56 +1083,70 @@
       "titleLabel": "Başlık",
       "titlePlaceholder": "Anınız için bir başlık girin",
       "descriptionLabel": "Açıklama",
-      "descriptionPlaceholder": "Anınız hakkında bize anlatın...",
+      "descriptionPlaceholder": "Anınız hakkında bize anlatın…",
       "imagesLabel": "Resimler",
       "maxImagesText": "En fazla 10 resim yükleyebilirsiniz (Maks 5MB)",
       "existingImagesLabel": "Mevcut Resimler",
       "newImagesLabel": "Yeni Resimler",
       "addMoreText": "Daha fazla ekle",
       "updateButton": "Anı Güncelle",
-      "updatingButton": "Güncelleniyor...",
-      "cancelButton": "İptal"
+      "updatingButton": "Güncelleniyor…",
+      "cancelButton": "İptal",
+      "removeImage": "Görseli kaldır",
+      "nothingToSave": "Henüz değişen bir şey yok",
+      "descriptionRequired": "Açıklama gerekli"
+    },
+    "media": {
+      "video": "Video",
+      "audio": "Sesli not",
+      "replace": "Değiştir",
+      "remove": "Kaldır",
+      "removeVideoTitle": "Video kaldırılsın mı?",
+      "removeAudioTitle": "Sesli not kaldırılsın mı?",
+      "removeBody": "Bu geri alınamaz.",
+      "done": "Güncellendi",
+      "failed": "Olmadı. Tekrar dene."
     }
   },
   "authentication": {
     "enterEmail": {
       "title": "E-postanızı girin",
-      "subtitle": "We'll send a verification code to your email",
+      "subtitle": "E-postanıza bir doğrulama kodu göndereceğiz",
       "emailLabel": "E-posta Adresi",
       "emailPlaceholder": "E-posta girin",
       "sendButton": "Kod Gönder",
-      "sendingButton": "Gönderiliyor...",
+      "sendingButton": "Gönderiliyor…",
       "successMessage": "Doğrulama kodu başarıyla gönderildi!",
       "errorPrefix": "Hata: "
     },
     "passwordReset": {
       "successMessage": "Şifre başarıyla sıfırlandı, lütfen giriş yapın!",
-      "backToLogin": "Back to login",
-      "verifyTitle": "Enter verification code",
-      "verifySubtitle": "We've sent a 6-digit code to your email",
-      "codeLabel": "Verification Code",
-      "codePlaceholder": "Enter code",
-      "previousButton": "Previous",
-      "verifyButton": "Verify",
-      "verifyingButton": "Verifying...",
-      "resendButton": "Resend code",
-      "resendingButton": "Resending...",
-      "verifySuccessMessage": "Verification code successfully verified!",
-      "resendSuccessMessage": "A new verification code has been sent!",
-      "verifyErrorDefault": "Invalid verification code",
-      "resendErrorDefault": "Failed to resend the code",
-      "setPasswordTitle": "Set new password",
-      "setPasswordSubtitle": "Choose a strong password for your account",
-      "newPasswordLabel": "New Password",
-      "newPasswordPlaceholder": "New Password",
-      "confirmPasswordLabel": "Confirm Password",
-      "confirmPasswordPlaceholder": "Confirm Password",
-      "showPassword": "Show password",
-      "hidePassword": "Hide password",
-      "submitButton": "Reset Password",
-      "submittingButton": "Resetting...",
-      "strengthErrorMessage": "Password does not meet the strength requirements",
-      "mismatchErrorMessage": "Passwords do not match"
+      "backToLogin": "Girişe dön",
+      "verifyTitle": "Doğrulama kodunu girin",
+      "verifySubtitle": "E-postanıza 6 haneli bir kod gönderdik",
+      "codeLabel": "Doğrulama Kodu",
+      "codePlaceholder": "Kodu girin",
+      "previousButton": "Geri",
+      "verifyButton": "Doğrula",
+      "verifyingButton": "Doğrulanıyor…",
+      "resendButton": "Kodu tekrar gönder",
+      "resendingButton": "Tekrar gönderiliyor…",
+      "verifySuccessMessage": "Doğrulama kodu başarıyla onaylandı!",
+      "resendSuccessMessage": "Yeni bir doğrulama kodu gönderildi!",
+      "verifyErrorDefault": "Geçersiz doğrulama kodu",
+      "resendErrorDefault": "Kod tekrar gönderilemedi",
+      "setPasswordTitle": "Yeni şifre belirleyin",
+      "setPasswordSubtitle": "Hesabınız için güçlü bir şifre seçin",
+      "newPasswordLabel": "Yeni Şifre",
+      "newPasswordPlaceholder": "Yeni Şifre",
+      "confirmPasswordLabel": "Şifreyi Onayla",
+      "confirmPasswordPlaceholder": "Şifreyi Onayla",
+      "showPassword": "Şifreyi göster",
+      "hidePassword": "Şifreyi gizle",
+      "submitButton": "Şifreyi Sıfırla",
+      "submittingButton": "Sıfırlanıyor…",
+      "strengthErrorMessage": "Şifre güvenlik gereksinimlerini karşılamıyor",
+      "mismatchErrorMessage": "Şifreler eşleşmiyor"
     },
     "login": {
       "signInWithGoogle": "Google ile Giriş Yap",
@@ -397,10 +1157,11 @@
       "passwordPlaceholder": "Şifre girin",
       "forgotPassword": "Şifremi Unuttum?",
       "signInButton": "Giriş Yap",
-      "signingInButton": "Giriş Yapılıyor...",
+      "signingInButton": "Giriş Yapılıyor…",
       "newUserText": "Yeni Kullanıcı?",
       "registerLink": "Kayıt Ol",
-      "successMessage": "Başarıyla giriş yapıldı"
+      "successMessage": "Başarıyla giriş yapıldı",
+      "invalidCredentialsError": "Geçersiz kimlik bilgileri"
     },
     "account": {
       "title": "Hesabınızı Oluşturun",
@@ -432,7 +1193,7 @@
       "uploadPrompt": "Profil resimleri yüklemek için tıklayın",
       "selectImages": "Resim Seç",
       "back": "Geri",
-      "processing": "İşleniyor..."
+      "processing": "İşleniyor…"
     },
     "verification": {
       "title": "E-posta Doğrulama",
@@ -440,9 +1201,9 @@
       "verificationCode": "Doğrulama Kodu",
       "codePlaceholder": "6 haneli kodu girin",
       "verifyButton": "E-postayı Doğrula",
-      "verifying": "Doğrulanıyor...",
+      "verifying": "Doğrulanıyor…",
       "resendCode": "Doğrulama kodunu tekrar gönder",
-      "sending": "Gönderiliyor...",
+      "sending": "Gönderiliyor…",
       "backToProfile": "Profile Dön",
       "successMessage": "E-posta başarıyla doğrulandı!",
       "completePrompt": "Aşağıdaki butona tıklayarak kaydınızı tamamlayın.",
@@ -462,6 +1223,17 @@
       "verifyFirst": "Lütfen önce e-postanızı doğrulayın",
       "registrationSuccess": "Kayıt başarılı!",
       "registrationError": "Kayıt sırasında hata"
+    },
+    "callback": {
+      "banned": "Bu hesap askıya alındı.",
+      "codeExpired": "Bu giriş bağlantısının süresi doldu. Lütfen tekrar giriş yap.",
+      "completing": "Giriş tamamlanıyor...",
+      "emailExists": "Bu e-postayla kayıtlı bir hesap zaten var. E-posta adresin ve şifrenle giriş yap.",
+      "failedTitle": "Giriş başarısız",
+      "generic": "Giriş başarısız. Lütfen tekrar dene.",
+      "noCode": "Giriş tamamlanmadı. Lütfen tekrar dene.",
+      "redirecting": "Giriş sayfasına dönülüyor...",
+      "wait": "Giriş yapılırken lütfen bekle."
     }
   },
   "communityMain": {
@@ -478,8 +1250,8 @@
       "countries": "Ülkeler"
     },
     "search": {
-      "placeholder": "İsim, dil veya ilgi alanlarına göre ara...",
-      "loading": "Dil ortakları aranıyor..."
+      "placeholder": "İsim, dil veya ilgi alanlarına göre ara…",
+      "loading": "Dil ortakları aranıyor…"
     },
     "memberCard": {
       "native": "Anadil",
@@ -502,7 +1274,13 @@
     "tabs": {
       "all": "Tümü",
       "popular": "Popüler",
-      "new": "Yeni"
+      "new": "Yeni",
+      "forYou": "Senin İçin",
+      "online": "Çevrimiçi",
+      "label": "Topluluk sekmeleri",
+      "today": "Bugün",
+      "serious": "Azimli öğrenenler",
+      "seriousHint": "Bu hafta aktif"
     },
     "filters": {
       "language": "Dil",
@@ -524,7 +1302,7 @@
       "tryAgain": "Tekrar Dene"
     },
     "loadMore": {
-      "loading": "Yükleniyor...",
+      "loading": "Yükleniyor…",
       "button": "Daha Fazla Üye Yükle"
     },
     "cta": {
@@ -542,7 +1320,9 @@
       "topics": "Konular",
       "searchPlaceholder": "Üye veya konu bul",
       "filtersLabel": "Filtreler",
-      "filtersWithCount": "Filtreler ({{count}} aktif)"
+      "filtersWithCount": "Filtreler ({{count}} aktif)",
+      "city": "Şehir",
+      "genders": "Cinsiyet"
     },
     "filterSheet": {
       "title": "Filtreler",
@@ -559,7 +1339,27 @@
       "onlineNow": "Şimdi çevrimiçi",
       "newMembersOnly": "Sadece yeni üyeler (son 7 gün)",
       "reset": "Sıfırla",
-      "apply": "Uygula"
+      "apply": "Uygula",
+      "copyLink": "Bağlantıyı kopyala",
+      "linkCopied": "Bağlantı kopyalandı",
+      "linkCopyFailed": "Bağlantı kopyalanamadı",
+      "applyFirst": "Önce filtreleri uygula",
+      "matchCountLoading": "Eşleşmeler sayılıyor…",
+      "close": "Filtreleri kapat",
+      "languages": "Diller",
+      "partnerNative": "Partnerin ana dili",
+      "partnerLearning": "Partner öğreniyor",
+      "country": "Ülke",
+      "countryPlaceholder": "örn. Güney Kore",
+      "level": "Dil seviyesi",
+      "topics": "Konular",
+      "mutualInterests": "Ortak ilgi alanları",
+      "newUsersOnly": "Sadece yeni kullanıcılar",
+      "clearAll": "Tümünü temizle",
+      "matchCount": "{{count}} eşleşme",
+      "lockedByTab": "{{tab}} sekmesi tarafından ayarlandı",
+      "reciprocal": "Yalnızca mükemmel partnerler",
+      "reciprocalHint": "Öğrendiğin dili konuşuyor, konuştuğun dili öğreniyorlar"
     },
     "highlighted": {
       "title": "Öne çıkan profiller",
@@ -568,9 +1368,8 @@
       "highlightSelfTopic": "Profilinizi öne çıkararak daha çok kişinin sizi görmesini sağlayın"
     },
     "visitors": {
-      "justYou": "{{name}} profilinizi ziyaret etti!",
-      "andOthers": "{{name}} ve {{count}} diğer kişi profilinizi ziyaret etti!",
-      "seeAll": "Tümünü gör"
+      "pill_one": "1 kişi profilinizi ziyaret etti",
+      "pill_other": "{{count}} kişi profilinizi ziyaret etti"
     },
     "tandemCard": {
       "newChip": "YENİ",
@@ -580,6 +1379,50 @@
       "fluent": "AKICI",
       "learns": "ÖĞRENİYOR",
       "native": "ANA DİL"
+    },
+    "chips": {
+      "recentlyActive": "Son zamanlarda aktif",
+      "onlineNow": "Şu an çevrimiçi",
+      "speaks": "{{language}} konuşuyor",
+      "learning": "{{language}} öğreniyor"
+    },
+    "forYou": {
+      "subtitle": "Dillerine, seviyene ve ilgi alanlarına göre senin için seçilen ortaklar.",
+      "refresh": "Yenile",
+      "why": "Neden: {{reasons}}",
+      "empty": {
+        "title": "Henüz öneri yok",
+        "message": "Konuştuğun ve öğrenmek istediğin dilleri, seviyeni ve birkaç ilgi alanını ekle; sana uygun ortaklar bulalım.",
+        "action": "Profilini tamamla"
+      }
+    },
+    "reasons": {
+      "perfect_pair": "{{native}} konuşuyor, {{learning}} öğreniyor",
+      "native_speaker": "Anadili {{native}}",
+      "online_now": "Şu an çevrimiçi",
+      "active_today": "Bugün aktif",
+      "same_country": "Aynı ülke"
+    },
+    "today": {
+      "title": "Bugünkü {{count}} eşleşmen",
+      "refreshes": "{{time}} yenilenir",
+      "refreshesMidnight": "Gece yarısı yenilenir",
+      "emptyTitle": "Bugünlük bu kadar",
+      "emptyBody": "Yarın yeni eşleşmeler var. Bu arada tüm partnerlere göz at.",
+      "browse": "Partnerlere göz at",
+      "repliesFast": "Hızlı yanıt verir",
+      "boosted": "Öne çıkarıldı",
+      "reasonReciprocal": "Birbirinizin dilini öğreniyorsunuz",
+      "reasonSameTarget": "O da {{language}} öğreniyor",
+      "reasonActiveToday": "Bugün aktif",
+      "reasonSameCity": "Senin şehrinde yaşıyor",
+      "reasonSharedTopic": "Ortak ilgi: {{topic}}",
+      "sayHi": "Merhaba de",
+      "wave": "El salla",
+      "skip": "Geç",
+      "error": "Bugünkü eşleşmeler yüklenemedi",
+      "retry": "Tekrar dene",
+      "waved": "El sallandı"
     }
   },
   "communityDetail": {
@@ -600,8 +1443,8 @@
       "startConversation": "Konuşma Başlat"
     },
     "loading": {
-      "loadingProfile": "Profil yükleniyor...",
-      "initiatingCall": "{{name}} ile arama başlatılıyor..."
+      "loadingProfile": "Profil yükleniyor…",
+      "initiatingCall": "{{name}} ile arama başlatılıyor…"
     },
     "notifications": {
       "loginToFollow": "Kullanıcıları takip etmek için giriş yapmanız gerekiyor",
@@ -641,6 +1484,36 @@
       "learning": "Öğreniyor",
       "notSpecified": "Belirtilmedi"
     },
+    "match": {
+      "title": "Dil eşleşmesi",
+      "native": "Anadil",
+      "learning": "Öğreniyor",
+      "perfect": "Mükemmel eşleşme — birbirinize öğretebilirsiniz.",
+      "youLearnTheirs": "Tam olarak bu kişinin konuştuğu dili öğreniyorsun!",
+      "theyLearnYours": "Bu kişi tam olarak senin konuştuğun dili öğreniyor!",
+      "sameNative": "İkiniz de aynı anadili konuşuyorsunuz."
+    },
+    "mutual": {
+      "title": "Ortak ilgi alanları",
+      "countLabel": "{{count}} ortak"
+    },
+    "starters": {
+      "title": "Sohbet başlangıçları",
+      "send": "Gönder",
+      "perfect": "Selam {{name}}! Mükemmel bir dil eşleşmesiyiz — birlikte pratik yapmak ister misin?",
+      "language": "Selam {{name}}! {{language}} öğreniyorum — daha iyi olmak için önerin var mı?",
+      "teach": "Selam {{name}}! {{language}} öğrendiğini gördüm. Sorun olursa yardımcı olmaktan mutluluk duyarım.",
+      "sameNative": "Selam {{name}}! Aynı anadili konuşuyoruz — öğrenme sürecin nasıl gidiyor?",
+      "topic": "Selam {{name}}! Senin de {{topic}} ile ilgilendiğini gördüm. Nasıl başladın?",
+      "targetLearning": "Selam {{name}}! Ne zamandır {{language}} öğreniyorsun?",
+      "generic": "Selam {{name}}! Seninle dil pratiği yapmak isterim. Haftan nasıl geçiyor?",
+      "practice": "Selam {{name}}! Şu ana kadar öğrenirken sana en çok ne yardımcı oldu?",
+      "hello": "Selam {{name}}! Profilin dikkatimi çekti — günün nasıl geçiyor?"
+    },
+    "engagement": {
+      "replies": "%{{rate}} yanıt oranı",
+      "new": "Yeni üye"
+    },
     "suggested": {
       "title": "{{name}} gibi diğer üyeler",
       "seeAll": "Tüm üyeleri gör"
@@ -659,11 +1532,15 @@
       "couldNotLoadProfile": "Bu profili yükleyemedik. Lütfen daha sonra tekrar deneyin.",
       "profileNotFound": "Profil Bulunamadı",
       "profileDoesNotExist": "Bu kullanıcı profili mevcut değil veya kaldırılmış.",
-      "loadingProfile": "Profil yükleniyor..."
+      "loadingProfile": "Profil yükleniyor…"
     },
     "buttons": {
       "tryAgain": "Tekrar Dene",
       "backToCommunity": "Topluluğa Dön"
+    },
+    "suggested": {
+      "title": "{{name}} gibi diğer üyeler",
+      "seeAll": "Tüm üyeleri gör"
     },
     "stats": {
       "followers": "Takipçiler",
@@ -748,7 +1625,7 @@
     },
     "vocabulary": {
       "title": "Kelime Hazinesi",
-      "searchPlaceholder": "Kelime ara...",
+      "searchPlaceholder": "Kelime ara…",
       "addWord": "Kelime Ekle",
       "noWords": "Henüz kelime yok",
       "startAdding": "Kelime hazinenize kelime eklemeye başlayın",
@@ -870,6 +1747,102 @@
       "premium": "Premium",
       "features": "Özellikler",
       "upgrade": "VIP'e Yükselt"
+    },
+    "password": {
+      "title": "Şifreyi değiştir",
+      "current": "Mevcut şifre",
+      "current_hint": "Mevcut şifrenizi girin",
+      "new": "Yeni şifre",
+      "new_hint": "En az 8 karakter, A-Z, a-z, 0-9",
+      "confirm": "Yeni şifreyi onayla",
+      "confirm_hint": "Yeni şifreyi tekrar girin",
+      "rule_upper": "Bir büyük harf",
+      "rule_lower": "Bir küçük harf",
+      "rule_number": "Bir rakam",
+      "mismatch": "Şifreler eşleşmiyor.",
+      "same_as_current": "Yeni şifre mevcut şifreden farklı olmalı.",
+      "success": "Şifre başarıyla değiştirildi",
+      "failed": "Güncelleme başarısız",
+      "symbols": "Yalnızca şu semboller kullanılabilir: @ $ ! % * ? &"
+    },
+    "privacy": {
+      "title": "Gizlilik Ayarları",
+      "subtitle": "Bilgilerini kimlerin görebileceğini kontrol et",
+      "profileVisibility": "Profil Görünürlüğü",
+      "showOnlineStatus": "Çevrimiçi Durumu Göster",
+      "showOnlineStatusDesc": "Başkalarının çevrimiçi olduğunuzu görmesine izin verin",
+      "showCity": "Şehir Göster",
+      "showCityDesc": "Profilinizde şehrinizi gösterin",
+      "showCountry": "Ülke/Bölge Göster",
+      "showCountryDesc": "Profilinizde ülkenizi gösterin",
+      "personalInfo": "Kişisel Bilgiler",
+      "showAge": "Yaş Göster",
+      "showAgeDesc": "Profilinizde yaşınızı gösterin",
+      "showZodiac": "Burç Göster",
+      "showZodiacDesc": "Profilinizde burcunuzu gösterin",
+      "birthdayNotification": "Doğum Günü Bildirimleri",
+      "birthdayNotificationDesc": "Doğum gününüzde bildirim alın",
+      "otherSettings": "Diğer Ayarlar",
+      "showGiftingLevel": "Hediye Seviyesini Göster",
+      "showGiftingLevelDesc": "Hediye seviyesi rozetinizi gösterin",
+      "saveSuccess": "Gizlilik ayarları kaydedildi",
+      "saveError": "Kaydetme başarısız",
+      "saving": "Kaydediliyor...",
+      "saveChanges": "Değişiklikleri Kaydet",
+      "profileVisits": "Profil ziyaretleri",
+      "anonymousProfileVisits": "Profilleri anonim olarak ziyaret et",
+      "anonymousProfileVisitsDesc": "Adın, ziyaret ettiğin kullanıcının son ziyaretçiler listesinde görünmez.",
+      "email": "E-posta",
+      "emailNotifications": "E-posta bildirimleri",
+      "emailNotificationsDesc": "BananaTalk'tan e-posta bildirimleri al",
+      "weeklyDigest": "Haftalık özet",
+      "weeklyDigestDesc": "Her pazar etkinlik özeti",
+      "securityAlerts": "Güvenlik uyarıları",
+      "securityAlertsDesc": "Şifre ve giriş uyarıları. Açık tutmanı öneririz."
+    },
+    "notifications": {
+      "title": "Bildirim Ayarları",
+      "subtitle": "Bildirim tercihlerini yönet",
+      "loading": "Yükleniyor…",
+      "loadError": "Ayarlar yüklenirken hata",
+      "retry": "Tekrar Dene",
+      "pushNote": "Bu ayarlar, telefonundaki BananaTalk uygulamasının anlık bildirimlerini kontrol eder.",
+      "enableAll": "Anlık Bildirimler",
+      "enableAllDesc": "Tüm bildirimleri aç veya kapat",
+      "notificationTypes": "Bildirim Türleri",
+      "chatMessages": "Sohbet Mesajları",
+      "chatMessagesDesc": "Mesaj aldığınızda bildirim alın",
+      "moments": "Anlar",
+      "momentsDesc": "Anlarınızdaki beğeniler ve yorumlar",
+      "followerMoments": "Takip Edilen Anlar",
+      "followerMomentsDesc": "Takip ettiğiniz kişiler yeni anlar paylaştığında",
+      "friendRequests": "Yeni Takipçiler",
+      "friendRequestsDesc": "Biri sizi takip ettiğinde",
+      "profileVisits": "Profil Ziyaretleri",
+      "profileVisitsDesc": "Biri profilinizi görüntülediğinde (VIP)",
+      "announcements": "Duyurular",
+      "announcementsDesc": "BananaTalk ekibinden haberler ve güncellemeler",
+      "marketing": "Pazarlama",
+      "marketingDesc": "Güncellemeler ve promosyon mesajları",
+      "learning": "Öğreniyor",
+      "streakReminders": "Seri hatırlatıcıları",
+      "streakRemindersDesc": "Serin bitmeden önce bir hatırlatma",
+      "vocabularyReviewReminders": "Kelime tekrarı",
+      "vocabularyReviewRemindersDesc": "Tekrar zamanı gelen kelimeler olduğunda",
+      "dailyDropReminders": "Günün dersi",
+      "dailyDropRemindersDesc": "Bugünün kısa kelime veya dilbilgisi dersi hazır olduğunda",
+      "quietHours": "Sessiz Saatler",
+      "quietHoursEnable": "Sessiz Saatleri Etkinleştir",
+      "quietHoursDesc": "Belirli bir zaman aralığında acil olmayan bildirimleri duraklat",
+      "quietHoursStart": "Başlangıç saati",
+      "quietHoursEnd": "Bitiş saati",
+      "preferences": "Bildirim Tercihleri",
+      "showPreview": "Önizleme Göster",
+      "showPreviewDesc": "Bildirimlerde mesaj önizlemesi göster",
+      "saveSuccess": "Bildirim ayarları kaydedildi",
+      "saveError": "Kaydetme başarısız",
+      "saving": "Kaydediliyor...",
+      "saveChanges": "Değişiklikleri Kaydet"
     }
   },
   "waves": {
@@ -879,13 +1852,102 @@
     "accept": "Kabul Et",
     "decline": "Reddet",
     "noWaves": "Henüz el sallama yok",
-    "sendWave": "Bağlantı kurmaya başlamak için bir el sallama gönderin!"
+    "sendWave": "Bağlantı kurmaya başlamak için bir el sallama gönderin!",
+    "archive": "Eski el sallamalar",
+    "archiveEmpty": "Eski el sallama yok",
+    "archiveHint": "7 ila 30 gün önceki el sallamalar",
+    "back": "Geri",
+    "cap": {
+      "body": "Bugünkü ücretsiz el sallama hakkını kullandın. VIP üyeler günlük sınır olmadan el sallayabilir; ya da yarın tekrar dene.",
+      "notNow": "Şimdi değil",
+      "seeVip": "VIP'e göz at",
+      "title": "Günlük el sallama sınırına ulaşıldı"
+    },
+    "findPeople": "İnsanları Bul",
+    "noReceived": "Henüz el sallama almadın",
+    "recent": "Son 7 gün",
+    "sheet": {
+      "already": "Zaten el salladın",
+      "alreadyBody": "Her kişiye yalnızca bir kez el sallayabilirsin — sohbeti sürdürmek için ona mesaj gönder.",
+      "alreadyTitle": "{{name}} adlı kişiye zaten el salladın",
+      "cancel": "İptal",
+      "chips": {
+        "chat": {
+          "label": "Sohbet",
+          "message": "🎉 Hadi sohbet edelim!"
+        },
+        "cool": {
+          "label": "Harika",
+          "message": "❤️ Harika profil!"
+        },
+        "hello": {
+          "label": "Merhaba",
+          "message": "✋ Merhaba!"
+        },
+        "hey": {
+          "label": "Hey",
+          "message": "😊 Hey, selam!"
+        },
+        "hi": {
+          "label": "Selam",
+          "message": "👋 Selam!"
+        },
+        "nice": {
+          "label": "Memnun oldum",
+          "message": "🌟 Tanıştığımıza memnun oldum!"
+        }
+      },
+      "close": "Kapat",
+      "icebreakers": {
+        "0": "Selam! Birlikte dil pratiği yapmak ister misin?",
+        "1": "Benzer diller öğreniyoruz galiba — selam!",
+        "2": "Profilin dikkatimi çekti, nasıl gidiyor?",
+        "3": "Hey! Yeni bir dil öğrenmeye nasıl başladın?"
+      },
+      "icebreakersTitle": "Sohbet başlatıcılar",
+      "match": "🎉 Eşleştiniz! Sen ve {{name}} birbirinize el salladınız.",
+      "placeholder": "Kendi mesajını yaz (isteğe bağlı)…",
+      "quickReplies": "Hızlı yanıtlar",
+      "send": "El salla",
+      "sendError": "El sallama gönderilemedi",
+      "sent": "{{name}} adlı kişiye el sallandı!",
+      "subtitle": "Merhaba de ve buzları erit 👋",
+      "title": "{{name}} adlı kişiye el salla",
+      "yourMessage": "Mesajın"
+    },
+    "someone": "Biri",
+    "subtitle": "Sana el sallayan kişiler",
+    "unread": "Okunmamış",
+    "wavedAtYou": "Sana el salladı 👋"
   },
   "topics": {
     "title": "Konular",
     "myTopics": "Konularım",
     "browseTopics": "Konulara Göz At",
-    "usersInterested": "ilgilenen kullanıcı"
+    "usersInterested": "ilgilenen kullanıcı",
+    "saved": "Konuların güncel",
+    "saveError": "Konularını kaydedemedik",
+    "memberCount": "{{count}} üye",
+    "backToCommunity": "Topluluk",
+    "subtitle": "İlgi alanların benzer partnerler bul.",
+    "searchPlaceholder": "Konu ara",
+    "clearSearch": "Aramayı temizle",
+    "cancel": "İptal",
+    "saving": "Kaydediliyor...",
+    "save": "Kaydet",
+    "edit": "Düzenle",
+    "editHint": "En fazla {{max}} konu seçmek için aşağıdaki kartlara dokun, ardından kaydet.",
+    "myTopicsEmpty": "Henüz konu seçmedin. Birkaç tane seçmek için Düzenle'ye dokun.",
+    "selectTopics": "Konularını seç",
+    "emptyTitle": "Eşleşen konu yok",
+    "emptyMessage": "Başka bir kelime dene veya hepsini görmek için aramayı temizle.",
+    "backToTopics": "Tüm konular",
+    "onlineOnly": "Yalnızca çevrimiçi",
+    "loadingPeople": "Kişiler yükleniyor...",
+    "noOneOnlineTitle": "Burada çevrimiçi kimse yok",
+    "noOneTitle": "Burada henüz kimse yok",
+    "noOneOnlineMessage": "Bu konudaki herkesi görmek için çevrimiçi filtresini kapat.",
+    "noOneMessage": "İlk sen ol — bu konuyu profiline ekle."
   },
   "nearby": {
     "title": "Yakındaki Kullanıcılar",
@@ -896,24 +1958,23 @@
   },
   "home": {
     "hero": {
-      "badge": "Dil Değişimi Kolaylaştırıldı",
-      "titlePart1": "Dilleri",
-      "titleHighlight": "Konuşarak",
-      "titlePart2": "Anadil Konuşmacılarıyla Öğrenin",
-      "description": "Dünya genelinde milyonlarca dil öğreneniyle bağlantı kurun. Konuşma pratiği yapın, akıcılığınızı artırın ve dünyanın her köşesinden arkadaşlar edinin.",
-      "stats": {
-        "users": "Aktif Kullanıcılar",
-        "languages": "Diller",
-        "countries": "Ülkeler"
-      },
-      "getStarted": "Ücretsiz Başla",
-      "browseCommunity": "Topluluğa Göz At",
-      "lovedBy": "5M+ öğrenen tarafından seviliyor",
+      "badge": "Dil değişimi, gerçek insanlarla",
+      "titlePart1": "İstediğin dili",
+      "titleHighlight": "gerçekten konuşan biriyle",
+      "titlePart2": "pratik yap.",
+      "description": "BananaTalk seni dünyanın dört bir yanından anadil konuşanlarla buluşturur. Sohbet et, sesli mesaj at, çevir ve düzeltmeler al — her konuşma seni geliştirir.",
+      "getStarted": "Hemen başla — ücretsiz",
+      "browseCommunity": "Topluluğa göz at",
+      "lovedBy": "iOS ve Android'de dil öğrenenlerin gözdesi",
       "chatPreview": {
-        "message1": "Merhaba! Nasılsın? 👋",
-        "message2": "Hey! I'm practicing Turkish!",
-        "message3": "Harika! Birlikte pratik yapalım 🇹🇷"
-      }
+        "message1": "안녕하세요! Hafta sonun nasıldı?",
+        "message2": "주말에 친구들과 등산 갔어요 ⛰️",
+        "message3": "Süper! 산 → dağ. Çalışma listene kaydedildi."
+      },
+      "title": "Yanlış söyle.",
+      "titleAccent": "Biz çevireceğiz.",
+      "subtitle": "Anadil konuşanlarla ücretsiz dil değişimi. Kendi dilinde yaz, onlar kendi dilinde okusun; aradaki farktan öğren.",
+      "trust": "Sonsuza kadar ücretsiz katman · 137 dil · 7/24 yapay zeka öğretmeni"
     },
     "sections": {
       "features": "Özellikler",
@@ -921,108 +1982,175 @@
       "pricing": "Fiyatlandırma"
     },
     "features": {
-      "title": "Öğrenmek İçin İhtiyacınız Olan Her Şey",
-      "subtitle": "Dil öğrenme yolculuğunuzu hızlandırmak için tasarlanmış güçlü araçlar",
+      "title": "Dili gerçekten konuşmak için ihtiyacın olan her şey",
+      "subtitle": "Kelime ezberi değil, gerçek anadil konuşanlarla yapılan gerçek sohbetler üzerine kurulu.",
       "chat": {
-        "title": "Gerçek Zamanlı Sohbet",
-        "description": "Anlık mesajlaşma yoluyla anadil konuşmacılarıyla konuşma pratiği yapın"
+        "title": "Düzeltmeli sohbet",
+        "description": "Metin, sesli mesaj, fotoğraf ve çıkartma gönder. Partnerinin mesajına dokunarak çevir ya da tek dokunuşla düzelt."
       },
-      "video": {
-        "title": "Görüntülü Aramalar",
-        "description": "Dünya genelindeki ortaklarla yüz yüze dil pratiği"
+      "translate": {
+        "title": "Yerleşik çeviri",
+        "description": "Herhangi bir mesajı anadiline çevir. İfadeleri doğrudan çalışma listene kaydet."
       },
-      "lessons": {
-        "title": "İnteraktif Dersler",
-        "description": "Yapılandırılmış kurslar ve günlük alıştırmalarla öğrenin"
+      "tutor": {
+        "title": "Yapay Zeka Öğretmeni",
+        "description": "Rol yapma senaryoları, görsellerle kelime öğrenme ve telaffuz koçluğu — hepsi kendi yapay zeka çalışma partnerinle."
       },
-      "voice": {
-        "title": "Sesli Mesajlar",
-        "description": "Ses alışverişleriyle telaffuzunuzu mükemmelleştirin"
+      "voice_rooms": {
+        "title": "Sesli Odalar",
+        "description": "Dünyanın her yerinden anadil konuşanlar ve dil öğrenenlerle canlı sesli odalara katıl."
+      },
+      "calls": {
+        "title": "Sesli ve görüntülü aramalar",
+        "description": "Dil partnerlerinle tek dokunuşla sesli ve görüntülü ara."
       },
       "community": {
-        "title": "Topluluk",
-        "description": "Dünya genelinde milyonlarca dil öğrenenine katılın"
+        "title": "Gerçek topluluk",
+        "description": "Partnerleri anadillerine göre keşfet, kimin çevrimiçi olduğunu gör ve aynı dili öğrenenlerle anları paylaş."
       },
-      "languages": {
-        "title": "50+ Dil",
-        "description": "İspanyolcadan Koreceye, öğrenme yolunuzu bulun"
+      "inApp": "Uygulamada",
+      "items": {
+        "findPartner": {
+          "title": "Partner bul",
+          "body": "Gerçekten değiş tokuş etmek istediğin dil çiftine göre eşleş."
+        },
+        "chatTranslate": {
+          "title": "Çeviren sohbet",
+          "body": "Her iki yönde, mesajın içinde, sen yazarken."
+        },
+        "moments": {
+          "title": "Moments",
+          "body": "Gününün nasıl geçtiğini paylaş, anadil konuşanlardan düzeltme al."
+        },
+        "aiTutor": {
+          "title": "Yapay Zeka Öğretmeni",
+          "body": "Sabahın üçünde, rezil olmadan pratik yap."
+        },
+        "voiceRooms": {
+          "title": "Sesli Odalar",
+          "body": "Canlı bir odaya gir ve istersen sadece dinle."
+        },
+        "gatherings": {
+          "title": "Buluşmalar",
+          "body": "Yakınında senin dilini öğrenen insanlarla tanış."
+        }
       }
     },
     "howItWorks": {
-      "title": "3 Adımda Öğrenmeye Başlayın",
-      "subtitle": "Dakikalar içinde başlayın ve bugün dil yolculuğunuza başlayın"
+      "title": "İlk sohbetine kadar üç adım",
+      "subtitle": "Telefon numarası yok, spam yok — sadece öğrenmek isteyen gerçek insanlar.",
+      "steps": {
+        "1": {
+          "title": "Hangi dili konuştuğunu ve ne istediğini söyle",
+          "body": "Anadilini ve öğrendiğin dili seç. Seni eşleştirdiğimiz şey bu ikili."
+        },
+        "2": {
+          "title": "Konuşmaya değer birini bul",
+          "body": "Senin dilini öğrenenlere göz at. El salla ya da doğrudan sohbete başla."
+        },
+        "3": {
+          "title": "Kötü konuş, hızlı ilerle",
+          "body": "Her mesaj iki yönde de çevrilir, yapay zeka öğretmeni de kimse görmeden seni düzeltir."
+        }
+      }
     },
     "steps": {
       "profile": {
-        "title": "Profilinizi Oluşturun",
-        "description": "Bize anadilinizi ve ne öğrenmek istediğinizi anlatın"
+        "title": "Dillerini anlat",
+        "description": "Akıcı konuştuğun ve öğrenmek istediğin dilleri seç. İlgini çeken birkaç konu ekle."
       },
       "partners": {
-        "title": "Ortaklar Bulun",
-        "description": "Topluluğumuza göz atın ve mükemmel dil değişim ortakları bulun"
+        "title": "Partnerini bul",
+        "description": "Topluluğu dile, ülkeye veya konuya göre keşfet. İlgini çeken birine el salla ya da mesaj at."
       },
       "learn": {
-        "title": "Öğrenmeye Başlayın",
-        "description": "Her gün anadil konuşmacılarıyla sohbet edin, arayın ve pratik yapın"
+        "title": "Her gün pratik yap",
+        "description": "Sohbet et, sesli notlar paylaş, düzeltmeler al ve yeni kelimeleri aralıklı tekrar kartlarına dönüştür."
       }
     },
     "pricing": {
-      "title": "Planınızı Seçin",
-      "subtitle": "Ücretsiz başlayın ve hazır olduğunuzda yükseltin",
-      "mostPopular": "En Popüler",
-      "getStarted": "Başla",
+      "title": "Başlaması ücretsiz. Daha hızlı öğrenmeye hazır olduğunda VIP'e geç.",
+      "subtitle": "BananaTalk herkes için ücretsiz. Çeviri, Yapay Zeka Öğretmeni ve daha fazlasındaki günlük sınırları kaldırmak için VIP'e yükselt.",
+      "fineprint": "App Store veya Google Play ayarlarından istediğin zaman iptal edebilirsin. Abonelikler iptal edilene kadar otomatik olarak yenilenir.",
       "free": {
         "name": "Ücretsiz",
         "period": "sonsuza kadar",
+        "cta": "Ücretsiz hesap oluştur",
         "features": {
-          "messaging": "Temel mesajlaşma",
-          "connections": "Günde 5 yeni bağlantı",
-          "community": "Topluluk erişimi",
-          "lessons": "Temel dersler"
+          "messaging": "Çeviriyle sınırsız birebir sohbet",
+          "community": "Topluluğa göz at ve bağlantı kur",
+          "moments": "Moments paylaş ve Stories oku",
+          "tutor_trial": "Günlük Yapay Zeka Öğretmeni ve çeviri kotası"
+        },
+        "f1": "Çeviriyle sınırsız birebir sohbet",
+        "f2": "Topluluğa göz atın ve bağlantı kurun",
+        "f3": "Moments paylaşın ve Stories okuyun"
+      },
+      "monthly": {
+        "name": "VIP — Aylık",
+        "period": "aylık",
+        "highlight": "En esnek",
+        "cta": "Aylık planla başla",
+        "features": {
+          "unlimited_translation": "Sınırsız çeviri ve düzeltme",
+          "unlimited_tutor": "Sınırsız Yapay Zeka Öğretmeni seansı ve rol yapma",
+          "voice_rooms": "Sesli Odaları başlat ve sabitle",
+          "priority": "Öncelikli partner eşleştirme"
         }
       },
-      "premium": {
-        "name": "Premium",
-        "period": "/ay",
+      "yearly": {
+        "name": "VIP — Yıllık",
+        "period": "yıllık",
+        "highlight": "%72 tasarruf",
+        "cta": "Yıllık planla tasarruf et",
         "features": {
-          "messaging": "Sınırsız mesajlaşma",
-          "connections": "Sınırsız bağlantı",
-          "video": "Görüntülü aramalar",
-          "lessons": "İleri düzey dersler",
-          "noAds": "Reklamsız",
-          "translation": "Çeviri araçları"
+          "everything_in_monthly": "Aylık plandaki her şey",
+          "equiv": "Ayda ortalama sadece 4,16 $",
+          "early_access": "Yeni özelliklere erken erişim",
+          "support": "BananaTalk ekibinden doğrudan destek"
         }
       },
-      "lifetime": {
-        "name": "Ömür Boyu",
-        "period": "tek seferlik",
-        "features": {
-          "everything": "Premium'daki her şey",
-          "forever": "Sonsuza kadar erişim",
-          "support": "Öncelikli destek",
-          "early": "Erken erişim özellikleri",
-          "badges": "Özel rozetler"
-        }
-      }
+      "best": "En iyi değer",
+      "perMonth": "aylık",
+      "every": "her",
+      "save": "Tasarruf et",
+      "getVip": "Uygulamada VIP olun"
     },
     "download": {
       "badge": "Uygulamayı İndir",
-      "title": "BananaTalk'u Her Yere Götürün",
-      "description": "Mobil uygulamamızla hareket halinde öğrenin. Tüm özellikler, anlık bildirimler ve çevrimdışı erişimle iOS ve Android'de mevcuttur.",
+      "title": "Tam deneyim yalnızca mobilde",
+      "description": "Yapay Zeka Öğretmeni, Sesli Odalar, aramalar ve anlık bildirimler yalnızca mobilde. Eksiksiz BananaTalk deneyimi için uygulamayı indir.",
       "downloadOn": "Şuradan indirin",
       "getItOn": "Şuradan edinin",
       "scanQR": "Uygulamayı indirmek için tarayın",
       "or": "veya",
       "features": {
-        "offline": "Çevrimdışı erişim",
+        "offline": "Çevrimdışıyken de sohbet et",
         "push": "Anlık bildirimler",
-        "fast": "Hızlı ve hafif"
+        "fast": "Ücretsiz kurulum"
       }
     },
     "cta": {
-      "title": "Dil Yolculuğunuza Başlamaya Hazır Mısınız?",
-      "description": "Milyonlarca öğrenenin arasına katılın ve bugün yeni bir dil konuşmaya başlayın",
-      "button": "Ücretsiz Hesap Oluştur"
+      "title": "Gerçek bir sohbete hazır mısın?",
+      "description": "BananaTalk topluluğuna katıl ve bugün pratik yapmaya başla. Kredi kartı gerekmez.",
+      "button": "Ücretsiz hesabını oluştur",
+      "subtitle": "Başlaması ücretsiz. Kart yok, deneme süresi geri sayımı yok."
+    },
+    "stats": {
+      "languages": "dil",
+      "app languages": "uygulama dili",
+      "AI tutor": "yapay zeka öğretmeni",
+      "forever tier": "ücretsiz katman",
+      "learners": "öğrenciler"
+    },
+    "marquee": {
+      "title": "Öğrenmek istediğin her dilin anadil konuşanları",
+      "caption": "137 dil ve artmaya devam ediyor"
+    },
+    "earlyAdopter": {
+      "badge": "Aralık 2025'te yayında",
+      "title": "İlklerden biri ol",
+      "body": "BananaTalk yeni. Burada tanıştığın insanlar, bu topluluğun ne olacağını şekillendiren insanlar — erken katılmak için bu, her yorumdan daha iyi bir sebep."
     }
   },
   "vip": {
@@ -1059,6 +2187,1229 @@
       "prioritySupport": "Öncelikli destek",
       "exclusiveBadge": "Özel VIP rozeti",
       "translationFeature": "Mesaj çevirisi"
+    }
+  },
+  "linking": {
+    "share": {
+      "label": "Paylaş",
+      "copied": "Bağlantı panoya kopyalandı!",
+      "copyFailed": "Bağlantı kopyalanamadı"
+    },
+    "openInApp": {
+      "label": "Uygulamada aç"
+    },
+    "appBanner": {
+      "text": "Bunu BananaTalk uygulamasında açın"
+    }
+  },
+  "seo": {
+    "appTitle": "BananaTalk",
+    "home": {
+      "title": "BananaTalk: Ana Dili Konuşanlarla Ücretsiz Dil Değişimi Uygulaması",
+      "description": "137 dilde ana dili konuşanlarla sohbet edin. Kendi dilinizde yazın, karşı taraf kendi dilinde okusun ve bir yapay zeka öğretmeni farkı size göstersin. iOS ve Android'de ücretsiz."
+    },
+    "download": {
+      "title": "iPhone ve Android için BananaTalk'u İndirin",
+      "description": "iPhone ve Android için ücretsiz BananaTalk dil değişimi uygulamasını edinin. Anında çeviri ve yapay zeka öğretmen düzeltmeleriyle ana dili konuşanlarla sohbet edin."
+    },
+    "moments": {
+      "title": "BananaTalk Moments: Hedef Dilinizde Hikayeler",
+      "description": "Moments, BananaTalk'ta dil öğrenenlerin paylaştığı kısa gönderiler ve hikayelerdir. Akışı okuyun, tepki verin ve kendi gönderinizi paylaşın."
+    },
+    "privacy": {
+      "title": "Gizlilik Politikası | BananaTalk",
+      "description": "BananaTalk'un verilerinizi nasıl topladığı, kullandığı ve koruduğu ile sahip olduğunuz seçenekler."
+    },
+    "terms": {
+      "title": "Kullanım Koşulları | BananaTalk",
+      "description": "İçerik kuralları, moderasyon ve şikayetler dahil olmak üzere BananaTalk kullanımınızı yöneten koşullar."
+    },
+    "support": {
+      "title": "Destek ve İletişim | BananaTalk",
+      "description": "BananaTalk hakkında yardım alın: hesap soruları, bir sorunu bildirme ve ekiple nasıl iletişime geçileceği."
+    },
+    "dataDeletion": {
+      "title": "Veri Silme Talebi | BananaTalk",
+      "description": "BananaTalk hesabınızı ve kişisel verilerinizi nasıl sileceğiniz ve talep sonrasında neler olacağı."
+    },
+    "meet": {
+      "title": "Başka Ülkelerden İnsanlarla Tanış | BananaTalk",
+      "description": "Başka ülkelerden insanlarla tanış, sohbet ederek uluslararası arkadaşlıklar kur. Her mesaj iki yönde çevrilir; ikinizin de akıcı olması gerekmez."
+    },
+    "learnKorean": {
+      "title": "Anadili Korece Olanlarla Sohbet Ederek Korece Öğren",
+      "description": "Koreli anadil konuşanlarla sohbet ederek ücretsiz Korece öğren. Sen Türkçe yaz, onlar Hangul yazsın; yapay zeka öğretmeni 존댓말 ve 반말 farkını anlatsın."
+    },
+    "communities": {
+      "title": "Dil Değişimi Toplulukları | BananaTalk",
+      "description": "BananaTalk'taki dil değişimi topluluklarına katıl: her gün birlikte Korece, İspanyolca, Japonca ve daha fazlasını pratik eden gerçek gruplar, ücretsiz."
+    }
+  },
+  "notFound": {
+    "pageTitle": "Sayfa bulunamadı | BananaTalk",
+    "title": "Bu sayfa mevcut değil",
+    "body": "Bağlantı eski olabilir veya sayfa taşınmış olabilir. İşte geri dönüş yolu.",
+    "home": "Ana sayfaya git",
+    "download": "Uygulamayı edin"
+  },
+  "consent": {
+    "label": "Çerez izni",
+    "message": "Ziyaretçileri buraya neyin getirdiğini anlamak için analiz çerezleri kullanıyoruz.",
+    "accept": "Tamam",
+    "decline": "Hayır, teşekkürler",
+    "manage": {
+      "title": "Gizlilik tercihleri",
+      "body": "Analiz çerezleri yalnızca hangi sayfaların işe yaradığını gösterir, başka bir şey değil.",
+      "current_granted": "Analiz çerezleri açık.",
+      "current_denied": "Analiz çerezleri kapalı.",
+      "accept": "Aç",
+      "decline": "Kapat",
+      "privacyChoices": "Gizlilik tercihleri",
+      "analyticsCookies": "Analiz çerezleri",
+      "done": "Bitti"
+    }
+  },
+  "admin": {
+    "nav": {
+      "admin": "Yönetim",
+      "overview": "Genel bakış",
+      "reach": "Erişim",
+      "users": "Kullanıcılar",
+      "content": "İçerik",
+      "aiUsage": "AI kullanımı",
+      "audit": "Denetim kaydı"
+    },
+    "aiUsage": {
+      "allFeatures": "Tüm özellikler",
+      "anonymous": "anonim",
+      "byDay": "Güne göre kullanım",
+      "byFeature": "Özelliğe göre kullanım",
+      "calls": "Çağrılar",
+      "date": "Tarih",
+      "feature": "Özellik",
+      "from": "Başlangıç",
+      "logs": "Kullanım günlüğü",
+      "timestamp": "Zaman damgası",
+      "to": "Bitiş",
+      "total": "Toplam çağrı",
+      "user": "Kullanıcı"
+    },
+    "audit": {
+      "action": "İşlem",
+      "actionColumn": "İşlem",
+      "moderator": "Moderatör",
+      "moderatorId": "Moderatör kimliği",
+      "reason": "Neden",
+      "target": "Hedef",
+      "targetId": "Hedef kimliği",
+      "timestamp": "Zaman damgası"
+    },
+    "common": {
+      "actionError": "Bir şeyler ters gitti.",
+      "close": "Kapat",
+      "empty": "Gösterilecek bir şey yok.",
+      "loadError": "Bu bölüm yüklenemedi.",
+      "loading": "Yükleniyor…",
+      "refresh": "Yenile",
+      "cancel": "İptal"
+    },
+    "content": {
+      "archive": "Arşivle",
+      "archiveTitle": "Kulübü arşivle",
+      "cancel": "İptal et",
+      "cancelTitle": "Buluşmayı iptal et",
+      "created": "Oluşturulma",
+      "gatherings": "Buluşmalar",
+      "going": "Katılacak",
+      "language": "Dil",
+      "members": "Üyeler",
+      "name": "Ad",
+      "openReports": "Açık şikayetler",
+      "reportedOnly": "Yalnızca şikayet edilenler",
+      "restore": "Geri yükle",
+      "restoreTitle": "Kulübü geri yükle",
+      "startsAt": "Başlangıç saati",
+      "status": "Durum",
+      "tabs": "İçerik türü",
+      "title": "Başlık",
+      "moments": "Momentler",
+      "communities": "Topluluklar",
+      "reports": "Şikayetler",
+      "momentsToday": "Bugünkü momentler",
+      "moments7d": "Momentler (7 gün)",
+      "momentsHidden": "Gizlenmiş momentler",
+      "comments7d": "Yorumlar (7 gün)",
+      "activeCommunities": "Aktif topluluklar",
+      "upcomingGatherings": "Yaklaşan buluşmalar",
+      "pendingReports": "Bekleyen şikayetler",
+      "allTime": "tüm zamanlar",
+      "membersTotal": "üye",
+      "underReview": "incelemede",
+      "searchMoments": "Momentlerde ara",
+      "hiddenOnly": "Yalnızca gizlenenler",
+      "author": "Yazar",
+      "owner": "Sahip",
+      "city": "Şehir",
+      "place": "Yer",
+      "category": "Kategori",
+      "engagement": "Etkileşim",
+      "likes": "Beğeniler",
+      "comments": "Yorumlar",
+      "views": "Görüntülenme",
+      "shares": "Paylaşımlar",
+      "hidden": "Gizli",
+      "visible": "Görünür",
+      "untitled": "Başlıksız moment",
+      "noText": "Metin yok.",
+      "actionFailed": "Bu işe yaramadı. Hiçbir şey değiştirilmedi.",
+      "momentTitle": "Moment",
+      "hide": "Gizle",
+      "unhide": "Göster",
+      "hideTitle": "Bu moment gizlensin mi?",
+      "unhideTitle": "Bu momentin gizliliği kaldırılsın mı?",
+      "hideBody": "Her akıştan kaybolur. Neden denetim günlüğüne kaydedilir.",
+      "unhideBody": "Akışa geri döner. Neden denetim günlüğüne kaydedilir.",
+      "communityTitle": "Topluluk",
+      "archiveBody": "Keşfetten kaybolur. Üyeler geçmişlerini korur ve topluluk geri yüklenebilir.",
+      "restoreBody": "Keşfete geri döner. Neden denetim günlüğüne kaydedilir.",
+      "reportType": "Tür",
+      "reason": "Neden",
+      "reporterAndReported": "Bildiren → Bildirilen",
+      "priority": "Öncelik",
+      "reportActions": "Şikayet işlemleri",
+      "anyStatus": "Tüm durumlar",
+      "anyType": "Tüm türler",
+      "startReview": "İncelemeyi başlat",
+      "resolve": "Çöz",
+      "dismiss": "Reddet",
+      "resolveTitle": "Bu şikayet çözülsün mü?",
+      "dismissTitle": "Bu şikayet reddedilsin mi?",
+      "dismissBody": "Şikayet edilen içerik veya kullanıcıya karşı herhangi bir işlem yapılmaz. Notlar şikayette saklı kalır.",
+      "moderatorAction": "Moderatör işlemi",
+      "notes": "Notlar",
+      "reportStatus": {
+        "pending": "Bekliyor",
+        "under_review": "İncelemede",
+        "resolved": "Çözüldü",
+        "dismissed": "Reddedildi"
+      },
+      "targetType": {
+        "moment": "Moment",
+        "comment": "Yorum",
+        "user": "Kullanıcı",
+        "club": "Topluluk",
+        "gathering": "Buluşma",
+        "message": "Mesaj",
+        "story": "Hikaye"
+      },
+      "moderatorActions": {
+        "content_removed": "İçerik kaldırıldı",
+        "user_warned": "Kullanıcı uyarıldı",
+        "user_suspended": "Kullanıcı askıya alındı",
+        "user_banned": "Kullanıcı yasaklandı",
+        "no_violation": "İhlal yok"
+      }
+    },
+    "overview": {
+      "activeThisWeek": "Bu hafta aktif",
+      "activeToday": "bugün aktif",
+      "admins": "Yöneticiler",
+      "banned": "Yasaklı",
+      "email": "E-posta",
+      "lastActive": "Son etkinlik",
+      "lastWeek": "geçen hafta",
+      "name": "Ad",
+      "newThisWeek": "Bu hafta yeni",
+      "newToday": "Bugün yeni",
+      "recentlyActive": "Son zamanlarda aktif",
+      "topLearningLanguages": "En çok öğrenilen diller",
+      "topNativeLanguages": "En yaygın ana diller",
+      "totalUsers": "Toplam kullanıcı",
+      "vip": "VIP",
+      "visitsThisWeek": "Bu haftaki ziyaretler",
+      "vs": "karşı"
+    },
+    "reach": {
+      "country": "Ülke",
+      "days": "gün",
+      "device": "Cihaz",
+      "devices": "Cihazlar",
+      "newVisitors": "Yeni ziyaretçiler",
+      "ofVisits": "toplamın",
+      "pageViews": "Sayfa görüntüleme",
+      "path": "Yol",
+      "period": "Haftası",
+      "placement": "Yerleşim",
+      "platform": "Platform",
+      "referrer": "Yönlendiren",
+      "storeTaps": "Mağaza dokunmaları",
+      "taps": "Dokunmalar",
+      "tapsByPlacement": "Yerleşime göre mağaza dokunmaları",
+      "topCountries": "En çok ülke",
+      "topPaths": "En çok sayfa",
+      "topReferrers": "En çok yönlendiren",
+      "trafficTitle": "Sayfa görüntüleme ve mağaza dokunmaları",
+      "unique": "Benzersiz",
+      "uniqueVisitors": "Benzersiz ziyaretçi",
+      "views": "Görüntülenme",
+      "visits": "Ziyaretler",
+      "visitsThisWeek": "Bu haftaki ziyaretler",
+      "window": "Zaman aralığı"
+    },
+    "users": {
+      "actionFailed": "Bu işe yaramadı. Hiçbir şey değiştirilmedi.",
+      "active": "Aktif",
+      "activity": "Etkinlik",
+      "adminsOnly": "Yalnızca yöneticiler",
+      "ban": "Yasakla",
+      "banBody": "erişimini hemen kaybeder. Neden denetim günlüğüne kaydedilir.",
+      "banReason": "Yasaklama nedeni",
+      "banTitle": "Bu kullanıcı yasaklansın mı?",
+      "banned": "Yasaklı",
+      "delete": "Sil",
+      "deleteBody": "Bu, hesabı ve içeriğini tamamen siler. Geri alınamaz.",
+      "deleteTitle": "Bu hesap kalıcı olarak silinsin mi?",
+      "detailTitle": "Kullanıcı ayrıntıları",
+      "email": "E-posta",
+      "empty": "Bu aramayla eşleşen kullanıcı yok.",
+      "joined": "Katılma tarihi",
+      "languages": "Diller",
+      "lastActive": "Son etkinlik",
+      "lastMessage": "Son mesaj",
+      "lastMoment": "Son moment",
+      "makeAdmin": "Yönetici yap",
+      "makeAdminBody": "Konsola ve yasaklama ile silme dahil tüm yönetici yetkilerine erişim kazanır.",
+      "makeAdminTitle": "Yönetici yapılsın mı?",
+      "messages30d": "Mesajlar (30 gün)",
+      "moments30d": "Momentler (30 gün)",
+      "name": "Ad",
+      "noActions": "Bu hesaba karşı herhangi bir yönetici işlemi yok.",
+      "recentActions": "Son yönetici işlemleri",
+      "revokeAdmin": "Yöneticiliği kaldır",
+      "revokeAdminBody": "Konsolu ve tüm yönetici yetkilerini kaybeder. Kendi yöneticilik rolünüzü kaldıramazsınız.",
+      "revokeAdminTitle": "Yöneticilik kaldırılsın mı?",
+      "role": "Rol",
+      "searchLabel": "Kullanıcı ara",
+      "searchPlaceholder": "Ad, e-posta veya kullanıcı adına göre ara",
+      "status": "Durum",
+      "tabAll": "Tüm kullanıcılar",
+      "tabBanned": "Yasaklı",
+      "typeEmail": "Onaylamak için kullanıcının e-posta adresini yazın",
+      "unban": "Yasağı kaldır",
+      "unbanBody": "Erişimini hemen geri kazanır. Neden denetim günlüğüne kaydedilir.",
+      "unbanTitle": "Bu kullanıcının yasağı kaldırılsın mı?",
+      "unknownModerator": "Bilinmeyen moderatör",
+      "addUser": "Kullanıcı ekle",
+      "createUser": "Kullanıcı oluştur",
+      "createdTitle": "Kullanıcı oluşturuldu",
+      "createFailed": "Bu işe yaramadı. Hesap oluşturulmadı.",
+      "editTitle": "Kullanıcıyı düzenle",
+      "edit": "Düzenle",
+      "saveChanges": "Değişiklikleri kaydet",
+      "done": "Tamam",
+      "addAnother": "Bir tane daha ekle",
+      "openProfile": "Profili aç",
+      "required": "Zorunlu",
+      "invalidEmail": "Lütfen geçerli bir e-posta adresi kullanın",
+      "weakPassword": "En az 8 karakter, büyük ve küçük harf ile bir rakam içermeli",
+      "under18": "Kullanıcı en az 18 yaşında olmalıdır",
+      "sameLanguage": "Ana dil ile öğrenilecek dil aynı olamaz",
+      "password": "Şifre",
+      "generate": "Oluştur",
+      "copy": "Kopyala",
+      "passwordOnce": "Şifre yalnızca bu sefer gösterilir. Kullanıcıya gönderin ve değiştirmesini isteyin.",
+      "termsNote": "Onay başkası adına verilemez: uygulama, bu kullanıcıdan ilk oturum açışında şartları kabul etmesini isteyecektir.",
+      "userId": "Kullanıcı ID'si",
+      "gender": "Cinsiyet",
+      "male": "Erkek",
+      "female": "Kadın",
+      "other": "Diğer",
+      "select": "Seç",
+      "birthDate": "Doğum tarihi",
+      "birthYear": "Doğum yılı",
+      "birthMonth": "Doğum ayı",
+      "birthDay": "Doğum günü",
+      "year": "Yıl",
+      "month": "Ay",
+      "day": "Gün",
+      "nativeLanguage": "Ana dil",
+      "learningLanguage": "Öğrenilecek dil",
+      "roleUser": "Kullanıcı",
+      "roleAdmin": "Yönetici",
+      "markVerified": "E-postayı doğrulanmış olarak işaretle",
+      "bio": "Bio",
+      "optional": "isteğe bağlı",
+      "mode": "Mod",
+      "regular": "Standart",
+      "vip": "VIP",
+      "vipUntil": "kadar",
+      "vipDays": "Gün",
+      "vipGrantNote": "Abonelik bugünden itibaren başlar ve otomatik olarak yenilenmez.",
+      "vipRevokeNote": "VIP'i kapatmak aboneliği hemen sona erdirir.",
+      "verified": "Doğrulanmış",
+      "yes": "Evet",
+      "no": "Hayır"
+    },
+    "table": {
+      "page": "Sayfa {{page}}",
+      "previous": "Önceki",
+      "next": "Sonraki"
+    }
+  },
+  "download": {
+    "title": "BananaTalk'u indir",
+    "subtitle": "137 dilde anadil konuşanlarla ücretsiz dil değişimi — iPhone ve Android'de.",
+    "free": "Ücretsiz. Kart yok.",
+    "scan": "Telefon kameranla tara",
+    "qrAlt": "BananaTalk'u indirmek için QR kod",
+    "reasons": {
+      "tutor": {
+        "title": "Her sohbette bir yapay zeka öğretmeni",
+        "body": "Gerçekten gönderdiğin mesajlar üzerinden düzeltmeler ve açıklamalar."
+      },
+      "voice": {
+        "title": "Sesli Odalar ve aramalar",
+        "body": "Şu anda senin dilini öğrenen insanlarla sesli pratik yap."
+      },
+      "translate": {
+        "title": "Anında çeviri",
+        "body": "Kendi dilinde yaz, onlar kendi dilinde okusun; aradaki farktan öğren."
+      }
+    }
+  },
+  "meet": {
+    "hero": {
+      "title": "Başka ülkelerden insanlarla tanış",
+      "titleAccent": "hem de gerçekten cevap verenlerle.",
+      "subtitle": "BananaTalk, anadil konuşanlarla konuşarak uluslararası arkadaşlıklar kurduğun yer. Bir dil seç, merhaba de; her mesaj çevrilmiş olarak ulaşsın — ikinizin de baştan akıcı olması gerekmez.",
+      "trust": "Sonsuza kadar ücretsiz katman · 137 dil · Her mesaj iki yönde çevrilir",
+      "demo": {
+        "1": {
+          "text": "Bora ver o pôr do sol no sábado?",
+          "translation": "Cumartesi günbatımını izlemeye gidelim mi?"
+        },
+        "2": {
+          "text": "Evet! Eylülde orası hâlâ sıcak mı?",
+          "translation": "Sim! Ainda faz calor aí em setembro?"
+        }
+      },
+      "note": {
+        "label": "✦ İKİ YÖNDE DE ÇEVRİLDİ",
+        "body": "O Portekizce yazdı, sen Türkçe okudun. Sen Türkçe yazdın, o Portekizce okudu. İkiniz de dil değiştirmek zorunda kalmadınız."
+      }
+    },
+    "howItWorks": {
+      "title": "Burada arkadaş edinmek üç adım",
+      "steps": {
+        "1": {
+          "title": "Profil değil, dil seç",
+          "body": "Merak ettiğin dili ya da ülkeyi seç. Biz de sana senin dilini öğrenenleri gösterelim — bu bir dil değişimi, yani ikiniz de kazanıyorsunuz."
+        },
+        "2": {
+          "title": "Kendi kelimelerinle merhaba de",
+          "body": "Düşündüğün dilde yaz. Karşı tarafa anında kendi dilinde ulaşır; ilk mesaj asla zor kısım değil."
+        },
+        "3": {
+          "title": "Konuşmaya devam edin",
+          "body": "Sesli mesajlar, fotoğraflar, Moments, aramalar. Kalıcı olan sohbetler, pratiğin ötesine geçenlerdir."
+        }
+      }
+    },
+    "features": {
+      "title": "Devam eden sohbetler için tasarlandı"
+    },
+    "cta": {
+      "title": "Şu anda başka bir ülkede biri uyanık",
+      "subtitle": "Başlaması ücretsiz. Kart yok, deneme süresi geri sayımı yok."
+    }
+  },
+  "learnKorean": {
+    "hero": {
+      "title": "Sohbet ederek Korece öğren",
+      "titleAccent": "hem de gerçek Korelilerle.",
+      "subtitle": "Karşılığında seninkini isteyen Koreli anadil konuşanlarla dil değiş tokuşu yap. Sen 한국어 ile dene, onlar Korelilerin gerçekten kullandığı Koreceyle cevaplasın, yapay zeka öğretmeni de yanlışlarını düzeltsin — hem de sadece senin göreceğin şekilde.",
+      "trust": "Sonsuza kadar ücretsiz katman · Koreli anadil konuşanlar · 7/24 yapay zeka öğretmeni",
+      "demo": {
+        "1": {
+          "text": "주말에 뭐 했어요?",
+          "translation": "Hafta sonu ne yaptın?"
+        },
+        "2": {
+          "text": "친구 만났다! 진짜 재미있었어",
+          "translation": "Arkadaşımla buluştum! Gerçekten çok eğlenceliydi"
+        }
+      },
+      "note": {
+        "label": "✦ YAPAY ZEKA ÖĞRETMENİ",
+        "body": "존댓말 ve 반말: o, kibar biçim olan 했어요 ile sordu. Sen ise yakın arkadaşlar için kullanılan 반말 ile cevap verdin. Şimdilik sen de ona uy: 친구 만났어요! 진짜 재미있었어요."
+      }
+    },
+    "howItWorks": {
+      "title": "Sohbet edince Korece neden aklında kalır",
+      "steps": {
+        "1": {
+          "title": "Gerçek sohbetlerde karşına çıkan Korece",
+          "body": "Ders kitabın 합니다 öğretir. Partnerin ise 했어요, ㅋㅋ ve 헐 yazar — gerçek bir sohbette seni bekleyen Korece bu."
+        },
+        "2": {
+          "title": "존댓말 ve 반말: ezberlemek değil, hissetmek",
+          "body": "Nezaket, her cümlede verdiğin bir karar. Bir anadil konuşanın kararlarını okumak bunu, herhangi bir ek tablosundan çok daha hızlı öğretir."
+        },
+        "3": {
+          "title": "Utanmadan düzeltilmek",
+          "body": "Yapay zeka öğretmeni Koreceni yalnızca senin görebileceğin yerde düzeltir, böylece dil değişimi asla sınava dönüşmez. Partnerin sadece çabaladığını görür; zaten cevap yazmayı sürdürmesini sağlayan da bu."
+        }
+      }
+    },
+    "features": {
+      "title": "Bir ders kitabının sana veremeyeceği üç şey"
+    },
+    "cta": {
+      "title": "Koreliler şu anda senin dilini öğreniyor",
+      "subtitle": "Başlaması ücretsiz. Kart yok, deneme süresi geri sayımı yok."
+    }
+  },
+  "communities": {
+    "public": {
+      "title": "Dil değişimi toplulukları",
+      "intro": "BananaTalk içindeki gerçek gruplar; her gün birlikte tek bir dili pratik ediyorlar. Kendine uygun olanı burada bul, sonra uygulamada aç ve konuşmaya başla.",
+      "members": "üye",
+      "join": "Uygulamada katıl",
+      "empty": {
+        "title": "Her hafta yeni topluluklar açılıyor",
+        "body": "Burada henüz gösterilecek bir şey yok. Uygulamayı indir; her topluluk açıldığı anda karşına çıksın."
+      }
+    }
+  },
+  "errors": {
+    "chunk": {
+      "title": "Bu sayfa yüklenirken bir sorun oluştu",
+      "body": "Uygulamanın bir bölümü yüklenemedi. Bu genellikle bir güncellemeden hemen sonra olur; sayfayı yenilemek sorunu çözer.",
+      "reload": "Yeniden yükle"
+    }
+  },
+  "growth": {
+    "store": {
+      "appStore": "App Store",
+      "googlePlay": "Google Play",
+      "downloadOnThe": "İndirin",
+      "getItOn": "Hemen edinin"
+    },
+    "promo": {
+      "tutor": {
+        "eyebrow": "Yapay Zeka Öğretmeni",
+        "title": "Yazarken Korece'ni düzeltir",
+        "body": "Her mesajda özel düzeltmeler, sohbetler arasında quizler ve dilbilgisi alıştırmaları.",
+        "cta": "Uygulamayı edin",
+        "alt": "Bir konuşma balonunda üzeri çizilmiş bir kelime ve üzerinde yüzen düzeltmesi ile yanında bir onay işareti bulunan illüstrasyon"
+      },
+      "voice": {
+        "eyebrow": "Sesli Notlar & Odalar",
+        "title": "Gerçekte nasıl duyulduğunu dinle",
+        "body": "Sesli not gönder, nerede olduğunu paylaş ve anadili konuşanlarla canlı Sesli Odalara katıl.",
+        "cta": "Uygulamayı edin",
+        "alt": "Üzerinden bir ses dalgası geçen bir mikrofon ve arkasında paylaşılan bir konum kartı bulunan illüstrasyon"
+      },
+      "moments": {
+        "eyebrow": "Moments & Stories",
+        "title": "Haftanı iki dilde paylaş",
+        "body": "Fotoğraf ve düşüncelerini paylaş; arkadaşların çeviriyle okur ve seni nazikçe düzeltir.",
+        "cta": "Uygulamayı edin",
+        "alt": "Üst üste binen üç fotoğraf kartı, bir kalp ve A'dan 가'ya çeviriyi gösteren bir işaret bulunan illüstrasyon"
+      },
+      "inbox": {
+        "eyebrow": "Gerçek sohbetler",
+        "title": "Gerçekten geri yazan insanlar",
+        "body": "Sohbetlerin, el sallamaların ve tepkilerin tek bir kutuda — okunur, çevrilir, yanıtlanır.",
+        "cta": "Uygulamayı edin",
+        "alt": "Gelen kutusunda üst üste yığılmış üç konuşmadan biri okunmamış ve el sallayarak merhaba diyen bir el bulunan illüstrasyon"
+      },
+      "dismiss": "Uygulama tanıtımını kapat",
+      "label": "BananaTalk uygulamasının ne yaptığı",
+      "slideLabel": "Slayt {{n}} / {{total}}",
+      "prev": "Önceki slayt",
+      "next": "Sonraki slayt"
+    }
+  },
+  "stories": {
+    "your_story": "Hikayen",
+    "create_story": "Oluştur",
+    "my_stories": "Hikayelerim",
+    "reaction_failed": "Tepkin kaydedilemedi",
+    "answer_sent": "Cevap gönderildi",
+    "answer_failed": "Cevabın gönderilemedi",
+    "delete_story": "Bu hikaye silinsin mi?",
+    "error_loading": "Hikaye yüklenirken hata oluştu",
+    "answer_placeholder": "Cevabını yaz…",
+    "answer_question": "Soruyu yanıtla",
+    "send_reply": "Gönder",
+    "answer_anonymously": "Anonim olarak yanıtla",
+    "cancel": "İptal",
+    "viewers": "Görüntüleyenler",
+    "responses": "Yanıtlar",
+    "share_story": "Paylaş",
+    "reply_placeholder": "Bir mesaj gönder...",
+    "react": "Tepki ver",
+    "reacted": "Tepki verdi",
+    "shared": "Gönderildi",
+    "share_failed": "Bu hikaye paylaşılamadı",
+    "close": "Kapat",
+    "search_chats": "Sohbetlerde ara",
+    "loading": "Yükleniyor…",
+    "no_chats": "Son zamanlarda sohbet yok",
+    "no_viewers": "Henüz görüntülenme yok",
+    "added_to_highlight": "Öne çıkanlara eklendi",
+    "add_failed": "Bu hikaye eklenemedi",
+    "title_required": "Lütfen bir başlık gir",
+    "highlight_created": "Öne çıkan oluşturuldu",
+    "create_failed": "Öne çıkan oluşturulamadı",
+    "story_archived": "Hikaye arşivlendi",
+    "archive_failed": "Bu hikaye arşivlenemedi",
+    "story_deleted": "Hikaye silindi",
+    "delete_story_failed": "Bu hikaye silinemedi",
+    "active_stories": "Aktif",
+    "total_views": "Toplam görüntülenme",
+    "archived_stories": "Arşivlenenler",
+    "create_first_story": "Hikaye oluştur",
+    "no_archived_stories": "Henüz arşivlenen bir şey yok",
+    "no_stories": "Henüz hikaye yok",
+    "add_to_highlight": "Öne çıkanlara ekle",
+    "archive": "Arşivle",
+    "delete": "Sil",
+    "highlight_name": "Öne çıkan adı",
+    "create": "Oluştur",
+    "no_highlights": "Henüz öne çıkan yok",
+    "stories_count": "hikaye",
+    "new_highlight": "Yeni öne çıkan",
+    "delete_story_confirm": "Bu hikaye silinsin mi?",
+    "delete_story_body": "Bu işlem geri alınamaz.",
+    "anonymous": "Anonim",
+    "no_responses": "Henüz yanıt yok",
+    "video_type_error": "Bu video biçimi desteklenmiyor",
+    "video_size_error": "Bu video şundan büyük",
+    "video_duration_error": "Bu video şundan uzun",
+    "question_box": {
+      "ask_me_anything": "Bana istediğini sor!"
+    },
+    "add_text": "Hikayeni yaz…",
+    "upload_media": "Lütfen bir medya yükle",
+    "link_invalid": "Bu bağlantı geçerli görünmüyor",
+    "story_created": "Hikaye paylaşıldı",
+    "create_story_failed": "Hikayen paylaşılamadı",
+    "video_limits": "Video",
+    "choose_photo": "Fotoğraf",
+    "choose_video": "Video",
+    "text_story": "Metin",
+    "move_sticker": "Çıkartmayı taşı",
+    "tap_to_type": "Yazmak için dokun",
+    "story_text": "Hikaye metni",
+    "background": "Arka plan",
+    "text_color": "Metin",
+    "font_style": "Yazı tipi",
+    "stickers_text": "Metin ve emoji",
+    "add_text_sticker": "Metin ekle",
+    "add_emoji_sticker": "Emoji ekle",
+    "sticker_text": "Çıkartma metni",
+    "remove": "Kaldır",
+    "sticker_background": "Arka plan",
+    "sticker_size": "Boyut",
+    "sticker_color": "Renk",
+    "mention": "Bahsetme",
+    "link": "Bağlantı",
+    "poll": "Anket",
+    "question": "Soru",
+    "hashtag": "Hashtag",
+    "link_url": "Bağlantı URL'si",
+    "link_title": "Başlık",
+    "link_label": "Çıkartma etiketi",
+    "poll_question": "Bir şey sor",
+    "poll_option": "Seçenek",
+    "add_option": "Seçenek ekle",
+    "anonymous_voting": "Anonim oylama",
+    "question_prompt": "Soru metni",
+    "audience": "Bunu kim görebilir",
+    "privacy": {
+      "public": "Herkes",
+      "friends": "Arkadaşlar",
+      "close_friends": "Yakın arkadaşlar"
+    },
+    "close_friends_empty": "Yakın arkadaşlar listen boş — bu hikayeyi kimse göremez.",
+    "manage_close_friends": "Yakın arkadaşları yönet",
+    "highlight_updated": "Öne çıkan güncellendi",
+    "update_failed": "Öne çıkan kaydedilemedi",
+    "highlight_deleted": "Öne çıkan silindi",
+    "delete_failed": "Öne çıkan silinemedi",
+    "removed_from_highlight": "Öne çıkanlardan kaldırıldı",
+    "remove_failed": "Bu hikaye kaldırılamadı",
+    "back": "Geri",
+    "highlights_title": "Öne çıkanlar",
+    "highlights_subtitle": "Kayıtlı hikaye koleksiyonların",
+    "highlight_empty": "Bu öne çıkanda henüz hikaye yok",
+    "remove_from_highlight": "Öne çıkanlardan kaldır",
+    "edit_highlight": "Öne çıkanı düzenle",
+    "delete_highlight": "Öne çıkanı sil",
+    "choose_cover": "Bir kapak seç",
+    "no_stories_to_pick": "Seçilecek hikaye yok",
+    "save": "Kaydet",
+    "delete_highlight_confirm": "Öne çıkan silinsin mi?",
+    "delete_highlight_body": "Hikayeler arşivinde kalmaya devam eder.",
+    "previous": "Önceki",
+    "next": "Sonraki",
+    "font": {
+      "sans-serif": "Serifsiz",
+      "serif": "Serif",
+      "bold": "Kalın",
+      "handwritten": "El yazısı"
+    },
+    "bg_mode": {
+      "none": "Arka plan yok",
+      "semi": "Yarı saydam",
+      "solid": "Düz"
+    },
+    "search_followings": "Takip ettiğin kişileri ara",
+    "mention_followings_only": "Yalnızca takip ettiğin kişileri etiketleyebilirsin. Önce birini takip et.",
+    "mention_no_match": "Takip ettiğin kimse eşleşmiyor",
+    "more": "Daha fazla",
+    "reply_failed": "Mesajın gönderilemedi",
+    "vote_failed": "Oyun kaydedilemedi",
+    "poll_error_question": "Anketine bir soru ekle",
+    "poll_error_blank_option": "Boş seçenekleri doldur veya kaldır",
+    "poll_error_min_options": "Ankette en az iki seçenek olmalı",
+    "poll_error_max_options": "Ankette en fazla dört seçenek olabilir",
+    "question_error_prompt": "Soru çıkartmana bir soru ekle",
+    "caption": "Açıklama",
+    "caption_placeholder": "Açıklama ekle…",
+    "linkPage": {
+      "browse": "Güncel hikayelere göz at",
+      "expired": "Bu hikayenin süresi doldu veya silindi. Hikayeler 24 saat sonra kaybolur.",
+      "failed": "Bu hikaye yüklenemedi.",
+      "retry": "Tekrar dene",
+      "sign_in": "Giriş yap",
+      "sign_in_body": "İzlemek için giriş yap ya da BananaTalk uygulamasında aç.",
+      "sign_in_title": "Biri seninle bir hikaye paylaştı",
+      "unavailable": "Bu hikaye sana açık değil."
+    },
+    "block_author": "{{name}} kişisini engelle",
+    "block_confirm": "Engelle",
+    "block_confirm_body": "Bu kişi profilini, anlarını veya hikâyelerini göremez, sana mesaj gönderemez; sen de onunkileri görmezsin.",
+    "block_confirm_title": "{{name}} engellensin mi?",
+    "block_failed": "Bu kişi engellenemedi. Tekrar dene.",
+    "blocked": "{{name}} engellendi",
+    "location_label": "Konum",
+    "one_image_only": "Bir hikâye tek bir fotoğraf gösterir. İlkini tuttuk.",
+    "replies_off": "Bu hikâyede yanıtlar kapalı",
+    "report_story": "Hikâyeyi bildir"
+  },
+  "card": {
+    "title": "Dil Kartı",
+    "my_card": "Kartım",
+    "speaks": "Konuşuyor",
+    "learning": "Öğreniyor",
+    "practice_with": "{{name}} ile {{language}} pratiği yap",
+    "view_profile": "Profilin tamamını gör",
+    "continue_web": "Tarayıcıda devam et",
+    "share": "Kartımı paylaş",
+    "share_text": "BananaTalk'ta benimle {{language}} pratiği yap",
+    "edit": "İçeriği düzenle",
+    "tagline": "BananaTalk'ta dil değişimi",
+    "not_found": "Böyle bir kart yok",
+    "not_found_body": "Hesap kaldırılmış olabilir.",
+    "find_partners": "Dil partneri bul"
+  },
+  "announcements": {
+    "new": "Yeni",
+    "readMore": "Devamını oku",
+    "close": "Kapat",
+    "ended": "Bu duyuru sona erdi.",
+    "back": "Geri"
+  },
+  "communityNearby": {
+    "back": "Geri",
+    "geolocationNotSupported": "Konum özelliği desteklenmiyor",
+    "gettingLocation": "Konumun alınıyor…",
+    "learning": "Öğreniyor: {{language}}",
+    "locationRequired": "Konum Gerekli",
+    "noUsers": "Yakında kullanıcı bulunamadı",
+    "permissionDenied": "Konum izni reddedildi",
+    "positionUnavailable": "Konum alınamıyor",
+    "refresh": "Yenile",
+    "searchRadius": "Arama Yarıçapı",
+    "subtitle": "Çevrendeki insanları bul",
+    "timeout": "Konum isteği zaman aşımına uğradı",
+    "title": "Yakındaki Kullanıcılar",
+    "tryAgain": "Tekrar Dene",
+    "tryIncreaseRadius": "Arama yarıçapını artırmayı dene",
+    "unknownError": "Bir hata oluştu",
+    "usersFound_one": "{{count}} kişi bulundu",
+    "usersFound_other": "{{count}} kişi bulundu"
+  },
+  "auth": {
+    "apple": {
+      "continue": "Apple ile devam et",
+      "errors": {
+        "banned": "Bu hesap askıya alındı.",
+        "blocked": "Tarayıcınız Apple penceresini engelledi. banatalk.com için açılır pencerelere izin verin ve tekrar deneyin.",
+        "disabled": "Apple ile giriş henüz web sitesinde kullanılamıyor.",
+        "failed": "Apple ile giriş yapılamadı. Tekrar deneyin.",
+        "rate_limited": "Çok fazla giriş denemesi. Bir dakika bekleyip tekrar deneyin.",
+        "unavailable": "Apple ile giriş şu anda kullanılamıyor. Daha sonra tekrar deneyin."
+      },
+      "signedIn": "Apple ile giriş yapıldı",
+      "signingIn": "Apple ile giriş yapılıyor…"
+    }
+  },
+  "reels": {
+    "actions": {
+      "block": "Kullanıcıyı engelle",
+      "comments": "Yorumlar",
+      "like": "Beğen",
+      "more": "Daha fazla",
+      "profile": "Profil",
+      "report": "Bildir",
+      "unlike": "Beğenmekten vazgeç"
+    },
+    "create": {
+      "bad_type": "Bu dosya türü desteklenmiyor. MP4, MOV veya WebM kullan.",
+      "caption": "Açıklama",
+      "caption_placeholder": "Ne pratik yapıyorsun?",
+      "change_video": "Başka bir video seç",
+      "choose_video": "Video seç",
+      "failed": "Reel'in paylaşılamadı. Tekrar dene.",
+      "hint": "En fazla 3 dakikalık kısa bir dil öğrenme videosu. Dikey (9:16) en iyi görünür.",
+      "post": "Reel paylaş",
+      "posted": "Reel'in paylaşıldı.",
+      "posting": "Paylaşılıyor…",
+      "server_too_long": "Reels en fazla 3 dakika olmalıdır.",
+      "title": "Yeni reel",
+      "too_big": "Bu video yüklemek için çok büyük.",
+      "too_long": "Reels en fazla 3:00 olabilir. Bu video {{duration}}.",
+      "upload_failed": "Video yüklenmedi. Hiçbir şey paylaşılmadı — tekrar dene."
+    },
+    "grid": {
+      "create": "Reel oluştur",
+      "empty": "Henüz reel yok. İlk paylaşan sen ol.",
+      "error": "Reels yüklenemedi.",
+      "load_more": "Daha fazla yükle",
+      "loading": "Reels yükleniyor…",
+      "open_reel": "{{name}} adlı kişinin reel'ini oynat",
+      "retry": "Tekrar dene",
+      "title": "Reels",
+      "unavailable": "Reels şu anda kullanılamıyor."
+    },
+    "moments_link": "Reels izle",
+    "nav": "Reels",
+    "policy": {
+      "accept": "Kabul ediyorum",
+      "body": "Reels, dil öğrenmeye yönelik kısa videolardır: konulara yanıtlar, konuşma pratiği, ana dili konuşanların açıklamaları ve kültür klipleri.\n\nBananaTalk, uygunsuz içeriğe sıfır tolerans gösterir: çıplaklık, nefret söylemi, taciz, şiddet veya yasa dışı içerik yasaktır. Bildirilen videolar 2 bildirimden sonra incelenene kadar otomatik olarak gizlenir ve ihlaller içeriğin kaldırılmasına veya hesabın yasaklanmasına yol açabilir.\n\nHerhangi bir reel'den istediğin zaman bildirebilir veya engelleyebilirsin.",
+      "decline": "Reddet",
+      "title": "Reels içerik kuralları"
+    },
+    "viewer": {
+      "close": "Kapat",
+      "label": "Reels",
+      "mute": "Sesi kapat",
+      "next": "Sonraki reel",
+      "previous": "Önceki reel",
+      "tap_to_play": "Oynatmak için dokun",
+      "unmute": "Sesi aç"
+    }
+  },
+  "clubs": {
+    "card": {
+      "joined": "Üyesin",
+      "members_one": "{{count}} üye",
+      "members_other": "{{count}} üye"
+    },
+    "detail": {
+      "back": "Diğer kulüpler",
+      "edit": "Kulübü düzenle",
+      "host": "Bu kulüp için buluşma düzenle",
+      "join": "Kulübe katıl",
+      "leave": "Kulüpten ayrıl",
+      "leaveTitle": "Bu kulüpten ayrılsın mı?",
+      "metTimes_one": "Bir kez buluştu",
+      "metTimes_other": "{{count}} kez buluştu",
+      "neverMet": "Henüz buluşmadı",
+      "noGatherings": "Henüz planlanmış bir şey yok.",
+      "upcoming": "Yaklaşanlar",
+      "youOwn": "Bu kulübün sahibi sensin"
+    },
+    "form": {
+      "city": "Şehir (isteğe bağlı)",
+      "create": "Kulüp kur",
+      "createTitle": "Kulüp kur",
+      "description": "Kulüp hakkında (isteğe bağlı)",
+      "editTitle": "Kulübü düzenle",
+      "errors": {
+        "descriptionTooLong": "Açıklama 2000 karakterden kısa olmalı.",
+        "interestTooLong": "İlgi alanı 60 karakterden kısa olmalı.",
+        "languageRequired": "Kulübün dilini seç.",
+        "nameRequired": "Kulübüne bir ad ver.",
+        "nameTooLong": "Ad 80 karakterden kısa olmalı."
+      },
+      "interest": "Sizi bir araya getiren şey (ör. kitaplar, K-drama)",
+      "language": "Dil",
+      "name": "Ad",
+      "notAllowed": "Kulübü yalnızca sahibi veya bir düzenleyen düzenleyebilir.",
+      "placeAddress": "Adres (isteğe bağlı)",
+      "placeName": "Buluştuğunuz yer (isteğe bağlı)"
+    },
+    "home": {
+      "empty": "Burada henüz kulüp yok.",
+      "scopeAll": "Tümü",
+      "scopeMember": "Üye olduklarım",
+      "scopeMine": "Dillerim",
+      "start": "Kulüp kur"
+    },
+    "owner": {
+      "delete": "Kulübü sil",
+      "deleteBody": "Üyeler kulübü kaybeder. Planlanmış buluşmalar yine de yapılır.",
+      "deleteTitle": "{{name}} silinsin mi?"
+    },
+    "people": {
+      "makeMember": "Düzenleyenlikten al",
+      "makeOrganizer": "Düzenleyen yap",
+      "organizer": "Düzenleyen",
+      "owner": "Sahip",
+      "remove": "Kulüpten çıkar",
+      "removeTitle": "{{name}} çıkarılsın mı?",
+      "title": "Üyeler · {{count}}"
+    }
+  },
+  "gatherings": {
+    "card": {
+      "approval": "Ev sahibi onaylar",
+      "full": "Dolu",
+      "going": "Katılıyorsun",
+      "hostedBy": "Düzenleyen: {{name}}",
+      "hosting": "Ev sahibi sensin",
+      "requested": "İstek gönderildi",
+      "seatsLeft_one": "{{count}} yer kaldı",
+      "seatsLeft_other": "{{count}} yer kaldı"
+    },
+    "confirm": {
+      "cancel": "Şimdi değil",
+      "leaveBody": "Diğerleri, katılacağını söyleyenlere güveniyor.",
+      "leaveOk": "Yerimi bırak",
+      "leaveTitle": "Yerini bırakmak istiyor musun?"
+    },
+    "cover": {
+      "add": "Kapak fotoğrafı ekle",
+      "badType": "JPEG, PNG, GIF veya WebP görsel kullan.",
+      "change": "Kapak fotoğrafını değiştir",
+      "remove": "Kapağı kaldır",
+      "tooBig": "Bu görsel 10 MB'tan büyük."
+    },
+    "detail": {
+      "askToJoin": "Katılmak için istek gönder",
+      "back": "Diğer buluşmalar",
+      "cancelRequest": "İsteğimi iptal et",
+      "capacity": "En fazla {{count}} kişi · {{quorum}} kişide onaylanır",
+      "duration": "{{count}} dk",
+      "edit": "Buluşmayı düzenle",
+      "host": "Ev sahibi",
+      "join": "Katılıyorum",
+      "leave": "Artık gelemiyorum",
+      "online": "Çevrimiçi",
+      "requestSent": "İstek gönderildi. Kararı ev sahibi verecek.",
+      "someone": "Bir BananaTalk üyesi",
+      "youreGoing": "Katılıyorsun."
+    },
+    "errors": {
+      "alreadyGoing": "Zaten katılıyorsun.",
+      "cancelled": "Bu buluşma iptal edildi.",
+      "capacityBelowGoing": "Kontenjan, katılan {{count}} kişiden az olamaz.",
+      "clubArchived": "Bu kulüp arşivlendi.",
+      "clubGone": "Bu kulüp kullanılamıyor.",
+      "endBeforeStart": "Buluşmayı ancak başladıktan sonra bitirebilirsin.",
+      "ended": "Bu buluşma sona erdi.",
+      "full": "Bu buluşma dolu.",
+      "gatheringGone": "Bu buluşma kullanılamıyor.",
+      "generic": "Bir şeyler ters gitti. Tekrar dene.",
+      "hostBlocked": "Şu anda buluşma düzenleyemezsin: buluşmalarının çoğu iptal edildi veya kaçırıldı.",
+      "hostCannotLeave": "Ev sahibi olarak ayrılmak yerine buluşmayı iptal et.",
+      "joinClubFirst": "Bu kulüp için buluşma düzenlemeden önce kulübe katıl.",
+      "offline": "Çevrimdışısın. Bağlantını kontrol et.",
+      "ownerCannotLeave": "Sahibi olarak kulübü silebilirsin ama ayrılamazsın.",
+      "pastStart": "Gelecekte bir başlangıç saati seç.",
+      "pending": "İsteğin ev sahibinin onayını bekliyor.",
+      "started": "Bu buluşma zaten başladı."
+    },
+    "form": {
+      "anyLevel": "Her seviye",
+      "cancel": "İptal",
+      "capacity": "Kontenjan",
+      "create": "Buluşmayı yayınla",
+      "createTitle": "Buluşma düzenle",
+      "description": "Neler yapacaksınız? (isteğe bağlı)",
+      "duration_one": "{{count}} dakika sürer · senin saat diliminde",
+      "duration_other": "{{count}} dakika sürer · senin saat diliminde",
+      "editTitle": "Buluşmayı düzenle",
+      "errors": {
+        "capacityRange": "Kontenjan 2 ile 20 arasında olmalı.",
+        "descriptionTooLong": "Açıklama 2000 karakterden kısa olmalı.",
+        "languageRequired": "Pratik yapacağın dili seç.",
+        "quorumRange": "Buluşma en az 2 kişide onaylanır ve bu sayı kontenjanı aşamaz.",
+        "startInPast": "Gelecekte bir başlangıç saati seç.",
+        "startRequired": "Bir gün ve saat seç.",
+        "startTooFar": "Önümüzdeki 90 gün içinde bir saat seç.",
+        "titleRequired": "Buluşmana bir başlık ver.",
+        "titleTooLong": "Başlık 120 karakterden kısa olmalı."
+      },
+      "joinApproval": "Herkesi ben onaylarım",
+      "joinMode": "Kimler katılabilir",
+      "joinOpen": "Herkes",
+      "language": "Dil",
+      "level": "Seviye",
+      "noTopic": "Konu yok",
+      "notHost": "Bu buluşmayı yalnızca ev sahibi düzenleyebilir.",
+      "pickLanguage": "Bir dil seç",
+      "quorum": "Onay sayısı",
+      "save": "Kaydet",
+      "startsAt": "Başlangıç",
+      "title": "Başlık",
+      "topic": "Konu"
+    },
+    "home": {
+      "anyLanguage": "Dillerim",
+      "anyTime": "Her zaman",
+      "anyTopic": "Her konu",
+      "empty": "Burada henüz planlanmış bir şey yok.",
+      "emptyCta": "İlkini sen düzenle",
+      "error": "Bu liste yüklenemedi.",
+      "hasSeat": "Boş yeri olanlar",
+      "host": "Buluşma düzenle",
+      "language": "Dil",
+      "loadMore": "Daha fazla yükle",
+      "retry": "Tekrar dene",
+      "scopeAll": "Tümü",
+      "scopeMe": "Buluşmalarım",
+      "scopeMine": "Dillerim",
+      "tabClubs": "Kulüpler",
+      "tabGatherings": "Buluşmalar",
+      "title": "Buluşmalar",
+      "today": "Bugün",
+      "topic": "Konu",
+      "week": "Bu hafta",
+      "when": "Ne zaman"
+    },
+    "host": {
+      "approve": "Kabul et",
+      "callOff": "İptal et",
+      "callOffTitle": "İptal edilsin mi?",
+      "cancel": "Buluşmayı iptal et",
+      "cancelConfirm_one": "{{count}} kişi bunu bekliyor. İptal edildiği kendisine bildirilecek.",
+      "cancelConfirm_other": "{{count}} kişi bunu bekliyor. İptal edildiği kendilerine bildirilecek.",
+      "cancelOk": "Buluşmayı iptal et",
+      "cancelTitle": "Bu buluşma iptal edilsin mi?",
+      "decisionAlone": "Şimdilik yalnızca sen varsın. Yine de yapalım mı, iptal mi edelim?",
+      "decision_one": "Şimdilik yalnızca {{count}} kişi var. Yine de yapalım mı, iptal mi edelim?",
+      "decision_other": "Şimdilik yalnızca {{count}} kişi var. Yine de yapalım mı, iptal mi edelim?",
+      "decline": "Reddet",
+      "end": "Buluşmayı bitir",
+      "ended": "Bitti — tanıştığın kişilere mesaj atmak ücretsiz",
+      "nobodyExpecting": "Henüz başka kimse katılacağını söylemedi.",
+      "requests_one": "{{count}} kişi katılmayı bekliyor",
+      "requests_other": "{{count}} kişi katılmayı bekliyor",
+      "runAnyway": "Yine de yap"
+    },
+    "nav": "Buluşmalar",
+    "quorum": {
+      "confirmed": "Onaylandı · {{count}} kişi katılıyor",
+      "needed": "Onay için {{count}} kişi daha gerekli · {{going}} kişi katılıyor"
+    },
+    "safety": {
+      "blockHost": "Ev sahibini engelle",
+      "blockOwner": "Sahibini engelle",
+      "more": "Daha fazla",
+      "reportClub": "Kulübü şikayet et",
+      "reportFailed": "Şikayet gönderilemedi. Tekrar dene.",
+      "reportGathering": "Buluşmayı şikayet et",
+      "reported": "Teşekkürler — moderatörlerimiz inceleyecek."
+    },
+    "status": {
+      "cancelled": "İptal edildi",
+      "confirmed": "Onaylandı",
+      "ended": "Sona erdi",
+      "live": "Şu anda devam ediyor",
+      "scheduled": "Planlandı"
+    },
+    "time": {
+      "hostLocal": "Ev sahibi için {{time}}"
+    },
+    "topics": {
+      "business": "İş",
+      "conversation": "Sohbet",
+      "culture": "Kültür",
+      "exam_prep": "Sınav hazırlığı",
+      "games": "Oyunlar",
+      "grammar": "Dil bilgisi",
+      "media": "Müzik, film ve dizi",
+      "pronunciation": "Telaffuz",
+      "travel": "Seyahat"
+    }
+  },
+  "common": {
+    "cancel": "İptal",
+    "retry": "Tekrar dene"
+  },
+  "communityCity": {
+    "back": "Topluluk",
+    "countries": "Ülkeler",
+    "empty": "Burada henüz eşleşen kimse yok. Başka bir yer deneyin.",
+    "error": "Kişiler yüklenemedi. Tekrar deneyin.",
+    "more": "Daha fazla göster",
+    "search": "Ara",
+    "searchPlaceholder": "Şehir ara",
+    "searchTitle": "“{{query}}” konumundaki kişiler",
+    "title": "Konuma göre kişiler"
+  },
+  "communityGenders": {
+    "back": "Topluluk",
+    "empty": "Henüz eşleşen kimse yok.",
+    "error": "Kişiler yüklenemedi. Tekrar deneyin.",
+    "female": "Kadınlar",
+    "male": "Erkekler",
+    "more": "Daha fazla göster",
+    "title": "Cinsiyete göre göz at"
+  },
+  "languageRooms": {
+    "create": {
+      "description": "Açıklama (isteğe bağlı)",
+      "language": "Dil",
+      "name": "Konu",
+      "submit": "Oda oluştur",
+      "title": "Konu odası başlat"
+    },
+    "errors": {
+      "banned": "Bu odadan çıkarıldınız. Oda sahibinden sizi tekrar almasını isteyebilirsiniz.",
+      "busy": "Bu odada şu an çok fazla istek var. Daha sonra deneyin.",
+      "generic": "Bir şeyler ters gitti. Tekrar deneyin.",
+      "gone": "Bu oda artık mevcut değil.",
+      "owner": "Oda sahibi çıkarılamaz.",
+      "pending": "İsteğiniz oda sahibinin onayını bekliyor.",
+      "titleLength": "Ad en fazla 60 karakter olabilir.",
+      "tooMany": "Zaten 10 odanız var. Yeni bir oda başlatmak için birini silin."
+    },
+    "list": {
+      "create": "Yeni konu odası",
+      "empty": "Henüz oda yok.",
+      "error": "Dil odaları yüklenemedi.",
+      "joined": "Katıldın",
+      "locked": "Kilitli",
+      "title": "Dil odaları"
+    },
+    "owner": {
+      "admin": "yönetici",
+      "approve": "İçeri al",
+      "deny": "Reddet",
+      "members": "Üyeler",
+      "noRequests": "Bekleyen kimse yok.",
+      "owner": "oda sahibi",
+      "remove": "Odadan çıkar",
+      "removeNote": "Çıkarılan üyeler geri dönmeyi isteyebilir; kararı siz verirsiniz.",
+      "removeYes": "Çıkar",
+      "requests": "Katılma istekleri"
+    },
+    "room": {
+      "back": "Tüm odalar",
+      "join": "Odaya katıl",
+      "leave": "Odadan ayrıl",
+      "media": "Fotoğraf veya video — görmek için uygulamayı açın",
+      "notSent": "Gönderilemedi. Tekrar deneyin.",
+      "older": "Önceki mesajları yükle",
+      "online": "çevrimiçi",
+      "pending": "İstek gönderildi. Oda sahibi sizi içeri alacak.",
+      "placeholder": "Odanın dilinde yazın…",
+      "request": "Katılma isteği gönder",
+      "send": "Gönder",
+      "slowDown": "Çok hızlı gönderiyorsunuz. Biraz yavaşlayın.",
+      "sticker": "Çıkartma",
+      "unsupported": "Bu mesajı görmek için uygulamayı açın",
+      "voice": "Sesli mesaj — dinlemek için uygulamayı açın"
+    }
+  },
+  "nav": {
+    "languageRooms": "Dil odaları",
+    "voiceRooms": "Sesli odalar"
+  },
+  "voiceRooms": {
+    "category": {
+      "casual": "Serbest sohbet",
+      "language_practice": "Dil pratiği",
+      "qa": "Soru-Cevap",
+      "topic": "Konu"
+    },
+    "create": {
+      "category": "Oda türü",
+      "description": "Ne hakkında konuşacaksınız? (isteğe bağlı)",
+      "language": "Dil",
+      "max": "En fazla kaç kişi",
+      "name": "Oda adı",
+      "schedule": "Planla",
+      "start": "Odayı başlat",
+      "title": "Sesli oda başlat",
+      "when": "Daha sonra başlat (isteğe bağlı)"
+    },
+    "errors": {
+      "blocked": "Bu odaya katılamazsınız.",
+      "ended": "Bu oda sona erdi.",
+      "full": "Bu oda dolu.",
+      "generic": "Bir şeyler ters gitti. Tekrar deneyin.",
+      "gone": "Bu oda artık mevcut değil.",
+      "vipToCreate": "Sesli oda oluşturmak için VIP plan gerekir."
+    },
+    "host": {
+      "end": "Odayı bitir",
+      "endConfirm": "Oda herkes için bitirilsin mi?",
+      "endYes": "Odayı bitir",
+      "hands": "Kaldırılan eller",
+      "makeCohost": "Yardımcı Ev Sahibi Yap",
+      "muteAll": "Herkesi sessize al",
+      "noHands": "Kimse el kaldırmadı.",
+      "speakNote": "Odadaki herkes mikrofonu alabilir. El kaldıran kişi sizden söz ister.",
+      "title": "Ev sahibi araçları"
+    },
+    "list": {
+      "create": "Oda başlat",
+      "emptyLive": "Şu an kimse konuşmuyor. Bir oda başlatın ve insanları davet edin.",
+      "emptyScheduled": "Henüz planlanmış oda yok.",
+      "error": "Sesli odalar yüklenemedi.",
+      "full": "Dolu",
+      "going": "Katılıyorum ✓",
+      "join": "Katıl",
+      "live": "Şu an canlı",
+      "rsvp": "Bana hatırlat",
+      "scheduled": "Yakında",
+      "title": "Sesli odalar"
+    },
+    "room": {
+      "back": "Tüm odalar",
+      "chat": "Oda sohbeti",
+      "chatPlaceholder": "Bir şey yazın…",
+      "connectFailed": "Odanın sesine bağlanılamadı. Bağlantınızı kontrol edip tekrar deneyin.",
+      "elsewhere": "Bu odaya başka bir sekmeden veya cihazdan katıldınız.",
+      "enableSound": "Odanın sesini açmak için dokunun",
+      "ended": "Bu oda sona erdi.",
+      "findAnother": "Başka bir oda bul",
+      "handUp": "El kaldırıldı",
+      "host": "Ev sahibi",
+      "join": "Odaya katıl",
+      "joinHint": "Dinleyici olarak katılacaksınız. Hazır olduğunuzda mikrofonu alın.",
+      "leave": "Ayrıl",
+      "lost": "Odayla bağlantı koptu.",
+      "lowerHand": "Eli indir",
+      "micDenied": "Tarayıcınız mikrofonu engelliyor. Adres çubuğundan banatalk.com için mikrofona izin verin, ardından tekrar deneyin. Dinlemeye devam edebilirsiniz.",
+      "micError": "Mikrofon açılamadı. Tekrar deneyin.",
+      "micUnavailable": "Mikrofon bulunamadı (veya başka bir uygulama kullanıyor). Dinlemeye devam edebilirsiniz.",
+      "mute": "Sessize al",
+      "raiseHand": "El kaldır",
+      "reconnecting": "Yeniden bağlanılıyor…",
+      "rejoin": "Yeniden katıl",
+      "send": "Gönder",
+      "takeMic": "Mikrofonu al",
+      "useHere": "Burada dinle",
+      "you": "siz"
     }
   }
 }

@@ -1,0 +1,12 @@
+@import "../../voiceRooms/VoiceRooms.scss";
+.cg-page { max-width: 1100px; margin-inline: auto; padding-block: 24px; padding-inline: 16px; }
+.cg-head { display: flex; align-items: center; gap: 12px; margin-block-end: 12px; }
+.cg-head h1 { font-size: 1.4rem; font-weight: 800; margin: 0; }
+.cg-search { display: flex; align-items: center; gap: 8px; margin-block-end: 12px; }
+.cg-search input { flex: 1; border: 1px solid var(--bs-border-color, #ddd); border-radius: 999px; padding-block: 8px; padding-inline: 14px; }
+.cg-chips { list-style: none; padding: 0; margin: 0 0 16px; display: flex; flex-wrap: wrap; gap: 6px; }
+.cg-chip { border: 1px solid var(--bs-border-color, #ddd); background: transparent; border-radius: 999px; padding-block: 6px; padding-inline: 12px; font-weight: 700; font-size: 0.85rem; }
+.cg-chip.is-active { background: #ffd600; border-color: #ffd600; }
+.cg-results-title { font-size: 1.05rem; font-weight: 800; margin-block: 8px; }
+.cg-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+.cg-more { margin-block-start: 16px; margin-inline: auto; display: flex; }

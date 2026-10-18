@@ -12409,4 +12409,14 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get vocabPacksBrowse => 'Дидани маҷмӯаҳо';
+
+  @override
+  String visitorsReveal24h(int cost) {
+    return 'Ҳамаро 24 соат бо $cost 💎 бинед ё VIP шавед';
+  }
+
+  @override
+  String visitorsUnlockedLeft(String time) {
+    return 'Кушода · $time монд';
+  }
 }

@@ -31,6 +31,7 @@ import { buildRegisterPayload, LocationInput } from "./register/buildRegisterPay
 import UsernameAvailabilityField from "./register/UsernameAvailabilityField";
 import PasswordStrengthMeter from "./register/PasswordStrengthMeter";
 import LocationField from "./register/LocationField";
+import AppleSignInButton from "./apple/AppleSignInButton";
 
 export interface User {
   _id: string;
@@ -321,7 +322,7 @@ const Register = () => {
       }
 
       toastSuccess("Profile completed!");
-      navigate(redirect && redirect !== "/" ? redirect : "/communities");
+      navigate(redirect && redirect !== "/" ? redirect : "/communities", { replace: true });
     } catch (error: any) {
       toastError(
         error?.data?.error ||
@@ -391,7 +392,7 @@ const Register = () => {
 
       toastSuccess("Registration successful!");
       // Already signed in — honor ?redirect=, defaulting to communities.
-      navigate(redirect && redirect !== "/" ? redirect : "/communities");
+      navigate(redirect && redirect !== "/" ? redirect : "/communities", { replace: true });
     } catch (error: any) {
       toastError(
         error?.data?.error || error?.data?.message || "Error during registration"
@@ -527,6 +528,7 @@ const Register = () => {
                 We'll send a verification code to this address.
               </p>
             </div>
+            {!completionMode && <AppleSignInButton redirect={redirect} />}
             <div className="text-center mt-4 text-sm text-gray-600">
               {t("authentication.account.alreadyHaveAccount")}{" "}
               <Link
@@ -948,4 +950,14 @@ const Register = () => {
   );
 };
 
-export default Register;
+// Keyed by mode. An Apple sign-in on the email step navigates to this same
+// route with `state.oauth` (completion mode). Same route, same element: React
+// would keep the sign-up wizard's state (steps, empty prefill). A new key
+// remounts it so the completion wizard starts from the new router state.
+const RegisterRoute = () => {
+  const { state } = useLocation();
+  const mode = state && (state as any).oauth === true ? "completion" : "signup";
+  return <Register key={mode} />;
+};
+
+export default RegisterRoute;

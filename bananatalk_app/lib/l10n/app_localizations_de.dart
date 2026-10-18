@@ -12431,4 +12431,14 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get vocabPacksBrowse => 'Sets ansehen';
+
+  @override
+  String visitorsReveal24h(int cost) {
+    return 'Alle 24 Stunden lang sehen für $cost 💎, oder VIP werden';
+  }
+
+  @override
+  String visitorsUnlockedLeft(String time) {
+    return 'Freigeschaltet · noch $time';
+  }
 }

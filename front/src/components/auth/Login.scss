@@ -78,11 +78,17 @@
 }
 
 .brand-logo {
-  font-size: 4rem;
+  display: block;
+  width: 88px;
+  height: 88px;
+  border-radius: 22px;
   margin-bottom: 1.5rem;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.35);
 
   @media (max-width: 768px) {
-    font-size: 2.5rem;
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
     margin-bottom: 0;
   }
 }
@@ -286,7 +292,13 @@
 
   .toggle-password {
     position: absolute;
-    right: 1rem;
+    /* A 40x40 box around the 20px eye, with the inset pulled back by half the
+       growth so the glyph stays exactly where it was. It used to be the icon
+       and nothing else: a 20px target on the one control every returning
+       visitor reaches for on a phone. */
+    right: 0.375rem;
+    width: 40px;
+    height: 40px;
     background: none;
     border: none;
     color: #9CA3AF;

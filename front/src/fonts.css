@@ -1,0 +1,57 @@
+/* ==========================================================================
+   Self-hosted webfonts (task D3).
+
+   These used to be two <link>s to fonts.googleapis.com in public/index.html:
+   a preload promoted to a stylesheet on load, plus a <noscript> copy. Even
+   preloaded that is a DNS lookup, a TLS handshake and two round trips to a
+   third party (googleapis for the CSS, gstatic for the files) before a single
+   glyph can paint, on a page whose own HTML is already prerendered and
+   cacheable. Serving the woff2 files from this origin removes the third party
+   entirely: the font requests are the same connection as everything else.
+
+   WHAT IS IMPORTED, AND WHY EXACTLY THIS.
+
+   Inter is the UI face -- `body` sets it -- so it carries every weight the app
+   renders: 400 (default), 500 (140 `font-medium`), 600 (177 `font-semibold`),
+   700 (123 `font-bold`), 800 (54 `font-extrabold`). Weight 300 is deliberately
+   NOT here although the Google request carried it: it was there for
+   src/assets/styles/typography.css's `.font-light`, which that file no longer
+   defines, and the only `font-weight: 300` left in src/ is bootstrap's
+   `.display-1..6` / `.fw-light`, which nothing in this app uses.
+
+   Plus Jakarta Sans is the display face (h1-h6, .bt-eyebrow, the navbar and
+   footer headings) and is only ever set at 700 and 800. Weight 600 is dropped
+   for the same reason 300 is: no rule in src/ sets the display family at 600.
+
+   Two subsets each -- latin and latin-ext. Each @font-face carries its own
+   `unicode-range`, so a visitor downloads latin-ext only if the page actually
+   paints a character from it (Turkish ğ/ş/ı, Vietnamese diacritics on the
+   latin-ext side of the split, accented European copy). Korean, Japanese,
+   Chinese, Thai, Arabic and Devanagari fall through to the system stack in
+   `--bt-font-sans`, exactly as they did with the Google request: neither
+   family ships glyphs for those scripts.
+
+   `font-display: swap` is fontsource's default and is in every rule below;
+   src/fonts.test.ts asserts it, along with the exact import list.
+
+   Imported from src/index.tsx BEFORE ./index.css so the @font-face rules
+   precede the rules that name the families.
+   ========================================================================== */
+
+/* Inter -- UI */
+@import "@fontsource/inter/latin-400.css";
+@import "@fontsource/inter/latin-500.css";
+@import "@fontsource/inter/latin-600.css";
+@import "@fontsource/inter/latin-700.css";
+@import "@fontsource/inter/latin-800.css";
+@import "@fontsource/inter/latin-ext-400.css";
+@import "@fontsource/inter/latin-ext-500.css";
+@import "@fontsource/inter/latin-ext-600.css";
+@import "@fontsource/inter/latin-ext-700.css";
+@import "@fontsource/inter/latin-ext-800.css";
+
+/* Plus Jakarta Sans -- headings */
+@import "@fontsource/plus-jakarta-sans/latin-700.css";
+@import "@fontsource/plus-jakarta-sans/latin-800.css";
+@import "@fontsource/plus-jakarta-sans/latin-ext-700.css";
+@import "@fontsource/plus-jakarta-sans/latin-ext-800.css";

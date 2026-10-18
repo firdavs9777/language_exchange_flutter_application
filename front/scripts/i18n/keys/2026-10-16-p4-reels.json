@@ -1,0 +1,1046 @@
+{
+  "ar": {
+    "reels": {
+      "actions": {
+        "block": "حظر المستخدم",
+        "comments": "التعليقات",
+        "like": "إعجاب",
+        "more": "المزيد",
+        "profile": "الملف الشخصي",
+        "report": "إبلاغ",
+        "unlike": "إلغاء الإعجاب"
+      },
+      "create": {
+        "bad_type": "نوع الملف هذا غير مدعوم. استخدم MP4 أو MOV أو WebM.",
+        "caption": "الوصف",
+        "caption_placeholder": "ماذا تتدرّب عليه؟",
+        "change_video": "اختر فيديو آخر",
+        "choose_video": "اختر فيديو",
+        "failed": "تعذّر نشر مقطعك. حاول مرة أخرى.",
+        "hint": "فيديو قصير لتعلّم اللغات، حتى 3 دقائق. الوضع العمودي (9:16) يبدو أفضل.",
+        "post": "نشر المقطع",
+        "posted": "تم نشر مقطعك.",
+        "posting": "جارٍ النشر…",
+        "server_too_long": "يجب ألا تتجاوز المقاطع 3 دقائق.",
+        "title": "مقطع جديد",
+        "too_big": "هذا الفيديو كبير جدًا للرفع.",
+        "too_long": "يمكن أن تصل مدة المقطع إلى 3:00. مدة هذا الفيديو {{duration}}.",
+        "upload_failed": "لم يُرفع الفيديو. لم يُنشر أي شيء — حاول مرة أخرى."
+      },
+      "grid": {
+        "create": "إنشاء مقطع",
+        "empty": "لا توجد ريلز بعد. كن أول من ينشر.",
+        "error": "تعذّر تحميل المقاطع.",
+        "load_more": "تحميل المزيد",
+        "loading": "جارٍ تحميل المقاطع…",
+        "open_reel": "تشغيل مقطع {{name}}",
+        "retry": "حاول مرة أخرى",
+        "title": "ريلز",
+        "unavailable": "المقاطع غير متاحة حاليًا."
+      },
+      "moments_link": "شاهد الريلز",
+      "nav": "ريلز",
+      "policy": {
+        "accept": "أوافق",
+        "body": "الريلز مقاطع فيديو قصيرة لتعلّم اللغات — إجابات على موضوع اليوم، وتدريب على التحدث، وشروحات من ناطقين أصليين، ومقاطع عن الثقافة.\n\nلا تتسامح BananaTalk إطلاقًا مع المحتوى المسيء: لا للعري ولا لخطاب الكراهية ولا للمضايقة ولا للعنف ولا للمحتوى غير القانوني. تُخفى المقاطع المبلَّغ عنها تلقائيًا بانتظار المراجعة بعد بلاغين، وقد تؤدي المخالفات إلى إزالة المحتوى أو حظر الحساب.\n\nيمكنك الإبلاغ أو الحظر من أي ريل في أي وقت.",
+        "decline": "رفض",
+        "title": "إرشادات محتوى المقاطع"
+      },
+      "viewer": {
+        "close": "إغلاق",
+        "label": "ريلز",
+        "mute": "كتم الصوت",
+        "next": "المقطع التالي",
+        "previous": "المقطع السابق",
+        "tap_to_play": "اضغط للتشغيل",
+        "unmute": "إلغاء كتم الصوت"
+      }
+    }
+  },
+  "de": {
+    "reels": {
+      "actions": {
+        "block": "Nutzer blockieren",
+        "comments": "Kommentare",
+        "like": "Gefällt mir",
+        "more": "Mehr",
+        "profile": "Profil",
+        "report": "Melden",
+        "unlike": "Gefällt mir nicht mehr"
+      },
+      "create": {
+        "bad_type": "Dieser Dateityp wird nicht unterstützt. Verwende MP4, MOV oder WebM.",
+        "caption": "Beschreibung",
+        "caption_placeholder": "Was übst du gerade?",
+        "change_video": "Anderes Video wählen",
+        "choose_video": "Video auswählen",
+        "failed": "Dein Reel konnte nicht gepostet werden. Versuch es noch einmal.",
+        "hint": "Ein kurzes Sprachlernvideo, bis zu 3 Minuten. Hochformat (9:16) sieht am besten aus.",
+        "post": "Reel posten",
+        "posted": "Dein Reel ist gepostet.",
+        "posting": "Wird gepostet…",
+        "server_too_long": "Reels dürfen höchstens 3 Minuten lang sein.",
+        "title": "Neues Reel",
+        "too_big": "Dieses Video ist zu groß zum Hochladen.",
+        "too_long": "Reels dürfen bis zu 3:00 lang sein. Dieses Video ist {{duration}} lang.",
+        "upload_failed": "Das Video wurde nicht hochgeladen. Es wurde nichts gepostet – versuch es noch einmal."
+      },
+      "grid": {
+        "create": "Reel erstellen",
+        "empty": "Noch keine Reels. Poste als Erste*r eins.",
+        "error": "Reels konnten nicht geladen werden.",
+        "load_more": "Mehr laden",
+        "loading": "Reels werden geladen…",
+        "open_reel": "Reel von {{name}} abspielen",
+        "retry": "Erneut versuchen",
+        "title": "Reels",
+        "unavailable": "Reels sind derzeit nicht verfügbar."
+      },
+      "moments_link": "Reels ansehen",
+      "nav": "Reels",
+      "policy": {
+        "accept": "Ich stimme zu",
+        "body": "Reels sind kurze Sprachlernvideos — Antworten auf Impulse, Sprechübungen, Erklärungen von Muttersprachlern und Kulturclips.\n\nBananaTalk duldet keine anstößigen Inhalte: keine Nacktheit, keine Hassrede, keine Belästigung, keine Gewalt und keine illegalen Inhalte. Gemeldete Videos werden nach 2 Meldungen bis zur Prüfung automatisch ausgeblendet; Verstöße können zur Entfernung von Inhalten oder zur Sperrung des Kontos führen.\n\nDu kannst jederzeit bei jedem Reel melden oder blockieren.",
+        "decline": "Ablehnen",
+        "title": "Reels-Inhaltsrichtlinien"
+      },
+      "viewer": {
+        "close": "Schließen",
+        "label": "Reels",
+        "mute": "Stumm schalten",
+        "next": "Nächstes Reel",
+        "previous": "Vorheriges Reel",
+        "tap_to_play": "Zum Abspielen tippen",
+        "unmute": "Ton einschalten"
+      }
+    }
+  },
+  "eng": {
+    "reels": {
+      "actions": {
+        "block": "Block user",
+        "comments": "Comments",
+        "like": "Like",
+        "more": "More",
+        "profile": "Profile",
+        "report": "Report",
+        "unlike": "Unlike"
+      },
+      "create": {
+        "bad_type": "This file type isn't supported. Use MP4, MOV or WebM.",
+        "caption": "Caption",
+        "caption_placeholder": "What are you practising?",
+        "change_video": "Choose another video",
+        "choose_video": "Choose a video",
+        "failed": "Couldn't post your reel. Try again.",
+        "hint": "A short language-learning video, up to 3 minutes. Vertical (9:16) looks best.",
+        "post": "Post reel",
+        "posted": "Your reel is posted.",
+        "posting": "Posting…",
+        "server_too_long": "Reels must be 3 minutes or shorter.",
+        "title": "New reel",
+        "too_big": "This video is too large to upload.",
+        "too_long": "Reels can be up to 3:00. This video is {{duration}}.",
+        "upload_failed": "The video didn't upload. Nothing was posted — try again."
+      },
+      "grid": {
+        "create": "Create reel",
+        "empty": "No reels yet. Be the first to post one.",
+        "error": "Couldn't load reels.",
+        "load_more": "Load more",
+        "loading": "Loading reels…",
+        "open_reel": "Play reel by {{name}}",
+        "retry": "Try again",
+        "title": "Reels",
+        "unavailable": "Reels are currently unavailable."
+      },
+      "moments_link": "Watch reels",
+      "nav": "Reels",
+      "policy": {
+        "accept": "I agree",
+        "body": "Reels are short language-learning videos — prompt answers, speaking practice, native-speaker explainers, and culture clips.\n\nBananaTalk has zero tolerance for objectionable content: no nudity, hate speech, harassment, violence, or illegal content. Reported videos are automatically hidden pending review after 2 reports, and violations can result in content removal or account bans.\n\nYou can report or block from any reel at any time.",
+        "decline": "Decline",
+        "title": "Reels content guidelines"
+      },
+      "viewer": {
+        "close": "Close",
+        "label": "Reels",
+        "mute": "Mute",
+        "next": "Next reel",
+        "previous": "Previous reel",
+        "tap_to_play": "Tap to play",
+        "unmute": "Unmute"
+      }
+    }
+  },
+  "es": {
+    "reels": {
+      "actions": {
+        "block": "Bloquear usuario",
+        "comments": "Comentarios",
+        "like": "Me gusta",
+        "more": "Más",
+        "profile": "Perfil",
+        "report": "Denunciar",
+        "unlike": "Ya no me gusta"
+      },
+      "create": {
+        "bad_type": "Este tipo de archivo no es compatible. Usa MP4, MOV o WebM.",
+        "caption": "Descripción",
+        "caption_placeholder": "¿Qué estás practicando?",
+        "change_video": "Elegir otro vídeo",
+        "choose_video": "Elegir un vídeo",
+        "failed": "No se pudo publicar tu reel. Inténtalo de nuevo.",
+        "hint": "Un vídeo corto para aprender idiomas, de hasta 3 minutos. En vertical (9:16) se ve mejor.",
+        "post": "Publicar reel",
+        "posted": "Tu reel se ha publicado.",
+        "posting": "Publicando…",
+        "server_too_long": "Los reels deben durar 3 minutos o menos.",
+        "title": "Nuevo reel",
+        "too_big": "Este vídeo es demasiado grande para subirlo.",
+        "too_long": "Los reels pueden durar hasta 3:00. Este vídeo dura {{duration}}.",
+        "upload_failed": "El vídeo no se subió. No se publicó nada; inténtalo de nuevo."
+      },
+      "grid": {
+        "create": "Crear reel",
+        "empty": "Aún no hay reels. Sé el primero en publicar uno.",
+        "error": "No se pudieron cargar los reels.",
+        "load_more": "Cargar más",
+        "loading": "Cargando reels…",
+        "open_reel": "Reproducir reel de {{name}}",
+        "retry": "Reintentar",
+        "title": "Reels",
+        "unavailable": "Los reels no están disponibles en este momento."
+      },
+      "moments_link": "Ver reels",
+      "nav": "Reels",
+      "policy": {
+        "accept": "Acepto",
+        "body": "Los reels son vídeos cortos para aprender idiomas: respuestas al tema del día, práctica de conversación, explicaciones de hablantes nativos y clips de cultura.\n\nBananaTalk tiene tolerancia cero con el contenido inapropiado: nada de desnudos, discurso de odio, acoso, violencia ni contenido ilegal. Los vídeos denunciados se ocultan automáticamente hasta su revisión tras 2 denuncias, y las infracciones pueden suponer la eliminación del contenido o la suspensión de la cuenta.\n\nPuedes denunciar o bloquear desde cualquier reel en cualquier momento.",
+        "decline": "Rechazar",
+        "title": "Normas de contenido para reels"
+      },
+      "viewer": {
+        "close": "Cerrar",
+        "label": "Reels",
+        "mute": "Silenciar",
+        "next": "Reel siguiente",
+        "previous": "Reel anterior",
+        "tap_to_play": "Toca para reproducir",
+        "unmute": "Activar sonido"
+      }
+    }
+  },
+  "fr": {
+    "reels": {
+      "actions": {
+        "block": "Bloquer l'utilisateur",
+        "comments": "Commentaires",
+        "like": "J'aime",
+        "more": "Plus",
+        "profile": "Profil",
+        "report": "Signaler",
+        "unlike": "Je n'aime plus"
+      },
+      "create": {
+        "bad_type": "Ce type de fichier n'est pas pris en charge. Utilisez MP4, MOV ou WebM.",
+        "caption": "Légende",
+        "caption_placeholder": "Qu'est-ce que vous pratiquez ?",
+        "change_video": "Choisir une autre vidéo",
+        "choose_video": "Choisir une vidéo",
+        "failed": "Impossible de publier votre reel. Réessayez.",
+        "hint": "Une courte vidéo d'apprentissage des langues, jusqu'à 3 minutes. Le format vertical (9:16) rend le mieux.",
+        "post": "Publier le reel",
+        "posted": "Votre reel est publié.",
+        "posting": "Publication…",
+        "server_too_long": "Les reels doivent durer 3 minutes ou moins.",
+        "title": "Nouveau reel",
+        "too_big": "Cette vidéo est trop volumineuse pour être envoyée.",
+        "too_long": "Les reels peuvent durer jusqu'à 3:00. Cette vidéo dure {{duration}}.",
+        "upload_failed": "La vidéo n'a pas été envoyée. Rien n'a été publié — réessayez."
+      },
+      "grid": {
+        "create": "Créer un reel",
+        "empty": "Pas encore de reels. Soyez le premier à en publier un.",
+        "error": "Impossible de charger les reels.",
+        "load_more": "Charger plus",
+        "loading": "Chargement des reels…",
+        "open_reel": "Lire le reel de {{name}}",
+        "retry": "Réessayer",
+        "title": "Reels",
+        "unavailable": "Les reels sont actuellement indisponibles."
+      },
+      "moments_link": "Voir les reels",
+      "nav": "Reels",
+      "policy": {
+        "accept": "J'accepte",
+        "body": "Les reels sont de courtes vidéos pour apprendre les langues : réponses au sujet du jour, entraînement à l'oral, explications de locuteurs natifs et clips culturels.\n\nBananaTalk applique une tolérance zéro envers les contenus répréhensibles : pas de nudité, de discours haineux, de harcèlement, de violence ni de contenu illégal. Les vidéos signalées sont automatiquement masquées dans l'attente d'un examen après 2 signalements, et les infractions peuvent entraîner la suppression du contenu ou le bannissement du compte.\n\nVous pouvez signaler ou bloquer depuis n'importe quel reel à tout moment.",
+        "decline": "Refuser",
+        "title": "Règles de contenu des reels"
+      },
+      "viewer": {
+        "close": "Fermer",
+        "label": "Reels",
+        "mute": "Couper le son",
+        "next": "Reel suivant",
+        "previous": "Reel précédent",
+        "tap_to_play": "Touchez pour lire",
+        "unmute": "Activer le son"
+      }
+    }
+  },
+  "hi": {
+    "reels": {
+      "actions": {
+        "block": "उपयोगकर्ता को ब्लॉक करें",
+        "comments": "टिप्पणियाँ",
+        "like": "पसंद करें",
+        "more": "और",
+        "profile": "प्रोफ़ाइल",
+        "report": "रिपोर्ट करें",
+        "unlike": "पसंद हटाएँ"
+      },
+      "create": {
+        "bad_type": "यह फ़ाइल प्रकार समर्थित नहीं है। MP4, MOV या WebM का उपयोग करें।",
+        "caption": "कैप्शन",
+        "caption_placeholder": "आप क्या अभ्यास कर रहे हैं?",
+        "change_video": "दूसरा वीडियो चुनें",
+        "choose_video": "वीडियो चुनें",
+        "failed": "आपकी रील पोस्ट नहीं हो सकी। फिर से कोशिश करें।",
+        "hint": "भाषा सीखने का एक छोटा वीडियो, 3 मिनट तक। वर्टिकल (9:16) सबसे अच्छा दिखता है।",
+        "post": "रील पोस्ट करें",
+        "posted": "आपकी रील पोस्ट हो गई।",
+        "posting": "पोस्ट हो रही है…",
+        "server_too_long": "रील्स 3 मिनट या उससे छोटी होनी चाहिए।",
+        "title": "नई रील",
+        "too_big": "यह वीडियो अपलोड करने के लिए बहुत बड़ा है।",
+        "too_long": "रील्स 3:00 तक की हो सकती हैं। यह वीडियो {{duration}} का है।",
+        "upload_failed": "वीडियो अपलोड नहीं हुआ। कुछ भी पोस्ट नहीं हुआ — फिर से कोशिश करें।"
+      },
+      "grid": {
+        "create": "रील बनाएँ",
+        "empty": "अभी तक कोई रील नहीं। सबसे पहले पोस्ट करें।",
+        "error": "रील्स लोड नहीं हो सकीं।",
+        "load_more": "और लोड करें",
+        "loading": "रील्स लोड हो रही हैं…",
+        "open_reel": "{{name}} की रील चलाएँ",
+        "retry": "फिर से कोशिश करें",
+        "title": "रील्स",
+        "unavailable": "रील्स अभी उपलब्ध नहीं हैं।"
+      },
+      "moments_link": "रील्स देखें",
+      "nav": "रील्स",
+      "policy": {
+        "accept": "मैं सहमत हूँ",
+        "body": "रील्स भाषा सीखने के छोटे वीडियो हैं — प्रॉम्प्ट के जवाब, बोलने का अभ्यास, मूल वक्ताओं की व्याख्याएँ और संस्कृति की क्लिप।\n\nBananaTalk आपत्तिजनक सामग्री के प्रति शून्य सहनशीलता रखता है: नग्नता, घृणास्पद भाषा, उत्पीड़न, हिंसा या अवैध सामग्री नहीं। 2 रिपोर्ट के बाद रिपोर्ट किए गए वीडियो समीक्षा तक अपने-आप छिपा दिए जाते हैं, और उल्लंघन पर सामग्री हटाई जा सकती है या खाता प्रतिबंधित हो सकता है।\n\nआप किसी भी रील से कभी भी रिपोर्ट या ब्लॉक कर सकते हैं।",
+        "decline": "अस्वीकार करें",
+        "title": "रील्स सामग्री दिशानिर्देश"
+      },
+      "viewer": {
+        "close": "बंद करें",
+        "label": "रील्स",
+        "mute": "म्यूट करें",
+        "next": "अगली रील",
+        "previous": "पिछली रील",
+        "tap_to_play": "चलाने के लिए टैप करें",
+        "unmute": "अनम्यूट करें"
+      }
+    }
+  },
+  "id": {
+    "reels": {
+      "actions": {
+        "block": "Blokir pengguna",
+        "comments": "Komentar",
+        "like": "Suka",
+        "more": "Lainnya",
+        "profile": "Profil",
+        "report": "Laporkan",
+        "unlike": "Batal suka"
+      },
+      "create": {
+        "bad_type": "Jenis file ini tidak didukung. Gunakan MP4, MOV, atau WebM.",
+        "caption": "Keterangan",
+        "caption_placeholder": "Apa yang sedang kamu latih?",
+        "change_video": "Pilih video lain",
+        "choose_video": "Pilih video",
+        "failed": "Reel kamu gagal diposting. Coba lagi.",
+        "hint": "Video pendek untuk belajar bahasa, maksimal 3 menit. Format vertikal (9:16) terlihat paling bagus.",
+        "post": "Posting reel",
+        "posted": "Reel kamu sudah diposting.",
+        "posting": "Memposting…",
+        "server_too_long": "Reel harus berdurasi 3 menit atau kurang.",
+        "title": "Reel baru",
+        "too_big": "Video ini terlalu besar untuk diunggah.",
+        "too_long": "Reel bisa berdurasi hingga 3:00. Video ini berdurasi {{duration}}.",
+        "upload_failed": "Video gagal diunggah. Tidak ada yang diposting — coba lagi."
+      },
+      "grid": {
+        "create": "Buat reel",
+        "empty": "Belum ada reel. Jadilah yang pertama memposting.",
+        "error": "Tidak dapat memuat reel.",
+        "load_more": "Muat lainnya",
+        "loading": "Memuat reel…",
+        "open_reel": "Putar reel dari {{name}}",
+        "retry": "Coba lagi",
+        "title": "Reels",
+        "unavailable": "Reel sedang tidak tersedia."
+      },
+      "moments_link": "Tonton reel",
+      "nav": "Reels",
+      "policy": {
+        "accept": "Saya setuju",
+        "body": "Reels adalah video pendek untuk belajar bahasa — jawaban topik, latihan berbicara, penjelasan dari penutur asli, dan klip budaya.\n\nBananaTalk tidak menoleransi konten yang tidak pantas: tanpa ketelanjangan, ujaran kebencian, pelecehan, kekerasan, atau konten ilegal. Video yang dilaporkan otomatis disembunyikan menunggu peninjauan setelah 2 laporan, dan pelanggaran dapat berujung pada penghapusan konten atau pemblokiran akun.\n\nAnda dapat melaporkan atau memblokir dari reel mana pun kapan saja.",
+        "decline": "Tolak",
+        "title": "Pedoman konten reel"
+      },
+      "viewer": {
+        "close": "Tutup",
+        "label": "Reels",
+        "mute": "Bisukan",
+        "next": "Reel berikutnya",
+        "previous": "Reel sebelumnya",
+        "tap_to_play": "Ketuk untuk memutar",
+        "unmute": "Bunyikan"
+      }
+    }
+  },
+  "it": {
+    "reels": {
+      "actions": {
+        "block": "Blocca utente",
+        "comments": "Commenti",
+        "like": "Mi piace",
+        "more": "Altro",
+        "profile": "Profilo",
+        "report": "Segnala",
+        "unlike": "Non mi piace più"
+      },
+      "create": {
+        "bad_type": "Questo tipo di file non è supportato. Usa MP4, MOV o WebM.",
+        "caption": "Didascalia",
+        "caption_placeholder": "Cosa stai praticando?",
+        "change_video": "Scegli un altro video",
+        "choose_video": "Scegli un video",
+        "failed": "Impossibile pubblicare il reel. Riprova.",
+        "hint": "Un breve video per imparare le lingue, fino a 3 minuti. In verticale (9:16) rende meglio.",
+        "post": "Pubblica reel",
+        "posted": "Il tuo reel è stato pubblicato.",
+        "posting": "Pubblicazione…",
+        "server_too_long": "I reel devono durare al massimo 3 minuti.",
+        "title": "Nuovo reel",
+        "too_big": "Questo video è troppo grande per essere caricato.",
+        "too_long": "I reel possono durare fino a 3:00. Questo video dura {{duration}}.",
+        "upload_failed": "Il video non è stato caricato. Non è stato pubblicato nulla: riprova."
+      },
+      "grid": {
+        "create": "Crea reel",
+        "empty": "Ancora nessun reel. Pubblica tu il primo.",
+        "error": "Impossibile caricare i reel.",
+        "load_more": "Carica altri",
+        "loading": "Caricamento dei reel…",
+        "open_reel": "Riproduci il reel di {{name}}",
+        "retry": "Riprova",
+        "title": "Reels",
+        "unavailable": "I reel non sono al momento disponibili."
+      },
+      "moments_link": "Guarda i reel",
+      "nav": "Reels",
+      "policy": {
+        "accept": "Accetto",
+        "body": "I reel sono brevi video per imparare le lingue: risposte agli spunti, pratica di conversazione, spiegazioni di madrelingua e clip culturali.\n\nBananaTalk ha tolleranza zero per i contenuti inappropriati: niente nudità, discorsi d'odio, molestie, violenza o contenuti illegali. I video segnalati vengono nascosti automaticamente in attesa di revisione dopo 2 segnalazioni e le violazioni possono comportare la rimozione dei contenuti o la sospensione dell'account.\n\nPuoi segnalare o bloccare da qualsiasi reel in qualsiasi momento.",
+        "decline": "Rifiuta",
+        "title": "Linee guida sui contenuti reel"
+      },
+      "viewer": {
+        "close": "Chiudi",
+        "label": "Reels",
+        "mute": "Disattiva audio",
+        "next": "Reel successivo",
+        "previous": "Reel precedente",
+        "tap_to_play": "Tocca per riprodurre",
+        "unmute": "Attiva audio"
+      }
+    }
+  },
+  "ja": {
+    "reels": {
+      "actions": {
+        "block": "ユーザーをブロック",
+        "comments": "コメント",
+        "like": "いいね",
+        "more": "その他",
+        "profile": "プロフィール",
+        "report": "報告",
+        "unlike": "いいねを取り消す"
+      },
+      "create": {
+        "bad_type": "このファイル形式には対応していません。MP4、MOV、WebM を使用してください。",
+        "caption": "キャプション",
+        "caption_placeholder": "何を練習していますか？",
+        "change_video": "別の動画を選ぶ",
+        "choose_video": "動画を選ぶ",
+        "failed": "リールを投稿できませんでした。もう一度お試しください。",
+        "hint": "語学学習の短い動画（最大 3 分）。縦向き（9:16）がおすすめです。",
+        "post": "リールを投稿",
+        "posted": "リールを投稿しました。",
+        "posting": "投稿中…",
+        "server_too_long": "リールは 3 分以内にしてください。",
+        "title": "新しいリール",
+        "too_big": "この動画はサイズが大きすぎてアップロードできません。",
+        "too_long": "リールは最大 3:00 です。この動画は {{duration}} です。",
+        "upload_failed": "動画をアップロードできませんでした。何も投稿されていません。もう一度お試しください。"
+      },
+      "grid": {
+        "create": "リールを作成",
+        "empty": "まだリールがありません。最初の投稿者になりましょう。",
+        "error": "リールを読み込めませんでした。",
+        "load_more": "さらに読み込む",
+        "loading": "リールを読み込み中…",
+        "open_reel": "{{name}} さんのリールを再生",
+        "retry": "再試行",
+        "title": "リール",
+        "unavailable": "リールは現在ご利用いただけません。"
+      },
+      "moments_link": "リールを見る",
+      "nav": "リール",
+      "policy": {
+        "accept": "同意する",
+        "body": "リールは語学学習向けの短い動画です。お題への回答、スピーキング練習、ネイティブによる解説、文化クリップなどが投稿されます。\n\nBananaTalkは不適切なコンテンツを一切容認しません。ヌード、ヘイトスピーチ、嫌がらせ、暴力、違法なコンテンツは禁止です。報告された動画は2件の報告で審査まで自動的に非表示になり、違反するとコンテンツの削除やアカウントの停止となる場合があります。\n\nどのリールからでもいつでも報告やブロックができます。",
+        "decline": "同意しない",
+        "title": "リールのコンテンツガイドライン"
+      },
+      "viewer": {
+        "close": "閉じる",
+        "label": "リール",
+        "mute": "ミュート",
+        "next": "次のリール",
+        "previous": "前のリール",
+        "tap_to_play": "タップして再生",
+        "unmute": "ミュート解除"
+      }
+    }
+  },
+  "kor": {
+    "reels": {
+      "actions": {
+        "block": "사용자 차단",
+        "comments": "댓글",
+        "like": "좋아요",
+        "more": "더보기",
+        "profile": "프로필",
+        "report": "신고",
+        "unlike": "좋아요 취소"
+      },
+      "create": {
+        "bad_type": "지원하지 않는 파일 형식입니다. MP4, MOV 또는 WebM을 사용하세요.",
+        "caption": "설명",
+        "caption_placeholder": "무엇을 연습하고 있나요?",
+        "change_video": "다른 영상 선택",
+        "choose_video": "영상 선택",
+        "failed": "릴스를 게시하지 못했습니다. 다시 시도해 주세요.",
+        "hint": "최대 3분 길이의 짧은 언어 학습 영상. 세로(9:16) 영상이 가장 잘 보입니다.",
+        "post": "릴스 게시",
+        "posted": "릴스가 게시되었습니다.",
+        "posting": "게시 중…",
+        "server_too_long": "릴스는 3분 이하여야 합니다.",
+        "title": "새 릴스",
+        "too_big": "영상이 너무 커서 업로드할 수 없습니다.",
+        "too_long": "릴스는 최대 3:00까지 가능합니다. 이 영상은 {{duration}}입니다.",
+        "upload_failed": "영상이 업로드되지 않았습니다. 아무것도 게시되지 않았으니 다시 시도해 주세요."
+      },
+      "grid": {
+        "create": "릴스 만들기",
+        "empty": "아직 릴스가 없습니다. 첫 번째로 올려 보세요.",
+        "error": "릴스를 불러올 수 없습니다.",
+        "load_more": "더 불러오기",
+        "loading": "릴스 불러오는 중…",
+        "open_reel": "{{name}}님의 릴스 재생",
+        "retry": "다시 시도",
+        "title": "릴스",
+        "unavailable": "지금은 릴스를 이용할 수 없습니다."
+      },
+      "moments_link": "릴스 보기",
+      "nav": "릴스",
+      "policy": {
+        "accept": "동의합니다",
+        "body": "릴스는 짧은 언어 학습 영상입니다. 주제 답변, 말하기 연습, 원어민 설명, 문화 클립 등이 올라옵니다.\n\nBananaTalk는 부적절한 콘텐츠에 무관용 원칙을 적용합니다. 노출, 혐오 발언, 괴롭힘, 폭력, 불법 콘텐츠는 금지됩니다. 신고된 영상은 신고 2건이 접수되면 검토 전까지 자동으로 숨겨지며, 위반 시 콘텐츠가 삭제되거나 계정이 정지될 수 있습니다.\n\n언제든지 모든 릴스에서 신고하거나 차단할 수 있습니다.",
+        "decline": "거절",
+        "title": "릴스 콘텐츠 가이드라인"
+      },
+      "viewer": {
+        "close": "닫기",
+        "label": "릴스",
+        "mute": "음소거",
+        "next": "다음 릴스",
+        "previous": "이전 릴스",
+        "tap_to_play": "탭하여 재생",
+        "unmute": "음소거 해제"
+      }
+    }
+  },
+  "pt": {
+    "reels": {
+      "actions": {
+        "block": "Bloquear usuário",
+        "comments": "Comentários",
+        "like": "Curtir",
+        "more": "Mais",
+        "profile": "Perfil",
+        "report": "Denunciar",
+        "unlike": "Descurtir"
+      },
+      "create": {
+        "bad_type": "Este tipo de arquivo não é compatível. Use MP4, MOV ou WebM.",
+        "caption": "Legenda",
+        "caption_placeholder": "O que você está praticando?",
+        "change_video": "Escolher outro vídeo",
+        "choose_video": "Escolher um vídeo",
+        "failed": "Não foi possível publicar seu reel. Tente novamente.",
+        "hint": "Um vídeo curto para aprender idiomas, de até 3 minutos. Na vertical (9:16) fica melhor.",
+        "post": "Publicar reel",
+        "posted": "Seu reel foi publicado.",
+        "posting": "Publicando…",
+        "server_too_long": "Os reels devem ter 3 minutos ou menos.",
+        "title": "Novo reel",
+        "too_big": "Este vídeo é grande demais para enviar.",
+        "too_long": "Os reels podem ter até 3:00. Este vídeo tem {{duration}}.",
+        "upload_failed": "O vídeo não foi enviado. Nada foi publicado — tente novamente."
+      },
+      "grid": {
+        "create": "Criar reel",
+        "empty": "Ainda não há reels. Seja o primeiro a publicar.",
+        "error": "Não foi possível carregar os reels.",
+        "load_more": "Carregar mais",
+        "loading": "Carregando reels…",
+        "open_reel": "Reproduzir reel de {{name}}",
+        "retry": "Tentar novamente",
+        "title": "Reels",
+        "unavailable": "Os reels estão indisponíveis no momento."
+      },
+      "moments_link": "Ver reels",
+      "nav": "Reels",
+      "policy": {
+        "accept": "Concordo",
+        "body": "Reels são vídeos curtos para aprender idiomas: respostas ao tema do dia, prática de conversação, explicações de falantes nativos e clipes de cultura.\n\nO BananaTalk tem tolerância zero com conteúdo impróprio: sem nudez, discurso de ódio, assédio, violência ou conteúdo ilegal. Vídeos denunciados são ocultados automaticamente até a análise após 2 denúncias, e violações podem resultar na remoção do conteúdo ou no banimento da conta.\n\nVocê pode denunciar ou bloquear em qualquer reel a qualquer momento.",
+        "decline": "Recusar",
+        "title": "Diretrizes de conteúdo dos reels"
+      },
+      "viewer": {
+        "close": "Fechar",
+        "label": "Reels",
+        "mute": "Silenciar",
+        "next": "Próximo reel",
+        "previous": "Reel anterior",
+        "tap_to_play": "Toque para reproduzir",
+        "unmute": "Ativar som"
+      }
+    }
+  },
+  "ru": {
+    "reels": {
+      "actions": {
+        "block": "Заблокировать пользователя",
+        "comments": "Комментарии",
+        "like": "Нравится",
+        "more": "Ещё",
+        "profile": "Профиль",
+        "report": "Пожаловаться",
+        "unlike": "Больше не нравится"
+      },
+      "create": {
+        "bad_type": "Этот тип файла не поддерживается. Используйте MP4, MOV или WebM.",
+        "caption": "Подпись",
+        "caption_placeholder": "Что вы тренируете?",
+        "change_video": "Выбрать другое видео",
+        "choose_video": "Выбрать видео",
+        "failed": "Не удалось опубликовать ролик. Попробуйте ещё раз.",
+        "hint": "Короткое видео для изучения языка, до 3 минут. Лучше всего смотрится вертикальное (9:16).",
+        "post": "Опубликовать ролик",
+        "posted": "Ваш ролик опубликован.",
+        "posting": "Публикация…",
+        "server_too_long": "Ролики должны быть не длиннее 3 минут.",
+        "title": "Новый ролик",
+        "too_big": "Это видео слишком большое для загрузки.",
+        "too_long": "Ролик может длиться до 3:00. Это видео длится {{duration}}.",
+        "upload_failed": "Видео не загрузилось. Ничего не опубликовано — попробуйте ещё раз."
+      },
+      "grid": {
+        "create": "Создать ролик",
+        "empty": "Пока нет роликов. Опубликуйте первый.",
+        "error": "Не удалось загрузить ролики.",
+        "load_more": "Загрузить ещё",
+        "loading": "Загрузка роликов…",
+        "open_reel": "Воспроизвести ролик {{name}}",
+        "retry": "Повторить",
+        "title": "Reels",
+        "unavailable": "Ролики сейчас недоступны."
+      },
+      "moments_link": "Смотреть ролики",
+      "nav": "Reels",
+      "policy": {
+        "accept": "Я согласен",
+        "body": "Reels — это короткие видео для изучения языков: ответы на тему дня, разговорная практика, объяснения носителей языка и клипы о культуре.\n\nBananaTalk не терпит недопустимый контент: никакой наготы, языка ненависти, травли, насилия и незаконного контента. Видео, на которые пожаловались, автоматически скрываются до проверки после 2 жалоб, а нарушения могут привести к удалению контента или блокировке аккаунта.\n\nВы можете пожаловаться или заблокировать автора из любого ролика в любое время.",
+        "decline": "Отказаться",
+        "title": "Правила для роликов"
+      },
+      "viewer": {
+        "close": "Закрыть",
+        "label": "Reels",
+        "mute": "Выключить звук",
+        "next": "Следующий ролик",
+        "previous": "Предыдущий ролик",
+        "tap_to_play": "Нажмите, чтобы воспроизвести",
+        "unmute": "Включить звук"
+      }
+    }
+  },
+  "th": {
+    "reels": {
+      "actions": {
+        "block": "บล็อกผู้ใช้",
+        "comments": "ความคิดเห็น",
+        "like": "ถูกใจ",
+        "more": "เพิ่มเติม",
+        "profile": "โปรไฟล์",
+        "report": "รายงาน",
+        "unlike": "เลิกถูกใจ"
+      },
+      "create": {
+        "bad_type": "ไม่รองรับไฟล์ประเภทนี้ ใช้ MP4, MOV หรือ WebM",
+        "caption": "คำบรรยาย",
+        "caption_placeholder": "คุณกำลังฝึกอะไรอยู่?",
+        "change_video": "เลือกวิดีโออื่น",
+        "choose_video": "เลือกวิดีโอ",
+        "failed": "โพสต์รีลไม่สำเร็จ ลองอีกครั้ง",
+        "hint": "วิดีโอสั้นสำหรับเรียนภาษา ยาวไม่เกิน 3 นาที แนวตั้ง (9:16) ดูดีที่สุด",
+        "post": "โพสต์รีล",
+        "posted": "โพสต์รีลของคุณแล้ว",
+        "posting": "กำลังโพสต์…",
+        "server_too_long": "รีลต้องยาวไม่เกิน 3 นาที",
+        "title": "รีลใหม่",
+        "too_big": "วิดีโอนี้ใหญ่เกินกว่าจะอัปโหลดได้",
+        "too_long": "รีลยาวได้สูงสุด 3:00 วิดีโอนี้ยาว {{duration}}",
+        "upload_failed": "อัปโหลดวิดีโอไม่สำเร็จ ยังไม่มีอะไรถูกโพสต์ — ลองอีกครั้ง"
+      },
+      "grid": {
+        "create": "สร้างรีล",
+        "empty": "ยังไม่มีรีล มาเป็นคนแรกที่โพสต์กัน",
+        "error": "โหลดรีลไม่สำเร็จ",
+        "load_more": "โหลดเพิ่ม",
+        "loading": "กำลังโหลดรีล…",
+        "open_reel": "เล่นรีลของ {{name}}",
+        "retry": "ลองอีกครั้ง",
+        "title": "รีลส์",
+        "unavailable": "ขณะนี้ไม่สามารถใช้รีลได้"
+      },
+      "moments_link": "ดูรีล",
+      "nav": "รีลส์",
+      "policy": {
+        "accept": "ฉันยอมรับ",
+        "body": "รีลคือวิดีโอสั้นสำหรับเรียนภาษา เช่น คำตอบของหัวข้อประจำวัน การฝึกพูด คำอธิบายจากเจ้าของภาษา และคลิปวัฒนธรรม\n\nBananaTalk ไม่ยอมรับเนื้อหาที่ไม่เหมาะสมโดยเด็ดขาด ห้ามมีภาพเปลือย วาจาสร้างความเกลียดชัง การคุกคาม ความรุนแรง หรือเนื้อหาผิดกฎหมาย วิดีโอที่ถูกรายงานจะถูกซ่อนโดยอัตโนมัติเพื่อรอการตรวจสอบหลังถูกรายงาน 2 ครั้ง และการละเมิดอาจทำให้เนื้อหาถูกลบหรือบัญชีถูกระงับ\n\nคุณรายงานหรือบล็อกจากรีลใดก็ได้ทุกเมื่อ",
+        "decline": "ปฏิเสธ",
+        "title": "แนวทางเนื้อหารีล"
+      },
+      "viewer": {
+        "close": "ปิด",
+        "label": "รีลส์",
+        "mute": "ปิดเสียง",
+        "next": "รีลถัดไป",
+        "previous": "รีลก่อนหน้า",
+        "tap_to_play": "แตะเพื่อเล่น",
+        "unmute": "เปิดเสียง"
+      }
+    }
+  },
+  "tl": {
+    "reels": {
+      "actions": {
+        "block": "I-block ang user",
+        "comments": "Mga komento",
+        "like": "I-like",
+        "more": "Iba pa",
+        "profile": "Profile",
+        "report": "I-report",
+        "unlike": "I-unlike"
+      },
+      "create": {
+        "bad_type": "Hindi suportado ang ganitong uri ng file. Gumamit ng MP4, MOV o WebM.",
+        "caption": "Caption",
+        "caption_placeholder": "Ano ang pinapraktis mo?",
+        "change_video": "Pumili ng ibang video",
+        "choose_video": "Pumili ng video",
+        "failed": "Hindi na-post ang reel mo. Subukan ulit.",
+        "hint": "Maikling video para sa pag-aaral ng wika, hanggang 3 minuto. Pinakamaganda ang patayo (9:16).",
+        "post": "I-post ang reel",
+        "posted": "Na-post na ang reel mo.",
+        "posting": "Pino-post…",
+        "server_too_long": "Dapat 3 minuto o mas maikli ang mga reel.",
+        "title": "Bagong reel",
+        "too_big": "Masyadong malaki ang video na ito para i-upload.",
+        "too_long": "Hanggang 3:00 lang ang reel. {{duration}} ang haba ng video na ito.",
+        "upload_failed": "Hindi na-upload ang video. Walang na-post — subukan ulit."
+      },
+      "grid": {
+        "create": "Gumawa ng reel",
+        "empty": "Wala pang reel. Ikaw na ang unang mag-post.",
+        "error": "Hindi ma-load ang mga reel.",
+        "load_more": "Mag-load pa",
+        "loading": "Nilo-load ang mga reel…",
+        "open_reel": "I-play ang reel ni {{name}}",
+        "retry": "Subukan ulit",
+        "title": "Reels",
+        "unavailable": "Hindi available ang mga reel sa ngayon."
+      },
+      "moments_link": "Manood ng reels",
+      "nav": "Reels",
+      "policy": {
+        "accept": "Sumasang-ayon ako",
+        "body": "Ang mga reel ay maiikling video para sa pag-aaral ng wika — mga sagot sa paksa, pagsasanay sa pagsasalita, paliwanag ng mga native speaker, at mga clip tungkol sa kultura.\n\nWalang pagpapaubaya ang BananaTalk sa hindi katanggap-tanggap na nilalaman: bawal ang kahubaran, hate speech, panliligalig, karahasan, o ilegal na nilalaman. Awtomatikong itinatago ang mga na-report na video habang hinihintay ang pagsusuri pagkatapos ng 2 report, at ang mga paglabag ay maaaring humantong sa pagtanggal ng nilalaman o pag-ban sa account.\n\nMaaari kang mag-report o mag-block mula sa anumang reel anumang oras.",
+        "decline": "Tanggihan",
+        "title": "Mga alituntunin sa nilalaman ng reels"
+      },
+      "viewer": {
+        "close": "Isara",
+        "label": "Reels",
+        "mute": "I-mute",
+        "next": "Susunod na reel",
+        "previous": "Nakaraang reel",
+        "tap_to_play": "I-tap para i-play",
+        "unmute": "I-unmute"
+      }
+    }
+  },
+  "tr": {
+    "reels": {
+      "actions": {
+        "block": "Kullanıcıyı engelle",
+        "comments": "Yorumlar",
+        "like": "Beğen",
+        "more": "Daha fazla",
+        "profile": "Profil",
+        "report": "Bildir",
+        "unlike": "Beğenmekten vazgeç"
+      },
+      "create": {
+        "bad_type": "Bu dosya türü desteklenmiyor. MP4, MOV veya WebM kullan.",
+        "caption": "Açıklama",
+        "caption_placeholder": "Ne pratik yapıyorsun?",
+        "change_video": "Başka bir video seç",
+        "choose_video": "Video seç",
+        "failed": "Reel'in paylaşılamadı. Tekrar dene.",
+        "hint": "En fazla 3 dakikalık kısa bir dil öğrenme videosu. Dikey (9:16) en iyi görünür.",
+        "post": "Reel paylaş",
+        "posted": "Reel'in paylaşıldı.",
+        "posting": "Paylaşılıyor…",
+        "server_too_long": "Reels en fazla 3 dakika olmalıdır.",
+        "title": "Yeni reel",
+        "too_big": "Bu video yüklemek için çok büyük.",
+        "too_long": "Reels en fazla 3:00 olabilir. Bu video {{duration}}.",
+        "upload_failed": "Video yüklenmedi. Hiçbir şey paylaşılmadı — tekrar dene."
+      },
+      "grid": {
+        "create": "Reel oluştur",
+        "empty": "Henüz reel yok. İlk paylaşan sen ol.",
+        "error": "Reels yüklenemedi.",
+        "load_more": "Daha fazla yükle",
+        "loading": "Reels yükleniyor…",
+        "open_reel": "{{name}} adlı kişinin reel'ini oynat",
+        "retry": "Tekrar dene",
+        "title": "Reels",
+        "unavailable": "Reels şu anda kullanılamıyor."
+      },
+      "moments_link": "Reels izle",
+      "nav": "Reels",
+      "policy": {
+        "accept": "Kabul ediyorum",
+        "body": "Reels, dil öğrenmeye yönelik kısa videolardır: konulara yanıtlar, konuşma pratiği, ana dili konuşanların açıklamaları ve kültür klipleri.\n\nBananaTalk, uygunsuz içeriğe sıfır tolerans gösterir: çıplaklık, nefret söylemi, taciz, şiddet veya yasa dışı içerik yasaktır. Bildirilen videolar 2 bildirimden sonra incelenene kadar otomatik olarak gizlenir ve ihlaller içeriğin kaldırılmasına veya hesabın yasaklanmasına yol açabilir.\n\nHerhangi bir reel'den istediğin zaman bildirebilir veya engelleyebilirsin.",
+        "decline": "Reddet",
+        "title": "Reels içerik kuralları"
+      },
+      "viewer": {
+        "close": "Kapat",
+        "label": "Reels",
+        "mute": "Sesi kapat",
+        "next": "Sonraki reel",
+        "previous": "Önceki reel",
+        "tap_to_play": "Oynatmak için dokun",
+        "unmute": "Sesi aç"
+      }
+    }
+  },
+  "vi": {
+    "reels": {
+      "actions": {
+        "block": "Chặn người dùng",
+        "comments": "Bình luận",
+        "like": "Thích",
+        "more": "Thêm",
+        "profile": "Hồ sơ",
+        "report": "Báo cáo",
+        "unlike": "Bỏ thích"
+      },
+      "create": {
+        "bad_type": "Loại tệp này không được hỗ trợ. Hãy dùng MP4, MOV hoặc WebM.",
+        "caption": "Chú thích",
+        "caption_placeholder": "Bạn đang luyện tập điều gì?",
+        "change_video": "Chọn video khác",
+        "choose_video": "Chọn video",
+        "failed": "Không thể đăng reel của bạn. Hãy thử lại.",
+        "hint": "Video ngắn học ngôn ngữ, tối đa 3 phút. Video dọc (9:16) trông đẹp nhất.",
+        "post": "Đăng reel",
+        "posted": "Reel của bạn đã được đăng.",
+        "posting": "Đang đăng…",
+        "server_too_long": "Reel phải dài tối đa 3 phút.",
+        "title": "Reel mới",
+        "too_big": "Video này quá lớn để tải lên.",
+        "too_long": "Reel dài tối đa 3:00. Video này dài {{duration}}.",
+        "upload_failed": "Video chưa được tải lên. Chưa có gì được đăng — hãy thử lại."
+      },
+      "grid": {
+        "create": "Tạo reel",
+        "empty": "Chưa có reel nào. Hãy là người đầu tiên đăng.",
+        "error": "Không thể tải reels.",
+        "load_more": "Tải thêm",
+        "loading": "Đang tải reels…",
+        "open_reel": "Phát reel của {{name}}",
+        "retry": "Thử lại",
+        "title": "Reels",
+        "unavailable": "Reels hiện không khả dụng."
+      },
+      "moments_link": "Xem reels",
+      "nav": "Reels",
+      "policy": {
+        "accept": "Tôi đồng ý",
+        "body": "Reels là các video ngắn học ngôn ngữ — câu trả lời cho chủ đề, luyện nói, giải thích từ người bản xứ và các clip văn hóa.\n\nBananaTalk không khoan nhượng với nội dung phản cảm: không khỏa thân, lời lẽ thù ghét, quấy rối, bạo lực hay nội dung bất hợp pháp. Video bị báo cáo sẽ tự động bị ẩn để chờ xem xét sau 2 báo cáo, và vi phạm có thể dẫn đến gỡ nội dung hoặc khóa tài khoản.\n\nBạn có thể báo cáo hoặc chặn từ bất kỳ reel nào vào bất cứ lúc nào.",
+        "decline": "Từ chối",
+        "title": "Nguyên tắc nội dung reels"
+      },
+      "viewer": {
+        "close": "Đóng",
+        "label": "Reels",
+        "mute": "Tắt tiếng",
+        "next": "Reel tiếp theo",
+        "previous": "Reel trước",
+        "tap_to_play": "Chạm để phát",
+        "unmute": "Bật tiếng"
+      }
+    }
+  },
+  "zh_TW": {
+    "reels": {
+      "actions": {
+        "block": "封鎖使用者",
+        "comments": "留言",
+        "like": "按讚",
+        "more": "更多",
+        "profile": "個人檔案",
+        "report": "檢舉",
+        "unlike": "收回讚"
+      },
+      "create": {
+        "bad_type": "不支援此檔案類型，請使用 MP4、MOV 或 WebM。",
+        "caption": "說明",
+        "caption_placeholder": "你在練習什麼？",
+        "change_video": "選擇其他影片",
+        "choose_video": "選擇影片",
+        "failed": "無法發布你的短影片，請再試一次。",
+        "hint": "一段簡短的語言學習影片，最長 3 分鐘。直式（9:16）效果最佳。",
+        "post": "發布短影片",
+        "posted": "你的短影片已發布。",
+        "posting": "發布中…",
+        "server_too_long": "短影片不能超過 3 分鐘。",
+        "title": "新短影片",
+        "too_big": "此影片太大，無法上傳。",
+        "too_long": "短影片最長 3:00，此影片長度為 {{duration}}。",
+        "upload_failed": "影片未上傳，沒有發布任何內容，請再試一次。"
+      },
+      "grid": {
+        "create": "建立短影片",
+        "empty": "還沒有 Reels，來發布第一個吧。",
+        "error": "無法載入短影片。",
+        "load_more": "載入更多",
+        "loading": "正在載入短影片…",
+        "open_reel": "播放 {{name}} 的短影片",
+        "retry": "重試",
+        "title": "連續短片",
+        "unavailable": "短影片目前無法使用。"
+      },
+      "moments_link": "觀看短影片",
+      "nav": "連續短片",
+      "policy": {
+        "accept": "我同意",
+        "body": "Reels 是簡短的語言學習影片，包括話題回答、口說練習、母語者講解和文化短片。\n\nBananaTalk 對不當內容零容忍：禁止裸露、仇恨言論、騷擾、暴力或非法內容。被檢舉的影片在收到 2 次檢舉後會自動隱藏以待審核，違規可能導致內容被刪除或帳號被停權。\n\n你可以隨時在任何 Reel 中檢舉或封鎖。",
+        "decline": "拒絕",
+        "title": "短影片內容準則"
+      },
+      "viewer": {
+        "close": "關閉",
+        "label": "連續短片",
+        "mute": "靜音",
+        "next": "下一個短影片",
+        "previous": "上一個短影片",
+        "tap_to_play": "點一下即可播放",
+        "unmute": "取消靜音"
+      }
+    }
+  },
+  "zho": {
+    "reels": {
+      "actions": {
+        "block": "屏蔽用户",
+        "comments": "评论",
+        "like": "点赞",
+        "more": "更多",
+        "profile": "个人资料",
+        "report": "举报",
+        "unlike": "取消点赞"
+      },
+      "create": {
+        "bad_type": "不支持此文件类型。请使用 MP4、MOV 或 WebM。",
+        "caption": "说明",
+        "caption_placeholder": "你在练习什么？",
+        "change_video": "选择其他视频",
+        "choose_video": "选择视频",
+        "failed": "无法发布你的短视频，请重试。",
+        "hint": "一段简短的语言学习视频，最长 3 分钟。竖屏（9:16）效果最佳。",
+        "post": "发布短视频",
+        "posted": "你的短视频已发布。",
+        "posting": "正在发布…",
+        "server_too_long": "短视频不能超过 3 分钟。",
+        "title": "新短视频",
+        "too_big": "此视频太大，无法上传。",
+        "too_long": "短视频最长 3:00，此视频时长为 {{duration}}。",
+        "upload_failed": "视频未上传，未发布任何内容，请重试。"
+      },
+      "grid": {
+        "create": "创建短视频",
+        "empty": "还没有 Reels，来发布第一个吧。",
+        "error": "无法加载短视频。",
+        "load_more": "加载更多",
+        "loading": "正在加载短视频…",
+        "open_reel": "播放 {{name}} 的短视频",
+        "retry": "重试",
+        "title": "快拍视频",
+        "unavailable": "短视频暂时不可用。"
+      },
+      "moments_link": "观看短视频",
+      "nav": "快拍视频",
+      "policy": {
+        "accept": "我同意",
+        "body": "Reels 是简短的语言学习视频，包括话题回答、口语练习、母语者讲解和文化短片。\n\nBananaTalk 对不当内容零容忍：禁止裸露、仇恨言论、骚扰、暴力或非法内容。被举报的视频在收到 2 次举报后会自动隐藏以待审核，违规可能导致内容被删除或账号被封禁。\n\n你可以随时在任意 Reel 中举报或屏蔽。",
+        "decline": "拒绝",
+        "title": "短视频内容准则"
+      },
+      "viewer": {
+        "close": "关闭",
+        "label": "快拍视频",
+        "mute": "静音",
+        "next": "下一个短视频",
+        "previous": "上一个短视频",
+        "tap_to_play": "点按播放",
+        "unmute": "取消静音"
+      }
+    }
+  }
+}

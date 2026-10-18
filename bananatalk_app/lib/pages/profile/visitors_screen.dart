@@ -13,6 +13,7 @@ import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/utils/time_ago.dart';
 import 'package:bananatalk_app/utils/country_names.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
+import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
 import 'package:bananatalk_app/utils/string_sanitizer.dart';
 import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 import 'package:bananatalk_app/utils/language_names.dart';
@@ -46,6 +47,9 @@ class _ProfileVisitorsScreenState extends ConsumerState<ProfileVisitorsScreen> {
   List<dynamic> _visitors = [];
   Map<String, dynamic>? _stats;
   int? _maskedCount;
+
+  /// End of the 24h coin unlock that opens the list (server revealUntil).
+  DateTime? _revealUntil;
 
   /// Visitors this account cannot see (free accounts get the most recent one).
   int _locked = 0;
@@ -106,6 +110,7 @@ class _ProfileVisitorsScreenState extends ConsumerState<ProfileVisitorsScreen> {
             _maskedCount = mc is num ? mc.toInt() : null;
             final locked = result['locked'];
             _locked = locked is num ? locked.toInt() : 0;
+            _revealUntil = DateTime.tryParse('${result['revealUntil'] ?? ''}');
             _isLoading = false;
           });
         } else if (!silent) {
@@ -245,6 +250,8 @@ class _ProfileVisitorsScreenState extends ConsumerState<ProfileVisitorsScreen> {
               child: BannerAdWidget(key: ValueKey('visitors-banner')),
             ),
             if (_stats != null) SliverToBoxAdapter(child: _buildStatsHeader()),
+            if (visitorsUnlockLeft(_revealUntil) != null)
+              SliverToBoxAdapter(child: _buildUnlockBanner(visitorsUnlockLeft(_revealUntil)!)),
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(20, 4, 20, 12),
@@ -282,6 +289,47 @@ class _ProfileVisitorsScreenState extends ConsumerState<ProfileVisitorsScreen> {
     );
   }
 
+  /// "Unlocked · 23h 12m left" while a coin unlock is open, with Go VIP to
+  /// keep it (2026-10-18; the list used to lock again without warning).
+  Widget _buildUnlockBanner(Duration left) {
+    final l10n = AppLocalizations.of(context)!;
+    final h = left.inHours;
+    final m = left.inMinutes % 60;
+    final time = h > 0 ? l10n.boostDurationHm(h, m) : l10n.boostDurationM(m < 1 ? 1 : m);
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 4, 20, 8),
+      child: Container(
+        key: const Key('visitors-unlock-banner'),
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+        decoration: BoxDecoration(
+          color: AppColors.success.withValues(alpha: 0.12),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Row(
+          children: [
+            const Icon(Icons.lock_open_rounded, color: AppColors.success, size: 20),
+            const SizedBox(width: 8),
+            Expanded(
+              child: Text(
+                l10n.visitorsUnlockedLeft(time),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(fontWeight: FontWeight.w700),
+              ),
+            ),
+            TextButton(
+              onPressed: () => Navigator.push(
+                context,
+                AppPageRoute(builder: (_) => const VipPlansScreen(userId: '')),
+              ),
+              child: Text(l10n.goVip),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   Widget _buildMaskedTile(int maskedLocal) {
     final l10n = AppLocalizations.of(context)!;
     // The server's maskedCount used to be the masked rows on this page (1 for
@@ -293,7 +341,7 @@ class _ProfileVisitorsScreenState extends ConsumerState<ProfileVisitorsScreen> {
       count: count,
       title: l10n.visitorsMaskedTitle(count),
       body: (cost) => cost != null
-          ? l10n.visitorsMaskedBody(cost)
+          ? l10n.visitorsReveal24h(cost)
           : l10n.visitorsMaskedBodyVip,
       onUnlocked: () => _fetchVisitors(silent: true),
     );
@@ -1066,4 +1114,11 @@ class VisitTimeBadge extends StatelessWidget {
       ),
     );
   }
+}
+
+/// Time left on a coin unlock, or null when there is none (or it ended).
+Duration? visitorsUnlockLeft(DateTime? until, {DateTime? now}) {
+  if (until == null) return null;
+  final left = until.difference(now ?? DateTime.now());
+  return left.isNegative ? null : left;
 }

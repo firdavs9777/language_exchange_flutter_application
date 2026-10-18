@@ -1,5 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Mic, Square, X } from 'lucide-react';
+import { pickRecorderMime } from '../../../utils/recorderMime';
 
 interface VoiceNoteRecorderProps {
   maxSeconds?: number;
@@ -62,6 +64,7 @@ const VoiceNoteRecorder: React.FC<VoiceNoteRecorderProps> = ({
   onComplete,
   onCancel,
 }) => {
+  const { t } = useTranslation();
   const [status, setStatus] = useState<RecorderStatus>('idle');
   const [elapsed, setElapsed] = useState(0);
   const [liveLevels, setLiveLevels] = useState<number[]>(Array(LIVE_LEVEL_BARS).fill(0.1));
@@ -134,7 +137,7 @@ const VoiceNoteRecorder: React.FC<VoiceNoteRecorderProps> = ({
         if (recorder.state !== 'inactive') {
           recorder.stop();
         } else {
-          resolve(new Blob(chunksRef.current, { type: 'audio/webm' }));
+          resolve(new Blob(chunksRef.current, { type: recorder.mimeType || 'audio/webm' }));
         }
       });
 
@@ -190,7 +193,15 @@ const VoiceNoteRecorder: React.FC<VoiceNoteRecorderProps> = ({
         levelIntervalRef.current = setInterval(sampleLevel, 100);
       }
 
-      const recorder = new MediaRecorder(stream);
+      // AAC/MP4 where the browser can (plays in the iOS app); otherwise the
+      // browser's default. A typed constructor can throw on Safari < 18.4.
+      const preferred = pickRecorderMime().mimeType;
+      let recorder: MediaRecorder;
+      try {
+        recorder = preferred ? new MediaRecorder(stream, { mimeType: preferred }) : new MediaRecorder(stream);
+      } catch (e) {
+        recorder = new MediaRecorder(stream);
+      }
       mediaRecorderRef.current = recorder;
       chunksRef.current = [];
       stoppedRef.current = false;
@@ -246,7 +257,7 @@ const VoiceNoteRecorder: React.FC<VoiceNoteRecorderProps> = ({
         data-testid="voice-note-recorder-unsupported"
         className="flex items-center justify-between gap-3 rounded-lg bg-gray-100 px-4 py-3 text-sm text-gray-700 dark:bg-gray-800 dark:text-gray-300"
       >
-        <span>Voice recording is not supported in this browser.</span>
+        <span>{t("moments_section.voice.unsupported") || "Voice recording is not supported in this browser."}</span>
       </div>
     );
   }
@@ -257,7 +268,7 @@ const VoiceNoteRecorder: React.FC<VoiceNoteRecorderProps> = ({
         data-testid="voice-note-recorder-denied"
         className="flex items-center justify-between gap-3 rounded-lg bg-gray-100 px-4 py-3 text-sm text-gray-700 dark:bg-gray-800 dark:text-gray-300"
       >
-        <span>Microphone access was denied. Please allow microphone access to record a voice note.</span>
+        <span>{t("moments_section.voice.denied") || "Microphone access was denied. Please allow microphone access to record a voice note."}</span>
       </div>
     );
   }
@@ -270,7 +281,7 @@ const VoiceNoteRecorder: React.FC<VoiceNoteRecorderProps> = ({
       <button
         type="button"
         onClick={handleCancel}
-        aria-label="Cancel recording"
+        aria-label={t("moments_section.voice.cancel") || "Cancel recording"}
         data-testid="voice-note-recorder-cancel"
         className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gray-300 text-gray-700 transition-colors hover:bg-gray-400 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
       >
@@ -312,7 +323,7 @@ const VoiceNoteRecorder: React.FC<VoiceNoteRecorderProps> = ({
       <button
         type="button"
         onClick={handleStop}
-        aria-label="Stop recording and send"
+        aria-label={t("moments_section.voice.stop") || "Stop recording and send"}
         data-testid="voice-note-recorder-stop"
         className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-amber-500 text-white shadow transition-colors hover:bg-amber-600 dark:bg-amber-600 dark:hover:bg-amber-500"
       >

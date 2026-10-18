@@ -1,0 +1,2096 @@
+{
+  "ar": {
+    "communityMain": {
+      "filterSheet": {
+        "reciprocal": "الشركاء المثاليون فقط",
+        "reciprocalHint": "يتحدثون اللغة التي تتعلمها ويتعلمون اللغة التي تتحدثها"
+      },
+      "tabs": {
+        "serious": "متعلمون جادّون",
+        "seriousHint": "نشطون هذا الأسبوع"
+      },
+      "today": {
+        "waved": "تم التلويح"
+      }
+    },
+    "communityNearby": {
+      "back": "رجوع",
+      "geolocationNotSupported": "تحديد الموقع غير مدعوم",
+      "gettingLocation": "جارٍ تحديد موقعك…",
+      "learning": "يتعلم: {{language}}",
+      "locationRequired": "الموقع مطلوب",
+      "noUsers": "لم يُعثر على مستخدمين قريبين",
+      "permissionDenied": "تم رفض إذن الموقع",
+      "positionUnavailable": "الموقع غير متاح",
+      "refresh": "تحديث",
+      "searchRadius": "نطاق البحث",
+      "subtitle": "اعثر على أشخاص من حولك",
+      "timeout": "انتهت مهلة طلب الموقع",
+      "title": "المستخدمون القريبون",
+      "tryAgain": "حاول مرة أخرى",
+      "tryIncreaseRadius": "جرّب توسيع نطاق البحث",
+      "unknownError": "حدث خطأ",
+      "usersFound_one": "تم العثور على {{count}} شخص",
+      "usersFound_other": "تم العثور على {{count}} شخص",
+      "usersFound_zero": "لم يُعثر على أحد",
+      "usersFound_two": "تم العثور على شخصين",
+      "usersFound_few": "تم العثور على {{count}} أشخاص",
+      "usersFound_many": "تم العثور على {{count}} شخصًا"
+    },
+    "profile": {
+      "actions": {
+        "followBlocked": "لا يمكنك متابعة هذا الشخص"
+      },
+      "blocked": {
+        "body": "قام أحدكما بحظر الآخر، لذا لا يمكنكما المراسلة أو المتابعة أو رؤية منشورات بعضكما.",
+        "manage": "إدارة الأشخاص المحظورين",
+        "title": "هذا الملف الشخصي غير متاح"
+      },
+      "photos": {
+        "openStory": "عرض قصة {{name}}"
+      }
+    },
+    "waves": {
+      "archive": "التلويحات الأقدم",
+      "archiveEmpty": "لا توجد تلويحات أقدم",
+      "archiveHint": "التلويحات من 7 إلى 30 يومًا مضت",
+      "back": "رجوع",
+      "cap": {
+        "body": "لقد استخدمت تلويحاتك المجانية لهذا اليوم. يمكن لأعضاء VIP التلويح بلا حد يومي، أو حاول مرة أخرى غدًا.",
+        "notNow": "ليس الآن",
+        "seeVip": "اكتشف VIP",
+        "title": "وصلت إلى الحد اليومي للتلويحات"
+      },
+      "findPeople": "اعثر على أشخاص",
+      "noReceived": "لم تستلم أي تلويحات بعد",
+      "recent": "آخر 7 أيام",
+      "sheet": {
+        "already": "تم التلويح مسبقًا",
+        "alreadyBody": "يمكنك التلويح لكل شخص مرة واحدة فقط — أرسل له رسالة بدلًا من ذلك لمواصلة المحادثة.",
+        "alreadyTitle": "لقد لوّحت لـ {{name}} مسبقًا",
+        "cancel": "إلغاء",
+        "chips": {
+          "chat": {
+            "label": "دردشة",
+            "message": "🎉 لنتحدث!"
+          },
+          "cool": {
+            "label": "رائع",
+            "message": "❤️ ملف شخصي رائع!"
+          },
+          "hello": {
+            "label": "أهلًا",
+            "message": "✋ أهلًا!"
+          },
+          "hey": {
+            "label": "هاي",
+            "message": "😊 هاي، كيف حالك؟"
+          },
+          "hi": {
+            "label": "مرحبًا",
+            "message": "👋 مرحبًا!"
+          },
+          "nice": {
+            "label": "تشرفت",
+            "message": "🌟 تشرفت بمعرفتك!"
+          }
+        },
+        "close": "إغلاق",
+        "icebreakers": {
+          "0": "مرحبًا! هل تود أن نتدرب على اللغات معًا؟",
+          "1": "لاحظت أننا نتعلم لغات متشابهة — مرحبًا!",
+          "2": "لفت ملفك الشخصي انتباهي، كيف حالك؟",
+          "3": "هاي! ما الذي دفعك لتعلم لغة جديدة؟"
+        },
+        "icebreakersTitle": "لكسر الجليد",
+        "match": "🎉 تطابق! لوّحت أنت و{{name}} لبعضكما.",
+        "placeholder": "اكتب رسالة خاصة (اختياري)…",
+        "quickReplies": "ردود سريعة",
+        "send": "أرسل تلويحة",
+        "sendError": "تعذّر إرسال التلويحة",
+        "sent": "تم إرسال تلويحة إلى {{name}}!",
+        "subtitle": "قل مرحبًا واكسر الجليد 👋",
+        "title": "أرسل تلويحة إلى {{name}}",
+        "yourMessage": "رسالتك"
+      },
+      "someone": "شخص ما",
+      "subtitle": "الأشخاص الذين لوّحوا لك",
+      "unread": "غير مقروءة",
+      "wavedAtYou": "لوّح لك 👋"
+    }
+  },
+  "de": {
+    "communityMain": {
+      "filterSheet": {
+        "reciprocal": "Nur perfekte Partner",
+        "reciprocalHint": "Sie sprechen, was du lernst, und lernen, was du sprichst"
+      },
+      "tabs": {
+        "serious": "Engagierte Lernende",
+        "seriousHint": "Diese Woche aktiv"
+      },
+      "today": {
+        "waved": "Gewinkt"
+      }
+    },
+    "communityNearby": {
+      "back": "Zurück",
+      "geolocationNotSupported": "Standortbestimmung wird nicht unterstützt",
+      "gettingLocation": "Dein Standort wird ermittelt...",
+      "learning": "Lernt: {{language}}",
+      "locationRequired": "Standort erforderlich",
+      "noUsers": "Keine Nutzer in der Nähe gefunden",
+      "permissionDenied": "Standortberechtigung verweigert",
+      "positionUnavailable": "Standort nicht verfügbar",
+      "refresh": "Aktualisieren",
+      "searchRadius": "Suchradius",
+      "subtitle": "Finde Leute in deiner Nähe",
+      "timeout": "Zeitüberschreitung bei der Standortabfrage",
+      "title": "Nutzer in der Nähe",
+      "tryAgain": "Erneut versuchen",
+      "tryIncreaseRadius": "Versuch, den Suchradius zu vergrößern",
+      "unknownError": "Ein Fehler ist aufgetreten",
+      "usersFound_one": "{{count}} Person gefunden",
+      "usersFound_other": "{{count}} Personen gefunden"
+    },
+    "profile": {
+      "actions": {
+        "followBlocked": "Du kannst dieser Person nicht folgen"
+      },
+      "blocked": {
+        "body": "Einer von euch hat den anderen blockiert. Ihr könnt euch daher keine Nachrichten schreiben, euch nicht folgen und die Beiträge des anderen nicht sehen.",
+        "manage": "Blockierte Personen verwalten",
+        "title": "Dieses Profil ist nicht verfügbar"
+      },
+      "photos": {
+        "openStory": "Story von {{name}} ansehen"
+      }
+    },
+    "waves": {
+      "archive": "Ältere Wellen",
+      "archiveEmpty": "Keine älteren Wellen",
+      "archiveHint": "Wellen von vor 7 bis 30 Tagen",
+      "back": "Zurück",
+      "cap": {
+        "body": "Du hast die kostenlosen Wellen für heute aufgebraucht. VIP-Mitglieder können ohne Tageslimit winken – oder versuch es morgen wieder.",
+        "notNow": "Nicht jetzt",
+        "seeVip": "VIP ansehen",
+        "title": "Tageslimit für Wellen erreicht"
+      },
+      "findPeople": "Leute finden",
+      "noReceived": "Noch keine Wellen erhalten",
+      "recent": "Letzte 7 Tage",
+      "sheet": {
+        "already": "Schon gewinkt",
+        "alreadyBody": "Du kannst jeder Person nur einmal winken – schreib ihr stattdessen eine Nachricht, damit das Gespräch weitergeht.",
+        "alreadyTitle": "Du hast {{name}} schon gewinkt",
+        "cancel": "Abbrechen",
+        "chips": {
+          "chat": {
+            "label": "Chatten",
+            "message": "🎉 Lass uns chatten!"
+          },
+          "cool": {
+            "label": "Cool",
+            "message": "❤️ Cooles Profil!"
+          },
+          "hello": {
+            "label": "Hallo",
+            "message": "✋ Hallo!"
+          },
+          "hey": {
+            "label": "Hey",
+            "message": "😊 Hey du!"
+          },
+          "hi": {
+            "label": "Hi",
+            "message": "👋 Hi!"
+          },
+          "nice": {
+            "label": "Freut mich",
+            "message": "🌟 Freut mich, dich kennenzulernen!"
+          }
+        },
+        "close": "Schließen",
+        "icebreakers": {
+          "0": "Hi! Hast du Lust, zusammen Sprachen zu üben?",
+          "1": "Ich hab gesehen, dass wir ähnliche Sprachen lernen – hi!",
+          "2": "Dein Profil ist mir aufgefallen, wie geht's dir?",
+          "3": "Hey! Warum hast du angefangen, eine neue Sprache zu lernen?"
+        },
+        "icebreakersTitle": "Eisbrecher",
+        "match": "🎉 Es ist ein Match! Du und {{name}} habt euch gegenseitig gewinkt.",
+        "placeholder": "Schreib eine eigene Nachricht (optional)…",
+        "quickReplies": "Schnellantworten",
+        "send": "Welle senden",
+        "sendError": "Welle konnte nicht gesendet werden",
+        "sent": "Welle an {{name}} gesendet!",
+        "subtitle": "Sag Hallo und brich das Eis 👋",
+        "title": "Sende {{name}} eine Welle",
+        "yourMessage": "Deine Nachricht"
+      },
+      "someone": "Jemand",
+      "subtitle": "Leute, die dir gewinkt haben",
+      "unread": "Ungelesen",
+      "wavedAtYou": "Hat dir gewinkt 👋"
+    }
+  },
+  "eng": {
+    "communityMain": {
+      "filterSheet": {
+        "reciprocal": "Perfect partners only",
+        "reciprocalHint": "They speak what you learn and learn what you speak"
+      },
+      "tabs": {
+        "serious": "Serious learners",
+        "seriousHint": "Active this week"
+      },
+      "today": {
+        "waved": "Waved"
+      }
+    },
+    "communityNearby": {
+      "back": "Back",
+      "geolocationNotSupported": "Geolocation is not supported",
+      "gettingLocation": "Getting your location...",
+      "learning": "Learning: {{language}}",
+      "locationRequired": "Location Required",
+      "noUsers": "No users found nearby",
+      "permissionDenied": "Location permission denied",
+      "positionUnavailable": "Location unavailable",
+      "refresh": "Refresh",
+      "searchRadius": "Search Radius",
+      "subtitle": "Find people around you",
+      "timeout": "Location request timed out",
+      "title": "Nearby Users",
+      "tryAgain": "Try Again",
+      "tryIncreaseRadius": "Try increasing the search radius",
+      "unknownError": "An error occurred",
+      "usersFound_one": "{{count}} person found",
+      "usersFound_other": "{{count}} people found"
+    },
+    "profile": {
+      "actions": {
+        "followBlocked": "You can't follow this person"
+      },
+      "blocked": {
+        "body": "One of you has blocked the other, so you can't message, follow or see each other's posts.",
+        "manage": "Manage blocked people",
+        "title": "This profile isn't available"
+      },
+      "photos": {
+        "openStory": "View {{name}}'s story"
+      }
+    },
+    "waves": {
+      "archive": "Older waves",
+      "archiveEmpty": "No older waves",
+      "archiveHint": "Waves from 7 to 30 days ago",
+      "back": "Back",
+      "cap": {
+        "body": "You've used today's free waves. VIP members can wave without a daily limit, or try again tomorrow.",
+        "notNow": "Not now",
+        "seeVip": "See VIP",
+        "title": "Daily wave limit reached"
+      },
+      "findPeople": "Find People",
+      "noReceived": "No waves received yet",
+      "recent": "Last 7 days",
+      "sheet": {
+        "already": "Already waved",
+        "alreadyBody": "You can only wave once per person — send them a message instead to keep the conversation going.",
+        "alreadyTitle": "You already waved at {{name}}",
+        "cancel": "Cancel",
+        "chips": {
+          "chat": {
+            "label": "Chat",
+            "message": "🎉 Let's chat!"
+          },
+          "cool": {
+            "label": "Cool",
+            "message": "❤️ Cool profile!"
+          },
+          "hello": {
+            "label": "Hello",
+            "message": "✋ Hello!"
+          },
+          "hey": {
+            "label": "Hey",
+            "message": "😊 Hey there!"
+          },
+          "hi": {
+            "label": "Hi",
+            "message": "👋 Hi!"
+          },
+          "nice": {
+            "label": "Nice",
+            "message": "🌟 Nice to meet you!"
+          }
+        },
+        "close": "Close",
+        "icebreakers": {
+          "0": "Hi! Want to practice languages together?",
+          "1": "I noticed we're learning similar languages — hi!",
+          "2": "Your profile caught my eye, how's it going?",
+          "3": "Hey! What made you start learning a new language?"
+        },
+        "icebreakersTitle": "Icebreakers",
+        "match": "🎉 It's a match! You and {{name}} both waved at each other.",
+        "placeholder": "Write a custom message (optional)…",
+        "quickReplies": "Quick replies",
+        "send": "Send wave",
+        "sendError": "Failed to send wave",
+        "sent": "Wave sent to {{name}}!",
+        "subtitle": "Say hi and break the ice 👋",
+        "title": "Send a wave to {{name}}",
+        "yourMessage": "Your message"
+      },
+      "someone": "Someone",
+      "subtitle": "People who waved at you",
+      "unread": "Unread",
+      "wavedAtYou": "Waved at you 👋"
+    }
+  },
+  "es": {
+    "communityMain": {
+      "filterSheet": {
+        "reciprocal": "Solo compañeros ideales",
+        "reciprocalHint": "Hablan lo que aprendes y aprenden lo que hablas"
+      },
+      "tabs": {
+        "serious": "Estudiantes constantes",
+        "seriousHint": "Activos esta semana"
+      },
+      "today": {
+        "waved": "Saludado"
+      }
+    },
+    "communityNearby": {
+      "back": "Volver",
+      "geolocationNotSupported": "La geolocalización no es compatible",
+      "gettingLocation": "Obteniendo tu ubicación...",
+      "learning": "Aprende: {{language}}",
+      "locationRequired": "Se requiere ubicación",
+      "noUsers": "No se encontraron usuarios cerca",
+      "permissionDenied": "Permiso de ubicación denegado",
+      "positionUnavailable": "Ubicación no disponible",
+      "refresh": "Actualizar",
+      "searchRadius": "Radio de búsqueda",
+      "subtitle": "Encuentra gente cerca de ti",
+      "timeout": "Se agotó el tiempo de la solicitud de ubicación",
+      "title": "Usuarios cercanos",
+      "tryAgain": "Intentar de nuevo",
+      "tryIncreaseRadius": "Prueba a ampliar el radio de búsqueda",
+      "unknownError": "Ocurrió un error",
+      "usersFound_one": "{{count}} persona encontrada",
+      "usersFound_other": "{{count}} personas encontradas"
+    },
+    "profile": {
+      "actions": {
+        "followBlocked": "No puedes seguir a esta persona"
+      },
+      "blocked": {
+        "body": "Uno de ustedes bloqueó al otro, así que no pueden enviarse mensajes, seguirse ni ver las publicaciones del otro.",
+        "manage": "Gestionar personas bloqueadas",
+        "title": "Este perfil no está disponible"
+      },
+      "photos": {
+        "openStory": "Ver la historia de {{name}}"
+      }
+    },
+    "waves": {
+      "archive": "Saludos anteriores",
+      "archiveEmpty": "No hay saludos anteriores",
+      "archiveHint": "Saludos de hace 7 a 30 días",
+      "back": "Volver",
+      "cap": {
+        "body": "Ya usaste los saludos gratis de hoy. Los miembros VIP pueden saludar sin límite diario, o vuelve a intentarlo mañana.",
+        "notNow": "Ahora no",
+        "seeVip": "Ver VIP",
+        "title": "Alcanzaste el límite diario de saludos"
+      },
+      "findPeople": "Buscar personas",
+      "noReceived": "Aún no has recibido saludos",
+      "recent": "Últimos 7 días",
+      "sheet": {
+        "already": "Ya saludaste",
+        "alreadyBody": "Solo puedes saludar una vez a cada persona: mejor envíale un mensaje para seguir la conversación.",
+        "alreadyTitle": "Ya saludaste a {{name}}",
+        "cancel": "Cancelar",
+        "chips": {
+          "chat": {
+            "label": "Charlar",
+            "message": "🎉 ¡Charlemos!"
+          },
+          "cool": {
+            "label": "Genial",
+            "message": "❤️ ¡Qué buen perfil!"
+          },
+          "hello": {
+            "label": "Hola",
+            "message": "✋ ¡Hola!"
+          },
+          "hey": {
+            "label": "Hey",
+            "message": "😊 ¡Hey, qué tal!"
+          },
+          "hi": {
+            "label": "Hola",
+            "message": "👋 ¡Hola!"
+          },
+          "nice": {
+            "label": "Encantado",
+            "message": "🌟 ¡Encantado de conocerte!"
+          }
+        },
+        "close": "Cerrar",
+        "icebreakers": {
+          "0": "¡Hola! ¿Quieres practicar idiomas juntos?",
+          "1": "Vi que estamos aprendiendo idiomas parecidos, ¡hola!",
+          "2": "Tu perfil me llamó la atención, ¿qué tal todo?",
+          "3": "¡Hey! ¿Qué te animó a aprender un nuevo idioma?"
+        },
+        "icebreakersTitle": "Para romper el hielo",
+        "match": "🎉 ¡Es un match! Tú y {{name}} se saludaron mutuamente.",
+        "placeholder": "Escribe un mensaje personalizado (opcional)…",
+        "quickReplies": "Respuestas rápidas",
+        "send": "Enviar saludo",
+        "sendError": "No se pudo enviar el saludo",
+        "sent": "¡Saludo enviado a {{name}}!",
+        "subtitle": "Saluda y rompe el hielo 👋",
+        "title": "Envía un saludo a {{name}}",
+        "yourMessage": "Tu mensaje"
+      },
+      "someone": "Alguien",
+      "subtitle": "Personas que te saludaron",
+      "unread": "No leídos",
+      "wavedAtYou": "Te saludó 👋"
+    }
+  },
+  "fr": {
+    "communityMain": {
+      "filterSheet": {
+        "reciprocal": "Partenaires idéaux uniquement",
+        "reciprocalHint": "Ils parlent ce que vous apprenez et apprennent ce que vous parlez"
+      },
+      "tabs": {
+        "serious": "Apprenants assidus",
+        "seriousHint": "Actifs cette semaine"
+      },
+      "today": {
+        "waved": "Salué"
+      }
+    },
+    "communityNearby": {
+      "back": "Retour",
+      "geolocationNotSupported": "La géolocalisation n'est pas prise en charge",
+      "gettingLocation": "Récupération de votre position...",
+      "learning": "Apprend : {{language}}",
+      "locationRequired": "Localisation requise",
+      "noUsers": "Aucun utilisateur trouvé à proximité",
+      "permissionDenied": "Autorisation de localisation refusée",
+      "positionUnavailable": "Position indisponible",
+      "refresh": "Actualiser",
+      "searchRadius": "Rayon de recherche",
+      "subtitle": "Trouvez des personnes autour de vous",
+      "timeout": "La demande de localisation a expiré",
+      "title": "Utilisateurs à proximité",
+      "tryAgain": "Réessayer",
+      "tryIncreaseRadius": "Essayez d'élargir le rayon de recherche",
+      "unknownError": "Une erreur s'est produite",
+      "usersFound_one": "{{count}} personne trouvée",
+      "usersFound_other": "{{count}} personnes trouvées"
+    },
+    "profile": {
+      "actions": {
+        "followBlocked": "Vous ne pouvez pas suivre cette personne"
+      },
+      "blocked": {
+        "body": "L'un de vous a bloqué l'autre : vous ne pouvez donc pas vous envoyer de messages, vous suivre ni voir les publications de l'autre.",
+        "manage": "Gérer les personnes bloquées",
+        "title": "Ce profil n'est pas disponible"
+      },
+      "photos": {
+        "openStory": "Voir la story de {{name}}"
+      }
+    },
+    "waves": {
+      "archive": "Salutations plus anciennes",
+      "archiveEmpty": "Aucune salutation plus ancienne",
+      "archiveHint": "Salutations datant de 7 à 30 jours",
+      "back": "Retour",
+      "cap": {
+        "body": "Vous avez utilisé vos salutations gratuites du jour. Les membres VIP peuvent saluer sans limite quotidienne, sinon réessayez demain.",
+        "notNow": "Pas maintenant",
+        "seeVip": "Voir VIP",
+        "title": "Limite quotidienne de salutations atteinte"
+      },
+      "findPeople": "Trouver des personnes",
+      "noReceived": "Aucune salutation reçue pour le moment",
+      "recent": "7 derniers jours",
+      "sheet": {
+        "already": "Déjà salué",
+        "alreadyBody": "Vous ne pouvez saluer chaque personne qu'une seule fois — envoyez-lui plutôt un message pour poursuivre la conversation.",
+        "alreadyTitle": "Vous avez déjà salué {{name}}",
+        "cancel": "Annuler",
+        "chips": {
+          "chat": {
+            "label": "Discuter",
+            "message": "🎉 On discute ?"
+          },
+          "cool": {
+            "label": "Sympa",
+            "message": "❤️ Super profil !"
+          },
+          "hello": {
+            "label": "Bonjour",
+            "message": "✋ Bonjour !"
+          },
+          "hey": {
+            "label": "Hey",
+            "message": "😊 Hey, salut !"
+          },
+          "hi": {
+            "label": "Salut",
+            "message": "👋 Salut !"
+          },
+          "nice": {
+            "label": "Enchanté",
+            "message": "🌟 Ravi de faire ta connaissance !"
+          }
+        },
+        "close": "Fermer",
+        "icebreakers": {
+          "0": "Salut ! Ça te dit de pratiquer les langues ensemble ?",
+          "1": "J'ai vu qu'on apprend des langues similaires — salut !",
+          "2": "Ton profil m'a tapé dans l'œil, comment ça va ?",
+          "3": "Hey ! Qu'est-ce qui t'a donné envie d'apprendre une nouvelle langue ?"
+        },
+        "icebreakersTitle": "Pour briser la glace",
+        "match": "🎉 C'est un match ! Vous et {{name}} vous êtes salués mutuellement.",
+        "placeholder": "Écrivez un message personnalisé (facultatif)…",
+        "quickReplies": "Réponses rapides",
+        "send": "Envoyer la salutation",
+        "sendError": "Impossible d'envoyer la salutation",
+        "sent": "Salutation envoyée à {{name}} !",
+        "subtitle": "Dites bonjour et brisez la glace 👋",
+        "title": "Envoyer une salutation à {{name}}",
+        "yourMessage": "Votre message"
+      },
+      "someone": "Quelqu'un",
+      "subtitle": "Les personnes qui vous ont salué",
+      "unread": "Non lues",
+      "wavedAtYou": "Vous a salué 👋"
+    }
+  },
+  "hi": {
+    "communityMain": {
+      "filterSheet": {
+        "reciprocal": "सिर्फ़ परफ़ेक्ट पार्टनर",
+        "reciprocalHint": "वे वह भाषा बोलते हैं जो आप सीख रहे हैं, और वह भाषा सीख रहे हैं जो आप बोलते हैं"
+      },
+      "tabs": {
+        "serious": "गंभीर सीखने वाले",
+        "seriousHint": "इस हफ़्ते सक्रिय"
+      },
+      "today": {
+        "waved": "वेव भेजा"
+      }
+    },
+    "communityNearby": {
+      "back": "वापस",
+      "geolocationNotSupported": "जियोलोकेशन समर्थित नहीं है",
+      "gettingLocation": "आपकी लोकेशन पता की जा रही है…",
+      "learning": "सीख रहे हैं: {{language}}",
+      "locationRequired": "लोकेशन ज़रूरी है",
+      "noUsers": "आस-पास कोई उपयोगकर्ता नहीं मिला",
+      "permissionDenied": "लोकेशन की अनुमति नहीं दी गई",
+      "positionUnavailable": "लोकेशन उपलब्ध नहीं है",
+      "refresh": "रीफ़्रेश करें",
+      "searchRadius": "खोज का दायरा",
+      "subtitle": "अपने आस-पास के लोगों को खोजें",
+      "timeout": "लोकेशन अनुरोध का समय समाप्त हो गया",
+      "title": "नज़दीकी उपयोगकर्ता",
+      "tryAgain": "फिर से कोशिश करें",
+      "tryIncreaseRadius": "खोज का दायरा बढ़ाकर देखें",
+      "unknownError": "एक त्रुटि हुई",
+      "usersFound_one": "{{count}} व्यक्ति मिला",
+      "usersFound_other": "{{count}} लोग मिले"
+    },
+    "profile": {
+      "actions": {
+        "followBlocked": "आप इस व्यक्ति को फॉलो नहीं कर सकते"
+      },
+      "blocked": {
+        "body": "आप में से किसी एक ने दूसरे को ब्लॉक किया है, इसलिए आप एक-दूसरे को मैसेज, फॉलो नहीं कर सकते और न ही एक-दूसरे की पोस्ट देख सकते हैं।",
+        "manage": "ब्लॉक किए गए लोगों को मैनेज करें",
+        "title": "यह प्रोफ़ाइल उपलब्ध नहीं है"
+      },
+      "photos": {
+        "openStory": "{{name}} की स्टोरी देखें"
+      }
+    },
+    "waves": {
+      "archive": "पुराने वेव्स",
+      "archiveEmpty": "कोई पुराना वेव नहीं",
+      "archiveHint": "7 से 30 दिन पहले के वेव्स",
+      "back": "वापस",
+      "cap": {
+        "body": "आपने आज के मुफ़्त वेव्स इस्तेमाल कर लिए हैं। VIP सदस्य बिना दैनिक सीमा के वेव भेज सकते हैं, या कल फिर से कोशिश करें।",
+        "notNow": "अभी नहीं",
+        "seeVip": "VIP देखें",
+        "title": "दैनिक वेव सीमा पूरी हो गई"
+      },
+      "findPeople": "लोगों को खोजें",
+      "noReceived": "अभी तक कोई वेव नहीं मिला",
+      "recent": "पिछले 7 दिन",
+      "sheet": {
+        "already": "वेव पहले ही भेजा जा चुका है",
+        "alreadyBody": "आप हर व्यक्ति को सिर्फ़ एक बार वेव भेज सकते हैं — बातचीत जारी रखने के लिए उन्हें मैसेज भेजें।",
+        "alreadyTitle": "आप {{name}} को पहले ही वेव भेज चुके हैं",
+        "cancel": "रद्द करें",
+        "chips": {
+          "chat": {
+            "label": "चैट",
+            "message": "🎉 चलो बात करते हैं!"
+          },
+          "cool": {
+            "label": "कूल",
+            "message": "❤️ कूल प्रोफ़ाइल!"
+          },
+          "hello": {
+            "label": "नमस्ते",
+            "message": "✋ नमस्ते!"
+          },
+          "hey": {
+            "label": "हे",
+            "message": "😊 हे, कैसे हो?"
+          },
+          "hi": {
+            "label": "हाय",
+            "message": "👋 हाय!"
+          },
+          "nice": {
+            "label": "मिलकर खुशी",
+            "message": "🌟 आपसे मिलकर खुशी हुई!"
+          }
+        },
+        "close": "बंद करें",
+        "icebreakers": {
+          "0": "हाय! क्या साथ में भाषा का अभ्यास करना चाहेंगे?",
+          "1": "लगता है हम मिलती-जुलती भाषाएँ सीख रहे हैं — हाय!",
+          "2": "आपकी प्रोफ़ाइल ने मेरा ध्यान खींचा, कैसे हैं आप?",
+          "3": "हे! आपने नई भाषा सीखना क्यों शुरू किया?"
+        },
+        "icebreakersTitle": "बातचीत शुरू करने के लिए",
+        "match": "🎉 यह मैच है! आपने और {{name}} ने एक-दूसरे को वेव भेजा।",
+        "placeholder": "अपना मैसेज लिखें (वैकल्पिक)…",
+        "quickReplies": "क्विक रिप्लाई",
+        "send": "वेव भेजें",
+        "sendError": "वेव भेजा नहीं जा सका",
+        "sent": "{{name}} को वेव भेजा गया!",
+        "subtitle": "हाय कहें और बातचीत शुरू करें 👋",
+        "title": "{{name}} को वेव भेजें",
+        "yourMessage": "आपका मैसेज"
+      },
+      "someone": "कोई",
+      "subtitle": "जिन लोगों ने आपको वेव भेजा",
+      "unread": "अपठित",
+      "wavedAtYou": "आपको वेव भेजा 👋"
+    }
+  },
+  "id": {
+    "communityMain": {
+      "filterSheet": {
+        "reciprocal": "Hanya mitra yang pas",
+        "reciprocalHint": "Mereka menguasai bahasa yang kamu pelajari dan mempelajari bahasamu"
+      },
+      "tabs": {
+        "serious": "Pelajar serius",
+        "seriousHint": "Aktif minggu ini"
+      },
+      "today": {
+        "waved": "Sudah disapa"
+      }
+    },
+    "communityNearby": {
+      "back": "Kembali",
+      "geolocationNotSupported": "Geolokasi tidak didukung",
+      "gettingLocation": "Mendapatkan lokasimu...",
+      "learning": "Belajar: {{language}}",
+      "locationRequired": "Lokasi Diperlukan",
+      "noUsers": "Tidak ada pengguna di sekitar",
+      "permissionDenied": "Izin lokasi ditolak",
+      "positionUnavailable": "Lokasi tidak tersedia",
+      "refresh": "Muat ulang",
+      "searchRadius": "Radius Pencarian",
+      "subtitle": "Temukan orang di sekitarmu",
+      "timeout": "Permintaan lokasi habis waktu",
+      "title": "Pengguna Terdekat",
+      "tryAgain": "Coba Lagi",
+      "tryIncreaseRadius": "Coba perbesar radius pencarian",
+      "unknownError": "Terjadi kesalahan",
+      "usersFound_one": "{{count}} orang ditemukan",
+      "usersFound_other": "{{count}} orang ditemukan"
+    },
+    "profile": {
+      "actions": {
+        "followBlocked": "Kamu tidak bisa mengikuti orang ini"
+      },
+      "blocked": {
+        "body": "Salah satu dari kalian telah memblokir yang lain, jadi kalian tidak bisa saling mengirim pesan, mengikuti, atau melihat postingan.",
+        "manage": "Kelola orang yang diblokir",
+        "title": "Profil ini tidak tersedia"
+      },
+      "photos": {
+        "openStory": "Lihat story {{name}}"
+      }
+    },
+    "waves": {
+      "archive": "Sapaan lama",
+      "archiveEmpty": "Tidak ada sapaan lama",
+      "archiveHint": "Sapaan dari 7 sampai 30 hari lalu",
+      "back": "Kembali",
+      "cap": {
+        "body": "Sapaan gratis hari ini sudah habis. Anggota VIP bisa menyapa tanpa batas harian, atau coba lagi besok.",
+        "notNow": "Nanti saja",
+        "seeVip": "Lihat VIP",
+        "title": "Batas sapaan harian tercapai"
+      },
+      "findPeople": "Cari Orang",
+      "noReceived": "Belum ada sapaan yang diterima",
+      "recent": "7 hari terakhir",
+      "sheet": {
+        "already": "Sudah disapa",
+        "alreadyBody": "Kamu hanya bisa menyapa satu kali per orang — kirim pesan saja untuk melanjutkan obrolan.",
+        "alreadyTitle": "Kamu sudah menyapa {{name}}",
+        "cancel": "Batal",
+        "chips": {
+          "chat": {
+            "label": "Ngobrol",
+            "message": "🎉 Yuk ngobrol!"
+          },
+          "cool": {
+            "label": "Keren",
+            "message": "❤️ Profilmu keren!"
+          },
+          "hello": {
+            "label": "Halo",
+            "message": "✋ Halo!"
+          },
+          "hey": {
+            "label": "Hai",
+            "message": "😊 Hai, apa kabar?"
+          },
+          "hi": {
+            "label": "Hi",
+            "message": "👋 Hi!"
+          },
+          "nice": {
+            "label": "Salam kenal",
+            "message": "🌟 Senang berkenalan denganmu!"
+          }
+        },
+        "close": "Tutup",
+        "icebreakers": {
+          "0": "Hai! Mau latihan bahasa bareng?",
+          "1": "Kayaknya kita belajar bahasa yang mirip — hai!",
+          "2": "Profilmu menarik perhatianku, apa kabar?",
+          "3": "Hai! Apa yang bikin kamu mulai belajar bahasa baru?"
+        },
+        "icebreakersTitle": "Pembuka obrolan",
+        "match": "🎉 Cocok! Kamu dan {{name}} saling menyapa.",
+        "placeholder": "Tulis pesan sendiri (opsional)…",
+        "quickReplies": "Balasan cepat",
+        "send": "Kirim sapaan",
+        "sendError": "Gagal mengirim sapaan",
+        "sent": "Sapaan terkirim ke {{name}}!",
+        "subtitle": "Sapa dan cairkan suasana 👋",
+        "title": "Kirim sapaan ke {{name}}",
+        "yourMessage": "Pesanmu"
+      },
+      "someone": "Seseorang",
+      "subtitle": "Orang yang menyapamu",
+      "unread": "Belum dibaca",
+      "wavedAtYou": "Menyapamu 👋"
+    }
+  },
+  "it": {
+    "communityMain": {
+      "filterSheet": {
+        "reciprocal": "Solo partner ideali",
+        "reciprocalHint": "Parlano la lingua che impari e imparano quella che parli"
+      },
+      "tabs": {
+        "serious": "Studenti costanti",
+        "seriousHint": "Attivi questa settimana"
+      },
+      "today": {
+        "waved": "Salutato"
+      }
+    },
+    "communityNearby": {
+      "back": "Indietro",
+      "geolocationNotSupported": "La geolocalizzazione non è supportata",
+      "gettingLocation": "Rilevamento della tua posizione...",
+      "learning": "Impara: {{language}}",
+      "locationRequired": "Posizione richiesta",
+      "noUsers": "Nessun utente trovato nelle vicinanze",
+      "permissionDenied": "Permesso di localizzazione negato",
+      "positionUnavailable": "Posizione non disponibile",
+      "refresh": "Aggiorna",
+      "searchRadius": "Raggio di ricerca",
+      "subtitle": "Trova persone intorno a te",
+      "timeout": "La richiesta di posizione è scaduta",
+      "title": "Utenti nelle vicinanze",
+      "tryAgain": "Riprova",
+      "tryIncreaseRadius": "Prova ad aumentare il raggio di ricerca",
+      "unknownError": "Si è verificato un errore",
+      "usersFound_one": "{{count}} persona trovata",
+      "usersFound_other": "{{count}} persone trovate"
+    },
+    "profile": {
+      "actions": {
+        "followBlocked": "Non puoi seguire questa persona"
+      },
+      "blocked": {
+        "body": "Uno di voi ha bloccato l'altro, quindi non potete scrivervi, seguirvi né vedere i post dell'altro.",
+        "manage": "Gestisci persone bloccate",
+        "title": "Questo profilo non è disponibile"
+      },
+      "photos": {
+        "openStory": "Guarda la storia di {{name}}"
+      }
+    },
+    "waves": {
+      "archive": "Saluti meno recenti",
+      "archiveEmpty": "Nessun saluto meno recente",
+      "archiveHint": "Saluti di 7-30 giorni fa",
+      "back": "Indietro",
+      "cap": {
+        "body": "Hai usato i saluti gratuiti di oggi. I membri VIP possono salutare senza limite giornaliero, oppure riprova domani.",
+        "notNow": "Non ora",
+        "seeVip": "Scopri VIP",
+        "title": "Limite giornaliero di saluti raggiunto"
+      },
+      "findPeople": "Trova persone",
+      "noReceived": "Nessun saluto ricevuto ancora",
+      "recent": "Ultimi 7 giorni",
+      "sheet": {
+        "already": "Già salutato",
+        "alreadyBody": "Puoi salutare ogni persona una sola volta: mandale invece un messaggio per continuare la conversazione.",
+        "alreadyTitle": "Hai già salutato {{name}}",
+        "cancel": "Annulla",
+        "chips": {
+          "chat": {
+            "label": "Chattiamo",
+            "message": "🎉 Facciamo due chiacchiere!"
+          },
+          "cool": {
+            "label": "Bello",
+            "message": "❤️ Bel profilo!"
+          },
+          "hello": {
+            "label": "Salve",
+            "message": "✋ Salve!"
+          },
+          "hey": {
+            "label": "Ehi",
+            "message": "😊 Ehi, ciao!"
+          },
+          "hi": {
+            "label": "Ciao",
+            "message": "👋 Ciao!"
+          },
+          "nice": {
+            "label": "Piacere",
+            "message": "🌟 Piacere di conoscerti!"
+          }
+        },
+        "close": "Chiudi",
+        "icebreakers": {
+          "0": "Ciao! Ti va di fare pratica con le lingue insieme?",
+          "1": "Ho notato che stiamo imparando lingue simili, ciao!",
+          "2": "Il tuo profilo mi ha colpito, come va?",
+          "3": "Ehi! Cosa ti ha spinto a imparare una nuova lingua?"
+        },
+        "icebreakersTitle": "Rompighiaccio",
+        "match": "🎉 È un match! Tu e {{name}} vi siete salutati a vicenda.",
+        "placeholder": "Scrivi un messaggio personalizzato (facoltativo)…",
+        "quickReplies": "Risposte rapide",
+        "send": "Invia saluto",
+        "sendError": "Impossibile inviare il saluto",
+        "sent": "Saluto inviato a {{name}}!",
+        "subtitle": "Saluta e rompi il ghiaccio 👋",
+        "title": "Invia un saluto a {{name}}",
+        "yourMessage": "Il tuo messaggio"
+      },
+      "someone": "Qualcuno",
+      "subtitle": "Persone che ti hanno salutato",
+      "unread": "Non letti",
+      "wavedAtYou": "Ti ha salutato 👋"
+    }
+  },
+  "ja": {
+    "communityMain": {
+      "filterSheet": {
+        "reciprocal": "ぴったりのパートナーのみ",
+        "reciprocalHint": "あなたが学ぶ言語を話し、あなたが話す言語を学んでいる人"
+      },
+      "tabs": {
+        "serious": "熱心な学習者",
+        "seriousHint": "今週アクティブ"
+      },
+      "today": {
+        "waved": "ウェーブ済み"
+      }
+    },
+    "communityNearby": {
+      "back": "戻る",
+      "geolocationNotSupported": "位置情報に対応していません",
+      "gettingLocation": "現在地を取得しています…",
+      "learning": "学習中：{{language}}",
+      "locationRequired": "位置情報が必要です",
+      "noUsers": "近くにユーザーが見つかりません",
+      "permissionDenied": "位置情報の利用が許可されていません",
+      "positionUnavailable": "位置情報を取得できません",
+      "refresh": "更新",
+      "searchRadius": "検索範囲",
+      "subtitle": "近くにいる人を見つけましょう",
+      "timeout": "位置情報の取得がタイムアウトしました",
+      "title": "近くの人",
+      "tryAgain": "再試行",
+      "tryIncreaseRadius": "検索範囲を広げてみてください",
+      "unknownError": "エラーが発生しました",
+      "usersFound_one": "{{count}}人が見つかりました",
+      "usersFound_other": "{{count}}人が見つかりました"
+    },
+    "profile": {
+      "actions": {
+        "followBlocked": "この人をフォローすることはできません"
+      },
+      "blocked": {
+        "body": "どちらかがブロックしているため、メッセージやフォロー、投稿の閲覧はできません。",
+        "manage": "ブロック中のユーザーを管理",
+        "title": "このプロフィールは表示できません"
+      },
+      "photos": {
+        "openStory": "{{name}}さんのストーリーを見る"
+      }
+    },
+    "waves": {
+      "archive": "過去のウェーブ",
+      "archiveEmpty": "過去のウェーブはありません",
+      "archiveHint": "7〜30日前のウェーブ",
+      "back": "戻る",
+      "cap": {
+        "body": "今日の無料ウェーブを使い切りました。VIPメンバーは回数無制限でウェーブできます。または明日もう一度お試しください。",
+        "notNow": "今はしない",
+        "seeVip": "VIPを見る",
+        "title": "今日のウェーブ上限に達しました"
+      },
+      "findPeople": "人を探す",
+      "noReceived": "まだウェーブを受け取っていません",
+      "recent": "過去7日間",
+      "sheet": {
+        "already": "ウェーブ済み",
+        "alreadyBody": "ウェーブは1人につき1回までです。会話を続けるにはメッセージを送ってみましょう。",
+        "alreadyTitle": "{{name}}さんにはすでにウェーブしました",
+        "cancel": "キャンセル",
+        "chips": {
+          "chat": {
+            "label": "話そう",
+            "message": "🎉 話しましょう！"
+          },
+          "cool": {
+            "label": "素敵",
+            "message": "❤️ 素敵なプロフィールですね！"
+          },
+          "hello": {
+            "label": "こんにちは",
+            "message": "✋ こんにちは！"
+          },
+          "hey": {
+            "label": "やあ",
+            "message": "😊 やあ、こんにちは！"
+          },
+          "hi": {
+            "label": "ハイ",
+            "message": "👋 ハイ！"
+          },
+          "nice": {
+            "label": "よろしく",
+            "message": "🌟 はじめまして！"
+          }
+        },
+        "close": "閉じる",
+        "icebreakers": {
+          "0": "こんにちは！一緒に言語を練習しませんか？",
+          "1": "似た言語を勉強しているみたいですね。こんにちは！",
+          "2": "プロフィールが気になりました。元気ですか？",
+          "3": "こんにちは！新しい言語を始めたきっかけは何ですか？"
+        },
+        "icebreakersTitle": "話しかけのヒント",
+        "match": "🎉 マッチしました！あなたと{{name}}さんがお互いにウェーブしました。",
+        "placeholder": "メッセージを入力（任意）…",
+        "quickReplies": "クイック返信",
+        "send": "ウェーブを送る",
+        "sendError": "ウェーブを送れませんでした",
+        "sent": "{{name}}さんにウェーブを送りました！",
+        "subtitle": "あいさつして話すきっかけを作りましょう 👋",
+        "title": "{{name}}さんにウェーブを送る",
+        "yourMessage": "メッセージ"
+      },
+      "someone": "誰か",
+      "subtitle": "あなたにウェーブした人",
+      "unread": "未読",
+      "wavedAtYou": "あなたにウェーブしました 👋"
+    }
+  },
+  "kor": {
+    "communityMain": {
+      "filterSheet": {
+        "reciprocal": "완벽한 파트너만",
+        "reciprocalHint": "내가 배우는 언어를 쓰고, 내가 쓰는 언어를 배우는 사람"
+      },
+      "tabs": {
+        "serious": "열심히 배우는 학습자",
+        "seriousHint": "이번 주 활동"
+      },
+      "today": {
+        "waved": "손 흔듦"
+      }
+    },
+    "communityNearby": {
+      "back": "뒤로",
+      "geolocationNotSupported": "위치 정보를 지원하지 않아요",
+      "gettingLocation": "위치를 확인하는 중…",
+      "learning": "학습 중: {{language}}",
+      "locationRequired": "위치 정보가 필요해요",
+      "noUsers": "근처에 사용자가 없어요",
+      "permissionDenied": "위치 권한이 거부되었어요",
+      "positionUnavailable": "위치를 확인할 수 없어요",
+      "refresh": "새로고침",
+      "searchRadius": "검색 반경",
+      "subtitle": "내 주변 사람들을 찾아보세요",
+      "timeout": "위치 요청 시간이 초과되었어요",
+      "title": "근처 사용자",
+      "tryAgain": "다시 시도",
+      "tryIncreaseRadius": "검색 반경을 넓혀 보세요",
+      "unknownError": "문제가 생겼어요",
+      "usersFound_one": "{{count}}명을 찾았어요",
+      "usersFound_other": "{{count}}명을 찾았어요"
+    },
+    "profile": {
+      "actions": {
+        "followBlocked": "이 사람을 팔로우할 수 없어요"
+      },
+      "blocked": {
+        "body": "한 사람이 상대방을 차단해서 서로 메시지를 보내거나 팔로우하거나 게시물을 볼 수 없어요.",
+        "manage": "차단한 사람 관리",
+        "title": "이 프로필을 볼 수 없어요"
+      },
+      "photos": {
+        "openStory": "{{name}}님의 스토리 보기"
+      }
+    },
+    "waves": {
+      "archive": "지난 손 흔들기",
+      "archiveEmpty": "지난 손 흔들기가 없어요",
+      "archiveHint": "7~30일 전에 받은 손 흔들기",
+      "back": "뒤로",
+      "cap": {
+        "body": "오늘의 무료 손 흔들기를 모두 사용했어요. VIP 멤버는 제한 없이 손 흔들기를 보낼 수 있어요. 아니면 내일 다시 시도해 주세요.",
+        "notNow": "나중에",
+        "seeVip": "VIP 보기",
+        "title": "오늘 손 흔들기 한도에 도달했어요"
+      },
+      "findPeople": "사람 찾기",
+      "noReceived": "아직 받은 손 흔들기가 없어요",
+      "recent": "최근 7일",
+      "sheet": {
+        "already": "이미 손 흔듦",
+        "alreadyBody": "손 흔들기는 한 사람에게 한 번만 보낼 수 있어요. 대화를 이어가려면 메시지를 보내 보세요.",
+        "alreadyTitle": "{{name}}님에게 이미 손을 흔들었어요",
+        "cancel": "취소",
+        "chips": {
+          "chat": {
+            "label": "대화해요",
+            "message": "🎉 우리 대화해요!"
+          },
+          "cool": {
+            "label": "멋져요",
+            "message": "❤️ 프로필 멋져요!"
+          },
+          "hello": {
+            "label": "안녕하세요",
+            "message": "✋ 안녕하세요!"
+          },
+          "hey": {
+            "label": "반가워요",
+            "message": "😊 안녕, 반가워요!"
+          },
+          "hi": {
+            "label": "안녕",
+            "message": "👋 안녕하세요!"
+          },
+          "nice": {
+            "label": "만나서 반가워요",
+            "message": "🌟 만나서 반가워요!"
+          }
+        },
+        "close": "닫기",
+        "icebreakers": {
+          "0": "안녕하세요! 같이 언어 연습할래요?",
+          "1": "비슷한 언어를 배우고 있네요. 안녕하세요!",
+          "2": "프로필이 눈에 띄었어요. 잘 지내세요?",
+          "3": "안녕하세요! 새로운 언어를 배우게 된 계기가 뭐예요?"
+        },
+        "icebreakersTitle": "대화 시작 문장",
+        "match": "🎉 매칭됐어요! 나와 {{name}}님이 서로 손을 흔들었어요.",
+        "placeholder": "메시지를 직접 써 보세요 (선택)…",
+        "quickReplies": "빠른 답장",
+        "send": "손 흔들기 보내기",
+        "sendError": "손 흔들기를 보내지 못했어요",
+        "sent": "{{name}}님에게 손 흔들기를 보냈어요!",
+        "subtitle": "인사를 건네고 어색함을 깨 보세요 👋",
+        "title": "{{name}}님에게 손 흔들기",
+        "yourMessage": "내 메시지"
+      },
+      "someone": "누군가",
+      "subtitle": "나에게 손을 흔든 사람들",
+      "unread": "읽지 않음",
+      "wavedAtYou": "나에게 손을 흔들었어요 👋"
+    }
+  },
+  "pt": {
+    "communityMain": {
+      "filterSheet": {
+        "reciprocal": "Só parceiros ideais",
+        "reciprocalHint": "Falam o que você aprende e aprendem o que você fala"
+      },
+      "tabs": {
+        "serious": "Estudantes dedicados",
+        "seriousHint": "Ativos esta semana"
+      },
+      "today": {
+        "waved": "Acenou"
+      }
+    },
+    "communityNearby": {
+      "back": "Voltar",
+      "geolocationNotSupported": "A geolocalização não é compatível",
+      "gettingLocation": "Obtendo sua localização...",
+      "learning": "Aprendendo: {{language}}",
+      "locationRequired": "Localização necessária",
+      "noUsers": "Nenhum usuário encontrado por perto",
+      "permissionDenied": "Permissão de localização negada",
+      "positionUnavailable": "Localização indisponível",
+      "refresh": "Atualizar",
+      "searchRadius": "Raio de busca",
+      "subtitle": "Encontre pessoas perto de você",
+      "timeout": "A solicitação de localização expirou",
+      "title": "Usuários por perto",
+      "tryAgain": "Tentar novamente",
+      "tryIncreaseRadius": "Tente aumentar o raio de busca",
+      "unknownError": "Ocorreu um erro",
+      "usersFound_one": "{{count}} pessoa encontrada",
+      "usersFound_other": "{{count}} pessoas encontradas"
+    },
+    "profile": {
+      "actions": {
+        "followBlocked": "Você não pode seguir esta pessoa"
+      },
+      "blocked": {
+        "body": "Um de vocês bloqueou o outro, então vocês não podem trocar mensagens, se seguir nem ver as publicações um do outro.",
+        "manage": "Gerenciar pessoas bloqueadas",
+        "title": "Este perfil não está disponível"
+      },
+      "photos": {
+        "openStory": "Ver o story de {{name}}"
+      }
+    },
+    "waves": {
+      "archive": "Acenos antigos",
+      "archiveEmpty": "Nenhum aceno antigo",
+      "archiveHint": "Acenos de 7 a 30 dias atrás",
+      "back": "Voltar",
+      "cap": {
+        "body": "Você já usou os acenos grátis de hoje. Membros VIP podem acenar sem limite diário — ou tente de novo amanhã.",
+        "notNow": "Agora não",
+        "seeVip": "Ver VIP",
+        "title": "Limite diário de acenos atingido"
+      },
+      "findPeople": "Encontrar pessoas",
+      "noReceived": "Nenhum aceno recebido ainda",
+      "recent": "Últimos 7 dias",
+      "sheet": {
+        "already": "Já acenou",
+        "alreadyBody": "Você só pode acenar uma vez para cada pessoa — mande uma mensagem para continuar a conversa.",
+        "alreadyTitle": "Você já acenou para {{name}}",
+        "cancel": "Cancelar",
+        "chips": {
+          "chat": {
+            "label": "Conversar",
+            "message": "🎉 Bora conversar!"
+          },
+          "cool": {
+            "label": "Legal",
+            "message": "❤️ Que perfil legal!"
+          },
+          "hello": {
+            "label": "Olá",
+            "message": "✋ Olá!"
+          },
+          "hey": {
+            "label": "E aí",
+            "message": "😊 E aí, tudo bem?"
+          },
+          "hi": {
+            "label": "Oi",
+            "message": "👋 Oi!"
+          },
+          "nice": {
+            "label": "Prazer",
+            "message": "🌟 Prazer em te conhecer!"
+          }
+        },
+        "close": "Fechar",
+        "icebreakers": {
+          "0": "Oi! Quer praticar idiomas juntos?",
+          "1": "Vi que estamos aprendendo idiomas parecidos — oi!",
+          "2": "Seu perfil chamou minha atenção, tudo bem?",
+          "3": "E aí! O que te fez começar a aprender um novo idioma?"
+        },
+        "icebreakersTitle": "Quebra-gelos",
+        "match": "🎉 Deu match! Você e {{name}} acenaram um para o outro.",
+        "placeholder": "Escreva uma mensagem personalizada (opcional)…",
+        "quickReplies": "Respostas rápidas",
+        "send": "Enviar aceno",
+        "sendError": "Não foi possível enviar o aceno",
+        "sent": "Aceno enviado para {{name}}!",
+        "subtitle": "Diga oi e quebre o gelo 👋",
+        "title": "Envie um aceno para {{name}}",
+        "yourMessage": "Sua mensagem"
+      },
+      "someone": "Alguém",
+      "subtitle": "Pessoas que acenaram para você",
+      "unread": "Não lidos",
+      "wavedAtYou": "Acenou para você 👋"
+    }
+  },
+  "ru": {
+    "communityMain": {
+      "filterSheet": {
+        "reciprocal": "Только идеальные партнёры",
+        "reciprocalHint": "Они говорят на языке, который вы учите, и учат ваш язык"
+      },
+      "tabs": {
+        "serious": "Активные ученики",
+        "seriousHint": "Активны на этой неделе"
+      },
+      "today": {
+        "waved": "Приветствие отправлено"
+      }
+    },
+    "communityNearby": {
+      "back": "Назад",
+      "geolocationNotSupported": "Геолокация не поддерживается",
+      "gettingLocation": "Определяем ваше местоположение…",
+      "learning": "Изучает: {{language}}",
+      "locationRequired": "Нужен доступ к местоположению",
+      "noUsers": "Поблизости никого не найдено",
+      "permissionDenied": "Доступ к местоположению запрещён",
+      "positionUnavailable": "Местоположение недоступно",
+      "refresh": "Обновить",
+      "searchRadius": "Радиус поиска",
+      "subtitle": "Найдите людей рядом с вами",
+      "timeout": "Время ожидания местоположения истекло",
+      "title": "Пользователи рядом",
+      "tryAgain": "Попробовать снова",
+      "tryIncreaseRadius": "Попробуйте увеличить радиус поиска",
+      "unknownError": "Произошла ошибка",
+      "usersFound_one": "Найден {{count}} человек",
+      "usersFound_other": "Найдено {{count}} человека",
+      "usersFound_few": "Найдено {{count}} человека",
+      "usersFound_many": "Найдено {{count}} человек"
+    },
+    "profile": {
+      "actions": {
+        "followBlocked": "Вы не можете подписаться на этого человека"
+      },
+      "blocked": {
+        "body": "Один из вас заблокировал другого, поэтому вы не можете писать друг другу, подписываться и видеть публикации друг друга.",
+        "manage": "Управление заблокированными",
+        "title": "Этот профиль недоступен"
+      },
+      "photos": {
+        "openStory": "Посмотреть историю {{name}}"
+      }
+    },
+    "waves": {
+      "archive": "Старые приветствия",
+      "archiveEmpty": "Старых приветствий нет",
+      "archiveHint": "Приветствия за последние 7–30 дней",
+      "back": "Назад",
+      "cap": {
+        "body": "Бесплатные приветствия на сегодня закончились. Участники VIP могут отправлять приветствия без дневного лимита — или попробуйте снова завтра.",
+        "notNow": "Не сейчас",
+        "seeVip": "Узнать о VIP",
+        "title": "Дневной лимит приветствий исчерпан"
+      },
+      "findPeople": "Найти людей",
+      "noReceived": "Вы пока не получили приветствий",
+      "recent": "Последние 7 дней",
+      "sheet": {
+        "already": "Приветствие уже отправлено",
+        "alreadyBody": "Поприветствовать человека можно только один раз — напишите ему сообщение, чтобы продолжить разговор.",
+        "alreadyTitle": "Вы уже поприветствовали {{name}}",
+        "cancel": "Отмена",
+        "chips": {
+          "chat": {
+            "label": "Чат",
+            "message": "🎉 Давай пообщаемся!"
+          },
+          "cool": {
+            "label": "Круто",
+            "message": "❤️ Классный профиль!"
+          },
+          "hello": {
+            "label": "Здравствуй",
+            "message": "✋ Здравствуй!"
+          },
+          "hey": {
+            "label": "Хей",
+            "message": "😊 Хей, привет!"
+          },
+          "hi": {
+            "label": "Привет",
+            "message": "👋 Привет!"
+          },
+          "nice": {
+            "label": "Приятно",
+            "message": "🌟 Приятно познакомиться!"
+          }
+        },
+        "close": "Закрыть",
+        "icebreakers": {
+          "0": "Привет! Хочешь вместе практиковать языки?",
+          "1": "Вижу, мы учим похожие языки — привет!",
+          "2": "Твой профиль привлёк моё внимание. Как дела?",
+          "3": "Привет! А почему ты решил(а) выучить новый язык?"
+        },
+        "icebreakersTitle": "Темы для начала разговора",
+        "match": "🎉 Это взаимно! Вы и {{name}} поприветствовали друг друга.",
+        "placeholder": "Напишите своё сообщение (необязательно)…",
+        "quickReplies": "Быстрые ответы",
+        "send": "Отправить приветствие",
+        "sendError": "Не удалось отправить приветствие",
+        "sent": "Приветствие отправлено: {{name}}!",
+        "subtitle": "Поздоровайтесь и растопите лёд 👋",
+        "title": "Поприветствовать {{name}}",
+        "yourMessage": "Ваше сообщение"
+      },
+      "someone": "Кто-то",
+      "subtitle": "Люди, которые вас поприветствовали",
+      "unread": "Непрочитанные",
+      "wavedAtYou": "Поприветствовал(а) вас 👋"
+    }
+  },
+  "th": {
+    "communityMain": {
+      "filterSheet": {
+        "reciprocal": "เฉพาะคู่ฝึกที่ตรงกัน",
+        "reciprocalHint": "เขาพูดภาษาที่คุณเรียน และเรียนภาษาที่คุณพูด"
+      },
+      "tabs": {
+        "serious": "ผู้เรียนตัวจริง",
+        "seriousHint": "ใช้งานในสัปดาห์นี้"
+      },
+      "today": {
+        "waved": "โบกมือแล้ว"
+      }
+    },
+    "communityNearby": {
+      "back": "ย้อนกลับ",
+      "geolocationNotSupported": "ไม่รองรับการระบุตำแหน่ง",
+      "gettingLocation": "กำลังค้นหาตำแหน่งของคุณ...",
+      "learning": "กำลังเรียน: {{language}}",
+      "locationRequired": "ต้องใช้ตำแหน่ง",
+      "noUsers": "ไม่พบผู้ใช้ในบริเวณใกล้เคียง",
+      "permissionDenied": "ไม่ได้รับอนุญาตให้เข้าถึงตำแหน่ง",
+      "positionUnavailable": "ไม่สามารถระบุตำแหน่งได้",
+      "refresh": "รีเฟรช",
+      "searchRadius": "รัศมีการค้นหา",
+      "subtitle": "ค้นหาคนรอบตัวคุณ",
+      "timeout": "การขอตำแหน่งหมดเวลา",
+      "title": "ผู้ใช้ใกล้เคียง",
+      "tryAgain": "ลองใหม่",
+      "tryIncreaseRadius": "ลองเพิ่มรัศมีการค้นหา",
+      "unknownError": "เกิดข้อผิดพลาด",
+      "usersFound_one": "พบ {{count}} คน",
+      "usersFound_other": "พบ {{count}} คน"
+    },
+    "profile": {
+      "actions": {
+        "followBlocked": "คุณไม่สามารถติดตามคนนี้ได้"
+      },
+      "blocked": {
+        "body": "คุณหรืออีกฝ่ายได้บล็อกกันไว้ จึงไม่สามารถส่งข้อความ ติดตาม หรือดูโพสต์ของกันและกันได้",
+        "manage": "จัดการคนที่ถูกบล็อก",
+        "title": "โปรไฟล์นี้ไม่พร้อมใช้งาน"
+      },
+      "photos": {
+        "openStory": "ดูสตอรี่ของ {{name}}"
+      }
+    },
+    "waves": {
+      "archive": "การโบกมือก่อนหน้า",
+      "archiveEmpty": "ไม่มีการโบกมือก่อนหน้า",
+      "archiveHint": "การโบกมือเมื่อ 7 ถึง 30 วันที่แล้ว",
+      "back": "ย้อนกลับ",
+      "cap": {
+        "body": "คุณใช้การโบกมือฟรีของวันนี้หมดแล้ว สมาชิก VIP โบกมือได้ไม่จำกัดต่อวัน หรือลองใหม่พรุ่งนี้",
+        "notNow": "ไว้ทีหลัง",
+        "seeVip": "ดู VIP",
+        "title": "ถึงขีดจำกัดการโบกมือรายวันแล้ว"
+      },
+      "findPeople": "ค้นหาผู้คน",
+      "noReceived": "ยังไม่มีใครโบกมือให้คุณ",
+      "recent": "7 วันที่ผ่านมา",
+      "sheet": {
+        "already": "โบกมือแล้ว",
+        "alreadyBody": "คุณโบกมือให้แต่ละคนได้เพียงครั้งเดียว — ส่งข้อความแทนเพื่อคุยกันต่อนะ",
+        "alreadyTitle": "คุณโบกมือให้ {{name}} แล้ว",
+        "cancel": "ยกเลิก",
+        "chips": {
+          "chat": {
+            "label": "คุยกัน",
+            "message": "🎉 มาคุยกันเถอะ!"
+          },
+          "cool": {
+            "label": "เจ๋ง",
+            "message": "❤️ โปรไฟล์เจ๋งมาก!"
+          },
+          "hello": {
+            "label": "สวัสดี",
+            "message": "✋ สวัสดี!"
+          },
+          "hey": {
+            "label": "เฮ้",
+            "message": "😊 เฮ้ สวัสดีจ้า!"
+          },
+          "hi": {
+            "label": "หวัดดี",
+            "message": "👋 หวัดดี!"
+          },
+          "nice": {
+            "label": "ยินดีที่รู้จัก",
+            "message": "🌟 ยินดีที่ได้รู้จักนะ!"
+          }
+        },
+        "close": "ปิด",
+        "icebreakers": {
+          "0": "สวัสดี! อยากฝึกภาษาด้วยกันไหม?",
+          "1": "เห็นว่าเราเรียนภาษาคล้าย ๆ กัน — สวัสดีนะ!",
+          "2": "โปรไฟล์ของคุณน่าสนใจมาก เป็นยังไงบ้าง?",
+          "3": "หวัดดี! อะไรทำให้คุณเริ่มเรียนภาษาใหม่?"
+        },
+        "icebreakersTitle": "ประโยคเปิดบทสนทนา",
+        "match": "🎉 แมตช์แล้ว! คุณและ {{name}} โบกมือให้กันและกัน",
+        "placeholder": "เขียนข้อความของคุณเอง (ไม่บังคับ)…",
+        "quickReplies": "ตอบกลับด่วน",
+        "send": "ส่งการโบกมือ",
+        "sendError": "ส่งการโบกมือไม่สำเร็จ",
+        "sent": "ส่งการโบกมือให้ {{name}} แล้ว!",
+        "subtitle": "ทักทายและเริ่มบทสนทนา 👋",
+        "title": "โบกมือให้ {{name}}",
+        "yourMessage": "ข้อความของคุณ"
+      },
+      "someone": "ใครบางคน",
+      "subtitle": "คนที่โบกมือให้คุณ",
+      "unread": "ยังไม่ได้อ่าน",
+      "wavedAtYou": "โบกมือให้คุณ 👋"
+    }
+  },
+  "tl": {
+    "communityMain": {
+      "filterSheet": {
+        "reciprocal": "Perpektong kapartner lang",
+        "reciprocalHint": "Marunong sila ng wikang inaaral mo at inaaral nila ang wikang alam mo"
+      },
+      "tabs": {
+        "serious": "Seryosong nag-aaral",
+        "seriousHint": "Aktibo ngayong linggo"
+      },
+      "today": {
+        "waved": "Kinawayan na"
+      }
+    },
+    "communityNearby": {
+      "back": "Bumalik",
+      "geolocationNotSupported": "Hindi suportado ang geolocation",
+      "gettingLocation": "Kinukuha ang lokasyon mo...",
+      "learning": "Nag-aaral: {{language}}",
+      "locationRequired": "Kailangan ang Lokasyon",
+      "noUsers": "Walang user na malapit sa iyo",
+      "permissionDenied": "Tinanggihan ang pahintulot sa lokasyon",
+      "positionUnavailable": "Hindi available ang lokasyon",
+      "refresh": "I-refresh",
+      "searchRadius": "Radius ng Paghahanap",
+      "subtitle": "Hanapin ang mga tao sa paligid mo",
+      "timeout": "Nag-time out ang paghiling ng lokasyon",
+      "title": "Mga User na Malapit",
+      "tryAgain": "Subukan Muli",
+      "tryIncreaseRadius": "Subukang palakihin ang radius ng paghahanap",
+      "unknownError": "May naganap na error",
+      "usersFound_one": "{{count}} tao ang nahanap",
+      "usersFound_other": "{{count}} tao ang nahanap"
+    },
+    "profile": {
+      "actions": {
+        "followBlocked": "Hindi mo masusundan ang taong ito"
+      },
+      "blocked": {
+        "body": "May isa sa inyo na nag-block sa isa, kaya hindi kayo makakapag-message, makakasunod, o makakakita ng posts ng isa't isa.",
+        "manage": "Pamahalaan ang mga na-block",
+        "title": "Hindi available ang profile na ito"
+      },
+      "photos": {
+        "openStory": "Tingnan ang story ni {{name}}"
+      }
+    },
+    "waves": {
+      "archive": "Mga lumang kaway",
+      "archiveEmpty": "Walang lumang kaway",
+      "archiveHint": "Mga kaway mula 7 hanggang 30 araw na ang nakalipas",
+      "back": "Bumalik",
+      "cap": {
+        "body": "Naubos mo na ang libreng kaway ngayong araw. Ang mga VIP member ay puwedeng kumaway nang walang daily limit, o subukan ulit bukas.",
+        "notNow": "Mamaya na",
+        "seeVip": "Tingnan ang VIP",
+        "title": "Naabot na ang daily limit ng kaway"
+      },
+      "findPeople": "Maghanap ng Tao",
+      "noReceived": "Wala pang kumaway sa iyo",
+      "recent": "Huling 7 araw",
+      "sheet": {
+        "already": "Kinawayan na",
+        "alreadyBody": "Isang beses ka lang puwedeng kumaway sa bawat tao — mag-message na lang para tuloy ang usapan.",
+        "alreadyTitle": "Kinawayan mo na si {{name}}",
+        "cancel": "Kanselahin",
+        "chips": {
+          "chat": {
+            "label": "Chat",
+            "message": "🎉 Tara, chat tayo!"
+          },
+          "cool": {
+            "label": "Astig",
+            "message": "❤️ Astig ng profile mo!"
+          },
+          "hello": {
+            "label": "Hello",
+            "message": "✋ Hello!"
+          },
+          "hey": {
+            "label": "Hey",
+            "message": "😊 Hey, kumusta?"
+          },
+          "hi": {
+            "label": "Hi",
+            "message": "👋 Hi!"
+          },
+          "nice": {
+            "label": "Nice",
+            "message": "🌟 Nice to meet you!"
+          }
+        },
+        "close": "Isara",
+        "icebreakers": {
+          "0": "Hi! Gusto mo bang mag-practice ng wika nang sabay?",
+          "1": "Napansin kong magkapareho tayo ng inaaral na wika — hi!",
+          "2": "Napansin ko ang profile mo, kumusta ka?",
+          "3": "Hey! Ano'ng nag-udyok sa iyong mag-aral ng bagong wika?"
+        },
+        "icebreakersTitle": "Pambasag ng yelo",
+        "match": "🎉 Match! Kumaway kayo ni {{name}} sa isa't isa.",
+        "placeholder": "Magsulat ng sariling mensahe (opsyonal)…",
+        "quickReplies": "Mabilisang sagot",
+        "send": "Ipadala ang kaway",
+        "sendError": "Hindi naipadala ang kaway",
+        "sent": "Naipadala ang kaway kay {{name}}!",
+        "subtitle": "Mag-hi at simulan ang usapan 👋",
+        "title": "Kumaway kay {{name}}",
+        "yourMessage": "Ang mensahe mo"
+      },
+      "someone": "Isang tao",
+      "subtitle": "Mga taong kumaway sa iyo",
+      "unread": "Hindi pa nababasa",
+      "wavedAtYou": "Kumaway sa iyo 👋"
+    }
+  },
+  "tr": {
+    "communityMain": {
+      "filterSheet": {
+        "reciprocal": "Yalnızca mükemmel partnerler",
+        "reciprocalHint": "Öğrendiğin dili konuşuyor, konuştuğun dili öğreniyorlar"
+      },
+      "tabs": {
+        "serious": "Azimli öğrenenler",
+        "seriousHint": "Bu hafta aktif"
+      },
+      "today": {
+        "waved": "El sallandı"
+      }
+    },
+    "communityNearby": {
+      "back": "Geri",
+      "geolocationNotSupported": "Konum özelliği desteklenmiyor",
+      "gettingLocation": "Konumun alınıyor…",
+      "learning": "Öğreniyor: {{language}}",
+      "locationRequired": "Konum Gerekli",
+      "noUsers": "Yakında kullanıcı bulunamadı",
+      "permissionDenied": "Konum izni reddedildi",
+      "positionUnavailable": "Konum alınamıyor",
+      "refresh": "Yenile",
+      "searchRadius": "Arama Yarıçapı",
+      "subtitle": "Çevrendeki insanları bul",
+      "timeout": "Konum isteği zaman aşımına uğradı",
+      "title": "Yakındaki Kullanıcılar",
+      "tryAgain": "Tekrar Dene",
+      "tryIncreaseRadius": "Arama yarıçapını artırmayı dene",
+      "unknownError": "Bir hata oluştu",
+      "usersFound_one": "{{count}} kişi bulundu",
+      "usersFound_other": "{{count}} kişi bulundu"
+    },
+    "profile": {
+      "actions": {
+        "followBlocked": "Bu kişiyi takip edemezsin"
+      },
+      "blocked": {
+        "body": "Biriniz diğerini engellediği için birbirinize mesaj gönderemez, birbirinizi takip edemez ve gönderilerinizi göremezsiniz.",
+        "manage": "Engellenen kişileri yönet",
+        "title": "Bu profil kullanılamıyor"
+      },
+      "photos": {
+        "openStory": "{{name}} adlı kişinin hikâyesini görüntüle"
+      }
+    },
+    "waves": {
+      "archive": "Eski el sallamalar",
+      "archiveEmpty": "Eski el sallama yok",
+      "archiveHint": "7 ila 30 gün önceki el sallamalar",
+      "back": "Geri",
+      "cap": {
+        "body": "Bugünkü ücretsiz el sallama hakkını kullandın. VIP üyeler günlük sınır olmadan el sallayabilir; ya da yarın tekrar dene.",
+        "notNow": "Şimdi değil",
+        "seeVip": "VIP'e göz at",
+        "title": "Günlük el sallama sınırına ulaşıldı"
+      },
+      "findPeople": "İnsanları Bul",
+      "noReceived": "Henüz el sallama almadın",
+      "recent": "Son 7 gün",
+      "sheet": {
+        "already": "Zaten el salladın",
+        "alreadyBody": "Her kişiye yalnızca bir kez el sallayabilirsin — sohbeti sürdürmek için ona mesaj gönder.",
+        "alreadyTitle": "{{name}} adlı kişiye zaten el salladın",
+        "cancel": "İptal",
+        "chips": {
+          "chat": {
+            "label": "Sohbet",
+            "message": "🎉 Hadi sohbet edelim!"
+          },
+          "cool": {
+            "label": "Harika",
+            "message": "❤️ Harika profil!"
+          },
+          "hello": {
+            "label": "Merhaba",
+            "message": "✋ Merhaba!"
+          },
+          "hey": {
+            "label": "Hey",
+            "message": "😊 Hey, selam!"
+          },
+          "hi": {
+            "label": "Selam",
+            "message": "👋 Selam!"
+          },
+          "nice": {
+            "label": "Memnun oldum",
+            "message": "🌟 Tanıştığımıza memnun oldum!"
+          }
+        },
+        "close": "Kapat",
+        "icebreakers": {
+          "0": "Selam! Birlikte dil pratiği yapmak ister misin?",
+          "1": "Benzer diller öğreniyoruz galiba — selam!",
+          "2": "Profilin dikkatimi çekti, nasıl gidiyor?",
+          "3": "Hey! Yeni bir dil öğrenmeye nasıl başladın?"
+        },
+        "icebreakersTitle": "Sohbet başlatıcılar",
+        "match": "🎉 Eşleştiniz! Sen ve {{name}} birbirinize el salladınız.",
+        "placeholder": "Kendi mesajını yaz (isteğe bağlı)…",
+        "quickReplies": "Hızlı yanıtlar",
+        "send": "El salla",
+        "sendError": "El sallama gönderilemedi",
+        "sent": "{{name}} adlı kişiye el sallandı!",
+        "subtitle": "Merhaba de ve buzları erit 👋",
+        "title": "{{name}} adlı kişiye el salla",
+        "yourMessage": "Mesajın"
+      },
+      "someone": "Biri",
+      "subtitle": "Sana el sallayan kişiler",
+      "unread": "Okunmamış",
+      "wavedAtYou": "Sana el salladı 👋"
+    }
+  },
+  "vi": {
+    "communityMain": {
+      "filterSheet": {
+        "reciprocal": "Chỉ đối tác phù hợp",
+        "reciprocalHint": "Họ nói ngôn ngữ bạn học và học ngôn ngữ bạn nói"
+      },
+      "tabs": {
+        "serious": "Người học nghiêm túc",
+        "seriousHint": "Hoạt động trong tuần này"
+      },
+      "today": {
+        "waved": "Đã vẫy tay"
+      }
+    },
+    "communityNearby": {
+      "back": "Quay lại",
+      "geolocationNotSupported": "Không hỗ trợ định vị",
+      "gettingLocation": "Đang lấy vị trí của bạn...",
+      "learning": "Đang học: {{language}}",
+      "locationRequired": "Cần Vị Trí",
+      "noUsers": "Không tìm thấy người dùng gần đây",
+      "permissionDenied": "Quyền truy cập vị trí bị từ chối",
+      "positionUnavailable": "Không xác định được vị trí",
+      "refresh": "Làm mới",
+      "searchRadius": "Bán Kính Tìm Kiếm",
+      "subtitle": "Tìm người ở quanh bạn",
+      "timeout": "Yêu cầu vị trí đã hết thời gian",
+      "title": "Người Dùng Gần Đây",
+      "tryAgain": "Thử Lại",
+      "tryIncreaseRadius": "Hãy thử tăng bán kính tìm kiếm",
+      "unknownError": "Đã xảy ra lỗi",
+      "usersFound_one": "Tìm thấy {{count}} người",
+      "usersFound_other": "Tìm thấy {{count}} người"
+    },
+    "profile": {
+      "actions": {
+        "followBlocked": "Bạn không thể theo dõi người này"
+      },
+      "blocked": {
+        "body": "Một trong hai người đã chặn người kia, nên hai bạn không thể nhắn tin, theo dõi hoặc xem bài đăng của nhau.",
+        "manage": "Quản lý người bị chặn",
+        "title": "Hồ sơ này không khả dụng"
+      },
+      "photos": {
+        "openStory": "Xem story của {{name}}"
+      }
+    },
+    "waves": {
+      "archive": "Lời chào cũ hơn",
+      "archiveEmpty": "Không có lời chào cũ nào",
+      "archiveHint": "Lời chào từ 7 đến 30 ngày trước",
+      "back": "Quay lại",
+      "cap": {
+        "body": "Bạn đã dùng hết lượt vẫy tay miễn phí hôm nay. Thành viên VIP có thể vẫy tay không giới hạn mỗi ngày, hoặc hãy thử lại vào ngày mai.",
+        "notNow": "Để sau",
+        "seeVip": "Xem VIP",
+        "title": "Đã đạt giới hạn vẫy tay hôm nay"
+      },
+      "findPeople": "Tìm Mọi Người",
+      "noReceived": "Chưa nhận được lời chào nào",
+      "recent": "7 ngày qua",
+      "sheet": {
+        "already": "Đã vẫy tay",
+        "alreadyBody": "Bạn chỉ có thể vẫy tay mỗi người một lần — hãy gửi tin nhắn để tiếp tục trò chuyện nhé.",
+        "alreadyTitle": "Bạn đã vẫy tay với {{name}} rồi",
+        "cancel": "Hủy",
+        "chips": {
+          "chat": {
+            "label": "Trò chuyện",
+            "message": "🎉 Mình trò chuyện nhé!"
+          },
+          "cool": {
+            "label": "Tuyệt",
+            "message": "❤️ Hồ sơ của bạn hay quá!"
+          },
+          "hello": {
+            "label": "Xin chào",
+            "message": "✋ Xin chào!"
+          },
+          "hey": {
+            "label": "Này",
+            "message": "😊 Chào bạn nha!"
+          },
+          "hi": {
+            "label": "Chào",
+            "message": "👋 Chào bạn!"
+          },
+          "nice": {
+            "label": "Rất vui",
+            "message": "🌟 Rất vui được làm quen!"
+          }
+        },
+        "close": "Đóng",
+        "icebreakers": {
+          "0": "Chào bạn! Mình cùng luyện ngôn ngữ nhé?",
+          "1": "Mình thấy chúng ta học những ngôn ngữ giống nhau — chào bạn!",
+          "2": "Hồ sơ của bạn thu hút mình đấy, bạn dạo này thế nào?",
+          "3": "Chào bạn! Điều gì khiến bạn bắt đầu học một ngôn ngữ mới?"
+        },
+        "icebreakersTitle": "Câu mở đầu",
+        "match": "🎉 Tương hợp rồi! Bạn và {{name}} đã vẫy tay với nhau.",
+        "placeholder": "Viết lời nhắn riêng (không bắt buộc)…",
+        "quickReplies": "Trả lời nhanh",
+        "send": "Gửi lời chào",
+        "sendError": "Không thể gửi lời chào",
+        "sent": "Đã gửi lời chào đến {{name}}!",
+        "subtitle": "Chào hỏi và phá băng 👋",
+        "title": "Gửi lời chào đến {{name}}",
+        "yourMessage": "Lời nhắn của bạn"
+      },
+      "someone": "Ai đó",
+      "subtitle": "Những người đã vẫy tay với bạn",
+      "unread": "Chưa đọc",
+      "wavedAtYou": "Đã vẫy tay với bạn 👋"
+    }
+  },
+  "zh_TW": {
+    "communityMain": {
+      "filterSheet": {
+        "reciprocal": "只看完美語伴",
+        "reciprocalHint": "對方會說你在學的語言，也在學你會說的語言"
+      },
+      "tabs": {
+        "serious": "認真學習者",
+        "seriousHint": "本週活躍"
+      },
+      "today": {
+        "waved": "已打招呼"
+      }
+    },
+    "communityNearby": {
+      "back": "返回",
+      "geolocationNotSupported": "不支援定位功能",
+      "gettingLocation": "正在取得你的位置…",
+      "learning": "學習中：{{language}}",
+      "locationRequired": "需要位置權限",
+      "noUsers": "附近找不到使用者",
+      "permissionDenied": "位置權限遭拒",
+      "positionUnavailable": "無法取得位置",
+      "refresh": "重新整理",
+      "searchRadius": "搜尋範圍",
+      "subtitle": "認識你身邊的人",
+      "timeout": "取得位置逾時",
+      "title": "附近的人",
+      "tryAgain": "再試一次",
+      "tryIncreaseRadius": "試試擴大搜尋範圍",
+      "unknownError": "發生錯誤",
+      "usersFound_one": "找到 {{count}} 人",
+      "usersFound_other": "找到 {{count}} 人"
+    },
+    "profile": {
+      "actions": {
+        "followBlocked": "你無法追蹤這個人"
+      },
+      "blocked": {
+        "body": "你們其中一方已封鎖對方，因此無法互傳訊息、追蹤或查看對方的貼文。",
+        "manage": "管理封鎖名單",
+        "title": "無法查看這個個人檔案"
+      },
+      "photos": {
+        "openStory": "查看 {{name}} 的限時動態"
+      }
+    },
+    "waves": {
+      "archive": "較早的招呼",
+      "archiveEmpty": "沒有較早的招呼",
+      "archiveHint": "7 到 30 天前的招呼",
+      "back": "返回",
+      "cap": {
+        "body": "今天的免費打招呼次數已用完。VIP 會員打招呼沒有每日限制，或明天再試試看。",
+        "notNow": "先不要",
+        "seeVip": "查看 VIP",
+        "title": "已達今日打招呼上限"
+      },
+      "findPeople": "找人",
+      "noReceived": "還沒有人跟你打招呼",
+      "recent": "最近 7 天",
+      "sheet": {
+        "already": "已打過招呼",
+        "alreadyBody": "每個人只能打一次招呼，傳個訊息繼續聊吧。",
+        "alreadyTitle": "你已經跟 {{name}} 打過招呼了",
+        "cancel": "取消",
+        "chips": {
+          "chat": {
+            "label": "聊聊",
+            "message": "🎉 一起聊聊吧！"
+          },
+          "cool": {
+            "label": "很酷",
+            "message": "❤️ 你的檔案好酷！"
+          },
+          "hello": {
+            "label": "你好",
+            "message": "✋ 你好！"
+          },
+          "hey": {
+            "label": "嘿",
+            "message": "😊 嘿，你好呀！"
+          },
+          "hi": {
+            "label": "嗨",
+            "message": "👋 嗨！"
+          },
+          "nice": {
+            "label": "幸會",
+            "message": "🌟 很高興認識你！"
+          }
+        },
+        "close": "關閉",
+        "icebreakers": {
+          "0": "嗨！想一起練語言嗎？",
+          "1": "我發現我們在學差不多的語言，你好呀！",
+          "2": "你的檔案吸引了我，最近好嗎？",
+          "3": "嘿！你為什麼開始學新的語言呢？"
+        },
+        "icebreakersTitle": "開場白",
+        "match": "🎉 配對成功！你和 {{name}} 互相打了招呼。",
+        "placeholder": "寫一段自訂訊息（選填）…",
+        "quickReplies": "快速回覆",
+        "send": "打招呼",
+        "sendError": "打招呼失敗",
+        "sent": "已向 {{name}} 打招呼！",
+        "subtitle": "打個招呼，開啟話題 👋",
+        "title": "向 {{name}} 打招呼",
+        "yourMessage": "你的訊息"
+      },
+      "someone": "某人",
+      "subtitle": "跟你打招呼的人",
+      "unread": "未讀",
+      "wavedAtYou": "跟你打了招呼 👋"
+    }
+  },
+  "zho": {
+    "communityMain": {
+      "filterSheet": {
+        "reciprocal": "只看完美语伴",
+        "reciprocalHint": "对方说你在学的语言，也在学你说的语言"
+      },
+      "tabs": {
+        "serious": "认真学习者",
+        "seriousHint": "本周活跃"
+      },
+      "today": {
+        "waved": "已打招呼"
+      }
+    },
+    "communityNearby": {
+      "back": "返回",
+      "geolocationNotSupported": "不支持定位功能",
+      "gettingLocation": "正在获取你的位置…",
+      "learning": "在学：{{language}}",
+      "locationRequired": "需要位置权限",
+      "noUsers": "附近没有找到用户",
+      "permissionDenied": "位置权限被拒绝",
+      "positionUnavailable": "无法获取位置",
+      "refresh": "刷新",
+      "searchRadius": "搜索范围",
+      "subtitle": "认识你身边的人",
+      "timeout": "获取位置超时",
+      "title": "附近的人",
+      "tryAgain": "重试",
+      "tryIncreaseRadius": "试试扩大搜索范围",
+      "unknownError": "出了点问题",
+      "usersFound_one": "找到 {{count}} 人",
+      "usersFound_other": "找到 {{count}} 人"
+    },
+    "profile": {
+      "actions": {
+        "followBlocked": "你无法关注此人"
+      },
+      "blocked": {
+        "body": "你们其中一方已拉黑对方，因此无法互发私信、关注或查看对方的动态。",
+        "manage": "管理已拉黑的人",
+        "title": "无法查看此资料"
+      },
+      "photos": {
+        "openStory": "查看 {{name}} 的限时动态"
+      }
+    },
+    "waves": {
+      "archive": "更早的招呼",
+      "archiveEmpty": "没有更早的招呼",
+      "archiveHint": "7 到 30 天前的招呼",
+      "back": "返回",
+      "cap": {
+        "body": "今天的免费打招呼次数已用完。VIP 会员打招呼不限次数，或者明天再试。",
+        "notNow": "以后再说",
+        "seeVip": "了解 VIP",
+        "title": "已达到今日打招呼上限"
+      },
+      "findPeople": "找人",
+      "noReceived": "还没有人跟你打招呼",
+      "recent": "最近 7 天",
+      "sheet": {
+        "already": "已打过招呼",
+        "alreadyBody": "每个人只能打一次招呼——发条私信继续聊吧。",
+        "alreadyTitle": "你已经和 {{name}} 打过招呼了",
+        "cancel": "取消",
+        "chips": {
+          "chat": {
+            "label": "聊聊",
+            "message": "🎉 一起聊聊吧！"
+          },
+          "cool": {
+            "label": "很酷",
+            "message": "❤️ 你的资料好酷！"
+          },
+          "hello": {
+            "label": "你好",
+            "message": "✋ 你好！"
+          },
+          "hey": {
+            "label": "嘿",
+            "message": "😊 嘿，你好呀！"
+          },
+          "hi": {
+            "label": "嗨",
+            "message": "👋 嗨！"
+          },
+          "nice": {
+            "label": "幸会",
+            "message": "🌟 很高兴认识你！"
+          }
+        },
+        "close": "关闭",
+        "icebreakers": {
+          "0": "嗨！想一起练语言吗？",
+          "1": "我发现我们在学差不多的语言，你好呀！",
+          "2": "你的资料吸引了我，最近怎么样？",
+          "3": "嘿！你为什么开始学一门新语言呢？"
+        },
+        "icebreakersTitle": "开场白",
+        "match": "🎉 配对成功！你和 {{name}} 互相打了招呼。",
+        "placeholder": "写一句自定义消息（可选）…",
+        "quickReplies": "快捷回复",
+        "send": "打招呼",
+        "sendError": "打招呼失败",
+        "sent": "已向 {{name}} 打招呼！",
+        "subtitle": "打个招呼，开启话题 👋",
+        "title": "向 {{name}} 打招呼",
+        "yourMessage": "你的消息"
+      },
+      "someone": "某人",
+      "subtitle": "跟你打招呼的人",
+      "unread": "未读",
+      "wavedAtYou": "跟你打了招呼 👋"
+    }
+  }
+}

@@ -12400,4 +12400,14 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get vocabPacksBrowse => 'Lihat paket';
+
+  @override
+  String visitorsReveal24h(int cost) {
+    return 'Lihat semuanya selama 24 jam dengan $cost 💎, atau jadi VIP';
+  }
+
+  @override
+  String visitorsUnlockedLeft(String time) {
+    return 'Terbuka · sisa $time';
+  }
 }

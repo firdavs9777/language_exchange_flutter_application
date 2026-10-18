@@ -1,3 +1,11 @@
+// The prompt of the day a moment answers, as the backend populates it.
+export interface MomentPrompt {
+  _id: string;
+  text: string;
+  emoji?: string;
+  language?: string;
+}
+
 export interface Moment {
   _id: string;
   title: string;
@@ -67,6 +75,8 @@ export interface Moment {
   savedBy?: string[];
   isSaved?: boolean;
   promptId?: string;
+  // Populated prompt; null when the moment answers none, absent on older backends.
+  prompt?: MomentPrompt | null;
   isReel?: boolean;
 }
 

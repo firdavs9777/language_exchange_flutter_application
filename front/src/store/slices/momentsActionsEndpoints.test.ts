@@ -126,6 +126,18 @@ describe("momentsSlice new endpoints hit the REAL backend routes", () => {
     expect(calls[0].method).toBe("DELETE");
   });
 
+  it("deleteMomentAudio -> DELETE /api/v1/moments/:momentId/audio", async () => {
+    const calls = mockFetch();
+    const store = makeStore();
+    await store.dispatch(
+      (momentsApiSlice.endpoints as any).deleteMomentAudio.initiate("moment-1")
+    );
+    expect(calls).toHaveLength(1);
+    const url = new URL(calls[0].url);
+    expect(url.pathname).toBe(`${MOMENTS_URL}/moment-1/audio`);
+    expect(calls[0].method).toBe("DELETE");
+  });
+
   it("uploadMomentAudio -> PUT /api/v1/moments/:momentId/audio with FormData (fields: audio, duration, waveform)", async () => {
     const calls = mockFetch();
     const store = makeStore();
@@ -203,5 +215,22 @@ describe("momentsSlice new endpoints hit the REAL backend routes", () => {
     const url = new URL(calls[0].url);
     expect(url.pathname).toBe(`${MOMENTS_URL}/reels`);
     expect(calls[0].method).toBe("GET");
+  });
+
+  it("uploadMomentPhotos -> PUT /api/v1/moments/:momentId/photo with FormData (field: file)", async () => {
+    const calls = mockFetch();
+    const store = makeStore();
+    const formData = new FormData();
+    formData.append("file", new File(["x"], "a.jpg", { type: "image/jpeg" }));
+    await store.dispatch(
+      (momentsApiSlice.endpoints as any).uploadMomentPhotos.initiate({ momentId: "moment-1", imageFiles: formData })
+    );
+    expect(new URL(calls[0].url).pathname).toBe(`${MOMENTS_URL}/moment-1/photo`);
+    expect(calls[0].method).toBe("PUT");
+  });
+
+  it("the legacy reportMoment endpoint is gone (reports use POST /reports)", () => {
+    expect((momentsApiSlice.endpoints as any).reportMoment).toBeUndefined();
+    expect((require("./momentsSlice") as any).useReportMomentMutation).toBeUndefined();
   });
 });

@@ -12389,4 +12389,14 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get vocabPacksBrowse => 'ดูชุดคำศัพท์';
+
+  @override
+  String visitorsReveal24h(int cost) {
+    return 'ดูทุกคนได้ 24 ชั่วโมงด้วย $cost 💎 หรือสมัคร VIP';
+  }
+
+  @override
+  String visitorsUnlockedLeft(String time) {
+    return 'ปลดล็อกแล้ว · เหลือ $time';
+  }
 }

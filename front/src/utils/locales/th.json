@@ -9,7 +9,11 @@
       "about": "เกี่ยวกับ",
       "services": "บริการ",
       "pricing": "ราคา",
-      "contact": "ติดต่อ"
+      "contact": "ติดต่อ",
+      "communities": "ชุมชน",
+      "download": "ดาวน์โหลดแอป",
+      "meet": "เจอผู้คน",
+      "learnKorean": "เรียนภาษาเกาหลี"
     },
     "contactInfo": "ข้อมูลติดต่อ",
     "address": "โซล, เกาหลีใต้, คังนัม-กู",
@@ -57,15 +61,20 @@
       "noMatchTitle": "ไม่พบการสนทนาที่ตรงกัน",
       "noMatchSubtitle": "ลองปรับการค้นหา",
       "emptyTitle": "ยังไม่มีการสนทนา",
-      "emptySubtitle": "เริ่มการสนทนาเพื่อให้ปรากฏที่นี่"
+      "emptySubtitle": "เริ่มการสนทนาเพื่อให้ปรากฏที่นี่",
+      "loadError": "โหลดการสนทนาของคุณไม่สำเร็จ",
+      "loading": "กำลังโหลดแชท...",
+      "noMessages": "ยังไม่มีข้อความ",
+      "tryAgain": "ลองอีกครั้ง",
+      "typing": "กำลังพิมพ์..."
     },
     "deleteModal": {
       "title": "ลบการสนทนา",
-      "bodyPrefix": "ลบการสนทนากับ:",
       "warning": "การดำเนินการนี้ไม่สามารถย้อนกลับได้",
       "cancel": "ยกเลิก",
       "confirm": "ลบ",
-      "deleting": "กำลังลบ..."
+      "deleting": "กำลังลบ...",
+      "body": "ลบการสนทนากับ {{name}} ไหม"
     },
     "gif": {
       "title": "GIF",
@@ -84,8 +93,372 @@
       "noConversationYet": "เริ่มการสนทนาก่อนเพื่อปักหมุด",
       "pinFailed": "อัปเดตการปักหมุดไม่สำเร็จ",
       "deleteFailed": "ลบการสนทนาไม่สำเร็จ",
-      "deleted": "ลบการสนทนาแล้ว"
+      "deleted": "ลบการสนทนาแล้ว",
+      "openProfile": "เปิดโปรไฟล์ของ {{name}}",
+      "mute": "ปิดการแจ้งเตือน",
+      "unmute": "เปิดการแจ้งเตือน",
+      "muted": "ปิดการแจ้งเตือนแล้ว",
+      "unmuted": "เปิดการแจ้งเตือนอีกครั้งแล้ว",
+      "muteFailed": "อัปเดตการแจ้งเตือนไม่สำเร็จ",
+      "unpinned": "เลิกปักหมุดการสนทนาแล้ว"
+    },
+    "viewProfileOf": "ดูโปรไฟล์ของ {{name}}",
+    "info": {
+      "title": "ข้อมูลแชท",
+      "close": "ปิด",
+      "viewProfile": "ดูโปรไฟล์",
+      "media": "สื่อที่แชร์",
+      "mute": "ปิดการแจ้งเตือน",
+      "unmute": "เปิดการแจ้งเตือน",
+      "muted": "ปิดการแจ้งเตือนแล้ว",
+      "unmuted": "เปิดการแจ้งเตือนอีกครั้งแล้ว",
+      "muteFailed": "อัปเดตการแจ้งเตือนไม่สำเร็จ",
+      "wallpaper": "พื้นหลังแชท",
+      "block": "บล็อก",
+      "unblock": "เลิกบล็อก",
+      "blockTitle": "บล็อก {{name}} ไหม",
+      "blockBody": "เขาจะส่งข้อความหาคุณหรือดูโปรไฟล์ของคุณไม่ได้อีก",
+      "unblockTitle": "เลิกบล็อก {{name}} ไหม",
+      "unblockBody": "เขาจะสามารถส่งข้อความหาคุณได้อีกครั้ง",
+      "blocked": "บล็อกแล้ว",
+      "unblocked": "เลิกบล็อกแล้ว",
+      "blockFailed": "ทำรายการไม่สำเร็จ กรุณาลองใหม่",
+      "report": "รายงาน",
+      "reportTitle": "รายงาน {{name}}",
+      "reportBody": "บอกเราว่ามีอะไรผิดปกติ ทุกรายงานจะได้รับการตรวจสอบ",
+      "reportReason": "เหตุผล",
+      "reportDescription": "รายละเอียด (ไม่บังคับ)",
+      "reportSubmit": "ส่งรายงาน",
+      "reported": "ขอบคุณ ทีมงานจะตรวจสอบให้",
+      "reportFailed": "ส่งรายงานไม่สำเร็จ",
+      "delete": "ลบการสนทนา",
+      "cancel": "ยกเลิก",
+      "noConversationYet": "พิมพ์อะไรบางอย่างก่อน"
+    },
+    "reportReasons": {
+      "spam": "สแปม",
+      "harassment": "การคุกคามหรือการกลั่นแกล้ง",
+      "hate_speech": "ถ้อยคำสร้างความเกลียดชัง",
+      "violence": "ความรุนแรงหรือการข่มขู่",
+      "nudity": "ภาพโป๊เปลือยหรือเนื้อหาทางเพศ",
+      "false_information": "ข้อมูลเท็จ",
+      "copyright": "ลิขสิทธิ์",
+      "other": "อื่น ๆ"
+    },
+    "status": {
+      "sending": "กำลังส่ง",
+      "sent": "ส่งแล้ว",
+      "delivered": "ถึงแล้ว",
+      "read": "อ่านแล้ว",
+      "failed": "ส่งไม่สำเร็จ"
+    },
+    "loadEarlier": "โหลดข้อความก่อนหน้า",
+    "loadingEarlier": "กำลังโหลดข้อความก่อนหน้า",
+    "suggestCorrection": "แนะนำการแก้ไข",
+    "translateThis": "แปลข้อความนี้",
+    "addCaption": "เพิ่มคำบรรยาย...",
+    "conversationStarted": "เริ่มการสนทนาแล้ว",
+    "correct": "แก้ไข",
+    "daysAgo": "{{count}} วันที่แล้ว",
+    "edit": "แก้ไขข้อความ",
+    "hide_translation": "ซ่อน",
+    "noMessages": "ยังไม่มีข้อความ",
+    "retry": "ลองใหม่",
+    "today": "วันนี้",
+    "translate": "แปล",
+    "yesterday": "เมื่อวาน",
+    "wallpaper": {
+      "title": "พื้นหลังแชท",
+      "shared": "ทั้งคู่จะเห็นพื้นหลังที่คุณเลือก",
+      "plain": "สีพื้น",
+      "gradients": "ไล่สี",
+      "default": "ค่าเริ่มต้น",
+      "apply": "ใช้",
+      "cancel": "ยกเลิก",
+      "saved": "อัปเดตพื้นหลังแล้ว",
+      "failed": "เปลี่ยนพื้นหลังไม่สำเร็จ",
+      "cream": "ครีม",
+      "blush": "ชมพูอ่อน",
+      "peach": "พีช",
+      "sage": "เขียวเซจ",
+      "ocean": "มหาสมุทร",
+      "teal": "เขียวอมฟ้า",
+      "forest": "ป่า",
+      "rose": "กุหลาบ",
+      "wine": "ไวน์",
+      "plum": "พลัม",
+      "navy": "กรมท่า",
+      "mocha": "มอคค่า",
+      "slate": "หินชนวน",
+      "ember": "เอมเบอร์",
+      "deep_sea": "ทะเลลึก",
+      "charcoal": "ถ่าน",
+      "midnight": "เที่ยงคืน",
+      "dark": "มืด",
+      "gradient_sunset": "พระอาทิตย์ตก",
+      "gradient_ocean": "มหาสมุทร",
+      "gradient_purple": "จักรวาล",
+      "gradient_midnight": "เที่ยงคืน",
+      "gradient_forest": "ป่า",
+      "gradient_rose": "โรสโกลด์",
+      "gradient_candy": "ลูกกวาด",
+      "gradient_neon": "นีออน",
+      "gradient_fire": "ไฟ",
+      "gradient_winter": "ฤดูหนาว",
+      "gradient_lavender": "ลาเวนเดอร์",
+      "gradient_aurora": "แสงเหนือ",
+      "premiumInUse": "แชทนี้ใช้พื้นหลัง Premium จากแอป หากเลือกพื้นหลังอื่นจะเปลี่ยนสำหรับทั้งสองคน"
+    },
+    "jumpToLatest": "ไปที่ข้อความล่าสุด",
+    "archive": {
+      "archive": "เก็บแชทเข้าคลัง",
+      "archived": "เก็บเข้าคลังบนเว็บไซต์แล้ว แต่ในแอปยังแสดงอยู่",
+      "back": "กลับไปที่แชท",
+      "failed": "อัปเดตคลังเก็บไม่สำเร็จ",
+      "toggle": "เก็บเข้าคลังแล้ว ({{count}})",
+      "unarchive": "นำแชทออกจากคลัง",
+      "unarchived": "ย้ายกลับไปที่แชทของคุณแล้ว"
+    },
+    "blocked": {
+      "byMe": "คุณบล็อกคนนี้อยู่ เลิกบล็อกเพื่อส่งข้อความ",
+      "generic": "คุณส่งข้อความในแชทนี้ไม่ได้",
+      "manage": "จัดการ"
+    },
+    "bookmarks": {
+      "addFailed": "บันทึกข้อความไม่สำเร็จ",
+      "added": "บันทึกแล้ว",
+      "attachment": "ไฟล์แนบ",
+      "close": "ปิด",
+      "empty": "ยังไม่มีข้อความที่บันทึกไว้",
+      "error": "โหลดข้อความที่บันทึกไว้ไม่สำเร็จ",
+      "loading": "กำลังโหลดข้อความที่บันทึกไว้…",
+      "open": "เปิดแชท",
+      "remove": "นำออกจากที่บันทึกไว้",
+      "removeFailed": "นำออกไม่สำเร็จ",
+      "removed": "นำออกจากข้อความที่บันทึกไว้แล้ว",
+      "title": "ข้อความที่บันทึกไว้"
+    },
+    "call": {
+      "busy": "{{name}} ติดสายอื่นอยู่",
+      "cancelledVideo": "ยกเลิกวิดีโอคอล",
+      "cancelledVoice": "ยกเลิกการโทร",
+      "declinedIncomingVideo": "ปฏิเสธวิดีโอคอล",
+      "declinedIncomingVoice": "ปฏิเสธการโทร",
+      "declinedOutgoingVideo": "วิดีโอคอลถูกปฏิเสธ",
+      "declinedOutgoingVoice": "การโทรถูกปฏิเสธ",
+      "incomingVideo": "วิดีโอคอลเข้า",
+      "incomingVoice": "สายเรียกเข้า",
+      "missedVideo": "วิดีโอคอลที่ไม่ได้รับ",
+      "missedVoice": "สายที่ไม่ได้รับ",
+      "noAnswerVideo": "วิดีโอคอล · ไม่มีผู้รับสาย",
+      "noAnswerVoice": "โทรด้วยเสียง · ไม่มีผู้รับสาย",
+      "outgoingVideo": "วิดีโอคอลออก",
+      "outgoingVoice": "สายโทรออก"
+    },
+    "connection": {
+      "kicked": "แชทเปิดอยู่ที่อื่น แท็บนี้จึงหยุดรับข้อความ",
+      "reconnect": "ใช้ที่นี่"
+    },
+    "correction": {
+      "accept": "ยอมรับการแก้ไข",
+      "acceptFailed": "ยอมรับการแก้ไขไม่สำเร็จ",
+      "accepted": "ยอมรับการแก้ไขแล้ว — เพิ่มลงในบันทึกการเรียนของคุณ",
+      "accepting": "กำลังยอมรับ…",
+      "corrected": "{{name}} แก้ไขให้",
+      "you": "คุณ"
+    },
+    "correctionModal": {
+      "cancel": "ยกเลิก",
+      "close": "ปิด",
+      "empty": "กรุณาใส่การแก้ไข",
+      "explanation": "คำอธิบาย",
+      "explanationPlaceholder": "อธิบายว่าการแก้ไขนี้ช่วยได้อย่างไร...",
+      "hint": "เช่น \"ใช้ 'went' แทน 'goed' - เป็นรูปอดีตที่ผันไม่ปกติ\"",
+      "optional": "(ไม่บังคับ)",
+      "original": "ข้อความต้นฉบับ",
+      "submit": "ส่งการแก้ไข",
+      "title": "แก้ไขภาษา",
+      "unchanged": "การแก้ไขต้องต่างจากข้อความต้นฉบับ",
+      "yours": "การแก้ไขของคุณ",
+      "yoursPlaceholder": "พิมพ์ข้อความที่แก้ไขแล้ว..."
+    },
+    "deleteMessage": {
+      "cancel": "ยกเลิก",
+      "failed": "ลบข้อความไม่สำเร็จ ลองอีกครั้ง",
+      "forEveryone": "ลบสำหรับทุกคน",
+      "forMe": "ลบสำหรับฉัน",
+      "placeholder": "ข้อความนี้ถูกลบแล้ว",
+      "title": "ลบข้อความไหม",
+      "tooLate": "ลบข้อความสำหรับทุกคนได้ภายใน 1 ชั่วโมงหลังส่งเท่านั้น"
+    },
+    "editDialog": {
+      "cancel": "ยกเลิก",
+      "failed": "แก้ไขข้อความไม่สำเร็จ ลองอีกครั้ง",
+      "label": "ข้อความ",
+      "save": "บันทึก",
+      "title": "แก้ไขข้อความ",
+      "tooLate": "แก้ไขข้อความได้ภายใน 15 นาทีหลังส่งเท่านั้น"
+    },
+    "editedLabel": "แก้ไขแล้ว",
+    "forward": {
+      "close": "ปิด",
+      "empty": "ไม่พบการสนทนา",
+      "error": "โหลดการสนทนาไม่สำเร็จ",
+      "loading": "กำลังโหลดการสนทนา…",
+      "search": "ค้นหา",
+      "submit": "ส่งต่อ",
+      "submitCount": "ส่งต่อ ({{count}})",
+      "title": "ส่งต่อถึง",
+      "unknownUser": "ไม่ทราบชื่อ"
+    },
+    "forwarded": "ส่งต่อแล้ว",
+    "location": {
+      "cancel": "ยกเลิก",
+      "confirmTitle": "แชร์ตำแหน่งของคุณไหม",
+      "denied": "ไม่ได้รับอนุญาตให้เข้าถึงตำแหน่ง",
+      "failed": "ระบุตำแหน่งของคุณไม่ได้",
+      "open": "เปิดในแผนที่",
+      "send": "ส่ง",
+      "sendFailed": "ส่งตำแหน่งของคุณไม่สำเร็จ",
+      "share": "แชร์ตำแหน่ง",
+      "title": "ตำแหน่ง",
+      "unsupported": "เบราว์เซอร์นี้แชร์ตำแหน่งไม่ได้"
+    },
+    "mediaGallery": {
+      "back": "กลับ",
+      "emptyFiles": "ยังไม่มีไฟล์ที่แชร์",
+      "emptyPhotos": "ยังไม่มีรูปภาพที่แชร์",
+      "emptyVideos": "ยังไม่มีวิดีโอที่แชร์",
+      "error": "โหลดสื่อไม่สำเร็จ",
+      "files": "ไฟล์",
+      "loading": "กำลังโหลดสื่อ...",
+      "photos": "รูปภาพ",
+      "title": "สื่อที่แชร์",
+      "unknownFile": "ไฟล์ที่ไม่รู้จัก",
+      "unknownSize": "ไม่ทราบขนาด",
+      "videos": "วิดีโอ"
+    },
+    "menu": {
+      "bookmark": "บันทึก",
+      "close": "ปิด",
+      "copy": "คัดลอก",
+      "delete": "ลบ",
+      "edit": "แก้ไข",
+      "forward": "ส่งต่อ",
+      "listen": "ฟัง",
+      "pin": "ปักหมุด",
+      "reply": "ตอบกลับ"
+    },
+    "mute": {
+      "always": "จนกว่าฉันจะเปิดอีกครั้ง",
+      "cancel": "ยกเลิก",
+      "eightHours": "8 ชั่วโมง",
+      "oneHour": "1 ชั่วโมง",
+      "oneWeek": "1 สัปดาห์",
+      "title": "ปิดการแจ้งเตือนจาก {{name}} ไหม"
+    },
+    "pinnedBar": {
+      "count": "ปักหมุด {{count}} รายการ",
+      "unpin": "เลิกปักหมุดข้อความ"
+    },
+    "preview": {
+      "attachment": "📎 ไฟล์แนบ",
+      "call": "📞 การโทร",
+      "file": "📎 ไฟล์",
+      "gif": "GIF",
+      "location": "📍 ตำแหน่ง",
+      "photo": "🖼️ รูปภาพ",
+      "poll": "📊 โพล",
+      "story": "📖 สตอรี่",
+      "video": "🎥 วิดีโอ",
+      "voice": "🎤 ข้อความเสียง"
+    },
+    "replyBar": {
+      "cancel": "ยกเลิกการตอบกลับ",
+      "replyingTo": "กำลังตอบกลับ {{name}}"
+    },
+    "search": {
+      "close": "ปิด",
+      "empty": "ไม่พบข้อความ",
+      "hint": "พิมพ์อย่างน้อย 2 ตัวอักษร",
+      "notLoaded": "ข้อความนั้นอยู่ไกลขึ้นไป เลื่อนขึ้นเพื่อโหลด",
+      "open": "ค้นหาข้อความ",
+      "placeholder": "ค้นหาในแชทนี้",
+      "searching": "กำลังค้นหา…",
+      "title": "ค้นหาข้อความกับ {{name}}",
+      "unavailable": "ค้นหาไม่ได้ในขณะนี้",
+      "you": "คุณ"
+    },
+    "sendErrors": {
+      "blockedBody": "คุณส่งข้อความถึงคนนี้ไม่ได้",
+      "blockedTitle": "ส่งข้อความไม่สำเร็จ",
+      "capBody": "วันนี้คุณเริ่มการสนทนาใหม่ครบจำนวนแล้ว อัปเกรดเป็น VIP เพื่อเริ่มได้ไม่จำกัด",
+      "capTitle": "เริ่มการสนทนาใหม่ครบจำนวนแล้ว",
+      "dailyBody": "วันนี้คุณส่งข้อความครบจำนวนแล้ว อัปเกรดเป็น VIP เพื่อส่งข้อความได้ไม่จำกัด หรือกลับมาใหม่พรุ่งนี้",
+      "dailyTitle": "ส่งข้อความครบจำนวนของวันนี้แล้ว",
+      "firstChatBody": "คุณส่งได้ 5 ข้อความจนกว่าอีกฝ่ายจะตอบกลับ แล้วจะพิมพ์ต่อได้เมื่อเขาตอบ",
+      "firstChatTitle": "รอการตอบกลับ",
+      "generic": "ส่งข้อความไม่สำเร็จ แตะลองใหม่เพื่อส่งอีกครั้ง",
+      "goVip": "อัปเกรดเป็น VIP",
+      "ok": "ตกลง",
+      "reattach": "แนบไฟล์อีกครั้งเพื่อส่ง",
+      "tooFast": "คุณส่งข้อความเร็วเกินไป รอสักครู่"
+    },
+    "story": {
+      "replied": "ตอบกลับสตอรี่ของคุณ",
+      "shared": "แชร์สตอรี่",
+      "unavailable": "สตอรี่นี้ไม่มีให้ดูแล้ว",
+      "youReplied": "คุณตอบกลับสตอรี่ของเขา",
+      "youShared": "คุณแชร์สตอรี่"
+    },
+    "translation": {
+      "close": "ปิดคำแปล",
+      "failed": "แปลข้อความไม่สำเร็จ",
+      "label": "คำแปล · {{lang}}",
+      "save": "บันทึกวลี",
+      "saveFailed": "บันทึกวลีไม่สำเร็จ",
+      "saved": "บันทึกลงในคิวการเรียนแล้ว",
+      "saving": "กำลังบันทึก…",
+      "translating": "กำลังแปล…"
+    },
+    "video": {
+      "badType": "ส่งวิดีโอรูปแบบนี้ไม่ได้ ลองใช้ MP4",
+      "tooBig": "วิดีโอนี้ใหญ่เกินไป จำกัดที่ {{mb}} MB",
+      "tooLong": "วิดีโอนี้ยาวเกินไป จำกัดที่ {{minutes}} นาที"
+    },
+    "voice": {
+      "unavailable": "บันทึกเสียงไม่ได้ ตรวจสอบสิทธิ์การใช้ไมโครโฟนของเว็บไซต์นี้"
+    },
+    "wave": {
+      "hi": "สวัสดี!"
+    },
+    "callInApp": {
+      "voice": "โทรด้วยเสียง",
+      "video": "วิดีโอคอล",
+      "title": "การโทรใช้งานได้ในแอป BananaTalk",
+      "body": "เปิดแอปเพื่อโทรหา {{name}} สายเรียกเข้าจะดังบนโทรศัพท์ของคุณ",
+      "openApp": "เปิดแอป",
+      "notNow": "ไว้ทีหลัง"
     }
+  },
+  "newChat": {
+    "title": "แชทใหม่",
+    "subtitle": "เริ่มการสนทนา",
+    "directMessage": "ส่วนตัว",
+    "groupChat": "กลุ่ม",
+    "searchPlaceholder": "ค้นหาด้วยชื่อ, @ชื่อผู้ใช้ หรือ user ID...",
+    "searchHint": "ค้นหาผู้ใช้เพื่อเริ่มแชท",
+    "hintName": "ค้นหาด้วยชื่อ",
+    "hintUsername": "พิมพ์ @ชื่อผู้ใช้เพื่อค้นหาด้วยชื่อผู้ใช้",
+    "hintId": "วาง user ID เพื่อค้นหาโดยตรง",
+    "searchByUsername": "กำลังค้นหาด้วยชื่อผู้ใช้",
+    "searchById": "กำลังค้นหาด้วย user ID",
+    "noResults": "ไม่พบผู้ใช้",
+    "tryDifferent": "ลองชื่อ, @ชื่อผู้ใช้ หรือ user ID อื่น",
+    "createGroup": "สร้างกลุ่ม",
+    "selectMoreUsers": "เลือกผู้ใช้อย่างน้อย 2 คนสำหรับแชทกลุ่ม",
+    "createError": "สร้างแชทไม่สำเร็จ",
+    "recently": "เมื่อเร็วๆ นี้"
   },
   "notifications": "การแจ้งเตือน",
   "moments": "โมเมนต์",
@@ -124,7 +497,18 @@
   "profile": {
     "title": "โปรไฟล์ของฉัน",
     "edit_profile": "แก้ไขโปรไฟล์",
-    "photos": "รูปภาพ",
+    "photos": {
+      "title": "รูปภาพ",
+      "add": "เพิ่มรูปภาพ",
+      "alt": "{{name}} รูปภาพ {{index}}",
+      "open": "เปิดรูปภาพ {{index}}",
+      "close": "ปิด",
+      "previous": "รูปก่อนหน้า",
+      "next": "รูปถัดไป",
+      "counter": "{{index}} จาก {{total}}",
+      "openAvatar": "เปิดรูปของ {{name}}",
+      "openStory": "ดูสตอรี่ของ {{name}}"
+    },
     "messages": {
       "image_update_success": "อัปเดตรูปโปรไฟล์สำเร็จ",
       "image_update_failure": "ไม่สามารถอัปเดตรูปโปรไฟล์",
@@ -132,6 +516,7 @@
       "image_delete_failure": "ไม่สามารถลบรูปภาพ",
       "profile_update_success": "อัปเดตโปรไฟล์สำเร็จ",
       "profile_update_failure": "ไม่สามารถอัปเดตโปรไฟล์",
+      "extras_update_failure": "บันทึกโปรไฟล์แล้ว แต่ข้อมูลบางส่วนไม่ได้อัปเดต",
       "error_loading_profile": "เกิดข้อผิดพลาดในการโหลดโปรไฟล์ผู้ใช้",
       "no_profile_data": "ไม่มีข้อมูลโปรไฟล์ผู้ใช้",
       "unknown_error": "เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุ",
@@ -146,7 +531,8 @@
       "no_following": "คุณยังไม่ได้ติดตามใคร",
       "following_error": "เกิดข้อผิดพลาดในการโหลดรายการติดตาม กรุณาลองใหม่ภายหลัง",
       "moments": "โมเมนต์",
-      "visitors": "ผู้เยี่ยมชม"
+      "visitors": "ผู้เยี่ยมชม",
+      "visited": "ที่เคยดู"
     },
     "visitors": {
       "title": "ผู้เยี่ยมชมโปรไฟล์",
@@ -165,7 +551,11 @@
       "vipOnly": "ฟีเจอร์ VIP",
       "vipOnlyDesc": "ดูว่าใครเยี่ยมชมโปรไฟล์ของคุณโดยอัปเกรดเป็น VIP ฟีเจอร์นี้มีเฉพาะสำหรับสมาชิก VIP เท่านั้น",
       "vipBenefits": "สิทธิประโยชน์ VIP",
-      "learnMore": "เรียนรู้เพิ่มเติมเกี่ยวกับ VIP"
+      "learnMore": "เรียนรู้เพิ่มเติมเกี่ยวกับ VIP",
+      "clear": "ล้างประวัติ",
+      "clear_title": "ล้างประวัติผู้เข้าชมไหม",
+      "clear_body": "ทุกคนที่ดูโปรไฟล์ของคุณจะถูกลบ และตัวนับการเข้าชมจะกลับเป็นศูนย์ ย้อนกลับไม่ได้",
+      "no_visited": "โปรไฟล์ที่คุณดูจะแสดงที่นี่"
     },
     "sections": {
       "personal_info": "ข้อมูลส่วนตัว",
@@ -207,7 +597,18 @@
       "save": "บันทึก",
       "cancel": "ยกเลิก",
       "edit_photo": "แก้ไขรูปภาพ",
-      "clear": "ล้างการเลือก"
+      "clear": "ล้างการเลือก",
+      "settings": "ตั้งค่า",
+      "message": "ส่งข้อความ",
+      "follow": "ติดตาม",
+      "following": "กำลังติดตาม",
+      "more": "ตัวเลือกเพิ่มเติม",
+      "block": "บล็อก",
+      "report": "รายงาน",
+      "this_person": "คนนี้",
+      "action_failed": "ทำรายการไม่สำเร็จ กรุณาลองใหม่",
+      "unblock": "เลิกบล็อก",
+      "followBlocked": "คุณไม่สามารถติดตามคนนี้ได้"
     },
     "buttons": {
       "edit": "แก้ไข",
@@ -235,6 +636,128 @@
       "kdrama": "K-Drama",
       "languages": "ภาษา",
       "culture": "วัฒนธรรม"
+    },
+    "badges": {
+      "vip": "VIP",
+      "verified": "ยืนยันแล้ว",
+      "joined": "เข้าร่วมเมื่อ {{date}}",
+      "active": "ใช้งานเมื่อ {{time}}",
+      "online": "ออนไลน์อยู่"
+    },
+    "block": {
+      "title": "บล็อก {{name}} ไหม",
+      "body": "เขาจะส่งข้อความหาคุณหรือดูโปรไฟล์ของคุณไม่ได้อีก"
+    },
+    "report": {
+      "title": "รายงาน {{name}} ไหม",
+      "body": "บอกเราว่ามีอะไรผิดปกติ ทุกรายงานจะได้รับการตรวจสอบ",
+      "reason": "เหตุผล"
+    },
+    "languages": {
+      "also_learning": "กำลังเรียนด้วย"
+    },
+    "about": {
+      "title": "เกี่ยวกับ",
+      "occupation": "งาน",
+      "school": "สถานศึกษา",
+      "read_more": "อ่านเพิ่มเติม",
+      "read_less": "ย่อ"
+    },
+    "learning": {
+      "title": "ความคืบหน้าการเรียน",
+      "streak": "เรียนต่อเนื่อง",
+      "days": "วัน",
+      "xp": "XP รวม",
+      "level": "เลเวล"
+    },
+    "moments": {
+      "see_all": "ดูทั้งหมด",
+      "empty_own": "แชร์โมเมนต์แรกของคุณ",
+      "empty_other": "ยังไม่มีโมเมนต์",
+      "photo_alt": "รูปภาพโมเมนต์"
+    },
+    "page": {
+      "title": "โปรไฟล์",
+      "error_title": "โหลดโปรไฟล์นี้ไม่สำเร็จ",
+      "error_body": "กรุณาตรวจสอบการเชื่อมต่อแล้วลองใหม่",
+      "retry": "ลองใหม่",
+      "not_found_title": "ไม่พบโปรไฟล์นี้",
+      "not_found_body": "โปรไฟล์นี้ไม่มีอยู่แล้ว หรืออาจไม่เคยมีมาก่อน",
+      "back_to_community": "ไปดูคอมมูนิตี้"
+    },
+    "lists": {
+      "title": "เครือข่ายของคุณ",
+      "title_of": "เครือข่ายของ {{name}}",
+      "title_other": "เครือข่าย",
+      "search": "ค้นหาด้วยชื่อ",
+      "search_empty": "ไม่มีใครตรงกับ “{{query}}”",
+      "empty_followers_own": "ยังไม่มีใครติดตามคุณ",
+      "empty_followers_other": "ยังไม่มีใครติดตามคนนี้",
+      "empty_following_own": "คุณยังไม่ได้ติดตามใคร",
+      "empty_following_other": "คนนี้ยังไม่ได้ติดตามใคร",
+      "error_title": "โหลดรายการนี้ไม่สำเร็จ",
+      "error_body": "กรุณาตรวจสอบการเชื่อมต่อแล้วลองใหม่",
+      "retry": "ลองใหม่"
+    },
+    "edit": {
+      "back": "ย้อนกลับ",
+      "about": "เกี่ยวกับ",
+      "photos_hint": "รูปแรกคือรูปที่ทุกคนจะเห็นในทุกที่",
+      "add_photo": "เพิ่มรูปภาพ",
+      "photo_alt": "รูปภาพ {{index}}",
+      "delete_photo": "ลบรูปภาพ {{index}}",
+      "delete_photo_title": "ลบรูปนี้ไหม",
+      "delete_photo_body": "รูปนี้จะถูกลบออกจากโปรไฟล์ของคุณสำหรับทุกคน",
+      "delete_photo_confirm": "ลบรูปภาพ",
+      "level": "ระดับ",
+      "level_hint": "ระดับของคุณในภาษาที่กำลังเรียน",
+      "occupation": "อาชีพ",
+      "occupation_placeholder": "คุณทำงานอะไร",
+      "school": "สถานศึกษา",
+      "school_placeholder": "คุณเรียนที่ไหน",
+      "saving": "กำลังบันทึก",
+      "unsaved": "คุณมีการเปลี่ยนแปลงที่ยังไม่ได้บันทึก",
+      "leave_title": "ออกโดยไม่บันทึกไหม",
+      "leave_body": "การเปลี่ยนแปลงในโปรไฟล์นี้จะหายไป",
+      "leave_confirm": "ทิ้งการเปลี่ยนแปลง",
+      "stay": "แก้ไขต่อ",
+      "intent_title": "คุณมาที่นี่เพื่ออะไร",
+      "intent_learn": "มาเพื่อเรียนรู้",
+      "intent_meet": "อยากพบปะผู้คน",
+      "intent_date": "เปิดรับการเดท",
+      "intent_privacy_note": "คนอื่นจะเห็นสิ่งที่คุณเลือก ยกเว้นการเดทซึ่งจะเป็นความลับ",
+      "completion": "ความสมบูรณ์ของโปรไฟล์"
+    },
+    "myMoments": {
+      "title": "โมเมนต์ของฉัน",
+      "create": "แชร์โมเมนต์",
+      "edit": "แก้ไขโมเมนต์",
+      "delete": "ลบโมเมนต์",
+      "delete_title": "ลบโมเมนต์นี้ไหม",
+      "delete_body": "โมเมนต์นี้จะหายไปสำหรับทุกคน พร้อมกับไลก์และคอมเมนต์ทั้งหมด",
+      "delete_confirm": "ลบ",
+      "delete_failed": "ลบโมเมนต์นั้นไม่สำเร็จ กรุณาลองใหม่",
+      "empty_title": "ยังไม่มีโมเมนต์",
+      "empty_body": "แชร์โมเมนต์แรกของคุณกับคอมมูนิตี้",
+      "error_title": "โหลดโมเมนต์ของคุณไม่สำเร็จ",
+      "error_body": "กรุณาตรวจสอบการเชื่อมต่อแล้วลองใหม่",
+      "retry": "ลองใหม่",
+      "load_more": "โหลดเพิ่ม",
+      "loading_more": "กำลังโหลด..."
+    },
+    "tabs": {
+      "label": "ส่วนโปรไฟล์",
+      "moments": "โมเมนต์",
+      "about": "เกี่ยวกับ"
+    },
+    "unblock": {
+      "title": "เลิกบล็อก {{name}} ไหม",
+      "body": "เขาจะสามารถส่งข้อความหาคุณและดูโปรไฟล์ของคุณได้อีกครั้ง"
+    },
+    "blocked": {
+      "body": "คุณหรืออีกฝ่ายได้บล็อกกันไว้ จึงไม่สามารถส่งข้อความ ติดตาม หรือดูโพสต์ของกันและกันได้",
+      "manage": "จัดการคนที่ถูกบล็อก",
+      "title": "โปรไฟล์นี้ไม่พร้อมใช้งาน"
     }
   },
   "moments_section": {
@@ -302,7 +825,230 @@
       "addMood": "เพิ่มอารมณ์",
       "addLocation": "เพิ่มสถานที่",
       "addTags": "เพิ่มแท็ก",
-      "tagPlaceholder": "เพิ่มแท็ก..."
+      "tagPlaceholder": "เพิ่มแท็ก...",
+      "attachVideo": "แนบวิดีโอ",
+      "mediaFailedNothingPosted": "อัปโหลดไม่สำเร็จ จึงไม่มีอะไรถูกโพสต์ ลองอีกครั้ง",
+      "mediaFailedPosted": "โพสต์แล้ว แต่อัปโหลดสื่อไม่สำเร็จ ลองแก้ไขโมเมนต์เพื่อเพิ่มสื่อ",
+      "modePhoto": "รูปภาพ",
+      "modeText": "ข้อความ",
+      "modeVideo": "วิดีโอ",
+      "modeVoice": "เสียง",
+      "moodQuestion": "ตอนนี้คุณรู้สึกอย่างไร",
+      "placeholder": "{{name}} กำลังคิดอะไรอยู่",
+      "recordVoice": "อัดข้อความเสียง",
+      "remove": "นำออก",
+      "share": "แชร์",
+      "sharing": "กำลังแชร์...",
+      "textPreview": "โมเมนต์ข้อความของคุณ",
+      "voiceNoteLength": "ข้อความเสียง · {{seconds}} วิ"
+    },
+    "promo": {
+      "title": "โมเมนต์ย้ายไปอยู่ในแอปแล้ว",
+      "subtitle": "สตอรี่ คำตอบจาก AI Study และฟีดที่ออกแบบมาเพื่อโทรศัพท์ ไม่ใช่แท็บเบราว์เซอร์ ติดตั้งฟรี ไม่ต้องสลับบัญชี",
+      "appStore": "ดาวน์โหลดบน App Store",
+      "playStore": "ดาวน์โหลดบน Google Play",
+      "appOnly": "ในแอป",
+      "perks": {
+        "stories": {
+          "title": "สตอรี่ที่หายไปเอง",
+          "body": "แชร์โมเมนต์ที่อยู่ได้ 24 ชั่วโมง แบบที่คอมมูนิตี้ในแอปใช้กันจริง ๆ"
+        },
+        "aiStudy": {
+          "title": "คำตอบจาก AI Study",
+          "body": "โพสต์ในภาษาที่คุณกำลังเรียน แล้วรับการแก้ไขอย่างนุ่มนวลจาก AI ในคอมเมนต์ทันที"
+        },
+        "reactions": {
+          "title": "รีแอคชันที่หลากหลายกว่า",
+          "body": "รีแอคชันด้วยเสียง แปลได้ในแตะเดียว และเธรดคอมเมนต์ที่ออกแบบมาเพื่อฟีด ไม่ใช่ฟอร์ม"
+        },
+        "notifications": {
+          "title": "แจ้งเตือนแบบเรียลไทม์",
+          "body": "รู้ทันทีเมื่อคนจากภาษาเป้าหมายของคุณตอบกลับ ไม่ต้องรีเฟรชแท็บเบราว์เซอร์"
+        }
+      }
+    },
+    "translate": {
+      "tap": "แตะเพื่อแปล",
+      "loading": "กำลังแปล…",
+      "same": "เป็นภาษาของคุณอยู่แล้ว",
+      "error": "แปลไม่สำเร็จ แตะเพื่อลองอีกครั้ง"
+    },
+    "tabs": {
+      "forYou": "สำหรับคุณ",
+      "following": "กำลังติดตาม",
+      "explore": "สำรวจ",
+      "trending": "กำลังนิยม"
+    },
+    "following": {
+      "empty": "ติดตามคนอื่นเพื่อดูโมเมนต์ของพวกเขาที่นี่",
+      "findPeople": "ค้นหาคน"
+    },
+    "commentEngagement": {
+      "attachImage": "แนบรูปภาพ",
+      "beFirst": "เป็นคนแรกที่แชร์ความคิดเห็น!",
+      "cancel": "ยกเลิก",
+      "commentTab": "ความคิดเห็น",
+      "correctedLabel": "แก้ไขแล้ว",
+      "correctedPlaceholder": "เขียนแบบที่เจ้าของภาษาจะพูด",
+      "correction": "คำแก้ไข",
+      "correctionNotePlaceholder": "เพิ่มหมายเหตุ (ไม่บังคับ)",
+      "correctionTab": "คำแก้ไข",
+      "delete": "ลบ",
+      "explanationLabel": "คำอธิบาย",
+      "explanationPlaceholder": "ทำไมถึงเขียนแบบนี้ (ไม่บังคับ)",
+      "hideReplies": "ซ่อนการตอบกลับ",
+      "imageFailed": "โพสต์ความคิดเห็นแล้ว แต่แนบรูปภาพไม่สำเร็จ",
+      "loadMoreComments": "โหลดความคิดเห็นเพิ่มเติม",
+      "loadMoreReplies": "โหลดเพิ่มเติม",
+      "loadingReplies": "กำลังโหลดการตอบกลับ…",
+      "originalLabel": "ต้นฉบับ",
+      "post": "โพสต์",
+      "postCorrection": "โพสต์คำแก้ไข",
+      "postFailed": "โพสต์ไม่สำเร็จ ลองใหม่อีกครั้ง",
+      "react": "รีแอกชัน",
+      "reply": "ตอบกลับ",
+      "replyPlaceholder": "เขียนการตอบกลับ…",
+      "viewReplies": "ดู {{count}} การตอบกลับ",
+      "deleteOthersBody": "ความคิดเห็นนี้อยู่ในโมเมนต์ของคุณ คุณจึงลบได้ และไม่สามารถเลิกทำได้",
+      "deleteOthersTitle": "ลบความคิดเห็นนี้ไหม",
+      "removeGif": "ลบ GIF"
+    },
+    "filters": {
+      "button": "ตัวกรอง",
+      "searchPlaceholder": "ค้นหาโมเมนต์",
+      "search": "ค้นหา",
+      "category": "หมวดหมู่",
+      "language": "ภาษา",
+      "mood": "อารมณ์",
+      "tag": "แท็ก",
+      "tagPlaceholder": "แท็กใดก็ได้",
+      "any": "ทั้งหมด",
+      "clear": "ล้างตัวกรอง",
+      "emptyTitle": "ไม่มีโมเมนต์ที่ตรงกับตัวกรองเหล่านี้",
+      "emptyBody": "ลองเอาตัวกรองออกหนึ่งตัว หรือค้นหาคำอื่นดู"
+    },
+    "categories": {
+      "general": "ทั่วไป",
+      "language-learning": "เรียนภาษา",
+      "culture": "วัฒนธรรม",
+      "food": "อาหาร",
+      "travel": "ท่องเที่ยว",
+      "music": "ดนตรี",
+      "books": "หนังสือ",
+      "hobbies": "งานอดิเรก",
+      "daily-life": "ชีวิตประจำวัน",
+      "technology": "เทคโนโลยี",
+      "entertainment": "บันเทิง",
+      "sports": "กีฬา",
+      "movies": "ภาพยนตร์",
+      "study": "การเรียน",
+      "work": "งาน",
+      "question": "คำถาม"
+    },
+    "moods": {
+      "happy": "มีความสุข",
+      "excited": "ตื่นเต้น",
+      "grateful": "ซาบซึ้ง",
+      "motivated": "มีแรงบันดาลใจ",
+      "relaxed": "ผ่อนคลาย",
+      "curious": "อยากรู้",
+      "sad": "เศร้า",
+      "love": "กำลังมีความรัก",
+      "funny": "ตลก",
+      "thoughtful": "ครุ่นคิด",
+      "cool": "เท่",
+      "tired": "เหนื่อย"
+    },
+    "report": {
+      "menu": "ตัวเลือกเพิ่มเติม",
+      "report": "รายงาน",
+      "title": "รายงานโมเมนต์นี้",
+      "reasonLabel": "ทำไมคุณถึงรายงาน?",
+      "descriptionLabel": "มีอะไรเพิ่มเติมไหม? (ไม่บังคับ)",
+      "submit": "ส่งรายงาน",
+      "cancel": "ยกเลิก",
+      "sent": "ขอบคุณ — ทีมผู้ดูแลจะตรวจสอบ",
+      "already": "คุณรายงานโมเมนต์นี้ไปแล้ว",
+      "failed": "ส่งรายงานไม่สำเร็จ ลองอีกครั้ง",
+      "reasons": {
+        "spam": "สแปม",
+        "harassment": "การคุกคาม",
+        "hate_speech": "ถ้อยคำแสดงความเกลียดชัง",
+        "violence": "ความรุนแรง",
+        "nudity": "ภาพโป๊เปลือย",
+        "false_information": "ข้อมูลเท็จ",
+        "copyright": "ลิขสิทธิ์",
+        "other": "อื่น ๆ"
+      },
+      "alreadyComment": "คุณรายงานความคิดเห็นนี้ไปแล้ว",
+      "alreadyStory": "คุณรายงานสตอรี่นี้ไปแล้ว",
+      "titleComment": "รายงานความคิดเห็นนี้",
+      "titleStory": "รายงานสตอรี่นี้"
+    },
+    "schedule": {
+      "label": "ตั้งเวลา",
+      "hint": "เว้นว่างไว้เพื่อโพสต์ทันที",
+      "past": "เลือกเวลาในอนาคต",
+      "badge": "ตั้งเวลาไว้ที่ {{time}}",
+      "clear": "โพสต์ตอนนี้แทน"
+    },
+    "fields": {
+      "privacy": "ใครเห็นได้บ้าง",
+      "privacyPublic": "ทุกคน",
+      "privacyFriends": "เพื่อน",
+      "privacyPrivate": "เฉพาะฉัน",
+      "background": "พื้นหลัง",
+      "backgroundNone": "ไม่มี",
+      "location": "ตำแหน่ง",
+      "addLocation": "เพิ่มตำแหน่งของฉัน",
+      "removeLocation": "ลบตำแหน่ง",
+      "noMood": "ไม่มีอารมณ์",
+      "tags": "แท็ก",
+      "tagPlaceholder": "เพิ่มแท็ก…",
+      "addTag": "เพิ่ม",
+      "tagsUsed": "แท็ก {{count}}/5",
+      "tagsMax": "แท็กได้สูงสุด 5 อัน"
+    },
+    "prompt": {
+      "answeringPromptOfDay": "กำลังตอบคำถามประจำวัน",
+      "dismissChip": "หยุดตอบคำถาม",
+      "answering": "ตอบ",
+      "answer": "ตอบ",
+      "cardSubtitle": "ฝึกเขียน",
+      "cardTitle": "คำถามประจำวัน",
+      "dismissCard": "ปิดคำถามประจำวัน"
+    },
+    "block": {
+      "done": "บล็อก {{name}} แล้ว"
+    },
+    "card": {
+      "bookmark": "บุ๊กมาร์ก",
+      "likeFailed": "เกิดข้อผิดพลาด",
+      "loginToLike": "เข้าสู่ระบบเพื่อกดถูกใจโพสต์",
+      "removeBookmark": "เลิกบุ๊กมาร์ก",
+      "save": "บันทึก",
+      "saved": "บันทึกแล้ว",
+      "seeLess": "ดูน้อยลง",
+      "seeMore": "ดูเพิ่มเติม",
+      "unlike": "เลิกถูกใจ"
+    },
+    "saved": {
+      "browseMoments": "ดูโมเมนต์",
+      "gridView": "มุมมองตาราง",
+      "listView": "มุมมองรายการ",
+      "loadMore": "โหลดเพิ่ม",
+      "momentCount": "โมเมนต์ที่บันทึกไว้",
+      "noMoments": "ยังไม่มีโมเมนต์ที่บันทึกไว้",
+      "remove": "นำออก",
+      "removeError": "นำโมเมนต์ออกไม่สำเร็จ",
+      "removeSuccess": "นำออกจากรายการที่บันทึกแล้ว",
+      "title": "โมเมนต์ที่บันทึกไว้"
+    },
+    "voice": {
+      "cancel": "ยกเลิกการอัด",
+      "denied": "ไม่ได้รับอนุญาตให้ใช้ไมโครโฟน โปรดอนุญาตการเข้าถึงไมโครโฟนเพื่ออัดข้อความเสียง",
+      "stop": "หยุดอัดและส่ง",
+      "unsupported": "เบราว์เซอร์นี้ไม่รองรับการอัดเสียง"
     }
   },
   "createMoment": {
@@ -345,13 +1091,27 @@
       "addMoreText": "เพิ่มอีก",
       "updateButton": "อัปเดตโมเมนต์",
       "updatingButton": "กำลังอัปเดต...",
-      "cancelButton": "ยกเลิก"
+      "cancelButton": "ยกเลิก",
+      "removeImage": "นำรูปออก",
+      "nothingToSave": "ยังไม่มีอะไรเปลี่ยน",
+      "descriptionRequired": "ต้องใส่คำอธิบาย"
+    },
+    "media": {
+      "video": "วิดีโอ",
+      "audio": "ข้อความเสียง",
+      "replace": "แทนที่",
+      "remove": "ลบ",
+      "removeVideoTitle": "ลบวิดีโอไหม?",
+      "removeAudioTitle": "ลบข้อความเสียงไหม?",
+      "removeBody": "การกระทำนี้ย้อนกลับไม่ได้",
+      "done": "อัปเดตแล้ว",
+      "failed": "ไม่สำเร็จ ลองอีกครั้ง"
     }
   },
   "authentication": {
     "enterEmail": {
       "title": "กรอกอีเมลของคุณ",
-      "subtitle": "We'll send a verification code to your email",
+      "subtitle": "เราจะส่งรหัสยืนยันไปที่อีเมลของคุณ",
       "emailLabel": "ที่อยู่อีเมล",
       "emailPlaceholder": "กรอกอีเมล",
       "sendButton": "ส่งรหัส",
@@ -361,32 +1121,32 @@
     },
     "passwordReset": {
       "successMessage": "รีเซ็ตรหัสผ่านสำเร็จ กรุณาเข้าสู่ระบบ!",
-      "backToLogin": "Back to login",
-      "verifyTitle": "Enter verification code",
-      "verifySubtitle": "We've sent a 6-digit code to your email",
-      "codeLabel": "Verification Code",
-      "codePlaceholder": "Enter code",
-      "previousButton": "Previous",
-      "verifyButton": "Verify",
-      "verifyingButton": "Verifying...",
-      "resendButton": "Resend code",
-      "resendingButton": "Resending...",
-      "verifySuccessMessage": "Verification code successfully verified!",
-      "resendSuccessMessage": "A new verification code has been sent!",
-      "verifyErrorDefault": "Invalid verification code",
-      "resendErrorDefault": "Failed to resend the code",
-      "setPasswordTitle": "Set new password",
-      "setPasswordSubtitle": "Choose a strong password for your account",
-      "newPasswordLabel": "New Password",
-      "newPasswordPlaceholder": "New Password",
-      "confirmPasswordLabel": "Confirm Password",
-      "confirmPasswordPlaceholder": "Confirm Password",
-      "showPassword": "Show password",
-      "hidePassword": "Hide password",
-      "submitButton": "Reset Password",
-      "submittingButton": "Resetting...",
-      "strengthErrorMessage": "Password does not meet the strength requirements",
-      "mismatchErrorMessage": "Passwords do not match"
+      "backToLogin": "กลับไปที่หน้าเข้าสู่ระบบ",
+      "verifyTitle": "กรอกรหัสยืนยัน",
+      "verifySubtitle": "เราได้ส่งรหัส 6 หลักไปที่อีเมลของคุณแล้ว",
+      "codeLabel": "รหัสยืนยัน",
+      "codePlaceholder": "กรอกรหัส",
+      "previousButton": "ก่อนหน้า",
+      "verifyButton": "ยืนยัน",
+      "verifyingButton": "กำลังยืนยัน...",
+      "resendButton": "ส่งรหัสอีกครั้ง",
+      "resendingButton": "กำลังส่งอีกครั้ง...",
+      "verifySuccessMessage": "ยืนยันรหัสสำเร็จ!",
+      "resendSuccessMessage": "ส่งรหัสยืนยันใหม่แล้ว!",
+      "verifyErrorDefault": "รหัสยืนยันไม่ถูกต้อง",
+      "resendErrorDefault": "ส่งรหัสอีกครั้งไม่สำเร็จ",
+      "setPasswordTitle": "ตั้งรหัสผ่านใหม่",
+      "setPasswordSubtitle": "เลือกรหัสผ่านที่แข็งแรงสำหรับบัญชีของคุณ",
+      "newPasswordLabel": "รหัสผ่านใหม่",
+      "newPasswordPlaceholder": "รหัสผ่านใหม่",
+      "confirmPasswordLabel": "ยืนยันรหัสผ่าน",
+      "confirmPasswordPlaceholder": "ยืนยันรหัสผ่าน",
+      "showPassword": "แสดงรหัสผ่าน",
+      "hidePassword": "ซ่อนรหัสผ่าน",
+      "submitButton": "รีเซ็ตรหัสผ่าน",
+      "submittingButton": "กำลังรีเซ็ต...",
+      "strengthErrorMessage": "รหัสผ่านไม่ตรงตามเกณฑ์ความปลอดภัย",
+      "mismatchErrorMessage": "รหัสผ่านไม่ตรงกัน"
     },
     "login": {
       "signInWithGoogle": "เข้าสู่ระบบด้วย Google",
@@ -463,6 +1223,17 @@
       "verifyFirst": "กรุณายืนยันอีเมลของคุณก่อน",
       "registrationSuccess": "ลงทะเบียนสำเร็จ!",
       "registrationError": "เกิดข้อผิดพลาดระหว่างการลงทะเบียน"
+    },
+    "callback": {
+      "banned": "บัญชีนี้ถูกระงับ",
+      "codeExpired": "ลิงก์เข้าสู่ระบบนี้หมดอายุแล้ว โปรดเข้าสู่ระบบอีกครั้ง",
+      "completing": "กำลังเข้าสู่ระบบให้เสร็จสิ้น...",
+      "emailExists": "มีบัญชีที่ใช้อีเมลนี้อยู่แล้ว โปรดเข้าสู่ระบบด้วยอีเมลและรหัสผ่านของคุณ",
+      "failedTitle": "เข้าสู่ระบบไม่สำเร็จ",
+      "generic": "เข้าสู่ระบบไม่สำเร็จ โปรดลองอีกครั้ง",
+      "noCode": "การเข้าสู่ระบบยังไม่เสร็จสิ้น โปรดลองอีกครั้ง",
+      "redirecting": "กำลังพาคุณกลับไปหน้าเข้าสู่ระบบ...",
+      "wait": "โปรดรอสักครู่ขณะที่เรากำลังพาคุณเข้าสู่ระบบ"
     }
   },
   "communityMain": {
@@ -503,7 +1274,13 @@
     "tabs": {
       "all": "ทั้งหมด",
       "popular": "ยอดนิยม",
-      "new": "ใหม่"
+      "new": "ใหม่",
+      "forYou": "สำหรับคุณ",
+      "online": "ออนไลน์",
+      "label": "แท็บชุมชน",
+      "today": "วันนี้",
+      "serious": "ผู้เรียนตัวจริง",
+      "seriousHint": "ใช้งานในสัปดาห์นี้"
     },
     "filters": {
       "language": "ภาษา",
@@ -543,7 +1320,9 @@
       "topics": "หัวข้อ",
       "searchPlaceholder": "ค้นหาสมาชิกหรือหัวข้อ",
       "filtersLabel": "ตัวกรอง",
-      "filtersWithCount": "ตัวกรอง (ใช้งานอยู่ {{count}})"
+      "filtersWithCount": "ตัวกรอง (ใช้งานอยู่ {{count}})",
+      "city": "เมือง",
+      "genders": "เพศ"
     },
     "filterSheet": {
       "title": "ตัวกรอง",
@@ -560,7 +1339,27 @@
       "onlineNow": "ออนไลน์ตอนนี้",
       "newMembersOnly": "เฉพาะสมาชิกใหม่ (7 วันล่าสุด)",
       "reset": "รีเซ็ต",
-      "apply": "ใช้"
+      "apply": "ใช้",
+      "copyLink": "คัดลอกลิงก์",
+      "linkCopied": "คัดลอกลิงก์แล้ว",
+      "linkCopyFailed": "ไม่สามารถคัดลอกลิงก์ได้",
+      "applyFirst": "กรุณาใช้ตัวกรองก่อน",
+      "matchCountLoading": "กำลังนับจำนวนที่ตรงกัน…",
+      "close": "ปิดตัวกรอง",
+      "languages": "ภาษา",
+      "partnerNative": "ภาษาแม่ของคู่สนทนา",
+      "partnerLearning": "คู่สนทนากำลังเรียน",
+      "country": "ประเทศ",
+      "countryPlaceholder": "เช่น เกาหลีใต้",
+      "level": "ระดับภาษา",
+      "topics": "หัวข้อ",
+      "mutualInterests": "ความสนใจร่วมกัน",
+      "newUsersOnly": "เฉพาะผู้ใช้ใหม่",
+      "clearAll": "ล้างทั้งหมด",
+      "matchCount": "{{count}} รายการที่ตรงกัน",
+      "lockedByTab": "กำหนดโดยแท็บ {{tab}}",
+      "reciprocal": "เฉพาะคู่ฝึกที่ตรงกัน",
+      "reciprocalHint": "เขาพูดภาษาที่คุณเรียน และเรียนภาษาที่คุณพูด"
     },
     "highlighted": {
       "title": "โปรไฟล์แนะนำ",
@@ -569,9 +1368,8 @@
       "highlightSelfTopic": "เน้นโปรไฟล์ของคุณให้คนเห็นมากขึ้น"
     },
     "visitors": {
-      "justYou": "{{name}} เข้าชมโปรไฟล์ของคุณ!",
-      "andOthers": "{{name}} และอีก {{count}} คนเข้าชมโปรไฟล์ของคุณ!",
-      "seeAll": "ดูทั้งหมด"
+      "pill_one": "1 คนเข้าชมโปรไฟล์ของคุณ",
+      "pill_other": "{{count}} คนเข้าชมโปรไฟล์ของคุณ"
     },
     "tandemCard": {
       "newChip": "ใหม่",
@@ -581,6 +1379,50 @@
       "fluent": "คล่อง",
       "learns": "กำลังเรียน",
       "native": "ภาษาแม่"
+    },
+    "chips": {
+      "recentlyActive": "ใช้งานล่าสุด",
+      "onlineNow": "ออนไลน์อยู่",
+      "speaks": "พูด{{language}}",
+      "learning": "กำลังเรียน{{language}}"
+    },
+    "forYou": {
+      "subtitle": "คู่ฝึกที่เลือกมาให้คุณโดยเฉพาะ จากภาษา ระดับ และความสนใจของคุณ",
+      "refresh": "รีเฟรช",
+      "why": "เหตุผล: {{reasons}}",
+      "empty": {
+        "title": "ยังไม่มีคำแนะนำ",
+        "message": "เพิ่มภาษาที่คุณพูดและอยากเรียน ระดับของคุณ และความสนใจสักสองสามอย่าง แล้วเราจะช่วยหาคู่ฝึกที่เหมาะกับคุณ",
+        "action": "กรอกโปรไฟล์ให้ครบ"
+      }
+    },
+    "reasons": {
+      "perfect_pair": "พูด{{native}} กำลังเรียน{{learning}}",
+      "native_speaker": "เจ้าของภาษา{{native}}",
+      "online_now": "ออนไลน์อยู่",
+      "active_today": "ใช้งานวันนี้",
+      "same_country": "ประเทศเดียวกัน"
+    },
+    "today": {
+      "title": "คู่ของคุณวันนี้ {{count}} คน",
+      "refreshes": "รีเฟรชเวลา {{time}}",
+      "refreshesMidnight": "รีเฟรชตอนเที่ยงคืน",
+      "emptyTitle": "วันนี้มีเท่านี้",
+      "emptyBody": "พรุ่งนี้จะมีคู่ใหม่ ระหว่างนี้ลองดูพาร์ตเนอร์ทั้งหมด",
+      "browse": "ดูพาร์ตเนอร์",
+      "repliesFast": "ตอบไว",
+      "boosted": "บูสต์อยู่",
+      "reasonReciprocal": "คุณกำลังเรียนภาษาของกันและกัน",
+      "reasonSameTarget": "เรียน{{language}}เหมือนกัน",
+      "reasonActiveToday": "ใช้งานวันนี้",
+      "reasonSameCity": "อยู่เมืองเดียวกับคุณ",
+      "reasonSharedTopic": "ความสนใจร่วม: {{topic}}",
+      "sayHi": "ทักทาย",
+      "wave": "โบกมือ",
+      "skip": "ข้าม",
+      "error": "โหลดคู่ของวันนี้ไม่สำเร็จ",
+      "retry": "ลองอีกครั้ง",
+      "waved": "โบกมือแล้ว"
     }
   },
   "communityDetail": {
@@ -642,8 +1484,38 @@
       "learning": "กำลังเรียน",
       "notSpecified": "ไม่ระบุ"
     },
+    "match": {
+      "title": "ความเข้ากันด้านภาษา",
+      "native": "ภาษาแม่",
+      "learning": "กำลังเรียน",
+      "perfect": "เข้ากันได้อย่างสมบูรณ์แบบ! สอนกันและกันได้เลย",
+      "youLearnTheirs": "คุณกำลังเรียนภาษาที่พวกเขาพูดพอดี!",
+      "theyLearnYours": "พวกเขากำลังเรียนภาษาแม่ของคุณอยู่!",
+      "sameNative": "คุณทั้งสองพูดภาษาแม่เดียวกัน"
+    },
+    "mutual": {
+      "title": "ความสนใจร่วมกัน",
+      "countLabel": "ตรงกัน {{count}} อย่าง"
+    },
+    "starters": {
+      "title": "ประโยคเปิดบทสนทนา",
+      "send": "ส่ง",
+      "perfect": "สวัสดี {{name}}! เราเข้ากันได้สมบูรณ์แบบด้านภาษาเลย อยากแลกเปลี่ยนกันฝึกไหม?",
+      "language": "สวัสดี {{name}}! ฉันกำลังเรียน{{language}}อยู่ มีเคล็ดลับอะไรที่ช่วยให้เก่งขึ้นไหม?",
+      "teach": "สวัสดี {{name}}! เห็นว่ากำลังเรียน{{language}}อยู่ มีคำถามอะไรถามได้เลยนะ ยินดีช่วย",
+      "sameNative": "สวัสดี {{name}}! เรามีภาษาแม่เดียวกันเลย การเรียนเป็นยังไงบ้าง?",
+      "topic": "สวัสดี {{name}}! เห็นว่าชอบ{{topic}}เหมือนกัน เริ่มสนใจได้ยังไงเหรอ?",
+      "targetLearning": "สวัสดี {{name}}! เรียน{{language}}มานานแค่ไหนแล้ว?",
+      "generic": "สวัสดี {{name}}! อยากลองฝึกภาษาด้วยกันดูนะ สัปดาห์นี้เป็นยังไงบ้าง?",
+      "practice": "สวัสดี {{name}}! อะไรที่ช่วยเรื่องการเรียนของคุณได้มากที่สุดจนถึงตอนนี้?",
+      "hello": "สวัสดี {{name}}! โปรไฟล์ของคุณโดนใจฉันเลย วันนี้เป็นยังไงบ้าง?"
+    },
+    "engagement": {
+      "replies": "ตอบกลับ {{rate}}%",
+      "new": "สมาชิกใหม่"
+    },
     "suggested": {
-      "title": "สมาชิกอื่นๆ ที่คล้ายกับ {{name}}",
+      "title": "สมาชิกอื่นที่คล้ายกับ {{name}}",
       "seeAll": "ดูสมาชิกทั้งหมด"
     }
   },
@@ -665,6 +1537,10 @@
     "buttons": {
       "tryAgain": "ลองใหม่",
       "backToCommunity": "กลับไปที่ชุมชน"
+    },
+    "suggested": {
+      "title": "สมาชิกอื่นๆ ที่คล้ายกับ {{name}}",
+      "seeAll": "ดูสมาชิกทั้งหมด"
     },
     "stats": {
       "followers": "ผู้ติดตาม",
@@ -871,6 +1747,102 @@
       "premium": "พรีเมียม",
       "features": "ฟีเจอร์",
       "upgrade": "อัปเกรดเป็น VIP"
+    },
+    "password": {
+      "title": "เปลี่ยนรหัสผ่าน",
+      "current": "รหัสผ่านปัจจุบัน",
+      "current_hint": "ป้อนรหัสผ่านปัจจุบัน",
+      "new": "รหัสผ่านใหม่",
+      "new_hint": "อย่างน้อย 8 ตัวอักษร, A-Z, a-z, 0-9",
+      "confirm": "ยืนยันรหัสผ่านใหม่",
+      "confirm_hint": "ป้อนรหัสผ่านใหม่อีกครั้ง",
+      "rule_upper": "ตัวพิมพ์ใหญ่ 1 ตัว",
+      "rule_lower": "ตัวพิมพ์เล็ก 1 ตัว",
+      "rule_number": "ตัวเลข 1 ตัว",
+      "mismatch": "รหัสผ่านไม่ตรงกัน",
+      "same_as_current": "รหัสผ่านใหม่ต้องต่างจากรหัสผ่านปัจจุบัน",
+      "success": "เปลี่ยนรหัสผ่านสำเร็จ",
+      "failed": "อัปเดตไม่สำเร็จ",
+      "symbols": "ใช้ได้เฉพาะสัญลักษณ์เหล่านี้: @ $ ! % * ? &"
+    },
+    "privacy": {
+      "title": "การตั้งค่าความเป็นส่วนตัว",
+      "subtitle": "ควบคุมว่าใครสามารถเห็นข้อมูลของคุณ",
+      "profileVisibility": "การมองเห็นโปรไฟล์",
+      "showOnlineStatus": "แสดงสถานะออนไลน์",
+      "showOnlineStatusDesc": "ให้ผู้อื่นเห็นเมื่อคุณออนไลน์",
+      "showCity": "แสดงเมือง",
+      "showCityDesc": "แสดงเมืองของคุณในโปรไฟล์",
+      "showCountry": "แสดงประเทศ/ภูมิภาค",
+      "showCountryDesc": "แสดงประเทศของคุณในโปรไฟล์",
+      "personalInfo": "ข้อมูลส่วนตัว",
+      "showAge": "แสดงอายุ",
+      "showAgeDesc": "แสดงอายุของคุณในโปรไฟล์",
+      "showZodiac": "แสดงราศี",
+      "showZodiacDesc": "แสดงราศีของคุณในโปรไฟล์",
+      "birthdayNotification": "การแจ้งเตือนวันเกิด",
+      "birthdayNotificationDesc": "รับการแจ้งเตือนในวันเกิดของคุณ",
+      "otherSettings": "การตั้งค่าอื่นๆ",
+      "showGiftingLevel": "แสดงระดับของขวัญ",
+      "showGiftingLevelDesc": "แสดงตราระดับของขวัญ",
+      "saveSuccess": "บันทึกการตั้งค่าความเป็นส่วนตัวแล้ว",
+      "saveError": "บันทึกล้มเหลว",
+      "saving": "กำลังบันทึก...",
+      "saveChanges": "บันทึกการเปลี่ยนแปลง",
+      "profileVisits": "การเข้าชมโปรไฟล์",
+      "anonymousProfileVisits": "เข้าชมโปรไฟล์แบบไม่ระบุตัวตน",
+      "anonymousProfileVisitsDesc": "ชื่อของคุณจะไม่ปรากฏในรายชื่อผู้เข้าชมล่าสุดของผู้ใช้ที่คุณเข้าชม",
+      "email": "อีเมล",
+      "emailNotifications": "การแจ้งเตือนทางอีเมล",
+      "emailNotificationsDesc": "รับการแจ้งเตือนทางอีเมลจาก BananaTalk",
+      "weeklyDigest": "สรุปรายสัปดาห์",
+      "weeklyDigestDesc": "สรุปกิจกรรมทุกวันอาทิตย์",
+      "securityAlerts": "การแจ้งเตือนความปลอดภัย",
+      "securityAlertsDesc": "การแจ้งเตือนเกี่ยวกับรหัสผ่านและการเข้าสู่ระบบ เราแนะนำให้เปิดไว้"
+    },
+    "notifications": {
+      "title": "การตั้งค่าการแจ้งเตือน",
+      "subtitle": "จัดการการตั้งค่าการแจ้งเตือนของคุณ",
+      "loading": "กำลังโหลด...",
+      "loadError": "ข้อผิดพลาดในการโหลดการตั้งค่า",
+      "retry": "ลองใหม่",
+      "pushNote": "การตั้งค่าเหล่านี้ควบคุมการแจ้งเตือนแบบพุชจากแอป BananaTalk บนโทรศัพท์ของคุณ",
+      "enableAll": "การแจ้งเตือนแบบพุช",
+      "enableAllDesc": "เปิดหรือปิดการแจ้งเตือนทั้งหมด",
+      "notificationTypes": "ประเภทการแจ้งเตือน",
+      "chatMessages": "ข้อความแชท",
+      "chatMessagesDesc": "รับการแจ้งเตือนเมื่อได้รับข้อความ",
+      "moments": "โมเมนต์",
+      "momentsDesc": "ถูกใจและความคิดเห็นบนโมเมนต์ของคุณ",
+      "followerMoments": "โมเมนต์จากผู้ติดตาม",
+      "followerMomentsDesc": "เมื่อคนที่คุณติดตามโพสต์โมเมนต์ใหม่",
+      "friendRequests": "ผู้ติดตามใหม่",
+      "friendRequestsDesc": "เมื่อมีคนติดตามคุณ",
+      "profileVisits": "การเยี่ยมชมโปรไฟล์",
+      "profileVisitsDesc": "เมื่อมีคนดูโปรไฟล์ของคุณ (VIP)",
+      "announcements": "ประกาศ",
+      "announcementsDesc": "ข่าวสารและอัปเดตจากทีม BananaTalk",
+      "marketing": "การตลาด",
+      "marketingDesc": "อัปเดตและข้อความโปรโมชัน",
+      "learning": "กำลังเรียน",
+      "streakReminders": "การเตือนสตรีค",
+      "streakRemindersDesc": "เตือนก่อนสตรีคของคุณจะขาด",
+      "vocabularyReviewReminders": "ทบทวนคำศัพท์",
+      "vocabularyReviewRemindersDesc": "เมื่อมีคำศัพท์ที่ถึงเวลาทบทวน",
+      "dailyDropReminders": "บทเรียนประจำวัน",
+      "dailyDropRemindersDesc": "เมื่อบทเรียนคำศัพท์หรือไวยากรณ์สั้นๆ ของวันนี้พร้อมแล้ว",
+      "quietHours": "ช่วงเวลาเงียบ",
+      "quietHoursEnable": "เปิดใช้งานช่วงเวลาเงียบ",
+      "quietHoursDesc": "หยุดการแจ้งเตือนที่ไม่เร่งด่วนในช่วงเวลาที่กำหนด",
+      "quietHoursStart": "เวลาเริ่มต้น",
+      "quietHoursEnd": "เวลาสิ้นสุด",
+      "preferences": "ตั้งค่าการแจ้งเตือน",
+      "showPreview": "แสดงตัวอย่าง",
+      "showPreviewDesc": "แสดงตัวอย่างข้อความในการแจ้งเตือน",
+      "saveSuccess": "บันทึกการตั้งค่าการแจ้งเตือนแล้ว",
+      "saveError": "บันทึกล้มเหลว",
+      "saving": "กำลังบันทึก...",
+      "saveChanges": "บันทึกการเปลี่ยนแปลง"
     }
   },
   "waves": {
@@ -880,13 +1852,102 @@
     "accept": "ยอมรับ",
     "decline": "ปฏิเสธ",
     "noWaves": "ยังไม่มีการโบกมือ",
-    "sendWave": "ส่งการโบกมือเพื่อเริ่มเชื่อมต่อ!"
+    "sendWave": "ส่งการโบกมือเพื่อเริ่มเชื่อมต่อ!",
+    "archive": "การโบกมือก่อนหน้า",
+    "archiveEmpty": "ไม่มีการโบกมือก่อนหน้า",
+    "archiveHint": "การโบกมือเมื่อ 7 ถึง 30 วันที่แล้ว",
+    "back": "ย้อนกลับ",
+    "cap": {
+      "body": "คุณใช้การโบกมือฟรีของวันนี้หมดแล้ว สมาชิก VIP โบกมือได้ไม่จำกัดต่อวัน หรือลองใหม่พรุ่งนี้",
+      "notNow": "ไว้ทีหลัง",
+      "seeVip": "ดู VIP",
+      "title": "ถึงขีดจำกัดการโบกมือรายวันแล้ว"
+    },
+    "findPeople": "ค้นหาผู้คน",
+    "noReceived": "ยังไม่มีใครโบกมือให้คุณ",
+    "recent": "7 วันที่ผ่านมา",
+    "sheet": {
+      "already": "โบกมือแล้ว",
+      "alreadyBody": "คุณโบกมือให้แต่ละคนได้เพียงครั้งเดียว — ส่งข้อความแทนเพื่อคุยกันต่อนะ",
+      "alreadyTitle": "คุณโบกมือให้ {{name}} แล้ว",
+      "cancel": "ยกเลิก",
+      "chips": {
+        "chat": {
+          "label": "คุยกัน",
+          "message": "🎉 มาคุยกันเถอะ!"
+        },
+        "cool": {
+          "label": "เจ๋ง",
+          "message": "❤️ โปรไฟล์เจ๋งมาก!"
+        },
+        "hello": {
+          "label": "สวัสดี",
+          "message": "✋ สวัสดี!"
+        },
+        "hey": {
+          "label": "เฮ้",
+          "message": "😊 เฮ้ สวัสดีจ้า!"
+        },
+        "hi": {
+          "label": "หวัดดี",
+          "message": "👋 หวัดดี!"
+        },
+        "nice": {
+          "label": "ยินดีที่รู้จัก",
+          "message": "🌟 ยินดีที่ได้รู้จักนะ!"
+        }
+      },
+      "close": "ปิด",
+      "icebreakers": {
+        "0": "สวัสดี! อยากฝึกภาษาด้วยกันไหม?",
+        "1": "เห็นว่าเราเรียนภาษาคล้าย ๆ กัน — สวัสดีนะ!",
+        "2": "โปรไฟล์ของคุณน่าสนใจมาก เป็นยังไงบ้าง?",
+        "3": "หวัดดี! อะไรทำให้คุณเริ่มเรียนภาษาใหม่?"
+      },
+      "icebreakersTitle": "ประโยคเปิดบทสนทนา",
+      "match": "🎉 แมตช์แล้ว! คุณและ {{name}} โบกมือให้กันและกัน",
+      "placeholder": "เขียนข้อความของคุณเอง (ไม่บังคับ)…",
+      "quickReplies": "ตอบกลับด่วน",
+      "send": "ส่งการโบกมือ",
+      "sendError": "ส่งการโบกมือไม่สำเร็จ",
+      "sent": "ส่งการโบกมือให้ {{name}} แล้ว!",
+      "subtitle": "ทักทายและเริ่มบทสนทนา 👋",
+      "title": "โบกมือให้ {{name}}",
+      "yourMessage": "ข้อความของคุณ"
+    },
+    "someone": "ใครบางคน",
+    "subtitle": "คนที่โบกมือให้คุณ",
+    "unread": "ยังไม่ได้อ่าน",
+    "wavedAtYou": "โบกมือให้คุณ 👋"
   },
   "topics": {
     "title": "หัวข้อ",
     "myTopics": "หัวข้อของฉัน",
     "browseTopics": "เรียกดูหัวข้อ",
-    "usersInterested": "ผู้ใช้ที่สนใจ"
+    "usersInterested": "ผู้ใช้ที่สนใจ",
+    "saved": "หัวข้อของคุณเป็นข้อมูลล่าสุดแล้ว",
+    "saveError": "บันทึกหัวข้อของคุณไม่สำเร็จ",
+    "memberCount": "{{count}} สมาชิก",
+    "backToCommunity": "ชุมชน",
+    "subtitle": "ค้นหาพาร์ทเนอร์ที่สนใจสิ่งเดียวกับคุณ",
+    "searchPlaceholder": "ค้นหาหัวข้อ",
+    "clearSearch": "ล้างการค้นหา",
+    "cancel": "ยกเลิก",
+    "saving": "กำลังบันทึก...",
+    "save": "บันทึก",
+    "edit": "แก้ไข",
+    "editHint": "แตะการ์ดด้านล่างเพื่อเลือกหัวข้อได้สูงสุด {{max}} หัวข้อ แล้วบันทึก",
+    "myTopicsEmpty": "คุณยังไม่ได้เลือกหัวข้อใดเลย แตะแก้ไขเพื่อเลือกสักสองสามหัวข้อ",
+    "selectTopics": "เลือกหัวข้อของคุณ",
+    "emptyTitle": "ไม่พบหัวข้อที่ตรงกัน",
+    "emptyMessage": "ลองใช้คำอื่น หรือล้างการค้นหาเพื่อดูทั้งหมด",
+    "backToTopics": "หัวข้อทั้งหมด",
+    "onlineOnly": "แสดงเฉพาะออนไลน์",
+    "loadingPeople": "กำลังโหลดผู้คน...",
+    "noOneOnlineTitle": "ไม่มีใครออนไลน์ที่นี่",
+    "noOneTitle": "ยังไม่มีใครอยู่ที่นี่",
+    "noOneOnlineMessage": "ปิดตัวกรองออนไลน์เพื่อดูทุกคนในหัวข้อนี้",
+    "noOneMessage": "เป็นคนแรกเลย — เพิ่มหัวข้อนี้ในโปรไฟล์ของคุณ"
   },
   "nearby": {
     "title": "ผู้ใช้ใกล้เคียง",
@@ -897,24 +1958,23 @@
   },
   "home": {
     "hero": {
-      "badge": "แลกเปลี่ยนภาษาง่ายๆ",
-      "titlePart1": "เรียนภาษาโดยการ",
-      "titleHighlight": "พูด",
-      "titlePart2": "กับเจ้าของภาษา",
-      "description": "เชื่อมต่อกับผู้เรียนภาษานับล้านทั่วโลก ฝึกพูด พัฒนาความคล่อง และหาเพื่อนจากทุกมุมโลก",
-      "stats": {
-        "users": "ผู้ใช้ที่ใช้งาน",
-        "languages": "ภาษา",
-        "countries": "ประเทศ"
-      },
-      "getStarted": "เริ่มต้นฟรี",
+      "badge": "แลกเปลี่ยนภาษา คนจริง ๆ",
+      "titlePart1": "ฝึกฝน",
+      "titleHighlight": "ภาษาใดก็ได้",
+      "titlePart2": "กับคนที่พูดภาษานั้นจริง ๆ",
+      "description": "BananaTalk จับคู่คุณกับเจ้าของภาษาจากทั่วโลก แชท ส่งข้อความเสียง แปลภาษา และรับการแก้ไข — ทุกบทสนทนาทำให้คุณเก่งขึ้น",
+      "getStarted": "เริ่มต้นเลย — ฟรี",
       "browseCommunity": "เรียกดูชุมชน",
-      "lovedBy": "เป็นที่ชื่นชอบของผู้เรียนกว่า 5 ล้านคน",
+      "lovedBy": "เป็นที่ชื่นชอบของผู้เรียนภาษาบน iOS และ Android",
       "chatPreview": {
-        "message1": "สวัสดี! สบายดีไหม? 👋",
-        "message2": "Hey! I'm practicing Thai!",
-        "message3": "ดีมาก! มาฝึกด้วยกันนะ 🇹🇭"
-      }
+        "message1": "안녕하세요! สุดสัปดาห์เป็นยังไงบ้าง",
+        "message2": "주말에 친구들과 등산 갔어요 ⛰️",
+        "message3": "เยี่ยม! 산 → ภูเขา บันทึกไว้ในคิวการเรียนของคุณแล้ว"
+      },
+      "title": "พูดผิดก็ได้",
+      "titleAccent": "เราแปลให้",
+      "subtitle": "แลกเปลี่ยนภาษาฟรีกับเจ้าของภาษา คุณเขียนด้วยภาษาของคุณ อีกฝ่ายอ่านด้วยภาษาของเขา แล้วคุณก็เรียนรู้จากความต่างนั้น",
+      "trust": "แพ็กเกจฟรีตลอดชีพ · 137 ภาษา · AI ติวเตอร์ 24 ชั่วโมง"
     },
     "sections": {
       "features": "ฟีเจอร์",
@@ -922,108 +1982,175 @@
       "pricing": "ราคา"
     },
     "features": {
-      "title": "ทุกอย่างที่คุณต้องการในการเรียน",
-      "subtitle": "เครื่องมือที่ทรงพลังออกแบบมาเพื่อเร่งการเรียนรู้ภาษาของคุณ",
+      "title": "ทุกสิ่งที่คุณต้องการเพื่อพูดภาษานั้นได้จริง",
+      "subtitle": "สร้างจากบทสนทนาจริงกับเจ้าของภาษาตัวจริง ไม่ใช่แบบฝึกหัดคำศัพท์",
       "chat": {
-        "title": "แชทแบบเรียลไทม์",
-        "description": "ฝึกสนทนากับเจ้าของภาษาผ่านข้อความแบบทันที"
+        "title": "แชทพร้อมคำแก้ไข",
+        "description": "ส่งข้อความ เสียง รูปภาพ และสติกเกอร์ แตะข้อความของคู่สนทนาเพื่อแปลหรือแก้ไขได้ในแตะเดียว"
       },
-      "video": {
-        "title": "วิดีโอคอล",
-        "description": "ฝึกภาษาแบบตัวต่อตัวกับคู่ฝึกทั่วโลก"
+      "translate": {
+        "title": "การแปลในตัว",
+        "description": "แปลข้อความใดก็ได้เป็นภาษาแม่ของคุณ บันทึกวลีลงในคิวการเรียนได้ทันที"
       },
-      "lessons": {
-        "title": "บทเรียนแบบโต้ตอบ",
-        "description": "เรียนรู้ด้วยหลักสูตรที่มีโครงสร้างและแบบฝึกหัดรายวัน"
+      "tutor": {
+        "title": "AI Tutor",
+        "description": "สถานการณ์สวมบทบาท คำศัพท์จากรูปภาพ และการฝึกออกเสียง — ทั้งหมดขับเคลื่อนโดย AI คู่เรียนของคุณเอง"
       },
-      "voice": {
-        "title": "ข้อความเสียง",
-        "description": "พัฒนาการออกเสียงของคุณด้วยการแลกเปลี่ยนเสียง"
+      "voice_rooms": {
+        "title": "Voice Rooms",
+        "description": "เข้าร่วมห้องเสียงสดกับเจ้าของภาษาและผู้เรียนภาษาจากทั่วโลก"
+      },
+      "calls": {
+        "title": "โทรเสียงและวิดีโอ",
+        "description": "โทรเสียงและวิดีโอในแตะเดียวกับคู่ฝึกภาษาของคุณ"
       },
       "community": {
-        "title": "ชุมชน",
-        "description": "เข้าร่วมกับผู้เรียนภาษานับล้านทั่วโลก"
+        "title": "ชุมชนที่จริงแท้",
+        "description": "เรียกดูคู่ฝึกตามภาษาแม่ ดูว่าใครออนไลน์อยู่ และแชร์โมเมนต์กับคนที่เรียนภาษาเดียวกัน"
       },
-      "languages": {
-        "title": "กว่า 50 ภาษา",
-        "description": "จากสเปนถึงเกาหลี ค้นหาเส้นทางการเรียนของคุณ"
+      "inApp": "ในแอป",
+      "items": {
+        "findPartner": {
+          "title": "หาคู่ฝึก",
+          "body": "จับคู่ตามคู่ภาษาที่คุณอยากแลกเปลี่ยนจริง ๆ"
+        },
+        "chatTranslate": {
+          "title": "แชทที่แปลให้เลย",
+          "body": "แปลทั้งสองทาง อยู่ในข้อความ ตั้งแต่ตอนพิมพ์"
+        },
+        "moments": {
+          "title": "Moments",
+          "body": "แชร์วันของคุณ แล้วให้เจ้าของภาษาช่วยแก้ให้"
+        },
+        "aiTutor": {
+          "title": "AI ติวเตอร์",
+          "body": "ฝึกตอนตีสามได้โดยไม่ต้องเขินใคร"
+        },
+        "voiceRooms": {
+          "title": "Voice Rooms",
+          "body": "เข้าห้องเสียงสด จะนั่งฟังเฉย ๆ ก็ได้"
+        },
+        "gatherings": {
+          "title": "นัดเจอกัน",
+          "body": "เจอคนแถวบ้านที่กำลังเรียนภาษาของคุณ"
+        }
       }
     },
     "howItWorks": {
-      "title": "เริ่มเรียนใน 3 ขั้นตอน",
-      "subtitle": "เริ่มต้นในไม่กี่นาทีและเริ่มการเดินทางทางภาษาของคุณวันนี้"
+      "title": "สามขั้นตอนสู่บทสนทนาแรกของคุณ",
+      "subtitle": "ไม่ต้องใช้เบอร์โทร ไม่มีสแปม — มีแค่คนจริง ๆ ที่อยากเรียนรู้",
+      "steps": {
+        "1": {
+          "title": "บอกเราว่าคุณพูดภาษาอะไร และอยากได้ภาษาไหน",
+          "body": "เลือกภาษาแม่และภาษาที่กำลังเรียน เราจับคู่ให้จากคู่ภาษานี้"
+        },
+        "2": {
+          "title": "หาคนที่น่าคุยด้วย",
+          "body": "ดูคู่ฝึกที่กำลังเรียนภาษาของคุณ จะโบกมือทักหรือทักไปเลยก็ได้"
+        },
+        "3": {
+          "title": "พูดผิด ๆ ถูก ๆ แล้วเก่งเร็ว",
+          "body": "ทุกข้อความแปลให้ทั้งสองทาง และ AI ติวเตอร์แก้ให้โดยไม่มีใครเห็น"
+        }
+      }
     },
     "steps": {
       "profile": {
-        "title": "สร้างโปรไฟล์ของคุณ",
-        "description": "บอกเราเกี่ยวกับภาษาแม่ของคุณและสิ่งที่คุณต้องการเรียน"
+        "title": "บอกภาษาของคุณให้เรารู้",
+        "description": "เลือกภาษาที่คุณพูดคล่องและภาษาที่กำลังเรียน เพิ่มหัวข้อที่คุณชอบสักสองสามอย่าง"
       },
       "partners": {
-        "title": "ค้นหาคู่ฝึก",
-        "description": "เรียกดูชุมชนของเราและค้นหาคู่แลกเปลี่ยนภาษาที่สมบูรณ์แบบ"
+        "title": "ค้นหาคู่ฝึกของคุณ",
+        "description": "เรียกดูชุมชนตามภาษา ประเทศ หรือหัวข้อ โบกมือหรือส่งข้อความหาคนที่น่าสนใจ"
       },
       "learn": {
-        "title": "เริ่มเรียน",
-        "description": "แชท โทร และฝึกกับเจ้าของภาษาทุกวัน"
+        "title": "ฝึกฝนทุกวัน",
+        "description": "แชท แลกเปลี่ยนข้อความเสียง รับการแก้ไข และเปลี่ยนคำศัพท์ใหม่ให้เป็นการ์ดทบทวนแบบเว้นระยะ"
       }
     },
     "pricing": {
-      "title": "เลือกแผนของคุณ",
-      "subtitle": "เริ่มต้นฟรีและอัปเกรดเมื่อคุณพร้อม",
-      "mostPopular": "ยอดนิยม",
-      "getStarted": "เริ่มต้น",
+      "title": "เริ่มต้นฟรี อัปเกรดเป็น VIP เมื่อพร้อมเรียนเร็วขึ้น",
+      "subtitle": "BananaTalk ฟรีสำหรับทุกคน อัปเกรดเพื่อยกเลิกขีดจำกัดรายวันของการแปล AI Tutor และอื่น ๆ",
+      "fineprint": "ยกเลิกได้ทุกเมื่อในการตั้งค่า App Store หรือ Google Play ของคุณ การสมัครสมาชิกจะต่ออายุอัตโนมัติจนกว่าจะยกเลิก",
       "free": {
         "name": "ฟรี",
         "period": "ตลอดไป",
+        "cta": "สร้างบัญชีฟรี",
         "features": {
-          "messaging": "ข้อความพื้นฐาน",
-          "connections": "5 การเชื่อมต่อใหม่/วัน",
-          "community": "เข้าถึงชุมชน",
-          "lessons": "บทเรียนพื้นฐาน"
+          "messaging": "แชทแบบตัวต่อตัวไม่จำกัดพร้อมการแปล",
+          "community": "เรียกดูและเชื่อมต่อกับชุมชน",
+          "moments": "โพสต์ Moments และอ่าน Stories",
+          "tutor_trial": "โควตา AI Tutor และการแปลรายวัน"
+        },
+        "f1": "แชทแบบตัวต่อตัวไม่จำกัดพร้อมการแปล",
+        "f2": "ค้นหาและเชื่อมต่อกับคอมมูนิตี้",
+        "f3": "โพสต์ Moments และอ่าน Stories"
+      },
+      "monthly": {
+        "name": "VIP — รายเดือน",
+        "period": "ต่อเดือน",
+        "highlight": "ยืดหยุ่นที่สุด",
+        "cta": "เริ่มแบบรายเดือน",
+        "features": {
+          "unlimited_translation": "แปลและแก้ไขไม่จำกัด",
+          "unlimited_tutor": "เซสชัน AI Tutor และการสวมบทบาทไม่จำกัด",
+          "voice_rooms": "โฮสต์และปักหมุด Voice Rooms",
+          "priority": "จับคู่คู่ฝึกก่อนใคร"
         }
       },
-      "premium": {
-        "name": "พรีเมียม",
-        "period": "/เดือน",
+      "yearly": {
+        "name": "VIP — รายปี",
+        "period": "ต่อปี",
+        "highlight": "ประหยัด 72%",
+        "cta": "ประหยัดด้วยแพ็กเกจรายปี",
         "features": {
-          "messaging": "ข้อความไม่จำกัด",
-          "connections": "การเชื่อมต่อไม่จำกัด",
-          "video": "วิดีโอคอล",
-          "lessons": "บทเรียนขั้นสูง",
-          "noAds": "ไม่มีโฆษณา",
-          "translation": "เครื่องมือแปลภาษา"
+          "everything_in_monthly": "ทุกอย่างในแพ็กเกจรายเดือน",
+          "equiv": "เท่ากับเพียง $4.16 ต่อเดือน",
+          "early_access": "เข้าถึงฟีเจอร์ใหม่ก่อนใคร",
+          "support": "การสนับสนุนโดยตรงจากทีม BananaTalk"
         }
       },
-      "lifetime": {
-        "name": "ตลอดชีพ",
-        "period": "จ่ายครั้งเดียว",
-        "features": {
-          "everything": "ทุกอย่างในพรีเมียม",
-          "forever": "เข้าถึงตลอดไป",
-          "support": "การสนับสนุนลำดับความสำคัญ",
-          "early": "ฟีเจอร์ล่วงหน้า",
-          "badges": "ตราสัญลักษณ์พิเศษ"
-        }
-      }
+      "best": "คุ้มค่าที่สุด",
+      "perMonth": "ต่อเดือน",
+      "every": "ทุก",
+      "save": "ประหยัด",
+      "getVip": "รับ VIP ในแอป"
     },
     "download": {
       "badge": "ดาวน์โหลดแอป",
-      "title": "พา BananaTalk ไปทุกที่",
-      "description": "เรียนรู้ขณะเดินทางด้วยแอปมือถือของเรา พร้อมใช้งานบน iOS และ Android พร้อมฟีเจอร์ทั้งหมด การแจ้งเตือนแบบพุช และการเข้าถึงแบบออฟไลน์",
+      "title": "ประสบการณ์เต็มรูปแบบอยู่บนมือถือ",
+      "description": "AI Tutor, Voice Rooms, การโทร และการแจ้งเตือนแบบเรียลไทม์มีเฉพาะบนมือถือเท่านั้น ดาวน์โหลดแอปเพื่อรับประสบการณ์ BananaTalk แบบเต็มรูปแบบ",
       "downloadOn": "ดาวน์โหลดบน",
       "getItOn": "ดาวน์โหลดได้ที่",
       "scanQR": "สแกนเพื่อดาวน์โหลดแอป",
       "or": "หรือ",
       "features": {
-        "offline": "เข้าถึงแบบออฟไลน์",
+        "offline": "แชทได้แม้ไม่มีอินเทอร์เน็ต",
         "push": "การแจ้งเตือนแบบพุช",
-        "fast": "เร็วและเบา"
+        "fast": "ติดตั้งฟรี"
       }
     },
     "cta": {
-      "title": "พร้อมเริ่มต้นการเดินทางทางภาษาของคุณหรือยัง?",
-      "description": "เข้าร่วมกับผู้เรียนนับล้านและเริ่มพูดภาษาใหม่วันนี้",
-      "button": "สร้างบัญชีฟรี"
+      "title": "พร้อมจะพูดคุยกันจริง ๆ หรือยัง",
+      "description": "เข้าร่วมชุมชน BananaTalk และเริ่มฝึกฝนตั้งแต่วันนี้ ไม่ต้องใช้บัตรเครดิต",
+      "button": "สร้างบัญชีฟรีของคุณ",
+      "subtitle": "เริ่มต้นฟรี ไม่ต้องใช้บัตร ไม่มีการนับถอยหลังทดลองใช้"
+    },
+    "stats": {
+      "languages": "ภาษา",
+      "app languages": "ภาษาที่แอปรองรับ",
+      "AI tutor": "AI ติวเตอร์",
+      "forever tier": "แพ็กเกจฟรี",
+      "learners": "ผู้เรียน"
+    },
+    "marquee": {
+      "title": "ทุกภาษาที่คุณอยากเรียน มีเจ้าของภาษาอยู่ที่นี่",
+      "caption": "137 ภาษา และยังเพิ่มขึ้นเรื่อย ๆ"
+    },
+    "earlyAdopter": {
+      "badge": "เปิดตัวธันวาคม 2025",
+      "title": "มาเป็นกลุ่มแรก ๆ กัน",
+      "body": "BananaTalk เพิ่งเริ่มต้น คนที่คุณเจอที่นี่คือคนที่กำลังสร้างชุมชนนี้ขึ้นมา — เป็นเหตุผลให้เข้ามาเร็วที่ดีกว่ารีวิวใด ๆ"
     }
   },
   "vip": {
@@ -1060,6 +2187,1229 @@
       "prioritySupport": "การสนับสนุนลำดับความสำคัญ",
       "exclusiveBadge": "ตราสัญลักษณ์ VIP พิเศษ",
       "translationFeature": "การแปลข้อความ"
+    }
+  },
+  "linking": {
+    "share": {
+      "label": "แชร์",
+      "copied": "คัดลอกลิงก์ไปยังคลิปบอร์ดแล้ว!",
+      "copyFailed": "คัดลอกลิงก์ไม่สำเร็จ"
+    },
+    "openInApp": {
+      "label": "เปิดในแอป"
+    },
+    "appBanner": {
+      "text": "เปิดสิ่งนี้ในแอป BananaTalk"
+    }
+  },
+  "seo": {
+    "appTitle": "BananaTalk",
+    "home": {
+      "title": "BananaTalk: แอปแลกเปลี่ยนภาษาฟรีกับเจ้าของภาษา",
+      "description": "แชทกับเจ้าของภาษาใน 137 ภาษา เขียนด้วยภาษาของคุณ อีกฝ่ายอ่านด้วยภาษาของเขา และติวเตอร์ AI จะแสดงความแตกต่างให้คุณเห็น ฟรีบน iOS และ Android"
+    },
+    "download": {
+      "title": "ดาวน์โหลด BananaTalk สำหรับ iPhone และ Android",
+      "description": "รับแอปแลกเปลี่ยนภาษา BananaTalk ฟรีสำหรับ iPhone และ Android แชทกับเจ้าของภาษาพร้อมคำแปลทันทีและการแก้ไขจากติวเตอร์ AI"
+    },
+    "moments": {
+      "title": "BananaTalk Moments: เรื่องราวในภาษาที่คุณกำลังเรียน",
+      "description": "Moments คือโพสต์และเรื่องราวสั้น ๆ ที่ผู้เรียนภาษาแชร์กันบน BananaTalk อ่านฟีด แสดงความคิดเห็น แล้วโพสต์ของคุณเอง"
+    },
+    "privacy": {
+      "title": "นโยบายความเป็นส่วนตัว | BananaTalk",
+      "description": "BananaTalk เก็บรวบรวม ใช้ และปกป้องข้อมูลของคุณอย่างไร และตัวเลือกที่คุณมี"
+    },
+    "terms": {
+      "title": "ข้อกำหนดการใช้งาน | BananaTalk",
+      "description": "ข้อกำหนดที่ควบคุมการใช้งาน BananaTalk ของคุณ รวมถึงกฎเนื้อหา การกลั่นกรอง และการรายงาน"
+    },
+    "support": {
+      "title": "ฝ่ายสนับสนุนและติดต่อ | BananaTalk",
+      "description": "รับความช่วยเหลือเกี่ยวกับ BananaTalk: คำถามเกี่ยวกับบัญชี การรายงานปัญหา และวิธีติดต่อทีมงาน"
+    },
+    "dataDeletion": {
+      "title": "คำขอลบข้อมูล | BananaTalk",
+      "description": "วิธีลบบัญชี BananaTalk และข้อมูลส่วนตัวของคุณ และสิ่งที่เกิดขึ้นหลังจากที่คุณร้องขอ"
+    },
+    "meet": {
+      "title": "เจอคนจากประเทศอื่น | BananaTalk",
+      "description": "เจอคนจากประเทศอื่นและได้เพื่อนต่างชาติจากการแชท ทุกข้อความแปลให้ทั้งสองทาง ไม่มีใครต้องพูดคล่องก่อน"
+    },
+    "learnKorean": {
+      "title": "เรียนภาษาเกาหลีจากการแชทกับเจ้าของภาษา",
+      "description": "เรียนภาษาเกาหลีฟรีจากการแชทกับเจ้าของภาษาเกาหลี คุณเขียนด้วยภาษาของคุณ เขาเขียนฮันกึล และ AI ติวเตอร์อธิบาย 존댓말 กับ 반말 ให้ระหว่างทาง"
+    },
+    "communities": {
+      "title": "ชุมชนแลกเปลี่ยนภาษา | BananaTalk",
+      "description": "เข้าร่วมชุมชนแลกเปลี่ยนภาษาบน BananaTalk: กลุ่มจริงที่ฝึกภาษาเกาหลี สเปน ญี่ปุ่น และอื่น ๆ ด้วยกันทุกวัน ฟรี"
+    }
+  },
+  "notFound": {
+    "pageTitle": "ไม่พบหน้านี้ | BananaTalk",
+    "title": "ไม่พบหน้านี้",
+    "body": "ลิงก์อาจเก่าเกินไป หรือหน้านี้อาจถูกย้ายแล้ว นี่คือทางกลับ",
+    "home": "ไปที่หน้าแรก",
+    "download": "รับแอป"
+  },
+  "consent": {
+    "label": "ความยินยอมเกี่ยวกับคุกกี้",
+    "message": "เราใช้คุกกี้วิเคราะห์ข้อมูลเพื่อทำความเข้าใจว่าอะไรพาผู้คนมาที่นี่",
+    "accept": "ตกลง",
+    "decline": "ไม่ ขอบคุณ",
+    "manage": {
+      "title": "ตัวเลือกความเป็นส่วนตัว",
+      "body": "คุกกี้วิเคราะห์ข้อมูลบอกเราว่าหน้าไหนมีประโยชน์ เท่านั้นเอง",
+      "current_granted": "คุกกี้วิเคราะห์ข้อมูลเปิดอยู่",
+      "current_denied": "คุกกี้วิเคราะห์ข้อมูลปิดอยู่",
+      "accept": "เปิด",
+      "decline": "ปิด",
+      "privacyChoices": "ตัวเลือกความเป็นส่วนตัว",
+      "analyticsCookies": "คุกกี้วิเคราะห์ข้อมูล",
+      "done": "เสร็จสิ้น"
+    }
+  },
+  "admin": {
+    "nav": {
+      "admin": "ผู้ดูแลระบบ",
+      "overview": "ภาพรวม",
+      "reach": "การเข้าถึง",
+      "users": "ผู้ใช้",
+      "content": "เนื้อหา",
+      "aiUsage": "การใช้ AI",
+      "audit": "บันทึกการตรวจสอบ"
+    },
+    "aiUsage": {
+      "allFeatures": "ฟีเจอร์ทั้งหมด",
+      "anonymous": "ไม่ระบุตัวตน",
+      "byDay": "การใช้งานตามวัน",
+      "byFeature": "การใช้งานตามฟีเจอร์",
+      "calls": "จำนวนการเรียกใช้",
+      "date": "วันที่",
+      "feature": "ฟีเจอร์",
+      "from": "จาก",
+      "logs": "บันทึกการใช้งาน",
+      "timestamp": "เวลา",
+      "to": "ถึง",
+      "total": "จำนวนการเรียกใช้ทั้งหมด",
+      "user": "ผู้ใช้"
+    },
+    "audit": {
+      "action": "การกระทำ",
+      "actionColumn": "การกระทำ",
+      "moderator": "ผู้ดูแล",
+      "moderatorId": "รหัสผู้ดูแล",
+      "reason": "เหตุผล",
+      "target": "เป้าหมาย",
+      "targetId": "รหัสเป้าหมาย",
+      "timestamp": "เวลา"
+    },
+    "common": {
+      "actionError": "เกิดข้อผิดพลาดบางอย่าง",
+      "close": "ปิด",
+      "empty": "ยังไม่มีอะไรให้แสดง",
+      "loadError": "ไม่สามารถโหลดส่วนนี้ได้",
+      "loading": "กำลังโหลด…",
+      "refresh": "รีเฟรช",
+      "cancel": "ยกเลิก"
+    },
+    "content": {
+      "archive": "เก็บถาวร",
+      "archiveTitle": "เก็บถาวรชมรม",
+      "cancel": "ยกเลิก",
+      "cancelTitle": "ยกเลิกกิจกรรม",
+      "created": "สร้างเมื่อ",
+      "gatherings": "กิจกรรม",
+      "going": "ผู้เข้าร่วม",
+      "language": "ภาษา",
+      "members": "สมาชิก",
+      "name": "ชื่อ",
+      "openReports": "รายงานที่ยังไม่ปิด",
+      "reportedOnly": "เฉพาะที่ถูกรายงาน",
+      "restore": "กู้คืน",
+      "restoreTitle": "กู้คืนชมรม",
+      "startsAt": "เริ่มเวลา",
+      "status": "สถานะ",
+      "tabs": "ประเภทเนื้อหา",
+      "title": "ชื่อเรื่อง",
+      "moments": "โมเมนต์",
+      "communities": "ชุมชน",
+      "reports": "รายงาน",
+      "momentsToday": "โมเมนต์วันนี้",
+      "moments7d": "โมเมนต์ (7 วัน)",
+      "momentsHidden": "โมเมนต์ที่ซ่อน",
+      "comments7d": "ความคิดเห็น (7 วัน)",
+      "activeCommunities": "ชุมชนที่ใช้งานอยู่",
+      "upcomingGatherings": "กิจกรรมที่จะถึง",
+      "pendingReports": "รายงานที่รอดำเนินการ",
+      "allTime": "ทั้งหมด",
+      "membersTotal": "สมาชิก",
+      "underReview": "กำลังตรวจสอบ",
+      "searchMoments": "ค้นหาโมเมนต์",
+      "hiddenOnly": "เฉพาะที่ซ่อน",
+      "author": "ผู้เขียน",
+      "owner": "เจ้าของ",
+      "city": "เมือง",
+      "place": "สถานที่",
+      "category": "หมวดหมู่",
+      "engagement": "การมีส่วนร่วม",
+      "likes": "ถูกใจ",
+      "comments": "ความคิดเห็น",
+      "views": "ยอดดู",
+      "shares": "การแชร์",
+      "hidden": "ซ่อนแล้ว",
+      "visible": "มองเห็นได้",
+      "untitled": "โมเมนต์ไม่มีชื่อเรื่อง",
+      "noText": "ไม่มีข้อความ",
+      "actionFailed": "ดำเนินการไม่สำเร็จ ไม่มีการเปลี่ยนแปลงใด ๆ",
+      "momentTitle": "โมเมนต์",
+      "hide": "ซ่อน",
+      "unhide": "ยกเลิกการซ่อน",
+      "hideTitle": "ต้องการซ่อนโมเมนต์นี้หรือไม่",
+      "unhideTitle": "ต้องการยกเลิกการซ่อนโมเมนต์นี้หรือไม่",
+      "hideBody": "จะหายไปจากทุกฟีด เหตุผลจะถูกบันทึกไว้ในบันทึกการตรวจสอบ",
+      "unhideBody": "จะกลับมาแสดงในฟีด เหตุผลจะถูกบันทึกไว้ในบันทึกการตรวจสอบ",
+      "communityTitle": "ชุมชน",
+      "archiveBody": "จะหายไปจากหน้าค้นพบ สมาชิกยังคงเก็บประวัติไว้และสามารถกู้คืนได้ภายหลัง",
+      "restoreBody": "จะกลับมาแสดงในหน้าค้นพบ เหตุผลจะถูกบันทึกไว้ในบันทึกการตรวจสอบ",
+      "reportType": "ประเภท",
+      "reason": "เหตุผล",
+      "reporterAndReported": "ผู้รายงาน → ผู้ถูกรายงาน",
+      "priority": "ระดับความสำคัญ",
+      "reportActions": "การดำเนินการกับรายงาน",
+      "anyStatus": "ทุกสถานะ",
+      "anyType": "ทุกประเภท",
+      "startReview": "เริ่มตรวจสอบ",
+      "resolve": "แก้ไข",
+      "dismiss": "ปิดเรื่อง",
+      "resolveTitle": "ต้องการทำเครื่องหมายว่ารายงานนี้แก้ไขแล้วหรือไม่",
+      "dismissTitle": "ต้องการปิดรายงานนี้หรือไม่",
+      "dismissBody": "จะไม่มีการดำเนินการใด ๆ กับเนื้อหาหรือผู้ใช้ที่ถูกรายงาน หมายเหตุจะยังคงถูกเก็บไว้ในรายงาน",
+      "moderatorAction": "การดำเนินการของผู้ดูแล",
+      "notes": "หมายเหตุ",
+      "reportStatus": {
+        "pending": "รอดำเนินการ",
+        "under_review": "กำลังตรวจสอบ",
+        "resolved": "แก้ไขแล้ว",
+        "dismissed": "ปิดแล้ว"
+      },
+      "targetType": {
+        "moment": "โมเมนต์",
+        "comment": "ความคิดเห็น",
+        "user": "ผู้ใช้",
+        "club": "ชุมชน",
+        "gathering": "กิจกรรม",
+        "message": "ข้อความ",
+        "story": "สตอรี่"
+      },
+      "moderatorActions": {
+        "content_removed": "ลบเนื้อหาแล้ว",
+        "user_warned": "เตือนผู้ใช้แล้ว",
+        "user_suspended": "ระงับผู้ใช้แล้ว",
+        "user_banned": "แบนผู้ใช้แล้ว",
+        "no_violation": "ไม่มีการละเมิด"
+      }
+    },
+    "overview": {
+      "activeThisWeek": "ใช้งานอยู่สัปดาห์นี้",
+      "activeToday": "ใช้งานอยู่วันนี้",
+      "admins": "ผู้ดูแลระบบ",
+      "banned": "ถูกแบน",
+      "email": "อีเมล",
+      "lastActive": "ใช้งานล่าสุด",
+      "lastWeek": "สัปดาห์ที่แล้ว",
+      "name": "ชื่อ",
+      "newThisWeek": "ใหม่สัปดาห์นี้",
+      "newToday": "ใหม่วันนี้",
+      "recentlyActive": "ใช้งานล่าสุดเมื่อไม่นานนี้",
+      "topLearningLanguages": "ภาษาที่เรียนมากที่สุด",
+      "topNativeLanguages": "ภาษาแม่ที่พบมากที่สุด",
+      "totalUsers": "ผู้ใช้ทั้งหมด",
+      "vip": "VIP",
+      "visitsThisWeek": "ยอดเข้าชมสัปดาห์นี้",
+      "vs": "เทียบกับ"
+    },
+    "reach": {
+      "country": "ประเทศ",
+      "days": "วัน",
+      "device": "อุปกรณ์",
+      "devices": "อุปกรณ์",
+      "newVisitors": "ผู้เข้าชมใหม่",
+      "ofVisits": "จาก",
+      "pageViews": "ยอดดูหน้าเพจ",
+      "path": "เส้นทาง",
+      "period": "สัปดาห์ของ",
+      "placement": "ตำแหน่งที่แสดง",
+      "platform": "แพลตฟอร์ม",
+      "referrer": "แหล่งที่มา",
+      "storeTaps": "การแตะร้านค้า",
+      "taps": "การแตะ",
+      "tapsByPlacement": "การแตะร้านค้าตามตำแหน่งที่แสดง",
+      "topCountries": "ประเทศยอดนิยม",
+      "topPaths": "หน้าเพจยอดนิยม",
+      "topReferrers": "แหล่งที่มายอดนิยม",
+      "trafficTitle": "ยอดดูหน้าเพจและการแตะร้านค้า",
+      "unique": "ไม่ซ้ำ",
+      "uniqueVisitors": "ผู้เข้าชมที่ไม่ซ้ำ",
+      "views": "ยอดดู",
+      "visits": "ยอดเข้าชม",
+      "visitsThisWeek": "ยอดเข้าชมสัปดาห์นี้",
+      "window": "ช่วงเวลา"
+    },
+    "users": {
+      "actionFailed": "ดำเนินการไม่สำเร็จ ไม่มีการเปลี่ยนแปลงใด ๆ",
+      "active": "ใช้งานอยู่",
+      "activity": "กิจกรรม",
+      "adminsOnly": "เฉพาะผู้ดูแลระบบ",
+      "ban": "แบน",
+      "banBody": "จะสูญเสียสิทธิ์การเข้าถึงทันที เหตุผลจะถูกบันทึกไว้ในบันทึกการตรวจสอบ",
+      "banReason": "เหตุผลในการแบน",
+      "banTitle": "ต้องการแบนผู้ใช้นี้หรือไม่",
+      "banned": "ถูกแบน",
+      "delete": "ลบ",
+      "deleteBody": "การดำเนินการนี้จะลบบัญชีและเนื้อหาทั้งหมด และไม่สามารถย้อนกลับได้",
+      "deleteTitle": "ต้องการลบบัญชีนี้อย่างถาวรหรือไม่",
+      "detailTitle": "รายละเอียดผู้ใช้",
+      "email": "อีเมล",
+      "empty": "ไม่พบผู้ใช้ที่ตรงกับการค้นหานี้",
+      "joined": "เข้าร่วมเมื่อ",
+      "languages": "ภาษา",
+      "lastActive": "ใช้งานล่าสุด",
+      "lastMessage": "ข้อความล่าสุด",
+      "lastMoment": "โมเมนต์ล่าสุด",
+      "makeAdmin": "ตั้งเป็นผู้ดูแลระบบ",
+      "makeAdminBody": "จะได้รับสิทธิ์เข้าถึงคอนโซลและสิทธิ์ผู้ดูแลระบบทั้งหมด รวมถึงการแบนและการลบ",
+      "makeAdminTitle": "ตั้งเป็นผู้ดูแลระบบหรือไม่",
+      "messages30d": "ข้อความ (30 วัน)",
+      "moments30d": "โมเมนต์ (30 วัน)",
+      "name": "ชื่อ",
+      "noActions": "ไม่มีการดำเนินการของผู้ดูแลระบบต่อบัญชีนี้",
+      "recentActions": "การดำเนินการล่าสุดของผู้ดูแลระบบ",
+      "revokeAdmin": "ถอนสิทธิ์ผู้ดูแลระบบ",
+      "revokeAdminBody": "จะสูญเสียคอนโซลและสิทธิ์ผู้ดูแลระบบทั้งหมด คุณไม่สามารถถอนสิทธิ์ผู้ดูแลระบบของตัวเองได้",
+      "revokeAdminTitle": "ถอนสิทธิ์ผู้ดูแลระบบหรือไม่",
+      "role": "บทบาท",
+      "searchLabel": "ค้นหาผู้ใช้",
+      "searchPlaceholder": "ค้นหาชื่อ อีเมล หรือชื่อผู้ใช้",
+      "status": "สถานะ",
+      "tabAll": "ผู้ใช้ทั้งหมด",
+      "tabBanned": "ถูกแบน",
+      "typeEmail": "พิมพ์อีเมลของผู้ใช้เพื่อยืนยัน",
+      "unban": "ยกเลิกการแบน",
+      "unbanBody": "จะได้รับสิทธิ์การเข้าถึงคืนทันที เหตุผลจะถูกบันทึกไว้ในบันทึกการตรวจสอบ",
+      "unbanTitle": "ต้องการยกเลิกการแบนผู้ใช้นี้หรือไม่",
+      "unknownModerator": "ผู้ดูแลที่ไม่ทราบชื่อ",
+      "addUser": "เพิ่มผู้ใช้",
+      "createUser": "สร้างผู้ใช้",
+      "createdTitle": "สร้างผู้ใช้แล้ว",
+      "createFailed": "ดำเนินการไม่สำเร็จ ไม่มีการสร้างบัญชีใด ๆ",
+      "editTitle": "แก้ไขผู้ใช้",
+      "edit": "แก้ไข",
+      "saveChanges": "บันทึกการเปลี่ยนแปลง",
+      "done": "เสร็จสิ้น",
+      "addAnother": "เพิ่มอีกคน",
+      "openProfile": "เปิดโปรไฟล์",
+      "required": "จำเป็นต้องกรอก",
+      "invalidEmail": "กรุณาใช้อีเมลที่ถูกต้อง",
+      "weakPassword": "อย่างน้อย 8 ตัวอักษร ประกอบด้วยตัวพิมพ์ใหญ่ ตัวพิมพ์เล็ก และตัวเลข",
+      "under18": "ผู้ใช้ต้องมีอายุอย่างน้อย 18 ปี",
+      "sameLanguage": "ภาษาแม่และภาษาที่เรียนต้องไม่ใช่ภาษาเดียวกัน",
+      "password": "รหัสผ่าน",
+      "generate": "สร้าง",
+      "copy": "คัดลอก",
+      "passwordOnce": "รหัสผ่านนี้จะแสดงเพียงครั้งเดียวเท่านั้น กรุณาส่งให้ผู้ใช้และแจ้งให้เปลี่ยนรหัสผ่าน",
+      "termsNote": "ไม่สามารถให้ความยินยอมแทนผู้อื่นได้ แอปจะขอให้ผู้ใช้รายนี้ยอมรับข้อกำหนดด้วยตนเองในการเข้าสู่ระบบครั้งแรก",
+      "userId": "ID ผู้ใช้",
+      "gender": "เพศ",
+      "male": "ชาย",
+      "female": "หญิง",
+      "other": "อื่น ๆ",
+      "select": "เลือก",
+      "birthDate": "วันเกิด",
+      "birthYear": "ปีเกิด",
+      "birthMonth": "เดือนเกิด",
+      "birthDay": "วันเกิด",
+      "year": "ปี",
+      "month": "เดือน",
+      "day": "วัน",
+      "nativeLanguage": "ภาษาแม่",
+      "learningLanguage": "ภาษาที่เรียน",
+      "roleUser": "ผู้ใช้",
+      "roleAdmin": "ผู้ดูแลระบบ",
+      "markVerified": "ทำเครื่องหมายว่ายืนยันอีเมลแล้ว",
+      "bio": "ประวัติ",
+      "optional": "ไม่บังคับ",
+      "mode": "โหมด",
+      "regular": "ทั่วไป",
+      "vip": "VIP",
+      "vipUntil": "จนถึง",
+      "vipDays": "จำนวนวัน",
+      "vipGrantNote": "การสมัครสมาชิกเริ่มตั้งแต่วันนี้และจะไม่ต่ออายุอัตโนมัติ",
+      "vipRevokeNote": "การปิด VIP จะสิ้นสุดการสมัครสมาชิกทันที",
+      "verified": "ยืนยันแล้ว",
+      "yes": "ใช่",
+      "no": "ไม่ใช่"
+    },
+    "table": {
+      "page": "หน้า {{page}}",
+      "previous": "ก่อนหน้า",
+      "next": "ถัดไป"
+    }
+  },
+  "download": {
+    "title": "ดาวน์โหลด BananaTalk",
+    "subtitle": "แลกเปลี่ยนภาษาฟรีกับเจ้าของภาษาใน 137 ภาษา บน iPhone และ Android",
+    "free": "ฟรี ไม่ต้องใช้บัตร",
+    "scan": "สแกนด้วยกล้องมือถือ",
+    "qrAlt": "คิวอาร์โค้ดสำหรับดาวน์โหลด BananaTalk",
+    "reasons": {
+      "tutor": {
+        "title": "AI ติวเตอร์ในทุกแชท",
+        "body": "แก้ให้และอธิบายจากข้อความที่คุณส่งจริง"
+      },
+      "voice": {
+        "title": "Voice Rooms และการโทร",
+        "body": "ฝึกออกเสียงกับคนที่กำลังเรียนภาษาของคุณอยู่ตอนนี้"
+      },
+      "translate": {
+        "title": "แปลทันที",
+        "body": "คุณเขียนด้วยภาษาของคุณ อีกฝ่ายอ่านด้วยภาษาของเขา แล้วคุณก็เรียนรู้จากความต่างนั้น"
+      }
+    }
+  },
+  "meet": {
+    "hero": {
+      "title": "เจอคนจากประเทศอื่น",
+      "titleAccent": "ที่ตอบกลับจริง ๆ",
+      "subtitle": "BananaTalk คือที่ที่คุณได้เพื่อนต่างชาติจากการคุยกับเจ้าของภาษา เลือกภาษา ทักทาย แล้วทุกข้อความจะมาถึงพร้อมคำแปล — ไม่มีใครต้องคล่องก่อน",
+      "trust": "แพ็กเกจฟรีตลอดชีพ · 137 ภาษา · ทุกข้อความแปลทั้งสองทาง",
+      "demo": {
+        "1": {
+          "text": "Bora ver o pôr do sol no sábado?",
+          "translation": "เสาร์นี้ไปดูพระอาทิตย์ตกกันไหม"
+        },
+        "2": {
+          "text": "ไปสิ! เดือนกันยายนที่นั่นยังอุ่นอยู่ไหม",
+          "translation": "Sim! Ainda faz calor aí em setembro?"
+        }
+      },
+      "note": {
+        "label": "✦ แปลทั้งสองทาง",
+        "body": "เธอเขียนภาษาโปรตุเกส คุณอ่านเป็นภาษาไทย คุณเขียนภาษาไทย เธออ่านเป็นภาษาโปรตุเกส ไม่มีใครต้องเปลี่ยนภาษาเลย"
+      }
+    },
+    "howItWorks": {
+      "title": "ได้เพื่อนที่นี่ ใช้แค่สามขั้นตอน",
+      "steps": {
+        "1": {
+          "title": "เลือกภาษา ไม่ใช่เลือกโปรไฟล์",
+          "body": "เลือกภาษาหรือประเทศที่คุณสนใจ เราจะแสดงคนที่กำลังเรียนภาษาของคุณอยู่แล้ว — นี่คือการแลกเปลี่ยนภาษา ทั้งสองฝ่ายจึงได้อะไรกลับไป"
+        },
+        "2": {
+          "title": "ทักด้วยคำของคุณเอง",
+          "body": "เขียนด้วยภาษาที่คุณใช้คิด มันจะไปถึงเขาเป็นภาษาของเขาทันที ข้อความแรกเลยไม่ใช่เรื่องยากอีกต่อไป"
+        },
+        "3": {
+          "title": "คุยกันต่อไปเรื่อย ๆ",
+          "body": "ข้อความเสียง รูปภาพ Moments การโทร บทสนทนาที่อยู่ยาวคือบทสนทนาที่ยังอยู่หลังการฝึกจบลง"
+        }
+      }
+    },
+    "features": {
+      "title": "ออกแบบมาเพื่อบทสนทนาที่ไปต่อได้"
+    },
+    "cta": {
+      "title": "ตอนนี้มีคนในอีกประเทศหนึ่งตื่นอยู่",
+      "subtitle": "เริ่มต้นฟรี ไม่ต้องใช้บัตร ไม่มีการนับถอยหลังทดลองใช้"
+    }
+  },
+  "learnKorean": {
+    "hero": {
+      "title": "เรียนภาษาเกาหลีจากการแชท",
+      "titleAccent": "กับคนเกาหลีตัวจริง",
+      "subtitle": "แลกเปลี่ยนภาษากับเจ้าของภาษาเกาหลีที่อยากได้ภาษาของคุณเป็นการตอบแทน คุณลองเขียนเป็น 한국어 เขาตอบกลับด้วยภาษาเกาหลีที่คนเกาหลีใช้จริง แล้ว AI ติวเตอร์ก็แก้ที่คุณผิดให้แบบส่วนตัว",
+      "trust": "แพ็กเกจฟรีตลอดชีพ · เจ้าของภาษาเกาหลี · AI ติวเตอร์ 24 ชั่วโมง",
+      "demo": {
+        "1": {
+          "text": "주말에 뭐 했어요?",
+          "translation": "สุดสัปดาห์นี้ทำอะไรบ้าง"
+        },
+        "2": {
+          "text": "친구 만났다! 진짜 재미있었어",
+          "translation": "เจอเพื่อนมา! สนุกมากจริง ๆ"
+        }
+      },
+      "note": {
+        "label": "✦ AI ติวเตอร์",
+        "body": "존댓말 กับ 반말: เธอถามด้วย 했어요 ซึ่งเป็นรูปสุภาพ คุณตอบด้วย 반말 ซึ่งใช้กับเพื่อนสนิท ตอนนี้ตอบให้เข้ากับเธอไว้ก่อน: 친구 만났어요! 진짜 재미있었어요."
+      }
+    },
+    "howItWorks": {
+      "title": "ทำไมแชทแล้วภาษาเกาหลีถึงติดตัว",
+      "steps": {
+        "1": {
+          "title": "ภาษาเกาหลีที่โผล่มาในแชทจริง",
+          "body": "ตำราสอนคุณว่า 합니다 แต่คู่ฝึกพิมพ์ว่า 했어요, ㅋㅋ และ 헐 — นี่คือภาษาเกาหลีที่รออยู่ในบทสนทนาจริง"
+        },
+        "2": {
+          "title": "존댓말 กับ 반말 รู้สึกได้ ไม่ต้องท่อง",
+          "body": "ความสุภาพคือสิ่งที่คุณเลือกในทุกประโยค การได้อ่านว่าเจ้าของภาษาเลือกยังไง สอนได้เร็วกว่าตารางท้ายคำใด ๆ"
+        },
+        "3": {
+          "title": "ถูกแก้โดยไม่ต้องเขิน",
+          "body": "AI ติวเตอร์แก้ภาษาเกาหลีของคุณในที่ที่มีแค่คุณเห็น การแลกเปลี่ยนภาษาจึงไม่กลายเป็นการสอบ คู่ฝึกเห็นแค่ว่าคุณพยายาม และนั่นคือสิ่งที่ทำให้เขาตอบกลับต่อ"
+        }
+      }
+    },
+    "features": {
+      "title": "สามอย่างที่ตำราให้คุณไม่ได้"
+    },
+    "cta": {
+      "title": "ตอนนี้คนเกาหลีกำลังเรียนภาษาของคุณอยู่",
+      "subtitle": "เริ่มต้นฟรี ไม่ต้องใช้บัตร ไม่มีการนับถอยหลังทดลองใช้"
+    }
+  },
+  "communities": {
+    "public": {
+      "title": "ชุมชนแลกเปลี่ยนภาษา",
+      "intro": "กลุ่มจริงใน BananaTalk ที่ผู้คนฝึกภาษาเดียวกันด้วยกันทุกวัน หากลุ่มของคุณที่นี่ แล้วเปิดในแอปเพื่อเริ่มคุยได้เลย",
+      "members": "สมาชิก",
+      "join": "เข้าร่วมในแอป",
+      "empty": {
+        "title": "มีชุมชนใหม่เปิดทุกสัปดาห์",
+        "body": "ยังไม่มีอะไรให้ดูตอนนี้ ดาวน์โหลดแอปไว้ แล้วทุกชุมชนจะปรากฏทันทีที่เปิด"
+      }
+    }
+  },
+  "errors": {
+    "chunk": {
+      "title": "เกิดข้อผิดพลาดขณะโหลดหน้านี้",
+      "body": "บางส่วนของแอปโหลดไม่สำเร็จ มักเกิดขึ้นหลังการอัปเดต ลองโหลดหน้านี้ใหม่อีกครั้ง",
+      "reload": "โหลดใหม่"
+    }
+  },
+  "growth": {
+    "store": {
+      "appStore": "App Store",
+      "googlePlay": "Google Play",
+      "downloadOnThe": "ดาวน์โหลดบน",
+      "getItOn": "ดาวน์โหลดจาก"
+    },
+    "promo": {
+      "tutor": {
+        "eyebrow": "AI ติวเตอร์",
+        "title": "แก้ภาษาเกาหลีให้ทันทีที่คุณพิมพ์",
+        "body": "แก้ไขส่วนตัวทุกข้อความ พร้อมแบบทดสอบและแบบฝึกไวยากรณ์ระหว่างแชท",
+        "cta": "รับแอป",
+        "alt": "ภาพประกอบของบับเบิลแชทที่มีคำหนึ่งถูกขีดฆ่าและคำที่แก้ไขแล้วลอยอยู่ด้านบน พร้อมเครื่องหมายถูกอยู่ข้างๆ"
+      },
+      "voice": {
+        "eyebrow": "Voice Notes & Rooms",
+        "title": "ฟังสำเนียงจริงๆ",
+        "body": "ส่งข้อความเสียง แชร์ตำแหน่งที่คุณอยู่ และเข้าร่วม Voice Rooms สดกับเจ้าของภาษา",
+        "cta": "รับแอป",
+        "alt": "ภาพประกอบของไมโครโฟนที่มีคลื่นเสียงพาดผ่าน และมีการ์ดแชร์ตำแหน่งอยู่ด้านหลัง"
+      },
+      "moments": {
+        "eyebrow": "Moments & Stories",
+        "title": "แชร์สัปดาห์ของคุณใน 2 ภาษา",
+        "body": "โพสต์รูปภาพและความคิด เพื่อนจะอ่านฉบับแปลและช่วยแก้ให้อย่างใจดี",
+        "cta": "รับแอป",
+        "alt": "ภาพประกอบของการ์ดรูปภาพสามใบซ้อนทับกัน พร้อมหัวใจและเครื่องหมายการแปลจาก A เป็น 가"
+      },
+      "inbox": {
+        "eyebrow": "บทสนทนาจริง",
+        "title": "คนที่ตอบกลับจริงๆ",
+        "body": "แชท การโบกมือ และรีแอกชันทั้งหมดในกล่องเดียว — อ่าน แปล ตอบกลับ",
+        "cta": "รับแอป",
+        "alt": "ภาพประกอบของบทสนทนาสามรายการที่ซ้อนกันอยู่ในกล่องข้อความ โดยหนึ่งในนั้นยังไม่ได้อ่าน พร้อมมือที่โบกทักทาย"
+      },
+      "dismiss": "ปิดโปรโมชันแอป",
+      "label": "แอป BananaTalk ทำอะไรได้บ้าง",
+      "slideLabel": "สไลด์ {{n}} จาก {{total}}",
+      "prev": "สไลด์ก่อนหน้า",
+      "next": "สไลด์ถัดไป"
+    }
+  },
+  "stories": {
+    "your_story": "สตอรี่ของคุณ",
+    "create_story": "สร้าง",
+    "my_stories": "สตอรี่ของฉัน",
+    "reaction_failed": "ไม่สามารถบันทึกการตอบสนองของคุณ",
+    "answer_sent": "ส่งคำตอบแล้ว",
+    "answer_failed": "ไม่สามารถส่งคำตอบของคุณ",
+    "delete_story": "ลบสตอรี่นี้ใช่ไหม?",
+    "error_loading": "เกิดข้อผิดพลาดในการโหลดสตอรี่",
+    "answer_placeholder": "พิมพ์คำตอบของคุณ…",
+    "answer_question": "ตอบคำถาม",
+    "send_reply": "ส่ง",
+    "answer_anonymously": "ตอบแบบไม่ระบุตัวตน",
+    "cancel": "ยกเลิก",
+    "viewers": "ผู้ชม",
+    "responses": "คำตอบ",
+    "share_story": "แชร์",
+    "reply_placeholder": "ส่งข้อความ...",
+    "react": "แสดงความรู้สึก",
+    "reacted": "แสดงความรู้สึกแล้ว",
+    "shared": "ส่งแล้ว",
+    "share_failed": "ไม่สามารถแชร์สตอรี่นี้",
+    "close": "ปิด",
+    "search_chats": "ค้นหาแชท",
+    "loading": "กำลังโหลด…",
+    "no_chats": "ไม่มีแชทล่าสุด",
+    "no_viewers": "ยังไม่มีคนดู",
+    "added_to_highlight": "เพิ่มลงไฮไลต์แล้ว",
+    "add_failed": "ไม่สามารถเพิ่มสตอรี่นี้",
+    "title_required": "กรุณาใส่ชื่อเรื่อง",
+    "highlight_created": "สร้างไฮไลต์แล้ว",
+    "create_failed": "ไม่สามารถสร้างไฮไลต์",
+    "story_archived": "เก็บสตอรี่ไว้ในคลังแล้ว",
+    "archive_failed": "ไม่สามารถเก็บสตอรี่นี้ไว้ในคลัง",
+    "story_deleted": "ลบสตอรี่แล้ว",
+    "delete_story_failed": "ไม่สามารถลบสตอรี่นี้",
+    "active_stories": "กำลังแสดง",
+    "total_views": "ยอดการรับชมทั้งหมด",
+    "archived_stories": "อยู่ในคลัง",
+    "create_first_story": "สร้างสตอรี่",
+    "no_archived_stories": "ยังไม่มีอะไรอยู่ในคลัง",
+    "no_stories": "ยังไม่มีสตอรี่",
+    "add_to_highlight": "เพิ่มลงไฮไลต์",
+    "archive": "เก็บในคลัง",
+    "delete": "ลบ",
+    "highlight_name": "ชื่อไฮไลต์",
+    "create": "สร้าง",
+    "no_highlights": "ยังไม่มีไฮไลต์",
+    "stories_count": "สตอรี่",
+    "new_highlight": "ไฮไลต์ใหม่",
+    "delete_story_confirm": "ลบสตอรี่นี้ใช่ไหม?",
+    "delete_story_body": "จะไม่สามารถย้อนกลับได้",
+    "anonymous": "ไม่ระบุตัวตน",
+    "no_responses": "ยังไม่มีคำตอบ",
+    "video_type_error": "ไม่รองรับรูปแบบวิดีโอนี้",
+    "video_size_error": "วิดีโอนี้มีขนาดเกินกำหนด",
+    "video_duration_error": "วิดีโอนี้มีความยาวเกินกำหนด",
+    "question_box": {
+      "ask_me_anything": "ถามอะไรก็ได้!"
+    },
+    "add_text": "พิมพ์สตอรี่ของคุณ…",
+    "upload_media": "กรุณาอัปโหลดรูปภาพหรือวิดีโอ",
+    "link_invalid": "ลิงก์นี้ดูไม่ถูกต้อง",
+    "story_created": "แชร์สตอรี่แล้ว",
+    "create_story_failed": "ไม่สามารถแชร์สตอรี่ของคุณ",
+    "video_limits": "วิดีโอ",
+    "choose_photo": "รูปภาพ",
+    "choose_video": "วิดีโอ",
+    "text_story": "ข้อความ",
+    "move_sticker": "ย้ายสติกเกอร์",
+    "tap_to_type": "แตะเพื่อพิมพ์",
+    "story_text": "ข้อความในสตอรี่",
+    "background": "พื้นหลัง",
+    "text_color": "ข้อความ",
+    "font_style": "แบบอักษร",
+    "stickers_text": "ข้อความและอิโมจิ",
+    "add_text_sticker": "เพิ่มข้อความ",
+    "add_emoji_sticker": "เพิ่มอิโมจิ",
+    "sticker_text": "ข้อความสติกเกอร์",
+    "remove": "ลบออก",
+    "sticker_background": "พื้นหลัง",
+    "sticker_size": "ขนาด",
+    "sticker_color": "สี",
+    "mention": "แท็กชื่อ",
+    "link": "ลิงก์",
+    "poll": "โพล",
+    "question": "คำถาม",
+    "hashtag": "แฮชแท็ก",
+    "link_url": "URL ลิงก์",
+    "link_title": "ชื่อเรื่อง",
+    "link_label": "ป้ายกำกับสติกเกอร์",
+    "poll_question": "ตั้งคำถามโพล",
+    "poll_option": "ตัวเลือก",
+    "add_option": "เพิ่มตัวเลือก",
+    "anonymous_voting": "โหวตแบบไม่ระบุตัวตน",
+    "question_prompt": "ข้อความคำถาม",
+    "audience": "ใครเห็นสตอรี่นี้ได้บ้าง",
+    "privacy": {
+      "public": "ทุกคน",
+      "friends": "เพื่อน",
+      "close_friends": "เพื่อนสนิท"
+    },
+    "close_friends_empty": "รายชื่อเพื่อนสนิทของคุณว่างอยู่ — จะไม่มีใครเห็นสตอรี่นี้",
+    "manage_close_friends": "จัดการเพื่อนสนิท",
+    "highlight_updated": "อัปเดตไฮไลต์แล้ว",
+    "update_failed": "ไม่สามารถบันทึกไฮไลต์",
+    "highlight_deleted": "ลบไฮไลต์แล้ว",
+    "delete_failed": "ไม่สามารถลบไฮไลต์",
+    "removed_from_highlight": "ลบออกจากไฮไลต์แล้ว",
+    "remove_failed": "ไม่สามารถลบสตอรี่นี้ออก",
+    "back": "ย้อนกลับ",
+    "highlights_title": "ไฮไลต์",
+    "highlights_subtitle": "คอลเลกชันสตอรี่ที่คุณบันทึกไว้",
+    "highlight_empty": "ไฮไลต์นี้ยังไม่มีสตอรี่",
+    "remove_from_highlight": "ลบออกจากไฮไลต์",
+    "edit_highlight": "แก้ไขไฮไลต์",
+    "delete_highlight": "ลบไฮไลต์",
+    "choose_cover": "เลือกภาพปก",
+    "no_stories_to_pick": "ไม่มีสตอรี่ให้เลือก",
+    "save": "บันทึก",
+    "delete_highlight_confirm": "ลบไฮไลต์นี้ใช่ไหม?",
+    "delete_highlight_body": "ตัวสตอรี่จะยังอยู่ในคลังของคุณ",
+    "previous": "ก่อนหน้า",
+    "next": "ถัดไป",
+    "font": {
+      "sans-serif": "ซานเซอริฟ",
+      "serif": "เซอริฟ",
+      "bold": "ตัวหนา",
+      "handwritten": "ลายมือ"
+    },
+    "bg_mode": {
+      "none": "ไม่มีพื้นหลัง",
+      "semi": "โปร่งแสง",
+      "solid": "สีทึบ"
+    },
+    "search_followings": "ค้นหาคนที่คุณติดตาม",
+    "mention_followings_only": "คุณแท็กได้เฉพาะคนที่คุณติดตาม กรุณาติดตามใครสักคนก่อน",
+    "mention_no_match": "ไม่มีคนที่คุณติดตามตรงกับคำค้น",
+    "more": "เพิ่มเติม",
+    "reply_failed": "ส่งข้อความไม่สำเร็จ",
+    "vote_failed": "บันทึกการโหวตไม่สำเร็จ",
+    "poll_error_question": "เพิ่มคำถามในโพลของคุณ",
+    "poll_error_blank_option": "กรอกหรือลบตัวเลือกที่ว่างอยู่",
+    "poll_error_min_options": "โพลต้องมีอย่างน้อยสองตัวเลือก",
+    "poll_error_max_options": "โพลมีได้สูงสุดสี่ตัวเลือก",
+    "question_error_prompt": "เพิ่มคำถามในสติกเกอร์คำถาม",
+    "caption": "คำบรรยาย",
+    "caption_placeholder": "เพิ่มคำบรรยาย…",
+    "linkPage": {
+      "browse": "ดูสตอรี่ล่าสุด",
+      "expired": "สตอรี่นี้หมดอายุหรือถูกลบไปแล้ว สตอรี่จะหายไปหลังจาก 24 ชั่วโมง",
+      "failed": "ไม่สามารถโหลดสตอรี่นี้ได้",
+      "retry": "ลองอีกครั้ง",
+      "sign_in": "เข้าสู่ระบบ",
+      "sign_in_body": "เข้าสู่ระบบเพื่อดู หรือเปิดในแอป BananaTalk",
+      "sign_in_title": "มีคนแชร์สตอรี่กับคุณ",
+      "unavailable": "สตอรี่นี้ไม่พร้อมให้คุณดู"
+    },
+    "block_author": "บล็อก {{name}}",
+    "block_confirm": "บล็อก",
+    "block_confirm_body": "เขาจะไม่เห็นโปรไฟล์ โมเมนต์ หรือสตอรี่ของคุณ และส่งข้อความหาคุณไม่ได้ ส่วนคุณก็จะไม่เห็นของเขา",
+    "block_confirm_title": "บล็อก {{name}} ไหม",
+    "block_failed": "บล็อกไม่สำเร็จ ลองอีกครั้ง",
+    "blocked": "บล็อก {{name}} แล้ว",
+    "location_label": "ตำแหน่ง",
+    "one_image_only": "สตอรี่แสดงได้เพียงรูปเดียว เราเก็บรูปแรกไว้",
+    "replies_off": "สตอรี่นี้ปิดการตอบกลับ",
+    "report_story": "รายงานสตอรี่"
+  },
+  "card": {
+    "title": "การ์ดภาษา",
+    "my_card": "การ์ดของฉัน",
+    "speaks": "พูด",
+    "learning": "กำลังเรียน",
+    "practice_with": "ฝึก{{language}}กับ {{name}}",
+    "view_profile": "ดูโปรไฟล์เต็ม",
+    "continue_web": "ใช้งานต่อในเบราว์เซอร์",
+    "share": "แชร์การ์ดของฉัน",
+    "share_text": "มาฝึก{{language}}กับฉันบน BananaTalk",
+    "edit": "แก้ไขข้อมูลบนการ์ด",
+    "tagline": "แลกเปลี่ยนภาษาบน BananaTalk",
+    "not_found": "ไม่พบการ์ดนี้",
+    "not_found_body": "บัญชีนี้อาจถูกลบไปแล้ว",
+    "find_partners": "หาคู่ฝึกภาษา"
+  },
+  "announcements": {
+    "new": "ใหม่",
+    "readMore": "อ่านเพิ่มเติม",
+    "close": "ปิด",
+    "ended": "ประกาศนี้สิ้นสุดแล้ว",
+    "back": "ย้อนกลับ"
+  },
+  "communityNearby": {
+    "back": "ย้อนกลับ",
+    "geolocationNotSupported": "ไม่รองรับการระบุตำแหน่ง",
+    "gettingLocation": "กำลังค้นหาตำแหน่งของคุณ...",
+    "learning": "กำลังเรียน: {{language}}",
+    "locationRequired": "ต้องใช้ตำแหน่ง",
+    "noUsers": "ไม่พบผู้ใช้ในบริเวณใกล้เคียง",
+    "permissionDenied": "ไม่ได้รับอนุญาตให้เข้าถึงตำแหน่ง",
+    "positionUnavailable": "ไม่สามารถระบุตำแหน่งได้",
+    "refresh": "รีเฟรช",
+    "searchRadius": "รัศมีการค้นหา",
+    "subtitle": "ค้นหาคนรอบตัวคุณ",
+    "timeout": "การขอตำแหน่งหมดเวลา",
+    "title": "ผู้ใช้ใกล้เคียง",
+    "tryAgain": "ลองใหม่",
+    "tryIncreaseRadius": "ลองเพิ่มรัศมีการค้นหา",
+    "unknownError": "เกิดข้อผิดพลาด",
+    "usersFound_one": "พบ {{count}} คน",
+    "usersFound_other": "พบ {{count}} คน"
+  },
+  "auth": {
+    "apple": {
+      "continue": "ดำเนินการต่อด้วย Apple",
+      "errors": {
+        "banned": "บัญชีนี้ถูกระงับแล้ว",
+        "blocked": "เบราว์เซอร์ของคุณบล็อกหน้าต่าง Apple โปรดอนุญาตป๊อปอัปสำหรับ banatalk.com แล้วลองอีกครั้ง",
+        "disabled": "การลงชื่อเข้าด้วย Apple ยังไม่พร้อมใช้งานบนเว็บไซต์",
+        "failed": "ไม่สามารถลงชื่อเข้าด้วย Apple ได้ โปรดลองอีกครั้ง",
+        "rate_limited": "พยายามลงชื่อเข้าหลายครั้งเกินไป โปรดรอสักครู่แล้วลองอีกครั้ง",
+        "unavailable": "การลงชื่อเข้าด้วย Apple ไม่พร้อมใช้งานในขณะนี้ โปรดลองอีกครั้งภายหลัง"
+      },
+      "signedIn": "ลงชื่อเข้าด้วย Apple แล้ว",
+      "signingIn": "กำลังลงชื่อเข้าด้วย Apple…"
+    }
+  },
+  "reels": {
+    "actions": {
+      "block": "บล็อกผู้ใช้",
+      "comments": "ความคิดเห็น",
+      "like": "ถูกใจ",
+      "more": "เพิ่มเติม",
+      "profile": "โปรไฟล์",
+      "report": "รายงาน",
+      "unlike": "เลิกถูกใจ"
+    },
+    "create": {
+      "bad_type": "ไม่รองรับไฟล์ประเภทนี้ ใช้ MP4, MOV หรือ WebM",
+      "caption": "คำบรรยาย",
+      "caption_placeholder": "คุณกำลังฝึกอะไรอยู่?",
+      "change_video": "เลือกวิดีโออื่น",
+      "choose_video": "เลือกวิดีโอ",
+      "failed": "โพสต์รีลไม่สำเร็จ ลองอีกครั้ง",
+      "hint": "วิดีโอสั้นสำหรับเรียนภาษา ยาวไม่เกิน 3 นาที แนวตั้ง (9:16) ดูดีที่สุด",
+      "post": "โพสต์รีล",
+      "posted": "โพสต์รีลของคุณแล้ว",
+      "posting": "กำลังโพสต์…",
+      "server_too_long": "รีลต้องยาวไม่เกิน 3 นาที",
+      "title": "รีลใหม่",
+      "too_big": "วิดีโอนี้ใหญ่เกินกว่าจะอัปโหลดได้",
+      "too_long": "รีลยาวได้สูงสุด 3:00 วิดีโอนี้ยาว {{duration}}",
+      "upload_failed": "อัปโหลดวิดีโอไม่สำเร็จ ยังไม่มีอะไรถูกโพสต์ — ลองอีกครั้ง"
+    },
+    "grid": {
+      "create": "สร้างรีล",
+      "empty": "ยังไม่มีรีล มาเป็นคนแรกที่โพสต์กัน",
+      "error": "โหลดรีลไม่สำเร็จ",
+      "load_more": "โหลดเพิ่ม",
+      "loading": "กำลังโหลดรีล…",
+      "open_reel": "เล่นรีลของ {{name}}",
+      "retry": "ลองอีกครั้ง",
+      "title": "รีลส์",
+      "unavailable": "ขณะนี้ไม่สามารถใช้รีลได้"
+    },
+    "moments_link": "ดูรีล",
+    "nav": "รีลส์",
+    "policy": {
+      "accept": "ฉันยอมรับ",
+      "body": "รีลคือวิดีโอสั้นสำหรับเรียนภาษา เช่น คำตอบของหัวข้อประจำวัน การฝึกพูด คำอธิบายจากเจ้าของภาษา และคลิปวัฒนธรรม\n\nBananaTalk ไม่ยอมรับเนื้อหาที่ไม่เหมาะสมโดยเด็ดขาด ห้ามมีภาพเปลือย วาจาสร้างความเกลียดชัง การคุกคาม ความรุนแรง หรือเนื้อหาผิดกฎหมาย วิดีโอที่ถูกรายงานจะถูกซ่อนโดยอัตโนมัติเพื่อรอการตรวจสอบหลังถูกรายงาน 2 ครั้ง และการละเมิดอาจทำให้เนื้อหาถูกลบหรือบัญชีถูกระงับ\n\nคุณรายงานหรือบล็อกจากรีลใดก็ได้ทุกเมื่อ",
+      "decline": "ปฏิเสธ",
+      "title": "แนวทางเนื้อหารีล"
+    },
+    "viewer": {
+      "close": "ปิด",
+      "label": "รีลส์",
+      "mute": "ปิดเสียง",
+      "next": "รีลถัดไป",
+      "previous": "รีลก่อนหน้า",
+      "tap_to_play": "แตะเพื่อเล่น",
+      "unmute": "เปิดเสียง"
+    }
+  },
+  "clubs": {
+    "card": {
+      "joined": "เข้าร่วมแล้ว",
+      "members_one": "สมาชิก {{count}} คน",
+      "members_other": "สมาชิก {{count}} คน"
+    },
+    "detail": {
+      "back": "ดูชมรมอื่น",
+      "edit": "แก้ไขชมรม",
+      "host": "จัดการพบปะให้ชมรมนี้",
+      "join": "เข้าร่วมชมรม",
+      "leave": "ออกจากชมรม",
+      "leaveTitle": "ออกจากชมรมนี้ไหม?",
+      "metTimes_one": "พบกันมาแล้วหนึ่งครั้ง",
+      "metTimes_other": "พบกันมาแล้ว {{count}} ครั้ง",
+      "neverMet": "ยังไม่เคยพบกัน",
+      "noGatherings": "ยังไม่มีอะไรตั้งไว้",
+      "upcoming": "ที่จะถึง",
+      "youOwn": "คุณเป็นเจ้าของชมรมนี้"
+    },
+    "form": {
+      "city": "เมือง (ไม่บังคับ)",
+      "create": "สร้างชมรม",
+      "createTitle": "สร้างชมรม",
+      "description": "เกี่ยวกับชมรม (ไม่บังคับ)",
+      "editTitle": "แก้ไขชมรม",
+      "errors": {
+        "descriptionTooLong": "คำอธิบายต้องไม่เกิน 2000 ตัวอักษร",
+        "interestTooLong": "ความสนใจต้องไม่เกิน 60 ตัวอักษร",
+        "languageRequired": "เลือกภาษาของชมรม",
+        "nameRequired": "ตั้งชื่อชมรมของคุณ",
+        "nameTooLong": "ชื่อต้องไม่เกิน 80 ตัวอักษร"
+      },
+      "interest": "สิ่งที่ทำให้คุณมารวมกัน (เช่น หนังสือ, ซีรีส์เกาหลี)",
+      "language": "ภาษา",
+      "name": "ชื่อ",
+      "notAllowed": "เฉพาะเจ้าของชมรมหรือผู้จัดงานเท่านั้นที่แก้ไขได้",
+      "placeAddress": "ที่อยู่ (ไม่บังคับ)",
+      "placeName": "สถานที่พบกัน (ไม่บังคับ)"
+    },
+    "home": {
+      "empty": "ยังไม่มีชมรมที่นี่",
+      "scopeAll": "ทั้งหมด",
+      "scopeMember": "เข้าร่วมแล้ว",
+      "scopeMine": "ภาษาของฉัน",
+      "start": "สร้างชมรม"
+    },
+    "owner": {
+      "delete": "ลบชมรม",
+      "deleteBody": "สมาชิกจะไม่มีชมรมนี้อีก แต่การพบปะที่นัดไว้แล้วจะยังจัดตามเดิม",
+      "deleteTitle": "ลบ {{name}} ไหม?"
+    },
+    "people": {
+      "makeMember": "ปลดผู้จัดงาน",
+      "makeOrganizer": "ตั้งเป็นผู้จัดงาน",
+      "organizer": "ผู้จัดงาน",
+      "owner": "เจ้าของ",
+      "remove": "นำออกจากชมรม",
+      "removeTitle": "นำ {{name}} ออกไหม?",
+      "title": "สมาชิก · {{count}}"
+    }
+  },
+  "gatherings": {
+    "card": {
+      "approval": "เจ้าภาพอนุมัติ",
+      "full": "เต็มแล้ว",
+      "going": "จะไป",
+      "hostedBy": "จัดโดย {{name}}",
+      "hosting": "คุณเป็นเจ้าภาพ",
+      "requested": "ส่งคำขอแล้ว",
+      "seatsLeft_one": "เหลือ {{count}} ที่นั่ง",
+      "seatsLeft_other": "เหลือ {{count}} ที่นั่ง"
+    },
+    "confirm": {
+      "cancel": "ไว้ทีหลัง",
+      "leaveBody": "คนอื่น ๆ กำลังรอคนที่ตอบรับไว้อยู่",
+      "leaveOk": "สละที่นั่งของฉัน",
+      "leaveTitle": "สละที่นั่งของคุณไหม?"
+    },
+    "cover": {
+      "add": "เพิ่มรูปหน้าปก",
+      "badType": "ใช้รูปภาพ JPEG, PNG, GIF หรือ WebP",
+      "change": "เปลี่ยนรูปหน้าปก",
+      "remove": "ลบรูปหน้าปก",
+      "tooBig": "รูปภาพนี้ใหญ่เกิน 10 MB"
+    },
+    "detail": {
+      "askToJoin": "ขอเข้าร่วม",
+      "back": "ดูการพบปะอื่น",
+      "cancelRequest": "ยกเลิกคำขอของฉัน",
+      "capacity": "สูงสุด {{count}} คน · ยืนยันเมื่อครบ {{quorum}} คน",
+      "duration": "{{count}} นาที",
+      "edit": "แก้ไขการพบปะ",
+      "host": "เจ้าภาพ",
+      "join": "ฉันจะไป",
+      "leave": "ฉันไปไม่ได้แล้ว",
+      "online": "ออนไลน์",
+      "requestSent": "ส่งคำขอแล้ว เจ้าภาพจะเป็นผู้ตัดสิน",
+      "someone": "สมาชิก BananaTalk",
+      "youreGoing": "คุณจะไป"
+    },
+    "errors": {
+      "alreadyGoing": "คุณเข้าร่วมอยู่แล้ว",
+      "cancelled": "การพบปะนี้ถูกยกเลิกแล้ว",
+      "capacityBelowGoing": "จำนวนที่นั่งต้องไม่น้อยกว่า {{count}} คนที่ตอบรับแล้ว",
+      "clubArchived": "ชมรมนี้ถูกเก็บถาวรแล้ว",
+      "clubGone": "ชมรมนี้ไม่พร้อมใช้งานแล้ว",
+      "endBeforeStart": "คุณจบการพบปะได้หลังจากเริ่มแล้วเท่านั้น",
+      "ended": "การพบปะนี้จบแล้ว",
+      "full": "การพบปะนี้เต็มแล้ว",
+      "gatheringGone": "การพบปะนี้ไม่พร้อมใช้งานแล้ว",
+      "generic": "เกิดข้อผิดพลาด ลองอีกครั้ง",
+      "hostBlocked": "ตอนนี้คุณยังจัดการพบปะไม่ได้ เพราะการพบปะของคุณถูกยกเลิกหรือพลาดไปหลายครั้งเกินไป",
+      "hostCannotLeave": "ในฐานะเจ้าภาพ ให้ยกเลิกการพบปะแทนการออก",
+      "joinClubFirst": "เข้าร่วมชมรมก่อนจึงจะจัดการพบปะให้ชมรมได้",
+      "offline": "คุณออฟไลน์อยู่ ตรวจสอบการเชื่อมต่อ",
+      "ownerCannotLeave": "ในฐานะเจ้าของ คุณลบชมรมได้แต่ออกจากชมรมไม่ได้",
+      "pastStart": "เลือกเวลาเริ่มในอนาคต",
+      "pending": "คำขอของคุณกำลังรอเจ้าภาพ",
+      "started": "การพบปะนี้เริ่มไปแล้ว"
+    },
+    "form": {
+      "anyLevel": "ทุกระดับ",
+      "cancel": "ยกเลิก",
+      "capacity": "ที่นั่ง",
+      "create": "โพสต์การพบปะ",
+      "createTitle": "จัดการพบปะ",
+      "description": "จะทำอะไรกัน? (ไม่บังคับ)",
+      "duration_one": "ยาว {{count}} นาที · ตามเขตเวลาของคุณ",
+      "duration_other": "ยาว {{count}} นาที · ตามเขตเวลาของคุณ",
+      "editTitle": "แก้ไขการพบปะ",
+      "errors": {
+        "capacityRange": "ที่นั่งต้องอยู่ระหว่าง 2 ถึง 20",
+        "descriptionTooLong": "คำอธิบายต้องไม่เกิน 2000 ตัวอักษร",
+        "languageRequired": "เลือกภาษาที่จะฝึก",
+        "quorumRange": "จำนวนที่ยืนยันต้องตั้งแต่ 2 คนขึ้นไป และไม่เกินจำนวนที่นั่ง",
+        "startInPast": "เลือกเวลาเริ่มในอนาคต",
+        "startRequired": "เลือกวันและเวลา",
+        "startTooFar": "เลือกเวลาภายใน 90 วันข้างหน้า",
+        "titleRequired": "ตั้งชื่อการพบปะของคุณ",
+        "titleTooLong": "ชื่อต้องไม่เกิน 120 ตัวอักษร"
+      },
+      "joinApproval": "ฉันอนุมัติทีละคน",
+      "joinMode": "ใครเข้าร่วมได้",
+      "joinOpen": "ทุกคน",
+      "language": "ภาษา",
+      "level": "ระดับ",
+      "noTopic": "ไม่มีหัวข้อ",
+      "notHost": "เฉพาะเจ้าภาพเท่านั้นที่แก้ไขการพบปะนี้ได้",
+      "pickLanguage": "เลือกภาษา",
+      "quorum": "ยืนยันเมื่อครบ",
+      "save": "บันทึก",
+      "startsAt": "เริ่ม",
+      "title": "ชื่อ",
+      "topic": "หัวข้อ"
+    },
+    "home": {
+      "anyLanguage": "ภาษาของฉัน",
+      "anyTime": "ทุกเวลา",
+      "anyTopic": "ทุกหัวข้อ",
+      "empty": "ยังไม่มีอะไรตั้งไว้ที่นี่",
+      "emptyCta": "จัดครั้งแรกเลย",
+      "error": "โหลดรายการนี้ไม่สำเร็จ",
+      "hasSeat": "มีที่นั่งว่าง",
+      "host": "จัดการพบปะ",
+      "language": "ภาษา",
+      "loadMore": "โหลดเพิ่ม",
+      "retry": "ลองอีกครั้ง",
+      "scopeAll": "ทั้งหมด",
+      "scopeMe": "การพบปะของฉัน",
+      "scopeMine": "ภาษาของฉัน",
+      "tabClubs": "ชมรม",
+      "tabGatherings": "การพบปะ",
+      "title": "การพบปะ",
+      "today": "วันนี้",
+      "topic": "หัวข้อ",
+      "week": "สัปดาห์นี้",
+      "when": "เมื่อไร"
+    },
+    "host": {
+      "approve": "อนุญาต",
+      "callOff": "ยกเลิก",
+      "callOffTitle": "ยกเลิกไหม?",
+      "cancel": "ยกเลิกการพบปะ",
+      "cancelConfirm_one": "มี {{count}} คนรออยู่ เราจะแจ้งให้ทราบว่ายกเลิกแล้ว",
+      "cancelConfirm_other": "มี {{count}} คนรออยู่ เราจะแจ้งให้ทราบว่ายกเลิกแล้ว",
+      "cancelOk": "ยกเลิกการพบปะ",
+      "cancelTitle": "ยกเลิกการพบปะนี้ไหม?",
+      "decisionAlone": "ตอนนี้มีแค่คุณคนเดียว จะจัดต่อหรือยกเลิก?",
+      "decision_one": "ตอนนี้มีแค่ {{count}} คน จะจัดต่อหรือยกเลิก?",
+      "decision_other": "ตอนนี้มีแค่ {{count}} คน จะจัดต่อหรือยกเลิก?",
+      "decline": "ปฏิเสธ",
+      "end": "จบการพบปะ",
+      "ended": "จบแล้ว — ทักคนที่คุณเจอได้ฟรี",
+      "nobodyExpecting": "ยังไม่มีใครตอบรับ",
+      "requests_one": "{{count}} คนรอเข้าร่วม",
+      "requests_other": "{{count}} คนรอเข้าร่วม",
+      "runAnyway": "จัดต่อ"
+    },
+    "nav": "การพบปะ",
+    "quorum": {
+      "confirmed": "ยืนยันแล้ว · {{count}} คนจะมา",
+      "needed": "ต้องการอีก {{count}} คนจึงจะยืนยัน · {{going}} คนจะมา"
+    },
+    "safety": {
+      "blockHost": "บล็อกเจ้าภาพ",
+      "blockOwner": "บล็อกเจ้าของ",
+      "more": "เพิ่มเติม",
+      "reportClub": "รายงานชมรม",
+      "reportFailed": "ส่งรายงานไม่สำเร็จ ลองอีกครั้ง",
+      "reportGathering": "รายงานการพบปะ",
+      "reported": "ขอบคุณ — ทีมผู้ดูแลจะตรวจสอบ"
+    },
+    "status": {
+      "cancelled": "ยกเลิกแล้ว",
+      "confirmed": "ยืนยันแล้ว",
+      "ended": "จบแล้ว",
+      "live": "กำลังเกิดขึ้น",
+      "scheduled": "ตั้งเวลาไว้แล้ว"
+    },
+    "time": {
+      "hostLocal": "{{time}} ตามเวลาของเจ้าภาพ"
+    },
+    "topics": {
+      "business": "ธุรกิจ",
+      "conversation": "สนทนา",
+      "culture": "วัฒนธรรม",
+      "exam_prep": "เตรียมสอบ",
+      "games": "เกม",
+      "grammar": "ไวยากรณ์",
+      "media": "เพลง หนัง และซีรีส์",
+      "pronunciation": "การออกเสียง",
+      "travel": "ท่องเที่ยว"
+    }
+  },
+  "common": {
+    "cancel": "ยกเลิก",
+    "retry": "ลองอีกครั้ง"
+  },
+  "communityCity": {
+    "back": "ชุมชน",
+    "countries": "ประเทศ",
+    "empty": "ยังไม่มีใครตรงกับที่นี่ ลองที่อื่นดู",
+    "error": "โหลดรายชื่อผู้คนไม่ได้ ลองอีกครั้ง",
+    "more": "แสดงเพิ่มเติม",
+    "search": "ค้นหา",
+    "searchPlaceholder": "ค้นหาเมือง",
+    "searchTitle": "ผู้คนใน “{{query}}”",
+    "title": "ผู้คนตามสถานที่"
+  },
+  "communityGenders": {
+    "back": "ชุมชน",
+    "empty": "ยังไม่มีใครตรงกับเงื่อนไข",
+    "error": "โหลดรายชื่อผู้คนไม่ได้ ลองอีกครั้ง",
+    "female": "ผู้หญิง",
+    "male": "ผู้ชาย",
+    "more": "แสดงเพิ่มเติม",
+    "title": "ดูตามเพศ"
+  },
+  "languageRooms": {
+    "create": {
+      "description": "คำอธิบาย (ไม่บังคับ)",
+      "language": "ภาษา",
+      "name": "หัวข้อ",
+      "submit": "สร้างห้อง",
+      "title": "เริ่มห้องหัวข้อ"
+    },
+    "errors": {
+      "banned": "คุณถูกนำออกจากห้องนี้ คุณขอให้เจ้าของห้องอนุญาตให้กลับเข้ามาได้",
+      "busy": "ห้องนี้มีคำขอมากเกินไปในขณะนี้ ลองใหม่ภายหลัง",
+      "generic": "เกิดข้อผิดพลาด ลองอีกครั้ง",
+      "gone": "ห้องนี้ไม่มีให้ใช้งานแล้ว",
+      "owner": "นำเจ้าของห้องออกไม่ได้",
+      "pending": "คำขอของคุณกำลังรอเจ้าของห้อง",
+      "titleLength": "ชื่อยาวได้สูงสุด 60 ตัวอักษร",
+      "tooMany": "คุณมีห้องครบ 10 ห้องแล้ว ลบห้องหนึ่งเพื่อเริ่มห้องใหม่"
+    },
+    "list": {
+      "create": "ห้องหัวข้อใหม่",
+      "empty": "ยังไม่มีห้อง",
+      "error": "โหลดห้องภาษาไม่ได้",
+      "joined": "เข้าร่วมแล้ว",
+      "locked": "ล็อกอยู่",
+      "title": "ห้องภาษา"
+    },
+    "owner": {
+      "admin": "แอดมิน",
+      "approve": "ให้เข้าห้อง",
+      "deny": "ปฏิเสธ",
+      "members": "สมาชิก",
+      "noRequests": "ไม่มีใครรออยู่",
+      "owner": "เจ้าของห้อง",
+      "remove": "นำออกจากห้อง",
+      "removeNote": "สมาชิกที่ถูกนำออกขอกลับเข้ามาได้ โดยคุณเป็นผู้ตัดสินใจ",
+      "removeYes": "นำออก",
+      "requests": "คำขอเข้าร่วม"
+    },
+    "room": {
+      "back": "ห้องทั้งหมด",
+      "join": "เข้าร่วมห้อง",
+      "leave": "ออกจากห้อง",
+      "media": "รูปภาพหรือวิดีโอ — เปิดแอปเพื่อดู",
+      "notSent": "ส่งไม่สำเร็จ ลองอีกครั้ง",
+      "older": "โหลดข้อความก่อนหน้า",
+      "online": "ออนไลน์",
+      "pending": "ส่งคำขอแล้ว เจ้าของห้องจะให้คุณเข้าห้อง",
+      "placeholder": "เขียนเป็นภาษาของห้องนี้…",
+      "request": "ขอเข้าร่วม",
+      "send": "ส่ง",
+      "slowDown": "คุณส่งเร็วเกินไป ช้าลงหน่อยนะ",
+      "sticker": "สติกเกอร์",
+      "unsupported": "เปิดแอปเพื่อดูข้อความนี้",
+      "voice": "ข้อความเสียง — เปิดแอปเพื่อฟัง"
+    }
+  },
+  "nav": {
+    "languageRooms": "ห้องภาษา",
+    "voiceRooms": "ห้องเสียง"
+  },
+  "voiceRooms": {
+    "category": {
+      "casual": "คุยสบายๆ",
+      "language_practice": "ฝึกภาษา",
+      "qa": "ถาม-ตอบ",
+      "topic": "หัวข้อ"
+    },
+    "create": {
+      "category": "ประเภทห้อง",
+      "description": "จะคุยเรื่องอะไร? (ไม่บังคับ)",
+      "language": "ภาษา",
+      "max": "จำนวนคนสูงสุด",
+      "name": "ชื่อห้อง",
+      "schedule": "ตั้งเวลา",
+      "start": "เริ่มห้อง",
+      "title": "เริ่มห้องเสียง",
+      "when": "เริ่มภายหลัง (ไม่บังคับ)"
+    },
+    "errors": {
+      "blocked": "คุณเข้าร่วมห้องนี้ไม่ได้",
+      "ended": "ห้องนี้สิ้นสุดแล้ว",
+      "full": "ห้องนี้เต็มแล้ว",
+      "generic": "เกิดข้อผิดพลาด ลองอีกครั้ง",
+      "gone": "ห้องนี้ไม่มีให้ใช้งานแล้ว",
+      "vipToCreate": "การสร้างห้องเสียงต้องใช้แพ็กเกจ VIP"
+    },
+    "host": {
+      "end": "สิ้นสุดห้อง",
+      "endConfirm": "สิ้นสุดห้องสำหรับทุกคน?",
+      "endYes": "สิ้นสุดห้อง",
+      "hands": "คนที่ยกมือ",
+      "makeCohost": "เลื่อนเป็นโค-โฮสต์",
+      "muteAll": "ปิดเสียงทุกคน",
+      "noHands": "ยังไม่มีใครยกมือ",
+      "speakNote": "ทุกคนในห้องหยิบไมค์ได้ การยกมือคือการขอคิวพูดจากคุณ",
+      "title": "เครื่องมือโฮสต์"
+    },
+    "list": {
+      "create": "เริ่มห้อง",
+      "emptyLive": "ตอนนี้ยังไม่มีใครคุย เริ่มห้องแล้วชวนคนมาเลย",
+      "emptyScheduled": "ยังไม่มีห้องที่ตั้งเวลาไว้",
+      "error": "โหลดห้องเสียงไม่ได้",
+      "full": "เต็ม",
+      "going": "จะไป ✓",
+      "join": "เข้าร่วม",
+      "live": "กำลังไลฟ์",
+      "rsvp": "เตือนฉัน",
+      "scheduled": "เร็วๆ นี้",
+      "title": "ห้องเสียง"
+    },
+    "room": {
+      "back": "ห้องทั้งหมด",
+      "chat": "แชทในห้อง",
+      "chatPlaceholder": "พูดอะไรสักหน่อย…",
+      "connectFailed": "เชื่อมต่อเสียงของห้องไม่ได้ ตรวจสอบการเชื่อมต่อแล้วลองอีกครั้ง",
+      "elsewhere": "คุณเข้าร่วมห้องนี้จากแท็บหรืออุปกรณ์อื่นแล้ว",
+      "enableSound": "แตะเพื่อเปิดเสียงของห้อง",
+      "ended": "ห้องนี้สิ้นสุดแล้ว",
+      "findAnother": "หาห้องอื่น",
+      "handUp": "ยกมือแล้ว",
+      "host": "โฮสต์",
+      "join": "เข้าร่วมห้อง",
+      "joinHint": "คุณจะเข้าร่วมในฐานะผู้ฟัง หยิบไมค์ได้ทุกเมื่อที่พร้อม",
+      "leave": "ออก",
+      "lost": "การเชื่อมต่อกับห้องขาดหาย",
+      "lowerHand": "เอามือลง",
+      "micDenied": "เบราว์เซอร์ของคุณบล็อกไมโครโฟนอยู่ อนุญาตไมโครโฟนสำหรับ banatalk.com ที่แถบที่อยู่ แล้วลองอีกครั้ง คุณยังฟังต่อได้",
+      "micError": "เปิดไมโครโฟนไม่ได้ ลองอีกครั้ง",
+      "micUnavailable": "ไม่พบไมโครโฟน (หรือแอปอื่นกำลังใช้อยู่) คุณยังฟังต่อได้",
+      "mute": "ปิดเสียง",
+      "raiseHand": "ยกมือ",
+      "reconnecting": "กำลังเชื่อมต่อใหม่…",
+      "rejoin": "เข้าร่วมอีกครั้ง",
+      "send": "ส่ง",
+      "takeMic": "หยิบไมค์",
+      "useHere": "ฟังที่นี่แทน",
+      "you": "คุณ"
     }
   }
 }

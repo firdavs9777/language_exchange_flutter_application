@@ -12419,4 +12419,14 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get vocabPacksBrowse => 'Voir les packs';
+
+  @override
+  String visitorsReveal24h(int cost) {
+    return 'Voyez tout le monde pendant 24 heures pour $cost 💎, ou passez VIP';
+  }
+
+  @override
+  String visitorsUnlockedLeft(String time) {
+    return 'Débloqué · encore $time';
+  }
 }

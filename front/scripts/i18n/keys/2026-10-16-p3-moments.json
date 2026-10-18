@@ -1,0 +1,1478 @@
+{
+  "ar": {
+    "moments_section": {
+      "block": {
+        "done": "تم حظر {{name}}."
+      },
+      "card": {
+        "bookmark": "إضافة إلى المحفوظات",
+        "likeFailed": "حدث خطأ ما",
+        "loginToLike": "سجّل الدخول للإعجاب بالمنشورات",
+        "removeBookmark": "إزالة من المحفوظات",
+        "save": "حفظ",
+        "saved": "محفوظ",
+        "seeLess": "عرض أقل",
+        "seeMore": "عرض المزيد",
+        "unlike": "إلغاء الإعجاب"
+      },
+      "commentEngagement": {
+        "deleteOthersBody": "هذا التعليق على لحظتك، لذا يمكنك إزالته. لا يمكن التراجع عن ذلك.",
+        "deleteOthersTitle": "حذف هذا التعليق؟",
+        "removeGif": "إزالة الصورة المتحركة"
+      },
+      "create": {
+        "attachVideo": "إرفاق فيديو",
+        "mediaFailedNothingPosted": "فشل الرفع، لذلك لم يُنشر أي شيء. حاول مرة أخرى.",
+        "mediaFailedPosted": "تم النشر، لكن فشل رفع الوسائط — عدّل اللحظة لإضافتها.",
+        "modePhoto": "صورة",
+        "modeText": "نص",
+        "modeVideo": "فيديو",
+        "modeVoice": "صوت",
+        "moodQuestion": "كيف تشعر؟",
+        "placeholder": "بماذا تفكر يا {{name}}؟",
+        "recordVoice": "تسجيل رسالة صوتية",
+        "remove": "إزالة",
+        "share": "مشاركة",
+        "sharing": "جارٍ المشاركة...",
+        "textPreview": "لحظتك النصية",
+        "voiceNoteLength": "رسالة صوتية · {{seconds}} ث"
+      },
+      "prompt": {
+        "answer": "أجب",
+        "cardSubtitle": "تدرّب على الكتابة",
+        "cardTitle": "سؤال اليوم",
+        "dismissCard": "إخفاء سؤال اليوم"
+      },
+      "report": {
+        "alreadyComment": "لقد أبلغت عن هذا التعليق من قبل.",
+        "alreadyStory": "لقد أبلغت عن هذه القصة من قبل.",
+        "titleComment": "الإبلاغ عن هذا التعليق",
+        "titleStory": "الإبلاغ عن هذه القصة"
+      },
+      "saved": {
+        "browseMoments": "تصفّح اللحظات",
+        "gridView": "عرض شبكي",
+        "listView": "عرض القائمة",
+        "loadMore": "تحميل المزيد",
+        "momentCount": "لحظة محفوظة",
+        "noMoments": "لا توجد لحظات محفوظة بعد",
+        "remove": "إزالة",
+        "removeError": "تعذّرت إزالة اللحظة",
+        "removeSuccess": "أُزيلت من المحفوظات",
+        "title": "اللحظات المحفوظة"
+      },
+      "voice": {
+        "cancel": "إلغاء التسجيل",
+        "denied": "تم رفض الوصول إلى الميكروفون. اسمح بالوصول إلى الميكروفون لتسجيل رسالة صوتية.",
+        "stop": "إيقاف التسجيل والإرسال",
+        "unsupported": "هذا المتصفح لا يدعم التسجيل الصوتي."
+      }
+    },
+    "stories": {
+      "block_author": "حظر {{name}}",
+      "block_confirm": "حظر",
+      "block_confirm_body": "لن يتمكن من رؤية ملفك الشخصي أو لحظاتك أو قصصك أو مراسلتك، ولن ترى محتواه.",
+      "block_confirm_title": "حظر {{name}}؟",
+      "block_failed": "تعذّر حظر هذا الشخص. حاول مرة أخرى.",
+      "blocked": "تم حظر {{name}}",
+      "location_label": "الموقع",
+      "one_image_only": "تعرض القصة صورة واحدة فقط. احتفظنا بالأولى.",
+      "replies_off": "الردود متوقفة على هذه القصة",
+      "report_story": "الإبلاغ عن القصة"
+    }
+  },
+  "de": {
+    "moments_section": {
+      "block": {
+        "done": "{{name}} ist blockiert."
+      },
+      "card": {
+        "bookmark": "Merken",
+        "likeFailed": "Etwas ist schiefgelaufen",
+        "loginToLike": "Melde dich an, um Beiträge zu liken",
+        "removeBookmark": "Nicht mehr merken",
+        "save": "Speichern",
+        "saved": "Gespeichert",
+        "seeLess": "Weniger anzeigen",
+        "seeMore": "Mehr anzeigen",
+        "unlike": "Gefällt mir nicht mehr"
+      },
+      "commentEngagement": {
+        "deleteOthersBody": "Er steht unter deinem Moment, deshalb kannst du ihn entfernen. Das lässt sich nicht rückgängig machen.",
+        "deleteOthersTitle": "Diesen Kommentar löschen?",
+        "removeGif": "GIF entfernen"
+      },
+      "create": {
+        "attachVideo": "Video anhängen",
+        "mediaFailedNothingPosted": "Der Upload ist fehlgeschlagen, daher wurde nichts gepostet. Versuch es noch einmal.",
+        "mediaFailedPosted": "Gepostet, aber der Medien-Upload ist fehlgeschlagen – bearbeite den Moment, um ihn hinzuzufügen.",
+        "modePhoto": "Foto",
+        "modeText": "Text",
+        "modeVideo": "Video",
+        "modeVoice": "Sprache",
+        "moodQuestion": "Wie fühlst du dich?",
+        "placeholder": "Was denkst du gerade, {{name}}?",
+        "recordVoice": "Sprachnachricht aufnehmen",
+        "remove": "Entfernen",
+        "share": "Teilen",
+        "sharing": "Wird geteilt...",
+        "textPreview": "Dein Text-Moment",
+        "voiceNoteLength": "Sprachnachricht · {{seconds}} s"
+      },
+      "prompt": {
+        "answer": "Antworten",
+        "cardSubtitle": "Schreiben üben",
+        "cardTitle": "Frage des Tages",
+        "dismissCard": "Frage des Tages ausblenden"
+      },
+      "report": {
+        "alreadyComment": "Du hast diesen Kommentar bereits gemeldet.",
+        "alreadyStory": "Du hast diese Story bereits gemeldet.",
+        "titleComment": "Diesen Kommentar melden",
+        "titleStory": "Diese Story melden"
+      },
+      "saved": {
+        "browseMoments": "Momente entdecken",
+        "gridView": "Rasteransicht",
+        "listView": "Listenansicht",
+        "loadMore": "Mehr laden",
+        "momentCount": "Momente gespeichert",
+        "noMoments": "Noch keine gespeicherten Momente",
+        "remove": "Entfernen",
+        "removeError": "Moment konnte nicht entfernt werden",
+        "removeSuccess": "Aus Gespeichert entfernt",
+        "title": "Gespeicherte Momente"
+      },
+      "voice": {
+        "cancel": "Aufnahme abbrechen",
+        "denied": "Der Mikrofonzugriff wurde verweigert. Erlaube den Mikrofonzugriff, um eine Sprachnachricht aufzunehmen.",
+        "stop": "Aufnahme beenden und senden",
+        "unsupported": "Dieser Browser unterstützt keine Sprachaufnahme."
+      }
+    },
+    "stories": {
+      "block_author": "{{name}} blockieren",
+      "block_confirm": "Blockieren",
+      "block_confirm_body": "Diese Person kann dein Profil, deine Momente und Storys nicht mehr sehen und dir nicht schreiben, und du siehst ihre Inhalte nicht mehr.",
+      "block_confirm_title": "{{name}} blockieren?",
+      "block_failed": "Blockieren fehlgeschlagen. Versuch es noch einmal.",
+      "blocked": "{{name}} ist blockiert",
+      "location_label": "Ort",
+      "one_image_only": "Eine Story zeigt ein Bild. Wir haben das erste behalten.",
+      "replies_off": "Antworten sind für diese Story deaktiviert",
+      "report_story": "Story melden"
+    }
+  },
+  "eng": {
+    "moments_section": {
+      "block": {
+        "done": "{{name}} is blocked."
+      },
+      "card": {
+        "bookmark": "Bookmark",
+        "likeFailed": "Something went wrong",
+        "loginToLike": "Please log in to like posts",
+        "removeBookmark": "Remove bookmark",
+        "save": "Save",
+        "saved": "Saved",
+        "seeLess": "See less",
+        "seeMore": "See more",
+        "unlike": "Unlike"
+      },
+      "commentEngagement": {
+        "deleteOthersBody": "It's on your moment, so you can remove it. This can't be undone.",
+        "deleteOthersTitle": "Delete this comment?",
+        "removeGif": "Remove GIF"
+      },
+      "create": {
+        "attachVideo": "Attach a video",
+        "mediaFailedNothingPosted": "The upload failed, so nothing was posted. Try again.",
+        "mediaFailedPosted": "Posted, but media upload failed — try editing the moment to add it.",
+        "modePhoto": "Photo",
+        "modeText": "Text",
+        "modeVideo": "Video",
+        "modeVoice": "Voice",
+        "moodQuestion": "How are you feeling?",
+        "placeholder": "What's on your mind, {{name}}?",
+        "recordVoice": "Record a voice note",
+        "remove": "Remove",
+        "share": "Share",
+        "sharing": "Sharing...",
+        "textPreview": "Your text moment",
+        "voiceNoteLength": "Voice note · {{seconds}}s"
+      },
+      "prompt": {
+        "answer": "Answer",
+        "cardSubtitle": "Practice writing",
+        "cardTitle": "Prompt of the day",
+        "dismissCard": "Dismiss prompt of the day"
+      },
+      "report": {
+        "alreadyComment": "You've already reported this comment.",
+        "alreadyStory": "You've already reported this story.",
+        "titleComment": "Report this comment",
+        "titleStory": "Report this story"
+      },
+      "saved": {
+        "browseMoments": "Browse Moments",
+        "gridView": "Grid view",
+        "listView": "List view",
+        "loadMore": "Load more",
+        "momentCount": "moments saved",
+        "noMoments": "No saved moments yet",
+        "remove": "Remove",
+        "removeError": "Failed to remove moment",
+        "removeSuccess": "Removed from saved",
+        "title": "Saved Moments"
+      },
+      "voice": {
+        "cancel": "Cancel recording",
+        "denied": "Microphone access was denied. Please allow microphone access to record a voice note.",
+        "stop": "Stop recording and send",
+        "unsupported": "Voice recording is not supported in this browser."
+      }
+    },
+    "stories": {
+      "block_author": "Block {{name}}",
+      "block_confirm": "Block",
+      "block_confirm_body": "They won't be able to see your profile, moments or stories, or message you, and you won't see theirs.",
+      "block_confirm_title": "Block {{name}}?",
+      "block_failed": "Couldn't block this person. Try again.",
+      "blocked": "{{name}} is blocked",
+      "location_label": "Location",
+      "one_image_only": "A story shows one picture. We kept the first one.",
+      "replies_off": "Replies are turned off for this story",
+      "report_story": "Report story"
+    }
+  },
+  "es": {
+    "moments_section": {
+      "block": {
+        "done": "{{name}} está bloqueado."
+      },
+      "card": {
+        "bookmark": "Guardar en marcadores",
+        "likeFailed": "Algo salió mal",
+        "loginToLike": "Inicia sesión para dar me gusta",
+        "removeBookmark": "Quitar de marcadores",
+        "save": "Guardar",
+        "saved": "Guardado",
+        "seeLess": "Ver menos",
+        "seeMore": "Ver más",
+        "unlike": "Ya no me gusta"
+      },
+      "commentEngagement": {
+        "deleteOthersBody": "Está en tu momento, así que puedes eliminarlo. No se puede deshacer.",
+        "deleteOthersTitle": "¿Eliminar este comentario?",
+        "removeGif": "Quitar GIF"
+      },
+      "create": {
+        "attachVideo": "Adjuntar un video",
+        "mediaFailedNothingPosted": "La subida falló, así que no se publicó nada. Inténtalo de nuevo.",
+        "mediaFailedPosted": "Publicado, pero falló la subida del contenido: edita el momento para añadirlo.",
+        "modePhoto": "Foto",
+        "modeText": "Texto",
+        "modeVideo": "Video",
+        "modeVoice": "Voz",
+        "moodQuestion": "¿Cómo te sientes?",
+        "placeholder": "¿Qué estás pensando, {{name}}?",
+        "recordVoice": "Grabar una nota de voz",
+        "remove": "Quitar",
+        "share": "Compartir",
+        "sharing": "Compartiendo...",
+        "textPreview": "Tu momento de texto",
+        "voiceNoteLength": "Nota de voz · {{seconds}} s"
+      },
+      "prompt": {
+        "answer": "Responder",
+        "cardSubtitle": "Practica la escritura",
+        "cardTitle": "Pregunta del día",
+        "dismissCard": "Descartar la pregunta del día"
+      },
+      "report": {
+        "alreadyComment": "Ya denunciaste este comentario.",
+        "alreadyStory": "Ya denunciaste esta historia.",
+        "titleComment": "Denunciar este comentario",
+        "titleStory": "Denunciar esta historia"
+      },
+      "saved": {
+        "browseMoments": "Explorar momentos",
+        "gridView": "Vista de cuadrícula",
+        "listView": "Vista de lista",
+        "loadMore": "Cargar más",
+        "momentCount": "momentos guardados",
+        "noMoments": "Aún no tienes momentos guardados",
+        "remove": "Quitar",
+        "removeError": "No se pudo quitar el momento",
+        "removeSuccess": "Quitado de guardados",
+        "title": "Momentos guardados"
+      },
+      "voice": {
+        "cancel": "Cancelar grabación",
+        "denied": "Se denegó el acceso al micrófono. Permite el acceso al micrófono para grabar una nota de voz.",
+        "stop": "Detener grabación y enviar",
+        "unsupported": "Este navegador no admite la grabación de voz."
+      }
+    },
+    "stories": {
+      "block_author": "Bloquear a {{name}}",
+      "block_confirm": "Bloquear",
+      "block_confirm_body": "No podrá ver tu perfil, tus momentos ni tus historias, ni enviarte mensajes, y tú no verás los suyos.",
+      "block_confirm_title": "¿Bloquear a {{name}}?",
+      "block_failed": "No se pudo bloquear a esta persona. Inténtalo de nuevo.",
+      "blocked": "{{name}} está bloqueado",
+      "location_label": "Ubicación",
+      "one_image_only": "Una historia muestra una sola foto. Conservamos la primera.",
+      "replies_off": "Las respuestas están desactivadas en esta historia",
+      "report_story": "Denunciar historia"
+    }
+  },
+  "fr": {
+    "moments_section": {
+      "block": {
+        "done": "{{name}} est bloqué."
+      },
+      "card": {
+        "bookmark": "Ajouter aux favoris",
+        "likeFailed": "Une erreur s'est produite",
+        "loginToLike": "Connectez-vous pour aimer des publications",
+        "removeBookmark": "Retirer des favoris",
+        "save": "Enregistrer",
+        "saved": "Enregistré",
+        "seeLess": "Voir moins",
+        "seeMore": "Voir plus",
+        "unlike": "Je n'aime plus"
+      },
+      "commentEngagement": {
+        "deleteOthersBody": "Il est sur votre moment, vous pouvez donc le supprimer. Cette action est irréversible.",
+        "deleteOthersTitle": "Supprimer ce commentaire ?",
+        "removeGif": "Retirer le GIF"
+      },
+      "create": {
+        "attachVideo": "Joindre une vidéo",
+        "mediaFailedNothingPosted": "L'envoi a échoué, rien n'a été publié. Réessayez.",
+        "mediaFailedPosted": "Publié, mais l'envoi du média a échoué — modifiez le moment pour l'ajouter.",
+        "modePhoto": "Photo",
+        "modeText": "Texte",
+        "modeVideo": "Vidéo",
+        "modeVoice": "Voix",
+        "moodQuestion": "Comment vous sentez-vous ?",
+        "placeholder": "À quoi pensez-vous, {{name}} ?",
+        "recordVoice": "Enregistrer un message vocal",
+        "remove": "Retirer",
+        "share": "Partager",
+        "sharing": "Partage...",
+        "textPreview": "Votre moment texte",
+        "voiceNoteLength": "Message vocal · {{seconds}} s"
+      },
+      "prompt": {
+        "answer": "Répondre",
+        "cardSubtitle": "Entraînez-vous à écrire",
+        "cardTitle": "Question du jour",
+        "dismissCard": "Masquer la question du jour"
+      },
+      "report": {
+        "alreadyComment": "Vous avez déjà signalé ce commentaire.",
+        "alreadyStory": "Vous avez déjà signalé cette story.",
+        "titleComment": "Signaler ce commentaire",
+        "titleStory": "Signaler cette story"
+      },
+      "saved": {
+        "browseMoments": "Parcourir les moments",
+        "gridView": "Vue en grille",
+        "listView": "Vue en liste",
+        "loadMore": "Charger plus",
+        "momentCount": "moments enregistrés",
+        "noMoments": "Aucun moment enregistré pour l'instant",
+        "remove": "Retirer",
+        "removeError": "Impossible de retirer le moment",
+        "removeSuccess": "Retiré des enregistrements",
+        "title": "Moments enregistrés"
+      },
+      "voice": {
+        "cancel": "Annuler l'enregistrement",
+        "denied": "L'accès au micro a été refusé. Autorisez l'accès au micro pour enregistrer un message vocal.",
+        "stop": "Arrêter l'enregistrement et envoyer",
+        "unsupported": "Ce navigateur ne prend pas en charge l'enregistrement vocal."
+      }
+    },
+    "stories": {
+      "block_author": "Bloquer {{name}}",
+      "block_confirm": "Bloquer",
+      "block_confirm_body": "Cette personne ne pourra plus voir votre profil, vos moments ni vos stories, ni vous écrire, et vous ne verrez plus les siens.",
+      "block_confirm_title": "Bloquer {{name}} ?",
+      "block_failed": "Impossible de bloquer cette personne. Réessayez.",
+      "blocked": "{{name}} est bloqué",
+      "location_label": "Lieu",
+      "one_image_only": "Une story n'affiche qu'une photo. Nous avons gardé la première.",
+      "replies_off": "Les réponses sont désactivées pour cette story",
+      "report_story": "Signaler la story"
+    }
+  },
+  "hi": {
+    "moments_section": {
+      "block": {
+        "done": "{{name}} को ब्लॉक कर दिया गया है।"
+      },
+      "card": {
+        "bookmark": "बुकमार्क करें",
+        "likeFailed": "कुछ गड़बड़ हो गई",
+        "loginToLike": "पोस्ट लाइक करने के लिए लॉग इन करें",
+        "removeBookmark": "बुकमार्क हटाएँ",
+        "save": "सेव करें",
+        "saved": "सेव किया गया",
+        "seeLess": "कम देखें",
+        "seeMore": "और देखें",
+        "unlike": "अनलाइक करें"
+      },
+      "commentEngagement": {
+        "deleteOthersBody": "यह आपके मोमेंट पर है, इसलिए आप इसे हटा सकते हैं। इसे वापस नहीं लाया जा सकता।",
+        "deleteOthersTitle": "यह कमेंट हटाएँ?",
+        "removeGif": "GIF हटाएँ"
+      },
+      "create": {
+        "attachVideo": "वीडियो जोड़ें",
+        "mediaFailedNothingPosted": "अपलोड नहीं हो सका, इसलिए कुछ भी पोस्ट नहीं हुआ। फिर से कोशिश करें।",
+        "mediaFailedPosted": "पोस्ट हो गया, लेकिन मीडिया अपलोड नहीं हुआ — इसे जोड़ने के लिए मोमेंट एडिट करें।",
+        "modePhoto": "फ़ोटो",
+        "modeText": "टेक्स्ट",
+        "modeVideo": "वीडियो",
+        "modeVoice": "आवाज़",
+        "moodQuestion": "आप कैसा महसूस कर रहे हैं?",
+        "placeholder": "{{name}}, आप क्या सोच रहे हैं?",
+        "recordVoice": "वॉइस नोट रिकॉर्ड करें",
+        "remove": "हटाएँ",
+        "share": "शेयर करें",
+        "sharing": "शेयर हो रहा है...",
+        "textPreview": "आपका टेक्स्ट मोमेंट",
+        "voiceNoteLength": "वॉइस नोट · {{seconds}} से."
+      },
+      "prompt": {
+        "answer": "जवाब दें",
+        "cardSubtitle": "लिखने का अभ्यास",
+        "cardTitle": "आज का सवाल",
+        "dismissCard": "आज का सवाल हटाएँ"
+      },
+      "report": {
+        "alreadyComment": "आप इस कमेंट की रिपोर्ट पहले ही कर चुके हैं।",
+        "alreadyStory": "आप इस स्टोरी की रिपोर्ट पहले ही कर चुके हैं।",
+        "titleComment": "इस कमेंट की रिपोर्ट करें",
+        "titleStory": "इस स्टोरी की रिपोर्ट करें"
+      },
+      "saved": {
+        "browseMoments": "मोमेंट्स देखें",
+        "gridView": "ग्रिड व्यू",
+        "listView": "लिस्ट व्यू",
+        "loadMore": "और लोड करें",
+        "momentCount": "मोमेंट्स सेव किए गए",
+        "noMoments": "अभी तक कोई सेव किया गया मोमेंट नहीं है",
+        "remove": "हटाएँ",
+        "removeError": "मोमेंट हटाया नहीं जा सका",
+        "removeSuccess": "सेव की गई सूची से हटा दिया गया",
+        "title": "सेव किए गए मोमेंट्स"
+      },
+      "voice": {
+        "cancel": "रिकॉर्डिंग रद्द करें",
+        "denied": "माइक्रोफ़ोन की अनुमति नहीं मिली। वॉइस नोट रिकॉर्ड करने के लिए माइक्रोफ़ोन की अनुमति दें।",
+        "stop": "रिकॉर्डिंग रोकें और भेजें",
+        "unsupported": "यह ब्राउज़र वॉइस रिकॉर्डिंग सपोर्ट नहीं करता।"
+      }
+    },
+    "stories": {
+      "block_author": "{{name}} को ब्लॉक करें",
+      "block_confirm": "ब्लॉक करें",
+      "block_confirm_body": "वे आपकी प्रोफ़ाइल, मोमेंट्स या स्टोरीज़ नहीं देख पाएँगे और आपको मैसेज नहीं कर पाएँगे, और आपको उनका कंटेंट नहीं दिखेगा।",
+      "block_confirm_title": "{{name}} को ब्लॉक करें?",
+      "block_failed": "इस व्यक्ति को ब्लॉक नहीं किया जा सका। फिर से कोशिश करें।",
+      "blocked": "{{name}} को ब्लॉक कर दिया गया",
+      "location_label": "जगह",
+      "one_image_only": "स्टोरी में एक ही फ़ोटो दिखती है। हमने पहली फ़ोटो रखी है।",
+      "replies_off": "इस स्टोरी पर जवाब बंद हैं",
+      "report_story": "स्टोरी की रिपोर्ट करें"
+    }
+  },
+  "id": {
+    "moments_section": {
+      "block": {
+        "done": "{{name}} telah diblokir."
+      },
+      "card": {
+        "bookmark": "Tandai",
+        "likeFailed": "Terjadi kesalahan",
+        "loginToLike": "Masuk untuk menyukai postingan",
+        "removeBookmark": "Hapus tanda",
+        "save": "Simpan",
+        "saved": "Tersimpan",
+        "seeLess": "Lebih sedikit",
+        "seeMore": "Selengkapnya",
+        "unlike": "Batal suka"
+      },
+      "commentEngagement": {
+        "deleteOthersBody": "Komentar ini ada di momen Anda, jadi Anda bisa menghapusnya. Tindakan ini tidak bisa dibatalkan.",
+        "deleteOthersTitle": "Hapus komentar ini?",
+        "removeGif": "Hapus GIF"
+      },
+      "create": {
+        "attachVideo": "Lampirkan video",
+        "mediaFailedNothingPosted": "Unggahan gagal, jadi tidak ada yang diposting. Coba lagi.",
+        "mediaFailedPosted": "Sudah diposting, tetapi unggahan media gagal — coba edit momen untuk menambahkannya.",
+        "modePhoto": "Foto",
+        "modeText": "Teks",
+        "modeVideo": "Video",
+        "modeVoice": "Suara",
+        "moodQuestion": "Bagaimana perasaan Anda?",
+        "placeholder": "Apa yang Anda pikirkan, {{name}}?",
+        "recordVoice": "Rekam pesan suara",
+        "remove": "Hapus",
+        "share": "Bagikan",
+        "sharing": "Membagikan...",
+        "textPreview": "Momen teks Anda",
+        "voiceNoteLength": "Pesan suara · {{seconds}} dtk"
+      },
+      "prompt": {
+        "answer": "Jawab",
+        "cardSubtitle": "Latihan menulis",
+        "cardTitle": "Pertanyaan hari ini",
+        "dismissCard": "Tutup pertanyaan hari ini"
+      },
+      "report": {
+        "alreadyComment": "Anda sudah melaporkan komentar ini.",
+        "alreadyStory": "Anda sudah melaporkan cerita ini.",
+        "titleComment": "Laporkan komentar ini",
+        "titleStory": "Laporkan cerita ini"
+      },
+      "saved": {
+        "browseMoments": "Jelajahi Momen",
+        "gridView": "Tampilan kisi",
+        "listView": "Tampilan daftar",
+        "loadMore": "Muat lagi",
+        "momentCount": "momen tersimpan",
+        "noMoments": "Belum ada momen tersimpan",
+        "remove": "Hapus",
+        "removeError": "Gagal menghapus momen",
+        "removeSuccess": "Dihapus dari tersimpan",
+        "title": "Momen Tersimpan"
+      },
+      "voice": {
+        "cancel": "Batalkan rekaman",
+        "denied": "Akses mikrofon ditolak. Izinkan akses mikrofon untuk merekam pesan suara.",
+        "stop": "Hentikan rekaman dan kirim",
+        "unsupported": "Browser ini tidak mendukung rekaman suara."
+      }
+    },
+    "stories": {
+      "block_author": "Blokir {{name}}",
+      "block_confirm": "Blokir",
+      "block_confirm_body": "Mereka tidak akan bisa melihat profil, momen, atau cerita Anda, atau mengirimi Anda pesan, dan Anda tidak akan melihat milik mereka.",
+      "block_confirm_title": "Blokir {{name}}?",
+      "block_failed": "Tidak bisa memblokir orang ini. Coba lagi.",
+      "blocked": "{{name}} telah diblokir",
+      "location_label": "Lokasi",
+      "one_image_only": "Satu cerita hanya menampilkan satu foto. Kami menyimpan yang pertama.",
+      "replies_off": "Balasan dinonaktifkan untuk cerita ini",
+      "report_story": "Laporkan cerita"
+    }
+  },
+  "it": {
+    "moments_section": {
+      "block": {
+        "done": "{{name}} è bloccato."
+      },
+      "card": {
+        "bookmark": "Aggiungi ai preferiti",
+        "likeFailed": "Qualcosa è andato storto",
+        "loginToLike": "Accedi per mettere mi piace",
+        "removeBookmark": "Rimuovi dai preferiti",
+        "save": "Salva",
+        "saved": "Salvato",
+        "seeLess": "Mostra meno",
+        "seeMore": "Mostra altro",
+        "unlike": "Non mi piace più"
+      },
+      "commentEngagement": {
+        "deleteOthersBody": "È sul tuo momento, quindi puoi rimuoverlo. L'azione non si può annullare.",
+        "deleteOthersTitle": "Eliminare questo commento?",
+        "removeGif": "Rimuovi GIF"
+      },
+      "create": {
+        "attachVideo": "Allega un video",
+        "mediaFailedNothingPosted": "Il caricamento non è riuscito, quindi non è stato pubblicato nulla. Riprova.",
+        "mediaFailedPosted": "Pubblicato, ma il caricamento dei contenuti non è riuscito: modifica il momento per aggiungerli.",
+        "modePhoto": "Foto",
+        "modeText": "Testo",
+        "modeVideo": "Video",
+        "modeVoice": "Voce",
+        "moodQuestion": "Come ti senti?",
+        "placeholder": "A cosa stai pensando, {{name}}?",
+        "recordVoice": "Registra un messaggio vocale",
+        "remove": "Rimuovi",
+        "share": "Condividi",
+        "sharing": "Condivisione...",
+        "textPreview": "Il tuo momento di testo",
+        "voiceNoteLength": "Messaggio vocale · {{seconds}} s"
+      },
+      "prompt": {
+        "answer": "Rispondi",
+        "cardSubtitle": "Esercitati a scrivere",
+        "cardTitle": "Domanda del giorno",
+        "dismissCard": "Chiudi la domanda del giorno"
+      },
+      "report": {
+        "alreadyComment": "Hai già segnalato questo commento.",
+        "alreadyStory": "Hai già segnalato questa storia.",
+        "titleComment": "Segnala questo commento",
+        "titleStory": "Segnala questa storia"
+      },
+      "saved": {
+        "browseMoments": "Sfoglia i momenti",
+        "gridView": "Vista a griglia",
+        "listView": "Vista a elenco",
+        "loadMore": "Carica altri",
+        "momentCount": "momenti salvati",
+        "noMoments": "Nessun momento salvato",
+        "remove": "Rimuovi",
+        "removeError": "Impossibile rimuovere il momento",
+        "removeSuccess": "Rimosso dai salvati",
+        "title": "Momenti salvati"
+      },
+      "voice": {
+        "cancel": "Annulla registrazione",
+        "denied": "L'accesso al microfono è stato negato. Consenti l'accesso al microfono per registrare un messaggio vocale.",
+        "stop": "Interrompi la registrazione e invia",
+        "unsupported": "Questo browser non supporta la registrazione vocale."
+      }
+    },
+    "stories": {
+      "block_author": "Blocca {{name}}",
+      "block_confirm": "Blocca",
+      "block_confirm_body": "Non potrà vedere il tuo profilo, i tuoi momenti o le tue storie, né scriverti, e tu non vedrai i suoi.",
+      "block_confirm_title": "Bloccare {{name}}?",
+      "block_failed": "Impossibile bloccare questa persona. Riprova.",
+      "blocked": "{{name}} è bloccato",
+      "location_label": "Posizione",
+      "one_image_only": "Una storia mostra una sola foto. Abbiamo tenuto la prima.",
+      "replies_off": "Le risposte sono disattivate per questa storia",
+      "report_story": "Segnala storia"
+    }
+  },
+  "ja": {
+    "moments_section": {
+      "block": {
+        "done": "{{name}}さんをブロックしました。"
+      },
+      "card": {
+        "bookmark": "ブックマーク",
+        "likeFailed": "問題が発生しました",
+        "loginToLike": "いいねするにはログインしてください",
+        "removeBookmark": "ブックマークを解除",
+        "save": "保存",
+        "saved": "保存済み",
+        "seeLess": "折りたたむ",
+        "seeMore": "もっと見る",
+        "unlike": "いいねを取り消す"
+      },
+      "commentEngagement": {
+        "deleteOthersBody": "あなたのモーメントへのコメントなので削除できます。この操作は元に戻せません。",
+        "deleteOthersTitle": "このコメントを削除しますか？",
+        "removeGif": "GIFを削除"
+      },
+      "create": {
+        "attachVideo": "動画を添付",
+        "mediaFailedNothingPosted": "アップロードに失敗したため、何も投稿されませんでした。もう一度お試しください。",
+        "mediaFailedPosted": "投稿しましたが、メディアのアップロードに失敗しました。モーメントを編集して追加してください。",
+        "modePhoto": "写真",
+        "modeText": "テキスト",
+        "modeVideo": "動画",
+        "modeVoice": "音声",
+        "moodQuestion": "今の気分は？",
+        "placeholder": "{{name}}さん、今どうしてる？",
+        "recordVoice": "ボイスメモを録音",
+        "remove": "削除",
+        "share": "シェア",
+        "sharing": "シェア中...",
+        "textPreview": "テキストモーメント",
+        "voiceNoteLength": "ボイスメモ · {{seconds}}秒"
+      },
+      "prompt": {
+        "answer": "答える",
+        "cardSubtitle": "書く練習",
+        "cardTitle": "今日のお題",
+        "dismissCard": "今日のお題を閉じる"
+      },
+      "report": {
+        "alreadyComment": "このコメントはすでに報告済みです。",
+        "alreadyStory": "このストーリーはすでに報告済みです。",
+        "titleComment": "このコメントを報告",
+        "titleStory": "このストーリーを報告"
+      },
+      "saved": {
+        "browseMoments": "モーメントを見る",
+        "gridView": "グリッド表示",
+        "listView": "リスト表示",
+        "loadMore": "さらに読み込む",
+        "momentCount": "件のモーメントを保存済み",
+        "noMoments": "保存したモーメントはまだありません",
+        "remove": "削除",
+        "removeError": "モーメントを削除できませんでした",
+        "removeSuccess": "保存済みから削除しました",
+        "title": "保存したモーメント"
+      },
+      "voice": {
+        "cancel": "録音をキャンセル",
+        "denied": "マイクへのアクセスが拒否されました。ボイスメモを録音するにはマイクへのアクセスを許可してください。",
+        "stop": "録音を停止して送信",
+        "unsupported": "このブラウザは音声録音に対応していません。"
+      }
+    },
+    "stories": {
+      "block_author": "{{name}}さんをブロック",
+      "block_confirm": "ブロック",
+      "block_confirm_body": "相手はあなたのプロフィール、モーメント、ストーリーを見たり、メッセージを送ったりできなくなり、あなたにも相手の投稿は表示されなくなります。",
+      "block_confirm_title": "{{name}}さんをブロックしますか？",
+      "block_failed": "ブロックできませんでした。もう一度お試しください。",
+      "blocked": "{{name}}さんをブロックしました",
+      "location_label": "場所",
+      "one_image_only": "ストーリーに載せられる写真は1枚です。最初の1枚を残しました。",
+      "replies_off": "このストーリーは返信がオフになっています",
+      "report_story": "ストーリーを報告"
+    }
+  },
+  "kor": {
+    "moments_section": {
+      "block": {
+        "done": "{{name}}님을 차단했어요."
+      },
+      "card": {
+        "bookmark": "북마크",
+        "likeFailed": "문제가 발생했어요",
+        "loginToLike": "좋아요를 누르려면 로그인하세요",
+        "removeBookmark": "북마크 해제",
+        "save": "저장",
+        "saved": "저장됨",
+        "seeLess": "간략히",
+        "seeMore": "더 보기",
+        "unlike": "좋아요 취소"
+      },
+      "commentEngagement": {
+        "deleteOthersBody": "내 모먼트에 달린 댓글이라 삭제할 수 있어요. 삭제하면 되돌릴 수 없어요.",
+        "deleteOthersTitle": "이 댓글을 삭제할까요?",
+        "removeGif": "GIF 삭제"
+      },
+      "create": {
+        "attachVideo": "동영상 첨부",
+        "mediaFailedNothingPosted": "업로드에 실패해서 아무것도 게시되지 않았어요. 다시 시도해 주세요.",
+        "mediaFailedPosted": "게시했지만 미디어 업로드에 실패했어요. 모먼트를 수정해서 추가해 보세요.",
+        "modePhoto": "사진",
+        "modeText": "텍스트",
+        "modeVideo": "동영상",
+        "modeVoice": "음성",
+        "moodQuestion": "지금 기분이 어때요?",
+        "placeholder": "{{name}}님, 무슨 생각을 하고 있나요?",
+        "recordVoice": "음성 메시지 녹음",
+        "remove": "삭제",
+        "share": "공유",
+        "sharing": "공유 중...",
+        "textPreview": "텍스트 모먼트",
+        "voiceNoteLength": "음성 메시지 · {{seconds}}초"
+      },
+      "prompt": {
+        "answer": "답하기",
+        "cardSubtitle": "작문 연습",
+        "cardTitle": "오늘의 질문",
+        "dismissCard": "오늘의 질문 닫기"
+      },
+      "report": {
+        "alreadyComment": "이미 이 댓글을 신고했어요.",
+        "alreadyStory": "이미 이 스토리를 신고했어요.",
+        "titleComment": "이 댓글 신고",
+        "titleStory": "이 스토리 신고"
+      },
+      "saved": {
+        "browseMoments": "모먼트 둘러보기",
+        "gridView": "그리드 보기",
+        "listView": "목록 보기",
+        "loadMore": "더 불러오기",
+        "momentCount": "개의 모먼트 저장됨",
+        "noMoments": "저장한 모먼트가 아직 없어요",
+        "remove": "삭제",
+        "removeError": "모먼트를 삭제하지 못했어요",
+        "removeSuccess": "저장 목록에서 삭제했어요",
+        "title": "저장한 모먼트"
+      },
+      "voice": {
+        "cancel": "녹음 취소",
+        "denied": "마이크 접근이 거부되었어요. 음성 메시지를 녹음하려면 마이크 접근을 허용해 주세요.",
+        "stop": "녹음 중지 후 보내기",
+        "unsupported": "이 브라우저에서는 음성 녹음을 지원하지 않아요."
+      }
+    },
+    "stories": {
+      "block_author": "{{name}}님 차단",
+      "block_confirm": "차단",
+      "block_confirm_body": "상대방은 내 프로필, 모먼트, 스토리를 보거나 나에게 메시지를 보낼 수 없고, 나도 상대방의 콘텐츠를 볼 수 없어요.",
+      "block_confirm_title": "{{name}}님을 차단할까요?",
+      "block_failed": "차단하지 못했어요. 다시 시도해 주세요.",
+      "blocked": "{{name}}님을 차단했어요",
+      "location_label": "위치",
+      "one_image_only": "스토리에는 사진을 한 장만 올릴 수 있어요. 첫 번째 사진을 남겼어요.",
+      "replies_off": "이 스토리는 답장이 꺼져 있어요",
+      "report_story": "스토리 신고"
+    }
+  },
+  "pt": {
+    "moments_section": {
+      "block": {
+        "done": "{{name}} foi bloqueado."
+      },
+      "card": {
+        "bookmark": "Salvar nos favoritos",
+        "likeFailed": "Algo deu errado",
+        "loginToLike": "Entre para curtir publicações",
+        "removeBookmark": "Remover dos favoritos",
+        "save": "Salvar",
+        "saved": "Salvo",
+        "seeLess": "Ver menos",
+        "seeMore": "Ver mais",
+        "unlike": "Descurtir"
+      },
+      "commentEngagement": {
+        "deleteOthersBody": "Está no seu momento, então você pode removê-lo. Isso não pode ser desfeito.",
+        "deleteOthersTitle": "Excluir este comentário?",
+        "removeGif": "Remover GIF"
+      },
+      "create": {
+        "attachVideo": "Anexar um vídeo",
+        "mediaFailedNothingPosted": "O envio falhou, então nada foi publicado. Tente de novo.",
+        "mediaFailedPosted": "Publicado, mas o envio da mídia falhou — edite o momento para adicioná-la.",
+        "modePhoto": "Foto",
+        "modeText": "Texto",
+        "modeVideo": "Vídeo",
+        "modeVoice": "Voz",
+        "moodQuestion": "Como você está se sentindo?",
+        "placeholder": "No que você está pensando, {{name}}?",
+        "recordVoice": "Gravar uma mensagem de voz",
+        "remove": "Remover",
+        "share": "Compartilhar",
+        "sharing": "Compartilhando...",
+        "textPreview": "Seu momento de texto",
+        "voiceNoteLength": "Mensagem de voz · {{seconds}}s"
+      },
+      "prompt": {
+        "answer": "Responder",
+        "cardSubtitle": "Pratique a escrita",
+        "cardTitle": "Pergunta do dia",
+        "dismissCard": "Dispensar a pergunta do dia"
+      },
+      "report": {
+        "alreadyComment": "Você já denunciou este comentário.",
+        "alreadyStory": "Você já denunciou este story.",
+        "titleComment": "Denunciar este comentário",
+        "titleStory": "Denunciar este story"
+      },
+      "saved": {
+        "browseMoments": "Explorar momentos",
+        "gridView": "Visualização em grade",
+        "listView": "Visualização em lista",
+        "loadMore": "Carregar mais",
+        "momentCount": "momentos salvos",
+        "noMoments": "Nenhum momento salvo ainda",
+        "remove": "Remover",
+        "removeError": "Não foi possível remover o momento",
+        "removeSuccess": "Removido dos salvos",
+        "title": "Momentos salvos"
+      },
+      "voice": {
+        "cancel": "Cancelar gravação",
+        "denied": "O acesso ao microfone foi negado. Permita o acesso ao microfone para gravar uma mensagem de voz.",
+        "stop": "Parar gravação e enviar",
+        "unsupported": "Este navegador não oferece suporte à gravação de voz."
+      }
+    },
+    "stories": {
+      "block_author": "Bloquear {{name}}",
+      "block_confirm": "Bloquear",
+      "block_confirm_body": "A pessoa não poderá ver seu perfil, seus momentos ou stories, nem enviar mensagens para você, e você não verá os dela.",
+      "block_confirm_title": "Bloquear {{name}}?",
+      "block_failed": "Não foi possível bloquear esta pessoa. Tente de novo.",
+      "blocked": "{{name}} foi bloqueado",
+      "location_label": "Local",
+      "one_image_only": "Um story mostra uma só foto. Mantivemos a primeira.",
+      "replies_off": "As respostas estão desativadas neste story",
+      "report_story": "Denunciar story"
+    }
+  },
+  "ru": {
+    "moments_section": {
+      "block": {
+        "done": "{{name}} заблокирован(а)."
+      },
+      "card": {
+        "bookmark": "В закладки",
+        "likeFailed": "Что-то пошло не так",
+        "loginToLike": "Войдите, чтобы ставить лайки",
+        "removeBookmark": "Убрать из закладок",
+        "save": "Сохранить",
+        "saved": "Сохранено",
+        "seeLess": "Свернуть",
+        "seeMore": "Ещё",
+        "unlike": "Убрать лайк"
+      },
+      "commentEngagement": {
+        "deleteOthersBody": "Это комментарий к вашему моменту, поэтому вы можете его удалить. Отменить это нельзя.",
+        "deleteOthersTitle": "Удалить этот комментарий?",
+        "removeGif": "Убрать GIF"
+      },
+      "create": {
+        "attachVideo": "Прикрепить видео",
+        "mediaFailedNothingPosted": "Загрузка не удалась, поэтому ничего не опубликовано. Попробуйте ещё раз.",
+        "mediaFailedPosted": "Опубликовано, но медиафайл не загрузился — отредактируйте момент, чтобы добавить его.",
+        "modePhoto": "Фото",
+        "modeText": "Текст",
+        "modeVideo": "Видео",
+        "modeVoice": "Голос",
+        "moodQuestion": "Как вы себя чувствуете?",
+        "placeholder": "О чём думаете, {{name}}?",
+        "recordVoice": "Записать голосовое сообщение",
+        "remove": "Убрать",
+        "share": "Поделиться",
+        "sharing": "Публикуем...",
+        "textPreview": "Ваш текстовый момент",
+        "voiceNoteLength": "Голосовое · {{seconds}} с"
+      },
+      "prompt": {
+        "answer": "Ответить",
+        "cardSubtitle": "Практика письма",
+        "cardTitle": "Вопрос дня",
+        "dismissCard": "Скрыть вопрос дня"
+      },
+      "report": {
+        "alreadyComment": "Вы уже пожаловались на этот комментарий.",
+        "alreadyStory": "Вы уже пожаловались на эту историю.",
+        "titleComment": "Пожаловаться на комментарий",
+        "titleStory": "Пожаловаться на историю"
+      },
+      "saved": {
+        "browseMoments": "Смотреть моменты",
+        "gridView": "Сетка",
+        "listView": "Список",
+        "loadMore": "Загрузить ещё",
+        "momentCount": "моментов сохранено",
+        "noMoments": "Сохранённых моментов пока нет",
+        "remove": "Убрать",
+        "removeError": "Не удалось убрать момент",
+        "removeSuccess": "Убрано из сохранённых",
+        "title": "Сохранённые моменты"
+      },
+      "voice": {
+        "cancel": "Отменить запись",
+        "denied": "Доступ к микрофону запрещён. Разрешите доступ к микрофону, чтобы записать голосовое сообщение.",
+        "stop": "Остановить запись и отправить",
+        "unsupported": "Этот браузер не поддерживает запись голоса."
+      }
+    },
+    "stories": {
+      "block_author": "Заблокировать {{name}}",
+      "block_confirm": "Заблокировать",
+      "block_confirm_body": "Этот человек не сможет видеть ваш профиль, моменты и истории или писать вам, а вы не будете видеть его публикации.",
+      "block_confirm_title": "Заблокировать {{name}}?",
+      "block_failed": "Не удалось заблокировать. Попробуйте ещё раз.",
+      "blocked": "{{name}} заблокирован(а)",
+      "location_label": "Место",
+      "one_image_only": "В истории показывается одно фото. Мы оставили первое.",
+      "replies_off": "Ответы на эту историю отключены",
+      "report_story": "Пожаловаться на историю"
+    }
+  },
+  "th": {
+    "moments_section": {
+      "block": {
+        "done": "บล็อก {{name}} แล้ว"
+      },
+      "card": {
+        "bookmark": "บุ๊กมาร์ก",
+        "likeFailed": "เกิดข้อผิดพลาด",
+        "loginToLike": "เข้าสู่ระบบเพื่อกดถูกใจโพสต์",
+        "removeBookmark": "เลิกบุ๊กมาร์ก",
+        "save": "บันทึก",
+        "saved": "บันทึกแล้ว",
+        "seeLess": "ดูน้อยลง",
+        "seeMore": "ดูเพิ่มเติม",
+        "unlike": "เลิกถูกใจ"
+      },
+      "commentEngagement": {
+        "deleteOthersBody": "ความคิดเห็นนี้อยู่ในโมเมนต์ของคุณ คุณจึงลบได้ และไม่สามารถเลิกทำได้",
+        "deleteOthersTitle": "ลบความคิดเห็นนี้ไหม",
+        "removeGif": "ลบ GIF"
+      },
+      "create": {
+        "attachVideo": "แนบวิดีโอ",
+        "mediaFailedNothingPosted": "อัปโหลดไม่สำเร็จ จึงไม่มีอะไรถูกโพสต์ ลองอีกครั้ง",
+        "mediaFailedPosted": "โพสต์แล้ว แต่อัปโหลดสื่อไม่สำเร็จ ลองแก้ไขโมเมนต์เพื่อเพิ่มสื่อ",
+        "modePhoto": "รูปภาพ",
+        "modeText": "ข้อความ",
+        "modeVideo": "วิดีโอ",
+        "modeVoice": "เสียง",
+        "moodQuestion": "ตอนนี้คุณรู้สึกอย่างไร",
+        "placeholder": "{{name}} กำลังคิดอะไรอยู่",
+        "recordVoice": "อัดข้อความเสียง",
+        "remove": "นำออก",
+        "share": "แชร์",
+        "sharing": "กำลังแชร์...",
+        "textPreview": "โมเมนต์ข้อความของคุณ",
+        "voiceNoteLength": "ข้อความเสียง · {{seconds}} วิ"
+      },
+      "prompt": {
+        "answer": "ตอบ",
+        "cardSubtitle": "ฝึกเขียน",
+        "cardTitle": "คำถามประจำวัน",
+        "dismissCard": "ปิดคำถามประจำวัน"
+      },
+      "report": {
+        "alreadyComment": "คุณรายงานความคิดเห็นนี้ไปแล้ว",
+        "alreadyStory": "คุณรายงานสตอรี่นี้ไปแล้ว",
+        "titleComment": "รายงานความคิดเห็นนี้",
+        "titleStory": "รายงานสตอรี่นี้"
+      },
+      "saved": {
+        "browseMoments": "ดูโมเมนต์",
+        "gridView": "มุมมองตาราง",
+        "listView": "มุมมองรายการ",
+        "loadMore": "โหลดเพิ่ม",
+        "momentCount": "โมเมนต์ที่บันทึกไว้",
+        "noMoments": "ยังไม่มีโมเมนต์ที่บันทึกไว้",
+        "remove": "นำออก",
+        "removeError": "นำโมเมนต์ออกไม่สำเร็จ",
+        "removeSuccess": "นำออกจากรายการที่บันทึกแล้ว",
+        "title": "โมเมนต์ที่บันทึกไว้"
+      },
+      "voice": {
+        "cancel": "ยกเลิกการอัด",
+        "denied": "ไม่ได้รับอนุญาตให้ใช้ไมโครโฟน โปรดอนุญาตการเข้าถึงไมโครโฟนเพื่ออัดข้อความเสียง",
+        "stop": "หยุดอัดและส่ง",
+        "unsupported": "เบราว์เซอร์นี้ไม่รองรับการอัดเสียง"
+      }
+    },
+    "stories": {
+      "block_author": "บล็อก {{name}}",
+      "block_confirm": "บล็อก",
+      "block_confirm_body": "เขาจะไม่เห็นโปรไฟล์ โมเมนต์ หรือสตอรี่ของคุณ และส่งข้อความหาคุณไม่ได้ ส่วนคุณก็จะไม่เห็นของเขา",
+      "block_confirm_title": "บล็อก {{name}} ไหม",
+      "block_failed": "บล็อกไม่สำเร็จ ลองอีกครั้ง",
+      "blocked": "บล็อก {{name}} แล้ว",
+      "location_label": "ตำแหน่ง",
+      "one_image_only": "สตอรี่แสดงได้เพียงรูปเดียว เราเก็บรูปแรกไว้",
+      "replies_off": "สตอรี่นี้ปิดการตอบกลับ",
+      "report_story": "รายงานสตอรี่"
+    }
+  },
+  "tl": {
+    "moments_section": {
+      "block": {
+        "done": "Na-block na si {{name}}."
+      },
+      "card": {
+        "bookmark": "I-bookmark",
+        "likeFailed": "May nangyaring mali",
+        "loginToLike": "Mag-log in para mag-like ng mga post",
+        "removeBookmark": "Alisin sa bookmark",
+        "save": "I-save",
+        "saved": "Naka-save",
+        "seeLess": "Ipakita nang kaunti",
+        "seeMore": "Ipakita pa",
+        "unlike": "I-unlike"
+      },
+      "commentEngagement": {
+        "deleteOthersBody": "Nasa moment mo ito, kaya puwede mo itong alisin. Hindi na ito maibabalik.",
+        "deleteOthersTitle": "Burahin ang komentong ito?",
+        "removeGif": "Alisin ang GIF"
+      },
+      "create": {
+        "attachVideo": "Mag-attach ng video",
+        "mediaFailedNothingPosted": "Nabigo ang upload, kaya walang na-post. Subukan ulit.",
+        "mediaFailedPosted": "Na-post, pero nabigo ang pag-upload ng media — i-edit ang moment para idagdag ito.",
+        "modePhoto": "Larawan",
+        "modeText": "Text",
+        "modeVideo": "Video",
+        "modeVoice": "Boses",
+        "moodQuestion": "Ano ang nararamdaman mo?",
+        "placeholder": "Ano ang nasa isip mo, {{name}}?",
+        "recordVoice": "Mag-record ng voice note",
+        "remove": "Alisin",
+        "share": "I-share",
+        "sharing": "Sine-share...",
+        "textPreview": "Ang text moment mo",
+        "voiceNoteLength": "Voice note · {{seconds}}s"
+      },
+      "prompt": {
+        "answer": "Sagutin",
+        "cardSubtitle": "Magsanay magsulat",
+        "cardTitle": "Tanong ng araw",
+        "dismissCard": "Isara ang tanong ng araw"
+      },
+      "report": {
+        "alreadyComment": "Na-report mo na ang komentong ito.",
+        "alreadyStory": "Na-report mo na ang story na ito.",
+        "titleComment": "I-report ang komentong ito",
+        "titleStory": "I-report ang story na ito"
+      },
+      "saved": {
+        "browseMoments": "Mag-browse ng Moments",
+        "gridView": "Grid view",
+        "listView": "List view",
+        "loadMore": "Mag-load pa",
+        "momentCount": "na moment ang naka-save",
+        "noMoments": "Wala pang naka-save na moment",
+        "remove": "Alisin",
+        "removeError": "Hindi maalis ang moment",
+        "removeSuccess": "Inalis sa mga naka-save",
+        "title": "Mga Naka-save na Moment"
+      },
+      "voice": {
+        "cancel": "Kanselahin ang recording",
+        "denied": "Tinanggihan ang access sa mikropono. Payagan ang access sa mikropono para mag-record ng voice note.",
+        "stop": "Ihinto ang recording at ipadala",
+        "unsupported": "Hindi sinusuportahan ng browser na ito ang voice recording."
+      }
+    },
+    "stories": {
+      "block_author": "I-block si {{name}}",
+      "block_confirm": "I-block",
+      "block_confirm_body": "Hindi na nila makikita ang profile, moments, o stories mo, o makakapag-message sa iyo, at hindi mo na rin makikita ang sa kanila.",
+      "block_confirm_title": "I-block si {{name}}?",
+      "block_failed": "Hindi ma-block ang taong ito. Subukan ulit.",
+      "blocked": "Na-block na si {{name}}",
+      "location_label": "Lokasyon",
+      "one_image_only": "Isang larawan lang ang ipinapakita ng story. Itinabi namin ang una.",
+      "replies_off": "Naka-off ang mga reply sa story na ito",
+      "report_story": "I-report ang story"
+    }
+  },
+  "tr": {
+    "moments_section": {
+      "block": {
+        "done": "{{name}} engellendi."
+      },
+      "card": {
+        "bookmark": "Yer imlerine ekle",
+        "likeFailed": "Bir sorun oluştu",
+        "loginToLike": "Gönderileri beğenmek için giriş yap",
+        "removeBookmark": "Yer imlerinden kaldır",
+        "save": "Kaydet",
+        "saved": "Kaydedildi",
+        "seeLess": "Daha az göster",
+        "seeMore": "Devamını göster",
+        "unlike": "Beğenmekten vazgeç"
+      },
+      "commentEngagement": {
+        "deleteOthersBody": "Senin anına yapılmış bir yorum, bu yüzden kaldırabilirsin. Bu işlem geri alınamaz.",
+        "deleteOthersTitle": "Bu yorum silinsin mi?",
+        "removeGif": "GIF'i kaldır"
+      },
+      "create": {
+        "attachVideo": "Video ekle",
+        "mediaFailedNothingPosted": "Yükleme başarısız oldu, bu yüzden hiçbir şey paylaşılmadı. Tekrar dene.",
+        "mediaFailedPosted": "Paylaşıldı ama medya yüklenemedi — eklemek için anı düzenlemeyi dene.",
+        "modePhoto": "Fotoğraf",
+        "modeText": "Metin",
+        "modeVideo": "Video",
+        "modeVoice": "Ses",
+        "moodQuestion": "Nasıl hissediyorsun?",
+        "placeholder": "Aklında ne var, {{name}}?",
+        "recordVoice": "Sesli not kaydet",
+        "remove": "Kaldır",
+        "share": "Paylaş",
+        "sharing": "Paylaşılıyor...",
+        "textPreview": "Metin anın",
+        "voiceNoteLength": "Sesli not · {{seconds}} sn"
+      },
+      "prompt": {
+        "answer": "Yanıtla",
+        "cardSubtitle": "Yazma pratiği",
+        "cardTitle": "Günün sorusu",
+        "dismissCard": "Günün sorusunu kapat"
+      },
+      "report": {
+        "alreadyComment": "Bu yorumu zaten bildirdin.",
+        "alreadyStory": "Bu hikâyeyi zaten bildirdin.",
+        "titleComment": "Bu yorumu bildir",
+        "titleStory": "Bu hikâyeyi bildir"
+      },
+      "saved": {
+        "browseMoments": "Anlara göz at",
+        "gridView": "Izgara görünümü",
+        "listView": "Liste görünümü",
+        "loadMore": "Daha fazla yükle",
+        "momentCount": "an kaydedildi",
+        "noMoments": "Henüz kaydedilmiş an yok",
+        "remove": "Kaldır",
+        "removeError": "An kaldırılamadı",
+        "removeSuccess": "Kaydedilenlerden kaldırıldı",
+        "title": "Kaydedilen Anlar"
+      },
+      "voice": {
+        "cancel": "Kaydı iptal et",
+        "denied": "Mikrofon erişimi reddedildi. Sesli not kaydetmek için mikrofon erişimine izin ver.",
+        "stop": "Kaydı durdur ve gönder",
+        "unsupported": "Bu tarayıcı ses kaydını desteklemiyor."
+      }
+    },
+    "stories": {
+      "block_author": "{{name}} kişisini engelle",
+      "block_confirm": "Engelle",
+      "block_confirm_body": "Bu kişi profilini, anlarını veya hikâyelerini göremez, sana mesaj gönderemez; sen de onunkileri görmezsin.",
+      "block_confirm_title": "{{name}} engellensin mi?",
+      "block_failed": "Bu kişi engellenemedi. Tekrar dene.",
+      "blocked": "{{name}} engellendi",
+      "location_label": "Konum",
+      "one_image_only": "Bir hikâye tek bir fotoğraf gösterir. İlkini tuttuk.",
+      "replies_off": "Bu hikâyede yanıtlar kapalı",
+      "report_story": "Hikâyeyi bildir"
+    }
+  },
+  "vi": {
+    "moments_section": {
+      "block": {
+        "done": "Đã chặn {{name}}."
+      },
+      "card": {
+        "bookmark": "Đánh dấu",
+        "likeFailed": "Đã xảy ra lỗi",
+        "loginToLike": "Đăng nhập để thích bài viết",
+        "removeBookmark": "Bỏ đánh dấu",
+        "save": "Lưu",
+        "saved": "Đã lưu",
+        "seeLess": "Thu gọn",
+        "seeMore": "Xem thêm",
+        "unlike": "Bỏ thích"
+      },
+      "commentEngagement": {
+        "deleteOthersBody": "Bình luận này nằm trên khoảnh khắc của bạn nên bạn có thể xóa. Không thể hoàn tác.",
+        "deleteOthersTitle": "Xóa bình luận này?",
+        "removeGif": "Gỡ GIF"
+      },
+      "create": {
+        "attachVideo": "Đính kèm video",
+        "mediaFailedNothingPosted": "Tải lên thất bại nên chưa có gì được đăng. Hãy thử lại.",
+        "mediaFailedPosted": "Đã đăng, nhưng tải phương tiện thất bại — hãy chỉnh sửa khoảnh khắc để thêm vào.",
+        "modePhoto": "Ảnh",
+        "modeText": "Văn bản",
+        "modeVideo": "Video",
+        "modeVoice": "Giọng nói",
+        "moodQuestion": "Bạn đang cảm thấy thế nào?",
+        "placeholder": "{{name}} ơi, bạn đang nghĩ gì?",
+        "recordVoice": "Ghi âm tin nhắn thoại",
+        "remove": "Gỡ",
+        "share": "Chia sẻ",
+        "sharing": "Đang chia sẻ...",
+        "textPreview": "Khoảnh khắc văn bản của bạn",
+        "voiceNoteLength": "Tin nhắn thoại · {{seconds}} giây"
+      },
+      "prompt": {
+        "answer": "Trả lời",
+        "cardSubtitle": "Luyện viết",
+        "cardTitle": "Câu hỏi hôm nay",
+        "dismissCard": "Ẩn câu hỏi hôm nay"
+      },
+      "report": {
+        "alreadyComment": "Bạn đã báo cáo bình luận này rồi.",
+        "alreadyStory": "Bạn đã báo cáo tin này rồi.",
+        "titleComment": "Báo cáo bình luận này",
+        "titleStory": "Báo cáo tin này"
+      },
+      "saved": {
+        "browseMoments": "Xem khoảnh khắc",
+        "gridView": "Dạng lưới",
+        "listView": "Dạng danh sách",
+        "loadMore": "Tải thêm",
+        "momentCount": "khoảnh khắc đã lưu",
+        "noMoments": "Chưa có khoảnh khắc nào được lưu",
+        "remove": "Gỡ",
+        "removeError": "Không thể gỡ khoảnh khắc",
+        "removeSuccess": "Đã gỡ khỏi mục đã lưu",
+        "title": "Khoảnh khắc đã lưu"
+      },
+      "voice": {
+        "cancel": "Hủy ghi âm",
+        "denied": "Quyền truy cập micrô bị từ chối. Hãy cho phép truy cập micrô để ghi âm tin nhắn thoại.",
+        "stop": "Dừng ghi âm và gửi",
+        "unsupported": "Trình duyệt này không hỗ trợ ghi âm."
+      }
+    },
+    "stories": {
+      "block_author": "Chặn {{name}}",
+      "block_confirm": "Chặn",
+      "block_confirm_body": "Họ sẽ không thể xem hồ sơ, khoảnh khắc hay tin của bạn, hoặc nhắn tin cho bạn, và bạn cũng sẽ không thấy nội dung của họ.",
+      "block_confirm_title": "Chặn {{name}}?",
+      "block_failed": "Không thể chặn người này. Hãy thử lại.",
+      "blocked": "Đã chặn {{name}}",
+      "location_label": "Vị trí",
+      "one_image_only": "Mỗi tin chỉ hiển thị một ảnh. Chúng tôi đã giữ ảnh đầu tiên.",
+      "replies_off": "Tin này đã tắt trả lời",
+      "report_story": "Báo cáo tin"
+    }
+  },
+  "zh_TW": {
+    "moments_section": {
+      "block": {
+        "done": "已封鎖 {{name}}。"
+      },
+      "card": {
+        "bookmark": "收藏",
+        "likeFailed": "發生錯誤",
+        "loginToLike": "請登入後按讚",
+        "removeBookmark": "取消收藏",
+        "save": "儲存",
+        "saved": "已儲存",
+        "seeLess": "收起",
+        "seeMore": "展開",
+        "unlike": "收回讚"
+      },
+      "commentEngagement": {
+        "deleteOthersBody": "這是你動態下的留言，你可以刪除它。刪除後無法復原。",
+        "deleteOthersTitle": "要刪除這則留言嗎？",
+        "removeGif": "移除 GIF"
+      },
+      "create": {
+        "attachVideo": "附加影片",
+        "mediaFailedNothingPosted": "上傳失敗，因此沒有發佈任何內容。請再試一次。",
+        "mediaFailedPosted": "已發佈，但媒體上傳失敗——請編輯動態重新加入。",
+        "modePhoto": "照片",
+        "modeText": "文字",
+        "modeVideo": "影片",
+        "modeVoice": "語音",
+        "moodQuestion": "你現在感覺如何？",
+        "placeholder": "{{name}}，在想什麼？",
+        "recordVoice": "錄製語音",
+        "remove": "移除",
+        "share": "分享",
+        "sharing": "分享中...",
+        "textPreview": "你的文字動態",
+        "voiceNoteLength": "語音 · {{seconds}} 秒"
+      },
+      "prompt": {
+        "answer": "回答",
+        "cardSubtitle": "練習寫作",
+        "cardTitle": "每日話題",
+        "dismissCard": "關閉每日話題"
+      },
+      "report": {
+        "alreadyComment": "你已經檢舉過這則留言。",
+        "alreadyStory": "你已經檢舉過這則限時動態。",
+        "titleComment": "檢舉這則留言",
+        "titleStory": "檢舉這則限時動態"
+      },
+      "saved": {
+        "browseMoments": "瀏覽動態",
+        "gridView": "格狀檢視",
+        "listView": "清單檢視",
+        "loadMore": "載入更多",
+        "momentCount": "則動態已收藏",
+        "noMoments": "還沒有收藏的動態",
+        "remove": "移除",
+        "removeError": "無法移除動態",
+        "removeSuccess": "已從收藏中移除",
+        "title": "收藏的動態"
+      },
+      "voice": {
+        "cancel": "取消錄音",
+        "denied": "麥克風權限遭拒。請允許使用麥克風以錄製語音。",
+        "stop": "停止錄音並傳送",
+        "unsupported": "此瀏覽器不支援錄音。"
+      }
+    },
+    "stories": {
+      "block_author": "封鎖 {{name}}",
+      "block_confirm": "封鎖",
+      "block_confirm_body": "對方將無法查看你的個人檔案、動態或限時動態，也無法傳訊息給你，你也不會再看到對方的內容。",
+      "block_confirm_title": "確定要封鎖 {{name}}？",
+      "block_failed": "無法封鎖，請再試一次。",
+      "blocked": "已封鎖 {{name}}",
+      "location_label": "位置",
+      "one_image_only": "一則限時動態只能放一張照片，已保留第一張。",
+      "replies_off": "這則限時動態已關閉回覆",
+      "report_story": "檢舉限時動態"
+    }
+  },
+  "zho": {
+    "moments_section": {
+      "block": {
+        "done": "已拉黑 {{name}}。"
+      },
+      "card": {
+        "bookmark": "收藏",
+        "likeFailed": "出了点问题",
+        "loginToLike": "请登录后点赞",
+        "removeBookmark": "取消收藏",
+        "save": "保存",
+        "saved": "已保存",
+        "seeLess": "收起",
+        "seeMore": "展开",
+        "unlike": "取消点赞"
+      },
+      "commentEngagement": {
+        "deleteOthersBody": "这是你动态下的评论，你可以删除它。删除后无法恢复。",
+        "deleteOthersTitle": "删除这条评论？",
+        "removeGif": "移除 GIF"
+      },
+      "create": {
+        "attachVideo": "添加视频",
+        "mediaFailedNothingPosted": "上传失败，所以没有发布任何内容。请重试。",
+        "mediaFailedPosted": "已发布，但媒体上传失败——请编辑动态重新添加。",
+        "modePhoto": "照片",
+        "modeText": "文字",
+        "modeVideo": "视频",
+        "modeVoice": "语音",
+        "moodQuestion": "你现在感觉如何？",
+        "placeholder": "{{name}}，在想什么？",
+        "recordVoice": "录制语音",
+        "remove": "移除",
+        "share": "分享",
+        "sharing": "正在分享...",
+        "textPreview": "你的文字动态",
+        "voiceNoteLength": "语音 · {{seconds}}秒"
+      },
+      "prompt": {
+        "answer": "回答",
+        "cardSubtitle": "练习写作",
+        "cardTitle": "每日话题",
+        "dismissCard": "关闭每日话题"
+      },
+      "report": {
+        "alreadyComment": "你已经举报过这条评论。",
+        "alreadyStory": "你已经举报过这条快拍。",
+        "titleComment": "举报这条评论",
+        "titleStory": "举报这条快拍"
+      },
+      "saved": {
+        "browseMoments": "浏览动态",
+        "gridView": "网格视图",
+        "listView": "列表视图",
+        "loadMore": "加载更多",
+        "momentCount": "条动态已收藏",
+        "noMoments": "还没有收藏的动态",
+        "remove": "移除",
+        "removeError": "移除动态失败",
+        "removeSuccess": "已从收藏中移除",
+        "title": "收藏的动态"
+      },
+      "voice": {
+        "cancel": "取消录音",
+        "denied": "麦克风权限被拒绝。请允许使用麦克风以录制语音。",
+        "stop": "停止录音并发送",
+        "unsupported": "此浏览器不支持录音。"
+      }
+    },
+    "stories": {
+      "block_author": "拉黑 {{name}}",
+      "block_confirm": "拉黑",
+      "block_confirm_body": "对方将无法查看你的个人资料、动态或快拍，也无法给你发消息，你也不会再看到对方的内容。",
+      "block_confirm_title": "确定拉黑 {{name}}？",
+      "block_failed": "拉黑失败，请重试。",
+      "blocked": "已拉黑 {{name}}",
+      "location_label": "位置",
+      "one_image_only": "一条快拍只能放一张图片，已保留第一张。",
+      "replies_off": "这条快拍已关闭回复",
+      "report_story": "举报快拍"
+    }
+  }
+}

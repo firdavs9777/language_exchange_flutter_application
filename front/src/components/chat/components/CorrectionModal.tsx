@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { X, CheckCircle, AlertCircle } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import './CorrectionModal.scss';
 
 interface Message {
@@ -27,6 +28,7 @@ const CorrectionModal: React.FC<CorrectionModalProps> = ({
   onSubmit,
   onClose,
 }) => {
+  const { t } = useTranslation();
   const originalText = message.content || message.message || '';
   const [correctedText, setCorrectedText] = useState(originalText);
   const [explanation, setExplanation] = useState('');
@@ -36,12 +38,14 @@ const CorrectionModal: React.FC<CorrectionModalProps> = ({
     e.preventDefault();
 
     if (!correctedText.trim()) {
-      setError('Please provide a correction');
+      setError(t('chatPage.correctionModal.empty') || 'Please provide a correction');
       return;
     }
 
     if (correctedText === originalText) {
-      setError('The correction should be different from the original');
+      setError(
+        t('chatPage.correctionModal.unchanged') || 'The correction should be different from the original'
+      );
       return;
     }
 
@@ -58,21 +62,26 @@ const CorrectionModal: React.FC<CorrectionModalProps> = ({
         <header className="modal-header">
           <div className="header-title">
             <CheckCircle size={20} className="title-icon" />
-            <h2>Language Correction</h2>
+            <h2>{t('chatPage.correctionModal.title') || 'Language Correction'}</h2>
           </div>
-          <button className="close-btn" onClick={onClose}>
+          <button
+            type="button"
+            className="close-btn"
+            onClick={onClose}
+            aria-label={t('chatPage.correctionModal.close') || 'Close'}
+          >
             <X size={20} />
           </button>
         </header>
 
         <form onSubmit={handleSubmit}>
           <div className="form-section">
-            <label>Original Message</label>
+            <label>{t('chatPage.correctionModal.original') || 'Original Message'}</label>
             <div className="original-text">{originalText}</div>
           </div>
 
           <div className="form-section">
-            <label htmlFor="corrected">Your Correction</label>
+            <label htmlFor="corrected">{t('chatPage.correctionModal.yours') || 'Your Correction'}</label>
             <textarea
               id="corrected"
               value={correctedText}
@@ -80,24 +89,28 @@ const CorrectionModal: React.FC<CorrectionModalProps> = ({
                 setCorrectedText(e.target.value);
                 setError('');
               }}
-              placeholder="Type the corrected version..."
+              placeholder={t('chatPage.correctionModal.yoursPlaceholder') || 'Type the corrected version...'}
               rows={3}
             />
           </div>
 
           <div className="form-section">
             <label htmlFor="explanation">
-              Explanation <span className="optional">(optional)</span>
+              {t('chatPage.correctionModal.explanation') || 'Explanation'}{' '}
+              <span className="optional">{t('chatPage.correctionModal.optional') || '(optional)'}</span>
             </label>
             <textarea
               id="explanation"
               value={explanation}
               onChange={(e) => setExplanation(e.target.value)}
-              placeholder="Explain why this correction is helpful..."
+              placeholder={
+                t('chatPage.correctionModal.explanationPlaceholder') || 'Explain why this correction is helpful...'
+              }
               rows={2}
             />
             <span className="hint">
-              e.g., "Use 'went' instead of 'goed' - irregular past tense"
+              {t('chatPage.correctionModal.hint') ||
+                "e.g., \"Use 'went' instead of 'goed' - irregular past tense\""}
             </span>
           </div>
 
@@ -110,11 +123,11 @@ const CorrectionModal: React.FC<CorrectionModalProps> = ({
 
           <div className="modal-actions">
             <button type="button" className="cancel-btn" onClick={onClose}>
-              Cancel
+              {t('chatPage.correctionModal.cancel') || 'Cancel'}
             </button>
             <button type="submit" className="submit-btn">
               <CheckCircle size={18} />
-              Send Correction
+              {t('chatPage.correctionModal.submit') || 'Send Correction'}
             </button>
           </div>
         </form>

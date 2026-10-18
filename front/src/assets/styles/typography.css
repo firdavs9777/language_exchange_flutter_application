@@ -1,9 +1,37 @@
 /* ===========================================
-   BananaTalk Global Typography System
+   BananaTalk Legacy Typography Variables
+   ===========================================
+
+   WHAT THIS FILE IS NOW: the CSS custom properties below, plus a handful of
+   genuinely custom classes (.section*, .caption, .label, .badge, .btn,
+   .card-*). Nothing else.
+
+   WHAT IT USED TO BE, AND WHY THAT HAD TO GO: this file is imported from
+   src/App.scss, so it loads AFTER src/index.css and after Tailwind's
+   utilities. Two kinds of rule in it were therefore winning fights they had
+   no business entering:
+
+   1. Element rules (html, body, h1-h6, p, a, form controls). `h1..h6 {
+      font-family: var(--font-primary) }` re-pointed every heading at Inter,
+      so the Plus Jakarta Sans display face set by src/index.css never
+      rendered. `p { color: var(--color-gray-600) }` is a *declared* colour on
+      an element, which beats an inherited one, so a <p> inside a `text-white`
+      container came out grey -- the promo carousel's copy rendered grey on a
+      teal gradient.
+   2. Classes that duplicate Tailwind utility names (.text-xs .. .text-4xl,
+      .text-gray-400 .. .text-gray-900, .font-light .. .font-bold,
+      .text-base, .text-primary). Same name, different values, later in the
+      cascade: they silently shadowed Tailwind's generated utilities.
+
+   Both categories are deleted. The type system lives in src/index.css and
+   tailwind.config.js; src/design/typography.test.ts guards this file against
+   their return.
    =========================================== */
 
-/* Import Modern Font */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+/* The Inter @import that used to sit here is gone: it was a second,
+   render-blocking request for a family public/index.html already asks for.
+   Its one load-bearing job was supplying weights 300 and 800, which the
+   index.html request omitted -- those weights are now in that request. */
 
 /* CSS Variables for Typography */
 :root {
@@ -93,110 +121,9 @@
   --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 }
-
-/* Base Typography */
-html {
-  font-size: 16px;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-body {
-  font-family: var(--font-primary);
-  font-size: var(--text-base);
-  line-height: var(--leading-normal);
-  color: var(--color-gray-800);
-  letter-spacing: var(--tracking-normal);
-}
-
-/* Headings */
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-primary);
-  font-weight: var(--font-bold);
-  line-height: var(--leading-tight);
-  letter-spacing: var(--tracking-tight);
-  color: var(--color-gray-900);
-  margin-bottom: var(--space-4);
-}
-
-h1 {
-  font-size: var(--text-4xl);
-  font-weight: var(--font-extrabold);
-}
-
-h2 {
-  font-size: var(--text-3xl);
-  font-weight: var(--font-bold);
-}
-
-h3 {
-  font-size: var(--text-2xl);
-  font-weight: var(--font-semibold);
-}
-
-h4 {
-  font-size: var(--text-xl);
-  font-weight: var(--font-semibold);
-}
-
-h5 {
-  font-size: var(--text-lg);
-  font-weight: var(--font-medium);
-}
-
-h6 {
-  font-size: var(--text-base);
-  font-weight: var(--font-medium);
-}
-
-/* Responsive Headings */
-@media (min-width: 768px) {
-  h1 {
-    font-size: var(--text-5xl);
-  }
-
-  h2 {
-    font-size: var(--text-4xl);
-  }
-
-  h3 {
-    font-size: var(--text-3xl);
-  }
-}
-
-@media (min-width: 1024px) {
-  h1 {
-    font-size: var(--text-6xl);
-  }
-}
-
-/* Paragraphs */
-p {
-  font-size: var(--text-base);
-  line-height: var(--leading-relaxed);
-  color: var(--color-gray-600);
-  margin-bottom: var(--space-4);
-}
-
-p.lead {
-  font-size: var(--text-lg);
-  color: var(--color-gray-500);
-}
-
-p.small {
-  font-size: var(--text-sm);
-}
-
-/* Links */
-a {
-  color: var(--color-primary);
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-a:hover {
-  color: var(--color-primary-dark);
-}
+/* ===========================================
+   Custom classes -- names Tailwind does not generate
+   =========================================== */
 
 /* Labels and Captions */
 .label {
@@ -212,8 +139,10 @@ a:hover {
   color: var(--color-gray-500);
 }
 
-/* Buttons Base */
-.btn, button {
+/* Buttons Base -- the class only. The bare `button` selector that used to
+   share this rule restyled every button in the app, Tailwind-styled ones
+   included. */
+.btn {
   font-family: var(--font-primary);
   font-weight: var(--font-semibold);
   font-size: var(--text-sm);
@@ -221,42 +150,6 @@ a:hover {
   border-radius: var(--radius-lg);
   transition: all 0.2s ease;
 }
-
-/* Form Elements */
-input, textarea, select {
-  font-family: var(--font-primary);
-  font-size: var(--text-base);
-  border-radius: var(--radius-lg);
-}
-
-input::placeholder, textarea::placeholder {
-  color: var(--color-gray-400);
-}
-
-/* Utility Classes */
-.text-xs { font-size: var(--text-xs); }
-.text-sm { font-size: var(--text-sm); }
-.text-base { font-size: var(--text-base); }
-.text-lg { font-size: var(--text-lg); }
-.text-xl { font-size: var(--text-xl); }
-.text-2xl { font-size: var(--text-2xl); }
-.text-3xl { font-size: var(--text-3xl); }
-.text-4xl { font-size: var(--text-4xl); }
-
-.font-light { font-weight: var(--font-light); }
-.font-normal { font-weight: var(--font-normal); }
-.font-medium { font-weight: var(--font-medium); }
-.font-semibold { font-weight: var(--font-semibold); }
-.font-bold { font-weight: var(--font-bold); }
-
-.text-gray-400 { color: var(--color-gray-400); }
-.text-gray-500 { color: var(--color-gray-500); }
-.text-gray-600 { color: var(--color-gray-600); }
-.text-gray-700 { color: var(--color-gray-700); }
-.text-gray-800 { color: var(--color-gray-800); }
-.text-gray-900 { color: var(--color-gray-900); }
-
-.text-primary { color: var(--color-primary); }
 
 /* Section Spacing */
 .section {

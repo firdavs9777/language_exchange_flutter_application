@@ -1,0 +1,74 @@
+// Reels (Phase 4). Logical properties only; the swipe axis is vertical and
+// never mirrored.
+.reel-policy-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1060;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: 16px;
+  background: rgba(0, 0, 0, 0.6);
+}
+.reel-policy-dialog {
+  max-inline-size: 440px;
+  inline-size: 100%;
+  padding: 24px;
+  border-radius: 16px;
+  background: #fff;
+  text-align: start;
+}
+.reel-policy-title { font-size: 1.125rem; font-weight: 800; margin-block-end: 12px; }
+.reel-policy-body { white-space: pre-line; font-size: 0.875rem; color: #4b5563; }
+.reel-policy-actions { display: flex; justify-content: flex-end; gap: 8px; margin-block-start: 16px; }
+.reel-btn { border-radius: 999px; padding: 8px 18px; font-weight: 700; border: 0; }
+.reel-btn-primary { background: #f5b800; color: #111; }
+.reel-btn-ghost { background: transparent; color: #4b5563; }
+.reel-btn:disabled { opacity: 0.5; }
+.reels-page { max-inline-size: 960px; margin-inline: auto; padding: 16px; }
+.reels-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-block-end: 16px; }
+.reels-title { font-size: 1.5rem; font-weight: 800; margin: 0; }
+.reels-state { padding-block: 64px; text-align: center; color: #6b7280; }
+.reels-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 6px; }
+.reel-tile { position: relative; aspect-ratio: 9 / 16; overflow: hidden; border: 0; padding: 0; border-radius: 10px; background: #111; }
+.reel-tile-media { inline-size: 100%; block-size: 100%; object-fit: cover; display: block; }
+.reel-tile-play { position: absolute; inset-block-start: 8px; inset-inline-end: 8px; color: #fff; opacity: 0.85; }
+.reel-tile-meta { position: absolute; inset-inline: 0; inset-block-end: 0; display: flex; justify-content: space-between; padding: 6px 8px; color: #fff; font-size: 0.75rem; font-weight: 700; background: linear-gradient(transparent, rgba(0, 0, 0, 0.6)); }
+.reels-more { display: flex; justify-content: center; margin-block: 16px; }
+.reel-viewer { position: fixed; inset: 0; z-index: 1050; background: #000; display: flex; align-items: center; justify-content: center; touch-action: none; }
+.reel-slide { position: relative; block-size: 100%; inline-size: min(100vw, calc(100vh * 9 / 16)); }
+.reel-video { inline-size: 100%; block-size: 100%; object-fit: cover; background: #000; }
+.reel-video-landscape { object-fit: contain; }
+.reel-tap-to-play { position: absolute; inset: 0; margin: auto; inline-size: 120px; block-size: 120px; border: 0; border-radius: 999px; background: rgba(0, 0, 0, 0.55); color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; font-weight: 700; }
+.reel-caption { position: absolute; inset-inline-start: 12px; inset-inline-end: 72px; inset-block-end: 16px; color: #fff; text-align: start; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6); }
+.reel-author { font-weight: 800; }
+.reel-description { margin: 4px 0 0; font-size: 0.875rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.reel-rail { position: absolute; inset-inline-end: 8px; inset-block-end: 24px; display: flex; flex-direction: column; gap: 14px; align-items: center; }
+.reel-icon-btn { border: 0; border-radius: 999px; inline-size: 40px; block-size: 40px; background: rgba(255, 255, 255, 0.15); color: #fff; display: inline-flex; align-items: center; justify-content: center; }
+.reel-icon-btn:disabled { opacity: 0.3; }
+.reel-close { position: absolute; inset-block-start: 16px; inset-inline-start: 16px; }
+.reel-mute { position: absolute; inset-block-start: 16px; inset-inline-end: 16px; }
+.reel-nav { position: absolute; inset-inline-end: 16px; inset-block-start: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 8px; }
+@media (max-width: 640px) { .reel-nav { display: none; } }
+.reel-avatar { inline-size: 44px; block-size: 44px; border-radius: 999px; overflow: hidden; border: 2px solid #fff; background: #374151; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 800; }
+.reel-avatar img { inline-size: 100%; block-size: 100%; object-fit: cover; }
+.reel-action { position: relative; border: 0; background: transparent; color: #fff; display: flex; flex-direction: column; align-items: center; gap: 2px; font-size: 0.75rem; font-weight: 700; cursor: pointer; }
+.reel-action svg { font-size: 1.6rem; filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.6)); }
+.reel-liked { color: #ef4444; }
+.reel-share-inner { position: absolute; inset: 0; opacity: 0; } // ShareButton covers the icon, invisible
+.reel-more-wrap { position: relative; }
+.reel-menu { position: absolute; inset-inline-end: 48px; inset-block-end: 0; min-inline-size: 160px; background: #fff; border-radius: 12px; padding: 6px; box-shadow: 0 6px 24px rgba(0, 0, 0, 0.25); }
+.reel-menu button { display: flex; gap: 8px; align-items: center; inline-size: 100%; border: 0; background: transparent; padding: 8px 10px; text-align: start; border-radius: 8px; }
+.reel-menu-danger { color: #dc2626; }
+.reel-comments-drawer { position: fixed; inset-block: 0; inset-inline-end: 0; inline-size: min(420px, 100vw); background: #fff; z-index: 1055; overflow-y: auto; padding: 12px 16px; text-align: start; touch-action: auto; }
+.reel-comments-head { display: flex; align-items: center; justify-content: space-between; margin-block-end: 8px; }
+.reel-comments-head .reel-icon-btn { color: #111; background: #f3f4f6; }
+.reel-create { max-inline-size: 560px; margin-inline: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px; text-align: start; }
+.reel-create-hint { color: #6b7280; font-size: 0.875rem; margin: 0; }
+.reel-file-label { display: inline-flex; align-self: flex-start; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 999px; border: 2px dashed #f5b800; font-weight: 700; cursor: pointer; }
+.reel-file-input { position: absolute; inline-size: 1px; block-size: 1px; opacity: 0; }
+.reel-preview { inline-size: 100%; max-block-size: 60vh; border-radius: 12px; background: #000; }
+.reel-field-label { font-weight: 700; font-size: 0.875rem; }
+.reel-caption-input { inline-size: 100%; border: 1px solid #d1d5db; border-radius: 10px; padding: 10px; }
+.reel-create-error { color: #dc2626; font-size: 0.875rem; margin: 0; }
+.reel-post { align-self: flex-end; }

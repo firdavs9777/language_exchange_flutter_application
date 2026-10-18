@@ -2,7 +2,7 @@
 // once, only when ads are enabled and a publisher id is configured. AdUnit
 // calls this on mount; hardcoding the script in index.html is intentionally
 // avoided so the app stays ad-free until configured.
-import { ADSENSE_CLIENT, adsEnabled } from "./adsenseConfig";
+import { adsenseClient, adsEnabled } from "./adsenseConfig";
 
 const ADSENSE_SRC =
   "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";
@@ -12,7 +12,7 @@ let injected = false;
 
 export const loadAdSense = (): void => {
   if (typeof document === "undefined") return;
-  if (!adsEnabled() || !ADSENSE_CLIENT) return;
+  if (!adsEnabled()) return;
   if (injected) return;
 
   // Also guard against a script that already exists in the DOM (e.g. HMR).
@@ -25,7 +25,7 @@ export const loadAdSense = (): void => {
   }
 
   const script = document.createElement("script");
-  script.src = `${ADSENSE_SRC}?client=${ADSENSE_CLIENT}`;
+  script.src = `${ADSENSE_SRC}?client=${adsenseClient()}`;
   script.async = true;
   script.crossOrigin = "anonymous";
   document.head.appendChild(script);

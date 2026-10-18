@@ -4742,5 +4742,7 @@
   "perkUnlimitedTranslations": "Traducciones ilimitadas",
   "vipMoreMatchesCta": "VIP: 15 coincidencias al día",
   "vocabPacksPromo": "Conjuntos de palabras listos por tema. Añade uno y aprende un poco cada día.",
-  "vocabPacksBrowse": "Ver paquetes"
+  "vocabPacksBrowse": "Ver paquetes",
+  "visitorsReveal24h": "Míralos a todos durante 24 horas por {cost} 💎, o hazte VIP",
+  "visitorsUnlockedLeft": "Desbloqueado · quedan {time}"
 }

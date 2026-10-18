@@ -1,10 +1,9 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { ShareType } from '../../utils/shareUrl';
-import { openInApp } from './openInAppAction';
+import { openInApp, AppLinkType } from './openInAppAction';
 
 interface Props {
-  type: ShareType;
+  type: AppLinkType;
   id: string;
   className?: string;
   children?: React.ReactNode;

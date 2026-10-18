@@ -12389,4 +12389,14 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get vocabPacksBrowse => '単語セットを見る';
+
+  @override
+  String visitorsReveal24h(int cost) {
+    return '$cost 💎で24時間すべて表示、またはVIPに';
+  }
+
+  @override
+  String visitorsUnlockedLeft(String time) {
+    return '解除中 · 残り$time';
+  }
 }

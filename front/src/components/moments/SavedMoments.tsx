@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
@@ -17,12 +17,19 @@ import {
   List,
   MoreVertical,
 } from "lucide-react";
+import MomentThumb from "./media/MomentThumb";
+import MomentVideoPlayer from "./media/MomentVideoPlayer";
+import VoiceNotePlayer from "./media/VoiceNotePlayer";
+import GradientMomentCard from "./media/GradientMomentCard";
 
 interface SavedMoment {
   _id: string;
   description?: string;
   imageUrls?: string[];
-  video?: { url: string };
+  mediaType?: "image" | "video" | "audio" | "text";
+  backgroundColor?: string;
+  audio?: { url: string; duration: number; waveform: number[] };
+  video?: { url: string; thumbnail?: string };
   likeCount: number;
   commentCount: number;
   createdAt: string;
@@ -40,15 +47,47 @@ const SavedMoments: React.FC = () => {
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [menuOpen, setMenuOpen] = useState<string | null>(null);
 
-  const { data, isLoading, refetch } = useGetSavedMomentsQuery({});
+  // The server pages this list ({data, pagination}); "Load more" asks for the
+  // next page and keeps the earlier ones (same pattern as MyMoments).
+  const PAGE_SIZE = 12;
+  const [page, setPage] = useState(1);
+  const { currentData, isLoading, isFetching, refetch } = useGetSavedMomentsQuery({ page, limit: PAGE_SIZE });
+  const [pages, setPages] = useState<{ [page: number]: SavedMoment[] }>({});
+  const [hasMore, setHasMore] = useState(false);
+  const [removed, setRemoved] = useState<{ [id: string]: boolean }>({});
+  useEffect(() => {
+    if (!currentData) return;
+    const rows: SavedMoment[] = Array.isArray((currentData as any).data) ? (currentData as any).data : [];
+    setPages((prev) => ({ ...prev, [page]: rows }));
+    const pagination = (currentData as any).pagination;
+    setHasMore(
+      pagination && typeof pagination.hasNextPage === "boolean" ? pagination.hasNextPage : rows.length >= PAGE_SIZE
+    );
+  }, [currentData, page]);
   const [unsaveMoment, { isLoading: isUnsaving }] = useUnsaveMomentMutation();
 
-  const savedMoments: SavedMoment[] = data?.data || [];
+  const savedMoments: SavedMoment[] = useMemo(() => {
+    const all: { [page: number]: SavedMoment[] } = { ...pages };
+    if (currentData && Array.isArray((currentData as any).data)) all[page] = (currentData as any).data;
+    const seen: { [id: string]: boolean } = {};
+    const out: SavedMoment[] = [];
+    Object.keys(all).map(Number).sort((a, b) => a - b).forEach((key) => {
+      all[key].forEach((m) => {
+        // An unsave shifts later pages by one, so a refetched page can repeat
+        // a moment an earlier page already shows.
+        if (!m || removed[m._id] || seen[m._id]) return;
+        seen[m._id] = true;
+        out.push(m);
+      });
+    });
+    return out;
+  }, [pages, currentData, page, removed]);
 
   const handleUnsave = async (momentId: string) => {
     try {
       await unsaveMoment(momentId).unwrap();
-      toast.success(t("moments.saved.removeSuccess") || "Removed from saved", {
+      setRemoved((prev) => ({ ...prev, [momentId]: true }));
+      toast.success(t("moments_section.saved.removeSuccess") || "Removed from saved", {
         position: "top-right",
         autoClose: 2000,
         theme: "dark",
@@ -57,7 +96,7 @@ const SavedMoments: React.FC = () => {
       setMenuOpen(null);
       refetch();
     } catch (error) {
-      toast.error(t("moments.saved.removeError") || "Failed to remove moment", {
+      toast.error(t("moments_section.saved.removeError") || "Failed to remove moment", {
         position: "top-right",
         autoClose: 3000,
         theme: "dark",
@@ -80,27 +119,11 @@ const SavedMoments: React.FC = () => {
       {savedMoments.map((moment) => (
         <button
           key={moment._id}
-          onClick={() => navigate(`/moments/${moment._id}`)}
+          data-testid="saved-tile"
+          onClick={() => navigate(`/moment/${moment._id}`)}
           className="relative aspect-square bg-gray-100 overflow-hidden group"
         >
-          {moment.imageUrls?.[0] ? (
-            <img
-              src={moment.imageUrls[0]}
-              alt=""
-              className="w-full h-full object-cover"
-            />
-          ) : moment.video?.url ? (
-            <video
-              src={moment.video.url}
-              className="w-full h-full object-cover"
-            />
-          ) : (
-            <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-teal-100 to-blue-100 p-2">
-              <p className="text-gray-600 text-xs line-clamp-4 text-center">
-                {moment.description}
-              </p>
-            </div>
-          )}
+          <MomentThumb moment={moment} />
 
           {/* Overlay on hover */}
           <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4">
@@ -115,7 +138,7 @@ const SavedMoments: React.FC = () => {
           </div>
 
           {/* Bookmark badge */}
-          <div className="absolute top-2 right-2">
+          <div className="absolute top-2 end-2">
             <Bookmark className="w-5 h-5 text-white drop-shadow-lg" fill="white" />
           </div>
         </button>
@@ -133,7 +156,8 @@ const SavedMoments: React.FC = () => {
           {/* Header */}
           <div className="flex items-center justify-between p-4">
             <button
-              onClick={() => navigate(`/user/${moment.user._id}`)}
+              data-testid="saved-author"
+              onClick={() => navigate(`/community/${moment.user._id}`)}
               className="flex items-center gap-3"
             >
               <div className="w-10 h-10 rounded-full bg-gradient-to-br from-teal-400 to-blue-500 overflow-hidden">
@@ -164,14 +188,14 @@ const SavedMoments: React.FC = () => {
               </button>
 
               {menuOpen === moment._id && (
-                <div className="absolute right-0 top-full mt-1 bg-white rounded-lg shadow-lg border py-1 z-10">
+                <div className="absolute end-0 top-full mt-1 bg-white rounded-lg shadow-lg border py-1 z-10">
                   <button
                     onClick={() => handleUnsave(moment._id)}
                     disabled={isUnsaving}
-                    className="flex items-center gap-2 px-4 py-2 text-red-500 hover:bg-red-50 w-full text-left"
+                    className="flex items-center gap-2 px-4 py-2 text-red-500 hover:bg-red-50 w-full text-start"
                   >
                     <BookmarkMinus className="w-4 h-4" />
-                    {t("moments.saved.remove") || "Remove"}
+                    {t("moments_section.saved.remove") || "Remove"}
                   </button>
                 </div>
               )}
@@ -180,28 +204,25 @@ const SavedMoments: React.FC = () => {
 
           {/* Content */}
           <button
-            onClick={() => navigate(`/moments/${moment._id}`)}
-            className="w-full text-left"
+            onClick={() => navigate(`/moment/${moment._id}`)}
+            className="w-full text-start"
           >
-            {moment.description && (
+            {/* A gradient moment draws its caption on the card itself. */}
+            {moment.description && moment.mediaType !== "text" && !moment.backgroundColor && (
               <p className="px-4 pb-3 text-gray-700">{moment.description}</p>
             )}
 
-            {moment.imageUrls?.[0] && (
-              <img
-                src={moment.imageUrls[0]}
-                alt=""
-                className="w-full max-h-96 object-cover"
-              />
-            )}
-
-            {moment.video?.url && (
-              <video
-                src={moment.video.url}
-                className="w-full max-h-96 object-cover"
-                controls
-              />
-            )}
+            {moment.video && moment.video.url ? (
+              <div className="px-4 pb-3"><MomentVideoPlayer video={moment.video as any} /></div>
+            ) : moment.audio && moment.audio.url ? (
+              <div className="px-4 pb-3"><VoiceNotePlayer audio={moment.audio} /></div>
+            ) : moment.mediaType === "text" || (moment.backgroundColor && !(moment.imageUrls && moment.imageUrls.length)) ? (
+              <div className="px-4 pb-3">
+                <GradientMomentCard text={moment.description || ""} backgroundColor={moment.backgroundColor} />
+              </div>
+            ) : moment.imageUrls && moment.imageUrls[0] ? (
+              <img src={moment.imageUrls[0]} alt="" loading="lazy" className="w-full max-h-96 object-cover" />
+            ) : null}
           </button>
 
           {/* Stats */}
@@ -235,10 +256,11 @@ const SavedMoments: React.FC = () => {
             <div>
               <h1 className="text-xl font-bold flex items-center gap-2">
                 <Bookmark className="w-6 h-6" />
-                {t("moments.saved.title") || "Saved Moments"}
+                {t("moments_section.saved.title") || "Saved Moments"}
               </h1>
               <p className="text-teal-100 text-sm">
-                {savedMoments.length} {t("moments.saved.momentCount") || "moments saved"}
+                {(currentData && (currentData as any).pagination && (currentData as any).pagination.totalMoments) || savedMoments.length}{" "}
+                {t("moments_section.saved.momentCount") || "moments saved"}
               </p>
             </div>
           </div>
@@ -246,6 +268,9 @@ const SavedMoments: React.FC = () => {
           {/* View Toggle */}
           <div className="flex gap-1 bg-white/20 p-1 rounded-lg">
             <button
+              type="button"
+              aria-label={t("moments_section.saved.gridView") || "Grid view"}
+              aria-pressed={viewMode === "grid"}
               onClick={() => setViewMode("grid")}
               className={`p-2 rounded-md transition-colors ${
                 viewMode === "grid" ? "bg-white text-teal-600" : "text-white/70"
@@ -254,6 +279,9 @@ const SavedMoments: React.FC = () => {
               <Grid className="w-5 h-5" />
             </button>
             <button
+              type="button"
+              aria-label={t("moments_section.saved.listView") || "List view"}
+              aria-pressed={viewMode === "list"}
               onClick={() => setViewMode("list")}
               className={`p-2 rounded-md transition-colors ${
                 viewMode === "list" ? "bg-white text-teal-600" : "text-white/70"
@@ -277,19 +305,31 @@ const SavedMoments: React.FC = () => {
               <Bookmark className="w-8 h-8 text-teal-500" />
             </div>
             <p className="text-gray-500 mb-4">
-              {t("moments.saved.noMoments") || "No saved moments yet"}
+              {t("moments_section.saved.noMoments") || "No saved moments yet"}
             </p>
             <button
               onClick={() => navigate("/moments")}
               className="px-6 py-3 bg-gradient-to-r from-teal-500 to-blue-500 text-white rounded-xl font-semibold hover:shadow-lg transition-all"
             >
-              {t("moments.saved.browseMoments") || "Browse Moments"}
+              {t("moments_section.saved.browseMoments") || "Browse Moments"}
             </button>
           </div>
         ) : viewMode === "grid" ? (
           <GridView />
         ) : (
           <ListView />
+        )}
+        {hasMore && savedMoments.length > 0 && (
+          <div className="mt-4 flex justify-center">
+            <button
+              type="button"
+              onClick={() => setPage((p) => p + 1)}
+              disabled={isFetching}
+              className="rounded-full bg-white px-5 py-2 text-sm font-semibold text-teal-700 shadow disabled:opacity-50"
+            >
+              {t("moments_section.saved.loadMore") || "Load more"}
+            </button>
+          </div>
         )}
       </div>
 

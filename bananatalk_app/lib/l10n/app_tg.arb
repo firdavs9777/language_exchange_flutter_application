@@ -4205,5 +4205,7 @@
   "perkUnlimitedTranslations": "Тарҷумаҳои бемаҳдуд",
   "vipMoreMatchesCta": "VIP: 15 мувофиқат дар як рӯз",
   "vocabPacksPromo": "Маҷмӯаҳои тайёри калимаҳо аз рӯи мавзӯъ. Яктоашро илова кунед ва ҳар рӯз каме омӯзед.",
-  "vocabPacksBrowse": "Дидани маҷмӯаҳо"
+  "vocabPacksBrowse": "Дидани маҷмӯаҳо",
+  "visitorsReveal24h": "Ҳамаро 24 соат бо {cost} 💎 бинед ё VIP шавед",
+  "visitorsUnlockedLeft": "Кушода · {time} монд"
 }

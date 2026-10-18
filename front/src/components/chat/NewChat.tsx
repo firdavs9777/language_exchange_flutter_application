@@ -6,8 +6,6 @@ import {
   useSearchUsersByUsernameQuery,
   useGetUserByIdQuery,
 } from "../../store/slices/usersSlice";
-import { useCreateChatRoomMutation } from "../../store/slices/chatSlice";
-import { Bounce, toast } from "react-toastify";
 import {
   ArrowLeft,
   Search,
@@ -54,7 +52,8 @@ const NewChat: React.FC = () => {
   // Username search (when query starts with @)
   const { data: usernameSearchData, isLoading: isUsernameSearching } = useSearchUsersByUsernameQuery(
     { query: trimmedQuery },
-    { skip: !searchByUsername || trimmedQuery.replace("@", "").length < 1 }
+    // The server 400s under 2 characters (searchUsersByUsername).
+    { skip: !searchByUsername || trimmedQuery.replace("@", "").length < 2 }
   );
 
   // ID search (when query is a valid ObjectId)
@@ -62,8 +61,6 @@ const NewChat: React.FC = () => {
     trimmedQuery,
     { skip: !searchById }
   );
-
-  const [createChatRoom, { isLoading: isCreating }] = useCreateChatRoomMutation();
 
   // Merge results from all search types
   const getSearchResults = (): User[] => {
@@ -84,33 +81,12 @@ const NewChat: React.FC = () => {
     handleCreateChat(user);
   };
 
-  const handleCreateChat = async (user: User) => {
-    try {
-      // Backend expects { userId: string } for 1-on-1 chat. Group chat isn't
-      // implemented server-side (isGroupMessage:false everywhere) so we never
-      // try to bundle multiple users into one createChatRoom call.
-      const result = await createChatRoom(user._id).unwrap();
-
-      const chatId = result?.data?._id;
-      if (chatId) {
-        navigate(`/chat/${chatId}`);
-      } else {
-        // Fall back to navigating with the user id; ChatContent fetches by id.
-        navigate(`/chat/${user._id}`);
-      }
-    } catch (error: any) {
-      const message =
-        error?.data?.error ||
-        error?.data?.message ||
-        t("newChat.createError") ||
-        "Failed to create chat";
-      toast.error(message, {
-        position: "top-right",
-        autoClose: 3000,
-        theme: "colored",
-        transition: Bounce,
-      });
-    }
+  // No pre-create. POST /messages/conversations used to write a real
+  // "Conversation started" message to the other person (and count it against
+  // the 5-message first-chat limit). The app opens the thread and lets the
+  // first real send create the conversation; so does the web now.
+  const handleCreateChat = (user: User) => {
+    navigate(`/chat/${user._id}`);
   };
 
   const formatLastSeen = (lastSeen?: string) => {
@@ -235,7 +211,6 @@ const NewChat: React.FC = () => {
               <button
                 key={user._id}
                 onClick={() => handleSelectUser(user)}
-                disabled={isCreating}
                 className="w-full flex items-center gap-4 p-4 rounded-xl border bg-white/60 backdrop-blur-sm border-white/30 hover:bg-white/80 transition-all disabled:opacity-50"
               >
                 <div className="relative">
@@ -274,11 +249,7 @@ const NewChat: React.FC = () => {
                   </p>
                 </div>
 
-                {isCreating ? (
-                  <Loader2 className="w-5 h-5 text-teal-500 animate-spin" />
-                ) : (
-                  <MessageCircle className="w-5 h-5 text-teal-500" />
-                )}
+                <MessageCircle className="w-5 h-5 text-teal-500" />
               </button>
             ))}
           </div>

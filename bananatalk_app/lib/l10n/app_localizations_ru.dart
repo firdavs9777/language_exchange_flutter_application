@@ -12885,4 +12885,14 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get vocabPacksBrowse => 'Смотреть наборы';
+
+  @override
+  String visitorsReveal24h(int cost) {
+    return 'Все гости на 24 часа за $cost 💎 — или VIP';
+  }
+
+  @override
+  String visitorsUnlockedLeft(String time) {
+    return 'Открыто · осталось $time';
+  }
 }

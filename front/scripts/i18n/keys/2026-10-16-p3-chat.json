@@ -1,0 +1,4250 @@
+{
+  "ar": {
+    "chatPage": {
+      "archive": {
+        "archive": "أرشفة الدردشة",
+        "archived": "تمت الأرشفة على الموقع. لا يزال التطبيق يعرضها.",
+        "back": "العودة إلى الدردشات",
+        "failed": "تعذر تحديث الأرشيف",
+        "toggle": "المؤرشفة ({{count}})",
+        "unarchive": "إلغاء أرشفة الدردشة",
+        "unarchived": "أُعيدت إلى دردشاتك"
+      },
+      "blocked": {
+        "byMe": "لقد حظرت هذا الشخص. ألغِ حظره لإرسال الرسائل.",
+        "generic": "لا يمكنك إرسال رسائل في هذه الدردشة.",
+        "manage": "إدارة"
+      },
+      "bookmarks": {
+        "addFailed": "تعذر حفظ الرسالة",
+        "added": "تم الحفظ",
+        "attachment": "مرفق",
+        "close": "إغلاق",
+        "empty": "لا توجد رسائل محفوظة بعد",
+        "error": "تعذر تحميل الرسائل المحفوظة",
+        "loading": "جارٍ تحميل الرسائل المحفوظة…",
+        "open": "فتح الدردشة",
+        "remove": "إزالة من المحفوظة",
+        "removeFailed": "تعذرت الإزالة",
+        "removed": "تمت الإزالة من الرسائل المحفوظة",
+        "title": "الرسائل المحفوظة"
+      },
+      "call": {
+        "busy": "كان {{name}} في مكالمة أخرى",
+        "cancelledVideo": "مكالمة فيديو ملغاة",
+        "cancelledVoice": "مكالمة صوتية ملغاة",
+        "declinedIncomingVideo": "مكالمة فيديو مرفوضة",
+        "declinedIncomingVoice": "مكالمة صوتية مرفوضة",
+        "declinedOutgoingVideo": "تم رفض مكالمة الفيديو",
+        "declinedOutgoingVoice": "تم رفض المكالمة الصوتية",
+        "incomingVideo": "مكالمة فيديو واردة",
+        "incomingVoice": "مكالمة صوتية واردة",
+        "missedVideo": "مكالمة فيديو فائتة",
+        "missedVoice": "مكالمة صوتية فائتة",
+        "noAnswerVideo": "مكالمة فيديو · لا يوجد رد",
+        "noAnswerVoice": "مكالمة صوتية · لا يوجد رد",
+        "outgoingVideo": "مكالمة فيديو صادرة",
+        "outgoingVoice": "مكالمة صوتية صادرة"
+      },
+      "connection": {
+        "kicked": "الدردشة مفتوحة في مكان آخر، لذا توقفت هذه العلامة عن تلقي الرسائل.",
+        "reconnect": "الاستخدام هنا"
+      },
+      "correction": {
+        "accept": "قبول التصحيح",
+        "acceptFailed": "تعذر قبول التصحيح",
+        "accepted": "تم قبول التصحيح — أُضيف إلى سجل تعلمك",
+        "accepting": "جارٍ القبول…",
+        "corrected": "صحّح {{name}}",
+        "you": "أنت"
+      },
+      "correctionModal": {
+        "cancel": "إلغاء",
+        "close": "إغلاق",
+        "empty": "يرجى كتابة تصحيح",
+        "explanation": "الشرح",
+        "explanationPlaceholder": "اشرح لماذا يفيد هذا التصحيح...",
+        "hint": "مثال: \"استخدم 'went' بدلًا من 'goed' - فعل ماضٍ شاذ\"",
+        "optional": "(اختياري)",
+        "original": "الرسالة الأصلية",
+        "submit": "إرسال التصحيح",
+        "title": "تصحيح لغوي",
+        "unchanged": "يجب أن يختلف التصحيح عن الأصل",
+        "yours": "تصحيحك",
+        "yoursPlaceholder": "اكتب النسخة المصححة..."
+      },
+      "deleteMessage": {
+        "cancel": "إلغاء",
+        "failed": "تعذر حذف الرسالة. حاول مرة أخرى.",
+        "forEveryone": "حذف لدى الجميع",
+        "forMe": "حذف لديّ",
+        "placeholder": "تم حذف هذه الرسالة",
+        "title": "حذف الرسالة؟",
+        "tooLate": "يمكنك حذف الرسالة لدى الجميع خلال ساعة واحدة فقط من إرسالها."
+      },
+      "editDialog": {
+        "cancel": "إلغاء",
+        "failed": "تعذر تعديل الرسالة. حاول مرة أخرى.",
+        "label": "الرسالة",
+        "save": "حفظ",
+        "title": "تعديل الرسالة",
+        "tooLate": "يمكنك تعديل الرسالة خلال 15 دقيقة فقط من إرسالها."
+      },
+      "editedLabel": "معدّلة",
+      "forward": {
+        "close": "إغلاق",
+        "empty": "لم يتم العثور على محادثات.",
+        "error": "تعذر تحميل المحادثات.",
+        "loading": "جارٍ تحميل المحادثات…",
+        "search": "بحث",
+        "submit": "إعادة توجيه",
+        "submitCount": "إعادة توجيه ({{count}})",
+        "title": "إعادة توجيه إلى",
+        "unknownUser": "غير معروف"
+      },
+      "forwarded": "معاد توجيهها",
+      "list": {
+        "loadError": "تعذر تحميل محادثاتك",
+        "loading": "جارٍ تحميل الدردشات...",
+        "noMessages": "لا توجد رسائل بعد",
+        "tryAgain": "حاول مرة أخرى",
+        "typing": "يكتب..."
+      },
+      "location": {
+        "cancel": "إلغاء",
+        "confirmTitle": "مشاركة موقعك؟",
+        "denied": "تم رفض إذن الموقع",
+        "failed": "تعذر تحديد موقعك",
+        "open": "فتح في الخرائط",
+        "send": "إرسال",
+        "sendFailed": "تعذر إرسال موقعك",
+        "share": "مشاركة الموقع",
+        "title": "الموقع",
+        "unsupported": "هذا المتصفح لا يدعم مشاركة الموقع"
+      },
+      "mediaGallery": {
+        "back": "رجوع",
+        "emptyFiles": "لم تتم مشاركة ملفات بعد",
+        "emptyPhotos": "لم تتم مشاركة صور بعد",
+        "emptyVideos": "لم تتم مشاركة فيديوهات بعد",
+        "error": "خطأ في تحميل الوسائط",
+        "files": "الملفات",
+        "loading": "جارٍ تحميل الوسائط...",
+        "photos": "الصور",
+        "title": "الوسائط المشتركة",
+        "unknownFile": "ملف غير معروف",
+        "unknownSize": "حجم غير معروف",
+        "videos": "الفيديوهات"
+      },
+      "menu": {
+        "bookmark": "حفظ",
+        "close": "إغلاق",
+        "copy": "نسخ",
+        "delete": "حذف",
+        "edit": "تعديل",
+        "forward": "إعادة توجيه",
+        "listen": "استماع",
+        "pin": "تثبيت",
+        "reply": "رد"
+      },
+      "mute": {
+        "always": "حتى أعيد تشغيلها",
+        "cancel": "إلغاء",
+        "eightHours": "لمدة 8 ساعات",
+        "oneHour": "لمدة ساعة",
+        "oneWeek": "لمدة أسبوع",
+        "title": "كتم {{name}}؟"
+      },
+      "pinnedBar": {
+        "count": "{{count}} مثبتة",
+        "unpin": "إلغاء تثبيت الرسالة"
+      },
+      "preview": {
+        "attachment": "📎 مرفق",
+        "call": "📞 مكالمة",
+        "file": "📎 ملف",
+        "gif": "GIF",
+        "location": "📍 الموقع",
+        "photo": "🖼️ صورة",
+        "poll": "📊 استطلاع",
+        "story": "📖 قصة",
+        "video": "🎥 فيديو",
+        "voice": "🎤 رسالة صوتية"
+      },
+      "replyBar": {
+        "cancel": "إلغاء الرد",
+        "replyingTo": "الرد على {{name}}"
+      },
+      "search": {
+        "close": "إغلاق",
+        "empty": "لم يتم العثور على رسائل",
+        "hint": "اكتب حرفين على الأقل",
+        "notLoaded": "هذه الرسالة أقدم. مرّر لأعلى لتحميلها.",
+        "open": "البحث في الرسائل",
+        "placeholder": "ابحث في هذه الدردشة",
+        "searching": "جارٍ البحث…",
+        "title": "البحث في الرسائل مع {{name}}",
+        "unavailable": "البحث غير متاح حاليًا",
+        "you": "أنت"
+      },
+      "sendErrors": {
+        "blockedBody": "لا يمكنك إرسال رسائل إلى هذا الشخص.",
+        "blockedTitle": "لم تُرسل الرسالة",
+        "capBody": "لقد بدأت الحد الأقصى من المحادثات الجديدة لهذا اليوم. اشترك في VIP لبدء محادثات بلا حدود.",
+        "capTitle": "تم بلوغ حد المحادثات الجديدة",
+        "dailyBody": "لقد أرسلت كل رسائلك لهذا اليوم. اشترك في VIP لرسائل غير محدودة، أو عد غدًا.",
+        "dailyTitle": "تم بلوغ الحد اليومي للرسائل",
+        "firstChatBody": "يمكنك إرسال 5 رسائل حتى يرد. يمكنك الكتابة مجددًا بعد أن يجيب.",
+        "firstChatTitle": "انتظر الرد",
+        "generic": "لم تُرسل الرسالة. اضغط \"إعادة الإرسال\" للمحاولة مجددًا.",
+        "goVip": "اشترك في VIP",
+        "ok": "حسنًا",
+        "reattach": "أرفق الملف مرة أخرى لإرساله.",
+        "tooFast": "أنت ترسل الرسائل بسرعة كبيرة. انتظر لحظة."
+      },
+      "story": {
+        "replied": "ردّ على قصتك",
+        "shared": "شارك قصة",
+        "unavailable": "هذه القصة لم تعد متاحة",
+        "youReplied": "رددت على قصته",
+        "youShared": "شاركت قصة"
+      },
+      "translation": {
+        "close": "إغلاق الترجمة",
+        "failed": "تعذرت ترجمة الرسالة",
+        "label": "الترجمة · {{lang}}",
+        "save": "حفظ العبارة",
+        "saveFailed": "تعذر حفظ العبارة",
+        "saved": "تم الحفظ في قائمة الدراسة",
+        "saving": "جارٍ الحفظ…",
+        "translating": "جارٍ الترجمة…"
+      },
+      "video": {
+        "badType": "لا يمكن إرسال صيغة الفيديو هذه. جرّب MP4.",
+        "tooBig": "هذا الفيديو كبير جدًا. الحد الأقصى {{mb}} MB.",
+        "tooLong": "هذا الفيديو طويل جدًا. الحد الأقصى {{minutes}} دقيقة."
+      },
+      "voice": {
+        "unavailable": "تسجيل الصوت غير متاح. تحقق من إذن الميكروفون لهذا الموقع."
+      },
+      "wallpaper": {
+        "premiumInUse": "تستخدم هذه الدردشة خلفية Premium من التطبيق. اختيار خلفية أخرى سيغيّرها لكليكما."
+      },
+      "wave": {
+        "hi": "مرحبًا!"
+      }
+    }
+  },
+  "de": {
+    "chatPage": {
+      "archive": {
+        "archive": "Chat archivieren",
+        "archived": "Auf der Website archiviert. In der App wird er weiterhin angezeigt.",
+        "back": "Zurück zu den Chats",
+        "failed": "Archiv konnte nicht aktualisiert werden",
+        "toggle": "Archiviert ({{count}})",
+        "unarchive": "Chat wiederherstellen",
+        "unarchived": "Zurück in deinen Chats"
+      },
+      "blocked": {
+        "byMe": "Du hast diese Person blockiert. Hebe die Blockierung auf, um Nachrichten zu senden.",
+        "generic": "Du kannst in diesem Chat keine Nachrichten senden.",
+        "manage": "Verwalten"
+      },
+      "bookmarks": {
+        "addFailed": "Nachricht konnte nicht gespeichert werden",
+        "added": "Gespeichert",
+        "attachment": "Anhang",
+        "close": "Schließen",
+        "empty": "Noch keine gespeicherten Nachrichten",
+        "error": "Gespeicherte Nachrichten konnten nicht geladen werden",
+        "loading": "Gespeicherte Nachrichten werden geladen…",
+        "open": "Chat öffnen",
+        "remove": "Aus Gespeicherten entfernen",
+        "removeFailed": "Konnte nicht entfernt werden",
+        "removed": "Aus den gespeicherten Nachrichten entfernt",
+        "title": "Gespeicherte Nachrichten"
+      },
+      "call": {
+        "busy": "{{name}} war in einem anderen Anruf",
+        "cancelledVideo": "Videoanruf abgebrochen",
+        "cancelledVoice": "Sprachanruf abgebrochen",
+        "declinedIncomingVideo": "Videoanruf abgelehnt",
+        "declinedIncomingVoice": "Sprachanruf abgelehnt",
+        "declinedOutgoingVideo": "Videoanruf wurde abgelehnt",
+        "declinedOutgoingVoice": "Sprachanruf wurde abgelehnt",
+        "incomingVideo": "Eingehender Videoanruf",
+        "incomingVoice": "Eingehender Sprachanruf",
+        "missedVideo": "Verpasster Videoanruf",
+        "missedVoice": "Verpasster Sprachanruf",
+        "noAnswerVideo": "Videoanruf · Keine Antwort",
+        "noAnswerVoice": "Sprachanruf · Keine Antwort",
+        "outgoingVideo": "Ausgehender Videoanruf",
+        "outgoingVoice": "Ausgehender Sprachanruf"
+      },
+      "connection": {
+        "kicked": "Der Chat ist woanders geöffnet, deshalb empfängt dieser Tab keine Nachrichten mehr.",
+        "reconnect": "Hier verwenden"
+      },
+      "correction": {
+        "accept": "Korrektur annehmen",
+        "acceptFailed": "Korrektur konnte nicht angenommen werden",
+        "accepted": "Korrektur angenommen — zu deinem Lernverlauf hinzugefügt",
+        "accepting": "Wird angenommen…",
+        "corrected": "{{name}} hat korrigiert",
+        "you": "Du"
+      },
+      "correctionModal": {
+        "cancel": "Abbrechen",
+        "close": "Schließen",
+        "empty": "Bitte gib eine Korrektur ein",
+        "explanation": "Erklärung",
+        "explanationPlaceholder": "Erkläre, warum diese Korrektur hilfreich ist…",
+        "hint": "z. B. „‚went‘ statt ‚goed‘ – unregelmäßige Vergangenheitsform“",
+        "optional": "(optional)",
+        "original": "Ursprüngliche Nachricht",
+        "submit": "Korrektur senden",
+        "title": "Sprachkorrektur",
+        "unchanged": "Die Korrektur muss sich vom Original unterscheiden",
+        "yours": "Deine Korrektur",
+        "yoursPlaceholder": "Gib die korrigierte Version ein…"
+      },
+      "deleteMessage": {
+        "cancel": "Abbrechen",
+        "failed": "Nachricht konnte nicht gelöscht werden. Versuch es noch mal.",
+        "forEveryone": "Für alle löschen",
+        "forMe": "Für mich löschen",
+        "placeholder": "Diese Nachricht wurde gelöscht",
+        "title": "Nachricht löschen?",
+        "tooLate": "Du kannst eine Nachricht nur innerhalb von 1 Stunde nach dem Senden für alle löschen."
+      },
+      "editDialog": {
+        "cancel": "Abbrechen",
+        "failed": "Nachricht konnte nicht bearbeitet werden. Versuch es noch mal.",
+        "label": "Nachricht",
+        "save": "Speichern",
+        "title": "Nachricht bearbeiten",
+        "tooLate": "Du kannst eine Nachricht nur innerhalb von 15 Minuten nach dem Senden bearbeiten."
+      },
+      "editedLabel": "bearbeitet",
+      "forward": {
+        "close": "Schließen",
+        "empty": "Keine Unterhaltungen gefunden.",
+        "error": "Unterhaltungen konnten nicht geladen werden.",
+        "loading": "Unterhaltungen werden geladen…",
+        "search": "Suchen",
+        "submit": "Weiterleiten",
+        "submitCount": "Weiterleiten ({{count}})",
+        "title": "Weiterleiten an",
+        "unknownUser": "Unbekannt"
+      },
+      "forwarded": "Weitergeleitet",
+      "list": {
+        "loadError": "Deine Unterhaltungen konnten nicht geladen werden",
+        "loading": "Chats werden geladen…",
+        "noMessages": "Noch keine Nachrichten",
+        "tryAgain": "Erneut versuchen",
+        "typing": "tippt…"
+      },
+      "location": {
+        "cancel": "Abbrechen",
+        "confirmTitle": "Deinen Standort teilen?",
+        "denied": "Standortzugriff wurde verweigert",
+        "failed": "Dein Standort konnte nicht ermittelt werden",
+        "open": "In Karten öffnen",
+        "send": "Senden",
+        "sendFailed": "Dein Standort konnte nicht gesendet werden",
+        "share": "Standort teilen",
+        "title": "Standort",
+        "unsupported": "Dieser Browser kann keinen Standort teilen"
+      },
+      "mediaGallery": {
+        "back": "Zurück",
+        "emptyFiles": "Noch keine Dateien geteilt",
+        "emptyPhotos": "Noch keine Fotos geteilt",
+        "emptyVideos": "Noch keine Videos geteilt",
+        "error": "Fehler beim Laden der Medien",
+        "files": "Dateien",
+        "loading": "Medien werden geladen…",
+        "photos": "Fotos",
+        "title": "Geteilte Medien",
+        "unknownFile": "Unbekannte Datei",
+        "unknownSize": "Unbekannte Größe",
+        "videos": "Videos"
+      },
+      "menu": {
+        "bookmark": "Speichern",
+        "close": "Schließen",
+        "copy": "Kopieren",
+        "delete": "Löschen",
+        "edit": "Bearbeiten",
+        "forward": "Weiterleiten",
+        "listen": "Anhören",
+        "pin": "Anheften",
+        "reply": "Antworten"
+      },
+      "mute": {
+        "always": "Bis ich es wieder einschalte",
+        "cancel": "Abbrechen",
+        "eightHours": "Für 8 Stunden",
+        "oneHour": "Für 1 Stunde",
+        "oneWeek": "Für 1 Woche",
+        "title": "{{name}} stummschalten?"
+      },
+      "pinnedBar": {
+        "count": "{{count}} angeheftet",
+        "unpin": "Nachricht lösen"
+      },
+      "preview": {
+        "attachment": "📎 Anhang",
+        "call": "📞 Anruf",
+        "file": "📎 Datei",
+        "gif": "GIF",
+        "location": "📍 Standort",
+        "photo": "🖼️ Foto",
+        "poll": "📊 Umfrage",
+        "story": "📖 Story",
+        "video": "🎥 Video",
+        "voice": "🎤 Sprachnachricht"
+      },
+      "replyBar": {
+        "cancel": "Antwort abbrechen",
+        "replyingTo": "Antwort an {{name}}"
+      },
+      "search": {
+        "close": "Schließen",
+        "empty": "Keine Nachrichten gefunden",
+        "hint": "Gib mindestens 2 Zeichen ein",
+        "notLoaded": "Diese Nachricht liegt weiter zurück. Scroll nach oben, um sie zu laden.",
+        "open": "Nachrichten durchsuchen",
+        "placeholder": "Diesen Chat durchsuchen",
+        "searching": "Suche läuft…",
+        "title": "Nachrichten mit {{name}} durchsuchen",
+        "unavailable": "Die Suche ist gerade nicht verfügbar",
+        "you": "Du"
+      },
+      "sendErrors": {
+        "blockedBody": "Du kannst dieser Person keine Nachrichten senden.",
+        "blockedTitle": "Nachricht nicht gesendet",
+        "capBody": "Du hast heute so viele neue Unterhaltungen begonnen wie möglich. Hol dir VIP, um so viele zu beginnen, wie du willst.",
+        "capTitle": "Limit für neue Unterhaltungen erreicht",
+        "dailyBody": "Du hast alle Nachrichten für heute verschickt. Hol dir VIP für unbegrenzte Nachrichten oder komm morgen wieder.",
+        "dailyTitle": "Tageslimit für Nachrichten erreicht",
+        "firstChatBody": "Du kannst 5 Nachrichten senden, bis die Person antwortet. Sobald sie antwortet, kannst du wieder schreiben.",
+        "firstChatTitle": "Warte auf eine Antwort",
+        "generic": "Nachricht nicht gesendet. Tippe auf „Erneut versuchen“.",
+        "goVip": "VIP holen",
+        "ok": "OK",
+        "reattach": "Hänge die Datei erneut an, um sie zu senden.",
+        "tooFast": "Du sendest Nachrichten zu schnell. Warte einen Moment."
+      },
+      "story": {
+        "replied": "Hat auf deine Story geantwortet",
+        "shared": "Hat eine Story geteilt",
+        "unavailable": "Diese Story ist nicht mehr verfügbar",
+        "youReplied": "Du hast auf die Story geantwortet",
+        "youShared": "Du hast eine Story geteilt"
+      },
+      "translation": {
+        "close": "Übersetzung schließen",
+        "failed": "Nachricht konnte nicht übersetzt werden",
+        "label": "Übersetzung · {{lang}}",
+        "save": "Ausdruck speichern",
+        "saveFailed": "Ausdruck konnte nicht gespeichert werden",
+        "saved": "In deiner Lernliste gespeichert",
+        "saving": "Wird gespeichert…",
+        "translating": "Wird übersetzt…"
+      },
+      "video": {
+        "badType": "Dieses Videoformat kann nicht gesendet werden. Versuch es mit MP4.",
+        "tooBig": "Dieses Video ist zu groß. Das Limit liegt bei {{mb}} MB.",
+        "tooLong": "Dieses Video ist zu lang. Das Limit liegt bei {{minutes}} Minuten."
+      },
+      "voice": {
+        "unavailable": "Sprachaufnahme ist nicht verfügbar. Prüfe die Mikrofonberechtigung für diese Website."
+      },
+      "wallpaper": {
+        "premiumInUse": "Dieser Chat nutzt ein Premium-Hintergrundbild aus der App. Wenn du ein anderes wählst, ändert es sich für euch beide."
+      },
+      "wave": {
+        "hi": "Hallo!"
+      }
+    }
+  },
+  "eng": {
+    "chatPage": {
+      "archive": {
+        "archive": "Archive chat",
+        "archived": "Archived on the website. The app still shows it.",
+        "back": "Back to chats",
+        "failed": "Couldn't update the archive",
+        "toggle": "Archived ({{count}})",
+        "unarchive": "Unarchive chat",
+        "unarchived": "Moved back to your chats"
+      },
+      "blocked": {
+        "byMe": "You blocked this person. Unblock them to send messages.",
+        "generic": "You can't send messages in this chat.",
+        "manage": "Manage"
+      },
+      "bookmarks": {
+        "addFailed": "Couldn't save the message",
+        "added": "Saved",
+        "attachment": "Attachment",
+        "close": "Close",
+        "empty": "No saved messages yet",
+        "error": "Couldn't load saved messages",
+        "loading": "Loading saved messages…",
+        "open": "Open chat",
+        "remove": "Remove from saved",
+        "removeFailed": "Couldn't remove it",
+        "removed": "Removed from saved messages",
+        "title": "Saved messages"
+      },
+      "call": {
+        "busy": "{{name}} was on another call",
+        "cancelledVideo": "Cancelled video call",
+        "cancelledVoice": "Cancelled voice call",
+        "declinedIncomingVideo": "Declined video call",
+        "declinedIncomingVoice": "Declined voice call",
+        "declinedOutgoingVideo": "Video call declined",
+        "declinedOutgoingVoice": "Voice call declined",
+        "incomingVideo": "Incoming video call",
+        "incomingVoice": "Incoming voice call",
+        "missedVideo": "Missed video call",
+        "missedVoice": "Missed voice call",
+        "noAnswerVideo": "Video call · No answer",
+        "noAnswerVoice": "Voice call · No answer",
+        "outgoingVideo": "Outgoing video call",
+        "outgoingVoice": "Outgoing voice call"
+      },
+      "connection": {
+        "kicked": "Chat is open somewhere else, so this tab stopped receiving messages.",
+        "reconnect": "Use here"
+      },
+      "correction": {
+        "accept": "Accept correction",
+        "acceptFailed": "Failed to accept correction",
+        "accepted": "Correction accepted — added to your learning record",
+        "accepting": "Accepting…",
+        "corrected": "{{name}} corrected",
+        "you": "You"
+      },
+      "correctionModal": {
+        "cancel": "Cancel",
+        "close": "Close",
+        "empty": "Please provide a correction",
+        "explanation": "Explanation",
+        "explanationPlaceholder": "Explain why this correction is helpful...",
+        "hint": "e.g., \"Use 'went' instead of 'goed' - irregular past tense\"",
+        "optional": "(optional)",
+        "original": "Original Message",
+        "submit": "Send Correction",
+        "title": "Language Correction",
+        "unchanged": "The correction should be different from the original",
+        "yours": "Your Correction",
+        "yoursPlaceholder": "Type the corrected version..."
+      },
+      "deleteMessage": {
+        "cancel": "Cancel",
+        "failed": "Couldn't delete the message. Try again.",
+        "forEveryone": "Delete for everyone",
+        "forMe": "Delete for me",
+        "placeholder": "This message was deleted",
+        "title": "Delete message?",
+        "tooLate": "You can only delete a message for everyone within 1 hour of sending it."
+      },
+      "editDialog": {
+        "cancel": "Cancel",
+        "failed": "Couldn't edit the message. Try again.",
+        "label": "Message",
+        "save": "Save",
+        "title": "Edit message",
+        "tooLate": "You can only edit a message within 15 minutes of sending it."
+      },
+      "editedLabel": "edited",
+      "forward": {
+        "close": "Close",
+        "empty": "No conversations found.",
+        "error": "Couldn't load conversations.",
+        "loading": "Loading conversations…",
+        "search": "Search",
+        "submit": "Forward",
+        "submitCount": "Forward ({{count}})",
+        "title": "Forward to",
+        "unknownUser": "Unknown"
+      },
+      "forwarded": "Forwarded",
+      "list": {
+        "loadError": "Couldn't load your conversations",
+        "loading": "Loading chats...",
+        "noMessages": "No messages yet",
+        "tryAgain": "Try again",
+        "typing": "typing..."
+      },
+      "location": {
+        "cancel": "Cancel",
+        "confirmTitle": "Share your location?",
+        "denied": "Location permission was denied",
+        "failed": "Couldn't get your location",
+        "open": "Open in Maps",
+        "send": "Send",
+        "sendFailed": "Couldn't send your location",
+        "share": "Share location",
+        "title": "Location",
+        "unsupported": "This browser can't share a location"
+      },
+      "mediaGallery": {
+        "back": "Back",
+        "emptyFiles": "No files shared yet",
+        "emptyPhotos": "No photos shared yet",
+        "emptyVideos": "No videos shared yet",
+        "error": "Error loading media",
+        "files": "Files",
+        "loading": "Loading media...",
+        "photos": "Photos",
+        "title": "Shared Media",
+        "unknownFile": "Unknown file",
+        "unknownSize": "Unknown size",
+        "videos": "Videos"
+      },
+      "menu": {
+        "bookmark": "Bookmark",
+        "close": "Close",
+        "copy": "Copy",
+        "delete": "Delete",
+        "edit": "Edit",
+        "forward": "Forward",
+        "listen": "Listen",
+        "pin": "Pin",
+        "reply": "Reply"
+      },
+      "mute": {
+        "always": "Until I turn it back on",
+        "cancel": "Cancel",
+        "eightHours": "For 8 hours",
+        "oneHour": "For 1 hour",
+        "oneWeek": "For 1 week",
+        "title": "Mute {{name}}?"
+      },
+      "pinnedBar": {
+        "count": "{{count}} pinned",
+        "unpin": "Unpin message"
+      },
+      "preview": {
+        "attachment": "📎 Attachment",
+        "call": "📞 Call",
+        "file": "📎 File",
+        "gif": "GIF",
+        "location": "📍 Location",
+        "photo": "🖼️ Photo",
+        "poll": "📊 Poll",
+        "story": "📖 Story",
+        "video": "🎥 Video",
+        "voice": "🎤 Voice message"
+      },
+      "replyBar": {
+        "cancel": "Cancel reply",
+        "replyingTo": "Replying to {{name}}"
+      },
+      "search": {
+        "close": "Close",
+        "empty": "No messages found",
+        "hint": "Type at least 2 characters",
+        "notLoaded": "That message is further back. Scroll up to load it.",
+        "open": "Search messages",
+        "placeholder": "Search this chat",
+        "searching": "Searching…",
+        "title": "Search messages with {{name}}",
+        "unavailable": "Search isn't available right now",
+        "you": "You"
+      },
+      "sendErrors": {
+        "blockedBody": "You can't send messages to this person.",
+        "blockedTitle": "Message not sent",
+        "capBody": "You've started as many new conversations as you can today. Go VIP to start as many as you want.",
+        "capTitle": "New conversation limit reached",
+        "dailyBody": "You've sent all your messages for today. Go VIP for unlimited messages, or come back tomorrow.",
+        "dailyTitle": "Daily message limit reached",
+        "firstChatBody": "You can send 5 messages until they reply. You can write again once they answer.",
+        "firstChatTitle": "Wait for a reply",
+        "generic": "Message not sent. Tap Retry to try again.",
+        "goVip": "Go VIP",
+        "ok": "OK",
+        "reattach": "Attach the file again to send it.",
+        "tooFast": "You're sending messages too fast. Wait a moment."
+      },
+      "story": {
+        "replied": "Replied to your story",
+        "shared": "Shared a story",
+        "unavailable": "This story is no longer available",
+        "youReplied": "You replied to their story",
+        "youShared": "You shared a story"
+      },
+      "translation": {
+        "close": "Close translation",
+        "failed": "Failed to translate message",
+        "label": "Translation · {{lang}}",
+        "save": "Save phrase",
+        "saveFailed": "Failed to save phrase",
+        "saved": "Saved to study queue",
+        "saving": "Saving…",
+        "translating": "Translating…"
+      },
+      "video": {
+        "badType": "This video format can't be sent. Try an MP4.",
+        "tooBig": "This video is too large. The limit is {{mb}} MB.",
+        "tooLong": "This video is too long. The limit is {{minutes}} minutes."
+      },
+      "voice": {
+        "unavailable": "Voice recording isn't available. Check the microphone permission for this site."
+      },
+      "wallpaper": {
+        "premiumInUse": "This chat uses a Premium wallpaper from the app. Choosing another one changes it for both of you."
+      },
+      "wave": {
+        "hi": "Hi!"
+      }
+    }
+  },
+  "es": {
+    "chatPage": {
+      "archive": {
+        "archive": "Archivar chat",
+        "archived": "Archivado en el sitio web. La app lo sigue mostrando.",
+        "back": "Volver a los chats",
+        "failed": "No se pudo actualizar el archivo",
+        "toggle": "Archivados ({{count}})",
+        "unarchive": "Desarchivar chat",
+        "unarchived": "Se movió de nuevo a tus chats"
+      },
+      "blocked": {
+        "byMe": "Bloqueaste a esta persona. Desbloquéala para enviarle mensajes.",
+        "generic": "No puedes enviar mensajes en este chat.",
+        "manage": "Gestionar"
+      },
+      "bookmarks": {
+        "addFailed": "No se pudo guardar el mensaje",
+        "added": "Guardado",
+        "attachment": "Archivo adjunto",
+        "close": "Cerrar",
+        "empty": "Aún no tienes mensajes guardados",
+        "error": "No se pudieron cargar los mensajes guardados",
+        "loading": "Cargando mensajes guardados…",
+        "open": "Abrir chat",
+        "remove": "Quitar de guardados",
+        "removeFailed": "No se pudo quitar",
+        "removed": "Se quitó de los mensajes guardados",
+        "title": "Mensajes guardados"
+      },
+      "call": {
+        "busy": "{{name}} estaba en otra llamada",
+        "cancelledVideo": "Videollamada cancelada",
+        "cancelledVoice": "Llamada de voz cancelada",
+        "declinedIncomingVideo": "Videollamada rechazada",
+        "declinedIncomingVoice": "Llamada de voz rechazada",
+        "declinedOutgoingVideo": "Rechazaron la videollamada",
+        "declinedOutgoingVoice": "Rechazaron la llamada de voz",
+        "incomingVideo": "Videollamada entrante",
+        "incomingVoice": "Llamada de voz entrante",
+        "missedVideo": "Videollamada perdida",
+        "missedVoice": "Llamada de voz perdida",
+        "noAnswerVideo": "Videollamada · Sin respuesta",
+        "noAnswerVoice": "Llamada de voz · Sin respuesta",
+        "outgoingVideo": "Videollamada saliente",
+        "outgoingVoice": "Llamada de voz saliente"
+      },
+      "connection": {
+        "kicked": "El chat está abierto en otro lugar, así que esta pestaña dejó de recibir mensajes.",
+        "reconnect": "Usar aquí"
+      },
+      "correction": {
+        "accept": "Aceptar corrección",
+        "acceptFailed": "No se pudo aceptar la corrección",
+        "accepted": "Corrección aceptada — añadida a tu registro de aprendizaje",
+        "accepting": "Aceptando…",
+        "corrected": "{{name}} corrigió",
+        "you": "Tú"
+      },
+      "correctionModal": {
+        "cancel": "Cancelar",
+        "close": "Cerrar",
+        "empty": "Escribe una corrección",
+        "explanation": "Explicación",
+        "explanationPlaceholder": "Explica por qué esta corrección es útil...",
+        "hint": "p. ej., \"Usa 'went' en lugar de 'goed': pasado irregular\"",
+        "optional": "(opcional)",
+        "original": "Mensaje original",
+        "submit": "Enviar corrección",
+        "title": "Corrección de idioma",
+        "unchanged": "La corrección debe ser diferente del original",
+        "yours": "Tu corrección",
+        "yoursPlaceholder": "Escribe la versión corregida..."
+      },
+      "deleteMessage": {
+        "cancel": "Cancelar",
+        "failed": "No se pudo eliminar el mensaje. Inténtalo de nuevo.",
+        "forEveryone": "Eliminar para todos",
+        "forMe": "Eliminar para mí",
+        "placeholder": "Se eliminó este mensaje",
+        "title": "¿Eliminar mensaje?",
+        "tooLate": "Solo puedes eliminar un mensaje para todos durante la primera hora después de enviarlo."
+      },
+      "editDialog": {
+        "cancel": "Cancelar",
+        "failed": "No se pudo editar el mensaje. Inténtalo de nuevo.",
+        "label": "Mensaje",
+        "save": "Guardar",
+        "title": "Editar mensaje",
+        "tooLate": "Solo puedes editar un mensaje durante los 15 minutos después de enviarlo."
+      },
+      "editedLabel": "editado",
+      "forward": {
+        "close": "Cerrar",
+        "empty": "No se encontraron conversaciones.",
+        "error": "No se pudieron cargar las conversaciones.",
+        "loading": "Cargando conversaciones…",
+        "search": "Buscar",
+        "submit": "Reenviar",
+        "submitCount": "Reenviar ({{count}})",
+        "title": "Reenviar a",
+        "unknownUser": "Desconocido"
+      },
+      "forwarded": "Reenviado",
+      "list": {
+        "loadError": "No se pudieron cargar tus conversaciones",
+        "loading": "Cargando chats...",
+        "noMessages": "Aún no hay mensajes",
+        "tryAgain": "Reintentar",
+        "typing": "escribiendo..."
+      },
+      "location": {
+        "cancel": "Cancelar",
+        "confirmTitle": "¿Compartir tu ubicación?",
+        "denied": "Se denegó el permiso de ubicación",
+        "failed": "No se pudo obtener tu ubicación",
+        "open": "Abrir en Mapas",
+        "send": "Enviar",
+        "sendFailed": "No se pudo enviar tu ubicación",
+        "share": "Compartir ubicación",
+        "title": "Ubicación",
+        "unsupported": "Este navegador no puede compartir la ubicación"
+      },
+      "mediaGallery": {
+        "back": "Volver",
+        "emptyFiles": "Aún no se han compartido archivos",
+        "emptyPhotos": "Aún no se han compartido fotos",
+        "emptyVideos": "Aún no se han compartido videos",
+        "error": "Error al cargar los archivos multimedia",
+        "files": "Archivos",
+        "loading": "Cargando multimedia...",
+        "photos": "Fotos",
+        "title": "Multimedia compartida",
+        "unknownFile": "Archivo desconocido",
+        "unknownSize": "Tamaño desconocido",
+        "videos": "Videos"
+      },
+      "menu": {
+        "bookmark": "Guardar",
+        "close": "Cerrar",
+        "copy": "Copiar",
+        "delete": "Eliminar",
+        "edit": "Editar",
+        "forward": "Reenviar",
+        "listen": "Escuchar",
+        "pin": "Fijar",
+        "reply": "Responder"
+      },
+      "mute": {
+        "always": "Hasta que lo reactive",
+        "cancel": "Cancelar",
+        "eightHours": "Durante 8 horas",
+        "oneHour": "Durante 1 hora",
+        "oneWeek": "Durante 1 semana",
+        "title": "¿Silenciar a {{name}}?"
+      },
+      "pinnedBar": {
+        "count": "Fijados: {{count}}",
+        "unpin": "Desfijar mensaje"
+      },
+      "preview": {
+        "attachment": "📎 Archivo adjunto",
+        "call": "📞 Llamada",
+        "file": "📎 Archivo",
+        "gif": "GIF",
+        "location": "📍 Ubicación",
+        "photo": "🖼️ Foto",
+        "poll": "📊 Encuesta",
+        "story": "📖 Historia",
+        "video": "🎥 Video",
+        "voice": "🎤 Mensaje de voz"
+      },
+      "replyBar": {
+        "cancel": "Cancelar respuesta",
+        "replyingTo": "Respondiendo a {{name}}"
+      },
+      "search": {
+        "close": "Cerrar",
+        "empty": "No se encontraron mensajes",
+        "hint": "Escribe al menos 2 caracteres",
+        "notLoaded": "Ese mensaje es más antiguo. Desplázate hacia arriba para cargarlo.",
+        "open": "Buscar mensajes",
+        "placeholder": "Buscar en este chat",
+        "searching": "Buscando…",
+        "title": "Buscar mensajes con {{name}}",
+        "unavailable": "La búsqueda no está disponible en este momento",
+        "you": "Tú"
+      },
+      "sendErrors": {
+        "blockedBody": "No puedes enviar mensajes a esta persona.",
+        "blockedTitle": "Mensaje no enviado",
+        "capBody": "Ya iniciaste todas las conversaciones nuevas que puedes hoy. Hazte VIP para iniciar todas las que quieras.",
+        "capTitle": "Límite de conversaciones nuevas alcanzado",
+        "dailyBody": "Ya enviaste todos tus mensajes de hoy. Hazte VIP para tener mensajes ilimitados, o vuelve mañana.",
+        "dailyTitle": "Límite diario de mensajes alcanzado",
+        "firstChatBody": "Puedes enviar 5 mensajes hasta que te respondan. Podrás escribir de nuevo cuando contesten.",
+        "firstChatTitle": "Espera una respuesta",
+        "generic": "Mensaje no enviado. Toca Reintentar para volver a intentarlo.",
+        "goVip": "Hazte VIP",
+        "ok": "OK",
+        "reattach": "Vuelve a adjuntar el archivo para enviarlo.",
+        "tooFast": "Estás enviando mensajes demasiado rápido. Espera un momento."
+      },
+      "story": {
+        "replied": "Respondió a tu historia",
+        "shared": "Compartió una historia",
+        "unavailable": "Esta historia ya no está disponible",
+        "youReplied": "Respondiste a su historia",
+        "youShared": "Compartiste una historia"
+      },
+      "translation": {
+        "close": "Cerrar traducción",
+        "failed": "No se pudo traducir el mensaje",
+        "label": "Traducción · {{lang}}",
+        "save": "Guardar frase",
+        "saveFailed": "No se pudo guardar la frase",
+        "saved": "Guardada en tu cola de estudio",
+        "saving": "Guardando…",
+        "translating": "Traduciendo…"
+      },
+      "video": {
+        "badType": "Este formato de video no se puede enviar. Prueba con un MP4.",
+        "tooBig": "Este video es demasiado grande. El límite es de {{mb}} MB.",
+        "tooLong": "Este video es demasiado largo. El límite es de {{minutes}} minutos."
+      },
+      "voice": {
+        "unavailable": "La grabación de voz no está disponible. Revisa el permiso del micrófono para este sitio."
+      },
+      "wallpaper": {
+        "premiumInUse": "Este chat usa un fondo Premium de la app. Si eliges otro, cambiará para los dos."
+      },
+      "wave": {
+        "hi": "¡Hola!"
+      }
+    }
+  },
+  "fr": {
+    "chatPage": {
+      "archive": {
+        "archive": "Archiver la discussion",
+        "archived": "Archivée sur le site. L'application l'affiche toujours.",
+        "back": "Retour aux discussions",
+        "failed": "Impossible de modifier l'archive",
+        "toggle": "Archivées ({{count}})",
+        "unarchive": "Désarchiver la discussion",
+        "unarchived": "Remise dans vos discussions"
+      },
+      "blocked": {
+        "byMe": "Vous avez bloqué cette personne. Débloquez-la pour lui envoyer des messages.",
+        "generic": "Vous ne pouvez pas envoyer de messages dans cette discussion.",
+        "manage": "Gérer"
+      },
+      "bookmarks": {
+        "addFailed": "Impossible d'enregistrer le message",
+        "added": "Enregistré",
+        "attachment": "Pièce jointe",
+        "close": "Fermer",
+        "empty": "Aucun message enregistré pour le moment",
+        "error": "Impossible de charger les messages enregistrés",
+        "loading": "Chargement des messages enregistrés…",
+        "open": "Ouvrir la discussion",
+        "remove": "Retirer des enregistrés",
+        "removeFailed": "Impossible de le retirer",
+        "removed": "Retiré des messages enregistrés",
+        "title": "Messages enregistrés"
+      },
+      "call": {
+        "busy": "{{name}} était déjà en appel",
+        "cancelledVideo": "Appel vidéo annulé",
+        "cancelledVoice": "Appel vocal annulé",
+        "declinedIncomingVideo": "Appel vidéo refusé",
+        "declinedIncomingVoice": "Appel vocal refusé",
+        "declinedOutgoingVideo": "Appel vidéo refusé par le correspondant",
+        "declinedOutgoingVoice": "Appel vocal refusé par le correspondant",
+        "incomingVideo": "Appel vidéo entrant",
+        "incomingVoice": "Appel vocal entrant",
+        "missedVideo": "Appel vidéo manqué",
+        "missedVoice": "Appel vocal manqué",
+        "noAnswerVideo": "Appel vidéo · Pas de réponse",
+        "noAnswerVoice": "Appel vocal · Pas de réponse",
+        "outgoingVideo": "Appel vidéo sortant",
+        "outgoingVoice": "Appel vocal sortant"
+      },
+      "connection": {
+        "kicked": "La messagerie est ouverte ailleurs, cet onglet ne reçoit donc plus de messages.",
+        "reconnect": "Utiliser ici"
+      },
+      "correction": {
+        "accept": "Accepter la correction",
+        "acceptFailed": "Impossible d'accepter la correction",
+        "accepted": "Correction acceptée — ajoutée à votre historique d'apprentissage",
+        "accepting": "Acceptation…",
+        "corrected": "{{name}} a corrigé",
+        "you": "Vous"
+      },
+      "correctionModal": {
+        "cancel": "Annuler",
+        "close": "Fermer",
+        "empty": "Veuillez saisir une correction",
+        "explanation": "Explication",
+        "explanationPlaceholder": "Expliquez pourquoi cette correction est utile...",
+        "hint": "ex. : « Utilisez 'went' au lieu de 'goed' : passé irrégulier »",
+        "optional": "(facultatif)",
+        "original": "Message original",
+        "submit": "Envoyer la correction",
+        "title": "Correction linguistique",
+        "unchanged": "La correction doit être différente de l'original",
+        "yours": "Votre correction",
+        "yoursPlaceholder": "Saisissez la version corrigée..."
+      },
+      "deleteMessage": {
+        "cancel": "Annuler",
+        "failed": "Impossible de supprimer le message. Réessayez.",
+        "forEveryone": "Supprimer pour tout le monde",
+        "forMe": "Supprimer pour moi",
+        "placeholder": "Ce message a été supprimé",
+        "title": "Supprimer le message ?",
+        "tooLate": "Vous ne pouvez supprimer un message pour tout le monde que dans l'heure qui suit son envoi."
+      },
+      "editDialog": {
+        "cancel": "Annuler",
+        "failed": "Impossible de modifier le message. Réessayez.",
+        "label": "Message",
+        "save": "Enregistrer",
+        "title": "Modifier le message",
+        "tooLate": "Vous ne pouvez modifier un message que dans les 15 minutes qui suivent son envoi."
+      },
+      "editedLabel": "modifié",
+      "forward": {
+        "close": "Fermer",
+        "empty": "Aucune conversation trouvée.",
+        "error": "Impossible de charger les conversations.",
+        "loading": "Chargement des conversations…",
+        "search": "Rechercher",
+        "submit": "Transférer",
+        "submitCount": "Transférer ({{count}})",
+        "title": "Transférer à",
+        "unknownUser": "Inconnu"
+      },
+      "forwarded": "Transféré",
+      "list": {
+        "loadError": "Impossible de charger vos conversations",
+        "loading": "Chargement des discussions...",
+        "noMessages": "Pas encore de messages",
+        "tryAgain": "Réessayer",
+        "typing": "écrit..."
+      },
+      "location": {
+        "cancel": "Annuler",
+        "confirmTitle": "Partager votre position ?",
+        "denied": "L'autorisation de localisation a été refusée",
+        "failed": "Impossible d'obtenir votre position",
+        "open": "Ouvrir dans Plans",
+        "send": "Envoyer",
+        "sendFailed": "Impossible d'envoyer votre position",
+        "share": "Partager la position",
+        "title": "Position",
+        "unsupported": "Ce navigateur ne peut pas partager de position"
+      },
+      "mediaGallery": {
+        "back": "Retour",
+        "emptyFiles": "Aucun fichier partagé pour le moment",
+        "emptyPhotos": "Aucune photo partagée pour le moment",
+        "emptyVideos": "Aucune vidéo partagée pour le moment",
+        "error": "Erreur lors du chargement des médias",
+        "files": "Fichiers",
+        "loading": "Chargement des médias...",
+        "photos": "Photos",
+        "title": "Médias partagés",
+        "unknownFile": "Fichier inconnu",
+        "unknownSize": "Taille inconnue",
+        "videos": "Vidéos"
+      },
+      "menu": {
+        "bookmark": "Enregistrer",
+        "close": "Fermer",
+        "copy": "Copier",
+        "delete": "Supprimer",
+        "edit": "Modifier",
+        "forward": "Transférer",
+        "listen": "Écouter",
+        "pin": "Épingler",
+        "reply": "Répondre"
+      },
+      "mute": {
+        "always": "Jusqu'à ce que je les réactive",
+        "cancel": "Annuler",
+        "eightHours": "Pendant 8 heures",
+        "oneHour": "Pendant 1 heure",
+        "oneWeek": "Pendant 1 semaine",
+        "title": "Mettre {{name}} en sourdine ?"
+      },
+      "pinnedBar": {
+        "count": "Épinglés : {{count}}",
+        "unpin": "Désépingler le message"
+      },
+      "preview": {
+        "attachment": "📎 Pièce jointe",
+        "call": "📞 Appel",
+        "file": "📎 Fichier",
+        "gif": "GIF",
+        "location": "📍 Position",
+        "photo": "🖼️ Photo",
+        "poll": "📊 Sondage",
+        "story": "📖 Story",
+        "video": "🎥 Vidéo",
+        "voice": "🎤 Message vocal"
+      },
+      "replyBar": {
+        "cancel": "Annuler la réponse",
+        "replyingTo": "Réponse à {{name}}"
+      },
+      "search": {
+        "close": "Fermer",
+        "empty": "Aucun message trouvé",
+        "hint": "Saisissez au moins 2 caractères",
+        "notLoaded": "Ce message est plus ancien. Faites défiler vers le haut pour le charger.",
+        "open": "Rechercher des messages",
+        "placeholder": "Rechercher dans cette discussion",
+        "searching": "Recherche…",
+        "title": "Rechercher des messages avec {{name}}",
+        "unavailable": "La recherche n'est pas disponible pour le moment",
+        "you": "Vous"
+      },
+      "sendErrors": {
+        "blockedBody": "Vous ne pouvez pas envoyer de messages à cette personne.",
+        "blockedTitle": "Message non envoyé",
+        "capBody": "Vous avez démarré le nombre maximal de nouvelles conversations pour aujourd'hui. Passez VIP pour en démarrer autant que vous voulez.",
+        "capTitle": "Limite de nouvelles conversations atteinte",
+        "dailyBody": "Vous avez envoyé tous vos messages du jour. Passez VIP pour des messages illimités, ou revenez demain.",
+        "dailyTitle": "Limite quotidienne de messages atteinte",
+        "firstChatBody": "Vous pouvez envoyer 5 messages tant que la personne n'a pas répondu. Vous pourrez réécrire dès qu'elle répondra.",
+        "firstChatTitle": "Attendez une réponse",
+        "generic": "Message non envoyé. Appuyez sur Réessayer pour recommencer.",
+        "goVip": "Passer VIP",
+        "ok": "OK",
+        "reattach": "Joignez de nouveau le fichier pour l'envoyer.",
+        "tooFast": "Vous envoyez des messages trop vite. Patientez un instant."
+      },
+      "story": {
+        "replied": "A répondu à votre story",
+        "shared": "A partagé une story",
+        "unavailable": "Cette story n'est plus disponible",
+        "youReplied": "Vous avez répondu à sa story",
+        "youShared": "Vous avez partagé une story"
+      },
+      "translation": {
+        "close": "Fermer la traduction",
+        "failed": "Impossible de traduire le message",
+        "label": "Traduction · {{lang}}",
+        "save": "Enregistrer l'expression",
+        "saveFailed": "Impossible d'enregistrer l'expression",
+        "saved": "Ajoutée à votre file de révision",
+        "saving": "Enregistrement…",
+        "translating": "Traduction…"
+      },
+      "video": {
+        "badType": "Ce format vidéo ne peut pas être envoyé. Essayez un MP4.",
+        "tooBig": "Cette vidéo est trop lourde. La limite est de {{mb}} MB.",
+        "tooLong": "Cette vidéo est trop longue. La limite est de {{minutes}} minutes."
+      },
+      "voice": {
+        "unavailable": "L'enregistrement vocal n'est pas disponible. Vérifiez l'autorisation du micro pour ce site."
+      },
+      "wallpaper": {
+        "premiumInUse": "Cette discussion utilise un fond d'écran Premium de l'application. En choisir un autre le change pour vous deux."
+      },
+      "wave": {
+        "hi": "Salut !"
+      }
+    }
+  },
+  "hi": {
+    "chatPage": {
+      "archive": {
+        "archive": "चैट आर्काइव करें",
+        "archived": "वेबसाइट पर आर्काइव हो गई। ऐप में यह अब भी दिखेगी।",
+        "back": "चैट पर वापस",
+        "failed": "आर्काइव अपडेट नहीं हो सका",
+        "toggle": "आर्काइव ({{count}})",
+        "unarchive": "चैट अनआर्काइव करें",
+        "unarchived": "आपकी चैट में वापस भेज दी गई"
+      },
+      "blocked": {
+        "byMe": "आपने इस व्यक्ति को ब्लॉक किया है। संदेश भेजने के लिए उन्हें अनब्लॉक करें।",
+        "generic": "आप इस चैट में संदेश नहीं भेज सकते।",
+        "manage": "प्रबंधित करें"
+      },
+      "bookmarks": {
+        "addFailed": "संदेश सहेजा नहीं जा सका",
+        "added": "सहेजा गया",
+        "attachment": "अटैचमेंट",
+        "close": "बंद करें",
+        "empty": "अभी कोई सहेजा गया संदेश नहीं",
+        "error": "सहेजे गए संदेश लोड नहीं हो सके",
+        "loading": "सहेजे गए संदेश लोड हो रहे हैं…",
+        "open": "चैट खोलें",
+        "remove": "सहेजे गए से हटाएँ",
+        "removeFailed": "इसे हटाया नहीं जा सका",
+        "removed": "सहेजे गए संदेशों से हटा दिया गया",
+        "title": "सहेजे गए संदेश"
+      },
+      "call": {
+        "busy": "{{name}} दूसरी कॉल पर थे",
+        "cancelledVideo": "रद्द की गई वीडियो कॉल",
+        "cancelledVoice": "रद्द की गई वॉइस कॉल",
+        "declinedIncomingVideo": "अस्वीकार की गई वीडियो कॉल",
+        "declinedIncomingVoice": "अस्वीकार की गई वॉइस कॉल",
+        "declinedOutgoingVideo": "वीडियो कॉल अस्वीकार कर दी गई",
+        "declinedOutgoingVoice": "वॉइस कॉल अस्वीकार कर दी गई",
+        "incomingVideo": "आने वाली वीडियो कॉल",
+        "incomingVoice": "आने वाली वॉइस कॉल",
+        "missedVideo": "मिस्ड वीडियो कॉल",
+        "missedVoice": "मिस्ड वॉइस कॉल",
+        "noAnswerVideo": "वीडियो कॉल · कोई जवाब नहीं",
+        "noAnswerVoice": "वॉइस कॉल · कोई जवाब नहीं",
+        "outgoingVideo": "जाने वाली वीडियो कॉल",
+        "outgoingVoice": "जाने वाली वॉइस कॉल"
+      },
+      "connection": {
+        "kicked": "चैट कहीं और खुली है, इसलिए इस टैब में संदेश आना बंद हो गया है।",
+        "reconnect": "यहाँ इस्तेमाल करें"
+      },
+      "correction": {
+        "accept": "सुधार स्वीकार करें",
+        "acceptFailed": "सुधार स्वीकार नहीं हो सका",
+        "accepted": "सुधार स्वीकार किया गया — आपके लर्निंग रिकॉर्ड में जोड़ा गया",
+        "accepting": "स्वीकार किया जा रहा है…",
+        "corrected": "{{name}} ने सुधारा",
+        "you": "आप"
+      },
+      "correctionModal": {
+        "cancel": "रद्द करें",
+        "close": "बंद करें",
+        "empty": "कृपया सुधार लिखें",
+        "explanation": "स्पष्टीकरण",
+        "explanationPlaceholder": "बताएँ कि यह सुधार क्यों उपयोगी है...",
+        "hint": "उदा., \"'goed' की जगह 'went' इस्तेमाल करें - अनियमित भूतकाल\"",
+        "optional": "(वैकल्पिक)",
+        "original": "मूल संदेश",
+        "submit": "सुधार भेजें",
+        "title": "भाषा सुधार",
+        "unchanged": "सुधार मूल संदेश से अलग होना चाहिए",
+        "yours": "आपका सुधार",
+        "yoursPlaceholder": "सुधरा हुआ रूप लिखें..."
+      },
+      "deleteMessage": {
+        "cancel": "रद्द करें",
+        "failed": "संदेश हटाया नहीं जा सका। फिर से कोशिश करें।",
+        "forEveryone": "सभी के लिए हटाएँ",
+        "forMe": "मेरे लिए हटाएँ",
+        "placeholder": "यह संदेश हटा दिया गया",
+        "title": "संदेश हटाएँ?",
+        "tooLate": "आप भेजने के 1 घंटे के अंदर ही संदेश को सभी के लिए हटा सकते हैं।"
+      },
+      "editDialog": {
+        "cancel": "रद्द करें",
+        "failed": "संदेश संपादित नहीं हो सका। फिर से कोशिश करें।",
+        "label": "संदेश",
+        "save": "सहेजें",
+        "title": "संदेश संपादित करें",
+        "tooLate": "आप भेजने के 15 मिनट के अंदर ही संदेश संपादित कर सकते हैं।"
+      },
+      "editedLabel": "संपादित",
+      "forward": {
+        "close": "बंद करें",
+        "empty": "कोई बातचीत नहीं मिली।",
+        "error": "बातचीत लोड नहीं हो सकी।",
+        "loading": "बातचीत लोड हो रही है…",
+        "search": "खोजें",
+        "submit": "फ़ॉरवर्ड करें",
+        "submitCount": "फ़ॉरवर्ड करें ({{count}})",
+        "title": "किसे फ़ॉरवर्ड करें",
+        "unknownUser": "अज्ञात"
+      },
+      "forwarded": "फ़ॉरवर्ड किया गया",
+      "list": {
+        "loadError": "आपकी बातचीत लोड नहीं हो सकी",
+        "loading": "चैट लोड हो रही हैं...",
+        "noMessages": "अभी कोई संदेश नहीं",
+        "tryAgain": "फिर कोशिश करें",
+        "typing": "टाइप कर रहा है..."
+      },
+      "location": {
+        "cancel": "रद्द करें",
+        "confirmTitle": "अपनी लोकेशन शेयर करें?",
+        "denied": "लोकेशन की अनुमति नहीं दी गई",
+        "failed": "आपकी लोकेशन नहीं मिल सकी",
+        "open": "मैप्स में खोलें",
+        "send": "भेजें",
+        "sendFailed": "आपकी लोकेशन भेजी नहीं जा सकी",
+        "share": "लोकेशन शेयर करें",
+        "title": "लोकेशन",
+        "unsupported": "यह ब्राउज़र लोकेशन शेयर नहीं कर सकता"
+      },
+      "mediaGallery": {
+        "back": "वापस",
+        "emptyFiles": "अभी कोई फ़ाइल साझा नहीं की गई",
+        "emptyPhotos": "अभी कोई फ़ोटो साझा नहीं की गई",
+        "emptyVideos": "अभी कोई वीडियो साझा नहीं किया गया",
+        "error": "मीडिया लोड करने में त्रुटि",
+        "files": "फ़ाइलें",
+        "loading": "मीडिया लोड हो रहा है...",
+        "photos": "फ़ोटो",
+        "title": "साझा की गई मीडिया",
+        "unknownFile": "अज्ञात फ़ाइल",
+        "unknownSize": "अज्ञात आकार",
+        "videos": "वीडियो"
+      },
+      "menu": {
+        "bookmark": "सहेजें",
+        "close": "बंद करें",
+        "copy": "कॉपी करें",
+        "delete": "हटाएँ",
+        "edit": "संपादित करें",
+        "forward": "फ़ॉरवर्ड करें",
+        "listen": "सुनें",
+        "pin": "पिन करें",
+        "reply": "जवाब दें"
+      },
+      "mute": {
+        "always": "जब तक मैं फिर से चालू न करूँ",
+        "cancel": "रद्द करें",
+        "eightHours": "8 घंटे के लिए",
+        "oneHour": "1 घंटे के लिए",
+        "oneWeek": "1 हफ़्ते के लिए",
+        "title": "{{name}} को म्यूट करें?"
+      },
+      "pinnedBar": {
+        "count": "{{count}} पिन किए गए",
+        "unpin": "संदेश अनपिन करें"
+      },
+      "preview": {
+        "attachment": "📎 अटैचमेंट",
+        "call": "📞 कॉल",
+        "file": "📎 फ़ाइल",
+        "gif": "GIF",
+        "location": "📍 लोकेशन",
+        "photo": "🖼️ फ़ोटो",
+        "poll": "📊 पोल",
+        "story": "📖 स्टोरी",
+        "video": "🎥 वीडियो",
+        "voice": "🎤 वॉइस संदेश"
+      },
+      "replyBar": {
+        "cancel": "जवाब रद्द करें",
+        "replyingTo": "{{name}} को जवाब दे रहे हैं"
+      },
+      "search": {
+        "close": "बंद करें",
+        "empty": "कोई संदेश नहीं मिला",
+        "hint": "कम से कम 2 अक्षर लिखें",
+        "notLoaded": "वह संदेश और पीछे है। उसे लोड करने के लिए ऊपर स्क्रॉल करें।",
+        "open": "संदेश खोजें",
+        "placeholder": "इस चैट में खोजें",
+        "searching": "खोजा जा रहा है…",
+        "title": "{{name}} के साथ संदेश खोजें",
+        "unavailable": "खोज अभी उपलब्ध नहीं है",
+        "you": "आप"
+      },
+      "sendErrors": {
+        "blockedBody": "आप इस व्यक्ति को संदेश नहीं भेज सकते।",
+        "blockedTitle": "संदेश नहीं भेजा गया",
+        "capBody": "आज आप जितनी नई बातचीत शुरू कर सकते थे, कर चुके हैं। जितनी चाहें उतनी शुरू करने के लिए VIP लें।",
+        "capTitle": "नई बातचीत की सीमा पूरी हुई",
+        "dailyBody": "आपने आज के सारे संदेश भेज दिए हैं। असीमित संदेशों के लिए VIP लें, या कल फिर आएँ।",
+        "dailyTitle": "दैनिक संदेश सीमा पूरी हुई",
+        "firstChatBody": "जवाब आने तक आप 5 संदेश भेज सकते हैं। उनके जवाब देने के बाद आप फिर लिख सकते हैं।",
+        "firstChatTitle": "जवाब का इंतज़ार करें",
+        "generic": "संदेश नहीं भेजा गया। फिर से कोशिश करने के लिए \"फिर से भेजें\" पर टैप करें।",
+        "goVip": "VIP लें",
+        "ok": "ठीक है",
+        "reattach": "भेजने के लिए फ़ाइल फिर से अटैच करें।",
+        "tooFast": "आप बहुत तेज़ी से संदेश भेज रहे हैं। थोड़ा रुकें।"
+      },
+      "story": {
+        "replied": "आपकी स्टोरी का जवाब दिया",
+        "shared": "एक स्टोरी शेयर की",
+        "unavailable": "यह स्टोरी अब उपलब्ध नहीं है",
+        "youReplied": "आपने उनकी स्टोरी का जवाब दिया",
+        "youShared": "आपने एक स्टोरी शेयर की"
+      },
+      "translation": {
+        "close": "अनुवाद बंद करें",
+        "failed": "संदेश का अनुवाद नहीं हो सका",
+        "label": "अनुवाद · {{lang}}",
+        "save": "वाक्यांश सहेजें",
+        "saveFailed": "वाक्यांश सहेजा नहीं जा सका",
+        "saved": "अध्ययन सूची में सहेजा गया",
+        "saving": "सहेजा जा रहा है…",
+        "translating": "अनुवाद हो रहा है…"
+      },
+      "video": {
+        "badType": "यह वीडियो फ़ॉर्मैट भेजा नहीं जा सकता। MP4 आज़माएँ।",
+        "tooBig": "यह वीडियो बहुत बड़ा है। सीमा {{mb}} MB है।",
+        "tooLong": "यह वीडियो बहुत लंबा है। सीमा {{minutes}} मिनट है।"
+      },
+      "voice": {
+        "unavailable": "वॉइस रिकॉर्डिंग उपलब्ध नहीं है। इस साइट के लिए माइक्रोफ़ोन की अनुमति जाँचें।"
+      },
+      "wallpaper": {
+        "premiumInUse": "यह चैट ऐप का Premium वॉलपेपर इस्तेमाल करती है। कोई दूसरा चुनने पर यह आप दोनों के लिए बदल जाएगा।"
+      },
+      "wave": {
+        "hi": "नमस्ते!"
+      }
+    }
+  },
+  "id": {
+    "chatPage": {
+      "archive": {
+        "archive": "Arsipkan obrolan",
+        "archived": "Diarsipkan di situs web. Di aplikasi masih ditampilkan.",
+        "back": "Kembali ke obrolan",
+        "failed": "Gagal memperbarui arsip",
+        "toggle": "Diarsipkan ({{count}})",
+        "unarchive": "Keluarkan dari arsip",
+        "unarchived": "Dikembalikan ke daftar obrolan"
+      },
+      "blocked": {
+        "byMe": "Kamu memblokir orang ini. Buka blokir untuk mengirim pesan.",
+        "generic": "Kamu tidak bisa mengirim pesan di obrolan ini.",
+        "manage": "Kelola"
+      },
+      "bookmarks": {
+        "addFailed": "Gagal menyimpan pesan",
+        "added": "Disimpan",
+        "attachment": "Lampiran",
+        "close": "Tutup",
+        "empty": "Belum ada pesan tersimpan",
+        "error": "Gagal memuat pesan tersimpan",
+        "loading": "Memuat pesan tersimpan…",
+        "open": "Buka obrolan",
+        "remove": "Hapus dari tersimpan",
+        "removeFailed": "Gagal menghapus",
+        "removed": "Dihapus dari pesan tersimpan",
+        "title": "Pesan tersimpan"
+      },
+      "call": {
+        "busy": "{{name}} sedang dalam panggilan lain",
+        "cancelledVideo": "Panggilan video dibatalkan",
+        "cancelledVoice": "Panggilan suara dibatalkan",
+        "declinedIncomingVideo": "Panggilan video ditolak",
+        "declinedIncomingVoice": "Panggilan suara ditolak",
+        "declinedOutgoingVideo": "Panggilan video ditolak",
+        "declinedOutgoingVoice": "Panggilan suara ditolak",
+        "incomingVideo": "Panggilan video masuk",
+        "incomingVoice": "Panggilan suara masuk",
+        "missedVideo": "Panggilan video tak terjawab",
+        "missedVoice": "Panggilan suara tak terjawab",
+        "noAnswerVideo": "Panggilan video · Tidak dijawab",
+        "noAnswerVoice": "Panggilan suara · Tidak dijawab",
+        "outgoingVideo": "Panggilan video keluar",
+        "outgoingVoice": "Panggilan suara keluar"
+      },
+      "connection": {
+        "kicked": "Obrolan dibuka di tempat lain, jadi tab ini berhenti menerima pesan.",
+        "reconnect": "Gunakan di sini"
+      },
+      "correction": {
+        "accept": "Terima koreksi",
+        "acceptFailed": "Gagal menerima koreksi",
+        "accepted": "Koreksi diterima — ditambahkan ke catatan belajarmu",
+        "accepting": "Menerima…",
+        "corrected": "{{name}} mengoreksi",
+        "you": "Kamu"
+      },
+      "correctionModal": {
+        "cancel": "Batal",
+        "close": "Tutup",
+        "empty": "Tuliskan koreksinya",
+        "explanation": "Penjelasan",
+        "explanationPlaceholder": "Jelaskan kenapa koreksi ini membantu...",
+        "hint": "mis. \"Pakai 'went', bukan 'goed' - bentuk lampau tidak beraturan\"",
+        "optional": "(opsional)",
+        "original": "Pesan Asli",
+        "submit": "Kirim Koreksi",
+        "title": "Koreksi Bahasa",
+        "unchanged": "Koreksi harus berbeda dari pesan asli",
+        "yours": "Koreksimu",
+        "yoursPlaceholder": "Ketik versi yang sudah dikoreksi..."
+      },
+      "deleteMessage": {
+        "cancel": "Batal",
+        "failed": "Gagal menghapus pesan. Coba lagi.",
+        "forEveryone": "Hapus untuk semua",
+        "forMe": "Hapus untuk saya",
+        "placeholder": "Pesan ini telah dihapus",
+        "title": "Hapus pesan?",
+        "tooLate": "Pesan hanya bisa dihapus untuk semua dalam 1 jam setelah dikirim."
+      },
+      "editDialog": {
+        "cancel": "Batal",
+        "failed": "Gagal mengedit pesan. Coba lagi.",
+        "label": "Pesan",
+        "save": "Simpan",
+        "title": "Edit pesan",
+        "tooLate": "Pesan hanya bisa diedit dalam 15 menit setelah dikirim."
+      },
+      "editedLabel": "diedit",
+      "forward": {
+        "close": "Tutup",
+        "empty": "Percakapan tidak ditemukan.",
+        "error": "Gagal memuat percakapan.",
+        "loading": "Memuat percakapan…",
+        "search": "Cari",
+        "submit": "Teruskan",
+        "submitCount": "Teruskan ({{count}})",
+        "title": "Teruskan ke",
+        "unknownUser": "Tidak dikenal"
+      },
+      "forwarded": "Diteruskan",
+      "list": {
+        "loadError": "Gagal memuat percakapanmu",
+        "loading": "Memuat obrolan...",
+        "noMessages": "Belum ada pesan",
+        "tryAgain": "Coba lagi",
+        "typing": "sedang mengetik..."
+      },
+      "location": {
+        "cancel": "Batal",
+        "confirmTitle": "Bagikan lokasimu?",
+        "denied": "Izin lokasi ditolak",
+        "failed": "Gagal mendapatkan lokasimu",
+        "open": "Buka di Peta",
+        "send": "Kirim",
+        "sendFailed": "Gagal mengirim lokasimu",
+        "share": "Bagikan lokasi",
+        "title": "Lokasi",
+        "unsupported": "Browser ini tidak bisa membagikan lokasi"
+      },
+      "mediaGallery": {
+        "back": "Kembali",
+        "emptyFiles": "Belum ada file yang dibagikan",
+        "emptyPhotos": "Belum ada foto yang dibagikan",
+        "emptyVideos": "Belum ada video yang dibagikan",
+        "error": "Gagal memuat media",
+        "files": "File",
+        "loading": "Memuat media...",
+        "photos": "Foto",
+        "title": "Media yang Dibagikan",
+        "unknownFile": "File tidak dikenal",
+        "unknownSize": "Ukuran tidak diketahui",
+        "videos": "Video"
+      },
+      "menu": {
+        "bookmark": "Simpan",
+        "close": "Tutup",
+        "copy": "Salin",
+        "delete": "Hapus",
+        "edit": "Edit",
+        "forward": "Teruskan",
+        "listen": "Dengarkan",
+        "pin": "Sematkan",
+        "reply": "Balas"
+      },
+      "mute": {
+        "always": "Sampai saya aktifkan lagi",
+        "cancel": "Batal",
+        "eightHours": "Selama 8 jam",
+        "oneHour": "Selama 1 jam",
+        "oneWeek": "Selama 1 minggu",
+        "title": "Bisukan {{name}}?"
+      },
+      "pinnedBar": {
+        "count": "{{count}} disematkan",
+        "unpin": "Lepas sematan pesan"
+      },
+      "preview": {
+        "attachment": "📎 Lampiran",
+        "call": "📞 Panggilan",
+        "file": "📎 File",
+        "gif": "GIF",
+        "location": "📍 Lokasi",
+        "photo": "🖼️ Foto",
+        "poll": "📊 Polling",
+        "story": "📖 Story",
+        "video": "🎥 Video",
+        "voice": "🎤 Pesan suara"
+      },
+      "replyBar": {
+        "cancel": "Batal membalas",
+        "replyingTo": "Membalas {{name}}"
+      },
+      "search": {
+        "close": "Tutup",
+        "empty": "Pesan tidak ditemukan",
+        "hint": "Ketik minimal 2 karakter",
+        "notLoaded": "Pesan itu ada lebih jauh ke atas. Gulir ke atas untuk memuatnya.",
+        "open": "Cari pesan",
+        "placeholder": "Cari di obrolan ini",
+        "searching": "Mencari…",
+        "title": "Cari pesan dengan {{name}}",
+        "unavailable": "Pencarian sedang tidak tersedia",
+        "you": "Kamu"
+      },
+      "sendErrors": {
+        "blockedBody": "Kamu tidak bisa mengirim pesan ke orang ini.",
+        "blockedTitle": "Pesan tidak terkirim",
+        "capBody": "Kamu sudah memulai percakapan baru sebanyak batas hari ini. Jadi VIP untuk memulai sebanyak yang kamu mau.",
+        "capTitle": "Batas percakapan baru tercapai",
+        "dailyBody": "Kamu sudah mengirim semua pesan untuk hari ini. Jadi VIP untuk pesan tanpa batas, atau kembali besok.",
+        "dailyTitle": "Batas pesan harian tercapai",
+        "firstChatBody": "Kamu bisa mengirim 5 pesan sampai dia membalas. Kamu bisa menulis lagi setelah dia menjawab.",
+        "firstChatTitle": "Tunggu balasan",
+        "generic": "Pesan tidak terkirim. Ketuk Coba lagi untuk mengulang.",
+        "goVip": "Jadi VIP",
+        "ok": "OK",
+        "reattach": "Lampirkan file lagi untuk mengirimnya.",
+        "tooFast": "Kamu mengirim pesan terlalu cepat. Tunggu sebentar."
+      },
+      "story": {
+        "replied": "Membalas story kamu",
+        "shared": "Membagikan story",
+        "unavailable": "Story ini sudah tidak tersedia",
+        "youReplied": "Kamu membalas story-nya",
+        "youShared": "Kamu membagikan story"
+      },
+      "translation": {
+        "close": "Tutup terjemahan",
+        "failed": "Gagal menerjemahkan pesan",
+        "label": "Terjemahan · {{lang}}",
+        "save": "Simpan frasa",
+        "saveFailed": "Gagal menyimpan frasa",
+        "saved": "Disimpan ke antrean belajar",
+        "saving": "Menyimpan…",
+        "translating": "Menerjemahkan…"
+      },
+      "video": {
+        "badType": "Format video ini tidak bisa dikirim. Coba MP4.",
+        "tooBig": "Video ini terlalu besar. Batasnya {{mb}} MB.",
+        "tooLong": "Video ini terlalu panjang. Batasnya {{minutes}} menit."
+      },
+      "voice": {
+        "unavailable": "Rekaman suara tidak tersedia. Periksa izin mikrofon untuk situs ini."
+      },
+      "wallpaper": {
+        "premiumInUse": "Obrolan ini memakai wallpaper Premium dari aplikasi. Memilih yang lain akan mengubahnya untuk kalian berdua."
+      },
+      "wave": {
+        "hi": "Hai!"
+      }
+    }
+  },
+  "it": {
+    "chatPage": {
+      "archive": {
+        "archive": "Archivia chat",
+        "archived": "Archiviata sul sito. L'app la mostra ancora.",
+        "back": "Torna alle chat",
+        "failed": "Impossibile aggiornare l'archivio",
+        "toggle": "Archiviate ({{count}})",
+        "unarchive": "Ripristina chat",
+        "unarchived": "Spostata di nuovo nelle tue chat"
+      },
+      "blocked": {
+        "byMe": "Hai bloccato questa persona. Sbloccala per inviarle messaggi.",
+        "generic": "Non puoi inviare messaggi in questa chat.",
+        "manage": "Gestisci"
+      },
+      "bookmarks": {
+        "addFailed": "Impossibile salvare il messaggio",
+        "added": "Salvato",
+        "attachment": "Allegato",
+        "close": "Chiudi",
+        "empty": "Ancora nessun messaggio salvato",
+        "error": "Impossibile caricare i messaggi salvati",
+        "loading": "Caricamento messaggi salvati…",
+        "open": "Apri chat",
+        "remove": "Rimuovi dai salvati",
+        "removeFailed": "Impossibile rimuoverlo",
+        "removed": "Rimosso dai messaggi salvati",
+        "title": "Messaggi salvati"
+      },
+      "call": {
+        "busy": "{{name}} era in un'altra chiamata",
+        "cancelledVideo": "Videochiamata annullata",
+        "cancelledVoice": "Chiamata vocale annullata",
+        "declinedIncomingVideo": "Videochiamata rifiutata",
+        "declinedIncomingVoice": "Chiamata vocale rifiutata",
+        "declinedOutgoingVideo": "Videochiamata rifiutata dall'altra persona",
+        "declinedOutgoingVoice": "Chiamata vocale rifiutata dall'altra persona",
+        "incomingVideo": "Videochiamata in arrivo",
+        "incomingVoice": "Chiamata vocale in arrivo",
+        "missedVideo": "Videochiamata persa",
+        "missedVoice": "Chiamata vocale persa",
+        "noAnswerVideo": "Videochiamata · Nessuna risposta",
+        "noAnswerVoice": "Chiamata vocale · Nessuna risposta",
+        "outgoingVideo": "Videochiamata in uscita",
+        "outgoingVoice": "Chiamata vocale in uscita"
+      },
+      "connection": {
+        "kicked": "La chat è aperta altrove, quindi questa scheda non riceve più messaggi.",
+        "reconnect": "Usa qui"
+      },
+      "correction": {
+        "accept": "Accetta correzione",
+        "acceptFailed": "Impossibile accettare la correzione",
+        "accepted": "Correzione accettata — aggiunta al tuo registro di apprendimento",
+        "accepting": "Accettazione…",
+        "corrected": "{{name}} ha corretto",
+        "you": "Tu"
+      },
+      "correctionModal": {
+        "cancel": "Annulla",
+        "close": "Chiudi",
+        "empty": "Inserisci una correzione",
+        "explanation": "Spiegazione",
+        "explanationPlaceholder": "Spiega perché questa correzione è utile...",
+        "hint": "es. \"Usa 'went' invece di 'goed': passato irregolare\"",
+        "optional": "(facoltativo)",
+        "original": "Messaggio originale",
+        "submit": "Invia correzione",
+        "title": "Correzione linguistica",
+        "unchanged": "La correzione deve essere diversa dall'originale",
+        "yours": "La tua correzione",
+        "yoursPlaceholder": "Scrivi la versione corretta..."
+      },
+      "deleteMessage": {
+        "cancel": "Annulla",
+        "failed": "Impossibile eliminare il messaggio. Riprova.",
+        "forEveryone": "Elimina per tutti",
+        "forMe": "Elimina per me",
+        "placeholder": "Questo messaggio è stato eliminato",
+        "title": "Eliminare il messaggio?",
+        "tooLate": "Puoi eliminare un messaggio per tutti solo entro 1 ora dall'invio."
+      },
+      "editDialog": {
+        "cancel": "Annulla",
+        "failed": "Impossibile modificare il messaggio. Riprova.",
+        "label": "Messaggio",
+        "save": "Salva",
+        "title": "Modifica messaggio",
+        "tooLate": "Puoi modificare un messaggio solo entro 15 minuti dall'invio."
+      },
+      "editedLabel": "modificato",
+      "forward": {
+        "close": "Chiudi",
+        "empty": "Nessuna conversazione trovata.",
+        "error": "Impossibile caricare le conversazioni.",
+        "loading": "Caricamento conversazioni…",
+        "search": "Cerca",
+        "submit": "Inoltra",
+        "submitCount": "Inoltra ({{count}})",
+        "title": "Inoltra a",
+        "unknownUser": "Sconosciuto"
+      },
+      "forwarded": "Inoltrato",
+      "list": {
+        "loadError": "Impossibile caricare le tue conversazioni",
+        "loading": "Caricamento chat...",
+        "noMessages": "Ancora nessun messaggio",
+        "tryAgain": "Riprova",
+        "typing": "sta scrivendo..."
+      },
+      "location": {
+        "cancel": "Annulla",
+        "confirmTitle": "Condividere la tua posizione?",
+        "denied": "Il permesso di posizione è stato negato",
+        "failed": "Impossibile ottenere la tua posizione",
+        "open": "Apri in Mappe",
+        "send": "Invia",
+        "sendFailed": "Impossibile inviare la tua posizione",
+        "share": "Condividi posizione",
+        "title": "Posizione",
+        "unsupported": "Questo browser non può condividere la posizione"
+      },
+      "mediaGallery": {
+        "back": "Indietro",
+        "emptyFiles": "Ancora nessun file condiviso",
+        "emptyPhotos": "Ancora nessuna foto condivisa",
+        "emptyVideos": "Ancora nessun video condiviso",
+        "error": "Errore nel caricamento dei media",
+        "files": "File",
+        "loading": "Caricamento media...",
+        "photos": "Foto",
+        "title": "Media condivisi",
+        "unknownFile": "File sconosciuto",
+        "unknownSize": "Dimensione sconosciuta",
+        "videos": "Video"
+      },
+      "menu": {
+        "bookmark": "Salva",
+        "close": "Chiudi",
+        "copy": "Copia",
+        "delete": "Elimina",
+        "edit": "Modifica",
+        "forward": "Inoltra",
+        "listen": "Ascolta",
+        "pin": "Fissa",
+        "reply": "Rispondi"
+      },
+      "mute": {
+        "always": "Finché non le riattivo",
+        "cancel": "Annulla",
+        "eightHours": "Per 8 ore",
+        "oneHour": "Per 1 ora",
+        "oneWeek": "Per 1 settimana",
+        "title": "Silenziare {{name}}?"
+      },
+      "pinnedBar": {
+        "count": "Fissati: {{count}}",
+        "unpin": "Rimuovi messaggio fissato"
+      },
+      "preview": {
+        "attachment": "📎 Allegato",
+        "call": "📞 Chiamata",
+        "file": "📎 File",
+        "gif": "GIF",
+        "location": "📍 Posizione",
+        "photo": "🖼️ Foto",
+        "poll": "📊 Sondaggio",
+        "story": "📖 Storia",
+        "video": "🎥 Video",
+        "voice": "🎤 Messaggio vocale"
+      },
+      "replyBar": {
+        "cancel": "Annulla risposta",
+        "replyingTo": "In risposta a {{name}}"
+      },
+      "search": {
+        "close": "Chiudi",
+        "empty": "Nessun messaggio trovato",
+        "hint": "Scrivi almeno 2 caratteri",
+        "notLoaded": "Quel messaggio è più indietro. Scorri verso l'alto per caricarlo.",
+        "open": "Cerca messaggi",
+        "placeholder": "Cerca in questa chat",
+        "searching": "Ricerca in corso…",
+        "title": "Cerca messaggi con {{name}}",
+        "unavailable": "La ricerca non è disponibile al momento",
+        "you": "Tu"
+      },
+      "sendErrors": {
+        "blockedBody": "Non puoi inviare messaggi a questa persona.",
+        "blockedTitle": "Messaggio non inviato",
+        "capBody": "Hai avviato tutte le nuove conversazioni disponibili per oggi. Passa a VIP per avviarne quante vuoi.",
+        "capTitle": "Limite di nuove conversazioni raggiunto",
+        "dailyBody": "Hai inviato tutti i messaggi di oggi. Passa a VIP per messaggi illimitati, oppure torna domani.",
+        "dailyTitle": "Limite giornaliero di messaggi raggiunto",
+        "firstChatBody": "Puoi inviare 5 messaggi finché non ti rispondono. Potrai scrivere di nuovo appena risponderanno.",
+        "firstChatTitle": "Aspetta una risposta",
+        "generic": "Messaggio non inviato. Tocca Riprova per riprovare.",
+        "goVip": "Passa a VIP",
+        "ok": "OK",
+        "reattach": "Allega di nuovo il file per inviarlo.",
+        "tooFast": "Stai inviando messaggi troppo velocemente. Aspetta un momento."
+      },
+      "story": {
+        "replied": "Ha risposto alla tua storia",
+        "shared": "Ha condiviso una storia",
+        "unavailable": "Questa storia non è più disponibile",
+        "youReplied": "Hai risposto alla sua storia",
+        "youShared": "Hai condiviso una storia"
+      },
+      "translation": {
+        "close": "Chiudi traduzione",
+        "failed": "Impossibile tradurre il messaggio",
+        "label": "Traduzione · {{lang}}",
+        "save": "Salva frase",
+        "saveFailed": "Impossibile salvare la frase",
+        "saved": "Salvata nella coda di studio",
+        "saving": "Salvataggio…",
+        "translating": "Traduzione in corso…"
+      },
+      "video": {
+        "badType": "Questo formato video non può essere inviato. Prova con un MP4.",
+        "tooBig": "Questo video è troppo grande. Il limite è {{mb}} MB.",
+        "tooLong": "Questo video è troppo lungo. Il limite è {{minutes}} minuti."
+      },
+      "voice": {
+        "unavailable": "La registrazione vocale non è disponibile. Controlla il permesso del microfono per questo sito."
+      },
+      "wallpaper": {
+        "premiumInUse": "Questa chat usa uno sfondo Premium dell'app. Sceglierne un altro lo cambia per entrambi."
+      },
+      "wave": {
+        "hi": "Ciao!"
+      }
+    }
+  },
+  "ja": {
+    "chatPage": {
+      "archive": {
+        "archive": "チャットをアーカイブ",
+        "archived": "ウェブサイトでアーカイブしました。アプリには引き続き表示されます。",
+        "back": "チャット一覧に戻る",
+        "failed": "アーカイブを変更できませんでした",
+        "toggle": "アーカイブ（{{count}}）",
+        "unarchive": "アーカイブを解除",
+        "unarchived": "チャット一覧に戻しました"
+      },
+      "blocked": {
+        "byMe": "この相手をブロックしています。メッセージを送るにはブロックを解除してください。",
+        "generic": "このチャットではメッセージを送信できません。",
+        "manage": "管理"
+      },
+      "bookmarks": {
+        "addFailed": "メッセージを保存できませんでした",
+        "added": "保存しました",
+        "attachment": "添付ファイル",
+        "close": "閉じる",
+        "empty": "保存したメッセージはまだありません",
+        "error": "保存したメッセージを読み込めませんでした",
+        "loading": "保存したメッセージを読み込み中…",
+        "open": "チャットを開く",
+        "remove": "保存を解除",
+        "removeFailed": "削除できませんでした",
+        "removed": "保存したメッセージから削除しました",
+        "title": "保存したメッセージ"
+      },
+      "call": {
+        "busy": "{{name}}さんは別の通話中でした",
+        "cancelledVideo": "キャンセルされたビデオ通話",
+        "cancelledVoice": "キャンセルされた音声通話",
+        "declinedIncomingVideo": "拒否したビデオ通話",
+        "declinedIncomingVoice": "拒否した音声通話",
+        "declinedOutgoingVideo": "ビデオ通話が拒否されました",
+        "declinedOutgoingVoice": "音声通話が拒否されました",
+        "incomingVideo": "ビデオ通話の着信",
+        "incomingVoice": "音声通話の着信",
+        "missedVideo": "ビデオ通話の不在着信",
+        "missedVoice": "音声通話の不在着信",
+        "noAnswerVideo": "ビデオ通話・応答なし",
+        "noAnswerVoice": "音声通話・応答なし",
+        "outgoingVideo": "ビデオ通話の発信",
+        "outgoingVoice": "音声通話の発信"
+      },
+      "connection": {
+        "kicked": "別の場所でチャットが開かれたため、このタブではメッセージを受信できなくなりました。",
+        "reconnect": "ここで使う"
+      },
+      "correction": {
+        "accept": "添削を承認",
+        "acceptFailed": "添削を承認できませんでした",
+        "accepted": "添削を承認しました。学習記録に追加されました",
+        "accepting": "承認中…",
+        "corrected": "{{name}}さんの添削",
+        "you": "あなた"
+      },
+      "correctionModal": {
+        "cancel": "キャンセル",
+        "close": "閉じる",
+        "empty": "添削内容を入力してください",
+        "explanation": "説明",
+        "explanationPlaceholder": "この添削が役立つ理由を説明してください…",
+        "hint": "例：「'goed'ではなく'went'を使います - 不規則な過去形」",
+        "optional": "（任意）",
+        "original": "元のメッセージ",
+        "submit": "添削を送信",
+        "title": "言語の添削",
+        "unchanged": "元のメッセージと異なる内容にしてください",
+        "yours": "あなたの添削",
+        "yoursPlaceholder": "添削した文を入力…"
+      },
+      "deleteMessage": {
+        "cancel": "キャンセル",
+        "failed": "メッセージを削除できませんでした。もう一度お試しください。",
+        "forEveryone": "全員から削除",
+        "forMe": "自分だけ削除",
+        "placeholder": "このメッセージは削除されました",
+        "title": "メッセージを削除しますか？",
+        "tooLate": "全員から削除できるのは、送信後1時間以内のメッセージのみです。"
+      },
+      "editDialog": {
+        "cancel": "キャンセル",
+        "failed": "メッセージを編集できませんでした。もう一度お試しください。",
+        "label": "メッセージ",
+        "save": "保存",
+        "title": "メッセージを編集",
+        "tooLate": "メッセージを編集できるのは、送信後15分以内のみです。"
+      },
+      "editedLabel": "編集済み",
+      "forward": {
+        "close": "閉じる",
+        "empty": "会話が見つかりません。",
+        "error": "会話を読み込めませんでした。",
+        "loading": "会話を読み込み中…",
+        "search": "検索",
+        "submit": "転送",
+        "submitCount": "転送（{{count}}）",
+        "title": "転送先",
+        "unknownUser": "不明"
+      },
+      "forwarded": "転送済み",
+      "list": {
+        "loadError": "会話を読み込めませんでした",
+        "loading": "チャットを読み込み中…",
+        "noMessages": "まだメッセージがありません",
+        "tryAgain": "再試行",
+        "typing": "入力中…"
+      },
+      "location": {
+        "cancel": "キャンセル",
+        "confirmTitle": "現在地を共有しますか？",
+        "denied": "位置情報の許可が拒否されました",
+        "failed": "現在地を取得できませんでした",
+        "open": "マップで開く",
+        "send": "送信",
+        "sendFailed": "位置情報を送信できませんでした",
+        "share": "位置情報を共有",
+        "title": "位置情報",
+        "unsupported": "このブラウザでは位置情報を共有できません"
+      },
+      "mediaGallery": {
+        "back": "戻る",
+        "emptyFiles": "共有されたファイルはまだありません",
+        "emptyPhotos": "共有された写真はまだありません",
+        "emptyVideos": "共有された動画はまだありません",
+        "error": "メディアを読み込めませんでした",
+        "files": "ファイル",
+        "loading": "メディアを読み込み中…",
+        "photos": "写真",
+        "title": "共有したメディア",
+        "unknownFile": "不明なファイル",
+        "unknownSize": "サイズ不明",
+        "videos": "動画"
+      },
+      "menu": {
+        "bookmark": "保存",
+        "close": "閉じる",
+        "copy": "コピー",
+        "delete": "削除",
+        "edit": "編集",
+        "forward": "転送",
+        "listen": "聞く",
+        "pin": "ピン留め",
+        "reply": "返信"
+      },
+      "mute": {
+        "always": "自分でオンにするまで",
+        "cancel": "キャンセル",
+        "eightHours": "8時間",
+        "oneHour": "1時間",
+        "oneWeek": "1週間",
+        "title": "{{name}}さんの通知をオフにしますか？"
+      },
+      "pinnedBar": {
+        "count": "{{count}}件のピン留め",
+        "unpin": "ピン留めを解除"
+      },
+      "preview": {
+        "attachment": "📎 添付ファイル",
+        "call": "📞 通話",
+        "file": "📎 ファイル",
+        "gif": "GIF",
+        "location": "📍 位置情報",
+        "photo": "🖼️ 写真",
+        "poll": "📊 投票",
+        "story": "📖 ストーリー",
+        "video": "🎥 動画",
+        "voice": "🎤 ボイスメッセージ"
+      },
+      "replyBar": {
+        "cancel": "返信をキャンセル",
+        "replyingTo": "{{name}}さんに返信"
+      },
+      "search": {
+        "close": "閉じる",
+        "empty": "メッセージが見つかりません",
+        "hint": "2文字以上入力してください",
+        "notLoaded": "さらに前のメッセージです。上にスクロールして読み込んでください。",
+        "open": "メッセージを検索",
+        "placeholder": "このチャットを検索",
+        "searching": "検索中…",
+        "title": "{{name}}さんとのメッセージを検索",
+        "unavailable": "現在、検索は利用できません",
+        "you": "あなた"
+      },
+      "sendErrors": {
+        "blockedBody": "この相手にはメッセージを送信できません。",
+        "blockedTitle": "メッセージを送信できませんでした",
+        "capBody": "今日始められる新しい会話の上限に達しました。VIPなら好きなだけ会話を始められます。",
+        "capTitle": "新しい会話の上限に達しました",
+        "dailyBody": "今日送信できるメッセージをすべて使いました。VIPならメッセージが無制限になります。また明日お試しください。",
+        "dailyTitle": "1日のメッセージ上限に達しました",
+        "firstChatBody": "相手が返信するまで、メッセージは5件まで送れます。返信があれば、また送れるようになります。",
+        "firstChatTitle": "返信をお待ちください",
+        "generic": "メッセージを送信できませんでした。「再試行」をタップしてください。",
+        "goVip": "VIPになる",
+        "ok": "OK",
+        "reattach": "送信するには、ファイルをもう一度添付してください。",
+        "tooFast": "メッセージの送信が速すぎます。少し待ってからお試しください。"
+      },
+      "story": {
+        "replied": "あなたのストーリーに返信しました",
+        "shared": "ストーリーをシェアしました",
+        "unavailable": "このストーリーは表示できなくなりました",
+        "youReplied": "相手のストーリーに返信しました",
+        "youShared": "ストーリーをシェアしました"
+      },
+      "translation": {
+        "close": "翻訳を閉じる",
+        "failed": "メッセージを翻訳できませんでした",
+        "label": "翻訳・{{lang}}",
+        "save": "フレーズを保存",
+        "saveFailed": "フレーズを保存できませんでした",
+        "saved": "学習リストに保存しました",
+        "saving": "保存中…",
+        "translating": "翻訳中…"
+      },
+      "video": {
+        "badType": "この動画形式は送信できません。MP4をお試しください。",
+        "tooBig": "動画のサイズが大きすぎます。上限は{{mb}} MBです。",
+        "tooLong": "動画が長すぎます。上限は{{minutes}}分です。"
+      },
+      "voice": {
+        "unavailable": "音声を録音できません。このサイトのマイクの許可を確認してください。"
+      },
+      "wallpaper": {
+        "premiumInUse": "このチャットではアプリのプレミアム壁紙を使用しています。別の壁紙を選ぶと、お互いの壁紙が変更されます。"
+      },
+      "wave": {
+        "hi": "こんにちは！"
+      }
+    }
+  },
+  "kor": {
+    "chatPage": {
+      "archive": {
+        "archive": "채팅 보관",
+        "archived": "웹사이트에서 보관했어요. 앱에는 계속 표시돼요.",
+        "back": "채팅 목록으로",
+        "failed": "보관 상태를 변경하지 못했어요",
+        "toggle": "보관함 ({{count}})",
+        "unarchive": "보관 해제",
+        "unarchived": "채팅 목록으로 다시 옮겼어요"
+      },
+      "blocked": {
+        "byMe": "내가 차단한 사용자예요. 메시지를 보내려면 차단을 해제하세요.",
+        "generic": "이 채팅에서는 메시지를 보낼 수 없어요.",
+        "manage": "관리"
+      },
+      "bookmarks": {
+        "addFailed": "메시지를 저장하지 못했어요",
+        "added": "저장했어요",
+        "attachment": "첨부 파일",
+        "close": "닫기",
+        "empty": "아직 저장한 메시지가 없어요",
+        "error": "저장한 메시지를 불러오지 못했어요",
+        "loading": "저장한 메시지 불러오는 중…",
+        "open": "채팅 열기",
+        "remove": "저장 취소",
+        "removeFailed": "삭제하지 못했어요",
+        "removed": "저장한 메시지에서 삭제했어요",
+        "title": "저장한 메시지"
+      },
+      "call": {
+        "busy": "{{name}}님이 다른 통화 중이었어요",
+        "cancelledVideo": "취소된 영상 통화",
+        "cancelledVoice": "취소된 음성 통화",
+        "declinedIncomingVideo": "거절한 영상 통화",
+        "declinedIncomingVoice": "거절한 음성 통화",
+        "declinedOutgoingVideo": "상대방이 영상 통화를 거절했어요",
+        "declinedOutgoingVoice": "상대방이 음성 통화를 거절했어요",
+        "incomingVideo": "수신 영상 통화",
+        "incomingVoice": "수신 음성 통화",
+        "missedVideo": "부재중 영상 통화",
+        "missedVoice": "부재중 음성 통화",
+        "noAnswerVideo": "영상 통화 · 응답 없음",
+        "noAnswerVoice": "음성 통화 · 응답 없음",
+        "outgoingVideo": "발신 영상 통화",
+        "outgoingVoice": "발신 음성 통화"
+      },
+      "connection": {
+        "kicked": "다른 곳에서 채팅이 열려 있어서 이 탭에서는 메시지를 받지 않아요.",
+        "reconnect": "여기서 사용"
+      },
+      "correction": {
+        "accept": "교정 수락",
+        "acceptFailed": "교정을 수락하지 못했어요",
+        "accepted": "교정을 수락했어요 — 학습 기록에 추가했어요",
+        "accepting": "수락 중…",
+        "corrected": "{{name}}님의 교정",
+        "you": "나"
+      },
+      "correctionModal": {
+        "cancel": "취소",
+        "close": "닫기",
+        "empty": "교정 내용을 입력해 주세요",
+        "explanation": "설명",
+        "explanationPlaceholder": "왜 이렇게 고치면 좋은지 설명해 주세요…",
+        "hint": "예: \"'goed' 대신 'went'를 써요 - 불규칙 과거형\"",
+        "optional": "(선택)",
+        "original": "원래 메시지",
+        "submit": "교정 보내기",
+        "title": "언어 교정",
+        "unchanged": "원래 메시지와 다르게 고쳐 주세요",
+        "yours": "내 교정",
+        "yoursPlaceholder": "고친 문장을 입력하세요…"
+      },
+      "deleteMessage": {
+        "cancel": "취소",
+        "failed": "메시지를 삭제하지 못했어요. 다시 시도해 주세요.",
+        "forEveryone": "모두에게서 삭제",
+        "forMe": "나에게서 삭제",
+        "placeholder": "삭제된 메시지예요",
+        "title": "메시지를 삭제할까요?",
+        "tooLate": "모두에게서 삭제는 보낸 후 1시간 이내에만 할 수 있어요."
+      },
+      "editDialog": {
+        "cancel": "취소",
+        "failed": "메시지를 수정하지 못했어요. 다시 시도해 주세요.",
+        "label": "메시지",
+        "save": "저장",
+        "title": "메시지 수정",
+        "tooLate": "메시지는 보낸 후 15분 이내에만 수정할 수 있어요."
+      },
+      "editedLabel": "수정됨",
+      "forward": {
+        "close": "닫기",
+        "empty": "대화를 찾지 못했어요.",
+        "error": "대화를 불러오지 못했어요.",
+        "loading": "대화 불러오는 중…",
+        "search": "검색",
+        "submit": "전달",
+        "submitCount": "전달 ({{count}})",
+        "title": "전달할 대화",
+        "unknownUser": "알 수 없음"
+      },
+      "forwarded": "전달됨",
+      "list": {
+        "loadError": "대화 목록을 불러오지 못했어요",
+        "loading": "채팅 불러오는 중…",
+        "noMessages": "아직 메시지가 없어요",
+        "tryAgain": "다시 시도",
+        "typing": "입력 중…"
+      },
+      "location": {
+        "cancel": "취소",
+        "confirmTitle": "내 위치를 공유할까요?",
+        "denied": "위치 권한이 거부됐어요",
+        "failed": "위치를 가져오지 못했어요",
+        "open": "지도에서 열기",
+        "send": "보내기",
+        "sendFailed": "위치를 보내지 못했어요",
+        "share": "위치 공유",
+        "title": "위치",
+        "unsupported": "이 브라우저에서는 위치를 공유할 수 없어요"
+      },
+      "mediaGallery": {
+        "back": "뒤로",
+        "emptyFiles": "아직 공유한 파일이 없어요",
+        "emptyPhotos": "아직 공유한 사진이 없어요",
+        "emptyVideos": "아직 공유한 동영상이 없어요",
+        "error": "미디어를 불러오지 못했어요",
+        "files": "파일",
+        "loading": "미디어 불러오는 중…",
+        "photos": "사진",
+        "title": "공유한 미디어",
+        "unknownFile": "알 수 없는 파일",
+        "unknownSize": "크기 알 수 없음",
+        "videos": "동영상"
+      },
+      "menu": {
+        "bookmark": "저장",
+        "close": "닫기",
+        "copy": "복사",
+        "delete": "삭제",
+        "edit": "수정",
+        "forward": "전달",
+        "listen": "듣기",
+        "pin": "고정",
+        "reply": "답장"
+      },
+      "mute": {
+        "always": "직접 다시 켤 때까지",
+        "cancel": "취소",
+        "eightHours": "8시간 동안",
+        "oneHour": "1시간 동안",
+        "oneWeek": "1주일 동안",
+        "title": "{{name}}님의 알림을 끌까요?"
+      },
+      "pinnedBar": {
+        "count": "고정된 메시지 {{count}}개",
+        "unpin": "고정 해제"
+      },
+      "preview": {
+        "attachment": "📎 첨부 파일",
+        "call": "📞 통화",
+        "file": "📎 파일",
+        "gif": "GIF",
+        "location": "📍 위치",
+        "photo": "🖼️ 사진",
+        "poll": "📊 투표",
+        "story": "📖 스토리",
+        "video": "🎥 동영상",
+        "voice": "🎤 음성 메시지"
+      },
+      "replyBar": {
+        "cancel": "답장 취소",
+        "replyingTo": "{{name}}님에게 답장"
+      },
+      "search": {
+        "close": "닫기",
+        "empty": "메시지를 찾지 못했어요",
+        "hint": "2글자 이상 입력하세요",
+        "notLoaded": "더 이전 메시지예요. 위로 스크롤해서 불러오세요.",
+        "open": "메시지 검색",
+        "placeholder": "이 채팅에서 검색",
+        "searching": "검색 중…",
+        "title": "{{name}}님과의 메시지 검색",
+        "unavailable": "지금은 검색을 사용할 수 없어요",
+        "you": "나"
+      },
+      "sendErrors": {
+        "blockedBody": "이 사용자에게는 메시지를 보낼 수 없어요.",
+        "blockedTitle": "메시지를 보내지 못했어요",
+        "capBody": "오늘 시작할 수 있는 새 대화를 모두 사용했어요. VIP가 되면 제한 없이 대화를 시작할 수 있어요.",
+        "capTitle": "새 대화 한도에 도달했어요",
+        "dailyBody": "오늘 보낼 수 있는 메시지를 모두 보냈어요. VIP로 무제한 메시지를 보내거나 내일 다시 와 주세요.",
+        "dailyTitle": "일일 메시지 한도에 도달했어요",
+        "firstChatBody": "상대방이 답장하기 전까지 메시지를 5개까지 보낼 수 있어요. 답장이 오면 다시 보낼 수 있어요.",
+        "firstChatTitle": "답장을 기다려 주세요",
+        "generic": "메시지를 보내지 못했어요. 다시 시도를 눌러 주세요.",
+        "goVip": "VIP 시작하기",
+        "ok": "확인",
+        "reattach": "보내려면 파일을 다시 첨부해 주세요.",
+        "tooFast": "메시지를 너무 빨리 보내고 있어요. 잠시 후 다시 시도해 주세요."
+      },
+      "story": {
+        "replied": "내 스토리에 답장했어요",
+        "shared": "스토리를 공유했어요",
+        "unavailable": "더 이상 볼 수 없는 스토리예요",
+        "youReplied": "상대방의 스토리에 답장했어요",
+        "youShared": "스토리를 공유했어요"
+      },
+      "translation": {
+        "close": "번역 닫기",
+        "failed": "메시지를 번역하지 못했어요",
+        "label": "번역 · {{lang}}",
+        "save": "표현 저장",
+        "saveFailed": "표현을 저장하지 못했어요",
+        "saved": "학습 목록에 저장했어요",
+        "saving": "저장 중…",
+        "translating": "번역 중…"
+      },
+      "video": {
+        "badType": "보낼 수 없는 동영상 형식이에요. MP4로 시도해 보세요.",
+        "tooBig": "동영상이 너무 커요. 최대 {{mb}} MB까지 보낼 수 있어요.",
+        "tooLong": "동영상이 너무 길어요. 최대 {{minutes}}분까지 보낼 수 있어요."
+      },
+      "voice": {
+        "unavailable": "음성 녹음을 사용할 수 없어요. 이 사이트의 마이크 권한을 확인해 주세요."
+      },
+      "wallpaper": {
+        "premiumInUse": "이 채팅은 앱의 프리미엄 배경화면을 쓰고 있어요. 다른 배경화면을 고르면 두 사람 모두 바뀌어요."
+      },
+      "wave": {
+        "hi": "안녕하세요!"
+      }
+    }
+  },
+  "pt": {
+    "chatPage": {
+      "archive": {
+        "archive": "Arquivar conversa",
+        "archived": "Arquivada no site. O app ainda mostra a conversa.",
+        "back": "Voltar para as conversas",
+        "failed": "Não foi possível atualizar o arquivo",
+        "toggle": "Arquivadas ({{count}})",
+        "unarchive": "Desarquivar conversa",
+        "unarchived": "Movida de volta para suas conversas"
+      },
+      "blocked": {
+        "byMe": "Você bloqueou essa pessoa. Desbloqueie para mandar mensagens.",
+        "generic": "Você não pode enviar mensagens nesta conversa.",
+        "manage": "Gerenciar"
+      },
+      "bookmarks": {
+        "addFailed": "Não foi possível salvar a mensagem",
+        "added": "Salva",
+        "attachment": "Anexo",
+        "close": "Fechar",
+        "empty": "Nenhuma mensagem salva ainda",
+        "error": "Não foi possível carregar as mensagens salvas",
+        "loading": "Carregando mensagens salvas…",
+        "open": "Abrir conversa",
+        "remove": "Remover das salvas",
+        "removeFailed": "Não foi possível remover",
+        "removed": "Removida das mensagens salvas",
+        "title": "Mensagens salvas"
+      },
+      "call": {
+        "busy": "{{name}} estava em outra chamada",
+        "cancelledVideo": "Chamada de vídeo cancelada",
+        "cancelledVoice": "Chamada de voz cancelada",
+        "declinedIncomingVideo": "Chamada de vídeo recusada",
+        "declinedIncomingVoice": "Chamada de voz recusada",
+        "declinedOutgoingVideo": "Recusaram a chamada de vídeo",
+        "declinedOutgoingVoice": "Recusaram a chamada de voz",
+        "incomingVideo": "Chamada de vídeo recebida",
+        "incomingVoice": "Chamada de voz recebida",
+        "missedVideo": "Chamada de vídeo perdida",
+        "missedVoice": "Chamada de voz perdida",
+        "noAnswerVideo": "Chamada de vídeo · Sem resposta",
+        "noAnswerVoice": "Chamada de voz · Sem resposta",
+        "outgoingVideo": "Chamada de vídeo feita",
+        "outgoingVoice": "Chamada de voz feita"
+      },
+      "connection": {
+        "kicked": "O chat está aberto em outro lugar, então esta aba parou de receber mensagens.",
+        "reconnect": "Usar aqui"
+      },
+      "correction": {
+        "accept": "Aceitar correção",
+        "acceptFailed": "Não foi possível aceitar a correção",
+        "accepted": "Correção aceita — adicionada ao seu histórico de aprendizado",
+        "accepting": "Aceitando…",
+        "corrected": "{{name}} corrigiu",
+        "you": "Você"
+      },
+      "correctionModal": {
+        "cancel": "Cancelar",
+        "close": "Fechar",
+        "empty": "Escreva uma correção",
+        "explanation": "Explicação",
+        "explanationPlaceholder": "Explique por que essa correção ajuda...",
+        "hint": "ex.: \"Use 'went' em vez de 'goed': passado irregular\"",
+        "optional": "(opcional)",
+        "original": "Mensagem original",
+        "submit": "Enviar correção",
+        "title": "Correção de idioma",
+        "unchanged": "A correção precisa ser diferente do original",
+        "yours": "Sua correção",
+        "yoursPlaceholder": "Digite a versão corrigida..."
+      },
+      "deleteMessage": {
+        "cancel": "Cancelar",
+        "failed": "Não foi possível apagar a mensagem. Tente novamente.",
+        "forEveryone": "Apagar para todos",
+        "forMe": "Apagar para mim",
+        "placeholder": "Esta mensagem foi apagada",
+        "title": "Apagar mensagem?",
+        "tooLate": "Você só pode apagar uma mensagem para todos até 1 hora depois de enviá-la."
+      },
+      "editDialog": {
+        "cancel": "Cancelar",
+        "failed": "Não foi possível editar a mensagem. Tente novamente.",
+        "label": "Mensagem",
+        "save": "Salvar",
+        "title": "Editar mensagem",
+        "tooLate": "Você só pode editar uma mensagem até 15 minutos depois de enviá-la."
+      },
+      "editedLabel": "editada",
+      "forward": {
+        "close": "Fechar",
+        "empty": "Nenhuma conversa encontrada.",
+        "error": "Não foi possível carregar as conversas.",
+        "loading": "Carregando conversas…",
+        "search": "Pesquisar",
+        "submit": "Encaminhar",
+        "submitCount": "Encaminhar ({{count}})",
+        "title": "Encaminhar para",
+        "unknownUser": "Desconhecido"
+      },
+      "forwarded": "Encaminhada",
+      "list": {
+        "loadError": "Não foi possível carregar suas conversas",
+        "loading": "Carregando conversas...",
+        "noMessages": "Ainda não há mensagens",
+        "tryAgain": "Tentar novamente",
+        "typing": "digitando..."
+      },
+      "location": {
+        "cancel": "Cancelar",
+        "confirmTitle": "Compartilhar sua localização?",
+        "denied": "A permissão de localização foi negada",
+        "failed": "Não foi possível obter sua localização",
+        "open": "Abrir no Mapas",
+        "send": "Enviar",
+        "sendFailed": "Não foi possível enviar sua localização",
+        "share": "Compartilhar localização",
+        "title": "Localização",
+        "unsupported": "Este navegador não consegue compartilhar a localização"
+      },
+      "mediaGallery": {
+        "back": "Voltar",
+        "emptyFiles": "Nenhum arquivo compartilhado ainda",
+        "emptyPhotos": "Nenhuma foto compartilhada ainda",
+        "emptyVideos": "Nenhum vídeo compartilhado ainda",
+        "error": "Erro ao carregar a mídia",
+        "files": "Arquivos",
+        "loading": "Carregando mídia...",
+        "photos": "Fotos",
+        "title": "Mídia compartilhada",
+        "unknownFile": "Arquivo desconhecido",
+        "unknownSize": "Tamanho desconhecido",
+        "videos": "Vídeos"
+      },
+      "menu": {
+        "bookmark": "Salvar",
+        "close": "Fechar",
+        "copy": "Copiar",
+        "delete": "Apagar",
+        "edit": "Editar",
+        "forward": "Encaminhar",
+        "listen": "Ouvir",
+        "pin": "Fixar",
+        "reply": "Responder"
+      },
+      "mute": {
+        "always": "Até eu reativar",
+        "cancel": "Cancelar",
+        "eightHours": "Por 8 horas",
+        "oneHour": "Por 1 hora",
+        "oneWeek": "Por 1 semana",
+        "title": "Silenciar {{name}}?"
+      },
+      "pinnedBar": {
+        "count": "Fixadas: {{count}}",
+        "unpin": "Desafixar mensagem"
+      },
+      "preview": {
+        "attachment": "📎 Anexo",
+        "call": "📞 Chamada",
+        "file": "📎 Arquivo",
+        "gif": "GIF",
+        "location": "📍 Localização",
+        "photo": "🖼️ Foto",
+        "poll": "📊 Enquete",
+        "story": "📖 Story",
+        "video": "🎥 Vídeo",
+        "voice": "🎤 Mensagem de voz"
+      },
+      "replyBar": {
+        "cancel": "Cancelar resposta",
+        "replyingTo": "Respondendo a {{name}}"
+      },
+      "search": {
+        "close": "Fechar",
+        "empty": "Nenhuma mensagem encontrada",
+        "hint": "Digite pelo menos 2 caracteres",
+        "notLoaded": "Essa mensagem é mais antiga. Role para cima para carregá-la.",
+        "open": "Pesquisar mensagens",
+        "placeholder": "Pesquisar nesta conversa",
+        "searching": "Pesquisando…",
+        "title": "Pesquisar mensagens com {{name}}",
+        "unavailable": "A pesquisa não está disponível no momento",
+        "you": "Você"
+      },
+      "sendErrors": {
+        "blockedBody": "Você não pode enviar mensagens para essa pessoa.",
+        "blockedTitle": "Mensagem não enviada",
+        "capBody": "Você já iniciou todas as conversas novas permitidas hoje. Seja VIP para iniciar quantas quiser.",
+        "capTitle": "Limite de conversas novas atingido",
+        "dailyBody": "Você já enviou todas as suas mensagens de hoje. Seja VIP para ter mensagens ilimitadas ou volte amanhã.",
+        "dailyTitle": "Limite diário de mensagens atingido",
+        "firstChatBody": "Você pode enviar 5 mensagens até a pessoa responder. Depois que ela responder, você pode escrever de novo.",
+        "firstChatTitle": "Aguarde uma resposta",
+        "generic": "Mensagem não enviada. Toque em Tentar novamente.",
+        "goVip": "Seja VIP",
+        "ok": "OK",
+        "reattach": "Anexe o arquivo de novo para enviá-lo.",
+        "tooFast": "Você está enviando mensagens rápido demais. Espere um pouco."
+      },
+      "story": {
+        "replied": "Respondeu ao seu story",
+        "shared": "Compartilhou um story",
+        "unavailable": "Este story não está mais disponível",
+        "youReplied": "Você respondeu ao story",
+        "youShared": "Você compartilhou um story"
+      },
+      "translation": {
+        "close": "Fechar tradução",
+        "failed": "Não foi possível traduzir a mensagem",
+        "label": "Tradução · {{lang}}",
+        "save": "Salvar frase",
+        "saveFailed": "Não foi possível salvar a frase",
+        "saved": "Salva na fila de estudo",
+        "saving": "Salvando…",
+        "translating": "Traduzindo…"
+      },
+      "video": {
+        "badType": "Este formato de vídeo não pode ser enviado. Tente um MP4.",
+        "tooBig": "Este vídeo é grande demais. O limite é {{mb}} MB.",
+        "tooLong": "Este vídeo é longo demais. O limite é {{minutes}} minutos."
+      },
+      "voice": {
+        "unavailable": "A gravação de voz não está disponível. Verifique a permissão do microfone para este site."
+      },
+      "wallpaper": {
+        "premiumInUse": "Esta conversa usa um papel de parede Premium do app. Se você escolher outro, ele muda para vocês dois."
+      },
+      "wave": {
+        "hi": "Oi!"
+      }
+    }
+  },
+  "ru": {
+    "chatPage": {
+      "archive": {
+        "archive": "Архивировать чат",
+        "archived": "Чат в архиве на сайте. В приложении он по-прежнему отображается.",
+        "back": "Назад к чатам",
+        "failed": "Не удалось обновить архив",
+        "toggle": "Архив ({{count}})",
+        "unarchive": "Вернуть из архива",
+        "unarchived": "Чат снова в списке"
+      },
+      "blocked": {
+        "byMe": "Вы заблокировали этого человека. Разблокируйте его, чтобы отправлять сообщения.",
+        "generic": "Вы не можете отправлять сообщения в этот чат.",
+        "manage": "Управлять"
+      },
+      "bookmarks": {
+        "addFailed": "Не удалось сохранить сообщение",
+        "added": "Сохранено",
+        "attachment": "Вложение",
+        "close": "Закрыть",
+        "empty": "Сохранённых сообщений пока нет",
+        "error": "Не удалось загрузить сохранённые сообщения",
+        "loading": "Загрузка сохранённых сообщений…",
+        "open": "Открыть чат",
+        "remove": "Удалить из сохранённых",
+        "removeFailed": "Не удалось удалить",
+        "removed": "Удалено из сохранённых сообщений",
+        "title": "Сохранённые сообщения"
+      },
+      "call": {
+        "busy": "{{name}} разговаривал(а) по другой линии",
+        "cancelledVideo": "Отменённый видеозвонок",
+        "cancelledVoice": "Отменённый аудиозвонок",
+        "declinedIncomingVideo": "Отклонённый видеозвонок",
+        "declinedIncomingVoice": "Отклонённый аудиозвонок",
+        "declinedOutgoingVideo": "Видеозвонок отклонён",
+        "declinedOutgoingVoice": "Аудиозвонок отклонён",
+        "incomingVideo": "Входящий видеозвонок",
+        "incomingVoice": "Входящий аудиозвонок",
+        "missedVideo": "Пропущенный видеозвонок",
+        "missedVoice": "Пропущенный аудиозвонок",
+        "noAnswerVideo": "Видеозвонок · Нет ответа",
+        "noAnswerVoice": "Аудиозвонок · Нет ответа",
+        "outgoingVideo": "Исходящий видеозвонок",
+        "outgoingVoice": "Исходящий аудиозвонок"
+      },
+      "connection": {
+        "kicked": "Чат открыт в другом месте, поэтому эта вкладка больше не получает сообщения.",
+        "reconnect": "Открыть здесь"
+      },
+      "correction": {
+        "accept": "Принять исправление",
+        "acceptFailed": "Не удалось принять исправление",
+        "accepted": "Исправление принято — добавлено в вашу историю обучения",
+        "accepting": "Принимаем…",
+        "corrected": "{{name}} исправил(а)",
+        "you": "Вы"
+      },
+      "correctionModal": {
+        "cancel": "Отмена",
+        "close": "Закрыть",
+        "empty": "Введите исправление",
+        "explanation": "Пояснение",
+        "explanationPlaceholder": "Объясните, чем полезно это исправление…",
+        "hint": "Например: «Используйте „went“ вместо „goed“ — неправильный глагол в прошедшем времени»",
+        "optional": "(необязательно)",
+        "original": "Исходное сообщение",
+        "submit": "Отправить исправление",
+        "title": "Языковое исправление",
+        "unchanged": "Исправление должно отличаться от оригинала",
+        "yours": "Ваше исправление",
+        "yoursPlaceholder": "Введите исправленный вариант…"
+      },
+      "deleteMessage": {
+        "cancel": "Отмена",
+        "failed": "Не удалось удалить сообщение. Попробуйте ещё раз.",
+        "forEveryone": "Удалить у всех",
+        "forMe": "Удалить у меня",
+        "placeholder": "Сообщение удалено",
+        "title": "Удалить сообщение?",
+        "tooLate": "Удалить сообщение у всех можно только в течение 1 часа после отправки."
+      },
+      "editDialog": {
+        "cancel": "Отмена",
+        "failed": "Не удалось изменить сообщение. Попробуйте ещё раз.",
+        "label": "Сообщение",
+        "save": "Сохранить",
+        "title": "Редактировать сообщение",
+        "tooLate": "Изменить сообщение можно только в течение 15 минут после отправки."
+      },
+      "editedLabel": "изменено",
+      "forward": {
+        "close": "Закрыть",
+        "empty": "Диалоги не найдены.",
+        "error": "Не удалось загрузить диалоги.",
+        "loading": "Загрузка диалогов…",
+        "search": "Поиск",
+        "submit": "Переслать",
+        "submitCount": "Переслать ({{count}})",
+        "title": "Переслать",
+        "unknownUser": "Неизвестный"
+      },
+      "forwarded": "Пересланное сообщение",
+      "list": {
+        "loadError": "Не удалось загрузить ваши диалоги",
+        "loading": "Загрузка чатов…",
+        "noMessages": "Сообщений пока нет",
+        "tryAgain": "Попробовать ещё раз",
+        "typing": "печатает…"
+      },
+      "location": {
+        "cancel": "Отмена",
+        "confirmTitle": "Поделиться геопозицией?",
+        "denied": "Доступ к геопозиции запрещён",
+        "failed": "Не удалось определить вашу геопозицию",
+        "open": "Открыть в Картах",
+        "send": "Отправить",
+        "sendFailed": "Не удалось отправить геопозицию",
+        "share": "Поделиться геопозицией",
+        "title": "Геопозиция",
+        "unsupported": "Этот браузер не поддерживает отправку геопозиции"
+      },
+      "mediaGallery": {
+        "back": "Назад",
+        "emptyFiles": "Файлов пока нет",
+        "emptyPhotos": "Фото пока нет",
+        "emptyVideos": "Видео пока нет",
+        "error": "Ошибка загрузки медиафайлов",
+        "files": "Файлы",
+        "loading": "Загрузка медиафайлов…",
+        "photos": "Фото",
+        "title": "Общие медиафайлы",
+        "unknownFile": "Неизвестный файл",
+        "unknownSize": "Размер неизвестен",
+        "videos": "Видео"
+      },
+      "menu": {
+        "bookmark": "Сохранить",
+        "close": "Закрыть",
+        "copy": "Копировать",
+        "delete": "Удалить",
+        "edit": "Изменить",
+        "forward": "Переслать",
+        "listen": "Прослушать",
+        "pin": "Закрепить",
+        "reply": "Ответить"
+      },
+      "mute": {
+        "always": "Пока не включу снова",
+        "cancel": "Отмена",
+        "eightHours": "На 8 часов",
+        "oneHour": "На 1 час",
+        "oneWeek": "На 1 неделю",
+        "title": "Отключить уведомления от {{name}}?"
+      },
+      "pinnedBar": {
+        "count": "Закреплено: {{count}}",
+        "unpin": "Открепить сообщение"
+      },
+      "preview": {
+        "attachment": "📎 Вложение",
+        "call": "📞 Звонок",
+        "file": "📎 Файл",
+        "gif": "GIF",
+        "location": "📍 Геопозиция",
+        "photo": "🖼️ Фото",
+        "poll": "📊 Опрос",
+        "story": "📖 История",
+        "video": "🎥 Видео",
+        "voice": "🎤 Голосовое сообщение"
+      },
+      "replyBar": {
+        "cancel": "Отменить ответ",
+        "replyingTo": "Ответ для {{name}}"
+      },
+      "search": {
+        "close": "Закрыть",
+        "empty": "Сообщения не найдены",
+        "hint": "Введите не менее 2 символов",
+        "notLoaded": "Это сообщение выше в истории. Прокрутите вверх, чтобы загрузить его.",
+        "open": "Поиск по сообщениям",
+        "placeholder": "Поиск в этом чате",
+        "searching": "Поиск…",
+        "title": "Поиск в переписке с {{name}}",
+        "unavailable": "Поиск сейчас недоступен",
+        "you": "Вы"
+      },
+      "sendErrors": {
+        "blockedBody": "Вы не можете отправлять сообщения этому человеку.",
+        "blockedTitle": "Сообщение не отправлено",
+        "capBody": "Сегодня вы уже начали максимум новых диалогов. Оформите VIP, чтобы начинать сколько угодно.",
+        "capTitle": "Лимит новых диалогов исчерпан",
+        "dailyBody": "Вы отправили все сообщения на сегодня. Оформите VIP для безлимитных сообщений или возвращайтесь завтра.",
+        "dailyTitle": "Дневной лимит сообщений исчерпан",
+        "firstChatBody": "Пока собеседник не ответит, можно отправить 5 сообщений. После ответа вы сможете писать снова.",
+        "firstChatTitle": "Дождитесь ответа",
+        "generic": "Сообщение не отправлено. Нажмите «Повторить», чтобы попробовать ещё раз.",
+        "goVip": "Оформить VIP",
+        "ok": "ОК",
+        "reattach": "Прикрепите файл ещё раз, чтобы отправить его.",
+        "tooFast": "Вы отправляете сообщения слишком быстро. Подождите немного."
+      },
+      "story": {
+        "replied": "Ответил(а) на вашу историю",
+        "shared": "Поделился(-ась) историей",
+        "unavailable": "Эта история больше недоступна",
+        "youReplied": "Вы ответили на историю",
+        "youShared": "Вы поделились историей"
+      },
+      "translation": {
+        "close": "Закрыть перевод",
+        "failed": "Не удалось перевести сообщение",
+        "label": "Перевод · {{lang}}",
+        "save": "Сохранить фразу",
+        "saveFailed": "Не удалось сохранить фразу",
+        "saved": "Добавлено в список для изучения",
+        "saving": "Сохранение…",
+        "translating": "Перевод…"
+      },
+      "video": {
+        "badType": "Этот формат видео нельзя отправить. Попробуйте MP4.",
+        "tooBig": "Видео слишком большое. Максимум — {{mb}} MB.",
+        "tooLong": "Видео слишком длинное. Максимум — {{minutes}} мин."
+      },
+      "voice": {
+        "unavailable": "Запись голоса недоступна. Проверьте разрешение на доступ к микрофону для этого сайта."
+      },
+      "wallpaper": {
+        "premiumInUse": "В этом чате стоят Premium-обои из приложения. Если выбрать другие, они изменятся у вас обоих."
+      },
+      "wave": {
+        "hi": "Привет!"
+      }
+    }
+  },
+  "th": {
+    "chatPage": {
+      "archive": {
+        "archive": "เก็บแชทเข้าคลัง",
+        "archived": "เก็บเข้าคลังบนเว็บไซต์แล้ว แต่ในแอปยังแสดงอยู่",
+        "back": "กลับไปที่แชท",
+        "failed": "อัปเดตคลังเก็บไม่สำเร็จ",
+        "toggle": "เก็บเข้าคลังแล้ว ({{count}})",
+        "unarchive": "นำแชทออกจากคลัง",
+        "unarchived": "ย้ายกลับไปที่แชทของคุณแล้ว"
+      },
+      "blocked": {
+        "byMe": "คุณบล็อกคนนี้อยู่ เลิกบล็อกเพื่อส่งข้อความ",
+        "generic": "คุณส่งข้อความในแชทนี้ไม่ได้",
+        "manage": "จัดการ"
+      },
+      "bookmarks": {
+        "addFailed": "บันทึกข้อความไม่สำเร็จ",
+        "added": "บันทึกแล้ว",
+        "attachment": "ไฟล์แนบ",
+        "close": "ปิด",
+        "empty": "ยังไม่มีข้อความที่บันทึกไว้",
+        "error": "โหลดข้อความที่บันทึกไว้ไม่สำเร็จ",
+        "loading": "กำลังโหลดข้อความที่บันทึกไว้…",
+        "open": "เปิดแชท",
+        "remove": "นำออกจากที่บันทึกไว้",
+        "removeFailed": "นำออกไม่สำเร็จ",
+        "removed": "นำออกจากข้อความที่บันทึกไว้แล้ว",
+        "title": "ข้อความที่บันทึกไว้"
+      },
+      "call": {
+        "busy": "{{name}} ติดสายอื่นอยู่",
+        "cancelledVideo": "ยกเลิกวิดีโอคอล",
+        "cancelledVoice": "ยกเลิกการโทร",
+        "declinedIncomingVideo": "ปฏิเสธวิดีโอคอล",
+        "declinedIncomingVoice": "ปฏิเสธการโทร",
+        "declinedOutgoingVideo": "วิดีโอคอลถูกปฏิเสธ",
+        "declinedOutgoingVoice": "การโทรถูกปฏิเสธ",
+        "incomingVideo": "วิดีโอคอลเข้า",
+        "incomingVoice": "สายเรียกเข้า",
+        "missedVideo": "วิดีโอคอลที่ไม่ได้รับ",
+        "missedVoice": "สายที่ไม่ได้รับ",
+        "noAnswerVideo": "วิดีโอคอล · ไม่มีผู้รับสาย",
+        "noAnswerVoice": "โทรด้วยเสียง · ไม่มีผู้รับสาย",
+        "outgoingVideo": "วิดีโอคอลออก",
+        "outgoingVoice": "สายโทรออก"
+      },
+      "connection": {
+        "kicked": "แชทเปิดอยู่ที่อื่น แท็บนี้จึงหยุดรับข้อความ",
+        "reconnect": "ใช้ที่นี่"
+      },
+      "correction": {
+        "accept": "ยอมรับการแก้ไข",
+        "acceptFailed": "ยอมรับการแก้ไขไม่สำเร็จ",
+        "accepted": "ยอมรับการแก้ไขแล้ว — เพิ่มลงในบันทึกการเรียนของคุณ",
+        "accepting": "กำลังยอมรับ…",
+        "corrected": "{{name}} แก้ไขให้",
+        "you": "คุณ"
+      },
+      "correctionModal": {
+        "cancel": "ยกเลิก",
+        "close": "ปิด",
+        "empty": "กรุณาใส่การแก้ไข",
+        "explanation": "คำอธิบาย",
+        "explanationPlaceholder": "อธิบายว่าการแก้ไขนี้ช่วยได้อย่างไร...",
+        "hint": "เช่น \"ใช้ 'went' แทน 'goed' - เป็นรูปอดีตที่ผันไม่ปกติ\"",
+        "optional": "(ไม่บังคับ)",
+        "original": "ข้อความต้นฉบับ",
+        "submit": "ส่งการแก้ไข",
+        "title": "แก้ไขภาษา",
+        "unchanged": "การแก้ไขต้องต่างจากข้อความต้นฉบับ",
+        "yours": "การแก้ไขของคุณ",
+        "yoursPlaceholder": "พิมพ์ข้อความที่แก้ไขแล้ว..."
+      },
+      "deleteMessage": {
+        "cancel": "ยกเลิก",
+        "failed": "ลบข้อความไม่สำเร็จ ลองอีกครั้ง",
+        "forEveryone": "ลบสำหรับทุกคน",
+        "forMe": "ลบสำหรับฉัน",
+        "placeholder": "ข้อความนี้ถูกลบแล้ว",
+        "title": "ลบข้อความไหม",
+        "tooLate": "ลบข้อความสำหรับทุกคนได้ภายใน 1 ชั่วโมงหลังส่งเท่านั้น"
+      },
+      "editDialog": {
+        "cancel": "ยกเลิก",
+        "failed": "แก้ไขข้อความไม่สำเร็จ ลองอีกครั้ง",
+        "label": "ข้อความ",
+        "save": "บันทึก",
+        "title": "แก้ไขข้อความ",
+        "tooLate": "แก้ไขข้อความได้ภายใน 15 นาทีหลังส่งเท่านั้น"
+      },
+      "editedLabel": "แก้ไขแล้ว",
+      "forward": {
+        "close": "ปิด",
+        "empty": "ไม่พบการสนทนา",
+        "error": "โหลดการสนทนาไม่สำเร็จ",
+        "loading": "กำลังโหลดการสนทนา…",
+        "search": "ค้นหา",
+        "submit": "ส่งต่อ",
+        "submitCount": "ส่งต่อ ({{count}})",
+        "title": "ส่งต่อถึง",
+        "unknownUser": "ไม่ทราบชื่อ"
+      },
+      "forwarded": "ส่งต่อแล้ว",
+      "list": {
+        "loadError": "โหลดการสนทนาของคุณไม่สำเร็จ",
+        "loading": "กำลังโหลดแชท...",
+        "noMessages": "ยังไม่มีข้อความ",
+        "tryAgain": "ลองอีกครั้ง",
+        "typing": "กำลังพิมพ์..."
+      },
+      "location": {
+        "cancel": "ยกเลิก",
+        "confirmTitle": "แชร์ตำแหน่งของคุณไหม",
+        "denied": "ไม่ได้รับอนุญาตให้เข้าถึงตำแหน่ง",
+        "failed": "ระบุตำแหน่งของคุณไม่ได้",
+        "open": "เปิดในแผนที่",
+        "send": "ส่ง",
+        "sendFailed": "ส่งตำแหน่งของคุณไม่สำเร็จ",
+        "share": "แชร์ตำแหน่ง",
+        "title": "ตำแหน่ง",
+        "unsupported": "เบราว์เซอร์นี้แชร์ตำแหน่งไม่ได้"
+      },
+      "mediaGallery": {
+        "back": "กลับ",
+        "emptyFiles": "ยังไม่มีไฟล์ที่แชร์",
+        "emptyPhotos": "ยังไม่มีรูปภาพที่แชร์",
+        "emptyVideos": "ยังไม่มีวิดีโอที่แชร์",
+        "error": "โหลดสื่อไม่สำเร็จ",
+        "files": "ไฟล์",
+        "loading": "กำลังโหลดสื่อ...",
+        "photos": "รูปภาพ",
+        "title": "สื่อที่แชร์",
+        "unknownFile": "ไฟล์ที่ไม่รู้จัก",
+        "unknownSize": "ไม่ทราบขนาด",
+        "videos": "วิดีโอ"
+      },
+      "menu": {
+        "bookmark": "บันทึก",
+        "close": "ปิด",
+        "copy": "คัดลอก",
+        "delete": "ลบ",
+        "edit": "แก้ไข",
+        "forward": "ส่งต่อ",
+        "listen": "ฟัง",
+        "pin": "ปักหมุด",
+        "reply": "ตอบกลับ"
+      },
+      "mute": {
+        "always": "จนกว่าฉันจะเปิดอีกครั้ง",
+        "cancel": "ยกเลิก",
+        "eightHours": "8 ชั่วโมง",
+        "oneHour": "1 ชั่วโมง",
+        "oneWeek": "1 สัปดาห์",
+        "title": "ปิดการแจ้งเตือนจาก {{name}} ไหม"
+      },
+      "pinnedBar": {
+        "count": "ปักหมุด {{count}} รายการ",
+        "unpin": "เลิกปักหมุดข้อความ"
+      },
+      "preview": {
+        "attachment": "📎 ไฟล์แนบ",
+        "call": "📞 การโทร",
+        "file": "📎 ไฟล์",
+        "gif": "GIF",
+        "location": "📍 ตำแหน่ง",
+        "photo": "🖼️ รูปภาพ",
+        "poll": "📊 โพล",
+        "story": "📖 สตอรี่",
+        "video": "🎥 วิดีโอ",
+        "voice": "🎤 ข้อความเสียง"
+      },
+      "replyBar": {
+        "cancel": "ยกเลิกการตอบกลับ",
+        "replyingTo": "กำลังตอบกลับ {{name}}"
+      },
+      "search": {
+        "close": "ปิด",
+        "empty": "ไม่พบข้อความ",
+        "hint": "พิมพ์อย่างน้อย 2 ตัวอักษร",
+        "notLoaded": "ข้อความนั้นอยู่ไกลขึ้นไป เลื่อนขึ้นเพื่อโหลด",
+        "open": "ค้นหาข้อความ",
+        "placeholder": "ค้นหาในแชทนี้",
+        "searching": "กำลังค้นหา…",
+        "title": "ค้นหาข้อความกับ {{name}}",
+        "unavailable": "ค้นหาไม่ได้ในขณะนี้",
+        "you": "คุณ"
+      },
+      "sendErrors": {
+        "blockedBody": "คุณส่งข้อความถึงคนนี้ไม่ได้",
+        "blockedTitle": "ส่งข้อความไม่สำเร็จ",
+        "capBody": "วันนี้คุณเริ่มการสนทนาใหม่ครบจำนวนแล้ว อัปเกรดเป็น VIP เพื่อเริ่มได้ไม่จำกัด",
+        "capTitle": "เริ่มการสนทนาใหม่ครบจำนวนแล้ว",
+        "dailyBody": "วันนี้คุณส่งข้อความครบจำนวนแล้ว อัปเกรดเป็น VIP เพื่อส่งข้อความได้ไม่จำกัด หรือกลับมาใหม่พรุ่งนี้",
+        "dailyTitle": "ส่งข้อความครบจำนวนของวันนี้แล้ว",
+        "firstChatBody": "คุณส่งได้ 5 ข้อความจนกว่าอีกฝ่ายจะตอบกลับ แล้วจะพิมพ์ต่อได้เมื่อเขาตอบ",
+        "firstChatTitle": "รอการตอบกลับ",
+        "generic": "ส่งข้อความไม่สำเร็จ แตะลองใหม่เพื่อส่งอีกครั้ง",
+        "goVip": "อัปเกรดเป็น VIP",
+        "ok": "ตกลง",
+        "reattach": "แนบไฟล์อีกครั้งเพื่อส่ง",
+        "tooFast": "คุณส่งข้อความเร็วเกินไป รอสักครู่"
+      },
+      "story": {
+        "replied": "ตอบกลับสตอรี่ของคุณ",
+        "shared": "แชร์สตอรี่",
+        "unavailable": "สตอรี่นี้ไม่มีให้ดูแล้ว",
+        "youReplied": "คุณตอบกลับสตอรี่ของเขา",
+        "youShared": "คุณแชร์สตอรี่"
+      },
+      "translation": {
+        "close": "ปิดคำแปล",
+        "failed": "แปลข้อความไม่สำเร็จ",
+        "label": "คำแปล · {{lang}}",
+        "save": "บันทึกวลี",
+        "saveFailed": "บันทึกวลีไม่สำเร็จ",
+        "saved": "บันทึกลงในคิวการเรียนแล้ว",
+        "saving": "กำลังบันทึก…",
+        "translating": "กำลังแปล…"
+      },
+      "video": {
+        "badType": "ส่งวิดีโอรูปแบบนี้ไม่ได้ ลองใช้ MP4",
+        "tooBig": "วิดีโอนี้ใหญ่เกินไป จำกัดที่ {{mb}} MB",
+        "tooLong": "วิดีโอนี้ยาวเกินไป จำกัดที่ {{minutes}} นาที"
+      },
+      "voice": {
+        "unavailable": "บันทึกเสียงไม่ได้ ตรวจสอบสิทธิ์การใช้ไมโครโฟนของเว็บไซต์นี้"
+      },
+      "wallpaper": {
+        "premiumInUse": "แชทนี้ใช้พื้นหลัง Premium จากแอป หากเลือกพื้นหลังอื่นจะเปลี่ยนสำหรับทั้งสองคน"
+      },
+      "wave": {
+        "hi": "สวัสดี!"
+      }
+    }
+  },
+  "tl": {
+    "chatPage": {
+      "archive": {
+        "archive": "I-archive ang chat",
+        "archived": "Na-archive sa website. Makikita pa rin ito sa app.",
+        "back": "Bumalik sa mga chat",
+        "failed": "Hindi na-update ang archive",
+        "toggle": "Naka-archive ({{count}})",
+        "unarchive": "I-unarchive ang chat",
+        "unarchived": "Ibinalik sa mga chat mo"
+      },
+      "blocked": {
+        "byMe": "Na-block mo ang taong ito. I-unblock siya para makapag-message.",
+        "generic": "Hindi ka makakapagpadala ng mensahe sa chat na ito.",
+        "manage": "Pamahalaan"
+      },
+      "bookmarks": {
+        "addFailed": "Hindi na-save ang mensahe",
+        "added": "Na-save",
+        "attachment": "Attachment",
+        "close": "Isara",
+        "empty": "Wala pang naka-save na mensahe",
+        "error": "Hindi ma-load ang mga naka-save na mensahe",
+        "loading": "Nilo-load ang mga naka-save na mensahe…",
+        "open": "Buksan ang chat",
+        "remove": "Alisin sa naka-save",
+        "removeFailed": "Hindi ito naalis",
+        "removed": "Inalis sa mga naka-save na mensahe",
+        "title": "Mga naka-save na mensahe"
+      },
+      "call": {
+        "busy": "May ibang kausap sa tawag si {{name}}",
+        "cancelledVideo": "Kinanselang video call",
+        "cancelledVoice": "Kinanselang voice call",
+        "declinedIncomingVideo": "Tinanggihang video call",
+        "declinedIncomingVoice": "Tinanggihang voice call",
+        "declinedOutgoingVideo": "Tinanggihan ang video call",
+        "declinedOutgoingVoice": "Tinanggihan ang voice call",
+        "incomingVideo": "Papasok na video call",
+        "incomingVoice": "Papasok na voice call",
+        "missedVideo": "Hindi nasagot na video call",
+        "missedVoice": "Hindi nasagot na voice call",
+        "noAnswerVideo": "Video call · Walang sumagot",
+        "noAnswerVoice": "Voice call · Walang sumagot",
+        "outgoingVideo": "Palabas na video call",
+        "outgoingVoice": "Palabas na voice call"
+      },
+      "connection": {
+        "kicked": "Bukas ang chat sa ibang lugar, kaya hindi na tumatanggap ng mensahe ang tab na ito.",
+        "reconnect": "Gamitin dito"
+      },
+      "correction": {
+        "accept": "Tanggapin ang correction",
+        "acceptFailed": "Hindi natanggap ang correction",
+        "accepted": "Natanggap ang correction — idinagdag sa learning record mo",
+        "accepting": "Tinatanggap…",
+        "corrected": "Nag-correct si {{name}}",
+        "you": "Ikaw"
+      },
+      "correctionModal": {
+        "cancel": "Kanselahin",
+        "close": "Isara",
+        "empty": "Maglagay ng correction",
+        "explanation": "Paliwanag",
+        "explanationPlaceholder": "Ipaliwanag kung bakit makakatulong ang correction na ito...",
+        "hint": "hal., \"Gamitin ang 'went' imbes na 'goed' - irregular na past tense\"",
+        "optional": "(opsyonal)",
+        "original": "Orihinal na Mensahe",
+        "submit": "Ipadala ang Correction",
+        "title": "Language Correction",
+        "unchanged": "Dapat iba ang correction sa orihinal",
+        "yours": "Ang Correction Mo",
+        "yoursPlaceholder": "I-type ang itinamang bersyon..."
+      },
+      "deleteMessage": {
+        "cancel": "Kanselahin",
+        "failed": "Hindi nabura ang mensahe. Subukan muli.",
+        "forEveryone": "Burahin para sa lahat",
+        "forMe": "Burahin para sa akin",
+        "placeholder": "Binura ang mensaheng ito",
+        "title": "Burahin ang mensahe?",
+        "tooLate": "Mabubura mo lang ang mensahe para sa lahat sa loob ng 1 oras matapos itong ipadala."
+      },
+      "editDialog": {
+        "cancel": "Kanselahin",
+        "failed": "Hindi na-edit ang mensahe. Subukan muli.",
+        "label": "Mensahe",
+        "save": "I-save",
+        "title": "I-edit ang mensahe",
+        "tooLate": "Mae-edit mo lang ang mensahe sa loob ng 15 minuto matapos itong ipadala."
+      },
+      "editedLabel": "na-edit",
+      "forward": {
+        "close": "Isara",
+        "empty": "Walang nahanap na usapan.",
+        "error": "Hindi ma-load ang mga usapan.",
+        "loading": "Nilo-load ang mga usapan…",
+        "search": "Maghanap",
+        "submit": "I-forward",
+        "submitCount": "I-forward ({{count}})",
+        "title": "I-forward kay",
+        "unknownUser": "Hindi kilala"
+      },
+      "forwarded": "Na-forward",
+      "list": {
+        "loadError": "Hindi ma-load ang mga usapan mo",
+        "loading": "Nilo-load ang mga chat...",
+        "noMessages": "Wala pang mensahe",
+        "tryAgain": "Subukan muli",
+        "typing": "nagta-type..."
+      },
+      "location": {
+        "cancel": "Kanselahin",
+        "confirmTitle": "I-share ang lokasyon mo?",
+        "denied": "Tinanggihan ang pahintulot sa lokasyon",
+        "failed": "Hindi makuha ang lokasyon mo",
+        "open": "Buksan sa Maps",
+        "send": "Ipadala",
+        "sendFailed": "Hindi naipadala ang lokasyon mo",
+        "share": "I-share ang lokasyon",
+        "title": "Lokasyon",
+        "unsupported": "Hindi kayang mag-share ng lokasyon ng browser na ito"
+      },
+      "mediaGallery": {
+        "back": "Bumalik",
+        "emptyFiles": "Wala pang na-share na file",
+        "emptyPhotos": "Wala pang na-share na larawan",
+        "emptyVideos": "Wala pang na-share na video",
+        "error": "Error sa pag-load ng media",
+        "files": "Mga File",
+        "loading": "Nilo-load ang media...",
+        "photos": "Mga Larawan",
+        "title": "Mga Na-share na Media",
+        "unknownFile": "Hindi kilalang file",
+        "unknownSize": "Hindi alam ang laki",
+        "videos": "Mga Video"
+      },
+      "menu": {
+        "bookmark": "I-save",
+        "close": "Isara",
+        "copy": "Kopyahin",
+        "delete": "Burahin",
+        "edit": "I-edit",
+        "forward": "I-forward",
+        "listen": "Pakinggan",
+        "pin": "I-pin",
+        "reply": "Sumagot"
+      },
+      "mute": {
+        "always": "Hanggang i-on ko ulit",
+        "cancel": "Kanselahin",
+        "eightHours": "Sa loob ng 8 oras",
+        "oneHour": "Sa loob ng 1 oras",
+        "oneWeek": "Sa loob ng 1 linggo",
+        "title": "I-mute si {{name}}?"
+      },
+      "pinnedBar": {
+        "count": "{{count}} naka-pin",
+        "unpin": "I-unpin ang mensahe"
+      },
+      "preview": {
+        "attachment": "📎 Attachment",
+        "call": "📞 Tawag",
+        "file": "📎 File",
+        "gif": "GIF",
+        "location": "📍 Lokasyon",
+        "photo": "🖼️ Larawan",
+        "poll": "📊 Poll",
+        "story": "📖 Story",
+        "video": "🎥 Video",
+        "voice": "🎤 Voice message"
+      },
+      "replyBar": {
+        "cancel": "Kanselahin ang reply",
+        "replyingTo": "Sumasagot kay {{name}}"
+      },
+      "search": {
+        "close": "Isara",
+        "empty": "Walang nahanap na mensahe",
+        "hint": "Mag-type ng hindi bababa sa 2 character",
+        "notLoaded": "Nasa mas itaas ang mensaheng iyon. Mag-scroll pataas para ma-load ito.",
+        "open": "Maghanap ng mensahe",
+        "placeholder": "Maghanap sa chat na ito",
+        "searching": "Naghahanap…",
+        "title": "Maghanap ng mensahe kasama si {{name}}",
+        "unavailable": "Hindi available ang search ngayon",
+        "you": "Ikaw"
+      },
+      "sendErrors": {
+        "blockedBody": "Hindi ka makakapagpadala ng mensahe sa taong ito.",
+        "blockedTitle": "Hindi naipadala ang mensahe",
+        "capBody": "Naabot mo na ang maximum na bagong usapan ngayong araw. Mag-VIP para makapagsimula ng kahit ilan.",
+        "capTitle": "Naabot na ang limit ng bagong usapan",
+        "dailyBody": "Naipadala mo na ang lahat ng mensahe mo ngayong araw. Mag-VIP para sa unlimited na mensahe, o bumalik bukas.",
+        "dailyTitle": "Naabot na ang daily message limit",
+        "firstChatBody": "Puwede kang magpadala ng 5 mensahe hanggang sumagot siya. Makakapag-message ka ulit kapag sumagot na siya.",
+        "firstChatTitle": "Maghintay ng sagot",
+        "generic": "Hindi naipadala ang mensahe. I-tap ang Subukan muli para ulitin.",
+        "goVip": "Mag-VIP",
+        "ok": "OK",
+        "reattach": "I-attach ulit ang file para maipadala ito.",
+        "tooFast": "Masyadong mabilis ang pagpapadala mo ng mensahe. Sandali lang."
+      },
+      "story": {
+        "replied": "Sumagot sa story mo",
+        "shared": "Nag-share ng story",
+        "unavailable": "Hindi na available ang story na ito",
+        "youReplied": "Sumagot ka sa story niya",
+        "youShared": "Nag-share ka ng story"
+      },
+      "translation": {
+        "close": "Isara ang salin",
+        "failed": "Hindi naisalin ang mensahe",
+        "label": "Salin · {{lang}}",
+        "save": "I-save ang parirala",
+        "saveFailed": "Hindi na-save ang parirala",
+        "saved": "Na-save sa study queue",
+        "saving": "Sine-save…",
+        "translating": "Isinasalin…"
+      },
+      "video": {
+        "badType": "Hindi maipapadala ang format ng video na ito. Subukan ang MP4.",
+        "tooBig": "Masyadong malaki ang video na ito. {{mb}} MB ang limit.",
+        "tooLong": "Masyadong mahaba ang video na ito. {{minutes}} minuto ang limit."
+      },
+      "voice": {
+        "unavailable": "Hindi available ang voice recording. Tingnan ang pahintulot sa mikropono para sa site na ito."
+      },
+      "wallpaper": {
+        "premiumInUse": "Gumagamit ang chat na ito ng Premium wallpaper mula sa app. Kapag pumili ka ng iba, magbabago ito para sa inyong dalawa."
+      },
+      "wave": {
+        "hi": "Hi!"
+      }
+    }
+  },
+  "tr": {
+    "chatPage": {
+      "archive": {
+        "archive": "Sohbeti arşivle",
+        "archived": "Web sitesinde arşivlendi. Uygulamada görünmeye devam ediyor.",
+        "back": "Sohbetlere dön",
+        "failed": "Arşiv güncellenemedi",
+        "toggle": "Arşivlenenler ({{count}})",
+        "unarchive": "Arşivden çıkar",
+        "unarchived": "Sohbetlerine geri taşındı"
+      },
+      "blocked": {
+        "byMe": "Bu kişiyi engelledin. Mesaj göndermek için engeli kaldır.",
+        "generic": "Bu sohbete mesaj gönderemezsin.",
+        "manage": "Yönet"
+      },
+      "bookmarks": {
+        "addFailed": "Mesaj kaydedilemedi",
+        "added": "Kaydedildi",
+        "attachment": "Ek",
+        "close": "Kapat",
+        "empty": "Henüz kaydedilen mesaj yok",
+        "error": "Kaydedilen mesajlar yüklenemedi",
+        "loading": "Kaydedilen mesajlar yükleniyor…",
+        "open": "Sohbeti aç",
+        "remove": "Kaydedilenlerden çıkar",
+        "removeFailed": "Kaldırılamadı",
+        "removed": "Kaydedilen mesajlardan çıkarıldı",
+        "title": "Kaydedilen mesajlar"
+      },
+      "call": {
+        "busy": "{{name}} başka bir aramadaydı",
+        "cancelledVideo": "İptal edilen görüntülü arama",
+        "cancelledVoice": "İptal edilen sesli arama",
+        "declinedIncomingVideo": "Reddedilen görüntülü arama",
+        "declinedIncomingVoice": "Reddedilen sesli arama",
+        "declinedOutgoingVideo": "Görüntülü arama reddedildi",
+        "declinedOutgoingVoice": "Sesli arama reddedildi",
+        "incomingVideo": "Gelen görüntülü arama",
+        "incomingVoice": "Gelen sesli arama",
+        "missedVideo": "Cevapsız görüntülü arama",
+        "missedVoice": "Cevapsız sesli arama",
+        "noAnswerVideo": "Görüntülü arama · Yanıt yok",
+        "noAnswerVoice": "Sesli arama · Yanıt yok",
+        "outgoingVideo": "Giden görüntülü arama",
+        "outgoingVoice": "Giden sesli arama"
+      },
+      "connection": {
+        "kicked": "Sohbet başka bir yerde açık olduğu için bu sekme artık mesaj almıyor.",
+        "reconnect": "Burada kullan"
+      },
+      "correction": {
+        "accept": "Düzeltmeyi kabul et",
+        "acceptFailed": "Düzeltme kabul edilemedi",
+        "accepted": "Düzeltme kabul edildi — öğrenme kaydına eklendi",
+        "accepting": "Kabul ediliyor…",
+        "corrected": "{{name}} düzeltti",
+        "you": "Sen"
+      },
+      "correctionModal": {
+        "cancel": "İptal",
+        "close": "Kapat",
+        "empty": "Lütfen bir düzeltme yaz",
+        "explanation": "Açıklama",
+        "explanationPlaceholder": "Bu düzeltmenin neden faydalı olduğunu açıkla…",
+        "hint": "ör. \"'goed' yerine 'went' kullan - düzensiz geçmiş zaman\"",
+        "optional": "(isteğe bağlı)",
+        "original": "Orijinal mesaj",
+        "submit": "Düzeltmeyi gönder",
+        "title": "Dil düzeltmesi",
+        "unchanged": "Düzeltme orijinalden farklı olmalı",
+        "yours": "Senin düzeltmen",
+        "yoursPlaceholder": "Düzeltilmiş hâlini yaz…"
+      },
+      "deleteMessage": {
+        "cancel": "İptal",
+        "failed": "Mesaj silinemedi. Tekrar dene.",
+        "forEveryone": "Herkesten sil",
+        "forMe": "Benden sil",
+        "placeholder": "Bu mesaj silindi",
+        "title": "Mesaj silinsin mi?",
+        "tooLate": "Bir mesajı herkesten yalnızca gönderdikten sonraki 1 saat içinde silebilirsin."
+      },
+      "editDialog": {
+        "cancel": "İptal",
+        "failed": "Mesaj düzenlenemedi. Tekrar dene.",
+        "label": "Mesaj",
+        "save": "Kaydet",
+        "title": "Mesajı düzenle",
+        "tooLate": "Bir mesajı yalnızca gönderdikten sonraki 15 dakika içinde düzenleyebilirsin."
+      },
+      "editedLabel": "düzenlendi",
+      "forward": {
+        "close": "Kapat",
+        "empty": "Sohbet bulunamadı.",
+        "error": "Sohbetler yüklenemedi.",
+        "loading": "Sohbetler yükleniyor…",
+        "search": "Ara",
+        "submit": "İlet",
+        "submitCount": "İlet ({{count}})",
+        "title": "Şuna ilet",
+        "unknownUser": "Bilinmiyor"
+      },
+      "forwarded": "İletildi",
+      "list": {
+        "loadError": "Sohbetlerin yüklenemedi",
+        "loading": "Sohbetler yükleniyor…",
+        "noMessages": "Henüz mesaj yok",
+        "tryAgain": "Tekrar dene",
+        "typing": "yazıyor…"
+      },
+      "location": {
+        "cancel": "İptal",
+        "confirmTitle": "Konumun paylaşılsın mı?",
+        "denied": "Konum izni reddedildi",
+        "failed": "Konumun alınamadı",
+        "open": "Haritalar'da aç",
+        "send": "Gönder",
+        "sendFailed": "Konumun gönderilemedi",
+        "share": "Konum paylaş",
+        "title": "Konum",
+        "unsupported": "Bu tarayıcı konum paylaşamıyor"
+      },
+      "mediaGallery": {
+        "back": "Geri",
+        "emptyFiles": "Henüz paylaşılan dosya yok",
+        "emptyPhotos": "Henüz paylaşılan fotoğraf yok",
+        "emptyVideos": "Henüz paylaşılan video yok",
+        "error": "Medya yüklenirken hata oluştu",
+        "files": "Dosyalar",
+        "loading": "Medya yükleniyor…",
+        "photos": "Fotoğraflar",
+        "title": "Paylaşılan medya",
+        "unknownFile": "Bilinmeyen dosya",
+        "unknownSize": "Bilinmeyen boyut",
+        "videos": "Videolar"
+      },
+      "menu": {
+        "bookmark": "Kaydet",
+        "close": "Kapat",
+        "copy": "Kopyala",
+        "delete": "Sil",
+        "edit": "Düzenle",
+        "forward": "İlet",
+        "listen": "Dinle",
+        "pin": "Sabitle",
+        "reply": "Yanıtla"
+      },
+      "mute": {
+        "always": "Ben tekrar açana kadar",
+        "cancel": "İptal",
+        "eightHours": "8 saatliğine",
+        "oneHour": "1 saatliğine",
+        "oneWeek": "1 haftalığına",
+        "title": "{{name}} sessize alınsın mı?"
+      },
+      "pinnedBar": {
+        "count": "{{count}} sabitlenmiş",
+        "unpin": "Mesajın sabitlemesini kaldır"
+      },
+      "preview": {
+        "attachment": "📎 Ek",
+        "call": "📞 Arama",
+        "file": "📎 Dosya",
+        "gif": "GIF",
+        "location": "📍 Konum",
+        "photo": "🖼️ Fotoğraf",
+        "poll": "📊 Anket",
+        "story": "📖 Hikâye",
+        "video": "🎥 Video",
+        "voice": "🎤 Sesli mesaj"
+      },
+      "replyBar": {
+        "cancel": "Yanıtı iptal et",
+        "replyingTo": "{{name}} kişisine yanıt"
+      },
+      "search": {
+        "close": "Kapat",
+        "empty": "Mesaj bulunamadı",
+        "hint": "En az 2 karakter yaz",
+        "notLoaded": "Bu mesaj daha geride. Yüklemek için yukarı kaydır.",
+        "open": "Mesajlarda ara",
+        "placeholder": "Bu sohbette ara",
+        "searching": "Aranıyor…",
+        "title": "{{name}} ile mesajlarda ara",
+        "unavailable": "Arama şu anda kullanılamıyor",
+        "you": "Sen"
+      },
+      "sendErrors": {
+        "blockedBody": "Bu kişiye mesaj gönderemezsin.",
+        "blockedTitle": "Mesaj gönderilmedi",
+        "capBody": "Bugün başlatabileceğin tüm yeni sohbetleri başlattın. İstediğin kadar başlatmak için VIP'e geç.",
+        "capTitle": "Yeni sohbet sınırına ulaşıldı",
+        "dailyBody": "Bugünkü tüm mesajlarını gönderdin. Sınırsız mesaj için VIP'e geç ya da yarın tekrar gel.",
+        "dailyTitle": "Günlük mesaj sınırına ulaşıldı",
+        "firstChatBody": "Karşı taraf yanıt verene kadar 5 mesaj gönderebilirsin. Yanıt geldiğinde tekrar yazabilirsin.",
+        "firstChatTitle": "Yanıt bekle",
+        "generic": "Mesaj gönderilmedi. Tekrar denemek için Yeniden dene'ye dokun.",
+        "goVip": "VIP'e geç",
+        "ok": "Tamam",
+        "reattach": "Göndermek için dosyayı tekrar ekle.",
+        "tooFast": "Çok hızlı mesaj gönderiyorsun. Biraz bekle."
+      },
+      "story": {
+        "replied": "Hikâyene yanıt verdi",
+        "shared": "Bir hikâye paylaştı",
+        "unavailable": "Bu hikâye artık mevcut değil",
+        "youReplied": "Hikâyesine yanıt verdin",
+        "youShared": "Bir hikâye paylaştın"
+      },
+      "translation": {
+        "close": "Çeviriyi kapat",
+        "failed": "Mesaj çevrilemedi",
+        "label": "Çeviri · {{lang}}",
+        "save": "İfadeyi kaydet",
+        "saveFailed": "İfade kaydedilemedi",
+        "saved": "Çalışma listene kaydedildi",
+        "saving": "Kaydediliyor…",
+        "translating": "Çevriliyor…"
+      },
+      "video": {
+        "badType": "Bu video biçimi gönderilemiyor. MP4 dene.",
+        "tooBig": "Bu video çok büyük. Sınır {{mb}} MB.",
+        "tooLong": "Bu video çok uzun. Sınır {{minutes}} dakika."
+      },
+      "voice": {
+        "unavailable": "Ses kaydı kullanılamıyor. Bu site için mikrofon iznini kontrol et."
+      },
+      "wallpaper": {
+        "premiumInUse": "Bu sohbet uygulamadan bir Premium duvar kağıdı kullanıyor. Başka birini seçersen ikiniz için de değişir."
+      },
+      "wave": {
+        "hi": "Merhaba!"
+      }
+    }
+  },
+  "vi": {
+    "chatPage": {
+      "archive": {
+        "archive": "Lưu trữ cuộc trò chuyện",
+        "archived": "Đã lưu trữ trên trang web. Ứng dụng vẫn hiển thị.",
+        "back": "Quay lại danh sách trò chuyện",
+        "failed": "Không thể cập nhật lưu trữ",
+        "toggle": "Đã lưu trữ ({{count}})",
+        "unarchive": "Bỏ lưu trữ",
+        "unarchived": "Đã chuyển lại vào danh sách trò chuyện"
+      },
+      "blocked": {
+        "byMe": "Bạn đã chặn người này. Bỏ chặn để gửi tin nhắn.",
+        "generic": "Bạn không thể gửi tin nhắn trong cuộc trò chuyện này.",
+        "manage": "Quản lý"
+      },
+      "bookmarks": {
+        "addFailed": "Không thể lưu tin nhắn",
+        "added": "Đã lưu",
+        "attachment": "Tệp đính kèm",
+        "close": "Đóng",
+        "empty": "Chưa có tin nhắn đã lưu",
+        "error": "Không thể tải tin nhắn đã lưu",
+        "loading": "Đang tải tin nhắn đã lưu…",
+        "open": "Mở cuộc trò chuyện",
+        "remove": "Bỏ lưu",
+        "removeFailed": "Không thể bỏ lưu",
+        "removed": "Đã xóa khỏi tin nhắn đã lưu",
+        "title": "Tin nhắn đã lưu"
+      },
+      "call": {
+        "busy": "{{name}} đang có cuộc gọi khác",
+        "cancelledVideo": "Đã hủy cuộc gọi video",
+        "cancelledVoice": "Đã hủy cuộc gọi thoại",
+        "declinedIncomingVideo": "Đã từ chối cuộc gọi video",
+        "declinedIncomingVoice": "Đã từ chối cuộc gọi thoại",
+        "declinedOutgoingVideo": "Cuộc gọi video bị từ chối",
+        "declinedOutgoingVoice": "Cuộc gọi thoại bị từ chối",
+        "incomingVideo": "Cuộc gọi video đến",
+        "incomingVoice": "Cuộc gọi thoại đến",
+        "missedVideo": "Cuộc gọi video nhỡ",
+        "missedVoice": "Cuộc gọi thoại nhỡ",
+        "noAnswerVideo": "Cuộc gọi video · Không trả lời",
+        "noAnswerVoice": "Cuộc gọi thoại · Không trả lời",
+        "outgoingVideo": "Cuộc gọi video đi",
+        "outgoingVoice": "Cuộc gọi thoại đi"
+      },
+      "connection": {
+        "kicked": "Cuộc trò chuyện đang mở ở nơi khác nên tab này đã ngừng nhận tin nhắn.",
+        "reconnect": "Dùng ở đây"
+      },
+      "correction": {
+        "accept": "Chấp nhận chỉnh sửa",
+        "acceptFailed": "Không thể chấp nhận chỉnh sửa",
+        "accepted": "Đã chấp nhận chỉnh sửa — đã thêm vào hồ sơ học tập của bạn",
+        "accepting": "Đang chấp nhận…",
+        "corrected": "{{name}} đã sửa",
+        "you": "Bạn"
+      },
+      "correctionModal": {
+        "cancel": "Hủy",
+        "close": "Đóng",
+        "empty": "Vui lòng nhập nội dung chỉnh sửa",
+        "explanation": "Giải thích",
+        "explanationPlaceholder": "Giải thích vì sao chỉnh sửa này hữu ích...",
+        "hint": "VD: \"Dùng 'went' thay vì 'goed' - quá khứ bất quy tắc\"",
+        "optional": "(không bắt buộc)",
+        "original": "Tin nhắn gốc",
+        "submit": "Gửi chỉnh sửa",
+        "title": "Sửa lỗi ngôn ngữ",
+        "unchanged": "Nội dung chỉnh sửa phải khác với bản gốc",
+        "yours": "Bản sửa của bạn",
+        "yoursPlaceholder": "Nhập phiên bản đã sửa..."
+      },
+      "deleteMessage": {
+        "cancel": "Hủy",
+        "failed": "Không thể xóa tin nhắn. Hãy thử lại.",
+        "forEveryone": "Xóa với mọi người",
+        "forMe": "Xóa với tôi",
+        "placeholder": "Tin nhắn này đã bị xóa",
+        "title": "Xóa tin nhắn?",
+        "tooLate": "Bạn chỉ có thể xóa tin nhắn với mọi người trong vòng 1 giờ sau khi gửi."
+      },
+      "editDialog": {
+        "cancel": "Hủy",
+        "failed": "Không thể chỉnh sửa tin nhắn. Hãy thử lại.",
+        "label": "Tin nhắn",
+        "save": "Lưu",
+        "title": "Chỉnh sửa tin nhắn",
+        "tooLate": "Bạn chỉ có thể chỉnh sửa tin nhắn trong vòng 15 phút sau khi gửi."
+      },
+      "editedLabel": "đã chỉnh sửa",
+      "forward": {
+        "close": "Đóng",
+        "empty": "Không tìm thấy cuộc trò chuyện nào.",
+        "error": "Không thể tải cuộc trò chuyện.",
+        "loading": "Đang tải cuộc trò chuyện…",
+        "search": "Tìm kiếm",
+        "submit": "Chuyển tiếp",
+        "submitCount": "Chuyển tiếp ({{count}})",
+        "title": "Chuyển tiếp đến",
+        "unknownUser": "Không xác định"
+      },
+      "forwarded": "Đã chuyển tiếp",
+      "list": {
+        "loadError": "Không thể tải các cuộc trò chuyện của bạn",
+        "loading": "Đang tải cuộc trò chuyện...",
+        "noMessages": "Chưa có tin nhắn nào",
+        "tryAgain": "Thử lại",
+        "typing": "đang nhập..."
+      },
+      "location": {
+        "cancel": "Hủy",
+        "confirmTitle": "Chia sẻ vị trí của bạn?",
+        "denied": "Quyền truy cập vị trí đã bị từ chối",
+        "failed": "Không thể lấy vị trí của bạn",
+        "open": "Mở trong Bản đồ",
+        "send": "Gửi",
+        "sendFailed": "Không thể gửi vị trí của bạn",
+        "share": "Chia sẻ vị trí",
+        "title": "Vị trí",
+        "unsupported": "Trình duyệt này không thể chia sẻ vị trí"
+      },
+      "mediaGallery": {
+        "back": "Quay lại",
+        "emptyFiles": "Chưa có tệp nào được chia sẻ",
+        "emptyPhotos": "Chưa có ảnh nào được chia sẻ",
+        "emptyVideos": "Chưa có video nào được chia sẻ",
+        "error": "Lỗi khi tải nội dung",
+        "files": "Tệp",
+        "loading": "Đang tải nội dung...",
+        "photos": "Ảnh",
+        "title": "Nội dung đã chia sẻ",
+        "unknownFile": "Tệp không xác định",
+        "unknownSize": "Không rõ kích thước",
+        "videos": "Video"
+      },
+      "menu": {
+        "bookmark": "Lưu",
+        "close": "Đóng",
+        "copy": "Sao chép",
+        "delete": "Xóa",
+        "edit": "Chỉnh sửa",
+        "forward": "Chuyển tiếp",
+        "listen": "Nghe",
+        "pin": "Ghim",
+        "reply": "Trả lời"
+      },
+      "mute": {
+        "always": "Cho đến khi tôi bật lại",
+        "cancel": "Hủy",
+        "eightHours": "Trong 8 giờ",
+        "oneHour": "Trong 1 giờ",
+        "oneWeek": "Trong 1 tuần",
+        "title": "Tắt thông báo của {{name}}?"
+      },
+      "pinnedBar": {
+        "count": "{{count}} tin đã ghim",
+        "unpin": "Bỏ ghim tin nhắn"
+      },
+      "preview": {
+        "attachment": "📎 Tệp đính kèm",
+        "call": "📞 Cuộc gọi",
+        "file": "📎 Tệp",
+        "gif": "GIF",
+        "location": "📍 Vị trí",
+        "photo": "🖼️ Ảnh",
+        "poll": "📊 Bình chọn",
+        "story": "📖 Tin",
+        "video": "🎥 Video",
+        "voice": "🎤 Tin nhắn thoại"
+      },
+      "replyBar": {
+        "cancel": "Hủy trả lời",
+        "replyingTo": "Đang trả lời {{name}}"
+      },
+      "search": {
+        "close": "Đóng",
+        "empty": "Không tìm thấy tin nhắn",
+        "hint": "Nhập ít nhất 2 ký tự",
+        "notLoaded": "Tin nhắn đó ở xa hơn. Cuộn lên để tải.",
+        "open": "Tìm tin nhắn",
+        "placeholder": "Tìm trong cuộc trò chuyện này",
+        "searching": "Đang tìm…",
+        "title": "Tìm tin nhắn với {{name}}",
+        "unavailable": "Hiện không thể tìm kiếm",
+        "you": "Bạn"
+      },
+      "sendErrors": {
+        "blockedBody": "Bạn không thể gửi tin nhắn cho người này.",
+        "blockedTitle": "Chưa gửi được tin nhắn",
+        "capBody": "Hôm nay bạn đã bắt đầu đủ số cuộc trò chuyện mới cho phép. Nâng cấp VIP để bắt đầu bao nhiêu tùy thích.",
+        "capTitle": "Đã đạt giới hạn cuộc trò chuyện mới",
+        "dailyBody": "Bạn đã gửi hết tin nhắn của hôm nay. Nâng cấp VIP để nhắn tin không giới hạn, hoặc quay lại vào ngày mai.",
+        "dailyTitle": "Đã đạt giới hạn tin nhắn trong ngày",
+        "firstChatBody": "Bạn có thể gửi 5 tin nhắn cho đến khi người kia trả lời. Bạn có thể viết tiếp khi họ phản hồi.",
+        "firstChatTitle": "Chờ phản hồi",
+        "generic": "Chưa gửi được tin nhắn. Nhấn Thử lại để gửi lại.",
+        "goVip": "Nâng cấp VIP",
+        "ok": "OK",
+        "reattach": "Đính kèm lại tệp để gửi.",
+        "tooFast": "Bạn đang gửi tin nhắn quá nhanh. Hãy đợi một chút."
+      },
+      "story": {
+        "replied": "Đã trả lời tin của bạn",
+        "shared": "Đã chia sẻ một tin",
+        "unavailable": "Tin này không còn nữa",
+        "youReplied": "Bạn đã trả lời tin của họ",
+        "youShared": "Bạn đã chia sẻ một tin"
+      },
+      "translation": {
+        "close": "Đóng bản dịch",
+        "failed": "Không thể dịch tin nhắn",
+        "label": "Bản dịch · {{lang}}",
+        "save": "Lưu cụm từ",
+        "saveFailed": "Không thể lưu cụm từ",
+        "saved": "Đã lưu vào hàng đợi học tập",
+        "saving": "Đang lưu…",
+        "translating": "Đang dịch…"
+      },
+      "video": {
+        "badType": "Không thể gửi định dạng video này. Hãy thử MP4.",
+        "tooBig": "Video quá lớn. Giới hạn là {{mb}} MB.",
+        "tooLong": "Video quá dài. Giới hạn là {{minutes}} phút."
+      },
+      "voice": {
+        "unavailable": "Không thể ghi âm. Hãy kiểm tra quyền micro của trang web này."
+      },
+      "wallpaper": {
+        "premiumInUse": "Cuộc trò chuyện này đang dùng hình nền Premium từ ứng dụng. Chọn hình nền khác sẽ thay đổi cho cả hai bạn."
+      },
+      "wave": {
+        "hi": "Xin chào!"
+      }
+    }
+  },
+  "zh_TW": {
+    "chatPage": {
+      "archive": {
+        "archive": "封存聊天",
+        "archived": "已在網頁版封存，App 裡仍會顯示。",
+        "back": "回到聊天列表",
+        "failed": "封存狀態更新失敗",
+        "toggle": "已封存（{{count}}）",
+        "unarchive": "取消封存",
+        "unarchived": "已移回聊天列表"
+      },
+      "blocked": {
+        "byMe": "你已封鎖對方。解除封鎖後才能傳訊息。",
+        "generic": "你無法在這個聊天室傳送訊息。",
+        "manage": "管理"
+      },
+      "bookmarks": {
+        "addFailed": "訊息儲存失敗",
+        "added": "已儲存",
+        "attachment": "附件",
+        "close": "關閉",
+        "empty": "還沒有儲存的訊息",
+        "error": "儲存的訊息載入失敗",
+        "loading": "正在載入儲存的訊息…",
+        "open": "開啟聊天",
+        "remove": "從已儲存中移除",
+        "removeFailed": "移除失敗",
+        "removed": "已從儲存的訊息中移除",
+        "title": "儲存的訊息"
+      },
+      "call": {
+        "busy": "{{name}} 正在通話中",
+        "cancelledVideo": "已取消視訊通話",
+        "cancelledVoice": "已取消語音通話",
+        "declinedIncomingVideo": "已拒接視訊通話",
+        "declinedIncomingVoice": "已拒接語音通話",
+        "declinedOutgoingVideo": "對方已拒接視訊通話",
+        "declinedOutgoingVoice": "對方已拒接語音通話",
+        "incomingVideo": "視訊來電",
+        "incomingVoice": "語音來電",
+        "missedVideo": "未接視訊通話",
+        "missedVoice": "未接語音通話",
+        "noAnswerVideo": "視訊通話 · 無人接聽",
+        "noAnswerVoice": "語音通話 · 無人接聽",
+        "outgoingVideo": "已撥出視訊通話",
+        "outgoingVoice": "已撥出語音通話"
+      },
+      "connection": {
+        "kicked": "聊天已在其他地方開啟，這個分頁已停止接收訊息。",
+        "reconnect": "在這裡使用"
+      },
+      "correction": {
+        "accept": "接受修改",
+        "acceptFailed": "接受修改失敗",
+        "accepted": "已接受修改，並加入你的學習紀錄",
+        "accepting": "正在接受…",
+        "corrected": "{{name}} 修改了",
+        "you": "你"
+      },
+      "correctionModal": {
+        "cancel": "取消",
+        "close": "關閉",
+        "empty": "請輸入修改內容",
+        "explanation": "說明",
+        "explanationPlaceholder": "說說為什麼這樣改比較好…",
+        "hint": "例如：「用 went 而不是 goed，這是不規則過去式」",
+        "optional": "（可選）",
+        "original": "原始訊息",
+        "submit": "送出修改",
+        "title": "語言修正",
+        "unchanged": "修改後的內容必須和原文不同",
+        "yours": "你的修改",
+        "yoursPlaceholder": "輸入修改後的句子…"
+      },
+      "deleteMessage": {
+        "cancel": "取消",
+        "failed": "訊息刪除失敗，請再試一次。",
+        "forEveryone": "為所有人刪除",
+        "forMe": "只為我刪除",
+        "placeholder": "這則訊息已刪除",
+        "title": "要刪除訊息嗎？",
+        "tooLate": "訊息傳送超過 1 小時後，就無法為所有人刪除。"
+      },
+      "editDialog": {
+        "cancel": "取消",
+        "failed": "訊息編輯失敗，請再試一次。",
+        "label": "訊息",
+        "save": "儲存",
+        "title": "編輯訊息",
+        "tooLate": "訊息只能在傳送後 15 分鐘內編輯。"
+      },
+      "editedLabel": "已編輯",
+      "forward": {
+        "close": "關閉",
+        "empty": "找不到對話。",
+        "error": "對話載入失敗。",
+        "loading": "正在載入對話…",
+        "search": "搜尋",
+        "submit": "轉傳",
+        "submitCount": "轉傳（{{count}}）",
+        "title": "轉傳給",
+        "unknownUser": "未知使用者"
+      },
+      "forwarded": "已轉傳",
+      "list": {
+        "loadError": "對話列表載入失敗",
+        "loading": "正在載入聊天…",
+        "noMessages": "還沒有訊息",
+        "tryAgain": "再試一次",
+        "typing": "正在輸入…"
+      },
+      "location": {
+        "cancel": "取消",
+        "confirmTitle": "要分享你的位置嗎？",
+        "denied": "位置權限已被拒絕",
+        "failed": "無法取得你的位置",
+        "open": "在地圖中開啟",
+        "send": "傳送",
+        "sendFailed": "位置傳送失敗",
+        "share": "分享位置",
+        "title": "位置",
+        "unsupported": "這個瀏覽器無法分享位置"
+      },
+      "mediaGallery": {
+        "back": "返回",
+        "emptyFiles": "還沒有分享的檔案",
+        "emptyPhotos": "還沒有分享的相片",
+        "emptyVideos": "還沒有分享的影片",
+        "error": "媒體載入失敗",
+        "files": "檔案",
+        "loading": "正在載入媒體…",
+        "photos": "相片",
+        "title": "共享的媒體",
+        "unknownFile": "未知檔案",
+        "unknownSize": "大小不明",
+        "videos": "影片"
+      },
+      "menu": {
+        "bookmark": "儲存",
+        "close": "關閉",
+        "copy": "複製",
+        "delete": "刪除",
+        "edit": "編輯",
+        "forward": "轉傳",
+        "listen": "朗讀",
+        "pin": "置頂",
+        "reply": "回覆"
+      },
+      "mute": {
+        "always": "直到我手動開啟",
+        "cancel": "取消",
+        "eightHours": "8 小時",
+        "oneHour": "1 小時",
+        "oneWeek": "1 週",
+        "title": "要將 {{name}} 設為靜音嗎？"
+      },
+      "pinnedBar": {
+        "count": "{{count}} 則置頂",
+        "unpin": "取消置頂訊息"
+      },
+      "preview": {
+        "attachment": "📎 附件",
+        "call": "📞 通話",
+        "file": "📎 檔案",
+        "gif": "GIF",
+        "location": "📍 位置",
+        "photo": "🖼️ 相片",
+        "poll": "📊 投票",
+        "story": "📖 限時動態",
+        "video": "🎥 影片",
+        "voice": "🎤 語音訊息"
+      },
+      "replyBar": {
+        "cancel": "取消回覆",
+        "replyingTo": "回覆 {{name}}"
+      },
+      "search": {
+        "close": "關閉",
+        "empty": "找不到訊息",
+        "hint": "請至少輸入 2 個字元",
+        "notLoaded": "這則訊息比較早，往上捲動就能載入。",
+        "open": "搜尋訊息",
+        "placeholder": "搜尋這個聊天室",
+        "searching": "正在搜尋…",
+        "title": "搜尋與 {{name}} 的訊息",
+        "unavailable": "目前無法使用搜尋",
+        "you": "你"
+      },
+      "sendErrors": {
+        "blockedBody": "你無法傳訊息給對方。",
+        "blockedTitle": "訊息未傳送",
+        "capBody": "今天可以開啟的新對話已達上限。升級 VIP 就能不限次數開啟新對話。",
+        "capTitle": "已達新對話上限",
+        "dailyBody": "今天的訊息額度已用完。升級 VIP 即可無限傳訊息，或明天再來。",
+        "dailyTitle": "已達每日訊息上限",
+        "firstChatBody": "對方回覆前，你最多可以傳 5 則訊息。等對方回覆後就能繼續聊。",
+        "firstChatTitle": "等待對方回覆",
+        "generic": "訊息未傳送。點一下「再試一次」重新傳送。",
+        "goVip": "升級 VIP",
+        "ok": "好",
+        "reattach": "請重新附加檔案後再傳送。",
+        "tooFast": "你傳訊息的速度太快了，請稍等一下。"
+      },
+      "story": {
+        "replied": "回覆了你的限時動態",
+        "shared": "分享了一則限時動態",
+        "unavailable": "這則限時動態已無法查看",
+        "youReplied": "你回覆了對方的限時動態",
+        "youShared": "你分享了一則限時動態"
+      },
+      "translation": {
+        "close": "關閉翻譯",
+        "failed": "訊息翻譯失敗",
+        "label": "翻譯 · {{lang}}",
+        "save": "儲存片語",
+        "saveFailed": "片語儲存失敗",
+        "saved": "已存到學習清單",
+        "saving": "儲存中…",
+        "translating": "翻譯中…"
+      },
+      "video": {
+        "badType": "無法傳送這種影片格式，請試試 MP4。",
+        "tooBig": "影片太大了，上限是 {{mb}} MB。",
+        "tooLong": "影片太長了，上限是 {{minutes}} 分鐘。"
+      },
+      "voice": {
+        "unavailable": "無法錄製語音。請檢查這個網站的麥克風權限。"
+      },
+      "wallpaper": {
+        "premiumInUse": "這個聊天室使用的是 App 裡的進階背景。換成其他背景後，你們雙方的背景都會改變。"
+      },
+      "wave": {
+        "hi": "嗨！"
+      }
+    }
+  },
+  "zho": {
+    "chatPage": {
+      "archive": {
+        "archive": "归档聊天",
+        "archived": "已在网页端归档，App 里仍会显示。",
+        "back": "返回聊天列表",
+        "failed": "归档状态更新失败",
+        "toggle": "已归档（{{count}}）",
+        "unarchive": "取消归档",
+        "unarchived": "已移回聊天列表"
+      },
+      "blocked": {
+        "byMe": "你已拉黑对方。取消拉黑后才能发消息。",
+        "generic": "你无法在这个聊天中发送消息。",
+        "manage": "管理"
+      },
+      "bookmarks": {
+        "addFailed": "消息收藏失败",
+        "added": "已收藏",
+        "attachment": "附件",
+        "close": "关闭",
+        "empty": "还没有收藏的消息",
+        "error": "收藏的消息加载失败",
+        "loading": "正在加载收藏的消息…",
+        "open": "打开聊天",
+        "remove": "取消收藏",
+        "removeFailed": "取消收藏失败",
+        "removed": "已取消收藏",
+        "title": "收藏的消息"
+      },
+      "call": {
+        "busy": "{{name}} 正在通话中",
+        "cancelledVideo": "已取消视频通话",
+        "cancelledVoice": "已取消语音通话",
+        "declinedIncomingVideo": "已拒绝视频通话",
+        "declinedIncomingVoice": "已拒绝语音通话",
+        "declinedOutgoingVideo": "对方已拒绝视频通话",
+        "declinedOutgoingVoice": "对方已拒绝语音通话",
+        "incomingVideo": "视频来电",
+        "incomingVoice": "语音来电",
+        "missedVideo": "未接视频通话",
+        "missedVoice": "未接语音通话",
+        "noAnswerVideo": "视频通话 · 无人接听",
+        "noAnswerVoice": "语音通话 · 无人接听",
+        "outgoingVideo": "已拨出视频通话",
+        "outgoingVoice": "已拨出语音通话"
+      },
+      "connection": {
+        "kicked": "聊天已在其他地方打开，此标签页已停止接收消息。",
+        "reconnect": "在此使用"
+      },
+      "correction": {
+        "accept": "接受修改",
+        "acceptFailed": "接受修改失败",
+        "accepted": "已接受修改，已加入你的学习记录",
+        "accepting": "正在接受…",
+        "corrected": "{{name}} 修改了",
+        "you": "你"
+      },
+      "correctionModal": {
+        "cancel": "取消",
+        "close": "关闭",
+        "empty": "请输入修改内容",
+        "explanation": "说明",
+        "explanationPlaceholder": "说说为什么这样改更好…",
+        "hint": "例如：“用 went 而不是 goed，这是不规则过去式”",
+        "optional": "（可选）",
+        "original": "原消息",
+        "submit": "发送修改",
+        "title": "语言纠错",
+        "unchanged": "修改后的内容需要和原文不同",
+        "yours": "你的修改",
+        "yoursPlaceholder": "输入修改后的句子…"
+      },
+      "deleteMessage": {
+        "cancel": "取消",
+        "failed": "消息删除失败，请再试一次。",
+        "forEveryone": "为所有人删除",
+        "forMe": "仅为我删除",
+        "placeholder": "此消息已删除",
+        "title": "删除消息？",
+        "tooLate": "消息发送超过 1 小时后，就不能为所有人删除了。"
+      },
+      "editDialog": {
+        "cancel": "取消",
+        "failed": "消息编辑失败，请再试一次。",
+        "label": "消息",
+        "save": "保存",
+        "title": "编辑消息",
+        "tooLate": "消息只能在发送后 15 分钟内编辑。"
+      },
+      "editedLabel": "已编辑",
+      "forward": {
+        "close": "关闭",
+        "empty": "没有找到对话。",
+        "error": "对话加载失败。",
+        "loading": "正在加载对话…",
+        "search": "搜索",
+        "submit": "转发",
+        "submitCount": "转发（{{count}}）",
+        "title": "转发给",
+        "unknownUser": "未知用户"
+      },
+      "forwarded": "已转发",
+      "list": {
+        "loadError": "对话列表加载失败",
+        "loading": "正在加载聊天…",
+        "noMessages": "还没有消息",
+        "tryAgain": "重试",
+        "typing": "正在输入…"
+      },
+      "location": {
+        "cancel": "取消",
+        "confirmTitle": "要分享你的位置吗？",
+        "denied": "位置权限已被拒绝",
+        "failed": "无法获取你的位置",
+        "open": "在地图中打开",
+        "send": "发送",
+        "sendFailed": "位置发送失败",
+        "share": "分享位置",
+        "title": "位置",
+        "unsupported": "此浏览器不支持分享位置"
+      },
+      "mediaGallery": {
+        "back": "返回",
+        "emptyFiles": "还没有共享的文件",
+        "emptyPhotos": "还没有共享的照片",
+        "emptyVideos": "还没有共享的视频",
+        "error": "媒体加载失败",
+        "files": "文件",
+        "loading": "正在加载媒体…",
+        "photos": "照片",
+        "title": "共享的媒体",
+        "unknownFile": "未知文件",
+        "unknownSize": "大小未知",
+        "videos": "视频"
+      },
+      "menu": {
+        "bookmark": "收藏",
+        "close": "关闭",
+        "copy": "复制",
+        "delete": "删除",
+        "edit": "编辑",
+        "forward": "转发",
+        "listen": "朗读",
+        "pin": "置顶",
+        "reply": "回复"
+      },
+      "mute": {
+        "always": "直到我手动开启",
+        "cancel": "取消",
+        "eightHours": "8 小时",
+        "oneHour": "1 小时",
+        "oneWeek": "1 周",
+        "title": "将 {{name}} 设为静音？"
+      },
+      "pinnedBar": {
+        "count": "{{count}} 条置顶",
+        "unpin": "取消置顶消息"
+      },
+      "preview": {
+        "attachment": "📎 附件",
+        "call": "📞 通话",
+        "file": "📎 文件",
+        "gif": "GIF",
+        "location": "📍 位置",
+        "photo": "🖼️ 照片",
+        "poll": "📊 投票",
+        "story": "📖 限时动态",
+        "video": "🎥 视频",
+        "voice": "🎤 语音消息"
+      },
+      "replyBar": {
+        "cancel": "取消回复",
+        "replyingTo": "回复 {{name}}"
+      },
+      "search": {
+        "close": "关闭",
+        "empty": "没有找到消息",
+        "hint": "请至少输入 2 个字符",
+        "notLoaded": "这条消息比较早，向上滚动即可加载。",
+        "open": "搜索消息",
+        "placeholder": "搜索此聊天",
+        "searching": "正在搜索…",
+        "title": "搜索与 {{name}} 的消息",
+        "unavailable": "搜索暂时不可用",
+        "you": "你"
+      },
+      "sendErrors": {
+        "blockedBody": "你无法给对方发送消息。",
+        "blockedTitle": "消息未发送",
+        "capBody": "今天能发起的新对话已达上限。开通 VIP 即可不限次数发起对话。",
+        "capTitle": "已达新对话上限",
+        "dailyBody": "今天的消息条数已用完。开通 VIP 可无限发消息，或者明天再来。",
+        "dailyTitle": "已达每日消息上限",
+        "firstChatBody": "对方回复前，你最多可以发 5 条消息。等对方回复后就能继续聊了。",
+        "firstChatTitle": "等待对方回复",
+        "generic": "消息未发送。点击“重试”再试一次。",
+        "goVip": "开通 VIP",
+        "ok": "好的",
+        "reattach": "请重新添加文件后再发送。",
+        "tooFast": "发送太频繁了，请稍等一下。"
+      },
+      "story": {
+        "replied": "回复了你的限时动态",
+        "shared": "分享了一条限时动态",
+        "unavailable": "这条限时动态已无法查看",
+        "youReplied": "你回复了对方的限时动态",
+        "youShared": "你分享了一条限时动态"
+      },
+      "translation": {
+        "close": "关闭翻译",
+        "failed": "消息翻译失败",
+        "label": "翻译 · {{lang}}",
+        "save": "保存短语",
+        "saveFailed": "短语保存失败",
+        "saved": "已存进学习清单",
+        "saving": "保存中…",
+        "translating": "翻译中…"
+      },
+      "video": {
+        "badType": "无法发送这种视频格式，试试 MP4。",
+        "tooBig": "视频太大了，上限为 {{mb}} MB。",
+        "tooLong": "视频太长了，上限为 {{minutes}} 分钟。"
+      },
+      "voice": {
+        "unavailable": "无法录制语音。请检查此网站的麦克风权限。"
+      },
+      "wallpaper": {
+        "premiumInUse": "这个聊天使用的是 App 里的高级背景。换成其他背景后，你们双方的背景都会改变。"
+      },
+      "wave": {
+        "hi": "你好！"
+      }
+    }
+  }
+}

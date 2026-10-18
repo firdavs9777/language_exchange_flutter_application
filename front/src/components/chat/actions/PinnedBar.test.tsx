@@ -2,6 +2,10 @@ import '@testing-library/jest-dom';
 import { render, screen, fireEvent } from '@testing-library/react';
 import PinnedBar from './PinnedBar';
 
+jest.mock("react-i18next", () => ({
+  useTranslation: () => ({ t: () => "", i18n: { language: "en" } }),
+}));
+
 it('renders nothing when pinned is empty', () => {
   const { container } = render(
     <PinnedBar pinned={[]} onJump={jest.fn()} onUnpin={jest.fn()} />

@@ -1,4 +1,3 @@
-import ISO6391 from 'iso-639-1';
 import React, {
   ChangeEvent,
   FormEvent,
@@ -12,6 +11,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Bounce, toast } from "react-toastify";
 import {
   useCreateMomentMutation,
+  useDeleteMomentMutation,
   useUploadMomentPhotosMutation,
   useUploadMomentVideoMutation,
   useUploadMomentAudioMutation,
@@ -22,24 +22,29 @@ import {
   Mic as MicIcon,
   Type as TypeIcon,
 } from "lucide-react";
-import {
-  BACKEND_VALID_GRADIENTS,
-  gradientFor,
-} from "./media/momentGradients";
 import GradientMomentCard from "./media/GradientMomentCard";
+import BackgroundField from "./fields/BackgroundField";
+import CategoryField, { categoryLabel } from "./fields/CategoryField";
+import LanguageField from "./fields/LanguageField";
+import MoodField, { moodEmoji, moodLabel } from "./fields/MoodField";
+import PrivacyField, { privacyLabel, privacyOption } from "./fields/PrivacyField";
+import TagsField from "./fields/TagsField";
+import ScheduleField from "./fields/ScheduleField";
+import { isFutureInput, localInputToIso } from "./lib/scheduling";
+import { useMomentSchedulingEnabled } from "./lib/useMomentSchedulingEnabled";
+import { useCurrentLocation } from "./fields/useCurrentLocation";
 import VoiceNoteRecorder from "./media/VoiceNoteRecorder";
+import ISO6391 from "iso-639-1";
+import { audioUpload } from "../../utils/audioUpload";
 
 import {
   FaArrowLeft,
   FaChevronDown,
-  FaGlobe,
   FaImage,
-  FaLock,
   FaMapMarkerAlt,
   FaSmile,
   FaTag,
   FaTimes,
-  FaUsers
 } from "react-icons/fa";
 
 interface Moment {
@@ -75,6 +80,36 @@ interface AudioNote {
   wf: number[];
 }
 
+// Prompt-of-the-day handoff: MainMoments navigates here with this router state
+// when the user taps "Answer" on the prompt card.
+interface PromptHandoff {
+  promptText?: string;
+  promptId?: string;
+  promptLanguage?: string;
+  promptEmoji?: string;
+}
+
+interface AnsweredPrompt {
+  id?: string;
+  text: string;
+  emoji?: string;
+}
+
+const readPromptHandoff = (state: unknown): PromptHandoff | null =>
+  state && typeof state === "object" ? (state as PromptHandoff) : null;
+
+const promptFromHandoff = (handoff: PromptHandoff | null): AnsweredPrompt | null =>
+  handoff && handoff.promptText
+    ? { id: handoff.promptId, text: handoff.promptText, emoji: handoff.promptEmoji }
+    : null;
+
+// The prompt's language as the language select's value (an ISO 639-1 code),
+// or null when it is missing or not one the select offers.
+const promptLanguageCode = (handoff: PromptHandoff | null): string | null => {
+  const code = handoff && handoff.promptLanguage ? handoff.promptLanguage.toLowerCase() : "";
+  return code && ISO6391.validate(code) ? code : null;
+};
+
 const CreateMoment: React.FC = () => {
   const navigate = useNavigate();
   const routerLocation = useLocation();
@@ -82,11 +117,22 @@ const CreateMoment: React.FC = () => {
   const [uploadMomentPhotos] = useUploadMomentPhotosMutation();
   const [uploadMomentVideo] = useUploadMomentVideoMutation();
   const [uploadMomentAudio] = useUploadMomentAudioMutation();
+  const [deleteMoment] = useDeleteMomentMutation();
   const { t } = useTranslation();
 
+  // Read the prompt handoff during the first render, not in an effect, so the
+  // textarea shows the prompt text on its very first paint.
+  const initialHandoff = readPromptHandoff(routerLocation.state);
+
   // Basic form state
-  const [title, setTitle] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
+  const [description, setDescription] = useState<string>(
+    () => (initialHandoff && initialHandoff.promptText) || ""
+  );
+  // The prompt being answered, shown as a dismissible chip. Dismissing it
+  // keeps the text but drops promptId from the payload (the app's behaviour).
+  const [answeredPrompt, setAnsweredPrompt] = useState<AnsweredPrompt | null>(
+    () => promptFromHandoff(initialHandoff)
+  );
   const [selectedImages, setSelectedImages] = useState<File[]>([]);
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [isButtonEnabled, setIsButtonEnabled] = useState<boolean>(false);
@@ -103,11 +149,15 @@ const CreateMoment: React.FC = () => {
   const [location, setLocation] = useState<LocationData | null>(null);
   const [mood, setMood] = useState<string>("");
   const [tags, setTags] = useState<string[]>([]);
-  const [currentTag, setCurrentTag] = useState<string>("");
   const [privacy, setPrivacy] = useState<string>("public");
-  const [language, setLanguage] = useState<string>("en");
+  // Answering a prompt defaults the moment's language to the prompt's.
+  const [language, setLanguage] = useState<string>(
+    () => promptLanguageCode(initialHandoff) || "en"
+  );
   const [category, setCategory] = useState<string>("general");
-  const [scheduledDate, setScheduledDate] = useState<string>("");
+  const [scheduledFor, setScheduledFor] = useState<string>(""); // datetime-local; "" = now
+  const schedulingEnabled = useMomentSchedulingEnabled();
+  const scheduleBlocked = schedulingEnabled && Boolean(scheduledFor) && !isFutureInput(scheduledFor);
 
   // UI state
   const [showOptions, setShowOptions] = useState<boolean>(false);
@@ -119,61 +169,32 @@ const CreateMoment: React.FC = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const videoInputRef = useRef<HTMLInputElement>(null);
   const userInfo = useSelector((state: any) => state.auth.userInfo?.user);
-  const user = userInfo?._id;
 
-  // Prompt-of-the-day handoff: MainMoments navigates here with router state
-  // ({ promptText, promptId }) when the user taps "Answer" on a prompt.
-  const promptIdRef = useRef<string | undefined>(
-    (routerLocation.state as { promptId?: string } | null)?.promptId
-  );
-
-  // Generate language options using ISO6391
-  const languageOptions = ISO6391.getAllCodes().map((code) => ({
-    value: code,
-    label: ISO6391.getName(code),
-    nativeName: ISO6391.getNativeName(code)
-  }));
-
-  const moods = [
-    { value: "happy", label: "Happy", emoji: "😊" },
-    { value: "excited", label: "Excited", emoji: "🎉" },
-    { value: "grateful", label: "Grateful", emoji: "🙏" },
-    { value: "motivated", label: "Motivated", emoji: "💪" },
-    { value: "relaxed", label: "Relaxed", emoji: "😌" },
-    { value: "curious", label: "Curious", emoji: "🤔" },
-  ];
-
-  const categories = [
-    { value: "general", label: "General", emoji: "💬" },
-    { value: "language-learning", label: "Language Learning", emoji: "📚" },
-    { value: "culture", label: "Culture", emoji: "🌍" },
-    { value: "food", label: "Food & Cooking", emoji: "🍳" },
-    { value: "travel", label: "Travel", emoji: "✈️" },
-    { value: "music", label: "Music", emoji: "🎵" },
-    { value: "books", label: "Books & Literature", emoji: "📖" },
-    { value: "hobbies", label: "Hobbies", emoji: "🎨" },
-  ];
-
+  // A moment is a caption OR media (backend momentValidator + hasMomentContent).
+  // Only the active mode's media counts; a text moment always needs words.
+  const hasMedia =
+    (mediaMode === "photo" && selectedImages.length > 0) ||
+    (mediaMode === "video" && selectedVideo !== null) ||
+    (mediaMode === "voice" && audioNote !== null);
   useEffect(() => {
-    setIsButtonEnabled(description.trim() !== "");
-  }, [description]);
+    setIsButtonEnabled(description.trim() !== "" || hasMedia);
+  }, [description, hasMedia]);
 
-  // Prefill the composer when arriving from "Prompt of the Day → Answer".
-  // Only prefill if the description is still empty so we never clobber
-  // anything the user has already typed.
+  // A later handoff while the composer is already mounted (e.g. Answer tapped
+  // again from history). The first one was consumed by the state initialisers
+  // above. Never clobber anything the user has already typed; the functional
+  // update reads the live description rather than a stale closure.
+  const firstLocationKey = useRef(routerLocation.key);
   useEffect(() => {
-    const state = routerLocation.state as
-      | { promptText?: string; promptId?: string }
-      | null
-      | undefined;
-    if (state?.promptId) {
-      promptIdRef.current = state.promptId;
-    }
-    if (state?.promptText && description.trim() === "") {
-      setDescription(state.promptText);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [routerLocation.state]);
+    if (routerLocation.key === firstLocationKey.current) return;
+    const handoff = readPromptHandoff(routerLocation.state);
+    const next = promptFromHandoff(handoff);
+    if (!next) return;
+    setAnsweredPrompt(next);
+    setDescription((current) => (current.trim() === "" ? next.text : current));
+    const code = promptLanguageCode(handoff);
+    if (code) setLanguage(code);
+  }, [routerLocation.key, routerLocation.state]);
 
   useEffect(() => {
     if (textareaRef.current) {
@@ -185,7 +206,7 @@ const CreateMoment: React.FC = () => {
   const handleImageUpload = (event: ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(event.target.files || []);
     if (files.length + selectedImages.length > 10) {
-      toast.error("Maximum 10 images allowed", {
+      toast.error(t("createMoment.toast.maxImagesError") || "Maximum 10 images allowed", {
         autoClose: 3000,
         hideProgressBar: false,
         theme: "dark",
@@ -243,7 +264,7 @@ const CreateMoment: React.FC = () => {
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    if (!isButtonEnabled || isSubmitting) return;
+    if (!isButtonEnabled || isSubmitting || scheduleBlocked) return;
 
     setIsSubmitting(true);
 
@@ -253,22 +274,19 @@ const CreateMoment: React.FC = () => {
 
     try {
       const payload: any = {
-        title,
         description,
-        user,
         location,
         mood,
         tags,
         privacy,
         language,
         category,
-        scheduledDate,
       };
-      if (mediaMode === "text") {
-        payload.mediaType = "text";
-        if (backgroundColor) payload.backgroundColor = backgroundColor;
-      }
-      if (promptIdRef.current) payload.promptId = promptIdRef.current;
+      // Only while the server enforces scheduling: otherwise it would post now.
+      const scheduledIso = schedulingEnabled && scheduledFor ? localInputToIso(scheduledFor) : null;
+      if (scheduledIso) payload.scheduledFor = scheduledIso;
+      if (mediaMode === "text" && backgroundColor) payload.backgroundColor = backgroundColor;
+      if (answeredPrompt && answeredPrompt.id) payload.promptId = answeredPrompt.id;
 
       const response = await createMoment(payload).unwrap();
       const newMoment = response as Moment;
@@ -293,18 +311,33 @@ const CreateMoment: React.FC = () => {
           await uploadMomentVideo({ momentId, formData }).unwrap();
         } else if (mediaMode === "voice" && audioNote && momentId) {
           const formData = new FormData();
-          formData.append("audio", audioNote.blob, "voice-note.webm");
+          const upload = audioUpload(audioNote.blob, "voice-note");
+          formData.append("audio", upload.blob, upload.filename);
           formData.append("duration", String(audioNote.dur));
           formData.append("waveform", JSON.stringify(audioNote.wf));
           await uploadMomentAudio({ momentId, formData }).unwrap();
         }
       } catch (uploadError) {
-        toast.warn("Posted, but media upload failed — try editing the moment to add it.", {
-          autoClose: 4000,
-          hideProgressBar: false,
-          theme: "dark",
-          transition: Bounce,
-        });
+        if (description.trim() === "") {
+          // Nothing but the media made this a moment: without it the feed
+          // would show an empty card. Take it back and let the user retry.
+          try {
+            await deleteMoment(momentId).unwrap();
+          } catch (e) {
+            // Best effort; the owner can still delete it from My moments.
+          }
+          toast.error(
+            t("moments_section.create.mediaFailedNothingPosted") ||
+              "The upload failed, so nothing was posted. Try again.",
+            { autoClose: 4000, hideProgressBar: false, theme: "dark", transition: Bounce }
+          );
+          return;
+        }
+        toast.warn(
+          t("moments_section.create.mediaFailedPosted") ||
+            "Posted, but media upload failed — try editing the moment to add it.",
+          { autoClose: 4000, hideProgressBar: false, theme: "dark", transition: Bounce }
+        );
         navigate("/moments");
         return;
       }
@@ -331,60 +364,8 @@ const CreateMoment: React.FC = () => {
     }
   };
 
-  const handleAddTag = () => {
-    if (currentTag.trim() && !tags.includes(currentTag.trim()) && tags.length < 5) {
-      setTags([...tags, currentTag.trim()]);
-      setCurrentTag("");
-    } else if (tags.length >= 5) {
-      toast.warn("Maximum 5 tags allowed", { autoClose: 2000 });
-    }
-  };
-
-  const getCurrentLocation = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        async (position) => {
-          const lat = position.coords.latitude;
-          const lng = position.coords.longitude;
-
-          try {
-            const res = await fetch(
-              `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`
-            );
-            const data = await res.json();
-
-            const address = data.address;
-            const city = address.city || address.town || address.village || "";
-            const country = address.country || "";
-
-            setLocation({
-              formattedAddress: `${city}, ${country}`,
-              type: "Point",
-              coordinates: [lng, lat],
-            });
-
-            toast.success("Location added!", { autoClose: 2000 });
-          } catch (err) {
-            toast.error("Could not fetch address", { autoClose: 2000 });
-          }
-        },
-        () => toast.error("Could not get location", { autoClose: 2000 })
-      );
-    }
-  };
-
-  const getPrivacyLabel = () => {
-    switch (privacy) {
-      case 'public': return { icon: <FaGlobe />, label: 'Public' };
-      case 'friends': return { icon: <FaUsers />, label: 'Friends' };
-      case 'private': return { icon: <FaLock />, label: 'Only me' };
-      default: return { icon: <FaGlobe />, label: 'Public' };
-    }
-  };
-
-  const selectedMood = moods.find(m => m.value === mood);
-  const selectedCategory = categories.find(c => c.value === category);
-  const selectedLanguage = languageOptions.find(l => l.value === language);
+  const getCurrentLocation = useCurrentLocation(setLocation as any);
+  const PrivacyIcon = privacyOption(privacy).Icon;
 
   useEffect(() => {
     return () => {
@@ -417,14 +398,14 @@ const CreateMoment: React.FC = () => {
             </div>
             <button
               onClick={handleSubmit}
-              disabled={!isButtonEnabled || isSubmitting}
+              disabled={!isButtonEnabled || isSubmitting || scheduleBlocked}
               className={`px-6 py-2 rounded-full font-medium text-sm transition-all ${
-                isButtonEnabled && !isSubmitting
+                isButtonEnabled && !isSubmitting && !scheduleBlocked
                   ? 'bg-blue-500 hover:bg-blue-600 text-white'
                   : 'bg-gray-200 text-gray-400 cursor-not-allowed'
               }`}
             >
-              {isSubmitting ? 'Sharing...' : 'Share'}
+              {isSubmitting ? t("moments_section.create.sharing") || "Sharing..." : t("moments_section.create.share") || "Share"}
             </button>
           </div>
         </div>
@@ -446,8 +427,8 @@ const CreateMoment: React.FC = () => {
                   onClick={() => setShowOptions(!showOptions)}
                   className="flex items-center gap-1 text-sm text-gray-600 hover:bg-gray-100 px-2 py-1 rounded transition-colors"
                 >
-                  {getPrivacyLabel().icon}
-                  <span>{getPrivacyLabel().label}</span>
+                  <PrivacyIcon />
+                  <span>{privacyLabel(t, privacy)}</span>
                   <FaChevronDown className="w-3 h-3" />
                 </button>
               </div>
@@ -456,34 +437,17 @@ const CreateMoment: React.FC = () => {
             {/* Privacy Dropdown */}
             {showOptions && (
               <div className="mb-4 p-3 bg-gray-50 rounded-lg">
-                <div className="grid grid-cols-3 gap-2 mb-3">
-                  {[
-                    { value: 'public', icon: <FaGlobe />, label: 'Public' },
-                    { value: 'friends', icon: <FaUsers />, label: 'Friends' },
-                    { value: 'private', icon: <FaLock />, label: 'Only me' }
-                  ].map((option) => (
-                    <button
-                      key={option.value}
-                      onClick={() => setPrivacy(option.value)}
-                      className={`p-3 rounded-lg flex flex-col items-center gap-2 text-sm transition-colors ${
-                        privacy === option.value ? 'bg-blue-100 text-blue-600' : 'hover:bg-gray-100'
-                      }`}
-                    >
-                      {option.icon}
-                      {option.label}
-                    </button>
-                  ))}
-                </div>
+                <PrivacyField value={privacy} onChange={setPrivacy} />
               </div>
             )}
 
             {/* Media mode selector — image XOR video XOR voice XOR text/gradient */}
             <div className="mb-4 grid grid-cols-4 gap-2">
               {[
-                { mode: "photo" as MediaMode, icon: <ImageIcon className="w-5 h-5" />, label: "Photo" },
-                { mode: "video" as MediaMode, icon: <VideoIcon className="w-5 h-5" />, label: "Video" },
-                { mode: "voice" as MediaMode, icon: <MicIcon className="w-5 h-5" />, label: "Voice" },
-                { mode: "text" as MediaMode, icon: <TypeIcon className="w-5 h-5" />, label: "Text" },
+                { mode: "photo" as MediaMode, icon: <ImageIcon className="w-5 h-5" />, label: t("moments_section.create.modePhoto") || "Photo" },
+                { mode: "video" as MediaMode, icon: <VideoIcon className="w-5 h-5" />, label: t("moments_section.create.modeVideo") || "Video" },
+                { mode: "voice" as MediaMode, icon: <MicIcon className="w-5 h-5" />, label: t("moments_section.create.modeVoice") || "Voice" },
+                { mode: "text" as MediaMode, icon: <TypeIcon className="w-5 h-5" />, label: t("moments_section.create.modeText") || "Text" },
               ].map((option) => (
                 <button
                   key={option.mode}
@@ -503,25 +467,35 @@ const CreateMoment: React.FC = () => {
 
             {/* Content Input */}
             <div className="w-full bg-white border border-gray-300 rounded-lg p-4 space-y-3">
-              {/* Title input */}
-              <input
-                type="text"
-                placeholder={
-                  t("moments_section.create.titlePlaceholder") || "Add a title..."
-                }
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                className="w-full border-b border-gray-300 outline-none text-lg font-semibold placeholder-gray-500 pb-2"
-                maxLength={100}
-              />
-              <div className="text-right text-xs text-gray-400">
-                {title.length}/100
-              </div>
+              {/* Prompt of the day being answered (dismissible) */}
+              {answeredPrompt && (
+                <div className="flex">
+                  <span
+                    data-testid="create-moment-prompt-chip"
+                    className="inline-flex max-w-full items-center gap-1.5 rounded-full border border-amber-300/60 bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-700 dark:border-amber-600/40 dark:bg-amber-900/20 dark:text-amber-300"
+                  >
+                    <span aria-hidden="true">{answeredPrompt.emoji || "☀️"}</span>
+                    <span className="truncate">
+                      {t("moments_section.prompt.answeringPromptOfDay") || "Answering prompt of the day"}
+                      {": "}
+                      {answeredPrompt.text}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => setAnsweredPrompt(null)}
+                      aria-label={t("moments_section.prompt.dismissChip") || "Stop answering the prompt"}
+                      className="ml-0.5 shrink-0 rounded-full p-0.5 hover:bg-amber-100 dark:hover:bg-amber-800/40"
+                    >
+                      <FaTimes className="w-3 h-3" />
+                    </button>
+                  </span>
+                </div>
+              )}
 
               {/* Main textarea */}
               <textarea
                 ref={textareaRef}
-                placeholder={`What's on your mind, ${userInfo?.name?.split(' ')[0] || 'there'}?`}
+                placeholder={t("moments_section.create.placeholder", { name: userInfo?.name?.split(" ")[0] || "" }) || `What's on your mind, ${userInfo?.name?.split(" ")[0] || "there"}?`}
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 className="w-full border-none outline-none resize-none text-lg placeholder-gray-500 min-h-[120px]"
@@ -585,7 +559,7 @@ const CreateMoment: React.FC = () => {
                     className="flex w-full items-center justify-center gap-2 rounded-lg border-2 border-dashed border-gray-300 py-8 text-sm text-gray-600 transition-colors hover:bg-gray-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800"
                   >
                     <VideoIcon className="w-5 h-5" />
-                    Attach a video
+                    {t("moments_section.create.attachVideo") || "Attach a video"}
                   </button>
                 )}
               </div>
@@ -606,14 +580,14 @@ const CreateMoment: React.FC = () => {
                   <div className="flex items-center justify-between rounded-lg bg-gray-100 px-4 py-3 text-sm text-gray-700 dark:bg-gray-800 dark:text-gray-200">
                     <span className="flex items-center gap-2">
                       <MicIcon className="w-4 h-4" />
-                      Voice note · {Math.round(audioNote.dur)}s
+                      {t("moments_section.create.voiceNoteLength", { seconds: Math.round(audioNote.dur) }) || `Voice note · ${Math.round(audioNote.dur)}s`}
                     </span>
                     <button
                       type="button"
                       onClick={() => setAudioNote(null)}
                       className="text-red-500 hover:text-red-600"
                     >
-                      Remove
+                      {t("moments_section.create.remove") || "Remove"}
                     </button>
                   </div>
                 ) : (
@@ -623,7 +597,7 @@ const CreateMoment: React.FC = () => {
                     className="flex w-full items-center justify-center gap-2 rounded-lg border-2 border-dashed border-gray-300 py-8 text-sm text-gray-600 transition-colors hover:bg-gray-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800"
                   >
                     <MicIcon className="w-5 h-5" />
-                    Record a voice note
+                    {t("moments_section.create.recordVoice") || "Record a voice note"}
                   </button>
                 )}
               </div>
@@ -632,38 +606,11 @@ const CreateMoment: React.FC = () => {
             {/* Text / gradient mode */}
             {mediaMode === "text" && (
               <div className="mt-4">
-                <div className="flex gap-2 overflow-x-auto pb-2">
-                  <button
-                    type="button"
-                    onClick={() => setBackgroundColor("")}
-                    className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-lg border text-xs font-medium ${
-                      backgroundColor === ""
-                        ? "border-blue-500 ring-2 ring-blue-500 text-blue-600"
-                        : "border-gray-300 text-gray-600 dark:border-gray-700 dark:text-gray-300"
-                    }`}
-                    title="No background"
-                  >
-                    None
-                  </button>
-                  {BACKEND_VALID_GRADIENTS.map((key) => (
-                    <button
-                      key={key}
-                      type="button"
-                      onClick={() => setBackgroundColor(key)}
-                      className={`h-12 w-12 shrink-0 rounded-lg border transition-transform ${
-                        backgroundColor === key
-                          ? "ring-2 ring-offset-2 ring-blue-500 scale-105"
-                          : "border-gray-200 dark:border-gray-700"
-                      }`}
-                      style={{ background: gradientFor(key) }}
-                      aria-label={key}
-                    />
-                  ))}
-                </div>
+                <BackgroundField value={backgroundColor} onChange={setBackgroundColor} />
                 {backgroundColor && (
                   <div className="mt-3">
                     <GradientMomentCard
-                      text={description || "Your text moment"}
+                      text={description || t("moments_section.create.textPreview") || "Your text moment"}
                       backgroundColor={backgroundColor}
                     />
                   </div>
@@ -672,11 +619,11 @@ const CreateMoment: React.FC = () => {
             )}
 
             {/* Selected enhancements */}
-            {(selectedMood || location || tags.length > 0 || selectedCategory?.value !== 'general' || selectedLanguage?.value !== 'en') && (
+            {(mood || location || category !== 'general' || language !== 'en') && (
               <div className="mt-4 flex flex-wrap gap-2">
-                {selectedMood && (
+                {mood && (
                   <span className="inline-flex items-center gap-1 px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm">
-                    {selectedMood.emoji} Feeling {selectedMood.label}
+                    {moodEmoji(mood)} {moodLabel(t, mood)}
                     <button onClick={() => setMood("")} className="ml-1 hover:text-yellow-900">
                       <FaTimes className="w-3 h-3" />
                     </button>
@@ -690,27 +637,16 @@ const CreateMoment: React.FC = () => {
                     </button>
                   </span>
                 )}
-                {selectedCategory?.value !== 'general' && (
+                {category !== 'general' && (
                   <span className="inline-flex items-center gap-1 px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm">
-                    {selectedCategory?.emoji} {selectedCategory?.label}
+                    {categoryLabel(t, category)}
                   </span>
                 )}
-                {selectedLanguage?.value !== 'en' && (
+                {language !== 'en' && (
                   <span className="inline-flex items-center gap-1 px-3 py-1 bg-indigo-100 text-indigo-800 rounded-full text-sm">
-                    🌐 {selectedLanguage?.label}
+                    🌐 {language}
                   </span>
                 )}
-                {tags.map((tag) => (
-                  <span key={tag} className="inline-flex items-center gap-1 px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">
-                    #{tag}
-                    <button
-                      onClick={() => setTags(tags.filter(t => t !== tag))}
-                      className="ml-1 hover:text-blue-900"
-                    >
-                      <FaTimes className="w-3 h-3" />
-                    </button>
-                  </span>
-                ))}
               </div>
             )}
           </div>
@@ -746,22 +682,14 @@ const CreateMoment: React.FC = () => {
                   {/* Mood Selector Dropdown */}
                   {showMoodSelector && (
                     <div className="absolute bottom-12 right-0 bg-white border rounded-lg shadow-lg p-3 z-50 min-w-48">
-                      <div className="text-sm font-medium mb-2">How are you feeling?</div>
-                      <div className="grid grid-cols-2 gap-2">
-                        {moods.map((moodOption) => (
-                          <button
-                            key={moodOption.value}
-                            onClick={() => {
-                              setMood(moodOption.value);
-                              setShowMoodSelector(false);
-                            }}
-                            className="flex items-center gap-2 p-2 hover:bg-gray-100 rounded text-left"
-                          >
-                            <span>{moodOption.emoji}</span>
-                            <span className="text-sm">{moodOption.label}</span>
-                          </button>
-                        ))}
-                      </div>
+                      <div className="text-sm font-medium mb-2">{t("moments_section.create.moodQuestion") || "How are you feeling?"}</div>
+                      <MoodField
+                        value={mood}
+                        onChange={(value) => {
+                          setMood(value);
+                          setShowMoodSelector(false);
+                        }}
+                      />
                     </div>
                   )}
                 </div>
@@ -791,77 +719,22 @@ const CreateMoment: React.FC = () => {
         {/* Quick Options */}
         <div className="bg-white rounded-lg shadow-sm p-4">
           <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
-              <select
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-                className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              >
-                {categories.map(cat => (
-                  <option key={cat.value} value={cat.value}>
-                    {cat.emoji} {cat.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Language</label>
-              <select
-                value={language}
-                onChange={(e) => setLanguage(e.target.value)}
-                className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              >
-                {languageOptions.map(lang => (
-                  <option key={lang.value} value={lang.value}>
-                    {lang.label}
-                  </option>
-                ))}
-              </select>
-            </div>
+            <CategoryField value={category} onChange={setCategory} />
+            <LanguageField value={language} onChange={setLanguage} />
           </div>
 
           {/* Tag Input */}
           {(showTagInput || tags.length > 0) && (
             <div className="mt-4">
-              <div className="flex gap-2">
-                <input
-                  type="text"
-                  placeholder={
-                    t("moments_section.create.tagPlaceholder") || "Add a tag..."
-                  }
-                  value={currentTag}
-                  onChange={(e) => setCurrentTag(e.target.value)}
-                  onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), handleAddTag())}
-                  className="flex-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  maxLength={20}
-                />
-                <button
-                  onClick={handleAddTag}
-                  disabled={!currentTag.trim() || tags.length >= 5}
-                  className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  Add
-                </button>
-              </div>
-              <div className="text-xs text-gray-500 mt-1">
-                {tags.length}/5 tags used
-              </div>
+              <TagsField value={tags} onChange={setTags} />
             </div>
           )}
 
-          {/* Schedule Option */}
-          <div className="mt-4">
-            <label className="block text-sm font-medium text-gray-700 mb-1">Schedule (optional)</label>
-            <input
-              type="datetime-local"
-              value={scheduledDate}
-              onChange={(e) => setScheduledDate(e.target.value)}
-              min={new Date().toISOString().slice(0, 16)}
-              className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
+          {schedulingEnabled && (
+            <div className="mt-4">
+              <ScheduleField value={scheduledFor} onChange={setScheduledFor} />
+            </div>
+          )}
         </div>
 
         <input

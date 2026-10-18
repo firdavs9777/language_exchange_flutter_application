@@ -57,6 +57,9 @@ function buildChips(value: CommunityFilters, topicLabels?: Record<string, string
   if (value.newUsersOnly) {
     chips.push({ key: "newUsersOnly", label: "New users only" });
   }
+  if (value.reciprocal) {
+    chips.push({ key: "reciprocal", label: "Perfect partners" });
+  }
   if (value.search) {
     chips.push({ key: "search", label: `Search: ${value.search}` });
   }

@@ -12389,4 +12389,14 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get vocabPacksBrowse => 'Xem các bộ từ';
+
+  @override
+  String visitorsReveal24h(int cost) {
+    return 'Xem tất cả trong 24 giờ với $cost 💎, hoặc lên VIP';
+  }
+
+  @override
+  String visitorsUnlockedLeft(String time) {
+    return 'Đã mở khóa · còn $time';
+  }
 }

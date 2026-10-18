@@ -21,3 +21,16 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Brainstorm mockups (local only)
+.superpowers/
+
+# Key material must never be committed. A 4096-bit RSA private key
+# (fmutalipov7@gmail.com) sat in this repo, which is PUBLIC, from
+# ae23484 (2025-01-01) until it was removed. Treat that key as compromised.
+*.pem
+*.key
+id_rsa*
+id_ed25519*
+desktop
+desktop.pub

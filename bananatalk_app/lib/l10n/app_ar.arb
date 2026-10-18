@@ -4742,5 +4742,7 @@
   "perkUnlimitedTranslations": "ترجمات بلا حدود",
   "vipMoreMatchesCta": "VIP: 15 مطابقة يوميًا",
   "vocabPacksPromo": "مجموعات كلمات جاهزة حسب الموضوع. أضف واحدة وتعلّم قليلًا كل يوم.",
-  "vocabPacksBrowse": "تصفّح المجموعات"
+  "vocabPacksBrowse": "تصفّح المجموعات",
+  "visitorsReveal24h": "شاهد الجميع لمدة 24 ساعة مقابل {cost} 💎، أو اشترك في VIP",
+  "visitorsUnlockedLeft": "مفتوح · متبقٍ {time}"
 }

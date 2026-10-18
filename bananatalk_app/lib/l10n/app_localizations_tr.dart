@@ -12407,4 +12407,14 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get vocabPacksBrowse => 'Setlere göz at';
+
+  @override
+  String visitorsReveal24h(int cost) {
+    return '$cost 💎 karşılığında 24 saat boyunca herkesi gör ya da VIP ol';
+  }
+
+  @override
+  String visitorsUnlockedLeft(String time) {
+    return 'Kilit açık · $time kaldı';
+  }
 }

@@ -833,6 +833,11 @@ const Map<String, List<String>> _keysByTask = {
     'vocabPacksPromo',
     'vocabPacksBrowse',
   ],
+  // fix/visitors-unlock-window: the 24h coin unlock says so, and until when.
+  'visitors-unlock-window': [
+    'visitorsReveal24h',
+    'visitorsUnlockedLeft',
+  ],
   // fix/vip-honest-perks: perks VIP really delivers.
   'vip-honest-perks': [
     'perkMoreMatches',
@@ -1152,6 +1157,9 @@ const Map<String, List<String>> _filesByTask = {
   'study-progress-packs': [
     'pages/learning/main/sections/progress_card.dart',
     'pages/learning/main/sections/vocab_packs_card.dart',
+  ],
+  'visitors-unlock-window': [
+    'pages/profile/visitors_screen.dart',
   ],
   'vip-honest-perks': [
     'widgets/limit_exceeded_dialog.dart',

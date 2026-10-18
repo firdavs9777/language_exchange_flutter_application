@@ -2,48 +2,30 @@
   "greeting": "你好",
   "footer": {
     "aboutUs": "关于我们",
-    "aboutDescription": "BananaTalk致力于帮助您掌握新语言，与世界各地的母语者建立联系。",
+    "aboutDescription": "BananaTalk 致力于帮你掌握新语言，认识世界各地的母语者。",
     "quickLinks": "快速链接",
     "links": {
       "home": "首页",
       "about": "关于",
       "services": "服务",
       "pricing": "价格",
-      "contact": "联系"
+      "contact": "联系我们",
+      "communities": "社区",
+      "download": "下载 App",
+      "meet": "认识新朋友",
+      "learnKorean": "学韩语"
     },
-    "contactInfo": "联系信息",
+    "contactInfo": "联系方式",
     "address": "韩国首尔江南区",
     "follow": "关注我们",
-    "newsletter": "订阅通讯",
-    "newsletterDescription": "订阅我们的通讯，获取更新和优惠。",
-    "emailPlaceholder": "您的邮箱地址",
-    "allRightsReserved": "版权所有。"
+    "newsletter": "邮件订阅",
+    "newsletterDescription": "订阅我们的邮件，获取最新消息和优惠。",
+    "emailPlaceholder": "你的邮箱地址",
+    "allRightsReserved": "保留所有权利。"
   },
   "community": "社区",
   "chat": "聊天",
   "chatPage": {
-    "messages": "消息",
-    "searchPlaceholder": "搜索对话...",
-    "startConversation": "开始对话",
-    "emptyDescription": "从侧边栏选择聊天或开始新对话，与世界各地的语言伙伴建立联系。",
-    "newConversation": "新对话",
-    "features": {
-      "realtime": "实时消息",
-      "exchange": "语言交换",
-      "calls": "语音和视频通话",
-      "translation": "内置翻译"
-    },
-    "online": "在线",
-    "offline": "离线",
-    "lastSeen": "最后上线",
-    "typing": "正在输入...",
-    "loadingConversation": "加载对话中...",
-    "errorLoading": "加载对话出错",
-    "messagePlaceholder": "输入消息...",
-    "justNow": "刚刚",
-    "minutesAgo": "{{count}}分钟前",
-    "hoursAgo": "{{count}}小时前",
-    "unknownUser": "未知用户",
     "backToConversations": "返回对话列表",
     "moreOptions": "更多选项",
     "retrySending": "重新发送",
@@ -55,37 +37,428 @@
     },
     "list": {
       "noMatchTitle": "没有匹配的对话",
-      "noMatchSubtitle": "尝试调整搜索词",
-      "emptyTitle": "暂无对话",
-      "emptySubtitle": "开始对话后会显示在这里"
-    },
-    "deleteModal": {
-      "title": "删除对话",
-      "bodyPrefix": "删除与该用户的对话:",
-      "warning": "此操作无法撤销。",
-      "cancel": "取消",
-      "confirm": "删除",
-      "deleting": "正在删除..."
-    },
-    "gif": {
-      "title": "GIF",
-      "close": "关闭 GIF 选择器",
-      "searchPlaceholder": "搜索 GIF...",
-      "loading": "正在加载 GIF...",
-      "noResults": "未找到 GIF",
-      "poweredBy": "Powered by GIPHY",
-      "altText": "GIF"
+      "noMatchSubtitle": "换个关键词试试",
+      "emptyTitle": "还没有对话",
+      "emptySubtitle": "发起对话后就会显示在这里",
+      "loadError": "对话列表加载失败",
+      "loading": "正在加载聊天…",
+      "noMessages": "还没有消息",
+      "tryAgain": "重试",
+      "typing": "正在输入…"
     },
     "actions": {
       "menuLabel": "对话操作",
       "pin": "置顶",
       "unpin": "取消置顶",
       "pinned": "已置顶",
-      "noConversationYet": "请先开始对话再置顶",
-      "pinFailed": "更新置顶失败",
-      "deleteFailed": "删除对话失败",
-      "deleted": "对话已删除"
+      "noConversationYet": "先开始对话才能置顶",
+      "pinFailed": "置顶状态更新失败",
+      "deleteFailed": "对话删除失败",
+      "deleted": "对话已删除",
+      "openProfile": "打开 {{name}} 的资料",
+      "mute": "静音",
+      "unmute": "取消静音",
+      "muted": "已开启静音",
+      "unmuted": "已恢复通知",
+      "muteFailed": "通知设置更新失败",
+      "unpinned": "已取消置顶"
+    },
+    "deleteModal": {
+      "title": "删除对话",
+      "warning": "删除后无法恢复。",
+      "cancel": "取消",
+      "confirm": "删除",
+      "deleting": "删除中…",
+      "body": "确定要删除和 {{name}} 的对话吗？"
+    },
+    "gif": {
+      "title": "GIF",
+      "close": "关闭 GIF 选择器",
+      "searchPlaceholder": "搜索 GIF…",
+      "loading": "GIF 加载中…",
+      "noResults": "没有找到 GIF",
+      "poweredBy": "Powered by GIPHY",
+      "altText": "GIF"
+    },
+    "messages": "消息",
+    "searchPlaceholder": "搜索对话…",
+    "startConversation": "发起对话",
+    "emptyDescription": "从左侧选择一个聊天，或者发起新对话，认识世界各地的语伴。",
+    "newConversation": "新对话",
+    "features": {
+      "realtime": "实时消息",
+      "exchange": "语言交换",
+      "calls": "语音和视频通话",
+      "translation": "内置翻译"
+    },
+    "online": "在线",
+    "offline": "离线",
+    "lastSeen": "最后在线",
+    "typing": "正在输入…",
+    "loadingConversation": "正在加载对话…",
+    "errorLoading": "对话加载失败",
+    "messagePlaceholder": "输入消息…",
+    "justNow": "刚刚",
+    "minutesAgo": "{{count}} 分钟前",
+    "hoursAgo": "{{count}} 小时前",
+    "unknownUser": "未知用户",
+    "viewProfileOf": "查看 {{name}} 的资料",
+    "info": {
+      "title": "聊天信息",
+      "close": "关闭",
+      "viewProfile": "查看资料",
+      "media": "共享的媒体",
+      "mute": "关闭通知",
+      "unmute": "开启通知",
+      "muted": "已开启静音",
+      "unmuted": "已恢复通知",
+      "muteFailed": "通知设置更新失败",
+      "wallpaper": "聊天背景",
+      "block": "拉黑",
+      "unblock": "取消拉黑",
+      "blockTitle": "确定拉黑 {{name}}？",
+      "blockBody": "对方将无法给你发消息，也看不到你的资料。",
+      "unblockTitle": "确定取消拉黑 {{name}}？",
+      "unblockBody": "对方将可以再次给你发消息。",
+      "blocked": "已拉黑",
+      "unblocked": "已取消拉黑",
+      "blockFailed": "操作失败，请再试一次。",
+      "report": "举报",
+      "reportTitle": "举报 {{name}}",
+      "reportBody": "告诉我们哪里有问题。每一条举报我们都会查看。",
+      "reportReason": "举报原因",
+      "reportDescription": "详细说明（可选）",
+      "reportSubmit": "提交举报",
+      "reported": "谢谢，管理团队会尽快查看",
+      "reportFailed": "举报发送失败",
+      "delete": "删除对话",
+      "cancel": "取消",
+      "noConversationYet": "先发一条消息吧"
+    },
+    "reportReasons": {
+      "spam": "垃圾信息",
+      "harassment": "骚扰或欺凌",
+      "hate_speech": "仇恨言论",
+      "violence": "暴力或威胁",
+      "nudity": "裸露或性内容",
+      "false_information": "虚假信息",
+      "copyright": "版权问题",
+      "other": "其他"
+    },
+    "status": {
+      "sending": "发送中",
+      "sent": "已发送",
+      "delivered": "已送达",
+      "read": "已读",
+      "failed": "发送失败"
+    },
+    "loadEarlier": "加载更早的消息",
+    "loadingEarlier": "正在加载更早的消息",
+    "suggestCorrection": "提出修改建议",
+    "translateThis": "翻译这条消息",
+    "addCaption": "添加说明…",
+    "conversationStarted": "对话已开始",
+    "correct": "修改",
+    "daysAgo": "{{count}} 天前",
+    "edit": "编辑消息",
+    "hide_translation": "隐藏",
+    "noMessages": "还没有消息",
+    "retry": "重试",
+    "today": "今天",
+    "translate": "翻译",
+    "yesterday": "昨天",
+    "wallpaper": {
+      "title": "聊天背景",
+      "shared": "你选择的背景，对方也会看到。",
+      "plain": "纯色",
+      "gradients": "渐变",
+      "default": "默认",
+      "apply": "应用",
+      "cancel": "取消",
+      "saved": "背景已更新",
+      "failed": "背景更新失败",
+      "cream": "奶油色",
+      "blush": "腮红色",
+      "peach": "蜜桃色",
+      "sage": "鼠尾草绿",
+      "ocean": "海洋蓝",
+      "teal": "青绿色",
+      "forest": "森林绿",
+      "rose": "玫瑰色",
+      "wine": "酒红色",
+      "plum": "梅紫色",
+      "navy": "藏青色",
+      "mocha": "摩卡色",
+      "slate": "板岩灰",
+      "ember": "余烬橙",
+      "deep_sea": "深海蓝",
+      "charcoal": "炭灰色",
+      "midnight": "午夜",
+      "dark": "深色",
+      "gradient_sunset": "日落",
+      "gradient_ocean": "海洋蓝",
+      "gradient_purple": "星空紫",
+      "gradient_midnight": "午夜",
+      "gradient_forest": "森林绿",
+      "gradient_rose": "玫瑰金",
+      "gradient_candy": "糖果色",
+      "gradient_neon": "霓虹",
+      "gradient_fire": "火焰",
+      "gradient_winter": "冬日",
+      "gradient_lavender": "薰衣草紫",
+      "gradient_aurora": "极光",
+      "premiumInUse": "这个聊天使用的是 App 里的高级背景。换成其他背景后，你们双方的背景都会改变。"
+    },
+    "jumpToLatest": "跳转到最新消息",
+    "archive": {
+      "archive": "归档聊天",
+      "archived": "已在网页端归档，App 里仍会显示。",
+      "back": "返回聊天列表",
+      "failed": "归档状态更新失败",
+      "toggle": "已归档（{{count}}）",
+      "unarchive": "取消归档",
+      "unarchived": "已移回聊天列表"
+    },
+    "blocked": {
+      "byMe": "你已拉黑对方。取消拉黑后才能发消息。",
+      "generic": "你无法在这个聊天中发送消息。",
+      "manage": "管理"
+    },
+    "bookmarks": {
+      "addFailed": "消息收藏失败",
+      "added": "已收藏",
+      "attachment": "附件",
+      "close": "关闭",
+      "empty": "还没有收藏的消息",
+      "error": "收藏的消息加载失败",
+      "loading": "正在加载收藏的消息…",
+      "open": "打开聊天",
+      "remove": "取消收藏",
+      "removeFailed": "取消收藏失败",
+      "removed": "已取消收藏",
+      "title": "收藏的消息"
+    },
+    "call": {
+      "busy": "{{name}} 正在通话中",
+      "cancelledVideo": "已取消视频通话",
+      "cancelledVoice": "已取消语音通话",
+      "declinedIncomingVideo": "已拒绝视频通话",
+      "declinedIncomingVoice": "已拒绝语音通话",
+      "declinedOutgoingVideo": "对方已拒绝视频通话",
+      "declinedOutgoingVoice": "对方已拒绝语音通话",
+      "incomingVideo": "视频来电",
+      "incomingVoice": "语音来电",
+      "missedVideo": "未接视频通话",
+      "missedVoice": "未接语音通话",
+      "noAnswerVideo": "视频通话 · 无人接听",
+      "noAnswerVoice": "语音通话 · 无人接听",
+      "outgoingVideo": "已拨出视频通话",
+      "outgoingVoice": "已拨出语音通话"
+    },
+    "connection": {
+      "kicked": "聊天已在其他地方打开，此标签页已停止接收消息。",
+      "reconnect": "在此使用"
+    },
+    "correction": {
+      "accept": "接受修改",
+      "acceptFailed": "接受修改失败",
+      "accepted": "已接受修改，已加入你的学习记录",
+      "accepting": "正在接受…",
+      "corrected": "{{name}} 修改了",
+      "you": "你"
+    },
+    "correctionModal": {
+      "cancel": "取消",
+      "close": "关闭",
+      "empty": "请输入修改内容",
+      "explanation": "说明",
+      "explanationPlaceholder": "说说为什么这样改更好…",
+      "hint": "例如：“用 went 而不是 goed，这是不规则过去式”",
+      "optional": "（可选）",
+      "original": "原消息",
+      "submit": "发送修改",
+      "title": "语言纠错",
+      "unchanged": "修改后的内容需要和原文不同",
+      "yours": "你的修改",
+      "yoursPlaceholder": "输入修改后的句子…"
+    },
+    "deleteMessage": {
+      "cancel": "取消",
+      "failed": "消息删除失败，请再试一次。",
+      "forEveryone": "为所有人删除",
+      "forMe": "仅为我删除",
+      "placeholder": "此消息已删除",
+      "title": "删除消息？",
+      "tooLate": "消息发送超过 1 小时后，就不能为所有人删除了。"
+    },
+    "editDialog": {
+      "cancel": "取消",
+      "failed": "消息编辑失败，请再试一次。",
+      "label": "消息",
+      "save": "保存",
+      "title": "编辑消息",
+      "tooLate": "消息只能在发送后 15 分钟内编辑。"
+    },
+    "editedLabel": "已编辑",
+    "forward": {
+      "close": "关闭",
+      "empty": "没有找到对话。",
+      "error": "对话加载失败。",
+      "loading": "正在加载对话…",
+      "search": "搜索",
+      "submit": "转发",
+      "submitCount": "转发（{{count}}）",
+      "title": "转发给",
+      "unknownUser": "未知用户"
+    },
+    "forwarded": "已转发",
+    "location": {
+      "cancel": "取消",
+      "confirmTitle": "要分享你的位置吗？",
+      "denied": "位置权限已被拒绝",
+      "failed": "无法获取你的位置",
+      "open": "在地图中打开",
+      "send": "发送",
+      "sendFailed": "位置发送失败",
+      "share": "分享位置",
+      "title": "位置",
+      "unsupported": "此浏览器不支持分享位置"
+    },
+    "mediaGallery": {
+      "back": "返回",
+      "emptyFiles": "还没有共享的文件",
+      "emptyPhotos": "还没有共享的照片",
+      "emptyVideos": "还没有共享的视频",
+      "error": "媒体加载失败",
+      "files": "文件",
+      "loading": "正在加载媒体…",
+      "photos": "照片",
+      "title": "共享的媒体",
+      "unknownFile": "未知文件",
+      "unknownSize": "大小未知",
+      "videos": "视频"
+    },
+    "menu": {
+      "bookmark": "收藏",
+      "close": "关闭",
+      "copy": "复制",
+      "delete": "删除",
+      "edit": "编辑",
+      "forward": "转发",
+      "listen": "朗读",
+      "pin": "置顶",
+      "reply": "回复"
+    },
+    "mute": {
+      "always": "直到我手动开启",
+      "cancel": "取消",
+      "eightHours": "8 小时",
+      "oneHour": "1 小时",
+      "oneWeek": "1 周",
+      "title": "将 {{name}} 设为静音？"
+    },
+    "pinnedBar": {
+      "count": "{{count}} 条置顶",
+      "unpin": "取消置顶消息"
+    },
+    "preview": {
+      "attachment": "📎 附件",
+      "call": "📞 通话",
+      "file": "📎 文件",
+      "gif": "GIF",
+      "location": "📍 位置",
+      "photo": "🖼️ 照片",
+      "poll": "📊 投票",
+      "story": "📖 限时动态",
+      "video": "🎥 视频",
+      "voice": "🎤 语音消息"
+    },
+    "replyBar": {
+      "cancel": "取消回复",
+      "replyingTo": "回复 {{name}}"
+    },
+    "search": {
+      "close": "关闭",
+      "empty": "没有找到消息",
+      "hint": "请至少输入 2 个字符",
+      "notLoaded": "这条消息比较早，向上滚动即可加载。",
+      "open": "搜索消息",
+      "placeholder": "搜索此聊天",
+      "searching": "正在搜索…",
+      "title": "搜索与 {{name}} 的消息",
+      "unavailable": "搜索暂时不可用",
+      "you": "你"
+    },
+    "sendErrors": {
+      "blockedBody": "你无法给对方发送消息。",
+      "blockedTitle": "消息未发送",
+      "capBody": "今天能发起的新对话已达上限。开通 VIP 即可不限次数发起对话。",
+      "capTitle": "已达新对话上限",
+      "dailyBody": "今天的消息条数已用完。开通 VIP 可无限发消息，或者明天再来。",
+      "dailyTitle": "已达每日消息上限",
+      "firstChatBody": "对方回复前，你最多可以发 5 条消息。等对方回复后就能继续聊了。",
+      "firstChatTitle": "等待对方回复",
+      "generic": "消息未发送。点击“重试”再试一次。",
+      "goVip": "开通 VIP",
+      "ok": "好的",
+      "reattach": "请重新添加文件后再发送。",
+      "tooFast": "发送太频繁了，请稍等一下。"
+    },
+    "story": {
+      "replied": "回复了你的限时动态",
+      "shared": "分享了一条限时动态",
+      "unavailable": "这条限时动态已无法查看",
+      "youReplied": "你回复了对方的限时动态",
+      "youShared": "你分享了一条限时动态"
+    },
+    "translation": {
+      "close": "关闭翻译",
+      "failed": "消息翻译失败",
+      "label": "翻译 · {{lang}}",
+      "save": "保存短语",
+      "saveFailed": "短语保存失败",
+      "saved": "已存进学习清单",
+      "saving": "保存中…",
+      "translating": "翻译中…"
+    },
+    "video": {
+      "badType": "无法发送这种视频格式，试试 MP4。",
+      "tooBig": "视频太大了，上限为 {{mb}} MB。",
+      "tooLong": "视频太长了，上限为 {{minutes}} 分钟。"
+    },
+    "voice": {
+      "unavailable": "无法录制语音。请检查此网站的麦克风权限。"
+    },
+    "wave": {
+      "hi": "你好！"
+    },
+    "callInApp": {
+      "voice": "语音通话",
+      "video": "视频通话",
+      "title": "通话需在 BananaTalk 应用中进行",
+      "body": "打开应用即可呼叫{{name}}。来电会在你的手机上响铃。",
+      "openApp": "打开应用",
+      "notNow": "以后再说"
     }
+  },
+  "newChat": {
+    "title": "新建聊天",
+    "subtitle": "发起一场对话",
+    "directMessage": "私聊",
+    "groupChat": "群聊",
+    "searchPlaceholder": "搜索名字、@用户名或用户 ID…",
+    "searchHint": "搜索用户，开始聊天",
+    "hintName": "按名字搜索",
+    "hintUsername": "输入“@用户名”按用户名查找",
+    "hintId": "粘贴用户 ID 可直接找到对方",
+    "searchByUsername": "正在按用户名搜索",
+    "searchById": "正在按用户 ID 搜索",
+    "noResults": "没有找到用户",
+    "tryDifferent": "换个名字、@用户名或用户 ID 试试",
+    "createGroup": "创建群聊",
+    "selectMoreUsers": "群聊至少要选 2 位用户",
+    "createError": "聊天创建失败",
+    "recently": "最近"
   },
   "notifications": "通知",
   "moments": "动态",
@@ -99,104 +472,121 @@
   "logout": "退出登录",
   "sign_in": "登录",
   "image_upload": {
-    "image_drop": "请只拖放图片文件",
-    "max_upload_warning": "您还可以上传 {{count}} 张图片",
+    "image_drop": "只能拖放图片文件",
+    "max_upload_warning": "你还可以上传 {{count}} 张图片。",
     "no_images_error": "请至少上传一张图片",
-    "removed_from_selection": "图片已从选择中移除",
-    "deleted_success": "图片删除成功",
-    "replaced_success": "图片替换成功",
+    "removed_from_selection": "已取消选择这张图片",
+    "deleted_success": "图片已删除",
+    "replaced_success": "图片已替换",
     "current_images": "当前图片",
-    "no_images_uploaded": "暂无上传的图片",
+    "no_images_uploaded": "还没有上传图片",
     "new_images": "新图片",
-    "no_new_images": "未选择新图片",
-    "drop_images_here": "将图片拖放到此处或",
+    "no_new_images": "还没有选择新图片",
+    "drop_images_here": "把图片拖到这里，或",
     "select_files": "选择文件",
-    "remaining_slots": "您还可以添加 {{count}} 张{{item}}",
+    "remaining_slots": "你还可以添加 {{count}} 张{{item}}",
     "image": "图片",
     "images": "图片",
     "cancel": "取消",
-    "save_changes": "保存更改",
+    "save_changes": "保存",
     "replace_image": "替换",
     "delete_image": "删除图片",
-    "remove_from_selection": "从选择中移除",
+    "remove_from_selection": "取消选择",
     "image_gallery": "图片库"
   },
   "profile": {
     "title": "我的资料",
     "edit_profile": "编辑资料",
-    "photos": "照片",
+    "photos": {
+      "title": "照片",
+      "add": "添加照片",
+      "alt": "{{name}} 的第 {{index}} 张照片",
+      "open": "打开照片 {{index}}",
+      "close": "关闭",
+      "previous": "上一张",
+      "next": "下一张",
+      "counter": "{{index}} / {{total}}",
+      "openAvatar": "打开 {{name}} 的照片",
+      "openStory": "查看 {{name}} 的限时动态"
+    },
     "messages": {
-      "image_update_success": "头像更新成功",
+      "image_update_success": "头像已更新",
       "image_update_failure": "头像更新失败",
-      "image_delete_success": "照片删除成功",
+      "image_delete_success": "照片已删除",
       "image_delete_failure": "照片删除失败",
-      "profile_update_success": "资料更新成功",
+      "profile_update_success": "资料已更新",
       "profile_update_failure": "资料更新失败",
-      "error_loading_profile": "加载用户资料时出错",
-      "no_profile_data": "无用户资料数据",
-      "unknown_error": "发生未知错误",
-      "no_bio": "暂无个人简介",
-      "not_specified": "未指定"
+      "extras_update_failure": "个人资料已保存，但部分信息未能更新",
+      "error_loading_profile": "用户资料加载失败",
+      "no_profile_data": "暂无用户资料",
+      "unknown_error": "发生了未知错误",
+      "no_bio": "还没有填写简介",
+      "not_specified": "未填写"
     },
     "stats": {
       "followers": "粉丝",
-      "no_followers": "您还没有粉丝",
-      "follower_error": "加载粉丝时出错，请稍后重试",
+      "no_followers": "你还没有粉丝。",
+      "follower_error": "粉丝列表加载失败，请稍后再试。",
       "following": "关注",
-      "no_following": "您还没有关注任何人",
-      "following_error": "加载关注列表时出错，请稍后重试",
+      "no_following": "你还没有关注任何人。",
+      "following_error": "关注列表加载失败，请稍后再试。",
       "moments": "动态",
-      "visitors": "访客"
+      "visitors": "访客",
+      "visited": "我看过的"
     },
     "visitors": {
-      "title": "资料访客",
-      "error": "加载访客时出错",
-      "no_visitors": "暂无访客",
-      "no_visitors_desc": "当有人访问您的资料时，他们将显示在这里",
+      "title": "谁看过我",
+      "error": "访客列表加载失败",
+      "no_visitors": "还没有访客",
+      "no_visitors_desc": "有人来看你的资料时，就会显示在这里",
       "total_visits": "总访问量",
-      "unique_visitors": "独立访客",
-      "visits_today": "今日",
+      "unique_visitors": "访客人数",
+      "visits_today": "今天",
       "visits_week": "本周",
-      "via_moments": "通过动态",
-      "via_search": "通过搜索",
-      "via_chat": "通过聊天",
+      "via_moments": "来自动态",
+      "via_search": "来自搜索",
+      "via_chat": "来自聊天",
       "via_direct": "直接访问",
-      "via_followers": "通过粉丝",
-      "vipOnly": "VIP专属功能",
-      "vipOnlyDesc": "升级VIP即可查看谁访问了您的资料。此功能仅对VIP会员开放。",
-      "vipBenefits": "VIP特权",
-      "learnMore": "了解更多VIP详情"
+      "via_followers": "来自粉丝",
+      "vipOnly": "VIP 专属功能",
+      "vipOnlyDesc": "升级 VIP 就能看到谁访问过你的资料。此功能仅面向 VIP 会员开放。",
+      "vipBenefits": "VIP 权益",
+      "learnMore": "了解更多 VIP 详情",
+      "clear": "清除记录",
+      "clear_title": "要清除访客记录吗？",
+      "clear_body": "查看过你主页的人都会被删除，访问计数归零。此操作无法撤销。",
+      "no_visited": "你看过的个人主页会显示在这里"
     },
     "sections": {
       "personal_info": "个人信息",
       "bio": "个人简介",
       "languages": "语言",
       "personality": "性格",
-      "topics": "兴趣爱好"
+      "topics": "话题与兴趣"
     },
     "labels": {
-      "name": "姓名",
+      "name": "名字",
       "username": "用户名",
       "email": "邮箱",
       "gender": "性别",
       "birthday": "生日",
       "native_language": "母语",
-      "learning": "正在学习",
-      "of": "的",
-      "mbti": "MBTI类型",
+      "learning": "在学",
+      "of": "日",
+      "mbti": "MBTI 类型",
       "blood_type": "血型",
-      "topics_hint": "选择您感兴趣的话题（最多10个）",
-      "selected": "已选择"
+      "topics_hint": "选择你感兴趣的话题（最多 10 个）",
+      "selected": "已选"
     },
     "hints": {
-      "username_readonly": "用户名不可更改"
+      "username_readonly": "用户名不可修改"
     },
     "placeholders": {
-      "bio": "写点关于自己的介绍",
+      "bio": "介绍一下你自己",
       "select_gender": "选择性别",
       "select_date": "选择日期",
       "select_native_language": "选择母语",
-      "select_learning_language": "选择要学习的语言"
+      "select_learning_language": "选择想学的语言"
     },
     "options": {
       "male": "男",
@@ -207,7 +597,18 @@
       "save": "保存",
       "cancel": "取消",
       "edit_photo": "编辑照片",
-      "clear": "清除选择"
+      "clear": "清除选择",
+      "settings": "设置",
+      "message": "私信",
+      "follow": "关注",
+      "following": "已关注",
+      "more": "更多选项",
+      "block": "拉黑",
+      "report": "举报",
+      "this_person": "这个人",
+      "action_failed": "操作失败，请再试一次。",
+      "unblock": "取消拉黑",
+      "followBlocked": "你无法关注此人"
     },
     "buttons": {
       "edit": "编辑",
@@ -235,161 +636,520 @@
       "kdrama": "韩剧",
       "languages": "语言",
       "culture": "文化"
+    },
+    "badges": {
+      "vip": "VIP",
+      "verified": "已认证",
+      "joined": "{{date}} 加入",
+      "active": "{{time}}活跃",
+      "online": "当前在线"
+    },
+    "block": {
+      "title": "确定拉黑 {{name}}？",
+      "body": "对方将无法给你发消息，也看不到你的资料。"
+    },
+    "report": {
+      "title": "确定举报 {{name}}？",
+      "body": "告诉我们哪里有问题。每一条举报我们都会查看。",
+      "reason": "举报原因"
+    },
+    "languages": {
+      "also_learning": "还在学"
+    },
+    "about": {
+      "title": "简介",
+      "occupation": "职业",
+      "school": "学校",
+      "read_more": "展开",
+      "read_less": "收起"
+    },
+    "learning": {
+      "title": "学习进度",
+      "streak": "连续学习",
+      "days": "天",
+      "xp": "总 XP",
+      "level": "等级"
+    },
+    "moments": {
+      "see_all": "查看全部",
+      "empty_own": "发布你的第一条动态",
+      "empty_other": "还没有动态",
+      "photo_alt": "动态图片"
+    },
+    "page": {
+      "title": "资料",
+      "error_title": "资料加载失败",
+      "error_body": "请检查网络后再试一次。",
+      "retry": "重试",
+      "not_found_title": "找不到这个资料",
+      "not_found_body": "这个资料已经不存在了，或者从来就没有过。",
+      "back_to_community": "去社区逛逛"
+    },
+    "lists": {
+      "title": "关注与粉丝",
+      "title_of": "{{name}} 的关注与粉丝",
+      "title_other": "关注与粉丝",
+      "search": "按名字搜索",
+      "search_empty": "没有找到和“{{query}}”相符的人",
+      "empty_followers_own": "你还没有粉丝。",
+      "empty_followers_other": "对方还没有粉丝。",
+      "empty_following_own": "你还没有关注任何人。",
+      "empty_following_other": "对方还没有关注任何人。",
+      "error_title": "列表加载失败",
+      "error_body": "请检查网络后再试一次。",
+      "retry": "重试"
+    },
+    "edit": {
+      "back": "返回",
+      "about": "简介",
+      "photos_hint": "第一张照片会显示在所有人看得到的地方。",
+      "add_photo": "添加照片",
+      "photo_alt": "照片 {{index}}",
+      "delete_photo": "删除照片 {{index}}",
+      "delete_photo_title": "确定删除这张照片？",
+      "delete_photo_body": "删除后，所有人都不会再在你的资料里看到它。",
+      "delete_photo_confirm": "删除照片",
+      "level": "等级",
+      "level_hint": "你在所学语言上的水平。",
+      "occupation": "职业",
+      "occupation_placeholder": "你从事什么工作？",
+      "school": "学校",
+      "school_placeholder": "你在哪里读书？",
+      "saving": "保存中",
+      "unsaved": "你有未保存的修改",
+      "leave_title": "不保存就离开？",
+      "leave_body": "你对这份资料的修改会丢失。",
+      "leave_confirm": "放弃修改",
+      "stay": "继续编辑",
+      "intent_title": "你来这里的目的",
+      "intent_learn": "来学习",
+      "intent_meet": "想认识新朋友",
+      "intent_date": "对约会持开放态度",
+      "intent_privacy_note": "你的选择会公开显示，约会除外，它会保持私密。",
+      "completion": "资料完成度"
+    },
+    "myMoments": {
+      "title": "我的动态",
+      "create": "发布动态",
+      "edit": "编辑动态",
+      "delete": "删除动态",
+      "delete_title": "确定删除这条动态？",
+      "delete_body": "所有人都看不到了，点赞和评论也会一起消失。",
+      "delete_confirm": "删除",
+      "delete_failed": "这条动态删除失败，请再试一次。",
+      "empty_title": "还没有动态",
+      "empty_body": "把你的第一条动态分享给社区吧。",
+      "error_title": "动态加载失败",
+      "error_body": "请检查网络后再试一次。",
+      "retry": "重试",
+      "load_more": "加载更多",
+      "loading_more": "加载中..."
+    },
+    "tabs": {
+      "label": "个人资料分区",
+      "moments": "动态",
+      "about": "关于"
+    },
+    "unblock": {
+      "title": "确定取消拉黑 {{name}}？",
+      "body": "对方将可以再次给你发消息，也能看到你的资料。"
+    },
+    "blocked": {
+      "body": "你们其中一方已拉黑对方，因此无法互发私信、关注或查看对方的动态。",
+      "manage": "管理已拉黑的人",
+      "title": "无法查看此资料"
     }
   },
   "moments_section": {
     "title": "动态",
-    "question": "在想什么，",
-    "loading": "加载中",
-    "loading_moments": "加载动态中...",
-    "error_loading": "加载动态时出错",
-    "error_info": "无法加载动态，请稍后重试",
-    "retry_btn": "重试",
-    "no_moments": "暂无动态",
-    "first_to_moment": "成为第一个与社区分享精彩瞬间的人",
-    "share_moment": "分享动态",
-    "moment_login_error": "请登录后点赞动态",
-    "moment_like_error": "更新点赞状态失败",
-    "moment_like": "点赞",
-    "moment_comment": "评论",
-    "moment_share": "分享",
-    "no_comments": "暂无评论，成为第一个评论的人吧！",
-    "invalidMomentId": "无效的动态ID",
-    "loadingMoment": "加载动态详情中...",
-    "noDetailsFound": "未找到详情",
-    "goBack": "返回",
-    "momentDetails": "动态详情",
-    "pleaseLoginFirst": "请先登录",
-    "removedLike": "已取消点赞",
-    "likedMoment": "已点赞动态",
-    "failedToUpdateLike": "更新点赞状态失败",
-    "emptyCommentError": "请输入评论内容",
-    "commentAdded": "评论已添加",
-    "failedToAddComment": "添加评论失败",
-    "loadingComments": "加载评论中...",
-    "writeCommentPlaceholder": "写下您的评论...",
-    "signInToComment": "请登录后发表评论",
-    "signIn": "登录",
-    "noCommentsYet": "暂无评论，成为第一个评论的人吧！",
-    "commentsCount": "{{count}} 条评论",
-    "comments": "评论",
-    "likeButton": "点赞",
-    "commentButton": "评论",
-    "shareButton": "分享",
-    "timeAgo": {
-      "justNow": "刚刚",
-      "minutesAgo": "{{minutes}}分钟前",
-      "hoursAgo": "{{hours}}小时前",
-      "daysAgo": "{{days}}天前"
-    },
     "lightbox": {
-      "open": "全屏查看图片",
+      "open": "查看大图",
       "close": "关闭图片查看器",
       "previous": "上一张",
       "next": "下一张"
     },
     "share": {
       "fallbackTitle": "看看这条动态",
-      "success": "分享成功!",
-      "copied": "链接已复制到剪贴板!",
-      "failed": "复制链接失败"
+      "success": "分享成功！",
+      "copied": "链接已复制！",
+      "failed": "链接复制失败"
     },
     "create": {
-      "header": "创建动态",
-      "titlePlaceholder": "添加标题...",
+      "header": "发布动态",
+      "titlePlaceholder": "添加标题…",
       "addToMoment": "添加到动态",
-      "addPhotos": "添加图片",
+      "addPhotos": "添加照片",
       "addMood": "添加心情",
       "addLocation": "添加位置",
       "addTags": "添加标签",
-      "tagPlaceholder": "添加标签..."
+      "tagPlaceholder": "添加标签…",
+      "attachVideo": "添加视频",
+      "mediaFailedNothingPosted": "上传失败，所以没有发布任何内容。请重试。",
+      "mediaFailedPosted": "已发布，但媒体上传失败——请编辑动态重新添加。",
+      "modePhoto": "照片",
+      "modeText": "文字",
+      "modeVideo": "视频",
+      "modeVoice": "语音",
+      "moodQuestion": "你现在感觉如何？",
+      "placeholder": "{{name}}，在想什么？",
+      "recordVoice": "录制语音",
+      "remove": "移除",
+      "share": "分享",
+      "sharing": "正在分享...",
+      "textPreview": "你的文字动态",
+      "voiceNoteLength": "语音 · {{seconds}}秒"
+    },
+    "question": "在想什么呢，",
+    "loading": "加载中",
+    "loading_moments": "正在加载动态…",
+    "error_loading": "动态加载失败",
+    "error_info": "动态加载失败，请稍后再试。",
+    "retry_btn": "重试",
+    "no_moments": "还没有动态",
+    "first_to_moment": "第一个在社区分享精彩瞬间的人，就是你",
+    "share_moment": "发布动态",
+    "moment_login_error": "登录后才能点赞动态",
+    "moment_like_error": "点赞失败，请重试",
+    "moment_like": "赞",
+    "moment_comment": "评论",
+    "moment_share": "分享",
+    "no_comments": "还没有评论，来抢沙发吧！",
+    "invalidMomentId": "动态 ID 无效",
+    "loadingMoment": "正在加载动态详情…",
+    "noDetailsFound": "没有找到详情",
+    "goBack": "返回",
+    "momentDetails": "动态详情",
+    "pleaseLoginFirst": "请先登录",
+    "removedLike": "已取消点赞",
+    "likedMoment": "已点赞",
+    "failedToUpdateLike": "点赞失败，请重试",
+    "emptyCommentError": "评论内容不能为空",
+    "commentAdded": "评论已发布",
+    "failedToAddComment": "评论发布失败",
+    "loadingComments": "正在加载评论…",
+    "writeCommentPlaceholder": "写下你的评论…",
+    "signInToComment": "登录后才能发表评论",
+    "signIn": "登录",
+    "noCommentsYet": "还没有评论，来抢沙发吧！",
+    "commentsCount": "{{count}} 条评论",
+    "comments": "评论",
+    "likeButton": "赞",
+    "commentButton": "评论",
+    "shareButton": "分享",
+    "timeAgo": {
+      "justNow": "刚刚",
+      "minutesAgo": "{{minutes}} 分钟前",
+      "hoursAgo": "{{hours}} 小时前",
+      "daysAgo": "{{days}} 天前"
+    },
+    "promo": {
+      "title": "动态已经搬到 App 里了",
+      "subtitle": "限时动态、AI 学习回复，还有专为手机而不是浏览器标签页打造的信息流。免费安装，无需切换账号。",
+      "appStore": "前往 App Store 下载",
+      "playStore": "前往 Google Play 下载",
+      "appOnly": "App 专属",
+      "perks": {
+        "stories": {
+          "title": "会消失的限时动态",
+          "body": "分享只保留 24 小时的瞬间，这才是 App 社区里的常见玩法。"
+        },
+        "aiStudy": {
+          "title": "AI 学习回复",
+          "body": "用你正在学的语言发动态，AI 会在评论里温和地帮你改。"
+        },
+        "reactions": {
+          "title": "更丰富的互动",
+          "body": "语音回应、一键翻译，还有为信息流而不是表单设计的评论区。"
+        },
+        "notifications": {
+          "title": "实时通知",
+          "body": "目标语言的伙伴一回复你就知道，不用再刷新浏览器标签页。"
+        }
+      }
+    },
+    "translate": {
+      "tap": "点一下翻译",
+      "loading": "翻译中…",
+      "same": "已经是你的语言了",
+      "error": "翻译失败，点一下重试"
+    },
+    "tabs": {
+      "forYou": "推荐",
+      "following": "关注",
+      "explore": "发现",
+      "trending": "热门"
+    },
+    "following": {
+      "empty": "关注别人，才能在这里看到他们的动态",
+      "findPeople": "找人"
+    },
+    "commentEngagement": {
+      "attachImage": "添加照片",
+      "beFirst": "第一个分享你的想法吧！",
+      "cancel": "取消",
+      "commentTab": "评论",
+      "correctedLabel": "已改",
+      "correctedPlaceholder": "写出母语者会怎么说",
+      "correction": "纠正",
+      "correctionNotePlaceholder": "添加备注（可选）",
+      "correctionTab": "纠正",
+      "delete": "删除",
+      "explanationLabel": "说明",
+      "explanationPlaceholder": "为什么这么写？（可选）",
+      "hideReplies": "隐藏回复",
+      "imageFailed": "评论已发布，但照片未能上传。",
+      "loadMoreComments": "加载更多评论",
+      "loadMoreReplies": "加载更多",
+      "loadingReplies": "正在加载回复…",
+      "originalLabel": "原文",
+      "post": "发布",
+      "postCorrection": "发布纠正",
+      "postFailed": "发布失败，请重试。",
+      "react": "回应",
+      "reply": "回复",
+      "replyPlaceholder": "写下你的回复…",
+      "viewReplies": "查看 {{count}} 条回复",
+      "deleteOthersBody": "这是你动态下的评论，你可以删除它。删除后无法恢复。",
+      "deleteOthersTitle": "删除这条评论？",
+      "removeGif": "移除 GIF"
+    },
+    "filters": {
+      "button": "筛选",
+      "searchPlaceholder": "搜索动态",
+      "search": "搜索",
+      "category": "分类",
+      "language": "语言",
+      "mood": "心情",
+      "tag": "标签",
+      "tagPlaceholder": "任意标签",
+      "any": "全部",
+      "clear": "清除筛选",
+      "emptyTitle": "没有符合这些筛选条件的动态",
+      "emptyBody": "试试去掉一个筛选条件，或换个关键词搜索。"
+    },
+    "categories": {
+      "general": "综合",
+      "language-learning": "语言学习",
+      "culture": "文化",
+      "food": "美食",
+      "travel": "旅行",
+      "music": "音乐",
+      "books": "书籍",
+      "hobbies": "爱好",
+      "daily-life": "日常生活",
+      "technology": "科技",
+      "entertainment": "娱乐",
+      "sports": "运动",
+      "movies": "电影",
+      "study": "学习",
+      "work": "工作",
+      "question": "提问"
+    },
+    "moods": {
+      "happy": "开心",
+      "excited": "兴奋",
+      "grateful": "感恩",
+      "motivated": "干劲十足",
+      "relaxed": "放松",
+      "curious": "好奇",
+      "sad": "难过",
+      "love": "恋爱中",
+      "funny": "搞笑",
+      "thoughtful": "若有所思",
+      "cool": "酷",
+      "tired": "累了"
+    },
+    "report": {
+      "menu": "更多选项",
+      "report": "举报",
+      "title": "举报这条动态",
+      "reasonLabel": "举报原因是什么？",
+      "descriptionLabel": "还有其他要补充的吗？（选填）",
+      "submit": "提交举报",
+      "cancel": "取消",
+      "sent": "谢谢——我们的审核员会处理。",
+      "already": "你已经举报过这条动态了。",
+      "failed": "举报发送失败，请重试。",
+      "reasons": {
+        "spam": "垃圾信息",
+        "harassment": "骚扰",
+        "hate_speech": "仇恨言论",
+        "violence": "暴力",
+        "nudity": "裸露",
+        "false_information": "虚假信息",
+        "copyright": "版权",
+        "other": "其他"
+      },
+      "alreadyComment": "你已经举报过这条评论。",
+      "alreadyStory": "你已经举报过这条快拍。",
+      "titleComment": "举报这条评论",
+      "titleStory": "举报这条快拍"
+    },
+    "schedule": {
+      "label": "定时发布",
+      "hint": "留空则立即发布",
+      "past": "请选择未来的时间",
+      "badge": "定时于 {{time}} 发布",
+      "clear": "改为立即发布"
+    },
+    "fields": {
+      "privacy": "谁可以看到",
+      "privacyPublic": "所有人",
+      "privacyFriends": "好友",
+      "privacyPrivate": "仅自己",
+      "background": "背景",
+      "backgroundNone": "无",
+      "location": "位置",
+      "addLocation": "添加我的位置",
+      "removeLocation": "移除位置",
+      "noMood": "无心情",
+      "tags": "标签",
+      "tagPlaceholder": "添加标签…",
+      "addTag": "添加",
+      "tagsUsed": "{{count}}/5 个标签",
+      "tagsMax": "最多 5 个标签"
+    },
+    "prompt": {
+      "answeringPromptOfDay": "正在回答每日话题",
+      "dismissChip": "不再回答此话题",
+      "answering": "回答",
+      "answer": "回答",
+      "cardSubtitle": "练习写作",
+      "cardTitle": "每日话题",
+      "dismissCard": "关闭每日话题"
+    },
+    "block": {
+      "done": "已拉黑 {{name}}。"
+    },
+    "card": {
+      "bookmark": "收藏",
+      "likeFailed": "出了点问题",
+      "loginToLike": "请登录后点赞",
+      "removeBookmark": "取消收藏",
+      "save": "保存",
+      "saved": "已保存",
+      "seeLess": "收起",
+      "seeMore": "展开",
+      "unlike": "取消点赞"
+    },
+    "saved": {
+      "browseMoments": "浏览动态",
+      "gridView": "网格视图",
+      "listView": "列表视图",
+      "loadMore": "加载更多",
+      "momentCount": "条动态已收藏",
+      "noMoments": "还没有收藏的动态",
+      "remove": "移除",
+      "removeError": "移除动态失败",
+      "removeSuccess": "已从收藏中移除",
+      "title": "收藏的动态"
+    },
+    "voice": {
+      "cancel": "取消录音",
+      "denied": "麦克风权限被拒绝。请允许使用麦克风以录制语音。",
+      "stop": "停止录音并发送",
+      "unsupported": "此浏览器不支持录音。"
     }
   },
   "createMoment": {
-    "title": "创建动态",
+    "title": "发布动态",
     "form": {
       "titleLabel": "标题",
       "titlePlaceholder": "输入标题",
       "descriptionLabel": "描述",
       "descriptionPlaceholder": "输入描述",
       "imagesLabel": "上传图片",
-      "maxImagesText": "最多可上传10张图片",
-      "addMoreText": "添加更多",
+      "maxImagesText": "最多可上传 10 张图片",
+      "addMoreText": "继续添加",
       "submitButton": "发布",
-      "submittingButton": "发布中...",
+      "submittingButton": "发布中…",
       "cancelButton": "取消"
     },
     "toast": {
-      "maxImagesError": "最多只能上传10张图片",
-      "createSuccess": "动态创建成功！",
-      "createError": "创建动态失败"
+      "maxImagesError": "最多只能上传 10 张图片",
+      "createSuccess": "动态发布成功！",
+      "createError": "动态发布失败。"
     }
   },
   "editMoment": {
     "title": "编辑动态",
     "toast": {
-      "maxImagesError": "最多只能上传10张图片",
+      "maxImagesError": "最多只能上传 10 张图片",
       "updateSuccess": "动态更新成功！",
-      "updateError": "更新动态失败，请重试",
-      "notAuthorized": "您无权编辑此动态"
+      "updateError": "动态更新失败，请重试。",
+      "notAuthorized": "你无权编辑这条动态"
     },
     "form": {
       "titleLabel": "标题",
-      "titlePlaceholder": "为您的动态输入标题",
+      "titlePlaceholder": "给这条动态起个标题",
       "descriptionLabel": "描述",
-      "descriptionPlaceholder": "描述一下您的动态...",
+      "descriptionPlaceholder": "说说这条动态背后的故事…",
       "imagesLabel": "图片",
-      "maxImagesText": "最多可上传10张图片（每张最大5MB）",
-      "existingImagesLabel": "现有图片",
+      "maxImagesText": "最多可上传 10 张图片（每张不超过 5 MB）",
+      "existingImagesLabel": "当前图片",
       "newImagesLabel": "新图片",
-      "addMoreText": "添加更多",
+      "addMoreText": "继续添加",
       "updateButton": "更新动态",
-      "updatingButton": "更新中...",
-      "cancelButton": "取消"
+      "updatingButton": "更新中…",
+      "cancelButton": "取消",
+      "removeImage": "移除图片",
+      "nothingToSave": "还没有需要修改的内容",
+      "descriptionRequired": "请填写描述"
+    },
+    "media": {
+      "video": "视频",
+      "audio": "语音",
+      "replace": "替换",
+      "remove": "删除",
+      "removeVideoTitle": "删除视频？",
+      "removeAudioTitle": "删除语音？",
+      "removeBody": "此操作无法撤销。",
+      "done": "已更新",
+      "failed": "操作失败，请重试。"
     }
   },
   "authentication": {
     "enterEmail": {
-      "title": "输入您的邮箱",
-      "subtitle": "We'll send a verification code to your email",
+      "title": "输入你的邮箱",
+      "subtitle": "我们会把验证码发送到你的邮箱",
       "emailLabel": "邮箱地址",
       "emailPlaceholder": "输入邮箱",
       "sendButton": "发送验证码",
-      "sendingButton": "发送中...",
-      "successMessage": "验证码发送成功！",
+      "sendingButton": "发送中…",
+      "successMessage": "验证码已发送！",
       "errorPrefix": "错误："
     },
     "passwordReset": {
-      "successMessage": "密码重置成功，请登录！",
-      "backToLogin": "Back to login",
-      "verifyTitle": "Enter verification code",
-      "verifySubtitle": "We've sent a 6-digit code to your email",
-      "codeLabel": "Verification Code",
-      "codePlaceholder": "Enter code",
-      "previousButton": "Previous",
-      "verifyButton": "Verify",
-      "verifyingButton": "Verifying...",
-      "resendButton": "Resend code",
-      "resendingButton": "Resending...",
-      "verifySuccessMessage": "Verification code successfully verified!",
-      "resendSuccessMessage": "A new verification code has been sent!",
-      "verifyErrorDefault": "Invalid verification code",
-      "resendErrorDefault": "Failed to resend the code",
-      "setPasswordTitle": "Set new password",
-      "setPasswordSubtitle": "Choose a strong password for your account",
-      "newPasswordLabel": "New Password",
-      "newPasswordPlaceholder": "New Password",
-      "confirmPasswordLabel": "Confirm Password",
-      "confirmPasswordPlaceholder": "Confirm Password",
-      "showPassword": "Show password",
-      "hidePassword": "Hide password",
-      "submitButton": "Reset Password",
-      "submittingButton": "Resetting...",
-      "strengthErrorMessage": "Password does not meet the strength requirements",
-      "mismatchErrorMessage": "Passwords do not match"
+      "successMessage": "密码重置成功，请重新登录！",
+      "backToLogin": "返回登录",
+      "verifyTitle": "输入验证码",
+      "verifySubtitle": "我们已把 6 位验证码发送到你的邮箱",
+      "codeLabel": "验证码",
+      "codePlaceholder": "输入验证码",
+      "previousButton": "上一步",
+      "verifyButton": "验证",
+      "verifyingButton": "验证中…",
+      "resendButton": "重新发送验证码",
+      "resendingButton": "发送中…",
+      "verifySuccessMessage": "验证码验证成功！",
+      "resendSuccessMessage": "新的验证码已发送！",
+      "verifyErrorDefault": "验证码无效",
+      "resendErrorDefault": "验证码重新发送失败",
+      "setPasswordTitle": "设置新密码",
+      "setPasswordSubtitle": "给账号设置一个足够安全的密码",
+      "newPasswordLabel": "新密码",
+      "newPasswordPlaceholder": "新密码",
+      "confirmPasswordLabel": "确认密码",
+      "confirmPasswordPlaceholder": "确认密码",
+      "showPassword": "显示密码",
+      "hidePassword": "隐藏密码",
+      "submitButton": "重置密码",
+      "submittingButton": "重置中…",
+      "strengthErrorMessage": "密码强度不够",
+      "mismatchErrorMessage": "两次输入的密码不一致"
     },
     "login": {
-      "signInWithGoogle": "使用Google登录",
+      "signInWithGoogle": "使用 Google 登录",
       "title": "登录",
       "emailLabel": "邮箱地址",
       "emailPlaceholder": "输入邮箱",
@@ -397,27 +1157,27 @@
       "passwordPlaceholder": "输入密码",
       "forgotPassword": "忘记密码？",
       "signInButton": "登录",
-      "signingInButton": "登录中...",
-      "newUserText": "新用户？",
+      "signingInButton": "登录中…",
+      "newUserText": "还没有账号？",
       "registerLink": "注册",
       "successMessage": "登录成功",
-      "invalidCredentialsError": "邮箱或密码错误"
+      "invalidCredentialsError": "邮箱或密码不正确"
     },
     "account": {
-      "title": "创建账户",
-      "name": "姓名",
+      "title": "创建你的账号",
+      "name": "名字",
       "email": "邮箱地址",
       "password": "密码",
-      "passwordRequirement": "密码至少需要8个字符",
+      "passwordRequirement": "密码至少需要 8 个字符",
       "confirmPassword": "确认密码",
       "continue": "继续",
-      "alreadyHaveAccount": "已有账户？",
+      "alreadyHaveAccount": "已经有账号了？",
       "login": "登录"
     },
     "profile": {
       "title": "个人信息",
-      "bio": "个人简介（可选）",
-      "bioPlaceholder": "介绍一下自己",
+      "bio": "个人简介（选填）",
+      "bioPlaceholder": "介绍一下你自己",
       "gender": "性别",
       "genderOptions": {
         "select": "选择性别",
@@ -428,50 +1188,61 @@
       "birthDate": "出生日期",
       "nativeLanguage": "母语",
       "selectLanguage": "选择语言",
-      "languageToLearn": "想学习的语言",
-      "profileImages": "头像",
-      "uploadPrompt": "点击上传头像",
+      "languageToLearn": "想学的语言",
+      "profileImages": "个人照片",
+      "uploadPrompt": "点击上传个人照片",
       "selectImages": "选择图片",
-      "back": "返回",
-      "processing": "处理中..."
+      "back": "上一步",
+      "processing": "处理中…"
     },
     "verification": {
       "title": "邮箱验证",
-      "sentMessage": "我们已向您的邮箱发送了验证码：",
+      "sentMessage": "我们已把验证码发送到你的邮箱：",
       "verificationCode": "验证码",
-      "codePlaceholder": "输入6位验证码",
+      "codePlaceholder": "输入 6 位验证码",
       "verifyButton": "验证邮箱",
-      "verifying": "验证中...",
+      "verifying": "验证中…",
       "resendCode": "重新发送验证码",
-      "sending": "发送中...",
+      "sending": "发送中…",
       "backToProfile": "返回个人信息",
       "successMessage": "邮箱验证成功！",
-      "completePrompt": "点击下方按钮完成注册",
+      "completePrompt": "点击下方按钮完成注册。",
       "completeRegistration": "完成注册"
     },
     "progressBar": {
-      "account": "账户",
+      "account": "账号",
       "profile": "资料",
       "verify": "验证"
     },
     "toasts": {
-      "passwordMismatch": "两次密码输入不一致",
-      "verificationSent": "验证码发送成功！",
-      "sendCodeFailed": "发送验证码失败",
+      "passwordMismatch": "两次输入的密码不一致",
+      "verificationSent": "验证码已发送！",
+      "sendCodeFailed": "验证码发送失败",
       "emailVerified": "邮箱验证成功！",
       "invalidCode": "验证码无效",
-      "verifyFirst": "请先验证邮箱",
+      "verifyFirst": "请先验证你的邮箱",
       "registrationSuccess": "注册成功！",
-      "registrationError": "注册时发生错误"
+      "registrationError": "注册过程中出错了"
+    },
+    "callback": {
+      "banned": "此账号已被封禁。",
+      "codeExpired": "此登录链接已过期，请重新登录。",
+      "completing": "正在完成登录...",
+      "emailExists": "该邮箱已注册账号，请使用邮箱和密码登录。",
+      "failedTitle": "登录失败",
+      "generic": "登录失败，请重试。",
+      "noCode": "登录未完成，请重试。",
+      "redirecting": "正在返回登录页面...",
+      "wait": "正在为你登录，请稍候。"
     }
   },
   "communityMain": {
     "title": "语言交换",
-    "subtitle": "与全球语言学习者建立联系",
+    "subtitle": "认识全球的语言学习者",
     "badge": "语言交换社区",
-    "heroTitle": "找到您的完美",
-    "heroTitleHighlight": "语言伙伴",
-    "heroDescription": "与世界各地的母语者建立联系，一起练习语言",
+    "heroTitle": "找到你的理想",
+    "heroTitleHighlight": "语伴",
+    "heroDescription": "认识世界各地的母语者，一起练语言",
     "stats": {
       "activeLearners": "活跃学习者",
       "activeUsers": "活跃用户",
@@ -479,20 +1250,20 @@
       "countries": "个国家"
     },
     "search": {
-      "placeholder": "按姓名、语言或兴趣搜索...",
-      "loading": "正在寻找语言伙伴..."
+      "placeholder": "搜索名字、语言或兴趣…",
+      "loading": "正在寻找语伴…"
     },
     "memberCard": {
       "native": "母语",
-      "learning": "正在学习",
-      "defaultBio": "准备好练习语言和结交新朋友！",
-      "onlineNow": "在线中",
+      "learning": "在学",
+      "defaultBio": "随时可以一起练语言、交新朋友！",
+      "onlineNow": "在线",
       "active": "活跃",
       "recently": "最近",
       "justNow": "刚刚",
-      "minutesAgo": "{{count}}分钟前",
-      "hoursAgo": "{{count}}小时前",
-      "daysAgo": "{{count}}天前",
+      "minutesAgo": "{{count}} 分钟前",
+      "hoursAgo": "{{count}} 小时前",
+      "daysAgo": "{{count}} 天前",
       "overWeekAgo": "一周前",
       "actions": {
         "wave": "打招呼",
@@ -503,39 +1274,45 @@
     "tabs": {
       "all": "全部",
       "popular": "热门",
-      "new": "最新"
+      "new": "最新",
+      "forYou": "推荐",
+      "online": "在线",
+      "label": "社区标签页",
+      "today": "今天",
+      "serious": "认真学习者",
+      "seriousHint": "本周活跃"
     },
     "filters": {
       "language": "语言",
-      "allLanguages": "所有语言",
+      "allLanguages": "全部语言",
       "clear": "清除"
     },
     "results": {
-      "showing": "为您展示 {{count}} 位优秀的语言伙伴",
+      "showing": "为你找到 {{count}} 位超棒的语伴",
       "membersFound": "找到 {{count}} 位成员",
       "noneFound": {
-        "title": "未找到成员",
-        "message": "尝试调整筛选条件或搜索词",
+        "title": "没有找到成员",
+        "message": "换个筛选条件或关键词试试",
         "resetFilters": "重置筛选"
       }
     },
     "errors": {
-      "generic": "哎呀！出了点问题",
-      "loadError": "无法加载社区，请重试。",
+      "generic": "哎呀，出了点问题",
+      "loadError": "社区加载失败，请重试。",
       "tryAgain": "重试"
     },
     "loadMore": {
-      "loading": "加载中...",
+      "loading": "加载中…",
       "button": "加载更多成员"
     },
     "cta": {
-      "title": "准备好开始您的语言之旅了吗？",
-      "description": "创建您的资料，与全球语言伙伴建立联系",
+      "title": "准备好开启你的语言之旅了吗？",
+      "description": "创建你的资料，认识全球的语伴",
       "getStarted": "免费开始",
-      "viewWaves": "查看招手"
+      "viewWaves": "查看打招呼"
     },
     "buttons": {
-      "clearFilters": "清除所有筛选"
+      "clearFilters": "清除全部筛选"
     },
     "subnav": {
       "allMembers": "全部成员",
@@ -543,53 +1320,118 @@
       "topics": "话题",
       "searchPlaceholder": "查找成员或话题",
       "filtersLabel": "筛选",
-      "filtersWithCount": "筛选 ({{count}}个已启用)"
+      "filtersWithCount": "筛选（已选 {{count}} 项）",
+      "city": "城市",
+      "genders": "性别"
     },
     "filterSheet": {
       "title": "筛选",
       "language": "语言",
-      "any": "全部",
+      "any": "不限",
       "gender": "性别",
       "male": "男",
       "female": "女",
       "other": "其他",
-      "ageRange": "年龄段",
+      "ageRange": "年龄范围",
       "min": "最小",
       "max": "最大",
-      "experience": "成员体验",
+      "experience": "成员资历",
       "onlineNow": "当前在线",
-      "newMembersOnly": "仅新成员 (最近7天)",
+      "newMembersOnly": "只看新成员（近 7 天）",
       "reset": "重置",
-      "apply": "应用"
+      "apply": "确定",
+      "copyLink": "复制链接",
+      "linkCopied": "链接已复制",
+      "linkCopyFailed": "链接复制失败",
+      "applyFirst": "请先应用筛选条件",
+      "matchCountLoading": "正在计算匹配数…",
+      "close": "关闭筛选",
+      "languages": "语言",
+      "partnerNative": "对方的母语",
+      "partnerLearning": "对方正在学的语言",
+      "country": "国家",
+      "countryPlaceholder": "例如：韩国",
+      "level": "语言水平",
+      "topics": "话题",
+      "mutualInterests": "共同兴趣",
+      "newUsersOnly": "只看新用户",
+      "clearAll": "清除全部",
+      "matchCount": "{{count}} 个匹配",
+      "lockedByTab": "由“{{tab}}”标签设置",
+      "reciprocal": "只看完美语伴",
+      "reciprocalHint": "对方说你在学的语言，也在学你说的语言"
     },
     "highlighted": {
       "title": "推荐资料",
       "proBadge": "Pro",
-      "tryPro": "试用 BananaTalk Pro",
-      "highlightSelfTopic": "突出您的资料,让更多人看到您"
+      "tryPro": "试试 BananaTalk Pro",
+      "highlightSelfTopic": "让你的资料更醒目，被更多人看到"
     },
     "visitors": {
-      "justYou": "{{name}}访问了您的资料!",
-      "andOthers": "{{name}}和其他{{count}}位用户访问了您的资料!",
-      "seeAll": "查看全部"
+      "pill_one": "1 人看过你的资料",
+      "pill_other": "{{count}} 人看过你的资料"
     },
     "tandemCard": {
       "newChip": "新",
-      "defaultTopic": "一起练习吧!"
+      "defaultTopic": "一起练练吧！"
     },
     "languageChip": {
       "fluent": "流利",
-      "learns": "学习中",
+      "learns": "在学",
       "native": "母语"
+    },
+    "chips": {
+      "recentlyActive": "最近活跃",
+      "onlineNow": "当前在线",
+      "speaks": "会说{{language}}",
+      "learning": "在学{{language}}"
+    },
+    "forYou": {
+      "subtitle": "根据你的语言、水平和兴趣为你精选的语伴。",
+      "refresh": "刷新",
+      "why": "原因：{{reasons}}",
+      "empty": {
+        "title": "暂无推荐",
+        "message": "添加你会说和想学的语言、你的水平和一些兴趣爱好，我们就能为你找到合适的语伴。",
+        "action": "完善资料"
+      }
+    },
+    "reasons": {
+      "perfect_pair": "说{{native}}，在学{{learning}}",
+      "native_speaker": "{{native}}母语者",
+      "online_now": "在线",
+      "active_today": "今天活跃",
+      "same_country": "同一国家"
+    },
+    "today": {
+      "title": "今天为你匹配了 {{count}} 位",
+      "refreshes": "{{time}} 刷新",
+      "refreshesMidnight": "午夜刷新",
+      "emptyTitle": "今天就这些了",
+      "emptyBody": "明天会有新的匹配。先去看看其他伙伴吧。",
+      "browse": "浏览伙伴",
+      "repliesFast": "回复很快",
+      "boosted": "已加速",
+      "reasonReciprocal": "你们在学习彼此的语言",
+      "reasonSameTarget": "也在学{{language}}",
+      "reasonActiveToday": "今天活跃",
+      "reasonSameCity": "住在同一座城市",
+      "reasonSharedTopic": "共同兴趣：{{topic}}",
+      "sayHi": "打个招呼",
+      "wave": "挥手",
+      "skip": "跳过",
+      "error": "无法加载今日匹配",
+      "retry": "重试",
+      "waved": "已打招呼"
     }
   },
   "communityDetail": {
     "errors": {
-      "invalidProfileId": "无效的资料ID",
-      "profileNotFound": "未找到资料",
-      "profileNotFoundDesc": "该用户资料不存在或已被删除",
-      "somethingWentWrong": "哎呀！出了点问题",
-      "tryAgainLater": "无法加载此资料，请稍后重试"
+      "invalidProfileId": "资料 ID 无效",
+      "profileNotFound": "没有找到这份资料",
+      "profileNotFoundDesc": "这位用户的资料不存在，或者已经被删除。",
+      "somethingWentWrong": "哎呀，出了点问题",
+      "tryAgainLater": "这份资料加载失败，请稍后再试。"
     },
     "buttons": {
       "backToCommunity": "返回社区",
@@ -598,39 +1440,39 @@
       "following": "已关注",
       "startChat": "开始聊天",
       "videoCall": "视频通话",
-      "startConversation": "开始对话"
+      "startConversation": "发起对话"
     },
     "loading": {
-      "loadingProfile": "加载资料中...",
-      "initiatingCall": "正在呼叫 {{name}}..."
+      "loadingProfile": "正在加载资料…",
+      "initiatingCall": "正在呼叫 {{name}}…"
     },
     "notifications": {
-      "loginToFollow": "请登录后关注用户",
+      "loginToFollow": "登录后才能关注用户",
       "followSuccess": "关注成功！",
-      "followFailed": "关注失败，请重试",
-      "loginToUnfollow": "请登录后取消关注",
+      "followFailed": "关注失败，请重试。",
+      "loginToUnfollow": "登录后才能取消关注",
       "unfollowSuccess": "已取消关注",
-      "unfollowFailed": "取消关注失败，请重试",
-      "confirmUnfollow": "确定要取消关注此用户吗？",
-      "loginToChat": "请登录后开始聊天",
+      "unfollowFailed": "取消关注失败，请重试。",
+      "confirmUnfollow": "确定要取消关注这位用户吗？",
+      "loginToChat": "登录后才能开始聊天",
       "chatStarted": "聊天已开始！",
-      "chatFailed": "开始聊天失败，请重试",
-      "errorOccurred": "发生错误，请重试"
+      "chatFailed": "聊天开始失败，请重试。",
+      "errorOccurred": "出错了，请重试。"
     },
     "profile": {
-      "memberSince": "{{date}}加入",
-      "yearsOld": "{{age}}岁",
-      "noPhotos": "暂无照片",
-      "aboutUser": "关于{{name}}",
-      "noBio": "{{name}}还没有添加个人简介。开始对话了解更多吧！",
-      "readyToPractice": "准备好和{{name}}一起练习了吗？",
-      "practiceDescription": "开始聊天，一起提升语言能力！",
+      "memberSince": "{{date}} 加入",
+      "yearsOld": "{{age}} 岁",
+      "noPhotos": "还没有照片",
+      "aboutUser": "关于 {{name}}",
+      "noBio": "{{name}} 还没有填写简介。聊聊天，多了解 TA 一点吧！",
+      "readyToPractice": "准备好和 {{name}} 一起练了吗？",
+      "practiceDescription": "开始聊天，一起把语言练得更好！",
       "online": "在线",
       "offline": "离线",
       "justNow": "刚刚",
-      "minutesAgo": "{{count}}分钟前",
-      "hoursAgo": "{{count}}小时前",
-      "daysAgo": "{{count}}天前",
+      "minutesAgo": "{{count}} 分钟前",
+      "hoursAgo": "{{count}} 小时前",
+      "daysAgo": "{{count}} 天前",
       "recentlyActive": "最近活跃"
     },
     "stats": {
@@ -639,32 +1481,66 @@
     },
     "language": {
       "speaks": "会说",
-      "learning": "正在学习",
-      "notSpecified": "未指定"
+      "learning": "在学",
+      "notSpecified": "未填写"
+    },
+    "match": {
+      "title": "语言匹配",
+      "native": "母语",
+      "learning": "在学",
+      "perfect": "完美匹配，你们可以互相教对方！",
+      "youLearnTheirs": "TA 说的语言，正是你在学的！",
+      "theyLearnYours": "TA 在学你的母语！",
+      "sameNative": "你们的母语相同。"
+    },
+    "mutual": {
+      "title": "共同兴趣",
+      "countLabel": "{{count}} 个共同点"
+    },
+    "starters": {
+      "title": "开场白",
+      "send": "发送",
+      "perfect": "嗨，{{name}}！我们是完美语伴，要不要一起练习？",
+      "language": "嗨，{{name}}！我在学{{language}}，有什么进步的小技巧吗？",
+      "teach": "嗨，{{name}}！看到你在学{{language}}，有问题随时可以问我。",
+      "sameNative": "嗨，{{name}}！我们母语一样呢，你学得怎么样了？",
+      "topic": "嗨，{{name}}！看到你也喜欢{{topic}}，是怎么开始的呀？",
+      "targetLearning": "嗨，{{name}}！你学{{language}}多久啦？",
+      "generic": "嗨，{{name}}！很想一起练语言，你这周过得怎么样？",
+      "practice": "嗨，{{name}}！到目前为止，什么对你的学习帮助最大？",
+      "hello": "嗨，{{name}}！你的资料一下子就吸引了我，今天过得怎么样？"
+    },
+    "engagement": {
+      "replies": "回复率 {{rate}}%",
+      "new": "新成员"
     },
     "suggested": {
-      "title": "更多像 {{name}} 这样的成员",
+      "title": "更多像{{name}}这样的成员",
       "seeAll": "查看全部成员"
     }
   },
   "communityDetailSection": {
     "profile": {
-      "noPhotos": "暂无照片"
+      "noPhotos": "还没有照片"
     },
     "navigation": {
       "backToCommunity": "返回社区"
     },
     "errors": {
-      "invalidProfileId": "无效的资料ID",
-      "somethingWentWrong": "哎呀！出了点问题",
-      "couldNotLoadProfile": "无法加载此资料，请稍后重试",
-      "profileNotFound": "未找到资料",
-      "profileDoesNotExist": "该用户资料不存在或已被删除",
-      "loadingProfile": "加载资料中..."
+      "invalidProfileId": "资料 ID 无效",
+      "somethingWentWrong": "哎呀，出了点问题",
+      "couldNotLoadProfile": "这份资料加载失败，请稍后再试。",
+      "profileNotFound": "没有找到这份资料",
+      "profileDoesNotExist": "这位用户的资料不存在，或者已经被删除。",
+      "loadingProfile": "正在加载资料…"
     },
     "buttons": {
       "tryAgain": "重试",
       "backToCommunity": "返回社区"
+    },
+    "suggested": {
+      "title": "更多和 {{name}} 相似的成员",
+      "seeAll": "查看全部成员"
     },
     "stats": {
       "followers": "粉丝",
@@ -675,40 +1551,40 @@
       "follow": "关注",
       "startChat": "开始聊天",
       "videoCall": "视频通话",
-      "startConversation": "开始对话"
+      "startConversation": "发起对话"
     },
     "languages": {
       "speaks": "会说",
-      "learning": "正在学习",
-      "notSpecified": "未指定"
+      "learning": "在学",
+      "notSpecified": "未填写"
     },
     "memberInfo": {
       "yearsOld": "岁",
-      "memberSince": "加入时间"
+      "memberSince": "加入于"
     },
     "about": {
       "aboutTitle": "关于",
-      "noBioMessage": "还没有添加个人简介。开始对话了解更多吧！"
+      "noBioMessage": "还没有填写简介。聊聊天，多了解 TA 一点吧！"
     },
     "callToAction": {
-      "title": "准备好一起练习了吗？",
-      "subtitle": "开始聊天，一起提升语言能力！"
+      "title": "准备好一起练语言了吗？",
+      "subtitle": "开始聊天，一起把语言练得更好！"
     },
     "toasts": {
-      "needLogin": "需要登录才能",
+      "needLogin": "请先登录才能",
       "followUsers": "关注用户",
       "unfollowUsers": "取消关注",
       "startChat": "开始聊天",
-      "failedToFollow": "关注失败，请重试",
+      "failedToFollow": "关注失败，请重试。",
       "successfullyFollowed": "关注成功！",
       "successfullyUnfollowed": "已取消关注",
-      "failedToUnfollow": "取消关注失败，请重试",
-      "failedToStartChat": "开始聊天失败，请重试",
-      "initiatingCall": "正在呼叫...",
-      "errorOccurred": "发生错误，请重试"
+      "failedToUnfollow": "取消关注失败，请重试。",
+      "failedToStartChat": "聊天开始失败，请重试。",
+      "initiatingCall": "正在呼叫",
+      "errorOccurred": "出错了，请重试。"
     },
     "confirmations": {
-      "unfollowConfirm": "确定要取消关注此用户吗？"
+      "unfollowConfirm": "确定要取消关注这位用户吗？"
     },
     "accessibility": {
       "viewPhoto": "查看照片",
@@ -721,52 +1597,52 @@
   "learning": {
     "dashboard": {
       "title": "学习",
-      "subtitle": "继续保持！",
-      "currentStreak": "连续学习",
+      "subtitle": "保持住，你做得很棒！",
+      "currentStreak": "连续打卡",
       "days": "天",
-      "longest": "最长记录",
+      "longest": "最长纪录",
       "dailyGoal": "每日目标",
       "goalComplete": "今日目标已完成！",
-      "quickActions": "快捷操作",
+      "quickActions": "快捷入口",
       "review": "复习",
       "practiceWords": "练习词汇",
       "lessons": "课程",
       "learnNew": "学习新内容",
       "quiz": "测验",
-      "testKnowledge": "检测知识",
+      "testKnowledge": "检验掌握程度",
       "leaderboard": "排行榜",
       "seeRankings": "查看排名",
-      "yourProgress": "我的进度",
+      "yourProgress": "你的进度",
       "words": "单词",
       "lessonsLabel": "课程",
       "level": "等级",
-      "vocabulary": "词汇表",
-      "wordsLearned": "已学单词",
+      "vocabulary": "生词本",
+      "wordsLearned": "个单词已学会",
       "achievements": "成就",
       "unlocked": "已解锁",
       "challenges": "挑战",
       "joinChallenges": "参加每周挑战"
     },
     "vocabulary": {
-      "title": "词汇表",
-      "searchPlaceholder": "搜索单词...",
+      "title": "生词本",
+      "searchPlaceholder": "搜索单词…",
       "addWord": "添加单词",
-      "noWords": "暂无单词",
-      "startAdding": "开始添加单词到词汇表",
+      "noWords": "还没有单词",
+      "startAdding": "把新学的单词加进生词本吧",
       "word": "单词",
-      "translation": "翻译",
+      "translation": "释义",
       "level": "等级",
       "nextReview": "下次复习"
     },
     "review": {
       "title": "复习",
-      "cardsLeft": "张卡片剩余",
+      "cardsLeft": "张待复习",
       "showAnswer": "显示答案",
-      "correct": "正确",
-      "incorrect": "错误",
-      "sessionComplete": "复习完成！",
-      "greatJob": "太棒了！您已完成所有复习。",
-      "backToDashboard": "返回仪表盘"
+      "correct": "答对了",
+      "incorrect": "答错了",
+      "sessionComplete": "本轮复习完成！",
+      "greatJob": "太棒了！所有复习都完成啦。",
+      "backToDashboard": "返回学习首页"
     },
     "lessons": {
       "title": "课程",
@@ -786,7 +1662,7 @@
       "weekly": "本周",
       "monthly": "本月",
       "allTime": "总榜",
-      "you": "我",
+      "you": "你",
       "xp": "经验值"
     },
     "achievements": {
@@ -799,54 +1675,54 @@
       "title": "挑战",
       "join": "参加",
       "joined": "已参加",
-      "daysLeft": "天剩余",
-      "participants": "人参与"
+      "daysLeft": "天后结束",
+      "participants": "人参加"
     }
   },
   "settings": {
     "title": "设置",
-    "subtitle": "管理您的账户和偏好设置",
+    "subtitle": "管理你的账号和偏好",
     "editProfile": "编辑",
     "logout": "退出登录",
-    "logoutSuccess": "退出登录成功",
+    "logoutSuccess": "已退出登录",
     "sections": {
-      "account": "账户",
+      "account": "账号",
       "privacy": "隐私",
       "notifications": "通知",
       "vip": "VIP",
       "language": "语言",
-      "support": "支持"
+      "support": "帮助"
     },
     "items": {
       "editProfile": "编辑资料",
-      "editProfileDesc": "更新您的个人信息",
+      "editProfileDesc": "更新你的个人信息",
       "changePassword": "修改密码",
-      "changePasswordDesc": "更新您的密码",
+      "changePasswordDesc": "更新你的密码",
       "emailSettings": "邮箱设置",
-      "emailSettingsDesc": "管理邮箱偏好",
+      "emailSettingsDesc": "管理邮件偏好",
       "privacySettings": "隐私设置",
-      "privacySettingsDesc": "控制谁可以看到您的信息",
-      "blockedUsers": "已屏蔽用户",
-      "blockedUsersDesc": "管理已屏蔽的账户",
-      "closeFriends": "亲密好友",
-      "closeFriendsDesc": "管理亲密好友列表",
+      "privacySettingsDesc": "控制谁能看到你的信息",
+      "blockedUsers": "黑名单",
+      "blockedUsersDesc": "管理已屏蔽的账号",
+      "closeFriends": "密友",
+      "closeFriendsDesc": "管理你的密友名单",
       "pushNotifications": "推送通知",
       "pushNotificationsDesc": "管理通知偏好",
       "chatSettings": "聊天设置",
-      "chatSettingsDesc": "消息和聊天偏好",
+      "chatSettingsDesc": "消息与聊天偏好",
       "manageSubscription": "管理订阅",
-      "vipActive": "VIP已激活",
-      "upgradeToPremium": "升级到高级版",
+      "vipActive": "VIP 已开通",
+      "upgradeToPremium": "升级高级版",
       "languageSettings": "语言设置",
-      "languageSettingsDesc": "更改应用和学习语言",
+      "languageSettingsDesc": "更改应用语言和学习语言",
       "helpCenter": "帮助中心",
-      "helpCenterDesc": "获取帮助和支持"
+      "helpCenterDesc": "获取帮助与支持"
     },
     "privacySettings": {
       "title": "隐私设置",
-      "profileVisibility": "资料可见性",
+      "profileVisibility": "资料可见范围",
       "onlineStatus": "显示在线状态",
-      "lastSeen": "显示最后上线时间",
+      "lastSeen": "显示最后在线时间",
       "readReceipts": "已读回执"
     },
     "notificationSettings": {
@@ -855,7 +1731,7 @@
       "messages": "消息",
       "likes": "点赞",
       "followers": "新粉丝",
-      "waves": "招手",
+      "waves": "打招呼",
       "emailDigest": "邮件摘要"
     },
     "languageSettings": {
@@ -865,187 +1741,1675 @@
       "learningLanguage": "学习语言"
     },
     "vipSettings": {
-      "title": "VIP状态",
+      "title": "VIP 状态",
       "currentPlan": "当前套餐",
       "free": "免费版",
       "premium": "高级版",
       "features": "功能",
-      "upgrade": "升级到VIP"
+      "upgrade": "升级 VIP"
+    },
+    "password": {
+      "title": "修改密码",
+      "current": "当前密码",
+      "current_hint": "输入当前密码",
+      "new": "新密码",
+      "new_hint": "至少8位，A-Z、a-z、0-9",
+      "confirm": "确认新密码",
+      "confirm_hint": "再次输入新密码",
+      "rule_upper": "一个大写字母",
+      "rule_lower": "一个小写字母",
+      "rule_number": "一个数字",
+      "mismatch": "两次密码不一致。",
+      "same_as_current": "新密码必须与当前密码不同。",
+      "success": "密码修改成功",
+      "failed": "更新失败",
+      "symbols": "只能使用以下符号：@ $ ! % * ? &"
+    },
+    "privacy": {
+      "title": "隐私设置",
+      "subtitle": "控制谁可以看到你的信息",
+      "profileVisibility": "资料可见范围",
+      "showOnlineStatus": "显示在线状态",
+      "showOnlineStatusDesc": "让其他人看到您的在线状态",
+      "showCity": "显示城市",
+      "showCityDesc": "在个人资料中显示您的城市",
+      "showCountry": "显示国家/地区",
+      "showCountryDesc": "在个人资料中显示您的国家",
+      "personalInfo": "个人信息",
+      "showAge": "显示年龄",
+      "showAgeDesc": "在个人资料中显示您的年龄",
+      "showZodiac": "显示星座",
+      "showZodiacDesc": "在个人资料中显示您的星座",
+      "birthdayNotification": "生日通知",
+      "birthdayNotificationDesc": "在生日时接收通知",
+      "otherSettings": "其他设置",
+      "showGiftingLevel": "显示礼物等级",
+      "showGiftingLevelDesc": "显示礼物等级徽章",
+      "saveSuccess": "隐私设置已保存",
+      "saveError": "保存失败",
+      "saving": "保存中...",
+      "saveChanges": "保存更改",
+      "profileVisits": "主页访问",
+      "anonymousProfileVisits": "匿名访问主页",
+      "anonymousProfileVisitsDesc": "你的名字不会出现在被访问用户的最近访客列表中。",
+      "email": "邮件",
+      "emailNotifications": "邮件通知",
+      "emailNotificationsDesc": "接收来自 BananaTalk 的邮件通知",
+      "weeklyDigest": "每周总结",
+      "weeklyDigestDesc": "每周日的活动回顾",
+      "securityAlerts": "安全提醒",
+      "securityAlertsDesc": "密码和登录提醒。建议保持开启。"
+    },
+    "notifications": {
+      "title": "通知设置",
+      "subtitle": "管理你的通知偏好",
+      "loading": "加载中…",
+      "loadError": "加载设置时出错",
+      "retry": "重试",
+      "pushNote": "这些设置控制你手机上 BananaTalk 应用的推送通知。",
+      "enableAll": "推送通知",
+      "enableAllDesc": "打开或关闭所有通知",
+      "notificationTypes": "通知类型",
+      "chatMessages": "聊天消息",
+      "chatMessagesDesc": "收到消息时通知您",
+      "moments": "动态",
+      "momentsDesc": "您的动态收到的点赞和评论",
+      "followerMoments": "关注者动态",
+      "followerMomentsDesc": "当你关注的人发布新动态时",
+      "friendRequests": "新粉丝",
+      "friendRequestsDesc": "有人关注您时",
+      "profileVisits": "个人资料访问",
+      "profileVisitsDesc": "有人查看您的个人资料时（VIP）",
+      "announcements": "公告",
+      "announcementsDesc": "来自 BananaTalk 团队的新闻和更新",
+      "marketing": "营销",
+      "marketingDesc": "更新和促销消息",
+      "learning": "学习",
+      "streakReminders": "连续学习提醒",
+      "streakRemindersDesc": "在连续学习记录中断前提醒你",
+      "vocabularyReviewReminders": "单词复习",
+      "vocabularyReviewRemindersDesc": "有单词需要复习时",
+      "dailyDropReminders": "每日课程",
+      "dailyDropRemindersDesc": "今天的简短词汇或语法课程准备好时",
+      "quietHours": "免打扰时段",
+      "quietHoursEnable": "启用免打扰时段",
+      "quietHoursDesc": "在设定时段内暂停非紧急通知",
+      "quietHoursStart": "开始时间",
+      "quietHoursEnd": "结束时间",
+      "preferences": "通知偏好",
+      "showPreview": "显示预览",
+      "showPreviewDesc": "在通知中显示消息预览",
+      "saveSuccess": "通知设置已保存",
+      "saveError": "保存失败",
+      "saving": "保存中...",
+      "saveChanges": "保存更改"
     }
   },
   "waves": {
-    "title": "招手",
+    "title": "打招呼",
     "received": "收到的",
     "sent": "发出的",
     "accept": "接受",
     "decline": "拒绝",
-    "noWaves": "暂无招手",
-    "sendWave": "发送招手开始交流吧！"
+    "noWaves": "还没有人跟你打招呼",
+    "sendWave": "发个招呼，开始认识新朋友吧！",
+    "archive": "更早的招呼",
+    "archiveEmpty": "没有更早的招呼",
+    "archiveHint": "7 到 30 天前的招呼",
+    "back": "返回",
+    "cap": {
+      "body": "今天的免费打招呼次数已用完。VIP 会员打招呼不限次数，或者明天再试。",
+      "notNow": "以后再说",
+      "seeVip": "了解 VIP",
+      "title": "已达到今日打招呼上限"
+    },
+    "findPeople": "找人",
+    "noReceived": "还没有人跟你打招呼",
+    "recent": "最近 7 天",
+    "sheet": {
+      "already": "已打过招呼",
+      "alreadyBody": "每个人只能打一次招呼——发条私信继续聊吧。",
+      "alreadyTitle": "你已经和 {{name}} 打过招呼了",
+      "cancel": "取消",
+      "chips": {
+        "chat": {
+          "label": "聊聊",
+          "message": "🎉 一起聊聊吧！"
+        },
+        "cool": {
+          "label": "很酷",
+          "message": "❤️ 你的资料好酷！"
+        },
+        "hello": {
+          "label": "你好",
+          "message": "✋ 你好！"
+        },
+        "hey": {
+          "label": "嘿",
+          "message": "😊 嘿，你好呀！"
+        },
+        "hi": {
+          "label": "嗨",
+          "message": "👋 嗨！"
+        },
+        "nice": {
+          "label": "幸会",
+          "message": "🌟 很高兴认识你！"
+        }
+      },
+      "close": "关闭",
+      "icebreakers": {
+        "0": "嗨！想一起练语言吗？",
+        "1": "我发现我们在学差不多的语言，你好呀！",
+        "2": "你的资料吸引了我，最近怎么样？",
+        "3": "嘿！你为什么开始学一门新语言呢？"
+      },
+      "icebreakersTitle": "开场白",
+      "match": "🎉 配对成功！你和 {{name}} 互相打了招呼。",
+      "placeholder": "写一句自定义消息（可选）…",
+      "quickReplies": "快捷回复",
+      "send": "打招呼",
+      "sendError": "打招呼失败",
+      "sent": "已向 {{name}} 打招呼！",
+      "subtitle": "打个招呼，开启话题 👋",
+      "title": "向 {{name}} 打招呼",
+      "yourMessage": "你的消息"
+    },
+    "someone": "某人",
+    "subtitle": "跟你打招呼的人",
+    "unread": "未读",
+    "wavedAtYou": "跟你打了招呼 👋"
   },
   "topics": {
     "title": "话题",
     "myTopics": "我的话题",
-    "browseTopics": "浏览话题",
-    "usersInterested": "人感兴趣"
+    "browseTopics": "发现话题",
+    "usersInterested": "人感兴趣",
+    "saved": "你的话题已是最新",
+    "saveError": "话题保存失败",
+    "memberCount": "{{count}} 位成员",
+    "backToCommunity": "社区",
+    "subtitle": "找到和你志趣相投的伙伴。",
+    "searchPlaceholder": "搜索话题",
+    "clearSearch": "清除搜索",
+    "cancel": "取消",
+    "saving": "保存中...",
+    "save": "保存",
+    "edit": "编辑",
+    "editHint": "点击下面的卡片最多选择 {{max}} 个话题，然后保存。",
+    "myTopicsEmpty": "你还没有选择任何话题。点击编辑选几个吧。",
+    "selectTopics": "选择你的话题",
+    "emptyTitle": "没有匹配的话题",
+    "emptyMessage": "换个词试试，或清除搜索查看全部话题。",
+    "backToTopics": "全部话题",
+    "onlineOnly": "仅显示在线",
+    "loadingPeople": "正在加载用户...",
+    "noOneOnlineTitle": "这里暂时没有人在线",
+    "noOneTitle": "这里还没有人",
+    "noOneOnlineMessage": "关闭在线筛选即可看到这个话题下的所有人。",
+    "noOneMessage": "成为第一人——把这个话题加到你的个人资料吧。"
   },
   "nearby": {
-    "title": "附近的用户",
-    "enableLocation": "启用位置",
-    "locationRequired": "需要位置权限才能查找附近的用户",
-    "noUsersNearby": "附近没有用户",
-    "tryExpandingRadius": "尝试扩大搜索范围"
+    "title": "附近的人",
+    "enableLocation": "开启定位",
+    "locationRequired": "需要开启定位权限，才能找到附近的人",
+    "noUsersNearby": "附近还没有人",
+    "tryExpandingRadius": "试试扩大搜索范围"
+  },
+  "home": {
+    "hero": {
+      "badge": "语言交换，都是真人",
+      "titlePart1": "练",
+      "titleHighlight": "任何语言",
+      "titlePart2": "，和真正会说它的人。",
+      "description": "BananaTalk 帮你匹配世界各地的母语者。聊天、发语音、随时翻译、有人帮你纠错——每一次对话都让你更进一步。",
+      "getStarted": "免费开始使用",
+      "browseCommunity": "逛逛社区",
+      "lovedBy": "iOS 和 Android 上的语言学习者都在用",
+      "chatPreview": {
+        "message1": "안녕하세요！周末过得怎么样？",
+        "message2": "주말에 친구들과 등산 갔어요 ⛰️",
+        "message3": "厉害！산 → 山，已存进你的学习清单。"
+      },
+      "title": "说得磕磕巴巴也没关系。",
+      "titleAccent": "我们帮你翻译。",
+      "subtitle": "和母语者免费语言交换。你用自己的语言写，对方用他们的语言读，差别就是你学到的东西。",
+      "trust": "永久免费版 · 137 种语言 · AI 导师 24 小时在线"
+    },
+    "sections": {
+      "features": "功能一览",
+      "howItWorks": "怎么用",
+      "pricing": "价格"
+    },
+    "stats": {
+      "languages": "种语言",
+      "app languages": "种应用语言",
+      "AI tutor": "AI 导师",
+      "forever tier": "永久免费版",
+      "learners": "位学习者"
+    },
+    "features": {
+      "title": "想真正开口说，需要的都在这里",
+      "subtitle": "建立在和真人母语者的真实对话上，而不是背单词。",
+      "chat": {
+        "title": "边聊边纠错",
+        "description": "发文字、语音、照片和贴纸。点一下对方的消息就能翻译，也能一键帮 TA 改。"
+      },
+      "translate": {
+        "title": "内置翻译",
+        "description": "把任何消息翻译成你的母语，还能把好句子直接存进学习清单。"
+      },
+      "tutor": {
+        "title": "AI 导师",
+        "description": "情景对话、看图学词、发音指导——全都交给你专属的 AI 学习搭档。"
+      },
+      "voice_rooms": {
+        "title": "语音房",
+        "description": "随时加入实时语音房，和世界各地的母语者、语言学习者一起聊。"
+      },
+      "calls": {
+        "title": "语音和视频通话",
+        "description": "和语伴一键发起语音或视频通话。"
+      },
+      "community": {
+        "title": "真实社区",
+        "description": "按母语挑语伴，看看谁在线，和学同一门语言的人分享动态。"
+      },
+      "inApp": "App 内",
+      "items": {
+        "findPartner": {
+          "title": "找到语伴",
+          "body": "按你真正想交换的语言组合来匹配。"
+        },
+        "chatTranslate": {
+          "title": "边聊边翻译",
+          "body": "打字的同时，消息里就是双向翻译。"
+        },
+        "moments": {
+          "title": "动态",
+          "body": "把你的一天发出来，母语者顺手帮你改。"
+        },
+        "aiTutor": {
+          "title": "AI 导师",
+          "body": "凌晨三点也能练，不用怕丢脸。"
+        },
+        "voiceRooms": {
+          "title": "语音房",
+          "body": "随时进个实时语音房，只听不说也行。"
+        },
+        "gatherings": {
+          "title": "线下聚会",
+          "body": "认识附近正在学你母语的人。"
+        }
+      }
+    },
+    "howItWorks": {
+      "title": "三步开启第一次对话",
+      "subtitle": "不用留手机号，也没有骚扰——都是真心想学的人。",
+      "steps": {
+        "1": {
+          "title": "告诉我们你会什么、想学什么",
+          "body": "选好你的母语和正在学的语言，我们就按这个组合帮你配对。"
+        },
+        "2": {
+          "title": "找个值得聊的人",
+          "body": "看看谁在学你的母语。打个招呼，或者直接开聊。"
+        },
+        "3": {
+          "title": "说得烂也没关系，进步才快",
+          "body": "每条消息都双向翻译，AI 导师在没人看得到的地方帮你改。"
+        }
+      }
+    },
+    "steps": {
+      "profile": {
+        "title": "告诉我们你的语言",
+        "description": "选好你说得流利的语言和正在学的语言，再加几个感兴趣的话题。"
+      },
+      "partners": {
+        "title": "找到你的语伴",
+        "description": "按语言、国家或话题逛社区，看到有意思的人就打个招呼或发条消息。"
+      },
+      "learn": {
+        "title": "每天都练一练",
+        "description": "聊天、互发语音、请人纠错，再把新词变成间隔重复卡片。"
+      }
+    },
+    "pricing": {
+      "title": "免费开始。想学得更快，再升级 VIP。",
+      "subtitle": "BananaTalk 对所有人免费。升级后可解除翻译、AI 导师等每日次数限制。",
+      "fineprint": "可随时在 App Store 或 Google Play 的设置中取消。订阅会自动续期，直到你取消为止。",
+      "free": {
+        "name": "免费版",
+        "period": "永久",
+        "cta": "创建免费账号",
+        "features": {
+          "messaging": "一对一聊天不限量，自带翻译",
+          "community": "逛社区，随时联系感兴趣的人",
+          "moments": "发布动态、查看限时动态",
+          "tutor_trial": "每日 AI 导师与翻译额度"
+        },
+        "f1": "一对一聊天不限量，自带翻译",
+        "f2": "逛社区，随时联系感兴趣的人",
+        "f3": "发布动态、查看限时动态"
+      },
+      "monthly": {
+        "name": "VIP 月付",
+        "period": "每月",
+        "highlight": "最灵活",
+        "cta": "开通月付",
+        "features": {
+          "unlimited_translation": "翻译和纠错不限量",
+          "unlimited_tutor": "AI 导师对话和情景演练不限量",
+          "voice_rooms": "可创建并置顶语音房",
+          "priority": "语伴优先匹配"
+        }
+      },
+      "yearly": {
+        "name": "VIP 年付",
+        "period": "每年",
+        "highlight": "立省 72%",
+        "cta": "选年付更划算",
+        "features": {
+          "everything_in_monthly": "包含月付的全部权益",
+          "equiv": "相当于每月只要 $4.16",
+          "early_access": "新功能抢先体验",
+          "support": "BananaTalk 团队直接支持"
+        }
+      },
+      "best": "最超值",
+      "perMonth": "每月",
+      "every": "每",
+      "save": "省",
+      "getVip": "在 App 内开通 VIP"
+    },
+    "download": {
+      "badge": "下载 App",
+      "title": "完整体验在手机上",
+      "description": "AI 导师、语音房、通话和实时通知都是手机端专属。下载 App，体验完整的 BananaTalk。",
+      "downloadOn": "下载自",
+      "getItOn": "获取自",
+      "scanQR": "扫码下载",
+      "or": "或",
+      "features": {
+        "offline": "离线也能顺畅聊天",
+        "push": "推送通知",
+        "fast": "免费安装"
+      }
+    },
+    "cta": {
+      "title": "准备好来一场真正的对话了吗？",
+      "description": "加入 BananaTalk 社区，今天就开始练。无需信用卡。",
+      "button": "创建你的免费账号",
+      "subtitle": "免费开始。不用绑卡，也没有试用倒计时。"
+    },
+    "marquee": {
+      "title": "你想学的每一种语言，都有母语者在",
+      "caption": "137 种语言，还在增加"
+    },
+    "earlyAdopter": {
+      "badge": "2025 年 12 月上线",
+      "title": "来当最早的那批人",
+      "body": "BananaTalk 还很新。你在这里遇到的人，就是决定这个社区会变成什么样的人——这比任何评价都更值得你早点加入。"
+    }
   },
   "vip": {
-    "title": "VIP会员",
+    "title": "VIP 会员",
     "subtitle": "解锁高级功能",
     "status": {
-      "active": "VIP已激活",
+      "active": "VIP 已开通",
       "free": "免费套餐",
-      "activeDesc": "正在享受所有高级功能",
-      "freeDesc": "升级以解锁更多功能"
+      "activeDesc": "正在享受全部高级功能",
+      "freeDesc": "升级即可解锁更多功能"
     },
     "expiresOn": "到期时间",
     "plans": {
       "free": "免费版",
       "vip": "VIP"
     },
-    "perMonth": "/月",
-    "saveAnnually": "年付节省20%",
+    "perMonth": "月",
+    "saveAnnually": "选年付立省 20%",
     "popular": "热门",
-    "upgradeNow": "升级到VIP",
-    "upgradeInApp": "在APP内升级",
-    "upgradeInAppDesc": "VIP订阅只能通过手机APP购买",
+    "upgradeNow": "升级 VIP",
+    "upgradeInApp": "在手机 App 内升级",
+    "upgradeInAppDesc": "VIP 订阅只能在我们的手机 App 内购买",
     "manageSubscription": "管理订阅",
     "cancelSubscription": "取消订阅",
-    "manageInApp": "请使用BananaTalk手机APP管理您的订阅。",
+    "manageInApp": "请在 BananaTalk 手机 App 内管理你的订阅。",
     "features": {
       "limitedMessages": "每日消息数量有限",
       "basicProfile": "基础资料",
       "basicSearch": "基础搜索",
-      "unlimitedMessages": "无限消息",
-      "seeProfileVisitors": "查看谁访问了您的资料",
+      "unlimitedMessages": "消息不限量",
+      "seeProfileVisitors": "查看谁访问过你的资料",
       "advancedFilters": "高级搜索筛选",
       "noAds": "无广告体验",
       "prioritySupport": "优先客服",
-      "exclusiveBadge": "VIP专属徽章",
+      "exclusiveBadge": "VIP 专属徽章",
       "translationFeature": "消息翻译"
     }
   },
-  "home": {
-    "hero": {
-      "badge": "轻松语言交换",
-      "titlePart1": "与母语者",
-      "titleHighlight": "对话",
-      "titlePart2": "学习语言",
-      "description": "与全球数百万语言学习者建立联系。练习口语，提高流利度，结交世界各地的朋友。",
-      "stats": {
-        "users": "活跃用户",
-        "languages": "种语言",
-        "countries": "个国家"
+  "linking": {
+    "share": {
+      "label": "分享",
+      "copied": "链接已复制！",
+      "copyFailed": "链接复制失败"
+    },
+    "openInApp": {
+      "label": "在 App 中打开"
+    },
+    "appBanner": {
+      "text": "用 BananaTalk App 打开"
+    }
+  },
+  "seo": {
+    "appTitle": "BananaTalk",
+    "home": {
+      "title": "BananaTalk：和母语者免费语言交换的 App",
+      "description": "和 137 种语言的母语者聊天。你用自己的语言写，对方用他们的语言读，AI 导师会告诉你差别在哪。iOS 和 Android 免费使用。"
+    },
+    "download": {
+      "title": "下载 BananaTalk：iPhone 和 Android 版",
+      "description": "免费下载 iPhone 和 Android 版 BananaTalk 语言交换 App。和母语者聊天，享受即时翻译和 AI 导师纠错。"
+    },
+    "moments": {
+      "title": "BananaTalk 动态：用目标语言记录生活",
+      "description": "动态是 BananaTalk 上语言学习者发布的短帖和限时动态。刷信息流、互动回应，也可以发布你自己的动态。"
+    },
+    "privacy": {
+      "title": "隐私政策 | BananaTalk",
+      "description": "BananaTalk 如何收集、使用和保护你的数据，以及你可以做出的选择。"
+    },
+    "terms": {
+      "title": "使用条款 | BananaTalk",
+      "description": "规范你使用 BananaTalk 的条款，包括内容规则、内容审核与举报。"
+    },
+    "support": {
+      "title": "支持与联系 | BananaTalk",
+      "description": "获取 BananaTalk 帮助：账号问题、问题举报，以及如何联系我们的团队。"
+    },
+    "dataDeletion": {
+      "title": "数据删除申请 | BananaTalk",
+      "description": "如何删除你的 BananaTalk 账号和个人数据，以及提交申请后会发生什么。"
+    },
+    "meet": {
+      "title": "认识其他国家的人 | BananaTalk",
+      "description": "在 BananaTalk 边聊边认识其他国家的人，交到外国朋友。每条消息都双向翻译，你们谁都不用先说得流利。"
+    },
+    "learnKorean": {
+      "title": "和韩语母语者边聊边学韩语",
+      "description": "和韩语母语者聊天，免费学韩语。你用自己的语言写，他们用韩文回，AI 导师随时讲清 존댓말 和 반말 的区别。"
+    },
+    "communities": {
+      "title": "语言交换社区 | BananaTalk",
+      "description": "加入 BananaTalk 的语言交换社区：一群人每天一起练韩语、西班牙语、日语，都是真实的社区，完全免费。"
+    }
+  },
+  "notFound": {
+    "pageTitle": "页面不存在 | BananaTalk",
+    "title": "这个页面不存在",
+    "body": "链接可能已经失效，或者页面搬家了。下面是回去的路。",
+    "home": "回到首页",
+    "download": "下载 App"
+  },
+  "consent": {
+    "label": "Cookie 同意",
+    "message": "我们使用分析 Cookie，了解大家是怎么找到这里的。",
+    "accept": "好的",
+    "decline": "不用了",
+    "manage": {
+      "title": "隐私选择",
+      "body": "分析 Cookie 只告诉我们哪些页面有帮助，没有别的。",
+      "current_granted": "分析 Cookie 已开启。",
+      "current_denied": "分析 Cookie 已关闭。",
+      "accept": "开启",
+      "decline": "关闭",
+      "privacyChoices": "隐私选择",
+      "analyticsCookies": "分析 Cookie",
+      "done": "完成"
+    }
+  },
+  "admin": {
+    "nav": {
+      "admin": "管理",
+      "overview": "概览",
+      "reach": "触达",
+      "users": "用户",
+      "content": "内容",
+      "aiUsage": "AI 用量",
+      "audit": "审计日志"
+    },
+    "aiUsage": {
+      "allFeatures": "所有功能",
+      "anonymous": "匿名",
+      "byDay": "按日使用量",
+      "byFeature": "按功能使用量",
+      "calls": "调用次数",
+      "date": "日期",
+      "feature": "功能",
+      "from": "起始日期",
+      "logs": "使用记录",
+      "timestamp": "时间",
+      "to": "结束日期",
+      "total": "总调用次数",
+      "user": "用户"
+    },
+    "audit": {
+      "action": "操作",
+      "actionColumn": "操作",
+      "moderator": "管理员",
+      "moderatorId": "管理员 ID",
+      "reason": "原因",
+      "target": "对象",
+      "targetId": "对象 ID",
+      "timestamp": "时间"
+    },
+    "common": {
+      "actionError": "出了点问题。",
+      "close": "关闭",
+      "empty": "暂无内容。",
+      "loadError": "无法加载此部分。",
+      "loading": "加载中…",
+      "refresh": "刷新",
+      "cancel": "取消"
+    },
+    "content": {
+      "archive": "归档",
+      "archiveTitle": "归档社团",
+      "cancel": "取消",
+      "cancelTitle": "取消活动",
+      "created": "创建时间",
+      "gatherings": "活动",
+      "going": "参加人数",
+      "language": "语言",
+      "members": "成员",
+      "name": "名称",
+      "openReports": "未处理举报",
+      "reportedOnly": "仅显示被举报内容",
+      "restore": "恢复",
+      "restoreTitle": "恢复社团",
+      "startsAt": "开始时间",
+      "status": "状态",
+      "tabs": "内容类型",
+      "title": "标题",
+      "moments": "动态",
+      "communities": "社区",
+      "reports": "举报",
+      "momentsToday": "今日动态",
+      "moments7d": "动态数（7 天）",
+      "momentsHidden": "已隐藏的动态",
+      "comments7d": "评论数（7 天）",
+      "activeCommunities": "活跃社区",
+      "upcomingGatherings": "即将举行的活动",
+      "pendingReports": "待处理的举报",
+      "allTime": "总计",
+      "membersTotal": "成员",
+      "underReview": "审核中",
+      "searchMoments": "搜索动态",
+      "hiddenOnly": "仅显示已隐藏内容",
+      "author": "作者",
+      "owner": "所有者",
+      "city": "城市",
+      "place": "地点",
+      "category": "分类",
+      "engagement": "互动",
+      "likes": "点赞",
+      "comments": "评论",
+      "views": "浏览量",
+      "shares": "分享",
+      "hidden": "已隐藏",
+      "visible": "可见",
+      "untitled": "无标题动态",
+      "noText": "无文字内容。",
+      "actionFailed": "操作未能完成，未做任何更改。",
+      "momentTitle": "动态",
+      "hide": "隐藏",
+      "unhide": "取消隐藏",
+      "hideTitle": "确定要隐藏此动态吗？",
+      "unhideTitle": "确定要取消隐藏此动态吗？",
+      "hideBody": "将从所有动态流中消失。原因会记录在审计日志中。",
+      "unhideBody": "将重新出现在动态流中。原因会记录在审计日志中。",
+      "communityTitle": "社区",
+      "archiveBody": "将从发现页中消失。成员的历史记录会保留，且可以恢复。",
+      "restoreBody": "将重新出现在发现页中。原因会记录在审计日志中。",
+      "reportType": "类型",
+      "reason": "原因",
+      "reporterAndReported": "举报人 → 被举报人",
+      "priority": "优先级",
+      "reportActions": "举报处理操作",
+      "anyStatus": "所有状态",
+      "anyType": "所有类型",
+      "startReview": "开始审核",
+      "resolve": "解决",
+      "dismiss": "驳回",
+      "resolveTitle": "确定要将此举报标记为已解决吗？",
+      "dismissTitle": "确定要驳回此举报吗？",
+      "dismissBody": "不会对被举报的内容或用户采取任何措施。备注会保留在举报记录中。",
+      "moderatorAction": "管理员操作",
+      "notes": "备注",
+      "reportStatus": {
+        "pending": "待处理",
+        "under_review": "审核中",
+        "resolved": "已解决",
+        "dismissed": "已驳回"
       },
-      "getStarted": "免费开始",
-      "browseCommunity": "浏览社区",
-      "lovedBy": "500万+学习者的选择",
-      "chatPreview": {
-        "message1": "你好！最近怎么样？👋",
-        "message2": "我很好，正在练习中文！",
-        "message3": "太棒了！我们一起练习吧 🇨🇳"
+      "targetType": {
+        "moment": "动态",
+        "comment": "评论",
+        "user": "用户",
+        "club": "社区",
+        "gathering": "活动",
+        "message": "消息",
+        "story": "快拍"
+      },
+      "moderatorActions": {
+        "content_removed": "内容已删除",
+        "user_warned": "已警告用户",
+        "user_suspended": "用户已被暂停",
+        "user_banned": "用户已被封禁",
+        "no_violation": "无违规"
       }
     },
-    "sections": {
-      "features": "功能特色",
-      "howItWorks": "使用方法",
-      "pricing": "价格方案"
+    "overview": {
+      "activeThisWeek": "本周活跃用户",
+      "activeToday": "今日活跃",
+      "admins": "管理员",
+      "banned": "已封禁",
+      "email": "邮箱",
+      "lastActive": "最近活跃",
+      "lastWeek": "上周",
+      "name": "姓名",
+      "newThisWeek": "本周新增",
+      "newToday": "今日新增",
+      "recentlyActive": "最近活跃",
+      "topLearningLanguages": "热门学习语言",
+      "topNativeLanguages": "热门母语",
+      "totalUsers": "用户总数",
+      "vip": "VIP",
+      "visitsThisWeek": "本周访问量",
+      "vs": "对比"
     },
-    "features": {
-      "title": "学习所需的一切",
-      "subtitle": "强大的工具，加速您的语言学习之旅",
-      "chat": {
-        "title": "实时聊天",
-        "description": "通过即时消息与母语者练习对话"
-      },
-      "video": {
-        "title": "视频通话",
-        "description": "与全球伙伴面对面练习语言"
-      },
-      "lessons": {
-        "title": "互动课程",
-        "description": "通过结构化课程和每日练习学习"
+    "reach": {
+      "country": "国家/地区",
+      "days": "天",
+      "device": "设备",
+      "devices": "设备",
+      "newVisitors": "新访客",
+      "ofVisits": "占比",
+      "pageViews": "页面浏览量",
+      "path": "路径",
+      "period": "所在周",
+      "placement": "展示位置",
+      "platform": "平台",
+      "referrer": "来源",
+      "storeTaps": "商店点击量",
+      "taps": "点击量",
+      "tapsByPlacement": "各位置的商店点击量",
+      "topCountries": "热门国家/地区",
+      "topPaths": "热门页面",
+      "topReferrers": "热门来源",
+      "trafficTitle": "页面浏览量与商店点击量",
+      "unique": "独立",
+      "uniqueVisitors": "独立访客数",
+      "views": "浏览量",
+      "visits": "访问量",
+      "visitsThisWeek": "本周访问量",
+      "window": "时间范围"
+    },
+    "users": {
+      "actionFailed": "操作未能完成，未做任何更改。",
+      "active": "活跃",
+      "activity": "活动",
+      "adminsOnly": "仅管理员",
+      "ban": "封禁",
+      "banBody": "将立即失去访问权限。原因会记录在审计日志中。",
+      "banReason": "封禁原因",
+      "banTitle": "确定要封禁此用户吗？",
+      "banned": "已封禁",
+      "delete": "删除",
+      "deleteBody": "此操作会删除账户及其全部内容，且无法撤销。",
+      "deleteTitle": "确定要永久删除此账户吗？",
+      "detailTitle": "用户详情",
+      "email": "邮箱",
+      "empty": "没有符合搜索条件的用户。",
+      "joined": "加入时间",
+      "languages": "语言",
+      "lastActive": "最近活跃",
+      "lastMessage": "最近消息",
+      "lastMoment": "最近动态",
+      "makeAdmin": "设为管理员",
+      "makeAdminBody": "该用户将获得控制台及全部管理员权限，包括封禁和删除操作。",
+      "makeAdminTitle": "确定要设为管理员吗？",
+      "messages30d": "消息数（30 天）",
+      "moments30d": "动态数（30 天）",
+      "name": "姓名",
+      "noActions": "该账户没有任何管理员操作记录。",
+      "recentActions": "最近的管理员操作",
+      "revokeAdmin": "取消管理员",
+      "revokeAdminBody": "该用户将失去控制台及全部管理员权限。你无法取消自己的管理员身份。",
+      "revokeAdminTitle": "确定要取消管理员权限吗？",
+      "role": "角色",
+      "searchLabel": "搜索用户",
+      "searchPlaceholder": "搜索姓名、邮箱或用户名",
+      "status": "状态",
+      "tabAll": "所有用户",
+      "tabBanned": "已封禁",
+      "typeEmail": "请输入该用户的邮箱以确认",
+      "unban": "解除封禁",
+      "unbanBody": "该用户将立即恢复访问权限。原因会记录在审计日志中。",
+      "unbanTitle": "确定要解除此用户的封禁吗？",
+      "unknownModerator": "未知管理员",
+      "addUser": "添加用户",
+      "createUser": "创建用户",
+      "createdTitle": "用户已创建",
+      "createFailed": "操作未能完成，未创建任何账户。",
+      "editTitle": "编辑用户",
+      "edit": "编辑",
+      "saveChanges": "保存更改",
+      "done": "完成",
+      "addAnother": "再添加一个",
+      "openProfile": "打开资料",
+      "required": "必填",
+      "invalidEmail": "请输入有效的邮箱地址",
+      "weakPassword": "至少 8 个字符，需包含大小写字母和数字",
+      "under18": "用户必须年满 18 周岁",
+      "sameLanguage": "母语和学习语言不能相同",
+      "password": "密码",
+      "generate": "生成",
+      "copy": "复制",
+      "passwordOnce": "密码仅此一次显示。请发送给用户，并请他们尽快修改。",
+      "termsNote": "无法代替本人给予同意：该用户首次登录时，应用会要求其本人接受条款。",
+      "userId": "用户 ID",
+      "gender": "性别",
+      "male": "男",
+      "female": "女",
+      "other": "其他",
+      "select": "选择",
+      "birthDate": "出生日期",
+      "birthYear": "出生年份",
+      "birthMonth": "出生月份",
+      "birthDay": "出生日",
+      "year": "年",
+      "month": "月",
+      "day": "日",
+      "nativeLanguage": "母语",
+      "learningLanguage": "学习语言",
+      "roleUser": "用户",
+      "roleAdmin": "管理员",
+      "markVerified": "标记邮箱为已验证",
+      "bio": "个人简介",
+      "optional": "选填",
+      "mode": "模式",
+      "regular": "普通",
+      "vip": "VIP",
+      "vipUntil": "至",
+      "vipDays": "天数",
+      "vipGrantNote": "订阅从今天开始生效，且不会自动续订。",
+      "vipRevokeNote": "关闭 VIP 会立即结束订阅。",
+      "verified": "已验证",
+      "yes": "是",
+      "no": "否"
+    },
+    "table": {
+      "page": "第 {{page}} 页",
+      "previous": "上一页",
+      "next": "下一页"
+    }
+  },
+  "download": {
+    "title": "下载 BananaTalk",
+    "subtitle": "和 137 种语言的母语者免费语言交换，iPhone 和 Android 都能用。",
+    "free": "免费，不用绑卡。",
+    "scan": "用手机相机扫一扫",
+    "qrAlt": "下载 BananaTalk 的二维码",
+    "reasons": {
+      "tutor": {
+        "title": "每个聊天都有 AI 导师",
+        "body": "就着你真正发出去的消息，帮你改，也讲清楚为什么。"
       },
       "voice": {
-        "title": "语音消息",
-        "description": "通过音频交流完善发音"
+        "title": "语音房和通话",
+        "body": "和此刻正在学你母语的人开口练。"
       },
-      "community": {
-        "title": "社区",
-        "description": "加入全球数百万语言学习者"
+      "translate": {
+        "title": "即时翻译",
+        "body": "你用自己的语言写，对方用他们的语言读，差别就是你学到的东西。"
+      }
+    }
+  },
+  "meet": {
+    "hero": {
+      "title": "认识其他国家的人，",
+      "titleAccent": "而且真的会回你消息。",
+      "subtitle": "在 BananaTalk，你靠和母语者聊天来交外国朋友。挑一种语言，打个招呼，每条消息都是翻译好才送到——谁都不用先练到流利。",
+      "trust": "永久免费版 · 137 种语言 · 每条消息双向翻译",
+      "demo": {
+        "1": {
+          "text": "Bora ver o pôr do sol no sábado?",
+          "translation": "周六一起去看日落吗？"
+        },
+        "2": {
+          "text": "好啊！九月那边还热吗？",
+          "translation": "Sim! Ainda faz calor aí em setembro?"
+        }
       },
-      "languages": {
-        "title": "50+种语言",
-        "description": "从西班牙语到韩语，找到您的学习路径"
+      "note": {
+        "label": "✦ 双向翻译",
+        "body": "她写的是葡萄牙语，你读到的是中文。你写的是中文，她读到的是葡萄牙语。你们谁都没换语言。"
       }
     },
     "howItWorks": {
-      "title": "3步开始学习",
-      "subtitle": "几分钟内开始，今天就开启您的语言之旅"
-    },
-    "steps": {
-      "profile": {
-        "title": "创建资料",
-        "description": "告诉我们您的母语和想学习的语言"
-      },
-      "partners": {
-        "title": "寻找伙伴",
-        "description": "浏览我们的社区，找到完美的语言交换伙伴"
-      },
-      "learn": {
-        "title": "开始学习",
-        "description": "每天与母语者聊天、通话、练习"
-      }
-    },
-    "pricing": {
-      "title": "选择您的方案",
-      "subtitle": "免费开始，准备好了再升级",
-      "mostPopular": "最受欢迎",
-      "getStarted": "开始使用",
-      "free": {
-        "name": "免费版",
-        "period": "永久",
-        "features": {
-          "messaging": "基础消息",
-          "connections": "每日5个新连接",
-          "community": "社区访问",
-          "lessons": "基础课程"
-        }
-      },
-      "premium": {
-        "name": "高级版",
-        "period": "/月",
-        "features": {
-          "messaging": "无限消息",
-          "connections": "无限连接",
-          "video": "视频通话",
-          "lessons": "高级课程",
-          "noAds": "无广告",
-          "translation": "翻译工具"
-        }
-      },
-      "lifetime": {
-        "name": "终身版",
-        "period": "一次性付款",
-        "features": {
-          "everything": "高级版所有功能",
-          "forever": "永久访问",
-          "support": "优先支持",
-          "early": "抢先体验新功能",
-          "badges": "专属徽章"
+      "title": "在这里交到朋友，只要三步",
+      "steps": {
+        "1": {
+          "title": "先挑语言，不是挑头像",
+          "body": "选你好奇的语言或国家。我们会把已经在学你母语的人推给你——这是语言交换，双方都有收获。"
+        },
+        "2": {
+          "title": "用自己的话打招呼",
+          "body": "用你思考时用的语言写，瞬间就变成他们的语言。第一条消息从此不再难开口。"
+        },
+        "3": {
+          "title": "一直聊下去",
+          "body": "语音、照片、动态、通话。能留下来的对话，是练习结束之后还在继续的那种。"
         }
       }
+    },
+    "features": {
+      "title": "为聊得下去而做的功能"
     },
     "cta": {
-      "title": "准备好开始您的语言之旅了吗？",
-      "description": "加入数百万学习者，今天就开始说一门新语言",
-      "button": "创建免费账户"
+      "title": "此刻，另一个国家有人醒着",
+      "subtitle": "免费开始。不用绑卡，也没有试用倒计时。"
+    }
+  },
+  "learnKorean": {
+    "hero": {
+      "title": "边聊边学韩语，",
+      "titleAccent": "对面是真正的韩国人。",
+      "subtitle": "和想学你母语的韩语母语者互相交换。你用한국어试着开口，他们用韩国人真正在说的韩语回你，说错的地方由 AI 导师私下帮你改。",
+      "trust": "永久免费版 · 韩语母语者 · AI 导师 24 小时在线",
+      "demo": {
+        "1": {
+          "text": "주말에 뭐 했어요?",
+          "translation": "这周末你做了什么？"
+        },
+        "2": {
+          "text": "친구 만났다! 진짜 재미있었어",
+          "translation": "见了朋友！真的很好玩"
+        }
+      },
+      "note": {
+        "label": "✦ AI 导师",
+        "body": "존댓말 与 반말 的区别：她用 했어요 提问，这是敬语。你用 반말 回答，那是跟亲近的人说的话。先跟着她的说法来：친구 만났어요! 진짜 재미있었어요."
+      }
+    },
+    "howItWorks": {
+      "title": "为什么聊天学的韩语忘不掉",
+      "steps": {
+        "1": {
+          "title": "真实聊天里出现的韩语",
+          "body": "课本教你 합니다，语伴打出来的却是 했어요、ㅋㅋ 和 헐——这才是真实对话里等着你的韩语。"
+        },
+        "2": {
+          "title": "존댓말 和 반말，用感觉记住，不靠背",
+          "body": "敬语是你每句话都要做的选择。看母语者怎么选，比背一张词尾表快得多。"
+        },
+        "3": {
+          "title": "被纠正，但不用尴尬",
+          "body": "AI 导师把你的韩语改在只有你看得到的地方，语言交换才不会变成考试。语伴看到的只是你在努力——这才是他一直回你的原因。"
+        }
+      }
+    },
+    "features": {
+      "title": "课本给不了你的三件事"
+    },
+    "cta": {
+      "title": "此刻就有韩国人在学你的母语",
+      "subtitle": "免费开始。不用绑卡，也没有试用倒计时。"
+    }
+  },
+  "communities": {
+    "public": {
+      "title": "语言交换社区",
+      "intro": "这些是 BananaTalk 里真实的社区，大家每天一起练同一门语言。在这里找到属于你的那个，再到 App 里打开，开始聊。",
+      "members": "位成员",
+      "join": "在 App 里加入",
+      "empty": {
+        "title": "每周都有新社区开张",
+        "body": "这里暂时还没有内容。下载 App，社区一开就能第一时间看到。"
+      }
+    }
+  },
+  "errors": {
+    "chunk": {
+      "title": "加载此页面时出错",
+      "body": "应用的一部分未能加载。这通常发生在更新之后，刷新页面即可解决。",
+      "reload": "刷新"
+    }
+  },
+  "growth": {
+    "store": {
+      "appStore": "App Store",
+      "googlePlay": "Google Play",
+      "downloadOnThe": "立即下载",
+      "getItOn": "立即获取"
+    },
+    "promo": {
+      "tutor": {
+        "eyebrow": "AI 导师",
+        "title": "边打字边纠正你的韩语",
+        "body": "每条消息都有专属纠错,聊天之余还有测验和语法练习。",
+        "cta": "下载 App",
+        "alt": "插图:聊天气泡中一个词被划掉,上方浮现着更正后的词,旁边有一个对勾"
+      },
+      "voice": {
+        "eyebrow": "语音留言与语音房",
+        "title": "听听真实的发音",
+        "body": "发送语音消息,分享你的位置,和母语者一起加入实时语音房。",
+        "cta": "下载 App",
+        "alt": "插图:麦克风上方有声波扫过,后方有一张共享位置卡片"
+      },
+      "moments": {
+        "eyebrow": "动态与限时动态",
+        "title": "用两种语言分享你的一周",
+        "body": "发布照片和想法,朋友会读到翻译版本,并友善地纠正你。",
+        "cta": "下载 App",
+        "alt": "插图:三张重叠的照片卡片,带有一颗心和一个从 A 到 가 的翻译标记"
+      },
+      "inbox": {
+        "eyebrow": "真实对话",
+        "title": "真的会回复你的人",
+        "body": "聊天、打招呼和互动都在一个收件箱里 — 已读、已翻译、已回复。",
+        "cta": "下载 App",
+        "alt": "插图:收件箱中堆叠着三条对话,其中一条未读,还有一只挥手打招呼的手"
+      },
+      "dismiss": "关闭应用推广",
+      "label": "BananaTalk 应用能做什么",
+      "slideLabel": "幻灯片 {{n}} / {{total}}",
+      "prev": "上一张幻灯片",
+      "next": "下一张幻灯片"
+    }
+  },
+  "stories": {
+    "your_story": "我的快拍",
+    "create_story": "创建",
+    "my_stories": "我的快拍",
+    "reaction_failed": "回应保存失败",
+    "answer_sent": "回答已发送",
+    "answer_failed": "回答发送失败",
+    "delete_story": "删除这条快拍？",
+    "error_loading": "快拍加载失败",
+    "answer_placeholder": "输入你的回答…",
+    "answer_question": "回答问题",
+    "send_reply": "发送",
+    "answer_anonymously": "匿名回答",
+    "cancel": "取消",
+    "viewers": "观看者",
+    "responses": "回答",
+    "share_story": "分享",
+    "reply_placeholder": "发送消息...",
+    "react": "回应",
+    "reacted": "已回应",
+    "shared": "已发送",
+    "share_failed": "分享失败",
+    "close": "关闭",
+    "search_chats": "搜索聊天",
+    "loading": "加载中…",
+    "no_chats": "没有最近聊天",
+    "no_viewers": "还没有人看过",
+    "added_to_highlight": "已添加到精选",
+    "add_failed": "添加失败",
+    "title_required": "请输入标题",
+    "highlight_created": "精选已创建",
+    "create_failed": "精选创建失败",
+    "story_archived": "快拍已归档",
+    "archive_failed": "归档失败",
+    "story_deleted": "快拍已删除",
+    "delete_story_failed": "删除失败",
+    "active_stories": "进行中",
+    "total_views": "总浏览量",
+    "archived_stories": "已归档",
+    "create_first_story": "创建快拍",
+    "no_archived_stories": "还没有归档内容",
+    "no_stories": "还没有快拍",
+    "add_to_highlight": "添加到精选",
+    "archive": "归档",
+    "delete": "删除",
+    "highlight_name": "精选名称",
+    "create": "创建",
+    "no_highlights": "还没有精选",
+    "stories_count": "条快拍",
+    "new_highlight": "新建精选",
+    "delete_story_confirm": "删除这条快拍？",
+    "delete_story_body": "此操作无法撤销。",
+    "anonymous": "匿名",
+    "no_responses": "还没有回答",
+    "video_type_error": "不支持该视频格式",
+    "video_size_error": "视频大小超过了限制",
+    "video_duration_error": "视频时长超过了限制",
+    "question_box": {
+      "ask_me_anything": "问我任何问题！"
+    },
+    "add_text": "输入你的快拍…",
+    "upload_media": "请上传照片或视频",
+    "link_invalid": "链接格式不正确",
+    "story_created": "快拍已发布",
+    "create_story_failed": "快拍发布失败",
+    "video_limits": "视频",
+    "choose_photo": "照片",
+    "choose_video": "视频",
+    "text_story": "文字",
+    "move_sticker": "移动贴纸",
+    "tap_to_type": "点击输入",
+    "story_text": "快拍文字",
+    "background": "背景",
+    "text_color": "文字",
+    "font_style": "字体",
+    "stickers_text": "文字与表情符号",
+    "add_text_sticker": "添加文字",
+    "add_emoji_sticker": "添加表情符号",
+    "sticker_text": "贴纸文字",
+    "remove": "移除",
+    "sticker_background": "背景",
+    "sticker_size": "大小",
+    "sticker_color": "颜色",
+    "mention": "提及",
+    "link": "链接",
+    "poll": "投票",
+    "question": "问题",
+    "hashtag": "话题标签",
+    "link_url": "链接地址",
+    "link_title": "标题",
+    "link_label": "贴纸标签",
+    "poll_question": "发起提问",
+    "poll_option": "选项",
+    "add_option": "添加选项",
+    "anonymous_voting": "匿名投票",
+    "question_prompt": "提问内容",
+    "audience": "谁可以看到",
+    "privacy": {
+      "public": "所有人",
+      "friends": "好友",
+      "close_friends": "密友"
+    },
+    "close_friends_empty": "你的密友名单是空的 — 没有人能看到这条快拍。",
+    "manage_close_friends": "管理密友",
+    "highlight_updated": "精选已更新",
+    "update_failed": "精选保存失败",
+    "highlight_deleted": "精选已删除",
+    "delete_failed": "精选删除失败",
+    "removed_from_highlight": "已从精选中移除",
+    "remove_failed": "移除失败",
+    "back": "返回",
+    "highlights_title": "精选",
+    "highlights_subtitle": "你保存的快拍合集",
+    "highlight_empty": "这个精选里还没有快拍",
+    "remove_from_highlight": "从精选中移除",
+    "edit_highlight": "编辑精选",
+    "delete_highlight": "删除精选",
+    "choose_cover": "选择封面",
+    "no_stories_to_pick": "没有可选择的快拍",
+    "save": "保存",
+    "delete_highlight_confirm": "删除这个精选？",
+    "delete_highlight_body": "快拍本身仍会保留在你的归档中。",
+    "previous": "上一个",
+    "next": "下一个",
+    "font": {
+      "sans-serif": "无衬线体",
+      "serif": "衬线体",
+      "bold": "粗体",
+      "handwritten": "手写体"
+    },
+    "bg_mode": {
+      "none": "无背景",
+      "semi": "半透明",
+      "solid": "纯色"
+    },
+    "search_followings": "搜索你关注的人",
+    "mention_followings_only": "只能标记你关注的人。请先关注某人。",
+    "mention_no_match": "你关注的人中没有匹配项",
+    "more": "更多",
+    "reply_failed": "消息发送失败",
+    "vote_failed": "投票保存失败",
+    "poll_error_question": "请为投票添加问题",
+    "poll_error_blank_option": "请填写或删除空白选项",
+    "poll_error_min_options": "投票至少需要两个选项",
+    "poll_error_max_options": "投票最多只能有四个选项",
+    "question_error_prompt": "请为提问贴纸添加问题",
+    "caption": "说明文字",
+    "caption_placeholder": "添加说明文字…",
+    "linkPage": {
+      "browse": "查看当前快拍",
+      "expired": "这条快拍已过期或已被删除。快拍会在 24 小时后消失。",
+      "failed": "无法加载这条快拍。",
+      "retry": "重试",
+      "sign_in": "登录",
+      "sign_in_body": "登录即可观看，或在 BananaTalk App 中打开。",
+      "sign_in_title": "有人与你分享了一条快拍",
+      "unavailable": "你无法查看这条快拍。"
+    },
+    "block_author": "拉黑 {{name}}",
+    "block_confirm": "拉黑",
+    "block_confirm_body": "对方将无法查看你的个人资料、动态或快拍，也无法给你发消息，你也不会再看到对方的内容。",
+    "block_confirm_title": "确定拉黑 {{name}}？",
+    "block_failed": "拉黑失败，请重试。",
+    "blocked": "已拉黑 {{name}}",
+    "location_label": "位置",
+    "one_image_only": "一条快拍只能放一张图片，已保留第一张。",
+    "replies_off": "这条快拍已关闭回复",
+    "report_story": "举报快拍"
+  },
+  "card": {
+    "title": "语言卡片",
+    "my_card": "我的卡片",
+    "speaks": "会说",
+    "learning": "正在学",
+    "practice_with": "和{{name}}练习{{language}}",
+    "view_profile": "查看完整资料",
+    "continue_web": "在浏览器中继续",
+    "share": "分享我的卡片",
+    "share_text": "来 BananaTalk 和我一起练习{{language}}",
+    "edit": "编辑卡片内容",
+    "tagline": "在 BananaTalk 进行语言交换",
+    "not_found": "这张卡片不存在",
+    "not_found_body": "该账号可能已被删除。",
+    "find_partners": "寻找语言伙伴"
+  },
+  "announcements": {
+    "new": "新消息",
+    "readMore": "了解更多",
+    "close": "关闭",
+    "ended": "此公告已结束。",
+    "back": "返回"
+  },
+  "communityNearby": {
+    "back": "返回",
+    "geolocationNotSupported": "不支持定位功能",
+    "gettingLocation": "正在获取你的位置…",
+    "learning": "在学：{{language}}",
+    "locationRequired": "需要位置权限",
+    "noUsers": "附近没有找到用户",
+    "permissionDenied": "位置权限被拒绝",
+    "positionUnavailable": "无法获取位置",
+    "refresh": "刷新",
+    "searchRadius": "搜索范围",
+    "subtitle": "认识你身边的人",
+    "timeout": "获取位置超时",
+    "title": "附近的人",
+    "tryAgain": "重试",
+    "tryIncreaseRadius": "试试扩大搜索范围",
+    "unknownError": "出了点问题",
+    "usersFound_one": "找到 {{count}} 人",
+    "usersFound_other": "找到 {{count}} 人"
+  },
+  "auth": {
+    "apple": {
+      "continue": "通过 Apple 继续",
+      "errors": {
+        "banned": "此账号已被封禁。",
+        "blocked": "浏览器拦截了 Apple 窗口。请允许 banatalk.com 的弹出窗口后重试。",
+        "disabled": "网站暂不支持“通过 Apple 登录”。",
+        "failed": "无法通过 Apple 登录，请重试。",
+        "rate_limited": "登录尝试次数过多，请等待一分钟后再试。",
+        "unavailable": "“通过 Apple 登录”目前不可用，请稍后再试。"
+      },
+      "signedIn": "已通过 Apple 登录",
+      "signingIn": "正在通过 Apple 登录…"
+    }
+  },
+  "reels": {
+    "actions": {
+      "block": "屏蔽用户",
+      "comments": "评论",
+      "like": "点赞",
+      "more": "更多",
+      "profile": "个人资料",
+      "report": "举报",
+      "unlike": "取消点赞"
+    },
+    "create": {
+      "bad_type": "不支持此文件类型。请使用 MP4、MOV 或 WebM。",
+      "caption": "说明",
+      "caption_placeholder": "你在练习什么？",
+      "change_video": "选择其他视频",
+      "choose_video": "选择视频",
+      "failed": "无法发布你的短视频，请重试。",
+      "hint": "一段简短的语言学习视频，最长 3 分钟。竖屏（9:16）效果最佳。",
+      "post": "发布短视频",
+      "posted": "你的短视频已发布。",
+      "posting": "正在发布…",
+      "server_too_long": "短视频不能超过 3 分钟。",
+      "title": "新短视频",
+      "too_big": "此视频太大，无法上传。",
+      "too_long": "短视频最长 3:00，此视频时长为 {{duration}}。",
+      "upload_failed": "视频未上传，未发布任何内容，请重试。"
+    },
+    "grid": {
+      "create": "创建短视频",
+      "empty": "还没有 Reels，来发布第一个吧。",
+      "error": "无法加载短视频。",
+      "load_more": "加载更多",
+      "loading": "正在加载短视频…",
+      "open_reel": "播放 {{name}} 的短视频",
+      "retry": "重试",
+      "title": "快拍视频",
+      "unavailable": "短视频暂时不可用。"
+    },
+    "moments_link": "观看短视频",
+    "nav": "快拍视频",
+    "policy": {
+      "accept": "我同意",
+      "body": "Reels 是简短的语言学习视频，包括话题回答、口语练习、母语者讲解和文化短片。\n\nBananaTalk 对不当内容零容忍：禁止裸露、仇恨言论、骚扰、暴力或非法内容。被举报的视频在收到 2 次举报后会自动隐藏以待审核，违规可能导致内容被删除或账号被封禁。\n\n你可以随时在任意 Reel 中举报或屏蔽。",
+      "decline": "拒绝",
+      "title": "短视频内容准则"
+    },
+    "viewer": {
+      "close": "关闭",
+      "label": "快拍视频",
+      "mute": "静音",
+      "next": "下一个短视频",
+      "previous": "上一个短视频",
+      "tap_to_play": "点按播放",
+      "unmute": "取消静音"
+    }
+  },
+  "clubs": {
+    "card": {
+      "joined": "已加入",
+      "members_one": "{{count}}名成员",
+      "members_other": "{{count}}名成员"
+    },
+    "detail": {
+      "back": "看看其他俱乐部",
+      "edit": "编辑俱乐部",
+      "host": "为这个俱乐部发起聚会",
+      "join": "加入俱乐部",
+      "leave": "退出俱乐部",
+      "leaveTitle": "要退出这个俱乐部吗？",
+      "metTimes_one": "已聚会 1 次",
+      "metTimes_other": "已聚会 {{count}} 次",
+      "neverMet": "还没有聚过",
+      "noGatherings": "目前还没有安排。",
+      "upcoming": "即将举行",
+      "youOwn": "这是你创建的俱乐部"
+    },
+    "form": {
+      "city": "城市（可选）",
+      "create": "创建俱乐部",
+      "createTitle": "创建俱乐部",
+      "description": "俱乐部简介（可选）",
+      "editTitle": "编辑俱乐部",
+      "errors": {
+        "descriptionTooLong": "简介请控制在 2000 字以内。",
+        "interestTooLong": "兴趣请控制在 60 字以内。",
+        "languageRequired": "请选择俱乐部的语言。",
+        "nameRequired": "请给俱乐部起个名字。",
+        "nameTooLong": "名称请控制在 80 字以内。"
+      },
+      "interest": "共同兴趣（例如：读书、韩剧）",
+      "language": "语言",
+      "name": "名称",
+      "notAllowed": "只有俱乐部创建者或组织者可以编辑。",
+      "placeAddress": "地址（可选）",
+      "placeName": "聚会地点（可选）"
+    },
+    "home": {
+      "empty": "这里还没有俱乐部。",
+      "scopeAll": "全部",
+      "scopeMember": "已加入",
+      "scopeMine": "我的语言",
+      "start": "创建俱乐部"
+    },
+    "owner": {
+      "delete": "删除俱乐部",
+      "deleteBody": "成员将失去这个俱乐部。已安排的聚会仍会照常举行。",
+      "deleteTitle": "要删除{{name}}吗？"
+    },
+    "people": {
+      "makeMember": "取消组织者",
+      "makeOrganizer": "设为组织者",
+      "organizer": "组织者",
+      "owner": "创建者",
+      "remove": "移出俱乐部",
+      "removeTitle": "要移除{{name}}吗？",
+      "title": "成员 · {{count}}"
+    }
+  },
+  "gatherings": {
+    "card": {
+      "approval": "需主持人审核",
+      "full": "已满",
+      "going": "已报名",
+      "hostedBy": "主持人：{{name}}",
+      "hosting": "你是主持人",
+      "requested": "已申请",
+      "seatsLeft_one": "剩 {{count}} 个名额",
+      "seatsLeft_other": "剩 {{count}} 个名额"
+    },
+    "confirm": {
+      "cancel": "先不了",
+      "leaveBody": "大家都指望着报了名的人。",
+      "leaveOk": "让出名额",
+      "leaveTitle": "要让出你的名额吗？"
+    },
+    "cover": {
+      "add": "添加封面",
+      "badType": "请使用 JPEG、PNG、GIF 或 WebP 图片。",
+      "change": "更换封面",
+      "remove": "移除封面",
+      "tooBig": "图片超过 10 MB。"
+    },
+    "detail": {
+      "askToJoin": "申请参加",
+      "back": "看看其他聚会",
+      "cancelRequest": "撤回申请",
+      "capacity": "最多 {{count}} 人 · {{quorum}} 人即可确认",
+      "duration": "{{count}}分钟",
+      "edit": "编辑聚会",
+      "host": "主持人",
+      "join": "我要参加",
+      "leave": "我去不了了",
+      "online": "线上",
+      "requestSent": "已提交申请，等待主持人确认。",
+      "someone": "一位 BananaTalk 成员",
+      "youreGoing": "你已报名。"
+    },
+    "errors": {
+      "alreadyGoing": "你已经报名了。",
+      "cancelled": "该聚会已取消。",
+      "capacityBelowGoing": "名额不能少于已报名的 {{count}} 人。",
+      "clubArchived": "该俱乐部已归档。",
+      "clubGone": "该俱乐部已不可用。",
+      "endBeforeStart": "聚会开始后才能结束。",
+      "ended": "该聚会已结束。",
+      "full": "该聚会已满。",
+      "gatheringGone": "该聚会已不可用。",
+      "generic": "出了点问题，请重试。",
+      "hostBlocked": "你暂时无法主持聚会：你的聚会被取消或缺席的次数过多。",
+      "hostCannotLeave": "你是主持人，请取消聚会，而不是退出。",
+      "joinClubFirst": "请先加入俱乐部，再为它发起聚会。",
+      "offline": "你已离线，请检查网络连接。",
+      "ownerCannotLeave": "作为创建者，你可以删除俱乐部，但不能退出。",
+      "pastStart": "请选择将来的开始时间。",
+      "pending": "你的申请正在等待主持人确认。",
+      "started": "该聚会已经开始了。"
+    },
+    "form": {
+      "anyLevel": "不限水平",
+      "cancel": "取消",
+      "capacity": "名额",
+      "create": "发布聚会",
+      "createTitle": "发起聚会",
+      "description": "你们要做什么？（可选）",
+      "duration_one": "时长 {{count}} 分钟 · 按你的时区",
+      "duration_other": "时长 {{count}} 分钟 · 按你的时区",
+      "editTitle": "编辑聚会",
+      "errors": {
+        "capacityRange": "名额须在 2 到 20 之间。",
+        "descriptionTooLong": "简介请控制在 2000 字以内。",
+        "languageRequired": "请选择要练习的语言。",
+        "quorumRange": "确认人数须不少于 2 人，且不超过名额。",
+        "startInPast": "请选择将来的开始时间。",
+        "startRequired": "请选择日期和时间。",
+        "startTooFar": "请选择 90 天内的时间。",
+        "titleRequired": "请给聚会起个标题。",
+        "titleTooLong": "标题请控制在 120 字以内。"
+      },
+      "joinApproval": "由我逐一审核",
+      "joinMode": "谁可以参加",
+      "joinOpen": "所有人",
+      "language": "语言",
+      "level": "水平",
+      "noTopic": "无话题",
+      "notHost": "只有主持人可以编辑这个聚会。",
+      "pickLanguage": "选择语言",
+      "quorum": "确认人数",
+      "save": "保存",
+      "startsAt": "开始时间",
+      "title": "标题",
+      "topic": "话题"
+    },
+    "home": {
+      "anyLanguage": "我的语言",
+      "anyTime": "任意时间",
+      "anyTopic": "全部话题",
+      "empty": "这里还没有安排。",
+      "emptyCta": "发起第一场",
+      "error": "无法加载列表。",
+      "hasSeat": "有空名额",
+      "host": "发起聚会",
+      "language": "语言",
+      "loadMore": "加载更多",
+      "retry": "重试",
+      "scopeAll": "全部",
+      "scopeMe": "我的聚会",
+      "scopeMine": "我的语言",
+      "tabClubs": "俱乐部",
+      "tabGatherings": "聚会",
+      "title": "聚会",
+      "today": "今天",
+      "topic": "话题",
+      "week": "本周",
+      "when": "时间"
+    },
+    "host": {
+      "approve": "通过",
+      "callOff": "取消聚会",
+      "callOffTitle": "要取消聚会吗？",
+      "cancel": "取消聚会",
+      "cancelConfirm_one": "有 {{count}} 人正在等这场聚会，我们会通知他们已取消。",
+      "cancelConfirm_other": "有 {{count}} 人正在等这场聚会，我们会通知他们已取消。",
+      "cancelOk": "取消聚会",
+      "cancelTitle": "要取消这场聚会吗？",
+      "decisionAlone": "目前只有你一个人参加。还是照常举行，还是取消？",
+      "decision_one": "目前只有 {{count}} 人参加。还是照常举行，还是取消？",
+      "decision_other": "目前只有 {{count}} 人参加。还是照常举行，还是取消？",
+      "decline": "拒绝",
+      "end": "结束聚会",
+      "ended": "已结束——给刚认识的人发消息是免费的",
+      "nobodyExpecting": "还没有其他人报名。",
+      "requests_one": "{{count}} 人等待加入",
+      "requests_other": "{{count}} 人等待加入",
+      "runAnyway": "照常举行"
+    },
+    "nav": "聚会",
+    "quorum": {
+      "confirmed": "已确认 · {{count}}人参加",
+      "needed": "还差 {{count}} 人即可确认 · {{going}} 人参加"
+    },
+    "safety": {
+      "blockHost": "拉黑主持人",
+      "blockOwner": "拉黑创建者",
+      "more": "更多",
+      "reportClub": "举报俱乐部",
+      "reportFailed": "举报发送失败，请重试。",
+      "reportGathering": "举报聚会",
+      "reported": "谢谢，我们的审核团队会尽快处理。"
+    },
+    "status": {
+      "cancelled": "已取消",
+      "confirmed": "已确认",
+      "ended": "已结束",
+      "live": "正在进行",
+      "scheduled": "已安排"
+    },
+    "time": {
+      "hostLocal": "主持人当地时间 {{time}}"
+    },
+    "topics": {
+      "business": "商务",
+      "conversation": "会话",
+      "culture": "文化",
+      "exam_prep": "备考",
+      "games": "游戏",
+      "grammar": "语法",
+      "media": "音乐、影视",
+      "pronunciation": "发音",
+      "travel": "旅行"
+    }
+  },
+  "common": {
+    "cancel": "取消",
+    "retry": "重试"
+  },
+  "communityCity": {
+    "back": "社区",
+    "countries": "国家",
+    "empty": "暂时没有符合条件的人，换个地方试试吧。",
+    "error": "无法加载用户，请重试。",
+    "more": "显示更多",
+    "search": "搜索",
+    "searchPlaceholder": "搜索城市",
+    "searchTitle": "“{{query}}”的人",
+    "title": "按地区找人"
+  },
+  "communityGenders": {
+    "back": "社区",
+    "empty": "暂时没有符合条件的人。",
+    "error": "无法加载用户，请重试。",
+    "female": "女",
+    "male": "男",
+    "more": "显示更多",
+    "title": "按性别浏览"
+  },
+  "languageRooms": {
+    "create": {
+      "description": "简介（选填）",
+      "language": "语言",
+      "name": "话题",
+      "submit": "创建房间",
+      "title": "创建话题房"
+    },
+    "errors": {
+      "banned": "你已被移出此房间，可以请房主让你重新加入。",
+      "busy": "此房间当前请求过多，请稍后再试。",
+      "generic": "出了点问题，请重试。",
+      "gone": "此房间已不可用。",
+      "owner": "不能移出房主。",
+      "pending": "你的申请正在等待房主处理。",
+      "titleLength": "名称最多 60 个字。",
+      "tooMany": "你已有 10 个房间，删除一个后才能再创建。"
+    },
+    "list": {
+      "create": "新建话题房",
+      "empty": "还没有房间。",
+      "error": "无法加载语言房。",
+      "joined": "已加入",
+      "locked": "已锁定",
+      "title": "语言房"
+    },
+    "owner": {
+      "admin": "管理员",
+      "approve": "同意",
+      "deny": "拒绝",
+      "members": "成员",
+      "noRequests": "没有人在等待。",
+      "owner": "房主",
+      "remove": "移出房间",
+      "removeNote": "被移出的成员可以申请回来，由你决定是否同意。",
+      "removeYes": "移出",
+      "requests": "加入申请"
+    },
+    "room": {
+      "back": "所有房间",
+      "join": "加入房间",
+      "leave": "离开房间",
+      "media": "图片或视频 — 打开 App 查看",
+      "notSent": "发送失败，请重试。",
+      "older": "加载更早的消息",
+      "online": "在线",
+      "pending": "申请已发送，房主同意后即可加入。",
+      "placeholder": "用房间的语言写点什么…",
+      "request": "申请加入",
+      "send": "发送",
+      "slowDown": "你发送得太快了，请稍微慢一点。",
+      "sticker": "贴纸",
+      "unsupported": "打开 App 查看此消息",
+      "voice": "语音消息 — 打开 App 收听"
+    }
+  },
+  "nav": {
+    "languageRooms": "语言房",
+    "voiceRooms": "语音房"
+  },
+  "voiceRooms": {
+    "category": {
+      "casual": "闲聊",
+      "language_practice": "语言练习",
+      "qa": "问答",
+      "topic": "话题"
+    },
+    "create": {
+      "category": "房间类型",
+      "description": "想聊些什么？（选填）",
+      "language": "语言",
+      "max": "人数上限",
+      "name": "房间名称",
+      "schedule": "预约",
+      "start": "开始",
+      "title": "创建语音房",
+      "when": "稍后开始（选填）"
+    },
+    "errors": {
+      "blocked": "你无法加入此房间。",
+      "ended": "此房间已结束。",
+      "full": "此房间已满。",
+      "generic": "出了点问题，请重试。",
+      "gone": "此房间已不可用。",
+      "vipToCreate": "创建语音房需要 VIP 会员。"
+    },
+    "host": {
+      "end": "结束房间",
+      "endConfirm": "要为所有人结束房间吗？",
+      "endYes": "结束房间",
+      "hands": "举手列表",
+      "makeCohost": "设为副房主",
+      "muteAll": "全员静音",
+      "noHands": "还没有人举手。",
+      "speakNote": "房间里的任何人都可以上麦。举手是向你申请发言机会。",
+      "title": "房主工具"
+    },
+    "list": {
+      "create": "创建房间",
+      "emptyLive": "现在没人在聊天。创建一个房间，邀请大家加入吧。",
+      "emptyScheduled": "暂无预约的房间。",
+      "error": "无法加载语音房。",
+      "full": "已满",
+      "going": "已预约 ✓",
+      "join": "加入",
+      "live": "正在直播",
+      "rsvp": "提醒我",
+      "scheduled": "即将开始",
+      "title": "语音房"
+    },
+    "room": {
+      "back": "所有房间",
+      "chat": "房间聊天",
+      "chatPlaceholder": "说点什么…",
+      "connectFailed": "无法连接房间音频，请检查网络后重试。",
+      "elsewhere": "你已在其他标签页或设备上加入此房间。",
+      "enableSound": "点击开启房间声音",
+      "ended": "此房间已结束。",
+      "findAnother": "寻找其他房间",
+      "handUp": "已举手",
+      "host": "房主",
+      "join": "加入房间",
+      "joinHint": "你将以听众身份加入，准备好后随时可以上麦。",
+      "leave": "离开",
+      "lost": "与房间的连接已断开。",
+      "lowerHand": "放下手",
+      "micDenied": "浏览器拦截了麦克风。请在地址栏中允许 banatalk.com 使用麦克风，然后重试。你可以继续收听。",
+      "micError": "无法开启麦克风，请重试。",
+      "micUnavailable": "未找到麦克风（或其他应用正在使用）。你可以继续收听。",
+      "mute": "静音",
+      "raiseHand": "举手",
+      "reconnecting": "正在重新连接…",
+      "rejoin": "重新加入",
+      "send": "发送",
+      "takeMic": "上麦",
+      "useHere": "在这里收听",
+      "you": "你"
     }
   }
 }

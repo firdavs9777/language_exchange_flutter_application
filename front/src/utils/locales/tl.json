@@ -9,7 +9,11 @@
       "about": "Tungkol",
       "services": "Serbisyo",
       "pricing": "Presyo",
-      "contact": "Kontak"
+      "contact": "Kontak",
+      "communities": "Mga Komunidad",
+      "download": "I-download ang App",
+      "meet": "Makilala ang iba",
+      "learnKorean": "Matuto ng Korean"
     },
     "contactInfo": "Impormasyon sa Kontak",
     "address": "Seoul, South Korea, Gangnam-gu",
@@ -57,15 +61,20 @@
       "noMatchTitle": "Walang tumutugmang usapan",
       "noMatchSubtitle": "Subukang ayusin ang paghahanap",
       "emptyTitle": "Wala pang usapan",
-      "emptySubtitle": "Magsimula ng usapan para makita rito"
+      "emptySubtitle": "Magsimula ng usapan para makita rito",
+      "loadError": "Hindi ma-load ang mga usapan mo",
+      "loading": "Nilo-load ang mga chat...",
+      "noMessages": "Wala pang mensahe",
+      "tryAgain": "Subukan muli",
+      "typing": "nagta-type..."
     },
     "deleteModal": {
       "title": "Burahin ang usapan",
-      "bodyPrefix": "Burahin ang iyong usapan kay:",
       "warning": "Hindi na maibabalik ang pagkilos na ito.",
       "cancel": "Kanselahin",
       "confirm": "Burahin",
-      "deleting": "Binubura..."
+      "deleting": "Binubura...",
+      "body": "Burahin ang usapan mo kay {{name}}?"
     },
     "gif": {
       "title": "GIF",
@@ -84,8 +93,372 @@
       "noConversationYet": "Simulan muna ang usapan bago i-pin",
       "pinFailed": "Hindi nai-update ang pin",
       "deleteFailed": "Hindi nabura ang usapan",
-      "deleted": "Naburas ang usapan"
+      "deleted": "Naburas ang usapan",
+      "openProfile": "Buksan ang profile ni {{name}}",
+      "mute": "I-mute",
+      "unmute": "I-unmute",
+      "muted": "Na-mute ang mga notification",
+      "unmuted": "Naka-on na ulit ang mga notification",
+      "muteFailed": "Hindi na-update ang mga notification",
+      "unpinned": "Na-unpin ang usapan"
+    },
+    "viewProfileOf": "Tingnan ang profile ni {{name}}",
+    "info": {
+      "title": "Impormasyon ng chat",
+      "close": "Isara",
+      "viewProfile": "Tingnan ang profile",
+      "media": "Mga ipinamahaging media",
+      "mute": "I-mute ang mga notification",
+      "unmute": "I-unmute ang mga notification",
+      "muted": "Na-mute ang mga notification",
+      "unmuted": "Naka-on na ulit ang mga notification",
+      "muteFailed": "Hindi na-update ang mga notification",
+      "wallpaper": "Wallpaper",
+      "block": "I-block",
+      "unblock": "I-unblock",
+      "blockTitle": "I-block {{name}}?",
+      "blockBody": "Hindi ka na niya mame-message at hindi na niya makikita ang profile mo.",
+      "unblockTitle": "I-unblock {{name}}?",
+      "unblockBody": "Makakapag-message na siya ulit sa iyo.",
+      "blocked": "Naka-block",
+      "unblocked": "Na-unblock",
+      "blockFailed": "Hindi ito gumana. Subukan muli.",
+      "report": "I-report",
+      "reportTitle": "I-report si {{name}}",
+      "reportBody": "Sabihin sa amin kung ano ang mali. Sinusuri namin ang bawat report.",
+      "reportReason": "Dahilan",
+      "reportDescription": "Detalye (opsyonal)",
+      "reportSubmit": "Ipadala ang report",
+      "reported": "Salamat — susuriin ito ng mga moderator",
+      "reportFailed": "Hindi naipadala ang report",
+      "delete": "Burahin ang usapan",
+      "cancel": "Kanselahin",
+      "noConversationYet": "Magsimula muna ng usapan"
+    },
+    "reportReasons": {
+      "spam": "Spam",
+      "harassment": "Panliligalig o pambu-bully",
+      "hate_speech": "Hate speech",
+      "violence": "Karahasan o banta",
+      "nudity": "Kahubaran o sekswal na content",
+      "false_information": "Maling impormasyon",
+      "copyright": "Copyright",
+      "other": "Iba pa"
+    },
+    "status": {
+      "sending": "Ipinapadala",
+      "sent": "Naipadala",
+      "delivered": "Naihatid",
+      "read": "Nabasa",
+      "failed": "Nabigo"
+    },
+    "loadEarlier": "I-load ang mga naunang mensahe",
+    "loadingEarlier": "Nilo-load ang mga naunang mensahe",
+    "suggestCorrection": "Magmungkahi ng pagwawasto",
+    "translateThis": "Isalin ang mensaheng ito",
+    "addCaption": "Magdagdag ng caption...",
+    "conversationStarted": "Nagsimula ang usapan",
+    "correct": "Tama",
+    "daysAgo": "{{count}}a nakalipas",
+    "edit": "I-edit ang mensahe",
+    "hide_translation": "Itago",
+    "noMessages": "Wala pang mensahe",
+    "retry": "Subukan muli",
+    "today": "Ngayon",
+    "translate": "Isalin",
+    "yesterday": "Kahapon",
+    "wallpaper": {
+      "title": "Wallpaper",
+      "shared": "Makikita ninyong dalawa ang wallpaper na pinili mo.",
+      "plain": "Plain",
+      "gradients": "Gradient",
+      "default": "Default",
+      "apply": "I-apply",
+      "cancel": "Kanselahin",
+      "saved": "Na-update ang wallpaper",
+      "failed": "Hindi na-update ang wallpaper",
+      "cream": "Cream",
+      "blush": "Blush",
+      "peach": "Peach",
+      "sage": "Sage",
+      "ocean": "Ocean",
+      "teal": "Teal",
+      "forest": "Forest",
+      "rose": "Rose",
+      "wine": "Wine",
+      "plum": "Plum",
+      "navy": "Navy",
+      "mocha": "Mocha",
+      "slate": "Slate",
+      "ember": "Ember",
+      "deep_sea": "Deep Sea",
+      "charcoal": "Charcoal",
+      "midnight": "Midnight",
+      "dark": "Dark",
+      "gradient_sunset": "Sunset",
+      "gradient_ocean": "Ocean",
+      "gradient_purple": "Cosmic",
+      "gradient_midnight": "Midnight",
+      "gradient_forest": "Forest",
+      "gradient_rose": "Rose Gold",
+      "gradient_candy": "Candy",
+      "gradient_neon": "Neon",
+      "gradient_fire": "Fire",
+      "gradient_winter": "Winter",
+      "gradient_lavender": "Lavender",
+      "gradient_aurora": "Aurora",
+      "premiumInUse": "Gumagamit ang chat na ito ng Premium wallpaper mula sa app. Kapag pumili ka ng iba, magbabago ito para sa inyong dalawa."
+    },
+    "jumpToLatest": "Pumunta sa pinakabagong mensahe",
+    "archive": {
+      "archive": "I-archive ang chat",
+      "archived": "Na-archive sa website. Makikita pa rin ito sa app.",
+      "back": "Bumalik sa mga chat",
+      "failed": "Hindi na-update ang archive",
+      "toggle": "Naka-archive ({{count}})",
+      "unarchive": "I-unarchive ang chat",
+      "unarchived": "Ibinalik sa mga chat mo"
+    },
+    "blocked": {
+      "byMe": "Na-block mo ang taong ito. I-unblock siya para makapag-message.",
+      "generic": "Hindi ka makakapagpadala ng mensahe sa chat na ito.",
+      "manage": "Pamahalaan"
+    },
+    "bookmarks": {
+      "addFailed": "Hindi na-save ang mensahe",
+      "added": "Na-save",
+      "attachment": "Attachment",
+      "close": "Isara",
+      "empty": "Wala pang naka-save na mensahe",
+      "error": "Hindi ma-load ang mga naka-save na mensahe",
+      "loading": "Nilo-load ang mga naka-save na mensahe…",
+      "open": "Buksan ang chat",
+      "remove": "Alisin sa naka-save",
+      "removeFailed": "Hindi ito naalis",
+      "removed": "Inalis sa mga naka-save na mensahe",
+      "title": "Mga naka-save na mensahe"
+    },
+    "call": {
+      "busy": "May ibang kausap sa tawag si {{name}}",
+      "cancelledVideo": "Kinanselang video call",
+      "cancelledVoice": "Kinanselang voice call",
+      "declinedIncomingVideo": "Tinanggihang video call",
+      "declinedIncomingVoice": "Tinanggihang voice call",
+      "declinedOutgoingVideo": "Tinanggihan ang video call",
+      "declinedOutgoingVoice": "Tinanggihan ang voice call",
+      "incomingVideo": "Papasok na video call",
+      "incomingVoice": "Papasok na voice call",
+      "missedVideo": "Hindi nasagot na video call",
+      "missedVoice": "Hindi nasagot na voice call",
+      "noAnswerVideo": "Video call · Walang sumagot",
+      "noAnswerVoice": "Voice call · Walang sumagot",
+      "outgoingVideo": "Palabas na video call",
+      "outgoingVoice": "Palabas na voice call"
+    },
+    "connection": {
+      "kicked": "Bukas ang chat sa ibang lugar, kaya hindi na tumatanggap ng mensahe ang tab na ito.",
+      "reconnect": "Gamitin dito"
+    },
+    "correction": {
+      "accept": "Tanggapin ang correction",
+      "acceptFailed": "Hindi natanggap ang correction",
+      "accepted": "Natanggap ang correction — idinagdag sa learning record mo",
+      "accepting": "Tinatanggap…",
+      "corrected": "Nag-correct si {{name}}",
+      "you": "Ikaw"
+    },
+    "correctionModal": {
+      "cancel": "Kanselahin",
+      "close": "Isara",
+      "empty": "Maglagay ng correction",
+      "explanation": "Paliwanag",
+      "explanationPlaceholder": "Ipaliwanag kung bakit makakatulong ang correction na ito...",
+      "hint": "hal., \"Gamitin ang 'went' imbes na 'goed' - irregular na past tense\"",
+      "optional": "(opsyonal)",
+      "original": "Orihinal na Mensahe",
+      "submit": "Ipadala ang Correction",
+      "title": "Language Correction",
+      "unchanged": "Dapat iba ang correction sa orihinal",
+      "yours": "Ang Correction Mo",
+      "yoursPlaceholder": "I-type ang itinamang bersyon..."
+    },
+    "deleteMessage": {
+      "cancel": "Kanselahin",
+      "failed": "Hindi nabura ang mensahe. Subukan muli.",
+      "forEveryone": "Burahin para sa lahat",
+      "forMe": "Burahin para sa akin",
+      "placeholder": "Binura ang mensaheng ito",
+      "title": "Burahin ang mensahe?",
+      "tooLate": "Mabubura mo lang ang mensahe para sa lahat sa loob ng 1 oras matapos itong ipadala."
+    },
+    "editDialog": {
+      "cancel": "Kanselahin",
+      "failed": "Hindi na-edit ang mensahe. Subukan muli.",
+      "label": "Mensahe",
+      "save": "I-save",
+      "title": "I-edit ang mensahe",
+      "tooLate": "Mae-edit mo lang ang mensahe sa loob ng 15 minuto matapos itong ipadala."
+    },
+    "editedLabel": "na-edit",
+    "forward": {
+      "close": "Isara",
+      "empty": "Walang nahanap na usapan.",
+      "error": "Hindi ma-load ang mga usapan.",
+      "loading": "Nilo-load ang mga usapan…",
+      "search": "Maghanap",
+      "submit": "I-forward",
+      "submitCount": "I-forward ({{count}})",
+      "title": "I-forward kay",
+      "unknownUser": "Hindi kilala"
+    },
+    "forwarded": "Na-forward",
+    "location": {
+      "cancel": "Kanselahin",
+      "confirmTitle": "I-share ang lokasyon mo?",
+      "denied": "Tinanggihan ang pahintulot sa lokasyon",
+      "failed": "Hindi makuha ang lokasyon mo",
+      "open": "Buksan sa Maps",
+      "send": "Ipadala",
+      "sendFailed": "Hindi naipadala ang lokasyon mo",
+      "share": "I-share ang lokasyon",
+      "title": "Lokasyon",
+      "unsupported": "Hindi kayang mag-share ng lokasyon ng browser na ito"
+    },
+    "mediaGallery": {
+      "back": "Bumalik",
+      "emptyFiles": "Wala pang na-share na file",
+      "emptyPhotos": "Wala pang na-share na larawan",
+      "emptyVideos": "Wala pang na-share na video",
+      "error": "Error sa pag-load ng media",
+      "files": "Mga File",
+      "loading": "Nilo-load ang media...",
+      "photos": "Mga Larawan",
+      "title": "Mga Na-share na Media",
+      "unknownFile": "Hindi kilalang file",
+      "unknownSize": "Hindi alam ang laki",
+      "videos": "Mga Video"
+    },
+    "menu": {
+      "bookmark": "I-save",
+      "close": "Isara",
+      "copy": "Kopyahin",
+      "delete": "Burahin",
+      "edit": "I-edit",
+      "forward": "I-forward",
+      "listen": "Pakinggan",
+      "pin": "I-pin",
+      "reply": "Sumagot"
+    },
+    "mute": {
+      "always": "Hanggang i-on ko ulit",
+      "cancel": "Kanselahin",
+      "eightHours": "Sa loob ng 8 oras",
+      "oneHour": "Sa loob ng 1 oras",
+      "oneWeek": "Sa loob ng 1 linggo",
+      "title": "I-mute si {{name}}?"
+    },
+    "pinnedBar": {
+      "count": "{{count}} naka-pin",
+      "unpin": "I-unpin ang mensahe"
+    },
+    "preview": {
+      "attachment": "📎 Attachment",
+      "call": "📞 Tawag",
+      "file": "📎 File",
+      "gif": "GIF",
+      "location": "📍 Lokasyon",
+      "photo": "🖼️ Larawan",
+      "poll": "📊 Poll",
+      "story": "📖 Story",
+      "video": "🎥 Video",
+      "voice": "🎤 Voice message"
+    },
+    "replyBar": {
+      "cancel": "Kanselahin ang reply",
+      "replyingTo": "Sumasagot kay {{name}}"
+    },
+    "search": {
+      "close": "Isara",
+      "empty": "Walang nahanap na mensahe",
+      "hint": "Mag-type ng hindi bababa sa 2 character",
+      "notLoaded": "Nasa mas itaas ang mensaheng iyon. Mag-scroll pataas para ma-load ito.",
+      "open": "Maghanap ng mensahe",
+      "placeholder": "Maghanap sa chat na ito",
+      "searching": "Naghahanap…",
+      "title": "Maghanap ng mensahe kasama si {{name}}",
+      "unavailable": "Hindi available ang search ngayon",
+      "you": "Ikaw"
+    },
+    "sendErrors": {
+      "blockedBody": "Hindi ka makakapagpadala ng mensahe sa taong ito.",
+      "blockedTitle": "Hindi naipadala ang mensahe",
+      "capBody": "Naabot mo na ang maximum na bagong usapan ngayong araw. Mag-VIP para makapagsimula ng kahit ilan.",
+      "capTitle": "Naabot na ang limit ng bagong usapan",
+      "dailyBody": "Naipadala mo na ang lahat ng mensahe mo ngayong araw. Mag-VIP para sa unlimited na mensahe, o bumalik bukas.",
+      "dailyTitle": "Naabot na ang daily message limit",
+      "firstChatBody": "Puwede kang magpadala ng 5 mensahe hanggang sumagot siya. Makakapag-message ka ulit kapag sumagot na siya.",
+      "firstChatTitle": "Maghintay ng sagot",
+      "generic": "Hindi naipadala ang mensahe. I-tap ang Subukan muli para ulitin.",
+      "goVip": "Mag-VIP",
+      "ok": "OK",
+      "reattach": "I-attach ulit ang file para maipadala ito.",
+      "tooFast": "Masyadong mabilis ang pagpapadala mo ng mensahe. Sandali lang."
+    },
+    "story": {
+      "replied": "Sumagot sa story mo",
+      "shared": "Nag-share ng story",
+      "unavailable": "Hindi na available ang story na ito",
+      "youReplied": "Sumagot ka sa story niya",
+      "youShared": "Nag-share ka ng story"
+    },
+    "translation": {
+      "close": "Isara ang salin",
+      "failed": "Hindi naisalin ang mensahe",
+      "label": "Salin · {{lang}}",
+      "save": "I-save ang parirala",
+      "saveFailed": "Hindi na-save ang parirala",
+      "saved": "Na-save sa study queue",
+      "saving": "Sine-save…",
+      "translating": "Isinasalin…"
+    },
+    "video": {
+      "badType": "Hindi maipapadala ang format ng video na ito. Subukan ang MP4.",
+      "tooBig": "Masyadong malaki ang video na ito. {{mb}} MB ang limit.",
+      "tooLong": "Masyadong mahaba ang video na ito. {{minutes}} minuto ang limit."
+    },
+    "voice": {
+      "unavailable": "Hindi available ang voice recording. Tingnan ang pahintulot sa mikropono para sa site na ito."
+    },
+    "wave": {
+      "hi": "Hi!"
+    },
+    "callInApp": {
+      "voice": "Voice call",
+      "video": "Video call",
+      "title": "Sa BananaTalk app ginagawa ang mga tawag",
+      "body": "Buksan ang app para tawagan si {{name}}. Sa phone mo tumutunog ang mga papasok na tawag.",
+      "openApp": "Buksan ang app",
+      "notNow": "Hindi muna"
     }
+  },
+  "newChat": {
+    "title": "Bagong Chat",
+    "subtitle": "Magsimula ng usapan",
+    "directMessage": "Direct",
+    "groupChat": "Grupo",
+    "searchPlaceholder": "Maghanap gamit ang pangalan, @username, o user ID...",
+    "searchHint": "Maghanap ng user para magsimula ng chat",
+    "hintName": "Maghanap gamit ang pangalan",
+    "hintUsername": "I-type ang @username para maghanap gamit ang username",
+    "hintId": "I-paste ang user ID para hanapin agad",
+    "searchByUsername": "Naghahanap gamit ang username",
+    "searchById": "Naghahanap gamit ang user ID",
+    "noResults": "Walang nahanap na user",
+    "tryDifferent": "Subukan ang ibang pangalan, @username, o user ID",
+    "createGroup": "Gumawa ng Grupo",
+    "selectMoreUsers": "Pumili ng hindi bababa sa 2 user para sa group chat",
+    "createError": "Hindi nagawa ang chat",
+    "recently": "Kamakailan"
   },
   "notifications": "Mga Abiso",
   "moments": "Mga Sandali",
@@ -124,7 +497,18 @@
   "profile": {
     "title": "Aking Profile",
     "edit_profile": "I-edit ang Profile",
-    "photos": "Mga Larawan",
+    "photos": {
+      "title": "Mga Larawan",
+      "add": "Magdagdag ng mga larawan",
+      "alt": "{{name}}, larawan {{index}}",
+      "open": "Buksan ang larawan {{index}}",
+      "close": "Isara",
+      "previous": "Nakaraang larawan",
+      "next": "Susunod na larawan",
+      "counter": "{{index}} ng {{total}}",
+      "openAvatar": "Buksan ang larawan ni {{name}}",
+      "openStory": "Tingnan ang story ni {{name}}"
+    },
     "messages": {
       "image_update_success": "Matagumpay na na-update ang larawan ng profile",
       "image_update_failure": "Hindi na-update ang larawan ng profile",
@@ -132,6 +516,7 @@
       "image_delete_failure": "Hindi natanggal ang larawan",
       "profile_update_success": "Matagumpay na na-update ang profile",
       "profile_update_failure": "Hindi na-update ang profile",
+      "extras_update_failure": "Na-save ang profile mo, pero may ilang detalyeng hindi na-update",
       "error_loading_profile": "Error sa pag-load ng profile ng user",
       "no_profile_data": "Walang available na data ng profile ng user",
       "unknown_error": "May naganap na hindi kilalang error",
@@ -146,7 +531,8 @@
       "no_following": "Hindi ka pa sumusunod sa sinuman.",
       "following_error": "Error sa pag-load ng listahan ng sinusundan. Subukan muli mamaya.",
       "moments": "Mga Sandali",
-      "visitors": "Mga Bisita"
+      "visitors": "Mga Bisita",
+      "visited": "Binisita"
     },
     "visitors": {
       "title": "Mga Bumisita sa Profile",
@@ -165,7 +551,11 @@
       "vipOnly": "VIP Feature",
       "vipOnlyDesc": "Tingnan kung sino ang bumisita sa iyong profile sa pamamagitan ng pag-upgrade sa VIP. Ang feature na ito ay eksklusibo para sa mga VIP member.",
       "vipBenefits": "Mga Benepisyo ng VIP",
-      "learnMore": "Alamin pa ang tungkol sa VIP"
+      "learnMore": "Alamin pa ang tungkol sa VIP",
+      "clear": "I-clear ang history",
+      "clear_title": "I-clear ang visitor history mo?",
+      "clear_body": "Maaalis ang lahat ng tumingin sa profile mo at babalik sa zero ang mga counter. Hindi ito maibabalik.",
+      "no_visited": "Lalabas dito ang mga profile na tiningnan mo"
     },
     "sections": {
       "personal_info": "Personal na Impormasyon",
@@ -207,7 +597,18 @@
       "save": "I-save",
       "cancel": "Kanselahin",
       "edit_photo": "I-edit ang Larawan",
-      "clear": "I-clear ang seleksyon"
+      "clear": "I-clear ang seleksyon",
+      "settings": "Settings",
+      "message": "Mag-message",
+      "follow": "Sundan",
+      "following": "Sinusundan",
+      "more": "Iba pang opsyon",
+      "block": "I-block",
+      "report": "I-report",
+      "this_person": "ang taong ito",
+      "action_failed": "Hindi ito gumana. Subukan muli.",
+      "unblock": "I-unblock",
+      "followBlocked": "Hindi mo masusundan ang taong ito"
     },
     "buttons": {
       "edit": "I-edit",
@@ -235,6 +636,128 @@
       "kdrama": "K-Drama",
       "languages": "Mga Wika",
       "culture": "Kultura"
+    },
+    "badges": {
+      "vip": "VIP",
+      "verified": "Verified",
+      "joined": "Sumali noong {{date}}",
+      "active": "Aktibo {{time}}",
+      "online": "Online ngayon"
+    },
+    "block": {
+      "title": "I-block {{name}}?",
+      "body": "Hindi ka na niya mame-message at hindi na niya makikita ang profile mo."
+    },
+    "report": {
+      "title": "I-report {{name}}?",
+      "body": "Sabihin sa amin kung ano ang mali. Sinusuri namin ang bawat report.",
+      "reason": "Dahilan"
+    },
+    "languages": {
+      "also_learning": "Nag-aaral din"
+    },
+    "about": {
+      "title": "Tungkol",
+      "occupation": "Trabaho",
+      "school": "School",
+      "read_more": "Magbasa pa",
+      "read_less": "Itago"
+    },
+    "learning": {
+      "title": "Progreso sa pag-aaral",
+      "streak": "Streak",
+      "days": "araw",
+      "xp": "Kabuuang XP",
+      "level": "Level"
+    },
+    "moments": {
+      "see_all": "Tingnan lahat",
+      "empty_own": "I-share ang unang sandali mo",
+      "empty_other": "Wala pang sandali",
+      "photo_alt": "Larawan ng sandali"
+    },
+    "page": {
+      "title": "Profile",
+      "error_title": "Hindi namin na-load ang profile na ito",
+      "error_body": "Tingnan ang koneksyon mo at subukan muli.",
+      "retry": "Subukan muli",
+      "not_found_title": "Hindi mahanap ang profile",
+      "not_found_body": "Wala na ang profile na ito, o hindi naman ito kailanman narito.",
+      "back_to_community": "I-browse ang komunidad"
+    },
+    "lists": {
+      "title": "Mga koneksyon mo",
+      "title_of": "Mga koneksyon ni {{name}}",
+      "title_other": "Mga koneksyon",
+      "search": "Maghanap ayon sa pangalan",
+      "search_empty": "Walang tumutugma sa \"{{query}}\"",
+      "empty_followers_own": "Wala pang sumusunod sa iyo.",
+      "empty_followers_other": "Wala pang sumusunod sa kanya.",
+      "empty_following_own": "Hindi ka pa sumusunod sa sinuman.",
+      "empty_following_other": "Wala pa siyang sinusundan.",
+      "error_title": "Hindi namin na-load ang listahang ito",
+      "error_body": "Tingnan ang koneksyon mo at subukan muli.",
+      "retry": "Subukan muli"
+    },
+    "edit": {
+      "back": "Bumalik",
+      "about": "Tungkol",
+      "photos_hint": "Ang unang larawan mo ang nakikita ng lahat kahit saan.",
+      "add_photo": "Magdagdag ng larawan",
+      "photo_alt": "Larawan {{index}}",
+      "delete_photo": "Tanggalin ang larawan {{index}}",
+      "delete_photo_title": "Tanggalin ang larawang ito?",
+      "delete_photo_body": "Mawawala ito sa profile mo para sa lahat.",
+      "delete_photo_confirm": "Tanggalin ang larawan",
+      "level": "Level",
+      "level_hint": "Ang level mo sa wikang inaaral mo.",
+      "occupation": "Trabaho",
+      "occupation_placeholder": "Ano ang trabaho mo?",
+      "school": "School",
+      "school_placeholder": "Saan ka nag-aaral?",
+      "saving": "Nagse-save",
+      "unsaved": "May mga pagbabagong hindi pa na-save",
+      "leave_title": "Aalis nang hindi nagse-save?",
+      "leave_body": "Mawawala ang mga pagbabago mo sa profile na ito.",
+      "leave_confirm": "I-discard ang mga pagbabago",
+      "stay": "Magpatuloy sa pag-edit",
+      "intent_title": "Bakit ka nandito",
+      "intent_learn": "Narito para matuto",
+      "intent_meet": "Bukas makipagkilala",
+      "intent_date": "Bukas sa pakikipag-date",
+      "intent_privacy_note": "Nakikita ng iba ang pinili mo, maliban sa pakikipag-date na nananatiling pribado.",
+      "completion": "Pagkumpleto ng Profile"
+    },
+    "myMoments": {
+      "title": "Mga Sandali Ko",
+      "create": "Mag-share ng sandali",
+      "edit": "I-edit ang sandali",
+      "delete": "Tanggalin ang sandali",
+      "delete_title": "Tanggalin ang sandaling ito?",
+      "delete_body": "Mawawala ito para sa lahat, pati na ang mga like at comment nito.",
+      "delete_confirm": "Tanggalin",
+      "delete_failed": "Hindi namin natanggal ang sandaling iyon. Subukan muli.",
+      "empty_title": "Wala pang sandali",
+      "empty_body": "I-share ang unang sandali mo sa komunidad.",
+      "error_title": "Hindi namin na-load ang mga sandali mo",
+      "error_body": "Tingnan ang koneksyon mo at subukan muli.",
+      "retry": "Subukan muli",
+      "load_more": "Mag-load pa",
+      "loading_more": "Naglo-load..."
+    },
+    "tabs": {
+      "label": "Mga seksyon ng profile",
+      "moments": "Mga Sandali",
+      "about": "Tungkol"
+    },
+    "unblock": {
+      "title": "I-unblock {{name}}?",
+      "body": "Makakapag-message ulit siya sa iyo at makikita ulit ang profile mo."
+    },
+    "blocked": {
+      "body": "May isa sa inyo na nag-block sa isa, kaya hindi kayo makakapag-message, makakasunod, o makakakita ng posts ng isa't isa.",
+      "manage": "Pamahalaan ang mga na-block",
+      "title": "Hindi available ang profile na ito"
     }
   },
   "moments_section": {
@@ -302,7 +825,230 @@
       "addMood": "Magdagdag ng mood",
       "addLocation": "Magdagdag ng lokasyon",
       "addTags": "Magdagdag ng mga tag",
-      "tagPlaceholder": "Magdagdag ng tag..."
+      "tagPlaceholder": "Magdagdag ng tag...",
+      "attachVideo": "Mag-attach ng video",
+      "mediaFailedNothingPosted": "Nabigo ang upload, kaya walang na-post. Subukan ulit.",
+      "mediaFailedPosted": "Na-post, pero nabigo ang pag-upload ng media — i-edit ang moment para idagdag ito.",
+      "modePhoto": "Larawan",
+      "modeText": "Text",
+      "modeVideo": "Video",
+      "modeVoice": "Boses",
+      "moodQuestion": "Ano ang nararamdaman mo?",
+      "placeholder": "Ano ang nasa isip mo, {{name}}?",
+      "recordVoice": "Mag-record ng voice note",
+      "remove": "Alisin",
+      "share": "I-share",
+      "sharing": "Sine-share...",
+      "textPreview": "Ang text moment mo",
+      "voiceNoteLength": "Voice note · {{seconds}}s"
+    },
+    "promo": {
+      "title": "Nasa app na ngayon ang Mga Sandali",
+      "subtitle": "Mga Story, sagot ng AI Study, at feed na ginawa para sa telepono, hindi para sa browser tab. Libreng i-install, hindi na kailangang magpalit ng account.",
+      "appStore": "Kunin sa App Store",
+      "playStore": "Kunin sa Google Play",
+      "appOnly": "Sa app",
+      "perks": {
+        "stories": {
+          "title": "Mga Story na nawawala",
+          "body": "Magbahagi ng sandaling tumatagal ng 24 oras, gaya ng tunay na paggamit ng komunidad sa app."
+        },
+        "aiStudy": {
+          "title": "Mga sagot ng AI Study",
+          "body": "Mag-post sa wikang pinag-aaralan mo at makatanggap ng banayad na pagwawasto ng AI mismo sa mga komento."
+        },
+        "reactions": {
+          "title": "Mas mayamang reaksyon",
+          "body": "Mga voice reaction, pagsasalin sa isang tap, at mga comment thread na ginawa para sa feed, hindi para sa form."
+        },
+        "notifications": {
+          "title": "Live na notification",
+          "body": "Malaman sa sandaling sumagot ang isang tao mula sa target na wika mo — walang pag-refresh ng browser tab."
+        }
+      }
+    },
+    "translate": {
+      "tap": "I-tap para isalin",
+      "loading": "Isinasalin…",
+      "same": "Nasa wika mo na ito",
+      "error": "Hindi na-translate. I-tap para subukan ulit."
+    },
+    "tabs": {
+      "forYou": "Para Sa'yo",
+      "following": "Sinusundan",
+      "explore": "Tuklasin",
+      "trending": "Trending"
+    },
+    "following": {
+      "empty": "Sundan ang mga tao para makita ang kanilang mga sandali dito",
+      "findPeople": "Maghanap ng Tao"
+    },
+    "commentEngagement": {
+      "attachImage": "Mag-attach ng Larawan",
+      "beFirst": "Ikaw na ang unang magbahagi ng saloobin!",
+      "cancel": "Kanselahin",
+      "commentTab": "Komento",
+      "correctedLabel": "Naitama",
+      "correctedPlaceholder": "Isulat ito sa paraang sasabihin ng isang katutubong nagsasalita",
+      "correction": "Pagwawasto",
+      "correctionNotePlaceholder": "Magdagdag ng tala (opsyonal)",
+      "correctionTab": "Pagwawasto",
+      "delete": "Burahin",
+      "explanationLabel": "Paliwanag",
+      "explanationPlaceholder": "Bakit ganito ito isinusulat? (opsyonal)",
+      "hideReplies": "Itago ang mga sagot",
+      "imageFailed": "Na-post ang komento, pero hindi na-attach ang larawan.",
+      "loadMoreComments": "Higit pang komento",
+      "loadMoreReplies": "Higit pa",
+      "loadingReplies": "Nilo-load ang mga sagot…",
+      "originalLabel": "Orihinal",
+      "post": "I-post",
+      "postCorrection": "I-post ang pagwawasto",
+      "postFailed": "Hindi na-post. Subukan ulit.",
+      "react": "Mag-react",
+      "reply": "Sagot",
+      "replyPlaceholder": "Sumulat ng sagot…",
+      "viewReplies": "Tingnan ang {{count}} sagot",
+      "deleteOthersBody": "Nasa moment mo ito, kaya puwede mo itong alisin. Hindi na ito maibabalik.",
+      "deleteOthersTitle": "Burahin ang komentong ito?",
+      "removeGif": "Alisin ang GIF"
+    },
+    "filters": {
+      "button": "Mga filter",
+      "searchPlaceholder": "Maghanap ng moments",
+      "search": "Hanapin",
+      "category": "Kategorya",
+      "language": "Wika",
+      "mood": "Mood",
+      "tag": "Tag",
+      "tagPlaceholder": "Kahit anong tag",
+      "any": "Lahat",
+      "clear": "I-clear ang mga filter",
+      "emptyTitle": "Walang moment na tugma sa mga filter na ito",
+      "emptyBody": "Subukang mag-alis ng filter o maghanap ng iba."
+    },
+    "categories": {
+      "general": "Pangkalahatan",
+      "language-learning": "Pag-aaral ng wika",
+      "culture": "Kultura",
+      "food": "Pagkain",
+      "travel": "Paglalakbay",
+      "music": "Musika",
+      "books": "Mga libro",
+      "hobbies": "Mga libangan",
+      "daily-life": "Pang-araw-araw",
+      "technology": "Teknolohiya",
+      "entertainment": "Libangan",
+      "sports": "Sports",
+      "movies": "Mga pelikula",
+      "study": "Pag-aaral",
+      "work": "Trabaho",
+      "question": "Tanong"
+    },
+    "moods": {
+      "happy": "Masaya",
+      "excited": "Excited",
+      "grateful": "Nagpapasalamat",
+      "motivated": "Motivated",
+      "relaxed": "Relaxed",
+      "curious": "Curious",
+      "sad": "Malungkot",
+      "love": "In love",
+      "funny": "Nakakatawa",
+      "thoughtful": "Nag-iisip",
+      "cool": "Cool",
+      "tired": "Pagod"
+    },
+    "report": {
+      "menu": "Iba pang opsyon",
+      "report": "I-report",
+      "title": "I-report ang moment na ito",
+      "reasonLabel": "Bakit mo ito nire-report?",
+      "descriptionLabel": "May iba pa? (opsyonal)",
+      "submit": "Ipadala ang report",
+      "cancel": "Kanselahin",
+      "sent": "Salamat — titingnan ito ng aming mga moderator.",
+      "already": "Na-report mo na ang moment na ito.",
+      "failed": "Hindi naipadala ang report. Subukan ulit.",
+      "reasons": {
+        "spam": "Spam",
+        "harassment": "Panliligalig",
+        "hate_speech": "Mapoot na pananalita",
+        "violence": "Karahasan",
+        "nudity": "Kahubaran",
+        "false_information": "Maling impormasyon",
+        "copyright": "Copyright",
+        "other": "Iba pa"
+      },
+      "alreadyComment": "Na-report mo na ang komentong ito.",
+      "alreadyStory": "Na-report mo na ang story na ito.",
+      "titleComment": "I-report ang komentong ito",
+      "titleStory": "I-report ang story na ito"
+    },
+    "schedule": {
+      "label": "I-schedule",
+      "hint": "Iwanang blangko para i-post ngayon",
+      "past": "Pumili ng oras sa hinaharap",
+      "badge": "Naka-schedule sa {{time}}",
+      "clear": "I-post na lang ngayon"
+    },
+    "fields": {
+      "privacy": "Sino ang makakakita",
+      "privacyPublic": "Lahat",
+      "privacyFriends": "Mga kaibigan",
+      "privacyPrivate": "Ako lang",
+      "background": "Background",
+      "backgroundNone": "Wala",
+      "location": "Lokasyon",
+      "addLocation": "Idagdag ang lokasyon ko",
+      "removeLocation": "Alisin ang lokasyon",
+      "noMood": "Walang mood",
+      "tags": "Mga tag",
+      "tagPlaceholder": "Magdagdag ng tag…",
+      "addTag": "Idagdag",
+      "tagsUsed": "{{count}}/5 tag",
+      "tagsMax": "Hanggang 5 tag lang"
+    },
+    "prompt": {
+      "answeringPromptOfDay": "Sinasagot ang tanong ng araw",
+      "dismissChip": "Huwag nang sagutin ang tanong",
+      "answering": "Sumasagot",
+      "answer": "Sagutin",
+      "cardSubtitle": "Magsanay magsulat",
+      "cardTitle": "Tanong ng araw",
+      "dismissCard": "Isara ang tanong ng araw"
+    },
+    "block": {
+      "done": "Na-block na si {{name}}."
+    },
+    "card": {
+      "bookmark": "I-bookmark",
+      "likeFailed": "May nangyaring mali",
+      "loginToLike": "Mag-log in para mag-like ng mga post",
+      "removeBookmark": "Alisin sa bookmark",
+      "save": "I-save",
+      "saved": "Naka-save",
+      "seeLess": "Ipakita nang kaunti",
+      "seeMore": "Ipakita pa",
+      "unlike": "I-unlike"
+    },
+    "saved": {
+      "browseMoments": "Mag-browse ng Moments",
+      "gridView": "Grid view",
+      "listView": "List view",
+      "loadMore": "Mag-load pa",
+      "momentCount": "na moment ang naka-save",
+      "noMoments": "Wala pang naka-save na moment",
+      "remove": "Alisin",
+      "removeError": "Hindi maalis ang moment",
+      "removeSuccess": "Inalis sa mga naka-save",
+      "title": "Mga Naka-save na Moment"
+    },
+    "voice": {
+      "cancel": "Kanselahin ang recording",
+      "denied": "Tinanggihan ang access sa mikropono. Payagan ang access sa mikropono para mag-record ng voice note.",
+      "stop": "Ihinto ang recording at ipadala",
+      "unsupported": "Hindi sinusuportahan ng browser na ito ang voice recording."
     }
   },
   "createMoment": {
@@ -345,13 +1091,27 @@
       "addMoreText": "Magdagdag pa",
       "updateButton": "I-update ang Sandali",
       "updatingButton": "Nag-a-update...",
-      "cancelButton": "Kanselahin"
+      "cancelButton": "Kanselahin",
+      "removeImage": "Alisin ang larawan",
+      "nothingToSave": "Wala pang babaguhin",
+      "descriptionRequired": "Kailangan ng paglalarawan"
+    },
+    "media": {
+      "video": "Video",
+      "audio": "Voice note",
+      "replace": "Palitan",
+      "remove": "Alisin",
+      "removeVideoTitle": "Alisin ang video?",
+      "removeAudioTitle": "Alisin ang voice note?",
+      "removeBody": "Hindi na ito maibabalik.",
+      "done": "Na-update",
+      "failed": "Hindi gumana. Subukan ulit."
     }
   },
   "authentication": {
     "enterEmail": {
       "title": "Ilagay ang iyong email",
-      "subtitle": "We'll send a verification code to your email",
+      "subtitle": "Magpapadala kami ng verification code sa iyong email",
       "emailLabel": "Email Address",
       "emailPlaceholder": "Ilagay ang email",
       "sendButton": "Ipadala ang Code",
@@ -361,32 +1121,32 @@
     },
     "passwordReset": {
       "successMessage": "Matagumpay na na-reset ang password, mangyaring mag-login!",
-      "backToLogin": "Back to login",
-      "verifyTitle": "Enter verification code",
-      "verifySubtitle": "We've sent a 6-digit code to your email",
+      "backToLogin": "Bumalik sa pag-login",
+      "verifyTitle": "Ilagay ang verification code",
+      "verifySubtitle": "Nagpadala kami ng 6-digit na code sa iyong email",
       "codeLabel": "Verification Code",
-      "codePlaceholder": "Enter code",
-      "previousButton": "Previous",
-      "verifyButton": "Verify",
-      "verifyingButton": "Verifying...",
-      "resendButton": "Resend code",
-      "resendingButton": "Resending...",
-      "verifySuccessMessage": "Verification code successfully verified!",
-      "resendSuccessMessage": "A new verification code has been sent!",
-      "verifyErrorDefault": "Invalid verification code",
-      "resendErrorDefault": "Failed to resend the code",
-      "setPasswordTitle": "Set new password",
-      "setPasswordSubtitle": "Choose a strong password for your account",
-      "newPasswordLabel": "New Password",
-      "newPasswordPlaceholder": "New Password",
-      "confirmPasswordLabel": "Confirm Password",
-      "confirmPasswordPlaceholder": "Confirm Password",
-      "showPassword": "Show password",
-      "hidePassword": "Hide password",
-      "submitButton": "Reset Password",
-      "submittingButton": "Resetting...",
-      "strengthErrorMessage": "Password does not meet the strength requirements",
-      "mismatchErrorMessage": "Passwords do not match"
+      "codePlaceholder": "Ilagay ang code",
+      "previousButton": "Bumalik",
+      "verifyButton": "I-verify",
+      "verifyingButton": "Bini-verify...",
+      "resendButton": "Ipadala muli ang code",
+      "resendingButton": "Ipinapadala muli...",
+      "verifySuccessMessage": "Matagumpay na na-verify ang code!",
+      "resendSuccessMessage": "May naipadala nang bagong verification code!",
+      "verifyErrorDefault": "Hindi valid na verification code",
+      "resendErrorDefault": "Hindi naipadala muli ang code",
+      "setPasswordTitle": "Mag-set ng bagong password",
+      "setPasswordSubtitle": "Pumili ng malakas na password para sa iyong account",
+      "newPasswordLabel": "Bagong Password",
+      "newPasswordPlaceholder": "Bagong Password",
+      "confirmPasswordLabel": "Kumpirmahin ang Password",
+      "confirmPasswordPlaceholder": "Kumpirmahin ang Password",
+      "showPassword": "Ipakita ang password",
+      "hidePassword": "Itago ang password",
+      "submitButton": "I-reset ang Password",
+      "submittingButton": "Nire-reset...",
+      "strengthErrorMessage": "Hindi natutugunan ng password ang mga kinakailangan sa lakas",
+      "mismatchErrorMessage": "Hindi magkatugma ang mga password"
     },
     "login": {
       "signInWithGoogle": "Mag-sign In gamit ang Google",
@@ -400,7 +1160,8 @@
       "signingInButton": "Nagsa-sign In...",
       "newUserText": "Bagong User?",
       "registerLink": "Mag-rehistro",
-      "successMessage": "Matagumpay na naka-login"
+      "successMessage": "Matagumpay na naka-login",
+      "invalidCredentialsError": "Hindi valid na kredensyal"
     },
     "account": {
       "title": "Gumawa ng Iyong Account",
@@ -462,6 +1223,17 @@
       "verifyFirst": "Mangyaring i-verify muna ang iyong email",
       "registrationSuccess": "Matagumpay ang pagpaparehistro!",
       "registrationError": "Error sa pagpaparehistro"
+    },
+    "callback": {
+      "banned": "Na-suspend ang account na ito.",
+      "codeExpired": "Nag-expire na ang sign-in link na ito. Mag-sign in muli.",
+      "completing": "Tinatapos ang pag-sign in...",
+      "emailExists": "May account na gamit ang email na ito. Mag-sign in gamit ang iyong email at password.",
+      "failedTitle": "Hindi nakapag-sign in",
+      "generic": "Hindi nakapag-sign in. Pakisubukang muli.",
+      "noCode": "Hindi natapos ang pag-sign in. Pakisubukang muli.",
+      "redirecting": "Ibinabalik ka sa pag-sign in...",
+      "wait": "Pakihintay habang sina-sign in ka namin."
     }
   },
   "communityMain": {
@@ -502,7 +1274,13 @@
     "tabs": {
       "all": "Lahat",
       "popular": "Sikat",
-      "new": "Bago"
+      "new": "Bago",
+      "forYou": "Para sa iyo",
+      "online": "Online",
+      "label": "Mga tab ng komunidad",
+      "today": "Ngayon",
+      "serious": "Seryosong nag-aaral",
+      "seriousHint": "Aktibo ngayong linggo"
     },
     "filters": {
       "language": "Wika",
@@ -542,7 +1320,9 @@
       "topics": "Mga paksa",
       "searchPlaceholder": "Maghanap ng miyembro o paksa",
       "filtersLabel": "Mga filter",
-      "filtersWithCount": "Mga filter ({{count}} aktibo)"
+      "filtersWithCount": "Mga filter ({{count}} aktibo)",
+      "city": "Lungsod",
+      "genders": "Kasarian"
     },
     "filterSheet": {
       "title": "Mga filter",
@@ -559,7 +1339,27 @@
       "onlineNow": "Online ngayon",
       "newMembersOnly": "Bagong miyembro lang (huling 7 araw)",
       "reset": "I-reset",
-      "apply": "Ilapat"
+      "apply": "Ilapat",
+      "copyLink": "Kopyahin ang link",
+      "linkCopied": "Nakopya ang link",
+      "linkCopyFailed": "Hindi nakopya ang link",
+      "applyFirst": "I-apply muna ang mga filter",
+      "matchCountLoading": "Binibilang ang mga tugma…",
+      "close": "Isara ang mga filter",
+      "languages": "Mga wika",
+      "partnerNative": "Katutubong wika ng kasama",
+      "partnerLearning": "Nag-aaral ang kasama",
+      "country": "Bansa",
+      "countryPlaceholder": "Hal. Timog Korea",
+      "level": "Level ng wika",
+      "topics": "Mga paksa",
+      "mutualInterests": "Mga magkatulad na interes",
+      "newUsersOnly": "Bagong user lang",
+      "clearAll": "I-clear lahat",
+      "matchCount": "{{count}} tugma",
+      "lockedByTab": "Itinakda ng tab na {{tab}}",
+      "reciprocal": "Perpektong kapartner lang",
+      "reciprocalHint": "Marunong sila ng wikang inaaral mo at inaaral nila ang wikang alam mo"
     },
     "highlighted": {
       "title": "Mga itinatampok na profile",
@@ -568,9 +1368,8 @@
       "highlightSelfTopic": "I-highlight ang iyong profile para makita ka ng mas maraming tao"
     },
     "visitors": {
-      "justYou": "Binisita ni {{name}} ang iyong profile!",
-      "andOthers": "Binisita ni {{name}} at {{count}} iba pa ang iyong profile!",
-      "seeAll": "Tingnan lahat"
+      "pill_one": "1 tao ang bumisita sa iyong profile",
+      "pill_other": "{{count}} tao ang bumisita sa iyong profile"
     },
     "tandemCard": {
       "newChip": "BAGO",
@@ -580,6 +1379,50 @@
       "fluent": "MATATAS",
       "learns": "NAG-AARAL",
       "native": "KATUTUBO"
+    },
+    "chips": {
+      "recentlyActive": "Kamakailan aktibo",
+      "onlineNow": "Online ngayon",
+      "speaks": "Nagsasalita ng {{language}}",
+      "learning": "Nag-aaral ng {{language}}"
+    },
+    "forYou": {
+      "subtitle": "Mga kasamang pinili para sa iyo batay sa iyong mga wika, level, at interes.",
+      "refresh": "I-refresh",
+      "why": "Dahilan: {{reasons}}",
+      "empty": {
+        "title": "Wala pang rekomendasyon",
+        "message": "Idagdag ang mga wikang alam mo at gusto mong matutunan, ang level mo, at ilang interes, at hahanapin namin ang mga kasamang tugma.",
+        "action": "Kumpletuhin ang iyong profile"
+      }
+    },
+    "reasons": {
+      "perfect_pair": "Nagsasalita ng {{native}}, nag-aaral ng {{learning}}",
+      "native_speaker": "Native speaker ng {{native}}",
+      "online_now": "Online ngayon",
+      "active_today": "Aktibo ngayon",
+      "same_country": "Parehong bansa"
+    },
+    "today": {
+      "title": "Ang {{count}} match mo ngayon",
+      "refreshes": "Magre-refresh nang {{time}}",
+      "refreshesMidnight": "Magre-refresh sa hatinggabi",
+      "emptyTitle": "Iyan na lahat para ngayon",
+      "emptyBody": "May bagong matches bukas. Habang naghihintay, tingnan ang lahat ng partner.",
+      "browse": "Tingnan ang mga partner",
+      "repliesFast": "Mabilis sumagot",
+      "boosted": "Naka-boost",
+      "reasonReciprocal": "Pinag-aaralan ninyo ang wika ng isa't isa",
+      "reasonSameTarget": "Nag-aaral din ng {{language}}",
+      "reasonActiveToday": "Aktibo ngayon",
+      "reasonSameCity": "Nakatira sa lungsod mo",
+      "reasonSharedTopic": "Parehong interes: {{topic}}",
+      "sayHi": "Mag-hi",
+      "wave": "Kumaway",
+      "skip": "Laktawan",
+      "error": "Hindi ma-load ang matches ngayon",
+      "retry": "Subukan ulit",
+      "waved": "Kinawayan na"
     }
   },
   "communityDetail": {
@@ -641,8 +1484,38 @@
       "learning": "Nag-aaral ng",
       "notSpecified": "Hindi tinukoy"
     },
+    "match": {
+      "title": "Language Match",
+      "native": "Katutubong Wika",
+      "learning": "Nag-aaral",
+      "perfect": "Perpektong match — puwede kayong magturuan sa isa't isa.",
+      "youLearnTheirs": "Nag-aaral ka ng wikang sinasalita nila!",
+      "theyLearnYours": "Nag-aaral sila ng wikang sinasalita mo!",
+      "sameNative": "Magkapareho ang inyong katutubong wika."
+    },
+    "mutual": {
+      "title": "Mga magkatulad na interes",
+      "countLabel": "{{count}} magkatulad"
+    },
+    "starters": {
+      "title": "Mga pambungad sa usapan",
+      "send": "Ipadala",
+      "perfect": "Hi {{name}}! Perpekto tayong match sa wika — mag-practice tayo?",
+      "language": "Hi {{name}}! Nag-aaral ako ng {{language}} — may tips ka ba para gumaling?",
+      "teach": "Hi {{name}}! Nakita kong nag-aaral ka ng {{language}}. Masaya akong tumulong kung may tanong ka.",
+      "sameNative": "Hi {{name}}! Pareho tayo ng katutubong wika — kumusta na ang pag-aaral mo?",
+      "topic": "Hi {{name}}! Nakita kong mahilig ka rin sa {{topic}}. Paano ka nagsimula?",
+      "targetLearning": "Hi {{name}}! Gaano na katagal kang nag-aaral ng {{language}}?",
+      "generic": "Hi {{name}}! Gusto kong mag-practice ng wika nang magkasama. Kumusta ang linggo mo?",
+      "practice": "Hi {{name}}! Ano ang pinakanakatulong sa iyo sa pag-aaral mo?",
+      "hello": "Hi {{name}}! Napansin ko ang profile mo — kumusta ang araw mo?"
+    },
+    "engagement": {
+      "replies": "{{rate}}% ng sagot",
+      "new": "Bagong miyembro"
+    },
     "suggested": {
-      "title": "Mga miyembrong katulad ni {{name}}",
+      "title": "Iba pang miyembro tulad ni {{name}}",
       "seeAll": "Tingnan lahat ng miyembro"
     }
   },
@@ -664,6 +1537,10 @@
     "buttons": {
       "tryAgain": "Subukan Muli",
       "backToCommunity": "Bumalik sa Komunidad"
+    },
+    "suggested": {
+      "title": "Mga miyembrong katulad ni {{name}}",
+      "seeAll": "Tingnan lahat ng miyembro"
     },
     "stats": {
       "followers": "Mga Tagasunod",
@@ -870,6 +1747,102 @@
       "premium": "Premium",
       "features": "Mga Feature",
       "upgrade": "Mag-upgrade sa VIP"
+    },
+    "password": {
+      "title": "Baguhin ang password",
+      "current": "Kasalukuyang password",
+      "current_hint": "Ilagay ang kasalukuyang password",
+      "new": "Bagong password",
+      "new_hint": "Hindi bababa sa 8 character, A-Z, a-z, 0-9",
+      "confirm": "Kumpirmahin ang bagong password",
+      "confirm_hint": "Ilagay muli ang bagong password",
+      "rule_upper": "Isang malaking titik",
+      "rule_lower": "Isang maliit na titik",
+      "rule_number": "Isang numero",
+      "mismatch": "Hindi tugma ang mga password.",
+      "same_as_current": "Dapat iba ang bagong password sa kasalukuyan.",
+      "success": "Matagumpay na nabago ang password",
+      "failed": "Hindi na-update",
+      "symbols": "Ito lang ang mga simbolong pinapayagan: @ $ ! % * ? &"
+    },
+    "privacy": {
+      "title": "Mga Setting ng Privacy",
+      "subtitle": "Kontrolin kung sino ang makakakita ng iyong impormasyon",
+      "profileVisibility": "Visibility ng Profile",
+      "showOnlineStatus": "Ipakita ang Online Status",
+      "showOnlineStatusDesc": "Hayaan ang iba na makita kapag ikaw ay online",
+      "showCity": "Ipakita ang Lungsod",
+      "showCityDesc": "Ipakita ang iyong lungsod sa profile",
+      "showCountry": "Ipakita ang Bansa/Rehiyon",
+      "showCountryDesc": "Ipakita ang iyong bansa sa profile",
+      "personalInfo": "Personal na Impormasyon",
+      "showAge": "Ipakita ang Edad",
+      "showAgeDesc": "Ipakita ang iyong edad sa profile",
+      "showZodiac": "Ipakita ang Zodiac Sign",
+      "showZodiacDesc": "Ipakita ang iyong zodiac sign sa profile",
+      "birthdayNotification": "Mga Notification sa Kaarawan",
+      "birthdayNotificationDesc": "Tumanggap ng notifications sa iyong birthday",
+      "otherSettings": "Ibang Settings",
+      "showGiftingLevel": "Ipakita ang Gifting Level",
+      "showGiftingLevelDesc": "Ipakita ang badge ng gifting level",
+      "saveSuccess": "Na-save ang privacy settings",
+      "saveError": "Hindi na-save",
+      "saving": "Sine-save...",
+      "saveChanges": "I-save ang Pagbabago",
+      "profileVisits": "Mga pagbisita sa profile",
+      "anonymousProfileVisits": "Bumisita sa mga profile nang anonymous",
+      "anonymousProfileVisitsDesc": "Hindi lalabas ang pangalan mo sa listahan ng mga kamakailang bisita ng user na binisita mo.",
+      "email": "Email",
+      "emailNotifications": "Mga notification sa email",
+      "emailNotificationsDesc": "Tumanggap ng mga notification sa email mula sa BananaTalk",
+      "weeklyDigest": "Lingguhang buod",
+      "weeklyDigestDesc": "Buod ng aktibidad tuwing Linggo",
+      "securityAlerts": "Mga alerto sa seguridad",
+      "securityAlertsDesc": "Mga alerto sa password at pag-login. Inirerekomenda naming panatilihing naka-on ang mga ito."
+    },
+    "notifications": {
+      "title": "Mga Setting ng Notification",
+      "subtitle": "Pamahalaan ang iyong mga kagustuhan sa notification",
+      "loading": "Naglo-load...",
+      "loadError": "Error sa paglo-load ng mga setting",
+      "retry": "Subukan Muli",
+      "pushNote": "Kinokontrol ng mga setting na ito ang mga push notification mula sa BananaTalk app sa iyong telepono.",
+      "enableAll": "Mga Push Notification",
+      "enableAllDesc": "I-on o i-off ang lahat ng notipikasyon",
+      "notificationTypes": "Mga Uri ng Notipikasyon",
+      "chatMessages": "Mga Mensahe sa Chat",
+      "chatMessagesDesc": "Maabisuhan kapag nakatanggap ka ng mga mensahe",
+      "moments": "Mga Sandali",
+      "momentsDesc": "Mga like at komento sa iyong mga sandali",
+      "followerMoments": "Mga Sandali ng Sinusundan",
+      "followerMomentsDesc": "Kapag ang mga taong sinusundan mo ay nag-post ng bagong sandali",
+      "friendRequests": "Mga Bagong Tagasunod",
+      "friendRequestsDesc": "Kapag may sumunod sa iyo",
+      "profileVisits": "Mga Bisita sa Profile",
+      "profileVisitsDesc": "Kapag may tumingin sa iyong profile (VIP)",
+      "announcements": "Mga anunsyo",
+      "announcementsDesc": "Mga balita at update mula sa BananaTalk team",
+      "marketing": "Marketing",
+      "marketingDesc": "Mga update at promotional na mensahe",
+      "learning": "Nag-aaral",
+      "streakReminders": "Mga Paalala sa Streak",
+      "streakRemindersDesc": "Isang paalala bago maputol ang iyong streak",
+      "vocabularyReviewReminders": "Pag-review ng Bokabularyo",
+      "vocabularyReviewRemindersDesc": "Kapag may mga salitang kailangan nang i-review",
+      "dailyDropReminders": "Aralin sa Araw na Ito",
+      "dailyDropRemindersDesc": "Kapag handa na ang maikling aralin sa bokabularyo o gramatika ngayong araw",
+      "quietHours": "Tahimik na Oras",
+      "quietHoursEnable": "I-enable ang Quiet Hours",
+      "quietHoursDesc": "I-pause ang mga hindi mahalagang notification sa isang time window",
+      "quietHoursStart": "Oras ng Simula",
+      "quietHoursEnd": "Oras ng Pagtatapos",
+      "preferences": "Mga Kagustuhan sa Notipikasyon",
+      "showPreview": "Ipakita ang Preview",
+      "showPreviewDesc": "Ipakita ang preview ng mensahe sa mga notipikasyon",
+      "saveSuccess": "Na-save ang mga setting ng notification",
+      "saveError": "Hindi na-save",
+      "saving": "Sine-save...",
+      "saveChanges": "I-save ang Pagbabago"
     }
   },
   "waves": {
@@ -879,13 +1852,102 @@
     "accept": "Tanggapin",
     "decline": "Tanggihan",
     "noWaves": "Wala pang mga kumaway",
-    "sendWave": "Magpadala ng kumaway para magsimulang kumonekta!"
+    "sendWave": "Magpadala ng kumaway para magsimulang kumonekta!",
+    "archive": "Mga lumang kaway",
+    "archiveEmpty": "Walang lumang kaway",
+    "archiveHint": "Mga kaway mula 7 hanggang 30 araw na ang nakalipas",
+    "back": "Bumalik",
+    "cap": {
+      "body": "Naubos mo na ang libreng kaway ngayong araw. Ang mga VIP member ay puwedeng kumaway nang walang daily limit, o subukan ulit bukas.",
+      "notNow": "Mamaya na",
+      "seeVip": "Tingnan ang VIP",
+      "title": "Naabot na ang daily limit ng kaway"
+    },
+    "findPeople": "Maghanap ng Tao",
+    "noReceived": "Wala pang kumaway sa iyo",
+    "recent": "Huling 7 araw",
+    "sheet": {
+      "already": "Kinawayan na",
+      "alreadyBody": "Isang beses ka lang puwedeng kumaway sa bawat tao — mag-message na lang para tuloy ang usapan.",
+      "alreadyTitle": "Kinawayan mo na si {{name}}",
+      "cancel": "Kanselahin",
+      "chips": {
+        "chat": {
+          "label": "Chat",
+          "message": "🎉 Tara, chat tayo!"
+        },
+        "cool": {
+          "label": "Astig",
+          "message": "❤️ Astig ng profile mo!"
+        },
+        "hello": {
+          "label": "Hello",
+          "message": "✋ Hello!"
+        },
+        "hey": {
+          "label": "Hey",
+          "message": "😊 Hey, kumusta?"
+        },
+        "hi": {
+          "label": "Hi",
+          "message": "👋 Hi!"
+        },
+        "nice": {
+          "label": "Nice",
+          "message": "🌟 Nice to meet you!"
+        }
+      },
+      "close": "Isara",
+      "icebreakers": {
+        "0": "Hi! Gusto mo bang mag-practice ng wika nang sabay?",
+        "1": "Napansin kong magkapareho tayo ng inaaral na wika — hi!",
+        "2": "Napansin ko ang profile mo, kumusta ka?",
+        "3": "Hey! Ano'ng nag-udyok sa iyong mag-aral ng bagong wika?"
+      },
+      "icebreakersTitle": "Pambasag ng yelo",
+      "match": "🎉 Match! Kumaway kayo ni {{name}} sa isa't isa.",
+      "placeholder": "Magsulat ng sariling mensahe (opsyonal)…",
+      "quickReplies": "Mabilisang sagot",
+      "send": "Ipadala ang kaway",
+      "sendError": "Hindi naipadala ang kaway",
+      "sent": "Naipadala ang kaway kay {{name}}!",
+      "subtitle": "Mag-hi at simulan ang usapan 👋",
+      "title": "Kumaway kay {{name}}",
+      "yourMessage": "Ang mensahe mo"
+    },
+    "someone": "Isang tao",
+    "subtitle": "Mga taong kumaway sa iyo",
+    "unread": "Hindi pa nababasa",
+    "wavedAtYou": "Kumaway sa iyo 👋"
   },
   "topics": {
     "title": "Mga Paksa",
     "myTopics": "Aking mga Paksa",
     "browseTopics": "Mag-browse ng mga Paksa",
-    "usersInterested": "mga user na interesado"
+    "usersInterested": "mga user na interesado",
+    "saved": "Updated na ang mga paksa mo",
+    "saveError": "Hindi na-save ang mga paksa mo",
+    "memberCount": "{{count}} miyembro",
+    "backToCommunity": "Komunidad",
+    "subtitle": "Maghanap ng mga partner na kapareho ng interes mo.",
+    "searchPlaceholder": "Maghanap ng paksa",
+    "clearSearch": "I-clear ang paghahanap",
+    "cancel": "Kanselahin",
+    "saving": "Sine-save...",
+    "save": "I-save",
+    "edit": "I-edit",
+    "editHint": "I-tap ang mga tile sa ibaba para pumili ng hanggang {{max}} na paksa, tapos i-save.",
+    "myTopicsEmpty": "Wala ka pang napiling paksa. I-tap ang I-edit para pumili ng ilan.",
+    "selectTopics": "Piliin ang mga paksa mo",
+    "emptyTitle": "Walang paksang tumugma",
+    "emptyMessage": "Subukan ang ibang salita, o i-clear ang paghahanap para makita lahat.",
+    "backToTopics": "Lahat ng paksa",
+    "onlineOnly": "Online lang",
+    "loadingPeople": "Nilo-load ang mga tao...",
+    "noOneOnlineTitle": "Walang online dito",
+    "noOneTitle": "Wala pang tao dito",
+    "noOneOnlineMessage": "I-off ang online filter para makita ang lahat sa paksang ito.",
+    "noOneMessage": "Ikaw ang maging una — idagdag ang paksang ito sa profile mo."
   },
   "nearby": {
     "title": "Mga Kalapit na User",
@@ -896,24 +1958,23 @@
   },
   "home": {
     "hero": {
-      "badge": "Pinadali ang Palitan ng Wika",
-      "titlePart1": "Matuto ng mga Wika sa pamamagitan ng",
-      "titleHighlight": "Pagsasalita",
-      "titlePart2": "kasama ang mga Katutubong Nagsasalita",
-      "description": "Kumonekta sa milyun-milyong nag-aaral ng wika sa buong mundo. Mag-practice ng pagsasalita, pagbutihin ang fluency, at makipagkaibigan mula sa bawat sulok ng mundo.",
-      "stats": {
-        "users": "Aktibong mga User",
-        "languages": "Mga Wika",
-        "countries": "Mga Bansa"
-      },
-      "getStarted": "Magsimula nang Libre",
+      "badge": "Language exchange, totoong tao",
+      "titlePart1": "Mag-practice ng",
+      "titleHighlight": "kahit anong wika",
+      "titlePart2": "kasama ang taong talagang nagsasalita nito.",
+      "description": "Ipinapares ka ng BananaTalk sa mga native speaker sa buong mundo. Mag-chat, magpadala ng voice message, magsalin, at makatanggap ng correction — bawat usapan ay nagpapahusay sa iyo.",
+      "getStarted": "Magsimula na — libre ito",
       "browseCommunity": "Mag-browse ng Komunidad",
-      "lovedBy": "Minamahal ng 5M+ na mga nag-aaral",
+      "lovedBy": "Paboritong app ng mga nag-aaral ng wika sa iOS at Android",
       "chatPreview": {
-        "message1": "Kumusta! Kamusta ka? 👋",
-        "message2": "Hey! I'm practicing Tagalog!",
-        "message3": "Magaling! Mag-practice tayo 🇵🇭"
-      }
+        "message1": "안녕하세요! Kumusta ang weekend mo?",
+        "message2": "주말에 친구들과 등산 갔어요 ⛰️",
+        "message3": "Ang galing! 산 → bundok. Na-save na sa study queue mo."
+      },
+      "title": "Sabihin mo lang, kahit mali.",
+      "titleAccent": "Kami na ang bahalang magsalin.",
+      "subtitle": "Libreng language exchange kasama ang mga native speaker. Isulat mo sa sarili mong wika, babasahin nila sa kanila — at sa pagkakaiba ka matututo.",
+      "trust": "Libre habambuhay · 137 wika · AI tutor 24/7"
     },
     "sections": {
       "features": "Mga Feature",
@@ -921,108 +1982,175 @@
       "pricing": "Presyo"
     },
     "features": {
-      "title": "Lahat ng Kailangan Mo para Matuto",
-      "subtitle": "Mga makapangyarihang tool na idinisenyo upang pabilisin ang iyong paglalakbay sa pag-aaral ng wika",
+      "title": "Lahat ng kailangan mo para talagang masalita ang wika",
+      "subtitle": "Base sa tunay na usapan kasama ang totoong native speaker — hindi drills ng bokabularyo.",
       "chat": {
-        "title": "Real-time na Chat",
-        "description": "Mag-practice ng mga pag-uusap kasama ang mga katutubong nagsasalita sa pamamagitan ng instant messaging"
+        "title": "Chat na may correction",
+        "description": "Magpadala ng text, voice, larawan, at sticker. I-tap ang mensahe ng partner para isalin o iwasto ito sa isang tap lang."
       },
-      "video": {
-        "title": "Mga Video Call",
-        "description": "Harapang pag-practice ng wika kasama ang mga kasama sa buong mundo"
+      "translate": {
+        "title": "Built-in na pagsasalin",
+        "description": "Isalin ang anumang mensahe sa sarili mong wika. I-save ang mga parirala diretso sa study queue mo."
       },
-      "lessons": {
-        "title": "Mga Interactive na Aralin",
-        "description": "Matuto gamit ang mga structured na kurso at pang-araw-araw na ehersisyo"
+      "tutor": {
+        "title": "AI Tutor",
+        "description": "Mga roleplay scenario, bokabularyong nakabatay sa larawan, at pagsasanay sa pagbigkas — lahat pinapatakbo ng sarili mong AI study partner."
       },
-      "voice": {
-        "title": "Mga Voice Message",
-        "description": "Perpektuhin ang iyong pagbigkas gamit ang mga audio exchange"
+      "voice_rooms": {
+        "title": "Voice Rooms",
+        "description": "Sumali sa live audio room kasama ang mga native speaker at kapwa nag-aaral ng wika sa buong mundo."
+      },
+      "calls": {
+        "title": "Voice at video call",
+        "description": "One-tap na audio at video call kasama ang mga kasama mo sa wika."
       },
       "community": {
-        "title": "Komunidad",
-        "description": "Sumali sa milyun-milyong nag-aaral ng wika sa buong mundo"
+        "title": "Tunay na komunidad",
+        "description": "Mag-browse ng mga kasama ayon sa katutubong wika, tingnan kung sino ang online, at magbahagi ng mga sandali kasama ang mga taong nag-aaral din ng parehong wika."
       },
-      "languages": {
-        "title": "50+ Wika",
-        "description": "Mula sa Espanyol hanggang Koreano, hanapin ang iyong landas sa pag-aaral"
+      "inApp": "Sa app",
+      "items": {
+        "findPartner": {
+          "title": "Maghanap ng partner",
+          "body": "Mag-match base sa language pair na talagang gusto mong ipagpalit."
+        },
+        "chatTranslate": {
+          "title": "Chat na nagsasalin",
+          "body": "Dalawang direksyon, nasa mismong mensahe, habang nagta-type ka."
+        },
+        "moments": {
+          "title": "Moments",
+          "body": "I-share kung ano ang itsura ng araw mo; itama ka ng mga native speaker."
+        },
+        "aiTutor": {
+          "title": "AI Tutor",
+          "body": "Mag-practice ng alas-3 ng madaling araw nang walang hiya-hiya."
+        },
+        "voiceRooms": {
+          "title": "Voice Rooms",
+          "body": "Pumasok sa live room at makinig lang, kung gusto mo."
+        },
+        "gatherings": {
+          "title": "Gatherings",
+          "body": "Makilala ang mga taong nag-aaral ng wika mo na malapit sa iyo."
+        }
       }
     },
     "howItWorks": {
-      "title": "Magsimulang Matuto sa 3 Hakbang",
-      "subtitle": "Magsimula sa ilang minuto at simulan ang iyong paglalakbay sa wika ngayon"
+      "title": "Tatlong hakbang papunta sa unang usapan mo",
+      "subtitle": "Walang phone number, walang spam — mga totoong taong gustong matuto lang.",
+      "steps": {
+        "1": {
+          "title": "Sabihin mo kung ano ang sinasalita mo, at kung ano ang gusto mo",
+          "body": "Piliin ang katutubong wika mo at ang pinag-aaralan mo. Sa pares na iyon kami nagbabase ng match mo."
+        },
+        "2": {
+          "title": "Maghanap ng taong sulit kausapin",
+          "body": "Mag-browse ng mga partner na nag-aaral ng wika mo. Kumaway, o simulan na agad ang usapan."
+        },
+        "3": {
+          "title": "Magsalita kahit mali, bumilis ang galing",
+          "body": "Isinasalin ang bawat mensahe sa dalawang direksyon, at itinatama ka ng AI Tutor nang walang ibang nakakakita."
+        }
+      }
     },
     "steps": {
       "profile": {
-        "title": "Gumawa ng Iyong Profile",
-        "description": "Sabihin sa amin ang tungkol sa iyong katutubong wika at kung ano ang gusto mong matutunan"
+        "title": "Sabihin sa amin ang iyong mga wika",
+        "description": "Piliin kung ano ang matatas mong sinasalita at kung ano ang iyong pinag-aaralan. Magdagdag ng ilang paksang gusto mo."
       },
       "partners": {
-        "title": "Maghanap ng mga Kasama",
-        "description": "Mag-browse sa aming komunidad at maghanap ng perpektong mga kasama sa palitan ng wika"
+        "title": "Hanapin ang kasama mo",
+        "description": "Mag-browse sa komunidad ayon sa wika, bansa, o paksa. Kumaway o mag-message sa taong nakakatuwang kilalanin."
       },
       "learn": {
-        "title": "Magsimulang Matuto",
-        "description": "Mag-chat, tumawag, at mag-practice kasama ang mga katutubong nagsasalita araw-araw"
+        "title": "Mag-practice araw-araw",
+        "description": "Mag-chat, magpalitan ng voice note, makatanggap ng correction, at gawing spaced-repetition card ang mga bagong salita."
       }
     },
     "pricing": {
-      "title": "Piliin ang Iyong Plano",
-      "subtitle": "Magsimula nang libre at mag-upgrade kapag handa ka na",
-      "mostPopular": "Pinakasikat",
-      "getStarted": "Magsimula",
+      "title": "Libre magsimula. VIP kapag handa ka nang matuto nang mas mabilis.",
+      "subtitle": "Libre ang BananaTalk para sa lahat. Mag-upgrade para alisin ang pang-araw-araw na limitasyon sa pagsasalin, AI Tutor, at marami pa.",
+      "fineprint": "Kanselahin anumang oras sa settings ng App Store o Google Play mo. Awtomatikong nag-re-renew ang subscription hanggang kanselahin.",
       "free": {
         "name": "Libre",
         "period": "magpakailanman",
+        "cta": "Gumawa ng libreng account",
         "features": {
-          "messaging": "Basic na pagmemensahe",
-          "connections": "5 bagong koneksyon/araw",
-          "community": "Access sa komunidad",
-          "lessons": "Basic na mga aralin"
+          "messaging": "Walang limitasyong 1-on-1 chat na may salin",
+          "community": "Mag-browse at kumonekta sa komunidad",
+          "moments": "Mag-post ng Moments at magbasa ng Stories",
+          "tutor_trial": "Araw-araw na quota ng AI Tutor at pagsasalin"
+        },
+        "f1": "Walang limitasyong 1-on-1 chat na may salin",
+        "f2": "Mag-browse at kumonekta sa komunidad",
+        "f3": "Mag-post ng Moments at magbasa ng Stories"
+      },
+      "monthly": {
+        "name": "VIP — Buwanan",
+        "period": "kada buwan",
+        "highlight": "Pinaka-flexible",
+        "cta": "Magsimula ng buwanan",
+        "features": {
+          "unlimited_translation": "Walang limitasyong pagsasalin at correction",
+          "unlimited_tutor": "Walang limitasyong AI Tutor session at roleplay",
+          "voice_rooms": "Mag-host at mag-pin ng Voice Rooms",
+          "priority": "Priyoridad sa pagtugma ng kasama"
         }
       },
-      "premium": {
-        "name": "Premium",
-        "period": "/buwan",
+      "yearly": {
+        "name": "VIP — Taunan",
+        "period": "kada taon",
+        "highlight": "Makatipid ng 72%",
+        "cta": "Makatipid sa taunang plano",
         "features": {
-          "messaging": "Walang limitasyong pagmemensahe",
-          "connections": "Walang limitasyong koneksyon",
-          "video": "Mga video call",
-          "lessons": "Advanced na mga aralin",
-          "noAds": "Walang ads",
-          "translation": "Mga tool sa pagsasalin"
+          "everything_in_monthly": "Lahat ng nasa Buwanan",
+          "equiv": "Katumbas lang ng $4.16 / buwan",
+          "early_access": "Maagang access sa mga bagong feature",
+          "support": "Direktang suporta mula sa team ng BananaTalk"
         }
       },
-      "lifetime": {
-        "name": "Panghabambuhay",
-        "period": "isang beses",
-        "features": {
-          "everything": "Lahat sa Premium",
-          "forever": "Access magpakailanman",
-          "support": "Priority na suporta",
-          "early": "Maagang mga feature",
-          "badges": "Eksklusibong mga badge"
-        }
-      }
+      "best": "Pinakamahusay na halaga",
+      "perMonth": "kada buwan",
+      "every": "bawat",
+      "save": "Makatipid",
+      "getVip": "Kumuha ng VIP sa app"
     },
     "download": {
       "badge": "I-download ang App",
-      "title": "Dalhin ang BananaTalk Kahit Saan",
-      "description": "Matuto habang naglalakbay gamit ang aming mobile app. Available sa iOS at Android na may lahat ng feature, push notification, at offline access.",
+      "title": "Nasa mobile ang buong karanasan",
+      "description": "Ang AI Tutor, Voice Rooms, calls, at live notification ay mobile-only lang. Kunin ang app para sa kumpletong karanasan ng BananaTalk.",
       "downloadOn": "I-download sa",
       "getItOn": "Kunin sa",
       "scanQR": "I-scan para i-download ang app",
       "or": "o",
       "features": {
-        "offline": "Offline access",
+        "offline": "Chat na gumagana kahit offline",
         "push": "Mga push notification",
-        "fast": "Mabilis at magaan"
+        "fast": "Libreng i-install"
       }
     },
     "cta": {
-      "title": "Handa Ka Na Bang Simulan ang Iyong Paglalakbay sa Wika?",
-      "description": "Sumali sa milyun-milyong nag-aaral at magsimulang magsalita ng bagong wika ngayon",
-      "button": "Gumawa ng Libreng Account"
+      "title": "Handa ka na bang magkaroon ng tunay na usapan?",
+      "description": "Sumali sa komunidad ng BananaTalk at magsimulang mag-practice ngayon. Walang kailangang credit card.",
+      "button": "Gumawa ng libre mong account",
+      "subtitle": "Libre para magsimula. Walang kard, walang countdown ng trial."
+    },
+    "stats": {
+      "languages": "wika",
+      "app languages": "wika ng app",
+      "AI tutor": "AI tutor",
+      "forever tier": "libreng bersyon",
+      "learners": "mga nag-aaral"
+    },
+    "marquee": {
+      "title": "May native speaker sa bawat wikang gusto mong matutunan",
+      "caption": "137 na wika, at patuloy pang dumarami"
+    },
+    "earlyAdopter": {
+      "badge": "Inilunsad noong Disyembre 2025",
+      "title": "Maging isa sa mga nauna",
+      "body": "Bago pa lang ang BananaTalk. Ang mga taong makikilala mo dito ang mismong bumubuo kung ano ang magiging komunidad na ito — mas magandang dahilan iyon para sumali nang maaga kaysa sa kahit anong review."
     }
   },
   "vip": {
@@ -1059,6 +2187,1229 @@
       "prioritySupport": "Priority na suporta",
       "exclusiveBadge": "Eksklusibong VIP badge",
       "translationFeature": "Pagsasalin ng mensahe"
+    }
+  },
+  "linking": {
+    "share": {
+      "label": "Ibahagi",
+      "copied": "Nakopya ang link sa clipboard!",
+      "copyFailed": "Hindi makopya ang link"
+    },
+    "openInApp": {
+      "label": "Buksan sa app"
+    },
+    "appBanner": {
+      "text": "Buksan ito sa BananaTalk app"
+    }
+  },
+  "seo": {
+    "appTitle": "BananaTalk",
+    "home": {
+      "title": "BananaTalk: Libreng Language Exchange App kasama ang mga Native Speaker",
+      "description": "Mag-chat sa mga native speaker sa 137 wika. Magsulat sa sarili mong wika, babasahin nila ito sa kanila, at ipapakita ng AI tutor ang pagkakaiba. Libre sa iOS at Android."
+    },
+    "download": {
+      "title": "I-download ang BananaTalk para sa iPhone at Android",
+      "description": "Kunin ang libreng BananaTalk language exchange app para sa iPhone at Android. Mag-chat sa mga native speaker na may instant na pagsasalin at pagwawasto ng AI tutor."
+    },
+    "moments": {
+      "title": "BananaTalk Moments: Mga Kwento sa Wikang Pinag-aaralan Mo",
+      "description": "Ang Moments ay mga maiikling post at kwento na ibinabahagi ng mga nag-aaral ng wika sa BananaTalk. Basahin ang feed, mag-react, at mag-post ng sarili mo."
+    },
+    "privacy": {
+      "title": "Patakaran sa Privacy | BananaTalk",
+      "description": "Kung paano kinokolekta, ginagamit, at pinoprotektahan ng BananaTalk ang iyong data, at ang mga pagpipiliang meron ka."
+    },
+    "terms": {
+      "title": "Mga Tuntunin sa Paggamit | BananaTalk",
+      "description": "Ang mga tuntuning namamahala sa iyong paggamit ng BananaTalk, kabilang ang mga panuntunan sa content, moderation, at pag-uulat."
+    },
+    "support": {
+      "title": "Suporta at Contact | BananaTalk",
+      "description": "Kumuha ng tulong para sa BananaTalk: mga tanong sa account, pag-uulat ng problema, at kung paano makontak ang team."
+    },
+    "dataDeletion": {
+      "title": "Kahilingan sa Pagbura ng Data | BananaTalk",
+      "description": "Kung paano burahin ang iyong BananaTalk account at personal na data, at kung ano ang mangyayari pagkatapos mong humiling."
+    },
+    "meet": {
+      "title": "Makilala ang mga Taga-ibang Bansa | BananaTalk",
+      "description": "Makilala ang mga taga-ibang bansa at magkaibigan sa buong mundo sa chat. Isinasalin ang bawat mensahe sa dalawang direksyon, kaya hindi kailangang magaling."
+    },
+    "learnKorean": {
+      "title": "Matuto ng Korean Kasama ang Native Speakers",
+      "description": "Matuto ng Korean nang libre kasama ang mga native speaker. Sumulat sa wika mo, Hangul ang sagot nila, at ipapaliwanag ng AI Tutor ang 존댓말 vs 반말."
+    },
+    "communities": {
+      "title": "Mga Language Exchange Community | BananaTalk",
+      "description": "Sumali sa mga language exchange community sa BananaTalk: totoong grupong sabay-sabay nagsasanay ng Korean, Spanish, Japanese at iba pa, libre, araw-araw."
+    }
+  },
+  "notFound": {
+    "pageTitle": "Hindi Nahanap ang Pahina | BananaTalk",
+    "title": "Ang pahinang ito ay hindi umiiral",
+    "body": "Maaaring luma na ang link, o maaaring nailipat na ang pahina. Narito ang paraan pabalik.",
+    "home": "Pumunta sa homepage",
+    "download": "Kunin ang app"
+  },
+  "consent": {
+    "label": "Pahintulot sa cookie",
+    "message": "Gumagamit kami ng analytics cookies para maunawaan kung ano ang nagdadala ng mga tao rito.",
+    "accept": "OK",
+    "decline": "Huwag na lang",
+    "manage": {
+      "title": "Mga pagpipilian sa privacy",
+      "body": "Sinasabi ng analytics cookies kung aling mga pahina ang nakakatulong. Wala nang iba.",
+      "current_granted": "Naka-on ang analytics cookies.",
+      "current_denied": "Naka-off ang analytics cookies.",
+      "accept": "I-on",
+      "decline": "I-off",
+      "privacyChoices": "Mga pagpipilian sa privacy",
+      "analyticsCookies": "Analytics cookies",
+      "done": "Tapos na"
+    }
+  },
+  "admin": {
+    "nav": {
+      "admin": "Admin",
+      "overview": "Pangkalahatang-ideya",
+      "reach": "Abot",
+      "users": "Mga user",
+      "content": "Nilalaman",
+      "aiUsage": "Paggamit ng AI",
+      "audit": "Audit log"
+    },
+    "aiUsage": {
+      "allFeatures": "Lahat ng feature",
+      "anonymous": "anonymous",
+      "byDay": "Paggamit kada araw",
+      "byFeature": "Paggamit kada feature",
+      "calls": "Mga tawag",
+      "date": "Petsa",
+      "feature": "Feature",
+      "from": "Mula",
+      "logs": "Log ng paggamit",
+      "timestamp": "Oras",
+      "to": "Hanggang",
+      "total": "Kabuuang tawag",
+      "user": "Gumagamit"
+    },
+    "audit": {
+      "action": "Aksyon",
+      "actionColumn": "Aksyon",
+      "moderator": "Moderator",
+      "moderatorId": "ID ng moderator",
+      "reason": "Dahilan",
+      "target": "Target",
+      "targetId": "ID ng target",
+      "timestamp": "Oras"
+    },
+    "common": {
+      "actionError": "May nagkamali.",
+      "close": "Isara",
+      "empty": "Wala pang ipapakita.",
+      "loadError": "Hindi ma-load ang seksyong ito.",
+      "loading": "Naglo-load…",
+      "refresh": "I-refresh",
+      "cancel": "Kanselahin"
+    },
+    "content": {
+      "archive": "I-archive",
+      "archiveTitle": "I-archive ang club",
+      "cancel": "Kanselahin",
+      "cancelTitle": "Kanselahin ang pagtitipon",
+      "created": "Ginawa noong",
+      "gatherings": "Mga pagtitipon",
+      "going": "Dadalo",
+      "language": "Wika",
+      "members": "Mga miyembro",
+      "name": "Pangalan",
+      "openReports": "Mga bukas na report",
+      "reportedOnly": "Naiulat lang",
+      "restore": "Ibalik",
+      "restoreTitle": "Ibalik ang club",
+      "startsAt": "Magsisimula sa",
+      "status": "Katayuan",
+      "tabs": "Uri ng content",
+      "title": "Pamagat",
+      "moments": "Mga Moment",
+      "communities": "Mga Komunidad",
+      "reports": "Mga Report",
+      "momentsToday": "Mga moment ngayon",
+      "moments7d": "Mga moment (7 araw)",
+      "momentsHidden": "Mga nakatagong moment",
+      "comments7d": "Mga komento (7 araw)",
+      "activeCommunities": "Mga aktibong club",
+      "upcomingGatherings": "Mga paparating na pagtitipon",
+      "pendingReports": "Mga nakabinbing report",
+      "allTime": "sa kabuuan",
+      "membersTotal": "miyembro",
+      "underReview": "Sinusuri",
+      "searchMoments": "Maghanap ng moment",
+      "hiddenOnly": "Nakatago lang",
+      "author": "May-akda",
+      "owner": "May-ari",
+      "city": "Lungsod",
+      "place": "Lugar",
+      "category": "Kategorya",
+      "engagement": "Engagement",
+      "likes": "Mga like",
+      "comments": "Mga komento",
+      "views": "Mga view",
+      "shares": "Mga share",
+      "hidden": "Nakatago",
+      "visible": "Nakikita",
+      "untitled": "Moment na walang pamagat",
+      "noText": "Walang text.",
+      "actionFailed": "Hindi gumana iyon. Walang nabago.",
+      "momentTitle": "Moment",
+      "hide": "Itago",
+      "unhide": "Ipakita",
+      "hideTitle": "Itago ang moment na ito?",
+      "unhideTitle": "Ipakita muli ang moment na ito?",
+      "hideBody": "Mawawala ito sa lahat ng feed. Naitatala ang dahilan sa audit log.",
+      "unhideBody": "Babalik ito sa feed. Naitatala ang dahilan sa audit log.",
+      "communityTitle": "Komunidad",
+      "archiveBody": "Mawawala ito sa discovery. Mananatili sa mga miyembro ang kanilang history at maibabalik ito.",
+      "restoreBody": "Babalik ito sa discovery. Naitatala ang dahilan sa audit log.",
+      "reportType": "Uri",
+      "reason": "Dahilan",
+      "reporterAndReported": "Nag-report → Na-report",
+      "priority": "Priyoridad",
+      "reportActions": "Aksyon sa report",
+      "anyStatus": "Kahit anong katayuan",
+      "anyType": "Kahit anong uri",
+      "startReview": "Simulan ang pagsusuri",
+      "resolve": "Resolbahin",
+      "dismiss": "I-dismiss",
+      "resolveTitle": "Resolbahin ang report na ito?",
+      "dismissTitle": "I-dismiss ang report na ito?",
+      "dismissBody": "Walang aksyon na gagawin laban sa na-report na content o user. Mananatili ang mga note sa report.",
+      "moderatorAction": "Aksyon ng moderator",
+      "notes": "Mga note",
+      "reportStatus": {
+        "pending": "Nakabinbin",
+        "under_review": "Sinusuri",
+        "resolved": "Naresolba",
+        "dismissed": "Dinismiss"
+      },
+      "targetType": {
+        "moment": "Moment",
+        "comment": "Komento",
+        "user": "User",
+        "club": "Club",
+        "gathering": "Pagtitipon",
+        "message": "Mensahe",
+        "story": "Story"
+      },
+      "moderatorActions": {
+        "content_removed": "Inalis ang content",
+        "user_warned": "Binigyan ng warning ang user",
+        "user_suspended": "Na-suspend ang user",
+        "user_banned": "Na-ban ang user",
+        "no_violation": "Walang paglabag"
+      }
+    },
+    "overview": {
+      "activeThisWeek": "Aktibo ngayong linggo",
+      "activeToday": "aktibo ngayon",
+      "admins": "Mga admin",
+      "banned": "Naka-ban",
+      "email": "Email",
+      "lastActive": "Huling aktibo",
+      "lastWeek": "nakaraang linggo",
+      "name": "Pangalan",
+      "newThisWeek": "Bago ngayong linggo",
+      "newToday": "Bago ngayon",
+      "recentlyActive": "Kamakailang aktibo",
+      "topLearningLanguages": "Pinaka pinag-aaralang wika",
+      "topNativeLanguages": "Pinakakaraniwang katutubong wika",
+      "totalUsers": "Kabuuang gumagamit",
+      "vip": "VIP",
+      "visitsThisWeek": "Bisita ngayong linggo",
+      "vs": "laban sa"
+    },
+    "reach": {
+      "country": "Bansa",
+      "days": "araw",
+      "device": "Device",
+      "devices": "Mga device",
+      "newVisitors": "Mga bagong bisita",
+      "ofVisits": "ng",
+      "pageViews": "Page view",
+      "path": "Path",
+      "period": "Linggo ng",
+      "placement": "Placement",
+      "platform": "Platform",
+      "referrer": "Referrer",
+      "storeTaps": "Mga tap sa store",
+      "taps": "Mga tap",
+      "tapsByPlacement": "Mga tap sa store ayon sa placement",
+      "topCountries": "Nangungunang bansa",
+      "topPaths": "Nangungunang page",
+      "topReferrers": "Nangungunang referrer",
+      "trafficTitle": "Page view at mga tap sa store",
+      "unique": "Natatangi",
+      "uniqueVisitors": "Natatanging bisita",
+      "views": "Mga view",
+      "visits": "Mga bisita",
+      "visitsThisWeek": "Bisita ngayong linggo",
+      "window": "Saklaw ng oras"
+    },
+    "users": {
+      "actionFailed": "Hindi gumana iyon. Walang nabago.",
+      "active": "Aktibo",
+      "activity": "Aktibidad",
+      "adminsOnly": "Mga admin lang",
+      "ban": "I-ban",
+      "banBody": "mawawalan agad ng access. Naitatala ang dahilan sa audit log.",
+      "banReason": "Dahilan ng pag-ban",
+      "banTitle": "I-ban ang user na ito?",
+      "banned": "Naka-ban",
+      "delete": "Burahin",
+      "deleteBody": "Buburahin nito ang account at ang lahat ng content nito. Hindi na ito maibabalik.",
+      "deleteTitle": "Permanenteng burahin ang account na ito?",
+      "detailTitle": "Detalye ng user",
+      "email": "Email",
+      "empty": "Walang user na tumutugma sa paghahanap na ito.",
+      "joined": "Sumali noong",
+      "languages": "Mga wika",
+      "lastActive": "Huling aktibo",
+      "lastMessage": "Huling mensahe",
+      "lastMoment": "Huling moment",
+      "makeAdmin": "Gawing admin",
+      "makeAdminBody": "Makukuha nito ang console at lahat ng admin feature, kasama na ang pag-ban at pagbura.",
+      "makeAdminTitle": "Gawing admin?",
+      "messages30d": "Mensahe (30 araw)",
+      "moments30d": "Moment (30 araw)",
+      "name": "Pangalan",
+      "noActions": "Walang admin action laban sa account na ito.",
+      "recentActions": "Mga kamakailang admin action",
+      "revokeAdmin": "Bawiin ang admin",
+      "revokeAdminBody": "Mawawalan ito ng console at lahat ng admin feature. Hindi mo mababawi ang sarili mong admin role.",
+      "revokeAdminTitle": "Bawiin ang admin role?",
+      "role": "Tungkulin",
+      "searchLabel": "Maghanap ng user",
+      "searchPlaceholder": "Maghanap ng pangalan, email, o username",
+      "status": "Katayuan",
+      "tabAll": "Lahat ng user",
+      "tabBanned": "Naka-ban",
+      "typeEmail": "I-type ang email ng user para kumpirmahin",
+      "unban": "Alisin ang ban",
+      "unbanBody": "Maibabalik agad ang access. Naitatala ang dahilan sa audit log.",
+      "unbanTitle": "Alisin ang ban ng user na ito?",
+      "unknownModerator": "Hindi kilalang moderator",
+      "addUser": "Magdagdag ng user",
+      "createUser": "Gumawa ng user",
+      "createdTitle": "Nagawa ang user",
+      "createFailed": "Hindi gumana iyon. Walang nagawang account.",
+      "editTitle": "I-edit ang user",
+      "edit": "I-edit",
+      "saveChanges": "I-save ang mga pagbabago",
+      "done": "Tapos na",
+      "addAnother": "Magdagdag pa",
+      "openProfile": "Buksan ang profile",
+      "required": "Kailangan",
+      "invalidEmail": "Gumamit ng valid na email",
+      "weakPassword": "Minimum 8 characters, may malaki at maliit na letra at numero",
+      "under18": "Dapat 18 taong gulang pataas ang user",
+      "sameLanguage": "Hindi puwedeng magkapareho ang katutubong wika at ang gustong matutuhang wika",
+      "password": "Password",
+      "generate": "I-generate",
+      "copy": "Kopyahin",
+      "passwordOnce": "Ito lang ang pagkakataong ipapakita ang password. Ipadala ito sa user at hilingin sa kanilang baguhin ito.",
+      "termsNote": "Hindi puwedeng ibigay ang pahintulot para sa iba: hihilingin ng app sa user na ito na tanggapin ang mga terms sa unang pag-sign in nila.",
+      "userId": "User ID",
+      "gender": "Kasarian",
+      "male": "Lalaki",
+      "female": "Babae",
+      "other": "Iba pa",
+      "select": "Pumili",
+      "birthDate": "Kaarawan",
+      "birthYear": "Taon ng kapanganakan",
+      "birthMonth": "Buwan ng kapanganakan",
+      "birthDay": "Araw ng kapanganakan",
+      "year": "Taon",
+      "month": "Buwan",
+      "day": "Araw",
+      "nativeLanguage": "Katutubong wika",
+      "learningLanguage": "Wikang pinag-aaralan",
+      "roleUser": "User",
+      "roleAdmin": "Admin",
+      "markVerified": "Markahan bilang verified ang email",
+      "bio": "Bio",
+      "optional": "opsyonal",
+      "mode": "Mode",
+      "regular": "Regular",
+      "vip": "VIP",
+      "vipUntil": "hanggang",
+      "vipDays": "Araw",
+      "vipGrantNote": "Magsisimula ang subscription ngayon at hindi ito auto-renew.",
+      "vipRevokeNote": "Kapag pinatay ang VIP, agad na matatapos ang subscription.",
+      "verified": "Verified",
+      "yes": "Oo",
+      "no": "Hindi"
+    },
+    "table": {
+      "page": "Pahina {{page}}",
+      "previous": "Nakaraan",
+      "next": "Susunod"
+    }
+  },
+  "download": {
+    "title": "I-download ang BananaTalk",
+    "subtitle": "Libreng language exchange kasama ang mga native speaker sa 137 wika, sa iPhone at Android.",
+    "free": "Libre. Walang card.",
+    "scan": "I-scan gamit ang camera ng phone mo",
+    "qrAlt": "QR code para i-download ang BananaTalk",
+    "reasons": {
+      "tutor": {
+        "title": "AI Tutor sa bawat chat",
+        "body": "Mga correction at paliwanag sa mga mensaheng talagang ipinadala mo."
+      },
+      "voice": {
+        "title": "Voice Rooms at calls",
+        "body": "Mag-practice nang malakas kasama ang mga taong nag-aaral ng wika mo ngayon."
+      },
+      "translate": {
+        "title": "Instant na pagsasalin",
+        "body": "Isulat mo sa sarili mong wika, babasahin nila sa kanila — at sa pagkakaiba ka matututo."
+      }
+    }
+  },
+  "meet": {
+    "hero": {
+      "title": "Makilala ang mga taga-ibang bansa",
+      "titleAccent": "na talagang sumasagot.",
+      "subtitle": "Sa BananaTalk ka nagkakaroon ng mga kaibigan sa ibang bansa sa pamamagitan ng pakikipag-usap sa mga native speaker. Pumili ng wika, mag-hi, at dumarating nang nakasalin ang bawat mensahe — kaya hindi kailangang magaling muna ang kahit sino sa inyo.",
+      "trust": "Libre habambuhay · 137 wika · Bawat mensahe isinasalin sa dalawang direksyon",
+      "demo": {
+        "1": {
+          "text": "Bora ver o pôr do sol no sábado?",
+          "translation": "Gusto mong manood ng sunset sa Sabado?"
+        },
+        "2": {
+          "text": "Oo! Mainit pa ba diyan sa September?",
+          "translation": "Sim! Ainda faz calor aí em setembro?"
+        }
+      },
+      "note": {
+        "label": "✦ ISINALIN SA DALAWANG DIREKSYON",
+        "body": "Portuges ang isinulat niya at Filipino ang nabasa mo. Filipino ang isinulat mo at Portuges ang nabasa niya. Wala sa inyong dalawa ang kinailangang magpalit ng wika."
+      }
+    },
+    "howItWorks": {
+      "title": "Tatlong hakbang lang ang pagkakaibigan dito",
+      "steps": {
+        "1": {
+          "title": "Wika ang piliin, hindi profile",
+          "body": "Piliin ang wika o bansang gusto mong makilala. Ipapakita namin ang mga taong nag-aaral na ng wika mo — language exchange ito, kaya pareho kayong may makukuha."
+        },
+        "2": {
+          "title": "Mag-hi sa sarili mong salita",
+          "body": "Isulat sa wikang iniisip mo. Darating ito sa kanila sa wika nila, agad, kaya hindi na kailanman mahirap ang unang mensahe."
+        },
+        "3": {
+          "title": "Ituloy ang usapan",
+          "body": "Voice note, litrato, Moments, calls. Ang mga usapang tumatagal ay iyong hindi natatapos sa practice lang."
+        }
+      }
+    },
+    "features": {
+      "title": "Gawa para sa mga usapang hindi natatapos"
+    },
+    "cta": {
+      "title": "May taong gising ngayon sa ibang bansa",
+      "subtitle": "Libre magsimula. Walang card, walang trial countdown."
+    }
+  },
+  "learnKorean": {
+    "hero": {
+      "title": "Matuto ng Korean sa pamamagitan ng chat",
+      "titleAccent": "kasama ang totoong mga Koreano.",
+      "subtitle": "Magpalitan ng wika kasama ang mga native Korean speaker na gusto rin ang wika mo. Susubukan mo sa 한국어, sasagot sila sa Korean na talagang ginagamit ng mga tao, at itatama ng AI Tutor ang mga mali mo — nang pribado.",
+      "trust": "Libre habambuhay · Mga native Korean speaker · AI Tutor 24/7",
+      "demo": {
+        "1": {
+          "text": "주말에 뭐 했어요?",
+          "translation": "Ano'ng ginawa mo nitong weekend?"
+        },
+        "2": {
+          "text": "친구 만났다! 진짜 재미있었어",
+          "translation": "Nakipagkita ako sa kaibigan! Ang saya talaga"
+        }
+      },
+      "note": {
+        "label": "✦ AI TUTOR",
+        "body": "존댓말 vs 반말: nagtanong siya gamit ang 했어요, ang magalang na anyo. Sumagot ka sa 반말, na para sa malalapit na kaibigan. Tumapat ka muna sa kanya: 친구 만났어요! 진짜 재미있었어요."
+      }
+    },
+    "howItWorks": {
+      "title": "Bakit kumakapit ang Korean kapag nagcha-chat ka",
+      "steps": {
+        "1": {
+          "title": "Ang Korean na lumalabas sa totoong chat",
+          "body": "합니다 ang itinuturo ng textbook mo. 했어요, ㅋㅋ at 헐 ang tina-type ng partner mo — ito ang Korean na naghihintay sa iyo sa totoong usapan."
+        },
+        "2": {
+          "title": "존댓말 at 반말, nararamdaman imbes na kabisaduhin",
+          "body": "Ang pagiging magalang ay desisyong ginagawa mo sa bawat pangungusap. Mas mabilis itong matututunan sa pagbabasa ng mga pinipili ng native speaker kaysa sa kahit anong talahanayan ng mga ending."
+        },
+        "3": {
+          "title": "Naitatama nang walang hiya",
+          "body": "Minamarkahan ng AI Tutor ang Korean mo sa lugar na ikaw lang ang nakakakita, kaya hindi nagiging pagsusulit ang language exchange. Ang nakikita lang ng partner mo ay nagsisikap ka — at iyon ang dahilan kung bakit patuloy silang sumasagot."
+        }
+      }
+    },
+    "features": {
+      "title": "Tatlong bagay na hindi kayang ibigay ng textbook"
+    },
+    "cta": {
+      "title": "May mga Korean na nag-aaral ng wika mo ngayon",
+      "subtitle": "Libre magsimula. Walang card, walang trial countdown."
+    }
+  },
+  "communities": {
+    "public": {
+      "title": "Mga language exchange community",
+      "intro": "Totoong mga grupo sa loob ng BananaTalk, kung saan sabay-sabay nagsasanay ng iisang wika ang mga tao araw-araw. Hanapin ang sa iyo dito, buksan ito sa app, at magsimulang makipag-usap.",
+      "members": "miyembro",
+      "join": "Sumali sa app",
+      "empty": {
+        "title": "May bagong community kada linggo",
+        "body": "Wala pang maipapakita dito. Kunin ang app at agad na lalabas ang bawat community sa sandaling magbukas ito."
+      }
+    }
+  },
+  "errors": {
+    "chunk": {
+      "title": "May nangyaring mali habang ini-load ang page na ito",
+      "body": "May bahagi ng app na hindi na-load. Madalas itong mangyari pagkatapos ng update — kadalasan ay sapat na ang pag-reload.",
+      "reload": "I-reload"
+    }
+  },
+  "growth": {
+    "store": {
+      "appStore": "App Store",
+      "googlePlay": "Google Play",
+      "downloadOnThe": "I-download sa",
+      "getItOn": "Available sa"
+    },
+    "promo": {
+      "tutor": {
+        "eyebrow": "AI Tutor",
+        "title": "Itinutuwid ang Korean mo habang nagta-type",
+        "body": "Personal na pagwawasto sa bawat mensahe, kasama ang quizzes at grammar drills sa pagitan ng chats.",
+        "cta": "Kunin ang app",
+        "alt": "Ilustrasyon ng chat bubble na may isang salitang may guhit at ang pagwawasto nito na lumulutang sa itaas, katabi ng isang check mark"
+      },
+      "voice": {
+        "eyebrow": "Voice Notes & Rooms",
+        "title": "Marinig kung paano talaga ito bigkasin",
+        "body": "Magpadala ng voice notes, ibahagi kung nasaan ka, at sumali sa live na Voice Rooms kasama ang mga native speaker.",
+        "cta": "Kunin ang app",
+        "alt": "Ilustrasyon ng isang mikropono na may sound wave na dumadaan dito at isang shared location card sa likod"
+      },
+      "moments": {
+        "eyebrow": "Moments & Stories",
+        "title": "Ibahagi ang linggo mo sa dalawang wika",
+        "body": "Mag-post ng mga litrato at saloobin; babasahin ito ng mga kaibigan mo na naisalin at maayos kang itutuwid.",
+        "cta": "Kunin ang app",
+        "alt": "Ilustrasyon ng tatlong nagtatapat na photo card na may puso at isang translation mark na nagsasabing A hanggang 가"
+      },
+      "inbox": {
+        "eyebrow": "Tunay na usapan",
+        "title": "Mga taong talagang sumasagot",
+        "body": "Ang mga chat, wave, at reaction mo sa iisang inbox — nababasa, naisasalin, nasasagot.",
+        "cta": "Kunin ang app",
+        "alt": "Ilustrasyon ng tatlong pag-uusap na nakatambak sa isang inbox, isa sa mga ito ay hindi pa nababasa, kasama ang isang kamay na kumakaway"
+      },
+      "dismiss": "I-dismiss ang promosyon ng app",
+      "label": "Ano ang ginagawa ng BananaTalk app",
+      "slideLabel": "Slide {{n}} ng {{total}}",
+      "prev": "Nakaraang slide",
+      "next": "Susunod na slide"
+    }
+  },
+  "stories": {
+    "your_story": "Story Mo",
+    "create_story": "Gumawa",
+    "my_stories": "Mga story ko",
+    "reaction_failed": "Hindi na-save ang reaction mo",
+    "answer_sent": "Naipadala ang sagot",
+    "answer_failed": "Hindi naipadala ang sagot mo",
+    "delete_story": "I-delete ang story na ito?",
+    "error_loading": "May error sa pag-load ng story",
+    "answer_placeholder": "I-type ang sagot mo…",
+    "answer_question": "Sagutin ang Tanong",
+    "send_reply": "Ipadala",
+    "answer_anonymously": "Sumagot nang anonymous",
+    "cancel": "Kanselahin",
+    "viewers": "Mga nanood",
+    "responses": "Mga sagot",
+    "share_story": "I-share",
+    "reply_placeholder": "Magpadala ng mensahe...",
+    "react": "Mag-react",
+    "reacted": "Nag-react",
+    "shared": "Naipadala",
+    "share_failed": "Hindi na-share ang story na ito",
+    "close": "Isara",
+    "search_chats": "Maghanap sa mga chat",
+    "loading": "Nilo-load…",
+    "no_chats": "Walang kamakailang chat",
+    "no_viewers": "Wala pang nanood",
+    "added_to_highlight": "Naidagdag sa Highlights",
+    "add_failed": "Hindi naidagdag ang story na iyon",
+    "title_required": "Maglagay muna ng title",
+    "highlight_created": "Nagawa ang Highlight",
+    "create_failed": "Hindi nagawa ang Highlight",
+    "story_archived": "Na-archive ang story",
+    "archive_failed": "Hindi na-archive ang story na iyon",
+    "story_deleted": "Na-delete ang story",
+    "delete_story_failed": "Hindi na-delete ang story na iyon",
+    "active_stories": "Active",
+    "total_views": "Kabuuang views",
+    "archived_stories": "Naka-archive",
+    "create_first_story": "Gumawa ng story",
+    "no_archived_stories": "Wala pang naka-archive",
+    "no_stories": "Wala pang story",
+    "add_to_highlight": "Idagdag sa Highlights",
+    "archive": "I-archive",
+    "delete": "I-delete",
+    "highlight_name": "Pangalan ng Highlight",
+    "create": "Gumawa",
+    "no_highlights": "Wala pang Highlights",
+    "stories_count": "mga story",
+    "new_highlight": "Bagong Highlight",
+    "delete_story_confirm": "I-delete ang story na ito?",
+    "delete_story_body": "Hindi na ito puwedeng ibalik.",
+    "anonymous": "Anonymous",
+    "no_responses": "Wala pang sagot",
+    "video_type_error": "Hindi suportado ang video format na iyon",
+    "video_size_error": "Mas malaki ang video na iyon kaysa sa",
+    "video_duration_error": "Mas mahaba ang video na iyon kaysa sa",
+    "question_box": {
+      "ask_me_anything": "Tanungin mo ako ng kahit ano!"
+    },
+    "add_text": "I-type ang story mo…",
+    "upload_media": "Mag-upload muna ng media",
+    "link_invalid": "Parang mali ang link na iyon",
+    "story_created": "Na-share ang story",
+    "create_story_failed": "Hindi na-share ang story mo",
+    "video_limits": "Video",
+    "choose_photo": "Larawan",
+    "choose_video": "Video",
+    "text_story": "Text",
+    "move_sticker": "Ilipat ang sticker",
+    "tap_to_type": "I-tap para mag-type",
+    "story_text": "Text ng story",
+    "background": "Background",
+    "text_color": "Text",
+    "font_style": "Font",
+    "stickers_text": "Text at emoji",
+    "add_text_sticker": "Magdagdag ng text",
+    "add_emoji_sticker": "Magdagdag ng emoji",
+    "sticker_text": "Text ng sticker",
+    "remove": "Alisin",
+    "sticker_background": "Background",
+    "sticker_size": "Sukat",
+    "sticker_color": "Kulay",
+    "mention": "Mention",
+    "link": "Link",
+    "poll": "Poll",
+    "question": "Tanong",
+    "hashtag": "Hashtag",
+    "link_url": "URL ng link",
+    "link_title": "Title",
+    "link_label": "Label ng sticker",
+    "poll_question": "Magtanong ng kahit ano",
+    "poll_option": "Option",
+    "add_option": "Magdagdag ng option",
+    "anonymous_voting": "Anonymous na pagboto",
+    "question_prompt": "Isulat ang tanong",
+    "audience": "Sino ang makakakita nito",
+    "privacy": {
+      "public": "Lahat",
+      "friends": "Mga Friends",
+      "close_friends": "Close Friends"
+    },
+    "close_friends_empty": "Wala pang laman ang Close Friends list mo — walang makakakita ng story na ito.",
+    "manage_close_friends": "I-manage ang Close Friends",
+    "highlight_updated": "Na-update ang Highlight",
+    "update_failed": "Hindi na-save ang Highlight",
+    "highlight_deleted": "Na-delete ang Highlight",
+    "delete_failed": "Hindi na-delete ang Highlight",
+    "removed_from_highlight": "Naalis sa Highlights",
+    "remove_failed": "Hindi naalis ang story na iyon",
+    "back": "Bumalik",
+    "highlights_title": "Mga Highlight",
+    "highlights_subtitle": "Mga na-save mong story collection",
+    "highlight_empty": "Wala pang story ang Highlight na ito",
+    "remove_from_highlight": "Alisin sa Highlights",
+    "edit_highlight": "I-edit ang Highlight",
+    "delete_highlight": "I-delete ang Highlight",
+    "choose_cover": "Pumili ng cover",
+    "no_stories_to_pick": "Walang story na mapipili",
+    "save": "I-save",
+    "delete_highlight_confirm": "I-delete ang Highlight?",
+    "delete_highlight_body": "Mananatili pa rin ang mga story sa archive mo.",
+    "previous": "Nakaraan",
+    "next": "Susunod",
+    "font": {
+      "sans-serif": "Sans serif",
+      "serif": "Serif",
+      "bold": "Bold",
+      "handwritten": "Sulat-kamay"
+    },
+    "bg_mode": {
+      "none": "Walang background",
+      "semi": "Translucent",
+      "solid": "Solid"
+    },
+    "search_followings": "Hanapin ang mga sinusundan mo",
+    "mention_followings_only": "Puwede mo lang i-tag ang mga sinusundan mo. Mag-follow muna ng isang tao.",
+    "mention_no_match": "Walang sinusundan mong tumugma",
+    "more": "Iba pa",
+    "reply_failed": "Hindi maipadala ang mensahe mo",
+    "vote_failed": "Hindi ma-save ang boto mo",
+    "poll_error_question": "Magdagdag ng tanong sa iyong poll",
+    "poll_error_blank_option": "Punan o alisin ang mga walang lamang opsyon",
+    "poll_error_min_options": "Kailangan ng poll ng hindi bababa sa dalawang opsyon",
+    "poll_error_max_options": "Hanggang apat na opsyon lang ang poll",
+    "question_error_prompt": "Magdagdag ng tanong sa iyong question sticker",
+    "caption": "Caption",
+    "caption_placeholder": "Magdagdag ng caption…",
+    "linkPage": {
+      "browse": "Tingnan ang mga kasalukuyang story",
+      "expired": "Nag-expire na o binura ang story na ito. Nawawala ang mga story pagkalipas ng 24 oras.",
+      "failed": "Hindi namin ma-load ang story na ito.",
+      "retry": "Subukang muli",
+      "sign_in": "Mag-sign in",
+      "sign_in_body": "Mag-sign in para mapanood ito, o buksan sa BananaTalk app.",
+      "sign_in_title": "May nagbahagi ng story sa iyo",
+      "unavailable": "Hindi available sa iyo ang story na ito."
+    },
+    "block_author": "I-block si {{name}}",
+    "block_confirm": "I-block",
+    "block_confirm_body": "Hindi na nila makikita ang profile, moments, o stories mo, o makakapag-message sa iyo, at hindi mo na rin makikita ang sa kanila.",
+    "block_confirm_title": "I-block si {{name}}?",
+    "block_failed": "Hindi ma-block ang taong ito. Subukan ulit.",
+    "blocked": "Na-block na si {{name}}",
+    "location_label": "Lokasyon",
+    "one_image_only": "Isang larawan lang ang ipinapakita ng story. Itinabi namin ang una.",
+    "replies_off": "Naka-off ang mga reply sa story na ito",
+    "report_story": "I-report ang story"
+  },
+  "card": {
+    "title": "Language Card",
+    "my_card": "Card ko",
+    "speaks": "Nagsasalita ng",
+    "learning": "Nag-aaral ng",
+    "practice_with": "Mag-practice ng {{language}} kasama si {{name}}",
+    "view_profile": "Tingnan ang buong profile",
+    "continue_web": "Ituloy sa browser",
+    "share": "I-share ang card ko",
+    "share_text": "Mag-practice tayo ng {{language}} sa BananaTalk",
+    "edit": "I-edit ang laman",
+    "tagline": "Language exchange sa BananaTalk",
+    "not_found": "Walang ganitong card",
+    "not_found_body": "Maaaring natanggal na ang account.",
+    "find_partners": "Maghanap ng language partner"
+  },
+  "announcements": {
+    "new": "Bago",
+    "readMore": "Magbasa pa",
+    "close": "Isara",
+    "ended": "Tapos na ang anunsyo na ito.",
+    "back": "Bumalik"
+  },
+  "communityNearby": {
+    "back": "Bumalik",
+    "geolocationNotSupported": "Hindi suportado ang geolocation",
+    "gettingLocation": "Kinukuha ang lokasyon mo...",
+    "learning": "Nag-aaral: {{language}}",
+    "locationRequired": "Kailangan ang Lokasyon",
+    "noUsers": "Walang user na malapit sa iyo",
+    "permissionDenied": "Tinanggihan ang pahintulot sa lokasyon",
+    "positionUnavailable": "Hindi available ang lokasyon",
+    "refresh": "I-refresh",
+    "searchRadius": "Radius ng Paghahanap",
+    "subtitle": "Hanapin ang mga tao sa paligid mo",
+    "timeout": "Nag-time out ang paghiling ng lokasyon",
+    "title": "Mga User na Malapit",
+    "tryAgain": "Subukan Muli",
+    "tryIncreaseRadius": "Subukang palakihin ang radius ng paghahanap",
+    "unknownError": "May naganap na error",
+    "usersFound_one": "{{count}} tao ang nahanap",
+    "usersFound_other": "{{count}} tao ang nahanap"
+  },
+  "auth": {
+    "apple": {
+      "continue": "Magpatuloy gamit ang Apple",
+      "errors": {
+        "banned": "Sinuspinde ang account na ito.",
+        "blocked": "Hinarangan ng browser mo ang window ng Apple. Payagan ang mga pop-up para sa banatalk.com at subukan ulit.",
+        "disabled": "Hindi pa available sa website ang Sign in with Apple.",
+        "failed": "Hindi makapag-sign in gamit ang Apple. Subukan ulit.",
+        "rate_limited": "Masyadong maraming pagtatangkang mag-sign in. Maghintay ng isang minuto at subukan ulit.",
+        "unavailable": "Hindi available ngayon ang Sign in with Apple. Subukan ulit mamaya."
+      },
+      "signedIn": "Naka-sign in gamit ang Apple",
+      "signingIn": "Nagsa-sign in gamit ang Apple…"
+    }
+  },
+  "reels": {
+    "actions": {
+      "block": "I-block ang user",
+      "comments": "Mga komento",
+      "like": "I-like",
+      "more": "Iba pa",
+      "profile": "Profile",
+      "report": "I-report",
+      "unlike": "I-unlike"
+    },
+    "create": {
+      "bad_type": "Hindi suportado ang ganitong uri ng file. Gumamit ng MP4, MOV o WebM.",
+      "caption": "Caption",
+      "caption_placeholder": "Ano ang pinapraktis mo?",
+      "change_video": "Pumili ng ibang video",
+      "choose_video": "Pumili ng video",
+      "failed": "Hindi na-post ang reel mo. Subukan ulit.",
+      "hint": "Maikling video para sa pag-aaral ng wika, hanggang 3 minuto. Pinakamaganda ang patayo (9:16).",
+      "post": "I-post ang reel",
+      "posted": "Na-post na ang reel mo.",
+      "posting": "Pino-post…",
+      "server_too_long": "Dapat 3 minuto o mas maikli ang mga reel.",
+      "title": "Bagong reel",
+      "too_big": "Masyadong malaki ang video na ito para i-upload.",
+      "too_long": "Hanggang 3:00 lang ang reel. {{duration}} ang haba ng video na ito.",
+      "upload_failed": "Hindi na-upload ang video. Walang na-post — subukan ulit."
+    },
+    "grid": {
+      "create": "Gumawa ng reel",
+      "empty": "Wala pang reel. Ikaw na ang unang mag-post.",
+      "error": "Hindi ma-load ang mga reel.",
+      "load_more": "Mag-load pa",
+      "loading": "Nilo-load ang mga reel…",
+      "open_reel": "I-play ang reel ni {{name}}",
+      "retry": "Subukan ulit",
+      "title": "Reels",
+      "unavailable": "Hindi available ang mga reel sa ngayon."
+    },
+    "moments_link": "Manood ng reels",
+    "nav": "Reels",
+    "policy": {
+      "accept": "Sumasang-ayon ako",
+      "body": "Ang mga reel ay maiikling video para sa pag-aaral ng wika — mga sagot sa paksa, pagsasanay sa pagsasalita, paliwanag ng mga native speaker, at mga clip tungkol sa kultura.\n\nWalang pagpapaubaya ang BananaTalk sa hindi katanggap-tanggap na nilalaman: bawal ang kahubaran, hate speech, panliligalig, karahasan, o ilegal na nilalaman. Awtomatikong itinatago ang mga na-report na video habang hinihintay ang pagsusuri pagkatapos ng 2 report, at ang mga paglabag ay maaaring humantong sa pagtanggal ng nilalaman o pag-ban sa account.\n\nMaaari kang mag-report o mag-block mula sa anumang reel anumang oras.",
+      "decline": "Tanggihan",
+      "title": "Mga alituntunin sa nilalaman ng reels"
+    },
+    "viewer": {
+      "close": "Isara",
+      "label": "Reels",
+      "mute": "I-mute",
+      "next": "Susunod na reel",
+      "previous": "Nakaraang reel",
+      "tap_to_play": "I-tap para i-play",
+      "unmute": "I-unmute"
+    }
+  },
+  "clubs": {
+    "card": {
+      "joined": "Kasali na",
+      "members_one": "{{count}} miyembro",
+      "members_other": "{{count}} miyembro"
+    },
+    "detail": {
+      "back": "Tingnan ang ibang club",
+      "edit": "I-edit ang club",
+      "host": "Mag-host ng tagpo para sa club na ito",
+      "join": "Sumali sa club",
+      "leave": "Umalis sa club",
+      "leaveTitle": "Umalis sa club na ito?",
+      "metTimes_one": "Nagkita nang isang beses",
+      "metTimes_other": "Nagkita nang {{count}} beses",
+      "neverMet": "Hindi pa nagkikita",
+      "noGatherings": "Wala pang nakatakda.",
+      "upcoming": "Paparating",
+      "youOwn": "Ikaw ang may-ari ng club na ito"
+    },
+    "form": {
+      "city": "Lungsod (opsyonal)",
+      "create": "Gumawa ng club",
+      "createTitle": "Magsimula ng club",
+      "description": "Tungkol sa club (opsyonal)",
+      "editTitle": "I-edit ang club",
+      "errors": {
+        "descriptionTooLong": "Hanggang 2000 character lang ang description.",
+        "interestTooLong": "Hanggang 60 character lang ang interes.",
+        "languageRequired": "Piliin ang wika ng club.",
+        "nameRequired": "Bigyan ng pangalan ang club mo.",
+        "nameTooLong": "Hanggang 80 character lang ang pangalan."
+      },
+      "interest": "Ano ang nagbubuklod sa inyo (hal. libro, K-drama)",
+      "language": "Wika",
+      "name": "Pangalan",
+      "notAllowed": "Ang may-ari o organizer lang ng club ang puwedeng mag-edit nito.",
+      "placeAddress": "Address (opsyonal)",
+      "placeName": "Saan kayo nagkikita (opsyonal)"
+    },
+    "home": {
+      "empty": "Wala pang club dito.",
+      "scopeAll": "Lahat",
+      "scopeMember": "Sinalihan",
+      "scopeMine": "Mga wika ko",
+      "start": "Magsimula ng club"
+    },
+    "owner": {
+      "delete": "Tanggalin ang club",
+      "deleteBody": "Mawawala ang club sa mga miyembro. Matutuloy pa rin ang mga tagpong nakatakda na.",
+      "deleteTitle": "Tanggalin ang {{name}}?"
+    },
+    "people": {
+      "makeMember": "Alisin bilang organizer",
+      "makeOrganizer": "Gawing organizer",
+      "organizer": "Organizer",
+      "owner": "May-ari",
+      "remove": "Alisin sa club",
+      "removeTitle": "Alisin si {{name}}?",
+      "title": "Mga miyembro · {{count}}"
+    }
+  },
+  "gatherings": {
+    "card": {
+      "approval": "Aaprubahan ng host",
+      "full": "Puno na",
+      "going": "Sasama",
+      "hostedBy": "Hino-host ni {{name}}",
+      "hosting": "Ikaw ang host",
+      "requested": "Hiniling na",
+      "seatsLeft_one": "{{count}} upuan na lang",
+      "seatsLeft_other": "{{count}} upuan na lang"
+    },
+    "confirm": {
+      "cancel": "Mamaya na",
+      "leaveBody": "Umaasa ang iba sa mga nagsabing sasama.",
+      "leaveOk": "Ibigay ang upuan ko",
+      "leaveTitle": "Ibibigay mo ang upuan mo?"
+    },
+    "cover": {
+      "add": "Magdagdag ng cover photo",
+      "badType": "Gumamit ng JPEG, PNG, GIF o WebP na larawan.",
+      "change": "Palitan ang cover photo",
+      "remove": "Alisin ang cover",
+      "tooBig": "Lampas 10 MB ang larawang iyan."
+    },
+    "detail": {
+      "askToJoin": "Humiling na sumali",
+      "back": "Tingnan ang ibang tagpo",
+      "cancelRequest": "Kanselahin ang hiling ko",
+      "capacity": "Hanggang {{count}} tao · makukumpirma sa {{quorum}}",
+      "duration": "{{count}} min",
+      "edit": "I-edit ang tagpo",
+      "host": "Host",
+      "join": "Sasama ako",
+      "leave": "Hindi na ako makakasama",
+      "online": "Online",
+      "requestSent": "Naipadala ang hiling. Ang host ang magpapasya.",
+      "someone": "Isang miyembro ng BananaTalk",
+      "youreGoing": "Sasama ka."
+    },
+    "errors": {
+      "alreadyGoing": "Sasama ka na.",
+      "cancelled": "Kinansela ang tagpong ito.",
+      "capacityBelowGoing": "Hindi puwedeng mas mababa ang upuan sa {{count}} taong sasama na.",
+      "clubArchived": "Naka-archive ang club na ito.",
+      "clubGone": "Hindi available ang club na ito.",
+      "endBeforeStart": "Puwede mong tapusin ang tagpo kapag nagsimula na ito.",
+      "ended": "Tapos na ang tagpong ito.",
+      "full": "Puno na ang tagpong ito.",
+      "gatheringGone": "Hindi available ang tagpong ito.",
+      "generic": "May nangyaring mali. Subukan ulit.",
+      "hostBlocked": "Hindi ka muna puwedeng mag-host: masyadong marami sa mga tagpo mo ang nakansela o hindi natuloy.",
+      "hostCannotLeave": "Bilang host, kanselahin na lang ang tagpo sa halip na umalis.",
+      "joinClubFirst": "Sumali muna sa club bago mag-host para dito.",
+      "offline": "Offline ka. I-check ang koneksyon mo.",
+      "ownerCannotLeave": "Bilang may-ari, puwede mong tanggalin ang club pero hindi ka puwedeng umalis dito.",
+      "pastStart": "Pumili ng oras ng simula sa hinaharap.",
+      "pending": "Naghihintay pa sa host ang hiling mo.",
+      "started": "Nagsimula na ang tagpong ito."
+    },
+    "form": {
+      "anyLevel": "Kahit anong level",
+      "cancel": "Kanselahin",
+      "capacity": "Upuan",
+      "create": "I-post ang tagpo",
+      "createTitle": "Mag-host ng tagpo",
+      "description": "Ano ang gagawin ninyo? (opsyonal)",
+      "duration_one": "Tatagal nang {{count}} minuto · sa time zone mo",
+      "duration_other": "Tatagal nang {{count}} minuto · sa time zone mo",
+      "editTitle": "I-edit ang tagpo",
+      "errors": {
+        "capacityRange": "Dapat 2 hanggang 20 ang upuan.",
+        "descriptionTooLong": "Hanggang 2000 character lang ang description.",
+        "languageRequired": "Piliin ang wikang ipa-practice mo.",
+        "quorumRange": "Makukumpirma ang tagpo sa 2 o higit pa, at hindi lalampas sa bilang ng upuan.",
+        "startInPast": "Pumili ng oras ng simula sa hinaharap.",
+        "startRequired": "Pumili ng araw at oras.",
+        "startTooFar": "Pumili ng oras sa loob ng susunod na 90 araw.",
+        "titleRequired": "Bigyan ng pamagat ang tagpo mo.",
+        "titleTooLong": "Hanggang 120 character lang ang pamagat."
+      },
+      "joinApproval": "Ako ang mag-aapruba sa bawat isa",
+      "joinMode": "Sino ang puwedeng sumali",
+      "joinOpen": "Kahit sino",
+      "language": "Wika",
+      "level": "Level",
+      "noTopic": "Walang paksa",
+      "notHost": "Ang host lang ang puwedeng mag-edit ng tagpong ito.",
+      "pickLanguage": "Pumili ng wika",
+      "quorum": "Kumpirmahin sa",
+      "save": "I-save",
+      "startsAt": "Magsisimula",
+      "title": "Pamagat",
+      "topic": "Paksa"
+    },
+    "home": {
+      "anyLanguage": "Mga wika ko",
+      "anyTime": "Kahit kailan",
+      "anyTopic": "Kahit anong paksa",
+      "empty": "Wala pang nakatakda dito.",
+      "emptyCta": "Ikaw ang mag-host ng una",
+      "error": "Hindi ma-load ang listahang ito.",
+      "hasSeat": "May bakanteng upuan",
+      "host": "Mag-host ng tagpo",
+      "language": "Wika",
+      "loadMore": "Mag-load pa",
+      "retry": "Subukan ulit",
+      "scopeAll": "Lahat",
+      "scopeMe": "Mga tagpo ko",
+      "scopeMine": "Mga wika ko",
+      "tabClubs": "Mga club",
+      "tabGatherings": "Mga tagpo",
+      "title": "Mga tagpo",
+      "today": "Ngayon",
+      "topic": "Paksa",
+      "week": "Ngayong linggo",
+      "when": "Kailan"
+    },
+    "host": {
+      "approve": "Tanggapin",
+      "callOff": "Kanselahin",
+      "callOffTitle": "Kanselahin na?",
+      "cancel": "Kanselahin ang tagpo",
+      "cancelConfirm_one": "May {{count}} taong naghihintay nito. Sasabihan silang kansela na.",
+      "cancelConfirm_other": "May {{count}} taong naghihintay nito. Sasabihan silang kansela na.",
+      "cancelOk": "Kanselahin ang tagpo",
+      "cancelTitle": "Kanselahin ang tagpong ito?",
+      "decisionAlone": "Ikaw pa lang sa ngayon. Ituloy pa rin o kanselahin?",
+      "decision_one": "{{count}} pa lang ang sasama sa ngayon. Ituloy pa rin o kanselahin?",
+      "decision_other": "{{count}} pa lang ang sasama sa ngayon. Ituloy pa rin o kanselahin?",
+      "decline": "Tanggihan",
+      "end": "Tapusin ang tagpo",
+      "ended": "Tapos na — libre ang mag-message sa mga nakilala mo",
+      "nobodyExpecting": "Wala pang ibang nagsabing sasama.",
+      "requests_one": "{{count}} naghihintay sumali",
+      "requests_other": "{{count}} naghihintay sumali",
+      "runAnyway": "Ituloy pa rin"
+    },
+    "nav": "Mga tagpo",
+    "quorum": {
+      "confirmed": "Kumpirmado · {{count}} ang sasama",
+      "needed": "Kulang pa ng {{count}} para makumpirma · {{going}} ang sasama"
+    },
+    "safety": {
+      "blockHost": "I-block ang host",
+      "blockOwner": "I-block ang may-ari",
+      "more": "Iba pa",
+      "reportClub": "I-report ang club",
+      "reportFailed": "Hindi naipadala ang report. Subukan ulit.",
+      "reportGathering": "I-report ang tagpo",
+      "reported": "Salamat — susuriin ito ng aming mga moderator."
+    },
+    "status": {
+      "cancelled": "Kanselado",
+      "confirmed": "Kumpirmado",
+      "ended": "Tapos na",
+      "live": "Nagaganap ngayon",
+      "scheduled": "Nakatakda"
+    },
+    "time": {
+      "hostLocal": "{{time}} sa oras ng host"
+    },
+    "topics": {
+      "business": "Negosyo",
+      "conversation": "Usapan",
+      "culture": "Kultura",
+      "exam_prep": "Paghahanda sa exam",
+      "games": "Mga laro",
+      "grammar": "Gramatika",
+      "media": "Musika, pelikula at TV",
+      "pronunciation": "Bigkas",
+      "travel": "Paglalakbay"
+    }
+  },
+  "common": {
+    "cancel": "Kanselahin",
+    "retry": "Subukan ulit"
+  },
+  "communityCity": {
+    "back": "Komunidad",
+    "countries": "Mga bansa",
+    "empty": "Wala pang tumutugma rito. Subukan ang ibang lugar.",
+    "error": "Hindi ma-load ang mga tao. Subukan ulit.",
+    "more": "Magpakita pa",
+    "search": "Maghanap",
+    "searchPlaceholder": "Maghanap ng lungsod",
+    "searchTitle": "Mga tao sa “{{query}}”",
+    "title": "Mga tao ayon sa lugar"
+  },
+  "communityGenders": {
+    "back": "Komunidad",
+    "empty": "Wala pang tumutugma.",
+    "error": "Hindi ma-load ang mga tao. Subukan ulit.",
+    "female": "Babae",
+    "male": "Lalaki",
+    "more": "Magpakita pa",
+    "title": "I-browse ayon sa kasarian"
+  },
+  "languageRooms": {
+    "create": {
+      "description": "Paglalarawan (opsyonal)",
+      "language": "Wika",
+      "name": "Paksa",
+      "submit": "Gumawa ng room",
+      "title": "Magsimula ng topic room"
+    },
+    "errors": {
+      "banned": "Inalis ka sa room na ito. Puwede mong hilingin sa owner na papasukin ka ulit.",
+      "busy": "Masyadong maraming request sa room na ito ngayon. Subukan mamaya.",
+      "generic": "Nagkaproblema. Subukan ulit.",
+      "gone": "Hindi na available ang room na ito.",
+      "owner": "Hindi puwedeng alisin ang owner.",
+      "pending": "Naghihintay pa sa owner ang request mo.",
+      "titleLength": "Hanggang 60 character lang ang pangalan.",
+      "tooMany": "May 10 room ka na. Mag-delete ng isa para makagawa ng bago."
+    },
+    "list": {
+      "create": "Bagong topic room",
+      "empty": "Wala pang room.",
+      "error": "Hindi ma-load ang mga language room.",
+      "joined": "Kasali na",
+      "locked": "Naka-lock",
+      "title": "Mga language room"
+    },
+    "owner": {
+      "admin": "admin",
+      "approve": "Papasukin",
+      "deny": "Tanggihan",
+      "members": "Mga miyembro",
+      "noRequests": "Walang naghihintay.",
+      "owner": "owner",
+      "remove": "Alisin sa room",
+      "removeNote": "Puwedeng humiling na bumalik ang mga inalis na miyembro; ikaw ang magpapasya.",
+      "removeYes": "Alisin",
+      "requests": "Mga request na sumali"
+    },
+    "room": {
+      "back": "Lahat ng room",
+      "join": "Sumali sa room",
+      "leave": "Umalis sa room",
+      "media": "Larawan o video — buksan ang app para makita",
+      "notSent": "Hindi naipadala. Subukan ulit.",
+      "older": "I-load ang mga naunang mensahe",
+      "online": "online",
+      "pending": "Naipadala ang request. Papapasukin ka ng owner.",
+      "placeholder": "Sumulat sa wika ng room…",
+      "request": "Humiling na sumali",
+      "send": "Ipadala",
+      "slowDown": "Masyado kang mabilis magpadala. Dahan-dahan lang.",
+      "sticker": "Sticker",
+      "unsupported": "Buksan ang app para makita ang mensaheng ito",
+      "voice": "Voice message — buksan ang app para pakinggan"
+    }
+  },
+  "nav": {
+    "languageRooms": "Mga language room",
+    "voiceRooms": "Mga voice room"
+  },
+  "voiceRooms": {
+    "category": {
+      "casual": "Kuwentuhan",
+      "language_practice": "Pagsasanay sa wika",
+      "qa": "Tanong at sagot",
+      "topic": "Paksa"
+    },
+    "create": {
+      "category": "Uri ng room",
+      "description": "Ano ang pag-uusapan ninyo? (opsyonal)",
+      "language": "Wika",
+      "max": "Hanggang ilang tao",
+      "name": "Pangalan ng room",
+      "schedule": "I-schedule",
+      "start": "Simulan ang room",
+      "title": "Magsimula ng voice room",
+      "when": "Simulan mamaya (opsyonal)"
+    },
+    "errors": {
+      "blocked": "Hindi ka puwedeng sumali sa room na ito.",
+      "ended": "Natapos na ang room na ito.",
+      "full": "Puno na ang room na ito.",
+      "generic": "Nagkaproblema. Subukan ulit.",
+      "gone": "Hindi na available ang room na ito.",
+      "vipToCreate": "Kailangan ng VIP plan para gumawa ng voice room."
+    },
+    "host": {
+      "end": "Tapusin ang room",
+      "endConfirm": "Tapusin ang room para sa lahat?",
+      "endYes": "Tapusin ang room",
+      "hands": "Mga nakataas na kamay",
+      "makeCohost": "Gawing Co-Host",
+      "muteAll": "I-mute ang lahat",
+      "noHands": "Wala pang nagtaas ng kamay.",
+      "speakNote": "Puwedeng kunin ng sinuman sa room ang mic. Ang pagtaas ng kamay ay paghingi ng turn sa iyo.",
+      "title": "Mga host tool"
+    },
+    "list": {
+      "create": "Magsimula ng room",
+      "emptyLive": "Walang nag-uusap ngayon. Magsimula ng room at mag-imbita ng mga tao.",
+      "emptyScheduled": "Wala pang naka-schedule na room.",
+      "error": "Hindi ma-load ang mga voice room.",
+      "full": "Puno",
+      "going": "Pupunta ✓",
+      "join": "Sumali",
+      "live": "Live ngayon",
+      "rsvp": "Paalalahanan ako",
+      "scheduled": "Paparating",
+      "title": "Mga voice room"
+    },
+    "room": {
+      "back": "Lahat ng room",
+      "chat": "Chat ng room",
+      "chatPlaceholder": "Magsabi ng kahit ano…",
+      "connectFailed": "Hindi maka-connect sa audio ng room. Tingnan ang iyong koneksyon at subukan ulit.",
+      "elsewhere": "Sumali ka sa room na ito mula sa ibang tab o device.",
+      "enableSound": "I-tap para buksan ang tunog ng room",
+      "ended": "Natapos na ang room na ito.",
+      "findAnother": "Maghanap ng ibang room",
+      "handUp": "Nakataas ang kamay",
+      "host": "Host",
+      "join": "Sumali sa room",
+      "joinHint": "Sasali ka bilang tagapakinig. Kunin ang mic kapag handa ka na.",
+      "leave": "Umalis",
+      "lost": "Naputol ang koneksyon sa room.",
+      "lowerHand": "Ibaba ang kamay",
+      "micDenied": "Bina-block ng browser mo ang mikropono. Payagan ang mikropono para sa banatalk.com sa address bar, saka subukan ulit. Puwede ka pa ring makinig.",
+      "micError": "Hindi mabuksan ang mikropono. Subukan ulit.",
+      "micUnavailable": "Walang nakitang mikropono (o ginagamit ito ng ibang app). Puwede ka pa ring makinig.",
+      "mute": "I-mute",
+      "raiseHand": "Itaas ang kamay",
+      "reconnecting": "Kumokonekta ulit…",
+      "rejoin": "Sumali ulit",
+      "send": "Ipadala",
+      "takeMic": "Kunin ang mic",
+      "useHere": "Dito na lang makinig",
+      "you": "ikaw"
     }
   }
 }

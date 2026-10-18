@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { ArrowLeft, Image, Video, FileText, X, Download, ZoomIn, Loader2 } from 'lucide-react';
 import { useGetConversationQuery } from '../../store/slices/chatSlice';
 import './MediaGallery.scss';
@@ -47,9 +48,13 @@ interface RootState {
 }
 
 const MediaGallery: React.FC = () => {
-  const { conversationId } = useParams<{ conversationId: string }>();
+  // The route param is the OTHER USER's id — /chat/:userId/media — which is
+  // what the conversation query needs as its receiver. It was only ever named
+  // `conversationId`; it has never held one.
+  const { userId: partnerId } = useParams<{ userId: string }>();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const userId = useSelector((state: RootState) => state.auth.userInfo?.user?._id);
 
@@ -63,10 +68,10 @@ const MediaGallery: React.FC = () => {
   const { data, isLoading, error } = useGetConversationQuery(
     {
       senderId: userId,
-      receiverId: conversationId || '',
+      receiverId: partnerId || '',
       limit: 500, // Get more messages to find all media
     },
-    { skip: !userId || !conversationId }
+    { skip: !userId || !partnerId }
   );
 
   // Extract media items from messages
@@ -134,7 +139,7 @@ const MediaGallery: React.FC = () => {
   }, [filteredMedia]);
 
   const formatFileSize = (bytes?: number) => {
-    if (!bytes) return 'Unknown size';
+    if (!bytes) return t('chatPage.mediaGallery.unknownSize') || 'Unknown size';
     if (bytes < 1024) return `${bytes} B`;
     if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
     return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
@@ -161,14 +166,18 @@ const MediaGallery: React.FC = () => {
     return (
       <div className="media-gallery">
         <header className="gallery-header">
-          <button className="back-btn" onClick={() => navigate(-1)}>
+          <button
+          className="back-btn"
+          onClick={() => navigate(-1)}
+          aria-label={t('chatPage.mediaGallery.back') || 'Back'}
+        >
             <ArrowLeft size={24} />
           </button>
-          <h1>Shared Media</h1>
+          <h1>{t('chatPage.mediaGallery.title') || 'Shared Media'}</h1>
         </header>
         <div className="gallery-loading">
           <Loader2 className="spinner" size={40} />
-          <p>Loading media...</p>
+          <p>{t('chatPage.mediaGallery.loading') || 'Loading media...'}</p>
         </div>
       </div>
     );
@@ -178,16 +187,20 @@ const MediaGallery: React.FC = () => {
     return (
       <div className="media-gallery">
         <header className="gallery-header">
-          <button className="back-btn" onClick={() => navigate(-1)}>
+          <button
+          className="back-btn"
+          onClick={() => navigate(-1)}
+          aria-label={t('chatPage.mediaGallery.back') || 'Back'}
+        >
             <ArrowLeft size={24} />
           </button>
-          <h1>Shared Media</h1>
+          <h1>{t('chatPage.mediaGallery.title') || 'Shared Media'}</h1>
         </header>
         <div className="empty-state">
           <div className="empty-icon">
             <X size={48} />
           </div>
-          <p>Error loading media</p>
+          <p>{t('chatPage.mediaGallery.error') || 'Error loading media'}</p>
         </div>
       </div>
     );
@@ -197,10 +210,14 @@ const MediaGallery: React.FC = () => {
     <div className="media-gallery">
       {/* Header */}
       <header className="gallery-header">
-        <button className="back-btn" onClick={() => navigate(-1)}>
+        <button
+          className="back-btn"
+          onClick={() => navigate(-1)}
+          aria-label={t('chatPage.mediaGallery.back') || 'Back'}
+        >
           <ArrowLeft size={24} />
         </button>
-        <h1>Shared Media</h1>
+        <h1>{t('chatPage.mediaGallery.title') || 'Shared Media'}</h1>
       </header>
 
       {/* Tabs */}
@@ -210,21 +227,21 @@ const MediaGallery: React.FC = () => {
           onClick={() => setActiveTab('photos')}
         >
           <Image size={18} />
-          Photos {counts.photos > 0 && `(${counts.photos})`}
+          {t('chatPage.mediaGallery.photos') || 'Photos'} {counts.photos > 0 && `(${counts.photos})`}
         </button>
         <button
           className={`tab ${activeTab === 'videos' ? 'active' : ''}`}
           onClick={() => setActiveTab('videos')}
         >
           <Video size={18} />
-          Videos {counts.videos > 0 && `(${counts.videos})`}
+          {t('chatPage.mediaGallery.videos') || 'Videos'} {counts.videos > 0 && `(${counts.videos})`}
         </button>
         <button
           className={`tab ${activeTab === 'files' ? 'active' : ''}`}
           onClick={() => setActiveTab('files')}
         >
           <FileText size={18} />
-          Files {counts.files > 0 && `(${counts.files})`}
+          {t('chatPage.mediaGallery.files') || 'Files'} {counts.files > 0 && `(${counts.files})`}
         </button>
       </div>
 
@@ -237,7 +254,13 @@ const MediaGallery: React.FC = () => {
               {activeTab === 'videos' && <Video size={48} />}
               {activeTab === 'files' && <FileText size={48} />}
             </div>
-            <p>No {activeTab} shared yet</p>
+            <p>
+              {activeTab === 'photos'
+                ? t('chatPage.mediaGallery.emptyPhotos') || 'No photos shared yet'
+                : activeTab === 'videos'
+                ? t('chatPage.mediaGallery.emptyVideos') || 'No videos shared yet'
+                : t('chatPage.mediaGallery.emptyFiles') || 'No files shared yet'}
+            </p>
           </div>
         ) : (
           Object.entries(groupedMedia).map(([date, items]) => (
@@ -252,7 +275,7 @@ const MediaGallery: React.FC = () => {
                         <FileText size={24} />
                       </div>
                       <div className="file-info">
-                        <span className="file-name">{item.name || 'Unknown file'}</span>
+                        <span className="file-name">{item.name || t('chatPage.mediaGallery.unknownFile') || 'Unknown file'}</span>
                         <span className="file-size">{formatFileSize(item.size)}</span>
                       </div>
                       <button

@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useGetUserByIdQuery } from "../../store/slices/usersSlice";
 import { useTranslation } from "react-i18next";
 import { MessageCircle, Search, X, Plus, Sparkles } from "lucide-react";
+import { useConversationTheme } from "./lib/useConversationTheme";
 import "./MainChat.css";
 
 const MainChat: React.FC = () => {
@@ -16,6 +17,12 @@ const MainChat: React.FC = () => {
   const [initialLastActive, setInitialLastActive] = useState<string>("");
   const [searchQuery, setSearchQuery] = useState<string>("");
   const navigate = useNavigate();
+
+  // The conversation's shared wallpaper. It is one attribute, because the
+  // preset names are CSS rules (src/index.css) that re-point `--chat-bg` for
+  // everything inside the pane -- the thread, the empty state, the composer's
+  // ground -- rather than a background this component paints itself.
+  const { preset: wallpaperPreset } = useConversationTheme(userId);
 
   // Use RTK Query to fetch user info when navigating directly to chat URL
   const { data: userByIdData } = useGetUserByIdQuery(userId!, {
@@ -120,7 +127,7 @@ const MainChat: React.FC = () => {
       </div>
 
       {/* Chat Area */}
-      <div className="chat-area">
+      <div className="chat-area" data-chat-theme={wallpaperPreset}>
         {userId ? (
           <ChatContent
             selectedUser={userId}

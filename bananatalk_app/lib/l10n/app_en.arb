@@ -8418,5 +8418,23 @@
   "vocabPacksBrowse": "Browse packs",
   "@vocabPacksBrowse": {
     "description": "AI Study vocab packs card (2026-10-18)"
+  },
+  "visitorsReveal24h": "See everyone for 24 hours for {cost} 💎, or go VIP",
+  "@visitorsReveal24h": {
+    "description": "Visitors coin unlock: 24h (2026-10-18)",
+    "placeholders": {
+      "cost": {
+        "type": "int"
+      }
+    }
+  },
+  "visitorsUnlockedLeft": "Unlocked · {time} left",
+  "@visitorsUnlockedLeft": {
+    "description": "Visitors coin unlock time left (2026-10-18)",
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
   }
 }

@@ -4,6 +4,12 @@ import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { RootState } from "../../store";
 import { useGetVipStatusQuery } from "../../store/slices/usersSlice";
+import { isVipUser } from "../vip/vipStatus";
+import { VIP_PERKS, VipPerk } from "../vip/perks";
+// Not a marketing surface (this screen is behind auth, so it has no
+// placement), but the URLs it used to hard-code had drifted to a stale app
+// id and a stale package name. They come from the one source now.
+import { APP_STORE_URL, PLAY_STORE_URL } from "../../utils/platform";
 import {
   ArrowLeft,
   Crown,
@@ -13,11 +19,23 @@ import {
   Eye,
   Search,
   Ban,
-  Headphones,
   Award,
   Sparkles,
   Zap,
+  Bot,
+  Users,
+  Filter,
+  Languages,
 } from "lucide-react";
+
+const PERK_ICONS: Record<VipPerk["id"], React.ReactNode> = {
+  noAds: <Ban className="w-5 h-5" />,
+  unlimitedTutor: <Bot className="w-5 h-5" />,
+  seeAllVisitors: <Eye className="w-5 h-5" />,
+  moreMatches: <Users className="w-5 h-5" />,
+  advancedPartnerFilters: <Filter className="w-5 h-5" />,
+  unlimitedTranslations: <Sparkles className="w-5 h-5" />,
+};
 
 interface FeatureItemProps {
   icon: React.ReactNode;
@@ -46,26 +64,31 @@ const VipSettings: React.FC = () => {
   const user = userInfo?.user;
   const userId = user?._id;
 
+  // Re-read on tab return: a VIP bought in the app shows up without a reload.
   const { data: vipData, isLoading } = useGetVipStatusQuery(userId || "", {
     skip: !userId,
+    refetchOnFocus: true,
   });
 
-  const isVip = user?.userMode === "vip" || vipData?.data?.isActive;
+  const isVip = isVipUser(user, vipData);
 
+  // Only what each plan really gets (the app's list; the server's lib/tier.js
+  // gates). Messaging is free for everyone, so it is not sold as a perk.
   const freeFeatures = [
-    { icon: <MessageSquare className="w-5 h-5" />, label: t("vip.features.limitedMessages") || "Limited messages per day", included: true },
+    { icon: <MessageSquare className="w-5 h-5" />, label: t("vip.features.freeMessaging") || "Chat with language partners", included: true },
     { icon: <Eye className="w-5 h-5" />, label: t("vip.features.basicProfile") || "Basic profile", included: true },
     { icon: <Search className="w-5 h-5" />, label: t("vip.features.basicSearch") || "Basic search", included: true },
+    { icon: <Users className="w-5 h-5" />, label: t("vip.features.freeMatches") || "6 daily matches", included: true },
+    { icon: <Languages className="w-5 h-5" />, label: t("vip.features.freeTranslations") || "5 translations a day", included: true },
   ];
 
   const vipFeatures = [
-    { icon: <MessageSquare className="w-5 h-5" />, label: t("vip.features.unlimitedMessages") || "Unlimited messages", included: true },
-    { icon: <Eye className="w-5 h-5" />, label: t("vip.features.seeProfileVisitors") || "See who visited your profile", included: true },
-    { icon: <Search className="w-5 h-5" />, label: t("vip.features.advancedFilters") || "Advanced search filters", included: true },
-    { icon: <Ban className="w-5 h-5" />, label: t("vip.features.noAds") || "Ad-free experience", included: true },
-    { icon: <Headphones className="w-5 h-5" />, label: t("vip.features.prioritySupport") || "Priority support", included: true },
+    ...VIP_PERKS.map((perk) => ({
+      icon: PERK_ICONS[perk.id],
+      label: t(perk.key) || perk.fallback,
+      included: true,
+    })),
     { icon: <Award className="w-5 h-5" />, label: t("vip.features.exclusiveBadge") || "Exclusive VIP badge", included: true },
-    { icon: <Sparkles className="w-5 h-5" />, label: t("vip.features.translationFeature") || "Message translation", included: true },
   ];
 
   if (isLoading) {
@@ -189,7 +212,7 @@ const VipSettings: React.FC = () => {
             </div>
             <div className="flex gap-3">
               <a
-                href="https://apps.apple.com/app/bananatalk"
+                href={APP_STORE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex-1 bg-black text-white py-3 rounded-xl font-medium text-center hover:bg-gray-900 transition-colors flex items-center justify-center gap-2"
@@ -200,7 +223,7 @@ const VipSettings: React.FC = () => {
                 App Store
               </a>
               <a
-                href="https://play.google.com/store/apps/details?id=com.bananatalk"
+                href={PLAY_STORE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex-1 bg-black text-white py-3 rounded-xl font-medium text-center hover:bg-gray-900 transition-colors flex items-center justify-center gap-2"

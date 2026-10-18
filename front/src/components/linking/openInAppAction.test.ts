@@ -5,6 +5,15 @@ describe('appSchemeUrl', () => {
   it('builds a custom scheme url', () => {
     expect(appSchemeUrl('moment', '123')).toBe('bananatalk://moment/123');
   });
+
+  it('opens a card as the person\'s profile (the app has no card route)', () => {
+    expect(appSchemeUrl('card', 'u1')).toBe('bananatalk://profile/u1');
+  });
+
+  it('builds invite and story links', () => {
+    expect(appSchemeUrl('i', 'ABCD2345')).toBe('bananatalk://i/ABCD2345');
+    expect(appSchemeUrl('story', 's1')).toBe('bananatalk://story/s1');
+  });
 });
 
 describe('openInApp', () => {
@@ -32,7 +41,7 @@ describe('openInApp', () => {
   it('on android: falls back to play store', () => {
     const h = harness('Android', true);
     h.run();
-    expect(h.navigations[1]).toContain('play.google.com');
+    expect(h.navigations[1]).toBe(PLAY_STORE_URL);
   });
 
   it('does NOT fall back to store if app took over (page hidden)', () => {

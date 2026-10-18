@@ -4952,5 +4952,7 @@
   "perkUnlimitedTranslations": "Traductions illimitées",
   "vipMoreMatchesCta": "VIP : 15 matchs par jour",
   "vocabPacksPromo": "Des listes de mots prêtes par thème. Ajoutez-en une et apprenez un peu chaque jour.",
-  "vocabPacksBrowse": "Voir les packs"
+  "vocabPacksBrowse": "Voir les packs",
+  "visitorsReveal24h": "Voyez tout le monde pendant 24 heures pour {cost} 💎, ou passez VIP",
+  "visitorsUnlockedLeft": "Débloqué · encore {time}"
 }

@@ -12412,4 +12412,14 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get vocabPacksBrowse => 'Tingnan ang mga pack';
+
+  @override
+  String visitorsReveal24h(int cost) {
+    return 'Tingnan ang lahat nang 24 oras sa halagang $cost 💎, o mag-VIP';
+  }
+
+  @override
+  String visitorsUnlockedLeft(String time) {
+    return 'Naka-unlock · $time na lang';
+  }
 }

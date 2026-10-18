@@ -85,6 +85,13 @@ const Settings: React.FC = () => {
   const [logoutUser] = useLogoutUserMutation();
   const userInfo = useSelector((state: RootState) => state.auth.userInfo);
   const user = userInfo?.user;
+  // An account created through Google, Apple or Facebook has no password to
+  // prove, so the in-app form has nothing to check against. Those keep the
+  // email reset flow, which is also how they can set a password at all —
+  // the same split the app makes in settings.dart.
+  const signedUpSocially = Boolean(
+    user && ((user as any).googleId || (user as any).appleId || (user as any).facebookId)
+  );
 
   const handleLogout = async () => {
     try {
@@ -156,7 +163,9 @@ const Settings: React.FC = () => {
             icon={<Lock className="w-5 h-5" />}
             label={t("settings.items.changePassword") || "Change Password"}
             description={t("settings.items.changePasswordDesc") || "Update your password"}
-            onClick={() => navigate("/forgot-password")}
+            onClick={() =>
+              navigate(signedUpSocially ? "/forgot-password" : "/settings/password")
+            }
           />
           <SettingsItem
             icon={<Mail className="w-5 h-5" />}

@@ -1,5 +1,6 @@
 import React from "react";
 import { Clock, Radio, MessageCircle, GraduationCap } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { CommunityFilters } from "./lib/buildCommunityQuery";
 
 interface Me {
@@ -23,7 +24,9 @@ const CHIP_OFF = "bg-white text-gray-600 border-gray-200 hover:bg-gray-50";
 
 /**
  * Horizontal row of one-tap discovery shortcuts (App parity: partner
- * discovery quick chips). Each chip is a pure toggle over the shared filter /
+ * discovery quick chips). All four labels are translated; the two language
+ * chips interpolate `{{language}}` rather than concatenating, because the word
+ * order around a language name is not the same in every locale. Each chip is a pure toggle over the shared filter /
  * sort state — no local state, so it always reflects the applied filters.
  *
  *  - Recently Active -> sort:'recently_active'
@@ -41,6 +44,7 @@ const QuickFilterChips: React.FC<QuickFilterChipsProps> = ({
   onChange,
   onSortChange,
 }) => {
+  const { t } = useTranslation();
   const recentlyActive = sort === "recently_active";
   const onlineOnly = !!filters.onlineOnly;
   const speaksLearning =
@@ -75,7 +79,7 @@ const QuickFilterChips: React.FC<QuickFilterChipsProps> = ({
         className={`${CHIP_BASE} ${recentlyActive ? CHIP_ON : CHIP_OFF}`}
       >
         <Clock className="w-3.5 h-3.5" />
-        Recently Active
+        {t("communityMain.chips.recentlyActive") || "Recently active"}
       </button>
 
       <button
@@ -85,7 +89,7 @@ const QuickFilterChips: React.FC<QuickFilterChipsProps> = ({
         className={`${CHIP_BASE} ${onlineOnly ? CHIP_ON : CHIP_OFF}`}
       >
         <Radio className="w-3.5 h-3.5" />
-        Online Now
+        {t("communityMain.chips.onlineNow") || "Online now"}
       </button>
 
       {me.language_to_learn && (
@@ -96,7 +100,8 @@ const QuickFilterChips: React.FC<QuickFilterChipsProps> = ({
           className={`${CHIP_BASE} ${speaksLearning ? CHIP_ON : CHIP_OFF}`}
         >
           <MessageCircle className="w-3.5 h-3.5" />
-          Speaks {me.language_to_learn}
+          {t("communityMain.chips.speaks", { language: me.language_to_learn }) ||
+            `Speaks ${me.language_to_learn}`}
         </button>
       )}
 
@@ -108,7 +113,8 @@ const QuickFilterChips: React.FC<QuickFilterChipsProps> = ({
           className={`${CHIP_BASE} ${learningNative ? CHIP_ON : CHIP_OFF}`}
         >
           <GraduationCap className="w-3.5 h-3.5" />
-          Learning {me.native_language}
+          {t("communityMain.chips.learning", { language: me.native_language }) ||
+            `Learning ${me.native_language}`}
         </button>
       )}
     </div>

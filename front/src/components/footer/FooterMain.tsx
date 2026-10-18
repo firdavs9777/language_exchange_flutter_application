@@ -1,10 +1,41 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+// lucide, not bootstrap-icons: the footer renders on every prerendered
+// marketing page, and the bootstrap-icons font/stylesheet is no longer part
+// of the app at all. These seven glyphs are tree-shaken out of lucide, so
+// they cost bytes instead of a webfont.
+import {
+  Instagram,
+  Facebook,
+  Linkedin,
+  Youtube,
+  Mail,
+  MapPin,
+} from "lucide-react";
+import StoreLink from "../growth/StoreLink";
+import { openConsentManager } from "../../analytics/consent";
+import { GA_MEASUREMENT_ID } from "../../analytics/ga";
 import "./FooterMain.scss";
+import brandLogo from "../../assets/logo.png";
 
-const APP_STORE_URL = "https://apps.apple.com/us/app/bananatalk-learn-meet-or-date/id6755862146";
-const PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.bananatalk.app";
+// lucide 0.511 has no X glyph -- its `Twitter` export is still the pre-2023
+// bird, and the markup this footer replaced used `bi-twitter-x`. Rather than
+// regress that one brand mark, the logo is inlined: 24 bytes of path data,
+// sized and coloured exactly like the five lucide siblings (currentColor,
+// 18px) so `.footer-social a`'s hover rule keeps working.
+const XLogo: React.FC = () => (
+  <svg
+    width="18"
+    height="18"
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    aria-hidden="true"
+    focusable="false"
+  >
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.45-6.231Zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77Z" />
+  </svg>
+);
 
 const FooterMain: React.FC = () => {
   const { t } = useTranslation();
@@ -17,7 +48,7 @@ const FooterMain: React.FC = () => {
           {/* Brand */}
           <div className="footer-brand">
             <Link to="/" className="footer-logo">
-              <span className="footer-logo-icon">B</span>
+              <img className="footer-logo-icon" src={brandLogo} alt="" aria-hidden />
               <span className="footer-logo-text">BananaTalk</span>
             </Link>
             <p className="footer-tagline">
@@ -25,19 +56,19 @@ const FooterMain: React.FC = () => {
             </p>
             <div className="footer-social">
               <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                <i className="bi bi-instagram"></i>
+                <Instagram size={18} aria-hidden="true" />
               </a>
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
-                <i className="bi bi-twitter-x"></i>
+              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="X (formerly Twitter)">
+                <XLogo />
               </a>
               <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-                <i className="bi bi-facebook"></i>
+                <Facebook size={18} aria-hidden="true" />
               </a>
               <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                <i className="bi bi-linkedin"></i>
+                <Linkedin size={18} aria-hidden="true" />
               </a>
               <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
-                <i className="bi bi-youtube"></i>
+                <Youtube size={18} aria-hidden="true" />
               </a>
             </div>
           </div>
@@ -48,9 +79,12 @@ const FooterMain: React.FC = () => {
               <h4 className="footer-link-title">{t("footer.quickLinks")}</h4>
               <ul>
                 <li><Link to="/">{t("footer.links.home")}</Link></li>
-                <li><Link to="/communities">{t("footer.links.about")}</Link></li>
-                <li><Link to="/pricing">{t("footer.links.pricing")}</Link></li>
-                <li><Link to="/contact">{t("footer.links.contact")}</Link></li>
+                <li><Link to="/communities">{t("footer.links.communities") || "Communities"}</Link></li>
+                <li><Link to="/#pricing">{t("footer.links.pricing")}</Link></li>
+                <li><Link to="/meet">{t("footer.links.meet") || "Meet people"}</Link></li>
+                <li><Link to="/learn-korean">{t("footer.links.learnKorean") || "Learn Korean"}</Link></li>
+                <li><Link to="/download">{t("footer.links.download") || "Download the app"}</Link></li>
+                <li><Link to="/support">{t("footer.links.contact")}</Link></li>
               </ul>
             </div>
 
@@ -58,11 +92,11 @@ const FooterMain: React.FC = () => {
               <h4 className="footer-link-title">{t("footer.contactInfo")}</h4>
               <ul className="footer-contact">
                 <li>
-                  <i className="bi bi-envelope"></i>
+                  <Mail size={16} aria-hidden="true" />
                   <span>bananatalkmain@gmail.com</span>
                 </li>
                 <li>
-                  <i className="bi bi-geo-alt"></i>
+                  <MapPin size={16} aria-hidden="true" />
                   <span>{t("footer.address")}</span>
                 </li>
               </ul>
@@ -71,18 +105,8 @@ const FooterMain: React.FC = () => {
             <div className="footer-link-group">
               <h4 className="footer-link-title">{t("home.download.badge")}</h4>
               <div className="footer-app-links">
-                <a href={APP_STORE_URL} target="_blank" rel="noopener noreferrer" className="footer-store-btn">
-                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-                    <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
-                  </svg>
-                  App Store
-                </a>
-                <a href={PLAY_STORE_URL} target="_blank" rel="noopener noreferrer" className="footer-store-btn">
-                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-                    <path d="M3.18 23.77c-.35-.17-.57-.5-.6-.87L2.55 1.14c-.03-.37.14-.73.45-.93l9.55 11.25L3.18 23.77zm1.39.27l9.12-10.75 2.77 3.27-11.14 7.22c-.23.15-.49.23-.75.26zm12.88-8.44l-2.73-3.22 2.73-3.22 3.11 2.01c.72.47.72 1.23 0 1.69l-3.11 2.74zM4.57.03l11.14 7.22-2.77 3.27L3.81.77C4.04.35 4.3.14 4.57.03z"/>
-                  </svg>
-                  Google Play
-                </a>
+                <StoreLink store="ios" placement="footer" variant="badge" className="footer-store-btn" />
+                <StoreLink store="android" placement="footer" variant="badge" className="footer-store-btn" />
               </div>
             </div>
           </div>
@@ -96,6 +120,21 @@ const FooterMain: React.FC = () => {
           <div className="footer-legal">
             <Link to="/privacy-policy">Privacy Policy</Link>
             <Link to="/terms-of-use">Terms of Service</Link>
+            {/* Only where analytics actually runs. With no measurement id
+                nothing is collected, so a withdrawal control would be
+                theatre -- and the footer stays exactly as it was. The id is
+                a build-time value, identical on the server and in the
+                browser, so this is safe on the prerendered pages. */}
+            {GA_MEASUREMENT_ID ? (
+              <button
+                type="button"
+                data-testid="footer-privacy-choices"
+                className="footer-legal-button"
+                onClick={openConsentManager}
+              >
+                {t("consent.manage.privacyChoices") || "Privacy choices"}
+              </button>
+            ) : null}
           </div>
         </div>
       </div>

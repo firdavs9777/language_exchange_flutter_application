@@ -14,18 +14,19 @@
     <meta name="msapplication-TileImage" content="%PUBLIC_URL%/logo192.png" />
 
     <!-- SEO Meta Tags -->
-    <meta name="description" content="BananaTalk - Free language exchange app. Connect with native speakers worldwide and practice Korean, English, Japanese, Chinese, Spanish, French, German, Arabic, Vietnamese, Thai, Portuguese, Italian, Russian, Hindi, Turkish, Indonesian, Tagalog and 50+ more languages through real-time chat, voice messages, and interactive lessons. Available on iOS, Android &amp; Web." />
+    <meta name="description" content="BananaTalk - Free language exchange app. Connect with native speakers worldwide and practice Korean, English, Japanese, Chinese, Spanish, French, German, Arabic, Vietnamese, Thai, Portuguese, Italian, Russian, Hindi, Turkish, Indonesian, Tagalog and 137 more languages through real-time chat, voice messages, and interactive lessons. Available on iOS, Android &amp; Web." />
     <meta name="keywords" content="language exchange, language exchange app, learn languages free, language partner, speak with native speakers, conversation practice, language learning app, free language exchange, find language partner, language exchange partners online, tandem language exchange, language exchange community, make foreign friends, meet people from other countries, online language pen pal, practice speaking a language, chat with foreigners, video call language practice, Korean learning, learn Korean, English practice, Japanese learning, Chinese learning, Spanish learning, French learning, German learning, Arabic learning, Vietnamese learning, Thai learning, Portuguese learning, Italian learning, Russian learning, Hindi learning, Turkish learning, Indonesian learning, language community, 언어교환, 언어교환 앱, 외국어 공부, 言語交換, 語学交換アプリ, 语言交换, 语言交换软件, intercambio de idiomas, échange linguistique, Sprachaustausch, تبادل اللغات, BananaTalk, banana talk, bananatalk app" />
     <meta name="author" content="BananaTalk" />
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
     <meta name="googlebot" content="index, follow" />
+    <meta name="google-adsense-account" content="ca-pub-5669092242437690" />
     <link rel="canonical" href="https://banatalk.com" />
 
     <!-- Open Graph / Social Media -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://banatalk.com" />
     <meta property="og:title" content="BananaTalk - #1 Free Language Exchange App | Chat with Native Speakers Worldwide" />
-    <meta property="og:description" content="Practice Korean, English, Japanese, Chinese, Spanish, French, German, Arabic and 50+ languages with native speakers through chat, voice messages & interactive lessons. Free on iOS, Android & Web." />
+    <meta property="og:description" content="Practice Korean, English, Japanese, Chinese, Spanish, French, German, Arabic and 137 languages with native speakers through chat, voice messages & interactive lessons. Free on iOS, Android & Web." />
     <meta property="og:image" content="https://banatalk.com/og-image.png" />
     <meta property="og:image:secure_url" content="https://banatalk.com/og-image.png" />
     <meta property="og:image:type" content="image/png" />
@@ -53,8 +54,8 @@
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="BananaTalk - Free Language Exchange App | 50+ Languages" />
-    <meta name="twitter:description" content="Chat with native speakers worldwide! Learn Korean, English, Japanese, Chinese, Spanish, French & 50+ languages through real-time chat, video calls & lessons. 100% free." />
+    <meta name="twitter:title" content="BananaTalk - Free Language Exchange App | 137 Languages" />
+    <meta name="twitter:description" content="Chat with native speakers worldwide! Learn Korean, English, Japanese, Chinese, Spanish, French & 137 languages through real-time chat, video calls & lessons. 100% free." />
     <meta name="twitter:image" content="https://banatalk.com/og-image.png" />
     <meta name="twitter:image:alt" content="BananaTalk - Free Language Exchange App" />
     <meta name="twitter:site" content="@bananatalkapp" />
@@ -65,28 +66,25 @@
     <meta property="al:android:package" content="com.bananatalk.app" />
     <meta property="al:android:app_name" content="BananaTalk" />
     <meta name="apple-itunes-app" content="app-id=6755862146, app-argument=https://banatalk.com/" />
-    <meta name="google-play-app" content="app-id=com.bananatalk.app" />
-
-    <!-- Multilingual SEO -->
-    <link rel="alternate" hreflang="en" href="https://banatalk.com" />
-    <link rel="alternate" hreflang="ko" href="https://banatalk.com?lang=ko" />
-    <link rel="alternate" hreflang="zh" href="https://banatalk.com?lang=zh" />
-    <link rel="alternate" hreflang="ja" href="https://banatalk.com?lang=ja" />
-    <link rel="alternate" hreflang="es" href="https://banatalk.com?lang=es" />
-    <link rel="alternate" hreflang="fr" href="https://banatalk.com?lang=fr" />
-    <link rel="alternate" hreflang="de" href="https://banatalk.com?lang=de" />
-    <link rel="alternate" hreflang="vi" href="https://banatalk.com?lang=vi" />
-    <link rel="alternate" hreflang="th" href="https://banatalk.com?lang=th" />
-    <link rel="alternate" hreflang="ar" href="https://banatalk.com?lang=ar" />
-    <link rel="alternate" hreflang="pt" href="https://banatalk.com?lang=pt" />
-    <link rel="alternate" hreflang="hi" href="https://banatalk.com?lang=hi" />
-    <link rel="alternate" hreflang="id" href="https://banatalk.com?lang=id" />
-    <link rel="alternate" hreflang="it" href="https://banatalk.com?lang=it" />
-    <link rel="alternate" hreflang="ru" href="https://banatalk.com?lang=ru" />
-    <link rel="alternate" hreflang="tl" href="https://banatalk.com?lang=tl" />
-    <link rel="alternate" hreflang="tr" href="https://banatalk.com?lang=tr" />
-    <link rel="alternate" hreflang="zh-TW" href="https://banatalk.com?lang=zh_TW" />
-    <link rel="alternate" hreflang="x-default" href="https://banatalk.com" />
+    <!-- Point Safari's banner at this page (src/components/linking/smartBanner.ts holds the same rule; its test compares them). -->
+    <script id="smart-banner-argument">
+      (function () {
+        try {
+          var r = "https://banatalk.com/";
+          var m = /^\/(moment|profile|community|story|card|i)\/([^\/]+)\/?$/.exec(location.pathname || "");
+          var arg = r;
+          if (m) {
+            if (m[1] === "i") {
+              if (/^[A-Za-z0-9]{4,32}$/.test(m[2])) arg = r + "i/" + m[2];
+            } else if (/^[0-9a-fA-F]{24}$/.test(m[2])) {
+              arg = r + (m[1] === "card" ? "profile" : m[1]) + "/" + m[2];
+            }
+          }
+          var tag = document.querySelector("meta[name=apple-itunes-app]");
+          if (tag) tag.setAttribute("content", "app-id=6755862146, app-argument=" + arg);
+        } catch (e) {}
+      })();
+    </script>
 
     <!-- Structured Data / JSON-LD - App -->
     <script type="application/ld+json">
@@ -95,7 +93,7 @@
       "@type": "SoftwareApplication",
       "name": "BananaTalk",
       "alternateName": ["Banana Talk", "BananaTalk Language Exchange", "BananaTalk App"],
-      "description": "The #1 free language exchange app. Connect with native speakers worldwide to practice Korean, English, Japanese, Chinese, Spanish, French, German, Arabic, Vietnamese, Thai and 50+ languages through real-time chat, video calls, voice messages, and interactive lessons.",
+      "description": "The #1 free language exchange app. Connect with native speakers worldwide to practice Korean, English, Japanese, Chinese, Spanish, French, German, Arabic, Vietnamese, Thai and 137 languages through real-time chat, video calls, voice messages, and interactive lessons.",
       "url": "https://banatalk.com",
       "image": "https://banatalk.com/og-image.png",
       "applicationCategory": "EducationalApplication",
@@ -122,7 +120,7 @@
         "Video calls for language practice",
         "Voice messages and pronunciation practice",
         "Interactive language lessons",
-        "50+ languages supported",
+        "137 languages supported",
         "Find language partners worldwide",
         "Vocabulary builder and flashcards",
         "Community posts and moments",
@@ -154,7 +152,7 @@
           "name": "What is BananaTalk?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "BananaTalk is a free language exchange app that connects you with native speakers worldwide. You can practice Korean, English, Japanese, Chinese, Spanish, French, German, Arabic, Vietnamese, Thai, and 50+ other languages through real-time chat, video calls, voice messages, and interactive lessons."
+            "text": "BananaTalk is a free language exchange app that connects you with native speakers worldwide. You can practice Korean, English, Japanese, Chinese, Spanish, French, German, Arabic, Vietnamese, Thai, and 137 other languages through real-time chat, video calls, voice messages, and interactive lessons."
           }
         },
         {
@@ -170,7 +168,7 @@
           "name": "What languages can I learn on BananaTalk?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "BananaTalk supports 50+ languages including Korean, English, Japanese, Chinese (Simplified & Traditional), Spanish, French, German, Arabic, Vietnamese, Thai, Portuguese, Italian, Russian, Hindi, Turkish, Indonesian, Tagalog/Filipino, and many more."
+            "text": "BananaTalk supports 137 languages including Korean, English, Japanese, Chinese (Simplified & Traditional), Spanish, French, German, Arabic, Vietnamese, Thai, Portuguese, Italian, Russian, Hindi, Turkish, Indonesian, Tagalog/Filipino, and many more."
           }
         },
         {
@@ -212,9 +210,21 @@
     }
     </script>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <!-- No font <link>s here, and no preconnects: Inter and Plus Jakarta Sans
+         are self-hosted since task D3. They are imported by src/fonts.css
+         (which src/index.tsx loads before index.css), so their woff2 files
+         come off this origin on the connection the page already has, instead
+         of costing a DNS lookup plus a TLS handshake to googleapis.com for
+         the CSS and a second one to gstatic.com for the files.
+
+         src/fonts.css documents which weights ship and why; src/fonts.test.ts
+         asserts that neither Google host comes back into this file. -->
+    <!-- The bootstrap-icons stylesheet used to be fetched from jsdelivr right
+         here, render-blocking, on every page. Nothing renders a `bi-*` glyph
+         any more -- the last three screens that did moved to lucide with the
+         profile redesign -- so neither this link nor the on-demand import
+         that replaced it exists, and no visitor pays for the webfont or for
+         the round trip to a third-party CDN before first paint. -->
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />    <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
@@ -229,7 +239,7 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>BananaTalk - Free Language Exchange App | Chat with Native Speakers | Learn 50+ Languages</title>
+    <title>BananaTalk: Free Language Exchange App with Native Speakers</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>

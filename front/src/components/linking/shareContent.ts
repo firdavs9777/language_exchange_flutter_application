@@ -15,7 +15,11 @@ export interface ShareContentOptions {
 
 export async function shareContent(opts: ShareContentOptions): Promise<void> {
   const url = shareUrl(opts.type, opts.id);
-  const data = { title: opts.title, text: opts.text ?? opts.title, url };
+  // No `text`, even when the caller passes one. Some share targets merge it
+  // into the url, and the link that comes back is /card/<id>%20Practice...
+  // -- a page for a user whose id is a sentence. The link's own preview says
+  // what it is; `text` stays on the options so callers need not change.
+  const data = { title: opts.title, url };
   const anyNav = opts.nav as any;
   if (anyNav.share && (!anyNav.canShare || anyNav.canShare(data))) {
     await anyNav.share(data);

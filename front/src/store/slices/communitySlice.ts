@@ -9,6 +9,14 @@ import {
 } from "../../constants";
 import { apiSlice } from "./apiSlice";
 
+/**
+ * The matching engine's recommendation feed, behind `protect`.
+ * Kept local rather than in `constants.ts` because this is the only caller:
+ * `/api/v1/matching/*` is a namespace of its own, not part of the community
+ * CRUD surface the shared constants describe.
+ */
+const MATCHING_RECOMMENDATIONS_URL = "/api/v1/matching/recommendations";
+
 export const communityApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder: any) => ({
     // Accepts the flat `Record<string,string>` produced by
@@ -77,6 +85,14 @@ export const communityApiSlice = apiSlice.injectEndpoints({
         url: `${COMMUNITY_URL}/${userId}`,
       }),
       keepUnusedDataFor: 5,
+      // Tagged so followUser/unFollowUser (invalidatesTags: ["User"]) actually
+      // refetch this profile. Without it the profile page's follower count and
+      // its derived isFollowing never reconciled after a follow -- the
+      // optimistic state in ProfileActions was hiding a stale cache.
+      providesTags: (_result: any, _error: any, id: string) => [
+        { type: "User", id },
+        "User",
+      ],
     }),
     // Public counterpart of getCommunityDetails — hits the PUBLIC
     // GET /auth/users/:id/public endpoint so logged-out visitors can view a
@@ -87,18 +103,75 @@ export const communityApiSlice = apiSlice.injectEndpoints({
         url: `${COMMUNITY_URL}/${userId}/public`,
       }),
       keepUnusedDataFor: 5,
+      // The profile page reads this one (useProfileData), so it carries the
+      // same "User" tags as getCommunityDetails above -- followUser /
+      // unFollowUser invalidate "User", and without the tag the follower count
+      // and the derived isFollowing keep showing the state from before the tap.
+      providesTags: (_result: any, _error: any, id: string) => [
+        { type: "User", id },
+        "User",
+      ],
     }),
 
-    // Nearby Users (Discovery)
+    // "For you": the backend's scored recommendation feed
+    // (GET /api/v1/matching/recommendations, protected, cached 30 min
+    // server-side). Response is `{ success, count, data, cached }` and each
+    // item carries the same fields the member cards read plus `matchScore`
+    // and `matchReasons` (an array of short English reason strings).
+    //
+    // It takes no filters by design — the whole point of the tab is that the
+    // server decides — so the only argument is `limit` (default 20, capped at
+    // 50 server-side). Its own tag, not "Community": a follow or a wave
+    // invalidating the list must not throw away a 30-minute recommendation
+    // computation.
+    getRecommendations: builder.query({
+      query: ({ limit = 20 }: { limit?: number } = {}) => ({
+        url: MATCHING_RECOMMENDATIONS_URL,
+        params: { limit: String(limit) },
+      }),
+      keepUnusedDataFor: 60,
+      providesTags: ["Recommendations"],
+    }),
+
+    // "Today": the day's batch of partners (GET /api/v1/matching/daily,
+    // protected). The server picks and caches it until `nextRefreshAt`
+    // (midnight UTC) and answers 404 when DAILY_MATCHES_ENABLED is off --
+    // which the page reads as "this feature is not here", not as an error.
+    getDailyMatches: builder.query({
+      query: () => ({ url: "/api/v1/matching/daily" }),
+      keepUnusedDataFor: 60,
+    }),
+    // POST /api/v1/interactions/skip { targetUserId }. Fire-and-forget from
+    // the Today card: the card leaves at once whatever this answers.
+    skipUser: builder.mutation({
+      query: (targetUserId: string) => ({
+        url: "/api/v1/interactions/skip",
+        method: "POST",
+        body: { targetUserId },
+      }),
+    }),
+
+    // Nearby Users (Discovery). controllers/community.js getNearbyUsers reads
+    // `latitude`, `longitude`, `radius` (km), `limit` and `offset`. It never
+    // read `lat`/`lng`/`page`, so every request used to 400 and the page
+    // always said nobody was nearby. `page` stays the caller's unit and is
+    // turned into the offset here.
     getNearbyUsers: builder.query({
-      query: ({ latitude, longitude, radius = 50, page = 1, limit = 20 }: {
+      query: ({ latitude, longitude, radius = 50, page = 1, limit = 50 }: {
         latitude: number;
         longitude: number;
         radius?: number;
         page?: number;
         limit?: number;
       }) => ({
-        url: `${COMMUNITY_NEARBY}?lat=${latitude}&lng=${longitude}&radius=${radius}&page=${page}&limit=${limit}`,
+        url: COMMUNITY_NEARBY,
+        params: {
+          latitude: String(latitude),
+          longitude: String(longitude),
+          radius: String(radius),
+          limit: String(limit),
+          offset: String((Math.max(1, page) - 1) * limit),
+        },
       }),
       keepUnusedDataFor: 5,
       providesTags: ["Community"],
@@ -120,15 +193,19 @@ export const communityApiSlice = apiSlice.injectEndpoints({
       invalidatesTags: ["Community"],
     }),
     getWaves: builder.query({
-      query: ({ page = 1, limit = 20, unreadOnly, archive }: {
+      query: ({ page = 1, limit = 20, unreadOnly, archive, reveal }: {
         page?: number;
         limit?: number;
         unreadOnly?: boolean;
+        /** 7-30 days old (the main list is the last 7 days). */
         archive?: boolean;
+        /** ?reveal=1 — the app sends it while appConfig.boostsEnabled is on. */
+        reveal?: boolean;
       } = {}) => {
         let url = `${COMMUNITY_WAVES_LIST}?page=${page}&limit=${limit}`;
         if (unreadOnly) url += `&unreadOnly=${unreadOnly}`;
-        if (archive) url += `&archive=${archive}`;
+        if (archive) url += `&archive=true`;
+        if (reveal) url += `&reveal=1`;
         return { url };
       },
       providesTags: ["Community"],
@@ -149,23 +226,37 @@ export const communityApiSlice = apiSlice.injectEndpoints({
       }),
       keepUnusedDataFor: 60,
     }),
-    getUserTopics: builder.query({
-      query: (userId: string) => ({
-        url: `${COMMUNITY_TOPICS}/user/${userId}`,
-      }),
-      providesTags: ["Community"],
-    }),
+    // `PUT /api/v1/community/topics/my` with `{ topics }` -- routes/community.js
+    // and controllers/community.js `updateMyTopics`. This used to post
+    // `{ topicIds }` to `/topics/my-topics`, an endpoint the API has never
+    // had, so saving a member's topics was a 404 every time.
     updateMyTopics: builder.mutation({
       query: (topicIds: string[]) => ({
-        url: `${COMMUNITY_TOPICS}/my-topics`,
+        url: `${COMMUNITY_TOPICS}/my`,
         method: "PUT",
-        body: { topicIds },
+        body: { topics: topicIds },
       }),
-      invalidatesTags: ["Community"],
+      invalidatesTags: ["Community", "User"],
     }),
+    // `onlineOnly` is a real query param on `getTopicUsers` (it filters on the
+    // persisted isOnline flag, the same one behind the green presence dots);
+    // it is only ever sent when true so the cache key of the default list
+    // stays `?page&limit`.
     getUsersByTopic: builder.query({
-      query: ({ topicId, page = 1, limit = 20 }: { topicId: string; page?: number; limit?: number }) => ({
-        url: `${COMMUNITY_TOPICS}/${topicId}/users?page=${page}&limit=${limit}`,
+      query: ({
+        topicId,
+        page = 1,
+        limit = 20,
+        onlineOnly = false,
+      }: {
+        topicId: string;
+        page?: number;
+        limit?: number;
+        onlineOnly?: boolean;
+      }) => ({
+        url: `${COMMUNITY_TOPICS}/${topicId}/users?page=${page}&limit=${limit}${
+          onlineOnly ? "&onlineOnly=true" : ""
+        }`,
       }),
       providesTags: ["Community"],
     }),
@@ -177,52 +268,6 @@ export const communityApiSlice = apiSlice.injectEndpoints({
       }),
       keepUnusedDataFor: 300, // Cache for 5 minutes
     }),
-    updateMyLanguages: builder.mutation({
-      query: ({ native, learning }: { native: string[]; learning: string[] }) => ({
-        url: `${LANGUAGES_URL}/my-languages`,
-        method: "PUT",
-        body: { native, learning },
-      }),
-      invalidatesTags: ["User"],
-    }),
-    getUsersByLanguage: builder.query({
-      query: ({ languageCode, type = 'all', page = 1, limit = 20 }: {
-        languageCode: string;
-        type?: 'native' | 'learning' | 'all';
-        page?: number;
-        limit?: number;
-      }) => ({
-        url: `${LANGUAGES_URL}/users?language=${languageCode}&type=${type}&page=${page}&limit=${limit}`,
-      }),
-      providesTags: ["Community"],
-    }),
-
-    // Online Status
-    getOnlineUsers: builder.query({
-      query: ({ page = 1, limit = 20 } = {}) => ({
-        url: `${COMMUNITY_URL}/online?page=${page}&limit=${limit}`,
-      }),
-      keepUnusedDataFor: 30,
-      providesTags: ["Community"],
-    }),
-
-    // Recently Active
-    getRecentlyActive: builder.query({
-      query: ({ page = 1, limit = 20 } = {}) => ({
-        url: `${COMMUNITY_URL}/recently-active?page=${page}&limit=${limit}`,
-      }),
-      keepUnusedDataFor: 60,
-      providesTags: ["Community"],
-    }),
-
-    // New Users
-    getNewUsers: builder.query({
-      query: ({ page = 1, limit = 20 } = {}) => ({
-        url: `${COMMUNITY_URL}/new?page=${page}&limit=${limit}`,
-      }),
-      keepUnusedDataFor: 60,
-      providesTags: ["Community"],
-    }),
   }),
 });
 
@@ -231,6 +276,10 @@ export const {
   useGetCommunityCountQuery,
   useGetCommunityDetailsQuery,
   useGetPublicUserProfileQuery,
+  // "For you"
+  useGetRecommendationsQuery,
+  useGetDailyMatchesQuery,
+  useSkipUserMutation,
   // Nearby
   useGetNearbyUsersQuery,
   // Waves (real backend routes)
@@ -239,53 +288,9 @@ export const {
   useMarkWavesReadMutation,
   // Topics
   useGetTopicsQuery,
-  useGetUserTopicsQuery,
   useUpdateMyTopicsMutation,
   useGetUsersByTopicQuery,
   // Languages
   useGetLanguagesQuery,
-  useUpdateMyLanguagesMutation,
-  useGetUsersByLanguageQuery,
-  // Discovery
-  useGetOnlineUsersQuery,
-  useGetRecentlyActiveQuery,
-  useGetNewUsersQuery,
 } = communityApiSlice;
 export default communityApiSlice.reducer;
-
-// ---------------------------------------------------------------------------
-// Deprecated wave-hook compatibility shims
-// ---------------------------------------------------------------------------
-// `src/components/community/Waves.tsx` (pre-existing, NOT part of this task)
-// still imports `useGetReceivedWavesQuery`, `useGetSentWavesQuery`, and
-// `useRespondToWaveMutation`. Those backed `/wave/received`, `/wave/sent`,
-// `/wave/:id/respond` — routes that never existed on the backend and have
-// now been removed from this slice in favor of the real routes above
-// (`getWaves` / `markWavesRead`). The real API has no "received vs sent
-// inbox" split and no accept/decline step (a wave is auto-mutual — see
-// `isMutual` in `sendWave`'s response) — the whole Waves.tsx inbox needs a
-// redesign against the real `{data:{waves, unreadCount}}` contract, tracked
-// as a follow-up "waves-UI" task.
-//
-// These shims exist ONLY so `react-scripts build` stays green until that
-// task lands. `useGetReceivedWavesQuery`/`useGetSentWavesQuery` adapt the new
-// `{data:{waves,unreadCount}}` payload back into the old flat-array `data`
-// shape Waves.tsx expects (so `.filter`/`.map` don't runtime-crash); they do
-// NOT distinguish received vs. sent (the real endpoint returns one combined
-// list). `useRespondToWaveMutation` is aliased to `useMarkWavesReadMutation`
-// and becomes a harmless no-op when called with `{waveId, accept}` (not a
-// `string[]`, so no `waveIds` are sent) — it no longer accepts/declines
-// anything. Do NOT build new features on these; use `useGetWavesQuery` /
-// `useMarkWavesReadMutation` directly instead.
-export function useGetReceivedWavesQuery(arg?: any, options?: any) {
-  const result = useGetWavesQuery(arg, options);
-  return {
-    ...result,
-    data: result?.data
-      ? { ...result.data, data: result.data.data?.waves || [] }
-      : result?.data,
-  };
-}
-export const useGetSentWavesQuery = useGetReceivedWavesQuery;
-export const useMarkWaveReadMutation = useMarkWavesReadMutation;
-export const useRespondToWaveMutation = useMarkWavesReadMutation;

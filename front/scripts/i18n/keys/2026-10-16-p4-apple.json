@@ -1,0 +1,308 @@
+{
+  "ar": {
+    "auth": {
+      "apple": {
+        "continue": "المتابعة باستخدام Apple",
+        "errors": {
+          "banned": "تم تعليق هذا الحساب.",
+          "blocked": "حظر متصفحك نافذة Apple. اسمح بالنوافذ المنبثقة لموقع banatalk.com وحاول مرة أخرى.",
+          "disabled": "تسجيل الدخول باستخدام Apple غير متاح على الموقع بعد.",
+          "failed": "تعذّر تسجيل الدخول باستخدام Apple. حاول مرة أخرى.",
+          "rate_limited": "محاولات تسجيل دخول كثيرة جدًا. انتظر دقيقة ثم حاول مرة أخرى.",
+          "unavailable": "تسجيل الدخول باستخدام Apple غير متاح الآن. حاول مرة أخرى لاحقًا."
+        },
+        "signedIn": "تم تسجيل الدخول باستخدام Apple",
+        "signingIn": "جارٍ تسجيل الدخول باستخدام Apple…"
+      }
+    }
+  },
+  "de": {
+    "auth": {
+      "apple": {
+        "continue": "Mit Apple fortfahren",
+        "errors": {
+          "banned": "Dieses Konto wurde gesperrt.",
+          "blocked": "Dein Browser hat das Apple-Fenster blockiert. Erlaube Pop-ups für banatalk.com und versuche es erneut.",
+          "disabled": "„Mit Apple anmelden“ ist auf der Website noch nicht verfügbar.",
+          "failed": "Anmeldung mit Apple fehlgeschlagen. Versuche es erneut.",
+          "rate_limited": "Zu viele Anmeldeversuche. Warte eine Minute und versuche es erneut.",
+          "unavailable": "„Mit Apple anmelden“ ist gerade nicht verfügbar. Versuche es später noch einmal."
+        },
+        "signedIn": "Mit Apple angemeldet",
+        "signingIn": "Anmeldung mit Apple …"
+      }
+    }
+  },
+  "eng": {
+    "auth": {
+      "apple": {
+        "continue": "Continue with Apple",
+        "errors": {
+          "banned": "This account has been suspended.",
+          "blocked": "Your browser blocked the Apple window. Allow pop-ups for banatalk.com and try again.",
+          "disabled": "Sign in with Apple isn't available on the website yet.",
+          "failed": "Couldn't sign in with Apple. Try again.",
+          "rate_limited": "Too many sign-in attempts. Wait a minute and try again.",
+          "unavailable": "Sign in with Apple isn't available right now. Try again later."
+        },
+        "signedIn": "Signed in with Apple",
+        "signingIn": "Signing in with Apple…"
+      }
+    }
+  },
+  "es": {
+    "auth": {
+      "apple": {
+        "continue": "Continuar con Apple",
+        "errors": {
+          "banned": "Esta cuenta ha sido suspendida.",
+          "blocked": "Tu navegador bloqueó la ventana de Apple. Permite las ventanas emergentes para banatalk.com e inténtalo de nuevo.",
+          "disabled": "Iniciar sesión con Apple aún no está disponible en la web.",
+          "failed": "No se pudo iniciar sesión con Apple. Inténtalo de nuevo.",
+          "rate_limited": "Demasiados intentos de inicio de sesión. Espera un minuto e inténtalo de nuevo.",
+          "unavailable": "Iniciar sesión con Apple no está disponible ahora. Inténtalo más tarde."
+        },
+        "signedIn": "Sesión iniciada con Apple",
+        "signingIn": "Iniciando sesión con Apple…"
+      }
+    }
+  },
+  "fr": {
+    "auth": {
+      "apple": {
+        "continue": "Continuer avec Apple",
+        "errors": {
+          "banned": "Ce compte a été suspendu.",
+          "blocked": "Votre navigateur a bloqué la fenêtre Apple. Autorisez les fenêtres pop-up pour banatalk.com et réessayez.",
+          "disabled": "La connexion avec Apple n'est pas encore disponible sur le site.",
+          "failed": "Impossible de se connecter avec Apple. Réessayez.",
+          "rate_limited": "Trop de tentatives de connexion. Patientez une minute et réessayez.",
+          "unavailable": "La connexion avec Apple n'est pas disponible pour le moment. Réessayez plus tard."
+        },
+        "signedIn": "Connecté avec Apple",
+        "signingIn": "Connexion avec Apple…"
+      }
+    }
+  },
+  "hi": {
+    "auth": {
+      "apple": {
+        "continue": "Apple के साथ जारी रखें",
+        "errors": {
+          "banned": "यह खाता निलंबित कर दिया गया है।",
+          "blocked": "आपके ब्राउज़र ने Apple विंडो ब्लॉक कर दी। banatalk.com के लिए पॉप-अप की अनुमति दें और फिर से कोशिश करें।",
+          "disabled": "Apple से साइन इन अभी वेबसाइट पर उपलब्ध नहीं है।",
+          "failed": "Apple से साइन इन नहीं हो सका। फिर से कोशिश करें।",
+          "rate_limited": "साइन इन के बहुत अधिक प्रयास। एक मिनट रुकें और फिर से कोशिश करें।",
+          "unavailable": "Apple से साइन इन अभी उपलब्ध नहीं है। बाद में फिर से कोशिश करें।"
+        },
+        "signedIn": "Apple से साइन इन हो गया",
+        "signingIn": "Apple से साइन इन हो रहा है…"
+      }
+    }
+  },
+  "id": {
+    "auth": {
+      "apple": {
+        "continue": "Lanjutkan dengan Apple",
+        "errors": {
+          "banned": "Akun ini telah ditangguhkan.",
+          "blocked": "Browser Anda memblokir jendela Apple. Izinkan pop-up untuk banatalk.com lalu coba lagi.",
+          "disabled": "Masuk dengan Apple belum tersedia di situs web.",
+          "failed": "Tidak dapat masuk dengan Apple. Coba lagi.",
+          "rate_limited": "Terlalu banyak percobaan masuk. Tunggu satu menit lalu coba lagi.",
+          "unavailable": "Masuk dengan Apple sedang tidak tersedia. Coba lagi nanti."
+        },
+        "signedIn": "Berhasil masuk dengan Apple",
+        "signingIn": "Masuk dengan Apple…"
+      }
+    }
+  },
+  "it": {
+    "auth": {
+      "apple": {
+        "continue": "Continua con Apple",
+        "errors": {
+          "banned": "Questo account è stato sospeso.",
+          "blocked": "Il browser ha bloccato la finestra di Apple. Consenti i pop-up per banatalk.com e riprova.",
+          "disabled": "L'accesso con Apple non è ancora disponibile sul sito.",
+          "failed": "Impossibile accedere con Apple. Riprova.",
+          "rate_limited": "Troppi tentativi di accesso. Attendi un minuto e riprova.",
+          "unavailable": "L'accesso con Apple non è disponibile al momento. Riprova più tardi."
+        },
+        "signedIn": "Accesso effettuato con Apple",
+        "signingIn": "Accesso con Apple…"
+      }
+    }
+  },
+  "ja": {
+    "auth": {
+      "apple": {
+        "continue": "Appleで続ける",
+        "errors": {
+          "banned": "このアカウントは停止されています。",
+          "blocked": "ブラウザがAppleのウィンドウをブロックしました。banatalk.comのポップアップを許可して、もう一度お試しください。",
+          "disabled": "Appleでサインインはまだウェブサイトでご利用いただけません。",
+          "failed": "Appleでサインインできませんでした。もう一度お試しください。",
+          "rate_limited": "サインインの試行回数が多すぎます。1分ほど待ってからもう一度お試しください。",
+          "unavailable": "現在Appleでサインインをご利用いただけません。しばらくしてからもう一度お試しください。"
+        },
+        "signedIn": "Appleでサインインしました",
+        "signingIn": "Appleでサインイン中…"
+      }
+    }
+  },
+  "kor": {
+    "auth": {
+      "apple": {
+        "continue": "Apple로 계속하기",
+        "errors": {
+          "banned": "이 계정은 정지되었습니다.",
+          "blocked": "브라우저가 Apple 창을 차단했습니다. banatalk.com의 팝업을 허용한 뒤 다시 시도해 주세요.",
+          "disabled": "Apple로 로그인은 아직 웹사이트에서 사용할 수 없습니다.",
+          "failed": "Apple로 로그인하지 못했습니다. 다시 시도해 주세요.",
+          "rate_limited": "로그인 시도가 너무 많습니다. 1분 후에 다시 시도해 주세요.",
+          "unavailable": "지금은 Apple로 로그인을 사용할 수 없습니다. 잠시 후 다시 시도해 주세요."
+        },
+        "signedIn": "Apple로 로그인했습니다",
+        "signingIn": "Apple로 로그인 중…"
+      }
+    }
+  },
+  "pt": {
+    "auth": {
+      "apple": {
+        "continue": "Continuar com a Apple",
+        "errors": {
+          "banned": "Esta conta foi suspensa.",
+          "blocked": "Seu navegador bloqueou a janela da Apple. Permita pop-ups para banatalk.com e tente novamente.",
+          "disabled": "Entrar com a Apple ainda não está disponível no site.",
+          "failed": "Não foi possível entrar com a Apple. Tente novamente.",
+          "rate_limited": "Muitas tentativas de login. Aguarde um minuto e tente novamente.",
+          "unavailable": "Entrar com a Apple não está disponível no momento. Tente novamente mais tarde."
+        },
+        "signedIn": "Você entrou com a Apple",
+        "signingIn": "Entrando com a Apple…"
+      }
+    }
+  },
+  "ru": {
+    "auth": {
+      "apple": {
+        "continue": "Продолжить с Apple",
+        "errors": {
+          "banned": "Этот аккаунт заблокирован.",
+          "blocked": "Браузер заблокировал окно Apple. Разрешите всплывающие окна для banatalk.com и попробуйте снова.",
+          "disabled": "Вход через Apple пока недоступен на сайте.",
+          "failed": "Не удалось войти через Apple. Попробуйте снова.",
+          "rate_limited": "Слишком много попыток входа. Подождите минуту и попробуйте снова.",
+          "unavailable": "Вход через Apple сейчас недоступен. Попробуйте позже."
+        },
+        "signedIn": "Вы вошли через Apple",
+        "signingIn": "Вход через Apple…"
+      }
+    }
+  },
+  "th": {
+    "auth": {
+      "apple": {
+        "continue": "ดำเนินการต่อด้วย Apple",
+        "errors": {
+          "banned": "บัญชีนี้ถูกระงับแล้ว",
+          "blocked": "เบราว์เซอร์ของคุณบล็อกหน้าต่าง Apple โปรดอนุญาตป๊อปอัปสำหรับ banatalk.com แล้วลองอีกครั้ง",
+          "disabled": "การลงชื่อเข้าด้วย Apple ยังไม่พร้อมใช้งานบนเว็บไซต์",
+          "failed": "ไม่สามารถลงชื่อเข้าด้วย Apple ได้ โปรดลองอีกครั้ง",
+          "rate_limited": "พยายามลงชื่อเข้าหลายครั้งเกินไป โปรดรอสักครู่แล้วลองอีกครั้ง",
+          "unavailable": "การลงชื่อเข้าด้วย Apple ไม่พร้อมใช้งานในขณะนี้ โปรดลองอีกครั้งภายหลัง"
+        },
+        "signedIn": "ลงชื่อเข้าด้วย Apple แล้ว",
+        "signingIn": "กำลังลงชื่อเข้าด้วย Apple…"
+      }
+    }
+  },
+  "tl": {
+    "auth": {
+      "apple": {
+        "continue": "Magpatuloy gamit ang Apple",
+        "errors": {
+          "banned": "Sinuspinde ang account na ito.",
+          "blocked": "Hinarangan ng browser mo ang window ng Apple. Payagan ang mga pop-up para sa banatalk.com at subukan ulit.",
+          "disabled": "Hindi pa available sa website ang Sign in with Apple.",
+          "failed": "Hindi makapag-sign in gamit ang Apple. Subukan ulit.",
+          "rate_limited": "Masyadong maraming pagtatangkang mag-sign in. Maghintay ng isang minuto at subukan ulit.",
+          "unavailable": "Hindi available ngayon ang Sign in with Apple. Subukan ulit mamaya."
+        },
+        "signedIn": "Naka-sign in gamit ang Apple",
+        "signingIn": "Nagsa-sign in gamit ang Apple…"
+      }
+    }
+  },
+  "tr": {
+    "auth": {
+      "apple": {
+        "continue": "Apple ile devam et",
+        "errors": {
+          "banned": "Bu hesap askıya alındı.",
+          "blocked": "Tarayıcınız Apple penceresini engelledi. banatalk.com için açılır pencerelere izin verin ve tekrar deneyin.",
+          "disabled": "Apple ile giriş henüz web sitesinde kullanılamıyor.",
+          "failed": "Apple ile giriş yapılamadı. Tekrar deneyin.",
+          "rate_limited": "Çok fazla giriş denemesi. Bir dakika bekleyip tekrar deneyin.",
+          "unavailable": "Apple ile giriş şu anda kullanılamıyor. Daha sonra tekrar deneyin."
+        },
+        "signedIn": "Apple ile giriş yapıldı",
+        "signingIn": "Apple ile giriş yapılıyor…"
+      }
+    }
+  },
+  "vi": {
+    "auth": {
+      "apple": {
+        "continue": "Tiếp tục với Apple",
+        "errors": {
+          "banned": "Tài khoản này đã bị đình chỉ.",
+          "blocked": "Trình duyệt đã chặn cửa sổ Apple. Hãy cho phép cửa sổ bật lên cho banatalk.com rồi thử lại.",
+          "disabled": "Đăng nhập bằng Apple chưa có trên trang web.",
+          "failed": "Không thể đăng nhập bằng Apple. Hãy thử lại.",
+          "rate_limited": "Quá nhiều lần đăng nhập. Hãy đợi một phút rồi thử lại.",
+          "unavailable": "Đăng nhập bằng Apple hiện không khả dụng. Hãy thử lại sau."
+        },
+        "signedIn": "Đã đăng nhập bằng Apple",
+        "signingIn": "Đang đăng nhập bằng Apple…"
+      }
+    }
+  },
+  "zh_TW": {
+    "auth": {
+      "apple": {
+        "continue": "透過 Apple 繼續",
+        "errors": {
+          "banned": "此帳號已被停權。",
+          "blocked": "瀏覽器封鎖了 Apple 視窗。請允許 banatalk.com 的彈出式視窗後再試一次。",
+          "disabled": "網站尚未支援「透過 Apple 登入」。",
+          "failed": "無法透過 Apple 登入，請再試一次。",
+          "rate_limited": "登入嘗試次數過多，請等待一分鐘後再試。",
+          "unavailable": "目前無法使用「透過 Apple 登入」，請稍後再試。"
+        },
+        "signedIn": "已透過 Apple 登入",
+        "signingIn": "正在透過 Apple 登入…"
+      }
+    }
+  },
+  "zho": {
+    "auth": {
+      "apple": {
+        "continue": "通过 Apple 继续",
+        "errors": {
+          "banned": "此账号已被封禁。",
+          "blocked": "浏览器拦截了 Apple 窗口。请允许 banatalk.com 的弹出窗口后重试。",
+          "disabled": "网站暂不支持“通过 Apple 登录”。",
+          "failed": "无法通过 Apple 登录，请重试。",
+          "rate_limited": "登录尝试次数过多，请等待一分钟后再试。",
+          "unavailable": "“通过 Apple 登录”目前不可用，请稍后再试。"
+        },
+        "signedIn": "已通过 Apple 登录",
+        "signingIn": "正在通过 Apple 登录…"
+      }
+    }
+  }
+}

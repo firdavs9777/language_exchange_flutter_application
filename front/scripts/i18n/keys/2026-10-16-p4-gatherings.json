@@ -1,0 +1,4310 @@
+{
+  "ar": {
+    "clubs": {
+      "card": {
+        "joined": "عضو",
+        "members_zero": "{{count}} عضو",
+        "members_one": "{{count}} عضو",
+        "members_two": "{{count}} عضو",
+        "members_few": "{{count}} أعضاء",
+        "members_many": "{{count}} عضوًا",
+        "members_other": "{{count}} عضو"
+      },
+      "detail": {
+        "back": "عرض نوادٍ أخرى",
+        "edit": "تعديل النادي",
+        "host": "نظّم لقاءً لهذا النادي",
+        "join": "الانضمام إلى النادي",
+        "leave": "مغادرة النادي",
+        "leaveTitle": "مغادرة هذا النادي؟",
+        "metTimes_zero": "التقى {{count}} مرة",
+        "metTimes_one": "التقى مرة واحدة",
+        "metTimes_two": "التقى {{count}} مرة",
+        "metTimes_few": "التقى {{count}} مرات",
+        "metTimes_many": "التقى {{count}} مرة",
+        "metTimes_other": "التقى {{count}} مرة",
+        "neverMet": "لم يلتقِ بعد",
+        "noGatherings": "لا يوجد شيء مجدول بعد.",
+        "upcoming": "القادم",
+        "youOwn": "أنت مالك هذا النادي"
+      },
+      "form": {
+        "city": "المدينة (اختياري)",
+        "create": "إنشاء النادي",
+        "createTitle": "نادٍ جديد",
+        "description": "عن النادي (اختياري)",
+        "editTitle": "تعديل النادي",
+        "errors": {
+          "descriptionTooLong": "اجعل الوصف أقل من 2000 حرف.",
+          "interestTooLong": "اجعل الاهتمام أقل من 60 حرفًا.",
+          "languageRequired": "اختر لغة النادي.",
+          "nameRequired": "اختر اسمًا لناديك.",
+          "nameTooLong": "اجعل الاسم أقل من 80 حرفًا."
+        },
+        "interest": "ما الذي يجمعكم (مثل الكتب، الدراما الكورية)",
+        "language": "اللغة",
+        "name": "الاسم",
+        "notAllowed": "لا يمكن تعديل النادي إلا لمالكه أو أحد المنظمين.",
+        "placeAddress": "العنوان (اختياري)",
+        "placeName": "مكان اللقاء (اختياري)"
+      },
+      "home": {
+        "empty": "لا توجد نوادٍ هنا بعد.",
+        "scopeAll": "الكل",
+        "scopeMember": "المنضم إليها",
+        "scopeMine": "لغاتي",
+        "start": "أنشئ ناديًا"
+      },
+      "owner": {
+        "delete": "حذف النادي",
+        "deleteBody": "سيفقد الأعضاء النادي. ستُقام اللقاءات المجدولة مسبقًا كما هي.",
+        "deleteTitle": "حذف {{name}}؟"
+      },
+      "people": {
+        "makeMember": "إزالة دور المنظّم",
+        "makeOrganizer": "تعيين منظّمًا",
+        "organizer": "منظّم",
+        "owner": "المالك",
+        "remove": "إزالة من النادي",
+        "removeTitle": "إزالة {{name}}؟",
+        "title": "الأعضاء · {{count}}"
+      }
+    },
+    "gatherings": {
+      "card": {
+        "approval": "بموافقة المضيف",
+        "full": "مكتمل",
+        "going": "ستحضر",
+        "hostedBy": "ينظّمه {{name}}",
+        "hosting": "أنت المضيف",
+        "requested": "تم إرسال الطلب",
+        "seatsLeft_zero": "تبقّى {{count}} مقعد",
+        "seatsLeft_one": "تبقّى {{count}} مقعد",
+        "seatsLeft_two": "تبقّى {{count}} مقعد",
+        "seatsLeft_few": "تبقّت {{count}} مقاعد",
+        "seatsLeft_many": "تبقّى {{count}} مقعدًا",
+        "seatsLeft_other": "تبقّى {{count}} مقعد"
+      },
+      "confirm": {
+        "cancel": "ليس الآن",
+        "leaveBody": "الآخرون يعتمدون على من وافقوا على الحضور.",
+        "leaveOk": "التخلي عن مقعدي",
+        "leaveTitle": "هل تتخلى عن مقعدك؟"
+      },
+      "cover": {
+        "add": "إضافة صورة غلاف",
+        "badType": "استخدم صورة بصيغة JPEG أو PNG أو GIF أو WebP.",
+        "change": "تغيير صورة الغلاف",
+        "remove": "إزالة الغلاف",
+        "tooBig": "حجم هذه الصورة أكبر من 10 ميغابايت."
+      },
+      "detail": {
+        "askToJoin": "اطلب الانضمام",
+        "back": "عرض لقاءات أخرى",
+        "cancelRequest": "إلغاء طلبي",
+        "capacity": "حتى {{count}} أشخاص · يتأكد عند {{quorum}}",
+        "duration": "{{count}} د",
+        "edit": "تعديل اللقاء",
+        "host": "المضيف",
+        "join": "سأحضر",
+        "leave": "لم أعد أستطيع الحضور",
+        "online": "عبر الإنترنت",
+        "requestSent": "تم إرسال الطلب — القرار للمضيف.",
+        "someone": "عضو في BananaTalk",
+        "youreGoing": "ستحضر."
+      },
+      "errors": {
+        "alreadyGoing": "أنت مسجّل للحضور بالفعل.",
+        "cancelled": "أُلغي هذا اللقاء.",
+        "capacityBelowGoing": "لا يمكن أن يقل عدد المقاعد عن {{count}} شخصًا سيحضرون بالفعل.",
+        "clubArchived": "هذا النادي مؤرشف.",
+        "clubGone": "هذا النادي غير متاح.",
+        "endBeforeStart": "يمكنك إنهاء اللقاء بعد أن يبدأ.",
+        "ended": "انتهى هذا اللقاء.",
+        "full": "هذا اللقاء مكتمل.",
+        "gatheringGone": "هذا اللقاء غير متاح.",
+        "generic": "حدث خطأ ما. حاول مرة أخرى.",
+        "hostBlocked": "لا يمكنك تنظيم لقاءات حاليًا: أُلغي أو فات الكثير من لقاءاتك.",
+        "hostCannotLeave": "بصفتك المضيف، ألغِ اللقاء بدلًا من مغادرته.",
+        "joinClubFirst": "انضم إلى النادي قبل تنظيم لقاء له.",
+        "offline": "أنت غير متصل. تحقق من اتصالك.",
+        "ownerCannotLeave": "بصفتك المالك، يمكنك حذف النادي لكن لا يمكنك مغادرته.",
+        "pastStart": "اختر وقت بدء في المستقبل.",
+        "pending": "طلبك بانتظار قرار المضيف.",
+        "started": "بدأ هذا اللقاء بالفعل."
+      },
+      "form": {
+        "anyLevel": "أي مستوى",
+        "cancel": "إلغاء",
+        "capacity": "المقاعد",
+        "create": "نشر اللقاء",
+        "createTitle": "نظّم لقاءً",
+        "description": "ماذا ستفعلون؟ (اختياري)",
+        "duration_zero": "المدة {{count}} دقيقة · بتوقيتك المحلي",
+        "duration_one": "المدة {{count}} دقيقة · بتوقيتك المحلي",
+        "duration_two": "المدة {{count}} دقيقة · بتوقيتك المحلي",
+        "duration_few": "المدة {{count}} دقائق · بتوقيتك المحلي",
+        "duration_many": "المدة {{count}} دقيقة · بتوقيتك المحلي",
+        "duration_other": "المدة {{count}} دقيقة · بتوقيتك المحلي",
+        "editTitle": "تعديل اللقاء",
+        "errors": {
+          "capacityRange": "يجب أن يكون عدد المقاعد بين 2 و20.",
+          "descriptionTooLong": "اجعل الوصف أقل من 2000 حرف.",
+          "languageRequired": "اختر اللغة التي ستتدرب عليها.",
+          "quorumRange": "يتأكد اللقاء عند شخصين أو أكثر، وبما لا يتجاوز عدد المقاعد.",
+          "startInPast": "اختر وقت بدء في المستقبل.",
+          "startRequired": "اختر يومًا ووقتًا.",
+          "startTooFar": "اختر وقتًا خلال الأيام الـ90 القادمة.",
+          "titleRequired": "اختر عنوانًا للقائك.",
+          "titleTooLong": "اجعل العنوان أقل من 120 حرفًا."
+        },
+        "joinApproval": "أوافق على كل شخص بنفسي",
+        "joinMode": "من يمكنه الانضمام",
+        "joinOpen": "أي شخص",
+        "language": "اللغة",
+        "level": "المستوى",
+        "noTopic": "بلا موضوع",
+        "notHost": "لا يمكن تعديل هذا اللقاء إلا للمضيف.",
+        "pickLanguage": "اختر لغة",
+        "quorum": "يتأكد عند",
+        "save": "حفظ",
+        "startsAt": "يبدأ",
+        "title": "العنوان",
+        "topic": "الموضوع"
+      },
+      "home": {
+        "anyLanguage": "لغاتي",
+        "anyTime": "أي وقت",
+        "anyTopic": "أي موضوع",
+        "empty": "لا يوجد شيء مجدول هنا بعد.",
+        "emptyCta": "نظّم أول لقاء",
+        "error": "تعذّر تحميل هذه القائمة.",
+        "hasSeat": "فيه مقعد شاغر",
+        "host": "نظّم لقاءً",
+        "language": "اللغة",
+        "loadMore": "تحميل المزيد",
+        "retry": "حاول مرة أخرى",
+        "scopeAll": "الكل",
+        "scopeMe": "لقاءاتي",
+        "scopeMine": "لغاتي",
+        "tabClubs": "النوادي",
+        "tabGatherings": "اللقاءات",
+        "title": "اللقاءات",
+        "today": "اليوم",
+        "topic": "الموضوع",
+        "week": "هذا الأسبوع",
+        "when": "متى"
+      },
+      "host": {
+        "approve": "قبول",
+        "callOff": "ألغِه",
+        "callOffTitle": "إلغاء اللقاء؟",
+        "cancel": "إلغاء اللقاء",
+        "cancelConfirm_zero": "هناك {{count}} شخص ينتظرون هذا اللقاء، وسنبلغهم بالإلغاء.",
+        "cancelConfirm_one": "هناك {{count}} شخص ينتظر هذا اللقاء، وسنبلغه بالإلغاء.",
+        "cancelConfirm_two": "هناك {{count}} شخص ينتظران هذا اللقاء، وسنبلغهما بالإلغاء.",
+        "cancelConfirm_few": "هناك {{count}} أشخاص ينتظرون هذا اللقاء، وسنبلغهم بالإلغاء.",
+        "cancelConfirm_many": "هناك {{count}} شخصًا ينتظرون هذا اللقاء، وسنبلغهم بالإلغاء.",
+        "cancelConfirm_other": "هناك {{count}} شخص ينتظرون هذا اللقاء، وسنبلغهم بالإلغاء.",
+        "cancelOk": "إلغاء اللقاء",
+        "cancelTitle": "إلغاء هذا اللقاء؟",
+        "decisionAlone": "حتى الآن أنت وحدك. هل تقيمه على أي حال أم تلغيه؟",
+        "decision_zero": "حتى الآن {{count}} شخص فقط. هل تقيمه على أي حال أم تلغيه؟",
+        "decision_one": "حتى الآن {{count}} شخص فقط. هل تقيمه على أي حال أم تلغيه؟",
+        "decision_two": "حتى الآن {{count}} شخص فقط. هل تقيمه على أي حال أم تلغيه؟",
+        "decision_few": "حتى الآن {{count}} أشخاص فقط. هل تقيمه على أي حال أم تلغيه؟",
+        "decision_many": "حتى الآن {{count}} شخصًا فقط. هل تقيمه على أي حال أم تلغيه؟",
+        "decision_other": "حتى الآن {{count}} شخص فقط. هل تقيمه على أي حال أم تلغيه؟",
+        "decline": "رفض",
+        "end": "إنهاء اللقاء",
+        "ended": "انتهى — مراسلة من التقيت بهم مجانية",
+        "nobodyExpecting": "لم يوافق أحد غيرك على الحضور بعد.",
+        "requests_zero": "{{count}} في انتظار الانضمام",
+        "requests_one": "{{count}} في انتظار الانضمام",
+        "requests_two": "{{count}} في انتظار الانضمام",
+        "requests_few": "{{count}} في انتظار الانضمام",
+        "requests_many": "{{count}} في انتظار الانضمام",
+        "requests_other": "{{count}} في انتظار الانضمام",
+        "runAnyway": "أقِمه على أي حال"
+      },
+      "nav": "اللقاءات",
+      "quorum": {
+        "confirmed": "مؤكَّد · {{count}} سيحضرون",
+        "needed": "يلزم {{count}} إضافيون للتأكيد · {{going}} سيحضرون"
+      },
+      "safety": {
+        "blockHost": "حظر المضيف",
+        "blockOwner": "حظر المالك",
+        "more": "المزيد",
+        "reportClub": "الإبلاغ عن النادي",
+        "reportFailed": "تعذّر إرسال البلاغ. حاول مرة أخرى.",
+        "reportGathering": "الإبلاغ عن اللقاء",
+        "reported": "شكرًا — سيراجعه فريق الإشراف."
+      },
+      "status": {
+        "cancelled": "أُلغي",
+        "confirmed": "مؤكَّد",
+        "ended": "انتهى",
+        "live": "جارٍ الآن",
+        "scheduled": "مجدول"
+      },
+      "time": {
+        "hostLocal": "{{time}} بتوقيت المضيف"
+      },
+      "topics": {
+        "business": "الأعمال",
+        "conversation": "المحادثة",
+        "culture": "الثقافة",
+        "exam_prep": "التحضير للامتحانات",
+        "games": "الألعاب",
+        "grammar": "القواعد",
+        "media": "الموسيقى والأفلام والتلفزيون",
+        "pronunciation": "النطق",
+        "travel": "السفر"
+      }
+    }
+  },
+  "de": {
+    "clubs": {
+      "card": {
+        "joined": "Beigetreten",
+        "members_one": "{{count}} Mitglied",
+        "members_other": "{{count}} Mitglieder"
+      },
+      "detail": {
+        "back": "Andere Clubs ansehen",
+        "edit": "Club bearbeiten",
+        "host": "Treffen für diesen Club veranstalten",
+        "join": "Club beitreten",
+        "leave": "Club verlassen",
+        "leaveTitle": "Diesen Club verlassen?",
+        "metTimes_one": "Einmal getroffen",
+        "metTimes_other": "{{count}}-mal getroffen",
+        "neverMet": "Noch keine Treffen",
+        "noGatherings": "Noch ist nichts geplant.",
+        "upcoming": "Demnächst",
+        "youOwn": "Dir gehört dieser Club"
+      },
+      "form": {
+        "city": "Stadt (optional)",
+        "create": "Club erstellen",
+        "createTitle": "Club gründen",
+        "description": "Über den Club (optional)",
+        "editTitle": "Club bearbeiten",
+        "errors": {
+          "descriptionTooLong": "Die Beschreibung darf höchstens 2000 Zeichen lang sein.",
+          "interestTooLong": "Das Interesse darf höchstens 60 Zeichen lang sein.",
+          "languageRequired": "Wähle die Sprache des Clubs.",
+          "nameRequired": "Gib deinem Club einen Namen.",
+          "nameTooLong": "Der Name darf höchstens 80 Zeichen lang sein."
+        },
+        "interest": "Was euch verbindet (z. B. Bücher, K-Dramas)",
+        "language": "Sprache",
+        "name": "Name",
+        "notAllowed": "Nur der Inhaber oder ein Organisator kann den Club bearbeiten.",
+        "placeAddress": "Adresse (optional)",
+        "placeName": "Wo ihr euch trefft (optional)"
+      },
+      "home": {
+        "empty": "Hier gibt es noch keine Clubs.",
+        "scopeAll": "Alle",
+        "scopeMember": "Beigetreten",
+        "scopeMine": "Meine Sprachen",
+        "start": "Club gründen"
+      },
+      "owner": {
+        "delete": "Club löschen",
+        "deleteBody": "Die Mitglieder verlieren den Club. Bereits geplante Treffen finden trotzdem statt.",
+        "deleteTitle": "{{name}} löschen?"
+      },
+      "people": {
+        "makeMember": "Organisator entfernen",
+        "makeOrganizer": "Zum Organisator machen",
+        "organizer": "Organisator",
+        "owner": "Inhaber",
+        "remove": "Aus dem Club entfernen",
+        "removeTitle": "{{name}} entfernen?",
+        "title": "Mitglieder · {{count}}"
+      }
+    },
+    "gatherings": {
+      "card": {
+        "approval": "Gastgeber bestätigt",
+        "full": "Voll",
+        "going": "Dabei",
+        "hostedBy": "Veranstaltet von {{name}}",
+        "hosting": "Du bist Gastgeber",
+        "requested": "Angefragt",
+        "seatsLeft_one": "Noch {{count}} Platz frei",
+        "seatsLeft_other": "Noch {{count}} Plätze frei"
+      },
+      "confirm": {
+        "cancel": "Jetzt nicht",
+        "leaveBody": "Die anderen zählen auf alle, die zugesagt haben.",
+        "leaveOk": "Platz freigeben",
+        "leaveTitle": "Deinen Platz freigeben?"
+      },
+      "cover": {
+        "add": "Titelbild hinzufügen",
+        "badType": "Verwende ein JPEG-, PNG-, GIF- oder WebP-Bild.",
+        "change": "Titelbild ändern",
+        "remove": "Titelbild entfernen",
+        "tooBig": "Das Bild ist größer als 10 MB."
+      },
+      "detail": {
+        "askToJoin": "Teilnahme anfragen",
+        "back": "Andere Treffen ansehen",
+        "cancelRequest": "Anfrage zurückziehen",
+        "capacity": "Bis zu {{count}} Personen · bestätigt ab {{quorum}}",
+        "duration": "{{count}} Min.",
+        "edit": "Treffen bearbeiten",
+        "host": "Gastgeber",
+        "join": "Ich bin dabei",
+        "leave": "Ich kann doch nicht",
+        "online": "Online",
+        "requestSent": "Anfrage gesendet. Der Gastgeber entscheidet.",
+        "someone": "Ein BananaTalk-Mitglied",
+        "youreGoing": "Du bist dabei."
+      },
+      "errors": {
+        "alreadyGoing": "Du bist schon dabei.",
+        "cancelled": "Dieses Treffen wurde abgesagt.",
+        "capacityBelowGoing": "Die Platzzahl darf nicht unter den {{count}} Personen liegen, die schon zugesagt haben.",
+        "clubArchived": "Dieser Club ist archiviert.",
+        "clubGone": "Dieser Club ist nicht verfügbar.",
+        "endBeforeStart": "Du kannst das Treffen erst beenden, wenn es begonnen hat.",
+        "ended": "Dieses Treffen ist beendet.",
+        "full": "Dieses Treffen ist voll.",
+        "gatheringGone": "Dieses Treffen ist nicht verfügbar.",
+        "generic": "Etwas ist schiefgelaufen. Versuch es noch einmal.",
+        "hostBlocked": "Du kannst gerade keine Treffen veranstalten: Zu viele deiner Treffen wurden abgesagt oder verpasst.",
+        "hostCannotLeave": "Als Gastgeber sagst du das Treffen ab, statt es zu verlassen.",
+        "joinClubFirst": "Tritt dem Club bei, bevor du für ihn ein Treffen veranstaltest.",
+        "offline": "Du bist offline. Prüfe deine Verbindung.",
+        "ownerCannotLeave": "Als Inhaber kannst du den Club löschen, aber nicht verlassen.",
+        "pastStart": "Wähle eine Startzeit in der Zukunft.",
+        "pending": "Deine Anfrage wartet auf den Gastgeber.",
+        "started": "Dieses Treffen hat schon begonnen."
+      },
+      "form": {
+        "anyLevel": "Jedes Niveau",
+        "cancel": "Abbrechen",
+        "capacity": "Plätze",
+        "create": "Treffen veröffentlichen",
+        "createTitle": "Treffen veranstalten",
+        "description": "Was habt ihr vor? (optional)",
+        "duration_one": "Dauert {{count}} Minute · in deiner Zeitzone",
+        "duration_other": "Dauert {{count}} Minuten · in deiner Zeitzone",
+        "editTitle": "Treffen bearbeiten",
+        "errors": {
+          "capacityRange": "Es müssen zwischen 2 und 20 Plätze sein.",
+          "descriptionTooLong": "Die Beschreibung darf höchstens 2000 Zeichen lang sein.",
+          "languageRequired": "Wähle die Sprache, die ihr übt.",
+          "quorumRange": "Das Treffen wird ab 2 Personen bestätigt, aber höchstens ab der Platzzahl.",
+          "startInPast": "Wähle eine Startzeit in der Zukunft.",
+          "startRequired": "Wähle Tag und Uhrzeit.",
+          "startTooFar": "Wähle eine Zeit innerhalb der nächsten 90 Tage.",
+          "titleRequired": "Gib deinem Treffen einen Titel.",
+          "titleTooLong": "Der Titel darf höchstens 120 Zeichen lang sein."
+        },
+        "joinApproval": "Ich bestätige jede Person",
+        "joinMode": "Wer mitmachen kann",
+        "joinOpen": "Alle",
+        "language": "Sprache",
+        "level": "Niveau",
+        "noTopic": "Kein Thema",
+        "notHost": "Nur der Gastgeber kann dieses Treffen bearbeiten.",
+        "pickLanguage": "Sprache wählen",
+        "quorum": "Bestätigen ab",
+        "save": "Speichern",
+        "startsAt": "Beginn",
+        "title": "Titel",
+        "topic": "Thema"
+      },
+      "home": {
+        "anyLanguage": "Meine Sprachen",
+        "anyTime": "Jederzeit",
+        "anyTopic": "Alle Themen",
+        "empty": "Hier ist noch nichts geplant.",
+        "emptyCta": "Veranstalte das erste",
+        "error": "Diese Liste konnte nicht geladen werden.",
+        "hasSeat": "Mit freiem Platz",
+        "host": "Treffen veranstalten",
+        "language": "Sprache",
+        "loadMore": "Mehr laden",
+        "retry": "Erneut versuchen",
+        "scopeAll": "Alle",
+        "scopeMe": "Meine Treffen",
+        "scopeMine": "Meine Sprachen",
+        "tabClubs": "Clubs",
+        "tabGatherings": "Treffen",
+        "title": "Treffen",
+        "today": "Heute",
+        "topic": "Thema",
+        "week": "Diese Woche",
+        "when": "Wann"
+      },
+      "host": {
+        "approve": "Zulassen",
+        "callOff": "Absagen",
+        "callOffTitle": "Absagen?",
+        "cancel": "Treffen absagen",
+        "cancelConfirm_one": "{{count}} Person wartet darauf und wird über die Absage informiert.",
+        "cancelConfirm_other": "{{count}} Personen warten darauf und werden über die Absage informiert.",
+        "cancelOk": "Treffen absagen",
+        "cancelTitle": "Dieses Treffen absagen?",
+        "decisionAlone": "Bisher kommst nur du. Trotzdem durchziehen oder absagen?",
+        "decision_one": "Bisher kommt nur {{count}} Person. Trotzdem durchziehen oder absagen?",
+        "decision_other": "Bisher kommen nur {{count}} Personen. Trotzdem durchziehen oder absagen?",
+        "decline": "Ablehnen",
+        "end": "Treffen beenden",
+        "ended": "Beendet – wer dabei war, darf dir kostenlos schreiben",
+        "nobodyExpecting": "Bisher hat sonst noch niemand zugesagt.",
+        "requests_one": "{{count}} wartet auf Zutritt",
+        "requests_other": "{{count}} warten auf Zutritt",
+        "runAnyway": "Trotzdem durchziehen"
+      },
+      "nav": "Treffen",
+      "quorum": {
+        "confirmed": "Bestätigt · {{count}} dabei",
+        "needed": "Noch {{count}} zur Bestätigung · {{going}} dabei"
+      },
+      "safety": {
+        "blockHost": "Gastgeber blockieren",
+        "blockOwner": "Inhaber blockieren",
+        "more": "Mehr",
+        "reportClub": "Club melden",
+        "reportFailed": "Die Meldung konnte nicht gesendet werden. Versuch es noch einmal.",
+        "reportGathering": "Treffen melden",
+        "reported": "Danke – unser Moderationsteam sieht es sich an."
+      },
+      "status": {
+        "cancelled": "Abgesagt",
+        "confirmed": "Bestätigt",
+        "ended": "Beendet",
+        "live": "Läuft gerade",
+        "scheduled": "Geplant"
+      },
+      "time": {
+        "hostLocal": "{{time}} beim Gastgeber"
+      },
+      "topics": {
+        "business": "Beruf",
+        "conversation": "Konversation",
+        "culture": "Kultur",
+        "exam_prep": "Prüfungsvorbereitung",
+        "games": "Spiele",
+        "grammar": "Grammatik",
+        "media": "Musik, Filme & Serien",
+        "pronunciation": "Aussprache",
+        "travel": "Reisen"
+      }
+    }
+  },
+  "eng": {
+    "clubs": {
+      "card": {
+        "joined": "Joined",
+        "members_one": "{{count}} member",
+        "members_other": "{{count}} members"
+      },
+      "detail": {
+        "back": "See other clubs",
+        "edit": "Edit club",
+        "host": "Host a gathering for this club",
+        "join": "Join club",
+        "leave": "Leave club",
+        "leaveTitle": "Leave this club?",
+        "metTimes_one": "Met once",
+        "metTimes_other": "Met {{count}} times",
+        "neverMet": "Hasn't met yet",
+        "noGatherings": "Nothing planned yet.",
+        "upcoming": "Coming up",
+        "youOwn": "You own this club"
+      },
+      "form": {
+        "city": "City (optional)",
+        "create": "Create club",
+        "createTitle": "Start a club",
+        "description": "About the club (optional)",
+        "editTitle": "Edit club",
+        "errors": {
+          "descriptionTooLong": "Keep the description under 2000 characters.",
+          "interestTooLong": "Keep the interest under 60 characters.",
+          "languageRequired": "Pick the club's language.",
+          "nameRequired": "Give your club a name.",
+          "nameTooLong": "Keep the name under 80 characters."
+        },
+        "interest": "What brings you together (e.g. books, K-drama)",
+        "language": "Language",
+        "name": "Name",
+        "notAllowed": "Only the club's owner or an organizer can edit it.",
+        "placeAddress": "Address (optional)",
+        "placeName": "Where you meet (optional)"
+      },
+      "home": {
+        "empty": "No clubs here yet.",
+        "scopeAll": "All",
+        "scopeMember": "Joined",
+        "scopeMine": "My languages",
+        "start": "Start a club"
+      },
+      "owner": {
+        "delete": "Delete club",
+        "deleteBody": "Members lose the club. Gatherings already planned will still happen.",
+        "deleteTitle": "Delete {{name}}?"
+      },
+      "people": {
+        "makeMember": "Remove organizer role",
+        "makeOrganizer": "Make organizer",
+        "organizer": "Organizer",
+        "owner": "Owner",
+        "remove": "Remove from club",
+        "removeTitle": "Remove {{name}}?",
+        "title": "Members · {{count}}"
+      }
+    },
+    "gatherings": {
+      "card": {
+        "approval": "Host approves",
+        "full": "Full",
+        "going": "Going",
+        "hostedBy": "Hosted by {{name}}",
+        "hosting": "You're hosting",
+        "requested": "Requested",
+        "seatsLeft_one": "{{count}} seat left",
+        "seatsLeft_other": "{{count}} seats left"
+      },
+      "confirm": {
+        "cancel": "Not now",
+        "leaveBody": "The others are counting on the people who said yes.",
+        "leaveOk": "Give up my seat",
+        "leaveTitle": "Give up your seat?"
+      },
+      "cover": {
+        "add": "Add a cover photo",
+        "badType": "Use a JPEG, PNG, GIF or WebP image.",
+        "change": "Change cover photo",
+        "remove": "Remove cover",
+        "tooBig": "That image is over 10 MB."
+      },
+      "detail": {
+        "askToJoin": "Ask to join",
+        "back": "See other gatherings",
+        "cancelRequest": "Cancel my request",
+        "capacity": "Up to {{count}} people · confirms at {{quorum}}",
+        "duration": "{{count}} min",
+        "edit": "Edit gathering",
+        "host": "Host",
+        "join": "I'm going",
+        "leave": "I can't go any more",
+        "online": "Online",
+        "requestSent": "Request sent. The host will decide.",
+        "someone": "A BananaTalk member",
+        "youreGoing": "You're going."
+      },
+      "errors": {
+        "alreadyGoing": "You're already going.",
+        "cancelled": "This gathering was cancelled.",
+        "capacityBelowGoing": "Capacity can't be lower than the {{count}} people already going.",
+        "clubArchived": "This club is archived.",
+        "clubGone": "This club isn't available.",
+        "endBeforeStart": "You can end the gathering once it has started.",
+        "ended": "This gathering has ended.",
+        "full": "This gathering is full.",
+        "gatheringGone": "This gathering isn't available.",
+        "generic": "Something went wrong. Try again.",
+        "hostBlocked": "You can't host right now: too many of your gatherings were cancelled or missed.",
+        "hostCannotLeave": "As the host, cancel the gathering instead of leaving it.",
+        "joinClubFirst": "Join the club before hosting for it.",
+        "offline": "You're offline. Check your connection.",
+        "ownerCannotLeave": "As the owner, you can delete the club but not leave it.",
+        "pastStart": "Pick a start time in the future.",
+        "pending": "Your request is waiting for the host.",
+        "started": "This gathering has already started."
+      },
+      "form": {
+        "anyLevel": "Any level",
+        "cancel": "Cancel",
+        "capacity": "Seats",
+        "create": "Post gathering",
+        "createTitle": "Host a gathering",
+        "description": "What will you do? (optional)",
+        "duration_one": "Lasts {{count}} minute · in your time zone",
+        "duration_other": "Lasts {{count}} minutes · in your time zone",
+        "editTitle": "Edit gathering",
+        "errors": {
+          "capacityRange": "Seats must be between 2 and 20.",
+          "descriptionTooLong": "Keep the description under 2000 characters.",
+          "languageRequired": "Pick the language you'll practise.",
+          "quorumRange": "The gathering confirms at 2 or more, and not more than the seats.",
+          "startInPast": "Pick a start time in the future.",
+          "startRequired": "Pick a day and time.",
+          "startTooFar": "Pick a time within the next 90 days.",
+          "titleRequired": "Give your gathering a title.",
+          "titleTooLong": "Keep the title under 120 characters."
+        },
+        "joinApproval": "I approve each person",
+        "joinMode": "Who can join",
+        "joinOpen": "Anyone",
+        "language": "Language",
+        "level": "Level",
+        "noTopic": "No topic",
+        "notHost": "Only the host can edit this gathering.",
+        "pickLanguage": "Pick a language",
+        "quorum": "Confirms at",
+        "save": "Save",
+        "startsAt": "Starts",
+        "title": "Title",
+        "topic": "Topic"
+      },
+      "home": {
+        "anyLanguage": "My languages",
+        "anyTime": "Any time",
+        "anyTopic": "Any topic",
+        "empty": "Nothing scheduled here yet.",
+        "emptyCta": "Host the first one",
+        "error": "Couldn't load this list.",
+        "hasSeat": "Has a free seat",
+        "host": "Host a gathering",
+        "language": "Language",
+        "loadMore": "Load more",
+        "retry": "Try again",
+        "scopeAll": "All",
+        "scopeMe": "My gatherings",
+        "scopeMine": "My languages",
+        "tabClubs": "Clubs",
+        "tabGatherings": "Gatherings",
+        "title": "Gatherings",
+        "today": "Today",
+        "topic": "Topic",
+        "week": "This week",
+        "when": "When"
+      },
+      "host": {
+        "approve": "Approve",
+        "callOff": "Call it off",
+        "callOffTitle": "Call it off?",
+        "cancel": "Cancel gathering",
+        "cancelConfirm_one": "{{count}} person is expecting this. They'll be told it's off.",
+        "cancelConfirm_other": "{{count}} people are expecting this. They'll be told it's off.",
+        "cancelOk": "Cancel gathering",
+        "cancelTitle": "Cancel this gathering?",
+        "decisionAlone": "Only you are coming so far. Run it anyway, or call it off?",
+        "decision_one": "Only {{count}} person is coming so far. Run it anyway, or call it off?",
+        "decision_other": "Only {{count}} people are coming so far. Run it anyway, or call it off?",
+        "decline": "Decline",
+        "end": "End gathering",
+        "ended": "Ended — message anyone you met, it's free",
+        "nobodyExpecting": "Nobody else has said yes yet.",
+        "requests_one": "{{count}} waiting to join",
+        "requests_other": "{{count}} waiting to join",
+        "runAnyway": "Run it anyway"
+      },
+      "nav": "Gatherings",
+      "quorum": {
+        "confirmed": "Confirmed · {{count}} going",
+        "needed": "{{count}} more needed to confirm · {{going}} going"
+      },
+      "safety": {
+        "blockHost": "Block the host",
+        "blockOwner": "Block the owner",
+        "more": "More",
+        "reportClub": "Report club",
+        "reportFailed": "Couldn't send the report. Try again.",
+        "reportGathering": "Report gathering",
+        "reported": "Thanks — our moderators will review it."
+      },
+      "status": {
+        "cancelled": "Cancelled",
+        "confirmed": "Confirmed",
+        "ended": "Ended",
+        "live": "Happening now",
+        "scheduled": "Scheduled"
+      },
+      "time": {
+        "hostLocal": "{{time}} for the host"
+      },
+      "topics": {
+        "business": "Business",
+        "conversation": "Conversation",
+        "culture": "Culture",
+        "exam_prep": "Exam prep",
+        "games": "Games",
+        "grammar": "Grammar",
+        "media": "Music, film & TV",
+        "pronunciation": "Pronunciation",
+        "travel": "Travel"
+      }
+    }
+  },
+  "es": {
+    "clubs": {
+      "card": {
+        "joined": "Te uniste",
+        "members_one": "{{count}} miembro",
+        "members_other": "{{count}} miembros"
+      },
+      "detail": {
+        "back": "Ver otros clubes",
+        "edit": "Editar club",
+        "host": "Organizar un encuentro para este club",
+        "join": "Unirme al club",
+        "leave": "Salir del club",
+        "leaveTitle": "¿Salir de este club?",
+        "metTimes_one": "Se reunió una vez",
+        "metTimes_other": "Se reunió {{count}} veces",
+        "neverMet": "Aún no se ha reunido",
+        "noGatherings": "Todavía no hay nada programado.",
+        "upcoming": "Próximamente",
+        "youOwn": "Eres el dueño de este club"
+      },
+      "form": {
+        "city": "Ciudad (opcional)",
+        "create": "Crear club",
+        "createTitle": "Crea un club",
+        "description": "Acerca del club (opcional)",
+        "editTitle": "Editar club",
+        "errors": {
+          "descriptionTooLong": "La descripción debe tener menos de 2000 caracteres.",
+          "interestTooLong": "El interés debe tener menos de 60 caracteres.",
+          "languageRequired": "Elige el idioma del club.",
+          "nameRequired": "Ponle un nombre a tu club.",
+          "nameTooLong": "El nombre debe tener menos de 80 caracteres."
+        },
+        "interest": "Qué los une (p. ej., libros, K-dramas)",
+        "language": "Idioma",
+        "name": "Nombre",
+        "notAllowed": "Solo el dueño del club o un organizador pueden editarlo.",
+        "placeAddress": "Dirección (opcional)",
+        "placeName": "Dónde se reúnen (opcional)"
+      },
+      "home": {
+        "empty": "Todavía no hay clubes aquí.",
+        "scopeAll": "Todos",
+        "scopeMember": "Mis clubes",
+        "scopeMine": "Mis idiomas",
+        "start": "Crear un club"
+      },
+      "owner": {
+        "delete": "Eliminar club",
+        "deleteBody": "Los miembros perderán el club. Los encuentros ya programados se mantienen.",
+        "deleteTitle": "¿Eliminar {{name}}?"
+      },
+      "people": {
+        "makeMember": "Quitar rol de organizador",
+        "makeOrganizer": "Hacer organizador",
+        "organizer": "Organizador",
+        "owner": "Dueño",
+        "remove": "Expulsar del club",
+        "removeTitle": "¿Expulsar a {{name}}?",
+        "title": "Miembros · {{count}}"
+      }
+    },
+    "gatherings": {
+      "card": {
+        "approval": "El anfitrión aprueba",
+        "full": "Completo",
+        "going": "Asistirás",
+        "hostedBy": "Organiza {{name}}",
+        "hosting": "Eres el anfitrión",
+        "requested": "Solicitado",
+        "seatsLeft_one": "Queda {{count}} plaza",
+        "seatsLeft_other": "Quedan {{count}} plazas"
+      },
+      "confirm": {
+        "cancel": "Ahora no",
+        "leaveBody": "Los demás cuentan con quienes dijeron que sí.",
+        "leaveOk": "Liberar mi plaza",
+        "leaveTitle": "¿Liberar tu plaza?"
+      },
+      "cover": {
+        "add": "Añadir foto de portada",
+        "badType": "Usa una imagen JPEG, PNG, GIF o WebP.",
+        "change": "Cambiar foto de portada",
+        "remove": "Quitar portada",
+        "tooBig": "Esa imagen pesa más de 10 MB."
+      },
+      "detail": {
+        "askToJoin": "Pedir unirme",
+        "back": "Ver otros encuentros",
+        "cancelRequest": "Cancelar mi solicitud",
+        "capacity": "Hasta {{count}} personas · se confirma con {{quorum}}",
+        "duration": "{{count}} min",
+        "edit": "Editar encuentro",
+        "host": "Anfitrión",
+        "join": "Voy",
+        "leave": "Ya no puedo ir",
+        "online": "En línea",
+        "requestSent": "Solicitud enviada. El anfitrión decidirá.",
+        "someone": "Un miembro de BananaTalk",
+        "youreGoing": "Asistirás."
+      },
+      "errors": {
+        "alreadyGoing": "Ya estás apuntado.",
+        "cancelled": "Este encuentro se canceló.",
+        "capacityBelowGoing": "Las plazas no pueden ser menos que las {{count}} personas que ya van.",
+        "clubArchived": "Este club está archivado.",
+        "clubGone": "Este club no está disponible.",
+        "endBeforeStart": "Podrás terminar el encuentro cuando haya empezado.",
+        "ended": "Este encuentro ha terminado.",
+        "full": "Este encuentro está completo.",
+        "gatheringGone": "Este encuentro no está disponible.",
+        "generic": "Algo salió mal. Inténtalo de nuevo.",
+        "hostBlocked": "Ahora no puedes organizar encuentros: demasiados de tus encuentros se cancelaron o no se hicieron.",
+        "hostCannotLeave": "Como anfitrión, cancela el encuentro en lugar de salir de él.",
+        "joinClubFirst": "Únete al club antes de organizar un encuentro para él.",
+        "offline": "Estás sin conexión. Revisa tu conexión.",
+        "ownerCannotLeave": "Como dueño, puedes eliminar el club, pero no salir de él.",
+        "pastStart": "Elige una hora de inicio futura.",
+        "pending": "Tu solicitud está esperando al anfitrión.",
+        "started": "Este encuentro ya empezó."
+      },
+      "form": {
+        "anyLevel": "Cualquier nivel",
+        "cancel": "Cancelar",
+        "capacity": "Plazas",
+        "create": "Publicar encuentro",
+        "createTitle": "Organiza un encuentro",
+        "description": "¿Qué van a hacer? (opcional)",
+        "duration_one": "Dura {{count}} minuto · en tu zona horaria",
+        "duration_other": "Dura {{count}} minutos · en tu zona horaria",
+        "editTitle": "Editar encuentro",
+        "errors": {
+          "capacityRange": "Las plazas deben estar entre 2 y 20.",
+          "descriptionTooLong": "La descripción debe tener menos de 2000 caracteres.",
+          "languageRequired": "Elige el idioma que van a practicar.",
+          "quorumRange": "El encuentro se confirma con 2 o más personas, y no más que las plazas.",
+          "startInPast": "Elige una hora de inicio futura.",
+          "startRequired": "Elige un día y una hora.",
+          "startTooFar": "Elige una hora dentro de los próximos 90 días.",
+          "titleRequired": "Ponle un título a tu encuentro.",
+          "titleTooLong": "El título debe tener menos de 120 caracteres."
+        },
+        "joinApproval": "Apruebo a cada persona",
+        "joinMode": "Quién puede unirse",
+        "joinOpen": "Cualquiera",
+        "language": "Idioma",
+        "level": "Nivel",
+        "noTopic": "Sin tema",
+        "notHost": "Solo el anfitrión puede editar este encuentro.",
+        "pickLanguage": "Elige un idioma",
+        "quorum": "Confirmar con",
+        "save": "Guardar",
+        "startsAt": "Empieza",
+        "title": "Título",
+        "topic": "Tema"
+      },
+      "home": {
+        "anyLanguage": "Mis idiomas",
+        "anyTime": "Cualquier momento",
+        "anyTopic": "Cualquier tema",
+        "empty": "Todavía no hay nada programado aquí.",
+        "emptyCta": "Organiza el primero",
+        "error": "No se pudo cargar esta lista.",
+        "hasSeat": "Con plazas libres",
+        "host": "Organizar un encuentro",
+        "language": "Idioma",
+        "loadMore": "Cargar más",
+        "retry": "Reintentar",
+        "scopeAll": "Todos",
+        "scopeMe": "Mis encuentros",
+        "scopeMine": "Mis idiomas",
+        "tabClubs": "Clubes",
+        "tabGatherings": "Encuentros",
+        "title": "Encuentros",
+        "today": "Hoy",
+        "topic": "Tema",
+        "week": "Esta semana",
+        "when": "Cuándo"
+      },
+      "host": {
+        "approve": "Admitir",
+        "callOff": "Cancelarlo",
+        "callOffTitle": "¿Cancelarlo?",
+        "cancel": "Cancelar encuentro",
+        "cancelConfirm_one": "{{count}} persona lo está esperando. Le avisaremos de que se cancela.",
+        "cancelConfirm_other": "{{count}} personas lo están esperando. Les avisaremos de que se cancela.",
+        "cancelOk": "Cancelar encuentro",
+        "cancelTitle": "¿Cancelar este encuentro?",
+        "decisionAlone": "Por ahora solo vas tú. ¿Lo haces igualmente o lo cancelas?",
+        "decision_one": "Por ahora solo va {{count}} persona. ¿Lo haces igualmente o lo cancelas?",
+        "decision_other": "Por ahora solo van {{count}} personas. ¿Lo haces igualmente o lo cancelas?",
+        "decline": "Rechazar",
+        "end": "Terminar encuentro",
+        "ended": "Terminado: escribir a quien conociste es gratis",
+        "nobodyExpecting": "Nadie más ha dicho que sí todavía.",
+        "requests_one": "{{count}} esperando unirse",
+        "requests_other": "{{count}} esperando unirse",
+        "runAnyway": "Hacerlo igualmente"
+      },
+      "nav": "Encuentros",
+      "quorum": {
+        "confirmed": "Confirmado · {{count}} asistirán",
+        "needed": "Faltan {{count}} para confirmar · {{going}} asistirán"
+      },
+      "safety": {
+        "blockHost": "Bloquear al anfitrión",
+        "blockOwner": "Bloquear al dueño",
+        "more": "Más",
+        "reportClub": "Reportar club",
+        "reportFailed": "No se pudo enviar el reporte. Inténtalo de nuevo.",
+        "reportGathering": "Reportar encuentro",
+        "reported": "Gracias. Nuestros moderadores lo revisarán."
+      },
+      "status": {
+        "cancelled": "Cancelado",
+        "confirmed": "Confirmado",
+        "ended": "Terminado",
+        "live": "En curso",
+        "scheduled": "Programado"
+      },
+      "time": {
+        "hostLocal": "{{time}} para el anfitrión"
+      },
+      "topics": {
+        "business": "Negocios",
+        "conversation": "Conversación",
+        "culture": "Cultura",
+        "exam_prep": "Preparación de exámenes",
+        "games": "Juegos",
+        "grammar": "Gramática",
+        "media": "Música, cine y series",
+        "pronunciation": "Pronunciación",
+        "travel": "Viajes"
+      }
+    }
+  },
+  "fr": {
+    "clubs": {
+      "card": {
+        "joined": "Membre",
+        "members_one": "{{count}} membre",
+        "members_other": "{{count}} membres"
+      },
+      "detail": {
+        "back": "Voir d'autres clubs",
+        "edit": "Modifier le club",
+        "host": "Organiser une rencontre pour ce club",
+        "join": "Rejoindre le club",
+        "leave": "Quitter le club",
+        "leaveTitle": "Quitter ce club ?",
+        "metTimes_one": "S'est réuni une fois",
+        "metTimes_other": "S'est réuni {{count}} fois",
+        "neverMet": "Ne s'est pas encore réuni",
+        "noGatherings": "Rien de prévu pour l'instant.",
+        "upcoming": "À venir",
+        "youOwn": "Vous êtes propriétaire de ce club"
+      },
+      "form": {
+        "city": "Ville (facultatif)",
+        "create": "Créer le club",
+        "createTitle": "Créer un club",
+        "description": "À propos du club (facultatif)",
+        "editTitle": "Modifier le club",
+        "errors": {
+          "descriptionTooLong": "La description doit faire moins de 2000 caractères.",
+          "interestTooLong": "Le centre d'intérêt doit faire moins de 60 caractères.",
+          "languageRequired": "Choisissez la langue du club.",
+          "nameRequired": "Donnez un nom à votre club.",
+          "nameTooLong": "Le nom doit faire moins de 80 caractères."
+        },
+        "interest": "Ce qui vous rassemble (ex. livres, K-dramas)",
+        "language": "Langue",
+        "name": "Nom",
+        "notAllowed": "Seuls le propriétaire du club ou un organisateur peuvent le modifier.",
+        "placeAddress": "Adresse (facultatif)",
+        "placeName": "Lieu de rendez-vous (facultatif)"
+      },
+      "home": {
+        "empty": "Aucun club ici pour l'instant.",
+        "scopeAll": "Tous",
+        "scopeMember": "Rejoints",
+        "scopeMine": "Mes langues",
+        "start": "Créer un club"
+      },
+      "owner": {
+        "delete": "Supprimer le club",
+        "deleteBody": "Les membres perdent le club. Les rencontres déjà prévues auront quand même lieu.",
+        "deleteTitle": "Supprimer {{name}} ?"
+      },
+      "people": {
+        "makeMember": "Retirer le rôle d'organisateur",
+        "makeOrganizer": "Nommer organisateur",
+        "organizer": "Organisateur",
+        "owner": "Propriétaire",
+        "remove": "Retirer du club",
+        "removeTitle": "Retirer {{name}} ?",
+        "title": "Membres · {{count}}"
+      }
+    },
+    "gatherings": {
+      "card": {
+        "approval": "Sur validation de l'hôte",
+        "full": "Complet",
+        "going": "Inscrit",
+        "hostedBy": "Organisée par {{name}}",
+        "hosting": "Vous êtes l'hôte",
+        "requested": "Demande envoyée",
+        "seatsLeft_one": "{{count}} place restante",
+        "seatsLeft_other": "{{count}} places restantes"
+      },
+      "confirm": {
+        "cancel": "Pas maintenant",
+        "leaveBody": "Les autres comptent sur les personnes qui ont dit oui.",
+        "leaveOk": "Libérer ma place",
+        "leaveTitle": "Libérer votre place ?"
+      },
+      "cover": {
+        "add": "Ajouter une photo de couverture",
+        "badType": "Utilisez une image JPEG, PNG, GIF ou WebP.",
+        "change": "Changer la photo de couverture",
+        "remove": "Retirer la couverture",
+        "tooBig": "Cette image dépasse 10 Mo."
+      },
+      "detail": {
+        "askToJoin": "Demander à participer",
+        "back": "Voir d'autres rencontres",
+        "cancelRequest": "Annuler ma demande",
+        "capacity": "Jusqu'à {{count}} personnes · confirmée à {{quorum}}",
+        "duration": "{{count}} min",
+        "edit": "Modifier la rencontre",
+        "host": "Hôte",
+        "join": "Je participe",
+        "leave": "Je ne peux plus venir",
+        "online": "En ligne",
+        "requestSent": "Demande envoyée. L'hôte décidera.",
+        "someone": "Un membre de BananaTalk",
+        "youreGoing": "Vous participez."
+      },
+      "errors": {
+        "alreadyGoing": "Vous participez déjà.",
+        "cancelled": "Cette rencontre a été annulée.",
+        "capacityBelowGoing": "Le nombre de places ne peut pas être inférieur aux {{count}} personnes déjà inscrites.",
+        "clubArchived": "Ce club est archivé.",
+        "clubGone": "Ce club n'est pas disponible.",
+        "endBeforeStart": "Vous pourrez terminer la rencontre une fois qu'elle aura commencé.",
+        "ended": "Cette rencontre est terminée.",
+        "full": "Cette rencontre est complète.",
+        "gatheringGone": "Cette rencontre n'est pas disponible.",
+        "generic": "Une erreur s'est produite. Réessayez.",
+        "hostBlocked": "Vous ne pouvez pas organiser de rencontre pour le moment : trop de vos rencontres ont été annulées ou manquées.",
+        "hostCannotLeave": "En tant qu'hôte, annulez la rencontre au lieu de la quitter.",
+        "joinClubFirst": "Rejoignez le club avant d'organiser une rencontre pour lui.",
+        "offline": "Vous êtes hors ligne. Vérifiez votre connexion.",
+        "ownerCannotLeave": "En tant que propriétaire, vous pouvez supprimer le club, mais pas le quitter.",
+        "pastStart": "Choisissez une heure de début à venir.",
+        "pending": "Votre demande attend la réponse de l'hôte.",
+        "started": "Cette rencontre a déjà commencé."
+      },
+      "form": {
+        "anyLevel": "Tous niveaux",
+        "cancel": "Annuler",
+        "capacity": "Places",
+        "create": "Publier la rencontre",
+        "createTitle": "Organiser une rencontre",
+        "description": "Qu'allez-vous faire ? (facultatif)",
+        "duration_one": "Dure {{count}} minute · dans votre fuseau horaire",
+        "duration_other": "Dure {{count}} minutes · dans votre fuseau horaire",
+        "editTitle": "Modifier la rencontre",
+        "errors": {
+          "capacityRange": "Le nombre de places doit être compris entre 2 et 20.",
+          "descriptionTooLong": "La description doit faire moins de 2000 caractères.",
+          "languageRequired": "Choisissez la langue que vous allez pratiquer.",
+          "quorumRange": "La rencontre est confirmée à partir de 2 personnes, sans dépasser le nombre de places.",
+          "startInPast": "Choisissez une heure de début à venir.",
+          "startRequired": "Choisissez un jour et une heure.",
+          "startTooFar": "Choisissez une date dans les 90 prochains jours.",
+          "titleRequired": "Donnez un titre à votre rencontre.",
+          "titleTooLong": "Le titre doit faire moins de 120 caractères."
+        },
+        "joinApproval": "J'accepte chaque personne",
+        "joinMode": "Qui peut participer",
+        "joinOpen": "Tout le monde",
+        "language": "Langue",
+        "level": "Niveau",
+        "noTopic": "Aucun thème",
+        "notHost": "Seul l'hôte peut modifier cette rencontre.",
+        "pickLanguage": "Choisir une langue",
+        "quorum": "Confirmer à",
+        "save": "Enregistrer",
+        "startsAt": "Début",
+        "title": "Titre",
+        "topic": "Thème"
+      },
+      "home": {
+        "anyLanguage": "Mes langues",
+        "anyTime": "N'importe quand",
+        "anyTopic": "Tous les thèmes",
+        "empty": "Rien de prévu ici pour l'instant.",
+        "emptyCta": "Organisez la première",
+        "error": "Impossible de charger cette liste.",
+        "hasSeat": "Places disponibles",
+        "host": "Organiser une rencontre",
+        "language": "Langue",
+        "loadMore": "Voir plus",
+        "retry": "Réessayer",
+        "scopeAll": "Toutes",
+        "scopeMe": "Mes rencontres",
+        "scopeMine": "Mes langues",
+        "tabClubs": "Clubs",
+        "tabGatherings": "Rencontres",
+        "title": "Rencontres",
+        "today": "Aujourd'hui",
+        "topic": "Thème",
+        "week": "Cette semaine",
+        "when": "Quand"
+      },
+      "host": {
+        "approve": "Accepter",
+        "callOff": "Annuler",
+        "callOffTitle": "Annuler la rencontre ?",
+        "cancel": "Annuler la rencontre",
+        "cancelConfirm_one": "{{count}} personne l'attend. Elle sera prévenue de l'annulation.",
+        "cancelConfirm_other": "{{count}} personnes l'attendent. Elles seront prévenues de l'annulation.",
+        "cancelOk": "Annuler la rencontre",
+        "cancelTitle": "Annuler cette rencontre ?",
+        "decisionAlone": "Pour l'instant, il n'y a que vous. On maintient ou on annule ?",
+        "decision_one": "Pour l'instant, seule {{count}} personne vient. On maintient ou on annule ?",
+        "decision_other": "Pour l'instant, seules {{count}} personnes viennent. On maintient ou on annule ?",
+        "decline": "Refuser",
+        "end": "Terminer la rencontre",
+        "ended": "Terminée : écrire aux personnes rencontrées est gratuit",
+        "nobodyExpecting": "Personne d'autre n'a encore dit oui.",
+        "requests_one": "{{count}} en attente",
+        "requests_other": "{{count}} en attente",
+        "runAnyway": "Maintenir"
+      },
+      "nav": "Rencontres",
+      "quorum": {
+        "confirmed": "Confirmée · {{count}} participants",
+        "needed": "Encore {{count}} pour confirmer · {{going}} inscrits"
+      },
+      "safety": {
+        "blockHost": "Bloquer l'hôte",
+        "blockOwner": "Bloquer le propriétaire",
+        "more": "Plus",
+        "reportClub": "Signaler le club",
+        "reportFailed": "Impossible d'envoyer le signalement. Réessayez.",
+        "reportGathering": "Signaler la rencontre",
+        "reported": "Merci, nos modérateurs vont l'examiner."
+      },
+      "status": {
+        "cancelled": "Annulée",
+        "confirmed": "Confirmée",
+        "ended": "Terminée",
+        "live": "En cours",
+        "scheduled": "Prévue"
+      },
+      "time": {
+        "hostLocal": "{{time}} pour l'hôte"
+      },
+      "topics": {
+        "business": "Affaires",
+        "conversation": "Conversation",
+        "culture": "Culture",
+        "exam_prep": "Préparation aux examens",
+        "games": "Jeux",
+        "grammar": "Grammaire",
+        "media": "Musique, films et séries",
+        "pronunciation": "Prononciation",
+        "travel": "Voyages"
+      }
+    }
+  },
+  "hi": {
+    "clubs": {
+      "card": {
+        "joined": "जुड़ चुके हैं",
+        "members_one": "{{count}} सदस्य",
+        "members_other": "{{count}} सदस्य"
+      },
+      "detail": {
+        "back": "अन्य क्लब देखें",
+        "edit": "क्लब संपादित करें",
+        "host": "इस क्लब के लिए मिलन आयोजित करें",
+        "join": "क्लब से जुड़ें",
+        "leave": "क्लब छोड़ें",
+        "leaveTitle": "यह क्लब छोड़ें?",
+        "metTimes_one": "एक बार मिले",
+        "metTimes_other": "{{count}} बार मिले",
+        "neverMet": "अभी तक नहीं मिले",
+        "noGatherings": "अभी कुछ तय नहीं है।",
+        "upcoming": "आगामी",
+        "youOwn": "आप इस क्लब के मालिक हैं"
+      },
+      "form": {
+        "city": "शहर (वैकल्पिक)",
+        "create": "क्लब बनाएँ",
+        "createTitle": "नया क्लब",
+        "description": "क्लब के बारे में (वैकल्पिक)",
+        "editTitle": "क्लब संपादित करें",
+        "errors": {
+          "descriptionTooLong": "विवरण 2000 अक्षरों से कम रखें।",
+          "interestTooLong": "रुचि 60 अक्षरों से कम रखें।",
+          "languageRequired": "क्लब की भाषा चुनें।",
+          "nameRequired": "अपने क्लब को एक नाम दें।",
+          "nameTooLong": "नाम 80 अक्षरों से कम रखें।"
+        },
+        "interest": "आपको क्या जोड़ता है (जैसे किताबें, K-ड्रामा)",
+        "language": "भाषा",
+        "name": "नाम",
+        "notAllowed": "केवल क्लब के मालिक या आयोजक ही इसे संपादित कर सकते हैं।",
+        "placeAddress": "पता (वैकल्पिक)",
+        "placeName": "आप कहाँ मिलते हैं (वैकल्पिक)"
+      },
+      "home": {
+        "empty": "यहाँ अभी कोई क्लब नहीं है।",
+        "scopeAll": "सभी",
+        "scopeMember": "जुड़े हुए",
+        "scopeMine": "मेरी भाषाएँ",
+        "start": "क्लब बनाएँ"
+      },
+      "owner": {
+        "delete": "क्लब हटाएं",
+        "deleteBody": "सदस्यों से क्लब छिन जाएगा। पहले से तय मिलन फिर भी होंगे।",
+        "deleteTitle": "{{name}} हटाएं?"
+      },
+      "people": {
+        "makeMember": "आयोजक हटाएं",
+        "makeOrganizer": "आयोजक बनाएं",
+        "organizer": "आयोजक",
+        "owner": "मालिक",
+        "remove": "क्लब से हटाएं",
+        "removeTitle": "{{name}} को हटाएं?",
+        "title": "सदस्य · {{count}}"
+      }
+    },
+    "gatherings": {
+      "card": {
+        "approval": "मेज़बान स्वीकृति देते हैं",
+        "full": "भर गया",
+        "going": "आप जा रहे हैं",
+        "hostedBy": "मेज़बान: {{name}}",
+        "hosting": "आप मेज़बान हैं",
+        "requested": "अनुरोध भेजा गया",
+        "seatsLeft_one": "{{count}} सीट बची है",
+        "seatsLeft_other": "{{count}} सीटें बची हैं"
+      },
+      "confirm": {
+        "cancel": "अभी नहीं",
+        "leaveBody": "बाकी लोग उन पर भरोसा कर रहे हैं जिन्होंने हाँ कहा है।",
+        "leaveOk": "मेरी सीट छोड़ें",
+        "leaveTitle": "अपनी सीट छोड़ें?"
+      },
+      "cover": {
+        "add": "कवर फ़ोटो जोड़ें",
+        "badType": "JPEG, PNG, GIF या WebP इमेज इस्तेमाल करें।",
+        "change": "कवर फ़ोटो बदलें",
+        "remove": "कवर हटाएं",
+        "tooBig": "यह इमेज 10 MB से बड़ी है।"
+      },
+      "detail": {
+        "askToJoin": "शामिल होने का अनुरोध",
+        "back": "अन्य मिलन देखें",
+        "cancelRequest": "मेरा अनुरोध रद्द करें",
+        "capacity": "अधिकतम {{count}} लोग · {{quorum}} पर पुष्टि",
+        "duration": "{{count}} मिनट",
+        "edit": "मिलन संपादित करें",
+        "host": "मेज़बान",
+        "join": "मैं आऊँगा/आऊँगी",
+        "leave": "अब मैं नहीं आ सकता/सकती",
+        "online": "ऑनलाइन",
+        "requestSent": "अनुरोध भेजा गया। निर्णय मेज़बान करेंगे।",
+        "someone": "एक BananaTalk सदस्य",
+        "youreGoing": "आप जा रहे हैं।"
+      },
+      "errors": {
+        "alreadyGoing": "आप पहले से जा रहे हैं।",
+        "cancelled": "यह मिलन रद्द कर दिया गया।",
+        "capacityBelowGoing": "सीटें पहले से आ रहे {{count}} लोगों से कम नहीं हो सकतीं।",
+        "clubArchived": "यह क्लब संग्रहीत है।",
+        "clubGone": "यह क्लब उपलब्ध नहीं है।",
+        "endBeforeStart": "मिलन शुरू होने के बाद ही आप इसे समाप्त कर सकते हैं।",
+        "ended": "यह मिलन समाप्त हो चुका है।",
+        "full": "यह मिलन भर गया है।",
+        "gatheringGone": "यह मिलन उपलब्ध नहीं है।",
+        "generic": "कुछ गलत हो गया। फिर से कोशिश करें।",
+        "hostBlocked": "आप अभी मेज़बानी नहीं कर सकते: आपके बहुत से मिलन रद्द हुए या छूट गए।",
+        "hostCannotLeave": "मेज़बान के रूप में, छोड़ने के बजाय मिलन रद्द करें।",
+        "joinClubFirst": "इसके लिए मिलन आयोजित करने से पहले क्लब से जुड़ें।",
+        "offline": "आप ऑफ़लाइन हैं। अपना कनेक्शन जाँचें।",
+        "ownerCannotLeave": "मालिक के रूप में, आप क्लब हटा सकते हैं लेकिन छोड़ नहीं सकते।",
+        "pastStart": "भविष्य का कोई शुरुआती समय चुनें।",
+        "pending": "आपका अनुरोध मेज़बान की प्रतीक्षा में है।",
+        "started": "यह मिलन पहले ही शुरू हो चुका है।"
+      },
+      "form": {
+        "anyLevel": "कोई भी स्तर",
+        "cancel": "रद्द करें",
+        "capacity": "सीटें",
+        "create": "मिलन पोस्ट करें",
+        "createTitle": "मिलन आयोजित करें",
+        "description": "आप क्या करेंगे? (वैकल्पिक)",
+        "duration_one": "{{count}} मिनट चलेगा · आपके समय क्षेत्र में",
+        "duration_other": "{{count}} मिनट चलेगा · आपके समय क्षेत्र में",
+        "editTitle": "मिलन संपादित करें",
+        "errors": {
+          "capacityRange": "सीटें 2 से 20 के बीच होनी चाहिए।",
+          "descriptionTooLong": "विवरण 2000 अक्षरों से कम रखें।",
+          "languageRequired": "वह भाषा चुनें जिसका आप अभ्यास करेंगे।",
+          "quorumRange": "मिलन की पुष्टि 2 या अधिक लोगों पर होती है, और सीटों से ज़्यादा पर नहीं।",
+          "startInPast": "भविष्य का कोई शुरुआती समय चुनें।",
+          "startRequired": "दिन और समय चुनें।",
+          "startTooFar": "अगले 90 दिनों के भीतर का समय चुनें।",
+          "titleRequired": "अपने मिलन को एक शीर्षक दें।",
+          "titleTooLong": "शीर्षक 120 अक्षरों से कम रखें।"
+        },
+        "joinApproval": "मैं हर व्यक्ति को स्वीकृत करूँगा/करूँगी",
+        "joinMode": "कौन शामिल हो सकता है",
+        "joinOpen": "कोई भी",
+        "language": "भाषा",
+        "level": "स्तर",
+        "noTopic": "कोई विषय नहीं",
+        "notHost": "केवल मेज़बान ही इस मिलन को संपादित कर सकते हैं।",
+        "pickLanguage": "भाषा चुनें",
+        "quorum": "पुष्टि के लिए",
+        "save": "सहेजें",
+        "startsAt": "शुरुआत",
+        "title": "शीर्षक",
+        "topic": "विषय"
+      },
+      "home": {
+        "anyLanguage": "मेरी भाषाएँ",
+        "anyTime": "कभी भी",
+        "anyTopic": "कोई भी विषय",
+        "empty": "यहाँ अभी कुछ तय नहीं है।",
+        "emptyCta": "पहला मिलन आयोजित करें",
+        "error": "यह सूची लोड नहीं हो सकी।",
+        "hasSeat": "सीट खाली है",
+        "host": "मिलन आयोजित करें",
+        "language": "भाषा",
+        "loadMore": "और लोड करें",
+        "retry": "फिर से कोशिश करें",
+        "scopeAll": "सभी",
+        "scopeMe": "मेरे मिलन",
+        "scopeMine": "मेरी भाषाएँ",
+        "tabClubs": "क्लब",
+        "tabGatherings": "मिलन",
+        "title": "मिलन",
+        "today": "आज",
+        "topic": "विषय",
+        "week": "इस हफ़्ते",
+        "when": "कब"
+      },
+      "host": {
+        "approve": "स्वीकारें",
+        "callOff": "रद्द करें",
+        "callOffTitle": "रद्द करें?",
+        "cancel": "मिलन रद्द करें",
+        "cancelConfirm_one": "{{count}} व्यक्ति इसका इंतज़ार कर रहा है। उन्हें रद्द होने की सूचना दी जाएगी।",
+        "cancelConfirm_other": "{{count}} लोग इसका इंतज़ार कर रहे हैं। उन्हें रद्द होने की सूचना दी जाएगी।",
+        "cancelOk": "मिलन रद्द करें",
+        "cancelTitle": "यह मिलन रद्द करें?",
+        "decisionAlone": "अभी तक सिर्फ़ आप आ रहे हैं। फिर भी करें या रद्द करें?",
+        "decision_one": "अभी तक सिर्फ़ {{count}} व्यक्ति आ रहा है। फिर भी करें या रद्द करें?",
+        "decision_other": "अभी तक सिर्फ़ {{count}} लोग आ रहे हैं। फिर भी करें या रद्द करें?",
+        "decline": "अस्वीकारें",
+        "end": "मिलन समाप्त करें",
+        "ended": "समाप्त — जिनसे मिले उन्हें संदेश भेजना मुफ़्त है",
+        "nobodyExpecting": "अभी तक किसी और ने हाँ नहीं कहा है।",
+        "requests_one": "{{count}} शामिल होने की प्रतीक्षा में",
+        "requests_other": "{{count}} शामिल होने की प्रतीक्षा में",
+        "runAnyway": "फिर भी करें"
+      },
+      "nav": "मिलन",
+      "quorum": {
+        "confirmed": "पुष्ट · {{count}} आ रहे हैं",
+        "needed": "पुष्टि के लिए {{count}} और चाहिए · {{going}} आ रहे हैं"
+      },
+      "safety": {
+        "blockHost": "मेज़बान को ब्लॉक करें",
+        "blockOwner": "मालिक को ब्लॉक करें",
+        "more": "और",
+        "reportClub": "क्लब की रिपोर्ट करें",
+        "reportFailed": "रिपोर्ट नहीं भेजी जा सकी। फिर से कोशिश करें।",
+        "reportGathering": "मिलन की रिपोर्ट करें",
+        "reported": "धन्यवाद — हमारे मॉडरेटर इसकी समीक्षा करेंगे।"
+      },
+      "status": {
+        "cancelled": "रद्द",
+        "confirmed": "पुष्ट",
+        "ended": "समाप्त",
+        "live": "अभी चल रहा है",
+        "scheduled": "निर्धारित"
+      },
+      "time": {
+        "hostLocal": "मेज़बान के लिए {{time}}"
+      },
+      "topics": {
+        "business": "व्यापार",
+        "conversation": "बातचीत",
+        "culture": "संस्कृति",
+        "exam_prep": "परीक्षा की तैयारी",
+        "games": "खेल",
+        "grammar": "व्याकरण",
+        "media": "संगीत, फ़िल्म और टीवी",
+        "pronunciation": "उच्चारण",
+        "travel": "यात्रा"
+      }
+    }
+  },
+  "id": {
+    "clubs": {
+      "card": {
+        "joined": "Sudah bergabung",
+        "members_one": "{{count}} anggota",
+        "members_other": "{{count}} anggota"
+      },
+      "detail": {
+        "back": "Lihat klub lain",
+        "edit": "Edit klub",
+        "host": "Adakan pertemuan untuk klub ini",
+        "join": "Gabung klub",
+        "leave": "Keluar dari klub",
+        "leaveTitle": "Keluar dari klub ini?",
+        "metTimes_one": "Sudah bertemu sekali",
+        "metTimes_other": "Sudah bertemu {{count}} kali",
+        "neverMet": "Belum pernah bertemu",
+        "noGatherings": "Belum ada yang dijadwalkan.",
+        "upcoming": "Akan datang",
+        "youOwn": "Kamu pemilik klub ini"
+      },
+      "form": {
+        "city": "Kota (opsional)",
+        "create": "Buat klub",
+        "createTitle": "Mulai klub",
+        "description": "Tentang klub (opsional)",
+        "editTitle": "Edit klub",
+        "errors": {
+          "descriptionTooLong": "Deskripsi maksimal 2000 karakter.",
+          "interestTooLong": "Minat maksimal 60 karakter.",
+          "languageRequired": "Pilih bahasa klub.",
+          "nameRequired": "Beri nama klubmu.",
+          "nameTooLong": "Nama maksimal 80 karakter."
+        },
+        "interest": "Apa yang menyatukan kalian (mis. buku, drama Korea)",
+        "language": "Bahasa",
+        "name": "Nama",
+        "notAllowed": "Hanya pemilik atau pengurus klub yang bisa mengeditnya.",
+        "placeAddress": "Alamat (opsional)",
+        "placeName": "Tempat berkumpul (opsional)"
+      },
+      "home": {
+        "empty": "Belum ada klub di sini.",
+        "scopeAll": "Semua",
+        "scopeMember": "Sudah bergabung",
+        "scopeMine": "Bahasa saya",
+        "start": "Mulai klub"
+      },
+      "owner": {
+        "delete": "Hapus klub",
+        "deleteBody": "Anggota akan kehilangan klub ini. Pertemuan yang sudah dijadwalkan tetap berjalan.",
+        "deleteTitle": "Hapus {{name}}?"
+      },
+      "people": {
+        "makeMember": "Hapus peran pengurus",
+        "makeOrganizer": "Jadikan pengurus",
+        "organizer": "Pengurus",
+        "owner": "Pemilik",
+        "remove": "Keluarkan dari klub",
+        "removeTitle": "Keluarkan {{name}}?",
+        "title": "Anggota · {{count}}"
+      }
+    },
+    "gatherings": {
+      "card": {
+        "approval": "Perlu persetujuan tuan rumah",
+        "full": "Penuh",
+        "going": "Ikut",
+        "hostedBy": "Diadakan oleh {{name}}",
+        "hosting": "Kamu tuan rumahnya",
+        "requested": "Diminta",
+        "seatsLeft_one": "Sisa {{count}} kursi",
+        "seatsLeft_other": "Sisa {{count}} kursi"
+      },
+      "confirm": {
+        "cancel": "Nanti saja",
+        "leaveBody": "Yang lain mengandalkan orang-orang yang sudah bilang ikut.",
+        "leaveOk": "Lepaskan kursiku",
+        "leaveTitle": "Lepaskan kursimu?"
+      },
+      "cover": {
+        "add": "Tambah foto sampul",
+        "badType": "Gunakan gambar JPEG, PNG, GIF, atau WebP.",
+        "change": "Ganti foto sampul",
+        "remove": "Hapus sampul",
+        "tooBig": "Gambar itu lebih dari 10 MB."
+      },
+      "detail": {
+        "askToJoin": "Minta ikut",
+        "back": "Lihat pertemuan lain",
+        "cancelRequest": "Batalkan permintaanku",
+        "capacity": "Maks. {{count}} orang · terkonfirmasi di {{quorum}}",
+        "duration": "{{count}} menit",
+        "edit": "Edit pertemuan",
+        "host": "Tuan rumah",
+        "join": "Aku ikut",
+        "leave": "Aku tidak bisa ikut lagi",
+        "online": "Online",
+        "requestSent": "Permintaan dikirim. Tuan rumah yang memutuskan.",
+        "someone": "Anggota BananaTalk",
+        "youreGoing": "Kamu ikut."
+      },
+      "errors": {
+        "alreadyGoing": "Kamu sudah ikut.",
+        "cancelled": "Pertemuan ini dibatalkan.",
+        "capacityBelowGoing": "Kapasitas tidak boleh kurang dari {{count}} orang yang sudah ikut.",
+        "clubArchived": "Klub ini sudah diarsipkan.",
+        "clubGone": "Klub ini tidak tersedia.",
+        "endBeforeStart": "Kamu bisa mengakhiri pertemuan setelah dimulai.",
+        "ended": "Pertemuan ini sudah berakhir.",
+        "full": "Pertemuan ini sudah penuh.",
+        "gatheringGone": "Pertemuan ini tidak tersedia.",
+        "generic": "Terjadi kesalahan. Coba lagi.",
+        "hostBlocked": "Kamu belum bisa jadi tuan rumah: terlalu banyak pertemuanmu yang dibatalkan atau terlewat.",
+        "hostCannotLeave": "Sebagai tuan rumah, batalkan pertemuannya alih-alih keluar.",
+        "joinClubFirst": "Gabung klub dulu sebelum mengadakan pertemuan untuknya.",
+        "offline": "Kamu sedang offline. Periksa koneksimu.",
+        "ownerCannotLeave": "Sebagai pemilik, kamu bisa menghapus klub tapi tidak bisa keluar.",
+        "pastStart": "Pilih waktu mulai di masa depan.",
+        "pending": "Permintaanmu sedang menunggu tuan rumah.",
+        "started": "Pertemuan ini sudah dimulai."
+      },
+      "form": {
+        "anyLevel": "Semua level",
+        "cancel": "Batal",
+        "capacity": "Kursi",
+        "create": "Posting pertemuan",
+        "createTitle": "Adakan pertemuan",
+        "description": "Mau ngapain? (opsional)",
+        "duration_one": "Durasi {{count}} menit · di zona waktumu",
+        "duration_other": "Durasi {{count}} menit · di zona waktumu",
+        "editTitle": "Edit pertemuan",
+        "errors": {
+          "capacityRange": "Jumlah kursi harus antara 2 dan 20.",
+          "descriptionTooLong": "Deskripsi maksimal 2000 karakter.",
+          "languageRequired": "Pilih bahasa yang akan kamu latih.",
+          "quorumRange": "Pertemuan terkonfirmasi di 2 orang atau lebih, dan tidak lebih dari jumlah kursi.",
+          "startInPast": "Pilih waktu mulai di masa depan.",
+          "startRequired": "Pilih hari dan jam.",
+          "startTooFar": "Pilih waktu dalam 90 hari ke depan.",
+          "titleRequired": "Beri judul pertemuanmu.",
+          "titleTooLong": "Judul maksimal 120 karakter."
+        },
+        "joinApproval": "Aku menyetujui tiap orang",
+        "joinMode": "Siapa yang bisa ikut",
+        "joinOpen": "Siapa saja",
+        "language": "Bahasa",
+        "level": "Level",
+        "noTopic": "Tanpa topik",
+        "notHost": "Hanya tuan rumah yang bisa mengedit pertemuan ini.",
+        "pickLanguage": "Pilih bahasa",
+        "quorum": "Konfirmasi pada",
+        "save": "Simpan",
+        "startsAt": "Mulai",
+        "title": "Judul",
+        "topic": "Topik"
+      },
+      "home": {
+        "anyLanguage": "Bahasa saya",
+        "anyTime": "Kapan saja",
+        "anyTopic": "Semua topik",
+        "empty": "Belum ada yang dijadwalkan di sini.",
+        "emptyCta": "Adakan yang pertama",
+        "error": "Tidak dapat memuat daftar ini.",
+        "hasSeat": "Ada kursi kosong",
+        "host": "Adakan pertemuan",
+        "language": "Bahasa",
+        "loadMore": "Muat lebih banyak",
+        "retry": "Coba lagi",
+        "scopeAll": "Semua",
+        "scopeMe": "Pertemuan saya",
+        "scopeMine": "Bahasa saya",
+        "tabClubs": "Klub",
+        "tabGatherings": "Pertemuan",
+        "title": "Pertemuan",
+        "today": "Hari ini",
+        "topic": "Topik",
+        "week": "Minggu ini",
+        "when": "Kapan"
+      },
+      "host": {
+        "approve": "Terima",
+        "callOff": "Batalkan",
+        "callOffTitle": "Batalkan saja?",
+        "cancel": "Batalkan pertemuan",
+        "cancelConfirm_one": "{{count}} orang menunggu ini. Mereka akan diberi tahu pembatalannya.",
+        "cancelConfirm_other": "{{count}} orang menunggu ini. Mereka akan diberi tahu pembatalannya.",
+        "cancelOk": "Batalkan pertemuan",
+        "cancelTitle": "Batalkan pertemuan ini?",
+        "decisionAlone": "Sejauh ini hanya kamu. Tetap jalan atau batalkan?",
+        "decision_one": "Sejauh ini hanya {{count}} orang. Tetap jalan atau batalkan?",
+        "decision_other": "Sejauh ini hanya {{count}} orang. Tetap jalan atau batalkan?",
+        "decline": "Tolak",
+        "end": "Akhiri pertemuan",
+        "ended": "Selesai — mengirim pesan ke orang yang kamu temui itu gratis",
+        "nobodyExpecting": "Belum ada orang lain yang bilang ikut.",
+        "requests_one": "{{count}} menunggu untuk bergabung",
+        "requests_other": "{{count}} menunggu untuk bergabung",
+        "runAnyway": "Tetap jalan"
+      },
+      "nav": "Pertemuan",
+      "quorum": {
+        "confirmed": "Terkonfirmasi · {{count}} ikut",
+        "needed": "Butuh {{count}} orang lagi untuk konfirmasi · {{going}} ikut"
+      },
+      "safety": {
+        "blockHost": "Blokir tuan rumah",
+        "blockOwner": "Blokir pemilik",
+        "more": "Lainnya",
+        "reportClub": "Laporkan klub",
+        "reportFailed": "Gagal mengirim laporan. Coba lagi.",
+        "reportGathering": "Laporkan pertemuan",
+        "reported": "Terima kasih — moderator kami akan meninjaunya."
+      },
+      "status": {
+        "cancelled": "Dibatalkan",
+        "confirmed": "Terkonfirmasi",
+        "ended": "Berakhir",
+        "live": "Sedang berlangsung",
+        "scheduled": "Terjadwal"
+      },
+      "time": {
+        "hostLocal": "{{time}} waktu tuan rumah"
+      },
+      "topics": {
+        "business": "Bisnis",
+        "conversation": "Percakapan",
+        "culture": "Budaya",
+        "exam_prep": "Persiapan ujian",
+        "games": "Permainan",
+        "grammar": "Tata bahasa",
+        "media": "Musik, film & TV",
+        "pronunciation": "Pelafalan",
+        "travel": "Perjalanan"
+      }
+    }
+  },
+  "it": {
+    "clubs": {
+      "card": {
+        "joined": "Iscritto",
+        "members_one": "{{count}} membro",
+        "members_other": "{{count}} membri"
+      },
+      "detail": {
+        "back": "Vedi altri club",
+        "edit": "Modifica club",
+        "host": "Organizza un incontro per questo club",
+        "join": "Unisciti al club",
+        "leave": "Lascia il club",
+        "leaveTitle": "Lasciare questo club?",
+        "metTimes_one": "Si è incontrato una volta",
+        "metTimes_other": "Si è incontrato {{count}} volte",
+        "neverMet": "Non si è ancora incontrato",
+        "noGatherings": "Non c'è ancora nulla in programma.",
+        "upcoming": "In programma",
+        "youOwn": "Questo club è tuo"
+      },
+      "form": {
+        "city": "Città (facoltativo)",
+        "create": "Crea club",
+        "createTitle": "Crea un club",
+        "description": "Descrizione del club (facoltativo)",
+        "editTitle": "Modifica club",
+        "errors": {
+          "descriptionTooLong": "La descrizione deve restare sotto i 2000 caratteri.",
+          "interestTooLong": "L'interesse deve restare sotto i 60 caratteri.",
+          "languageRequired": "Scegli la lingua del club.",
+          "nameRequired": "Dai un nome al tuo club.",
+          "nameTooLong": "Il nome deve restare sotto gli 80 caratteri."
+        },
+        "interest": "Cosa vi unisce (es. libri, K-drama)",
+        "language": "Lingua",
+        "name": "Nome",
+        "notAllowed": "Solo il proprietario del club o un organizzatore può modificarlo.",
+        "placeAddress": "Indirizzo (facoltativo)",
+        "placeName": "Dove vi incontrate (facoltativo)"
+      },
+      "home": {
+        "empty": "Ancora nessun club qui.",
+        "scopeAll": "Tutti",
+        "scopeMember": "I miei club",
+        "scopeMine": "Le mie lingue",
+        "start": "Crea un club"
+      },
+      "owner": {
+        "delete": "Elimina club",
+        "deleteBody": "I membri perderanno il club. Gli incontri già in programma si terranno comunque.",
+        "deleteTitle": "Eliminare {{name}}?"
+      },
+      "people": {
+        "makeMember": "Rimuovi ruolo di organizzatore",
+        "makeOrganizer": "Rendi organizzatore",
+        "organizer": "Organizzatore",
+        "owner": "Proprietario",
+        "remove": "Rimuovi dal club",
+        "removeTitle": "Rimuovere {{name}}?",
+        "title": "Membri · {{count}}"
+      }
+    },
+    "gatherings": {
+      "card": {
+        "approval": "Approvazione dell'organizzatore",
+        "full": "Al completo",
+        "going": "Partecipi",
+        "hostedBy": "Organizzato da {{name}}",
+        "hosting": "Sei l'organizzatore",
+        "requested": "Richiesta inviata",
+        "seatsLeft_one": "{{count}} posto libero",
+        "seatsLeft_other": "{{count}} posti liberi"
+      },
+      "confirm": {
+        "cancel": "Non ora",
+        "leaveBody": "Gli altri contano su chi ha detto sì.",
+        "leaveOk": "Libera il mio posto",
+        "leaveTitle": "Liberare il tuo posto?"
+      },
+      "cover": {
+        "add": "Aggiungi una foto di copertina",
+        "badType": "Usa un'immagine JPEG, PNG, GIF o WebP.",
+        "change": "Cambia foto di copertina",
+        "remove": "Rimuovi copertina",
+        "tooBig": "L'immagine supera i 10 MB."
+      },
+      "detail": {
+        "askToJoin": "Chiedi di partecipare",
+        "back": "Vedi altri incontri",
+        "cancelRequest": "Annulla la mia richiesta",
+        "capacity": "Fino a {{count}} persone · confermato con {{quorum}}",
+        "duration": "{{count}} min",
+        "edit": "Modifica incontro",
+        "host": "Organizzatore",
+        "join": "Partecipo",
+        "leave": "Non posso più venire",
+        "online": "Online",
+        "requestSent": "Richiesta inviata. Deciderà l'organizzatore.",
+        "someone": "Un membro di BananaTalk",
+        "youreGoing": "Parteciperai."
+      },
+      "errors": {
+        "alreadyGoing": "Partecipi già.",
+        "cancelled": "Questo incontro è stato annullato.",
+        "capacityBelowGoing": "I posti non possono essere meno delle {{count}} persone che partecipano già.",
+        "clubArchived": "Questo club è archiviato.",
+        "clubGone": "Questo club non è disponibile.",
+        "endBeforeStart": "Puoi terminare l'incontro solo dopo che è iniziato.",
+        "ended": "Questo incontro è terminato.",
+        "full": "Questo incontro è al completo.",
+        "gatheringGone": "Questo incontro non è disponibile.",
+        "generic": "Qualcosa è andato storto. Riprova.",
+        "hostBlocked": "Al momento non puoi organizzare incontri: troppi tuoi incontri sono stati annullati o saltati.",
+        "hostCannotLeave": "Come organizzatore, annulla l'incontro invece di lasciarlo.",
+        "joinClubFirst": "Unisciti al club prima di organizzare un incontro per esso.",
+        "offline": "Sei offline. Controlla la connessione.",
+        "ownerCannotLeave": "Come proprietario, puoi eliminare il club ma non lasciarlo.",
+        "pastStart": "Scegli un orario di inizio futuro.",
+        "pending": "La tua richiesta è in attesa dell'organizzatore.",
+        "started": "Questo incontro è già iniziato."
+      },
+      "form": {
+        "anyLevel": "Qualsiasi livello",
+        "cancel": "Annulla",
+        "capacity": "Posti",
+        "create": "Pubblica incontro",
+        "createTitle": "Organizza un incontro",
+        "description": "Cosa farete? (facoltativo)",
+        "duration_one": "Dura {{count}} minuto · nel tuo fuso orario",
+        "duration_other": "Dura {{count}} minuti · nel tuo fuso orario",
+        "editTitle": "Modifica incontro",
+        "errors": {
+          "capacityRange": "I posti devono essere tra 2 e 20.",
+          "descriptionTooLong": "La descrizione deve restare sotto i 2000 caratteri.",
+          "languageRequired": "Scegli la lingua che praticherete.",
+          "quorumRange": "L'incontro si conferma con almeno 2 persone e non più dei posti disponibili.",
+          "startInPast": "Scegli un orario di inizio futuro.",
+          "startRequired": "Scegli giorno e ora.",
+          "startTooFar": "Scegli un orario entro i prossimi 90 giorni.",
+          "titleRequired": "Dai un titolo al tuo incontro.",
+          "titleTooLong": "Il titolo deve restare sotto i 120 caratteri."
+        },
+        "joinApproval": "Approvo ogni persona",
+        "joinMode": "Chi può partecipare",
+        "joinOpen": "Chiunque",
+        "language": "Lingua",
+        "level": "Livello",
+        "noTopic": "Nessun argomento",
+        "notHost": "Solo l'organizzatore può modificare questo incontro.",
+        "pickLanguage": "Scegli una lingua",
+        "quorum": "Conferma a",
+        "save": "Salva",
+        "startsAt": "Inizio",
+        "title": "Titolo",
+        "topic": "Argomento"
+      },
+      "home": {
+        "anyLanguage": "Le mie lingue",
+        "anyTime": "Qualsiasi momento",
+        "anyTopic": "Qualsiasi argomento",
+        "empty": "Non c'è ancora nulla in programma qui.",
+        "emptyCta": "Organizza il primo",
+        "error": "Impossibile caricare questo elenco.",
+        "hasSeat": "Con posti liberi",
+        "host": "Organizza un incontro",
+        "language": "Lingua",
+        "loadMore": "Carica altri",
+        "retry": "Riprova",
+        "scopeAll": "Tutti",
+        "scopeMe": "I miei incontri",
+        "scopeMine": "Le mie lingue",
+        "tabClubs": "Club",
+        "tabGatherings": "Incontri",
+        "title": "Incontri",
+        "today": "Oggi",
+        "topic": "Argomento",
+        "week": "Questa settimana",
+        "when": "Quando"
+      },
+      "host": {
+        "approve": "Ammetti",
+        "callOff": "Annullarlo",
+        "callOffTitle": "Annullarlo?",
+        "cancel": "Annulla incontro",
+        "cancelConfirm_one": "{{count}} persona lo sta aspettando. Le comunicheremo l'annullamento.",
+        "cancelConfirm_other": "{{count}} persone lo stanno aspettando. Comunicheremo loro l'annullamento.",
+        "cancelOk": "Annulla incontro",
+        "cancelTitle": "Annullare questo incontro?",
+        "decisionAlone": "Per ora ci sei solo tu. Lo fai lo stesso o lo annulli?",
+        "decision_one": "Per ora viene solo {{count}} persona. Lo fai lo stesso o lo annulli?",
+        "decision_other": "Per ora vengono solo {{count}} persone. Lo fai lo stesso o lo annulli?",
+        "decline": "Rifiuta",
+        "end": "Termina incontro",
+        "ended": "Terminato: scrivere a chi hai conosciuto è gratis",
+        "nobodyExpecting": "Nessun altro ha ancora detto sì.",
+        "requests_one": "{{count}} in attesa di entrare",
+        "requests_other": "{{count}} in attesa di entrare",
+        "runAnyway": "Farlo lo stesso"
+      },
+      "nav": "Incontri",
+      "quorum": {
+        "confirmed": "Confermato · {{count}} partecipanti",
+        "needed": "Ne mancano {{count}} per confermare · {{going}} partecipanti"
+      },
+      "safety": {
+        "blockHost": "Blocca l'organizzatore",
+        "blockOwner": "Blocca il proprietario",
+        "more": "Altro",
+        "reportClub": "Segnala club",
+        "reportFailed": "Impossibile inviare la segnalazione. Riprova.",
+        "reportGathering": "Segnala incontro",
+        "reported": "Grazie, i nostri moderatori la esamineranno."
+      },
+      "status": {
+        "cancelled": "Annullato",
+        "confirmed": "Confermato",
+        "ended": "Terminato",
+        "live": "In corso",
+        "scheduled": "In programma"
+      },
+      "time": {
+        "hostLocal": "{{time}} per l'organizzatore"
+      },
+      "topics": {
+        "business": "Lavoro",
+        "conversation": "Conversazione",
+        "culture": "Cultura",
+        "exam_prep": "Preparazione esami",
+        "games": "Giochi",
+        "grammar": "Grammatica",
+        "media": "Musica, film e serie TV",
+        "pronunciation": "Pronuncia",
+        "travel": "Viaggi"
+      }
+    }
+  },
+  "ja": {
+    "clubs": {
+      "card": {
+        "joined": "参加中",
+        "members_one": "メンバー{{count}}人",
+        "members_other": "メンバー{{count}}人"
+      },
+      "detail": {
+        "back": "ほかのクラブを見る",
+        "edit": "クラブを編集",
+        "host": "このクラブの集まりを開く",
+        "join": "クラブに参加",
+        "leave": "クラブを退会",
+        "leaveTitle": "このクラブを退会しますか？",
+        "metTimes_one": "開催1回",
+        "metTimes_other": "開催{{count}}回",
+        "neverMet": "まだ開催されていません",
+        "noGatherings": "まだ予定がありません。",
+        "upcoming": "今後の予定",
+        "youOwn": "あなたがオーナーのクラブです"
+      },
+      "form": {
+        "city": "都市（任意）",
+        "create": "クラブを作成",
+        "createTitle": "クラブを作る",
+        "description": "クラブの紹介（任意）",
+        "editTitle": "クラブを編集",
+        "errors": {
+          "descriptionTooLong": "紹介は2000文字以内にしてください。",
+          "interestTooLong": "興味・関心は60文字以内にしてください。",
+          "languageRequired": "クラブの言語を選んでください。",
+          "nameRequired": "クラブ名を入力してください。",
+          "nameTooLong": "クラブ名は80文字以内にしてください。"
+        },
+        "interest": "共通の興味（例：本、韓国ドラマ）",
+        "language": "言語",
+        "name": "クラブ名",
+        "notAllowed": "このクラブを編集できるのはオーナーとオーガナイザーだけです。",
+        "placeAddress": "住所（任意）",
+        "placeName": "集まる場所（任意）"
+      },
+      "home": {
+        "empty": "まだクラブがありません。",
+        "scopeAll": "すべて",
+        "scopeMember": "参加中",
+        "scopeMine": "自分の言語",
+        "start": "クラブを作る"
+      },
+      "owner": {
+        "delete": "クラブを削除",
+        "deleteBody": "メンバーはクラブを失います。すでに予定されている集まりはそのまま開催されます。",
+        "deleteTitle": "{{name}}を削除しますか？"
+      },
+      "people": {
+        "makeMember": "オーガナイザーを解除",
+        "makeOrganizer": "オーガナイザーにする",
+        "organizer": "オーガナイザー",
+        "owner": "オーナー",
+        "remove": "クラブから外す",
+        "removeTitle": "{{name}}さんを外しますか？",
+        "title": "メンバー · {{count}}"
+      }
+    },
+    "gatherings": {
+      "card": {
+        "approval": "ホストの承認制",
+        "full": "満席",
+        "going": "参加予定",
+        "hostedBy": "ホスト: {{name}}",
+        "hosting": "あなたがホスト",
+        "requested": "申請中",
+        "seatsLeft_one": "残り{{count}}席",
+        "seatsLeft_other": "残り{{count}}席"
+      },
+      "confirm": {
+        "cancel": "今はやめる",
+        "leaveBody": "参加すると答えた人を、みんなが頼りにしています。",
+        "leaveOk": "席を譲る",
+        "leaveTitle": "席を譲りますか？"
+      },
+      "cover": {
+        "add": "カバー写真を追加",
+        "badType": "JPEG、PNG、GIF、WebPの画像を使ってください。",
+        "change": "カバー写真を変更",
+        "remove": "カバーを削除",
+        "tooBig": "画像が10MBを超えています。"
+      },
+      "detail": {
+        "askToJoin": "参加を申請",
+        "back": "ほかの集まりを見る",
+        "cancelRequest": "申請を取り消す",
+        "capacity": "最大{{count}}人 · {{quorum}}人で確定",
+        "duration": "{{count}}分",
+        "edit": "集まりを編集",
+        "host": "ホスト",
+        "join": "参加する",
+        "leave": "参加できなくなった",
+        "online": "オンライン",
+        "requestSent": "申請しました。ホストが判断します。",
+        "someone": "BananaTalkメンバー",
+        "youreGoing": "参加予定です。"
+      },
+      "errors": {
+        "alreadyGoing": "すでに参加予定です。",
+        "cancelled": "この集まりは中止されました。",
+        "capacityBelowGoing": "定員を参加予定の{{count}}人より少なくすることはできません。",
+        "clubArchived": "このクラブはアーカイブされています。",
+        "clubGone": "このクラブは表示できません。",
+        "endBeforeStart": "集まりを終了できるのは開始後です。",
+        "ended": "この集まりは終了しました。",
+        "full": "この集まりは満席です。",
+        "gatheringGone": "この集まりは表示できません。",
+        "generic": "問題が発生しました。もう一度お試しください。",
+        "hostBlocked": "中止や不参加になった集まりが多いため、現在はホストになれません。",
+        "hostCannotLeave": "ホストは退出ではなく、集まりを中止してください。",
+        "joinClubFirst": "集まりを開く前にクラブに参加してください。",
+        "offline": "オフラインです。接続を確認してください。",
+        "ownerCannotLeave": "オーナーはクラブを削除できますが、退会はできません。",
+        "pastStart": "未来の開始時間を選んでください。",
+        "pending": "申請はホストの判断待ちです。",
+        "started": "この集まりはすでに始まっています。"
+      },
+      "form": {
+        "anyLevel": "レベル不問",
+        "cancel": "キャンセル",
+        "capacity": "定員",
+        "create": "投稿する",
+        "createTitle": "集まりを開く",
+        "description": "何をしますか？（任意）",
+        "duration_one": "所要{{count}}分 · あなたのタイムゾーン",
+        "duration_other": "所要{{count}}分 · あなたのタイムゾーン",
+        "editTitle": "集まりを編集",
+        "errors": {
+          "capacityRange": "定員は2〜20人にしてください。",
+          "descriptionTooLong": "説明は2000文字以内にしてください。",
+          "languageRequired": "練習する言語を選んでください。",
+          "quorumRange": "確定人数は2人以上、定員以下にしてください。",
+          "startInPast": "未来の開始時間を選んでください。",
+          "startRequired": "日時を選んでください。",
+          "startTooFar": "90日以内の日時を選んでください。",
+          "titleRequired": "集まりのタイトルを入力してください。",
+          "titleTooLong": "タイトルは120文字以内にしてください。"
+        },
+        "joinApproval": "一人ずつ承認する",
+        "joinMode": "参加できる人",
+        "joinOpen": "誰でも",
+        "language": "言語",
+        "level": "レベル",
+        "noTopic": "トピックなし",
+        "notHost": "この集まりを編集できるのはホストだけです。",
+        "pickLanguage": "言語を選択",
+        "quorum": "確定人数",
+        "save": "保存",
+        "startsAt": "開始",
+        "title": "タイトル",
+        "topic": "トピック"
+      },
+      "home": {
+        "anyLanguage": "自分の言語",
+        "anyTime": "いつでも",
+        "anyTopic": "すべてのトピック",
+        "empty": "まだ予定がありません。",
+        "emptyCta": "最初の集まりを開く",
+        "error": "一覧を読み込めませんでした。",
+        "hasSeat": "空席あり",
+        "host": "集まりを開く",
+        "language": "言語",
+        "loadMore": "もっと見る",
+        "retry": "再試行",
+        "scopeAll": "すべて",
+        "scopeMe": "マイ集まり",
+        "scopeMine": "自分の言語",
+        "tabClubs": "クラブ",
+        "tabGatherings": "集まり",
+        "title": "集まり",
+        "today": "今日",
+        "topic": "トピック",
+        "week": "今週",
+        "when": "日時"
+      },
+      "host": {
+        "approve": "承認",
+        "callOff": "中止する",
+        "callOffTitle": "中止しますか？",
+        "cancel": "集まりを中止",
+        "cancelConfirm_one": "{{count}}人がこの集まりを待っています。中止を知らせます。",
+        "cancelConfirm_other": "{{count}}人がこの集まりを待っています。中止を知らせます。",
+        "cancelOk": "集まりを中止",
+        "cancelTitle": "この集まりを中止しますか？",
+        "decisionAlone": "今のところ参加はあなただけです。開催しますか、中止しますか？",
+        "decision_one": "今のところ参加は{{count}}人です。開催しますか、中止しますか？",
+        "decision_other": "今のところ参加は{{count}}人です。開催しますか、中止しますか？",
+        "decline": "拒否",
+        "end": "集まりを終了",
+        "ended": "終了しました — 会った人へのメッセージは無料です",
+        "nobodyExpecting": "まだ誰も参加すると答えていません。",
+        "requests_one": "参加待ち {{count}}人",
+        "requests_other": "参加待ち {{count}}人",
+        "runAnyway": "それでも開催"
+      },
+      "nav": "集まり",
+      "quorum": {
+        "confirmed": "確定 · {{count}}人が参加",
+        "needed": "確定まであと{{count}}人 · {{going}}人が参加"
+      },
+      "safety": {
+        "blockHost": "ホストをブロック",
+        "blockOwner": "オーナーをブロック",
+        "more": "その他",
+        "reportClub": "クラブを報告",
+        "reportFailed": "報告を送信できませんでした。もう一度お試しください。",
+        "reportGathering": "集まりを報告",
+        "reported": "ありがとうございます — モデレーターが確認します。"
+      },
+      "status": {
+        "cancelled": "中止",
+        "confirmed": "確定",
+        "ended": "終了",
+        "live": "開催中",
+        "scheduled": "予定"
+      },
+      "time": {
+        "hostLocal": "ホストの時間で{{time}}"
+      },
+      "topics": {
+        "business": "ビジネス",
+        "conversation": "会話",
+        "culture": "文化",
+        "exam_prep": "試験対策",
+        "games": "ゲーム",
+        "grammar": "文法",
+        "media": "音楽・映画・ドラマ",
+        "pronunciation": "発音",
+        "travel": "旅行"
+      }
+    }
+  },
+  "kor": {
+    "clubs": {
+      "card": {
+        "joined": "가입함",
+        "members_one": "멤버 {{count}}명",
+        "members_other": "멤버 {{count}}명"
+      },
+      "detail": {
+        "back": "다른 클럽 보기",
+        "edit": "클럽 수정",
+        "host": "이 클럽의 모임 열기",
+        "join": "클럽 가입",
+        "leave": "클럽 탈퇴",
+        "leaveTitle": "이 클럽에서 탈퇴할까요?",
+        "metTimes_one": "모임 1회 진행",
+        "metTimes_other": "모임 {{count}}회 진행",
+        "neverMet": "아직 모인 적이 없어요",
+        "noGatherings": "아직 예정된 모임이 없어요.",
+        "upcoming": "예정된 모임",
+        "youOwn": "내가 만든 클럽이에요"
+      },
+      "form": {
+        "city": "도시 (선택)",
+        "create": "클럽 만들기",
+        "createTitle": "클럽 만들기",
+        "description": "클럽 소개 (선택)",
+        "editTitle": "클럽 수정",
+        "errors": {
+          "descriptionTooLong": "소개는 2000자 이내로 써 주세요.",
+          "interestTooLong": "관심사는 60자 이내로 써 주세요.",
+          "languageRequired": "클럽 언어를 선택해 주세요.",
+          "nameRequired": "클럽 이름을 정해 주세요.",
+          "nameTooLong": "이름은 80자 이내로 써 주세요."
+        },
+        "interest": "함께하는 관심사 (예: 책, K-드라마)",
+        "language": "언어",
+        "name": "이름",
+        "notAllowed": "클럽 소유자나 운영진만 수정할 수 있어요.",
+        "placeAddress": "주소 (선택)",
+        "placeName": "모이는 장소 (선택)"
+      },
+      "home": {
+        "empty": "아직 클럽이 없어요.",
+        "scopeAll": "전체",
+        "scopeMember": "가입한 클럽",
+        "scopeMine": "내 언어",
+        "start": "클럽 만들기"
+      },
+      "owner": {
+        "delete": "클럽 삭제",
+        "deleteBody": "멤버들은 클럽을 잃게 돼요. 이미 예정된 모임은 그대로 진행됩니다.",
+        "deleteTitle": "{{name}}을(를) 삭제할까요?"
+      },
+      "people": {
+        "makeMember": "운영진 해제",
+        "makeOrganizer": "운영진으로 지정",
+        "organizer": "운영진",
+        "owner": "소유자",
+        "remove": "클럽에서 내보내기",
+        "removeTitle": "{{name}}님을 내보낼까요?",
+        "title": "멤버 · {{count}}"
+      }
+    },
+    "gatherings": {
+      "card": {
+        "approval": "호스트 승인 필요",
+        "full": "마감",
+        "going": "참여 중",
+        "hostedBy": "호스트: {{name}}",
+        "hosting": "내가 호스트",
+        "requested": "요청함",
+        "seatsLeft_one": "{{count}}자리 남음",
+        "seatsLeft_other": "{{count}}자리 남음"
+      },
+      "confirm": {
+        "cancel": "나중에",
+        "leaveBody": "다른 참여자들은 참여한다고 한 사람들을 믿고 있어요.",
+        "leaveOk": "자리 양보하기",
+        "leaveTitle": "자리를 양보할까요?"
+      },
+      "cover": {
+        "add": "커버 사진 추가",
+        "badType": "JPEG, PNG, GIF, WebP 이미지를 사용해 주세요.",
+        "change": "커버 사진 변경",
+        "remove": "커버 삭제",
+        "tooBig": "이미지가 10MB를 넘어요."
+      },
+      "detail": {
+        "askToJoin": "참여 요청",
+        "back": "다른 모임 보기",
+        "cancelRequest": "요청 취소",
+        "capacity": "최대 {{count}}명 · {{quorum}}명이면 확정",
+        "duration": "{{count}}분",
+        "edit": "모임 수정",
+        "host": "호스트",
+        "join": "참여할게요",
+        "leave": "이제 못 가요",
+        "online": "온라인",
+        "requestSent": "요청을 보냈어요. 호스트가 결정합니다.",
+        "someone": "BananaTalk 멤버",
+        "youreGoing": "참여 예정이에요."
+      },
+      "errors": {
+        "alreadyGoing": "이미 참여 중이에요.",
+        "cancelled": "취소된 모임이에요.",
+        "capacityBelowGoing": "정원은 이미 참여 중인 {{count}}명보다 적을 수 없어요.",
+        "clubArchived": "보관된 클럽이에요.",
+        "clubGone": "이 클럽은 볼 수 없어요.",
+        "endBeforeStart": "모임은 시작된 후에 종료할 수 있어요.",
+        "ended": "종료된 모임이에요.",
+        "full": "정원이 마감된 모임이에요.",
+        "gatheringGone": "이 모임은 볼 수 없어요.",
+        "generic": "문제가 발생했어요. 다시 시도해 주세요.",
+        "hostBlocked": "취소되거나 진행되지 않은 모임이 많아 지금은 호스트를 할 수 없어요.",
+        "hostCannotLeave": "호스트는 나가는 대신 모임을 취소해 주세요.",
+        "joinClubFirst": "모임을 열려면 먼저 클럽에 가입해 주세요.",
+        "offline": "오프라인 상태예요. 연결을 확인해 주세요.",
+        "ownerCannotLeave": "소유자는 클럽을 삭제할 수는 있지만 탈퇴할 수는 없어요.",
+        "pastStart": "미래의 시작 시간을 선택해 주세요.",
+        "pending": "요청이 호스트의 결정을 기다리고 있어요.",
+        "started": "이미 시작된 모임이에요."
+      },
+      "form": {
+        "anyLevel": "모든 레벨",
+        "cancel": "취소",
+        "capacity": "정원",
+        "create": "모임 올리기",
+        "createTitle": "모임 열기",
+        "description": "무엇을 하나요? (선택)",
+        "duration_one": "{{count}}분 진행 · 내 시간대 기준",
+        "duration_other": "{{count}}분 진행 · 내 시간대 기준",
+        "editTitle": "모임 수정",
+        "errors": {
+          "capacityRange": "정원은 2~20명 사이로 정해 주세요.",
+          "descriptionTooLong": "설명은 2000자 이내로 써 주세요.",
+          "languageRequired": "연습할 언어를 선택해 주세요.",
+          "quorumRange": "확정 인원은 2명 이상, 정원 이하로 정해 주세요.",
+          "startInPast": "미래의 시작 시간을 선택해 주세요.",
+          "startRequired": "날짜와 시간을 선택해 주세요.",
+          "startTooFar": "90일 이내의 시간을 선택해 주세요.",
+          "titleRequired": "모임 제목을 정해 주세요.",
+          "titleTooLong": "제목은 120자 이내로 써 주세요."
+        },
+        "joinApproval": "한 명씩 승인할게요",
+        "joinMode": "참여 방식",
+        "joinOpen": "누구나",
+        "language": "언어",
+        "level": "레벨",
+        "noTopic": "주제 없음",
+        "notHost": "호스트만 이 모임을 수정할 수 있어요.",
+        "pickLanguage": "언어 선택",
+        "quorum": "확정 인원",
+        "save": "저장",
+        "startsAt": "시작",
+        "title": "제목",
+        "topic": "주제"
+      },
+      "home": {
+        "anyLanguage": "내 언어",
+        "anyTime": "언제든",
+        "anyTopic": "모든 주제",
+        "empty": "아직 예정된 모임이 없어요.",
+        "emptyCta": "첫 모임 열기",
+        "error": "목록을 불러오지 못했어요.",
+        "hasSeat": "빈자리 있음",
+        "host": "모임 열기",
+        "language": "언어",
+        "loadMore": "더 보기",
+        "retry": "다시 시도",
+        "scopeAll": "전체",
+        "scopeMe": "내 모임",
+        "scopeMine": "내 언어",
+        "tabClubs": "클럽",
+        "tabGatherings": "모임",
+        "title": "모임",
+        "today": "오늘",
+        "topic": "주제",
+        "week": "이번 주",
+        "when": "언제"
+      },
+      "host": {
+        "approve": "수락",
+        "callOff": "취소하기",
+        "callOffTitle": "모임을 취소할까요?",
+        "cancel": "모임 취소",
+        "cancelConfirm_one": "{{count}}명이 이 모임을 기다리고 있어요. 취소되었다고 알려드립니다.",
+        "cancelConfirm_other": "{{count}}명이 이 모임을 기다리고 있어요. 취소되었다고 알려드립니다.",
+        "cancelOk": "모임 취소",
+        "cancelTitle": "이 모임을 취소할까요?",
+        "decisionAlone": "지금은 나만 참여해요. 그래도 진행할까요, 아니면 취소할까요?",
+        "decision_one": "지금까지 {{count}}명만 참여해요. 그래도 진행할까요, 아니면 취소할까요?",
+        "decision_other": "지금까지 {{count}}명만 참여해요. 그래도 진행할까요, 아니면 취소할까요?",
+        "decline": "거절",
+        "end": "모임 종료",
+        "ended": "종료했어요 — 만난 사람에게 무료로 메시지를 보낼 수 있어요",
+        "nobodyExpecting": "아직 참여하겠다는 사람이 없어요.",
+        "requests_one": "참가 대기 {{count}}명",
+        "requests_other": "참가 대기 {{count}}명",
+        "runAnyway": "그래도 진행"
+      },
+      "nav": "모임",
+      "quorum": {
+        "confirmed": "확정 · {{count}}명 참여",
+        "needed": "확정까지 {{count}}명 더 필요 · {{going}}명 참여"
+      },
+      "safety": {
+        "blockHost": "호스트 차단",
+        "blockOwner": "소유자 차단",
+        "more": "더 보기",
+        "reportClub": "클럽 신고",
+        "reportFailed": "신고를 보내지 못했어요. 다시 시도해 주세요.",
+        "reportGathering": "모임 신고",
+        "reported": "감사합니다 — 운영팀이 검토할게요."
+      },
+      "status": {
+        "cancelled": "취소됨",
+        "confirmed": "확정",
+        "ended": "종료",
+        "live": "지금 진행 중",
+        "scheduled": "예정"
+      },
+      "time": {
+        "hostLocal": "호스트 기준 {{time}}"
+      },
+      "topics": {
+        "business": "비즈니스",
+        "conversation": "회화",
+        "culture": "문화",
+        "exam_prep": "시험 준비",
+        "games": "게임",
+        "grammar": "문법",
+        "media": "음악·영화·드라마",
+        "pronunciation": "발음",
+        "travel": "여행"
+      }
+    }
+  },
+  "pt": {
+    "clubs": {
+      "card": {
+        "joined": "Participando",
+        "members_one": "{{count}} membro",
+        "members_other": "{{count}} membros"
+      },
+      "detail": {
+        "back": "Ver outros clubes",
+        "edit": "Editar clube",
+        "host": "Organizar um encontro para este clube",
+        "join": "Entrar no clube",
+        "leave": "Sair do clube",
+        "leaveTitle": "Sair deste clube?",
+        "metTimes_one": "Reuniu-se uma vez",
+        "metTimes_other": "Reuniu-se {{count}} vezes",
+        "neverMet": "Ainda não se reuniu",
+        "noGatherings": "Ainda não há nada marcado.",
+        "upcoming": "Em breve",
+        "youOwn": "Você é o dono deste clube"
+      },
+      "form": {
+        "city": "Cidade (opcional)",
+        "create": "Criar clube",
+        "createTitle": "Crie um clube",
+        "description": "Sobre o clube (opcional)",
+        "editTitle": "Editar clube",
+        "errors": {
+          "descriptionTooLong": "A descrição deve ter menos de 2000 caracteres.",
+          "interestTooLong": "O interesse deve ter menos de 60 caracteres.",
+          "languageRequired": "Escolha o idioma do clube.",
+          "nameRequired": "Dê um nome ao seu clube.",
+          "nameTooLong": "O nome deve ter menos de 80 caracteres."
+        },
+        "interest": "O que une vocês (ex.: livros, K-dramas)",
+        "language": "Idioma",
+        "name": "Nome",
+        "notAllowed": "Só o dono do clube ou um organizador pode editá-lo.",
+        "placeAddress": "Endereço (opcional)",
+        "placeName": "Onde vocês se encontram (opcional)"
+      },
+      "home": {
+        "empty": "Ainda não há clubes aqui.",
+        "scopeAll": "Todos",
+        "scopeMember": "Meus clubes",
+        "scopeMine": "Meus idiomas",
+        "start": "Criar um clube"
+      },
+      "owner": {
+        "delete": "Excluir clube",
+        "deleteBody": "Os membros perdem o clube. Os encontros já marcados continuam de pé.",
+        "deleteTitle": "Excluir {{name}}?"
+      },
+      "people": {
+        "makeMember": "Remover função de organizador",
+        "makeOrganizer": "Tornar organizador",
+        "organizer": "Organizador",
+        "owner": "Dono",
+        "remove": "Remover do clube",
+        "removeTitle": "Remover {{name}}?",
+        "title": "Membros · {{count}}"
+      }
+    },
+    "gatherings": {
+      "card": {
+        "approval": "Anfitrião aprova",
+        "full": "Lotado",
+        "going": "Você vai",
+        "hostedBy": "Organizado por {{name}}",
+        "hosting": "Você é o anfitrião",
+        "requested": "Pedido enviado",
+        "seatsLeft_one": "{{count}} vaga restante",
+        "seatsLeft_other": "{{count}} vagas restantes"
+      },
+      "confirm": {
+        "cancel": "Agora não",
+        "leaveBody": "Os outros contam com quem disse sim.",
+        "leaveOk": "Liberar minha vaga",
+        "leaveTitle": "Liberar sua vaga?"
+      },
+      "cover": {
+        "add": "Adicionar foto de capa",
+        "badType": "Use uma imagem JPEG, PNG, GIF ou WebP.",
+        "change": "Trocar foto de capa",
+        "remove": "Remover capa",
+        "tooBig": "Essa imagem tem mais de 10 MB."
+      },
+      "detail": {
+        "askToJoin": "Pedir para entrar",
+        "back": "Ver outros encontros",
+        "cancelRequest": "Cancelar meu pedido",
+        "capacity": "Até {{count}} pessoas · confirma com {{quorum}}",
+        "duration": "{{count}} min",
+        "edit": "Editar encontro",
+        "host": "Anfitrião",
+        "join": "Eu vou",
+        "leave": "Não posso mais ir",
+        "online": "Online",
+        "requestSent": "Pedido enviado. O anfitrião vai decidir.",
+        "someone": "Um membro do BananaTalk",
+        "youreGoing": "Você vai."
+      },
+      "errors": {
+        "alreadyGoing": "Você já confirmou presença.",
+        "cancelled": "Este encontro foi cancelado.",
+        "capacityBelowGoing": "As vagas não podem ser menos que as {{count}} pessoas que já vão.",
+        "clubArchived": "Este clube está arquivado.",
+        "clubGone": "Este clube não está disponível.",
+        "endBeforeStart": "Você pode encerrar o encontro depois que ele começar.",
+        "ended": "Este encontro já terminou.",
+        "full": "Este encontro está lotado.",
+        "gatheringGone": "Este encontro não está disponível.",
+        "generic": "Algo deu errado. Tente novamente.",
+        "hostBlocked": "Você não pode organizar encontros agora: muitos dos seus encontros foram cancelados ou não aconteceram.",
+        "hostCannotLeave": "Como anfitrião, cancele o encontro em vez de sair dele.",
+        "joinClubFirst": "Entre no clube antes de organizar um encontro para ele.",
+        "offline": "Você está offline. Verifique sua conexão.",
+        "ownerCannotLeave": "Como dono, você pode excluir o clube, mas não sair dele.",
+        "pastStart": "Escolha um horário de início no futuro.",
+        "pending": "Seu pedido está aguardando o anfitrião.",
+        "started": "Este encontro já começou."
+      },
+      "form": {
+        "anyLevel": "Qualquer nível",
+        "cancel": "Cancelar",
+        "capacity": "Vagas",
+        "create": "Publicar encontro",
+        "createTitle": "Organize um encontro",
+        "description": "O que vocês vão fazer? (opcional)",
+        "duration_one": "Dura {{count}} minuto · no seu fuso horário",
+        "duration_other": "Dura {{count}} minutos · no seu fuso horário",
+        "editTitle": "Editar encontro",
+        "errors": {
+          "capacityRange": "As vagas devem ficar entre 2 e 20.",
+          "descriptionTooLong": "A descrição deve ter menos de 2000 caracteres.",
+          "languageRequired": "Escolha o idioma que vocês vão praticar.",
+          "quorumRange": "O encontro é confirmado com 2 ou mais pessoas, e não mais que o número de vagas.",
+          "startInPast": "Escolha um horário de início no futuro.",
+          "startRequired": "Escolha um dia e um horário.",
+          "startTooFar": "Escolha um horário dentro dos próximos 90 dias.",
+          "titleRequired": "Dê um título ao seu encontro.",
+          "titleTooLong": "O título deve ter menos de 120 caracteres."
+        },
+        "joinApproval": "Eu aprovo cada pessoa",
+        "joinMode": "Quem pode participar",
+        "joinOpen": "Qualquer pessoa",
+        "language": "Idioma",
+        "level": "Nível",
+        "noTopic": "Sem tema",
+        "notHost": "Só o anfitrião pode editar este encontro.",
+        "pickLanguage": "Escolha um idioma",
+        "quorum": "Confirmar com",
+        "save": "Salvar",
+        "startsAt": "Início",
+        "title": "Título",
+        "topic": "Tema"
+      },
+      "home": {
+        "anyLanguage": "Meus idiomas",
+        "anyTime": "Qualquer horário",
+        "anyTopic": "Qualquer tema",
+        "empty": "Ainda não há nada marcado aqui.",
+        "emptyCta": "Organize o primeiro",
+        "error": "Não foi possível carregar esta lista.",
+        "hasSeat": "Com vaga livre",
+        "host": "Organizar um encontro",
+        "language": "Idioma",
+        "loadMore": "Carregar mais",
+        "retry": "Tentar novamente",
+        "scopeAll": "Todos",
+        "scopeMe": "Meus encontros",
+        "scopeMine": "Meus idiomas",
+        "tabClubs": "Clubes",
+        "tabGatherings": "Encontros",
+        "title": "Encontros",
+        "today": "Hoje",
+        "topic": "Tema",
+        "week": "Esta semana",
+        "when": "Quando"
+      },
+      "host": {
+        "approve": "Admitir",
+        "callOff": "Cancelar",
+        "callOffTitle": "Cancelar o encontro?",
+        "cancel": "Cancelar encontro",
+        "cancelConfirm_one": "{{count}} pessoa está esperando por isso e será avisada do cancelamento.",
+        "cancelConfirm_other": "{{count}} pessoas estão esperando por isso e serão avisadas do cancelamento.",
+        "cancelOk": "Cancelar encontro",
+        "cancelTitle": "Cancelar este encontro?",
+        "decisionAlone": "Por enquanto só você vai. Fazer mesmo assim ou cancelar?",
+        "decision_one": "Por enquanto só vai {{count}} pessoa. Fazer mesmo assim ou cancelar?",
+        "decision_other": "Por enquanto são só {{count}} pessoas. Fazer mesmo assim ou cancelar?",
+        "decline": "Recusar",
+        "end": "Encerrar encontro",
+        "ended": "Encerrado: falar com quem você conheceu é grátis",
+        "nobodyExpecting": "Ninguém mais disse sim ainda.",
+        "requests_one": "{{count}} aguardando para entrar",
+        "requests_other": "{{count}} aguardando para entrar",
+        "runAnyway": "Fazer mesmo assim"
+      },
+      "nav": "Encontros",
+      "quorum": {
+        "confirmed": "Confirmado · {{count}} vão",
+        "needed": "Faltam {{count}} para confirmar · {{going}} vão"
+      },
+      "safety": {
+        "blockHost": "Bloquear anfitrião",
+        "blockOwner": "Bloquear dono",
+        "more": "Mais",
+        "reportClub": "Denunciar clube",
+        "reportFailed": "Não foi possível enviar a denúncia. Tente novamente.",
+        "reportGathering": "Denunciar encontro",
+        "reported": "Obrigado — nossos moderadores vão analisar."
+      },
+      "status": {
+        "cancelled": "Cancelado",
+        "confirmed": "Confirmado",
+        "ended": "Encerrado",
+        "live": "Acontecendo agora",
+        "scheduled": "Agendado"
+      },
+      "time": {
+        "hostLocal": "{{time}} para o anfitrião"
+      },
+      "topics": {
+        "business": "Negócios",
+        "conversation": "Conversação",
+        "culture": "Cultura",
+        "exam_prep": "Preparação para provas",
+        "games": "Jogos",
+        "grammar": "Gramática",
+        "media": "Música, filmes e séries",
+        "pronunciation": "Pronúncia",
+        "travel": "Viagens"
+      }
+    }
+  },
+  "ru": {
+    "clubs": {
+      "card": {
+        "joined": "Вы в клубе",
+        "members_one": "{{count}} участник",
+        "members_few": "{{count}} участника",
+        "members_many": "{{count}} участников",
+        "members_other": "{{count}} участника"
+      },
+      "detail": {
+        "back": "Другие клубы",
+        "edit": "Изменить клуб",
+        "host": "Провести встречу для этого клуба",
+        "join": "Вступить в клуб",
+        "leave": "Покинуть клуб",
+        "leaveTitle": "Покинуть этот клуб?",
+        "metTimes_one": "Встречались один раз",
+        "metTimes_few": "Встречались {{count}} раза",
+        "metTimes_many": "Встречались {{count}} раз",
+        "metTimes_other": "Встречались {{count}} раза",
+        "neverMet": "Встреч пока не было",
+        "noGatherings": "Пока ничего не запланировано.",
+        "upcoming": "Ближайшие",
+        "youOwn": "Вы владелец этого клуба"
+      },
+      "form": {
+        "city": "Город (необязательно)",
+        "create": "Создать клуб",
+        "createTitle": "Новый клуб",
+        "description": "О клубе (необязательно)",
+        "editTitle": "Изменить клуб",
+        "errors": {
+          "descriptionTooLong": "Описание должно быть короче 2000 символов.",
+          "interestTooLong": "Интерес должен быть короче 60 символов.",
+          "languageRequired": "Выберите язык клуба.",
+          "nameRequired": "Дайте клубу название.",
+          "nameTooLong": "Название должно быть короче 80 символов."
+        },
+        "interest": "Что вас объединяет (например, книги, дорамы)",
+        "language": "Язык",
+        "name": "Название",
+        "notAllowed": "Изменять клуб могут только владелец или организатор.",
+        "placeAddress": "Адрес (необязательно)",
+        "placeName": "Где вы встречаетесь (необязательно)"
+      },
+      "home": {
+        "empty": "Здесь пока нет клубов.",
+        "scopeAll": "Все",
+        "scopeMember": "Мои клубы",
+        "scopeMine": "Мои языки",
+        "start": "Создать клуб"
+      },
+      "owner": {
+        "delete": "Удалить клуб",
+        "deleteBody": "Участники потеряют клуб. Уже запланированные встречи всё равно состоятся.",
+        "deleteTitle": "Удалить {{name}}?"
+      },
+      "people": {
+        "makeMember": "Снять организатора",
+        "makeOrganizer": "Назначить организатором",
+        "organizer": "Организатор",
+        "owner": "Владелец",
+        "remove": "Исключить из клуба",
+        "removeTitle": "Исключить {{name}}?",
+        "title": "Участники · {{count}}"
+      }
+    },
+    "gatherings": {
+      "card": {
+        "approval": "С одобрения организатора",
+        "full": "Мест нет",
+        "going": "Вы идёте",
+        "hostedBy": "Организует {{name}}",
+        "hosting": "Вы организатор",
+        "requested": "Запрос отправлен",
+        "seatsLeft_one": "Осталось {{count}} место",
+        "seatsLeft_few": "Осталось {{count}} места",
+        "seatsLeft_many": "Осталось {{count}} мест",
+        "seatsLeft_other": "Осталось {{count}} места"
+      },
+      "confirm": {
+        "cancel": "Не сейчас",
+        "leaveBody": "Остальные рассчитывают на тех, кто согласился прийти.",
+        "leaveOk": "Освободить место",
+        "leaveTitle": "Освободить своё место?"
+      },
+      "cover": {
+        "add": "Добавить обложку",
+        "badType": "Используйте изображение JPEG, PNG, GIF или WebP.",
+        "change": "Сменить обложку",
+        "remove": "Убрать обложку",
+        "tooBig": "Изображение больше 10 МБ."
+      },
+      "detail": {
+        "askToJoin": "Запросить участие",
+        "back": "Другие встречи",
+        "cancelRequest": "Отменить запрос",
+        "capacity": "До {{count}} чел. · состоится при {{quorum}}",
+        "duration": "{{count}} мин",
+        "edit": "Изменить встречу",
+        "host": "Организатор",
+        "join": "Пойду",
+        "leave": "Я не смогу прийти",
+        "online": "Онлайн",
+        "requestSent": "Запрос отправлен — решение за организатором.",
+        "someone": "Участник BananaTalk",
+        "youreGoing": "Вы идёте."
+      },
+      "errors": {
+        "alreadyGoing": "Вы уже идёте.",
+        "cancelled": "Эта встреча отменена.",
+        "capacityBelowGoing": "Мест не может быть меньше, чем уже идёт людей ({{count}}).",
+        "clubArchived": "Этот клуб в архиве.",
+        "clubGone": "Этот клуб недоступен.",
+        "endBeforeStart": "Завершить встречу можно только после её начала.",
+        "ended": "Эта встреча завершена.",
+        "full": "На этой встрече нет мест.",
+        "gatheringGone": "Эта встреча недоступна.",
+        "generic": "Что-то пошло не так. Попробуйте ещё раз.",
+        "hostBlocked": "Сейчас вы не можете проводить встречи: слишком много ваших встреч было отменено или пропущено.",
+        "hostCannotLeave": "Вы организатор — отмените встречу, а не уходите с неё.",
+        "joinClubFirst": "Сначала вступите в клуб, чтобы проводить для него встречи.",
+        "offline": "Нет подключения к интернету. Проверьте соединение.",
+        "ownerCannotLeave": "Владелец может удалить клуб, но не покинуть его.",
+        "pastStart": "Выберите время начала в будущем.",
+        "pending": "Ваш запрос ждёт решения организатора.",
+        "started": "Эта встреча уже началась."
+      },
+      "form": {
+        "anyLevel": "Любой уровень",
+        "cancel": "Отмена",
+        "capacity": "Мест",
+        "create": "Опубликовать встречу",
+        "createTitle": "Провести встречу",
+        "description": "Чем займётесь? (необязательно)",
+        "duration_one": "Длится {{count}} минуту · по вашему часовому поясу",
+        "duration_few": "Длится {{count}} минуты · по вашему часовому поясу",
+        "duration_many": "Длится {{count}} минут · по вашему часовому поясу",
+        "duration_other": "Длится {{count}} минуты · по вашему часовому поясу",
+        "editTitle": "Изменить встречу",
+        "errors": {
+          "capacityRange": "Мест должно быть от 2 до 20.",
+          "descriptionTooLong": "Описание должно быть короче 2000 символов.",
+          "languageRequired": "Выберите язык для практики.",
+          "quorumRange": "Встреча подтверждается минимум при 2 участниках и не больше, чем мест.",
+          "startInPast": "Выберите время начала в будущем.",
+          "startRequired": "Выберите день и время.",
+          "startTooFar": "Выберите время в ближайшие 90 дней.",
+          "titleRequired": "Дайте встрече название.",
+          "titleTooLong": "Название должно быть короче 120 символов."
+        },
+        "joinApproval": "Одобряю каждого сам(а)",
+        "joinMode": "Кто может присоединиться",
+        "joinOpen": "Все",
+        "language": "Язык",
+        "level": "Уровень",
+        "noTopic": "Без темы",
+        "notHost": "Изменять встречу может только организатор.",
+        "pickLanguage": "Выберите язык",
+        "quorum": "Подтверждается при",
+        "save": "Сохранить",
+        "startsAt": "Начало",
+        "title": "Название",
+        "topic": "Тема"
+      },
+      "home": {
+        "anyLanguage": "Мои языки",
+        "anyTime": "Любое время",
+        "anyTopic": "Любая тема",
+        "empty": "Здесь пока ничего не запланировано.",
+        "emptyCta": "Провести первую",
+        "error": "Не удалось загрузить список.",
+        "hasSeat": "Есть свободные места",
+        "host": "Провести встречу",
+        "language": "Язык",
+        "loadMore": "Загрузить ещё",
+        "retry": "Повторить",
+        "scopeAll": "Все",
+        "scopeMe": "Мои встречи",
+        "scopeMine": "Мои языки",
+        "tabClubs": "Клубы",
+        "tabGatherings": "Встречи",
+        "title": "Встречи",
+        "today": "Сегодня",
+        "topic": "Тема",
+        "week": "На этой неделе",
+        "when": "Когда"
+      },
+      "host": {
+        "approve": "Принять",
+        "callOff": "Отменить",
+        "callOffTitle": "Отменить встречу?",
+        "cancel": "Отменить встречу",
+        "cancelConfirm_one": "{{count}} человек ждёт эту встречу. Мы сообщим об отмене.",
+        "cancelConfirm_few": "{{count}} человека ждут эту встречу. Мы сообщим об отмене.",
+        "cancelConfirm_many": "{{count}} человек ждут эту встречу. Мы сообщим об отмене.",
+        "cancelConfirm_other": "{{count}} человека ждут эту встречу. Мы сообщим об отмене.",
+        "cancelOk": "Отменить встречу",
+        "cancelTitle": "Отменить эту встречу?",
+        "decisionAlone": "Пока идёте только вы. Провести всё равно или отменить?",
+        "decision_one": "Пока идёт только {{count}} человек. Провести всё равно или отменить?",
+        "decision_few": "Пока идут только {{count}} человека. Провести всё равно или отменить?",
+        "decision_many": "Пока идут только {{count}} человек. Провести всё равно или отменить?",
+        "decision_other": "Пока идут только {{count}} человека. Провести всё равно или отменить?",
+        "decline": "Отклонить",
+        "end": "Завершить встречу",
+        "ended": "Завершено — написать тем, кого вы встретили, можно бесплатно",
+        "nobodyExpecting": "Пока никто больше не согласился.",
+        "requests_one": "{{count}} ожидает вступления",
+        "requests_few": "{{count}} ожидают вступления",
+        "requests_many": "{{count}} ожидают вступления",
+        "requests_other": "{{count}} ожидают вступления",
+        "runAnyway": "Всё равно провести"
+      },
+      "nav": "Встречи",
+      "quorum": {
+        "confirmed": "Подтверждено · идут {{count}}",
+        "needed": "Для подтверждения нужно ещё {{count}} · идут {{going}}"
+      },
+      "safety": {
+        "blockHost": "Заблокировать организатора",
+        "blockOwner": "Заблокировать владельца",
+        "more": "Ещё",
+        "reportClub": "Пожаловаться на клуб",
+        "reportFailed": "Не удалось отправить жалобу. Попробуйте ещё раз.",
+        "reportGathering": "Пожаловаться на встречу",
+        "reported": "Спасибо — модераторы всё проверят."
+      },
+      "status": {
+        "cancelled": "Отменена",
+        "confirmed": "Подтверждена",
+        "ended": "Завершена",
+        "live": "Идёт сейчас",
+        "scheduled": "Запланирована"
+      },
+      "time": {
+        "hostLocal": "{{time}} у организатора"
+      },
+      "topics": {
+        "business": "Бизнес",
+        "conversation": "Разговор",
+        "culture": "Культура",
+        "exam_prep": "Подготовка к экзаменам",
+        "games": "Игры",
+        "grammar": "Грамматика",
+        "media": "Музыка, кино и сериалы",
+        "pronunciation": "Произношение",
+        "travel": "Путешествия"
+      }
+    }
+  },
+  "th": {
+    "clubs": {
+      "card": {
+        "joined": "เข้าร่วมแล้ว",
+        "members_one": "สมาชิก {{count}} คน",
+        "members_other": "สมาชิก {{count}} คน"
+      },
+      "detail": {
+        "back": "ดูชมรมอื่น",
+        "edit": "แก้ไขชมรม",
+        "host": "จัดการพบปะให้ชมรมนี้",
+        "join": "เข้าร่วมชมรม",
+        "leave": "ออกจากชมรม",
+        "leaveTitle": "ออกจากชมรมนี้ไหม?",
+        "metTimes_one": "พบกันมาแล้วหนึ่งครั้ง",
+        "metTimes_other": "พบกันมาแล้ว {{count}} ครั้ง",
+        "neverMet": "ยังไม่เคยพบกัน",
+        "noGatherings": "ยังไม่มีอะไรตั้งไว้",
+        "upcoming": "ที่จะถึง",
+        "youOwn": "คุณเป็นเจ้าของชมรมนี้"
+      },
+      "form": {
+        "city": "เมือง (ไม่บังคับ)",
+        "create": "สร้างชมรม",
+        "createTitle": "สร้างชมรม",
+        "description": "เกี่ยวกับชมรม (ไม่บังคับ)",
+        "editTitle": "แก้ไขชมรม",
+        "errors": {
+          "descriptionTooLong": "คำอธิบายต้องไม่เกิน 2000 ตัวอักษร",
+          "interestTooLong": "ความสนใจต้องไม่เกิน 60 ตัวอักษร",
+          "languageRequired": "เลือกภาษาของชมรม",
+          "nameRequired": "ตั้งชื่อชมรมของคุณ",
+          "nameTooLong": "ชื่อต้องไม่เกิน 80 ตัวอักษร"
+        },
+        "interest": "สิ่งที่ทำให้คุณมารวมกัน (เช่น หนังสือ, ซีรีส์เกาหลี)",
+        "language": "ภาษา",
+        "name": "ชื่อ",
+        "notAllowed": "เฉพาะเจ้าของชมรมหรือผู้จัดงานเท่านั้นที่แก้ไขได้",
+        "placeAddress": "ที่อยู่ (ไม่บังคับ)",
+        "placeName": "สถานที่พบกัน (ไม่บังคับ)"
+      },
+      "home": {
+        "empty": "ยังไม่มีชมรมที่นี่",
+        "scopeAll": "ทั้งหมด",
+        "scopeMember": "เข้าร่วมแล้ว",
+        "scopeMine": "ภาษาของฉัน",
+        "start": "สร้างชมรม"
+      },
+      "owner": {
+        "delete": "ลบชมรม",
+        "deleteBody": "สมาชิกจะไม่มีชมรมนี้อีก แต่การพบปะที่นัดไว้แล้วจะยังจัดตามเดิม",
+        "deleteTitle": "ลบ {{name}} ไหม?"
+      },
+      "people": {
+        "makeMember": "ปลดผู้จัดงาน",
+        "makeOrganizer": "ตั้งเป็นผู้จัดงาน",
+        "organizer": "ผู้จัดงาน",
+        "owner": "เจ้าของ",
+        "remove": "นำออกจากชมรม",
+        "removeTitle": "นำ {{name}} ออกไหม?",
+        "title": "สมาชิก · {{count}}"
+      }
+    },
+    "gatherings": {
+      "card": {
+        "approval": "เจ้าภาพอนุมัติ",
+        "full": "เต็มแล้ว",
+        "going": "จะไป",
+        "hostedBy": "จัดโดย {{name}}",
+        "hosting": "คุณเป็นเจ้าภาพ",
+        "requested": "ส่งคำขอแล้ว",
+        "seatsLeft_one": "เหลือ {{count}} ที่นั่ง",
+        "seatsLeft_other": "เหลือ {{count}} ที่นั่ง"
+      },
+      "confirm": {
+        "cancel": "ไว้ทีหลัง",
+        "leaveBody": "คนอื่น ๆ กำลังรอคนที่ตอบรับไว้อยู่",
+        "leaveOk": "สละที่นั่งของฉัน",
+        "leaveTitle": "สละที่นั่งของคุณไหม?"
+      },
+      "cover": {
+        "add": "เพิ่มรูปหน้าปก",
+        "badType": "ใช้รูปภาพ JPEG, PNG, GIF หรือ WebP",
+        "change": "เปลี่ยนรูปหน้าปก",
+        "remove": "ลบรูปหน้าปก",
+        "tooBig": "รูปภาพนี้ใหญ่เกิน 10 MB"
+      },
+      "detail": {
+        "askToJoin": "ขอเข้าร่วม",
+        "back": "ดูการพบปะอื่น",
+        "cancelRequest": "ยกเลิกคำขอของฉัน",
+        "capacity": "สูงสุด {{count}} คน · ยืนยันเมื่อครบ {{quorum}} คน",
+        "duration": "{{count}} นาที",
+        "edit": "แก้ไขการพบปะ",
+        "host": "เจ้าภาพ",
+        "join": "ฉันจะไป",
+        "leave": "ฉันไปไม่ได้แล้ว",
+        "online": "ออนไลน์",
+        "requestSent": "ส่งคำขอแล้ว เจ้าภาพจะเป็นผู้ตัดสิน",
+        "someone": "สมาชิก BananaTalk",
+        "youreGoing": "คุณจะไป"
+      },
+      "errors": {
+        "alreadyGoing": "คุณเข้าร่วมอยู่แล้ว",
+        "cancelled": "การพบปะนี้ถูกยกเลิกแล้ว",
+        "capacityBelowGoing": "จำนวนที่นั่งต้องไม่น้อยกว่า {{count}} คนที่ตอบรับแล้ว",
+        "clubArchived": "ชมรมนี้ถูกเก็บถาวรแล้ว",
+        "clubGone": "ชมรมนี้ไม่พร้อมใช้งานแล้ว",
+        "endBeforeStart": "คุณจบการพบปะได้หลังจากเริ่มแล้วเท่านั้น",
+        "ended": "การพบปะนี้จบแล้ว",
+        "full": "การพบปะนี้เต็มแล้ว",
+        "gatheringGone": "การพบปะนี้ไม่พร้อมใช้งานแล้ว",
+        "generic": "เกิดข้อผิดพลาด ลองอีกครั้ง",
+        "hostBlocked": "ตอนนี้คุณยังจัดการพบปะไม่ได้ เพราะการพบปะของคุณถูกยกเลิกหรือพลาดไปหลายครั้งเกินไป",
+        "hostCannotLeave": "ในฐานะเจ้าภาพ ให้ยกเลิกการพบปะแทนการออก",
+        "joinClubFirst": "เข้าร่วมชมรมก่อนจึงจะจัดการพบปะให้ชมรมได้",
+        "offline": "คุณออฟไลน์อยู่ ตรวจสอบการเชื่อมต่อ",
+        "ownerCannotLeave": "ในฐานะเจ้าของ คุณลบชมรมได้แต่ออกจากชมรมไม่ได้",
+        "pastStart": "เลือกเวลาเริ่มในอนาคต",
+        "pending": "คำขอของคุณกำลังรอเจ้าภาพ",
+        "started": "การพบปะนี้เริ่มไปแล้ว"
+      },
+      "form": {
+        "anyLevel": "ทุกระดับ",
+        "cancel": "ยกเลิก",
+        "capacity": "ที่นั่ง",
+        "create": "โพสต์การพบปะ",
+        "createTitle": "จัดการพบปะ",
+        "description": "จะทำอะไรกัน? (ไม่บังคับ)",
+        "duration_one": "ยาว {{count}} นาที · ตามเขตเวลาของคุณ",
+        "duration_other": "ยาว {{count}} นาที · ตามเขตเวลาของคุณ",
+        "editTitle": "แก้ไขการพบปะ",
+        "errors": {
+          "capacityRange": "ที่นั่งต้องอยู่ระหว่าง 2 ถึง 20",
+          "descriptionTooLong": "คำอธิบายต้องไม่เกิน 2000 ตัวอักษร",
+          "languageRequired": "เลือกภาษาที่จะฝึก",
+          "quorumRange": "จำนวนที่ยืนยันต้องตั้งแต่ 2 คนขึ้นไป และไม่เกินจำนวนที่นั่ง",
+          "startInPast": "เลือกเวลาเริ่มในอนาคต",
+          "startRequired": "เลือกวันและเวลา",
+          "startTooFar": "เลือกเวลาภายใน 90 วันข้างหน้า",
+          "titleRequired": "ตั้งชื่อการพบปะของคุณ",
+          "titleTooLong": "ชื่อต้องไม่เกิน 120 ตัวอักษร"
+        },
+        "joinApproval": "ฉันอนุมัติทีละคน",
+        "joinMode": "ใครเข้าร่วมได้",
+        "joinOpen": "ทุกคน",
+        "language": "ภาษา",
+        "level": "ระดับ",
+        "noTopic": "ไม่มีหัวข้อ",
+        "notHost": "เฉพาะเจ้าภาพเท่านั้นที่แก้ไขการพบปะนี้ได้",
+        "pickLanguage": "เลือกภาษา",
+        "quorum": "ยืนยันเมื่อครบ",
+        "save": "บันทึก",
+        "startsAt": "เริ่ม",
+        "title": "ชื่อ",
+        "topic": "หัวข้อ"
+      },
+      "home": {
+        "anyLanguage": "ภาษาของฉัน",
+        "anyTime": "ทุกเวลา",
+        "anyTopic": "ทุกหัวข้อ",
+        "empty": "ยังไม่มีอะไรตั้งไว้ที่นี่",
+        "emptyCta": "จัดครั้งแรกเลย",
+        "error": "โหลดรายการนี้ไม่สำเร็จ",
+        "hasSeat": "มีที่นั่งว่าง",
+        "host": "จัดการพบปะ",
+        "language": "ภาษา",
+        "loadMore": "โหลดเพิ่ม",
+        "retry": "ลองอีกครั้ง",
+        "scopeAll": "ทั้งหมด",
+        "scopeMe": "การพบปะของฉัน",
+        "scopeMine": "ภาษาของฉัน",
+        "tabClubs": "ชมรม",
+        "tabGatherings": "การพบปะ",
+        "title": "การพบปะ",
+        "today": "วันนี้",
+        "topic": "หัวข้อ",
+        "week": "สัปดาห์นี้",
+        "when": "เมื่อไร"
+      },
+      "host": {
+        "approve": "อนุญาต",
+        "callOff": "ยกเลิก",
+        "callOffTitle": "ยกเลิกไหม?",
+        "cancel": "ยกเลิกการพบปะ",
+        "cancelConfirm_one": "มี {{count}} คนรออยู่ เราจะแจ้งให้ทราบว่ายกเลิกแล้ว",
+        "cancelConfirm_other": "มี {{count}} คนรออยู่ เราจะแจ้งให้ทราบว่ายกเลิกแล้ว",
+        "cancelOk": "ยกเลิกการพบปะ",
+        "cancelTitle": "ยกเลิกการพบปะนี้ไหม?",
+        "decisionAlone": "ตอนนี้มีแค่คุณคนเดียว จะจัดต่อหรือยกเลิก?",
+        "decision_one": "ตอนนี้มีแค่ {{count}} คน จะจัดต่อหรือยกเลิก?",
+        "decision_other": "ตอนนี้มีแค่ {{count}} คน จะจัดต่อหรือยกเลิก?",
+        "decline": "ปฏิเสธ",
+        "end": "จบการพบปะ",
+        "ended": "จบแล้ว — ทักคนที่คุณเจอได้ฟรี",
+        "nobodyExpecting": "ยังไม่มีใครตอบรับ",
+        "requests_one": "{{count}} คนรอเข้าร่วม",
+        "requests_other": "{{count}} คนรอเข้าร่วม",
+        "runAnyway": "จัดต่อ"
+      },
+      "nav": "การพบปะ",
+      "quorum": {
+        "confirmed": "ยืนยันแล้ว · {{count}} คนจะมา",
+        "needed": "ต้องการอีก {{count}} คนจึงจะยืนยัน · {{going}} คนจะมา"
+      },
+      "safety": {
+        "blockHost": "บล็อกเจ้าภาพ",
+        "blockOwner": "บล็อกเจ้าของ",
+        "more": "เพิ่มเติม",
+        "reportClub": "รายงานชมรม",
+        "reportFailed": "ส่งรายงานไม่สำเร็จ ลองอีกครั้ง",
+        "reportGathering": "รายงานการพบปะ",
+        "reported": "ขอบคุณ — ทีมผู้ดูแลจะตรวจสอบ"
+      },
+      "status": {
+        "cancelled": "ยกเลิกแล้ว",
+        "confirmed": "ยืนยันแล้ว",
+        "ended": "จบแล้ว",
+        "live": "กำลังเกิดขึ้น",
+        "scheduled": "ตั้งเวลาไว้แล้ว"
+      },
+      "time": {
+        "hostLocal": "{{time}} ตามเวลาของเจ้าภาพ"
+      },
+      "topics": {
+        "business": "ธุรกิจ",
+        "conversation": "สนทนา",
+        "culture": "วัฒนธรรม",
+        "exam_prep": "เตรียมสอบ",
+        "games": "เกม",
+        "grammar": "ไวยากรณ์",
+        "media": "เพลง หนัง และซีรีส์",
+        "pronunciation": "การออกเสียง",
+        "travel": "ท่องเที่ยว"
+      }
+    }
+  },
+  "tl": {
+    "clubs": {
+      "card": {
+        "joined": "Kasali na",
+        "members_one": "{{count}} miyembro",
+        "members_other": "{{count}} miyembro"
+      },
+      "detail": {
+        "back": "Tingnan ang ibang club",
+        "edit": "I-edit ang club",
+        "host": "Mag-host ng tagpo para sa club na ito",
+        "join": "Sumali sa club",
+        "leave": "Umalis sa club",
+        "leaveTitle": "Umalis sa club na ito?",
+        "metTimes_one": "Nagkita nang isang beses",
+        "metTimes_other": "Nagkita nang {{count}} beses",
+        "neverMet": "Hindi pa nagkikita",
+        "noGatherings": "Wala pang nakatakda.",
+        "upcoming": "Paparating",
+        "youOwn": "Ikaw ang may-ari ng club na ito"
+      },
+      "form": {
+        "city": "Lungsod (opsyonal)",
+        "create": "Gumawa ng club",
+        "createTitle": "Magsimula ng club",
+        "description": "Tungkol sa club (opsyonal)",
+        "editTitle": "I-edit ang club",
+        "errors": {
+          "descriptionTooLong": "Hanggang 2000 character lang ang description.",
+          "interestTooLong": "Hanggang 60 character lang ang interes.",
+          "languageRequired": "Piliin ang wika ng club.",
+          "nameRequired": "Bigyan ng pangalan ang club mo.",
+          "nameTooLong": "Hanggang 80 character lang ang pangalan."
+        },
+        "interest": "Ano ang nagbubuklod sa inyo (hal. libro, K-drama)",
+        "language": "Wika",
+        "name": "Pangalan",
+        "notAllowed": "Ang may-ari o organizer lang ng club ang puwedeng mag-edit nito.",
+        "placeAddress": "Address (opsyonal)",
+        "placeName": "Saan kayo nagkikita (opsyonal)"
+      },
+      "home": {
+        "empty": "Wala pang club dito.",
+        "scopeAll": "Lahat",
+        "scopeMember": "Sinalihan",
+        "scopeMine": "Mga wika ko",
+        "start": "Magsimula ng club"
+      },
+      "owner": {
+        "delete": "Tanggalin ang club",
+        "deleteBody": "Mawawala ang club sa mga miyembro. Matutuloy pa rin ang mga tagpong nakatakda na.",
+        "deleteTitle": "Tanggalin ang {{name}}?"
+      },
+      "people": {
+        "makeMember": "Alisin bilang organizer",
+        "makeOrganizer": "Gawing organizer",
+        "organizer": "Organizer",
+        "owner": "May-ari",
+        "remove": "Alisin sa club",
+        "removeTitle": "Alisin si {{name}}?",
+        "title": "Mga miyembro · {{count}}"
+      }
+    },
+    "gatherings": {
+      "card": {
+        "approval": "Aaprubahan ng host",
+        "full": "Puno na",
+        "going": "Sasama",
+        "hostedBy": "Hino-host ni {{name}}",
+        "hosting": "Ikaw ang host",
+        "requested": "Hiniling na",
+        "seatsLeft_one": "{{count}} upuan na lang",
+        "seatsLeft_other": "{{count}} upuan na lang"
+      },
+      "confirm": {
+        "cancel": "Mamaya na",
+        "leaveBody": "Umaasa ang iba sa mga nagsabing sasama.",
+        "leaveOk": "Ibigay ang upuan ko",
+        "leaveTitle": "Ibibigay mo ang upuan mo?"
+      },
+      "cover": {
+        "add": "Magdagdag ng cover photo",
+        "badType": "Gumamit ng JPEG, PNG, GIF o WebP na larawan.",
+        "change": "Palitan ang cover photo",
+        "remove": "Alisin ang cover",
+        "tooBig": "Lampas 10 MB ang larawang iyan."
+      },
+      "detail": {
+        "askToJoin": "Humiling na sumali",
+        "back": "Tingnan ang ibang tagpo",
+        "cancelRequest": "Kanselahin ang hiling ko",
+        "capacity": "Hanggang {{count}} tao · makukumpirma sa {{quorum}}",
+        "duration": "{{count}} min",
+        "edit": "I-edit ang tagpo",
+        "host": "Host",
+        "join": "Sasama ako",
+        "leave": "Hindi na ako makakasama",
+        "online": "Online",
+        "requestSent": "Naipadala ang hiling. Ang host ang magpapasya.",
+        "someone": "Isang miyembro ng BananaTalk",
+        "youreGoing": "Sasama ka."
+      },
+      "errors": {
+        "alreadyGoing": "Sasama ka na.",
+        "cancelled": "Kinansela ang tagpong ito.",
+        "capacityBelowGoing": "Hindi puwedeng mas mababa ang upuan sa {{count}} taong sasama na.",
+        "clubArchived": "Naka-archive ang club na ito.",
+        "clubGone": "Hindi available ang club na ito.",
+        "endBeforeStart": "Puwede mong tapusin ang tagpo kapag nagsimula na ito.",
+        "ended": "Tapos na ang tagpong ito.",
+        "full": "Puno na ang tagpong ito.",
+        "gatheringGone": "Hindi available ang tagpong ito.",
+        "generic": "May nangyaring mali. Subukan ulit.",
+        "hostBlocked": "Hindi ka muna puwedeng mag-host: masyadong marami sa mga tagpo mo ang nakansela o hindi natuloy.",
+        "hostCannotLeave": "Bilang host, kanselahin na lang ang tagpo sa halip na umalis.",
+        "joinClubFirst": "Sumali muna sa club bago mag-host para dito.",
+        "offline": "Offline ka. I-check ang koneksyon mo.",
+        "ownerCannotLeave": "Bilang may-ari, puwede mong tanggalin ang club pero hindi ka puwedeng umalis dito.",
+        "pastStart": "Pumili ng oras ng simula sa hinaharap.",
+        "pending": "Naghihintay pa sa host ang hiling mo.",
+        "started": "Nagsimula na ang tagpong ito."
+      },
+      "form": {
+        "anyLevel": "Kahit anong level",
+        "cancel": "Kanselahin",
+        "capacity": "Upuan",
+        "create": "I-post ang tagpo",
+        "createTitle": "Mag-host ng tagpo",
+        "description": "Ano ang gagawin ninyo? (opsyonal)",
+        "duration_one": "Tatagal nang {{count}} minuto · sa time zone mo",
+        "duration_other": "Tatagal nang {{count}} minuto · sa time zone mo",
+        "editTitle": "I-edit ang tagpo",
+        "errors": {
+          "capacityRange": "Dapat 2 hanggang 20 ang upuan.",
+          "descriptionTooLong": "Hanggang 2000 character lang ang description.",
+          "languageRequired": "Piliin ang wikang ipa-practice mo.",
+          "quorumRange": "Makukumpirma ang tagpo sa 2 o higit pa, at hindi lalampas sa bilang ng upuan.",
+          "startInPast": "Pumili ng oras ng simula sa hinaharap.",
+          "startRequired": "Pumili ng araw at oras.",
+          "startTooFar": "Pumili ng oras sa loob ng susunod na 90 araw.",
+          "titleRequired": "Bigyan ng pamagat ang tagpo mo.",
+          "titleTooLong": "Hanggang 120 character lang ang pamagat."
+        },
+        "joinApproval": "Ako ang mag-aapruba sa bawat isa",
+        "joinMode": "Sino ang puwedeng sumali",
+        "joinOpen": "Kahit sino",
+        "language": "Wika",
+        "level": "Level",
+        "noTopic": "Walang paksa",
+        "notHost": "Ang host lang ang puwedeng mag-edit ng tagpong ito.",
+        "pickLanguage": "Pumili ng wika",
+        "quorum": "Kumpirmahin sa",
+        "save": "I-save",
+        "startsAt": "Magsisimula",
+        "title": "Pamagat",
+        "topic": "Paksa"
+      },
+      "home": {
+        "anyLanguage": "Mga wika ko",
+        "anyTime": "Kahit kailan",
+        "anyTopic": "Kahit anong paksa",
+        "empty": "Wala pang nakatakda dito.",
+        "emptyCta": "Ikaw ang mag-host ng una",
+        "error": "Hindi ma-load ang listahang ito.",
+        "hasSeat": "May bakanteng upuan",
+        "host": "Mag-host ng tagpo",
+        "language": "Wika",
+        "loadMore": "Mag-load pa",
+        "retry": "Subukan ulit",
+        "scopeAll": "Lahat",
+        "scopeMe": "Mga tagpo ko",
+        "scopeMine": "Mga wika ko",
+        "tabClubs": "Mga club",
+        "tabGatherings": "Mga tagpo",
+        "title": "Mga tagpo",
+        "today": "Ngayon",
+        "topic": "Paksa",
+        "week": "Ngayong linggo",
+        "when": "Kailan"
+      },
+      "host": {
+        "approve": "Tanggapin",
+        "callOff": "Kanselahin",
+        "callOffTitle": "Kanselahin na?",
+        "cancel": "Kanselahin ang tagpo",
+        "cancelConfirm_one": "May {{count}} taong naghihintay nito. Sasabihan silang kansela na.",
+        "cancelConfirm_other": "May {{count}} taong naghihintay nito. Sasabihan silang kansela na.",
+        "cancelOk": "Kanselahin ang tagpo",
+        "cancelTitle": "Kanselahin ang tagpong ito?",
+        "decisionAlone": "Ikaw pa lang sa ngayon. Ituloy pa rin o kanselahin?",
+        "decision_one": "{{count}} pa lang ang sasama sa ngayon. Ituloy pa rin o kanselahin?",
+        "decision_other": "{{count}} pa lang ang sasama sa ngayon. Ituloy pa rin o kanselahin?",
+        "decline": "Tanggihan",
+        "end": "Tapusin ang tagpo",
+        "ended": "Tapos na — libre ang mag-message sa mga nakilala mo",
+        "nobodyExpecting": "Wala pang ibang nagsabing sasama.",
+        "requests_one": "{{count}} naghihintay sumali",
+        "requests_other": "{{count}} naghihintay sumali",
+        "runAnyway": "Ituloy pa rin"
+      },
+      "nav": "Mga tagpo",
+      "quorum": {
+        "confirmed": "Kumpirmado · {{count}} ang sasama",
+        "needed": "Kulang pa ng {{count}} para makumpirma · {{going}} ang sasama"
+      },
+      "safety": {
+        "blockHost": "I-block ang host",
+        "blockOwner": "I-block ang may-ari",
+        "more": "Iba pa",
+        "reportClub": "I-report ang club",
+        "reportFailed": "Hindi naipadala ang report. Subukan ulit.",
+        "reportGathering": "I-report ang tagpo",
+        "reported": "Salamat — susuriin ito ng aming mga moderator."
+      },
+      "status": {
+        "cancelled": "Kanselado",
+        "confirmed": "Kumpirmado",
+        "ended": "Tapos na",
+        "live": "Nagaganap ngayon",
+        "scheduled": "Nakatakda"
+      },
+      "time": {
+        "hostLocal": "{{time}} sa oras ng host"
+      },
+      "topics": {
+        "business": "Negosyo",
+        "conversation": "Usapan",
+        "culture": "Kultura",
+        "exam_prep": "Paghahanda sa exam",
+        "games": "Mga laro",
+        "grammar": "Gramatika",
+        "media": "Musika, pelikula at TV",
+        "pronunciation": "Bigkas",
+        "travel": "Paglalakbay"
+      }
+    }
+  },
+  "tr": {
+    "clubs": {
+      "card": {
+        "joined": "Üyesin",
+        "members_one": "{{count}} üye",
+        "members_other": "{{count}} üye"
+      },
+      "detail": {
+        "back": "Diğer kulüpler",
+        "edit": "Kulübü düzenle",
+        "host": "Bu kulüp için buluşma düzenle",
+        "join": "Kulübe katıl",
+        "leave": "Kulüpten ayrıl",
+        "leaveTitle": "Bu kulüpten ayrılsın mı?",
+        "metTimes_one": "Bir kez buluştu",
+        "metTimes_other": "{{count}} kez buluştu",
+        "neverMet": "Henüz buluşmadı",
+        "noGatherings": "Henüz planlanmış bir şey yok.",
+        "upcoming": "Yaklaşanlar",
+        "youOwn": "Bu kulübün sahibi sensin"
+      },
+      "form": {
+        "city": "Şehir (isteğe bağlı)",
+        "create": "Kulüp kur",
+        "createTitle": "Kulüp kur",
+        "description": "Kulüp hakkında (isteğe bağlı)",
+        "editTitle": "Kulübü düzenle",
+        "errors": {
+          "descriptionTooLong": "Açıklama 2000 karakterden kısa olmalı.",
+          "interestTooLong": "İlgi alanı 60 karakterden kısa olmalı.",
+          "languageRequired": "Kulübün dilini seç.",
+          "nameRequired": "Kulübüne bir ad ver.",
+          "nameTooLong": "Ad 80 karakterden kısa olmalı."
+        },
+        "interest": "Sizi bir araya getiren şey (ör. kitaplar, K-drama)",
+        "language": "Dil",
+        "name": "Ad",
+        "notAllowed": "Kulübü yalnızca sahibi veya bir düzenleyen düzenleyebilir.",
+        "placeAddress": "Adres (isteğe bağlı)",
+        "placeName": "Buluştuğunuz yer (isteğe bağlı)"
+      },
+      "home": {
+        "empty": "Burada henüz kulüp yok.",
+        "scopeAll": "Tümü",
+        "scopeMember": "Üye olduklarım",
+        "scopeMine": "Dillerim",
+        "start": "Kulüp kur"
+      },
+      "owner": {
+        "delete": "Kulübü sil",
+        "deleteBody": "Üyeler kulübü kaybeder. Planlanmış buluşmalar yine de yapılır.",
+        "deleteTitle": "{{name}} silinsin mi?"
+      },
+      "people": {
+        "makeMember": "Düzenleyenlikten al",
+        "makeOrganizer": "Düzenleyen yap",
+        "organizer": "Düzenleyen",
+        "owner": "Sahip",
+        "remove": "Kulüpten çıkar",
+        "removeTitle": "{{name}} çıkarılsın mı?",
+        "title": "Üyeler · {{count}}"
+      }
+    },
+    "gatherings": {
+      "card": {
+        "approval": "Ev sahibi onaylar",
+        "full": "Dolu",
+        "going": "Katılıyorsun",
+        "hostedBy": "Düzenleyen: {{name}}",
+        "hosting": "Ev sahibi sensin",
+        "requested": "İstek gönderildi",
+        "seatsLeft_one": "{{count}} yer kaldı",
+        "seatsLeft_other": "{{count}} yer kaldı"
+      },
+      "confirm": {
+        "cancel": "Şimdi değil",
+        "leaveBody": "Diğerleri, katılacağını söyleyenlere güveniyor.",
+        "leaveOk": "Yerimi bırak",
+        "leaveTitle": "Yerini bırakmak istiyor musun?"
+      },
+      "cover": {
+        "add": "Kapak fotoğrafı ekle",
+        "badType": "JPEG, PNG, GIF veya WebP görsel kullan.",
+        "change": "Kapak fotoğrafını değiştir",
+        "remove": "Kapağı kaldır",
+        "tooBig": "Bu görsel 10 MB'tan büyük."
+      },
+      "detail": {
+        "askToJoin": "Katılmak için istek gönder",
+        "back": "Diğer buluşmalar",
+        "cancelRequest": "İsteğimi iptal et",
+        "capacity": "En fazla {{count}} kişi · {{quorum}} kişide onaylanır",
+        "duration": "{{count}} dk",
+        "edit": "Buluşmayı düzenle",
+        "host": "Ev sahibi",
+        "join": "Katılıyorum",
+        "leave": "Artık gelemiyorum",
+        "online": "Çevrimiçi",
+        "requestSent": "İstek gönderildi. Kararı ev sahibi verecek.",
+        "someone": "Bir BananaTalk üyesi",
+        "youreGoing": "Katılıyorsun."
+      },
+      "errors": {
+        "alreadyGoing": "Zaten katılıyorsun.",
+        "cancelled": "Bu buluşma iptal edildi.",
+        "capacityBelowGoing": "Kontenjan, katılan {{count}} kişiden az olamaz.",
+        "clubArchived": "Bu kulüp arşivlendi.",
+        "clubGone": "Bu kulüp kullanılamıyor.",
+        "endBeforeStart": "Buluşmayı ancak başladıktan sonra bitirebilirsin.",
+        "ended": "Bu buluşma sona erdi.",
+        "full": "Bu buluşma dolu.",
+        "gatheringGone": "Bu buluşma kullanılamıyor.",
+        "generic": "Bir şeyler ters gitti. Tekrar dene.",
+        "hostBlocked": "Şu anda buluşma düzenleyemezsin: buluşmalarının çoğu iptal edildi veya kaçırıldı.",
+        "hostCannotLeave": "Ev sahibi olarak ayrılmak yerine buluşmayı iptal et.",
+        "joinClubFirst": "Bu kulüp için buluşma düzenlemeden önce kulübe katıl.",
+        "offline": "Çevrimdışısın. Bağlantını kontrol et.",
+        "ownerCannotLeave": "Sahibi olarak kulübü silebilirsin ama ayrılamazsın.",
+        "pastStart": "Gelecekte bir başlangıç saati seç.",
+        "pending": "İsteğin ev sahibinin onayını bekliyor.",
+        "started": "Bu buluşma zaten başladı."
+      },
+      "form": {
+        "anyLevel": "Her seviye",
+        "cancel": "İptal",
+        "capacity": "Kontenjan",
+        "create": "Buluşmayı yayınla",
+        "createTitle": "Buluşma düzenle",
+        "description": "Neler yapacaksınız? (isteğe bağlı)",
+        "duration_one": "{{count}} dakika sürer · senin saat diliminde",
+        "duration_other": "{{count}} dakika sürer · senin saat diliminde",
+        "editTitle": "Buluşmayı düzenle",
+        "errors": {
+          "capacityRange": "Kontenjan 2 ile 20 arasında olmalı.",
+          "descriptionTooLong": "Açıklama 2000 karakterden kısa olmalı.",
+          "languageRequired": "Pratik yapacağın dili seç.",
+          "quorumRange": "Buluşma en az 2 kişide onaylanır ve bu sayı kontenjanı aşamaz.",
+          "startInPast": "Gelecekte bir başlangıç saati seç.",
+          "startRequired": "Bir gün ve saat seç.",
+          "startTooFar": "Önümüzdeki 90 gün içinde bir saat seç.",
+          "titleRequired": "Buluşmana bir başlık ver.",
+          "titleTooLong": "Başlık 120 karakterden kısa olmalı."
+        },
+        "joinApproval": "Herkesi ben onaylarım",
+        "joinMode": "Kimler katılabilir",
+        "joinOpen": "Herkes",
+        "language": "Dil",
+        "level": "Seviye",
+        "noTopic": "Konu yok",
+        "notHost": "Bu buluşmayı yalnızca ev sahibi düzenleyebilir.",
+        "pickLanguage": "Bir dil seç",
+        "quorum": "Onay sayısı",
+        "save": "Kaydet",
+        "startsAt": "Başlangıç",
+        "title": "Başlık",
+        "topic": "Konu"
+      },
+      "home": {
+        "anyLanguage": "Dillerim",
+        "anyTime": "Her zaman",
+        "anyTopic": "Her konu",
+        "empty": "Burada henüz planlanmış bir şey yok.",
+        "emptyCta": "İlkini sen düzenle",
+        "error": "Bu liste yüklenemedi.",
+        "hasSeat": "Boş yeri olanlar",
+        "host": "Buluşma düzenle",
+        "language": "Dil",
+        "loadMore": "Daha fazla yükle",
+        "retry": "Tekrar dene",
+        "scopeAll": "Tümü",
+        "scopeMe": "Buluşmalarım",
+        "scopeMine": "Dillerim",
+        "tabClubs": "Kulüpler",
+        "tabGatherings": "Buluşmalar",
+        "title": "Buluşmalar",
+        "today": "Bugün",
+        "topic": "Konu",
+        "week": "Bu hafta",
+        "when": "Ne zaman"
+      },
+      "host": {
+        "approve": "Kabul et",
+        "callOff": "İptal et",
+        "callOffTitle": "İptal edilsin mi?",
+        "cancel": "Buluşmayı iptal et",
+        "cancelConfirm_one": "{{count}} kişi bunu bekliyor. İptal edildiği kendisine bildirilecek.",
+        "cancelConfirm_other": "{{count}} kişi bunu bekliyor. İptal edildiği kendilerine bildirilecek.",
+        "cancelOk": "Buluşmayı iptal et",
+        "cancelTitle": "Bu buluşma iptal edilsin mi?",
+        "decisionAlone": "Şimdilik yalnızca sen varsın. Yine de yapalım mı, iptal mi edelim?",
+        "decision_one": "Şimdilik yalnızca {{count}} kişi var. Yine de yapalım mı, iptal mi edelim?",
+        "decision_other": "Şimdilik yalnızca {{count}} kişi var. Yine de yapalım mı, iptal mi edelim?",
+        "decline": "Reddet",
+        "end": "Buluşmayı bitir",
+        "ended": "Bitti — tanıştığın kişilere mesaj atmak ücretsiz",
+        "nobodyExpecting": "Henüz başka kimse katılacağını söylemedi.",
+        "requests_one": "{{count}} kişi katılmayı bekliyor",
+        "requests_other": "{{count}} kişi katılmayı bekliyor",
+        "runAnyway": "Yine de yap"
+      },
+      "nav": "Buluşmalar",
+      "quorum": {
+        "confirmed": "Onaylandı · {{count}} kişi katılıyor",
+        "needed": "Onay için {{count}} kişi daha gerekli · {{going}} kişi katılıyor"
+      },
+      "safety": {
+        "blockHost": "Ev sahibini engelle",
+        "blockOwner": "Sahibini engelle",
+        "more": "Daha fazla",
+        "reportClub": "Kulübü şikayet et",
+        "reportFailed": "Şikayet gönderilemedi. Tekrar dene.",
+        "reportGathering": "Buluşmayı şikayet et",
+        "reported": "Teşekkürler — moderatörlerimiz inceleyecek."
+      },
+      "status": {
+        "cancelled": "İptal edildi",
+        "confirmed": "Onaylandı",
+        "ended": "Sona erdi",
+        "live": "Şu anda devam ediyor",
+        "scheduled": "Planlandı"
+      },
+      "time": {
+        "hostLocal": "Ev sahibi için {{time}}"
+      },
+      "topics": {
+        "business": "İş",
+        "conversation": "Sohbet",
+        "culture": "Kültür",
+        "exam_prep": "Sınav hazırlığı",
+        "games": "Oyunlar",
+        "grammar": "Dil bilgisi",
+        "media": "Müzik, film ve dizi",
+        "pronunciation": "Telaffuz",
+        "travel": "Seyahat"
+      }
+    }
+  },
+  "vi": {
+    "clubs": {
+      "card": {
+        "joined": "Đã tham gia",
+        "members_one": "{{count}} thành viên",
+        "members_other": "{{count}} thành viên"
+      },
+      "detail": {
+        "back": "Xem các câu lạc bộ khác",
+        "edit": "Sửa câu lạc bộ",
+        "host": "Tổ chức buổi gặp cho câu lạc bộ này",
+        "join": "Tham gia CLB",
+        "leave": "Rời CLB",
+        "leaveTitle": "Rời câu lạc bộ này?",
+        "metTimes_one": "Đã gặp một lần",
+        "metTimes_other": "Đã gặp {{count}} lần",
+        "neverMet": "Chưa gặp lần nào",
+        "noGatherings": "Chưa có gì được lên lịch.",
+        "upcoming": "Sắp tới",
+        "youOwn": "Bạn là chủ câu lạc bộ này"
+      },
+      "form": {
+        "city": "Thành phố (tùy chọn)",
+        "create": "Tạo câu lạc bộ",
+        "createTitle": "Lập câu lạc bộ",
+        "description": "Giới thiệu câu lạc bộ (tùy chọn)",
+        "editTitle": "Sửa câu lạc bộ",
+        "errors": {
+          "descriptionTooLong": "Mô tả không được quá 2000 ký tự.",
+          "interestTooLong": "Sở thích không được quá 60 ký tự.",
+          "languageRequired": "Chọn ngôn ngữ của câu lạc bộ.",
+          "nameRequired": "Hãy đặt tên cho câu lạc bộ.",
+          "nameTooLong": "Tên không được quá 80 ký tự."
+        },
+        "interest": "Điều gắn kết các bạn (vd: sách, phim Hàn)",
+        "language": "Ngôn ngữ",
+        "name": "Tên",
+        "notAllowed": "Chỉ chủ câu lạc bộ hoặc ban tổ chức mới sửa được.",
+        "placeAddress": "Địa chỉ (tùy chọn)",
+        "placeName": "Nơi gặp nhau (tùy chọn)"
+      },
+      "home": {
+        "empty": "Chưa có câu lạc bộ nào ở đây.",
+        "scopeAll": "Tất cả",
+        "scopeMember": "Đã tham gia",
+        "scopeMine": "Ngôn ngữ của tôi",
+        "start": "Lập câu lạc bộ"
+      },
+      "owner": {
+        "delete": "Xóa câu lạc bộ",
+        "deleteBody": "Thành viên sẽ mất câu lạc bộ. Các buổi gặp đã lên lịch vẫn diễn ra.",
+        "deleteTitle": "Xóa {{name}}?"
+      },
+      "people": {
+        "makeMember": "Bỏ ban tổ chức",
+        "makeOrganizer": "Đặt làm ban tổ chức",
+        "organizer": "Ban tổ chức",
+        "owner": "Chủ CLB",
+        "remove": "Xóa khỏi câu lạc bộ",
+        "removeTitle": "Xóa {{name}}?",
+        "title": "Thành viên · {{count}}"
+      }
+    },
+    "gatherings": {
+      "card": {
+        "approval": "Cần người tổ chức duyệt",
+        "full": "Đã đầy",
+        "going": "Sẽ tham gia",
+        "hostedBy": "Tổ chức bởi {{name}}",
+        "hosting": "Bạn là người tổ chức",
+        "requested": "Đã gửi yêu cầu",
+        "seatsLeft_one": "Còn {{count}} chỗ",
+        "seatsLeft_other": "Còn {{count}} chỗ"
+      },
+      "confirm": {
+        "cancel": "Để sau",
+        "leaveBody": "Mọi người đang trông chờ những ai đã nhận lời.",
+        "leaveOk": "Nhường chỗ của tôi",
+        "leaveTitle": "Nhường chỗ của bạn?"
+      },
+      "cover": {
+        "add": "Thêm ảnh bìa",
+        "badType": "Dùng ảnh JPEG, PNG, GIF hoặc WebP.",
+        "change": "Đổi ảnh bìa",
+        "remove": "Gỡ ảnh bìa",
+        "tooBig": "Ảnh này lớn hơn 10 MB."
+      },
+      "detail": {
+        "askToJoin": "Xin tham gia",
+        "back": "Xem các buổi gặp khác",
+        "cancelRequest": "Hủy yêu cầu của tôi",
+        "capacity": "Tối đa {{count}} người · xác nhận khi đủ {{quorum}}",
+        "duration": "{{count}} phút",
+        "edit": "Sửa buổi gặp",
+        "host": "Người tổ chức",
+        "join": "Tôi sẽ tham gia",
+        "leave": "Tôi không đi được nữa",
+        "online": "Trực tuyến",
+        "requestSent": "Đã gửi yêu cầu. Người tổ chức sẽ quyết định.",
+        "someone": "Một thành viên BananaTalk",
+        "youreGoing": "Bạn sẽ tham gia."
+      },
+      "errors": {
+        "alreadyGoing": "Bạn đã tham gia rồi.",
+        "cancelled": "Buổi gặp này đã bị hủy.",
+        "capacityBelowGoing": "Số chỗ không được ít hơn {{count}} người đã tham gia.",
+        "clubArchived": "Câu lạc bộ này đã được lưu trữ.",
+        "clubGone": "Câu lạc bộ này không còn khả dụng.",
+        "endBeforeStart": "Bạn chỉ có thể kết thúc buổi gặp sau khi nó đã bắt đầu.",
+        "ended": "Buổi gặp này đã kết thúc.",
+        "full": "Buổi gặp này đã đầy.",
+        "gatheringGone": "Buổi gặp này không còn khả dụng.",
+        "generic": "Đã xảy ra lỗi. Hãy thử lại.",
+        "hostBlocked": "Hiện bạn chưa thể tổ chức: quá nhiều buổi gặp của bạn đã bị hủy hoặc bỏ lỡ.",
+        "hostCannotLeave": "Là người tổ chức, hãy hủy buổi gặp thay vì rời đi.",
+        "joinClubFirst": "Hãy tham gia câu lạc bộ trước khi tổ chức cho nó.",
+        "offline": "Bạn đang ngoại tuyến. Hãy kiểm tra kết nối.",
+        "ownerCannotLeave": "Là chủ câu lạc bộ, bạn có thể xóa nhưng không thể rời câu lạc bộ.",
+        "pastStart": "Hãy chọn giờ bắt đầu trong tương lai.",
+        "pending": "Yêu cầu của bạn đang chờ người tổ chức.",
+        "started": "Buổi gặp này đã bắt đầu."
+      },
+      "form": {
+        "anyLevel": "Mọi trình độ",
+        "cancel": "Hủy",
+        "capacity": "Số chỗ",
+        "create": "Đăng buổi gặp",
+        "createTitle": "Tổ chức buổi gặp",
+        "description": "Mọi người sẽ làm gì? (tùy chọn)",
+        "duration_one": "Kéo dài {{count}} phút · theo múi giờ của bạn",
+        "duration_other": "Kéo dài {{count}} phút · theo múi giờ của bạn",
+        "editTitle": "Sửa buổi gặp",
+        "errors": {
+          "capacityRange": "Số chỗ phải từ 2 đến 20.",
+          "descriptionTooLong": "Mô tả không được quá 2000 ký tự.",
+          "languageRequired": "Chọn ngôn ngữ bạn sẽ luyện tập.",
+          "quorumRange": "Buổi gặp xác nhận khi có từ 2 người trở lên và không quá số chỗ.",
+          "startInPast": "Hãy chọn giờ bắt đầu trong tương lai.",
+          "startRequired": "Chọn ngày và giờ.",
+          "startTooFar": "Chọn thời điểm trong vòng 90 ngày tới.",
+          "titleRequired": "Hãy đặt tiêu đề cho buổi gặp.",
+          "titleTooLong": "Tiêu đề không được quá 120 ký tự."
+        },
+        "joinApproval": "Tôi duyệt từng người",
+        "joinMode": "Ai có thể tham gia",
+        "joinOpen": "Bất kỳ ai",
+        "language": "Ngôn ngữ",
+        "level": "Trình độ",
+        "noTopic": "Không có chủ đề",
+        "notHost": "Chỉ người tổ chức mới sửa được buổi gặp này.",
+        "pickLanguage": "Chọn ngôn ngữ",
+        "quorum": "Xác nhận khi đủ",
+        "save": "Lưu",
+        "startsAt": "Bắt đầu",
+        "title": "Tiêu đề",
+        "topic": "Chủ đề"
+      },
+      "home": {
+        "anyLanguage": "Ngôn ngữ của tôi",
+        "anyTime": "Mọi lúc",
+        "anyTopic": "Mọi chủ đề",
+        "empty": "Chưa có gì được lên lịch ở đây.",
+        "emptyCta": "Tổ chức buổi đầu tiên",
+        "error": "Không tải được danh sách này.",
+        "hasSeat": "Còn chỗ trống",
+        "host": "Tổ chức buổi gặp",
+        "language": "Ngôn ngữ",
+        "loadMore": "Tải thêm",
+        "retry": "Thử lại",
+        "scopeAll": "Tất cả",
+        "scopeMe": "Buổi gặp của tôi",
+        "scopeMine": "Ngôn ngữ của tôi",
+        "tabClubs": "Câu lạc bộ",
+        "tabGatherings": "Buổi gặp",
+        "title": "Buổi gặp",
+        "today": "Hôm nay",
+        "topic": "Chủ đề",
+        "week": "Tuần này",
+        "when": "Khi nào"
+      },
+      "host": {
+        "approve": "Chấp nhận",
+        "callOff": "Hủy buổi gặp",
+        "callOffTitle": "Hủy buổi gặp?",
+        "cancel": "Hủy buổi gặp",
+        "cancelConfirm_one": "{{count}} người đang chờ buổi này. Họ sẽ được báo là đã hủy.",
+        "cancelConfirm_other": "{{count}} người đang chờ buổi này. Họ sẽ được báo là đã hủy.",
+        "cancelOk": "Hủy buổi gặp",
+        "cancelTitle": "Hủy buổi gặp này?",
+        "decisionAlone": "Hiện mới chỉ có mình bạn. Vẫn tổ chức hay hủy?",
+        "decision_one": "Hiện mới chỉ có {{count}} người. Vẫn tổ chức hay hủy?",
+        "decision_other": "Hiện mới chỉ có {{count}} người. Vẫn tổ chức hay hủy?",
+        "decline": "Từ chối",
+        "end": "Kết thúc buổi gặp",
+        "ended": "Đã kết thúc — nhắn tin cho người bạn vừa gặp là miễn phí",
+        "nobodyExpecting": "Chưa có ai khác nhận lời.",
+        "requests_one": "{{count}} đang chờ tham gia",
+        "requests_other": "{{count}} đang chờ tham gia",
+        "runAnyway": "Vẫn tổ chức"
+      },
+      "nav": "Buổi gặp",
+      "quorum": {
+        "confirmed": "Đã xác nhận · {{count}} người tham gia",
+        "needed": "Cần thêm {{count}} người để xác nhận · {{going}} người tham gia"
+      },
+      "safety": {
+        "blockHost": "Chặn người tổ chức",
+        "blockOwner": "Chặn chủ CLB",
+        "more": "Thêm",
+        "reportClub": "Báo cáo câu lạc bộ",
+        "reportFailed": "Không gửi được báo cáo. Hãy thử lại.",
+        "reportGathering": "Báo cáo buổi gặp",
+        "reported": "Cảm ơn — đội kiểm duyệt sẽ xem xét."
+      },
+      "status": {
+        "cancelled": "Đã hủy",
+        "confirmed": "Đã xác nhận",
+        "ended": "Đã kết thúc",
+        "live": "Đang diễn ra",
+        "scheduled": "Đã lên lịch"
+      },
+      "time": {
+        "hostLocal": "{{time}} theo giờ người tổ chức"
+      },
+      "topics": {
+        "business": "Kinh doanh",
+        "conversation": "Hội thoại",
+        "culture": "Văn hóa",
+        "exam_prep": "Luyện thi",
+        "games": "Trò chơi",
+        "grammar": "Ngữ pháp",
+        "media": "Nhạc, phim & truyền hình",
+        "pronunciation": "Phát âm",
+        "travel": "Du lịch"
+      }
+    }
+  },
+  "zh_TW": {
+    "clubs": {
+      "card": {
+        "joined": "已加入",
+        "members_one": "{{count}}位成員",
+        "members_other": "{{count}}位成員"
+      },
+      "detail": {
+        "back": "看看其他社團",
+        "edit": "編輯社團",
+        "host": "為這個社團發起聚會",
+        "join": "加入社團",
+        "leave": "退出社團",
+        "leaveTitle": "要退出這個社團嗎？",
+        "metTimes_one": "已聚會 1 次",
+        "metTimes_other": "已聚會 {{count}} 次",
+        "neverMet": "還沒有聚過",
+        "noGatherings": "目前還沒有安排。",
+        "upcoming": "即將舉行",
+        "youOwn": "這是你建立的社團"
+      },
+      "form": {
+        "city": "城市（選填）",
+        "create": "建立社團",
+        "createTitle": "建立社團",
+        "description": "社團簡介（選填）",
+        "editTitle": "編輯社團",
+        "errors": {
+          "descriptionTooLong": "簡介請控制在 2000 字以內。",
+          "interestTooLong": "興趣請控制在 60 字以內。",
+          "languageRequired": "請選擇社團的語言。",
+          "nameRequired": "請幫社團取個名字。",
+          "nameTooLong": "名稱請控制在 80 字以內。"
+        },
+        "interest": "共同興趣（例如：讀書、韓劇）",
+        "language": "語言",
+        "name": "名稱",
+        "notAllowed": "只有社團建立者或組織者可以編輯。",
+        "placeAddress": "地址（選填）",
+        "placeName": "聚會地點（選填）"
+      },
+      "home": {
+        "empty": "這裡還沒有社團。",
+        "scopeAll": "全部",
+        "scopeMember": "已加入",
+        "scopeMine": "我的語言",
+        "start": "建立社團"
+      },
+      "owner": {
+        "delete": "刪除社團",
+        "deleteBody": "成員將失去這個社團。已安排的聚會仍會照常舉行。",
+        "deleteTitle": "要刪除{{name}}嗎？"
+      },
+      "people": {
+        "makeMember": "取消組織者",
+        "makeOrganizer": "設為組織者",
+        "organizer": "組織者",
+        "owner": "建立者",
+        "remove": "移出社團",
+        "removeTitle": "要移除{{name}}嗎？",
+        "title": "成員 · {{count}}"
+      }
+    },
+    "gatherings": {
+      "card": {
+        "approval": "需主辦人審核",
+        "full": "已額滿",
+        "going": "已報名",
+        "hostedBy": "主辦人：{{name}}",
+        "hosting": "你是主辦人",
+        "requested": "已申請",
+        "seatsLeft_one": "剩 {{count}} 個名額",
+        "seatsLeft_other": "剩 {{count}} 個名額"
+      },
+      "confirm": {
+        "cancel": "先不要",
+        "leaveBody": "大家都靠著已報名的人。",
+        "leaveOk": "讓出名額",
+        "leaveTitle": "要讓出你的名額嗎？"
+      },
+      "cover": {
+        "add": "新增封面",
+        "badType": "請使用 JPEG、PNG、GIF 或 WebP 圖片。",
+        "change": "更換封面",
+        "remove": "移除封面",
+        "tooBig": "圖片超過 10 MB。"
+      },
+      "detail": {
+        "askToJoin": "申請參加",
+        "back": "看看其他聚會",
+        "cancelRequest": "撤回申請",
+        "capacity": "最多 {{count}} 人 · {{quorum}} 人即可確認",
+        "duration": "{{count}}分鐘",
+        "edit": "編輯聚會",
+        "host": "主辦人",
+        "join": "我要參加",
+        "leave": "我沒辦法去了",
+        "online": "線上",
+        "requestSent": "已送出申請，等待主辦人確認。",
+        "someone": "一位 BananaTalk 成員",
+        "youreGoing": "你已報名。"
+      },
+      "errors": {
+        "alreadyGoing": "你已經報名了。",
+        "cancelled": "此聚會已取消。",
+        "capacityBelowGoing": "名額不能少於已報名的 {{count}} 人。",
+        "clubArchived": "此社團已封存。",
+        "clubGone": "此社團已無法查看。",
+        "endBeforeStart": "聚會開始後才能結束。",
+        "ended": "此聚會已結束。",
+        "full": "此聚會已額滿。",
+        "gatheringGone": "此聚會已無法查看。",
+        "generic": "發生錯誤，請再試一次。",
+        "hostBlocked": "你暫時無法主辦聚會：你的聚會被取消或缺席的次數太多。",
+        "hostCannotLeave": "你是主辦人，請取消聚會，而不是退出。",
+        "joinClubFirst": "請先加入社團，再為它發起聚會。",
+        "offline": "你已離線，請檢查網路連線。",
+        "ownerCannotLeave": "身為建立者，你可以刪除社團，但不能退出。",
+        "pastStart": "請選擇未來的開始時間。",
+        "pending": "你的申請正在等待主辦人確認。",
+        "started": "此聚會已經開始了。"
+      },
+      "form": {
+        "anyLevel": "不限程度",
+        "cancel": "取消",
+        "capacity": "名額",
+        "create": "發布聚會",
+        "createTitle": "發起聚會",
+        "description": "你們要做什麼？（選填）",
+        "duration_one": "長度 {{count}} 分鐘 · 依你的時區",
+        "duration_other": "長度 {{count}} 分鐘 · 依你的時區",
+        "editTitle": "編輯聚會",
+        "errors": {
+          "capacityRange": "名額須介於 2 到 20 之間。",
+          "descriptionTooLong": "簡介請控制在 2000 字以內。",
+          "languageRequired": "請選擇要練習的語言。",
+          "quorumRange": "確認人數須至少 2 人，且不超過名額。",
+          "startInPast": "請選擇未來的開始時間。",
+          "startRequired": "請選擇日期和時間。",
+          "startTooFar": "請選擇 90 天內的時間。",
+          "titleRequired": "請幫聚會取個標題。",
+          "titleTooLong": "標題請控制在 120 字以內。"
+        },
+        "joinApproval": "由我逐一審核",
+        "joinMode": "誰可以參加",
+        "joinOpen": "所有人",
+        "language": "語言",
+        "level": "程度",
+        "noTopic": "無話題",
+        "notHost": "只有主辦人可以編輯這個聚會。",
+        "pickLanguage": "選擇語言",
+        "quorum": "確認人數",
+        "save": "儲存",
+        "startsAt": "開始時間",
+        "title": "標題",
+        "topic": "話題"
+      },
+      "home": {
+        "anyLanguage": "我的語言",
+        "anyTime": "任何時間",
+        "anyTopic": "所有話題",
+        "empty": "這裡還沒有安排。",
+        "emptyCta": "發起第一場",
+        "error": "無法載入列表。",
+        "hasSeat": "還有名額",
+        "host": "發起聚會",
+        "language": "語言",
+        "loadMore": "載入更多",
+        "retry": "再試一次",
+        "scopeAll": "全部",
+        "scopeMe": "我的聚會",
+        "scopeMine": "我的語言",
+        "tabClubs": "社團",
+        "tabGatherings": "聚會",
+        "title": "聚會",
+        "today": "今天",
+        "topic": "話題",
+        "week": "本週",
+        "when": "時間"
+      },
+      "host": {
+        "approve": "通過",
+        "callOff": "取消聚會",
+        "callOffTitle": "要取消聚會嗎？",
+        "cancel": "取消聚會",
+        "cancelConfirm_one": "有 {{count}} 人正在等這場聚會，我們會通知他們已取消。",
+        "cancelConfirm_other": "有 {{count}} 人正在等這場聚會，我們會通知他們已取消。",
+        "cancelOk": "取消聚會",
+        "cancelTitle": "要取消這場聚會嗎？",
+        "decisionAlone": "目前只有你一個人參加。還是照常舉行，還是取消？",
+        "decision_one": "目前只有 {{count}} 人參加。還是照常舉行，還是取消？",
+        "decision_other": "目前只有 {{count}} 人參加。還是照常舉行，還是取消？",
+        "decline": "拒絕",
+        "end": "結束聚會",
+        "ended": "已結束——傳訊息給剛認識的人是免費的",
+        "nobodyExpecting": "還沒有其他人報名。",
+        "requests_one": "{{count}} 人等待加入",
+        "requests_other": "{{count}} 人等待加入",
+        "runAnyway": "照常舉行"
+      },
+      "nav": "聚會",
+      "quorum": {
+        "confirmed": "已確認 · {{count}}人參加",
+        "needed": "還差 {{count}} 人即可確認 · {{going}} 人參加"
+      },
+      "safety": {
+        "blockHost": "封鎖主辦人",
+        "blockOwner": "封鎖建立者",
+        "more": "更多",
+        "reportClub": "檢舉社團",
+        "reportFailed": "檢舉沒有送出，請再試一次。",
+        "reportGathering": "檢舉聚會",
+        "reported": "謝謝，我們的審核團隊會盡快處理。"
+      },
+      "status": {
+        "cancelled": "已取消",
+        "confirmed": "已確認",
+        "ended": "已結束",
+        "live": "正在進行",
+        "scheduled": "已排定"
+      },
+      "time": {
+        "hostLocal": "主辦人當地時間 {{time}}"
+      },
+      "topics": {
+        "business": "商務",
+        "conversation": "會話",
+        "culture": "文化",
+        "exam_prep": "備考",
+        "games": "遊戲",
+        "grammar": "文法",
+        "media": "音樂、影視",
+        "pronunciation": "發音",
+        "travel": "旅遊"
+      }
+    }
+  },
+  "zho": {
+    "clubs": {
+      "card": {
+        "joined": "已加入",
+        "members_one": "{{count}}名成员",
+        "members_other": "{{count}}名成员"
+      },
+      "detail": {
+        "back": "看看其他俱乐部",
+        "edit": "编辑俱乐部",
+        "host": "为这个俱乐部发起聚会",
+        "join": "加入俱乐部",
+        "leave": "退出俱乐部",
+        "leaveTitle": "要退出这个俱乐部吗？",
+        "metTimes_one": "已聚会 1 次",
+        "metTimes_other": "已聚会 {{count}} 次",
+        "neverMet": "还没有聚过",
+        "noGatherings": "目前还没有安排。",
+        "upcoming": "即将举行",
+        "youOwn": "这是你创建的俱乐部"
+      },
+      "form": {
+        "city": "城市（可选）",
+        "create": "创建俱乐部",
+        "createTitle": "创建俱乐部",
+        "description": "俱乐部简介（可选）",
+        "editTitle": "编辑俱乐部",
+        "errors": {
+          "descriptionTooLong": "简介请控制在 2000 字以内。",
+          "interestTooLong": "兴趣请控制在 60 字以内。",
+          "languageRequired": "请选择俱乐部的语言。",
+          "nameRequired": "请给俱乐部起个名字。",
+          "nameTooLong": "名称请控制在 80 字以内。"
+        },
+        "interest": "共同兴趣（例如：读书、韩剧）",
+        "language": "语言",
+        "name": "名称",
+        "notAllowed": "只有俱乐部创建者或组织者可以编辑。",
+        "placeAddress": "地址（可选）",
+        "placeName": "聚会地点（可选）"
+      },
+      "home": {
+        "empty": "这里还没有俱乐部。",
+        "scopeAll": "全部",
+        "scopeMember": "已加入",
+        "scopeMine": "我的语言",
+        "start": "创建俱乐部"
+      },
+      "owner": {
+        "delete": "删除俱乐部",
+        "deleteBody": "成员将失去这个俱乐部。已安排的聚会仍会照常举行。",
+        "deleteTitle": "要删除{{name}}吗？"
+      },
+      "people": {
+        "makeMember": "取消组织者",
+        "makeOrganizer": "设为组织者",
+        "organizer": "组织者",
+        "owner": "创建者",
+        "remove": "移出俱乐部",
+        "removeTitle": "要移除{{name}}吗？",
+        "title": "成员 · {{count}}"
+      }
+    },
+    "gatherings": {
+      "card": {
+        "approval": "需主持人审核",
+        "full": "已满",
+        "going": "已报名",
+        "hostedBy": "主持人：{{name}}",
+        "hosting": "你是主持人",
+        "requested": "已申请",
+        "seatsLeft_one": "剩 {{count}} 个名额",
+        "seatsLeft_other": "剩 {{count}} 个名额"
+      },
+      "confirm": {
+        "cancel": "先不了",
+        "leaveBody": "大家都指望着报了名的人。",
+        "leaveOk": "让出名额",
+        "leaveTitle": "要让出你的名额吗？"
+      },
+      "cover": {
+        "add": "添加封面",
+        "badType": "请使用 JPEG、PNG、GIF 或 WebP 图片。",
+        "change": "更换封面",
+        "remove": "移除封面",
+        "tooBig": "图片超过 10 MB。"
+      },
+      "detail": {
+        "askToJoin": "申请参加",
+        "back": "看看其他聚会",
+        "cancelRequest": "撤回申请",
+        "capacity": "最多 {{count}} 人 · {{quorum}} 人即可确认",
+        "duration": "{{count}}分钟",
+        "edit": "编辑聚会",
+        "host": "主持人",
+        "join": "我要参加",
+        "leave": "我去不了了",
+        "online": "线上",
+        "requestSent": "已提交申请，等待主持人确认。",
+        "someone": "一位 BananaTalk 成员",
+        "youreGoing": "你已报名。"
+      },
+      "errors": {
+        "alreadyGoing": "你已经报名了。",
+        "cancelled": "该聚会已取消。",
+        "capacityBelowGoing": "名额不能少于已报名的 {{count}} 人。",
+        "clubArchived": "该俱乐部已归档。",
+        "clubGone": "该俱乐部已不可用。",
+        "endBeforeStart": "聚会开始后才能结束。",
+        "ended": "该聚会已结束。",
+        "full": "该聚会已满。",
+        "gatheringGone": "该聚会已不可用。",
+        "generic": "出了点问题，请重试。",
+        "hostBlocked": "你暂时无法主持聚会：你的聚会被取消或缺席的次数过多。",
+        "hostCannotLeave": "你是主持人，请取消聚会，而不是退出。",
+        "joinClubFirst": "请先加入俱乐部，再为它发起聚会。",
+        "offline": "你已离线，请检查网络连接。",
+        "ownerCannotLeave": "作为创建者，你可以删除俱乐部，但不能退出。",
+        "pastStart": "请选择将来的开始时间。",
+        "pending": "你的申请正在等待主持人确认。",
+        "started": "该聚会已经开始了。"
+      },
+      "form": {
+        "anyLevel": "不限水平",
+        "cancel": "取消",
+        "capacity": "名额",
+        "create": "发布聚会",
+        "createTitle": "发起聚会",
+        "description": "你们要做什么？（可选）",
+        "duration_one": "时长 {{count}} 分钟 · 按你的时区",
+        "duration_other": "时长 {{count}} 分钟 · 按你的时区",
+        "editTitle": "编辑聚会",
+        "errors": {
+          "capacityRange": "名额须在 2 到 20 之间。",
+          "descriptionTooLong": "简介请控制在 2000 字以内。",
+          "languageRequired": "请选择要练习的语言。",
+          "quorumRange": "确认人数须不少于 2 人，且不超过名额。",
+          "startInPast": "请选择将来的开始时间。",
+          "startRequired": "请选择日期和时间。",
+          "startTooFar": "请选择 90 天内的时间。",
+          "titleRequired": "请给聚会起个标题。",
+          "titleTooLong": "标题请控制在 120 字以内。"
+        },
+        "joinApproval": "由我逐一审核",
+        "joinMode": "谁可以参加",
+        "joinOpen": "所有人",
+        "language": "语言",
+        "level": "水平",
+        "noTopic": "无话题",
+        "notHost": "只有主持人可以编辑这个聚会。",
+        "pickLanguage": "选择语言",
+        "quorum": "确认人数",
+        "save": "保存",
+        "startsAt": "开始时间",
+        "title": "标题",
+        "topic": "话题"
+      },
+      "home": {
+        "anyLanguage": "我的语言",
+        "anyTime": "任意时间",
+        "anyTopic": "全部话题",
+        "empty": "这里还没有安排。",
+        "emptyCta": "发起第一场",
+        "error": "无法加载列表。",
+        "hasSeat": "有空名额",
+        "host": "发起聚会",
+        "language": "语言",
+        "loadMore": "加载更多",
+        "retry": "重试",
+        "scopeAll": "全部",
+        "scopeMe": "我的聚会",
+        "scopeMine": "我的语言",
+        "tabClubs": "俱乐部",
+        "tabGatherings": "聚会",
+        "title": "聚会",
+        "today": "今天",
+        "topic": "话题",
+        "week": "本周",
+        "when": "时间"
+      },
+      "host": {
+        "approve": "通过",
+        "callOff": "取消聚会",
+        "callOffTitle": "要取消聚会吗？",
+        "cancel": "取消聚会",
+        "cancelConfirm_one": "有 {{count}} 人正在等这场聚会，我们会通知他们已取消。",
+        "cancelConfirm_other": "有 {{count}} 人正在等这场聚会，我们会通知他们已取消。",
+        "cancelOk": "取消聚会",
+        "cancelTitle": "要取消这场聚会吗？",
+        "decisionAlone": "目前只有你一个人参加。还是照常举行，还是取消？",
+        "decision_one": "目前只有 {{count}} 人参加。还是照常举行，还是取消？",
+        "decision_other": "目前只有 {{count}} 人参加。还是照常举行，还是取消？",
+        "decline": "拒绝",
+        "end": "结束聚会",
+        "ended": "已结束——给刚认识的人发消息是免费的",
+        "nobodyExpecting": "还没有其他人报名。",
+        "requests_one": "{{count}} 人等待加入",
+        "requests_other": "{{count}} 人等待加入",
+        "runAnyway": "照常举行"
+      },
+      "nav": "聚会",
+      "quorum": {
+        "confirmed": "已确认 · {{count}}人参加",
+        "needed": "还差 {{count}} 人即可确认 · {{going}} 人参加"
+      },
+      "safety": {
+        "blockHost": "拉黑主持人",
+        "blockOwner": "拉黑创建者",
+        "more": "更多",
+        "reportClub": "举报俱乐部",
+        "reportFailed": "举报发送失败，请重试。",
+        "reportGathering": "举报聚会",
+        "reported": "谢谢，我们的审核团队会尽快处理。"
+      },
+      "status": {
+        "cancelled": "已取消",
+        "confirmed": "已确认",
+        "ended": "已结束",
+        "live": "正在进行",
+        "scheduled": "已安排"
+      },
+      "time": {
+        "hostLocal": "主持人当地时间 {{time}}"
+      },
+      "topics": {
+        "business": "商务",
+        "conversation": "会话",
+        "culture": "文化",
+        "exam_prep": "备考",
+        "games": "游戏",
+        "grammar": "语法",
+        "media": "音乐、影视",
+        "pronunciation": "发音",
+        "travel": "旅行"
+      }
+    }
+  }
+}

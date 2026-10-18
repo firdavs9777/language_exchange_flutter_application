@@ -1,4 +1,3 @@
-import ISO6391 from "iso-639-1";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
@@ -6,12 +5,12 @@ import {
   FaFilter,
   FaPlus,
   FaRedo,
-  FaSearch,
   FaTimes,
 } from "react-icons/fa";
-import { Compass, PenLine, Sparkles, TrendingUp, X } from "lucide-react";
+import { Compass, Film, PenLine, Sparkles, TrendingUp, Users, X } from "lucide-react";
+import { useWebFlag } from "../../utils/webFlags";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import Pagination from "../../composables/Pagination";
 import {
   useGetExploreMomentsQuery,
@@ -20,6 +19,16 @@ import {
   useGetTrendingMomentsQuery,
 } from "../../store/slices/momentsSlice";
 import EmptyState from "./EmptyState";
+import MomentFiltersBar from "./MomentFiltersBar";
+import { isPrerendered } from "../../seo/prerender/hydrationFlag";
+import { useHasHydrated } from "../../seo/prerender/useHasHydrated";
+import {
+  MomentFilters,
+  decodeMomentFilters,
+  encodeMomentFilters,
+  hasMomentFilters,
+  mergeMomentParams,
+} from "./lib/momentFilterState";
 import SingleMoment from "./SingleMoment";
 import { MomentType } from "./types";
 import StoriesFeed from "../stories/StoriesFeed";
@@ -34,7 +43,7 @@ interface User {
   language_to_learn?: string;
 }
 
-type FeedTab = "forYou" | "trending" | "explore";
+type FeedTab = "forYou" | "trending" | "explore" | "following";
 
 interface PromptOfDay {
   text?: string;
@@ -42,12 +51,6 @@ interface PromptOfDay {
   promptId?: string;
   language?: string;
 }
-
-const FEED_TABS: { key: FeedTab; label: string; Icon: typeof Sparkles }[] = [
-  { key: "forYou", label: "For You", Icon: Sparkles },
-  { key: "trending", label: "Trending", Icon: TrendingUp },
-  { key: "explore", label: "Explore", Icon: Compass },
-];
 
 interface UserInfo {
   user: User;
@@ -94,322 +97,6 @@ interface ErrorStateProps {
 interface FloatingActionButtonProps {
   onClick: () => void;
 }
-
-interface FilterState {
-  category: string;
-  language: string;
-  mood: string;
-  tag: string;
-  user: string;
-  search: string;
-  searchInput: string;
-}
-
-interface FilterComponentProps {
-  filters: FilterState;
-  onFilterChange: (key: keyof FilterState, value: string) => void;
-  onClearFilters: () => void;
-  moments: MomentType[];
-  isOpen: boolean;
-  onToggle: () => void;
-}
-
-// Filter Component with ISO6391 and Search Button
-const FilterComponent: React.FC<FilterComponentProps> = ({
-  filters,
-  onFilterChange,
-  onClearFilters,
-  moments,
-  isOpen,
-  onToggle,
-}) => {
-  // Get all available language options from ISO6391
-  const allLanguageOptions = useMemo(() => {
-    return ISO6391.getAllCodes()
-      .map((code) => ({
-        value: code,
-        label: ISO6391.getName(code),
-      }))
-      .sort((a, b) => a.label.localeCompare(b.label));
-  }, []);
-
-  // Extract unique values from moments data
-  const filterOptions = useMemo(() => {
-    const categories = [
-      ...new Set(
-        moments.map((m) => m.category || "uncategorized").filter(Boolean)
-      ),
-    ];
-    const usedLanguages = [
-      ...new Set(
-        moments.map((m) => m.language || "unspecified").filter(Boolean)
-      ),
-    ];
-    const moods = [
-      ...new Set(moments.map((m) => m.mood || "neutral").filter(Boolean)),
-    ];
-    const tags = [
-      ...new Set(
-        moments
-          .flatMap((m) => (m.tags && m.tags.length > 0 ? m.tags : ["untagged"]))
-          .filter(Boolean)
-      ),
-    ];
-    const users = [
-      ...new Set(moments.map((m) => m.user?.name).filter(Boolean)),
-    ];
-
-    return { categories, usedLanguages, moods, tags, users };
-  }, [moments]);
-
-  const hasActiveFilters = Object.entries(filters).some(
-    ([key, value]) => key !== "searchInput" && value !== ""
-  );
-
-  // Handle search functionality
-  const handleSearchClick = useCallback(() => {
-    onFilterChange("search", filters.searchInput.trim());
-  }, [filters.searchInput, onFilterChange]);
-
-  const handleSearchInputChange = useCallback(
-    (value: string) => {
-      onFilterChange("searchInput", value);
-    },
-    [onFilterChange]
-  );
-
-  const handleSearchKeyPress = useCallback(
-    (e: React.KeyboardEvent) => {
-      if (e.key === "Enter") {
-        e.preventDefault();
-        handleSearchClick();
-      }
-    },
-    [handleSearchClick]
-  );
-
-  // Get language display name
-  const getLanguageDisplayName = useCallback((languageCode: string) => {
-    if (languageCode === "unspecified") return "Unspecified";
-    const languageName = ISO6391.getName(languageCode);
-    return (
-      languageName ||
-      languageCode.charAt(0).toUpperCase() + languageCode.slice(1)
-    );
-  }, []);
-
-  return (
-    <div className="mb-4 sm:mb-6">
-      {/* Filter Toggle Button */}
-      <div className="flex items-center justify-between mb-3">
-        <button
-          onClick={onToggle}
-          className="flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm border border-white/30 rounded-lg shadow-lg hover:bg-white/90 transition-all duration-200"
-        >
-          <FaFilter className="w-4 h-4 text-gray-600" />
-          <span className="text-sm font-medium text-gray-700">Filters</span>
-          {hasActiveFilters && (
-            <span className="bg-blue-500 text-white text-xs px-2 py-0.5 rounded-full">
-              {
-                Object.entries(filters).filter(
-                  ([key, value]) => key !== "searchInput" && value !== ""
-                ).length
-              }
-            </span>
-          )}
-        </button>
-
-        {hasActiveFilters && (
-          <button
-            onClick={onClearFilters}
-            className="flex items-center gap-1 px-3 py-1.5 bg-red-100 text-red-600 rounded-lg hover:bg-red-200 transition-colors text-sm"
-          >
-            <FaTimes className="w-3 h-3" />
-            <span>Clear All</span>
-          </button>
-        )}
-      </div>
-
-      {/* Filter Panel */}
-      {isOpen && (
-        <div className="bg-white/80 backdrop-blur-sm border border-white/30 rounded-xl shadow-lg p-4 space-y-4">
-          {/* Enhanced Search with Button */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Search in title/description
-            </label>
-            <div className="flex gap-2">
-              <div className="relative flex-1">
-                <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
-                <input
-                  type="text"
-                  value={filters.searchInput}
-                  onChange={(e) => handleSearchInputChange(e.target.value)}
-                  onKeyPress={handleSearchKeyPress}
-                  placeholder="Type your search term..."
-                  className="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white/90 transition-all"
-                />
-              </div>
-              <button
-                onClick={handleSearchClick}
-                disabled={!filters.searchInput.trim()}
-                className="px-4 py-2.5 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all duration-200 flex items-center gap-2 min-w-[100px] justify-center"
-              >
-                <FaSearch className="w-4 h-4" />
-                <span className="hidden sm:inline font-medium">Search</span>
-              </button>
-            </div>
-
-            {/* Active Search Display */}
-            {filters.search && (
-              <div className="mt-3 p-2 bg-blue-50 rounded-lg border border-blue-200">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <FaSearch className="w-3 h-3 text-blue-600" />
-                    <span className="text-sm text-blue-800">
-                      Searching for: <strong>"{filters.search}"</strong>
-                    </span>
-                  </div>
-                  <button
-                    onClick={() => {
-                      onFilterChange("search", "");
-                      onFilterChange("searchInput", "");
-                    }}
-                    className="text-blue-600 hover:text-blue-800 p-1"
-                    title="Clear search"
-                  >
-                    <FaTimes className="w-3 h-3" />
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* Filter Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {/* Category Filter */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Category
-              </label>
-              <select
-                value={filters.category}
-                onChange={(e) => onFilterChange("category", e.target.value)}
-                className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white/80"
-              >
-                <option value="">All Categories</option>
-                {filterOptions.categories.map((category) => (
-                  <option key={category} value={category}>
-                    {category === "uncategorized"
-                      ? "Uncategorized"
-                      : category
-                          .replace(/-/g, " ")
-                          .replace(/\b\w/g, (l) => l.toUpperCase())}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* Enhanced Language Filter with ISO6391 */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Language
-              </label>
-              <select
-                value={filters.language}
-                onChange={(e) => onFilterChange("language", e.target.value)}
-                className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white/80"
-              >
-                <option value="">All Languages</option>
-
-                {/* Languages used in moments */}
-                {filterOptions.usedLanguages.length > 0 && (
-                  <optgroup label="Languages in Posts">
-                    {filterOptions.usedLanguages.map((language) => (
-                      <option key={`used-${language}`} value={language}>
-                        {getLanguageDisplayName(language)}
-                      </option>
-                    ))}
-                  </optgroup>
-                )}
-
-                {/* All available languages */}
-                <optgroup label="All Available Languages">
-                  {allLanguageOptions.map(({ value, label }) => (
-                    <option key={`all-${value}`} value={value}>
-                      {label} ({value.toUpperCase()})
-                    </option>
-                  ))}
-                </optgroup>
-              </select>
-            </div>
-
-            {/* Tag Filter */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Tag
-              </label>
-              <select
-                value={filters.tag}
-                onChange={(e) => onFilterChange("tag", e.target.value)}
-                className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white/80"
-              >
-                <option value="">All Tags</option>
-                {filterOptions.tags.map((tag) => (
-                  <option key={tag} value={tag}>
-                    {tag === "untagged" ? "Untagged" : tag}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-
-          {/* Active Filters Display */}
-          {hasActiveFilters && (
-            <div className="pt-3 border-t border-gray-200">
-              <p className="text-xs text-gray-500 mb-2">Active filters:</p>
-              <div className="flex flex-wrap gap-2">
-                {Object.entries(filters).map(([key, value]) => {
-                  if (!value || key === "searchInput") return null;
-
-                  // Format display value
-                  let displayValue = value;
-                  if (key === "category" && value === "uncategorized")
-                    displayValue = "Uncategorized";
-                  if (key === "language")
-                    displayValue = getLanguageDisplayName(value);
-                  if (key === "mood" && value === "neutral")
-                    displayValue = "Neutral/None";
-                  if (key === "tag" && value === "untagged")
-                    displayValue = "Untagged";
-
-                  return (
-                    <span
-                      key={key}
-                      className="inline-flex items-center gap-1 px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm"
-                    >
-                      <span className="font-medium capitalize">{key}:</span>
-                      <span>{displayValue}</span>
-                      <button
-                        onClick={() =>
-                          onFilterChange(key as keyof FilterState, "")
-                        }
-                        className="ml-1 hover:bg-blue-200 rounded-full p-0.5 transition-colors"
-                        aria-label={`Remove ${key} filter`}
-                      >
-                        <FaTimes className="w-3 h-3" />
-                      </button>
-                    </span>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-        </div>
-      )}
-    </div>
-  );
-};
 
 // Mobile-optimized Create Post Card
 const CreatePostCard: React.FC<CreatePostCardProps> = ({
@@ -479,7 +166,7 @@ const ErrorState: React.FC<ErrorStateProps> = ({ t, refetch }) => (
       </div>
       <div className="flex-1 min-w-0">
         <h3 className="text-sm sm:text-base font-semibold text-gray-800">
-          Something went wrong
+          {t("moments_section.error_loading") || "Something went wrong"}
         </h3>
         <p className="mt-1 text-xs sm:text-sm text-gray-600 truncate">
           {t("moments_section.error_info")}
@@ -491,7 +178,7 @@ const ErrorState: React.FC<ErrorStateProps> = ({ t, refetch }) => (
       >
         <FaRedo className="h-3 w-3 transition-transform group-hover:rotate-180" />
         <span className="hidden xs:inline">
-          {t("moments_section.rety_btn")}
+          {t("moments_section.retry_btn")}
         </span>
       </button>
     </div>
@@ -501,34 +188,59 @@ const ErrorState: React.FC<ErrorStateProps> = ({ t, refetch }) => (
 // Enhanced mobile floating action button
 const FloatingActionButton: React.FC<FloatingActionButtonProps> = ({
   onClick,
-}) => (
+}) => {
+  const { t } = useTranslation();
+  return (
   <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 lg:hidden">
     <button
       onClick={onClick}
       className="group flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-gradient-to-r from-blue-500 to-purple-600 shadow-2xl transition-all duration-300 hover:shadow-3xl hover:scale-110 hover:from-blue-600 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-blue-400/50 active:scale-95"
-      aria-label="Add new moment"
+      aria-label={t("moments_section.create.header") || "Create moment"}
     >
       <FaPlus className="h-4 w-4 sm:h-5 sm:w-5 text-white transition-transform group-hover:rotate-90" />
     </button>
   </div>
-);
+  );
+};
 
 const MainMoments: React.FC = () => {
-  // Pagination state
-  const [currentPage, setCurrentPage] = useState(1);
   const [limit] = useState(10);
 
-  // Filter states with searchInput for controlled search
-  const [filters, setFilters] = useState<FilterState>({
-    category: "",
-    language: "",
-    mood: "",
-    tag: "",
-    user: "",
-    search: "",
-    searchInput: "",
-  });
-  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  // Filters live in the URL (?cat=&lang=&mood=&tag=&q=) and run on the server.
+  const [searchParams, setSearchParams] = useSearchParams();
+  // A shared filtered link is served the unfiltered prerendered page, so a
+  // prerendered document hydrates unfiltered first (matching its markup) and
+  // applies the URL's filters on the render after.
+  const [hydratingPrerender] = useState(() => isPrerendered());
+  const hasHydrated = useHasHydrated();
+  const filtersLive = !hydratingPrerender || hasHydrated;
+  const filterKey = filtersLive
+    ? encodeMomentFilters(decodeMomentFilters(searchParams)).toString()
+    : "";
+  const filters = useMemo<MomentFilters>(
+    () => decodeMomentFilters(new URLSearchParams(filterKey)),
+    [filterKey]
+  );
+  const queryFilters = hasMomentFilters(filters) ? filters : undefined;
+
+  // The page belongs to one set of filters: any change of filters, including
+  // Back/Forward, starts at page 1 without first asking for the old page.
+  const [pageState, setPageState] = useState({ key: filterKey, page: 1 });
+  const currentPage = pageState.key === filterKey ? pageState.page : 1;
+  const setCurrentPage = useCallback(
+    (page: number) => setPageState({ key: filterKey, page }),
+    [filterKey]
+  );
+
+  const applyFilters = useCallback(
+    (next: MomentFilters) => {
+      setSearchParams(
+        (current) => mergeMomentParams(current, encodeMomentFilters(next)),
+        { replace: true }
+      );
+    },
+    [setSearchParams]
+  );
 
   // Feed tab state (For You / Trending / Explore)
   const [activeTab, setActiveTab] = useState<FeedTab>("forYou");
@@ -536,16 +248,20 @@ const MainMoments: React.FC = () => {
 
   // Fetch only the active tab's feed; other tabs are skipped (lazy).
   const forYouFeed = useGetMomentsQuery(
-    { page: currentPage, limit },
+    { page: currentPage, limit, filters: queryFilters },
     { skip: activeTab !== "forYou" }
   );
   const trendingFeed = useGetTrendingMomentsQuery(
-    { page: currentPage, limit },
+    { page: currentPage, limit, filters: queryFilters },
     { skip: activeTab !== "trending" }
   );
   const exploreFeed = useGetExploreMomentsQuery(
-    { page: currentPage, limit },
+    { page: currentPage, limit, filters: queryFilters },
     { skip: activeTab !== "explore" }
+  );
+  const followingFeed = useGetMomentsQuery(
+    { page: currentPage, limit, feed: "following", filters: queryFilters },
+    { skip: activeTab !== "following" }
   );
 
   // Select the active tab's query result to drive the feed pipeline.
@@ -554,6 +270,8 @@ const MainMoments: React.FC = () => {
       ? trendingFeed
       : activeTab === "explore"
       ? exploreFeed
+      : activeTab === "following"
+      ? followingFeed
       : forYouFeed;
   const { data, isLoading, error, refetch } = activeFeed;
 
@@ -562,7 +280,48 @@ const MainMoments: React.FC = () => {
   );
   const userInfo = useSelector((state: RootState) => state.auth.userInfo);
   const { t } = useTranslation();
+  const reelsOn = useWebFlag("webReelsEnabled");
   const navigate = useNavigate();
+
+  // Feed tabs: labels are localized with English fallbacks; Following only
+  // shows for signed-in users (the backend serves it only for them anyway).
+  const feedTabs = useMemo(() => {
+    const tabs: { key: FeedTab; label: string; Icon: typeof Sparkles }[] = [
+      {
+        key: "forYou",
+        label: t("moments_section.tabs.forYou") || "For You",
+        Icon: Sparkles,
+      },
+      {
+        key: "trending",
+        label: t("moments_section.tabs.trending") || "Trending",
+        Icon: TrendingUp,
+      },
+      {
+        key: "explore",
+        label: t("moments_section.tabs.explore") || "Explore",
+        Icon: Compass,
+      },
+    ];
+    if (userInfo?.user) {
+      tabs.push({
+        key: "following",
+        label: t("moments_section.tabs.following") || "Following",
+        Icon: Users,
+      });
+    }
+    return tabs;
+  }, [t, userInfo]);
+
+  // If the user logs out while viewing Following (or the tab otherwise
+  // becomes unavailable), fall back to For You rather than querying a feed
+  // the backend won't serve to an anonymous request.
+  useEffect(() => {
+    if (activeTab === "following" && !userInfo?.user) {
+      setActiveTab("forYou");
+      setCurrentPage(1);
+    }
+  }, [activeTab, userInfo, setCurrentPage]);
 
   // Memoize user data with proper typing
   const { userName, userImage } = useMemo(
@@ -596,7 +355,7 @@ const MainMoments: React.FC = () => {
   const handleTabChange = useCallback((tab: FeedTab) => {
     setActiveTab(tab);
     setCurrentPage(1);
-  }, []);
+  }, [setCurrentPage]);
 
   // Navigate to create-moment prefilled from the prompt of the day.
   const handleAnswerPrompt = useCallback(() => {
@@ -604,112 +363,22 @@ const MainMoments: React.FC = () => {
       state: {
         promptText: promptOfDay?.text,
         promptId: promptOfDay?.promptId,
+        promptLanguage: promptOfDay?.language,
+        promptEmoji: promptOfDay?.emoji,
       },
     });
   }, [navigate, promptOfDay]);
 
-  // Extract moments and pagination from response
-  const { allMoments } = useMemo(() => {
-    if (!data) {
-      return {
-        allMoments: [] as MomentType[],
-      };
-    }
-
-    if (Array.isArray(data)) {
-      return {
-        allMoments: data as MomentType[],
-      };
-    } else {
-      const response = data as MomentsResponse;
-      return {
-        allMoments: response.moments || [],
-      };
-    }
+  // The page as served: the server has already filtered and paged it.
+  const { moments, pagination } = useMemo(() => {
+    if (!data) return { moments: [] as MomentType[], pagination: null };
+    if (Array.isArray(data)) return { moments: data as MomentType[], pagination: null };
+    const response = data as MomentsResponse;
+    return { moments: response.moments || [], pagination: response.pagination || null };
   }, [data]);
 
-  // Filter moments based on current filters - handle optional fields properly
-  const filteredMoments = useMemo(() => {
-    return allMoments.filter((moment) => {
-      // Search filter
-      if (filters.search) {
-        const searchTerm = filters.search.toLowerCase();
-        const titleMatch = moment.title?.toLowerCase().includes(searchTerm);
-        const descriptionMatch = moment.description
-          ?.toLowerCase()
-          .includes(searchTerm);
-        if (!titleMatch && !descriptionMatch) return false;
-      }
-
-      // Category filter - handle empty/null categories
-      if (filters.category) {
-        const momentCategory = moment.category || "uncategorized";
-        if (momentCategory !== filters.category) {
-          return false;
-        }
-      }
-
-      // Language filter - handle empty/null languages
-      if (filters.language) {
-        const momentLanguage = moment.language || "unspecified";
-        if (momentLanguage !== filters.language) {
-          return false;
-        }
-      }
-
-      // Mood filter - handle empty/null moods
-      if (filters.mood) {
-        const momentMood = moment.mood || "neutral";
-        if (momentMood !== filters.mood) {
-          return false;
-        }
-      }
-
-      // Tag filter - handle empty/null tags
-      if (filters.tag) {
-        const momentTags =
-          moment.tags && moment.tags.length > 0 ? moment.tags : ["untagged"];
-        if (!momentTags.includes(filters.tag)) {
-          return false;
-        }
-      }
-
-      // User filter
-      if (filters.user && moment.user?.name !== filters.user) {
-        return false;
-      }
-
-      return true;
-    });
-  }, [allMoments, filters]);
-
-  // Handle filter changes
-  const handleFilterChange = useCallback(
-    (key: keyof FilterState, value: string) => {
-      setFilters((prev) => ({ ...prev, [key]: value }));
-      setCurrentPage(1); // Reset to first page when filter changes
-    },
-    []
-  );
-
-  // Clear all filters
-  const handleClearFilters = useCallback(() => {
-    setFilters({
-      category: "",
-      language: "",
-      mood: "",
-      tag: "",
-      user: "",
-      search: "",
-      searchInput: "",
-    });
-    setCurrentPage(1);
-  }, []);
-
-  // Toggle filter panel
-  const toggleFilterPanel = useCallback(() => {
-    setIsFilterOpen((prev) => !prev);
-  }, []);
+  const totalPages = pagination ? pagination.totalPages || 1 : 1;
+  const filtersActive = hasMomentFilters(filters);
 
   // Callback for adding a new moment
   const handleAddMoment = useCallback(() => {
@@ -720,41 +389,13 @@ const MainMoments: React.FC = () => {
   const handlePageChange = useCallback((page: number) => {
     setCurrentPage(page);
     window.scrollTo({ top: 0, behavior: "smooth" });
-  }, []);
+  }, [setCurrentPage]);
 
   // Reset to page 1 when refetching
   const handleRefetch = useCallback(() => {
     setCurrentPage(1);
     refetch();
-  }, [refetch]);
-
-  // Calculate pagination for filtered results
-  const paginatedMoments = useMemo(() => {
-    const startIndex = (currentPage - 1) * limit;
-    const endIndex = startIndex + limit;
-    return filteredMoments.slice(startIndex, endIndex);
-  }, [filteredMoments, currentPage, limit]);
-
-  const filteredPagination = useMemo(() => {
-    const totalFilteredMoments = filteredMoments.length;
-    const totalPages = Math.ceil(totalFilteredMoments / limit);
-
-    return {
-      currentPage,
-      totalPages,
-      totalMoments: totalFilteredMoments,
-      limit,
-      hasNextPage: currentPage < totalPages,
-      hasPrevPage: currentPage > 1,
-      nextPage: currentPage < totalPages ? currentPage + 1 : null,
-      prevPage: currentPage > 1 ? currentPage - 1 : null,
-    };
-  }, [filteredMoments.length, currentPage, limit]);
-
-  // Reset page when filters change
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [filters]);
+  }, [refetch, setCurrentPage]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/30">
@@ -785,7 +426,7 @@ const MainMoments: React.FC = () => {
                 aria-label="Feed"
                 className="mb-4 flex gap-1 rounded-full bg-white/60 dark:bg-gray-800/50 backdrop-blur-sm border border-white/30 dark:border-gray-700/50 p-1 shadow-lg"
               >
-                {FEED_TABS.map(({ key, label, Icon }) => {
+                {feedTabs.map(({ key, label, Icon }) => {
                   const isActive = activeTab === key;
                   return (
                     <button
@@ -812,7 +453,7 @@ const MainMoments: React.FC = () => {
                   <div className="relative p-4 sm:p-5">
                     <button
                       onClick={() => setPromptDismissed(true)}
-                      aria-label="Dismiss prompt of the day"
+                      aria-label={t("moments_section.prompt.dismissCard") || "Dismiss prompt of the day"}
                       className="absolute top-2 right-2 p-1.5 rounded-full text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 hover:bg-white/60 dark:hover:bg-gray-700/50 transition-colors"
                     >
                       <X className="h-4 w-4" />
@@ -823,20 +464,20 @@ const MainMoments: React.FC = () => {
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-[11px] font-semibold uppercase tracking-wide text-teal-600 dark:text-teal-400">
-                          Prompt of the day
+                          {t("moments_section.prompt.cardTitle") || "Prompt of the day"}
                         </p>
                         <p className="mt-0.5 text-sm sm:text-base font-medium text-gray-800 dark:text-gray-100">
                           {promptOfDay.text}
                         </p>
                         <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
-                          Practice writing
+                          {t("moments_section.prompt.cardSubtitle") || "Practice writing"}
                         </p>
                         <button
                           onClick={handleAnswerPrompt}
                           className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-teal-500 to-indigo-500 px-4 py-2 text-xs sm:text-sm font-semibold text-white shadow-lg transition-all duration-200 hover:from-teal-600 hover:to-indigo-600 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-teal-400/50"
                         >
                           <PenLine className="h-4 w-4" />
-                          <span>Answer</span>
+                          <span>{t("moments_section.prompt.answer") || "Answer"}</span>
                         </button>
                       </div>
                     </div>
@@ -847,23 +488,21 @@ const MainMoments: React.FC = () => {
               <div className="flex items-center justify-between mb-3 sm:mb-4">
                 <h1 className="text-xl sm:text-2xl font-bold text-gray-800">
                   Stories list
-                  {filteredMoments.length !== allMoments.length && (
-                    <span className="text-sm font-normal text-gray-500 ml-2">
-                      ({filteredMoments.length} of {allMoments.length})
-                    </span>
-                  )}
                 </h1>
+                {reelsOn && userInfo && (
+                  <Link
+                    to="/reels"
+                    data-testid="moments-reels-link"
+                    className="inline-flex items-center gap-1.5 rounded-full bg-gray-900 px-3 py-1.5 text-sm font-bold text-white"
+                  >
+                    <Film className="h-4 w-4" aria-hidden="true" />
+                    {t("reels.moments_link") || "Watch reels"}
+                  </Link>
+                )}
               </div>
 
               {/* Filter Component */}
-              <FilterComponent
-                filters={filters}
-                onFilterChange={handleFilterChange}
-                onClearFilters={handleClearFilters}
-                moments={allMoments}
-                isOpen={isFilterOpen}
-                onToggle={toggleFilterPanel}
-              />
+              <MomentFiltersBar filters={filters} onChange={applyFilters} />
             </div>
 
             {/* Content states */}
@@ -871,10 +510,10 @@ const MainMoments: React.FC = () => {
               <LoadingState t={t} />
             ) : error ? (
               <ErrorState t={t} refetch={handleRefetch} />
-            ) : paginatedMoments.length > 0 ? (
+            ) : moments.length > 0 ? (
               <>
-                <div className="space-y-3 sm:space-y-6 px-2 sm:px-4 pb-4 sm:pb-6 lg:px-6">
-                  {paginatedMoments.map((moment, index) => (
+                <div className="space-y-3 sm:space-y-4 px-2 sm:px-4 pb-4 sm:pb-6 lg:px-6">
+                  {moments.map((moment, index) => (
                     <React.Fragment key={moment._id}>
                       <div
                         className="group transform transition-all duration-500 hover:-translate-y-1 hover:shadow-xl"
@@ -904,7 +543,12 @@ const MainMoments: React.FC = () => {
                             mediaType={moment.mediaType}
                             video={moment.video}
                             audio={moment.audio}
+                            prompt={moment.prompt}
+                            mood={moment.mood}
+                            tags={moment.tags}
+                            location={moment.location}
                             backgroundColor={moment.backgroundColor}
+                            scheduledFor={moment.scheduledFor}
                           />
                         </div>
                       </div>
@@ -912,7 +556,7 @@ const MainMoments: React.FC = () => {
                           Flutter _adEveryNPosts = 4), but never after the last
                           item. No-op until AdSense is configured. */}
                       {(index + 1) % 4 === 0 &&
-                        index !== paginatedMoments.length - 1 && (
+                        index !== moments.length - 1 && (
                           <AdUnit slot={AD_SLOTS.feed} className="my-3" />
                         )}
                     </React.Fragment>
@@ -921,70 +565,60 @@ const MainMoments: React.FC = () => {
 
                 {/* Pagination component */}
                 <Pagination
-                  currentPage={filteredPagination.currentPage}
-                  totalPages={filteredPagination.totalPages}
+                  currentPage={currentPage}
+                  totalPages={totalPages}
                   onPageChange={handlePageChange}
-                  hasNextPage={filteredPagination.hasNextPage}
-                  hasPrevPage={filteredPagination.hasPrevPage}
-                  totalMoments={filteredPagination.totalMoments}
+                  hasNextPage={pagination ? Boolean(pagination.hasNextPage) : false}
+                  hasPrevPage={currentPage > 1}
+                  totalMoments={pagination ? pagination.totalMoments || 0 : moments.length}
                   isLoading={isLoading}
                 />
               </>
-            ) : filteredMoments.length === 0 && allMoments.length > 0 ? (
+            ) : filtersActive ? (
               <div className="text-center py-12 sm:py-16 px-4">
                 <div className="max-w-md mx-auto">
                   <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-blue-100 to-purple-100 rounded-full flex items-center justify-center">
                     <FaFilter className="w-8 h-8 text-blue-500" />
                   </div>
                   <h3 className="text-lg sm:text-xl font-semibold text-gray-800 mb-3">
-                    No moments match your filters
+                    {t("moments_section.filters.emptyTitle") ||
+                      "No moments match these filters"}
                   </h3>
                   <p className="text-gray-600 mb-6 leading-relaxed">
-                    We couldn't find any moments that match your current filter
-                    criteria. Try adjusting or removing some filters to see more
-                    results.
+                    {t("moments_section.filters.emptyBody") ||
+                      "Try removing a filter or searching for something else."}
                   </p>
-
-                  {/* Show current filter summary */}
-                  <div className="bg-gray-50 rounded-lg p-4 mb-6">
-                    <p className="text-sm text-gray-600 mb-2">
-                      Current filters:
-                    </p>
-                    <div className="flex flex-wrap gap-2 justify-center">
-                      {Object.entries(filters).map(([key, value]) => {
-                        if (!value || key === "searchInput") return null;
-                        let displayValue = value;
-                        if (key === "category" && value === "uncategorized")
-                          displayValue = "Uncategorized";
-                        if (key === "language" && value === "unspecified")
-                          displayValue = "Unspecified";
-                        if (key === "mood" && value === "neutral")
-                          displayValue = "Neutral/None";
-                        if (key === "tag" && value === "untagged")
-                          displayValue = "Untagged";
-
-                        return (
-                          <span
-                            key={key}
-                            className="inline-flex items-center gap-1 px-2 py-1 bg-white border border-gray-200 rounded-md text-xs text-gray-700"
-                          >
-                            <span className="font-medium capitalize">
-                              {key}:
-                            </span>
-                            <span>{displayValue}</span>
-                          </span>
-                        );
-                      })}
-                    </div>
-                  </div>
-
                   <button
-                    onClick={handleClearFilters}
-                    className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full hover:from-blue-600 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-blue-400/50"
+                    onClick={() => applyFilters({})}
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full hover:from-blue-600 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-blue-400/50"
                   >
                     <FaTimes className="w-4 h-4" />
-                    <span className="font-medium">Clear All Filters</span>
+                    <span className="font-medium">
+                      {t("moments_section.filters.clear") || "Clear filters"}
+                    </span>
                   </button>
+                </div>
+              </div>
+            ) : activeTab === "following" ? (
+              <div
+                className="text-center py-12 sm:py-16 px-4"
+                data-testid="following-empty-state"
+              >
+                <div className="max-w-md mx-auto">
+                  <div className="mx-auto mb-6 sm:mb-8 flex h-16 w-16 sm:h-20 sm:w-20 items-center justify-center rounded-full bg-gradient-to-r from-teal-500 to-indigo-500 shadow-lg">
+                    <Users className="h-6 w-6 sm:h-8 sm:w-8 text-white" />
+                  </div>
+                  <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-3">
+                    {t("moments_section.following.empty") ||
+                      "Follow people to see their moments here"}
+                  </h3>
+                  <Link
+                    to="/communities"
+                    className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-teal-500 to-indigo-500 px-6 py-3 text-sm sm:text-base font-semibold text-white shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105 focus:outline-none focus:ring-2 focus:ring-teal-400/50"
+                  >
+                    {t("moments_section.following.findPeople") ||
+                      "Find people"}
+                  </Link>
                 </div>
               </div>
             ) : (

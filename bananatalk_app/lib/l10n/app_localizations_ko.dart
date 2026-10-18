@@ -12389,4 +12389,14 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get vocabPacksBrowse => '단어 세트 보기';
+
+  @override
+  String visitorsReveal24h(int cost) {
+    return '$cost 💎로 24시간 동안 모두 보기, 또는 VIP';
+  }
+
+  @override
+  String visitorsUnlockedLeft(String time) {
+    return '잠금 해제됨 · $time 남음';
+  }
 }

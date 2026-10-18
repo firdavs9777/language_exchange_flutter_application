@@ -9,6 +9,8 @@ import { FaGoogle } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
 import { BASE_URL } from "../../constants";
 import "./Login.scss";
+import AppleSignInButton from "./apple/AppleSignInButton";
+import brandLogo from "../../assets/logo.png";
 
 const Login = () => {
   const { t } = useTranslation();
@@ -25,7 +27,7 @@ const Login = () => {
 
   useEffect(() => {
     if (userInfo) {
-      navigate(redirect);
+      navigate(redirect, { replace: true });
     }
   }, [userInfo, redirect, navigate]);
 
@@ -46,7 +48,7 @@ const Login = () => {
         theme: "dark",
         transition: Bounce,
       });
-      navigate(redirect);
+      navigate(redirect, { replace: true });
     } catch (error: any) {
       toast.error(t("authentication.login.invalidCredentialsError"), {
         position: "top-right",
@@ -70,7 +72,7 @@ const Login = () => {
         {/* Left Side - Branding */}
         <div className="auth-branding">
           <div className="branding-content">
-            <div className="brand-logo">🍌</div>
+            <img className="brand-logo" src={brandLogo} alt="BananaTalk" />
             <h1>Welcome Back!</h1>
             <p>Continue your language learning journey with BananaTalk</p>
             <div className="branding-features">
@@ -107,6 +109,10 @@ const Login = () => {
               <FaGoogle size={20} />
               <span>{t("authentication.login.signInWithGoogle") || "Continue with Google"}</span>
             </button>
+
+            {/* Apple — renders nothing unless webAppleSigninEnabled is on and the
+                build has a Services ID (P4-APPLE-4). */}
+            <AppleSignInButton redirect={redirect} />
 
             {/* Divider */}
             <div className="divider">

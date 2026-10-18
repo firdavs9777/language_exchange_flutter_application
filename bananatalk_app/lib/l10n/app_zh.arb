@@ -4726,5 +4726,7 @@
   "perkUnlimitedTranslations": "无限次翻译",
   "vipMoreMatchesCta": "VIP：每天 15 个匹配",
   "vocabPacksPromo": "按主题准备好的词汇包。添加一个，每天学一点。",
-  "vocabPacksBrowse": "浏览词汇包"
+  "vocabPacksBrowse": "浏览词汇包",
+  "visitorsReveal24h": "用 {cost} 💎 查看全部 24 小时，或开通 VIP",
+  "visitorsUnlockedLeft": "已解锁 · 剩余 {time}"
 }

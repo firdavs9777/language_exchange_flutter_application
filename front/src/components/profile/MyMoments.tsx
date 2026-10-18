@@ -1,191 +1,352 @@
-import React, { useEffect } from "react";
-import { useGetMyMomentsQuery } from "../../store/slices/momentsSlice";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { formatDistanceToNow } from "date-fns";
-
-// Components & Icons
-import { AiFillHeart, AiOutlineHeart, AiFillEdit, AiOutlineDelete } from "react-icons/ai";
-import { FaRegCommentDots, FaCommentDots } from "react-icons/fa";
-import { IoMdShare } from "react-icons/io";
 import { useTranslation } from "react-i18next";
-
-// Types
-interface User {
-  _id: string;
-  name: string;
-  imageUrls?: string[];
-}
+import { Heart, MessageCircle, Pencil, Plus, RefreshCw, Trash2 } from "lucide-react";
+import PageMeta from "../../seo/PageMeta";
+import SurfaceCard from "../../design/SurfaceCard";
+import ConfirmDialog from "../../design/ConfirmDialog";
+import {
+  useGetMyMomentsQuery,
+  useDeleteMomentMutation,
+} from "../../store/slices/momentsSlice";
 
 export interface MomentType {
   _id: string;
-  title: string;
-  description: string;
-  user: User;
-  imageUrls: string[];
-  likedUsers: string[];
-  likeCount: number;
-  commentCount: number;
-  createdAt: string;
+  title?: string;
+  description?: string;
+  imageUrls?: string[];
+  likeCount?: any;
+  commentCount?: any;
+  createdAt?: string;
 }
 
-interface MomentsResponse {
-  data: MomentType[];
-  success: boolean;
+const PAGE = "min-h-screen bg-canvas dark:bg-canvas-dark";
+const COLUMN = "mx-auto w-full max-w-3xl px-3 pb-16 pt-4 sm:px-4 sm:pt-6";
+const CTA =
+  "inline-flex items-center justify-center gap-1.5 rounded-chip bg-brand-deep px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-brand-dark";
+const TILE_ACTION =
+  "rounded-full bg-ink-950/60 p-1.5 text-white transition-colors hover:bg-ink-950/80";
+
+const SKELETONS = [0, 1, 2, 3, 4, 5];
+const PAGE_SIZE = 12;
+
+function countOf(value: any): number {
+  if (Array.isArray(value)) return value.length;
+  if (typeof value === "number" && isFinite(value)) return value;
+  return 0;
 }
 
+function firstImage(moment: any): string {
+  const urls = moment && (moment.imageUrls || moment.images);
+  if (Array.isArray(urls)) {
+    for (let i = 0; i < urls.length; i += 1) {
+      const url = typeof urls[i] === "string" ? urls[i].trim() : "";
+      if (url) return url;
+    }
+  }
+  return "";
+}
+
+function captionOf(moment: any): string {
+  const description = typeof moment.description === "string" ? moment.description.trim() : "";
+  if (description) return description;
+  return typeof moment.title === "string" ? moment.title.trim() : "";
+}
+
+/**
+ * The owner's own moments, as the same square grid `ProfileMoments` draws on
+ * the profile — one visual language for one set of content, rather than the
+ * Bootstrap card deck this page used to be (inventory §3).
+ *
+ * The delete button now deletes. It previously logged the id to the console
+ * and nothing else: a control that looked destructive, was shipped, and did
+ * nothing. It goes through `ConfirmDialog` (deleting a moment takes its likes
+ * and comments with it) and the tile disappears the moment the server agrees,
+ * without waiting for the invalidated query to come back around.
+ */
 const MyMoments: React.FC = () => {
-  const userId = useSelector((state: any) => state.auth.userInfo?.user?._id);
-
   const { t } = useTranslation();
-   useEffect(() => {
-      window.scrollTo(0, 0);
-    }, [userId]);
-  const { data: moments, refetch } = useGetMyMomentsQuery({ userId });
-  const momentsData = moments as MomentsResponse;
   const navigate = useNavigate();
+  const userId = useSelector(
+    (state: any) => state.auth.userInfo?.user?._id || state.auth.userInfo?._id
+  );
 
-  const handleEdit = (momentId: string) => {
-    navigate(`/edit-moment/${momentId}`);
-  };
+  // The server pages this list ({data, pagination}); "Load more" asks for the
+  // next page and appends it to the pages already shown.
+  const [page, setPage] = useState(1);
+  const { currentData, isLoading, isFetching, error, refetch } = useGetMyMomentsQuery(
+    { userId: userId || "", page, limit: PAGE_SIZE },
+    { skip: !userId }
+  );
+  const [pages, setPages] = useState<{ [page: number]: any[] }>({});
+  const [hasMore, setHasMore] = useState(false);
+  useEffect(() => {
+    if (!currentData) return;
+    const rows: any[] = Array.isArray((currentData as any).data) ? (currentData as any).data : [];
+    setPages((prev) => ({ ...prev, [page]: rows }));
+    const pagination = (currentData as any).pagination;
+    setHasMore(
+      pagination && typeof pagination.hasNextPage === "boolean"
+        ? pagination.hasNextPage
+        : rows.length >= PAGE_SIZE
+    );
+  }, [currentData, page]);
+  const [deleteMoment, { isLoading: isDeleting }] = useDeleteMomentMutation();
 
-  const handleDelete = (momentId: string) => {
-    // Implement delete functionality when ready
-    console.log("Delete moment:", momentId);
-    // After implementing: refetch();
-  };
+  const [pending, setPending] = useState<MomentType | null>(null);
+  const [deleteError, setDeleteError] = useState("");
+  // Ids the server has already accepted a delete for. `deleteMoment`
+  // invalidates the "Moments" tag and `getMyMoments` provides it, so the list
+  // does refetch — but the tile must not linger through that round trip.
+  const [removed, setRemoved] = useState<{ [id: string]: boolean }>({});
 
-  const formatTimestamp = (timestamp: string): string => {
+  const mounted = useRef(true);
+  useEffect(() => {
+    mounted.current = true;
+    return () => {
+      mounted.current = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  const moments = useMemo(() => {
+    // The page just served counts before the effect above has stored it, so
+    // the first render with data never flashes the empty state.
+    const all: { [page: number]: any[] } = { ...pages };
+    if (currentData && Array.isArray((currentData as any).data)) {
+      all[page] = (currentData as any).data;
+    }
+    const seen: { [id: string]: boolean } = {};
+    const out: any[] = [];
+    Object.keys(all)
+      .map(Number)
+      .sort((a, b) => a - b)
+      .forEach((key) => {
+        all[key].forEach((moment: any) => {
+          // A delete shifts later pages by one, so a refetched page can repeat
+          // a moment an earlier page already shows.
+          if (!moment || removed[moment._id] || seen[moment._id]) return;
+          seen[moment._id] = true;
+          out.push(moment);
+        });
+      });
+    return out;
+  }, [pages, currentData, page, removed]);
+
+  const handleDelete = async (): Promise<void> => {
+    if (!pending) return;
+    const id = pending._id;
+    setDeleteError("");
     try {
-      return formatDistanceToNow(new Date(timestamp), { addSuffix: true });
-    } catch (error) {
-      return "recently";
+      await deleteMoment(id).unwrap();
+      if (!mounted.current) return;
+      setRemoved((prev) => ({ ...prev, [id]: true }));
+      setPending(null);
+    } catch (caught) {
+      if (!mounted.current) return;
+      setDeleteError(
+        t("profile.myMoments.delete_failed") || "We couldn't delete that moment. Try again."
+      );
     }
   };
 
-  if (!momentsData?.data?.length) {
-    return (
-      <div className="d-flex flex-column align-items-center justify-content-center p-5 text-center">
-        <div className="display-1 mb-4">✨</div>
-        <h3 className="h2 fw-semibold text-gray-800 mb-3">{ t("moments_section.no_moments")}</h3>
-        <p className="text-muted mb-4">{ t('first_to_moment')}</p>
-        <button 
-          onClick={() => navigate('/create-moment')}
-          className="btn btn-primary btn-lg px-4 py-2 rounded-pill fw-medium">
-         {t('moments_section.share_moment')}
-        </button>
-      </div>
-    );
-  }
+  if (!userId) return <Navigate to="/login" replace />;
+
+  const showSkeleton = isLoading && moments.length === 0;
+  const failed = !isLoading && Boolean(error) && moments.length === 0;
+  const loadingMore = isFetching && page > 1 && !currentData;
+  const empty = !showSkeleton && !failed && moments.length === 0;
 
   return (
-    <div className="container-fluid px-4 py-5">
-      <div className="row g-4">
-        {momentsData?.data.map((moment: MomentType) => (
-          <div key={moment._id} className="col-12 col-sm-6 col-lg-4 col-xl-3">
-            <div className="card h-100 border-0 shadow-sm overflow-hidden hover-shadow-lg transition-all">
-              
-          
-              <div 
-                className="card-header bg-white border-0 d-flex align-items-center p-3" 
-                onClick={() => navigate(`/community/${moment.user._id}`)} 
-                style={{ cursor: 'pointer' }}
-              >
-                <div className="rounded-circle overflow-hidden bg-light" style={{ width: '40px', height: '40px' }}>
-                  <img 
-                    src={moment.user?.imageUrls?.length ? moment.user.imageUrls[0] : "https://ui-avatars.com/api/?name=" + encodeURIComponent(moment.user.name)} 
-                    alt={moment.user.name}
-                    className="img-fluid h-100 w-100 object-fit-cover"
-                  />
-                </div>
-                <div className="ms-3">
-                  <p className="fw-medium mb-0 text-dark">{moment.user.name}</p>
-                  <small className="text-muted">{formatTimestamp(moment.createdAt)}</small>
-                </div>
-              </div>
-              
-              
-              {moment.imageUrls.length > 0 && (
-                <div className="ratio ratio-16x9 bg-light">
-                  <img 
-                    src={moment.imageUrls[0]} 
-                    alt={moment.title}
-                    className="img-fluid object-fit-cover"
-                    style={{ transition: 'transform 0.3s ease' }}
-                    onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
-                    onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
-                  />
-                </div>
-              )}
-              
-          
-              <div className="card-body">
-                <h5 className="card-title fw-semibold text-dark mb-2">{moment.title}</h5>
-                <p className="card-text text-muted mb-0" style={{
-                  display: '-webkit-box',
-                  WebkitLineClamp: 3,
-                  WebkitBoxOrient: 'vertical',
-                  overflow: 'hidden'
-                }}>
-                  {moment.description}
-                </p>
-              </div>
-              
-              {/* Engagement */}
-              <div className="card-footer bg-white border-0 d-flex align-items-center px-3 py-2">
-                <button className="btn btn-sm btn-link text-decoration-none d-flex align-items-center me-3 p-1">
-                  {moment.likedUsers.includes(userId) ? (
-                    <AiFillHeart className="me-1 text-danger" size={18} />
-                  ) : (
-                    <AiOutlineHeart className="me-1" size={18} />
-                  )}
-                  <span className="small">{moment.likeCount}</span>
-                </button>
-                
-                <button className="btn btn-sm btn-link text-decoration-none d-flex align-items-center me-3 p-1">
-                  {moment.commentCount > 0 ? (
-                    <FaCommentDots className="me-1 text-primary" size={16} />
-                  ) : (
-                    <FaRegCommentDots className="me-1" size={16} />
-                  )}
-                  <span className="small">{moment.commentCount}</span>
-                </button>
-                
-                <div className="ms-auto d-flex">
-                  <button 
-                    onClick={() => handleEdit(moment._id)}
-                    className="btn btn-sm btn-link text-decoration-none p-1 me-1 rounded-circle"
-                    data-bs-toggle="tooltip" 
-                    data-bs-placement="top" 
-                    title="Edit"
-                  >
-                    <AiFillEdit size={16} className="text-primary" />
-                  </button>
-                  
-                  <button 
-                    onClick={() => handleDelete(moment._id)}
-                    className="btn btn-sm btn-link text-decoration-none p-1 me-1 rounded-circle"
-                    data-bs-toggle="tooltip" 
-                    data-bs-placement="top" 
-                    title="Delete"
-                  >
-                    <AiOutlineDelete size={16} className="text-danger" />
-                  </button>
-                  
-                  <button 
-                    className="btn btn-sm btn-link text-decoration-none p-1 rounded-circle"
-                    data-bs-toggle="tooltip" 
-                    data-bs-placement="top" 
-                    title="Share"
-                  >
-                    <IoMdShare size={16} className="text-success" />
-                  </button>
-                </div>
-              </div>
-            </div>
+    <div className={PAGE}>
+      <PageMeta noindex title={`${t("profile.myMoments.title") || "My moments"} · BananaTalk`} />
+      <div className={COLUMN}>
+        <div data-testid="my-moments" className="space-y-4">
+          <div className="flex items-center justify-between gap-3">
+            <h1 className="font-display text-xl text-ink-900 dark:text-ink-50">
+              {t("profile.myMoments.title") || "My moments"}
+            </h1>
+            <Link to="/add-moment" data-testid="my-moments-create" className={CTA}>
+              <Plus className="h-4 w-4" aria-hidden />
+              {t("profile.myMoments.create") || "Share a moment"}
+            </Link>
           </div>
-        ))}
+
+          <SurfaceCard padding="lg">
+            {showSkeleton && (
+              <div
+                data-testid="my-moments-skeleton"
+                aria-busy="true"
+                className="grid animate-pulse grid-cols-2 gap-2 sm:grid-cols-3"
+              >
+                {SKELETONS.map((index) => (
+                  <div
+                    key={index}
+                    className="aspect-square rounded-chip bg-ink-100 dark:bg-ink-800"
+                  />
+                ))}
+              </div>
+            )}
+
+            {failed && (
+              <div data-testid="my-moments-error" role="alert" className="py-4 text-center">
+                <h2 className="font-display text-lg text-ink-900 dark:text-ink-50">
+                  {t("profile.myMoments.error_title") || "We couldn't load your moments"}
+                </h2>
+                <p className="pt-1 text-sm text-ink-500 dark:text-ink-400">
+                  {t("profile.myMoments.error_body") || "Check your connection and try again."}
+                </p>
+                <button
+                  type="button"
+                  data-testid="my-moments-retry"
+                  onClick={refetch}
+                  className={`mt-4 ${CTA}`}
+                >
+                  <RefreshCw className="h-4 w-4" aria-hidden />
+                  {t("profile.myMoments.retry") || "Try again"}
+                </button>
+              </div>
+            )}
+
+            {empty && (
+              <div data-testid="my-moments-empty" className="py-8 text-center">
+                <h2 className="font-display text-lg text-ink-900 dark:text-ink-50">
+                  {t("profile.myMoments.empty_title") || "No moments yet"}
+                </h2>
+                <p className="pt-1 text-sm text-ink-500 dark:text-ink-400">
+                  {t("profile.myMoments.empty_body") ||
+                    "Share your first moment with the community."}
+                </p>
+                <Link to="/add-moment" className={`mt-4 ${CTA}`}>
+                  <Plus className="h-4 w-4" aria-hidden />
+                  {t("profile.myMoments.create") || "Share a moment"}
+                </Link>
+              </div>
+            )}
+
+            {!showSkeleton && !failed && moments.length > 0 && (
+              <ul className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+                {moments.map((moment: any) => {
+                  const image = firstImage(moment);
+                  const caption = captionOf(moment);
+                  return (
+                    <li
+                      key={moment._id}
+                      data-testid="moment-tile"
+                      className="group relative aspect-square overflow-hidden rounded-chip bg-ink-100 dark:bg-ink-800"
+                    >
+                      <Link
+                        to={`/moment/${moment._id}`}
+                        data-testid={`moment-link-${moment._id}`}
+                        className="block h-full w-full"
+                      >
+                        {image ? (
+                          <img
+                            src={image}
+                            alt={caption || t("profile.moments.photo_alt") || "Moment photo"}
+                            loading="lazy"
+                            data-testid="moment-tile-image"
+                            className="h-full w-full object-cover transition-transform duration-200 group-hover:scale-[1.03]"
+                          />
+                        ) : (
+                          <span
+                            data-testid="moment-tile-text"
+                            className="flex h-full w-full items-center justify-center overflow-hidden p-3 text-center text-xs font-semibold leading-snug text-ink-700 dark:text-ink-100"
+                          >
+                            {caption}
+                          </span>
+                        )}
+                      </Link>
+
+                      <div className="absolute right-1.5 top-1.5 flex gap-1 opacity-0 transition-opacity focus-within:opacity-100 group-hover:opacity-100">
+                        <button
+                          type="button"
+                          data-testid={`moment-edit-${moment._id}`}
+                          onClick={() => navigate(`/edit-moment/${moment._id}`)}
+                          aria-label={t("profile.myMoments.edit") || "Edit moment"}
+                          className={TILE_ACTION}
+                        >
+                          <Pencil className="h-3.5 w-3.5" aria-hidden />
+                        </button>
+                        <button
+                          type="button"
+                          data-testid={`moment-delete-${moment._id}`}
+                          onClick={() => {
+                            setDeleteError("");
+                            setPending(moment);
+                          }}
+                          aria-label={t("profile.myMoments.delete") || "Delete moment"}
+                          className={TILE_ACTION}
+                        >
+                          <Trash2 className="h-3.5 w-3.5" aria-hidden />
+                        </button>
+                      </div>
+
+                      <span className="pointer-events-none absolute inset-x-0 bottom-0 flex items-center gap-3 bg-ink-950/50 px-2 py-1 text-[11px] font-semibold text-white">
+                        <span data-testid="moment-likes" className="inline-flex items-center gap-1">
+                          <Heart className="h-3 w-3" aria-hidden />
+                          {countOf(moment.likeCount)}
+                        </span>
+                        <span
+                          data-testid="moment-comments"
+                          className="inline-flex items-center gap-1"
+                        >
+                          <MessageCircle className="h-3 w-3" aria-hidden />
+                          {countOf(moment.commentCount)}
+                        </span>
+                      </span>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+
+            {!showSkeleton && moments.length > 0 && (hasMore || Boolean(error)) && (
+              <div className="pt-4 text-center">
+                <button
+                  type="button"
+                  data-testid="my-moments-load-more"
+                  disabled={loadingMore}
+                  onClick={() => {
+                    if (error) {
+                      refetch();
+                    } else {
+                      setPage((current) => current + 1);
+                    }
+                  }}
+                  className={`${CTA} disabled:cursor-not-allowed disabled:opacity-60`}
+                >
+                  {loadingMore
+                    ? t("profile.myMoments.loading_more") || "Loading..."
+                    : error
+                    ? t("profile.myMoments.retry") || "Try again"
+                    : t("profile.myMoments.load_more") || "Load more"}
+                </button>
+              </div>
+            )}
+          </SurfaceCard>
+        </div>
       </div>
+
+      <ConfirmDialog
+        open={pending !== null}
+        danger
+        title={t("profile.myMoments.delete_title") || "Delete this moment?"}
+        body={
+          t("profile.myMoments.delete_body") ||
+          "It disappears for everyone, along with its likes and comments."
+        }
+        confirmLabel={t("profile.myMoments.delete_confirm") || "Delete"}
+        cancelLabel={t("profile.actions.cancel") || "Cancel"}
+        busy={isDeleting}
+        error={deleteError || undefined}
+        onConfirm={handleDelete}
+        onCancel={() => setPending(null)}
+      />
     </div>
   );
 };

@@ -9,7 +9,11 @@
       "about": "Tentang",
       "services": "Layanan",
       "pricing": "Harga",
-      "contact": "Kontak"
+      "contact": "Kontak",
+      "communities": "Komunitas",
+      "download": "Unduh Aplikasi",
+      "meet": "Temui orang baru",
+      "learnKorean": "Belajar bahasa Korea"
     },
     "contactInfo": "Info Kontak",
     "address": "Seoul, Korea Selatan, Gangnam-gu",
@@ -57,15 +61,20 @@
       "noMatchTitle": "Tidak ada percakapan yang cocok",
       "noMatchSubtitle": "Coba ubah pencarian",
       "emptyTitle": "Belum ada percakapan",
-      "emptySubtitle": "Mulai percakapan untuk melihatnya di sini"
+      "emptySubtitle": "Mulai percakapan untuk melihatnya di sini",
+      "loadError": "Gagal memuat percakapanmu",
+      "loading": "Memuat obrolan...",
+      "noMessages": "Belum ada pesan",
+      "tryAgain": "Coba lagi",
+      "typing": "sedang mengetik..."
     },
     "deleteModal": {
       "title": "Hapus percakapan",
-      "bodyPrefix": "Hapus percakapan Anda dengan:",
       "warning": "Tindakan ini tidak dapat dibatalkan.",
       "cancel": "Batal",
       "confirm": "Hapus",
-      "deleting": "Menghapus..."
+      "deleting": "Menghapus...",
+      "body": "Hapus percakapan Anda dengan {{name}}?"
     },
     "gif": {
       "title": "GIF",
@@ -84,8 +93,372 @@
       "noConversationYet": "Mulai percakapan terlebih dahulu untuk menyematkannya",
       "pinFailed": "Gagal memperbarui sematan",
       "deleteFailed": "Gagal menghapus percakapan",
-      "deleted": "Percakapan dihapus"
+      "deleted": "Percakapan dihapus",
+      "openProfile": "Buka profil {{name}}",
+      "mute": "Bisukan",
+      "unmute": "Aktifkan suara",
+      "muted": "Notifikasi dibisukan",
+      "unmuted": "Notifikasi aktif kembali",
+      "muteFailed": "Gagal memperbarui notifikasi",
+      "unpinned": "Sematan percakapan dilepas"
+    },
+    "viewProfileOf": "Lihat profil {{name}}",
+    "info": {
+      "title": "Info obrolan",
+      "close": "Tutup",
+      "viewProfile": "Lihat profil",
+      "media": "Media yang dibagikan",
+      "mute": "Bisukan notifikasi",
+      "unmute": "Aktifkan notifikasi",
+      "muted": "Notifikasi dibisukan",
+      "unmuted": "Notifikasi aktif kembali",
+      "muteFailed": "Gagal memperbarui notifikasi",
+      "wallpaper": "Wallpaper",
+      "block": "Blokir",
+      "unblock": "Buka blokir",
+      "blockTitle": "Blokir {{name}}?",
+      "blockBody": "Dia tidak akan bisa mengirim pesan kepada Anda atau melihat profil Anda.",
+      "unblockTitle": "Buka blokir {{name}}?",
+      "unblockBody": "Dia akan bisa mengirim pesan kepada Anda lagi.",
+      "blocked": "Diblokir",
+      "unblocked": "Blokir dibuka",
+      "blockFailed": "Gagal. Silakan coba lagi.",
+      "report": "Laporkan",
+      "reportTitle": "Laporkan {{name}}",
+      "reportBody": "Beri tahu kami apa yang salah. Setiap laporan kami tinjau.",
+      "reportReason": "Alasan",
+      "reportDescription": "Detail (opsional)",
+      "reportSubmit": "Kirim laporan",
+      "reported": "Terima kasih — tim moderator akan memeriksanya",
+      "reportFailed": "Gagal mengirim laporan",
+      "delete": "Hapus percakapan",
+      "cancel": "Batal",
+      "noConversationYet": "Kirim pesan dulu"
+    },
+    "reportReasons": {
+      "spam": "Spam",
+      "harassment": "Pelecehan atau perundungan",
+      "hate_speech": "Ujaran kebencian",
+      "violence": "Kekerasan atau ancaman",
+      "nudity": "Ketelanjangan atau konten seksual",
+      "false_information": "Informasi palsu",
+      "copyright": "Hak cipta",
+      "other": "Lainnya"
+    },
+    "status": {
+      "sending": "Mengirim",
+      "sent": "Terkirim",
+      "delivered": "Diterima",
+      "read": "Dibaca",
+      "failed": "Gagal"
+    },
+    "loadEarlier": "Muat pesan sebelumnya",
+    "loadingEarlier": "Memuat pesan sebelumnya",
+    "suggestCorrection": "Sarankan koreksi",
+    "translateThis": "Terjemahkan pesan ini",
+    "addCaption": "Tambahkan keterangan...",
+    "conversationStarted": "Percakapan dimulai",
+    "correct": "Benar",
+    "daysAgo": "{{count}} hari lalu",
+    "edit": "Edit pesan",
+    "hide_translation": "Sembunyikan",
+    "noMessages": "Belum ada pesan",
+    "retry": "Coba lagi",
+    "today": "Hari Ini",
+    "translate": "Terjemahkan",
+    "yesterday": "Kemarin",
+    "wallpaper": {
+      "title": "Wallpaper",
+      "shared": "Wallpaper yang dipilih akan terlihat oleh kalian berdua.",
+      "plain": "Polos",
+      "gradients": "Gradasi",
+      "default": "Default",
+      "apply": "Terapkan",
+      "cancel": "Batal",
+      "saved": "Wallpaper diperbarui",
+      "failed": "Wallpaper gagal diubah",
+      "cream": "Krem",
+      "blush": "Blush",
+      "peach": "Peach",
+      "sage": "Sage",
+      "ocean": "Laut",
+      "teal": "Teal",
+      "forest": "Hutan",
+      "rose": "Rose",
+      "wine": "Marun",
+      "plum": "Plum",
+      "navy": "Navy",
+      "mocha": "Mocha",
+      "slate": "Slate",
+      "ember": "Bara",
+      "deep_sea": "Laut dalam",
+      "charcoal": "Arang",
+      "midnight": "Tengah malam",
+      "dark": "Gelap",
+      "gradient_sunset": "Senja",
+      "gradient_ocean": "Laut",
+      "gradient_purple": "Kosmik",
+      "gradient_midnight": "Tengah malam",
+      "gradient_forest": "Hutan",
+      "gradient_rose": "Rose Gold",
+      "gradient_candy": "Permen",
+      "gradient_neon": "Neon",
+      "gradient_fire": "Api",
+      "gradient_winter": "Musim dingin",
+      "gradient_lavender": "Lavender",
+      "gradient_aurora": "Aurora",
+      "premiumInUse": "Obrolan ini memakai wallpaper Premium dari aplikasi. Memilih yang lain akan mengubahnya untuk kalian berdua."
+    },
+    "jumpToLatest": "Lompat ke pesan terbaru",
+    "archive": {
+      "archive": "Arsipkan obrolan",
+      "archived": "Diarsipkan di situs web. Di aplikasi masih ditampilkan.",
+      "back": "Kembali ke obrolan",
+      "failed": "Gagal memperbarui arsip",
+      "toggle": "Diarsipkan ({{count}})",
+      "unarchive": "Keluarkan dari arsip",
+      "unarchived": "Dikembalikan ke daftar obrolan"
+    },
+    "blocked": {
+      "byMe": "Kamu memblokir orang ini. Buka blokir untuk mengirim pesan.",
+      "generic": "Kamu tidak bisa mengirim pesan di obrolan ini.",
+      "manage": "Kelola"
+    },
+    "bookmarks": {
+      "addFailed": "Gagal menyimpan pesan",
+      "added": "Disimpan",
+      "attachment": "Lampiran",
+      "close": "Tutup",
+      "empty": "Belum ada pesan tersimpan",
+      "error": "Gagal memuat pesan tersimpan",
+      "loading": "Memuat pesan tersimpan…",
+      "open": "Buka obrolan",
+      "remove": "Hapus dari tersimpan",
+      "removeFailed": "Gagal menghapus",
+      "removed": "Dihapus dari pesan tersimpan",
+      "title": "Pesan tersimpan"
+    },
+    "call": {
+      "busy": "{{name}} sedang dalam panggilan lain",
+      "cancelledVideo": "Panggilan video dibatalkan",
+      "cancelledVoice": "Panggilan suara dibatalkan",
+      "declinedIncomingVideo": "Panggilan video ditolak",
+      "declinedIncomingVoice": "Panggilan suara ditolak",
+      "declinedOutgoingVideo": "Panggilan video ditolak",
+      "declinedOutgoingVoice": "Panggilan suara ditolak",
+      "incomingVideo": "Panggilan video masuk",
+      "incomingVoice": "Panggilan suara masuk",
+      "missedVideo": "Panggilan video tak terjawab",
+      "missedVoice": "Panggilan suara tak terjawab",
+      "noAnswerVideo": "Panggilan video · Tidak dijawab",
+      "noAnswerVoice": "Panggilan suara · Tidak dijawab",
+      "outgoingVideo": "Panggilan video keluar",
+      "outgoingVoice": "Panggilan suara keluar"
+    },
+    "connection": {
+      "kicked": "Obrolan dibuka di tempat lain, jadi tab ini berhenti menerima pesan.",
+      "reconnect": "Gunakan di sini"
+    },
+    "correction": {
+      "accept": "Terima koreksi",
+      "acceptFailed": "Gagal menerima koreksi",
+      "accepted": "Koreksi diterima — ditambahkan ke catatan belajarmu",
+      "accepting": "Menerima…",
+      "corrected": "{{name}} mengoreksi",
+      "you": "Kamu"
+    },
+    "correctionModal": {
+      "cancel": "Batal",
+      "close": "Tutup",
+      "empty": "Tuliskan koreksinya",
+      "explanation": "Penjelasan",
+      "explanationPlaceholder": "Jelaskan kenapa koreksi ini membantu...",
+      "hint": "mis. \"Pakai 'went', bukan 'goed' - bentuk lampau tidak beraturan\"",
+      "optional": "(opsional)",
+      "original": "Pesan Asli",
+      "submit": "Kirim Koreksi",
+      "title": "Koreksi Bahasa",
+      "unchanged": "Koreksi harus berbeda dari pesan asli",
+      "yours": "Koreksimu",
+      "yoursPlaceholder": "Ketik versi yang sudah dikoreksi..."
+    },
+    "deleteMessage": {
+      "cancel": "Batal",
+      "failed": "Gagal menghapus pesan. Coba lagi.",
+      "forEveryone": "Hapus untuk semua",
+      "forMe": "Hapus untuk saya",
+      "placeholder": "Pesan ini telah dihapus",
+      "title": "Hapus pesan?",
+      "tooLate": "Pesan hanya bisa dihapus untuk semua dalam 1 jam setelah dikirim."
+    },
+    "editDialog": {
+      "cancel": "Batal",
+      "failed": "Gagal mengedit pesan. Coba lagi.",
+      "label": "Pesan",
+      "save": "Simpan",
+      "title": "Edit pesan",
+      "tooLate": "Pesan hanya bisa diedit dalam 15 menit setelah dikirim."
+    },
+    "editedLabel": "diedit",
+    "forward": {
+      "close": "Tutup",
+      "empty": "Percakapan tidak ditemukan.",
+      "error": "Gagal memuat percakapan.",
+      "loading": "Memuat percakapan…",
+      "search": "Cari",
+      "submit": "Teruskan",
+      "submitCount": "Teruskan ({{count}})",
+      "title": "Teruskan ke",
+      "unknownUser": "Tidak dikenal"
+    },
+    "forwarded": "Diteruskan",
+    "location": {
+      "cancel": "Batal",
+      "confirmTitle": "Bagikan lokasimu?",
+      "denied": "Izin lokasi ditolak",
+      "failed": "Gagal mendapatkan lokasimu",
+      "open": "Buka di Peta",
+      "send": "Kirim",
+      "sendFailed": "Gagal mengirim lokasimu",
+      "share": "Bagikan lokasi",
+      "title": "Lokasi",
+      "unsupported": "Browser ini tidak bisa membagikan lokasi"
+    },
+    "mediaGallery": {
+      "back": "Kembali",
+      "emptyFiles": "Belum ada file yang dibagikan",
+      "emptyPhotos": "Belum ada foto yang dibagikan",
+      "emptyVideos": "Belum ada video yang dibagikan",
+      "error": "Gagal memuat media",
+      "files": "File",
+      "loading": "Memuat media...",
+      "photos": "Foto",
+      "title": "Media yang Dibagikan",
+      "unknownFile": "File tidak dikenal",
+      "unknownSize": "Ukuran tidak diketahui",
+      "videos": "Video"
+    },
+    "menu": {
+      "bookmark": "Simpan",
+      "close": "Tutup",
+      "copy": "Salin",
+      "delete": "Hapus",
+      "edit": "Edit",
+      "forward": "Teruskan",
+      "listen": "Dengarkan",
+      "pin": "Sematkan",
+      "reply": "Balas"
+    },
+    "mute": {
+      "always": "Sampai saya aktifkan lagi",
+      "cancel": "Batal",
+      "eightHours": "Selama 8 jam",
+      "oneHour": "Selama 1 jam",
+      "oneWeek": "Selama 1 minggu",
+      "title": "Bisukan {{name}}?"
+    },
+    "pinnedBar": {
+      "count": "{{count}} disematkan",
+      "unpin": "Lepas sematan pesan"
+    },
+    "preview": {
+      "attachment": "📎 Lampiran",
+      "call": "📞 Panggilan",
+      "file": "📎 File",
+      "gif": "GIF",
+      "location": "📍 Lokasi",
+      "photo": "🖼️ Foto",
+      "poll": "📊 Polling",
+      "story": "📖 Story",
+      "video": "🎥 Video",
+      "voice": "🎤 Pesan suara"
+    },
+    "replyBar": {
+      "cancel": "Batal membalas",
+      "replyingTo": "Membalas {{name}}"
+    },
+    "search": {
+      "close": "Tutup",
+      "empty": "Pesan tidak ditemukan",
+      "hint": "Ketik minimal 2 karakter",
+      "notLoaded": "Pesan itu ada lebih jauh ke atas. Gulir ke atas untuk memuatnya.",
+      "open": "Cari pesan",
+      "placeholder": "Cari di obrolan ini",
+      "searching": "Mencari…",
+      "title": "Cari pesan dengan {{name}}",
+      "unavailable": "Pencarian sedang tidak tersedia",
+      "you": "Kamu"
+    },
+    "sendErrors": {
+      "blockedBody": "Kamu tidak bisa mengirim pesan ke orang ini.",
+      "blockedTitle": "Pesan tidak terkirim",
+      "capBody": "Kamu sudah memulai percakapan baru sebanyak batas hari ini. Jadi VIP untuk memulai sebanyak yang kamu mau.",
+      "capTitle": "Batas percakapan baru tercapai",
+      "dailyBody": "Kamu sudah mengirim semua pesan untuk hari ini. Jadi VIP untuk pesan tanpa batas, atau kembali besok.",
+      "dailyTitle": "Batas pesan harian tercapai",
+      "firstChatBody": "Kamu bisa mengirim 5 pesan sampai dia membalas. Kamu bisa menulis lagi setelah dia menjawab.",
+      "firstChatTitle": "Tunggu balasan",
+      "generic": "Pesan tidak terkirim. Ketuk Coba lagi untuk mengulang.",
+      "goVip": "Jadi VIP",
+      "ok": "OK",
+      "reattach": "Lampirkan file lagi untuk mengirimnya.",
+      "tooFast": "Kamu mengirim pesan terlalu cepat. Tunggu sebentar."
+    },
+    "story": {
+      "replied": "Membalas story kamu",
+      "shared": "Membagikan story",
+      "unavailable": "Story ini sudah tidak tersedia",
+      "youReplied": "Kamu membalas story-nya",
+      "youShared": "Kamu membagikan story"
+    },
+    "translation": {
+      "close": "Tutup terjemahan",
+      "failed": "Gagal menerjemahkan pesan",
+      "label": "Terjemahan · {{lang}}",
+      "save": "Simpan frasa",
+      "saveFailed": "Gagal menyimpan frasa",
+      "saved": "Disimpan ke antrean belajar",
+      "saving": "Menyimpan…",
+      "translating": "Menerjemahkan…"
+    },
+    "video": {
+      "badType": "Format video ini tidak bisa dikirim. Coba MP4.",
+      "tooBig": "Video ini terlalu besar. Batasnya {{mb}} MB.",
+      "tooLong": "Video ini terlalu panjang. Batasnya {{minutes}} menit."
+    },
+    "voice": {
+      "unavailable": "Rekaman suara tidak tersedia. Periksa izin mikrofon untuk situs ini."
+    },
+    "wave": {
+      "hi": "Hai!"
+    },
+    "callInApp": {
+      "voice": "Panggilan suara",
+      "video": "Panggilan video",
+      "title": "Panggilan dilakukan di aplikasi BananaTalk",
+      "body": "Buka aplikasi untuk menelepon {{name}}. Panggilan masuk berdering di ponselmu.",
+      "openApp": "Buka aplikasi",
+      "notNow": "Nanti saja"
     }
+  },
+  "newChat": {
+    "title": "Obrolan Baru",
+    "subtitle": "Mulai percakapan",
+    "directMessage": "Langsung",
+    "groupChat": "Grup",
+    "searchPlaceholder": "Cari berdasarkan nama, @username, atau ID pengguna...",
+    "searchHint": "Cari pengguna untuk memulai obrolan",
+    "hintName": "Cari berdasarkan nama",
+    "hintUsername": "Ketik @username untuk mencari berdasarkan nama pengguna",
+    "hintId": "Tempel ID pengguna untuk menemukannya langsung",
+    "searchByUsername": "Mencari berdasarkan username",
+    "searchById": "Mencari berdasarkan ID pengguna",
+    "noResults": "Tidak ada pengguna yang ditemukan",
+    "tryDifferent": "Coba nama, @username, atau ID pengguna lain",
+    "createGroup": "Buat Grup",
+    "selectMoreUsers": "Pilih minimal 2 pengguna untuk obrolan grup",
+    "createError": "Gagal membuat obrolan",
+    "recently": "Baru-baru ini"
   },
   "notifications": "Notifikasi",
   "moments": "Momen",
@@ -124,7 +497,18 @@
   "profile": {
     "title": "Profil Saya",
     "edit_profile": "Edit Profil",
-    "photos": "Foto",
+    "photos": {
+      "title": "Foto",
+      "add": "Tambah foto",
+      "alt": "{{name}}, foto {{index}}",
+      "open": "Buka foto {{index}}",
+      "close": "Tutup",
+      "previous": "Foto sebelumnya",
+      "next": "Foto berikutnya",
+      "counter": "{{index}} dari {{total}}",
+      "openAvatar": "Buka foto {{name}}",
+      "openStory": "Lihat story {{name}}"
+    },
     "messages": {
       "image_update_success": "Foto profil berhasil diperbarui",
       "image_update_failure": "Gagal memperbarui foto profil",
@@ -132,6 +516,7 @@
       "image_delete_failure": "Gagal menghapus foto",
       "profile_update_success": "Profil berhasil diperbarui",
       "profile_update_failure": "Gagal memperbarui profil",
+      "extras_update_failure": "Profil kamu tersimpan, tetapi beberapa detail tidak diperbarui",
       "error_loading_profile": "Gagal memuat profil pengguna",
       "no_profile_data": "Data profil pengguna tidak tersedia",
       "unknown_error": "Terjadi kesalahan yang tidak diketahui",
@@ -146,7 +531,8 @@
       "no_following": "Anda belum mengikuti siapa pun.",
       "following_error": "Gagal memuat daftar mengikuti. Silakan coba lagi nanti.",
       "moments": "Momen",
-      "visitors": "Pengunjung"
+      "visitors": "Pengunjung",
+      "visited": "Dikunjungi"
     },
     "visitors": {
       "title": "Pengunjung Profil",
@@ -165,7 +551,11 @@
       "vipOnly": "Fitur VIP",
       "vipOnlyDesc": "Lihat siapa yang mengunjungi profil Anda dengan upgrade ke VIP. Fitur ini tersedia khusus untuk anggota VIP.",
       "vipBenefits": "Manfaat VIP",
-      "learnMore": "Pelajari Lebih Lanjut Tentang VIP"
+      "learnMore": "Pelajari Lebih Lanjut Tentang VIP",
+      "clear": "Hapus riwayat",
+      "clear_title": "Hapus riwayat pengunjung?",
+      "clear_body": "Semua orang yang melihat profilmu akan dihapus dan penghitung kunjungan kembali ke nol. Ini tidak bisa dibatalkan.",
+      "no_visited": "Profil yang kamu lihat akan muncul di sini"
     },
     "sections": {
       "personal_info": "Informasi Pribadi",
@@ -207,7 +597,18 @@
       "save": "Simpan",
       "cancel": "Batal",
       "edit_photo": "Edit Foto",
-      "clear": "Hapus pilihan"
+      "clear": "Hapus pilihan",
+      "settings": "Pengaturan",
+      "message": "Kirim pesan",
+      "follow": "Ikuti",
+      "following": "Mengikuti",
+      "more": "Opsi lainnya",
+      "block": "Blokir",
+      "report": "Laporkan",
+      "this_person": "orang ini",
+      "action_failed": "Gagal. Silakan coba lagi.",
+      "unblock": "Buka blokir",
+      "followBlocked": "Kamu tidak bisa mengikuti orang ini"
     },
     "buttons": {
       "edit": "Edit",
@@ -235,6 +636,128 @@
       "kdrama": "K-Drama",
       "languages": "Bahasa",
       "culture": "Budaya"
+    },
+    "badges": {
+      "vip": "VIP",
+      "verified": "Terverifikasi",
+      "joined": "Bergabung {{date}}",
+      "active": "Aktif {{time}}",
+      "online": "Online sekarang"
+    },
+    "block": {
+      "title": "Blokir {{name}}?",
+      "body": "Dia tidak akan bisa mengirim pesan kepada Anda atau melihat profil Anda."
+    },
+    "report": {
+      "title": "Laporkan {{name}}?",
+      "body": "Beri tahu kami apa yang salah. Setiap laporan kami tinjau.",
+      "reason": "Alasan"
+    },
+    "languages": {
+      "also_learning": "Juga belajar"
+    },
+    "about": {
+      "title": "Tentang",
+      "occupation": "Pekerjaan",
+      "school": "Sekolah",
+      "read_more": "Selengkapnya",
+      "read_less": "Ciutkan"
+    },
+    "learning": {
+      "title": "Progres belajar",
+      "streak": "Streak",
+      "days": "hari",
+      "xp": "Total XP",
+      "level": "Level"
+    },
+    "moments": {
+      "see_all": "Lihat semua",
+      "empty_own": "Bagikan momen pertama Anda",
+      "empty_other": "Belum ada momen",
+      "photo_alt": "Foto momen"
+    },
+    "page": {
+      "title": "Profil",
+      "error_title": "Gagal memuat profil ini",
+      "error_body": "Periksa koneksi Anda lalu coba lagi.",
+      "retry": "Coba lagi",
+      "not_found_title": "Profil tidak ditemukan",
+      "not_found_body": "Profil ini sudah tidak ada, atau memang tidak pernah ada di sini.",
+      "back_to_community": "Jelajahi komunitas"
+    },
+    "lists": {
+      "title": "Koneksi Anda",
+      "title_of": "Koneksi {{name}}",
+      "title_other": "Koneksi",
+      "search": "Cari berdasarkan nama",
+      "search_empty": "Tidak ada yang cocok dengan \"{{query}}\"",
+      "empty_followers_own": "Belum ada yang mengikuti Anda.",
+      "empty_followers_other": "Belum ada yang mengikuti pengguna ini.",
+      "empty_following_own": "Anda belum mengikuti siapa pun.",
+      "empty_following_other": "Pengguna ini belum mengikuti siapa pun.",
+      "error_title": "Gagal memuat daftar ini",
+      "error_body": "Periksa koneksi Anda lalu coba lagi.",
+      "retry": "Coba lagi"
+    },
+    "edit": {
+      "back": "Kembali",
+      "about": "Tentang",
+      "photos_hint": "Foto pertama Anda adalah yang dilihat orang di mana-mana.",
+      "add_photo": "Tambah foto",
+      "photo_alt": "Foto {{index}}",
+      "delete_photo": "Hapus foto {{index}}",
+      "delete_photo_title": "Hapus foto ini?",
+      "delete_photo_body": "Foto ini akan hilang dari profil Anda untuk semua orang.",
+      "delete_photo_confirm": "Hapus foto",
+      "level": "Level",
+      "level_hint": "Level Anda dalam bahasa yang sedang Anda pelajari.",
+      "occupation": "Pekerjaan",
+      "occupation_placeholder": "Apa pekerjaan Anda?",
+      "school": "Sekolah",
+      "school_placeholder": "Di mana Anda belajar?",
+      "saving": "Menyimpan",
+      "unsaved": "Ada perubahan yang belum disimpan",
+      "leave_title": "Keluar tanpa menyimpan?",
+      "leave_body": "Perubahan Anda pada profil ini akan hilang.",
+      "leave_confirm": "Buang perubahan",
+      "stay": "Lanjut mengedit",
+      "intent_title": "Kamu di sini untuk apa",
+      "intent_learn": "Di sini untuk belajar",
+      "intent_meet": "Terbuka untuk berkenalan",
+      "intent_date": "Terbuka untuk kencan",
+      "intent_privacy_note": "Orang lain melihat pilihanmu, kecuali kencan yang tetap privat.",
+      "completion": "Kelengkapan Profil"
+    },
+    "myMoments": {
+      "title": "Momen saya",
+      "create": "Bagikan momen",
+      "edit": "Edit momen",
+      "delete": "Hapus momen",
+      "delete_title": "Hapus momen ini?",
+      "delete_body": "Momen ini akan hilang untuk semua orang, beserta suka dan komentarnya.",
+      "delete_confirm": "Hapus",
+      "delete_failed": "Gagal menghapus momen itu. Silakan coba lagi.",
+      "empty_title": "Belum ada momen",
+      "empty_body": "Bagikan momen pertama Anda dengan komunitas.",
+      "error_title": "Gagal memuat momen Anda",
+      "error_body": "Periksa koneksi Anda lalu coba lagi.",
+      "retry": "Coba lagi",
+      "load_more": "Muat lebih banyak",
+      "loading_more": "Memuat..."
+    },
+    "tabs": {
+      "label": "Bagian profil",
+      "moments": "Momen",
+      "about": "Tentang"
+    },
+    "unblock": {
+      "title": "Buka blokir {{name}}?",
+      "body": "Dia akan bisa mengirim pesan dan melihat profil Anda lagi."
+    },
+    "blocked": {
+      "body": "Salah satu dari kalian telah memblokir yang lain, jadi kalian tidak bisa saling mengirim pesan, mengikuti, atau melihat postingan.",
+      "manage": "Kelola orang yang diblokir",
+      "title": "Profil ini tidak tersedia"
     }
   },
   "moments_section": {
@@ -302,7 +825,230 @@
       "addMood": "Tambahkan suasana hati",
       "addLocation": "Tambahkan lokasi",
       "addTags": "Tambahkan tag",
-      "tagPlaceholder": "Tambahkan tag..."
+      "tagPlaceholder": "Tambahkan tag...",
+      "attachVideo": "Lampirkan video",
+      "mediaFailedNothingPosted": "Unggahan gagal, jadi tidak ada yang diposting. Coba lagi.",
+      "mediaFailedPosted": "Sudah diposting, tetapi unggahan media gagal — coba edit momen untuk menambahkannya.",
+      "modePhoto": "Foto",
+      "modeText": "Teks",
+      "modeVideo": "Video",
+      "modeVoice": "Suara",
+      "moodQuestion": "Bagaimana perasaan Anda?",
+      "placeholder": "Apa yang Anda pikirkan, {{name}}?",
+      "recordVoice": "Rekam pesan suara",
+      "remove": "Hapus",
+      "share": "Bagikan",
+      "sharing": "Membagikan...",
+      "textPreview": "Momen teks Anda",
+      "voiceNoteLength": "Pesan suara · {{seconds}} dtk"
+    },
+    "promo": {
+      "title": "Momen kini ada di aplikasi",
+      "subtitle": "Story, balasan AI Study, dan feed yang dibuat untuk ponsel, bukan tab browser. Gratis dipasang, tanpa ganti akun.",
+      "appStore": "Unduh di App Store",
+      "playStore": "Unduh di Google Play",
+      "appOnly": "Di aplikasi",
+      "perks": {
+        "stories": {
+          "title": "Story yang menghilang",
+          "body": "Bagikan momen yang bertahan 24 jam, seperti cara komunitas aplikasi benar-benar memakainya."
+        },
+        "aiStudy": {
+          "title": "Balasan AI Study",
+          "body": "Posting dalam bahasa yang sedang kamu pelajari dan dapatkan koreksi lembut dari AI langsung di komentar."
+        },
+        "reactions": {
+          "title": "Reaksi lebih kaya",
+          "body": "Reaksi suara, terjemahan sekali ketuk, dan utas komentar yang dibuat untuk feed, bukan formulir."
+        },
+        "notifications": {
+          "title": "Notifikasi langsung",
+          "body": "Tahu seketika saat seseorang dari bahasa targetmu membalas, tanpa menyegarkan tab browser."
+        }
+      }
+    },
+    "translate": {
+      "tap": "Ketuk untuk menerjemahkan",
+      "loading": "Menerjemahkan…",
+      "same": "Sudah dalam bahasamu",
+      "error": "Gagal menerjemahkan. Ketuk untuk mencoba lagi."
+    },
+    "tabs": {
+      "forYou": "Untukmu",
+      "following": "Mengikuti",
+      "explore": "Jelajahi",
+      "trending": "Trending"
+    },
+    "following": {
+      "empty": "Ikuti orang lain untuk melihat momen mereka di sini",
+      "findPeople": "Cari orang"
+    },
+    "commentEngagement": {
+      "attachImage": "Tambahkan foto",
+      "beFirst": "Jadilah yang pertama berbagi pendapat!",
+      "cancel": "Batal",
+      "commentTab": "Komentar",
+      "correctedLabel": "Dikoreksi",
+      "correctedPlaceholder": "Tulis seperti cara penutur asli akan mengatakannya",
+      "correction": "Koreksi",
+      "correctionNotePlaceholder": "Tambahkan catatan (opsional)",
+      "correctionTab": "Koreksi",
+      "delete": "Hapus",
+      "explanationLabel": "Penjelasan",
+      "explanationPlaceholder": "Kenapa ditulis seperti ini? (opsional)",
+      "hideReplies": "Sembunyikan balasan",
+      "imageFailed": "Komentar berhasil diposting, tapi fotonya gagal dilampirkan.",
+      "loadMoreComments": "Muat komentar lainnya",
+      "loadMoreReplies": "Muat lainnya",
+      "loadingReplies": "Memuat balasan…",
+      "originalLabel": "Asli",
+      "post": "Kirim",
+      "postCorrection": "Kirim koreksi",
+      "postFailed": "Gagal mengirim. Coba lagi.",
+      "react": "Beri reaksi",
+      "reply": "Balas",
+      "replyPlaceholder": "Tulis balasan…",
+      "viewReplies": "Lihat {{count}} balasan",
+      "deleteOthersBody": "Komentar ini ada di momen Anda, jadi Anda bisa menghapusnya. Tindakan ini tidak bisa dibatalkan.",
+      "deleteOthersTitle": "Hapus komentar ini?",
+      "removeGif": "Hapus GIF"
+    },
+    "filters": {
+      "button": "Filter",
+      "searchPlaceholder": "Cari momen",
+      "search": "Cari",
+      "category": "Kategori",
+      "language": "Bahasa",
+      "mood": "Suasana hati",
+      "tag": "Tag",
+      "tagPlaceholder": "Tag apa saja",
+      "any": "Semua",
+      "clear": "Hapus filter",
+      "emptyTitle": "Tidak ada momen yang cocok dengan filter ini",
+      "emptyBody": "Coba hapus satu filter atau cari hal lain."
+    },
+    "categories": {
+      "general": "Umum",
+      "language-learning": "Belajar bahasa",
+      "culture": "Budaya",
+      "food": "Makanan",
+      "travel": "Perjalanan",
+      "music": "Musik",
+      "books": "Buku",
+      "hobbies": "Hobi",
+      "daily-life": "Kehidupan sehari-hari",
+      "technology": "Teknologi",
+      "entertainment": "Hiburan",
+      "sports": "Olahraga",
+      "movies": "Film",
+      "study": "Belajar",
+      "work": "Kerja",
+      "question": "Pertanyaan"
+    },
+    "moods": {
+      "happy": "Senang",
+      "excited": "Bersemangat",
+      "grateful": "Bersyukur",
+      "motivated": "Termotivasi",
+      "relaxed": "Santai",
+      "curious": "Penasaran",
+      "sad": "Sedih",
+      "love": "Jatuh cinta",
+      "funny": "Lucu",
+      "thoughtful": "Merenung",
+      "cool": "Keren",
+      "tired": "Lelah"
+    },
+    "report": {
+      "menu": "Opsi lainnya",
+      "report": "Laporkan",
+      "title": "Laporkan momen ini",
+      "reasonLabel": "Kenapa kamu melaporkannya?",
+      "descriptionLabel": "Ada lagi? (opsional)",
+      "submit": "Kirim laporan",
+      "cancel": "Batal",
+      "sent": "Terima kasih — moderator kami akan meninjaunya.",
+      "already": "Kamu sudah melaporkan momen ini.",
+      "failed": "Laporan gagal dikirim. Coba lagi.",
+      "reasons": {
+        "spam": "Spam",
+        "harassment": "Pelecehan",
+        "hate_speech": "Ujaran kebencian",
+        "violence": "Kekerasan",
+        "nudity": "Ketelanjangan",
+        "false_information": "Informasi palsu",
+        "copyright": "Hak cipta",
+        "other": "Lainnya"
+      },
+      "alreadyComment": "Anda sudah melaporkan komentar ini.",
+      "alreadyStory": "Anda sudah melaporkan cerita ini.",
+      "titleComment": "Laporkan komentar ini",
+      "titleStory": "Laporkan cerita ini"
+    },
+    "schedule": {
+      "label": "Jadwalkan",
+      "hint": "Biarkan kosong untuk posting sekarang",
+      "past": "Pilih waktu di masa depan",
+      "badge": "Dijadwalkan untuk {{time}}",
+      "clear": "Posting sekarang saja"
+    },
+    "fields": {
+      "privacy": "Siapa yang bisa melihat",
+      "privacyPublic": "Semua orang",
+      "privacyFriends": "Teman",
+      "privacyPrivate": "Hanya saya",
+      "background": "Latar",
+      "backgroundNone": "Tidak ada",
+      "location": "Lokasi",
+      "addLocation": "Tambahkan lokasiku",
+      "removeLocation": "Hapus lokasi",
+      "noMood": "Tanpa suasana hati",
+      "tags": "Tag",
+      "tagPlaceholder": "Tambahkan tag…",
+      "addTag": "Tambah",
+      "tagsUsed": "{{count}}/5 tag",
+      "tagsMax": "Maksimal 5 tag"
+    },
+    "prompt": {
+      "answeringPromptOfDay": "Menjawab pertanyaan hari ini",
+      "dismissChip": "Berhenti menjawab pertanyaan",
+      "answering": "Menjawab",
+      "answer": "Jawab",
+      "cardSubtitle": "Latihan menulis",
+      "cardTitle": "Pertanyaan hari ini",
+      "dismissCard": "Tutup pertanyaan hari ini"
+    },
+    "block": {
+      "done": "{{name}} telah diblokir."
+    },
+    "card": {
+      "bookmark": "Tandai",
+      "likeFailed": "Terjadi kesalahan",
+      "loginToLike": "Masuk untuk menyukai postingan",
+      "removeBookmark": "Hapus tanda",
+      "save": "Simpan",
+      "saved": "Tersimpan",
+      "seeLess": "Lebih sedikit",
+      "seeMore": "Selengkapnya",
+      "unlike": "Batal suka"
+    },
+    "saved": {
+      "browseMoments": "Jelajahi Momen",
+      "gridView": "Tampilan kisi",
+      "listView": "Tampilan daftar",
+      "loadMore": "Muat lagi",
+      "momentCount": "momen tersimpan",
+      "noMoments": "Belum ada momen tersimpan",
+      "remove": "Hapus",
+      "removeError": "Gagal menghapus momen",
+      "removeSuccess": "Dihapus dari tersimpan",
+      "title": "Momen Tersimpan"
+    },
+    "voice": {
+      "cancel": "Batalkan rekaman",
+      "denied": "Akses mikrofon ditolak. Izinkan akses mikrofon untuk merekam pesan suara.",
+      "stop": "Hentikan rekaman dan kirim",
+      "unsupported": "Browser ini tidak mendukung rekaman suara."
     }
   },
   "createMoment": {
@@ -345,13 +1091,27 @@
       "addMoreText": "Tambah lagi",
       "updateButton": "Perbarui Momen",
       "updatingButton": "Memperbarui...",
-      "cancelButton": "Batal"
+      "cancelButton": "Batal",
+      "removeImage": "Hapus gambar",
+      "nothingToSave": "Belum ada yang diubah",
+      "descriptionRequired": "Deskripsi wajib diisi"
+    },
+    "media": {
+      "video": "Video",
+      "audio": "Pesan suara",
+      "replace": "Ganti",
+      "remove": "Hapus",
+      "removeVideoTitle": "Hapus videonya?",
+      "removeAudioTitle": "Hapus pesan suaranya?",
+      "removeBody": "Ini tidak bisa dibatalkan.",
+      "done": "Diperbarui",
+      "failed": "Gagal. Coba lagi."
     }
   },
   "authentication": {
     "enterEmail": {
       "title": "Masukkan email Anda",
-      "subtitle": "We'll send a verification code to your email",
+      "subtitle": "Kami akan mengirim kode verifikasi ke email Anda",
       "emailLabel": "Alamat Email",
       "emailPlaceholder": "Masukkan email",
       "sendButton": "Kirim Kode",
@@ -361,32 +1121,32 @@
     },
     "passwordReset": {
       "successMessage": "Kata sandi berhasil direset, silakan masuk!",
-      "backToLogin": "Back to login",
-      "verifyTitle": "Enter verification code",
-      "verifySubtitle": "We've sent a 6-digit code to your email",
-      "codeLabel": "Verification Code",
-      "codePlaceholder": "Enter code",
-      "previousButton": "Previous",
-      "verifyButton": "Verify",
-      "verifyingButton": "Verifying...",
-      "resendButton": "Resend code",
-      "resendingButton": "Resending...",
-      "verifySuccessMessage": "Verification code successfully verified!",
-      "resendSuccessMessage": "A new verification code has been sent!",
-      "verifyErrorDefault": "Invalid verification code",
-      "resendErrorDefault": "Failed to resend the code",
-      "setPasswordTitle": "Set new password",
-      "setPasswordSubtitle": "Choose a strong password for your account",
-      "newPasswordLabel": "New Password",
-      "newPasswordPlaceholder": "New Password",
-      "confirmPasswordLabel": "Confirm Password",
-      "confirmPasswordPlaceholder": "Confirm Password",
-      "showPassword": "Show password",
-      "hidePassword": "Hide password",
-      "submitButton": "Reset Password",
-      "submittingButton": "Resetting...",
-      "strengthErrorMessage": "Password does not meet the strength requirements",
-      "mismatchErrorMessage": "Passwords do not match"
+      "backToLogin": "Kembali ke halaman masuk",
+      "verifyTitle": "Masukkan kode verifikasi",
+      "verifySubtitle": "Kami telah mengirim kode 6 digit ke email Anda",
+      "codeLabel": "Kode Verifikasi",
+      "codePlaceholder": "Masukkan kode",
+      "previousButton": "Sebelumnya",
+      "verifyButton": "Verifikasi",
+      "verifyingButton": "Memverifikasi...",
+      "resendButton": "Kirim ulang kode",
+      "resendingButton": "Mengirim ulang...",
+      "verifySuccessMessage": "Kode verifikasi berhasil diverifikasi!",
+      "resendSuccessMessage": "Kode verifikasi baru telah dikirim!",
+      "verifyErrorDefault": "Kode verifikasi tidak valid",
+      "resendErrorDefault": "Gagal mengirim ulang kode",
+      "setPasswordTitle": "Atur kata sandi baru",
+      "setPasswordSubtitle": "Pilih kata sandi yang kuat untuk akun Anda",
+      "newPasswordLabel": "Kata Sandi Baru",
+      "newPasswordPlaceholder": "Kata Sandi Baru",
+      "confirmPasswordLabel": "Konfirmasi Kata Sandi",
+      "confirmPasswordPlaceholder": "Konfirmasi Kata Sandi",
+      "showPassword": "Tampilkan kata sandi",
+      "hidePassword": "Sembunyikan kata sandi",
+      "submitButton": "Reset Kata Sandi",
+      "submittingButton": "Mereset...",
+      "strengthErrorMessage": "Kata sandi tidak memenuhi syarat keamanan",
+      "mismatchErrorMessage": "Kata sandi tidak cocok"
     },
     "login": {
       "signInWithGoogle": "Masuk dengan Google",
@@ -463,6 +1223,17 @@
       "verifyFirst": "Silakan verifikasi email Anda terlebih dahulu",
       "registrationSuccess": "Pendaftaran berhasil!",
       "registrationError": "Terjadi kesalahan saat pendaftaran"
+    },
+    "callback": {
+      "banned": "Akun ini telah ditangguhkan.",
+      "codeExpired": "Tautan masuk ini sudah kedaluwarsa. Silakan masuk lagi.",
+      "completing": "Menyelesaikan proses masuk...",
+      "emailExists": "Akun dengan email ini sudah ada. Masuk dengan email dan kata sandi Anda.",
+      "failedTitle": "Gagal masuk",
+      "generic": "Gagal masuk. Silakan coba lagi.",
+      "noCode": "Proses masuk belum selesai. Silakan coba lagi.",
+      "redirecting": "Mengembalikan Anda ke halaman masuk...",
+      "wait": "Harap tunggu, kami sedang memasukkan Anda."
     }
   },
   "communityMain": {
@@ -503,7 +1274,13 @@
     "tabs": {
       "all": "Semua",
       "popular": "Populer",
-      "new": "Baru"
+      "new": "Baru",
+      "forYou": "Untuk Anda",
+      "online": "Online",
+      "label": "Tab komunitas",
+      "today": "Hari ini",
+      "serious": "Pelajar serius",
+      "seriousHint": "Aktif minggu ini"
     },
     "filters": {
       "language": "Bahasa",
@@ -543,7 +1320,9 @@
       "topics": "Topik",
       "searchPlaceholder": "Cari anggota atau topik",
       "filtersLabel": "Filter",
-      "filtersWithCount": "Filter ({{count}} aktif)"
+      "filtersWithCount": "Filter ({{count}} aktif)",
+      "city": "Kota",
+      "genders": "Gender"
     },
     "filterSheet": {
       "title": "Filter",
@@ -560,7 +1339,27 @@
       "onlineNow": "Online sekarang",
       "newMembersOnly": "Hanya anggota baru (7 hari terakhir)",
       "reset": "Reset",
-      "apply": "Terapkan"
+      "apply": "Terapkan",
+      "copyLink": "Salin tautan",
+      "linkCopied": "Tautan disalin",
+      "linkCopyFailed": "Gagal menyalin tautan",
+      "applyFirst": "Terapkan filter terlebih dahulu",
+      "matchCountLoading": "Menghitung kecocokan…",
+      "close": "Tutup filter",
+      "languages": "Bahasa",
+      "partnerNative": "Bahasa ibu mitra",
+      "partnerLearning": "Mitra sedang belajar",
+      "country": "Negara",
+      "countryPlaceholder": "cth. Korea Selatan",
+      "level": "Level bahasa",
+      "topics": "Topik",
+      "mutualInterests": "Minat yang sama",
+      "newUsersOnly": "Hanya pengguna baru",
+      "clearAll": "Hapus semua",
+      "matchCount": "{{count}} kecocokan",
+      "lockedByTab": "Diatur oleh tab {{tab}}",
+      "reciprocal": "Hanya mitra yang pas",
+      "reciprocalHint": "Mereka menguasai bahasa yang kamu pelajari dan mempelajari bahasamu"
     },
     "highlighted": {
       "title": "Profil unggulan",
@@ -569,9 +1368,8 @@
       "highlightSelfTopic": "Sorot profil Anda agar lebih banyak orang melihat Anda"
     },
     "visitors": {
-      "justYou": "{{name}} mengunjungi profil Anda!",
-      "andOthers": "{{name}} dan {{count}} lainnya mengunjungi profil Anda!",
-      "seeAll": "Lihat semua"
+      "pill_one": "1 orang mengunjungi profil Anda",
+      "pill_other": "{{count}} orang mengunjungi profil Anda"
     },
     "tandemCard": {
       "newChip": "BARU",
@@ -581,6 +1379,50 @@
       "fluent": "FASIH",
       "learns": "BELAJAR",
       "native": "ASLI"
+    },
+    "chips": {
+      "recentlyActive": "Baru-baru ini aktif",
+      "onlineNow": "Online sekarang",
+      "speaks": "Berbicara {{language}}",
+      "learning": "Belajar {{language}}"
+    },
+    "forYou": {
+      "subtitle": "Mitra yang dipilih untuk Anda berdasarkan bahasa, level, dan minat Anda.",
+      "refresh": "Refresh",
+      "why": "Alasan: {{reasons}}",
+      "empty": {
+        "title": "Belum ada rekomendasi",
+        "message": "Tambahkan bahasa yang Anda kuasai dan ingin pelajari, level Anda, dan beberapa minat, dan kami akan mencarikan mitra yang cocok.",
+        "action": "Lengkapi profil Anda"
+      }
+    },
+    "reasons": {
+      "perfect_pair": "Berbicara {{native}}, belajar {{learning}}",
+      "native_speaker": "Penutur asli {{native}}",
+      "online_now": "Sedang online",
+      "active_today": "Aktif hari ini",
+      "same_country": "Negara yang sama"
+    },
+    "today": {
+      "title": "{{count}} kecocokanmu hari ini",
+      "refreshes": "Diperbarui pukul {{time}}",
+      "refreshesMidnight": "Diperbarui tengah malam",
+      "emptyTitle": "Itu semua untuk hari ini",
+      "emptyBody": "Kecocokan baru besok. Sementara itu, lihat semua partner.",
+      "browse": "Lihat partner",
+      "repliesFast": "Cepat membalas",
+      "boosted": "Di-boost",
+      "reasonReciprocal": "Kalian saling mempelajari bahasa masing-masing",
+      "reasonSameTarget": "Juga belajar {{language}}",
+      "reasonActiveToday": "Aktif hari ini",
+      "reasonSameCity": "Tinggal di kotamu",
+      "reasonSharedTopic": "Minat yang sama: {{topic}}",
+      "sayHi": "Sapa",
+      "wave": "Lambaikan tangan",
+      "skip": "Lewati",
+      "error": "Gagal memuat kecocokan hari ini",
+      "retry": "Coba lagi",
+      "waved": "Sudah disapa"
     }
   },
   "communityDetail": {
@@ -642,8 +1484,38 @@
       "learning": "Sedang Belajar",
       "notSpecified": "Tidak ditentukan"
     },
+    "match": {
+      "title": "Kecocokan bahasa",
+      "native": "Bahasa Ibu",
+      "learning": "Sedang Belajar",
+      "perfect": "Kecocokan sempurna — kalian bisa saling mengajar.",
+      "youLearnTheirs": "Anda sedang belajar bahasa yang mereka gunakan!",
+      "theyLearnYours": "Mereka sedang belajar bahasa yang Anda gunakan!",
+      "sameNative": "Kalian berdua memiliki bahasa ibu yang sama."
+    },
+    "mutual": {
+      "title": "Minat yang sama",
+      "countLabel": "{{count}} kesamaan"
+    },
+    "starters": {
+      "title": "Ide pembuka obrolan",
+      "send": "Kirim",
+      "perfect": "Hai {{name}}! Kita kecocokan bahasa yang sempurna — mau saling berlatih?",
+      "language": "Hai {{name}}! Aku lagi belajar {{language}} — ada tips biar cepat jago?",
+      "teach": "Hai {{name}}! Aku lihat kamu lagi belajar {{language}}. Aku senang bantu kalau ada pertanyaan.",
+      "sameNative": "Hai {{name}}! Bahasa ibu kita sama — gimana progres belajarmu?",
+      "topic": "Hai {{name}}! Aku lihat kamu juga suka {{topic}}. Awalnya gimana ceritanya?",
+      "targetLearning": "Hai {{name}}! Sudah berapa lama kamu belajar {{language}}?",
+      "generic": "Hai {{name}}! Aku pengen latihan bahasa bareng. Gimana minggumu?",
+      "practice": "Hai {{name}}! Apa yang paling membantu kamu selama belajar?",
+      "hello": "Hai {{name}}! Profilmu menarik perhatianku — harimu gimana?"
+    },
+    "engagement": {
+      "replies": "{{rate}}% balasan",
+      "new": "Anggota baru"
+    },
     "suggested": {
-      "title": "Lebih banyak anggota seperti {{name}}",
+      "title": "Anggota lain seperti {{name}}",
       "seeAll": "Lihat semua anggota"
     }
   },
@@ -665,6 +1537,10 @@
     "buttons": {
       "tryAgain": "Coba Lagi",
       "backToCommunity": "Kembali ke Komunitas"
+    },
+    "suggested": {
+      "title": "Lebih banyak anggota seperti {{name}}",
+      "seeAll": "Lihat semua anggota"
     },
     "stats": {
       "followers": "Pengikut",
@@ -871,6 +1747,102 @@
       "premium": "Premium",
       "features": "Fitur",
       "upgrade": "Upgrade ke VIP"
+    },
+    "password": {
+      "title": "Ubah kata sandi",
+      "current": "Kata sandi saat ini",
+      "current_hint": "Masukkan kata sandi saat ini",
+      "new": "Kata sandi baru",
+      "new_hint": "Minimal 8 karakter, A-Z, a-z, 0-9",
+      "confirm": "Konfirmasi kata sandi baru",
+      "confirm_hint": "Masukkan kembali kata sandi baru",
+      "rule_upper": "Satu huruf besar",
+      "rule_lower": "Satu huruf kecil",
+      "rule_number": "Satu angka",
+      "mismatch": "Kata sandi tidak cocok.",
+      "same_as_current": "Kata sandi baru harus berbeda dari yang sekarang.",
+      "success": "Kata sandi berhasil diubah",
+      "failed": "Gagal memperbarui",
+      "symbols": "Hanya simbol ini yang diizinkan: @ $ ! % * ? &"
+    },
+    "privacy": {
+      "title": "Pengaturan Privasi",
+      "subtitle": "Atur siapa yang dapat melihat informasi Anda",
+      "profileVisibility": "Visibilitas Profil",
+      "showOnlineStatus": "Tampilkan Status Online",
+      "showOnlineStatusDesc": "Biarkan orang lain melihat saat Anda online",
+      "showCity": "Tampilkan Kota",
+      "showCityDesc": "Tampilkan kota Anda di profil",
+      "showCountry": "Tampilkan Negara/Wilayah",
+      "showCountryDesc": "Tampilkan negara Anda di profil",
+      "personalInfo": "Informasi Pribadi",
+      "showAge": "Tampilkan Usia",
+      "showAgeDesc": "Tampilkan usia Anda di profil",
+      "showZodiac": "Tampilkan Zodiak",
+      "showZodiacDesc": "Tampilkan zodiak Anda di profil",
+      "birthdayNotification": "Notifikasi Ulang Tahun",
+      "birthdayNotificationDesc": "Terima notifikasi di hari ulang tahun",
+      "otherSettings": "Pengaturan Lain",
+      "showGiftingLevel": "Tampilkan Level Hadiah",
+      "showGiftingLevelDesc": "Tampilkan lencana level hadiah",
+      "saveSuccess": "Pengaturan privasi disimpan",
+      "saveError": "Gagal menyimpan",
+      "saving": "Menyimpan...",
+      "saveChanges": "Simpan Perubahan",
+      "profileVisits": "Kunjungan profil",
+      "anonymousProfileVisits": "Kunjungi profil secara anonim",
+      "anonymousProfileVisitsDesc": "Namamu tidak akan muncul di daftar pengunjung terbaru pengguna yang kamu kunjungi.",
+      "email": "Email",
+      "emailNotifications": "Notifikasi email",
+      "emailNotificationsDesc": "Terima notifikasi email dari BananaTalk",
+      "weeklyDigest": "Ringkasan mingguan",
+      "weeklyDigestDesc": "Rekap aktivitas setiap hari Minggu",
+      "securityAlerts": "Peringatan keamanan",
+      "securityAlertsDesc": "Peringatan kata sandi dan login. Kami sarankan tetap mengaktifkannya."
+    },
+    "notifications": {
+      "title": "Pengaturan Notifikasi",
+      "subtitle": "Kelola preferensi notifikasi Anda",
+      "loading": "Memuat...",
+      "loadError": "Error memuat pengaturan",
+      "retry": "Coba Lagi",
+      "pushNote": "Pengaturan ini mengatur notifikasi push dari aplikasi BananaTalk di ponsel Anda.",
+      "enableAll": "Notifikasi Push",
+      "enableAllDesc": "Aktifkan atau nonaktifkan semua notifikasi",
+      "notificationTypes": "Jenis Notifikasi",
+      "chatMessages": "Pesan Chat",
+      "chatMessagesDesc": "Dapatkan notifikasi saat menerima pesan",
+      "moments": "Momen",
+      "momentsDesc": "Suka dan komentar pada momen Anda",
+      "followerMoments": "Momen Pengikut",
+      "followerMomentsDesc": "Ketika orang yang Anda ikuti memposting momen baru",
+      "friendRequests": "Pengikut Baru",
+      "friendRequestsDesc": "Saat seseorang mengikuti Anda",
+      "profileVisits": "Kunjungan Profil",
+      "profileVisitsDesc": "Saat seseorang melihat profil Anda (VIP)",
+      "announcements": "Pengumuman",
+      "announcementsDesc": "Berita dan pembaruan dari tim BananaTalk",
+      "marketing": "Pemasaran",
+      "marketingDesc": "Update dan pesan promosi",
+      "learning": "Sedang Belajar",
+      "streakReminders": "Pengingat Streak",
+      "streakRemindersDesc": "Pengingat sebelum streak Anda terputus",
+      "vocabularyReviewReminders": "Ulasan Kosakata",
+      "vocabularyReviewRemindersDesc": "Saat ada kata yang perlu diulas",
+      "dailyDropReminders": "Pelajaran Harian",
+      "dailyDropRemindersDesc": "Saat pelajaran singkat kosakata atau tata bahasa hari ini siap",
+      "quietHours": "Jam Tenang",
+      "quietHoursEnable": "Aktifkan Jam Tenang",
+      "quietHoursDesc": "Jeda notifikasi yang tidak mendesak selama rentang waktu tertentu",
+      "quietHoursStart": "Waktu mulai",
+      "quietHoursEnd": "Waktu selesai",
+      "preferences": "Preferensi Notifikasi",
+      "showPreview": "Tampilkan Pratinjau",
+      "showPreviewDesc": "Tampilkan pratinjau pesan di notifikasi",
+      "saveSuccess": "Pengaturan notifikasi disimpan",
+      "saveError": "Gagal menyimpan",
+      "saving": "Menyimpan...",
+      "saveChanges": "Simpan Perubahan"
     }
   },
   "waves": {
@@ -880,13 +1852,102 @@
     "accept": "Terima",
     "decline": "Tolak",
     "noWaves": "Belum ada sapaan",
-    "sendWave": "Kirim sapaan untuk mulai terhubung!"
+    "sendWave": "Kirim sapaan untuk mulai terhubung!",
+    "archive": "Sapaan lama",
+    "archiveEmpty": "Tidak ada sapaan lama",
+    "archiveHint": "Sapaan dari 7 sampai 30 hari lalu",
+    "back": "Kembali",
+    "cap": {
+      "body": "Sapaan gratis hari ini sudah habis. Anggota VIP bisa menyapa tanpa batas harian, atau coba lagi besok.",
+      "notNow": "Nanti saja",
+      "seeVip": "Lihat VIP",
+      "title": "Batas sapaan harian tercapai"
+    },
+    "findPeople": "Cari Orang",
+    "noReceived": "Belum ada sapaan yang diterima",
+    "recent": "7 hari terakhir",
+    "sheet": {
+      "already": "Sudah disapa",
+      "alreadyBody": "Kamu hanya bisa menyapa satu kali per orang — kirim pesan saja untuk melanjutkan obrolan.",
+      "alreadyTitle": "Kamu sudah menyapa {{name}}",
+      "cancel": "Batal",
+      "chips": {
+        "chat": {
+          "label": "Ngobrol",
+          "message": "🎉 Yuk ngobrol!"
+        },
+        "cool": {
+          "label": "Keren",
+          "message": "❤️ Profilmu keren!"
+        },
+        "hello": {
+          "label": "Halo",
+          "message": "✋ Halo!"
+        },
+        "hey": {
+          "label": "Hai",
+          "message": "😊 Hai, apa kabar?"
+        },
+        "hi": {
+          "label": "Hi",
+          "message": "👋 Hi!"
+        },
+        "nice": {
+          "label": "Salam kenal",
+          "message": "🌟 Senang berkenalan denganmu!"
+        }
+      },
+      "close": "Tutup",
+      "icebreakers": {
+        "0": "Hai! Mau latihan bahasa bareng?",
+        "1": "Kayaknya kita belajar bahasa yang mirip — hai!",
+        "2": "Profilmu menarik perhatianku, apa kabar?",
+        "3": "Hai! Apa yang bikin kamu mulai belajar bahasa baru?"
+      },
+      "icebreakersTitle": "Pembuka obrolan",
+      "match": "🎉 Cocok! Kamu dan {{name}} saling menyapa.",
+      "placeholder": "Tulis pesan sendiri (opsional)…",
+      "quickReplies": "Balasan cepat",
+      "send": "Kirim sapaan",
+      "sendError": "Gagal mengirim sapaan",
+      "sent": "Sapaan terkirim ke {{name}}!",
+      "subtitle": "Sapa dan cairkan suasana 👋",
+      "title": "Kirim sapaan ke {{name}}",
+      "yourMessage": "Pesanmu"
+    },
+    "someone": "Seseorang",
+    "subtitle": "Orang yang menyapamu",
+    "unread": "Belum dibaca",
+    "wavedAtYou": "Menyapamu 👋"
   },
   "topics": {
     "title": "Topik",
     "myTopics": "Topik Saya",
     "browseTopics": "Jelajahi Topik",
-    "usersInterested": "pengguna tertarik"
+    "usersInterested": "pengguna tertarik",
+    "saved": "Topik Anda sudah diperbarui",
+    "saveError": "Topik Anda gagal disimpan",
+    "memberCount": "{{count}} anggota",
+    "backToCommunity": "Komunitas",
+    "subtitle": "Temukan pasangan bahasa yang punya minat sama dengan Anda.",
+    "searchPlaceholder": "Cari topik",
+    "clearSearch": "Hapus pencarian",
+    "cancel": "Batal",
+    "saving": "Menyimpan...",
+    "save": "Simpan",
+    "edit": "Edit",
+    "editHint": "Ketuk kotak di bawah untuk memilih hingga {{max}} topik, lalu simpan.",
+    "myTopicsEmpty": "Anda belum memilih topik apa pun. Ketuk Edit untuk memilih beberapa.",
+    "selectTopics": "Pilih topik Anda",
+    "emptyTitle": "Tidak ada topik yang cocok",
+    "emptyMessage": "Coba kata lain, atau hapus pencarian untuk melihat semuanya.",
+    "backToTopics": "Semua topik",
+    "onlineOnly": "Hanya yang online",
+    "loadingPeople": "Memuat orang...",
+    "noOneOnlineTitle": "Tidak ada yang online di sini",
+    "noOneTitle": "Belum ada orang di sini",
+    "noOneOnlineMessage": "Matikan filter online untuk melihat semua orang di topik ini.",
+    "noOneMessage": "Jadilah yang pertama — tambahkan topik ini ke profil Anda."
   },
   "nearby": {
     "title": "Pengguna Terdekat",
@@ -897,24 +1958,23 @@
   },
   "home": {
     "hero": {
-      "badge": "Pertukaran Bahasa Jadi Mudah",
-      "titlePart1": "Belajar Bahasa dengan",
-      "titleHighlight": "Berbicara",
-      "titlePart2": "bersama Penutur Asli",
-      "description": "Terhubung dengan jutaan pelajar bahasa di seluruh dunia. Latih berbicara, tingkatkan kefasihan, dan berteman dari seluruh penjuru dunia.",
-      "stats": {
-        "users": "Pengguna Aktif",
-        "languages": "Bahasa",
-        "countries": "Negara"
-      },
-      "getStarted": "Mulai Gratis",
-      "browseCommunity": "Jelajahi Komunitas",
-      "lovedBy": "Dicintai 5 juta+ pelajar",
+      "badge": "Pertukaran bahasa, orang sungguhan",
+      "titlePart1": "Latihan",
+      "titleHighlight": "bahasa apa pun",
+      "titlePart2": "dengan orang yang benar-benar menggunakannya.",
+      "description": "BananaTalk menghubungkanmu dengan penutur asli dari seluruh dunia. Chat, kirim pesan suara, terjemahkan, dan dapatkan koreksi — setiap percakapan membuatmu makin baik.",
+      "getStarted": "Mulai sekarang — gratis",
+      "browseCommunity": "Jelajahi komunitas",
+      "lovedBy": "Disukai pelajar bahasa di iOS dan Android",
       "chatPreview": {
-        "message1": "Halo! Apa kabar? 👋",
-        "message2": "Hey! I'm practicing Indonesian!",
-        "message3": "Bagus! Ayo berlatih bersama 🇮🇩"
-      }
+        "message1": "안녕하세요! Gimana akhir pekanmu?",
+        "message2": "주말에 친구들과 등산 갔어요 ⛰️",
+        "message3": "Bagus! 산 → gunung. Tersimpan di antrean belajarmu."
+      },
+      "title": "Ucapkan saja meski salah.",
+      "titleAccent": "Kami yang terjemahkan.",
+      "subtitle": "Pertukaran bahasa gratis dengan penutur asli. Kamu menulis dalam bahasamu, mereka membacanya dalam bahasa mereka, dan kamu belajar dari bedanya.",
+      "trust": "Paket gratis selamanya · 137 bahasa · Tutor AI 24/7"
     },
     "sections": {
       "features": "Fitur",
@@ -922,108 +1982,175 @@
       "pricing": "Harga"
     },
     "features": {
-      "title": "Semua yang Anda Butuhkan untuk Belajar",
-      "subtitle": "Alat canggih yang dirancang untuk mempercepat perjalanan belajar bahasa Anda",
+      "title": "Semua yang kamu butuhkan untuk benar-benar bisa bicara",
+      "subtitle": "Dibangun dari percakapan nyata dengan penutur asli sungguhan — bukan latihan kosakata.",
       "chat": {
-        "title": "Obrolan Real-time",
-        "description": "Latih percakapan dengan penutur asli melalui pesan instan"
+        "title": "Chat dengan koreksi",
+        "description": "Kirim teks, suara, foto, dan stiker. Ketuk pesan partner untuk menerjemahkannya atau mengoreksinya dalam satu ketukan."
       },
-      "video": {
-        "title": "Panggilan Video",
-        "description": "Latihan bahasa tatap muka dengan mitra di seluruh dunia"
+      "translate": {
+        "title": "Terjemahan bawaan",
+        "description": "Terjemahkan pesan apa pun ke bahasa ibumu. Simpan frasa langsung ke antrean belajarmu."
       },
-      "lessons": {
-        "title": "Pelajaran Interaktif",
-        "description": "Belajar dengan kursus terstruktur dan latihan harian"
+      "tutor": {
+        "title": "AI Tutor",
+        "description": "Skenario roleplay, kosakata berbasis gambar, dan pelatihan pengucapan — semuanya didukung oleh AI study partner-mu sendiri."
       },
-      "voice": {
-        "title": "Pesan Suara",
-        "description": "Sempurnakan pengucapan Anda dengan pertukaran audio"
+      "voice_rooms": {
+        "title": "Voice Rooms",
+        "description": "Gabung ke ruang audio langsung bersama penutur asli dan pelajar bahasa dari seluruh dunia."
+      },
+      "calls": {
+        "title": "Panggilan suara & video",
+        "description": "Panggilan suara dan video sekali ketuk dengan mitra bahasamu."
       },
       "community": {
-        "title": "Komunitas",
-        "description": "Bergabung dengan jutaan pelajar bahasa secara global"
+        "title": "Komunitas sungguhan",
+        "description": "Jelajahi mitra berdasarkan bahasa ibu, lihat siapa yang online, dan bagikan momen dengan orang yang belajar bahasa yang sama."
       },
-      "languages": {
-        "title": "50+ Bahasa",
-        "description": "Dari Spanyol hingga Korea, temukan jalur belajar Anda"
+      "inApp": "Di aplikasi",
+      "items": {
+        "findPartner": {
+          "title": "Temukan partner",
+          "body": "Dipasangkan lewat pasangan bahasa yang memang ingin kamu tukar."
+        },
+        "chatTranslate": {
+          "title": "Chat yang menerjemahkan",
+          "body": "Dua arah, langsung di pesannya, sambil kamu mengetik."
+        },
+        "moments": {
+          "title": "Moments",
+          "body": "Bagikan keseharianmu; dapatkan koreksi dari penutur asli."
+        },
+        "aiTutor": {
+          "title": "AI Tutor",
+          "body": "Latihan jam 3 pagi tanpa perlu malu."
+        },
+        "voiceRooms": {
+          "title": "Voice Rooms",
+          "body": "Masuk ke room langsung dan cukup mendengarkan, kalau mau."
+        },
+        "gatherings": {
+          "title": "Gatherings",
+          "body": "Temui orang-orang di dekatmu yang sedang belajar bahasamu."
+        }
       }
     },
     "howItWorks": {
-      "title": "Mulai Belajar dalam 3 Langkah",
-      "subtitle": "Mulai dalam hitungan menit dan mulai perjalanan bahasa Anda hari ini"
+      "title": "Tiga langkah menuju percakapan pertamamu",
+      "subtitle": "Tanpa nomor telepon, tanpa spam — hanya orang sungguhan yang ingin belajar.",
+      "steps": {
+        "1": {
+          "title": "Beri tahu kami bahasamu dan apa yang kamu mau",
+          "body": "Pilih bahasa ibumu dan bahasa yang sedang kamu pelajari. Pasangan itulah yang kami pakai untuk mencarikan partner."
+        },
+        "2": {
+          "title": "Cari orang yang seru diajak ngobrol",
+          "body": "Lihat partner yang sedang belajar bahasamu. Lambaikan tangan, atau langsung mulai percakapan."
+        },
+        "3": {
+          "title": "Ngomong berantakan, maju cepat",
+          "body": "Setiap pesan diterjemahkan dua arah, dan AI Tutor mengoreksimu tanpa ada yang melihat."
+        }
+      }
     },
     "steps": {
       "profile": {
-        "title": "Buat Profil Anda",
-        "description": "Ceritakan tentang bahasa ibu Anda dan apa yang ingin Anda pelajari"
+        "title": "Beri tahu kami bahasamu",
+        "description": "Pilih bahasa yang kamu kuasai dan yang sedang kamu pelajari. Tambahkan beberapa topik favoritmu."
       },
       "partners": {
-        "title": "Temukan Mitra",
-        "description": "Jelajahi komunitas kami dan temukan mitra pertukaran bahasa yang sempurna"
+        "title": "Temukan mitramu",
+        "description": "Jelajahi komunitas berdasarkan bahasa, negara, atau topik. Sapa atau kirim pesan ke orang yang menarik."
       },
       "learn": {
-        "title": "Mulai Belajar",
-        "description": "Mengobrol, menelepon, dan berlatih dengan penutur asli setiap hari"
+        "title": "Berlatih setiap hari",
+        "description": "Chat, tukar catatan suara, dapatkan koreksi, dan ubah kata baru jadi kartu spaced-repetition."
       }
     },
     "pricing": {
-      "title": "Pilih Paket Anda",
-      "subtitle": "Mulai gratis dan upgrade saat Anda siap",
-      "mostPopular": "Paling Populer",
-      "getStarted": "Mulai",
+      "title": "Gratis untuk memulai. VIP saat kamu siap belajar lebih cepat.",
+      "subtitle": "BananaTalk gratis untuk semua orang. Upgrade untuk menghapus batas harian pada terjemahan, AI Tutor, dan lainnya.",
+      "fineprint": "Batalkan kapan saja di pengaturan App Store atau Google Play-mu. Langganan diperpanjang otomatis sampai dibatalkan.",
       "free": {
         "name": "Gratis",
         "period": "selamanya",
+        "cta": "Buat akun gratis",
         "features": {
-          "messaging": "Pesan dasar",
-          "connections": "5 koneksi baru/hari",
-          "community": "Akses komunitas",
-          "lessons": "Pelajaran dasar"
+          "messaging": "Chat 1-lawan-1 tanpa batas dengan terjemahan",
+          "community": "Jelajahi dan terhubung dengan komunitas",
+          "moments": "Posting Moments dan baca Stories",
+          "tutor_trial": "Kuota harian AI Tutor dan terjemahan"
+        },
+        "f1": "Obrolan 1-lawan-1 tanpa batas dengan terjemahan",
+        "f2": "Jelajahi dan terhubung dengan komunitas",
+        "f3": "Posting Moments dan baca Stories"
+      },
+      "monthly": {
+        "name": "VIP — Bulanan",
+        "period": "per bulan",
+        "highlight": "Paling fleksibel",
+        "cta": "Mulai bulanan",
+        "features": {
+          "unlimited_translation": "Terjemahan dan koreksi tanpa batas",
+          "unlimited_tutor": "Sesi AI Tutor dan roleplay tanpa batas",
+          "voice_rooms": "Host dan pin Voice Rooms",
+          "priority": "Prioritas pencocokan mitra"
         }
       },
-      "premium": {
-        "name": "Premium",
-        "period": "/bulan",
+      "yearly": {
+        "name": "VIP — Tahunan",
+        "period": "per tahun",
+        "highlight": "Hemat 72%",
+        "cta": "Hemat dengan paket tahunan",
         "features": {
-          "messaging": "Pesan tanpa batas",
-          "connections": "Koneksi tanpa batas",
-          "video": "Panggilan video",
-          "lessons": "Pelajaran lanjutan",
-          "noAds": "Tanpa iklan",
-          "translation": "Alat terjemahan"
+          "everything_in_monthly": "Semua yang ada di paket Bulanan",
+          "equiv": "Setara hanya $4,16 / bulan",
+          "early_access": "Akses awal ke fitur baru",
+          "support": "Dukungan langsung dari tim BananaTalk"
         }
       },
-      "lifetime": {
-        "name": "Seumur Hidup",
-        "period": "sekali bayar",
-        "features": {
-          "everything": "Semua yang ada di Premium",
-          "forever": "Akses selamanya",
-          "support": "Dukungan prioritas",
-          "early": "Fitur awal",
-          "badges": "Lencana eksklusif"
-        }
-      }
+      "best": "Nilai terbaik",
+      "perMonth": "per bulan",
+      "every": "setiap",
+      "save": "Hemat",
+      "getVip": "Dapatkan VIP di aplikasi"
     },
     "download": {
       "badge": "Unduh Aplikasi",
-      "title": "Bawa BananaTalk ke Mana Saja",
-      "description": "Belajar di mana saja dengan aplikasi mobile kami. Tersedia di iOS dan Android dengan semua fitur, notifikasi push, dan akses offline.",
+      "title": "Pengalaman lengkap ada di ponsel",
+      "description": "AI Tutor, Voice Rooms, panggilan, dan notifikasi langsung hanya tersedia di ponsel. Unduh aplikasinya untuk pengalaman BananaTalk yang lengkap.",
       "downloadOn": "Unduh di",
       "getItOn": "Dapatkan di",
       "scanQR": "Pindai untuk mengunduh aplikasi",
       "or": "atau",
       "features": {
-        "offline": "Akses offline",
+        "offline": "Chat yang tetap nyaman offline",
         "push": "Notifikasi push",
-        "fast": "Cepat & ringan"
+        "fast": "Gratis dipasang"
       }
     },
     "cta": {
-      "title": "Siap Memulai Perjalanan Bahasa Anda?",
-      "description": "Bergabung dengan jutaan pelajar dan mulai berbicara bahasa baru hari ini",
-      "button": "Buat Akun Gratis"
+      "title": "Siap untuk mengobrol yang sesungguhnya?",
+      "description": "Gabung komunitas BananaTalk dan mulai berlatih hari ini. Tidak perlu kartu kredit.",
+      "button": "Buat akun gratismu",
+      "subtitle": "Gratis untuk memulai. Tanpa kartu, tanpa hitung mundur masa percobaan."
+    },
+    "stats": {
+      "languages": "bahasa",
+      "app languages": "bahasa aplikasi",
+      "AI tutor": "tutor AI",
+      "forever tier": "paket gratis",
+      "learners": "pelajar"
+    },
+    "marquee": {
+      "title": "Penutur asli dari setiap bahasa yang ingin kamu pelajari",
+      "caption": "137 bahasa, dan terus bertambah"
+    },
+    "earlyAdopter": {
+      "badge": "Diluncurkan Desember 2025",
+      "title": "Jadilah salah satu yang pertama",
+      "body": "BananaTalk masih baru. Orang-orang yang kamu temui di sini adalah yang sedang membentuk komunitas ini — dan itu alasan untuk gabung lebih awal yang jauh lebih bagus daripada ulasan mana pun."
     }
   },
   "vip": {
@@ -1060,6 +2187,1229 @@
       "prioritySupport": "Dukungan prioritas",
       "exclusiveBadge": "Lencana VIP eksklusif",
       "translationFeature": "Terjemahan pesan"
+    }
+  },
+  "linking": {
+    "share": {
+      "label": "Bagikan",
+      "copied": "Tautan disalin ke clipboard!",
+      "copyFailed": "Gagal menyalin tautan"
+    },
+    "openInApp": {
+      "label": "Buka di aplikasi"
+    },
+    "appBanner": {
+      "text": "Buka ini di aplikasi BananaTalk"
+    }
+  },
+  "seo": {
+    "appTitle": "BananaTalk",
+    "home": {
+      "title": "BananaTalk: Aplikasi Pertukaran Bahasa Gratis dengan Penutur Asli",
+      "description": "Mengobrol dengan penutur asli dalam 137 bahasa. Tulis dalam bahasamu, mereka membacanya dalam bahasa mereka, dan tutor AI menunjukkan perbedaannya. Gratis di iOS dan Android."
+    },
+    "download": {
+      "title": "Unduh BananaTalk untuk iPhone dan Android",
+      "description": "Dapatkan aplikasi pertukaran bahasa BananaTalk gratis untuk iPhone dan Android. Mengobrol dengan penutur asli dengan terjemahan instan dan koreksi tutor AI."
+    },
+    "moments": {
+      "title": "Moments BananaTalk: Cerita dalam Bahasa Targetmu",
+      "description": "Moments adalah postingan dan cerita singkat yang dibagikan oleh pembelajar bahasa di BananaTalk. Baca feed-nya, beri reaksi, dan unggah momenmu sendiri."
+    },
+    "privacy": {
+      "title": "Kebijakan Privasi | BananaTalk",
+      "description": "Bagaimana BananaTalk mengumpulkan, menggunakan, dan melindungi datamu, serta pilihan yang kamu miliki."
+    },
+    "terms": {
+      "title": "Ketentuan Penggunaan | BananaTalk",
+      "description": "Ketentuan yang mengatur penggunaanmu atas BananaTalk, termasuk aturan konten, moderasi, dan pelaporan."
+    },
+    "support": {
+      "title": "Dukungan dan Kontak | BananaTalk",
+      "description": "Dapatkan bantuan untuk BananaTalk: pertanyaan akun, melaporkan masalah, dan cara menghubungi tim."
+    },
+    "dataDeletion": {
+      "title": "Permintaan Penghapusan Data | BananaTalk",
+      "description": "Cara menghapus akun BananaTalk dan data pribadimu, serta yang terjadi setelah kamu mengajukan permintaan."
+    },
+    "meet": {
+      "title": "Kenalan dengan Orang dari Negara Lain | BananaTalk",
+      "description": "Kenalan dengan orang dari negara lain dan punya teman internasional lewat chat. Setiap pesan diterjemahkan dua arah, jadi tidak ada yang harus lancar dulu."
+    },
+    "learnKorean": {
+      "title": "Belajar Bahasa Korea Lewat Chat dengan Penutur Asli",
+      "description": "Belajar bahasa Korea gratis lewat chat dengan penutur asli Korea. Kamu menulis bahasamu, mereka menulis Hangul, dan AI Tutor menjelaskan 존댓말 vs 반말."
+    },
+    "communities": {
+      "title": "Komunitas Pertukaran Bahasa | BananaTalk",
+      "description": "Gabung komunitas pertukaran bahasa di BananaTalk: grup nyata yang latihan bahasa Korea, Spanyol, Jepang, dan lainnya bersama, gratis, setiap hari."
+    }
+  },
+  "notFound": {
+    "pageTitle": "Halaman tidak ditemukan | BananaTalk",
+    "title": "Halaman ini tidak ada",
+    "body": "Tautan mungkin sudah lama, atau halaman mungkin telah dipindahkan. Berikut cara untuk kembali.",
+    "home": "Ke halaman utama",
+    "download": "Dapatkan aplikasinya"
+  },
+  "consent": {
+    "label": "Persetujuan cookie",
+    "message": "Kami menggunakan cookie analitik untuk memahami apa yang membawa orang ke sini.",
+    "accept": "OK",
+    "decline": "Tidak, terima kasih",
+    "manage": {
+      "title": "Pilihan privasi",
+      "body": "Cookie analitik memberi tahu kami halaman mana yang berguna. Tidak lebih.",
+      "current_granted": "Cookie analitik aktif.",
+      "current_denied": "Cookie analitik nonaktif.",
+      "accept": "Aktifkan",
+      "decline": "Nonaktifkan",
+      "privacyChoices": "Pilihan privasi",
+      "analyticsCookies": "Cookie analitik",
+      "done": "Selesai"
+    }
+  },
+  "admin": {
+    "nav": {
+      "admin": "Admin",
+      "overview": "Ikhtisar",
+      "reach": "Jangkauan",
+      "users": "Pengguna",
+      "content": "Konten",
+      "aiUsage": "Penggunaan AI",
+      "audit": "Log audit"
+    },
+    "aiUsage": {
+      "allFeatures": "Semua fitur",
+      "anonymous": "anonim",
+      "byDay": "Penggunaan per hari",
+      "byFeature": "Penggunaan per fitur",
+      "calls": "Panggilan",
+      "date": "Tanggal",
+      "feature": "Fitur",
+      "from": "Dari",
+      "logs": "Log penggunaan",
+      "timestamp": "Stempel waktu",
+      "to": "Sampai",
+      "total": "Total panggilan",
+      "user": "Pengguna"
+    },
+    "audit": {
+      "action": "Tindakan",
+      "actionColumn": "Tindakan",
+      "moderator": "Moderator",
+      "moderatorId": "ID moderator",
+      "reason": "Alasan",
+      "target": "Target",
+      "targetId": "ID target",
+      "timestamp": "Stempel waktu"
+    },
+    "common": {
+      "actionError": "Terjadi kesalahan.",
+      "close": "Tutup",
+      "empty": "Belum ada yang bisa ditampilkan.",
+      "loadError": "Bagian ini tidak dapat dimuat.",
+      "loading": "Memuat…",
+      "refresh": "Segarkan",
+      "cancel": "Batalkan"
+    },
+    "content": {
+      "archive": "Arsipkan",
+      "archiveTitle": "Arsipkan klub",
+      "cancel": "Batalkan",
+      "cancelTitle": "Batalkan pertemuan",
+      "created": "Dibuat",
+      "gatherings": "Pertemuan",
+      "going": "Akan hadir",
+      "language": "Bahasa",
+      "members": "Anggota",
+      "name": "Nama",
+      "openReports": "Laporan terbuka",
+      "reportedOnly": "Hanya yang dilaporkan",
+      "restore": "Pulihkan",
+      "restoreTitle": "Pulihkan klub",
+      "startsAt": "Dimulai pukul",
+      "status": "Status",
+      "tabs": "Jenis konten",
+      "title": "Judul",
+      "moments": "Momen",
+      "communities": "Komunitas",
+      "reports": "Laporan",
+      "momentsToday": "Momen hari ini",
+      "moments7d": "Momen (7 hari)",
+      "momentsHidden": "Momen yang disembunyikan",
+      "comments7d": "Komentar (7 hari)",
+      "activeCommunities": "Klub aktif",
+      "upcomingGatherings": "Pertemuan mendatang",
+      "pendingReports": "Laporan tertunda",
+      "allTime": "sepanjang waktu",
+      "membersTotal": "anggota",
+      "underReview": "sedang ditinjau",
+      "searchMoments": "Cari momen",
+      "hiddenOnly": "Hanya yang disembunyikan",
+      "author": "Penulis",
+      "owner": "Pemilik",
+      "city": "Kota",
+      "place": "Tempat",
+      "category": "Kategori",
+      "engagement": "Interaksi",
+      "likes": "Suka",
+      "comments": "Komentar",
+      "views": "Tampilan",
+      "shares": "Dibagikan",
+      "hidden": "Disembunyikan",
+      "visible": "Terlihat",
+      "untitled": "Momen tanpa judul",
+      "noText": "Tidak ada teks.",
+      "actionFailed": "Tindakan gagal. Tidak ada yang berubah.",
+      "momentTitle": "Momen",
+      "hide": "Sembunyikan",
+      "unhide": "Tampilkan",
+      "hideTitle": "Sembunyikan momen ini?",
+      "unhideTitle": "Tampilkan kembali momen ini?",
+      "hideBody": "Ini akan menghilang dari semua feed. Alasannya dicatat di log audit.",
+      "unhideBody": "Ini akan muncul kembali di feed. Alasannya dicatat di log audit.",
+      "communityTitle": "Komunitas",
+      "archiveBody": "Ini akan menghilang dari penjelajahan. Anggota tetap memiliki riwayatnya dan ini bisa dipulihkan.",
+      "restoreBody": "Ini akan muncul kembali di penjelajahan. Alasannya dicatat di log audit.",
+      "reportType": "Jenis",
+      "reason": "Alasan",
+      "reporterAndReported": "Pelapor → Dilaporkan",
+      "priority": "Prioritas",
+      "reportActions": "Tindakan laporan",
+      "anyStatus": "Semua status",
+      "anyType": "Semua jenis",
+      "startReview": "Mulai tinjauan",
+      "resolve": "Selesaikan",
+      "dismiss": "Tolak",
+      "resolveTitle": "Selesaikan laporan ini?",
+      "dismissTitle": "Tolak laporan ini?",
+      "dismissBody": "Tidak ada tindakan yang diambil terhadap konten atau pengguna yang dilaporkan. Catatan tetap disimpan pada laporan.",
+      "moderatorAction": "Tindakan moderator",
+      "notes": "Catatan",
+      "reportStatus": {
+        "pending": "Tertunda",
+        "under_review": "Sedang ditinjau",
+        "resolved": "Selesai",
+        "dismissed": "Ditolak"
+      },
+      "targetType": {
+        "moment": "Momen",
+        "comment": "Komentar",
+        "user": "Pengguna",
+        "club": "Klub",
+        "gathering": "Pertemuan",
+        "message": "Pesan",
+        "story": "Story"
+      },
+      "moderatorActions": {
+        "content_removed": "Konten dihapus",
+        "user_warned": "Pengguna diperingatkan",
+        "user_suspended": "Pengguna ditangguhkan",
+        "user_banned": "Pengguna diblokir",
+        "no_violation": "Tidak ada pelanggaran"
+      }
+    },
+    "overview": {
+      "activeThisWeek": "Aktif minggu ini",
+      "activeToday": "aktif hari ini",
+      "admins": "Admin",
+      "banned": "Diblokir",
+      "email": "Email",
+      "lastActive": "Terakhir aktif",
+      "lastWeek": "minggu lalu",
+      "name": "Nama",
+      "newThisWeek": "Baru minggu ini",
+      "newToday": "Baru hari ini",
+      "recentlyActive": "Baru-baru ini aktif",
+      "topLearningLanguages": "Bahasa yang paling banyak dipelajari",
+      "topNativeLanguages": "Bahasa ibu yang paling umum",
+      "totalUsers": "Total pengguna",
+      "vip": "VIP",
+      "visitsThisWeek": "Kunjungan minggu ini",
+      "vs": "vs"
+    },
+    "reach": {
+      "country": "Negara",
+      "days": "hari",
+      "device": "Perangkat",
+      "devices": "Perangkat",
+      "newVisitors": "Pengunjung baru",
+      "ofVisits": "dari",
+      "pageViews": "Tampilan halaman",
+      "path": "Jalur",
+      "period": "Minggu dari",
+      "placement": "Penempatan",
+      "platform": "Platform",
+      "referrer": "Perujuk",
+      "storeTaps": "Ketukan toko",
+      "taps": "Ketukan",
+      "tapsByPlacement": "Ketukan toko per penempatan",
+      "topCountries": "Negara teratas",
+      "topPaths": "Halaman teratas",
+      "topReferrers": "Perujuk teratas",
+      "trafficTitle": "Tampilan halaman dan ketukan toko",
+      "unique": "Unik",
+      "uniqueVisitors": "Pengunjung unik",
+      "views": "Tampilan",
+      "visits": "Kunjungan",
+      "visitsThisWeek": "Kunjungan minggu ini",
+      "window": "Rentang waktu"
+    },
+    "users": {
+      "actionFailed": "Tindakan gagal. Tidak ada yang berubah.",
+      "active": "Aktif",
+      "activity": "Aktivitas",
+      "adminsOnly": "Khusus admin",
+      "ban": "Blokir",
+      "banBody": "akan langsung kehilangan akses. Alasannya dicatat di log audit.",
+      "banReason": "Alasan pemblokiran",
+      "banTitle": "Blokir pengguna ini?",
+      "banned": "Diblokir",
+      "delete": "Hapus",
+      "deleteBody": "Ini akan menghapus akun beserta seluruh kontennya. Tindakan ini tidak bisa dibatalkan.",
+      "deleteTitle": "Hapus akun ini secara permanen?",
+      "detailTitle": "Detail pengguna",
+      "email": "Email",
+      "empty": "Tidak ada pengguna yang cocok dengan pencarian ini.",
+      "joined": "Bergabung",
+      "languages": "Bahasa",
+      "lastActive": "Terakhir aktif",
+      "lastMessage": "Pesan terakhir",
+      "lastMoment": "Momen terakhir",
+      "makeAdmin": "Jadikan admin",
+      "makeAdminBody": "Akan mendapatkan akses konsol dan semua fitur admin, termasuk pemblokiran dan penghapusan.",
+      "makeAdminTitle": "Jadikan admin?",
+      "messages30d": "Pesan (30 hari)",
+      "moments30d": "Momen (30 hari)",
+      "name": "Nama",
+      "noActions": "Tidak ada tindakan admin terhadap akun ini.",
+      "recentActions": "Tindakan admin terbaru",
+      "revokeAdmin": "Cabut status admin",
+      "revokeAdminBody": "Akan kehilangan akses konsol dan semua fitur admin. Anda tidak dapat mencabut status admin sendiri.",
+      "revokeAdminTitle": "Cabut status admin?",
+      "role": "Peran",
+      "searchLabel": "Cari pengguna",
+      "searchPlaceholder": "Cari nama, email, atau nama pengguna",
+      "status": "Status",
+      "tabAll": "Semua pengguna",
+      "tabBanned": "Diblokir",
+      "typeEmail": "Ketik email pengguna untuk konfirmasi",
+      "unban": "Batalkan blokir",
+      "unbanBody": "Akan langsung mendapatkan kembali akses. Alasannya dicatat di log audit.",
+      "unbanTitle": "Batalkan blokir pengguna ini?",
+      "unknownModerator": "Moderator tidak dikenal",
+      "addUser": "Tambah pengguna",
+      "createUser": "Buat pengguna",
+      "createdTitle": "Pengguna dibuat",
+      "createFailed": "Tindakan gagal. Tidak ada akun yang dibuat.",
+      "editTitle": "Edit pengguna",
+      "edit": "Edit",
+      "saveChanges": "Simpan perubahan",
+      "done": "Selesai",
+      "addAnother": "Tambah lagi",
+      "openProfile": "Buka profil",
+      "required": "Wajib diisi",
+      "invalidEmail": "Gunakan email yang valid",
+      "weakPassword": "Minimal 8 karakter, dengan huruf besar, huruf kecil, dan angka",
+      "under18": "Pengguna harus berusia minimal 18 tahun",
+      "sameLanguage": "Bahasa ibu dan bahasa yang dipelajari tidak boleh sama",
+      "password": "Kata sandi",
+      "generate": "Buat otomatis",
+      "copy": "Salin",
+      "passwordOnce": "Kata sandi ini hanya ditampilkan sekali. Kirim ke pengguna dan minta mereka menggantinya.",
+      "termsNote": "Persetujuan tidak bisa diberikan atas nama orang lain: aplikasi akan meminta pengguna ini menyetujui ketentuan saat pertama kali masuk.",
+      "userId": "ID pengguna",
+      "gender": "Jenis kelamin",
+      "male": "Laki-laki",
+      "female": "Perempuan",
+      "other": "Lainnya",
+      "select": "Pilih",
+      "birthDate": "Tanggal lahir",
+      "birthYear": "Tahun lahir",
+      "birthMonth": "Bulan lahir",
+      "birthDay": "Hari lahir",
+      "year": "Tahun",
+      "month": "Bulan",
+      "day": "Hari",
+      "nativeLanguage": "Bahasa ibu",
+      "learningLanguage": "Bahasa yang dipelajari",
+      "roleUser": "Pengguna",
+      "roleAdmin": "Admin",
+      "markVerified": "Tandai email terverifikasi",
+      "bio": "Bio",
+      "optional": "opsional",
+      "mode": "Mode",
+      "regular": "Reguler",
+      "vip": "VIP",
+      "vipUntil": "sampai",
+      "vipDays": "Hari",
+      "vipGrantNote": "Langganan berlaku mulai hari ini dan tidak diperpanjang otomatis.",
+      "vipRevokeNote": "Menonaktifkan VIP langsung mengakhiri langganan.",
+      "verified": "Terverifikasi",
+      "yes": "Ya",
+      "no": "Tidak"
+    },
+    "table": {
+      "page": "Halaman {{page}}",
+      "previous": "Sebelumnya",
+      "next": "Berikutnya"
+    }
+  },
+  "download": {
+    "title": "Download BananaTalk",
+    "subtitle": "Pertukaran bahasa gratis dengan penutur asli dalam 137 bahasa, di iPhone dan Android.",
+    "free": "Gratis. Tanpa kartu.",
+    "scan": "Pindai dengan kamera ponselmu",
+    "qrAlt": "Kode QR untuk download BananaTalk",
+    "reasons": {
+      "tutor": {
+        "title": "AI Tutor di setiap chat",
+        "body": "Koreksi dan penjelasan untuk pesan yang benar-benar kamu kirim."
+      },
+      "voice": {
+        "title": "Voice Rooms dan panggilan",
+        "body": "Latihan bicara langsung dengan orang yang sedang belajar bahasamu sekarang."
+      },
+      "translate": {
+        "title": "Terjemahan instan",
+        "body": "Kamu menulis dalam bahasamu, mereka membacanya dalam bahasa mereka, dan kamu belajar dari bedanya."
+      }
+    }
+  },
+  "meet": {
+    "hero": {
+      "title": "Kenalan dengan orang dari negara lain",
+      "titleAccent": "yang benar-benar membalas.",
+      "subtitle": "BananaTalk adalah tempat kamu punya teman dari luar negeri lewat obrolan dengan penutur asli. Pilih bahasa, sapa duluan, dan setiap pesan datang sudah diterjemahkan — jadi tidak ada yang harus lancar lebih dulu.",
+      "trust": "Paket gratis selamanya · 137 bahasa · Setiap pesan diterjemahkan dua arah",
+      "demo": {
+        "1": {
+          "text": "Bora ver o pôr do sol no sábado?",
+          "translation": "Mau lihat matahari terbenam hari Sabtu?"
+        },
+        "2": {
+          "text": "Boleh! Di sana masih hangat nggak bulan September?",
+          "translation": "Sim! Ainda faz calor aí em setembro?"
+        }
+      },
+      "note": {
+        "label": "✦ DITERJEMAHKAN DUA ARAH",
+        "body": "Dia menulis dalam bahasa Portugis dan kamu membacanya dalam bahasa Indonesia. Kamu menulis dalam bahasa Indonesia dan dia membacanya dalam bahasa Portugis. Tidak ada yang perlu ganti bahasa."
+      }
+    },
+    "howItWorks": {
+      "title": "Bikin teman di sini cuma tiga langkah",
+      "steps": {
+        "1": {
+          "title": "Pilih bahasa, bukan profil",
+          "body": "Pilih bahasa atau negara yang bikin kamu penasaran. Kami tunjukkan orang-orang yang sudah belajar bahasamu — ini pertukaran bahasa, jadi kalian berdua sama-sama dapat."
+        },
+        "2": {
+          "title": "Sapa pakai kata-katamu sendiri",
+          "body": "Tulis dalam bahasa yang kamu pakai berpikir. Pesannya sampai dalam bahasa mereka, seketika, jadi pesan pertama tidak pernah jadi bagian yang sulit."
+        },
+        "3": {
+          "title": "Terus ngobrol",
+          "body": "Voice note, foto, Moments, panggilan. Percakapan yang bertahan adalah yang umurnya lebih panjang dari sesi latihannya."
+        }
+      }
+    },
+    "features": {
+      "title": "Dibuat untuk percakapan yang terus jalan"
+    },
+    "cta": {
+      "title": "Ada orang di negara lain yang sedang bangun sekarang",
+      "subtitle": "Gratis untuk memulai. Tanpa kartu, tanpa hitung mundur masa coba."
+    }
+  },
+  "learnKorean": {
+    "hero": {
+      "title": "Belajar bahasa Korea sambil chatting",
+      "titleAccent": "dengan orang Korea asli.",
+      "subtitle": "Tukar bahasa dengan penutur asli Korea yang juga ingin belajar bahasamu. Kamu coba pakai 한국어, mereka menjawab dengan bahasa Korea yang benar-benar dipakai sehari-hari, dan AI Tutor membetulkan yang salah — diam-diam, cuma kamu yang lihat.",
+      "trust": "Paket gratis selamanya · Penutur asli Korea · AI Tutor 24/7",
+      "demo": {
+        "1": {
+          "text": "주말에 뭐 했어요?",
+          "translation": "Akhir pekan kemarin kamu ngapain?"
+        },
+        "2": {
+          "text": "친구 만났다! 진짜 재미있었어",
+          "translation": "Ketemu teman! Seru banget"
+        }
+      },
+      "note": {
+        "label": "✦ AI TUTOR",
+        "body": "존댓말 vs 반말: dia bertanya pakai 했어요, bentuk sopan. Kamu menjawab dengan 반말, yang dipakai ke teman dekat. Ikuti dulu gayanya: 친구 만났어요! 진짜 재미있었어요."
+      }
+    },
+    "howItWorks": {
+      "title": "Kenapa bahasa Korea nempel kalau lewat chat",
+      "steps": {
+        "1": {
+          "title": "Bahasa Korea yang muncul di chat sungguhan",
+          "body": "Buku pelajaranmu mengajarkan 합니다. Partnermu mengetik 했어요, ㅋㅋ dan 헐 — bahasa Korea yang benar-benar menunggumu di percakapan nyata."
+        },
+        "2": {
+          "title": "존댓말 dan 반말, dirasakan bukan dihafalkan",
+          "body": "Kesopanan adalah pilihan yang kamu ambil di setiap kalimat. Membaca pilihan penutur asli mengajarkannya jauh lebih cepat daripada tabel akhiran mana pun."
+        },
+        "3": {
+          "title": "Dikoreksi tanpa malu",
+          "body": "AI Tutor menandai bahasa Koreamu di tempat yang cuma kamu yang bisa lihat, jadi pertukaran bahasa tidak pernah berubah jadi ujian. Partnermu cuma melihat kamu berusaha — dan justru itu yang bikin dia terus membalas."
+        }
+      }
+    },
+    "features": {
+      "title": "Tiga hal yang tidak bisa diberikan buku pelajaran"
+    },
+    "cta": {
+      "title": "Orang Korea sedang belajar bahasamu sekarang",
+      "subtitle": "Gratis untuk memulai. Tanpa kartu, tanpa hitung mundur masa coba."
+    }
+  },
+  "communities": {
+    "public": {
+      "title": "Komunitas pertukaran bahasa",
+      "intro": "Grup nyata di dalam BananaTalk, tempat orang-orang latihan satu bahasa bareng setiap hari. Temukan grupmu di sini, lalu buka di aplikasi dan mulai ngobrol.",
+      "members": "anggota",
+      "join": "Gabung di aplikasi",
+      "empty": {
+        "title": "Komunitas baru dibuka setiap minggu",
+        "body": "Belum ada yang bisa ditampilkan di sini. Download aplikasinya dan setiap komunitas langsung muncul begitu dibuka."
+      }
+    }
+  },
+  "errors": {
+    "chunk": {
+      "title": "Terjadi kesalahan saat memuat halaman ini",
+      "body": "Sebagian aplikasi gagal dimuat. Ini biasanya terjadi tepat setelah pembaruan — memuat ulang biasanya sudah cukup.",
+      "reload": "Muat ulang"
+    }
+  },
+  "growth": {
+    "store": {
+      "appStore": "App Store",
+      "googlePlay": "Google Play",
+      "downloadOnThe": "Unduh di",
+      "getItOn": "Dapatkan di"
+    },
+    "promo": {
+      "tutor": {
+        "eyebrow": "Tutor AI",
+        "title": "Membetulkan bahasa Koreamu saat mengetik",
+        "body": "Koreksi pribadi di setiap pesan, plus kuis dan latihan tata bahasa di sela obrolan.",
+        "cta": "Dapatkan aplikasinya",
+        "alt": "Ilustrasi gelembung obrolan dengan satu kata yang dicoret dan koreksinya melayang di atasnya, di sebelah tanda centang"
+      },
+      "voice": {
+        "eyebrow": "Voice Notes & Rooms",
+        "title": "Dengar pelafalan yang sesungguhnya",
+        "body": "Kirim pesan suara, bagikan lokasimu, dan gabung Voice Rooms langsung bersama penutur asli.",
+        "cta": "Dapatkan aplikasinya",
+        "alt": "Ilustrasi mikrofon dengan gelombang suara yang melintasinya dan kartu lokasi yang dibagikan di belakangnya"
+      },
+      "moments": {
+        "eyebrow": "Moments & Stories",
+        "title": "Bagikan minggumu dalam dua bahasa",
+        "body": "Posting foto dan pikiranmu; teman membacanya dalam terjemahan dan mengoreksi dengan ramah.",
+        "cta": "Dapatkan aplikasinya",
+        "alt": "Ilustrasi tiga kartu foto yang saling tumpang tindih dengan hati dan tanda terjemahan bertuliskan A ke 가"
+      },
+      "inbox": {
+        "eyebrow": "Percakapan sungguhan",
+        "title": "Orang yang benar-benar membalas",
+        "body": "Chat, sapaan, dan reaksimu dalam satu kotak masuk — dibaca, diterjemahkan, dibalas.",
+        "cta": "Dapatkan aplikasinya",
+        "alt": "Ilustrasi tiga percakapan yang bertumpuk di kotak masuk, salah satunya belum dibaca, dengan tangan yang melambai menyapa"
+      },
+      "dismiss": "Tutup promosi aplikasi",
+      "label": "Apa yang dilakukan aplikasi BananaTalk",
+      "slideLabel": "Slide {{n}} dari {{total}}",
+      "prev": "Slide sebelumnya",
+      "next": "Slide berikutnya"
+    }
+  },
+  "stories": {
+    "your_story": "Story Anda",
+    "create_story": "Buat",
+    "my_stories": "Story saya",
+    "reaction_failed": "Reaksi Anda tidak dapat disimpan",
+    "answer_sent": "Jawaban terkirim",
+    "answer_failed": "Jawaban Anda tidak dapat dikirim",
+    "delete_story": "Hapus story ini?",
+    "error_loading": "Gagal memuat story",
+    "answer_placeholder": "Ketik jawaban Anda…",
+    "answer_question": "Jawab Pertanyaan",
+    "send_reply": "Kirim",
+    "answer_anonymously": "Jawab secara anonim",
+    "cancel": "Batal",
+    "viewers": "Yang melihat",
+    "responses": "Jawaban",
+    "share_story": "Bagikan",
+    "reply_placeholder": "Kirim pesan...",
+    "react": "Beri reaksi",
+    "reacted": "Bereaksi",
+    "shared": "Terkirim",
+    "share_failed": "Story ini tidak dapat dibagikan",
+    "close": "Tutup",
+    "search_chats": "Cari chat",
+    "loading": "Memuat…",
+    "no_chats": "Belum ada chat baru-baru ini",
+    "no_viewers": "Belum ada yang melihat",
+    "added_to_highlight": "Ditambahkan ke sorotan",
+    "add_failed": "Story itu tidak dapat ditambahkan",
+    "title_required": "Masukkan judul terlebih dahulu",
+    "highlight_created": "Sorotan dibuat",
+    "create_failed": "Sorotan tidak dapat dibuat",
+    "story_archived": "Story diarsipkan",
+    "archive_failed": "Story itu tidak dapat diarsipkan",
+    "story_deleted": "Story dihapus",
+    "delete_story_failed": "Story itu tidak dapat dihapus",
+    "active_stories": "Aktif",
+    "total_views": "Total dilihat",
+    "archived_stories": "Diarsipkan",
+    "create_first_story": "Buat story",
+    "no_archived_stories": "Belum ada yang diarsipkan",
+    "no_stories": "Belum ada story",
+    "add_to_highlight": "Tambahkan ke sorotan",
+    "archive": "Arsipkan",
+    "delete": "Hapus",
+    "highlight_name": "Nama sorotan",
+    "create": "Buat",
+    "no_highlights": "Belum ada sorotan",
+    "stories_count": "story",
+    "new_highlight": "Sorotan baru",
+    "delete_story_confirm": "Hapus story ini?",
+    "delete_story_body": "Tindakan ini tidak dapat dibatalkan.",
+    "anonymous": "Anonim",
+    "no_responses": "Belum ada jawaban",
+    "video_type_error": "Format video itu tidak didukung",
+    "video_size_error": "Video itu lebih besar dari",
+    "video_duration_error": "Video itu lebih panjang dari",
+    "question_box": {
+      "ask_me_anything": "Tanyakan apa saja padaku!"
+    },
+    "add_text": "Ketik story Anda…",
+    "upload_media": "Silakan unggah media",
+    "link_invalid": "Tautan itu sepertinya salah",
+    "story_created": "Story dibagikan",
+    "create_story_failed": "Story Anda tidak dapat dibagikan",
+    "video_limits": "Video",
+    "choose_photo": "Foto",
+    "choose_video": "Video",
+    "text_story": "Teks",
+    "move_sticker": "Pindahkan stiker",
+    "tap_to_type": "Tap untuk mengetik",
+    "story_text": "Teks story",
+    "background": "Latar belakang",
+    "text_color": "Teks",
+    "font_style": "Font",
+    "stickers_text": "Teks & emoji",
+    "add_text_sticker": "Tambahkan teks",
+    "add_emoji_sticker": "Tambahkan emoji",
+    "sticker_text": "Teks stiker",
+    "remove": "Hapus",
+    "sticker_background": "Latar belakang",
+    "sticker_size": "Ukuran",
+    "sticker_color": "Warna",
+    "mention": "Mention",
+    "link": "Link",
+    "poll": "Polling",
+    "question": "Pertanyaan",
+    "hashtag": "Hashtag",
+    "link_url": "URL tautan",
+    "link_title": "Judul",
+    "link_label": "Label stiker",
+    "poll_question": "Tanyakan sesuatu",
+    "poll_option": "Opsi",
+    "add_option": "Tambahkan opsi",
+    "anonymous_voting": "Voting anonim",
+    "question_prompt": "Tulis pertanyaan",
+    "audience": "Siapa yang bisa melihat ini",
+    "privacy": {
+      "public": "Semua orang",
+      "friends": "Teman",
+      "close_friends": "Teman dekat"
+    },
+    "close_friends_empty": "Daftar teman dekat Anda masih kosong — tidak akan ada yang melihat story ini.",
+    "manage_close_friends": "Kelola teman dekat",
+    "highlight_updated": "Sorotan diperbarui",
+    "update_failed": "Sorotan tidak dapat disimpan",
+    "highlight_deleted": "Sorotan dihapus",
+    "delete_failed": "Sorotan tidak dapat dihapus",
+    "removed_from_highlight": "Dihapus dari sorotan",
+    "remove_failed": "Story itu tidak dapat dihapus",
+    "back": "Kembali",
+    "highlights_title": "Sorotan",
+    "highlights_subtitle": "Kumpulan story tersimpan Anda",
+    "highlight_empty": "Sorotan ini belum berisi story",
+    "remove_from_highlight": "Hapus dari sorotan",
+    "edit_highlight": "Edit sorotan",
+    "delete_highlight": "Hapus sorotan",
+    "choose_cover": "Pilih sampul",
+    "no_stories_to_pick": "Tidak ada story untuk dipilih",
+    "save": "Simpan",
+    "delete_highlight_confirm": "Hapus sorotan?",
+    "delete_highlight_body": "Story-nya sendiri tetap ada di arsip Anda.",
+    "previous": "Sebelumnya",
+    "next": "Berikutnya",
+    "font": {
+      "sans-serif": "Sans serif",
+      "serif": "Serif",
+      "bold": "Tebal",
+      "handwritten": "Tulisan tangan"
+    },
+    "bg_mode": {
+      "none": "Tanpa latar belakang",
+      "semi": "Transparan",
+      "solid": "Solid"
+    },
+    "search_followings": "Cari orang yang Anda ikuti",
+    "mention_followings_only": "Anda hanya bisa menandai orang yang Anda ikuti. Ikuti seseorang dulu.",
+    "mention_no_match": "Tidak ada yang Anda ikuti yang cocok",
+    "more": "Lainnya",
+    "reply_failed": "Pesan Anda tidak dapat dikirim",
+    "vote_failed": "Suara Anda tidak dapat disimpan",
+    "poll_error_question": "Tambahkan pertanyaan ke polling kamu",
+    "poll_error_blank_option": "Isi atau hapus opsi polling yang kosong",
+    "poll_error_min_options": "Polling butuh minimal dua opsi",
+    "poll_error_max_options": "Polling maksimal empat opsi",
+    "question_error_prompt": "Tambahkan pertanyaan ke stiker pertanyaan",
+    "caption": "Keterangan",
+    "caption_placeholder": "Tambahkan keterangan…",
+    "linkPage": {
+      "browse": "Lihat story terbaru",
+      "expired": "Story ini sudah kedaluwarsa atau dihapus. Story hilang setelah 24 jam.",
+      "failed": "Kami tidak dapat memuat story ini.",
+      "retry": "Coba lagi",
+      "sign_in": "Masuk",
+      "sign_in_body": "Masuk untuk menontonnya, atau buka di aplikasi BananaTalk.",
+      "sign_in_title": "Seseorang membagikan story kepada Anda",
+      "unavailable": "Story ini tidak tersedia untuk Anda."
+    },
+    "block_author": "Blokir {{name}}",
+    "block_confirm": "Blokir",
+    "block_confirm_body": "Mereka tidak akan bisa melihat profil, momen, atau cerita Anda, atau mengirimi Anda pesan, dan Anda tidak akan melihat milik mereka.",
+    "block_confirm_title": "Blokir {{name}}?",
+    "block_failed": "Tidak bisa memblokir orang ini. Coba lagi.",
+    "blocked": "{{name}} telah diblokir",
+    "location_label": "Lokasi",
+    "one_image_only": "Satu cerita hanya menampilkan satu foto. Kami menyimpan yang pertama.",
+    "replies_off": "Balasan dinonaktifkan untuk cerita ini",
+    "report_story": "Laporkan cerita"
+  },
+  "card": {
+    "title": "Kartu Bahasa",
+    "my_card": "Kartu saya",
+    "speaks": "Berbicara",
+    "learning": "Belajar",
+    "practice_with": "Latihan {{language}} dengan {{name}}",
+    "view_profile": "Lihat profil lengkap",
+    "continue_web": "Lanjutkan di browser",
+    "share": "Bagikan kartu saya",
+    "share_text": "Latihan {{language}} bareng aku di BananaTalk",
+    "edit": "Ubah isinya",
+    "tagline": "Pertukaran bahasa di BananaTalk",
+    "not_found": "Kartu ini tidak ada",
+    "not_found_body": "Akun ini mungkin sudah dihapus.",
+    "find_partners": "Cari partner bahasa"
+  },
+  "announcements": {
+    "new": "Baru",
+    "readMore": "Selengkapnya",
+    "close": "Tutup",
+    "ended": "Pengumuman ini telah berakhir.",
+    "back": "Kembali"
+  },
+  "communityNearby": {
+    "back": "Kembali",
+    "geolocationNotSupported": "Geolokasi tidak didukung",
+    "gettingLocation": "Mendapatkan lokasimu...",
+    "learning": "Belajar: {{language}}",
+    "locationRequired": "Lokasi Diperlukan",
+    "noUsers": "Tidak ada pengguna di sekitar",
+    "permissionDenied": "Izin lokasi ditolak",
+    "positionUnavailable": "Lokasi tidak tersedia",
+    "refresh": "Muat ulang",
+    "searchRadius": "Radius Pencarian",
+    "subtitle": "Temukan orang di sekitarmu",
+    "timeout": "Permintaan lokasi habis waktu",
+    "title": "Pengguna Terdekat",
+    "tryAgain": "Coba Lagi",
+    "tryIncreaseRadius": "Coba perbesar radius pencarian",
+    "unknownError": "Terjadi kesalahan",
+    "usersFound_one": "{{count}} orang ditemukan",
+    "usersFound_other": "{{count}} orang ditemukan"
+  },
+  "auth": {
+    "apple": {
+      "continue": "Lanjutkan dengan Apple",
+      "errors": {
+        "banned": "Akun ini telah ditangguhkan.",
+        "blocked": "Browser Anda memblokir jendela Apple. Izinkan pop-up untuk banatalk.com lalu coba lagi.",
+        "disabled": "Masuk dengan Apple belum tersedia di situs web.",
+        "failed": "Tidak dapat masuk dengan Apple. Coba lagi.",
+        "rate_limited": "Terlalu banyak percobaan masuk. Tunggu satu menit lalu coba lagi.",
+        "unavailable": "Masuk dengan Apple sedang tidak tersedia. Coba lagi nanti."
+      },
+      "signedIn": "Berhasil masuk dengan Apple",
+      "signingIn": "Masuk dengan Apple…"
+    }
+  },
+  "reels": {
+    "actions": {
+      "block": "Blokir pengguna",
+      "comments": "Komentar",
+      "like": "Suka",
+      "more": "Lainnya",
+      "profile": "Profil",
+      "report": "Laporkan",
+      "unlike": "Batal suka"
+    },
+    "create": {
+      "bad_type": "Jenis file ini tidak didukung. Gunakan MP4, MOV, atau WebM.",
+      "caption": "Keterangan",
+      "caption_placeholder": "Apa yang sedang kamu latih?",
+      "change_video": "Pilih video lain",
+      "choose_video": "Pilih video",
+      "failed": "Reel kamu gagal diposting. Coba lagi.",
+      "hint": "Video pendek untuk belajar bahasa, maksimal 3 menit. Format vertikal (9:16) terlihat paling bagus.",
+      "post": "Posting reel",
+      "posted": "Reel kamu sudah diposting.",
+      "posting": "Memposting…",
+      "server_too_long": "Reel harus berdurasi 3 menit atau kurang.",
+      "title": "Reel baru",
+      "too_big": "Video ini terlalu besar untuk diunggah.",
+      "too_long": "Reel bisa berdurasi hingga 3:00. Video ini berdurasi {{duration}}.",
+      "upload_failed": "Video gagal diunggah. Tidak ada yang diposting — coba lagi."
+    },
+    "grid": {
+      "create": "Buat reel",
+      "empty": "Belum ada reel. Jadilah yang pertama memposting.",
+      "error": "Tidak dapat memuat reel.",
+      "load_more": "Muat lainnya",
+      "loading": "Memuat reel…",
+      "open_reel": "Putar reel dari {{name}}",
+      "retry": "Coba lagi",
+      "title": "Reels",
+      "unavailable": "Reel sedang tidak tersedia."
+    },
+    "moments_link": "Tonton reel",
+    "nav": "Reels",
+    "policy": {
+      "accept": "Saya setuju",
+      "body": "Reels adalah video pendek untuk belajar bahasa — jawaban topik, latihan berbicara, penjelasan dari penutur asli, dan klip budaya.\n\nBananaTalk tidak menoleransi konten yang tidak pantas: tanpa ketelanjangan, ujaran kebencian, pelecehan, kekerasan, atau konten ilegal. Video yang dilaporkan otomatis disembunyikan menunggu peninjauan setelah 2 laporan, dan pelanggaran dapat berujung pada penghapusan konten atau pemblokiran akun.\n\nAnda dapat melaporkan atau memblokir dari reel mana pun kapan saja.",
+      "decline": "Tolak",
+      "title": "Pedoman konten reel"
+    },
+    "viewer": {
+      "close": "Tutup",
+      "label": "Reels",
+      "mute": "Bisukan",
+      "next": "Reel berikutnya",
+      "previous": "Reel sebelumnya",
+      "tap_to_play": "Ketuk untuk memutar",
+      "unmute": "Bunyikan"
+    }
+  },
+  "clubs": {
+    "card": {
+      "joined": "Sudah bergabung",
+      "members_one": "{{count}} anggota",
+      "members_other": "{{count}} anggota"
+    },
+    "detail": {
+      "back": "Lihat klub lain",
+      "edit": "Edit klub",
+      "host": "Adakan pertemuan untuk klub ini",
+      "join": "Gabung klub",
+      "leave": "Keluar dari klub",
+      "leaveTitle": "Keluar dari klub ini?",
+      "metTimes_one": "Sudah bertemu sekali",
+      "metTimes_other": "Sudah bertemu {{count}} kali",
+      "neverMet": "Belum pernah bertemu",
+      "noGatherings": "Belum ada yang dijadwalkan.",
+      "upcoming": "Akan datang",
+      "youOwn": "Kamu pemilik klub ini"
+    },
+    "form": {
+      "city": "Kota (opsional)",
+      "create": "Buat klub",
+      "createTitle": "Mulai klub",
+      "description": "Tentang klub (opsional)",
+      "editTitle": "Edit klub",
+      "errors": {
+        "descriptionTooLong": "Deskripsi maksimal 2000 karakter.",
+        "interestTooLong": "Minat maksimal 60 karakter.",
+        "languageRequired": "Pilih bahasa klub.",
+        "nameRequired": "Beri nama klubmu.",
+        "nameTooLong": "Nama maksimal 80 karakter."
+      },
+      "interest": "Apa yang menyatukan kalian (mis. buku, drama Korea)",
+      "language": "Bahasa",
+      "name": "Nama",
+      "notAllowed": "Hanya pemilik atau pengurus klub yang bisa mengeditnya.",
+      "placeAddress": "Alamat (opsional)",
+      "placeName": "Tempat berkumpul (opsional)"
+    },
+    "home": {
+      "empty": "Belum ada klub di sini.",
+      "scopeAll": "Semua",
+      "scopeMember": "Sudah bergabung",
+      "scopeMine": "Bahasa saya",
+      "start": "Mulai klub"
+    },
+    "owner": {
+      "delete": "Hapus klub",
+      "deleteBody": "Anggota akan kehilangan klub ini. Pertemuan yang sudah dijadwalkan tetap berjalan.",
+      "deleteTitle": "Hapus {{name}}?"
+    },
+    "people": {
+      "makeMember": "Hapus peran pengurus",
+      "makeOrganizer": "Jadikan pengurus",
+      "organizer": "Pengurus",
+      "owner": "Pemilik",
+      "remove": "Keluarkan dari klub",
+      "removeTitle": "Keluarkan {{name}}?",
+      "title": "Anggota · {{count}}"
+    }
+  },
+  "gatherings": {
+    "card": {
+      "approval": "Perlu persetujuan tuan rumah",
+      "full": "Penuh",
+      "going": "Ikut",
+      "hostedBy": "Diadakan oleh {{name}}",
+      "hosting": "Kamu tuan rumahnya",
+      "requested": "Diminta",
+      "seatsLeft_one": "Sisa {{count}} kursi",
+      "seatsLeft_other": "Sisa {{count}} kursi"
+    },
+    "confirm": {
+      "cancel": "Nanti saja",
+      "leaveBody": "Yang lain mengandalkan orang-orang yang sudah bilang ikut.",
+      "leaveOk": "Lepaskan kursiku",
+      "leaveTitle": "Lepaskan kursimu?"
+    },
+    "cover": {
+      "add": "Tambah foto sampul",
+      "badType": "Gunakan gambar JPEG, PNG, GIF, atau WebP.",
+      "change": "Ganti foto sampul",
+      "remove": "Hapus sampul",
+      "tooBig": "Gambar itu lebih dari 10 MB."
+    },
+    "detail": {
+      "askToJoin": "Minta ikut",
+      "back": "Lihat pertemuan lain",
+      "cancelRequest": "Batalkan permintaanku",
+      "capacity": "Maks. {{count}} orang · terkonfirmasi di {{quorum}}",
+      "duration": "{{count}} menit",
+      "edit": "Edit pertemuan",
+      "host": "Tuan rumah",
+      "join": "Aku ikut",
+      "leave": "Aku tidak bisa ikut lagi",
+      "online": "Online",
+      "requestSent": "Permintaan dikirim. Tuan rumah yang memutuskan.",
+      "someone": "Anggota BananaTalk",
+      "youreGoing": "Kamu ikut."
+    },
+    "errors": {
+      "alreadyGoing": "Kamu sudah ikut.",
+      "cancelled": "Pertemuan ini dibatalkan.",
+      "capacityBelowGoing": "Kapasitas tidak boleh kurang dari {{count}} orang yang sudah ikut.",
+      "clubArchived": "Klub ini sudah diarsipkan.",
+      "clubGone": "Klub ini tidak tersedia.",
+      "endBeforeStart": "Kamu bisa mengakhiri pertemuan setelah dimulai.",
+      "ended": "Pertemuan ini sudah berakhir.",
+      "full": "Pertemuan ini sudah penuh.",
+      "gatheringGone": "Pertemuan ini tidak tersedia.",
+      "generic": "Terjadi kesalahan. Coba lagi.",
+      "hostBlocked": "Kamu belum bisa jadi tuan rumah: terlalu banyak pertemuanmu yang dibatalkan atau terlewat.",
+      "hostCannotLeave": "Sebagai tuan rumah, batalkan pertemuannya alih-alih keluar.",
+      "joinClubFirst": "Gabung klub dulu sebelum mengadakan pertemuan untuknya.",
+      "offline": "Kamu sedang offline. Periksa koneksimu.",
+      "ownerCannotLeave": "Sebagai pemilik, kamu bisa menghapus klub tapi tidak bisa keluar.",
+      "pastStart": "Pilih waktu mulai di masa depan.",
+      "pending": "Permintaanmu sedang menunggu tuan rumah.",
+      "started": "Pertemuan ini sudah dimulai."
+    },
+    "form": {
+      "anyLevel": "Semua level",
+      "cancel": "Batal",
+      "capacity": "Kursi",
+      "create": "Posting pertemuan",
+      "createTitle": "Adakan pertemuan",
+      "description": "Mau ngapain? (opsional)",
+      "duration_one": "Durasi {{count}} menit · di zona waktumu",
+      "duration_other": "Durasi {{count}} menit · di zona waktumu",
+      "editTitle": "Edit pertemuan",
+      "errors": {
+        "capacityRange": "Jumlah kursi harus antara 2 dan 20.",
+        "descriptionTooLong": "Deskripsi maksimal 2000 karakter.",
+        "languageRequired": "Pilih bahasa yang akan kamu latih.",
+        "quorumRange": "Pertemuan terkonfirmasi di 2 orang atau lebih, dan tidak lebih dari jumlah kursi.",
+        "startInPast": "Pilih waktu mulai di masa depan.",
+        "startRequired": "Pilih hari dan jam.",
+        "startTooFar": "Pilih waktu dalam 90 hari ke depan.",
+        "titleRequired": "Beri judul pertemuanmu.",
+        "titleTooLong": "Judul maksimal 120 karakter."
+      },
+      "joinApproval": "Aku menyetujui tiap orang",
+      "joinMode": "Siapa yang bisa ikut",
+      "joinOpen": "Siapa saja",
+      "language": "Bahasa",
+      "level": "Level",
+      "noTopic": "Tanpa topik",
+      "notHost": "Hanya tuan rumah yang bisa mengedit pertemuan ini.",
+      "pickLanguage": "Pilih bahasa",
+      "quorum": "Konfirmasi pada",
+      "save": "Simpan",
+      "startsAt": "Mulai",
+      "title": "Judul",
+      "topic": "Topik"
+    },
+    "home": {
+      "anyLanguage": "Bahasa saya",
+      "anyTime": "Kapan saja",
+      "anyTopic": "Semua topik",
+      "empty": "Belum ada yang dijadwalkan di sini.",
+      "emptyCta": "Adakan yang pertama",
+      "error": "Tidak dapat memuat daftar ini.",
+      "hasSeat": "Ada kursi kosong",
+      "host": "Adakan pertemuan",
+      "language": "Bahasa",
+      "loadMore": "Muat lebih banyak",
+      "retry": "Coba lagi",
+      "scopeAll": "Semua",
+      "scopeMe": "Pertemuan saya",
+      "scopeMine": "Bahasa saya",
+      "tabClubs": "Klub",
+      "tabGatherings": "Pertemuan",
+      "title": "Pertemuan",
+      "today": "Hari ini",
+      "topic": "Topik",
+      "week": "Minggu ini",
+      "when": "Kapan"
+    },
+    "host": {
+      "approve": "Terima",
+      "callOff": "Batalkan",
+      "callOffTitle": "Batalkan saja?",
+      "cancel": "Batalkan pertemuan",
+      "cancelConfirm_one": "{{count}} orang menunggu ini. Mereka akan diberi tahu pembatalannya.",
+      "cancelConfirm_other": "{{count}} orang menunggu ini. Mereka akan diberi tahu pembatalannya.",
+      "cancelOk": "Batalkan pertemuan",
+      "cancelTitle": "Batalkan pertemuan ini?",
+      "decisionAlone": "Sejauh ini hanya kamu. Tetap jalan atau batalkan?",
+      "decision_one": "Sejauh ini hanya {{count}} orang. Tetap jalan atau batalkan?",
+      "decision_other": "Sejauh ini hanya {{count}} orang. Tetap jalan atau batalkan?",
+      "decline": "Tolak",
+      "end": "Akhiri pertemuan",
+      "ended": "Selesai — mengirim pesan ke orang yang kamu temui itu gratis",
+      "nobodyExpecting": "Belum ada orang lain yang bilang ikut.",
+      "requests_one": "{{count}} menunggu untuk bergabung",
+      "requests_other": "{{count}} menunggu untuk bergabung",
+      "runAnyway": "Tetap jalan"
+    },
+    "nav": "Pertemuan",
+    "quorum": {
+      "confirmed": "Terkonfirmasi · {{count}} ikut",
+      "needed": "Butuh {{count}} orang lagi untuk konfirmasi · {{going}} ikut"
+    },
+    "safety": {
+      "blockHost": "Blokir tuan rumah",
+      "blockOwner": "Blokir pemilik",
+      "more": "Lainnya",
+      "reportClub": "Laporkan klub",
+      "reportFailed": "Gagal mengirim laporan. Coba lagi.",
+      "reportGathering": "Laporkan pertemuan",
+      "reported": "Terima kasih — moderator kami akan meninjaunya."
+    },
+    "status": {
+      "cancelled": "Dibatalkan",
+      "confirmed": "Terkonfirmasi",
+      "ended": "Berakhir",
+      "live": "Sedang berlangsung",
+      "scheduled": "Terjadwal"
+    },
+    "time": {
+      "hostLocal": "{{time}} waktu tuan rumah"
+    },
+    "topics": {
+      "business": "Bisnis",
+      "conversation": "Percakapan",
+      "culture": "Budaya",
+      "exam_prep": "Persiapan ujian",
+      "games": "Permainan",
+      "grammar": "Tata bahasa",
+      "media": "Musik, film & TV",
+      "pronunciation": "Pelafalan",
+      "travel": "Perjalanan"
+    }
+  },
+  "common": {
+    "cancel": "Batal",
+    "retry": "Coba lagi"
+  },
+  "communityCity": {
+    "back": "Komunitas",
+    "countries": "Negara",
+    "empty": "Belum ada yang cocok di sini. Coba tempat lain.",
+    "error": "Gagal memuat orang. Coba lagi.",
+    "more": "Tampilkan lebih banyak",
+    "search": "Cari",
+    "searchPlaceholder": "Cari kota",
+    "searchTitle": "Orang di “{{query}}”",
+    "title": "Orang berdasarkan tempat"
+  },
+  "communityGenders": {
+    "back": "Komunitas",
+    "empty": "Belum ada yang cocok.",
+    "error": "Gagal memuat orang. Coba lagi.",
+    "female": "Perempuan",
+    "male": "Laki-laki",
+    "more": "Tampilkan lebih banyak",
+    "title": "Jelajahi berdasarkan gender"
+  },
+  "languageRooms": {
+    "create": {
+      "description": "Deskripsi (opsional)",
+      "language": "Bahasa",
+      "name": "Topik",
+      "submit": "Buat ruang",
+      "title": "Mulai ruang topik"
+    },
+    "errors": {
+      "banned": "Kamu dikeluarkan dari ruang ini. Kamu bisa minta pemilik untuk mengizinkanmu kembali.",
+      "busy": "Ruang ini sedang menerima terlalu banyak permintaan. Coba lagi nanti.",
+      "generic": "Terjadi kesalahan. Coba lagi.",
+      "gone": "Ruang ini sudah tidak tersedia.",
+      "owner": "Pemilik tidak bisa dikeluarkan.",
+      "pending": "Permintaanmu sedang menunggu persetujuan pemilik.",
+      "titleLength": "Nama maksimal 60 karakter.",
+      "tooMany": "Kamu sudah punya 10 ruang. Hapus satu untuk membuat yang baru."
+    },
+    "list": {
+      "create": "Ruang topik baru",
+      "empty": "Belum ada ruang.",
+      "error": "Gagal memuat ruang bahasa.",
+      "joined": "Sudah bergabung",
+      "locked": "Terkunci",
+      "title": "Ruang bahasa"
+    },
+    "owner": {
+      "admin": "admin",
+      "approve": "Izinkan masuk",
+      "deny": "Tolak",
+      "members": "Anggota",
+      "noRequests": "Tidak ada yang menunggu.",
+      "owner": "pemilik",
+      "remove": "Keluarkan dari ruang",
+      "removeNote": "Anggota yang dikeluarkan bisa minta kembali; kamu yang memutuskan.",
+      "removeYes": "Keluarkan",
+      "requests": "Permintaan bergabung"
+    },
+    "room": {
+      "back": "Semua ruang",
+      "join": "Gabung ruang",
+      "leave": "Tinggalkan ruang",
+      "media": "Foto atau video — buka aplikasi untuk melihatnya",
+      "notSent": "Tidak terkirim. Coba lagi.",
+      "older": "Muat pesan sebelumnya",
+      "online": "online",
+      "pending": "Permintaan terkirim. Pemilik akan mengizinkanmu masuk.",
+      "placeholder": "Tulis dalam bahasa ruang ini…",
+      "request": "Minta bergabung",
+      "send": "Kirim",
+      "slowDown": "Kamu mengirim terlalu cepat. Pelan-pelan sedikit.",
+      "sticker": "Stiker",
+      "unsupported": "Buka aplikasi untuk melihat pesan ini",
+      "voice": "Pesan suara — buka aplikasi untuk mendengarkan"
+    }
+  },
+  "nav": {
+    "languageRooms": "Ruang bahasa",
+    "voiceRooms": "Ruang suara"
+  },
+  "voiceRooms": {
+    "category": {
+      "casual": "Ngobrol santai",
+      "language_practice": "Latihan bahasa",
+      "qa": "Tanya jawab",
+      "topic": "Topik"
+    },
+    "create": {
+      "category": "Jenis ruang",
+      "description": "Mau ngobrol tentang apa? (opsional)",
+      "language": "Bahasa",
+      "max": "Maksimal berapa orang",
+      "name": "Nama ruang",
+      "schedule": "Jadwalkan",
+      "start": "Mulai ruang",
+      "title": "Mulai ruang suara",
+      "when": "Mulai nanti (opsional)"
+    },
+    "errors": {
+      "blocked": "Kamu tidak bisa bergabung ke ruang ini.",
+      "ended": "Ruang ini sudah berakhir.",
+      "full": "Ruang ini sudah penuh.",
+      "generic": "Terjadi kesalahan. Coba lagi.",
+      "gone": "Ruang ini sudah tidak tersedia.",
+      "vipToCreate": "Membuat ruang suara memerlukan paket VIP."
+    },
+    "host": {
+      "end": "Akhiri ruang",
+      "endConfirm": "Akhiri ruang untuk semua orang?",
+      "endYes": "Akhiri ruang",
+      "hands": "Tangan terangkat",
+      "makeCohost": "Jadikan Co-Host",
+      "muteAll": "Bisukan semua",
+      "noHands": "Belum ada yang angkat tangan.",
+      "speakNote": "Siapa pun di ruang ini bisa mengambil mik. Angkat tangan berarti meminta giliran darimu.",
+      "title": "Alat host"
+    },
+    "list": {
+      "create": "Mulai ruang",
+      "emptyLive": "Belum ada yang ngobrol sekarang. Mulai ruang dan ajak orang masuk.",
+      "emptyScheduled": "Belum ada ruang yang dijadwalkan.",
+      "error": "Gagal memuat ruang suara.",
+      "full": "Penuh",
+      "going": "Ikut ✓",
+      "join": "Gabung",
+      "live": "Sedang live",
+      "rsvp": "Ingatkan saya",
+      "scheduled": "Akan datang",
+      "title": "Ruang suara"
+    },
+    "room": {
+      "back": "Semua ruang",
+      "chat": "Obrolan ruang",
+      "chatPlaceholder": "Katakan sesuatu…",
+      "connectFailed": "Gagal terhubung ke audio ruang. Periksa koneksimu dan coba lagi.",
+      "elsewhere": "Kamu bergabung ke ruang ini dari tab atau perangkat lain.",
+      "enableSound": "Ketuk untuk menyalakan suara ruang",
+      "ended": "Ruang ini sudah berakhir.",
+      "findAnother": "Cari ruang lain",
+      "handUp": "Tangan terangkat",
+      "host": "Host",
+      "join": "Gabung ruang",
+      "joinHint": "Kamu akan bergabung sebagai pendengar. Ambil mik kapan pun kamu siap.",
+      "leave": "Keluar",
+      "lost": "Koneksi ke ruang terputus.",
+      "lowerHand": "Turunkan tangan",
+      "micDenied": "Browser-mu memblokir mikrofon. Izinkan mikrofon untuk banatalk.com di bilah alamat, lalu coba lagi. Kamu tetap bisa mendengarkan.",
+      "micError": "Gagal menyalakan mikrofon. Coba lagi.",
+      "micUnavailable": "Mikrofon tidak ditemukan (atau sedang dipakai aplikasi lain). Kamu tetap bisa mendengarkan.",
+      "mute": "Bisukan",
+      "raiseHand": "Angkat tangan",
+      "reconnecting": "Menghubungkan ulang…",
+      "rejoin": "Gabung lagi",
+      "send": "Kirim",
+      "takeMic": "Ambil mik",
+      "useHere": "Dengarkan di sini saja",
+      "you": "kamu"
     }
   }
 }

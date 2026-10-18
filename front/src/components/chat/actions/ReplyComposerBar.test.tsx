@@ -2,6 +2,10 @@ import '@testing-library/jest-dom';
 import { render, screen, fireEvent } from '@testing-library/react';
 import ReplyComposerBar from './ReplyComposerBar';
 
+jest.mock("react-i18next", () => ({
+  useTranslation: () => ({ t: () => "", i18n: { language: "en" } }),
+}));
+
 it('renders nothing when replyingTo is null', () => {
   const { container } = render(
     <ReplyComposerBar replyingTo={null} onCancel={jest.fn()} />

@@ -11,10 +11,12 @@ import {
   REGISTER_EMAIL_CODE,
   VERIFY_REGISTRATION_CODE,
   BLOCK_USER_URL,
+  REPORTS_URL,
   ACCEPT_TERMS_URL,
   CHECK_USERNAME_URL,
   GEOCODE_REVERSE_URL,
   GEOCODE_FORWARD_URL,
+  NOTIFICATION_SETTINGS_URL,
 } from "../../constants";
 import { apiSlice } from "./apiSlice";
 
@@ -108,14 +110,18 @@ export const usersApiSlice = apiSlice.injectEndpoints({
       keepUnusedDataFor: 5,
       providesTags: ["User"],
     }),
+    // A mutation cannot *provide* tags -- it invalidates them. This carried
+    // `providesTags` (and a meaningless `keepUnusedDataFor`) for as long as it
+    // existed, which meant a successful profile save never refetched
+    // `getUserProfile`: the profile page could read a document up to five
+    // seconds stale straight after an edit.
     updateUserInfo: builder.mutation({
       query: (data: any) => ({
         url: `${USER_PROFILE_UPDATE}`,
         method: "PUT",
         body: data,
       }),
-      keepUnusedDataFor: 5,
-      providesTags: ["User"],
+      invalidatesTags: ["User"],
     }),
     // Update a user by id (hits /auth/users/:id). Unlike updateUserInfo
     // (/auth/updatedetails), this endpoint accepts `languageLevel` — used to
@@ -164,8 +170,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         url: `${COMMUNITY_URL}/${userId}/follow/${targetUserId}`,
         method: "PUT",
       }),
-      keepUnusedDataFor: 5,
-      providesTags: ["User"],
+      invalidatesTags: ["User"],
     }),
     unFollowUser: builder.mutation({
       query: ({
@@ -196,11 +201,31 @@ export const usersApiSlice = apiSlice.injectEndpoints({
       providesTags: ["User"],
     }),
 
+    // PUT /auth/updatepassword. A 401 here is the controller's "Current
+    // password is incorrect", and apiSlice's reauth wrapper is told not to read
+    // it as an expired session (see CREDENTIAL_CHECKS there). The success body
+    // is a fresh sendTokenResponse: { token, refreshToken?, user }.
+    updatePassword: builder.mutation({
+      query: (body: { currentPassword: string; newPassword: string }) => ({
+        url: "/api/v1/auth/updatepassword",
+        method: "PUT",
+        body,
+      }),
+    }),
+
     // Profile Visitors
+    //
+    // `controllers/profileVisits.js` reads `source` and `deviceType` off the
+    // body and defaults the device to 'ios' when it is missing, so a web visit
+    // sent without one is filed under iOS in the owner's visitors list and in
+    // the bySource breakdown. 'web' has been a valid value in the ProfileVisit
+    // schema's enum all along. `direct` is the source the app sends for the
+    // same screen (single_community_screen.dart:146).
     recordProfileVisit: builder.mutation({
       query: (userId: string) => ({
         url: `${COMMUNITY_URL}/${userId}/profile-visit`,
         method: "POST",
+        body: { source: "direct", deviceType: "web" },
       }),
     }),
     getProfileVisitors: builder.query({
@@ -243,34 +268,99 @@ export const usersApiSlice = apiSlice.injectEndpoints({
       providesTags: ["User"],
     }),
 
-    // Block User
+    // Block User. `Conversations` as well as `User`: blocking is reached from
+    // the chat, which navigates back to the list afterwards, and the backend
+    // filters a blocked person's thread out of `GET /conversations` — a stale
+    // cache would leave their row sitting there.
     blockUser: builder.mutation({
       query: (userId: string) => ({
         url: `${BLOCK_USER_URL}/${userId}/block`,
         method: "POST",
       }),
-      invalidatesTags: ["User"],
+      // Moments + Comments: the server drops a blocked author from feeds and
+      // comment lists, so open lists refetch and their content disappears.
+      // `Stories` too: the feed would otherwise keep the blocked author's
+      // ring until its 5-second cache expired, and the story viewer sends the
+      // reader back to it right after a block.
+      invalidatesTags: ["User", "Conversations", "Moments", "Comments", "Stories"],
     }),
     unblockUser: builder.mutation({
       query: (userId: string) => ({
         url: `${BLOCK_USER_URL}/${userId}/block`,
         method: "DELETE",
       }),
-      invalidatesTags: ["User"],
+      // Moments + Comments: the server drops a blocked author from feeds and
+      // comment lists, so open lists refetch and their content disappears.
+      invalidatesTags: ["User", "Conversations", "Moments", "Comments"],
     }),
+    // `GET /api/v1/users/:userId/blocked` — the id in the path is the
+    // VIEWER's own (controllers/userBlocks.js 403s when it is anyone else's).
+    // The old `/users/blocked` matched no route at all: the settings screen
+    // showed an empty list because the request 404'd, not because nobody was
+    // blocked.
     getBlockedUsers: builder.query({
-      query: () => ({
-        url: `${BLOCK_USER_URL}/blocked`,
+      query: ({ userId }: { userId: string }) => ({
+        url: `${BLOCK_USER_URL}/${userId}/blocked`,
+      }),
+      providesTags: ["User"],
+    }),
+    // Live block state between the viewer and one other person, so a screen
+    // can offer Unblock instead of Block. Tagged "User" like the two
+    // mutations invalidate, so blocking refreshes the status it just changed.
+    getBlockStatus: builder.query({
+      query: ({ userId, targetUserId }: { userId: string; targetUserId: string }) => ({
+        url: `${BLOCK_USER_URL}/${userId}/block-status/${targetUserId}`,
       }),
       providesTags: ["User"],
     }),
 
-    // Report User
+    // Notification preferences. Both verbs answer `{ success, data: {
+    // ...notificationSettings, quietHours } }`; the PUT takes a flat body
+    // (`{ chatMessages: false, quietHours: { enabled: true } }`) and the
+    // server merges it key by key, so send only what changed.
+    getNotificationSettings: builder.query({
+      query: () => ({ url: NOTIFICATION_SETTINGS_URL }),
+      transformResponse: (r: any) => (r && r.data) || {},
+      providesTags: ["NotificationSettings"],
+    }),
+    updateNotificationSettings: builder.mutation({
+      query: (changes: any) => ({
+        url: NOTIFICATION_SETTINGS_URL,
+        method: "PUT",
+        body: changes,
+      }),
+      transformResponse: (r: any) => (r && r.data) || {},
+      invalidatesTags: ["NotificationSettings"],
+    }),
+
+    // Report anything: `POST /api/v1/reports` (routes/report.js). `reportId`
+    // is the id of the reported THING — for `type: "user"` that is the user
+    // themselves, so it defaults to `reportedUser` rather than making every
+    // caller repeat it. `reason` must be one of the Report model's enum
+    // values; free text belongs in `description`.
     reportUser: builder.mutation({
-      query: ({ userId, reason, description }: { userId: string; reason: string; description?: string }) => ({
-        url: `${BLOCK_USER_URL}/${userId}/report`,
+      query: ({
+        type = "user",
+        reportId,
+        reportedUser,
+        reason,
+        description,
+      }: {
+        type?: string;
+        reportId?: string;
+        reportedUser: string;
+        reason: string;
+        description?: string;
+      }) => ({
+        url: `${REPORTS_URL}`,
         method: "POST",
-        body: { reason, description },
+        body: {
+          type,
+          reportId: reportId || reportedUser,
+          reportedUser,
+          reason,
+          description,
+        },
       }),
     }),
 
@@ -289,18 +379,22 @@ export const usersApiSlice = apiSlice.injectEndpoints({
       }),
     }),
 
-    // Get user by username (exact match)
+    // Get user by username (exact match). The username routes live on the
+    // /api/v1/auth/users router (routes/users.js:69); /api/v1/users is the
+    // block router and answered 404.
     getUserByUsername: builder.query({
       query: (username: string) => ({
-        url: `/api/v1/users/username/${username.replace('@', '')}`,
+        url: `${COMMUNITY_URL}/username/${encodeURIComponent(username.replace(/^@/, ""))}`,
       }),
       keepUnusedDataFor: 5,
     }),
 
-    // Search users by username (partial match)
+    // Search users by username (partial match, routes/users.js:66). The
+    // server refuses q under 2 characters with a 400.
     searchUsersByUsername: builder.query({
       query: ({ query, limit = 20 }: { query: string; limit?: number }) => ({
-        url: `/api/v1/users/search/username?q=${query.replace('@', '')}&limit=${limit}`,
+        url: `${COMMUNITY_URL}/search/username`,
+        params: { q: query.replace(/^@/, ""), limit: String(limit) },
       }),
     }),
 
@@ -340,6 +434,7 @@ export const {
   useDeleteUserPhotoMutation,
   // New hooks
   useRecordProfileVisitMutation,
+  useUpdatePasswordMutation,
   useGetProfileVisitorsQuery,
   useGetMyVisitorStatsQuery,
   useClearVisitorsMutation,
@@ -349,6 +444,7 @@ export const {
   useBlockUserMutation,
   useUnblockUserMutation,
   useGetBlockedUsersQuery,
+  useGetBlockStatusQuery,
   useReportUserMutation,
   useGetUserByIdQuery,
   useSearchUsersQuery,
@@ -359,4 +455,7 @@ export const {
   useLazyCheckUsernameQuery,
   useLazyReverseGeocodeQuery,
   useLazyForwardGeocodeQuery,
+  // Notification preferences
+  useGetNotificationSettingsQuery,
+  useUpdateNotificationSettingsMutation,
 } = usersApiSlice;

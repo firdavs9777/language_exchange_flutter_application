@@ -12389,6 +12389,16 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get vocabPacksBrowse => '浏览词汇包';
+
+  @override
+  String visitorsReveal24h(int cost) {
+    return '用 $cost 💎 查看全部 24 小时，或开通 VIP';
+  }
+
+  @override
+  String visitorsUnlockedLeft(String time) {
+    return '已解锁 · 剩余 $time';
+  }
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -24776,4 +24786,14 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get vocabPacksBrowse => '瀏覽詞彙包';
+
+  @override
+  String visitorsReveal24h(int cost) {
+    return '用 $cost 💎 查看全部 24 小時，或開通 VIP';
+  }
+
+  @override
+  String visitorsUnlockedLeft(String time) {
+    return '已解鎖 · 剩餘 $time';
+  }
 }

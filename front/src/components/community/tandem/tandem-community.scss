@@ -1,25 +1,48 @@
-/* ===== Tandem-style Community ===== */
+/* ===== Community =====
+ *
+ * The discovery surface -- the page people spend the most time on. Colours and
+ * type come from the app-wide tokens (src/index.css, tailwind.config.js); the
+ * SCSS variables below mirror them because this file uses sass colour
+ * functions, which need real values rather than CSS vars.
+ */
 
-$tandem-text: #1f2937;
-$tandem-muted: #6b7280;
-$tandem-border: #e5e7eb;
-$tandem-bg: #f9fafb;
+$tandem-text: #171e29;   // ink-900
+$tandem-strong: #0d131c; // ink-950
+$tandem-muted: #6b7686;  // ink-500
+$tandem-border: #e5e9f0; // line
+$tandem-bg: #f7f8fa;     // ink-50
+$brand: #00bfa5;
+$brand-dark: #008e76;
+/* White text on $brand is 2.33:1 and on $brand-dark is 4.09:1 -- both under
+   AA for the 14px type these pills use. This pair is 4.89:1 and 7.06:1, so
+   every brand fill that carries white text or a white glyph uses it. */
+$brand-deep: #00806a;
+$brand-deepest: #00654f;
 $tandem-pink: #ff5a5f;
 $tandem-pink-soft: #fef2f2;
 $tandem-pro: #f5a623;
+$ease: cubic-bezier(0.22, 1, 0.36, 1);
 
 .community-page {
-  background: #fff;
+  /* Canvas, not white: the member cards are white, and they only read as
+     cards if the page behind them is a shade down. */
+  background: $tandem-bg;
   min-height: 100vh;
   color: $tandem-text;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
-    Arial, sans-serif;
+  font-family: var(--bt-font-sans);
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: -0.006em;
 }
 
+/* Page-level rhythm (the container gutter, section margins, the sub-nav's
+   own padding) is deliberately tokenised onto the --bt-space-* scale; that
+   was this piece's actual scope. The remaining raw px in this file are
+   component-internal spacing (card padding, icon gaps, etc.) that a later
+   piece will sweep -- it was not abandoned halfway. */
 .community-page__container {
   max-width: 1180px;
   margin: 0 auto;
-  padding: 0 16px;
+  padding: 0 var(--bt-space-5) var(--bt-space-2);
 }
 
 /* ===== Sub Navbar ===== */
@@ -27,15 +50,17 @@ $tandem-pro: #f5a623;
   position: sticky;
   top: 0;
   z-index: 30;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: saturate(160%) blur(8px);
-  border-bottom: 1px solid $tandem-border;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid rgba(23, 30, 41, 0.07);
+  transition: box-shadow 240ms $ease;
 }
 
 .community-subnav__container {
   max-width: 1180px;
   margin: 0 auto;
-  padding: 12px 16px;
+  padding: 14px 20px;
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
@@ -57,23 +82,32 @@ $tandem-pro: #f5a623;
   border-radius: 999px;
   border: 1px solid $tandem-border;
   background: #fff;
-  color: $tandem-text;
-  font-size: 0.875rem;
-  font-weight: 600;
+  color: $tandem-muted;
+  font-family: var(--bt-font-display);
+  font-size: var(--bt-text-sm);
+  font-weight: 700;
+  letter-spacing: -0.01em;
   cursor: pointer;
-  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  transition: all 200ms $ease;
 
   &:hover {
-    background: $tandem-bg;
+    background: #fff;
+    border-color: rgba(0, 191, 165, 0.4);
+    color: $tandem-strong;
   }
 
   &--active {
-    background: $tandem-text;
+    /* Brand-filled rather than near-black: the selected tab is the one place
+       on this page the brand colour earns a solid fill. */
+    background: linear-gradient(135deg, $brand-deep 0%, $brand-deepest 100%);
     color: #fff;
-    border-color: $tandem-text;
+    border-color: transparent;
+    box-shadow: 0 6px 16px -8px rgba(0, 191, 165, 0.75);
 
     &:hover {
-      background: lighten($tandem-text, 10%);
+      color: #fff;
+      border-color: transparent;
+      transform: translateY(-1px);
     }
   }
 
@@ -98,15 +132,44 @@ $tandem-pro: #f5a623;
   gap: 8px;
 }
 
+.community-subnav__visitors {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--bt-space-1);
+  /* 40px is this app's floor for a tap target in a primary flow. */
+  min-height: 40px;
+  padding: 0 var(--bt-space-3);
+  /* 999px, not --bt-radius-chip (12px): it sits beside sub-nav tabs and
+     badges that are all fully rounded. */
+  border-radius: 999px;
+  /* Contrast debt: $tandem-pink on $tandem-pink-soft is 2.79:1, below AA's
+     4.5:1. The same pair already ships elsewhere in this file (~781) --
+     pre-existing, not fixed here; belongs to a later piece. */
+  background: $tandem-pink-soft;
+  color: $tandem-pink;
+  font-size: var(--bt-text-sm);
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
 .community-subnav__search {
   position: relative;
   display: flex;
   align-items: center;
-  background: $tandem-bg;
+  background: #fff;
   border: 1px solid $tandem-border;
   border-radius: 999px;
-  padding: 6px 12px 6px 36px;
-  min-width: 240px;
+  padding: 8px 12px 8px 38px;
+  min-width: 260px;
+  transition: border-color 200ms $ease, box-shadow 200ms $ease;
+
+  /* :focus-within, not :focus: the ring belongs to the field, not the input
+     element hidden inside it. */
+  &:focus-within {
+    border-color: $brand;
+    box-shadow: 0 0 0 4px rgba(0, 191, 165, 0.14);
+  }
 
   .community-subnav__search-icon {
     position: absolute;
@@ -117,8 +180,12 @@ $tandem-pro: #f5a623;
   input {
     border: none;
     background: transparent;
-    outline: none;
-    font-size: 0.875rem;
+    /* The outline suppression that used to sit here also suppressed the
+       app-wide :focus-visible ring, leaving keyboard users with only the
+       :focus-within glow on the wrapper -- a 1px border change. */
+    font-family: inherit;
+    font-size: var(--bt-text-sm);
+    font-weight: 500;
     width: 100%;
     color: $tandem-text;
 
@@ -149,27 +216,30 @@ $tandem-pro: #f5a623;
 
 .community-subnav__filter-btn {
   position: relative;
-  width: 38px;
-  height: 38px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   border: 1px solid $tandem-border;
   background: #fff;
-  color: $tandem-text;
+  color: $tandem-muted;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background 0.15s ease;
+  transition: all 200ms $ease;
   flex-shrink: 0;
 
   &:hover {
-    background: $tandem-bg;
+    color: $tandem-strong;
+    border-color: rgba(0, 191, 165, 0.4);
+    transform: translateY(-1px);
   }
 
   &--active {
-    background: $tandem-text;
+    background: linear-gradient(135deg, $brand-deep 0%, $brand-deepest 100%);
     color: #fff;
-    border-color: $tandem-text;
+    border-color: transparent;
+    box-shadow: 0 6px 16px -8px rgba(0, 191, 165, 0.75);
   }
 }
 
@@ -183,7 +253,7 @@ $tandem-pro: #f5a623;
   border-radius: 999px;
   background: $tandem-pink;
   color: #fff;
-  font-size: 0.6875rem;
+  font-size: var(--bt-text-xs);
   font-weight: 700;
   line-height: 18px;
   text-align: center;
@@ -242,7 +312,7 @@ $tandem-pro: #f5a623;
 
   h2 {
     margin: 0;
-    font-size: 1.0625rem;
+    font-size: var(--bt-text-base);
     font-weight: 700;
     color: $tandem-text;
   }
@@ -282,7 +352,7 @@ $tandem-pro: #f5a623;
 
   h3 {
     margin: 0;
-    font-size: 0.8125rem;
+    font-size: var(--bt-text-sm);
     font-weight: 700;
     color: $tandem-muted;
     letter-spacing: 0.04em;
@@ -305,7 +375,7 @@ $tandem-pro: #f5a623;
   border: 1px solid $tandem-border;
   background: #fff;
   color: $tandem-text;
-  font-size: 0.8125rem;
+  font-size: var(--bt-text-sm);
   font-weight: 500;
   cursor: pointer;
   transition: background 0.15s ease, border-color 0.15s ease;
@@ -337,7 +407,7 @@ $tandem-pro: #f5a623;
     gap: 4px;
 
     span {
-      font-size: 0.75rem;
+      font-size: var(--bt-text-xs);
       font-weight: 600;
       color: $tandem-muted;
       text-transform: uppercase;
@@ -350,11 +420,12 @@ $tandem-pro: #f5a623;
       border-radius: 12px;
       border: 1px solid $tandem-border;
       background: $tandem-bg;
-      font-size: 0.9375rem;
+      font-size: var(--bt-text-sm);
       color: $tandem-text;
 
+      /* Keeps the app-wide :focus-visible ring; this rule only adds the
+         field's own filled-and-bordered focus state on top of it. */
       &:focus {
-        outline: none;
         border-color: $tandem-text;
         background: #fff;
       }
@@ -373,7 +444,7 @@ $tandem-pro: #f5a623;
   align-items: center;
   gap: 10px;
   cursor: pointer;
-  font-size: 0.9375rem;
+  font-size: var(--bt-text-sm);
   color: $tandem-text;
 
   input[type="checkbox"] {
@@ -424,7 +495,7 @@ $tandem-pro: #f5a623;
 
 /* ===== Highlighted Profiles Carousel ===== */
 .highlighted-banner {
-  margin-top: 24px;
+  margin-top: var(--bt-space-5);
 }
 
 .highlighted-banner__header {
@@ -440,7 +511,7 @@ $tandem-pro: #f5a623;
   gap: 8px;
 
   h2 {
-    font-size: 1.125rem;
+    font-size: var(--bt-text-lg);
     font-weight: 700;
     margin: 0;
     color: $tandem-text;
@@ -452,7 +523,7 @@ $tandem-pro: #f5a623;
   align-items: center;
   gap: 4px;
   padding: 3px 10px;
-  font-size: 0.75rem;
+  font-size: var(--bt-text-xs);
   font-weight: 700;
   text-transform: uppercase;
   background: linear-gradient(135deg, #fff3cd, #ffe69b);
@@ -507,7 +578,7 @@ $tandem-pro: #f5a623;
   }
 
   h5 {
-    font-size: 0.95rem;
+    font-size: var(--bt-text-sm);
     font-weight: 700;
     margin: 0;
   }
@@ -543,7 +614,7 @@ $tandem-pro: #f5a623;
 }
 
 .highlighted-card__topic {
-  font-size: 0.75rem;
+  font-size: var(--bt-text-xs);
   color: $tandem-muted;
   line-height: 1.35;
   display: -webkit-box;
@@ -561,7 +632,7 @@ $tandem-pro: #f5a623;
   background: $tandem-pro;
   color: #fff;
   font-weight: 700;
-  font-size: 0.75rem;
+  font-size: var(--bt-text-xs);
   cursor: pointer;
 
   &:hover {
@@ -577,82 +648,35 @@ $tandem-pro: #f5a623;
   justify-content: center;
 }
 
-/* ===== Visitors banner ===== */
-.visitors-banner {
-  margin: 16px 0;
-  padding: 16px 20px;
-  background: linear-gradient(135deg, #fff7ed 0%, #fff 100%);
-  border: 1px solid #fde68a;
-  border-radius: 16px;
-
-  h3 {
-    margin: 0 0 12px;
-    font-size: 1rem;
-    font-weight: 700;
-    color: $tandem-text;
-  }
-}
-
-.visitors-banner__bottom {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.visitors-banner__members {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.visitors-banner__avatars {
-  display: flex;
-
-  img {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid #fff;
-    margin-left: -8px;
-
-    &:first-child {
-      margin-left: 0;
-    }
-  }
-}
-
-.visitors-banner__see-all {
-  display: inline-flex;
-  align-items: center;
-  padding: 6px 14px;
-  background: $tandem-pro;
-  color: #fff;
-  font-weight: 600;
-  font-size: 0.8125rem;
-  border-radius: 999px;
-  text-decoration: none;
-
-  &:hover {
-    background: darken($tandem-pro, 5%);
-    color: #fff;
-    text-decoration: none;
-  }
-}
-
-/* ===== Member Grid ===== */
+/* ===== Member Grid =====
+   repeat(3, ...) rather than auto-fill: the column count is the design, not a
+   consequence of the container's width. minmax(0, 1fr) so a long unbroken name
+   cannot push its column wider than its share. */
 .community-grid {
-  margin-top: 16px;
+  margin-top: var(--bt-space-4);
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+/* The interleaved ad is a direct child of the grid, so without this it lands
+ * in whichever of the three columns its position falls into and shifts every
+ * following member across -- breaking the 3-per-row rhythm after each ad. */
+.community-grid__ad {
+  grid-column: 1 / -1;
+}
+
+/* A full-row item in the member grid, like .community-grid__ad: a carousel
+   that took one of three columns would shift every member after it. */
+/* The highlighted carousel, above the grid it showcases. */
+.community-highlights {
+  margin-bottom: var(--bt-space-3);
 }
 
 .community-grid__count {
   margin: 16px 0;
   color: $tandem-muted;
-  font-size: 0.8125rem;
+  font-size: var(--bt-text-sm);
 }
 
 /* ===== Tandem Member Card ===== */
@@ -661,19 +685,26 @@ $tandem-pro: #f5a623;
   flex-direction: column;
   background: #fff;
   border: 1px solid $tandem-border;
-  border-radius: 16px;
+  border-radius: 20px;
   overflow: hidden;
   text-decoration: none;
   color: $tandem-text;
-  transition: transform 0.15s ease, box-shadow 0.15s ease,
-    border-color 0.15s ease;
+  box-shadow: 0 1px 2px rgba(13, 19, 28, 0.04);
+  transition: transform 260ms $ease, box-shadow 260ms $ease,
+    border-color 260ms $ease;
 
   &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
-    border-color: #d1d5db;
+    transform: translateY(-3px);
+    /* Wide and offset down -- elevation, rather than the grey halo a tight
+       shadow gives. */
+    box-shadow: 0 16px 36px -18px rgba(13, 19, 28, 0.32);
+    border-color: rgba(0, 191, 165, 0.45);
     text-decoration: none;
     color: $tandem-text;
+  }
+
+  &:active {
+    transform: translateY(-1px);
   }
 }
 
@@ -735,10 +766,12 @@ $tandem-pro: #f5a623;
   gap: 8px;
 
   h3 {
-    font-size: 1rem;
+    font-family: var(--bt-font-display);
+    font-size: var(--bt-text-base);
     font-weight: 700;
+    letter-spacing: -0.018em;
     margin: 0;
-    color: $tandem-text;
+    color: $tandem-strong;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -750,7 +783,7 @@ $tandem-pro: #f5a623;
   align-items: center;
   padding: 2px 8px;
   border-radius: 999px;
-  font-size: 0.6875rem;
+  font-size: var(--bt-text-xs);
   font-weight: 700;
   letter-spacing: 0.04em;
 
@@ -761,7 +794,7 @@ $tandem-pro: #f5a623;
 }
 
 .tandem-member-card__topic {
-  font-size: 0.8125rem;
+  font-size: var(--bt-text-sm);
   color: $tandem-muted;
   line-height: 1.4;
   margin: 0;
@@ -787,16 +820,20 @@ $tandem-pro: #f5a623;
   padding: 4px 8px;
   background: $tandem-bg;
   border-radius: 999px;
-  font-size: 0.6875rem;
+  font-size: var(--bt-text-xs);
   color: $tandem-muted;
 
   &__label {
+    /* The label is a <small>, and the browser's 0.8em on that took the chip's
+       already-small type down to 9.6px -- unreadable, and not a size the chip
+       ever asked for. Inherit the chip's own size instead. */
+    font-size: inherit;
     font-weight: 700;
     letter-spacing: 0.04em;
   }
 
   &__flag {
-    font-size: 1rem;
+    font-size: var(--bt-text-base);
     line-height: 1;
   }
 
@@ -809,63 +846,127 @@ $tandem-pro: #f5a623;
 /* ===== Empty / loading states ===== */
 .community-empty {
   text-align: center;
-  padding: 60px 20px;
+  padding: 64px 24px;
+  margin: var(--bt-space-5) 0;
   color: $tandem-muted;
+  background: #fff;
+  border: 1px solid $tandem-border;
+  border-radius: 24px;
+  box-shadow: 0 1px 2px rgba(13, 19, 28, 0.04);
 
   h3 {
-    font-size: 1.125rem;
+    font-family: var(--bt-font-display);
+    font-size: var(--bt-text-xl);
     font-weight: 700;
-    color: $tandem-text;
-    margin-bottom: 6px;
+    letter-spacing: -0.022em;
+    color: $tandem-strong;
+    margin: 0 0 6px;
   }
 
   p {
-    margin: 0 0 16px;
+    margin: 0 auto 20px;
+    max-width: 38ch;
+    font-size: var(--bt-text-sm);
+    line-height: 1.6;
+  }
+
+  svg {
+    color: $tandem-border;
+  }
+}
+
+.community-empty__icon {
+  width: 44px;
+  height: 44px;
+  margin: 0 auto 14px;
+  display: block;
+  color: #c7cfda; /* ink-300 */
+}
+
+/* The single action inside an empty or error state. Brand-filled: it is the
+   only thing on the screen worth pressing. */
+.community-empty__action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 26px;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(135deg, $brand-deep 0%, $brand-deepest 100%);
+  color: #fff;
+  font-family: var(--bt-font-display);
+  font-size: var(--bt-text-sm);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  box-shadow: 0 8px 20px -10px rgba(0, 191, 165, 0.85);
+  transition: all 200ms $ease;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 12px 26px -10px rgba(0, 191, 165, 0.9);
+  }
+
+  &:active {
+    transform: translateY(0);
   }
 }
 
 .community-loadmore {
   display: flex;
   justify-content: center;
-  margin: 24px 0 48px;
+  margin: var(--bt-space-5) 0 var(--bt-space-7);
 
   button {
-    background: $tandem-text;
-    color: #fff;
-    border: none;
-    padding: 10px 24px;
+    background: #fff;
+    color: $tandem-strong;
+    border: 1px solid $tandem-border;
+    padding: 11px 28px;
     border-radius: 999px;
-    font-weight: 600;
+    font-family: var(--bt-font-display);
+    font-size: var(--bt-text-sm);
+    font-weight: 700;
+    letter-spacing: -0.01em;
     cursor: pointer;
+    box-shadow: 0 1px 2px rgba(13, 19, 28, 0.04);
+    transition: all 200ms $ease;
 
     &:disabled {
-      opacity: 0.6;
+      opacity: 0.55;
       cursor: not-allowed;
     }
 
+    /* Secondary by design: "load more" should never outrank a member card. */
     &:hover:not(:disabled) {
-      background: lighten($tandem-text, 10%);
+      border-color: rgba(0, 191, 165, 0.45);
+      color: $brand-dark;
+      transform: translateY(-1px);
+      box-shadow: 0 10px 24px -14px rgba(13, 19, 28, 0.4);
     }
   }
 }
 
 /* ===== Responsive ===== */
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   .community-grid {
-    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
-    gap: 14px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
   }
 }
 
 @media (max-width: 640px) {
+  /* One place for the narrow-viewport gutters. They used to be declared
+     twice -- nested in each block and again here -- and the nested pair was
+     dead, being earlier in the cascade at equal specificity. */
   .community-page__container {
-    padding: 0 12px;
+    padding: 0 14px 8px;
   }
 
   .community-subnav__container {
     flex-direction: column;
     align-items: stretch;
-    padding: 10px 12px;
+    padding: 12px 14px;
   }
 
   .community-subnav__buttons {
@@ -893,22 +994,17 @@ $tandem-pro: #f5a623;
     min-width: 0;
   }
 
-  .community-grid {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 10px;
-  }
-
   .tandem-member-card__content {
     padding: 10px 12px 12px;
     gap: 8px;
   }
 
   .tandem-member-card__first-row h3 {
-    font-size: 0.9375rem;
+    font-size: var(--bt-text-sm);
   }
 
   .tandem-member-card__topic {
-    font-size: 0.75rem;
+    font-size: var(--bt-text-xs);
   }
 
   .highlighted-banner__header {
@@ -920,21 +1016,13 @@ $tandem-pro: #f5a623;
     padding: 14px 10px;
 
     h5 {
-      font-size: 0.875rem;
+      font-size: var(--bt-text-sm);
     }
   }
 
   .highlighted-card__avatar {
     width: 64px;
     height: 64px;
-  }
-
-  .visitors-banner {
-    padding: 14px 16px;
-
-    h3 {
-      font-size: 0.9375rem;
-    }
   }
 
   /* Bottom-sheet variant of the filter panel on small screens */
@@ -961,7 +1049,7 @@ $tandem-pro: #f5a623;
 
 @media (max-width: 380px) {
   .community-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(1, minmax(0, 1fr));
   }
 }
 
@@ -1004,6 +1092,12 @@ $tandem-pro: #f5a623;
     }
   }
 
+  /* Same contrast debt as the light-mode rule (~130): not fixed here. */
+  .community-subnav__visitors {
+    background: #3f1d22;
+    color: #ff8890;
+  }
+
   .tandem-member-card,
   .highlighted-card {
     background: #1e293b;
@@ -1029,12 +1123,173 @@ $tandem-pro: #f5a623;
     }
   }
 
-  .visitors-banner {
-    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  /* The empty/error card and the load-more button were re-skinned white in
+     the light theme and never got dark counterparts, so both stayed white
+     slabs on a #0f172a page. */
+  .community-empty {
+    background: #1e293b;
     border-color: #334155;
+    color: #94a3b8;
 
     h3 {
       color: #e5e7eb;
     }
+
+    svg {
+      color: #334155;
+    }
+  }
+
+  .community-empty__icon {
+    color: #475569;
+  }
+
+  .community-loadmore button {
+    background: #1e293b;
+    color: #e5e7eb;
+    border-color: #334155;
+
+    &:hover:not(:disabled) {
+      border-color: rgba(0, 191, 165, 0.45);
+      color: $brand;
+    }
+  }
+}
+
+/* ===== The list's own performance furniture =====
+ *
+ * Three small pieces that only exist to make a long member list cheap: the
+ * slot the browser is allowed to skip, the placeholder that holds a row's
+ * height while it loads, and the sentinel that asks for the next page.
+ */
+
+/* One card's slot in the grid.
+ *
+ * `content-visibility: auto` lets the browser skip style, layout and paint for
+ * every cell outside the viewport. `contain-intrinsic-size: auto 420px` is the
+ * height it assumes for a cell it has not measured yet, derived from the
+ * card's own layout rather than guessed: at the page's 1180px max-width with
+ * 20px side padding the content box is 1140px; three columns with two 20px
+ * gaps give (1140 - 40) / 3 = 366px per column. A 16:10 photo on a 366px
+ * column is 229px. Below it, the `p-4` info block adds 32px of its own
+ * padding, a 24px name line, a 24px language/level row, a 20px location row
+ * and a 20px bio line; the chip row (when there are match reasons) adds 34px;
+ * the full-width wave button foot is 44px. 229 + 32 + 24 + 24 + 20 + 20 + 34 +
+ * 44 = 427px, so 420px is the estimate that reaches the foot of the card
+ * rather than stopping at the photo. A wrong estimate here makes the
+ * scrollbar jump as cards render, which is worse than no content-visibility
+ * at all.
+ *
+ * The padding/negative-margin pair is not decoration: `content-visibility`
+ * brings paint containment with it, which clips to this box. Without the extra
+ * room the card's drop shadow would be sliced off at the edges and its 2px
+ * hover lift would be cut at the top. The margins cancel the padding exactly,
+ * so the slot's margin box is still the card's box and the grid's 20px gap is
+ * unchanged. */
+.community-card-slot {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 420px;
+  padding: 8px 8px 20px;
+  margin: -8px -8px -20px;
+  /* The grid stretches the slot to its row; this passes that height on to the
+   * card, so every card in a row ends on the same line. */
+  display: flex;
+  flex-direction: column;
+}
+
+/* A card-shaped placeholder, the same height and silhouette as the card it
+ * stands in for: a full-width 16:10 photo block, padded text lines below it,
+ * and a full-bleed foot bar where the wave button goes. */
+.community-card-skeleton {
+  display: flex;
+  flex-direction: column;
+  min-height: 420px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.community-card-skeleton__photo {
+  flex: 0 0 auto;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+}
+
+.community-card-skeleton__lines {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+}
+
+.community-card-skeleton__foot {
+  flex: 0 0 auto;
+  height: 44px;
+}
+
+.community-card-skeleton__line {
+  display: block;
+  height: 12px;
+  border-radius: 999px;
+
+  &--name {
+    width: 42%;
+    height: 14px;
+  }
+
+  &--meta {
+    width: 28%;
+  }
+
+  &--bio {
+    width: 64%;
+    height: 10px;
+  }
+}
+
+.community-card-skeleton__photo,
+.community-card-skeleton__line,
+.community-card-skeleton__foot {
+  background: linear-gradient(
+    90deg,
+    $tandem-border 0%,
+    lighten($tandem-border, 3%) 40%,
+    $tandem-border 80%
+  );
+  background-size: 300% 100%;
+  animation: community-skeleton-sweep 1.4s ease-in-out infinite;
+}
+
+@keyframes community-skeleton-sweep {
+  0% {
+    background-position: 120% 0;
+  }
+  100% {
+    background-position: -20% 0;
+  }
+}
+
+/* What the IntersectionObserver watches. It carries no content and no height
+   of its own -- the observer's rootMargin does the anticipating. */
+.community-sentinel {
+  width: 100%;
+  height: 1px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .community-card-skeleton {
+    background: #1e293b;
+    border-color: #334155;
+    box-shadow: none;
+  }
+
+  .community-card-skeleton__photo,
+  .community-card-skeleton__line,
+  .community-card-skeleton__foot {
+    background: linear-gradient(90deg, #334155 0%, #3f4d61 40%, #334155 80%);
+    background-size: 300% 100%;
   }
 }

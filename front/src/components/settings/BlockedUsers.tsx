@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { useGetBlockedUsersQuery, useUnblockUserMutation } from "../../store/slices/usersSlice";
 import { Bounce, toast } from "react-toastify";
@@ -14,7 +15,15 @@ interface BlockedUser {
 const BlockedUsers: React.FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { data, isLoading, refetch } = useGetBlockedUsersQuery({});
+  // The route is `/users/:userId/blocked` and the backend only ever answers
+  // for the caller's own id, so the viewer's id is part of the request.
+  const viewerId = useSelector(
+    (state: any) => state.auth.userInfo?.user?._id || state.auth.userInfo?._id
+  );
+  const { data, isLoading, refetch } = useGetBlockedUsersQuery(
+    { userId: viewerId },
+    { skip: !viewerId }
+  );
   const [unblockUser, { isLoading: isUnblocking }] = useUnblockUserMutation();
 
   const blockedUsers: BlockedUser[] = data?.data || [];

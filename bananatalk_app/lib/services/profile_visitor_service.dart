@@ -115,6 +115,7 @@ class ProfileVisitorService {
           'locked': data['locked'] ?? 0,
           // Present only on the gated (?reveal=1) shape.
           if (data['maskedCount'] != null) 'maskedCount': data['maskedCount'],
+          if (data['revealUntil'] != null) 'revealUntil': data['revealUntil'],
         };
       } else {
         return {

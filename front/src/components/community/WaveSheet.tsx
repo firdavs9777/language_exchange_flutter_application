@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { X, Loader2, PartyPopper, Hand } from "lucide-react";
 import { Bounce, toast } from "react-toastify";
 import { useSendWaveMutation } from "../../store/slices/communitySlice";
+import ConfirmDialog from "../../design/ConfirmDialog";
+
+/** Body code of the daily wave-cap 429 (checkLimitations.js checkWaveLimit). */
+const WAVE_CAP_CODE = "wave_cap";
+const VIP_PAGE = "/settings/vip";
 
 /** Minimal shape needed to send + render a wave target — matches
  * `CommunityMemberCard` (MemberCard.tsx) but kept loose so this sheet can be
@@ -17,17 +23,26 @@ export interface WaveSheetProps {
   open: boolean;
   targetUser: WaveTargetUser | null;
   onClose: () => void;
+  /**
+   * The server now holds a wave from the viewer to this person: fired after a
+   * sent wave, and after ALREADY_WAVED (an earlier one). Today's cards use it
+   * to stop offering a second wave.
+   */
+  onWaved?: (targetUserId: string, isMutual: boolean) => void;
 }
 
 const MESSAGE_MAX_LENGTH = 100;
 
-const EMOJI_CHIPS: { emoji: string; label: string; message: string }[] = [
-  { emoji: "👋", label: "Hi", message: "👋 Hi!" },
-  { emoji: "❤️", label: "Cool", message: "❤️ Cool profile!" },
-  { emoji: "😊", label: "Hey", message: "😊 Hey there!" },
-  { emoji: "🎉", label: "Chat", message: "🎉 Let's chat!" },
-  { emoji: "✋", label: "Hello", message: "✋ Hello!" },
-  { emoji: "🌟", label: "Nice", message: "🌟 Nice to meet you!" },
+// Copy lives in eng.json under waves.sheet.chips.<id>.{label,message}; the
+// English here is the fallback. The message is what the wave carries, so it
+// is sent in the waver's language, as typed text would be.
+const EMOJI_CHIPS: { id: string; emoji: string; label: string; message: string }[] = [
+  { id: "hi", emoji: "👋", label: "Hi", message: "👋 Hi!" },
+  { id: "cool", emoji: "❤️", label: "Cool", message: "❤️ Cool profile!" },
+  { id: "hey", emoji: "😊", label: "Hey", message: "😊 Hey there!" },
+  { id: "chat", emoji: "🎉", label: "Chat", message: "🎉 Let's chat!" },
+  { id: "hello", emoji: "✋", label: "Hello", message: "✋ Hello!" },
+  { id: "nice", emoji: "🌟", label: "Nice", message: "🌟 Nice to meet you!" },
 ];
 
 const ICEBREAKER_PROMPTS: string[] = [
@@ -37,10 +52,13 @@ const ICEBREAKER_PROMPTS: string[] = [
   "Hey! What made you start learning a new language?",
 ];
 
-const WaveSheet: React.FC<WaveSheetProps> = ({ open, targetUser, onClose }) => {
+const WaveSheet: React.FC<WaveSheetProps> = ({ open, targetUser, onClose, onWaved }) => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [message, setMessage] = useState("");
   const [alreadyWaved, setAlreadyWaved] = useState(false);
+  // The daily cap was hit: the sheet turns into the VIP dialog.
+  const [capReached, setCapReached] = useState(false);
   const [sendWave, { isLoading }] = useSendWaveMutation();
 
   // Reset local state every time the sheet opens for a (possibly new) target.
@@ -48,12 +66,40 @@ const WaveSheet: React.FC<WaveSheetProps> = ({ open, targetUser, onClose }) => {
     if (open) {
       setMessage("");
       setAlreadyWaved(false);
+      setCapReached(false);
     }
   }, [open, targetUser?._id]);
 
   if (!open || !targetUser) return null;
 
   const avatar = targetUser.imageUrls?.[0];
+  const chips = EMOJI_CHIPS.map((chip) => ({
+    ...chip,
+    label: t(`waves.sheet.chips.${chip.id}.label`) || chip.label,
+    message: t(`waves.sheet.chips.${chip.id}.message`) || chip.message,
+  }));
+  const icebreakers = ICEBREAKER_PROMPTS.map(
+    (fallback, i) => t(`waves.sheet.icebreakers.${i}`) || fallback
+  );
+  if (capReached) {
+    return (
+      <ConfirmDialog
+        open
+        title={t("waves.cap.title") || "Daily wave limit reached"}
+        body={
+          t("waves.cap.body") ||
+          "You've used today's free waves. VIP members can wave without a daily limit, or try again tomorrow."
+        }
+        confirmLabel={t("waves.cap.seeVip") || "See VIP"}
+        cancelLabel={t("waves.cap.notNow") || "Not now"}
+        onConfirm={() => {
+          onClose();
+          navigate(VIP_PAGE);
+        }}
+        onCancel={onClose}
+      />
+    );
+  }
 
   const handleChipClick = (chipMessage: string) => {
     setMessage(chipMessage.slice(0, MESSAGE_MAX_LENGTH));
@@ -68,14 +114,16 @@ const WaveSheet: React.FC<WaveSheetProps> = ({ open, targetUser, onClose }) => {
       }).unwrap();
 
       const isMutual = !!result?.data?.isMutual;
+      if (onWaved) onWaved(targetUser._id, isMutual);
       if (isMutual) {
         toast.success(
-          `🎉 It's a match! You and ${targetUser.name} both waved at each other.`,
+          t("waves.sheet.match", { name: targetUser.name }) ||
+            `🎉 It's a match! You and ${targetUser.name} both waved at each other.`,
           { position: "top-right", autoClose: 3500, theme: "dark", transition: Bounce }
         );
       } else {
         toast.success(
-          t("community.waves.sentTo", { name: targetUser.name }) ||
+          t("waves.sheet.sent", { name: targetUser.name }) ||
             `Wave sent to ${targetUser.name}!`,
           { position: "top-right", autoClose: 2000, theme: "dark", transition: Bounce }
         );
@@ -85,12 +133,20 @@ const WaveSheet: React.FC<WaveSheetProps> = ({ open, targetUser, onClose }) => {
       const code = err?.data?.code;
       if (code === "ALREADY_WAVED") {
         setAlreadyWaved(true);
+        if (onWaved) onWaved(targetUser._id, false);
+        return;
+      }
+      // The daily cap. The server answers 429 with this code only while
+      // WAVE_CAP_ENABLED is on; the route's rate limiter sends a 429 with no
+      // code and keeps the plain toast below (the app's waveErrorAction).
+      if (err?.status === 429 && code === WAVE_CAP_CODE) {
+        setCapReached(true);
         return;
       }
       toast.error(
         err?.data?.error ||
           err?.data?.message ||
-          t("community.waves.sendError") ||
+          t("waves.sheet.sendError") ||
           "Failed to send wave",
         { position: "top-right", autoClose: 3000, theme: "dark", transition: Bounce }
       );
@@ -102,7 +158,7 @@ const WaveSheet: React.FC<WaveSheetProps> = ({ open, targetUser, onClose }) => {
       className="fixed inset-0 z-50 flex items-end sm:items-center justify-center"
       role="dialog"
       aria-modal="true"
-      aria-label={`Send a wave to ${targetUser.name}`}
+      aria-label={t("waves.sheet.title", { name: targetUser.name }) || `Send a wave to ${targetUser.name}`}
     >
       <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={onClose} />
 
@@ -123,14 +179,14 @@ const WaveSheet: React.FC<WaveSheetProps> = ({ open, targetUser, onClose }) => {
           </div>
           <div className="flex-1 min-w-0">
             <h2 className="text-base font-semibold truncate">
-              Send a wave to {targetUser.name}
+              {t("waves.sheet.title", { name: targetUser.name }) || `Send a wave to ${targetUser.name}`}
             </h2>
-            <p className="text-xs text-teal-50">Say hi and break the ice 👋</p>
+            <p className="text-xs text-teal-50">{t("waves.sheet.subtitle") || "Say hi and break the ice 👋"}</p>
           </div>
           <button
             type="button"
             onClick={onClose}
-            aria-label="Close"
+            aria-label={t("waves.sheet.close") || "Close"}
             className="p-2 hover:bg-white/10 rounded-full transition-colors shrink-0"
           >
             <X className="w-5 h-5" />
@@ -145,11 +201,11 @@ const WaveSheet: React.FC<WaveSheetProps> = ({ open, targetUser, onClose }) => {
                 <Hand className="w-8 h-8 text-teal-500" />
               </div>
               <p className="text-gray-700 font-medium">
-                You already waved at {targetUser.name}
+                {t("waves.sheet.alreadyTitle", { name: targetUser.name }) || `You already waved at ${targetUser.name}`}
               </p>
               <p className="text-sm text-gray-500">
-                You can only wave once per person — send them a message instead to keep
-                the conversation going.
+                {t("waves.sheet.alreadyBody") ||
+                  "You can only wave once per person — send them a message instead to keep the conversation going."}
               </p>
             </div>
           ) : (
@@ -157,12 +213,12 @@ const WaveSheet: React.FC<WaveSheetProps> = ({ open, targetUser, onClose }) => {
               {/* Emoji quick-reply chips */}
               <section>
                 <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-2">
-                  Quick replies
+                  {t("waves.sheet.quickReplies") || "Quick replies"}
                 </h3>
                 <div className="flex flex-wrap gap-2">
-                  {EMOJI_CHIPS.map((chip) => (
+                  {chips.map((chip) => (
                     <button
-                      key={chip.label}
+                      key={chip.id}
                       type="button"
                       onClick={() => handleChipClick(chip.message)}
                       className={`flex items-center gap-1.5 px-3 py-2 rounded-full text-sm font-medium transition-all ${
@@ -181,15 +237,15 @@ const WaveSheet: React.FC<WaveSheetProps> = ({ open, targetUser, onClose }) => {
               {/* Icebreaker prompts */}
               <section>
                 <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-2">
-                  Icebreakers
+                  {t("waves.sheet.icebreakersTitle") || "Icebreakers"}
                 </h3>
                 <div className="flex flex-col gap-2">
-                  {ICEBREAKER_PROMPTS.map((prompt) => (
+                  {icebreakers.map((prompt) => (
                     <button
                       key={prompt}
                       type="button"
                       onClick={() => handleChipClick(prompt)}
-                      className={`text-left px-3 py-2 rounded-xl text-sm transition-all border ${
+                      className={`text-start px-3 py-2 rounded-xl text-sm transition-all border ${
                         message === prompt
                           ? "bg-teal-50 border-teal-300 text-teal-700"
                           : "bg-white border-gray-200 text-gray-600 hover:bg-gray-50"
@@ -204,17 +260,17 @@ const WaveSheet: React.FC<WaveSheetProps> = ({ open, targetUser, onClose }) => {
               {/* Custom message */}
               <section>
                 <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-2">
-                  Your message
+                  {t("waves.sheet.yourMessage") || "Your message"}
                 </h3>
                 <textarea
                   value={message}
                   onChange={(e) => setMessage(e.target.value.slice(0, MESSAGE_MAX_LENGTH))}
-                  placeholder="Write a custom message (optional)…"
+                  placeholder={t("waves.sheet.placeholder") || "Write a custom message (optional)…"}
                   rows={3}
                   maxLength={MESSAGE_MAX_LENGTH}
                   className="w-full rounded-xl border border-gray-200 px-3 py-2 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-teal-400 resize-none"
                 />
-                <div className="text-right text-xs text-gray-400 mt-1">
+                <div className="text-end text-xs text-gray-400 mt-1">
                   {message.length}/{MESSAGE_MAX_LENGTH}
                 </div>
               </section>
@@ -229,7 +285,7 @@ const WaveSheet: React.FC<WaveSheetProps> = ({ open, targetUser, onClose }) => {
             onClick={onClose}
             className="flex-1 py-3 rounded-xl font-medium text-gray-600 bg-gray-100 hover:bg-gray-200 transition-colors"
           >
-            {alreadyWaved ? "Close" : "Cancel"}
+            {alreadyWaved ? t("waves.sheet.close") || "Close" : t("waves.sheet.cancel") || "Cancel"}
           </button>
           <button
             type="button"
@@ -243,7 +299,7 @@ const WaveSheet: React.FC<WaveSheetProps> = ({ open, targetUser, onClose }) => {
             ) : (
               <PartyPopper className="w-4 h-4" />
             )}
-            {alreadyWaved ? "Already waved" : "Send wave"}
+            {alreadyWaved ? t("waves.sheet.already") || "Already waved" : t("waves.sheet.send") || "Send wave"}
           </button>
         </div>
       </div>

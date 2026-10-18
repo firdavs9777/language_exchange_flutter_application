@@ -3,8 +3,9 @@
 // exactly once per mounted unit — guarded so React 18 StrictMode double-mounts
 // and re-renders don't trigger the "already have ads in this slot" error.
 import React, { useEffect, useRef } from "react";
-import { ADSENSE_CLIENT, adsEnabled, adsTestMode } from "./adsenseConfig";
+import { adsenseClient, adsEnabled, adsTestMode } from "./adsenseConfig";
 import { loadAdSense } from "./loadAdSense";
+import { useAdsAllowed } from "./useAdsAllowed";
 
 declare global {
   interface Window {
@@ -30,9 +31,13 @@ const AdUnit: React.FC<AdUnitProps> = ({
   style,
 }) => {
   const pushedRef = useRef(false);
+  // VIP is read from the store, so the unit disappears the moment a session
+  // with an ad-free subscription is restored, and never pushes for one.
+  const allowed = useAdsAllowed();
+  const active = allowed && adsEnabled() && !!slot;
 
   useEffect(() => {
-    if (!adsEnabled() || !slot || !ADSENSE_CLIENT) return;
+    if (!active) return;
     if (pushedRef.current) return;
     pushedRef.current = true;
 
@@ -42,17 +47,18 @@ const AdUnit: React.FC<AdUnitProps> = ({
     } catch (err) {
       console.warn("AdSense push failed", err);
     }
-  }, [slot]);
+  }, [active, slot]);
 
-  // Non-breaking: render nothing until an ad client + slot are configured.
-  if (!adsEnabled() || !slot || !ADSENSE_CLIENT) return null;
+  // Non-breaking: render nothing until an ad client + slot are configured,
+  // and nothing at all for VIP users.
+  if (!active) return null;
 
   return (
     <div className={className}>
       <ins
         className="adsbygoogle"
         style={{ display: "block", ...style }}
-        data-ad-client={ADSENSE_CLIENT}
+        data-ad-client={adsenseClient()}
         data-ad-slot={slot}
         data-ad-format={format || "auto"}
         data-full-width-responsive={responsive === false ? "false" : "true"}

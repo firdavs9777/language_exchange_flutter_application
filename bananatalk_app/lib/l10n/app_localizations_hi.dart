@@ -12419,4 +12419,14 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get vocabPacksBrowse => 'सेट देखें';
+
+  @override
+  String visitorsReveal24h(int cost) {
+    return '$cost 💎 में 24 घंटे तक सभी देखें, या VIP लें';
+  }
+
+  @override
+  String visitorsUnlockedLeft(String time) {
+    return 'अनलॉक · $time बाकी';
+  }
 }

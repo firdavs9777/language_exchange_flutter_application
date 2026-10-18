@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
+import { switchLanguage } from "../../utils/switchLanguage";
 import { RootState } from "../../store";
 import { useUpdateUserInfoMutation } from "../../store/slices/usersSlice";
 import { Bounce, toast } from "react-toastify";
@@ -59,14 +60,25 @@ const LanguageSettings: React.FC = () => {
   const user = userInfo?.user;
   const [updateUserInfo, { isLoading }] = useUpdateUserInfoMutation();
 
-  const [appLanguage, setAppLanguage] = useState(i18n.language);
+  // resolvedLanguage, not language: with locales loaded on demand i18next may
+  // hold a region code ("ko-KR") whose active bundle is the base language.
+  const [appLanguage, setAppLanguage] = useState(i18n.resolvedLanguage || i18n.language);
+  const requestedLanguage = useRef<string | null>(null);
   const [nativeLanguage, setNativeLanguage] = useState(user?.native_language || "English");
   const [learningLanguage, setLearningLanguage] = useState(user?.language_to_learn || "Korean");
   const [hasChanges, setHasChanges] = useState(false);
 
   const handleAppLanguageChange = (code: string) => {
     setAppLanguage(code);
-    i18n.changeLanguage(code);
+    requestedLanguage.current = code;
+    // The bundle is a chunk now, so two taps inside one load window settle in
+    // network order and i18next keeps whichever *arrived* last, not whichever
+    // was *asked for* last. Re-apply the last request once a switch settles;
+    // the re-apply's own callback finds them in agreement and stops.
+    void switchLanguage(i18n, code).then(() => {
+      const wanted = requestedLanguage.current;
+      if (wanted && wanted !== i18n.language) void switchLanguage(i18n, wanted);
+    });
     localStorage.setItem("i18nextLng", code);
   };
 

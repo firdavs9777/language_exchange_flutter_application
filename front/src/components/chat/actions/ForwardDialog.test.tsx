@@ -5,6 +5,10 @@ import { configureStore } from '@reduxjs/toolkit';
 import { apiSlice } from '../../../store/slices/apiSlice';
 import ForwardDialog from './ForwardDialog';
 
+jest.mock("react-i18next", () => ({
+  useTranslation: () => ({ t: () => "", i18n: { language: "en" } }),
+}));
+
 function makeStore() {
   return configureStore({
     reducer: {

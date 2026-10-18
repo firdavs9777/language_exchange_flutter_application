@@ -1,36 +1,81 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { setCredentials } from "../../store/slices/authSlice";
 import { Bounce, toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 import Loader from "../Loader";
-import { BASE_URL, USER_PROFILE_URL } from "../../constants";
+import { BASE_URL, GOOGLE_EXCHANGE_URL, USER_PROFILE_URL } from "../../constants";
+import { isProfileComplete, oauthCompletionState } from "./socialSignIn";
 
-// Helper function to check if user profile is complete
-const isProfileComplete = (userInfo: any): boolean => {
-  // If isRegistrationComplete is true, user is fully registered
-  if (userInfo?.isRegistrationComplete === true) {
-    return true;
+interface SignIn { user: any; token: string; refreshToken?: string }
+type Translate = (key: string) => string;
+
+const TOAST = { position: "top-right" as const, autoClose: 4000, theme: "dark" as const, transition: Bounce };
+
+/** Drop ?code= / ?token= from the address bar and history before anything awaits. */
+function scrubCallbackUrl(): void {
+  try {
+    window.history.replaceState(window.history.state, "", window.location.pathname);
+  } catch (e) {
+    // no history API (prerender) -- nothing to scrub
   }
+}
 
-  // Check profileCompleted flag
-  if (userInfo?.profileCompleted === false || userInfo?.profileCompleted === undefined) {
-    return false;
+async function exchangeCode(code: string): Promise<SignIn> {
+  const res = await fetch(`${BASE_URL}${GOOGLE_EXCHANGE_URL}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ code }),
+  });
+  let body: any = null;
+  try {
+    body = await res.json();
+  } catch (e) {
+    body = null;
   }
+  if (!res.ok || !body || !body.token) {
+    const err: any = new Error((body && (body.error || body.message)) || "Code exchange failed");
+    err.status = res.status;
+    err.code = body && body.code;
+    throw err;
+  }
+  return { user: body.user || body.data, token: body.token, refreshToken: body.refreshToken };
+}
 
-  // Verify required fields exist
-  const nativeLanguage = userInfo?.native_language;
-  const languageToLearn = userInfo?.language_to_learn;
-  const gender = userInfo?.gender;
+/** The pre-code flow: the JWT came in the URL. Kept until the backend drops `token=`. */
+async function legacyTokenSignIn(token: string): Promise<SignIn> {
+  const res = await fetch(`${BASE_URL}${USER_PROFILE_URL}`, {
+    method: "GET",
+    headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+  });
+  const body: any = res.ok ? await res.json() : null;
+  if (!body || !body.success || !body.data) {
+    const err: any = new Error("Failed to fetch user profile");
+    err.status = res.status;
+    throw err;
+  }
+  return { user: body.data, token };
+}
 
-  const hasDefaultValues =
-    (!nativeLanguage || nativeLanguage === "" || nativeLanguage === "English") &&
-    (!languageToLearn || languageToLearn === "" || languageToLearn === "Korean") &&
-    (!gender || gender === "other" || gender === "");
+function refusalMessage(t: Translate, reason: string | null, raw: string | null): string {
+  if (reason === "EMAIL_EXISTS") {
+    return t("authentication.callback.emailExists") || "An account with this email already exists. Sign in with your email and password.";
+  }
+  if (reason === "BANNED") return t("authentication.callback.banned") || "This account has been suspended.";
+  if (reason === "GOOGLE_FAILED" || !raw) return t("authentication.callback.generic") || "Sign in failed. Please try again.";
+  return raw;
+}
 
-  return !hasDefaultValues;
-};
+function failureMessage(t: Translate, err: any): string {
+  if (err && (err.status === 403 || err.code === "ACCOUNT_BANNED")) {
+    return t("authentication.callback.banned") || "This account has been suspended.";
+  }
+  if (err && err.code === "OAUTH_CODE_INVALID") {
+    return t("authentication.callback.codeExpired") || "This sign-in link has expired. Please sign in again.";
+  }
+  return t("authentication.callback.generic") || "Sign in failed. Please try again.";
+}
 
 const AuthCallback = () => {
   const { t } = useTranslation();
@@ -39,143 +84,98 @@ const AuthCallback = () => {
   const [searchParams] = useSearchParams();
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  // The code works once. React 18 StrictMode runs this effect twice in
+  // development; the ref survives that remount, so only one exchange is sent.
+  const started = useRef(false);
 
   useEffect(() => {
-    const handleCallback = async () => {
-      try {
-        const token = searchParams.get("token");
-        const errorParam = searchParams.get("error");
+    if (started.current) return;
+    started.current = true;
 
-        if (errorParam) {
-          setError(errorParam);
-          toast.error(errorParam, {
-            position: "top-right",
-            autoClose: 4000,
-            theme: "dark",
-            transition: Bounce,
-          });
-          setTimeout(() => navigate("/login"), 2000);
-          return;
-        }
+    const code = searchParams.get("code");
+    const token = searchParams.get("token");
+    const errorParam = searchParams.get("error");
+    const reason = searchParams.get("reason");
+    scrubCallbackUrl();
 
-        if (!token) {
-          setError("No authentication token received");
-          toast.error("Authentication failed. Please try again.", {
-            position: "top-right",
-            autoClose: 4000,
-            theme: "dark",
-            transition: Bounce,
-          });
-          setTimeout(() => navigate("/login"), 2000);
-          return;
-        }
+    const fail = (message: string) => {
+      setError(message);
+      setIsLoading(false);
+      toast.error(message, TOAST);
+      setTimeout(() => navigate("/login"), 2000);
+    };
 
-        // Fetch user profile with the token
-        const response = await fetch(`${BASE_URL}${USER_PROFILE_URL}`, {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
+    const finish = ({ user: userInfo, token: accessToken, refreshToken }: SignIn) => {
+      // Same shape as the email login (Login.tsx), so apiSlice can refresh it.
+      dispatch(
+        setCredentials({
+          user: userInfo,
+          token: accessToken,
+          refreshToken,
+          message: "Successfully authenticated with Google",
+        })
+      );
+      setIsLoading(false);
+
+      if (!isProfileComplete(userInfo)) {
+        toast.info(t("authentication.register.completeProfile") || "Please complete your profile to continue", {
+          ...TOAST,
+          autoClose: 3000,
         });
+        // OAuth users already have email + name — the SAME signup wizard in
+        // completion mode, starting at the languages step (socialSignIn.ts).
+        navigate("/register", { state: oauthCompletionState(userInfo, "google") });
+        return;
+      }
 
-        if (!response.ok) {
-          throw new Error("Failed to fetch user profile");
-        }
+      toast.success(t("authentication.login.successMessage") || "Login successful!", {
+        ...TOAST,
+        autoClose: 2000,
+        hideProgressBar: false,
+      });
+      const redirect = sessionStorage.getItem("oauth_redirect") || "/";
+      sessionStorage.removeItem("oauth_redirect");
+      navigate(redirect, { replace: true });
+    };
 
-        const responseData = await response.json();
+    if (errorParam || reason) {
+      fail(refusalMessage(t, reason, errorParam));
+      return;
+    }
+    if (!code && !token) {
+      fail(t("authentication.callback.noCode") || "Sign in didn't finish. Please try again.");
+      return;
+    }
 
-        if (!responseData.success || !responseData.data) {
-          throw new Error("Invalid response from server");
-        }
-
-        const userInfo = responseData.data;
-
-        // Set credentials with correct structure: { user: {...}, token: "..." }
-        // This matches what components expect (e.g., state.auth.userInfo?.user._id)
-        dispatch(
-          setCredentials({
-            user: userInfo,
-            token,
-            message: "Successfully authenticated with Google",
-          })
-        );
-
-        // Check if profile is complete
-        const profileComplete = isProfileComplete(userInfo);
-
-        if (!profileComplete) {
-          // Profile incomplete - redirect to Register step 2
-          toast.info(t("authentication.register.completeProfile") || "Please complete your profile to continue", {
-            position: "top-right",
-            autoClose: 3000,
-            theme: "dark",
-            transition: Bounce,
-          });
-
-          const normalizedGender = userInfo?.gender?.toLowerCase() || "other";
-
-          // OAuth users already have email + name — send them into the SAME
-          // signup wizard in completion mode, starting at the languages step
-          // (languages → photo → finish). The wizard's finish handler will
-          // patch the profile via updatedetails + record terms, NOT re-register.
-          navigate("/register", {
-            state: {
-              oauth: true,
-              startStep: "languages",
-              userData: {
-                _id: userInfo?._id || "",
-                name: userInfo?.name || "",
-                email: userInfo?.email || "",
-                bio: userInfo?.bio || "Hello! I joined using Google.",
-                gender: normalizedGender,
-                nativeLanguage: userInfo?.native_language || "",
-                languageToLearn: userInfo?.language_to_learn || "",
-                birthDate:
-                  userInfo?.birth_year && userInfo?.birth_month && userInfo?.birth_day
-                    ? `${userInfo.birth_year}-${String(userInfo.birth_month).padStart(2, "0")}-${String(userInfo.birth_day).padStart(2, "0")}`
-                    : "2000-01-01",
-              },
-            },
-          });
+    (async () => {
+      let signIn: SignIn;
+      try {
+        if (code) {
+          try {
+            signIn = await exchangeCode(code);
+          } catch (exchangeError) {
+            // Rollout window: the redirect still carries the legacy token.
+            if (!token) throw exchangeError;
+            signIn = await legacyTokenSignIn(token);
+          }
         } else {
-          // Profile complete - proceed with normal redirect
-          toast.success(t("authentication.login.successMessage") || "Login successful!", {
-            position: "top-right",
-            autoClose: 2000,
-            hideProgressBar: false,
-            theme: "dark",
-            transition: Bounce,
-          });
-
-          const redirect = sessionStorage.getItem("oauth_redirect") || "/";
-          sessionStorage.removeItem("oauth_redirect");
-          navigate(redirect);
+          signIn = await legacyTokenSignIn(token as string);
         }
       } catch (err: any) {
         console.error("OAuth callback error:", err);
-        setError(err.message || "Authentication failed");
-        toast.error(err.message || "Authentication failed. Please try again.", {
-          position: "top-right",
-          autoClose: 4000,
-          theme: "dark",
-          transition: Bounce,
-        });
-        setTimeout(() => navigate("/login"), 2000);
-      } finally {
-        setIsLoading(false);
+        fail(failureMessage(t, err));
+        return;
       }
-    };
-
-    handleCallback();
+      finish(signIn);
+    })();
   }, [searchParams, dispatch, navigate, t]);
 
   if (isLoading) {
     return (
       <div className="d-flex flex-column justify-content-center align-items-center" style={{ minHeight: "50vh" }}>
         <Loader />
-        <h5 className="mt-3">Completing Sign In...</h5>
-        <p className="text-muted">Please wait while we authenticate your account.</p>
+        <h5 className="mt-3">{t("authentication.callback.completing") || "Completing sign in..."}</h5>
+        <p className="text-muted">{t("authentication.callback.wait") || "Please wait while we sign you in."}</p>
       </div>
     );
   }
@@ -184,10 +184,10 @@ const AuthCallback = () => {
     return (
       <div className="d-flex flex-column justify-content-center align-items-center" style={{ minHeight: "50vh" }}>
         <div className="text-center">
-          <div className="text-danger mb-3" style={{ fontSize: "3rem" }}>✕</div>
-          <h5 className="text-danger">Authentication Failed</h5>
+          <div className="text-danger mb-3" style={{ fontSize: "3rem" }} aria-hidden="true">✕</div>
+          <h5 className="text-danger">{t("authentication.callback.failedTitle") || "Sign in failed"}</h5>
           <p className="text-muted">{error}</p>
-          <p className="text-muted">Redirecting to login...</p>
+          <p className="text-muted">{t("authentication.callback.redirecting") || "Taking you back to sign in..."}</p>
         </div>
       </div>
     );

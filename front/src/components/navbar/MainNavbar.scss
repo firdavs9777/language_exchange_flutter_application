@@ -1,43 +1,60 @@
-// === BananaTalk Navbar - Modern & Responsive ===
+// === BananaTalk Navbar ===
+//
+// Colours and type come from the app-wide tokens in src/index.css and
+// tailwind.config.js (see src/design/typography.test.ts). The SCSS variables
+// below are the same values, kept as variables only because this file uses
+// `rgba($primary, x)`, which needs a real colour rather than a CSS var.
 
 $primary: #00BFA5;
-$primary-dark: #009688;
-$primary-light: #4DD0B8;
-$dark: #0F172A;
-$dark-alt: #1E293B;
-$text-muted: #94A3B8;
-$radius: 12px;
-$transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+$primary-dark: #008E76;
+// The accessible pair. White text on $primary is 2.33:1 and on $primary-dark
+// is 4.09:1 -- both under AA at the 14px the login button uses. These are
+// 4.89:1 and 7.06:1.
+$primary-deep: #00806A;
+$primary-deepest: #00654F;
+$primary-light: #5DF2D6;
+$dark: #0D131C;      // ink-950
+$dark-alt: #171E29;  // ink-900
+$text-muted: #98A3B4; // ink-400
+$radius: 14px;
+$transition: all 200ms cubic-bezier(0.22, 1, 0.36, 1);
+
+$font-sans: var(--bt-font-sans);
+$font-display: var(--bt-font-display);
 
 // ============ HEADER ============
 .main-navbar {
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: $dark;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  font-family: $font-sans;
+  // A flat dark bar reads as a block of colour. The gradient is almost
+  // invisible on its own but it gives the bar a top edge to catch light on.
+  background: linear-gradient(180deg, #131A25 0%, $dark 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
   transition: $transition;
 
   &.scrolled {
-    background: rgba(15, 23, 42, 0.95);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
-    border-bottom-color: rgba(255, 255, 255, 0.08);
+    background: rgba(13, 19, 28, 0.78);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    box-shadow: 0 8px 32px -8px rgba(0, 0, 0, 0.55);
+    border-bottom-color: rgba(255, 255, 255, 0.1);
   }
 }
 
 .navbar-inner {
-  max-width: 1320px;
+  max-width: 1280px;
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 0 1.75rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 68px;
+  height: 72px;
+  gap: 1.5rem;
 
   @media (max-width: 768px) {
-    height: 60px;
+    height: 62px;
     padding: 0 1rem;
   }
 }
@@ -78,22 +95,26 @@ $transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .logo-name {
-  font-size: 1.25rem;
+  font-family: $font-display;
+  font-size: 1.3125rem;
   font-weight: 800;
-  color: white;
-  letter-spacing: -0.02em;
+  color: #fff;
+  // Wordmarks are the one place tracking should go properly tight.
+  letter-spacing: -0.034em;
 
   @media (max-width: 768px) {
-    font-size: 1.1rem;
+    font-size: 1.125rem;
   }
 }
 
 .logo-tagline {
-  font-size: 0.65rem;
+  font-family: $font-display;
+  font-size: 0.625rem;
   color: $primary-light;
-  font-weight: 500;
-  letter-spacing: 0.05em;
+  font-weight: 700;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
+  opacity: 0.85;
 }
 
 // ============ NAV LINKS (Desktop) ============
@@ -111,18 +132,42 @@ $transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.5rem 1rem;
-  color: $text-muted;
+  padding: 0.5rem 0.9375rem;
+  color: #B4BDCB;
   text-decoration: none;
-  font-size: 0.9rem;
-  font-weight: 500;
-  border-radius: 10px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: -0.008em;
+  border-radius: 999px;
   transition: $transition;
   position: relative;
 
   svg {
     font-size: 1rem;
     transition: $transition;
+  }
+
+  .navbar-icon-wrap {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .navbar-unread-badge {
+    position: absolute;
+    top: -6px;
+    right: -9px;
+    min-width: 16px;
+    height: 16px;
+    padding: 0 4px;
+    border-radius: 999px;
+    background: #ef4444;
+    color: #fff;
+    font-size: 0.6rem;
+    font-weight: 700;
+    line-height: 16px;
+    text-align: center;
   }
 
   &:hover {
@@ -133,22 +178,13 @@ $transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   &.active {
-    color: white;
-    background: rgba($primary, 0.12);
+    color: #fff;
+    // A filled pill with a faint inner edge: states the current page without
+    // the underline tick, which never lined up with a pill-shaped hover.
+    background: rgba($primary, 0.14);
+    box-shadow: inset 0 0 0 1px rgba($primary, 0.28);
 
-    svg { color: $primary; }
-
-    &::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 20px;
-      height: 2px;
-      background: $primary;
-      border-radius: 2px;
-    }
+    svg { color: $primary-light; }
   }
 }
 
@@ -209,10 +245,12 @@ $transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   position: absolute;
   top: calc(100% + 8px);
   right: 0;
-  background: $dark-alt;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: $radius;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  background: rgba(23, 30, 41, 0.97);
+  backdrop-filter: saturate(180%) blur(16px);
+  -webkit-backdrop-filter: saturate(180%) blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 18px;
+  box-shadow: 0 24px 64px -16px rgba(0, 0, 0, 0.65);
   animation: dropIn 0.2s ease;
   overflow: hidden;
   z-index: 9999;
@@ -231,10 +269,11 @@ $transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 
 .dropdown-header {
   padding: 0.75rem 1rem;
-  font-size: 0.7rem;
-  font-weight: 600;
+  font-family: $font-display;
+  font-size: 0.6875rem;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.14em;
   color: $text-muted;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
@@ -449,21 +488,26 @@ $transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.5rem 1.25rem;
-  background: $primary;
+  padding: 0.5625rem 1.375rem;
+  background: linear-gradient(135deg, $primary-deep 0%, $primary-deepest 100%);
   border: none;
-  border-radius: 50px;
+  border-radius: 999px;
   color: white;
   text-decoration: none;
-  font-size: 0.85rem;
-  font-weight: 600;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
   cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.18);
   transition: $transition;
 
   &:hover {
-    background: $primary-dark;
     transform: translateY(-1px);
-    box-shadow: 0 4px 15px rgba($primary, 0.3);
+    box-shadow: 0 8px 20px -6px rgba($primary, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.24);
+  }
+
+  &:active {
+    transform: translateY(0);
   }
 
   @media (max-width: 900px) {
@@ -553,8 +597,9 @@ $transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  /* 40, not 36: the only control that closes the mobile menu. */
+  width: 40px;
+  height: 40px;
   background: rgba(255, 255, 255, 0.06);
   border: none;
   border-radius: 10px;
@@ -608,10 +653,11 @@ $transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .mobile-section-title {
-  font-size: 0.7rem;
-  font-weight: 600;
+  font-family: $font-display;
+  font-size: 0.6875rem;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.14em;
   color: $text-muted;
   padding: 0.5rem 0.5rem 0.25rem;
 }
@@ -718,7 +764,8 @@ $transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   gap: 0.5rem;
   width: 100%;
   padding: 0.7rem;
-  background: $primary;
+  // Same reason as .login-btn: white on $primary is 2.33:1.
+  background: $primary-deep;
   border: none;
   border-radius: 10px;
   color: white;
@@ -728,6 +775,6 @@ $transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   transition: $transition;
 
   &:hover {
-    background: $primary-dark;
+    background: $primary-deepest;
   }
 }

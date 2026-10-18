@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Zap } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import LanguageFlagChip from "./LanguageFlagChip";
-import { TandemMember } from "./TandemMemberCard";
+import { TandemMember } from "./types";
 
 interface HighlightedProfilesCarouselProps {
   profiles: TandemMember[];

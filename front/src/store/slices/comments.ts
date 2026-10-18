@@ -1,43 +1,21 @@
 import { apiSlice } from "./apiSlice";
-// Adjust this path based on your project structure
-import { COMMENTS, MOMENTS_URL } from "../../constants";
 
-export interface CommentData {
-  text: string;
-}
-
+/**
+ * Historically this file held a second, thinner copy of the moment-comment
+ * endpoints (`getComments` / `addComment`). `momentsSlice` owns them now --
+ * `getMomentComments`, `addMomentComment`, `deleteMomentComment` plus the
+ * comment engagement endpoints (like, react, replies, image, translate) --
+ * and `src/components/moments/comments/` is their only caller, so the
+ * duplicates are gone.
+ *
+ * The module stays because `src/store/index.ts` registers this reducer under
+ * the `comments` key. It is the shared `apiSlice` reducer (injectEndpoints
+ * returns the same api object), so removing the key would change the store
+ * shape -- and the prerender's preloaded-state snapshot with it -- for no
+ * gain. Injecting no endpoints keeps that registration valid and adds nothing.
+ */
 export const commentsApiSlice = apiSlice.injectEndpoints({
-  endpoints: (builder: any) => ({
-    getComments: builder.query({
-      query: (momentId: string) => ({
-        url: `${MOMENTS_URL}/${momentId}/${COMMENTS}`,
-      }),
-      keepUnusedDataFor: 5,
-      providesTags: ["Comments"],
-    }),
-    addComment: builder.mutation({
-      query: ({
-        momentId,
-        newComment,
-      }: {
-        momentId: string;
-        newComment: string;
-      }) => ({
-        // Access token from Redux state
-        url: `${MOMENTS_URL}/${momentId}/${COMMENTS}`,
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: {
-          text: newComment,
-        },
-      }),
-      invalidatesTags: ["Comments"],
-    }),
-  }),
+  endpoints: () => ({}),
 });
-
-export const { useGetCommentsQuery, useAddCommentMutation } = commentsApiSlice;
 
 export default commentsApiSlice.reducer;

@@ -1,0 +1,3080 @@
+{
+  "ar": {
+    "common": {
+      "cancel": "إلغاء",
+      "retry": "إعادة المحاولة"
+    },
+    "communityCity": {
+      "back": "المجتمع",
+      "countries": "الدول",
+      "empty": "لا يوجد أحد مطابق هنا بعد. جرّب مكانًا آخر.",
+      "error": "تعذّر تحميل الأشخاص. حاول مرة أخرى.",
+      "more": "عرض المزيد",
+      "search": "بحث",
+      "searchPlaceholder": "ابحث عن مدينة",
+      "searchTitle": "أشخاص في «{{query}}»",
+      "title": "أشخاص حسب المكان"
+    },
+    "communityGenders": {
+      "back": "المجتمع",
+      "empty": "لا يوجد أحد مطابق بعد.",
+      "error": "تعذّر تحميل الأشخاص. حاول مرة أخرى.",
+      "female": "نساء",
+      "male": "رجال",
+      "more": "عرض المزيد",
+      "title": "تصفّح حسب الجنس"
+    },
+    "communityMain": {
+      "subnav": {
+        "city": "المدينة",
+        "genders": "الجنس"
+      }
+    },
+    "languageRooms": {
+      "create": {
+        "description": "الوصف (اختياري)",
+        "language": "اللغة",
+        "name": "الموضوع",
+        "submit": "إنشاء غرفة",
+        "title": "ابدأ غرفة موضوع"
+      },
+      "errors": {
+        "banned": "تمت إزالتك من هذه الغرفة. يمكنك أن تطلب من المالك السماح لك بالعودة.",
+        "busy": "لدى هذه الغرفة طلبات كثيرة جدًا الآن. حاول لاحقًا.",
+        "generic": "حدث خطأ ما. حاول مرة أخرى.",
+        "gone": "هذه الغرفة لم تعد متاحة.",
+        "owner": "لا يمكن إزالة المالك.",
+        "pending": "طلبك بانتظار موافقة المالك.",
+        "titleLength": "يمكن أن يصل الاسم إلى 60 حرفًا.",
+        "tooMany": "لديك 10 غرف بالفعل. احذف واحدة لتبدأ أخرى."
+      },
+      "list": {
+        "create": "غرفة موضوع جديدة",
+        "empty": "لا توجد غرف بعد.",
+        "error": "تعذّر تحميل غرف اللغات.",
+        "joined": "منضم",
+        "locked": "مقفلة",
+        "title": "غرف اللغات"
+      },
+      "owner": {
+        "admin": "مشرف",
+        "approve": "السماح بالدخول",
+        "deny": "رفض",
+        "members": "الأعضاء",
+        "noRequests": "لا أحد في الانتظار.",
+        "owner": "المالك",
+        "remove": "إزالة من الغرفة",
+        "removeNote": "يمكن للأعضاء المُزالين طلب العودة، والقرار لك.",
+        "removeYes": "إزالة",
+        "requests": "طلبات الانضمام"
+      },
+      "room": {
+        "back": "كل الغرف",
+        "join": "انضم إلى الغرفة",
+        "leave": "مغادرة الغرفة",
+        "media": "صورة أو فيديو — افتح التطبيق لمشاهدته",
+        "notSent": "لم تُرسل. حاول مرة أخرى.",
+        "older": "تحميل الرسائل الأقدم",
+        "online": "متصل",
+        "pending": "تم إرسال الطلب. سيسمح لك المالك بالدخول.",
+        "placeholder": "اكتب بلغة الغرفة…",
+        "request": "اطلب الانضمام",
+        "send": "إرسال",
+        "slowDown": "أنت ترسل بسرعة كبيرة. تمهّل قليلًا.",
+        "sticker": "ملصق",
+        "unsupported": "افتح التطبيق لرؤية هذه الرسالة",
+        "voice": "رسالة صوتية — افتح التطبيق للاستماع"
+      }
+    },
+    "nav": {
+      "languageRooms": "غرف اللغات",
+      "voiceRooms": "الغرف الصوتية"
+    },
+    "voiceRooms": {
+      "category": {
+        "casual": "دردشة عفوية",
+        "language_practice": "ممارسة اللغة",
+        "qa": "أسئلة وأجوبة",
+        "topic": "موضوع"
+      },
+      "create": {
+        "category": "نوع الغرفة",
+        "description": "عمّ ستتحدثون؟ (اختياري)",
+        "language": "اللغة",
+        "max": "الحد الأقصى لعدد الأشخاص",
+        "name": "اسم الغرفة",
+        "schedule": "جدولة",
+        "start": "ابدأ الغرفة",
+        "title": "ابدأ غرفة صوتية",
+        "when": "البدء لاحقًا (اختياري)"
+      },
+      "errors": {
+        "blocked": "لا يمكنك الانضمام إلى هذه الغرفة.",
+        "ended": "انتهت هذه الغرفة.",
+        "full": "هذه الغرفة ممتلئة.",
+        "generic": "حدث خطأ ما. حاول مرة أخرى.",
+        "gone": "هذه الغرفة لم تعد متاحة.",
+        "vipToCreate": "يتطلب إنشاء الغرف الصوتية اشتراك VIP."
+      },
+      "host": {
+        "end": "إنهاء الغرفة",
+        "endConfirm": "إنهاء الغرفة للجميع؟",
+        "endYes": "إنهاء الغرفة",
+        "hands": "الأيدي المرفوعة",
+        "makeCohost": "ترقية إلى مضيف مشارك",
+        "muteAll": "كتم صوت الجميع",
+        "noHands": "لم يرفع أحد يده.",
+        "speakNote": "يمكن لأي شخص في الغرفة أخذ الميكروفون. رفع اليد طلبٌ منك لأخذ دور.",
+        "title": "أدوات المضيف"
+      },
+      "list": {
+        "create": "ابدأ غرفة",
+        "emptyLive": "لا أحد يتحدث الآن. ابدأ غرفة وادعُ الآخرين.",
+        "emptyScheduled": "لا توجد غرف مجدولة بعد.",
+        "error": "تعذّر تحميل الغرف الصوتية.",
+        "full": "ممتلئة",
+        "going": "سأحضر ✓",
+        "join": "انضم",
+        "live": "مباشر الآن",
+        "rsvp": "ذكّرني",
+        "scheduled": "قريبًا",
+        "title": "الغرف الصوتية"
+      },
+      "room": {
+        "back": "كل الغرف",
+        "chat": "دردشة الغرفة",
+        "chatPlaceholder": "قل شيئًا…",
+        "connectFailed": "تعذّر الاتصال بصوت الغرفة. تحقّق من اتصالك وحاول مرة أخرى.",
+        "elsewhere": "انضممت إلى هذه الغرفة من علامة تبويب أو جهاز آخر.",
+        "enableSound": "اضغط لتشغيل صوت الغرفة",
+        "ended": "انتهت هذه الغرفة.",
+        "findAnother": "ابحث عن غرفة أخرى",
+        "handUp": "اليد مرفوعة",
+        "host": "المضيف",
+        "join": "انضم إلى الغرفة",
+        "joinHint": "ستنضم كمستمع. خذ الميكروفون متى كنت مستعدًا.",
+        "leave": "مغادرة",
+        "lost": "انقطع الاتصال بالغرفة.",
+        "lowerHand": "أنزل يدك",
+        "micDenied": "متصفحك يحظر الميكروفون. اسمح باستخدام الميكروفون لـ banatalk.com من شريط العنوان، ثم حاول مرة أخرى. يمكنك مواصلة الاستماع.",
+        "micError": "تعذّر تشغيل الميكروفون. حاول مرة أخرى.",
+        "micUnavailable": "لم يُعثر على ميكروفون (أو يستخدمه تطبيق آخر). يمكنك مواصلة الاستماع.",
+        "mute": "كتم الصوت",
+        "raiseHand": "ارفع يدك",
+        "reconnecting": "جارٍ إعادة الاتصال…",
+        "rejoin": "إعادة الانضمام",
+        "send": "إرسال",
+        "takeMic": "خذ الميكروفون",
+        "useHere": "استمع هنا بدلًا من ذلك",
+        "you": "أنت"
+      }
+    }
+  },
+  "de": {
+    "common": {
+      "cancel": "Abbrechen",
+      "retry": "Erneut versuchen"
+    },
+    "communityCity": {
+      "back": "Community",
+      "countries": "Länder",
+      "empty": "Hier passt noch niemand. Probier einen anderen Ort.",
+      "error": "Leute konnten nicht geladen werden. Versuch es noch mal.",
+      "more": "Mehr anzeigen",
+      "search": "Suchen",
+      "searchPlaceholder": "Stadt suchen",
+      "searchTitle": "Leute in „{{query}}“",
+      "title": "Leute nach Ort"
+    },
+    "communityGenders": {
+      "back": "Community",
+      "empty": "Noch passt niemand.",
+      "error": "Leute konnten nicht geladen werden. Versuch es noch mal.",
+      "female": "Frauen",
+      "male": "Männer",
+      "more": "Mehr anzeigen",
+      "title": "Nach Geschlecht stöbern"
+    },
+    "communityMain": {
+      "subnav": {
+        "city": "Stadt",
+        "genders": "Geschlechter"
+      }
+    },
+    "languageRooms": {
+      "create": {
+        "description": "Beschreibung (optional)",
+        "language": "Sprache",
+        "name": "Thema",
+        "submit": "Raum erstellen",
+        "title": "Themenraum starten"
+      },
+      "errors": {
+        "banned": "Du wurdest aus diesem Raum entfernt. Du kannst den Inhaber bitten, dich wieder reinzulassen.",
+        "busy": "Dieser Raum hat gerade zu viele Anfragen. Versuch es später.",
+        "generic": "Etwas ist schiefgelaufen. Versuch es noch mal.",
+        "gone": "Dieser Raum ist nicht mehr verfügbar.",
+        "owner": "Der Inhaber kann nicht entfernt werden.",
+        "pending": "Deine Anfrage wartet auf den Inhaber.",
+        "titleLength": "Der Name darf höchstens 60 Zeichen lang sein.",
+        "tooMany": "Du hast schon 10 Räume. Lösch einen, um einen neuen zu starten."
+      },
+      "list": {
+        "create": "Neuer Themenraum",
+        "empty": "Noch keine Räume.",
+        "error": "Sprachräume konnten nicht geladen werden.",
+        "joined": "Beigetreten",
+        "locked": "Gesperrt",
+        "title": "Sprachräume"
+      },
+      "owner": {
+        "admin": "Admin",
+        "approve": "Reinlassen",
+        "deny": "Ablehnen",
+        "members": "Mitglieder",
+        "noRequests": "Niemand wartet.",
+        "owner": "Inhaber",
+        "remove": "Aus dem Raum entfernen",
+        "removeNote": "Entfernte Mitglieder können um Rückkehr bitten – du entscheidest.",
+        "removeYes": "Entfernen",
+        "requests": "Beitrittsanfragen"
+      },
+      "room": {
+        "back": "Alle Räume",
+        "join": "Raum beitreten",
+        "leave": "Raum verlassen",
+        "media": "Foto oder Video – öffne die App, um es zu sehen",
+        "notSent": "Nicht gesendet. Versuch es noch mal.",
+        "older": "Ältere Nachrichten laden",
+        "online": "online",
+        "pending": "Anfrage gesendet. Der Inhaber lässt dich rein.",
+        "placeholder": "Schreib in der Sprache des Raums…",
+        "request": "Beitritt anfragen",
+        "send": "Senden",
+        "slowDown": "Du sendest zu schnell. Mach etwas langsamer.",
+        "sticker": "Sticker",
+        "unsupported": "Öffne die App, um diese Nachricht zu sehen",
+        "voice": "Sprachnachricht – öffne die App, um sie anzuhören"
+      }
+    },
+    "nav": {
+      "languageRooms": "Sprachräume",
+      "voiceRooms": "Voice-Räume"
+    },
+    "voiceRooms": {
+      "category": {
+        "casual": "Lockerer Plausch",
+        "language_practice": "Sprachpraxis",
+        "qa": "Fragen & Antworten",
+        "topic": "Thema"
+      },
+      "create": {
+        "category": "Art des Raums",
+        "description": "Worüber wollt ihr reden? (optional)",
+        "language": "Sprache",
+        "max": "Maximale Teilnehmerzahl",
+        "name": "Raumname",
+        "schedule": "Planen",
+        "start": "Raum starten",
+        "title": "Voice-Raum starten",
+        "when": "Später starten (optional)"
+      },
+      "errors": {
+        "blocked": "Du kannst diesem Raum nicht beitreten.",
+        "ended": "Dieser Raum ist beendet.",
+        "full": "Dieser Raum ist voll.",
+        "generic": "Etwas ist schiefgelaufen. Versuch es noch mal.",
+        "gone": "Dieser Raum ist nicht mehr verfügbar.",
+        "vipToCreate": "Zum Erstellen von Voice-Räumen brauchst du VIP."
+      },
+      "host": {
+        "end": "Raum beenden",
+        "endConfirm": "Raum für alle beenden?",
+        "endYes": "Raum beenden",
+        "hands": "Gehobene Hände",
+        "makeCohost": "Zum Co-Host machen",
+        "muteAll": "Alle stummschalten",
+        "noHands": "Niemand hat die Hand gehoben.",
+        "speakNote": "Alle im Raum können das Mikro nehmen. Mit einer gehobenen Hand bittet dich jemand ums Wort.",
+        "title": "Host-Tools"
+      },
+      "list": {
+        "create": "Raum starten",
+        "emptyLive": "Gerade redet niemand. Starte einen Raum und lade Leute ein.",
+        "emptyScheduled": "Noch keine Räume geplant.",
+        "error": "Voice-Räume konnten nicht geladen werden.",
+        "full": "Voll",
+        "going": "Dabei ✓",
+        "join": "Beitreten",
+        "live": "Jetzt live",
+        "rsvp": "Erinnere mich",
+        "scheduled": "Demnächst",
+        "title": "Voice-Räume"
+      },
+      "room": {
+        "back": "Alle Räume",
+        "chat": "Raum-Chat",
+        "chatPlaceholder": "Sag etwas…",
+        "connectFailed": "Verbindung zum Raum-Audio fehlgeschlagen. Prüf deine Verbindung und versuch es noch mal.",
+        "elsewhere": "Du bist diesem Raum in einem anderen Tab oder auf einem anderen Gerät beigetreten.",
+        "enableSound": "Tippen, um den Ton des Raums einzuschalten",
+        "ended": "Dieser Raum ist beendet.",
+        "findAnother": "Anderen Raum finden",
+        "handUp": "Hand gehoben",
+        "host": "Host",
+        "join": "Raum beitreten",
+        "joinHint": "Du trittst als Zuhörer bei. Nimm das Mikro, wann immer du bereit bist.",
+        "leave": "Verlassen",
+        "lost": "Die Verbindung zum Raum wurde getrennt.",
+        "lowerHand": "Hand senken",
+        "micDenied": "Dein Browser blockiert das Mikrofon. Erlaube das Mikrofon für banatalk.com in der Adressleiste und versuch es dann noch mal. Du kannst weiter zuhören.",
+        "micError": "Mikrofon konnte nicht eingeschaltet werden. Versuch es noch mal.",
+        "micUnavailable": "Kein Mikrofon gefunden (oder eine andere App nutzt es). Du kannst weiter zuhören.",
+        "mute": "Stummschalten",
+        "raiseHand": "Hand heben",
+        "reconnecting": "Verbindung wird wiederhergestellt…",
+        "rejoin": "Erneut beitreten",
+        "send": "Senden",
+        "takeMic": "Mikro nehmen",
+        "useHere": "Stattdessen hier zuhören",
+        "you": "du"
+      }
+    }
+  },
+  "eng": {
+    "common": {
+      "cancel": "Cancel",
+      "retry": "Retry"
+    },
+    "communityCity": {
+      "back": "Community",
+      "countries": "Countries",
+      "empty": "No one here matches yet. Try another place.",
+      "error": "Couldn't load people. Try again.",
+      "more": "Show more",
+      "search": "Search",
+      "searchPlaceholder": "Search a city",
+      "searchTitle": "People in “{{query}}”",
+      "title": "People by place"
+    },
+    "communityGenders": {
+      "back": "Community",
+      "empty": "No one matches yet.",
+      "error": "Couldn't load people. Try again.",
+      "female": "Women",
+      "male": "Men",
+      "more": "Show more",
+      "title": "Browse by gender"
+    },
+    "communityMain": {
+      "subnav": {
+        "city": "City",
+        "genders": "Genders"
+      }
+    },
+    "languageRooms": {
+      "create": {
+        "description": "Description (optional)",
+        "language": "Language",
+        "name": "Topic",
+        "submit": "Create room",
+        "title": "Start a topic room"
+      },
+      "errors": {
+        "banned": "You were removed from this room. You can ask the owner to let you back in.",
+        "busy": "This room has too many requests right now. Try later.",
+        "generic": "Something went wrong. Try again.",
+        "gone": "This room is no longer available.",
+        "owner": "The owner can't be removed.",
+        "pending": "Your request is waiting for the owner.",
+        "titleLength": "The name can be up to 60 characters.",
+        "tooMany": "You already have 10 rooms. Delete one to start another."
+      },
+      "list": {
+        "create": "New topic room",
+        "empty": "No rooms yet.",
+        "error": "Couldn't load language rooms.",
+        "joined": "Joined",
+        "locked": "Locked",
+        "title": "Language rooms"
+      },
+      "owner": {
+        "admin": "admin",
+        "approve": "Let in",
+        "deny": "Decline",
+        "members": "Members",
+        "noRequests": "No one is waiting.",
+        "owner": "owner",
+        "remove": "Remove from room",
+        "removeNote": "Removed members can ask to come back; you decide.",
+        "removeYes": "Remove",
+        "requests": "Join requests"
+      },
+      "room": {
+        "back": "All rooms",
+        "join": "Join room",
+        "leave": "Leave room",
+        "media": "Photo or video — open the app to see it",
+        "notSent": "Not sent. Try again.",
+        "older": "Load earlier messages",
+        "online": "online",
+        "pending": "Request sent. The owner will let you in.",
+        "placeholder": "Write in the room's language…",
+        "request": "Ask to join",
+        "send": "Send",
+        "slowDown": "You're sending too fast. Slow down a little.",
+        "sticker": "Sticker",
+        "unsupported": "Open the app to see this message",
+        "voice": "Voice message — open the app to listen"
+      }
+    },
+    "nav": {
+      "languageRooms": "Language rooms",
+      "voiceRooms": "Voice rooms"
+    },
+    "voiceRooms": {
+      "category": {
+        "casual": "Casual chat",
+        "language_practice": "Language practice",
+        "qa": "Q&A",
+        "topic": "Topic"
+      },
+      "create": {
+        "category": "Kind of room",
+        "description": "What will you talk about? (optional)",
+        "language": "Language",
+        "max": "Up to how many people",
+        "name": "Room name",
+        "schedule": "Schedule",
+        "start": "Start room",
+        "title": "Start a voice room",
+        "when": "Start later (optional)"
+      },
+      "errors": {
+        "blocked": "You can't join this room.",
+        "ended": "This room has ended.",
+        "full": "This room is full.",
+        "generic": "Something went wrong. Try again.",
+        "gone": "This room is no longer available.",
+        "vipToCreate": "Creating voice rooms needs a VIP plan."
+      },
+      "host": {
+        "end": "End room",
+        "endConfirm": "End the room for everyone?",
+        "endYes": "End room",
+        "hands": "Raised hands",
+        "makeCohost": "Make co-host",
+        "muteAll": "Mute everyone",
+        "noHands": "No one has raised a hand.",
+        "speakNote": "Anyone in the room can take the mic. A raised hand asks you for a turn.",
+        "title": "Host tools"
+      },
+      "list": {
+        "create": "Start a room",
+        "emptyLive": "No one is talking right now. Start a room and invite people in.",
+        "emptyScheduled": "No rooms are scheduled yet.",
+        "error": "Couldn't load voice rooms.",
+        "full": "Full",
+        "going": "Going ✓",
+        "join": "Join",
+        "live": "Live now",
+        "rsvp": "Remind me",
+        "scheduled": "Coming up",
+        "title": "Voice rooms"
+      },
+      "room": {
+        "back": "All rooms",
+        "chat": "Room chat",
+        "chatPlaceholder": "Say something…",
+        "connectFailed": "Couldn't connect to the room's audio. Check your connection and try again.",
+        "elsewhere": "You joined this room from another tab or device.",
+        "enableSound": "Tap to turn on the room's sound",
+        "ended": "This room has ended.",
+        "findAnother": "Find another room",
+        "handUp": "Hand raised",
+        "host": "Host",
+        "join": "Join room",
+        "joinHint": "You'll join as a listener. Take the mic whenever you're ready.",
+        "leave": "Leave",
+        "lost": "Connection to the room was lost.",
+        "lowerHand": "Lower hand",
+        "micDenied": "Your browser is blocking the microphone. Allow the microphone for banatalk.com in the address bar, then try again. You can keep listening.",
+        "micError": "Couldn't turn on the microphone. Try again.",
+        "micUnavailable": "No microphone was found (or another app is using it). You can keep listening.",
+        "mute": "Mute",
+        "raiseHand": "Raise hand",
+        "reconnecting": "Reconnecting…",
+        "rejoin": "Rejoin",
+        "send": "Send",
+        "takeMic": "Take the mic",
+        "useHere": "Listen here instead",
+        "you": "you"
+      }
+    }
+  },
+  "es": {
+    "common": {
+      "cancel": "Cancelar",
+      "retry": "Reintentar"
+    },
+    "communityCity": {
+      "back": "Comunidad",
+      "countries": "Países",
+      "empty": "Todavía no hay nadie aquí. Prueba otro lugar.",
+      "error": "No se pudieron cargar las personas. Inténtalo de nuevo.",
+      "more": "Ver más",
+      "search": "Buscar",
+      "searchPlaceholder": "Busca una ciudad",
+      "searchTitle": "Personas en «{{query}}»",
+      "title": "Personas por lugar"
+    },
+    "communityGenders": {
+      "back": "Comunidad",
+      "empty": "Todavía no hay coincidencias.",
+      "error": "No se pudieron cargar las personas. Inténtalo de nuevo.",
+      "female": "Mujeres",
+      "male": "Hombres",
+      "more": "Ver más",
+      "title": "Explorar por género"
+    },
+    "communityMain": {
+      "subnav": {
+        "city": "Ciudad",
+        "genders": "Géneros"
+      }
+    },
+    "languageRooms": {
+      "create": {
+        "description": "Descripción (opcional)",
+        "language": "Idioma",
+        "name": "Tema",
+        "submit": "Crear sala",
+        "title": "Crea una sala temática"
+      },
+      "errors": {
+        "banned": "Te eliminaron de esta sala. Puedes pedirle al propietario que te deje volver.",
+        "busy": "Esta sala tiene demasiadas solicitudes ahora. Inténtalo más tarde.",
+        "generic": "Algo salió mal. Inténtalo de nuevo.",
+        "gone": "Esta sala ya no está disponible.",
+        "owner": "No se puede eliminar al propietario.",
+        "pending": "Tu solicitud está esperando al propietario.",
+        "titleLength": "El nombre puede tener hasta 60 caracteres.",
+        "tooMany": "Ya tienes 10 salas. Elimina una para crear otra."
+      },
+      "list": {
+        "create": "Nueva sala temática",
+        "empty": "Todavía no hay salas.",
+        "error": "No se pudieron cargar las salas de idiomas.",
+        "joined": "Te uniste",
+        "locked": "Bloqueada",
+        "title": "Salas de idiomas"
+      },
+      "owner": {
+        "admin": "admin",
+        "approve": "Dejar entrar",
+        "deny": "Rechazar",
+        "members": "Miembros",
+        "noRequests": "No hay nadie esperando.",
+        "owner": "propietario",
+        "remove": "Eliminar de la sala",
+        "removeNote": "Los miembros eliminados pueden pedir volver; tú decides.",
+        "removeYes": "Eliminar",
+        "requests": "Solicitudes para unirse"
+      },
+      "room": {
+        "back": "Todas las salas",
+        "join": "Unirse a la sala",
+        "leave": "Salir de la sala",
+        "media": "Foto o video: abre la app para verlo",
+        "notSent": "No enviado. Inténtalo de nuevo.",
+        "older": "Cargar mensajes anteriores",
+        "online": "en línea",
+        "pending": "Solicitud enviada. El propietario te dejará entrar.",
+        "placeholder": "Escribe en el idioma de la sala…",
+        "request": "Solicitar unirse",
+        "send": "Enviar",
+        "slowDown": "Estás enviando muy rápido. Ve un poco más despacio.",
+        "sticker": "Sticker",
+        "unsupported": "Abre la app para ver este mensaje",
+        "voice": "Mensaje de voz: abre la app para escucharlo"
+      }
+    },
+    "nav": {
+      "languageRooms": "Salas de idiomas",
+      "voiceRooms": "Salas de voz"
+    },
+    "voiceRooms": {
+      "category": {
+        "casual": "Charla informal",
+        "language_practice": "Práctica de idiomas",
+        "qa": "Preguntas y respuestas",
+        "topic": "Tema"
+      },
+      "create": {
+        "category": "Tipo de sala",
+        "description": "¿De qué van a hablar? (opcional)",
+        "language": "Idioma",
+        "max": "Máximo de personas",
+        "name": "Nombre de la sala",
+        "schedule": "Programar",
+        "start": "Iniciar sala",
+        "title": "Inicia una sala de voz",
+        "when": "Empezar más tarde (opcional)"
+      },
+      "errors": {
+        "blocked": "No puedes unirte a esta sala.",
+        "ended": "Esta sala ha terminado.",
+        "full": "Esta sala está llena.",
+        "generic": "Algo salió mal. Inténtalo de nuevo.",
+        "gone": "Esta sala ya no está disponible.",
+        "vipToCreate": "Para crear salas de voz necesitas un plan VIP."
+      },
+      "host": {
+        "end": "Terminar sala",
+        "endConfirm": "¿Terminar la sala para todos?",
+        "endYes": "Terminar sala",
+        "hands": "Manos levantadas",
+        "makeCohost": "Hacer coanfitrión",
+        "muteAll": "Silenciar a todos",
+        "noHands": "Nadie ha levantado la mano.",
+        "speakNote": "Cualquiera en la sala puede tomar el micrófono. Una mano levantada te pide un turno.",
+        "title": "Herramientas del anfitrión"
+      },
+      "list": {
+        "create": "Iniciar una sala",
+        "emptyLive": "Nadie está hablando ahora. Inicia una sala e invita a otros.",
+        "emptyScheduled": "Todavía no hay salas programadas.",
+        "error": "No se pudieron cargar las salas de voz.",
+        "full": "Llena",
+        "going": "Asistiré ✓",
+        "join": "Unirse",
+        "live": "En vivo",
+        "rsvp": "Recordármelo",
+        "scheduled": "Próximamente",
+        "title": "Salas de voz"
+      },
+      "room": {
+        "back": "Todas las salas",
+        "chat": "Chat de la sala",
+        "chatPlaceholder": "Di algo…",
+        "connectFailed": "No se pudo conectar al audio de la sala. Revisa tu conexión e inténtalo de nuevo.",
+        "elsewhere": "Te uniste a esta sala desde otra pestaña o dispositivo.",
+        "enableSound": "Toca para activar el sonido de la sala",
+        "ended": "Esta sala ha terminado.",
+        "findAnother": "Buscar otra sala",
+        "handUp": "Mano levantada",
+        "host": "Anfitrión",
+        "join": "Unirse a la sala",
+        "joinHint": "Entrarás como oyente. Toma el micrófono cuando quieras.",
+        "leave": "Salir",
+        "lost": "Se perdió la conexión con la sala.",
+        "lowerHand": "Bajar la mano",
+        "micDenied": "Tu navegador está bloqueando el micrófono. Permite el micrófono para banatalk.com en la barra de direcciones y vuelve a intentarlo. Puedes seguir escuchando.",
+        "micError": "No se pudo activar el micrófono. Inténtalo de nuevo.",
+        "micUnavailable": "No se encontró ningún micrófono (o otra app lo está usando). Puedes seguir escuchando.",
+        "mute": "Silenciar",
+        "raiseHand": "Levantar la mano",
+        "reconnecting": "Reconectando…",
+        "rejoin": "Volver a unirse",
+        "send": "Enviar",
+        "takeMic": "Tomar el micrófono",
+        "useHere": "Escuchar aquí",
+        "you": "tú"
+      }
+    }
+  },
+  "fr": {
+    "common": {
+      "cancel": "Annuler",
+      "retry": "Réessayer"
+    },
+    "communityCity": {
+      "back": "Communauté",
+      "countries": "Pays",
+      "empty": "Personne ne correspond pour l'instant. Essayez un autre lieu.",
+      "error": "Impossible de charger les membres. Réessayez.",
+      "more": "Voir plus",
+      "search": "Rechercher",
+      "searchPlaceholder": "Rechercher une ville",
+      "searchTitle": "Membres à « {{query}} »",
+      "title": "Membres par lieu"
+    },
+    "communityGenders": {
+      "back": "Communauté",
+      "empty": "Personne ne correspond pour l'instant.",
+      "error": "Impossible de charger les membres. Réessayez.",
+      "female": "Femmes",
+      "male": "Hommes",
+      "more": "Voir plus",
+      "title": "Parcourir par genre"
+    },
+    "communityMain": {
+      "subnav": {
+        "city": "Ville",
+        "genders": "Genres"
+      }
+    },
+    "languageRooms": {
+      "create": {
+        "description": "Description (facultatif)",
+        "language": "Langue",
+        "name": "Sujet",
+        "submit": "Créer le salon",
+        "title": "Lancer un salon thématique"
+      },
+      "errors": {
+        "banned": "Vous avez été retiré de ce salon. Vous pouvez demander au propriétaire de vous réintégrer.",
+        "busy": "Ce salon reçoit trop de demandes en ce moment. Réessayez plus tard.",
+        "generic": "Un problème est survenu. Réessayez.",
+        "gone": "Ce salon n'est plus disponible.",
+        "owner": "Le propriétaire ne peut pas être retiré.",
+        "pending": "Votre demande attend la réponse du propriétaire.",
+        "titleLength": "Le nom peut contenir jusqu'à 60 caractères.",
+        "tooMany": "Vous avez déjà 10 salons. Supprimez-en un pour en créer un autre."
+      },
+      "list": {
+        "create": "Nouveau salon thématique",
+        "empty": "Aucun salon pour l'instant.",
+        "error": "Impossible de charger les salons de langue.",
+        "joined": "Rejoint",
+        "locked": "Verrouillé",
+        "title": "Salons de langue"
+      },
+      "owner": {
+        "admin": "admin",
+        "approve": "Accepter",
+        "deny": "Refuser",
+        "members": "Membres",
+        "noRequests": "Personne n'attend.",
+        "owner": "propriétaire",
+        "remove": "Retirer du salon",
+        "removeNote": "Les membres retirés peuvent demander à revenir ; c'est vous qui décidez.",
+        "removeYes": "Retirer",
+        "requests": "Demandes d'adhésion"
+      },
+      "room": {
+        "back": "Tous les salons",
+        "join": "Rejoindre le salon",
+        "leave": "Quitter le salon",
+        "media": "Photo ou vidéo — ouvrez l'application pour la voir",
+        "notSent": "Non envoyé. Réessayez.",
+        "older": "Charger les messages précédents",
+        "online": "en ligne",
+        "pending": "Demande envoyée. Le propriétaire va vous accepter.",
+        "placeholder": "Écrivez dans la langue du salon…",
+        "request": "Demander à rejoindre",
+        "send": "Envoyer",
+        "slowDown": "Vous envoyez trop vite. Ralentissez un peu.",
+        "sticker": "Sticker",
+        "unsupported": "Ouvrez l'application pour voir ce message",
+        "voice": "Message vocal — ouvrez l'application pour l'écouter"
+      }
+    },
+    "nav": {
+      "languageRooms": "Salons de langue",
+      "voiceRooms": "Salons vocaux"
+    },
+    "voiceRooms": {
+      "category": {
+        "casual": "Discussion libre",
+        "language_practice": "Pratique linguistique",
+        "qa": "Questions-réponses",
+        "topic": "Sujet"
+      },
+      "create": {
+        "category": "Type de salon",
+        "description": "De quoi allez-vous parler ? (facultatif)",
+        "language": "Langue",
+        "max": "Nombre maximal de personnes",
+        "name": "Nom du salon",
+        "schedule": "Programmer",
+        "start": "Lancer le salon",
+        "title": "Lancer un salon vocal",
+        "when": "Commencer plus tard (facultatif)"
+      },
+      "errors": {
+        "blocked": "Vous ne pouvez pas rejoindre ce salon.",
+        "ended": "Ce salon est terminé.",
+        "full": "Ce salon est complet.",
+        "generic": "Un problème est survenu. Réessayez.",
+        "gone": "Ce salon n'est plus disponible.",
+        "vipToCreate": "Créer des salons vocaux nécessite un abonnement VIP."
+      },
+      "host": {
+        "end": "Terminer le salon",
+        "endConfirm": "Terminer le salon pour tout le monde ?",
+        "endYes": "Terminer le salon",
+        "hands": "Mains levées",
+        "makeCohost": "Promouvoir co-hôte",
+        "muteAll": "Couper le micro de tous",
+        "noHands": "Personne n'a levé la main.",
+        "speakNote": "Tout le monde dans le salon peut prendre le micro. Une main levée vous demande la parole.",
+        "title": "Outils de l'hôte"
+      },
+      "list": {
+        "create": "Lancer un salon",
+        "emptyLive": "Personne ne parle en ce moment. Lancez un salon et invitez du monde.",
+        "emptyScheduled": "Aucun salon programmé pour l'instant.",
+        "error": "Impossible de charger les salons vocaux.",
+        "full": "Complet",
+        "going": "J'y serai ✓",
+        "join": "Rejoindre",
+        "live": "En direct",
+        "rsvp": "Me le rappeler",
+        "scheduled": "À venir",
+        "title": "Salons vocaux"
+      },
+      "room": {
+        "back": "Tous les salons",
+        "chat": "Chat du salon",
+        "chatPlaceholder": "Dites quelque chose…",
+        "connectFailed": "Impossible de se connecter à l'audio du salon. Vérifiez votre connexion et réessayez.",
+        "elsewhere": "Vous avez rejoint ce salon depuis un autre onglet ou appareil.",
+        "enableSound": "Touchez pour activer le son du salon",
+        "ended": "Ce salon est terminé.",
+        "findAnother": "Trouver un autre salon",
+        "handUp": "Main levée",
+        "host": "Hôte",
+        "join": "Rejoindre le salon",
+        "joinHint": "Vous rejoindrez en tant qu'auditeur. Prenez le micro quand vous voulez.",
+        "leave": "Quitter",
+        "lost": "La connexion au salon a été perdue.",
+        "lowerHand": "Baisser la main",
+        "micDenied": "Votre navigateur bloque le micro. Autorisez le micro pour banatalk.com dans la barre d'adresse, puis réessayez. Vous pouvez continuer à écouter.",
+        "micError": "Impossible d'activer le micro. Réessayez.",
+        "micUnavailable": "Aucun micro détecté (ou une autre application l'utilise). Vous pouvez continuer à écouter.",
+        "mute": "Couper le micro",
+        "raiseHand": "Lever la main",
+        "reconnecting": "Reconnexion…",
+        "rejoin": "Rejoindre à nouveau",
+        "send": "Envoyer",
+        "takeMic": "Prendre le micro",
+        "useHere": "Écouter ici",
+        "you": "vous"
+      }
+    }
+  },
+  "hi": {
+    "common": {
+      "cancel": "रद्द करें",
+      "retry": "फिर कोशिश करें"
+    },
+    "communityCity": {
+      "back": "समुदाय",
+      "countries": "देश",
+      "empty": "यहाँ अभी कोई मेल नहीं खाता। कोई और जगह आज़माएँ।",
+      "error": "लोगों को लोड नहीं किया जा सका। फिर कोशिश करें।",
+      "more": "और दिखाएँ",
+      "search": "खोजें",
+      "searchPlaceholder": "कोई शहर खोजें",
+      "searchTitle": "“{{query}}” के लोग",
+      "title": "जगह के अनुसार लोग"
+    },
+    "communityGenders": {
+      "back": "समुदाय",
+      "empty": "अभी कोई मेल नहीं खाता।",
+      "error": "लोगों को लोड नहीं किया जा सका। फिर कोशिश करें।",
+      "female": "महिलाएँ",
+      "male": "पुरुष",
+      "more": "और दिखाएँ",
+      "title": "लिंग के अनुसार देखें"
+    },
+    "communityMain": {
+      "subnav": {
+        "city": "शहर",
+        "genders": "लिंग"
+      }
+    },
+    "languageRooms": {
+      "create": {
+        "description": "विवरण (वैकल्पिक)",
+        "language": "भाषा",
+        "name": "विषय",
+        "submit": "रूम बनाएँ",
+        "title": "विषय रूम शुरू करें"
+      },
+      "errors": {
+        "banned": "आपको इस रूम से हटा दिया गया था। आप ओनर से वापस आने की अनुमति माँग सकते हैं।",
+        "busy": "इस रूम में अभी बहुत ज़्यादा अनुरोध हैं। बाद में कोशिश करें।",
+        "generic": "कुछ गड़बड़ हो गई। फिर कोशिश करें।",
+        "gone": "यह रूम अब उपलब्ध नहीं है।",
+        "owner": "ओनर को हटाया नहीं जा सकता।",
+        "pending": "आपका अनुरोध ओनर के जवाब का इंतज़ार कर रहा है।",
+        "titleLength": "नाम अधिकतम 60 अक्षरों का हो सकता है।",
+        "tooMany": "आपके पास पहले से 10 रूम हैं। नया शुरू करने के लिए एक हटाएँ।"
+      },
+      "list": {
+        "create": "नया विषय रूम",
+        "empty": "अभी कोई रूम नहीं है।",
+        "error": "भाषा रूम लोड नहीं हो सके।",
+        "joined": "शामिल",
+        "locked": "लॉक",
+        "title": "भाषा रूम"
+      },
+      "owner": {
+        "admin": "एडमिन",
+        "approve": "अंदर आने दें",
+        "deny": "अस्वीकार करें",
+        "members": "सदस्य",
+        "noRequests": "कोई इंतज़ार नहीं कर रहा।",
+        "owner": "ओनर",
+        "remove": "रूम से हटाएँ",
+        "removeNote": "हटाए गए सदस्य वापस आने का अनुरोध कर सकते हैं; फ़ैसला आपका होगा।",
+        "removeYes": "हटाएँ",
+        "requests": "शामिल होने के अनुरोध"
+      },
+      "room": {
+        "back": "सभी रूम",
+        "join": "रूम में शामिल हों",
+        "leave": "रूम छोड़ें",
+        "media": "फ़ोटो या वीडियो — देखने के लिए ऐप खोलें",
+        "notSent": "नहीं भेजा गया। फिर कोशिश करें।",
+        "older": "पुराने संदेश लोड करें",
+        "online": "ऑनलाइन",
+        "pending": "अनुरोध भेज दिया गया। ओनर आपको अंदर आने देंगे।",
+        "placeholder": "रूम की भाषा में लिखें…",
+        "request": "शामिल होने का अनुरोध करें",
+        "send": "भेजें",
+        "slowDown": "आप बहुत तेज़ी से भेज रहे हैं। थोड़ा धीरे करें।",
+        "sticker": "स्टिकर",
+        "unsupported": "यह संदेश देखने के लिए ऐप खोलें",
+        "voice": "वॉइस संदेश — सुनने के लिए ऐप खोलें"
+      }
+    },
+    "nav": {
+      "languageRooms": "भाषा रूम",
+      "voiceRooms": "वॉइस रूम"
+    },
+    "voiceRooms": {
+      "category": {
+        "casual": "आम बातचीत",
+        "language_practice": "भाषा अभ्यास",
+        "qa": "सवाल-जवाब",
+        "topic": "विषय"
+      },
+      "create": {
+        "category": "रूम का प्रकार",
+        "description": "आप किस बारे में बात करेंगे? (वैकल्पिक)",
+        "language": "भाषा",
+        "max": "अधिकतम कितने लोग",
+        "name": "रूम का नाम",
+        "schedule": "शेड्यूल करें",
+        "start": "रूम शुरू करें",
+        "title": "वॉइस रूम शुरू करें",
+        "when": "बाद में शुरू करें (वैकल्पिक)"
+      },
+      "errors": {
+        "blocked": "आप इस रूम में शामिल नहीं हो सकते।",
+        "ended": "यह रूम समाप्त हो गया है।",
+        "full": "यह रूम भर गया है।",
+        "generic": "कुछ गड़बड़ हो गई। फिर कोशिश करें।",
+        "gone": "यह रूम अब उपलब्ध नहीं है।",
+        "vipToCreate": "वॉइस रूम बनाने के लिए VIP प्लान चाहिए।"
+      },
+      "host": {
+        "end": "रूम समाप्त करें",
+        "endConfirm": "सभी के लिए रूम समाप्त करें?",
+        "endYes": "रूम समाप्त करें",
+        "hands": "उठे हुए हाथ",
+        "makeCohost": "को-होस्ट बनाएं",
+        "muteAll": "सभी को म्यूट करें",
+        "noHands": "किसी ने हाथ नहीं उठाया है।",
+        "speakNote": "रूम में कोई भी माइक ले सकता है। हाथ उठाकर लोग आपसे बोलने की बारी माँगते हैं।",
+        "title": "होस्ट टूल"
+      },
+      "list": {
+        "create": "रूम शुरू करें",
+        "emptyLive": "अभी कोई बात नहीं कर रहा। एक रूम शुरू करें और लोगों को बुलाएँ।",
+        "emptyScheduled": "अभी कोई रूम शेड्यूल नहीं है।",
+        "error": "वॉइस रूम लोड नहीं हो सके।",
+        "full": "भरा हुआ",
+        "going": "जा रहे हैं ✓",
+        "join": "शामिल हों",
+        "live": "अभी लाइव",
+        "rsvp": "मुझे याद दिलाएँ",
+        "scheduled": "आने वाले",
+        "title": "वॉइस रूम"
+      },
+      "room": {
+        "back": "सभी रूम",
+        "chat": "रूम चैट",
+        "chatPlaceholder": "कुछ कहें…",
+        "connectFailed": "रूम के ऑडियो से कनेक्ट नहीं हो सका। अपना कनेक्शन जाँचें और फिर कोशिश करें।",
+        "elsewhere": "आप इस रूम में किसी दूसरे टैब या डिवाइस से शामिल हुए हैं।",
+        "enableSound": "रूम की आवाज़ चालू करने के लिए टैप करें",
+        "ended": "यह रूम समाप्त हो गया है।",
+        "findAnother": "कोई दूसरा रूम खोजें",
+        "handUp": "हाथ उठाया",
+        "host": "होस्ट",
+        "join": "रूम में शामिल हों",
+        "joinHint": "आप श्रोता के रूप में शामिल होंगे। जब तैयार हों, माइक ले लें।",
+        "leave": "छोड़ें",
+        "lost": "रूम से कनेक्शन टूट गया।",
+        "lowerHand": "हाथ नीचे करें",
+        "micDenied": "आपका ब्राउज़र माइक्रोफ़ोन को ब्लॉक कर रहा है। एड्रेस बार में banatalk.com के लिए माइक्रोफ़ोन की अनुमति दें, फिर कोशिश करें। आप सुनते रह सकते हैं।",
+        "micError": "माइक्रोफ़ोन चालू नहीं हो सका। फिर कोशिश करें।",
+        "micUnavailable": "कोई माइक्रोफ़ोन नहीं मिला (या कोई दूसरा ऐप उसे इस्तेमाल कर रहा है)। आप सुनते रह सकते हैं।",
+        "mute": "म्यूट करें",
+        "raiseHand": "हाथ उठाएं",
+        "reconnecting": "फिर से कनेक्ट हो रहा है…",
+        "rejoin": "फिर से शामिल हों",
+        "send": "भेजें",
+        "takeMic": "माइक लें",
+        "useHere": "यहीं सुनें",
+        "you": "आप"
+      }
+    }
+  },
+  "id": {
+    "common": {
+      "cancel": "Batal",
+      "retry": "Coba lagi"
+    },
+    "communityCity": {
+      "back": "Komunitas",
+      "countries": "Negara",
+      "empty": "Belum ada yang cocok di sini. Coba tempat lain.",
+      "error": "Gagal memuat orang. Coba lagi.",
+      "more": "Tampilkan lebih banyak",
+      "search": "Cari",
+      "searchPlaceholder": "Cari kota",
+      "searchTitle": "Orang di “{{query}}”",
+      "title": "Orang berdasarkan tempat"
+    },
+    "communityGenders": {
+      "back": "Komunitas",
+      "empty": "Belum ada yang cocok.",
+      "error": "Gagal memuat orang. Coba lagi.",
+      "female": "Perempuan",
+      "male": "Laki-laki",
+      "more": "Tampilkan lebih banyak",
+      "title": "Jelajahi berdasarkan gender"
+    },
+    "communityMain": {
+      "subnav": {
+        "city": "Kota",
+        "genders": "Gender"
+      }
+    },
+    "languageRooms": {
+      "create": {
+        "description": "Deskripsi (opsional)",
+        "language": "Bahasa",
+        "name": "Topik",
+        "submit": "Buat ruang",
+        "title": "Mulai ruang topik"
+      },
+      "errors": {
+        "banned": "Kamu dikeluarkan dari ruang ini. Kamu bisa minta pemilik untuk mengizinkanmu kembali.",
+        "busy": "Ruang ini sedang menerima terlalu banyak permintaan. Coba lagi nanti.",
+        "generic": "Terjadi kesalahan. Coba lagi.",
+        "gone": "Ruang ini sudah tidak tersedia.",
+        "owner": "Pemilik tidak bisa dikeluarkan.",
+        "pending": "Permintaanmu sedang menunggu persetujuan pemilik.",
+        "titleLength": "Nama maksimal 60 karakter.",
+        "tooMany": "Kamu sudah punya 10 ruang. Hapus satu untuk membuat yang baru."
+      },
+      "list": {
+        "create": "Ruang topik baru",
+        "empty": "Belum ada ruang.",
+        "error": "Gagal memuat ruang bahasa.",
+        "joined": "Sudah bergabung",
+        "locked": "Terkunci",
+        "title": "Ruang bahasa"
+      },
+      "owner": {
+        "admin": "admin",
+        "approve": "Izinkan masuk",
+        "deny": "Tolak",
+        "members": "Anggota",
+        "noRequests": "Tidak ada yang menunggu.",
+        "owner": "pemilik",
+        "remove": "Keluarkan dari ruang",
+        "removeNote": "Anggota yang dikeluarkan bisa minta kembali; kamu yang memutuskan.",
+        "removeYes": "Keluarkan",
+        "requests": "Permintaan bergabung"
+      },
+      "room": {
+        "back": "Semua ruang",
+        "join": "Gabung ruang",
+        "leave": "Tinggalkan ruang",
+        "media": "Foto atau video — buka aplikasi untuk melihatnya",
+        "notSent": "Tidak terkirim. Coba lagi.",
+        "older": "Muat pesan sebelumnya",
+        "online": "online",
+        "pending": "Permintaan terkirim. Pemilik akan mengizinkanmu masuk.",
+        "placeholder": "Tulis dalam bahasa ruang ini…",
+        "request": "Minta bergabung",
+        "send": "Kirim",
+        "slowDown": "Kamu mengirim terlalu cepat. Pelan-pelan sedikit.",
+        "sticker": "Stiker",
+        "unsupported": "Buka aplikasi untuk melihat pesan ini",
+        "voice": "Pesan suara — buka aplikasi untuk mendengarkan"
+      }
+    },
+    "nav": {
+      "languageRooms": "Ruang bahasa",
+      "voiceRooms": "Ruang suara"
+    },
+    "voiceRooms": {
+      "category": {
+        "casual": "Ngobrol santai",
+        "language_practice": "Latihan bahasa",
+        "qa": "Tanya jawab",
+        "topic": "Topik"
+      },
+      "create": {
+        "category": "Jenis ruang",
+        "description": "Mau ngobrol tentang apa? (opsional)",
+        "language": "Bahasa",
+        "max": "Maksimal berapa orang",
+        "name": "Nama ruang",
+        "schedule": "Jadwalkan",
+        "start": "Mulai ruang",
+        "title": "Mulai ruang suara",
+        "when": "Mulai nanti (opsional)"
+      },
+      "errors": {
+        "blocked": "Kamu tidak bisa bergabung ke ruang ini.",
+        "ended": "Ruang ini sudah berakhir.",
+        "full": "Ruang ini sudah penuh.",
+        "generic": "Terjadi kesalahan. Coba lagi.",
+        "gone": "Ruang ini sudah tidak tersedia.",
+        "vipToCreate": "Membuat ruang suara memerlukan paket VIP."
+      },
+      "host": {
+        "end": "Akhiri ruang",
+        "endConfirm": "Akhiri ruang untuk semua orang?",
+        "endYes": "Akhiri ruang",
+        "hands": "Tangan terangkat",
+        "makeCohost": "Jadikan Co-Host",
+        "muteAll": "Bisukan semua",
+        "noHands": "Belum ada yang angkat tangan.",
+        "speakNote": "Siapa pun di ruang ini bisa mengambil mik. Angkat tangan berarti meminta giliran darimu.",
+        "title": "Alat host"
+      },
+      "list": {
+        "create": "Mulai ruang",
+        "emptyLive": "Belum ada yang ngobrol sekarang. Mulai ruang dan ajak orang masuk.",
+        "emptyScheduled": "Belum ada ruang yang dijadwalkan.",
+        "error": "Gagal memuat ruang suara.",
+        "full": "Penuh",
+        "going": "Ikut ✓",
+        "join": "Gabung",
+        "live": "Sedang live",
+        "rsvp": "Ingatkan saya",
+        "scheduled": "Akan datang",
+        "title": "Ruang suara"
+      },
+      "room": {
+        "back": "Semua ruang",
+        "chat": "Obrolan ruang",
+        "chatPlaceholder": "Katakan sesuatu…",
+        "connectFailed": "Gagal terhubung ke audio ruang. Periksa koneksimu dan coba lagi.",
+        "elsewhere": "Kamu bergabung ke ruang ini dari tab atau perangkat lain.",
+        "enableSound": "Ketuk untuk menyalakan suara ruang",
+        "ended": "Ruang ini sudah berakhir.",
+        "findAnother": "Cari ruang lain",
+        "handUp": "Tangan terangkat",
+        "host": "Host",
+        "join": "Gabung ruang",
+        "joinHint": "Kamu akan bergabung sebagai pendengar. Ambil mik kapan pun kamu siap.",
+        "leave": "Keluar",
+        "lost": "Koneksi ke ruang terputus.",
+        "lowerHand": "Turunkan tangan",
+        "micDenied": "Browser-mu memblokir mikrofon. Izinkan mikrofon untuk banatalk.com di bilah alamat, lalu coba lagi. Kamu tetap bisa mendengarkan.",
+        "micError": "Gagal menyalakan mikrofon. Coba lagi.",
+        "micUnavailable": "Mikrofon tidak ditemukan (atau sedang dipakai aplikasi lain). Kamu tetap bisa mendengarkan.",
+        "mute": "Bisukan",
+        "raiseHand": "Angkat tangan",
+        "reconnecting": "Menghubungkan ulang…",
+        "rejoin": "Gabung lagi",
+        "send": "Kirim",
+        "takeMic": "Ambil mik",
+        "useHere": "Dengarkan di sini saja",
+        "you": "kamu"
+      }
+    }
+  },
+  "it": {
+    "common": {
+      "cancel": "Annulla",
+      "retry": "Riprova"
+    },
+    "communityCity": {
+      "back": "Comunità",
+      "countries": "Paesi",
+      "empty": "Ancora nessuno qui. Prova un altro luogo.",
+      "error": "Impossibile caricare le persone. Riprova.",
+      "more": "Mostra altri",
+      "search": "Cerca",
+      "searchPlaceholder": "Cerca una città",
+      "searchTitle": "Persone a “{{query}}”",
+      "title": "Persone per luogo"
+    },
+    "communityGenders": {
+      "back": "Comunità",
+      "empty": "Ancora nessuna corrispondenza.",
+      "error": "Impossibile caricare le persone. Riprova.",
+      "female": "Donne",
+      "male": "Uomini",
+      "more": "Mostra altri",
+      "title": "Sfoglia per genere"
+    },
+    "communityMain": {
+      "subnav": {
+        "city": "Città",
+        "genders": "Generi"
+      }
+    },
+    "languageRooms": {
+      "create": {
+        "description": "Descrizione (facoltativa)",
+        "language": "Lingua",
+        "name": "Argomento",
+        "submit": "Crea stanza",
+        "title": "Apri una stanza a tema"
+      },
+      "errors": {
+        "banned": "Sei stato rimosso da questa stanza. Puoi chiedere al proprietario di farti rientrare.",
+        "busy": "Questa stanza ha troppe richieste in questo momento. Riprova più tardi.",
+        "generic": "Qualcosa è andato storto. Riprova.",
+        "gone": "Questa stanza non è più disponibile.",
+        "owner": "Il proprietario non può essere rimosso.",
+        "pending": "La tua richiesta è in attesa del proprietario.",
+        "titleLength": "Il nome può avere al massimo 60 caratteri.",
+        "tooMany": "Hai già 10 stanze. Eliminane una per crearne un'altra."
+      },
+      "list": {
+        "create": "Nuova stanza a tema",
+        "empty": "Ancora nessuna stanza.",
+        "error": "Impossibile caricare le stanze linguistiche.",
+        "joined": "Iscritto",
+        "locked": "Bloccata",
+        "title": "Stanze linguistiche"
+      },
+      "owner": {
+        "admin": "admin",
+        "approve": "Fai entrare",
+        "deny": "Rifiuta",
+        "members": "Membri",
+        "noRequests": "Nessuno è in attesa.",
+        "owner": "proprietario",
+        "remove": "Rimuovi dalla stanza",
+        "removeNote": "I membri rimossi possono chiedere di tornare; decidi tu.",
+        "removeYes": "Rimuovi",
+        "requests": "Richieste di accesso"
+      },
+      "room": {
+        "back": "Tutte le stanze",
+        "join": "Entra nella stanza",
+        "leave": "Esci dalla stanza",
+        "media": "Foto o video — apri l'app per vederlo",
+        "notSent": "Non inviato. Riprova.",
+        "older": "Carica messaggi precedenti",
+        "online": "online",
+        "pending": "Richiesta inviata. Il proprietario ti farà entrare.",
+        "placeholder": "Scrivi nella lingua della stanza…",
+        "request": "Chiedi di entrare",
+        "send": "Invia",
+        "slowDown": "Stai inviando troppo velocemente. Rallenta un po'.",
+        "sticker": "Sticker",
+        "unsupported": "Apri l'app per vedere questo messaggio",
+        "voice": "Messaggio vocale — apri l'app per ascoltarlo"
+      }
+    },
+    "nav": {
+      "languageRooms": "Stanze linguistiche",
+      "voiceRooms": "Stanze vocali"
+    },
+    "voiceRooms": {
+      "category": {
+        "casual": "Chiacchiere",
+        "language_practice": "Pratica linguistica",
+        "qa": "Domande e risposte",
+        "topic": "Argomento"
+      },
+      "create": {
+        "category": "Tipo di stanza",
+        "description": "Di cosa parlerete? (facoltativo)",
+        "language": "Lingua",
+        "max": "Numero massimo di persone",
+        "name": "Nome della stanza",
+        "schedule": "Programma",
+        "start": "Avvia stanza",
+        "title": "Apri una stanza vocale",
+        "when": "Inizia più tardi (facoltativo)"
+      },
+      "errors": {
+        "blocked": "Non puoi entrare in questa stanza.",
+        "ended": "Questa stanza è terminata.",
+        "full": "Questa stanza è piena.",
+        "generic": "Qualcosa è andato storto. Riprova.",
+        "gone": "Questa stanza non è più disponibile.",
+        "vipToCreate": "Per creare stanze vocali serve un piano VIP."
+      },
+      "host": {
+        "end": "Termina stanza",
+        "endConfirm": "Terminare la stanza per tutti?",
+        "endYes": "Termina stanza",
+        "hands": "Mani alzate",
+        "makeCohost": "Promuovi a co-host",
+        "muteAll": "Silenzia tutti",
+        "noHands": "Nessuno ha alzato la mano.",
+        "speakNote": "Chiunque nella stanza può prendere il microfono. Una mano alzata ti chiede il turno.",
+        "title": "Strumenti del conduttore"
+      },
+      "list": {
+        "create": "Avvia una stanza",
+        "emptyLive": "Nessuno sta parlando ora. Avvia una stanza e invita altre persone.",
+        "emptyScheduled": "Ancora nessuna stanza programmata.",
+        "error": "Impossibile caricare le stanze vocali.",
+        "full": "Piena",
+        "going": "Ci sarò ✓",
+        "join": "Entra",
+        "live": "In diretta",
+        "rsvp": "Ricordamelo",
+        "scheduled": "In arrivo",
+        "title": "Stanze vocali"
+      },
+      "room": {
+        "back": "Tutte le stanze",
+        "chat": "Chat della stanza",
+        "chatPlaceholder": "Scrivi qualcosa…",
+        "connectFailed": "Impossibile collegarsi all'audio della stanza. Controlla la connessione e riprova.",
+        "elsewhere": "Sei entrato in questa stanza da un'altra scheda o dispositivo.",
+        "enableSound": "Tocca per attivare l'audio della stanza",
+        "ended": "Questa stanza è terminata.",
+        "findAnother": "Trova un'altra stanza",
+        "handUp": "Mano alzata",
+        "host": "Conduttore",
+        "join": "Entra nella stanza",
+        "joinHint": "Entrerai come ascoltatore. Prendi il microfono quando vuoi.",
+        "leave": "Esci",
+        "lost": "Connessione alla stanza persa.",
+        "lowerHand": "Abbassa la mano",
+        "micDenied": "Il browser sta bloccando il microfono. Consenti il microfono per banatalk.com nella barra degli indirizzi, poi riprova. Puoi continuare ad ascoltare.",
+        "micError": "Impossibile attivare il microfono. Riprova.",
+        "micUnavailable": "Nessun microfono trovato (o un'altra app lo sta usando). Puoi continuare ad ascoltare.",
+        "mute": "Silenzia",
+        "raiseHand": "Alza la mano",
+        "reconnecting": "Riconnessione…",
+        "rejoin": "Rientra",
+        "send": "Invia",
+        "takeMic": "Prendi il microfono",
+        "useHere": "Ascolta qui",
+        "you": "tu"
+      }
+    }
+  },
+  "ja": {
+    "common": {
+      "cancel": "キャンセル",
+      "retry": "再試行"
+    },
+    "communityCity": {
+      "back": "コミュニティ",
+      "countries": "国",
+      "empty": "まだ条件に合う人がいません。別の場所を探してみてください。",
+      "error": "ユーザーを読み込めませんでした。もう一度お試しください。",
+      "more": "もっと見る",
+      "search": "検索",
+      "searchPlaceholder": "都市を検索",
+      "searchTitle": "「{{query}}」の人",
+      "title": "地域で探す"
+    },
+    "communityGenders": {
+      "back": "コミュニティ",
+      "empty": "まだ条件に合う人がいません。",
+      "error": "ユーザーを読み込めませんでした。もう一度お試しください。",
+      "female": "女性",
+      "male": "男性",
+      "more": "もっと見る",
+      "title": "性別で探す"
+    },
+    "communityMain": {
+      "subnav": {
+        "city": "都市",
+        "genders": "性別"
+      }
+    },
+    "languageRooms": {
+      "create": {
+        "description": "説明（任意）",
+        "language": "言語",
+        "name": "トピック",
+        "submit": "ルームを作成",
+        "title": "トピックルームを始める"
+      },
+      "errors": {
+        "banned": "このルームから退出させられました。オーナーに再参加をお願いできます。",
+        "busy": "現在このルームへのリクエストが多すぎます。しばらくしてからお試しください。",
+        "generic": "問題が発生しました。もう一度お試しください。",
+        "gone": "このルームは利用できなくなりました。",
+        "owner": "オーナーは退出させられません。",
+        "pending": "リクエストはオーナーの承認待ちです。",
+        "titleLength": "名前は60文字以内で入力してください。",
+        "tooMany": "ルームはすでに10個あります。新しく作るには1つ削除してください。"
+      },
+      "list": {
+        "create": "新しいトピックルーム",
+        "empty": "まだルームがありません。",
+        "error": "言語ルームを読み込めませんでした。",
+        "joined": "参加中",
+        "locked": "ロック中",
+        "title": "言語ルーム"
+      },
+      "owner": {
+        "admin": "管理者",
+        "approve": "承認",
+        "deny": "拒否",
+        "members": "メンバー",
+        "noRequests": "待っている人はいません。",
+        "owner": "オーナー",
+        "remove": "ルームから退出させる",
+        "removeNote": "退出させたメンバーも再参加をリクエストできます。承認するかはあなたが決めます。",
+        "removeYes": "退出させる",
+        "requests": "参加リクエスト"
+      },
+      "room": {
+        "back": "すべてのルーム",
+        "join": "ルームに参加",
+        "leave": "ルームを退出",
+        "media": "写真または動画 — アプリで確認できます",
+        "notSent": "送信できませんでした。もう一度お試しください。",
+        "older": "以前のメッセージを読み込む",
+        "online": "オンライン",
+        "pending": "リクエストを送信しました。オーナーが承認すると参加できます。",
+        "placeholder": "ルームの言語で書いてみましょう…",
+        "request": "参加をリクエスト",
+        "send": "送信",
+        "slowDown": "送信ペースが速すぎます。少しゆっくり送ってください。",
+        "sticker": "スタンプ",
+        "unsupported": "このメッセージはアプリで確認できます",
+        "voice": "ボイスメッセージ — アプリで聞けます"
+      }
+    },
+    "nav": {
+      "languageRooms": "言語ルーム",
+      "voiceRooms": "ボイスルーム"
+    },
+    "voiceRooms": {
+      "category": {
+        "casual": "雑談",
+        "language_practice": "語学練習",
+        "qa": "Q&A",
+        "topic": "トピック"
+      },
+      "create": {
+        "category": "ルームの種類",
+        "description": "何について話しますか？（任意）",
+        "language": "言語",
+        "max": "最大人数",
+        "name": "ルーム名",
+        "schedule": "予約",
+        "start": "ルームを開始",
+        "title": "ボイスルームを始める",
+        "when": "後で開始（任意）"
+      },
+      "errors": {
+        "blocked": "このルームには参加できません。",
+        "ended": "このルームは終了しました。",
+        "full": "このルームは満員です。",
+        "generic": "問題が発生しました。もう一度お試しください。",
+        "gone": "このルームは利用できなくなりました。",
+        "vipToCreate": "ボイスルームを作成するにはVIPプランが必要です。"
+      },
+      "host": {
+        "end": "ルームを終了",
+        "endConfirm": "全員のルームを終了しますか？",
+        "endYes": "ルームを終了",
+        "hands": "挙手中の人",
+        "makeCohost": "共同ホストにする",
+        "muteAll": "全員をミュート",
+        "noHands": "手を挙げている人はいません。",
+        "speakNote": "ルームにいる人は誰でもマイクを取れます。手を挙げると、ホストに発言の順番をお願いできます。",
+        "title": "ホストツール"
+      },
+      "list": {
+        "create": "ルームを始める",
+        "emptyLive": "今は誰も話していません。ルームを開いて人を招待しましょう。",
+        "emptyScheduled": "予定されているルームはまだありません。",
+        "error": "ボイスルームを読み込めませんでした。",
+        "full": "満員",
+        "going": "参加予定 ✓",
+        "join": "参加",
+        "live": "ライブ中",
+        "rsvp": "リマインド",
+        "scheduled": "近日開催",
+        "title": "ボイスルーム"
+      },
+      "room": {
+        "back": "すべてのルーム",
+        "chat": "ルームチャット",
+        "chatPlaceholder": "何か話しかけてみましょう…",
+        "connectFailed": "ルームの音声に接続できませんでした。接続を確認してもう一度お試しください。",
+        "elsewhere": "別のタブまたはデバイスからこのルームに参加しています。",
+        "enableSound": "タップしてルームの音声をオン",
+        "ended": "このルームは終了しました。",
+        "findAnother": "別のルームを探す",
+        "handUp": "挙手中",
+        "host": "ホスト",
+        "join": "ルームに参加",
+        "joinHint": "リスナーとして参加します。準備ができたらいつでもマイクを取ってください。",
+        "leave": "退出",
+        "lost": "ルームとの接続が切れました。",
+        "lowerHand": "手を下げる",
+        "micDenied": "ブラウザがマイクをブロックしています。アドレスバーでbanatalk.comのマイクを許可してから、もう一度お試しください。聞くことは続けられます。",
+        "micError": "マイクをオンにできませんでした。もう一度お試しください。",
+        "micUnavailable": "マイクが見つかりません（または別のアプリが使用中です）。聞くことは続けられます。",
+        "mute": "ミュート",
+        "raiseHand": "手を挙げる",
+        "reconnecting": "再接続中…",
+        "rejoin": "再参加",
+        "send": "送信",
+        "takeMic": "マイクを取る",
+        "useHere": "ここで聞く",
+        "you": "あなた"
+      }
+    }
+  },
+  "kor": {
+    "common": {
+      "cancel": "취소",
+      "retry": "다시 시도"
+    },
+    "communityCity": {
+      "back": "커뮤니티",
+      "countries": "국가",
+      "empty": "아직 조건에 맞는 사람이 없어요. 다른 지역을 찾아보세요.",
+      "error": "사람들을 불러오지 못했어요. 다시 시도해 주세요.",
+      "more": "더 보기",
+      "search": "검색",
+      "searchPlaceholder": "도시 검색",
+      "searchTitle": "“{{query}}”에 있는 사람들",
+      "title": "지역별 사람 찾기"
+    },
+    "communityGenders": {
+      "back": "커뮤니티",
+      "empty": "아직 조건에 맞는 사람이 없어요.",
+      "error": "사람들을 불러오지 못했어요. 다시 시도해 주세요.",
+      "female": "여성",
+      "male": "남성",
+      "more": "더 보기",
+      "title": "성별로 둘러보기"
+    },
+    "communityMain": {
+      "subnav": {
+        "city": "도시",
+        "genders": "성별"
+      }
+    },
+    "languageRooms": {
+      "create": {
+        "description": "설명 (선택)",
+        "language": "언어",
+        "name": "주제",
+        "submit": "룸 만들기",
+        "title": "주제 룸 시작하기"
+      },
+      "errors": {
+        "banned": "이 룸에서 내보내졌어요. 방장에게 다시 들어갈 수 있게 요청할 수 있어요.",
+        "busy": "지금 이 룸에 요청이 너무 많아요. 잠시 후 다시 시도해 주세요.",
+        "generic": "문제가 생겼어요. 다시 시도해 주세요.",
+        "gone": "더 이상 이용할 수 없는 룸이에요.",
+        "owner": "방장은 내보낼 수 없어요.",
+        "pending": "요청이 방장의 승인을 기다리고 있어요.",
+        "titleLength": "이름은 최대 60자까지 쓸 수 있어요.",
+        "tooMany": "이미 룸이 10개 있어요. 새로 만들려면 하나를 삭제해 주세요."
+      },
+      "list": {
+        "create": "새 주제 룸",
+        "empty": "아직 룸이 없어요.",
+        "error": "언어 룸을 불러오지 못했어요.",
+        "joined": "참여 중",
+        "locked": "잠김",
+        "title": "언어 룸"
+      },
+      "owner": {
+        "admin": "관리자",
+        "approve": "수락",
+        "deny": "거절",
+        "members": "멤버",
+        "noRequests": "기다리는 사람이 없어요.",
+        "owner": "방장",
+        "remove": "룸에서 내보내기",
+        "removeNote": "내보낸 멤버도 다시 요청할 수 있어요. 수락 여부는 회원님이 정해요.",
+        "removeYes": "내보내기",
+        "requests": "참여 요청"
+      },
+      "room": {
+        "back": "전체 룸",
+        "join": "룸 참여하기",
+        "leave": "룸 나가기",
+        "media": "사진 또는 동영상 — 앱에서 확인하세요",
+        "notSent": "전송되지 않았어요. 다시 시도해 주세요.",
+        "older": "이전 메시지 불러오기",
+        "online": "온라인",
+        "pending": "요청을 보냈어요. 방장이 수락하면 들어갈 수 있어요.",
+        "placeholder": "룸의 언어로 써 보세요…",
+        "request": "참여 요청하기",
+        "send": "보내기",
+        "slowDown": "너무 빨리 보내고 있어요. 조금 천천히 보내 주세요.",
+        "sticker": "스티커",
+        "unsupported": "앱에서 이 메시지를 확인하세요",
+        "voice": "음성 메시지 — 앱에서 들어 보세요"
+      }
+    },
+    "nav": {
+      "languageRooms": "언어 룸",
+      "voiceRooms": "보이스 룸"
+    },
+    "voiceRooms": {
+      "category": {
+        "casual": "자유 대화",
+        "language_practice": "언어 연습",
+        "qa": "Q&A",
+        "topic": "주제"
+      },
+      "create": {
+        "category": "룸 종류",
+        "description": "어떤 이야기를 나눌까요? (선택)",
+        "language": "언어",
+        "max": "최대 인원",
+        "name": "룸 이름",
+        "schedule": "예약",
+        "start": "룸 시작하기",
+        "title": "보이스 룸 시작하기",
+        "when": "나중에 시작 (선택)"
+      },
+      "errors": {
+        "blocked": "이 룸에 참여할 수 없어요.",
+        "ended": "종료된 룸이에요.",
+        "full": "룸이 꽉 찼어요.",
+        "generic": "문제가 생겼어요. 다시 시도해 주세요.",
+        "gone": "더 이상 이용할 수 없는 룸이에요.",
+        "vipToCreate": "보이스 룸을 만들려면 VIP 플랜이 필요해요."
+      },
+      "host": {
+        "end": "룸 종료",
+        "endConfirm": "모두에게 룸을 종료할까요?",
+        "endYes": "룸 종료",
+        "hands": "손 든 사람",
+        "makeCohost": "공동 호스트로 지정",
+        "muteAll": "전체 음소거",
+        "noHands": "손 든 사람이 없어요.",
+        "speakNote": "룸에 있는 누구나 마이크를 잡을 수 있어요. 손을 들면 호스트에게 발언 차례를 요청해요.",
+        "title": "호스트 도구"
+      },
+      "list": {
+        "create": "룸 시작하기",
+        "emptyLive": "지금 대화 중인 사람이 없어요. 룸을 열고 사람들을 초대해 보세요.",
+        "emptyScheduled": "아직 예약된 룸이 없어요.",
+        "error": "보이스 룸을 불러오지 못했어요.",
+        "full": "꽉 참",
+        "going": "참석 예정 ✓",
+        "join": "참여",
+        "live": "지금 라이브",
+        "rsvp": "알림 받기",
+        "scheduled": "예정",
+        "title": "보이스 룸"
+      },
+      "room": {
+        "back": "전체 룸",
+        "chat": "룸 채팅",
+        "chatPlaceholder": "한마디 해 보세요…",
+        "connectFailed": "룸 오디오에 연결하지 못했어요. 연결 상태를 확인하고 다시 시도해 주세요.",
+        "elsewhere": "다른 탭이나 기기에서 이 룸에 참여했어요.",
+        "enableSound": "탭해서 룸 소리 켜기",
+        "ended": "종료된 룸이에요.",
+        "findAnother": "다른 룸 찾기",
+        "handUp": "손 들었음",
+        "host": "호스트",
+        "join": "룸 참여하기",
+        "joinHint": "청취자로 참여해요. 준비되면 언제든 마이크를 잡으세요.",
+        "leave": "나가기",
+        "lost": "룸과의 연결이 끊어졌어요.",
+        "lowerHand": "손 내리기",
+        "micDenied": "브라우저가 마이크를 차단하고 있어요. 주소창에서 banatalk.com의 마이크를 허용한 뒤 다시 시도해 주세요. 듣기는 계속할 수 있어요.",
+        "micError": "마이크를 켜지 못했어요. 다시 시도해 주세요.",
+        "micUnavailable": "마이크를 찾지 못했어요 (또는 다른 앱이 사용 중이에요). 듣기는 계속할 수 있어요.",
+        "mute": "음소거",
+        "raiseHand": "손 들기",
+        "reconnecting": "다시 연결하는 중…",
+        "rejoin": "다시 참여",
+        "send": "보내기",
+        "takeMic": "마이크 잡기",
+        "useHere": "여기서 듣기",
+        "you": "나"
+      }
+    }
+  },
+  "pt": {
+    "common": {
+      "cancel": "Cancelar",
+      "retry": "Tentar novamente"
+    },
+    "communityCity": {
+      "back": "Comunidade",
+      "countries": "Países",
+      "empty": "Ninguém aqui ainda. Tente outro lugar.",
+      "error": "Não foi possível carregar as pessoas. Tente novamente.",
+      "more": "Ver mais",
+      "search": "Pesquisar",
+      "searchPlaceholder": "Pesquise uma cidade",
+      "searchTitle": "Pessoas em “{{query}}”",
+      "title": "Pessoas por lugar"
+    },
+    "communityGenders": {
+      "back": "Comunidade",
+      "empty": "Nenhuma correspondência ainda.",
+      "error": "Não foi possível carregar as pessoas. Tente novamente.",
+      "female": "Mulheres",
+      "male": "Homens",
+      "more": "Ver mais",
+      "title": "Explorar por gênero"
+    },
+    "communityMain": {
+      "subnav": {
+        "city": "Cidade",
+        "genders": "Gêneros"
+      }
+    },
+    "languageRooms": {
+      "create": {
+        "description": "Descrição (opcional)",
+        "language": "Idioma",
+        "name": "Tema",
+        "submit": "Criar sala",
+        "title": "Crie uma sala temática"
+      },
+      "errors": {
+        "banned": "Você foi removido desta sala. Você pode pedir ao dono para voltar.",
+        "busy": "Esta sala está com muitas solicitações agora. Tente mais tarde.",
+        "generic": "Algo deu errado. Tente novamente.",
+        "gone": "Esta sala não está mais disponível.",
+        "owner": "O dono não pode ser removido.",
+        "pending": "Sua solicitação está aguardando o dono.",
+        "titleLength": "O nome pode ter até 60 caracteres.",
+        "tooMany": "Você já tem 10 salas. Exclua uma para criar outra."
+      },
+      "list": {
+        "create": "Nova sala temática",
+        "empty": "Nenhuma sala ainda.",
+        "error": "Não foi possível carregar as salas de idiomas.",
+        "joined": "Participando",
+        "locked": "Fechada",
+        "title": "Salas de idiomas"
+      },
+      "owner": {
+        "admin": "admin",
+        "approve": "Aceitar",
+        "deny": "Recusar",
+        "members": "Membros",
+        "noRequests": "Ninguém está esperando.",
+        "owner": "dono",
+        "remove": "Remover da sala",
+        "removeNote": "Membros removidos podem pedir para voltar; você decide.",
+        "removeYes": "Remover",
+        "requests": "Pedidos para entrar"
+      },
+      "room": {
+        "back": "Todas as salas",
+        "join": "Entrar na sala",
+        "leave": "Sair da sala",
+        "media": "Foto ou vídeo — abra o app para ver",
+        "notSent": "Não enviada. Tente novamente.",
+        "older": "Carregar mensagens anteriores",
+        "online": "online",
+        "pending": "Pedido enviado. O dono vai deixar você entrar.",
+        "placeholder": "Escreva no idioma da sala…",
+        "request": "Pedir para entrar",
+        "send": "Enviar",
+        "slowDown": "Você está enviando rápido demais. Vá com calma.",
+        "sticker": "Figurinha",
+        "unsupported": "Abra o app para ver esta mensagem",
+        "voice": "Mensagem de voz — abra o app para ouvir"
+      }
+    },
+    "nav": {
+      "languageRooms": "Salas de idiomas",
+      "voiceRooms": "Salas de voz"
+    },
+    "voiceRooms": {
+      "category": {
+        "casual": "Bate-papo",
+        "language_practice": "Prática de idiomas",
+        "qa": "Perguntas e respostas",
+        "topic": "Tema"
+      },
+      "create": {
+        "category": "Tipo de sala",
+        "description": "Sobre o que vocês vão falar? (opcional)",
+        "language": "Idioma",
+        "max": "Máximo de pessoas",
+        "name": "Nome da sala",
+        "schedule": "Agendar",
+        "start": "Iniciar sala",
+        "title": "Inicie uma sala de voz",
+        "when": "Começar mais tarde (opcional)"
+      },
+      "errors": {
+        "blocked": "Você não pode entrar nesta sala.",
+        "ended": "Esta sala foi encerrada.",
+        "full": "Esta sala está cheia.",
+        "generic": "Algo deu errado. Tente novamente.",
+        "gone": "Esta sala não está mais disponível.",
+        "vipToCreate": "Para criar salas de voz, é preciso um plano VIP."
+      },
+      "host": {
+        "end": "Encerrar sala",
+        "endConfirm": "Encerrar a sala para todos?",
+        "endYes": "Encerrar sala",
+        "hands": "Mãos levantadas",
+        "makeCohost": "Promover a co-anfitrião",
+        "muteAll": "Silenciar todos",
+        "noHands": "Ninguém levantou a mão.",
+        "speakNote": "Qualquer pessoa na sala pode pegar o microfone. Uma mão levantada pede a sua vez.",
+        "title": "Ferramentas do anfitrião"
+      },
+      "list": {
+        "create": "Iniciar uma sala",
+        "emptyLive": "Ninguém está falando agora. Inicie uma sala e convide pessoas.",
+        "emptyScheduled": "Nenhuma sala agendada ainda.",
+        "error": "Não foi possível carregar as salas de voz.",
+        "full": "Cheia",
+        "going": "Vou ✓",
+        "join": "Entrar",
+        "live": "Ao vivo",
+        "rsvp": "Lembrar-me",
+        "scheduled": "Em breve",
+        "title": "Salas de voz"
+      },
+      "room": {
+        "back": "Todas as salas",
+        "chat": "Chat da sala",
+        "chatPlaceholder": "Diga algo…",
+        "connectFailed": "Não foi possível conectar ao áudio da sala. Verifique sua conexão e tente novamente.",
+        "elsewhere": "Você entrou nesta sala por outra aba ou dispositivo.",
+        "enableSound": "Toque para ativar o som da sala",
+        "ended": "Esta sala foi encerrada.",
+        "findAnother": "Encontrar outra sala",
+        "handUp": "Mão levantada",
+        "host": "Anfitrião",
+        "join": "Entrar na sala",
+        "joinHint": "Você vai entrar como ouvinte. Pegue o microfone quando quiser.",
+        "leave": "Sair",
+        "lost": "A conexão com a sala caiu.",
+        "lowerHand": "Baixar a mão",
+        "micDenied": "Seu navegador está bloqueando o microfone. Permita o microfone para banatalk.com na barra de endereço e tente novamente. Você pode continuar ouvindo.",
+        "micError": "Não foi possível ativar o microfone. Tente novamente.",
+        "micUnavailable": "Nenhum microfone encontrado (ou outro app está usando). Você pode continuar ouvindo.",
+        "mute": "Silenciar",
+        "raiseHand": "Levantar a mão",
+        "reconnecting": "Reconectando…",
+        "rejoin": "Entrar de novo",
+        "send": "Enviar",
+        "takeMic": "Pegar o microfone",
+        "useHere": "Ouvir aqui",
+        "you": "você"
+      }
+    }
+  },
+  "ru": {
+    "common": {
+      "cancel": "Отмена",
+      "retry": "Попробовать ещё раз"
+    },
+    "communityCity": {
+      "back": "Сообщество",
+      "countries": "Страны",
+      "empty": "Здесь пока никого нет. Попробуйте другое место.",
+      "error": "Не удалось загрузить людей. Попробуйте ещё раз.",
+      "more": "Показать ещё",
+      "search": "Найти",
+      "searchPlaceholder": "Найти город",
+      "searchTitle": "Люди в «{{query}}»",
+      "title": "Люди по месту"
+    },
+    "communityGenders": {
+      "back": "Сообщество",
+      "empty": "Пока никого нет.",
+      "error": "Не удалось загрузить людей. Попробуйте ещё раз.",
+      "female": "Женщины",
+      "male": "Мужчины",
+      "more": "Показать ещё",
+      "title": "Поиск по полу"
+    },
+    "communityMain": {
+      "subnav": {
+        "city": "Город",
+        "genders": "Пол"
+      }
+    },
+    "languageRooms": {
+      "create": {
+        "description": "Описание (необязательно)",
+        "language": "Язык",
+        "name": "Тема",
+        "submit": "Создать комнату",
+        "title": "Создать тематическую комнату"
+      },
+      "errors": {
+        "banned": "Вас удалили из этой комнаты. Можно попросить владельца пустить вас обратно.",
+        "busy": "Сейчас в этой комнате слишком много запросов. Попробуйте позже.",
+        "generic": "Что-то пошло не так. Попробуйте ещё раз.",
+        "gone": "Эта комната больше недоступна.",
+        "owner": "Владельца нельзя удалить.",
+        "pending": "Ваш запрос ждёт решения владельца.",
+        "titleLength": "Название может быть не длиннее 60 символов.",
+        "tooMany": "У вас уже 10 комнат. Удалите одну, чтобы создать новую."
+      },
+      "list": {
+        "create": "Новая тематическая комната",
+        "empty": "Комнат пока нет.",
+        "error": "Не удалось загрузить языковые комнаты.",
+        "joined": "Вы участник",
+        "locked": "Закрыта",
+        "title": "Языковые комнаты"
+      },
+      "owner": {
+        "admin": "админ",
+        "approve": "Впустить",
+        "deny": "Отклонить",
+        "members": "Участники",
+        "noRequests": "Никто не ждёт.",
+        "owner": "владелец",
+        "remove": "Удалить из комнаты",
+        "removeNote": "Удалённые участники могут попросить вернуться — решать вам.",
+        "removeYes": "Удалить",
+        "requests": "Запросы на вступление"
+      },
+      "room": {
+        "back": "Все комнаты",
+        "join": "Войти в комнату",
+        "leave": "Покинуть комнату",
+        "media": "Фото или видео — откройте приложение, чтобы посмотреть",
+        "notSent": "Не отправлено. Попробуйте ещё раз.",
+        "older": "Загрузить более ранние сообщения",
+        "online": "в сети",
+        "pending": "Запрос отправлен. Владелец впустит вас.",
+        "placeholder": "Пишите на языке комнаты…",
+        "request": "Попросить вступить",
+        "send": "Отправить",
+        "slowDown": "Вы отправляете слишком быстро. Немного притормозите.",
+        "sticker": "Стикер",
+        "unsupported": "Откройте приложение, чтобы увидеть это сообщение",
+        "voice": "Голосовое сообщение — откройте приложение, чтобы послушать"
+      }
+    },
+    "nav": {
+      "languageRooms": "Языковые комнаты",
+      "voiceRooms": "Голосовые комнаты"
+    },
+    "voiceRooms": {
+      "category": {
+        "casual": "Свободное общение",
+        "language_practice": "Языковая практика",
+        "qa": "Вопросы и ответы",
+        "topic": "Тема"
+      },
+      "create": {
+        "category": "Тип комнаты",
+        "description": "О чём будете говорить? (необязательно)",
+        "language": "Язык",
+        "max": "Максимум участников",
+        "name": "Название комнаты",
+        "schedule": "Запланировать",
+        "start": "Начать",
+        "title": "Создать голосовую комнату",
+        "when": "Начать позже (необязательно)"
+      },
+      "errors": {
+        "blocked": "Вы не можете войти в эту комнату.",
+        "ended": "Эта комната завершена.",
+        "full": "Эта комната заполнена.",
+        "generic": "Что-то пошло не так. Попробуйте ещё раз.",
+        "gone": "Эта комната больше недоступна.",
+        "vipToCreate": "Для создания голосовых комнат нужен VIP."
+      },
+      "host": {
+        "end": "Завершить комнату",
+        "endConfirm": "Завершить комнату для всех?",
+        "endYes": "Завершить",
+        "hands": "Поднятые руки",
+        "makeCohost": "Сделать со-ведущим",
+        "muteAll": "Выключить микрофоны всем",
+        "noHands": "Никто не поднял руку.",
+        "speakNote": "Любой в комнате может взять микрофон. Поднятая рука — просьба дать слово.",
+        "title": "Инструменты ведущего"
+      },
+      "list": {
+        "create": "Создать комнату",
+        "emptyLive": "Сейчас никто не говорит. Создайте комнату и пригласите людей.",
+        "emptyScheduled": "Запланированных комнат пока нет.",
+        "error": "Не удалось загрузить голосовые комнаты.",
+        "full": "Мест нет",
+        "going": "Иду ✓",
+        "join": "Войти",
+        "live": "В эфире",
+        "rsvp": "Напомнить",
+        "scheduled": "Скоро",
+        "title": "Голосовые комнаты"
+      },
+      "room": {
+        "back": "Все комнаты",
+        "chat": "Чат комнаты",
+        "chatPlaceholder": "Напишите что-нибудь…",
+        "connectFailed": "Не удалось подключиться к звуку комнаты. Проверьте соединение и попробуйте ещё раз.",
+        "elsewhere": "Вы вошли в эту комнату с другой вкладки или устройства.",
+        "enableSound": "Нажмите, чтобы включить звук комнаты",
+        "ended": "Эта комната завершена.",
+        "findAnother": "Найти другую комнату",
+        "handUp": "Рука поднята",
+        "host": "Ведущий",
+        "join": "Войти в комнату",
+        "joinHint": "Вы войдёте как слушатель. Берите микрофон, когда будете готовы.",
+        "leave": "Выйти",
+        "lost": "Связь с комнатой потеряна.",
+        "lowerHand": "Опустить руку",
+        "micDenied": "Браузер блокирует микрофон. Разрешите доступ к микрофону для banatalk.com в адресной строке и попробуйте снова. Слушать можно и дальше.",
+        "micError": "Не удалось включить микрофон. Попробуйте ещё раз.",
+        "micUnavailable": "Микрофон не найден (или его использует другое приложение). Слушать можно и дальше.",
+        "mute": "Выключить микрофон",
+        "raiseHand": "Поднять руку",
+        "reconnecting": "Переподключение…",
+        "rejoin": "Вернуться",
+        "send": "Отправить",
+        "takeMic": "Взять микрофон",
+        "useHere": "Слушать здесь",
+        "you": "вы"
+      }
+    }
+  },
+  "th": {
+    "common": {
+      "cancel": "ยกเลิก",
+      "retry": "ลองอีกครั้ง"
+    },
+    "communityCity": {
+      "back": "ชุมชน",
+      "countries": "ประเทศ",
+      "empty": "ยังไม่มีใครตรงกับที่นี่ ลองที่อื่นดู",
+      "error": "โหลดรายชื่อผู้คนไม่ได้ ลองอีกครั้ง",
+      "more": "แสดงเพิ่มเติม",
+      "search": "ค้นหา",
+      "searchPlaceholder": "ค้นหาเมือง",
+      "searchTitle": "ผู้คนใน “{{query}}”",
+      "title": "ผู้คนตามสถานที่"
+    },
+    "communityGenders": {
+      "back": "ชุมชน",
+      "empty": "ยังไม่มีใครตรงกับเงื่อนไข",
+      "error": "โหลดรายชื่อผู้คนไม่ได้ ลองอีกครั้ง",
+      "female": "ผู้หญิง",
+      "male": "ผู้ชาย",
+      "more": "แสดงเพิ่มเติม",
+      "title": "ดูตามเพศ"
+    },
+    "communityMain": {
+      "subnav": {
+        "city": "เมือง",
+        "genders": "เพศ"
+      }
+    },
+    "languageRooms": {
+      "create": {
+        "description": "คำอธิบาย (ไม่บังคับ)",
+        "language": "ภาษา",
+        "name": "หัวข้อ",
+        "submit": "สร้างห้อง",
+        "title": "เริ่มห้องหัวข้อ"
+      },
+      "errors": {
+        "banned": "คุณถูกนำออกจากห้องนี้ คุณขอให้เจ้าของห้องอนุญาตให้กลับเข้ามาได้",
+        "busy": "ห้องนี้มีคำขอมากเกินไปในขณะนี้ ลองใหม่ภายหลัง",
+        "generic": "เกิดข้อผิดพลาด ลองอีกครั้ง",
+        "gone": "ห้องนี้ไม่มีให้ใช้งานแล้ว",
+        "owner": "นำเจ้าของห้องออกไม่ได้",
+        "pending": "คำขอของคุณกำลังรอเจ้าของห้อง",
+        "titleLength": "ชื่อยาวได้สูงสุด 60 ตัวอักษร",
+        "tooMany": "คุณมีห้องครบ 10 ห้องแล้ว ลบห้องหนึ่งเพื่อเริ่มห้องใหม่"
+      },
+      "list": {
+        "create": "ห้องหัวข้อใหม่",
+        "empty": "ยังไม่มีห้อง",
+        "error": "โหลดห้องภาษาไม่ได้",
+        "joined": "เข้าร่วมแล้ว",
+        "locked": "ล็อกอยู่",
+        "title": "ห้องภาษา"
+      },
+      "owner": {
+        "admin": "แอดมิน",
+        "approve": "ให้เข้าห้อง",
+        "deny": "ปฏิเสธ",
+        "members": "สมาชิก",
+        "noRequests": "ไม่มีใครรออยู่",
+        "owner": "เจ้าของห้อง",
+        "remove": "นำออกจากห้อง",
+        "removeNote": "สมาชิกที่ถูกนำออกขอกลับเข้ามาได้ โดยคุณเป็นผู้ตัดสินใจ",
+        "removeYes": "นำออก",
+        "requests": "คำขอเข้าร่วม"
+      },
+      "room": {
+        "back": "ห้องทั้งหมด",
+        "join": "เข้าร่วมห้อง",
+        "leave": "ออกจากห้อง",
+        "media": "รูปภาพหรือวิดีโอ — เปิดแอปเพื่อดู",
+        "notSent": "ส่งไม่สำเร็จ ลองอีกครั้ง",
+        "older": "โหลดข้อความก่อนหน้า",
+        "online": "ออนไลน์",
+        "pending": "ส่งคำขอแล้ว เจ้าของห้องจะให้คุณเข้าห้อง",
+        "placeholder": "เขียนเป็นภาษาของห้องนี้…",
+        "request": "ขอเข้าร่วม",
+        "send": "ส่ง",
+        "slowDown": "คุณส่งเร็วเกินไป ช้าลงหน่อยนะ",
+        "sticker": "สติกเกอร์",
+        "unsupported": "เปิดแอปเพื่อดูข้อความนี้",
+        "voice": "ข้อความเสียง — เปิดแอปเพื่อฟัง"
+      }
+    },
+    "nav": {
+      "languageRooms": "ห้องภาษา",
+      "voiceRooms": "ห้องเสียง"
+    },
+    "voiceRooms": {
+      "category": {
+        "casual": "คุยสบายๆ",
+        "language_practice": "ฝึกภาษา",
+        "qa": "ถาม-ตอบ",
+        "topic": "หัวข้อ"
+      },
+      "create": {
+        "category": "ประเภทห้อง",
+        "description": "จะคุยเรื่องอะไร? (ไม่บังคับ)",
+        "language": "ภาษา",
+        "max": "จำนวนคนสูงสุด",
+        "name": "ชื่อห้อง",
+        "schedule": "ตั้งเวลา",
+        "start": "เริ่มห้อง",
+        "title": "เริ่มห้องเสียง",
+        "when": "เริ่มภายหลัง (ไม่บังคับ)"
+      },
+      "errors": {
+        "blocked": "คุณเข้าร่วมห้องนี้ไม่ได้",
+        "ended": "ห้องนี้สิ้นสุดแล้ว",
+        "full": "ห้องนี้เต็มแล้ว",
+        "generic": "เกิดข้อผิดพลาด ลองอีกครั้ง",
+        "gone": "ห้องนี้ไม่มีให้ใช้งานแล้ว",
+        "vipToCreate": "การสร้างห้องเสียงต้องใช้แพ็กเกจ VIP"
+      },
+      "host": {
+        "end": "สิ้นสุดห้อง",
+        "endConfirm": "สิ้นสุดห้องสำหรับทุกคน?",
+        "endYes": "สิ้นสุดห้อง",
+        "hands": "คนที่ยกมือ",
+        "makeCohost": "เลื่อนเป็นโค-โฮสต์",
+        "muteAll": "ปิดเสียงทุกคน",
+        "noHands": "ยังไม่มีใครยกมือ",
+        "speakNote": "ทุกคนในห้องหยิบไมค์ได้ การยกมือคือการขอคิวพูดจากคุณ",
+        "title": "เครื่องมือโฮสต์"
+      },
+      "list": {
+        "create": "เริ่มห้อง",
+        "emptyLive": "ตอนนี้ยังไม่มีใครคุย เริ่มห้องแล้วชวนคนมาเลย",
+        "emptyScheduled": "ยังไม่มีห้องที่ตั้งเวลาไว้",
+        "error": "โหลดห้องเสียงไม่ได้",
+        "full": "เต็ม",
+        "going": "จะไป ✓",
+        "join": "เข้าร่วม",
+        "live": "กำลังไลฟ์",
+        "rsvp": "เตือนฉัน",
+        "scheduled": "เร็วๆ นี้",
+        "title": "ห้องเสียง"
+      },
+      "room": {
+        "back": "ห้องทั้งหมด",
+        "chat": "แชทในห้อง",
+        "chatPlaceholder": "พูดอะไรสักหน่อย…",
+        "connectFailed": "เชื่อมต่อเสียงของห้องไม่ได้ ตรวจสอบการเชื่อมต่อแล้วลองอีกครั้ง",
+        "elsewhere": "คุณเข้าร่วมห้องนี้จากแท็บหรืออุปกรณ์อื่นแล้ว",
+        "enableSound": "แตะเพื่อเปิดเสียงของห้อง",
+        "ended": "ห้องนี้สิ้นสุดแล้ว",
+        "findAnother": "หาห้องอื่น",
+        "handUp": "ยกมือแล้ว",
+        "host": "โฮสต์",
+        "join": "เข้าร่วมห้อง",
+        "joinHint": "คุณจะเข้าร่วมในฐานะผู้ฟัง หยิบไมค์ได้ทุกเมื่อที่พร้อม",
+        "leave": "ออก",
+        "lost": "การเชื่อมต่อกับห้องขาดหาย",
+        "lowerHand": "เอามือลง",
+        "micDenied": "เบราว์เซอร์ของคุณบล็อกไมโครโฟนอยู่ อนุญาตไมโครโฟนสำหรับ banatalk.com ที่แถบที่อยู่ แล้วลองอีกครั้ง คุณยังฟังต่อได้",
+        "micError": "เปิดไมโครโฟนไม่ได้ ลองอีกครั้ง",
+        "micUnavailable": "ไม่พบไมโครโฟน (หรือแอปอื่นกำลังใช้อยู่) คุณยังฟังต่อได้",
+        "mute": "ปิดเสียง",
+        "raiseHand": "ยกมือ",
+        "reconnecting": "กำลังเชื่อมต่อใหม่…",
+        "rejoin": "เข้าร่วมอีกครั้ง",
+        "send": "ส่ง",
+        "takeMic": "หยิบไมค์",
+        "useHere": "ฟังที่นี่แทน",
+        "you": "คุณ"
+      }
+    }
+  },
+  "tl": {
+    "common": {
+      "cancel": "Kanselahin",
+      "retry": "Subukan ulit"
+    },
+    "communityCity": {
+      "back": "Komunidad",
+      "countries": "Mga bansa",
+      "empty": "Wala pang tumutugma rito. Subukan ang ibang lugar.",
+      "error": "Hindi ma-load ang mga tao. Subukan ulit.",
+      "more": "Magpakita pa",
+      "search": "Maghanap",
+      "searchPlaceholder": "Maghanap ng lungsod",
+      "searchTitle": "Mga tao sa “{{query}}”",
+      "title": "Mga tao ayon sa lugar"
+    },
+    "communityGenders": {
+      "back": "Komunidad",
+      "empty": "Wala pang tumutugma.",
+      "error": "Hindi ma-load ang mga tao. Subukan ulit.",
+      "female": "Babae",
+      "male": "Lalaki",
+      "more": "Magpakita pa",
+      "title": "I-browse ayon sa kasarian"
+    },
+    "communityMain": {
+      "subnav": {
+        "city": "Lungsod",
+        "genders": "Kasarian"
+      }
+    },
+    "languageRooms": {
+      "create": {
+        "description": "Paglalarawan (opsyonal)",
+        "language": "Wika",
+        "name": "Paksa",
+        "submit": "Gumawa ng room",
+        "title": "Magsimula ng topic room"
+      },
+      "errors": {
+        "banned": "Inalis ka sa room na ito. Puwede mong hilingin sa owner na papasukin ka ulit.",
+        "busy": "Masyadong maraming request sa room na ito ngayon. Subukan mamaya.",
+        "generic": "Nagkaproblema. Subukan ulit.",
+        "gone": "Hindi na available ang room na ito.",
+        "owner": "Hindi puwedeng alisin ang owner.",
+        "pending": "Naghihintay pa sa owner ang request mo.",
+        "titleLength": "Hanggang 60 character lang ang pangalan.",
+        "tooMany": "May 10 room ka na. Mag-delete ng isa para makagawa ng bago."
+      },
+      "list": {
+        "create": "Bagong topic room",
+        "empty": "Wala pang room.",
+        "error": "Hindi ma-load ang mga language room.",
+        "joined": "Kasali na",
+        "locked": "Naka-lock",
+        "title": "Mga language room"
+      },
+      "owner": {
+        "admin": "admin",
+        "approve": "Papasukin",
+        "deny": "Tanggihan",
+        "members": "Mga miyembro",
+        "noRequests": "Walang naghihintay.",
+        "owner": "owner",
+        "remove": "Alisin sa room",
+        "removeNote": "Puwedeng humiling na bumalik ang mga inalis na miyembro; ikaw ang magpapasya.",
+        "removeYes": "Alisin",
+        "requests": "Mga request na sumali"
+      },
+      "room": {
+        "back": "Lahat ng room",
+        "join": "Sumali sa room",
+        "leave": "Umalis sa room",
+        "media": "Larawan o video — buksan ang app para makita",
+        "notSent": "Hindi naipadala. Subukan ulit.",
+        "older": "I-load ang mga naunang mensahe",
+        "online": "online",
+        "pending": "Naipadala ang request. Papapasukin ka ng owner.",
+        "placeholder": "Sumulat sa wika ng room…",
+        "request": "Humiling na sumali",
+        "send": "Ipadala",
+        "slowDown": "Masyado kang mabilis magpadala. Dahan-dahan lang.",
+        "sticker": "Sticker",
+        "unsupported": "Buksan ang app para makita ang mensaheng ito",
+        "voice": "Voice message — buksan ang app para pakinggan"
+      }
+    },
+    "nav": {
+      "languageRooms": "Mga language room",
+      "voiceRooms": "Mga voice room"
+    },
+    "voiceRooms": {
+      "category": {
+        "casual": "Kuwentuhan",
+        "language_practice": "Pagsasanay sa wika",
+        "qa": "Tanong at sagot",
+        "topic": "Paksa"
+      },
+      "create": {
+        "category": "Uri ng room",
+        "description": "Ano ang pag-uusapan ninyo? (opsyonal)",
+        "language": "Wika",
+        "max": "Hanggang ilang tao",
+        "name": "Pangalan ng room",
+        "schedule": "I-schedule",
+        "start": "Simulan ang room",
+        "title": "Magsimula ng voice room",
+        "when": "Simulan mamaya (opsyonal)"
+      },
+      "errors": {
+        "blocked": "Hindi ka puwedeng sumali sa room na ito.",
+        "ended": "Natapos na ang room na ito.",
+        "full": "Puno na ang room na ito.",
+        "generic": "Nagkaproblema. Subukan ulit.",
+        "gone": "Hindi na available ang room na ito.",
+        "vipToCreate": "Kailangan ng VIP plan para gumawa ng voice room."
+      },
+      "host": {
+        "end": "Tapusin ang room",
+        "endConfirm": "Tapusin ang room para sa lahat?",
+        "endYes": "Tapusin ang room",
+        "hands": "Mga nakataas na kamay",
+        "makeCohost": "Gawing Co-Host",
+        "muteAll": "I-mute ang lahat",
+        "noHands": "Wala pang nagtaas ng kamay.",
+        "speakNote": "Puwedeng kunin ng sinuman sa room ang mic. Ang pagtaas ng kamay ay paghingi ng turn sa iyo.",
+        "title": "Mga host tool"
+      },
+      "list": {
+        "create": "Magsimula ng room",
+        "emptyLive": "Walang nag-uusap ngayon. Magsimula ng room at mag-imbita ng mga tao.",
+        "emptyScheduled": "Wala pang naka-schedule na room.",
+        "error": "Hindi ma-load ang mga voice room.",
+        "full": "Puno",
+        "going": "Pupunta ✓",
+        "join": "Sumali",
+        "live": "Live ngayon",
+        "rsvp": "Paalalahanan ako",
+        "scheduled": "Paparating",
+        "title": "Mga voice room"
+      },
+      "room": {
+        "back": "Lahat ng room",
+        "chat": "Chat ng room",
+        "chatPlaceholder": "Magsabi ng kahit ano…",
+        "connectFailed": "Hindi maka-connect sa audio ng room. Tingnan ang iyong koneksyon at subukan ulit.",
+        "elsewhere": "Sumali ka sa room na ito mula sa ibang tab o device.",
+        "enableSound": "I-tap para buksan ang tunog ng room",
+        "ended": "Natapos na ang room na ito.",
+        "findAnother": "Maghanap ng ibang room",
+        "handUp": "Nakataas ang kamay",
+        "host": "Host",
+        "join": "Sumali sa room",
+        "joinHint": "Sasali ka bilang tagapakinig. Kunin ang mic kapag handa ka na.",
+        "leave": "Umalis",
+        "lost": "Naputol ang koneksyon sa room.",
+        "lowerHand": "Ibaba ang kamay",
+        "micDenied": "Bina-block ng browser mo ang mikropono. Payagan ang mikropono para sa banatalk.com sa address bar, saka subukan ulit. Puwede ka pa ring makinig.",
+        "micError": "Hindi mabuksan ang mikropono. Subukan ulit.",
+        "micUnavailable": "Walang nakitang mikropono (o ginagamit ito ng ibang app). Puwede ka pa ring makinig.",
+        "mute": "I-mute",
+        "raiseHand": "Itaas ang kamay",
+        "reconnecting": "Kumokonekta ulit…",
+        "rejoin": "Sumali ulit",
+        "send": "Ipadala",
+        "takeMic": "Kunin ang mic",
+        "useHere": "Dito na lang makinig",
+        "you": "ikaw"
+      }
+    }
+  },
+  "tr": {
+    "common": {
+      "cancel": "İptal",
+      "retry": "Tekrar dene"
+    },
+    "communityCity": {
+      "back": "Topluluk",
+      "countries": "Ülkeler",
+      "empty": "Burada henüz eşleşen kimse yok. Başka bir yer deneyin.",
+      "error": "Kişiler yüklenemedi. Tekrar deneyin.",
+      "more": "Daha fazla göster",
+      "search": "Ara",
+      "searchPlaceholder": "Şehir ara",
+      "searchTitle": "“{{query}}” konumundaki kişiler",
+      "title": "Konuma göre kişiler"
+    },
+    "communityGenders": {
+      "back": "Topluluk",
+      "empty": "Henüz eşleşen kimse yok.",
+      "error": "Kişiler yüklenemedi. Tekrar deneyin.",
+      "female": "Kadınlar",
+      "male": "Erkekler",
+      "more": "Daha fazla göster",
+      "title": "Cinsiyete göre göz at"
+    },
+    "communityMain": {
+      "subnav": {
+        "city": "Şehir",
+        "genders": "Cinsiyet"
+      }
+    },
+    "languageRooms": {
+      "create": {
+        "description": "Açıklama (isteğe bağlı)",
+        "language": "Dil",
+        "name": "Konu",
+        "submit": "Oda oluştur",
+        "title": "Konu odası başlat"
+      },
+      "errors": {
+        "banned": "Bu odadan çıkarıldınız. Oda sahibinden sizi tekrar almasını isteyebilirsiniz.",
+        "busy": "Bu odada şu an çok fazla istek var. Daha sonra deneyin.",
+        "generic": "Bir şeyler ters gitti. Tekrar deneyin.",
+        "gone": "Bu oda artık mevcut değil.",
+        "owner": "Oda sahibi çıkarılamaz.",
+        "pending": "İsteğiniz oda sahibinin onayını bekliyor.",
+        "titleLength": "Ad en fazla 60 karakter olabilir.",
+        "tooMany": "Zaten 10 odanız var. Yeni bir oda başlatmak için birini silin."
+      },
+      "list": {
+        "create": "Yeni konu odası",
+        "empty": "Henüz oda yok.",
+        "error": "Dil odaları yüklenemedi.",
+        "joined": "Katıldın",
+        "locked": "Kilitli",
+        "title": "Dil odaları"
+      },
+      "owner": {
+        "admin": "yönetici",
+        "approve": "İçeri al",
+        "deny": "Reddet",
+        "members": "Üyeler",
+        "noRequests": "Bekleyen kimse yok.",
+        "owner": "oda sahibi",
+        "remove": "Odadan çıkar",
+        "removeNote": "Çıkarılan üyeler geri dönmeyi isteyebilir; kararı siz verirsiniz.",
+        "removeYes": "Çıkar",
+        "requests": "Katılma istekleri"
+      },
+      "room": {
+        "back": "Tüm odalar",
+        "join": "Odaya katıl",
+        "leave": "Odadan ayrıl",
+        "media": "Fotoğraf veya video — görmek için uygulamayı açın",
+        "notSent": "Gönderilemedi. Tekrar deneyin.",
+        "older": "Önceki mesajları yükle",
+        "online": "çevrimiçi",
+        "pending": "İstek gönderildi. Oda sahibi sizi içeri alacak.",
+        "placeholder": "Odanın dilinde yazın…",
+        "request": "Katılma isteği gönder",
+        "send": "Gönder",
+        "slowDown": "Çok hızlı gönderiyorsunuz. Biraz yavaşlayın.",
+        "sticker": "Çıkartma",
+        "unsupported": "Bu mesajı görmek için uygulamayı açın",
+        "voice": "Sesli mesaj — dinlemek için uygulamayı açın"
+      }
+    },
+    "nav": {
+      "languageRooms": "Dil odaları",
+      "voiceRooms": "Sesli odalar"
+    },
+    "voiceRooms": {
+      "category": {
+        "casual": "Serbest sohbet",
+        "language_practice": "Dil pratiği",
+        "qa": "Soru-Cevap",
+        "topic": "Konu"
+      },
+      "create": {
+        "category": "Oda türü",
+        "description": "Ne hakkında konuşacaksınız? (isteğe bağlı)",
+        "language": "Dil",
+        "max": "En fazla kaç kişi",
+        "name": "Oda adı",
+        "schedule": "Planla",
+        "start": "Odayı başlat",
+        "title": "Sesli oda başlat",
+        "when": "Daha sonra başlat (isteğe bağlı)"
+      },
+      "errors": {
+        "blocked": "Bu odaya katılamazsınız.",
+        "ended": "Bu oda sona erdi.",
+        "full": "Bu oda dolu.",
+        "generic": "Bir şeyler ters gitti. Tekrar deneyin.",
+        "gone": "Bu oda artık mevcut değil.",
+        "vipToCreate": "Sesli oda oluşturmak için VIP plan gerekir."
+      },
+      "host": {
+        "end": "Odayı bitir",
+        "endConfirm": "Oda herkes için bitirilsin mi?",
+        "endYes": "Odayı bitir",
+        "hands": "Kaldırılan eller",
+        "makeCohost": "Yardımcı Ev Sahibi Yap",
+        "muteAll": "Herkesi sessize al",
+        "noHands": "Kimse el kaldırmadı.",
+        "speakNote": "Odadaki herkes mikrofonu alabilir. El kaldıran kişi sizden söz ister.",
+        "title": "Ev sahibi araçları"
+      },
+      "list": {
+        "create": "Oda başlat",
+        "emptyLive": "Şu an kimse konuşmuyor. Bir oda başlatın ve insanları davet edin.",
+        "emptyScheduled": "Henüz planlanmış oda yok.",
+        "error": "Sesli odalar yüklenemedi.",
+        "full": "Dolu",
+        "going": "Katılıyorum ✓",
+        "join": "Katıl",
+        "live": "Şu an canlı",
+        "rsvp": "Bana hatırlat",
+        "scheduled": "Yakında",
+        "title": "Sesli odalar"
+      },
+      "room": {
+        "back": "Tüm odalar",
+        "chat": "Oda sohbeti",
+        "chatPlaceholder": "Bir şey yazın…",
+        "connectFailed": "Odanın sesine bağlanılamadı. Bağlantınızı kontrol edip tekrar deneyin.",
+        "elsewhere": "Bu odaya başka bir sekmeden veya cihazdan katıldınız.",
+        "enableSound": "Odanın sesini açmak için dokunun",
+        "ended": "Bu oda sona erdi.",
+        "findAnother": "Başka bir oda bul",
+        "handUp": "El kaldırıldı",
+        "host": "Ev sahibi",
+        "join": "Odaya katıl",
+        "joinHint": "Dinleyici olarak katılacaksınız. Hazır olduğunuzda mikrofonu alın.",
+        "leave": "Ayrıl",
+        "lost": "Odayla bağlantı koptu.",
+        "lowerHand": "Eli indir",
+        "micDenied": "Tarayıcınız mikrofonu engelliyor. Adres çubuğundan banatalk.com için mikrofona izin verin, ardından tekrar deneyin. Dinlemeye devam edebilirsiniz.",
+        "micError": "Mikrofon açılamadı. Tekrar deneyin.",
+        "micUnavailable": "Mikrofon bulunamadı (veya başka bir uygulama kullanıyor). Dinlemeye devam edebilirsiniz.",
+        "mute": "Sessize al",
+        "raiseHand": "El kaldır",
+        "reconnecting": "Yeniden bağlanılıyor…",
+        "rejoin": "Yeniden katıl",
+        "send": "Gönder",
+        "takeMic": "Mikrofonu al",
+        "useHere": "Burada dinle",
+        "you": "siz"
+      }
+    }
+  },
+  "vi": {
+    "common": {
+      "cancel": "Hủy",
+      "retry": "Thử lại"
+    },
+    "communityCity": {
+      "back": "Cộng đồng",
+      "countries": "Quốc gia",
+      "empty": "Chưa có ai phù hợp ở đây. Hãy thử nơi khác.",
+      "error": "Không tải được danh sách người dùng. Hãy thử lại.",
+      "more": "Xem thêm",
+      "search": "Tìm kiếm",
+      "searchPlaceholder": "Tìm một thành phố",
+      "searchTitle": "Mọi người ở “{{query}}”",
+      "title": "Mọi người theo địa điểm"
+    },
+    "communityGenders": {
+      "back": "Cộng đồng",
+      "empty": "Chưa có ai phù hợp.",
+      "error": "Không tải được danh sách người dùng. Hãy thử lại.",
+      "female": "Nữ",
+      "male": "Nam",
+      "more": "Xem thêm",
+      "title": "Xem theo giới tính"
+    },
+    "communityMain": {
+      "subnav": {
+        "city": "Thành phố",
+        "genders": "Giới tính"
+      }
+    },
+    "languageRooms": {
+      "create": {
+        "description": "Mô tả (không bắt buộc)",
+        "language": "Ngôn ngữ",
+        "name": "Chủ đề",
+        "submit": "Tạo phòng",
+        "title": "Tạo phòng chủ đề"
+      },
+      "errors": {
+        "banned": "Bạn đã bị xóa khỏi phòng này. Bạn có thể nhờ chủ phòng cho vào lại.",
+        "busy": "Phòng này đang có quá nhiều yêu cầu. Hãy thử lại sau.",
+        "generic": "Đã xảy ra lỗi. Hãy thử lại.",
+        "gone": "Phòng này không còn nữa.",
+        "owner": "Không thể xóa chủ phòng.",
+        "pending": "Yêu cầu của bạn đang chờ chủ phòng duyệt.",
+        "titleLength": "Tên tối đa 60 ký tự.",
+        "tooMany": "Bạn đã có 10 phòng. Hãy xóa một phòng để tạo phòng mới."
+      },
+      "list": {
+        "create": "Phòng chủ đề mới",
+        "empty": "Chưa có phòng nào.",
+        "error": "Không tải được phòng ngôn ngữ.",
+        "joined": "Đã tham gia",
+        "locked": "Đã khóa",
+        "title": "Phòng ngôn ngữ"
+      },
+      "owner": {
+        "admin": "quản trị viên",
+        "approve": "Cho vào",
+        "deny": "Từ chối",
+        "members": "Thành viên",
+        "noRequests": "Không có ai đang chờ.",
+        "owner": "chủ phòng",
+        "remove": "Xóa khỏi phòng",
+        "removeNote": "Thành viên bị xóa có thể xin quay lại; bạn là người quyết định.",
+        "removeYes": "Xóa",
+        "requests": "Yêu cầu tham gia"
+      },
+      "room": {
+        "back": "Tất cả phòng",
+        "join": "Tham gia phòng",
+        "leave": "Rời phòng",
+        "media": "Ảnh hoặc video — mở ứng dụng để xem",
+        "notSent": "Chưa gửi được. Hãy thử lại.",
+        "older": "Tải tin nhắn cũ hơn",
+        "online": "trực tuyến",
+        "pending": "Đã gửi yêu cầu. Chủ phòng sẽ cho bạn vào.",
+        "placeholder": "Viết bằng ngôn ngữ của phòng…",
+        "request": "Xin tham gia",
+        "send": "Gửi",
+        "slowDown": "Bạn đang gửi quá nhanh. Chậm lại một chút nhé.",
+        "sticker": "Nhãn dán",
+        "unsupported": "Mở ứng dụng để xem tin nhắn này",
+        "voice": "Tin nhắn thoại — mở ứng dụng để nghe"
+      }
+    },
+    "nav": {
+      "languageRooms": "Phòng ngôn ngữ",
+      "voiceRooms": "Phòng thoại"
+    },
+    "voiceRooms": {
+      "category": {
+        "casual": "Trò chuyện thoải mái",
+        "language_practice": "Luyện ngôn ngữ",
+        "qa": "Hỏi & đáp",
+        "topic": "Chủ đề"
+      },
+      "create": {
+        "category": "Loại phòng",
+        "description": "Bạn sẽ nói về điều gì? (không bắt buộc)",
+        "language": "Ngôn ngữ",
+        "max": "Tối đa bao nhiêu người",
+        "name": "Tên phòng",
+        "schedule": "Lên lịch",
+        "start": "Bắt đầu phòng",
+        "title": "Tạo phòng thoại",
+        "when": "Bắt đầu sau (không bắt buộc)"
+      },
+      "errors": {
+        "blocked": "Bạn không thể tham gia phòng này.",
+        "ended": "Phòng này đã kết thúc.",
+        "full": "Phòng này đã đầy.",
+        "generic": "Đã xảy ra lỗi. Hãy thử lại.",
+        "gone": "Phòng này không còn nữa.",
+        "vipToCreate": "Cần gói VIP để tạo phòng thoại."
+      },
+      "host": {
+        "end": "Kết thúc phòng",
+        "endConfirm": "Kết thúc phòng cho mọi người?",
+        "endYes": "Kết thúc phòng",
+        "hands": "Người giơ tay",
+        "makeCohost": "Nâng lên đồng chủ phòng",
+        "muteAll": "Tắt mic mọi người",
+        "noHands": "Chưa có ai giơ tay.",
+        "speakNote": "Bất kỳ ai trong phòng cũng có thể cầm mic. Giơ tay là xin bạn một lượt nói.",
+        "title": "Công cụ chủ phòng"
+      },
+      "list": {
+        "create": "Tạo phòng",
+        "emptyLive": "Hiện chưa có ai trò chuyện. Hãy tạo phòng và mời mọi người vào.",
+        "emptyScheduled": "Chưa có phòng nào được lên lịch.",
+        "error": "Không tải được phòng thoại.",
+        "full": "Đầy",
+        "going": "Sẽ tham gia ✓",
+        "join": "Tham gia",
+        "live": "Đang diễn ra",
+        "rsvp": "Nhắc tôi",
+        "scheduled": "Sắp diễn ra",
+        "title": "Phòng thoại"
+      },
+      "room": {
+        "back": "Tất cả phòng",
+        "chat": "Trò chuyện trong phòng",
+        "chatPlaceholder": "Nói gì đó…",
+        "connectFailed": "Không kết nối được âm thanh của phòng. Hãy kiểm tra kết nối và thử lại.",
+        "elsewhere": "Bạn đã tham gia phòng này từ một tab hoặc thiết bị khác.",
+        "enableSound": "Chạm để bật âm thanh của phòng",
+        "ended": "Phòng này đã kết thúc.",
+        "findAnother": "Tìm phòng khác",
+        "handUp": "Đã giơ tay",
+        "host": "Chủ phòng",
+        "join": "Tham gia phòng",
+        "joinHint": "Bạn sẽ tham gia với tư cách người nghe. Cầm mic bất cứ khi nào bạn sẵn sàng.",
+        "leave": "Rời đi",
+        "lost": "Mất kết nối với phòng.",
+        "lowerHand": "Hạ tay",
+        "micDenied": "Trình duyệt đang chặn micrô. Hãy cho phép micrô cho banatalk.com trên thanh địa chỉ rồi thử lại. Bạn vẫn có thể tiếp tục nghe.",
+        "micError": "Không bật được micrô. Hãy thử lại.",
+        "micUnavailable": "Không tìm thấy micrô (hoặc một ứng dụng khác đang dùng). Bạn vẫn có thể tiếp tục nghe.",
+        "mute": "Tắt mic",
+        "raiseHand": "Giơ tay",
+        "reconnecting": "Đang kết nối lại…",
+        "rejoin": "Tham gia lại",
+        "send": "Gửi",
+        "takeMic": "Cầm mic",
+        "useHere": "Nghe ở đây",
+        "you": "bạn"
+      }
+    }
+  },
+  "zh_TW": {
+    "common": {
+      "cancel": "取消",
+      "retry": "再試一次"
+    },
+    "communityCity": {
+      "back": "社群",
+      "countries": "國家",
+      "empty": "目前還沒有符合條件的人，換個地方試試看。",
+      "error": "無法載入使用者，請再試一次。",
+      "more": "顯示更多",
+      "search": "搜尋",
+      "searchPlaceholder": "搜尋城市",
+      "searchTitle": "「{{query}}」的人",
+      "title": "依地區找人"
+    },
+    "communityGenders": {
+      "back": "社群",
+      "empty": "目前還沒有符合條件的人。",
+      "error": "無法載入使用者，請再試一次。",
+      "female": "女",
+      "male": "男",
+      "more": "顯示更多",
+      "title": "依性別瀏覽"
+    },
+    "communityMain": {
+      "subnav": {
+        "city": "城市",
+        "genders": "性別"
+      }
+    },
+    "languageRooms": {
+      "create": {
+        "description": "簡介（選填）",
+        "language": "語言",
+        "name": "話題",
+        "submit": "建立聊天室",
+        "title": "開一個話題聊天室"
+      },
+      "errors": {
+        "banned": "你已被移出這個聊天室，可以請房主讓你重新加入。",
+        "busy": "這個聊天室目前請求太多，請稍後再試。",
+        "generic": "發生錯誤，請再試一次。",
+        "gone": "這個聊天室已無法使用。",
+        "owner": "無法移出房主。",
+        "pending": "你的申請正在等待房主處理。",
+        "titleLength": "名稱最多 60 個字。",
+        "tooMany": "你已經有 10 個聊天室，刪除一個才能再建立。"
+      },
+      "list": {
+        "create": "新增話題聊天室",
+        "empty": "還沒有聊天室。",
+        "error": "無法載入語言聊天室。",
+        "joined": "已加入",
+        "locked": "已鎖定",
+        "title": "語言聊天室"
+      },
+      "owner": {
+        "admin": "管理員",
+        "approve": "同意",
+        "deny": "拒絕",
+        "members": "成員",
+        "noRequests": "沒有人在等待。",
+        "owner": "房主",
+        "remove": "移出聊天室",
+        "removeNote": "被移出的成員可以申請回來，由你決定是否同意。",
+        "removeYes": "移出",
+        "requests": "加入申請"
+      },
+      "room": {
+        "back": "所有聊天室",
+        "join": "加入聊天室",
+        "leave": "離開聊天室",
+        "media": "相片或影片 — 開啟 App 查看",
+        "notSent": "傳送失敗，請再試一次。",
+        "older": "載入較早的訊息",
+        "online": "線上",
+        "pending": "已送出申請，房主同意後就能加入。",
+        "placeholder": "用聊天室的語言寫點什麼…",
+        "request": "申請加入",
+        "send": "傳送",
+        "slowDown": "你傳得太快了，請稍微慢一點。",
+        "sticker": "貼圖",
+        "unsupported": "開啟 App 查看這則訊息",
+        "voice": "語音訊息 — 開啟 App 收聽"
+      }
+    },
+    "nav": {
+      "languageRooms": "語言聊天室",
+      "voiceRooms": "語音聊天室"
+    },
+    "voiceRooms": {
+      "category": {
+        "casual": "閒聊",
+        "language_practice": "語言練習",
+        "qa": "問答",
+        "topic": "話題"
+      },
+      "create": {
+        "category": "聊天室類型",
+        "description": "想聊些什麼？（選填）",
+        "language": "語言",
+        "max": "人數上限",
+        "name": "聊天室名稱",
+        "schedule": "預約",
+        "start": "開始",
+        "title": "開一個語音聊天室",
+        "when": "稍後開始（選填）"
+      },
+      "errors": {
+        "blocked": "你無法加入這個聊天室。",
+        "ended": "這個聊天室已結束。",
+        "full": "這個聊天室已滿。",
+        "generic": "發生錯誤，請再試一次。",
+        "gone": "這個聊天室已無法使用。",
+        "vipToCreate": "建立語音聊天室需要 VIP 方案。"
+      },
+      "host": {
+        "end": "結束聊天室",
+        "endConfirm": "要為所有人結束聊天室嗎？",
+        "endYes": "結束聊天室",
+        "hands": "舉手名單",
+        "makeCohost": "設為副房主",
+        "muteAll": "全部靜音",
+        "noHands": "還沒有人舉手。",
+        "speakNote": "聊天室裡的任何人都可以上麥。舉手是向你要求發言的機會。",
+        "title": "房主工具"
+      },
+      "list": {
+        "create": "開一個聊天室",
+        "emptyLive": "現在沒有人在聊天。開一個聊天室，邀請大家加入吧。",
+        "emptyScheduled": "目前沒有預約的聊天室。",
+        "error": "無法載入語音聊天室。",
+        "full": "已滿",
+        "going": "會參加 ✓",
+        "join": "加入",
+        "live": "直播中",
+        "rsvp": "提醒我",
+        "scheduled": "即將開始",
+        "title": "語音聊天室"
+      },
+      "room": {
+        "back": "所有聊天室",
+        "chat": "聊天室訊息",
+        "chatPlaceholder": "說點什麼…",
+        "connectFailed": "無法連線到聊天室音訊，請檢查網路後再試一次。",
+        "elsewhere": "你已經在其他分頁或裝置加入這個聊天室。",
+        "enableSound": "點一下開啟聊天室聲音",
+        "ended": "這個聊天室已結束。",
+        "findAnother": "尋找其他聊天室",
+        "handUp": "已舉手",
+        "host": "房主",
+        "join": "加入聊天室",
+        "joinHint": "你會以聽眾身分加入，準備好後隨時可以上麥。",
+        "leave": "離開",
+        "lost": "與聊天室的連線已中斷。",
+        "lowerHand": "放下手",
+        "micDenied": "瀏覽器封鎖了麥克風。請在網址列允許 banatalk.com 使用麥克風，然後再試一次。你可以繼續收聽。",
+        "micError": "無法開啟麥克風，請再試一次。",
+        "micUnavailable": "找不到麥克風（或有其他 App 正在使用）。你可以繼續收聽。",
+        "mute": "靜音",
+        "raiseHand": "舉手",
+        "reconnecting": "重新連線中…",
+        "rejoin": "重新加入",
+        "send": "傳送",
+        "takeMic": "上麥",
+        "useHere": "在這裡收聽",
+        "you": "你"
+      }
+    }
+  },
+  "zho": {
+    "common": {
+      "cancel": "取消",
+      "retry": "重试"
+    },
+    "communityCity": {
+      "back": "社区",
+      "countries": "国家",
+      "empty": "暂时没有符合条件的人，换个地方试试吧。",
+      "error": "无法加载用户，请重试。",
+      "more": "显示更多",
+      "search": "搜索",
+      "searchPlaceholder": "搜索城市",
+      "searchTitle": "“{{query}}”的人",
+      "title": "按地区找人"
+    },
+    "communityGenders": {
+      "back": "社区",
+      "empty": "暂时没有符合条件的人。",
+      "error": "无法加载用户，请重试。",
+      "female": "女",
+      "male": "男",
+      "more": "显示更多",
+      "title": "按性别浏览"
+    },
+    "communityMain": {
+      "subnav": {
+        "city": "城市",
+        "genders": "性别"
+      }
+    },
+    "languageRooms": {
+      "create": {
+        "description": "简介（选填）",
+        "language": "语言",
+        "name": "话题",
+        "submit": "创建房间",
+        "title": "创建话题房"
+      },
+      "errors": {
+        "banned": "你已被移出此房间，可以请房主让你重新加入。",
+        "busy": "此房间当前请求过多，请稍后再试。",
+        "generic": "出了点问题，请重试。",
+        "gone": "此房间已不可用。",
+        "owner": "不能移出房主。",
+        "pending": "你的申请正在等待房主处理。",
+        "titleLength": "名称最多 60 个字。",
+        "tooMany": "你已有 10 个房间，删除一个后才能再创建。"
+      },
+      "list": {
+        "create": "新建话题房",
+        "empty": "还没有房间。",
+        "error": "无法加载语言房。",
+        "joined": "已加入",
+        "locked": "已锁定",
+        "title": "语言房"
+      },
+      "owner": {
+        "admin": "管理员",
+        "approve": "同意",
+        "deny": "拒绝",
+        "members": "成员",
+        "noRequests": "没有人在等待。",
+        "owner": "房主",
+        "remove": "移出房间",
+        "removeNote": "被移出的成员可以申请回来，由你决定是否同意。",
+        "removeYes": "移出",
+        "requests": "加入申请"
+      },
+      "room": {
+        "back": "所有房间",
+        "join": "加入房间",
+        "leave": "离开房间",
+        "media": "图片或视频 — 打开 App 查看",
+        "notSent": "发送失败，请重试。",
+        "older": "加载更早的消息",
+        "online": "在线",
+        "pending": "申请已发送，房主同意后即可加入。",
+        "placeholder": "用房间的语言写点什么…",
+        "request": "申请加入",
+        "send": "发送",
+        "slowDown": "你发送得太快了，请稍微慢一点。",
+        "sticker": "贴纸",
+        "unsupported": "打开 App 查看此消息",
+        "voice": "语音消息 — 打开 App 收听"
+      }
+    },
+    "nav": {
+      "languageRooms": "语言房",
+      "voiceRooms": "语音房"
+    },
+    "voiceRooms": {
+      "category": {
+        "casual": "闲聊",
+        "language_practice": "语言练习",
+        "qa": "问答",
+        "topic": "话题"
+      },
+      "create": {
+        "category": "房间类型",
+        "description": "想聊些什么？（选填）",
+        "language": "语言",
+        "max": "人数上限",
+        "name": "房间名称",
+        "schedule": "预约",
+        "start": "开始",
+        "title": "创建语音房",
+        "when": "稍后开始（选填）"
+      },
+      "errors": {
+        "blocked": "你无法加入此房间。",
+        "ended": "此房间已结束。",
+        "full": "此房间已满。",
+        "generic": "出了点问题，请重试。",
+        "gone": "此房间已不可用。",
+        "vipToCreate": "创建语音房需要 VIP 会员。"
+      },
+      "host": {
+        "end": "结束房间",
+        "endConfirm": "要为所有人结束房间吗？",
+        "endYes": "结束房间",
+        "hands": "举手列表",
+        "makeCohost": "设为副房主",
+        "muteAll": "全员静音",
+        "noHands": "还没有人举手。",
+        "speakNote": "房间里的任何人都可以上麦。举手是向你申请发言机会。",
+        "title": "房主工具"
+      },
+      "list": {
+        "create": "创建房间",
+        "emptyLive": "现在没人在聊天。创建一个房间，邀请大家加入吧。",
+        "emptyScheduled": "暂无预约的房间。",
+        "error": "无法加载语音房。",
+        "full": "已满",
+        "going": "已预约 ✓",
+        "join": "加入",
+        "live": "正在直播",
+        "rsvp": "提醒我",
+        "scheduled": "即将开始",
+        "title": "语音房"
+      },
+      "room": {
+        "back": "所有房间",
+        "chat": "房间聊天",
+        "chatPlaceholder": "说点什么…",
+        "connectFailed": "无法连接房间音频，请检查网络后重试。",
+        "elsewhere": "你已在其他标签页或设备上加入此房间。",
+        "enableSound": "点击开启房间声音",
+        "ended": "此房间已结束。",
+        "findAnother": "寻找其他房间",
+        "handUp": "已举手",
+        "host": "房主",
+        "join": "加入房间",
+        "joinHint": "你将以听众身份加入，准备好后随时可以上麦。",
+        "leave": "离开",
+        "lost": "与房间的连接已断开。",
+        "lowerHand": "放下手",
+        "micDenied": "浏览器拦截了麦克风。请在地址栏中允许 banatalk.com 使用麦克风，然后重试。你可以继续收听。",
+        "micError": "无法开启麦克风，请重试。",
+        "micUnavailable": "未找到麦克风（或其他应用正在使用）。你可以继续收听。",
+        "mute": "静音",
+        "raiseHand": "举手",
+        "reconnecting": "正在重新连接…",
+        "rejoin": "重新加入",
+        "send": "发送",
+        "takeMic": "上麦",
+        "useHere": "在这里收听",
+        "you": "你"
+      }
+    }
+  }
+}

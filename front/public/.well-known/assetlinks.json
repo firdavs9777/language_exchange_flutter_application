@@ -4,7 +4,9 @@
     "target": {
       "namespace": "android_app",
       "package_name": "com.bananatalk.app",
-      "sha256_cert_fingerprints": ["TODO_SHA256_UPLOAD", "TODO_SHA256_PLAY_APP_SIGNING"]
+      "sha256_cert_fingerprints": [
+        "8D:B2:D2:7A:CD:16:8C:BD:91:2C:32:01:A6:67:07:83:28:A9:43:6D:48:55:E6:1C:AC:20:2C:05:EE:06:3B:FE"
+      ]
     }
   }
 ]

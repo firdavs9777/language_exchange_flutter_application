@@ -9,7 +9,11 @@
       "about": "परिचय",
       "services": "सेवाएँ",
       "pricing": "मूल्य निर्धारण",
-      "contact": "संपर्क"
+      "contact": "संपर्क",
+      "communities": "समुदाय",
+      "download": "ऐप डाउनलोड करें",
+      "meet": "लोगों से मिलें",
+      "learnKorean": "कोरियाई सीखें"
     },
     "contactInfo": "संपर्क जानकारी",
     "address": "सियोल, दक्षिण कोरिया, गंगनम-गु",
@@ -57,15 +61,20 @@
       "noMatchTitle": "कोई मेल खाती बातचीत नहीं",
       "noMatchSubtitle": "अपनी खोज बदलकर देखें",
       "emptyTitle": "अभी कोई बातचीत नहीं",
-      "emptySubtitle": "बातचीत शुरू करें ताकि यहाँ दिखे"
+      "emptySubtitle": "बातचीत शुरू करें ताकि यहाँ दिखे",
+      "loadError": "आपकी बातचीत लोड नहीं हो सकी",
+      "loading": "चैट लोड हो रही हैं...",
+      "noMessages": "अभी कोई संदेश नहीं",
+      "tryAgain": "फिर कोशिश करें",
+      "typing": "टाइप कर रहा है..."
     },
     "deleteModal": {
       "title": "बातचीत हटाएँ",
-      "bodyPrefix": "इस उपयोगकर्ता के साथ बातचीत हटाएँ:",
       "warning": "यह क्रिया वापस नहीं ली जा सकती।",
       "cancel": "रद्द करें",
       "confirm": "हटाएँ",
-      "deleting": "हटा रहा है..."
+      "deleting": "हटा रहा है...",
+      "body": "{{name}} के साथ अपनी बातचीत हटाएँ?"
     },
     "gif": {
       "title": "GIF",
@@ -84,8 +93,372 @@
       "noConversationYet": "पिन करने के लिए पहले बातचीत शुरू करें",
       "pinFailed": "पिन अपडेट करने में विफल",
       "deleteFailed": "बातचीत हटाने में विफल",
-      "deleted": "बातचीत हटा दी गई"
+      "deleted": "बातचीत हटा दी गई",
+      "openProfile": "{{name}} की प्रोफ़ाइल खोलें",
+      "mute": "म्यूट करें",
+      "unmute": "अनम्यूट करें",
+      "muted": "सूचनाएँ म्यूट कर दी गईं",
+      "unmuted": "सूचनाएँ फिर से चालू हैं",
+      "muteFailed": "सूचनाएँ अपडेट नहीं हो सकीं",
+      "unpinned": "बातचीत अनपिन कर दी गई"
+    },
+    "viewProfileOf": "{{name}} की प्रोफ़ाइल देखें",
+    "info": {
+      "title": "चैट जानकारी",
+      "close": "बंद करें",
+      "viewProfile": "प्रोफ़ाइल देखें",
+      "media": "साझा की गई मीडिया",
+      "mute": "सूचनाएँ म्यूट करें",
+      "unmute": "सूचनाएँ अनम्यूट करें",
+      "muted": "सूचनाएँ म्यूट कर दी गईं",
+      "unmuted": "सूचनाएँ फिर से चालू हैं",
+      "muteFailed": "सूचनाएँ अपडेट नहीं हो सकीं",
+      "wallpaper": "वॉलपेपर",
+      "block": "ब्लॉक करें",
+      "unblock": "अनब्लॉक करें",
+      "blockTitle": "{{name}} को ब्लॉक करें?",
+      "blockBody": "वे आपको मैसेज नहीं कर पाएँगे और न ही आपकी प्रोफ़ाइल देख पाएँगे।",
+      "unblockTitle": "{{name}} को अनब्लॉक करें?",
+      "unblockBody": "वे आपको फिर से मैसेज कर पाएँगे।",
+      "blocked": "ब्लॉक किया गया",
+      "unblocked": "अनब्लॉक किया गया",
+      "blockFailed": "यह नहीं हो पाया। फिर से कोशिश करें।",
+      "report": "रिपोर्ट करें",
+      "reportTitle": "{{name}} को रिपोर्ट करें",
+      "reportBody": "हमें बताएँ कि क्या गलत है। हर रिपोर्ट की समीक्षा की जाती है।",
+      "reportReason": "कारण",
+      "reportDescription": "विवरण (वैकल्पिक)",
+      "reportSubmit": "रिपोर्ट भेजें",
+      "reported": "धन्यवाद — मॉडरेटर इसे देखेंगे",
+      "reportFailed": "रिपोर्ट नहीं भेजी जा सकी",
+      "delete": "बातचीत हटाएँ",
+      "cancel": "रद्द करें",
+      "noConversationYet": "पहले कुछ लिखें"
+    },
+    "reportReasons": {
+      "spam": "स्पैम",
+      "harassment": "उत्पीड़न या धमकाना",
+      "hate_speech": "नफ़रत भरी भाषा",
+      "violence": "हिंसा या धमकियाँ",
+      "nudity": "नग्नता या यौन सामग्री",
+      "false_information": "गलत जानकारी",
+      "copyright": "कॉपीराइट",
+      "other": "कुछ और"
+    },
+    "status": {
+      "sending": "भेजा जा रहा है",
+      "sent": "भेज दिया गया",
+      "delivered": "डिलीवर हो गया",
+      "read": "पढ़ लिया गया",
+      "failed": "विफल"
+    },
+    "loadEarlier": "पुराने संदेश लोड करें",
+    "loadingEarlier": "पुराने संदेश लोड हो रहे हैं",
+    "suggestCorrection": "सुधार सुझाएँ",
+    "translateThis": "इस संदेश का अनुवाद करें",
+    "addCaption": "कैप्शन जोड़ें...",
+    "conversationStarted": "बातचीत शुरू हुई",
+    "correct": "सही",
+    "daysAgo": "{{count}} दिन पहले",
+    "edit": "संदेश संपादित करें",
+    "hide_translation": "छिपाएँ",
+    "noMessages": "अभी कोई संदेश नहीं",
+    "retry": "फिर कोशिश करें",
+    "today": "आज",
+    "translate": "अनुवाद करें",
+    "yesterday": "कल",
+    "wallpaper": {
+      "title": "वॉलपेपर",
+      "shared": "जो वॉलपेपर आप चुनेंगे, वह आप दोनों को दिखेगा।",
+      "plain": "सादा",
+      "gradients": "ग्रेडिएंट",
+      "default": "डिफ़ॉल्ट",
+      "apply": "लागू करें",
+      "cancel": "रद्द करें",
+      "saved": "वॉलपेपर अपडेट हो गया",
+      "failed": "वॉलपेपर बदला नहीं जा सका",
+      "cream": "क्रीम",
+      "blush": "ब्लश",
+      "peach": "पीच",
+      "sage": "सेज",
+      "ocean": "महासागर",
+      "teal": "टील",
+      "forest": "जंगल",
+      "rose": "रोज़",
+      "wine": "वाइन",
+      "plum": "प्लम",
+      "navy": "नेवी",
+      "mocha": "मोका",
+      "slate": "स्लेट",
+      "ember": "एम्बर",
+      "deep_sea": "गहरा समुद्र",
+      "charcoal": "चारकोल",
+      "midnight": "मिडनाइट",
+      "dark": "डार्क",
+      "gradient_sunset": "सूर्यास्त",
+      "gradient_ocean": "महासागर",
+      "gradient_purple": "कॉस्मिक",
+      "gradient_midnight": "मिडनाइट",
+      "gradient_forest": "जंगल",
+      "gradient_rose": "रोज़ गोल्ड",
+      "gradient_candy": "कैंडी",
+      "gradient_neon": "नियॉन",
+      "gradient_fire": "आग",
+      "gradient_winter": "विंटर",
+      "gradient_lavender": "लैवेंडर",
+      "gradient_aurora": "अरोरा",
+      "premiumInUse": "यह चैट ऐप का Premium वॉलपेपर इस्तेमाल करती है। कोई दूसरा चुनने पर यह आप दोनों के लिए बदल जाएगा।"
+    },
+    "jumpToLatest": "नवीनतम संदेशों पर जाएँ",
+    "archive": {
+      "archive": "चैट आर्काइव करें",
+      "archived": "वेबसाइट पर आर्काइव हो गई। ऐप में यह अब भी दिखेगी।",
+      "back": "चैट पर वापस",
+      "failed": "आर्काइव अपडेट नहीं हो सका",
+      "toggle": "आर्काइव ({{count}})",
+      "unarchive": "चैट अनआर्काइव करें",
+      "unarchived": "आपकी चैट में वापस भेज दी गई"
+    },
+    "blocked": {
+      "byMe": "आपने इस व्यक्ति को ब्लॉक किया है। संदेश भेजने के लिए उन्हें अनब्लॉक करें।",
+      "generic": "आप इस चैट में संदेश नहीं भेज सकते।",
+      "manage": "प्रबंधित करें"
+    },
+    "bookmarks": {
+      "addFailed": "संदेश सहेजा नहीं जा सका",
+      "added": "सहेजा गया",
+      "attachment": "अटैचमेंट",
+      "close": "बंद करें",
+      "empty": "अभी कोई सहेजा गया संदेश नहीं",
+      "error": "सहेजे गए संदेश लोड नहीं हो सके",
+      "loading": "सहेजे गए संदेश लोड हो रहे हैं…",
+      "open": "चैट खोलें",
+      "remove": "सहेजे गए से हटाएँ",
+      "removeFailed": "इसे हटाया नहीं जा सका",
+      "removed": "सहेजे गए संदेशों से हटा दिया गया",
+      "title": "सहेजे गए संदेश"
+    },
+    "call": {
+      "busy": "{{name}} दूसरी कॉल पर थे",
+      "cancelledVideo": "रद्द की गई वीडियो कॉल",
+      "cancelledVoice": "रद्द की गई वॉइस कॉल",
+      "declinedIncomingVideo": "अस्वीकार की गई वीडियो कॉल",
+      "declinedIncomingVoice": "अस्वीकार की गई वॉइस कॉल",
+      "declinedOutgoingVideo": "वीडियो कॉल अस्वीकार कर दी गई",
+      "declinedOutgoingVoice": "वॉइस कॉल अस्वीकार कर दी गई",
+      "incomingVideo": "आने वाली वीडियो कॉल",
+      "incomingVoice": "आने वाली वॉइस कॉल",
+      "missedVideo": "मिस्ड वीडियो कॉल",
+      "missedVoice": "मिस्ड वॉइस कॉल",
+      "noAnswerVideo": "वीडियो कॉल · कोई जवाब नहीं",
+      "noAnswerVoice": "वॉइस कॉल · कोई जवाब नहीं",
+      "outgoingVideo": "जाने वाली वीडियो कॉल",
+      "outgoingVoice": "जाने वाली वॉइस कॉल"
+    },
+    "connection": {
+      "kicked": "चैट कहीं और खुली है, इसलिए इस टैब में संदेश आना बंद हो गया है।",
+      "reconnect": "यहाँ इस्तेमाल करें"
+    },
+    "correction": {
+      "accept": "सुधार स्वीकार करें",
+      "acceptFailed": "सुधार स्वीकार नहीं हो सका",
+      "accepted": "सुधार स्वीकार किया गया — आपके लर्निंग रिकॉर्ड में जोड़ा गया",
+      "accepting": "स्वीकार किया जा रहा है…",
+      "corrected": "{{name}} ने सुधारा",
+      "you": "आप"
+    },
+    "correctionModal": {
+      "cancel": "रद्द करें",
+      "close": "बंद करें",
+      "empty": "कृपया सुधार लिखें",
+      "explanation": "स्पष्टीकरण",
+      "explanationPlaceholder": "बताएँ कि यह सुधार क्यों उपयोगी है...",
+      "hint": "उदा., \"'goed' की जगह 'went' इस्तेमाल करें - अनियमित भूतकाल\"",
+      "optional": "(वैकल्पिक)",
+      "original": "मूल संदेश",
+      "submit": "सुधार भेजें",
+      "title": "भाषा सुधार",
+      "unchanged": "सुधार मूल संदेश से अलग होना चाहिए",
+      "yours": "आपका सुधार",
+      "yoursPlaceholder": "सुधरा हुआ रूप लिखें..."
+    },
+    "deleteMessage": {
+      "cancel": "रद्द करें",
+      "failed": "संदेश हटाया नहीं जा सका। फिर से कोशिश करें।",
+      "forEveryone": "सभी के लिए हटाएँ",
+      "forMe": "मेरे लिए हटाएँ",
+      "placeholder": "यह संदेश हटा दिया गया",
+      "title": "संदेश हटाएँ?",
+      "tooLate": "आप भेजने के 1 घंटे के अंदर ही संदेश को सभी के लिए हटा सकते हैं।"
+    },
+    "editDialog": {
+      "cancel": "रद्द करें",
+      "failed": "संदेश संपादित नहीं हो सका। फिर से कोशिश करें।",
+      "label": "संदेश",
+      "save": "सहेजें",
+      "title": "संदेश संपादित करें",
+      "tooLate": "आप भेजने के 15 मिनट के अंदर ही संदेश संपादित कर सकते हैं।"
+    },
+    "editedLabel": "संपादित",
+    "forward": {
+      "close": "बंद करें",
+      "empty": "कोई बातचीत नहीं मिली।",
+      "error": "बातचीत लोड नहीं हो सकी।",
+      "loading": "बातचीत लोड हो रही है…",
+      "search": "खोजें",
+      "submit": "फ़ॉरवर्ड करें",
+      "submitCount": "फ़ॉरवर्ड करें ({{count}})",
+      "title": "किसे फ़ॉरवर्ड करें",
+      "unknownUser": "अज्ञात"
+    },
+    "forwarded": "फ़ॉरवर्ड किया गया",
+    "location": {
+      "cancel": "रद्द करें",
+      "confirmTitle": "अपनी लोकेशन शेयर करें?",
+      "denied": "लोकेशन की अनुमति नहीं दी गई",
+      "failed": "आपकी लोकेशन नहीं मिल सकी",
+      "open": "मैप्स में खोलें",
+      "send": "भेजें",
+      "sendFailed": "आपकी लोकेशन भेजी नहीं जा सकी",
+      "share": "लोकेशन शेयर करें",
+      "title": "लोकेशन",
+      "unsupported": "यह ब्राउज़र लोकेशन शेयर नहीं कर सकता"
+    },
+    "mediaGallery": {
+      "back": "वापस",
+      "emptyFiles": "अभी कोई फ़ाइल साझा नहीं की गई",
+      "emptyPhotos": "अभी कोई फ़ोटो साझा नहीं की गई",
+      "emptyVideos": "अभी कोई वीडियो साझा नहीं किया गया",
+      "error": "मीडिया लोड करने में त्रुटि",
+      "files": "फ़ाइलें",
+      "loading": "मीडिया लोड हो रहा है...",
+      "photos": "फ़ोटो",
+      "title": "साझा की गई मीडिया",
+      "unknownFile": "अज्ञात फ़ाइल",
+      "unknownSize": "अज्ञात आकार",
+      "videos": "वीडियो"
+    },
+    "menu": {
+      "bookmark": "सहेजें",
+      "close": "बंद करें",
+      "copy": "कॉपी करें",
+      "delete": "हटाएँ",
+      "edit": "संपादित करें",
+      "forward": "फ़ॉरवर्ड करें",
+      "listen": "सुनें",
+      "pin": "पिन करें",
+      "reply": "जवाब दें"
+    },
+    "mute": {
+      "always": "जब तक मैं फिर से चालू न करूँ",
+      "cancel": "रद्द करें",
+      "eightHours": "8 घंटे के लिए",
+      "oneHour": "1 घंटे के लिए",
+      "oneWeek": "1 हफ़्ते के लिए",
+      "title": "{{name}} को म्यूट करें?"
+    },
+    "pinnedBar": {
+      "count": "{{count}} पिन किए गए",
+      "unpin": "संदेश अनपिन करें"
+    },
+    "preview": {
+      "attachment": "📎 अटैचमेंट",
+      "call": "📞 कॉल",
+      "file": "📎 फ़ाइल",
+      "gif": "GIF",
+      "location": "📍 लोकेशन",
+      "photo": "🖼️ फ़ोटो",
+      "poll": "📊 पोल",
+      "story": "📖 स्टोरी",
+      "video": "🎥 वीडियो",
+      "voice": "🎤 वॉइस संदेश"
+    },
+    "replyBar": {
+      "cancel": "जवाब रद्द करें",
+      "replyingTo": "{{name}} को जवाब दे रहे हैं"
+    },
+    "search": {
+      "close": "बंद करें",
+      "empty": "कोई संदेश नहीं मिला",
+      "hint": "कम से कम 2 अक्षर लिखें",
+      "notLoaded": "वह संदेश और पीछे है। उसे लोड करने के लिए ऊपर स्क्रॉल करें।",
+      "open": "संदेश खोजें",
+      "placeholder": "इस चैट में खोजें",
+      "searching": "खोजा जा रहा है…",
+      "title": "{{name}} के साथ संदेश खोजें",
+      "unavailable": "खोज अभी उपलब्ध नहीं है",
+      "you": "आप"
+    },
+    "sendErrors": {
+      "blockedBody": "आप इस व्यक्ति को संदेश नहीं भेज सकते।",
+      "blockedTitle": "संदेश नहीं भेजा गया",
+      "capBody": "आज आप जितनी नई बातचीत शुरू कर सकते थे, कर चुके हैं। जितनी चाहें उतनी शुरू करने के लिए VIP लें।",
+      "capTitle": "नई बातचीत की सीमा पूरी हुई",
+      "dailyBody": "आपने आज के सारे संदेश भेज दिए हैं। असीमित संदेशों के लिए VIP लें, या कल फिर आएँ।",
+      "dailyTitle": "दैनिक संदेश सीमा पूरी हुई",
+      "firstChatBody": "जवाब आने तक आप 5 संदेश भेज सकते हैं। उनके जवाब देने के बाद आप फिर लिख सकते हैं।",
+      "firstChatTitle": "जवाब का इंतज़ार करें",
+      "generic": "संदेश नहीं भेजा गया। फिर से कोशिश करने के लिए \"फिर से भेजें\" पर टैप करें।",
+      "goVip": "VIP लें",
+      "ok": "ठीक है",
+      "reattach": "भेजने के लिए फ़ाइल फिर से अटैच करें।",
+      "tooFast": "आप बहुत तेज़ी से संदेश भेज रहे हैं। थोड़ा रुकें।"
+    },
+    "story": {
+      "replied": "आपकी स्टोरी का जवाब दिया",
+      "shared": "एक स्टोरी शेयर की",
+      "unavailable": "यह स्टोरी अब उपलब्ध नहीं है",
+      "youReplied": "आपने उनकी स्टोरी का जवाब दिया",
+      "youShared": "आपने एक स्टोरी शेयर की"
+    },
+    "translation": {
+      "close": "अनुवाद बंद करें",
+      "failed": "संदेश का अनुवाद नहीं हो सका",
+      "label": "अनुवाद · {{lang}}",
+      "save": "वाक्यांश सहेजें",
+      "saveFailed": "वाक्यांश सहेजा नहीं जा सका",
+      "saved": "अध्ययन सूची में सहेजा गया",
+      "saving": "सहेजा जा रहा है…",
+      "translating": "अनुवाद हो रहा है…"
+    },
+    "video": {
+      "badType": "यह वीडियो फ़ॉर्मैट भेजा नहीं जा सकता। MP4 आज़माएँ।",
+      "tooBig": "यह वीडियो बहुत बड़ा है। सीमा {{mb}} MB है।",
+      "tooLong": "यह वीडियो बहुत लंबा है। सीमा {{minutes}} मिनट है।"
+    },
+    "voice": {
+      "unavailable": "वॉइस रिकॉर्डिंग उपलब्ध नहीं है। इस साइट के लिए माइक्रोफ़ोन की अनुमति जाँचें।"
+    },
+    "wave": {
+      "hi": "नमस्ते!"
+    },
+    "callInApp": {
+      "voice": "वॉइस कॉल",
+      "video": "वीडियो कॉल",
+      "title": "कॉल BananaTalk ऐप में होती हैं",
+      "body": "{{name}} को कॉल करने के लिए ऐप खोलें। आने वाली कॉल आपके फ़ोन पर बजती हैं।",
+      "openApp": "ऐप खोलें",
+      "notNow": "अभी नहीं"
     }
+  },
+  "newChat": {
+    "title": "नई चैट",
+    "subtitle": "बातचीत शुरू करें",
+    "directMessage": "डायरेक्ट",
+    "groupChat": "ग्रुप",
+    "searchPlaceholder": "नाम, @यूज़रनेम या यूज़र ID से खोजें...",
+    "searchHint": "चैट शुरू करने के लिए उपयोगकर्ता खोजें",
+    "hintName": "नाम से खोजें",
+    "hintUsername": "यूज़रनेम से खोजने के लिए @यूज़रनेम टाइप करें",
+    "hintId": "सीधे खोजने के लिए यूज़र ID पेस्ट करें",
+    "searchByUsername": "यूज़रनेम से खोजा जा रहा है",
+    "searchById": "यूज़र ID से खोजा जा रहा है",
+    "noResults": "कोई उपयोगकर्ता नहीं मिला",
+    "tryDifferent": "कोई और नाम, @यूज़रनेम या यूज़र ID आज़माएँ",
+    "createGroup": "ग्रुप बनाएँ",
+    "selectMoreUsers": "ग्रुप चैट के लिए कम से कम 2 उपयोगकर्ता चुनें",
+    "createError": "चैट बनाने में विफल",
+    "recently": "हाल ही में"
   },
   "notifications": "सूचनाएँ",
   "moments": "मोमेंट्स",
@@ -124,7 +497,18 @@
   "profile": {
     "title": "मेरी प्रोफ़ाइल",
     "edit_profile": "प्रोफ़ाइल संपादित करें",
-    "photos": "फ़ोटो",
+    "photos": {
+      "title": "फ़ोटो",
+      "add": "फ़ोटो जोड़ें",
+      "alt": "{{name}}, फ़ोटो {{index}}",
+      "open": "फ़ोटो {{index}} खोलें",
+      "close": "बंद करें",
+      "previous": "पिछली फ़ोटो",
+      "next": "अगली फ़ोटो",
+      "counter": "{{total}} में से {{index}}",
+      "openAvatar": "{{name}} की फ़ोटो खोलें",
+      "openStory": "{{name}} की स्टोरी देखें"
+    },
     "messages": {
       "image_update_success": "प्रोफ़ाइल इमेज सफलतापूर्वक अपडेट की गई",
       "image_update_failure": "प्रोफ़ाइल इमेज अपडेट करने में विफल",
@@ -132,6 +516,7 @@
       "image_delete_failure": "फ़ोटो हटाने में विफल",
       "profile_update_success": "प्रोफ़ाइल सफलतापूर्वक अपडेट की गई",
       "profile_update_failure": "प्रोफ़ाइल अपडेट करने में विफल",
+      "extras_update_failure": "आपकी प्रोफ़ाइल सहेजी गई, लेकिन कुछ विवरण अपडेट नहीं हुए",
       "error_loading_profile": "उपयोगकर्ता प्रोफ़ाइल लोड करने में त्रुटि",
       "no_profile_data": "कोई उपयोगकर्ता प्रोफ़ाइल डेटा उपलब्ध नहीं है",
       "unknown_error": "एक अज्ञात त्रुटि हुई",
@@ -146,7 +531,8 @@
       "no_following": "आप अभी तक किसी को फॉलो नहीं कर रहे हैं।",
       "following_error": "फॉलोइंग सूची लोड करने में त्रुटि। कृपया बाद में पुनः प्रयास करें।",
       "moments": "मोमेंट्स",
-      "visitors": "विज़िटर्स"
+      "visitors": "विज़िटर्स",
+      "visited": "देखी गई"
     },
     "visitors": {
       "title": "प्रोफ़ाइल विज़िटर्स",
@@ -165,7 +551,11 @@
       "vipOnly": "VIP सुविधा",
       "vipOnlyDesc": "VIP में अपग्रेड करके देखें कि आपकी प्रोफ़ाइल किसने देखी। यह सुविधा विशेष रूप से VIP सदस्यों के लिए उपलब्ध है।",
       "vipBenefits": "VIP लाभ",
-      "learnMore": "VIP के बारे में और जानें"
+      "learnMore": "VIP के बारे में और जानें",
+      "clear": "इतिहास साफ़ करें",
+      "clear_title": "अपना विज़िटर इतिहास साफ़ करें?",
+      "clear_body": "आपकी प्रोफ़ाइल देखने वाले सभी लोग हट जाएँगे और आपके काउंटर शून्य हो जाएँगे। इसे पलटा नहीं जा सकता।",
+      "no_visited": "आप जिन प्रोफ़ाइलों को देखते हैं वे यहाँ दिखेंगी"
     },
     "sections": {
       "personal_info": "व्यक्तिगत जानकारी",
@@ -207,7 +597,18 @@
       "save": "सहेजें",
       "cancel": "रद्द करें",
       "edit_photo": "फ़ोटो संपादित करें",
-      "clear": "चयन साफ़ करें"
+      "clear": "चयन साफ़ करें",
+      "settings": "सेटिंग्स",
+      "message": "मैसेज करें",
+      "follow": "फॉलो करें",
+      "following": "फॉलो कर रहे हैं",
+      "more": "और विकल्प",
+      "block": "ब्लॉक करें",
+      "report": "रिपोर्ट करें",
+      "this_person": "इस व्यक्ति",
+      "action_failed": "यह नहीं हो पाया। फिर से कोशिश करें।",
+      "unblock": "अनब्लॉक करें",
+      "followBlocked": "आप इस व्यक्ति को फॉलो नहीं कर सकते"
     },
     "buttons": {
       "edit": "संपादित करें",
@@ -235,6 +636,128 @@
       "kdrama": "K-Drama",
       "languages": "भाषाएँ",
       "culture": "संस्कृति"
+    },
+    "badges": {
+      "vip": "VIP",
+      "verified": "सत्यापित",
+      "joined": "{{date}} से सदस्य",
+      "active": "{{time}} ऐक्टिव",
+      "online": "अभी ऑनलाइन"
+    },
+    "block": {
+      "title": "{{name}} को ब्लॉक करें?",
+      "body": "वे आपको मैसेज नहीं कर पाएँगे और न ही आपकी प्रोफ़ाइल देख पाएँगे।"
+    },
+    "report": {
+      "title": "{{name}} की रिपोर्ट करें?",
+      "body": "हमें बताएँ कि क्या गलत है। हर रिपोर्ट की समीक्षा की जाती है।",
+      "reason": "कारण"
+    },
+    "languages": {
+      "also_learning": "यह भी सीख रहे हैं"
+    },
+    "about": {
+      "title": "परिचय",
+      "occupation": "काम",
+      "school": "स्कूल",
+      "read_more": "और पढ़ें",
+      "read_less": "कम दिखाएँ"
+    },
+    "learning": {
+      "title": "सीखने की प्रगति",
+      "streak": "स्ट्रीक",
+      "days": "दिन",
+      "xp": "कुल XP",
+      "level": "लेवल"
+    },
+    "moments": {
+      "see_all": "सभी देखें",
+      "empty_own": "अपना पहला मोमेंट शेयर करें",
+      "empty_other": "अभी तक कोई मोमेंट नहीं",
+      "photo_alt": "मोमेंट की फ़ोटो"
+    },
+    "page": {
+      "title": "प्रोफ़ाइल",
+      "error_title": "हम यह प्रोफ़ाइल लोड नहीं कर सके",
+      "error_body": "अपना कनेक्शन जाँचें और फिर कोशिश करें।",
+      "retry": "फिर कोशिश करें",
+      "not_found_title": "प्रोफ़ाइल नहीं मिली",
+      "not_found_body": "यह प्रोफ़ाइल अब मौजूद नहीं है, या यहाँ कभी थी ही नहीं।",
+      "back_to_community": "समुदाय देखें"
+    },
+    "lists": {
+      "title": "आपके कनेक्शन",
+      "title_of": "{{name}} के कनेक्शन",
+      "title_other": "कनेक्शन",
+      "search": "नाम से खोजें",
+      "search_empty": "यहाँ \"{{query}}\" से मेल खाने वाला कोई नहीं है",
+      "empty_followers_own": "अभी तक आपको कोई फॉलो नहीं करता।",
+      "empty_followers_other": "अभी तक उन्हें कोई फॉलो नहीं करता।",
+      "empty_following_own": "आप अभी तक किसी को फॉलो नहीं कर रहे हैं।",
+      "empty_following_other": "वे अभी तक किसी को फॉलो नहीं कर रहे हैं।",
+      "error_title": "हम यह सूची लोड नहीं कर सके",
+      "error_body": "अपना कनेक्शन जाँचें और फिर कोशिश करें।",
+      "retry": "फिर कोशिश करें"
+    },
+    "edit": {
+      "back": "वापस",
+      "about": "परिचय",
+      "photos_hint": "आपकी पहली फ़ोटो वही है जो लोग हर जगह देखते हैं।",
+      "add_photo": "फ़ोटो जोड़ें",
+      "photo_alt": "फ़ोटो {{index}}",
+      "delete_photo": "फ़ोटो {{index}} हटाएँ",
+      "delete_photo_title": "यह फ़ोटो हटाएँ?",
+      "delete_photo_body": "यह सभी के लिए आपकी प्रोफ़ाइल से हट जाएगी।",
+      "delete_photo_confirm": "फ़ोटो हटाएँ",
+      "level": "लेवल",
+      "level_hint": "जिस भाषा को आप सीख रहे हैं, उसमें आपका लेवल।",
+      "occupation": "पेशा",
+      "occupation_placeholder": "आप क्या करते हैं?",
+      "school": "स्कूल",
+      "school_placeholder": "आप कहाँ पढ़ते हैं?",
+      "saving": "सहेजा जा रहा है",
+      "unsaved": "आपके बदलाव अभी सहेजे नहीं गए हैं",
+      "leave_title": "बिना सहेजे बाहर निकलें?",
+      "leave_body": "इस प्रोफ़ाइल में किए गए आपके बदलाव खो जाएँगे।",
+      "leave_confirm": "बदलाव छोड़ें",
+      "stay": "संपादन जारी रखें",
+      "intent_title": "आप यहाँ क्यों हैं",
+      "intent_learn": "सीखने आया हूँ",
+      "intent_meet": "लोगों से मिलना चाहता हूँ",
+      "intent_date": "डेटिंग के लिए तैयार",
+      "intent_privacy_note": "आपकी पसंद दूसरों को दिखती है, डेटिंग को छोड़कर जो निजी रहती है।",
+      "completion": "प्रोफ़ाइल पूर्णता"
+    },
+    "myMoments": {
+      "title": "मेरे मोमेंट्स",
+      "create": "मोमेंट शेयर करें",
+      "edit": "मोमेंट संपादित करें",
+      "delete": "मोमेंट हटाएँ",
+      "delete_title": "यह मोमेंट हटाएँ?",
+      "delete_body": "यह सभी के लिए गायब हो जाएगा, इसके लाइक और कमेंट के साथ।",
+      "delete_confirm": "हटाएँ",
+      "delete_failed": "हम वह मोमेंट हटा नहीं सके। फिर कोशिश करें।",
+      "empty_title": "अभी तक कोई मोमेंट नहीं",
+      "empty_body": "समुदाय के साथ अपना पहला मोमेंट शेयर करें।",
+      "error_title": "हम आपके मोमेंट्स लोड नहीं कर सके",
+      "error_body": "अपना कनेक्शन जाँचें और फिर कोशिश करें।",
+      "retry": "फिर कोशिश करें",
+      "load_more": "और लोड करें",
+      "loading_more": "लोड हो रहा है..."
+    },
+    "tabs": {
+      "label": "प्रोफ़ाइल अनुभाग",
+      "moments": "मोमेंट्स",
+      "about": "परिचय"
+    },
+    "unblock": {
+      "title": "{{name}} को अनब्लॉक करें?",
+      "body": "वे आपको फिर से मैसेज कर पाएँगे और आपकी प्रोफ़ाइल देख पाएँगे।"
+    },
+    "blocked": {
+      "body": "आप में से किसी एक ने दूसरे को ब्लॉक किया है, इसलिए आप एक-दूसरे को मैसेज, फॉलो नहीं कर सकते और न ही एक-दूसरे की पोस्ट देख सकते हैं।",
+      "manage": "ब्लॉक किए गए लोगों को मैनेज करें",
+      "title": "यह प्रोफ़ाइल उपलब्ध नहीं है"
     }
   },
   "moments_section": {
@@ -302,7 +825,230 @@
       "addMood": "मूड जोड़ें",
       "addLocation": "स्थान जोड़ें",
       "addTags": "टैग जोड़ें",
-      "tagPlaceholder": "टैग जोड़ें..."
+      "tagPlaceholder": "टैग जोड़ें...",
+      "attachVideo": "वीडियो जोड़ें",
+      "mediaFailedNothingPosted": "अपलोड नहीं हो सका, इसलिए कुछ भी पोस्ट नहीं हुआ। फिर से कोशिश करें।",
+      "mediaFailedPosted": "पोस्ट हो गया, लेकिन मीडिया अपलोड नहीं हुआ — इसे जोड़ने के लिए मोमेंट एडिट करें।",
+      "modePhoto": "फ़ोटो",
+      "modeText": "टेक्स्ट",
+      "modeVideo": "वीडियो",
+      "modeVoice": "आवाज़",
+      "moodQuestion": "आप कैसा महसूस कर रहे हैं?",
+      "placeholder": "{{name}}, आप क्या सोच रहे हैं?",
+      "recordVoice": "वॉइस नोट रिकॉर्ड करें",
+      "remove": "हटाएँ",
+      "share": "शेयर करें",
+      "sharing": "शेयर हो रहा है...",
+      "textPreview": "आपका टेक्स्ट मोमेंट",
+      "voiceNoteLength": "वॉइस नोट · {{seconds}} से."
+    },
+    "promo": {
+      "title": "मोमेंट्स अब ऐप में हैं",
+      "subtitle": "स्टोरीज़, AI स्टडी जवाब और ब्राउज़र टैब नहीं, फ़ोन के लिए बनी फ़ीड। मुफ़्त इंस्टॉल, खाता बदलने की ज़रूरत नहीं।",
+      "appStore": "App Store से पाएं",
+      "playStore": "Google Play से पाएं",
+      "appOnly": "ऐप में",
+      "perks": {
+        "stories": {
+          "title": "ग़ायब होने वाली स्टोरीज़",
+          "body": "24 घंटे तक रहने वाला पल साझा करें, ठीक वैसे जैसे ऐप की कम्युनिटी सच में इसे इस्तेमाल करती है।"
+        },
+        "aiStudy": {
+          "title": "AI स्टडी जवाब",
+          "body": "जो भाषा सीख रहे हैं उसमें पोस्ट करें और कमेंट में ही AI से सहज सुधार पाएं।"
+        },
+        "reactions": {
+          "title": "बेहतर रिएक्शन",
+          "body": "वॉइस रिएक्शन, एक टैप में अनुवाद और फ़ीड के लिए बने कमेंट थ्रेड, फ़ॉर्म के लिए नहीं।"
+        },
+        "notifications": {
+          "title": "लाइव नोटिफ़िकेशन",
+          "body": "जैसे ही आपकी लक्षित भाषा का कोई व्यक्ति जवाब दे, तुरंत जानें — ब्राउज़र टैब रीफ़्रेश करने की ज़रूरत नहीं।"
+        }
+      }
+    },
+    "translate": {
+      "tap": "अनुवाद के लिए टैप करें",
+      "loading": "अनुवाद हो रहा है…",
+      "same": "पहले से आपकी भाषा में है",
+      "error": "अनुवाद नहीं हो सका। फिर से कोशिश करने के लिए टैप करें।"
+    },
+    "tabs": {
+      "forYou": "आपके लिए",
+      "following": "फ़ॉलोइंग",
+      "explore": "खोजें",
+      "trending": "ट्रेंडिंग"
+    },
+    "following": {
+      "empty": "लोगों को फॉलो करें और उनके मोमेंट्स यहाँ देखें",
+      "findPeople": "लोगों को खोजें"
+    },
+    "commentEngagement": {
+      "attachImage": "फ़ोटो जोड़ें",
+      "beFirst": "अपनी राय साझा करने वाले पहले व्यक्ति बनें!",
+      "cancel": "रद्द करें",
+      "commentTab": "टिप्पणी",
+      "correctedLabel": "सुधारा गया",
+      "correctedPlaceholder": "इसे वैसे लिखें जैसे कोई मूल भाषी कहेगा",
+      "correction": "सुधार",
+      "correctionNotePlaceholder": "एक नोट जोड़ें (वैकल्पिक)",
+      "correctionTab": "सुधार",
+      "delete": "हटाएँ",
+      "explanationLabel": "स्पष्टीकरण",
+      "explanationPlaceholder": "यह ऐसा क्यों लिखा जाता है? (वैकल्पिक)",
+      "hideReplies": "जवाब छिपाएं",
+      "imageFailed": "टिप्पणी पोस्ट हो गई, लेकिन फ़ोटो अटैच नहीं हो सकी।",
+      "loadMoreComments": "और टिप्पणियाँ लोड करें",
+      "loadMoreReplies": "और लोड करें",
+      "loadingReplies": "जवाब लोड हो रहे हैं…",
+      "originalLabel": "मूल",
+      "post": "पोस्ट करें",
+      "postCorrection": "सुधार पोस्ट करें",
+      "postFailed": "पोस्ट नहीं हो सका। फिर से प्रयास करें।",
+      "react": "रिएक्ट करें",
+      "reply": "जवाब दें",
+      "replyPlaceholder": "जवाब लिखें…",
+      "viewReplies": "{{count}} जवाब देखें",
+      "deleteOthersBody": "यह आपके मोमेंट पर है, इसलिए आप इसे हटा सकते हैं। इसे वापस नहीं लाया जा सकता।",
+      "deleteOthersTitle": "यह कमेंट हटाएँ?",
+      "removeGif": "GIF हटाएँ"
+    },
+    "filters": {
+      "button": "फ़िल्टर",
+      "searchPlaceholder": "मोमेंट खोजें",
+      "search": "खोजें",
+      "category": "श्रेणी",
+      "language": "भाषा",
+      "mood": "मूड",
+      "tag": "टैग",
+      "tagPlaceholder": "कोई भी टैग",
+      "any": "सभी",
+      "clear": "फ़िल्टर हटाएँ",
+      "emptyTitle": "इन फ़िल्टर से कोई मोमेंट मेल नहीं खाता",
+      "emptyBody": "कोई फ़िल्टर हटाकर या कुछ और खोजकर देखें।"
+    },
+    "categories": {
+      "general": "सामान्य",
+      "language-learning": "भाषा सीखना",
+      "culture": "संस्कृति",
+      "food": "खाना",
+      "travel": "यात्रा",
+      "music": "संगीत",
+      "books": "किताबें",
+      "hobbies": "शौक",
+      "daily-life": "रोज़मर्रा",
+      "technology": "तकनीक",
+      "entertainment": "मनोरंजन",
+      "sports": "खेल",
+      "movies": "फ़िल्में",
+      "study": "पढ़ाई",
+      "work": "काम",
+      "question": "सवाल"
+    },
+    "moods": {
+      "happy": "खुश",
+      "excited": "उत्साहित",
+      "grateful": "आभारी",
+      "motivated": "प्रेरित",
+      "relaxed": "सुकून में",
+      "curious": "जिज्ञासु",
+      "sad": "उदास",
+      "love": "प्यार में",
+      "funny": "मज़ेदार",
+      "thoughtful": "सोच में",
+      "cool": "कूल",
+      "tired": "थका हुआ"
+    },
+    "report": {
+      "menu": "और विकल्प",
+      "report": "रिपोर्ट करें",
+      "title": "इस मोमेंट की रिपोर्ट करें",
+      "reasonLabel": "आप इसकी रिपोर्ट क्यों कर रहे हैं?",
+      "descriptionLabel": "कुछ और? (वैकल्पिक)",
+      "submit": "रिपोर्ट भेजें",
+      "cancel": "रद्द करें",
+      "sent": "धन्यवाद — हमारे मॉडरेटर इसे देखेंगे।",
+      "already": "आप इस मोमेंट की पहले ही रिपोर्ट कर चुके हैं।",
+      "failed": "रिपोर्ट नहीं भेजी जा सकी। फिर से कोशिश करें।",
+      "reasons": {
+        "spam": "स्पैम",
+        "harassment": "उत्पीड़न",
+        "hate_speech": "नफ़रत भरी बातें",
+        "violence": "हिंसा",
+        "nudity": "नग्नता",
+        "false_information": "गलत जानकारी",
+        "copyright": "कॉपीराइट",
+        "other": "कुछ और"
+      },
+      "alreadyComment": "आप इस कमेंट की रिपोर्ट पहले ही कर चुके हैं।",
+      "alreadyStory": "आप इस स्टोरी की रिपोर्ट पहले ही कर चुके हैं।",
+      "titleComment": "इस कमेंट की रिपोर्ट करें",
+      "titleStory": "इस स्टोरी की रिपोर्ट करें"
+    },
+    "schedule": {
+      "label": "शेड्यूल करें",
+      "hint": "अभी पोस्ट करने के लिए खाली छोड़ें",
+      "past": "भविष्य का समय चुनें",
+      "badge": "{{time}} के लिए शेड्यूल",
+      "clear": "इसके बजाय अभी पोस्ट करें"
+    },
+    "fields": {
+      "privacy": "कौन देख सकता है",
+      "privacyPublic": "सभी",
+      "privacyFriends": "दोस्त",
+      "privacyPrivate": "सिर्फ़ मैं",
+      "background": "बैकग्राउंड",
+      "backgroundNone": "कोई नहीं",
+      "location": "लोकेशन",
+      "addLocation": "मेरी लोकेशन जोड़ें",
+      "removeLocation": "लोकेशन हटाएँ",
+      "noMood": "कोई मूड नहीं",
+      "tags": "टैग",
+      "tagPlaceholder": "टैग जोड़ें…",
+      "addTag": "जोड़ें",
+      "tagsUsed": "{{count}}/5 टैग",
+      "tagsMax": "ज़्यादा से ज़्यादा 5 टैग"
+    },
+    "prompt": {
+      "answeringPromptOfDay": "आज के प्रश्न का उत्तर",
+      "dismissChip": "प्रश्न का उत्तर देना बंद करें",
+      "answering": "उत्तर",
+      "answer": "जवाब दें",
+      "cardSubtitle": "लिखने का अभ्यास",
+      "cardTitle": "आज का सवाल",
+      "dismissCard": "आज का सवाल हटाएँ"
+    },
+    "block": {
+      "done": "{{name}} को ब्लॉक कर दिया गया है।"
+    },
+    "card": {
+      "bookmark": "बुकमार्क करें",
+      "likeFailed": "कुछ गड़बड़ हो गई",
+      "loginToLike": "पोस्ट लाइक करने के लिए लॉग इन करें",
+      "removeBookmark": "बुकमार्क हटाएँ",
+      "save": "सेव करें",
+      "saved": "सेव किया गया",
+      "seeLess": "कम देखें",
+      "seeMore": "और देखें",
+      "unlike": "अनलाइक करें"
+    },
+    "saved": {
+      "browseMoments": "मोमेंट्स देखें",
+      "gridView": "ग्रिड व्यू",
+      "listView": "लिस्ट व्यू",
+      "loadMore": "और लोड करें",
+      "momentCount": "मोमेंट्स सेव किए गए",
+      "noMoments": "अभी तक कोई सेव किया गया मोमेंट नहीं है",
+      "remove": "हटाएँ",
+      "removeError": "मोमेंट हटाया नहीं जा सका",
+      "removeSuccess": "सेव की गई सूची से हटा दिया गया",
+      "title": "सेव किए गए मोमेंट्स"
+    },
+    "voice": {
+      "cancel": "रिकॉर्डिंग रद्द करें",
+      "denied": "माइक्रोफ़ोन की अनुमति नहीं मिली। वॉइस नोट रिकॉर्ड करने के लिए माइक्रोफ़ोन की अनुमति दें।",
+      "stop": "रिकॉर्डिंग रोकें और भेजें",
+      "unsupported": "यह ब्राउज़र वॉइस रिकॉर्डिंग सपोर्ट नहीं करता।"
     }
   },
   "createMoment": {
@@ -345,13 +1091,27 @@
       "addMoreText": "और जोड़ें",
       "updateButton": "मोमेंट अपडेट करें",
       "updatingButton": "अपडेट हो रहा है...",
-      "cancelButton": "रद्द करें"
+      "cancelButton": "रद्द करें",
+      "removeImage": "इमेज हटाएँ",
+      "nothingToSave": "अभी कुछ बदला नहीं है",
+      "descriptionRequired": "विवरण ज़रूरी है"
+    },
+    "media": {
+      "video": "वीडियो",
+      "audio": "वॉइस नोट",
+      "replace": "बदलें",
+      "remove": "हटाएँ",
+      "removeVideoTitle": "वीडियो हटाएँ?",
+      "removeAudioTitle": "वॉइस नोट हटाएँ?",
+      "removeBody": "इसे वापस नहीं किया जा सकता।",
+      "done": "अपडेट हो गया",
+      "failed": "यह नहीं हो पाया। फिर से कोशिश करें।"
     }
   },
   "authentication": {
     "enterEmail": {
       "title": "अपना ईमेल दर्ज करें",
-      "subtitle": "We'll send a verification code to your email",
+      "subtitle": "हम आपके ईमेल पर एक सत्यापन कोड भेजेंगे",
       "emailLabel": "ईमेल पता",
       "emailPlaceholder": "ईमेल दर्ज करें",
       "sendButton": "कोड भेजें",
@@ -361,32 +1121,32 @@
     },
     "passwordReset": {
       "successMessage": "पासवर्ड सफलतापूर्वक रीसेट किया गया, कृपया लॉगिन करें!",
-      "backToLogin": "Back to login",
-      "verifyTitle": "Enter verification code",
-      "verifySubtitle": "We've sent a 6-digit code to your email",
-      "codeLabel": "Verification Code",
-      "codePlaceholder": "Enter code",
-      "previousButton": "Previous",
-      "verifyButton": "Verify",
-      "verifyingButton": "Verifying...",
-      "resendButton": "Resend code",
-      "resendingButton": "Resending...",
-      "verifySuccessMessage": "Verification code successfully verified!",
-      "resendSuccessMessage": "A new verification code has been sent!",
-      "verifyErrorDefault": "Invalid verification code",
-      "resendErrorDefault": "Failed to resend the code",
-      "setPasswordTitle": "Set new password",
-      "setPasswordSubtitle": "Choose a strong password for your account",
-      "newPasswordLabel": "New Password",
-      "newPasswordPlaceholder": "New Password",
-      "confirmPasswordLabel": "Confirm Password",
-      "confirmPasswordPlaceholder": "Confirm Password",
-      "showPassword": "Show password",
-      "hidePassword": "Hide password",
-      "submitButton": "Reset Password",
-      "submittingButton": "Resetting...",
-      "strengthErrorMessage": "Password does not meet the strength requirements",
-      "mismatchErrorMessage": "Passwords do not match"
+      "backToLogin": "लॉगिन पर वापस जाएँ",
+      "verifyTitle": "सत्यापन कोड दर्ज करें",
+      "verifySubtitle": "हमने आपके ईमेल पर 6 अंकों का कोड भेजा है",
+      "codeLabel": "सत्यापन कोड",
+      "codePlaceholder": "कोड दर्ज करें",
+      "previousButton": "पिछला",
+      "verifyButton": "सत्यापित करें",
+      "verifyingButton": "सत्यापित हो रहा है...",
+      "resendButton": "कोड फिर से भेजें",
+      "resendingButton": "फिर से भेजा जा रहा है...",
+      "verifySuccessMessage": "सत्यापन कोड सफलतापूर्वक सत्यापित हुआ!",
+      "resendSuccessMessage": "एक नया सत्यापन कोड भेजा गया है!",
+      "verifyErrorDefault": "अमान्य सत्यापन कोड",
+      "resendErrorDefault": "कोड फिर से भेजने में विफल",
+      "setPasswordTitle": "नया पासवर्ड सेट करें",
+      "setPasswordSubtitle": "अपने अकाउंट के लिए एक मज़बूत पासवर्ड चुनें",
+      "newPasswordLabel": "नया पासवर्ड",
+      "newPasswordPlaceholder": "नया पासवर्ड",
+      "confirmPasswordLabel": "पासवर्ड की पुष्टि करें",
+      "confirmPasswordPlaceholder": "पासवर्ड की पुष्टि करें",
+      "showPassword": "पासवर्ड दिखाएँ",
+      "hidePassword": "पासवर्ड छिपाएँ",
+      "submitButton": "पासवर्ड रीसेट करें",
+      "submittingButton": "रीसेट हो रहा है...",
+      "strengthErrorMessage": "पासवर्ड मज़बूती की शर्तें पूरी नहीं करता",
+      "mismatchErrorMessage": "पासवर्ड मेल नहीं खाते"
     },
     "login": {
       "signInWithGoogle": "Google से साइन इन करें",
@@ -463,6 +1223,17 @@
       "verifyFirst": "कृपया पहले अपना ईमेल सत्यापित करें",
       "registrationSuccess": "पंजीकरण सफल!",
       "registrationError": "पंजीकरण के दौरान त्रुटि"
+    },
+    "callback": {
+      "banned": "यह खाता निलंबित कर दिया गया है।",
+      "codeExpired": "यह साइन-इन लिंक समाप्त हो गया है। कृपया फिर से साइन इन करें।",
+      "completing": "साइन इन पूरा हो रहा है...",
+      "emailExists": "इस ईमेल से पहले से एक खाता मौजूद है। अपने ईमेल और पासवर्ड से साइन इन करें।",
+      "failedTitle": "साइन इन नहीं हो सका",
+      "generic": "साइन इन नहीं हो सका। कृपया फिर से कोशिश करें।",
+      "noCode": "साइन इन पूरा नहीं हुआ। कृपया फिर से कोशिश करें।",
+      "redirecting": "आपको साइन इन पर वापस ले जा रहे हैं...",
+      "wait": "कृपया प्रतीक्षा करें, हम आपको साइन इन कर रहे हैं।"
     }
   },
   "communityMain": {
@@ -503,7 +1274,13 @@
     "tabs": {
       "all": "सभी",
       "popular": "लोकप्रिय",
-      "new": "नया"
+      "new": "नया",
+      "forYou": "आपके लिए",
+      "online": "ऑनलाइन",
+      "label": "समुदाय टैब",
+      "today": "आज",
+      "serious": "गंभीर सीखने वाले",
+      "seriousHint": "इस हफ़्ते सक्रिय"
     },
     "filters": {
       "language": "भाषा",
@@ -543,7 +1320,9 @@
       "topics": "विषय",
       "searchPlaceholder": "सदस्य या विषय खोजें",
       "filtersLabel": "फ़िल्टर",
-      "filtersWithCount": "फ़िल्टर ({{count}} सक्रिय)"
+      "filtersWithCount": "फ़िल्टर ({{count}} सक्रिय)",
+      "city": "शहर",
+      "genders": "लिंग"
     },
     "filterSheet": {
       "title": "फ़िल्टर",
@@ -560,7 +1339,27 @@
       "onlineNow": "अभी ऑनलाइन",
       "newMembersOnly": "केवल नए सदस्य (पिछले 7 दिन)",
       "reset": "रीसेट",
-      "apply": "लागू करें"
+      "apply": "लागू करें",
+      "copyLink": "लिंक कॉपी करें",
+      "linkCopied": "लिंक कॉपी हो गया",
+      "linkCopyFailed": "लिंक कॉपी नहीं हो सका",
+      "applyFirst": "पहले फ़िल्टर लागू करें",
+      "matchCountLoading": "मिलान गिने जा रहे हैं…",
+      "close": "फ़िल्टर बंद करें",
+      "languages": "भाषाएँ",
+      "partnerNative": "साथी की मातृभाषा",
+      "partnerLearning": "साथी सीख रहे हैं",
+      "country": "देश",
+      "countryPlaceholder": "उदा. दक्षिण कोरिया",
+      "level": "भाषा स्तर",
+      "topics": "विषय",
+      "mutualInterests": "साझा रुचियाँ",
+      "newUsersOnly": "केवल नए उपयोगकर्ता",
+      "clearAll": "सभी साफ़ करें",
+      "matchCount": "{{count}} मिलान",
+      "lockedByTab": "{{tab}} टैब द्वारा सेट",
+      "reciprocal": "सिर्फ़ परफ़ेक्ट पार्टनर",
+      "reciprocalHint": "वे वह भाषा बोलते हैं जो आप सीख रहे हैं, और वह भाषा सीख रहे हैं जो आप बोलते हैं"
     },
     "highlighted": {
       "title": "चुनिंदा प्रोफ़ाइल",
@@ -569,9 +1368,8 @@
       "highlightSelfTopic": "अपनी प्रोफ़ाइल को हाइलाइट करें और ज़्यादा लोगों को दिखाएँ"
     },
     "visitors": {
-      "justYou": "{{name}} ने आपकी प्रोफ़ाइल देखी!",
-      "andOthers": "{{name}} और {{count}} अन्य लोगों ने आपकी प्रोफ़ाइल देखी!",
-      "seeAll": "सब देखें"
+      "pill_one": "1 व्यक्ति ने आपकी प्रोफ़ाइल देखी",
+      "pill_other": "{{count}} लोगों ने आपकी प्रोफ़ाइल देखी"
     },
     "tandemCard": {
       "newChip": "नया",
@@ -581,6 +1379,50 @@
       "fluent": "धाराप्रवाह",
       "learns": "सीख रहे हैं",
       "native": "मातृभाषा"
+    },
+    "chips": {
+      "recentlyActive": "हाल ही में सक्रिय",
+      "onlineNow": "अभी ऑनलाइन",
+      "speaks": "{{language}} बोलते हैं",
+      "learning": "{{language}} सीख रहे हैं"
+    },
+    "forYou": {
+      "subtitle": "आपकी भाषाओं, स्तर और रुचियों के आधार पर चुने गए साथी।",
+      "refresh": "रीफ़्रेश करें",
+      "why": "क्यों: {{reasons}}",
+      "empty": {
+        "title": "अभी तक कोई सुझाव नहीं",
+        "message": "जो भाषाएँ आप बोलते हैं और सीखना चाहते हैं, अपना स्तर और कुछ रुचियाँ जोड़ें, और हम आपके लिए सही साथी ढूँढेंगे।",
+        "action": "अपनी प्रोफ़ाइल पूरी करें"
+      }
+    },
+    "reasons": {
+      "perfect_pair": "{{native}} बोलते हैं, {{learning}} सीख रहे हैं",
+      "native_speaker": "{{native}} के मूल वक्ता",
+      "online_now": "अभी ऑनलाइन",
+      "active_today": "आज सक्रिय",
+      "same_country": "एक ही देश"
+    },
+    "today": {
+      "title": "आज के आपके {{count}} मैच",
+      "refreshes": "{{time}} पर नए होंगे",
+      "refreshesMidnight": "आधी रात को नए होंगे",
+      "emptyTitle": "आज के लिए इतना ही",
+      "emptyBody": "कल नए मैच आएँगे। तब तक सभी पार्टनर देखें।",
+      "browse": "पार्टनर देखें",
+      "repliesFast": "जल्दी जवाब देते हैं",
+      "boosted": "बूस्टेड",
+      "reasonReciprocal": "आप एक-दूसरे की भाषा सीख रहे हैं",
+      "reasonSameTarget": "{{language}} भी सीख रहे हैं",
+      "reasonActiveToday": "आज सक्रिय",
+      "reasonSameCity": "आपके शहर में रहते हैं",
+      "reasonSharedTopic": "साझा रुचि: {{topic}}",
+      "sayHi": "हाय कहें",
+      "wave": "हाथ हिलाएँ",
+      "skip": "छोड़ें",
+      "error": "आज के मैच लोड नहीं हो सके",
+      "retry": "फिर से कोशिश करें",
+      "waved": "वेव भेजा"
     }
   },
   "communityDetail": {
@@ -642,6 +1484,36 @@
       "learning": "सीख रहे हैं",
       "notSpecified": "निर्दिष्ट नहीं"
     },
+    "match": {
+      "title": "भाषा मैच",
+      "native": "मातृभाषा",
+      "learning": "सीख रहे हैं",
+      "perfect": "बेहतरीन मैच — आप एक-दूसरे को सिखा सकते हैं।",
+      "youLearnTheirs": "आप वही सीख रहे हैं, जो वे बोलते हैं!",
+      "theyLearnYours": "वे वही सीख रहे हैं, जो आप बोलते हैं!",
+      "sameNative": "आप दोनों की मातृभाषा एक ही है।"
+    },
+    "mutual": {
+      "title": "साझा रुचियाँ",
+      "countLabel": "{{count}} समान"
+    },
+    "starters": {
+      "title": "बातचीत शुरू करने के तरीके",
+      "send": "भेजें",
+      "perfect": "नमस्ते {{name}}! हम एक परफेक्ट भाषा मैच हैं — साथ अभ्यास करें?",
+      "language": "नमस्ते {{name}}! मैं {{language}} सीख रहा/रही हूँ — बेहतर करने के लिए कोई सुझाव?",
+      "teach": "नमस्ते {{name}}! देखा कि आप {{language}} सीख रहे हैं। जब भी सवाल हों, मदद करने में खुशी होगी।",
+      "sameNative": "नमस्ते {{name}}! हमारी मातृभाषा एक ही है — आपकी पढ़ाई कैसी चल रही है?",
+      "topic": "नमस्ते {{name}}! देखा कि आपको भी {{topic}} में दिलचस्पी है। शुरुआत कैसे हुई?",
+      "targetLearning": "नमस्ते {{name}}! आप कब से {{language}} सीख रहे हैं?",
+      "generic": "नमस्ते {{name}}! मुझे साथ में भाषाओं का अभ्यास करना अच्छा लगेगा। आपका हफ्ता कैसा जा रहा है?",
+      "practice": "नमस्ते {{name}}! अब तक सीखने में आपकी सबसे ज़्यादा मदद किस चीज़ ने की?",
+      "hello": "नमस्ते {{name}}! आपकी प्रोफ़ाइल देखकर अच्छा लगा — आपका दिन कैसा जा रहा है?"
+    },
+    "engagement": {
+      "replies": "{{rate}}% जवाब",
+      "new": "नया सदस्य"
+    },
     "suggested": {
       "title": "{{name}} जैसे और सदस्य",
       "seeAll": "सभी सदस्य देखें"
@@ -665,6 +1537,10 @@
     "buttons": {
       "tryAgain": "पुनः प्रयास करें",
       "backToCommunity": "समुदाय पर वापस जाएँ"
+    },
+    "suggested": {
+      "title": "{{name}} जैसे और सदस्य",
+      "seeAll": "सभी सदस्य देखें"
     },
     "stats": {
       "followers": "फॉलोअर्स",
@@ -871,6 +1747,102 @@
       "premium": "प्रीमियम",
       "features": "सुविधाएँ",
       "upgrade": "VIP में अपग्रेड करें"
+    },
+    "password": {
+      "title": "पासवर्ड बदलें",
+      "current": "मौजूदा पासवर्ड",
+      "current_hint": "अपना मौजूदा पासवर्ड दर्ज करें",
+      "new": "नया पासवर्ड",
+      "new_hint": "कम से कम 8 अक्षर, A-Z, a-z, 0-9",
+      "confirm": "नए पासवर्ड की पुष्टि करें",
+      "confirm_hint": "नया पासवर्ड फिर से दर्ज करें",
+      "rule_upper": "एक अपरकेस अक्षर",
+      "rule_lower": "एक लोअरकेस अक्षर",
+      "rule_number": "एक अंक",
+      "mismatch": "पासवर्ड मेल नहीं खाते।",
+      "same_as_current": "नया पासवर्ड मौजूदा से अलग होना चाहिए।",
+      "success": "पासवर्ड सफलतापूर्वक बदला गया",
+      "failed": "अपडेट विफल",
+      "symbols": "केवल ये चिह्न मान्य हैं: @ $ ! % * ? &"
+    },
+    "privacy": {
+      "title": "गोपनीयता सेटिंग्स",
+      "subtitle": "नियंत्रित करें कि आपकी जानकारी कौन देख सकता है",
+      "profileVisibility": "प्रोफ़ाइल दृश्यता",
+      "showOnlineStatus": "ऑनलाइन स्थिति दिखाएँ",
+      "showOnlineStatusDesc": "दूसरों को आपकी ऑनलाइन स्थिति दिखाएं",
+      "showCity": "शहर दिखाएं",
+      "showCityDesc": "अपने प्रोफ़ाइल पर शहर दिखाएं",
+      "showCountry": "देश/क्षेत्र दिखाएं",
+      "showCountryDesc": "अपने प्रोफ़ाइल पर देश दिखाएं",
+      "personalInfo": "व्यक्तिगत जानकारी",
+      "showAge": "उम्र दिखाएं",
+      "showAgeDesc": "अपने प्रोफ़ाइल पर उम्र दिखाएं",
+      "showZodiac": "राशि दिखाएं",
+      "showZodiacDesc": "अपने प्रोफ़ाइल पर राशि दिखाएं",
+      "birthdayNotification": "जन्मदिन सूचनाएं",
+      "birthdayNotificationDesc": "जन्मदिन पर सूचनाएं प्राप्त करें",
+      "otherSettings": "अन्य सेटिंग्स",
+      "showGiftingLevel": "उपहार स्तर दिखाएं",
+      "showGiftingLevelDesc": "उपहार स्तर बैज दिखाएं",
+      "saveSuccess": "गोपनीयता सेटिंग्स सहेजी गईं",
+      "saveError": "सहेजने में विफल",
+      "saving": "सेव हो रहा है...",
+      "saveChanges": "बदलाव सहेजें",
+      "profileVisits": "प्रोफ़ाइल विज़िट",
+      "anonymousProfileVisits": "प्रोफ़ाइल गुमनाम रूप से देखें",
+      "anonymousProfileVisitsDesc": "आप जिस उपयोगकर्ता की प्रोफ़ाइल देखेंगे, उसकी हाल के विज़िटर की सूची में आपका नाम नहीं दिखेगा।",
+      "email": "ईमेल",
+      "emailNotifications": "ईमेल सूचनाएँ",
+      "emailNotificationsDesc": "BananaTalk से ईमेल सूचनाएँ प्राप्त करें",
+      "weeklyDigest": "साप्ताहिक सारांश",
+      "weeklyDigestDesc": "हर रविवार गतिविधि का सारांश",
+      "securityAlerts": "सुरक्षा अलर्ट",
+      "securityAlertsDesc": "पासवर्ड और लॉगिन अलर्ट। हम इन्हें चालू रखने की सलाह देते हैं।"
+    },
+    "notifications": {
+      "title": "सूचना सेटिंग्स",
+      "subtitle": "अपनी सूचना प्राथमिकताएँ प्रबंधित करें",
+      "loading": "लोड हो रहा है...",
+      "loadError": "सेटिंग्स लोड करने में त्रुटि",
+      "retry": "पुनः प्रयास",
+      "pushNote": "ये सेटिंग्स आपके फ़ोन पर BananaTalk ऐप की पुश सूचनाओं को नियंत्रित करती हैं।",
+      "enableAll": "पुश सूचनाएँ",
+      "enableAllDesc": "सभी सूचनाएं चालू या बंद करें",
+      "notificationTypes": "सूचना प्रकार",
+      "chatMessages": "चैट संदेश",
+      "chatMessagesDesc": "संदेश प्राप्त होने पर सूचित हों",
+      "moments": "पल",
+      "momentsDesc": "आपके पलों पर पसंद और टिप्पणियां",
+      "followerMoments": "फॉलोअर्स के पल",
+      "followerMomentsDesc": "जब आप जिन लोगों को फॉलो करते हैं वे नए पल पोस्ट करते हैं",
+      "friendRequests": "नए फॉलोअर्स",
+      "friendRequestsDesc": "जब कोई आपको फॉलो करे",
+      "profileVisits": "प्रोफ़ाइल विज़िट",
+      "profileVisitsDesc": "जब कोई आपकी प्रोफ़ाइल देखे (VIP)",
+      "announcements": "घोषणाएँ",
+      "announcementsDesc": "BananaTalk टीम की खबरें और अपडेट",
+      "marketing": "मार्केटिंग",
+      "marketingDesc": "अपडेट और प्रचार संदेश",
+      "learning": "सीखना",
+      "streakReminders": "स्ट्रीक रिमाइंडर",
+      "streakRemindersDesc": "आपकी स्ट्रीक टूटने से पहले एक याद दिलाना",
+      "vocabularyReviewReminders": "शब्दावली दोहराना",
+      "vocabularyReviewRemindersDesc": "जब शब्द दोहराने का समय हो",
+      "dailyDropReminders": "आज का पाठ",
+      "dailyDropRemindersDesc": "जब आज का छोटा शब्दावली या व्याकरण पाठ तैयार हो",
+      "quietHours": "शांत घंटे",
+      "quietHoursEnable": "शांत घंटे सक्षम करें",
+      "quietHoursDesc": "एक समय सीमा के दौरान गैर-जरूरी सूचनाओं को रोकें",
+      "quietHoursStart": "प्रारंभ समय",
+      "quietHoursEnd": "समाप्ति समय",
+      "preferences": "सूचना प्राथमिकताएं",
+      "showPreview": "प्रीव्यू दिखाएं",
+      "showPreviewDesc": "सूचनाओं में संदेश प्रीव्यू दिखाएं",
+      "saveSuccess": "सूचना सेटिंग्स सहेजी गईं",
+      "saveError": "सहेजने में विफल",
+      "saving": "सेव हो रहा है...",
+      "saveChanges": "बदलाव सहेजें"
     }
   },
   "waves": {
@@ -880,13 +1852,102 @@
     "accept": "स्वीकार करें",
     "decline": "अस्वीकार करें",
     "noWaves": "अभी तक कोई वेव नहीं",
-    "sendWave": "जुड़ना शुरू करने के लिए वेव भेजें!"
+    "sendWave": "जुड़ना शुरू करने के लिए वेव भेजें!",
+    "archive": "पुराने वेव्स",
+    "archiveEmpty": "कोई पुराना वेव नहीं",
+    "archiveHint": "7 से 30 दिन पहले के वेव्स",
+    "back": "वापस",
+    "cap": {
+      "body": "आपने आज के मुफ़्त वेव्स इस्तेमाल कर लिए हैं। VIP सदस्य बिना दैनिक सीमा के वेव भेज सकते हैं, या कल फिर से कोशिश करें।",
+      "notNow": "अभी नहीं",
+      "seeVip": "VIP देखें",
+      "title": "दैनिक वेव सीमा पूरी हो गई"
+    },
+    "findPeople": "लोगों को खोजें",
+    "noReceived": "अभी तक कोई वेव नहीं मिला",
+    "recent": "पिछले 7 दिन",
+    "sheet": {
+      "already": "वेव पहले ही भेजा जा चुका है",
+      "alreadyBody": "आप हर व्यक्ति को सिर्फ़ एक बार वेव भेज सकते हैं — बातचीत जारी रखने के लिए उन्हें मैसेज भेजें।",
+      "alreadyTitle": "आप {{name}} को पहले ही वेव भेज चुके हैं",
+      "cancel": "रद्द करें",
+      "chips": {
+        "chat": {
+          "label": "चैट",
+          "message": "🎉 चलो बात करते हैं!"
+        },
+        "cool": {
+          "label": "कूल",
+          "message": "❤️ कूल प्रोफ़ाइल!"
+        },
+        "hello": {
+          "label": "नमस्ते",
+          "message": "✋ नमस्ते!"
+        },
+        "hey": {
+          "label": "हे",
+          "message": "😊 हे, कैसे हो?"
+        },
+        "hi": {
+          "label": "हाय",
+          "message": "👋 हाय!"
+        },
+        "nice": {
+          "label": "मिलकर खुशी",
+          "message": "🌟 आपसे मिलकर खुशी हुई!"
+        }
+      },
+      "close": "बंद करें",
+      "icebreakers": {
+        "0": "हाय! क्या साथ में भाषा का अभ्यास करना चाहेंगे?",
+        "1": "लगता है हम मिलती-जुलती भाषाएँ सीख रहे हैं — हाय!",
+        "2": "आपकी प्रोफ़ाइल ने मेरा ध्यान खींचा, कैसे हैं आप?",
+        "3": "हे! आपने नई भाषा सीखना क्यों शुरू किया?"
+      },
+      "icebreakersTitle": "बातचीत शुरू करने के लिए",
+      "match": "🎉 यह मैच है! आपने और {{name}} ने एक-दूसरे को वेव भेजा।",
+      "placeholder": "अपना मैसेज लिखें (वैकल्पिक)…",
+      "quickReplies": "क्विक रिप्लाई",
+      "send": "वेव भेजें",
+      "sendError": "वेव भेजा नहीं जा सका",
+      "sent": "{{name}} को वेव भेजा गया!",
+      "subtitle": "हाय कहें और बातचीत शुरू करें 👋",
+      "title": "{{name}} को वेव भेजें",
+      "yourMessage": "आपका मैसेज"
+    },
+    "someone": "कोई",
+    "subtitle": "जिन लोगों ने आपको वेव भेजा",
+    "unread": "अपठित",
+    "wavedAtYou": "आपको वेव भेजा 👋"
   },
   "topics": {
     "title": "विषय",
     "myTopics": "मेरे विषय",
     "browseTopics": "विषय ब्राउज़ करें",
-    "usersInterested": "उपयोगकर्ता रुचि रखते हैं"
+    "usersInterested": "उपयोगकर्ता रुचि रखते हैं",
+    "saved": "आपके विषय अपडेट हैं",
+    "saveError": "आपके विषय सेव नहीं हो सके",
+    "memberCount": "{{count}} सदस्य",
+    "backToCommunity": "समुदाय",
+    "subtitle": "ऐसे पार्टनर खोजें जिनकी रुचियाँ आपसे मिलती हैं।",
+    "searchPlaceholder": "विषय खोजें",
+    "clearSearch": "खोज साफ़ करें",
+    "cancel": "रद्द करें",
+    "saving": "सेव हो रहा है...",
+    "save": "सेव करें",
+    "edit": "संपादित करें",
+    "editHint": "नीचे टाइल पर टैप करके अधिकतम {{max}} विषय चुनें, फिर सेव करें।",
+    "myTopicsEmpty": "आपने अभी तक कोई विषय नहीं चुना है। कुछ चुनने के लिए संपादित करें पर टैप करें।",
+    "selectTopics": "अपने विषय चुनें",
+    "emptyTitle": "कोई विषय मेल नहीं खाता",
+    "emptyMessage": "कोई और शब्द आज़माएँ, या सभी देखने के लिए खोज साफ़ करें।",
+    "backToTopics": "सभी विषय",
+    "onlineOnly": "केवल ऑनलाइन",
+    "loadingPeople": "लोग लोड हो रहे हैं...",
+    "noOneOnlineTitle": "यहाँ कोई ऑनलाइन नहीं है",
+    "noOneTitle": "यहाँ अभी तक कोई नहीं है",
+    "noOneOnlineMessage": "इस विषय में सभी को देखने के लिए ऑनलाइन फ़िल्टर बंद करें।",
+    "noOneMessage": "सबसे पहले बनें — इस विषय को अपनी प्रोफ़ाइल में जोड़ें।"
   },
   "nearby": {
     "title": "आस-पास के उपयोगकर्ता",
@@ -897,24 +1958,23 @@
   },
   "home": {
     "hero": {
-      "badge": "भाषा विनिमय आसान बना",
-      "titlePart1": "भाषाएँ सीखें",
-      "titleHighlight": "बोलकर",
-      "titlePart2": "मूल भाषी लोगों के साथ",
-      "description": "दुनिया भर के लाखों भाषा सीखने वालों से जुड़ें। बोलने का अभ्यास करें, प्रवाह में सुधार करें और दुनिया के हर कोने से दोस्त बनाएँ।",
-      "stats": {
-        "users": "सक्रिय उपयोगकर्ता",
-        "languages": "भाषाएँ",
-        "countries": "देश"
-      },
-      "getStarted": "मुफ़्त में शुरू करें",
+      "badge": "भाषा विनिमय, असली लोग",
+      "titlePart1": "अभ्यास करें",
+      "titleHighlight": "किसी भी भाषा का",
+      "titlePart2": "किसी ऐसे व्यक्ति के साथ जो उसे सच में बोलता है।",
+      "description": "BananaTalk आपको दुनिया भर के मूल भाषियों से जोड़ता है। चैट करें, वॉइस मैसेज भेजें, अनुवाद करें, और सुधार पाएं — हर बातचीत आपको बेहतर बनाती है।",
+      "getStarted": "शुरू करें — यह मुफ़्त है",
       "browseCommunity": "समुदाय ब्राउज़ करें",
-      "lovedBy": "50 लाख+ शिक्षार्थियों का प्रिय",
+      "lovedBy": "iOS और Android पर भाषा सीखने वालों की पसंद",
       "chatPreview": {
-        "message1": "नमस्ते! कैसे हो? 👋",
-        "message2": "Hey! I'm practicing my Hindi!",
-        "message3": "बहुत अच्छा! चलो साथ में अभ्यास करते हैं 🇮🇳"
-      }
+        "message1": "안녕하세요! तुम्हारा वीकेंड कैसा रहा?",
+        "message2": "주말에 친구들과 등산 갔어요 ⛰️",
+        "message3": "बढ़िया! 산 ← पहाड़। आपकी स्टडी क्यू में सेव हो गया।"
+      },
+      "title": "गलत बोलो, कोई बात नहीं।",
+      "titleAccent": "अनुवाद हम करेंगे।",
+      "subtitle": "नेटिव स्पीकर्स के साथ मुफ़्त भाषा एक्सचेंज। आप अपनी भाषा में लिखें, वे अपनी भाषा में पढ़ें — और इसी फ़र्क़ से आप सीखते हैं।",
+      "trust": "हमेशा के लिए मुफ़्त · 137 भाषाएं · AI ट्यूटर 24/7"
     },
     "sections": {
       "features": "सुविधाएँ",
@@ -922,108 +1982,175 @@
       "pricing": "मूल्य निर्धारण"
     },
     "features": {
-      "title": "सीखने के लिए सब कुछ जो आपको चाहिए",
-      "subtitle": "आपकी भाषा सीखने की यात्रा को तेज़ करने के लिए डिज़ाइन किए गए शक्तिशाली उपकरण",
+      "title": "भाषा को असल में बोलने के लिए जो कुछ भी चाहिए, वो सब",
+      "subtitle": "असली मूल भाषियों के साथ असली बातचीत पर आधारित — शब्दावली अभ्यास नहीं।",
       "chat": {
-        "title": "रियल-टाइम चैट",
-        "description": "इंस्टेंट मैसेजिंग के माध्यम से मूल भाषी लोगों के साथ बातचीत का अभ्यास करें"
+        "title": "सुधार के साथ चैट",
+        "description": "टेक्स्ट, वॉइस, फ़ोटो और स्टिकर भेजें। पार्टनर के मैसेज को अनुवाद करने या एक टैप में सुधारने के लिए उस पर टैप करें।"
       },
-      "video": {
-        "title": "वीडियो कॉल",
-        "description": "दुनिया भर के साथियों के साथ आमने-सामने भाषा अभ्यास"
+      "translate": {
+        "title": "अंतर्निर्मित अनुवाद",
+        "description": "किसी भी मैसेज को अपनी मातृभाषा में अनुवाद करें। वाक्यांशों को सीधे अपनी स्टडी क्यू में सेव करें।"
       },
-      "lessons": {
-        "title": "इंटरैक्टिव पाठ",
-        "description": "संरचित पाठ्यक्रमों और दैनिक अभ्यासों से सीखें"
+      "tutor": {
+        "title": "AI ट्यूटर",
+        "description": "रोलप्ले सिनेरियो, इमेज-आधारित शब्दावली, और उच्चारण कोचिंग — सब आपके अपने AI स्टडी पार्टनर द्वारा संचालित।"
       },
-      "voice": {
-        "title": "वॉइस संदेश",
-        "description": "ऑडियो आदान-प्रदान से अपना उच्चारण सुधारें"
+      "voice_rooms": {
+        "title": "वॉइस रूम्स",
+        "description": "दुनिया भर के मूल भाषियों और भाषा सीखने वालों के साथ लाइव ऑडियो रूम्स में शामिल हों।"
+      },
+      "calls": {
+        "title": "वॉइस और वीडियो कॉल",
+        "description": "अपने भाषा साथियों के साथ एक-टैप ऑडियो और वीडियो कॉल।"
       },
       "community": {
-        "title": "समुदाय",
-        "description": "दुनिया भर के लाखों भाषा सीखने वालों से जुड़ें"
+        "title": "असली समुदाय",
+        "description": "मातृभाषा के अनुसार साथी ब्राउज़ करें, देखें कौन ऑनलाइन है, और एक ही भाषा सीख रहे लोगों के साथ पल साझा करें।"
       },
-      "languages": {
-        "title": "50+ भाषाएँ",
-        "description": "स्पेनिश से कोरियाई तक, अपना सीखने का रास्ता खोजें"
+      "inApp": "ऐप में",
+      "items": {
+        "findPartner": {
+          "title": "पार्टनर ढूँढें",
+          "body": "जिस भाषा जोड़ी का आप सच में आदान-प्रदान करना चाहते हैं, उसी पर मैच करें।"
+        },
+        "chatTranslate": {
+          "title": "चैट जो अनुवाद करती है",
+          "body": "दोनों तरफ़, मैसेज के अंदर ही, जैसे-जैसे आप टाइप करें।"
+        },
+        "moments": {
+          "title": "Moments",
+          "body": "आपका दिन कैसा रहा, वो शेयर करें; नेटिव स्पीकर्स से सुधार पाएँ।"
+        },
+        "aiTutor": {
+          "title": "AI ट्यूटर",
+          "body": "रात 3 बजे भी अभ्यास करें, बिना किसी झिझक के।"
+        },
+        "voiceRooms": {
+          "title": "वॉइस रूम्स",
+          "body": "किसी लाइव रूम में जाएँ और चाहें तो बस सुनते रहें।"
+        },
+        "gatherings": {
+          "title": "मीटअप",
+          "body": "अपने आस-पास ऐसे लोगों से मिलें जो आपकी भाषा सीख रहे हैं।"
+        }
       }
     },
     "howItWorks": {
-      "title": "3 चरणों में सीखना शुरू करें",
-      "subtitle": "कुछ ही मिनटों में शुरू करें और आज ही अपनी भाषा यात्रा शुरू करें"
+      "title": "आपकी पहली बातचीत तक के तीन कदम",
+      "subtitle": "कोई फ़ोन नंबर नहीं, कोई स्पैम नहीं — बस असली लोग जो सीखना चाहते हैं।",
+      "steps": {
+        "1": {
+          "title": "हमें बताएँ आप क्या बोलते हैं, और क्या चाहते हैं",
+          "body": "अपनी मातृभाषा चुनें और वो भाषा जो आप सीख रहे हैं। इसी जोड़ी से हम आपका मैच बनाते हैं।"
+        },
+        "2": {
+          "title": "किसी ऐसे को ढूँढें जिससे बात करना सार्थक हो",
+          "body": "आपकी भाषा सीख रहे पार्टनर्स ब्राउज़ करें। वेव करें, या सीधे बातचीत शुरू करें।"
+        },
+        "3": {
+          "title": "गलत बोलें, तेज़ी से सुधरें",
+          "body": "हर मैसेज दोनों तरफ़ अनुवाद होता है, और AI ट्यूटर आपको सुधारता है — बिना किसी के देखे।"
+        }
+      }
     },
     "steps": {
       "profile": {
-        "title": "अपनी प्रोफ़ाइल बनाएँ",
-        "description": "हमें बताएँ कि आपकी मातृभाषा क्या है और आप क्या सीखना चाहते हैं"
+        "title": "हमें अपनी भाषाएँ बताएँ",
+        "description": "चुनें कि आप कौन सी भाषा धाराप्रवाह बोलते हैं और कौन सी सीख रहे हैं। कुछ पसंदीदा विषय जोड़ें।"
       },
       "partners": {
-        "title": "साथी खोजें",
-        "description": "हमारे समुदाय में ब्राउज़ करें और सही भाषा विनिमय साथी खोजें"
+        "title": "अपना साथी खोजें",
+        "description": "भाषा, देश या विषय के अनुसार समुदाय ब्राउज़ करें। किसी दिलचस्प व्यक्ति को वेव करें या मैसेज करें।"
       },
       "learn": {
-        "title": "सीखना शुरू करें",
-        "description": "हर दिन मूल भाषी लोगों के साथ चैट करें, कॉल करें और अभ्यास करें"
+        "title": "हर दिन अभ्यास करें",
+        "description": "चैट करें, वॉइस नोट्स भेजें, सुधार पाएं, और नए शब्दों को स्पेस्ड-रिपिटिशन कार्ड्स में बदलें।"
       }
     },
     "pricing": {
-      "title": "अपना प्लान चुनें",
-      "subtitle": "मुफ़्त में शुरू करें और तैयार होने पर अपग्रेड करें",
-      "mostPopular": "सबसे लोकप्रिय",
-      "getStarted": "शुरू करें",
+      "title": "शुरू करना मुफ़्त। तेज़ी से सीखने के लिए तैयार होने पर VIP।",
+      "subtitle": "BananaTalk सभी के लिए मुफ़्त है। अनुवाद, AI ट्यूटर और अन्य पर दैनिक सीमाएँ हटाने के लिए अपग्रेड करें।",
+      "fineprint": "अपने App Store या Google Play सेटिंग्स में कभी भी रद्द करें। रद्द होने तक सदस्यता अपने आप नवीनीकृत होती रहती है।",
       "free": {
         "name": "मुफ़्त",
         "period": "हमेशा के लिए",
+        "cta": "मुफ़्त अकाउंट बनाएँ",
         "features": {
-          "messaging": "बुनियादी मैसेजिंग",
-          "connections": "प्रतिदिन 5 नए कनेक्शन",
-          "community": "समुदाय एक्सेस",
-          "lessons": "बुनियादी पाठ"
+          "messaging": "अनुवाद के साथ असीमित 1-on-1 चैट",
+          "community": "समुदाय को ब्राउज़ करें और जुड़ें",
+          "moments": "Moments पोस्ट करें और Stories पढ़ें",
+          "tutor_trial": "रोज़ाना AI ट्यूटर और अनुवाद कोटा"
+        },
+        "f1": "अनुवाद के साथ असीमित 1-on-1 चैट",
+        "f2": "समुदाय को ब्राउज़ करें और जुड़ें",
+        "f3": "Moments पोस्ट करें और Stories पढ़ें"
+      },
+      "monthly": {
+        "name": "VIP — मासिक",
+        "period": "प्रति माह",
+        "highlight": "सबसे लचीला",
+        "cta": "मासिक शुरू करें",
+        "features": {
+          "unlimited_translation": "असीमित अनुवाद और सुधार",
+          "unlimited_tutor": "असीमित AI ट्यूटर सत्र और रोलप्ले",
+          "voice_rooms": "वॉइस रूम्स होस्ट और पिन करें",
+          "priority": "प्राथमिकता वाली पार्टनर मैचिंग"
         }
       },
-      "premium": {
-        "name": "प्रीमियम",
-        "period": "/माह",
+      "yearly": {
+        "name": "VIP — वार्षिक",
+        "period": "प्रति वर्ष",
+        "highlight": "72% बचाएँ",
+        "cta": "वार्षिक के साथ बचाएँ",
         "features": {
-          "messaging": "असीमित मैसेजिंग",
-          "connections": "असीमित कनेक्शन",
-          "video": "वीडियो कॉल",
-          "lessons": "उन्नत पाठ",
-          "noAds": "कोई विज्ञापन नहीं",
-          "translation": "अनुवाद उपकरण"
+          "everything_in_monthly": "मासिक की हर चीज़",
+          "equiv": "बस $4.16 / माह के बराबर",
+          "early_access": "नई सुविधाओं तक जल्दी पहुँच",
+          "support": "BananaTalk टीम से सीधा सहयोग"
         }
       },
-      "lifetime": {
-        "name": "आजीवन",
-        "period": "एक बार",
-        "features": {
-          "everything": "प्रीमियम में सब कुछ",
-          "forever": "हमेशा के लिए एक्सेस",
-          "support": "प्राथमिकता सहायता",
-          "early": "जल्दी सुविधाएँ",
-          "badges": "विशेष बैज"
-        }
-      }
+      "best": "सबसे अच्छा मूल्य",
+      "perMonth": "प्रति माह",
+      "every": "हर",
+      "save": "बचत करें",
+      "getVip": "ऐप में VIP पाएं"
     },
     "download": {
       "badge": "ऐप डाउनलोड करें",
-      "title": "BananaTalk को हर जगह ले जाएँ",
-      "description": "हमारे मोबाइल ऐप से चलते-फिरते सीखें। iOS और Android पर सभी सुविधाओं, पुश सूचनाओं और ऑफ़लाइन एक्सेस के साथ उपलब्ध।",
+      "title": "पूरा अनुभव मोबाइल पर मिलता है",
+      "description": "AI ट्यूटर, वॉइस रूम्स, कॉल्स और लाइव नोटिफ़िकेशन सिर्फ़ मोबाइल पर उपलब्ध हैं। पूरा BananaTalk अनुभव पाने के लिए ऐप डाउनलोड करें।",
       "downloadOn": "इस पर डाउनलोड करें",
       "getItOn": "इस पर प्राप्त करें",
       "scanQR": "ऐप डाउनलोड करने के लिए स्कैन करें",
       "or": "या",
       "features": {
-        "offline": "ऑफ़लाइन एक्सेस",
+        "offline": "ऑफ़लाइन-फ्रेंडली चैट",
         "push": "पुश सूचनाएँ",
-        "fast": "तेज़ और हल्का"
+        "fast": "मुफ़्त इंस्टॉल"
       }
     },
     "cta": {
-      "title": "अपनी भाषा यात्रा शुरू करने के लिए तैयार हैं?",
-      "description": "लाखों शिक्षार्थियों से जुड़ें और आज ही नई भाषा बोलना शुरू करें",
-      "button": "मुफ़्त अकाउंट बनाएँ"
+      "title": "एक असली बातचीत करने के लिए तैयार हैं?",
+      "description": "BananaTalk समुदाय से जुड़ें और आज ही अभ्यास शुरू करें। किसी क्रेडिट कार्ड की ज़रूरत नहीं।",
+      "button": "अपना मुफ़्त अकाउंट बनाएँ",
+      "subtitle": "शुरू करने के लिए मुफ़्त। कोई कार्ड नहीं, कोई ट्रायल काउंटडाउन नहीं।"
+    },
+    "stats": {
+      "languages": "भाषाएं",
+      "app languages": "ऐप भाषाएं",
+      "AI tutor": "AI ट्यूटर",
+      "forever tier": "मुफ़्त प्लान",
+      "learners": "शिक्षार्थी"
+    },
+    "marquee": {
+      "title": "हर उस भाषा के नेटिव स्पीकर्स, जो आप सीखना चाहते हैं",
+      "caption": "137 भाषाएँ, और बढ़ती ही जा रही हैं"
+    },
+    "earlyAdopter": {
+      "badge": "दिसंबर 2025 में लॉन्च",
+      "title": "सबसे पहले जुड़ने वालों में शामिल हों",
+      "body": "BananaTalk नया है। यहाँ आप जिन लोगों से मिलेंगे, वही तय कर रहे हैं कि यह समुदाय आगे क्या बनेगा — जल्दी जुड़ने की इससे बेहतर वजह किसी रिव्यू में नहीं मिलेगी।"
     }
   },
   "vip": {
@@ -1060,6 +2187,1229 @@
       "prioritySupport": "प्राथमिकता सहायता",
       "exclusiveBadge": "विशेष VIP बैज",
       "translationFeature": "संदेश अनुवाद"
+    }
+  },
+  "linking": {
+    "share": {
+      "label": "शेयर करें",
+      "copied": "लिंक क्लिपबोर्ड पर कॉपी हो गया!",
+      "copyFailed": "लिंक कॉपी करने में विफल"
+    },
+    "openInApp": {
+      "label": "ऐप में खोलें"
+    },
+    "appBanner": {
+      "text": "इसे BananaTalk ऐप में खोलें"
+    }
+  },
+  "seo": {
+    "appTitle": "BananaTalk",
+    "home": {
+      "title": "BananaTalk: नेटिव स्पीकर्स के साथ मुफ़्त भाषा एक्सचेंज ऐप",
+      "description": "137 भाषाओं में नेटिव स्पीकर्स से चैट करें। अपनी भाषा में लिखें, वे अपनी भाषा में पढ़ें, और एक AI ट्यूटर आपको अंतर दिखाए। iOS और Android पर मुफ़्त।"
+    },
+    "download": {
+      "title": "iPhone और Android के लिए BananaTalk डाउनलोड करें",
+      "description": "iPhone और Android के लिए मुफ़्त BananaTalk भाषा एक्सचेंज ऐप पाएं। तुरंत अनुवाद और AI ट्यूटर सुधार के साथ नेटिव स्पीकर्स से चैट करें।"
+    },
+    "moments": {
+      "title": "BananaTalk मोमेंट्स: अपनी लक्ष्य भाषा में कहानियाँ",
+      "description": "मोमेंट्स BananaTalk पर भाषा सीखने वालों द्वारा साझा की गई छोटी पोस्ट और कहानियाँ हैं। फ़ीड पढ़ें, प्रतिक्रिया दें, और अपनी खुद की पोस्ट करें।"
+    },
+    "privacy": {
+      "title": "गोपनीयता नीति | BananaTalk",
+      "description": "BananaTalk आपका डेटा कैसे एकत्र करता, उपयोग करता और सुरक्षित रखता है, और आपके पास कौन से विकल्प हैं।"
+    },
+    "terms": {
+      "title": "उपयोग की शर्तें | BananaTalk",
+      "description": "वे शर्तें जो BananaTalk के आपके उपयोग को नियंत्रित करती हैं, जिसमें सामग्री नियम, मॉडरेशन और रिपोर्टिंग शामिल है।"
+    },
+    "support": {
+      "title": "सहायता और संपर्क | BananaTalk",
+      "description": "BananaTalk से जुड़ी मदद पाएं: खाता संबंधी सवाल, किसी समस्या की रिपोर्ट करना, और टीम से कैसे संपर्क करें।"
+    },
+    "dataDeletion": {
+      "title": "डेटा हटाने का अनुरोध | BananaTalk",
+      "description": "अपना BananaTalk खाता और व्यक्तिगत डेटा कैसे हटाएं, और अनुरोध के बाद क्या होता है।"
+    },
+    "meet": {
+      "title": "दूसरे देशों के लोगों से मिलें | BananaTalk",
+      "description": "दूसरे देशों के लोगों से चैट करके विदेशी दोस्त बनाएँ। हर मैसेज दोनों तरफ़ अनुवाद होता है, इसलिए किसी को भी फ़र्राटेदार होने की ज़रूरत नहीं।"
+    },
+    "learnKorean": {
+      "title": "नेटिव स्पीकर्स से चैट करके कोरियाई सीखें",
+      "description": "नेटिव कोरियाई स्पीकर्स से चैट करके मुफ़्त में कोरियाई सीखें। आप अपनी भाषा में लिखें, वे हंगुल में, और AI ट्यूटर 존댓말 बनाम 반말 समझाए।"
+    },
+    "communities": {
+      "title": "भाषा एक्सचेंज कम्युनिटीज़ | BananaTalk",
+      "description": "BananaTalk पर भाषा एक्सचेंज कम्युनिटीज़ से जुड़ें: असली ग्रुप, जो हर दिन साथ मिलकर कोरियाई, स्पेनिश, जापानी और बहुत कुछ का अभ्यास करते हैं, मुफ़्त।"
+    }
+  },
+  "notFound": {
+    "pageTitle": "पेज नहीं मिला | BananaTalk",
+    "title": "यह पेज मौजूद नहीं है",
+    "body": "हो सकता है लिंक पुराना हो, या पेज को स्थानांतरित कर दिया गया हो। वापस जाने का रास्ता यहाँ है।",
+    "home": "होमपेज पर जाएं",
+    "download": "ऐप प्राप्त करें"
+  },
+  "consent": {
+    "label": "कुकी सहमति",
+    "message": "यह समझने के लिए कि लोग यहाँ क्यों आते हैं, हम एनालिटिक्स कुकीज़ का उपयोग करते हैं।",
+    "accept": "ठीक है",
+    "decline": "नहीं धन्यवाद",
+    "manage": {
+      "title": "गोपनीयता विकल्प",
+      "body": "एनालिटिक्स कुकीज़ हमें बताती हैं कि लोगों को कौन-से पेज उपयोगी लगते हैं, बस इतना ही।",
+      "current_granted": "एनालिटिक्स कुकीज़ चालू हैं।",
+      "current_denied": "एनालिटिक्स कुकीज़ बंद हैं।",
+      "accept": "चालू करें",
+      "decline": "बंद करें",
+      "privacyChoices": "गोपनीयता विकल्प",
+      "analyticsCookies": "एनालिटिक्स कुकीज़",
+      "done": "हो गया"
+    }
+  },
+  "admin": {
+    "nav": {
+      "admin": "एडमिन",
+      "overview": "अवलोकन",
+      "reach": "पहुँच",
+      "users": "उपयोगकर्ता",
+      "content": "सामग्री",
+      "aiUsage": "AI उपयोग",
+      "audit": "ऑडिट लॉग"
+    },
+    "aiUsage": {
+      "allFeatures": "सभी सुविधाएँ",
+      "anonymous": "अज्ञात",
+      "byDay": "दिन के अनुसार उपयोग",
+      "byFeature": "सुविधा के अनुसार उपयोग",
+      "calls": "कॉल्स",
+      "date": "तारीख़",
+      "feature": "सुविधा",
+      "from": "से",
+      "logs": "उपयोग लॉग",
+      "timestamp": "समय",
+      "to": "तक",
+      "total": "कुल कॉल्स",
+      "user": "उपयोगकर्ता"
+    },
+    "audit": {
+      "action": "कार्रवाई",
+      "actionColumn": "कार्रवाई",
+      "moderator": "मॉडरेटर",
+      "moderatorId": "मॉडरेटर आईडी",
+      "reason": "कारण",
+      "target": "लक्ष्य",
+      "targetId": "लक्ष्य आईडी",
+      "timestamp": "समय"
+    },
+    "common": {
+      "actionError": "कुछ गड़बड़ हो गई।",
+      "close": "बंद करें",
+      "empty": "दिखाने के लिए अभी कुछ नहीं है।",
+      "loadError": "यह सेक्शन लोड नहीं हो सका।",
+      "loading": "लोड हो रहा है…",
+      "refresh": "रीफ़्रेश करें",
+      "cancel": "रद्द करें"
+    },
+    "content": {
+      "archive": "आर्काइव करें",
+      "archiveTitle": "क्लब आर्काइव करें",
+      "cancel": "रद्द करें",
+      "cancelTitle": "मिलन रद्द करें",
+      "created": "बनाया गया",
+      "gatherings": "मिलन",
+      "going": "शामिल होने वाले",
+      "language": "भाषा",
+      "members": "सदस्य",
+      "name": "नाम",
+      "openReports": "खुली रिपोर्टें",
+      "reportedOnly": "केवल रिपोर्ट किए गए",
+      "restore": "पुनर्स्थापित करें",
+      "restoreTitle": "क्लब पुनर्स्थापित करें",
+      "startsAt": "शुरू होने का समय",
+      "status": "स्थिति",
+      "tabs": "सामग्री का प्रकार",
+      "title": "शीर्षक",
+      "moments": "मोमेंट्स",
+      "communities": "समुदाय",
+      "reports": "रिपोर्टें",
+      "momentsToday": "आज के मोमेंट्स",
+      "moments7d": "मोमेंट्स (7 दिन)",
+      "momentsHidden": "छिपाए गए मोमेंट्स",
+      "comments7d": "टिप्पणियाँ (7 दिन)",
+      "activeCommunities": "सक्रिय क्लब",
+      "upcomingGatherings": "आगामी मिलन",
+      "pendingReports": "लंबित रिपोर्टें",
+      "allTime": "अब तक",
+      "membersTotal": "सदस्य",
+      "underReview": "समीक्षाधीन",
+      "searchMoments": "मोमेंट्स खोजें",
+      "hiddenOnly": "केवल छिपाए गए",
+      "author": "लेखक",
+      "owner": "मालिक",
+      "city": "शहर",
+      "place": "स्थान",
+      "category": "श्रेणी",
+      "engagement": "एंगेजमेंट",
+      "likes": "लाइक्स",
+      "comments": "टिप्पणियाँ",
+      "views": "व्यू",
+      "shares": "शेयर",
+      "hidden": "छिपा हुआ",
+      "visible": "दृश्यमान",
+      "untitled": "बिना शीर्षक का मोमेंट",
+      "noText": "कोई टेक्स्ट नहीं।",
+      "actionFailed": "यह काम नहीं हुआ। कुछ भी नहीं बदला गया।",
+      "momentTitle": "मोमेंट",
+      "hide": "छिपाएँ",
+      "unhide": "दिखाएँ",
+      "hideTitle": "क्या इस मोमेंट को छिपाएँ?",
+      "unhideTitle": "क्या इस मोमेंट को फिर से दिखाएँ?",
+      "hideBody": "यह हर फ़ीड से गायब हो जाएगा। कारण ऑडिट लॉग में दर्ज किया जाता है।",
+      "unhideBody": "यह फिर से फ़ीड में दिखने लगेगा। कारण ऑडिट लॉग में दर्ज किया जाता है।",
+      "communityTitle": "समुदाय",
+      "archiveBody": "यह डिस्कवरी से गायब हो जाएगा। सदस्यों का इतिहास सुरक्षित रहता है और इसे पुनर्स्थापित किया जा सकता है।",
+      "restoreBody": "यह फिर से डिस्कवरी में दिखने लगेगा। कारण ऑडिट लॉग में दर्ज किया जाता है।",
+      "reportType": "प्रकार",
+      "reason": "कारण",
+      "reporterAndReported": "रिपोर्ट करने वाला → रिपोर्ट किया गया",
+      "priority": "प्राथमिकता",
+      "reportActions": "रिपोर्ट पर कार्रवाई",
+      "anyStatus": "कोई भी स्थिति",
+      "anyType": "कोई भी प्रकार",
+      "startReview": "समीक्षा शुरू करें",
+      "resolve": "हल करें",
+      "dismiss": "खारिज करें",
+      "resolveTitle": "क्या इस रिपोर्ट को हल करें?",
+      "dismissTitle": "क्या इस रिपोर्ट को खारिज करें?",
+      "dismissBody": "रिपोर्ट की गई सामग्री या उपयोगकर्ता के खिलाफ़ कोई कार्रवाई नहीं की जाती। नोट्स रिपोर्ट पर रखे जाते हैं।",
+      "moderatorAction": "मॉडरेटर कार्रवाई",
+      "notes": "नोट्स",
+      "reportStatus": {
+        "pending": "लंबित",
+        "under_review": "समीक्षाधीन",
+        "resolved": "हल हो गया",
+        "dismissed": "खारिज"
+      },
+      "targetType": {
+        "moment": "मोमेंट",
+        "comment": "टिप्पणी",
+        "user": "उपयोगकर्ता",
+        "club": "क्लब",
+        "gathering": "मिलन",
+        "message": "संदेश",
+        "story": "स्टोरी"
+      },
+      "moderatorActions": {
+        "content_removed": "सामग्री हटाई गई",
+        "user_warned": "उपयोगकर्ता को चेतावनी दी गई",
+        "user_suspended": "उपयोगकर्ता निलंबित किया गया",
+        "user_banned": "उपयोगकर्ता को बैन किया गया",
+        "no_violation": "कोई उल्लंघन नहीं"
+      }
+    },
+    "overview": {
+      "activeThisWeek": "इस सप्ताह सक्रिय",
+      "activeToday": "आज सक्रिय",
+      "admins": "एडमिन",
+      "banned": "बैन किए गए",
+      "email": "ईमेल",
+      "lastActive": "अंतिम सक्रियता",
+      "lastWeek": "पिछले सप्ताह",
+      "name": "नाम",
+      "newThisWeek": "इस सप्ताह नए",
+      "newToday": "आज नए",
+      "recentlyActive": "हाल में सक्रिय",
+      "topLearningLanguages": "सबसे अधिक सीखी जाने वाली भाषाएँ",
+      "topNativeLanguages": "सबसे आम मातृभाषाएँ",
+      "totalUsers": "कुल उपयोगकर्ता",
+      "vip": "VIP",
+      "visitsThisWeek": "इस सप्ताह विज़िट",
+      "vs": "बनाम"
+    },
+    "reach": {
+      "country": "देश",
+      "days": "दिन",
+      "device": "डिवाइस",
+      "devices": "डिवाइस",
+      "newVisitors": "नए विज़िटर",
+      "ofVisits": "का",
+      "pageViews": "पेज व्यू",
+      "path": "पथ",
+      "period": "सप्ताह",
+      "placement": "प्लेसमेंट",
+      "platform": "प्लेटफ़ॉर्म",
+      "referrer": "रेफ़रर",
+      "storeTaps": "स्टोर टैप्स",
+      "taps": "टैप्स",
+      "tapsByPlacement": "प्लेसमेंट के अनुसार स्टोर टैप्स",
+      "topCountries": "शीर्ष देश",
+      "topPaths": "शीर्ष पेज",
+      "topReferrers": "शीर्ष रेफ़रर",
+      "trafficTitle": "पेज व्यू और स्टोर टैप्स",
+      "unique": "यूनीक",
+      "uniqueVisitors": "यूनीक विज़िटर",
+      "views": "व्यू",
+      "visits": "विज़िट",
+      "visitsThisWeek": "इस सप्ताह विज़िट",
+      "window": "समय सीमा"
+    },
+    "users": {
+      "actionFailed": "यह काम नहीं हुआ। कुछ भी नहीं बदला गया।",
+      "active": "सक्रिय",
+      "activity": "गतिविधि",
+      "adminsOnly": "केवल एडमिन",
+      "ban": "बैन करें",
+      "banBody": "तुरंत एक्सेस खो देगा/देगी। कारण ऑडिट लॉग में दर्ज किया जाता है।",
+      "banReason": "बैन का कारण",
+      "banTitle": "क्या इस उपयोगकर्ता को बैन करें?",
+      "banned": "बैन किया गया",
+      "delete": "हटाएँ",
+      "deleteBody": "इससे खाता और उसकी सामग्री मिट जाएगी। इसे पूर्ववत नहीं किया जा सकता।",
+      "deleteTitle": "क्या इस खाते को स्थायी रूप से हटाएँ?",
+      "detailTitle": "उपयोगकर्ता विवरण",
+      "email": "ईमेल",
+      "empty": "इस खोज से मेल खाता कोई उपयोगकर्ता नहीं मिला।",
+      "joined": "शामिल हुए",
+      "languages": "भाषाएँ",
+      "lastActive": "अंतिम सक्रियता",
+      "lastMessage": "अंतिम संदेश",
+      "lastMoment": "अंतिम मोमेंट",
+      "makeAdmin": "एडमिन बनाएँ",
+      "makeAdminBody": "इसे कंसोल और बैन व डिलीट सहित सभी एडमिन सुविधाओं का एक्सेस मिल जाएगा।",
+      "makeAdminTitle": "क्या एडमिन बनाएँ?",
+      "messages30d": "संदेश (30 दिन)",
+      "moments30d": "मोमेंट्स (30 दिन)",
+      "name": "नाम",
+      "noActions": "इस खाते के खिलाफ़ कोई एडमिन कार्रवाई नहीं हुई है।",
+      "recentActions": "हाल की एडमिन कार्रवाइयाँ",
+      "revokeAdmin": "एडमिन अधिकार वापस लें",
+      "revokeAdminBody": "इसका कंसोल और सभी एडमिन अधिकार समाप्त हो जाएँगे। आप अपना खुद का एडमिन अधिकार वापस नहीं ले सकते।",
+      "revokeAdminTitle": "क्या एडमिन अधिकार वापस लें?",
+      "role": "भूमिका",
+      "searchLabel": "उपयोगकर्ता खोजें",
+      "searchPlaceholder": "नाम, ईमेल या यूज़रनेम से खोजें",
+      "status": "स्थिति",
+      "tabAll": "सभी उपयोगकर्ता",
+      "tabBanned": "बैन किए गए",
+      "typeEmail": "पुष्टि के लिए उपयोगकर्ता का ईमेल टाइप करें",
+      "unban": "बैन हटाएँ",
+      "unbanBody": "तुरंत एक्सेस वापस मिल जाएगा। कारण ऑडिट लॉग में दर्ज किया जाता है।",
+      "unbanTitle": "क्या इस उपयोगकर्ता का बैन हटाएँ?",
+      "unknownModerator": "अज्ञात मॉडरेटर",
+      "addUser": "उपयोगकर्ता जोड़ें",
+      "createUser": "उपयोगकर्ता बनाएँ",
+      "createdTitle": "उपयोगकर्ता बनाया गया",
+      "createFailed": "यह काम नहीं हुआ। कोई खाता नहीं बनाया गया।",
+      "editTitle": "उपयोगकर्ता संपादित करें",
+      "edit": "संपादित करें",
+      "saveChanges": "बदलाव सहेजें",
+      "done": "पूर्ण",
+      "addAnother": "एक और जोड़ें",
+      "openProfile": "प्रोफ़ाइल खोलें",
+      "required": "आवश्यक",
+      "invalidEmail": "कृपया मान्य ईमेल का उपयोग करें",
+      "weakPassword": "कम से कम 8 अक्षर, बड़े-छोटे अक्षरों और एक अंक के साथ",
+      "under18": "उपयोगकर्ता की उम्र कम से कम 18 वर्ष होनी चाहिए",
+      "sameLanguage": "मातृभाषा और सीखी जाने वाली भाषा एक जैसी नहीं हो सकतीं",
+      "password": "पासवर्ड",
+      "generate": "जनरेट करें",
+      "copy": "कॉपी करें",
+      "passwordOnce": "यह पासवर्ड केवल एक बार दिखाया जाता है। इसे उपयोगकर्ता को भेजें और इसे बदलने के लिए कहें।",
+      "termsNote": "सहमति किसी की ओर से नहीं दी जा सकती: ऐप पहली बार साइन इन करने पर इस उपयोगकर्ता से शर्तें स्वीकार करने को कहेगा।",
+      "userId": "उपयोगकर्ता आईडी",
+      "gender": "लिंग",
+      "male": "पुरुष",
+      "female": "महिला",
+      "other": "अन्य",
+      "select": "चुनें",
+      "birthDate": "जन्म तिथि",
+      "birthYear": "जन्म वर्ष",
+      "birthMonth": "जन्म महीना",
+      "birthDay": "जन्म दिन",
+      "year": "वर्ष",
+      "month": "महीना",
+      "day": "दिन",
+      "nativeLanguage": "मातृभाषा",
+      "learningLanguage": "सीखी जाने वाली भाषा",
+      "roleUser": "उपयोगकर्ता",
+      "roleAdmin": "एडमिन",
+      "markVerified": "ईमेल को सत्यापित के रूप में चिह्नित करें",
+      "bio": "बायो",
+      "optional": "वैकल्पिक",
+      "mode": "मोड",
+      "regular": "नियमित",
+      "vip": "VIP",
+      "vipUntil": "तक",
+      "vipDays": "दिन",
+      "vipGrantNote": "सब्सक्रिप्शन आज से शुरू होती है और अपने आप रिन्यू नहीं होती।",
+      "vipRevokeNote": "VIP बंद करने से सब्सक्रिप्शन तुरंत समाप्त हो जाती है।",
+      "verified": "सत्यापित",
+      "yes": "हाँ",
+      "no": "नहीं"
+    },
+    "table": {
+      "page": "पृष्ठ {{page}}",
+      "previous": "पिछला",
+      "next": "अगला"
+    }
+  },
+  "download": {
+    "title": "BananaTalk डाउनलोड करें",
+    "subtitle": "137 भाषाओं में नेटिव स्पीकर्स के साथ मुफ़्त भाषा एक्सचेंज, iPhone और Android पर।",
+    "free": "मुफ़्त। कोई कार्ड नहीं।",
+    "scan": "अपने फ़ोन के कैमरे से स्कैन करें",
+    "qrAlt": "BananaTalk डाउनलोड करने के लिए QR कोड",
+    "reasons": {
+      "tutor": {
+        "title": "हर चैट में एक AI ट्यूटर",
+        "body": "जो मैसेज आप सच में भेजते हैं, उन्हीं पर सुधार और समझाइश।"
+      },
+      "voice": {
+        "title": "वॉइस रूम्स और कॉल्स",
+        "body": "अभी आपकी भाषा सीख रहे लोगों के साथ बोलकर अभ्यास करें।"
+      },
+      "translate": {
+        "title": "तुरंत अनुवाद",
+        "body": "आप अपनी भाषा में लिखें, वे अपनी भाषा में पढ़ें — और इसी फ़र्क़ से आप सीखते हैं।"
+      }
+    }
+  },
+  "meet": {
+    "hero": {
+      "title": "दूसरे देशों के लोगों से मिलें",
+      "titleAccent": "जो सच में जवाब देते हैं।",
+      "subtitle": "BananaTalk वो जगह है जहाँ आप नेटिव स्पीकर्स से बात करके विदेशी दोस्त बनाते हैं। एक भाषा चुनें, हाय कहें, और हर मैसेज अनुवाद होकर पहुँचेगा — किसी को भी पहले से फ़र्राटेदार होने की ज़रूरत नहीं।",
+      "trust": "हमेशा के लिए मुफ़्त · 137 भाषाएँ · हर मैसेज दोनों तरफ़ अनुवादित",
+      "demo": {
+        "1": {
+          "text": "Bora ver o pôr do sol no sábado?",
+          "translation": "शनिवार को सूरज डूबते हुए देखने चलें?"
+        },
+        "2": {
+          "text": "हाँ! क्या सितंबर में वहाँ अब भी गर्मी रहती है?",
+          "translation": "Sim! Ainda faz calor aí em setembro?"
+        }
+      },
+      "note": {
+        "label": "✦ दोनों तरफ़ अनुवादित",
+        "body": "उसने पुर्तगाली में लिखा और आपने हिंदी में पढ़ा। आपने हिंदी में लिखा और उसने पुर्तगाली में पढ़ा। किसी को भी अपनी भाषा बदलनी नहीं पड़ी।"
+      }
+    },
+    "howItWorks": {
+      "title": "यहाँ दोस्त बनाने में तीन कदम लगते हैं",
+      "steps": {
+        "1": {
+          "title": "प्रोफ़ाइल नहीं, भाषा चुनें",
+          "body": "वो भाषा या देश चुनें जिसे लेकर आपकी जिज्ञासा है। हम आपको वो लोग दिखाते हैं जो पहले से आपकी भाषा सीख रहे हैं — यह भाषा एक्सचेंज है, इसलिए फ़ायदा दोनों का है।"
+        },
+        "2": {
+          "title": "अपने ही शब्दों में हाय कहें",
+          "body": "उसी भाषा में लिखें जिसमें आप सोचते हैं। वो उन तक उनकी भाषा में तुरंत पहुँच जाएगी, इसलिए पहला मैसेज कभी मुश्किल हिस्सा नहीं होता।"
+        },
+        "3": {
+          "title": "बातचीत जारी रखें",
+          "body": "वॉइस नोट्स, फ़ोटो, Moments, कॉल्स। टिकती वही बातचीत है जो अभ्यास से आगे निकल जाए।"
+        }
+      }
+    },
+    "features": {
+      "title": "ऐसी बातचीत के लिए बना है जो चलती रहे"
+    },
+    "cta": {
+      "title": "किसी और देश में अभी कोई जाग रहा है",
+      "subtitle": "शुरू करने के लिए मुफ़्त। कोई कार्ड नहीं, कोई ट्रायल काउंटडाउन नहीं।"
+    }
+  },
+  "learnKorean": {
+    "hero": {
+      "title": "चैट करके कोरियाई सीखें",
+      "titleAccent": "असली कोरियाई लोगों के साथ।",
+      "subtitle": "उन कोरियाई नेटिव स्पीकर्स के साथ भाषाएँ बदलें जो बदले में आपकी भाषा चाहते हैं। आप 한국어 में कोशिश करें, वे उसी कोरियाई में जवाब दें जो लोग सच में बोलते हैं, और AI ट्यूटर आपकी गलतियाँ ठीक करे — बिल्कुल निजी तौर पर।",
+      "trust": "हमेशा के लिए मुफ़्त · कोरियाई नेटिव स्पीकर्स · AI ट्यूटर 24/7",
+      "demo": {
+        "1": {
+          "text": "주말에 뭐 했어요?",
+          "translation": "इस वीकेंड आपने क्या किया?"
+        },
+        "2": {
+          "text": "친구 만났다! 진짜 재미있었어",
+          "translation": "दोस्त से मिला! सच में बहुत मज़ा आया"
+        }
+      },
+      "note": {
+        "label": "✦ AI ट्यूटर",
+        "body": "존댓말 बनाम 반말: उसने 했어요 के साथ पूछा, जो विनम्र रूप है। आपने 반말 में जवाब दिया, जो करीबी दोस्तों के लिए है। अभी उसी के अंदाज़ में रहें: 친구 만났어요! 진짜 재미있었어요."
+      }
+    },
+    "howItWorks": {
+      "title": "चैट करने पर कोरियाई क्यों याद रह जाती है",
+      "steps": {
+        "1": {
+          "title": "वो कोरियाई जो असली चैट में दिखती है",
+          "body": "आपकी किताब 합니다 सिखाती है। आपका पार्टनर टाइप करता है 했어요, ㅋㅋ और 헐 — यही कोरियाई असली बातचीत में आपका इंतज़ार कर रही है।"
+        },
+        "2": {
+          "title": "존댓말 और 반말, रटकर नहीं, महसूस करके",
+          "body": "विनम्रता हर वाक्य में लिया गया एक फ़ैसला है। किसी नेटिव स्पीकर के फ़ैसले पढ़ना इसे अंत-प्रत्ययों की किसी भी तालिका से तेज़ सिखाता है।"
+        },
+        "3": {
+          "title": "बिना शर्मिंदगी के सुधार",
+          "body": "AI ट्यूटर आपकी कोरियाई पर निशान वहाँ लगाता है जहाँ सिर्फ़ आप देख सकें, ताकि भाषा एक्सचेंज कभी इम्तिहान न बने। आपका पार्टनर बस इतना देखता है कि आप कोशिश कर रहे हैं — और यही बात उसे जवाब देते रहने पर टिकाए रखती है।"
+        }
+      }
+    },
+    "features": {
+      "title": "तीन चीज़ें जो कोई किताब नहीं दे सकती"
+    },
+    "cta": {
+      "title": "कोरियाई बोलने वाले अभी आपकी भाषा सीख रहे हैं",
+      "subtitle": "शुरू करने के लिए मुफ़्त। कोई कार्ड नहीं, कोई ट्रायल काउंटडाउन नहीं।"
+    }
+  },
+  "communities": {
+    "public": {
+      "title": "भाषा एक्सचेंज कम्युनिटीज़",
+      "intro": "BananaTalk के अंदर असली ग्रुप, जहाँ लोग हर दिन साथ मिलकर एक भाषा का अभ्यास करते हैं। अपना ग्रुप यहाँ ढूँढें, फिर उसे ऐप में खोलें और बात करना शुरू करें।",
+      "members": "सदस्य",
+      "join": "ऐप में जॉइन करें",
+      "empty": {
+        "title": "हर हफ़्ते नई कम्युनिटीज़ खुलती हैं",
+        "body": "यहाँ अभी दिखाने के लिए कुछ नहीं है। ऐप डाउनलोड करें और हर कम्युनिटी खुलते ही दिखने लगेगी।"
+      }
+    }
+  },
+  "errors": {
+    "chunk": {
+      "title": "इस पेज को लोड करने में कुछ गड़बड़ हो गई",
+      "body": "ऐप का एक हिस्सा लोड नहीं हुआ। ऐसा आमतौर पर अपडेट के तुरंत बाद होता है — पेज रीलोड करने से यह ठीक हो जाना चाहिए।",
+      "reload": "फिर से लोड करें"
+    }
+  },
+  "growth": {
+    "store": {
+      "appStore": "App Store",
+      "googlePlay": "Google Play",
+      "downloadOnThe": "डाउनलोड करें",
+      "getItOn": "अभी पाएं"
+    },
+    "promo": {
+      "tutor": {
+        "eyebrow": "AI ट्यूटर",
+        "title": "टाइप करते ही आपकी कोरियाई सुधारे",
+        "body": "हर मैसेज पर निजी सुधार, साथ ही चैट के बीच क्विज़ और व्याकरण अभ्यास।",
+        "cta": "ऐप प्राप्त करें",
+        "alt": "एक चैट बबल का चित्रण जिसमें एक शब्द काटा गया है और उसका सुधार ऊपर तैर रहा है, बगल में एक सही का निशान है"
+      },
+      "voice": {
+        "eyebrow": "वॉइस नोट्स और रूम्स",
+        "title": "असली उच्चारण सुनें",
+        "body": "वॉइस नोट भेजें, अपनी लोकेशन शेयर करें, और नेटिव स्पीकर्स के साथ लाइव वॉइस रूम्स में शामिल हों।",
+        "cta": "ऐप प्राप्त करें",
+        "alt": "एक माइक्रोफ़ोन का चित्रण जिस पर ध्वनि तरंग गुजर रही है और पीछे एक साझा स्थान कार्ड है"
+      },
+      "moments": {
+        "eyebrow": "Moments और Stories",
+        "title": "अपना हफ्ता दो भाषाओं में शेयर करें",
+        "body": "फोटो और विचार पोस्ट करें; दोस्त उन्हें अनुवाद में पढ़ते हैं और प्यार से सुधारते हैं।",
+        "cta": "ऐप प्राप्त करें",
+        "alt": "तीन ओवरलैपिंग फोटो कार्ड का चित्रण जिसमें एक दिल और A से 가 तक अनुवाद का निशान है"
+      },
+      "inbox": {
+        "eyebrow": "असली बातचीत",
+        "title": "वे लोग जो सच में जवाब देते हैं",
+        "body": "आपकी चैट, वेव और रिएक्शन एक ही इनबॉक्स में — पढ़े, अनुवादित, जवाब दिए गए।",
+        "cta": "ऐप प्राप्त करें",
+        "alt": "इनबॉक्स में तीन बातचीत एक के ऊपर एक रखी हुई हैं, जिनमें से एक अपठित है, साथ ही हाथ हिलाकर अभिवादन करता हुआ चित्रण"
+      },
+      "dismiss": "ऐप प्रचार बंद करें",
+      "label": "BananaTalk ऐप क्या करता है",
+      "slideLabel": "स्लाइड {{n}} / {{total}}",
+      "prev": "पिछली स्लाइड",
+      "next": "अगली स्लाइड"
+    }
+  },
+  "stories": {
+    "your_story": "आपकी स्टोरी",
+    "create_story": "बनाएं",
+    "my_stories": "मेरी स्टोरीज़",
+    "reaction_failed": "आपकी रिएक्शन सेव नहीं हो सकी",
+    "answer_sent": "जवाब भेजा गया",
+    "answer_failed": "आपका जवाब भेजा नहीं जा सका",
+    "delete_story": "इस स्टोरी को हटाएं?",
+    "error_loading": "स्टोरी लोड करने में समस्या",
+    "answer_placeholder": "अपना जवाब लिखें…",
+    "answer_question": "सवाल का जवाब दें",
+    "send_reply": "भेजें",
+    "answer_anonymously": "गुमनाम रूप से जवाब दें",
+    "cancel": "रद्द करें",
+    "viewers": "देखने वाले",
+    "responses": "जवाब",
+    "share_story": "शेयर करें",
+    "reply_placeholder": "मैसेज भेजें...",
+    "react": "रिएक्ट करें",
+    "reacted": "प्रतिक्रिया दी",
+    "shared": "भेजा गया",
+    "share_failed": "यह स्टोरी शेयर नहीं हो सकी",
+    "close": "बंद करें",
+    "search_chats": "चैट खोजें",
+    "loading": "लोड हो रहा है…",
+    "no_chats": "कोई हाल की चैट नहीं",
+    "no_viewers": "अभी तक किसी ने नहीं देखा",
+    "added_to_highlight": "हाइलाइट्स में जोड़ा गया",
+    "add_failed": "वह स्टोरी जोड़ी नहीं जा सकी",
+    "title_required": "कृपया एक शीर्षक डालें",
+    "highlight_created": "हाइलाइट बन गया",
+    "create_failed": "हाइलाइट नहीं बन सका",
+    "story_archived": "स्टोरी आर्काइव की गई",
+    "archive_failed": "वह स्टोरी आर्काइव नहीं हो सकी",
+    "story_deleted": "स्टोरी हटा दी गई",
+    "delete_story_failed": "वह स्टोरी हटाई नहीं जा सकी",
+    "active_stories": "एक्टिव",
+    "total_views": "कुल व्यूज़",
+    "archived_stories": "आर्काइव की गई",
+    "create_first_story": "स्टोरी बनाएं",
+    "no_archived_stories": "अभी तक कुछ भी आर्काइव नहीं हुआ",
+    "no_stories": "अभी कोई स्टोरी नहीं",
+    "add_to_highlight": "हाइलाइट में जोड़ें",
+    "archive": "आर्काइव करें",
+    "delete": "हटाएं",
+    "highlight_name": "हाइलाइट का नाम",
+    "create": "बनाएं",
+    "no_highlights": "अभी तक कोई हाइलाइट नहीं",
+    "stories_count": "स्टोरीज़",
+    "new_highlight": "नया हाइलाइट",
+    "delete_story_confirm": "इस स्टोरी को हटाएं?",
+    "delete_story_body": "इसे वापस नहीं लाया जा सकता।",
+    "anonymous": "गुमनाम",
+    "no_responses": "अभी तक कोई जवाब नहीं",
+    "video_type_error": "यह वीडियो फॉर्मेट सपोर्ट नहीं है",
+    "video_size_error": "यह वीडियो इससे बड़ा है",
+    "video_duration_error": "यह वीडियो इससे लंबा है",
+    "question_box": {
+      "ask_me_anything": "मुझसे कुछ भी पूछें!"
+    },
+    "add_text": "अपनी स्टोरी लिखें…",
+    "upload_media": "कृपया मीडिया अपलोड करें",
+    "link_invalid": "यह लिंक सही नहीं लग रहा",
+    "story_created": "स्टोरी शेयर की गई",
+    "create_story_failed": "आपकी स्टोरी शेयर नहीं हो सकी",
+    "video_limits": "वीडियो",
+    "choose_photo": "फ़ोटो",
+    "choose_video": "वीडियो",
+    "text_story": "टेक्स्ट",
+    "move_sticker": "स्टिकर खिसकाएं",
+    "tap_to_type": "टाइप करने के लिए टैप करें",
+    "story_text": "स्टोरी टेक्स्ट",
+    "background": "बैकग्राउंड",
+    "text_color": "टेक्स्ट",
+    "font_style": "फ़ॉन्ट",
+    "stickers_text": "टेक्स्ट और इमोजी",
+    "add_text_sticker": "टेक्स्ट जोड़ें",
+    "add_emoji_sticker": "इमोजी जोड़ें",
+    "sticker_text": "स्टिकर टेक्स्ट",
+    "remove": "हटाएं",
+    "sticker_background": "बैकग्राउंड",
+    "sticker_size": "साइज़",
+    "sticker_color": "रंग",
+    "mention": "मेंशन",
+    "link": "लिंक",
+    "poll": "पोल",
+    "question": "सवाल",
+    "hashtag": "हैशटैग",
+    "link_url": "लिंक URL",
+    "link_title": "टाइटल",
+    "link_label": "स्टिकर लेबल",
+    "poll_question": "कुछ पूछें",
+    "poll_option": "ऑप्शन",
+    "add_option": "ऑप्शन जोड़ें",
+    "anonymous_voting": "गुमनाम वोटिंग",
+    "question_prompt": "सवाल लिखें",
+    "audience": "इसे कौन देख सकता है",
+    "privacy": {
+      "public": "सभी",
+      "friends": "फ्रेंड्स",
+      "close_friends": "क्लोज़ फ्रेंड्स"
+    },
+    "close_friends_empty": "आपकी क्लोज़ फ्रेंड्स लिस्ट खाली है — इसे कोई नहीं देख पाएगा।",
+    "manage_close_friends": "क्लोज़ फ्रेंड्स मैनेज करें",
+    "highlight_updated": "हाइलाइट अपडेट किया गया",
+    "update_failed": "हाइलाइट सेव नहीं हो सका",
+    "highlight_deleted": "हाइलाइट हटा दिया गया",
+    "delete_failed": "हाइलाइट हटाया नहीं जा सका",
+    "removed_from_highlight": "हाइलाइट से हटाया गया",
+    "remove_failed": "वह स्टोरी हटाई नहीं जा सकी",
+    "back": "वापस",
+    "highlights_title": "हाइलाइट्स",
+    "highlights_subtitle": "आपके सेव किए गए स्टोरी कलेक्शन",
+    "highlight_empty": "इस हाइलाइट में अभी तक कोई स्टोरी नहीं है",
+    "remove_from_highlight": "हाइलाइट से हटाएं",
+    "edit_highlight": "हाइलाइट एडिट करें",
+    "delete_highlight": "हाइलाइट हटाएं",
+    "choose_cover": "कवर चुनें",
+    "no_stories_to_pick": "चुनने के लिए कोई स्टोरी नहीं",
+    "save": "सेव करें",
+    "delete_highlight_confirm": "हाइलाइट हटाएं?",
+    "delete_highlight_body": "स्टोरीज़ आपके आर्काइव में बनी रहेंगी।",
+    "previous": "पिछला",
+    "next": "अगला",
+    "font": {
+      "sans-serif": "सैन्स सेरिफ़",
+      "serif": "सेरिफ़",
+      "bold": "बोल्ड",
+      "handwritten": "हैंडराइटन"
+    },
+    "bg_mode": {
+      "none": "कोई बैकग्राउंड नहीं",
+      "semi": "पारभासी",
+      "solid": "सॉलिड"
+    },
+    "search_followings": "जिन्हें आप फ़ॉलो करते हैं उन्हें खोजें",
+    "mention_followings_only": "आप केवल उन्हें टैग कर सकते हैं जिन्हें आप फ़ॉलो करते हैं। पहले किसी को फ़ॉलो करें।",
+    "mention_no_match": "आप जिन्हें फ़ॉलो करते हैं उनमें कोई मेल नहीं खाता",
+    "more": "और",
+    "reply_failed": "आपका संदेश नहीं भेजा जा सका",
+    "vote_failed": "आपका वोट सहेजा नहीं जा सका",
+    "poll_error_question": "अपने पोल में एक प्रश्न जोड़ें",
+    "poll_error_blank_option": "खाली पोल विकल्प भरें या हटाएँ",
+    "poll_error_min_options": "पोल में कम से कम दो विकल्प होने चाहिए",
+    "poll_error_max_options": "पोल में अधिकतम चार विकल्प हो सकते हैं",
+    "question_error_prompt": "अपने प्रश्न स्टिकर में एक प्रश्न जोड़ें",
+    "caption": "कैप्शन",
+    "caption_placeholder": "कैप्शन जोड़ें…",
+    "linkPage": {
+      "browse": "मौजूदा स्टोरी देखें",
+      "expired": "यह स्टोरी समाप्त हो गई है या हटा दी गई है। स्टोरी 24 घंटे बाद गायब हो जाती हैं।",
+      "failed": "हम यह स्टोरी लोड नहीं कर सके।",
+      "retry": "फिर से कोशिश करें",
+      "sign_in": "साइन इन",
+      "sign_in_body": "इसे देखने के लिए साइन इन करें, या BananaTalk ऐप में खोलें।",
+      "sign_in_title": "किसी ने आपके साथ एक स्टोरी शेयर की है",
+      "unavailable": "यह स्टोरी आपके लिए उपलब्ध नहीं है।"
+    },
+    "block_author": "{{name}} को ब्लॉक करें",
+    "block_confirm": "ब्लॉक करें",
+    "block_confirm_body": "वे आपकी प्रोफ़ाइल, मोमेंट्स या स्टोरीज़ नहीं देख पाएँगे और आपको मैसेज नहीं कर पाएँगे, और आपको उनका कंटेंट नहीं दिखेगा।",
+    "block_confirm_title": "{{name}} को ब्लॉक करें?",
+    "block_failed": "इस व्यक्ति को ब्लॉक नहीं किया जा सका। फिर से कोशिश करें।",
+    "blocked": "{{name}} को ब्लॉक कर दिया गया",
+    "location_label": "जगह",
+    "one_image_only": "स्टोरी में एक ही फ़ोटो दिखती है। हमने पहली फ़ोटो रखी है।",
+    "replies_off": "इस स्टोरी पर जवाब बंद हैं",
+    "report_story": "स्टोरी की रिपोर्ट करें"
+  },
+  "card": {
+    "title": "भाषा कार्ड",
+    "my_card": "मेरा कार्ड",
+    "speaks": "बोलते हैं",
+    "learning": "सीख रहे हैं",
+    "practice_with": "{{name}} के साथ {{language}} का अभ्यास करें",
+    "view_profile": "पूरी प्रोफ़ाइल देखें",
+    "continue_web": "ब्राउज़र में जारी रखें",
+    "share": "मेरा कार्ड शेयर करें",
+    "share_text": "BananaTalk पर मेरे साथ {{language}} का अभ्यास करें",
+    "edit": "कार्ड की जानकारी बदलें",
+    "tagline": "BananaTalk पर भाषा आदान-प्रदान",
+    "not_found": "यह कार्ड मौजूद नहीं है",
+    "not_found_body": "हो सकता है खाता हटा दिया गया हो।",
+    "find_partners": "भाषा साथी खोजें"
+  },
+  "announcements": {
+    "new": "नया",
+    "readMore": "और पढ़ें",
+    "close": "बंद करें",
+    "ended": "यह घोषणा समाप्त हो चुकी है।",
+    "back": "वापस"
+  },
+  "communityNearby": {
+    "back": "वापस",
+    "geolocationNotSupported": "जियोलोकेशन समर्थित नहीं है",
+    "gettingLocation": "आपकी लोकेशन पता की जा रही है…",
+    "learning": "सीख रहे हैं: {{language}}",
+    "locationRequired": "लोकेशन ज़रूरी है",
+    "noUsers": "आस-पास कोई उपयोगकर्ता नहीं मिला",
+    "permissionDenied": "लोकेशन की अनुमति नहीं दी गई",
+    "positionUnavailable": "लोकेशन उपलब्ध नहीं है",
+    "refresh": "रीफ़्रेश करें",
+    "searchRadius": "खोज का दायरा",
+    "subtitle": "अपने आस-पास के लोगों को खोजें",
+    "timeout": "लोकेशन अनुरोध का समय समाप्त हो गया",
+    "title": "नज़दीकी उपयोगकर्ता",
+    "tryAgain": "फिर से कोशिश करें",
+    "tryIncreaseRadius": "खोज का दायरा बढ़ाकर देखें",
+    "unknownError": "एक त्रुटि हुई",
+    "usersFound_one": "{{count}} व्यक्ति मिला",
+    "usersFound_other": "{{count}} लोग मिले"
+  },
+  "auth": {
+    "apple": {
+      "continue": "Apple के साथ जारी रखें",
+      "errors": {
+        "banned": "यह खाता निलंबित कर दिया गया है।",
+        "blocked": "आपके ब्राउज़र ने Apple विंडो ब्लॉक कर दी। banatalk.com के लिए पॉप-अप की अनुमति दें और फिर से कोशिश करें।",
+        "disabled": "Apple से साइन इन अभी वेबसाइट पर उपलब्ध नहीं है।",
+        "failed": "Apple से साइन इन नहीं हो सका। फिर से कोशिश करें।",
+        "rate_limited": "साइन इन के बहुत अधिक प्रयास। एक मिनट रुकें और फिर से कोशिश करें।",
+        "unavailable": "Apple से साइन इन अभी उपलब्ध नहीं है। बाद में फिर से कोशिश करें।"
+      },
+      "signedIn": "Apple से साइन इन हो गया",
+      "signingIn": "Apple से साइन इन हो रहा है…"
+    }
+  },
+  "reels": {
+    "actions": {
+      "block": "उपयोगकर्ता को ब्लॉक करें",
+      "comments": "टिप्पणियाँ",
+      "like": "पसंद करें",
+      "more": "और",
+      "profile": "प्रोफ़ाइल",
+      "report": "रिपोर्ट करें",
+      "unlike": "पसंद हटाएँ"
+    },
+    "create": {
+      "bad_type": "यह फ़ाइल प्रकार समर्थित नहीं है। MP4, MOV या WebM का उपयोग करें।",
+      "caption": "कैप्शन",
+      "caption_placeholder": "आप क्या अभ्यास कर रहे हैं?",
+      "change_video": "दूसरा वीडियो चुनें",
+      "choose_video": "वीडियो चुनें",
+      "failed": "आपकी रील पोस्ट नहीं हो सकी। फिर से कोशिश करें।",
+      "hint": "भाषा सीखने का एक छोटा वीडियो, 3 मिनट तक। वर्टिकल (9:16) सबसे अच्छा दिखता है।",
+      "post": "रील पोस्ट करें",
+      "posted": "आपकी रील पोस्ट हो गई।",
+      "posting": "पोस्ट हो रही है…",
+      "server_too_long": "रील्स 3 मिनट या उससे छोटी होनी चाहिए।",
+      "title": "नई रील",
+      "too_big": "यह वीडियो अपलोड करने के लिए बहुत बड़ा है।",
+      "too_long": "रील्स 3:00 तक की हो सकती हैं। यह वीडियो {{duration}} का है।",
+      "upload_failed": "वीडियो अपलोड नहीं हुआ। कुछ भी पोस्ट नहीं हुआ — फिर से कोशिश करें।"
+    },
+    "grid": {
+      "create": "रील बनाएँ",
+      "empty": "अभी तक कोई रील नहीं। सबसे पहले पोस्ट करें।",
+      "error": "रील्स लोड नहीं हो सकीं।",
+      "load_more": "और लोड करें",
+      "loading": "रील्स लोड हो रही हैं…",
+      "open_reel": "{{name}} की रील चलाएँ",
+      "retry": "फिर से कोशिश करें",
+      "title": "रील्स",
+      "unavailable": "रील्स अभी उपलब्ध नहीं हैं।"
+    },
+    "moments_link": "रील्स देखें",
+    "nav": "रील्स",
+    "policy": {
+      "accept": "मैं सहमत हूँ",
+      "body": "रील्स भाषा सीखने के छोटे वीडियो हैं — प्रॉम्प्ट के जवाब, बोलने का अभ्यास, मूल वक्ताओं की व्याख्याएँ और संस्कृति की क्लिप।\n\nBananaTalk आपत्तिजनक सामग्री के प्रति शून्य सहनशीलता रखता है: नग्नता, घृणास्पद भाषा, उत्पीड़न, हिंसा या अवैध सामग्री नहीं। 2 रिपोर्ट के बाद रिपोर्ट किए गए वीडियो समीक्षा तक अपने-आप छिपा दिए जाते हैं, और उल्लंघन पर सामग्री हटाई जा सकती है या खाता प्रतिबंधित हो सकता है।\n\nआप किसी भी रील से कभी भी रिपोर्ट या ब्लॉक कर सकते हैं।",
+      "decline": "अस्वीकार करें",
+      "title": "रील्स सामग्री दिशानिर्देश"
+    },
+    "viewer": {
+      "close": "बंद करें",
+      "label": "रील्स",
+      "mute": "म्यूट करें",
+      "next": "अगली रील",
+      "previous": "पिछली रील",
+      "tap_to_play": "चलाने के लिए टैप करें",
+      "unmute": "अनम्यूट करें"
+    }
+  },
+  "clubs": {
+    "card": {
+      "joined": "जुड़ चुके हैं",
+      "members_one": "{{count}} सदस्य",
+      "members_other": "{{count}} सदस्य"
+    },
+    "detail": {
+      "back": "अन्य क्लब देखें",
+      "edit": "क्लब संपादित करें",
+      "host": "इस क्लब के लिए मिलन आयोजित करें",
+      "join": "क्लब से जुड़ें",
+      "leave": "क्लब छोड़ें",
+      "leaveTitle": "यह क्लब छोड़ें?",
+      "metTimes_one": "एक बार मिले",
+      "metTimes_other": "{{count}} बार मिले",
+      "neverMet": "अभी तक नहीं मिले",
+      "noGatherings": "अभी कुछ तय नहीं है।",
+      "upcoming": "आगामी",
+      "youOwn": "आप इस क्लब के मालिक हैं"
+    },
+    "form": {
+      "city": "शहर (वैकल्पिक)",
+      "create": "क्लब बनाएँ",
+      "createTitle": "नया क्लब",
+      "description": "क्लब के बारे में (वैकल्पिक)",
+      "editTitle": "क्लब संपादित करें",
+      "errors": {
+        "descriptionTooLong": "विवरण 2000 अक्षरों से कम रखें।",
+        "interestTooLong": "रुचि 60 अक्षरों से कम रखें।",
+        "languageRequired": "क्लब की भाषा चुनें।",
+        "nameRequired": "अपने क्लब को एक नाम दें।",
+        "nameTooLong": "नाम 80 अक्षरों से कम रखें।"
+      },
+      "interest": "आपको क्या जोड़ता है (जैसे किताबें, K-ड्रामा)",
+      "language": "भाषा",
+      "name": "नाम",
+      "notAllowed": "केवल क्लब के मालिक या आयोजक ही इसे संपादित कर सकते हैं।",
+      "placeAddress": "पता (वैकल्पिक)",
+      "placeName": "आप कहाँ मिलते हैं (वैकल्पिक)"
+    },
+    "home": {
+      "empty": "यहाँ अभी कोई क्लब नहीं है।",
+      "scopeAll": "सभी",
+      "scopeMember": "जुड़े हुए",
+      "scopeMine": "मेरी भाषाएँ",
+      "start": "क्लब बनाएँ"
+    },
+    "owner": {
+      "delete": "क्लब हटाएं",
+      "deleteBody": "सदस्यों से क्लब छिन जाएगा। पहले से तय मिलन फिर भी होंगे।",
+      "deleteTitle": "{{name}} हटाएं?"
+    },
+    "people": {
+      "makeMember": "आयोजक हटाएं",
+      "makeOrganizer": "आयोजक बनाएं",
+      "organizer": "आयोजक",
+      "owner": "मालिक",
+      "remove": "क्लब से हटाएं",
+      "removeTitle": "{{name}} को हटाएं?",
+      "title": "सदस्य · {{count}}"
+    }
+  },
+  "gatherings": {
+    "card": {
+      "approval": "मेज़बान स्वीकृति देते हैं",
+      "full": "भर गया",
+      "going": "आप जा रहे हैं",
+      "hostedBy": "मेज़बान: {{name}}",
+      "hosting": "आप मेज़बान हैं",
+      "requested": "अनुरोध भेजा गया",
+      "seatsLeft_one": "{{count}} सीट बची है",
+      "seatsLeft_other": "{{count}} सीटें बची हैं"
+    },
+    "confirm": {
+      "cancel": "अभी नहीं",
+      "leaveBody": "बाकी लोग उन पर भरोसा कर रहे हैं जिन्होंने हाँ कहा है।",
+      "leaveOk": "मेरी सीट छोड़ें",
+      "leaveTitle": "अपनी सीट छोड़ें?"
+    },
+    "cover": {
+      "add": "कवर फ़ोटो जोड़ें",
+      "badType": "JPEG, PNG, GIF या WebP इमेज इस्तेमाल करें।",
+      "change": "कवर फ़ोटो बदलें",
+      "remove": "कवर हटाएं",
+      "tooBig": "यह इमेज 10 MB से बड़ी है।"
+    },
+    "detail": {
+      "askToJoin": "शामिल होने का अनुरोध",
+      "back": "अन्य मिलन देखें",
+      "cancelRequest": "मेरा अनुरोध रद्द करें",
+      "capacity": "अधिकतम {{count}} लोग · {{quorum}} पर पुष्टि",
+      "duration": "{{count}} मिनट",
+      "edit": "मिलन संपादित करें",
+      "host": "मेज़बान",
+      "join": "मैं आऊँगा/आऊँगी",
+      "leave": "अब मैं नहीं आ सकता/सकती",
+      "online": "ऑनलाइन",
+      "requestSent": "अनुरोध भेजा गया। निर्णय मेज़बान करेंगे।",
+      "someone": "एक BananaTalk सदस्य",
+      "youreGoing": "आप जा रहे हैं।"
+    },
+    "errors": {
+      "alreadyGoing": "आप पहले से जा रहे हैं।",
+      "cancelled": "यह मिलन रद्द कर दिया गया।",
+      "capacityBelowGoing": "सीटें पहले से आ रहे {{count}} लोगों से कम नहीं हो सकतीं।",
+      "clubArchived": "यह क्लब संग्रहीत है।",
+      "clubGone": "यह क्लब उपलब्ध नहीं है।",
+      "endBeforeStart": "मिलन शुरू होने के बाद ही आप इसे समाप्त कर सकते हैं।",
+      "ended": "यह मिलन समाप्त हो चुका है।",
+      "full": "यह मिलन भर गया है।",
+      "gatheringGone": "यह मिलन उपलब्ध नहीं है।",
+      "generic": "कुछ गलत हो गया। फिर से कोशिश करें।",
+      "hostBlocked": "आप अभी मेज़बानी नहीं कर सकते: आपके बहुत से मिलन रद्द हुए या छूट गए।",
+      "hostCannotLeave": "मेज़बान के रूप में, छोड़ने के बजाय मिलन रद्द करें।",
+      "joinClubFirst": "इसके लिए मिलन आयोजित करने से पहले क्लब से जुड़ें।",
+      "offline": "आप ऑफ़लाइन हैं। अपना कनेक्शन जाँचें।",
+      "ownerCannotLeave": "मालिक के रूप में, आप क्लब हटा सकते हैं लेकिन छोड़ नहीं सकते।",
+      "pastStart": "भविष्य का कोई शुरुआती समय चुनें।",
+      "pending": "आपका अनुरोध मेज़बान की प्रतीक्षा में है।",
+      "started": "यह मिलन पहले ही शुरू हो चुका है।"
+    },
+    "form": {
+      "anyLevel": "कोई भी स्तर",
+      "cancel": "रद्द करें",
+      "capacity": "सीटें",
+      "create": "मिलन पोस्ट करें",
+      "createTitle": "मिलन आयोजित करें",
+      "description": "आप क्या करेंगे? (वैकल्पिक)",
+      "duration_one": "{{count}} मिनट चलेगा · आपके समय क्षेत्र में",
+      "duration_other": "{{count}} मिनट चलेगा · आपके समय क्षेत्र में",
+      "editTitle": "मिलन संपादित करें",
+      "errors": {
+        "capacityRange": "सीटें 2 से 20 के बीच होनी चाहिए।",
+        "descriptionTooLong": "विवरण 2000 अक्षरों से कम रखें।",
+        "languageRequired": "वह भाषा चुनें जिसका आप अभ्यास करेंगे।",
+        "quorumRange": "मिलन की पुष्टि 2 या अधिक लोगों पर होती है, और सीटों से ज़्यादा पर नहीं।",
+        "startInPast": "भविष्य का कोई शुरुआती समय चुनें।",
+        "startRequired": "दिन और समय चुनें।",
+        "startTooFar": "अगले 90 दिनों के भीतर का समय चुनें।",
+        "titleRequired": "अपने मिलन को एक शीर्षक दें।",
+        "titleTooLong": "शीर्षक 120 अक्षरों से कम रखें।"
+      },
+      "joinApproval": "मैं हर व्यक्ति को स्वीकृत करूँगा/करूँगी",
+      "joinMode": "कौन शामिल हो सकता है",
+      "joinOpen": "कोई भी",
+      "language": "भाषा",
+      "level": "स्तर",
+      "noTopic": "कोई विषय नहीं",
+      "notHost": "केवल मेज़बान ही इस मिलन को संपादित कर सकते हैं।",
+      "pickLanguage": "भाषा चुनें",
+      "quorum": "पुष्टि के लिए",
+      "save": "सहेजें",
+      "startsAt": "शुरुआत",
+      "title": "शीर्षक",
+      "topic": "विषय"
+    },
+    "home": {
+      "anyLanguage": "मेरी भाषाएँ",
+      "anyTime": "कभी भी",
+      "anyTopic": "कोई भी विषय",
+      "empty": "यहाँ अभी कुछ तय नहीं है।",
+      "emptyCta": "पहला मिलन आयोजित करें",
+      "error": "यह सूची लोड नहीं हो सकी।",
+      "hasSeat": "सीट खाली है",
+      "host": "मिलन आयोजित करें",
+      "language": "भाषा",
+      "loadMore": "और लोड करें",
+      "retry": "फिर से कोशिश करें",
+      "scopeAll": "सभी",
+      "scopeMe": "मेरे मिलन",
+      "scopeMine": "मेरी भाषाएँ",
+      "tabClubs": "क्लब",
+      "tabGatherings": "मिलन",
+      "title": "मिलन",
+      "today": "आज",
+      "topic": "विषय",
+      "week": "इस हफ़्ते",
+      "when": "कब"
+    },
+    "host": {
+      "approve": "स्वीकारें",
+      "callOff": "रद्द करें",
+      "callOffTitle": "रद्द करें?",
+      "cancel": "मिलन रद्द करें",
+      "cancelConfirm_one": "{{count}} व्यक्ति इसका इंतज़ार कर रहा है। उन्हें रद्द होने की सूचना दी जाएगी।",
+      "cancelConfirm_other": "{{count}} लोग इसका इंतज़ार कर रहे हैं। उन्हें रद्द होने की सूचना दी जाएगी।",
+      "cancelOk": "मिलन रद्द करें",
+      "cancelTitle": "यह मिलन रद्द करें?",
+      "decisionAlone": "अभी तक सिर्फ़ आप आ रहे हैं। फिर भी करें या रद्द करें?",
+      "decision_one": "अभी तक सिर्फ़ {{count}} व्यक्ति आ रहा है। फिर भी करें या रद्द करें?",
+      "decision_other": "अभी तक सिर्फ़ {{count}} लोग आ रहे हैं। फिर भी करें या रद्द करें?",
+      "decline": "अस्वीकारें",
+      "end": "मिलन समाप्त करें",
+      "ended": "समाप्त — जिनसे मिले उन्हें संदेश भेजना मुफ़्त है",
+      "nobodyExpecting": "अभी तक किसी और ने हाँ नहीं कहा है।",
+      "requests_one": "{{count}} शामिल होने की प्रतीक्षा में",
+      "requests_other": "{{count}} शामिल होने की प्रतीक्षा में",
+      "runAnyway": "फिर भी करें"
+    },
+    "nav": "मिलन",
+    "quorum": {
+      "confirmed": "पुष्ट · {{count}} आ रहे हैं",
+      "needed": "पुष्टि के लिए {{count}} और चाहिए · {{going}} आ रहे हैं"
+    },
+    "safety": {
+      "blockHost": "मेज़बान को ब्लॉक करें",
+      "blockOwner": "मालिक को ब्लॉक करें",
+      "more": "और",
+      "reportClub": "क्लब की रिपोर्ट करें",
+      "reportFailed": "रिपोर्ट नहीं भेजी जा सकी। फिर से कोशिश करें।",
+      "reportGathering": "मिलन की रिपोर्ट करें",
+      "reported": "धन्यवाद — हमारे मॉडरेटर इसकी समीक्षा करेंगे।"
+    },
+    "status": {
+      "cancelled": "रद्द",
+      "confirmed": "पुष्ट",
+      "ended": "समाप्त",
+      "live": "अभी चल रहा है",
+      "scheduled": "निर्धारित"
+    },
+    "time": {
+      "hostLocal": "मेज़बान के लिए {{time}}"
+    },
+    "topics": {
+      "business": "व्यापार",
+      "conversation": "बातचीत",
+      "culture": "संस्कृति",
+      "exam_prep": "परीक्षा की तैयारी",
+      "games": "खेल",
+      "grammar": "व्याकरण",
+      "media": "संगीत, फ़िल्म और टीवी",
+      "pronunciation": "उच्चारण",
+      "travel": "यात्रा"
+    }
+  },
+  "common": {
+    "cancel": "रद्द करें",
+    "retry": "फिर कोशिश करें"
+  },
+  "communityCity": {
+    "back": "समुदाय",
+    "countries": "देश",
+    "empty": "यहाँ अभी कोई मेल नहीं खाता। कोई और जगह आज़माएँ।",
+    "error": "लोगों को लोड नहीं किया जा सका। फिर कोशिश करें।",
+    "more": "और दिखाएँ",
+    "search": "खोजें",
+    "searchPlaceholder": "कोई शहर खोजें",
+    "searchTitle": "“{{query}}” के लोग",
+    "title": "जगह के अनुसार लोग"
+  },
+  "communityGenders": {
+    "back": "समुदाय",
+    "empty": "अभी कोई मेल नहीं खाता।",
+    "error": "लोगों को लोड नहीं किया जा सका। फिर कोशिश करें।",
+    "female": "महिलाएँ",
+    "male": "पुरुष",
+    "more": "और दिखाएँ",
+    "title": "लिंग के अनुसार देखें"
+  },
+  "languageRooms": {
+    "create": {
+      "description": "विवरण (वैकल्पिक)",
+      "language": "भाषा",
+      "name": "विषय",
+      "submit": "रूम बनाएँ",
+      "title": "विषय रूम शुरू करें"
+    },
+    "errors": {
+      "banned": "आपको इस रूम से हटा दिया गया था। आप ओनर से वापस आने की अनुमति माँग सकते हैं।",
+      "busy": "इस रूम में अभी बहुत ज़्यादा अनुरोध हैं। बाद में कोशिश करें।",
+      "generic": "कुछ गड़बड़ हो गई। फिर कोशिश करें।",
+      "gone": "यह रूम अब उपलब्ध नहीं है।",
+      "owner": "ओनर को हटाया नहीं जा सकता।",
+      "pending": "आपका अनुरोध ओनर के जवाब का इंतज़ार कर रहा है।",
+      "titleLength": "नाम अधिकतम 60 अक्षरों का हो सकता है।",
+      "tooMany": "आपके पास पहले से 10 रूम हैं। नया शुरू करने के लिए एक हटाएँ।"
+    },
+    "list": {
+      "create": "नया विषय रूम",
+      "empty": "अभी कोई रूम नहीं है।",
+      "error": "भाषा रूम लोड नहीं हो सके।",
+      "joined": "शामिल",
+      "locked": "लॉक",
+      "title": "भाषा रूम"
+    },
+    "owner": {
+      "admin": "एडमिन",
+      "approve": "अंदर आने दें",
+      "deny": "अस्वीकार करें",
+      "members": "सदस्य",
+      "noRequests": "कोई इंतज़ार नहीं कर रहा।",
+      "owner": "ओनर",
+      "remove": "रूम से हटाएँ",
+      "removeNote": "हटाए गए सदस्य वापस आने का अनुरोध कर सकते हैं; फ़ैसला आपका होगा।",
+      "removeYes": "हटाएँ",
+      "requests": "शामिल होने के अनुरोध"
+    },
+    "room": {
+      "back": "सभी रूम",
+      "join": "रूम में शामिल हों",
+      "leave": "रूम छोड़ें",
+      "media": "फ़ोटो या वीडियो — देखने के लिए ऐप खोलें",
+      "notSent": "नहीं भेजा गया। फिर कोशिश करें।",
+      "older": "पुराने संदेश लोड करें",
+      "online": "ऑनलाइन",
+      "pending": "अनुरोध भेज दिया गया। ओनर आपको अंदर आने देंगे।",
+      "placeholder": "रूम की भाषा में लिखें…",
+      "request": "शामिल होने का अनुरोध करें",
+      "send": "भेजें",
+      "slowDown": "आप बहुत तेज़ी से भेज रहे हैं। थोड़ा धीरे करें।",
+      "sticker": "स्टिकर",
+      "unsupported": "यह संदेश देखने के लिए ऐप खोलें",
+      "voice": "वॉइस संदेश — सुनने के लिए ऐप खोलें"
+    }
+  },
+  "nav": {
+    "languageRooms": "भाषा रूम",
+    "voiceRooms": "वॉइस रूम"
+  },
+  "voiceRooms": {
+    "category": {
+      "casual": "आम बातचीत",
+      "language_practice": "भाषा अभ्यास",
+      "qa": "सवाल-जवाब",
+      "topic": "विषय"
+    },
+    "create": {
+      "category": "रूम का प्रकार",
+      "description": "आप किस बारे में बात करेंगे? (वैकल्पिक)",
+      "language": "भाषा",
+      "max": "अधिकतम कितने लोग",
+      "name": "रूम का नाम",
+      "schedule": "शेड्यूल करें",
+      "start": "रूम शुरू करें",
+      "title": "वॉइस रूम शुरू करें",
+      "when": "बाद में शुरू करें (वैकल्पिक)"
+    },
+    "errors": {
+      "blocked": "आप इस रूम में शामिल नहीं हो सकते।",
+      "ended": "यह रूम समाप्त हो गया है।",
+      "full": "यह रूम भर गया है।",
+      "generic": "कुछ गड़बड़ हो गई। फिर कोशिश करें।",
+      "gone": "यह रूम अब उपलब्ध नहीं है।",
+      "vipToCreate": "वॉइस रूम बनाने के लिए VIP प्लान चाहिए।"
+    },
+    "host": {
+      "end": "रूम समाप्त करें",
+      "endConfirm": "सभी के लिए रूम समाप्त करें?",
+      "endYes": "रूम समाप्त करें",
+      "hands": "उठे हुए हाथ",
+      "makeCohost": "को-होस्ट बनाएं",
+      "muteAll": "सभी को म्यूट करें",
+      "noHands": "किसी ने हाथ नहीं उठाया है।",
+      "speakNote": "रूम में कोई भी माइक ले सकता है। हाथ उठाकर लोग आपसे बोलने की बारी माँगते हैं।",
+      "title": "होस्ट टूल"
+    },
+    "list": {
+      "create": "रूम शुरू करें",
+      "emptyLive": "अभी कोई बात नहीं कर रहा। एक रूम शुरू करें और लोगों को बुलाएँ।",
+      "emptyScheduled": "अभी कोई रूम शेड्यूल नहीं है।",
+      "error": "वॉइस रूम लोड नहीं हो सके।",
+      "full": "भरा हुआ",
+      "going": "जा रहे हैं ✓",
+      "join": "शामिल हों",
+      "live": "अभी लाइव",
+      "rsvp": "मुझे याद दिलाएँ",
+      "scheduled": "आने वाले",
+      "title": "वॉइस रूम"
+    },
+    "room": {
+      "back": "सभी रूम",
+      "chat": "रूम चैट",
+      "chatPlaceholder": "कुछ कहें…",
+      "connectFailed": "रूम के ऑडियो से कनेक्ट नहीं हो सका। अपना कनेक्शन जाँचें और फिर कोशिश करें।",
+      "elsewhere": "आप इस रूम में किसी दूसरे टैब या डिवाइस से शामिल हुए हैं।",
+      "enableSound": "रूम की आवाज़ चालू करने के लिए टैप करें",
+      "ended": "यह रूम समाप्त हो गया है।",
+      "findAnother": "कोई दूसरा रूम खोजें",
+      "handUp": "हाथ उठाया",
+      "host": "होस्ट",
+      "join": "रूम में शामिल हों",
+      "joinHint": "आप श्रोता के रूप में शामिल होंगे। जब तैयार हों, माइक ले लें।",
+      "leave": "छोड़ें",
+      "lost": "रूम से कनेक्शन टूट गया।",
+      "lowerHand": "हाथ नीचे करें",
+      "micDenied": "आपका ब्राउज़र माइक्रोफ़ोन को ब्लॉक कर रहा है। एड्रेस बार में banatalk.com के लिए माइक्रोफ़ोन की अनुमति दें, फिर कोशिश करें। आप सुनते रह सकते हैं।",
+      "micError": "माइक्रोफ़ोन चालू नहीं हो सका। फिर कोशिश करें।",
+      "micUnavailable": "कोई माइक्रोफ़ोन नहीं मिला (या कोई दूसरा ऐप उसे इस्तेमाल कर रहा है)। आप सुनते रह सकते हैं।",
+      "mute": "म्यूट करें",
+      "raiseHand": "हाथ उठाएं",
+      "reconnecting": "फिर से कनेक्ट हो रहा है…",
+      "rejoin": "फिर से शामिल हों",
+      "send": "भेजें",
+      "takeMic": "माइक लें",
+      "useHere": "यहीं सुनें",
+      "you": "आप"
     }
   }
 }

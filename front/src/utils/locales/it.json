@@ -9,7 +9,11 @@
       "about": "Chi Siamo",
       "services": "Servizi",
       "pricing": "Prezzi",
-      "contact": "Contatti"
+      "contact": "Contatti",
+      "communities": "Comunità",
+      "download": "Scarica l'App",
+      "meet": "Conosci persone",
+      "learnKorean": "Impara il coreano"
     },
     "contactInfo": "Informazioni di Contatto",
     "address": "Seoul, Corea del Sud, Gangnam-gu",
@@ -57,15 +61,20 @@
       "noMatchTitle": "Nessuna conversazione corrispondente",
       "noMatchSubtitle": "Prova a modificare la ricerca",
       "emptyTitle": "Nessuna conversazione",
-      "emptySubtitle": "Avvia una conversazione per vederla qui"
+      "emptySubtitle": "Avvia una conversazione per vederla qui",
+      "loadError": "Impossibile caricare le tue conversazioni",
+      "loading": "Caricamento chat...",
+      "noMessages": "Ancora nessun messaggio",
+      "tryAgain": "Riprova",
+      "typing": "sta scrivendo..."
     },
     "deleteModal": {
       "title": "Elimina conversazione",
-      "bodyPrefix": "Eliminare la conversazione con:",
       "warning": "Questa azione non può essere annullata.",
       "cancel": "Annulla",
       "confirm": "Elimina",
-      "deleting": "Eliminazione..."
+      "deleting": "Eliminazione...",
+      "body": "Eliminare la conversazione con {{name}}?"
     },
     "gif": {
       "title": "GIF",
@@ -84,7 +93,352 @@
       "noConversationYet": "Avvia prima la conversazione per fissarla",
       "pinFailed": "Impossibile aggiornare il fissaggio",
       "deleteFailed": "Impossibile eliminare la conversazione",
-      "deleted": "Conversazione eliminata"
+      "deleted": "Conversazione eliminata",
+      "openProfile": "Apri il profilo di {{name}}",
+      "mute": "Silenzia",
+      "unmute": "Riattiva",
+      "muted": "Notifiche silenziate",
+      "unmuted": "Le notifiche sono di nuovo attive",
+      "muteFailed": "Impossibile aggiornare le notifiche",
+      "unpinned": "Conversazione non più fissata"
+    },
+    "viewProfileOf": "Vedi il profilo di {{name}}",
+    "info": {
+      "title": "Informazioni sulla conversazione",
+      "close": "Chiudi",
+      "viewProfile": "Vedi profilo",
+      "media": "Media condivisi",
+      "mute": "Silenzia notifiche",
+      "unmute": "Riattiva notifiche",
+      "muted": "Notifiche silenziate",
+      "unmuted": "Le notifiche sono di nuovo attive",
+      "muteFailed": "Impossibile aggiornare le notifiche",
+      "wallpaper": "Sfondo",
+      "block": "Blocca",
+      "unblock": "Sblocca",
+      "blockTitle": "Bloccare {{name}}?",
+      "blockBody": "Non potrà più scriverti né vedere il tuo profilo.",
+      "unblockTitle": "Sbloccare {{name}}?",
+      "unblockBody": "Potrà scriverti di nuovo.",
+      "blocked": "Bloccato",
+      "unblocked": "Sbloccato",
+      "blockFailed": "Non ha funzionato. Riprova.",
+      "report": "Segnala",
+      "reportTitle": "Segnala {{name}}",
+      "reportBody": "Dicci cosa non va. Ogni segnalazione viene esaminata.",
+      "reportReason": "Motivo",
+      "reportDescription": "Dettagli (facoltativo)",
+      "reportSubmit": "Invia segnalazione",
+      "reported": "Grazie — i moderatori daranno un'occhiata",
+      "reportFailed": "Impossibile inviare la segnalazione",
+      "delete": "Elimina conversazione",
+      "cancel": "Annulla",
+      "noConversationYet": "Scrivi prima qualcosa"
+    },
+    "reportReasons": {
+      "spam": "Spam",
+      "harassment": "Molestie o bullismo",
+      "hate_speech": "Incitamento all'odio",
+      "violence": "Violenza o minacce",
+      "nudity": "Nudità o contenuti sessuali",
+      "false_information": "Informazioni false",
+      "copyright": "Copyright",
+      "other": "Altro"
+    },
+    "status": {
+      "sending": "Invio in corso",
+      "sent": "Inviato",
+      "delivered": "Consegnato",
+      "read": "Letto",
+      "failed": "Non riuscito"
+    },
+    "loadEarlier": "Carica messaggi precedenti",
+    "loadingEarlier": "Caricamento messaggi precedenti",
+    "suggestCorrection": "Suggerisci una correzione",
+    "translateThis": "Traduci questo messaggio",
+    "addCaption": "Aggiungi una didascalia...",
+    "conversationStarted": "Conversazione iniziata",
+    "correct": "Correggi",
+    "daysAgo": "{{count}}g fa",
+    "edit": "Modifica messaggio",
+    "hide_translation": "Nascondi",
+    "noMessages": "Ancora nessun messaggio",
+    "retry": "Riprova",
+    "today": "Oggi",
+    "translate": "Traduci",
+    "yesterday": "Ieri",
+    "wallpaper": {
+      "title": "Sfondo",
+      "shared": "Vedete entrambi lo sfondo che scegli.",
+      "plain": "Tinta unita",
+      "gradients": "Sfumature",
+      "default": "Predefinito",
+      "apply": "Applica",
+      "cancel": "Annulla",
+      "saved": "Sfondo aggiornato",
+      "failed": "Impossibile cambiare lo sfondo",
+      "cream": "Crema",
+      "blush": "Blush",
+      "peach": "Pesca",
+      "sage": "Salvia",
+      "ocean": "Oceano",
+      "teal": "Verde petrolio",
+      "forest": "Foresta",
+      "rose": "Rosa",
+      "wine": "Bordeaux",
+      "plum": "Prugna",
+      "navy": "Blu navy",
+      "mocha": "Moka",
+      "slate": "Ardesia",
+      "ember": "Brace",
+      "deep_sea": "Mare profondo",
+      "charcoal": "Antracite",
+      "midnight": "Mezzanotte",
+      "dark": "Scuro",
+      "gradient_sunset": "Tramonto",
+      "gradient_ocean": "Oceano",
+      "gradient_purple": "Cosmico",
+      "gradient_midnight": "Mezzanotte",
+      "gradient_forest": "Foresta",
+      "gradient_rose": "Oro rosa",
+      "gradient_candy": "Caramella",
+      "gradient_neon": "Neon",
+      "gradient_fire": "Fuoco",
+      "gradient_winter": "Inverno",
+      "gradient_lavender": "Lavanda",
+      "gradient_aurora": "Aurora",
+      "premiumInUse": "Questa chat usa uno sfondo Premium dell'app. Sceglierne un altro lo cambia per entrambi."
+    },
+    "jumpToLatest": "Vai ai messaggi più recenti",
+    "archive": {
+      "archive": "Archivia chat",
+      "archived": "Archiviata sul sito. L'app la mostra ancora.",
+      "back": "Torna alle chat",
+      "failed": "Impossibile aggiornare l'archivio",
+      "toggle": "Archiviate ({{count}})",
+      "unarchive": "Ripristina chat",
+      "unarchived": "Spostata di nuovo nelle tue chat"
+    },
+    "blocked": {
+      "byMe": "Hai bloccato questa persona. Sbloccala per inviarle messaggi.",
+      "generic": "Non puoi inviare messaggi in questa chat.",
+      "manage": "Gestisci"
+    },
+    "bookmarks": {
+      "addFailed": "Impossibile salvare il messaggio",
+      "added": "Salvato",
+      "attachment": "Allegato",
+      "close": "Chiudi",
+      "empty": "Ancora nessun messaggio salvato",
+      "error": "Impossibile caricare i messaggi salvati",
+      "loading": "Caricamento messaggi salvati…",
+      "open": "Apri chat",
+      "remove": "Rimuovi dai salvati",
+      "removeFailed": "Impossibile rimuoverlo",
+      "removed": "Rimosso dai messaggi salvati",
+      "title": "Messaggi salvati"
+    },
+    "call": {
+      "busy": "{{name}} era in un'altra chiamata",
+      "cancelledVideo": "Videochiamata annullata",
+      "cancelledVoice": "Chiamata vocale annullata",
+      "declinedIncomingVideo": "Videochiamata rifiutata",
+      "declinedIncomingVoice": "Chiamata vocale rifiutata",
+      "declinedOutgoingVideo": "Videochiamata rifiutata dall'altra persona",
+      "declinedOutgoingVoice": "Chiamata vocale rifiutata dall'altra persona",
+      "incomingVideo": "Videochiamata in arrivo",
+      "incomingVoice": "Chiamata vocale in arrivo",
+      "missedVideo": "Videochiamata persa",
+      "missedVoice": "Chiamata vocale persa",
+      "noAnswerVideo": "Videochiamata · Nessuna risposta",
+      "noAnswerVoice": "Chiamata vocale · Nessuna risposta",
+      "outgoingVideo": "Videochiamata in uscita",
+      "outgoingVoice": "Chiamata vocale in uscita"
+    },
+    "connection": {
+      "kicked": "La chat è aperta altrove, quindi questa scheda non riceve più messaggi.",
+      "reconnect": "Usa qui"
+    },
+    "correction": {
+      "accept": "Accetta correzione",
+      "acceptFailed": "Impossibile accettare la correzione",
+      "accepted": "Correzione accettata — aggiunta al tuo registro di apprendimento",
+      "accepting": "Accettazione…",
+      "corrected": "{{name}} ha corretto",
+      "you": "Tu"
+    },
+    "correctionModal": {
+      "cancel": "Annulla",
+      "close": "Chiudi",
+      "empty": "Inserisci una correzione",
+      "explanation": "Spiegazione",
+      "explanationPlaceholder": "Spiega perché questa correzione è utile...",
+      "hint": "es. \"Usa 'went' invece di 'goed': passato irregolare\"",
+      "optional": "(facoltativo)",
+      "original": "Messaggio originale",
+      "submit": "Invia correzione",
+      "title": "Correzione linguistica",
+      "unchanged": "La correzione deve essere diversa dall'originale",
+      "yours": "La tua correzione",
+      "yoursPlaceholder": "Scrivi la versione corretta..."
+    },
+    "deleteMessage": {
+      "cancel": "Annulla",
+      "failed": "Impossibile eliminare il messaggio. Riprova.",
+      "forEveryone": "Elimina per tutti",
+      "forMe": "Elimina per me",
+      "placeholder": "Questo messaggio è stato eliminato",
+      "title": "Eliminare il messaggio?",
+      "tooLate": "Puoi eliminare un messaggio per tutti solo entro 1 ora dall'invio."
+    },
+    "editDialog": {
+      "cancel": "Annulla",
+      "failed": "Impossibile modificare il messaggio. Riprova.",
+      "label": "Messaggio",
+      "save": "Salva",
+      "title": "Modifica messaggio",
+      "tooLate": "Puoi modificare un messaggio solo entro 15 minuti dall'invio."
+    },
+    "editedLabel": "modificato",
+    "forward": {
+      "close": "Chiudi",
+      "empty": "Nessuna conversazione trovata.",
+      "error": "Impossibile caricare le conversazioni.",
+      "loading": "Caricamento conversazioni…",
+      "search": "Cerca",
+      "submit": "Inoltra",
+      "submitCount": "Inoltra ({{count}})",
+      "title": "Inoltra a",
+      "unknownUser": "Sconosciuto"
+    },
+    "forwarded": "Inoltrato",
+    "location": {
+      "cancel": "Annulla",
+      "confirmTitle": "Condividere la tua posizione?",
+      "denied": "Il permesso di posizione è stato negato",
+      "failed": "Impossibile ottenere la tua posizione",
+      "open": "Apri in Mappe",
+      "send": "Invia",
+      "sendFailed": "Impossibile inviare la tua posizione",
+      "share": "Condividi posizione",
+      "title": "Posizione",
+      "unsupported": "Questo browser non può condividere la posizione"
+    },
+    "mediaGallery": {
+      "back": "Indietro",
+      "emptyFiles": "Ancora nessun file condiviso",
+      "emptyPhotos": "Ancora nessuna foto condivisa",
+      "emptyVideos": "Ancora nessun video condiviso",
+      "error": "Errore nel caricamento dei media",
+      "files": "File",
+      "loading": "Caricamento media...",
+      "photos": "Foto",
+      "title": "Media condivisi",
+      "unknownFile": "File sconosciuto",
+      "unknownSize": "Dimensione sconosciuta",
+      "videos": "Video"
+    },
+    "menu": {
+      "bookmark": "Salva",
+      "close": "Chiudi",
+      "copy": "Copia",
+      "delete": "Elimina",
+      "edit": "Modifica",
+      "forward": "Inoltra",
+      "listen": "Ascolta",
+      "pin": "Fissa",
+      "reply": "Rispondi"
+    },
+    "mute": {
+      "always": "Finché non le riattivo",
+      "cancel": "Annulla",
+      "eightHours": "Per 8 ore",
+      "oneHour": "Per 1 ora",
+      "oneWeek": "Per 1 settimana",
+      "title": "Silenziare {{name}}?"
+    },
+    "pinnedBar": {
+      "count": "Fissati: {{count}}",
+      "unpin": "Rimuovi messaggio fissato"
+    },
+    "preview": {
+      "attachment": "📎 Allegato",
+      "call": "📞 Chiamata",
+      "file": "📎 File",
+      "gif": "GIF",
+      "location": "📍 Posizione",
+      "photo": "🖼️ Foto",
+      "poll": "📊 Sondaggio",
+      "story": "📖 Storia",
+      "video": "🎥 Video",
+      "voice": "🎤 Messaggio vocale"
+    },
+    "replyBar": {
+      "cancel": "Annulla risposta",
+      "replyingTo": "In risposta a {{name}}"
+    },
+    "search": {
+      "close": "Chiudi",
+      "empty": "Nessun messaggio trovato",
+      "hint": "Scrivi almeno 2 caratteri",
+      "notLoaded": "Quel messaggio è più indietro. Scorri verso l'alto per caricarlo.",
+      "open": "Cerca messaggi",
+      "placeholder": "Cerca in questa chat",
+      "searching": "Ricerca in corso…",
+      "title": "Cerca messaggi con {{name}}",
+      "unavailable": "La ricerca non è disponibile al momento",
+      "you": "Tu"
+    },
+    "sendErrors": {
+      "blockedBody": "Non puoi inviare messaggi a questa persona.",
+      "blockedTitle": "Messaggio non inviato",
+      "capBody": "Hai avviato tutte le nuove conversazioni disponibili per oggi. Passa a VIP per avviarne quante vuoi.",
+      "capTitle": "Limite di nuove conversazioni raggiunto",
+      "dailyBody": "Hai inviato tutti i messaggi di oggi. Passa a VIP per messaggi illimitati, oppure torna domani.",
+      "dailyTitle": "Limite giornaliero di messaggi raggiunto",
+      "firstChatBody": "Puoi inviare 5 messaggi finché non ti rispondono. Potrai scrivere di nuovo appena risponderanno.",
+      "firstChatTitle": "Aspetta una risposta",
+      "generic": "Messaggio non inviato. Tocca Riprova per riprovare.",
+      "goVip": "Passa a VIP",
+      "ok": "OK",
+      "reattach": "Allega di nuovo il file per inviarlo.",
+      "tooFast": "Stai inviando messaggi troppo velocemente. Aspetta un momento."
+    },
+    "story": {
+      "replied": "Ha risposto alla tua storia",
+      "shared": "Ha condiviso una storia",
+      "unavailable": "Questa storia non è più disponibile",
+      "youReplied": "Hai risposto alla sua storia",
+      "youShared": "Hai condiviso una storia"
+    },
+    "translation": {
+      "close": "Chiudi traduzione",
+      "failed": "Impossibile tradurre il messaggio",
+      "label": "Traduzione · {{lang}}",
+      "save": "Salva frase",
+      "saveFailed": "Impossibile salvare la frase",
+      "saved": "Salvata nella coda di studio",
+      "saving": "Salvataggio…",
+      "translating": "Traduzione in corso…"
+    },
+    "video": {
+      "badType": "Questo formato video non può essere inviato. Prova con un MP4.",
+      "tooBig": "Questo video è troppo grande. Il limite è {{mb}} MB.",
+      "tooLong": "Questo video è troppo lungo. Il limite è {{minutes}} minuti."
+    },
+    "voice": {
+      "unavailable": "La registrazione vocale non è disponibile. Controlla il permesso del microfono per questo sito."
+    },
+    "wave": {
+      "hi": "Ciao!"
+    },
+    "callInApp": {
+      "voice": "Chiamata vocale",
+      "video": "Videochiamata",
+      "title": "Le chiamate si fanno nell'app BananaTalk",
+      "body": "Apri l'app per chiamare {{name}}. Le chiamate in arrivo squillano sul tuo telefono.",
+      "openApp": "Apri l'app",
+      "notNow": "Non ora"
     }
   },
   "notifications": "Notifiche",
@@ -124,7 +478,18 @@
   "profile": {
     "title": "Il Mio Profilo",
     "edit_profile": "Modifica Profilo",
-    "photos": "Foto",
+    "photos": {
+      "title": "Foto",
+      "add": "Aggiungi foto",
+      "alt": "{{name}}, foto {{index}}",
+      "open": "Apri la foto {{index}}",
+      "close": "Chiudi",
+      "previous": "Foto precedente",
+      "next": "Foto successiva",
+      "counter": "{{index}} di {{total}}",
+      "openAvatar": "Apri la foto di {{name}}",
+      "openStory": "Guarda la storia di {{name}}"
+    },
     "messages": {
       "image_update_success": "Immagine del profilo aggiornata con successo",
       "image_update_failure": "Impossibile aggiornare l'immagine del profilo",
@@ -132,10 +497,11 @@
       "image_delete_failure": "Impossibile eliminare la foto",
       "profile_update_success": "Profilo aggiornato con successo",
       "profile_update_failure": "Impossibile aggiornare il profilo",
+      "extras_update_failure": "Il tuo profilo è stato salvato, ma alcuni dettagli non sono stati aggiornati",
       "error_loading_profile": "Errore nel caricamento del profilo utente",
       "no_profile_data": "Nessun dato del profilo utente disponibile",
       "unknown_error": "Si è verificato un errore sconosciuto",
-      "no_bio": "Nessuna biografia fornita",
+      "no_bio": "Ancora nessuna biografia",
       "not_specified": "Non specificato"
     },
     "stats": {
@@ -146,7 +512,8 @@
       "no_following": "Non segui ancora nessuno.",
       "following_error": "Errore nel caricamento della lista dei seguiti. Riprova più tardi.",
       "moments": "Momenti",
-      "visitors": "Visitatori"
+      "visitors": "Visitatori",
+      "visited": "Visitati"
     },
     "visitors": {
       "title": "Visitatori del Profilo",
@@ -165,7 +532,11 @@
       "vipOnly": "Funzione VIP",
       "vipOnlyDesc": "Scopri chi ha visitato il tuo profilo passando a VIP. Questa funzione è disponibile esclusivamente per i membri VIP.",
       "vipBenefits": "Vantaggi VIP",
-      "learnMore": "Scopri di più su VIP"
+      "learnMore": "Scopri di più su VIP",
+      "clear": "Cancella cronologia",
+      "clear_title": "Cancellare la cronologia dei visitatori?",
+      "clear_body": "Tutte le persone che hanno visto il tuo profilo vengono rimosse e i contatori tornano a zero. L'operazione è irreversibile.",
+      "no_visited": "I profili che guardi appariranno qui"
     },
     "sections": {
       "personal_info": "Informazioni Personali",
@@ -207,7 +578,18 @@
       "save": "Salva",
       "cancel": "Annulla",
       "edit_photo": "Modifica Foto",
-      "clear": "Cancella selezione"
+      "clear": "Cancella selezione",
+      "settings": "Impostazioni",
+      "message": "Messaggio",
+      "follow": "Segui",
+      "following": "Seguito",
+      "more": "Altre opzioni",
+      "block": "Blocca",
+      "report": "Segnala",
+      "this_person": "questa persona",
+      "action_failed": "Non ha funzionato. Riprova.",
+      "unblock": "Sblocca",
+      "followBlocked": "Non puoi seguire questa persona"
     },
     "buttons": {
       "edit": "Modifica",
@@ -235,6 +617,128 @@
       "kdrama": "K-Drama",
       "languages": "Lingue",
       "culture": "Cultura"
+    },
+    "badges": {
+      "vip": "VIP",
+      "verified": "Verificato",
+      "joined": "Membro da {{date}}",
+      "active": "Attivo {{time}}",
+      "online": "Online ora"
+    },
+    "block": {
+      "title": "Bloccare {{name}}?",
+      "body": "Non potrà più scriverti né vedere il tuo profilo."
+    },
+    "report": {
+      "title": "Segnalare {{name}}?",
+      "body": "Dicci cosa non va. Ogni segnalazione viene esaminata.",
+      "reason": "Motivo"
+    },
+    "languages": {
+      "also_learning": "Impara anche"
+    },
+    "about": {
+      "title": "Informazioni",
+      "occupation": "Lavoro",
+      "school": "Scuola",
+      "read_more": "Leggi di più",
+      "read_less": "Mostra meno"
+    },
+    "learning": {
+      "title": "Progressi",
+      "streak": "Serie",
+      "days": "giorni",
+      "xp": "XP totali",
+      "level": "Livello"
+    },
+    "moments": {
+      "see_all": "Vedi tutto",
+      "empty_own": "Condividi il tuo primo momento",
+      "empty_other": "Ancora nessun momento",
+      "photo_alt": "Foto del momento"
+    },
+    "page": {
+      "title": "Profilo",
+      "error_title": "Non siamo riusciti a caricare questo profilo",
+      "error_body": "Controlla la connessione e riprova.",
+      "retry": "Riprova",
+      "not_found_title": "Profilo non trovato",
+      "not_found_body": "Questo profilo non esiste più, o non è mai esistito.",
+      "back_to_community": "Esplora la comunità"
+    },
+    "lists": {
+      "title": "I tuoi contatti",
+      "title_of": "Contatti di {{name}}",
+      "title_other": "Contatti",
+      "search": "Cerca per nome",
+      "search_empty": "Nessuno qui corrisponde a «{{query}}»",
+      "empty_followers_own": "Non hai ancora nessun follower.",
+      "empty_followers_other": "Questa persona non ha ancora follower.",
+      "empty_following_own": "Non segui ancora nessuno.",
+      "empty_following_other": "Questa persona non segue ancora nessuno.",
+      "error_title": "Non siamo riusciti a caricare questa lista",
+      "error_body": "Controlla la connessione e riprova.",
+      "retry": "Riprova"
+    },
+    "edit": {
+      "back": "Indietro",
+      "about": "Informazioni",
+      "photos_hint": "La tua prima foto è quella che tutti vedono ovunque.",
+      "add_photo": "Aggiungi foto",
+      "photo_alt": "Foto {{index}}",
+      "delete_photo": "Elimina la foto {{index}}",
+      "delete_photo_title": "Eliminare questa foto?",
+      "delete_photo_body": "Viene rimossa dal tuo profilo per tutti.",
+      "delete_photo_confirm": "Elimina foto",
+      "level": "Livello",
+      "level_hint": "Il tuo livello nella lingua che stai imparando.",
+      "occupation": "Occupazione",
+      "occupation_placeholder": "Che lavoro fai?",
+      "school": "Scuola",
+      "school_placeholder": "Dove studi?",
+      "saving": "Salvataggio",
+      "unsaved": "Hai modifiche non salvate",
+      "leave_title": "Uscire senza salvare?",
+      "leave_body": "Le modifiche a questo profilo andranno perse.",
+      "leave_confirm": "Scarta modifiche",
+      "stay": "Continua a modificare",
+      "intent_title": "Perché sei qui",
+      "intent_learn": "Qui per imparare",
+      "intent_meet": "Aperto a conoscere gente",
+      "intent_date": "Aperto agli appuntamenti",
+      "intent_privacy_note": "Gli altri vedono le tue scelte, tranne gli appuntamenti, che restano privati.",
+      "completion": "Completamento profilo"
+    },
+    "myMoments": {
+      "title": "I miei momenti",
+      "create": "Condividi un momento",
+      "edit": "Modifica momento",
+      "delete": "Elimina momento",
+      "delete_title": "Eliminare questo momento?",
+      "delete_body": "Sparisce per tutti, insieme ai suoi like e commenti.",
+      "delete_confirm": "Elimina",
+      "delete_failed": "Non siamo riusciti a eliminare quel momento. Riprova.",
+      "empty_title": "Ancora nessun momento",
+      "empty_body": "Condividi il tuo primo momento con la comunità.",
+      "error_title": "Non siamo riusciti a caricare i tuoi momenti",
+      "error_body": "Controlla la connessione e riprova.",
+      "retry": "Riprova",
+      "load_more": "Carica altro",
+      "loading_more": "Caricamento..."
+    },
+    "tabs": {
+      "label": "Sezioni del profilo",
+      "moments": "Momenti",
+      "about": "Info"
+    },
+    "unblock": {
+      "title": "Sbloccare {{name}}?",
+      "body": "Potrà scriverti di nuovo e vedere il tuo profilo."
+    },
+    "blocked": {
+      "body": "Uno di voi ha bloccato l'altro, quindi non potete scrivervi, seguirvi né vedere i post dell'altro.",
+      "manage": "Gestisci persone bloccate",
+      "title": "Questo profilo non è disponibile"
     }
   },
   "moments_section": {
@@ -302,7 +806,230 @@
       "addMood": "Aggiungi umore",
       "addLocation": "Aggiungi posizione",
       "addTags": "Aggiungi tag",
-      "tagPlaceholder": "Aggiungi un tag..."
+      "tagPlaceholder": "Aggiungi un tag...",
+      "attachVideo": "Allega un video",
+      "mediaFailedNothingPosted": "Il caricamento non è riuscito, quindi non è stato pubblicato nulla. Riprova.",
+      "mediaFailedPosted": "Pubblicato, ma il caricamento dei contenuti non è riuscito: modifica il momento per aggiungerli.",
+      "modePhoto": "Foto",
+      "modeText": "Testo",
+      "modeVideo": "Video",
+      "modeVoice": "Voce",
+      "moodQuestion": "Come ti senti?",
+      "placeholder": "A cosa stai pensando, {{name}}?",
+      "recordVoice": "Registra un messaggio vocale",
+      "remove": "Rimuovi",
+      "share": "Condividi",
+      "sharing": "Condivisione...",
+      "textPreview": "Il tuo momento di testo",
+      "voiceNoteLength": "Messaggio vocale · {{seconds}} s"
+    },
+    "promo": {
+      "title": "Momenti ora vive nell'app",
+      "subtitle": "Storie, risposte di Studio IA e un feed pensato per il telefono, non per una scheda del browser. Installazione gratuita, senza cambiare account.",
+      "appStore": "Scarica su App Store",
+      "playStore": "Scarica su Google Play",
+      "appOnly": "Nell'app",
+      "perks": {
+        "stories": {
+          "title": "Storie che scompaiono",
+          "body": "Condividi un momento che dura 24 ore, proprio come lo usa davvero la community dell'app."
+        },
+        "aiStudy": {
+          "title": "Risposte di Studio IA",
+          "body": "Pubblica nella lingua che stai imparando e ricevi una correzione gentile dall'IA direttamente nei commenti."
+        },
+        "reactions": {
+          "title": "Reazioni più ricche",
+          "body": "Reazioni vocali, traduzione con un tocco e thread di commenti pensati per un feed, non per un modulo."
+        },
+        "notifications": {
+          "title": "Notifiche in tempo reale",
+          "body": "Sappi subito quando qualcuno della tua lingua di destinazione risponde, senza ricaricare una scheda del browser."
+        }
+      }
+    },
+    "translate": {
+      "tap": "Tocca per tradurre",
+      "loading": "Traduzione in corso…",
+      "same": "Già nella tua lingua",
+      "error": "Impossibile tradurre. Tocca per riprovare."
+    },
+    "tabs": {
+      "forYou": "Per te",
+      "following": "Seguiti",
+      "explore": "Esplora",
+      "trending": "Tendenze"
+    },
+    "following": {
+      "empty": "Segui altre persone per vedere i loro momenti qui",
+      "findPeople": "Trova persone"
+    },
+    "commentEngagement": {
+      "attachImage": "Aggiungi una foto",
+      "beFirst": "Sii il primo a condividere il tuo pensiero!",
+      "cancel": "Annulla",
+      "commentTab": "Commento",
+      "correctedLabel": "Corretto",
+      "correctedPlaceholder": "Scrivilo come lo direbbe un madrelingua",
+      "correction": "Correzione",
+      "correctionNotePlaceholder": "Aggiungi una nota (facoltativo)",
+      "correctionTab": "Correzione",
+      "delete": "Elimina",
+      "explanationLabel": "Spiegazione",
+      "explanationPlaceholder": "Perché si scrive così? (facoltativo)",
+      "hideReplies": "Nascondi risposte",
+      "imageFailed": "Commento pubblicato, ma la foto non è stata allegata.",
+      "loadMoreComments": "Carica altri commenti",
+      "loadMoreReplies": "Carica altro",
+      "loadingReplies": "Caricamento risposte…",
+      "originalLabel": "Originale",
+      "post": "Pubblica",
+      "postCorrection": "Pubblica correzione",
+      "postFailed": "Impossibile pubblicare. Riprova.",
+      "react": "Reagisci",
+      "reply": "Rispondi",
+      "replyPlaceholder": "Scrivi una risposta…",
+      "viewReplies": "Vedi {{count}} risposte",
+      "deleteOthersBody": "È sul tuo momento, quindi puoi rimuoverlo. L'azione non si può annullare.",
+      "deleteOthersTitle": "Eliminare questo commento?",
+      "removeGif": "Rimuovi GIF"
+    },
+    "filters": {
+      "button": "Filtri",
+      "searchPlaceholder": "Cerca momenti",
+      "search": "Cerca",
+      "category": "Categoria",
+      "language": "Lingua",
+      "mood": "Umore",
+      "tag": "Tag",
+      "tagPlaceholder": "Qualsiasi tag",
+      "any": "Tutti",
+      "clear": "Cancella filtri",
+      "emptyTitle": "Nessun momento corrisponde a questi filtri",
+      "emptyBody": "Prova a togliere un filtro o a cercare qualcos'altro."
+    },
+    "categories": {
+      "general": "Generale",
+      "language-learning": "Imparare le lingue",
+      "culture": "Cultura",
+      "food": "Cibo",
+      "travel": "Viaggi",
+      "music": "Musica",
+      "books": "Libri",
+      "hobbies": "Hobby",
+      "daily-life": "Vita quotidiana",
+      "technology": "Tecnologia",
+      "entertainment": "Intrattenimento",
+      "sports": "Sport",
+      "movies": "Film",
+      "study": "Studio",
+      "work": "Lavoro",
+      "question": "Domanda"
+    },
+    "moods": {
+      "happy": "Felice",
+      "excited": "Entusiasta",
+      "grateful": "Grato",
+      "motivated": "Motivato",
+      "relaxed": "Rilassato",
+      "curious": "Curioso",
+      "sad": "Triste",
+      "love": "Innamorato",
+      "funny": "Divertente",
+      "thoughtful": "Pensieroso",
+      "cool": "Cool",
+      "tired": "Stanco"
+    },
+    "report": {
+      "menu": "Altre opzioni",
+      "report": "Segnala",
+      "title": "Segnala questo momento",
+      "reasonLabel": "Perché lo segnali?",
+      "descriptionLabel": "Altro da aggiungere? (facoltativo)",
+      "submit": "Invia segnalazione",
+      "cancel": "Annulla",
+      "sent": "Grazie: i nostri moderatori lo esamineranno.",
+      "already": "Hai già segnalato questo momento.",
+      "failed": "Impossibile inviare la segnalazione. Riprova.",
+      "reasons": {
+        "spam": "Spam",
+        "harassment": "Molestie",
+        "hate_speech": "Incitamento all'odio",
+        "violence": "Violenza",
+        "nudity": "Nudità",
+        "false_information": "Informazioni false",
+        "copyright": "Copyright",
+        "other": "Altro"
+      },
+      "alreadyComment": "Hai già segnalato questo commento.",
+      "alreadyStory": "Hai già segnalato questa storia.",
+      "titleComment": "Segnala questo commento",
+      "titleStory": "Segnala questa storia"
+    },
+    "schedule": {
+      "label": "Programma",
+      "hint": "Lascia vuoto per pubblicare subito",
+      "past": "Scegli un orario futuro",
+      "badge": "Programmato per {{time}}",
+      "clear": "Pubblica ora"
+    },
+    "fields": {
+      "privacy": "Chi può vederlo",
+      "privacyPublic": "Tutti",
+      "privacyFriends": "Amici",
+      "privacyPrivate": "Solo io",
+      "background": "Sfondo",
+      "backgroundNone": "Nessuno",
+      "location": "Posizione",
+      "addLocation": "Aggiungi la mia posizione",
+      "removeLocation": "Rimuovi posizione",
+      "noMood": "Nessun umore",
+      "tags": "Tag",
+      "tagPlaceholder": "Aggiungi un tag…",
+      "addTag": "Aggiungi",
+      "tagsUsed": "{{count}}/5 tag",
+      "tagsMax": "Massimo 5 tag"
+    },
+    "prompt": {
+      "answeringPromptOfDay": "Rispondi alla domanda del giorno",
+      "dismissChip": "Non rispondere più alla domanda",
+      "answering": "Risposta a",
+      "answer": "Rispondi",
+      "cardSubtitle": "Esercitati a scrivere",
+      "cardTitle": "Domanda del giorno",
+      "dismissCard": "Chiudi la domanda del giorno"
+    },
+    "block": {
+      "done": "{{name}} è bloccato."
+    },
+    "card": {
+      "bookmark": "Aggiungi ai preferiti",
+      "likeFailed": "Qualcosa è andato storto",
+      "loginToLike": "Accedi per mettere mi piace",
+      "removeBookmark": "Rimuovi dai preferiti",
+      "save": "Salva",
+      "saved": "Salvato",
+      "seeLess": "Mostra meno",
+      "seeMore": "Mostra altro",
+      "unlike": "Non mi piace più"
+    },
+    "saved": {
+      "browseMoments": "Sfoglia i momenti",
+      "gridView": "Vista a griglia",
+      "listView": "Vista a elenco",
+      "loadMore": "Carica altri",
+      "momentCount": "momenti salvati",
+      "noMoments": "Nessun momento salvato",
+      "remove": "Rimuovi",
+      "removeError": "Impossibile rimuovere il momento",
+      "removeSuccess": "Rimosso dai salvati",
+      "title": "Momenti salvati"
+    },
+    "voice": {
+      "cancel": "Annulla registrazione",
+      "denied": "L'accesso al microfono è stato negato. Consenti l'accesso al microfono per registrare un messaggio vocale.",
+      "stop": "Interrompi la registrazione e invia",
+      "unsupported": "Questo browser non supporta la registrazione vocale."
     }
   },
   "createMoment": {
@@ -345,13 +1072,27 @@
       "addMoreText": "Aggiungi altre",
       "updateButton": "Aggiorna Momento",
       "updatingButton": "Aggiornamento...",
-      "cancelButton": "Annulla"
+      "cancelButton": "Annulla",
+      "removeImage": "Rimuovi immagine",
+      "nothingToSave": "Ancora niente da modificare",
+      "descriptionRequired": "La descrizione è obbligatoria"
+    },
+    "media": {
+      "video": "Video",
+      "audio": "Nota vocale",
+      "replace": "Sostituisci",
+      "remove": "Rimuovi",
+      "removeVideoTitle": "Rimuovere il video?",
+      "removeAudioTitle": "Rimuovere la nota vocale?",
+      "removeBody": "L'azione non si può annullare.",
+      "done": "Aggiornato",
+      "failed": "Non ha funzionato. Riprova."
     }
   },
   "authentication": {
     "enterEmail": {
       "title": "Inserisci la tua email",
-      "subtitle": "We'll send a verification code to your email",
+      "subtitle": "Ti invieremo un codice di verifica via email",
       "emailLabel": "Indirizzo Email",
       "emailPlaceholder": "Inserisci email",
       "sendButton": "Invia Codice",
@@ -361,32 +1102,32 @@
     },
     "passwordReset": {
       "successMessage": "Password reimpostata con successo, effettua l'accesso!",
-      "backToLogin": "Back to login",
-      "verifyTitle": "Enter verification code",
-      "verifySubtitle": "We've sent a 6-digit code to your email",
-      "codeLabel": "Verification Code",
-      "codePlaceholder": "Enter code",
-      "previousButton": "Previous",
-      "verifyButton": "Verify",
-      "verifyingButton": "Verifying...",
-      "resendButton": "Resend code",
-      "resendingButton": "Resending...",
-      "verifySuccessMessage": "Verification code successfully verified!",
-      "resendSuccessMessage": "A new verification code has been sent!",
-      "verifyErrorDefault": "Invalid verification code",
-      "resendErrorDefault": "Failed to resend the code",
-      "setPasswordTitle": "Set new password",
-      "setPasswordSubtitle": "Choose a strong password for your account",
-      "newPasswordLabel": "New Password",
-      "newPasswordPlaceholder": "New Password",
-      "confirmPasswordLabel": "Confirm Password",
-      "confirmPasswordPlaceholder": "Confirm Password",
-      "showPassword": "Show password",
-      "hidePassword": "Hide password",
-      "submitButton": "Reset Password",
-      "submittingButton": "Resetting...",
-      "strengthErrorMessage": "Password does not meet the strength requirements",
-      "mismatchErrorMessage": "Passwords do not match"
+      "backToLogin": "Torna al login",
+      "verifyTitle": "Inserisci il codice di verifica",
+      "verifySubtitle": "Ti abbiamo inviato un codice di 6 cifre via email",
+      "codeLabel": "Codice di verifica",
+      "codePlaceholder": "Inserisci il codice",
+      "previousButton": "Indietro",
+      "verifyButton": "Verifica",
+      "verifyingButton": "Verifica in corso...",
+      "resendButton": "Invia di nuovo il codice",
+      "resendingButton": "Invio in corso...",
+      "verifySuccessMessage": "Codice di verifica verificato!",
+      "resendSuccessMessage": "Ti abbiamo inviato un nuovo codice di verifica!",
+      "verifyErrorDefault": "Codice di verifica non valido",
+      "resendErrorDefault": "Impossibile inviare di nuovo il codice",
+      "setPasswordTitle": "Crea una nuova password",
+      "setPasswordSubtitle": "Scegli una password sicura per il tuo account",
+      "newPasswordLabel": "Nuova password",
+      "newPasswordPlaceholder": "Nuova password",
+      "confirmPasswordLabel": "Conferma password",
+      "confirmPasswordPlaceholder": "Conferma password",
+      "showPassword": "Mostra password",
+      "hidePassword": "Nascondi password",
+      "submitButton": "Reimposta password",
+      "submittingButton": "Reimpostazione...",
+      "strengthErrorMessage": "La password non soddisfa i requisiti di sicurezza",
+      "mismatchErrorMessage": "Le password non coincidono"
     },
     "login": {
       "signInWithGoogle": "Accedi con Google",
@@ -463,6 +1204,17 @@
       "verifyFirst": "Verifica prima la tua email",
       "registrationSuccess": "Registrazione completata con successo!",
       "registrationError": "Errore durante la registrazione"
+    },
+    "callback": {
+      "banned": "Questo account è stato sospeso.",
+      "codeExpired": "Questo link di accesso è scaduto. Accedi di nuovo.",
+      "completing": "Completamento dell'accesso...",
+      "emailExists": "Esiste già un account con questa email. Accedi con la tua email e la tua password.",
+      "failedTitle": "Accesso non riuscito",
+      "generic": "Accesso non riuscito. Riprova.",
+      "noCode": "L'accesso non è stato completato. Riprova.",
+      "redirecting": "Ti riportiamo alla pagina di accesso...",
+      "wait": "Attendi mentre ti facciamo accedere."
     }
   },
   "communityMain": {
@@ -503,7 +1255,13 @@
     "tabs": {
       "all": "Tutti",
       "popular": "Popolari",
-      "new": "Nuovi"
+      "new": "Nuovi",
+      "forYou": "Per te",
+      "online": "Online",
+      "label": "Schede della community",
+      "today": "Oggi",
+      "serious": "Studenti costanti",
+      "seriousHint": "Attivi questa settimana"
     },
     "filters": {
       "language": "Lingua",
@@ -511,7 +1269,7 @@
       "clear": "Cancella"
     },
     "results": {
-      "showing": "Mostra {{count}} fantastico/i partner linguistico/i{{plural}}",
+      "showing": "Mostra {{count}} fantastici partner linguistici",
       "membersFound": "{{count}} membri trovati",
       "noneFound": {
         "title": "Nessun membro trovato",
@@ -543,7 +1301,9 @@
       "topics": "Argomenti",
       "searchPlaceholder": "Cerca membri o argomenti",
       "filtersLabel": "Filtri",
-      "filtersWithCount": "Filtri ({{count}} attivi)"
+      "filtersWithCount": "Filtri ({{count}} attivi)",
+      "city": "Città",
+      "genders": "Generi"
     },
     "filterSheet": {
       "title": "Filtri",
@@ -560,7 +1320,27 @@
       "onlineNow": "Online ora",
       "newMembersOnly": "Solo nuovi membri (ultimi 7 giorni)",
       "reset": "Reimposta",
-      "apply": "Applica"
+      "apply": "Applica",
+      "copyLink": "Copia link",
+      "linkCopied": "Link copiato",
+      "linkCopyFailed": "Impossibile copiare il link",
+      "applyFirst": "Applica prima i filtri",
+      "matchCountLoading": "Conteggio delle corrispondenze…",
+      "close": "Chiudi filtri",
+      "languages": "Lingue",
+      "partnerNative": "Lingua madre del partner",
+      "partnerLearning": "Il partner sta imparando",
+      "country": "Paese",
+      "countryPlaceholder": "es. Corea del Sud",
+      "level": "Livello linguistico",
+      "topics": "Argomenti",
+      "mutualInterests": "Interessi in comune",
+      "newUsersOnly": "Solo nuovi utenti",
+      "clearAll": "Cancella tutto",
+      "matchCount": "{{count}} corrispondenze",
+      "lockedByTab": "Impostato dalla scheda {{tab}}",
+      "reciprocal": "Solo partner ideali",
+      "reciprocalHint": "Parlano la lingua che impari e imparano quella che parli"
     },
     "highlighted": {
       "title": "Profili in evidenza",
@@ -569,9 +1349,9 @@
       "highlightSelfTopic": "Metti in evidenza il tuo profilo e fatti vedere da più persone"
     },
     "visitors": {
-      "justYou": "{{name}} ha visitato il tuo profilo!",
-      "andOthers": "{{name}} e altri {{count}} hanno visitato il tuo profilo!",
-      "seeAll": "Vedi tutto"
+      "pill_one": "1 persona ha visitato il tuo profilo",
+      "pill_other": "{{count}} persone hanno visitato il tuo profilo",
+      "pill_many": "{{count}} persone hanno visitato il tuo profilo"
     },
     "tandemCard": {
       "newChip": "NUOVO",
@@ -581,6 +1361,50 @@
       "fluent": "FLUENTE",
       "learns": "IMPARA",
       "native": "MADRELINGUA"
+    },
+    "chips": {
+      "recentlyActive": "Attivo di recente",
+      "onlineNow": "Online ora",
+      "speaks": "Parla {{language}}",
+      "learning": "Impara {{language}}"
+    },
+    "forYou": {
+      "subtitle": "Partner scelti per te in base alle tue lingue, al tuo livello e ai tuoi interessi.",
+      "refresh": "Aggiorna",
+      "why": "Perché: {{reasons}}",
+      "empty": {
+        "title": "Ancora nessun consiglio",
+        "message": "Aggiungi le lingue che parli e vuoi imparare, il tuo livello e qualche interesse: troveremo i partner più adatti a te.",
+        "action": "Completa il tuo profilo"
+      }
+    },
+    "reasons": {
+      "perfect_pair": "Parla {{native}}, impara {{learning}}",
+      "native_speaker": "Madrelingua {{native}}",
+      "online_now": "Online ora",
+      "active_today": "Attivo oggi",
+      "same_country": "Stesso paese"
+    },
+    "today": {
+      "title": "Match di oggi ({{count}})",
+      "refreshes": "Si aggiorna alle {{time}}",
+      "refreshesMidnight": "Si aggiorna a mezzanotte",
+      "emptyTitle": "Per oggi è tutto",
+      "emptyBody": "Domani nuovi match. Intanto, guarda tutti i partner.",
+      "browse": "Guarda i partner",
+      "repliesFast": "Risponde velocemente",
+      "boosted": "In evidenza",
+      "reasonReciprocal": "State imparando la lingua l'uno dell'altro",
+      "reasonSameTarget": "Impara anche {{language}}",
+      "reasonActiveToday": "Attivo oggi",
+      "reasonSameCity": "Vive nella tua città",
+      "reasonSharedTopic": "Interesse in comune: {{topic}}",
+      "sayHi": "Saluta",
+      "wave": "Fai ciao",
+      "skip": "Salta",
+      "error": "Impossibile caricare i match di oggi",
+      "retry": "Riprova",
+      "waved": "Salutato"
     }
   },
   "communityDetail": {
@@ -641,6 +1465,36 @@
       "speaks": "Parla",
       "learning": "Impara",
       "notSpecified": "Non specificato"
+    },
+    "match": {
+      "title": "Match linguistico",
+      "native": "Madrelingua",
+      "learning": "Impara",
+      "perfect": "Match perfetto: potete insegnarvi a vicenda.",
+      "youLearnTheirs": "Stai imparando esattamente quello che parla questa persona!",
+      "theyLearnYours": "Questa persona sta imparando esattamente quello che parli tu!",
+      "sameNative": "Avete entrambi la stessa lingua madre."
+    },
+    "mutual": {
+      "title": "Interessi in comune",
+      "countLabel": "{{count}} in comune"
+    },
+    "starters": {
+      "title": "Spunti di conversazione",
+      "send": "Invia",
+      "perfect": "Ciao {{name}}! Siamo un match linguistico perfetto: ti va di fare pratica insieme?",
+      "language": "Ciao {{name}}! Sto imparando {{language}}: hai qualche consiglio per migliorare?",
+      "teach": "Ciao {{name}}! Ho visto che stai imparando {{language}}. Se hai domande, sono felice di aiutarti.",
+      "sameNative": "Ciao {{name}}! Abbiamo la stessa lingua madre: come va il tuo apprendimento?",
+      "topic": "Ciao {{name}}! Ho visto che ti piace anche {{topic}}. Come hai iniziato?",
+      "targetLearning": "Ciao {{name}}! Da quanto tempo studi {{language}}?",
+      "generic": "Ciao {{name}}! Mi piacerebbe fare pratica di lingue insieme. Come va la tua settimana?",
+      "practice": "Ciao {{name}}! Cosa ti ha aiutato di più finora nel tuo apprendimento?",
+      "hello": "Ciao {{name}}! Il tuo profilo mi ha colpito: come va la tua giornata?"
+    },
+    "engagement": {
+      "replies": "{{rate}}% di risposte",
+      "new": "Nuovo membro"
     },
     "suggested": {
       "title": "Altri membri come {{name}}",
@@ -716,6 +1570,10 @@
     },
     "fallbacks": {
       "defaultUser": "Utente"
+    },
+    "suggested": {
+      "title": "Altri membri come {{name}}",
+      "seeAll": "Vedi tutti i membri"
     }
   },
   "learning": {
@@ -871,6 +1729,102 @@
       "premium": "Premium",
       "features": "Funzionalità",
       "upgrade": "Passa a VIP"
+    },
+    "password": {
+      "title": "Cambia password",
+      "current": "Password attuale",
+      "current_hint": "Inserisci la password attuale",
+      "new": "Nuova password",
+      "new_hint": "Almeno 8 caratteri, A-Z, a-z, 0-9",
+      "confirm": "Conferma nuova password",
+      "confirm_hint": "Reinserisci la nuova password",
+      "rule_upper": "Una lettera maiuscola",
+      "rule_lower": "Una lettera minuscola",
+      "rule_number": "Un numero",
+      "mismatch": "Le password non corrispondono.",
+      "same_as_current": "La nuova password deve essere diversa da quella attuale.",
+      "success": "Password cambiata correttamente",
+      "failed": "Aggiornamento fallito",
+      "symbols": "Sono ammessi solo questi simboli: @ $ ! % * ? &"
+    },
+    "privacy": {
+      "title": "Impostazioni Privacy",
+      "subtitle": "Controlla chi può vedere le tue informazioni",
+      "profileVisibility": "Visibilità Profilo",
+      "showOnlineStatus": "Mostra Stato Online",
+      "showOnlineStatusDesc": "Permetti agli altri di vedere quando sei online",
+      "showCity": "Mostra città",
+      "showCityDesc": "Mostra la tua città nel profilo",
+      "showCountry": "Mostra paese/regione",
+      "showCountryDesc": "Mostra il tuo paese nel profilo",
+      "personalInfo": "Informazioni Personali",
+      "showAge": "Mostra età",
+      "showAgeDesc": "Mostra la tua età nel profilo",
+      "showZodiac": "Mostra segno zodiacale",
+      "showZodiacDesc": "Mostra il tuo segno zodiacale nel profilo",
+      "birthdayNotification": "Notifiche compleanno",
+      "birthdayNotificationDesc": "Ricevi notifiche per il tuo compleanno",
+      "otherSettings": "Altre impostazioni",
+      "showGiftingLevel": "Mostra livello regali",
+      "showGiftingLevelDesc": "Mostra il badge del livello regali",
+      "saveSuccess": "Impostazioni privacy salvate",
+      "saveError": "Salvataggio fallito",
+      "saving": "Salvataggio...",
+      "saveChanges": "Salva modifiche",
+      "profileVisits": "Visite al profilo",
+      "anonymousProfileVisits": "Visita i profili in modo anonimo",
+      "anonymousProfileVisitsDesc": "Il tuo nome non apparirà nell'elenco dei visitatori recenti dell'utente visitato.",
+      "email": "Email",
+      "emailNotifications": "Notifiche email",
+      "emailNotificationsDesc": "Ricevi notifiche email da BananaTalk",
+      "weeklyDigest": "Riepilogo settimanale",
+      "weeklyDigestDesc": "Riepilogo delle attività ogni domenica",
+      "securityAlerts": "Avvisi di sicurezza",
+      "securityAlertsDesc": "Avvisi su password e accessi. Ti consigliamo di lasciarli attivi."
+    },
+    "notifications": {
+      "title": "Impostazioni Notifiche",
+      "subtitle": "Gestisci le tue preferenze di notifica",
+      "loading": "Caricamento...",
+      "loadError": "Errore nel caricamento delle impostazioni",
+      "retry": "Riprova",
+      "pushNote": "Queste impostazioni controllano le notifiche push dell'app BananaTalk sul tuo telefono.",
+      "enableAll": "Notifiche Push",
+      "enableAllDesc": "Attiva o disattiva tutte le notifiche",
+      "notificationTypes": "Tipi di notifiche",
+      "chatMessages": "Messaggi chat",
+      "chatMessagesDesc": "Ricevi notifiche quando ricevi messaggi",
+      "moments": "Momenti",
+      "momentsDesc": "Mi piace e commenti sui tuoi momenti",
+      "followerMoments": "Momenti dei seguiti",
+      "followerMomentsDesc": "Quando le persone che segui pubblicano nuovi momenti",
+      "friendRequests": "Nuovi Follower",
+      "friendRequestsDesc": "Quando qualcuno ti segue",
+      "profileVisits": "Visite al profilo",
+      "profileVisitsDesc": "Quando qualcuno visualizza il tuo profilo (VIP)",
+      "announcements": "Annunci",
+      "announcementsDesc": "Novità e aggiornamenti dal team di BananaTalk",
+      "marketing": "Marketing",
+      "marketingDesc": "Aggiornamenti e messaggi promozionali",
+      "learning": "Imparando",
+      "streakReminders": "Promemoria serie",
+      "streakRemindersDesc": "Un promemoria prima che la tua serie si interrompa",
+      "vocabularyReviewReminders": "Ripasso del vocabolario",
+      "vocabularyReviewRemindersDesc": "Quando ci sono parole da ripassare",
+      "dailyDropReminders": "Lezione del giorno",
+      "dailyDropRemindersDesc": "Quando la breve lezione di vocabolario o grammatica di oggi è pronta",
+      "quietHours": "Ore silenziose",
+      "quietHoursEnable": "Attiva ore silenziose",
+      "quietHoursDesc": "Metti in pausa le notifiche non urgenti in una fascia oraria",
+      "quietHoursStart": "Ora di inizio",
+      "quietHoursEnd": "Ora di fine",
+      "preferences": "Preferenze notifiche",
+      "showPreview": "Mostra anteprima",
+      "showPreviewDesc": "Mostra anteprima messaggio nelle notifiche",
+      "saveSuccess": "Impostazioni di notifica salvate",
+      "saveError": "Salvataggio fallito",
+      "saving": "Salvataggio...",
+      "saveChanges": "Salva modifiche"
     }
   },
   "waves": {
@@ -880,13 +1834,102 @@
     "accept": "Accetta",
     "decline": "Rifiuta",
     "noWaves": "Nessun saluto ancora",
-    "sendWave": "Invia un saluto per iniziare a connetterti!"
+    "sendWave": "Invia un saluto per iniziare a connetterti!",
+    "archive": "Saluti meno recenti",
+    "archiveEmpty": "Nessun saluto meno recente",
+    "archiveHint": "Saluti di 7-30 giorni fa",
+    "back": "Indietro",
+    "cap": {
+      "body": "Hai usato i saluti gratuiti di oggi. I membri VIP possono salutare senza limite giornaliero, oppure riprova domani.",
+      "notNow": "Non ora",
+      "seeVip": "Scopri VIP",
+      "title": "Limite giornaliero di saluti raggiunto"
+    },
+    "findPeople": "Trova persone",
+    "noReceived": "Nessun saluto ricevuto ancora",
+    "recent": "Ultimi 7 giorni",
+    "sheet": {
+      "already": "Già salutato",
+      "alreadyBody": "Puoi salutare ogni persona una sola volta: mandale invece un messaggio per continuare la conversazione.",
+      "alreadyTitle": "Hai già salutato {{name}}",
+      "cancel": "Annulla",
+      "chips": {
+        "chat": {
+          "label": "Chattiamo",
+          "message": "🎉 Facciamo due chiacchiere!"
+        },
+        "cool": {
+          "label": "Bello",
+          "message": "❤️ Bel profilo!"
+        },
+        "hello": {
+          "label": "Salve",
+          "message": "✋ Salve!"
+        },
+        "hey": {
+          "label": "Ehi",
+          "message": "😊 Ehi, ciao!"
+        },
+        "hi": {
+          "label": "Ciao",
+          "message": "👋 Ciao!"
+        },
+        "nice": {
+          "label": "Piacere",
+          "message": "🌟 Piacere di conoscerti!"
+        }
+      },
+      "close": "Chiudi",
+      "icebreakers": {
+        "0": "Ciao! Ti va di fare pratica con le lingue insieme?",
+        "1": "Ho notato che stiamo imparando lingue simili, ciao!",
+        "2": "Il tuo profilo mi ha colpito, come va?",
+        "3": "Ehi! Cosa ti ha spinto a imparare una nuova lingua?"
+      },
+      "icebreakersTitle": "Rompighiaccio",
+      "match": "🎉 È un match! Tu e {{name}} vi siete salutati a vicenda.",
+      "placeholder": "Scrivi un messaggio personalizzato (facoltativo)…",
+      "quickReplies": "Risposte rapide",
+      "send": "Invia saluto",
+      "sendError": "Impossibile inviare il saluto",
+      "sent": "Saluto inviato a {{name}}!",
+      "subtitle": "Saluta e rompi il ghiaccio 👋",
+      "title": "Invia un saluto a {{name}}",
+      "yourMessage": "Il tuo messaggio"
+    },
+    "someone": "Qualcuno",
+    "subtitle": "Persone che ti hanno salutato",
+    "unread": "Non letti",
+    "wavedAtYou": "Ti ha salutato 👋"
   },
   "topics": {
     "title": "Argomenti",
     "myTopics": "I Miei Argomenti",
     "browseTopics": "Sfoglia Argomenti",
-    "usersInterested": "utenti interessati"
+    "usersInterested": "utenti interessati",
+    "saved": "I tuoi argomenti sono aggiornati",
+    "saveError": "Non è stato possibile salvare i tuoi argomenti",
+    "memberCount": "{{count}} membri",
+    "backToCommunity": "Comunità",
+    "subtitle": "Trova compagni che condividono i tuoi interessi.",
+    "searchPlaceholder": "Cerca argomenti",
+    "clearSearch": "Cancella ricerca",
+    "cancel": "Annulla",
+    "saving": "Salvataggio...",
+    "save": "Salva",
+    "edit": "Modifica",
+    "editHint": "Tocca i riquadri qui sotto per scegliere fino a {{max}} argomenti, poi salva.",
+    "myTopicsEmpty": "Non hai ancora scelto nessun argomento. Tocca Modifica per sceglierne alcuni.",
+    "selectTopics": "Scegli i tuoi argomenti",
+    "emptyTitle": "Nessun argomento corrisponde",
+    "emptyMessage": "Prova con un'altra parola, oppure cancella la ricerca per vederli tutti.",
+    "backToTopics": "Tutti gli argomenti",
+    "onlineOnly": "Solo online",
+    "loadingPeople": "Caricamento persone...",
+    "noOneOnlineTitle": "Qui non c'è nessuno online",
+    "noOneTitle": "Non c'è ancora nessuno qui",
+    "noOneOnlineMessage": "Disattiva il filtro online per vedere tutti in questo argomento.",
+    "noOneMessage": "Sii il primo — aggiungi questo argomento al tuo profilo."
   },
   "nearby": {
     "title": "Utenti Vicini",
@@ -897,24 +1940,23 @@
   },
   "home": {
     "hero": {
-      "badge": "Scambio Linguistico Semplice",
-      "titlePart1": "Impara le Lingue",
-      "titleHighlight": "Parlando",
-      "titlePart2": "con Madrelingua",
-      "description": "Connettiti con milioni di studenti di lingue in tutto il mondo. Pratica la conversazione, migliora la fluidità e fai amicizia da ogni angolo del globo.",
-      "stats": {
-        "users": "Utenti Attivi",
-        "languages": "Lingue",
-        "countries": "Paesi"
-      },
-      "getStarted": "Inizia Gratis",
-      "browseCommunity": "Esplora la Comunità",
-      "lovedBy": "Amato da oltre 5M di studenti",
+      "badge": "Scambio linguistico con persone vere",
+      "titlePart1": "Pratica",
+      "titleHighlight": "qualsiasi lingua",
+      "titlePart2": "con qualcuno che la parla davvero.",
+      "description": "BananaTalk ti mette in contatto con madrelingua di tutto il mondo. Chatta, invia messaggi vocali, traduci e ricevi correzioni — ogni conversazione ti fa migliorare.",
+      "getStarted": "Inizia gratis",
+      "browseCommunity": "Esplora la community",
+      "lovedBy": "Scelto da chi impara le lingue su iOS e Android",
       "chatPreview": {
-        "message1": "Ciao! Come stai? 👋",
-        "message2": "Hey! I'm practicing my Italian!",
-        "message3": "Benissimo! Pratichiamo insieme 🇮🇹"
-      }
+        "message1": "안녕하세요! Com'è andato il tuo weekend?",
+        "message2": "주말에 친구들과 등산 갔어요 ⛰️",
+        "message3": "Bello! 산 → montagna. Salvato nella tua lista di studio."
+      },
+      "title": "Dillo male.",
+      "titleAccent": "Ci pensiamo noi a tradurre.",
+      "subtitle": "Scambio linguistico gratuito con madrelingua. Scrivi nella tua lingua, loro la leggono nella loro, e impari dalla differenza.",
+      "trust": "Livello gratis per sempre · 137 lingue · Tutor IA 24/7"
     },
     "sections": {
       "features": "Funzionalità",
@@ -922,108 +1964,175 @@
       "pricing": "Prezzi"
     },
     "features": {
-      "title": "Tutto Ciò di Cui Hai Bisogno per Imparare",
-      "subtitle": "Strumenti potenti progettati per accelerare il tuo percorso di apprendimento linguistico",
+      "title": "Tutto quello che ti serve per parlare davvero la lingua",
+      "subtitle": "Basato su conversazioni vere con madrelingua veri, non su esercizi di vocabolario.",
       "chat": {
-        "title": "Chat in Tempo Reale",
-        "description": "Pratica le conversazioni con madrelingua tramite messaggistica istantanea"
-      },
-      "video": {
-        "title": "Videochiamate",
-        "description": "Pratica linguistica faccia a faccia con partner di tutto il mondo"
-      },
-      "lessons": {
-        "title": "Lezioni Interattive",
-        "description": "Impara con corsi strutturati ed esercizi giornalieri"
-      },
-      "voice": {
-        "title": "Messaggi Vocali",
-        "description": "Perfeziona la tua pronuncia con scambi audio"
+        "title": "Chat con correzioni",
+        "description": "Invia testo, vocali, foto e adesivi. Tocca il messaggio di un partner per tradurlo o correggi il suo con un tocco."
       },
       "community": {
-        "title": "Comunità",
-        "description": "Unisciti a milioni di studenti di lingue a livello globale"
+        "title": "Community vera",
+        "description": "Sfoglia i partner per lingua madre, guarda chi è online e condividi momenti con chi impara la tua stessa lingua."
       },
-      "languages": {
-        "title": "Oltre 50 Lingue",
-        "description": "Dallo spagnolo al coreano, trova il tuo percorso di apprendimento"
+      "translate": {
+        "title": "Traduzione integrata",
+        "description": "Traduci qualsiasi messaggio nella tua lingua madre. Salva le frasi direttamente nella tua lista di studio."
+      },
+      "tutor": {
+        "title": "Tutor IA",
+        "description": "Scenari di roleplay, vocabolario con immagini e coaching sulla pronuncia — tutto grazie al tuo compagno di studio con IA."
+      },
+      "voice_rooms": {
+        "title": "Stanze vocali",
+        "description": "Entra in stanze audio dal vivo con madrelingua e altri studenti di lingue di tutto il mondo."
+      },
+      "calls": {
+        "title": "Chiamate vocali e video",
+        "description": "Chiamate audio e video con un tocco con i tuoi partner linguistici."
+      },
+      "inApp": "Nell'app",
+      "items": {
+        "findPartner": {
+          "title": "Trova un partner",
+          "body": "L'abbinamento nasce dalla combinazione di lingue che vuoi davvero scambiare."
+        },
+        "chatTranslate": {
+          "title": "Una chat che traduce",
+          "body": "In entrambe le direzioni, dentro il messaggio, mentre scrivi."
+        },
+        "moments": {
+          "title": "Momenti",
+          "body": "Mostra com'è la tua giornata e fatti correggere dai madrelingua."
+        },
+        "aiTutor": {
+          "title": "Tutor IA",
+          "body": "Esercitati alle 3 di notte senza fare brutte figure."
+        },
+        "voiceRooms": {
+          "title": "Stanze vocali",
+          "body": "Entra in una stanza dal vivo e, se vuoi, limitati ad ascoltare."
+        },
+        "gatherings": {
+          "title": "Incontri",
+          "body": "Conosci persone vicino a te che stanno imparando la tua lingua."
+        }
       }
     },
     "howItWorks": {
-      "title": "Inizia a Imparare in 3 Passi",
-      "subtitle": "Inizia in pochi minuti e avvia il tuo viaggio linguistico oggi"
+      "title": "Tre passi per la tua prima conversazione",
+      "subtitle": "Niente numeri di telefono, niente spam — solo persone vere che vogliono imparare.",
+      "steps": {
+        "1": {
+          "title": "Dicci cosa parli e cosa vuoi",
+          "body": "Scegli la tua lingua madre e quella che stai imparando. È da questa coppia che nascono gli abbinamenti."
+        },
+        "2": {
+          "title": "Trova qualcuno con cui valga la pena parlare",
+          "body": "Sfoglia chi sta imparando la tua lingua. Fai un saluto, oppure attacca subito discorso."
+        },
+        "3": {
+          "title": "Parla male, migliora in fretta",
+          "body": "Ogni messaggio viene tradotto in entrambe le direzioni e il tutor IA ti corregge senza che nessuno ti veda."
+        }
+      }
     },
     "steps": {
       "profile": {
-        "title": "Crea il Tuo Profilo",
-        "description": "Dicci qual è la tua lingua madre e cosa vuoi imparare"
+        "title": "Raccontaci le tue lingue",
+        "description": "Scegli cosa parli fluentemente e cosa stai imparando. Aggiungi qualche argomento che ti piace."
       },
       "partners": {
-        "title": "Trova Partner",
-        "description": "Sfoglia la nostra comunità e trova i partner di scambio linguistico perfetti"
+        "title": "Trova il tuo partner",
+        "description": "Sfoglia la community per lingua, paese o argomento. Saluta o scrivi a qualcuno che ti interessa."
       },
       "learn": {
-        "title": "Inizia a Imparare",
-        "description": "Chatta, chiama e pratica con madrelingua ogni giorno"
+        "title": "Pratica ogni giorno",
+        "description": "Chatta, scambia messaggi vocali, ricevi correzioni e trasforma le nuove parole in schede a ripetizione dilazionata."
       }
     },
     "pricing": {
-      "title": "Scegli il Tuo Piano",
-      "subtitle": "Inizia gratis e passa al premium quando sei pronto",
-      "mostPopular": "Più Popolare",
-      "getStarted": "Inizia",
+      "title": "Gratis per iniziare. VIP quando vuoi imparare più in fretta.",
+      "subtitle": "BananaTalk è gratis per tutti. Passa a VIP per eliminare i limiti giornalieri su traduzioni, Tutor IA e altro.",
       "free": {
-        "name": "Gratuito",
+        "name": "Gratis",
         "period": "per sempre",
+        "cta": "Crea un account gratis",
         "features": {
-          "messaging": "Messaggistica base",
-          "connections": "5 nuove connessioni/giorno",
-          "community": "Accesso alla comunità",
-          "lessons": "Lezioni base"
+          "messaging": "Chat 1 a 1 illimitata con traduzione",
+          "community": "Sfoglia e connettiti con la community",
+          "moments": "Pubblica Momenti e leggi le Storie",
+          "tutor_trial": "Quota giornaliera di Tutor IA e traduzione"
+        },
+        "f1": "Chat 1 a 1 illimitata con traduzione",
+        "f2": "Sfoglia e connettiti con la community",
+        "f3": "Pubblica Momenti e leggi le Storie"
+      },
+      "best": "Miglior rapporto qualità-prezzo",
+      "perMonth": "al mese",
+      "every": "ogni",
+      "save": "Risparmia",
+      "getVip": "Ottieni VIP nell'app",
+      "fineprint": "Annulla quando vuoi dalle impostazioni di App Store o Google Play. Gli abbonamenti si rinnovano automaticamente finché non li annulli.",
+      "monthly": {
+        "name": "VIP — Mensile",
+        "period": "al mese",
+        "highlight": "Il più flessibile",
+        "cta": "Inizia con il mensile",
+        "features": {
+          "unlimited_translation": "Traduzioni e correzioni illimitate",
+          "unlimited_tutor": "Sessioni illimitate di Tutor IA e roleplay",
+          "voice_rooms": "Crea e fissa le Stanze vocali",
+          "priority": "Abbinamento prioritario con i partner"
         }
       },
-      "premium": {
-        "name": "Premium",
-        "period": "/mese",
+      "yearly": {
+        "name": "VIP — Annuale",
+        "period": "all'anno",
+        "highlight": "Risparmia il 72%",
+        "cta": "Risparmia con l'annuale",
         "features": {
-          "messaging": "Messaggistica illimitata",
-          "connections": "Connessioni illimitate",
-          "video": "Videochiamate",
-          "lessons": "Lezioni avanzate",
-          "noAds": "Senza pubblicità",
-          "translation": "Strumenti di traduzione"
-        }
-      },
-      "lifetime": {
-        "name": "A Vita",
-        "period": "una tantum",
-        "features": {
-          "everything": "Tutto del Premium",
-          "forever": "Accesso per sempre",
-          "support": "Supporto prioritario",
-          "early": "Funzionalità in anteprima",
-          "badges": "Badge esclusivi"
+          "everything_in_monthly": "Tutto il piano Mensile",
+          "equiv": "Solo 4,16 $ al mese equivalenti",
+          "early_access": "Accesso anticipato alle nuove funzionalità",
+          "support": "Supporto diretto dal team di BananaTalk"
         }
       }
     },
     "download": {
-      "badge": "Scarica l'App",
-      "title": "Porta BananaTalk Ovunque",
-      "description": "Impara in movimento con la nostra app mobile. Disponibile su iOS e Android con tutte le funzionalità, notifiche push e accesso offline.",
+      "badge": "Scarica l'app",
+      "title": "L'esperienza completa vive sul cellulare",
+      "description": "Tutor IA, Stanze vocali, chiamate e notifiche in tempo reale sono esclusive del cellulare. Scarica l'app per l'esperienza BananaTalk completa.",
       "downloadOn": "Scarica su",
       "getItOn": "Scaricala su",
       "scanQR": "Scansiona per scaricare l'app",
       "or": "oppure",
       "features": {
-        "offline": "Accesso offline",
+        "offline": "Chat che funziona offline",
         "push": "Notifiche push",
-        "fast": "Veloce e leggera"
+        "fast": "Gratis da installare"
       }
     },
     "cta": {
-      "title": "Pronto a Iniziare il Tuo Viaggio Linguistico?",
-      "description": "Unisciti a milioni di studenti e inizia a parlare una nuova lingua oggi",
-      "button": "Crea Account Gratuito"
+      "title": "Pronto per una conversazione vera?",
+      "description": "Unisciti alla community di BananaTalk e inizia a fare pratica oggi. Non serve la carta di credito.",
+      "button": "Crea il tuo account gratuito",
+      "subtitle": "Gratis per iniziare. Nessuna carta, nessun conto alla rovescia di prova."
+    },
+    "stats": {
+      "languages": "lingue",
+      "app languages": "lingue dell'app",
+      "AI tutor": "tutor IA",
+      "forever tier": "livello gratuito",
+      "learners": "studenti"
+    },
+    "marquee": {
+      "title": "Madrelingua di ogni lingua che vuoi imparare",
+      "caption": "137 lingue, e continuano a crescere"
+    },
+    "earlyAdopter": {
+      "badge": "Lanciato a dicembre 2025",
+      "title": "Sii tra i primi",
+      "body": "BananaTalk è appena nato. Le persone che incontri qui sono quelle che stanno costruendo ciò che questa community diventerà — un motivo per arrivare presto migliore di qualsiasi recensione."
     }
   },
   "vip": {
@@ -1060,6 +2169,1248 @@
       "prioritySupport": "Supporto prioritario",
       "exclusiveBadge": "Badge esclusivo VIP",
       "translationFeature": "Traduzione messaggi"
+    }
+  },
+  "seo": {
+    "appTitle": "BananaTalk",
+    "home": {
+      "title": "BananaTalk: scambio linguistico gratis con madrelingua",
+      "description": "Chatta con madrelingua in 137 lingue. Scrivi nella tua lingua, loro la leggono nella propria, e un tutor IA ti mostra la differenza. Gratis su iOS e Android."
+    },
+    "download": {
+      "title": "Scarica BananaTalk per iPhone e Android",
+      "description": "Ottieni l'app gratuita di scambio linguistico BananaTalk per iPhone e Android. Chatta con madrelingua con traduzioni istantanee e correzioni del tutor IA."
+    },
+    "moments": {
+      "title": "Moments di BananaTalk: storie nella tua lingua target",
+      "description": "I Moments sono brevi post e storie condivisi dagli studenti di lingue su BananaTalk. Leggi il feed, reagisci e pubblica i tuoi."
+    },
+    "privacy": {
+      "title": "Informativa sulla Privacy | BananaTalk",
+      "description": "Come BananaTalk raccoglie, usa e protegge i tuoi dati, e le scelte che hai a disposizione."
+    },
+    "terms": {
+      "title": "Termini di Utilizzo | BananaTalk",
+      "description": "I termini che regolano il tuo utilizzo di BananaTalk, incluse le regole sui contenuti, la moderazione e le segnalazioni."
+    },
+    "support": {
+      "title": "Supporto e Contatti | BananaTalk",
+      "description": "Ottieni aiuto su BananaTalk: domande sull'account, segnalazione di un problema e come contattare il team."
+    },
+    "dataDeletion": {
+      "title": "Richiesta di Cancellazione Dati | BananaTalk",
+      "description": "Come eliminare il tuo account BananaTalk e i tuoi dati personali, e cosa succede dopo la richiesta."
+    },
+    "meet": {
+      "title": "Conosci persone di altri paesi | BananaTalk",
+      "description": "Conosci persone di altri paesi e fatti amici in tutto il mondo chattando. Ogni messaggio è tradotto in entrambe le direzioni: non serve essere fluenti."
+    },
+    "learnKorean": {
+      "title": "Impara il coreano chattando con madrelingua",
+      "description": "Impara il coreano gratis chattando con madrelingua coreani. Tu scrivi in italiano, loro in hangul, e un tutor IA ti spiega 존댓말 vs. 반말 strada facendo."
+    },
+    "communities": {
+      "title": "Community di scambio linguistico | BananaTalk",
+      "description": "Entra nelle community di scambio linguistico di BananaTalk: gruppi veri che praticano insieme coreano, spagnolo, giapponese e altro, gratis, ogni giorno."
+    }
+  },
+  "notFound": {
+    "pageTitle": "Pagina non trovata | BananaTalk",
+    "title": "Questa pagina non esiste",
+    "body": "Il link potrebbe essere obsoleto, oppure la pagina potrebbe essere stata spostata. Ecco come tornare indietro.",
+    "home": "Vai alla home page",
+    "download": "Scarica l'app"
+  },
+  "consent": {
+    "label": "Consenso ai cookie",
+    "message": "Utilizziamo cookie di analisi per capire cosa porta le persone qui.",
+    "accept": "OK",
+    "decline": "No grazie",
+    "manage": {
+      "title": "Scelte sulla privacy",
+      "body": "I cookie di analisi ci dicono quali pagine risultano utili. Nient'altro.",
+      "current_granted": "I cookie di analisi sono attivi.",
+      "current_denied": "I cookie di analisi sono disattivati.",
+      "accept": "Attiva",
+      "decline": "Disattiva",
+      "privacyChoices": "Scelte sulla privacy",
+      "analyticsCookies": "Cookie di analisi",
+      "done": "Fatto"
+    }
+  },
+  "linking": {
+    "share": {
+      "label": "Condividi",
+      "copied": "Link copiato negli appunti!",
+      "copyFailed": "Impossibile copiare il link"
+    },
+    "openInApp": {
+      "label": "Apri nell'app"
+    },
+    "appBanner": {
+      "text": "Apri questo nell'app di BananaTalk"
+    }
+  },
+  "newChat": {
+    "title": "Nuova chat",
+    "subtitle": "Inizia una conversazione",
+    "directMessage": "Diretta",
+    "groupChat": "Gruppo",
+    "searchPlaceholder": "Cerca per nome, @username o ID utente...",
+    "searchHint": "Cerca utenti per iniziare una chat",
+    "hintName": "Cerca per nome",
+    "hintUsername": "Scrivi @username per cercare per nome utente",
+    "hintId": "Incolla un ID utente per trovarlo direttamente",
+    "searchByUsername": "Ricerca per nome utente",
+    "searchById": "Ricerca per ID utente",
+    "noResults": "Nessun utente trovato",
+    "tryDifferent": "Prova un altro nome, @username o ID utente",
+    "createGroup": "Crea gruppo",
+    "selectMoreUsers": "Seleziona almeno 2 utenti per una chat di gruppo",
+    "createError": "Impossibile creare la chat",
+    "recently": "Recenti"
+  },
+  "admin": {
+    "nav": {
+      "admin": "Admin",
+      "overview": "Panoramica",
+      "reach": "Copertura",
+      "users": "Utenti",
+      "content": "Contenuti",
+      "aiUsage": "Uso dell'IA",
+      "audit": "Registro di controllo"
+    },
+    "aiUsage": {
+      "allFeatures": "Tutte le funzionalità",
+      "anonymous": "anonimo",
+      "byDay": "Utilizzo per giorno",
+      "byFeature": "Utilizzo per funzionalità",
+      "calls": "Chiamate",
+      "date": "Data",
+      "feature": "Funzionalità",
+      "from": "Dal",
+      "logs": "Registro utilizzo",
+      "timestamp": "Data e ora",
+      "to": "Al",
+      "total": "Totale chiamate",
+      "user": "Utente"
+    },
+    "audit": {
+      "action": "Azione",
+      "actionColumn": "Azione",
+      "moderator": "Moderatore",
+      "moderatorId": "ID moderatore",
+      "reason": "Motivo",
+      "target": "Obiettivo",
+      "targetId": "ID obiettivo",
+      "timestamp": "Data e ora"
+    },
+    "common": {
+      "actionError": "Qualcosa è andato storto.",
+      "close": "Chiudi",
+      "empty": "Non c'è ancora nulla da mostrare.",
+      "loadError": "Impossibile caricare questa sezione.",
+      "loading": "Caricamento…",
+      "refresh": "Aggiorna",
+      "cancel": "Annulla"
+    },
+    "content": {
+      "archive": "Archivia",
+      "archiveTitle": "Archivia il club",
+      "cancel": "Annulla",
+      "cancelTitle": "Annulla l'incontro",
+      "created": "Creato il",
+      "gatherings": "Incontri",
+      "going": "Partecipanti",
+      "language": "Lingua",
+      "members": "Membri",
+      "name": "Nome",
+      "openReports": "Segnalazioni aperte",
+      "reportedOnly": "Solo segnalati",
+      "restore": "Ripristina",
+      "restoreTitle": "Ripristina il club",
+      "startsAt": "Inizia alle",
+      "status": "Stato",
+      "tabs": "Tipo di contenuto",
+      "title": "Titolo",
+      "moments": "Momenti",
+      "communities": "Comunità",
+      "reports": "Segnalazioni",
+      "momentsToday": "Momenti di oggi",
+      "moments7d": "Momenti (7 gg)",
+      "momentsHidden": "Momenti nascosti",
+      "comments7d": "Commenti (7 gg)",
+      "activeCommunities": "Comunità attive",
+      "upcomingGatherings": "Prossimi incontri",
+      "pendingReports": "Segnalazioni in sospeso",
+      "allTime": "totale",
+      "membersTotal": "membri",
+      "underReview": "in revisione",
+      "searchMoments": "Cerca momenti",
+      "hiddenOnly": "Solo nascosti",
+      "author": "Autore",
+      "owner": "Proprietario",
+      "city": "Città",
+      "place": "Luogo",
+      "category": "Categoria",
+      "engagement": "Coinvolgimento",
+      "likes": "Mi piace",
+      "comments": "Commenti",
+      "views": "Visualizzazioni",
+      "shares": "Condivisioni",
+      "hidden": "Nascosto",
+      "visible": "Visibile",
+      "untitled": "Momento senza titolo",
+      "noText": "Nessun testo.",
+      "actionFailed": "Non ha funzionato. Non è stato modificato nulla.",
+      "momentTitle": "Momento",
+      "hide": "Nascondi",
+      "unhide": "Mostra",
+      "hideTitle": "Nascondere questo momento?",
+      "unhideTitle": "Mostrare di nuovo questo momento?",
+      "hideBody": "Scompare da ogni feed. Il motivo viene registrato nel registro di controllo.",
+      "unhideBody": "Ritorna nel feed. Il motivo viene registrato nel registro di controllo.",
+      "communityTitle": "Comunità",
+      "archiveBody": "Scompare dalla scoperta. I membri mantengono la loro cronologia ed è possibile ripristinarla.",
+      "restoreBody": "Ritorna nella scoperta. Il motivo viene registrato nel registro di controllo.",
+      "reportType": "Tipo",
+      "reason": "Motivo",
+      "reporterAndReported": "Segnalante → Segnalato",
+      "priority": "Priorità",
+      "reportActions": "Azioni sulla segnalazione",
+      "anyStatus": "Tutti gli stati",
+      "anyType": "Tutti i tipi",
+      "startReview": "Avvia revisione",
+      "resolve": "Risolvi",
+      "dismiss": "Ignora",
+      "resolveTitle": "Risolvere questa segnalazione?",
+      "dismissTitle": "Ignorare questa segnalazione?",
+      "dismissBody": "Non viene presa alcuna misura contro il contenuto o l'utente segnalato. Le note vengono conservate nella segnalazione.",
+      "moderatorAction": "Azione del moderatore",
+      "notes": "Note",
+      "reportStatus": {
+        "pending": "In sospeso",
+        "under_review": "In revisione",
+        "resolved": "Risolto",
+        "dismissed": "Ignorato"
+      },
+      "targetType": {
+        "moment": "Momento",
+        "comment": "Commento",
+        "user": "Utente",
+        "club": "Comunità",
+        "gathering": "Incontro",
+        "message": "Messaggio",
+        "story": "Story"
+      },
+      "moderatorActions": {
+        "content_removed": "Contenuto rimosso",
+        "user_warned": "Utente avvisato",
+        "user_suspended": "Utente sospeso",
+        "user_banned": "Utente bannato",
+        "no_violation": "Nessuna violazione"
+      }
+    },
+    "overview": {
+      "activeThisWeek": "Attivi questa settimana",
+      "activeToday": "attivi oggi",
+      "admins": "Amministratori",
+      "banned": "Bannati",
+      "email": "Email",
+      "lastActive": "Ultima attività",
+      "lastWeek": "la settimana scorsa",
+      "name": "Nome",
+      "newThisWeek": "Nuovi questa settimana",
+      "newToday": "Nuovi oggi",
+      "recentlyActive": "Attivi di recente",
+      "topLearningLanguages": "Lingue più studiate",
+      "topNativeLanguages": "Lingue native più comuni",
+      "totalUsers": "Totale utenti",
+      "vip": "VIP",
+      "visitsThisWeek": "Visite questa settimana",
+      "vs": "rispetto a"
+    },
+    "reach": {
+      "country": "Paese",
+      "days": "giorni",
+      "device": "Dispositivo",
+      "devices": "Dispositivi",
+      "newVisitors": "Nuovi visitatori",
+      "ofVisits": "su",
+      "pageViews": "Visualizzazioni di pagina",
+      "path": "Percorso",
+      "period": "Settimana del",
+      "placement": "Posizionamento",
+      "platform": "Piattaforma",
+      "referrer": "Referrer",
+      "storeTaps": "Tap sullo store",
+      "taps": "Tap",
+      "tapsByPlacement": "Tap sullo store per posizionamento",
+      "topCountries": "Paesi principali",
+      "topPaths": "Pagine principali",
+      "topReferrers": "Referrer principali",
+      "trafficTitle": "Visualizzazioni di pagina e tap sullo store",
+      "unique": "Univoci",
+      "uniqueVisitors": "Visitatori univoci",
+      "views": "Visualizzazioni",
+      "visits": "Visite",
+      "visitsThisWeek": "Visite questa settimana",
+      "window": "Intervallo di tempo"
+    },
+    "users": {
+      "actionFailed": "Non ha funzionato. Non è stato modificato nulla.",
+      "active": "Attivo",
+      "activity": "Attività",
+      "adminsOnly": "Solo amministratori",
+      "ban": "Banna",
+      "banBody": "perderà l'accesso immediatamente. Il motivo viene registrato nel registro di controllo.",
+      "banReason": "Motivo del ban",
+      "banTitle": "Bannare questo utente?",
+      "banned": "Bannato",
+      "delete": "Elimina",
+      "deleteBody": "Questo cancella l'account e i suoi contenuti. Non può essere annullato.",
+      "deleteTitle": "Eliminare definitivamente questo account?",
+      "detailTitle": "Dettagli utente",
+      "email": "Email",
+      "empty": "Nessun utente corrisponde a questa ricerca.",
+      "joined": "Iscritto il",
+      "languages": "Lingue",
+      "lastActive": "Ultima attività",
+      "lastMessage": "Ultimo messaggio",
+      "lastMoment": "Ultimo momento",
+      "makeAdmin": "Rendi amministratore",
+      "makeAdminBody": "Otterrà la console e tutte le funzioni di amministrazione, inclusi ban ed eliminazioni.",
+      "makeAdminTitle": "Rendere amministratore?",
+      "messages30d": "Messaggi (30 gg)",
+      "moments30d": "Momenti (30 gg)",
+      "name": "Nome",
+      "noActions": "Nessuna azione di amministrazione contro questo account.",
+      "recentActions": "Azioni di amministrazione recenti",
+      "revokeAdmin": "Revoca amministratore",
+      "revokeAdminBody": "Perderà la console e tutte le funzioni di amministrazione. Non puoi revocare il tuo stesso ruolo di amministratore.",
+      "revokeAdminTitle": "Revocare il ruolo di amministratore?",
+      "role": "Ruolo",
+      "searchLabel": "Cerca utenti",
+      "searchPlaceholder": "Cerca per nome, email o nome utente",
+      "status": "Stato",
+      "tabAll": "Tutti gli utenti",
+      "tabBanned": "Bannati",
+      "typeEmail": "Digita l'email dell'utente per confermare",
+      "unban": "Rimuovi il ban",
+      "unbanBody": "Recupererà l'accesso immediatamente. Il motivo viene registrato nel registro di controllo.",
+      "unbanTitle": "Rimuovere il ban a questo utente?",
+      "unknownModerator": "Moderatore sconosciuto",
+      "addUser": "Aggiungi utente",
+      "createUser": "Crea utente",
+      "createdTitle": "Utente creato",
+      "createFailed": "Non ha funzionato. Non è stato creato alcun account.",
+      "editTitle": "Modifica utente",
+      "edit": "Modifica",
+      "saveChanges": "Salva modifiche",
+      "done": "Fatto",
+      "addAnother": "Aggiungi un altro",
+      "openProfile": "Apri profilo",
+      "required": "Obbligatorio",
+      "invalidEmail": "Utilizza un indirizzo email valido",
+      "weakPassword": "Almeno 8 caratteri, con lettere maiuscole, minuscole e un numero",
+      "under18": "L'utente deve avere almeno 18 anni",
+      "sameLanguage": "La lingua madre e la lingua da imparare non possono essere uguali",
+      "password": "Password",
+      "generate": "Genera",
+      "copy": "Copia",
+      "passwordOnce": "La password viene mostrata solo questa volta. Inviala all'utente e chiedigli di cambiarla.",
+      "termsNote": "Il consenso non può essere dato per conto di qualcun altro: l'app chiederà a questo utente di accettare i termini al primo accesso.",
+      "userId": "ID utente",
+      "gender": "Genere",
+      "male": "Uomo",
+      "female": "Donna",
+      "other": "Altro",
+      "select": "Seleziona",
+      "birthDate": "Data di nascita",
+      "birthYear": "Anno di nascita",
+      "birthMonth": "Mese di nascita",
+      "birthDay": "Giorno di nascita",
+      "year": "Anno",
+      "month": "Mese",
+      "day": "Giorno",
+      "nativeLanguage": "Lingua madre",
+      "learningLanguage": "Lingua da imparare",
+      "roleUser": "Utente",
+      "roleAdmin": "Admin",
+      "markVerified": "Contrassegna l'email come verificata",
+      "bio": "Bio",
+      "optional": "facoltativo",
+      "mode": "Modalità",
+      "regular": "Standard",
+      "vip": "VIP",
+      "vipUntil": "fino al",
+      "vipDays": "Giorni",
+      "vipGrantNote": "L'abbonamento decorre da oggi e non si rinnova automaticamente.",
+      "vipRevokeNote": "Disattivare il VIP termina immediatamente l'abbonamento.",
+      "verified": "Verificato",
+      "yes": "Sì",
+      "no": "No"
+    },
+    "table": {
+      "page": "Pagina {{page}}",
+      "previous": "Precedente",
+      "next": "Successiva"
+    }
+  },
+  "download": {
+    "title": "Scarica BananaTalk",
+    "subtitle": "Scambio linguistico gratuito con madrelingua in 137 lingue, su iPhone e Android.",
+    "free": "Gratis. Senza carta.",
+    "scan": "Inquadra con la fotocamera del telefono",
+    "qrAlt": "Codice QR per scaricare BananaTalk",
+    "reasons": {
+      "tutor": {
+        "title": "Un tutor IA in ogni chat",
+        "body": "Correzioni e spiegazioni sui messaggi che mandi davvero."
+      },
+      "voice": {
+        "title": "Stanze vocali e chiamate",
+        "body": "Esercitati ad alta voce con chi sta imparando la tua lingua proprio adesso."
+      },
+      "translate": {
+        "title": "Traduzione istantanea",
+        "body": "Scrivi nella tua lingua, loro la leggono nella loro, e impari dalla differenza."
+      }
+    }
+  },
+  "meet": {
+    "hero": {
+      "title": "Conosci persone di altri paesi",
+      "titleAccent": "che ti rispondono davvero.",
+      "subtitle": "BananaTalk è il posto dove ti fai amici in tutto il mondo parlando con madrelingua. Scegli una lingua, saluta, e ogni messaggio arriva tradotto — così nessuno dei due deve già essere fluente.",
+      "trust": "Livello gratis per sempre · 137 lingue · Ogni messaggio tradotto in entrambe le direzioni",
+      "demo": {
+        "1": {
+          "text": "Bora ver o pôr do sol no sábado?",
+          "translation": "Andiamo a vedere il tramonto sabato?"
+        },
+        "2": {
+          "text": "Sì! Fa ancora caldo lì a settembre?",
+          "translation": "Sim! Ainda faz calor aí em setembro?"
+        }
+      },
+      "note": {
+        "label": "✦ TRADOTTO IN ENTRAMBE LE DIREZIONI",
+        "body": "Lei ha scritto in portoghese e tu hai letto in italiano. Tu hai scritto in italiano e lei ha letto in portoghese. Nessuno dei due ha dovuto cambiare lingua."
+      }
+    },
+    "howItWorks": {
+      "title": "Farsi un amico qui richiede tre passi",
+      "steps": {
+        "1": {
+          "title": "Scegli una lingua, non un profilo",
+          "body": "Scegli la lingua o il paese che ti incuriosisce. Ti mostriamo le persone che stanno già imparando la tua — è uno scambio linguistico, quindi ci guadagnate entrambi."
+        },
+        "2": {
+          "title": "Saluta con parole tue",
+          "body": "Scrivi nella lingua in cui pensi. Arriva nella loro, all'istante: il primo messaggio non è mai la parte difficile."
+        },
+        "3": {
+          "title": "Continuate a parlare",
+          "body": "Messaggi vocali, foto, Momenti, chiamate. Le conversazioni che restano sono quelle che sopravvivono all'esercizio."
+        }
+      }
+    },
+    "features": {
+      "title": "Fatto per le conversazioni che non si fermano"
+    },
+    "cta": {
+      "title": "In un altro paese c'è qualcuno sveglio proprio ora",
+      "subtitle": "Gratis per iniziare. Nessuna carta, nessun conto alla rovescia di prova."
+    }
+  },
+  "learnKorean": {
+    "hero": {
+      "title": "Impara il coreano chattando",
+      "titleAccent": "con veri coreani.",
+      "subtitle": "Scambia lingue con madrelingua coreani che in cambio vogliono la tua. Tu ci provi in 한국어, loro rispondono nel coreano che si usa davvero, e il tutor IA corregge quello che hai sbagliato — in privato.",
+      "trust": "Livello gratis per sempre · Madrelingua coreani · Tutor IA 24/7",
+      "demo": {
+        "1": {
+          "text": "주말에 뭐 했어요?",
+          "translation": "Che cosa hai fatto questo weekend?"
+        },
+        "2": {
+          "text": "친구 만났다! 진짜 재미있었어",
+          "translation": "Ho visto un amico! È stato davvero divertente"
+        }
+      },
+      "note": {
+        "label": "✦ TUTOR IA",
+        "body": "존댓말 vs. 반말: lei ha chiesto con 했어요, la forma di cortesia. Tu hai risposto in 반말, che si usa con gli amici stretti. Per ora mettiti in pari con lei: 친구 만났어요! 진짜 재미있었어요."
+      }
+    },
+    "howItWorks": {
+      "title": "Perché il coreano ti resta quando chatti",
+      "steps": {
+        "1": {
+          "title": "Il coreano che compare nelle chat vere",
+          "body": "Il tuo libro di testo insegna 합니다. Il tuo partner scrive 했어요, ㅋㅋ e 헐 — il coreano che ti aspetta in una conversazione vera."
+        },
+        "2": {
+          "title": "존댓말 e 반말, sentiti invece che memorizzati",
+          "body": "La cortesia è una scelta che fai in ogni frase. Leggere le scelte di un madrelingua te la insegna più in fretta di qualsiasi tabella di desinenze."
+        },
+        "3": {
+          "title": "Corretto senza l'imbarazzo",
+          "body": "Il tutor IA segna il tuo coreano dove puoi vederlo solo tu, così lo scambio linguistico non diventa mai un esame. Il tuo partner vede solo che ci stai provando, ed è proprio questo che lo fa continuare a risponderti."
+        }
+      }
+    },
+    "features": {
+      "title": "Tre cose che un libro di testo non può darti"
+    },
+    "cta": {
+      "title": "In questo momento dei coreani stanno imparando la tua lingua",
+      "subtitle": "Gratis per iniziare. Nessuna carta, nessun conto alla rovescia di prova."
+    }
+  },
+  "communities": {
+    "public": {
+      "title": "Community di scambio linguistico",
+      "intro": "Gruppi veri dentro BananaTalk, dove ogni giorno si pratica insieme una lingua. Trova il tuo qui, poi aprilo nell'app e inizia a parlare.",
+      "members": "membri",
+      "join": "Entra nell'app",
+      "empty": {
+        "title": "Ogni settimana aprono nuove community",
+        "body": "Qui non c'è ancora nulla da mostrare. Scarica l'app: ogni community compare nel momento in cui apre."
+      }
+    }
+  },
+  "errors": {
+    "chunk": {
+      "title": "Si è verificato un errore durante il caricamento di questa pagina",
+      "body": "Una parte dell'app non è stata caricata. Di solito succede subito dopo un aggiornamento: ricaricare dovrebbe risolvere.",
+      "reload": "Ricarica"
+    }
+  },
+  "growth": {
+    "store": {
+      "appStore": "App Store",
+      "googlePlay": "Google Play",
+      "downloadOnThe": "Scarica su",
+      "getItOn": "Disponibile su"
+    },
+    "promo": {
+      "tutor": {
+        "eyebrow": "Tutor IA",
+        "title": "Corregge il tuo coreano mentre scrivi",
+        "body": "Correzioni private a ogni messaggio, più quiz ed esercizi di grammatica tra una chat e l'altra.",
+        "cta": "Scarica l'app",
+        "alt": "Illustrazione di un fumetto di chat con una parola barrata e la correzione che fluttua sopra, accanto a un segno di spunta"
+      },
+      "voice": {
+        "eyebrow": "Note vocali e stanze",
+        "title": "Ascolta come suona davvero",
+        "body": "Invia note vocali, condividi dove ti trovi e unisciti a stanze vocali dal vivo con madrelingua.",
+        "cta": "Scarica l'app",
+        "alt": "Illustrazione di un microfono attraversato da un'onda sonora, con una scheda di posizione condivisa sullo sfondo"
+      },
+      "moments": {
+        "eyebrow": "Momenti e storie",
+        "title": "Condividi la tua settimana in due lingue",
+        "body": "Pubblica foto e pensieri; gli amici li leggono tradotti e ti correggono con gentilezza.",
+        "cta": "Scarica l'app",
+        "alt": "Illustrazione di tre schede fotografiche sovrapposte con un cuore e un simbolo di traduzione che indica A verso 가"
+      },
+      "inbox": {
+        "eyebrow": "Conversazioni vere",
+        "title": "Persone che rispondono davvero",
+        "body": "Chat, saluti e reazioni in un'unica posta in arrivo — lette, tradotte, risposte.",
+        "cta": "Scarica l'app",
+        "alt": "Illustrazione di tre conversazioni impilate in una posta in arrivo, una delle quali non letta, con una mano che saluta"
+      },
+      "dismiss": "Chiudi la promozione dell'app",
+      "label": "Cosa fa l'app BananaTalk",
+      "slideLabel": "Diapositiva {{n}} di {{total}}",
+      "prev": "Diapositiva precedente",
+      "next": "Diapositiva successiva"
+    }
+  },
+  "stories": {
+    "your_story": "La tua storia",
+    "create_story": "Crea",
+    "my_stories": "Le mie storie",
+    "reaction_failed": "Impossibile salvare la tua reazione",
+    "answer_sent": "Risposta inviata",
+    "answer_failed": "Impossibile inviare la tua risposta",
+    "delete_story": "Eliminare questa storia?",
+    "error_loading": "Errore nel caricamento della storia",
+    "answer_placeholder": "Scrivi la tua risposta…",
+    "answer_question": "Rispondi alla domanda",
+    "send_reply": "Invia",
+    "answer_anonymously": "Rispondi in modo anonimo",
+    "cancel": "Annulla",
+    "viewers": "Visualizzatori",
+    "responses": "Risposte",
+    "share_story": "Condividi",
+    "reply_placeholder": "Invia un messaggio...",
+    "react": "Reagisci",
+    "reacted": "Ha reagito",
+    "shared": "Inviato",
+    "share_failed": "Impossibile condividere questa storia",
+    "close": "Chiudi",
+    "search_chats": "Cerca chat",
+    "loading": "Caricamento…",
+    "no_chats": "Nessuna chat recente",
+    "no_viewers": "Ancora nessuna visualizzazione",
+    "added_to_highlight": "Aggiunta alle storie in evidenza",
+    "add_failed": "Impossibile aggiungere questa storia",
+    "title_required": "Inserisci un titolo",
+    "highlight_created": "Storia in evidenza creata",
+    "create_failed": "Impossibile creare la storia in evidenza",
+    "story_archived": "Storia archiviata",
+    "archive_failed": "Impossibile archiviare questa storia",
+    "story_deleted": "Storia eliminata",
+    "delete_story_failed": "Impossibile eliminare questa storia",
+    "active_stories": "Attive",
+    "total_views": "Visualizzazioni totali",
+    "archived_stories": "Archiviate",
+    "create_first_story": "Crea una storia",
+    "no_archived_stories": "Ancora niente di archiviato",
+    "no_stories": "Ancora nessuna storia",
+    "add_to_highlight": "Aggiungi alle storie in evidenza",
+    "archive": "Archivia",
+    "delete": "Elimina",
+    "highlight_name": "Nome della storia in evidenza",
+    "create": "Crea",
+    "no_highlights": "Ancora nessuna storia in evidenza",
+    "stories_count": "storie",
+    "new_highlight": "Nuova storia in evidenza",
+    "delete_story_confirm": "Eliminare questa storia?",
+    "delete_story_body": "Non si può annullare.",
+    "anonymous": "Anonimo",
+    "no_responses": "Ancora nessuna risposta",
+    "video_type_error": "Questo formato video non è supportato",
+    "video_size_error": "Questo video pesa più di",
+    "video_duration_error": "Questo video dura più di",
+    "question_box": {
+      "ask_me_anything": "Chiedimi quello che vuoi!"
+    },
+    "add_text": "Scrivi la tua storia…",
+    "upload_media": "Carica un contenuto multimediale",
+    "link_invalid": "Questo link non sembra valido",
+    "story_created": "Storia condivisa",
+    "create_story_failed": "Impossibile condividere la tua storia",
+    "video_limits": "Video",
+    "choose_photo": "Foto",
+    "choose_video": "Video",
+    "text_story": "Testo",
+    "move_sticker": "Sposta sticker",
+    "tap_to_type": "Tocca per scrivere",
+    "story_text": "Testo della storia",
+    "background": "Sfondo",
+    "text_color": "Testo",
+    "font_style": "Carattere",
+    "stickers_text": "Testo ed emoji",
+    "add_text_sticker": "Aggiungi testo",
+    "add_emoji_sticker": "Aggiungi emoji",
+    "sticker_text": "Testo dello sticker",
+    "remove": "Rimuovi",
+    "sticker_background": "Sfondo",
+    "sticker_size": "Dimensione",
+    "sticker_color": "Colore",
+    "mention": "Menzione",
+    "link": "Link",
+    "poll": "Sondaggio",
+    "question": "Domanda",
+    "hashtag": "Hashtag",
+    "link_url": "URL del link",
+    "link_title": "Titolo",
+    "link_label": "Etichetta dello sticker",
+    "poll_question": "Fai una domanda",
+    "poll_option": "Opzione",
+    "add_option": "Aggiungi opzione",
+    "anonymous_voting": "Voto anonimo",
+    "question_prompt": "Testo della domanda",
+    "audience": "Chi può vederla",
+    "privacy": {
+      "public": "Tutti",
+      "friends": "Amici",
+      "close_friends": "Amici più stretti"
+    },
+    "close_friends_empty": "La tua lista di amici più stretti è vuota — nessuno vedrebbe questa storia.",
+    "manage_close_friends": "Gestisci amici più stretti",
+    "highlight_updated": "Storia in evidenza aggiornata",
+    "update_failed": "Impossibile salvare la storia in evidenza",
+    "highlight_deleted": "Storia in evidenza eliminata",
+    "delete_failed": "Impossibile eliminare la storia in evidenza",
+    "removed_from_highlight": "Rimossa dalle storie in evidenza",
+    "remove_failed": "Impossibile rimuovere questa storia",
+    "back": "Indietro",
+    "highlights_title": "In evidenza",
+    "highlights_subtitle": "Le tue raccolte di storie salvate",
+    "highlight_empty": "Questa storia in evidenza non ha ancora storie",
+    "remove_from_highlight": "Rimuovi dalle storie in evidenza",
+    "edit_highlight": "Modifica storia in evidenza",
+    "delete_highlight": "Elimina storia in evidenza",
+    "choose_cover": "Scegli una copertina",
+    "no_stories_to_pick": "Nessuna storia tra cui scegliere",
+    "save": "Salva",
+    "delete_highlight_confirm": "Eliminare la storia in evidenza?",
+    "delete_highlight_body": "Le storie restano comunque nel tuo archivio.",
+    "previous": "Precedente",
+    "next": "Successivo",
+    "font": {
+      "sans-serif": "Senza grazie",
+      "serif": "Con grazie",
+      "bold": "Grassetto",
+      "handwritten": "Corsivo a mano"
+    },
+    "bg_mode": {
+      "none": "Nessuno sfondo",
+      "semi": "Traslucido",
+      "solid": "Pieno"
+    },
+    "search_followings": "Cerca tra le persone che segui",
+    "mention_followings_only": "Puoi taggare solo persone che segui. Prima segui qualcuno.",
+    "mention_no_match": "Nessuno tra chi segui corrisponde",
+    "more": "Altro",
+    "reply_failed": "Impossibile inviare il messaggio",
+    "vote_failed": "Impossibile salvare il tuo voto",
+    "poll_error_question": "Aggiungi una domanda al sondaggio",
+    "poll_error_blank_option": "Compila o rimuovi le opzioni vuote",
+    "poll_error_min_options": "Un sondaggio richiede almeno due opzioni",
+    "poll_error_max_options": "Un sondaggio può avere al massimo quattro opzioni",
+    "question_error_prompt": "Aggiungi una domanda allo sticker",
+    "caption": "Didascalia",
+    "caption_placeholder": "Aggiungi una didascalia…",
+    "linkPage": {
+      "browse": "Guarda le storie attuali",
+      "expired": "Questa storia è scaduta o è stata eliminata. Le storie scompaiono dopo 24 ore.",
+      "failed": "Impossibile caricare questa storia.",
+      "retry": "Riprova",
+      "sign_in": "Accedi",
+      "sign_in_body": "Accedi per guardarla, oppure aprila nell'app BananaTalk.",
+      "sign_in_title": "Qualcuno ha condiviso una storia con te",
+      "unavailable": "Questa storia non è disponibile per te."
+    },
+    "block_author": "Blocca {{name}}",
+    "block_confirm": "Blocca",
+    "block_confirm_body": "Non potrà vedere il tuo profilo, i tuoi momenti o le tue storie, né scriverti, e tu non vedrai i suoi.",
+    "block_confirm_title": "Bloccare {{name}}?",
+    "block_failed": "Impossibile bloccare questa persona. Riprova.",
+    "blocked": "{{name}} è bloccato",
+    "location_label": "Posizione",
+    "one_image_only": "Una storia mostra una sola foto. Abbiamo tenuto la prima.",
+    "replies_off": "Le risposte sono disattivate per questa storia",
+    "report_story": "Segnala storia"
+  },
+  "card": {
+    "title": "Carta delle lingue",
+    "my_card": "La mia carta",
+    "speaks": "Parla",
+    "learning": "Impara",
+    "practice_with": "Pratica {{language}} con {{name}}",
+    "view_profile": "Vedi profilo completo",
+    "continue_web": "Continua nel browser",
+    "share": "Condividi la mia carta",
+    "share_text": "Pratica {{language}} con me su BananaTalk",
+    "edit": "Modifica il contenuto",
+    "tagline": "Scambio linguistico su BananaTalk",
+    "not_found": "Questa carta non esiste",
+    "not_found_body": "L'account potrebbe essere stato rimosso.",
+    "find_partners": "Trova partner linguistici"
+  },
+  "announcements": {
+    "new": "Novità",
+    "readMore": "Leggi di più",
+    "close": "Chiudi",
+    "ended": "Questo annuncio è terminato.",
+    "back": "Indietro"
+  },
+  "communityNearby": {
+    "back": "Indietro",
+    "geolocationNotSupported": "La geolocalizzazione non è supportata",
+    "gettingLocation": "Rilevamento della tua posizione...",
+    "learning": "Impara: {{language}}",
+    "locationRequired": "Posizione richiesta",
+    "noUsers": "Nessun utente trovato nelle vicinanze",
+    "permissionDenied": "Permesso di localizzazione negato",
+    "positionUnavailable": "Posizione non disponibile",
+    "refresh": "Aggiorna",
+    "searchRadius": "Raggio di ricerca",
+    "subtitle": "Trova persone intorno a te",
+    "timeout": "La richiesta di posizione è scaduta",
+    "title": "Utenti nelle vicinanze",
+    "tryAgain": "Riprova",
+    "tryIncreaseRadius": "Prova ad aumentare il raggio di ricerca",
+    "unknownError": "Si è verificato un errore",
+    "usersFound_one": "{{count}} persona trovata",
+    "usersFound_other": "{{count}} persone trovate"
+  },
+  "auth": {
+    "apple": {
+      "continue": "Continua con Apple",
+      "errors": {
+        "banned": "Questo account è stato sospeso.",
+        "blocked": "Il browser ha bloccato la finestra di Apple. Consenti i pop-up per banatalk.com e riprova.",
+        "disabled": "L'accesso con Apple non è ancora disponibile sul sito.",
+        "failed": "Impossibile accedere con Apple. Riprova.",
+        "rate_limited": "Troppi tentativi di accesso. Attendi un minuto e riprova.",
+        "unavailable": "L'accesso con Apple non è disponibile al momento. Riprova più tardi."
+      },
+      "signedIn": "Accesso effettuato con Apple",
+      "signingIn": "Accesso con Apple…"
+    }
+  },
+  "reels": {
+    "actions": {
+      "block": "Blocca utente",
+      "comments": "Commenti",
+      "like": "Mi piace",
+      "more": "Altro",
+      "profile": "Profilo",
+      "report": "Segnala",
+      "unlike": "Non mi piace più"
+    },
+    "create": {
+      "bad_type": "Questo tipo di file non è supportato. Usa MP4, MOV o WebM.",
+      "caption": "Didascalia",
+      "caption_placeholder": "Cosa stai praticando?",
+      "change_video": "Scegli un altro video",
+      "choose_video": "Scegli un video",
+      "failed": "Impossibile pubblicare il reel. Riprova.",
+      "hint": "Un breve video per imparare le lingue, fino a 3 minuti. In verticale (9:16) rende meglio.",
+      "post": "Pubblica reel",
+      "posted": "Il tuo reel è stato pubblicato.",
+      "posting": "Pubblicazione…",
+      "server_too_long": "I reel devono durare al massimo 3 minuti.",
+      "title": "Nuovo reel",
+      "too_big": "Questo video è troppo grande per essere caricato.",
+      "too_long": "I reel possono durare fino a 3:00. Questo video dura {{duration}}.",
+      "upload_failed": "Il video non è stato caricato. Non è stato pubblicato nulla: riprova."
+    },
+    "grid": {
+      "create": "Crea reel",
+      "empty": "Ancora nessun reel. Pubblica tu il primo.",
+      "error": "Impossibile caricare i reel.",
+      "load_more": "Carica altri",
+      "loading": "Caricamento dei reel…",
+      "open_reel": "Riproduci il reel di {{name}}",
+      "retry": "Riprova",
+      "title": "Reels",
+      "unavailable": "I reel non sono al momento disponibili."
+    },
+    "moments_link": "Guarda i reel",
+    "nav": "Reels",
+    "policy": {
+      "accept": "Accetto",
+      "body": "I reel sono brevi video per imparare le lingue: risposte agli spunti, pratica di conversazione, spiegazioni di madrelingua e clip culturali.\n\nBananaTalk ha tolleranza zero per i contenuti inappropriati: niente nudità, discorsi d'odio, molestie, violenza o contenuti illegali. I video segnalati vengono nascosti automaticamente in attesa di revisione dopo 2 segnalazioni e le violazioni possono comportare la rimozione dei contenuti o la sospensione dell'account.\n\nPuoi segnalare o bloccare da qualsiasi reel in qualsiasi momento.",
+      "decline": "Rifiuta",
+      "title": "Linee guida sui contenuti reel"
+    },
+    "viewer": {
+      "close": "Chiudi",
+      "label": "Reels",
+      "mute": "Disattiva audio",
+      "next": "Reel successivo",
+      "previous": "Reel precedente",
+      "tap_to_play": "Tocca per riprodurre",
+      "unmute": "Attiva audio"
+    }
+  },
+  "clubs": {
+    "card": {
+      "joined": "Iscritto",
+      "members_one": "{{count}} membro",
+      "members_other": "{{count}} membri"
+    },
+    "detail": {
+      "back": "Vedi altri club",
+      "edit": "Modifica club",
+      "host": "Organizza un incontro per questo club",
+      "join": "Unisciti al club",
+      "leave": "Lascia il club",
+      "leaveTitle": "Lasciare questo club?",
+      "metTimes_one": "Si è incontrato una volta",
+      "metTimes_other": "Si è incontrato {{count}} volte",
+      "neverMet": "Non si è ancora incontrato",
+      "noGatherings": "Non c'è ancora nulla in programma.",
+      "upcoming": "In programma",
+      "youOwn": "Questo club è tuo"
+    },
+    "form": {
+      "city": "Città (facoltativo)",
+      "create": "Crea club",
+      "createTitle": "Crea un club",
+      "description": "Descrizione del club (facoltativo)",
+      "editTitle": "Modifica club",
+      "errors": {
+        "descriptionTooLong": "La descrizione deve restare sotto i 2000 caratteri.",
+        "interestTooLong": "L'interesse deve restare sotto i 60 caratteri.",
+        "languageRequired": "Scegli la lingua del club.",
+        "nameRequired": "Dai un nome al tuo club.",
+        "nameTooLong": "Il nome deve restare sotto gli 80 caratteri."
+      },
+      "interest": "Cosa vi unisce (es. libri, K-drama)",
+      "language": "Lingua",
+      "name": "Nome",
+      "notAllowed": "Solo il proprietario del club o un organizzatore può modificarlo.",
+      "placeAddress": "Indirizzo (facoltativo)",
+      "placeName": "Dove vi incontrate (facoltativo)"
+    },
+    "home": {
+      "empty": "Ancora nessun club qui.",
+      "scopeAll": "Tutti",
+      "scopeMember": "I miei club",
+      "scopeMine": "Le mie lingue",
+      "start": "Crea un club"
+    },
+    "owner": {
+      "delete": "Elimina club",
+      "deleteBody": "I membri perderanno il club. Gli incontri già in programma si terranno comunque.",
+      "deleteTitle": "Eliminare {{name}}?"
+    },
+    "people": {
+      "makeMember": "Rimuovi ruolo di organizzatore",
+      "makeOrganizer": "Rendi organizzatore",
+      "organizer": "Organizzatore",
+      "owner": "Proprietario",
+      "remove": "Rimuovi dal club",
+      "removeTitle": "Rimuovere {{name}}?",
+      "title": "Membri · {{count}}"
+    }
+  },
+  "gatherings": {
+    "card": {
+      "approval": "Approvazione dell'organizzatore",
+      "full": "Al completo",
+      "going": "Partecipi",
+      "hostedBy": "Organizzato da {{name}}",
+      "hosting": "Sei l'organizzatore",
+      "requested": "Richiesta inviata",
+      "seatsLeft_one": "{{count}} posto libero",
+      "seatsLeft_other": "{{count}} posti liberi"
+    },
+    "confirm": {
+      "cancel": "Non ora",
+      "leaveBody": "Gli altri contano su chi ha detto sì.",
+      "leaveOk": "Libera il mio posto",
+      "leaveTitle": "Liberare il tuo posto?"
+    },
+    "cover": {
+      "add": "Aggiungi una foto di copertina",
+      "badType": "Usa un'immagine JPEG, PNG, GIF o WebP.",
+      "change": "Cambia foto di copertina",
+      "remove": "Rimuovi copertina",
+      "tooBig": "L'immagine supera i 10 MB."
+    },
+    "detail": {
+      "askToJoin": "Chiedi di partecipare",
+      "back": "Vedi altri incontri",
+      "cancelRequest": "Annulla la mia richiesta",
+      "capacity": "Fino a {{count}} persone · confermato con {{quorum}}",
+      "duration": "{{count}} min",
+      "edit": "Modifica incontro",
+      "host": "Organizzatore",
+      "join": "Partecipo",
+      "leave": "Non posso più venire",
+      "online": "Online",
+      "requestSent": "Richiesta inviata. Deciderà l'organizzatore.",
+      "someone": "Un membro di BananaTalk",
+      "youreGoing": "Parteciperai."
+    },
+    "errors": {
+      "alreadyGoing": "Partecipi già.",
+      "cancelled": "Questo incontro è stato annullato.",
+      "capacityBelowGoing": "I posti non possono essere meno delle {{count}} persone che partecipano già.",
+      "clubArchived": "Questo club è archiviato.",
+      "clubGone": "Questo club non è disponibile.",
+      "endBeforeStart": "Puoi terminare l'incontro solo dopo che è iniziato.",
+      "ended": "Questo incontro è terminato.",
+      "full": "Questo incontro è al completo.",
+      "gatheringGone": "Questo incontro non è disponibile.",
+      "generic": "Qualcosa è andato storto. Riprova.",
+      "hostBlocked": "Al momento non puoi organizzare incontri: troppi tuoi incontri sono stati annullati o saltati.",
+      "hostCannotLeave": "Come organizzatore, annulla l'incontro invece di lasciarlo.",
+      "joinClubFirst": "Unisciti al club prima di organizzare un incontro per esso.",
+      "offline": "Sei offline. Controlla la connessione.",
+      "ownerCannotLeave": "Come proprietario, puoi eliminare il club ma non lasciarlo.",
+      "pastStart": "Scegli un orario di inizio futuro.",
+      "pending": "La tua richiesta è in attesa dell'organizzatore.",
+      "started": "Questo incontro è già iniziato."
+    },
+    "form": {
+      "anyLevel": "Qualsiasi livello",
+      "cancel": "Annulla",
+      "capacity": "Posti",
+      "create": "Pubblica incontro",
+      "createTitle": "Organizza un incontro",
+      "description": "Cosa farete? (facoltativo)",
+      "duration_one": "Dura {{count}} minuto · nel tuo fuso orario",
+      "duration_other": "Dura {{count}} minuti · nel tuo fuso orario",
+      "editTitle": "Modifica incontro",
+      "errors": {
+        "capacityRange": "I posti devono essere tra 2 e 20.",
+        "descriptionTooLong": "La descrizione deve restare sotto i 2000 caratteri.",
+        "languageRequired": "Scegli la lingua che praticherete.",
+        "quorumRange": "L'incontro si conferma con almeno 2 persone e non più dei posti disponibili.",
+        "startInPast": "Scegli un orario di inizio futuro.",
+        "startRequired": "Scegli giorno e ora.",
+        "startTooFar": "Scegli un orario entro i prossimi 90 giorni.",
+        "titleRequired": "Dai un titolo al tuo incontro.",
+        "titleTooLong": "Il titolo deve restare sotto i 120 caratteri."
+      },
+      "joinApproval": "Approvo ogni persona",
+      "joinMode": "Chi può partecipare",
+      "joinOpen": "Chiunque",
+      "language": "Lingua",
+      "level": "Livello",
+      "noTopic": "Nessun argomento",
+      "notHost": "Solo l'organizzatore può modificare questo incontro.",
+      "pickLanguage": "Scegli una lingua",
+      "quorum": "Conferma a",
+      "save": "Salva",
+      "startsAt": "Inizio",
+      "title": "Titolo",
+      "topic": "Argomento"
+    },
+    "home": {
+      "anyLanguage": "Le mie lingue",
+      "anyTime": "Qualsiasi momento",
+      "anyTopic": "Qualsiasi argomento",
+      "empty": "Non c'è ancora nulla in programma qui.",
+      "emptyCta": "Organizza il primo",
+      "error": "Impossibile caricare questo elenco.",
+      "hasSeat": "Con posti liberi",
+      "host": "Organizza un incontro",
+      "language": "Lingua",
+      "loadMore": "Carica altri",
+      "retry": "Riprova",
+      "scopeAll": "Tutti",
+      "scopeMe": "I miei incontri",
+      "scopeMine": "Le mie lingue",
+      "tabClubs": "Club",
+      "tabGatherings": "Incontri",
+      "title": "Incontri",
+      "today": "Oggi",
+      "topic": "Argomento",
+      "week": "Questa settimana",
+      "when": "Quando"
+    },
+    "host": {
+      "approve": "Ammetti",
+      "callOff": "Annullarlo",
+      "callOffTitle": "Annullarlo?",
+      "cancel": "Annulla incontro",
+      "cancelConfirm_one": "{{count}} persona lo sta aspettando. Le comunicheremo l'annullamento.",
+      "cancelConfirm_other": "{{count}} persone lo stanno aspettando. Comunicheremo loro l'annullamento.",
+      "cancelOk": "Annulla incontro",
+      "cancelTitle": "Annullare questo incontro?",
+      "decisionAlone": "Per ora ci sei solo tu. Lo fai lo stesso o lo annulli?",
+      "decision_one": "Per ora viene solo {{count}} persona. Lo fai lo stesso o lo annulli?",
+      "decision_other": "Per ora vengono solo {{count}} persone. Lo fai lo stesso o lo annulli?",
+      "decline": "Rifiuta",
+      "end": "Termina incontro",
+      "ended": "Terminato: scrivere a chi hai conosciuto è gratis",
+      "nobodyExpecting": "Nessun altro ha ancora detto sì.",
+      "requests_one": "{{count}} in attesa di entrare",
+      "requests_other": "{{count}} in attesa di entrare",
+      "runAnyway": "Farlo lo stesso"
+    },
+    "nav": "Incontri",
+    "quorum": {
+      "confirmed": "Confermato · {{count}} partecipanti",
+      "needed": "Ne mancano {{count}} per confermare · {{going}} partecipanti"
+    },
+    "safety": {
+      "blockHost": "Blocca l'organizzatore",
+      "blockOwner": "Blocca il proprietario",
+      "more": "Altro",
+      "reportClub": "Segnala club",
+      "reportFailed": "Impossibile inviare la segnalazione. Riprova.",
+      "reportGathering": "Segnala incontro",
+      "reported": "Grazie, i nostri moderatori la esamineranno."
+    },
+    "status": {
+      "cancelled": "Annullato",
+      "confirmed": "Confermato",
+      "ended": "Terminato",
+      "live": "In corso",
+      "scheduled": "In programma"
+    },
+    "time": {
+      "hostLocal": "{{time}} per l'organizzatore"
+    },
+    "topics": {
+      "business": "Lavoro",
+      "conversation": "Conversazione",
+      "culture": "Cultura",
+      "exam_prep": "Preparazione esami",
+      "games": "Giochi",
+      "grammar": "Grammatica",
+      "media": "Musica, film e serie TV",
+      "pronunciation": "Pronuncia",
+      "travel": "Viaggi"
+    }
+  },
+  "common": {
+    "cancel": "Annulla",
+    "retry": "Riprova"
+  },
+  "communityCity": {
+    "back": "Comunità",
+    "countries": "Paesi",
+    "empty": "Ancora nessuno qui. Prova un altro luogo.",
+    "error": "Impossibile caricare le persone. Riprova.",
+    "more": "Mostra altri",
+    "search": "Cerca",
+    "searchPlaceholder": "Cerca una città",
+    "searchTitle": "Persone a “{{query}}”",
+    "title": "Persone per luogo"
+  },
+  "communityGenders": {
+    "back": "Comunità",
+    "empty": "Ancora nessuna corrispondenza.",
+    "error": "Impossibile caricare le persone. Riprova.",
+    "female": "Donne",
+    "male": "Uomini",
+    "more": "Mostra altri",
+    "title": "Sfoglia per genere"
+  },
+  "languageRooms": {
+    "create": {
+      "description": "Descrizione (facoltativa)",
+      "language": "Lingua",
+      "name": "Argomento",
+      "submit": "Crea stanza",
+      "title": "Apri una stanza a tema"
+    },
+    "errors": {
+      "banned": "Sei stato rimosso da questa stanza. Puoi chiedere al proprietario di farti rientrare.",
+      "busy": "Questa stanza ha troppe richieste in questo momento. Riprova più tardi.",
+      "generic": "Qualcosa è andato storto. Riprova.",
+      "gone": "Questa stanza non è più disponibile.",
+      "owner": "Il proprietario non può essere rimosso.",
+      "pending": "La tua richiesta è in attesa del proprietario.",
+      "titleLength": "Il nome può avere al massimo 60 caratteri.",
+      "tooMany": "Hai già 10 stanze. Eliminane una per crearne un'altra."
+    },
+    "list": {
+      "create": "Nuova stanza a tema",
+      "empty": "Ancora nessuna stanza.",
+      "error": "Impossibile caricare le stanze linguistiche.",
+      "joined": "Iscritto",
+      "locked": "Bloccata",
+      "title": "Stanze linguistiche"
+    },
+    "owner": {
+      "admin": "admin",
+      "approve": "Fai entrare",
+      "deny": "Rifiuta",
+      "members": "Membri",
+      "noRequests": "Nessuno è in attesa.",
+      "owner": "proprietario",
+      "remove": "Rimuovi dalla stanza",
+      "removeNote": "I membri rimossi possono chiedere di tornare; decidi tu.",
+      "removeYes": "Rimuovi",
+      "requests": "Richieste di accesso"
+    },
+    "room": {
+      "back": "Tutte le stanze",
+      "join": "Entra nella stanza",
+      "leave": "Esci dalla stanza",
+      "media": "Foto o video — apri l'app per vederlo",
+      "notSent": "Non inviato. Riprova.",
+      "older": "Carica messaggi precedenti",
+      "online": "online",
+      "pending": "Richiesta inviata. Il proprietario ti farà entrare.",
+      "placeholder": "Scrivi nella lingua della stanza…",
+      "request": "Chiedi di entrare",
+      "send": "Invia",
+      "slowDown": "Stai inviando troppo velocemente. Rallenta un po'.",
+      "sticker": "Sticker",
+      "unsupported": "Apri l'app per vedere questo messaggio",
+      "voice": "Messaggio vocale — apri l'app per ascoltarlo"
+    }
+  },
+  "nav": {
+    "languageRooms": "Stanze linguistiche",
+    "voiceRooms": "Stanze vocali"
+  },
+  "voiceRooms": {
+    "category": {
+      "casual": "Chiacchiere",
+      "language_practice": "Pratica linguistica",
+      "qa": "Domande e risposte",
+      "topic": "Argomento"
+    },
+    "create": {
+      "category": "Tipo di stanza",
+      "description": "Di cosa parlerete? (facoltativo)",
+      "language": "Lingua",
+      "max": "Numero massimo di persone",
+      "name": "Nome della stanza",
+      "schedule": "Programma",
+      "start": "Avvia stanza",
+      "title": "Apri una stanza vocale",
+      "when": "Inizia più tardi (facoltativo)"
+    },
+    "errors": {
+      "blocked": "Non puoi entrare in questa stanza.",
+      "ended": "Questa stanza è terminata.",
+      "full": "Questa stanza è piena.",
+      "generic": "Qualcosa è andato storto. Riprova.",
+      "gone": "Questa stanza non è più disponibile.",
+      "vipToCreate": "Per creare stanze vocali serve un piano VIP."
+    },
+    "host": {
+      "end": "Termina stanza",
+      "endConfirm": "Terminare la stanza per tutti?",
+      "endYes": "Termina stanza",
+      "hands": "Mani alzate",
+      "makeCohost": "Promuovi a co-host",
+      "muteAll": "Silenzia tutti",
+      "noHands": "Nessuno ha alzato la mano.",
+      "speakNote": "Chiunque nella stanza può prendere il microfono. Una mano alzata ti chiede il turno.",
+      "title": "Strumenti del conduttore"
+    },
+    "list": {
+      "create": "Avvia una stanza",
+      "emptyLive": "Nessuno sta parlando ora. Avvia una stanza e invita altre persone.",
+      "emptyScheduled": "Ancora nessuna stanza programmata.",
+      "error": "Impossibile caricare le stanze vocali.",
+      "full": "Piena",
+      "going": "Ci sarò ✓",
+      "join": "Entra",
+      "live": "In diretta",
+      "rsvp": "Ricordamelo",
+      "scheduled": "In arrivo",
+      "title": "Stanze vocali"
+    },
+    "room": {
+      "back": "Tutte le stanze",
+      "chat": "Chat della stanza",
+      "chatPlaceholder": "Scrivi qualcosa…",
+      "connectFailed": "Impossibile collegarsi all'audio della stanza. Controlla la connessione e riprova.",
+      "elsewhere": "Sei entrato in questa stanza da un'altra scheda o dispositivo.",
+      "enableSound": "Tocca per attivare l'audio della stanza",
+      "ended": "Questa stanza è terminata.",
+      "findAnother": "Trova un'altra stanza",
+      "handUp": "Mano alzata",
+      "host": "Conduttore",
+      "join": "Entra nella stanza",
+      "joinHint": "Entrerai come ascoltatore. Prendi il microfono quando vuoi.",
+      "leave": "Esci",
+      "lost": "Connessione alla stanza persa.",
+      "lowerHand": "Abbassa la mano",
+      "micDenied": "Il browser sta bloccando il microfono. Consenti il microfono per banatalk.com nella barra degli indirizzi, poi riprova. Puoi continuare ad ascoltare.",
+      "micError": "Impossibile attivare il microfono. Riprova.",
+      "micUnavailable": "Nessun microfono trovato (o un'altra app lo sta usando). Puoi continuare ad ascoltare.",
+      "mute": "Silenzia",
+      "raiseHand": "Alza la mano",
+      "reconnecting": "Riconnessione…",
+      "rejoin": "Rientra",
+      "send": "Invia",
+      "takeMic": "Prendi il microfono",
+      "useHere": "Ascolta qui",
+      "you": "tu"
     }
   }
 }

@@ -11,7 +11,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: #F0F2F5;
+  background: var(--chat-subtle);
   overflow: hidden;
   z-index: 100;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -22,8 +22,8 @@
   width: 360px;
   min-width: 300px;
   max-width: 400px;
-  background: #FFFFFF;
-  border-right: 1px solid #E4E6EB;
+  background: var(--chat-surface);
+  border-right: 1px solid var(--chat-line);
   display: flex;
   flex-direction: column;
   z-index: 10;
@@ -34,8 +34,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid #E4E6EB;
-  background: #FFFFFF;
+  border-bottom: 1px solid var(--chat-line);
+  background: var(--chat-surface);
 }
 
 .sidebar-title {
@@ -47,14 +47,14 @@
 .sidebar-title h2 {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #050505;
+  color: var(--chat-text);
   margin: 0;
 }
 
 .title-icon {
   width: 26px;
   height: 26px;
-  color: #00BFA5;
+  color: var(--chat-accent);
 }
 
 .new-chat-btn {
@@ -62,8 +62,8 @@
   height: 40px;
   border-radius: 50%;
   border: none;
-  background: #E4E6EB;
-  color: #050505;
+  background: var(--chat-hover);
+  color: var(--chat-text);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -72,7 +72,7 @@
 }
 
 .new-chat-btn:hover {
-  background: #D8DADF;
+  background: var(--chat-hover-strong);
 }
 
 /* Search */
@@ -83,18 +83,18 @@
 .search-input-wrapper {
   display: flex;
   align-items: center;
-  background: #F0F2F5;
+  background: var(--chat-subtle);
   border-radius: 20px;
   padding: 0 12px;
   transition: all 0.2s ease;
 }
 
 .search-input-wrapper:focus-within {
-  background: #E4E6EB;
+  background: var(--chat-hover);
 }
 
 .search-icon {
-  color: #65676B;
+  color: var(--chat-muted);
   flex-shrink: 0;
   width: 16px;
   height: 16px;
@@ -105,17 +105,17 @@
   background: transparent;
   border: none;
   padding: 10px 12px;
-  color: #050505;
+  color: var(--chat-text);
   font-size: 0.9375rem;
   outline: none;
 }
 
 .search-input::placeholder {
-  color: #65676B;
+  color: var(--chat-muted);
 }
 
 .clear-search-btn {
-  background: #BCC0C4;
+  background: var(--chat-offline);
   border: none;
   width: 20px;
   height: 20px;
@@ -123,13 +123,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #FFFFFF;
+  color: var(--chat-on-accent);
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .clear-search-btn:hover {
-  background: #8A8D91;
+  background: var(--chat-muted);
 }
 
 /* Users List */
@@ -149,12 +149,12 @@
 }
 
 .users-list-container::-webkit-scrollbar-thumb {
-  background: #BCC0C4;
+  background: var(--chat-scrollbar);
   border-radius: 3px;
 }
 
 .users-list-container::-webkit-scrollbar-thumb:hover {
-  background: #8A8D91;
+  background: var(--chat-scrollbar-hover);
 }
 
 /* =========== Chat Area =========== */
@@ -166,7 +166,7 @@
   overflow: hidden;
   height: 100%;
   min-height: 0;
-  background: #FFFFFF;
+  background: var(--chat-bg);
 }
 
 /* Empty State */
@@ -175,7 +175,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #FFFFFF;
+  background: var(--chat-bg);
 }
 
 .empty-chat-content {
@@ -196,7 +196,7 @@
   width: 88px;
   height: 88px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #00BFA5 0%, #00A896 100%);
+  background: var(--chat-accent-gradient);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -205,7 +205,7 @@
 }
 
 .empty-icon {
-  color: #FFFFFF;
+  color: var(--chat-on-accent);
   width: 40px;
   height: 40px;
 }
@@ -231,13 +231,13 @@
 .empty-title {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #050505;
+  color: var(--chat-text);
   margin-bottom: 0.5rem;
 }
 
 .empty-description {
   font-size: 0.9375rem;
-  color: #65676B;
+  color: var(--chat-muted);
   line-height: 1.5;
   margin-bottom: 1.5rem;
 }
@@ -247,10 +247,10 @@
   align-items: center;
   gap: 8px;
   padding: 12px 24px;
-  background: linear-gradient(135deg, #00BFA5 0%, #00A896 100%);
+  background: var(--chat-accent-gradient);
   border: none;
   border-radius: 24px;
-  color: #FFFFFF;
+  color: var(--chat-on-accent);
   font-size: 0.9375rem;
   font-weight: 600;
   cursor: pointer;
@@ -274,7 +274,7 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  color: #65676B;
+  color: var(--chat-muted);
   font-size: 0.875rem;
 }
 
@@ -282,7 +282,7 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #00BFA5;
+  background: var(--chat-accent-fill);
 }
 
 /* =========== Responsive =========== */

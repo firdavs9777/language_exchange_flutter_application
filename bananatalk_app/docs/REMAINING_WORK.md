@@ -385,3 +385,6 @@ Web ↔ app parity (spec `docs/superpowers/specs/2026-10-16-web-app-parity-desig
 - [x] Vocabulary packs get their own teal card right after today's pack ("Ready-made word sets by topic…" + "Browse packs"); before, only a small chip at the bottom of the progress card. 2 strings × 19 locales.
 - [ ] Device look in light + dark mode; native review of `vocabPacksPromo` / `vocabPacksBrowse`. S
 
+## Visitors coin unlock (2026-10-18)
+- [x] 60 coins open the full visitors list for 24h (stacks: another unlock adds 24h). Nothing said so: before buying the copy was "See who for 60 coins", and after buying nothing showed the end, so the list locked again without warning. Now "See everyone for 24 hours for 60 💎, or go VIP", and an "Unlocked · 23h 12m left" banner with Go VIP while it is open (server `revealUntil`, backend 715ce1f). Waves are always visible (product ruling), so the unlock only concerns visitors. 2 strings × 19 locales.
+

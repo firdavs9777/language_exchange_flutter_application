@@ -1,27 +1,15 @@
 // src/utils/i18n.ts
 import i18n from "i18next";
-import Backend from "i18next-http-backend";
 import LanguageDetector from "i18next-browser-languagedetector";
 import { initReactI18next } from "react-i18next";
 
+import lazyBackend from "./i18nLazyBackend";
+import { documentIsPrerendered } from "../seo/prerender/hydrationFlag";
+
+// The only locale that ships inside the entrypoint. The other 17 are
+// `import()`ed by src/utils/i18nLazyBackend.ts, one webpack chunk each --
+// they were ~306 KB gzipped of a 552 KB main.js that every visitor paid for.
 import en from "./locales/eng.json";
-import ko from "./locales/kor.json";
-import zh from "./locales/zho.json";
-import ar from "./locales/ar.json";
-import de from "./locales/de.json";
-import es from "./locales/es.json";
-import fr from "./locales/fr.json";
-import hi from "./locales/hi.json";
-import id from "./locales/id.json";
-import it from "./locales/it.json";
-import ja from "./locales/ja.json";
-import pt from "./locales/pt.json";
-import ru from "./locales/ru.json";
-import th from "./locales/th.json";
-import tl from "./locales/tl.json";
-import tr from "./locales/tr.json";
-import vi from "./locales/vi.json";
-import zh_TW from "./locales/zh_TW.json";
 
 export const SUPPORTED_LANGUAGES = [
   "en",
@@ -146,35 +134,79 @@ export const COUNTRY_TO_LANGUAGE: Record<string, string> = {
 const STORAGE_KEY = "i18nextLng";
 const GEO_CACHE_KEY = "i18nextGeoLng";
 
+const readStored = (): string | null => {
+  try {
+    return window.localStorage.getItem(STORAGE_KEY);
+  } catch {
+    return null;
+  }
+};
+const writeStored = (value: string | null): void => {
+  try {
+    if (value === null) window.localStorage.removeItem(STORAGE_KEY);
+    else window.localStorage.setItem(STORAGE_KEY, value);
+  } catch {
+    /* storage unavailable */
+  }
+};
+
+/**
+ * On a prerendered page the first client render must be English, because that
+ * is what the server wrote into the HTML.
+ *
+ * Before the 17 locales became chunks this took care of itself: a Korean
+ * visitor's resources were inlined, so `init` resolved synchronously and
+ * hydrationLanguage.ts could snapshot "ko", flip to "en" for the first render
+ * and put it back in an effect. Now "ko" has to be fetched, so detection at
+ * init would leave `i18n.language` unset at hydrate time -- and i18next would
+ * then switch languages *during* hydration, which React reports as a text
+ * mismatch (#418/#425) and recovers from by throwing the markup away.
+ *
+ * So: pin the init to the inlined English. No background load starts, nothing
+ * changes under React, and hydrationLanguage.ts runs the detector itself after
+ * the first commit. A client-rendered entry (no prerendered markup) has no
+ * such contract and keeps ordinary detection.
+ *
+ * The same pin covers Node, where there is no document at all. That is not a
+ * detail: scripts/prerender.js runs `renderRoute` through @babel/register, and
+ * Node >= 21 exposes `navigator.language` derived from LANG/LC_ALL, which the
+ * browser detector happily reads. Left unpinned, a build on a Korean host
+ * detected `ko-KR`, started an async `import("./locales/kor.json")`, and let it
+ * settle *after* renderRoute's `await changeLanguage("en")` -- so the very
+ * first route (`/`, i.e. build/index.html, also the SPA fallback) came out in
+ * Korean inside a template declaring lang="en". The prerender must be English
+ * on every host, so "no document" pins too.
+ */
+const PIN_ENGLISH_AT_INIT = typeof document === "undefined" || documentIsPrerendered();
+// i18next calls the detector's cacheUserLanguage() for whatever it initialises
+// with, so pinning to "en" would overwrite the visitor's stored choice before
+// anything has had the chance to read it. Snapshot it here, put it back below.
+const storedBeforeInit = PIN_ENGLISH_AT_INIT ? readStored() : null;
+
 i18n
-  .use(Backend)
+  .use(lazyBackend)
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
+    lng: PIN_ENGLISH_AT_INIT ? "en" : undefined,
     resources: {
       en: { translation: en },
-      ko: { translation: ko },
-      zh: { translation: zh },
-      zh_TW: { translation: zh_TW },
-      ar: { translation: ar },
-      de: { translation: de },
-      es: { translation: es },
-      fr: { translation: fr },
-      hi: { translation: hi },
-      id: { translation: id },
-      it: { translation: it },
-      ja: { translation: ja },
-      pt: { translation: pt },
-      ru: { translation: ru },
-      th: { translation: th },
-      tl: { translation: tl },
-      tr: { translation: tr },
-      vi: { translation: vi },
     },
+    // English is bundled, the rest is not: without this i18next treats a
+    // populated `resources` as the complete set and never asks the backend.
+    partialBundledLanguages: true,
     fallbackLng: "en",
     supportedLngs: SUPPORTED_LANGUAGES as unknown as string[],
+    // A region code (ko-KR, en-GB) counts as supported: its base language is.
     nonExplicitSupportedLngs: true,
-    load: "languageOnly",
+    // Deliberately NOT `load: "languageOnly"`. That mode rewrites "_" to "-"
+    // and keeps only the language part, which collapses zh_TW to zh -- so
+    // Traditional Chinese visitors silently got Simplified text and
+    // locales/zh_TW.json was unreachable (a 17 KB chunk nothing could fetch).
+    // The default resolves zh_TW as ["zh_TW", "zh", "en"]: the Traditional
+    // file wins and falls back to the Simplified one for anything it misses.
+    // The cost is that a region code adds one `cb(null, {})` round trip
+    // through the backend (there is no ko-KR.json), which costs nothing.
     detection: {
       order: ["querystring", "localStorage", "navigator", "htmlTag"],
       lookupQuerystring: "lang",
@@ -191,6 +223,10 @@ i18n
     saveMissing: false,
     returnEmptyString: true,
   });
+
+// `init` above is synchronous for English (it is inlined), so the detector has
+// already cached "en" by the time this runs.
+if (PIN_ENGLISH_AT_INIT) writeStored(storedBeforeInit);
 
 // Keep <html lang> in sync with the active language so search engines
 // and screen readers see the right value.

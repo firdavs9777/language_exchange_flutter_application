@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Pin, X } from 'lucide-react';
 
 export interface PinnedBarProps {
@@ -12,25 +13,27 @@ export interface PinnedBarProps {
 // subdocument) — so text lives directly on `message`/`content`/`text`.
 const getMessageId = (msg: any): string => msg?._id ?? msg?.messageId ?? '';
 
-const getPreviewText = (msg: any): string => {
+const getPreviewText = (msg: any, t: (key: string, options?: any) => string): string => {
   const content: string | undefined = msg?.message ?? msg?.content ?? msg?.text;
   const type = msg?.messageType ?? msg?.type;
 
+  // The conversation list's preview keys (chatPage.preview.*), emoji included.
   switch (type) {
     case 'image':
-      return '📷 Photo';
+      return t('chatPage.preview.photo') || '\u{1F5BC}\uFE0F Photo';
     case 'voice':
-      return '🎤 Voice message';
+      return t('chatPage.preview.voice') || '\u{1F3A4} Voice message';
     case 'video':
-      return '🎬 Video';
+      return t('chatPage.preview.video') || '\u{1F3A5} Video';
     case 'file':
-      return '📎 File';
+      return t('chatPage.preview.file') || '\u{1F4CE} File';
     default:
       return content ?? '';
   }
 };
 
 const PinnedBar: React.FC<PinnedBarProps> = ({ pinned, onJump, onUnpin }) => {
+  const { t } = useTranslation();
   if (!pinned || pinned.length === 0) return null;
 
   const [first, ...rest] = pinned;
@@ -49,17 +52,17 @@ const PinnedBar: React.FC<PinnedBarProps> = ({ pinned, onJump, onUnpin }) => {
         onClick={() => onJump(firstId)}
         className="flex min-w-0 flex-1 items-center gap-2 text-left"
       >
-        <span className="truncate text-teal-800 dark:text-teal-200">{getPreviewText(first)}</span>
+        <span className="truncate text-teal-800 dark:text-teal-200">{getPreviewText(first, t)}</span>
         {rest.length > 0 && (
           <span className="flex-none rounded-full bg-teal-100 px-2 py-0.5 text-xs font-medium text-teal-700 dark:bg-teal-900/50 dark:text-teal-300">
-            {pinned.length} pinned
+            {t('chatPage.pinnedBar.count', { count: pinned.length }) || `${pinned.length} pinned`}
           </span>
         )}
       </button>
 
       <button
         type="button"
-        aria-label="Unpin message"
+        aria-label={t("chatPage.pinnedBar.unpin") || "Unpin message"}
         data-testid="pinned-bar-unpin"
         onClick={() => onUnpin(firstId)}
         className="flex h-6 w-6 flex-none items-center justify-center rounded-full text-teal-500 hover:bg-teal-100 hover:text-teal-700 dark:text-teal-400 dark:hover:bg-teal-900/50 dark:hover:text-teal-200"

@@ -1,53 +1,183 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { detectPlatform, APP_STORE_URL, PLAY_STORE_URL } from "../../utils/platform";
-import "./DownloadApp.scss";
+import { detectPlatform } from "../../utils/platform";
+import StoreLink, { StoreId, storeHref } from "../growth/StoreLink";
+import { trackEvent } from "../../analytics/track";
+import { gaEvent } from "../../analytics/ga";
+import SurfaceCard from "../../design/SurfaceCard";
+import { SITE_ORIGIN } from "../../seo/pages";
+import brandLogo from "../../assets/logo.png";
+
+// What the QR carries. `src=qr` separates a camera scan from a click in the
+// analytics; `go=1` is what makes the phone hop straight to its store, since
+// someone who scanned a code is already asking for the app.
+const QR_TARGET = `${SITE_ORIGIN}/download?src=qr&go=1`;
+const QR_SIZE = 192;
 
 const DownloadApp: React.FC = () => {
   const { t } = useTranslation();
+  const { search } = useLocation();
+
+  // "other" until the user agent says otherwise, and it only says so after
+  // mount: reading navigator during render would bake one platform into the
+  // prerendered HTML and React 18 does not repair a mismatch while hydrating.
+  const [platform, setPlatform] = useState<"ios" | "android" | "other">("other");
+  const [qr, setQr] = useState("");
 
   useEffect(() => {
-    const platform = detectPlatform(navigator.userAgent);
-    if (platform === "ios") {
-      window.location.href = APP_STORE_URL;
-    } else if (platform === "android") {
-      window.location.href = PLAY_STORE_URL;
-    }
+    setPlatform(detectPlatform(navigator.userAgent));
   }, []);
 
+  // The old page redirected every mobile visitor on arrival, which left it
+  // unreadable and un-indexable (spec §5.3). The hop is now opt-in: only the
+  // surfaces that mean "take me to the store" append `go=1`. A desktop has no
+  // store to open, so it just reads the page.
+  // Reuses the platform decided above (one user-agent read) -- it settles a
+  // render after mount, and the effect re-runs when it does.
+  useEffect(() => {
+    if (!/(^|[?&])go=1(&|$)/.test(search)) return;
+    if (platform === "ios" || platform === "android") {
+      // The hop is a store tap too -- a QR scan or a carousel CTA must count
+      // like a badge click, or the funnel under-reports its best sources.
+      try {
+        trackEvent("store_tap", { placement: "download-page", platform });
+        gaEvent("store_tap", { placement: "download-page", platform });
+      } catch {
+        // never let a tracker cost the install
+      }
+      window.location.assign(storeHref(platform, "download-page"));
+    }
+  }, [search, platform]);
+
+  // ~10KB of QR generator that nobody needs until the page is on screen, so it
+  // is pulled in a chunk of its own after mount. The box below is rendered
+  // either way, at its final size, so the prerendered page does not reflow
+  // when the image arrives -- and so a failed load costs nothing but the code.
+  useEffect(() => {
+    let alive = true;
+    import("qrcode")
+      .then((mod) => {
+        const lib: any = (mod as any).default && (mod as any).default.toDataURL ? (mod as any).default : mod;
+        return lib.toDataURL(QR_TARGET, { margin: 1, width: QR_SIZE });
+      })
+      .then((url: string) => {
+        if (alive && url) setQr(url);
+      })
+      .catch(() => {
+        /* the badges above are the real call to action; the QR is a convenience */
+      });
+    return () => {
+      alive = false;
+    };
+  }, []);
+
+  // Mobile visitors see their own store first. Both badges always render: the
+  // detection is a guess, and the other store is one line down.
+  const stores: StoreId[] = platform === "android" ? ["android", "ios"] : ["ios", "android"];
+
+  const reasons = [
+    {
+      key: "tutor",
+      icon: "🎓",
+      title: t("download.reasons.tutor.title") || "An AI tutor in every chat",
+      body:
+        t("download.reasons.tutor.body") ||
+        "Corrections and explanations on the messages you actually send.",
+    },
+    {
+      key: "voice",
+      icon: "🎙️",
+      title: t("download.reasons.voice.title") || "Voice rooms and calls",
+      body:
+        t("download.reasons.voice.body") ||
+        "Practise out loud with people learning your language right now.",
+    },
+    {
+      key: "translate",
+      icon: "🌍",
+      title: t("download.reasons.translate.title") || "Instant translation",
+      body:
+        t("download.reasons.translate.body") ||
+        "Write in your language, they read it in theirs, and you learn from the difference.",
+    },
+  ];
+
   return (
-    <div className="download-page">
-      <div className="download-page-inner">
-        <div className="download-page-icon">B</div>
-        <h1 className="download-page-title">BananaTalk</h1>
-        <p className="download-page-desc">
-          {t("home.download.description")}
+    <div className="bg-surface px-[1rem] py-12 dark:bg-cardbg-dark sm:py-16">
+      <div className="mx-auto max-w-3xl text-center">
+        <img src={brandLogo} alt="" aria-hidden className="mx-auto h-16 w-16 rounded-2xl" />
+        <h1 className="mt-[1rem] text-3xl font-extrabold text-gray-900 dark:text-gray-50 sm:text-4xl">
+          {t("download.title") || "Download BananaTalk"}
+        </h1>
+        <p className="mx-auto mt-[0.75rem] max-w-xl text-base leading-relaxed text-gray-600 dark:text-gray-300">
+          {t("download.subtitle") ||
+            "Free language exchange with native speakers in 137 languages, on iPhone and Android."}
         </p>
 
-        <div className="download-page-buttons">
-          <a href={APP_STORE_URL} target="_blank" rel="noopener noreferrer" className="download-page-btn apple">
-            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-              <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
-            </svg>
-            <div>
-              <span className="btn-label">Download on the</span>
-              <span className="btn-store">App Store</span>
-            </div>
-          </a>
-          <a href={PLAY_STORE_URL} target="_blank" rel="noopener noreferrer" className="download-page-btn google">
-            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-              <path d="M3.18 23.77c-.35-.17-.57-.5-.6-.87L2.55 1.14c-.03-.37.14-.73.45-.93l9.55 11.25L3.18 23.77zm1.39.27l9.12-10.75 2.77 3.27-11.14 7.22c-.23.15-.49.23-.75.26zm12.88-8.44l-2.73-3.22 2.73-3.22 3.11 2.01c.72.47.72 1.23 0 1.69l-3.11 2.74zM4.57.03l11.14 7.22-2.77 3.27L3.81.77C4.04.35 4.3.14 4.57.03z"/>
-            </svg>
-            <div>
-              <span className="btn-label">Get it on</span>
-              <span className="btn-store">Google Play</span>
-            </div>
-          </a>
+        {/* The badge's two lines stack from here rather than from a
+            stylesheet: StoreLink ships the lockup's markup and leaves the skin
+            to its caller, and this is the only page wearing the big version. */}
+        <div className="mt-8 flex flex-col items-center gap-[0.75rem] sm:flex-row sm:justify-center">
+          {stores.map((store) => (
+            <StoreLink
+              key={store}
+              store={store}
+              placement="download-page"
+              variant="badge"
+              className={`w-full max-w-[280px] justify-center rounded-2xl px-6 py-3.5 text-left sm:w-auto [&>div]:flex [&>div]:flex-col [&_.btn-label]:text-[0.7rem] [&_.btn-label]:opacity-80 [&_.btn-store]:text-[1.0625rem] [&_.btn-store]:font-semibold [&_.btn-store]:leading-tight ${
+                store === "ios"
+                  ? "bg-gray-900 text-white dark:bg-gray-50 dark:text-gray-900"
+                  : "border-[1px] border-gray-300 text-gray-900 dark:border-gray-600 dark:text-gray-50"
+              }`}
+            />
+          ))}
         </div>
 
-        <p className="download-page-hint">
-          On mobile? You'll be redirected automatically.
+        <p
+          data-testid="download-free"
+          className="mt-[1rem] text-sm font-semibold text-gray-500 dark:text-gray-400"
+        >
+          {t("download.free") || "Free. No card."}
         </p>
+
+        {/* The box exists in the prerendered HTML at its final size; the image
+            drops into it after mount. */}
+        <div className="mt-10 flex flex-col items-center">
+          <div
+            data-testid="download-qr"
+            className="flex items-center justify-center rounded-2xl border-[1px] border-gray-200 bg-white p-[0.75rem] dark:border-gray-700"
+            style={{ width: QR_SIZE, height: QR_SIZE }}
+          >
+            {qr ? (
+              <img
+                src={qr}
+                width={QR_SIZE - 24}
+                height={QR_SIZE - 24}
+                alt={t("download.qrAlt") || "QR code to download BananaTalk"}
+              />
+            ) : null}
+          </div>
+          <p className="mt-[0.75rem] text-sm text-gray-500 dark:text-gray-400">
+            {t("download.scan") || "Scan with your phone camera"}
+          </p>
+        </div>
+
+        <div className="mt-12 grid gap-[1rem] text-left sm:grid-cols-3">
+          {reasons.map((reason) => (
+            <SurfaceCard key={reason.key} padding="lg">
+              <span aria-hidden className="text-2xl">
+                {reason.icon}
+              </span>
+              <h2 className="mt-[0.5rem] text-base font-extrabold text-gray-900 dark:text-gray-50">
+                {reason.title}
+              </h2>
+              <p className="mt-[0.25rem] text-sm leading-relaxed text-gray-600 dark:text-gray-300">
+                {reason.body}
+              </p>
+            </SurfaceCard>
+          ))}
+        </div>
       </div>
     </div>
   );

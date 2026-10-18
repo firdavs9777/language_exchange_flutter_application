@@ -119,3 +119,18 @@
     font-size: 1.2rem;
   }
 }
+/* The one control on this page: opens the consent manager instead of
+   navigating, so it is a button dressed as the links around it. */
+.policy-inline-button {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: #00897b;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.policy-inline-button:hover {
+  color: #00695c;
+}

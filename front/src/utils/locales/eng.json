@@ -9,7 +9,11 @@
       "about": "About",
       "services": "Services",
       "pricing": "Pricing",
-      "contact": "Contact"
+      "contact": "Contact",
+      "communities": "Communities",
+      "download": "Download the app",
+      "meet": "Meet people",
+      "learnKorean": "Learn Korean"
     },
     "contactInfo": "Contact Info",
     "address": "Seoul, South Korea, Gangnam-gu",
@@ -35,7 +39,12 @@
       "noMatchTitle": "No matching conversations",
       "noMatchSubtitle": "Try adjusting your search",
       "emptyTitle": "No conversations yet",
-      "emptySubtitle": "Start a conversation to see it here"
+      "emptySubtitle": "Start a conversation to see it here",
+      "loading": "Loading chats...",
+      "loadError": "Couldn't load your conversations",
+      "tryAgain": "Try again",
+      "typing": "typing...",
+      "noMessages": "No messages yet"
     },
     "actions": {
       "menuLabel": "Conversation actions",
@@ -45,15 +54,22 @@
       "noConversationYet": "Start the conversation first to pin it",
       "pinFailed": "Couldn't update pin",
       "deleteFailed": "Couldn't delete the conversation",
-      "deleted": "Conversation deleted"
+      "deleted": "Conversation deleted",
+      "openProfile": "Open {{name}}'s profile",
+      "mute": "Mute",
+      "unmute": "Unmute",
+      "muted": "Notifications muted",
+      "unmuted": "Notifications are back on",
+      "muteFailed": "Couldn't update notifications",
+      "unpinned": "Conversation unpinned"
     },
     "deleteModal": {
       "title": "Delete Conversation",
-      "bodyPrefix": "Delete your conversation with",
       "warning": "This cannot be undone.",
       "cancel": "Cancel",
       "confirm": "Delete",
-      "deleting": "Deleting..."
+      "deleting": "Deleting...",
+      "body": "Delete your conversation with {{name}}?"
     },
     "gif": {
       "title": "GIFs",
@@ -85,7 +101,345 @@
     "justNow": "Just now",
     "minutesAgo": "{{count}}m ago",
     "hoursAgo": "{{count}}h ago",
-    "unknownUser": "Unknown User"
+    "unknownUser": "Unknown User",
+    "viewProfileOf": "View {{name}}'s profile",
+    "info": {
+      "title": "Chat info",
+      "close": "Close",
+      "viewProfile": "View profile",
+      "media": "Shared media",
+      "mute": "Mute notifications",
+      "unmute": "Unmute notifications",
+      "muted": "Notifications muted",
+      "unmuted": "Notifications are back on",
+      "muteFailed": "Couldn't update notifications",
+      "wallpaper": "Wallpaper",
+      "block": "Block",
+      "unblock": "Unblock",
+      "blockTitle": "Block {{name}}?",
+      "blockBody": "They will not be able to message you or see your profile.",
+      "unblockTitle": "Unblock {{name}}?",
+      "unblockBody": "They will be able to message you again.",
+      "blocked": "Blocked",
+      "unblocked": "Unblocked",
+      "blockFailed": "That didn't work. Try again.",
+      "report": "Report",
+      "reportTitle": "Report {{name}}",
+      "reportBody": "Tell us what is wrong. Every report is reviewed.",
+      "reportReason": "Reason",
+      "reportDescription": "Details (optional)",
+      "reportSubmit": "Send report",
+      "reported": "Thanks — moderators will take a look",
+      "reportFailed": "Couldn't send the report",
+      "delete": "Delete conversation",
+      "cancel": "Cancel",
+      "noConversationYet": "Say something first"
+    },
+    "reportReasons": {
+      "spam": "Spam",
+      "harassment": "Harassment or bullying",
+      "hate_speech": "Hate speech",
+      "violence": "Violence or threats",
+      "nudity": "Nudity or sexual content",
+      "false_information": "False information",
+      "copyright": "Copyright",
+      "other": "Something else"
+    },
+    "status": {
+      "sending": "Sending",
+      "sent": "Sent",
+      "delivered": "Delivered",
+      "read": "Read",
+      "failed": "Failed"
+    },
+    "loadEarlier": "Load earlier messages",
+    "loadingEarlier": "Loading earlier messages",
+    "suggestCorrection": "Suggest a correction",
+    "translateThis": "Translate this message",
+    "addCaption": "Add a caption...",
+    "conversationStarted": "Conversation started",
+    "correct": "Correct",
+    "daysAgo": "{{count}}d ago",
+    "edit": "Edit message",
+    "hide_translation": "Hide",
+    "noMessages": "No messages yet",
+    "retry": "Retry",
+    "today": "Today",
+    "translate": "Translate",
+    "yesterday": "Yesterday",
+    "wallpaper": {
+      "title": "Wallpaper",
+      "shared": "Both of you see the wallpaper you choose.",
+      "plain": "Plain",
+      "gradients": "Gradients",
+      "default": "Default",
+      "apply": "Apply",
+      "cancel": "Cancel",
+      "saved": "Wallpaper updated",
+      "failed": "Couldn't change the wallpaper",
+      "cream": "Cream",
+      "blush": "Blush",
+      "peach": "Peach",
+      "sage": "Sage",
+      "ocean": "Ocean",
+      "teal": "Teal",
+      "forest": "Forest",
+      "rose": "Rose",
+      "wine": "Wine",
+      "plum": "Plum",
+      "navy": "Navy",
+      "mocha": "Mocha",
+      "slate": "Slate",
+      "ember": "Ember",
+      "deep_sea": "Deep sea",
+      "charcoal": "Charcoal",
+      "midnight": "Midnight",
+      "dark": "Dark",
+      "gradient_sunset": "Sunset",
+      "gradient_ocean": "Ocean",
+      "gradient_purple": "Cosmic",
+      "gradient_midnight": "Midnight",
+      "gradient_forest": "Forest",
+      "gradient_rose": "Rose gold",
+      "gradient_candy": "Candy",
+      "gradient_neon": "Neon",
+      "gradient_fire": "Fire",
+      "gradient_winter": "Winter",
+      "gradient_lavender": "Lavender",
+      "gradient_aurora": "Aurora",
+      "premiumInUse": "This chat uses a Premium wallpaper from the app. Choosing another one changes it for both of you."
+    },
+    "jumpToLatest": "Jump to latest messages",
+    "editDialog": {
+      "title": "Edit message",
+      "label": "Message",
+      "save": "Save",
+      "cancel": "Cancel",
+      "tooLate": "You can only edit a message within 15 minutes of sending it.",
+      "failed": "Couldn't edit the message. Try again."
+    },
+    "deleteMessage": {
+      "title": "Delete message?",
+      "forEveryone": "Delete for everyone",
+      "forMe": "Delete for me",
+      "cancel": "Cancel",
+      "placeholder": "This message was deleted",
+      "tooLate": "You can only delete a message for everyone within 1 hour of sending it.",
+      "failed": "Couldn't delete the message. Try again."
+    },
+    "sendErrors": {
+      "firstChatTitle": "Wait for a reply",
+      "firstChatBody": "You can send 5 messages until they reply. You can write again once they answer.",
+      "dailyTitle": "Daily message limit reached",
+      "dailyBody": "You've sent all your messages for today. Go VIP for unlimited messages, or come back tomorrow.",
+      "capTitle": "New conversation limit reached",
+      "capBody": "You've started as many new conversations as you can today. Go VIP to start as many as you want.",
+      "blockedTitle": "Message not sent",
+      "blockedBody": "You can't send messages to this person.",
+      "tooFast": "You're sending messages too fast. Wait a moment.",
+      "generic": "Message not sent. Tap Retry to try again.",
+      "goVip": "Go VIP",
+      "ok": "OK",
+      "reattach": "Attach the file again to send it."
+    },
+    "preview": {
+      "call": "📞 Call",
+      "location": "📍 Location",
+      "voice": "🎤 Voice message",
+      "gif": "GIF",
+      "story": "📖 Story",
+      "poll": "📊 Poll",
+      "photo": "🖼️ Photo",
+      "video": "🎥 Video",
+      "file": "📎 File",
+      "attachment": "📎 Attachment"
+    },
+    "connection": {
+      "kicked": "Chat is open somewhere else, so this tab stopped receiving messages.",
+      "reconnect": "Use here"
+    },
+    "video": {
+      "tooBig": "This video is too large. The limit is {{mb}} MB.",
+      "tooLong": "This video is too long. The limit is {{minutes}} minutes.",
+      "badType": "This video format can't be sent. Try an MP4."
+    },
+    "voice": {
+      "unavailable": "Voice recording isn't available. Check the microphone permission for this site."
+    },
+    "call": {
+      "outgoingVoice": "Outgoing voice call",
+      "outgoingVideo": "Outgoing video call",
+      "incomingVoice": "Incoming voice call",
+      "incomingVideo": "Incoming video call",
+      "noAnswerVoice": "Voice call · No answer",
+      "noAnswerVideo": "Video call · No answer",
+      "missedVoice": "Missed voice call",
+      "missedVideo": "Missed video call",
+      "cancelledVoice": "Cancelled voice call",
+      "cancelledVideo": "Cancelled video call",
+      "declinedOutgoingVoice": "Voice call declined",
+      "declinedOutgoingVideo": "Video call declined",
+      "declinedIncomingVoice": "Declined voice call",
+      "declinedIncomingVideo": "Declined video call",
+      "busy": "{{name}} was on another call"
+    },
+    "location": {
+      "title": "Location",
+      "open": "Open in Maps",
+      "share": "Share location",
+      "confirmTitle": "Share your location?",
+      "send": "Send",
+      "cancel": "Cancel",
+      "unsupported": "This browser can't share a location",
+      "denied": "Location permission was denied",
+      "failed": "Couldn't get your location",
+      "sendFailed": "Couldn't send your location"
+    },
+    "wave": {
+      "hi": "Hi!"
+    },
+    "story": {
+      "shared": "Shared a story",
+      "youShared": "You shared a story",
+      "replied": "Replied to your story",
+      "youReplied": "You replied to their story",
+      "unavailable": "This story is no longer available"
+    },
+    "forwarded": "Forwarded",
+    "editedLabel": "edited",
+    "search": {
+      "open": "Search messages",
+      "title": "Search messages with {{name}}",
+      "close": "Close",
+      "placeholder": "Search this chat",
+      "hint": "Type at least 2 characters",
+      "searching": "Searching…",
+      "empty": "No messages found",
+      "unavailable": "Search isn't available right now",
+      "you": "You",
+      "notLoaded": "That message is further back. Scroll up to load it."
+    },
+    "bookmarks": {
+      "title": "Saved messages",
+      "close": "Close",
+      "loading": "Loading saved messages…",
+      "error": "Couldn't load saved messages",
+      "empty": "No saved messages yet",
+      "attachment": "Attachment",
+      "open": "Open chat",
+      "remove": "Remove from saved",
+      "removed": "Removed from saved messages",
+      "removeFailed": "Couldn't remove it",
+      "added": "Saved",
+      "addFailed": "Couldn't save the message"
+    },
+    "mute": {
+      "title": "Mute {{name}}?",
+      "oneHour": "For 1 hour",
+      "eightHours": "For 8 hours",
+      "oneWeek": "For 1 week",
+      "always": "Until I turn it back on",
+      "cancel": "Cancel"
+    },
+    "archive": {
+      "archive": "Archive chat",
+      "unarchive": "Unarchive chat",
+      "archived": "Archived on the website. The app still shows it.",
+      "unarchived": "Moved back to your chats",
+      "failed": "Couldn't update the archive",
+      "toggle": "Archived ({{count}})",
+      "back": "Back to chats"
+    },
+    "blocked": {
+      "byMe": "You blocked this person. Unblock them to send messages.",
+      "generic": "You can't send messages in this chat.",
+      "manage": "Manage"
+    },
+    "menu": {
+      "close": "Close",
+      "reply": "Reply",
+      "copy": "Copy",
+      "forward": "Forward",
+      "pin": "Pin",
+      "bookmark": "Bookmark",
+      "listen": "Listen",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "pinnedBar": {
+      "count": "{{count}} pinned",
+      "unpin": "Unpin message"
+    },
+    "replyBar": {
+      "replyingTo": "Replying to {{name}}",
+      "cancel": "Cancel reply"
+    },
+    "forward": {
+      "title": "Forward to",
+      "close": "Close",
+      "search": "Search",
+      "loading": "Loading conversations…",
+      "error": "Couldn't load conversations.",
+      "empty": "No conversations found.",
+      "unknownUser": "Unknown",
+      "submit": "Forward",
+      "submitCount": "Forward ({{count}})"
+    },
+    "correction": {
+      "you": "You",
+      "corrected": "{{name}} corrected",
+      "accepting": "Accepting…",
+      "accept": "Accept correction",
+      "accepted": "Correction accepted — added to your learning record",
+      "acceptFailed": "Failed to accept correction"
+    },
+    "translation": {
+      "label": "Translation · {{lang}}",
+      "close": "Close translation",
+      "translating": "Translating…",
+      "failed": "Failed to translate message",
+      "saved": "Saved to study queue",
+      "saving": "Saving…",
+      "save": "Save phrase",
+      "saveFailed": "Failed to save phrase"
+    },
+    "correctionModal": {
+      "title": "Language Correction",
+      "close": "Close",
+      "original": "Original Message",
+      "yours": "Your Correction",
+      "yoursPlaceholder": "Type the corrected version...",
+      "explanation": "Explanation",
+      "optional": "(optional)",
+      "explanationPlaceholder": "Explain why this correction is helpful...",
+      "hint": "e.g., \"Use 'went' instead of 'goed' - irregular past tense\"",
+      "empty": "Please provide a correction",
+      "unchanged": "The correction should be different from the original",
+      "cancel": "Cancel",
+      "submit": "Send Correction"
+    },
+    "mediaGallery": {
+      "title": "Shared Media",
+      "back": "Back",
+      "loading": "Loading media...",
+      "error": "Error loading media",
+      "photos": "Photos",
+      "videos": "Videos",
+      "files": "Files",
+      "emptyPhotos": "No photos shared yet",
+      "emptyVideos": "No videos shared yet",
+      "emptyFiles": "No files shared yet",
+      "unknownFile": "Unknown file",
+      "unknownSize": "Unknown size"
+    },
+    "callInApp": {
+      "voice": "Voice call",
+      "video": "Video call",
+      "title": "Calls happen in the BananaTalk app",
+      "body": "Open the app to call {{name}}. Incoming calls ring on your phone.",
+      "openApp": "Open the app",
+      "notNow": "Not now"
+    }
   },
   "newChat": {
     "title": "New Chat",
@@ -143,7 +497,18 @@
   "profile": {
     "title": "My Profile",
     "edit_profile": "Edit Profile",
-    "photos": "Photos",
+    "photos": {
+      "title": "Photos",
+      "add": "Add photos",
+      "alt": "{{name}}, photo {{index}}",
+      "open": "Open photo {{index}}",
+      "close": "Close",
+      "previous": "Previous photo",
+      "next": "Next photo",
+      "counter": "{{index}} of {{total}}",
+      "openAvatar": "Open {{name}}'s photo",
+      "openStory": "View {{name}}'s story"
+    },
     "messages": {
       "image_update_success": "Profile image updated successfully",
       "image_update_failure": "Failed to update profile image",
@@ -151,6 +516,7 @@
       "image_delete_failure": "Failed to delete photo",
       "profile_update_success": "Profile updated successfully",
       "profile_update_failure": "Failed to update profile",
+      "extras_update_failure": "Your profile was saved, but some details did not update",
       "error_loading_profile": "Error loading user profile",
       "no_profile_data": "No user profile data available",
       "unknown_error": "An unknown error occurred",
@@ -165,7 +531,8 @@
       "no_following": "You're not following anyone yet.",
       "following_error": "Error loading following list. Please try again later.",
       "moments": "Moments",
-      "visitors": "Visitors"
+      "visitors": "Visitors",
+      "visited": "Visited"
     },
     "visitors": {
       "title": "Profile Visitors",
@@ -184,7 +551,11 @@
       "vipOnly": "VIP Feature",
       "vipOnlyDesc": "See who visited your profile by upgrading to VIP. This feature is available exclusively for VIP members.",
       "vipBenefits": "VIP Benefits",
-      "learnMore": "Learn More About VIP"
+      "learnMore": "Learn More About VIP",
+      "clear": "Clear history",
+      "clear_title": "Clear your visitor history?",
+      "clear_body": "Everyone who viewed your profile is removed, and your visit counters go back to zero. This cannot be undone.",
+      "no_visited": "Profiles you look at will appear here"
     },
     "sections": {
       "personal_info": "Personal Information",
@@ -226,7 +597,18 @@
       "save": "Save",
       "cancel": "Cancel",
       "edit_photo": "Edit Photo",
-      "clear": "Clear selection"
+      "clear": "Clear selection",
+      "settings": "Settings",
+      "message": "Message",
+      "follow": "Follow",
+      "following": "Following",
+      "more": "More options",
+      "block": "Block",
+      "report": "Report",
+      "this_person": "this person",
+      "action_failed": "That didn't work. Try again.",
+      "unblock": "Unblock",
+      "followBlocked": "You can't follow this person"
     },
     "buttons": {
       "edit": "Edit",
@@ -254,6 +636,128 @@
       "kdrama": "K-Drama",
       "languages": "Languages",
       "culture": "Culture"
+    },
+    "badges": {
+      "vip": "VIP",
+      "verified": "Verified",
+      "joined": "Joined {{date}}",
+      "active": "Active {{time}}",
+      "online": "Online now"
+    },
+    "block": {
+      "title": "Block {{name}}?",
+      "body": "They will not be able to message you or see your profile."
+    },
+    "report": {
+      "title": "Report {{name}}?",
+      "body": "Tell us what is wrong. Every report is reviewed.",
+      "reason": "Reason"
+    },
+    "languages": {
+      "also_learning": "Also learning"
+    },
+    "about": {
+      "title": "About",
+      "occupation": "Work",
+      "school": "School",
+      "read_more": "Read more",
+      "read_less": "Show less"
+    },
+    "learning": {
+      "title": "Learning progress",
+      "streak": "Streak",
+      "days": "days",
+      "xp": "Total XP",
+      "level": "Level"
+    },
+    "moments": {
+      "see_all": "See all",
+      "empty_own": "Share your first moment",
+      "empty_other": "No moments yet",
+      "photo_alt": "Moment photo"
+    },
+    "page": {
+      "title": "Profile",
+      "error_title": "We couldn't load this profile",
+      "error_body": "Check your connection and try again.",
+      "retry": "Try again",
+      "not_found_title": "Profile not found",
+      "not_found_body": "This profile doesn't exist any more, or it was never here.",
+      "back_to_community": "Browse the community"
+    },
+    "lists": {
+      "title": "Your connections",
+      "title_of": "{{name}}'s connections",
+      "title_other": "Connections",
+      "search": "Search by name",
+      "search_empty": "No one here matches \"{{query}}\"",
+      "empty_followers_own": "Nobody follows you yet.",
+      "empty_followers_other": "Nobody follows them yet.",
+      "empty_following_own": "You are not following anyone yet.",
+      "empty_following_other": "They are not following anyone yet.",
+      "error_title": "We couldn't load this list",
+      "error_body": "Check your connection and try again.",
+      "retry": "Try again"
+    },
+    "edit": {
+      "back": "Back",
+      "about": "About",
+      "photos_hint": "Your first photo is the one people see everywhere.",
+      "add_photo": "Add photo",
+      "photo_alt": "Photo {{index}}",
+      "delete_photo": "Delete photo {{index}}",
+      "delete_photo_title": "Delete this photo?",
+      "delete_photo_body": "It is removed from your profile for everyone.",
+      "delete_photo_confirm": "Delete photo",
+      "level": "Level",
+      "level_hint": "Your level in the language you are learning.",
+      "occupation": "Occupation",
+      "occupation_placeholder": "What do you do?",
+      "school": "School",
+      "school_placeholder": "Where do you study?",
+      "saving": "Saving",
+      "unsaved": "You have unsaved changes",
+      "leave_title": "Leave without saving?",
+      "leave_body": "Your changes to this profile will be lost.",
+      "leave_confirm": "Discard changes",
+      "stay": "Keep editing",
+      "intent_title": "What you're here for",
+      "intent_learn": "Here to learn",
+      "intent_meet": "Open to meeting people",
+      "intent_date": "Open to dating",
+      "intent_privacy_note": "Others see what you pick, except dating, which stays private.",
+      "completion": "Profile Completion"
+    },
+    "myMoments": {
+      "title": "My moments",
+      "create": "Share a moment",
+      "edit": "Edit moment",
+      "delete": "Delete moment",
+      "delete_title": "Delete this moment?",
+      "delete_body": "It disappears for everyone, along with its likes and comments.",
+      "delete_confirm": "Delete",
+      "delete_failed": "We couldn't delete that moment. Try again.",
+      "empty_title": "No moments yet",
+      "empty_body": "Share your first moment with the community.",
+      "error_title": "We couldn't load your moments",
+      "error_body": "Check your connection and try again.",
+      "retry": "Try again",
+      "load_more": "Load more",
+      "loading_more": "Loading..."
+    },
+    "tabs": {
+      "label": "Profile sections",
+      "moments": "Moments",
+      "about": "About"
+    },
+    "unblock": {
+      "title": "Unblock {{name}}?",
+      "body": "They will be able to message you and see your profile again."
+    },
+    "blocked": {
+      "title": "This profile isn't available",
+      "body": "One of you has blocked the other, so you can't message, follow or see each other's posts.",
+      "manage": "Manage blocked people"
     }
   },
   "moments_section": {
@@ -278,7 +782,22 @@
       "addMood": "Add mood",
       "addLocation": "Add location",
       "addTags": "Add tags",
-      "tagPlaceholder": "Add a tag..."
+      "tagPlaceholder": "Add a tag...",
+      "mediaFailedNothingPosted": "The upload failed, so nothing was posted. Try again.",
+      "mediaFailedPosted": "Posted, but media upload failed — try editing the moment to add it.",
+      "sharing": "Sharing...",
+      "share": "Share",
+      "modePhoto": "Photo",
+      "modeVideo": "Video",
+      "modeVoice": "Voice",
+      "modeText": "Text",
+      "placeholder": "What's on your mind, {{name}}?",
+      "attachVideo": "Attach a video",
+      "voiceNoteLength": "Voice note · {{seconds}}s",
+      "remove": "Remove",
+      "recordVoice": "Record a voice note",
+      "textPreview": "Your text moment",
+      "moodQuestion": "How are you feeling?"
     },
     "question": "What's on your mind,",
     "loading": "Loading",
@@ -322,6 +841,214 @@
       "minutesAgo": "{{minutes}}m ago",
       "hoursAgo": "{{hours}}h ago",
       "daysAgo": "{{days}}d ago"
+    },
+    "promo": {
+      "title": "Moments lives in the app now",
+      "subtitle": "Stories, AI Study replies, and a feed built for a phone, not a browser tab. Free to install, no account switch needed.",
+      "appStore": "Get it on the App Store",
+      "playStore": "Get it on Google Play",
+      "appOnly": "In the app",
+      "perks": {
+        "stories": {
+          "title": "Stories that disappear",
+          "body": "Share a moment that lasts 24 hours, the way the app's community actually uses it."
+        },
+        "aiStudy": {
+          "title": "AI Study replies",
+          "body": "Post in the language you're learning and get a gentle AI correction right in the comments."
+        },
+        "reactions": {
+          "title": "Richer reactions",
+          "body": "Voice reactions, translations on tap, and comment threads built for a feed, not a form."
+        },
+        "notifications": {
+          "title": "Live notifications",
+          "body": "Know the moment someone from your target language replies — no refreshing a browser tab."
+        }
+      }
+    },
+    "translate": {
+      "tap": "Tap to translate",
+      "loading": "Translating…",
+      "same": "Already in your language",
+      "error": "Couldn't translate. Tap to retry."
+    },
+    "tabs": {
+      "forYou": "For You",
+      "following": "Following",
+      "explore": "Explore",
+      "trending": "Trending"
+    },
+    "following": {
+      "empty": "Follow people to see their moments here",
+      "findPeople": "Find people"
+    },
+    "commentEngagement": {
+      "attachImage": "Add a photo",
+      "beFirst": "Be the first to share your thoughts!",
+      "cancel": "Cancel",
+      "commentTab": "Comment",
+      "correctedLabel": "Corrected",
+      "correctedPlaceholder": "Write it the way a native speaker would",
+      "correction": "Correction",
+      "correctionNotePlaceholder": "Add a note (optional)",
+      "correctionTab": "Correction",
+      "delete": "Delete",
+      "explanationLabel": "Explanation",
+      "explanationPlaceholder": "Why is it written this way? (optional)",
+      "hideReplies": "Hide replies",
+      "imageFailed": "Comment posted, but the photo didn't attach.",
+      "loadMoreComments": "Load more comments",
+      "loadMoreReplies": "Load more",
+      "loadingReplies": "Loading replies…",
+      "originalLabel": "Original",
+      "post": "Post",
+      "postCorrection": "Post correction",
+      "postFailed": "Couldn't post that. Try again.",
+      "react": "React",
+      "reply": "Reply",
+      "replyPlaceholder": "Write a reply…",
+      "viewReplies": "View {{count}} replies",
+      "deleteOthersTitle": "Delete this comment?",
+      "deleteOthersBody": "It's on your moment, so you can remove it. This can't be undone.",
+      "removeGif": "Remove GIF"
+    },
+    "filters": {
+      "button": "Filters",
+      "searchPlaceholder": "Search moments",
+      "search": "Search",
+      "category": "Category",
+      "language": "Language",
+      "mood": "Mood",
+      "tag": "Tag",
+      "tagPlaceholder": "Any tag",
+      "any": "Any",
+      "clear": "Clear filters",
+      "emptyTitle": "No moments match these filters",
+      "emptyBody": "Try removing a filter or searching for something else."
+    },
+    "categories": {
+      "general": "General",
+      "language-learning": "Language learning",
+      "culture": "Culture",
+      "food": "Food",
+      "travel": "Travel",
+      "music": "Music",
+      "books": "Books",
+      "hobbies": "Hobbies",
+      "daily-life": "Daily life",
+      "technology": "Technology",
+      "entertainment": "Entertainment",
+      "sports": "Sports",
+      "movies": "Movies",
+      "study": "Study",
+      "work": "Work",
+      "question": "Question"
+    },
+    "moods": {
+      "happy": "Happy",
+      "excited": "Excited",
+      "grateful": "Grateful",
+      "motivated": "Motivated",
+      "relaxed": "Relaxed",
+      "curious": "Curious",
+      "sad": "Sad",
+      "love": "In love",
+      "funny": "Funny",
+      "thoughtful": "Thoughtful",
+      "cool": "Cool",
+      "tired": "Tired"
+    },
+    "report": {
+      "menu": "More options",
+      "report": "Report",
+      "title": "Report this moment",
+      "reasonLabel": "Why are you reporting it?",
+      "descriptionLabel": "Anything else? (optional)",
+      "submit": "Send report",
+      "cancel": "Cancel",
+      "sent": "Thanks — our moderators will review it.",
+      "already": "You've already reported this moment.",
+      "failed": "Couldn't send the report. Try again.",
+      "reasons": {
+        "spam": "Spam",
+        "harassment": "Harassment",
+        "hate_speech": "Hate speech",
+        "violence": "Violence",
+        "nudity": "Nudity",
+        "false_information": "False information",
+        "copyright": "Copyright",
+        "other": "Something else"
+      },
+      "titleComment": "Report this comment",
+      "titleStory": "Report this story",
+      "alreadyComment": "You've already reported this comment.",
+      "alreadyStory": "You've already reported this story."
+    },
+    "schedule": {
+      "label": "Schedule",
+      "hint": "Leave empty to post now",
+      "past": "Pick a time in the future",
+      "badge": "Scheduled for {{time}}",
+      "clear": "Post now instead"
+    },
+    "fields": {
+      "privacy": "Who can see it",
+      "privacyPublic": "Everyone",
+      "privacyFriends": "Friends",
+      "privacyPrivate": "Only me",
+      "background": "Background",
+      "backgroundNone": "None",
+      "location": "Location",
+      "addLocation": "Add my location",
+      "removeLocation": "Remove location",
+      "noMood": "No mood",
+      "tags": "Tags",
+      "tagPlaceholder": "Add a tag…",
+      "addTag": "Add",
+      "tagsUsed": "{{count}}/5 tags",
+      "tagsMax": "Maximum 5 tags"
+    },
+    "prompt": {
+      "answeringPromptOfDay": "Answering prompt of the day",
+      "dismissChip": "Stop answering the prompt",
+      "answering": "Answering",
+      "cardTitle": "Prompt of the day",
+      "cardSubtitle": "Practice writing",
+      "answer": "Answer",
+      "dismissCard": "Dismiss prompt of the day"
+    },
+    "block": {
+      "done": "{{name}} is blocked."
+    },
+    "saved": {
+      "loadMore": "Load more",
+      "gridView": "Grid view",
+      "listView": "List view",
+      "momentCount": "moments saved",
+      "title": "Saved Moments",
+      "removeSuccess": "Removed from saved",
+      "removeError": "Failed to remove moment",
+      "remove": "Remove",
+      "noMoments": "No saved moments yet",
+      "browseMoments": "Browse Moments"
+    },
+    "card": {
+      "loginToLike": "Please log in to like posts",
+      "likeFailed": "Something went wrong",
+      "seeMore": "See more",
+      "seeLess": "See less",
+      "bookmark": "Bookmark",
+      "removeBookmark": "Remove bookmark",
+      "unlike": "Unlike",
+      "save": "Save",
+      "saved": "Saved"
+    },
+    "voice": {
+      "unsupported": "Voice recording is not supported in this browser.",
+      "denied": "Microphone access was denied. Please allow microphone access to record a voice note.",
+      "cancel": "Cancel recording",
+      "stop": "Stop recording and send"
     }
   },
   "createMoment": {
@@ -364,10 +1091,35 @@
       "addMoreText": "Add more",
       "updateButton": "Update Moment",
       "updatingButton": "Updating...",
-      "cancelButton": "Cancel"
+      "cancelButton": "Cancel",
+      "removeImage": "Remove image",
+      "nothingToSave": "Nothing to change yet",
+      "descriptionRequired": "A description is required"
+    },
+    "media": {
+      "video": "Video",
+      "audio": "Voice note",
+      "replace": "Replace",
+      "remove": "Remove",
+      "removeVideoTitle": "Remove the video?",
+      "removeAudioTitle": "Remove the voice note?",
+      "removeBody": "This can't be undone.",
+      "done": "Updated",
+      "failed": "That didn't work. Try again."
     }
   },
   "authentication": {
+    "callback": {
+      "completing": "Completing sign in...",
+      "wait": "Please wait while we sign you in.",
+      "failedTitle": "Sign in failed",
+      "redirecting": "Taking you back to sign in...",
+      "noCode": "Sign in didn't finish. Please try again.",
+      "codeExpired": "This sign-in link has expired. Please sign in again.",
+      "banned": "This account has been suspended.",
+      "emailExists": "An account with this email already exists. Sign in with your email and password.",
+      "generic": "Sign in failed. Please try again."
+    },
     "enterEmail": {
       "title": "Enter your email",
       "subtitle": "We'll send a verification code to your email",
@@ -522,7 +1274,13 @@
     "tabs": {
       "all": "All",
       "popular": "Popular",
-      "new": "New"
+      "new": "New",
+      "forYou": "For you",
+      "online": "Online",
+      "label": "Community tabs",
+      "today": "Today",
+      "serious": "Serious learners",
+      "seriousHint": "Active this week"
     },
     "filters": {
       "language": "Language",
@@ -562,7 +1320,9 @@
       "topics": "Topics",
       "searchPlaceholder": "Find members or topics",
       "filtersLabel": "Filters",
-      "filtersWithCount": "Filters ({{count}} active)"
+      "filtersWithCount": "Filters ({{count}} active)",
+      "city": "City",
+      "genders": "Genders"
     },
     "filterSheet": {
       "title": "Filters",
@@ -579,7 +1339,27 @@
       "onlineNow": "Online now",
       "newMembersOnly": "New members only (last 7 days)",
       "reset": "Reset",
-      "apply": "Apply"
+      "apply": "Apply",
+      "copyLink": "Copy link",
+      "linkCopied": "Link copied",
+      "linkCopyFailed": "Couldn't copy the link",
+      "applyFirst": "Apply filters first",
+      "matchCountLoading": "Counting matches…",
+      "close": "Close filters",
+      "languages": "Languages",
+      "partnerNative": "Partner's native language",
+      "partnerLearning": "Partner is learning",
+      "country": "Country",
+      "countryPlaceholder": "e.g. South Korea",
+      "level": "Language level",
+      "topics": "Topics",
+      "mutualInterests": "Mutual interests",
+      "newUsersOnly": "New users only",
+      "clearAll": "Clear all",
+      "matchCount": "{{count}} matches",
+      "lockedByTab": "Set by the {{tab}} tab",
+      "reciprocal": "Perfect partners only",
+      "reciprocalHint": "They speak what you learn and learn what you speak"
     },
     "highlighted": {
       "title": "Highlighted Profiles",
@@ -588,9 +1368,8 @@
       "highlightSelfTopic": "Highlight your profile and let more people see you"
     },
     "visitors": {
-      "justYou": "{{name}} visited your profile!",
-      "andOthers": "{{name}} and {{count}} others visited your profile!",
-      "seeAll": "See all"
+      "pill_one": "1 person visited your profile",
+      "pill_other": "{{count}} people visited your profile"
     },
     "tandemCard": {
       "newChip": "NEW",
@@ -600,7 +1379,71 @@
       "fluent": "FLUENT",
       "learns": "LEARNS",
       "native": "NATIVE"
+    },
+    "chips": {
+      "recentlyActive": "Recently active",
+      "onlineNow": "Online now",
+      "speaks": "Speaks {{language}}",
+      "learning": "Learning {{language}}"
+    },
+    "forYou": {
+      "subtitle": "Partners picked for you from your languages, level and interests.",
+      "refresh": "Refresh",
+      "why": "Why: {{reasons}}",
+      "empty": {
+        "title": "No recommendations yet",
+        "message": "Add the languages you speak and want to learn, your level and a few interests, and we'll find partners who match.",
+        "action": "Complete your profile"
+      }
+    },
+    "reasons": {
+      "perfect_pair": "Speaks {{native}}, learning {{learning}}",
+      "native_speaker": "Native {{native}} speaker",
+      "online_now": "Online now",
+      "active_today": "Active today",
+      "same_country": "Same country"
+    },
+    "today": {
+      "title": "Today's matches ({{count}})",
+      "refreshes": "Refreshes at {{time}}",
+      "refreshesMidnight": "Refreshes at midnight",
+      "emptyTitle": "That's everyone for today",
+      "emptyBody": "Fresh matches tomorrow. Meanwhile, browse all partners.",
+      "browse": "Browse partners",
+      "repliesFast": "Replies fast",
+      "boosted": "Boosted",
+      "reasonReciprocal": "You're learning each other's language",
+      "reasonSameTarget": "Also learning {{language}}",
+      "reasonActiveToday": "Active today",
+      "reasonSameCity": "Lives in your city",
+      "reasonSharedTopic": "Shared interest: {{topic}}",
+      "sayHi": "Say hi",
+      "wave": "Wave",
+      "skip": "Skip",
+      "error": "We couldn't load today's matches",
+      "retry": "Try again",
+      "waved": "Waved"
     }
+  },
+  "communityNearby": {
+    "title": "Nearby Users",
+    "subtitle": "Find people around you",
+    "back": "Back",
+    "geolocationNotSupported": "Geolocation is not supported",
+    "permissionDenied": "Location permission denied",
+    "positionUnavailable": "Location unavailable",
+    "timeout": "Location request timed out",
+    "unknownError": "An error occurred",
+    "gettingLocation": "Getting your location...",
+    "locationRequired": "Location Required",
+    "tryAgain": "Try Again",
+    "searchRadius": "Search Radius",
+    "usersFound_one": "{{count}} person found",
+    "usersFound_other": "{{count}} people found",
+    "refresh": "Refresh",
+    "noUsers": "No users found nearby",
+    "tryIncreaseRadius": "Try increasing the search radius",
+    "learning": "Learning: {{language}}"
   },
   "communityDetail": {
     "errors": {
@@ -660,6 +1503,40 @@
       "speaks": "Speaks",
       "learning": "Learning",
       "notSpecified": "Not specified"
+    },
+    "match": {
+      "title": "Language match",
+      "native": "Native",
+      "learning": "Learning",
+      "perfect": "Perfect match — you can teach each other.",
+      "youLearnTheirs": "You're learning what they speak!",
+      "theyLearnYours": "They're learning what you speak!",
+      "sameNative": "You both speak the same native language."
+    },
+    "mutual": {
+      "title": "Mutual interests",
+      "countLabel": "{{count}} in common"
+    },
+    "starters": {
+      "title": "Conversation starters",
+      "send": "Send",
+      "perfect": "Hi {{name}}! We're a perfect language match — want to swap practice?",
+      "language": "Hi {{name}}! I'm learning {{language}} — any tips for getting better?",
+      "teach": "Hi {{name}}! I saw you're learning {{language}}. Happy to help if you ever have questions.",
+      "sameNative": "Hi {{name}}! We share a native language — how's your learning going?",
+      "topic": "Hi {{name}}! I saw you're into {{topic}} too. What got you started?",
+      "targetLearning": "Hi {{name}}! How long have you been learning {{language}}?",
+      "generic": "Hi {{name}}! I'd love to practise languages together. How's your week going?",
+      "practice": "Hi {{name}}! What has helped you most with your learning so far?",
+      "hello": "Hi {{name}}! Your profile caught my eye — how is your day going?"
+    },
+    "engagement": {
+      "replies": "{{rate}}% replies",
+      "new": "New member"
+    },
+    "suggested": {
+      "title": "More members like {{name}}",
+      "seeAll": "See all members"
     }
   },
   "communityDetailSection": {
@@ -890,6 +1767,102 @@
       "premium": "Premium",
       "features": "Features",
       "upgrade": "Upgrade to VIP"
+    },
+    "password": {
+      "title": "Change password",
+      "current": "Current password",
+      "current_hint": "Enter your current password",
+      "new": "New password",
+      "new_hint": "At least 8 chars, A-Z, a-z, 0-9",
+      "confirm": "Confirm new password",
+      "confirm_hint": "Re-enter the new password",
+      "rule_upper": "One uppercase letter",
+      "rule_lower": "One lowercase letter",
+      "rule_number": "One number",
+      "mismatch": "Passwords don't match.",
+      "same_as_current": "New password must be different from current.",
+      "success": "Password changed successfully",
+      "failed": "Failed to update",
+      "symbols": "Only these symbols are allowed: @ $ ! % * ? &"
+    },
+    "privacy": {
+      "title": "Privacy Settings",
+      "subtitle": "Control who can see your information",
+      "profileVisibility": "Profile Visibility",
+      "showOnlineStatus": "Show Online Status",
+      "showOnlineStatusDesc": "Let others see when you are online",
+      "showCity": "Show City",
+      "showCityDesc": "Display your city on your profile",
+      "showCountry": "Show Country/Region",
+      "showCountryDesc": "Display your country on your profile",
+      "personalInfo": "Personal Information",
+      "showAge": "Show Age",
+      "showAgeDesc": "Display your age on your profile",
+      "showZodiac": "Show Zodiac Sign",
+      "showZodiacDesc": "Display your zodiac sign on your profile",
+      "birthdayNotification": "Birthday Notifications",
+      "birthdayNotificationDesc": "Receive notifications on your birthday",
+      "otherSettings": "Other Settings",
+      "showGiftingLevel": "Show Gifting Level",
+      "showGiftingLevelDesc": "Display your gifting level badge",
+      "saveSuccess": "Privacy settings saved",
+      "saveError": "Failed to save",
+      "saving": "Saving...",
+      "saveChanges": "Save Changes",
+      "profileVisits": "Profile Visits",
+      "anonymousProfileVisits": "Visit profiles anonymously",
+      "anonymousProfileVisitsDesc": "Your name won't appear in the visited user's recent visitors list.",
+      "email": "Email",
+      "emailNotifications": "Email Notifications",
+      "emailNotificationsDesc": "Receive email notifications from BananaTalk",
+      "weeklyDigest": "Weekly Summary",
+      "weeklyDigestDesc": "Activity recap every Sunday",
+      "securityAlerts": "Security Alerts",
+      "securityAlertsDesc": "Password & login alerts. We recommend keeping these on."
+    },
+    "notifications": {
+      "title": "Notification Settings",
+      "subtitle": "Manage your notification preferences",
+      "loading": "Loading...",
+      "loadError": "Error loading settings",
+      "retry": "Retry",
+      "pushNote": "These settings control push notifications from the BananaTalk app on your phone.",
+      "enableAll": "Push Notifications",
+      "enableAllDesc": "Turn all notifications on or off",
+      "notificationTypes": "Notification Types",
+      "chatMessages": "Chat Messages",
+      "chatMessagesDesc": "Get notified when you receive messages",
+      "moments": "Moments",
+      "momentsDesc": "Likes and comments on your moments",
+      "followerMoments": "Follower Moments",
+      "followerMomentsDesc": "When people you follow post new moments",
+      "friendRequests": "New Followers",
+      "friendRequestsDesc": "When someone follows you",
+      "profileVisits": "Profile Visits",
+      "profileVisitsDesc": "When someone views your profile (VIP)",
+      "announcements": "Announcements",
+      "announcementsDesc": "News and updates from the BananaTalk team",
+      "marketing": "Marketing",
+      "marketingDesc": "Updates and promotional messages",
+      "learning": "Learning",
+      "streakReminders": "Streak Reminders",
+      "streakRemindersDesc": "A reminder before your streak runs out",
+      "vocabularyReviewReminders": "Vocabulary Review",
+      "vocabularyReviewRemindersDesc": "When words are due for review",
+      "dailyDropReminders": "Daily Lesson",
+      "dailyDropRemindersDesc": "When today's short vocabulary or grammar lesson is ready",
+      "quietHours": "Quiet Hours",
+      "quietHoursEnable": "Enable Quiet Hours",
+      "quietHoursDesc": "Pause non-urgent notifications during a time window",
+      "quietHoursStart": "Start time",
+      "quietHoursEnd": "End time",
+      "preferences": "Notification Preferences",
+      "showPreview": "Show Preview",
+      "showPreviewDesc": "Show message preview in notifications",
+      "saveSuccess": "Notification settings saved",
+      "saveError": "Failed to save",
+      "saving": "Saving...",
+      "saveChanges": "Save Changes"
     }
   },
   "waves": {
@@ -899,13 +1872,102 @@
     "accept": "Accept",
     "decline": "Decline",
     "noWaves": "No waves yet",
-    "sendWave": "Send a wave to start connecting!"
+    "sendWave": "Send a wave to start connecting!",
+    "subtitle": "People who waved at you",
+    "back": "Back",
+    "noReceived": "No waves received yet",
+    "findPeople": "Find People",
+    "archive": "Older waves",
+    "recent": "Last 7 days",
+    "archiveHint": "Waves from 7 to 30 days ago",
+    "archiveEmpty": "No older waves",
+    "someone": "Someone",
+    "wavedAtYou": "Waved at you 👋",
+    "unread": "Unread",
+    "cap": {
+      "title": "Daily wave limit reached",
+      "body": "You've used today's free waves. VIP members can wave without a daily limit, or try again tomorrow.",
+      "seeVip": "See VIP",
+      "notNow": "Not now"
+    },
+    "sheet": {
+      "title": "Send a wave to {{name}}",
+      "subtitle": "Say hi and break the ice 👋",
+      "close": "Close",
+      "cancel": "Cancel",
+      "send": "Send wave",
+      "already": "Already waved",
+      "alreadyTitle": "You already waved at {{name}}",
+      "alreadyBody": "You can only wave once per person — send them a message instead to keep the conversation going.",
+      "quickReplies": "Quick replies",
+      "icebreakersTitle": "Icebreakers",
+      "yourMessage": "Your message",
+      "placeholder": "Write a custom message (optional)…",
+      "sent": "Wave sent to {{name}}!",
+      "match": "🎉 It's a match! You and {{name}} both waved at each other.",
+      "sendError": "Failed to send wave",
+      "chips": {
+        "hi": {
+          "label": "Hi",
+          "message": "👋 Hi!"
+        },
+        "cool": {
+          "label": "Cool",
+          "message": "❤️ Cool profile!"
+        },
+        "hey": {
+          "label": "Hey",
+          "message": "😊 Hey there!"
+        },
+        "chat": {
+          "label": "Chat",
+          "message": "🎉 Let's chat!"
+        },
+        "hello": {
+          "label": "Hello",
+          "message": "✋ Hello!"
+        },
+        "nice": {
+          "label": "Nice",
+          "message": "🌟 Nice to meet you!"
+        }
+      },
+      "icebreakers": {
+        "0": "Hi! Want to practice languages together?",
+        "1": "I noticed we're learning similar languages — hi!",
+        "2": "Your profile caught my eye, how's it going?",
+        "3": "Hey! What made you start learning a new language?"
+      }
+    }
   },
   "topics": {
     "title": "Topics",
     "myTopics": "My Topics",
     "browseTopics": "Browse Topics",
-    "usersInterested": "users interested"
+    "usersInterested": "users interested",
+    "saved": "Your topics are up to date",
+    "saveError": "We couldn't save your topics",
+    "memberCount": "{{count}} members",
+    "backToCommunity": "Community",
+    "subtitle": "Find partners who are into what you're into.",
+    "searchPlaceholder": "Search topics",
+    "clearSearch": "Clear search",
+    "cancel": "Cancel",
+    "saving": "Saving...",
+    "save": "Save",
+    "edit": "Edit",
+    "editHint": "Tap the tiles below to pick up to {{max}} topics, then save.",
+    "myTopicsEmpty": "You haven't picked any topics yet. Edit to choose a few.",
+    "selectTopics": "Choose your topics",
+    "emptyTitle": "No topics match that",
+    "emptyMessage": "Try a different word, or clear the search to see them all.",
+    "backToTopics": "All topics",
+    "onlineOnly": "Online only",
+    "loadingPeople": "Loading people...",
+    "noOneOnlineTitle": "Nobody here is online",
+    "noOneTitle": "Nobody here yet",
+    "noOneOnlineMessage": "Turn the online filter off to see everyone in this topic.",
+    "noOneMessage": "Be the first — add this topic to your profile."
   },
   "nearby": {
     "title": "Nearby Users",
@@ -928,12 +1990,23 @@
         "message1": "안녕하세요! How was your weekend?",
         "message2": "주말에 친구들과 등산 갔어요 ⛰️",
         "message3": "Nice! 산 → mountain. Saved to your study queue."
-      }
+      },
+      "title": "Say it badly.",
+      "titleAccent": "We'll translate.",
+      "subtitle": "Free language exchange with native speakers. Write in your language, they read it in theirs, and you learn from the difference.",
+      "trust": "Free forever tier · 137 languages · AI tutor 24/7"
     },
     "sections": {
       "features": "What's inside",
       "howItWorks": "How it works",
       "pricing": "Pricing"
+    },
+    "stats": {
+      "languages": "languages",
+      "app languages": "app languages",
+      "AI tutor": "AI tutor",
+      "forever tier": "forever tier",
+      "learners": "learners"
     },
     "features": {
       "title": "Everything you need to actually speak the language",
@@ -961,11 +2034,52 @@
       "community": {
         "title": "Real community",
         "description": "Browse partners by native language, see who's online, and share moments with people learning the same language."
+      },
+      "inApp": "In the app",
+      "items": {
+        "findPartner": {
+          "title": "Find a partner",
+          "body": "Match on the language pair you actually want to trade."
+        },
+        "chatTranslate": {
+          "title": "Chat that translates",
+          "body": "Both directions, in the message, as you type."
+        },
+        "moments": {
+          "title": "Moments",
+          "body": "Share what your day looks like; get corrected by natives."
+        },
+        "aiTutor": {
+          "title": "AI tutor",
+          "body": "Practise at 3am without embarrassing yourself."
+        },
+        "voiceRooms": {
+          "title": "Voice rooms",
+          "body": "Drop into a live room and just listen, if you like."
+        },
+        "gatherings": {
+          "title": "Gatherings",
+          "body": "Meet people learning your language nearby."
+        }
       }
     },
     "howItWorks": {
       "title": "Three steps to your first conversation",
-      "subtitle": "No phone numbers, no spam — just real people who want to learn."
+      "subtitle": "No phone numbers, no spam — just real people who want to learn.",
+      "steps": {
+        "1": {
+          "title": "Tell us what you speak, and what you want",
+          "body": "Pick your native language and the one you're learning. That pair is how we match you."
+        },
+        "2": {
+          "title": "Find someone worth talking to",
+          "body": "Browse partners learning your language. Wave, or just start a conversation."
+        },
+        "3": {
+          "title": "Talk badly, improve fast",
+          "body": "Every message is translated both ways, and the AI tutor corrects you without anyone watching."
+        }
+      }
     },
     "steps": {
       "profile": {
@@ -994,7 +2108,10 @@
           "community": "Browse and connect with the community",
           "moments": "Post Moments and read Stories",
           "tutor_trial": "Daily AI Tutor and translation quota"
-        }
+        },
+        "f1": "Unlimited 1-on-1 chat with translation",
+        "f2": "Browse and connect with the community",
+        "f3": "Post Moments and read Stories"
       },
       "monthly": {
         "name": "VIP — Monthly",
@@ -1019,7 +2136,12 @@
           "early_access": "Early access to new features",
           "support": "Direct support from the BananaTalk team"
         }
-      }
+      },
+      "best": "Best value",
+      "perMonth": "per month",
+      "every": "every",
+      "save": "Save",
+      "getVip": "Get VIP in the app"
     },
     "download": {
       "badge": "Download the App",
@@ -1038,7 +2160,17 @@
     "cta": {
       "title": "Ready to have a real conversation?",
       "description": "Join the BananaTalk community and start practicing today. No credit card needed.",
-      "button": "Create your free account"
+      "button": "Create your free account",
+      "subtitle": "Free to start. No card, no trial countdown."
+    },
+    "marquee": {
+      "title": "Native speakers of every language you want to learn",
+      "caption": "137 languages, and counting"
+    },
+    "earlyAdopter": {
+      "badge": "Launched December 2025",
+      "title": "Be one of the first",
+      "body": "BananaTalk is new. The people you meet here are the ones building what this community becomes — which is a better reason to join early than any review."
     }
   },
   "vip": {
@@ -1089,5 +2221,1208 @@
     "appBanner": {
       "text": "Open this in the BananaTalk app"
     }
+  },
+  "seo": {
+    "appTitle": "BananaTalk",
+    "home": {
+      "title": "BananaTalk: Free Language Exchange App with Native Speakers",
+      "description": "Chat with native speakers in 137 languages. Write in your language, they read it in theirs, and an AI tutor shows you the difference. Free on iOS and Android."
+    },
+    "download": {
+      "title": "Download BananaTalk for iPhone and Android",
+      "description": "Get the free BananaTalk language exchange app for iPhone and Android. Chat with native speakers with instant translations and AI tutor corrections."
+    },
+    "moments": {
+      "title": "BananaTalk Moments: Stories in Your Target Language",
+      "description": "Moments are short posts and stories shared by language learners on BananaTalk. Read the feed, react, and post your own."
+    },
+    "privacy": {
+      "title": "Privacy Policy | BananaTalk",
+      "description": "How BananaTalk collects, uses and protects your data, and the choices you have."
+    },
+    "terms": {
+      "title": "Terms of Use | BananaTalk",
+      "description": "The terms that govern your use of BananaTalk, including content rules, moderation and reporting."
+    },
+    "support": {
+      "title": "Support and Contact | BananaTalk",
+      "description": "Get help with BananaTalk: account questions, reporting a problem, and how to reach the team."
+    },
+    "dataDeletion": {
+      "title": "Data Deletion Request | BananaTalk",
+      "description": "How to delete your BananaTalk account and personal data, and what happens after you ask."
+    },
+    "meet": {
+      "title": "Meet People From Other Countries | BananaTalk",
+      "description": "Meet people from other countries and make international friends by chatting. Every message is translated both ways, so neither of you has to be fluent."
+    },
+    "learnKorean": {
+      "title": "Learn Korean by Chatting With Native Speakers",
+      "description": "Learn Korean by chatting with native Korean speakers for free. You write English, they write Hangul, and an AI tutor explains 존댓말 vs 반말 as you go."
+    },
+    "communities": {
+      "title": "Language Exchange Communities | BananaTalk",
+      "description": "Join language exchange communities on BananaTalk: real groups practicing Korean, Spanish, Japanese and more together, free, every day."
+    }
+  },
+  "notFound": {
+    "pageTitle": "Page not found | BananaTalk",
+    "title": "This page doesn't exist",
+    "body": "The link may be old, or the page may have moved. Here is the way back.",
+    "home": "Go to the homepage",
+    "download": "Get the app"
+  },
+  "consent": {
+    "label": "Cookie consent",
+    "message": "We use analytics cookies to understand what brings people here.",
+    "accept": "OK",
+    "decline": "No thanks",
+    "manage": {
+      "title": "Privacy choices",
+      "body": "Analytics cookies tell us which pages people find useful. Nothing else.",
+      "current_granted": "Analytics cookies are on.",
+      "current_denied": "Analytics cookies are off.",
+      "accept": "Turn on",
+      "decline": "Turn off",
+      "privacyChoices": "Privacy choices",
+      "analyticsCookies": "Analytics cookies",
+      "done": "Done"
+    }
+  },
+  "admin": {
+    "nav": {
+      "admin": "Admin",
+      "overview": "Overview",
+      "reach": "Reach",
+      "users": "Users",
+      "content": "Content",
+      "aiUsage": "AI usage",
+      "audit": "Audit log"
+    },
+    "aiUsage": {
+      "allFeatures": "All features",
+      "anonymous": "anonymous",
+      "byDay": "Usage by day",
+      "byFeature": "Usage by feature",
+      "calls": "Calls",
+      "date": "Date",
+      "feature": "Feature",
+      "from": "From",
+      "logs": "Usage log",
+      "timestamp": "Timestamp",
+      "to": "To",
+      "total": "Total calls",
+      "user": "User"
+    },
+    "audit": {
+      "action": "Action",
+      "actionColumn": "Action",
+      "moderator": "Moderator",
+      "moderatorId": "Moderator ID",
+      "reason": "Reason",
+      "target": "Target",
+      "targetId": "Target ID",
+      "timestamp": "Timestamp"
+    },
+    "common": {
+      "actionError": "Something went wrong.",
+      "close": "Close",
+      "empty": "Nothing to show yet.",
+      "loadError": "Couldn't load this section.",
+      "loading": "Loading…",
+      "refresh": "Refresh",
+      "cancel": "Cancel"
+    },
+    "content": {
+      "archive": "Archive",
+      "archiveTitle": "Archive club",
+      "cancel": "Cancel",
+      "cancelTitle": "Cancel gathering",
+      "created": "Created",
+      "gatherings": "Gatherings",
+      "going": "Going",
+      "language": "Language",
+      "members": "Members",
+      "name": "Name",
+      "openReports": "Open reports",
+      "reportedOnly": "Reported only",
+      "restore": "Restore",
+      "restoreTitle": "Restore club",
+      "startsAt": "Starts at",
+      "status": "Status",
+      "tabs": "Content type",
+      "title": "Title",
+      "moments": "Moments",
+      "communities": "Communities",
+      "reports": "Reports",
+      "momentsToday": "Moments today",
+      "moments7d": "Moments (7 days)",
+      "momentsHidden": "Hidden moments",
+      "comments7d": "Comments (7 days)",
+      "activeCommunities": "Active communities",
+      "upcomingGatherings": "Upcoming gatherings",
+      "pendingReports": "Pending reports",
+      "allTime": "all time",
+      "membersTotal": "members",
+      "underReview": "under review",
+      "searchMoments": "Search moments",
+      "hiddenOnly": "Hidden only",
+      "author": "Author",
+      "owner": "Owner",
+      "city": "City",
+      "place": "Place",
+      "category": "Category",
+      "engagement": "Engagement",
+      "likes": "Likes",
+      "comments": "Comments",
+      "views": "Views",
+      "shares": "Shares",
+      "hidden": "Hidden",
+      "visible": "Visible",
+      "untitled": "Untitled moment",
+      "noText": "No text.",
+      "actionFailed": "That didn't work. Nothing was changed.",
+      "momentTitle": "Moment",
+      "hide": "Hide",
+      "unhide": "Unhide",
+      "hideTitle": "Hide this moment?",
+      "unhideTitle": "Unhide this moment?",
+      "hideBody": "It disappears from every feed. The reason is recorded in the audit log.",
+      "unhideBody": "It returns to the feed. The reason is recorded in the audit log.",
+      "communityTitle": "Community",
+      "archiveBody": "It disappears from discovery. Members keep their history and it can be restored.",
+      "restoreBody": "It returns to discovery. The reason is recorded in the audit log.",
+      "reportType": "Type",
+      "reason": "Reason",
+      "reporterAndReported": "Reporter → Reported",
+      "priority": "Priority",
+      "reportActions": "Report actions",
+      "anyStatus": "Any status",
+      "anyType": "Any type",
+      "startReview": "Start review",
+      "resolve": "Resolve",
+      "dismiss": "Dismiss",
+      "resolveTitle": "Resolve this report?",
+      "dismissTitle": "Dismiss this report?",
+      "dismissBody": "No action is taken against the reported content or user. The notes are kept on the report.",
+      "moderatorAction": "Moderator action",
+      "notes": "Notes",
+      "reportStatus": {
+        "pending": "Pending",
+        "under_review": "Under review",
+        "resolved": "Resolved",
+        "dismissed": "Dismissed"
+      },
+      "targetType": {
+        "moment": "Moment",
+        "comment": "Comment",
+        "user": "User",
+        "club": "Community",
+        "gathering": "Gathering",
+        "message": "Message",
+        "story": "Story"
+      },
+      "moderatorActions": {
+        "content_removed": "Content removed",
+        "user_warned": "User warned",
+        "user_suspended": "User suspended",
+        "user_banned": "User banned",
+        "no_violation": "No violation"
+      }
+    },
+    "overview": {
+      "activeThisWeek": "Active this week",
+      "activeToday": "active today",
+      "admins": "Admins",
+      "banned": "Banned",
+      "email": "Email",
+      "lastActive": "Last active",
+      "lastWeek": "last week",
+      "name": "Name",
+      "newThisWeek": "New this week",
+      "newToday": "New today",
+      "recentlyActive": "Recently active",
+      "topLearningLanguages": "Top learning languages",
+      "topNativeLanguages": "Top native languages",
+      "totalUsers": "Total users",
+      "vip": "VIP",
+      "visitsThisWeek": "Visits this week",
+      "vs": "vs"
+    },
+    "reach": {
+      "country": "Country",
+      "days": "days",
+      "device": "Device",
+      "devices": "Devices",
+      "newVisitors": "New visitors",
+      "ofVisits": "of",
+      "pageViews": "Page views",
+      "path": "Path",
+      "period": "Week of",
+      "placement": "Placement",
+      "platform": "Platform",
+      "referrer": "Referrer",
+      "storeTaps": "Store taps",
+      "taps": "Taps",
+      "tapsByPlacement": "Store taps by placement",
+      "topCountries": "Top countries",
+      "topPaths": "Top pages",
+      "topReferrers": "Top referrers",
+      "trafficTitle": "Page views and store taps",
+      "unique": "Unique",
+      "uniqueVisitors": "Unique visitors",
+      "views": "Views",
+      "visits": "Visits",
+      "visitsThisWeek": "Visits this week",
+      "window": "Time window"
+    },
+    "users": {
+      "actionFailed": "That didn't work. Nothing was changed.",
+      "active": "Active",
+      "activity": "Activity",
+      "adminsOnly": "Admins only",
+      "ban": "Ban",
+      "banBody": "loses access immediately. The reason is recorded in the audit log.",
+      "banReason": "Ban reason",
+      "banTitle": "Ban this user?",
+      "banned": "Banned",
+      "delete": "Delete",
+      "deleteBody": "This erases the account and its content. It cannot be undone.",
+      "deleteTitle": "Permanently delete this account?",
+      "detailTitle": "User detail",
+      "email": "Email",
+      "empty": "No users match this search.",
+      "joined": "Joined",
+      "languages": "Languages",
+      "lastActive": "Last active",
+      "lastMessage": "Last message",
+      "lastMoment": "Last moment",
+      "makeAdmin": "Make admin",
+      "makeAdminBody": "They gain the console and every admin route, including bans and deletions.",
+      "makeAdminTitle": "Make admin?",
+      "messages30d": "Messages (30d)",
+      "moments30d": "Moments (30d)",
+      "name": "Name",
+      "noActions": "No admin actions against this account.",
+      "recentActions": "Recent admin actions",
+      "revokeAdmin": "Revoke admin",
+      "revokeAdminBody": "They lose the console and every admin route. You cannot revoke your own admin role.",
+      "revokeAdminTitle": "Revoke admin?",
+      "role": "Role",
+      "searchLabel": "Search users",
+      "searchPlaceholder": "Search name, email or username",
+      "status": "Status",
+      "tabAll": "All users",
+      "tabBanned": "Banned",
+      "typeEmail": "Type the user's email to confirm",
+      "unban": "Unban",
+      "unbanBody": "They regain access immediately. The reason is recorded in the audit log.",
+      "unbanTitle": "Unban this user?",
+      "unknownModerator": "Unknown moderator",
+      "addUser": "Add user",
+      "createUser": "Create user",
+      "createdTitle": "User created",
+      "createFailed": "That didn't work. No account was created.",
+      "editTitle": "Edit user",
+      "edit": "Edit",
+      "saveChanges": "Save changes",
+      "done": "Done",
+      "addAnother": "Add another",
+      "openProfile": "Open profile",
+      "required": "Required",
+      "invalidEmail": "Please use a valid email",
+      "weakPassword": "At least 8 characters, with upper and lower case letters and a number",
+      "under18": "The user must be at least 18 years old",
+      "sameLanguage": "Native language and language to learn cannot be the same",
+      "password": "Password",
+      "generate": "Generate",
+      "copy": "Copy",
+      "passwordOnce": "This is the only time the password is shown. Send it to the user and ask them to change it.",
+      "termsNote": "Consent cannot be given on someone's behalf: the app will ask this user to accept the terms the first time they sign in.",
+      "userId": "User id",
+      "gender": "Gender",
+      "male": "Male",
+      "female": "Female",
+      "other": "Other",
+      "select": "Select",
+      "birthDate": "Birth date",
+      "birthYear": "Birth year",
+      "birthMonth": "Birth month",
+      "birthDay": "Birth day",
+      "year": "Year",
+      "month": "Month",
+      "day": "Day",
+      "nativeLanguage": "Native language",
+      "learningLanguage": "Language to learn",
+      "roleUser": "User",
+      "roleAdmin": "Admin",
+      "markVerified": "Mark email verified",
+      "bio": "Bio",
+      "optional": "optional",
+      "mode": "Mode",
+      "regular": "Regular",
+      "vip": "VIP",
+      "vipUntil": "until",
+      "vipDays": "Days",
+      "vipGrantNote": "The subscription runs from today and does not auto-renew.",
+      "vipRevokeNote": "Switching VIP off ends the subscription immediately.",
+      "verified": "Verified",
+      "yes": "Yes",
+      "no": "No"
+    },
+    "table": {
+      "page": "Page {{page}}",
+      "previous": "Previous",
+      "next": "Next"
+    }
+  },
+  "download": {
+    "title": "Download BananaTalk",
+    "subtitle": "Free language exchange with native speakers in 137 languages, on iPhone and Android.",
+    "free": "Free. No card.",
+    "scan": "Scan with your phone camera",
+    "qrAlt": "QR code to download BananaTalk",
+    "reasons": {
+      "tutor": {
+        "title": "An AI tutor in every chat",
+        "body": "Corrections and explanations on the messages you actually send."
+      },
+      "voice": {
+        "title": "Voice rooms and calls",
+        "body": "Practise out loud with people learning your language right now."
+      },
+      "translate": {
+        "title": "Instant translation",
+        "body": "Write in your language, they read it in theirs, and you learn from the difference."
+      }
+    }
+  },
+  "meet": {
+    "hero": {
+      "title": "Meet people from other countries",
+      "titleAccent": "who actually write back.",
+      "subtitle": "BananaTalk is where you make international friends by talking to native speakers. Pick a language, say hi, and every message arrives translated — so neither of you has to be fluent first.",
+      "trust": "Free forever tier · 137 languages · Every message translated both ways",
+      "demo": {
+        "1": {
+          "text": "Bora ver o pôr do sol no sábado?",
+          "translation": "Want to watch the sunset on Saturday?"
+        },
+        "2": {
+          "text": "Yes! Is it still warm there in September?",
+          "translation": "Sim! Ainda faz calor aí em setembro?"
+        }
+      },
+      "note": {
+        "label": "✦ TRANSLATED BOTH WAYS",
+        "body": "She wrote Portuguese and you read English. You wrote English and she read Portuguese. Neither of you had to switch languages."
+      }
+    },
+    "howItWorks": {
+      "title": "Making a friend here takes three steps",
+      "steps": {
+        "1": {
+          "title": "Pick a language, not a profile",
+          "body": "Choose the language or the country you are curious about. We show you the people already learning yours — it is a language exchange, so you both get something."
+        },
+        "2": {
+          "title": "Say hi in your own words",
+          "body": "Write in the language you think in. It lands in theirs, instantly, so the first message is never the hard part."
+        },
+        "3": {
+          "title": "Keep talking",
+          "body": "Voice notes, photos, Moments, calls. The conversations that stick are the ones that outlive the practice."
+        }
+      }
+    },
+    "features": {
+      "title": "Built for conversations that keep going"
+    },
+    "cta": {
+      "title": "Someone in another country is awake right now",
+      "subtitle": "Free to start. No card, no trial countdown."
+    }
+  },
+  "learnKorean": {
+    "hero": {
+      "title": "Learn Korean by chatting",
+      "titleAccent": "with actual Koreans.",
+      "subtitle": "Trade languages with Korean native speakers who want yours in return. You try it in 한국어, they answer in the Korean people really use, and the AI tutor fixes what you got wrong — privately.",
+      "trust": "Free forever tier · Korean native speakers · AI tutor 24/7",
+      "demo": {
+        "1": {
+          "text": "주말에 뭐 했어요?",
+          "translation": "What did you do this weekend?"
+        },
+        "2": {
+          "text": "친구 만났다! 진짜 재미있었어",
+          "translation": "I met a friend! It was really fun"
+        }
+      },
+      "note": {
+        "label": "✦ AI TUTOR",
+        "body": "존댓말 vs 반말: she asked with 했어요, the polite form. You answered in 반말, which is for close friends. Match her for now: 친구 만났어요! 진짜 재미있었어요."
+      }
+    },
+    "howItWorks": {
+      "title": "Why Korean sticks when you chat",
+      "steps": {
+        "1": {
+          "title": "The Korean that shows up in real chats",
+          "body": "Your textbook teaches 합니다. Your partner types 했어요, ㅋㅋ and 헐 — the Korean waiting for you in a real conversation."
+        },
+        "2": {
+          "title": "존댓말 and 반말, felt rather than memorised",
+          "body": "Politeness is a choice you make in every sentence. Reading a native speaker's choices teaches it faster than a table of endings ever will."
+        },
+        "3": {
+          "title": "Corrected without the embarrassment",
+          "body": "The AI tutor marks up your Korean where only you can see it, so a language exchange never turns into a test. Your partner just sees you trying, which is the part that keeps them replying."
+        }
+      }
+    },
+    "features": {
+      "title": "Three things a textbook cannot give you"
+    },
+    "cta": {
+      "title": "Korean speakers are learning your language right now",
+      "subtitle": "Free to start. No card, no trial countdown."
+    }
+  },
+  "communities": {
+    "public": {
+      "title": "Language exchange communities",
+      "intro": "Real groups inside BananaTalk, where people practice one language together every day. Find yours here, then open it in the app and start talking.",
+      "members": "members",
+      "join": "Join in the app",
+      "empty": {
+        "title": "New communities open every week",
+        "body": "There is nothing to show here just yet. Get the app and every community shows up the moment it opens."
+      }
+    }
+  },
+  "errors": {
+    "chunk": {
+      "title": "Something went wrong loading this page",
+      "body": "Part of the app didn't load. This usually happens right after an update — reloading should fix it.",
+      "reload": "Reload"
+    }
+  },
+  "growth": {
+    "store": {
+      "appStore": "App Store",
+      "googlePlay": "Google Play",
+      "downloadOnThe": "Download on the",
+      "getItOn": "Get it on"
+    },
+    "promo": {
+      "label": "What the BananaTalk app does",
+      "dismiss": "Dismiss app promotion",
+      "slideLabel": "Slide {{n}} of {{total}}",
+      "tutor": {
+        "eyebrow": "AI tutor",
+        "title": "Fix your Korean as you type",
+        "body": "Private corrections on every message, plus quizzes and grammar drills between chats.",
+        "cta": "Get the app",
+        "alt": "An illustration of a chat bubble with one word crossed out and the correction floating above it, next to a check mark"
+      },
+      "voice": {
+        "eyebrow": "Voice notes & rooms",
+        "title": "Hear how it really sounds",
+        "body": "Send voice notes, share where you are, and join live voice rooms with native speakers.",
+        "cta": "Get the app",
+        "alt": "An illustration of a microphone with a sound wave sweeping across it and a shared location card behind"
+      },
+      "moments": {
+        "eyebrow": "Moments & stories",
+        "title": "Share your week in two languages",
+        "body": "Post photos and thoughts; friends read them translated and correct you kindly.",
+        "cta": "Get the app",
+        "alt": "An illustration of three overlapping photo cards with a heart and a translation mark reading A to 가"
+      },
+      "inbox": {
+        "eyebrow": "Real conversations",
+        "title": "People who actually write back",
+        "body": "Your chats, waves and reactions in one inbox — read, translated, answered.",
+        "cta": "Get the app",
+        "alt": "An illustration of three conversations stacked in an inbox, one of them unread, with a hand waving hello"
+      },
+      "prev": "Previous slide",
+      "next": "Next slide"
+    }
+  },
+  "stories": {
+    "linkPage": {
+      "sign_in_title": "Someone shared a story with you",
+      "sign_in_body": "Sign in to watch it, or open it in the BananaTalk app.",
+      "sign_in": "Sign in",
+      "expired": "This story has expired or was deleted. Stories disappear after 24 hours.",
+      "unavailable": "This story isn't available to you.",
+      "failed": "We couldn't load this story.",
+      "retry": "Try again",
+      "browse": "See current stories"
+    },
+    "your_story": "Your Story",
+    "create_story": "Create",
+    "my_stories": "My stories",
+    "reaction_failed": "Couldn't save your reaction",
+    "answer_sent": "Answer sent",
+    "answer_failed": "Couldn't send your answer",
+    "delete_story": "Delete this story?",
+    "error_loading": "Error loading story",
+    "answer_placeholder": "Type your answer…",
+    "answer_question": "Answer Question",
+    "send_reply": "Send",
+    "answer_anonymously": "Answer anonymously",
+    "cancel": "Cancel",
+    "viewers": "Viewers",
+    "responses": "Responses",
+    "share_story": "Share",
+    "reply_placeholder": "Send a message...",
+    "react": "React",
+    "reacted": "Reacted",
+    "shared": "Sent",
+    "share_failed": "Couldn't share this story",
+    "close": "Close",
+    "search_chats": "Search chats",
+    "loading": "Loading…",
+    "no_chats": "No recent chats",
+    "no_viewers": "No views yet",
+    "added_to_highlight": "Added to highlight",
+    "add_failed": "Couldn't add that story",
+    "title_required": "Please enter a title",
+    "highlight_created": "Highlight created",
+    "create_failed": "Couldn't create the highlight",
+    "story_archived": "Story archived",
+    "archive_failed": "Couldn't archive that story",
+    "story_deleted": "Story deleted",
+    "delete_story_failed": "Couldn't delete that story",
+    "active_stories": "Active",
+    "total_views": "Total views",
+    "archived_stories": "Archived",
+    "create_first_story": "Create story",
+    "no_archived_stories": "Nothing archived yet",
+    "no_stories": "No stories yet",
+    "add_to_highlight": "Add to highlight",
+    "archive": "Archive",
+    "delete": "Delete",
+    "highlight_name": "Highlight name",
+    "create": "Create",
+    "no_highlights": "No highlights yet",
+    "stories_count": "stories",
+    "new_highlight": "New highlight",
+    "delete_story_confirm": "Delete this story?",
+    "delete_story_body": "This cannot be undone.",
+    "anonymous": "Anonymous",
+    "no_responses": "No answers yet",
+    "video_type_error": "That video format isn't supported",
+    "video_size_error": "That video is larger than",
+    "video_duration_error": "That video is longer than",
+    "question_box": {
+      "ask_me_anything": "Ask me anything!"
+    },
+    "add_text": "Type your story…",
+    "upload_media": "Please upload media",
+    "link_invalid": "That link doesn't look right",
+    "story_created": "Story shared",
+    "create_story_failed": "Couldn't share your story",
+    "video_limits": "Video",
+    "choose_photo": "Photo",
+    "choose_video": "Video",
+    "text_story": "Text",
+    "move_sticker": "Move sticker",
+    "tap_to_type": "Tap to type",
+    "story_text": "Story text",
+    "background": "Background",
+    "text_color": "Text",
+    "font_style": "Font",
+    "stickers_text": "Text & emoji",
+    "add_text_sticker": "Add text",
+    "add_emoji_sticker": "Add emoji",
+    "sticker_text": "Sticker text",
+    "remove": "Remove",
+    "sticker_background": "Background",
+    "sticker_size": "Size",
+    "sticker_color": "Colour",
+    "mention": "Mention",
+    "link": "Link",
+    "poll": "Poll",
+    "question": "Question",
+    "hashtag": "Hashtag",
+    "link_url": "Link URL",
+    "link_title": "Title",
+    "link_label": "Sticker label",
+    "poll_question": "Ask something",
+    "poll_option": "Option",
+    "add_option": "Add option",
+    "anonymous_voting": "Anonymous voting",
+    "question_prompt": "Question prompt",
+    "audience": "Who can see this",
+    "privacy": {
+      "public": "Everyone",
+      "friends": "Friends",
+      "close_friends": "Close friends"
+    },
+    "close_friends_empty": "Your close friends list is empty — nobody would see this story.",
+    "manage_close_friends": "Manage close friends",
+    "highlight_updated": "Highlight updated",
+    "update_failed": "Couldn't save the highlight",
+    "highlight_deleted": "Highlight deleted",
+    "delete_failed": "Couldn't delete the highlight",
+    "removed_from_highlight": "Removed from highlight",
+    "remove_failed": "Couldn't remove that story",
+    "back": "Back",
+    "highlights_title": "Highlights",
+    "highlights_subtitle": "Your saved story collections",
+    "highlight_empty": "This highlight has no stories yet",
+    "remove_from_highlight": "Remove from highlight",
+    "edit_highlight": "Edit highlight",
+    "delete_highlight": "Delete highlight",
+    "choose_cover": "Choose a cover",
+    "no_stories_to_pick": "No stories to choose from",
+    "save": "Save",
+    "delete_highlight_confirm": "Delete highlight?",
+    "delete_highlight_body": "The stories themselves stay in your archive.",
+    "previous": "Previous",
+    "next": "Next",
+    "font": {
+      "sans-serif": "Sans serif",
+      "serif": "Serif",
+      "bold": "Bold",
+      "handwritten": "Handwritten"
+    },
+    "bg_mode": {
+      "none": "No background",
+      "semi": "Translucent",
+      "solid": "Solid"
+    },
+    "search_followings": "Search people you follow",
+    "mention_followings_only": "You can only tag people you follow. Follow someone first.",
+    "mention_no_match": "Nobody you follow matches that",
+    "more": "More",
+    "reply_failed": "Couldn't send your message",
+    "vote_failed": "Couldn't save your vote",
+    "poll_error_question": "Add a question to your poll",
+    "poll_error_blank_option": "Fill in or remove the empty poll options",
+    "poll_error_min_options": "A poll needs at least two options",
+    "poll_error_max_options": "A poll can have at most four options",
+    "question_error_prompt": "Add a question to your question sticker",
+    "caption": "Caption",
+    "caption_placeholder": "Add a caption…",
+    "one_image_only": "A story shows one picture. We kept the first one.",
+    "location_label": "Location",
+    "report_story": "Report story",
+    "block_author": "Block {{name}}",
+    "block_confirm_title": "Block {{name}}?",
+    "block_confirm_body": "They won't be able to see your profile, moments or stories, or message you, and you won't see theirs.",
+    "block_confirm": "Block",
+    "blocked": "{{name}} is blocked",
+    "block_failed": "Couldn't block this person. Try again.",
+    "replies_off": "Replies are turned off for this story"
+  },
+  "_note": "English source for the homepage promo carousel (src/data/promoSlides.ts, src/components/growth/PromoCarousel.tsx). NOT yet merged into src/utils/locales/*.json: localeParity.test.ts requires all 18 locales to carry the same key set, so this namespace lands in one translation pass. Until then every call site is t(key) || the English below.",
+  "invite": {
+    "title": "You're invited to BananaTalk",
+    "subtitle": "Practice languages with real people. Join with your friend's invite code and you both get coins.",
+    "genericTitle": "Join BananaTalk",
+    "yourCode": "Your invite code",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "openInApp": "Open in the app",
+    "stepsTitle": "How to join",
+    "step1": "Install BananaTalk",
+    "step2": "Open this link again, or enter the code after you complete your profile"
+  },
+  "card": {
+    "title": "Language Card",
+    "my_card": "My card",
+    "speaks": "Speaks",
+    "learning": "Learning",
+    "practice_with": "Practice {{language}} with {{name}}",
+    "view_profile": "See full profile",
+    "continue_web": "Continue in the browser",
+    "share": "Share my card",
+    "share_text": "Practice {{language}} with me on BananaTalk",
+    "edit": "Edit what's on it",
+    "tagline": "Language exchange on BananaTalk",
+    "not_found": "This card doesn't exist",
+    "not_found_body": "The account may have been removed.",
+    "find_partners": "Find language partners"
+  },
+  "announcements": {
+    "new": "New",
+    "readMore": "Read more",
+    "close": "Close",
+    "ended": "This announcement has ended.",
+    "back": "Back"
+  },
+  "auth": {
+    "apple": {
+      "continue": "Continue with Apple",
+      "signingIn": "Signing in with Apple…",
+      "signedIn": "Signed in with Apple",
+      "errors": {
+        "disabled": "Sign in with Apple isn't available on the website yet.",
+        "unavailable": "Sign in with Apple isn't available right now. Try again later.",
+        "banned": "This account has been suspended.",
+        "rate_limited": "Too many sign-in attempts. Wait a minute and try again.",
+        "blocked": "Your browser blocked the Apple window. Allow pop-ups for banatalk.com and try again.",
+        "failed": "Couldn't sign in with Apple. Try again."
+      }
+    }
+  },
+  "reels": {
+    "policy": {
+      "title": "Reels content guidelines",
+      "body": "Reels are short language-learning videos — prompt answers, speaking practice, native-speaker explainers, and culture clips.\n\nBananaTalk has zero tolerance for objectionable content: no nudity, hate speech, harassment, violence, or illegal content. Reported videos are automatically hidden pending review after 2 reports, and violations can result in content removal or account bans.\n\nYou can report or block from any reel at any time.",
+      "decline": "Decline",
+      "accept": "I agree"
+    },
+    "grid": {
+      "title": "Reels",
+      "create": "Create reel",
+      "loading": "Loading reels…",
+      "unavailable": "Reels are currently unavailable.",
+      "error": "Couldn't load reels.",
+      "retry": "Try again",
+      "empty": "No reels yet. Be the first to post one.",
+      "load_more": "Load more",
+      "open_reel": "Play reel by {{name}}"
+    },
+    "viewer": {
+      "label": "Reels",
+      "tap_to_play": "Tap to play",
+      "close": "Close",
+      "mute": "Mute",
+      "unmute": "Unmute",
+      "previous": "Previous reel",
+      "next": "Next reel"
+    },
+    "actions": {
+      "profile": "Profile",
+      "like": "Like",
+      "unlike": "Unlike",
+      "comments": "Comments",
+      "more": "More",
+      "report": "Report",
+      "block": "Block user"
+    },
+    "create": {
+      "title": "New reel",
+      "hint": "A short language-learning video, up to 3 minutes. Vertical (9:16) looks best.",
+      "choose_video": "Choose a video",
+      "change_video": "Choose another video",
+      "caption": "Caption",
+      "caption_placeholder": "What are you practising?",
+      "bad_type": "This file type isn't supported. Use MP4, MOV or WebM.",
+      "too_big": "This video is too large to upload.",
+      "too_long": "Reels can be up to 3:00. This video is {{duration}}.",
+      "server_too_long": "Reels must be 3 minutes or shorter.",
+      "upload_failed": "The video didn't upload. Nothing was posted — try again.",
+      "failed": "Couldn't post your reel. Try again.",
+      "posting": "Posting…",
+      "post": "Post reel",
+      "posted": "Your reel is posted."
+    },
+    "nav": "Reels",
+    "moments_link": "Watch reels"
+  },
+  "gatherings": {
+    "errors": {
+      "alreadyGoing": "You're already going.",
+      "cancelled": "This gathering was cancelled.",
+      "capacityBelowGoing": "Capacity can't be lower than the {{count}} people already going.",
+      "clubArchived": "This club is archived.",
+      "clubGone": "This club isn't available.",
+      "endBeforeStart": "You can end the gathering once it has started.",
+      "ended": "This gathering has ended.",
+      "full": "This gathering is full.",
+      "gatheringGone": "This gathering isn't available.",
+      "generic": "Something went wrong. Try again.",
+      "hostBlocked": "You can't host right now: too many of your gatherings were cancelled or missed.",
+      "hostCannotLeave": "As the host, cancel the gathering instead of leaving it.",
+      "joinClubFirst": "Join the club before hosting for it.",
+      "offline": "You're offline. Check your connection.",
+      "ownerCannotLeave": "As the owner, you can delete the club but not leave it.",
+      "pastStart": "Pick a start time in the future.",
+      "pending": "Your request is waiting for the host.",
+      "started": "This gathering has already started."
+    },
+    "quorum": {
+      "confirmed": "Confirmed · {{count}} going",
+      "needed": "{{count}} more needed to confirm · {{going}} going"
+    },
+    "status": {
+      "cancelled": "Cancelled",
+      "confirmed": "Confirmed",
+      "ended": "Ended",
+      "live": "Happening now",
+      "scheduled": "Scheduled"
+    },
+    "time": {
+      "hostLocal": "{{time}} for the host"
+    },
+    "topics": {
+      "business": "Business",
+      "conversation": "Conversation",
+      "culture": "Culture",
+      "exam_prep": "Exam prep",
+      "games": "Games",
+      "grammar": "Grammar",
+      "media": "Music, film & TV",
+      "pronunciation": "Pronunciation",
+      "travel": "Travel"
+    },
+    "card": {
+      "approval": "Host approves",
+      "full": "Full",
+      "going": "Going",
+      "hostedBy": "Hosted by {{name}}",
+      "hosting": "You're hosting",
+      "requested": "Requested",
+      "seatsLeft_one": "{{count}} seat left",
+      "seatsLeft_other": "{{count}} seats left"
+    },
+    "home": {
+      "anyLanguage": "My languages",
+      "anyTime": "Any time",
+      "anyTopic": "Any topic",
+      "empty": "Nothing scheduled here yet.",
+      "emptyCta": "Host the first one",
+      "error": "Couldn't load this list.",
+      "hasSeat": "Has a free seat",
+      "host": "Host a gathering",
+      "language": "Language",
+      "loadMore": "Load more",
+      "retry": "Try again",
+      "scopeAll": "All",
+      "scopeMe": "My gatherings",
+      "scopeMine": "My languages",
+      "tabClubs": "Clubs",
+      "tabGatherings": "Gatherings",
+      "title": "Gatherings",
+      "today": "Today",
+      "topic": "Topic",
+      "week": "This week",
+      "when": "When"
+    },
+    "confirm": {
+      "cancel": "Not now",
+      "leaveBody": "The others are counting on the people who said yes.",
+      "leaveOk": "Give up my seat",
+      "leaveTitle": "Give up your seat?"
+    },
+    "detail": {
+      "askToJoin": "Ask to join",
+      "back": "See other gatherings",
+      "cancelRequest": "Cancel my request",
+      "capacity": "Up to {{count}} people · confirms at {{quorum}}",
+      "duration": "{{count}} min",
+      "edit": "Edit gathering",
+      "host": "Host",
+      "join": "I'm going",
+      "leave": "I can't go any more",
+      "online": "Online",
+      "requestSent": "Request sent. The host will decide.",
+      "someone": "A BananaTalk member",
+      "youreGoing": "You're going."
+    },
+    "safety": {
+      "blockHost": "Block the host",
+      "blockOwner": "Block the owner",
+      "more": "More",
+      "reportClub": "Report club",
+      "reportFailed": "Couldn't send the report. Try again.",
+      "reportGathering": "Report gathering",
+      "reported": "Thanks — our moderators will review it."
+    },
+    "form": {
+      "anyLevel": "Any level",
+      "cancel": "Cancel",
+      "capacity": "Seats",
+      "create": "Post gathering",
+      "createTitle": "Host a gathering",
+      "description": "What will you do? (optional)",
+      "duration_one": "Lasts {{count}} minute · in your time zone",
+      "duration_other": "Lasts {{count}} minutes · in your time zone",
+      "editTitle": "Edit gathering",
+      "errors": {
+        "capacityRange": "Seats must be between 2 and 20.",
+        "descriptionTooLong": "Keep the description under 2000 characters.",
+        "languageRequired": "Pick the language you'll practise.",
+        "quorumRange": "The gathering confirms at 2 or more, and not more than the seats.",
+        "startInPast": "Pick a start time in the future.",
+        "startRequired": "Pick a day and time.",
+        "startTooFar": "Pick a time within the next 90 days.",
+        "titleRequired": "Give your gathering a title.",
+        "titleTooLong": "Keep the title under 120 characters."
+      },
+      "joinApproval": "I approve each person",
+      "joinMode": "Who can join",
+      "joinOpen": "Anyone",
+      "language": "Language",
+      "level": "Level",
+      "noTopic": "No topic",
+      "notHost": "Only the host can edit this gathering.",
+      "pickLanguage": "Pick a language",
+      "quorum": "Confirms at",
+      "save": "Save",
+      "startsAt": "Starts",
+      "title": "Title",
+      "topic": "Topic"
+    },
+    "host": {
+      "approve": "Approve",
+      "callOff": "Call it off",
+      "callOffTitle": "Call it off?",
+      "cancel": "Cancel gathering",
+      "cancelConfirm_one": "{{count}} person is expecting this. They'll be told it's off.",
+      "cancelConfirm_other": "{{count}} people are expecting this. They'll be told it's off.",
+      "cancelOk": "Cancel gathering",
+      "cancelTitle": "Cancel this gathering?",
+      "decision_one": "Only {{count}} person is coming so far. Run it anyway, or call it off?",
+      "decision_other": "Only {{count}} people are coming so far. Run it anyway, or call it off?",
+      "decisionAlone": "Only you are coming so far. Run it anyway, or call it off?",
+      "decline": "Decline",
+      "end": "End gathering",
+      "ended": "Ended — message anyone you met, it's free",
+      "nobodyExpecting": "Nobody else has said yes yet.",
+      "requests_one": "{{count}} waiting to join",
+      "requests_other": "{{count}} waiting to join",
+      "runAnyway": "Run it anyway"
+    },
+    "cover": {
+      "add": "Add a cover photo",
+      "badType": "Use a JPEG, PNG, GIF or WebP image.",
+      "change": "Change cover photo",
+      "remove": "Remove cover",
+      "tooBig": "That image is over 10 MB."
+    },
+    "nav": "Gatherings"
+  },
+  "clubs": {
+    "card": {
+      "joined": "Joined",
+      "members_one": "{{count}} member",
+      "members_other": "{{count}} members"
+    },
+    "home": {
+      "empty": "No clubs here yet.",
+      "scopeAll": "All",
+      "scopeMember": "Joined",
+      "scopeMine": "My languages",
+      "start": "Start a club"
+    },
+    "detail": {
+      "back": "See other clubs",
+      "edit": "Edit club",
+      "host": "Host a gathering for this club",
+      "join": "Join club",
+      "leave": "Leave club",
+      "leaveTitle": "Leave this club?",
+      "metTimes_one": "Met once",
+      "metTimes_other": "Met {{count}} times",
+      "neverMet": "Hasn't met yet",
+      "noGatherings": "Nothing planned yet.",
+      "upcoming": "Coming up",
+      "youOwn": "You own this club"
+    },
+    "people": {
+      "makeMember": "Remove organizer role",
+      "makeOrganizer": "Make organizer",
+      "organizer": "Organizer",
+      "owner": "Owner",
+      "remove": "Remove from club",
+      "removeTitle": "Remove {{name}}?",
+      "title": "Members · {{count}}"
+    },
+    "form": {
+      "city": "City (optional)",
+      "create": "Create club",
+      "createTitle": "Start a club",
+      "description": "About the club (optional)",
+      "editTitle": "Edit club",
+      "errors": {
+        "descriptionTooLong": "Keep the description under 2000 characters.",
+        "interestTooLong": "Keep the interest under 60 characters.",
+        "languageRequired": "Pick the club's language.",
+        "nameRequired": "Give your club a name.",
+        "nameTooLong": "Keep the name under 80 characters."
+      },
+      "interest": "What brings you together (e.g. books, K-drama)",
+      "language": "Language",
+      "name": "Name",
+      "notAllowed": "Only the club's owner or an organizer can edit it.",
+      "placeAddress": "Address (optional)",
+      "placeName": "Where you meet (optional)"
+    },
+    "owner": {
+      "delete": "Delete club",
+      "deleteBody": "Members lose the club. Gatherings already planned will still happen.",
+      "deleteTitle": "Delete {{name}}?"
+    }
+  },
+  "voiceRooms": {
+    "errors": {
+      "full": "This room is full.",
+      "ended": "This room has ended.",
+      "blocked": "You can't join this room.",
+      "vipToCreate": "Creating voice rooms needs a VIP plan.",
+      "gone": "This room is no longer available.",
+      "generic": "Something went wrong. Try again."
+    },
+    "list": {
+      "title": "Voice rooms",
+      "create": "Start a room",
+      "live": "Live now",
+      "scheduled": "Coming up",
+      "error": "Couldn't load voice rooms.",
+      "emptyLive": "No one is talking right now. Start a room and invite people in.",
+      "emptyScheduled": "No rooms are scheduled yet.",
+      "full": "Full",
+      "join": "Join",
+      "going": "Going ✓",
+      "rsvp": "Remind me"
+    },
+    "create": {
+      "title": "Start a voice room",
+      "name": "Room name",
+      "description": "What will you talk about? (optional)",
+      "language": "Language",
+      "category": "Kind of room",
+      "max": "Up to how many people",
+      "when": "Start later (optional)",
+      "schedule": "Schedule",
+      "start": "Start room"
+    },
+    "category": {
+      "casual": "Casual chat",
+      "language_practice": "Language practice",
+      "topic": "Topic",
+      "qa": "Q&A"
+    },
+    "room": {
+      "back": "All rooms",
+      "joinHint": "You'll join as a listener. Take the mic whenever you're ready.",
+      "join": "Join room",
+      "ended": "This room has ended.",
+      "findAnother": "Find another room",
+      "elsewhere": "You joined this room from another tab or device.",
+      "useHere": "Listen here instead",
+      "lost": "Connection to the room was lost.",
+      "rejoin": "Rejoin",
+      "connectFailed": "Couldn't connect to the room's audio. Check your connection and try again.",
+      "reconnecting": "Reconnecting…",
+      "enableSound": "Tap to turn on the room's sound",
+      "micDenied": "Your browser is blocking the microphone. Allow the microphone for banatalk.com in the address bar, then try again. You can keep listening.",
+      "micUnavailable": "No microphone was found (or another app is using it). You can keep listening.",
+      "micError": "Couldn't turn on the microphone. Try again.",
+      "handUp": "Hand raised",
+      "host": "Host",
+      "you": "you",
+      "mute": "Mute",
+      "takeMic": "Take the mic",
+      "lowerHand": "Lower hand",
+      "raiseHand": "Raise hand",
+      "leave": "Leave",
+      "chat": "Room chat",
+      "chatPlaceholder": "Say something…",
+      "send": "Send"
+    },
+    "host": {
+      "title": "Host tools",
+      "hands": "Raised hands",
+      "noHands": "No one has raised a hand.",
+      "makeCohost": "Make co-host",
+      "speakNote": "Anyone in the room can take the mic. A raised hand asks you for a turn.",
+      "muteAll": "Mute everyone",
+      "end": "End room",
+      "endConfirm": "End the room for everyone?",
+      "endYes": "End room"
+    }
+  },
+  "common": {
+    "cancel": "Cancel",
+    "retry": "Retry"
+  },
+  "languageRooms": {
+    "list": {
+      "title": "Language rooms",
+      "create": "New topic room",
+      "error": "Couldn't load language rooms.",
+      "empty": "No rooms yet.",
+      "joined": "Joined",
+      "locked": "Locked"
+    },
+    "create": {
+      "title": "Start a topic room",
+      "name": "Topic",
+      "language": "Language",
+      "description": "Description (optional)",
+      "submit": "Create room"
+    },
+    "errors": {
+      "banned": "You were removed from this room. You can ask the owner to let you back in.",
+      "pending": "Your request is waiting for the owner.",
+      "busy": "This room has too many requests right now. Try later.",
+      "owner": "The owner can't be removed.",
+      "tooMany": "You already have 10 rooms. Delete one to start another.",
+      "titleLength": "The name can be up to 60 characters.",
+      "gone": "This room is no longer available.",
+      "generic": "Something went wrong. Try again."
+    },
+    "room": {
+      "back": "All rooms",
+      "online": "online",
+      "pending": "Request sent. The owner will let you in.",
+      "request": "Ask to join",
+      "join": "Join room",
+      "older": "Load earlier messages",
+      "placeholder": "Write in the room's language…",
+      "send": "Send",
+      "leave": "Leave room",
+      "slowDown": "You're sending too fast. Slow down a little.",
+      "notSent": "Not sent. Try again.",
+      "voice": "Voice message — open the app to listen",
+      "media": "Photo or video — open the app to see it",
+      "sticker": "Sticker",
+      "unsupported": "Open the app to see this message"
+    },
+    "owner": {
+      "requests": "Join requests",
+      "noRequests": "No one is waiting.",
+      "approve": "Let in",
+      "deny": "Decline",
+      "members": "Members",
+      "owner": "owner",
+      "admin": "admin",
+      "remove": "Remove from room",
+      "removeYes": "Remove",
+      "removeNote": "Removed members can ask to come back; you decide."
+    }
+  },
+  "communityCity": {
+    "back": "Community",
+    "title": "People by place",
+    "searchPlaceholder": "Search a city",
+    "search": "Search",
+    "countries": "Countries",
+    "searchTitle": "People in “{{query}}”",
+    "error": "Couldn't load people. Try again.",
+    "empty": "No one here matches yet. Try another place.",
+    "more": "Show more"
+  },
+  "communityGenders": {
+    "back": "Community",
+    "title": "Browse by gender",
+    "female": "Women",
+    "male": "Men",
+    "error": "Couldn't load people. Try again.",
+    "empty": "No one matches yet.",
+    "more": "Show more"
+  },
+  "nav": {
+    "voiceRooms": "Voice rooms",
+    "languageRooms": "Language rooms"
   }
 }

@@ -190,4 +190,79 @@ describe("dead 404 message routes are removed", () => {
     // unaffected and no dead-route constant was ever added.
     expect(MESSAGES_URL).toBe("/api/v1/messages");
   });
+
+  it("editMessage -> PUT /api/v1/messages/:id with {message} (the field the backend reads)", async () => {
+    const calls = mockFetch();
+    const store = makeStore();
+    await store.dispatch(
+      (chatApiSlice.endpoints as any).editMessage.initiate({ messageId: "msg-1", message: "fixed" })
+    );
+    expect(calls).toHaveLength(1);
+    const url = new URL(calls[0].url);
+    expect(url.pathname).toBe(`${MESSAGES_URL}/msg-1`);
+    expect(calls[0].method).toBe("PUT");
+    expect(JSON.parse(calls[0].body as string)).toEqual({ message: "fixed" });
+  });
+
+  it("deleteMessage -> DELETE /api/v1/messages/:id with a JSON body, no query flag", async () => {
+    const calls = mockFetch();
+    const store = makeStore();
+    await store.dispatch(
+      (chatApiSlice.endpoints as any).deleteMessage.initiate({ messageId: "msg-1", forEveryone: true })
+    );
+    const url = new URL(calls[0].url);
+    expect(url.pathname).toBe(`${MESSAGES_URL}/msg-1`);
+    expect(url.search).toBe("");
+    expect(calls[0].method).toBe("DELETE");
+    expect(JSON.parse(calls[0].body as string)).toEqual({ deleteForEveryone: true });
+  });
+
+  it("deleteMessage for me sends deleteForEveryone:false (a real boolean)", async () => {
+    const calls = mockFetch();
+    const store = makeStore();
+    await store.dispatch(
+      (chatApiSlice.endpoints as any).deleteMessage.initiate({ messageId: "msg-2" })
+    );
+    expect(JSON.parse(calls[0].body as string)).toEqual({ deleteForEveryone: false });
+  });
+
+  it("getVideoMessageConfig -> GET /api/v1/messages/video-config", async () => {
+    const calls = mockFetch();
+    const store = makeStore();
+    await store.dispatch((chatApiSlice.endpoints as any).getVideoMessageConfig.initiate(undefined));
+    expect(new URL(calls[0].url).pathname).toBe(`${MESSAGES_URL}/video-config`);
+    expect(calls[0].method).toBe("GET");
+  });
+
+  it("getBookmarks asks for one page of 50 by default", async () => {
+    const calls = mockFetch();
+    const store = makeStore();
+    await store.dispatch((chatApiSlice.endpoints as any).getBookmarks.initiate({}));
+    const url = new URL(calls[0].url);
+    expect(url.pathname).toBe(`${MESSAGES_URL}/bookmarks`);
+    expect(url.searchParams.get("page")).toBe("1");
+    expect(url.searchParams.get("limit")).toBe("50");
+  });
+
+  it("archiveConversation -> POST /api/v1/conversations/:id/archive", async () => {
+    const calls = mockFetch();
+    await makeStore().dispatch((chatApiSlice.endpoints as any).archiveConversation.initiate("c1"));
+    expect(new URL(calls[0].url).pathname).toBe("/api/v1/conversations/c1/archive");
+    expect(calls[0].method).toBe("POST");
+  });
+
+  it("unarchiveConversation -> POST /api/v1/conversations/:id/unarchive", async () => {
+    const calls = mockFetch();
+    await makeStore().dispatch((chatApiSlice.endpoints as any).unarchiveConversation.initiate("c1"));
+    expect(new URL(calls[0].url).pathname).toBe("/api/v1/conversations/c1/unarchive");
+  });
+
+  it("muteConversation sends the duration in ms, and no duration for 'always'", async () => {
+    const calls = mockFetch();
+    const store = makeStore();
+    await store.dispatch((chatApiSlice.endpoints as any).muteConversation.initiate({ conversationId: "c1", duration: 3600000 }));
+    await store.dispatch((chatApiSlice.endpoints as any).muteConversation.initiate({ conversationId: "c1" }));
+    expect(JSON.parse(calls[0].body as string)).toEqual({ duration: 3600000 });
+    expect(JSON.parse(calls[1].body as string)).toEqual({});
+  });
 });

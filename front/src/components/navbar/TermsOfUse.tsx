@@ -5,7 +5,7 @@ const TermsOfUse = () => {
   return (
     <Container className="py-5">
       <div className="bg-white p-4 rounded shadow-sm">
-        <h2 className="mb-3">Terms of Use</h2>
+        <h1 className="mb-3 h2">Terms of Use</h1>
         <p className="text-muted mb-4">Last Updated: December 9, 2025</p>
 
         <div className="mt-4">

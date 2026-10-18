@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { X, Search, Send, Check } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { useGetConversationsQuery } from '../../../store/slices/chatSlice';
 
 export interface ForwardDialogProps {
@@ -27,6 +28,7 @@ const partnerAvatar = (user: any): string | undefined =>
   user?.avatar || user?.photo || user?.imageUrls?.[0] || user?.images?.[0];
 
 const ForwardDialog: React.FC<ForwardDialogProps> = ({ open, onForward, onClose }) => {
+  const { t } = useTranslation();
   const meId = useSelector((state: RootState) => state.auth.userInfo?.user?._id) ?? '';
   const { data, isLoading, isError } = useGetConversationsQuery(
     { page: 1, limit: 50 },
@@ -48,13 +50,13 @@ const ForwardDialog: React.FC<ForwardDialogProps> = ({ open, onForward, onClose 
       if (!byId.has(otherUser._id)) {
         byId.set(otherUser._id, {
           _id: otherUser._id,
-          name: otherUser.name || 'Unknown',
+          name: otherUser.name || t('chatPage.forward.unknownUser') || 'Unknown',
           avatar: partnerAvatar(otherUser),
         });
       }
     });
     return Array.from(byId.values());
-  }, [data, meId]);
+  }, [data, meId, t]);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -90,10 +92,12 @@ const ForwardDialog: React.FC<ForwardDialogProps> = ({ open, onForward, onClose 
         className="flex max-h-[80vh] w-full max-w-sm flex-col rounded-t-2xl bg-white shadow-xl dark:bg-gray-900 sm:rounded-2xl"
       >
         <div className="flex items-center justify-between border-b border-gray-100 px-4 py-3 dark:border-gray-800">
-          <h2 className="text-base font-semibold text-gray-900 dark:text-gray-100">Forward to</h2>
+          <h2 className="text-base font-semibold text-gray-900 dark:text-gray-100">
+            {t("chatPage.forward.title") || "Forward to"}
+          </h2>
           <button
             type="button"
-            aria-label="Close"
+            aria-label={t("chatPage.forward.close") || "Close"}
             data-testid="forward-dialog-close"
             onClick={onClose}
             className="flex h-7 w-7 items-center justify-center rounded-full text-gray-400 hover:bg-gray-100 hover:text-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-200"
@@ -109,7 +113,7 @@ const ForwardDialog: React.FC<ForwardDialogProps> = ({ open, onForward, onClose 
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search"
+              placeholder={t("chatPage.forward.search") || "Search"}
               className="w-full bg-transparent text-sm text-gray-800 outline-none placeholder:text-gray-400 dark:text-gray-100"
             />
           </div>
@@ -117,15 +121,19 @@ const ForwardDialog: React.FC<ForwardDialogProps> = ({ open, onForward, onClose 
 
         <div className="flex-1 overflow-y-auto px-2 py-2">
           {isLoading && (
-            <p className="px-2 py-4 text-center text-sm text-gray-400">Loading conversations…</p>
+            <p className="px-2 py-4 text-center text-sm text-gray-400">
+              {t("chatPage.forward.loading") || "Loading conversations…"}
+            </p>
           )}
           {isError && (
             <p className="px-2 py-4 text-center text-sm text-red-500">
-              Couldn&apos;t load conversations.
+              {t("chatPage.forward.error") || "Couldn't load conversations."}
             </p>
           )}
           {!isLoading && !isError && filtered.length === 0 && (
-            <p className="px-2 py-4 text-center text-sm text-gray-400">No conversations found.</p>
+            <p className="px-2 py-4 text-center text-sm text-gray-400">
+              {t("chatPage.forward.empty") || "No conversations found."}
+            </p>
           )}
 
           {filtered.map((partner) => {
@@ -176,7 +184,9 @@ const ForwardDialog: React.FC<ForwardDialogProps> = ({ open, onForward, onClose 
             className="flex w-full items-center justify-center gap-2 rounded-full bg-teal-500 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-teal-600 disabled:cursor-not-allowed disabled:bg-gray-300 dark:disabled:bg-gray-700"
           >
             <Send size={14} />
-            Forward{selected.size > 0 ? ` (${selected.size})` : ''}
+            {selected.size > 0
+              ? t("chatPage.forward.submitCount", { count: selected.size }) || `Forward (${selected.size})`
+              : t("chatPage.forward.submit") || "Forward"}
           </button>
         </div>
       </div>

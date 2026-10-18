@@ -1,0 +1,219 @@
+/*
+ * The notification popup, restyled.
+ *
+ * Loaded AFTER react-toastify's own stylesheet in App.tsx, so everything here
+ * is an override of its published CSS variables plus a handful of element
+ * rules the variables do not reach (the card shape, the accent rail, the
+ * close button).
+ *
+ * Why CSS and not props: a toast's appearance is decided per call, and there
+ * are ~113 `toast.*()` call sites across 35 files, each passing its own
+ * options object. Restyling at the call sites would mean editing all of them
+ * and would leave the next new call site un-styled again. The stylesheet
+ * reaches every toast that will ever be raised, including ones nobody has
+ * written yet.
+ *
+ * THE LIGHT/DARK BUG THIS FIXES: 73 of those call sites hardcode
+ * `theme: "dark"`, so a toast rendered on the light UI came out near-black —
+ * a slab of night sitting on a white page. The app has no dark-mode class
+ * toggle; Tailwind here is on its default `media` strategy, so the honest
+ * source of truth is `prefers-color-scheme`. Both of toastify's theme classes
+ * are therefore re-pointed at the SAME palette below, chosen by the media
+ * query, which makes the hardcoded prop a no-op instead of a wrong answer.
+ * Call sites can be tidied later; nothing has to change for this to be right.
+ *
+ * Colours are the brand tokens from tailwind.config.js (ported from the
+ * Flutter app's app_theme.dart). `brand.deep` rather than `brand.DEFAULT`
+ * wherever small text or an icon sits on the fill: #00BFA5 under white text
+ * is 2.33:1, which fails AA; #00806A is 4.89:1, which passes.
+ */
+
+:root {
+  --toastify-toast-width: 380px;
+  --toastify-toast-min-height: 56px;
+  --toastify-toast-bd-radius: 14px;
+  --toastify-toast-offset: 16px;
+  --toastify-font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  /* Status hues. Used for the icon, the accent rail and the progress bar --
+     never as the card fill, which stays neutral so the text keeps its
+     contrast regardless of status. */
+  --bt-toast-success: #00806a;
+  --bt-toast-error: #d92d20;
+  --bt-toast-info: #0b6bcb;
+  --bt-toast-warning: #b54708;
+
+  /* Neutral card. Light scheme. */
+  --bt-toast-bg: #ffffff;
+  --bt-toast-fg: #171e29; /* ink.900 */
+  --bt-toast-muted: #4e5868; /* ink.600 */
+  --bt-toast-border: #e5e9f0; /* line.DEFAULT */
+  --bt-toast-shadow: 0 10px 30px -12px rgba(13, 19, 28, 0.28),
+    0 2px 8px -2px rgba(13, 19, 28, 0.12);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bt-toast-success: #5df2d6;
+    --bt-toast-error: #ff8078;
+    --bt-toast-info: #7cc0ff;
+    --bt-toast-warning: #ffb866;
+
+    --bt-toast-bg: #2c2c2c; /* cardbg.dark */
+    --bt-toast-fg: #f7f8fa; /* ink.50 */
+    --bt-toast-muted: #c7cfda; /* ink.300 */
+    --bt-toast-border: #2f3641; /* line.dark */
+    --bt-toast-shadow: 0 12px 34px -12px rgba(0, 0, 0, 0.7),
+      0 2px 10px -3px rgba(0, 0, 0, 0.5);
+  }
+}
+
+/* Both theme classes resolve to the same palette on purpose -- see the
+   light/dark note at the top. `theme: "dark"` at a call site stops mattering. */
+.Toastify__toast,
+.Toastify__toast-theme--dark,
+.Toastify__toast-theme--light,
+.Toastify__toast-theme--colored {
+  background: var(--bt-toast-bg);
+  color: var(--bt-toast-fg);
+}
+
+.Toastify__toast {
+  position: relative;
+  align-items: center;
+  padding: 12px 14px;
+  border: 1px solid var(--bt-toast-border);
+  border-radius: var(--toastify-toast-bd-radius);
+  box-shadow: var(--bt-toast-shadow);
+  font-family: var(--toastify-font-family);
+  font-size: 0.875rem;
+  line-height: 1.35;
+  font-weight: 500;
+  overflow: hidden;
+}
+
+/* The accent rail. A 3px edge carries the status without tinting the card,
+   which is what lets the text keep a neutral background and full contrast. */
+.Toastify__toast::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  background: var(--bt-toast-accent, var(--bt-toast-info));
+}
+
+.Toastify__toast--success {
+  --bt-toast-accent: var(--bt-toast-success);
+}
+.Toastify__toast--error {
+  --bt-toast-accent: var(--bt-toast-error);
+}
+.Toastify__toast--info {
+  --bt-toast-accent: var(--bt-toast-info);
+}
+.Toastify__toast--warning {
+  --bt-toast-accent: var(--bt-toast-warning);
+}
+
+.Toastify__toast-body {
+  padding: 0;
+  margin: 0;
+  align-items: center;
+  gap: 10px;
+  color: var(--bt-toast-fg);
+}
+
+.Toastify__toast-icon {
+  width: 20px;
+  margin-inline-end: 0;
+  color: var(--bt-toast-accent, var(--bt-toast-info));
+}
+
+.Toastify__toast-icon svg {
+  fill: var(--bt-toast-accent, var(--bt-toast-info));
+}
+
+.Toastify__close-button {
+  align-self: center;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  color: var(--bt-toast-muted);
+  opacity: 1; /* toastify ships 0.7 and only lifts it on hover, which reads as disabled */
+  transition: background-color 150ms ease, color 150ms ease;
+}
+
+.Toastify__close-button:hover,
+.Toastify__close-button:focus-visible {
+  background: color-mix(in srgb, var(--bt-toast-fg) 10%, transparent);
+  color: var(--bt-toast-fg);
+}
+
+/* The keyboard ring has to survive `overflow: hidden` on the card, so it is
+   drawn inside rather than outside the button. */
+.Toastify__close-button:focus-visible {
+  outline: 2px solid var(--bt-toast-accent, var(--bt-toast-info));
+  outline-offset: -2px;
+}
+
+.Toastify__progress-bar {
+  height: 2px;
+  opacity: 0.9;
+  background: var(--bt-toast-accent, var(--bt-toast-info));
+}
+
+/* Phones: full width with a gutter, and clear of the home indicator. The
+   default pins a fixed 380px card to one edge, which on a 390px screen leaves
+   a 5px margin on one side and none on the other. */
+@media only screen and (max-width: 480px) {
+  .Toastify__toast-container {
+    width: 100%;
+    padding: 0 12px;
+    left: 0;
+    right: 0;
+    margin: 0;
+  }
+
+  .Toastify__toast-container--top-right,
+  .Toastify__toast-container--top-left,
+  .Toastify__toast-container--top-center {
+    top: max(12px, env(safe-area-inset-top));
+  }
+
+  .Toastify__toast-container--bottom-right,
+  .Toastify__toast-container--bottom-left,
+  .Toastify__toast-container--bottom-center {
+    bottom: max(12px, env(safe-area-inset-bottom));
+  }
+
+  .Toastify__toast {
+    margin-bottom: 8px;
+    border-radius: var(--toastify-toast-bd-radius);
+  }
+}
+
+/* Respect a reduced-motion preference: the slide/bounce entrance is decoration
+   and a toast that cannot animate must still appear. */
+@media (prefers-reduced-motion: reduce) {
+  .Toastify__toast,
+  .Toastify__bounce-enter--top-right,
+  .Toastify__bounce-enter--top-center,
+  .Toastify__bounce-enter--top-left,
+  .Toastify__bounce-enter--bottom-right,
+  .Toastify__bounce-enter--bottom-center,
+  .Toastify__bounce-enter--bottom-left,
+  .Toastify__slide-enter--top-right,
+  .Toastify__slide-enter--top-center,
+  .Toastify__slide-enter--top-left {
+    animation-duration: 1ms !important;
+    animation-delay: 0ms !important;
+  }
+
+  .Toastify__close-button {
+    transition: none;
+  }
+}

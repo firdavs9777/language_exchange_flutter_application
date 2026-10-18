@@ -12506,4 +12506,14 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get vocabPacksBrowse => 'تصفّح المجموعات';
+
+  @override
+  String visitorsReveal24h(int cost) {
+    return 'شاهد الجميع لمدة 24 ساعة مقابل $cost 💎، أو اشترك في VIP';
+  }
+
+  @override
+  String visitorsUnlockedLeft(String time) {
+    return 'مفتوح · متبقٍ $time';
+  }
 }

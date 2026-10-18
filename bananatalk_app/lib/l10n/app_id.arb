@@ -4712,5 +4712,7 @@
   "perkUnlimitedTranslations": "Terjemahan tanpa batas",
   "vipMoreMatchesCta": "VIP: 15 match sehari",
   "vocabPacksPromo": "Kumpulan kata siap pakai per topik. Tambahkan satu dan belajar sedikit setiap hari.",
-  "vocabPacksBrowse": "Lihat paket"
+  "vocabPacksBrowse": "Lihat paket",
+  "visitorsReveal24h": "Lihat semuanya selama 24 jam dengan {cost} 💎, atau jadi VIP",
+  "visitorsUnlockedLeft": "Terbuka · sisa {time}"
 }

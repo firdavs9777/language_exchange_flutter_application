@@ -208,7 +208,7 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.byType(MaskedPersonTile), findsOneWidget);
       expect(find.text('2 people viewed your profile'), findsOneWidget);
-      expect(find.text('See who for 60 coins, or go VIP'), findsOneWidget);
+      expect(find.text('See everyone for 24 hours for 60 💎, or go VIP'), findsOneWidget);
       expect(calls, [true]);
     });
 

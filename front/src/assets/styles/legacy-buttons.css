@@ -1,0 +1,63 @@
+/* ===========================================
+   Legacy button overrides — extracted from the deleted
+   src/components/home/HomeMain.scss (Task 11 of the
+   marketing-homepage rebuild).
+
+   Bootstrap's own `.btn-primary` renders slate (#3c4c5d). These two
+   rules override it (and `.btn-secondary`) with the brand teal
+   gradient (#00BFA5 -> #00A896). Two screens still depend on that
+   override for their button color: `src/components/profile/MyMoments.tsx`
+   and `src/components/community/CommunityDetail.tsx` (both use
+   Bootstrap's `btn btn-primary` / `btn btn-secondary` classes directly).
+
+   This file is temporary. It should be deleted by whichever later
+   sub-project converts the last of those two screens off Bootstrap's
+   `.btn-primary` / `.btn-secondary` onto the design system's own
+   button component.
+   =========================================== */
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, #00BFA5, #00A896);
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0, 191, 165, 0.3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0, 191, 165, 0.4);
+  color: white;
+}
+
+.btn-primary.large {
+  padding: 1.25rem 2.5rem;
+  font-size: 1.125rem;
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  background: white;
+  color: #374151;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 12px;
+  text-decoration: none;
+  border: 2px solid #E5E7EB;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  border-color: #00BFA5;
+  color: #00BFA5;
+}

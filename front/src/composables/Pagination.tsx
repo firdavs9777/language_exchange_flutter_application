@@ -1,4 +1,5 @@
 
+import { useHasHydrated } from "../seo/prerender/useHasHydrated";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 interface PaginationProps {
   currentPage: number;
@@ -20,11 +21,17 @@ const Pagination: React.FC<PaginationProps> = ({
   totalMoments,
   isLoading = false,
 }) => {
+  // The viewport is not known in the prerender (there is no window) and must
+  // not shape the first client render either, or a phone would hydrate
+  // markup built for no screen at all. Both render the narrow range; a wide
+  // screen widens it on the render after hydration.
+  const hasHydrated = useHasHydrated();
+
   if (totalPages <= 1) return null;
 
   const getPageNumbers = () => {
     // More conservative pagination for mobile
-    const delta = window.innerWidth < 640 ? 1 : 2;
+    const delta = hasHydrated && typeof window !== "undefined" && window.innerWidth >= 640 ? 2 : 1;
     const rangeWithDots = [];
 
     // Always show first page

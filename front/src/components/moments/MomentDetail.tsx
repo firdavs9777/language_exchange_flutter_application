@@ -9,13 +9,13 @@ import {
   FaGlobe,
   FaHeart,
   FaMapMarkerAlt,
-  FaPaperPlane,
   FaRegComments,
   FaTag,
 } from "react-icons/fa";
 import { Bookmark, Heart } from "lucide-react";
 import { useSelector } from "react-redux";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import routeId from "../../utils/routeId";
 import { Bounce, toast } from "react-toastify";
 import ImageLightbox from "./ImageLightbox";
 import ShareButton from "../linking/ShareButton";
@@ -23,14 +23,17 @@ import MomentReactionRow from "./actions/MomentReactionRow";
 import MomentVideoPlayer from "./media/MomentVideoPlayer";
 import VoiceNotePlayer from "./media/VoiceNotePlayer";
 import GradientMomentCard from "./media/GradientMomentCard";
+import MomentOverflowMenu from "./actions/MomentOverflowMenu";
+import ScheduledBadge from "./ScheduledBadge";
+import { isScheduledLater } from "./lib/scheduling";
+import TranslatableText from "./TranslatableText";
+import PromptAnswerTag from "./PromptAnswerTag";
+import { MomentPrompt } from "./types";
+import CommentList from "./comments/CommentList";
 import AdUnit from "../ads/AdUnit";
 import { AD_SLOTS } from "../ads/adsenseConfig";
 
 // API hooks
-import {
-  useAddCommentMutation,
-  useGetCommentsQuery,
-} from "../../store/slices/comments";
 import {
   useDislikeMomentMutation,
   useGetMomentDetailsQuery,
@@ -40,7 +43,9 @@ import {
   useShareMomentMutation,
   useSaveMomentMutation,
   useUnsaveMomentMutation,
+  useTranslateMomentMutation,
 } from "../../store/slices/momentsSlice";
+import { useTargetLanguage } from "../../hooks/useTargetLanguage";
 
 // Types (updated to match the new MomentType interface)
 interface User {
@@ -58,6 +63,7 @@ interface User {
 
 interface MomentDetails {
   _id: string;
+  prompt?: MomentPrompt | null;
   title: string;
   description: string;
   likedUsers: string[];
@@ -90,17 +96,12 @@ interface MomentDetails {
   };
   audio?: { url: string; duration: number; waveform: number[] };
   backgroundColor?: string;
-}
-
-interface Comment {
-  _id: string;
-  text: string;
-  user: User;
-  createdAt: string;
-}
-
-interface CommentResponse {
-  data: Comment[];
+  /**
+   * Denormalized by controllers/comments.js on every create/delete. It seeds
+   * the header counter before <CommentList> has fetched; once the list
+   * reports the comments query's `total`, that wins.
+   */
+  commentCount?: number;
 }
 
 interface MomentResponse {
@@ -108,29 +109,6 @@ interface MomentResponse {
 }
 
 // Memoized helper components for better performance
-const TimeAgo = React.memo<{ date: string }>(({ date }) => {
-  const { t } = useTranslation();
-
-  const timeAgoText = useMemo(() => {
-    const now = new Date();
-    const past = new Date(date);
-    const diff = now.getTime() - past.getTime();
-
-    const minutes = Math.floor(diff / (1000 * 60));
-    const hours = Math.floor(minutes / 60);
-    const days = Math.floor(hours / 24);
-
-    if (minutes < 1) return t("moments_section.timeAgo.justNow");
-    if (minutes < 60)
-      return t("moments_section.timeAgo.minutesAgo", { minutes });
-    if (hours < 24) return t("moments_section.timeAgo.hoursAgo", { hours });
-    if (days < 7) return t("moments_section.timeAgo.daysAgo", { days });
-    return new Date(date).toLocaleDateString();
-  }, [date, t]);
-
-  return <span className="text-xs text-gray-500">{timeAgoText}</span>;
-});
-
 const MomentMetadata = React.memo<{ moment: MomentDetails }>(({ moment }) => {
   const metadata = [];
 
@@ -173,13 +151,14 @@ const MomentMetadata = React.memo<{ moment: MomentDetails }>(({ moment }) => {
 });
 
 const TagsList = React.memo<{ tags: string[] }>(({ tags }) => {
+  const { t } = useTranslation();
   if (!tags || tags.length === 0) return null;
 
   return (
     <div className="mt-3 pt-3 border-t border-gray-100">
       <div className="flex items-center gap-2 mb-2">
         <FaTag className="w-3.5 h-3.5 text-gray-500" />
-        <span className="text-sm font-medium text-gray-600">Tags:</span>
+        <span className="text-sm font-medium text-gray-600">{t("moments_section.fields.tags") || "Tags"}</span>
       </div>
       <div className="flex flex-wrap gap-2">
         {tags.map((tag, index) => (
@@ -205,39 +184,6 @@ const LocationInfo = React.memo<{ location: MomentDetails['location'] }>(({ loca
     </div>
   );
 });
-
-const CommentItem = React.memo<{ comment: Comment; index: number }>(
-  ({ comment, index }) => {
-    return (
-      <div className="flex gap-3 py-3 px-2 hover:bg-gray-50/50 rounded-xl transition-all duration-200">
-        <div className="flex-shrink-0">
-          <div className="relative">
-            <img
-              src={comment.user.imageUrls?.[0] || "/default-avatar.png"}
-              alt={comment.user.name}
-              className="w-8 h-8 sm:w-9 sm:h-9 rounded-full object-cover ring-2 ring-white shadow-sm"
-              loading="lazy"
-            />
-            <div className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-green-400 rounded-full border border-white"></div>
-          </div>
-        </div>
-        <div className="flex-1 min-w-0">
-          <div className="bg-gray-50 rounded-2xl px-3 py-2.5 sm:px-4 sm:py-3">
-            <div className="flex items-center justify-between mb-1">
-              <h4 className="font-semibold text-gray-800 text-sm truncate pr-2">
-                {comment.user.name}
-              </h4>
-              <TimeAgo date={comment.createdAt} />
-            </div>
-            <p className="text-gray-700 text-sm leading-relaxed break-words">
-              {comment.text}
-            </p>
-          </div>
-        </div>
-      </div>
-    );
-  }
-);
 
 const ImageCarousel = React.memo<{ images: string[]; title?: string }>(
   ({ images, title }) => {
@@ -280,14 +226,14 @@ const ImageCarousel = React.memo<{ images: string[]; title?: string }>(
               <button
                 onClick={prevSlide}
                 className="absolute left-2 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors focus:outline-none focus:ring-2 focus:ring-white/50"
-                aria-label="Previous image"
+                aria-label={t("moments_section.lightbox.previous") || "Previous image"}
               >
                 <FaChevronLeft className="w-4 h-4" />
               </button>
               <button
                 onClick={nextSlide}
                 className="absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors focus:outline-none focus:ring-2 focus:ring-white/50"
-                aria-label="Next image"
+                aria-label={t("moments_section.lightbox.next") || "Next image"}
               >
                 <FaChevronRight className="w-4 h-4" />
               </button>
@@ -335,7 +281,10 @@ const LoadingSpinner = React.memo<{ message?: string }>(({ message }) => (
 
 const MomentDetail: React.FC = () => {
   const { t } = useTranslation();
-  const { id: momentId } = useParams<{ id: string }>();
+  const { id: rawMomentId } = useParams<{ id: string }>();
+  // Shared links arrive with the description glued on; the id at the front is
+  // still good.
+  const momentId = rawMomentId ? routeId(rawMomentId) : rawMomentId;
   const navigate = useNavigate();
 
   // User data - memoized to prevent unnecessary re-renders
@@ -343,9 +292,8 @@ const MomentDetail: React.FC = () => {
   const userId = useMemo(() => userInfo?.user?._id, [userInfo]);
 
   // State
-  const [newComment, setNewComment] = useState("");
-  const [isSubmittingComment, setIsSubmittingComment] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [commentTotal, setCommentTotal] = useState<number | null>(null);
   const [localShareCount, setLocalShareCount] = useState(0);
   const [showHeartBurst, setShowHeartBurst] = useState(false);
 
@@ -367,16 +315,8 @@ const MomentDetail: React.FC = () => {
   const [shareMoment] = useShareMomentMutation();
   const [saveMoment] = useSaveMomentMutation();
   const [unsaveMoment] = useUnsaveMomentMutation();
-  const [addComment] = useAddCommentMutation();
-
-  const {
-    data: commentsData,
-    isLoading: isLoadingComments,
-    refetch: refetchComments,
-  } = useGetCommentsQuery(momentId || "", {
-    skip: !momentId,
-    refetchOnMountOrArgChange: true,
-  });
+  const [translateMoment] = useTranslateMomentMutation();
+  const targetLanguage = useTargetLanguage();
 
   // Memoized computed values to prevent unnecessary recalculations
   const momentDetails = useMemo(
@@ -384,15 +324,16 @@ const MomentDetail: React.FC = () => {
     [momentData]
   );
 
-  const commentsList = useMemo(
-    () => (commentsData as CommentResponse)?.data || [],
-    [commentsData]
-  );
-
   const isLiked = useMemo(
     () => momentDetails?.likedUsers.includes(userId || ""),
     [momentDetails?.likedUsers, userId]
   );
+
+  // The comment list owns the comments themselves and reports the server's
+  // `total` as it fetches; until it has, the moment's own denormalized
+  // `commentCount` stands in.
+  const commentCount =
+    commentTotal !== null ? commentTotal : momentDetails?.commentCount || 0;
 
   const formattedDate = useMemo(
     () =>
@@ -467,6 +408,32 @@ const MomentDetail: React.FC = () => {
     navigate('/moments');
   }, [navigate]);
 
+  // Translate-on-tap for the moment body (the comments get their own in the
+  // comment work). The server answers with { success, data: { language,
+  // translatedText, translatedAt }, cached } -- no source language, so
+  // TranslatableText infers "already in your language" from unchanged text.
+  const handleTranslateBody = useCallback(async () => {
+    const res: any = await translateMoment({
+      momentId: momentId || "",
+      targetLanguage,
+    }).unwrap();
+    return { translatedText: (res && res.data && res.data.translatedText) || "" };
+  }, [translateMoment, momentId, targetLanguage]);
+
+  // Same sign-in prompt the like button shows when logged out.
+  const handleCommentTotalChange = useCallback((total: number) => {
+    setCommentTotal(total);
+  }, []);
+
+  const handleRequireLogin = useCallback(() => {
+    toast.error(t("moments_section.moment_login_error"), {
+      autoClose: 3000,
+      hideProgressBar: false,
+      theme: "dark",
+      transition: Bounce,
+    });
+  }, [t]);
+
   // Share handled by the shared <ShareButton> component (uses shareUrl +
   // shareContent), rendered in the action bar below.
 
@@ -528,90 +495,6 @@ const MomentDetail: React.FC = () => {
       refetchMomentDetails,
       momentDetails,
       t,
-    ]
-  );
-
-  // OPTIMIZED: Comment submission with better state management
-  const handleCommentSubmit = useCallback(
-    async (e: React.FormEvent) => {
-      e.preventDefault();
-
-      if (!newComment.trim()) {
-        toast.error(t("moments_section.emptyCommentError"), {
-          autoClose: 3000,
-          hideProgressBar: false,
-          theme: "dark",
-          transition: Bounce,
-        });
-        return;
-      }
-
-      if (!momentId || !userId) {
-        toast.error(t("moments_section.pleaseLoginFirst"), {
-          autoClose: 3000,
-          hideProgressBar: false,
-          theme: "dark",
-          transition: Bounce,
-        });
-        return;
-      }
-
-      if (isSubmittingComment) return; // Prevent double submission
-
-      setIsSubmittingComment(true);
-
-      try {
-        console.log("🐛 Adding comment:", {
-          momentId,
-          newComment: newComment.trim(),
-        });
-
-        await addComment({
-          momentId,
-          newComment: newComment.trim(),
-        }).unwrap();
-
-        // Clear input immediately for better UX
-        setNewComment("");
-
-        // Refetch comments to show the new one
-        await refetchComments();
-
-        toast.success(t("moments_section.commentAdded"), {
-          autoClose: 2000,
-          hideProgressBar: false,
-          theme: "dark",
-          transition: Bounce,
-        });
-      } catch (error: any) {
-        console.error("🐛 addComment error:", error);
-
-        // Restore comment text on error
-        // setNewComment stays as is so user doesn't lose their text
-
-        const errorMessage =
-          error?.data?.error ||
-          error?.message ||
-          t("moments_section.failedToAddComment");
-
-        toast.error(errorMessage, {
-          autoClose: 5000,
-          hideProgressBar: false,
-          theme: "dark",
-          transition: Bounce,
-        });
-      } finally {
-        setIsSubmittingComment(false);
-      }
-    },
-    [
-      newComment,
-      momentId,
-      userId,
-      addComment,
-      refetchComments,
-      t,
-      isSubmittingComment,
     ]
   );
 
@@ -696,23 +579,37 @@ const MomentDetail: React.FC = () => {
               <h2 className="font-bold text-gray-800 text-sm sm:text-base truncate">
                 {momentDetails.user.name}
               </h2>
-              <p className="text-xs sm:text-sm text-gray-500">
-                {formattedDate}
-              </p>
+              {userId && momentDetails.user?._id === userId && isScheduledLater(momentDetails) ? (
+                <ScheduledBadge at={momentDetails.scheduledFor as string} />
+              ) : (
+                <p className="text-xs sm:text-sm text-gray-500">
+                  {formattedDate}
+                </p>
+              )}
             </div>
+            <MomentOverflowMenu momentId={momentDetails._id} author={momentDetails.user} />
           </div>
 
           {/* Moment Content */}
           <div className="p-4 sm:p-6">
+            <PromptAnswerTag
+              prompt={momentDetails.prompt}
+              className="mb-3 inline-flex max-w-full items-center gap-1.5 rounded-full border border-amber-300/60 bg-amber-50 px-3 py-1 text-xs sm:text-sm font-medium text-amber-800"
+            />
             {momentDetails.title && (
               <h1 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 mb-3 sm:mb-4 leading-tight">
                 {momentDetails.title}
               </h1>
             )}
             {momentDetails.description && (
-              <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-4 sm:mb-6 whitespace-pre-wrap break-words">
-                {momentDetails.description}
-              </p>
+              <TranslatableText
+                as="p"
+                className="text-gray-700 text-sm sm:text-base leading-relaxed mb-4 sm:mb-6"
+                text={momentDetails.description}
+                onTranslate={handleTranslateBody}
+                isLoggedIn={Boolean(userId)}
+                onRequireLogin={handleRequireLogin}
+              />
             )}
 
             {/* Enhanced metadata display */}
@@ -775,11 +672,11 @@ const MomentDetail: React.FC = () => {
               )}
             </div>
             <div>
-              {commentsList.length > 0 && (
+              {commentCount > 0 && (
                 <div className="px-2 sm:px-3 py-1 bg-gray-200 rounded-full">
                   <span className="text-xs sm:text-sm text-gray-600">
                     {t("moments_section.commentsCount", {
-                      count: commentsList.length,
+                      count: commentCount,
                     })}
                   </span>
                 </div>
@@ -812,7 +709,7 @@ const MomentDetail: React.FC = () => {
               onClick={() => document.getElementById("commentInput")?.focus()}
               className="flex-1 flex items-center justify-center gap-1.5 sm:gap-2 py-3 sm:py-4 text-gray-600 hover:text-blue-600 hover:bg-blue-50 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-400/50"
             >
-              {commentsList.length > 0 ? (
+              {commentCount > 0 ? (
                 <FaComments className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               ) : (
                 <FaRegComments className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
@@ -825,7 +722,7 @@ const MomentDetail: React.FC = () => {
             <button
               onClick={handleSaveToggle}
               aria-pressed={saved}
-              aria-label={saved ? "Remove bookmark" : "Bookmark"}
+              aria-label={saved ? t("moments_section.card.removeBookmark") || "Remove bookmark" : t("moments_section.card.bookmark") || "Bookmark"}
               className={`flex-1 flex items-center justify-center gap-1.5 sm:gap-2 py-3 sm:py-4 transition-all duration-300 hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-400/50 ${
                 saved ? "text-blue-600 bg-blue-50" : "text-gray-600"
               }`}
@@ -834,7 +731,7 @@ const MomentDetail: React.FC = () => {
                 className={`w-4 h-4 sm:w-5 sm:h-5 ${saved ? "fill-current" : ""}`}
               />
               <span className="font-medium text-xs sm:text-sm hidden sm:inline">
-                {saved ? "Saved" : "Save"}
+                {saved ? t("moments_section.card.saved") || "Saved" : t("moments_section.card.save") || "Save"}
               </span>
             </button>
 
@@ -875,116 +772,18 @@ const MomentDetail: React.FC = () => {
               SmallBannerAdWidget). No-op until AdSense is configured. */}
           <AdUnit slot={AD_SLOTS.momentDetail} className="my-4" />
 
-          {/* Comments Section */}
+          {/* Comments — list, composer, replies, reactions and corrections
+              all live in <CommentList>. */}
           <div className="p-4 sm:p-6">
-            {isLoadingComments ? (
-              <div className="text-center py-8">
-                <LoadingSpinner
-                  message={t("moments_section.loadingComments")}
-                />
-              </div>
-            ) : (
-              <>
-                {userInfo ? (
-                  <form onSubmit={handleCommentSubmit} className="mb-4 sm:mb-6">
-                    <div className="relative">
-                      <input
-                        id="commentInput"
-                        type="text"
-                        placeholder={t(
-                          "moments_section.writeCommentPlaceholder"
-                        )}
-                        value={newComment}
-                        onChange={(e) => setNewComment(e.target.value)}
-                        disabled={isSubmittingComment}
-                        className="w-full px-3 py-2.5 sm:px-4 sm:py-3 pr-10 sm:pr-12 bg-gray-50 border border-gray-200 rounded-full text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-400/50 focus:border-blue-400 transition-colors disabled:opacity-50"
-                      />
-                      {newComment.trim() && (
-                        <button
-                          type="submit"
-                          disabled={isSubmittingComment}
-                          className="absolute right-1.5 sm:right-2 top-1/2 -translate-y-1/2 w-7 h-7 sm:w-8 sm:h-8 bg-blue-500 text-white rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-blue-400/50"
-                        >
-                          {isSubmittingComment ? (
-                            <div className="w-3 h-3 sm:w-4 sm:h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                          ) : (
-                            <FaPaperPlane className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
-                          )}
-                        </button>
-                      )}
-                    </div>
-                  </form>
-                ) : (
-                  <div className="bg-gray-50 border border-gray-200 rounded-2xl p-3 sm:p-4 text-center mb-4 sm:mb-6">
-                    <p className="text-gray-600 text-sm sm:text-base">
-                      {t("moments_section.signInToComment")}{" "}
-                      <Link
-                        to="/login"
-                        className="text-blue-600 font-semibold hover:text-blue-700 transition-colors"
-                      >
-                        {t("moments_section.signIn")}
-                      </Link>
-                    </p>
-                  </div>
-                )}
-                {commentsList.length > 0 ? (
-                  <div>
-                    <h3 className="text-gray-700 font-semibold mb-3 sm:mb-4 flex items-center gap-2 text-sm sm:text-base">
-                      <span>{t("moments_section.comments")}</span>
-                      <span className="w-5 h-5 sm:w-6 sm:h-6 bg-gray-200 text-gray-600 rounded-full text-xs flex items-center justify-center">
-                        {commentsList.length}
-                      </span>
-                    </h3>
-
-                    {/* Optimized Comments Container */}
-                    <div className="relative">
-                      <div className="max-h-80 sm:max-h-96 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent hover:scrollbar-thumb-gray-400 rounded-xl">
-                        <div className="space-y-1">
-                          {commentsList.map((comment, index) => (
-                            <React.Fragment key={comment._id}>
-                              <div
-                                className="transform transition-all duration-300 ease-out"
-                                style={{
-                                  transitionDelay: `${Math.min(
-                                    index * 50,
-                                    500
-                                  )}ms`, // Cap delay
-                                }}
-                              >
-                                <CommentItem comment={comment} index={index} />
-                              </div>
-                              {/* Interleave one ad after ~the 5th comment when
-                                  there are enough comments. No-op until AdSense
-                                  is configured. */}
-                              {index === 4 && commentsList.length > 5 && (
-                                <AdUnit slot={AD_SLOTS.comments} />
-                              )}
-                            </React.Fragment>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Scroll fade indicator */}
-                      {commentsList.length > 3 && (
-                        <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-white via-white/90 to-transparent pointer-events-none rounded-b-xl"></div>
-                      )}
-                    </div>
-                  </div>
-                ) : (
-                  <div className="text-center py-8 sm:py-12">
-                    <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
-                      <FaRegComments className="w-5 h-5 sm:w-6 sm:h-6 text-gray-400" />
-                    </div>
-                    <p className="text-gray-500 font-medium text-sm sm:text-base">
-                      {t("moments_section.noCommentsYet")}
-                    </p>
-                    <p className="text-gray-400 text-xs sm:text-sm mt-1">
-                      Be the first to share your thoughts!
-                    </p>
-                  </div>
-                )}
-              </>
-            )}
+            <CommentList
+              momentId={momentId || ""}
+              momentText={momentDetails.description}
+              myUserId={userId}
+              isLoggedIn={!!userInfo}
+              onRequireLogin={handleRequireLogin}
+              onTotalChange={handleCommentTotalChange}
+              momentOwnerId={(momentDetails.user && (momentDetails.user._id || momentDetails.user)) || undefined}
+            />
           </div>
         </div>
       </div>

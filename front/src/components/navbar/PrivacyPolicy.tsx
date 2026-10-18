@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { openConsentManager } from "../../analytics/consent";
+import { GA_MEASUREMENT_ID } from "../../analytics/ga";
 import "./PrivacyPolicy.css";
 const PrivacyPolicy = () => {
   return (
@@ -214,6 +216,29 @@ const PrivacyPolicy = () => {
               You have the right to request a copy of your data in a
               machine-readable format.
             </p>
+
+            {/* Only where analytics actually runs: with no measurement id
+                nothing is collected on the web, so there is nothing here to
+                withdraw. The id is a build-time value, so this page renders
+                the same in the prerender and in the browser. */}
+            {GA_MEASUREMENT_ID ? (
+              <>
+                <h3>6.7 Analytics Cookies</h3>
+                <p>
+                  You can turn analytics cookies on or off at any time, and
+                  turning them off deletes the ones already on this device:{" "}
+                  <button
+                    type="button"
+                    className="policy-inline-button"
+                    data-testid="policy-privacy-choices"
+                    onClick={openConsentManager}
+                  >
+                    open your privacy choices
+                  </button>
+                  .
+                </p>
+              </>
+            ) : null}
           </section>
 
           <section className="policy-section">
@@ -294,7 +319,7 @@ const PrivacyPolicy = () => {
             <p>
               <strong>Website:</strong>{" "}
               <a
-                href="http://banatalk.com"
+                href="https://banatalk.com"
                 target="_blank"
                 rel="noopener noreferrer"
               >

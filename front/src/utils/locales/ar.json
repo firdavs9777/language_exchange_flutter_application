@@ -9,7 +9,11 @@
       "about": "حول",
       "services": "الخدمات",
       "pricing": "الأسعار",
-      "contact": "اتصل بنا"
+      "contact": "اتصل بنا",
+      "communities": "المجتمعات",
+      "download": "حمّل التطبيق",
+      "meet": "تعرّف على أشخاص",
+      "learnKorean": "تعلّم الكورية"
     },
     "contactInfo": "معلومات الاتصال",
     "address": "سيول، كوريا الجنوبية، غانغنام-غو",
@@ -57,15 +61,20 @@
       "noMatchTitle": "لا توجد محادثات مطابقة",
       "noMatchSubtitle": "حاول تعديل البحث",
       "emptyTitle": "لا توجد محادثات بعد",
-      "emptySubtitle": "ابدأ محادثة لتظهر هنا"
+      "emptySubtitle": "ابدأ محادثة لتظهر هنا",
+      "loadError": "تعذر تحميل محادثاتك",
+      "loading": "جارٍ تحميل الدردشات...",
+      "noMessages": "لا توجد رسائل بعد",
+      "tryAgain": "حاول مرة أخرى",
+      "typing": "يكتب..."
     },
     "deleteModal": {
       "title": "حذف المحادثة",
-      "bodyPrefix": "هل تريد حذف محادثتك مع:",
       "warning": "لا يمكن التراجع عن هذا الإجراء.",
       "cancel": "إلغاء",
       "confirm": "حذف",
-      "deleting": "جارٍ الحذف..."
+      "deleting": "جارٍ الحذف...",
+      "body": "حذف محادثتك مع {{name}}؟"
     },
     "gif": {
       "title": "GIF",
@@ -84,8 +93,372 @@
       "noConversationYet": "ابدأ المحادثة أولًا لتثبيتها",
       "pinFailed": "تعذر تحديث التثبيت",
       "deleteFailed": "تعذر حذف المحادثة",
-      "deleted": "تم حذف المحادثة"
+      "deleted": "تم حذف المحادثة",
+      "openProfile": "فتح ملف {{name}} الشخصي",
+      "mute": "كتم",
+      "unmute": "إلغاء الكتم",
+      "muted": "تم كتم الإشعارات",
+      "unmuted": "الإشعارات عادت",
+      "muteFailed": "تعذر تحديث الإشعارات",
+      "unpinned": "تم إلغاء تثبيت المحادثة"
+    },
+    "viewProfileOf": "عرض ملف {{name}} الشخصي",
+    "info": {
+      "title": "معلومات الدردشة",
+      "close": "إغلاق",
+      "viewProfile": "عرض الملف الشخصي",
+      "media": "الوسائط المشتركة",
+      "mute": "كتم الإشعارات",
+      "unmute": "إلغاء كتم الإشعارات",
+      "muted": "تم كتم الإشعارات",
+      "unmuted": "الإشعارات عادت",
+      "muteFailed": "تعذر تحديث الإشعارات",
+      "wallpaper": "الخلفية",
+      "block": "حظر",
+      "unblock": "إلغاء الحظر",
+      "blockTitle": "حظر {{name}}؟",
+      "blockBody": "لن يتمكن من مراسلتك أو رؤية ملفك الشخصي.",
+      "unblockTitle": "إلغاء حظر {{name}}؟",
+      "unblockBody": "سيتمكن من مراسلتك مرة أخرى.",
+      "blocked": "محظور",
+      "unblocked": "تم إلغاء الحظر",
+      "blockFailed": "لم تنجح العملية. حاول مرة أخرى.",
+      "report": "إبلاغ",
+      "reportTitle": "الإبلاغ عن {{name}}",
+      "reportBody": "أخبرنا بما حدث. تتم مراجعة كل بلاغ.",
+      "reportReason": "السبب",
+      "reportDescription": "التفاصيل (اختياري)",
+      "reportSubmit": "إرسال البلاغ",
+      "reported": "شكرًا — سيراجعه المشرفون",
+      "reportFailed": "تعذر إرسال البلاغ",
+      "delete": "حذف المحادثة",
+      "cancel": "إلغاء",
+      "noConversationYet": "ابدأ المحادثة أولًا"
+    },
+    "reportReasons": {
+      "spam": "رسائل مزعجة",
+      "harassment": "مضايقة أو تنمر",
+      "hate_speech": "خطاب كراهية",
+      "violence": "عنف أو تهديدات",
+      "nudity": "عري أو محتوى جنسي",
+      "false_information": "معلومات مضللة",
+      "copyright": "حقوق النشر",
+      "other": "شيء آخر"
+    },
+    "status": {
+      "sending": "جارٍ الإرسال",
+      "sent": "تم الإرسال",
+      "delivered": "تم التسليم",
+      "read": "تمت القراءة",
+      "failed": "فشل"
+    },
+    "loadEarlier": "تحميل الرسائل السابقة",
+    "loadingEarlier": "جارٍ تحميل الرسائل السابقة",
+    "suggestCorrection": "اقترح تصحيحًا",
+    "translateThis": "ترجمة هذه الرسالة",
+    "addCaption": "أضف تعليقًا...",
+    "conversationStarted": "بدأت المحادثة",
+    "correct": "صحيح",
+    "daysAgo": "منذ {{count}} يوم",
+    "edit": "تعديل الرسالة",
+    "hide_translation": "إخفاء",
+    "noMessages": "لا توجد رسائل بعد",
+    "retry": "حاول مرة أخرى",
+    "today": "اليوم",
+    "translate": "ترجمة",
+    "yesterday": "أمس",
+    "wallpaper": {
+      "title": "الخلفية",
+      "shared": "يرى كلاكما الخلفية التي تختارها.",
+      "plain": "سادة",
+      "gradients": "تدرجات",
+      "default": "الافتراضي",
+      "apply": "تطبيق",
+      "cancel": "إلغاء",
+      "saved": "تم تحديث الخلفية",
+      "failed": "تعذر تغيير الخلفية",
+      "cream": "كريمي",
+      "blush": "وردي فاتح",
+      "peach": "خوخي",
+      "sage": "أخضر مريمية",
+      "ocean": "المحيط",
+      "teal": "أزرق مخضر",
+      "forest": "الغابة",
+      "rose": "وردي",
+      "wine": "نبيذي",
+      "plum": "برقوقي",
+      "navy": "كحلي",
+      "mocha": "موكا",
+      "slate": "أردوازي",
+      "ember": "جمري",
+      "deep_sea": "أعماق البحر",
+      "charcoal": "فحمي",
+      "midnight": "منتصف الليل",
+      "dark": "داكن",
+      "gradient_sunset": "الغروب",
+      "gradient_ocean": "المحيط",
+      "gradient_purple": "كوني",
+      "gradient_midnight": "منتصف الليل",
+      "gradient_forest": "الغابة",
+      "gradient_rose": "ذهبي وردي",
+      "gradient_candy": "حلوى",
+      "gradient_neon": "نيون",
+      "gradient_fire": "النار",
+      "gradient_winter": "الشتاء",
+      "gradient_lavender": "لافندر",
+      "gradient_aurora": "الشفق القطبي",
+      "premiumInUse": "تستخدم هذه الدردشة خلفية Premium من التطبيق. اختيار خلفية أخرى سيغيّرها لكليكما."
+    },
+    "jumpToLatest": "الانتقال إلى أحدث الرسائل",
+    "archive": {
+      "archive": "أرشفة الدردشة",
+      "archived": "تمت الأرشفة على الموقع. لا يزال التطبيق يعرضها.",
+      "back": "العودة إلى الدردشات",
+      "failed": "تعذر تحديث الأرشيف",
+      "toggle": "المؤرشفة ({{count}})",
+      "unarchive": "إلغاء أرشفة الدردشة",
+      "unarchived": "أُعيدت إلى دردشاتك"
+    },
+    "blocked": {
+      "byMe": "لقد حظرت هذا الشخص. ألغِ حظره لإرسال الرسائل.",
+      "generic": "لا يمكنك إرسال رسائل في هذه الدردشة.",
+      "manage": "إدارة"
+    },
+    "bookmarks": {
+      "addFailed": "تعذر حفظ الرسالة",
+      "added": "تم الحفظ",
+      "attachment": "مرفق",
+      "close": "إغلاق",
+      "empty": "لا توجد رسائل محفوظة بعد",
+      "error": "تعذر تحميل الرسائل المحفوظة",
+      "loading": "جارٍ تحميل الرسائل المحفوظة…",
+      "open": "فتح الدردشة",
+      "remove": "إزالة من المحفوظة",
+      "removeFailed": "تعذرت الإزالة",
+      "removed": "تمت الإزالة من الرسائل المحفوظة",
+      "title": "الرسائل المحفوظة"
+    },
+    "call": {
+      "busy": "كان {{name}} في مكالمة أخرى",
+      "cancelledVideo": "مكالمة فيديو ملغاة",
+      "cancelledVoice": "مكالمة صوتية ملغاة",
+      "declinedIncomingVideo": "مكالمة فيديو مرفوضة",
+      "declinedIncomingVoice": "مكالمة صوتية مرفوضة",
+      "declinedOutgoingVideo": "تم رفض مكالمة الفيديو",
+      "declinedOutgoingVoice": "تم رفض المكالمة الصوتية",
+      "incomingVideo": "مكالمة فيديو واردة",
+      "incomingVoice": "مكالمة صوتية واردة",
+      "missedVideo": "مكالمة فيديو فائتة",
+      "missedVoice": "مكالمة صوتية فائتة",
+      "noAnswerVideo": "مكالمة فيديو · لا يوجد رد",
+      "noAnswerVoice": "مكالمة صوتية · لا يوجد رد",
+      "outgoingVideo": "مكالمة فيديو صادرة",
+      "outgoingVoice": "مكالمة صوتية صادرة"
+    },
+    "connection": {
+      "kicked": "الدردشة مفتوحة في مكان آخر، لذا توقفت هذه العلامة عن تلقي الرسائل.",
+      "reconnect": "الاستخدام هنا"
+    },
+    "correction": {
+      "accept": "قبول التصحيح",
+      "acceptFailed": "تعذر قبول التصحيح",
+      "accepted": "تم قبول التصحيح — أُضيف إلى سجل تعلمك",
+      "accepting": "جارٍ القبول…",
+      "corrected": "صحّح {{name}}",
+      "you": "أنت"
+    },
+    "correctionModal": {
+      "cancel": "إلغاء",
+      "close": "إغلاق",
+      "empty": "يرجى كتابة تصحيح",
+      "explanation": "الشرح",
+      "explanationPlaceholder": "اشرح لماذا يفيد هذا التصحيح...",
+      "hint": "مثال: \"استخدم 'went' بدلًا من 'goed' - فعل ماضٍ شاذ\"",
+      "optional": "(اختياري)",
+      "original": "الرسالة الأصلية",
+      "submit": "إرسال التصحيح",
+      "title": "تصحيح لغوي",
+      "unchanged": "يجب أن يختلف التصحيح عن الأصل",
+      "yours": "تصحيحك",
+      "yoursPlaceholder": "اكتب النسخة المصححة..."
+    },
+    "deleteMessage": {
+      "cancel": "إلغاء",
+      "failed": "تعذر حذف الرسالة. حاول مرة أخرى.",
+      "forEveryone": "حذف لدى الجميع",
+      "forMe": "حذف لديّ",
+      "placeholder": "تم حذف هذه الرسالة",
+      "title": "حذف الرسالة؟",
+      "tooLate": "يمكنك حذف الرسالة لدى الجميع خلال ساعة واحدة فقط من إرسالها."
+    },
+    "editDialog": {
+      "cancel": "إلغاء",
+      "failed": "تعذر تعديل الرسالة. حاول مرة أخرى.",
+      "label": "الرسالة",
+      "save": "حفظ",
+      "title": "تعديل الرسالة",
+      "tooLate": "يمكنك تعديل الرسالة خلال 15 دقيقة فقط من إرسالها."
+    },
+    "editedLabel": "معدّلة",
+    "forward": {
+      "close": "إغلاق",
+      "empty": "لم يتم العثور على محادثات.",
+      "error": "تعذر تحميل المحادثات.",
+      "loading": "جارٍ تحميل المحادثات…",
+      "search": "بحث",
+      "submit": "إعادة توجيه",
+      "submitCount": "إعادة توجيه ({{count}})",
+      "title": "إعادة توجيه إلى",
+      "unknownUser": "غير معروف"
+    },
+    "forwarded": "معاد توجيهها",
+    "location": {
+      "cancel": "إلغاء",
+      "confirmTitle": "مشاركة موقعك؟",
+      "denied": "تم رفض إذن الموقع",
+      "failed": "تعذر تحديد موقعك",
+      "open": "فتح في الخرائط",
+      "send": "إرسال",
+      "sendFailed": "تعذر إرسال موقعك",
+      "share": "مشاركة الموقع",
+      "title": "الموقع",
+      "unsupported": "هذا المتصفح لا يدعم مشاركة الموقع"
+    },
+    "mediaGallery": {
+      "back": "رجوع",
+      "emptyFiles": "لم تتم مشاركة ملفات بعد",
+      "emptyPhotos": "لم تتم مشاركة صور بعد",
+      "emptyVideos": "لم تتم مشاركة فيديوهات بعد",
+      "error": "خطأ في تحميل الوسائط",
+      "files": "الملفات",
+      "loading": "جارٍ تحميل الوسائط...",
+      "photos": "الصور",
+      "title": "الوسائط المشتركة",
+      "unknownFile": "ملف غير معروف",
+      "unknownSize": "حجم غير معروف",
+      "videos": "الفيديوهات"
+    },
+    "menu": {
+      "bookmark": "حفظ",
+      "close": "إغلاق",
+      "copy": "نسخ",
+      "delete": "حذف",
+      "edit": "تعديل",
+      "forward": "إعادة توجيه",
+      "listen": "استماع",
+      "pin": "تثبيت",
+      "reply": "رد"
+    },
+    "mute": {
+      "always": "حتى أعيد تشغيلها",
+      "cancel": "إلغاء",
+      "eightHours": "لمدة 8 ساعات",
+      "oneHour": "لمدة ساعة",
+      "oneWeek": "لمدة أسبوع",
+      "title": "كتم {{name}}؟"
+    },
+    "pinnedBar": {
+      "count": "{{count}} مثبتة",
+      "unpin": "إلغاء تثبيت الرسالة"
+    },
+    "preview": {
+      "attachment": "📎 مرفق",
+      "call": "📞 مكالمة",
+      "file": "📎 ملف",
+      "gif": "GIF",
+      "location": "📍 الموقع",
+      "photo": "🖼️ صورة",
+      "poll": "📊 استطلاع",
+      "story": "📖 قصة",
+      "video": "🎥 فيديو",
+      "voice": "🎤 رسالة صوتية"
+    },
+    "replyBar": {
+      "cancel": "إلغاء الرد",
+      "replyingTo": "الرد على {{name}}"
+    },
+    "search": {
+      "close": "إغلاق",
+      "empty": "لم يتم العثور على رسائل",
+      "hint": "اكتب حرفين على الأقل",
+      "notLoaded": "هذه الرسالة أقدم. مرّر لأعلى لتحميلها.",
+      "open": "البحث في الرسائل",
+      "placeholder": "ابحث في هذه الدردشة",
+      "searching": "جارٍ البحث…",
+      "title": "البحث في الرسائل مع {{name}}",
+      "unavailable": "البحث غير متاح حاليًا",
+      "you": "أنت"
+    },
+    "sendErrors": {
+      "blockedBody": "لا يمكنك إرسال رسائل إلى هذا الشخص.",
+      "blockedTitle": "لم تُرسل الرسالة",
+      "capBody": "لقد بدأت الحد الأقصى من المحادثات الجديدة لهذا اليوم. اشترك في VIP لبدء محادثات بلا حدود.",
+      "capTitle": "تم بلوغ حد المحادثات الجديدة",
+      "dailyBody": "لقد أرسلت كل رسائلك لهذا اليوم. اشترك في VIP لرسائل غير محدودة، أو عد غدًا.",
+      "dailyTitle": "تم بلوغ الحد اليومي للرسائل",
+      "firstChatBody": "يمكنك إرسال 5 رسائل حتى يرد. يمكنك الكتابة مجددًا بعد أن يجيب.",
+      "firstChatTitle": "انتظر الرد",
+      "generic": "لم تُرسل الرسالة. اضغط \"إعادة الإرسال\" للمحاولة مجددًا.",
+      "goVip": "اشترك في VIP",
+      "ok": "حسنًا",
+      "reattach": "أرفق الملف مرة أخرى لإرساله.",
+      "tooFast": "أنت ترسل الرسائل بسرعة كبيرة. انتظر لحظة."
+    },
+    "story": {
+      "replied": "ردّ على قصتك",
+      "shared": "شارك قصة",
+      "unavailable": "هذه القصة لم تعد متاحة",
+      "youReplied": "رددت على قصته",
+      "youShared": "شاركت قصة"
+    },
+    "translation": {
+      "close": "إغلاق الترجمة",
+      "failed": "تعذرت ترجمة الرسالة",
+      "label": "الترجمة · {{lang}}",
+      "save": "حفظ العبارة",
+      "saveFailed": "تعذر حفظ العبارة",
+      "saved": "تم الحفظ في قائمة الدراسة",
+      "saving": "جارٍ الحفظ…",
+      "translating": "جارٍ الترجمة…"
+    },
+    "video": {
+      "badType": "لا يمكن إرسال صيغة الفيديو هذه. جرّب MP4.",
+      "tooBig": "هذا الفيديو كبير جدًا. الحد الأقصى {{mb}} MB.",
+      "tooLong": "هذا الفيديو طويل جدًا. الحد الأقصى {{minutes}} دقيقة."
+    },
+    "voice": {
+      "unavailable": "تسجيل الصوت غير متاح. تحقق من إذن الميكروفون لهذا الموقع."
+    },
+    "wave": {
+      "hi": "مرحبًا!"
+    },
+    "callInApp": {
+      "voice": "مكالمة صوتية",
+      "video": "مكالمة فيديو",
+      "title": "تتم المكالمات في تطبيق BananaTalk",
+      "body": "افتح التطبيق للاتصال بـ {{name}}. ترن المكالمات الواردة على هاتفك.",
+      "openApp": "افتح التطبيق",
+      "notNow": "ليس الآن"
     }
+  },
+  "newChat": {
+    "title": "دردشة جديدة",
+    "subtitle": "ابدأ محادثة",
+    "directMessage": "مباشرة",
+    "groupChat": "مجموعة",
+    "searchPlaceholder": "ابحث بالاسم، أو @اسم_المستخدم، أو معرّف المستخدم...",
+    "searchHint": "ابحث عن مستخدمين لبدء محادثة",
+    "hintName": "ابحث بالاسم",
+    "hintUsername": "اكتب @اسم_المستخدم للبحث باسم المستخدم",
+    "hintId": "الصق معرّف المستخدم للعثور عليه مباشرة",
+    "searchByUsername": "البحث باسم المستخدم",
+    "searchById": "البحث بمعرّف المستخدم",
+    "noResults": "لا يوجد مستخدمون",
+    "tryDifferent": "جرّب اسمًا مختلفًا، أو @اسم_مستخدم، أو معرّف مستخدم",
+    "createGroup": "إنشاء مجموعة",
+    "selectMoreUsers": "اختر مستخدمَين على الأقل لإنشاء محادثة جماعية",
+    "createError": "فشل إنشاء المحادثة",
+    "recently": "مؤخرًا"
   },
   "notifications": "الإشعارات",
   "moments": "اللحظات",
@@ -124,7 +497,18 @@
   "profile": {
     "title": "ملفي الشخصي",
     "edit_profile": "تعديل الملف الشخصي",
-    "photos": "الصور",
+    "photos": {
+      "title": "الصور",
+      "add": "إضافة صور",
+      "alt": "{{name}}، صورة {{index}}",
+      "open": "فتح الصورة {{index}}",
+      "close": "إغلاق",
+      "previous": "الصورة السابقة",
+      "next": "الصورة التالية",
+      "counter": "{{index}} من {{total}}",
+      "openAvatar": "فتح صورة {{name}}",
+      "openStory": "عرض قصة {{name}}"
+    },
     "messages": {
       "image_update_success": "تم تحديث صورة الملف الشخصي بنجاح",
       "image_update_failure": "فشل في تحديث صورة الملف الشخصي",
@@ -132,6 +516,7 @@
       "image_delete_failure": "فشل في حذف الصورة",
       "profile_update_success": "تم تحديث الملف الشخصي بنجاح",
       "profile_update_failure": "فشل في تحديث الملف الشخصي",
+      "extras_update_failure": "تم حفظ ملفك الشخصي، لكن لم يتم تحديث بعض التفاصيل",
       "error_loading_profile": "خطأ في تحميل الملف الشخصي",
       "no_profile_data": "لا تتوفر بيانات الملف الشخصي",
       "unknown_error": "حدث خطأ غير معروف",
@@ -146,7 +531,8 @@
       "no_following": "أنت لا تتابع أي شخص بعد.",
       "following_error": "خطأ في تحميل قائمة المتابَعين. يرجى المحاولة لاحقاً.",
       "moments": "اللحظات",
-      "visitors": "الزوار"
+      "visitors": "الزوار",
+      "visited": "ملفات زرتها"
     },
     "visitors": {
       "title": "زوار الملف الشخصي",
@@ -165,7 +551,11 @@
       "vipOnly": "ميزة VIP",
       "vipOnlyDesc": "اعرف من زار ملفك الشخصي بالترقية إلى VIP. هذه الميزة متاحة حصرياً لأعضاء VIP.",
       "vipBenefits": "مزايا VIP",
-      "learnMore": "اعرف المزيد عن VIP"
+      "learnMore": "اعرف المزيد عن VIP",
+      "clear": "مسح السجل",
+      "clear_title": "هل تريد مسح سجل الزوار؟",
+      "clear_body": "سيُحذف كل من زار ملفك الشخصي وتعود عدادات الزيارات إلى الصفر. لا يمكن التراجع عن هذا.",
+      "no_visited": "ستظهر هنا الملفات الشخصية التي تزورها"
     },
     "sections": {
       "personal_info": "المعلومات الشخصية",
@@ -207,7 +597,18 @@
       "save": "حفظ",
       "cancel": "إلغاء",
       "edit_photo": "تعديل الصورة",
-      "clear": "مسح التحديد"
+      "clear": "مسح التحديد",
+      "settings": "الإعدادات",
+      "message": "مراسلة",
+      "follow": "متابعة",
+      "following": "تتم المتابعة",
+      "more": "خيارات أخرى",
+      "block": "حظر",
+      "report": "إبلاغ",
+      "this_person": "هذا الشخص",
+      "action_failed": "لم تنجح العملية. حاول مرة أخرى.",
+      "unblock": "إلغاء الحظر",
+      "followBlocked": "لا يمكنك متابعة هذا الشخص"
     },
     "buttons": {
       "edit": "تعديل",
@@ -235,6 +636,128 @@
       "kdrama": "K-Drama",
       "languages": "لغات",
       "culture": "ثقافة"
+    },
+    "badges": {
+      "vip": "VIP",
+      "verified": "موثّق",
+      "joined": "عضو منذ {{date}}",
+      "active": "نشط {{time}}",
+      "online": "متصل الآن"
+    },
+    "block": {
+      "title": "حظر {{name}}؟",
+      "body": "لن يتمكن من مراسلتك أو رؤية ملفك الشخصي."
+    },
+    "report": {
+      "title": "الإبلاغ عن {{name}}؟",
+      "body": "أخبرنا بما حدث. تتم مراجعة كل بلاغ.",
+      "reason": "السبب"
+    },
+    "languages": {
+      "also_learning": "يتعلم أيضًا"
+    },
+    "about": {
+      "title": "نبذة",
+      "occupation": "العمل",
+      "school": "الدراسة",
+      "read_more": "قراءة المزيد",
+      "read_less": "عرض أقل"
+    },
+    "learning": {
+      "title": "تقدّم التعلّم",
+      "streak": "أيام متتالية",
+      "days": "يوم",
+      "xp": "إجمالي XP",
+      "level": "المستوى"
+    },
+    "moments": {
+      "see_all": "عرض الكل",
+      "empty_own": "شارك أول لحظة لك",
+      "empty_other": "لا توجد لحظات بعد",
+      "photo_alt": "صورة اللحظة"
+    },
+    "page": {
+      "title": "الملف الشخصي",
+      "error_title": "تعذّر تحميل هذا الملف الشخصي",
+      "error_body": "تحقّق من اتصالك وحاول مرة أخرى.",
+      "retry": "حاول مرة أخرى",
+      "not_found_title": "الملف الشخصي غير موجود",
+      "not_found_body": "هذا الملف الشخصي لم يعد موجودًا، أو لم يكن موجودًا هنا أصلًا.",
+      "back_to_community": "تصفّح المجتمع"
+    },
+    "lists": {
+      "title": "شبكتك",
+      "title_of": "شبكة {{name}}",
+      "title_other": "الشبكة",
+      "search": "ابحث بالاسم",
+      "search_empty": "لا أحد هنا يطابق \"{{query}}\"",
+      "empty_followers_own": "لا أحد يتابعك بعد.",
+      "empty_followers_other": "لا أحد يتابع هذا الشخص بعد.",
+      "empty_following_own": "أنت لا تتابع أي شخص بعد.",
+      "empty_following_other": "هذا الشخص لا يتابع أحدًا بعد.",
+      "error_title": "تعذّر تحميل هذه القائمة",
+      "error_body": "تحقّق من اتصالك وحاول مرة أخرى.",
+      "retry": "حاول مرة أخرى"
+    },
+    "edit": {
+      "back": "رجوع",
+      "about": "نبذة",
+      "photos_hint": "صورتك الأولى هي التي يراها الناس في كل مكان.",
+      "add_photo": "إضافة صورة",
+      "photo_alt": "صورة {{index}}",
+      "delete_photo": "حذف الصورة {{index}}",
+      "delete_photo_title": "حذف هذه الصورة؟",
+      "delete_photo_body": "ستُزال من ملفك الشخصي بالنسبة للجميع.",
+      "delete_photo_confirm": "حذف الصورة",
+      "level": "المستوى",
+      "level_hint": "مستواك في اللغة التي تتعلمها.",
+      "occupation": "المهنة",
+      "occupation_placeholder": "ما هو عملك؟",
+      "school": "الدراسة",
+      "school_placeholder": "أين تدرس؟",
+      "saving": "جارٍ الحفظ",
+      "unsaved": "لديك تغييرات غير محفوظة",
+      "leave_title": "المغادرة دون حفظ؟",
+      "leave_body": "ستفقد التغييرات التي أجريتها على هذا الملف الشخصي.",
+      "leave_confirm": "تجاهل التغييرات",
+      "stay": "متابعة التعديل",
+      "intent_title": "لماذا أنت هنا",
+      "intent_learn": "هنا للتعلم",
+      "intent_meet": "منفتح على لقاء أشخاص",
+      "intent_date": "منفتح على المواعدة",
+      "intent_privacy_note": "يرى الآخرون اختياراتك، عدا المواعدة التي تبقى خاصة.",
+      "completion": "اكتمال الملف الشخصي"
+    },
+    "myMoments": {
+      "title": "لحظاتي",
+      "create": "شارك لحظة",
+      "edit": "تعديل اللحظة",
+      "delete": "حذف اللحظة",
+      "delete_title": "حذف هذه اللحظة؟",
+      "delete_body": "ستختفي للجميع، مع إعجاباتها وتعليقاتها.",
+      "delete_confirm": "حذف",
+      "delete_failed": "تعذّر حذف هذه اللحظة. حاول مرة أخرى.",
+      "empty_title": "لا توجد لحظات بعد",
+      "empty_body": "شارك أول لحظة لك مع المجتمع.",
+      "error_title": "تعذّر تحميل لحظاتك",
+      "error_body": "تحقّق من اتصالك وحاول مرة أخرى.",
+      "retry": "حاول مرة أخرى",
+      "load_more": "تحميل المزيد",
+      "loading_more": "جارٍ التحميل..."
+    },
+    "tabs": {
+      "label": "أقسام الملف الشخصي",
+      "moments": "اللحظات",
+      "about": "نبذة"
+    },
+    "unblock": {
+      "title": "إلغاء حظر {{name}}؟",
+      "body": "سيتمكن من مراسلتك ورؤية ملفك الشخصي مرة أخرى."
+    },
+    "blocked": {
+      "body": "قام أحدكما بحظر الآخر، لذا لا يمكنكما المراسلة أو المتابعة أو رؤية منشورات بعضكما.",
+      "manage": "إدارة الأشخاص المحظورين",
+      "title": "هذا الملف الشخصي غير متاح"
     }
   },
   "moments_section": {
@@ -302,7 +825,230 @@
       "addMood": "أضف المزاج",
       "addLocation": "أضف الموقع",
       "addTags": "أضف الوسوم",
-      "tagPlaceholder": "أضف وسمًا..."
+      "tagPlaceholder": "أضف وسمًا...",
+      "attachVideo": "إرفاق فيديو",
+      "mediaFailedNothingPosted": "فشل الرفع، لذلك لم يُنشر أي شيء. حاول مرة أخرى.",
+      "mediaFailedPosted": "تم النشر، لكن فشل رفع الوسائط — عدّل اللحظة لإضافتها.",
+      "modePhoto": "صورة",
+      "modeText": "نص",
+      "modeVideo": "فيديو",
+      "modeVoice": "صوت",
+      "moodQuestion": "كيف تشعر؟",
+      "placeholder": "بماذا تفكر يا {{name}}؟",
+      "recordVoice": "تسجيل رسالة صوتية",
+      "remove": "إزالة",
+      "share": "مشاركة",
+      "sharing": "جارٍ المشاركة...",
+      "textPreview": "لحظتك النصية",
+      "voiceNoteLength": "رسالة صوتية · {{seconds}} ث"
+    },
+    "promo": {
+      "title": "اللحظات أصبحت الآن في التطبيق",
+      "subtitle": "القصص، وردود الدراسة بالذكاء الاصطناعي، وخلاصة مصممة للهاتف لا لعلامة تبويب في المتصفح. التثبيت مجاني، ولا حاجة لتغيير الحساب.",
+      "appStore": "احصل عليه من App Store",
+      "playStore": "احصل عليه من Google Play",
+      "appOnly": "في التطبيق",
+      "perks": {
+        "stories": {
+          "title": "قصص تختفي",
+          "body": "شارك لحظة تبقى 24 ساعة، بالطريقة التي يستخدمها مجتمع التطبيق فعلاً."
+        },
+        "aiStudy": {
+          "title": "ردود الدراسة بالذكاء الاصطناعي",
+          "body": "انشر باللغة التي تتعلمها واحصل على تصحيح لطيف من الذكاء الاصطناعي مباشرة في التعليقات."
+        },
+        "reactions": {
+          "title": "تفاعلات أغنى",
+          "body": "تفاعلات صوتية، وترجمة بلمسة، وسلاسل تعليقات مصممة للخلاصة لا للنماذج."
+        },
+        "notifications": {
+          "title": "إشعارات فورية",
+          "body": "اعرف لحظة رد شخص من لغتك المستهدفة، من دون تحديث علامة تبويب المتصفح."
+        }
+      }
+    },
+    "translate": {
+      "tap": "اضغط للترجمة",
+      "loading": "جارٍ الترجمة…",
+      "same": "بالفعل بلغتك",
+      "error": "تعذّرت الترجمة. اضغط لإعادة المحاولة."
+    },
+    "tabs": {
+      "forYou": "من أجلك",
+      "following": "المتابَعون",
+      "explore": "استكشف",
+      "trending": "الرائج"
+    },
+    "following": {
+      "empty": "تابع أشخاصًا لرؤية لحظاتهم هنا",
+      "findPeople": "ابحث عن أشخاص"
+    },
+    "commentEngagement": {
+      "attachImage": "إضافة صورة",
+      "beFirst": "كن أول من يشارك رأيه!",
+      "cancel": "إلغاء",
+      "commentTab": "تعليق",
+      "correctedLabel": "تم التصحيح",
+      "correctedPlaceholder": "اكتبها كما سيقولها متحدث أصلي",
+      "correction": "تصحيح",
+      "correctionNotePlaceholder": "أضف ملاحظة (اختياري)",
+      "correctionTab": "تصحيح",
+      "delete": "حذف",
+      "explanationLabel": "الشرح",
+      "explanationPlaceholder": "لماذا تُكتب هكذا؟ (اختياري)",
+      "hideReplies": "إخفاء الردود",
+      "imageFailed": "تم نشر التعليق، لكن تعذّر إرفاق الصورة.",
+      "loadMoreComments": "تحميل المزيد من التعليقات",
+      "loadMoreReplies": "تحميل المزيد",
+      "loadingReplies": "جارٍ تحميل الردود…",
+      "originalLabel": "الأصل",
+      "post": "نشر",
+      "postCorrection": "نشر التصحيح",
+      "postFailed": "تعذّر النشر. حاول مرة أخرى.",
+      "react": "تفاعل",
+      "reply": "رد",
+      "replyPlaceholder": "اكتب ردًا…",
+      "viewReplies": "عرض {{count}} من الردود",
+      "deleteOthersBody": "هذا التعليق على لحظتك، لذا يمكنك إزالته. لا يمكن التراجع عن ذلك.",
+      "deleteOthersTitle": "حذف هذا التعليق؟",
+      "removeGif": "إزالة الصورة المتحركة"
+    },
+    "filters": {
+      "button": "عوامل التصفية",
+      "searchPlaceholder": "ابحث في اللحظات",
+      "search": "بحث",
+      "category": "الفئة",
+      "language": "اللغة",
+      "mood": "المزاج",
+      "tag": "الوسم",
+      "tagPlaceholder": "أي وسم",
+      "any": "الكل",
+      "clear": "مسح عوامل التصفية",
+      "emptyTitle": "لا توجد لحظات تطابق عوامل التصفية هذه",
+      "emptyBody": "جرّب إزالة أحد عوامل التصفية أو البحث عن شيء آخر."
+    },
+    "categories": {
+      "general": "عام",
+      "language-learning": "تعلّم اللغات",
+      "culture": "ثقافة",
+      "food": "طعام",
+      "travel": "سفر",
+      "music": "موسيقى",
+      "books": "كتب",
+      "hobbies": "هوايات",
+      "daily-life": "الحياة اليومية",
+      "technology": "تقنية",
+      "entertainment": "ترفيه",
+      "sports": "رياضة",
+      "movies": "أفلام",
+      "study": "دراسة",
+      "work": "عمل",
+      "question": "سؤال"
+    },
+    "moods": {
+      "happy": "سعيد",
+      "excited": "متحمس",
+      "grateful": "ممتن",
+      "motivated": "متحفز",
+      "relaxed": "مسترخٍ",
+      "curious": "فضولي",
+      "sad": "حزين",
+      "love": "عاشق",
+      "funny": "مضحك",
+      "thoughtful": "متأمل",
+      "cool": "رائع",
+      "tired": "متعب"
+    },
+    "report": {
+      "menu": "خيارات أخرى",
+      "report": "إبلاغ",
+      "title": "الإبلاغ عن هذه اللحظة",
+      "reasonLabel": "لماذا تبلغ عنها؟",
+      "descriptionLabel": "هل هناك شيء آخر؟ (اختياري)",
+      "submit": "إرسال البلاغ",
+      "cancel": "إلغاء",
+      "sent": "شكرًا — سيراجعه المشرفون.",
+      "already": "لقد أبلغت عن هذه اللحظة من قبل.",
+      "failed": "تعذّر إرسال البلاغ. حاول مرة أخرى.",
+      "reasons": {
+        "spam": "رسائل مزعجة",
+        "harassment": "تحرش",
+        "hate_speech": "خطاب كراهية",
+        "violence": "عنف",
+        "nudity": "عُري",
+        "false_information": "معلومات كاذبة",
+        "copyright": "حقوق النشر",
+        "other": "سبب آخر"
+      },
+      "alreadyComment": "لقد أبلغت عن هذا التعليق من قبل.",
+      "alreadyStory": "لقد أبلغت عن هذه القصة من قبل.",
+      "titleComment": "الإبلاغ عن هذا التعليق",
+      "titleStory": "الإبلاغ عن هذه القصة"
+    },
+    "schedule": {
+      "label": "جدولة",
+      "hint": "اتركه فارغًا للنشر الآن",
+      "past": "اختر وقتًا في المستقبل",
+      "badge": "مجدولة في {{time}}",
+      "clear": "النشر الآن بدلًا من ذلك"
+    },
+    "fields": {
+      "privacy": "من يمكنه رؤيتها",
+      "privacyPublic": "الجميع",
+      "privacyFriends": "الأصدقاء",
+      "privacyPrivate": "أنا فقط",
+      "background": "الخلفية",
+      "backgroundNone": "بلا",
+      "location": "الموقع",
+      "addLocation": "إضافة موقعي",
+      "removeLocation": "إزالة الموقع",
+      "noMood": "بلا مزاج",
+      "tags": "الوسوم",
+      "tagPlaceholder": "أضف وسمًا…",
+      "addTag": "إضافة",
+      "tagsUsed": "{{count}}/5 وسوم",
+      "tagsMax": "5 وسوم كحد أقصى"
+    },
+    "prompt": {
+      "answeringPromptOfDay": "الرد على سؤال اليوم",
+      "dismissChip": "التوقف عن الرد على السؤال",
+      "answering": "رد على",
+      "answer": "أجب",
+      "cardSubtitle": "تدرّب على الكتابة",
+      "cardTitle": "سؤال اليوم",
+      "dismissCard": "إخفاء سؤال اليوم"
+    },
+    "block": {
+      "done": "تم حظر {{name}}."
+    },
+    "card": {
+      "bookmark": "إضافة إلى المحفوظات",
+      "likeFailed": "حدث خطأ ما",
+      "loginToLike": "سجّل الدخول للإعجاب بالمنشورات",
+      "removeBookmark": "إزالة من المحفوظات",
+      "save": "حفظ",
+      "saved": "محفوظ",
+      "seeLess": "عرض أقل",
+      "seeMore": "عرض المزيد",
+      "unlike": "إلغاء الإعجاب"
+    },
+    "saved": {
+      "browseMoments": "تصفّح اللحظات",
+      "gridView": "عرض شبكي",
+      "listView": "عرض القائمة",
+      "loadMore": "تحميل المزيد",
+      "momentCount": "لحظة محفوظة",
+      "noMoments": "لا توجد لحظات محفوظة بعد",
+      "remove": "إزالة",
+      "removeError": "تعذّرت إزالة اللحظة",
+      "removeSuccess": "أُزيلت من المحفوظات",
+      "title": "اللحظات المحفوظة"
+    },
+    "voice": {
+      "cancel": "إلغاء التسجيل",
+      "denied": "تم رفض الوصول إلى الميكروفون. اسمح بالوصول إلى الميكروفون لتسجيل رسالة صوتية.",
+      "stop": "إيقاف التسجيل والإرسال",
+      "unsupported": "هذا المتصفح لا يدعم التسجيل الصوتي."
     }
   },
   "createMoment": {
@@ -345,13 +1091,27 @@
       "addMoreText": "أضف المزيد",
       "updateButton": "تحديث اللحظة",
       "updatingButton": "جارٍ التحديث...",
-      "cancelButton": "إلغاء"
+      "cancelButton": "إلغاء",
+      "removeImage": "إزالة الصورة",
+      "nothingToSave": "لا يوجد ما يتغير بعد",
+      "descriptionRequired": "الوصف مطلوب"
+    },
+    "media": {
+      "video": "فيديو",
+      "audio": "ملاحظة صوتية",
+      "replace": "استبدال",
+      "remove": "إزالة",
+      "removeVideoTitle": "إزالة الفيديو؟",
+      "removeAudioTitle": "إزالة الملاحظة الصوتية؟",
+      "removeBody": "لا يمكن التراجع عن هذا.",
+      "done": "تم التحديث",
+      "failed": "لم ينجح ذلك. حاول مرة أخرى."
     }
   },
   "authentication": {
     "enterEmail": {
       "title": "أدخل بريدك الإلكتروني",
-      "subtitle": "We'll send a verification code to your email",
+      "subtitle": "سنرسل رمز تحقق إلى بريدك الإلكتروني",
       "emailLabel": "عنوان البريد الإلكتروني",
       "emailPlaceholder": "أدخل البريد الإلكتروني",
       "sendButton": "إرسال الرمز",
@@ -361,32 +1121,32 @@
     },
     "passwordReset": {
       "successMessage": "تمت إعادة تعيين كلمة المرور بنجاح، يرجى تسجيل الدخول!",
-      "backToLogin": "Back to login",
-      "verifyTitle": "Enter verification code",
-      "verifySubtitle": "We've sent a 6-digit code to your email",
-      "codeLabel": "Verification Code",
-      "codePlaceholder": "Enter code",
-      "previousButton": "Previous",
-      "verifyButton": "Verify",
-      "verifyingButton": "Verifying...",
-      "resendButton": "Resend code",
-      "resendingButton": "Resending...",
-      "verifySuccessMessage": "Verification code successfully verified!",
-      "resendSuccessMessage": "A new verification code has been sent!",
-      "verifyErrorDefault": "Invalid verification code",
-      "resendErrorDefault": "Failed to resend the code",
-      "setPasswordTitle": "Set new password",
-      "setPasswordSubtitle": "Choose a strong password for your account",
-      "newPasswordLabel": "New Password",
-      "newPasswordPlaceholder": "New Password",
-      "confirmPasswordLabel": "Confirm Password",
-      "confirmPasswordPlaceholder": "Confirm Password",
-      "showPassword": "Show password",
-      "hidePassword": "Hide password",
-      "submitButton": "Reset Password",
-      "submittingButton": "Resetting...",
-      "strengthErrorMessage": "Password does not meet the strength requirements",
-      "mismatchErrorMessage": "Passwords do not match"
+      "backToLogin": "العودة إلى تسجيل الدخول",
+      "verifyTitle": "أدخل رمز التحقق",
+      "verifySubtitle": "أرسلنا رمزًا مكونًا من 6 أرقام إلى بريدك الإلكتروني",
+      "codeLabel": "رمز التحقق",
+      "codePlaceholder": "أدخل الرمز",
+      "previousButton": "السابق",
+      "verifyButton": "تحقق",
+      "verifyingButton": "جارٍ التحقق...",
+      "resendButton": "إعادة إرسال الرمز",
+      "resendingButton": "جارٍ إعادة الإرسال...",
+      "verifySuccessMessage": "تم التحقق من الرمز بنجاح!",
+      "resendSuccessMessage": "تم إرسال رمز تحقق جديد!",
+      "verifyErrorDefault": "رمز التحقق غير صحيح",
+      "resendErrorDefault": "فشل في إعادة إرسال الرمز",
+      "setPasswordTitle": "عيّن كلمة مرور جديدة",
+      "setPasswordSubtitle": "اختر كلمة مرور قوية لحسابك",
+      "newPasswordLabel": "كلمة المرور الجديدة",
+      "newPasswordPlaceholder": "كلمة المرور الجديدة",
+      "confirmPasswordLabel": "تأكيد كلمة المرور",
+      "confirmPasswordPlaceholder": "تأكيد كلمة المرور",
+      "showPassword": "إظهار كلمة المرور",
+      "hidePassword": "إخفاء كلمة المرور",
+      "submitButton": "إعادة تعيين كلمة المرور",
+      "submittingButton": "جارٍ إعادة التعيين...",
+      "strengthErrorMessage": "كلمة المرور لا تفي بمتطلبات القوة",
+      "mismatchErrorMessage": "كلمتا المرور غير متطابقتين"
     },
     "login": {
       "signInWithGoogle": "تسجيل الدخول بحساب Google",
@@ -463,6 +1223,17 @@
       "verifyFirst": "يرجى التحقق من بريدك الإلكتروني أولاً",
       "registrationSuccess": "تم التسجيل بنجاح!",
       "registrationError": "خطأ أثناء التسجيل"
+    },
+    "callback": {
+      "banned": "تم تعليق هذا الحساب.",
+      "codeExpired": "انتهت صلاحية رابط تسجيل الدخول هذا. يرجى تسجيل الدخول مرة أخرى.",
+      "completing": "جارٍ إكمال تسجيل الدخول...",
+      "emailExists": "يوجد حساب بهذا البريد الإلكتروني بالفعل. سجّل الدخول باستخدام بريدك الإلكتروني وكلمة المرور.",
+      "failedTitle": "فشل تسجيل الدخول",
+      "generic": "فشل تسجيل الدخول. يرجى المحاولة مرة أخرى.",
+      "noCode": "لم يكتمل تسجيل الدخول. يرجى المحاولة مرة أخرى.",
+      "redirecting": "جارٍ إعادتك إلى تسجيل الدخول...",
+      "wait": "يرجى الانتظار بينما نسجّل دخولك."
     }
   },
   "communityMain": {
@@ -503,7 +1274,13 @@
     "tabs": {
       "all": "الكل",
       "popular": "الأكثر شعبية",
-      "new": "جديد"
+      "new": "جديد",
+      "forYou": "لك",
+      "online": "متصل",
+      "label": "تبويبات المجتمع",
+      "today": "اليوم",
+      "serious": "متعلمون جادّون",
+      "seriousHint": "نشطون هذا الأسبوع"
     },
     "filters": {
       "language": "اللغة",
@@ -543,7 +1320,9 @@
       "topics": "المواضيع",
       "searchPlaceholder": "ابحث عن أعضاء أو مواضيع",
       "filtersLabel": "الفلاتر",
-      "filtersWithCount": "الفلاتر ({{count}} نشط)"
+      "filtersWithCount": "الفلاتر ({{count}} نشط)",
+      "city": "المدينة",
+      "genders": "الجنس"
     },
     "filterSheet": {
       "title": "الفلاتر",
@@ -560,7 +1339,27 @@
       "onlineNow": "متصل الآن",
       "newMembersOnly": "الأعضاء الجدد فقط (آخر 7 أيام)",
       "reset": "إعادة تعيين",
-      "apply": "تطبيق"
+      "apply": "تطبيق",
+      "copyLink": "نسخ الرابط",
+      "linkCopied": "تم نسخ الرابط",
+      "linkCopyFailed": "تعذّر نسخ الرابط",
+      "applyFirst": "طبّق الفلاتر أولاً",
+      "matchCountLoading": "جارٍ حساب التطابقات…",
+      "close": "إغلاق الفلاتر",
+      "languages": "اللغات",
+      "partnerNative": "اللغة الأم للشريك",
+      "partnerLearning": "الشريك يتعلم",
+      "country": "البلد",
+      "countryPlaceholder": "مثال: كوريا الجنوبية",
+      "level": "مستوى اللغة",
+      "topics": "المواضيع",
+      "mutualInterests": "الاهتمامات المشتركة",
+      "newUsersOnly": "المستخدمون الجدد فقط",
+      "clearAll": "مسح الكل",
+      "matchCount": "{{count}} تطابق",
+      "lockedByTab": "محدد من علامة التبويب {{tab}}",
+      "reciprocal": "الشركاء المثاليون فقط",
+      "reciprocalHint": "يتحدثون اللغة التي تتعلمها ويتعلمون اللغة التي تتحدثها"
     },
     "highlighted": {
       "title": "ملفات مميزة",
@@ -569,9 +1368,12 @@
       "highlightSelfTopic": "اجعل ملفك الشخصي مميزًا ليراك المزيد من الأشخاص"
     },
     "visitors": {
-      "justYou": "زار {{name}} ملفك الشخصي!",
-      "andOthers": "زار {{name}} و {{count}} آخرون ملفك الشخصي!",
-      "seeAll": "عرض الكل"
+      "pill_one": "شخص واحد زار ملفك الشخصي",
+      "pill_few": "{{count}} أشخاص زاروا ملفك الشخصي",
+      "pill_many": "{{count}} شخصًا زاروا ملفك الشخصي",
+      "pill_other": "{{count}} شخص زار ملفك الشخصي",
+      "pill_zero": "لم يزر أحد ملفك الشخصي",
+      "pill_two": "زار شخصان ملفك الشخصي"
     },
     "tandemCard": {
       "newChip": "جديد",
@@ -581,6 +1383,50 @@
       "fluent": "بطلاقة",
       "learns": "يتعلم",
       "native": "اللغة الأم"
+    },
+    "chips": {
+      "recentlyActive": "نشط مؤخراً",
+      "onlineNow": "متصل الآن",
+      "speaks": "يتحدث {{language}}",
+      "learning": "يتعلم {{language}}"
+    },
+    "forYou": {
+      "subtitle": "شركاء تم اختيارهم لك بناءً على لغاتك ومستواك واهتماماتك.",
+      "refresh": "تحديث",
+      "why": "السبب: {{reasons}}",
+      "empty": {
+        "title": "لا توجد توصيات بعد",
+        "message": "أضف اللغات التي تتحدثها وتريد تعلّمها، ومستواك، وبعض الاهتمامات، وسنجد لك شركاء مناسبين.",
+        "action": "أكمل ملفك الشخصي"
+      }
+    },
+    "reasons": {
+      "perfect_pair": "يتحدث {{native}} ويتعلم {{learning}}",
+      "native_speaker": "متحدث أصلي لـ {{native}}",
+      "online_now": "متصل الآن",
+      "active_today": "نشط اليوم",
+      "same_country": "البلد نفسه"
+    },
+    "today": {
+      "title": "مطابقاتك اليوم: {{count}}",
+      "refreshes": "تتجدد في {{time}}",
+      "refreshesMidnight": "تتجدد عند منتصف الليل",
+      "emptyTitle": "هذا كل شيء لليوم",
+      "emptyBody": "مطابقات جديدة غدًا. في الأثناء، تصفّح كل الشركاء.",
+      "browse": "تصفّح الشركاء",
+      "repliesFast": "يرد بسرعة",
+      "boosted": "مُعزَّز",
+      "reasonReciprocal": "تتعلمان لغة بعضكما",
+      "reasonSameTarget": "يتعلم {{language}} أيضًا",
+      "reasonActiveToday": "نشط اليوم",
+      "reasonSameCity": "يعيش في مدينتك",
+      "reasonSharedTopic": "اهتمام مشترك: {{topic}}",
+      "sayHi": "قل مرحبًا",
+      "wave": "لوّح",
+      "skip": "تخطَّ",
+      "error": "تعذّر تحميل مطابقات اليوم",
+      "retry": "حاول مجددًا",
+      "waved": "تم التلويح"
     }
   },
   "communityDetail": {
@@ -642,9 +1488,39 @@
       "learning": "يتعلم",
       "notSpecified": "غير محدد"
     },
+    "match": {
+      "title": "التوافق اللغوي",
+      "native": "اللغة الأم",
+      "learning": "يتعلم",
+      "perfect": "توافق مثالي — يمكنكما تعليم بعضكما البعض.",
+      "youLearnTheirs": "أنت تتعلم لغة هذا العضو!",
+      "theyLearnYours": "هذا العضو يتعلم لغتك!",
+      "sameNative": "كلاكما يتحدث نفس اللغة الأم."
+    },
+    "mutual": {
+      "title": "الاهتمامات المشتركة",
+      "countLabel": "{{count}} مشترك"
+    },
+    "starters": {
+      "title": "أفكار لبدء المحادثة",
+      "send": "إرسال",
+      "perfect": "مرحباً {{name}}! نحن توافق لغوي مثالي — هل نتبادل التدريب؟",
+      "language": "مرحباً {{name}}! أتعلم {{language}} — هل لديك نصائح لأتحسن؟",
+      "teach": "مرحباً {{name}}! لاحظت أنك تتعلم {{language}}. يسعدني المساعدة إذا كان لديك أي أسئلة.",
+      "sameNative": "مرحباً {{name}}! نتشارك نفس اللغة الأم — كيف يسير تعلّمك؟",
+      "topic": "مرحباً {{name}}! لاحظت أنك مهتم أيضاً بـ{{topic}}. كيف بدأت؟",
+      "targetLearning": "مرحباً {{name}}! منذ متى وأنت تتعلم {{language}}؟",
+      "generic": "مرحباً {{name}}! أحب أن نتدرب على اللغات معاً. كيف أسبوعك؟",
+      "practice": "مرحباً {{name}}! ما الذي ساعدك أكثر في تعلّمك حتى الآن؟",
+      "hello": "مرحباً {{name}}! لفت ملفك الشخصي انتباهي — كيف يومك؟"
+    },
+    "engagement": {
+      "replies": "{{rate}}% ردود",
+      "new": "عضو جديد"
+    },
     "suggested": {
       "title": "أعضاء آخرون مثل {{name}}",
-      "seeAll": "عرض كل الأعضاء"
+      "seeAll": "عرض جميع الأعضاء"
     }
   },
   "communityDetailSection": {
@@ -665,6 +1541,10 @@
     "buttons": {
       "tryAgain": "حاول مرة أخرى",
       "backToCommunity": "العودة إلى المجتمع"
+    },
+    "suggested": {
+      "title": "أعضاء آخرون مثل {{name}}",
+      "seeAll": "عرض كل الأعضاء"
     },
     "stats": {
       "followers": "المتابعون",
@@ -871,6 +1751,102 @@
       "premium": "مميز",
       "features": "الميزات",
       "upgrade": "الترقية إلى VIP"
+    },
+    "password": {
+      "title": "تغيير كلمة المرور",
+      "current": "كلمة المرور الحالية",
+      "current_hint": "أدخل كلمة المرور الحالية",
+      "new": "كلمة المرور الجديدة",
+      "new_hint": "8 أحرف على الأقل، A-Z، a-z، 0-9",
+      "confirm": "تأكيد كلمة المرور الجديدة",
+      "confirm_hint": "أعد إدخال كلمة المرور الجديدة",
+      "rule_upper": "حرف كبير واحد",
+      "rule_lower": "حرف صغير واحد",
+      "rule_number": "رقم واحد",
+      "mismatch": "كلمات المرور غير متطابقة.",
+      "same_as_current": "يجب أن تكون كلمة المرور الجديدة مختلفة عن الحالية.",
+      "success": "تم تغيير كلمة المرور بنجاح",
+      "failed": "فشل التحديث",
+      "symbols": "الرموز المسموح بها فقط: @ $ ! % * ? &"
+    },
+    "privacy": {
+      "title": "إعدادات الخصوصية",
+      "subtitle": "تحكّم في من يمكنه رؤية معلوماتك",
+      "profileVisibility": "ظهور الملف الشخصي",
+      "showOnlineStatus": "إظهار حالة الاتصال",
+      "showOnlineStatusDesc": "السماح للآخرين برؤية حالة اتصالك",
+      "showCity": "إظهار المدينة",
+      "showCityDesc": "عرض مدينتك في ملفك الشخصي",
+      "showCountry": "إظهار الدولة/المنطقة",
+      "showCountryDesc": "عرض دولتك في ملفك الشخصي",
+      "personalInfo": "المعلومات الشخصية",
+      "showAge": "إظهار العمر",
+      "showAgeDesc": "عرض عمرك في ملفك الشخصي",
+      "showZodiac": "إظهار البرج",
+      "showZodiacDesc": "عرض برجك في ملفك الشخصي",
+      "birthdayNotification": "إشعارات عيد الميلاد",
+      "birthdayNotificationDesc": "تلقي إشعارات في عيد ميلادك",
+      "otherSettings": "إعدادات أخرى",
+      "showGiftingLevel": "إظهار مستوى الهدايا",
+      "showGiftingLevelDesc": "عرض شارة مستوى الهدايا",
+      "saveSuccess": "تم حفظ إعدادات الخصوصية",
+      "saveError": "فشل في الحفظ",
+      "saving": "جارٍ الحفظ...",
+      "saveChanges": "حفظ التغييرات",
+      "profileVisits": "زيارات الملف الشخصي",
+      "anonymousProfileVisits": "زيارة الملفات الشخصية بشكل مجهول",
+      "anonymousProfileVisitsDesc": "لن يظهر اسمك في قائمة الزوار الأخيرين للمستخدم الذي تزوره.",
+      "email": "البريد الإلكتروني",
+      "emailNotifications": "إشعارات البريد الإلكتروني",
+      "emailNotificationsDesc": "تلقي إشعارات البريد الإلكتروني من BananaTalk",
+      "weeklyDigest": "الملخص الأسبوعي",
+      "weeklyDigestDesc": "ملخص النشاط كل يوم أحد",
+      "securityAlerts": "تنبيهات الأمان",
+      "securityAlertsDesc": "تنبيهات كلمة المرور وتسجيل الدخول. نوصي بإبقائها مفعّلة."
+    },
+    "notifications": {
+      "title": "إعدادات الإشعارات",
+      "subtitle": "إدارة تفضيلات الإشعارات",
+      "loading": "جارٍ التحميل...",
+      "loadError": "خطأ في تحميل الإعدادات",
+      "retry": "إعادة المحاولة",
+      "pushNote": "تتحكم هذه الإعدادات في الإشعارات الفورية من تطبيق BananaTalk على هاتفك.",
+      "enableAll": "الإشعارات الفورية",
+      "enableAllDesc": "تشغيل أو إيقاف جميع الإشعارات",
+      "notificationTypes": "أنواع الإشعارات",
+      "chatMessages": "رسائل الدردشة",
+      "chatMessagesDesc": "تلقي إشعارات عند استلام الرسائل",
+      "moments": "اللحظات",
+      "momentsDesc": "الإعجابات والتعليقات على لحظاتك",
+      "followerMoments": "لحظات المتابَعين",
+      "followerMomentsDesc": "عندما ينشر الأشخاص الذين تتابعهم لحظات جديدة",
+      "friendRequests": "المتابعون الجدد",
+      "friendRequestsDesc": "عندما يتابعك شخص ما",
+      "profileVisits": "زيارات الملف الشخصي",
+      "profileVisitsDesc": "عندما يرى شخص ما ملفك الشخصي (VIP)",
+      "announcements": "الإعلانات",
+      "announcementsDesc": "أخبار وتحديثات من فريق BananaTalk",
+      "marketing": "التسويق",
+      "marketingDesc": "التحديثات والرسائل الترويجية",
+      "learning": "التعلم",
+      "streakReminders": "تذكيرات السلسلة",
+      "streakRemindersDesc": "تذكير قبل أن تنقطع سلسلتك",
+      "vocabularyReviewReminders": "مراجعة المفردات",
+      "vocabularyReviewRemindersDesc": "عندما يحين موعد مراجعة كلمات",
+      "dailyDropReminders": "درس اليوم",
+      "dailyDropRemindersDesc": "عندما يصبح درس اليوم القصير في المفردات أو القواعد جاهزًا",
+      "quietHours": "ساعات الهدوء",
+      "quietHoursEnable": "تفعيل ساعات الهدوء",
+      "quietHoursDesc": "إيقاف الإشعارات غير العاجلة مؤقتًا خلال فترة زمنية محددة",
+      "quietHoursStart": "وقت البدء",
+      "quietHoursEnd": "وقت الانتهاء",
+      "preferences": "تفضيلات الإشعارات",
+      "showPreview": "إظهار المعاينة",
+      "showPreviewDesc": "إظهار معاينة الرسالة في الإشعارات",
+      "saveSuccess": "تم حفظ إعدادات الإشعارات",
+      "saveError": "فشل في الحفظ",
+      "saving": "جارٍ الحفظ...",
+      "saveChanges": "حفظ التغييرات"
     }
   },
   "waves": {
@@ -880,13 +1856,102 @@
     "accept": "قبول",
     "decline": "رفض",
     "noWaves": "لا توجد تلويحات بعد",
-    "sendWave": "أرسل تلويحة لبدء التواصل!"
+    "sendWave": "أرسل تلويحة لبدء التواصل!",
+    "archive": "التلويحات الأقدم",
+    "archiveEmpty": "لا توجد تلويحات أقدم",
+    "archiveHint": "التلويحات من 7 إلى 30 يومًا مضت",
+    "back": "رجوع",
+    "cap": {
+      "body": "لقد استخدمت تلويحاتك المجانية لهذا اليوم. يمكن لأعضاء VIP التلويح بلا حد يومي، أو حاول مرة أخرى غدًا.",
+      "notNow": "ليس الآن",
+      "seeVip": "اكتشف VIP",
+      "title": "وصلت إلى الحد اليومي للتلويحات"
+    },
+    "findPeople": "اعثر على أشخاص",
+    "noReceived": "لم تستلم أي تلويحات بعد",
+    "recent": "آخر 7 أيام",
+    "sheet": {
+      "already": "تم التلويح مسبقًا",
+      "alreadyBody": "يمكنك التلويح لكل شخص مرة واحدة فقط — أرسل له رسالة بدلًا من ذلك لمواصلة المحادثة.",
+      "alreadyTitle": "لقد لوّحت لـ {{name}} مسبقًا",
+      "cancel": "إلغاء",
+      "chips": {
+        "chat": {
+          "label": "دردشة",
+          "message": "🎉 لنتحدث!"
+        },
+        "cool": {
+          "label": "رائع",
+          "message": "❤️ ملف شخصي رائع!"
+        },
+        "hello": {
+          "label": "أهلًا",
+          "message": "✋ أهلًا!"
+        },
+        "hey": {
+          "label": "هاي",
+          "message": "😊 هاي، كيف حالك؟"
+        },
+        "hi": {
+          "label": "مرحبًا",
+          "message": "👋 مرحبًا!"
+        },
+        "nice": {
+          "label": "تشرفت",
+          "message": "🌟 تشرفت بمعرفتك!"
+        }
+      },
+      "close": "إغلاق",
+      "icebreakers": {
+        "0": "مرحبًا! هل تود أن نتدرب على اللغات معًا؟",
+        "1": "لاحظت أننا نتعلم لغات متشابهة — مرحبًا!",
+        "2": "لفت ملفك الشخصي انتباهي، كيف حالك؟",
+        "3": "هاي! ما الذي دفعك لتعلم لغة جديدة؟"
+      },
+      "icebreakersTitle": "لكسر الجليد",
+      "match": "🎉 تطابق! لوّحت أنت و{{name}} لبعضكما.",
+      "placeholder": "اكتب رسالة خاصة (اختياري)…",
+      "quickReplies": "ردود سريعة",
+      "send": "أرسل تلويحة",
+      "sendError": "تعذّر إرسال التلويحة",
+      "sent": "تم إرسال تلويحة إلى {{name}}!",
+      "subtitle": "قل مرحبًا واكسر الجليد 👋",
+      "title": "أرسل تلويحة إلى {{name}}",
+      "yourMessage": "رسالتك"
+    },
+    "someone": "شخص ما",
+    "subtitle": "الأشخاص الذين لوّحوا لك",
+    "unread": "غير مقروءة",
+    "wavedAtYou": "لوّح لك 👋"
   },
   "topics": {
     "title": "المواضيع",
     "myTopics": "مواضيعي",
     "browseTopics": "تصفح المواضيع",
-    "usersInterested": "مستخدمون مهتمون"
+    "usersInterested": "مستخدمون مهتمون",
+    "saved": "مواضيعك محدّثة",
+    "saveError": "تعذّر حفظ مواضيعك",
+    "memberCount": "{{count}} عضو",
+    "backToCommunity": "المجتمع",
+    "subtitle": "اعثر على شركاء يشاركونك اهتماماتك.",
+    "searchPlaceholder": "البحث عن مواضيع",
+    "clearSearch": "مسح البحث",
+    "cancel": "إلغاء",
+    "saving": "جارٍ الحفظ...",
+    "save": "حفظ",
+    "edit": "تعديل",
+    "editHint": "اضغط على البطاقات أدناه لاختيار حتى {{max}} موضوعًا، ثم احفظ.",
+    "myTopicsEmpty": "لم تختر أي مواضيع بعد. اضغط على تعديل لاختيار بعضها.",
+    "selectTopics": "اختر مواضيعك",
+    "emptyTitle": "لا توجد مواضيع مطابقة",
+    "emptyMessage": "جرّب كلمة أخرى، أو امسح البحث لرؤية جميع المواضيع.",
+    "backToTopics": "جميع المواضيع",
+    "onlineOnly": "المتصلون فقط",
+    "loadingPeople": "جارٍ تحميل الأشخاص...",
+    "noOneOnlineTitle": "لا يوجد أحد متصل هنا",
+    "noOneTitle": "لا يوجد أحد هنا بعد",
+    "noOneOnlineMessage": "أوقف فلتر الاتصال لرؤية الجميع في هذا الموضوع.",
+    "noOneMessage": "كن أول من يفعل ذلك — أضف هذا الموضوع إلى ملفك الشخصي."
   },
   "nearby": {
     "title": "المستخدمون القريبون",
@@ -897,24 +1962,23 @@
   },
   "home": {
     "hero": {
-      "badge": "تبادل لغوي بكل بساطة",
-      "titlePart1": "تعلّم اللغات من خلال",
-      "titleHighlight": "التحدث",
-      "titlePart2": "مع متحدثين أصليين",
-      "description": "تواصل مع ملايين متعلمي اللغات حول العالم. تدرّب على المحادثة، وحسّن طلاقتك، وكوّن صداقات من كل أنحاء العالم.",
-      "stats": {
-        "users": "مستخدمون نشطون",
-        "languages": "لغات",
-        "countries": "دول"
-      },
-      "getStarted": "ابدأ مجاناً",
+      "badge": "تبادل لغوي، أشخاص حقيقيون",
+      "titlePart1": "تدرّب على",
+      "titleHighlight": "أي لغة",
+      "titlePart2": "مع شخص يتحدثها بالفعل.",
+      "description": "يربطك BananaTalk بمتحدثين أصليين حول العالم. تحدث، وأرسل رسائل صوتية، وترجم، واحصل على تصحيحات — كل محادثة تجعلك أفضل.",
+      "getStarted": "ابدأ الآن — الأمر مجاني",
       "browseCommunity": "تصفح المجتمع",
-      "lovedBy": "محبوب من أكثر من 5 ملايين متعلم",
+      "lovedBy": "يحبه متعلمو اللغات على iOS وAndroid",
       "chatPreview": {
-        "message1": "مرحباً! كيف حالك؟ 👋",
-        "message2": "Hey! I'm practicing my Arabic!",
-        "message3": "ممتاز! هيا نتدرب معاً 🇸🇦"
-      }
+        "message1": "안녕하세요! كيف كانت عطلة نهاية أسبوعك؟",
+        "message2": "주말에 친구들과 등산 갔어요 ⛰️",
+        "message3": "رائع! 산 ← جبل. تم الحفظ في قائمة دراستك."
+      },
+      "title": "قلها بشكل خاطئ.",
+      "titleAccent": "نحن سنترجم.",
+      "subtitle": "تبادل لغوي مجاني مع متحدثين أصليين. اكتب بلغتك، فيقرؤونها بلغتهم، ومن الفرق بينهما تتعلم.",
+      "trust": "خطة مجانية للأبد · 137 لغة · مدرّس AI على مدار الساعة"
     },
     "sections": {
       "features": "الميزات",
@@ -922,108 +1986,175 @@
       "pricing": "الأسعار"
     },
     "features": {
-      "title": "كل ما تحتاجه للتعلم",
-      "subtitle": "أدوات قوية مصممة لتسريع رحلتك في تعلم اللغات",
+      "title": "كل ما تحتاجه لتتحدث اللغة فعلاً",
+      "subtitle": "مبني على محادثات حقيقية مع متحدثين أصليين حقيقيين — لا تمارين مفردات.",
       "chat": {
-        "title": "دردشة فورية",
-        "description": "تدرّب على المحادثة مع متحدثين أصليين عبر الرسائل الفورية"
+        "title": "دردشة مع تصحيحات",
+        "description": "أرسل نصوصًا ورسائل صوتية وصورًا وملصقات. اضغط على رسالة شريكك لترجمتها أو لتصحيحها بلمسة واحدة."
       },
-      "video": {
-        "title": "مكالمات فيديو",
-        "description": "ممارسة لغوية وجهاً لوجه مع شركاء حول العالم"
+      "translate": {
+        "title": "ترجمة مدمجة",
+        "description": "ترجم أي رسالة إلى لغتك الأم. احفظ العبارات مباشرة في قائمة دراستك."
       },
-      "lessons": {
-        "title": "دروس تفاعلية",
-        "description": "تعلّم من خلال دورات منظمة وتمارين يومية"
+      "tutor": {
+        "title": "مدرّس AI",
+        "description": "سيناريوهات تمثيل أدوار، ومفردات من الصور، وتدريب على النطق — كلها بدعم من شريك دراسة AI خاص بك."
       },
-      "voice": {
-        "title": "رسائل صوتية",
-        "description": "حسّن نطقك من خلال تبادل الرسائل الصوتية"
+      "voice_rooms": {
+        "title": "غرف صوتية",
+        "description": "انضم إلى غرف صوتية مباشرة مع متحدثين أصليين ومتعلمي لغات حول العالم."
+      },
+      "calls": {
+        "title": "مكالمات صوتية ومرئية",
+        "description": "مكالمات صوتية ومرئية بلمسة واحدة مع شركائك اللغويين."
       },
       "community": {
-        "title": "مجتمع",
-        "description": "انضم إلى ملايين متعلمي اللغات حول العالم"
+        "title": "مجتمع حقيقي",
+        "description": "تصفح الشركاء حسب لغتهم الأم، وتعرف من متصل الآن، وشارك اللحظات مع أشخاص يتعلمون نفس اللغة."
       },
-      "languages": {
-        "title": "أكثر من 50 لغة",
-        "description": "من الإسبانية إلى الكورية، اعثر على مسارك التعليمي"
+      "inApp": "داخل التطبيق",
+      "items": {
+        "findPartner": {
+          "title": "اعثر على شريك",
+          "body": "تطابَق حسب زوج اللغات الذي تريد تبادله فعلاً."
+        },
+        "chatTranslate": {
+          "title": "دردشة تترجم لك",
+          "body": "في الاتجاهين، داخل الرسالة نفسها، وأنت تكتب."
+        },
+        "moments": {
+          "title": "اللحظات (Moments)",
+          "body": "شارك تفاصيل يومك، ودع المتحدثين الأصليين يصححون لك."
+        },
+        "aiTutor": {
+          "title": "مدرّس AI",
+          "body": "تدرّب في الثالثة فجرًا دون أي إحراج."
+        },
+        "voiceRooms": {
+          "title": "غرف صوتية",
+          "body": "ادخل غرفة مباشرة واكتفِ بالاستماع، إن أحببت."
+        },
+        "gatherings": {
+          "title": "لقاءات",
+          "body": "قابل من يتعلمون لغتك بالقرب منك."
+        }
       }
     },
     "howItWorks": {
-      "title": "ابدأ التعلم في 3 خطوات",
-      "subtitle": "ابدأ في دقائق وانطلق في رحلتك اللغوية اليوم"
+      "title": "ثلاث خطوات نحو محادثتك الأولى",
+      "subtitle": "بلا أرقام هواتف، ولا رسائل مزعجة — فقط أشخاص حقيقيون يريدون التعلم.",
+      "steps": {
+        "1": {
+          "title": "أخبرنا بما تتحدثه وبما تريد تعلمه",
+          "body": "اختر لغتك الأم واللغة التي تتعلمها. بهذا الزوج نجد لك الشريك المناسب."
+        },
+        "2": {
+          "title": "اعثر على شخص يستحق الحديث معه",
+          "body": "تصفح الشركاء الذين يتعلمون لغتك. لوّح لهم، أو ابدأ المحادثة مباشرة."
+        },
+        "3": {
+          "title": "تحدث بأخطاء، وتحسّن بسرعة",
+          "body": "كل رسالة تُترجم في الاتجاهين، ومدرّس AI يصحح لك دون أن يرى ذلك أحد."
+        }
+      }
     },
     "steps": {
       "profile": {
-        "title": "أنشئ ملفك الشخصي",
-        "description": "أخبرنا عن لغتك الأم وما تريد تعلمه"
+        "title": "أخبرنا بلغاتك",
+        "description": "اختر اللغة التي تتحدثها بطلاقة واللغة التي تتعلمها. أضف بعض المواضيع التي تهمك."
       },
       "partners": {
-        "title": "اعثر على شركاء",
-        "description": "تصفح مجتمعنا واعثر على شركاء التبادل اللغوي المثاليين"
+        "title": "اعثر على شريكك",
+        "description": "تصفح المجتمع حسب اللغة أو البلد أو الموضوع. لوّح أو راسل شخصًا يثير اهتمامك."
       },
       "learn": {
-        "title": "ابدأ التعلم",
-        "description": "تحدث واتصل وتدرّب مع متحدثين أصليين كل يوم"
+        "title": "تدرّب كل يوم",
+        "description": "تحدث، وتبادل الملاحظات الصوتية، واحصل على تصحيحات، وحوّل الكلمات الجديدة إلى بطاقات مراجعة متباعدة."
       }
     },
     "pricing": {
-      "title": "اختر خطتك",
-      "subtitle": "ابدأ مجاناً وقم بالترقية عندما تكون مستعداً",
-      "mostPopular": "الأكثر شعبية",
-      "getStarted": "ابدأ الآن",
+      "title": "مجاني للبدء. وVIP عندما تكون مستعدًا للتعلم أسرع.",
+      "subtitle": "BananaTalk مجاني للجميع. رقّ إلى VIP لإزالة الحدود اليومية على الترجمات، ومدرّس AI، والمزيد.",
+      "fineprint": "ألغِ في أي وقت من إعدادات App Store أو Google Play. تتجدد الاشتراكات تلقائيًا حتى يتم إلغاؤها.",
       "free": {
         "name": "مجاني",
         "period": "للأبد",
+        "cta": "أنشئ حسابًا مجانيًا",
         "features": {
-          "messaging": "مراسلة أساسية",
-          "connections": "5 اتصالات جديدة/يوم",
-          "community": "الوصول إلى المجتمع",
-          "lessons": "دروس أساسية"
+          "messaging": "دردشة فردية غير محدودة مع الترجمة",
+          "community": "تصفح المجتمع وتواصل معه",
+          "moments": "انشر اللحظات (Moments) واقرأ القصص (Stories)",
+          "tutor_trial": "حصة يومية من مدرّس AI والترجمة"
+        },
+        "f1": "محادثة فردية غير محدودة مع الترجمة",
+        "f2": "تصفح المجتمع وتواصل معه",
+        "f3": "انشر لحظات (Moments) واقرأ القصص (Stories)"
+      },
+      "monthly": {
+        "name": "VIP — شهري",
+        "period": "شهريًا",
+        "highlight": "الأكثر مرونة",
+        "cta": "ابدأ الاشتراك الشهري",
+        "features": {
+          "unlimited_translation": "ترجمات وتصحيحات غير محدودة",
+          "unlimited_tutor": "جلسات غير محدودة مع مدرّس AI وتمثيل الأدوار",
+          "voice_rooms": "استضف وثبّت الغرف الصوتية",
+          "priority": "أولوية في مطابقة الشركاء"
         }
       },
-      "premium": {
-        "name": "مميز",
-        "period": "/شهر",
+      "yearly": {
+        "name": "VIP — سنوي",
+        "period": "سنويًا",
+        "highlight": "وفّر 72%",
+        "cta": "وفّر مع الخطة السنوية",
         "features": {
-          "messaging": "مراسلة غير محدودة",
-          "connections": "اتصالات غير محدودة",
-          "video": "مكالمات فيديو",
-          "lessons": "دروس متقدمة",
-          "noAds": "بدون إعلانات",
-          "translation": "أدوات الترجمة"
+          "everything_in_monthly": "كل ما في الخطة الشهرية",
+          "equiv": "بما يعادل 4.16$ فقط شهريًا",
+          "early_access": "وصول مبكر إلى الميزات الجديدة",
+          "support": "دعم مباشر من فريق BananaTalk"
         }
       },
-      "lifetime": {
-        "name": "مدى الحياة",
-        "period": "دفعة واحدة",
-        "features": {
-          "everything": "كل شيء في المميز",
-          "forever": "وصول دائم",
-          "support": "دعم ذو أولوية",
-          "early": "ميزات مبكرة",
-          "badges": "شارات حصرية"
-        }
-      }
+      "best": "أفضل قيمة",
+      "perMonth": "شهريًا",
+      "every": "كل",
+      "save": "وفّر",
+      "getVip": "احصل على VIP في التطبيق"
     },
     "download": {
       "badge": "حمّل التطبيق",
-      "title": "خذ BananaTalk معك أينما ذهبت",
-      "description": "تعلّم أثناء التنقل مع تطبيقنا للهاتف. متوفر على iOS و Android مع جميع الميزات والإشعارات الفورية والوصول بدون إنترنت.",
+      "title": "التجربة الكاملة على الهاتف",
+      "description": "مدرّس AI، والغرف الصوتية، والمكالمات، والإشعارات الفورية متاحة فقط عبر الهاتف. حمّل التطبيق للحصول على تجربة BananaTalk الكاملة.",
       "downloadOn": "حمّل من",
       "getItOn": "احصل عليه من",
       "scanQR": "امسح لتحميل التطبيق",
       "or": "أو",
       "features": {
-        "offline": "وصول بدون إنترنت",
+        "offline": "دردشة تعمل بدون إنترنت",
         "push": "إشعارات فورية",
-        "fast": "سريع وخفيف"
+        "fast": "التثبيت مجاني"
       }
     },
     "cta": {
-      "title": "هل أنت مستعد لبدء رحلتك اللغوية؟",
-      "description": "انضم إلى ملايين المتعلمين وابدأ التحدث بلغة جديدة اليوم",
-      "button": "أنشئ حساباً مجانياً"
+      "title": "مستعد لخوض محادثة حقيقية؟",
+      "description": "انضم إلى مجتمع BananaTalk وابدأ التدرب اليوم. لا حاجة لبطاقة ائتمان.",
+      "button": "أنشئ حسابك المجاني",
+      "subtitle": "مجاني للبدء. بدون بطاقة، وبدون عد تنازلي لفترة تجريبية."
+    },
+    "stats": {
+      "languages": "لغة",
+      "app languages": "لغات التطبيق",
+      "AI tutor": "مدرّس AI",
+      "forever tier": "الخطة المجانية",
+      "learners": "متعلم"
+    },
+    "marquee": {
+      "title": "متحدثون أصليون لكل لغة تريد تعلمها",
+      "caption": "137 لغة، والعدد في ازدياد"
+    },
+    "earlyAdopter": {
+      "badge": "انطلقنا في ديسمبر 2025",
+      "title": "كن من الأوائل",
+      "body": "BananaTalk تطبيق جديد. والأشخاص الذين تقابلهم هنا هم من يصنعون ما سيصير إليه هذا المجتمع — وهذا سبب للانضمام مبكرًا أفضل من أي تقييم."
     }
   },
   "vip": {
@@ -1060,6 +2191,1261 @@
       "prioritySupport": "دعم ذو أولوية",
       "exclusiveBadge": "شارة VIP حصرية",
       "translationFeature": "ترجمة الرسائل"
+    }
+  },
+  "linking": {
+    "share": {
+      "label": "مشاركة",
+      "copied": "تم نسخ الرابط إلى الحافظة!",
+      "copyFailed": "فشل نسخ الرابط"
+    },
+    "openInApp": {
+      "label": "فتح في التطبيق"
+    },
+    "appBanner": {
+      "text": "افتح هذا في تطبيق BananaTalk"
+    }
+  },
+  "seo": {
+    "appTitle": "BananaTalk",
+    "home": {
+      "title": "BananaTalk: تطبيق مجاني لتبادل اللغات مع متحدثين أصليين",
+      "description": "تحدّث مع متحدثين أصليين بـ137 لغة. اكتب بلغتك، ويقرأها الطرف الآخر بلغته، ويوضح لك مدرّس ذكاء اصطناعي الفرق. مجاني على iOS وAndroid."
+    },
+    "download": {
+      "title": "حمّل BananaTalk لأجهزة iPhone وAndroid",
+      "description": "احصل على تطبيق BananaTalk المجاني لتبادل اللغات على iPhone وAndroid. تحدّث مع متحدثين أصليين مع ترجمة فورية وتصحيحات من مدرّس ذكاء اصطناعي."
+    },
+    "moments": {
+      "title": "لحظات BananaTalk: قصص بلغتك المستهدفة",
+      "description": "اللحظات هي منشورات وقصص قصيرة يشاركها متعلمو اللغات على BananaTalk. تصفح المنشورات، وتفاعل معها، وانشر لحظتك الخاصة."
+    },
+    "privacy": {
+      "title": "سياسة الخصوصية | BananaTalk",
+      "description": "كيف يجمع BananaTalk بياناتك ويستخدمها ويحميها، والخيارات المتاحة لك."
+    },
+    "terms": {
+      "title": "شروط الاستخدام | BananaTalk",
+      "description": "الشروط التي تحكم استخدامك لـ BananaTalk، بما في ذلك قواعد المحتوى والإشراف والإبلاغ."
+    },
+    "support": {
+      "title": "الدعم والتواصل | BananaTalk",
+      "description": "احصل على مساعدة بخصوص BananaTalk: أسئلة الحساب، الإبلاغ عن مشكلة، وكيفية التواصل مع الفريق."
+    },
+    "dataDeletion": {
+      "title": "طلب حذف البيانات | BananaTalk",
+      "description": "كيفية حذف حسابك وبياناتك الشخصية في BananaTalk، وما يحدث بعد تقديم الطلب."
+    },
+    "meet": {
+      "title": "تعرّف على أشخاص من بلدان أخرى | BananaTalk",
+      "description": "تعرّف على أشخاص من بلدان أخرى وكوّن صداقات عالمية عبر الدردشة. كل رسالة تُترجم في الاتجاهين، فلا يحتاج أي منكما إلى إتقان اللغة."
+    },
+    "learnKorean": {
+      "title": "تعلّم الكورية بالدردشة مع متحدثين أصليين",
+      "description": "تعلّم الكورية مجانًا بالدردشة مع متحدثين أصليين للكورية. تكتب بلغتك، ويكتبون بالهانغول، ويشرح لك مدرّس AI الفرق بين 존댓말 و반말 أثناء الحديث."
+    },
+    "communities": {
+      "title": "مجتمعات التبادل اللغوي | BananaTalk",
+      "description": "انضم إلى مجتمعات التبادل اللغوي على BananaTalk: مجموعات حقيقية تتدرب معًا على الكورية والإسبانية واليابانية وغيرها، مجانًا، كل يوم."
+    }
+  },
+  "notFound": {
+    "pageTitle": "الصفحة غير موجودة | BananaTalk",
+    "title": "هذه الصفحة غير موجودة",
+    "body": "قد يكون الرابط قديمًا، أو ربما تم نقل الصفحة. إليك طريقة العودة.",
+    "home": "الذهاب إلى الصفحة الرئيسية",
+    "download": "احصل على التطبيق"
+  },
+  "consent": {
+    "label": "موافقة ملفات تعريف الارتباط",
+    "message": "نستخدم ملفات تعريف ارتباط تحليلية لفهم ما يجذب الزوار إلى هنا.",
+    "accept": "موافق",
+    "decline": "لا شكرًا",
+    "manage": {
+      "title": "خيارات الخصوصية",
+      "body": "ملفات تعريف الارتباط التحليلية تخبرنا بالصفحات التي يجدها الناس مفيدة، لا أكثر.",
+      "current_granted": "ملفات تعريف الارتباط التحليلية مفعّلة.",
+      "current_denied": "ملفات تعريف الارتباط التحليلية متوقفة.",
+      "accept": "تفعيل",
+      "decline": "إيقاف",
+      "privacyChoices": "خيارات الخصوصية",
+      "analyticsCookies": "ملفات تعريف الارتباط التحليلية",
+      "done": "تم"
+    }
+  },
+  "admin": {
+    "nav": {
+      "admin": "المشرف",
+      "overview": "نظرة عامة",
+      "reach": "الوصول",
+      "users": "المستخدمون",
+      "content": "المحتوى",
+      "aiUsage": "استخدام الذكاء الاصطناعي",
+      "audit": "سجل التدقيق"
+    },
+    "aiUsage": {
+      "allFeatures": "جميع الميزات",
+      "anonymous": "مجهول",
+      "byDay": "الاستخدام حسب اليوم",
+      "byFeature": "الاستخدام حسب الميزة",
+      "calls": "عدد الاستدعاءات",
+      "date": "التاريخ",
+      "feature": "الميزة",
+      "from": "من",
+      "logs": "سجل الاستخدام",
+      "timestamp": "الوقت",
+      "to": "إلى",
+      "total": "إجمالي الاستدعاءات",
+      "user": "المستخدم"
+    },
+    "audit": {
+      "action": "الإجراء",
+      "actionColumn": "الإجراء",
+      "moderator": "المشرف",
+      "moderatorId": "معرّف المشرف",
+      "reason": "السبب",
+      "target": "الهدف",
+      "targetId": "معرّف الهدف",
+      "timestamp": "الوقت"
+    },
+    "common": {
+      "actionError": "حدث خطأ ما.",
+      "close": "إغلاق",
+      "empty": "لا يوجد شيء لعرضه بعد.",
+      "loadError": "تعذّر تحميل هذا القسم.",
+      "loading": "جارٍ التحميل…",
+      "refresh": "تحديث",
+      "cancel": "إلغاء"
+    },
+    "content": {
+      "archive": "أرشفة",
+      "archiveTitle": "أرشفة النادي",
+      "cancel": "إلغاء",
+      "cancelTitle": "إلغاء اللقاء",
+      "created": "تاريخ الإنشاء",
+      "gatherings": "اللقاءات",
+      "going": "الحضور",
+      "language": "اللغة",
+      "members": "الأعضاء",
+      "name": "الاسم",
+      "openReports": "بلاغات مفتوحة",
+      "reportedOnly": "المُبلَّغ عنه فقط",
+      "restore": "استعادة",
+      "restoreTitle": "استعادة النادي",
+      "startsAt": "وقت البدء",
+      "status": "الحالة",
+      "tabs": "نوع المحتوى",
+      "title": "العنوان",
+      "moments": "اللحظات",
+      "communities": "المجتمعات",
+      "reports": "البلاغات",
+      "momentsToday": "لحظات اليوم",
+      "moments7d": "اللحظات (٧ أيام)",
+      "momentsHidden": "اللحظات المخفية",
+      "comments7d": "التعليقات (٧ أيام)",
+      "activeCommunities": "الأندية النشطة",
+      "upcomingGatherings": "اللقاءات القادمة",
+      "pendingReports": "البلاغات المعلّقة",
+      "allTime": "كل الوقت",
+      "membersTotal": "عضو",
+      "underReview": "قيد المراجعة",
+      "searchMoments": "البحث عن اللحظات",
+      "hiddenOnly": "المخفي فقط",
+      "author": "الكاتب",
+      "owner": "المالك",
+      "city": "المدينة",
+      "place": "المكان",
+      "category": "الفئة",
+      "engagement": "التفاعل",
+      "likes": "الإعجابات",
+      "comments": "التعليقات",
+      "views": "المشاهدات",
+      "shares": "المشاركات",
+      "hidden": "مخفي",
+      "visible": "مرئي",
+      "untitled": "لحظة بلا عنوان",
+      "noText": "لا يوجد نص.",
+      "actionFailed": "لم ينجح الإجراء. لم يتغيّر شيء.",
+      "momentTitle": "اللحظة",
+      "hide": "إخفاء",
+      "unhide": "إظهار",
+      "hideTitle": "هل تريد إخفاء هذه اللحظة؟",
+      "unhideTitle": "هل تريد إظهار هذه اللحظة؟",
+      "hideBody": "ستختفي من كل المصادر. يُسجَّل السبب في سجل التدقيق.",
+      "unhideBody": "ستعود إلى المصدر. يُسجَّل السبب في سجل التدقيق.",
+      "communityTitle": "المجتمع",
+      "archiveBody": "سيختفي من الاستكشاف. يحتفظ الأعضاء بسجلّهم ويمكن استعادته.",
+      "restoreBody": "سيعود إلى الاستكشاف. يُسجَّل السبب في سجل التدقيق.",
+      "reportType": "النوع",
+      "reason": "السبب",
+      "reporterAndReported": "المُبلِّغ → المُبلَّغ عنه",
+      "priority": "الأولوية",
+      "reportActions": "إجراءات البلاغ",
+      "anyStatus": "أي حالة",
+      "anyType": "أي نوع",
+      "startReview": "بدء المراجعة",
+      "resolve": "حلّ",
+      "dismiss": "رفض",
+      "resolveTitle": "هل تريد حلّ هذا البلاغ؟",
+      "dismissTitle": "هل تريد رفض هذا البلاغ؟",
+      "dismissBody": "لن يُتَّخذ أي إجراء بحق المحتوى أو المستخدم المُبلَّغ عنه. تُحفَظ الملاحظات في البلاغ.",
+      "moderatorAction": "إجراء المشرف",
+      "notes": "ملاحظات",
+      "reportStatus": {
+        "pending": "معلّق",
+        "under_review": "قيد المراجعة",
+        "resolved": "تم الحلّ",
+        "dismissed": "مرفوض"
+      },
+      "targetType": {
+        "moment": "لحظة",
+        "comment": "تعليق",
+        "user": "مستخدم",
+        "club": "نادي",
+        "gathering": "لقاء",
+        "message": "رسالة",
+        "story": "قصة"
+      },
+      "moderatorActions": {
+        "content_removed": "تمت إزالة المحتوى",
+        "user_warned": "تم تحذير المستخدم",
+        "user_suspended": "تم تعليق المستخدم",
+        "user_banned": "تم حظر المستخدم",
+        "no_violation": "لا مخالفة"
+      }
+    },
+    "overview": {
+      "activeThisWeek": "نشِطون هذا الأسبوع",
+      "activeToday": "نشِط اليوم",
+      "admins": "المشرفون",
+      "banned": "محظور",
+      "email": "البريد الإلكتروني",
+      "lastActive": "آخر نشاط",
+      "lastWeek": "الأسبوع الماضي",
+      "name": "الاسم",
+      "newThisWeek": "جديد هذا الأسبوع",
+      "newToday": "جديد اليوم",
+      "recentlyActive": "نشِطون مؤخرًا",
+      "topLearningLanguages": "أكثر لغات التعلّم",
+      "topNativeLanguages": "أكثر اللغات الأم",
+      "totalUsers": "إجمالي المستخدمين",
+      "vip": "VIP",
+      "visitsThisWeek": "زيارات هذا الأسبوع",
+      "vs": "مقارنة بـ"
+    },
+    "reach": {
+      "country": "البلد",
+      "days": "أيام",
+      "device": "الجهاز",
+      "devices": "الأجهزة",
+      "newVisitors": "زوار جدد",
+      "ofVisits": "من",
+      "pageViews": "مشاهدات الصفحة",
+      "path": "المسار",
+      "period": "أسبوع",
+      "placement": "الموضع",
+      "platform": "المنصة",
+      "referrer": "المصدر المُحيل",
+      "storeTaps": "نقرات المتجر",
+      "taps": "النقرات",
+      "tapsByPlacement": "نقرات المتجر حسب الموضع",
+      "topCountries": "أكثر البلدان",
+      "topPaths": "أكثر الصفحات",
+      "topReferrers": "أكثر المصادر المُحيلة",
+      "trafficTitle": "مشاهدات الصفحة ونقرات المتجر",
+      "unique": "فريد",
+      "uniqueVisitors": "الزوار الفريدون",
+      "views": "المشاهدات",
+      "visits": "الزيارات",
+      "visitsThisWeek": "زيارات هذا الأسبوع",
+      "window": "النطاق الزمني"
+    },
+    "users": {
+      "actionFailed": "لم ينجح الإجراء. لم يتغيّر شيء.",
+      "active": "نشِط",
+      "activity": "النشاط",
+      "adminsOnly": "المشرفون فقط",
+      "ban": "حظر",
+      "banBody": "سيفقد الوصول فورًا. يُسجَّل السبب في سجل التدقيق.",
+      "banReason": "سبب الحظر",
+      "banTitle": "هل تريد حظر هذا المستخدم؟",
+      "banned": "محظور",
+      "delete": "حذف",
+      "deleteBody": "سيؤدي هذا إلى محو الحساب ومحتواه بالكامل. لا يمكن التراجع عن هذا الإجراء.",
+      "deleteTitle": "هل تريد حذف هذا الحساب نهائيًا؟",
+      "detailTitle": "تفاصيل المستخدم",
+      "email": "البريد الإلكتروني",
+      "empty": "لا يوجد مستخدمون يطابقون هذا البحث.",
+      "joined": "تاريخ الانضمام",
+      "languages": "اللغات",
+      "lastActive": "آخر نشاط",
+      "lastMessage": "آخر رسالة",
+      "lastMoment": "آخر لحظة",
+      "makeAdmin": "تعيين كمشرف",
+      "makeAdminBody": "سيحصل على لوحة التحكم وجميع صلاحيات الإشراف، بما في ذلك الحظر والحذف.",
+      "makeAdminTitle": "هل تريد تعيينه مشرفًا؟",
+      "messages30d": "الرسائل (٣٠ يومًا)",
+      "moments30d": "اللحظات (٣٠ يومًا)",
+      "name": "الاسم",
+      "noActions": "لا توجد إجراءات إشرافية على هذا الحساب.",
+      "recentActions": "أحدث إجراءات الإشراف",
+      "revokeAdmin": "سحب صلاحية الإشراف",
+      "revokeAdminBody": "سيفقد لوحة التحكم وجميع صلاحيات الإشراف. لا يمكنك سحب صلاحية الإشراف عن نفسك.",
+      "revokeAdminTitle": "هل تريد سحب صلاحية الإشراف؟",
+      "role": "الدور",
+      "searchLabel": "البحث عن مستخدمين",
+      "searchPlaceholder": "ابحث بالاسم أو البريد الإلكتروني أو اسم المستخدم",
+      "status": "الحالة",
+      "tabAll": "جميع المستخدمين",
+      "tabBanned": "محظور",
+      "typeEmail": "اكتب البريد الإلكتروني للمستخدم للتأكيد",
+      "unban": "إلغاء الحظر",
+      "unbanBody": "سيستعيد الوصول فورًا. يُسجَّل السبب في سجل التدقيق.",
+      "unbanTitle": "هل تريد إلغاء حظر هذا المستخدم؟",
+      "unknownModerator": "مشرف غير معروف",
+      "addUser": "إضافة مستخدم",
+      "createUser": "إنشاء مستخدم",
+      "createdTitle": "تم إنشاء المستخدم",
+      "createFailed": "لم ينجح الإجراء. لم يتم إنشاء أي حساب.",
+      "editTitle": "تعديل المستخدم",
+      "edit": "تعديل",
+      "saveChanges": "حفظ التغييرات",
+      "done": "تم",
+      "addAnother": "إضافة آخر",
+      "openProfile": "فتح الملف الشخصي",
+      "required": "مطلوب",
+      "invalidEmail": "الرجاء استخدام بريد إلكتروني صالح",
+      "weakPassword": "٨ أحرف على الأقل، تتضمّن حرفًا كبيرًا وحرفًا صغيرًا ورقمًا",
+      "under18": "يجب أن يكون عمر المستخدم ١٨ عامًا على الأقل",
+      "sameLanguage": "لا يمكن أن تكون اللغة الأم ولغة التعلّم نفس اللغة",
+      "password": "كلمة المرور",
+      "generate": "توليد",
+      "copy": "نسخ",
+      "passwordOnce": "تظهر كلمة المرور هذه مرة واحدة فقط. أرسلها إلى المستخدم واطلب منه تغييرها.",
+      "termsNote": "لا يمكن منح الموافقة نيابةً عن أحد: سيطلب التطبيق من هذا المستخدم قبول الشروط في أول مرة يسجّل فيها الدخول.",
+      "userId": "معرّف المستخدم",
+      "gender": "الجنس",
+      "male": "ذكر",
+      "female": "أنثى",
+      "other": "آخر",
+      "select": "اختر",
+      "birthDate": "تاريخ الميلاد",
+      "birthYear": "سنة الميلاد",
+      "birthMonth": "شهر الميلاد",
+      "birthDay": "يوم الميلاد",
+      "year": "السنة",
+      "month": "الشهر",
+      "day": "اليوم",
+      "nativeLanguage": "اللغة الأم",
+      "learningLanguage": "لغة التعلّم",
+      "roleUser": "مستخدم",
+      "roleAdmin": "مشرف",
+      "markVerified": "وضع علامة موثّق على البريد الإلكتروني",
+      "bio": "النبذة التعريفية",
+      "optional": "اختياري",
+      "mode": "الوضع",
+      "regular": "عادي",
+      "vip": "VIP",
+      "vipUntil": "حتى",
+      "vipDays": "أيام",
+      "vipGrantNote": "يبدأ الاشتراك من اليوم ولا يتجدّد تلقائيًا.",
+      "vipRevokeNote": "إيقاف VIP ينهي الاشتراك فورًا.",
+      "verified": "موثّق",
+      "yes": "نعم",
+      "no": "لا"
+    },
+    "table": {
+      "page": "صفحة {{page}}",
+      "previous": "السابق",
+      "next": "التالي"
+    }
+  },
+  "download": {
+    "title": "حمّل BananaTalk",
+    "subtitle": "تبادل لغوي مجاني مع متحدثين أصليين بـ137 لغة، على iPhone وAndroid.",
+    "free": "مجاني. بدون بطاقة.",
+    "scan": "امسح الرمز بكاميرا هاتفك",
+    "qrAlt": "رمز QR لتحميل BananaTalk",
+    "reasons": {
+      "tutor": {
+        "title": "مدرّس AI في كل دردشة",
+        "body": "تصحيحات وشروحات على الرسائل التي ترسلها فعلاً."
+      },
+      "voice": {
+        "title": "غرف صوتية ومكالمات",
+        "body": "تدرّب بصوت عالٍ مع من يتعلمون لغتك الآن."
+      },
+      "translate": {
+        "title": "ترجمة فورية",
+        "body": "اكتب بلغتك، فيقرؤونها بلغتهم، ومن الفرق بينهما تتعلم."
+      }
+    }
+  },
+  "meet": {
+    "hero": {
+      "title": "تعرّف على أشخاص من بلدان أخرى",
+      "titleAccent": "يردّون عليك فعلاً.",
+      "subtitle": "BananaTalk هو المكان الذي تكوّن فيه صداقات عالمية بالحديث مع متحدثين أصليين. اختر لغة، وقل مرحبًا، وستصل كل رسالة مترجمة — فلا يحتاج أي منكما إلى الطلاقة أولاً.",
+      "trust": "خطة مجانية للأبد · 137 لغة · كل رسالة مترجمة في الاتجاهين",
+      "demo": {
+        "1": {
+          "text": "Bora ver o pôr do sol no sábado?",
+          "translation": "هل نذهب لمشاهدة الغروب يوم السبت؟"
+        },
+        "2": {
+          "text": "نعم! هل الجو ما زال دافئًا هناك في سبتمبر؟",
+          "translation": "Sim! Ainda faz calor aí em setembro?"
+        }
+      },
+      "note": {
+        "label": "✦ ترجمة في الاتجاهين",
+        "body": "كتبت هي بالبرتغالية وقرأتَها أنت بالعربية. وكتبتَ أنت بالعربية فقرأتها هي بالبرتغالية. لم يضطر أي منكما إلى تغيير لغته."
+      }
+    },
+    "howItWorks": {
+      "title": "تكوين صديق هنا يستغرق ثلاث خطوات",
+      "steps": {
+        "1": {
+          "title": "اختر لغة، لا ملفًا شخصيًا",
+          "body": "اختر اللغة أو البلد الذي يثير فضولك. ونعرض لك من يتعلمون لغتك بالفعل — إنه تبادل لغوي، فكلاكما يكسب شيئًا."
+        },
+        "2": {
+          "title": "قل مرحبًا بكلماتك أنت",
+          "body": "اكتب باللغة التي تفكر بها، فتصل إليهم بلغتهم فورًا — هكذا لا تكون الرسالة الأولى هي الجزء الصعب."
+        },
+        "3": {
+          "title": "واصل الحديث",
+          "body": "رسائل صوتية، وصور، ولحظات (Moments)، ومكالمات. المحادثات التي تبقى هي التي تستمر بعد انتهاء التدريب."
+        }
+      }
+    },
+    "features": {
+      "title": "مصمّم لمحادثات لا تتوقف"
+    },
+    "cta": {
+      "title": "هناك شخص في بلد آخر مستيقظ الآن",
+      "subtitle": "البدء مجاني. بدون بطاقة، وبدون عد تنازلي لفترة تجريبية."
+    }
+  },
+  "learnKorean": {
+    "hero": {
+      "title": "تعلّم الكورية بالدردشة",
+      "titleAccent": "مع كوريين حقيقيين.",
+      "subtitle": "تبادل اللغات مع متحدثين أصليين للكورية يريدون لغتك في المقابل. تحاول أنت بالـ한국어، ويردّون بالكورية التي يستخدمها الناس فعلاً، ويصحح لك مدرّس AI ما أخطأت فيه — بينك وبينه وحدكما.",
+      "trust": "خطة مجانية للأبد · متحدثون أصليون للكورية · مدرّس AI على مدار الساعة",
+      "demo": {
+        "1": {
+          "text": "주말에 뭐 했어요?",
+          "translation": "ماذا فعلت في عطلة نهاية الأسبوع؟"
+        },
+        "2": {
+          "text": "친구 만났다! 진짜 재미있었어",
+          "translation": "قابلت صديقًا! كان الأمر ممتعًا حقًا"
+        }
+      },
+      "note": {
+        "label": "✦ مدرّس AI",
+        "body": "존댓말 مقابل 반말: سألتك بصيغة 했어요، وهي الصيغة المهذبة. وأنت أجبت بالـ반말، التي تُستخدم مع الأصدقاء المقربين. جارِها الآن: 친구 만났어요! 진짜 재미있었어요."
+      }
+    },
+    "howItWorks": {
+      "title": "لماذا تثبت الكورية في ذهنك عبر الدردشة",
+      "steps": {
+        "1": {
+          "title": "الكورية التي تظهر في الدردشات الحقيقية",
+          "body": "كتابك يعلّمك 합니다. أما شريكك فيكتب 했어요 و ㅋㅋ و헐 — إنها الكورية التي تنتظرك في محادثة حقيقية."
+        },
+        "2": {
+          "title": "존댓말 و반말، تشعر بهما بدل أن تحفظهما",
+          "body": "التهذيب اختيار تتخذه في كل جملة. وملاحظة اختيارات متحدث أصلي تعلّمك ذلك أسرع من أي جدول نهايات."
+        },
+        "3": {
+          "title": "تصحيح بلا إحراج",
+          "body": "يصحح لك مدرّس AI كوريتك في مكان لا يراه سواك، فلا يتحول التبادل اللغوي إلى اختبار. أما شريكك فيرى أنك تحاول، وهذا بالضبط ما يجعله يواصل الرد."
+        }
+      }
+    },
+    "features": {
+      "title": "ثلاثة أشياء لا يمنحها لك أي كتاب"
+    },
+    "cta": {
+      "title": "متحدثو الكورية يتعلمون لغتك الآن",
+      "subtitle": "البدء مجاني. بدون بطاقة، وبدون عد تنازلي لفترة تجريبية."
+    }
+  },
+  "communities": {
+    "public": {
+      "title": "مجتمعات التبادل اللغوي",
+      "intro": "مجموعات حقيقية داخل BananaTalk، يتدرب فيها الناس على لغة واحدة معًا كل يوم. اعثر على مجموعتك هنا، ثم افتحها في التطبيق وابدأ الحديث.",
+      "members": "عضو",
+      "join": "انضم في التطبيق",
+      "empty": {
+        "title": "تُفتح مجتمعات جديدة كل أسبوع",
+        "body": "لا يوجد ما نعرضه هنا بعد. حمّل التطبيق وسيظهر لك كل مجتمع فور افتتاحه."
+      }
+    }
+  },
+  "errors": {
+    "chunk": {
+      "title": "حدث خطأ أثناء تحميل هذه الصفحة",
+      "body": "لم يتم تحميل جزء من التطبيق. يحدث هذا عادةً بعد التحديث مباشرةً، وإعادة التحميل تحلّ المشكلة.",
+      "reload": "إعادة التحميل"
+    }
+  },
+  "growth": {
+    "store": {
+      "appStore": "App Store",
+      "googlePlay": "Google Play",
+      "downloadOnThe": "حمّله من",
+      "getItOn": "احصل عليه من"
+    },
+    "promo": {
+      "tutor": {
+        "eyebrow": "مدرّس AI",
+        "title": "يصحّح كوريتك أثناء الكتابة",
+        "body": "تصحيحات خاصة لكل رسالة، إضافة إلى اختبارات وتمارين قواعد بين المحادثات.",
+        "cta": "احصل على التطبيق",
+        "alt": "رسم توضيحي لفقاعة محادثة بها كلمة مشطوبة والتصحيح يطفو فوقها، بجانب علامة صح"
+      },
+      "voice": {
+        "eyebrow": "رسائل وغرف صوتية",
+        "title": "استمع إلى النطق الحقيقي",
+        "body": "أرسل رسائل صوتية، شارك مكانك، وانضم إلى غرف صوتية مباشرة مع متحدثين أصليين.",
+        "cta": "احصل على التطبيق",
+        "alt": "رسم توضيحي لميكروفون تمر عبره موجة صوتية، وخلفه بطاقة موقع مُشتركة"
+      },
+      "moments": {
+        "eyebrow": "اللحظات والقصص",
+        "title": "شارك أسبوعك بلغتين",
+        "body": "انشر الصور والأفكار؛ يقرأها أصدقاؤك مترجمة ويصححونها لك بلطف.",
+        "cta": "احصل على التطبيق",
+        "alt": "رسم توضيحي لثلاث بطاقات صور متداخلة مع قلب وعلامة ترجمة تُظهر A إلى 가"
+      },
+      "inbox": {
+        "eyebrow": "محادثات حقيقية",
+        "title": "أشخاص يردّون فعلاً",
+        "body": "محادثاتك وتلويحاتك وتفاعلاتك في صندوق واحد — تُقرأ وتُترجم ويُرد عليها.",
+        "cta": "احصل على التطبيق",
+        "alt": "رسم توضيحي لثلاث محادثات مكدّسة في صندوق الوارد، إحداها غير مقروءة، مع يد تلوّح بالتحية"
+      },
+      "dismiss": "إغلاق الترويج للتطبيق",
+      "label": "ما الذي يقوم به تطبيق BananaTalk",
+      "slideLabel": "الشريحة {{n}} من {{total}}",
+      "prev": "الشريحة السابقة",
+      "next": "الشريحة التالية"
+    }
+  },
+  "stories": {
+    "your_story": "قصتك",
+    "create_story": "إنشاء",
+    "my_stories": "قصصي",
+    "reaction_failed": "تعذّر حفظ تفاعلك",
+    "answer_sent": "تم إرسال الإجابة",
+    "answer_failed": "تعذّر إرسال إجابتك",
+    "delete_story": "حذف هذه القصة؟",
+    "error_loading": "حدث خطأ أثناء تحميل القصة",
+    "answer_placeholder": "اكتب إجابتك…",
+    "answer_question": "الإجابة عن السؤال",
+    "send_reply": "إرسال",
+    "answer_anonymously": "الإجابة بشكل مجهول",
+    "cancel": "إلغاء",
+    "viewers": "المشاهدون",
+    "responses": "الردود",
+    "share_story": "مشاركة",
+    "reply_placeholder": "أرسل رسالة...",
+    "react": "تفاعل",
+    "reacted": "تفاعل",
+    "shared": "تم الإرسال",
+    "share_failed": "تعذّرت مشاركة هذه القصة",
+    "close": "إغلاق",
+    "search_chats": "البحث في المحادثات",
+    "loading": "جارٍ التحميل…",
+    "no_chats": "لا توجد محادثات حديثة",
+    "no_viewers": "لا مشاهدات بعد",
+    "added_to_highlight": "تمت الإضافة إلى القصص المميزة",
+    "add_failed": "تعذّرت إضافة تلك القصة",
+    "title_required": "يرجى إدخال عنوان",
+    "highlight_created": "تم إنشاء المجموعة المميزة",
+    "create_failed": "تعذّر إنشاء المجموعة المميزة",
+    "story_archived": "تمت أرشفة القصة",
+    "archive_failed": "تعذّرت أرشفة تلك القصة",
+    "story_deleted": "تم حذف القصة",
+    "delete_story_failed": "تعذّر حذف تلك القصة",
+    "active_stories": "نشطة",
+    "total_views": "إجمالي المشاهدات",
+    "archived_stories": "مؤرشفة",
+    "create_first_story": "إنشاء قصة",
+    "no_archived_stories": "لا شيء مؤرشف بعد",
+    "no_stories": "لا توجد قصص بعد",
+    "add_to_highlight": "إضافة إلى القصص المميزة",
+    "archive": "أرشفة",
+    "delete": "حذف",
+    "highlight_name": "اسم المجموعة",
+    "create": "إنشاء",
+    "no_highlights": "لا توجد مجموعات مميزة بعد",
+    "stories_count": "قصص",
+    "new_highlight": "مجموعة مميزة جديدة",
+    "delete_story_confirm": "حذف هذه القصة؟",
+    "delete_story_body": "لا يمكن التراجع عن هذا الإجراء.",
+    "anonymous": "مجهول",
+    "no_responses": "لا إجابات بعد",
+    "video_type_error": "صيغة الفيديو هذه غير مدعومة",
+    "video_size_error": "حجم هذا الفيديو أكبر من",
+    "video_duration_error": "مدة هذا الفيديو أطول من",
+    "question_box": {
+      "ask_me_anything": "اسألني أي شيء!"
+    },
+    "add_text": "اكتب قصتك…",
+    "upload_media": "يرجى تحميل وسائط",
+    "link_invalid": "هذا الرابط لا يبدو صحيحًا",
+    "story_created": "تمت مشاركة القصة",
+    "create_story_failed": "تعذّرت مشاركة قصتك",
+    "video_limits": "فيديو",
+    "choose_photo": "صورة",
+    "choose_video": "فيديو",
+    "text_story": "نص",
+    "move_sticker": "تحريك الملصق",
+    "tap_to_type": "اضغط للكتابة",
+    "story_text": "نص القصة",
+    "background": "الخلفية",
+    "text_color": "النص",
+    "font_style": "الخط",
+    "stickers_text": "نص ورموز تعبيرية",
+    "add_text_sticker": "إضافة نص",
+    "add_emoji_sticker": "إضافة رمز تعبيري",
+    "sticker_text": "نص الملصق",
+    "remove": "إزالة",
+    "sticker_background": "الخلفية",
+    "sticker_size": "الحجم",
+    "sticker_color": "اللون",
+    "mention": "إشارة",
+    "link": "رابط",
+    "poll": "استطلاع",
+    "question": "سؤال",
+    "hashtag": "هاشتاغ",
+    "link_url": "رابط URL",
+    "link_title": "العنوان",
+    "link_label": "تسمية الملصق",
+    "poll_question": "اطرح سؤالًا",
+    "poll_option": "خيار",
+    "add_option": "إضافة خيار",
+    "anonymous_voting": "تصويت مجهول",
+    "question_prompt": "نص السؤال",
+    "audience": "من يمكنه رؤية هذا",
+    "privacy": {
+      "public": "الجميع",
+      "friends": "الأصدقاء",
+      "close_friends": "الأصدقاء المقربون"
+    },
+    "close_friends_empty": "قائمة أصدقائك المقربين فارغة — لن يرى أحد هذه القصة.",
+    "manage_close_friends": "إدارة الأصدقاء المقربين",
+    "highlight_updated": "تم تحديث المجموعة المميزة",
+    "update_failed": "تعذّر حفظ المجموعة المميزة",
+    "highlight_deleted": "تم حذف المجموعة المميزة",
+    "delete_failed": "تعذّر حذف المجموعة المميزة",
+    "removed_from_highlight": "تمت الإزالة من القصص المميزة",
+    "remove_failed": "تعذّرت إزالة تلك القصة",
+    "back": "رجوع",
+    "highlights_title": "أبرز القصص",
+    "highlights_subtitle": "مجموعات قصصك المحفوظة",
+    "highlight_empty": "لا تحتوي هذه المجموعة على أي قصص بعد",
+    "remove_from_highlight": "إزالة من القصص المميزة",
+    "edit_highlight": "تعديل المجموعة",
+    "delete_highlight": "حذف المجموعة",
+    "choose_cover": "اختر غلافًا",
+    "no_stories_to_pick": "لا توجد قصص لاختيارها",
+    "save": "حفظ",
+    "delete_highlight_confirm": "هل تريد حذف هذه المجموعة؟",
+    "delete_highlight_body": "ستبقى القصص نفسها محفوظة في أرشيفك.",
+    "previous": "السابق",
+    "next": "التالي",
+    "font": {
+      "sans-serif": "بدون تيجان",
+      "serif": "بتيجان",
+      "bold": "عريض",
+      "handwritten": "خط يدوي"
+    },
+    "bg_mode": {
+      "none": "بدون خلفية",
+      "semi": "شبه شفافة",
+      "solid": "معتمة"
+    },
+    "search_followings": "ابحث بين الأشخاص الذين تتابعهم",
+    "mention_followings_only": "يمكنك الإشارة فقط إلى الأشخاص الذين تتابعهم. تابع شخصًا أولًا.",
+    "mention_no_match": "لا أحد ممن تتابعهم يطابق ذلك",
+    "more": "المزيد",
+    "reply_failed": "تعذر إرسال رسالتك",
+    "vote_failed": "تعذر حفظ تصويتك",
+    "poll_error_question": "أضف سؤالاً إلى الاستطلاع",
+    "poll_error_blank_option": "املأ خيارات الاستطلاع الفارغة أو احذفها",
+    "poll_error_min_options": "يحتاج الاستطلاع إلى خيارين على الأقل",
+    "poll_error_max_options": "يمكن أن يحتوي الاستطلاع على أربعة خيارات كحد أقصى",
+    "question_error_prompt": "أضف سؤالاً إلى ملصق الأسئلة",
+    "caption": "التعليق",
+    "caption_placeholder": "أضف تعليقًا…",
+    "linkPage": {
+      "browse": "شاهد القصص الحالية",
+      "expired": "انتهت صلاحية هذه القصة أو تم حذفها. تختفي القصص بعد 24 ساعة.",
+      "failed": "تعذّر تحميل هذه القصة.",
+      "retry": "حاول مرة أخرى",
+      "sign_in": "تسجيل الدخول",
+      "sign_in_body": "سجّل الدخول لمشاهدتها، أو افتحها في تطبيق BananaTalk.",
+      "sign_in_title": "شاركك أحدهم قصة",
+      "unavailable": "هذه القصة غير متاحة لك."
+    },
+    "block_author": "حظر {{name}}",
+    "block_confirm": "حظر",
+    "block_confirm_body": "لن يتمكن من رؤية ملفك الشخصي أو لحظاتك أو قصصك أو مراسلتك، ولن ترى محتواه.",
+    "block_confirm_title": "حظر {{name}}؟",
+    "block_failed": "تعذّر حظر هذا الشخص. حاول مرة أخرى.",
+    "blocked": "تم حظر {{name}}",
+    "location_label": "الموقع",
+    "one_image_only": "تعرض القصة صورة واحدة فقط. احتفظنا بالأولى.",
+    "replies_off": "الردود متوقفة على هذه القصة",
+    "report_story": "الإبلاغ عن القصة"
+  },
+  "card": {
+    "title": "بطاقة اللغة",
+    "my_card": "بطاقتي",
+    "speaks": "يتحدث",
+    "learning": "يتعلم",
+    "practice_with": "تدرّب على {{language}} مع {{name}}",
+    "view_profile": "عرض الملف الكامل",
+    "continue_web": "المتابعة في المتصفح",
+    "share": "مشاركة بطاقتي",
+    "share_text": "تدرّب على {{language}} معي على BananaTalk",
+    "edit": "تعديل محتوى البطاقة",
+    "tagline": "تبادل لغوي على BananaTalk",
+    "not_found": "هذه البطاقة غير موجودة",
+    "not_found_body": "ربما تمت إزالة الحساب.",
+    "find_partners": "ابحث عن شركاء لغة"
+  },
+  "announcements": {
+    "new": "جديد",
+    "readMore": "اقرأ المزيد",
+    "close": "إغلاق",
+    "ended": "انتهى هذا الإعلان.",
+    "back": "رجوع"
+  },
+  "communityNearby": {
+    "back": "رجوع",
+    "geolocationNotSupported": "تحديد الموقع غير مدعوم",
+    "gettingLocation": "جارٍ تحديد موقعك…",
+    "learning": "يتعلم: {{language}}",
+    "locationRequired": "الموقع مطلوب",
+    "noUsers": "لم يُعثر على مستخدمين قريبين",
+    "permissionDenied": "تم رفض إذن الموقع",
+    "positionUnavailable": "الموقع غير متاح",
+    "refresh": "تحديث",
+    "searchRadius": "نطاق البحث",
+    "subtitle": "اعثر على أشخاص من حولك",
+    "timeout": "انتهت مهلة طلب الموقع",
+    "title": "المستخدمون القريبون",
+    "tryAgain": "حاول مرة أخرى",
+    "tryIncreaseRadius": "جرّب توسيع نطاق البحث",
+    "unknownError": "حدث خطأ",
+    "usersFound_one": "تم العثور على {{count}} شخص",
+    "usersFound_other": "تم العثور على {{count}} شخص",
+    "usersFound_zero": "لم يُعثر على أحد",
+    "usersFound_two": "تم العثور على شخصين",
+    "usersFound_few": "تم العثور على {{count}} أشخاص",
+    "usersFound_many": "تم العثور على {{count}} شخصًا"
+  },
+  "auth": {
+    "apple": {
+      "continue": "المتابعة باستخدام Apple",
+      "errors": {
+        "banned": "تم تعليق هذا الحساب.",
+        "blocked": "حظر متصفحك نافذة Apple. اسمح بالنوافذ المنبثقة لموقع banatalk.com وحاول مرة أخرى.",
+        "disabled": "تسجيل الدخول باستخدام Apple غير متاح على الموقع بعد.",
+        "failed": "تعذّر تسجيل الدخول باستخدام Apple. حاول مرة أخرى.",
+        "rate_limited": "محاولات تسجيل دخول كثيرة جدًا. انتظر دقيقة ثم حاول مرة أخرى.",
+        "unavailable": "تسجيل الدخول باستخدام Apple غير متاح الآن. حاول مرة أخرى لاحقًا."
+      },
+      "signedIn": "تم تسجيل الدخول باستخدام Apple",
+      "signingIn": "جارٍ تسجيل الدخول باستخدام Apple…"
+    }
+  },
+  "reels": {
+    "actions": {
+      "block": "حظر المستخدم",
+      "comments": "التعليقات",
+      "like": "إعجاب",
+      "more": "المزيد",
+      "profile": "الملف الشخصي",
+      "report": "إبلاغ",
+      "unlike": "إلغاء الإعجاب"
+    },
+    "create": {
+      "bad_type": "نوع الملف هذا غير مدعوم. استخدم MP4 أو MOV أو WebM.",
+      "caption": "الوصف",
+      "caption_placeholder": "ماذا تتدرّب عليه؟",
+      "change_video": "اختر فيديو آخر",
+      "choose_video": "اختر فيديو",
+      "failed": "تعذّر نشر مقطعك. حاول مرة أخرى.",
+      "hint": "فيديو قصير لتعلّم اللغات، حتى 3 دقائق. الوضع العمودي (9:16) يبدو أفضل.",
+      "post": "نشر المقطع",
+      "posted": "تم نشر مقطعك.",
+      "posting": "جارٍ النشر…",
+      "server_too_long": "يجب ألا تتجاوز المقاطع 3 دقائق.",
+      "title": "مقطع جديد",
+      "too_big": "هذا الفيديو كبير جدًا للرفع.",
+      "too_long": "يمكن أن تصل مدة المقطع إلى 3:00. مدة هذا الفيديو {{duration}}.",
+      "upload_failed": "لم يُرفع الفيديو. لم يُنشر أي شيء — حاول مرة أخرى."
+    },
+    "grid": {
+      "create": "إنشاء مقطع",
+      "empty": "لا توجد ريلز بعد. كن أول من ينشر.",
+      "error": "تعذّر تحميل المقاطع.",
+      "load_more": "تحميل المزيد",
+      "loading": "جارٍ تحميل المقاطع…",
+      "open_reel": "تشغيل مقطع {{name}}",
+      "retry": "حاول مرة أخرى",
+      "title": "ريلز",
+      "unavailable": "المقاطع غير متاحة حاليًا."
+    },
+    "moments_link": "شاهد الريلز",
+    "nav": "ريلز",
+    "policy": {
+      "accept": "أوافق",
+      "body": "الريلز مقاطع فيديو قصيرة لتعلّم اللغات — إجابات على موضوع اليوم، وتدريب على التحدث، وشروحات من ناطقين أصليين، ومقاطع عن الثقافة.\n\nلا تتسامح BananaTalk إطلاقًا مع المحتوى المسيء: لا للعري ولا لخطاب الكراهية ولا للمضايقة ولا للعنف ولا للمحتوى غير القانوني. تُخفى المقاطع المبلَّغ عنها تلقائيًا بانتظار المراجعة بعد بلاغين، وقد تؤدي المخالفات إلى إزالة المحتوى أو حظر الحساب.\n\nيمكنك الإبلاغ أو الحظر من أي ريل في أي وقت.",
+      "decline": "رفض",
+      "title": "إرشادات محتوى المقاطع"
+    },
+    "viewer": {
+      "close": "إغلاق",
+      "label": "ريلز",
+      "mute": "كتم الصوت",
+      "next": "المقطع التالي",
+      "previous": "المقطع السابق",
+      "tap_to_play": "اضغط للتشغيل",
+      "unmute": "إلغاء كتم الصوت"
+    }
+  },
+  "clubs": {
+    "card": {
+      "joined": "عضو",
+      "members_zero": "{{count}} عضو",
+      "members_one": "{{count}} عضو",
+      "members_two": "{{count}} عضو",
+      "members_few": "{{count}} أعضاء",
+      "members_many": "{{count}} عضوًا",
+      "members_other": "{{count}} عضو"
+    },
+    "detail": {
+      "back": "عرض نوادٍ أخرى",
+      "edit": "تعديل النادي",
+      "host": "نظّم لقاءً لهذا النادي",
+      "join": "الانضمام إلى النادي",
+      "leave": "مغادرة النادي",
+      "leaveTitle": "مغادرة هذا النادي؟",
+      "metTimes_zero": "التقى {{count}} مرة",
+      "metTimes_one": "التقى مرة واحدة",
+      "metTimes_two": "التقى {{count}} مرة",
+      "metTimes_few": "التقى {{count}} مرات",
+      "metTimes_many": "التقى {{count}} مرة",
+      "metTimes_other": "التقى {{count}} مرة",
+      "neverMet": "لم يلتقِ بعد",
+      "noGatherings": "لا يوجد شيء مجدول بعد.",
+      "upcoming": "القادم",
+      "youOwn": "أنت مالك هذا النادي"
+    },
+    "form": {
+      "city": "المدينة (اختياري)",
+      "create": "إنشاء النادي",
+      "createTitle": "نادٍ جديد",
+      "description": "عن النادي (اختياري)",
+      "editTitle": "تعديل النادي",
+      "errors": {
+        "descriptionTooLong": "اجعل الوصف أقل من 2000 حرف.",
+        "interestTooLong": "اجعل الاهتمام أقل من 60 حرفًا.",
+        "languageRequired": "اختر لغة النادي.",
+        "nameRequired": "اختر اسمًا لناديك.",
+        "nameTooLong": "اجعل الاسم أقل من 80 حرفًا."
+      },
+      "interest": "ما الذي يجمعكم (مثل الكتب، الدراما الكورية)",
+      "language": "اللغة",
+      "name": "الاسم",
+      "notAllowed": "لا يمكن تعديل النادي إلا لمالكه أو أحد المنظمين.",
+      "placeAddress": "العنوان (اختياري)",
+      "placeName": "مكان اللقاء (اختياري)"
+    },
+    "home": {
+      "empty": "لا توجد نوادٍ هنا بعد.",
+      "scopeAll": "الكل",
+      "scopeMember": "المنضم إليها",
+      "scopeMine": "لغاتي",
+      "start": "أنشئ ناديًا"
+    },
+    "owner": {
+      "delete": "حذف النادي",
+      "deleteBody": "سيفقد الأعضاء النادي. ستُقام اللقاءات المجدولة مسبقًا كما هي.",
+      "deleteTitle": "حذف {{name}}؟"
+    },
+    "people": {
+      "makeMember": "إزالة دور المنظّم",
+      "makeOrganizer": "تعيين منظّمًا",
+      "organizer": "منظّم",
+      "owner": "المالك",
+      "remove": "إزالة من النادي",
+      "removeTitle": "إزالة {{name}}؟",
+      "title": "الأعضاء · {{count}}"
+    }
+  },
+  "gatherings": {
+    "card": {
+      "approval": "بموافقة المضيف",
+      "full": "مكتمل",
+      "going": "ستحضر",
+      "hostedBy": "ينظّمه {{name}}",
+      "hosting": "أنت المضيف",
+      "requested": "تم إرسال الطلب",
+      "seatsLeft_zero": "تبقّى {{count}} مقعد",
+      "seatsLeft_one": "تبقّى {{count}} مقعد",
+      "seatsLeft_two": "تبقّى {{count}} مقعد",
+      "seatsLeft_few": "تبقّت {{count}} مقاعد",
+      "seatsLeft_many": "تبقّى {{count}} مقعدًا",
+      "seatsLeft_other": "تبقّى {{count}} مقعد"
+    },
+    "confirm": {
+      "cancel": "ليس الآن",
+      "leaveBody": "الآخرون يعتمدون على من وافقوا على الحضور.",
+      "leaveOk": "التخلي عن مقعدي",
+      "leaveTitle": "هل تتخلى عن مقعدك؟"
+    },
+    "cover": {
+      "add": "إضافة صورة غلاف",
+      "badType": "استخدم صورة بصيغة JPEG أو PNG أو GIF أو WebP.",
+      "change": "تغيير صورة الغلاف",
+      "remove": "إزالة الغلاف",
+      "tooBig": "حجم هذه الصورة أكبر من 10 ميغابايت."
+    },
+    "detail": {
+      "askToJoin": "اطلب الانضمام",
+      "back": "عرض لقاءات أخرى",
+      "cancelRequest": "إلغاء طلبي",
+      "capacity": "حتى {{count}} أشخاص · يتأكد عند {{quorum}}",
+      "duration": "{{count}} د",
+      "edit": "تعديل اللقاء",
+      "host": "المضيف",
+      "join": "سأحضر",
+      "leave": "لم أعد أستطيع الحضور",
+      "online": "عبر الإنترنت",
+      "requestSent": "تم إرسال الطلب — القرار للمضيف.",
+      "someone": "عضو في BananaTalk",
+      "youreGoing": "ستحضر."
+    },
+    "errors": {
+      "alreadyGoing": "أنت مسجّل للحضور بالفعل.",
+      "cancelled": "أُلغي هذا اللقاء.",
+      "capacityBelowGoing": "لا يمكن أن يقل عدد المقاعد عن {{count}} شخصًا سيحضرون بالفعل.",
+      "clubArchived": "هذا النادي مؤرشف.",
+      "clubGone": "هذا النادي غير متاح.",
+      "endBeforeStart": "يمكنك إنهاء اللقاء بعد أن يبدأ.",
+      "ended": "انتهى هذا اللقاء.",
+      "full": "هذا اللقاء مكتمل.",
+      "gatheringGone": "هذا اللقاء غير متاح.",
+      "generic": "حدث خطأ ما. حاول مرة أخرى.",
+      "hostBlocked": "لا يمكنك تنظيم لقاءات حاليًا: أُلغي أو فات الكثير من لقاءاتك.",
+      "hostCannotLeave": "بصفتك المضيف، ألغِ اللقاء بدلًا من مغادرته.",
+      "joinClubFirst": "انضم إلى النادي قبل تنظيم لقاء له.",
+      "offline": "أنت غير متصل. تحقق من اتصالك.",
+      "ownerCannotLeave": "بصفتك المالك، يمكنك حذف النادي لكن لا يمكنك مغادرته.",
+      "pastStart": "اختر وقت بدء في المستقبل.",
+      "pending": "طلبك بانتظار قرار المضيف.",
+      "started": "بدأ هذا اللقاء بالفعل."
+    },
+    "form": {
+      "anyLevel": "أي مستوى",
+      "cancel": "إلغاء",
+      "capacity": "المقاعد",
+      "create": "نشر اللقاء",
+      "createTitle": "نظّم لقاءً",
+      "description": "ماذا ستفعلون؟ (اختياري)",
+      "duration_zero": "المدة {{count}} دقيقة · بتوقيتك المحلي",
+      "duration_one": "المدة {{count}} دقيقة · بتوقيتك المحلي",
+      "duration_two": "المدة {{count}} دقيقة · بتوقيتك المحلي",
+      "duration_few": "المدة {{count}} دقائق · بتوقيتك المحلي",
+      "duration_many": "المدة {{count}} دقيقة · بتوقيتك المحلي",
+      "duration_other": "المدة {{count}} دقيقة · بتوقيتك المحلي",
+      "editTitle": "تعديل اللقاء",
+      "errors": {
+        "capacityRange": "يجب أن يكون عدد المقاعد بين 2 و20.",
+        "descriptionTooLong": "اجعل الوصف أقل من 2000 حرف.",
+        "languageRequired": "اختر اللغة التي ستتدرب عليها.",
+        "quorumRange": "يتأكد اللقاء عند شخصين أو أكثر، وبما لا يتجاوز عدد المقاعد.",
+        "startInPast": "اختر وقت بدء في المستقبل.",
+        "startRequired": "اختر يومًا ووقتًا.",
+        "startTooFar": "اختر وقتًا خلال الأيام الـ90 القادمة.",
+        "titleRequired": "اختر عنوانًا للقائك.",
+        "titleTooLong": "اجعل العنوان أقل من 120 حرفًا."
+      },
+      "joinApproval": "أوافق على كل شخص بنفسي",
+      "joinMode": "من يمكنه الانضمام",
+      "joinOpen": "أي شخص",
+      "language": "اللغة",
+      "level": "المستوى",
+      "noTopic": "بلا موضوع",
+      "notHost": "لا يمكن تعديل هذا اللقاء إلا للمضيف.",
+      "pickLanguage": "اختر لغة",
+      "quorum": "يتأكد عند",
+      "save": "حفظ",
+      "startsAt": "يبدأ",
+      "title": "العنوان",
+      "topic": "الموضوع"
+    },
+    "home": {
+      "anyLanguage": "لغاتي",
+      "anyTime": "أي وقت",
+      "anyTopic": "أي موضوع",
+      "empty": "لا يوجد شيء مجدول هنا بعد.",
+      "emptyCta": "نظّم أول لقاء",
+      "error": "تعذّر تحميل هذه القائمة.",
+      "hasSeat": "فيه مقعد شاغر",
+      "host": "نظّم لقاءً",
+      "language": "اللغة",
+      "loadMore": "تحميل المزيد",
+      "retry": "حاول مرة أخرى",
+      "scopeAll": "الكل",
+      "scopeMe": "لقاءاتي",
+      "scopeMine": "لغاتي",
+      "tabClubs": "النوادي",
+      "tabGatherings": "اللقاءات",
+      "title": "اللقاءات",
+      "today": "اليوم",
+      "topic": "الموضوع",
+      "week": "هذا الأسبوع",
+      "when": "متى"
+    },
+    "host": {
+      "approve": "قبول",
+      "callOff": "ألغِه",
+      "callOffTitle": "إلغاء اللقاء؟",
+      "cancel": "إلغاء اللقاء",
+      "cancelConfirm_zero": "هناك {{count}} شخص ينتظرون هذا اللقاء، وسنبلغهم بالإلغاء.",
+      "cancelConfirm_one": "هناك {{count}} شخص ينتظر هذا اللقاء، وسنبلغه بالإلغاء.",
+      "cancelConfirm_two": "هناك {{count}} شخص ينتظران هذا اللقاء، وسنبلغهما بالإلغاء.",
+      "cancelConfirm_few": "هناك {{count}} أشخاص ينتظرون هذا اللقاء، وسنبلغهم بالإلغاء.",
+      "cancelConfirm_many": "هناك {{count}} شخصًا ينتظرون هذا اللقاء، وسنبلغهم بالإلغاء.",
+      "cancelConfirm_other": "هناك {{count}} شخص ينتظرون هذا اللقاء، وسنبلغهم بالإلغاء.",
+      "cancelOk": "إلغاء اللقاء",
+      "cancelTitle": "إلغاء هذا اللقاء؟",
+      "decisionAlone": "حتى الآن أنت وحدك. هل تقيمه على أي حال أم تلغيه؟",
+      "decision_zero": "حتى الآن {{count}} شخص فقط. هل تقيمه على أي حال أم تلغيه؟",
+      "decision_one": "حتى الآن {{count}} شخص فقط. هل تقيمه على أي حال أم تلغيه؟",
+      "decision_two": "حتى الآن {{count}} شخص فقط. هل تقيمه على أي حال أم تلغيه؟",
+      "decision_few": "حتى الآن {{count}} أشخاص فقط. هل تقيمه على أي حال أم تلغيه؟",
+      "decision_many": "حتى الآن {{count}} شخصًا فقط. هل تقيمه على أي حال أم تلغيه؟",
+      "decision_other": "حتى الآن {{count}} شخص فقط. هل تقيمه على أي حال أم تلغيه؟",
+      "decline": "رفض",
+      "end": "إنهاء اللقاء",
+      "ended": "انتهى — مراسلة من التقيت بهم مجانية",
+      "nobodyExpecting": "لم يوافق أحد غيرك على الحضور بعد.",
+      "requests_zero": "{{count}} في انتظار الانضمام",
+      "requests_one": "{{count}} في انتظار الانضمام",
+      "requests_two": "{{count}} في انتظار الانضمام",
+      "requests_few": "{{count}} في انتظار الانضمام",
+      "requests_many": "{{count}} في انتظار الانضمام",
+      "requests_other": "{{count}} في انتظار الانضمام",
+      "runAnyway": "أقِمه على أي حال"
+    },
+    "nav": "اللقاءات",
+    "quorum": {
+      "confirmed": "مؤكَّد · {{count}} سيحضرون",
+      "needed": "يلزم {{count}} إضافيون للتأكيد · {{going}} سيحضرون"
+    },
+    "safety": {
+      "blockHost": "حظر المضيف",
+      "blockOwner": "حظر المالك",
+      "more": "المزيد",
+      "reportClub": "الإبلاغ عن النادي",
+      "reportFailed": "تعذّر إرسال البلاغ. حاول مرة أخرى.",
+      "reportGathering": "الإبلاغ عن اللقاء",
+      "reported": "شكرًا — سيراجعه فريق الإشراف."
+    },
+    "status": {
+      "cancelled": "أُلغي",
+      "confirmed": "مؤكَّد",
+      "ended": "انتهى",
+      "live": "جارٍ الآن",
+      "scheduled": "مجدول"
+    },
+    "time": {
+      "hostLocal": "{{time}} بتوقيت المضيف"
+    },
+    "topics": {
+      "business": "الأعمال",
+      "conversation": "المحادثة",
+      "culture": "الثقافة",
+      "exam_prep": "التحضير للامتحانات",
+      "games": "الألعاب",
+      "grammar": "القواعد",
+      "media": "الموسيقى والأفلام والتلفزيون",
+      "pronunciation": "النطق",
+      "travel": "السفر"
+    }
+  },
+  "common": {
+    "cancel": "إلغاء",
+    "retry": "إعادة المحاولة"
+  },
+  "communityCity": {
+    "back": "المجتمع",
+    "countries": "الدول",
+    "empty": "لا يوجد أحد مطابق هنا بعد. جرّب مكانًا آخر.",
+    "error": "تعذّر تحميل الأشخاص. حاول مرة أخرى.",
+    "more": "عرض المزيد",
+    "search": "بحث",
+    "searchPlaceholder": "ابحث عن مدينة",
+    "searchTitle": "أشخاص في «{{query}}»",
+    "title": "أشخاص حسب المكان"
+  },
+  "communityGenders": {
+    "back": "المجتمع",
+    "empty": "لا يوجد أحد مطابق بعد.",
+    "error": "تعذّر تحميل الأشخاص. حاول مرة أخرى.",
+    "female": "نساء",
+    "male": "رجال",
+    "more": "عرض المزيد",
+    "title": "تصفّح حسب الجنس"
+  },
+  "languageRooms": {
+    "create": {
+      "description": "الوصف (اختياري)",
+      "language": "اللغة",
+      "name": "الموضوع",
+      "submit": "إنشاء غرفة",
+      "title": "ابدأ غرفة موضوع"
+    },
+    "errors": {
+      "banned": "تمت إزالتك من هذه الغرفة. يمكنك أن تطلب من المالك السماح لك بالعودة.",
+      "busy": "لدى هذه الغرفة طلبات كثيرة جدًا الآن. حاول لاحقًا.",
+      "generic": "حدث خطأ ما. حاول مرة أخرى.",
+      "gone": "هذه الغرفة لم تعد متاحة.",
+      "owner": "لا يمكن إزالة المالك.",
+      "pending": "طلبك بانتظار موافقة المالك.",
+      "titleLength": "يمكن أن يصل الاسم إلى 60 حرفًا.",
+      "tooMany": "لديك 10 غرف بالفعل. احذف واحدة لتبدأ أخرى."
+    },
+    "list": {
+      "create": "غرفة موضوع جديدة",
+      "empty": "لا توجد غرف بعد.",
+      "error": "تعذّر تحميل غرف اللغات.",
+      "joined": "منضم",
+      "locked": "مقفلة",
+      "title": "غرف اللغات"
+    },
+    "owner": {
+      "admin": "مشرف",
+      "approve": "السماح بالدخول",
+      "deny": "رفض",
+      "members": "الأعضاء",
+      "noRequests": "لا أحد في الانتظار.",
+      "owner": "المالك",
+      "remove": "إزالة من الغرفة",
+      "removeNote": "يمكن للأعضاء المُزالين طلب العودة، والقرار لك.",
+      "removeYes": "إزالة",
+      "requests": "طلبات الانضمام"
+    },
+    "room": {
+      "back": "كل الغرف",
+      "join": "انضم إلى الغرفة",
+      "leave": "مغادرة الغرفة",
+      "media": "صورة أو فيديو — افتح التطبيق لمشاهدته",
+      "notSent": "لم تُرسل. حاول مرة أخرى.",
+      "older": "تحميل الرسائل الأقدم",
+      "online": "متصل",
+      "pending": "تم إرسال الطلب. سيسمح لك المالك بالدخول.",
+      "placeholder": "اكتب بلغة الغرفة…",
+      "request": "اطلب الانضمام",
+      "send": "إرسال",
+      "slowDown": "أنت ترسل بسرعة كبيرة. تمهّل قليلًا.",
+      "sticker": "ملصق",
+      "unsupported": "افتح التطبيق لرؤية هذه الرسالة",
+      "voice": "رسالة صوتية — افتح التطبيق للاستماع"
+    }
+  },
+  "nav": {
+    "languageRooms": "غرف اللغات",
+    "voiceRooms": "الغرف الصوتية"
+  },
+  "voiceRooms": {
+    "category": {
+      "casual": "دردشة عفوية",
+      "language_practice": "ممارسة اللغة",
+      "qa": "أسئلة وأجوبة",
+      "topic": "موضوع"
+    },
+    "create": {
+      "category": "نوع الغرفة",
+      "description": "عمّ ستتحدثون؟ (اختياري)",
+      "language": "اللغة",
+      "max": "الحد الأقصى لعدد الأشخاص",
+      "name": "اسم الغرفة",
+      "schedule": "جدولة",
+      "start": "ابدأ الغرفة",
+      "title": "ابدأ غرفة صوتية",
+      "when": "البدء لاحقًا (اختياري)"
+    },
+    "errors": {
+      "blocked": "لا يمكنك الانضمام إلى هذه الغرفة.",
+      "ended": "انتهت هذه الغرفة.",
+      "full": "هذه الغرفة ممتلئة.",
+      "generic": "حدث خطأ ما. حاول مرة أخرى.",
+      "gone": "هذه الغرفة لم تعد متاحة.",
+      "vipToCreate": "يتطلب إنشاء الغرف الصوتية اشتراك VIP."
+    },
+    "host": {
+      "end": "إنهاء الغرفة",
+      "endConfirm": "إنهاء الغرفة للجميع؟",
+      "endYes": "إنهاء الغرفة",
+      "hands": "الأيدي المرفوعة",
+      "makeCohost": "ترقية إلى مضيف مشارك",
+      "muteAll": "كتم صوت الجميع",
+      "noHands": "لم يرفع أحد يده.",
+      "speakNote": "يمكن لأي شخص في الغرفة أخذ الميكروفون. رفع اليد طلبٌ منك لأخذ دور.",
+      "title": "أدوات المضيف"
+    },
+    "list": {
+      "create": "ابدأ غرفة",
+      "emptyLive": "لا أحد يتحدث الآن. ابدأ غرفة وادعُ الآخرين.",
+      "emptyScheduled": "لا توجد غرف مجدولة بعد.",
+      "error": "تعذّر تحميل الغرف الصوتية.",
+      "full": "ممتلئة",
+      "going": "سأحضر ✓",
+      "join": "انضم",
+      "live": "مباشر الآن",
+      "rsvp": "ذكّرني",
+      "scheduled": "قريبًا",
+      "title": "الغرف الصوتية"
+    },
+    "room": {
+      "back": "كل الغرف",
+      "chat": "دردشة الغرفة",
+      "chatPlaceholder": "قل شيئًا…",
+      "connectFailed": "تعذّر الاتصال بصوت الغرفة. تحقّق من اتصالك وحاول مرة أخرى.",
+      "elsewhere": "انضممت إلى هذه الغرفة من علامة تبويب أو جهاز آخر.",
+      "enableSound": "اضغط لتشغيل صوت الغرفة",
+      "ended": "انتهت هذه الغرفة.",
+      "findAnother": "ابحث عن غرفة أخرى",
+      "handUp": "اليد مرفوعة",
+      "host": "المضيف",
+      "join": "انضم إلى الغرفة",
+      "joinHint": "ستنضم كمستمع. خذ الميكروفون متى كنت مستعدًا.",
+      "leave": "مغادرة",
+      "lost": "انقطع الاتصال بالغرفة.",
+      "lowerHand": "أنزل يدك",
+      "micDenied": "متصفحك يحظر الميكروفون. اسمح باستخدام الميكروفون لـ banatalk.com من شريط العنوان، ثم حاول مرة أخرى. يمكنك مواصلة الاستماع.",
+      "micError": "تعذّر تشغيل الميكروفون. حاول مرة أخرى.",
+      "micUnavailable": "لم يُعثر على ميكروفون (أو يستخدمه تطبيق آخر). يمكنك مواصلة الاستماع.",
+      "mute": "كتم الصوت",
+      "raiseHand": "ارفع يدك",
+      "reconnecting": "جارٍ إعادة الاتصال…",
+      "rejoin": "إعادة الانضمام",
+      "send": "إرسال",
+      "takeMic": "خذ الميكروفون",
+      "useHere": "استمع هنا بدلًا من ذلك",
+      "you": "أنت"
     }
   }
 }

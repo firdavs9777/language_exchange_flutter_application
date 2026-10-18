@@ -62,3 +62,25 @@ describe('shareContent', () => {
     expect(toasts[0].message).toMatch(/failed/i);
   });
 });
+
+describe('what a share carries', () => {
+  // Some share targets merge `text` and `url` into one string; pasted back
+  // into a browser that becomes /card/<id>%20Practice%20English... and the
+  // page looks up a user whose id is a sentence. A share carries the link and
+  // a title, nothing that can be glued onto it.
+  it('sends no text alongside the link, even when the caller has some', async () => {
+    const { nav, calls } = fakeNav(true);
+    await shareContent({
+      type: 'card',
+      id: 'u1',
+      title: 'Language Card',
+      text: 'Practice English with me on BananaTalk',
+      nav,
+      copiedMessage: 'Link copied to clipboard!',
+      copyFailedMessage: 'Failed to copy link',
+      toast: () => {},
+    });
+    expect(calls.share[0]).toEqual({ title: 'Language Card', url: 'https://banatalk.com/card/u1' });
+  });
+});
+

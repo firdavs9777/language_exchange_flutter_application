@@ -2,6 +2,10 @@ import '@testing-library/jest-dom';
 import { render, screen, fireEvent } from '@testing-library/react';
 import MessageActionMenu, { MessageActionMenuProps } from './MessageActionMenu';
 
+jest.mock("react-i18next", () => ({
+  useTranslation: () => ({ t: () => "", i18n: { language: "en" } }),
+}));
+
 const noop = () => {};
 
 const baseProps: Omit<MessageActionMenuProps, 'message' | 'meId'> = {
@@ -34,14 +38,13 @@ const partnerMessage = {
 it('shows Edit for an editable own text message', () => {
   render(<MessageActionMenu {...baseProps} message={recentOwnTextMessage} meId="me" />);
   expect(screen.getByTestId('action-edit')).toBeInTheDocument();
-  expect(screen.getByTestId('action-delete')).toHaveTextContent('Delete for everyone');
+  expect(screen.getByTestId('action-delete')).toHaveTextContent('Delete');
 });
 
-it('hides Edit for a partner message', () => {
+it('hides Edit and Delete for a partner message (the backend lets only the sender delete)', () => {
   render(<MessageActionMenu {...baseProps} message={partnerMessage} meId="me" />);
   expect(screen.queryByTestId('action-edit')).not.toBeInTheDocument();
-  expect(screen.getByTestId('action-delete')).toHaveTextContent('Delete');
-  expect(screen.getByTestId('action-delete')).not.toHaveTextContent('everyone');
+  expect(screen.queryByTestId('action-delete')).not.toBeInTheDocument();
 });
 
 it('hides Edit for an own message that is too old', () => {

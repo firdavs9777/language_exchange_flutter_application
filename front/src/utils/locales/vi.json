@@ -9,7 +9,11 @@
       "about": "Giới Thiệu",
       "services": "Dịch Vụ",
       "pricing": "Bảng Giá",
-      "contact": "Liên Hệ"
+      "contact": "Liên Hệ",
+      "communities": "Cộng Đồng",
+      "download": "Tải Ứng Dụng",
+      "meet": "Gặp gỡ mọi người",
+      "learnKorean": "Học tiếng Hàn"
     },
     "contactInfo": "Thông Tin Liên Hệ",
     "address": "Seoul, Hàn Quốc, Gangnam-gu",
@@ -57,15 +61,20 @@
       "noMatchTitle": "Không có cuộc trò chuyện phù hợp",
       "noMatchSubtitle": "Hãy thử thay đổi tìm kiếm",
       "emptyTitle": "Chưa có cuộc trò chuyện",
-      "emptySubtitle": "Bắt đầu một cuộc trò chuyện để xem ở đây"
+      "emptySubtitle": "Bắt đầu một cuộc trò chuyện để xem ở đây",
+      "loadError": "Không thể tải các cuộc trò chuyện của bạn",
+      "loading": "Đang tải cuộc trò chuyện...",
+      "noMessages": "Chưa có tin nhắn nào",
+      "tryAgain": "Thử lại",
+      "typing": "đang nhập..."
     },
     "deleteModal": {
       "title": "Xóa cuộc trò chuyện",
-      "bodyPrefix": "Xóa cuộc trò chuyện của bạn với:",
       "warning": "Hành động này không thể hoàn tác.",
       "cancel": "Hủy",
       "confirm": "Xóa",
-      "deleting": "Đang xóa..."
+      "deleting": "Đang xóa...",
+      "body": "Xóa cuộc trò chuyện với {{name}}?"
     },
     "gif": {
       "title": "GIF",
@@ -84,8 +93,372 @@
       "noConversationYet": "Hãy bắt đầu cuộc trò chuyện trước khi ghim",
       "pinFailed": "Không thể cập nhật ghim",
       "deleteFailed": "Không thể xóa cuộc trò chuyện",
-      "deleted": "Đã xóa cuộc trò chuyện"
+      "deleted": "Đã xóa cuộc trò chuyện",
+      "openProfile": "Mở hồ sơ của {{name}}",
+      "mute": "Tắt thông báo",
+      "unmute": "Bật thông báo",
+      "muted": "Đã tắt thông báo",
+      "unmuted": "Đã bật lại thông báo",
+      "muteFailed": "Không thể cập nhật thông báo",
+      "unpinned": "Đã bỏ ghim cuộc trò chuyện"
+    },
+    "viewProfileOf": "Xem hồ sơ của {{name}}",
+    "info": {
+      "title": "Thông tin trò chuyện",
+      "close": "Đóng",
+      "viewProfile": "Xem hồ sơ",
+      "media": "Nội dung đã chia sẻ",
+      "mute": "Tắt thông báo",
+      "unmute": "Bật thông báo",
+      "muted": "Đã tắt thông báo",
+      "unmuted": "Đã bật lại thông báo",
+      "muteFailed": "Không thể cập nhật thông báo",
+      "wallpaper": "Hình nền",
+      "block": "Chặn",
+      "unblock": "Bỏ chặn",
+      "blockTitle": "Chặn {{name}}?",
+      "blockBody": "Người này sẽ không thể nhắn tin cho bạn hoặc xem hồ sơ của bạn.",
+      "unblockTitle": "Bỏ chặn {{name}}?",
+      "unblockBody": "Người này sẽ có thể nhắn tin lại cho bạn.",
+      "blocked": "Đã chặn",
+      "unblocked": "Đã bỏ chặn",
+      "blockFailed": "Chưa thực hiện được. Vui lòng thử lại.",
+      "report": "Báo cáo",
+      "reportTitle": "Báo cáo {{name}}",
+      "reportBody": "Hãy cho chúng tôi biết vấn đề là gì. Mọi báo cáo đều được xem xét.",
+      "reportReason": "Lý do",
+      "reportDescription": "Chi tiết (không bắt buộc)",
+      "reportSubmit": "Gửi báo cáo",
+      "reported": "Cảm ơn bạn — đội ngũ kiểm duyệt sẽ xem xét",
+      "reportFailed": "Không thể gửi báo cáo",
+      "delete": "Xóa cuộc trò chuyện",
+      "cancel": "Hủy",
+      "noConversationYet": "Hãy nhắn gì đó trước"
+    },
+    "reportReasons": {
+      "spam": "Spam",
+      "harassment": "Quấy rối hoặc bắt nạt",
+      "hate_speech": "Phát ngôn thù ghét",
+      "violence": "Bạo lực hoặc đe dọa",
+      "nudity": "Nội dung khỏa thân hoặc khiêu dâm",
+      "false_information": "Thông tin sai lệch",
+      "copyright": "Bản quyền",
+      "other": "Vấn đề khác"
+    },
+    "status": {
+      "sending": "Đang gửi",
+      "sent": "Đã gửi",
+      "delivered": "Đã nhận",
+      "read": "Đã xem",
+      "failed": "Gửi thất bại"
+    },
+    "loadEarlier": "Tải tin nhắn trước đó",
+    "loadingEarlier": "Đang tải tin nhắn trước đó",
+    "suggestCorrection": "Đề xuất chỉnh sửa",
+    "translateThis": "Dịch tin nhắn này",
+    "addCaption": "Thêm chú thích...",
+    "conversationStarted": "Cuộc trò chuyện đã bắt đầu",
+    "correct": "Sửa",
+    "daysAgo": "{{count}} ngày trước",
+    "edit": "Chỉnh sửa tin nhắn",
+    "hide_translation": "Ẩn",
+    "noMessages": "Chưa có tin nhắn nào",
+    "retry": "Thử lại",
+    "today": "Hôm nay",
+    "translate": "Dịch",
+    "yesterday": "Hôm qua",
+    "wallpaper": {
+      "title": "Hình nền",
+      "shared": "Cả hai bạn đều thấy hình nền bạn chọn.",
+      "plain": "Trơn",
+      "gradients": "Chuyển sắc",
+      "default": "Mặc định",
+      "apply": "Áp dụng",
+      "cancel": "Hủy",
+      "saved": "Đã cập nhật hình nền",
+      "failed": "Không thể đổi hình nền",
+      "cream": "Kem",
+      "blush": "Hồng phấn",
+      "peach": "Đào",
+      "sage": "Xô thơm",
+      "ocean": "Đại dương",
+      "teal": "Xanh ngọc",
+      "forest": "Rừng",
+      "rose": "Hoa hồng",
+      "wine": "Rượu vang",
+      "plum": "Mận",
+      "navy": "Xanh hải quân",
+      "mocha": "Mocha",
+      "slate": "Xám đá",
+      "ember": "Than hồng",
+      "deep_sea": "Biển sâu",
+      "charcoal": "Than chì",
+      "midnight": "Nửa đêm",
+      "dark": "Tối",
+      "gradient_sunset": "Hoàng hôn",
+      "gradient_ocean": "Đại dương",
+      "gradient_purple": "Vũ trụ",
+      "gradient_midnight": "Nửa đêm",
+      "gradient_forest": "Rừng",
+      "gradient_rose": "Vàng hồng",
+      "gradient_candy": "Kẹo",
+      "gradient_neon": "Neon",
+      "gradient_fire": "Lửa",
+      "gradient_winter": "Mùa đông",
+      "gradient_lavender": "Oải hương",
+      "gradient_aurora": "Cực quang",
+      "premiumInUse": "Cuộc trò chuyện này đang dùng hình nền Premium từ ứng dụng. Chọn hình nền khác sẽ thay đổi cho cả hai bạn."
+    },
+    "jumpToLatest": "Chuyển đến tin nhắn mới nhất",
+    "archive": {
+      "archive": "Lưu trữ cuộc trò chuyện",
+      "archived": "Đã lưu trữ trên trang web. Ứng dụng vẫn hiển thị.",
+      "back": "Quay lại danh sách trò chuyện",
+      "failed": "Không thể cập nhật lưu trữ",
+      "toggle": "Đã lưu trữ ({{count}})",
+      "unarchive": "Bỏ lưu trữ",
+      "unarchived": "Đã chuyển lại vào danh sách trò chuyện"
+    },
+    "blocked": {
+      "byMe": "Bạn đã chặn người này. Bỏ chặn để gửi tin nhắn.",
+      "generic": "Bạn không thể gửi tin nhắn trong cuộc trò chuyện này.",
+      "manage": "Quản lý"
+    },
+    "bookmarks": {
+      "addFailed": "Không thể lưu tin nhắn",
+      "added": "Đã lưu",
+      "attachment": "Tệp đính kèm",
+      "close": "Đóng",
+      "empty": "Chưa có tin nhắn đã lưu",
+      "error": "Không thể tải tin nhắn đã lưu",
+      "loading": "Đang tải tin nhắn đã lưu…",
+      "open": "Mở cuộc trò chuyện",
+      "remove": "Bỏ lưu",
+      "removeFailed": "Không thể bỏ lưu",
+      "removed": "Đã xóa khỏi tin nhắn đã lưu",
+      "title": "Tin nhắn đã lưu"
+    },
+    "call": {
+      "busy": "{{name}} đang có cuộc gọi khác",
+      "cancelledVideo": "Đã hủy cuộc gọi video",
+      "cancelledVoice": "Đã hủy cuộc gọi thoại",
+      "declinedIncomingVideo": "Đã từ chối cuộc gọi video",
+      "declinedIncomingVoice": "Đã từ chối cuộc gọi thoại",
+      "declinedOutgoingVideo": "Cuộc gọi video bị từ chối",
+      "declinedOutgoingVoice": "Cuộc gọi thoại bị từ chối",
+      "incomingVideo": "Cuộc gọi video đến",
+      "incomingVoice": "Cuộc gọi thoại đến",
+      "missedVideo": "Cuộc gọi video nhỡ",
+      "missedVoice": "Cuộc gọi thoại nhỡ",
+      "noAnswerVideo": "Cuộc gọi video · Không trả lời",
+      "noAnswerVoice": "Cuộc gọi thoại · Không trả lời",
+      "outgoingVideo": "Cuộc gọi video đi",
+      "outgoingVoice": "Cuộc gọi thoại đi"
+    },
+    "connection": {
+      "kicked": "Cuộc trò chuyện đang mở ở nơi khác nên tab này đã ngừng nhận tin nhắn.",
+      "reconnect": "Dùng ở đây"
+    },
+    "correction": {
+      "accept": "Chấp nhận chỉnh sửa",
+      "acceptFailed": "Không thể chấp nhận chỉnh sửa",
+      "accepted": "Đã chấp nhận chỉnh sửa — đã thêm vào hồ sơ học tập của bạn",
+      "accepting": "Đang chấp nhận…",
+      "corrected": "{{name}} đã sửa",
+      "you": "Bạn"
+    },
+    "correctionModal": {
+      "cancel": "Hủy",
+      "close": "Đóng",
+      "empty": "Vui lòng nhập nội dung chỉnh sửa",
+      "explanation": "Giải thích",
+      "explanationPlaceholder": "Giải thích vì sao chỉnh sửa này hữu ích...",
+      "hint": "VD: \"Dùng 'went' thay vì 'goed' - quá khứ bất quy tắc\"",
+      "optional": "(không bắt buộc)",
+      "original": "Tin nhắn gốc",
+      "submit": "Gửi chỉnh sửa",
+      "title": "Sửa lỗi ngôn ngữ",
+      "unchanged": "Nội dung chỉnh sửa phải khác với bản gốc",
+      "yours": "Bản sửa của bạn",
+      "yoursPlaceholder": "Nhập phiên bản đã sửa..."
+    },
+    "deleteMessage": {
+      "cancel": "Hủy",
+      "failed": "Không thể xóa tin nhắn. Hãy thử lại.",
+      "forEveryone": "Xóa với mọi người",
+      "forMe": "Xóa với tôi",
+      "placeholder": "Tin nhắn này đã bị xóa",
+      "title": "Xóa tin nhắn?",
+      "tooLate": "Bạn chỉ có thể xóa tin nhắn với mọi người trong vòng 1 giờ sau khi gửi."
+    },
+    "editDialog": {
+      "cancel": "Hủy",
+      "failed": "Không thể chỉnh sửa tin nhắn. Hãy thử lại.",
+      "label": "Tin nhắn",
+      "save": "Lưu",
+      "title": "Chỉnh sửa tin nhắn",
+      "tooLate": "Bạn chỉ có thể chỉnh sửa tin nhắn trong vòng 15 phút sau khi gửi."
+    },
+    "editedLabel": "đã chỉnh sửa",
+    "forward": {
+      "close": "Đóng",
+      "empty": "Không tìm thấy cuộc trò chuyện nào.",
+      "error": "Không thể tải cuộc trò chuyện.",
+      "loading": "Đang tải cuộc trò chuyện…",
+      "search": "Tìm kiếm",
+      "submit": "Chuyển tiếp",
+      "submitCount": "Chuyển tiếp ({{count}})",
+      "title": "Chuyển tiếp đến",
+      "unknownUser": "Không xác định"
+    },
+    "forwarded": "Đã chuyển tiếp",
+    "location": {
+      "cancel": "Hủy",
+      "confirmTitle": "Chia sẻ vị trí của bạn?",
+      "denied": "Quyền truy cập vị trí đã bị từ chối",
+      "failed": "Không thể lấy vị trí của bạn",
+      "open": "Mở trong Bản đồ",
+      "send": "Gửi",
+      "sendFailed": "Không thể gửi vị trí của bạn",
+      "share": "Chia sẻ vị trí",
+      "title": "Vị trí",
+      "unsupported": "Trình duyệt này không thể chia sẻ vị trí"
+    },
+    "mediaGallery": {
+      "back": "Quay lại",
+      "emptyFiles": "Chưa có tệp nào được chia sẻ",
+      "emptyPhotos": "Chưa có ảnh nào được chia sẻ",
+      "emptyVideos": "Chưa có video nào được chia sẻ",
+      "error": "Lỗi khi tải nội dung",
+      "files": "Tệp",
+      "loading": "Đang tải nội dung...",
+      "photos": "Ảnh",
+      "title": "Nội dung đã chia sẻ",
+      "unknownFile": "Tệp không xác định",
+      "unknownSize": "Không rõ kích thước",
+      "videos": "Video"
+    },
+    "menu": {
+      "bookmark": "Lưu",
+      "close": "Đóng",
+      "copy": "Sao chép",
+      "delete": "Xóa",
+      "edit": "Chỉnh sửa",
+      "forward": "Chuyển tiếp",
+      "listen": "Nghe",
+      "pin": "Ghim",
+      "reply": "Trả lời"
+    },
+    "mute": {
+      "always": "Cho đến khi tôi bật lại",
+      "cancel": "Hủy",
+      "eightHours": "Trong 8 giờ",
+      "oneHour": "Trong 1 giờ",
+      "oneWeek": "Trong 1 tuần",
+      "title": "Tắt thông báo của {{name}}?"
+    },
+    "pinnedBar": {
+      "count": "{{count}} tin đã ghim",
+      "unpin": "Bỏ ghim tin nhắn"
+    },
+    "preview": {
+      "attachment": "📎 Tệp đính kèm",
+      "call": "📞 Cuộc gọi",
+      "file": "📎 Tệp",
+      "gif": "GIF",
+      "location": "📍 Vị trí",
+      "photo": "🖼️ Ảnh",
+      "poll": "📊 Bình chọn",
+      "story": "📖 Tin",
+      "video": "🎥 Video",
+      "voice": "🎤 Tin nhắn thoại"
+    },
+    "replyBar": {
+      "cancel": "Hủy trả lời",
+      "replyingTo": "Đang trả lời {{name}}"
+    },
+    "search": {
+      "close": "Đóng",
+      "empty": "Không tìm thấy tin nhắn",
+      "hint": "Nhập ít nhất 2 ký tự",
+      "notLoaded": "Tin nhắn đó ở xa hơn. Cuộn lên để tải.",
+      "open": "Tìm tin nhắn",
+      "placeholder": "Tìm trong cuộc trò chuyện này",
+      "searching": "Đang tìm…",
+      "title": "Tìm tin nhắn với {{name}}",
+      "unavailable": "Hiện không thể tìm kiếm",
+      "you": "Bạn"
+    },
+    "sendErrors": {
+      "blockedBody": "Bạn không thể gửi tin nhắn cho người này.",
+      "blockedTitle": "Chưa gửi được tin nhắn",
+      "capBody": "Hôm nay bạn đã bắt đầu đủ số cuộc trò chuyện mới cho phép. Nâng cấp VIP để bắt đầu bao nhiêu tùy thích.",
+      "capTitle": "Đã đạt giới hạn cuộc trò chuyện mới",
+      "dailyBody": "Bạn đã gửi hết tin nhắn của hôm nay. Nâng cấp VIP để nhắn tin không giới hạn, hoặc quay lại vào ngày mai.",
+      "dailyTitle": "Đã đạt giới hạn tin nhắn trong ngày",
+      "firstChatBody": "Bạn có thể gửi 5 tin nhắn cho đến khi người kia trả lời. Bạn có thể viết tiếp khi họ phản hồi.",
+      "firstChatTitle": "Chờ phản hồi",
+      "generic": "Chưa gửi được tin nhắn. Nhấn Thử lại để gửi lại.",
+      "goVip": "Nâng cấp VIP",
+      "ok": "OK",
+      "reattach": "Đính kèm lại tệp để gửi.",
+      "tooFast": "Bạn đang gửi tin nhắn quá nhanh. Hãy đợi một chút."
+    },
+    "story": {
+      "replied": "Đã trả lời tin của bạn",
+      "shared": "Đã chia sẻ một tin",
+      "unavailable": "Tin này không còn nữa",
+      "youReplied": "Bạn đã trả lời tin của họ",
+      "youShared": "Bạn đã chia sẻ một tin"
+    },
+    "translation": {
+      "close": "Đóng bản dịch",
+      "failed": "Không thể dịch tin nhắn",
+      "label": "Bản dịch · {{lang}}",
+      "save": "Lưu cụm từ",
+      "saveFailed": "Không thể lưu cụm từ",
+      "saved": "Đã lưu vào hàng đợi học tập",
+      "saving": "Đang lưu…",
+      "translating": "Đang dịch…"
+    },
+    "video": {
+      "badType": "Không thể gửi định dạng video này. Hãy thử MP4.",
+      "tooBig": "Video quá lớn. Giới hạn là {{mb}} MB.",
+      "tooLong": "Video quá dài. Giới hạn là {{minutes}} phút."
+    },
+    "voice": {
+      "unavailable": "Không thể ghi âm. Hãy kiểm tra quyền micro của trang web này."
+    },
+    "wave": {
+      "hi": "Xin chào!"
+    },
+    "callInApp": {
+      "voice": "Gọi thoại",
+      "video": "Gọi video",
+      "title": "Cuộc gọi diễn ra trong ứng dụng BananaTalk",
+      "body": "Mở ứng dụng để gọi cho {{name}}. Cuộc gọi đến sẽ đổ chuông trên điện thoại của bạn.",
+      "openApp": "Mở ứng dụng",
+      "notNow": "Để sau"
     }
+  },
+  "newChat": {
+    "title": "Trò Chuyện Mới",
+    "subtitle": "Bắt đầu cuộc trò chuyện",
+    "directMessage": "Riêng tư",
+    "groupChat": "Nhóm",
+    "searchPlaceholder": "Tìm theo tên, @username hoặc ID người dùng...",
+    "searchHint": "Tìm người dùng để bắt đầu trò chuyện",
+    "hintName": "Tìm theo tên",
+    "hintUsername": "Nhập @username để tìm theo tên người dùng",
+    "hintId": "Dán ID người dùng để tìm trực tiếp",
+    "searchByUsername": "Đang tìm theo tên người dùng",
+    "searchById": "Đang tìm theo ID người dùng",
+    "noResults": "Không tìm thấy người dùng",
+    "tryDifferent": "Hãy thử tên, @username hoặc ID người dùng khác",
+    "createGroup": "Tạo Nhóm",
+    "selectMoreUsers": "Chọn ít nhất 2 người dùng để trò chuyện nhóm",
+    "createError": "Không thể tạo cuộc trò chuyện",
+    "recently": "Gần đây"
   },
   "notifications": "Thông Báo",
   "moments": "Khoảnh Khắc",
@@ -124,7 +497,18 @@
   "profile": {
     "title": "Hồ Sơ Của Tôi",
     "edit_profile": "Chỉnh Sửa Hồ Sơ",
-    "photos": "Ảnh",
+    "photos": {
+      "title": "Ảnh",
+      "add": "Thêm ảnh",
+      "alt": "{{name}}, ảnh {{index}}",
+      "open": "Mở ảnh {{index}}",
+      "close": "Đóng",
+      "previous": "Ảnh trước",
+      "next": "Ảnh sau",
+      "counter": "{{index}}/{{total}}",
+      "openAvatar": "Mở ảnh của {{name}}",
+      "openStory": "Xem story của {{name}}"
+    },
     "messages": {
       "image_update_success": "Đã cập nhật ảnh hồ sơ thành công",
       "image_update_failure": "Không thể cập nhật ảnh hồ sơ",
@@ -132,6 +516,7 @@
       "image_delete_failure": "Không thể xóa ảnh",
       "profile_update_success": "Đã cập nhật hồ sơ thành công",
       "profile_update_failure": "Không thể cập nhật hồ sơ",
+      "extras_update_failure": "Hồ sơ của bạn đã được lưu, nhưng một số thông tin chưa được cập nhật",
       "error_loading_profile": "Lỗi khi tải hồ sơ người dùng",
       "no_profile_data": "Không có dữ liệu hồ sơ người dùng",
       "unknown_error": "Đã xảy ra lỗi không xác định",
@@ -146,7 +531,8 @@
       "no_following": "Bạn chưa theo dõi ai.",
       "following_error": "Lỗi khi tải danh sách theo dõi. Vui lòng thử lại sau.",
       "moments": "Khoảnh Khắc",
-      "visitors": "Khách Truy Cập"
+      "visitors": "Khách Truy Cập",
+      "visited": "Đã xem"
     },
     "visitors": {
       "title": "Khách Truy Cập Hồ Sơ",
@@ -165,7 +551,11 @@
       "vipOnly": "Tính Năng VIP",
       "vipOnlyDesc": "Xem ai đã truy cập hồ sơ của bạn bằng cách nâng cấp lên VIP. Tính năng này chỉ dành riêng cho thành viên VIP.",
       "vipBenefits": "Quyền Lợi VIP",
-      "learnMore": "Tìm Hiểu Thêm Về VIP"
+      "learnMore": "Tìm Hiểu Thêm Về VIP",
+      "clear": "Xoá lịch sử",
+      "clear_title": "Xoá lịch sử người xem?",
+      "clear_body": "Tất cả những người đã xem hồ sơ của bạn sẽ bị xoá và bộ đếm lượt xem trở về 0. Không thể hoàn tác.",
+      "no_visited": "Những hồ sơ bạn đã xem sẽ hiện ở đây"
     },
     "sections": {
       "personal_info": "Thông Tin Cá Nhân",
@@ -207,7 +597,18 @@
       "save": "Lưu",
       "cancel": "Hủy",
       "edit_photo": "Chỉnh Sửa Ảnh",
-      "clear": "Xóa lựa chọn"
+      "clear": "Xóa lựa chọn",
+      "settings": "Cài đặt",
+      "message": "Nhắn tin",
+      "follow": "Theo dõi",
+      "following": "Đang theo dõi",
+      "more": "Thêm tùy chọn",
+      "block": "Chặn",
+      "report": "Báo cáo",
+      "this_person": "người này",
+      "action_failed": "Chưa thực hiện được. Vui lòng thử lại.",
+      "unblock": "Bỏ chặn",
+      "followBlocked": "Bạn không thể theo dõi người này"
     },
     "buttons": {
       "edit": "Chỉnh Sửa",
@@ -235,6 +636,128 @@
       "kdrama": "K-Drama",
       "languages": "Ngôn Ngữ",
       "culture": "Văn Hóa"
+    },
+    "badges": {
+      "vip": "VIP",
+      "verified": "Đã xác minh",
+      "joined": "Tham gia {{date}}",
+      "active": "Hoạt động {{time}}",
+      "online": "Đang trực tuyến"
+    },
+    "block": {
+      "title": "Chặn {{name}}?",
+      "body": "Người này sẽ không thể nhắn tin cho bạn hoặc xem hồ sơ của bạn."
+    },
+    "report": {
+      "title": "Báo cáo {{name}}?",
+      "body": "Hãy cho chúng tôi biết vấn đề là gì. Mọi báo cáo đều được xem xét.",
+      "reason": "Lý do"
+    },
+    "languages": {
+      "also_learning": "Cũng đang học"
+    },
+    "about": {
+      "title": "Giới thiệu",
+      "occupation": "Công việc",
+      "school": "Trường học",
+      "read_more": "Xem thêm",
+      "read_less": "Thu gọn"
+    },
+    "learning": {
+      "title": "Tiến độ học",
+      "streak": "Chuỗi ngày học",
+      "days": "ngày",
+      "xp": "Tổng XP",
+      "level": "Cấp độ"
+    },
+    "moments": {
+      "see_all": "Xem tất cả",
+      "empty_own": "Chia sẻ khoảnh khắc đầu tiên",
+      "empty_other": "Chưa có khoảnh khắc nào",
+      "photo_alt": "Ảnh khoảnh khắc"
+    },
+    "page": {
+      "title": "Hồ sơ",
+      "error_title": "Không tải được hồ sơ này",
+      "error_body": "Hãy kiểm tra kết nối và thử lại.",
+      "retry": "Thử lại",
+      "not_found_title": "Không tìm thấy hồ sơ",
+      "not_found_body": "Hồ sơ này không còn tồn tại, hoặc chưa từng có.",
+      "back_to_community": "Khám phá cộng đồng"
+    },
+    "lists": {
+      "title": "Kết nối của bạn",
+      "title_of": "Kết nối của {{name}}",
+      "title_other": "Kết nối",
+      "search": "Tìm theo tên",
+      "search_empty": "Không có ai khớp với “{{query}}”",
+      "empty_followers_own": "Bạn chưa có người theo dõi nào.",
+      "empty_followers_other": "Chưa có ai theo dõi người này.",
+      "empty_following_own": "Bạn chưa theo dõi ai.",
+      "empty_following_other": "Người này chưa theo dõi ai.",
+      "error_title": "Không tải được danh sách này",
+      "error_body": "Hãy kiểm tra kết nối và thử lại.",
+      "retry": "Thử lại"
+    },
+    "edit": {
+      "back": "Quay lại",
+      "about": "Giới thiệu",
+      "photos_hint": "Ảnh đầu tiên là ảnh mọi người nhìn thấy ở khắp nơi.",
+      "add_photo": "Thêm ảnh",
+      "photo_alt": "Ảnh {{index}}",
+      "delete_photo": "Xóa ảnh {{index}}",
+      "delete_photo_title": "Xóa ảnh này?",
+      "delete_photo_body": "Ảnh sẽ bị gỡ khỏi hồ sơ của bạn với tất cả mọi người.",
+      "delete_photo_confirm": "Xóa ảnh",
+      "level": "Trình độ",
+      "level_hint": "Trình độ của bạn ở ngôn ngữ đang học.",
+      "occupation": "Nghề nghiệp",
+      "occupation_placeholder": "Bạn làm nghề gì?",
+      "school": "Trường học",
+      "school_placeholder": "Bạn học ở đâu?",
+      "saving": "Đang lưu",
+      "unsaved": "Bạn có thay đổi chưa lưu",
+      "leave_title": "Rời đi mà không lưu?",
+      "leave_body": "Những thay đổi của bạn ở hồ sơ này sẽ mất.",
+      "leave_confirm": "Bỏ thay đổi",
+      "stay": "Tiếp tục chỉnh sửa",
+      "intent_title": "Bạn ở đây để làm gì",
+      "intent_learn": "Ở đây để học",
+      "intent_meet": "Muốn gặp gỡ mọi người",
+      "intent_date": "Sẵn sàng hẹn hò",
+      "intent_privacy_note": "Người khác thấy lựa chọn của bạn, trừ hẹn hò — mục đó được giữ riêng tư.",
+      "completion": "Hoàn thành hồ sơ"
+    },
+    "myMoments": {
+      "title": "Khoảnh khắc của tôi",
+      "create": "Chia sẻ khoảnh khắc",
+      "edit": "Sửa khoảnh khắc",
+      "delete": "Xóa khoảnh khắc",
+      "delete_title": "Xóa khoảnh khắc này?",
+      "delete_body": "Khoảnh khắc sẽ biến mất với mọi người, cùng với lượt thích và bình luận.",
+      "delete_confirm": "Xóa",
+      "delete_failed": "Không xóa được khoảnh khắc đó. Vui lòng thử lại.",
+      "empty_title": "Chưa có khoảnh khắc nào",
+      "empty_body": "Chia sẻ khoảnh khắc đầu tiên của bạn với cộng đồng.",
+      "error_title": "Không tải được khoảnh khắc của bạn",
+      "error_body": "Hãy kiểm tra kết nối và thử lại.",
+      "retry": "Thử lại",
+      "load_more": "Tải thêm",
+      "loading_more": "Đang tải..."
+    },
+    "tabs": {
+      "label": "Các mục hồ sơ",
+      "moments": "Khoảnh Khắc",
+      "about": "Giới Thiệu"
+    },
+    "unblock": {
+      "title": "Bỏ chặn {{name}}?",
+      "body": "Người này sẽ có thể nhắn tin cho bạn và xem hồ sơ của bạn trở lại."
+    },
+    "blocked": {
+      "body": "Một trong hai người đã chặn người kia, nên hai bạn không thể nhắn tin, theo dõi hoặc xem bài đăng của nhau.",
+      "manage": "Quản lý người bị chặn",
+      "title": "Hồ sơ này không khả dụng"
     }
   },
   "moments_section": {
@@ -302,7 +825,230 @@
       "addMood": "Thêm tâm trạng",
       "addLocation": "Thêm vị trí",
       "addTags": "Thêm thẻ",
-      "tagPlaceholder": "Thêm thẻ..."
+      "tagPlaceholder": "Thêm thẻ...",
+      "attachVideo": "Đính kèm video",
+      "mediaFailedNothingPosted": "Tải lên thất bại nên chưa có gì được đăng. Hãy thử lại.",
+      "mediaFailedPosted": "Đã đăng, nhưng tải phương tiện thất bại — hãy chỉnh sửa khoảnh khắc để thêm vào.",
+      "modePhoto": "Ảnh",
+      "modeText": "Văn bản",
+      "modeVideo": "Video",
+      "modeVoice": "Giọng nói",
+      "moodQuestion": "Bạn đang cảm thấy thế nào?",
+      "placeholder": "{{name}} ơi, bạn đang nghĩ gì?",
+      "recordVoice": "Ghi âm tin nhắn thoại",
+      "remove": "Gỡ",
+      "share": "Chia sẻ",
+      "sharing": "Đang chia sẻ...",
+      "textPreview": "Khoảnh khắc văn bản của bạn",
+      "voiceNoteLength": "Tin nhắn thoại · {{seconds}} giây"
+    },
+    "promo": {
+      "title": "Khoảnh Khắc giờ đã có trong ứng dụng",
+      "subtitle": "Story, phản hồi từ AI Study và một bảng tin được thiết kế cho điện thoại, không phải cho tab trình duyệt. Cài đặt miễn phí, không cần đổi tài khoản.",
+      "appStore": "Tải trên App Store",
+      "playStore": "Tải trên Google Play",
+      "appOnly": "Trong ứng dụng",
+      "perks": {
+        "stories": {
+          "title": "Story biến mất sau 24 giờ",
+          "body": "Chia sẻ một khoảnh khắc tồn tại 24 giờ, đúng như cách cộng đồng trong ứng dụng thực sự dùng."
+        },
+        "aiStudy": {
+          "title": "Phản hồi từ AI Study",
+          "body": "Đăng bài bằng ngôn ngữ bạn đang học và nhận sửa lỗi nhẹ nhàng từ AI ngay trong phần bình luận."
+        },
+        "reactions": {
+          "title": "Phản ứng phong phú hơn",
+          "body": "Phản ứng bằng giọng nói, dịch chỉ với một chạm và luồng bình luận được thiết kế cho bảng tin, không phải biểu mẫu."
+        },
+        "notifications": {
+          "title": "Thông báo tức thì",
+          "body": "Biết ngay khi có người nói ngôn ngữ bạn đang học trả lời — không cần tải lại tab trình duyệt."
+        }
+      }
+    },
+    "translate": {
+      "tap": "Chạm để dịch",
+      "loading": "Đang dịch…",
+      "same": "Đã ở ngôn ngữ của bạn rồi",
+      "error": "Không dịch được. Chạm để thử lại."
+    },
+    "tabs": {
+      "forYou": "Dành Cho Bạn",
+      "following": "Đang Theo Dõi",
+      "explore": "Khám Phá",
+      "trending": "Thịnh Hành"
+    },
+    "following": {
+      "empty": "Theo dõi mọi người để xem khoảnh khắc của họ ở đây",
+      "findPeople": "Tìm Người"
+    },
+    "commentEngagement": {
+      "attachImage": "Thêm ảnh",
+      "beFirst": "Hãy là người đầu tiên chia sẻ suy nghĩ của bạn!",
+      "cancel": "Hủy",
+      "commentTab": "Bình Luận",
+      "correctedLabel": "Đã sửa",
+      "correctedPlaceholder": "Viết theo cách người bản xứ sẽ nói",
+      "correction": "Sửa lỗi",
+      "correctionNotePlaceholder": "Thêm ghi chú (không bắt buộc)",
+      "correctionTab": "Sửa lỗi",
+      "delete": "Xóa",
+      "explanationLabel": "Giải thích",
+      "explanationPlaceholder": "Tại sao lại viết thế này? (không bắt buộc)",
+      "hideReplies": "Ẩn phản hồi",
+      "imageFailed": "Đã đăng bình luận, nhưng ảnh không đính kèm được.",
+      "loadMoreComments": "Xem thêm bình luận",
+      "loadMoreReplies": "Xem thêm",
+      "loadingReplies": "Đang tải phản hồi…",
+      "originalLabel": "Gốc",
+      "post": "Đăng",
+      "postCorrection": "Đăng sửa lỗi",
+      "postFailed": "Không đăng được. Vui lòng thử lại.",
+      "react": "Cảm xúc",
+      "reply": "Phản hồi",
+      "replyPlaceholder": "Viết phản hồi…",
+      "viewReplies": "Xem {{count}} phản hồi",
+      "deleteOthersBody": "Bình luận này nằm trên khoảnh khắc của bạn nên bạn có thể xóa. Không thể hoàn tác.",
+      "deleteOthersTitle": "Xóa bình luận này?",
+      "removeGif": "Gỡ GIF"
+    },
+    "filters": {
+      "button": "Bộ lọc",
+      "searchPlaceholder": "Tìm khoảnh khắc",
+      "search": "Tìm",
+      "category": "Danh mục",
+      "language": "Ngôn ngữ",
+      "mood": "Tâm trạng",
+      "tag": "Thẻ",
+      "tagPlaceholder": "Thẻ bất kỳ",
+      "any": "Tất cả",
+      "clear": "Xóa bộ lọc",
+      "emptyTitle": "Không có khoảnh khắc nào khớp với bộ lọc này",
+      "emptyBody": "Hãy thử bỏ một bộ lọc hoặc tìm thứ khác."
+    },
+    "categories": {
+      "general": "Chung",
+      "language-learning": "Học ngôn ngữ",
+      "culture": "Văn hóa",
+      "food": "Ẩm thực",
+      "travel": "Du lịch",
+      "music": "Âm nhạc",
+      "books": "Sách",
+      "hobbies": "Sở thích",
+      "daily-life": "Đời sống hằng ngày",
+      "technology": "Công nghệ",
+      "entertainment": "Giải trí",
+      "sports": "Thể thao",
+      "movies": "Phim",
+      "study": "Học tập",
+      "work": "Công việc",
+      "question": "Câu hỏi"
+    },
+    "moods": {
+      "happy": "Vui vẻ",
+      "excited": "Hào hứng",
+      "grateful": "Biết ơn",
+      "motivated": "Có động lực",
+      "relaxed": "Thư giãn",
+      "curious": "Tò mò",
+      "sad": "Buồn",
+      "love": "Đang yêu",
+      "funny": "Hài hước",
+      "thoughtful": "Trầm ngâm",
+      "cool": "Ngầu",
+      "tired": "Mệt mỏi"
+    },
+    "report": {
+      "menu": "Tùy chọn khác",
+      "report": "Báo cáo",
+      "title": "Báo cáo khoảnh khắc này",
+      "reasonLabel": "Vì sao bạn báo cáo?",
+      "descriptionLabel": "Còn gì nữa không? (không bắt buộc)",
+      "submit": "Gửi báo cáo",
+      "cancel": "Hủy",
+      "sent": "Cảm ơn — đội kiểm duyệt sẽ xem xét.",
+      "already": "Bạn đã báo cáo khoảnh khắc này rồi.",
+      "failed": "Không gửi được báo cáo. Hãy thử lại.",
+      "reasons": {
+        "spam": "Spam",
+        "harassment": "Quấy rối",
+        "hate_speech": "Ngôn từ thù ghét",
+        "violence": "Bạo lực",
+        "nudity": "Khỏa thân",
+        "false_information": "Thông tin sai",
+        "copyright": "Bản quyền",
+        "other": "Lý do khác"
+      },
+      "alreadyComment": "Bạn đã báo cáo bình luận này rồi.",
+      "alreadyStory": "Bạn đã báo cáo tin này rồi.",
+      "titleComment": "Báo cáo bình luận này",
+      "titleStory": "Báo cáo tin này"
+    },
+    "schedule": {
+      "label": "Lên lịch",
+      "hint": "Để trống để đăng ngay",
+      "past": "Hãy chọn thời điểm trong tương lai",
+      "badge": "Đã lên lịch lúc {{time}}",
+      "clear": "Đăng ngay"
+    },
+    "fields": {
+      "privacy": "Ai có thể xem",
+      "privacyPublic": "Mọi người",
+      "privacyFriends": "Bạn bè",
+      "privacyPrivate": "Chỉ mình tôi",
+      "background": "Nền",
+      "backgroundNone": "Không có",
+      "location": "Vị trí",
+      "addLocation": "Thêm vị trí của tôi",
+      "removeLocation": "Xóa vị trí",
+      "noMood": "Không có tâm trạng",
+      "tags": "Thẻ",
+      "tagPlaceholder": "Thêm thẻ…",
+      "addTag": "Thêm",
+      "tagsUsed": "{{count}}/5 thẻ",
+      "tagsMax": "Tối đa 5 thẻ"
+    },
+    "prompt": {
+      "answeringPromptOfDay": "Đang trả lời câu hỏi hôm nay",
+      "dismissChip": "Ngừng trả lời câu hỏi",
+      "answering": "Trả lời",
+      "answer": "Trả lời",
+      "cardSubtitle": "Luyện viết",
+      "cardTitle": "Câu hỏi hôm nay",
+      "dismissCard": "Ẩn câu hỏi hôm nay"
+    },
+    "block": {
+      "done": "Đã chặn {{name}}."
+    },
+    "card": {
+      "bookmark": "Đánh dấu",
+      "likeFailed": "Đã xảy ra lỗi",
+      "loginToLike": "Đăng nhập để thích bài viết",
+      "removeBookmark": "Bỏ đánh dấu",
+      "save": "Lưu",
+      "saved": "Đã lưu",
+      "seeLess": "Thu gọn",
+      "seeMore": "Xem thêm",
+      "unlike": "Bỏ thích"
+    },
+    "saved": {
+      "browseMoments": "Xem khoảnh khắc",
+      "gridView": "Dạng lưới",
+      "listView": "Dạng danh sách",
+      "loadMore": "Tải thêm",
+      "momentCount": "khoảnh khắc đã lưu",
+      "noMoments": "Chưa có khoảnh khắc nào được lưu",
+      "remove": "Gỡ",
+      "removeError": "Không thể gỡ khoảnh khắc",
+      "removeSuccess": "Đã gỡ khỏi mục đã lưu",
+      "title": "Khoảnh khắc đã lưu"
+    },
+    "voice": {
+      "cancel": "Hủy ghi âm",
+      "denied": "Quyền truy cập micrô bị từ chối. Hãy cho phép truy cập micrô để ghi âm tin nhắn thoại.",
+      "stop": "Dừng ghi âm và gửi",
+      "unsupported": "Trình duyệt này không hỗ trợ ghi âm."
     }
   },
   "createMoment": {
@@ -345,13 +1091,27 @@
       "addMoreText": "Thêm nữa",
       "updateButton": "Cập Nhật Khoảnh Khắc",
       "updatingButton": "Đang cập nhật...",
-      "cancelButton": "Hủy"
+      "cancelButton": "Hủy",
+      "removeImage": "Gỡ ảnh",
+      "nothingToSave": "Chưa có gì để thay đổi",
+      "descriptionRequired": "Cần có mô tả"
+    },
+    "media": {
+      "video": "Video",
+      "audio": "Ghi âm giọng nói",
+      "replace": "Thay thế",
+      "remove": "Xóa",
+      "removeVideoTitle": "Xóa video?",
+      "removeAudioTitle": "Xóa ghi âm?",
+      "removeBody": "Không thể hoàn tác.",
+      "done": "Đã cập nhật",
+      "failed": "Không thành công. Hãy thử lại."
     }
   },
   "authentication": {
     "enterEmail": {
       "title": "Nhập email của bạn",
-      "subtitle": "We'll send a verification code to your email",
+      "subtitle": "Chúng tôi sẽ gửi mã xác minh đến email của bạn",
       "emailLabel": "Địa Chỉ Email",
       "emailPlaceholder": "Nhập email",
       "sendButton": "Gửi Mã",
@@ -361,32 +1121,32 @@
     },
     "passwordReset": {
       "successMessage": "Đã đặt lại mật khẩu thành công, vui lòng đăng nhập!",
-      "backToLogin": "Back to login",
-      "verifyTitle": "Enter verification code",
-      "verifySubtitle": "We've sent a 6-digit code to your email",
-      "codeLabel": "Verification Code",
-      "codePlaceholder": "Enter code",
-      "previousButton": "Previous",
-      "verifyButton": "Verify",
-      "verifyingButton": "Verifying...",
-      "resendButton": "Resend code",
-      "resendingButton": "Resending...",
-      "verifySuccessMessage": "Verification code successfully verified!",
-      "resendSuccessMessage": "A new verification code has been sent!",
-      "verifyErrorDefault": "Invalid verification code",
-      "resendErrorDefault": "Failed to resend the code",
-      "setPasswordTitle": "Set new password",
-      "setPasswordSubtitle": "Choose a strong password for your account",
-      "newPasswordLabel": "New Password",
-      "newPasswordPlaceholder": "New Password",
-      "confirmPasswordLabel": "Confirm Password",
-      "confirmPasswordPlaceholder": "Confirm Password",
-      "showPassword": "Show password",
-      "hidePassword": "Hide password",
-      "submitButton": "Reset Password",
-      "submittingButton": "Resetting...",
-      "strengthErrorMessage": "Password does not meet the strength requirements",
-      "mismatchErrorMessage": "Passwords do not match"
+      "backToLogin": "Quay lại đăng nhập",
+      "verifyTitle": "Nhập mã xác minh",
+      "verifySubtitle": "Chúng tôi đã gửi mã gồm 6 chữ số đến email của bạn",
+      "codeLabel": "Mã Xác Minh",
+      "codePlaceholder": "Nhập mã",
+      "previousButton": "Quay lại",
+      "verifyButton": "Xác minh",
+      "verifyingButton": "Đang xác minh...",
+      "resendButton": "Gửi lại mã",
+      "resendingButton": "Đang gửi lại...",
+      "verifySuccessMessage": "Đã xác minh mã thành công!",
+      "resendSuccessMessage": "Đã gửi mã xác minh mới!",
+      "verifyErrorDefault": "Mã xác minh không hợp lệ",
+      "resendErrorDefault": "Không thể gửi lại mã",
+      "setPasswordTitle": "Đặt mật khẩu mới",
+      "setPasswordSubtitle": "Chọn một mật khẩu mạnh cho tài khoản của bạn",
+      "newPasswordLabel": "Mật Khẩu Mới",
+      "newPasswordPlaceholder": "Mật Khẩu Mới",
+      "confirmPasswordLabel": "Xác Nhận Mật Khẩu",
+      "confirmPasswordPlaceholder": "Xác Nhận Mật Khẩu",
+      "showPassword": "Hiện mật khẩu",
+      "hidePassword": "Ẩn mật khẩu",
+      "submitButton": "Đặt Lại Mật Khẩu",
+      "submittingButton": "Đang đặt lại...",
+      "strengthErrorMessage": "Mật khẩu chưa đáp ứng yêu cầu về độ mạnh",
+      "mismatchErrorMessage": "Mật khẩu không khớp"
     },
     "login": {
       "signInWithGoogle": "Đăng Nhập bằng Google",
@@ -463,6 +1223,17 @@
       "verifyFirst": "Vui lòng xác minh email trước",
       "registrationSuccess": "Đăng ký thành công!",
       "registrationError": "Lỗi trong quá trình đăng ký"
+    },
+    "callback": {
+      "banned": "Tài khoản này đã bị tạm khóa.",
+      "codeExpired": "Liên kết đăng nhập này đã hết hạn. Vui lòng đăng nhập lại.",
+      "completing": "Đang hoàn tất đăng nhập...",
+      "emailExists": "Đã có tài khoản dùng email này. Hãy đăng nhập bằng email và mật khẩu của bạn.",
+      "failedTitle": "Đăng nhập không thành công",
+      "generic": "Đăng nhập không thành công. Vui lòng thử lại.",
+      "noCode": "Đăng nhập chưa hoàn tất. Vui lòng thử lại.",
+      "redirecting": "Đang đưa bạn trở lại trang đăng nhập...",
+      "wait": "Vui lòng chờ trong khi chúng tôi đăng nhập cho bạn."
     }
   },
   "communityMain": {
@@ -503,7 +1274,13 @@
     "tabs": {
       "all": "Tất Cả",
       "popular": "Phổ Biến",
-      "new": "Mới"
+      "new": "Mới",
+      "forYou": "Dành Cho Bạn",
+      "online": "Trực Tuyến",
+      "label": "Các tab cộng đồng",
+      "today": "Hôm nay",
+      "serious": "Người học nghiêm túc",
+      "seriousHint": "Hoạt động trong tuần này"
     },
     "filters": {
       "language": "Ngôn Ngữ",
@@ -543,7 +1320,9 @@
       "topics": "Chủ đề",
       "searchPlaceholder": "Tìm thành viên hoặc chủ đề",
       "filtersLabel": "Bộ lọc",
-      "filtersWithCount": "Bộ lọc ({{count}} đang dùng)"
+      "filtersWithCount": "Bộ lọc ({{count}} đang dùng)",
+      "city": "Thành phố",
+      "genders": "Giới tính"
     },
     "filterSheet": {
       "title": "Bộ lọc",
@@ -560,7 +1339,27 @@
       "onlineNow": "Đang trực tuyến",
       "newMembersOnly": "Chỉ thành viên mới (7 ngày qua)",
       "reset": "Đặt lại",
-      "apply": "Áp dụng"
+      "apply": "Áp dụng",
+      "copyLink": "Sao chép liên kết",
+      "linkCopied": "Đã sao chép liên kết",
+      "linkCopyFailed": "Không thể sao chép liên kết",
+      "applyFirst": "Vui lòng áp dụng bộ lọc trước",
+      "matchCountLoading": "Đang đếm kết quả phù hợp…",
+      "close": "Đóng bộ lọc",
+      "languages": "Ngôn ngữ",
+      "partnerNative": "Tiếng mẹ đẻ của đối tác",
+      "partnerLearning": "Đối tác đang học",
+      "country": "Quốc gia",
+      "countryPlaceholder": "Ví dụ: Hàn Quốc",
+      "level": "Trình độ ngôn ngữ",
+      "topics": "Chủ đề",
+      "mutualInterests": "Sở thích chung",
+      "newUsersOnly": "Chỉ người dùng mới",
+      "clearAll": "Xóa tất cả",
+      "matchCount": "{{count}} kết quả phù hợp",
+      "lockedByTab": "Được đặt bởi thẻ {{tab}}",
+      "reciprocal": "Chỉ đối tác phù hợp",
+      "reciprocalHint": "Họ nói ngôn ngữ bạn học và học ngôn ngữ bạn nói"
     },
     "highlighted": {
       "title": "Hồ sơ nổi bật",
@@ -569,9 +1368,8 @@
       "highlightSelfTopic": "Làm nổi bật hồ sơ của bạn để nhiều người thấy bạn hơn"
     },
     "visitors": {
-      "justYou": "{{name}} đã xem hồ sơ của bạn!",
-      "andOthers": "{{name}} và {{count}} người khác đã xem hồ sơ của bạn!",
-      "seeAll": "Xem tất cả"
+      "pill_one": "1 người đã xem hồ sơ của bạn",
+      "pill_other": "{{count}} người đã xem hồ sơ của bạn"
     },
     "tandemCard": {
       "newChip": "MỚI",
@@ -581,6 +1379,50 @@
       "fluent": "THÀNH THẠO",
       "learns": "ĐANG HỌC",
       "native": "BẢN NGỮ"
+    },
+    "chips": {
+      "recentlyActive": "Hoạt động gần đây",
+      "onlineNow": "Đang trực tuyến",
+      "speaks": "Nói {{language}}",
+      "learning": "Đang học {{language}}"
+    },
+    "forYou": {
+      "subtitle": "Đối tác được chọn riêng cho bạn dựa trên ngôn ngữ, trình độ và sở thích.",
+      "refresh": "Làm mới",
+      "why": "Lý do: {{reasons}}",
+      "empty": {
+        "title": "Chưa có gợi ý nào",
+        "message": "Thêm ngôn ngữ bạn nói và muốn học, trình độ và một vài sở thích, chúng tôi sẽ tìm đối tác phù hợp cho bạn.",
+        "action": "Hoàn thiện hồ sơ"
+      }
+    },
+    "reasons": {
+      "perfect_pair": "Nói {{native}}, đang học {{learning}}",
+      "native_speaker": "Người bản ngữ {{native}}",
+      "online_now": "Đang trực tuyến",
+      "active_today": "Hoạt động hôm nay",
+      "same_country": "Cùng quốc gia"
+    },
+    "today": {
+      "title": "{{count}} người phù hợp hôm nay",
+      "refreshes": "Làm mới lúc {{time}}",
+      "refreshesMidnight": "Làm mới lúc nửa đêm",
+      "emptyTitle": "Hôm nay chỉ có vậy thôi",
+      "emptyBody": "Ngày mai sẽ có người phù hợp mới. Trong lúc chờ, hãy xem tất cả bạn học.",
+      "browse": "Xem bạn học",
+      "repliesFast": "Trả lời nhanh",
+      "boosted": "Được đẩy",
+      "reasonReciprocal": "Hai bạn đang học ngôn ngữ của nhau",
+      "reasonSameTarget": "Cũng đang học {{language}}",
+      "reasonActiveToday": "Hoạt động hôm nay",
+      "reasonSameCity": "Sống cùng thành phố với bạn",
+      "reasonSharedTopic": "Sở thích chung: {{topic}}",
+      "sayHi": "Chào",
+      "wave": "Vẫy tay",
+      "skip": "Bỏ qua",
+      "error": "Không tải được người phù hợp hôm nay",
+      "retry": "Thử lại",
+      "waved": "Đã vẫy tay"
     }
   },
   "communityDetail": {
@@ -642,8 +1484,38 @@
       "learning": "Đang Học",
       "notSpecified": "Chưa xác định"
     },
+    "match": {
+      "title": "Phù Hợp Ngôn Ngữ",
+      "native": "Tiếng Mẹ Đẻ",
+      "learning": "Đang Học",
+      "perfect": "Phù hợp hoàn hảo! Hai bạn có thể dạy nhau.",
+      "youLearnTheirs": "Bạn đang học đúng ngôn ngữ họ nói!",
+      "theyLearnYours": "Họ đang học đúng ngôn ngữ bạn nói!",
+      "sameNative": "Cả hai bạn đều có cùng tiếng mẹ đẻ."
+    },
+    "mutual": {
+      "title": "Sở Thích Chung",
+      "countLabel": "{{count}} điểm chung"
+    },
+    "starters": {
+      "title": "Gợi Ý Mở Lời",
+      "send": "Gửi",
+      "perfect": "Chào {{name}}! Chúng ta hợp nhau về ngôn ngữ quá, cùng luyện tập nhé?",
+      "language": "Chào {{name}}! Mình đang học {{language}}, bạn có mẹo gì để học tốt hơn không?",
+      "teach": "Chào {{name}}! Mình thấy bạn đang học {{language}}. Có gì thắc mắc thì cứ hỏi mình nhé.",
+      "sameNative": "Chào {{name}}! Chúng ta có cùng tiếng mẹ đẻ đó, việc học của bạn thế nào rồi?",
+      "topic": "Chào {{name}}! Mình thấy bạn cũng thích {{topic}}. Bạn bắt đầu từ khi nào vậy?",
+      "targetLearning": "Chào {{name}}! Bạn học {{language}} được bao lâu rồi?",
+      "generic": "Chào {{name}}! Mình rất muốn cùng luyện ngôn ngữ với bạn. Tuần này của bạn thế nào?",
+      "practice": "Chào {{name}}! Điều gì giúp ích cho việc học của bạn nhiều nhất từ trước đến giờ?",
+      "hello": "Chào {{name}}! Hồ sơ của bạn thu hút mình đó, hôm nay của bạn thế nào?"
+    },
+    "engagement": {
+      "replies": "{{rate}}% phản hồi",
+      "new": "Thành viên mới"
+    },
     "suggested": {
-      "title": "Thành viên khác giống {{name}}",
+      "title": "Thêm thành viên giống {{name}}",
       "seeAll": "Xem tất cả thành viên"
     }
   },
@@ -665,6 +1537,10 @@
     "buttons": {
       "tryAgain": "Thử Lại",
       "backToCommunity": "Quay Lại Cộng Đồng"
+    },
+    "suggested": {
+      "title": "Thành viên khác giống {{name}}",
+      "seeAll": "Xem tất cả thành viên"
     },
     "stats": {
       "followers": "Người Theo Dõi",
@@ -871,6 +1747,102 @@
       "premium": "Premium",
       "features": "Tính Năng",
       "upgrade": "Nâng Cấp Lên VIP"
+    },
+    "password": {
+      "title": "Đổi mật khẩu",
+      "current": "Mật khẩu hiện tại",
+      "current_hint": "Nhập mật khẩu hiện tại",
+      "new": "Mật khẩu mới",
+      "new_hint": "Tối thiểu 8 ký tự, A-Z, a-z, 0-9",
+      "confirm": "Xác nhận mật khẩu mới",
+      "confirm_hint": "Nhập lại mật khẩu mới",
+      "rule_upper": "Một chữ hoa",
+      "rule_lower": "Một chữ thường",
+      "rule_number": "Một chữ số",
+      "mismatch": "Mật khẩu không khớp.",
+      "same_as_current": "Mật khẩu mới phải khác mật khẩu hiện tại.",
+      "success": "Đã đổi mật khẩu thành công",
+      "failed": "Cập nhật thất bại",
+      "symbols": "Chỉ được dùng các ký hiệu sau: @ $ ! % * ? &"
+    },
+    "privacy": {
+      "title": "Cài Đặt Quyền Riêng Tư",
+      "subtitle": "Kiểm soát ai có thể xem thông tin của bạn",
+      "profileVisibility": "Hiển Thị Hồ Sơ",
+      "showOnlineStatus": "Hiện Trạng Thái Trực Tuyến",
+      "showOnlineStatusDesc": "Cho phép người khác thấy khi bạn trực tuyến",
+      "showCity": "Hiển thị thành phố",
+      "showCityDesc": "Hiển thị thành phố trên hồ sơ",
+      "showCountry": "Hiển thị quốc gia/khu vực",
+      "showCountryDesc": "Hiển thị quốc gia trên hồ sơ",
+      "personalInfo": "Thông tin Cá nhân",
+      "showAge": "Hiển thị tuổi",
+      "showAgeDesc": "Hiển thị tuổi trên hồ sơ",
+      "showZodiac": "Hiển thị cung hoàng đạo",
+      "showZodiacDesc": "Hiển thị cung hoàng đạo trên hồ sơ",
+      "birthdayNotification": "Thông báo sinh nhật",
+      "birthdayNotificationDesc": "Nhận thông báo vào ngày sinh nhật",
+      "otherSettings": "Cài đặt khác",
+      "showGiftingLevel": "Hiển thị cấp quà tặng",
+      "showGiftingLevelDesc": "Hiển thị huy hiệu cấp quà tặng",
+      "saveSuccess": "Đã lưu cài đặt quyền riêng tư",
+      "saveError": "Lưu thất bại",
+      "saving": "Đang lưu...",
+      "saveChanges": "Lưu thay đổi",
+      "profileVisits": "Lượt xem hồ sơ",
+      "anonymousProfileVisits": "Xem hồ sơ ẩn danh",
+      "anonymousProfileVisitsDesc": "Tên của bạn sẽ không xuất hiện trong danh sách khách truy cập gần đây của người dùng mà bạn xem.",
+      "email": "Email",
+      "emailNotifications": "Thông báo qua email",
+      "emailNotificationsDesc": "Nhận thông báo qua email từ BananaTalk",
+      "weeklyDigest": "Tóm tắt hằng tuần",
+      "weeklyDigestDesc": "Tổng kết hoạt động vào mỗi Chủ nhật",
+      "securityAlerts": "Cảnh báo bảo mật",
+      "securityAlertsDesc": "Cảnh báo về mật khẩu và đăng nhập. Chúng tôi khuyên bạn nên bật."
+    },
+    "notifications": {
+      "title": "Cài Đặt Thông Báo",
+      "subtitle": "Quản lý tùy chọn thông báo của bạn",
+      "loading": "Đang tải...",
+      "loadError": "Lỗi khi tải cài đặt",
+      "retry": "Thử lại",
+      "pushNote": "Các cài đặt này điều khiển thông báo đẩy từ ứng dụng BananaTalk trên điện thoại của bạn.",
+      "enableAll": "Thông Báo Đẩy",
+      "enableAllDesc": "Bật hoặc tắt tất cả thông báo",
+      "notificationTypes": "Loại thông báo",
+      "chatMessages": "Tin nhắn chat",
+      "chatMessagesDesc": "Nhận thông báo khi có tin nhắn mới",
+      "moments": "Khoảnh khắc",
+      "momentsDesc": "Lượt thích và bình luận trên khoảnh khắc của bạn",
+      "followerMoments": "Khoảnh khắc từ người theo dõi",
+      "followerMomentsDesc": "Khi những người bạn theo dõi đăng khoảnh khắc mới",
+      "friendRequests": "Người Theo Dõi Mới",
+      "friendRequestsDesc": "Khi ai đó theo dõi bạn",
+      "profileVisits": "Lượt xem hồ sơ",
+      "profileVisitsDesc": "Khi ai đó xem hồ sơ của bạn (VIP)",
+      "announcements": "Thông báo",
+      "announcementsDesc": "Tin tức và cập nhật từ đội ngũ BananaTalk",
+      "marketing": "Tiếp thị",
+      "marketingDesc": "Cập nhật và tin nhắn quảng cáo",
+      "learning": "Đang học",
+      "streakReminders": "Nhắc nhở chuỗi ngày",
+      "streakRemindersDesc": "Nhắc bạn trước khi chuỗi ngày bị gián đoạn",
+      "vocabularyReviewReminders": "Ôn tập từ vựng",
+      "vocabularyReviewRemindersDesc": "Khi có từ cần ôn tập",
+      "dailyDropReminders": "Bài học hôm nay",
+      "dailyDropRemindersDesc": "Khi bài học từ vựng hoặc ngữ pháp ngắn của hôm nay đã sẵn sàng",
+      "quietHours": "Giờ yên tĩnh",
+      "quietHoursEnable": "Bật giờ yên tĩnh",
+      "quietHoursDesc": "Tạm dừng thông báo không khẩn cấp trong một khoảng thời gian",
+      "quietHoursStart": "Giờ bắt đầu",
+      "quietHoursEnd": "Giờ kết thúc",
+      "preferences": "Tùy chọn thông báo",
+      "showPreview": "Hiển thị xem trước",
+      "showPreviewDesc": "Hiển thị xem trước tin nhắn trong thông báo",
+      "saveSuccess": "Đã lưu cài đặt thông báo",
+      "saveError": "Lưu thất bại",
+      "saving": "Đang lưu...",
+      "saveChanges": "Lưu thay đổi"
     }
   },
   "waves": {
@@ -880,13 +1852,102 @@
     "accept": "Chấp Nhận",
     "decline": "Từ Chối",
     "noWaves": "Chưa có lời chào nào",
-    "sendWave": "Gửi lời chào để bắt đầu kết nối!"
+    "sendWave": "Gửi lời chào để bắt đầu kết nối!",
+    "archive": "Lời chào cũ hơn",
+    "archiveEmpty": "Không có lời chào cũ nào",
+    "archiveHint": "Lời chào từ 7 đến 30 ngày trước",
+    "back": "Quay lại",
+    "cap": {
+      "body": "Bạn đã dùng hết lượt vẫy tay miễn phí hôm nay. Thành viên VIP có thể vẫy tay không giới hạn mỗi ngày, hoặc hãy thử lại vào ngày mai.",
+      "notNow": "Để sau",
+      "seeVip": "Xem VIP",
+      "title": "Đã đạt giới hạn vẫy tay hôm nay"
+    },
+    "findPeople": "Tìm Mọi Người",
+    "noReceived": "Chưa nhận được lời chào nào",
+    "recent": "7 ngày qua",
+    "sheet": {
+      "already": "Đã vẫy tay",
+      "alreadyBody": "Bạn chỉ có thể vẫy tay mỗi người một lần — hãy gửi tin nhắn để tiếp tục trò chuyện nhé.",
+      "alreadyTitle": "Bạn đã vẫy tay với {{name}} rồi",
+      "cancel": "Hủy",
+      "chips": {
+        "chat": {
+          "label": "Trò chuyện",
+          "message": "🎉 Mình trò chuyện nhé!"
+        },
+        "cool": {
+          "label": "Tuyệt",
+          "message": "❤️ Hồ sơ của bạn hay quá!"
+        },
+        "hello": {
+          "label": "Xin chào",
+          "message": "✋ Xin chào!"
+        },
+        "hey": {
+          "label": "Này",
+          "message": "😊 Chào bạn nha!"
+        },
+        "hi": {
+          "label": "Chào",
+          "message": "👋 Chào bạn!"
+        },
+        "nice": {
+          "label": "Rất vui",
+          "message": "🌟 Rất vui được làm quen!"
+        }
+      },
+      "close": "Đóng",
+      "icebreakers": {
+        "0": "Chào bạn! Mình cùng luyện ngôn ngữ nhé?",
+        "1": "Mình thấy chúng ta học những ngôn ngữ giống nhau — chào bạn!",
+        "2": "Hồ sơ của bạn thu hút mình đấy, bạn dạo này thế nào?",
+        "3": "Chào bạn! Điều gì khiến bạn bắt đầu học một ngôn ngữ mới?"
+      },
+      "icebreakersTitle": "Câu mở đầu",
+      "match": "🎉 Tương hợp rồi! Bạn và {{name}} đã vẫy tay với nhau.",
+      "placeholder": "Viết lời nhắn riêng (không bắt buộc)…",
+      "quickReplies": "Trả lời nhanh",
+      "send": "Gửi lời chào",
+      "sendError": "Không thể gửi lời chào",
+      "sent": "Đã gửi lời chào đến {{name}}!",
+      "subtitle": "Chào hỏi và phá băng 👋",
+      "title": "Gửi lời chào đến {{name}}",
+      "yourMessage": "Lời nhắn của bạn"
+    },
+    "someone": "Ai đó",
+    "subtitle": "Những người đã vẫy tay với bạn",
+    "unread": "Chưa đọc",
+    "wavedAtYou": "Đã vẫy tay với bạn 👋"
   },
   "topics": {
     "title": "Chủ Đề",
     "myTopics": "Chủ Đề Của Tôi",
     "browseTopics": "Duyệt Chủ Đề",
-    "usersInterested": "người dùng quan tâm"
+    "usersInterested": "người dùng quan tâm",
+    "saved": "Chủ đề của bạn đã được cập nhật",
+    "saveError": "Không thể lưu chủ đề của bạn",
+    "memberCount": "{{count}} thành viên",
+    "backToCommunity": "Cộng đồng",
+    "subtitle": "Tìm những người có cùng sở thích với bạn.",
+    "searchPlaceholder": "Tìm chủ đề",
+    "clearSearch": "Xóa tìm kiếm",
+    "cancel": "Hủy",
+    "saving": "Đang lưu...",
+    "save": "Lưu",
+    "edit": "Chỉnh Sửa",
+    "editHint": "Chạm vào các thẻ bên dưới để chọn tối đa {{max}} chủ đề, sau đó lưu lại.",
+    "myTopicsEmpty": "Bạn chưa chọn chủ đề nào. Nhấn Chỉnh Sửa để chọn vài chủ đề.",
+    "selectTopics": "Chọn chủ đề của bạn",
+    "emptyTitle": "Không có chủ đề nào khớp",
+    "emptyMessage": "Hãy thử từ khác, hoặc xóa tìm kiếm để xem tất cả.",
+    "backToTopics": "Tất cả chủ đề",
+    "onlineOnly": "Chỉ hiển thị đang online",
+    "loadingPeople": "Đang tải danh sách...",
+    "noOneOnlineTitle": "Không có ai đang online ở đây",
+    "noOneTitle": "Chưa có ai ở đây",
+    "noOneOnlineMessage": "Tắt bộ lọc online để xem tất cả mọi người trong chủ đề này.",
+    "noOneMessage": "Hãy là người đầu tiên — thêm chủ đề này vào hồ sơ của bạn."
   },
   "nearby": {
     "title": "Người Dùng Gần Đây",
@@ -897,24 +1958,23 @@
   },
   "home": {
     "hero": {
-      "badge": "Trao Đổi Ngôn Ngữ Đơn Giản",
-      "titlePart1": "Học Ngôn Ngữ bằng cách",
-      "titleHighlight": "Nói Chuyện",
-      "titlePart2": "với Người Bản Ngữ",
-      "description": "Kết nối với hàng triệu người học ngôn ngữ trên toàn thế giới. Luyện nói, cải thiện sự lưu loát và kết bạn từ mọi nơi trên thế giới.",
-      "stats": {
-        "users": "Người Dùng Tích Cực",
-        "languages": "Ngôn Ngữ",
-        "countries": "Quốc Gia"
-      },
-      "getStarted": "Bắt Đầu Miễn Phí",
+      "badge": "Trao đổi ngôn ngữ, người thật",
+      "titlePart1": "Luyện tập",
+      "titleHighlight": "bất kỳ ngôn ngữ nào",
+      "titlePart2": "với người thực sự nói ngôn ngữ đó.",
+      "description": "BananaTalk ghép bạn với người bản ngữ trên khắp thế giới. Trò chuyện, gửi tin nhắn thoại, dịch, và nhận sửa lỗi — mỗi cuộc trò chuyện đều giúp bạn giỏi hơn.",
+      "getStarted": "Bắt đầu ngay — miễn phí",
       "browseCommunity": "Duyệt Cộng Đồng",
-      "lovedBy": "Được 5M+ người học yêu thích",
+      "lovedBy": "Được người học ngôn ngữ trên iOS và Android yêu thích",
       "chatPreview": {
-        "message1": "Xin chào! Bạn khỏe không? 👋",
-        "message2": "Hey! I'm practicing Vietnamese!",
-        "message3": "Tuyệt vời! Hãy cùng luyện tập 🇻🇳"
-      }
+        "message1": "안녕하세요! Cuối tuần của bạn thế nào?",
+        "message2": "주말에 친구들과 등산 갔어요 ⛰️",
+        "message3": "Tuyệt! 산 → núi. Đã lưu vào hàng đợi học tập của bạn."
+      },
+      "title": "Cứ nói sai đi.",
+      "titleAccent": "Chúng tôi sẽ dịch.",
+      "subtitle": "Trao đổi ngôn ngữ miễn phí với người bản ngữ. Bạn viết bằng tiếng của mình, họ đọc bằng tiếng của họ, và bạn học từ chính khác biệt đó.",
+      "trust": "Gói miễn phí trọn đời · 137 ngôn ngữ · Gia sư AI 24/7"
     },
     "sections": {
       "features": "Tính Năng",
@@ -922,108 +1982,175 @@
       "pricing": "Bảng Giá"
     },
     "features": {
-      "title": "Mọi Thứ Bạn Cần Để Học",
-      "subtitle": "Các công cụ mạnh mẽ được thiết kế để đẩy nhanh hành trình học ngôn ngữ của bạn",
+      "title": "Mọi thứ bạn cần để thực sự nói được ngôn ngữ đó",
+      "subtitle": "Xây dựng từ những cuộc trò chuyện thật với người bản ngữ thật — không phải bài tập từ vựng.",
       "chat": {
-        "title": "Trò Chuyện Thời Gian Thực",
-        "description": "Luyện hội thoại với người bản ngữ qua tin nhắn tức thời"
+        "title": "Trò chuyện kèm sửa lỗi",
+        "description": "Gửi văn bản, giọng nói, ảnh và sticker. Chạm vào tin nhắn của đối tác để dịch hoặc sửa lỗi chỉ trong một chạm."
       },
-      "video": {
-        "title": "Gọi Video",
-        "description": "Luyện ngôn ngữ trực tiếp với đối tác trên toàn thế giới"
+      "translate": {
+        "title": "Dịch tích hợp",
+        "description": "Dịch bất kỳ tin nhắn nào sang tiếng mẹ đẻ của bạn. Lưu các cụm từ trực tiếp vào hàng đợi học tập của bạn."
       },
-      "lessons": {
-        "title": "Bài Học Tương Tác",
-        "description": "Học với các khóa học có cấu trúc và bài tập hàng ngày"
+      "tutor": {
+        "title": "Gia Sư AI",
+        "description": "Các tình huống nhập vai, từ vựng qua hình ảnh, và huấn luyện phát âm — tất cả được hỗ trợ bởi gia sư AI của riêng bạn."
       },
-      "voice": {
-        "title": "Tin Nhắn Thoại",
-        "description": "Hoàn thiện phát âm với trao đổi âm thanh"
+      "voice_rooms": {
+        "title": "Voice Rooms",
+        "description": "Tham gia phòng âm thanh trực tiếp cùng người bản ngữ và người học ngôn ngữ trên khắp thế giới."
+      },
+      "calls": {
+        "title": "Cuộc gọi thoại & video",
+        "description": "Gọi thoại và video chỉ với một chạm cùng các đối tác ngôn ngữ của bạn."
       },
       "community": {
-        "title": "Cộng Đồng",
-        "description": "Tham gia cùng hàng triệu người học ngôn ngữ trên toàn cầu"
+        "title": "Cộng đồng thực sự",
+        "description": "Duyệt đối tác theo tiếng mẹ đẻ, xem ai đang trực tuyến, và chia sẻ khoảnh khắc với những người đang học cùng ngôn ngữ."
       },
-      "languages": {
-        "title": "50+ Ngôn Ngữ",
-        "description": "Từ tiếng Tây Ban Nha đến tiếng Hàn, tìm con đường học tập của bạn"
+      "inApp": "Trong ứng dụng",
+      "items": {
+        "findPartner": {
+          "title": "Tìm đối tác",
+          "body": "Ghép đúng cặp ngôn ngữ mà bạn thực sự muốn trao đổi."
+        },
+        "chatTranslate": {
+          "title": "Trò chuyện có dịch sẵn",
+          "body": "Hai chiều, ngay trong tin nhắn, ngay khi bạn gõ."
+        },
+        "moments": {
+          "title": "Moments",
+          "body": "Đăng một mẩu ngày của bạn, người bản ngữ sẽ sửa giúp."
+        },
+        "aiTutor": {
+          "title": "Gia sư AI",
+          "body": "Luyện lúc 3 giờ sáng mà không ngại ai nhìn."
+        },
+        "voiceRooms": {
+          "title": "Voice Rooms",
+          "body": "Ghé vào một phòng đang nói chuyện, chỉ ngồi nghe cũng được."
+        },
+        "gatherings": {
+          "title": "Gặp gỡ",
+          "body": "Gặp những người đang học tiếng của bạn ở ngay gần đây."
+        }
       }
     },
     "howItWorks": {
-      "title": "Bắt Đầu Học Trong 3 Bước",
-      "subtitle": "Bắt đầu trong vài phút và khởi đầu hành trình ngôn ngữ ngay hôm nay"
+      "title": "Ba bước đến cuộc trò chuyện đầu tiên của bạn",
+      "subtitle": "Không cần số điện thoại, không spam — chỉ có những người thật muốn học.",
+      "steps": {
+        "1": {
+          "title": "Cho chúng tôi biết bạn nói gì và muốn học gì",
+          "body": "Chọn tiếng mẹ đẻ và ngôn ngữ bạn đang học. Chúng tôi ghép đôi dựa trên cặp đó."
+        },
+        "2": {
+          "title": "Tìm một người đáng để trò chuyện",
+          "body": "Xem những người đang học tiếng của bạn. Vẫy tay chào, hoặc nhắn luôn."
+        },
+        "3": {
+          "title": "Cứ nói vụng về, rồi giỏi lên thật nhanh",
+          "body": "Mọi tin nhắn đều được dịch hai chiều, còn gia sư AI sửa cho bạn mà không ai thấy."
+        }
+      }
     },
     "steps": {
       "profile": {
-        "title": "Tạo Hồ Sơ",
-        "description": "Cho chúng tôi biết về tiếng mẹ đẻ và ngôn ngữ bạn muốn học"
+        "title": "Cho chúng tôi biết ngôn ngữ của bạn",
+        "description": "Chọn ngôn ngữ bạn nói thành thạo và ngôn ngữ bạn đang học. Thêm vài chủ đề bạn thích."
       },
       "partners": {
-        "title": "Tìm Đối Tác",
-        "description": "Duyệt qua cộng đồng và tìm đối tác trao đổi ngôn ngữ hoàn hảo"
+        "title": "Tìm đối tác của bạn",
+        "description": "Duyệt cộng đồng theo ngôn ngữ, quốc gia hoặc chủ đề. Vẫy tay hoặc nhắn tin cho người bạn thấy thú vị."
       },
       "learn": {
-        "title": "Bắt Đầu Học",
-        "description": "Trò chuyện, gọi điện và luyện tập với người bản ngữ mỗi ngày"
+        "title": "Luyện tập mỗi ngày",
+        "description": "Trò chuyện, trao đổi ghi âm giọng nói, nhận sửa lỗi, và biến từ mới thành thẻ ôn tập theo phương pháp lặp lại ngắt quãng."
       }
     },
     "pricing": {
-      "title": "Chọn Gói Của Bạn",
-      "subtitle": "Bắt đầu miễn phí và nâng cấp khi bạn sẵn sàng",
-      "mostPopular": "Phổ Biến Nhất",
-      "getStarted": "Bắt Đầu",
+      "title": "Miễn phí để bắt đầu. VIP khi bạn sẵn sàng học nhanh hơn.",
+      "subtitle": "BananaTalk miễn phí cho tất cả mọi người. Nâng cấp để bỏ giới hạn hằng ngày cho bản dịch, Gia sư AI, và hơn thế nữa.",
+      "fineprint": "Hủy bất cứ lúc nào trong cài đặt App Store hoặc Google Play của bạn. Gói đăng ký sẽ tự động gia hạn cho đến khi bị hủy.",
       "free": {
         "name": "Miễn Phí",
         "period": "mãi mãi",
+        "cta": "Tạo tài khoản miễn phí",
         "features": {
-          "messaging": "Nhắn tin cơ bản",
-          "connections": "5 kết nối mới/ngày",
-          "community": "Truy cập cộng đồng",
-          "lessons": "Bài học cơ bản"
+          "messaging": "Trò chuyện 1-1 không giới hạn kèm dịch thuật",
+          "community": "Duyệt và kết nối với cộng đồng",
+          "moments": "Đăng Moments và đọc Stories",
+          "tutor_trial": "Hạn mức Gia sư AI và dịch thuật hằng ngày"
+        },
+        "f1": "Trò chuyện 1-1 không giới hạn kèm dịch thuật",
+        "f2": "Duyệt và kết nối với cộng đồng",
+        "f3": "Đăng Moments và đọc Stories"
+      },
+      "monthly": {
+        "name": "VIP — Hàng Tháng",
+        "period": "mỗi tháng",
+        "highlight": "Linh hoạt nhất",
+        "cta": "Bắt đầu gói tháng",
+        "features": {
+          "unlimited_translation": "Dịch thuật và sửa lỗi không giới hạn",
+          "unlimited_tutor": "Phiên học với Gia sư AI và nhập vai không giới hạn",
+          "voice_rooms": "Tổ chức và ghim Voice Rooms",
+          "priority": "Ưu tiên ghép đối tác"
         }
       },
-      "premium": {
-        "name": "Premium",
-        "period": "/tháng",
+      "yearly": {
+        "name": "VIP — Hàng Năm",
+        "period": "mỗi năm",
+        "highlight": "Tiết kiệm 72%",
+        "cta": "Tiết kiệm với gói năm",
         "features": {
-          "messaging": "Nhắn tin không giới hạn",
-          "connections": "Kết nối không giới hạn",
-          "video": "Gọi video",
-          "lessons": "Bài học nâng cao",
-          "noAds": "Không quảng cáo",
-          "translation": "Công cụ dịch thuật"
+          "everything_in_monthly": "Mọi thứ trong gói Hàng Tháng",
+          "equiv": "Chỉ tương đương 4,16 đô la / tháng",
+          "early_access": "Truy cập sớm các tính năng mới",
+          "support": "Hỗ trợ trực tiếp từ đội ngũ BananaTalk"
         }
       },
-      "lifetime": {
-        "name": "Trọn Đời",
-        "period": "một lần",
-        "features": {
-          "everything": "Mọi thứ trong Premium",
-          "forever": "Truy cập mãi mãi",
-          "support": "Hỗ trợ ưu tiên",
-          "early": "Tính năng sớm",
-          "badges": "Huy hiệu độc quyền"
-        }
-      }
+      "best": "Giá trị tốt nhất",
+      "perMonth": "mỗi tháng",
+      "every": "mỗi",
+      "save": "Tiết kiệm",
+      "getVip": "Nhận VIP trong ứng dụng"
     },
     "download": {
       "badge": "Tải Ứng Dụng",
-      "title": "Mang BananaTalk Đi Khắp Nơi",
-      "description": "Học mọi lúc mọi nơi với ứng dụng di động. Có sẵn trên iOS và Android với đầy đủ tính năng, thông báo đẩy và truy cập ngoại tuyến.",
+      "title": "Trải nghiệm đầy đủ chỉ có trên di động",
+      "description": "Gia sư AI, Voice Rooms, cuộc gọi và thông báo tức thì chỉ có trên di động. Tải ứng dụng để có trải nghiệm BananaTalk trọn vẹn.",
       "downloadOn": "Tải về trên",
       "getItOn": "Tải về trên",
       "scanQR": "Quét để tải ứng dụng",
       "or": "hoặc",
       "features": {
-        "offline": "Truy cập ngoại tuyến",
+        "offline": "Trò chuyện thân thiện khi ngoại tuyến",
         "push": "Thông báo đẩy",
-        "fast": "Nhanh và nhẹ"
+        "fast": "Cài đặt miễn phí"
       }
     },
     "cta": {
-      "title": "Bạn Đã Sẵn Sàng Bắt Đầu Hành Trình Ngôn Ngữ Chưa?",
-      "description": "Tham gia cùng hàng triệu người học và bắt đầu nói ngôn ngữ mới ngay hôm nay",
-      "button": "Tạo Tài Khoản Miễn Phí"
+      "title": "Sẵn sàng có một cuộc trò chuyện thực sự chưa?",
+      "description": "Tham gia cộng đồng BananaTalk và bắt đầu luyện tập ngay hôm nay. Không cần thẻ tín dụng.",
+      "button": "Tạo tài khoản miễn phí của bạn",
+      "subtitle": "Miễn phí để bắt đầu. Không cần thẻ, không đếm ngược dùng thử."
+    },
+    "stats": {
+      "languages": "ngôn ngữ",
+      "app languages": "ngôn ngữ ứng dụng",
+      "AI tutor": "gia sư AI",
+      "forever tier": "gói miễn phí",
+      "learners": "người học"
+    },
+    "marquee": {
+      "title": "Ngôn ngữ nào bạn muốn học cũng có người bản ngữ ở đây",
+      "caption": "137 ngôn ngữ, và vẫn đang tăng"
+    },
+    "earlyAdopter": {
+      "badge": "Ra mắt tháng 12 năm 2025",
+      "title": "Hãy là một trong những người đầu tiên",
+      "body": "BananaTalk vẫn còn mới. Những người bạn gặp ở đây chính là những người đang định hình cộng đồng này — đó là lý do vào sớm đáng giá hơn bất kỳ bài đánh giá nào."
     }
   },
   "vip": {
@@ -1060,6 +2187,1229 @@
       "prioritySupport": "Hỗ trợ ưu tiên",
       "exclusiveBadge": "Huy hiệu VIP độc quyền",
       "translationFeature": "Dịch tin nhắn"
+    }
+  },
+  "linking": {
+    "share": {
+      "label": "Chia sẻ",
+      "copied": "Đã sao chép liên kết vào bộ nhớ tạm!",
+      "copyFailed": "Không thể sao chép liên kết"
+    },
+    "openInApp": {
+      "label": "Mở trong ứng dụng"
+    },
+    "appBanner": {
+      "text": "Mở nội dung này trong ứng dụng BananaTalk"
+    }
+  },
+  "seo": {
+    "appTitle": "BananaTalk",
+    "home": {
+      "title": "BananaTalk: Ứng Dụng Trao Đổi Ngôn Ngữ Miễn Phí Với Người Bản Xứ",
+      "description": "Trò chuyện với người bản xứ bằng 137 ngôn ngữ. Viết bằng ngôn ngữ của bạn, họ đọc bằng ngôn ngữ của họ, và gia sư AI sẽ chỉ ra sự khác biệt. Miễn phí trên iOS và Android."
+    },
+    "download": {
+      "title": "Tải BananaTalk cho iPhone và Android",
+      "description": "Nhận ứng dụng trao đổi ngôn ngữ BananaTalk miễn phí cho iPhone và Android. Trò chuyện với người bản xứ với bản dịch tức thì và sửa lỗi từ gia sư AI."
+    },
+    "moments": {
+      "title": "BananaTalk Moments: Câu Chuyện Bằng Ngôn Ngữ Bạn Đang Học",
+      "description": "Moments là những bài đăng và câu chuyện ngắn được người học ngôn ngữ chia sẻ trên BananaTalk. Đọc bảng tin, thả cảm xúc, và đăng bài của riêng bạn."
+    },
+    "privacy": {
+      "title": "Chính Sách Bảo Mật | BananaTalk",
+      "description": "Cách BananaTalk thu thập, sử dụng và bảo vệ dữ liệu của bạn, cùng những lựa chọn bạn có."
+    },
+    "terms": {
+      "title": "Điều Khoản Sử Dụng | BananaTalk",
+      "description": "Các điều khoản chi phối việc bạn sử dụng BananaTalk, bao gồm quy tắc nội dung, kiểm duyệt và báo cáo."
+    },
+    "support": {
+      "title": "Hỗ Trợ và Liên Hệ | BananaTalk",
+      "description": "Nhận trợ giúp về BananaTalk: câu hỏi về tài khoản, báo cáo sự cố và cách liên hệ với đội ngũ."
+    },
+    "dataDeletion": {
+      "title": "Yêu Cầu Xóa Dữ Liệu | BananaTalk",
+      "description": "Cách xóa tài khoản BananaTalk và dữ liệu cá nhân của bạn, và điều gì xảy ra sau khi bạn yêu cầu."
+    },
+    "meet": {
+      "title": "Gặp Gỡ Người Từ Các Nước Khác | BananaTalk",
+      "description": "Gặp gỡ người từ các nước khác và kết bạn quốc tế bằng cách trò chuyện. Mọi tin nhắn đều được dịch hai chiều, nên không ai phải giỏi trước."
+    },
+    "learnKorean": {
+      "title": "Học Tiếng Hàn Qua Trò Chuyện Với Người Bản Ngữ",
+      "description": "Học tiếng Hàn miễn phí bằng cách trò chuyện với người Hàn bản ngữ. Bạn viết bằng tiếng của mình, họ viết Hangul, gia sư AI giải thích 존댓말 và 반말."
+    },
+    "communities": {
+      "title": "Cộng Đồng Trao Đổi Ngôn Ngữ | BananaTalk",
+      "description": "Tham gia cộng đồng trao đổi ngôn ngữ trên BananaTalk: những nhóm thật cùng luyện tiếng Hàn, tiếng Tây Ban Nha, tiếng Nhật mỗi ngày, miễn phí."
+    }
+  },
+  "notFound": {
+    "pageTitle": "Không tìm thấy trang | BananaTalk",
+    "title": "Trang này không tồn tại",
+    "body": "Liên kết có thể đã cũ, hoặc trang có thể đã được di chuyển. Đây là cách quay lại.",
+    "home": "Về trang chủ",
+    "download": "Tải ứng dụng"
+  },
+  "consent": {
+    "label": "Đồng ý sử dụng cookie",
+    "message": "Chúng tôi sử dụng cookie phân tích để hiểu điều gì đã đưa mọi người đến đây.",
+    "accept": "OK",
+    "decline": "Không, cảm ơn",
+    "manage": {
+      "title": "Lựa chọn quyền riêng tư",
+      "body": "Cookie phân tích chỉ cho chúng tôi biết trang nào hữu ích, không gì khác.",
+      "current_granted": "Cookie phân tích đang bật.",
+      "current_denied": "Cookie phân tích đang tắt.",
+      "accept": "Bật",
+      "decline": "Tắt",
+      "privacyChoices": "Lựa chọn quyền riêng tư",
+      "analyticsCookies": "Cookie phân tích",
+      "done": "Xong"
+    }
+  },
+  "admin": {
+    "nav": {
+      "admin": "Quản trị",
+      "overview": "Tổng quan",
+      "reach": "Tiếp cận",
+      "users": "Người dùng",
+      "content": "Nội dung",
+      "aiUsage": "Sử dụng AI",
+      "audit": "Nhật ký kiểm tra"
+    },
+    "aiUsage": {
+      "allFeatures": "Tất cả tính năng",
+      "anonymous": "ẩn danh",
+      "byDay": "Lượt dùng theo ngày",
+      "byFeature": "Lượt dùng theo tính năng",
+      "calls": "Số lượt gọi",
+      "date": "Ngày",
+      "feature": "Tính năng",
+      "from": "Từ",
+      "logs": "Nhật ký sử dụng",
+      "timestamp": "Thời gian",
+      "to": "Đến",
+      "total": "Tổng số lượt gọi",
+      "user": "Người dùng"
+    },
+    "audit": {
+      "action": "Hành động",
+      "actionColumn": "Hành động",
+      "moderator": "Người kiểm duyệt",
+      "moderatorId": "ID người kiểm duyệt",
+      "reason": "Lý do",
+      "target": "Đối tượng",
+      "targetId": "ID đối tượng",
+      "timestamp": "Thời gian"
+    },
+    "common": {
+      "actionError": "Đã xảy ra sự cố.",
+      "close": "Đóng",
+      "empty": "Chưa có gì để hiển thị.",
+      "loadError": "Không thể tải phần này.",
+      "loading": "Đang tải…",
+      "refresh": "Làm mới",
+      "cancel": "Hủy"
+    },
+    "content": {
+      "archive": "Lưu trữ",
+      "archiveTitle": "Lưu trữ câu lạc bộ",
+      "cancel": "Hủy",
+      "cancelTitle": "Hủy buổi gặp mặt",
+      "created": "Ngày tạo",
+      "gatherings": "Buổi gặp mặt",
+      "going": "Số người tham gia",
+      "language": "Ngôn ngữ",
+      "members": "Thành viên",
+      "name": "Tên",
+      "openReports": "Báo cáo chưa xử lý",
+      "reportedOnly": "Chỉ mục đã bị báo cáo",
+      "restore": "Khôi phục",
+      "restoreTitle": "Khôi phục câu lạc bộ",
+      "startsAt": "Bắt đầu lúc",
+      "status": "Trạng thái",
+      "tabs": "Loại nội dung",
+      "title": "Tiêu đề",
+      "moments": "Khoảnh khắc",
+      "communities": "Cộng đồng",
+      "reports": "Báo cáo",
+      "momentsToday": "Khoảnh khắc hôm nay",
+      "moments7d": "Khoảnh khắc (7 ngày)",
+      "momentsHidden": "Khoảnh khắc đã ẩn",
+      "comments7d": "Bình luận (7 ngày)",
+      "activeCommunities": "Cộng đồng đang hoạt động",
+      "upcomingGatherings": "Buổi gặp mặt sắp diễn ra",
+      "pendingReports": "Báo cáo đang chờ xử lý",
+      "allTime": "tổng cộng",
+      "membersTotal": "thành viên",
+      "underReview": "đang xem xét",
+      "searchMoments": "Tìm kiếm khoảnh khắc",
+      "hiddenOnly": "Chỉ mục đã ẩn",
+      "author": "Tác giả",
+      "owner": "Chủ sở hữu",
+      "city": "Thành phố",
+      "place": "Địa điểm",
+      "category": "Danh mục",
+      "engagement": "Tương tác",
+      "likes": "Lượt thích",
+      "comments": "Bình luận",
+      "views": "Lượt xem",
+      "shares": "Lượt chia sẻ",
+      "hidden": "Đã ẩn",
+      "visible": "Hiển thị",
+      "untitled": "Khoảnh khắc không có tiêu đề",
+      "noText": "Không có nội dung văn bản.",
+      "actionFailed": "Thao tác không thành công. Không có gì thay đổi.",
+      "momentTitle": "Khoảnh khắc",
+      "hide": "Ẩn",
+      "unhide": "Bỏ ẩn",
+      "hideTitle": "Ẩn khoảnh khắc này?",
+      "unhideTitle": "Bỏ ẩn khoảnh khắc này?",
+      "hideBody": "Nó sẽ biến mất khỏi mọi bảng tin. Lý do sẽ được ghi lại trong nhật ký kiểm tra.",
+      "unhideBody": "Nó sẽ xuất hiện trở lại trên bảng tin. Lý do sẽ được ghi lại trong nhật ký kiểm tra.",
+      "communityTitle": "Cộng đồng",
+      "archiveBody": "Nó sẽ biến mất khỏi trang khám phá. Thành viên vẫn giữ lịch sử của họ và có thể khôi phục lại.",
+      "restoreBody": "Nó sẽ xuất hiện trở lại trên trang khám phá. Lý do sẽ được ghi lại trong nhật ký kiểm tra.",
+      "reportType": "Loại",
+      "reason": "Lý do",
+      "reporterAndReported": "Người báo cáo → Người bị báo cáo",
+      "priority": "Mức độ ưu tiên",
+      "reportActions": "Hành động xử lý báo cáo",
+      "anyStatus": "Mọi trạng thái",
+      "anyType": "Mọi loại",
+      "startReview": "Bắt đầu xem xét",
+      "resolve": "Giải quyết",
+      "dismiss": "Bác bỏ",
+      "resolveTitle": "Đánh dấu báo cáo này là đã giải quyết?",
+      "dismissTitle": "Bác bỏ báo cáo này?",
+      "dismissBody": "Không có hành động nào được thực hiện đối với nội dung hoặc người dùng bị báo cáo. Ghi chú vẫn được giữ lại trên báo cáo.",
+      "moderatorAction": "Hành động của người kiểm duyệt",
+      "notes": "Ghi chú",
+      "reportStatus": {
+        "pending": "Đang chờ",
+        "under_review": "Đang xem xét",
+        "resolved": "Đã giải quyết",
+        "dismissed": "Đã bác bỏ"
+      },
+      "targetType": {
+        "moment": "Khoảnh khắc",
+        "comment": "Bình luận",
+        "user": "Người dùng",
+        "club": "Cộng đồng",
+        "gathering": "Buổi gặp mặt",
+        "message": "Tin nhắn",
+        "story": "Tin"
+      },
+      "moderatorActions": {
+        "content_removed": "Nội dung đã bị xóa",
+        "user_warned": "Người dùng đã bị cảnh cáo",
+        "user_suspended": "Người dùng đã bị tạm ngưng",
+        "user_banned": "Người dùng đã bị cấm",
+        "no_violation": "Không vi phạm"
+      }
+    },
+    "overview": {
+      "activeThisWeek": "Hoạt động trong tuần này",
+      "activeToday": "hoạt động hôm nay",
+      "admins": "Quản trị viên",
+      "banned": "Bị cấm",
+      "email": "Email",
+      "lastActive": "Hoạt động gần nhất",
+      "lastWeek": "tuần trước",
+      "name": "Tên",
+      "newThisWeek": "Mới trong tuần này",
+      "newToday": "Mới hôm nay",
+      "recentlyActive": "Vừa hoạt động gần đây",
+      "topLearningLanguages": "Ngôn ngữ được học nhiều nhất",
+      "topNativeLanguages": "Tiếng mẹ đẻ phổ biến nhất",
+      "totalUsers": "Tổng số người dùng",
+      "vip": "VIP",
+      "visitsThisWeek": "Lượt truy cập trong tuần",
+      "vs": "so với"
+    },
+    "reach": {
+      "country": "Quốc gia",
+      "days": "ngày",
+      "device": "Thiết bị",
+      "devices": "Thiết bị",
+      "newVisitors": "Khách truy cập mới",
+      "ofVisits": "trên",
+      "pageViews": "Lượt xem trang",
+      "path": "Đường dẫn",
+      "period": "Tuần của",
+      "placement": "Vị trí hiển thị",
+      "platform": "Nền tảng",
+      "referrer": "Nguồn giới thiệu",
+      "storeTaps": "Lượt chạm vào store",
+      "taps": "Lượt chạm",
+      "tapsByPlacement": "Lượt chạm vào store theo vị trí",
+      "topCountries": "Quốc gia hàng đầu",
+      "topPaths": "Trang hàng đầu",
+      "topReferrers": "Nguồn giới thiệu hàng đầu",
+      "trafficTitle": "Lượt xem trang và lượt chạm vào store",
+      "unique": "Duy nhất",
+      "uniqueVisitors": "Khách truy cập duy nhất",
+      "views": "Lượt xem",
+      "visits": "Lượt truy cập",
+      "visitsThisWeek": "Lượt truy cập trong tuần",
+      "window": "Khoảng thời gian"
+    },
+    "users": {
+      "actionFailed": "Thao tác không thành công. Không có gì thay đổi.",
+      "active": "Hoạt động",
+      "activity": "Hoạt động",
+      "adminsOnly": "Chỉ quản trị viên",
+      "ban": "Cấm",
+      "banBody": "sẽ mất quyền truy cập ngay lập tức. Lý do sẽ được ghi lại trong nhật ký kiểm tra.",
+      "banReason": "Lý do cấm",
+      "banTitle": "Cấm người dùng này?",
+      "banned": "Đã bị cấm",
+      "delete": "Xóa",
+      "deleteBody": "Thao tác này sẽ xóa tài khoản và toàn bộ nội dung của nó. Không thể hoàn tác.",
+      "deleteTitle": "Xóa vĩnh viễn tài khoản này?",
+      "detailTitle": "Chi tiết người dùng",
+      "email": "Email",
+      "empty": "Không có người dùng nào khớp với tìm kiếm này.",
+      "joined": "Ngày tham gia",
+      "languages": "Ngôn ngữ",
+      "lastActive": "Hoạt động gần nhất",
+      "lastMessage": "Tin nhắn gần nhất",
+      "lastMoment": "Khoảnh khắc gần nhất",
+      "makeAdmin": "Đặt làm quản trị viên",
+      "makeAdminBody": "Sẽ có quyền truy cập bảng điều khiển và mọi quyền quản trị, bao gồm cấm và xóa.",
+      "makeAdminTitle": "Đặt làm quản trị viên?",
+      "messages30d": "Tin nhắn (30 ngày)",
+      "moments30d": "Khoảnh khắc (30 ngày)",
+      "name": "Tên",
+      "noActions": "Không có hành động quản trị nào đối với tài khoản này.",
+      "recentActions": "Hành động quản trị gần đây",
+      "revokeAdmin": "Thu hồi quyền quản trị",
+      "revokeAdminBody": "Sẽ mất bảng điều khiển và mọi quyền quản trị. Bạn không thể thu hồi vai trò quản trị của chính mình.",
+      "revokeAdminTitle": "Thu hồi vai trò quản trị?",
+      "role": "Vai trò",
+      "searchLabel": "Tìm kiếm người dùng",
+      "searchPlaceholder": "Tìm theo tên, email hoặc tên người dùng",
+      "status": "Trạng thái",
+      "tabAll": "Tất cả người dùng",
+      "tabBanned": "Bị cấm",
+      "typeEmail": "Nhập email của người dùng để xác nhận",
+      "unban": "Bỏ cấm",
+      "unbanBody": "Sẽ khôi phục quyền truy cập ngay lập tức. Lý do sẽ được ghi lại trong nhật ký kiểm tra.",
+      "unbanTitle": "Bỏ cấm người dùng này?",
+      "unknownModerator": "Người kiểm duyệt không xác định",
+      "addUser": "Thêm người dùng",
+      "createUser": "Tạo người dùng",
+      "createdTitle": "Đã tạo người dùng",
+      "createFailed": "Thao tác không thành công. Không có tài khoản nào được tạo.",
+      "editTitle": "Chỉnh sửa người dùng",
+      "edit": "Chỉnh sửa",
+      "saveChanges": "Lưu thay đổi",
+      "done": "Xong",
+      "addAnother": "Thêm người khác",
+      "openProfile": "Mở hồ sơ",
+      "required": "Bắt buộc",
+      "invalidEmail": "Vui lòng nhập email hợp lệ",
+      "weakPassword": "Ít nhất 8 ký tự, gồm chữ hoa, chữ thường và số",
+      "under18": "Người dùng phải từ 18 tuổi trở lên",
+      "sameLanguage": "Tiếng mẹ đẻ và ngôn ngữ đang học không được trùng nhau",
+      "password": "Mật khẩu",
+      "generate": "Tạo",
+      "copy": "Sao chép",
+      "passwordOnce": "Mật khẩu chỉ được hiển thị một lần duy nhất này. Hãy gửi cho người dùng và yêu cầu họ đổi mật khẩu.",
+      "termsNote": "Không thể thay mặt người khác đồng ý điều khoản: ứng dụng sẽ yêu cầu người dùng này chấp nhận điều khoản trong lần đăng nhập đầu tiên.",
+      "userId": "ID người dùng",
+      "gender": "Giới tính",
+      "male": "Nam",
+      "female": "Nữ",
+      "other": "Khác",
+      "select": "Chọn",
+      "birthDate": "Ngày sinh",
+      "birthYear": "Năm sinh",
+      "birthMonth": "Tháng sinh",
+      "birthDay": "Ngày sinh",
+      "year": "Năm",
+      "month": "Tháng",
+      "day": "Ngày",
+      "nativeLanguage": "Tiếng mẹ đẻ",
+      "learningLanguage": "Ngôn ngữ đang học",
+      "roleUser": "Người dùng",
+      "roleAdmin": "Quản trị viên",
+      "markVerified": "Đánh dấu email đã xác minh",
+      "bio": "Tiểu sử",
+      "optional": "tùy chọn",
+      "mode": "Chế độ",
+      "regular": "Thường",
+      "vip": "VIP",
+      "vipUntil": "đến",
+      "vipDays": "Số ngày",
+      "vipGrantNote": "Gói đăng ký bắt đầu từ hôm nay và không tự động gia hạn.",
+      "vipRevokeNote": "Tắt VIP sẽ kết thúc gói đăng ký ngay lập tức.",
+      "verified": "Đã xác minh",
+      "yes": "Có",
+      "no": "Không"
+    },
+    "table": {
+      "page": "Trang {{page}}",
+      "previous": "Trước",
+      "next": "Tiếp theo"
+    }
+  },
+  "download": {
+    "title": "Tải BananaTalk",
+    "subtitle": "Trao đổi ngôn ngữ miễn phí với người bản ngữ của 137 ngôn ngữ, trên iPhone và Android.",
+    "free": "Miễn phí. Không cần thẻ.",
+    "scan": "Quét bằng camera điện thoại",
+    "qrAlt": "Mã QR để tải BananaTalk",
+    "reasons": {
+      "tutor": {
+        "title": "Gia sư AI trong mọi cuộc trò chuyện",
+        "body": "Sửa lỗi và giải thích ngay trên những tin nhắn bạn thật sự gửi đi."
+      },
+      "voice": {
+        "title": "Voice Rooms và cuộc gọi",
+        "body": "Luyện nói thành tiếng với người đang học tiếng của bạn ngay lúc này."
+      },
+      "translate": {
+        "title": "Dịch tức thì",
+        "body": "Bạn viết bằng tiếng của mình, họ đọc bằng tiếng của họ, và bạn học từ chính khác biệt đó."
+      }
+    }
+  },
+  "meet": {
+    "hero": {
+      "title": "Gặp gỡ người ở những đất nước khác",
+      "titleAccent": "và họ thật sự nhắn lại.",
+      "subtitle": "BananaTalk là nơi bạn kết bạn quốc tế bằng cách trò chuyện với người bản ngữ. Chọn một ngôn ngữ, chào một câu, và mọi tin nhắn đều đến nơi đã được dịch — không ai phải giỏi trước cả.",
+      "trust": "Gói miễn phí trọn đời · 137 ngôn ngữ · Mọi tin nhắn đều dịch hai chiều",
+      "demo": {
+        "1": {
+          "text": "Bora ver o pôr do sol no sábado?",
+          "translation": "Thứ Bảy đi ngắm hoàng hôn không?"
+        },
+        "2": {
+          "text": "Có chứ! Tháng 9 bên đó còn ấm không?",
+          "translation": "Sim! Ainda faz calor aí em setembro?"
+        }
+      },
+      "note": {
+        "label": "✦ DỊCH CẢ HAI CHIỀU",
+        "body": "Cô ấy viết tiếng Bồ Đào Nha còn bạn đọc bằng tiếng Việt. Bạn viết tiếng Việt còn cô ấy đọc bằng tiếng Bồ Đào Nha. Không ai phải đổi ngôn ngữ cả."
+      }
+    },
+    "howItWorks": {
+      "title": "Kết bạn ở đây chỉ mất ba bước",
+      "steps": {
+        "1": {
+          "title": "Chọn một ngôn ngữ, đừng chọn một trang cá nhân",
+          "body": "Chọn ngôn ngữ hoặc quốc gia bạn tò mò. Chúng tôi sẽ cho bạn thấy những người đang học tiếng của bạn — đây là trao đổi ngôn ngữ, nên cả hai đều nhận được gì đó."
+        },
+        "2": {
+          "title": "Chào bằng chính lời của bạn",
+          "body": "Cứ viết bằng ngôn ngữ bạn dùng để suy nghĩ. Nó đến với họ bằng tiếng của họ, ngay lập tức, nên tin nhắn đầu tiên không còn là phần khó nữa."
+        },
+        "3": {
+          "title": "Cứ nói chuyện tiếp",
+          "body": "Tin nhắn thoại, ảnh, Moments, cuộc gọi. Những cuộc trò chuyện ở lại là những cuộc trò chuyện sống lâu hơn cả việc luyện tập."
+        }
+      }
+    },
+    "features": {
+      "title": "Được tạo ra cho những cuộc trò chuyện không dừng lại"
+    },
+    "cta": {
+      "title": "Ngay lúc này có người ở một đất nước khác đang thức",
+      "subtitle": "Miễn phí để bắt đầu. Không cần thẻ, không đếm ngược dùng thử."
+    }
+  },
+  "learnKorean": {
+    "hero": {
+      "title": "Học tiếng Hàn bằng cách trò chuyện",
+      "titleAccent": "với chính người Hàn.",
+      "subtitle": "Trao đổi ngôn ngữ với người Hàn bản ngữ đang muốn học tiếng của bạn. Bạn thử viết bằng 한국어, họ trả lời bằng thứ tiếng Hàn người Hàn thật sự dùng, còn gia sư AI sửa chỗ sai cho riêng bạn.",
+      "trust": "Gói miễn phí trọn đời · Người Hàn bản ngữ · Gia sư AI 24/7",
+      "demo": {
+        "1": {
+          "text": "주말에 뭐 했어요?",
+          "translation": "Cuối tuần này bạn làm gì thế?"
+        },
+        "2": {
+          "text": "친구 만났다! 진짜 재미있었어",
+          "translation": "Tớ gặp bạn! Vui thật sự luôn"
+        }
+      },
+      "note": {
+        "label": "✦ GIA SƯ AI",
+        "body": "존댓말 và 반말: cô ấy hỏi bằng 했어요, dạng lịch sự. Bạn trả lời bằng 반말, dạng dành cho bạn thân. Giờ cứ đáp lại cùng dạng với cô ấy: 친구 만났어요! 진짜 재미있었어요."
+      }
+    },
+    "howItWorks": {
+      "title": "Vì sao trò chuyện giúp tiếng Hàn ở lại lâu",
+      "steps": {
+        "1": {
+          "title": "Thứ tiếng Hàn xuất hiện trong tin nhắn thật",
+          "body": "Sách giáo khoa dạy bạn 합니다. Đối tác của bạn gõ 했어요, ㅋㅋ và 헐 — thứ tiếng Hàn đang chờ bạn trong một cuộc trò chuyện thật."
+        },
+        "2": {
+          "title": "존댓말 và 반말, cảm được thay vì học thuộc",
+          "body": "Mức lịch sự là lựa chọn bạn phải đưa ra ở từng câu. Đọc cách người bản ngữ chọn sẽ nhanh hơn mọi bảng đuôi câu."
+        },
+        "3": {
+          "title": "Được sửa mà không phải ngượng",
+          "body": "Gia sư AI ghi chú lên tiếng Hàn của bạn ở nơi chỉ mình bạn thấy, nên buổi trao đổi ngôn ngữ không bao giờ thành bài kiểm tra. Đối tác chỉ thấy bạn đang cố gắng — và đó mới là điều khiến họ nhắn tiếp."
+        }
+      }
+    },
+    "features": {
+      "title": "Ba thứ sách giáo khoa không thể cho bạn"
+    },
+    "cta": {
+      "title": "Người Hàn đang học tiếng của bạn ngay lúc này",
+      "subtitle": "Miễn phí để bắt đầu. Không cần thẻ, không đếm ngược dùng thử."
+    }
+  },
+  "communities": {
+    "public": {
+      "title": "Cộng đồng trao đổi ngôn ngữ",
+      "intro": "Những nhóm thật bên trong BananaTalk, nơi mọi người cùng luyện một ngôn ngữ mỗi ngày. Tìm nhóm của bạn ở đây, rồi mở trong ứng dụng và bắt đầu trò chuyện.",
+      "members": "thành viên",
+      "join": "Tham gia trong ứng dụng",
+      "empty": {
+        "title": "Tuần nào cũng có cộng đồng mới",
+        "body": "Hiện chưa có gì để hiển thị ở đây. Tải ứng dụng và mọi cộng đồng sẽ xuất hiện ngay khi mở."
+      }
+    }
+  },
+  "errors": {
+    "chunk": {
+      "title": "Đã xảy ra lỗi khi tải trang này",
+      "body": "Một phần của ứng dụng không tải được. Điều này thường xảy ra ngay sau khi cập nhật — tải lại trang sẽ khắc phục.",
+      "reload": "Tải lại"
+    }
+  },
+  "growth": {
+    "store": {
+      "appStore": "App Store",
+      "googlePlay": "Google Play",
+      "downloadOnThe": "Tải về trên",
+      "getItOn": "Tải trên"
+    },
+    "promo": {
+      "tutor": {
+        "eyebrow": "Gia sư AI",
+        "title": "Sửa tiếng Hàn ngay khi bạn gõ",
+        "body": "Sửa lỗi riêng cho từng tin nhắn, cùng các bài quiz và luyện ngữ pháp giữa các cuộc trò chuyện.",
+        "cta": "Tải ứng dụng",
+        "alt": "Hình minh họa một bong bóng chat có một từ bị gạch bỏ và phần sửa đúng nổi lên phía trên, bên cạnh có dấu tích"
+      },
+      "voice": {
+        "eyebrow": "Voice Notes & Rooms",
+        "title": "Nghe cách phát âm thật sự",
+        "body": "Gửi tin nhắn thoại, chia sẻ vị trí của bạn, và tham gia Voice Rooms trực tiếp cùng người bản xứ.",
+        "cta": "Tải ứng dụng",
+        "alt": "Hình minh họa một chiếc micro với sóng âm lan tỏa qua nó và một thẻ vị trí được chia sẻ ở phía sau"
+      },
+      "moments": {
+        "eyebrow": "Moments & Stories",
+        "title": "Chia sẻ tuần của bạn bằng hai ngôn ngữ",
+        "body": "Đăng ảnh và suy nghĩ; bạn bè đọc bản dịch và sửa lỗi cho bạn một cách nhẹ nhàng.",
+        "cta": "Tải ứng dụng",
+        "alt": "Hình minh họa ba tấm ảnh chồng lên nhau cùng một trái tim và ký hiệu dịch từ A sang 가"
+      },
+      "inbox": {
+        "eyebrow": "Trò chuyện thực sự",
+        "title": "Những người thực sự hồi âm",
+        "body": "Tin nhắn, lượt vẫy tay và cảm xúc trong một hộp thư — đọc, dịch, hồi đáp.",
+        "cta": "Tải ứng dụng",
+        "alt": "Hình minh họa ba cuộc trò chuyện xếp chồng trong hộp thư đến, một trong số đó chưa đọc, cùng một bàn tay vẫy chào"
+      },
+      "dismiss": "Đóng quảng cáo ứng dụng",
+      "label": "BananaTalk làm được những gì",
+      "slideLabel": "Trang {{n}} trên {{total}}",
+      "prev": "Slide trước",
+      "next": "Slide tiếp theo"
+    }
+  },
+  "stories": {
+    "your_story": "Tin Của Bạn",
+    "create_story": "Tạo",
+    "my_stories": "Tin Của Tôi",
+    "reaction_failed": "Không thể lưu cảm xúc của bạn",
+    "answer_sent": "Đã gửi câu trả lời",
+    "answer_failed": "Không thể gửi câu trả lời của bạn",
+    "delete_story": "Xóa tin này?",
+    "error_loading": "Lỗi khi tải tin",
+    "answer_placeholder": "Nhập câu trả lời của bạn…",
+    "answer_question": "Trả Lời Câu Hỏi",
+    "send_reply": "Gửi",
+    "answer_anonymously": "Trả lời ẩn danh",
+    "cancel": "Hủy",
+    "viewers": "Người Xem",
+    "responses": "Câu Trả Lời",
+    "share_story": "Chia Sẻ",
+    "reply_placeholder": "Gửi tin nhắn...",
+    "react": "Bày Tỏ Cảm Xúc",
+    "reacted": "Đã bày tỏ cảm xúc",
+    "shared": "Đã Gửi",
+    "share_failed": "Không thể chia sẻ tin này",
+    "close": "Đóng",
+    "search_chats": "Tìm cuộc trò chuyện",
+    "loading": "Đang tải…",
+    "no_chats": "Không có cuộc trò chuyện gần đây",
+    "no_viewers": "Chưa có ai xem",
+    "added_to_highlight": "Đã thêm vào điểm nổi bật",
+    "add_failed": "Không thể thêm tin này",
+    "title_required": "Vui lòng nhập tiêu đề",
+    "highlight_created": "Đã tạo điểm nổi bật",
+    "create_failed": "Không thể tạo điểm nổi bật",
+    "story_archived": "Đã lưu trữ tin",
+    "archive_failed": "Không thể lưu trữ tin này",
+    "story_deleted": "Đã xóa tin",
+    "delete_story_failed": "Không thể xóa tin này",
+    "active_stories": "Đang Hoạt Động",
+    "total_views": "Tổng Lượt Xem",
+    "archived_stories": "Đã Lưu Trữ",
+    "create_first_story": "Tạo tin",
+    "no_archived_stories": "Chưa có gì được lưu trữ",
+    "no_stories": "Chưa có tin nào",
+    "add_to_highlight": "Thêm vào điểm nổi bật",
+    "archive": "Lưu Trữ",
+    "delete": "Xóa",
+    "highlight_name": "Tên điểm nổi bật",
+    "create": "Tạo",
+    "no_highlights": "Chưa có điểm nổi bật nào",
+    "stories_count": "tin",
+    "new_highlight": "Điểm Nổi Bật Mới",
+    "delete_story_confirm": "Xóa tin này?",
+    "delete_story_body": "Không thể hoàn tác thao tác này.",
+    "anonymous": "Ẩn danh",
+    "no_responses": "Chưa có câu trả lời nào",
+    "video_type_error": "Định dạng video này không được hỗ trợ",
+    "video_size_error": "Video này vượt quá dung lượng cho phép",
+    "video_duration_error": "Video này vượt quá thời lượng cho phép",
+    "question_box": {
+      "ask_me_anything": "Hỏi mình bất cứ điều gì!"
+    },
+    "add_text": "Nhập nội dung tin của bạn…",
+    "upload_media": "Vui lòng tải lên ảnh hoặc video",
+    "link_invalid": "Đường liên kết này có vẻ không đúng",
+    "story_created": "Đã chia sẻ tin",
+    "create_story_failed": "Không thể chia sẻ tin của bạn",
+    "video_limits": "Video",
+    "choose_photo": "Ảnh",
+    "choose_video": "Video",
+    "text_story": "Văn Bản",
+    "move_sticker": "Di chuyển nhãn dán",
+    "tap_to_type": "Chạm để nhập",
+    "story_text": "Nội dung tin",
+    "background": "Nền",
+    "text_color": "Chữ",
+    "font_style": "Phông chữ",
+    "stickers_text": "Văn bản & biểu tượng cảm xúc",
+    "add_text_sticker": "Thêm văn bản",
+    "add_emoji_sticker": "Thêm biểu tượng cảm xúc",
+    "sticker_text": "Nội dung nhãn dán",
+    "remove": "Xóa",
+    "sticker_background": "Nền",
+    "sticker_size": "Kích thước",
+    "sticker_color": "Màu sắc",
+    "mention": "Gắn thẻ",
+    "link": "Liên kết",
+    "poll": "Bình chọn",
+    "question": "Câu hỏi",
+    "hashtag": "Hashtag",
+    "link_url": "URL liên kết",
+    "link_title": "Tiêu đề",
+    "link_label": "Nhãn của nhãn dán",
+    "poll_question": "Đặt câu hỏi bình chọn",
+    "poll_option": "Lựa chọn",
+    "add_option": "Thêm lựa chọn",
+    "anonymous_voting": "Bình chọn ẩn danh",
+    "question_prompt": "Nội dung câu hỏi",
+    "audience": "Ai có thể xem tin này",
+    "privacy": {
+      "public": "Mọi người",
+      "friends": "Bạn bè",
+      "close_friends": "Bạn thân"
+    },
+    "close_friends_empty": "Danh sách bạn thân của bạn đang trống — sẽ không ai xem được tin này.",
+    "manage_close_friends": "Quản lý bạn thân",
+    "highlight_updated": "Đã cập nhật điểm nổi bật",
+    "update_failed": "Không thể lưu điểm nổi bật",
+    "highlight_deleted": "Đã xóa điểm nổi bật",
+    "delete_failed": "Không thể xóa điểm nổi bật",
+    "removed_from_highlight": "Đã xóa khỏi điểm nổi bật",
+    "remove_failed": "Không thể xóa tin này",
+    "back": "Quay Lại",
+    "highlights_title": "Điểm Nổi Bật",
+    "highlights_subtitle": "Bộ sưu tập tin đã lưu của bạn",
+    "highlight_empty": "Điểm nổi bật này chưa có tin nào",
+    "remove_from_highlight": "Xóa khỏi điểm nổi bật",
+    "edit_highlight": "Chỉnh sửa điểm nổi bật",
+    "delete_highlight": "Xóa điểm nổi bật",
+    "choose_cover": "Chọn ảnh bìa",
+    "no_stories_to_pick": "Không có tin nào để chọn",
+    "save": "Lưu",
+    "delete_highlight_confirm": "Xóa điểm nổi bật này?",
+    "delete_highlight_body": "Các tin vẫn sẽ được giữ trong mục lưu trữ của bạn.",
+    "previous": "Trước",
+    "next": "Tiếp",
+    "font": {
+      "sans-serif": "Không chân",
+      "serif": "Có chân",
+      "bold": "Đậm",
+      "handwritten": "Chữ viết tay"
+    },
+    "bg_mode": {
+      "none": "Không nền",
+      "semi": "Bán trong suốt",
+      "solid": "Nền màu"
+    },
+    "search_followings": "Tìm người bạn theo dõi",
+    "mention_followings_only": "Bạn chỉ có thể gắn thẻ người mình theo dõi. Hãy theo dõi ai đó trước.",
+    "mention_no_match": "Không có ai bạn theo dõi khớp với từ khóa",
+    "more": "Thêm",
+    "reply_failed": "Không thể gửi tin nhắn của bạn",
+    "vote_failed": "Không thể lưu lượt bình chọn của bạn",
+    "poll_error_question": "Hãy thêm câu hỏi cho bình chọn",
+    "poll_error_blank_option": "Hãy điền hoặc xóa các lựa chọn trống",
+    "poll_error_min_options": "Bình chọn cần ít nhất hai lựa chọn",
+    "poll_error_max_options": "Bình chọn có tối đa bốn lựa chọn",
+    "question_error_prompt": "Hãy thêm câu hỏi cho nhãn dán câu hỏi",
+    "caption": "Chú thích",
+    "caption_placeholder": "Thêm chú thích…",
+    "linkPage": {
+      "browse": "Xem các tin hiện có",
+      "expired": "Tin này đã hết hạn hoặc đã bị xóa. Tin sẽ biến mất sau 24 giờ.",
+      "failed": "Không thể tải tin này.",
+      "retry": "Thử lại",
+      "sign_in": "Đăng nhập",
+      "sign_in_body": "Đăng nhập để xem, hoặc mở trong ứng dụng BananaTalk.",
+      "sign_in_title": "Có người đã chia sẻ một tin với bạn",
+      "unavailable": "Bạn không thể xem tin này."
+    },
+    "block_author": "Chặn {{name}}",
+    "block_confirm": "Chặn",
+    "block_confirm_body": "Họ sẽ không thể xem hồ sơ, khoảnh khắc hay tin của bạn, hoặc nhắn tin cho bạn, và bạn cũng sẽ không thấy nội dung của họ.",
+    "block_confirm_title": "Chặn {{name}}?",
+    "block_failed": "Không thể chặn người này. Hãy thử lại.",
+    "blocked": "Đã chặn {{name}}",
+    "location_label": "Vị trí",
+    "one_image_only": "Mỗi tin chỉ hiển thị một ảnh. Chúng tôi đã giữ ảnh đầu tiên.",
+    "replies_off": "Tin này đã tắt trả lời",
+    "report_story": "Báo cáo tin"
+  },
+  "card": {
+    "title": "Thẻ ngôn ngữ",
+    "my_card": "Thẻ của tôi",
+    "speaks": "Nói",
+    "learning": "Đang học",
+    "practice_with": "Luyện {{language}} cùng {{name}}",
+    "view_profile": "Xem toàn bộ hồ sơ",
+    "continue_web": "Tiếp tục trên trình duyệt",
+    "share": "Chia sẻ thẻ của tôi",
+    "share_text": "Luyện {{language}} cùng mình trên BananaTalk",
+    "edit": "Sửa nội dung thẻ",
+    "tagline": "Trao đổi ngôn ngữ trên BananaTalk",
+    "not_found": "Thẻ này không tồn tại",
+    "not_found_body": "Tài khoản có thể đã bị xoá.",
+    "find_partners": "Tìm bạn học ngôn ngữ"
+  },
+  "announcements": {
+    "new": "Mới",
+    "readMore": "Xem thêm",
+    "close": "Đóng",
+    "ended": "Thông báo này đã kết thúc.",
+    "back": "Quay lại"
+  },
+  "communityNearby": {
+    "back": "Quay lại",
+    "geolocationNotSupported": "Không hỗ trợ định vị",
+    "gettingLocation": "Đang lấy vị trí của bạn...",
+    "learning": "Đang học: {{language}}",
+    "locationRequired": "Cần Vị Trí",
+    "noUsers": "Không tìm thấy người dùng gần đây",
+    "permissionDenied": "Quyền truy cập vị trí bị từ chối",
+    "positionUnavailable": "Không xác định được vị trí",
+    "refresh": "Làm mới",
+    "searchRadius": "Bán Kính Tìm Kiếm",
+    "subtitle": "Tìm người ở quanh bạn",
+    "timeout": "Yêu cầu vị trí đã hết thời gian",
+    "title": "Người Dùng Gần Đây",
+    "tryAgain": "Thử Lại",
+    "tryIncreaseRadius": "Hãy thử tăng bán kính tìm kiếm",
+    "unknownError": "Đã xảy ra lỗi",
+    "usersFound_one": "Tìm thấy {{count}} người",
+    "usersFound_other": "Tìm thấy {{count}} người"
+  },
+  "auth": {
+    "apple": {
+      "continue": "Tiếp tục với Apple",
+      "errors": {
+        "banned": "Tài khoản này đã bị đình chỉ.",
+        "blocked": "Trình duyệt đã chặn cửa sổ Apple. Hãy cho phép cửa sổ bật lên cho banatalk.com rồi thử lại.",
+        "disabled": "Đăng nhập bằng Apple chưa có trên trang web.",
+        "failed": "Không thể đăng nhập bằng Apple. Hãy thử lại.",
+        "rate_limited": "Quá nhiều lần đăng nhập. Hãy đợi một phút rồi thử lại.",
+        "unavailable": "Đăng nhập bằng Apple hiện không khả dụng. Hãy thử lại sau."
+      },
+      "signedIn": "Đã đăng nhập bằng Apple",
+      "signingIn": "Đang đăng nhập bằng Apple…"
+    }
+  },
+  "reels": {
+    "actions": {
+      "block": "Chặn người dùng",
+      "comments": "Bình luận",
+      "like": "Thích",
+      "more": "Thêm",
+      "profile": "Hồ sơ",
+      "report": "Báo cáo",
+      "unlike": "Bỏ thích"
+    },
+    "create": {
+      "bad_type": "Loại tệp này không được hỗ trợ. Hãy dùng MP4, MOV hoặc WebM.",
+      "caption": "Chú thích",
+      "caption_placeholder": "Bạn đang luyện tập điều gì?",
+      "change_video": "Chọn video khác",
+      "choose_video": "Chọn video",
+      "failed": "Không thể đăng reel của bạn. Hãy thử lại.",
+      "hint": "Video ngắn học ngôn ngữ, tối đa 3 phút. Video dọc (9:16) trông đẹp nhất.",
+      "post": "Đăng reel",
+      "posted": "Reel của bạn đã được đăng.",
+      "posting": "Đang đăng…",
+      "server_too_long": "Reel phải dài tối đa 3 phút.",
+      "title": "Reel mới",
+      "too_big": "Video này quá lớn để tải lên.",
+      "too_long": "Reel dài tối đa 3:00. Video này dài {{duration}}.",
+      "upload_failed": "Video chưa được tải lên. Chưa có gì được đăng — hãy thử lại."
+    },
+    "grid": {
+      "create": "Tạo reel",
+      "empty": "Chưa có reel nào. Hãy là người đầu tiên đăng.",
+      "error": "Không thể tải reels.",
+      "load_more": "Tải thêm",
+      "loading": "Đang tải reels…",
+      "open_reel": "Phát reel của {{name}}",
+      "retry": "Thử lại",
+      "title": "Reels",
+      "unavailable": "Reels hiện không khả dụng."
+    },
+    "moments_link": "Xem reels",
+    "nav": "Reels",
+    "policy": {
+      "accept": "Tôi đồng ý",
+      "body": "Reels là các video ngắn học ngôn ngữ — câu trả lời cho chủ đề, luyện nói, giải thích từ người bản xứ và các clip văn hóa.\n\nBananaTalk không khoan nhượng với nội dung phản cảm: không khỏa thân, lời lẽ thù ghét, quấy rối, bạo lực hay nội dung bất hợp pháp. Video bị báo cáo sẽ tự động bị ẩn để chờ xem xét sau 2 báo cáo, và vi phạm có thể dẫn đến gỡ nội dung hoặc khóa tài khoản.\n\nBạn có thể báo cáo hoặc chặn từ bất kỳ reel nào vào bất cứ lúc nào.",
+      "decline": "Từ chối",
+      "title": "Nguyên tắc nội dung reels"
+    },
+    "viewer": {
+      "close": "Đóng",
+      "label": "Reels",
+      "mute": "Tắt tiếng",
+      "next": "Reel tiếp theo",
+      "previous": "Reel trước",
+      "tap_to_play": "Chạm để phát",
+      "unmute": "Bật tiếng"
+    }
+  },
+  "clubs": {
+    "card": {
+      "joined": "Đã tham gia",
+      "members_one": "{{count}} thành viên",
+      "members_other": "{{count}} thành viên"
+    },
+    "detail": {
+      "back": "Xem các câu lạc bộ khác",
+      "edit": "Sửa câu lạc bộ",
+      "host": "Tổ chức buổi gặp cho câu lạc bộ này",
+      "join": "Tham gia CLB",
+      "leave": "Rời CLB",
+      "leaveTitle": "Rời câu lạc bộ này?",
+      "metTimes_one": "Đã gặp một lần",
+      "metTimes_other": "Đã gặp {{count}} lần",
+      "neverMet": "Chưa gặp lần nào",
+      "noGatherings": "Chưa có gì được lên lịch.",
+      "upcoming": "Sắp tới",
+      "youOwn": "Bạn là chủ câu lạc bộ này"
+    },
+    "form": {
+      "city": "Thành phố (tùy chọn)",
+      "create": "Tạo câu lạc bộ",
+      "createTitle": "Lập câu lạc bộ",
+      "description": "Giới thiệu câu lạc bộ (tùy chọn)",
+      "editTitle": "Sửa câu lạc bộ",
+      "errors": {
+        "descriptionTooLong": "Mô tả không được quá 2000 ký tự.",
+        "interestTooLong": "Sở thích không được quá 60 ký tự.",
+        "languageRequired": "Chọn ngôn ngữ của câu lạc bộ.",
+        "nameRequired": "Hãy đặt tên cho câu lạc bộ.",
+        "nameTooLong": "Tên không được quá 80 ký tự."
+      },
+      "interest": "Điều gắn kết các bạn (vd: sách, phim Hàn)",
+      "language": "Ngôn ngữ",
+      "name": "Tên",
+      "notAllowed": "Chỉ chủ câu lạc bộ hoặc ban tổ chức mới sửa được.",
+      "placeAddress": "Địa chỉ (tùy chọn)",
+      "placeName": "Nơi gặp nhau (tùy chọn)"
+    },
+    "home": {
+      "empty": "Chưa có câu lạc bộ nào ở đây.",
+      "scopeAll": "Tất cả",
+      "scopeMember": "Đã tham gia",
+      "scopeMine": "Ngôn ngữ của tôi",
+      "start": "Lập câu lạc bộ"
+    },
+    "owner": {
+      "delete": "Xóa câu lạc bộ",
+      "deleteBody": "Thành viên sẽ mất câu lạc bộ. Các buổi gặp đã lên lịch vẫn diễn ra.",
+      "deleteTitle": "Xóa {{name}}?"
+    },
+    "people": {
+      "makeMember": "Bỏ ban tổ chức",
+      "makeOrganizer": "Đặt làm ban tổ chức",
+      "organizer": "Ban tổ chức",
+      "owner": "Chủ CLB",
+      "remove": "Xóa khỏi câu lạc bộ",
+      "removeTitle": "Xóa {{name}}?",
+      "title": "Thành viên · {{count}}"
+    }
+  },
+  "gatherings": {
+    "card": {
+      "approval": "Cần người tổ chức duyệt",
+      "full": "Đã đầy",
+      "going": "Sẽ tham gia",
+      "hostedBy": "Tổ chức bởi {{name}}",
+      "hosting": "Bạn là người tổ chức",
+      "requested": "Đã gửi yêu cầu",
+      "seatsLeft_one": "Còn {{count}} chỗ",
+      "seatsLeft_other": "Còn {{count}} chỗ"
+    },
+    "confirm": {
+      "cancel": "Để sau",
+      "leaveBody": "Mọi người đang trông chờ những ai đã nhận lời.",
+      "leaveOk": "Nhường chỗ của tôi",
+      "leaveTitle": "Nhường chỗ của bạn?"
+    },
+    "cover": {
+      "add": "Thêm ảnh bìa",
+      "badType": "Dùng ảnh JPEG, PNG, GIF hoặc WebP.",
+      "change": "Đổi ảnh bìa",
+      "remove": "Gỡ ảnh bìa",
+      "tooBig": "Ảnh này lớn hơn 10 MB."
+    },
+    "detail": {
+      "askToJoin": "Xin tham gia",
+      "back": "Xem các buổi gặp khác",
+      "cancelRequest": "Hủy yêu cầu của tôi",
+      "capacity": "Tối đa {{count}} người · xác nhận khi đủ {{quorum}}",
+      "duration": "{{count}} phút",
+      "edit": "Sửa buổi gặp",
+      "host": "Người tổ chức",
+      "join": "Tôi sẽ tham gia",
+      "leave": "Tôi không đi được nữa",
+      "online": "Trực tuyến",
+      "requestSent": "Đã gửi yêu cầu. Người tổ chức sẽ quyết định.",
+      "someone": "Một thành viên BananaTalk",
+      "youreGoing": "Bạn sẽ tham gia."
+    },
+    "errors": {
+      "alreadyGoing": "Bạn đã tham gia rồi.",
+      "cancelled": "Buổi gặp này đã bị hủy.",
+      "capacityBelowGoing": "Số chỗ không được ít hơn {{count}} người đã tham gia.",
+      "clubArchived": "Câu lạc bộ này đã được lưu trữ.",
+      "clubGone": "Câu lạc bộ này không còn khả dụng.",
+      "endBeforeStart": "Bạn chỉ có thể kết thúc buổi gặp sau khi nó đã bắt đầu.",
+      "ended": "Buổi gặp này đã kết thúc.",
+      "full": "Buổi gặp này đã đầy.",
+      "gatheringGone": "Buổi gặp này không còn khả dụng.",
+      "generic": "Đã xảy ra lỗi. Hãy thử lại.",
+      "hostBlocked": "Hiện bạn chưa thể tổ chức: quá nhiều buổi gặp của bạn đã bị hủy hoặc bỏ lỡ.",
+      "hostCannotLeave": "Là người tổ chức, hãy hủy buổi gặp thay vì rời đi.",
+      "joinClubFirst": "Hãy tham gia câu lạc bộ trước khi tổ chức cho nó.",
+      "offline": "Bạn đang ngoại tuyến. Hãy kiểm tra kết nối.",
+      "ownerCannotLeave": "Là chủ câu lạc bộ, bạn có thể xóa nhưng không thể rời câu lạc bộ.",
+      "pastStart": "Hãy chọn giờ bắt đầu trong tương lai.",
+      "pending": "Yêu cầu của bạn đang chờ người tổ chức.",
+      "started": "Buổi gặp này đã bắt đầu."
+    },
+    "form": {
+      "anyLevel": "Mọi trình độ",
+      "cancel": "Hủy",
+      "capacity": "Số chỗ",
+      "create": "Đăng buổi gặp",
+      "createTitle": "Tổ chức buổi gặp",
+      "description": "Mọi người sẽ làm gì? (tùy chọn)",
+      "duration_one": "Kéo dài {{count}} phút · theo múi giờ của bạn",
+      "duration_other": "Kéo dài {{count}} phút · theo múi giờ của bạn",
+      "editTitle": "Sửa buổi gặp",
+      "errors": {
+        "capacityRange": "Số chỗ phải từ 2 đến 20.",
+        "descriptionTooLong": "Mô tả không được quá 2000 ký tự.",
+        "languageRequired": "Chọn ngôn ngữ bạn sẽ luyện tập.",
+        "quorumRange": "Buổi gặp xác nhận khi có từ 2 người trở lên và không quá số chỗ.",
+        "startInPast": "Hãy chọn giờ bắt đầu trong tương lai.",
+        "startRequired": "Chọn ngày và giờ.",
+        "startTooFar": "Chọn thời điểm trong vòng 90 ngày tới.",
+        "titleRequired": "Hãy đặt tiêu đề cho buổi gặp.",
+        "titleTooLong": "Tiêu đề không được quá 120 ký tự."
+      },
+      "joinApproval": "Tôi duyệt từng người",
+      "joinMode": "Ai có thể tham gia",
+      "joinOpen": "Bất kỳ ai",
+      "language": "Ngôn ngữ",
+      "level": "Trình độ",
+      "noTopic": "Không có chủ đề",
+      "notHost": "Chỉ người tổ chức mới sửa được buổi gặp này.",
+      "pickLanguage": "Chọn ngôn ngữ",
+      "quorum": "Xác nhận khi đủ",
+      "save": "Lưu",
+      "startsAt": "Bắt đầu",
+      "title": "Tiêu đề",
+      "topic": "Chủ đề"
+    },
+    "home": {
+      "anyLanguage": "Ngôn ngữ của tôi",
+      "anyTime": "Mọi lúc",
+      "anyTopic": "Mọi chủ đề",
+      "empty": "Chưa có gì được lên lịch ở đây.",
+      "emptyCta": "Tổ chức buổi đầu tiên",
+      "error": "Không tải được danh sách này.",
+      "hasSeat": "Còn chỗ trống",
+      "host": "Tổ chức buổi gặp",
+      "language": "Ngôn ngữ",
+      "loadMore": "Tải thêm",
+      "retry": "Thử lại",
+      "scopeAll": "Tất cả",
+      "scopeMe": "Buổi gặp của tôi",
+      "scopeMine": "Ngôn ngữ của tôi",
+      "tabClubs": "Câu lạc bộ",
+      "tabGatherings": "Buổi gặp",
+      "title": "Buổi gặp",
+      "today": "Hôm nay",
+      "topic": "Chủ đề",
+      "week": "Tuần này",
+      "when": "Khi nào"
+    },
+    "host": {
+      "approve": "Chấp nhận",
+      "callOff": "Hủy buổi gặp",
+      "callOffTitle": "Hủy buổi gặp?",
+      "cancel": "Hủy buổi gặp",
+      "cancelConfirm_one": "{{count}} người đang chờ buổi này. Họ sẽ được báo là đã hủy.",
+      "cancelConfirm_other": "{{count}} người đang chờ buổi này. Họ sẽ được báo là đã hủy.",
+      "cancelOk": "Hủy buổi gặp",
+      "cancelTitle": "Hủy buổi gặp này?",
+      "decisionAlone": "Hiện mới chỉ có mình bạn. Vẫn tổ chức hay hủy?",
+      "decision_one": "Hiện mới chỉ có {{count}} người. Vẫn tổ chức hay hủy?",
+      "decision_other": "Hiện mới chỉ có {{count}} người. Vẫn tổ chức hay hủy?",
+      "decline": "Từ chối",
+      "end": "Kết thúc buổi gặp",
+      "ended": "Đã kết thúc — nhắn tin cho người bạn vừa gặp là miễn phí",
+      "nobodyExpecting": "Chưa có ai khác nhận lời.",
+      "requests_one": "{{count}} đang chờ tham gia",
+      "requests_other": "{{count}} đang chờ tham gia",
+      "runAnyway": "Vẫn tổ chức"
+    },
+    "nav": "Buổi gặp",
+    "quorum": {
+      "confirmed": "Đã xác nhận · {{count}} người tham gia",
+      "needed": "Cần thêm {{count}} người để xác nhận · {{going}} người tham gia"
+    },
+    "safety": {
+      "blockHost": "Chặn người tổ chức",
+      "blockOwner": "Chặn chủ CLB",
+      "more": "Thêm",
+      "reportClub": "Báo cáo câu lạc bộ",
+      "reportFailed": "Không gửi được báo cáo. Hãy thử lại.",
+      "reportGathering": "Báo cáo buổi gặp",
+      "reported": "Cảm ơn — đội kiểm duyệt sẽ xem xét."
+    },
+    "status": {
+      "cancelled": "Đã hủy",
+      "confirmed": "Đã xác nhận",
+      "ended": "Đã kết thúc",
+      "live": "Đang diễn ra",
+      "scheduled": "Đã lên lịch"
+    },
+    "time": {
+      "hostLocal": "{{time}} theo giờ người tổ chức"
+    },
+    "topics": {
+      "business": "Kinh doanh",
+      "conversation": "Hội thoại",
+      "culture": "Văn hóa",
+      "exam_prep": "Luyện thi",
+      "games": "Trò chơi",
+      "grammar": "Ngữ pháp",
+      "media": "Nhạc, phim & truyền hình",
+      "pronunciation": "Phát âm",
+      "travel": "Du lịch"
+    }
+  },
+  "common": {
+    "cancel": "Hủy",
+    "retry": "Thử lại"
+  },
+  "communityCity": {
+    "back": "Cộng đồng",
+    "countries": "Quốc gia",
+    "empty": "Chưa có ai phù hợp ở đây. Hãy thử nơi khác.",
+    "error": "Không tải được danh sách người dùng. Hãy thử lại.",
+    "more": "Xem thêm",
+    "search": "Tìm kiếm",
+    "searchPlaceholder": "Tìm một thành phố",
+    "searchTitle": "Mọi người ở “{{query}}”",
+    "title": "Mọi người theo địa điểm"
+  },
+  "communityGenders": {
+    "back": "Cộng đồng",
+    "empty": "Chưa có ai phù hợp.",
+    "error": "Không tải được danh sách người dùng. Hãy thử lại.",
+    "female": "Nữ",
+    "male": "Nam",
+    "more": "Xem thêm",
+    "title": "Xem theo giới tính"
+  },
+  "languageRooms": {
+    "create": {
+      "description": "Mô tả (không bắt buộc)",
+      "language": "Ngôn ngữ",
+      "name": "Chủ đề",
+      "submit": "Tạo phòng",
+      "title": "Tạo phòng chủ đề"
+    },
+    "errors": {
+      "banned": "Bạn đã bị xóa khỏi phòng này. Bạn có thể nhờ chủ phòng cho vào lại.",
+      "busy": "Phòng này đang có quá nhiều yêu cầu. Hãy thử lại sau.",
+      "generic": "Đã xảy ra lỗi. Hãy thử lại.",
+      "gone": "Phòng này không còn nữa.",
+      "owner": "Không thể xóa chủ phòng.",
+      "pending": "Yêu cầu của bạn đang chờ chủ phòng duyệt.",
+      "titleLength": "Tên tối đa 60 ký tự.",
+      "tooMany": "Bạn đã có 10 phòng. Hãy xóa một phòng để tạo phòng mới."
+    },
+    "list": {
+      "create": "Phòng chủ đề mới",
+      "empty": "Chưa có phòng nào.",
+      "error": "Không tải được phòng ngôn ngữ.",
+      "joined": "Đã tham gia",
+      "locked": "Đã khóa",
+      "title": "Phòng ngôn ngữ"
+    },
+    "owner": {
+      "admin": "quản trị viên",
+      "approve": "Cho vào",
+      "deny": "Từ chối",
+      "members": "Thành viên",
+      "noRequests": "Không có ai đang chờ.",
+      "owner": "chủ phòng",
+      "remove": "Xóa khỏi phòng",
+      "removeNote": "Thành viên bị xóa có thể xin quay lại; bạn là người quyết định.",
+      "removeYes": "Xóa",
+      "requests": "Yêu cầu tham gia"
+    },
+    "room": {
+      "back": "Tất cả phòng",
+      "join": "Tham gia phòng",
+      "leave": "Rời phòng",
+      "media": "Ảnh hoặc video — mở ứng dụng để xem",
+      "notSent": "Chưa gửi được. Hãy thử lại.",
+      "older": "Tải tin nhắn cũ hơn",
+      "online": "trực tuyến",
+      "pending": "Đã gửi yêu cầu. Chủ phòng sẽ cho bạn vào.",
+      "placeholder": "Viết bằng ngôn ngữ của phòng…",
+      "request": "Xin tham gia",
+      "send": "Gửi",
+      "slowDown": "Bạn đang gửi quá nhanh. Chậm lại một chút nhé.",
+      "sticker": "Nhãn dán",
+      "unsupported": "Mở ứng dụng để xem tin nhắn này",
+      "voice": "Tin nhắn thoại — mở ứng dụng để nghe"
+    }
+  },
+  "nav": {
+    "languageRooms": "Phòng ngôn ngữ",
+    "voiceRooms": "Phòng thoại"
+  },
+  "voiceRooms": {
+    "category": {
+      "casual": "Trò chuyện thoải mái",
+      "language_practice": "Luyện ngôn ngữ",
+      "qa": "Hỏi & đáp",
+      "topic": "Chủ đề"
+    },
+    "create": {
+      "category": "Loại phòng",
+      "description": "Bạn sẽ nói về điều gì? (không bắt buộc)",
+      "language": "Ngôn ngữ",
+      "max": "Tối đa bao nhiêu người",
+      "name": "Tên phòng",
+      "schedule": "Lên lịch",
+      "start": "Bắt đầu phòng",
+      "title": "Tạo phòng thoại",
+      "when": "Bắt đầu sau (không bắt buộc)"
+    },
+    "errors": {
+      "blocked": "Bạn không thể tham gia phòng này.",
+      "ended": "Phòng này đã kết thúc.",
+      "full": "Phòng này đã đầy.",
+      "generic": "Đã xảy ra lỗi. Hãy thử lại.",
+      "gone": "Phòng này không còn nữa.",
+      "vipToCreate": "Cần gói VIP để tạo phòng thoại."
+    },
+    "host": {
+      "end": "Kết thúc phòng",
+      "endConfirm": "Kết thúc phòng cho mọi người?",
+      "endYes": "Kết thúc phòng",
+      "hands": "Người giơ tay",
+      "makeCohost": "Nâng lên đồng chủ phòng",
+      "muteAll": "Tắt mic mọi người",
+      "noHands": "Chưa có ai giơ tay.",
+      "speakNote": "Bất kỳ ai trong phòng cũng có thể cầm mic. Giơ tay là xin bạn một lượt nói.",
+      "title": "Công cụ chủ phòng"
+    },
+    "list": {
+      "create": "Tạo phòng",
+      "emptyLive": "Hiện chưa có ai trò chuyện. Hãy tạo phòng và mời mọi người vào.",
+      "emptyScheduled": "Chưa có phòng nào được lên lịch.",
+      "error": "Không tải được phòng thoại.",
+      "full": "Đầy",
+      "going": "Sẽ tham gia ✓",
+      "join": "Tham gia",
+      "live": "Đang diễn ra",
+      "rsvp": "Nhắc tôi",
+      "scheduled": "Sắp diễn ra",
+      "title": "Phòng thoại"
+    },
+    "room": {
+      "back": "Tất cả phòng",
+      "chat": "Trò chuyện trong phòng",
+      "chatPlaceholder": "Nói gì đó…",
+      "connectFailed": "Không kết nối được âm thanh của phòng. Hãy kiểm tra kết nối và thử lại.",
+      "elsewhere": "Bạn đã tham gia phòng này từ một tab hoặc thiết bị khác.",
+      "enableSound": "Chạm để bật âm thanh của phòng",
+      "ended": "Phòng này đã kết thúc.",
+      "findAnother": "Tìm phòng khác",
+      "handUp": "Đã giơ tay",
+      "host": "Chủ phòng",
+      "join": "Tham gia phòng",
+      "joinHint": "Bạn sẽ tham gia với tư cách người nghe. Cầm mic bất cứ khi nào bạn sẵn sàng.",
+      "leave": "Rời đi",
+      "lost": "Mất kết nối với phòng.",
+      "lowerHand": "Hạ tay",
+      "micDenied": "Trình duyệt đang chặn micrô. Hãy cho phép micrô cho banatalk.com trên thanh địa chỉ rồi thử lại. Bạn vẫn có thể tiếp tục nghe.",
+      "micError": "Không bật được micrô. Hãy thử lại.",
+      "micUnavailable": "Không tìm thấy micrô (hoặc một ứng dụng khác đang dùng). Bạn vẫn có thể tiếp tục nghe.",
+      "mute": "Tắt mic",
+      "raiseHand": "Giơ tay",
+      "reconnecting": "Đang kết nối lại…",
+      "rejoin": "Tham gia lại",
+      "send": "Gửi",
+      "takeMic": "Cầm mic",
+      "useHere": "Nghe ở đây",
+      "you": "bạn"
     }
   }
 }

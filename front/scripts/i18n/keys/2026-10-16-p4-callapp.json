@@ -1,0 +1,218 @@
+{
+  "eng": {
+    "chatPage": {
+      "callInApp": {
+        "voice": "Voice call",
+        "video": "Video call",
+        "title": "Calls happen in the BananaTalk app",
+        "body": "Open the app to call {{name}}. Incoming calls ring on your phone.",
+        "openApp": "Open the app",
+        "notNow": "Not now"
+      }
+    }
+  },
+  "kor": {
+    "chatPage": {
+      "callInApp": {
+        "voice": "음성 통화",
+        "video": "영상 통화",
+        "title": "통화는 BananaTalk 앱에서 할 수 있어요",
+        "body": "앱을 열어 {{name}}님에게 전화하세요. 걸려 오는 전화는 휴대폰으로 울려요.",
+        "openApp": "앱 열기",
+        "notNow": "나중에"
+      }
+    }
+  },
+  "ja": {
+    "chatPage": {
+      "callInApp": {
+        "voice": "音声通話",
+        "video": "ビデオ通話",
+        "title": "通話はBananaTalkアプリで行えます",
+        "body": "アプリを開いて{{name}}さんに電話しましょう。着信はスマートフォンで鳴ります。",
+        "openApp": "アプリを開く",
+        "notNow": "今はしない"
+      }
+    }
+  },
+  "zho": {
+    "chatPage": {
+      "callInApp": {
+        "voice": "语音通话",
+        "video": "视频通话",
+        "title": "通话需在 BananaTalk 应用中进行",
+        "body": "打开应用即可呼叫{{name}}。来电会在你的手机上响铃。",
+        "openApp": "打开应用",
+        "notNow": "以后再说"
+      }
+    }
+  },
+  "zh_TW": {
+    "chatPage": {
+      "callInApp": {
+        "voice": "語音通話",
+        "video": "視訊通話",
+        "title": "通話需在 BananaTalk 應用程式中進行",
+        "body": "開啟應用程式即可撥打給{{name}}。來電會在你的手機上響鈴。",
+        "openApp": "開啟應用程式",
+        "notNow": "稍後再說"
+      }
+    }
+  },
+  "ar": {
+    "chatPage": {
+      "callInApp": {
+        "voice": "مكالمة صوتية",
+        "video": "مكالمة فيديو",
+        "title": "تتم المكالمات في تطبيق BananaTalk",
+        "body": "افتح التطبيق للاتصال بـ {{name}}. ترن المكالمات الواردة على هاتفك.",
+        "openApp": "افتح التطبيق",
+        "notNow": "ليس الآن"
+      }
+    }
+  },
+  "de": {
+    "chatPage": {
+      "callInApp": {
+        "voice": "Sprachanruf",
+        "video": "Videoanruf",
+        "title": "Anrufe laufen über die BananaTalk-App",
+        "body": "Öffne die App, um {{name}} anzurufen. Eingehende Anrufe klingeln auf deinem Handy.",
+        "openApp": "App öffnen",
+        "notNow": "Nicht jetzt"
+      }
+    }
+  },
+  "es": {
+    "chatPage": {
+      "callInApp": {
+        "voice": "Llamada de voz",
+        "video": "Videollamada",
+        "title": "Las llamadas se hacen en la app de BananaTalk",
+        "body": "Abre la app para llamar a {{name}}. Las llamadas entrantes suenan en tu teléfono.",
+        "openApp": "Abrir la app",
+        "notNow": "Ahora no"
+      }
+    }
+  },
+  "fr": {
+    "chatPage": {
+      "callInApp": {
+        "voice": "Appel vocal",
+        "video": "Appel vidéo",
+        "title": "Les appels se passent dans l'application BananaTalk",
+        "body": "Ouvre l'application pour appeler {{name}}. Les appels entrants sonnent sur ton téléphone.",
+        "openApp": "Ouvrir l'application",
+        "notNow": "Pas maintenant"
+      }
+    }
+  },
+  "hi": {
+    "chatPage": {
+      "callInApp": {
+        "voice": "वॉइस कॉल",
+        "video": "वीडियो कॉल",
+        "title": "कॉल BananaTalk ऐप में होती हैं",
+        "body": "{{name}} को कॉल करने के लिए ऐप खोलें। आने वाली कॉल आपके फ़ोन पर बजती हैं।",
+        "openApp": "ऐप खोलें",
+        "notNow": "अभी नहीं"
+      }
+    }
+  },
+  "id": {
+    "chatPage": {
+      "callInApp": {
+        "voice": "Panggilan suara",
+        "video": "Panggilan video",
+        "title": "Panggilan dilakukan di aplikasi BananaTalk",
+        "body": "Buka aplikasi untuk menelepon {{name}}. Panggilan masuk berdering di ponselmu.",
+        "openApp": "Buka aplikasi",
+        "notNow": "Nanti saja"
+      }
+    }
+  },
+  "it": {
+    "chatPage": {
+      "callInApp": {
+        "voice": "Chiamata vocale",
+        "video": "Videochiamata",
+        "title": "Le chiamate si fanno nell'app BananaTalk",
+        "body": "Apri l'app per chiamare {{name}}. Le chiamate in arrivo squillano sul tuo telefono.",
+        "openApp": "Apri l'app",
+        "notNow": "Non ora"
+      }
+    }
+  },
+  "pt": {
+    "chatPage": {
+      "callInApp": {
+        "voice": "Chamada de voz",
+        "video": "Chamada de vídeo",
+        "title": "As chamadas acontecem no app BananaTalk",
+        "body": "Abra o app para ligar para {{name}}. As chamadas recebidas tocam no seu celular.",
+        "openApp": "Abrir o app",
+        "notNow": "Agora não"
+      }
+    }
+  },
+  "ru": {
+    "chatPage": {
+      "callInApp": {
+        "voice": "Голосовой звонок",
+        "video": "Видеозвонок",
+        "title": "Звонки доступны в приложении BananaTalk",
+        "body": "Откройте приложение, чтобы позвонить {{name}}. Входящие звонки поступают на ваш телефон.",
+        "openApp": "Открыть приложение",
+        "notNow": "Не сейчас"
+      }
+    }
+  },
+  "th": {
+    "chatPage": {
+      "callInApp": {
+        "voice": "โทรด้วยเสียง",
+        "video": "วิดีโอคอล",
+        "title": "การโทรใช้งานได้ในแอป BananaTalk",
+        "body": "เปิดแอปเพื่อโทรหา {{name}} สายเรียกเข้าจะดังบนโทรศัพท์ของคุณ",
+        "openApp": "เปิดแอป",
+        "notNow": "ไว้ทีหลัง"
+      }
+    }
+  },
+  "tl": {
+    "chatPage": {
+      "callInApp": {
+        "voice": "Voice call",
+        "video": "Video call",
+        "title": "Sa BananaTalk app ginagawa ang mga tawag",
+        "body": "Buksan ang app para tawagan si {{name}}. Sa phone mo tumutunog ang mga papasok na tawag.",
+        "openApp": "Buksan ang app",
+        "notNow": "Hindi muna"
+      }
+    }
+  },
+  "tr": {
+    "chatPage": {
+      "callInApp": {
+        "voice": "Sesli arama",
+        "video": "Görüntülü arama",
+        "title": "Aramalar BananaTalk uygulamasında yapılır",
+        "body": "{{name}} kişisini aramak için uygulamayı aç. Gelen aramalar telefonunda çalar.",
+        "openApp": "Uygulamayı aç",
+        "notNow": "Şimdi değil"
+      }
+    }
+  },
+  "vi": {
+    "chatPage": {
+      "callInApp": {
+        "voice": "Gọi thoại",
+        "video": "Gọi video",
+        "title": "Cuộc gọi diễn ra trong ứng dụng BananaTalk",
+        "body": "Mở ứng dụng để gọi cho {{name}}. Cuộc gọi đến sẽ đổ chuông trên điện thoại của bạn.",
+        "openApp": "Mở ứng dụng",
+        "notNow": "Để sau"
+      }
+    }
+  }
+}

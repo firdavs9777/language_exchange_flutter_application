@@ -1,0 +1,488 @@
+{
+  "ar": {
+    "authentication": {
+      "callback": {
+        "banned": "تم تعليق هذا الحساب.",
+        "codeExpired": "انتهت صلاحية رابط تسجيل الدخول هذا. يرجى تسجيل الدخول مرة أخرى.",
+        "completing": "جارٍ إكمال تسجيل الدخول...",
+        "emailExists": "يوجد حساب بهذا البريد الإلكتروني بالفعل. سجّل الدخول باستخدام بريدك الإلكتروني وكلمة المرور.",
+        "failedTitle": "فشل تسجيل الدخول",
+        "generic": "فشل تسجيل الدخول. يرجى المحاولة مرة أخرى.",
+        "noCode": "لم يكتمل تسجيل الدخول. يرجى المحاولة مرة أخرى.",
+        "redirecting": "جارٍ إعادتك إلى تسجيل الدخول...",
+        "wait": "يرجى الانتظار بينما نسجّل دخولك."
+      }
+    },
+    "stories": {
+      "linkPage": {
+        "browse": "شاهد القصص الحالية",
+        "expired": "انتهت صلاحية هذه القصة أو تم حذفها. تختفي القصص بعد 24 ساعة.",
+        "failed": "تعذّر تحميل هذه القصة.",
+        "retry": "حاول مرة أخرى",
+        "sign_in": "تسجيل الدخول",
+        "sign_in_body": "سجّل الدخول لمشاهدتها، أو افتحها في تطبيق BananaTalk.",
+        "sign_in_title": "شاركك أحدهم قصة",
+        "unavailable": "هذه القصة غير متاحة لك."
+      }
+    }
+  },
+  "de": {
+    "authentication": {
+      "callback": {
+        "banned": "Dieses Konto wurde gesperrt.",
+        "codeExpired": "Dieser Anmeldelink ist abgelaufen. Bitte melde dich erneut an.",
+        "completing": "Anmeldung wird abgeschlossen...",
+        "emailExists": "Es gibt bereits ein Konto mit dieser E-Mail-Adresse. Melde dich mit deiner E-Mail-Adresse und deinem Passwort an.",
+        "failedTitle": "Anmeldung fehlgeschlagen",
+        "generic": "Anmeldung fehlgeschlagen. Bitte versuche es erneut.",
+        "noCode": "Die Anmeldung wurde nicht abgeschlossen. Bitte versuche es erneut.",
+        "redirecting": "Du wirst zur Anmeldung zurückgeleitet...",
+        "wait": "Bitte warte, während wir dich anmelden."
+      }
+    },
+    "stories": {
+      "linkPage": {
+        "browse": "Aktuelle Storys ansehen",
+        "expired": "Diese Story ist abgelaufen oder wurde gelöscht. Storys verschwinden nach 24 Stunden.",
+        "failed": "Diese Story konnte nicht geladen werden.",
+        "retry": "Erneut versuchen",
+        "sign_in": "Anmelden",
+        "sign_in_body": "Melde dich an, um sie anzusehen, oder öffne sie in der BananaTalk-App.",
+        "sign_in_title": "Jemand hat eine Story mit dir geteilt",
+        "unavailable": "Diese Story ist für dich nicht verfügbar."
+      }
+    }
+  },
+  "eng": {
+    "authentication": {
+      "callback": {
+        "banned": "This account has been suspended.",
+        "codeExpired": "This sign-in link has expired. Please sign in again.",
+        "completing": "Completing sign in...",
+        "emailExists": "An account with this email already exists. Sign in with your email and password.",
+        "failedTitle": "Sign in failed",
+        "generic": "Sign in failed. Please try again.",
+        "noCode": "Sign in didn't finish. Please try again.",
+        "redirecting": "Taking you back to sign in...",
+        "wait": "Please wait while we sign you in."
+      }
+    },
+    "stories": {
+      "linkPage": {
+        "browse": "See current stories",
+        "expired": "This story has expired or was deleted. Stories disappear after 24 hours.",
+        "failed": "We couldn't load this story.",
+        "retry": "Try again",
+        "sign_in": "Sign in",
+        "sign_in_body": "Sign in to watch it, or open it in the BananaTalk app.",
+        "sign_in_title": "Someone shared a story with you",
+        "unavailable": "This story isn't available to you."
+      }
+    }
+  },
+  "es": {
+    "authentication": {
+      "callback": {
+        "banned": "Esta cuenta ha sido suspendida.",
+        "codeExpired": "Este enlace de inicio de sesión ha caducado. Vuelve a iniciar sesión.",
+        "completing": "Completando el inicio de sesión...",
+        "emailExists": "Ya existe una cuenta con este correo. Inicia sesión con tu correo y tu contraseña.",
+        "failedTitle": "No se pudo iniciar sesión",
+        "generic": "No se pudo iniciar sesión. Inténtalo de nuevo.",
+        "noCode": "El inicio de sesión no terminó. Inténtalo de nuevo.",
+        "redirecting": "Volviendo al inicio de sesión...",
+        "wait": "Espera mientras iniciamos tu sesión."
+      }
+    },
+    "stories": {
+      "linkPage": {
+        "browse": "Ver historias actuales",
+        "expired": "Esta historia ha caducado o se eliminó. Las historias desaparecen después de 24 horas.",
+        "failed": "No pudimos cargar esta historia.",
+        "retry": "Reintentar",
+        "sign_in": "Iniciar sesión",
+        "sign_in_body": "Inicia sesión para verla o ábrela en la app BananaTalk.",
+        "sign_in_title": "Alguien compartió una historia contigo",
+        "unavailable": "Esta historia no está disponible para ti."
+      }
+    }
+  },
+  "fr": {
+    "authentication": {
+      "callback": {
+        "banned": "Ce compte a été suspendu.",
+        "codeExpired": "Ce lien de connexion a expiré. Veuillez vous reconnecter.",
+        "completing": "Connexion en cours...",
+        "emailExists": "Un compte existe déjà avec cette adresse e-mail. Connectez-vous avec votre e-mail et votre mot de passe.",
+        "failedTitle": "Échec de la connexion",
+        "generic": "Échec de la connexion. Veuillez réessayer.",
+        "noCode": "La connexion n'a pas abouti. Veuillez réessayer.",
+        "redirecting": "Retour à la page de connexion...",
+        "wait": "Veuillez patienter pendant que nous vous connectons."
+      }
+    },
+    "stories": {
+      "linkPage": {
+        "browse": "Voir les stories du moment",
+        "expired": "Cette story a expiré ou a été supprimée. Les stories disparaissent après 24 heures.",
+        "failed": "Impossible de charger cette story.",
+        "retry": "Réessayer",
+        "sign_in": "Se connecter",
+        "sign_in_body": "Connectez-vous pour la voir, ou ouvrez-la dans l'application BananaTalk.",
+        "sign_in_title": "Quelqu'un a partagé une story avec vous",
+        "unavailable": "Cette story ne vous est pas accessible."
+      }
+    }
+  },
+  "hi": {
+    "authentication": {
+      "callback": {
+        "banned": "यह खाता निलंबित कर दिया गया है।",
+        "codeExpired": "यह साइन-इन लिंक समाप्त हो गया है। कृपया फिर से साइन इन करें।",
+        "completing": "साइन इन पूरा हो रहा है...",
+        "emailExists": "इस ईमेल से पहले से एक खाता मौजूद है। अपने ईमेल और पासवर्ड से साइन इन करें।",
+        "failedTitle": "साइन इन नहीं हो सका",
+        "generic": "साइन इन नहीं हो सका। कृपया फिर से कोशिश करें।",
+        "noCode": "साइन इन पूरा नहीं हुआ। कृपया फिर से कोशिश करें।",
+        "redirecting": "आपको साइन इन पर वापस ले जा रहे हैं...",
+        "wait": "कृपया प्रतीक्षा करें, हम आपको साइन इन कर रहे हैं।"
+      }
+    },
+    "stories": {
+      "linkPage": {
+        "browse": "मौजूदा स्टोरी देखें",
+        "expired": "यह स्टोरी समाप्त हो गई है या हटा दी गई है। स्टोरी 24 घंटे बाद गायब हो जाती हैं।",
+        "failed": "हम यह स्टोरी लोड नहीं कर सके।",
+        "retry": "फिर से कोशिश करें",
+        "sign_in": "साइन इन",
+        "sign_in_body": "इसे देखने के लिए साइन इन करें, या BananaTalk ऐप में खोलें।",
+        "sign_in_title": "किसी ने आपके साथ एक स्टोरी शेयर की है",
+        "unavailable": "यह स्टोरी आपके लिए उपलब्ध नहीं है।"
+      }
+    }
+  },
+  "id": {
+    "authentication": {
+      "callback": {
+        "banned": "Akun ini telah ditangguhkan.",
+        "codeExpired": "Tautan masuk ini sudah kedaluwarsa. Silakan masuk lagi.",
+        "completing": "Menyelesaikan proses masuk...",
+        "emailExists": "Akun dengan email ini sudah ada. Masuk dengan email dan kata sandi Anda.",
+        "failedTitle": "Gagal masuk",
+        "generic": "Gagal masuk. Silakan coba lagi.",
+        "noCode": "Proses masuk belum selesai. Silakan coba lagi.",
+        "redirecting": "Mengembalikan Anda ke halaman masuk...",
+        "wait": "Harap tunggu, kami sedang memasukkan Anda."
+      }
+    },
+    "stories": {
+      "linkPage": {
+        "browse": "Lihat story terbaru",
+        "expired": "Story ini sudah kedaluwarsa atau dihapus. Story hilang setelah 24 jam.",
+        "failed": "Kami tidak dapat memuat story ini.",
+        "retry": "Coba lagi",
+        "sign_in": "Masuk",
+        "sign_in_body": "Masuk untuk menontonnya, atau buka di aplikasi BananaTalk.",
+        "sign_in_title": "Seseorang membagikan story kepada Anda",
+        "unavailable": "Story ini tidak tersedia untuk Anda."
+      }
+    }
+  },
+  "it": {
+    "authentication": {
+      "callback": {
+        "banned": "Questo account è stato sospeso.",
+        "codeExpired": "Questo link di accesso è scaduto. Accedi di nuovo.",
+        "completing": "Completamento dell'accesso...",
+        "emailExists": "Esiste già un account con questa email. Accedi con la tua email e la tua password.",
+        "failedTitle": "Accesso non riuscito",
+        "generic": "Accesso non riuscito. Riprova.",
+        "noCode": "L'accesso non è stato completato. Riprova.",
+        "redirecting": "Ti riportiamo alla pagina di accesso...",
+        "wait": "Attendi mentre ti facciamo accedere."
+      }
+    },
+    "stories": {
+      "linkPage": {
+        "browse": "Guarda le storie attuali",
+        "expired": "Questa storia è scaduta o è stata eliminata. Le storie scompaiono dopo 24 ore.",
+        "failed": "Impossibile caricare questa storia.",
+        "retry": "Riprova",
+        "sign_in": "Accedi",
+        "sign_in_body": "Accedi per guardarla, oppure aprila nell'app BananaTalk.",
+        "sign_in_title": "Qualcuno ha condiviso una storia con te",
+        "unavailable": "Questa storia non è disponibile per te."
+      }
+    }
+  },
+  "ja": {
+    "authentication": {
+      "callback": {
+        "banned": "このアカウントは停止されています。",
+        "codeExpired": "このログインリンクは有効期限が切れています。もう一度ログインしてください。",
+        "completing": "ログインを完了しています...",
+        "emailExists": "このメールアドレスのアカウントはすでに存在します。メールアドレスとパスワードでログインしてください。",
+        "failedTitle": "ログインできませんでした",
+        "generic": "ログインできませんでした。もう一度お試しください。",
+        "noCode": "ログインが完了しませんでした。もう一度お試しください。",
+        "redirecting": "ログイン画面に戻ります...",
+        "wait": "ログインが完了するまでお待ちください。"
+      }
+    },
+    "stories": {
+      "linkPage": {
+        "browse": "今のストーリーを見る",
+        "expired": "このストーリーは期限切れか削除されています。ストーリーは24時間で消えます。",
+        "failed": "ストーリーを読み込めませんでした。",
+        "retry": "もう一度試す",
+        "sign_in": "ログイン",
+        "sign_in_body": "ログインして見るか、BananaTalkアプリで開いてください。",
+        "sign_in_title": "ストーリーが共有されました",
+        "unavailable": "このストーリーは表示できません。"
+      }
+    }
+  },
+  "kor": {
+    "authentication": {
+      "callback": {
+        "banned": "이용이 정지된 계정이에요.",
+        "codeExpired": "로그인 링크가 만료됐어요. 다시 로그인해 주세요.",
+        "completing": "로그인을 완료하는 중...",
+        "emailExists": "이 이메일로 가입된 계정이 이미 있어요. 이메일과 비밀번호로 로그인해 주세요.",
+        "failedTitle": "로그인하지 못했어요",
+        "generic": "로그인하지 못했어요. 다시 시도해 주세요.",
+        "noCode": "로그인이 완료되지 않았어요. 다시 시도해 주세요.",
+        "redirecting": "로그인 화면으로 돌아가는 중...",
+        "wait": "로그인하는 동안 잠시 기다려 주세요."
+      }
+    },
+    "stories": {
+      "linkPage": {
+        "browse": "지금 올라온 스토리 보기",
+        "expired": "만료되었거나 삭제된 스토리예요. 스토리는 24시간 후에 사라져요.",
+        "failed": "스토리를 불러오지 못했어요.",
+        "retry": "다시 시도",
+        "sign_in": "로그인",
+        "sign_in_body": "로그인해서 보거나 BananaTalk 앱에서 열어 보세요.",
+        "sign_in_title": "누군가 스토리를 공유했어요",
+        "unavailable": "볼 수 없는 스토리예요."
+      }
+    }
+  },
+  "pt": {
+    "authentication": {
+      "callback": {
+        "banned": "Esta conta foi suspensa.",
+        "codeExpired": "Este link de login expirou. Faça login novamente.",
+        "completing": "Concluindo o login...",
+        "emailExists": "Já existe uma conta com este e-mail. Entre com seu e-mail e senha.",
+        "failedTitle": "Falha no login",
+        "generic": "Falha no login. Tente novamente.",
+        "noCode": "O login não foi concluído. Tente novamente.",
+        "redirecting": "Voltando para o login...",
+        "wait": "Aguarde enquanto fazemos seu login."
+      }
+    },
+    "stories": {
+      "linkPage": {
+        "browse": "Ver stories atuais",
+        "expired": "Este story expirou ou foi excluído. Os stories somem após 24 horas.",
+        "failed": "Não foi possível carregar este story.",
+        "retry": "Tentar novamente",
+        "sign_in": "Entrar",
+        "sign_in_body": "Entre para assistir ou abra no app BananaTalk.",
+        "sign_in_title": "Alguém compartilhou um story com você",
+        "unavailable": "Este story não está disponível para você."
+      }
+    }
+  },
+  "ru": {
+    "authentication": {
+      "callback": {
+        "banned": "Этот аккаунт заблокирован.",
+        "codeExpired": "Срок действия ссылки для входа истёк. Войдите снова.",
+        "completing": "Завершаем вход...",
+        "emailExists": "Аккаунт с этим адресом эл. почты уже существует. Войдите с помощью эл. почты и пароля.",
+        "failedTitle": "Не удалось войти",
+        "generic": "Не удалось войти. Попробуйте ещё раз.",
+        "noCode": "Вход не завершён. Попробуйте ещё раз.",
+        "redirecting": "Возвращаем вас ко входу...",
+        "wait": "Подождите, пока мы выполняем вход."
+      }
+    },
+    "stories": {
+      "linkPage": {
+        "browse": "Смотреть текущие истории",
+        "expired": "Срок действия этой истории истёк, или она удалена. Истории исчезают через 24 часа.",
+        "failed": "Не удалось загрузить историю.",
+        "retry": "Попробовать снова",
+        "sign_in": "Войти",
+        "sign_in_body": "Войдите, чтобы посмотреть её, или откройте в приложении BananaTalk.",
+        "sign_in_title": "С вами поделились историей",
+        "unavailable": "Эта история вам недоступна."
+      }
+    }
+  },
+  "th": {
+    "authentication": {
+      "callback": {
+        "banned": "บัญชีนี้ถูกระงับ",
+        "codeExpired": "ลิงก์เข้าสู่ระบบนี้หมดอายุแล้ว โปรดเข้าสู่ระบบอีกครั้ง",
+        "completing": "กำลังเข้าสู่ระบบให้เสร็จสิ้น...",
+        "emailExists": "มีบัญชีที่ใช้อีเมลนี้อยู่แล้ว โปรดเข้าสู่ระบบด้วยอีเมลและรหัสผ่านของคุณ",
+        "failedTitle": "เข้าสู่ระบบไม่สำเร็จ",
+        "generic": "เข้าสู่ระบบไม่สำเร็จ โปรดลองอีกครั้ง",
+        "noCode": "การเข้าสู่ระบบยังไม่เสร็จสิ้น โปรดลองอีกครั้ง",
+        "redirecting": "กำลังพาคุณกลับไปหน้าเข้าสู่ระบบ...",
+        "wait": "โปรดรอสักครู่ขณะที่เรากำลังพาคุณเข้าสู่ระบบ"
+      }
+    },
+    "stories": {
+      "linkPage": {
+        "browse": "ดูสตอรี่ล่าสุด",
+        "expired": "สตอรี่นี้หมดอายุหรือถูกลบไปแล้ว สตอรี่จะหายไปหลังจาก 24 ชั่วโมง",
+        "failed": "ไม่สามารถโหลดสตอรี่นี้ได้",
+        "retry": "ลองอีกครั้ง",
+        "sign_in": "เข้าสู่ระบบ",
+        "sign_in_body": "เข้าสู่ระบบเพื่อดู หรือเปิดในแอป BananaTalk",
+        "sign_in_title": "มีคนแชร์สตอรี่กับคุณ",
+        "unavailable": "สตอรี่นี้ไม่พร้อมให้คุณดู"
+      }
+    }
+  },
+  "tl": {
+    "authentication": {
+      "callback": {
+        "banned": "Na-suspend ang account na ito.",
+        "codeExpired": "Nag-expire na ang sign-in link na ito. Mag-sign in muli.",
+        "completing": "Tinatapos ang pag-sign in...",
+        "emailExists": "May account na gamit ang email na ito. Mag-sign in gamit ang iyong email at password.",
+        "failedTitle": "Hindi nakapag-sign in",
+        "generic": "Hindi nakapag-sign in. Pakisubukang muli.",
+        "noCode": "Hindi natapos ang pag-sign in. Pakisubukang muli.",
+        "redirecting": "Ibinabalik ka sa pag-sign in...",
+        "wait": "Pakihintay habang sina-sign in ka namin."
+      }
+    },
+    "stories": {
+      "linkPage": {
+        "browse": "Tingnan ang mga kasalukuyang story",
+        "expired": "Nag-expire na o binura ang story na ito. Nawawala ang mga story pagkalipas ng 24 oras.",
+        "failed": "Hindi namin ma-load ang story na ito.",
+        "retry": "Subukang muli",
+        "sign_in": "Mag-sign in",
+        "sign_in_body": "Mag-sign in para mapanood ito, o buksan sa BananaTalk app.",
+        "sign_in_title": "May nagbahagi ng story sa iyo",
+        "unavailable": "Hindi available sa iyo ang story na ito."
+      }
+    }
+  },
+  "tr": {
+    "authentication": {
+      "callback": {
+        "banned": "Bu hesap askıya alındı.",
+        "codeExpired": "Bu giriş bağlantısının süresi doldu. Lütfen tekrar giriş yap.",
+        "completing": "Giriş tamamlanıyor...",
+        "emailExists": "Bu e-postayla kayıtlı bir hesap zaten var. E-posta adresin ve şifrenle giriş yap.",
+        "failedTitle": "Giriş başarısız",
+        "generic": "Giriş başarısız. Lütfen tekrar dene.",
+        "noCode": "Giriş tamamlanmadı. Lütfen tekrar dene.",
+        "redirecting": "Giriş sayfasına dönülüyor...",
+        "wait": "Giriş yapılırken lütfen bekle."
+      }
+    },
+    "stories": {
+      "linkPage": {
+        "browse": "Güncel hikayelere göz at",
+        "expired": "Bu hikayenin süresi doldu veya silindi. Hikayeler 24 saat sonra kaybolur.",
+        "failed": "Bu hikaye yüklenemedi.",
+        "retry": "Tekrar dene",
+        "sign_in": "Giriş yap",
+        "sign_in_body": "İzlemek için giriş yap ya da BananaTalk uygulamasında aç.",
+        "sign_in_title": "Biri seninle bir hikaye paylaştı",
+        "unavailable": "Bu hikaye sana açık değil."
+      }
+    }
+  },
+  "vi": {
+    "authentication": {
+      "callback": {
+        "banned": "Tài khoản này đã bị tạm khóa.",
+        "codeExpired": "Liên kết đăng nhập này đã hết hạn. Vui lòng đăng nhập lại.",
+        "completing": "Đang hoàn tất đăng nhập...",
+        "emailExists": "Đã có tài khoản dùng email này. Hãy đăng nhập bằng email và mật khẩu của bạn.",
+        "failedTitle": "Đăng nhập không thành công",
+        "generic": "Đăng nhập không thành công. Vui lòng thử lại.",
+        "noCode": "Đăng nhập chưa hoàn tất. Vui lòng thử lại.",
+        "redirecting": "Đang đưa bạn trở lại trang đăng nhập...",
+        "wait": "Vui lòng chờ trong khi chúng tôi đăng nhập cho bạn."
+      }
+    },
+    "stories": {
+      "linkPage": {
+        "browse": "Xem các tin hiện có",
+        "expired": "Tin này đã hết hạn hoặc đã bị xóa. Tin sẽ biến mất sau 24 giờ.",
+        "failed": "Không thể tải tin này.",
+        "retry": "Thử lại",
+        "sign_in": "Đăng nhập",
+        "sign_in_body": "Đăng nhập để xem, hoặc mở trong ứng dụng BananaTalk.",
+        "sign_in_title": "Có người đã chia sẻ một tin với bạn",
+        "unavailable": "Bạn không thể xem tin này."
+      }
+    }
+  },
+  "zh_TW": {
+    "authentication": {
+      "callback": {
+        "banned": "此帳號已被停權。",
+        "codeExpired": "此登入連結已過期，請重新登入。",
+        "completing": "正在完成登入...",
+        "emailExists": "已有帳號使用此電子郵件，請使用電子郵件和密碼登入。",
+        "failedTitle": "登入失敗",
+        "generic": "登入失敗，請再試一次。",
+        "noCode": "登入未完成，請再試一次。",
+        "redirecting": "正在返回登入頁面...",
+        "wait": "正在為你登入，請稍候。"
+      }
+    },
+    "stories": {
+      "linkPage": {
+        "browse": "查看目前的限時動態",
+        "expired": "此限時動態已過期或已被刪除。限時動態會在 24 小時後消失。",
+        "failed": "無法載入此限時動態。",
+        "retry": "再試一次",
+        "sign_in": "登入",
+        "sign_in_body": "登入即可觀看，或在 BananaTalk App 中開啟。",
+        "sign_in_title": "有人與你分享了限時動態",
+        "unavailable": "你無法查看此限時動態。"
+      }
+    }
+  },
+  "zho": {
+    "authentication": {
+      "callback": {
+        "banned": "此账号已被封禁。",
+        "codeExpired": "此登录链接已过期，请重新登录。",
+        "completing": "正在完成登录...",
+        "emailExists": "该邮箱已注册账号，请使用邮箱和密码登录。",
+        "failedTitle": "登录失败",
+        "generic": "登录失败，请重试。",
+        "noCode": "登录未完成，请重试。",
+        "redirecting": "正在返回登录页面...",
+        "wait": "正在为你登录，请稍候。"
+      }
+    },
+    "stories": {
+      "linkPage": {
+        "browse": "查看当前快拍",
+        "expired": "这条快拍已过期或已被删除。快拍会在 24 小时后消失。",
+        "failed": "无法加载这条快拍。",
+        "retry": "重试",
+        "sign_in": "登录",
+        "sign_in_body": "登录即可观看，或在 BananaTalk App 中打开。",
+        "sign_in_title": "有人与你分享了一条快拍",
+        "unavailable": "你无法查看这条快拍。"
+      }
+    }
+  }
+}

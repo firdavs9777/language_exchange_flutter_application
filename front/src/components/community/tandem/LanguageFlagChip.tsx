@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { LANGUAGE_FLAGS } from "../type";
+import { languageFlag } from "../../../utils/languages";
 
 interface LanguageFlagChipProps {
   label: "FLUENT" | "LEARNS" | "NATIVE";
@@ -14,30 +14,9 @@ const LABEL_I18N_KEYS: Record<LanguageFlagChipProps["label"], string> = {
   NATIVE: "communityMain.languageChip.native",
 };
 
-const getCode = (language?: string): string => {
-  if (!language) return "";
-  const codes: Record<string, string> = {
-    English: "en",
-    Spanish: "es",
-    French: "fr",
-    German: "de",
-    Italian: "it",
-    Portuguese: "pt",
-    Russian: "ru",
-    Japanese: "ja",
-    Korean: "ko",
-    Chinese: "zh",
-    Uzbek: "uz",
-    Turkish: "tr",
-    Arabic: "ar",
-  };
-  return codes[language] || language.substring(0, 2).toLowerCase();
-};
-
 const LanguageFlagChip: React.FC<LanguageFlagChipProps> = ({ label, language, extra }) => {
   const { t } = useTranslation();
-  const code = getCode(language);
-  const flag = LANGUAGE_FLAGS[code] || "🌐";
+  const flag = languageFlag(language || "");
   const localizedLabel = t(LABEL_I18N_KEYS[label]) || label;
   return (
     <div className="lang-flag-chip">

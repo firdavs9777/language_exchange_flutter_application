@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import {
   FaUsers,
   FaComment,
@@ -12,16 +12,26 @@ import {
   FaHeart,
   FaUserFriends,
   FaChevronDown,
+  FaUserShield,
+  FaFilm,
+  FaCalendarAlt,
+  FaMicrophone,
+  FaDoorOpen,
 } from "react-icons/fa";
+import { useWebFlag } from "../../utils/webFlags";
 import { useTranslation } from "react-i18next";
+import { switchLanguage } from "../../utils/switchLanguage";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../store/slices/authSlice";
+import { logout, selectIsAdmin } from "../../store/slices/authSlice";
 import { Bounce, toast } from "react-toastify";
 import { NavLink } from "react-router-dom";
 
 import { BASE_URL } from "../../constants";
 import logo from "../../assets/logo.png";
+import { useGetConversationsQuery } from "../../store/slices/chatSlice";
+import { useSocket } from "../chat/hooks/useSocket";
+import { CONVERSATIONS_PAGE } from "../chat/lib/conversationMatch";
 import "./MainNavbar.scss";
 
 const LANGUAGES = [
@@ -46,6 +56,7 @@ const LANGUAGES = [
 ];
 
 const MainNavbar = () => {
+  const requestedLanguage = useRef<string | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = useState(false);
   const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
@@ -55,11 +66,66 @@ const MainNavbar = () => {
   const userDropdownRef = useRef<HTMLDivElement>(null);
 
   const userInfo = useSelector((state: any) => state.auth.userInfo);
+  // The console's only entry point. Role comes from the backend; the route
+  // itself is guarded again by RequireAdmin, and the API by authorize('admin').
+  const isAdmin = useSelector(selectIsAdmin);
+  // Phase 4 rooms: dark until the owner turns the flags on.
+  const voiceRoomsOn = useWebFlag("webVoiceRoomsEnabled");
+  const languageRoomsOn = useWebFlag("webLanguageRoomsEnabled");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { t, i18n } = useTranslation();
+  const reelsOn = useWebFlag("webReelsEnabled");
+  const gatheringsOn = useWebFlag("webGatheringsEnabled");
 
-  const currentLang = LANGUAGES.find((l) => l.code === i18n.language) || LANGUAGES[0];
+  // `resolvedLanguage`, not `language`: since locales load on demand i18next is
+  // no longer restricted to bare language codes, so `language` can be "ko-KR"
+  // (from navigator) while the bundle actually in force is "ko". resolvedLanguage
+  // is the entry in the resolution hierarchy that really has translations, which
+  // is exactly the one this menu should tick.
+  const activeLang = i18n.resolvedLanguage || i18n.language;
+  const currentLang = LANGUAGES.find((l) => l.code === activeLang) || LANGUAGES[0];
+
+  // Unread chat badge. Shares the same RTK Query cache key UsersList uses --
+  // CONVERSATIONS_PAGE, the one literal every caller passes -- so there is no
+  // duplicate request when the chat page is also mounted, and no second copy
+  // of the list going stale on its own: this badge used to ask with its own
+  // {page:1, limit:50} while the chat list asked with {page:1, limit:100}, two
+  // cache entries that refetched independently. Refetches live off the same
+  // socket events UsersList reacts to, so the badge stays correct even when
+  // the chat page isn't open at all.
+  const currentUserId = userInfo?.user?._id;
+  const { data: conversationsData, refetch: refetchConversations } = useGetConversationsQuery(
+    CONVERSATIONS_PAGE,
+    { skip: !currentUserId }
+  );
+  const { socket } = useSocket();
+
+  const unreadChatCount = useMemo(() => {
+    const list = conversationsData?.data;
+    if (!Array.isArray(list)) return 0;
+    return list.reduce((sum: number, c: any) => sum + (c?.unreadCount || 0), 0);
+  }, [conversationsData]);
+
+  useEffect(() => {
+    if (!socket || !currentUserId) return;
+    const handleConversationsChanged = () => refetchConversations();
+    socket.on("newMessage", handleConversationsChanged);
+    socket.on("newVoiceMessage", handleConversationsChanged);
+    socket.on("newVideoMessage", handleConversationsChanged);
+    socket.on("messagesRead", handleConversationsChanged);
+    // A message WE sent changes the list too -- new last message, new row
+    // order, and a brand-new row for a first message. The server addresses it
+    // to every device on the account.
+    socket.on("messageSent", handleConversationsChanged);
+    return () => {
+      socket.off("newMessage", handleConversationsChanged);
+      socket.off("newVoiceMessage", handleConversationsChanged);
+      socket.off("newVideoMessage", handleConversationsChanged);
+      socket.off("messagesRead", handleConversationsChanged);
+      socket.off("messageSent", handleConversationsChanged);
+    };
+  }, [socket, currentUserId, refetchConversations]);
 
   // Scroll effect
   useEffect(() => {
@@ -90,7 +156,16 @@ const MainNavbar = () => {
 
   const changeLanguage = (lng: string) => {
     const lang = LANGUAGES.find((l) => l.code === lng);
-    i18n.changeLanguage(lng);
+    requestedLanguage.current = lng;
+    // Locales are chunks now, so two clicks inside one load window settle in
+    // *network* order and i18next has no staleness guard: the slower-arriving
+    // language wins and the menu disagrees with the page. Re-apply whatever was
+    // asked for last once a switch settles. Bounded: the re-apply's own callback
+    // finds the two in agreement and stops.
+    void switchLanguage(i18n, lng).then(() => {
+      const wanted = requestedLanguage.current;
+      if (wanted && wanted !== i18n.language) void switchLanguage(i18n, wanted);
+    });
     localStorage.setItem("preferredLanguage", lng);
     setIsLanguageDropdownOpen(false);
     toast.info(`${lang?.flag} ${lang?.name}`, {
@@ -161,7 +236,14 @@ const MainNavbar = () => {
                   to="/chat"
                   className={({ isActive }) => `nav-item ${isActive ? "active" : ""}`}
                 >
-                  <FaComment />
+                  <span className="navbar-icon-wrap">
+                    <FaComment />
+                    {unreadChatCount > 0 && (
+                      <span className="navbar-unread-badge" data-testid="chat-unread-badge">
+                        {unreadChatCount > 99 ? "99+" : unreadChatCount}
+                      </span>
+                    )}
+                  </span>
                   <span>{t("chat")}</span>
                 </NavLink>
 
@@ -172,6 +254,56 @@ const MainNavbar = () => {
                   <FaGlobe />
                   <span>{t("moments")}</span>
                 </NavLink>
+                {voiceRoomsOn && (
+                  <NavLink
+                    to="/voice-rooms"
+                    data-testid="nav-voice-rooms"
+                    className={({ isActive }) => `nav-item ${isActive ? "active" : ""}`}
+                  >
+                    <FaMicrophone />
+                    <span>{t("nav.voiceRooms") || "Voice rooms"}</span>
+                  </NavLink>
+                )}
+                {languageRoomsOn && (
+                  <NavLink
+                    to="/rooms"
+                    data-testid="nav-language-rooms"
+                    className={({ isActive }) => `nav-item ${isActive ? "active" : ""}`}
+                  >
+                    <FaDoorOpen />
+                    <span>{t("nav.languageRooms") || "Language rooms"}</span>
+                  </NavLink>
+                )}
+
+                {reelsOn && (
+                  <NavLink
+                    to="/reels"
+                    className={({ isActive }) => `nav-item ${isActive ? "active" : ""}`}
+                  >
+                    <FaFilm />
+                    <span>{t("reels.nav") || "Reels"}</span>
+                  </NavLink>
+                )}
+                {gatheringsOn && (
+                  <NavLink
+                    to="/gatherings"
+                    data-testid="nav-gatherings"
+                    className={({ isActive }) => `nav-item ${isActive ? "active" : ""}`}
+                  >
+                    <FaCalendarAlt />
+                    <span>{t("gatherings.nav") || "Gatherings"}</span>
+                  </NavLink>
+                )}
+
+                {isAdmin && (
+                  <NavLink
+                    to="/admin"
+                    className={({ isActive }) => `nav-item ${isActive ? "active" : ""}`}
+                  >
+                    <FaUserShield />
+                    <span>{t("admin.nav.admin") || "Admin"}</span>
+                  </NavLink>
+                )}
               </>
             )}
           </div>
@@ -200,7 +332,7 @@ const MainNavbar = () => {
                       <button
                         key={lang.code}
                         onClick={() => changeLanguage(lang.code)}
-                        className={`lang-option ${i18n.language === lang.code ? "active" : ""}`}
+                        className={`lang-option ${activeLang === lang.code ? "active" : ""}`}
                       >
                         <span className="lang-option-flag">{lang.flag}</span>
                         <span className="lang-option-name">{lang.name}</span>
@@ -311,11 +443,44 @@ const MainNavbar = () => {
               {userInfo && (
                 <>
                   <NavLink to="/chat" className="mobile-nav-link" onClick={closeMobileMenu}>
-                    <FaComment /> {t("chat")}
+                    <span className="navbar-icon-wrap">
+                      <FaComment />
+                      {unreadChatCount > 0 && (
+                        <span className="navbar-unread-badge" data-testid="chat-unread-badge-mobile">
+                          {unreadChatCount > 99 ? "99+" : unreadChatCount}
+                        </span>
+                      )}
+                    </span>{" "}
+                    {t("chat")}
                   </NavLink>
                   <NavLink to="/moments" className="mobile-nav-link" onClick={closeMobileMenu}>
                     <FaGlobe /> {t("moments")}
                   </NavLink>
+                  {reelsOn && (
+                    <NavLink to="/reels" className="mobile-nav-link" onClick={closeMobileMenu}>
+                      <FaFilm /> {t("reels.nav") || "Reels"}
+                    </NavLink>
+                  )}
+                  {gatheringsOn && (
+                    <NavLink to="/gatherings" data-testid="nav-gatherings-mobile" className="mobile-nav-link" onClick={closeMobileMenu}>
+                      <FaCalendarAlt /> {t("gatherings.nav") || "Gatherings"}
+                    </NavLink>
+                  )}
+                  {voiceRoomsOn && (
+                    <NavLink to="/voice-rooms" className="mobile-nav-link" data-testid="nav-voice-rooms-mobile" onClick={closeMobileMenu}>
+                      <FaMicrophone /> {t("nav.voiceRooms") || "Voice rooms"}
+                    </NavLink>
+                  )}
+                  {languageRoomsOn && (
+                    <NavLink to="/rooms" className="mobile-nav-link" data-testid="nav-language-rooms-mobile" onClick={closeMobileMenu}>
+                      <FaDoorOpen /> {t("nav.languageRooms") || "Language rooms"}
+                    </NavLink>
+                  )}
+                  {isAdmin && (
+                    <NavLink to="/admin" className="mobile-nav-link" onClick={closeMobileMenu}>
+                      <FaUserShield /> {t("admin.nav.admin") || "Admin"}
+                    </NavLink>
+                  )}
                 </>
               )}
             </div>
@@ -353,7 +518,7 @@ const MainNavbar = () => {
                       changeLanguage(lang.code);
                       closeMobileMenu();
                     }}
-                    className={`mobile-lang-btn ${i18n.language === lang.code ? "active" : ""}`}
+                    className={`mobile-lang-btn ${activeLang === lang.code ? "active" : ""}`}
                   >
                     <span>{lang.flag}</span>
                     <span>{lang.name}</span>
