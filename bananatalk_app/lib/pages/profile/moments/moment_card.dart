@@ -3,7 +3,7 @@ import 'package:bananatalk_app/pages/comments/comments_main.dart';
 import 'package:bananatalk_app/pages/comments/create_comment.dart';
 import 'package:bananatalk_app/pages/community/single/single_community_screen.dart';
 import 'package:bananatalk_app/pages/moments/viewer/image_viewer.dart';
-import 'package:bananatalk_app/pages/profile/moments/moment_edit.dart';
+import 'package:bananatalk_app/pages/moments/create/create_moment.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
 import 'package:bananatalk_app/utils/image_utils.dart';
@@ -55,6 +55,12 @@ class _ProfileSingleMomentState extends ConsumerState<ProfileSingleMoment> {
     'cool': '😎',
     'tired': '😴',
   };
+
+  @override
+  void didUpdateWidget(covariant ProfileSingleMoment oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.moment != oldWidget.moment) moment = widget.moment;
+  }
 
   @override
   void initState() {
@@ -233,57 +239,16 @@ class _ProfileSingleMomentState extends ConsumerState<ProfileSingleMoment> {
     }
   }
 
-  void _editMoment() async {
-    final updatedMoment = await Navigator.push<Moments>(
+  /// The same full composer the feed uses for editing (background colours,
+  /// mood, language, privacy, location, schedule), not a reduced form. It
+  /// shows its own success message; the list reloads with the saved moment.
+  Future<void> _editMoment() async {
+    final saved = await Navigator.push<bool>(
       context,
-      AppPageRoute(
-        builder: (context) => EditMomentScreen(moment: moment),
-      ),
-    ).then((result) {
-      if (mounted) {
-        widget.onUpdated?.call();
-      }
-      return result;
-    });
-
+      AppPageRoute(builder: (context) => CreateMoment(momentToEdit: moment)),
+    );
     if (!mounted) return;
-
-    if (updatedMoment != null) {
-      setState(() {
-        moment = updatedMoment;
-      });
-
-      widget.onUpdated?.call();
-
-      Future.delayed(const Duration(milliseconds: 300), () {
-        if (mounted) {
-          widget.onUpdated?.call();
-        }
-      });
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Row(
-            children: [
-              const Icon(Icons.check_circle_rounded, color: Colors.white),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Text(AppLocalizations.of(context)!.momentUpdatedSuccessfully),
-              ),
-            ],
-          ),
-          backgroundColor: AppColors.success,
-          behavior: SnackBarBehavior.floating,
-          duration: const Duration(seconds: 2),
-          margin: const EdgeInsets.all(16),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(14),
-          ),
-        ),
-      );
-    } else {
-      widget.onUpdated?.call();
-    }
+    if (saved == true) widget.onUpdated?.call();
   }
 
   @override

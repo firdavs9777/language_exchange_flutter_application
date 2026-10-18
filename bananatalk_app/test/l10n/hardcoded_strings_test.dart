@@ -883,7 +883,6 @@ const Map<String, List<String>> _filesByTask = {
     'pages/moments/reels/reels_feed_screen.dart',
     'pages/moments/reels/reels_grid_screen.dart',
     'pages/moments/viewer/video_player_widget.dart',
-    'pages/profile/moments/moment_edit.dart',
     'pages/profile/moments/moments_list.dart',
     'widgets/video_player_screen.dart',
   ],

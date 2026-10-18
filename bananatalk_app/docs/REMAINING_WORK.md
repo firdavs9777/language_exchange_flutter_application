@@ -353,3 +353,9 @@ Web ↔ app parity (spec `docs/superpowers/specs/2026-10-16-web-app-parity-desig
 - 2026-10-08 — Merge ba2b9c8e calls reliability Phase 1 (A1–A14, ring duration 50 s); backend calls deployed (31e6e18).
 - 2026-10-08 — Merge 12c8e2b4 auth audit: session reset, 401 redirect, registration token, biometric on Android (FlutterFragmentActivity), keychain accessibility, biometric snapshot freshness, socket re-enable.
 - 2026-10-02 — Monetization & growth tranches built dark; 2.6.1 (10574) tagged and released, superseding 2.4.0 / 2.5.0 / 2.6.0.
+
+## Moments editing (2026-10-18)
+- [x] Profile → My Moments → Edit opened an old reduced edit screen (no background colours, unlike create and unlike editing from the feed). It now opens the same composer as create/feed edit (`CreateMoment(momentToEdit:)`); `moment_edit.dart` removed.
+- [ ] Device check: edit a text moment from Profile → My Moments, change its background colour, save → the card and the feed show the new background. S
+- [ ] Editing still cannot remove existing photos (it can only add); not asked for yet. S
+
