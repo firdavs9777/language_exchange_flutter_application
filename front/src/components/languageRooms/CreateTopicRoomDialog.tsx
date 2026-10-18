@@ -1,6 +1,17 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
+import ISO6391 from "iso-639-1";
 import { useTranslation } from "react-i18next";
 import { useCreateTopicRoomMutation, languageRoomErrorText } from "../../store/slices/languageRoomsSlice";
+import { languageOptions } from "../moments/lib/languageOptions";
+
+/** The signup picker stores English names ("Korean"); rooms take a code. */
+export function toLanguageCode(value: string): string {
+  const v = String(value || "").trim();
+  if (!v) return "";
+  if (ISO6391.validate(v.toLowerCase())) return v.toLowerCase();
+  const code = ISO6391.getCode(v.replace(/\s*\([^)]*\)\s*$/, ""));
+  return code || "";
+}
 
 interface Props {
   open: boolean;
@@ -10,10 +21,12 @@ interface Props {
 }
 
 const CreateTopicRoomDialog: React.FC<Props> = ({ open, defaultLanguage, onClose, onCreated }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const locale = (i18n && i18n.language) || "en";
+  const options = useMemo(() => languageOptions(locale), [locale]);
   const [create, { isLoading }] = useCreateTopicRoomMutation();
   const [title, setTitle] = useState("");
-  const [language, setLanguage] = useState(defaultLanguage || "");
+  const [language, setLanguage] = useState(toLanguageCode(defaultLanguage));
   const [description, setDescription] = useState("");
   const [error, setError] = useState("");
   if (!open) return null;
@@ -41,7 +54,15 @@ const CreateTopicRoomDialog: React.FC<Props> = ({ open, defaultLanguage, onClose
         </label>
         <label className="vr-field">
           <span>{t("languageRooms.create.language") || "Language"}</span>
-          <input data-testid="create-topic-room-language" value={language} onChange={(e) => setLanguage(e.target.value)} />
+          {/* The whole ISO 639-1 list, like the signup picker, named in the reader's language. */}
+          <select data-testid="create-topic-room-language" value={language} onChange={(e) => setLanguage(e.target.value)}>
+            <option value="">{t("languageRooms.create.pickLanguage") || "Choose a language"}</option>
+            {options.map((o) => (
+              <option key={o.value} value={o.value}>
+                {o.label}
+              </option>
+            ))}
+          </select>
         </label>
         <label className="vr-field">
           <span>{t("languageRooms.create.description") || "Description (optional)"}</span>

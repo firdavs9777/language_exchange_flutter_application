@@ -102,3 +102,11 @@ it("creates a room with an emoji flag only when one is given", async () => {
   await makeStore().dispatch(ep("createTopicRoom").initiate({ title: "Café", targetLanguage: "fr", emojiFlag: "🇫🇷" }));
   expect(JSON.parse(calls[0].body as string)).toEqual({ title: "Café", targetLanguage: "fr", description: "", emojiFlag: "🇫🇷" });
 });
+
+it("puts languages that only have topic rooms after the hub languages", () => {
+  const groups = groupRoomsByLanguage([
+    { _id: "t-uz", roomType: "topic", targetLanguage: "uz", title: "Uzbek chat" },
+    { _id: "h-ko", roomType: "hub", targetLanguage: "ko", title: "Korean" },
+  ] as any);
+  expect(groups.map((g) => g.language)).toEqual(["ko", "uz"]);
+});

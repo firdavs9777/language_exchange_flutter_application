@@ -186,6 +186,14 @@ class _GatheringsTabState extends ConsumerState<GatheringsTab>
     });
   }
 
+  Future<void> _createClub() async {
+    final club = await showCreateClubSheet(
+      context,
+      defaultLanguage: _defaultLanguage,
+    );
+    if (club != null) await _refresh();
+  }
+
   Future<void> _create({String? clubId}) async {
     final created = await showCreateGatheringSheet(
       context,
@@ -202,6 +210,25 @@ class _GatheringsTabState extends ConsumerState<GatheringsTab>
 
     return Scaffold(
       backgroundColor: Colors.transparent,
+      // One bottom "+" like Rooms (2026-10-18), instead of small "New" text
+      // links in the section headers: "+ New" on Gatherings, "+ New club" on
+      // Clubs. Lifted above the floating tab bar.
+      floatingActionButton: AnimatedBuilder(
+        animation: _tabs,
+        builder: (context, _) {
+          final onClubs = _tabs.index == 1;
+          return Padding(
+            padding: EdgeInsets.only(bottom: FloatingTabBar.fabLift(context)),
+            child: FloatingActionButton.extended(
+              key: const Key('gatherings-fab'),
+              heroTag: 'gatherings-fab',
+              icon: const Icon(Icons.add_rounded),
+              label: Text(onClubs ? l10n.gatheringNewClub : l10n.gatheringCreateShort),
+              onPressed: onClubs ? _createClub : () => _create(),
+            ),
+          );
+        },
+      ),
       body: FutureBuilder<_FeedData>(
         future: _feed,
         builder: (context, snapshot) {
@@ -299,7 +326,7 @@ class _GatheringsTabState extends ConsumerState<GatheringsTab>
               child: ListView(
                 physics: const AlwaysScrollableScrollPhysics(),
                 padding: EdgeInsets.only(
-                  bottom: FloatingTabBar.clearance(context),
+                  bottom: FloatingTabBar.clearance(context) + FloatingTabBar.fabSpace,
                 ),
                 children: [
                   if (_filters.isEmpty)
@@ -323,15 +350,7 @@ class _GatheringsTabState extends ConsumerState<GatheringsTab>
               // Always scrollable so pull-to-refresh works even on a short list.
               physics: const AlwaysScrollableScrollPhysics(),
               slivers: [
-                _sectionHeader(
-                  context,
-                  l10n.gatheringStartingSoon,
-                  action: _textAction(
-                    context,
-                    l10n.gatheringCreateShort,
-                    () => _create(),
-                  ),
-                ),
+                _sectionHeader(context, l10n.gatheringStartingSoon),
                 SliverList.builder(
                   itemCount: data.gatherings.length,
                   itemBuilder: (context, index) {
@@ -356,7 +375,7 @@ class _GatheringsTabState extends ConsumerState<GatheringsTab>
                   },
                 ),
                 SliverToBoxAdapter(
-                  child: SizedBox(height: FloatingTabBar.clearance(context)),
+                  child: SizedBox(height: FloatingTabBar.clearance(context) + FloatingTabBar.fabSpace),
                 ),
               ],
             ),
@@ -417,17 +436,7 @@ class _GatheringsTabState extends ConsumerState<GatheringsTab>
       child: CustomScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
         slivers: [
-          _sectionHeader(
-            context,
-            l10n.gatheringClubs,
-            action: _textAction(context, l10n.gatheringNewClub, () async {
-              final club = await showCreateClubSheet(
-                context,
-                defaultLanguage: _defaultLanguage,
-              );
-              if (club != null) await _refresh();
-            }),
-          ),
+          _sectionHeader(context, l10n.gatheringClubs),
           if (data.clubs.isEmpty)
             SliverToBoxAdapter(child: _noClubsYet(context))
           else
@@ -447,7 +456,7 @@ class _GatheringsTabState extends ConsumerState<GatheringsTab>
               ),
             ),
           SliverToBoxAdapter(
-            child: SizedBox(height: FloatingTabBar.clearance(context)),
+            child: SizedBox(height: FloatingTabBar.clearance(context) + FloatingTabBar.fabSpace),
           ),
         ],
       ),
@@ -554,10 +563,6 @@ class _GatheringsTabState extends ConsumerState<GatheringsTab>
         ),
       ),
     );
-  }
-
-  Widget _textAction(BuildContext context, String label, VoidCallback onTap) {
-    return TextButton(onPressed: onTap, child: Text(label));
   }
 }
 

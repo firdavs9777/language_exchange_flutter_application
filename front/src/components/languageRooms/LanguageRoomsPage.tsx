@@ -2,18 +2,21 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Users, Circle, Plus, Lock } from "lucide-react";
+import { Users, Circle, Plus, Lock, RefreshCw } from "lucide-react";
 import { useGetLanguageRoomsQuery, groupRoomsByLanguage, LanguageRoom } from "../../store/slices/languageRoomsSlice";
 import { languageFlag } from "../../utils/languages";
+import { timeAgo } from "../../utils/timeAgo";
+import { roomLanguageName } from "./roomLanguages";
 import CreateTopicRoomDialog from "./CreateTopicRoomDialog";
 import "../voiceRooms/VoiceRooms.scss";
 import "./LanguageRooms.scss";
 
 const LanguageRoomsPage: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const locale = (i18n && i18n.language) || "en";
   const navigate = useNavigate();
   const me = useSelector((s: any) => s.auth && s.auth.userInfo && s.auth.userInfo.user);
-  const { data, isLoading, isError, refetch } = useGetLanguageRoomsQuery();
+  const { data, isLoading, isError, isFetching, refetch } = useGetLanguageRoomsQuery();
   const [creating, setCreating] = useState(false);
   const rooms: LanguageRoom[] = (data && Array.isArray(data.data) ? data.data : []) as LanguageRoom[];
   const groups = groupRoomsByLanguage(rooms);
@@ -22,7 +25,7 @@ const LanguageRoomsPage: React.FC = () => {
     <li key={room._id}>
       <button type="button" className="lr-card" data-testid={`language-room-card-${room._id}`} onClick={() => navigate(`/rooms/${room._id}`)}>
         <span className="lr-card__title">
-          {room.roomType === "hub" ? room.emojiFlag || languageFlag(room.targetLanguage) : "#"} {room.title}
+          {room.roomType === "hub" ? room.emojiFlag || languageFlag(room.targetLanguage) : room.emojiFlag || "#"} {room.title}
           {room.isBanned && <Lock size={12} aria-label={t("languageRooms.list.locked") || "Locked"} />}
         </span>
         <span className="lr-card__meta">
@@ -30,6 +33,12 @@ const LanguageRoomsPage: React.FC = () => {
           <Circle size={8} className="lr-online" aria-hidden /> {room.onlineCount || 0}
           {room.isMember && <span className="vr-chip">{t("languageRooms.list.joined") || "Joined"}</span>}
         </span>
+        {room.lastActivityAt && (
+          <span className="lr-card__active" data-testid={`language-room-active-${room._id}`}>
+            {t("languageRooms.list.active", { time: timeAgo(room.lastActivityAt, t, { withAgo: true }) }) ||
+              `Active ${timeAgo(room.lastActivityAt, t, { withAgo: true })}`}
+          </span>
+        )}
       </button>
     </li>
   );
@@ -38,9 +47,21 @@ const LanguageRoomsPage: React.FC = () => {
     <section className="vr-page" data-testid="language-rooms-page">
       <header className="vr-page__head">
         <h1>{t("languageRooms.list.title") || "Language rooms"}</h1>
-        <button type="button" className="vr-btn vr-btn--primary" data-testid="language-rooms-create" onClick={() => setCreating(true)}>
-          <Plus size={16} /> {t("languageRooms.list.create") || "New topic room"}
-        </button>
+        <span className="lr-head__actions">
+          <button
+            type="button"
+            className="vr-btn vr-btn--ghost"
+            data-testid="language-rooms-refresh"
+            disabled={isFetching}
+            onClick={() => refetch()}
+            aria-label={t("languageRooms.list.refresh") || "Refresh"}
+          >
+            <RefreshCw size={16} className={isFetching ? "lr-spin" : undefined} />
+          </button>
+          <button type="button" className="vr-btn vr-btn--primary" data-testid="language-rooms-create" onClick={() => setCreating(true)}>
+            <Plus size={16} /> {t("languageRooms.list.create") || "New room"}
+          </button>
+        </span>
       </header>
       {isError && (
         <p className="vr-error" role="alert">
@@ -53,7 +74,9 @@ const LanguageRoomsPage: React.FC = () => {
       {!isLoading && !isError && groups.length === 0 && <p className="vr-empty">{t("languageRooms.list.empty") || "No rooms yet."}</p>}
       {groups.map((g) => (
         <section key={g.language} className="lr-group" data-testid={`language-rooms-group-${g.language}`}>
-          <h2 className="lr-group__title">{g.hub ? g.hub.title : g.language}</h2>
+          <h2 className="lr-group__title">
+            <span aria-hidden>{languageFlag(g.language)}</span> {roomLanguageName(g.language, locale)}
+          </h2>
           <ul className="lr-list">
             {g.hub && card(g.hub)}
             {g.topics.map(card)}

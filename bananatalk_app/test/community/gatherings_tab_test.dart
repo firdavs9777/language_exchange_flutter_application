@@ -357,4 +357,19 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Could not load gatherings'), findsOneWidget);
   });
+
+  testWidgets('one bottom + button: "New" on Gatherings, "New club" on Clubs', (
+    tester,
+  ) async {
+    final api = _FakeApi(clubs: [_club()], gatherings: [_gathering()]);
+    await tester.pumpWidget(_host(api));
+    await tester.pumpAndSettle();
+    final fab = find.byKey(const Key('gatherings-fab'));
+    expect(fab, findsOneWidget);
+    expect(find.descendant(of: fab, matching: find.text('New')), findsOneWidget);
+
+    await tester.tap(find.byKey(const Key('clubs-inner-tab')));
+    await tester.pumpAndSettle();
+    expect(find.descendant(of: fab, matching: find.text('New club')), findsOneWidget);
+  });
 }

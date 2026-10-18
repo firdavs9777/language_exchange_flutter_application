@@ -34,7 +34,10 @@ export function groupRoomsByLanguage(rooms: LanguageRoom[]): Array<{ language: s
     if (room.roomType === "hub" && !groups[lang].hub) groups[lang].hub = room;
     else groups[lang].topics.push(room);
   });
-  return order.map((lang) => groups[lang]);
+  // Languages with a hub first (server order kept within each kind), then
+  // languages that only have user-created rooms.
+  const all = order.map((lang) => groups[lang]);
+  return all.filter((g) => g.hub).concat(all.filter((g) => !g.hub));
 }
 
 const tagged = apiSlice.enhanceEndpoints({ addTagTypes: ["LanguageRooms", "LanguageRoomRequests"] });

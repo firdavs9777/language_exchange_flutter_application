@@ -40,15 +40,19 @@ const COPY: Record<ReportTargetType, { titleKey: string; title: string; alreadyK
     titleKey: "moments_section.report.titleStory", title: "Report this story",
     alreadyKey: "moments_section.report.alreadyStory", already: "You've already reported this story.",
   },
+  message: {
+    titleKey: "moments_section.report.titleMessage", title: "Report this message",
+    alreadyKey: "moments_section.report.alreadyMessage", already: "You've already reported this message.",
+  },
 };
 
 const MAX_DESCRIPTION = 500;
 
-export type ReportTargetType = "moment" | "comment" | "story";
+export type ReportTargetType = "moment" | "comment" | "story" | "message";
 export interface ReportDialogProps {
   /** What is reported; selects the title and "already reported" copy. */
   type: ReportTargetType;
-  /** The reported thing's id (moment, comment or story). */
+  /** The reported thing's id (moment, comment, story or room message). */
   targetId: string;
   /** Its author (Report.reportedUser). */
   authorId: string;
