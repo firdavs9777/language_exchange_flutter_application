@@ -984,7 +984,9 @@
       "titleComment": "Report this comment",
       "titleStory": "Report this story",
       "alreadyComment": "You've already reported this comment.",
-      "alreadyStory": "You've already reported this story."
+      "alreadyStory": "You've already reported this story.",
+      "titleMessage": "Report this message",
+      "alreadyMessage": "You've already reported this message."
     },
     "schedule": {
       "label": "Schedule",
@@ -3359,18 +3361,21 @@
   "languageRooms": {
     "list": {
       "title": "Language rooms",
-      "create": "New topic room",
+      "create": "New room",
       "error": "Couldn't load language rooms.",
       "empty": "No rooms yet.",
       "joined": "Joined",
-      "locked": "Locked"
+      "locked": "Locked",
+      "active": "Active {{time}}",
+      "refresh": "Refresh"
     },
     "create": {
       "title": "Start a topic room",
       "name": "Topic",
       "language": "Language",
       "description": "Description (optional)",
-      "submit": "Create room"
+      "submit": "Create room",
+      "pickLanguage": "Choose a language"
     },
     "errors": {
       "banned": "You were removed from this room. You can ask the owner to let you back in.",
@@ -3397,7 +3402,25 @@
       "voice": "Voice message — open the app to listen",
       "media": "Photo or video — open the app to see it",
       "sticker": "Sticker",
-      "unsupported": "Open the app to see this message"
+      "unsupported": "Open the app to see this message",
+      "someone": "Member",
+      "photo": "Photo",
+      "replyDeleted": "Message removed",
+      "reply": "Reply",
+      "react": "React",
+      "more": "More",
+      "delete": "Delete",
+      "report": "Report",
+      "sendFailed": "Failed to send message",
+      "photoFailed": "Couldn't send the photo. Try again.",
+      "photosOnly": "Only photos can be shared in rooms.",
+      "questionOfDay": "Question of the day",
+      "typing": "{{name}} is typing…",
+      "removePhoto": "Remove photo",
+      "addPhoto": "Add a photo",
+      "caption": "Add a caption (optional)",
+      "deleteTitle": "Delete this message?",
+      "deleteBody": "It will be removed for everyone in the room."
     },
     "owner": {
       "requests": "Join requests",
@@ -3410,6 +3433,16 @@
       "remove": "Remove from room",
       "removeYes": "Remove",
       "removeNote": "Removed members can ask to come back; you decide."
+    },
+    "info": {
+      "hub": "Language hub",
+      "topic": "Topic room",
+      "members": "members",
+      "noDescription": "No description yet.",
+      "viewMembers": "View members",
+      "edit": "Edit",
+      "back": "Back",
+      "save": "Save"
     }
   },
   "communityCity": {

@@ -984,7 +984,9 @@
       "alreadyComment": "Bạn đã báo cáo bình luận này rồi.",
       "alreadyStory": "Bạn đã báo cáo tin này rồi.",
       "titleComment": "Báo cáo bình luận này",
-      "titleStory": "Báo cáo tin này"
+      "titleStory": "Báo cáo tin này",
+      "titleMessage": "Báo cáo tin nhắn này",
+      "alreadyMessage": "Bạn đã báo cáo tin nhắn này rồi."
     },
     "schedule": {
       "label": "Lên lịch",
@@ -3290,7 +3292,8 @@
       "language": "Ngôn ngữ",
       "name": "Chủ đề",
       "submit": "Tạo phòng",
-      "title": "Tạo phòng chủ đề"
+      "title": "Tạo phòng chủ đề",
+      "pickLanguage": "Chọn ngôn ngữ"
     },
     "errors": {
       "banned": "Bạn đã bị xóa khỏi phòng này. Bạn có thể nhờ chủ phòng cho vào lại.",
@@ -3303,12 +3306,14 @@
       "tooMany": "Bạn đã có 10 phòng. Hãy xóa một phòng để tạo phòng mới."
     },
     "list": {
-      "create": "Phòng chủ đề mới",
+      "create": "Phòng mới",
       "empty": "Chưa có phòng nào.",
       "error": "Không tải được phòng ngôn ngữ.",
       "joined": "Đã tham gia",
       "locked": "Đã khóa",
-      "title": "Phòng ngôn ngữ"
+      "title": "Phòng ngôn ngữ",
+      "active": "Hoạt động {{time}}",
+      "refresh": "Làm mới"
     },
     "owner": {
       "admin": "quản trị viên",
@@ -3337,7 +3342,35 @@
       "slowDown": "Bạn đang gửi quá nhanh. Chậm lại một chút nhé.",
       "sticker": "Nhãn dán",
       "unsupported": "Mở ứng dụng để xem tin nhắn này",
-      "voice": "Tin nhắn thoại — mở ứng dụng để nghe"
+      "voice": "Tin nhắn thoại — mở ứng dụng để nghe",
+      "someone": "Thành viên",
+      "photo": "Ảnh",
+      "replyDeleted": "Tin nhắn đã bị xóa",
+      "reply": "Trả lời",
+      "react": "Bày tỏ cảm xúc",
+      "more": "Thêm",
+      "delete": "Xóa",
+      "report": "Báo cáo",
+      "sendFailed": "Không gửi được tin nhắn",
+      "photoFailed": "Không gửi được ảnh. Hãy thử lại.",
+      "photosOnly": "Trong phòng chỉ có thể chia sẻ ảnh.",
+      "questionOfDay": "Câu hỏi hôm nay",
+      "typing": "{{name}} đang nhập…",
+      "removePhoto": "Bỏ ảnh",
+      "addPhoto": "Thêm ảnh",
+      "caption": "Thêm chú thích (không bắt buộc)",
+      "deleteTitle": "Xóa tin nhắn này?",
+      "deleteBody": "Tin nhắn sẽ bị xóa với mọi người trong phòng."
+    },
+    "info": {
+      "hub": "Phòng chính của ngôn ngữ",
+      "topic": "Phòng chủ đề",
+      "members": "thành viên",
+      "noDescription": "Chưa có mô tả.",
+      "viewMembers": "Xem thành viên",
+      "edit": "Chỉnh sửa",
+      "back": "Quay lại",
+      "save": "Lưu"
     }
   },
   "nav": {

@@ -984,7 +984,9 @@
       "alreadyComment": "Bu yorumu zaten bildirdin.",
       "alreadyStory": "Bu hikâyeyi zaten bildirdin.",
       "titleComment": "Bu yorumu bildir",
-      "titleStory": "Bu hikâyeyi bildir"
+      "titleStory": "Bu hikâyeyi bildir",
+      "titleMessage": "Bu mesajı bildir",
+      "alreadyMessage": "Bu mesajı zaten bildirdin."
     },
     "schedule": {
       "label": "Zamanla",
@@ -3290,7 +3292,8 @@
       "language": "Dil",
       "name": "Konu",
       "submit": "Oda oluştur",
-      "title": "Konu odası başlat"
+      "title": "Konu odası başlat",
+      "pickLanguage": "Bir dil seç"
     },
     "errors": {
       "banned": "Bu odadan çıkarıldınız. Oda sahibinden sizi tekrar almasını isteyebilirsiniz.",
@@ -3303,12 +3306,14 @@
       "tooMany": "Zaten 10 odanız var. Yeni bir oda başlatmak için birini silin."
     },
     "list": {
-      "create": "Yeni konu odası",
+      "create": "Yeni oda",
       "empty": "Henüz oda yok.",
       "error": "Dil odaları yüklenemedi.",
       "joined": "Katıldın",
       "locked": "Kilitli",
-      "title": "Dil odaları"
+      "title": "Dil odaları",
+      "active": "{{time}} aktif",
+      "refresh": "Yenile"
     },
     "owner": {
       "admin": "yönetici",
@@ -3337,7 +3342,35 @@
       "slowDown": "Çok hızlı gönderiyorsunuz. Biraz yavaşlayın.",
       "sticker": "Çıkartma",
       "unsupported": "Bu mesajı görmek için uygulamayı açın",
-      "voice": "Sesli mesaj — dinlemek için uygulamayı açın"
+      "voice": "Sesli mesaj — dinlemek için uygulamayı açın",
+      "someone": "Üye",
+      "photo": "Fotoğraf",
+      "replyDeleted": "Mesaj kaldırıldı",
+      "reply": "Yanıtla",
+      "react": "Tepki ver",
+      "more": "Daha fazla",
+      "delete": "Sil",
+      "report": "Bildir",
+      "sendFailed": "Mesaj gönderilemedi",
+      "photoFailed": "Fotoğraf gönderilemedi. Tekrar dene.",
+      "photosOnly": "Odalarda yalnızca fotoğraf paylaşılabilir.",
+      "questionOfDay": "Günün sorusu",
+      "typing": "{{name}} yazıyor…",
+      "removePhoto": "Fotoğrafı kaldır",
+      "addPhoto": "Fotoğraf ekle",
+      "caption": "Açıklama ekle (isteğe bağlı)",
+      "deleteTitle": "Bu mesaj silinsin mi?",
+      "deleteBody": "Odadaki herkes için kaldırılacak."
+    },
+    "info": {
+      "hub": "Dil merkezi",
+      "topic": "Konu odası",
+      "members": "üye",
+      "noDescription": "Henüz açıklama yok.",
+      "viewMembers": "Üyeleri gör",
+      "edit": "Düzenle",
+      "back": "Geri",
+      "save": "Kaydet"
     }
   },
   "nav": {

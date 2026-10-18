@@ -984,7 +984,9 @@
       "alreadyComment": "このコメントはすでに報告済みです。",
       "alreadyStory": "このストーリーはすでに報告済みです。",
       "titleComment": "このコメントを報告",
-      "titleStory": "このストーリーを報告"
+      "titleStory": "このストーリーを報告",
+      "titleMessage": "このメッセージを報告",
+      "alreadyMessage": "このメッセージはすでに報告済みです。"
     },
     "schedule": {
       "label": "予約投稿",
@@ -3290,7 +3292,8 @@
       "language": "言語",
       "name": "トピック",
       "submit": "ルームを作成",
-      "title": "トピックルームを始める"
+      "title": "トピックルームを始める",
+      "pickLanguage": "言語を選択"
     },
     "errors": {
       "banned": "このルームから退出させられました。オーナーに再参加をお願いできます。",
@@ -3303,12 +3306,14 @@
       "tooMany": "ルームはすでに10個あります。新しく作るには1つ削除してください。"
     },
     "list": {
-      "create": "新しいトピックルーム",
+      "create": "新しいルーム",
       "empty": "まだルームがありません。",
       "error": "言語ルームを読み込めませんでした。",
       "joined": "参加中",
       "locked": "ロック中",
-      "title": "言語ルーム"
+      "title": "言語ルーム",
+      "active": "{{time}}にアクティブ",
+      "refresh": "更新"
     },
     "owner": {
       "admin": "管理者",
@@ -3337,7 +3342,35 @@
       "slowDown": "送信ペースが速すぎます。少しゆっくり送ってください。",
       "sticker": "スタンプ",
       "unsupported": "このメッセージはアプリで確認できます",
-      "voice": "ボイスメッセージ — アプリで聞けます"
+      "voice": "ボイスメッセージ — アプリで聞けます",
+      "someone": "メンバー",
+      "photo": "写真",
+      "replyDeleted": "削除されたメッセージ",
+      "reply": "返信",
+      "react": "リアクション",
+      "more": "その他",
+      "delete": "削除",
+      "report": "報告",
+      "sendFailed": "メッセージを送信できませんでした",
+      "photoFailed": "写真を送信できませんでした。もう一度お試しください。",
+      "photosOnly": "ルームで共有できるのは写真だけです。",
+      "questionOfDay": "今日の質問",
+      "typing": "{{name}}さんが入力中…",
+      "removePhoto": "写真を外す",
+      "addPhoto": "写真を追加",
+      "caption": "キャプションを追加（任意）",
+      "deleteTitle": "このメッセージを削除しますか？",
+      "deleteBody": "ルームの全員から削除されます。"
+    },
+    "info": {
+      "hub": "言語ハブ",
+      "topic": "トピックルーム",
+      "members": "人",
+      "noDescription": "説明はまだありません。",
+      "viewMembers": "メンバーを見る",
+      "edit": "編集",
+      "back": "戻る",
+      "save": "保存"
     }
   },
   "nav": {

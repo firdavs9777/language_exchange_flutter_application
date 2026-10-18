@@ -76,3 +76,34 @@ it("keeps the dialog open with the reason on a refusal", async () => {
   fireEvent.click(screen.getByTestId("create-topic-room-submit"));
   await waitFor(() => expect(screen.getByTestId("create-topic-room-error")).toHaveTextContent("10 rooms"));
 });
+
+it("names each language by its code, puts hub languages first, shows recent activity and refreshes", () => {
+  const refetch = jest.fn();
+  mockRooms = {
+    data: {
+      data: [
+        { _id: "t-uz", roomType: "topic", targetLanguage: "uz", title: "Chat", lastActivityAt: new Date(Date.now() - 5 * 60000).toISOString() },
+        { _id: "h-es", roomType: "hub", targetLanguage: "es", title: "Spanish hub" },
+      ],
+    },
+    isLoading: false,
+    isError: false,
+    refetch,
+  };
+  renderPage();
+  const headings = screen.getAllByRole("heading", { level: 2 }).map((h) => h.textContent);
+  expect(headings[0]).toContain("Spanish");
+  expect(headings[1]).toContain("Uzbek");
+  expect(screen.getByTestId("language-room-active-t-uz")).toHaveTextContent("Active 5m ago");
+  fireEvent.click(screen.getByTestId("language-rooms-refresh"));
+  expect(refetch).toHaveBeenCalled();
+});
+
+it("the language picker lists every language and starts on the one you learn", () => {
+  mockRooms = { data: { data: [] }, isLoading: false, isError: false };
+  renderPage();
+  fireEvent.click(screen.getByTestId("language-rooms-create"));
+  const select = screen.getByTestId("create-topic-room-language") as HTMLSelectElement;
+  expect(select.value).toBe("ko");
+  expect(select.options.length).toBeGreaterThan(150);
+});

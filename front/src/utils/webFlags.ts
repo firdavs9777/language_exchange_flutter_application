@@ -13,7 +13,11 @@ export type WebFlag =
   | "webVoiceRoomsEnabled"
   | "webLanguageRoomsEnabled"
   | "webCallsEnabled"
-  | "webAppleSigninEnabled";
+  | "webAppleSigninEnabled"
+  // Global switches the website also honours as-is (no web-only twin):
+  // Profile Boost and coins.
+  | "boostsEnabled"
+  | "coinsEnabled";
 
 /**
  * Global switches that still apply on top of the web flag (spec §4):

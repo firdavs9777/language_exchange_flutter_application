@@ -984,7 +984,9 @@
       "alreadyComment": "Na-report mo na ang komentong ito.",
       "alreadyStory": "Na-report mo na ang story na ito.",
       "titleComment": "I-report ang komentong ito",
-      "titleStory": "I-report ang story na ito"
+      "titleStory": "I-report ang story na ito",
+      "titleMessage": "I-report ang mensaheng ito",
+      "alreadyMessage": "Na-report mo na ang mensaheng ito."
     },
     "schedule": {
       "label": "I-schedule",
@@ -3290,7 +3292,8 @@
       "language": "Wika",
       "name": "Paksa",
       "submit": "Gumawa ng room",
-      "title": "Magsimula ng topic room"
+      "title": "Magsimula ng topic room",
+      "pickLanguage": "Pumili ng wika"
     },
     "errors": {
       "banned": "Inalis ka sa room na ito. Puwede mong hilingin sa owner na papasukin ka ulit.",
@@ -3303,12 +3306,14 @@
       "tooMany": "May 10 room ka na. Mag-delete ng isa para makagawa ng bago."
     },
     "list": {
-      "create": "Bagong topic room",
+      "create": "Bagong room",
       "empty": "Wala pang room.",
       "error": "Hindi ma-load ang mga language room.",
       "joined": "Kasali na",
       "locked": "Naka-lock",
-      "title": "Mga language room"
+      "title": "Mga language room",
+      "active": "Aktibo {{time}}",
+      "refresh": "I-refresh"
     },
     "owner": {
       "admin": "admin",
@@ -3337,7 +3342,35 @@
       "slowDown": "Masyado kang mabilis magpadala. Dahan-dahan lang.",
       "sticker": "Sticker",
       "unsupported": "Buksan ang app para makita ang mensaheng ito",
-      "voice": "Voice message — buksan ang app para pakinggan"
+      "voice": "Voice message — buksan ang app para pakinggan",
+      "someone": "Miyembro",
+      "photo": "Larawan",
+      "replyDeleted": "Tinanggal ang mensahe",
+      "reply": "Sumagot",
+      "react": "Mag-react",
+      "more": "Iba pa",
+      "delete": "Burahin",
+      "report": "I-report",
+      "sendFailed": "Hindi naipadala ang mensahe",
+      "photoFailed": "Hindi naipadala ang larawan. Subukan ulit.",
+      "photosOnly": "Mga larawan lang ang puwedeng i-share sa rooms.",
+      "questionOfDay": "Tanong ng araw",
+      "typing": "Nagta-type si {{name}}…",
+      "removePhoto": "Alisin ang larawan",
+      "addPhoto": "Magdagdag ng larawan",
+      "caption": "Magdagdag ng caption (opsyonal)",
+      "deleteTitle": "Burahin ang mensaheng ito?",
+      "deleteBody": "Mawawala ito para sa lahat sa room."
+    },
+    "info": {
+      "hub": "Language hub",
+      "topic": "Topic room",
+      "members": "miyembro",
+      "noDescription": "Wala pang paglalarawan.",
+      "viewMembers": "Tingnan ang mga miyembro",
+      "edit": "I-edit",
+      "back": "Bumalik",
+      "save": "I-save"
     }
   },
   "nav": {

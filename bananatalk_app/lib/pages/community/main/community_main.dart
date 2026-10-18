@@ -153,6 +153,30 @@ const int communityRoomsSubTab = 3;
 /// Matches is index 0 of the Matches-first layout (flag on).
 const int communityMatchesSubTab = 0;
 
+/// The Partners index when [currentIndex] is a tab the filters do not
+/// change (Matches, Gatherings / voice rooms, Rooms, Waves), else null.
+/// Mirrors the TabBarView order in `CommunityMain.build`.
+int? partnersTabIndexIfFilterless({
+  required int currentIndex,
+  required bool matchesLayout,
+  required bool roomsTab,
+}) {
+  final tabs = <String>[
+    if (matchesLayout) 'matches',
+    'partners',
+    if (!matchesLayout) 'genders',
+    'gatherings',
+    if (roomsTab) 'rooms',
+    'nearby',
+    if (!matchesLayout) 'city',
+    'topics',
+    'waves',
+  ];
+  if (currentIndex < 0 || currentIndex >= tabs.length) return null;
+  const filterless = {'matches', 'gatherings', 'rooms', 'waves'};
+  return filterless.contains(tabs[currentIndex]) ? tabs.indexOf('partners') : null;
+}
+
 /// Waves is the LAST sub-tab in every layout (legacy 7/8 tabs, Matches 6/7),
 /// so its absolute index depends on two flags. Rather than a layout-specific
 /// number, deep links request this sentinel: `_consumePendingSubTab` runs only
@@ -392,8 +416,18 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       builder: (context) => CommunityFilter(
-        onApplyFilters: (filtersMap) =>
-            _applyFilters(FilterState.fromJson(filtersMap)),
+        onApplyFilters: (filtersMap) {
+          _applyFilters(FilterState.fromJson(filtersMap));
+          // Applied from a tab that filters do not change (Matches is a fixed
+          // daily batch; Gatherings, Rooms and Waves ignore them): show the
+          // result on Partners instead of an unchanged screen (2026-10-18).
+          final partners = partnersTabIndexIfFilterless(
+            currentIndex: _tabController.index,
+            matchesLayout: _matchesLayoutBuilt,
+            roomsTab: _roomsTabBuilt ?? false,
+          );
+          if (partners != null && mounted) _tabController.animateTo(partners);
+        },
         initialFilters: _filters.toJson(),
       ),
     );

@@ -965,7 +965,9 @@
       "alreadyComment": "Você já denunciou este comentário.",
       "alreadyStory": "Você já denunciou este story.",
       "titleComment": "Denunciar este comentário",
-      "titleStory": "Denunciar este story"
+      "titleStory": "Denunciar este story",
+      "titleMessage": "Denunciar esta mensagem",
+      "alreadyMessage": "Você já denunciou esta mensagem."
     },
     "schedule": {
       "label": "Agendar",
@@ -3291,7 +3293,8 @@
       "language": "Idioma",
       "name": "Tema",
       "submit": "Criar sala",
-      "title": "Crie uma sala temática"
+      "title": "Crie uma sala temática",
+      "pickLanguage": "Escolha um idioma"
     },
     "errors": {
       "banned": "Você foi removido desta sala. Você pode pedir ao dono para voltar.",
@@ -3304,12 +3307,14 @@
       "tooMany": "Você já tem 10 salas. Exclua uma para criar outra."
     },
     "list": {
-      "create": "Nova sala temática",
+      "create": "Nova sala",
       "empty": "Nenhuma sala ainda.",
       "error": "Não foi possível carregar as salas de idiomas.",
       "joined": "Participando",
       "locked": "Fechada",
-      "title": "Salas de idiomas"
+      "title": "Salas de idiomas",
+      "active": "Ativa {{time}}",
+      "refresh": "Atualizar"
     },
     "owner": {
       "admin": "admin",
@@ -3338,7 +3343,35 @@
       "slowDown": "Você está enviando rápido demais. Vá com calma.",
       "sticker": "Figurinha",
       "unsupported": "Abra o app para ver esta mensagem",
-      "voice": "Mensagem de voz — abra o app para ouvir"
+      "voice": "Mensagem de voz — abra o app para ouvir",
+      "someone": "Membro",
+      "photo": "Foto",
+      "replyDeleted": "Mensagem removida",
+      "reply": "Responder",
+      "react": "Reagir",
+      "more": "Mais",
+      "delete": "Excluir",
+      "report": "Denunciar",
+      "sendFailed": "Falha ao enviar a mensagem",
+      "photoFailed": "Não foi possível enviar a foto. Tente novamente.",
+      "photosOnly": "Só é possível compartilhar fotos nas salas.",
+      "questionOfDay": "Pergunta do dia",
+      "typing": "{{name}} está digitando…",
+      "removePhoto": "Remover foto",
+      "addPhoto": "Adicionar foto",
+      "caption": "Adicionar legenda (opcional)",
+      "deleteTitle": "Excluir esta mensagem?",
+      "deleteBody": "Ela será removida para todos na sala."
+    },
+    "info": {
+      "hub": "Sala do idioma",
+      "topic": "Sala temática",
+      "members": "membros",
+      "noDescription": "Ainda sem descrição.",
+      "viewMembers": "Ver membros",
+      "edit": "Editar",
+      "back": "Voltar",
+      "save": "Salvar"
     }
   },
   "nav": {

@@ -965,7 +965,9 @@
       "alreadyComment": "Hai già segnalato questo commento.",
       "alreadyStory": "Hai già segnalato questa storia.",
       "titleComment": "Segnala questo commento",
-      "titleStory": "Segnala questa storia"
+      "titleStory": "Segnala questa storia",
+      "titleMessage": "Segnala questo messaggio",
+      "alreadyMessage": "Hai già segnalato questo messaggio."
     },
     "schedule": {
       "label": "Programma",
@@ -3291,7 +3293,8 @@
       "language": "Lingua",
       "name": "Argomento",
       "submit": "Crea stanza",
-      "title": "Apri una stanza a tema"
+      "title": "Apri una stanza a tema",
+      "pickLanguage": "Scegli una lingua"
     },
     "errors": {
       "banned": "Sei stato rimosso da questa stanza. Puoi chiedere al proprietario di farti rientrare.",
@@ -3304,12 +3307,14 @@
       "tooMany": "Hai già 10 stanze. Eliminane una per crearne un'altra."
     },
     "list": {
-      "create": "Nuova stanza a tema",
+      "create": "Nuova stanza",
       "empty": "Ancora nessuna stanza.",
       "error": "Impossibile caricare le stanze linguistiche.",
       "joined": "Iscritto",
       "locked": "Bloccata",
-      "title": "Stanze linguistiche"
+      "title": "Stanze linguistiche",
+      "active": "Attiva {{time}}",
+      "refresh": "Aggiorna"
     },
     "owner": {
       "admin": "admin",
@@ -3338,7 +3343,35 @@
       "slowDown": "Stai inviando troppo velocemente. Rallenta un po'.",
       "sticker": "Sticker",
       "unsupported": "Apri l'app per vedere questo messaggio",
-      "voice": "Messaggio vocale — apri l'app per ascoltarlo"
+      "voice": "Messaggio vocale — apri l'app per ascoltarlo",
+      "someone": "Membro",
+      "photo": "Foto",
+      "replyDeleted": "Messaggio rimosso",
+      "reply": "Rispondi",
+      "react": "Reagisci",
+      "more": "Altro",
+      "delete": "Elimina",
+      "report": "Segnala",
+      "sendFailed": "Invio del messaggio non riuscito",
+      "photoFailed": "Impossibile inviare la foto. Riprova.",
+      "photosOnly": "Nelle stanze si possono condividere solo foto.",
+      "questionOfDay": "Domanda del giorno",
+      "typing": "{{name}} sta scrivendo…",
+      "removePhoto": "Rimuovi foto",
+      "addPhoto": "Aggiungi una foto",
+      "caption": "Aggiungi una didascalia (facoltativa)",
+      "deleteTitle": "Eliminare questo messaggio?",
+      "deleteBody": "Verrà rimosso per tutti nella stanza."
+    },
+    "info": {
+      "hub": "Stanza della lingua",
+      "topic": "Stanza a tema",
+      "members": "membri",
+      "noDescription": "Ancora nessuna descrizione.",
+      "viewMembers": "Vedi membri",
+      "edit": "Modifica",
+      "back": "Indietro",
+      "save": "Salva"
     }
   },
   "nav": {

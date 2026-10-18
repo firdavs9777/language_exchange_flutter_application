@@ -984,7 +984,9 @@
       "alreadyComment": "이미 이 댓글을 신고했어요.",
       "alreadyStory": "이미 이 스토리를 신고했어요.",
       "titleComment": "이 댓글 신고",
-      "titleStory": "이 스토리 신고"
+      "titleStory": "이 스토리 신고",
+      "titleMessage": "이 메시지 신고",
+      "alreadyMessage": "이미 신고한 메시지예요."
     },
     "schedule": {
       "label": "예약",
@@ -3290,7 +3292,8 @@
       "language": "언어",
       "name": "주제",
       "submit": "룸 만들기",
-      "title": "주제 룸 시작하기"
+      "title": "주제 룸 시작하기",
+      "pickLanguage": "언어 선택"
     },
     "errors": {
       "banned": "이 룸에서 내보내졌어요. 방장에게 다시 들어갈 수 있게 요청할 수 있어요.",
@@ -3303,12 +3306,14 @@
       "tooMany": "이미 룸이 10개 있어요. 새로 만들려면 하나를 삭제해 주세요."
     },
     "list": {
-      "create": "새 주제 룸",
+      "create": "새 룸",
       "empty": "아직 룸이 없어요.",
       "error": "언어 룸을 불러오지 못했어요.",
       "joined": "참여 중",
       "locked": "잠김",
-      "title": "언어 룸"
+      "title": "언어 룸",
+      "active": "{{time}} 활동",
+      "refresh": "새로고침"
     },
     "owner": {
       "admin": "관리자",
@@ -3337,7 +3342,35 @@
       "slowDown": "너무 빨리 보내고 있어요. 조금 천천히 보내 주세요.",
       "sticker": "스티커",
       "unsupported": "앱에서 이 메시지를 확인하세요",
-      "voice": "음성 메시지 — 앱에서 들어 보세요"
+      "voice": "음성 메시지 — 앱에서 들어 보세요",
+      "someone": "멤버",
+      "photo": "사진",
+      "replyDeleted": "삭제된 메시지",
+      "reply": "답장",
+      "react": "반응",
+      "more": "더 보기",
+      "delete": "삭제",
+      "report": "신고",
+      "sendFailed": "메시지를 보내지 못했어요",
+      "photoFailed": "사진을 보내지 못했어요. 다시 시도해 주세요.",
+      "photosOnly": "룸에는 사진만 공유할 수 있어요.",
+      "questionOfDay": "오늘의 질문",
+      "typing": "{{name}}님이 입력 중…",
+      "removePhoto": "사진 빼기",
+      "addPhoto": "사진 추가",
+      "caption": "설명 추가 (선택)",
+      "deleteTitle": "이 메시지를 삭제할까요?",
+      "deleteBody": "룸의 모든 사람에게서 삭제돼요."
+    },
+    "info": {
+      "hub": "언어 허브",
+      "topic": "주제 룸",
+      "members": "명",
+      "noDescription": "아직 설명이 없어요.",
+      "viewMembers": "멤버 보기",
+      "edit": "편집",
+      "back": "뒤로",
+      "save": "저장"
     }
   },
   "nav": {

@@ -984,7 +984,9 @@
       "alreadyComment": "你已经举报过这条评论。",
       "alreadyStory": "你已经举报过这条快拍。",
       "titleComment": "举报这条评论",
-      "titleStory": "举报这条快拍"
+      "titleStory": "举报这条快拍",
+      "titleMessage": "举报这条消息",
+      "alreadyMessage": "你已经举报过这条消息。"
     },
     "schedule": {
       "label": "定时发布",
@@ -3290,7 +3292,8 @@
       "language": "语言",
       "name": "话题",
       "submit": "创建房间",
-      "title": "创建话题房"
+      "title": "创建话题房",
+      "pickLanguage": "选择语言"
     },
     "errors": {
       "banned": "你已被移出此房间，可以请房主让你重新加入。",
@@ -3303,12 +3306,14 @@
       "tooMany": "你已有 10 个房间，删除一个后才能再创建。"
     },
     "list": {
-      "create": "新建话题房",
+      "create": "新建房间",
       "empty": "还没有房间。",
       "error": "无法加载语言房。",
       "joined": "已加入",
       "locked": "已锁定",
-      "title": "语言房"
+      "title": "语言房",
+      "active": "{{time}}活跃",
+      "refresh": "刷新"
     },
     "owner": {
       "admin": "管理员",
@@ -3337,7 +3342,35 @@
       "slowDown": "你发送得太快了，请稍微慢一点。",
       "sticker": "贴纸",
       "unsupported": "打开 App 查看此消息",
-      "voice": "语音消息 — 打开 App 收听"
+      "voice": "语音消息 — 打开 App 收听",
+      "someone": "成员",
+      "photo": "照片",
+      "replyDeleted": "消息已删除",
+      "reply": "回复",
+      "react": "回应",
+      "more": "更多",
+      "delete": "删除",
+      "report": "举报",
+      "sendFailed": "消息发送失败",
+      "photoFailed": "照片发送失败，请重试。",
+      "photosOnly": "房间里只能分享照片。",
+      "questionOfDay": "每日一问",
+      "typing": "{{name}} 正在输入…",
+      "removePhoto": "移除照片",
+      "addPhoto": "添加照片",
+      "caption": "添加说明（可选）",
+      "deleteTitle": "删除这条消息？",
+      "deleteBody": "房间里的所有人都将看不到它。"
+    },
+    "info": {
+      "hub": "语言大厅",
+      "topic": "话题房",
+      "members": "位成员",
+      "noDescription": "暂无简介。",
+      "viewMembers": "查看成员",
+      "edit": "编辑",
+      "back": "返回",
+      "save": "保存"
     }
   },
   "nav": {

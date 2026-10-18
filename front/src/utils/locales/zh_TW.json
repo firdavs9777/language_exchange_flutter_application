@@ -984,7 +984,9 @@
       "alreadyComment": "你已經檢舉過這則留言。",
       "alreadyStory": "你已經檢舉過這則限時動態。",
       "titleComment": "檢舉這則留言",
-      "titleStory": "檢舉這則限時動態"
+      "titleStory": "檢舉這則限時動態",
+      "titleMessage": "檢舉這則訊息",
+      "alreadyMessage": "你已經檢舉過這則訊息。"
     },
     "schedule": {
       "label": "排程發布",
@@ -3290,7 +3292,8 @@
       "language": "語言",
       "name": "話題",
       "submit": "建立聊天室",
-      "title": "開一個話題聊天室"
+      "title": "開一個話題聊天室",
+      "pickLanguage": "選擇語言"
     },
     "errors": {
       "banned": "你已被移出這個聊天室，可以請房主讓你重新加入。",
@@ -3303,12 +3306,14 @@
       "tooMany": "你已經有 10 個聊天室，刪除一個才能再建立。"
     },
     "list": {
-      "create": "新增話題聊天室",
+      "create": "新增聊天室",
       "empty": "還沒有聊天室。",
       "error": "無法載入語言聊天室。",
       "joined": "已加入",
       "locked": "已鎖定",
-      "title": "語言聊天室"
+      "title": "語言聊天室",
+      "active": "{{time}}活躍",
+      "refresh": "重新整理"
     },
     "owner": {
       "admin": "管理員",
@@ -3337,7 +3342,35 @@
       "slowDown": "你傳得太快了，請稍微慢一點。",
       "sticker": "貼圖",
       "unsupported": "開啟 App 查看這則訊息",
-      "voice": "語音訊息 — 開啟 App 收聽"
+      "voice": "語音訊息 — 開啟 App 收聽",
+      "someone": "成員",
+      "photo": "照片",
+      "replyDeleted": "訊息已刪除",
+      "reply": "回覆",
+      "react": "回應",
+      "more": "更多",
+      "delete": "刪除",
+      "report": "檢舉",
+      "sendFailed": "訊息傳送失敗",
+      "photoFailed": "照片傳送失敗，請再試一次。",
+      "photosOnly": "聊天室只能分享照片。",
+      "questionOfDay": "每日一問",
+      "typing": "{{name}} 正在輸入…",
+      "removePhoto": "移除照片",
+      "addPhoto": "新增照片",
+      "caption": "新增說明（選填）",
+      "deleteTitle": "要刪除這則訊息嗎？",
+      "deleteBody": "聊天室裡的所有人都將看不到它。"
+    },
+    "info": {
+      "hub": "語言大廳",
+      "topic": "話題聊天室",
+      "members": "位成員",
+      "noDescription": "尚無簡介。",
+      "viewMembers": "查看成員",
+      "edit": "編輯",
+      "back": "返回",
+      "save": "儲存"
     }
   },
   "nav": {

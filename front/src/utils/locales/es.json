@@ -965,7 +965,9 @@
       "alreadyComment": "Ya denunciaste este comentario.",
       "alreadyStory": "Ya denunciaste esta historia.",
       "titleComment": "Denunciar este comentario",
-      "titleStory": "Denunciar esta historia"
+      "titleStory": "Denunciar esta historia",
+      "titleMessage": "Denunciar este mensaje",
+      "alreadyMessage": "Ya denunciaste este mensaje."
     },
     "schedule": {
       "label": "Programar",
@@ -3291,7 +3293,8 @@
       "language": "Idioma",
       "name": "Tema",
       "submit": "Crear sala",
-      "title": "Crea una sala temática"
+      "title": "Crea una sala temática",
+      "pickLanguage": "Elige un idioma"
     },
     "errors": {
       "banned": "Te eliminaron de esta sala. Puedes pedirle al propietario que te deje volver.",
@@ -3304,12 +3307,14 @@
       "tooMany": "Ya tienes 10 salas. Elimina una para crear otra."
     },
     "list": {
-      "create": "Nueva sala temática",
+      "create": "Nueva sala",
       "empty": "Todavía no hay salas.",
       "error": "No se pudieron cargar las salas de idiomas.",
       "joined": "Te uniste",
       "locked": "Bloqueada",
-      "title": "Salas de idiomas"
+      "title": "Salas de idiomas",
+      "active": "Activa {{time}}",
+      "refresh": "Actualizar"
     },
     "owner": {
       "admin": "admin",
@@ -3338,7 +3343,35 @@
       "slowDown": "Estás enviando muy rápido. Ve un poco más despacio.",
       "sticker": "Sticker",
       "unsupported": "Abre la app para ver este mensaje",
-      "voice": "Mensaje de voz: abre la app para escucharlo"
+      "voice": "Mensaje de voz: abre la app para escucharlo",
+      "someone": "Miembro",
+      "photo": "Foto",
+      "replyDeleted": "Mensaje eliminado",
+      "reply": "Responder",
+      "react": "Reaccionar",
+      "more": "Más",
+      "delete": "Eliminar",
+      "report": "Denunciar",
+      "sendFailed": "No se pudo enviar el mensaje",
+      "photoFailed": "No se pudo enviar la foto. Inténtalo de nuevo.",
+      "photosOnly": "En las salas solo se pueden compartir fotos.",
+      "questionOfDay": "Pregunta del día",
+      "typing": "{{name}} está escribiendo…",
+      "removePhoto": "Quitar foto",
+      "addPhoto": "Añadir una foto",
+      "caption": "Añade un pie de foto (opcional)",
+      "deleteTitle": "¿Eliminar este mensaje?",
+      "deleteBody": "Se eliminará para todos en la sala."
+    },
+    "info": {
+      "hub": "Sala del idioma",
+      "topic": "Sala temática",
+      "members": "miembros",
+      "noDescription": "Aún no hay descripción.",
+      "viewMembers": "Ver miembros",
+      "edit": "Editar",
+      "back": "Atrás",
+      "save": "Guardar"
     }
   },
   "nav": {

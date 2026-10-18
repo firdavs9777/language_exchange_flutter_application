@@ -965,7 +965,9 @@
       "alreadyComment": "Vous avez déjà signalé ce commentaire.",
       "alreadyStory": "Vous avez déjà signalé cette story.",
       "titleComment": "Signaler ce commentaire",
-      "titleStory": "Signaler cette story"
+      "titleStory": "Signaler cette story",
+      "titleMessage": "Signaler ce message",
+      "alreadyMessage": "Tu as déjà signalé ce message."
     },
     "schedule": {
       "label": "Programmer",
@@ -3291,7 +3293,8 @@
       "language": "Langue",
       "name": "Sujet",
       "submit": "Créer le salon",
-      "title": "Lancer un salon thématique"
+      "title": "Lancer un salon thématique",
+      "pickLanguage": "Choisir une langue"
     },
     "errors": {
       "banned": "Vous avez été retiré de ce salon. Vous pouvez demander au propriétaire de vous réintégrer.",
@@ -3304,12 +3307,14 @@
       "tooMany": "Vous avez déjà 10 salons. Supprimez-en un pour en créer un autre."
     },
     "list": {
-      "create": "Nouveau salon thématique",
+      "create": "Nouveau salon",
       "empty": "Aucun salon pour l'instant.",
       "error": "Impossible de charger les salons de langue.",
       "joined": "Rejoint",
       "locked": "Verrouillé",
-      "title": "Salons de langue"
+      "title": "Salons de langue",
+      "active": "Actif {{time}}",
+      "refresh": "Actualiser"
     },
     "owner": {
       "admin": "admin",
@@ -3338,7 +3343,35 @@
       "slowDown": "Vous envoyez trop vite. Ralentissez un peu.",
       "sticker": "Sticker",
       "unsupported": "Ouvrez l'application pour voir ce message",
-      "voice": "Message vocal — ouvrez l'application pour l'écouter"
+      "voice": "Message vocal — ouvrez l'application pour l'écouter",
+      "someone": "Membre",
+      "photo": "Photo",
+      "replyDeleted": "Message supprimé",
+      "reply": "Répondre",
+      "react": "Réagir",
+      "more": "Plus",
+      "delete": "Supprimer",
+      "report": "Signaler",
+      "sendFailed": "Échec de l'envoi du message",
+      "photoFailed": "Impossible d'envoyer la photo. Réessaie.",
+      "photosOnly": "Seules les photos peuvent être partagées dans les salons.",
+      "questionOfDay": "Question du jour",
+      "typing": "{{name}} est en train d'écrire…",
+      "removePhoto": "Retirer la photo",
+      "addPhoto": "Ajouter une photo",
+      "caption": "Ajouter une légende (facultatif)",
+      "deleteTitle": "Supprimer ce message ?",
+      "deleteBody": "Il sera supprimé pour tout le monde dans le salon."
+    },
+    "info": {
+      "hub": "Salon de la langue",
+      "topic": "Salon thématique",
+      "members": "membres",
+      "noDescription": "Pas encore de description.",
+      "viewMembers": "Voir les membres",
+      "edit": "Modifier",
+      "back": "Retour",
+      "save": "Enregistrer"
     }
   },
   "nav": {

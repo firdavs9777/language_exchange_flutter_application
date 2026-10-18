@@ -194,6 +194,18 @@ VIP parity with the app (2026-10-18; backend a71aa3c / b2836ac, app d769d971)
 - [ ] Chat's daily-message limit dialog still says "Go VIP for unlimited messages" (`chatPage.sendErrors.dailyBody`) -- keep only while the server enforces a free message cap. S
 - [ ] Native review of the 2026-10-18 VIP strings (vip.features.*, vip.limit.*, countryVipOnly, mutualExchange, activeToday, radiusLimit). S
 
+Language rooms — app parity (2026-10-18; backend 468fa90, app 90b4e425). Still behind `webLanguageRoomsEnabled` (+ `roomsEnabled`)
+- [x] Directory: languages named from the room's code in the reader's language with a flag, hub languages first, "Active 5m ago", refresh button, "+ New room"
+- [x] New room in any language: the whole ISO 639-1 list (signup picker's list, localized names), sends the code
+- [x] Opening a room does not join it: visitors read the history and watch live (`room:join`), and get a "Join room" bar instead of the composer; banned users ask to come back
+- [x] Room info from the title: language, members / online, description, View members (members), Edit title + description (moderators), Join / Leave; owner's requests + remove inside "View members"
+- [x] Messages: avatar and name open the profile; reply with quote (`replyTo`); reactions (chat's ReactionRow, `/messages/:id/reactions`, live `messageReaction`); photo with caption (`POST /rooms/:id/media`); delete own / any for moderators (live `room:messageDeleted`); report (shared report dialog, `type: "message"`)
+- [x] Daily prompt pinned as "Question of the day"; typing indicator; blocked senders hidden live; refused send keeps the text and says "Failed to send message"
+- [x] New strings in all 18 locales (drafts)
+- [ ] Live QA with the flag on: visitor watch → join, reply, react, photo, delete (as moderator), report, daily prompt card. S
+- [ ] Native review of the 2026-10-18 `languageRooms.*` drafts. S
+- [ ] Rooms show voice / GIF / sticker messages as a label ("open the app"); the web composer sends text and photos only. S
+
 ## 5. Decided / won't fix
 
 - Audit M2: the client keeps the start < end rule on publish (the backend rejects `endsAt <= startsAt` and publish saves first); the message says to fix start or end.

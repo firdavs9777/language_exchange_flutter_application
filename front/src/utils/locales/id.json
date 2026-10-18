@@ -984,7 +984,9 @@
       "alreadyComment": "Anda sudah melaporkan komentar ini.",
       "alreadyStory": "Anda sudah melaporkan cerita ini.",
       "titleComment": "Laporkan komentar ini",
-      "titleStory": "Laporkan cerita ini"
+      "titleStory": "Laporkan cerita ini",
+      "titleMessage": "Laporkan pesan ini",
+      "alreadyMessage": "Kamu sudah melaporkan pesan ini."
     },
     "schedule": {
       "label": "Jadwalkan",
@@ -3290,7 +3292,8 @@
       "language": "Bahasa",
       "name": "Topik",
       "submit": "Buat ruang",
-      "title": "Mulai ruang topik"
+      "title": "Mulai ruang topik",
+      "pickLanguage": "Pilih bahasa"
     },
     "errors": {
       "banned": "Kamu dikeluarkan dari ruang ini. Kamu bisa minta pemilik untuk mengizinkanmu kembali.",
@@ -3303,12 +3306,14 @@
       "tooMany": "Kamu sudah punya 10 ruang. Hapus satu untuk membuat yang baru."
     },
     "list": {
-      "create": "Ruang topik baru",
+      "create": "Ruang baru",
       "empty": "Belum ada ruang.",
       "error": "Gagal memuat ruang bahasa.",
       "joined": "Sudah bergabung",
       "locked": "Terkunci",
-      "title": "Ruang bahasa"
+      "title": "Ruang bahasa",
+      "active": "Aktif {{time}}",
+      "refresh": "Muat ulang"
     },
     "owner": {
       "admin": "admin",
@@ -3337,7 +3342,35 @@
       "slowDown": "Kamu mengirim terlalu cepat. Pelan-pelan sedikit.",
       "sticker": "Stiker",
       "unsupported": "Buka aplikasi untuk melihat pesan ini",
-      "voice": "Pesan suara — buka aplikasi untuk mendengarkan"
+      "voice": "Pesan suara — buka aplikasi untuk mendengarkan",
+      "someone": "Anggota",
+      "photo": "Foto",
+      "replyDeleted": "Pesan dihapus",
+      "reply": "Balas",
+      "react": "Beri reaksi",
+      "more": "Lainnya",
+      "delete": "Hapus",
+      "report": "Laporkan",
+      "sendFailed": "Gagal mengirim pesan",
+      "photoFailed": "Foto gagal dikirim. Coba lagi.",
+      "photosOnly": "Hanya foto yang bisa dibagikan di ruang.",
+      "questionOfDay": "Pertanyaan hari ini",
+      "typing": "{{name}} sedang mengetik…",
+      "removePhoto": "Hapus foto",
+      "addPhoto": "Tambah foto",
+      "caption": "Tambahkan keterangan (opsional)",
+      "deleteTitle": "Hapus pesan ini?",
+      "deleteBody": "Pesan akan dihapus untuk semua orang di ruang."
+    },
+    "info": {
+      "hub": "Hub bahasa",
+      "topic": "Ruang topik",
+      "members": "anggota",
+      "noDescription": "Belum ada deskripsi.",
+      "viewMembers": "Lihat anggota",
+      "edit": "Edit",
+      "back": "Kembali",
+      "save": "Simpan"
     }
   },
   "nav": {

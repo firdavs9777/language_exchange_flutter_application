@@ -984,7 +984,9 @@
       "alreadyComment": "Du hast diesen Kommentar bereits gemeldet.",
       "alreadyStory": "Du hast diese Story bereits gemeldet.",
       "titleComment": "Diesen Kommentar melden",
-      "titleStory": "Diese Story melden"
+      "titleStory": "Diese Story melden",
+      "titleMessage": "Diese Nachricht melden",
+      "alreadyMessage": "Du hast diese Nachricht bereits gemeldet."
     },
     "schedule": {
       "label": "Planen",
@@ -3290,7 +3292,8 @@
       "language": "Sprache",
       "name": "Thema",
       "submit": "Raum erstellen",
-      "title": "Themenraum starten"
+      "title": "Themenraum starten",
+      "pickLanguage": "Sprache wählen"
     },
     "errors": {
       "banned": "Du wurdest aus diesem Raum entfernt. Du kannst den Inhaber bitten, dich wieder reinzulassen.",
@@ -3303,12 +3306,14 @@
       "tooMany": "Du hast schon 10 Räume. Lösch einen, um einen neuen zu starten."
     },
     "list": {
-      "create": "Neuer Themenraum",
+      "create": "Neuer Raum",
       "empty": "Noch keine Räume.",
       "error": "Sprachräume konnten nicht geladen werden.",
       "joined": "Beigetreten",
       "locked": "Gesperrt",
-      "title": "Sprachräume"
+      "title": "Sprachräume",
+      "active": "Aktiv {{time}}",
+      "refresh": "Aktualisieren"
     },
     "owner": {
       "admin": "Admin",
@@ -3337,7 +3342,35 @@
       "slowDown": "Du sendest zu schnell. Mach etwas langsamer.",
       "sticker": "Sticker",
       "unsupported": "Öffne die App, um diese Nachricht zu sehen",
-      "voice": "Sprachnachricht – öffne die App, um sie anzuhören"
+      "voice": "Sprachnachricht – öffne die App, um sie anzuhören",
+      "someone": "Mitglied",
+      "photo": "Foto",
+      "replyDeleted": "Nachricht entfernt",
+      "reply": "Antworten",
+      "react": "Reagieren",
+      "more": "Mehr",
+      "delete": "Löschen",
+      "report": "Melden",
+      "sendFailed": "Nachricht konnte nicht gesendet werden",
+      "photoFailed": "Das Foto konnte nicht gesendet werden. Versuch es noch einmal.",
+      "photosOnly": "In Räumen können nur Fotos geteilt werden.",
+      "questionOfDay": "Frage des Tages",
+      "typing": "{{name}} schreibt…",
+      "removePhoto": "Foto entfernen",
+      "addPhoto": "Foto hinzufügen",
+      "caption": "Bildunterschrift hinzufügen (optional)",
+      "deleteTitle": "Diese Nachricht löschen?",
+      "deleteBody": "Sie wird für alle im Raum entfernt."
+    },
+    "info": {
+      "hub": "Sprach-Hub",
+      "topic": "Themenraum",
+      "members": "Mitglieder",
+      "noDescription": "Noch keine Beschreibung.",
+      "viewMembers": "Mitglieder ansehen",
+      "edit": "Bearbeiten",
+      "back": "Zurück",
+      "save": "Speichern"
     }
   },
   "nav": {
