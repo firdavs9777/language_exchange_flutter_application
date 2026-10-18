@@ -26,6 +26,7 @@ import { useGetFollowingsQuery } from "../../store/slices/usersSlice";
 import { useSelector } from "react-redux";
 import SurfaceCard from "../../design/SurfaceCard";
 import notify from "../../design/notify";
+import { showDailyLimitToast } from "../vip/dailyLimit";
 import {
   LinkDraft,
   MentionDraft,
@@ -570,6 +571,8 @@ const CreateStory: React.FC = () => {
       notify.success(t("stories.story_created") || "Story shared");
       navigate("/moments");
     } catch (error: any) {
+      // The daily story limit (429): the VIP upgrade toast instead.
+      if (showDailyLimitToast(error)) return;
       notify.error(
         (error && error.data && error.data.error) ||
           t("stories.create_story_failed") ||

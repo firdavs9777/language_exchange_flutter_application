@@ -63,17 +63,17 @@ it("shows the verified badge only when isEmailVerified is true", () => {
 });
 
 it("shows the join month and year", () => {
-  render(<ProfileHeader name="Ada" createdAt="2026-09-15T10:00:00.000Z" />);
+  render(<ProfileHeader name="Ada" isOwn createdAt="2026-09-15T10:00:00.000Z" />);
   expect(screen.getByTestId("badge-joined")).toHaveTextContent("Joined Sep 2026");
 });
 
 it("omits the joined badge for an unparseable date", () => {
-  render(<ProfileHeader name="Ada" createdAt="not-a-date" />);
+  render(<ProfileHeader name="Ada" isOwn createdAt="not-a-date" />);
   expect(screen.queryByTestId("badge-joined")).not.toBeInTheDocument();
 });
 
 it("shows a relative last-active badge", () => {
-  render(<ProfileHeader name="Ada" lastActive={hoursAgo(2)} />);
+  render(<ProfileHeader name="Ada" isOwn lastActive={hoursAgo(2)} />);
   expect(screen.getByTestId("badge-active")).toHaveTextContent(/2 hours ago/);
 });
 
@@ -85,6 +85,29 @@ it("prefers the online state over a stale last-active time", () => {
 it("omits the active badge when lastActive is missing and the user is offline", () => {
   render(<ProfileHeader name="Ada" />);
   expect(screen.queryByTestId("badge-active")).not.toBeInTheDocument();
+});
+
+describe("someone else's profile (strangers)", () => {
+  it("never shows the join month", () => {
+    render(<ProfileHeader name="Ada" createdAt="2026-09-15T10:00:00.000Z" />);
+    expect(screen.queryByTestId("badge-joined")).not.toBeInTheDocument();
+  });
+
+  it("says Active today instead of the exact last-seen time", () => {
+    render(<ProfileHeader name="Ada" lastActive={hoursAgo(2)} />);
+    expect(screen.getByTestId("badge-active")).toHaveTextContent("Active today");
+    expect(screen.getByTestId("badge-active")).not.toHaveTextContent(/hours ago/);
+  });
+
+  it("shows nothing when last active was over a day ago", () => {
+    render(<ProfileHeader name="Ada" lastActive={hoursAgo(30)} />);
+    expect(screen.queryByTestId("badge-active")).not.toBeInTheDocument();
+  });
+
+  it("shows nothing when the person hides their online status", () => {
+    render(<ProfileHeader name="Ada" isOnline showOnlineStatus={false} lastActive={hoursAgo(1)} />);
+    expect(screen.queryByTestId("badge-active")).not.toBeInTheDocument();
+  });
 });
 
 it("shows the username when there is one", () => {

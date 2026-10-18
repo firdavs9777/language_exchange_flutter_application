@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { toast } from "react-toastify";
+import notify from "../../design/notify";
 import { Crown } from "lucide-react";
 import { VIP_PATH } from "./vipStatus";
 
@@ -63,10 +63,9 @@ export const DailyLimitToastContent: React.FC<{ message?: string }> = ({ message
 export function showDailyLimitToast(err: any): boolean {
   const message = getDailyLimitMessage(err);
   if (message === null) return false;
-  toast.warn(<DailyLimitToastContent message={message} />, {
+  notify.warning(<DailyLimitToastContent message={message} />, {
     toastId: "daily-limit",
     autoClose: 8000,
-    theme: "dark",
   });
   return true;
 }

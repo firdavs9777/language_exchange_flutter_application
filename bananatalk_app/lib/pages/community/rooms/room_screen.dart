@@ -11,6 +11,7 @@ import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/room.dart';
 import 'package:bananatalk_app/utils/language_flags.dart';
+import 'package:bananatalk_app/utils/language_names.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
 import 'package:bananatalk_app/providers/rooms_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/block_provider.dart';
@@ -595,6 +596,169 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
 
   /// Owner/admin-only member list (Task 11) — visibility gated on
   /// `_room.isOwnerOrAdmin`, refreshed from `getRoom` in `_init`.
+  /// Room info: what the room is, who is in it, and what you can do here
+  /// (members, edit for moderators, join / leave).
+  void _showRoomInfo() {
+    final l10n = AppLocalizations.of(context)!;
+    final flag = _room.emojiFlag.isNotEmpty
+        ? _room.emojiFlag
+        : LanguageFlags.getFlag(_room.targetLanguage);
+    showModalBottomSheet<void>(
+      context: context,
+      showDragHandle: true,
+      isScrollControlled: true,
+      builder: (ctx) => SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+          child: Column(
+            key: const Key('room-info-sheet'),
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Text(flag, style: Theme.of(ctx).textTheme.headlineMedium),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Text(
+                      _room.title,
+                      style: Theme.of(ctx)
+                          .textTheme
+                          .titleLarge
+                          ?.copyWith(fontWeight: FontWeight.w800),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 8),
+              Wrap(
+                spacing: 8,
+                runSpacing: 6,
+                children: [
+                  if (_room.targetLanguage.isNotEmpty)
+                    Chip(
+                      avatar: const Icon(Icons.translate_rounded, size: 16),
+                      label: Text(LanguageNames.of(ctx, _room.targetLanguage)),
+                    ),
+                  Chip(
+                    avatar: const Icon(Icons.people_alt_rounded, size: 16),
+                    label: Text(l10n.roomMemberOnlineCount(
+                        _room.memberCount, _room.onlineCount)),
+                  ),
+                ],
+              ),
+              if (_room.description.isNotEmpty) ...[
+                const SizedBox(height: 12),
+                Text(_room.description,
+                    style: Theme.of(ctx).textTheme.bodyMedium),
+              ],
+              const SizedBox(height: 16),
+              if (_room.isMember)
+                ListTile(
+                  key: const Key('room-info-members'),
+                  contentPadding: EdgeInsets.zero,
+                  leading: const Icon(Icons.groups_rounded),
+                  title: Text(l10n.roomViewMembers),
+                  onTap: () {
+                    Navigator.pop(ctx);
+                    _openMembers();
+                  },
+                ),
+              if (_room.isOwnerOrAdmin)
+                ListTile(
+                  key: const Key('room-info-edit'),
+                  contentPadding: EdgeInsets.zero,
+                  leading: const Icon(Icons.edit_rounded),
+                  title: Text(l10n.edit),
+                  onTap: () {
+                    Navigator.pop(ctx);
+                    _editRoom();
+                  },
+                ),
+              if (_showJoinBar)
+                ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  leading: const Icon(Icons.login_rounded),
+                  title: Text(l10n.joinRoom),
+                  onTap: () {
+                    Navigator.pop(ctx);
+                    _joinFromBar();
+                  },
+                )
+              else if (_room.isMember)
+                ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  leading: Icon(Icons.logout_rounded, color: AppColors.error),
+                  title: Text(l10n.roomLeaveHubMenuItem,
+                      style: TextStyle(color: AppColors.error)),
+                  onTap: () {
+                    Navigator.pop(ctx);
+                    _leaveHub();
+                  },
+                ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  /// Moderators edit the room's name and description (PUT /rooms/:id).
+  Future<void> _editRoom() async {
+    final l10n = AppLocalizations.of(context)!;
+    final title = TextEditingController(text: _room.title);
+    final description = TextEditingController(text: _room.description);
+    final save = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text(l10n.edit),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              key: const Key('room-edit-title'),
+              controller: title,
+              maxLength: 60,
+              decoration: InputDecoration(labelText: l10n.roomNameLabel),
+            ),
+            TextField(
+              key: const Key('room-edit-description'),
+              controller: description,
+              maxLength: 300,
+              maxLines: 3,
+              decoration: InputDecoration(labelText: l10n.roomDescriptionLabel),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+              onPressed: () => Navigator.pop(ctx, false),
+              child: Text(l10n.cancel)),
+          FilledButton(
+              onPressed: () => Navigator.pop(ctx, true),
+              child: Text(l10n.save)),
+        ],
+      ),
+    );
+    final newTitle = title.text.trim();
+    final newDescription = description.text.trim();
+    title.dispose();
+    description.dispose();
+    if (save != true || newTitle.isEmpty || !mounted) return;
+    final ok = await ref.read(roomApiClientProvider).updateRoom(
+      _room.id,
+      {'title': newTitle, 'description': newDescription},
+    );
+    if (!mounted) return;
+    if (ok) {
+      setState(() => _room =
+          _room.copyWith(title: newTitle, description: newDescription));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(l10n.somethingWentWrong),
+      ));
+    }
+  }
+
   void _openMembers() {
     Navigator.of(context).push(
       MaterialPageRoute(
@@ -707,7 +871,12 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
     final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
-        title: Column(
+        // Tapping the title opens the room info sheet (2026-10-18).
+        title: GestureDetector(
+          key: const Key('room-title-info'),
+          behavior: HitTestBehavior.opaque,
+          onTap: _showRoomInfo,
+          child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -722,6 +891,7 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
               style: const TextStyle(fontSize: 12, fontWeight: FontWeight.normal),
             ),
           ],
+        ),
         ),
         actions: [
           PopupMenuButton<String>(

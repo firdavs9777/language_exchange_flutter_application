@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { BadgeCheck, Crown } from "lucide-react";
 import Avatar from "../../../design/Avatar";
 import Badge from "../../../design/Badge";
+import { presenceForStranger } from "../../community/lib/presence";
 
 export interface ProfileHeaderProps {
   name: string;
@@ -25,6 +26,14 @@ export interface ProfileHeaderProps {
   isEmailVerified?: boolean;
   createdAt?: string;
   lastActive?: string;
+  /**
+   * The signed-in user's own profile. Only the owner sees the exact
+   * "Active 3 hours ago" and the join month; anyone else sees "Online now",
+   * "Active today" (last 24h) or nothing (app parity, 2026-10-18).
+   */
+  isOwn?: boolean;
+  /** `privacySettings.showOnlineStatus`; false hides presence from others. */
+  showOnlineStatus?: boolean;
 }
 
 function toNumber(value?: string | number): number {
@@ -130,15 +139,32 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({
   isEmailVerified,
   createdAt,
   lastActive,
+  isOwn = false,
+  showOnlineStatus,
 }) => {
   const { t, i18n } = useTranslation();
   const language = (i18n && i18n.language) || "en";
 
   const age = ageFromBirth(birthYear, birthMonth, birthDay);
   const place = formatLocation(location);
-  const joined = parseDate(createdAt);
+  // Strangers: no join month, and presence coarsened to online / today.
+  const joined = isOwn ? parseDate(createdAt) : null;
   const active = parseDate(lastActive);
-  const activeText = active ? formatRelative(active, language) : "";
+  const strangerPresence = isOwn
+    ? null
+    : presenceForStranger({
+        isOnline,
+        lastActive,
+        privacySettings: { showOnlineStatus },
+      });
+  const showOnline = isOwn ? Boolean(isOnline) : strangerPresence === "online";
+  const activeText = isOwn
+    ? active
+      ? formatRelative(active, language)
+      : ""
+    : strangerPresence === "today"
+    ? t("profile.badges.activeToday") || "Active today"
+    : "";
 
   const meta = [
     age === null ? "" : String(age),
@@ -159,7 +185,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({
               src={avatarUrl}
               name={name}
               size={80}
-              isOnline={isOnline}
+              isOnline={showOnline}
               /* This one IS the page -- deferring it would delay the main
                  subject behind whatever else is loading. */
               priority
@@ -211,11 +237,13 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({
               </Badge>
             </span>
           )}
-          {(isOnline || activeText) && (
+          {(showOnline || activeText) && (
             <span data-testid="badge-active">
               <Badge>
-                {isOnline
+                {showOnline
                   ? t("profile.badges.online") || "Online now"
+                  : !isOwn
+                  ? activeText
                   : t("profile.badges.active", { time: activeText }) || `Active ${activeText}`}
               </Badge>
             </span>

@@ -369,6 +369,10 @@ const ProfilePage: React.FC = () => {
             isEmailVerified={user.isEmailVerified}
             createdAt={user.createdAt}
             lastActive={user.lastActive}
+            isOwn={isOwn}
+            showOnlineStatus={
+              user.privacySettings ? user.privacySettings.showOnlineStatus : undefined
+            }
           />
 
           <ProfileStats

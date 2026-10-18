@@ -6,6 +6,7 @@ import {
   useAddMomentCommentMutation,
   useUploadCommentImageMutation,
 } from "../../../store/slices/momentsSlice";
+import { showDailyLimitToast } from "../../vip/dailyLimit";
 
 /**
  * Writes one comment, one reply or one correction.
@@ -144,6 +145,8 @@ const CommentComposer: React.FC<CommentComposerProps> = ({
       try {
         created = await addMomentComment(payload).unwrap();
       } catch (err: any) {
+        // The daily comment limit (429): the VIP upgrade toast, text kept.
+        if (showDailyLimitToast(err)) return;
         setError(
           (err && err.data && (err.data.error || err.data.message)) ||
             (err && err.message) ||

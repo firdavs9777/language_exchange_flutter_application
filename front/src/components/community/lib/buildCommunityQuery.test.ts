@@ -1,4 +1,4 @@
-import { buildCommunityQuery } from './buildCommunityQuery';
+import { buildCommunityQuery, withoutVipOnlyFilters } from './buildCommunityQuery';
 
 const me = { native_language: 'English', language_to_learn: 'Korean' };
 
@@ -112,4 +112,15 @@ it('reciprocal -> reciprocal=true; smart sort passes through', () => {
   expect(q.reciprocal).toBe('true');
   expect(q.sort).toBe('smart');
   expect(buildCommunityQuery({}, me, 1, 20).reciprocal).toBeUndefined();
+});
+
+it('drops the VIP-only country filter for free users, keeps it for VIP', () => {
+  const filters = { country: 'Japan', gender: 'female' };
+  const free = buildCommunityQuery(withoutVipOnlyFilters(filters, false), me, 1, 20);
+  expect(free.country).toBeUndefined();
+  expect(free.gender).toBe('female');
+  const vip = buildCommunityQuery(withoutVipOnlyFilters(filters, true), me, 1, 20);
+  expect(vip.country).toBe('Japan');
+  // The saved filter itself is untouched, so it applies again after an upgrade.
+  expect(filters.country).toBe('Japan');
 });

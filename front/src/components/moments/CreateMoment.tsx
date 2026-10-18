@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Bounce, toast } from "react-toastify";
+import { showDailyLimitToast } from "../vip/dailyLimit";
 import {
   useCreateMomentMutation,
   useDeleteMomentMutation,
@@ -351,7 +352,8 @@ const CreateMoment: React.FC = () => {
       navigate("/moments");
     } catch (error) {
       // Only the create step can reach here (upload failures are handled above).
-      if (!momentCreated) {
+      // The daily moment limit (429) gets the VIP upgrade toast instead.
+      if (!momentCreated && !showDailyLimitToast(error)) {
         toast.error(t("createMoment.toast.createError"), {
           autoClose: 3000,
           hideProgressBar: false,

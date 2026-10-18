@@ -5,6 +5,7 @@ import {
   useTranslateMessageMutation,
   useSaveMessageVocabularyMutation,
 } from "../../../store/slices/chatSlice";
+import { showDailyLimitToast } from "../../vip/dailyLimit";
 import "./TranslationCard.scss";
 
 interface TranslationCardProps {
@@ -50,6 +51,8 @@ const TranslationCard: React.FC<TranslationCardProps> = ({
         setTranslation(translatedText);
       } catch (e: any) {
         if (cancelled) return;
+        // Daily translation limit: offer VIP; the card keeps its inline note.
+        showDailyLimitToast(e);
         // "" = no server text; the generic line is translated at render.
         setError(e?.data?.message || e?.data?.error || "");
       }

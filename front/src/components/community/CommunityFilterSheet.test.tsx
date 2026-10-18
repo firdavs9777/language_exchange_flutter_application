@@ -70,6 +70,7 @@ function renderSheet(
         onApply={onApply}
         onClear={onClear}
         onClose={onClose}
+        isVip
         {...extra}
       />
     </Provider>
@@ -88,6 +89,7 @@ const Harness: React.FC<{ initial?: CommunityFilters }> = ({ initial = {} }) => 
       onApply={jest.fn()}
       onClear={jest.fn()}
       onClose={jest.fn()}
+      isVip
     />
   );
 };
@@ -413,5 +415,27 @@ describe("languages come from the catalog (community#4)", () => {
     const { container } = renderSheet({ ...DEFAULT_FILTERS, learningLanguage: "Klingon" });
     await waitFor(() => expect(optionValues(selects(container)[1])).toContain("Uzbek"));
     expect(optionValues(selects(container)[1])).toContain("Klingon");
+  });
+});
+
+describe("the country filter is VIP-only", () => {
+  it("is locked behind a VIP badge for a free member and leaves the count", async () => {
+    const onUpgrade = jest.fn();
+    renderSheet({ country: "Japan", gender: "female" }, { isVip: false, onUpgrade });
+    const select = screen.getByTestId("filter-country") as HTMLSelectElement;
+    expect(select).toBeDisabled();
+    expect(select.value).toBe("");
+    expect(screen.getAllByText("Country filter is a VIP feature").length).toBeGreaterThan(0);
+    fireEvent.click(screen.getByTestId("filter-country-vip"));
+    expect(onUpgrade).toHaveBeenCalled();
+    await waitFor(() => expect(countRequests().length).toBe(1));
+    expect(countRequests()[0]).toContain("gender=female");
+    expect(countRequests()[0]).not.toContain("country=");
+  });
+
+  it("is a normal picker for VIP", () => {
+    renderSheet({ country: "Japan" });
+    expect(screen.getByTestId("filter-country")).not.toBeDisabled();
+    expect(screen.queryByTestId("filter-country-vip")).not.toBeInTheDocument();
   });
 });

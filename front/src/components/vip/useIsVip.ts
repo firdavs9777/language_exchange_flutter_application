@@ -1,16 +1,22 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
-import { useGetVipStatusQuery } from "../../store/slices/usersSlice";
+import { useGetUserProfileQuery } from "../../store/slices/usersSlice";
 import { isVipUser } from "./vipStatus";
 
-/** Whether the signed-in viewer currently has VIP (server tier wins). */
+/**
+ * Whether the signed-in viewer has VIP, from the account as it is NOW
+ * (GET /auth/me: `userMode` / `vipSubscription`), falling back to the login
+ * snapshot until that arrives. Same cache entry ({}) the community page
+ * already reads, so this costs no extra request there. Re-read on tab return,
+ * so a VIP bought in the app unlocks the web without a reload.
+ */
 export function useIsVip(): boolean {
-  const user = useSelector(
-    (state: RootState) => state.auth.userInfo?.user || state.auth.userInfo?.data
-  );
-  const userId: string | undefined = user?._id;
-  // Re-read on tab return: a VIP bought in the app unlocks the web without a
-  // reload. One request per focus, shared by every caller (same cache key).
-  const { data } = useGetVipStatusQuery(userId || "", { skip: !userId, refetchOnFocus: true });
-  return isVipUser(user, data);
+  const cached = useSelector((state: RootState) => {
+    const info: any = state.auth.userInfo;
+    return info ? info.user || info.data : undefined;
+  });
+  const { data } = useGetUserProfileQuery({}, { skip: !cached, refetchOnFocus: true });
+  const fresh: any = (data as any)?.data || (data as any)?.user;
+  const current = fresh && typeof fresh === "object" && fresh._id ? fresh : undefined;
+  return isVipUser(current || cached);
 }

@@ -22,6 +22,11 @@ jest.mock("../../../store/slices/momentsSlice", () => ({
   useUploadCommentImageMutation: () => [mockUploadImage, { isLoading: false }],
 }));
 
+const mockShowDailyLimit = jest.fn();
+jest.mock("../../vip/dailyLimit", () => ({
+  showDailyLimitToast: (err: any) => mockShowDailyLimit(err),
+}));
+
 const unwrappable = (value: any) => ({ unwrap: () => Promise.resolve(value) });
 
 const renderComposer = (props: any = {}) => {
@@ -201,6 +206,23 @@ describe("CommentComposer", () => {
     );
     expect(screen.getByTestId("comment-composer-text")).toHaveValue("Hi");
   });
+  it("offers VIP on the daily comment limit (429) and keeps the text", async () => {
+    const limitError = {
+      status: 429,
+      data: { error: "Daily comments limit exceeded. You have used 50 of 50 comments today." },
+    };
+    mockShowDailyLimit.mockImplementation((err: any) => !!err && err.status === 429);
+    mockAddComment.mockReturnValue({ unwrap: () => Promise.reject(limitError) });
+    renderComposer();
+
+    fireEvent.change(screen.getByTestId("comment-composer-text"), { target: { value: "Hi" } });
+    fireEvent.click(screen.getByTestId("comment-composer-submit"));
+
+    await waitFor(() => expect(mockShowDailyLimit).toHaveBeenCalledWith(limitError));
+    expect(screen.queryByTestId("comment-composer-error")).not.toBeInTheDocument();
+    expect(screen.getByTestId("comment-composer-text")).toHaveValue("Hi");
+  });
+
   it("keeps a posted correction when only the photo upload fails", async () => {
     mockUploadImage.mockReturnValue({
       unwrap: () => Promise.reject({ data: { error: "Upload failed" } }),

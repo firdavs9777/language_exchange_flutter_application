@@ -282,3 +282,34 @@ describe("clearing the last filter with saved filters on record", () => {
   });
 });
 
+
+describe("the country filter is VIP-only (GET /users ignores it for free callers)", () => {
+  it("a free member's linked country is not sent, shown or counted", async () => {
+    renderList(["/communities?gender=female&country=Japan"]);
+    await waitFor(() => expect(memberRequests().length).toBeGreaterThan(0));
+    expect(memberRequests()[0]).toContain("gender=female");
+    memberRequests().forEach((u) => expect(u).not.toContain("country="));
+    expect(screen.queryByText(/Country: Japan/)).not.toBeInTheDocument();
+  });
+
+  it("a VIP member's country is applied", async () => {
+    const router = createMemoryRouter(
+      createRoutesFromElements(
+        <Route path="/">
+          <Route path="communities" element={<MainCommunity />} />
+        </Route>
+      ),
+      { initialEntries: ["/communities?country=Japan"] }
+    );
+    const vip = {
+      auth: { userInfo: { ...SIGNED_IN.auth.userInfo, user: { ...SIGNED_IN.auth.userInfo.user, userMode: "vip" } } },
+    };
+    render(
+      <Provider store={makeStore(vip)}>
+        <RouterProvider router={router} />
+      </Provider>
+    );
+    await waitFor(() => expect(memberRequests().length).toBeGreaterThan(0));
+    expect(memberRequests()[0]).toContain("country=Japan");
+  });
+});
