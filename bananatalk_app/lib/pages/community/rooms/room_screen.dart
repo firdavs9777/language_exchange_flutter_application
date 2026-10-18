@@ -13,6 +13,7 @@ import 'package:bananatalk_app/models/room.dart';
 import 'package:bananatalk_app/utils/language_flags.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
 import 'package:bananatalk_app/providers/rooms_provider.dart';
+import 'package:bananatalk_app/providers/provider_root/block_provider.dart';
 import 'package:bananatalk_app/pages/chat/input/chat_input_bar.dart';
 import 'package:bananatalk_app/pages/chat/message/messages_list.dart';
 import 'package:bananatalk_app/pages/community/rooms/room_members_screen.dart';
@@ -108,6 +109,7 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
   /// A photo upload is in flight (the composer shows its progress state).
   bool _isUploadingPhoto = false;
   StreamSubscription? _roomReactionSub;
+  StreamSubscription? _roomDeletedSub;
 
   // Typing — a set because multiple hub members can type at once, unlike
   // the single "other user" typing flag in 1-on-1 chat.
@@ -144,6 +146,7 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
     final prefs = await SharedPreferences.getInstance();
     if (!mounted) return;
     _currentUserId = prefs.getString('userId');
+    ref.read(blockedUserIdsProvider); // loads the set used to hide live messages
 
     // Opening a room no longer joins it (2026-10-18): a visitor reads and
     // watches live, then joins with the "Join Room" bar. Peeking used to add
@@ -201,6 +204,9 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
           return;
         }
         if (_messages.any((m) => m.id == message.id)) return;
+        // History already hides people you blocked; do the same live.
+        final blocked = ref.read(blockedUserIdsProvider).valueOrNull;
+        if (blocked != null && blocked.contains(message.sender.id)) return;
         setState(() => _messages.add(message));
         WidgetsBinding.instance.addPostFrameCallback((_) {
           if (mounted) _scrollToBottom();
@@ -226,6 +232,15 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
           _typingUserNames.remove(name);
         }
       });
+    });
+
+    _roomDeletedSub = _chatSocket.onRoomMessageDeleted.listen((data) {
+      if (!mounted || data is! Map) return;
+      if (data['roomId']?.toString() != _room.id) return;
+      final id = data['messageId']?.toString();
+      if (id != null && _messages.any((m) => m.id == id)) {
+        setState(() => _messages.removeWhere((m) => m.id == id));
+      }
     });
 
     // Reactions arrive on the room channel (backend emits messageReaction to
@@ -442,6 +457,18 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
     }
   }
 
+  Future<void> _deleteMessage(Message message) async {
+    final ok = await ref.read(roomApiClientProvider).deleteMessage(_room.id, message.id);
+    if (!mounted) return;
+    if (ok) {
+      setState(() => _messages.removeWhere((m) => m.id == message.id));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(AppLocalizations.of(context)!.somethingWentWrong),
+      ));
+    }
+  }
+
   void _onTyping() {
     _chatSocket.sendRoomTyping(_room.id, true);
     _typingStopTimer?.cancel();
@@ -631,6 +658,7 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
     _roomTypingSub?.cancel();
     _roomPresenceSub?.cancel();
     _roomReactionSub?.cancel();
+    _roomDeletedSub?.cancel();
     _typingStopTimer?.cancel();
     _messageController.dispose();
     _scrollController.dispose();
@@ -751,6 +779,8 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
               onReply: _canCompose
                   ? (msg) => setState(() => _replyingTo = msg)
                   : null,
+              onDelete: _deleteMessage,
+              canDeleteOthers: _room.isOwnerOrAdmin,
               // "Tap to say hi" in the empty state — send a 👋 to the room.
               // Gated to members who can compose (banned/pending users can't).
               onSendWave:

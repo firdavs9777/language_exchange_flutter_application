@@ -60,6 +60,9 @@ class ChatMessagesList extends StatelessWidget {
   /// how the existing 1-on-1 path stays unchanged.
   final Function(Message)? onReport;
 
+  /// Room moderators: Delete is offered on everyone's messages.
+  final bool canDeleteOthers;
+
   const ChatMessagesList({
     Key? key,
     required this.isLoading,
@@ -92,6 +95,7 @@ class ChatMessagesList extends StatelessWidget {
     this.isGroup = false,
     this.conversationId,
     this.onReport,
+    this.canDeleteOthers = false,
   }) : super(key: key);
 
   @override
@@ -304,6 +308,7 @@ class ChatMessagesList extends StatelessWidget {
                 isSelected: selectedMessageIds.contains(message.id),
                 onSelectionChanged: onSelectionChanged,
                 onDelete: onDelete,
+                canDeleteOthers: canDeleteOthers,
                 onEdit: onEdit,
                 onReply: onReply,
                 onReplyTap: onReplyTap,

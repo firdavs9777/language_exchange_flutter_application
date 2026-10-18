@@ -84,17 +84,14 @@ class _RoomMembersScreenState extends ConsumerState<RoomMembersScreen> {
   Future<void> _removeMember(Map<String, dynamic> member) async {
     final userId = _memberId(member);
     if (userId.isEmpty || _isOwner(member)) return;
-    final isTopicRoom = widget.room.isTopicRoom;
+    // Kick == ban in every room since 2026-10-18 (hubs too), so it is the
+    // ban copy everywhere.
     final l10n = AppLocalizations.of(context)!;
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: Text(isTopicRoom ? l10n.roomRemoveBanTitle : l10n.roomRemoveTitle),
-        content: Text(
-          isTopicRoom
-              ? l10n.roomRemoveBanConfirm(_memberName(member))
-              : l10n.roomRemoveConfirm(_memberName(member), widget.room.title),
-        ),
+        title: Text(l10n.roomRemoveBanTitle),
+        content: Text(l10n.roomRemoveBanConfirm(_memberName(member))),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx, false),
@@ -102,7 +99,7 @@ class _RoomMembersScreenState extends ConsumerState<RoomMembersScreen> {
           ),
           FilledButton(
             onPressed: () => Navigator.pop(ctx, true),
-            child: Text(isTopicRoom ? l10n.roomRemoveBanButton : l10n.roomRemoveButton),
+            child: Text(l10n.roomRemoveBanButton),
           ),
         ],
       ),
@@ -119,7 +116,7 @@ class _RoomMembersScreenState extends ConsumerState<RoomMembersScreen> {
       SnackBar(
         content: Text(
           ok
-              ? (isTopicRoom ? l10n.roomMemberRemovedBanned : l10n.roomMemberRemoved)
+              ? l10n.roomMemberRemovedBanned
               : l10n.roomMemberRemoveFailed,
         ),
         backgroundColor: ok ? AppColors.success : AppColors.error,

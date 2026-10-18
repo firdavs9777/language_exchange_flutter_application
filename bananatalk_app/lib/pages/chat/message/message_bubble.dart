@@ -43,6 +43,9 @@ class ChatMessageBubble extends ConsumerStatefulWidget {
   final String? otherUserPicture;
   final String? otherUserNativeLanguage;
   final Function(Message)? onDelete;
+
+  /// Room moderators may delete anyone's message (language rooms).
+  final bool canDeleteOthers;
   final Function(Message)? onEdit;
   final Function(Message)? onReply;
   final Function(String messageId)?
@@ -75,6 +78,7 @@ class ChatMessageBubble extends ConsumerStatefulWidget {
     this.otherUserPicture,
     this.otherUserNativeLanguage,
     this.onDelete,
+    this.canDeleteOthers = false,
     this.onEdit,
     this.onReply,
     this.onReplyTap,
@@ -805,7 +809,10 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
       );
     }
 
-    menuItems.add(
+    // Pin / Edit / Forward only where the screen supports them (language
+    // rooms pass none of these callbacks; the items used to show and do
+    // nothing there).
+    if (widget.onPin != null || widget.onUnpin != null) menuItems.add(
       MessageContextMenuItem(
         icon: widget.message.isPinned
             ? Icons.push_pin_outlined
@@ -824,7 +831,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
       ),
     );
 
-    if (canEdit) {
+    if (canEdit && widget.onEdit != null) {
       menuItems.add(
         MessageContextMenuItem(
           icon: Icons.edit_rounded,
@@ -838,7 +845,7 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
     }
 
     // Forward — works for any non-deleted message regardless of sender.
-    if (!widget.message.isDeleted) {
+    if (!widget.message.isDeleted && widget.onForward != null) {
       menuItems.add(
         MessageContextMenuItem(
           icon: Icons.forward_rounded,
@@ -851,7 +858,8 @@ class _ChatMessageBubbleState extends ConsumerState<ChatMessageBubble>
       );
     }
 
-    if (widget.isMe && !widget.message.isDeleted) {
+    // Own messages, or anyone's for a room moderator.
+    if ((widget.isMe || widget.canDeleteOthers) && !widget.message.isDeleted) {
       menuItems.add(
         MessageContextMenuItem(
           icon: Icons.delete_rounded,

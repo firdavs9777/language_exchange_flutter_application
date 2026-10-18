@@ -119,6 +119,10 @@ class ChatSocketService {
   Stream<Map<String, dynamic>> get onMessageDelivery =>
       _messageDeliveryController.stream;
   Stream<dynamic> get onMessageReaction => _messageReactionController.stream;
+
+  /// A room message removed for everyone (sender or moderator).
+  final _roomMessageDeletedController = StreamController<dynamic>.broadcast();
+  Stream<dynamic> get onRoomMessageDeleted => _roomMessageDeletedController.stream;
   Stream<dynamic> get onMessageCorrection =>
       _messageCorrectionController.stream;
   Stream<dynamic> get onThemeChanged => _themeChangedController.stream;
@@ -584,6 +588,10 @@ class ChatSocketService {
       _safeAdd(_roomMessageController, data);
     });
 
+    _socket?.on('room:messageDeleted', (data) {
+      _safeAdd(_roomMessageDeletedController, data);
+    });
+
     // Ephemeral typing indicator scoped to a room.
     _socket?.on('room:typing', (data) {
       _safeAdd(_roomTypingController, data);
@@ -1000,6 +1008,7 @@ class ChatSocketService {
     _connectionStateController.close();
     _messageDeliveryController.close();
     _messageReactionController.close();
+    _roomMessageDeletedController.close();
     _messageCorrectionController.close();
     _presenceOnlineController.close();
     _presenceOfflineController.close();

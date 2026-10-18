@@ -112,6 +112,18 @@ class RoomApiClient {
     }
   }
 
+  /// DELETE /rooms/:id/messages/:messageId — remove a message for everyone
+  /// (own message, or any message for a room moderator).
+  Future<bool> deleteMessage(String id, String messageId) async {
+    try {
+      final response = await _apiClient.delete('rooms/$id/messages/$messageId');
+      return response.success;
+    } catch (e) {
+      debugPrint('[RoomApiClient] deleteMessage error: $e');
+      return false;
+    }
+  }
+
   /// POST /rooms — create a user-created topic room, nested under
   /// [targetLanguage]. Returns the created room (parsed via `Room.fromJson`,
   /// same shape as `getRoom`/`getRooms`), or `null` on failure.
