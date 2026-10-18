@@ -4,6 +4,9 @@ import 'package:bananatalk_app/services/chat_socket_service.dart';
 import 'package:bananatalk_app/providers/unread_count_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:bananatalk_app/pages/chat/list/list_socket_handlers.dart' show extractMessagePreview;
+import 'package:bananatalk_app/router/app_router.dart' show callOverlayNavigatorKey, goRouter;
+import 'package:bananatalk_app/widgets/in_app_message_banner.dart';
 
 /// Global service that listens to socket events and updates unread counts
 /// Works independently of UI, so badge updates even when ChatMain isn't visible
@@ -59,6 +62,28 @@ class GlobalChatListener {
 
   }
 
+  void _showBanner(String senderId, dynamic messageData) {
+    final overlay = callOverlayNavigatorKey.currentState?.overlay;
+    if (overlay == null || messageData is! Map) return;
+    final sender = messageData['sender'];
+    final name = sender is Map ? (sender['name']?.toString() ?? '') : '';
+    if (name.isEmpty) return;
+    String? avatar;
+    if (sender is Map) {
+      final urls = sender['imageUrls'];
+      if (urls is List && urls.isNotEmpty) avatar = urls.first?.toString();
+      avatar ??= sender['image']?.toString();
+    }
+    final preview = extractMessagePreview(messageData);
+    InAppMessageBanner.show(
+      overlay: overlay,
+      senderName: name,
+      preview: preview.isEmpty ? '…' : preview,
+      avatarUrl: avatar,
+      onTap: () => goRouter.push('/chat/$senderId'),
+    );
+  }
+
   /// Handle new message events
   void _handleNewMessage(dynamic data) {
     if (_ref == null) {
@@ -102,6 +127,12 @@ class GlobalChatListener {
 
         // Increment unread count - this will automatically update badgeCountProvider
         _ref!.read(chatPartnersProvider.notifier).incrementUnread(senderId);
+
+        // Not in that chat: show an in-app banner (the server sends no push
+        // while the socket is connected, 2026-10-18).
+        if (!_ref!.read(chatPartnersProvider).isInChat(senderId)) {
+          _showBanner(senderId, messageData);
+        }
         
       }).catchError((Object error) {
         // Was an empty block: a failed unread increment vanished without trace

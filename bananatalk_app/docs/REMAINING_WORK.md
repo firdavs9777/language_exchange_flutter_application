@@ -391,3 +391,7 @@ Web ↔ app parity (spec `docs/superpowers/specs/2026-10-16-web-app-parity-desig
 ## Visitors coin unlock (2026-10-18)
 - [x] 60 coins open the full visitors list for 24h (stacks: another unlock adds 24h). Nothing said so: before buying the copy was "See who for 60 coins", and after buying nothing showed the end, so the list locked again without warning. Now "See everyone for 24 hours for 60 💎, or go VIP", and an "Unlocked · 23h 12m left" banner with Go VIP while it is open (server `revealUntil`, backend 715ce1f). Waves are always visible (product ruling), so the unlock only concerns visitors. 2 strings × 19 locales.
 
+## In-app message banner (2026-10-18)
+- [x] A message received while the app was open showed nothing but a badge: the server sends no push while the chat socket is connected, and the app dropped foreground chat pushes. Now a banner slides down (sender, avatar, preview; tap opens that chat; swipe up or 4 s to dismiss) whenever the sender is not the chat you are in — also while chatting with someone else (HelloTalk-style). `InAppMessageBanner`, hooked in `GlobalChatListener`.
+- [ ] Banner ignores chat mute / quiet hours for now; decide whether muted chats should stay silent in-app. S
+
