@@ -680,7 +680,7 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: context.cardBackground,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
@@ -840,7 +840,7 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
                       _result!.feedback,
                       style: TextStyle(
                         fontSize: 13,
-                        color: Colors.grey[700],
+                        color: context.textSecondary,
                         height: 1.4,
                       ),
                     ),
@@ -868,7 +868,7 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
                     Expanded(
                       child: Text(
                         s,
-                        style: TextStyle(fontSize: 13, color: Colors.grey[700]),
+                        style: TextStyle(fontSize: 13, color: context.textSecondary),
                       ),
                     ),
                   ],
@@ -899,7 +899,7 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: Colors.grey[50],
+        color: context.containerColor,
         borderRadius: BorderRadius.circular(10),
       ),
       child: Column(
@@ -912,7 +912,7 @@ class _PronunciationScreenState extends ConsumerState<PronunciationScreen> {
               color: _getScoreColor(score),
             ),
           ),
-          Text(label, style: TextStyle(fontSize: 12, color: Colors.grey[600])),
+          Text(label, style: TextStyle(fontSize: 12, color: context.textSecondary)),
         ],
       ),
     );

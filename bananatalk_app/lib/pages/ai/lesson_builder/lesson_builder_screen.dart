@@ -327,12 +327,12 @@ class _LessonBuilderScreenState extends ConsumerState<LessonBuilderScreen> {
             children: [
               Row(
                 children: [
-                  Icon(Icons.category, color: Colors.grey[600], size: 20),
+                  Icon(Icons.category, color: context.textSecondary, size: 20),
                   const SizedBox(width: 8),
                   Text(
                     AppLocalizations.of(context)!.category,
                     style: TextStyle(
-                      color: Colors.grey[700],
+                      color: context.textSecondary,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -352,7 +352,7 @@ class _LessonBuilderScreenState extends ConsumerState<LessonBuilderScreen> {
                       decoration: BoxDecoration(
                         color: isSelected
                             ? const Color(0xFF8B5CF6).withOpacity(0.1)
-                            : Colors.grey[100],
+                            : context.containerColor,
                         borderRadius: BorderRadius.circular(20),
                         border: Border.all(
                           color: isSelected
@@ -369,7 +369,7 @@ class _LessonBuilderScreenState extends ConsumerState<LessonBuilderScreen> {
                             size: 16,
                             color: isSelected
                                 ? const Color(0xFF8B5CF6)
-                                : Colors.grey[600],
+                                : context.textSecondary,
                           ),
                           const SizedBox(width: 6),
                           Text(
@@ -379,7 +379,7 @@ class _LessonBuilderScreenState extends ConsumerState<LessonBuilderScreen> {
                               fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
                               color: isSelected
                                   ? const Color(0xFF8B5CF6)
-                                  : Colors.grey[700],
+                                  : context.textSecondary,
                             ),
                           ),
                         ],
@@ -398,12 +398,12 @@ class _LessonBuilderScreenState extends ConsumerState<LessonBuilderScreen> {
             children: [
               Row(
                 children: [
-                  Icon(Icons.format_list_numbered, color: Colors.grey[600], size: 20),
+                  Icon(Icons.format_list_numbered, color: context.textSecondary, size: 20),
                   const SizedBox(width: 8),
                   Text(
                     AppLocalizations.of(context)!.aiExercises(_exerciseCount),
                     style: TextStyle(
-                      color: Colors.grey[700],
+                      color: context.textSecondary,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -443,12 +443,12 @@ class _LessonBuilderScreenState extends ConsumerState<LessonBuilderScreen> {
   }) {
     return Row(
       children: [
-        Icon(icon, color: Colors.grey[600], size: 20),
+        Icon(icon, color: context.textSecondary, size: 20),
         const SizedBox(width: 8),
         Text(
           label,
           style: TextStyle(
-            color: Colors.grey[700],
+            color: context.textSecondary,
             fontWeight: FontWeight.w500,
           ),
         ),
@@ -506,7 +506,7 @@ class _LessonBuilderScreenState extends ConsumerState<LessonBuilderScreen> {
           AppLocalizations.of(context)!.aiSuggestedTopics,
           style: TextStyle(
             fontSize: 13,
-            color: Colors.grey[600],
+            color: context.textSecondary,
             fontWeight: FontWeight.w500,
           ),
         ),
@@ -525,14 +525,14 @@ class _LessonBuilderScreenState extends ConsumerState<LessonBuilderScreen> {
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
-                  color: Colors.grey[100],
+                  color: context.containerColor,
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: Text(
                   topic,
                   style: TextStyle(
                     fontSize: 12,
-                    color: Colors.grey[700],
+                    color: context.textSecondary,
                   ),
                 ),
               ),
@@ -684,7 +684,7 @@ class _LessonBuilderScreenState extends ConsumerState<LessonBuilderScreen> {
           Text(
             lesson.description,
             style: TextStyle(
-              color: Colors.grey[600],
+              color: context.textSecondary,
               height: 1.4,
             ),
           ),
@@ -706,7 +706,7 @@ class _LessonBuilderScreenState extends ConsumerState<LessonBuilderScreen> {
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: Colors.grey[50],
+              color: context.containerColor,
               borderRadius: BorderRadius.circular(12),
             ),
             child: Row(
@@ -797,7 +797,7 @@ class _LessonBuilderScreenState extends ConsumerState<LessonBuilderScreen> {
               icon: const Icon(Icons.arrow_back, size: 18),
               label: Text(AppLocalizations.of(context)!.aiLessonBuilderBackToLessons),
               style: TextButton.styleFrom(
-                foregroundColor: Colors.grey[700],
+                foregroundColor: context.textSecondary,
                 padding: const EdgeInsets.symmetric(vertical: 12),
               ),
             ),
@@ -847,7 +847,7 @@ class _LessonBuilderScreenState extends ConsumerState<LessonBuilderScreen> {
           label,
           style: TextStyle(
             fontSize: 11,
-            color: Colors.grey[600],
+            color: context.textSecondary,
           ),
         ),
       ],

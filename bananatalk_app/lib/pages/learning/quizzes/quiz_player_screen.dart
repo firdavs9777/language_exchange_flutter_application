@@ -175,7 +175,7 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
         ),
         // Question counter
         Container(
-          color: Colors.white,
+          color: context.cardBackground,
           padding: const EdgeInsets.symmetric(vertical: 12),
           child: Center(
             child: Text(
@@ -198,7 +198,7 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
                   width: double.infinity,
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: context.cardBackground,
                     borderRadius: BorderRadius.circular(16),
                     boxShadow: [
                       BoxShadow(
@@ -243,7 +243,7 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
                         decoration: BoxDecoration(
                           color: isSelected
                               ? const Color(0xFF00BFA5).withValues(alpha: 0.1)
-                              : Colors.white,
+                              : context.cardBackground,
                           borderRadius: BorderRadius.circular(12),
                           border: Border.all(
                             color: isSelected
@@ -287,7 +287,7 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
                                   fontSize: 16,
                                   color: isSelected
                                       ? const Color(0xFF00BFA5)
-                                      : Colors.black87,
+                                      : context.textPrimary,
                                   fontWeight:
                                       isSelected ? FontWeight.w600 : null,
                                 ),
@@ -306,7 +306,7 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
         // Navigation buttons
         Container(
           padding: const EdgeInsets.all(16),
-          color: Colors.white,
+          color: context.cardBackground,
           child: Row(
             children: [
               if (state.currentIndex > 0)
@@ -447,7 +447,7 @@ class _QuizPlayerScreenState extends ConsumerState<QuizPlayerScreen> {
             Container(
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: context.cardBackground,
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Row(

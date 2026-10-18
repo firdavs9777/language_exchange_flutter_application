@@ -102,7 +102,8 @@ Camera on Android: app killed while the camera is open (2026-10-17, Galaxy Tab S
 Dark mode (2026-10-17, found on AI Study > Review)
 - [x] Review flashcard was hardcoded white: the word (white theme text) was invisible, and so was the example on the back. `vocabulary_card.dart` (flashcard + list card) now uses theme colors.
 - [x] The dark theme had no button themes, so any ElevatedButton that set only `backgroundColor` showed teal text on a teal button (e.g. Review's "Done"), app-wide. Dark theme now has the same elevated/outlined/text button themes as light. Test `test/theme/dark_mode_contrast_test.dart`.
-- [ ] Dark-mode pass over the other AI Study screens and any `Colors.white` / `Colors.grey[50]` backgrounds left in lib/ (`grep -rn "color: Colors.white," lib`). M
+- [x] Dark-mode pass: Grammar check (cards, input, history sheet, detail sheet), AI quiz results sheet, quiz player (question, options, counter, bottom bar, results), pronunciation results, lesson builder (chips, suggestions) now use theme colours instead of white cards with grey/black text.
+- [ ] Dark-mode leftovers outside AI Study (`grep -rn "color: Colors.white," lib`); device look-through of the AI Study screens in dark mode. S
 
 Daily lesson reminder time (2026-10-17)
 - [x] Notification settings has a "Daily lesson reminder" section: on/off (`dailyDropReminders`) and "Reminder time" (`dailyDropHour`, whole hours). The server already accepted both on PUT /notifications/settings; the app never showed them, so everyone got the daily drop push at 19:00 with no way to move or stop it. 3 strings × 19 locales (CSV rows appended). Test `test/settings/daily_reminder_setting_test.dart`.

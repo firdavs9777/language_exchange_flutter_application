@@ -839,8 +839,8 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
         minChildSize: 0.4,
         builder: (context, scrollController) {
           return Container(
-            decoration: const BoxDecoration(
-              color: Colors.white,
+            decoration: BoxDecoration(
+              color: context.cardBackground,
               borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
             ),
             child: SingleChildScrollView(
@@ -903,7 +903,7 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
                     AppLocalizations.of(context)!.aiCorrectOfTotal(result.correctCount, result.totalQuestions),
                     style: TextStyle(
                       fontSize: 14,
-                      color: Colors.grey[600],
+                      color: context.textSecondary,
                     ),
                   ),
                   const SizedBox(height: 20),
@@ -952,7 +952,7 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
                               result.feedback,
                               style: TextStyle(
                                 fontSize: 13,
-                                color: Colors.grey[700],
+                                color: context.textSecondary,
                               ),
                             ),
                           ),
@@ -1005,7 +1005,7 @@ class _AIQuizScreenState extends ConsumerState<AIQuizScreen> {
           label,
           style: TextStyle(
             fontSize: 12,
-            color: Colors.grey[600],
+            color: context.textSecondary,
           ),
         ),
       ],

@@ -290,14 +290,14 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
               hintText: AppLocalizations.of(context)!.aiGrammarHint,
               hintStyle: TextStyle(color: Colors.grey[400]),
               filled: true,
-              fillColor: Colors.grey[50],
+              fillColor: context.containerColor,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(color: Colors.grey[200]!),
+                borderSide: BorderSide(color: context.dividerColor),
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(color: Colors.grey[200]!),
+                borderSide: BorderSide(color: context.dividerColor),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
@@ -356,7 +356,7 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
               decoration: BoxDecoration(
-                color: Colors.grey[100],
+                color: context.containerColor,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: const Center(
@@ -386,7 +386,7 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
               decoration: BoxDecoration(
-                color: Colors.grey[100],
+                color: context.containerColor,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Row(
@@ -403,15 +403,15 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
                         color: _selectedLanguage != null
-                            ? Colors.black87
-                            : Colors.grey[600],
+                            ? context.textPrimary
+                            : context.textSecondary,
                       ),
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
                   Icon(
                     Icons.arrow_drop_down,
-                    color: Colors.grey[600],
+                    color: context.textSecondary,
                     size: 20,
                   ),
                 ],
@@ -484,7 +484,7 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
                   AppLocalizations.of(context)!.aiGrammarIssuesFound(_feedback!.errorCount),
                   style: TextStyle(
                     fontSize: 14,
-                    color: Colors.grey[600],
+                    color: context.textSecondary,
                   ),
                 ),
                 const SizedBox(height: 8),
@@ -493,7 +493,7 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
                   borderRadius: BorderRadius.circular(4),
                   child: LinearProgressIndicator(
                     value: score / 100,
-                    backgroundColor: Colors.grey[200],
+                    backgroundColor: context.containerHighColor,
                     valueColor: AlwaysStoppedAnimation<Color>(color),
                     minHeight: 6,
                   ),
@@ -560,7 +560,7 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: context.cardBackground,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
@@ -600,7 +600,7 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
                         positive,
                         style: TextStyle(
                           fontSize: 14,
-                          color: Colors.grey[700],
+                          color: context.textSecondary,
                           height: 1.4,
                         ),
                       ),
@@ -617,7 +617,7 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: context.cardBackground,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
@@ -846,7 +846,7 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
                             error.explanation,
                             style: TextStyle(
                               fontSize: 13,
-                              color: Colors.grey[800],
+                              color: context.textPrimary,
                               height: 1.4,
                             ),
                           ),
@@ -864,7 +864,7 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w600,
-                      color: Colors.grey[600],
+                      color: context.textSecondary,
                     ),
                   ),
                   const SizedBox(height: 6),
@@ -877,14 +877,14 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
                             vertical: 6,
                           ),
                           decoration: BoxDecoration(
-                            color: Colors.grey[100],
+                            color: context.containerColor,
                             borderRadius: BorderRadius.circular(6),
                           ),
                           child: Text(
                             ex,
                             style: TextStyle(
                               fontSize: 12,
-                              color: Colors.grey[700],
+                              color: context.textSecondary,
                             ),
                           ),
                         )).toList(),
@@ -902,7 +902,7 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: context.cardBackground,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
@@ -926,7 +926,7 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
                 ),
               ),
               IconButton(
-                icon: Icon(Icons.copy_rounded, size: 20, color: Colors.grey[600]),
+                icon: Icon(Icons.copy_rounded, size: 20, color: context.textSecondary),
                 onPressed: () => _copyToClipboard(_feedback!.correctedText),
                 tooltip: AppLocalizations.of(context)!.copy,
                 padding: EdgeInsets.zero,
@@ -960,7 +960,7 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: context.cardBackground,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
@@ -1024,7 +1024,7 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
                         suggestion.explanation,
                         style: TextStyle(
                           fontSize: 12,
-                          color: Colors.grey[600],
+                          color: context.textSecondary,
                           height: 1.4,
                         ),
                       ),
@@ -1041,7 +1041,7 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: context.cardBackground,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
@@ -1069,7 +1069,7 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
             _feedback!.summary,
             style: TextStyle(
               fontSize: 14,
-              color: Colors.grey[700],
+              color: context.textSecondary,
               height: 1.5,
             ),
           ),
@@ -1111,7 +1111,7 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
           margin: const EdgeInsets.only(bottom: 12),
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: context.cardBackground,
             borderRadius: BorderRadius.circular(12),
             boxShadow: [
               BoxShadow(
@@ -1169,7 +1169,7 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
                               : AppLocalizations.of(context)!.aiIssuesCount(feedback.errors.length),
                           style: TextStyle(
                             fontSize: 12,
-                            color: Colors.grey[600],
+                            color: context.textSecondary,
                           ),
                         ),
                       ],
@@ -1196,8 +1196,8 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
         minChildSize: 0.5,
         builder: (context, scrollController) {
           return Container(
-            decoration: const BoxDecoration(
-              color: Colors.white,
+            decoration: BoxDecoration(
+              color: context.cardBackground,
               borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
             ),
             child: Column(
@@ -1208,7 +1208,7 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
                   width: 40,
                   height: 4,
                   decoration: BoxDecoration(
-                    color: Colors.grey[300],
+                    color: context.containerHighColor,
                     borderRadius: BorderRadius.circular(2),
                   ),
                 ),
@@ -1253,7 +1253,7 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
                               AppLocalizations.of(context)!.aiGrammarIssuesFound(feedback.errorCount),
                               style: TextStyle(
                                 fontSize: 13,
-                                color: Colors.grey[600],
+                                color: context.textSecondary,
                               ),
                             ),
                           ],
@@ -1277,14 +1277,14 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
                       _buildDetailSection(
                         icon: Icons.text_fields,
                         title: AppLocalizations.of(context)!.aiGrammarSectionOriginal,
-                        color: Colors.grey[700]!,
+                        color: context.textSecondary,
                         child: Container(
                           width: double.infinity,
                           padding: const EdgeInsets.all(14),
                           decoration: BoxDecoration(
-                            color: Colors.grey[50],
+                            color: context.containerColor,
                             borderRadius: BorderRadius.circular(10),
-                            border: Border.all(color: Colors.grey[200]!),
+                            border: Border.all(color: context.dividerColor),
                           ),
                           child: Text(
                             feedback.originalText,
@@ -1319,7 +1319,7 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
                               ),
                               IconButton(
                                 icon: Icon(Icons.copy_rounded,
-                                    size: 20, color: Colors.grey[600]),
+                                    size: 20, color: context.textSecondary),
                                 onPressed: () =>
                                     _copyToClipboard(feedback.correctedText),
                               ),
@@ -1367,7 +1367,7 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
                                               p,
                                               style: TextStyle(
                                                 fontSize: 14,
-                                                color: Colors.grey[700],
+                                                color: context.textSecondary,
                                                 height: 1.4,
                                               ),
                                             ),
@@ -1416,7 +1416,7 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
                                               s.explanation,
                                               style: TextStyle(
                                                 fontSize: 12,
-                                                color: Colors.grey[600],
+                                                color: context.textSecondary,
                                               ),
                                             ),
                                           ],
@@ -1439,7 +1439,7 @@ class _GrammarFeedbackScreenState extends ConsumerState<GrammarFeedbackScreen> {
                             feedback.summary,
                             style: TextStyle(
                               fontSize: 14,
-                              color: Colors.grey[700],
+                              color: context.textSecondary,
                               height: 1.5,
                             ),
                           ),
