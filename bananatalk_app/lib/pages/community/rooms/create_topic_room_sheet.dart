@@ -326,27 +326,19 @@ class _CreateTopicRoomSheetState extends ConsumerState<CreateTopicRoomSheet> {
     );
   }
 
-  /// The languages a room can be in (backend lib/normalizeLanguage.js
-  /// CANONICAL). The picker offers only these: anything else was refused.
-  static const Set<String> roomLanguageCodes = {
-    'en', 'ko', 'ja', 'zh', 'ar', 'es', 'de', 'fr',
-    'ru', 'it', 'pt', 'tr', 'hi', 'vi', 'th', 'id', 'tl',
-  };
-
   Future<void> _pickLanguage() async {
     final picked = await showLanguagePickerSheet(
       context,
       currentCode: LanguageFlags.codeForName(_selectedLanguage),
-      onlyCodes: roomLanguageCodes,
     );
     if (picked != null && mounted) {
       setState(() => _selectedLanguage = picked.name);
     }
   }
 
-  /// The same language picker as signup (flags, native names, search),
-  /// limited to room languages (2026-10-18). It was a plain dropdown of
-  /// every catalog language, most of which the server refused.
+  /// The same language picker as signup (flags, native names, search, every
+  /// language), 2026-10-18. It was a plain dropdown; the server now accepts
+  /// any recognised language for a user-created room.
   Widget _buildLanguageSelector(AppLocalizations l10n) {
     final code = LanguageFlags.codeForName(_selectedLanguage);
     return Column(
