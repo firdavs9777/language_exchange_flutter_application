@@ -185,6 +185,9 @@ class _VipStatusCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final isVip = user.isVip;
+    // Free users get a rich card with the real perks (2026-10-18); the plain
+    // white "upgrade" row was easy to scroll past.
+    if (!isVip) return _VipUpsellCard(user: user);
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -255,13 +258,17 @@ class _VipStatusCard extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            Text(
-                              isVip ? l10n.vipMember : l10n.upgradeToVip,
-                              style: context.titleMedium.copyWith(
-                                fontWeight: FontWeight.w800,
-                                color: isVip
-                                    ? Colors.white
-                                    : context.textPrimary,
+                            Flexible(
+                              child: Text(
+                                isVip ? l10n.vipMember : l10n.upgradeToVip,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: context.titleMedium.copyWith(
+                                  fontWeight: FontWeight.w800,
+                                  color: isVip
+                                      ? Colors.white
+                                      : context.textPrimary,
+                                ),
                               ),
                             ),
                             if (isVip) ...[
@@ -309,6 +316,130 @@ class _VipStatusCard extends StatelessWidget {
                     Icons.arrow_forward_ios_rounded,
                     color: isVip ? Colors.white : const Color(0xFFFFD700),
                     size: 16,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Free users' VIP card on their own profile: gold gradient, the three
+/// strongest real perks, and a clear "Go VIP" button.
+class _VipUpsellCard extends StatelessWidget {
+  const _VipUpsellCard({required this.user});
+  final Community user;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    void open() => Navigator.push(
+          context,
+          AppPageRoute(builder: (_) => VipPlansScreen(userId: user.id)),
+        );
+    Widget perk(IconData icon, String text) => Padding(
+          padding: const EdgeInsets.only(top: 6),
+          child: Row(
+            children: [
+              Icon(icon, size: 18, color: const Color(0xFF7C2D12)),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  text,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: context.bodyMedium.copyWith(
+                    color: const Color(0xFF431407),
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Material(
+        key: const Key('profile-vip-upsell'),
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: open,
+          borderRadius: BorderRadius.circular(20),
+          child: Ink(
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [Color(0xFFFDE68A), Color(0xFFF59E0B)],
+              ),
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                  color: const Color(0xFFF59E0B).withValues(alpha: 0.35),
+                  blurRadius: 18,
+                  offset: const Offset(0, 8),
+                ),
+              ],
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(18),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        width: 44,
+                        height: 44,
+                        decoration: BoxDecoration(
+                          color: Colors.white.withValues(alpha: 0.45),
+                          shape: BoxShape.circle,
+                        ),
+                        child: const Icon(Icons.workspace_premium_rounded,
+                            color: Color(0xFF92400E), size: 26),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Text(
+                          l10n.upgradeToVip,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: context.titleMedium.copyWith(
+                            fontWeight: FontWeight.w800,
+                            color: const Color(0xFF431407),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 6),
+                  perk(Icons.smart_toy_rounded, l10n.perkUnlimitedTutor),
+                  perk(Icons.visibility_rounded, l10n.perkSeeVisitors),
+                  perk(Icons.favorite_rounded, l10n.perkMoreMatches),
+                  const SizedBox(height: 14),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 44,
+                    child: ElevatedButton(
+                      key: const Key('profile-vip-go'),
+                      onPressed: open,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF431407),
+                        foregroundColor: Colors.white,
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                      child: Text(
+                        l10n.goVip,
+                        style: const TextStyle(fontWeight: FontWeight.w800),
+                      ),
+                    ),
                   ),
                 ],
               ),

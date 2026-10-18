@@ -1162,6 +1162,7 @@ const Map<String, List<String>> _filesByTask = {
     'pages/profile/visitors_screen.dart',
   ],
   'vip-honest-perks': [
+    'pages/profile/profile_main/sections/profile_highlights_tab.dart',
     'widgets/limit_exceeded_dialog.dart',
     'pages/vip/vip_status_screen.dart',
     'pages/vip/vip_plans_screen.dart',

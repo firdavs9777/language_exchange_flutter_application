@@ -378,7 +378,10 @@ Web ↔ app parity (spec `docs/superpowers/specs/2026-10-16-web-app-parity-desig
 
 ## VIP value (2026-10-18) — see docs/audits/2026-10-18-vip-audit.md
 - [x] Owner picked 4 (2026-10-18): (1) country + "prioritize nearby" filters are VIP again, app + server (gender stays free — public Genders tab); (2) VIP daily matches 15 (backend a71aa3c); (3) honest perks in the limit dialog, VIP status and plans screens (no more "unlimited messages / profile views / priority support / unlimited waves"; now unlimited AI tutor, see everyone who viewed you, 15 daily matches, no ads) + Matches CTA "VIP: 15 matches a day" — 5 strings × 19 locales; (4) upgrade paths on dead-end limits: story limit → LimitExceededDialog, hourly AI limits → upgrade sheet (`quota_exceeded`), inline translate limit → "Go VIP · Unlimited translations".
+- [x] Own profile: free users see a gold VIP card with the three strongest real perks and "Go VIP" (was a plain white row); the VIP member card no longer overflows at 320 px. Web parity for VIP/filters/nearby/limits/privacy done in web 920f288; /purchases/plans perks fixed (backend 36a3149).
+- [x] Create room: the language is picked with the signup picker (flags, native names, search) limited to the 17 room languages; it was a plain dropdown of every catalog language, most of which the server refused.
 - [ ] Remaining audit items (translation cap on moments/comments, tutor quota holes, wave cap / study VIP features config). S–M
+- [ ] Web: language rooms and Boost do not exist on web yet (owner asked for parity). L
 
 ## AI Study hub look (2026-10-18)
 - [x] "Your progress" is a purple→pink gradient card with three coloured tiles (🔥 streak, ⭐ level + total XP, 🎯 today's XP with a bar) and white shortcut pills with coloured icons (same labels/keys; overflow sweep passes).

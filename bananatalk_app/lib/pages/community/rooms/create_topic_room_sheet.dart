@@ -5,7 +5,9 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/room.dart';
 import 'package:bananatalk_app/pages/community/widgets/community_snackbar.dart';
 import 'package:bananatalk_app/providers/rooms_provider.dart';
-import 'package:bananatalk_app/providers/voice_room_languages_provider.dart';
+import 'package:bananatalk_app/widgets/language_selection/show_language_picker.dart';
+import 'package:bananatalk_app/utils/language_flags.dart';
+import 'package:bananatalk_app/utils/language_names.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 
 /// Shows the "New Topic Room" bottom sheet and returns the newly created
@@ -324,46 +326,57 @@ class _CreateTopicRoomSheetState extends ConsumerState<CreateTopicRoomSheet> {
     );
   }
 
-  Widget _buildLanguageSelector(AppLocalizations l10n) {
-    // Full shared catalog (fetch-once, cached); fallback while loading. The
-    // current selection is kept in the item list even if the catalog
-    // doesn't contain it (DropdownButton requires value ∈ items).
-    final catalogNames = ref.watch(voiceRoomLanguagesProvider).maybeWhen(
-          data: (names) => names,
-          orElse: () => kVoiceRoomLanguagesFallback,
-        );
-    final languages = catalogNames.contains(_selectedLanguage)
-        ? catalogNames
-        : [_selectedLanguage, ...catalogNames];
+  /// The languages a room can be in (backend lib/normalizeLanguage.js
+  /// CANONICAL). The picker offers only these: anything else was refused.
+  static const Set<String> roomLanguageCodes = {
+    'en', 'ko', 'ja', 'zh', 'ar', 'es', 'de', 'fr',
+    'ru', 'it', 'pt', 'tr', 'hi', 'vi', 'th', 'id', 'tl',
+  };
 
+  Future<void> _pickLanguage() async {
+    final picked = await showLanguagePickerSheet(
+      context,
+      currentCode: LanguageFlags.codeForName(_selectedLanguage),
+      onlyCodes: roomLanguageCodes,
+    );
+    if (picked != null && mounted) {
+      setState(() => _selectedLanguage = picked.name);
+    }
+  }
+
+  /// The same language picker as signup (flags, native names, search),
+  /// limited to room languages (2026-10-18). It was a plain dropdown of
+  /// every catalog language, most of which the server refused.
+  Widget _buildLanguageSelector(AppLocalizations l10n) {
+    final code = LanguageFlags.codeForName(_selectedLanguage);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          decoration: BoxDecoration(
-            color: context.containerColor,
+        Material(
+          color: context.containerColor,
+          borderRadius: AppRadius.borderMD,
+          child: InkWell(
+            key: const Key('create-room-language'),
             borderRadius: AppRadius.borderMD,
-          ),
-          child: DropdownButtonHideUnderline(
-            child: DropdownButton<String>(
-              value: _selectedLanguage,
-              isExpanded: true,
-              icon: const Icon(Icons.keyboard_arrow_down_rounded),
-              borderRadius: AppRadius.borderMD,
-              items: languages
-                  .map(
-                    (language) => DropdownMenuItem(
-                        value: language, child: Text(language)),
-                  )
-                  .toList(),
-              onChanged: _isSubmitting
-                  ? null
-                  : (value) {
-                      if (value != null) {
-                        setState(() => _selectedLanguage = value);
-                      }
-                    },
+            onTap: _isSubmitting ? null : _pickLanguage,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+              child: Row(
+                children: [
+                  Text(code == null ? '🌐' : LanguageFlags.getFlag(code),
+                      style: const TextStyle(fontSize: 22)),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Text(
+                      LanguageNames.of(context, _selectedLanguage),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                  const Icon(Icons.keyboard_arrow_right_rounded),
+                ],
+              ),
             ),
           ),
         ),

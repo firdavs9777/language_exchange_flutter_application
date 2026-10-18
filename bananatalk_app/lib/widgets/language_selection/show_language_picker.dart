@@ -20,8 +20,13 @@ List<Language>? _cachedLanguages;
 Future<Language?> showLanguagePickerSheet(
   BuildContext context, {
   String? currentCode,
+  Set<String>? onlyCodes,
 }) async {
-  final languages = await _loadLanguages();
+  // [onlyCodes]: offer just these (e.g. the languages rooms support).
+  final all = await _loadLanguages();
+  final languages = onlyCodes == null
+      ? all
+      : all.where((l) => onlyCodes.contains(l.code.toLowerCase())).toList();
   if (languages.isEmpty || !context.mounted) return null;
 
   final selected = currentCode == null
