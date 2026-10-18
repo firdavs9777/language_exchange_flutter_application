@@ -1,5 +1,9 @@
 // lib/pages/community/rooms/room_screen.dart
 import 'dart:async';
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
+import 'package:bananatalk_app/pages/chat/panels/gif_picker_panel.dart';
+import 'package:bananatalk_app/widgets/image_preview_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -33,6 +37,27 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 /// `ReportService.reportMessage` path, `type:'message'`) and an
 /// owner/admin-only "view members" entry that opens `RoomMembersScreen`
 /// for remove/mute moderation.
+
+/// The messages with a `messageReaction` event applied, or null when the
+/// event is not about any of them. Reactions are parsed with the same model
+/// as chat; a malformed entry is skipped.
+List<Message>? applyReactionUpdate(List<Message> messages, Map data) {
+  final id = data['messageId']?.toString();
+  final raw = data['reactions'];
+  if (id == null || raw is! List) return null;
+  final index = messages.indexWhere((m) => m.id == id);
+  if (index < 0) return null;
+  final reactions = <MessageReaction>[];
+  for (final r in raw) {
+    if (r is! Map) continue;
+    try {
+      reactions.add(MessageReaction.fromJson(Map<String, dynamic>.from(r)));
+    } catch (_) {}
+  }
+  final next = List<Message>.from(messages);
+  next[index] = next[index].copyWith(reactions: reactions);
+  return next;
+}
 
 /// Whether a room message payload is the daily prompt: a system message
 /// with a promptId (backend jobs/dailyRoomPromptJob.js).
@@ -76,6 +101,13 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
   /// Task 6). Rendered as a distinct card above the message list rather
   /// than inline, and excluded from `_messages` to avoid double-rendering.
   Message? _dailyPrompt;
+
+  /// The message being replied to (swipe / long-press → Reply), as in chat.
+  Message? _replyingTo;
+
+  /// A photo upload is in flight (the composer shows its progress state).
+  bool _isUploadingPhoto = false;
+  StreamSubscription? _roomReactionSub;
 
   // Typing — a set because multiple hub members can type at once, unlike
   // the single "other user" typing flag in 1-on-1 chat.
@@ -200,6 +232,14 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
           _typingUserNames.remove(name);
         }
       });
+    });
+
+    // Reactions arrive on the room channel (backend emits messageReaction to
+    // room_<id> for room messages); apply them to the messages we show.
+    _roomReactionSub = _chatSocket.onMessageReaction.listen((data) {
+      if (!mounted || data is! Map) return;
+      final updated = applyReactionUpdate(_messages, data);
+      if (updated != null) setState(() => _messages..clear()..addAll(updated));
     });
 
     _roomPresenceSub = _chatSocket.onRoomPresence.listen((data) {
@@ -336,10 +376,15 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
     setState(() => _isSending = true);
 
     try {
+      final replyTo = _replyingTo;
       final error = await _chatSocket.sendRoomMessageAcked(_room.id, {
         'message': text,
         'messageType': messageType ?? 'text',
+        if (replyTo != null) 'replyTo': replyTo.id,
       });
+      if (error == null && mounted && identical(_replyingTo, replyTo)) {
+        setState(() => _replyingTo = null);
+      }
       if (error != null && mounted) {
         // Not saved (offline, rate limit, not a member): give the text back
         // and say so, instead of letting the message silently vanish.
@@ -353,6 +398,53 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
       }
     } finally {
       if (mounted) setState(() => _isSending = false);
+    }
+  }
+
+  /// Camera / gallery → chat's photo preview with caption → upload to the
+  /// room; GIF → sent like chat's GIFs. The message itself arrives through
+  /// the room socket broadcast.
+  Future<void> _onMediaOption(String option) async {
+    if (option == 'gif') {
+      final gif = await GifPickerPanel.show(context);
+      if (gif != null && mounted) {
+        await _sendMessage(messageText: gif.originalUrl, messageType: 'gif');
+      }
+      return;
+    }
+    if (option != 'camera' && option != 'gallery') return;
+    final picked = await ImagePicker().pickImage(
+      source: option == 'camera' ? ImageSource.camera : ImageSource.gallery,
+      imageQuality: 85,
+    );
+    if (picked == null || !mounted) return;
+    final file = File(picked.path);
+    await ImagePreviewDialog.show(
+      context: context,
+      imageFile: file,
+      onSend: (caption) => _uploadPhoto(file, caption),
+    );
+  }
+
+  Future<void> _uploadPhoto(File file, String? caption) async {
+    final replyTo = _replyingTo;
+    setState(() => _isUploadingPhoto = true);
+    final ok = await ref.read(roomApiClientProvider).postPhoto(
+          _room.id,
+          file,
+          caption: caption,
+          replyTo: replyTo?.id,
+        );
+    if (!mounted) return;
+    setState(() {
+      _isUploadingPhoto = false;
+      if (ok && identical(_replyingTo, replyTo)) _replyingTo = null;
+    });
+    if (!ok) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        key: const Key('room-photo-failed'),
+        content: Text(AppLocalizations.of(context)!.failedToSendMessage),
+      ));
     }
   }
 
@@ -544,6 +636,7 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
     _roomMessageSub?.cancel();
     _roomTypingSub?.cancel();
     _roomPresenceSub?.cancel();
+    _roomReactionSub?.cancel();
     _typingStopTimer?.cancel();
     _messageController.dispose();
     _scrollController.dispose();
@@ -635,6 +728,9 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
               hasMoreMessages: _hasMoreMessages,
               isGroup: true,
               onReport: _reportMessage,
+              onReply: _canCompose
+                  ? (msg) => setState(() => _replyingTo = msg)
+                  : null,
               // "Tap to say hi" in the empty state — send a 👋 to the room.
               // Gated to members who can compose (banned/pending users can't).
               onSendWave:
@@ -651,13 +747,17 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
           else if (_canCompose)
             ChatInputBar(
               messageController: _messageController,
-              isSending: _isSending,
+              isSending: _isSending || _isUploadingPhoto,
               showMediaPanel: false,
               showStickerPanel: false,
               onSendMessage: _sendMessage,
-              // Media/sticker panels aren't wired for hubs in this batch —
-              // hub composing is text-first. Toggling is a no-op rather than
-              // a crash; see report notes.
+              // Rooms: camera, gallery and GIF from the tools row; no
+              // overflow panel, location or phrases.
+              roomTools: true,
+              onMediaOption: _onMediaOption,
+              replyingToMessage: _replyingTo,
+              otherUserName: _replyingTo?.sender.name,
+              onCancelReply: () => setState(() => _replyingTo = null),
               onToggleMediaPanel: () {},
               onToggleStickerPanel: () {},
               onTogglePhrasesPanel: () {},

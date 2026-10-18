@@ -33,6 +33,11 @@ class ChatInputBar extends ConsumerStatefulWidget {
   // reuses the parent's existing media-panel handler so we don't duplicate
   // the underlying pickers.
   final Function(String)? onMediaOption;
+
+  /// Language rooms (2026-10-18): the tools row offers camera, gallery and
+  /// GIF only — no location, overflow panel or phrases, which rooms do not
+  /// support.
+  final bool roomTools;
   final Message? replyingToMessage;
   final String? otherUserName;
   final VoidCallback? onCancelReply;
@@ -57,6 +62,7 @@ class ChatInputBar extends ConsumerStatefulWidget {
     required this.onStopTyping,
     required this.onHidePanels,
     this.onMediaOption,
+    this.roomTools = false,
     this.replyingToMessage,
     this.otherUserName,
     this.onCancelReply,
@@ -207,19 +213,28 @@ class _ChatInputBarState extends ConsumerState<ChatInputBar>
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _buildAttachButton(isDark),
+                if (widget.roomTools)
+                  _buildToolButton(
+                    isDark,
+                    icon: Icons.photo_camera_rounded,
+                    tint: const Color(0xFF64748B),
+                    onTap: () => widget.onMediaOption?.call('camera'),
+                  )
+                else
+                  _buildAttachButton(isDark),
                 _buildToolButton(
                   isDark,
                   icon: Icons.photo_library_rounded,
                   tint: const Color(0xFF8B5CF6),
                   onTap: () => widget.onMediaOption?.call('gallery'),
                 ),
-                _buildToolButton(
-                  isDark,
-                  icon: Icons.place_rounded,
-                  tint: const Color(0xFFEF4444),
-                  onTap: () => widget.onMediaOption?.call('location'),
-                ),
+                if (!widget.roomTools)
+                  _buildToolButton(
+                    isDark,
+                    icon: Icons.place_rounded,
+                    tint: const Color(0xFFEF4444),
+                    onTap: () => widget.onMediaOption?.call('location'),
+                  ),
                 _buildToolButton(
                   isDark,
                   icon: Icons.gif_box_rounded,
@@ -228,7 +243,7 @@ class _ChatInputBarState extends ConsumerState<ChatInputBar>
                 ),
                 _buildEmojiButton(isDark),
                 _buildTranslateButton(isDark),
-                _buildPhrasesButton(isDark),
+                if (!widget.roomTools) _buildPhrasesButton(isDark),
               ],
             ),
           ],

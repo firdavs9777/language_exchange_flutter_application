@@ -1,4 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
+import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
+import 'package:mime/mime.dart';
 import 'package:bananatalk_app/models/room.dart';
 import 'package:bananatalk_app/services/api_client.dart';
 
@@ -69,6 +74,41 @@ class RoomApiClient {
     } catch (e) {
       debugPrint('[RoomApiClient] getMessages error: $e');
       return [];
+    }
+  }
+
+  /// POST /rooms/:id/media — share a photo in a room, with an optional
+  /// caption and reply. The server broadcasts the saved message to the room
+  /// (so it arrives through the room socket like any message); returns true
+  /// when it was saved.
+  Future<bool> postPhoto(
+    String id,
+    File photo, {
+    String? caption,
+    String? replyTo,
+  }) async {
+    try {
+      final mime = lookupMimeType(photo.path) ?? 'image/jpeg';
+      final file = await http.MultipartFile.fromPath(
+        'attachment',
+        photo.path,
+        contentType: MediaType.parse(mime),
+      );
+      final response = await _apiClient.postMultipart(
+        'rooms/$id/media',
+        fields: {
+          if (caption != null && caption.trim().isNotEmpty) 'message': caption.trim(),
+          if (replyTo != null) 'replyTo': replyTo,
+        },
+        files: [file],
+      );
+      if (!response.success) {
+        debugPrint('[RoomApiClient] postPhoto failed: ${response.error}');
+      }
+      return response.success;
+    } catch (e) {
+      debugPrint('[RoomApiClient] postPhoto error: $e');
+      return false;
     }
   }
 
