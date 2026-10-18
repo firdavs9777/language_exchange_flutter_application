@@ -7,7 +7,8 @@ web `docs/REMAINING_WORK.md` in the web repo (admin console, `assetlinks.json`, 
 
 ## 1. Status
 
-- **App `main` = 2.7.0 (10580): NOT built, NOT tagged, NOT submitted.** Android ships first, then iOS.
+- **App `main` = 2.2.6 (10581)** (owner's version name, 2026-10-18; was prepared as 2.7.0 (10580)) — being built and deployed by the owner. iOS needs a version name above the live 2.6.1. Notes `docs/releases/2.2.6.md`.
+- Previously: **2.7.0 (10580): NOT built, NOT tagged, NOT submitted.** Android ships first, then iOS.
   Now also includes the tab bar redesign, coffee-button removal and the AI Study hub (dark), merged 2026-10-14;
   Android audit of 2026-10-14 passed (no blockers). Notes `docs/releases/2.7.0.md`, keystore/Play steps `docs/releases/2.7.0-handoff.md` (smoke items 12–13 added).
 - Live in the stores: 2.6.1 (10574, tag `v2.6.1`).
