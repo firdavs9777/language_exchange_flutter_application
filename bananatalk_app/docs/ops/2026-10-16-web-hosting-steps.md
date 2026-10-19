@@ -77,3 +77,20 @@ Android Studio's bundled Java is now 25, which Gradle 8.11 can't run. Before bui
 ```bash
 flutter config --jdk-dir=/opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home
 ```
+
+## 9. Renew the cdn.banatalk.com certificate (manual, every ~90 days — next before 2027-01-10)
+
+cdn.banatalk.com is a CNAME to the DigitalOcean Spaces CDN; DNS is at Namecheap, so neither DO nor
+certbot can renew it automatically. Last done 2026-10-19 (expires 2027-01-17).
+
+1. Server: `sudo certbot certonly --manual --preferred-challenges dns -d cdn.banatalk.com --force-renewal --key-type ecdsa --new-key`
+   If it prints a TXT value: Namecheap → Advanced DNS → add TXT, host `_acme-challenge.cdn`, TTL 1 min,
+   wait until `dig +short TXT _acme-challenge.cdn.banatalk.com @1.1.1.1` shows it, then press Enter.
+   (If the domain was validated in the last ~30 days it skips this and issues straight away.)
+2. DigitalOcean → Settings → Security → SSL certificates → Add Certificate → Bring your own:
+   Certificate = `cert.pem`, Private key = `privkey.pem`, Chain = `chain.pem`
+   (all in `/etc/letsencrypt/live/cdn.banatalk.com/`; copy from your own terminal, never into a chat).
+3. Spaces → my-projects-media → Settings → CDN → Edit → certificate dropdown → the new one → Save.
+   Leave Edge Cache TTL alone.
+4. Check: `echo | openssl s_client -connect cdn.banatalk.com:443 -servername cdn.banatalk.com 2>/dev/null | openssl x509 -noout -enddate`
+   shows the new date. Then delete the old certificate in DO and the `_acme-challenge.cdn` TXT rows.
