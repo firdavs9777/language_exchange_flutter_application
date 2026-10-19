@@ -331,7 +331,15 @@ Web ↔ app parity (spec `docs/superpowers/specs/2026-10-16-web-app-parity-desig
 - [x] `cdn.banatalk.com` certificate re-issued with a new key (2026-10-19) and live on the DO Spaces CDN (cert `cdn-banatalk-2026-10`, serial 0664…2D04, expires 2027-01-17); old cert + exposed key retired.
 - [ ] **Before 2027-01-10:** renew `cdn.banatalk.com` again (manual — DNS is at Namecheap). Steps in `docs/ops/2026-10-16-web-hosting-steps.md` §9. Permanent fix: move banatalk.com DNS to DigitalOcean so it auto-renews.
 - [ ] flame.banatalk.com certificate expired 2026-08-16 and fails renewal — remove it if the site is dead. S
-- [ ] Phase 5 remaining owner steps —  in `docs/ops/2026-10-16-web-hosting-steps.md` (www cert, nginx snippet, Play fingerprints, prod env checks, Apple Services ID, flags one at a time, AASA after 2.7.0, release-build JDK). S
+- [x] Phase 5 steps 3–6 (2026-10-16..19): Play app-signing SHA-256 in assetlinks.json (Google reports linked); prod env checked; Sign in with Apple on the website (Services ID com.bananatalk.com); WEB_REELS / GATHERINGS / VOICE_ROOMS / LANGUAGE_ROOMS / APPLE_SIGNIN on (WEB_CALLS stays unused).
+- [ ] Phase 5 what's left (owner), as of 2026-10-19:
+  - [ ] Build + release 2.7.0 — run `flutter config --jdk-dir=/opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home` once first (see build-env line above).
+  - [ ] After 2.7.0 is most of the iOS base: add `/story/*` and `/chat/*` to the web AASA; turn on `REFERRALS_ENABLED` (ops doc step 7).
+  - [ ] Upload-key SHA-256 into the web `assetlinks.json` (`keytool -list -v -keystore <upload.jks>` on the keystore MacBook) — tracked in the web repo. S
+  - [ ] Play RTDN: Pub/Sub push subscription to `https://api.banatalk.com/api/v1/purchases/android/webhook` with `GOOGLE_PUBSUB_SERVICE_ACCOUNT` set; check `pm2 logs language-app | grep "Google Play RTDN received"` after a test purchase. S
+  - [ ] Voice rooms on the website: two-person QA (web user joins an app user's room, both hear and speak). S
+  - [ ] Optional: `rm -rf build/communities` on the droplet (leftover, unserved). S
+  - Website-only follow-ups (NAV-3 Learn tab / bell, NAV-4 device QA, interpolated admin-announcement sentences, native reviews of new web strings) live in the web repo's `docs/REMAINING_WORK.md`.
 
 ## 5. Decided / won't fix
 
