@@ -427,3 +427,10 @@ Web ↔ app parity (spec `docs/superpowers/specs/2026-10-16-web-app-parity-desig
 - [ ] P2 (17) and P3 items in the audit doc. M–L
 - [ ] Backend items in the audit doc (cascade delete of follows/blocks, photo limit, messageEdited populate, conversationId on all sends, sync-badges, senders paging, room hubs data). M
 - [ ] Native review of `gatheringRequestPending` / `gatheringWithdrawRequest` (19 locales, written 2026-10-27 for audit CO2). S
+
+## Gatherings + clubs (2026-10-27) — see docs/gatherings-and-clubs-status.md
+- [x] Attendee card: after a gathering, someone who was there sees "Who was there" with a Message button each (reads backend `people`; `test/community/gathering_people_test.dart`). `gathering_time_changed` push taps open the gathering.
+- [ ] Deploy backend `04c3832` (attendee list, no-show sweep, cancel notifications, local time in "time moved"); until then the card never shows. S
+- [ ] Native review of `gatheringWhoWasThere` / `gatheringWhoWasThereHint` (19 locales, written 2026-10-27). S
+- [ ] Website: no attendee card yet (behind `WEB_GATHERINGS_ENABLED`, off). S
+- [ ] Backend open items for 모임 (in-app history for reminders, "has hosted N", club city/place, repeat, start → VoiceRoom) are in the backend `docs/REMAINING_WORK.md`.
