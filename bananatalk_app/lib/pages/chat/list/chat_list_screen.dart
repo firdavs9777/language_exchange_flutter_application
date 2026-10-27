@@ -414,7 +414,8 @@ class _ChatMainState extends ConsumerState<ChatMain>
     final partnerIds = _chatPartners.map((p) => p.id).toSet();
     for (final userId in currentState.unreadCounts.keys) {
       if (!partnerIds.contains(userId)) {
-        notifier.clearUnread(userId);
+        // Housekeeping, not a read on this device: no read grace.
+        notifier.updateUnreadCount(userId, 0);
       }
     }
 
@@ -542,26 +543,18 @@ class _ChatMainState extends ConsumerState<ChatMain>
     });
 
     if (mounted) {
-      final providerState = ref.read(chatPartnersProvider);
-      final updatedPartners = partners.map((partner) {
-        final providerCount = providerState.unreadCounts[partner.id];
-        if (providerCount != null) {
-          return partner.copyWith(unreadCount: providerCount);
-        }
-        return partner;
-      }).toList();
+      final shown = ref.read(chatPartnersProvider.notifier).applyServerCounts({
+        for (final partner in partners) partner.id: partner.unreadCount,
+      });
+      final updatedPartners = partners
+          .map((partner) => partner.copyWith(
+                unreadCount: shown[partner.id] ?? partner.unreadCount,
+              ))
+          .toList();
 
       setState(() {
         _chatPartners = updatedPartners;
       });
-
-      final notifier = ref.read(chatPartnersProvider.notifier);
-      for (final partner in updatedPartners) {
-        final providerCount = providerState.unreadCounts[partner.id];
-        if (partner.unreadCount > 0 && providerCount == null) {
-          notifier.updateUnreadCount(partner.id, partner.unreadCount);
-        }
-      }
     }
   }
 
@@ -649,26 +642,18 @@ class _ChatMainState extends ConsumerState<ChatMain>
       });
 
     if (mounted) {
-      final providerState = ref.read(chatPartnersProvider);
-      final updatedPartners = sortedPartners.map((partner) {
-        final providerCount = providerState.unreadCounts[partner.id];
-        if (providerCount != null) {
-          return partner.copyWith(unreadCount: providerCount);
-        }
-        return partner;
-      }).toList();
+      final shown = ref.read(chatPartnersProvider.notifier).applyServerCounts({
+        for (final partner in sortedPartners) partner.id: partner.unreadCount,
+      });
+      final updatedPartners = sortedPartners
+          .map((partner) => partner.copyWith(
+                unreadCount: shown[partner.id] ?? partner.unreadCount,
+              ))
+          .toList();
 
       setState(() {
         _chatPartners = updatedPartners;
       });
-
-      final notifier = ref.read(chatPartnersProvider.notifier);
-      for (final partner in updatedPartners) {
-        final providerCount = providerState.unreadCounts[partner.id];
-        if (partner.unreadCount > 0 && providerCount == null) {
-          notifier.updateUnreadCount(partner.id, partner.unreadCount);
-        }
-      }
 
       if (_chatSocketService.isConnected && _chatPartners.isNotEmpty) {
         try {

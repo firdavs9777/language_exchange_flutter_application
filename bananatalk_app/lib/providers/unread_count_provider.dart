@@ -61,8 +61,47 @@ class ChatPartnersNotifier extends StateNotifier<ChatPartnersState> {
     updateUnreadCount(userId, currentCount + 1);
   }
 
+  /// When each chat was last read on this device.
+  final Map<String, DateTime> _readHereAt = {};
+
+  /// How long a local read beats the server's count: the list can be
+  /// fetched before the server has processed the read.
+  static const readSyncGrace = Duration(seconds: 15);
+
   void clearUnread(String userId) {
+    _readHereAt[userId] = DateTime.now();
     updateUnreadCount(userId, 0);
+  }
+
+  /// Takes the server's unread count per chat and returns the count to show.
+  /// The server wins (reads on web or another device, messages that arrived
+  /// while the socket was down) except for the chat on screen (always 0)
+  /// and a chat read here moments ago (the read may not have landed yet).
+  /// Before, any local count — including the 0s kept on purpose — always
+  /// won, so counts drifted until the app restarted.
+  Map<String, int> applyServerCounts(
+    Map<String, int> serverCounts, {
+    DateTime? now,
+  }) {
+    final at = now ?? DateTime.now();
+    final counts = Map<String, int>.from(state.unreadCounts);
+    final shown = <String, int>{};
+    serverCounts.forEach((userId, serverCount) {
+      final readAt = _readHereAt[userId];
+      final int count;
+      if (state.isInChat(userId)) {
+        count = 0;
+      } else if (readAt != null && at.difference(readAt) < readSyncGrace) {
+        count = counts[userId] ?? 0;
+      } else {
+        count = serverCount < 0 ? 0 : serverCount;
+      }
+      counts[userId] = count;
+      shown[userId] = count;
+    });
+    state = state.copyWith(unreadCounts: counts);
+    _ref.read(badgeCountProvider.notifier).updateMessageCount(state.totalUnread);
+    return shown;
   }
 
   /// A chat screen for [userId] opened (it is now on top).
@@ -81,6 +120,7 @@ class ChatPartnersNotifier extends StateNotifier<ChatPartnersState> {
   }
 
   void reset() {
+    _readHereAt.clear();
     state = ChatPartnersState();
     _ref.read(badgeCountProvider.notifier).updateMessageCount(0);
   }
