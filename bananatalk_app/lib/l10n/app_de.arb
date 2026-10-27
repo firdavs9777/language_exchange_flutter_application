@@ -3460,6 +3460,8 @@
   "gatheringSeatsTaken": "{going} von {capacity} Plätzen belegt",
   "gatheringCancelled": "Abgesagt",
   "gatheringEnded": "Dieses Treffen ist beendet",
+  "gatheringWhoWasThere": "Wer dabei war",
+  "gatheringWhoWasThereHint": "Sag Hallo. Deine erste Nachricht an jemanden, den du hier getroffen hast, zählt nicht zu deinem Tageslimit.",
   "gatheringCancelRsvp": "Zusage zurückziehen",
   "gatheringHostDecision": "{count, plural, other{Bisher kommen nur {countLabel} Personen. Trotzdem durchziehen oder absagen?}}",
   "gatheringHostDecisionAlone": "Bisher kommst nur du. Trotzdem durchziehen oder absagen?",

@@ -7855,6 +7855,12 @@ class AppLocalizationsTg extends AppLocalizations {
   String get gatheringEnded => 'Ин вохӯрӣ ба анҷом расид';
 
   @override
+  String get gatheringWhoWasThere => 'Кӣ иштирок дошт';
+
+  @override
+  String get gatheringWhoWasThereHint => 'Салом гӯед. Паёми аввалини шумо ба касе, ки дар ин ҷо шинос шудед, ба лимити рӯзона ҳисоб намешавад.';
+
+  @override
   String get gatheringCancelRsvp => 'Иштироки худро бекор кардан';
 
   @override

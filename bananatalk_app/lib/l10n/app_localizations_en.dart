@@ -7856,6 +7856,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get gatheringEnded => 'This gathering has ended';
 
   @override
+  String get gatheringWhoWasThere => 'Who was there';
+
+  @override
+  String get gatheringWhoWasThereHint => 'Say hello. Your first message to someone you met here doesn\'t count toward your daily limit.';
+
+  @override
   String get gatheringCancelRsvp => 'Cancel my RSVP';
 
   @override

@@ -3250,6 +3250,8 @@
   "gatheringSeatsTaken": "{capacity, plural, one{Занято {going} из {capacity} места} few{Занято {going} из {capacity} мест} many{Занято {going} из {capacity} мест} other{Занято {going} из {capacity} места}}",
   "gatheringCancelled": "Отменена",
   "gatheringEnded": "Эта встреча завершена",
+  "gatheringWhoWasThere": "Кто был",
+  "gatheringWhoWasThereHint": "Поздоровайтесь. Первое сообщение тому, с кем вы здесь познакомились, не входит в дневной лимит.",
   "gatheringCancelRsvp": "Отменить участие",
   "gatheringHostDecision": "{count, plural, one{Пока идёт только {countLabel} человек. Провести всё равно или отменить?} few{Пока идут только {countLabel} человека. Провести всё равно или отменить?} many{Пока идут только {countLabel} человек. Провести всё равно или отменить?} other{Пока идут только {countLabel} человека. Провести всё равно или отменить?}}",
   "gatheringHostDecisionAlone": "Пока идёте только вы. Провести всё равно или отменить?",

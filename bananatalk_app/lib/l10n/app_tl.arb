@@ -3193,6 +3193,8 @@
   "gatheringSeatsTaken": "{going} sa {capacity} upuan ang napuno",
   "gatheringCancelled": "Kanselado",
   "gatheringEnded": "Tapos na ang tagpong ito",
+  "gatheringWhoWasThere": "Sino ang dumalo",
+  "gatheringWhoWasThereHint": "Bumati ka. Hindi binibilang sa pang-araw-araw mong limit ang unang mensahe mo sa taong nakilala mo rito.",
   "gatheringCancelRsvp": "Kanselahin ang pagsama ko",
   "gatheringHostDecision": "{count, plural, other{{countLabel} pa lang kayo sa ngayon. Ituloy pa rin o kanselahin?}}",
   "gatheringHostDecisionAlone": "Ikaw pa lang sa ngayon. Ituloy pa rin o kanselahin?",

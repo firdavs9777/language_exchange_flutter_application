@@ -3220,6 +3220,8 @@
   "gatheringSeatsTaken": "{capacity}席中{going}席が埋まりました",
   "gatheringCancelled": "中止されました",
   "gatheringEnded": "この集まりは終了しました",
+  "gatheringWhoWasThere": "参加した人",
+  "gatheringWhoWasThereHint": "あいさつしてみましょう。ここで出会った人への最初のメッセージは、1日の上限に含まれません。",
   "gatheringCancelRsvp": "参加を取り消す",
   "gatheringHostDecision": "{count, plural, other{今のところ参加は{countLabel}人です。開催しますか、中止しますか？}}",
   "gatheringHostDecisionAlone": "今のところ参加はあなただけです。開催しますか、中止しますか？",

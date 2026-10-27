@@ -8177,6 +8177,12 @@ class AppLocalizationsRu extends AppLocalizations {
   String get gatheringEnded => 'Эта встреча завершена';
 
   @override
+  String get gatheringWhoWasThere => 'Кто был';
+
+  @override
+  String get gatheringWhoWasThereHint => 'Поздоровайтесь. Первое сообщение тому, с кем вы здесь познакомились, не входит в дневной лимит.';
+
+  @override
   String get gatheringCancelRsvp => 'Отменить участие';
 
   @override

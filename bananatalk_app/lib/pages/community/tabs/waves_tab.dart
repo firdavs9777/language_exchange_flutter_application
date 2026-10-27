@@ -31,6 +31,10 @@ class WavesTab extends ConsumerStatefulWidget {
 }
 
 class _WavesTabState extends ConsumerState<WavesTab> {
+  /// Server cap per page; the inbox reads up to [_maxWavePages] of them.
+  static const _wavePageSize = 50;
+  static const _maxWavePages = 4;
+
   List<Wave> _waves = [];
   bool _isLoading = true;
   bool _hasError = false;
@@ -68,7 +72,17 @@ class _WavesTabState extends ConsumerState<WavesTab> {
         final config = await ref.read(appConfigProvider.future);
         reveal = config?.boostsEnabled ?? false;
       } catch (_) {}
-      final waves = await service.getWavesReceived(reveal: reveal);
+      // The inbox used to stop at the server's default page (20).
+      final waves = <Wave>[];
+      for (var page = 1; page <= _maxWavePages; page++) {
+        final batch = await service.getWavesReceived(
+          page: page,
+          limit: _wavePageSize,
+          reveal: reveal,
+        );
+        waves.addAll(batch);
+        if (batch.length < _wavePageSize) break;
+      }
       if (!mounted) return;
 
       setState(() {
@@ -100,7 +114,14 @@ class _WavesTabState extends ConsumerState<WavesTab> {
     // _hasError and replace a perfectly good list with "failed to load".
     if (_unreadCount > 0) {
       try {
-        await ref.read(communityServiceProvider).markWavesAsRead();
+        // Only the waves on screen: with no ids the server marks every wave
+        // read, including ones beyond what was loaded.
+        await ref.read(communityServiceProvider).markWavesAsRead(
+              waveIds: [
+                for (final w in _waves)
+                  if (!w.isRead) w.id,
+              ],
+            );
         ref.invalidate(wavesUnreadProvider);
         ref.invalidate(pendingIntrosProvider);
       } catch (_) {

@@ -2713,6 +2713,8 @@
   "gatheringSeatsTaken": "{going} аз {capacity} ҷой банд аст",
   "gatheringCancelled": "Бекор карда шуд",
   "gatheringEnded": "Ин вохӯрӣ ба анҷом расид",
+  "gatheringWhoWasThere": "Кӣ иштирок дошт",
+  "gatheringWhoWasThereHint": "Салом гӯед. Паёми аввалини шумо ба касе, ки дар ин ҷо шинос шудед, ба лимити рӯзона ҳисоб намешавад.",
   "gatheringCancelRsvp": "Иштироки худро бекор кардан",
   "gatheringHostDecision": "{count, plural, other{То ҳол танҳо {countLabel} нафар меоянд. Бо вуҷуди ин гузаронем ё бекор кунем?}}",
   "gatheringHostDecisionAlone": "То ҳол танҳо шумо меоед. Бо вуҷуди ин гузаронем ё бекор кунем?",

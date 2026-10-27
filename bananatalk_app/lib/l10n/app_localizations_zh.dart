@@ -7841,6 +7841,12 @@ class AppLocalizationsZh extends AppLocalizations {
   String get gatheringEnded => '该聚会已结束';
 
   @override
+  String get gatheringWhoWasThere => '参加的人';
+
+  @override
+  String get gatheringWhoWasThereHint => '打个招呼吧。发给在这里认识的人的第一条消息不计入每日上限。';
+
+  @override
   String get gatheringCancelRsvp => '取消报名';
 
   @override
@@ -20242,6 +20248,12 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get gatheringEnded => '此聚會已結束';
+
+  @override
+  String get gatheringWhoWasThere => '參加的人';
+
+  @override
+  String get gatheringWhoWasThereHint => '打個招呼吧。傳給在這裡認識的人的第一則訊息不計入每日上限。';
 
   @override
   String get gatheringCancelRsvp => '取消報名';

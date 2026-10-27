@@ -14552,6 +14552,18 @@ abstract class AppLocalizations {
   /// **'This gathering has ended'**
   String get gatheringEnded;
 
+  /// 모임 / gatherings: heading of the attendee card shown after a gathering ends
+  ///
+  /// In en, this message translates to:
+  /// **'Who was there'**
+  String get gatheringWhoWasThere;
+
+  /// 모임 / gatherings: under the attendee card; the first message to a fellow attendee skips the new-conversation cap
+  ///
+  /// In en, this message translates to:
+  /// **'Say hello. Your first message to someone you met here doesn\'t count toward your daily limit.'**
+  String get gatheringWhoWasThereHint;
+
   /// 모임 / gatherings
   ///
   /// In en, this message translates to:

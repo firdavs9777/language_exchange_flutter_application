@@ -370,6 +370,7 @@ class NotificationRouter {
       case 'gathering_reminder':
       case 'gathering_host_decision':
       case 'gathering_cancelled':
+      case 'gathering_time_changed':
         final gatheringId = data['gatheringId']?.toString();
         return (gatheringId != null && gatheringId.isNotEmpty)
             ? '/gathering/$gatheringId'

@@ -7850,6 +7850,12 @@ class AppLocalizationsTl extends AppLocalizations {
   String get gatheringEnded => 'Tapos na ang tagpong ito';
 
   @override
+  String get gatheringWhoWasThere => 'Sino ang dumalo';
+
+  @override
+  String get gatheringWhoWasThereHint => 'Bumati ka. Hindi binibilang sa pang-araw-araw mong limit ang unang mensahe mo sa taong nakilala mo rito.';
+
+  @override
   String get gatheringCancelRsvp => 'Kanselahin ang pagsama ko';
 
   @override

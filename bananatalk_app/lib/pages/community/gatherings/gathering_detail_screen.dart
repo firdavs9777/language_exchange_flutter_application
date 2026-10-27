@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/community/gathering_model.dart';
 import 'package:bananatalk_app/pages/community/gatherings/create_gathering_form.dart';
@@ -295,6 +296,14 @@ class _GatheringDetailScreenState extends State<GatheringDetailScreen> {
           if (gathering.viewerIsHost && gathering.requests.isNotEmpty) ...[
             Spacing.gapLG,
             _requestsSection(context, l10n, gathering),
+          ],
+
+          // The attendee card. Once it has happened, the point of the hour is
+          // the conversations that come out of it, so who was there sits right
+          // under the facts, one tap from a chat.
+          if (gathering.people.isNotEmpty) ...[
+            Spacing.gapLG,
+            _peopleSection(context, l10n, gathering),
           ],
 
           if (gathering.description.isNotEmpty) ...[
@@ -630,6 +639,74 @@ class _GatheringDetailScreenState extends State<GatheringDetailScreen> {
   ///
   /// Only ever built for the host — the backend sends an empty list to
   /// everyone else, so this is a display concern rather than the access check.
+  /// Who else went, each with a Message button. The backend only sends this
+  /// to someone who was there, after it happened; their first message to any
+  /// of these people skips the new-conversation cap, which the hint says.
+  Widget _peopleSection(
+    BuildContext context,
+    AppLocalizations l10n,
+    Gathering gathering,
+  ) {
+    return Container(
+      key: const Key('gathering-people'),
+      padding: Spacing.paddingMD,
+      decoration: BoxDecoration(
+        color: context.containerHighColor,
+        borderRadius: AppRadius.borderMD,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            l10n.gatheringWhoWasThere,
+            style: context.bodyMedium.copyWith(fontWeight: FontWeight.w600),
+          ),
+          Spacing.gapXS,
+          Text(
+            l10n.gatheringWhoWasThereHint,
+            style: context.captionSmall.copyWith(color: context.textSecondary),
+          ),
+          Spacing.gapMD,
+          for (final person in gathering.people)
+            Padding(
+              key: Key('gathering-person-${person.id}'),
+              padding: const EdgeInsets.only(bottom: Spacing.sm),
+              child: Row(
+                children: [
+                  CircleAvatar(
+                    radius: 14,
+                    backgroundColor: context.containerColor,
+                    backgroundImage: person.avatar.isNotEmpty
+                        ? ImageUtils.avatarProvider(person.avatar)
+                        : null,
+                    child: person.avatar.isEmpty
+                        ? Icon(Icons.person, size: 14, color: context.textMuted)
+                        : null,
+                  ),
+                  Spacing.hGapMD,
+                  Expanded(
+                    child: Text(
+                      person.name.isNotEmpty ? person.name : person.username,
+                      style: context.bodyMedium,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  TextButton.icon(
+                    key: Key('gathering-message-${person.id}'),
+                    onPressed: person.id.isEmpty
+                        ? null
+                        : () => context.push('/chat/${person.id}'),
+                    icon: const Icon(Icons.chat_bubble_outline_rounded, size: 16),
+                    label: Text(l10n.message),
+                  ),
+                ],
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+
   Widget _requestsSection(
     BuildContext context,
     AppLocalizations l10n,

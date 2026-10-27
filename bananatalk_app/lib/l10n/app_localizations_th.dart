@@ -7841,6 +7841,12 @@ class AppLocalizationsTh extends AppLocalizations {
   String get gatheringEnded => 'การพบปะนี้จบแล้ว';
 
   @override
+  String get gatheringWhoWasThere => 'ใครเข้าร่วมบ้าง';
+
+  @override
+  String get gatheringWhoWasThereHint => 'ทักทายกันได้เลย ข้อความแรกถึงคนที่คุณพบที่นี่จะไม่นับรวมในขีดจำกัดรายวัน';
+
+  @override
   String get gatheringCancelRsvp => 'ยกเลิกการเข้าร่วม';
 
   @override

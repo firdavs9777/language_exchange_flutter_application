@@ -5379,6 +5379,14 @@
   "@gatheringEnded": {
     "description": "모임 / gatherings"
   },
+  "gatheringWhoWasThere": "Who was there",
+  "@gatheringWhoWasThere": {
+    "description": "모임 / gatherings: heading of the attendee card shown after a gathering ends"
+  },
+  "gatheringWhoWasThereHint": "Say hello. Your first message to someone you met here doesn't count toward your daily limit.",
+  "@gatheringWhoWasThereHint": {
+    "description": "모임 / gatherings: under the attendee card; the first message to a fellow attendee skips the new-conversation cap"
+  },
   "gatheringCancelRsvp": "Cancel my RSVP",
   "@gatheringCancelRsvp": {
     "description": "모임 / gatherings"

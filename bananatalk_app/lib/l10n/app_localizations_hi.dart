@@ -7850,6 +7850,12 @@ class AppLocalizationsHi extends AppLocalizations {
   String get gatheringEnded => 'यह मिलन समाप्त हो चुका है';
 
   @override
+  String get gatheringWhoWasThere => 'कौन-कौन आया था';
+
+  @override
+  String get gatheringWhoWasThereHint => 'नमस्ते कहें। यहाँ मिले किसी व्यक्ति को आपका पहला संदेश आपकी दैनिक सीमा में नहीं गिना जाता।';
+
+  @override
   String get gatheringCancelRsvp => 'मेरी उपस्थिति रद्द करें';
 
   @override

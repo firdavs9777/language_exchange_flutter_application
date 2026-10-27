@@ -3460,6 +3460,8 @@
   "gatheringSeatsTaken": "{going} posti su {capacity} occupati",
   "gatheringCancelled": "Annullato",
   "gatheringEnded": "Questo incontro è terminato",
+  "gatheringWhoWasThere": "Chi c'era",
+  "gatheringWhoWasThereHint": "Saluta. Il tuo primo messaggio a qualcuno conosciuto qui non conta nel limite giornaliero.",
   "gatheringCancelRsvp": "Annulla la mia partecipazione",
   "gatheringHostDecision": "{count, plural, other{Per ora siete solo in {countLabel}. Lo fai lo stesso o lo annulli?}}",
   "gatheringHostDecisionAlone": "Per ora ci sei solo tu. Lo fai lo stesso o lo annulli?",

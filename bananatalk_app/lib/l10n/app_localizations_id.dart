@@ -7848,6 +7848,12 @@ class AppLocalizationsId extends AppLocalizations {
   String get gatheringEnded => 'Pertemuan ini sudah berakhir';
 
   @override
+  String get gatheringWhoWasThere => 'Siapa yang hadir';
+
+  @override
+  String get gatheringWhoWasThereHint => 'Sapa mereka. Pesan pertamamu ke orang yang kamu temui di sini tidak dihitung dalam batas harianmu.';
+
+  @override
   String get gatheringCancelRsvp => 'Batalkan kehadiran saya';
 
   @override

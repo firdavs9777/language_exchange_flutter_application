@@ -3236,6 +3236,8 @@
   "gatheringSeatsTaken": "{capacity} में से {going} सीटें भरीं",
   "gatheringCancelled": "रद्द",
   "gatheringEnded": "यह मिलन समाप्त हो चुका है",
+  "gatheringWhoWasThere": "कौन-कौन आया था",
+  "gatheringWhoWasThereHint": "नमस्ते कहें। यहाँ मिले किसी व्यक्ति को आपका पहला संदेश आपकी दैनिक सीमा में नहीं गिना जाता।",
   "gatheringCancelRsvp": "मेरी उपस्थिति रद्द करें",
   "gatheringHostDecision": "{count, plural, other{अभी तक सिर्फ़ {countLabel} लोग आ रहे हैं। फिर भी करें या रद्द करें?}}",
   "gatheringHostDecisionAlone": "अभी तक सिर्फ़ आप आ रहे हैं। फिर भी करें या रद्द करें?",

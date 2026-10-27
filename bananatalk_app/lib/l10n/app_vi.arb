@@ -3220,6 +3220,8 @@
   "gatheringSeatsTaken": "Đã kín {going} trong {capacity} chỗ",
   "gatheringCancelled": "Đã hủy",
   "gatheringEnded": "Buổi gặp này đã kết thúc",
+  "gatheringWhoWasThere": "Những người đã tham gia",
+  "gatheringWhoWasThereHint": "Hãy chào nhau. Tin nhắn đầu tiên gửi người bạn gặp ở đây không tính vào giới hạn hằng ngày.",
   "gatheringCancelRsvp": "Hủy tham gia",
   "gatheringHostDecision": "{count, plural, other{Hiện mới chỉ có {countLabel} người. Vẫn tổ chức hay hủy?}}",
   "gatheringHostDecisionAlone": "Hiện mới chỉ có mình bạn. Vẫn tổ chức hay hủy?",

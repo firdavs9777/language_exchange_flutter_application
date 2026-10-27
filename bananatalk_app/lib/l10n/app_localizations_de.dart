@@ -7850,6 +7850,12 @@ class AppLocalizationsDe extends AppLocalizations {
   String get gatheringEnded => 'Dieses Treffen ist beendet';
 
   @override
+  String get gatheringWhoWasThere => 'Wer dabei war';
+
+  @override
+  String get gatheringWhoWasThereHint => 'Sag Hallo. Deine erste Nachricht an jemanden, den du hier getroffen hast, zählt nicht zu deinem Tageslimit.';
+
+  @override
   String get gatheringCancelRsvp => 'Zusage zurückziehen';
 
   @override

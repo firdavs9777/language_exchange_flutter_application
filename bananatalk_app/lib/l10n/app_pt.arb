@@ -3236,6 +3236,8 @@
   "gatheringSeatsTaken": "{going} de {capacity} vagas ocupadas",
   "gatheringCancelled": "Cancelado",
   "gatheringEnded": "Este encontro já terminou",
+  "gatheringWhoWasThere": "Quem esteve lá",
+  "gatheringWhoWasThereHint": "Diga olá. Sua primeira mensagem para alguém que você conheceu aqui não conta no seu limite diário.",
   "gatheringCancelRsvp": "Cancelar minha presença",
   "gatheringHostDecision": "{count, plural, other{Por enquanto são só {countLabel} pessoas. Fazer mesmo assim ou cancelar?}}",
   "gatheringHostDecisionAlone": "Por enquanto só você vai. Fazer mesmo assim ou cancelar?",

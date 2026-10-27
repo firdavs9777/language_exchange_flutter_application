@@ -7841,6 +7841,12 @@ class AppLocalizationsVi extends AppLocalizations {
   String get gatheringEnded => 'Buổi gặp này đã kết thúc';
 
   @override
+  String get gatheringWhoWasThere => 'Những người đã tham gia';
+
+  @override
+  String get gatheringWhoWasThereHint => 'Hãy chào nhau. Tin nhắn đầu tiên gửi người bạn gặp ở đây không tính vào giới hạn hằng ngày.';
+
+  @override
   String get gatheringCancelRsvp => 'Hủy tham gia';
 
   @override

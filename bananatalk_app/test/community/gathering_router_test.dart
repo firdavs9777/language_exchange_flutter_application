@@ -23,6 +23,8 @@ void main() {
     'gathering_reminder',
     'gathering_host_decision',
     'gathering_cancelled',
+    // notifyTimeChanged: the host moved the time.
+    'gathering_time_changed',
   ];
 
   group('gathering notifications open the gathering', () {

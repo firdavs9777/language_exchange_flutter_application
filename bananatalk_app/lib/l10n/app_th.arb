@@ -3220,6 +3220,8 @@
   "gatheringSeatsTaken": "จอง {going} จาก {capacity} ที่นั่ง",
   "gatheringCancelled": "ยกเลิกแล้ว",
   "gatheringEnded": "การพบปะนี้จบแล้ว",
+  "gatheringWhoWasThere": "ใครเข้าร่วมบ้าง",
+  "gatheringWhoWasThereHint": "ทักทายกันได้เลย ข้อความแรกถึงคนที่คุณพบที่นี่จะไม่นับรวมในขีดจำกัดรายวัน",
   "gatheringCancelRsvp": "ยกเลิกการเข้าร่วม",
   "gatheringHostDecision": "{count, plural, other{ตอนนี้มีแค่ {countLabel} คน จะจัดต่อหรือยกเลิก?}}",
   "gatheringHostDecisionAlone": "ตอนนี้มีแค่คุณคนเดียว จะจัดต่อหรือยกเลิก?",

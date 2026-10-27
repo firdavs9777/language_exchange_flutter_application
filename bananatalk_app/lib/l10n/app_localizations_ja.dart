@@ -7841,6 +7841,12 @@ class AppLocalizationsJa extends AppLocalizations {
   String get gatheringEnded => 'この集まりは終了しました';
 
   @override
+  String get gatheringWhoWasThere => '参加した人';
+
+  @override
+  String get gatheringWhoWasThereHint => 'あいさつしてみましょう。ここで出会った人への最初のメッセージは、1日の上限に含まれません。';
+
+  @override
   String get gatheringCancelRsvp => '参加を取り消す';
 
   @override

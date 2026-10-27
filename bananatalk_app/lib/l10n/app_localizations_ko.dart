@@ -7841,6 +7841,12 @@ class AppLocalizationsKo extends AppLocalizations {
   String get gatheringEnded => '종료된 모임입니다';
 
   @override
+  String get gatheringWhoWasThere => '함께한 사람들';
+
+  @override
+  String get gatheringWhoWasThereHint => '인사해 보세요. 여기서 만난 사람에게 보내는 첫 메시지는 하루 한도에 포함되지 않아요.';
+
+  @override
   String get gatheringCancelRsvp => '참여 취소';
 
   @override

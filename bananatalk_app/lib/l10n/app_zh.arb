@@ -3234,6 +3234,8 @@
   "gatheringSeatsTaken": "{capacity}个名额已占{going}个",
   "gatheringCancelled": "已取消",
   "gatheringEnded": "该聚会已结束",
+  "gatheringWhoWasThere": "参加的人",
+  "gatheringWhoWasThereHint": "打个招呼吧。发给在这里认识的人的第一条消息不计入每日上限。",
   "gatheringCancelRsvp": "取消报名",
   "gatheringHostDecision": "{count, plural, other{目前只有{countLabel}人参加。还是照常举行，还是取消？}}",
   "gatheringHostDecisionAlone": "目前只有你一个人参加。还是照常举行，还是取消？",

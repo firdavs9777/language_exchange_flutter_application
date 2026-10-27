@@ -3432,6 +3432,8 @@
   "gatheringSeatsTaken": "{capacity} yerin {going} tanesi dolu",
   "gatheringCancelled": "İptal edildi",
   "gatheringEnded": "Bu buluşma sona erdi",
+  "gatheringWhoWasThere": "Kimler oradaydı",
+  "gatheringWhoWasThereHint": "Merhaba de. Burada tanıştığın birine ilk mesajın günlük sınırına sayılmaz.",
   "gatheringCancelRsvp": "Katılımımı iptal et",
   "gatheringHostDecision": "{count, plural, other{Şimdilik yalnızca {countLabel} kişi var. Yine de yapalım mı, iptal mi edelim?}}",
   "gatheringHostDecisionAlone": "Şimdilik yalnızca sen varsın. Yine de yapalım mı, iptal mi edelim?",

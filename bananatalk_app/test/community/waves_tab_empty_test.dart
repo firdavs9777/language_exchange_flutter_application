@@ -30,6 +30,33 @@ class _FakeCommunity implements CommunityService {
   dynamic noSuchMethod(Invocation i) => super.noSuchMethod(i);
 }
 
+/// Pages like the server: [limit] per page, in order.
+class _PagingCommunity implements CommunityService {
+  _PagingCommunity(this.all);
+  final List<Wave> all;
+  final pages = <int>[];
+  List<String>? markedRead;
+  @override
+  Future<List<Wave>> getWavesReceived({
+    int page = 1,
+    int limit = 20,
+    bool unreadOnly = false,
+    bool archive = false,
+    bool reveal = false,
+  }) async {
+    pages.add(page);
+    return all.skip((page - 1) * limit).take(limit).toList();
+  }
+
+  @override
+  Future<void> markWavesAsRead({List<String>? waveIds}) async {
+    markedRead = waveIds;
+  }
+
+  @override
+  dynamic noSuchMethod(Invocation i) => super.noSuchMethod(i);
+}
+
 Widget _app(CommunityService community, {TextDirection? dir}) =>
     ProviderScope(
       overrides: [
@@ -81,5 +108,25 @@ void main() {
     final screen = tester.getRect(find.byType(Scaffold));
     // Trailing in RTL is the left half.
     expect(button.center.dx, lessThan(screen.center.dx));
+  });
+
+  testWidgets('the inbox reads past the first page and marks only those read',
+      (tester) async {
+    final fake = _PagingCommunity([
+      for (var i = 0; i < 70; i++)
+        Wave(
+          id: 'w$i',
+          fromUserId: 'u$i',
+          fromUserName: 'User $i',
+          isRead: i.isOdd,
+          createdAt: DateTime(2026, 10, 27),
+        ),
+    ]);
+    await tester.pumpWidget(_app(fake));
+    await tester.pumpAndSettle();
+
+    expect(fake.pages, [1, 2], reason: '50 + 20, then stop');
+    expect(fake.markedRead, hasLength(35));
+    expect(fake.markedRead, isNot(contains('w1')), reason: 'already read');
   });
 }

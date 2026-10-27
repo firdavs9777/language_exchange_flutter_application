@@ -7850,6 +7850,12 @@ class AppLocalizationsPt extends AppLocalizations {
   String get gatheringEnded => 'Este encontro já terminou';
 
   @override
+  String get gatheringWhoWasThere => 'Quem esteve lá';
+
+  @override
+  String get gatheringWhoWasThereHint => 'Diga olá. Sua primeira mensagem para alguém que você conheceu aqui não conta no seu limite diário.';
+
+  @override
   String get gatheringCancelRsvp => 'Cancelar minha presença';
 
   @override

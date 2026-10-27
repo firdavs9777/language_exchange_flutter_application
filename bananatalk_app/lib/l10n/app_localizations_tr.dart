@@ -7849,6 +7849,12 @@ class AppLocalizationsTr extends AppLocalizations {
   String get gatheringEnded => 'Bu buluşma sona erdi';
 
   @override
+  String get gatheringWhoWasThere => 'Kimler oradaydı';
+
+  @override
+  String get gatheringWhoWasThereHint => 'Merhaba de. Burada tanıştığın birine ilk mesajın günlük sınırına sayılmaz.';
+
+  @override
   String get gatheringCancelRsvp => 'Katılımımı iptal et';
 
   @override

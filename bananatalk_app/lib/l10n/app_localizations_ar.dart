@@ -7861,6 +7861,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get gatheringEnded => 'انتهى هذا اللقاء';
 
   @override
+  String get gatheringWhoWasThere => 'من حضر';
+
+  @override
+  String get gatheringWhoWasThereHint => 'قل مرحبًا. رسالتك الأولى لشخص التقيته هنا لا تُحتسب ضمن حدك اليومي.';
+
+  @override
   String get gatheringCancelRsvp => 'إلغاء حضوري';
 
   @override

@@ -3220,6 +3220,8 @@
   "gatheringSeatsTaken": "{going} dari {capacity} kursi terisi",
   "gatheringCancelled": "Dibatalkan",
   "gatheringEnded": "Pertemuan ini sudah berakhir",
+  "gatheringWhoWasThere": "Siapa yang hadir",
+  "gatheringWhoWasThereHint": "Sapa mereka. Pesan pertamamu ke orang yang kamu temui di sini tidak dihitung dalam batas harianmu.",
   "gatheringCancelRsvp": "Batalkan kehadiran saya",
   "gatheringHostDecision": "{count, plural, other{Sejauh ini hanya {countLabel} orang. Tetap jalan atau batalkan?}}",
   "gatheringHostDecisionAlone": "Sejauh ini hanya kamu. Tetap jalan atau batalkan?",
