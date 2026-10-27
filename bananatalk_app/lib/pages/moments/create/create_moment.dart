@@ -1645,6 +1645,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                 : null,
             promptId: _showPromptChip ? _promptId : null,
             isReel: widget.isReel,
+            scheduledFor: _scheduledDate?.toUtc().toIso8601String(),
           );
 
       // Reels upload/create in the background (same pipeline as any other

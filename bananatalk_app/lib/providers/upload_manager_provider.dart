@@ -107,6 +107,7 @@ class UploadManagerNotifier extends StateNotifier<UploadManagerState> {
     String? backgroundColor,
     String? promptId,
     bool isReel = false,
+    String? scheduledFor,
   }) async {
     return _uploadService.queueMomentUpload(
       description: description,
@@ -121,6 +122,7 @@ class UploadManagerNotifier extends StateNotifier<UploadManagerState> {
       backgroundColor: backgroundColor,
       promptId: promptId,
       isReel: isReel,
+      scheduledFor: scheduledFor,
     );
   }
 

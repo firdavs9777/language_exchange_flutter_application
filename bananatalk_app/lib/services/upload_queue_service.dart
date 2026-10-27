@@ -132,6 +132,8 @@ class UploadQueueService {
     // Workstream G: Reels ride on the same moment-creation pipeline.
     String? promptId,
     bool isReel = false,
+    // ISO-8601 UTC; null posts at once.
+    String? scheduledFor,
   }) async {
     final hasVideo = videoPath != null && videoPath.isNotEmpty;
     final task = UploadTask(
@@ -150,6 +152,7 @@ class UploadQueueService {
         'backgroundColor': backgroundColor,
         'promptId': promptId,
         'isReel': isReel,
+        'scheduledFor': scheduledFor,
       },
     );
 
@@ -359,6 +362,7 @@ class UploadQueueService {
       backgroundColor: metadata['backgroundColor'],
       promptId: metadata['promptId'],
       isReel: metadata['isReel'] == true,
+      scheduledFor: metadata['scheduledFor'],
     );
     _checkSession(gen);
     metadata[kCreatedMomentIdKey] = moment.id;
