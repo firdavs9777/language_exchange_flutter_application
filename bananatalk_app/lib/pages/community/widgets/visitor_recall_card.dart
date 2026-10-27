@@ -60,7 +60,7 @@ class _VisitorRecallCardState extends ConsumerState<VisitorRecallCard> {
               .whereType<Map>()
               .map((e) => Map<String, dynamic>.from(e))
               .toList();
-          _totalCount = (result['count'] as int?) ?? _visitors.length;
+          _totalCount = visitorTotal(result, shown: _visitors.length);
           _isLoaded = true;
         });
       } else {
@@ -245,4 +245,14 @@ class _VisitorRecallCardState extends ConsumerState<VisitorRecallCard> {
       ),
     );
   }
+}
+
+/// Everyone who visited: a free account gets the rows it may see in
+/// `count` and the rest in `locked` (live: count 1, locked 9 → "1 person
+/// visited" when 10 did).
+@visibleForTesting
+int visitorTotal(Map<String, dynamic> result, {required int shown}) {
+  final count = (result['count'] as num?)?.toInt() ?? shown;
+  final locked = (result['locked'] as num?)?.toInt() ?? 0;
+  return count + locked;
 }

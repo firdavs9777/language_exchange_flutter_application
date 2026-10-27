@@ -21,8 +21,8 @@ Both live in the top-level `BananaTalk/docs` repo, not in any of the three app r
 | Event notifications (created, confirmed, join request/decision, ended) | **Done** |
 | Free first message between attendees | **Done** on the backend |
 | Blocking, reporting, host removes someone | **Done** |
-| Host reliability ("abandoned" gatherings block hosting) | **Wired but never triggers.** See gap 1 |
-| "Who was there" card after a gathering | **Not built in the app.** See gap 2 |
+| Host reliability ("abandoned" gatherings block hosting) | **Fixed 2026-10-27** (backend `04c3832`, needs deploy) |
+| "Who was there" card after a gathering | **Built 2026-10-27**: backend `people` + app card (needs backend deploy) |
 | Start a gathering → open a VoiceRoom (plan Task 7) | **Not built.** Blocked on the two-phone audio test |
 | "Repeat this gathering" (spec §2.1) | **Not built** |
 | In-person meetups (`offline_meetup`) | Modelled, refused by the API, as the spec intends |
@@ -110,7 +110,7 @@ Status moves `scheduled → confirmed` when the people going reach quorum, and b
 | 24h before | yes | **yes, with `.ics`** | **no** | `gatheringReminders.js` |
 | 10 min before | yes | no | **no** | same |
 | Host decision due (T-2h) | yes | yes | **no** | same |
-| Cancelled by host | yes | yes | **no** | same |
+| Cancelled (host, T-2h "cancel", admin) | yes | yes | **no** | same |
 | Time moved | yes | yes | **no** | same |
 | Ended | yes | no | yes | `gatheringNotifications.js` |
 
@@ -146,7 +146,7 @@ Email strings exist for 8 locales (`email_templates/`). Push and in-app strings 
   - `gathering_safety_menu.dart`: report or block for a gathering or a club (the
     `Report` model accepts `gathering` and `club`)
 - **Push taps:** `lib/services/notification_router.dart:364` opens `/gathering/:id` for
-  every `gathering_*` type, except `gathering_time_changed`, which isn't listed.
+  every `gathering_*` type, including `gathering_time_changed`.
 - **Strings:** in all app locales (`lib/l10n/`).
 - **Uncommitted right now:** changes to `gathering_model.dart`, `gathering_card.dart`,
   `gathering_detail_screen.dart`, the l10n files, and a new
@@ -163,29 +163,26 @@ behind `WEB_GATHERINGS_ENABLED`, which is off.
 
 ## Gaps and bugs found
 
-1. **Host reliability never blocks anyone.** `hostAttended` is only ever set to `true`
-   (`controllers/gatherings.js:837`). The comment there says the reminder job sweeps
-   gatherings nobody ended, but no such sweep exists. Nothing writes `false`, so
-   "abandoned" is always 0 and the hosting ban can't trigger. Past gatherings nobody
-   ended also stay `scheduled`/`confirmed` forever.
-2. **No "who was there" card (spec §3.1).** `POST /:id/end` returns the attendee ids, but
-   the app throws them away and shows a snackbar. The API never sends the attendee list
-   to anyone but the host (and then only pending requests), so after a gathering nobody
-   can see who attended or message them in one tap. The free first message works on the
-   backend, but people have to find each other some other way. This is the feature the
-   spec says success is measured on.
-3. **Saying "cancel" at T-2h tells nobody.** `hostDecision` with `run: false` cancels the
-   gathering but doesn't call `notifyCancellation`. Attendees aren't told, unlike a
-   normal cancel.
-4. **An admin cancel tells nobody** (`controllers/adminContent.js` `cancelGathering`), and
-   doesn't set `cancelledAt`.
-5. **"Time moved" shows UTC.** `notifyTimeChanged` puts an ISO UTC string in the message
-   instead of the recipient's local time, which the 24h reminder already does correctly.
-   The app also doesn't route its push tap (see App).
+Fixed 2026-10-27 (backend `04c3832`, deploy pending; the app half is in the parent repo):
+
+1. ~~Host reliability never blocks anyone.~~ The reminder tick now closes out a gathering
+   12 h past its scheduled end as `ended` + `hostAttended: false`, only for gatherings
+   starting on/after 2026-10-27 (older ones, including seeded ones, never count). Those
+   rows grant no cap exemption and show no guest list.
+2. ~~No "who was there" card.~~ `GET /gatherings/:id` sends `people` (once it is
+   live/ended, only to someone who was going, minus blocked users). The detail screen
+   shows "Who was there", each with a Message button that opens the chat, plus a line
+   saying the first message doesn't count toward the daily limit.
+3. ~~"Cancel" at T-2h tells nobody.~~ It now calls `notifyCancellation`.
+4. ~~An admin cancel tells nobody.~~ It now notifies and sets `cancelledAt`.
+5. ~~"Time moved" shows UTC.~~ It uses each recipient's local time; the app routes its tap.
+
+Still open:
+
 6. **Some reminders don't reach in-app history.** The 24h, 10-minute, T-2h, cancel and
-   time-moved messages go straight through `fcmService`, not `notificationService`. They
-   leave no in-app row, which the spec's §5.1 table requires (✓ in the in-app column).
-   Users with no push token (65%) only get the email, or nothing for the 10-minute one.
+   time-moved messages go straight through `fcmService`, not `notificationService`, so
+   they leave no in-app row, which spec §5.1 requires. Users with no push token (65%)
+   only get the email, or nothing for the 10-minute one.
 7. **"Has hosted N gatherings" isn't shown.** `hostRecordLabel` exists in
    `lib/hostReliability.js`, but nothing calls it.
 8. **Club `city` / `place` can be set.** The spec wants them unreachable, but
@@ -195,6 +192,7 @@ behind `WEB_GATHERINGS_ENABLED`, which is off.
    written), and start → VoiceRoom (plan Task 7: no start endpoint, `voiceRoom` never
    set, no `live` status). Ending a gathering relies on the clock, not on people being
    in the call.
+10. **The website** has no attendee card yet (it is switched off).
 
 ## Still open outside the code
 
