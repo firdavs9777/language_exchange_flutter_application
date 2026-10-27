@@ -11,9 +11,10 @@ class _Recording extends NotificationSettingsNotifier {
   _Recording(super.initial) : super.forTest();
   final toggled = <String>[];
   @override
-  Future<void> toggleSetting(String settingName, bool value) async {
+  Future<bool> toggleSetting(String settingName, bool value) async {
     toggled.add('$settingName:$value');
     state = AsyncValue.data(state.value!.copyWith(allowCalls: value));
+    return true;
   }
 }
 

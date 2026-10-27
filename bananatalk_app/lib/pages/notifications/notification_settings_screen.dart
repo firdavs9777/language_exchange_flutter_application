@@ -11,6 +11,16 @@ import 'package:bananatalk_app/core/theme/app_theme.dart';
 class NotificationSettingsScreen extends ConsumerWidget {
   const NotificationSettingsScreen({super.key});
 
+  /// A setting that did not save flips back; say so instead of reverting
+  /// silently.
+  Future<void> _warnIfNotSaved(BuildContext context, Future<bool> save) async {
+    final saved = await save;
+    if (saved || !context.mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(AppLocalizations.of(context)!.failedToUpdate)),
+    );
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final settingsAsync = ref.watch(notificationSettingsProvider);
@@ -77,9 +87,9 @@ class NotificationSettingsScreen extends ConsumerWidget {
               enabled: settings.enabled,
               onChanged: (value) {
                 HapticFeedback.selectionClick();
-                ref
+                _warnIfNotSaved(context, ref
                     .read(notificationSettingsProvider.notifier)
-                    .toggleSetting('chatMessages', value);
+                    .toggleSetting('chatMessages', value));
               },
               isFirst: true,
             ),
@@ -94,9 +104,9 @@ class NotificationSettingsScreen extends ConsumerWidget {
               enabled: settings.enabled,
               onChanged: (value) {
                 HapticFeedback.selectionClick();
-                ref
+                _warnIfNotSaved(context, ref
                     .read(notificationSettingsProvider.notifier)
-                    .toggleSetting('moments', value);
+                    .toggleSetting('moments', value));
               },
             ),
             _buildDivider(context),
@@ -110,9 +120,9 @@ class NotificationSettingsScreen extends ConsumerWidget {
               enabled: settings.enabled,
               onChanged: (value) {
                 HapticFeedback.selectionClick();
-                ref
+                _warnIfNotSaved(context, ref
                     .read(notificationSettingsProvider.notifier)
-                    .toggleSetting('followerMoments', value);
+                    .toggleSetting('followerMoments', value));
               },
             ),
             _buildDivider(context),
@@ -126,9 +136,9 @@ class NotificationSettingsScreen extends ConsumerWidget {
               enabled: settings.enabled,
               onChanged: (value) {
                 HapticFeedback.selectionClick();
-                ref
+                _warnIfNotSaved(context, ref
                     .read(notificationSettingsProvider.notifier)
-                    .toggleSetting('friendRequests', value);
+                    .toggleSetting('friendRequests', value));
               },
             ),
             _buildDivider(context),
@@ -142,9 +152,9 @@ class NotificationSettingsScreen extends ConsumerWidget {
               enabled: settings.enabled,
               onChanged: (value) {
                 HapticFeedback.selectionClick();
-                ref
+                _warnIfNotSaved(context, ref
                     .read(notificationSettingsProvider.notifier)
-                    .toggleSetting('profileVisits', value);
+                    .toggleSetting('profileVisits', value));
               },
             ),
             _buildDivider(context),
@@ -158,9 +168,9 @@ class NotificationSettingsScreen extends ConsumerWidget {
               enabled: settings.enabled,
               onChanged: (value) {
                 HapticFeedback.selectionClick();
-                ref
+                _warnIfNotSaved(context, ref
                     .read(notificationSettingsProvider.notifier)
-                    .toggleSetting('marketing', value);
+                    .toggleSetting('marketing', value));
               },
             ),
             _buildDivider(context),
@@ -174,9 +184,9 @@ class NotificationSettingsScreen extends ConsumerWidget {
               enabled: settings.enabled,
               onChanged: (value) {
                 HapticFeedback.selectionClick();
-                ref
+                _warnIfNotSaved(context, ref
                     .read(notificationSettingsProvider.notifier)
-                    .toggleSetting('announcements', value);
+                    .toggleSetting('announcements', value));
               },
               isLast: true,
             ),
@@ -203,9 +213,9 @@ class NotificationSettingsScreen extends ConsumerWidget {
               enabled: true,
               onChanged: (value) {
                 HapticFeedback.selectionClick();
-                ref
+                _warnIfNotSaved(context, ref
                     .read(notificationSettingsProvider.notifier)
-                    .toggleSetting('allowCalls', value);
+                    .toggleSetting('allowCalls', value));
               },
               isFirst: true,
               isLast: true,
@@ -233,9 +243,9 @@ class NotificationSettingsScreen extends ConsumerWidget {
               enabled: true,
               onChanged: (value) {
                 HapticFeedback.selectionClick();
-                ref
+                _warnIfNotSaved(context, ref
                     .read(notificationSettingsProvider.notifier)
-                    .toggleSetting('dailyDropReminders', value);
+                    .toggleSetting('dailyDropReminders', value));
               },
               isFirst: true,
               isLast: !settings.dailyDropReminders,
@@ -259,9 +269,9 @@ class NotificationSettingsScreen extends ConsumerWidget {
                   );
                   // The server sends on the hour; minutes are dropped.
                   if (t != null) {
-                    ref
+                    _warnIfNotSaved(context, ref
                         .read(notificationSettingsProvider.notifier)
-                        .setDailyDropHour(t.hour);
+                        .setDailyDropHour(t.hour));
                   }
                 },
               ),
@@ -289,9 +299,9 @@ class NotificationSettingsScreen extends ConsumerWidget {
               enabled: true,
               onChanged: (v) {
                 HapticFeedback.selectionClick();
-                ref
+                _warnIfNotSaved(context, ref
                     .read(notificationSettingsProvider.notifier)
-                    .updateQuietHours(settings.quietHours.copyWith(enabled: v));
+                    .updateQuietHours(settings.quietHours.copyWith(enabled: v)));
               },
               isFirst: true,
               isLast: !settings.quietHours.enabled,
@@ -311,11 +321,11 @@ class NotificationSettingsScreen extends ConsumerWidget {
                     initialTime: _parseHHmm(settings.quietHours.start),
                   );
                   if (t != null) {
-                    ref
+                    _warnIfNotSaved(context, ref
                         .read(notificationSettingsProvider.notifier)
                         .updateQuietHours(
                           settings.quietHours.copyWith(start: _formatHHmm(t)),
-                        );
+                        ));
                   }
                 },
               ),
@@ -333,11 +343,11 @@ class NotificationSettingsScreen extends ConsumerWidget {
                     initialTime: _parseHHmm(settings.quietHours.end),
                   );
                   if (t != null) {
-                    ref
+                    _warnIfNotSaved(context, ref
                         .read(notificationSettingsProvider.notifier)
                         .updateQuietHours(
                           settings.quietHours.copyWith(end: _formatHHmm(t)),
-                        );
+                        ));
                   }
                 },
               ),
@@ -352,11 +362,11 @@ class NotificationSettingsScreen extends ConsumerWidget {
                 enabled: true,
                 onChanged: (v) {
                   HapticFeedback.selectionClick();
-                  ref
+                  _warnIfNotSaved(context, ref
                       .read(notificationSettingsProvider.notifier)
                       .updateQuietHours(
                         settings.quietHours.copyWith(allowUrgent: v),
-                      );
+                      ));
                 },
               ),
               Padding(
@@ -390,9 +400,9 @@ class NotificationSettingsScreen extends ConsumerWidget {
               enabled: settings.enabled,
               onChanged: (value) {
                 HapticFeedback.selectionClick();
-                ref
+                _warnIfNotSaved(context, ref
                     .read(notificationSettingsProvider.notifier)
-                    .toggleSetting('sound', value);
+                    .toggleSetting('sound', value));
               },
               isFirst: true,
             ),
@@ -407,9 +417,9 @@ class NotificationSettingsScreen extends ConsumerWidget {
               enabled: settings.enabled,
               onChanged: (value) {
                 HapticFeedback.selectionClick();
-                ref
+                _warnIfNotSaved(context, ref
                     .read(notificationSettingsProvider.notifier)
-                    .toggleSetting('vibration', value);
+                    .toggleSetting('vibration', value));
               },
             ),
             _buildDivider(context),
@@ -423,9 +433,9 @@ class NotificationSettingsScreen extends ConsumerWidget {
               enabled: settings.enabled,
               onChanged: (value) {
                 HapticFeedback.selectionClick();
-                ref
+                _warnIfNotSaved(context, ref
                     .read(notificationSettingsProvider.notifier)
-                    .toggleSetting('showPreview', value);
+                    .toggleSetting('showPreview', value));
               },
               isLast: true,
             ),
@@ -583,9 +593,9 @@ class NotificationSettingsScreen extends ConsumerWidget {
             value: settings.enabled,
             onChanged: (value) {
               HapticFeedback.selectionClick();
-              ref
+              _warnIfNotSaved(context, ref
                   .read(notificationSettingsProvider.notifier)
-                  .toggleSetting('enabled', value);
+                  .toggleSetting('enabled', value));
             },
             activeThumbColor: AppColors.primary,
             activeTrackColor: AppColors.primary.withValues(alpha: 0.5),

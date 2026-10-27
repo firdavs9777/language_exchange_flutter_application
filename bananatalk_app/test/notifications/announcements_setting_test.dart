@@ -12,8 +12,10 @@ class _Fake extends StateNotifier<AsyncValue<NotificationSettings>>
   _Fake() : super(AsyncValue.data(NotificationSettings.defaultSettings()));
   final toggles = <(String, bool)>[];
   @override
-  Future<void> toggleSetting(String settingName, bool value) async =>
-      toggles.add((settingName, value));
+  Future<bool> toggleSetting(String settingName, bool value) async {
+    toggles.add((settingName, value));
+    return true;
+  }
   @override
   dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
 }

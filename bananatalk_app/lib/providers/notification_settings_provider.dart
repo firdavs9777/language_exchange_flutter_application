@@ -65,11 +65,19 @@ class NotificationSettingsNotifier
   }
 
   /// Update notification settings
-  Future<void> updateSettings(NotificationSettings settings) async {
+  /// Bumped by every save. A failed save reverts only if no newer save
+  /// started since: two quick toggles where the first fails must not undo
+  /// the second (the second carries the first's value and settles it).
+  int _saveSeq = 0;
+
+  /// Returns false when the server did not take it (the switch flips back);
+  /// the screen says so instead of reverting silently.
+  Future<bool> updateSettings(NotificationSettings settings) async {
     // The last settings the server is known to hold. Without them (load
     // failed or still running) there is nothing safe to build a save on.
     final previous = state.valueOrNull;
-    if (previous == null) return;
+    if (previous == null) return false;
+    final seq = ++_saveSeq;
     try {
       settings = await _withDeviceZone(settings);
 
@@ -81,11 +89,12 @@ class NotificationSettingsNotifier
 
       final result = await _apiClient.updateSettings(settings);
 
-      if (result['success'] != true) {
-        await _revertTo(previous);
-      }
+      if (result['success'] == true) return true;
+      if (seq == _saveSeq) await _revertTo(previous);
+      return false;
     } catch (e) {
-      await _revertTo(previous);
+      if (seq == _saveSeq) await _revertTo(previous);
+      return false;
     }
   }
 
@@ -96,10 +105,10 @@ class NotificationSettingsNotifier
 
   /// Update only the quiet hours window. Persists through the standard
   /// updateSettings path so the API client and snapshot stay consistent.
-  Future<void> updateQuietHours(QuietHours qh) async {
+  Future<bool> updateQuietHours(QuietHours qh) async {
     final current = state.valueOrNull;
-    if (current == null) return;
-    await updateSettings(current.copyWith(quietHours: qh));
+    if (current == null) return false;
+    return updateSettings(current.copyWith(quietHours: qh));
   }
 
   /// Persist a snapshot of the quiet-hours window for the foreground handler
@@ -114,16 +123,16 @@ class NotificationSettingsNotifier
   }
 
   /// The local hour (0-23) the daily lesson reminder arrives.
-  Future<void> setDailyDropHour(int hour) async {
+  Future<bool> setDailyDropHour(int hour) async {
     final current = state.valueOrNull;
-    if (current == null || hour < 0 || hour > 23) return;
-    await updateSettings(current.copyWith(dailyDropHour: hour));
+    if (current == null || hour < 0 || hour > 23) return false;
+    return updateSettings(current.copyWith(dailyDropHour: hour));
   }
 
   /// Toggle a specific setting
-  Future<void> toggleSetting(String settingName, bool value) async {
+  Future<bool> toggleSetting(String settingName, bool value) async {
     final currentSettings = state.valueOrNull;
-    if (currentSettings == null) return;
+    if (currentSettings == null) return false;
 
     NotificationSettings updatedSettings;
 
@@ -168,10 +177,10 @@ class NotificationSettingsNotifier
         updatedSettings = currentSettings.copyWith(dailyDropReminders: value);
         break;
       default:
-        return;
+        return false;
     }
 
-    await updateSettings(updatedSettings);
+    return updateSettings(updatedSettings);
   }
 
   /// Mute a conversation

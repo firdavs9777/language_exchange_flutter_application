@@ -14,17 +14,19 @@ class _Recording extends NotificationSettingsNotifier {
   final calls = <String>[];
 
   @override
-  Future<void> toggleSetting(String settingName, bool value) async {
+  Future<bool> toggleSetting(String settingName, bool value) async {
     calls.add('$settingName:$value');
     if (settingName == 'dailyDropReminders') {
       state = AsyncValue.data(state.value!.copyWith(dailyDropReminders: value));
     }
+    return true;
   }
 
   @override
-  Future<void> setDailyDropHour(int hour) async {
+  Future<bool> setDailyDropHour(int hour) async {
     calls.add('hour:$hour');
     state = AsyncValue.data(state.value!.copyWith(dailyDropHour: hour));
+    return true;
   }
 }
 
