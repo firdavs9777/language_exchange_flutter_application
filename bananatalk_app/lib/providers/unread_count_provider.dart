@@ -4,21 +4,27 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 // Global state for chat partners and their unread counts
 class ChatPartnersState {
   final Map<String, int> unreadCounts; // userId -> unread count
-  final String? activeChatUserId; // Currently active chat (null if not in any chat)
+
+  /// Open conversation screens, bottom to top. Chats can stack (opening
+  /// chat B from the in-app banner while in chat A); closing B must leave A
+  /// active, not "no chat".
+  final List<String> openChats;
 
   ChatPartnersState({
     Map<String, int>? unreadCounts,
-    this.activeChatUserId,
+    this.openChats = const [],
   }) : unreadCounts = unreadCounts ?? {};
+
+  /// The chat on screen (top of the stack), null when not in any chat.
+  String? get activeChatUserId => openChats.isEmpty ? null : openChats.last;
 
   ChatPartnersState copyWith({
     Map<String, int>? unreadCounts,
-    String? activeChatUserId,
-    bool clearActiveChat = false,
+    List<String>? openChats,
   }) {
     return ChatPartnersState(
       unreadCounts: unreadCounts ?? this.unreadCounts,
-      activeChatUserId: clearActiveChat ? null : (activeChatUserId ?? this.activeChatUserId),
+      openChats: openChats ?? this.openChats,
     );
   }
 
@@ -59,14 +65,19 @@ class ChatPartnersNotifier extends StateNotifier<ChatPartnersState> {
     updateUnreadCount(userId, 0);
   }
 
-  /// Set the active chat when user enters a chat screen
+  /// A chat screen for [userId] opened (it is now on top).
   void setActiveChat(String userId) {
-    state = state.copyWith(activeChatUserId: userId);
+    state = state.copyWith(openChats: [...state.openChats, userId]);
   }
 
-  /// Clear the active chat when user leaves a chat screen
-  void clearActiveChat() {
-    state = state.copyWith(clearActiveChat: true);
+  /// The chat screen for [userId] closed; the one under it (if any) is
+  /// active again.
+  void clearActiveChat(String userId) {
+    final open = List<String>.of(state.openChats);
+    final index = open.lastIndexOf(userId);
+    if (index < 0) return;
+    open.removeAt(index);
+    state = state.copyWith(openChats: open);
   }
 
   void reset() {

@@ -1933,7 +1933,8 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     // Use Future.microtask to defer provider modification until after widget tree finalization
     final notifier = _chatPartnersNotifier;
     if (notifier != null) {
-      Future.microtask(() => notifier.clearActiveChat());
+      final userId = widget.userId;
+      Future.microtask(() => notifier.clearActiveChat(userId));
     }
 
     // Mark chat as not visible so messages won't be auto-read
