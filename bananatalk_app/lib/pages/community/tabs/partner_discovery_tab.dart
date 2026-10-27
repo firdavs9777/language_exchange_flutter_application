@@ -249,6 +249,11 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
       sort: _sort,
       activeWithin: segment.activeWithin,
       joinedWithin: segment.joinedWithin,
+      topics: [
+        for (final t in (widget.filters['topics'] as List?) ?? const [])
+          t.toString(),
+      ],
+      topicsAtLeast: (widget.filters['topicsAtLeast'] as num?)?.toInt() ?? 0,
     );
   }
 

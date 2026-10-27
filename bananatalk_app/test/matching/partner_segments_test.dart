@@ -96,6 +96,8 @@ class _FakeService implements CommunityService {
     bool reciprocal = false,
     String? activeWithin,
     String? joinedWithin,
+    List<String> topics = const [],
+    int topicsAtLeast = 0,
   }) {
     params.add(activeWithin ?? joinedWithin);
     final c = Completer<PaginatedCommunityResponse>();

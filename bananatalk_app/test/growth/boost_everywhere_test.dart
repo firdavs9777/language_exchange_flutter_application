@@ -41,6 +41,8 @@ class _PagedService implements CommunityService {
     bool reciprocal = false,
     String? activeWithin,
     String? joinedWithin,
+    List<String> topics = const [],
+    int topicsAtLeast = 0,
   }) async =>
       PaginatedCommunityResponse(
         users: (pages[page] ?? const <String>[])

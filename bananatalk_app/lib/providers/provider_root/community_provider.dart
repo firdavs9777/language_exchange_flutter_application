@@ -4,6 +4,7 @@ import 'package:bananatalk_app/models/community/topic_model.dart';
 import 'package:bananatalk_app/services/api_client.dart';
 import 'package:bananatalk_app/service/endpoints.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter/foundation.dart' show listEquals;
 import 'package:http/http.dart' as http;
 import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -66,6 +67,8 @@ class CommunityService {
     bool reciprocal = false,
     String? activeWithin, // '7d' | '30d'
     String? joinedWithin, // '7d' | '30d'
+    List<String> topics = const [],
+    int topicsAtLeast = 0,
   }) async {
     try {
       final headers = await _getHeaders();
@@ -117,6 +120,11 @@ class CommunityService {
       }
       if (joinedWithin != null && joinedWithin.isNotEmpty) {
         queryParams['joinedWithin'] = joinedWithin;
+      }
+      // Same encoding as the filter sheet's live count (/users/count).
+      if (topics.isNotEmpty) queryParams['topics'] = topics.join(',');
+      if (topicsAtLeast > 0) {
+        queryParams['topicsAtLeast'] = topicsAtLeast.toString();
       }
 
       final url = Uri.parse(
@@ -1149,6 +1157,8 @@ class PartnerFilterParams {
   final bool reciprocal;
   final String? activeWithin; // '7d' | '30d'
   final String? joinedWithin; // '7d' | '30d'
+  final List<String> topics;
+  final int topicsAtLeast; // 0 = off
 
   const PartnerFilterParams({
     this.nativeLanguage,
@@ -1164,6 +1174,8 @@ class PartnerFilterParams {
     this.reciprocal = false,
     this.activeWithin,
     this.joinedWithin,
+    this.topics = const [],
+    this.topicsAtLeast = 0,
   });
 
   PartnerFilterParams copyWith({
@@ -1180,6 +1192,8 @@ class PartnerFilterParams {
     bool? reciprocal,
     String? activeWithin,
     String? joinedWithin,
+    List<String>? topics,
+    int? topicsAtLeast,
   }) {
     return PartnerFilterParams(
       nativeLanguage: nativeLanguage ?? this.nativeLanguage,
@@ -1195,6 +1209,8 @@ class PartnerFilterParams {
       reciprocal: reciprocal ?? this.reciprocal,
       activeWithin: activeWithin ?? this.activeWithin,
       joinedWithin: joinedWithin ?? this.joinedWithin,
+      topics: topics ?? this.topics,
+      topicsAtLeast: topicsAtLeast ?? this.topicsAtLeast,
     );
   }
 
@@ -1214,7 +1230,9 @@ class PartnerFilterParams {
           sort == other.sort &&
           reciprocal == other.reciprocal &&
           activeWithin == other.activeWithin &&
-          joinedWithin == other.joinedWithin;
+          joinedWithin == other.joinedWithin &&
+          listEquals(topics, other.topics) &&
+          topicsAtLeast == other.topicsAtLeast;
 
   @override
   int get hashCode =>
@@ -1230,7 +1248,9 @@ class PartnerFilterParams {
       sort.hashCode ^
       reciprocal.hashCode ^
       activeWithin.hashCode ^
-      joinedWithin.hashCode;
+      joinedWithin.hashCode ^
+      Object.hashAll(topics) ^
+      topicsAtLeast.hashCode;
 }
 
 /// Quick segment over the partner list (mutually exclusive).
@@ -1356,6 +1376,8 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
         reciprocal: filters.reciprocal,
         activeWithin: filters.activeWithin,
         joinedWithin: filters.joinedWithin,
+        topics: filters.topics,
+        topicsAtLeast: filters.topicsAtLeast,
       );
 
       // Filters changed while this request was in flight: drop the stale page.
@@ -1407,6 +1429,8 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
         reciprocal: state.filters!.reciprocal,
         activeWithin: state.filters!.activeWithin,
         joinedWithin: state.filters!.joinedWithin,
+        topics: state.filters!.topics,
+        topicsAtLeast: state.filters!.topicsAtLeast,
       );
 
       // Segment/filters switched mid-request: drop the stale page.
