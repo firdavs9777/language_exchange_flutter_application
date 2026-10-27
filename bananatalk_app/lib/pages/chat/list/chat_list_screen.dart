@@ -247,7 +247,8 @@ class _ChatMainState extends ConsumerState<ChatMain>
     final ctx = ListSocketContext(
       typingUsers: _typingUsers,
       userStatuses: _userStatuses,
-      chatPartners: _chatPartners,
+      getChatPartners: () => _chatPartners,
+      setChatPartners: (list) => _chatPartners = list,
       currentUserId: _currentUserId,
       doSetState: setState,
       readProviderUnreadCount: (userId) =>

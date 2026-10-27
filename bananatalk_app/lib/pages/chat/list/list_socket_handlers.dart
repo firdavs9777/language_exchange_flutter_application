@@ -16,8 +16,11 @@ class ListSocketContext {
   /// Mutable map of userId → {status, lastSeen}. Mutated in place.
   final Map<String, Map<String, dynamic>> userStatuses;
 
-  /// Mutable list of chat partners. Replaced via [doSetState].
-  final List<ChatPartner> chatPartners;
+  /// The list the screen shows NOW. Read and replaced through these instead
+  /// of a list captured at subscribe time: every fetch swaps in a new list,
+  /// so a captured one went stale and live messages never reached the screen.
+  final List<ChatPartner> Function() getChatPartners;
+  final void Function(List<ChatPartner>) setChatPartners;
 
   /// The authenticated user's id (used to filter self-generated events).
   final String? currentUserId;
@@ -47,7 +50,8 @@ class ListSocketContext {
   const ListSocketContext({
     required this.typingUsers,
     required this.userStatuses,
-    required this.chatPartners,
+    required this.getChatPartners,
+    required this.setChatPartners,
     required this.currentUserId,
     required this.doSetState,
     required this.readProviderUnreadCount,
@@ -120,18 +124,19 @@ void handleNewMessage(ListSocketContext ctx, dynamic data) {
         ?.toString();
 
     ctx.doSetState(() {
-      int partnerIndex = ctx.chatPartners.indexWhere((p) => p.id == senderId);
+      final partners = List.of(ctx.getChatPartners());
+      int partnerIndex = partners.indexWhere((p) => p.id == senderId);
 
       if (partnerIndex != -1) {
-        final existingPartner = ctx.chatPartners[partnerIndex];
+        final existingPartner = partners[partnerIndex];
         final updatedPartner = existingPartner.copyWith(
           lastMessage: messageText,
           lastMessageTime: createdAt,
           unreadCount: currentProviderCount,
           lastMessageSenderId: senderId,
         );
-        ctx.chatPartners.removeAt(partnerIndex);
-        ctx.chatPartners.insert(0, updatedPartner);
+        partners.removeAt(partnerIndex);
+        partners.insert(0, updatedPartner);
       } else {
         final newPartner = ChatPartner(
           id: senderId,
@@ -147,8 +152,9 @@ void handleNewMessage(ListSocketContext ctx, dynamic data) {
           nativeLanguage: senderNativeLanguage,
           lastMessageSenderId: senderId,
         );
-        ctx.chatPartners.insert(0, newPartner);
+        partners.insert(0, newPartner);
       }
+      ctx.setChatPartners(partners);
     });
   } catch (_) {}
 }
@@ -186,17 +192,18 @@ void handleMessageSent(ListSocketContext ctx, dynamic data) {
         ?.toString();
 
     ctx.doSetState(() {
-      int partnerIndex = ctx.chatPartners.indexWhere((p) => p.id == receiverId);
+      final partners = List.of(ctx.getChatPartners());
+      int partnerIndex = partners.indexWhere((p) => p.id == receiverId);
 
       if (partnerIndex != -1) {
-        final existingPartner = ctx.chatPartners[partnerIndex];
+        final existingPartner = partners[partnerIndex];
         final updatedPartner = existingPartner.copyWith(
           lastMessage: messageText,
           lastMessageTime: createdAt,
           lastMessageSenderId: ctx.currentUserId,
         );
-        ctx.chatPartners.removeAt(partnerIndex);
-        ctx.chatPartners.insert(0, updatedPartner);
+        partners.removeAt(partnerIndex);
+        partners.insert(0, updatedPartner);
       } else {
         final newPartner = ChatPartner(
           id: receiverId,
@@ -212,8 +219,9 @@ void handleMessageSent(ListSocketContext ctx, dynamic data) {
           nativeLanguage: receiverNativeLanguage,
           lastMessageSenderId: ctx.currentUserId,
         );
-        ctx.chatPartners.insert(0, newPartner);
+        partners.insert(0, newPartner);
       }
+      ctx.setChatPartners(partners);
     });
 
     ctx.syncUnreadCounts();
