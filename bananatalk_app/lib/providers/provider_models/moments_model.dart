@@ -745,12 +745,20 @@ class MomentsResponse {
   });
 
   factory MomentsResponse.fromJson(Map<String, dynamic> json) {
+    // /moments/trending and /moments/explore send the list as `moments`;
+    // /moments/saved puts the real total only in `pagination` (its `count`
+    // is the size of this page).
+    final list = json['data'] ?? json['moments'];
+    final pagination = json['pagination'];
     return MomentsResponse(
       success: json['success'] == true,
       count: json['count'] ?? 0,
-      totalMoments: json['totalMoments'] ?? json['count'] ?? 0,
-      data: json['data'] != null
-          ? (json['data'] as List).map((m) => Moments.fromJson(m)).toList()
+      totalMoments: json['totalMoments'] ??
+          (pagination is Map ? pagination['totalMoments'] : null) ??
+          json['count'] ??
+          0,
+      data: list is List
+          ? list.map((m) => Moments.fromJson(m)).toList()
           : [],
       blocked: json['blocked'] == true,
       message: json['message'],
