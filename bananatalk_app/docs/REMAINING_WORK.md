@@ -1,6 +1,6 @@
 # Remaining work — BananaTalk app
 
-Last updated: 2026-10-27 (image memory). Keep this current: tick items off in the same commit that finishes them.
+Last updated: 2026-10-28 (2.2.7 audit fixes; P3 minors listed). Keep this current: tick items off in the same commit that finishes them.
 
 See also: backend `language_exchange_backend_application/docs/REMAINING_WORK.md` (server env, prod DB, flags, ops) ·
 web `docs/REMAINING_WORK.md` in the web repo (admin console, `assetlinks.json`, nginx).
@@ -425,7 +425,27 @@ Web ↔ app parity (spec `docs/superpowers/specs/2026-10-16-web-app-parity-desig
 ## 2.2.7 audit (2026-10-27) — see docs/audits/2026-10-27-2.2.7-audit.md
 - [x] (fixed 2026-10-27, one commit each) P0–P1 (13): Trending tab empty (M1); drawer Edit profile erases intents (P1); Update location blanks city/country (P2); chat list never updates live (C1); saved moments stop at 10 (M2); scheduled video posts at once (M3); Topics filter ignored (CO1); Followers list can't unfollow (P3); stacked chats lose active state (C2); history paging jumps (C3); unread counts drift (C4); pending gathering request lost (CO2); 7+ photo upload fails (P4). M–L
 - [x] (fixed 2026-10-27) P2 (17): M4–M8, CO3–CO6, C5–C10, P5–P7.
-- [ ] P3 minors in the audit doc (story viewer race, City tab country for free users, filter-sheet count vs list, Genders reload, topic race, Matches wave button, chat provider never disposed, shared typing timer, media screen 500 cap, setState after dispose in sends, delete-for-everyone mismatch, chat search error text, chat list 100 cap, privacy refetch revert, remove-extra-photos, account deletion order). S each
+- P3 minors from the 2.2.7 audit (docs/audits/2026-10-27-2.2.7-audit.md), S each:
+  - [ ] Moments: story viewer `_disposeVideoController` calls setState without a mounted check; fast taps through video stories can double-init (SUSPECTED); progress waits for position == duration exactly (`story_viewer_screen.dart:224-231`).
+  - [ ] Moments: feed `loadMore` failure spins silently until the next scroll (`moments_providers.dart` PagedMomentsFeedNotifier).
+  - [ ] Moments: story viewer "Add to highlight" doesn't update the in-memory `highlightId` (second tap offers the picker again).
+  - [ ] Community: City tab — server ignores `country` for free users, so every country pin shows the same count/list (`city_tab.dart:325-336`; only when the matches layout flag is off).
+  - [ ] Community: filter-sheet live count (2,043) ≠ Partners list (1,060) — the sheet sends no language-exchange default (`community_filter_sheet.dart:198-221`).
+  - [ ] Community: Genders tab reloads (3 requests) on every parent rebuild — `filters` Map compared by identity (`genders_tab.dart:273`); its gender counts ignore age/online/level filters.
+  - [ ] Community: topic users race — `loadTopic` doesn't check `topicId` after the await (`community_provider.dart` ~1069).
+  - [ ] Community: Matches card Wave button stays active after a wave (`matches_tab.dart:200`, no onSent); "VIP: 15 matches" upsell shown to VIPs (`:509`); global search does nothing on Nearby.
+  - [ ] Community: chip on the Partners screen showing an active Topics filter (filter applies since CO1; only the chip is missing).
+  - [ ] Chats: `chatStateProvider` family never disposed — 9 socket subscriptions + a 30 s status timer per opened chat until logout (`chat_state_provider.dart` provider, `chat_socket_state_manager.dart:61`).
+  - [ ] Chats: one shared typing timer in the chat list — a second partner typing leaves the first stuck on "typing…" (`list_socket_handlers.dart:63-80`).
+  - [ ] Chats: chat media screen scans only the newest 500 messages across all chats (`chat_media_screen.dart:68`).
+  - [ ] Chats: setState after await without a mounted check in voice/media sends (`chat_conversation_screen.dart` ~1530/1561/1771/1795).
+  - [ ] Chats: delete-for-everyone removes the message live but shows the deleted placeholder after reload (`chat_state_provider.dart` onMessageDeleted).
+  - [ ] Chats: chat search shows the GIF error text and a slow older search can overwrite newer results (`chat_search_screen.dart:100`).
+  - [ ] Chats: chat list requests `limit=100` and ignores pagination — users with 100+ conversations get a cut list (backend `/messages/senders` paging is also off: total 53 vs 16 rows).
+  - [ ] Profile: privacy switch saved OK but a failed `userProvider` refetch reverts it and says failed (`settings.dart:163-165`).
+  - [ ] Profile: "remove extra photos" reads `images` from the wrong level and reports failed DELETEs as success (`photo_upload_handler.dart` deleteAllExtras).
+  - [ ] Profile: account deletion revokes Google before the delete succeeds (`account_deletion.dart:84-90`).
+  - [ ] Moments: composer edit mode never shows existing photos (and backend ignores `images` on update) — see the Moments editing section.
 - [ ] Backend items in the audit doc (cascade delete of follows/blocks, photo limit, messageEdited populate, conversationId on all sends, sync-badges, senders paging, room hubs data). M
 - [ ] Native review of `gatheringRequestPending` / `gatheringWithdrawRequest` (19 locales, written 2026-10-27 for audit CO2). S
 
