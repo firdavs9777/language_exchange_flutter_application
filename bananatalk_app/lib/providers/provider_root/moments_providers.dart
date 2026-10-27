@@ -1012,6 +1012,55 @@ class PagedMomentsFeedNotifier extends AsyncNotifier<List<Moments>> {
       // Keep what is shown.
     }
   }
+
+  /// Replaces the moment [id] in the loaded pages (edit, save, like), so a
+  /// card rebuilt after scrolling away shows the change.
+  void patchMoment(String id, Moments Function(Moments) update) {
+    final current = state.valueOrNull;
+    if (current == null || !current.any((m) => m.id == id)) return;
+    state = AsyncData([
+      for (final m in current) m.id == id ? update(m) : m,
+    ]);
+  }
+
+  /// Drops the moment [id] from the loaded pages (deleted).
+  void removeMoment(String id) {
+    final current = state.valueOrNull;
+    if (current == null || !current.any((m) => m.id == id)) return;
+    state = AsyncData([
+      for (final m in current)
+        if (m.id != id) m,
+    ]);
+  }
+}
+
+/// The paged card tabs. A change made on one card (or in the detail screen)
+/// must reach every tab: they are separate lists of the same moments.
+List<AsyncNotifierProvider<PagedMomentsFeedNotifier, List<Moments>>>
+    get _pagedCardFeeds => [
+          forYouMomentsProvider,
+          followingMomentsProvider,
+          trendingMomentsProvider,
+        ];
+
+/// Applies [update] to moment [id] wherever it is loaded.
+void patchMomentInFeeds(
+  WidgetRef ref,
+  String id,
+  Moments Function(Moments) update,
+) {
+  for (final feed in _pagedCardFeeds) {
+    if (ref.exists(feed)) ref.read(feed.notifier).patchMoment(id, update);
+  }
+}
+
+/// Removes deleted moment [id] from every feed. The non-paged lists reload.
+void removeMomentFromFeeds(WidgetRef ref, String id) {
+  for (final feed in _pagedCardFeeds) {
+    if (ref.exists(feed)) ref.read(feed.notifier).removeMoment(id);
+  }
+  ref.invalidate(momentsFeedProvider);
+  ref.invalidate(momentsProvider(1));
 }
 
 /// A [MomentsPageFetcher] over `GET /moments` for [feed].

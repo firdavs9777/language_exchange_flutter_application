@@ -116,6 +116,17 @@ class _MomentCardState extends ConsumerState<MomentCard> {
     }
   }
 
+  void _patchFeeds(Moments Function(Moments) update) {
+    if (_cachedUserId.isEmpty) return;
+    patchMomentInFeeds(ref, widget.moments.id, update);
+  }
+
+  List<String> _withMe(List<String> ids, bool include) => [
+        for (final id in ids)
+          if (id != _cachedUserId) id,
+        if (include) _cachedUserId,
+      ];
+
   Future<void> _toggleSave() async {
     final previousSaved = isSaved;
     setState(() => isSaved = !isSaved);
@@ -127,6 +138,9 @@ class _MomentCardState extends ConsumerState<MomentCard> {
 
     if (result['success'] == true) {
       if (mounted) {
+        // Or the bookmark reverts when the card scrolls away and is rebuilt
+        // from the feed list.
+        _patchFeeds((m) => m.copyWith(savedBy: _withMe(m.savedBy, isSaved)));
         showMomentsSnackBar(
           context,
           message: isSaved
@@ -185,6 +199,12 @@ class _MomentCardState extends ConsumerState<MomentCard> {
           isLiked = result['isLiked'] ?? !previousLiked;
           likeCount = result['likeCount'] ?? previousCount;
         });
+        // The card is rebuilt from the feed list after it scrolls away;
+        // softRefresh below only re-reads page 1.
+        _patchFeeds((m) => m.copyWith(
+              likeCount: likeCount,
+              likedUsers: _withMe(m.likedUsers ?? const [], isLiked),
+            ));
         invalidateMomentFeeds(ref);
       }
     } catch (e) {
@@ -663,6 +683,7 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                         // Network round trip; the mounted check above ran
                         // before it.
                         if (!mounted) return;
+                        removeMomentFromFeeds(ref, widget.moments.id);
                         final l10n = AppLocalizations.of(this.context)!;
                         showMomentsSnackBar(
                           this.context,

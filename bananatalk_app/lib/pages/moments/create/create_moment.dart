@@ -1448,6 +1448,17 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
         // Refresh moments list
         ref.invalidate(momentsProvider(1));
         ref.invalidate(momentsFeedProvider);
+        // The card tabs keep their own lists: put the edited moment in them,
+        // or the old caption stays until the next refresh.
+        final editedId = widget.momentToEdit!.id;
+        try {
+          final fresh = await ref
+              .read(momentsServiceProvider)
+              .getSingleMoment(id: editedId);
+          if (mounted) patchMomentInFeeds(ref, editedId, (_) => fresh);
+        } catch (_) {
+          // The feeds pick it up on their next refresh.
+        }
 
         if (mounted) {
           Navigator.of(context).pop(true); // Return true to indicate success

@@ -440,6 +440,9 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                         // check above happened before it. Popping or showing
                         // a snackbar on a disposed route throws.
                         if (!mounted) return;
+                        // Or the card stays in the feed until a refresh,
+                        // and tapping it says "moment not found".
+                        removeMomentFromFeeds(ref, widget.moment.id);
                         Navigator.pop(this.context);
                         showMomentsSnackBar(
                           this.context,
