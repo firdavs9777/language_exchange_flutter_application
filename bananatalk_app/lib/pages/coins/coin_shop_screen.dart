@@ -68,7 +68,9 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
     if (_isIOS) {
       IOSPurchaseService.initializeStore();
     } else if (_isAndroid) {
-      AndroidPurchaseService.initializeStore();
+      // A pack whose verify failed last time is credited and consumed here,
+      // so it can be bought again.
+      AndroidPurchaseService.recoverUnfinishedCoinPacks();
     }
   }
 

@@ -110,6 +110,20 @@
          Harmless, but Play's pre-launch report flags it. -->
     <uses-permission android:name="Manifest.permission.CAPTURE_AUDIO_OUTPUT" tools:node="remove" />
 
+    <!-- canLaunchUrl (Manage Subscription, Terms/Privacy, chat links) returns
+         false on Android 11+ for a scheme not declared here. https was only
+         covered by the ads SDK's merged manifest. -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="https" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="http" />
+        </intent>
+    </queries>
+
     <application
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"

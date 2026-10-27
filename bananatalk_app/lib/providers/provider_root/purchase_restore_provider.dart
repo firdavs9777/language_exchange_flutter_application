@@ -163,7 +163,7 @@ Object? installPurchaseRedelivery(WidgetRef ref) {
     IOSPurchaseService.initializeStore();
   } else {
     AndroidPurchaseService.setRedeliveryHandler(route);
-    AndroidPurchaseService.initializeStore();
+    AndroidPurchaseService.recoverUnfinishedCoinPacks();
   }
   final token = Object();
   _activeRedeliveryToken = token;

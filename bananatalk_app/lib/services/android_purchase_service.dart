@@ -374,6 +374,45 @@ class AndroidPurchaseService {
     }
   }
 
+  /// Coin packs Play still holds as bought but not consumed — the verify
+  /// after the purchase failed (offline, server error, app killed). Play,
+  /// unlike StoreKit, never redelivers these on its own: the pack stays
+  /// "already owned", so buying it again fails as canceled, and after three
+  /// days Play refunds it. Hands each one to the redelivery handler, which
+  /// verifies (the server credits a token once) and then consumes it.
+  /// Returns how many were handed over.
+  static Future<int> recoverUnfinishedCoinPacks() async {
+    if (!_isAvailable && !await initializeStore()) return 0;
+    if (_redeliveryHandler == null) return 0;
+    try {
+      final addition = _inAppPurchase
+          .getPlatformAddition<InAppPurchaseAndroidPlatformAddition>();
+      final response = await addition.queryPastPurchases();
+      final unfinished =
+          unfinishedCoinPacks(response.pastPurchases, _coinProductIds);
+      for (final purchase in unfinished) {
+        _redeliveryHandler?.call(toRestoredPurchase(purchase));
+      }
+      return unfinished.length;
+    } catch (_) {
+      return 0;
+    }
+  }
+
+  /// The coin packs among [past] that were paid for (not pending) and are
+  /// still waiting to be verified and consumed.
+  static List<PurchaseDetails> unfinishedCoinPacks(
+    List<PurchaseDetails> past,
+    Set<String> coinProductIds,
+  ) {
+    return past
+        .where((p) =>
+            p.status == PurchaseStatus.purchased &&
+            coinProductIds.contains(p.productID) &&
+            p.verificationData.serverVerificationData.isNotEmpty)
+        .toList();
+  }
+
   /// Set callback for purchase updates
   static void setPurchaseCallback(PurchaseCallback callback) {
     _purchaseCallback = callback;
