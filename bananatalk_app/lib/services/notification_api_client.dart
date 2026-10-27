@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:ui' show PlatformDispatcher;
 import 'package:bananatalk_app/models/notification_models.dart';
 import 'package:bananatalk_app/service/endpoints.dart';
+import 'package:bananatalk_app/services/language_service.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/foundation.dart';
@@ -82,7 +83,9 @@ class NotificationApiClient {
           // normalizes it to a supported template locale and stores it as
           // user.preferredLocale so pushes render in the user's language.
           // Sent on every launch (E-core), so locale changes self-heal.
-          'deviceLocale':
+          // The language picked in the app wins over the device's, or a
+          // user on an English phone who chose Korean got English pushes.
+          'deviceLocale': await LanguageService.getPickedAppLanguage() ??
               PlatformDispatcher.instance.locale.toLanguageTag(),
           if (authorization != null) 'authorization': authorization,
         }),

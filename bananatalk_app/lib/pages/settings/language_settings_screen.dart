@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/main.dart';
 import 'package:bananatalk_app/pages/settings/widgets/settings_snackbar.dart';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'package:bananatalk_app/services/notification_service.dart';
 
 class LanguageSettingsScreen extends ConsumerStatefulWidget {
   const LanguageSettingsScreen({super.key});
@@ -59,6 +61,12 @@ class _LanguageSettingsScreenState extends ConsumerState<LanguageSettingsScreen>
     try {
       await LanguageService.setAppLanguage(languageCode);
       ref.read(languageProvider.notifier).setLanguage(languageCode);
+      // Re-register so the server sends pushes in the new language now, not
+      // from the next launch. Best effort.
+      final userId = ref.read(authServiceProvider).userId;
+      if (userId.isNotEmpty) {
+        NotificationService().registerToken(userId).catchError((_) {});
+      }
 
       setState(() {
         _selectedLanguage = languageCode;

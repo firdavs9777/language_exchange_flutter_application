@@ -139,6 +139,18 @@ class LanguageService {
   }
   
   /// Save language preference
+  /// The language the user picked in the app, or null when they never did
+  /// (the app then follows the device).
+  static Future<String?> getPickedAppLanguage() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final saved = prefs.getString(_languageKey);
+      return saved != null && supportedLanguages.contains(saved) ? saved : null;
+    } catch (_) {
+      return null;
+    }
+  }
+
   static Future<void> setAppLanguage(String languageCode) async {
     if (!supportedLanguages.contains(languageCode)) {
       throw ArgumentError('Unsupported language: $languageCode');
