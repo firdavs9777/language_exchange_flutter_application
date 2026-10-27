@@ -17,21 +17,18 @@ class RoomApiClient {
 
   /// GET /rooms — hub directory. Caller's auto-joined hub is returned
   /// first by the backend.
+  ///
+  /// Throws on failure: an empty list here read as "No rooms" with no retry,
+  /// and a failed pull-to-refresh replaced the rooms on screen with nothing.
   Future<List<Room>> getRooms() async {
-    try {
-      final response = await _apiClient.get('rooms');
-      if (!response.success) {
-        debugPrint('[RoomApiClient] getRooms failed: ${response.error}');
-        return [];
-      }
-      final data = _extractList(response.data);
-      return data
-          .map((r) => Room.fromJson(Map<String, dynamic>.from(r as Map)))
-          .toList();
-    } catch (e) {
-      debugPrint('[RoomApiClient] getRooms error: $e');
-      return [];
+    final response = await _apiClient.get('rooms');
+    if (!response.success) {
+      throw Exception(response.error ?? 'Failed to load rooms');
     }
+    final data = _extractList(response.data);
+    return data
+        .map((r) => Room.fromJson(Map<String, dynamic>.from(r as Map)))
+        .toList();
   }
 
   /// GET /rooms/:id — hub detail.

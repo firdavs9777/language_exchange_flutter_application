@@ -60,8 +60,12 @@ final activeVoiceRoomCountProvider = StreamProvider.autoDispose<int>((
     // GET /voicerooms, and the count provider and voice_rooms_tab both call
     // fetchRooms -- this says which one is responsible.
     if (kDebugMode) debugPrint('[RoomCount] fetch (live-now pill)');
-    final rooms = await notifier.fetchRooms();
-    return rooms.length;
+    try {
+      final rooms = await notifier.fetchRooms();
+      return rooms.length;
+    } catch (_) {
+      return 0; // the pill just hides; the rooms tab shows the error
+    }
   }
 
   yield await fetchCount();

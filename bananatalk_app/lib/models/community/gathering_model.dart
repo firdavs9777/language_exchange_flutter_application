@@ -136,6 +136,11 @@ class Gathering {
   /// Always empty for anyone who is not the host.
   final List<GatheringHost> requests;
 
+  /// Who else went, for the attendee card. Detail endpoint only, and only once
+  /// the gathering has happened and the viewer was there; empty otherwise.
+  /// Their first message to any of these skips the conversation cap.
+  final List<GatheringHost> people;
+
   const Gathering({
     required this.id,
     required this.title,
@@ -164,6 +169,7 @@ class Gathering {
     this.viewerIsHost = false,
     this.viewerRequestPending = false,
     this.requests = const [],
+    this.people = const [],
   });
 
   factory Gathering.fromJson(Map<String, dynamic> json) {
@@ -197,6 +203,9 @@ class Gathering {
       viewerIsHost: json['viewerIsHost'] == true,
       viewerRequestPending: json['viewerRequestPending'] == true,
       requests: (json['requests'] as List? ?? const [])
+          .map(GatheringHost.fromJson)
+          .toList(),
+      people: (json['people'] as List? ?? const [])
           .map(GatheringHost.fromJson)
           .toList(),
     );
@@ -258,6 +267,7 @@ class Gathering {
       quorumMet: quorumMet ?? this.quorumMet,
       repeatedFrom: repeatedFrom,
       requests: requests ?? this.requests,
+      people: people,
       viewerIsAttending: viewerIsAttending ?? this.viewerIsAttending,
       viewerIsHost: viewerIsHost,
       viewerRequestPending: viewerRequestPending ?? this.viewerRequestPending,

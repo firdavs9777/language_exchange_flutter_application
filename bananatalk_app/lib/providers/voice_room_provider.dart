@@ -275,11 +275,12 @@ class VoiceRoomNotifier extends ChangeNotifier {
         }
         return data.map((r) => VoiceRoom.fromJson(Map<String, dynamic>.from(r))).toList();
       }
-      debugPrint('[VoiceRoom] fetchRooms failed: ${response.error}');
-      return [];
+      // Thrown, not []: the voice rooms tab has an error + retry state that
+      // an empty list never reached ("No rooms" instead).
+      throw Exception(response.error ?? 'Failed to load voice rooms');
     } catch (e) {
       debugPrint('[VoiceRoom] fetchRooms error: $e');
-      return [];
+      rethrow;
     }
   }
 
