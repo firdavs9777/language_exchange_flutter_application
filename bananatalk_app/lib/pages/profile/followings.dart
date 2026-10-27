@@ -82,11 +82,14 @@ class _ProfileFollowingsState extends ConsumerState<ProfileFollowings> {
 
     if (shouldUnfollow == true) {
       try {
-        await ref.read(communityServiceProvider).unfollowUser(
+        final result = await ref.read(communityServiceProvider).unfollowUser(
               userId: userId,
               targetUserId: targetUserId,
             );
+        // The service reports a refusal as 'error' instead of throwing.
+        if (result == 'error') throw Exception('unfollow failed');
 
+        ref.invalidate(userProvider);
         await _refreshFollowings();
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(

@@ -82,11 +82,14 @@ class _ProfileFollowersState extends ConsumerState<ProfileFollowers> {
 
     if (shouldFollow == true) {
       try {
-        await ref.read(communityServiceProvider).followUser(
+        final result = await ref.read(communityServiceProvider).followUser(
               userId: userId,
               targetUserId: targetUserId,
             );
+        // The service reports a refusal as 'error' instead of throwing.
+        if (result == 'error') throw Exception('follow failed');
 
+        ref.invalidate(userProvider);
         await _refreshFollowers();
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -150,11 +153,13 @@ class _ProfileFollowersState extends ConsumerState<ProfileFollowers> {
 
     if (shouldUnfollow == true) {
       try {
-        await ref.read(communityServiceProvider).unfollowUser(
+        final result = await ref.read(communityServiceProvider).unfollowUser(
               userId: userId,
               targetUserId: targetUserId,
             );
+        if (result == 'error') throw Exception('unfollow failed');
 
+        ref.invalidate(userProvider);
         await _refreshFollowers();
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -298,6 +303,8 @@ class _ProfileFollowersState extends ConsumerState<ProfileFollowers> {
               );
             } else {
               final filteredFollowers = snapshot.data!;
+              final myFollowings =
+                  ref.watch(userProvider).valueOrNull?.followings ?? const [];
               return Column(
                 children: [
                   const BannerAdWidget(key: ValueKey('followers-banner')),
@@ -307,7 +314,10 @@ class _ProfileFollowersState extends ConsumerState<ProfileFollowers> {
                       cacheExtent: 200,
                       itemBuilder: (context, index) {
                         final community = filteredFollowers[index];
-                        final isFollowing = community.followers.contains(widget.id);
+                        // From MY following list: follower items from the
+                        // API carry no `followers`, so checking theirs always
+                        // said "Follow", even for people I follow.
+                        final isFollowing = myFollowings.contains(community.id);
 
                         return _UserCard(
                           key: ValueKey(community.id),
