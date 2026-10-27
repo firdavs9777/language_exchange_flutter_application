@@ -573,7 +573,23 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
       final seen = <String>{};
       final uniqueMessages = allMessages.where((m) => seen.add(m.id)).toList();
 
+      // The list is top-to-bottom, so the older page lands ABOVE what the
+      // user is reading. Shift by the height it added, or the view jumps to
+      // the oldest message and the next page loads straight away.
+      final position =
+          _scrollController.hasClients ? _scrollController.position : null;
+      final oldMax = position?.maxScrollExtent;
+      final oldPixels = position?.pixels;
+
       chatNotifier.setMessages(uniqueMessages);
+
+      if (oldMax != null && oldPixels != null) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (!mounted || !_scrollController.hasClients) return;
+          final added = _scrollController.position.maxScrollExtent - oldMax;
+          if (added > 0) _scrollController.jumpTo(oldPixels + added);
+        });
+      }
     } catch (error) {
     } finally {
       if (mounted) {

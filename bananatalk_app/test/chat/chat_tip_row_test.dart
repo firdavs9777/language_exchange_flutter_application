@@ -298,7 +298,7 @@ void main() {
     final list = File(
       'lib/pages/chat/message/messages_list.dart',
     ).readAsStringSync();
-    expect(list, contains('isGroup\n                    ? conversationId'));
+    expect(list, matches(RegExp(r'isGroup\s*\?\s*conversationId')));
     final room = File(
       'lib/pages/community/rooms/room_screen.dart',
     ).readAsStringSync();

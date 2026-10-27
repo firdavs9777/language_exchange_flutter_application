@@ -185,27 +185,188 @@ class ChatMessagesList extends StatelessWidget {
     // then loading indicator at end
     final rows = buildChatRows(messages);
     final headerOffset = hasHeader ? 1 : 0;
-    final totalItems = headerOffset + rows.length + (isLoadingMore ? 1 : 0);
+    final totalItems = headerOffset + rows.length;
 
     return Column(
       children: [
         Expanded(
-          child: ListView.builder(
-            controller: scrollController,
-            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-            reverse: false, // Normal order - header at top, newest at bottom
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            itemCount: totalItems,
-            itemBuilder: (context, index) {
-              // Header at index 0
-              if (hasHeader && index == 0) {
-                return headerWidget!;
-              }
+          child: Stack(
+            children: [
+              ListView.builder(
+                controller: scrollController,
+                keyboardDismissBehavior:
+                    ScrollViewKeyboardDismissBehavior.onDrag,
+                reverse:
+                    false, // Normal order - header at top, newest at bottom
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                itemCount: totalItems,
+                itemBuilder: (context, index) {
+                  // Header at index 0
+                  if (hasHeader && index == 0) {
+                    return headerWidget!;
+                  }
 
-              // Loading indicator at the end (for loading older messages)
-              if (isLoadingMore && index == totalItems - 1) {
-                return const Padding(
-                  padding: EdgeInsets.all(16.0),
+                  // Resolve row - adjust index for header offset
+                  final rowIndex = index - headerOffset;
+                  if (rowIndex < 0 || rowIndex >= rows.length) {
+                    return const SizedBox.shrink(); // Safety check
+                  }
+                  final row = rows[rowIndex];
+                  if (row is DateSeparatorRow) {
+                    return DateSeparatorChip(day: row.day);
+                  }
+                  final messageRow = row as MessageRow;
+                  final message = messageRow.message;
+                  final isMe = message.sender.id == currentUserId;
+                  final isFirstInGroup = messageRow.isFirstInGroup;
+                  final isLastInGroup = messageRow.isLastInGroup;
+
+                  // Check if this is a correction message (shown as standalone bubble)
+                  if (message.type == 'correction') {
+                    final correction = message.corrections.isNotEmpty
+                        ? message.corrections.first
+                        : null;
+                    // Find the original message this correction belongs to.
+                    // The correction bubble id is 'correction_<correctionId>' so
+                    // the original message is the one carrying that correctionId.
+                    final correctionId = correction?.id ?? '';
+                    final originalMessage = correctionId.isNotEmpty
+                        ? messages.firstWhere(
+                            (m) =>
+                                m.type != 'correction' &&
+                                m.corrections.any((c) => c.id == correctionId),
+                            orElse: () => message, // fallback: shouldn't happen
+                          )
+                        : message;
+                    // isCorrector: true when current user sent the correction
+                    final isCorrector =
+                        correction?.corrector.id == currentUserId;
+                    return CorrectionMessageBubble(
+                      key: ValueKey(message.id),
+                      message: message,
+                      isMe: isMe,
+                      otherUserName: otherUserName,
+                      otherUserPicture: otherUserPicture,
+                      otherUserNativeLanguage: otherUserNativeLanguage,
+                      originalMessageId: originalMessage.id,
+                      isCorrector: isCorrector,
+                    );
+                  }
+
+                  // Check if this is a call record message
+                  if (message.type == 'call' &&
+                      message.media?.callData != null) {
+                    final callRecord = CallRecord.fromJson(
+                      message.media!.callData!,
+                      currentUserId ?? '',
+                    );
+                    return CallHistoryBubble(
+                      key: ValueKey(message.id),
+                      call: callRecord,
+                      isOutgoing: isMe,
+                      otherName: otherUserName,
+                      onTap: onCallTap != null
+                          ? () => onCallTap!(callRecord)
+                          : null,
+                    );
+                  }
+
+                  // Group (hub/room) mode: each non-mine message uses its own
+                  // sender's name/avatar instead of the single fixed
+                  // otherUserName/otherUserPicture the 1-on-1 path relies on.
+                  // The 1-on-1 path (isGroup == false, the default) is entirely
+                  // unaffected — it keeps passing the widget-level values below.
+                  final bubbleUserName = isGroup && !isMe
+                      ? message.sender.name
+                      : otherUserName;
+                  final senderImages = message.sender.effectiveImageUrls;
+                  final bubblePicture = isGroup && !isMe
+                      ? (senderImages.isNotEmpty ? senderImages.first : null)
+                      : otherUserPicture;
+                  final bubbleNativeLanguage = isGroup && !isMe
+                      ? message.sender.native_language
+                      : otherUserNativeLanguage;
+
+                  final bubble = ChatMessageBubble(
+                    key: ValueKey(message.id), // Key for scrolling to message
+                    tipChatId: isGroup
+                        ? conversationId
+                        : (conversationId ?? message.sender.id),
+                    message: message,
+                    isMe: isMe,
+                    otherUserName: bubbleUserName,
+                    otherUserPicture: bubblePicture,
+                    otherUserNativeLanguage: bubbleNativeLanguage,
+                    isSelectionMode: isSelectionMode,
+                    isSelected: selectedMessageIds.contains(message.id),
+                    onSelectionChanged: onSelectionChanged,
+                    onDelete: onDelete,
+                    canDeleteOthers: canDeleteOthers,
+                    onEdit: onEdit,
+                    onReply: onReply,
+                    onReplyTap: onReplyTap,
+                    onPin: onPin,
+                    onUnpin: onUnpin,
+                    onForward: onForward,
+                    onRetry: onRetryMessage,
+                    onDeleteFailed: onDeleteFailedMessage,
+                    isFirstInGroup: isFirstInGroup,
+                    isLastInGroup: isLastInGroup,
+                    // Per-message report (Task 11) — only wired for non-mine
+                    // messages; `null` (the DM default) hides the menu item
+                    // entirely, so the existing 1-on-1 context menu is unchanged.
+                    onReport: !isMe ? onReport : null,
+                  );
+
+                  if (isGroup && !isMe && isFirstInGroup) {
+                    return Padding(
+                      padding: const EdgeInsets.only(
+                        left: 52,
+                        right: 16,
+                        top: 4,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // The sender's name opens their profile (like the
+                          // avatar does), rooms 2026-10-18.
+                          GestureDetector(
+                            key: ValueKey('group-sender-${message.id}'),
+                            behavior: HitTestBehavior.opaque,
+                            onTap: () => openUserProfile(
+                              context,
+                              message.sender.id,
+                              fallback: message.sender,
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.only(bottom: 2),
+                              child: Text(
+                                message.sender.name,
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600,
+                                  color: context.textSecondary,
+                                ),
+                              ),
+                            ),
+                          ),
+                          bubble,
+                        ],
+                      ),
+                    );
+                  }
+
+                  return bubble;
+                },
+              ),
+              // Older messages load at the top, where the user is scrolling.
+              // An overlay, not a list row: a row appearing above the
+              // viewport would push the visible messages down.
+              if (isLoadingMore)
+                const Positioned(
+                  top: 8,
+                  left: 0,
+                  right: 0,
                   child: Center(
                     child: SizedBox(
                       width: 24,
@@ -213,155 +374,8 @@ class ChatMessagesList extends StatelessWidget {
                       child: CircularProgressIndicator(strokeWidth: 2),
                     ),
                   ),
-                );
-              }
-
-              // Resolve row - adjust index for header offset
-              final rowIndex = index - headerOffset;
-              if (rowIndex < 0 || rowIndex >= rows.length) {
-                return const SizedBox.shrink(); // Safety check
-              }
-              final row = rows[rowIndex];
-              if (row is DateSeparatorRow) {
-                return DateSeparatorChip(day: row.day);
-              }
-              final messageRow = row as MessageRow;
-              final message = messageRow.message;
-              final isMe = message.sender.id == currentUserId;
-              final isFirstInGroup = messageRow.isFirstInGroup;
-              final isLastInGroup = messageRow.isLastInGroup;
-
-              // Check if this is a correction message (shown as standalone bubble)
-              if (message.type == 'correction') {
-                final correction = message.corrections.isNotEmpty
-                    ? message.corrections.first
-                    : null;
-                // Find the original message this correction belongs to.
-                // The correction bubble id is 'correction_<correctionId>' so
-                // the original message is the one carrying that correctionId.
-                final correctionId = correction?.id ?? '';
-                final originalMessage = correctionId.isNotEmpty
-                    ? messages.firstWhere(
-                        (m) =>
-                            m.type != 'correction' &&
-                            m.corrections.any((c) => c.id == correctionId),
-                        orElse: () => message, // fallback: shouldn't happen
-                      )
-                    : message;
-                // isCorrector: true when current user sent the correction
-                final isCorrector = correction?.corrector.id == currentUserId;
-                return CorrectionMessageBubble(
-                  key: ValueKey(message.id),
-                  message: message,
-                  isMe: isMe,
-                  otherUserName: otherUserName,
-                  otherUserPicture: otherUserPicture,
-                  otherUserNativeLanguage: otherUserNativeLanguage,
-                  originalMessageId: originalMessage.id,
-                  isCorrector: isCorrector,
-                );
-              }
-
-              // Check if this is a call record message
-              if (message.type == 'call' && message.media?.callData != null) {
-                final callRecord = CallRecord.fromJson(
-                  message.media!.callData!,
-                  currentUserId ?? '',
-                );
-                return CallHistoryBubble(
-                  key: ValueKey(message.id),
-                  call: callRecord,
-                  isOutgoing: isMe,
-                  otherName: otherUserName,
-                  onTap: onCallTap != null
-                      ? () => onCallTap!(callRecord)
-                      : null,
-                );
-              }
-
-              // Group (hub/room) mode: each non-mine message uses its own
-              // sender's name/avatar instead of the single fixed
-              // otherUserName/otherUserPicture the 1-on-1 path relies on.
-              // The 1-on-1 path (isGroup == false, the default) is entirely
-              // unaffected — it keeps passing the widget-level values below.
-              final bubbleUserName = isGroup && !isMe
-                  ? message.sender.name
-                  : otherUserName;
-              final senderImages = message.sender.effectiveImageUrls;
-              final bubblePicture = isGroup && !isMe
-                  ? (senderImages.isNotEmpty ? senderImages.first : null)
-                  : otherUserPicture;
-              final bubbleNativeLanguage = isGroup && !isMe
-                  ? message.sender.native_language
-                  : otherUserNativeLanguage;
-
-              final bubble = ChatMessageBubble(
-                key: ValueKey(message.id), // Key for scrolling to message
-                tipChatId: isGroup
-                    ? conversationId
-                    : (conversationId ?? message.sender.id),
-                message: message,
-                isMe: isMe,
-                otherUserName: bubbleUserName,
-                otherUserPicture: bubblePicture,
-                otherUserNativeLanguage: bubbleNativeLanguage,
-                isSelectionMode: isSelectionMode,
-                isSelected: selectedMessageIds.contains(message.id),
-                onSelectionChanged: onSelectionChanged,
-                onDelete: onDelete,
-                canDeleteOthers: canDeleteOthers,
-                onEdit: onEdit,
-                onReply: onReply,
-                onReplyTap: onReplyTap,
-                onPin: onPin,
-                onUnpin: onUnpin,
-                onForward: onForward,
-                onRetry: onRetryMessage,
-                onDeleteFailed: onDeleteFailedMessage,
-                isFirstInGroup: isFirstInGroup,
-                isLastInGroup: isLastInGroup,
-                // Per-message report (Task 11) — only wired for non-mine
-                // messages; `null` (the DM default) hides the menu item
-                // entirely, so the existing 1-on-1 context menu is unchanged.
-                onReport: !isMe ? onReport : null,
-              );
-
-              if (isGroup && !isMe && isFirstInGroup) {
-                return Padding(
-                  padding: const EdgeInsets.only(left: 52, right: 16, top: 4),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // The sender's name opens their profile (like the
-                      // avatar does), rooms 2026-10-18.
-                      GestureDetector(
-                        key: ValueKey('group-sender-${message.id}'),
-                        behavior: HitTestBehavior.opaque,
-                        onTap: () => openUserProfile(
-                          context,
-                          message.sender.id,
-                          fallback: message.sender,
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.only(bottom: 2),
-                          child: Text(
-                            message.sender.name,
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                              color: context.textSecondary,
-                            ),
-                          ),
-                        ),
-                      ),
-                      bubble,
-                    ],
-                  ),
-                );
-              }
-
-              return bubble;
-            },
+                ),
+            ],
           ),
         ),
         if (otherUserTyping)
