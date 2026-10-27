@@ -14,6 +14,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:bananatalk_app/utils/hometown_names.dart';
 
 class ProfileSettings extends ConsumerStatefulWidget {
   const ProfileSettings({super.key});
@@ -269,10 +270,15 @@ class _ProfileSettingsState extends ConsumerState<ProfileSettings> {
         }
       } catch (_) {}
 
+      final names = resolveHometownNames(
+        city: city,
+        country: country,
+        stored: ref.read(userProvider).valueOrNull?.location,
+      );
       final authService = ref.read(authServiceProvider);
       await authService.updateUserHometown(
-        city: city ?? '',
-        country: country ?? '',
+        city: names.city,
+        country: names.country,
         latitude: position.latitude,
         longitude: position.longitude,
       );

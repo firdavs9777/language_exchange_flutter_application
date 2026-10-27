@@ -13,6 +13,7 @@ import 'package:bananatalk_app/services/location_service.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:bananatalk_app/utils/hometown_names.dart';
 
 class ProfilePrivacy extends ConsumerStatefulWidget {
   const ProfilePrivacy({super.key});
@@ -182,11 +183,16 @@ class _ProfilePrivacyState extends ConsumerState<ProfilePrivacy> {
         // Geocoding failed — still update coordinates
       }
 
+      final names = resolveHometownNames(
+        city: city,
+        country: country,
+        stored: ref.read(userProvider).valueOrNull?.location,
+      );
       await ref
           .read(authServiceProvider)
           .updateUserHometown(
-            city: city ?? '',
-            country: country ?? '',
+            city: names.city,
+            country: names.country,
             latitude: position.latitude,
             longitude: position.longitude,
           );
@@ -195,8 +201,8 @@ class _ProfilePrivacyState extends ConsumerState<ProfilePrivacy> {
 
       if (!mounted) return;
       setState(() {
-        _currentCity = city;
-        _currentCountry = country;
+        _currentCity = names.city.isNotEmpty ? names.city : null;
+        _currentCountry = names.country.isNotEmpty ? names.country : null;
       });
       showProfileSnackBar(
         context,

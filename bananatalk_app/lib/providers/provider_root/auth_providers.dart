@@ -2094,7 +2094,8 @@ class AuthService extends ChangeNotifier {
       'location': {
         'type': 'Point',
         'coordinates': [longitude ?? 0.0, latitude ?? 0.0],
-        'formattedAddress': '$city, $country',
+        'formattedAddress':
+            [city, country].where((s) => s.isNotEmpty).join(', '),
         'city': city,
         'country': country,
       },
