@@ -1400,8 +1400,21 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
   }
 
   /// Load more partners with same filters
-  Future<void> loadMore() async {
+  /// When the last page request failed. Scroll events fire continuously at
+  /// the end of the list, so without a pause a dropped connection turned
+  /// into a stream of requests.
+  DateTime? _loadMoreFailedAt;
+  static const loadMoreRetryPause = Duration(seconds: 5);
+
+  /// [force]: the user tapped Retry, so skip the pause.
+  Future<void> loadMore({bool force = false}) async {
     if (state.isLoadingMore || !state.hasMore || state.filters == null) return;
+    final failedAt = _loadMoreFailedAt;
+    if (!force &&
+        failedAt != null &&
+        DateTime.now().difference(failedAt) < loadMoreRetryPause) {
+      return;
+    }
 
     final filtersAtStart = state.filters;
     state = state.copyWith(isLoadingMore: true);
@@ -1452,8 +1465,10 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
         hasMore: hasMore,
         isLoadingMore: false,
       );
+      _loadMoreFailedAt = null;
     } catch (e) {
       if (state.filters != filtersAtStart) return;
+      _loadMoreFailedAt = DateTime.now();
       state = state.copyWith(isLoadingMore: false, error: e.toString());
     }
   }

@@ -118,6 +118,37 @@ PaginatedCommunityResponse _resp(String id) => PaginatedCommunityResponse(
     );
 
 void notifierRaceTests() {
+  test('a failed page pauses scroll retries; Retry forces one', () async {
+    final svc = _FakeService();
+    final n = PartnerFilterNotifier(svc, () => false);
+    const a = PartnerFilterParams(activeWithin: '7d');
+    final f1 = n.loadWithFilters(a);
+    svc.calls[0].complete(PaginatedCommunityResponse(
+      users: [Community.fromJson({'_id': 'A1', 'name': 'A1'})],
+      total: 2, page: 1, pages: 2, hasMore: true,
+    ));
+    await f1;
+
+    final fm = n.loadMore();
+    svc.calls[1].completeError(Exception('offline'));
+    await fm;
+    expect(n.state.error, isNotNull);
+    expect(n.state.hasMore, isTrue);
+
+    await n.loadMore(); // scroll event right after the failure
+    expect(svc.calls.length, 2, reason: 'no request burst while offline');
+
+    final retry = n.loadMore(force: true);
+    expect(svc.calls.length, 3);
+    svc.calls[2].complete(PaginatedCommunityResponse(
+      users: [Community.fromJson({'_id': 'A2', 'name': 'A2'})],
+      total: 2, page: 2, pages: 2, hasMore: false,
+    ));
+    await retry;
+    expect(n.state.users.map((u) => u.id), ['A1', 'A2']);
+    expect(n.state.error, isNull);
+  });
+
   test('filters switched mid-load: stale response never lands', () async {
     final svc = _FakeService();
     final n = PartnerFilterNotifier(svc, () => false);

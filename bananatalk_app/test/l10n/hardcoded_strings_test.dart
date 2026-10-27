@@ -851,6 +851,11 @@ const Map<String, List<String>> _keysByTask = {
     'gatheringRequestPending',
     'gatheringWithdrawRequest',
   ],
+  // Gatherings status audit 2026-10-27: the attendee card after a gathering.
+  'gathering-people': [
+    'gatheringWhoWasThere',
+    'gatheringWhoWasThereHint',
+  ],
   // feat/boost-progress: live progress, impressions by place, Boost again.
   'boost-progress': [
     'boostSourcePartners',
@@ -1181,6 +1186,8 @@ const Map<String, List<String>> _filesByTask = {
   ],
   'gathering-request-pending': [
     'pages/community/gatherings/gathering_card.dart',
+    'pages/community/gatherings/gathering_detail_screen.dart',
+  ],  'gathering-people': [
     'pages/community/gatherings/gathering_detail_screen.dart',
   ],
 };

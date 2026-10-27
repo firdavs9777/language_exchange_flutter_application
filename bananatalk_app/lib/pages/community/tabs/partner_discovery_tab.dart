@@ -391,7 +391,10 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
         if (filteredCommunities.length < 5 &&
             partnerState.users.isNotEmpty &&
             partnerState.hasMore &&
-            !partnerState.isLoadingMore) {
+            !partnerState.isLoadingMore &&
+            // Not after a failure: this runs on every build, and the failed
+            // request's rebuild would schedule the next one (offline loop).
+            partnerState.error == null) {
           Future(() {
             if (!mounted) return;
             ref.read(partnerFilterProvider.notifier).loadMore();
@@ -786,8 +789,25 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
 
           final bodyIndex = index - 1;
 
-          // Loading indicator at the end.
+          // Loading indicator at the end — or Retry after a failed page
+          // (the spinner used to spin forever).
           if (bodyIndex == bodyLength) {
+            final failed = ref.read(partnerFilterProvider).error != null;
+            if (failed && !isLoadingMore) {
+              return Padding(
+                padding: const EdgeInsets.all(16),
+                child: Center(
+                  child: TextButton.icon(
+                    key: const Key('partners-load-more-retry'),
+                    onPressed: () => ref
+                        .read(partnerFilterProvider.notifier)
+                        .loadMore(force: true),
+                    icon: const Icon(Icons.refresh_rounded),
+                    label: Text(AppLocalizations.of(context)!.tryAgain),
+                  ),
+                ),
+              );
+            }
             return const Padding(
               padding: EdgeInsets.all(16),
               child: Center(child: CircularProgressIndicator()),
