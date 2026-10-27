@@ -214,7 +214,14 @@ class ChatStateNotifier extends StateNotifier<ChatState> with WidgetsBindingObse
 
       // Dedup: skip if message already exists (e.g. reply added via API response)
       final alreadyExists = state.messages.any((m) => m.id == message.id);
+      final timedOut = alreadyExists ? -1 : _timedOutCopyOf(message);
       if (alreadyExists) {
+      } else if (timedOut >= 0) {
+        // The send timed out on this side but the server stored it: the
+        // echo replaces the failed bubble, or Retry would send it twice.
+        final messages = List<Message>.from(state.messages);
+        messages[timedOut] = message;
+        state = state.copyWith(messages: messages);
       } else {
         final messages = List<Message>.from(state.messages)..add(message);
         messages.sort(
@@ -247,7 +254,7 @@ class ChatStateNotifier extends StateNotifier<ChatState> with WidgetsBindingObse
 
     _stateManager!.onMessageEdited = (message) {
       final messages = state.messages.map((msg) {
-        return msg.id == message.id ? message : msg;
+        return msg.id == message.id ? applyEdit(msg, message) : msg;
       }).toList();
       state = state.copyWith(messages: messages);
     };
@@ -411,7 +418,37 @@ class ChatStateNotifier extends StateNotifier<ChatState> with WidgetsBindingObse
     return result;
   }
 
+  /// Index of my failed bubble that [echo] (my own message, back from the
+  /// server) is a copy of: same text and type, sent shortly before. -1 when
+  /// there is none.
+  int _timedOutCopyOf(Message echo) {
+    if (echo.sender.id != currentUserId) return -1;
+    final echoAt = DateTime.tryParse(echo.createdAt);
+    for (var i = state.messages.length - 1; i >= 0; i--) {
+      final m = state.messages[i];
+      if (!m.isFailed || m.message != echo.message || m.type != echo.type) {
+        continue;
+      }
+      final at = DateTime.tryParse(m.createdAt);
+      if (echoAt == null || at == null) return i;
+      if (echoAt.difference(at).abs() < const Duration(minutes: 2)) return i;
+    }
+    return -1;
+  }
+
   void setMessages(List<Message> messages) {
+    // Failed sends exist only here: a fetch must not drop them, or the
+    // bubble (and its Retry) vanishes when the chat is reopened.
+    final fetchedIds = {for (final m in messages) m.id};
+    final failed = state.messages
+        .where((m) => m.isFailed && !fetchedIds.contains(m.id))
+        .toList();
+    if (failed.isNotEmpty) {
+      messages = [...messages, ...failed]..sort(
+          (a, b) => (DateTime.tryParse(a.createdAt) ?? DateTime(0))
+              .compareTo(DateTime.tryParse(b.createdAt) ?? DateTime(0)),
+        );
+    }
     final withBubbles = _withCorrectionBubbles(messages);
     _hasLoadedMessages = true;
     state = state.copyWith(messages: withBubbles);
@@ -802,3 +839,12 @@ final chatStateProvider =
         ref: ref, // Pass ref to check active chat
       );
     });
+
+/// [current] with the edit applied. The `messageEdited` event carries the
+/// message unpopulated (sender, receiver and replyTo are bare ids), so
+/// swapping it in whole dropped the reply quote on both phones.
+Message applyEdit(Message current, Message edited) => current.copyWith(
+      message: edited.message,
+      isEdited: true,
+      editedAt: edited.editedAt ?? current.editedAt,
+    );
