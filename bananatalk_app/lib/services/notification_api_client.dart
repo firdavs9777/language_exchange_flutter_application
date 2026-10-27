@@ -380,7 +380,9 @@ class NotificationApiClient {
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
-        return BadgeCount.fromJson(data['badges'] ?? data);
+        // The counts are nested under `data` (live response); `badges` is
+        // the old shape.
+        return BadgeCount.fromJson(data['data'] ?? data['badges'] ?? data);
       } else {
         return null;
       }

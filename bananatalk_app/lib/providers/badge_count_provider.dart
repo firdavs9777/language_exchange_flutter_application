@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:bananatalk_app/models/notification_models.dart';
 import 'package:bananatalk_app/services/notification_api_client.dart';
 import 'package:bananatalk_app/services/notification_service.dart';
+import 'package:flutter/foundation.dart' show visibleForTesting;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// Every change also sets the iOS app icon badge to the unread-MESSAGE count,
@@ -65,17 +66,10 @@ class BadgeCountNotifier extends StateNotifier<BadgeCount> {
       // Use sync endpoint to get accurate counts from actual data
       final badgeCount = await _apiClient.syncBadges();
 
-      if (badgeCount != null) {
-        state = badgeCount;
-        // Update iOS badge
-        await _notificationService.updateBadgeCount(badgeCount.messages);
-      } else {
-        // Fallback to regular getBadgeCount if sync fails
-        final fallbackCount = await _apiClient.getBadgeCount();
-        if (fallbackCount != null) {
-          state = fallbackCount;
-          await _notificationService.updateBadgeCount(fallbackCount.messages);
-        }
+      final fetched = badgeCount ?? await _apiClient.getBadgeCount();
+      if (fetched != null) {
+        state = withChatListMessages(fetched);
+        await _notificationService.updateBadgeCount(state.messages);
       }
 
       _lastFetchTime = DateTime.now();
@@ -154,14 +148,35 @@ class BadgeCountNotifier extends StateNotifier<BadgeCount> {
     _notificationService.updateBadgeCount(state.messages);
   }
 
+  /// Unread messages summed over the chat list, once it has loaded from
+  /// the server. The server's total (`sync-badges`) also counts chats with
+  /// deleted or hidden partners — unread the user can never clear — so the
+  /// tab badge flipped between the two numbers (live: 20 vs 8).
+  int? _chatListMessages;
+
+  /// [fetched] from the server, with the chat list's message total when known.
+  @visibleForTesting
+  BadgeCount withChatListMessages(BadgeCount fetched) {
+    final local = _chatListMessages;
+    return local == null ? fetched : fetched.copyWith(messages: local);
+  }
+
+  /// The chat list's server-backed total (see [_chatListMessages]).
+  void setMessagesFromChatList(int count) {
+    _chatListMessages = count;
+    updateMessageCount(count);
+  }
+
   /// Update message badge count directly (for real-time updates)
   void updateMessageCount(int count) {
+    if (_chatListMessages != null) _chatListMessages = count;
     state = state.copyWith(messages: count);
     _notificationService.updateBadgeCount(state.messages);
   }
 
   /// Reset all badge counts (for logout)
   void reset() {
+    _chatListMessages = null;
     state = BadgeCount.zero();
     _notificationService.updateBadgeCount(0);
   }

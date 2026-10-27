@@ -113,7 +113,9 @@ class ChatPartnersNotifier extends StateNotifier<ChatPartnersState> {
       shown[userId] = count;
     });
     state = state.copyWith(unreadCounts: counts);
-    _ref.read(badgeCountProvider.notifier).updateMessageCount(state.totalUnread);
+    _ref
+        .read(badgeCountProvider.notifier)
+        .setMessagesFromChatList(state.totalUnread);
     return shown;
   }
 
