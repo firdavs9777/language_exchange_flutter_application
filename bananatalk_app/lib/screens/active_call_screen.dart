@@ -12,6 +12,7 @@ import 'package:bananatalk_app/services/call_manager.dart'
     show CallManager, CallUiState, CallQuality, CallFinish, CallExitReason;
 import 'package:bananatalk_app/widgets/call/call_duration_timer.dart';
 import 'package:bananatalk_app/widgets/call/swappable_video_layout.dart';
+import 'package:bananatalk_app/utils/image_utils.dart';
 
 // Space the self-view must stay clear of: top bar + quality badge, and the
 // control bar + switch-camera button (the latter scaled with text size).
@@ -653,7 +654,9 @@ class _ActiveCallScreenState extends ConsumerState<ActiveCallScreen>
             radius: 80,
             backgroundColor: Colors.grey[800],
             backgroundImage: widget.call.userProfilePicture != null
-                ? NetworkImage(widget.call.userProfilePicture!)
+                ? ImageUtils.avatarProvider(
+                    widget.call.userProfilePicture!,
+                    quality: ImageQuality.medium)
                 : null,
             child: widget.call.userProfilePicture == null
                 ? const Icon(Icons.person,

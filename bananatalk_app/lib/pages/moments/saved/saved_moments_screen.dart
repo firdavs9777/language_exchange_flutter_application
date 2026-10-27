@@ -5,6 +5,7 @@ import 'package:bananatalk_app/pages/moments/widgets/moments_snackbar.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/friendly_error.dart';
+import 'package:bananatalk_app/utils/image_utils.dart';
 
 class SavedMomentsScreen extends StatefulWidget {
   const SavedMomentsScreen({Key? key}) : super(key: key);
@@ -276,7 +277,7 @@ class MomentCard extends StatelessWidget {
                   CircleAvatar(
                     radius: 20,
                     backgroundImage: moment.user.images.isNotEmpty
-                        ? NetworkImage(moment.user.images.first)
+                        ? ImageUtils.avatarProvider(moment.user.images.first)
                         : null,
                     child: moment.user.images.isEmpty
                         ? Text(
@@ -347,6 +348,7 @@ class MomentCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8),
                   child: Image.network(
                     moment.imageUrls.first,
+                    cacheWidth: ImageUtils.getCacheDimension(ImageQuality.medium),
                     width: double.infinity,
                     height: 200,
                     fit: BoxFit.cover,
@@ -380,6 +382,7 @@ class MomentCard extends StatelessWidget {
                             ? Container(color: Colors.black54)
                             : Image.network(
                                 moment.video!.thumbnail!,
+                                cacheWidth: ImageUtils.getCacheDimension(ImageQuality.medium),
                                 fit: BoxFit.cover,
                                 errorBuilder: (context, error, stackTrace) =>
                                     Container(color: Colors.black54),

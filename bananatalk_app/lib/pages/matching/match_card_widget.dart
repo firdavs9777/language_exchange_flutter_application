@@ -3,6 +3,7 @@ import 'package:bananatalk_app/models/matching/matching_model.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/image_utils.dart';
 
 /// Match card widget for displaying partner recommendations
 class MatchCard extends StatelessWidget {
@@ -54,6 +55,7 @@ class MatchCard extends StatelessWidget {
                           child: match.avatar != null
                               ? Image.network(
                                   match.avatar!,
+                                  cacheWidth: ImageUtils.getCacheDimension(ImageQuality.thumbnail),
                                   fit: BoxFit.cover,
                                   errorBuilder: (_, __, ___) =>
                                       _buildDefaultAvatar(match.name),
@@ -406,7 +408,7 @@ class CompactMatchCard extends StatelessWidget {
               radius: 24,
               backgroundColor: AppColors.primary.withOpacity(0.1),
               backgroundImage: match.avatar != null
-                  ? NetworkImage(match.avatar!)
+                  ? ImageUtils.avatarProvider(match.avatar!)
                   : null,
               child: match.avatar == null
                   ? Text(

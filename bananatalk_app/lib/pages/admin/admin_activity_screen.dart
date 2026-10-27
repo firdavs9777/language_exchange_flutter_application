@@ -5,6 +5,7 @@ import 'package:bananatalk_app/pages/admin/admin_user_detail_screen.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:intl/intl.dart';
+import 'package:bananatalk_app/utils/image_utils.dart';
 
 const _green = Color(0xFF10B981);
 
@@ -316,7 +317,7 @@ class _ActiveUserTile extends StatelessWidget {
               radius: 18,
               backgroundColor: _green.withValues(alpha: 0.15),
               backgroundImage: (avatar != null && avatar.isNotEmpty)
-                  ? NetworkImage(avatar)
+                  ? ImageUtils.avatarProvider(avatar)
                   : null,
               child: (avatar == null || avatar.isEmpty)
                   ? Text(

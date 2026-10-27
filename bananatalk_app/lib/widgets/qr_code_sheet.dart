@@ -9,6 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:bananatalk_app/utils/image_utils.dart';
 
 /// Bottom sheet with two tabs:
 ///   - My Code: shows the current user's QR code
@@ -445,7 +446,7 @@ class _Avatar extends StatelessWidget {
     if (url != null && url!.isNotEmpty) {
       return CircleAvatar(
         radius: size / 2,
-        backgroundImage: NetworkImage(url!),
+        backgroundImage: ImageUtils.avatarProvider(url!),
         backgroundColor: AppColors.gray200,
       );
     }

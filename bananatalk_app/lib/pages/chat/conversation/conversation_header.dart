@@ -8,6 +8,7 @@ import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/pages/community/single/single_community_screen.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/widgets/language_flag_badge.dart';
+import 'package:bananatalk_app/utils/image_utils.dart';
 
 /// AppBar section for the conversation screen.
 ///
@@ -155,6 +156,7 @@ class ConversationUserInfoHeader extends ConsumerWidget {
                             profilePicture != null && profilePicture!.isNotEmpty
                             ? Image.network(
                                 profilePicture!,
+                                cacheWidth: ImageUtils.getCacheDimension(ImageQuality.thumbnail),
                                 fit: BoxFit.cover,
                                 errorBuilder: (_, __, ___) => Container(
                                   color: AppColors.primary.withValues(

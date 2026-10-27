@@ -6,6 +6,7 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/pages/chat/widgets/chat_dialog_scaffold.dart';
+import 'package:bananatalk_app/utils/image_utils.dart';
 
 /// Lists shorter than this skip the search field.
 const int _forwardSearchThreshold = 8;
@@ -197,7 +198,7 @@ class _ForwardMessageDialogState extends ConsumerState<ForwardMessageDialog> {
                                 radius: 20,
                                 backgroundColor: context.containerColor,
                                 backgroundImage: user.profileImageUrl != null
-                                    ? NetworkImage(user.profileImageUrl!)
+                                    ? ImageUtils.avatarProvider(user.profileImageUrl!)
                                     : null,
                                 child: user.profileImageUrl == null
                                     ? Text(

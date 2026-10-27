@@ -336,7 +336,7 @@ class _ProfileSingleMomentState extends ConsumerState<ProfileSingleMoment> {
                           radius: 24,
                           backgroundColor: AppColors.primary,
                           backgroundImage: moment.user.imageUrls.isNotEmpty
-                              ? NetworkImage(
+                              ? ImageUtils.avatarProvider(
                                   ImageUtils.normalizeImageUrl(
                                       moment.user.imageUrls[0]))
                               : null,
@@ -637,6 +637,7 @@ class _ProfileSingleMomentState extends ConsumerState<ProfileSingleMoment> {
         },
         child: Image.network(
           ImageUtils.normalizeImageUrl(moment.imageUrls[0]),
+          cacheWidth: ImageUtils.getCacheDimension(ImageQuality.medium),
           width: double.infinity,
           fit: BoxFit.cover,
           errorBuilder: (context, error, stackTrace) {
@@ -705,6 +706,7 @@ class _ProfileSingleMomentState extends ConsumerState<ProfileSingleMoment> {
             children: [
               Image.network(
                 url,
+                cacheWidth: ImageUtils.getCacheDimension(ImageQuality.medium),
                 fit: BoxFit.cover,
                 errorBuilder: (context, error, stackTrace) {
                   return Container(

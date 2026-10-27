@@ -7,6 +7,7 @@ import 'package:bananatalk_app/pages/admin/admin_user_detail_screen.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/image_utils.dart';
 
 /// Step 15 F3 — admin user search screen.
 ///
@@ -334,7 +335,7 @@ class _UserRow extends StatelessWidget {
         radius: 22,
         backgroundColor: AppColors.primary.withValues(alpha: 0.15),
         backgroundImage:
-            avatarUrl.isNotEmpty ? NetworkImage(avatarUrl) : null,
+            avatarUrl.isNotEmpty ? ImageUtils.avatarProvider(avatarUrl) : null,
         child: avatarUrl.isEmpty
             ? Text(
                 name.isNotEmpty ? name[0].toUpperCase() : '?',

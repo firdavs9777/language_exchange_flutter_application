@@ -8,6 +8,7 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/widgets/report_evidence_section.dart';
 import 'package:bananatalk_app/models/report_model.dart';
 import 'package:intl/intl.dart';
+import 'package:bananatalk_app/utils/image_utils.dart';
 
 class AdminReportsScreen extends ConsumerStatefulWidget {
   const AdminReportsScreen({Key? key}) : super(key: key);
@@ -664,7 +665,7 @@ class _AdminReportsScreenState extends ConsumerState<AdminReportsScreen> {
                     radius: 18,
                     backgroundColor: AppColors.primary.withOpacity(0.15),
                     backgroundImage:
-                        avatarUrl.isNotEmpty ? NetworkImage(avatarUrl) : null,
+                        avatarUrl.isNotEmpty ? ImageUtils.avatarProvider(avatarUrl) : null,
                     child: avatarUrl.isEmpty
                         ? Text(
                             name.isNotEmpty ? name[0].toUpperCase() : '?',

@@ -5,6 +5,7 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/announcement.dart';
 import 'package:bananatalk_app/router/app_router.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/utils/image_utils.dart';
 
 enum AnnouncementLinkKind { inApp, external, none }
 
@@ -153,6 +154,7 @@ class _AnnouncementSheet extends StatelessWidget {
                 borderRadius: BorderRadius.circular(16),
                 child: Image.network(
                   a.imageUrl!,
+                  cacheWidth: ImageUtils.getCacheDimension(ImageQuality.medium),
                   height: 160,
                   width: double.infinity,
                   fit: BoxFit.cover,

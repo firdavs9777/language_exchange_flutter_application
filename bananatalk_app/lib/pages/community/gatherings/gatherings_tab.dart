@@ -18,6 +18,7 @@ import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/widgets/community/user_skeleton.dart';
 import 'package:bananatalk_app/utils/number_format_locale.dart';
+import 'package:bananatalk_app/utils/image_utils.dart';
 
 /// 모임 — the tab that replaces Voice Rooms.
 ///
@@ -598,7 +599,7 @@ class _ClubRow extends StatelessWidget {
         backgroundColor: context.containerColor,
         backgroundImage:
             club.coverImage != null && club.coverImage!.isNotEmpty
-            ? NetworkImage(club.coverImage!)
+            ? ImageUtils.avatarProvider(club.coverImage!)
             : null,
         child: club.coverImage == null || club.coverImage!.isEmpty
             ? Icon(Icons.groups_rounded, color: context.primaryColor)

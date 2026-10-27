@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:bananatalk_app/service/endpoints.dart';
@@ -123,6 +124,21 @@ class ImageUtils {
       case ImageQuality.high:
         return 2400; // Sharp on high-res phones (iPhone Pro Max, etc.)
     }
+  }
+
+  /// Disk-cached provider for small images (CircleAvatar backgroundImage).
+  /// A bare NetworkImage decodes the full-resolution original — ~64 MB for
+  /// a 4000 px photo — and is re-downloaded on every launch.
+  static ImageProvider avatarProvider(
+    String url, {
+    ImageQuality quality = ImageQuality.thumbnail,
+  }) {
+    return CachedNetworkImageProvider(
+      url,
+      cacheManager: AppImageCacheManager.instance,
+      maxWidth: getCacheDimension(quality),
+      maxHeight: getCacheDimension(quality),
+    );
   }
 
   /// Preload a single image into cache

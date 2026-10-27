@@ -11,6 +11,7 @@ import 'package:bananatalk_app/providers/missed_calls_provider.dart';
 import 'package:bananatalk_app/services/call/call_launcher.dart';
 import 'package:bananatalk_app/services/call_history_service.dart';
 import 'package:bananatalk_app/widgets/navigation/app_back_button.dart';
+import 'package:bananatalk_app/utils/image_utils.dart';
 
 /// The Calls list (spec §5.7): every call with labels derived from §3,
 /// 30 per page, opening it clears the missed badge.
@@ -172,7 +173,7 @@ class _CallLogTile extends ConsumerWidget {
 
     return ListTile(
       leading: CircleAvatar(
-        backgroundImage: avatar != null && avatar.isNotEmpty ? NetworkImage(avatar) : null,
+        backgroundImage: avatar != null && avatar.isNotEmpty ? ImageUtils.avatarProvider(avatar) : null,
         child: avatar == null || avatar.isEmpty ? const Icon(Icons.person) : null,
       ),
       title: Text(entry.otherName, style: TextStyle(color: missed ? Colors.red : null)),

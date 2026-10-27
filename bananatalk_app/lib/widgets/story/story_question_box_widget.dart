@@ -1,6 +1,7 @@
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/providers/provider_models/story_model.dart';
+import 'package:bananatalk_app/utils/image_utils.dart';
 
 /// Interactive question box widget for stories
 class StoryQuestionBoxWidget extends StatefulWidget {
@@ -327,7 +328,7 @@ class StoryQuestionResponsesList extends StatelessWidget {
                                 CircleAvatar(
                                   radius: 16,
                                   backgroundImage: response.user!.imageUrls.isNotEmpty
-                                      ? NetworkImage(response.user!.imageUrls.first)
+                                      ? ImageUtils.avatarProvider(response.user!.imageUrls.first)
                                       : null,
                                   child: response.user!.imageUrls.isEmpty
                                       ? Text(response.user!.name.isNotEmpty ? response.user!.name[0] : '?')

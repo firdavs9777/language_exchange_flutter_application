@@ -9,6 +9,7 @@ import 'package:bananatalk_app/services/profile_visitor_service.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/utils/string_sanitizer.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/utils/image_utils.dart';
 
 /// Compact "people visited your profile" card shown on the Community screen.
 ///
@@ -228,7 +229,7 @@ class _VisitorRecallCardState extends ConsumerState<VisitorRecallCard> {
         child: CircleAvatar(
           backgroundColor: AppColors.primary.withValues(alpha: 0.15),
           backgroundImage: (avatar != null && avatar.isNotEmpty)
-              ? NetworkImage(avatar)
+              ? ImageUtils.avatarProvider(avatar)
               : null,
           child: (avatar == null || avatar.isEmpty)
               ? Text(

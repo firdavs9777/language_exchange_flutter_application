@@ -4,6 +4,7 @@ import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:flutter/services.dart';
 import 'package:video_player/video_player.dart';
 import 'package:chewie/chewie.dart';
+import 'package:bananatalk_app/utils/image_utils.dart';
 
 class VideoPlayerScreen extends StatefulWidget {
   final String videoUrl;
@@ -125,6 +126,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
         children: [
           Image.network(
             widget.thumbnail!,
+            cacheWidth: ImageUtils.getCacheDimension(ImageQuality.medium),
             fit: BoxFit.cover,
             errorBuilder: (_, __, ___) => Container(color: Colors.black),
           ),
@@ -183,6 +185,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
           if (widget.thumbnail != null)
             Image.network(
               widget.thumbnail!,
+              cacheWidth: ImageUtils.getCacheDimension(ImageQuality.medium),
               fit: BoxFit.contain,
               errorBuilder: (_, __, ___) => Container(color: Colors.black),
             ),

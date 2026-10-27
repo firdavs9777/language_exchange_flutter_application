@@ -14,6 +14,7 @@ import 'package:bananatalk_app/pages/community/gatherings/gathering_strings.dart
 import 'package:bananatalk_app/utils/number_format_locale.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+import 'package:bananatalk_app/utils/image_utils.dart';
 
 /// One gathering, in full.
 class GatheringDetailScreen extends StatefulWidget {
@@ -632,7 +633,7 @@ class _GatheringDetailScreenState extends State<GatheringDetailScreen> {
                     radius: 14,
                     backgroundColor: context.containerColor,
                     backgroundImage: person.avatar.isNotEmpty
-                        ? NetworkImage(person.avatar)
+                        ? ImageUtils.avatarProvider(person.avatar)
                         : null,
                     child: person.avatar.isEmpty
                         ? Icon(Icons.person, size: 14, color: context.textMuted)

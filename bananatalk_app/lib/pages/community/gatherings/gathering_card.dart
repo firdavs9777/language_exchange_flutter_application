@@ -7,6 +7,7 @@ import 'package:bananatalk_app/pages/community/gatherings/gathering_filter_bar.d
 import 'package:bananatalk_app/utils/gathering_time.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/utils/number_format_locale.dart';
+import 'package:bananatalk_app/utils/image_utils.dart';
 
 /// One gathering in the list.
 ///
@@ -183,7 +184,7 @@ class GatheringCard extends StatelessWidget {
           radius: 10,
           backgroundColor: context.containerHighColor,
           backgroundImage: gathering.host.avatar.isNotEmpty
-              ? NetworkImage(gathering.host.avatar)
+              ? ImageUtils.avatarProvider(gathering.host.avatar)
               : null,
           child: gathering.host.avatar.isEmpty
               ? Icon(Icons.person, size: 12, color: context.textMuted)

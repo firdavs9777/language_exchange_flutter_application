@@ -9,6 +9,7 @@ import 'package:bananatalk_app/utils/time_utils.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/pages/chat/widgets/chat_empty_state.dart';
+import 'package:bananatalk_app/utils/image_utils.dart';
 
 class ChatSearchScreen extends StatefulWidget {
   final String? conversationId;
@@ -275,7 +276,7 @@ class _ChatSearchScreenState extends State<ChatSearchScreen> {
       leading: CircleAvatar(
         backgroundColor: Theme.of(context).primaryColor.withValues(alpha: 0.1),
         backgroundImage: message.sender.images.isNotEmpty == true
-            ? NetworkImage(message.sender.images.first)
+            ? ImageUtils.avatarProvider(message.sender.images.first)
             : null,
         child: message.sender.images.isEmpty != false
             ? Text(

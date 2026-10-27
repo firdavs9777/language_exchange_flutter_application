@@ -6,6 +6,7 @@ import 'package:bananatalk_app/providers/provider_root/learning_providers.dart';
 import 'package:bananatalk_app/widgets/learning/achievement_card.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
+import 'package:bananatalk_app/utils/image_utils.dart';
 
 /// Achievements gallery screen
 class AchievementsScreen extends ConsumerStatefulWidget {
@@ -283,6 +284,7 @@ class _AchievementsScreenState extends ConsumerState<AchievementsScreen>
                 child: achievement.iconUrl != null
                     ? Image.network(
                         achievement.iconUrl!,
+                        cacheWidth: ImageUtils.getCacheDimension(ImageQuality.thumbnail),
                         width: 48,
                         height: 48,
                         errorBuilder: (_, __, ___) => Icon(

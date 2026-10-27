@@ -10,6 +10,7 @@ import 'package:bananatalk_app/services/gathering_api_client.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/utils/number_format_locale.dart';
+import 'package:bananatalk_app/utils/image_utils.dart';
 
 /// The gatherings this viewer hosts or holds a seat in, reached from the
 /// profile drawer.
@@ -235,7 +236,7 @@ class _MyClubsTabState extends State<MyClubsTab> {
                 leading: CircleAvatar(
                   backgroundColor: context.containerColor,
                   backgroundImage: club.coverImage != null
-                      ? NetworkImage(club.coverImage!)
+                      ? ImageUtils.avatarProvider(club.coverImage!)
                       : null,
                   child: club.coverImage == null
                       ? Icon(Icons.groups_outlined, color: context.textMuted)

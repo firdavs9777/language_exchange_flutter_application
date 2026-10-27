@@ -7,6 +7,7 @@ import 'package:bananatalk_app/providers/announcement_provider.dart';
 import 'package:bananatalk_app/services/announcement_seen_store.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/widgets/promo/announcement_modal.dart';
+import 'package:bananatalk_app/utils/image_utils.dart';
 
 /// Opened from the notifications list or the push (spec §5.2).
 class AnnouncementScreen extends ConsumerStatefulWidget {
@@ -77,6 +78,7 @@ class _Body extends StatelessWidget {
             borderRadius: BorderRadius.circular(16),
             child: Image.network(
               a.imageUrl!,
+              cacheWidth: ImageUtils.getCacheDimension(ImageQuality.medium),
               fit: BoxFit.cover,
               errorBuilder: (_, __, ___) => const SizedBox.shrink(),
             ),

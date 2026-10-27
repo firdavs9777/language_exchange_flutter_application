@@ -7,6 +7,7 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/pages/profile/profile_wrapper.dart';
 import 'package:intl/intl.dart';
+import 'package:bananatalk_app/utils/image_utils.dart';
 
 /// Step 15 F3 — admin user detail screen.
 ///
@@ -189,7 +190,7 @@ class _AdminUserDetailScreenState extends ConsumerState<AdminUserDetailScreen> {
                 radius: 28,
                 backgroundColor: AppColors.primary.withValues(alpha: 0.15),
                 backgroundImage:
-                    avatarUrl.isNotEmpty ? NetworkImage(avatarUrl) : null,
+                    avatarUrl.isNotEmpty ? ImageUtils.avatarProvider(avatarUrl) : null,
                 child: avatarUrl.isEmpty
                     ? Text(
                         name.isNotEmpty ? name[0].toUpperCase() : '?',

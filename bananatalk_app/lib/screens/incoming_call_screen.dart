@@ -7,6 +7,7 @@ import 'package:bananatalk_app/models/call_model.dart';
 import 'package:bananatalk_app/services/call/call_routes.dart';
 import 'package:bananatalk_app/services/call_manager.dart';
 import 'package:bananatalk_app/widgets/call/decline_message_sheet.dart';
+import 'package:bananatalk_app/utils/image_utils.dart';
 
 /// Incoming-call ring screen. CallManager opens it (once per callId) and
 /// closes it through its single exit path.
@@ -143,7 +144,8 @@ class _IncomingCallScreenState extends State<IncomingCallScreen> {
                     radius: 60,
                     backgroundColor: Colors.grey[800],
                     backgroundImage: call.userProfilePicture != null
-                        ? NetworkImage(call.userProfilePicture!)
+                        ? ImageUtils.avatarProvider(call.userProfilePicture!,
+                            quality: ImageQuality.medium)
                         : null,
                     child: call.userProfilePicture == null
                         ? const Icon(Icons.person, size: 60, color: Colors.white54)

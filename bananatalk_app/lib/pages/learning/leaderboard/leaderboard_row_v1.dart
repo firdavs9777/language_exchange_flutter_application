@@ -6,6 +6,7 @@ import 'package:bananatalk_app/models/learning/leaderboard_model.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/utils/image_utils.dart';
 
 /// Period/Type selection chip — shared across XP and Streak tabs
 class LeaderboardPeriodChip extends StatelessWidget {
@@ -137,6 +138,7 @@ class LeaderboardPodiumItemV1 extends StatelessWidget {
                 child: entry.user.avatar != null
                     ? Image.network(
                         entry.user.avatar!,
+                        cacheWidth: ImageUtils.getCacheDimension(ImageQuality.thumbnail),
                         fit: BoxFit.cover,
                         errorBuilder: (_, __, ___) => LeaderboardDefaultAvatar(
                           username: entry.user.username,

@@ -8,6 +8,7 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:video_player/video_player.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
+import 'package:bananatalk_app/utils/image_utils.dart';
 
 /// Instagram-style Explore/Search screen with video feed
 class ExploreMain extends ConsumerStatefulWidget {
@@ -570,7 +571,7 @@ class _VideoFeedItemState extends State<VideoFeedItem> {
                     CircleAvatar(
                       radius: 16,
                       backgroundImage: widget.moment.user.imageUrls.isNotEmpty
-                          ? NetworkImage(widget.moment.user.imageUrls.first)
+                          ? ImageUtils.avatarProvider(widget.moment.user.imageUrls.first)
                           : null,
                       child: widget.moment.user.imageUrls.isEmpty
                           ? const Icon(Icons.person, size: 16)
