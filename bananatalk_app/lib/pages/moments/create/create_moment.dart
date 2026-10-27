@@ -1342,8 +1342,22 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     }
   }
 
+  /// Set synchronously on the first tap. `_isLoading` is only set after the
+  /// image and limit checks (and never on the video path), so a fast second
+  /// tap used to start a second post.
+  bool _submitting = false;
+
   Future<void> _createMoment() async {
-    if (_isLoading) return;
+    if (_isLoading || _submitting) return;
+    _submitting = true;
+    try {
+      await _createMomentOnce();
+    } finally {
+      _submitting = false;
+    }
+  }
+
+  Future<void> _createMomentOnce() async {
 
     // Validate inputs
     final validationError = _validateInputs();
