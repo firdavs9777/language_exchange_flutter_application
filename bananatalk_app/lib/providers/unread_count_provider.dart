@@ -61,6 +61,19 @@ class ChatPartnersNotifier extends StateNotifier<ChatPartnersState> {
     updateUnreadCount(userId, currentCount + 1);
   }
 
+  /// Partner id → conversation id, from the chat list. Mute is stored per
+  /// conversation, but most socket events (photo, voice, reply, forward,
+  /// story reply) carry no conversationId.
+  final Map<String, String> _conversationIds = {};
+
+  void rememberConversation(String partnerId, String? conversationId) {
+    if (conversationId != null && conversationId.isNotEmpty) {
+      _conversationIds[partnerId] = conversationId;
+    }
+  }
+
+  String? conversationIdFor(String partnerId) => _conversationIds[partnerId];
+
   /// When each chat was last read on this device.
   final Map<String, DateTime> _readHereAt = {};
 
@@ -121,6 +134,7 @@ class ChatPartnersNotifier extends StateNotifier<ChatPartnersState> {
 
   void reset() {
     _readHereAt.clear();
+    _conversationIds.clear();
     state = ChatPartnersState();
     _ref.read(badgeCountProvider.notifier).updateMessageCount(0);
   }

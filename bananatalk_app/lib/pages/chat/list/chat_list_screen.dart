@@ -543,7 +543,11 @@ class _ChatMainState extends ConsumerState<ChatMain>
     });
 
     if (mounted) {
-      final shown = ref.read(chatPartnersProvider.notifier).applyServerCounts({
+      final partnersNotifier = ref.read(chatPartnersProvider.notifier);
+      for (final partner in partners) {
+        partnersNotifier.rememberConversation(partner.id, partner.conversationId);
+      }
+      final shown = partnersNotifier.applyServerCounts({
         for (final partner in partners) partner.id: partner.unreadCount,
       });
       final updatedPartners = partners

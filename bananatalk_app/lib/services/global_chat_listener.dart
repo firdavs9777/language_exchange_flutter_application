@@ -129,7 +129,11 @@ class GlobalChatListener {
 
         // Not in that chat, and the chat is not muted: show an in-app banner
         // (the server sends no push while the socket is connected).
-        final conversationId = data is Map ? data['conversationId']?.toString() : null;
+        final conversationId = bannerConversationId(
+          data,
+          messageData,
+          fromChatList: _ref!.read(chatPartnersProvider.notifier).conversationIdFor(senderId),
+        );
         final muted = conversationId != null &&
             _ref!.read(notificationSettingsProvider.notifier).isConversationMuted(conversationId);
         if (shouldShowMessageBanner(
@@ -220,3 +224,20 @@ String? bannerAvatarFor(Map sender) {
 /// chat you are in or one you muted (2026-10-18).
 bool shouldShowMessageBanner({required bool inThatChat, required bool muted}) =>
     !inThatChat && !muted;
+
+/// The conversation a new-message event belongs to, for the mute check.
+/// Only text/sticker/GIF sends carry a top-level `conversationId`; photo,
+/// voice, reply, forward and story-reply events fall back to the message's
+/// own field, then to the id the chat list knows for the sender.
+String? bannerConversationId(
+  dynamic data,
+  dynamic messageData, {
+  String? fromChatList,
+}) {
+  String? read(dynamic m) {
+    final v = m is Map ? m['conversationId']?.toString() : null;
+    return (v == null || v.isEmpty) ? null : v;
+  }
+
+  return read(data) ?? read(messageData) ?? fromChatList;
+}

@@ -65,4 +65,16 @@ void main() {
     expect(shouldShowMessageBanner(inThatChat: true, muted: false), isFalse);
     expect(shouldShowMessageBanner(inThatChat: false, muted: true), isFalse);
   });
+
+  test('the mute check finds the conversation for every message type', () {
+    // text/sticker/GIF: top level
+    expect(bannerConversationId({'conversationId': 'c1'}, {}), 'c1');
+    // photo/voice/reply: only on the message
+    expect(bannerConversationId({}, {'conversationId': 'c2'}), 'c2');
+    // nothing in the event: the chat list's id for the sender
+    expect(bannerConversationId({}, {}, fromChatList: 'c3'), 'c3');
+    expect(bannerConversationId({'conversationId': ''}, {}, fromChatList: 'c3'),
+        'c3');
+    expect(bannerConversationId({}, {}), isNull);
+  });
 }
