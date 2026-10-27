@@ -240,14 +240,11 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed) {
-      // Ensure socket is connected when returning to chat
-      final socketService = ChatSocketService();
-      socketService.forceReconnect();
-      if (!socketService.isConnected) {
-        socketService.connect(forceReset: true);
-      }
-    } else if (state == AppLifecycleState.paused ||
+    // Resume: no reconnect here. The app root reconnects on resume when the
+    // socket is down and reconnecting is allowed; this screen used to tear
+    // down a healthy socket every time, undo a server forceDisconnect, and
+    // race the root into a second socket (every event twice).
+    if (state == AppLifecycleState.paused ||
         state == AppLifecycleState.inactive) {
       // Backgrounding may precede the app being killed, so persist the draft
       // here as well as in dispose().
