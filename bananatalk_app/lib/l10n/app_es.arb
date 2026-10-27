@@ -4744,5 +4744,7 @@
   "vocabPacksPromo": "Conjuntos de palabras listos por tema. Añade uno y aprende un poco cada día.",
   "vocabPacksBrowse": "Ver paquetes",
   "visitorsReveal24h": "Míralos a todos durante 24 horas por {cost} 💎, o hazte VIP",
-  "visitorsUnlockedLeft": "Desbloqueado · quedan {time}"
+  "visitorsUnlockedLeft": "Desbloqueado · quedan {time}",
+  "gatheringRequestPending": "Solicitud pendiente",
+  "gatheringWithdrawRequest": "Retirar solicitud"
 }

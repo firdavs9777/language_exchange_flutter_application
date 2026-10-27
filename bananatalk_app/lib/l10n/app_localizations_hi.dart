@@ -12429,4 +12429,10 @@ class AppLocalizationsHi extends AppLocalizations {
   String visitorsUnlockedLeft(String time) {
     return 'अनलॉक · $time बाकी';
   }
+
+  @override
+  String get gatheringRequestPending => 'अनुरोध लंबित';
+
+  @override
+  String get gatheringWithdrawRequest => 'अनुरोध वापस लें';
 }

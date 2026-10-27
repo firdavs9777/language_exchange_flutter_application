@@ -8436,5 +8436,13 @@
         "type": "String"
       }
     }
+  },
+  "gatheringRequestPending": "Request pending",
+  "@gatheringRequestPending": {
+    "description": "Gathering card/detail: the viewer asked to join an approval-only gathering and the host has not decided yet"
+  },
+  "gatheringWithdrawRequest": "Withdraw request",
+  "@gatheringWithdrawRequest": {
+    "description": "Gathering detail button: take back a pending request to join"
   }
 }

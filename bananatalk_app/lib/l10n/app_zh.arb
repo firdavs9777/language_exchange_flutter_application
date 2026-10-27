@@ -4728,5 +4728,7 @@
   "vocabPacksPromo": "按主题准备好的词汇包。添加一个，每天学一点。",
   "vocabPacksBrowse": "浏览词汇包",
   "visitorsReveal24h": "用 {cost} 💎 查看全部 24 小时，或开通 VIP",
-  "visitorsUnlockedLeft": "已解锁 · 剩余 {time}"
+  "visitorsUnlockedLeft": "已解锁 · 剩余 {time}",
+  "gatheringRequestPending": "申请待审核",
+  "gatheringWithdrawRequest": "撤回申请"
 }

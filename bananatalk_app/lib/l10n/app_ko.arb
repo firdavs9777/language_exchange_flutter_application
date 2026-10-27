@@ -4735,5 +4735,7 @@
   "vocabPacksPromo": "주제별로 준비된 단어 세트예요. 하나 추가하고 매일 조금씩 익혀 보세요.",
   "vocabPacksBrowse": "단어 세트 보기",
   "visitorsReveal24h": "{cost} 💎로 24시간 동안 모두 보기, 또는 VIP",
-  "visitorsUnlockedLeft": "잠금 해제됨 · {time} 남음"
+  "visitorsUnlockedLeft": "잠금 해제됨 · {time} 남음",
+  "gatheringRequestPending": "요청 대기 중",
+  "gatheringWithdrawRequest": "요청 취소"
 }

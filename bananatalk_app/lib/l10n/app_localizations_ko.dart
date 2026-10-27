@@ -12399,4 +12399,10 @@ class AppLocalizationsKo extends AppLocalizations {
   String visitorsUnlockedLeft(String time) {
     return '잠금 해제됨 · $time 남음';
   }
+
+  @override
+  String get gatheringRequestPending => '요청 대기 중';
+
+  @override
+  String get gatheringWithdrawRequest => '요청 취소';
 }

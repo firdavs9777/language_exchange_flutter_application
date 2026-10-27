@@ -4207,5 +4207,7 @@
   "vocabPacksPromo": "Маҷмӯаҳои тайёри калимаҳо аз рӯи мавзӯъ. Яктоашро илова кунед ва ҳар рӯз каме омӯзед.",
   "vocabPacksBrowse": "Дидани маҷмӯаҳо",
   "visitorsReveal24h": "Ҳамаро 24 соат бо {cost} 💎 бинед ё VIP шавед",
-  "visitorsUnlockedLeft": "Кушода · {time} монд"
+  "visitorsUnlockedLeft": "Кушода · {time} монд",
+  "gatheringRequestPending": "Дархост дар интизор",
+  "gatheringWithdrawRequest": "Бозпас гирифтани дархост"
 }

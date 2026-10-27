@@ -4744,5 +4744,7 @@
   "vocabPacksPromo": "Готовые наборы слов по темам. Добавьте набор и учите понемногу каждый день.",
   "vocabPacksBrowse": "Смотреть наборы",
   "visitorsReveal24h": "Все гости на 24 часа за {cost} 💎 — или VIP",
-  "visitorsUnlockedLeft": "Открыто · осталось {time}"
+  "visitorsUnlockedLeft": "Открыто · осталось {time}",
+  "gatheringRequestPending": "Запрос на рассмотрении",
+  "gatheringWithdrawRequest": "Отозвать запрос"
 }

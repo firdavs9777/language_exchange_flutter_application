@@ -12417,4 +12417,10 @@ class AppLocalizationsTr extends AppLocalizations {
   String visitorsUnlockedLeft(String time) {
     return 'Kilit açık · $time kaldı';
   }
+
+  @override
+  String get gatheringRequestPending => 'İstek beklemede';
+
+  @override
+  String get gatheringWithdrawRequest => 'İsteği geri çek';
 }

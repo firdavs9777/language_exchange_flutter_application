@@ -4954,5 +4954,7 @@
   "vocabPacksPromo": "Set di parole pronti per argomento. Aggiungine uno e impara un po' ogni giorno.",
   "vocabPacksBrowse": "Sfoglia i pacchetti",
   "visitorsReveal24h": "Vedili tutti per 24 ore con {cost} 💎, o passa a VIP",
-  "visitorsUnlockedLeft": "Sbloccato · restano {time}"
+  "visitorsUnlockedLeft": "Sbloccato · restano {time}",
+  "gatheringRequestPending": "Richiesta in attesa",
+  "gatheringWithdrawRequest": "Ritira la richiesta"
 }

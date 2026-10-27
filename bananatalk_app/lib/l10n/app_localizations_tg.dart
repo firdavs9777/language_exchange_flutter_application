@@ -12419,4 +12419,10 @@ class AppLocalizationsTg extends AppLocalizations {
   String visitorsUnlockedLeft(String time) {
     return 'Кушода · $time монд';
   }
+
+  @override
+  String get gatheringRequestPending => 'Дархост дар интизор';
+
+  @override
+  String get gatheringWithdrawRequest => 'Бозпас гирифтани дархост';
 }

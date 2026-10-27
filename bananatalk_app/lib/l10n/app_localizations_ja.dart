@@ -12399,4 +12399,10 @@ class AppLocalizationsJa extends AppLocalizations {
   String visitorsUnlockedLeft(String time) {
     return '解除中 · 残り$time';
   }
+
+  @override
+  String get gatheringRequestPending => '申請中';
+
+  @override
+  String get gatheringWithdrawRequest => '申請を取り消す';
 }

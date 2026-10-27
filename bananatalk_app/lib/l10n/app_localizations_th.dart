@@ -12399,4 +12399,10 @@ class AppLocalizationsTh extends AppLocalizations {
   String visitorsUnlockedLeft(String time) {
     return 'ปลดล็อกแล้ว · เหลือ $time';
   }
+
+  @override
+  String get gatheringRequestPending => 'รอการอนุมัติ';
+
+  @override
+  String get gatheringWithdrawRequest => 'ถอนคำขอ';
 }

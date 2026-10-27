@@ -253,6 +253,10 @@ class GatheringCard extends StatelessWidget {
       return TextButton(onPressed: onRsvp, child: Text(l10n.gatheringGoingYou));
     }
 
+    if (gathering.viewerRequestPending) {
+      return _pill(context, l10n.gatheringRequestPending);
+    }
+
     if (gathering.isFull) {
       return _pill(context, l10n.gatheringFull);
     }

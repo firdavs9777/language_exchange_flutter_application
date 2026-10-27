@@ -12895,4 +12895,10 @@ class AppLocalizationsRu extends AppLocalizations {
   String visitorsUnlockedLeft(String time) {
     return 'Открыто · осталось $time';
   }
+
+  @override
+  String get gatheringRequestPending => 'Запрос на рассмотрении';
+
+  @override
+  String get gatheringWithdrawRequest => 'Отозвать запрос';
 }

@@ -4926,5 +4926,7 @@
   "vocabPacksPromo": "Konulara göre hazır kelime setleri. Birini ekle, her gün biraz öğren.",
   "vocabPacksBrowse": "Setlere göz at",
   "visitorsReveal24h": "{cost} 💎 karşılığında 24 saat boyunca herkesi gör ya da VIP ol",
-  "visitorsUnlockedLeft": "Kilit açık · {time} kaldı"
+  "visitorsUnlockedLeft": "Kilit açık · {time} kaldı",
+  "gatheringRequestPending": "İstek beklemede",
+  "gatheringWithdrawRequest": "İsteği geri çek"
 }

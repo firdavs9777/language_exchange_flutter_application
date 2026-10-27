@@ -4714,5 +4714,7 @@
   "vocabPacksPromo": "ชุดคำศัพท์พร้อมใช้ตามหัวข้อ เพิ่มสักชุดแล้วเรียนวันละนิด",
   "vocabPacksBrowse": "ดูชุดคำศัพท์",
   "visitorsReveal24h": "ดูทุกคนได้ 24 ชั่วโมงด้วย {cost} 💎 หรือสมัคร VIP",
-  "visitorsUnlockedLeft": "ปลดล็อกแล้ว · เหลือ {time}"
+  "visitorsUnlockedLeft": "ปลดล็อกแล้ว · เหลือ {time}",
+  "gatheringRequestPending": "รอการอนุมัติ",
+  "gatheringWithdrawRequest": "ถอนคำขอ"
 }

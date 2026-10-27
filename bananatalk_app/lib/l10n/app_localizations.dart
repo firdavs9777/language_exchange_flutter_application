@@ -22573,6 +22573,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Unlocked · {time} left'**
   String visitorsUnlockedLeft(String time);
+
+  /// Gathering card/detail: the viewer asked to join an approval-only gathering and the host has not decided yet
+  ///
+  /// In en, this message translates to:
+  /// **'Request pending'**
+  String get gatheringRequestPending;
+
+  /// Gathering detail button: take back a pending request to join
+  ///
+  /// In en, this message translates to:
+  /// **'Withdraw request'**
+  String get gatheringWithdrawRequest;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

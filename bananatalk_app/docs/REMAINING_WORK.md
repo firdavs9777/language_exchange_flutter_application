@@ -426,3 +426,4 @@ Web ↔ app parity (spec `docs/superpowers/specs/2026-10-16-web-app-parity-desig
 - [ ] P0–P1 (13): Trending tab empty (M1); drawer Edit profile erases intents (P1); Update location blanks city/country (P2); chat list never updates live (C1); saved moments stop at 10 (M2); scheduled video posts at once (M3); Topics filter ignored (CO1); Followers list can't unfollow (P3); stacked chats lose active state (C2); history paging jumps (C3); unread counts drift (C4); pending gathering request lost (CO2); 7+ photo upload fails (P4). M–L
 - [ ] P2 (17) and P3 items in the audit doc. M–L
 - [ ] Backend items in the audit doc (cascade delete of follows/blocks, photo limit, messageEdited populate, conversationId on all sends, sync-badges, senders paging, room hubs data). M
+- [ ] Native review of `gatheringRequestPending` / `gatheringWithdrawRequest` (19 locales, written 2026-10-27 for audit CO2). S

@@ -4714,5 +4714,7 @@
   "vocabPacksPromo": "テーマ別に用意された単語セット。1つ追加して毎日少しずつ覚えましょう。",
   "vocabPacksBrowse": "単語セットを見る",
   "visitorsReveal24h": "{cost} 💎で24時間すべて表示、またはVIPに",
-  "visitorsUnlockedLeft": "解除中 · 残り{time}"
+  "visitorsUnlockedLeft": "解除中 · 残り{time}",
+  "gatheringRequestPending": "申請中",
+  "gatheringWithdrawRequest": "申請を取り消す"
 }

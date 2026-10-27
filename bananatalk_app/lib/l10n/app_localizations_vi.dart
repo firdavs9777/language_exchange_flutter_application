@@ -12399,4 +12399,10 @@ class AppLocalizationsVi extends AppLocalizations {
   String visitorsUnlockedLeft(String time) {
     return 'Đã mở khóa · còn $time';
   }
+
+  @override
+  String get gatheringRequestPending => 'Đang chờ duyệt';
+
+  @override
+  String get gatheringWithdrawRequest => 'Rút lại yêu cầu';
 }

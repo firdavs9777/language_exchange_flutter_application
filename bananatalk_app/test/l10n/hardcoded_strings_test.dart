@@ -846,6 +846,11 @@ const Map<String, List<String>> _keysByTask = {
     'perkUnlimitedTranslations',
     'vipMoreMatchesCta',
   ],
+  // fix/2.2.7-audit CO2: a pending gathering request shows, and can be withdrawn.
+  'gathering-request-pending': [
+    'gatheringRequestPending',
+    'gatheringWithdrawRequest',
+  ],
   // feat/boost-progress: live progress, impressions by place, Boost again.
   'boost-progress': [
     'boostSourcePartners',
@@ -1173,6 +1178,10 @@ const Map<String, List<String>> _filesByTask = {
   ],
   'daily-reminder-time': [
     'pages/notifications/notification_settings_screen.dart',
+  ],
+  'gathering-request-pending': [
+    'pages/community/gatherings/gathering_card.dart',
+    'pages/community/gatherings/gathering_detail_screen.dart',
   ],
 };
 

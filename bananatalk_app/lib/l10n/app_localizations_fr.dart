@@ -12429,4 +12429,10 @@ class AppLocalizationsFr extends AppLocalizations {
   String visitorsUnlockedLeft(String time) {
     return 'Débloqué · encore $time';
   }
+
+  @override
+  String get gatheringRequestPending => 'Demande en attente';
+
+  @override
+  String get gatheringWithdrawRequest => 'Retirer la demande';
 }

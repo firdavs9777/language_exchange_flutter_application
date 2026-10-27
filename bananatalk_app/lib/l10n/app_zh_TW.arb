@@ -4405,5 +4405,7 @@
   "vocabPacksPromo": "依主題準備好的詞彙包。加入一個，每天學一點。",
   "vocabPacksBrowse": "瀏覽詞彙包",
   "visitorsReveal24h": "用 {cost} 💎 查看全部 24 小時，或開通 VIP",
-  "visitorsUnlockedLeft": "已解鎖 · 剩餘 {time}"
+  "visitorsUnlockedLeft": "已解鎖 · 剩餘 {time}",
+  "gatheringRequestPending": "申請待審核",
+  "gatheringWithdrawRequest": "撤回申請"
 }

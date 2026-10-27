@@ -4954,5 +4954,7 @@
   "vocabPacksPromo": "Des listes de mots prêtes par thème. Ajoutez-en une et apprenez un peu chaque jour.",
   "vocabPacksBrowse": "Voir les packs",
   "visitorsReveal24h": "Voyez tout le monde pendant 24 heures pour {cost} 💎, ou passez VIP",
-  "visitorsUnlockedLeft": "Débloqué · encore {time}"
+  "visitorsUnlockedLeft": "Débloqué · encore {time}",
+  "gatheringRequestPending": "Demande en attente",
+  "gatheringWithdrawRequest": "Retirer la demande"
 }

@@ -12399,6 +12399,12 @@ class AppLocalizationsZh extends AppLocalizations {
   String visitorsUnlockedLeft(String time) {
     return '已解锁 · 剩余 $time';
   }
+
+  @override
+  String get gatheringRequestPending => '申请待审核';
+
+  @override
+  String get gatheringWithdrawRequest => '撤回申请';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -24796,4 +24802,10 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String visitorsUnlockedLeft(String time) {
     return '已解鎖 · 剩餘 $time';
   }
+
+  @override
+  String get gatheringRequestPending => '申請待審核';
+
+  @override
+  String get gatheringWithdrawRequest => '撤回申請';
 }

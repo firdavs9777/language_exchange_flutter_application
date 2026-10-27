@@ -12516,4 +12516,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String visitorsUnlockedLeft(String time) {
     return 'مفتوح · متبقٍ $time';
   }
+
+  @override
+  String get gatheringRequestPending => 'الطلب قيد الانتظار';
+
+  @override
+  String get gatheringWithdrawRequest => 'سحب الطلب';
 }

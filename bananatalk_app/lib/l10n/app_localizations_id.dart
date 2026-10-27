@@ -12410,4 +12410,10 @@ class AppLocalizationsId extends AppLocalizations {
   String visitorsUnlockedLeft(String time) {
     return 'Terbuka · sisa $time';
   }
+
+  @override
+  String get gatheringRequestPending => 'Permintaan tertunda';
+
+  @override
+  String get gatheringWithdrawRequest => 'Tarik permintaan';
 }

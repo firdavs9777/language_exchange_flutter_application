@@ -126,6 +126,10 @@ class Gathering {
   final bool viewerIsAttending;
   final bool viewerIsHost;
 
+  /// The viewer asked to join (approval mode) and the host has not decided.
+  /// Without it a reopened gathering offered "Ask to join" again.
+  final bool viewerRequestPending;
+
   /// People waiting on the host's decision, for a gathering with
   /// `joinMode: 'approval'`. Populated with names only on the detail endpoint;
   /// the list endpoint sends id-only rows, which is enough for a count badge.
@@ -158,6 +162,7 @@ class Gathering {
     this.repeatedFrom,
     this.viewerIsAttending = false,
     this.viewerIsHost = false,
+    this.viewerRequestPending = false,
     this.requests = const [],
   });
 
@@ -190,6 +195,7 @@ class Gathering {
       repeatedFrom: json['repeatedFrom']?.toString(),
       viewerIsAttending: json['viewerIsAttending'] == true,
       viewerIsHost: json['viewerIsHost'] == true,
+      viewerRequestPending: json['viewerRequestPending'] == true,
       requests: (json['requests'] as List? ?? const [])
           .map(GatheringHost.fromJson)
           .toList(),
@@ -224,6 +230,7 @@ class Gathering {
     int? needed,
     bool? quorumMet,
     bool? viewerIsAttending,
+    bool? viewerRequestPending,
     List<GatheringHost>? requests,
   }) {
     return Gathering(
@@ -238,6 +245,7 @@ class Gathering {
       topic: topic,
       startsAt: startsAt,
       durationMinutes: durationMinutes,
+      coverImage: coverImage,
       hostTimezone: hostTimezone,
       hostCity: hostCity,
       hostCountry: hostCountry,
@@ -252,6 +260,7 @@ class Gathering {
       requests: requests ?? this.requests,
       viewerIsAttending: viewerIsAttending ?? this.viewerIsAttending,
       viewerIsHost: viewerIsHost,
+      viewerRequestPending: viewerRequestPending ?? this.viewerRequestPending,
     );
   }
 }

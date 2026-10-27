@@ -516,6 +516,32 @@ class _GatheringDetailScreenState extends State<GatheringDetailScreen> {
       ];
     }
 
+    if (gathering.viewerRequestPending) {
+      return [
+        Text(
+          l10n.gatheringRequestPending,
+          key: const Key('gathering-request-pending'),
+          textAlign: TextAlign.center,
+          style: context.bodySmall,
+        ),
+        Spacing.gapSM,
+        SizedBox(
+          width: double.infinity,
+          child: OutlinedButton(
+            key: const Key('gathering-withdraw-request'),
+            // cancelRsvp also removes a pending request (server filters the
+            // viewer out of attendees whatever their status).
+            onPressed: _busy
+                ? null
+                : () => _run(
+                    () async => (await _api.cancelRsvp(gathering.id)).error,
+                  ),
+            child: Text(l10n.gatheringWithdrawRequest),
+          ),
+        ),
+      ];
+    }
+
     return [
       SizedBox(
         width: double.infinity,

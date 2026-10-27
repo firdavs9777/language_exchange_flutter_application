@@ -4714,5 +4714,7 @@
   "vocabPacksPromo": "Kumpulan kata siap pakai per topik. Tambahkan satu dan belajar sedikit setiap hari.",
   "vocabPacksBrowse": "Lihat paket",
   "visitorsReveal24h": "Lihat semuanya selama 24 jam dengan {cost} 💎, atau jadi VIP",
-  "visitorsUnlockedLeft": "Terbuka · sisa {time}"
+  "visitorsUnlockedLeft": "Terbuka · sisa {time}",
+  "gatheringRequestPending": "Permintaan tertunda",
+  "gatheringWithdrawRequest": "Tarik permintaan"
 }

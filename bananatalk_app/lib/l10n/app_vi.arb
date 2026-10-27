@@ -4714,5 +4714,7 @@
   "vocabPacksPromo": "Bộ từ vựng soạn sẵn theo chủ đề. Thêm một bộ và học mỗi ngày một chút.",
   "vocabPacksBrowse": "Xem các bộ từ",
   "visitorsReveal24h": "Xem tất cả trong 24 giờ với {cost} 💎, hoặc lên VIP",
-  "visitorsUnlockedLeft": "Đã mở khóa · còn {time}"
+  "visitorsUnlockedLeft": "Đã mở khóa · còn {time}",
+  "gatheringRequestPending": "Đang chờ duyệt",
+  "gatheringWithdrawRequest": "Rút lại yêu cầu"
 }

@@ -4687,5 +4687,7 @@
   "vocabPacksPromo": "Handang set ng mga salita ayon sa paksa. Magdagdag ng isa at mag-aral nang kaunti araw-araw.",
   "vocabPacksBrowse": "Tingnan ang mga pack",
   "visitorsReveal24h": "Tingnan ang lahat nang 24 oras sa halagang {cost} 💎, o mag-VIP",
-  "visitorsUnlockedLeft": "Naka-unlock · {time} na lang"
+  "visitorsUnlockedLeft": "Naka-unlock · {time} na lang",
+  "gatheringRequestPending": "Nakabinbin ang request",
+  "gatheringWithdrawRequest": "Bawiin ang request"
 }

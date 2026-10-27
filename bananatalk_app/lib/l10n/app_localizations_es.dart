@@ -12441,4 +12441,10 @@ class AppLocalizationsEs extends AppLocalizations {
   String visitorsUnlockedLeft(String time) {
     return 'Desbloqueado · quedan $time';
   }
+
+  @override
+  String get gatheringRequestPending => 'Solicitud pendiente';
+
+  @override
+  String get gatheringWithdrawRequest => 'Retirar solicitud';
 }

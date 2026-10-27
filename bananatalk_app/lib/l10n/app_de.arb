@@ -4954,5 +4954,7 @@
   "vocabPacksPromo": "Fertige Wortsets nach Themen. Füge eins hinzu und lerne jeden Tag ein bisschen.",
   "vocabPacksBrowse": "Sets ansehen",
   "visitorsReveal24h": "Alle 24 Stunden lang sehen für {cost} 💎, oder VIP werden",
-  "visitorsUnlockedLeft": "Freigeschaltet · noch {time}"
+  "visitorsUnlockedLeft": "Freigeschaltet · noch {time}",
+  "gatheringRequestPending": "Anfrage ausstehend",
+  "gatheringWithdrawRequest": "Anfrage zurückziehen"
 }

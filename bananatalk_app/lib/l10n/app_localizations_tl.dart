@@ -12422,4 +12422,10 @@ class AppLocalizationsTl extends AppLocalizations {
   String visitorsUnlockedLeft(String time) {
     return 'Naka-unlock · $time na lang';
   }
+
+  @override
+  String get gatheringRequestPending => 'Nakabinbin ang request';
+
+  @override
+  String get gatheringWithdrawRequest => 'Bawiin ang request';
 }

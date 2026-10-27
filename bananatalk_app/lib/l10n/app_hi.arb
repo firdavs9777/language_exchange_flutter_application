@@ -4730,5 +4730,7 @@
   "vocabPacksPromo": "विषय के अनुसार तैयार शब्द-सेट। एक जोड़ें और रोज़ थोड़ा-थोड़ा सीखें।",
   "vocabPacksBrowse": "सेट देखें",
   "visitorsReveal24h": "{cost} 💎 में 24 घंटे तक सभी देखें, या VIP लें",
-  "visitorsUnlockedLeft": "अनलॉक · {time} बाकी"
+  "visitorsUnlockedLeft": "अनलॉक · {time} बाकी",
+  "gatheringRequestPending": "अनुरोध लंबित",
+  "gatheringWithdrawRequest": "अनुरोध वापस लें"
 }
