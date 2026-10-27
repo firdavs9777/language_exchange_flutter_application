@@ -133,99 +133,87 @@ class CommentsService {
     int page = 1,
     int limit = 50,
   }) async {
-    try {
-      // Authenticated so the server can filter out blocked users' comments
-      // (its filter only runs when it knows the viewer).
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      String? token = prefs.getString('token');
+    // Authenticated so the server can filter out blocked users' comments
+    // (its filter only runs when it knows the viewer).
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
 
-      final response = await http.get(
-        Uri.parse(
-            '${Endpoints.baseURL}${Endpoints.momentsURL}/$id/${Endpoints.commentUrl}'
-            '?page=$page&limit=$limit'),
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          if (token != null) 'Authorization': 'Bearer $token',
-        },
-      );
+    final response = await http.get(
+      Uri.parse(
+          '${Endpoints.baseURL}${Endpoints.momentsURL}/$id/${Endpoints.commentUrl}'
+          '?page=$page&limit=$limit'),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        if (token != null) 'Authorization': 'Bearer $token',
+      },
+    );
 
-      // Handle 500 errors from backend (backend issue with user population)
-      if (response.statusCode == 500) {
-        // Return empty page to prevent UI crash
-        // The backend needs to fix the user population issue
-        return CommentsPage.empty(page);
-      }
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
 
-      if (response.statusCode == 200) {
-        final data = json.decode(response.body);
-
-        // Check if response has error from backend
-        if (data['success'] == false) {
-          // If backend has an error but it's a data issue, try to return what we can
-          if (data['data'] != null && data['data'] is List) {
-            final commentsList = data['data'] as List;
-            final comments = commentsList
-                .map((commentJson) {
-                  try {
-                    if (commentJson is Map<String, dynamic>) {
-                      return Comments.fromJson(commentJson);
-                    }
-                    return null;
-                  } catch (e) {
-                    return null;
+      // Check if response has error from backend
+      if (data['success'] == false) {
+        // If backend has an error but it's a data issue, try to return what we can
+        if (data['data'] != null && data['data'] is List) {
+          final commentsList = data['data'] as List;
+          final comments = commentsList
+              .map((commentJson) {
+                try {
+                  if (commentJson is Map<String, dynamic>) {
+                    return Comments.fromJson(commentJson);
                   }
-                })
-                .where((comment) => comment != null)
-                .cast<Comments>()
-                .toList();
-            return CommentsPage(
-              comments: comments,
-              page: page,
-              totalPages: 1,
-              total: comments.length,
-            );
-          }
-          return CommentsPage.empty(page);
-        }
-
-        // Handle case where data might be null or not a list
-        if (data['data'] == null) {
-          return CommentsPage.empty(page);
-        }
-
-        final commentsList = data['data'] is List ? data['data'] as List : [];
-
-        final comments = commentsList
-            .map((commentJson) {
-              try {
-                if (commentJson is! Map<String, dynamic>) {
+                  return null;
+                } catch (e) {
                   return null;
                 }
-                return Comments.fromJson(commentJson);
-              } catch (e) {
-                // Skip invalid comments instead of crashing
-                return null;
-              }
-            })
-            .where((comment) => comment != null)
-            .cast<Comments>()
-            .toList();
-
-        return CommentsPage(
-          comments: comments,
-          page: data['page'] is int ? data['page'] as int : page,
-          totalPages: data['pages'] is int ? data['pages'] as int : 1,
-          total: data['total'] is int ? data['total'] as int : comments.length,
-        );
-      } else {
-        // Handle other HTTP errors — return empty page for non-critical errors
+              })
+              .where((comment) => comment != null)
+              .cast<Comments>()
+              .toList();
+          return CommentsPage(
+            comments: comments,
+            page: page,
+            totalPages: 1,
+            total: comments.length,
+          );
+        }
         return CommentsPage.empty(page);
       }
-    } catch (e) {
-      // Return empty page instead of throwing to prevent UI crashes
-      return CommentsPage.empty(page);
+
+      // Handle case where data might be null or not a list
+      if (data['data'] == null) {
+        return CommentsPage.empty(page);
+      }
+
+      final commentsList = data['data'] is List ? data['data'] as List : [];
+
+      final comments = commentsList
+          .map((commentJson) {
+            try {
+              if (commentJson is! Map<String, dynamic>) {
+                return null;
+              }
+              return Comments.fromJson(commentJson);
+            } catch (e) {
+              // Skip invalid comments instead of crashing
+              return null;
+            }
+          })
+          .where((comment) => comment != null)
+          .cast<Comments>()
+          .toList();
+
+      return CommentsPage(
+        comments: comments,
+        page: data['page'] is int ? data['page'] as int : page,
+        totalPages: data['pages'] is int ? data['pages'] as int : 1,
+        total: data['total'] is int ? data['total'] as int : comments.length,
+      );
     }
+    // A failed load is an error, not "no comments": the screen shows its
+    // error/retry state, and a failed Load more keeps what is shown.
+    throw Exception('Failed to load comments (${response.statusCode})');
   }
 }
 
@@ -338,7 +326,32 @@ class PaginatedCommentsNotifier extends StateNotifier<AsyncValue<PaginatedCommen
     }
   }
 
-  Future<void> refresh() => _loadFirstPage();
+  /// Re-reads the thread in place (15 s poll, after a like/edit/delete).
+  /// The list stays on screen instead of collapsing to a spinner, and as
+  /// many comments as are loaded are re-read so "Load more" pages survive.
+  /// A failed refresh keeps what is shown.
+  Future<void> refresh() async {
+    final current = state.valueOrNull;
+    if (current == null) return _loadFirstPage();
+    final loaded = current.comments.length;
+    final limit = loaded > kCommentsPageSize ? loaded : kCommentsPageSize;
+    try {
+      final result = await _service.getCommentsPage(
+        id: _momentId,
+        page: 1,
+        limit: limit,
+      );
+      state = AsyncValue.data(PaginatedComments(
+        comments: result.comments,
+        // Pages are counted in kCommentsPageSize; keep the next page aligned.
+        page: (result.comments.length / kCommentsPageSize).ceil().clamp(1, 1 << 30),
+        hasMore: result.comments.length < result.total,
+        total: result.total,
+      ));
+    } catch (_) {
+      // Keep the thread already on screen.
+    }
+  }
 
   Future<void> loadMore() async {
     final current = state.valueOrNull;
