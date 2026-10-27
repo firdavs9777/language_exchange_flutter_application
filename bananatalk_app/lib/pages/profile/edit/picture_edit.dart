@@ -151,14 +151,20 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit>
 
     if (!mounted) return;
     setState(() {
+      if (result.imageUrls != null && result.imageUrls!.isNotEmpty) {
+        _existingImageUrls = result.imageUrls!;
+      }
       if (result.success) {
-        if (result.imageUrls != null && result.imageUrls!.isNotEmpty) {
-          _existingImageUrls = result.imageUrls!;
-        }
         _selectedImages.clear();
+      } else if (result.uploadedCount > 0) {
+        // An earlier batch landed: keep only what is still to upload.
+        _selectedImages.removeRange(0, result.uploadedCount);
       }
       _isUploading = false;
     });
+    if (!result.success && result.uploadedCount > 0) {
+      ref.invalidate(userProvider);
+    }
 
     if (result.success) {
       ref.invalidate(userProvider);

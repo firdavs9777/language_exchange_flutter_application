@@ -17,23 +17,40 @@ class PhotoUploadResult {
   /// Whether the operation completed without error.
   final bool success;
 
+  /// How many of the files passed to [PhotoUploadHandler.uploadPhotos] are
+  /// on the server. On a failure after an earlier batch landed, the caller
+  /// drops that many from its pending list so a retry does not upload them
+  /// twice.
+  final int uploadedCount;
+
   const PhotoUploadResult._({
     required this.success,
     required this.message,
     this.imageUrls,
+    this.uploadedCount = 0,
   });
 
   factory PhotoUploadResult.success({
     required String message,
     required List<String> imageUrls,
+    int uploadedCount = 0,
   }) => PhotoUploadResult._(
     success: true,
     message: message,
     imageUrls: imageUrls,
+    uploadedCount: uploadedCount,
   );
 
-  factory PhotoUploadResult.failure(String message) =>
-      PhotoUploadResult._(success: false, message: message);
+  factory PhotoUploadResult.failure(
+    String message, {
+    List<String>? imageUrls,
+    int uploadedCount = 0,
+  }) => PhotoUploadResult._(
+    success: false,
+    message: message,
+    imageUrls: imageUrls,
+    uploadedCount: uploadedCount,
+  );
 }
 
 /// Stateless utility for all photo HTTP operations:
@@ -74,12 +91,9 @@ class PhotoUploadHandler {
       return PhotoUploadResult.failure(noTokenMessage);
     }
 
-    final request = http.MultipartRequest(
-      'POST',
-      Uri.parse('${Endpoints.baseURL}auth/users/$userId/photos'),
-    );
-    request.headers['Authorization'] = 'Bearer $token';
-
+    // Check every file before sending any, so a bad 8th photo does not
+    // leave the first six uploaded.
+    final parts = <(File, String)>[];
     for (final imageFile in images) {
       final fileSize = await imageFile.length();
       if (fileSize > 10 * 1024 * 1024) {
@@ -93,11 +107,57 @@ class PhotoUploadHandler {
           '$unsupportedFormatPrefix: $extension',
         );
       }
+      parts.add((imageFile, mimeType));
+    }
 
+    // The server takes at most [maxPhotosPerRequest] files per request and
+    // rejects the whole request beyond that; the picker allows up to 10.
+    var uploaded = 0;
+    List<String>? urls;
+    var message = '';
+    for (var i = 0; i < parts.length; i += maxPhotosPerRequest) {
+      final batch = parts.sublist(
+        i,
+        (i + maxPhotosPerRequest).clamp(0, parts.length),
+      );
+      final result = await _sendBatch(token, batch, failedMessage);
+      if (!result.success) {
+        return PhotoUploadResult.failure(
+          result.message,
+          imageUrls: urls,
+          uploadedCount: uploaded,
+        );
+      }
+      uploaded += batch.length;
+      urls = result.imageUrls;
+      message = result.message;
+    }
+    return PhotoUploadResult.success(
+      message: parts.length > maxPhotosPerRequest ? '' : message,
+      imageUrls: urls ?? const [],
+      uploadedCount: uploaded,
+    );
+  }
+
+  /// Files the server's `POST /users/:id/photos` accepts in one request
+  /// (backend `uploadMultipleCompressed('photos', 6, …)`).
+  static const int maxPhotosPerRequest = 6;
+
+  Future<PhotoUploadResult> _sendBatch(
+    String token,
+    List<(File, String)> batch,
+    String failedMessage,
+  ) async {
+    final request = http.MultipartRequest(
+      'POST',
+      Uri.parse('${Endpoints.baseURL}auth/users/$userId/photos'),
+    );
+    request.headers['Authorization'] = 'Bearer $token';
+    for (final (file, mimeType) in batch) {
       request.files.add(
         await http.MultipartFile.fromPath(
           'photos',
-          imageFile.path,
+          file.path,
           contentType: MediaType.parse(mimeType),
         ),
       );
