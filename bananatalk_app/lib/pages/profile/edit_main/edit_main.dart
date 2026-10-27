@@ -38,7 +38,9 @@ class ProfileEdit extends ConsumerStatefulWidget {
     required this.gender,
     this.bio = '',
     this.topics = const [],
-    this.intents = const [],
+    // Required: a caller that left it out opened the screen with no intents,
+    // and the first chip tap then saved over everything stored.
+    required this.intents,
     this.languageLevel,
   });
 
@@ -59,6 +61,8 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
   late String selectedBio;
   late List<String> selectedTopics;
   late List<String> selectedIntents;
+  /// The last intents the server confirmed; a failed save rolls back here.
+  late List<String> _savedIntents;
   late String? selectedLanguageLevel;
 
   @override
@@ -79,6 +83,7 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
     selectedBio = widget.bio.isEmpty ? notSet : widget.bio;
     selectedTopics = List.from(widget.topics);
     selectedIntents = List.from(widget.intents);
+    _savedIntents = List.from(widget.intents);
     selectedLanguageLevel = widget.languageLevel;
   }
 
@@ -123,11 +128,12 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
       final saved = await ref.read(authServiceProvider).updateUserIntents(
         intents: intents,
       );
+      _savedIntents = List.from(saved.intents);
       if (mounted) setState(() => selectedIntents = List.from(saved.intents));
     } catch (e) {
       if (!mounted) return;
       // Roll back rather than leave a chip showing a state the server rejected.
-      setState(() => selectedIntents = List.from(widget.intents));
+      setState(() => selectedIntents = List.from(_savedIntents));
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(friendlyErrorMessage(AppLocalizations.of(context)!, e))),
       );

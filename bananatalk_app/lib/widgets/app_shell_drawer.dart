@@ -130,6 +130,7 @@ class AppShellDrawer extends ConsumerWidget {
                       gender: user.gender,
                       bio: user.bio,
                       topics: user.topics,
+                      intents: user.intents,
                       languageLevel: user.languageLevel,
                     ),
                   ),
