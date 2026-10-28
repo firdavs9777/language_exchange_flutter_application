@@ -68,6 +68,7 @@ import 'package:bananatalk_app/services/activation_store.dart';
 import 'package:bananatalk_app/services/guide_store.dart';
 import 'package:bananatalk_app/services/launch_modal_coordinator.dart';
 import 'package:bananatalk_app/services/version_check_coordinator.dart';
+import 'package:bananatalk_app/providers/provider_root/clubs_v2_provider.dart';
 
 /// Every Riverpod provider whose state belongs to the signed-in user, keyed
 /// by its declared name (the key is what `session_reset_test.dart` checks
@@ -86,6 +87,8 @@ final Map<String, ProviderOrFamily> userScopedProviders = {
   // Auth + profile
   'authServiceProvider': authServiceProvider,
   'userProvider': userProvider,
+  // Clubs v2 access is decided per user
+  'clubsV2AccessProvider': clubsV2AccessProvider,
   // Calls list: the unseen-missed badge belongs to the account
   'callHistoryServiceProvider': callHistoryServiceProvider,
   'missedCallsProvider': missedCallsProvider,
@@ -271,6 +274,7 @@ const Set<String> kAppScopedProviderNames = {
   'themeProvider', // device appearance
   'languageProvider', // app UI language
   'apiClientProvider', // ApiClient() singleton; its token cache is cleared
+  'clubsV2ApiProvider', // stateless GatheringApiClient over that singleton
   'globalErrorProvider', // the session-expiry plumbing itself
   'callProvider', // wired to the socket once in MyApp; an active call is
   // ended by AuthService.onSessionEnding instead
