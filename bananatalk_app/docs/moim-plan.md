@@ -249,7 +249,30 @@ App (`lib/pages/community/gatherings/`)
 - Create flow: "Create a club" first; "Schedule" lives inside the club.
 - Copy: purpose line from §1 in the header and empty states; all locales.
 
-Done when: a new user can find a club in their language, join in one tap, and see its next 정모 in under 30 seconds.
+**First-visit explainer (added 2026-10-28).** Everyone opening Clubs for the first time is told what it is.
+- **When:** on each user's first visit to Clubs, *whatever their account age*. The existing guide system
+  (`GuideSurface` in `lib/services/guide_store.dart`, `GuideCard` / `PageGuide`) only shows during the first 7 days
+  after signup and stops after 3 activation actions; Clubs is new to existing users too, so its surface needs
+  its own rule: shown until the user joins a club or RSVPs, or taps ✕, with at most 3 showings. It is an inline
+  card at the top of 찾기, not a pop-up, so it never competes with the launch pop-up (`PopupBudget`).
+- **What it says** (EN / KO, all locales):
+  - Title: "Meet people who speak your target language" / "내가 배우는 언어를 쓰는 사람들과 만나요"
+  - **Clubs:** "Join a club to see the same people every week. Each club has a language pair and its own rules."
+    / "모임에 가입하면 매주 같은 사람들을 만나요. 모임마다 언어 짝과 규칙이 있어요."
+  - **Gatherings:** "Or just come once: RSVP to an open gathering, no joining needed."
+    / "가입 없이 한 번만 와도 돼요. 열린 모임에 참석 신청하세요."
+  - **Safety:** "Offline meetups are at public places; the exact spot is shared only with people going."
+    / "오프라인 모임은 공개된 장소에서 해요. 정확한 장소는 참석자에게만 알려줘요."
+  - Buttons: "Find a club" (scrolls to clubs in my language) · "This week's gatherings" (scrolls to 이번 주 일정).
+- **Later visits:** a small "?" in the Clubs header reopens the same explainer as a sheet, any time.
+- **First time creating:** [+] asks "Club or gathering?" with one line each ("A group that meets again and
+  again" / "One meetup, once"), so hosts pick the right one.
+- **First time joining a club:** the club's rules show before the Join button, and joining means agreeing to them
+  (Phase 2). **First time going to an offline event:** a short "How offline meetups work" note (approval, place
+  shown the day before, QR check-in, report).
+- Analytics: `guide_shown {surface: clubs}`, `guide_cta_tapped {target}`, retired by `club_joined` / `gathering_rsvp`.
+
+Done when: a new user can find a club in their language, join in one tap, and see its next 정모 in under 30 seconds. A first-time visitor sees the explainer, and an account older than 7 days sees it too.
 
 ### Phase 6: Seed and launch (runs alongside Phases 2–5)
 
@@ -348,3 +371,5 @@ Phase 6  seed 3–5 clubs + growth hooks (starts with Phase 2, runs alongside)
     remove** (nothing automatic). Instant removal for serious cases is allowed and reported to admin (Phase 2).
 13. Clubs vs. gatherings? **Both kinds of gathering**: club gatherings (members only) and open gatherings
     (anyone can RSVP, no club); open gatherings lead into clubs. See §1.
+14. First visit? **An explainer card on everyone's first visit to Clubs** (clubs vs. gatherings, safety), a "?"
+    to reopen it, a "Club or gathering?" choice on create, rules before joining (Phase 5).
