@@ -12610,4 +12610,16 @@ class AppLocalizationsAr extends AppLocalizations {
   String clubYourWarnings(int count) {
     return 'لديك $count من 3 تحذيرات في هذا النادي.';
   }
+
+  @override
+  String get clubChat => 'الدردشة';
+
+  @override
+  String get clubChatFailed => 'تعذّر فتح الدردشة.';
+
+  @override
+  String get clubNoticeTitle => 'إعلان';
+
+  @override
+  String get clubNoticeLabel => 'إعلان للأعضاء (اختياري)';
 }

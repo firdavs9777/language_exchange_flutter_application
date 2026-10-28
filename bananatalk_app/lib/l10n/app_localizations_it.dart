@@ -12535,4 +12535,16 @@ class AppLocalizationsIt extends AppLocalizations {
   String clubYourWarnings(int count) {
     return 'Hai $count avvisi su 3 in questo club.';
   }
+
+  @override
+  String get clubChat => 'Chat';
+
+  @override
+  String get clubChatFailed => 'Impossibile aprire la chat.';
+
+  @override
+  String get clubNoticeTitle => 'Avviso';
+
+  @override
+  String get clubNoticeLabel => 'Avviso per i membri (facoltativo)';
 }

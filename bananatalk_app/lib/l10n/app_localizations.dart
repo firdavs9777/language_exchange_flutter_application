@@ -22741,6 +22741,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You have {count} of 3 warnings in this club.'**
   String clubYourWarnings(int count);
+
+  /// Clubs v2: button on the club page that opens the club members-only chat
+  ///
+  /// In en, this message translates to:
+  /// **'Chat'**
+  String get clubChat;
+
+  /// Clubs v2: snackbar when the club chat could not be opened
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t open the chat.'**
+  String get clubChatFailed;
+
+  /// Clubs v2: label above the organizers notice (공지) on the club page and in its chat
+  ///
+  /// In en, this message translates to:
+  /// **'Notice'**
+  String get clubNoticeTitle;
+
+  /// Clubs v2: field in the club edit sheet for the organizers notice
+  ///
+  /// In en, this message translates to:
+  /// **'Notice for members (optional)'**
+  String get clubNoticeLabel;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

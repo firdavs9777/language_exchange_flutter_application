@@ -12493,4 +12493,16 @@ class AppLocalizationsVi extends AppLocalizations {
   String clubYourWarnings(int count) {
     return 'Bạn đã bị cảnh cáo $count/3 lần trong câu lạc bộ này.';
   }
+
+  @override
+  String get clubChat => 'Trò chuyện';
+
+  @override
+  String get clubChatFailed => 'Không mở được cuộc trò chuyện.';
+
+  @override
+  String get clubNoticeTitle => 'Thông báo';
+
+  @override
+  String get clubNoticeLabel => 'Thông báo cho thành viên (không bắt buộc)';
 }

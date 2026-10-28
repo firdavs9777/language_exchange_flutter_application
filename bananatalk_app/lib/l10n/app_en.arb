@@ -8573,5 +8573,21 @@
         "type": "int"
       }
     }
+  },
+  "clubChat": "Chat",
+  "@clubChat": {
+    "description": "Clubs v2: button on the club page that opens the club members-only chat"
+  },
+  "clubChatFailed": "Couldn't open the chat.",
+  "@clubChatFailed": {
+    "description": "Clubs v2: snackbar when the club chat could not be opened"
+  },
+  "clubNoticeTitle": "Notice",
+  "@clubNoticeTitle": {
+    "description": "Clubs v2: label above the organizers notice (공지) on the club page and in its chat"
+  },
+  "clubNoticeLabel": "Notice for members (optional)",
+  "@clubNoticeLabel": {
+    "description": "Clubs v2: field in the club edit sheet for the organizers notice"
   }
 }

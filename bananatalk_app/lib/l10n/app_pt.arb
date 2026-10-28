@@ -4758,5 +4758,9 @@
   "clubRemoveNow": "Remover agora (grave)",
   "clubRemoveReasonTitle": "Por que você está removendo {name}?",
   "clubRemoveReasonHint": "Motivo (enviado à equipe do BananaTalk)",
-  "clubYourWarnings": "Você tem {count} de 3 avisos neste clube."
+  "clubYourWarnings": "Você tem {count} de 3 avisos neste clube.",
+  "clubChat": "Chat",
+  "clubChatFailed": "Não foi possível abrir o chat.",
+  "clubNoticeTitle": "Aviso",
+  "clubNoticeLabel": "Aviso para membros (opcional)"
 }

@@ -12516,4 +12516,16 @@ class AppLocalizationsTl extends AppLocalizations {
   String clubYourWarnings(int count) {
     return 'May $count ka sa 3 babala sa club na ito.';
   }
+
+  @override
+  String get clubChat => 'Chat';
+
+  @override
+  String get clubChatFailed => 'Hindi mabuksan ang chat.';
+
+  @override
+  String get clubNoticeTitle => 'Paalala';
+
+  @override
+  String get clubNoticeLabel => 'Paalala sa mga miyembro (opsyonal)';
 }

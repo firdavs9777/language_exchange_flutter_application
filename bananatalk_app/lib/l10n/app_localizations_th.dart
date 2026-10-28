@@ -12493,4 +12493,16 @@ class AppLocalizationsTh extends AppLocalizations {
   String clubYourWarnings(int count) {
     return 'คุณได้รับคำเตือน $count จาก 3 ครั้งในคลับนี้';
   }
+
+  @override
+  String get clubChat => 'แชท';
+
+  @override
+  String get clubChatFailed => 'เปิดแชทไม่สำเร็จ';
+
+  @override
+  String get clubNoticeTitle => 'ประกาศ';
+
+  @override
+  String get clubNoticeLabel => 'ประกาศถึงสมาชิก (ไม่บังคับ)';
 }

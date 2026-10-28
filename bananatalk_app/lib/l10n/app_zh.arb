@@ -4756,5 +4756,9 @@
   "clubRemoveNow": "立即移出（严重情况）",
   "clubRemoveReasonTitle": "为什么要移出 {name}？",
   "clubRemoveReasonHint": "原因（将发送给 BananaTalk 团队）",
-  "clubYourWarnings": "你在本俱乐部已收到 {count} 次警告（共 3 次）。"
+  "clubYourWarnings": "你在本俱乐部已收到 {count} 次警告（共 3 次）。",
+  "clubChat": "聊天",
+  "clubChatFailed": "无法打开聊天。",
+  "clubNoticeTitle": "公告",
+  "clubNoticeLabel": "给成员的公告（可选）"
 }

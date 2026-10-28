@@ -4758,5 +4758,9 @@
   "clubRemoveNow": "तुरंत हटाएँ (गंभीर)",
   "clubRemoveReasonTitle": "आप {name} को क्यों हटा रहे हैं?",
   "clubRemoveReasonHint": "कारण (BananaTalk टीम को भेजा जाएगा)",
-  "clubYourWarnings": "इस क्लब में आपको 3 में से {count} चेतावनियाँ मिली हैं।"
+  "clubYourWarnings": "इस क्लब में आपको 3 में से {count} चेतावनियाँ मिली हैं।",
+  "clubChat": "चैट",
+  "clubChatFailed": "चैट नहीं खुल सकी।",
+  "clubNoticeTitle": "सूचना",
+  "clubNoticeLabel": "सदस्यों के लिए सूचना (वैकल्पिक)"
 }

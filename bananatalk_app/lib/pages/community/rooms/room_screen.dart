@@ -23,6 +23,7 @@ import 'package:bananatalk_app/services/chat_socket_service.dart';
 import 'package:bananatalk_app/services/report_service.dart';
 import 'package:bananatalk_app/utils/haptic_utils.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/pages/community/rooms/club_notice_banner.dart';
 
 /// Hub chat screen — Workstream D (Task 10 + Task 11).
 ///
@@ -663,7 +664,9 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
                     _openMembers();
                   },
                 ),
-              if (_room.isOwnerOrAdmin)
+              // A club's chat takes its name and members from the club, so
+              // it is edited, joined and left there, not here.
+              if (_room.isOwnerOrAdmin && !_room.isClubRoom)
                 ListTile(
                   key: const Key('room-info-edit'),
                   contentPadding: EdgeInsets.zero,
@@ -674,7 +677,9 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
                     _editRoom();
                   },
                 ),
-              if (_showJoinBar)
+              if (_room.isClubRoom)
+                const SizedBox.shrink()
+              else if (_showJoinBar)
                 ListTile(
                   contentPadding: EdgeInsets.zero,
                   leading: const Icon(Icons.login_rounded),
@@ -930,6 +935,7 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
       ),
       body: Column(
         children: [
+          if (_room.isClubRoom) ClubNoticeBanner(notice: _room.clubNotice),
           if (_dailyPrompt != null) _DailyPromptCard(message: _dailyPrompt!),
           Expanded(
             child: ChatMessagesList(

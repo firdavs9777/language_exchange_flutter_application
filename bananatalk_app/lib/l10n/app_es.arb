@@ -4772,5 +4772,9 @@
   "clubRemoveNow": "Expulsar ya (grave)",
   "clubRemoveReasonTitle": "¿Por qué expulsas a {name}?",
   "clubRemoveReasonHint": "Motivo (se envía al equipo de BananaTalk)",
-  "clubYourWarnings": "Tienes {count} de 3 advertencias en este club."
+  "clubYourWarnings": "Tienes {count} de 3 advertencias en este club.",
+  "clubChat": "Chat",
+  "clubChatFailed": "No se pudo abrir el chat.",
+  "clubNoticeTitle": "Aviso",
+  "clubNoticeLabel": "Aviso para miembros (opcional)"
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/community/gathering_model.dart';
 import 'package:bananatalk_app/services/gathering_api_client.dart';
@@ -15,6 +16,7 @@ import 'package:bananatalk_app/pages/community/gatherings/club_people_section.da
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/pages/community/gatherings/club_rules.dart';
 import 'package:bananatalk_app/pages/community/gatherings/club_warn_sheet.dart';
+import 'package:bananatalk_app/pages/community/rooms/club_notice_banner.dart';
 import 'package:bananatalk_app/providers/provider_root/clubs_v2_provider.dart';
 import 'package:bananatalk_app/pages/community/gatherings/group_cover.dart';
 import 'package:bananatalk_app/pages/community/gatherings/group_cover_picker.dart';
@@ -29,10 +31,18 @@ import 'package:image_picker/image_picker.dart';
 /// week, whereas an event list resets to empty after every event and reads as
 /// abandoned.
 class ClubDetailScreen extends ConsumerStatefulWidget {
-  const ClubDetailScreen({super.key, required this.clubId, this.apiClient});
+  const ClubDetailScreen({
+    super.key,
+    required this.clubId,
+    this.apiClient,
+    this.openRoom,
+  });
 
   final String clubId;
   final GatheringApiClient? apiClient;
+
+  /// Opens a room by id; defaults to the `/room/:id` route. Tests pass their own.
+  final void Function(BuildContext context, String roomId)? openRoom;
 
   @override
   ConsumerState<ClubDetailScreen> createState() => _ClubDetailScreenState();
@@ -81,16 +91,20 @@ class _ClubDetailScreenState extends ConsumerState<ClubDetailScreen> {
           ? club.secondLanguageLabel
           : (club.secondLanguage ?? ''),
     );
+    final notice = TextEditingController(text: club.notice);
     _editedRules = club.rules;
     final l10n = AppLocalizations.of(context)!;
-    final controllers = [name, description, interest, city, placeName, secondLanguage];
+    final controllers = [name, description, interest, city, placeName, secondLanguage, notice];
 
     try {
       await _editClubSheet(club, l10n, name, description, interest, city,
-          placeName, secondLanguage);
+          placeName, secondLanguage, notice);
     } finally {
       // Every exit path disposes: the sheet is rebuilt from scratch on each
       // open, so leaving these alive leaked five ChangeNotifiers per edit.
+      // After the sheet's close animation, though: a save that answers
+      // before it ends would otherwise dispose fields still on screen.
+      await Future<void>.delayed(const Duration(milliseconds: 400));
       for (final c in controllers) {
         c.dispose();
       }
@@ -106,6 +120,7 @@ class _ClubDetailScreenState extends ConsumerState<ClubDetailScreen> {
     TextEditingController city,
     TextEditingController placeName,
     TextEditingController secondLanguage,
+    TextEditingController notice,
   ) async {
     final clubsV2 = ref.read(clubsV2AccessProvider).valueOrNull ?? false;
     final saved = await showModalBottomSheet<bool>(
@@ -166,6 +181,14 @@ class _ClubDetailScreenState extends ConsumerState<ClubDetailScreen> {
               if (clubsV2) ...[
                 const SizedBox(height: 12),
                 TextField(
+                  key: const Key('club-edit-notice'),
+                  controller: notice,
+                  maxLength: 500,
+                  maxLines: 3,
+                  decoration: InputDecoration(labelText: l10n.clubNoticeLabel),
+                ),
+                const SizedBox(height: 12),
+                TextField(
                   key: const Key('club-edit-second-language'),
                   controller: secondLanguage,
                   decoration:
@@ -207,6 +230,7 @@ class _ClubDetailScreenState extends ConsumerState<ClubDetailScreen> {
       // An empty second language clears the pair on the server.
       secondLanguage: clubsV2 ? secondLanguage.text.trim() : null,
       rules: clubsV2 ? _editedRules : null,
+      notice: clubsV2 ? notice.text.trim() : null,
     );
     if (!mounted) return;
     setState(() {
@@ -332,6 +356,23 @@ class _ClubDetailScreenState extends ConsumerState<ClubDetailScreen> {
     if (!result.success) {
       showCommunitySnackBar(context, message: AppLocalizations.of(context)!.clubMemberUpdateFailed);
     }
+  }
+
+  /// Clubs v2: open the club's members-only chat (created on first open).
+  Future<void> _openChat(Club club) async {
+    if (_busy) return;
+    setState(() => _busy = true);
+    final roomId = await _api.getClubChatRoomId(club.id);
+    if (!mounted) return;
+    setState(() => _busy = false);
+    if (roomId == null) {
+      showCommunitySnackBar(context,
+          message: AppLocalizations.of(context)!.clubChatFailed,
+          type: CommunitySnackBarType.error);
+      return;
+    }
+    final open = widget.openRoom ?? (c, id) => c.push('/room/$id');
+    open(context, roomId);
   }
 
   /// Clubs v2: warn [member]. At the third warning the host is asked whether
@@ -632,6 +673,8 @@ class _ClubDetailScreenState extends ConsumerState<ClubDetailScreen> {
                   Spacing.gapMD,
                   Text(club.description, style: context.bodyMedium),
                 ],
+                if (_clubsV2 && club.notice.isNotEmpty)
+                  ClubNoticeBanner(key: const Key('club-notice'), notice: club.notice),
                 // Where it meets and how often it actually has. Both were
                 // stored on the server model since it was written and never
                 // sent, so a club that meets every Saturday in Hapjeong looked
@@ -683,6 +726,18 @@ class _ClubDetailScreenState extends ConsumerState<ClubDetailScreen> {
                   ClubRulesList(rules: club.rules),
                 ],
                 Spacing.gapLG,
+                if (_clubsV2 && club.viewerIsMember) ...[
+                  SizedBox(
+                    width: double.infinity,
+                    child: FilledButton.tonalIcon(
+                      key: const Key('club-chat'),
+                      onPressed: _busy ? null : () => _openChat(club),
+                      icon: const Icon(Icons.forum_rounded),
+                      label: Text(AppLocalizations.of(context)!.clubChat),
+                    ),
+                  ),
+                  Spacing.gapSM,
+                ],
                 if (!club.viewerIsOwner)
                   SizedBox(
                     width: double.infinity,

@@ -4742,5 +4742,9 @@
   "clubRemoveNow": "すぐに退会させる（重大な場合）",
   "clubRemoveReasonTitle": "{name}さんを退会させる理由は？",
   "clubRemoveReasonHint": "理由（BananaTalkチームに送られます）",
-  "clubYourWarnings": "このクラブで警告を3回中{count}回受けています。"
+  "clubYourWarnings": "このクラブで警告を3回中{count}回受けています。",
+  "clubChat": "チャット",
+  "clubChatFailed": "チャットを開けませんでした。",
+  "clubNoticeTitle": "お知らせ",
+  "clubNoticeLabel": "メンバーへのお知らせ（任意）"
 }

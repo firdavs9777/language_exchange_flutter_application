@@ -48,6 +48,12 @@ class Room {
   /// Last message or prompt in the room (`lastActivityAt`), or null.
   final DateTime? lastActivityAt;
 
+  /// Clubs v2: set when this room is a club's members-only chat.
+  final String? clubId;
+
+  /// Clubs v2: the club organizers' notice, shown atop the chat.
+  final String clubNotice;
+
   const Room({
     required this.id,
     required this.title,
@@ -65,10 +71,16 @@ class Room {
     this.hasPendingRequest = false,
     this.pendingRequestCount = 0,
     this.lastActivityAt,
+    this.clubId,
+    this.clubNotice = '',
   });
 
   /// True for user-created topic rooms (as opposed to backend-seeded hubs).
   bool get isTopicRoom => roomType == 'topic';
+
+  /// A club's chat: membership comes from the club, so the room offers no
+  /// join, leave or edit of its own.
+  bool get isClubRoom => roomType == 'club';
 
   factory Room.fromJson(Map<String, dynamic> json) {
     return Room(
@@ -92,6 +104,8 @@ class Room {
       lastActivityAt: json['lastActivityAt'] == null
           ? null
           : DateTime.tryParse(json['lastActivityAt'].toString()),
+      clubId: json['clubId']?.toString(),
+      clubNotice: json['clubNotice']?.toString() ?? '',
     );
   }
 
@@ -129,6 +143,8 @@ class Room {
       hasPendingRequest: hasPendingRequest ?? this.hasPendingRequest,
       pendingRequestCount: pendingRequestCount ?? this.pendingRequestCount,
       lastActivityAt: lastActivityAt,
+      clubId: clubId,
+      clubNotice: clubNotice,
     );
   }
 

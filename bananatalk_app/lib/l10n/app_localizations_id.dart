@@ -12504,4 +12504,16 @@ class AppLocalizationsId extends AppLocalizations {
   String clubYourWarnings(int count) {
     return 'Kamu punya $count dari 3 peringatan di klub ini.';
   }
+
+  @override
+  String get clubChat => 'Obrolan';
+
+  @override
+  String get clubChatFailed => 'Obrolan gagal dibuka.';
+
+  @override
+  String get clubNoticeTitle => 'Pengumuman';
+
+  @override
+  String get clubNoticeLabel => 'Pengumuman untuk anggota (opsional)';
 }

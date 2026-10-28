@@ -12493,6 +12493,18 @@ class AppLocalizationsZh extends AppLocalizations {
   String clubYourWarnings(int count) {
     return '你在本俱乐部已收到 $count 次警告（共 3 次）。';
   }
+
+  @override
+  String get clubChat => '聊天';
+
+  @override
+  String get clubChatFailed => '无法打开聊天。';
+
+  @override
+  String get clubNoticeTitle => '公告';
+
+  @override
+  String get clubNoticeLabel => '给成员的公告（可选）';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -24984,4 +24996,16 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String clubYourWarnings(int count) {
     return '你在本俱樂部已收到 $count 次警告（共 3 次）。';
   }
+
+  @override
+  String get clubChat => '聊天';
+
+  @override
+  String get clubChatFailed => '無法開啟聊天。';
+
+  @override
+  String get clubNoticeTitle => '公告';
+
+  @override
+  String get clubNoticeLabel => '給成員的公告（選填）';
 }

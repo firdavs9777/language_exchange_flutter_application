@@ -4742,5 +4742,9 @@
   "clubRemoveNow": "Keluarkan sekarang (serius)",
   "clubRemoveReasonTitle": "Kenapa kamu mengeluarkan {name}?",
   "clubRemoveReasonHint": "Alasan (dikirim ke tim BananaTalk)",
-  "clubYourWarnings": "Kamu punya {count} dari 3 peringatan di klub ini."
+  "clubYourWarnings": "Kamu punya {count} dari 3 peringatan di klub ini.",
+  "clubChat": "Obrolan",
+  "clubChatFailed": "Obrolan gagal dibuka.",
+  "clubNoticeTitle": "Pengumuman",
+  "clubNoticeLabel": "Pengumuman untuk anggota (opsional)"
 }

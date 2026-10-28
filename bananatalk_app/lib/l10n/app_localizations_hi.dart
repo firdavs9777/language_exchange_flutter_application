@@ -12523,4 +12523,16 @@ class AppLocalizationsHi extends AppLocalizations {
   String clubYourWarnings(int count) {
     return 'इस क्लब में आपको 3 में से $count चेतावनियाँ मिली हैं।';
   }
+
+  @override
+  String get clubChat => 'चैट';
+
+  @override
+  String get clubChatFailed => 'चैट नहीं खुल सकी।';
+
+  @override
+  String get clubNoticeTitle => 'सूचना';
+
+  @override
+  String get clubNoticeLabel => 'सदस्यों के लिए सूचना (वैकल्पिक)';
 }

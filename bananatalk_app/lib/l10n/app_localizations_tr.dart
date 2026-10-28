@@ -12511,4 +12511,16 @@ class AppLocalizationsTr extends AppLocalizations {
   String clubYourWarnings(int count) {
     return 'Bu kulüpte 3 uyarıdan $count tanesini aldın.';
   }
+
+  @override
+  String get clubChat => 'Sohbet';
+
+  @override
+  String get clubChatFailed => 'Sohbet açılamadı.';
+
+  @override
+  String get clubNoticeTitle => 'Duyuru';
+
+  @override
+  String get clubNoticeLabel => 'Üyelere duyuru (isteğe bağlı)';
 }

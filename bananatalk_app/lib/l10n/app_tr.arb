@@ -4954,5 +4954,9 @@
   "clubRemoveNow": "Hemen çıkar (ciddi)",
   "clubRemoveReasonTitle": "{name} kişisini neden çıkarıyorsun?",
   "clubRemoveReasonHint": "Neden (BananaTalk ekibine gönderilir)",
-  "clubYourWarnings": "Bu kulüpte 3 uyarıdan {count} tanesini aldın."
+  "clubYourWarnings": "Bu kulüpte 3 uyarıdan {count} tanesini aldın.",
+  "clubChat": "Sohbet",
+  "clubChatFailed": "Sohbet açılamadı.",
+  "clubNoticeTitle": "Duyuru",
+  "clubNoticeLabel": "Üyelere duyuru (isteğe bağlı)"
 }

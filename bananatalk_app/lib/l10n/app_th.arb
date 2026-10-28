@@ -4742,5 +4742,9 @@
   "clubRemoveNow": "นำออกทันที (กรณีร้ายแรง)",
   "clubRemoveReasonTitle": "ทำไมคุณถึงนำ {name} ออก",
   "clubRemoveReasonHint": "เหตุผล (ส่งถึงทีม BananaTalk)",
-  "clubYourWarnings": "คุณได้รับคำเตือน {count} จาก 3 ครั้งในคลับนี้"
+  "clubYourWarnings": "คุณได้รับคำเตือน {count} จาก 3 ครั้งในคลับนี้",
+  "clubChat": "แชท",
+  "clubChatFailed": "เปิดแชทไม่สำเร็จ",
+  "clubNoticeTitle": "ประกาศ",
+  "clubNoticeLabel": "ประกาศถึงสมาชิก (ไม่บังคับ)"
 }

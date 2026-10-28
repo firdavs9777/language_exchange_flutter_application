@@ -4235,5 +4235,9 @@
   "clubRemoveNow": "Ҳозир хориҷ кардан (ҷиддӣ)",
   "clubRemoveReasonTitle": "Чаро {name}-ро хориҷ мекунед?",
   "clubRemoveReasonHint": "Сабаб (ба дастаи BananaTalk фиристода мешавад)",
-  "clubYourWarnings": "Шумо дар ин клуб {count} аз 3 огоҳӣ доред."
+  "clubYourWarnings": "Шумо дар ин клуб {count} аз 3 огоҳӣ доред.",
+  "clubChat": "Чат",
+  "clubChatFailed": "Чат кушода нашуд.",
+  "clubNoticeTitle": "Эълон",
+  "clubNoticeLabel": "Эълон барои аъзоён (ихтиёрӣ)"
 }

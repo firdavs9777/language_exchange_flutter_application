@@ -4982,5 +4982,9 @@
   "clubRemoveNow": "Sofort entfernen (schwerwiegend)",
   "clubRemoveReasonTitle": "Warum entfernst du {name}?",
   "clubRemoveReasonHint": "Grund (geht an das BananaTalk-Team)",
-  "clubYourWarnings": "Du hast {count} von 3 Verwarnungen in diesem Club."
+  "clubYourWarnings": "Du hast {count} von 3 Verwarnungen in diesem Club.",
+  "clubChat": "Chat",
+  "clubChatFailed": "Chat konnte nicht geöffnet werden.",
+  "clubNoticeTitle": "Hinweis",
+  "clubNoticeLabel": "Hinweis für Mitglieder (optional)"
 }

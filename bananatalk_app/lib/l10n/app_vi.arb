@@ -4742,5 +4742,9 @@
   "clubRemoveNow": "Xóa ngay (nghiêm trọng)",
   "clubRemoveReasonTitle": "Vì sao bạn xóa {name}?",
   "clubRemoveReasonHint": "Lý do (gửi tới đội ngũ BananaTalk)",
-  "clubYourWarnings": "Bạn đã bị cảnh cáo {count}/3 lần trong câu lạc bộ này."
+  "clubYourWarnings": "Bạn đã bị cảnh cáo {count}/3 lần trong câu lạc bộ này.",
+  "clubChat": "Trò chuyện",
+  "clubChatFailed": "Không mở được cuộc trò chuyện.",
+  "clubNoticeTitle": "Thông báo",
+  "clubNoticeLabel": "Thông báo cho thành viên (không bắt buộc)"
 }

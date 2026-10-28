@@ -12513,4 +12513,16 @@ class AppLocalizationsTg extends AppLocalizations {
   String clubYourWarnings(int count) {
     return 'Шумо дар ин клуб $count аз 3 огоҳӣ доред.';
   }
+
+  @override
+  String get clubChat => 'Чат';
+
+  @override
+  String get clubChatFailed => 'Чат кушода нашуд.';
+
+  @override
+  String get clubNoticeTitle => 'Эълон';
+
+  @override
+  String get clubNoticeLabel => 'Эълон барои аъзоён (ихтиёрӣ)';
 }

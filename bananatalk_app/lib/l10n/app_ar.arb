@@ -4772,5 +4772,9 @@
   "clubRemoveNow": "إزالة فورًا (حالة خطيرة)",
   "clubRemoveReasonTitle": "لماذا تزيل {name}؟",
   "clubRemoveReasonHint": "السبب (يُرسل إلى فريق BananaTalk)",
-  "clubYourWarnings": "لديك {count} من 3 تحذيرات في هذا النادي."
+  "clubYourWarnings": "لديك {count} من 3 تحذيرات في هذا النادي.",
+  "clubChat": "الدردشة",
+  "clubChatFailed": "تعذّر فتح الدردشة.",
+  "clubNoticeTitle": "إعلان",
+  "clubNoticeLabel": "إعلان للأعضاء (اختياري)"
 }

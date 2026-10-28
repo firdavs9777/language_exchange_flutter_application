@@ -4772,5 +4772,9 @@
   "clubRemoveNow": "Удалить сразу (серьёзное нарушение)",
   "clubRemoveReasonTitle": "Почему вы удаляете {name}?",
   "clubRemoveReasonHint": "Причина (будет отправлена команде BananaTalk)",
-  "clubYourWarnings": "У вас {count} из 3 предупреждений в этом клубе."
+  "clubYourWarnings": "У вас {count} из 3 предупреждений в этом клубе.",
+  "clubChat": "Чат",
+  "clubChatFailed": "Не удалось открыть чат.",
+  "clubNoticeTitle": "Объявление",
+  "clubNoticeLabel": "Объявление для участников (необязательно)"
 }

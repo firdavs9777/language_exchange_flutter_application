@@ -321,6 +321,21 @@ class GatheringApiClient {
     }
   }
 
+  /// GET /clubs/:id/chat — the club's members-only chat room id, created on
+  /// first use (clubs v2). Null on any failure.
+  Future<String?> getClubChatRoomId(String clubId) async {
+    try {
+      final response = await _apiClient.get('clubs/$clubId/chat');
+      final data = _mapOf(response.data);
+      if (!response.success || data == null) return null;
+      final id = data['roomId']?.toString();
+      return (id == null || id.isEmpty) ? null : id;
+    } catch (e) {
+      debugPrint('[GatheringApiClient] getClubChatRoomId error: $e');
+      return null;
+    }
+  }
+
   /// Only an explicit `clubsV2: true` grants access; a 404 (switch off, or a
   /// backend from before v2) or an unexpected body does not.
   static bool clubsV2AccessFrom(ApiResponse response) {
@@ -398,9 +413,11 @@ class GatheringApiClient {
     String? placeAddress,
     String? secondLanguage,
     List<String>? rules,
+    String? notice,
   }) async {
     try {
       final response = await _apiClient.put('clubs/$id', body: {
+        if (notice != null) 'notice': notice,
         if (secondLanguage != null) 'secondLanguage': secondLanguage,
         if (rules != null) 'rules': rules,
         if (name != null) 'name': name,

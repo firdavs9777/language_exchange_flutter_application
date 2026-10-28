@@ -12523,4 +12523,16 @@ class AppLocalizationsFr extends AppLocalizations {
   String clubYourWarnings(int count) {
     return 'Tu as $count avertissement(s) sur 3 dans ce club.';
   }
+
+  @override
+  String get clubChat => 'Discussion';
+
+  @override
+  String get clubChatFailed => 'Impossible d\'ouvrir la discussion.';
+
+  @override
+  String get clubNoticeTitle => 'Annonce';
+
+  @override
+  String get clubNoticeLabel => 'Annonce pour les membres (facultatif)';
 }

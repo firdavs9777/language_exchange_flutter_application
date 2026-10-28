@@ -4433,5 +4433,9 @@
   "clubRemoveNow": "立即移出（嚴重情況）",
   "clubRemoveReasonTitle": "為什麼要移出 {name}？",
   "clubRemoveReasonHint": "原因（將傳送給 BananaTalk 團隊）",
-  "clubYourWarnings": "你在本俱樂部已收到 {count} 次警告（共 3 次）。"
+  "clubYourWarnings": "你在本俱樂部已收到 {count} 次警告（共 3 次）。",
+  "clubChat": "聊天",
+  "clubChatFailed": "無法開啟聊天。",
+  "clubNoticeTitle": "公告",
+  "clubNoticeLabel": "給成員的公告（選填）"
 }

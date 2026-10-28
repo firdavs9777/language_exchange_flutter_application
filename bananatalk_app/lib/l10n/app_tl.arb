@@ -4715,5 +4715,9 @@
   "clubRemoveNow": "Alisin ngayon (seryoso)",
   "clubRemoveReasonTitle": "Bakit mo inaalis si {name}?",
   "clubRemoveReasonHint": "Dahilan (ipapadala sa BananaTalk team)",
-  "clubYourWarnings": "May {count} ka sa 3 babala sa club na ito."
+  "clubYourWarnings": "May {count} ka sa 3 babala sa club na ito.",
+  "clubChat": "Chat",
+  "clubChatFailed": "Hindi mabuksan ang chat.",
+  "clubNoticeTitle": "Paalala",
+  "clubNoticeLabel": "Paalala sa mga miyembro (opsyonal)"
 }

@@ -12493,4 +12493,16 @@ class AppLocalizationsKo extends AppLocalizations {
   String clubYourWarnings(int count) {
     return '이 클럽에서 경고 3번 중 $count번을 받았어요.';
   }
+
+  @override
+  String get clubChat => '채팅';
+
+  @override
+  String get clubChatFailed => '채팅을 열지 못했어요.';
+
+  @override
+  String get clubNoticeTitle => '공지';
+
+  @override
+  String get clubNoticeLabel => '멤버 공지 (선택)';
 }

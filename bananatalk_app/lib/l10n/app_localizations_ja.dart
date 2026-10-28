@@ -12493,4 +12493,16 @@ class AppLocalizationsJa extends AppLocalizations {
   String clubYourWarnings(int count) {
     return 'このクラブで警告を3回中$count回受けています。';
   }
+
+  @override
+  String get clubChat => 'チャット';
+
+  @override
+  String get clubChatFailed => 'チャットを開けませんでした。';
+
+  @override
+  String get clubNoticeTitle => 'お知らせ';
+
+  @override
+  String get clubNoticeLabel => 'メンバーへのお知らせ（任意）';
 }

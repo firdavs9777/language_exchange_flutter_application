@@ -4982,5 +4982,9 @@
   "clubRemoveNow": "Retirer maintenant (grave)",
   "clubRemoveReasonTitle": "Pourquoi retires-tu {name} ?",
   "clubRemoveReasonHint": "Raison (envoyée à l'équipe BananaTalk)",
-  "clubYourWarnings": "Tu as {count} avertissement(s) sur 3 dans ce club."
+  "clubYourWarnings": "Tu as {count} avertissement(s) sur 3 dans ce club.",
+  "clubChat": "Discussion",
+  "clubChatFailed": "Impossible d'ouvrir la discussion.",
+  "clubNoticeTitle": "Annonce",
+  "clubNoticeLabel": "Annonce pour les membres (facultatif)"
 }

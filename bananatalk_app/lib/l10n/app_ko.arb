@@ -4763,5 +4763,9 @@
   "clubRemoveNow": "바로 내보내기 (심각한 경우)",
   "clubRemoveReasonTitle": "{name}님을 내보내는 이유는요?",
   "clubRemoveReasonHint": "이유 (BananaTalk 팀에 전달돼요)",
-  "clubYourWarnings": "이 클럽에서 경고 3번 중 {count}번을 받았어요."
+  "clubYourWarnings": "이 클럽에서 경고 3번 중 {count}번을 받았어요.",
+  "clubChat": "채팅",
+  "clubChatFailed": "채팅을 열지 못했어요.",
+  "clubNoticeTitle": "공지",
+  "clubNoticeLabel": "멤버 공지 (선택)"
 }

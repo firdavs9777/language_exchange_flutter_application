@@ -875,6 +875,13 @@ const Map<String, List<String>> _keysByTask = {
     'dailyReminderTime',
   ],
   // Clubs v2 slice 1 (2026-10-28): club rules, the language pair, warnings.
+  // Clubs v2 slice 2 (2026-10-28): club chat + notice.
+  'clubs-v2-chat': [
+    'clubChat',
+    'clubChatFailed',
+    'clubNoticeTitle',
+    'clubNoticeLabel',
+  ],
   'clubs-v2': [
     'clubRulesTitle',
     'clubRuleRespect',
@@ -1224,12 +1231,16 @@ const Map<String, List<String>> _filesByTask = {
     'pages/community/gatherings/club_warn_sheet.dart',
     'pages/community/gatherings/club_people_section.dart',
   ],
+  'clubs-v2-chat': [
+    'pages/community/rooms/club_notice_banner.dart',
+  ],
 };
 
 /// Keys whose draft may legitimately equal the English, per locale (loanwords,
 /// units, badges). Add `key: {locales}` with a one-line reason. Per-locale so a
 /// translation skipped in some other locale is still caught.
 const Map<String, Set<String>> _mayMatchEnglish = {
+  'clubChat': {'de', 'es', 'it', 'pt', 'tl'}, // "Chat" is the word used in these languages
   'commonReportTotalSize': {'es', 'id', 'pt'}, // es/pt/id: "Total" is the same word
   'commonReportTypeUser': {'tl'}, // tl keeps the loanword "user"
   'commonReportTypeStory': {'fr', 'pt', 'tl', 'vi'}, // fr/pt/tl/vi keep the loanword "story"

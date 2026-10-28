@@ -361,6 +361,9 @@ class Club {
   /// Clubs v2: the viewer's own warnings in this club (detail only).
   final int viewerWarningCount;
 
+  /// Clubs v2: the organizers' notice (공지), shown on the page and atop the chat.
+  final String notice;
+
   /// Free text: "running", "cycling", "HSK4", "K-pop". The thing that makes a
   /// club a club rather than a language filter.
   final String interest;
@@ -412,6 +415,7 @@ class Club {
     this.secondLanguageLabel = '',
     this.rules = const [],
     this.viewerWarningCount = 0,
+    this.notice = '',
     this.interest = '',
     this.owner = const GatheringHost(),
     this.memberCount = 0,
@@ -450,6 +454,7 @@ class Club {
               .toList()
           : const [],
       viewerWarningCount: (json['viewerWarningCount'] as num?)?.toInt() ?? 0,
+      notice: sanitize(json['notice']),
       interest: sanitize(json['interest']),
       owner: GatheringHost.fromJson(json['owner']),
       memberCount: (json['memberCount'] as num?)?.toInt() ?? 0,
@@ -496,6 +501,7 @@ class Club {
       secondLanguageLabel: secondLanguageLabel,
       rules: rules,
       viewerWarningCount: viewerWarningCount,
+      notice: notice,
       interest: interest,
       owner: owner,
       memberCount: memberCount ?? this.memberCount,

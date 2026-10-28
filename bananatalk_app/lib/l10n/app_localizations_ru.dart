@@ -12989,4 +12989,16 @@ class AppLocalizationsRu extends AppLocalizations {
   String clubYourWarnings(int count) {
     return 'У вас $count из 3 предупреждений в этом клубе.';
   }
+
+  @override
+  String get clubChat => 'Чат';
+
+  @override
+  String get clubChatFailed => 'Не удалось открыть чат.';
+
+  @override
+  String get clubNoticeTitle => 'Объявление';
+
+  @override
+  String get clubNoticeLabel => 'Объявление для участников (необязательно)';
 }
