@@ -18,7 +18,30 @@ a 모임 (club) is the home, and 정모 / 번개 (gatherings) happen inside it, 
 
 What makes it different from 소모임 / 문토 / 당근 모임: every 모임 is built around **a language pair**
 (e.g. 한국어 ↔ English), so Koreans and foreigners meet to practise each other's languages.
-We do not compete as a general hobby app.
+A club can be about any activity (running, hiking, cooking, plain conversation), but it always sets a
+language pair too (decided 2026-10-28), e.g. "Hangang Running · 한국어 ↔ English". The activity is why people
+come; the language pair is why they come to BananaTalk and not a general hobby app.
+
+### How it works, in two examples
+
+**A weekly running club (offline).** You create "Hangang Running · 한국어 ↔ English" (offline, Seoul) and schedule
+a 정모 every Saturday 08:00; the app opens each next run itself. New members find the club in 찾기 (offline · area ·
+language) or through your invite link, ask to join, and you approve them after seeing their profile, languages and
+past attendance. Members RSVP; seats split by language side (4 + 4) with a waitlist per side. Reminders go out 24 h
+and 2 h before ("Can't come? Release your seat"); the exact meeting point shows only to people going, from the day
+before. On the day they check in with a QR code. Afterwards: "Who was there" with Message buttons, "Did you feel
+safe?", members post their run (photo, note, distance/time) to the club feed and optionally to Moments, and last
+week's runners get "Keep your seat?" for next Saturday.
+
+**An English conversation club (online).** The same, except anyone can join without approval (the host can turn it
+on), "Join now" opens a voice room at the start time, a timer switches English ↔ Korean halfway with topic cards
+to talk about, times show in each viewer's zone, and afterwards "Words from tonight" can be saved to AI Study.
+
+**Safety and security when looking at or joining a gathering:** 18+ only (profile birth date); people you blocked
+are hidden; offline events only at public places in pilot cities from approved hosts; the card shows only the area,
+the exact place only to confirmed attendees from the day before; host approval for every new member of an offline
+club; QR check-in; report on events and in club chat (offline reports first in the admin queue); "Did you feel
+safe?" after each offline event, two "no" answers pause the host. No ID check yet.
 
 ### Words we use (in the app and in the code comments)
 
@@ -123,7 +146,12 @@ This is what makes Korean 모임 apps sticky: people talk between meetups.
 - Notification setting per club: all / mentions and events only / off. Default: events only.
 - The daily first-message limit doesn't apply inside club chat; the existing one-to-one rules stay.
 
-Done when: members of a test club chat for a week and get event messages there.
+**Club feed for records (added 2026-10-28).** After an event, members post a photo + note, with optional
+distance / time / pace, to the club page; one toggle also shares it to Moments. Reuse the Moments composer and
+model with a `club` reference rather than a new post type; no fitness-app integration. Only members see the club
+feed of a private club; organizers can remove posts; reports and blocks as in Moments.
+
+Done when: members of a test club chat for a week and get event messages there, and post records after an event.
 
 ### Phase 3: 정모 (repeat) (≈ 1 week)
 
@@ -226,7 +254,7 @@ Free events often see 30–45% no-shows, so plan for **5+ RSVPs to get 3 people*
 
 | Defer | Why |
 |---|---|
-| Approval mode for joining events | Friction at low volume; keep the code, hide the toggle |
+| ~~Approval mode for joining events~~ | No longer deferred (2026-10-28): **required for offline clubs/events**, optional (off by default) for online. The host sees profile, languages and past attendance before approving. |
 | Full 9-topic list | Start with ~3 (conversation, culture, exam prep); clubs carry the interest now |
 | `level` filter | Too few events to filter; show level as a label only |
 | Paid 모임 / fees | Later, once people come back regularly |
@@ -274,3 +302,6 @@ Phase 6  seed 3–5 clubs + growth hooks (starts with Phase 2, runs alongside)
 7. Built-in 정모 format? **Yes, in Phase 1.**
 8. Also added: viewer-local times and no-show tools (Phase 1), word recap (Phase 3), growth hooks (Phase 6),
    6-week review (§4).
+9. Hobby clubs? **Yes, any activity, but every club keeps a language pair.**
+10. Sharing records? **Club feed** (photo + note + optional distance/time), shareable to Moments (Phase 2).
+11. Host approval? **Required offline, optional online.**
