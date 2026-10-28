@@ -37,11 +37,9 @@ class ListSocketContext {
   /// Recompute each partner's status from [userStatuses].
   final VoidCallback processChatPartnersWithStatus;
 
-  /// Read the current typing timer (may be null).
-  final Timer? Function() getTypingTimer;
-
-  /// Replace the typing timer (null cancels it).
-  final void Function(Timer?) setTypingTimer;
+  /// One "typing…" clear timer per partner, so a second partner typing
+  /// doesn't cancel the first one's.
+  final Map<String, Timer> typingTimers;
 
   /// Viewer-perspective label for a call message (needs l10n, so the State
   /// builds it). Null → the server's plain-text fallback is shown.
@@ -57,8 +55,7 @@ class ListSocketContext {
     required this.readProviderUnreadCount,
     required this.syncUnreadCounts,
     required this.processChatPartnersWithStatus,
-    required this.getTypingTimer,
-    required this.setTypingTimer,
+    required this.typingTimers,
     this.callPreview,
   });
 }
@@ -73,14 +70,13 @@ void handleUserTyping(ListSocketContext ctx, dynamic data) {
     ctx.doSetState(() {
       ctx.typingUsers[userId] = true;
     });
-    ctx.getTypingTimer()?.cancel();
-    ctx.setTypingTimer(
-      Timer(const Duration(seconds: 5), () {
-        ctx.doSetState(() {
-          ctx.typingUsers[userId] = false;
-        });
-      }),
-    );
+    ctx.typingTimers[userId]?.cancel();
+    ctx.typingTimers[userId] = Timer(const Duration(seconds: 5), () {
+      ctx.typingTimers.remove(userId);
+      ctx.doSetState(() {
+        ctx.typingUsers[userId] = false;
+      });
+    });
   } catch (_) {}
 }
 

@@ -18,8 +18,7 @@ void main() {
         readProviderUnreadCount: (_) => 1,
         syncUnreadCounts: () {},
         processChatPartnersWithStatus: () {},
-        getTypingTimer: () => null,
-        setTypingTimer: (_) {},
+        typingTimers: {},
       );
 
   Map<String, dynamic> incoming(String from, String text) => {

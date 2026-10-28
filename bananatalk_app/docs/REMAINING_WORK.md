@@ -1,6 +1,6 @@
 # Remaining work — BananaTalk app
 
-Last updated: 2026-10-28 (2.2.7 audit fixes; P3 minors listed). Keep this current: tick items off in the same commit that finishes them.
+Last updated: 2026-10-28 (2.2.7 audit fixes; P3 chat leaks fixed). Keep this current: tick items off in the same commit that finishes them.
 
 See also: backend `language_exchange_backend_application/docs/REMAINING_WORK.md` (server env, prod DB, flags, ops) ·
 web `docs/REMAINING_WORK.md` in the web repo (admin console, `assetlinks.json`, nginx).
@@ -435,8 +435,8 @@ Web ↔ app parity (spec `docs/superpowers/specs/2026-10-16-web-app-parity-desig
   - [ ] Community: topic users race — `loadTopic` doesn't check `topicId` after the await (`community_provider.dart` ~1069).
   - [ ] Community: Matches card Wave button stays active after a wave (`matches_tab.dart:200`, no onSent); "VIP: 15 matches" upsell shown to VIPs (`:509`); global search does nothing on Nearby.
   - [ ] Community: chip on the Partners screen showing an active Topics filter (filter applies since CO1; only the chip is missing).
-  - [ ] Chats: `chatStateProvider` family never disposed — 9 socket subscriptions + a 30 s status timer per opened chat until logout (`chat_state_provider.dart` provider, `chat_socket_state_manager.dart:61`).
-  - [ ] Chats: one shared typing timer in the chat list — a second partner typing leaves the first stuck on "typing…" (`list_socket_handlers.dart:63-80`).
+  - [x] (fixed 2026-10-28: autoDispose, released 1 min after its last screen closes; `test/chat/chat_state_provider_dispose_test.dart`) Chats: `chatStateProvider` family never disposed — 9 socket subscriptions + a 30 s status timer per opened chat until logout (`chat_state_provider.dart` provider, `chat_socket_state_manager.dart:61`).
+  - [x] (fixed 2026-10-28: one timer per partner; `test/chat/chat_list_typing_test.dart`) Chats: one shared typing timer in the chat list — a second partner typing leaves the first stuck on "typing…" (`list_socket_handlers.dart:63-80`).
   - [ ] Chats: chat media screen scans only the newest 500 messages across all chats (`chat_media_screen.dart:68`).
   - [ ] Chats: setState after await without a mounted check in voice/media sends (`chat_conversation_screen.dart` ~1530/1561/1771/1795).
   - [ ] Chats: delete-for-everyone removes the message live but shows the deleted placeholder after reload (`chat_state_provider.dart` onMessageDeleted).

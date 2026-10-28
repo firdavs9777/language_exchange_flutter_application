@@ -75,7 +75,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
   Map<String, bool> _typingUsers = {};
   // conversationId (partner id) -> unsent draft text, for the "Draft" preview.
   Map<String, String> _drafts = {};
-  Timer? _typingTimer;
+  final Map<String, Timer> _typingTimers = {};
   Timer? _sendTypingTimer;
 
   // Stream subscriptions for socket events
@@ -228,7 +228,9 @@ class _ChatMainState extends ConsumerState<ChatMain>
     _searchFocusNode.dispose();
     _fadeController.dispose();
     _slideController.dispose();
-    _typingTimer?.cancel();
+    for (final t in _typingTimers.values) {
+      t.cancel();
+    }
     _sendTypingTimer?.cancel();
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
@@ -255,8 +257,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
           ref.read(chatPartnersProvider).unreadCounts[userId] ?? 0,
       syncUnreadCounts: _syncUnreadCounts,
       processChatPartnersWithStatus: _processChatPartnersWithStatus,
-      getTypingTimer: () => _typingTimer,
-      setTypingTimer: (t) => _typingTimer = t,
+      typingTimers: _typingTimers,
       callPreview: _callPreview,
     );
 
