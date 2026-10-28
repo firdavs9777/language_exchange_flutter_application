@@ -8,6 +8,7 @@ import 'package:bananatalk_app/models/community/gathering_model.dart';
 import 'package:bananatalk_app/models/room.dart';
 import 'package:bananatalk_app/pages/community/gatherings/club_detail_screen.dart';
 import 'package:bananatalk_app/pages/community/rooms/club_notice_banner.dart';
+import 'package:bananatalk_app/pages/community/rooms/room_screen.dart' show roomMenuActions;
 import 'package:bananatalk_app/providers/provider_root/clubs_v2_provider.dart';
 import 'package:bananatalk_app/services/gathering_api_client.dart';
 
@@ -161,5 +162,14 @@ void main() {
     await tester.tap(find.byKey(const Key('club-edit-save')));
     await tester.pumpAndSettle();
     expect(api.sentNotice, 'Sunday this week');
+  });
+
+  test('a club chat\'s top-bar menu offers no Leave or Members', () {
+    Room room(String type) => Room.fromJson({
+          '_id': 'r', 'roomType': type, 'isMember': true, 'isOwnerOrAdmin': true,
+          'pendingRequestCount': 2,
+        });
+    expect(roomMenuActions(room('topic')), ['requests', 'members', 'leave']);
+    expect(roomMenuActions(room('club')), isEmpty);
   });
 }

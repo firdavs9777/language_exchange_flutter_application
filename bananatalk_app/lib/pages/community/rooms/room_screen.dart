@@ -71,6 +71,25 @@ bool isDailyPromptJson(Map data) {
       promptId.toString().isNotEmpty;
 }
 
+/// What the room's top-bar menu offers. A club's chat offers nothing here:
+/// its members and leaving belong to the club page, and the server refuses
+/// both through the rooms API.
+@visibleForTesting
+List<String> roomMenuActions(Room room) {
+  if (room.isClubRoom) return const [];
+  return [
+    // Owner/admin-only, and only when there's something pending (Task 16) —
+    // an empty queue doesn't clutter the menu.
+    if (room.isOwnerOrAdmin && room.pendingRequestCount > 0) 'requests',
+    // Only shown to the hub's owner/admin — everyone else can still leave,
+    // but member-list moderation stays hidden.
+    if (room.isOwnerOrAdmin) 'members',
+    // Nothing to leave if we were never a member (or got kicked) — Task 16
+    // topic rooms no longer auto-join a non-member.
+    if (room.isMember) 'leave',
+  ];
+}
+
 class RoomScreen extends ConsumerStatefulWidget {
   const RoomScreen({super.key, required this.room});
 
@@ -653,7 +672,7 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
                     style: Theme.of(ctx).textTheme.bodyMedium),
               ],
               const SizedBox(height: 16),
-              if (_room.isMember)
+              if (_room.isMember && !_room.isClubRoom)
                 ListTile(
                   key: const Key('room-info-members'),
                   contentPadding: EdgeInsets.zero,
@@ -849,6 +868,13 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
   /// composer.
   bool get _showJoinBar => !_room.isMember && !_room.isBanned;
 
+  /// The label for one of [roomMenuActions].
+  String _menuLabel(AppLocalizations l10n, String action) => switch (action) {
+        'requests' => l10n.roomRequestsMenuItem(_room.pendingRequestCount),
+        'members' => l10n.roomViewMembers,
+        _ => l10n.roomLeaveHubMenuItem,
+      };
+
   bool _isJoining = false;
 
   Future<void> _joinFromBar() async {
@@ -899,7 +925,8 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
         ),
         ),
         actions: [
-          PopupMenuButton<String>(
+          if (roomMenuActions(_room).isNotEmpty)
+            PopupMenuButton<String>(
             onSelected: (value) {
               switch (value) {
                 case 'requests':
@@ -914,21 +941,11 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
               }
             },
             itemBuilder: (ctx) => [
-              // Owner/admin-only, and only when there's something pending
-              // (Task 16) — an empty queue doesn't clutter the menu.
-              if (_room.isOwnerOrAdmin && _room.pendingRequestCount > 0)
+              for (final action in roomMenuActions(_room))
                 PopupMenuItem(
-                  value: 'requests',
-                  child: Text(l10n.roomRequestsMenuItem(_room.pendingRequestCount)),
+                  value: action,
+                  child: Text(_menuLabel(l10n, action)),
                 ),
-              // Only shown to the hub's owner/admin — everyone else can
-              // still leave, but member-list moderation stays hidden.
-              if (_room.isOwnerOrAdmin)
-                PopupMenuItem(value: 'members', child: Text(l10n.roomViewMembers)),
-              // Nothing to leave if we were never a member (or got kicked)
-              // — Task 16 topic rooms no longer auto-join a non-member.
-              if (_room.isMember)
-                PopupMenuItem(value: 'leave', child: Text(l10n.roomLeaveHubMenuItem)),
             ],
           ),
         ],

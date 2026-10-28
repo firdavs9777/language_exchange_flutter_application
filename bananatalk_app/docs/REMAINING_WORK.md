@@ -472,6 +472,8 @@ Web ↔ app parity (spec `docs/superpowers/specs/2026-10-16-web-app-parity-desig
 ## Clubs v2 slice 2: club chat (2026-10-28, branch feat/clubs-v2-chat; plan docs/superpowers/plans/2026-10-28-clubs-v2-club-chat.md)
 - [x] "Chat" on the club page (members with clubs v2 access) opens the club's members-only room at `/room/:id`; the organizers' notice (공지) shows on the club page and atop the chat; managers edit it in the club edit sheet. Club rooms offer no join, leave or edit of their own.
 - [x] Club edit sheet disposed its text fields while the sheet was still closing when the save answered fast (latent; now waits for the close animation).
+- [x] Review fix: the room top bar no longer offers Leave / Members in a club chat (both refused by the server); the info sheet hides Members too.
+- [ ] Backend found a live bug outside clubs: deleting an account deletes every hub/topic room the user was in (backend REMAINING_WORK, URGENT). Owner decision.
 - [ ] Device QA (two accounts, both on `CLUBS_V2_USER_IDS`): open chat from the club page, send/receive live, @mention push, notice edit shows in chat, remove the member → their chat refuses at once, rejoin → back; an outsider can't open the room link; an account not on the list sees no Chat button. M
 - [ ] Native review of `clubChat`, `clubChatFailed`, `clubNoticeTitle`, `clubNoticeLabel` (CSV rows appended). S
 - [ ] Chat list: club chats do not appear in the Chats tab or the Rooms list (by design for now); decide whether members want them in Chats. S
