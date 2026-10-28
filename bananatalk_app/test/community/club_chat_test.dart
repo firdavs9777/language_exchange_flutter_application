@@ -10,6 +10,7 @@ import 'package:bananatalk_app/pages/community/gatherings/club_detail_screen.dar
 import 'package:bananatalk_app/pages/community/rooms/club_notice_banner.dart';
 import 'package:bananatalk_app/pages/community/rooms/room_screen.dart' show roomMenuActions;
 import 'package:bananatalk_app/providers/provider_root/clubs_v2_provider.dart';
+import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
 import 'package:bananatalk_app/services/gathering_api_client.dart';
 
 /// Clubs v2 slice 2: a member opens the club's chat from the club page; the
@@ -67,7 +68,10 @@ Club _club({bool member = true, bool owner = false, String notice = 'Sat 8am, ex
     });
 
 Widget _app(_FakeApi api, {void Function(String roomId)? onOpen}) => ProviderScope(
-      overrides: [clubsV2ApiProvider.overrideWithValue(api)],
+      overrides: [
+        clubsV2ApiProvider.overrideWithValue(api),
+        clubMomentsProvider.overrideWith((ref, id) async => const []),
+      ],
       child: MaterialApp(
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,

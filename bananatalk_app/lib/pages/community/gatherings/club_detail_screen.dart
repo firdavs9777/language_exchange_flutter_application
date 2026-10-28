@@ -17,6 +17,11 @@ import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/pages/community/gatherings/club_rules.dart';
 import 'package:bananatalk_app/pages/community/gatherings/club_warn_sheet.dart';
 import 'package:bananatalk_app/pages/community/rooms/club_notice_banner.dart';
+import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
+import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
+import 'package:bananatalk_app/pages/moments/create/create_moment.dart';
+import 'package:bananatalk_app/pages/moments/card/moment_activity_chip.dart';
+import 'package:bananatalk_app/pages/community/gatherings/club_feed_screen.dart';
 import 'package:bananatalk_app/providers/provider_root/clubs_v2_provider.dart';
 import 'package:bananatalk_app/pages/community/gatherings/group_cover.dart';
 import 'package:bananatalk_app/pages/community/gatherings/group_cover_picker.dart';
@@ -36,6 +41,7 @@ class ClubDetailScreen extends ConsumerStatefulWidget {
     required this.clubId,
     this.apiClient,
     this.openRoom,
+    this.openComposer,
   });
 
   final String clubId;
@@ -43,6 +49,10 @@ class ClubDetailScreen extends ConsumerStatefulWidget {
 
   /// Opens a room by id; defaults to the `/room/:id` route. Tests pass their own.
   final void Function(BuildContext context, String roomId)? openRoom;
+
+  /// Opens the composer for a club post; defaults to [CreateMoment]. Tests
+  /// pass their own.
+  final Future<void> Function(BuildContext context, String clubId)? openComposer;
 
   @override
   ConsumerState<ClubDetailScreen> createState() => _ClubDetailScreenState();
@@ -375,6 +385,16 @@ class _ClubDetailScreenState extends ConsumerState<ClubDetailScreen> {
     open(context, roomId);
   }
 
+  /// Clubs v2: compose a post into this club's feed.
+  Future<void> _postRecord(Club club) async {
+    final open = widget.openComposer ??
+        (c, id) => Navigator.of(c).push<bool>(
+              AppPageRoute(builder: (_) => CreateMoment(clubId: id)),
+            );
+    await open(context, club.id);
+    if (mounted) ref.invalidate(clubMomentsProvider(club.id));
+  }
+
   /// Clubs v2: warn [member]. At the third warning the host is asked whether
   /// to remove them; nothing happens on its own.
   Future<void> _warnMember(Club club, ClubMember member) async {
@@ -550,6 +570,70 @@ class _ClubDetailScreenState extends ConsumerState<ClubDetailScreen> {
       return;
     }
     await _reload();
+  }
+
+  /// Clubs v2: the latest club posts, "Post a record" and "See all".
+  List<Widget> _clubPosts(Club club) {
+    final l10n = AppLocalizations.of(context)!;
+    final posts = ref.watch(clubMomentsProvider(club.id));
+    final items = posts.valueOrNull ?? const <Moments>[];
+    return [
+      Padding(
+        padding: const EdgeInsets.fromLTRB(Spacing.lg, 0, Spacing.lg, Spacing.sm),
+        child: Row(
+          children: [
+            Expanded(child: Text(l10n.clubPostsTitle, style: context.titleMedium)),
+            if (items.isNotEmpty)
+              TextButton(
+                key: const Key('club-posts-see-all'),
+                onPressed: () => Navigator.of(context).push(AppPageRoute(
+                  builder: (_) => ClubFeedScreen(clubId: club.id, title: club.name),
+                )),
+                child: Text(l10n.clubPostsSeeAll),
+              ),
+          ],
+        ),
+      ),
+      if (posts.isLoading && items.isEmpty)
+        const Padding(
+          padding: EdgeInsets.all(Spacing.md),
+          child: Center(child: CircularProgressIndicator()),
+        )
+      else if (items.isEmpty)
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: Spacing.lg),
+          child: Text(l10n.clubPostsEmpty,
+              style: context.bodyMedium.copyWith(color: context.textSecondary)),
+        )
+      else
+        for (final post in items.take(3))
+          ListTile(
+            key: Key('club-post-${post.id}'),
+            contentPadding: const EdgeInsets.symmetric(horizontal: Spacing.lg),
+            title: Text(post.description,
+                maxLines: 2, overflow: TextOverflow.ellipsis),
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(post.user.name, style: context.bodySmall),
+                if (post.activity != null) ...[
+                  const SizedBox(height: 4),
+                  MomentActivityChip(activity: post.activity!),
+                ],
+              ],
+            ),
+            onTap: () => context.push('/moment/${post.id}'),
+          ),
+      Padding(
+        padding: const EdgeInsets.fromLTRB(Spacing.lg, Spacing.sm, Spacing.lg, Spacing.lg),
+        child: OutlinedButton.icon(
+          key: const Key('club-post-record'),
+          onPressed: () => _postRecord(club),
+          icon: const Icon(Icons.add_a_photo_outlined),
+          label: Text(l10n.clubPost),
+        ),
+      ),
+    ];
   }
 
   @override
@@ -765,6 +849,8 @@ class _ClubDetailScreenState extends ConsumerState<ClubDetailScreen> {
               ],
             ),
           ),
+
+          if (_clubsV2 && club.viewerIsMember) ..._clubPosts(club),
 
           ClubPeopleSection(
             club: club,

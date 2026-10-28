@@ -7,6 +7,7 @@ import 'package:bananatalk_app/l10n/app_localizations_en.dart';
 import 'package:bananatalk_app/models/community/gathering_model.dart';
 import 'package:bananatalk_app/pages/community/gatherings/club_detail_screen.dart';
 import 'package:bananatalk_app/providers/provider_root/clubs_v2_provider.dart';
+import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
 import 'package:bananatalk_app/services/gathering_api_client.dart';
 import 'package:bananatalk_app/services/notification_router.dart';
 
@@ -70,7 +71,10 @@ Club _club({bool manager = true, int ownWarnings = 0, int minaWarnings = 0}) => 
     });
 
 Widget _app(_FakeApi api) => ProviderScope(
-      overrides: [clubsV2ApiProvider.overrideWithValue(api)],
+      overrides: [
+        clubsV2ApiProvider.overrideWithValue(api),
+        clubMomentsProvider.overrideWith((ref, id) async => const []),
+      ],
       child: MaterialApp(
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,

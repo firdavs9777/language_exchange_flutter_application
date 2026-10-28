@@ -1249,6 +1249,8 @@ const Map<String, List<String>> _filesByTask = {
   ],
   'clubs-v2-feed': [
     'pages/moments/create/club_post.dart',
+    'pages/moments/card/moment_activity_chip.dart',
+    'pages/community/gatherings/club_feed_screen.dart',
   ],
 };
 

@@ -477,3 +477,11 @@ Web ↔ app parity (spec `docs/superpowers/specs/2026-10-16-web-app-parity-desig
 - [ ] Device QA (two accounts, both on `CLUBS_V2_USER_IDS`): open chat from the club page, send/receive live, @mention push, notice edit shows in chat, remove the member → their chat refuses at once, rejoin → back; an outsider can't open the room link; an account not on the list sees no Chat button. M
 - [ ] Native review of `clubChat`, `clubChatFailed`, `clubNoticeTitle`, `clubNoticeLabel` (CSV rows appended). S
 - [ ] Chat list: club chats do not appear in the Chats tab or the Rooms list (by design for now); decide whether members want them in Chats. S
+
+## Clubs v2 slice 3: club feed (2026-10-28, branch feat/clubs-v2-feed; plan docs/superpowers/plans/2026-10-28-clubs-v2-club-feed.md)
+- [x] "Post a record" on the club page opens the composer in club mode: "Also share to Moments" (off = members only), optional distance (km) / time (min); photos, text or voice (no video or scheduling for club posts).
+- [x] "Club posts" on the club page (latest 3, "See all" → full feed of moment cards); moment cards show "5.2 km · 31:00 · 5:58/km" when a post has stats.
+- [ ] Backend: deploy `fix/moment-byid-visibility` first, then `feat/clubs-v2-feed` (stacked). S
+- [ ] Device QA: post members-only and shared records, check an outsider and the public feeds, edit a club post (privacy stays), stats line on card and page. M
+- [ ] Club feed shows the latest 20 (no infinite paging yet); video records not supported. S
+- [ ] Native review of the 10 club-feed strings (CSV rows appended). S

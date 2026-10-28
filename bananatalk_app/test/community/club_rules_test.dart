@@ -9,6 +9,7 @@ import 'package:bananatalk_app/pages/community/gatherings/club_detail_screen.dar
 import 'package:bananatalk_app/pages/community/gatherings/club_rules.dart';
 import 'package:bananatalk_app/pages/community/gatherings/create_club_sheet.dart';
 import 'package:bananatalk_app/providers/provider_root/clubs_v2_provider.dart';
+import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
 import 'package:bananatalk_app/services/gathering_api_client.dart';
 
 /// Clubs v2: the language pair and rules on create/edit, and the rules shown
@@ -46,6 +47,8 @@ final en = AppLocalizationsEn();
 Widget _app(Widget child, {bool access = false, _FakeApi? api, bool page = false}) => ProviderScope(
       overrides: [
         clubsV2ApiProvider.overrideWithValue(api ?? _FakeApi(access: access)),
+        // The club page loads club posts for members (slice 3).
+        clubMomentsProvider.overrideWith((ref, id) async => const []),
       ],
       child: MaterialApp(
         localizationsDelegates: AppLocalizations.localizationsDelegates,
