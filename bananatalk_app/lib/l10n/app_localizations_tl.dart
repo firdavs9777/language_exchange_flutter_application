@@ -12496,7 +12496,7 @@ class AppLocalizationsTl extends AppLocalizations {
   }
 
   @override
-  String get clubRemoveAfterWarningsBody => 'Aalis siya sa club at hindi makakabalik maliban kung papayagan mo.';
+  String get clubRemoveAfterWarningsBody => 'Aalis siya sa club at hindi na makakabalik.';
 
   @override
   String get clubNotNow => 'Hindi muna';

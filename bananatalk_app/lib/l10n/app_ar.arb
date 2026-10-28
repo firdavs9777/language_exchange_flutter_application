@@ -4767,7 +4767,7 @@
   "clubWarnFailed": "تعذّر إرسال التحذير.",
   "clubWarnSent": "أُرسل التحذير ({count} من 3).",
   "clubRemoveAfterWarningsTitle": "لدى {name} ثلاثة تحذيرات. هل تريد إزالته؟",
-  "clubRemoveAfterWarningsBody": "سيغادر النادي ولن يستطيع العودة إلا إذا سمحت بذلك.",
+  "clubRemoveAfterWarningsBody": "سيغادر النادي ولن يستطيع الانضمام مجددًا.",
   "clubNotNow": "ليس الآن",
   "clubRemoveNow": "إزالة فورًا (حالة خطيرة)",
   "clubRemoveReasonTitle": "لماذا تزيل {name}؟",

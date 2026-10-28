@@ -12493,7 +12493,7 @@ class AppLocalizationsTg extends AppLocalizations {
   }
 
   @override
-  String get clubRemoveAfterWarningsBody => 'Ӯ аз клуб мебарояд ва бе иҷозати шумо дубора ҳамроҳ шуда наметавонад.';
+  String get clubRemoveAfterWarningsBody => 'Ӯ аз клуб мебарояд ва дубора ҳамроҳ шуда наметавонад.';
 
   @override
   String get clubNotNow => 'Ҳоло не';

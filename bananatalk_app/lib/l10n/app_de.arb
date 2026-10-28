@@ -4977,7 +4977,7 @@
   "clubWarnFailed": "Verwarnung konnte nicht gesendet werden.",
   "clubWarnSent": "Verwarnung gesendet ({count} von 3).",
   "clubRemoveAfterWarningsTitle": "{name} hat 3 Verwarnungen. Entfernen?",
-  "clubRemoveAfterWarningsBody": "Die Person verlässt den Club und kann nur mit deiner Erlaubnis wieder beitreten.",
+  "clubRemoveAfterWarningsBody": "Die Person verlässt den Club und kann nicht wieder beitreten.",
   "clubNotNow": "Nicht jetzt",
   "clubRemoveNow": "Sofort entfernen (schwerwiegend)",
   "clubRemoveReasonTitle": "Warum entfernst du {name}?",

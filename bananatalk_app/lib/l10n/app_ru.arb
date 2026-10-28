@@ -4767,7 +4767,7 @@
   "clubWarnFailed": "Не удалось отправить предупреждение.",
   "clubWarnSent": "Предупреждение отправлено ({count} из 3).",
   "clubRemoveAfterWarningsTitle": "У {name} 3 предупреждения. Удалить из клуба?",
-  "clubRemoveAfterWarningsBody": "Участник покинет клуб и не сможет вернуться без вашего разрешения.",
+  "clubRemoveAfterWarningsBody": "Участник покинет клуб и не сможет вернуться.",
   "clubNotNow": "Не сейчас",
   "clubRemoveNow": "Удалить сразу (серьёзное нарушение)",
   "clubRemoveReasonTitle": "Почему вы удаляете {name}?",

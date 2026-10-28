@@ -4737,7 +4737,7 @@
   "clubWarnFailed": "Không gửi được cảnh cáo.",
   "clubWarnSent": "Đã gửi cảnh cáo ({count}/3).",
   "clubRemoveAfterWarningsTitle": "{name} đã bị cảnh cáo 3 lần. Xóa khỏi nhóm?",
-  "clubRemoveAfterWarningsBody": "Người này sẽ rời câu lạc bộ và không thể tham gia lại trừ khi bạn cho phép.",
+  "clubRemoveAfterWarningsBody": "Người này sẽ rời câu lạc bộ và không thể tham gia lại.",
   "clubNotNow": "Để sau",
   "clubRemoveNow": "Xóa ngay (nghiêm trọng)",
   "clubRemoveReasonTitle": "Vì sao bạn xóa {name}?",

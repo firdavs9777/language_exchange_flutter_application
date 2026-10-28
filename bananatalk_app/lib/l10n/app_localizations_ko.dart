@@ -12473,7 +12473,7 @@ class AppLocalizationsKo extends AppLocalizations {
   }
 
   @override
-  String get clubRemoveAfterWarningsBody => '클럽에서 나가게 되고, 허락하지 않으면 다시 가입할 수 없어요.';
+  String get clubRemoveAfterWarningsBody => '클럽에서 나가게 되고 다시 가입할 수 없어요.';
 
   @override
   String get clubNotNow => '나중에';

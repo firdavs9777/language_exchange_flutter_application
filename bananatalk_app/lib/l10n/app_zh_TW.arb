@@ -4428,7 +4428,7 @@
   "clubWarnFailed": "警告送出失敗。",
   "clubWarnSent": "已送出警告（第 {count} 次，共 3 次）。",
   "clubRemoveAfterWarningsTitle": "{name} 已累計 3 次警告。要移出嗎？",
-  "clubRemoveAfterWarningsBody": "對方將離開俱樂部，除非你允許，否則無法再加入。",
+  "clubRemoveAfterWarningsBody": "對方將離開俱樂部，且無法再加入。",
   "clubNotNow": "暫不",
   "clubRemoveNow": "立即移出（嚴重情況）",
   "clubRemoveReasonTitle": "為什麼要移出 {name}？",

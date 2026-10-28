@@ -4230,7 +4230,7 @@
   "clubWarnFailed": "Огоҳӣ фиристода нашуд.",
   "clubWarnSent": "Огоҳӣ фиристода шуд ({count} аз 3).",
   "clubRemoveAfterWarningsTitle": "{name} 3 огоҳӣ дорад. Хориҷ кунем?",
-  "clubRemoveAfterWarningsBody": "Ӯ аз клуб мебарояд ва бе иҷозати шумо дубора ҳамроҳ шуда наметавонад.",
+  "clubRemoveAfterWarningsBody": "Ӯ аз клуб мебарояд ва дубора ҳамроҳ шуда наметавонад.",
   "clubNotNow": "Ҳоло не",
   "clubRemoveNow": "Ҳозир хориҷ кардан (ҷиддӣ)",
   "clubRemoveReasonTitle": "Чаро {name}-ро хориҷ мекунед?",

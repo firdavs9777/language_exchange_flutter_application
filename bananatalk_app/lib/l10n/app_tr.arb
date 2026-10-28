@@ -4949,7 +4949,7 @@
   "clubWarnFailed": "Uyarı gönderilemedi.",
   "clubWarnSent": "Uyarı gönderildi (3 uyarıdan {count}.).",
   "clubRemoveAfterWarningsTitle": "{name} 3 uyarı aldı. Çıkarılsın mı?",
-  "clubRemoveAfterWarningsBody": "Kulüpten çıkar ve sen izin vermedikçe tekrar katılamaz.",
+  "clubRemoveAfterWarningsBody": "Kulüpten çıkar ve tekrar katılamaz.",
   "clubNotNow": "Şimdi değil",
   "clubRemoveNow": "Hemen çıkar (ciddi)",
   "clubRemoveReasonTitle": "{name} kişisini neden çıkarıyorsun?",

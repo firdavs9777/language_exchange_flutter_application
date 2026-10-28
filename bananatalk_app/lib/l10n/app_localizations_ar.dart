@@ -12590,7 +12590,7 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
-  String get clubRemoveAfterWarningsBody => 'سيغادر النادي ولن يستطيع العودة إلا إذا سمحت بذلك.';
+  String get clubRemoveAfterWarningsBody => 'سيغادر النادي ولن يستطيع الانضمام مجددًا.';
 
   @override
   String get clubNotNow => 'ليس الآن';

@@ -12503,7 +12503,7 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
-  String get clubRemoveAfterWarningsBody => 'वे क्लब से निकल जाएँगे और आपकी अनुमति के बिना दोबारा नहीं जुड़ पाएँगे।';
+  String get clubRemoveAfterWarningsBody => 'वे क्लब से निकल जाएँगे और दोबारा नहीं जुड़ पाएँगे।';
 
   @override
   String get clubNotNow => 'अभी नहीं';

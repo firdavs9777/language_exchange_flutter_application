@@ -4753,7 +4753,7 @@
   "clubWarnFailed": "Não foi possível enviar o aviso.",
   "clubWarnSent": "Aviso enviado ({count} de 3).",
   "clubRemoveAfterWarningsTitle": "{name} tem 3 avisos. Remover?",
-  "clubRemoveAfterWarningsBody": "A pessoa sai do clube e só volta se você permitir.",
+  "clubRemoveAfterWarningsBody": "A pessoa sai do clube e não poderá voltar.",
   "clubNotNow": "Agora não",
   "clubRemoveNow": "Remover agora (grave)",
   "clubRemoveReasonTitle": "Por que você está removendo {name}?",

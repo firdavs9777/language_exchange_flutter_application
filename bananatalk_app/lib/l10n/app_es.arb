@@ -4767,7 +4767,7 @@
   "clubWarnFailed": "No se pudo enviar la advertencia.",
   "clubWarnSent": "Advertencia enviada ({count} de 3).",
   "clubRemoveAfterWarningsTitle": "{name} tiene 3 advertencias. ¿Quieres expulsarle?",
-  "clubRemoveAfterWarningsBody": "Saldrá del club y no podrá volver a unirse salvo que lo permitas.",
+  "clubRemoveAfterWarningsBody": "Saldrá del club y no podrá volver a unirse.",
   "clubNotNow": "Ahora no",
   "clubRemoveNow": "Expulsar ya (grave)",
   "clubRemoveReasonTitle": "¿Por qué expulsas a {name}?",

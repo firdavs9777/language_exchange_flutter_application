@@ -12533,7 +12533,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get clubRemoveAfterWarningsBody => 'They\'ll leave the club and can\'t rejoin unless you allow it.';
+  String get clubRemoveAfterWarningsBody => 'They\'ll leave the club and won\'t be able to rejoin.';
 
   @override
   String get clubNotNow => 'Not now';

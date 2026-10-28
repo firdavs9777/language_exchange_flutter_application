@@ -12473,7 +12473,7 @@ class AppLocalizationsJa extends AppLocalizations {
   }
 
   @override
-  String get clubRemoveAfterWarningsBody => 'クラブから外れ、あなたが許可しない限り再参加できません。';
+  String get clubRemoveAfterWarningsBody => 'クラブから外れ、再参加できなくなります。';
 
   @override
   String get clubNotNow => '今はしない';

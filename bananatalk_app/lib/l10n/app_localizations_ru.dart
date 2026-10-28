@@ -12969,7 +12969,7 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
-  String get clubRemoveAfterWarningsBody => 'Участник покинет клуб и не сможет вернуться без вашего разрешения.';
+  String get clubRemoveAfterWarningsBody => 'Участник покинет клуб и не сможет вернуться.';
 
   @override
   String get clubNotNow => 'Не сейчас';

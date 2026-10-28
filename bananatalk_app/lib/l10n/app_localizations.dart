@@ -22709,7 +22709,7 @@ abstract class AppLocalizations {
   /// Clubs v2: what removing means, in the 3-warning dialog and the remove-now sheet
   ///
   /// In en, this message translates to:
-  /// **'They\'ll leave the club and can\'t rejoin unless you allow it.'**
+  /// **'They\'ll leave the club and won\'t be able to rejoin.'**
   String get clubRemoveAfterWarningsBody;
 
   /// Clubs v2: dismiss button of the 3-warning dialog

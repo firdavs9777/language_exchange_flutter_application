@@ -4977,7 +4977,7 @@
   "clubWarnFailed": "Impossibile inviare l'avviso.",
   "clubWarnSent": "Avviso inviato ({count} su 3).",
   "clubRemoveAfterWarningsTitle": "{name} ha 3 avvisi. Vuoi rimuoverlo?",
-  "clubRemoveAfterWarningsBody": "Lascerà il club e non potrà rientrare se non lo permetti.",
+  "clubRemoveAfterWarningsBody": "Lascerà il club e non potrà rientrare.",
   "clubNotNow": "Non ora",
   "clubRemoveNow": "Rimuovi subito (grave)",
   "clubRemoveReasonTitle": "Perché rimuovi {name}?",

@@ -12473,7 +12473,7 @@ class AppLocalizationsTh extends AppLocalizations {
   }
 
   @override
-  String get clubRemoveAfterWarningsBody => 'สมาชิกจะออกจากคลับ และกลับเข้ามาไม่ได้เว้นแต่คุณอนุญาต';
+  String get clubRemoveAfterWarningsBody => 'สมาชิกจะออกจากคลับและกลับเข้ามาอีกไม่ได้';
 
   @override
   String get clubNotNow => 'ไว้ทีหลัง';

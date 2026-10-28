@@ -4753,7 +4753,7 @@
   "clubWarnFailed": "चेतावनी नहीं भेजी जा सकी।",
   "clubWarnSent": "चेतावनी भेजी गई (3 में से {count})।",
   "clubRemoveAfterWarningsTitle": "{name} को 3 चेतावनियाँ मिल चुकी हैं। हटाएँ?",
-  "clubRemoveAfterWarningsBody": "वे क्लब से निकल जाएँगे और आपकी अनुमति के बिना दोबारा नहीं जुड़ पाएँगे।",
+  "clubRemoveAfterWarningsBody": "वे क्लब से निकल जाएँगे और दोबारा नहीं जुड़ पाएँगे।",
   "clubNotNow": "अभी नहीं",
   "clubRemoveNow": "तुरंत हटाएँ (गंभीर)",
   "clubRemoveReasonTitle": "आप {name} को क्यों हटा रहे हैं?",

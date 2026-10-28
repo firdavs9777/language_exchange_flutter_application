@@ -4710,7 +4710,7 @@
   "clubWarnFailed": "Hindi naipadala ang babala.",
   "clubWarnSent": "Naipadala ang babala ({count} sa 3).",
   "clubRemoveAfterWarningsTitle": "May 3 babala na si {name}. Alisin?",
-  "clubRemoveAfterWarningsBody": "Aalis siya sa club at hindi makakabalik maliban kung papayagan mo.",
+  "clubRemoveAfterWarningsBody": "Aalis siya sa club at hindi na makakabalik.",
   "clubNotNow": "Hindi muna",
   "clubRemoveNow": "Alisin ngayon (seryoso)",
   "clubRemoveReasonTitle": "Bakit mo inaalis si {name}?",

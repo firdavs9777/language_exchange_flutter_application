@@ -4977,7 +4977,7 @@
   "clubWarnFailed": "Impossible d'envoyer l'avertissement.",
   "clubWarnSent": "Avertissement envoyé ({count} sur 3).",
   "clubRemoveAfterWarningsTitle": "{name} a 3 avertissements. Le retirer ?",
-  "clubRemoveAfterWarningsBody": "La personne quittera le club et ne pourra revenir que si tu l’autorises.",
+  "clubRemoveAfterWarningsBody": "La personne quittera le club et ne pourra pas revenir.",
   "clubNotNow": "Pas maintenant",
   "clubRemoveNow": "Retirer maintenant (grave)",
   "clubRemoveReasonTitle": "Pourquoi retires-tu {name} ?",

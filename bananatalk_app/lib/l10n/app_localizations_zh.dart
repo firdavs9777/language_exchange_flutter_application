@@ -12473,7 +12473,7 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
-  String get clubRemoveAfterWarningsBody => '对方将离开俱乐部，除非你允许，否则无法再加入。';
+  String get clubRemoveAfterWarningsBody => '对方将离开俱乐部，且无法再加入。';
 
   @override
   String get clubNotNow => '暂不';
@@ -24964,7 +24964,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   }
 
   @override
-  String get clubRemoveAfterWarningsBody => '對方將離開俱樂部，除非你允許，否則無法再加入。';
+  String get clubRemoveAfterWarningsBody => '對方將離開俱樂部，且無法再加入。';
 
   @override
   String get clubNotNow => '暫不';

@@ -4737,7 +4737,7 @@
   "clubWarnFailed": "ส่งคำเตือนไม่สำเร็จ",
   "clubWarnSent": "ส่งคำเตือนแล้ว ({count} จาก 3)",
   "clubRemoveAfterWarningsTitle": "{name} ได้รับคำเตือนครบ 3 ครั้งแล้ว นำออกไหม",
-  "clubRemoveAfterWarningsBody": "สมาชิกจะออกจากคลับ และกลับเข้ามาไม่ได้เว้นแต่คุณอนุญาต",
+  "clubRemoveAfterWarningsBody": "สมาชิกจะออกจากคลับและกลับเข้ามาอีกไม่ได้",
   "clubNotNow": "ไว้ทีหลัง",
   "clubRemoveNow": "นำออกทันที (กรณีร้ายแรง)",
   "clubRemoveReasonTitle": "ทำไมคุณถึงนำ {name} ออก",

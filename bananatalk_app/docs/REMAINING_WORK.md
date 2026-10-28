@@ -466,4 +466,5 @@ Web ↔ app parity (spec `docs/superpowers/specs/2026-10-16-web-app-parity-desig
 - [ ] Owner: merge + deploy backend `feat/clubs-v2-rules` (additive, safe before any app build), set `CLUBS_V2_USER_IDS` on the droplet to the test accounts, then build the app from this branch for the test group. S
 - [ ] Device QA with two accounts (owner + member): create with pair + rules, edit rules, join sees rules, warn ×3 → prompt → Not now / Remove, Remove now with reason, banned rejoin refused, member sees own count, push tap opens the club; an account NOT on the list sees the old screens. M
 - [ ] Native review of the 24 `club*` strings (rows appended to `docs/l10n/native-qa-strings-2026-10.csv`). S
+- [ ] App UI to let a banned member back in (backend `DELETE /clubs/:id/bans/:userId` exists); until then the remove dialog says they can't rejoin. S
 - [ ] Second language is free text (like the first); swap both for the shared language picker if typos show up. S

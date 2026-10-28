@@ -4737,7 +4737,7 @@
   "clubWarnFailed": "Peringatan gagal dikirim.",
   "clubWarnSent": "Peringatan terkirim ({count} dari 3).",
   "clubRemoveAfterWarningsTitle": "{name} sudah 3 kali diperingatkan. Keluarkan?",
-  "clubRemoveAfterWarningsBody": "Dia akan keluar dari klub dan tidak bisa bergabung lagi kecuali kamu izinkan.",
+  "clubRemoveAfterWarningsBody": "Dia akan keluar dari klub dan tidak bisa bergabung lagi.",
   "clubNotNow": "Nanti saja",
   "clubRemoveNow": "Keluarkan sekarang (serius)",
   "clubRemoveReasonTitle": "Kenapa kamu mengeluarkan {name}?",

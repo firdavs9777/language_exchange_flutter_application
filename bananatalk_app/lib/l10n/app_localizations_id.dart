@@ -12484,7 +12484,7 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
-  String get clubRemoveAfterWarningsBody => 'Dia akan keluar dari klub dan tidak bisa bergabung lagi kecuali kamu izinkan.';
+  String get clubRemoveAfterWarningsBody => 'Dia akan keluar dari klub dan tidak bisa bergabung lagi.';
 
   @override
   String get clubNotNow => 'Nanti saja';

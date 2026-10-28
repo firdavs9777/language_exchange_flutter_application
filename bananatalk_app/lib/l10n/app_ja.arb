@@ -4737,7 +4737,7 @@
   "clubWarnFailed": "警告を送れませんでした。",
   "clubWarnSent": "警告を送りました（3回中{count}回目）。",
   "clubRemoveAfterWarningsTitle": "{name}さんの警告が3回になりました。退会させますか？",
-  "clubRemoveAfterWarningsBody": "クラブから外れ、あなたが許可しない限り再参加できません。",
+  "clubRemoveAfterWarningsBody": "クラブから外れ、再参加できなくなります。",
   "clubNotNow": "今はしない",
   "clubRemoveNow": "すぐに退会させる（重大な場合）",
   "clubRemoveReasonTitle": "{name}さんを退会させる理由は？",

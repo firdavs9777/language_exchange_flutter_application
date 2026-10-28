@@ -12515,7 +12515,7 @@ class AppLocalizationsPt extends AppLocalizations {
   }
 
   @override
-  String get clubRemoveAfterWarningsBody => 'A pessoa sai do clube e só volta se você permitir.';
+  String get clubRemoveAfterWarningsBody => 'A pessoa sai do clube e não poderá voltar.';
 
   @override
   String get clubNotNow => 'Agora não';

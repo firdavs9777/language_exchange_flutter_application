@@ -12491,7 +12491,7 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get clubRemoveAfterWarningsBody => 'Kulüpten çıkar ve sen izin vermedikçe tekrar katılamaz.';
+  String get clubRemoveAfterWarningsBody => 'Kulüpten çıkar ve tekrar katılamaz.';
 
   @override
   String get clubNotNow => 'Şimdi değil';
