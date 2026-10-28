@@ -22,6 +22,26 @@ A club can be about any activity (running, hiking, cooking, plain conversation),
 language pair too (decided 2026-10-28), e.g. "Hangang Running · 한국어 ↔ English". The activity is why people
 come; the language pair is why they come to BananaTalk and not a general hobby app.
 
+### Clubs vs. gatherings (decided 2026-10-28)
+
+People **belong** to a club and **attend** gatherings.
+
+| | Club (모임) | Gathering |
+|---|---|---|
+| What it is | A group of people | One event at a set time |
+| Lasts | Permanently | A few hours, then it ends |
+| You get in by | Becoming a member (host approval if offline) | RSVP for a seat (host approval if offline) |
+| Has | Rules, warnings, members, organizers, chat, feed | Time, place or room, seats per language side, check-in, "Who was there" |
+| Kinds | — | **Club gathering**: 정모 (repeats) or 번개 (once), members only · **Open gathering**: once, anyone can RSVP, no club needed |
+
+- **Open gatherings** are the low-commitment way in: try one English meetup tonight without joining anything.
+  Online: anyone can create one. Offline: approved hosts in pilot cities, and the host approves each RSVP.
+- **Gatherings feed clubs.** After an open gathering, attendees see "Liked it? Join {host}'s club" (if the host has
+  one) and the host sees "Turn this into a club", which creates the club with the attendees invited.
+- **Moderation differs.** Warnings (and the 3-warning prompt) belong to clubs. At an open gathering the host can
+  remove an attendee and report them; there is no warning count.
+- 찾기 shows both: clubs, and a "This week" list of club gatherings open to the viewer plus open gatherings.
+
 ### How it works, in two examples
 
 **A weekly running club (offline).** You create "Hangang Running · 한국어 ↔ English" (offline, Seoul) and schedule
@@ -74,8 +94,8 @@ Community
 ```
 
 Rules:
-- **Every gathering belongs to a club** for new events (a club can have just one person, the host).
-  Existing standalone gatherings keep working. This makes the club the one container, like 소모임.
+- A gathering is either a **club gathering** (members only) or an **open gathering** (no club, anyone can RSVP);
+  see §1 "Clubs vs. gatherings". Existing standalone gatherings become open gatherings.
 - **Voice rooms come back** as their own thing (drop-in talk now). An online 정모 *opens* a voice room
   at its start time (Phase 1). They're no longer competing for the same tab slot.
 - The empty state for joining users shows **clubs to join**, not a pre-filled create form.
@@ -213,7 +233,9 @@ Done when: 8+ offline 정모 have run with zero unresolved safety reports.
 ### Phase 5: Club-first structure (≈ 1–2 weeks)
 
 Backend
-- New gatherings must have `club` (keep old standalone ones readable).
+- A gathering has `club` (club gathering, members only) or none (open gathering); open offline gatherings need
+  host approval per RSVP. After an open gathering ends: "Join {host}'s club" for attendees, "Turn this into a club"
+  for the host (creates the club, invites the attendees).
 - Only owner/organizers can schedule 정모 in a club; any member can create a **번개**
   (owner can turn this off per club: `allowMemberBungae`).
 - `GET /clubs` "discover" sort: language match → has an upcoming event → active members recently → member count.
@@ -324,3 +346,5 @@ Phase 6  seed 3–5 clubs + growth hooks (starts with Phase 2, runs alongside)
 11. Host approval? **Required offline, optional online.**
 12. Club rules and warnings? **Each club has rules; organizers give warnings; at 3 the host is asked whether to
     remove** (nothing automatic). Instant removal for serious cases is allowed and reported to admin (Phase 2).
+13. Clubs vs. gatherings? **Both kinds of gathering**: club gatherings (members only) and open gatherings
+    (anyone can RSVP, no club); open gatherings lead into clubs. See §1.
