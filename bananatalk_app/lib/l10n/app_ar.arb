@@ -4786,5 +4786,14 @@
   "clubPost": "انشر سجلًا",
   "clubPostsTitle": "منشورات النادي",
   "clubPostsEmpty": "لا منشورات بعد. شارك كيف كان لقاء اليوم.",
-  "clubPostsSeeAll": "عرض الكل"
+  "clubPostsSeeAll": "عرض الكل",
+  "clubFormatLabel": "أين يجتمع النادي؟",
+  "clubFormatOnline": "عبر الإنترنت",
+  "clubFormatOffline": "حضوريًا",
+  "clubApprovalToggle": "الموافقة على الأعضاء الجدد",
+  "clubApprovalOfflineHint": "الأندية الحضورية توافق دائمًا على الأعضاء الجدد.",
+  "clubApprove": "موافقة",
+  "clubRequestsEmpty": "لا أحد في الانتظار.",
+  "clubRequestSent": "أُرسل الطلب. سيقرر المضيف.",
+  "clubRequestMeetups": "{count, plural, =0{لم يحضر أي لقاء بعد} =1{حضر لقاءً واحدًا} =2{حضر لقاءين} few{حضر {count} لقاءات} many{حضر {count} لقاءً} other{حضر {count} لقاء}}"
 }

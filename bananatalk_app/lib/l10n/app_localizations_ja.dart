@@ -12539,4 +12539,39 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get clubPostsSeeAll => 'すべて見る';
+
+  @override
+  String get clubFormatLabel => 'どこで集まりますか？';
+
+  @override
+  String get clubFormatOnline => 'オンライン';
+
+  @override
+  String get clubFormatOffline => '対面';
+
+  @override
+  String get clubApprovalToggle => '新しいメンバーを承認制にする';
+
+  @override
+  String get clubApprovalOfflineHint => '対面のクラブは常に新しいメンバーを承認制にします。';
+
+  @override
+  String get clubApprove => '承認';
+
+  @override
+  String get clubRequestsEmpty => '待っている人はいません。';
+
+  @override
+  String get clubRequestSent => 'リクエストを送りました。ホストが判断します。';
+
+  @override
+  String clubRequestMeetups(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '集まりに$count回参加',
+      zero: 'まだ参加した集まりはありません',
+    );
+    return '$_temp0';
+  }
 }

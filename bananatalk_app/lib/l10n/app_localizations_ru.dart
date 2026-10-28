@@ -13035,4 +13035,42 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get clubPostsSeeAll => 'Смотреть все';
+
+  @override
+  String get clubFormatLabel => 'Где встречается клуб?';
+
+  @override
+  String get clubFormatOnline => 'Онлайн';
+
+  @override
+  String get clubFormatOffline => 'Вживую';
+
+  @override
+  String get clubApprovalToggle => 'Одобрять новых участников';
+
+  @override
+  String get clubApprovalOfflineHint => 'Клубы со встречами вживую всегда одобряют новых участников.';
+
+  @override
+  String get clubApprove => 'Одобрить';
+
+  @override
+  String get clubRequestsEmpty => 'Никто не ждёт.';
+
+  @override
+  String get clubRequestSent => 'Заявка отправлена. Решение за организатором.';
+
+  @override
+  String clubRequestMeetups(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Был на $count встречи',
+      many: 'Был на $count встречах',
+      few: 'Был на $count встречах',
+      one: 'Был на $count встрече',
+      zero: 'Ещё не был на встречах',
+    );
+    return '$_temp0';
+  }
 }

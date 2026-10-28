@@ -4996,5 +4996,14 @@
   "clubPost": "Eintrag posten",
   "clubPostsTitle": "Club-Beiträge",
   "clubPostsEmpty": "Noch keine Beiträge. Erzähl, wie das heutige Treffen war.",
-  "clubPostsSeeAll": "Alle anzeigen"
+  "clubPostsSeeAll": "Alle anzeigen",
+  "clubFormatLabel": "Wo trifft sich der Club?",
+  "clubFormatOnline": "Online",
+  "clubFormatOffline": "Vor Ort",
+  "clubApprovalToggle": "Neue Mitglieder bestätigen",
+  "clubApprovalOfflineHint": "Clubs vor Ort bestätigen neue Mitglieder immer.",
+  "clubApprove": "Annehmen",
+  "clubRequestsEmpty": "Niemand wartet.",
+  "clubRequestSent": "Anfrage gesendet. Der Host entscheidet.",
+  "clubRequestMeetups": "{count, plural, =0{Noch bei keinem Treffen} =1{War bei 1 Treffen} other{War bei {count} Treffen}}"
 }

@@ -12539,4 +12539,39 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get clubPostsSeeAll => '모두 보기';
+
+  @override
+  String get clubFormatLabel => '어디서 모이나요?';
+
+  @override
+  String get clubFormatOnline => '온라인';
+
+  @override
+  String get clubFormatOffline => '오프라인';
+
+  @override
+  String get clubApprovalToggle => '새 멤버 승인하기';
+
+  @override
+  String get clubApprovalOfflineHint => '오프라인 클럽은 항상 새 멤버를 승인해요.';
+
+  @override
+  String get clubApprove => '승인';
+
+  @override
+  String get clubRequestsEmpty => '기다리는 사람이 없어요.';
+
+  @override
+  String get clubRequestSent => '요청을 보냈어요. 운영진이 결정할 거예요.';
+
+  @override
+  String clubRequestMeetups(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '모임 $count번 참석',
+      zero: '아직 참석한 모임 없음',
+    );
+    return '$_temp0';
+  }
 }

@@ -12569,4 +12569,40 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get clubPostsSeeAll => 'सभी देखें';
+
+  @override
+  String get clubFormatLabel => 'क्लब कहाँ मिलता है?';
+
+  @override
+  String get clubFormatOnline => 'ऑनलाइन';
+
+  @override
+  String get clubFormatOffline => 'आमने-सामने';
+
+  @override
+  String get clubApprovalToggle => 'नए सदस्यों को स्वीकृति दें';
+
+  @override
+  String get clubApprovalOfflineHint => 'आमने-सामने वाले क्लब हमेशा नए सदस्यों को स्वीकृति देते हैं।';
+
+  @override
+  String get clubApprove => 'स्वीकारें';
+
+  @override
+  String get clubRequestsEmpty => 'कोई प्रतीक्षा में नहीं है।';
+
+  @override
+  String get clubRequestSent => 'अनुरोध भेजा गया। होस्ट फ़ैसला करेंगे।';
+
+  @override
+  String clubRequestMeetups(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count मीटअप में आए',
+      one: '1 मीटअप में आए',
+      zero: 'अभी तक कोई मीटअप नहीं',
+    );
+    return '$_temp0';
+  }
 }

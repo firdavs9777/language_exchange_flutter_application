@@ -12557,4 +12557,39 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get clubPostsSeeAll => 'Tümünü gör';
+
+  @override
+  String get clubFormatLabel => 'Kulüp nerede buluşuyor?';
+
+  @override
+  String get clubFormatOnline => 'Çevrimiçi';
+
+  @override
+  String get clubFormatOffline => 'Yüz yüze';
+
+  @override
+  String get clubApprovalToggle => 'Yeni üyeleri onayla';
+
+  @override
+  String get clubApprovalOfflineHint => 'Yüz yüze kulüpler yeni üyeleri her zaman onaylar.';
+
+  @override
+  String get clubApprove => 'Onayla';
+
+  @override
+  String get clubRequestsEmpty => 'Bekleyen kimse yok.';
+
+  @override
+  String get clubRequestSent => 'İstek gönderildi. Kararı ev sahibi verecek.';
+
+  @override
+  String clubRequestMeetups(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count buluşmaya katıldı',
+      zero: 'Henüz buluşmaya katılmadı',
+    );
+    return '$_temp0';
+  }
 }

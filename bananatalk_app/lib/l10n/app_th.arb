@@ -4756,5 +4756,14 @@
   "clubPost": "โพสต์บันทึก",
   "clubPostsTitle": "โพสต์ของคลับ",
   "clubPostsEmpty": "ยังไม่มีโพสต์ แชร์ว่าการพบกันวันนี้เป็นอย่างไร",
-  "clubPostsSeeAll": "ดูทั้งหมด"
+  "clubPostsSeeAll": "ดูทั้งหมด",
+  "clubFormatLabel": "คลับนัดเจอกันที่ไหน",
+  "clubFormatOnline": "ออนไลน์",
+  "clubFormatOffline": "พบตัวจริง",
+  "clubApprovalToggle": "อนุมัติสมาชิกใหม่",
+  "clubApprovalOfflineHint": "คลับที่พบตัวจริงต้องอนุมัติสมาชิกใหม่เสมอ",
+  "clubApprove": "อนุมัติ",
+  "clubRequestsEmpty": "ไม่มีใครรออยู่",
+  "clubRequestSent": "ส่งคำขอแล้ว โฮสต์จะเป็นผู้ตัดสิน",
+  "clubRequestMeetups": "{count, plural, =0{ยังไม่เคยเข้าร่วม} other{เข้าร่วมแล้ว {count} ครั้ง}}"
 }

@@ -12559,4 +12559,39 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get clubPostsSeeAll => 'Ҳамаро дидан';
+
+  @override
+  String get clubFormatLabel => 'Клуб дар куҷо вомехӯрад?';
+
+  @override
+  String get clubFormatOnline => 'Онлайн';
+
+  @override
+  String get clubFormatOffline => 'Ҳузурӣ';
+
+  @override
+  String get clubApprovalToggle => 'Аъзоёни навро тасдиқ кунед';
+
+  @override
+  String get clubApprovalOfflineHint => 'Клубҳои ҳузурӣ ҳамеша аъзоёни навро тасдиқ мекунанд.';
+
+  @override
+  String get clubApprove => 'Қабул';
+
+  @override
+  String get clubRequestsEmpty => 'Ҳеҷ кас интизор нест.';
+
+  @override
+  String get clubRequestSent => 'Дархост фиристода шуд. Мизбон қарор медиҳад.';
+
+  @override
+  String clubRequestMeetups(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Дар $count вохӯрӣ иштирок кард',
+      zero: 'Ҳоло дар вохӯрӣ набуд',
+    );
+    return '$_temp0';
+  }
 }

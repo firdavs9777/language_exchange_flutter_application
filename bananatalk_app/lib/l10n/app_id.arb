@@ -4756,5 +4756,14 @@
   "clubPost": "Unggah catatan",
   "clubPostsTitle": "Postingan klub",
   "clubPostsEmpty": "Belum ada postingan. Ceritakan pertemuan hari ini.",
-  "clubPostsSeeAll": "Lihat semua"
+  "clubPostsSeeAll": "Lihat semua",
+  "clubFormatLabel": "Di mana klub bertemu?",
+  "clubFormatOnline": "Online",
+  "clubFormatOffline": "Tatap muka",
+  "clubApprovalToggle": "Setujui anggota baru",
+  "clubApprovalOfflineHint": "Klub tatap muka selalu menyetujui anggota baru.",
+  "clubApprove": "Setujui",
+  "clubRequestsEmpty": "Tidak ada yang menunggu.",
+  "clubRequestSent": "Permintaan terkirim. Host yang akan memutuskan.",
+  "clubRequestMeetups": "{count, plural, =0{Belum pernah ikut pertemuan} other{Ikut {count} pertemuan}}"
 }

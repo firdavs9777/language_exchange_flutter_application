@@ -12581,4 +12581,40 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get clubPostsSeeAll => 'Ver todo';
+
+  @override
+  String get clubFormatLabel => '¿Dónde se reúne?';
+
+  @override
+  String get clubFormatOnline => 'En línea';
+
+  @override
+  String get clubFormatOffline => 'En persona';
+
+  @override
+  String get clubApprovalToggle => 'Aprobar a los nuevos miembros';
+
+  @override
+  String get clubApprovalOfflineHint => 'Los clubes presenciales siempre aprueban a los nuevos miembros.';
+
+  @override
+  String get clubApprove => 'Aprobar';
+
+  @override
+  String get clubRequestsEmpty => 'No hay nadie esperando.';
+
+  @override
+  String get clubRequestSent => 'Solicitud enviada. El anfitrión decidirá.';
+
+  @override
+  String clubRequestMeetups(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Fue a $count encuentros',
+      one: 'Fue a 1 encuentro',
+      zero: 'Aún sin encuentros',
+    );
+    return '$_temp0';
+  }
 }

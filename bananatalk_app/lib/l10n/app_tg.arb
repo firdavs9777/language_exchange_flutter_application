@@ -4249,5 +4249,14 @@
   "clubPost": "Сабтро нашр кунед",
   "clubPostsTitle": "Паёмҳои клуб",
   "clubPostsEmpty": "Ҳоло паём нест. Нақл кунед, ки вохӯрии имрӯза чӣ гуна гузашт.",
-  "clubPostsSeeAll": "Ҳамаро дидан"
+  "clubPostsSeeAll": "Ҳамаро дидан",
+  "clubFormatLabel": "Клуб дар куҷо вомехӯрад?",
+  "clubFormatOnline": "Онлайн",
+  "clubFormatOffline": "Ҳузурӣ",
+  "clubApprovalToggle": "Аъзоёни навро тасдиқ кунед",
+  "clubApprovalOfflineHint": "Клубҳои ҳузурӣ ҳамеша аъзоёни навро тасдиқ мекунанд.",
+  "clubApprove": "Қабул",
+  "clubRequestsEmpty": "Ҳеҷ кас интизор нест.",
+  "clubRequestSent": "Дархост фиристода шуд. Мизбон қарор медиҳад.",
+  "clubRequestMeetups": "{count, plural, =0{Ҳоло дар вохӯрӣ набуд} other{Дар {count} вохӯрӣ иштирок кард}}"
 }

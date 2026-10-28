@@ -321,6 +321,33 @@ class GatheringApiClient {
     }
   }
 
+  /// GET /clubs/:id/requests — people asking to join (managers, clubs v2).
+  /// Null on failure.
+  Future<List<ClubJoinRequest>?> getClubJoinRequests(String clubId) async {
+    try {
+      final response = await _apiClient.get('clubs/$clubId/requests');
+      if (!response.success) return null;
+      return _listOf(response.data)
+          .whereType<Map>()
+          .map((m) => ClubJoinRequest.fromJson(Map<String, dynamic>.from(m)))
+          .toList();
+    } catch (e) {
+      debugPrint('[GatheringApiClient] getClubJoinRequests error: $e');
+      return null;
+    }
+  }
+
+  /// POST /clubs/:id/requests/:userId — approve or decline (clubs v2).
+  Future<bool> decideClubJoinRequest(String clubId, String userId, {required bool approve}) async {
+    try {
+      final response = await _apiClient.post('clubs/$clubId/requests/$userId', body: {'approve': approve});
+      return response.success;
+    } catch (e) {
+      debugPrint('[GatheringApiClient] decideClubJoinRequest error: $e');
+      return false;
+    }
+  }
+
   /// GET /clubs/:id/chat — the club's members-only chat room id, created on
   /// first use (clubs v2). Null on any failure.
   Future<String?> getClubChatRoomId(String clubId) async {
@@ -414,9 +441,13 @@ class GatheringApiClient {
     String? secondLanguage,
     List<String>? rules,
     String? notice,
+    String? format,
+    bool? joinApproval,
   }) async {
     try {
       final response = await _apiClient.put('clubs/$id', body: {
+        if (format != null) 'format': format,
+        if (joinApproval != null) 'joinApproval': joinApproval,
         if (notice != null) 'notice': notice,
         if (secondLanguage != null) 'secondLanguage': secondLanguage,
         if (rules != null) 'rules': rules,
@@ -608,6 +639,8 @@ class GatheringApiClient {
     String interest = '',
     String? secondLanguage,
     List<String>? rules,
+    String? format,
+    bool? joinApproval,
   }) async {
     try {
       final response = await _apiClient.post(
@@ -619,6 +652,8 @@ class GatheringApiClient {
           'interest': interest,
           if (secondLanguage != null) 'secondLanguage': secondLanguage,
           if (rules != null) 'rules': rules,
+          if (format != null) 'format': format,
+          if (joinApproval != null) 'joinApproval': joinApproval,
         },
       );
       if (!response.success) {

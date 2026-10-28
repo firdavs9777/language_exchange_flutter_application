@@ -12539,6 +12539,41 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get clubPostsSeeAll => '查看全部';
+
+  @override
+  String get clubFormatLabel => '在哪里聚会？';
+
+  @override
+  String get clubFormatOnline => '线上';
+
+  @override
+  String get clubFormatOffline => '线下';
+
+  @override
+  String get clubApprovalToggle => '审核新成员';
+
+  @override
+  String get clubApprovalOfflineHint => '线下俱乐部始终需要审核新成员。';
+
+  @override
+  String get clubApprove => '批准';
+
+  @override
+  String get clubRequestsEmpty => '没有人在等待。';
+
+  @override
+  String get clubRequestSent => '申请已发送，由组织者决定。';
+
+  @override
+  String clubRequestMeetups(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '参加过 $count 次聚会',
+      zero: '还没参加过聚会',
+    );
+    return '$_temp0';
+  }
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -25076,4 +25111,39 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get clubPostsSeeAll => '查看全部';
+
+  @override
+  String get clubFormatLabel => '在哪裡聚會？';
+
+  @override
+  String get clubFormatOnline => '線上';
+
+  @override
+  String get clubFormatOffline => '線下';
+
+  @override
+  String get clubApprovalToggle => '審核新成員';
+
+  @override
+  String get clubApprovalOfflineHint => '線下俱樂部一律需要審核新成員。';
+
+  @override
+  String get clubApprove => '核准';
+
+  @override
+  String get clubRequestsEmpty => '沒有人在等待。';
+
+  @override
+  String get clubRequestSent => '申請已送出，由主辦人決定。';
+
+  @override
+  String clubRequestMeetups(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '參加過 $count 次聚會',
+      zero: '還沒參加過聚會',
+    );
+    return '$_temp0';
+  }
 }

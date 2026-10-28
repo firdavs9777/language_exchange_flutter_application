@@ -4772,5 +4772,14 @@
   "clubPost": "Publicar um registro",
   "clubPostsTitle": "Publicações do clube",
   "clubPostsEmpty": "Ainda não há publicações. Conte como foi o encontro de hoje.",
-  "clubPostsSeeAll": "Ver tudo"
+  "clubPostsSeeAll": "Ver tudo",
+  "clubFormatLabel": "Onde o clube se encontra?",
+  "clubFormatOnline": "On-line",
+  "clubFormatOffline": "Presencial",
+  "clubApprovalToggle": "Aprovar novos membros",
+  "clubApprovalOfflineHint": "Clubes presenciais sempre aprovam novos membros.",
+  "clubApprove": "Aprovar",
+  "clubRequestsEmpty": "Ninguém esperando.",
+  "clubRequestSent": "Pedido enviado. O anfitrião vai decidir.",
+  "clubRequestMeetups": "{count, plural, =0{Nenhum encontro ainda} =1{Foi a 1 encontro} other{Foi a {count} encontros}}"
 }

@@ -12550,4 +12550,39 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get clubPostsSeeAll => 'Lihat semua';
+
+  @override
+  String get clubFormatLabel => 'Di mana klub bertemu?';
+
+  @override
+  String get clubFormatOnline => 'Online';
+
+  @override
+  String get clubFormatOffline => 'Tatap muka';
+
+  @override
+  String get clubApprovalToggle => 'Setujui anggota baru';
+
+  @override
+  String get clubApprovalOfflineHint => 'Klub tatap muka selalu menyetujui anggota baru.';
+
+  @override
+  String get clubApprove => 'Setujui';
+
+  @override
+  String get clubRequestsEmpty => 'Tidak ada yang menunggu.';
+
+  @override
+  String get clubRequestSent => 'Permintaan terkirim. Host yang akan memutuskan.';
+
+  @override
+  String clubRequestMeetups(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Ikut $count pertemuan',
+      zero: 'Belum pernah ikut pertemuan',
+    );
+    return '$_temp0';
+  }
 }

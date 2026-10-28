@@ -4786,5 +4786,14 @@
   "clubPost": "Опубликовать запись",
   "clubPostsTitle": "Записи клуба",
   "clubPostsEmpty": "Пока нет записей. Расскажите, как прошла сегодняшняя встреча.",
-  "clubPostsSeeAll": "Смотреть все"
+  "clubPostsSeeAll": "Смотреть все",
+  "clubFormatLabel": "Где встречается клуб?",
+  "clubFormatOnline": "Онлайн",
+  "clubFormatOffline": "Вживую",
+  "clubApprovalToggle": "Одобрять новых участников",
+  "clubApprovalOfflineHint": "Клубы со встречами вживую всегда одобряют новых участников.",
+  "clubApprove": "Одобрить",
+  "clubRequestsEmpty": "Никто не ждёт.",
+  "clubRequestSent": "Заявка отправлена. Решение за организатором.",
+  "clubRequestMeetups": "{count, plural, =0{Ещё не был на встречах} one{Был на {count} встрече} few{Был на {count} встречах} many{Был на {count} встречах} other{Был на {count} встречи}}"
 }

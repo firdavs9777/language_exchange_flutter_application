@@ -8639,5 +8639,46 @@
   "clubPostsSeeAll": "See all",
   "@clubPostsSeeAll": {
     "description": "Clubs v2: link from the club page to the full club feed"
+  },
+  "clubFormatLabel": "Where does it meet?",
+  "@clubFormatLabel": {
+    "description": "Clubs v2: create/edit club, choice of where the club meets"
+  },
+  "clubFormatOnline": "Online",
+  "@clubFormatOnline": {
+    "description": "Clubs v2: the club meets online"
+  },
+  "clubFormatOffline": "In person",
+  "@clubFormatOffline": {
+    "description": "Clubs v2: the club meets in person"
+  },
+  "clubApprovalToggle": "Approve new members",
+  "@clubApprovalToggle": {
+    "description": "Clubs v2: switch; the host approves each new member"
+  },
+  "clubApprovalOfflineHint": "In-person clubs always approve new members.",
+  "@clubApprovalOfflineHint": {
+    "description": "Clubs v2: under the approval switch when the club meets in person"
+  },
+  "clubApprove": "Approve",
+  "@clubApprove": {
+    "description": "Clubs v2: approve a join request"
+  },
+  "clubRequestsEmpty": "No one is waiting.",
+  "@clubRequestsEmpty": {
+    "description": "Clubs v2: join requests sheet, nobody waiting"
+  },
+  "clubRequestSent": "Request sent. The host will decide.",
+  "@clubRequestSent": {
+    "description": "Clubs v2: snackbar after asking to join an approval club"
+  },
+  "clubRequestMeetups": "{count, plural, =0{No meetups yet} =1{Came to 1 meetup} other{Came to {count} meetups}}",
+  "@clubRequestMeetups": {
+    "description": "Clubs v2: join request row, how many meetups the asker has been to",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   }
 }

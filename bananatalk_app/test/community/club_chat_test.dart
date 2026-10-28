@@ -47,6 +47,8 @@ class _FakeApi extends GatheringApiClient {
     String? secondLanguage,
     List<String>? rules,
     String? notice,
+    String? format,
+    bool? joinApproval,
   }) async {
     sentNotice = notice;
     return GatheringResult.ok(club);

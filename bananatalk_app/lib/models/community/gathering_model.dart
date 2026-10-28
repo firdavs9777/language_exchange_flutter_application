@@ -364,6 +364,21 @@ class Club {
   /// Clubs v2: the organizers' notice (공지), shown on the page and atop the chat.
   final String notice;
 
+  /// Clubs v2 slice 4: 'online' or 'offline' (in person).
+  final String format;
+
+  /// Clubs v2 slice 4: the host turned approval on for an online club.
+  final bool joinApproval;
+
+  /// In-person clubs always, online ones when [joinApproval] is on.
+  final bool needsApproval;
+
+  /// The viewer asked to join and is waiting.
+  final bool viewerRequestPending;
+
+  /// Managers with clubs v2: how many are waiting to join.
+  final int pendingRequestCount;
+
   /// Free text: "running", "cycling", "HSK4", "K-pop". The thing that makes a
   /// club a club rather than a language filter.
   final String interest;
@@ -416,6 +431,11 @@ class Club {
     this.rules = const [],
     this.viewerWarningCount = 0,
     this.notice = '',
+    this.format = 'online',
+    this.joinApproval = false,
+    this.needsApproval = false,
+    this.viewerRequestPending = false,
+    this.pendingRequestCount = 0,
     this.interest = '',
     this.owner = const GatheringHost(),
     this.memberCount = 0,
@@ -455,6 +475,11 @@ class Club {
           : const [],
       viewerWarningCount: (json['viewerWarningCount'] as num?)?.toInt() ?? 0,
       notice: sanitize(json['notice']),
+      format: json['format'] == 'offline' ? 'offline' : 'online',
+      joinApproval: json['joinApproval'] == true,
+      needsApproval: json['needsApproval'] == true,
+      viewerRequestPending: json['viewerRequestPending'] == true,
+      pendingRequestCount: (json['pendingRequestCount'] as num?)?.toInt() ?? 0,
       interest: sanitize(json['interest']),
       owner: GatheringHost.fromJson(json['owner']),
       memberCount: (json['memberCount'] as num?)?.toInt() ?? 0,
@@ -502,6 +527,11 @@ class Club {
       rules: rules,
       viewerWarningCount: viewerWarningCount,
       notice: notice,
+      format: format,
+      joinApproval: joinApproval,
+      needsApproval: needsApproval,
+      viewerRequestPending: viewerRequestPending,
+      pendingRequestCount: pendingRequestCount,
       interest: interest,
       owner: owner,
       memberCount: memberCount ?? this.memberCount,
@@ -509,6 +539,41 @@ class Club {
       viewerIsMember: viewerIsMember ?? this.viewerIsMember,
       viewerIsOwner: viewerIsOwner,
       gatherings: gatherings,
+    );
+  }
+}
+
+
+/// Clubs v2 slice 4: someone asking to join an approval club.
+class ClubJoinRequest {
+  final String userId;
+  final String name;
+  final List<String> images;
+  final String nativeLanguage;
+  final String learningLanguage;
+  final DateTime? requestedAt;
+  final int meetupsAttended;
+
+  const ClubJoinRequest({
+    required this.userId,
+    this.name = '',
+    this.images = const [],
+    this.nativeLanguage = '',
+    this.learningLanguage = '',
+    this.requestedAt,
+    this.meetupsAttended = 0,
+  });
+
+  factory ClubJoinRequest.fromJson(Map<String, dynamic> json) {
+    final user = json['user'] is Map ? Map<String, dynamic>.from(json['user'] as Map) : const <String, dynamic>{};
+    return ClubJoinRequest(
+      userId: (user['_id'] ?? user['id'])?.toString() ?? '',
+      name: sanitize(user['name']),
+      images: user['images'] is List ? (user['images'] as List).map((e) => e.toString()).toList() : const [],
+      nativeLanguage: sanitize(user['native_language']),
+      learningLanguage: sanitize(user['language_to_learn']),
+      requestedAt: json['requestedAt'] != null ? DateTime.tryParse(json['requestedAt'].toString()) : null,
+      meetupsAttended: (json['meetupsAttended'] as num?)?.toInt() ?? 0,
     );
   }
 }

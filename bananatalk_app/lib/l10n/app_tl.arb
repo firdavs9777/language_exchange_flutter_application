@@ -4729,5 +4729,14 @@
   "clubPost": "Mag-post ng record",
   "clubPostsTitle": "Mga post ng club",
   "clubPostsEmpty": "Wala pang post. Ikuwento kung kumusta ang meetup ngayon.",
-  "clubPostsSeeAll": "Tingnan lahat"
+  "clubPostsSeeAll": "Tingnan lahat",
+  "clubFormatLabel": "Saan nagkikita ang club?",
+  "clubFormatOnline": "Online",
+  "clubFormatOffline": "Personal",
+  "clubApprovalToggle": "Aprubahan ang mga bagong miyembro",
+  "clubApprovalOfflineHint": "Laging inaaprubahan ng mga personal na club ang bagong miyembro.",
+  "clubApprove": "Aprubahan",
+  "clubRequestsEmpty": "Walang naghihintay.",
+  "clubRequestSent": "Naipadala ang request. Ang host ang magpapasya.",
+  "clubRequestMeetups": "{count, plural, =0{Wala pang meetup} =1{Dumalo sa 1 meetup} other{Dumalo sa {count} meetup}}"
 }

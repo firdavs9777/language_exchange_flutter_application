@@ -16,6 +16,8 @@ import 'package:bananatalk_app/pages/community/gatherings/club_people_section.da
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/pages/community/gatherings/club_rules.dart';
 import 'package:bananatalk_app/pages/community/gatherings/club_warn_sheet.dart';
+import 'package:bananatalk_app/pages/community/gatherings/club_requests_sheet.dart';
+import 'package:bananatalk_app/pages/community/gatherings/club_format_picker.dart';
 import 'package:bananatalk_app/pages/community/rooms/club_notice_banner.dart';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
@@ -69,6 +71,10 @@ class _ClubDetailScreenState extends ConsumerState<ClubDetailScreen> {
   /// The rules as edited in the open edit sheet (clubs v2).
   List<String> _editedRules = const [];
 
+  /// Format / approval as edited in the open edit sheet (clubs v2 slice 4).
+  String _editedFormat = 'online';
+  bool _editedApproval = false;
+
   @override
   void initState() {
     super.initState();
@@ -103,6 +109,8 @@ class _ClubDetailScreenState extends ConsumerState<ClubDetailScreen> {
     );
     final notice = TextEditingController(text: club.notice);
     _editedRules = club.rules;
+    _editedFormat = club.format;
+    _editedApproval = club.joinApproval;
     final l10n = AppLocalizations.of(context)!;
     final controllers = [name, description, interest, city, placeName, secondLanguage, notice];
 
@@ -205,6 +213,17 @@ class _ClubDetailScreenState extends ConsumerState<ClubDetailScreen> {
                       InputDecoration(labelText: l10n.clubSecondLanguageLabel),
                 ),
                 const SizedBox(height: 16),
+                StatefulBuilder(
+                  builder: (_, setSheet) => ClubFormatPicker(
+                    format: _editedFormat,
+                    joinApproval: _editedApproval,
+                    onChanged: (f, a) => setSheet(() {
+                      _editedFormat = f;
+                      _editedApproval = a;
+                    }),
+                  ),
+                ),
+                const SizedBox(height: 16),
                 ClubRulesEditor(
                   initialRules: club.rules,
                   onChanged: (rules) => _editedRules = rules,
@@ -241,6 +260,8 @@ class _ClubDetailScreenState extends ConsumerState<ClubDetailScreen> {
       secondLanguage: clubsV2 ? secondLanguage.text.trim() : null,
       rules: clubsV2 ? _editedRules : null,
       notice: clubsV2 ? notice.text.trim() : null,
+      format: clubsV2 ? _editedFormat : null,
+      joinApproval: clubsV2 ? _editedApproval : null,
     );
     if (!mounted) return;
     setState(() {
@@ -555,9 +576,13 @@ class _ClubDetailScreenState extends ConsumerState<ClubDetailScreen> {
   Future<void> _toggleMembership(Club club) async {
     if (_busy) return;
     setState(() => _busy = true);
-    final error = club.viewerIsMember
+    final asking = !club.viewerIsMember && club.needsApproval && !club.viewerRequestPending;
+    final error = club.viewerIsMember || club.viewerRequestPending
         ? (await _api.leaveClub(club.id)).error
         : (await _api.joinClub(club.id)).error;
+    if (error == null && asking && mounted) {
+      showCommunitySnackBar(context, message: AppLocalizations.of(context)!.clubRequestSent);
+    }
     if (!mounted) return;
     setState(() => _busy = false);
 
@@ -803,6 +828,18 @@ class _ClubDetailScreenState extends ConsumerState<ClubDetailScreen> {
                         style: context.bodyMedium),
                   ),
                 ],
+                if (_clubsV2 && club.viewerCanManage && club.pendingRequestCount > 0) ...[
+                  Spacing.gapMD,
+                  OutlinedButton.icon(
+                    key: const Key('club-requests'),
+                    onPressed: () async {
+                      await showClubRequestsSheet(context, clubId: club.id, api: _api);
+                      if (mounted) await _reload();
+                    },
+                    icon: const Icon(Icons.how_to_reg_rounded),
+                    label: Text(l10n.gatheringRequests(club.pendingRequestCount)),
+                  ),
+                ],
                 // Clubs v2: the rules come before the Join button, and joining
                 // means agreeing to them.
                 if (_clubsV2 && club.rules.isNotEmpty) ...[
@@ -832,7 +869,24 @@ class _ClubDetailScreenState extends ConsumerState<ClubDetailScreen> {
                                 : () => _toggleMembership(club),
                             child: Text(l10n.clubLeave),
                           )
-                        : FilledButton(
+                        : _clubsV2 && club.viewerRequestPending
+                            // Clubs v2 slice 4: waiting for the host.
+                            ? Column(
+                                key: const Key('club-request-pending'),
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  OutlinedButton.icon(
+                                    onPressed: null,
+                                    icon: const Icon(Icons.hourglass_top_rounded),
+                                    label: Text(l10n.gatheringRequestPending),
+                                  ),
+                                  TextButton(
+                                    onPressed: _busy ? null : () => _toggleMembership(club),
+                                    child: Text(l10n.gatheringWithdrawRequest),
+                                  ),
+                                ],
+                              )
+                            : FilledButton(
                             onPressed: _busy
                                 ? null
                                 : () => _toggleMembership(club),
@@ -841,9 +895,11 @@ class _ClubDetailScreenState extends ConsumerState<ClubDetailScreen> {
                                 vertical: Spacing.md,
                               ),
                             ),
-                            child: Text(_clubsV2 && club.rules.isNotEmpty
-                                ? l10n.clubJoinAgree
-                                : l10n.clubJoin),
+                            child: Text(_clubsV2 && club.needsApproval
+                                ? l10n.gatheringAskToJoin
+                                : _clubsV2 && club.rules.isNotEmpty
+                                    ? l10n.clubJoinAgree
+                                    : l10n.clubJoin),
                           ),
                   ),
               ],

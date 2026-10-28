@@ -379,6 +379,9 @@ class NotificationRouter {
       // Clubs v2: an organizer warned you; open the club, whose page shows
       // your count. No id → the Community tab, where clubs are listed.
       case 'club_warning':
+      case 'club_join_request':
+      case 'club_join_approved':
+      case 'club_join_denied':
         final clubId = data['clubId']?.toString();
         return (clubId != null && clubId.isNotEmpty) ? '/club/$clubId' : '/tabs/1';
 

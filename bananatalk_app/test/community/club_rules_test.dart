@@ -35,6 +35,8 @@ class _FakeApi extends GatheringApiClient {
     String interest = '',
     String? secondLanguage,
     List<String>? rules,
+    String? format,
+    bool? joinApproval,
   }) async {
     sentRules = rules;
     sentSecondLanguage = secondLanguage;

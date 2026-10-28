@@ -12562,4 +12562,40 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get clubPostsSeeAll => 'Tingnan lahat';
+
+  @override
+  String get clubFormatLabel => 'Saan nagkikita ang club?';
+
+  @override
+  String get clubFormatOnline => 'Online';
+
+  @override
+  String get clubFormatOffline => 'Personal';
+
+  @override
+  String get clubApprovalToggle => 'Aprubahan ang mga bagong miyembro';
+
+  @override
+  String get clubApprovalOfflineHint => 'Laging inaaprubahan ng mga personal na club ang bagong miyembro.';
+
+  @override
+  String get clubApprove => 'Aprubahan';
+
+  @override
+  String get clubRequestsEmpty => 'Walang naghihintay.';
+
+  @override
+  String get clubRequestSent => 'Naipadala ang request. Ang host ang magpapasya.';
+
+  @override
+  String clubRequestMeetups(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Dumalo sa $count meetup',
+      one: 'Dumalo sa 1 meetup',
+      zero: 'Wala pang meetup',
+    );
+    return '$_temp0';
+  }
 }

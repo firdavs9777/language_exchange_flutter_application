@@ -4968,5 +4968,14 @@
   "clubPost": "Kayıt paylaş",
   "clubPostsTitle": "Kulüp gönderileri",
   "clubPostsEmpty": "Henüz gönderi yok. Bugünkü buluşmanın nasıl geçtiğini paylaş.",
-  "clubPostsSeeAll": "Tümünü gör"
+  "clubPostsSeeAll": "Tümünü gör",
+  "clubFormatLabel": "Kulüp nerede buluşuyor?",
+  "clubFormatOnline": "Çevrimiçi",
+  "clubFormatOffline": "Yüz yüze",
+  "clubApprovalToggle": "Yeni üyeleri onayla",
+  "clubApprovalOfflineHint": "Yüz yüze kulüpler yeni üyeleri her zaman onaylar.",
+  "clubApprove": "Onayla",
+  "clubRequestsEmpty": "Bekleyen kimse yok.",
+  "clubRequestSent": "İstek gönderildi. Kararı ev sahibi verecek.",
+  "clubRequestMeetups": "{count, plural, =0{Henüz buluşmaya katılmadı} other{{count} buluşmaya katıldı}}"
 }

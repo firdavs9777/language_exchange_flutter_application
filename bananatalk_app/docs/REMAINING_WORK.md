@@ -486,3 +486,8 @@ Web ↔ app parity (spec `docs/superpowers/specs/2026-10-16-web-app-parity-desig
 - [ ] Club feed shows the latest 20 (no infinite paging yet); video records not supported. S
 - [ ] Native review of the 10 club-feed strings (CSV rows appended). S
 - [ ] Club page and full club feed show load errors as "No posts yet" (no error state / retry). S
+
+## Clubs v2 slice 4: join approval (2026-10-28, branch feat/clubs-v2-approval; plan docs/superpowers/plans/2026-10-28-clubs-v2-join-approval.md)
+- [x] Create/edit a club: "Where does it meet?" Online / In person; "Approve new members" (locked on for in person). Approval clubs show "Ask to join" → "Request pending" + "Withdraw request"; hosts see "N waiting to join" → a sheet with each person's languages and meetups attended, Approve / Deny. `club_join_*` pushes open the club. 9 new strings (19 locales), 5 reused from gatherings.
+- [ ] Backend deploy order: privacy fix → club feed → join approval (stacked branches). S
+- [ ] Device QA: in-person club create, ask/withdraw from a second account, approve and deny, the requester's notice, approved member lands in the club chat. M
