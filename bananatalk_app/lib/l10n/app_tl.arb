@@ -4719,5 +4719,15 @@
   "clubChat": "Chat",
   "clubChatFailed": "Hindi mabuksan ang chat.",
   "clubNoticeTitle": "Paalala",
-  "clubNoticeLabel": "Paalala sa mga miyembro (opsyonal)"
+  "clubNoticeLabel": "Paalala sa mga miyembro (opsyonal)",
+  "clubShareToMoments": "Ibahagi rin sa Moments",
+  "clubShareToMomentsHint": "Naka-off: mga miyembro lang ng club ang makakakita.",
+  "clubActivityDistance": "Layo (km)",
+  "clubActivityTime": "Oras (min)",
+  "clubActivityKm": "{distance} km",
+  "clubActivityPace": "{pace}/km",
+  "clubPost": "Mag-post ng record",
+  "clubPostsTitle": "Mga post ng club",
+  "clubPostsEmpty": "Wala pang post. Ikuwento kung kumusta ang meetup ngayon.",
+  "clubPostsSeeAll": "Tingnan lahat"
 }

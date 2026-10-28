@@ -12525,4 +12525,38 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get clubNoticeLabel => 'Эълон барои аъзоён (ихтиёрӣ)';
+
+  @override
+  String get clubShareToMoments => 'Инчунин дар Лаҳзаҳо мубодила кунед';
+
+  @override
+  String get clubShareToMomentsHint => 'Хомӯш: танҳо аъзоёни клуб мебинанд.';
+
+  @override
+  String get clubActivityDistance => 'Масофа (км)';
+
+  @override
+  String get clubActivityTime => 'Вақт (дақ.)';
+
+  @override
+  String clubActivityKm(String distance) {
+    return '$distance км';
+  }
+
+  @override
+  String clubActivityPace(String pace) {
+    return '$pace/км';
+  }
+
+  @override
+  String get clubPost => 'Сабтро нашр кунед';
+
+  @override
+  String get clubPostsTitle => 'Паёмҳои клуб';
+
+  @override
+  String get clubPostsEmpty => 'Ҳоло паём нест. Нақл кунед, ки вохӯрии имрӯза чӣ гуна гузашт.';
+
+  @override
+  String get clubPostsSeeAll => 'Ҳамаро дидан';
 }

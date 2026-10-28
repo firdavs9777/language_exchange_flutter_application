@@ -12523,4 +12523,38 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get clubNoticeLabel => 'Üyelere duyuru (isteğe bağlı)';
+
+  @override
+  String get clubShareToMoments => 'Anlar\'da da paylaş';
+
+  @override
+  String get clubShareToMomentsHint => 'Kapalı: yalnızca kulüp üyeleri görür.';
+
+  @override
+  String get clubActivityDistance => 'Mesafe (km)';
+
+  @override
+  String get clubActivityTime => 'Süre (dk)';
+
+  @override
+  String clubActivityKm(String distance) {
+    return '$distance km';
+  }
+
+  @override
+  String clubActivityPace(String pace) {
+    return '$pace/km';
+  }
+
+  @override
+  String get clubPost => 'Kayıt paylaş';
+
+  @override
+  String get clubPostsTitle => 'Kulüp gönderileri';
+
+  @override
+  String get clubPostsEmpty => 'Henüz gönderi yok. Bugünkü buluşmanın nasıl geçtiğini paylaş.';
+
+  @override
+  String get clubPostsSeeAll => 'Tümünü gör';
 }

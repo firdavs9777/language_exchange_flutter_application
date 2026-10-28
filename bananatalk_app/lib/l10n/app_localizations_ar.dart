@@ -12622,4 +12622,38 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get clubNoticeLabel => 'إعلان للأعضاء (اختياري)';
+
+  @override
+  String get clubShareToMoments => 'شاركه أيضًا في اللحظات';
+
+  @override
+  String get clubShareToMomentsHint => 'عند الإيقاف: يراه أعضاء النادي فقط.';
+
+  @override
+  String get clubActivityDistance => 'المسافة (كم)';
+
+  @override
+  String get clubActivityTime => 'الوقت (دقيقة)';
+
+  @override
+  String clubActivityKm(String distance) {
+    return '$distance كم';
+  }
+
+  @override
+  String clubActivityPace(String pace) {
+    return '$pace/كم';
+  }
+
+  @override
+  String get clubPost => 'انشر سجلًا';
+
+  @override
+  String get clubPostsTitle => 'منشورات النادي';
+
+  @override
+  String get clubPostsEmpty => 'لا منشورات بعد. شارك كيف كان لقاء اليوم.';
+
+  @override
+  String get clubPostsSeeAll => 'عرض الكل';
 }

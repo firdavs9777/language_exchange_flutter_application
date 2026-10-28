@@ -4776,5 +4776,15 @@
   "clubChat": "Чат",
   "clubChatFailed": "Не удалось открыть чат.",
   "clubNoticeTitle": "Объявление",
-  "clubNoticeLabel": "Объявление для участников (необязательно)"
+  "clubNoticeLabel": "Объявление для участников (необязательно)",
+  "clubShareToMoments": "Также опубликовать в Моментах",
+  "clubShareToMomentsHint": "Выключено: видят только участники клуба.",
+  "clubActivityDistance": "Дистанция (км)",
+  "clubActivityTime": "Время (мин)",
+  "clubActivityKm": "{distance} км",
+  "clubActivityPace": "{pace}/км",
+  "clubPost": "Опубликовать запись",
+  "clubPostsTitle": "Записи клуба",
+  "clubPostsEmpty": "Пока нет записей. Расскажите, как прошла сегодняшняя встреча.",
+  "clubPostsSeeAll": "Смотреть все"
 }

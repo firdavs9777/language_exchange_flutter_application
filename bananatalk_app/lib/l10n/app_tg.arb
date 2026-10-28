@@ -4239,5 +4239,15 @@
   "clubChat": "Чат",
   "clubChatFailed": "Чат кушода нашуд.",
   "clubNoticeTitle": "Эълон",
-  "clubNoticeLabel": "Эълон барои аъзоён (ихтиёрӣ)"
+  "clubNoticeLabel": "Эълон барои аъзоён (ихтиёрӣ)",
+  "clubShareToMoments": "Инчунин дар Лаҳзаҳо мубодила кунед",
+  "clubShareToMomentsHint": "Хомӯш: танҳо аъзоёни клуб мебинанд.",
+  "clubActivityDistance": "Масофа (км)",
+  "clubActivityTime": "Вақт (дақ.)",
+  "clubActivityKm": "{distance} км",
+  "clubActivityPace": "{pace}/км",
+  "clubPost": "Сабтро нашр кунед",
+  "clubPostsTitle": "Паёмҳои клуб",
+  "clubPostsEmpty": "Ҳоло паём нест. Нақл кунед, ки вохӯрии имрӯза чӣ гуна гузашт.",
+  "clubPostsSeeAll": "Ҳамаро дидан"
 }

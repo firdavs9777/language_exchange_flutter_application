@@ -4760,5 +4760,15 @@
   "clubChat": "聊天",
   "clubChatFailed": "无法打开聊天。",
   "clubNoticeTitle": "公告",
-  "clubNoticeLabel": "给成员的公告（可选）"
+  "clubNoticeLabel": "给成员的公告（可选）",
+  "clubShareToMoments": "同时分享到动态",
+  "clubShareToMomentsHint": "关闭时：仅俱乐部成员可见。",
+  "clubActivityDistance": "距离（公里）",
+  "clubActivityTime": "时间（分钟）",
+  "clubActivityKm": "{distance} 公里",
+  "clubActivityPace": "{pace}/公里",
+  "clubPost": "发布记录",
+  "clubPostsTitle": "俱乐部帖子",
+  "clubPostsEmpty": "还没有帖子。分享一下今天的聚会吧。",
+  "clubPostsSeeAll": "查看全部"
 }

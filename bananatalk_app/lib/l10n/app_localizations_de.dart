@@ -12547,4 +12547,38 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get clubNoticeLabel => 'Hinweis für Mitglieder (optional)';
+
+  @override
+  String get clubShareToMoments => 'Auch in Momente teilen';
+
+  @override
+  String get clubShareToMomentsHint => 'Aus: nur Club-Mitglieder sehen es.';
+
+  @override
+  String get clubActivityDistance => 'Distanz (km)';
+
+  @override
+  String get clubActivityTime => 'Zeit (Min.)';
+
+  @override
+  String clubActivityKm(String distance) {
+    return '$distance km';
+  }
+
+  @override
+  String clubActivityPace(String pace) {
+    return '$pace/km';
+  }
+
+  @override
+  String get clubPost => 'Eintrag posten';
+
+  @override
+  String get clubPostsTitle => 'Club-Beiträge';
+
+  @override
+  String get clubPostsEmpty => 'Noch keine Beiträge. Erzähl, wie das heutige Treffen war.';
+
+  @override
+  String get clubPostsSeeAll => 'Alle anzeigen';
 }

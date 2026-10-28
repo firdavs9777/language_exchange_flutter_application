@@ -4986,5 +4986,15 @@
   "clubChat": "Discussion",
   "clubChatFailed": "Impossible d'ouvrir la discussion.",
   "clubNoticeTitle": "Annonce",
-  "clubNoticeLabel": "Annonce pour les membres (facultatif)"
+  "clubNoticeLabel": "Annonce pour les membres (facultatif)",
+  "clubShareToMoments": "Partager aussi dans Moments",
+  "clubShareToMomentsHint": "Désactivé : seuls les membres du club le voient.",
+  "clubActivityDistance": "Distance (km)",
+  "clubActivityTime": "Temps (min)",
+  "clubActivityKm": "{distance} km",
+  "clubActivityPace": "{pace}/km",
+  "clubPost": "Publier un récit",
+  "clubPostsTitle": "Publications du club",
+  "clubPostsEmpty": "Pas encore de publication. Raconte comment s'est passée la rencontre du jour.",
+  "clubPostsSeeAll": "Tout voir"
 }

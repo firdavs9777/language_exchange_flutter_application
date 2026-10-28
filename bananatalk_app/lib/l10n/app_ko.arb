@@ -4767,5 +4767,15 @@
   "clubChat": "채팅",
   "clubChatFailed": "채팅을 열지 못했어요.",
   "clubNoticeTitle": "공지",
-  "clubNoticeLabel": "멤버 공지 (선택)"
+  "clubNoticeLabel": "멤버 공지 (선택)",
+  "clubShareToMoments": "모먼트에도 공유",
+  "clubShareToMomentsHint": "끄면 클럽 멤버만 볼 수 있어요.",
+  "clubActivityDistance": "거리 (km)",
+  "clubActivityTime": "시간 (분)",
+  "clubActivityKm": "{distance} km",
+  "clubActivityPace": "{pace}/km",
+  "clubPost": "기록 올리기",
+  "clubPostsTitle": "클럽 게시물",
+  "clubPostsEmpty": "아직 게시물이 없어요. 오늘 모임은 어땠는지 공유해 보세요.",
+  "clubPostsSeeAll": "모두 보기"
 }

@@ -4762,5 +4762,15 @@
   "clubChat": "चैट",
   "clubChatFailed": "चैट नहीं खुल सकी।",
   "clubNoticeTitle": "सूचना",
-  "clubNoticeLabel": "सदस्यों के लिए सूचना (वैकल्पिक)"
+  "clubNoticeLabel": "सदस्यों के लिए सूचना (वैकल्पिक)",
+  "clubShareToMoments": "मोमेंट्स में भी शेयर करें",
+  "clubShareToMomentsHint": "बंद: केवल क्लब के सदस्य देखेंगे।",
+  "clubActivityDistance": "दूरी (किमी)",
+  "clubActivityTime": "समय (मिनट)",
+  "clubActivityKm": "{distance} किमी",
+  "clubActivityPace": "{pace}/किमी",
+  "clubPost": "रिकॉर्ड पोस्ट करें",
+  "clubPostsTitle": "क्लब पोस्ट",
+  "clubPostsEmpty": "अभी कोई पोस्ट नहीं। बताइए आज की मीटअप कैसी रही।",
+  "clubPostsSeeAll": "सभी देखें"
 }

@@ -12535,4 +12535,38 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get clubNoticeLabel => 'सदस्यों के लिए सूचना (वैकल्पिक)';
+
+  @override
+  String get clubShareToMoments => 'मोमेंट्स में भी शेयर करें';
+
+  @override
+  String get clubShareToMomentsHint => 'बंद: केवल क्लब के सदस्य देखेंगे।';
+
+  @override
+  String get clubActivityDistance => 'दूरी (किमी)';
+
+  @override
+  String get clubActivityTime => 'समय (मिनट)';
+
+  @override
+  String clubActivityKm(String distance) {
+    return '$distance किमी';
+  }
+
+  @override
+  String clubActivityPace(String pace) {
+    return '$pace/किमी';
+  }
+
+  @override
+  String get clubPost => 'रिकॉर्ड पोस्ट करें';
+
+  @override
+  String get clubPostsTitle => 'क्लब पोस्ट';
+
+  @override
+  String get clubPostsEmpty => 'अभी कोई पोस्ट नहीं। बताइए आज की मीटअप कैसी रही।';
+
+  @override
+  String get clubPostsSeeAll => 'सभी देखें';
 }

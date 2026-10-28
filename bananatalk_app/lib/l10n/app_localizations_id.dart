@@ -12516,4 +12516,38 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get clubNoticeLabel => 'Pengumuman untuk anggota (opsional)';
+
+  @override
+  String get clubShareToMoments => 'Bagikan juga ke Momen';
+
+  @override
+  String get clubShareToMomentsHint => 'Mati: hanya anggota klub yang melihat.';
+
+  @override
+  String get clubActivityDistance => 'Jarak (km)';
+
+  @override
+  String get clubActivityTime => 'Waktu (menit)';
+
+  @override
+  String clubActivityKm(String distance) {
+    return '$distance km';
+  }
+
+  @override
+  String clubActivityPace(String pace) {
+    return '$pace/km';
+  }
+
+  @override
+  String get clubPost => 'Unggah catatan';
+
+  @override
+  String get clubPostsTitle => 'Postingan klub';
+
+  @override
+  String get clubPostsEmpty => 'Belum ada postingan. Ceritakan pertemuan hari ini.';
+
+  @override
+  String get clubPostsSeeAll => 'Lihat semua';
 }

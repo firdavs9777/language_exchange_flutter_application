@@ -4762,5 +4762,15 @@
   "clubChat": "Chat",
   "clubChatFailed": "Não foi possível abrir o chat.",
   "clubNoticeTitle": "Aviso",
-  "clubNoticeLabel": "Aviso para membros (opcional)"
+  "clubNoticeLabel": "Aviso para membros (opcional)",
+  "clubShareToMoments": "Compartilhar também em Momentos",
+  "clubShareToMomentsHint": "Desligado: só membros do clube veem.",
+  "clubActivityDistance": "Distância (km)",
+  "clubActivityTime": "Tempo (min)",
+  "clubActivityKm": "{distance} km",
+  "clubActivityPace": "{pace}/km",
+  "clubPost": "Publicar um registro",
+  "clubPostsTitle": "Publicações do clube",
+  "clubPostsEmpty": "Ainda não há publicações. Conte como foi o encontro de hoje.",
+  "clubPostsSeeAll": "Ver tudo"
 }

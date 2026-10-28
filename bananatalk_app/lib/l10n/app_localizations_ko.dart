@@ -12505,4 +12505,38 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get clubNoticeLabel => '멤버 공지 (선택)';
+
+  @override
+  String get clubShareToMoments => '모먼트에도 공유';
+
+  @override
+  String get clubShareToMomentsHint => '끄면 클럽 멤버만 볼 수 있어요.';
+
+  @override
+  String get clubActivityDistance => '거리 (km)';
+
+  @override
+  String get clubActivityTime => '시간 (분)';
+
+  @override
+  String clubActivityKm(String distance) {
+    return '$distance km';
+  }
+
+  @override
+  String clubActivityPace(String pace) {
+    return '$pace/km';
+  }
+
+  @override
+  String get clubPost => '기록 올리기';
+
+  @override
+  String get clubPostsTitle => '클럽 게시물';
+
+  @override
+  String get clubPostsEmpty => '아직 게시물이 없어요. 오늘 모임은 어땠는지 공유해 보세요.';
+
+  @override
+  String get clubPostsSeeAll => '모두 보기';
 }

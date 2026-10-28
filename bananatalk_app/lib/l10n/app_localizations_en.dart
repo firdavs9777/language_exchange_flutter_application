@@ -12565,4 +12565,38 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get clubNoticeLabel => 'Notice for members (optional)';
+
+  @override
+  String get clubShareToMoments => 'Also share to Moments';
+
+  @override
+  String get clubShareToMomentsHint => 'Off: only club members see it.';
+
+  @override
+  String get clubActivityDistance => 'Distance (km)';
+
+  @override
+  String get clubActivityTime => 'Time (min)';
+
+  @override
+  String clubActivityKm(String distance) {
+    return '$distance km';
+  }
+
+  @override
+  String clubActivityPace(String pace) {
+    return '$pace/km';
+  }
+
+  @override
+  String get clubPost => 'Post a record';
+
+  @override
+  String get clubPostsTitle => 'Club posts';
+
+  @override
+  String get clubPostsEmpty => 'No posts yet. Share how today\'s meetup went.';
+
+  @override
+  String get clubPostsSeeAll => 'See all';
 }

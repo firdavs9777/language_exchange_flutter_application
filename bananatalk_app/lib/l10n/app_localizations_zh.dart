@@ -12505,6 +12505,40 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get clubNoticeLabel => '给成员的公告（可选）';
+
+  @override
+  String get clubShareToMoments => '同时分享到动态';
+
+  @override
+  String get clubShareToMomentsHint => '关闭时：仅俱乐部成员可见。';
+
+  @override
+  String get clubActivityDistance => '距离（公里）';
+
+  @override
+  String get clubActivityTime => '时间（分钟）';
+
+  @override
+  String clubActivityKm(String distance) {
+    return '$distance 公里';
+  }
+
+  @override
+  String clubActivityPace(String pace) {
+    return '$pace/公里';
+  }
+
+  @override
+  String get clubPost => '发布记录';
+
+  @override
+  String get clubPostsTitle => '俱乐部帖子';
+
+  @override
+  String get clubPostsEmpty => '还没有帖子。分享一下今天的聚会吧。';
+
+  @override
+  String get clubPostsSeeAll => '查看全部';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -25008,4 +25042,38 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get clubNoticeLabel => '給成員的公告（選填）';
+
+  @override
+  String get clubShareToMoments => '同時分享到動態';
+
+  @override
+  String get clubShareToMomentsHint => '關閉時：僅俱樂部成員可見。';
+
+  @override
+  String get clubActivityDistance => '距離（公里）';
+
+  @override
+  String get clubActivityTime => '時間（分鐘）';
+
+  @override
+  String clubActivityKm(String distance) {
+    return '$distance 公里';
+  }
+
+  @override
+  String clubActivityPace(String pace) {
+    return '$pace/公里';
+  }
+
+  @override
+  String get clubPost => '發布紀錄';
+
+  @override
+  String get clubPostsTitle => '俱樂部貼文';
+
+  @override
+  String get clubPostsEmpty => '還沒有貼文。分享一下今天的聚會吧。';
+
+  @override
+  String get clubPostsSeeAll => '查看全部';
 }

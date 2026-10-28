@@ -4746,5 +4746,15 @@
   "clubChat": "แชท",
   "clubChatFailed": "เปิดแชทไม่สำเร็จ",
   "clubNoticeTitle": "ประกาศ",
-  "clubNoticeLabel": "ประกาศถึงสมาชิก (ไม่บังคับ)"
+  "clubNoticeLabel": "ประกาศถึงสมาชิก (ไม่บังคับ)",
+  "clubShareToMoments": "แชร์ไปที่โมเมนต์ด้วย",
+  "clubShareToMomentsHint": "ปิด: เห็นได้เฉพาะสมาชิกคลับ",
+  "clubActivityDistance": "ระยะทาง (กม.)",
+  "clubActivityTime": "เวลา (นาที)",
+  "clubActivityKm": "{distance} กม.",
+  "clubActivityPace": "{pace}/กม.",
+  "clubPost": "โพสต์บันทึก",
+  "clubPostsTitle": "โพสต์ของคลับ",
+  "clubPostsEmpty": "ยังไม่มีโพสต์ แชร์ว่าการพบกันวันนี้เป็นอย่างไร",
+  "clubPostsSeeAll": "ดูทั้งหมด"
 }

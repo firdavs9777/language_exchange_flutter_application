@@ -4746,5 +4746,15 @@
   "clubChat": "チャット",
   "clubChatFailed": "チャットを開けませんでした。",
   "clubNoticeTitle": "お知らせ",
-  "clubNoticeLabel": "メンバーへのお知らせ（任意）"
+  "clubNoticeLabel": "メンバーへのお知らせ（任意）",
+  "clubShareToMoments": "モーメントにも共有",
+  "clubShareToMomentsHint": "オフ：クラブのメンバーだけが見られます。",
+  "clubActivityDistance": "距離（km）",
+  "clubActivityTime": "時間（分）",
+  "clubActivityKm": "{distance} km",
+  "clubActivityPace": "{pace}/km",
+  "clubPost": "記録を投稿",
+  "clubPostsTitle": "クラブの投稿",
+  "clubPostsEmpty": "まだ投稿はありません。今日の集まりの様子を共有しましょう。",
+  "clubPostsSeeAll": "すべて見る"
 }

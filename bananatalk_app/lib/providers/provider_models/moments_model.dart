@@ -170,6 +170,25 @@ Location? parseMomentLocation(dynamic json) {
   );
 }
 
+/// Clubs v2: a club post's optional stats. Pace is worked out, not stored.
+class MomentActivity {
+  final int? distanceM;
+  final int? durationS;
+
+  const MomentActivity({this.distanceM, this.durationS});
+
+  static MomentActivity? tryParse(Object? json) {
+    if (json is! Map) return null;
+    final d = json['distanceM'];
+    final t = json['durationS'];
+    final a = MomentActivity(
+      distanceM: d is num ? d.round() : null,
+      durationS: t is num ? t.round() : null,
+    );
+    return a.distanceM == null && a.durationS == null ? null : a;
+  }
+}
+
 class Moments {
   const Moments({
     required this.id,
@@ -214,6 +233,8 @@ class Moments {
     this.location,
     this.isReel = false,
     this.boosted = false,
+    this.clubId,
+    this.activity,
   });
 
   final String id;
@@ -273,6 +294,12 @@ class Moments {
 
   /// True for reels (surfaced only via the reels feed).
   final bool isReel;
+
+  /// Clubs v2: the club this was posted in, if any.
+  final String? clubId;
+
+  /// Clubs v2: a club post's distance / time.
+  final MomentActivity? activity;
 
   /// The author's latest moment while they have a Profile Boost; For You
   /// lifts it and the card says "Boosted".
@@ -409,6 +436,10 @@ class Moments {
       location: parseMomentLocation(json['location']),
       isReel: json['isReel'] == true,
       boosted: json['boosted'] == true,
+      clubId: json['club'] is Map
+          ? (json['club']['_id'] ?? json['club']['id'])?.toString()
+          : json['club']?.toString(),
+      activity: MomentActivity.tryParse(json['activity']),
     );
   }
 
@@ -533,6 +564,8 @@ class Moments {
       location: location ?? this.location,
       isReel: isReel ?? this.isReel,
       boosted: boosted ?? this.boosted,
+      clubId: clubId,
+      activity: activity,
     );
   }
 }

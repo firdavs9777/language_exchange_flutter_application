@@ -45,6 +45,7 @@ import 'package:bananatalk_app/pages/moments/create/create_action_helpers.dart';
 import 'package:bananatalk_app/pages/moments/create/create_tag_dialog.dart';
 import 'package:bananatalk_app/widgets/voice_recorder/voice_recorder_mobile.dart';
 import 'package:bananatalk_app/services/voice_message_service.dart';
+import 'package:bananatalk_app/pages/moments/create/club_post.dart';
 import 'package:just_audio/just_audio.dart';
 
 class CreateMoment extends ConsumerStatefulWidget {
@@ -76,6 +77,10 @@ class CreateMoment extends ConsumerStatefulWidget {
   /// A camera photo taken before Android killed the app (CameraRecovery).
   final XFile? initialImage;
 
+  /// Clubs v2: post into this club's feed. Replaces the privacy picker with
+  /// "Also share to Moments" and distance / time; photos only, no schedule.
+  final String? clubId;
+
   const CreateMoment({
     Key? key,
     this.momentToEdit,
@@ -84,6 +89,7 @@ class CreateMoment extends ConsumerStatefulWidget {
     this.isReel = false,
     this.prefillLanguage,
     this.initialImage,
+    this.clubId,
   }) : super(key: key);
 
   @override
@@ -121,6 +127,19 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
 
   // New fields matching web version
   String _selectedPrivacy = 'Public';
+
+  ({String privacy, Map<String, int>? activity}) get _clubFields => clubPostFields(
+        shareToMoments: _clubOptions.shareToMoments,
+        distanceKm: _clubOptions.distanceKm,
+        timeMin: _clubOptions.timeMin,
+      );
+
+  /// Clubs v2: the club-post options (see club_post.dart).
+  ClubPostOptionsValue _clubOptions = const ClubPostOptionsValue();
+
+  /// Posting into a club, or editing a post that was made in one.
+  bool get _isClubPost =>
+      widget.clubId != null || widget.momentToEdit?.clubId != null;
   String _selectedCategory = 'General';
   String _selectedLanguage = 'English';
   String? _selectedMood;
@@ -1431,7 +1450,9 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
               tags: List<String>.from(_tags),
               backgroundColor: _selectedBackgroundColor,
               language: _languages[_selectedLanguage] ?? 'en',
-              privacy: _selectedPrivacy.toLowerCase(),
+              privacy: _isClubPost
+                  ? widget.momentToEdit!.privacy
+                  : _selectedPrivacy.toLowerCase(),
               includeLocation: _locationEdited,
               location: _formatLocationData(),
               includeScheduledFor: _scheduledDate != _initialScheduledDate,
@@ -1481,7 +1502,9 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
             .read(momentsServiceProvider)
             .createMoments(
               description: descriptionController.text.trim(),
-              privacy: _selectedPrivacy.toLowerCase(),
+              privacy: widget.clubId != null
+                  ? _clubFields.privacy
+                  : _selectedPrivacy.toLowerCase(),
               category: _categoryToBackend[_selectedCategory] ?? 'general',
               language: _languages[_selectedLanguage] ?? 'en',
               mood: _selectedMood != null ? _moods[_selectedMood] : null,
@@ -1493,6 +1516,8 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                   : null,
               promptId: _showPromptChip ? _promptId : null,
               isReel: widget.isReel,
+              club: widget.clubId,
+              activity: widget.clubId == null ? null : _clubFields.activity,
             );
         // The server created it: that is the milestone, uploads or not.
         activation.markDone(ActivationAction.moment).ignore();
@@ -1551,6 +1576,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
         ref.invalidate(momentsFeedProvider);
         ref.invalidate(forYouMomentsProvider);
         ref.invalidate(followingMomentsProvider);
+        if (widget.clubId != null) ref.invalidate(clubMomentsProvider(widget.clubId!));
 
         // Refresh limits after successful creation
         try {
@@ -1980,6 +2006,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                   onTap: _pickImages,
                   color: AppColors.primary,
                 ),
+              if (!_isClubPost)
               createBottomButton(
                 context: context,
                 icon: Icons.videocam_outlined,
@@ -2069,6 +2096,14 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
   /// One section of the composer body, extracted so the staged
   /// flow can order and group them without touching their contents.
   List<Widget> _sectionPrivacy() {
+    // A club post's privacy is chosen when posting and never changes.
+    if (_isClubPost) {
+      if (isEditMode) return const [];
+      return [
+        ClubPostOptions(onChanged: (v) => _clubOptions = v),
+        Spacing.gapMD,
+      ];
+    }
     return [
       // Privacy Selector
       Container(
@@ -2889,6 +2924,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
   /// One section of the composer body, extracted so the staged
   /// flow can order and group them without touching their contents.
   List<Widget> _sectionSchedule() {
+    if (_isClubPost) return const [];
     return [
       // Schedule (Optional)
       Column(

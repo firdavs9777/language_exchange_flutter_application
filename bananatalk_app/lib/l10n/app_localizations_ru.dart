@@ -13001,4 +13001,38 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get clubNoticeLabel => 'Объявление для участников (необязательно)';
+
+  @override
+  String get clubShareToMoments => 'Также опубликовать в Моментах';
+
+  @override
+  String get clubShareToMomentsHint => 'Выключено: видят только участники клуба.';
+
+  @override
+  String get clubActivityDistance => 'Дистанция (км)';
+
+  @override
+  String get clubActivityTime => 'Время (мин)';
+
+  @override
+  String clubActivityKm(String distance) {
+    return '$distance км';
+  }
+
+  @override
+  String clubActivityPace(String pace) {
+    return '$pace/км';
+  }
+
+  @override
+  String get clubPost => 'Опубликовать запись';
+
+  @override
+  String get clubPostsTitle => 'Записи клуба';
+
+  @override
+  String get clubPostsEmpty => 'Пока нет записей. Расскажите, как прошла сегодняшняя встреча.';
+
+  @override
+  String get clubPostsSeeAll => 'Смотреть все';
 }

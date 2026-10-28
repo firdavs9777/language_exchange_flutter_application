@@ -4958,5 +4958,15 @@
   "clubChat": "Sohbet",
   "clubChatFailed": "Sohbet açılamadı.",
   "clubNoticeTitle": "Duyuru",
-  "clubNoticeLabel": "Üyelere duyuru (isteğe bağlı)"
+  "clubNoticeLabel": "Üyelere duyuru (isteğe bağlı)",
+  "clubShareToMoments": "Anlar'da da paylaş",
+  "clubShareToMomentsHint": "Kapalı: yalnızca kulüp üyeleri görür.",
+  "clubActivityDistance": "Mesafe (km)",
+  "clubActivityTime": "Süre (dk)",
+  "clubActivityKm": "{distance} km",
+  "clubActivityPace": "{pace}/km",
+  "clubPost": "Kayıt paylaş",
+  "clubPostsTitle": "Kulüp gönderileri",
+  "clubPostsEmpty": "Henüz gönderi yok. Bugünkü buluşmanın nasıl geçtiğini paylaş.",
+  "clubPostsSeeAll": "Tümünü gör"
 }

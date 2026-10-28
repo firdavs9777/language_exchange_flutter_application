@@ -4437,5 +4437,15 @@
   "clubChat": "聊天",
   "clubChatFailed": "無法開啟聊天。",
   "clubNoticeTitle": "公告",
-  "clubNoticeLabel": "給成員的公告（選填）"
+  "clubNoticeLabel": "給成員的公告（選填）",
+  "clubShareToMoments": "同時分享到動態",
+  "clubShareToMomentsHint": "關閉時：僅俱樂部成員可見。",
+  "clubActivityDistance": "距離（公里）",
+  "clubActivityTime": "時間（分鐘）",
+  "clubActivityKm": "{distance} 公里",
+  "clubActivityPace": "{pace}/公里",
+  "clubPost": "發布紀錄",
+  "clubPostsTitle": "俱樂部貼文",
+  "clubPostsEmpty": "還沒有貼文。分享一下今天的聚會吧。",
+  "clubPostsSeeAll": "查看全部"
 }

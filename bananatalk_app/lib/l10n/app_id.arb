@@ -4746,5 +4746,15 @@
   "clubChat": "Obrolan",
   "clubChatFailed": "Obrolan gagal dibuka.",
   "clubNoticeTitle": "Pengumuman",
-  "clubNoticeLabel": "Pengumuman untuk anggota (opsional)"
+  "clubNoticeLabel": "Pengumuman untuk anggota (opsional)",
+  "clubShareToMoments": "Bagikan juga ke Momen",
+  "clubShareToMomentsHint": "Mati: hanya anggota klub yang melihat.",
+  "clubActivityDistance": "Jarak (km)",
+  "clubActivityTime": "Waktu (menit)",
+  "clubActivityKm": "{distance} km",
+  "clubActivityPace": "{pace}/km",
+  "clubPost": "Unggah catatan",
+  "clubPostsTitle": "Postingan klub",
+  "clubPostsEmpty": "Belum ada postingan. Ceritakan pertemuan hari ini.",
+  "clubPostsSeeAll": "Lihat semua"
 }

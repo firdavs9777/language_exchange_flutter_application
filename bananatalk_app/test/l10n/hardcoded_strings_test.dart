@@ -875,6 +875,19 @@ const Map<String, List<String>> _keysByTask = {
     'dailyReminderTime',
   ],
   // Clubs v2 slice 1 (2026-10-28): club rules, the language pair, warnings.
+  // Clubs v2 slice 3 (2026-10-28): club feed.
+  'clubs-v2-feed': [
+    'clubShareToMoments',
+    'clubShareToMomentsHint',
+    'clubActivityDistance',
+    'clubActivityTime',
+    'clubActivityKm',
+    'clubActivityPace',
+    'clubPost',
+    'clubPostsTitle',
+    'clubPostsEmpty',
+    'clubPostsSeeAll',
+  ],
   // Clubs v2 slice 2 (2026-10-28): club chat + notice.
   'clubs-v2-chat': [
     'clubChat',
@@ -1234,12 +1247,18 @@ const Map<String, List<String>> _filesByTask = {
   'clubs-v2-chat': [
     'pages/community/rooms/club_notice_banner.dart',
   ],
+  'clubs-v2-feed': [
+    'pages/moments/create/club_post.dart',
+  ],
 };
 
 /// Keys whose draft may legitimately equal the English, per locale (loanwords,
 /// units, badges). Add `key: {locales}` with a one-line reason. Per-locale so a
 /// translation skipped in some other locale is still caught.
 const Map<String, Set<String>> _mayMatchEnglish = {
+  'clubActivityKm': {'de', 'es', 'fr', 'id', 'it', 'ja', 'ko', 'pt', 'tl', 'tr', 'vi'}, // "{distance} km": the unit symbol is the same
+  'clubActivityPace': {'de', 'es', 'fr', 'id', 'it', 'ja', 'ko', 'pt', 'tl', 'tr', 'vi'}, // "{pace}/km": the unit symbol is the same
+  'clubActivityDistance': {'fr'}, // fr "Distance (km)" is the same word
   'clubChat': {'de', 'es', 'it', 'pt', 'tl'}, // "Chat" is the word used in these languages
   'commonReportTotalSize': {'es', 'id', 'pt'}, // es/pt/id: "Total" is the same word
   'commonReportTypeUser': {'tl'}, // tl keeps the loanword "user"

@@ -12505,4 +12505,38 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get clubNoticeLabel => 'メンバーへのお知らせ（任意）';
+
+  @override
+  String get clubShareToMoments => 'モーメントにも共有';
+
+  @override
+  String get clubShareToMomentsHint => 'オフ：クラブのメンバーだけが見られます。';
+
+  @override
+  String get clubActivityDistance => '距離（km）';
+
+  @override
+  String get clubActivityTime => '時間（分）';
+
+  @override
+  String clubActivityKm(String distance) {
+    return '$distance km';
+  }
+
+  @override
+  String clubActivityPace(String pace) {
+    return '$pace/km';
+  }
+
+  @override
+  String get clubPost => '記録を投稿';
+
+  @override
+  String get clubPostsTitle => 'クラブの投稿';
+
+  @override
+  String get clubPostsEmpty => 'まだ投稿はありません。今日の集まりの様子を共有しましょう。';
+
+  @override
+  String get clubPostsSeeAll => 'すべて見る';
 }

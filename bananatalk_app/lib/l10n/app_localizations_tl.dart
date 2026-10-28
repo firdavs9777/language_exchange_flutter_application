@@ -12528,4 +12528,38 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get clubNoticeLabel => 'Paalala sa mga miyembro (opsyonal)';
+
+  @override
+  String get clubShareToMoments => 'Ibahagi rin sa Moments';
+
+  @override
+  String get clubShareToMomentsHint => 'Naka-off: mga miyembro lang ng club ang makakakita.';
+
+  @override
+  String get clubActivityDistance => 'Layo (km)';
+
+  @override
+  String get clubActivityTime => 'Oras (min)';
+
+  @override
+  String clubActivityKm(String distance) {
+    return '$distance km';
+  }
+
+  @override
+  String clubActivityPace(String pace) {
+    return '$pace/km';
+  }
+
+  @override
+  String get clubPost => 'Mag-post ng record';
+
+  @override
+  String get clubPostsTitle => 'Mga post ng club';
+
+  @override
+  String get clubPostsEmpty => 'Wala pang post. Ikuwento kung kumusta ang meetup ngayon.';
+
+  @override
+  String get clubPostsSeeAll => 'Tingnan lahat';
 }

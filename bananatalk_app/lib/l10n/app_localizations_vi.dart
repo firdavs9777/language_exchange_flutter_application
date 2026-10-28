@@ -12505,4 +12505,38 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get clubNoticeLabel => 'Thông báo cho thành viên (không bắt buộc)';
+
+  @override
+  String get clubShareToMoments => 'Chia sẻ cả lên Khoảnh khắc';
+
+  @override
+  String get clubShareToMomentsHint => 'Tắt: chỉ thành viên câu lạc bộ xem được.';
+
+  @override
+  String get clubActivityDistance => 'Quãng đường (km)';
+
+  @override
+  String get clubActivityTime => 'Thời gian (phút)';
+
+  @override
+  String clubActivityKm(String distance) {
+    return '$distance km';
+  }
+
+  @override
+  String clubActivityPace(String pace) {
+    return '$pace/km';
+  }
+
+  @override
+  String get clubPost => 'Đăng bản ghi';
+
+  @override
+  String get clubPostsTitle => 'Bài đăng câu lạc bộ';
+
+  @override
+  String get clubPostsEmpty => 'Chưa có bài đăng. Hãy chia sẻ buổi gặp hôm nay thế nào.';
+
+  @override
+  String get clubPostsSeeAll => 'Xem tất cả';
 }

@@ -12505,4 +12505,38 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get clubNoticeLabel => 'ประกาศถึงสมาชิก (ไม่บังคับ)';
+
+  @override
+  String get clubShareToMoments => 'แชร์ไปที่โมเมนต์ด้วย';
+
+  @override
+  String get clubShareToMomentsHint => 'ปิด: เห็นได้เฉพาะสมาชิกคลับ';
+
+  @override
+  String get clubActivityDistance => 'ระยะทาง (กม.)';
+
+  @override
+  String get clubActivityTime => 'เวลา (นาที)';
+
+  @override
+  String clubActivityKm(String distance) {
+    return '$distance กม.';
+  }
+
+  @override
+  String clubActivityPace(String pace) {
+    return '$pace/กม.';
+  }
+
+  @override
+  String get clubPost => 'โพสต์บันทึก';
+
+  @override
+  String get clubPostsTitle => 'โพสต์ของคลับ';
+
+  @override
+  String get clubPostsEmpty => 'ยังไม่มีโพสต์ แชร์ว่าการพบกันวันนี้เป็นอย่างไร';
+
+  @override
+  String get clubPostsSeeAll => 'ดูทั้งหมด';
 }
