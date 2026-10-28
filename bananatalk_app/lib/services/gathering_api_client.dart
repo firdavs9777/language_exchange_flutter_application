@@ -310,6 +310,40 @@ class GatheringApiClient {
 
   // --------------------------------------------------------------------- clubs
 
+  /// GET /clubs/access — does this user see clubs v2 (rules, warnings, the
+  /// language pair)? Any failure means no.
+  Future<bool> getClubsV2Access() async {
+    try {
+      return clubsV2AccessFrom(await _apiClient.get('clubs/access'));
+    } catch (e) {
+      debugPrint('[GatheringApiClient] getClubsV2Access error: $e');
+      return false;
+    }
+  }
+
+  /// GET /clubs/:id/chat — the club's members-only chat room id, created on
+  /// first use (clubs v2). Null on any failure.
+  Future<String?> getClubChatRoomId(String clubId) async {
+    try {
+      final response = await _apiClient.get('clubs/$clubId/chat');
+      final data = _mapOf(response.data);
+      if (!response.success || data == null) return null;
+      final id = data['roomId']?.toString();
+      return (id == null || id.isEmpty) ? null : id;
+    } catch (e) {
+      debugPrint('[GatheringApiClient] getClubChatRoomId error: $e');
+      return null;
+    }
+  }
+
+  /// Only an explicit `clubsV2: true` grants access; a 404 (switch off, or a
+  /// backend from before v2) or an unexpected body does not.
+  static bool clubsV2AccessFrom(ApiResponse response) {
+    if (!response.success) return false;
+    final data = response.data;
+    return data is Map && data['clubsV2'] == true;
+  }
+
   /// GET /clubs — active clubs in a language the viewer speaks or is
   /// learning, busiest first.
   Future<List<Club>> getClubs({
@@ -377,9 +411,15 @@ class GatheringApiClient {
     String? city,
     String? placeName,
     String? placeAddress,
+    String? secondLanguage,
+    List<String>? rules,
+    String? notice,
   }) async {
     try {
       final response = await _apiClient.put('clubs/$id', body: {
+        if (notice != null) 'notice': notice,
+        if (secondLanguage != null) 'secondLanguage': secondLanguage,
+        if (rules != null) 'rules': rules,
         if (name != null) 'name': name,
         if (description != null) 'description': description,
         if (interest != null) 'interest': interest,
@@ -484,9 +524,23 @@ class GatheringApiClient {
   }
 
   /// DELETE /clubs/:id/members/:userId — owner or organizer.
-  Future<GatheringResult<bool>> removeClubMember(String clubId, String userId) async {
+  ///
+  /// Clubs v2: [ban] stops them rejoining; a [reason] goes to the admin queue
+  /// as a club report. No body is sent when neither is set (today's call).
+  Future<GatheringResult<bool>> removeClubMember(
+    String clubId,
+    String userId, {
+    bool ban = false,
+    String? reason,
+  }) async {
     try {
-      final response = await _apiClient.delete('clubs/$clubId/members/$userId');
+      final hasBody = ban || (reason != null && reason.isNotEmpty);
+      final response = await _apiClient.delete(
+        'clubs/$clubId/members/$userId',
+        body: hasBody
+            ? {'ban': ban, if (reason != null && reason.isNotEmpty) 'reason': reason}
+            : null,
+      );
       if (!response.success) {
         return GatheringResult.failed(response.error ?? 'Could not remove');
       }
@@ -494,6 +548,34 @@ class GatheringApiClient {
     } catch (e) {
       debugPrint('[GatheringApiClient] removeClubMember error: $e');
       return const GatheringResult.failed('Could not remove');
+    }
+  }
+
+  /// POST /clubs/:id/members/:userId/warnings — clubs v2. Returns the
+  /// member's warning count and whether the host should now be asked to
+  /// remove them (3rd warning), or null on failure.
+  Future<GatheringResult<({int warningCount, bool promptRemoval})>> warnClubMember(
+    String clubId,
+    String userId, {
+    required String rule,
+    String? note,
+  }) async {
+    try {
+      final response = await _apiClient.post(
+        'clubs/$clubId/members/$userId/warnings',
+        body: {'rule': rule, if (note != null && note.isNotEmpty) 'note': note},
+      );
+      final data = _mapOf(response.data);
+      if (!response.success || data == null) {
+        return GatheringResult.failed(response.error ?? 'Could not warn');
+      }
+      return GatheringResult.ok((
+        warningCount: (data['warningCount'] as num?)?.toInt() ?? 0,
+        promptRemoval: data['promptRemoval'] == true,
+      ));
+    } catch (e) {
+      debugPrint('[GatheringApiClient] warnClubMember error: $e');
+      return const GatheringResult.failed('Could not warn');
     }
   }
 
@@ -524,6 +606,8 @@ class GatheringApiClient {
     required String language,
     String description = '',
     String interest = '',
+    String? secondLanguage,
+    List<String>? rules,
   }) async {
     try {
       final response = await _apiClient.post(
@@ -533,6 +617,8 @@ class GatheringApiClient {
           'language': language,
           'description': description,
           'interest': interest,
+          if (secondLanguage != null) 'secondLanguage': secondLanguage,
+          if (rules != null) 'rules': rules,
         },
       );
       if (!response.success) {

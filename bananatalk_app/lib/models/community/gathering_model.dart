@@ -287,12 +287,17 @@ class ClubMember {
   /// renders as an ordinary member rather than vanishing.
   final String role;
 
+  /// Clubs v2: warnings this member has in the club. Sent only to managers
+  /// with clubs v2 access; 0 otherwise.
+  final int warningCount;
+
   const ClubMember({
     required this.id,
     this.name = '',
     this.username = '',
     this.images = const [],
     this.role = 'member',
+    this.warningCount = 0,
   });
 
   bool get isOwner => role == 'owner';
@@ -312,6 +317,7 @@ class ClubMember {
             ? (json['images'] as List).map((e) => e.toString()).toList()
             : const [],
         role: json['role']?.toString() ?? 'member',
+        warningCount: (json['warningCount'] as num?)?.toInt() ?? 0,
       );
 }
 
@@ -343,6 +349,20 @@ class Club {
   final String description;
   final String language;
   final String languageLabel;
+
+  /// Clubs v2: the other half of the language pair (base code), null when the
+  /// club has none.
+  final String? secondLanguage;
+  final String secondLanguageLabel;
+
+  /// Clubs v2: rules the owner wrote, shown before joining.
+  final List<String> rules;
+
+  /// Clubs v2: the viewer's own warnings in this club (detail only).
+  final int viewerWarningCount;
+
+  /// Clubs v2: the organizers' notice (공지), shown on the page and atop the chat.
+  final String notice;
 
   /// Free text: "running", "cycling", "HSK4", "K-pop". The thing that makes a
   /// club a club rather than a language filter.
@@ -391,6 +411,11 @@ class Club {
     this.description = '',
     this.language = '',
     this.languageLabel = '',
+    this.secondLanguage,
+    this.secondLanguageLabel = '',
+    this.rules = const [],
+    this.viewerWarningCount = 0,
+    this.notice = '',
     this.interest = '',
     this.owner = const GatheringHost(),
     this.memberCount = 0,
@@ -418,6 +443,18 @@ class Club {
       description: sanitize(json['description']),
       language: json['language']?.toString() ?? '',
       languageLabel: sanitize(json['languageLabel']),
+      secondLanguage: sanitize(json['secondLanguage']).isEmpty
+          ? null
+          : sanitize(json['secondLanguage']),
+      secondLanguageLabel: sanitize(json['secondLanguageLabel']),
+      rules: json['rules'] is List
+          ? (json['rules'] as List)
+              .map((r) => sanitize(r))
+              .where((r) => r.isNotEmpty)
+              .toList()
+          : const [],
+      viewerWarningCount: (json['viewerWarningCount'] as num?)?.toInt() ?? 0,
+      notice: sanitize(json['notice']),
       interest: sanitize(json['interest']),
       owner: GatheringHost.fromJson(json['owner']),
       memberCount: (json['memberCount'] as num?)?.toInt() ?? 0,
@@ -460,6 +497,11 @@ class Club {
       description: description,
       language: language,
       languageLabel: languageLabel,
+      secondLanguage: secondLanguage,
+      secondLanguageLabel: secondLanguageLabel,
+      rules: rules,
+      viewerWarningCount: viewerWarningCount,
+      notice: notice,
       interest: interest,
       owner: owner,
       memberCount: memberCount ?? this.memberCount,

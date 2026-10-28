@@ -5,9 +5,9 @@
 **Goal:** Turn "Gatherings & Clubs" into a Korean-style 모임 product for language exchange:
 a 모임 (club) is the home, and 정모 / 번개 (gatherings) happen inside it, online or offline.
 
-> **Assumption to confirm first:** this plan follows the "both, chosen per club" option:
-> online clubs for everyone, plus an **offline pilot in 1–2 cities** that you run yourself.
-> If you decide online-only, skip the offline part of Phase 4 (keep the region filter for online clubs by language and time zone) and keep everything else.
+> **Decided 2026-10-28:** hybrid, as planned: online clubs for everyone, plus an **offline pilot in 1–2 cities**
+> that you run yourself. Phase 4 stays in the plan whatever the online numbers show; a 6-week review (§4)
+> adjusts the format, it does not gate Phase 4. Answers to the other open questions are in §8.
 
 ---
 
@@ -18,7 +18,51 @@ a 모임 (club) is the home, and 정모 / 번개 (gatherings) happen inside it, 
 
 What makes it different from 소모임 / 문토 / 당근 모임: every 모임 is built around **a language pair**
 (e.g. 한국어 ↔ English), so Koreans and foreigners meet to practise each other's languages.
-We do not compete as a general hobby app.
+A club can be about any activity (running, hiking, cooking, plain conversation), but it always sets a
+language pair too (decided 2026-10-28), e.g. "Hangang Running · 한국어 ↔ English". The activity is why people
+come; the language pair is why they come to BananaTalk and not a general hobby app.
+
+### Clubs vs. gatherings (decided 2026-10-28)
+
+People **belong** to a club and **attend** gatherings.
+
+| | Club (모임) | Gathering |
+|---|---|---|
+| What it is | A group of people | One event at a set time |
+| Lasts | Permanently | A few hours, then it ends |
+| You get in by | Becoming a member (host approval if offline) | RSVP for a seat (host approval if offline) |
+| Has | Rules, warnings, members, organizers, chat, feed | Time, place or room, seats per language side, check-in, "Who was there" |
+| Kinds | — | **Club gathering**: 정모 (repeats) or 번개 (once), members only · **Open gathering**: once, anyone can RSVP, no club needed |
+
+- **Open gatherings** are the low-commitment way in: try one English meetup tonight without joining anything.
+  Online: anyone can create one. Offline: approved hosts in pilot cities, and the host approves each RSVP.
+- **Gatherings feed clubs.** After an open gathering, attendees see "Liked it? Join {host}'s club" (if the host has
+  one) and the host sees "Turn this into a club", which creates the club with the attendees invited.
+- **Moderation differs.** Warnings (and the 3-warning prompt) belong to clubs. At an open gathering the host can
+  remove an attendee and report them; there is no warning count.
+- 찾기 shows both: clubs, and a "This week" list of club gatherings open to the viewer plus open gatherings.
+
+### How it works, in two examples
+
+**A weekly running club (offline).** You create "Hangang Running · 한국어 ↔ English" (offline, Seoul) and schedule
+a 정모 every Saturday 08:00; the app opens each next run itself. New members find the club in 찾기 (offline · area ·
+language) or through your invite link, ask to join, and you approve them after seeing their profile, languages and
+past attendance. Members RSVP; seats split by language side (4 + 4) with a waitlist per side. Reminders go out 24 h
+and 2 h before ("Can't come? Release your seat"); the exact meeting point shows only to people going, from the day
+before. On the day they check in with a QR code. Afterwards: "Who was there" with Message buttons, "Did you feel
+safe?", members post their run (photo, note, distance/time) to the club feed and optionally to Moments, and last
+week's runners get "Keep your seat?" for next Saturday.
+
+**An English conversation club (online).** The same, except anyone can join without approval (the host can turn it
+on), "Join now" opens a voice room at the start time, a timer switches English ↔ Korean halfway with topic cards
+to talk about, times show in each viewer's zone, and afterwards "Words from tonight" can be saved to AI Study.
+
+**Safety and security when looking at or joining a gathering:** club rules you agree to on joining, with
+warnings from the host (at 3 warnings the host can remove you; serious cases can be removed at once); 18+ only (profile birth date); people you blocked
+are hidden; offline events only at public places in pilot cities from approved hosts; the card shows only the area,
+the exact place only to confirmed attendees from the day before; host approval for every new member of an offline
+club; QR check-in; report on events and in club chat (offline reports first in the admin queue); "Did you feel
+safe?" after each offline event, two "no" answers pause the host. No ID check yet.
 
 ### Words we use (in the app and in the code comments)
 
@@ -31,8 +75,7 @@ We do not compete as a general hobby app.
 | 모임 채팅 / Club chat | (new) | Group chat for members |
 | 온라인 / 오프라인 | `type` (`online`, `offline_meetup`) | Where it happens |
 
-Rename the "Gatherings" tab to **모임** in Korean and **Clubs** (or "Meetups") in English. Test both names
-with five users before deciding.
+Rename the "Gatherings" tab to **모임** in Korean and **Clubs** in English (decided 2026-10-28).
 
 ---
 
@@ -51,8 +94,8 @@ Community
 ```
 
 Rules:
-- **Every gathering belongs to a club** for new events (a club can have just one person, the host).
-  Existing standalone gatherings keep working. This makes the club the one container, like 소모임.
+- A gathering is either a **club gathering** (members only) or an **open gathering** (no club, anyone can RSVP);
+  see §1 "Clubs vs. gatherings". Existing standalone gatherings become open gatherings.
 - **Voice rooms come back** as their own thing (drop-in talk now). An online 정모 *opens* a voice room
   at its start time (Phase 1). They're no longer competing for the same tab slot.
 - The empty state for joining users shows **clubs to join**, not a pre-filled create form.
@@ -67,11 +110,12 @@ Order agreed 2026-10-27: club chat → 정모 repeat → region filter + offline
 
 | # | Task | Done when |
 |---|---|---|
-| 0.1 | Decide online-only vs. hybrid (this plan assumes hybrid) | Written in the spec as §1.6 |
+| 0.1 | ~~Decide online-only vs. hybrid~~ Hybrid (decided 2026-10-28) | Written in the spec as §1.6 |
 | 0.2 | Deploy backend `04c3832` (host reliability, "who was there", cancel/time-moved fixes) | Live in prod, smoke-tested on one gathering |
 | 0.3 | Commit or drop the uncommitted app changes (pending join request, CO2) | Clean working tree |
 | 0.4 | Do the two-phone audio test (plan Task 0) | Pass/fail written down; this decides Phase 1A vs 1B |
 | 0.5 | Keep `gatheringsEnabled` **off for normal users** until Phase 5 ships; allow it for an internal test group | App config supports a user allow-list (or a build flag) |
+| 0.6 | Measure before choosing the pilot city and seeded pairs: users active in the last 30 days by `location.country` + `location.city`, and by `native_language` × `language_to_learn`; plus gatherings so far (created, RSVPs, attended) | Top cities and pairs written here; you pick the 1–2 pilot cities from them |
 
 ### Phase 1: An online event has somewhere to happen (≈ 1–2 weeks)
 
@@ -92,6 +136,21 @@ Nothing else matters if people RSVP and then have nowhere to go.
   so they appear in in-app history (65% of users have no push token).
 - Make "Add to calendar (.ics)" a button right after RSVP, not only in the email.
 
+**Added 2026-10-28 (Phase 1):**
+- **Seats by language side, on by default.** An event's capacity splits by its club's language pair
+  (e.g. 4 Korean speakers + 4 English speakers, judged by `native_language`), each side with its own waitlist.
+  The card says "English speakers: 1 seat left". The host can turn it off per event. A one-sided meetup is not
+  a language exchange, and no general 모임 app does this.
+- **Built-in format for every 정모.** In the room: a timed language switch (default 20 min language A →
+  20 min language B, host can change the split) with a visible "switch now" prompt, and topic cards drawn from
+  the existing daily prompts. New hosts get a working meetup without planning one.
+- **Times in the viewer's zone.** Every card, detail screen, reminder and .ics shows the viewer's local time,
+  with the host's time on a second line ("Tue 21:00 KST"). Online clubs mix Korea with users abroad.
+- **No-show tools.** The T-2h reminder has "Can't come? Release your seat", which promotes the next person on
+  that side's waitlist and tells them. Check-in: room presence for online events (Phase 1A), QR at offline
+  events (Phase 4). Check-in is what the "RSVP → came" metric (§4) counts. After a few events, a soft
+  "usually comes" label on members who show up; nothing negative is shown.
+
 Done when: a test gathering goes RSVP → reminder → join → talk → end → "Who was there", on two phones.
 
 ### Phase 2: Club chat, the retention piece (≈ 2–3 weeks)
@@ -108,7 +167,28 @@ This is what makes Korean 모임 apps sticky: people talk between meetups.
 - Notification setting per club: all / mentions and events only / off. Default: events only.
 - The daily first-message limit doesn't apply inside club chat; the existing one-to-one rules stay.
 
-Done when: members of a test club chat for a week and get event messages there.
+**Club feed for records (added 2026-10-28).** After an event, members post a photo + note, with optional
+distance / time / pace, to the club page; one toggle also shares it to Moments. Reuse the Moments composer and
+model with a `club` reference rather than a new post type; no fitness-app integration. Only members see the club
+feed of a private club; organizers can remove posts; reports and blocks as in Moments.
+
+**Club rules and warnings (added 2026-10-28).**
+- Every club has rules. The owner writes them when creating the club, starting from defaults: be respectful;
+  use both languages of the pair; no dating, selling or recruiting; RSVP honestly and release your seat if you
+  can't come. Offline clubs add the public-place and safety rules. People see the rules before joining and
+  agree to them when they join.
+- Owner/organizers can give a member a **warning**, naming the broken rule and an optional note. The member gets
+  an in-app notice and can see their own count ("1 of 3") in the club.
+- At the **3rd warning the host decides**: the app asks "Remove this member?" and nothing happens automatically.
+- A host can also remove someone at once, without warnings (harassment, safety). Removing at once asks for a
+  reason, which goes to the admin queue.
+- A removed member leaves the club and its chat and can't rejoin unless the host allows it.
+- Warnings and removals are logged for admins. A member can report a host who abuses them; repeated reports
+  about one host pause their offline events (same as the "felt unsafe" rule).
+- Proposal, not decided: warnings expire after 6 months.
+
+Done when: members of a test club chat for a week and get event messages there, and post records after an event;
+a test member gets three warnings and the host is asked whether to remove them.
 
 ### Phase 3: 정모 (repeat) (≈ 1 week)
 
@@ -119,26 +199,31 @@ Done when: members of a test club chat for a week and get event messages there.
 - Editing: "this one" or "this and all future".
 - "Repeat this gathering" button on ended gatherings (spec §2.1) uses the same code.
 
+- **Word recap after each 정모** (added 2026-10-28): next to "Who was there", "Words from tonight": phrases the
+  host or attendees add during the event (and later, from the room's topic cards). One tap saves them to
+  AI Study vocabulary; attending counts toward XP / the streak.
+
 Done when: a weekly 정모 runs three weeks in a row without the host re-creating it.
 
 ### Phase 4: Region filter + offline pilot (≈ 3–4 weeks, after Phases 1–3 work online)
 
-Start in **1–2 cities** (e.g. Seoul, plus one more where you have users). Owner-created clubs only at first;
-open to verified users later.
+Start in **1–2 cities**, chosen from the Phase 0.6 numbers. Owner-created clubs only at first;
+open to more hosts (an owner-approved list) later.
 
 Safety (required before any offline event is visible)
-- **18+ only**, enforced with 본인인증 (PASS / 휴대폰 인증) for Korean users. Decide what foreigners use
-  (e.g. passport check via a provider, or offline 모임 for verified foreigners only); this needs a vendor choice.
+- **18+ only**, from the profile birth date. **No identity verification for the pilot** (decided 2026-10-28:
+  the app is international and 본인인증 only covers Korean phone numbers). The measures below carry the safety
+  load instead; revisit a verification vendor if the pilot grows past owner-run clubs or reports come in.
 - Offline events must be at a **public place** (café, study room, language café). Host picks from a list
   or enters an address that's checked.
 - **Exact place is shown only to people going**, from the day before; the card shows only the area (e.g. "홍대입구").
 - Host checklist on create (public place, no alcohol-only meetups for the pilot, contact for problems).
 - Report button on the event and in club chat; reports from offline events go to the top of the admin queue.
 - After each offline event: "Did you feel safe?" (yes/no) to everyone who went. Two "no" answers pause the host.
-- Legal check: terms of service and privacy policy updated for location and identity verification.
+- Legal check: terms of service and privacy policy updated for location sharing and offline meetups.
 
 Product
-- Re-enable `offline_meetup` in the API **only** for verified hosts in pilot cities.
+- Re-enable `offline_meetup` in the API **only** for approved hosts (owner allow-list) in pilot cities.
 - Club `city` / `place` become real fields (this closes open gap #8 by making it intentional).
 - Region filter 온라인 / 내 지역 on the current Clubs list now; it moves into 찾기 in Phase 5.
 - Offline capacity default 8, quorum 4 (planning number; adjust after the first month).
@@ -148,7 +233,9 @@ Done when: 8+ offline 정모 have run with zero unresolved safety reports.
 ### Phase 5: Club-first structure (≈ 1–2 weeks)
 
 Backend
-- New gatherings must have `club` (keep old standalone ones readable).
+- A gathering has `club` (club gathering, members only) or none (open gathering); open offline gatherings need
+  host approval per RSVP. After an open gathering ends: "Join {host}'s club" for attendees, "Turn this into a club"
+  for the host (creates the club, invites the attendees).
 - Only owner/organizers can schedule 정모 in a club; any member can create a **번개**
   (owner can turn this off per club: `allowMemberBungae`).
 - `GET /clubs` "discover" sort: language match → has an upcoming event → active members recently → member count.
@@ -162,7 +249,30 @@ App (`lib/pages/community/gatherings/`)
 - Create flow: "Create a club" first; "Schedule" lives inside the club.
 - Copy: purpose line from §1 in the header and empty states; all locales.
 
-Done when: a new user can find a club in their language, join in one tap, and see its next 정모 in under 30 seconds.
+**First-visit explainer (added 2026-10-28).** Everyone opening Clubs for the first time is told what it is.
+- **When:** on each user's first visit to Clubs, *whatever their account age*. The existing guide system
+  (`GuideSurface` in `lib/services/guide_store.dart`, `GuideCard` / `PageGuide`) only shows during the first 7 days
+  after signup and stops after 3 activation actions; Clubs is new to existing users too, so its surface needs
+  its own rule: shown until the user joins a club or RSVPs, or taps ✕, with at most 3 showings. It is an inline
+  card at the top of 찾기, not a pop-up, so it never competes with the launch pop-up (`PopupBudget`).
+- **What it says** (EN / KO, all locales):
+  - Title: "Meet people who speak your target language" / "내가 배우는 언어를 쓰는 사람들과 만나요"
+  - **Clubs:** "Join a club to see the same people every week. Each club has a language pair and its own rules."
+    / "모임에 가입하면 매주 같은 사람들을 만나요. 모임마다 언어 짝과 규칙이 있어요."
+  - **Gatherings:** "Or just come once: RSVP to an open gathering, no joining needed."
+    / "가입 없이 한 번만 와도 돼요. 열린 모임에 참석 신청하세요."
+  - **Safety:** "Offline meetups are at public places; the exact spot is shared only with people going."
+    / "오프라인 모임은 공개된 장소에서 해요. 정확한 장소는 참석자에게만 알려줘요."
+  - Buttons: "Find a club" (scrolls to clubs in my language) · "This week's gatherings" (scrolls to 이번 주 일정).
+- **Later visits:** a small "?" in the Clubs header reopens the same explainer as a sheet, any time.
+- **First time creating:** [+] asks "Club or gathering?" with one line each ("A group that meets again and
+  again" / "One meetup, once"), so hosts pick the right one.
+- **First time joining a club:** the club's rules show before the Join button, and joining means agreeing to them
+  (Phase 2). **First time going to an offline event:** a short "How offline meetups work" note (approval, place
+  shown the day before, QR check-in, report).
+- Analytics: `guide_shown {surface: clubs}`, `guide_cta_tapped {target}`, retired by `club_joined` / `gathering_rsvp`.
+
+Done when: a new user can find a club in their language, join in one tap, and see its next 정모 in under 30 seconds. A first-time visitor sees the explainer, and an account older than 7 days sees it too.
 
 ### Phase 6: Seed and launch (runs alongside Phases 2–5)
 
@@ -174,6 +284,10 @@ Done when: a new user can find a club in their language, join in one tap, and se
 - Recruit 2–3 regular attendees per club to become 운영진 by week 4 so the clubs don't depend on you.
 - Turn the feature on for everyone after Phases 2–5 ship and at least two seeded clubs have run 3 weeks.
 - Website (`WEB_GATHERINGS_ENABLED`): turn on after the app, read-only discovery first (helps sharing links).
+- **Growth hooks** (added 2026-10-28): club invite links through the existing `/i/` web invite and the
+  `/community/` App Links, with a read-only club preview page on banatalk.com (moves web discovery earlier);
+  daily matches suggest a club when the pair fits the user's languages; a weekly "Your clubs this week" email,
+  since push reaches only about a third of users.
 
 ---
 
@@ -190,6 +304,10 @@ Done when: a new user can find a club in their language, join in one tap, and se
 | Safety reports per offline event | Pilot health | Near 0; every one reviewed within 24 h |
 
 Targets are starting guesses, not benchmarks; adjust after the first month of data.
+
+**6-week review (decided 2026-10-28):** after six weeks of seeded online clubs, check repeat attendance
+(target ≥ 35%) and the quorum rate. If they miss, change the format (time, size, the switch split, topic cards)
+before opening to everyone. Phase 4 carries on either way.
 Free events often see 30–45% no-shows, so plan for **5+ RSVPs to get 3 people**.
 
 ---
@@ -198,7 +316,7 @@ Free events often see 30–45% no-shows, so plan for **5+ RSVPs to get 3 people*
 
 | Defer | Why |
 |---|---|
-| Approval mode for joining events | Friction at low volume; keep the code, hide the toggle |
+| ~~Approval mode for joining events~~ | No longer deferred (2026-10-28): **required for offline clubs/events**, optional (off by default) for online. The host sees profile, languages and past attendance before approving. |
 | Full 9-topic list | Start with ~3 (conversation, culture, exam prep); clubs carry the interest now |
 | `level` filter | Too few events to filter; show level as a label only |
 | Paid 모임 / fees | Later, once people come back regularly |
@@ -211,8 +329,9 @@ Free events often see 30–45% no-shows, so plan for **5+ RSVPs to get 3 people*
 
 | Risk | What we do |
 |---|---|
-| Empty clubs look dead | Hide clubs with no event in 30 days from 찾기; feature seeded clubs |
-| Offline safety incident | 18+ and 본인인증, public places, place revealed late, fast reports, pilot cities only |
+| Empty clubs look dead | Rank clubs with no event in 30 days lower in 찾기 (spec §1.5; not hidden); feature seeded clubs |
+| Offline safety incident | 18+ by birth date, public places, place revealed late, fast reports, "Did you feel safe?", owner-run pilot cities only; no ID check yet |
+| One-sided events | Seats by language side with per-side waitlists (Phase 1) |
 | Becoming a dating app | Language-pair focus, host checklist, report category "not a language meetup" |
 | Chat becomes spam | Organizer moderation, per-club notification settings, report |
 | Founder burnout from hosting | 운영진 hand-over by week 4 |
@@ -229,14 +348,28 @@ Phase 2  club group chat                          ┐
 Phase 3  정모 repeat (weekly / monthly)            │  your order
 Phase 4  region filter + offline pilot + safety   │
 Phase 5  Community tab opens on 내 모임 / 찾기       ┘
-Phase 6  seed 3–5 clubs (starts with Phase 2, runs alongside)
+Phase 6  seed 3–5 clubs + growth hooks (starts with Phase 2, runs alongside)
          → open to everyone, then the website
 ```
 
-## 8. Open questions for you
+## 8. Decisions (2026-10-28)
 
-1. Hybrid (this plan) or online-only?
-2. Which 1–2 cities for the offline pilot?
-3. Identity check for foreigners: which provider, or verified-only at first?
-4. Does the existing chat support group threads, or is club chat new work?
-5. English name for the tab: "Clubs" or "Meetups"?
+1. Hybrid or online-only? **Hybrid, as planned.**
+2. Which 1–2 cities for the offline pilot? **From prod data** (Phase 0.6); still open until the query runs.
+3. Identity check for foreigners? **None for the pilot**; 18+ from the birth date plus the Phase 4 safety rules.
+4. Does the existing chat support group threads? Partly: language rooms (backend `controllers/rooms.js`) are
+   group chats and can likely back club chat, so Phase 2 may be nearer 1–2 weeks. Confirm at the start of Phase 2.
+5. English tab name? **Clubs.**
+6. Seats by language side? **Yes, on by default** (Phase 1).
+7. Built-in 정모 format? **Yes, in Phase 1.**
+8. Also added: viewer-local times and no-show tools (Phase 1), word recap (Phase 3), growth hooks (Phase 6),
+   6-week review (§4).
+9. Hobby clubs? **Yes, any activity, but every club keeps a language pair.**
+10. Sharing records? **Club feed** (photo + note + optional distance/time), shareable to Moments (Phase 2).
+11. Host approval? **Required offline, optional online.**
+12. Club rules and warnings? **Each club has rules; organizers give warnings; at 3 the host is asked whether to
+    remove** (nothing automatic). Instant removal for serious cases is allowed and reported to admin (Phase 2).
+13. Clubs vs. gatherings? **Both kinds of gathering**: club gatherings (members only) and open gatherings
+    (anyone can RSVP, no club); open gatherings lead into clubs. See §1.
+14. First visit? **An explainer card on everyone's first visit to Clubs** (clubs vs. gatherings, safety), a "?"
+    to reopen it, a "Club or gathering?" choice on create, rules before joining (Phase 5).

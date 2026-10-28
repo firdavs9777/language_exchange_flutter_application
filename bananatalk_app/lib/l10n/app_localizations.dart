@@ -22597,6 +22597,174 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Withdraw request'**
   String get gatheringWithdrawRequest;
+
+  /// Clubs v2: heading of the club rules list
+  ///
+  /// In en, this message translates to:
+  /// **'Club rules'**
+  String get clubRulesTitle;
+
+  /// Clubs v2: default club rule 1
+  ///
+  /// In en, this message translates to:
+  /// **'Be respectful.'**
+  String get clubRuleRespect;
+
+  /// Clubs v2: default club rule 2 (the club has a language pair)
+  ///
+  /// In en, this message translates to:
+  /// **'Use both languages of the club.'**
+  String get clubRuleBothLanguages;
+
+  /// Clubs v2: default club rule 3
+  ///
+  /// In en, this message translates to:
+  /// **'No dating, selling or recruiting.'**
+  String get clubRuleNoSelling;
+
+  /// Clubs v2: default club rule 4 (RSVPs and seats)
+  ///
+  /// In en, this message translates to:
+  /// **'RSVP honestly and release your seat if you can\'t come.'**
+  String get clubRuleReleaseSeat;
+
+  /// Clubs v2: button under the rules editor
+  ///
+  /// In en, this message translates to:
+  /// **'Add a rule'**
+  String get clubRuleAdd;
+
+  /// Clubs v2: placeholder in an empty rule field
+  ///
+  /// In en, this message translates to:
+  /// **'Write a rule'**
+  String get clubRuleHint;
+
+  /// Clubs v2: field for the second language of the club pair
+  ///
+  /// In en, this message translates to:
+  /// **'Second language (optional)'**
+  String get clubSecondLanguageLabel;
+
+  /// Clubs v2: join button when the club has rules; joining means agreeing
+  ///
+  /// In en, this message translates to:
+  /// **'Agree and join'**
+  String get clubJoinAgree;
+
+  /// Clubs v2: member menu action to warn a member
+  ///
+  /// In en, this message translates to:
+  /// **'Warn'**
+  String get clubWarnMember;
+
+  /// Clubs v2: title of the warn sheet
+  ///
+  /// In en, this message translates to:
+  /// **'Warn {name}'**
+  String clubWarnTitle(String name);
+
+  /// Clubs v2: prompt above the list of club rules in the warn sheet
+  ///
+  /// In en, this message translates to:
+  /// **'Which rule was broken?'**
+  String get clubWarnPickRule;
+
+  /// Clubs v2: warn sheet choice when no listed rule fits; opens a text field
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get clubWarnOtherRule;
+
+  /// Clubs v2: optional note field in the warn sheet
+  ///
+  /// In en, this message translates to:
+  /// **'Note (optional)'**
+  String get clubWarnNoteLabel;
+
+  /// Clubs v2: send button of the warn sheet
+  ///
+  /// In en, this message translates to:
+  /// **'Send warning'**
+  String get clubWarnSend;
+
+  /// Clubs v2: snackbar when a warning could not be sent
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t send the warning.'**
+  String get clubWarnFailed;
+
+  /// Clubs v2: snackbar after a warning; count is this member's warnings now
+  ///
+  /// In en, this message translates to:
+  /// **'Warning sent ({count} of 3).'**
+  String clubWarnSent(int count);
+
+  /// Clubs v2: dialog after the 3rd warning; the host decides
+  ///
+  /// In en, this message translates to:
+  /// **'{name} has 3 warnings. Remove them?'**
+  String clubRemoveAfterWarningsTitle(String name);
+
+  /// Clubs v2: what removing means, in the 3-warning dialog and the remove-now sheet
+  ///
+  /// In en, this message translates to:
+  /// **'They\'ll leave the club and won\'t be able to rejoin.'**
+  String get clubRemoveAfterWarningsBody;
+
+  /// Clubs v2: dismiss button of the 3-warning dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Not now'**
+  String get clubNotNow;
+
+  /// Clubs v2: member menu action to remove someone at once, with a reason
+  ///
+  /// In en, this message translates to:
+  /// **'Remove now (serious)'**
+  String get clubRemoveNow;
+
+  /// Clubs v2: title of the remove-now sheet
+  ///
+  /// In en, this message translates to:
+  /// **'Why are you removing {name}?'**
+  String clubRemoveReasonTitle(String name);
+
+  /// Clubs v2: reason field in the remove-now sheet; goes to the admin team
+  ///
+  /// In en, this message translates to:
+  /// **'Reason (sent to the BananaTalk team)'**
+  String get clubRemoveReasonHint;
+
+  /// Clubs v2: banner on the club page for a member who has warnings
+  ///
+  /// In en, this message translates to:
+  /// **'You have {count} of 3 warnings in this club.'**
+  String clubYourWarnings(int count);
+
+  /// Clubs v2: button on the club page that opens the club members-only chat
+  ///
+  /// In en, this message translates to:
+  /// **'Chat'**
+  String get clubChat;
+
+  /// Clubs v2: snackbar when the club chat could not be opened
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t open the chat.'**
+  String get clubChatFailed;
+
+  /// Clubs v2: label above the organizers notice (공지) on the club page and in its chat
+  ///
+  /// In en, this message translates to:
+  /// **'Notice'**
+  String get clubNoticeTitle;
+
+  /// Clubs v2: field in the club edit sheet for the organizers notice
+  ///
+  /// In en, this message translates to:
+  /// **'Notice for members (optional)'**
+  String get clubNoticeLabel;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -12431,4 +12431,98 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get gatheringWithdrawRequest => 'Бозпас гирифтани дархост';
+
+  @override
+  String get clubRulesTitle => 'Қоидаҳои клуб';
+
+  @override
+  String get clubRuleRespect => 'Эҳтиром дошта бошед.';
+
+  @override
+  String get clubRuleBothLanguages => 'Ҳарду забони клубро истифода баред.';
+
+  @override
+  String get clubRuleNoSelling => 'Шиносоӣ барои мулоқот, фурӯш ва ҷалб манъ аст.';
+
+  @override
+  String get clubRuleReleaseSeat => 'Ростқавлона сабт шавед ва агар наоед, ҷойро холӣ кунед.';
+
+  @override
+  String get clubRuleAdd => 'Илова кардани қоида';
+
+  @override
+  String get clubRuleHint => 'Қоида нависед';
+
+  @override
+  String get clubSecondLanguageLabel => 'Забони дуюм (ихтиёрӣ)';
+
+  @override
+  String get clubJoinAgree => 'Розӣ шудан ва ҳамроҳ шудан';
+
+  @override
+  String get clubWarnMember => 'Огоҳ кардан';
+
+  @override
+  String clubWarnTitle(String name) {
+    return 'Огоҳӣ ба $name';
+  }
+
+  @override
+  String get clubWarnPickRule => 'Кадом қоида вайрон шуд?';
+
+  @override
+  String get clubWarnOtherRule => 'Дигар';
+
+  @override
+  String get clubWarnNoteLabel => 'Эзоҳ (ихтиёрӣ)';
+
+  @override
+  String get clubWarnSend => 'Фиристодани огоҳӣ';
+
+  @override
+  String get clubWarnFailed => 'Огоҳӣ фиристода нашуд.';
+
+  @override
+  String clubWarnSent(int count) {
+    return 'Огоҳӣ фиристода шуд ($count аз 3).';
+  }
+
+  @override
+  String clubRemoveAfterWarningsTitle(String name) {
+    return '$name 3 огоҳӣ дорад. Хориҷ кунем?';
+  }
+
+  @override
+  String get clubRemoveAfterWarningsBody => 'Ӯ аз клуб мебарояд ва дубора ҳамроҳ шуда наметавонад.';
+
+  @override
+  String get clubNotNow => 'Ҳоло не';
+
+  @override
+  String get clubRemoveNow => 'Ҳозир хориҷ кардан (ҷиддӣ)';
+
+  @override
+  String clubRemoveReasonTitle(String name) {
+    return 'Чаро $name-ро хориҷ мекунед?';
+  }
+
+  @override
+  String get clubRemoveReasonHint => 'Сабаб (ба дастаи BananaTalk фиристода мешавад)';
+
+  @override
+  String clubYourWarnings(int count) {
+    return 'Шумо дар ин клуб $count аз 3 огоҳӣ доред.';
+  }
+
+  @override
+  String get clubChat => 'Чат';
+
+  @override
+  String get clubChatFailed => 'Чат кушода нашуд.';
+
+  @override
+  String get clubNoticeTitle => 'Эълон';
+
+  @override
+  String get clubNoticeLabel => 'Эълон барои аъзоён (ихтиёрӣ)';
 }

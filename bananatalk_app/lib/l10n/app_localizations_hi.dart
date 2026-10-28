@@ -12441,4 +12441,98 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get gatheringWithdrawRequest => 'अनुरोध वापस लें';
+
+  @override
+  String get clubRulesTitle => 'क्लब के नियम';
+
+  @override
+  String get clubRuleRespect => 'सम्मान से पेश आएं।';
+
+  @override
+  String get clubRuleBothLanguages => 'क्लब की दोनों भाषाओं का इस्तेमाल करें।';
+
+  @override
+  String get clubRuleNoSelling => 'डेटिंग, बिक्री या भर्ती नहीं।';
+
+  @override
+  String get clubRuleReleaseSeat => 'ईमानदारी से RSVP करें और न आ सकें तो अपनी सीट छोड़ दें।';
+
+  @override
+  String get clubRuleAdd => 'नियम जोड़ें';
+
+  @override
+  String get clubRuleHint => 'नियम लिखें';
+
+  @override
+  String get clubSecondLanguageLabel => 'दूसरी भाषा (वैकल्पिक)';
+
+  @override
+  String get clubJoinAgree => 'सहमत होकर जुड़ें';
+
+  @override
+  String get clubWarnMember => 'चेतावनी दें';
+
+  @override
+  String clubWarnTitle(String name) {
+    return '$name को चेतावनी';
+  }
+
+  @override
+  String get clubWarnPickRule => 'कौन सा नियम टूटा?';
+
+  @override
+  String get clubWarnOtherRule => 'अन्य';
+
+  @override
+  String get clubWarnNoteLabel => 'नोट (वैकल्पिक)';
+
+  @override
+  String get clubWarnSend => 'चेतावनी भेजें';
+
+  @override
+  String get clubWarnFailed => 'चेतावनी नहीं भेजी जा सकी।';
+
+  @override
+  String clubWarnSent(int count) {
+    return 'चेतावनी भेजी गई (3 में से $count)।';
+  }
+
+  @override
+  String clubRemoveAfterWarningsTitle(String name) {
+    return '$name को 3 चेतावनियाँ मिल चुकी हैं। हटाएँ?';
+  }
+
+  @override
+  String get clubRemoveAfterWarningsBody => 'वे क्लब से निकल जाएँगे और दोबारा नहीं जुड़ पाएँगे।';
+
+  @override
+  String get clubNotNow => 'अभी नहीं';
+
+  @override
+  String get clubRemoveNow => 'तुरंत हटाएँ (गंभीर)';
+
+  @override
+  String clubRemoveReasonTitle(String name) {
+    return 'आप $name को क्यों हटा रहे हैं?';
+  }
+
+  @override
+  String get clubRemoveReasonHint => 'कारण (BananaTalk टीम को भेजा जाएगा)';
+
+  @override
+  String clubYourWarnings(int count) {
+    return 'इस क्लब में आपको 3 में से $count चेतावनियाँ मिली हैं।';
+  }
+
+  @override
+  String get clubChat => 'चैट';
+
+  @override
+  String get clubChatFailed => 'चैट नहीं खुल सकी।';
+
+  @override
+  String get clubNoticeTitle => 'सूचना';
+
+  @override
+  String get clubNoticeLabel => 'सदस्यों के लिए सूचना (वैकल्पिक)';
 }

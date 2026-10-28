@@ -12411,4 +12411,98 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get gatheringWithdrawRequest => 'Rút lại yêu cầu';
+
+  @override
+  String get clubRulesTitle => 'Quy tắc câu lạc bộ';
+
+  @override
+  String get clubRuleRespect => 'Hãy tôn trọng nhau.';
+
+  @override
+  String get clubRuleBothLanguages => 'Dùng cả hai ngôn ngữ của câu lạc bộ.';
+
+  @override
+  String get clubRuleNoSelling => 'Không hẹn hò, bán hàng hay tuyển người.';
+
+  @override
+  String get clubRuleReleaseSeat => 'Đăng ký trung thực và nhường chỗ nếu bạn không đến được.';
+
+  @override
+  String get clubRuleAdd => 'Thêm quy tắc';
+
+  @override
+  String get clubRuleHint => 'Viết một quy tắc';
+
+  @override
+  String get clubSecondLanguageLabel => 'Ngôn ngữ thứ hai (không bắt buộc)';
+
+  @override
+  String get clubJoinAgree => 'Đồng ý và tham gia';
+
+  @override
+  String get clubWarnMember => 'Cảnh cáo';
+
+  @override
+  String clubWarnTitle(String name) {
+    return 'Cảnh cáo $name';
+  }
+
+  @override
+  String get clubWarnPickRule => 'Quy tắc nào bị vi phạm?';
+
+  @override
+  String get clubWarnOtherRule => 'Khác';
+
+  @override
+  String get clubWarnNoteLabel => 'Ghi chú (không bắt buộc)';
+
+  @override
+  String get clubWarnSend => 'Gửi cảnh cáo';
+
+  @override
+  String get clubWarnFailed => 'Không gửi được cảnh cáo.';
+
+  @override
+  String clubWarnSent(int count) {
+    return 'Đã gửi cảnh cáo ($count/3).';
+  }
+
+  @override
+  String clubRemoveAfterWarningsTitle(String name) {
+    return '$name đã bị cảnh cáo 3 lần. Xóa khỏi nhóm?';
+  }
+
+  @override
+  String get clubRemoveAfterWarningsBody => 'Người này sẽ rời câu lạc bộ và không thể tham gia lại.';
+
+  @override
+  String get clubNotNow => 'Để sau';
+
+  @override
+  String get clubRemoveNow => 'Xóa ngay (nghiêm trọng)';
+
+  @override
+  String clubRemoveReasonTitle(String name) {
+    return 'Vì sao bạn xóa $name?';
+  }
+
+  @override
+  String get clubRemoveReasonHint => 'Lý do (gửi tới đội ngũ BananaTalk)';
+
+  @override
+  String clubYourWarnings(int count) {
+    return 'Bạn đã bị cảnh cáo $count/3 lần trong câu lạc bộ này.';
+  }
+
+  @override
+  String get clubChat => 'Trò chuyện';
+
+  @override
+  String get clubChatFailed => 'Không mở được cuộc trò chuyện.';
+
+  @override
+  String get clubNoticeTitle => 'Thông báo';
+
+  @override
+  String get clubNoticeLabel => 'Thông báo cho thành viên (không bắt buộc)';
 }

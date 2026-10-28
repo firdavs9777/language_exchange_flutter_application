@@ -8452,5 +8452,142 @@
   "gatheringWithdrawRequest": "Withdraw request",
   "@gatheringWithdrawRequest": {
     "description": "Gathering detail button: take back a pending request to join"
+  },
+  "clubRulesTitle": "Club rules",
+  "@clubRulesTitle": {
+    "description": "Clubs v2: heading of the club rules list"
+  },
+  "clubRuleRespect": "Be respectful.",
+  "@clubRuleRespect": {
+    "description": "Clubs v2: default club rule 1"
+  },
+  "clubRuleBothLanguages": "Use both languages of the club.",
+  "@clubRuleBothLanguages": {
+    "description": "Clubs v2: default club rule 2 (the club has a language pair)"
+  },
+  "clubRuleNoSelling": "No dating, selling or recruiting.",
+  "@clubRuleNoSelling": {
+    "description": "Clubs v2: default club rule 3"
+  },
+  "clubRuleReleaseSeat": "RSVP honestly and release your seat if you can't come.",
+  "@clubRuleReleaseSeat": {
+    "description": "Clubs v2: default club rule 4 (RSVPs and seats)"
+  },
+  "clubRuleAdd": "Add a rule",
+  "@clubRuleAdd": {
+    "description": "Clubs v2: button under the rules editor"
+  },
+  "clubRuleHint": "Write a rule",
+  "@clubRuleHint": {
+    "description": "Clubs v2: placeholder in an empty rule field"
+  },
+  "clubSecondLanguageLabel": "Second language (optional)",
+  "@clubSecondLanguageLabel": {
+    "description": "Clubs v2: field for the second language of the club pair"
+  },
+  "clubJoinAgree": "Agree and join",
+  "@clubJoinAgree": {
+    "description": "Clubs v2: join button when the club has rules; joining means agreeing"
+  },
+  "clubWarnMember": "Warn",
+  "@clubWarnMember": {
+    "description": "Clubs v2: member menu action to warn a member"
+  },
+  "clubWarnTitle": "Warn {name}",
+  "@clubWarnTitle": {
+    "description": "Clubs v2: title of the warn sheet",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clubWarnPickRule": "Which rule was broken?",
+  "@clubWarnPickRule": {
+    "description": "Clubs v2: prompt above the list of club rules in the warn sheet"
+  },
+  "clubWarnOtherRule": "Other",
+  "@clubWarnOtherRule": {
+    "description": "Clubs v2: warn sheet choice when no listed rule fits; opens a text field"
+  },
+  "clubWarnNoteLabel": "Note (optional)",
+  "@clubWarnNoteLabel": {
+    "description": "Clubs v2: optional note field in the warn sheet"
+  },
+  "clubWarnSend": "Send warning",
+  "@clubWarnSend": {
+    "description": "Clubs v2: send button of the warn sheet"
+  },
+  "clubWarnFailed": "Couldn't send the warning.",
+  "@clubWarnFailed": {
+    "description": "Clubs v2: snackbar when a warning could not be sent"
+  },
+  "clubWarnSent": "Warning sent ({count} of 3).",
+  "@clubWarnSent": {
+    "description": "Clubs v2: snackbar after a warning; count is this member's warnings now",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "clubRemoveAfterWarningsTitle": "{name} has 3 warnings. Remove them?",
+  "@clubRemoveAfterWarningsTitle": {
+    "description": "Clubs v2: dialog after the 3rd warning; the host decides",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clubRemoveAfterWarningsBody": "They'll leave the club and won't be able to rejoin.",
+  "@clubRemoveAfterWarningsBody": {
+    "description": "Clubs v2: what removing means, in the 3-warning dialog and the remove-now sheet"
+  },
+  "clubNotNow": "Not now",
+  "@clubNotNow": {
+    "description": "Clubs v2: dismiss button of the 3-warning dialog"
+  },
+  "clubRemoveNow": "Remove now (serious)",
+  "@clubRemoveNow": {
+    "description": "Clubs v2: member menu action to remove someone at once, with a reason"
+  },
+  "clubRemoveReasonTitle": "Why are you removing {name}?",
+  "@clubRemoveReasonTitle": {
+    "description": "Clubs v2: title of the remove-now sheet",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "clubRemoveReasonHint": "Reason (sent to the BananaTalk team)",
+  "@clubRemoveReasonHint": {
+    "description": "Clubs v2: reason field in the remove-now sheet; goes to the admin team"
+  },
+  "clubYourWarnings": "You have {count} of 3 warnings in this club.",
+  "@clubYourWarnings": {
+    "description": "Clubs v2: banner on the club page for a member who has warnings",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "clubChat": "Chat",
+  "@clubChat": {
+    "description": "Clubs v2: button on the club page that opens the club members-only chat"
+  },
+  "clubChatFailed": "Couldn't open the chat.",
+  "@clubChatFailed": {
+    "description": "Clubs v2: snackbar when the club chat could not be opened"
+  },
+  "clubNoticeTitle": "Notice",
+  "@clubNoticeTitle": {
+    "description": "Clubs v2: label above the organizers notice (공지) on the club page and in its chat"
+  },
+  "clubNoticeLabel": "Notice for members (optional)",
+  "@clubNoticeLabel": {
+    "description": "Clubs v2: field in the club edit sheet for the organizers notice"
   }
 }

@@ -99,6 +99,10 @@ class ChatStateNotifier extends StateNotifier<ChatState> with WidgetsBindingObse
   // How long to wait before showing reconnecting status (avoids flickering)
   static const _disconnectDebounceDelay = Duration(seconds: 3);
 
+  /// How long the notifier outlives its last screen, so going back and
+  /// forth between a chat and its profile or media doesn't rebuild it.
+  static const releaseDelay = Duration(minutes: 1);
+
   ChatStateNotifier({
     required this.chatPartnerId,
     required this.currentUserId,
@@ -824,21 +828,26 @@ class ChatProviderParams {
       'ChatProviderParams(chatPartnerId: $chatPartnerId, currentUserId: $currentUserId)';
 }
 
-// ✅ KEY FIX: Use StateNotifierProvider (not autoDispose) to keep the provider alive
-// Use ChatProviderParams instead of Map for proper equality comparison
-final chatStateProvider =
-    StateNotifierProvider.family<
-      ChatStateNotifier,
-      ChatState,
-      ChatProviderParams
-    >((ref, params) {
+// autoDispose so a chat's notifier (socket subscriptions, status timer,
+// lifecycle observer) doesn't live until logout; kept for
+// [ChatStateNotifier.releaseDelay] after its last listener so the screen's
+// initState reads and quick reopenings share one instance.
+final chatStateProvider = StateNotifierProvider.autoDispose
+    .family<ChatStateNotifier, ChatState, ChatProviderParams>((ref, params) {
+  final link = ref.keepAlive();
+  Timer? releaseTimer;
+  ref.onCancel(() {
+    releaseTimer = Timer(ChatStateNotifier.releaseDelay, link.close);
+  });
+  ref.onResume(() => releaseTimer?.cancel());
+  ref.onDispose(() => releaseTimer?.cancel());
 
-      return ChatStateNotifier(
-        chatPartnerId: params.chatPartnerId,
-        currentUserId: params.currentUserId,
-        ref: ref, // Pass ref to check active chat
-      );
-    });
+  return ChatStateNotifier(
+    chatPartnerId: params.chatPartnerId,
+    currentUserId: params.currentUserId,
+    ref: ref, // Pass ref to check active chat
+  );
+});
 
 /// [current] with the edit applied. The `messageEdited` event carries the
 /// message unpopulated (sender, receiver and replyTo are bare ids), so

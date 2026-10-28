@@ -23,6 +23,7 @@ import 'package:bananatalk_app/services/chat_socket_service.dart';
 import 'package:bananatalk_app/services/report_service.dart';
 import 'package:bananatalk_app/utils/haptic_utils.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
+import 'package:bananatalk_app/pages/community/rooms/club_notice_banner.dart';
 
 /// Hub chat screen — Workstream D (Task 10 + Task 11).
 ///
@@ -68,6 +69,25 @@ bool isDailyPromptJson(Map data) {
   return (data['messageType'] ?? data['type']) == 'system' &&
       promptId != null &&
       promptId.toString().isNotEmpty;
+}
+
+/// What the room's top-bar menu offers. A club's chat offers nothing here:
+/// its members and leaving belong to the club page, and the server refuses
+/// both through the rooms API.
+@visibleForTesting
+List<String> roomMenuActions(Room room) {
+  if (room.isClubRoom) return const [];
+  return [
+    // Owner/admin-only, and only when there's something pending (Task 16) —
+    // an empty queue doesn't clutter the menu.
+    if (room.isOwnerOrAdmin && room.pendingRequestCount > 0) 'requests',
+    // Only shown to the hub's owner/admin — everyone else can still leave,
+    // but member-list moderation stays hidden.
+    if (room.isOwnerOrAdmin) 'members',
+    // Nothing to leave if we were never a member (or got kicked) — Task 16
+    // topic rooms no longer auto-join a non-member.
+    if (room.isMember) 'leave',
+  ];
 }
 
 class RoomScreen extends ConsumerStatefulWidget {
@@ -652,7 +672,7 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
                     style: Theme.of(ctx).textTheme.bodyMedium),
               ],
               const SizedBox(height: 16),
-              if (_room.isMember)
+              if (_room.isMember && !_room.isClubRoom)
                 ListTile(
                   key: const Key('room-info-members'),
                   contentPadding: EdgeInsets.zero,
@@ -663,7 +683,9 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
                     _openMembers();
                   },
                 ),
-              if (_room.isOwnerOrAdmin)
+              // A club's chat takes its name and members from the club, so
+              // it is edited, joined and left there, not here.
+              if (_room.isOwnerOrAdmin && !_room.isClubRoom)
                 ListTile(
                   key: const Key('room-info-edit'),
                   contentPadding: EdgeInsets.zero,
@@ -674,7 +696,9 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
                     _editRoom();
                   },
                 ),
-              if (_showJoinBar)
+              if (_room.isClubRoom)
+                const SizedBox.shrink()
+              else if (_showJoinBar)
                 ListTile(
                   contentPadding: EdgeInsets.zero,
                   leading: const Icon(Icons.login_rounded),
@@ -844,6 +868,13 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
   /// composer.
   bool get _showJoinBar => !_room.isMember && !_room.isBanned;
 
+  /// The label for one of [roomMenuActions].
+  String _menuLabel(AppLocalizations l10n, String action) => switch (action) {
+        'requests' => l10n.roomRequestsMenuItem(_room.pendingRequestCount),
+        'members' => l10n.roomViewMembers,
+        _ => l10n.roomLeaveHubMenuItem,
+      };
+
   bool _isJoining = false;
 
   Future<void> _joinFromBar() async {
@@ -894,7 +925,8 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
         ),
         ),
         actions: [
-          PopupMenuButton<String>(
+          if (roomMenuActions(_room).isNotEmpty)
+            PopupMenuButton<String>(
             onSelected: (value) {
               switch (value) {
                 case 'requests':
@@ -909,27 +941,18 @@ class _RoomScreenState extends ConsumerState<RoomScreen> {
               }
             },
             itemBuilder: (ctx) => [
-              // Owner/admin-only, and only when there's something pending
-              // (Task 16) — an empty queue doesn't clutter the menu.
-              if (_room.isOwnerOrAdmin && _room.pendingRequestCount > 0)
+              for (final action in roomMenuActions(_room))
                 PopupMenuItem(
-                  value: 'requests',
-                  child: Text(l10n.roomRequestsMenuItem(_room.pendingRequestCount)),
+                  value: action,
+                  child: Text(_menuLabel(l10n, action)),
                 ),
-              // Only shown to the hub's owner/admin — everyone else can
-              // still leave, but member-list moderation stays hidden.
-              if (_room.isOwnerOrAdmin)
-                PopupMenuItem(value: 'members', child: Text(l10n.roomViewMembers)),
-              // Nothing to leave if we were never a member (or got kicked)
-              // — Task 16 topic rooms no longer auto-join a non-member.
-              if (_room.isMember)
-                PopupMenuItem(value: 'leave', child: Text(l10n.roomLeaveHubMenuItem)),
             ],
           ),
         ],
       ),
       body: Column(
         children: [
+          if (_room.isClubRoom) ClubNoticeBanner(notice: _room.clubNotice),
           if (_dailyPrompt != null) _DailyPromptCard(message: _dailyPrompt!),
           Expanded(
             child: ChatMessagesList(

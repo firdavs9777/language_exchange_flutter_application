@@ -12411,4 +12411,98 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get gatheringWithdrawRequest => 'ถอนคำขอ';
+
+  @override
+  String get clubRulesTitle => 'กฎของคลับ';
+
+  @override
+  String get clubRuleRespect => 'ให้เกียรติกันและกัน';
+
+  @override
+  String get clubRuleBothLanguages => 'ใช้ทั้งสองภาษาของคลับ';
+
+  @override
+  String get clubRuleNoSelling => 'ห้ามหาคู่ ขายของ หรือชักชวน';
+
+  @override
+  String get clubRuleReleaseSeat => 'ตอบรับตามจริง และสละที่นั่งถ้ามาไม่ได้';
+
+  @override
+  String get clubRuleAdd => 'เพิ่มกฎ';
+
+  @override
+  String get clubRuleHint => 'เขียนกฎ';
+
+  @override
+  String get clubSecondLanguageLabel => 'ภาษาที่สอง (ไม่บังคับ)';
+
+  @override
+  String get clubJoinAgree => 'ยอมรับและเข้าร่วม';
+
+  @override
+  String get clubWarnMember => 'เตือน';
+
+  @override
+  String clubWarnTitle(String name) {
+    return 'เตือน $name';
+  }
+
+  @override
+  String get clubWarnPickRule => 'ทำผิดกฎข้อไหน';
+
+  @override
+  String get clubWarnOtherRule => 'อื่น ๆ';
+
+  @override
+  String get clubWarnNoteLabel => 'หมายเหตุ (ไม่บังคับ)';
+
+  @override
+  String get clubWarnSend => 'ส่งคำเตือน';
+
+  @override
+  String get clubWarnFailed => 'ส่งคำเตือนไม่สำเร็จ';
+
+  @override
+  String clubWarnSent(int count) {
+    return 'ส่งคำเตือนแล้ว ($count จาก 3)';
+  }
+
+  @override
+  String clubRemoveAfterWarningsTitle(String name) {
+    return '$name ได้รับคำเตือนครบ 3 ครั้งแล้ว นำออกไหม';
+  }
+
+  @override
+  String get clubRemoveAfterWarningsBody => 'สมาชิกจะออกจากคลับและกลับเข้ามาอีกไม่ได้';
+
+  @override
+  String get clubNotNow => 'ไว้ทีหลัง';
+
+  @override
+  String get clubRemoveNow => 'นำออกทันที (กรณีร้ายแรง)';
+
+  @override
+  String clubRemoveReasonTitle(String name) {
+    return 'ทำไมคุณถึงนำ $name ออก';
+  }
+
+  @override
+  String get clubRemoveReasonHint => 'เหตุผล (ส่งถึงทีม BananaTalk)';
+
+  @override
+  String clubYourWarnings(int count) {
+    return 'คุณได้รับคำเตือน $count จาก 3 ครั้งในคลับนี้';
+  }
+
+  @override
+  String get clubChat => 'แชท';
+
+  @override
+  String get clubChatFailed => 'เปิดแชทไม่สำเร็จ';
+
+  @override
+  String get clubNoticeTitle => 'ประกาศ';
+
+  @override
+  String get clubNoticeLabel => 'ประกาศถึงสมาชิก (ไม่บังคับ)';
 }

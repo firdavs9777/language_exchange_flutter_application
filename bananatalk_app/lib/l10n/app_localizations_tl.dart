@@ -12434,4 +12434,98 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get gatheringWithdrawRequest => 'Bawiin ang request';
+
+  @override
+  String get clubRulesTitle => 'Mga patakaran ng club';
+
+  @override
+  String get clubRuleRespect => 'Maging magalang.';
+
+  @override
+  String get clubRuleBothLanguages => 'Gamitin ang dalawang wika ng club.';
+
+  @override
+  String get clubRuleNoSelling => 'Bawal ang pakikipag-date, pagbebenta o pagre-recruit.';
+
+  @override
+  String get clubRuleReleaseSeat => 'Mag-RSVP nang tapat at ibigay ang upuan mo kung hindi ka makakarating.';
+
+  @override
+  String get clubRuleAdd => 'Magdagdag ng patakaran';
+
+  @override
+  String get clubRuleHint => 'Sumulat ng patakaran';
+
+  @override
+  String get clubSecondLanguageLabel => 'Pangalawang wika (opsyonal)';
+
+  @override
+  String get clubJoinAgree => 'Sumang-ayon at sumali';
+
+  @override
+  String get clubWarnMember => 'Babalaan';
+
+  @override
+  String clubWarnTitle(String name) {
+    return 'Babalaan si $name';
+  }
+
+  @override
+  String get clubWarnPickRule => 'Aling patakaran ang nilabag?';
+
+  @override
+  String get clubWarnOtherRule => 'Iba pa';
+
+  @override
+  String get clubWarnNoteLabel => 'Tala (opsyonal)';
+
+  @override
+  String get clubWarnSend => 'Ipadala ang babala';
+
+  @override
+  String get clubWarnFailed => 'Hindi naipadala ang babala.';
+
+  @override
+  String clubWarnSent(int count) {
+    return 'Naipadala ang babala ($count sa 3).';
+  }
+
+  @override
+  String clubRemoveAfterWarningsTitle(String name) {
+    return 'May 3 babala na si $name. Alisin?';
+  }
+
+  @override
+  String get clubRemoveAfterWarningsBody => 'Aalis siya sa club at hindi na makakabalik.';
+
+  @override
+  String get clubNotNow => 'Hindi muna';
+
+  @override
+  String get clubRemoveNow => 'Alisin ngayon (seryoso)';
+
+  @override
+  String clubRemoveReasonTitle(String name) {
+    return 'Bakit mo inaalis si $name?';
+  }
+
+  @override
+  String get clubRemoveReasonHint => 'Dahilan (ipapadala sa BananaTalk team)';
+
+  @override
+  String clubYourWarnings(int count) {
+    return 'May $count ka sa 3 babala sa club na ito.';
+  }
+
+  @override
+  String get clubChat => 'Chat';
+
+  @override
+  String get clubChatFailed => 'Hindi mabuksan ang chat.';
+
+  @override
+  String get clubNoticeTitle => 'Paalala';
+
+  @override
+  String get clubNoticeLabel => 'Paalala sa mga miyembro (opsyonal)';
 }

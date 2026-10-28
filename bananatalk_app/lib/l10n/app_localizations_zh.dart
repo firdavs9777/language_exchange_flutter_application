@@ -12411,6 +12411,100 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get gatheringWithdrawRequest => '撤回申请';
+
+  @override
+  String get clubRulesTitle => '俱乐部规则';
+
+  @override
+  String get clubRuleRespect => '互相尊重。';
+
+  @override
+  String get clubRuleBothLanguages => '两种语言都要用。';
+
+  @override
+  String get clubRuleNoSelling => '禁止约会、推销或招揽。';
+
+  @override
+  String get clubRuleReleaseSeat => '如实报名，来不了请让出名额。';
+
+  @override
+  String get clubRuleAdd => '添加规则';
+
+  @override
+  String get clubRuleHint => '写一条规则';
+
+  @override
+  String get clubSecondLanguageLabel => '第二种语言（可选）';
+
+  @override
+  String get clubJoinAgree => '同意并加入';
+
+  @override
+  String get clubWarnMember => '警告';
+
+  @override
+  String clubWarnTitle(String name) {
+    return '警告 $name';
+  }
+
+  @override
+  String get clubWarnPickRule => '违反了哪条规则？';
+
+  @override
+  String get clubWarnOtherRule => '其他';
+
+  @override
+  String get clubWarnNoteLabel => '备注（可选）';
+
+  @override
+  String get clubWarnSend => '发送警告';
+
+  @override
+  String get clubWarnFailed => '警告发送失败。';
+
+  @override
+  String clubWarnSent(int count) {
+    return '已发送警告（第 $count 次，共 3 次）。';
+  }
+
+  @override
+  String clubRemoveAfterWarningsTitle(String name) {
+    return '$name 已累计 3 次警告。要移出吗？';
+  }
+
+  @override
+  String get clubRemoveAfterWarningsBody => '对方将离开俱乐部，且无法再加入。';
+
+  @override
+  String get clubNotNow => '暂不';
+
+  @override
+  String get clubRemoveNow => '立即移出（严重情况）';
+
+  @override
+  String clubRemoveReasonTitle(String name) {
+    return '为什么要移出 $name？';
+  }
+
+  @override
+  String get clubRemoveReasonHint => '原因（将发送给 BananaTalk 团队）';
+
+  @override
+  String clubYourWarnings(int count) {
+    return '你在本俱乐部已收到 $count 次警告（共 3 次）。';
+  }
+
+  @override
+  String get clubChat => '聊天';
+
+  @override
+  String get clubChatFailed => '无法打开聊天。';
+
+  @override
+  String get clubNoticeTitle => '公告';
+
+  @override
+  String get clubNoticeLabel => '给成员的公告（可选）';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -24820,4 +24914,98 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get gatheringWithdrawRequest => '撤回申請';
+
+  @override
+  String get clubRulesTitle => '俱樂部規則';
+
+  @override
+  String get clubRuleRespect => '互相尊重。';
+
+  @override
+  String get clubRuleBothLanguages => '兩種語言都要用。';
+
+  @override
+  String get clubRuleNoSelling => '禁止約會、推銷或招攬。';
+
+  @override
+  String get clubRuleReleaseSeat => '如實報名，來不了請讓出名額。';
+
+  @override
+  String get clubRuleAdd => '新增規則';
+
+  @override
+  String get clubRuleHint => '寫一條規則';
+
+  @override
+  String get clubSecondLanguageLabel => '第二種語言（選填）';
+
+  @override
+  String get clubJoinAgree => '同意並加入';
+
+  @override
+  String get clubWarnMember => '警告';
+
+  @override
+  String clubWarnTitle(String name) {
+    return '警告 $name';
+  }
+
+  @override
+  String get clubWarnPickRule => '違反了哪條規則？';
+
+  @override
+  String get clubWarnOtherRule => '其他';
+
+  @override
+  String get clubWarnNoteLabel => '備註（選填）';
+
+  @override
+  String get clubWarnSend => '送出警告';
+
+  @override
+  String get clubWarnFailed => '警告送出失敗。';
+
+  @override
+  String clubWarnSent(int count) {
+    return '已送出警告（第 $count 次，共 3 次）。';
+  }
+
+  @override
+  String clubRemoveAfterWarningsTitle(String name) {
+    return '$name 已累計 3 次警告。要移出嗎？';
+  }
+
+  @override
+  String get clubRemoveAfterWarningsBody => '對方將離開俱樂部，且無法再加入。';
+
+  @override
+  String get clubNotNow => '暫不';
+
+  @override
+  String get clubRemoveNow => '立即移出（嚴重情況）';
+
+  @override
+  String clubRemoveReasonTitle(String name) {
+    return '為什麼要移出 $name？';
+  }
+
+  @override
+  String get clubRemoveReasonHint => '原因（將傳送給 BananaTalk 團隊）';
+
+  @override
+  String clubYourWarnings(int count) {
+    return '你在本俱樂部已收到 $count 次警告（共 3 次）。';
+  }
+
+  @override
+  String get clubChat => '聊天';
+
+  @override
+  String get clubChatFailed => '無法開啟聊天。';
+
+  @override
+  String get clubNoticeTitle => '公告';
+
+  @override
+  String get clubNoticeLabel => '給成員的公告（選填）';
 }

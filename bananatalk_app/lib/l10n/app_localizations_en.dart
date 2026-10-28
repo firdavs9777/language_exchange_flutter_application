@@ -12471,4 +12471,98 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get gatheringWithdrawRequest => 'Withdraw request';
+
+  @override
+  String get clubRulesTitle => 'Club rules';
+
+  @override
+  String get clubRuleRespect => 'Be respectful.';
+
+  @override
+  String get clubRuleBothLanguages => 'Use both languages of the club.';
+
+  @override
+  String get clubRuleNoSelling => 'No dating, selling or recruiting.';
+
+  @override
+  String get clubRuleReleaseSeat => 'RSVP honestly and release your seat if you can\'t come.';
+
+  @override
+  String get clubRuleAdd => 'Add a rule';
+
+  @override
+  String get clubRuleHint => 'Write a rule';
+
+  @override
+  String get clubSecondLanguageLabel => 'Second language (optional)';
+
+  @override
+  String get clubJoinAgree => 'Agree and join';
+
+  @override
+  String get clubWarnMember => 'Warn';
+
+  @override
+  String clubWarnTitle(String name) {
+    return 'Warn $name';
+  }
+
+  @override
+  String get clubWarnPickRule => 'Which rule was broken?';
+
+  @override
+  String get clubWarnOtherRule => 'Other';
+
+  @override
+  String get clubWarnNoteLabel => 'Note (optional)';
+
+  @override
+  String get clubWarnSend => 'Send warning';
+
+  @override
+  String get clubWarnFailed => 'Couldn\'t send the warning.';
+
+  @override
+  String clubWarnSent(int count) {
+    return 'Warning sent ($count of 3).';
+  }
+
+  @override
+  String clubRemoveAfterWarningsTitle(String name) {
+    return '$name has 3 warnings. Remove them?';
+  }
+
+  @override
+  String get clubRemoveAfterWarningsBody => 'They\'ll leave the club and won\'t be able to rejoin.';
+
+  @override
+  String get clubNotNow => 'Not now';
+
+  @override
+  String get clubRemoveNow => 'Remove now (serious)';
+
+  @override
+  String clubRemoveReasonTitle(String name) {
+    return 'Why are you removing $name?';
+  }
+
+  @override
+  String get clubRemoveReasonHint => 'Reason (sent to the BananaTalk team)';
+
+  @override
+  String clubYourWarnings(int count) {
+    return 'You have $count of 3 warnings in this club.';
+  }
+
+  @override
+  String get clubChat => 'Chat';
+
+  @override
+  String get clubChatFailed => 'Couldn\'t open the chat.';
+
+  @override
+  String get clubNoticeTitle => 'Notice';
+
+  @override
+  String get clubNoticeLabel => 'Notice for members (optional)';
 }

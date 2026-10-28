@@ -21,9 +21,13 @@ class ClubPeopleSection extends StatelessWidget {
     required this.club,
     this.onMemberTap,
     this.onMemberLongPress,
+    this.showWarnings = false,
   });
 
   final Club club;
+
+  /// Clubs v2, managers only: a small "⚠ n" on members who have warnings.
+  final bool showWarnings;
   final void Function(ClubMember member)? onMemberTap;
 
   /// Long-press opens management for an owner or organizer. Long-press rather
@@ -53,6 +57,7 @@ class ClubPeopleSection extends StatelessWidget {
             onTap: onMemberTap,
             onLongPress: onMemberLongPress,
             showRole: true,
+            showWarnings: showWarnings,
           ),
         ],
         if (rest.isNotEmpty) ...[
@@ -69,6 +74,7 @@ class ClubPeopleSection extends StatelessWidget {
             onTap: onMemberTap,
             onLongPress: onMemberLongPress,
             showRole: false,
+            showWarnings: showWarnings,
           ),
         ],
       ],
@@ -83,10 +89,12 @@ class _AvatarRow extends StatelessWidget {
     required this.showRole,
     this.onTap,
     this.onLongPress,
+    this.showWarnings = false,
   });
 
   final List<ClubMember> members;
   final bool showRole;
+  final bool showWarnings;
   final void Function(ClubMember member)? onTap;
   final void Function(ClubMember member)? onLongPress;
 
@@ -109,7 +117,29 @@ class _AvatarRow extends StatelessWidget {
               width: 64,
               child: Column(
                 children: [
-                  _Avatar(member: m),
+                  Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      _Avatar(member: m),
+                      if (showWarnings && m.warningCount > 0)
+                        Positioned(
+                          right: -4,
+                          top: -4,
+                          child: Container(
+                            key: Key('club-member-warnings-${m.id}'),
+                            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 1),
+                            decoration: BoxDecoration(
+                              color: Colors.orange.shade700,
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Text(
+                              '⚠ ${m.warningCount}',
+                              style: context.captionSmall.copyWith(color: Colors.white),
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
                   const SizedBox(height: 6),
                   Text(
                     m.name.isEmpty ? '—' : m.name,

@@ -12907,4 +12907,98 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get gatheringWithdrawRequest => 'Отозвать запрос';
+
+  @override
+  String get clubRulesTitle => 'Правила клуба';
+
+  @override
+  String get clubRuleRespect => 'Будьте вежливы.';
+
+  @override
+  String get clubRuleBothLanguages => 'Говорите на обоих языках клуба.';
+
+  @override
+  String get clubRuleNoSelling => 'Без знакомств ради свиданий, продаж и вербовки.';
+
+  @override
+  String get clubRuleReleaseSeat => 'Записывайтесь честно и освобождайте место, если не сможете прийти.';
+
+  @override
+  String get clubRuleAdd => 'Добавить правило';
+
+  @override
+  String get clubRuleHint => 'Напишите правило';
+
+  @override
+  String get clubSecondLanguageLabel => 'Второй язык (необязательно)';
+
+  @override
+  String get clubJoinAgree => 'Согласиться и вступить';
+
+  @override
+  String get clubWarnMember => 'Предупредить';
+
+  @override
+  String clubWarnTitle(String name) {
+    return 'Предупреждение: $name';
+  }
+
+  @override
+  String get clubWarnPickRule => 'Какое правило нарушено?';
+
+  @override
+  String get clubWarnOtherRule => 'Другое';
+
+  @override
+  String get clubWarnNoteLabel => 'Комментарий (необязательно)';
+
+  @override
+  String get clubWarnSend => 'Отправить предупреждение';
+
+  @override
+  String get clubWarnFailed => 'Не удалось отправить предупреждение.';
+
+  @override
+  String clubWarnSent(int count) {
+    return 'Предупреждение отправлено ($count из 3).';
+  }
+
+  @override
+  String clubRemoveAfterWarningsTitle(String name) {
+    return 'У $name 3 предупреждения. Удалить из клуба?';
+  }
+
+  @override
+  String get clubRemoveAfterWarningsBody => 'Участник покинет клуб и не сможет вернуться.';
+
+  @override
+  String get clubNotNow => 'Не сейчас';
+
+  @override
+  String get clubRemoveNow => 'Удалить сразу (серьёзное нарушение)';
+
+  @override
+  String clubRemoveReasonTitle(String name) {
+    return 'Почему вы удаляете $name?';
+  }
+
+  @override
+  String get clubRemoveReasonHint => 'Причина (будет отправлена команде BananaTalk)';
+
+  @override
+  String clubYourWarnings(int count) {
+    return 'У вас $count из 3 предупреждений в этом клубе.';
+  }
+
+  @override
+  String get clubChat => 'Чат';
+
+  @override
+  String get clubChatFailed => 'Не удалось открыть чат.';
+
+  @override
+  String get clubNoticeTitle => 'Объявление';
+
+  @override
+  String get clubNoticeLabel => 'Объявление для участников (необязательно)';
 }

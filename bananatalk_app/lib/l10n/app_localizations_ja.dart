@@ -12411,4 +12411,98 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get gatheringWithdrawRequest => '申請を取り消す';
+
+  @override
+  String get clubRulesTitle => 'クラブのルール';
+
+  @override
+  String get clubRuleRespect => '相手を尊重しましょう。';
+
+  @override
+  String get clubRuleBothLanguages => 'クラブの2つの言語を両方使いましょう。';
+
+  @override
+  String get clubRuleNoSelling => '出会い目的・販売・勧誘は禁止です。';
+
+  @override
+  String get clubRuleReleaseSeat => '参加登録は正直に。来られないときは席を譲りましょう。';
+
+  @override
+  String get clubRuleAdd => 'ルールを追加';
+
+  @override
+  String get clubRuleHint => 'ルールを入力';
+
+  @override
+  String get clubSecondLanguageLabel => '2つ目の言語（任意）';
+
+  @override
+  String get clubJoinAgree => '同意して参加';
+
+  @override
+  String get clubWarnMember => '警告する';
+
+  @override
+  String clubWarnTitle(String name) {
+    return '$nameさんに警告';
+  }
+
+  @override
+  String get clubWarnPickRule => 'どのルールに違反しましたか？';
+
+  @override
+  String get clubWarnOtherRule => 'その他';
+
+  @override
+  String get clubWarnNoteLabel => 'メモ（任意）';
+
+  @override
+  String get clubWarnSend => '警告を送る';
+
+  @override
+  String get clubWarnFailed => '警告を送れませんでした。';
+
+  @override
+  String clubWarnSent(int count) {
+    return '警告を送りました（3回中$count回目）。';
+  }
+
+  @override
+  String clubRemoveAfterWarningsTitle(String name) {
+    return '$nameさんの警告が3回になりました。退会させますか？';
+  }
+
+  @override
+  String get clubRemoveAfterWarningsBody => 'クラブから外れ、再参加できなくなります。';
+
+  @override
+  String get clubNotNow => '今はしない';
+
+  @override
+  String get clubRemoveNow => 'すぐに退会させる（重大な場合）';
+
+  @override
+  String clubRemoveReasonTitle(String name) {
+    return '$nameさんを退会させる理由は？';
+  }
+
+  @override
+  String get clubRemoveReasonHint => '理由（BananaTalkチームに送られます）';
+
+  @override
+  String clubYourWarnings(int count) {
+    return 'このクラブで警告を3回中$count回受けています。';
+  }
+
+  @override
+  String get clubChat => 'チャット';
+
+  @override
+  String get clubChatFailed => 'チャットを開けませんでした。';
+
+  @override
+  String get clubNoticeTitle => 'お知らせ';
+
+  @override
+  String get clubNoticeLabel => 'メンバーへのお知らせ（任意）';
 }

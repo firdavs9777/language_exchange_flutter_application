@@ -12429,4 +12429,98 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get gatheringWithdrawRequest => 'İsteği geri çek';
+
+  @override
+  String get clubRulesTitle => 'Kulüp kuralları';
+
+  @override
+  String get clubRuleRespect => 'Saygılı ol.';
+
+  @override
+  String get clubRuleBothLanguages => 'Kulübün iki dilini de kullan.';
+
+  @override
+  String get clubRuleNoSelling => 'Flört, satış ve üye toplama yok.';
+
+  @override
+  String get clubRuleReleaseSeat => 'Katılımını dürüstçe bildir, gelemeyeceksen yerini bırak.';
+
+  @override
+  String get clubRuleAdd => 'Kural ekle';
+
+  @override
+  String get clubRuleHint => 'Bir kural yaz';
+
+  @override
+  String get clubSecondLanguageLabel => 'İkinci dil (isteğe bağlı)';
+
+  @override
+  String get clubJoinAgree => 'Kabul et ve katıl';
+
+  @override
+  String get clubWarnMember => 'Uyar';
+
+  @override
+  String clubWarnTitle(String name) {
+    return '$name kişisini uyar';
+  }
+
+  @override
+  String get clubWarnPickRule => 'Hangi kural çiğnendi?';
+
+  @override
+  String get clubWarnOtherRule => 'Diğer';
+
+  @override
+  String get clubWarnNoteLabel => 'Not (isteğe bağlı)';
+
+  @override
+  String get clubWarnSend => 'Uyarıyı gönder';
+
+  @override
+  String get clubWarnFailed => 'Uyarı gönderilemedi.';
+
+  @override
+  String clubWarnSent(int count) {
+    return 'Uyarı gönderildi (3 uyarıdan $count.).';
+  }
+
+  @override
+  String clubRemoveAfterWarningsTitle(String name) {
+    return '$name 3 uyarı aldı. Çıkarılsın mı?';
+  }
+
+  @override
+  String get clubRemoveAfterWarningsBody => 'Kulüpten çıkar ve tekrar katılamaz.';
+
+  @override
+  String get clubNotNow => 'Şimdi değil';
+
+  @override
+  String get clubRemoveNow => 'Hemen çıkar (ciddi)';
+
+  @override
+  String clubRemoveReasonTitle(String name) {
+    return '$name kişisini neden çıkarıyorsun?';
+  }
+
+  @override
+  String get clubRemoveReasonHint => 'Neden (BananaTalk ekibine gönderilir)';
+
+  @override
+  String clubYourWarnings(int count) {
+    return 'Bu kulüpte 3 uyarıdan $count tanesini aldın.';
+  }
+
+  @override
+  String get clubChat => 'Sohbet';
+
+  @override
+  String get clubChatFailed => 'Sohbet açılamadı.';
+
+  @override
+  String get clubNoticeTitle => 'Duyuru';
+
+  @override
+  String get clubNoticeLabel => 'Üyelere duyuru (isteğe bağlı)';
 }

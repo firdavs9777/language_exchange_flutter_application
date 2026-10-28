@@ -12422,4 +12422,98 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get gatheringWithdrawRequest => 'Tarik permintaan';
+
+  @override
+  String get clubRulesTitle => 'Aturan klub';
+
+  @override
+  String get clubRuleRespect => 'Saling menghormati.';
+
+  @override
+  String get clubRuleBothLanguages => 'Gunakan kedua bahasa klub.';
+
+  @override
+  String get clubRuleNoSelling => 'Dilarang mencari pacar, berjualan, atau merekrut.';
+
+  @override
+  String get clubRuleReleaseSeat => 'Daftar dengan jujur dan lepaskan kursimu kalau tidak bisa datang.';
+
+  @override
+  String get clubRuleAdd => 'Tambah aturan';
+
+  @override
+  String get clubRuleHint => 'Tulis aturan';
+
+  @override
+  String get clubSecondLanguageLabel => 'Bahasa kedua (opsional)';
+
+  @override
+  String get clubJoinAgree => 'Setuju dan gabung';
+
+  @override
+  String get clubWarnMember => 'Beri peringatan';
+
+  @override
+  String clubWarnTitle(String name) {
+    return 'Peringatkan $name';
+  }
+
+  @override
+  String get clubWarnPickRule => 'Aturan mana yang dilanggar?';
+
+  @override
+  String get clubWarnOtherRule => 'Lainnya';
+
+  @override
+  String get clubWarnNoteLabel => 'Catatan (opsional)';
+
+  @override
+  String get clubWarnSend => 'Kirim peringatan';
+
+  @override
+  String get clubWarnFailed => 'Peringatan gagal dikirim.';
+
+  @override
+  String clubWarnSent(int count) {
+    return 'Peringatan terkirim ($count dari 3).';
+  }
+
+  @override
+  String clubRemoveAfterWarningsTitle(String name) {
+    return '$name sudah 3 kali diperingatkan. Keluarkan?';
+  }
+
+  @override
+  String get clubRemoveAfterWarningsBody => 'Dia akan keluar dari klub dan tidak bisa bergabung lagi.';
+
+  @override
+  String get clubNotNow => 'Nanti saja';
+
+  @override
+  String get clubRemoveNow => 'Keluarkan sekarang (serius)';
+
+  @override
+  String clubRemoveReasonTitle(String name) {
+    return 'Kenapa kamu mengeluarkan $name?';
+  }
+
+  @override
+  String get clubRemoveReasonHint => 'Alasan (dikirim ke tim BananaTalk)';
+
+  @override
+  String clubYourWarnings(int count) {
+    return 'Kamu punya $count dari 3 peringatan di klub ini.';
+  }
+
+  @override
+  String get clubChat => 'Obrolan';
+
+  @override
+  String get clubChatFailed => 'Obrolan gagal dibuka.';
+
+  @override
+  String get clubNoticeTitle => 'Pengumuman';
+
+  @override
+  String get clubNoticeLabel => 'Pengumuman untuk anggota (opsional)';
 }

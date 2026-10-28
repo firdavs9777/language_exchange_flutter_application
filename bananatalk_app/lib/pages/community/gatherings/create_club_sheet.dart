@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
 
+import 'package:bananatalk_app/pages/community/gatherings/club_rules.dart';
 import 'package:bananatalk_app/pages/community/gatherings/group_cover_picker.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/community/gathering_model.dart';
@@ -23,10 +24,14 @@ class CreateClubSheet extends StatefulWidget {
     super.key,
     required this.defaultLanguage,
     this.apiClient,
+    this.clubsV2 = false,
   });
 
   final String defaultLanguage;
   final GatheringApiClient? apiClient;
+
+  /// Clubs v2 (rules + the language pair) is on for this user.
+  final bool clubsV2;
 
   @override
   State<CreateClubSheet> createState() => _CreateClubSheetState();
@@ -37,6 +42,10 @@ class _CreateClubSheetState extends State<CreateClubSheet> {
   final _name = TextEditingController();
   final _interest = TextEditingController();
   final _description = TextEditingController();
+  final _secondLanguage = TextEditingController();
+
+  /// Clubs v2. Null until the editor first builds with the defaults.
+  List<String>? _rules;
   late final TextEditingController _language = TextEditingController(
     text: widget.defaultLanguage,
   );
@@ -52,6 +61,7 @@ class _CreateClubSheetState extends State<CreateClubSheet> {
     _interest.dispose();
     _description.dispose();
     _language.dispose();
+    _secondLanguage.dispose();
     super.dispose();
   }
 
@@ -83,6 +93,10 @@ class _CreateClubSheetState extends State<CreateClubSheet> {
       language: language,
       interest: _interest.text.trim(),
       description: _description.text.trim(),
+      secondLanguage: widget.clubsV2 && _secondLanguage.text.trim().isNotEmpty
+          ? _secondLanguage.text.trim()
+          : null,
+      rules: widget.clubsV2 ? (_rules ?? defaultClubRules(l10n)) : null,
     );
     if (!mounted) return;
     setState(() => _submitting = false);
@@ -170,6 +184,17 @@ class _CreateClubSheetState extends State<CreateClubSheet> {
               border: OutlineInputBorder(borderRadius: AppRadius.borderMD),
             ),
           ),
+          if (widget.clubsV2) ...[
+            Spacing.gapMD,
+            TextField(
+              key: const Key('club-second-language'),
+              controller: _secondLanguage,
+              decoration: InputDecoration(
+                labelText: l10n.clubSecondLanguageLabel,
+                border: OutlineInputBorder(borderRadius: AppRadius.borderMD),
+              ),
+            ),
+          ],
           Spacing.gapMD,
           TextField(
             controller: _interest,
@@ -193,6 +218,13 @@ class _CreateClubSheetState extends State<CreateClubSheet> {
               border: OutlineInputBorder(borderRadius: AppRadius.borderMD),
             ),
           ),
+          if (widget.clubsV2) ...[
+            Spacing.gapMD,
+            ClubRulesEditor(
+              initialRules: defaultClubRules(l10n),
+              onChanged: (rules) => _rules = rules,
+            ),
+          ],
           Spacing.gapLG,
           SizedBox(
             width: double.infinity,
@@ -220,6 +252,7 @@ class _CreateClubSheetState extends State<CreateClubSheet> {
 Future<Club?> showCreateClubSheet(
   BuildContext context, {
   required String defaultLanguage,
+  bool clubsV2 = false,
 }) {
   return showModalBottomSheet<Club>(
     context: context,
@@ -229,7 +262,7 @@ Future<Club?> showCreateClubSheet(
       borderRadius: BorderRadius.vertical(top: Radius.circular(AppRadius.xl)),
     ),
     builder: (_) => SingleChildScrollView(
-      child: CreateClubSheet(defaultLanguage: defaultLanguage),
+      child: CreateClubSheet(defaultLanguage: defaultLanguage, clubsV2: clubsV2),
     ),
   );
 }

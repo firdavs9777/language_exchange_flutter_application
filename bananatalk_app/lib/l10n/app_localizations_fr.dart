@@ -12441,4 +12441,98 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get gatheringWithdrawRequest => 'Retirer la demande';
+
+  @override
+  String get clubRulesTitle => 'Règles du club';
+
+  @override
+  String get clubRuleRespect => 'Sois respectueux.';
+
+  @override
+  String get clubRuleBothLanguages => 'Utilise les deux langues du club.';
+
+  @override
+  String get clubRuleNoSelling => 'Pas de drague, de vente ni de recrutement.';
+
+  @override
+  String get clubRuleReleaseSeat => 'Inscris-toi honnêtement et libère ta place si tu ne peux pas venir.';
+
+  @override
+  String get clubRuleAdd => 'Ajouter une règle';
+
+  @override
+  String get clubRuleHint => 'Écris une règle';
+
+  @override
+  String get clubSecondLanguageLabel => 'Deuxième langue (facultatif)';
+
+  @override
+  String get clubJoinAgree => 'Accepter et rejoindre';
+
+  @override
+  String get clubWarnMember => 'Avertir';
+
+  @override
+  String clubWarnTitle(String name) {
+    return 'Avertir $name';
+  }
+
+  @override
+  String get clubWarnPickRule => 'Quelle règle a été enfreinte ?';
+
+  @override
+  String get clubWarnOtherRule => 'Autre';
+
+  @override
+  String get clubWarnNoteLabel => 'Note (facultatif)';
+
+  @override
+  String get clubWarnSend => 'Envoyer l\'avertissement';
+
+  @override
+  String get clubWarnFailed => 'Impossible d\'envoyer l\'avertissement.';
+
+  @override
+  String clubWarnSent(int count) {
+    return 'Avertissement envoyé ($count sur 3).';
+  }
+
+  @override
+  String clubRemoveAfterWarningsTitle(String name) {
+    return '$name a 3 avertissements. Le retirer ?';
+  }
+
+  @override
+  String get clubRemoveAfterWarningsBody => 'La personne quittera le club et ne pourra pas revenir.';
+
+  @override
+  String get clubNotNow => 'Pas maintenant';
+
+  @override
+  String get clubRemoveNow => 'Retirer maintenant (grave)';
+
+  @override
+  String clubRemoveReasonTitle(String name) {
+    return 'Pourquoi retires-tu $name ?';
+  }
+
+  @override
+  String get clubRemoveReasonHint => 'Raison (envoyée à l\'équipe BananaTalk)';
+
+  @override
+  String clubYourWarnings(int count) {
+    return 'Tu as $count avertissement(s) sur 3 dans ce club.';
+  }
+
+  @override
+  String get clubChat => 'Discussion';
+
+  @override
+  String get clubChatFailed => 'Impossible d\'ouvrir la discussion.';
+
+  @override
+  String get clubNoticeTitle => 'Annonce';
+
+  @override
+  String get clubNoticeLabel => 'Annonce pour les membres (facultatif)';
 }

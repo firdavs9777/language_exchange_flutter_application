@@ -19,6 +19,7 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/widgets/community/user_skeleton.dart';
 import 'package:bananatalk_app/utils/number_format_locale.dart';
 import 'package:bananatalk_app/utils/image_utils.dart';
+import 'package:bananatalk_app/providers/provider_root/clubs_v2_provider.dart';
 
 /// 모임 — the tab that replaces Voice Rooms.
 ///
@@ -188,9 +189,12 @@ class _GatheringsTabState extends ConsumerState<GatheringsTab>
   }
 
   Future<void> _createClub() async {
+    final clubsV2 = await ref.read(clubsV2AccessProvider.future);
+    if (!mounted) return;
     final club = await showCreateClubSheet(
       context,
       defaultLanguage: _defaultLanguage,
+      clubsV2: clubsV2,
     );
     if (club != null) await _refresh();
   }
@@ -515,13 +519,7 @@ class _GatheringsTabState extends ConsumerState<GatheringsTab>
                 Spacing.xxl,
               ),
               child: TextButton.icon(
-                onPressed: () async {
-                  final club = await showCreateClubSheet(
-                    context,
-                    defaultLanguage: _defaultLanguage,
-                  );
-                  if (club != null) await _refresh();
-                },
+                onPressed: _createClub,
                 icon: const Icon(Icons.groups_rounded, size: 18),
                 label: Text(l10n.gatheringStartAClub),
               ),
