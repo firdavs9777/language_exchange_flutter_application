@@ -376,6 +376,12 @@ class NotificationRouter {
             ? '/gathering/$gatheringId'
             : '/tabs/1';
 
+      // Clubs v2: an organizer warned you; open the club, whose page shows
+      // your count. No id → the Community tab, where clubs are listed.
+      case 'club_warning':
+        final clubId = data['clubId']?.toString();
+        return (clubId != null && clubId.isNotEmpty) ? '/club/$clubId' : '/tabs/1';
+
       // Workstream E-core Task 12 Step 3 — new follower deep-links to
       // the follower's profile (mirrors friend_request/profile_visit).
       case 'new_follower':

@@ -17,6 +17,7 @@ import 'package:bananatalk_app/pages/learning/exam_study/exam_dashboard_screen.d
 import 'package:bananatalk_app/pages/learning/main/learning_main_screen.dart';
 import 'package:bananatalk_app/providers/provider_models/exam/exam_language.dart';
 import 'package:bananatalk_app/providers/provider_models/exam/exam_type.dart';
+import 'package:bananatalk_app/pages/community/gatherings/club_detail_screen.dart';
 import 'package:bananatalk_app/pages/community/gatherings/gathering_detail_screen.dart';
 import 'package:bananatalk_app/screens/call_history_screen.dart';
 import 'package:go_router/go_router.dart';
@@ -279,6 +280,17 @@ final goRouter = GoRouter(
         return _buildSlideTransition(
           state: state,
           child: GatheringDetailScreen(gatheringId: gatheringId),
+        );
+      },
+    ),
+    // A club by id, for the club_warning notification (clubs v2).
+    GoRoute(
+      path: '/club/:clubId',
+      pageBuilder: (context, state) {
+        final clubId = state.pathParameters['clubId']!;
+        return _buildSlideTransition(
+          state: state,
+          child: ClubDetailScreen(clubId: clubId),
         );
       },
     ),

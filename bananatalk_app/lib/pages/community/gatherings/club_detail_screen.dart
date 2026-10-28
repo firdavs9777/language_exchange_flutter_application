@@ -12,7 +12,9 @@ import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/pages/community/gatherings/gathering_safety_menu.dart';
 import 'package:bananatalk_app/pages/community/gatherings/club_people_section.dart';
+import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/pages/community/gatherings/club_rules.dart';
+import 'package:bananatalk_app/pages/community/gatherings/club_warn_sheet.dart';
 import 'package:bananatalk_app/providers/provider_root/clubs_v2_provider.dart';
 import 'package:bananatalk_app/pages/community/gatherings/group_cover.dart';
 import 'package:bananatalk_app/pages/community/gatherings/group_cover_picker.dart';
@@ -260,6 +262,7 @@ class _ClubDetailScreenState extends ConsumerState<ClubDetailScreen> {
   Future<void> _manageMember(Club club, ClubMember member) async {
     if (member.isOwner) return;
     final l10n = AppLocalizations.of(context)!;
+    final clubsV2 = ref.read(clubsV2AccessProvider).valueOrNull ?? false;
 
     final action = await showModalBottomSheet<String>(
       context: context,
@@ -275,6 +278,21 @@ class _ClubDetailScreenState extends ConsumerState<ClubDetailScreen> {
             // Role changes are the owner's alone: letting organizers appoint
             // organizers compounds one bad appointment beyond what the owner
             // can undo.
+            // Clubs v2: warn citing a rule; remove at once (with a reason)
+            // for serious cases. Same permissions as removing.
+            if (clubsV2) ...[
+              ListTile(
+                leading: const Icon(Icons.warning_amber_rounded),
+                title: Text(l10n.clubWarnMember),
+                onTap: () => Navigator.pop(sheetContext, 'warn'),
+              ),
+              ListTile(
+                leading: const Icon(Icons.gavel_rounded, color: Colors.red),
+                title: Text(l10n.clubRemoveNow,
+                    style: const TextStyle(color: Colors.red)),
+                onTap: () => Navigator.pop(sheetContext, 'removeNow'),
+              ),
+            ],
             if (club.viewerIsOwner)
               ListTile(
                 leading: const Icon(Icons.shield_outlined),
@@ -295,6 +313,8 @@ class _ClubDetailScreenState extends ConsumerState<ClubDetailScreen> {
       ),
     );
     if (action == null || !mounted) return;
+    if (action == 'warn') return _warnMember(club, member);
+    if (action == 'removeNow') return _removeNow(club, member);
 
     setState(() => _busy = true);
     final result = action == 'remove'
@@ -311,6 +331,77 @@ class _ClubDetailScreenState extends ConsumerState<ClubDetailScreen> {
     });
     if (!result.success) {
       showCommunitySnackBar(context, message: AppLocalizations.of(context)!.clubMemberUpdateFailed);
+    }
+  }
+
+  /// Clubs v2: warn [member]. At the third warning the host is asked whether
+  /// to remove them; nothing happens on its own.
+  Future<void> _warnMember(Club club, ClubMember member) async {
+    final l10n = AppLocalizations.of(context)!;
+    final warning = await showClubWarnSheet(context, club: club, member: member);
+    if (warning == null || !mounted) return;
+
+    setState(() => _busy = true);
+    final result = await _api.warnClubMember(club.id, member.id,
+        rule: warning.rule, note: warning.note);
+    if (!mounted) return;
+    setState(() => _busy = false);
+    final value = result.value;
+    if (!result.success || value == null) {
+      showCommunitySnackBar(context,
+          message: l10n.clubWarnFailed, type: CommunitySnackBarType.error);
+      return;
+    }
+    showCommunitySnackBar(context, message: l10n.clubWarnSent(value.warningCount));
+
+    if (value.promptRemoval) {
+      final remove = await showDialog<bool>(
+        context: context,
+        builder: (dialogContext) => AlertDialog(
+          title: Text(l10n.clubRemoveAfterWarningsTitle(member.name)),
+          content: Text(l10n.clubRemoveAfterWarningsBody),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(dialogContext, false),
+              child: Text(l10n.clubNotNow),
+            ),
+            TextButton(
+              key: const Key('club-remove-after-warnings'),
+              onPressed: () => Navigator.pop(dialogContext, true),
+              child: Text(l10n.clubRemoveMember,
+                  style: const TextStyle(color: Colors.red)),
+            ),
+          ],
+        ),
+      );
+      if (remove == true && mounted) {
+        await _removeMember(club, member, ban: true);
+        return;
+      }
+    }
+    if (mounted) await _reload();
+  }
+
+  /// Clubs v2: remove at once for serious cases; the reason goes to admins.
+  Future<void> _removeNow(Club club, ClubMember member) async {
+    final reason = await showClubRemoveNowSheet(context, name: member.name);
+    if (reason == null || !mounted) return;
+    await _removeMember(club, member, ban: true, reason: reason);
+  }
+
+  Future<void> _removeMember(Club club, ClubMember member,
+      {bool ban = false, String? reason}) async {
+    setState(() => _busy = true);
+    final result =
+        await _api.removeClubMember(club.id, member.id, ban: ban, reason: reason);
+    if (!mounted) return;
+    setState(() {
+      _busy = false;
+      if (result.success) _future = _api.getClub(widget.clubId);
+    });
+    if (!result.success) {
+      showCommunitySnackBar(context,
+          message: AppLocalizations.of(context)!.clubMemberUpdateFailed);
     }
   }
 
@@ -571,6 +662,20 @@ class _ClubDetailScreenState extends ConsumerState<ClubDetailScreen> {
                     ],
                   ),
                 ],
+                if (_clubsV2 && club.viewerWarningCount > 0) ...[
+                  Spacing.gapMD,
+                  Container(
+                    key: const Key('club-own-warnings'),
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(Spacing.sm),
+                    decoration: BoxDecoration(
+                      color: Colors.orange.withValues(alpha: 0.12),
+                      borderRadius: AppRadius.borderMD,
+                    ),
+                    child: Text(l10n.clubYourWarnings(club.viewerWarningCount),
+                        style: context.bodyMedium),
+                  ),
+                ],
                 // Clubs v2: the rules come before the Join button, and joining
                 // means agreeing to them.
                 if (_clubsV2 && club.rules.isNotEmpty) ...[
@@ -608,6 +713,7 @@ class _ClubDetailScreenState extends ConsumerState<ClubDetailScreen> {
 
           ClubPeopleSection(
             club: club,
+            showWarnings: _clubsV2 && club.viewerCanManage,
             onMemberLongPress: club.viewerCanManage
                 ? (member) => _manageMember(club, member)
                 : null,

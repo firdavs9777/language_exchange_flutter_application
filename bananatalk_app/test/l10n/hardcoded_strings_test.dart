@@ -1221,6 +1221,8 @@ const Map<String, List<String>> _filesByTask = {
     'pages/community/gatherings/club_rules.dart',
     'pages/community/gatherings/create_club_sheet.dart',
     'pages/community/gatherings/club_detail_screen.dart',
+    'pages/community/gatherings/club_warn_sheet.dart',
+    'pages/community/gatherings/club_people_section.dart',
   ],
 };
 
