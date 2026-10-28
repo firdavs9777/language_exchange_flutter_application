@@ -12411,4 +12411,86 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get gatheringWithdrawRequest => '요청 취소';
+
+  @override
+  String get clubRulesTitle => '클럽 규칙';
+
+  @override
+  String get clubRuleRespect => '서로 존중해요.';
+
+  @override
+  String get clubRuleBothLanguages => '클럽의 두 언어를 모두 써요.';
+
+  @override
+  String get clubRuleNoSelling => '데이트, 판매, 영업 목적은 안 돼요.';
+
+  @override
+  String get clubRuleReleaseSeat => '참석 신청은 정직하게, 못 오면 자리를 양보해요.';
+
+  @override
+  String get clubRuleAdd => '규칙 추가';
+
+  @override
+  String get clubRuleHint => '규칙을 써 주세요';
+
+  @override
+  String get clubSecondLanguageLabel => '두 번째 언어 (선택)';
+
+  @override
+  String get clubJoinAgree => '동의하고 가입';
+
+  @override
+  String get clubWarnMember => '경고하기';
+
+  @override
+  String clubWarnTitle(String name) {
+    return '$name님에게 경고';
+  }
+
+  @override
+  String get clubWarnPickRule => '어떤 규칙을 어겼나요?';
+
+  @override
+  String get clubWarnOtherRule => '기타';
+
+  @override
+  String get clubWarnNoteLabel => '메모 (선택)';
+
+  @override
+  String get clubWarnSend => '경고 보내기';
+
+  @override
+  String get clubWarnFailed => '경고를 보내지 못했어요.';
+
+  @override
+  String clubWarnSent(int count) {
+    return '경고를 보냈어요 (3번 중 $count번).';
+  }
+
+  @override
+  String clubRemoveAfterWarningsTitle(String name) {
+    return '$name님의 경고가 3번이에요. 내보낼까요?';
+  }
+
+  @override
+  String get clubRemoveAfterWarningsBody => '클럽에서 나가게 되고, 허락하지 않으면 다시 가입할 수 없어요.';
+
+  @override
+  String get clubNotNow => '나중에';
+
+  @override
+  String get clubRemoveNow => '바로 내보내기 (심각한 경우)';
+
+  @override
+  String clubRemoveReasonTitle(String name) {
+    return '$name님을 내보내는 이유는요?';
+  }
+
+  @override
+  String get clubRemoveReasonHint => '이유 (BananaTalk 팀에 전달돼요)';
+
+  @override
+  String clubYourWarnings(int count) {
+    return '이 클럽에서 경고 3번 중 $count번을 받았어요.';
+  }
 }

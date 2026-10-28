@@ -874,6 +874,33 @@ const Map<String, List<String>> _keysByTask = {
     'dailyReminderSubtitle',
     'dailyReminderTime',
   ],
+  // Clubs v2 slice 1 (2026-10-28): club rules, the language pair, warnings.
+  'clubs-v2': [
+    'clubRulesTitle',
+    'clubRuleRespect',
+    'clubRuleBothLanguages',
+    'clubRuleNoSelling',
+    'clubRuleReleaseSeat',
+    'clubRuleAdd',
+    'clubRuleHint',
+    'clubSecondLanguageLabel',
+    'clubJoinAgree',
+    'clubWarnMember',
+    'clubWarnTitle',
+    'clubWarnPickRule',
+    'clubWarnOtherRule',
+    'clubWarnNoteLabel',
+    'clubWarnSend',
+    'clubWarnFailed',
+    'clubWarnSent',
+    'clubRemoveAfterWarningsTitle',
+    'clubRemoveAfterWarningsBody',
+    'clubNotNow',
+    'clubRemoveNow',
+    'clubRemoveReasonTitle',
+    'clubRemoveReasonHint',
+    'clubYourWarnings',
+  ],
 };
 
 /// Files (under lib/) each task must leave with no English Text literal.
@@ -1189,6 +1216,11 @@ const Map<String, List<String>> _filesByTask = {
     'pages/community/gatherings/gathering_detail_screen.dart',
   ],  'gathering-people': [
     'pages/community/gatherings/gathering_detail_screen.dart',
+  ],
+  'clubs-v2': [
+    'pages/community/gatherings/club_rules.dart',
+    'pages/community/gatherings/create_club_sheet.dart',
+    'pages/community/gatherings/club_detail_screen.dart',
   ],
 };
 

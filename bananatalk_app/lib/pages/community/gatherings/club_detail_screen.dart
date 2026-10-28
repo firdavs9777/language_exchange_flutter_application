@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/community/gathering_model.dart';
 import 'package:bananatalk_app/services/gathering_api_client.dart';
@@ -11,6 +12,8 @@ import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/pages/community/gatherings/gathering_safety_menu.dart';
 import 'package:bananatalk_app/pages/community/gatherings/club_people_section.dart';
+import 'package:bananatalk_app/pages/community/gatherings/club_rules.dart';
+import 'package:bananatalk_app/providers/provider_root/clubs_v2_provider.dart';
 import 'package:bananatalk_app/pages/community/gatherings/group_cover.dart';
 import 'package:bananatalk_app/pages/community/gatherings/group_cover_picker.dart';
 import 'package:bananatalk_app/utils/number_format_locale.dart';
@@ -23,20 +26,26 @@ import 'package:image_picker/image_picker.dart';
 /// reason the club is the primary entity. "49 members" is true on a quiet
 /// week, whereas an event list resets to empty after every event and reads as
 /// abandoned.
-class ClubDetailScreen extends StatefulWidget {
+class ClubDetailScreen extends ConsumerStatefulWidget {
   const ClubDetailScreen({super.key, required this.clubId, this.apiClient});
 
   final String clubId;
   final GatheringApiClient? apiClient;
 
   @override
-  State<ClubDetailScreen> createState() => _ClubDetailScreenState();
+  ConsumerState<ClubDetailScreen> createState() => _ClubDetailScreenState();
 }
 
-class _ClubDetailScreenState extends State<ClubDetailScreen> {
+class _ClubDetailScreenState extends ConsumerState<ClubDetailScreen> {
   late final GatheringApiClient _api = widget.apiClient ?? GatheringApiClient();
   late Future<Club?> _future;
   bool _busy = false;
+
+  /// Clubs v2 (rules, the language pair, warnings) is on for this user.
+  bool get _clubsV2 => ref.watch(clubsV2AccessProvider).valueOrNull ?? false;
+
+  /// The rules as edited in the open edit sheet (clubs v2).
+  List<String> _editedRules = const [];
 
   @override
   void initState() {
@@ -65,12 +74,18 @@ class _ClubDetailScreenState extends State<ClubDetailScreen> {
     final interest = TextEditingController(text: club.interest);
     final city = TextEditingController(text: club.city ?? '');
     final placeName = TextEditingController(text: club.place?.name ?? '');
+    final secondLanguage = TextEditingController(
+      text: club.secondLanguageLabel.isNotEmpty
+          ? club.secondLanguageLabel
+          : (club.secondLanguage ?? ''),
+    );
+    _editedRules = club.rules;
     final l10n = AppLocalizations.of(context)!;
-    final controllers = [name, description, interest, city, placeName];
+    final controllers = [name, description, interest, city, placeName, secondLanguage];
 
     try {
       await _editClubSheet(club, l10n, name, description, interest, city,
-          placeName);
+          placeName, secondLanguage);
     } finally {
       // Every exit path disposes: the sheet is rebuilt from scratch on each
       // open, so leaving these alive leaked five ChangeNotifiers per edit.
@@ -88,7 +103,9 @@ class _ClubDetailScreenState extends State<ClubDetailScreen> {
     TextEditingController interest,
     TextEditingController city,
     TextEditingController placeName,
+    TextEditingController secondLanguage,
   ) async {
+    final clubsV2 = ref.read(clubsV2AccessProvider).valueOrNull ?? false;
     final saved = await showModalBottomSheet<bool>(
       context: context,
       isScrollControlled: true,
@@ -144,6 +161,20 @@ class _ClubDetailScreenState extends State<ClubDetailScreen> {
                 controller: placeName,
                 decoration: InputDecoration(labelText: l10n.clubPlaceLabel),
               ),
+              if (clubsV2) ...[
+                const SizedBox(height: 12),
+                TextField(
+                  key: const Key('club-edit-second-language'),
+                  controller: secondLanguage,
+                  decoration:
+                      InputDecoration(labelText: l10n.clubSecondLanguageLabel),
+                ),
+                const SizedBox(height: 16),
+                ClubRulesEditor(
+                  initialRules: club.rules,
+                  onChanged: (rules) => _editedRules = rules,
+                ),
+              ],
               const SizedBox(height: 20),
               FilledButton(
                 key: const Key('club-edit-save'),
@@ -171,6 +202,9 @@ class _ClubDetailScreenState extends State<ClubDetailScreen> {
       // `place.address ? ... : null` then erased the club's street address
       // every time anyone saved an unrelated edit.
       placeAddress: club.place?.address,
+      // An empty second language clears the pair on the server.
+      secondLanguage: clubsV2 ? secondLanguage.text.trim() : null,
+      rules: clubsV2 ? _editedRules : null,
     );
     if (!mounted) return;
     setState(() {
@@ -485,15 +519,15 @@ class _ClubDetailScreenState extends State<ClubDetailScreen> {
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    if (club.displayLanguage.isNotEmpty) ...[
+                    if (clubLanguageLine(club, clubsV2: _clubsV2).isNotEmpty) ...[
                       Spacing.hGapSM,
                       Text('·', style: context.bodyMedium),
                       Spacing.hGapSM,
                       Flexible(
                         child: Text(
                           club.interest.isEmpty
-                              ? club.displayLanguage
-                              : '${club.displayLanguage} · ${club.interest}',
+                              ? clubLanguageLine(club, clubsV2: _clubsV2)
+                              : '${clubLanguageLine(club, clubsV2: _clubsV2)} · ${club.interest}',
                           style: context.bodyMedium.copyWith(
                             color: context.textSecondary,
                           ),
@@ -537,6 +571,12 @@ class _ClubDetailScreenState extends State<ClubDetailScreen> {
                     ],
                   ),
                 ],
+                // Clubs v2: the rules come before the Join button, and joining
+                // means agreeing to them.
+                if (_clubsV2 && club.rules.isNotEmpty) ...[
+                  Spacing.gapLG,
+                  ClubRulesList(rules: club.rules),
+                ],
                 Spacing.gapLG,
                 if (!club.viewerIsOwner)
                   SizedBox(
@@ -557,7 +597,9 @@ class _ClubDetailScreenState extends State<ClubDetailScreen> {
                                 vertical: Spacing.md,
                               ),
                             ),
-                            child: Text(l10n.clubJoin),
+                            child: Text(_clubsV2 && club.rules.isNotEmpty
+                                ? l10n.clubJoinAgree
+                                : l10n.clubJoin),
                           ),
                   ),
               ],

@@ -12453,4 +12453,86 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get gatheringWithdrawRequest => 'Retirar pedido';
+
+  @override
+  String get clubRulesTitle => 'Regras do clube';
+
+  @override
+  String get clubRuleRespect => 'Seja respeitoso.';
+
+  @override
+  String get clubRuleBothLanguages => 'Use os dois idiomas do clube.';
+
+  @override
+  String get clubRuleNoSelling => 'Nada de namoro, vendas ou recrutamento.';
+
+  @override
+  String get clubRuleReleaseSeat => 'Confirme com sinceridade e libere sua vaga se não puder ir.';
+
+  @override
+  String get clubRuleAdd => 'Adicionar regra';
+
+  @override
+  String get clubRuleHint => 'Escreva uma regra';
+
+  @override
+  String get clubSecondLanguageLabel => 'Segundo idioma (opcional)';
+
+  @override
+  String get clubJoinAgree => 'Concordar e entrar';
+
+  @override
+  String get clubWarnMember => 'Avisar';
+
+  @override
+  String clubWarnTitle(String name) {
+    return 'Avisar $name';
+  }
+
+  @override
+  String get clubWarnPickRule => 'Qual regra foi quebrada?';
+
+  @override
+  String get clubWarnOtherRule => 'Outra';
+
+  @override
+  String get clubWarnNoteLabel => 'Observação (opcional)';
+
+  @override
+  String get clubWarnSend => 'Enviar aviso';
+
+  @override
+  String get clubWarnFailed => 'Não foi possível enviar o aviso.';
+
+  @override
+  String clubWarnSent(int count) {
+    return 'Aviso enviado ($count de 3).';
+  }
+
+  @override
+  String clubRemoveAfterWarningsTitle(String name) {
+    return '$name tem 3 avisos. Remover?';
+  }
+
+  @override
+  String get clubRemoveAfterWarningsBody => 'A pessoa sai do clube e só volta se você permitir.';
+
+  @override
+  String get clubNotNow => 'Agora não';
+
+  @override
+  String get clubRemoveNow => 'Remover agora (grave)';
+
+  @override
+  String clubRemoveReasonTitle(String name) {
+    return 'Por que você está removendo $name?';
+  }
+
+  @override
+  String get clubRemoveReasonHint => 'Motivo (enviado à equipe do BananaTalk)';
+
+  @override
+  String clubYourWarnings(int count) {
+    return 'Você tem $count de 3 avisos neste clube.';
+  }
 }

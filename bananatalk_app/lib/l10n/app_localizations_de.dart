@@ -12453,4 +12453,86 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get gatheringWithdrawRequest => 'Anfrage zurückziehen';
+
+  @override
+  String get clubRulesTitle => 'Club-Regeln';
+
+  @override
+  String get clubRuleRespect => 'Sei respektvoll.';
+
+  @override
+  String get clubRuleBothLanguages => 'Nutze beide Sprachen des Clubs.';
+
+  @override
+  String get clubRuleNoSelling => 'Kein Dating, kein Verkauf, keine Anwerbung.';
+
+  @override
+  String get clubRuleReleaseSeat => 'Sag ehrlich zu und gib deinen Platz frei, wenn du nicht kommen kannst.';
+
+  @override
+  String get clubRuleAdd => 'Regel hinzufügen';
+
+  @override
+  String get clubRuleHint => 'Regel eingeben';
+
+  @override
+  String get clubSecondLanguageLabel => 'Zweite Sprache (optional)';
+
+  @override
+  String get clubJoinAgree => 'Zustimmen und beitreten';
+
+  @override
+  String get clubWarnMember => 'Verwarnen';
+
+  @override
+  String clubWarnTitle(String name) {
+    return '$name verwarnen';
+  }
+
+  @override
+  String get clubWarnPickRule => 'Welche Regel wurde gebrochen?';
+
+  @override
+  String get clubWarnOtherRule => 'Andere';
+
+  @override
+  String get clubWarnNoteLabel => 'Notiz (optional)';
+
+  @override
+  String get clubWarnSend => 'Verwarnung senden';
+
+  @override
+  String get clubWarnFailed => 'Verwarnung konnte nicht gesendet werden.';
+
+  @override
+  String clubWarnSent(int count) {
+    return 'Verwarnung gesendet ($count von 3).';
+  }
+
+  @override
+  String clubRemoveAfterWarningsTitle(String name) {
+    return '$name hat 3 Verwarnungen. Entfernen?';
+  }
+
+  @override
+  String get clubRemoveAfterWarningsBody => 'Die Person verlässt den Club und kann nur mit deiner Erlaubnis wieder beitreten.';
+
+  @override
+  String get clubNotNow => 'Nicht jetzt';
+
+  @override
+  String get clubRemoveNow => 'Sofort entfernen (schwerwiegend)';
+
+  @override
+  String clubRemoveReasonTitle(String name) {
+    return 'Warum entfernst du $name?';
+  }
+
+  @override
+  String get clubRemoveReasonHint => 'Grund (geht an das BananaTalk-Team)';
+
+  @override
+  String clubYourWarnings(int count) {
+    return 'Du hast $count von 3 Verwarnungen in diesem Club.';
+  }
 }

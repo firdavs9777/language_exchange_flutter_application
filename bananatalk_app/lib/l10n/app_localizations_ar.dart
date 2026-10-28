@@ -12528,4 +12528,86 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get gatheringWithdrawRequest => 'سحب الطلب';
+
+  @override
+  String get clubRulesTitle => 'قواعد النادي';
+
+  @override
+  String get clubRuleRespect => 'كن محترمًا.';
+
+  @override
+  String get clubRuleBothLanguages => 'استخدم لغتي النادي كلتيهما.';
+
+  @override
+  String get clubRuleNoSelling => 'ممنوع المواعدة أو البيع أو التجنيد.';
+
+  @override
+  String get clubRuleReleaseSeat => 'سجّل حضورك بصدق وأفسح مكانك إذا لم تستطع الحضور.';
+
+  @override
+  String get clubRuleAdd => 'أضف قاعدة';
+
+  @override
+  String get clubRuleHint => 'اكتب قاعدة';
+
+  @override
+  String get clubSecondLanguageLabel => 'اللغة الثانية (اختياري)';
+
+  @override
+  String get clubJoinAgree => 'أوافق وأنضم';
+
+  @override
+  String get clubWarnMember => 'تحذير';
+
+  @override
+  String clubWarnTitle(String name) {
+    return 'تحذير $name';
+  }
+
+  @override
+  String get clubWarnPickRule => 'ما القاعدة التي خولفت؟';
+
+  @override
+  String get clubWarnOtherRule => 'أخرى';
+
+  @override
+  String get clubWarnNoteLabel => 'ملاحظة (اختياري)';
+
+  @override
+  String get clubWarnSend => 'إرسال التحذير';
+
+  @override
+  String get clubWarnFailed => 'تعذّر إرسال التحذير.';
+
+  @override
+  String clubWarnSent(int count) {
+    return 'أُرسل التحذير ($count من 3).';
+  }
+
+  @override
+  String clubRemoveAfterWarningsTitle(String name) {
+    return 'لدى $name ثلاثة تحذيرات. هل تريد إزالته؟';
+  }
+
+  @override
+  String get clubRemoveAfterWarningsBody => 'سيغادر النادي ولن يستطيع العودة إلا إذا سمحت بذلك.';
+
+  @override
+  String get clubNotNow => 'ليس الآن';
+
+  @override
+  String get clubRemoveNow => 'إزالة فورًا (حالة خطيرة)';
+
+  @override
+  String clubRemoveReasonTitle(String name) {
+    return 'لماذا تزيل $name؟';
+  }
+
+  @override
+  String get clubRemoveReasonHint => 'السبب (يُرسل إلى فريق BananaTalk)';
+
+  @override
+  String clubYourWarnings(int count) {
+    return 'لديك $count من 3 تحذيرات في هذا النادي.';
+  }
 }
