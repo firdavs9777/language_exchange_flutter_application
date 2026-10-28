@@ -485,3 +485,4 @@ Web ↔ app parity (spec `docs/superpowers/specs/2026-10-16-web-app-parity-desig
 - [ ] Device QA: post members-only and shared records, check an outsider and the public feeds, edit a club post (privacy stays), stats line on card and page. M
 - [ ] Club feed shows the latest 20 (no infinite paging yet); video records not supported. S
 - [ ] Native review of the 10 club-feed strings (CSV rows appended). S
+- [ ] Club page and full club feed show load errors as "No posts yet" (no error state / retry). S
