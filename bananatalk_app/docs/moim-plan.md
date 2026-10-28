@@ -37,7 +37,8 @@ week's runners get "Keep your seat?" for next Saturday.
 on), "Join now" opens a voice room at the start time, a timer switches English ↔ Korean halfway with topic cards
 to talk about, times show in each viewer's zone, and afterwards "Words from tonight" can be saved to AI Study.
 
-**Safety and security when looking at or joining a gathering:** 18+ only (profile birth date); people you blocked
+**Safety and security when looking at or joining a gathering:** club rules you agree to on joining, with
+warnings from the host (at 3 warnings the host can remove you; serious cases can be removed at once); 18+ only (profile birth date); people you blocked
 are hidden; offline events only at public places in pilot cities from approved hosts; the card shows only the area,
 the exact place only to confirmed attendees from the day before; host approval for every new member of an offline
 club; QR check-in; report on events and in club chat (offline reports first in the admin queue); "Did you feel
@@ -151,7 +152,23 @@ distance / time / pace, to the club page; one toggle also shares it to Moments. 
 model with a `club` reference rather than a new post type; no fitness-app integration. Only members see the club
 feed of a private club; organizers can remove posts; reports and blocks as in Moments.
 
-Done when: members of a test club chat for a week and get event messages there, and post records after an event.
+**Club rules and warnings (added 2026-10-28).**
+- Every club has rules. The owner writes them when creating the club, starting from defaults: be respectful;
+  use both languages of the pair; no dating, selling or recruiting; RSVP honestly and release your seat if you
+  can't come. Offline clubs add the public-place and safety rules. People see the rules before joining and
+  agree to them when they join.
+- Owner/organizers can give a member a **warning**, naming the broken rule and an optional note. The member gets
+  an in-app notice and can see their own count ("1 of 3") in the club.
+- At the **3rd warning the host decides**: the app asks "Remove this member?" and nothing happens automatically.
+- A host can also remove someone at once, without warnings (harassment, safety). Removing at once asks for a
+  reason, which goes to the admin queue.
+- A removed member leaves the club and its chat and can't rejoin unless the host allows it.
+- Warnings and removals are logged for admins. A member can report a host who abuses them; repeated reports
+  about one host pause their offline events (same as the "felt unsafe" rule).
+- Proposal, not decided: warnings expire after 6 months.
+
+Done when: members of a test club chat for a week and get event messages there, and post records after an event;
+a test member gets three warnings and the host is asked whether to remove them.
 
 ### Phase 3: 정모 (repeat) (≈ 1 week)
 
@@ -305,3 +322,5 @@ Phase 6  seed 3–5 clubs + growth hooks (starts with Phase 2, runs alongside)
 9. Hobby clubs? **Yes, any activity, but every club keeps a language pair.**
 10. Sharing records? **Club feed** (photo + note + optional distance/time), shareable to Moments (Phase 2).
 11. Host approval? **Required offline, optional online.**
+12. Club rules and warnings? **Each club has rules; organizers give warnings; at 3 the host is asked whether to
+    remove** (nothing automatic). Instant removal for serious cases is allowed and reported to admin (Phase 2).
