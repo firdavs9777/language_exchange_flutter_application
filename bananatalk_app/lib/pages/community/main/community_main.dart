@@ -338,6 +338,12 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
     );
     if (configReady) _syncLayout(layout);
 
+    // Nearby has no name search: turning it on closes an open search
+    // (its close button hides with the icon).
+    ref.listen<bool>(partnerQuickChipsProvider.select((c) => c.nearby), (_, on) {
+      if (on && _isSearching) _toggleSearch();
+    });
+
     // Deep links / pushes / promos request a destination; open it once.
     ref.listen<CommunityDestination?>(communityPendingSubTabProvider, (_, next) {
       if (next == null) return;

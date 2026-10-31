@@ -107,4 +107,17 @@ void main() {
     );
     expect(old.hasMore, isTrue);
   });
+
+  // Final review: the list's top-up called loadMore while a refresh's page 1
+  // was in flight; that page landed on top of the new page 1.
+  test('loadMore waits while page 1 is reloading', () async {
+    final (service, n) = await loaded();
+    final r = n.refresh();
+    final before = service.calls.length;
+    await n.loadMore();
+    expect(service.calls.length, before, reason: 'no page 2 during a reload');
+    service.calls.last.complete(_page(['new1']));
+    await r;
+    expect(n.state.users.map((u) => u.id), ['new1']);
+  });
 }

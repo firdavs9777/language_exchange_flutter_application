@@ -299,8 +299,8 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
 
     return currentUserAsync.when(
       data: (currentUser) {
-        // Nearby is its own endpoint: it replaces the list, keeping the
-        // segment and chip rows so it is one tap to leave.
+        // Nearby is its own endpoint: it replaces the list, keeping the chip
+        // row so it is one tap to leave (segments do not apply to it).
         if (chips.nearby) {
           return Column(
             children: [
@@ -338,11 +338,20 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
           });
         }
 
+        // Loading and error keep the segment and chip rows, so quick chip
+        // taps keep working and a chip whose page fails can be undone.
+        Widget withChips(Widget body) => Column(
+              children: [
+                const PartnerSegmentChips(),
+                _buildQuickFilterChips(currentUser),
+                Expanded(child: body),
+              ],
+            );
         if (partnerState.isLoading && partnerState.users.isEmpty) {
-          return _buildLoading();
+          return withChips(_buildLoading());
         }
         if (partnerState.error != null && partnerState.users.isEmpty) {
-          return _buildError(partnerState.error);
+          return withChips(_buildError(partnerState.error));
         }
 
         final blockedUserIds = blockedUserIdsAsync.value ?? <String>{};

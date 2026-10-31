@@ -986,7 +986,13 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
 
   /// [force]: the user tapped Retry, so skip the pause.
   Future<void> loadMore({bool force = false}) async {
-    if (state.isLoadingMore || !state.hasMore || state.filters == null) return;
+    // Not while page 1 is (re)loading: that page would land on top of it.
+    if (state.isLoading ||
+        state.isLoadingMore ||
+        !state.hasMore ||
+        state.filters == null) {
+      return;
+    }
     final failedAt = _loadMoreFailedAt;
     if (!force &&
         failedAt != null &&

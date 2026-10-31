@@ -9,6 +9,7 @@ import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart
 import 'package:bananatalk_app/pages/community/gatherings/gatherings_tab.dart';
 import 'package:bananatalk_app/pages/community/waves/waves_screen.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
+import 'package:bananatalk_app/pages/community/partners/partner_query.dart';
 
 Future<ProviderContainer> _pump(
   WidgetTester tester, {
@@ -128,5 +129,20 @@ void main() {
       ),
       findsOneWidget,
     );
+  });
+
+  // Final review: with search open, turning Nearby on hid the close button
+  // but left the search bar (which Nearby ignores) stuck open.
+  testWidgets('turning Nearby on closes an open search', (tester) async {
+    final c = await _pump(tester, matchesLayout: false);
+    await tester.tap(find.byIcon(Icons.search_rounded).first);
+    await tester.pump(const Duration(milliseconds: 300));
+    expect(find.byType(TextField), findsOneWidget);
+    c.read(partnerQuickChipsProvider.notifier).state =
+        const PartnerQuickChips(nearby: true);
+    for (var i = 0; i < 3; i++) {
+      await tester.pump(const Duration(milliseconds: 300));
+    }
+    expect(find.byType(TextField), findsNothing);
   });
 }
