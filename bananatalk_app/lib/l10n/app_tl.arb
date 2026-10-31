@@ -4719,5 +4719,6 @@
   "clubChat": "Chat",
   "clubChatFailed": "Hindi mabuksan ang chat.",
   "clubNoticeTitle": "Paalala",
-  "clubNoticeLabel": "Paalala sa mga miyembro (opsyonal)"
+  "clubNoticeLabel": "Paalala sa mga miyembro (opsyonal)",
+  "sameCity": "Same city"
 }

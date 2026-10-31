@@ -4986,5 +4986,6 @@
   "clubChat": "Discussion",
   "clubChatFailed": "Impossible d'ouvrir la discussion.",
   "clubNoticeTitle": "Annonce",
-  "clubNoticeLabel": "Annonce pour les membres (facultatif)"
+  "clubNoticeLabel": "Annonce pour les membres (facultatif)",
+  "sameCity": "Same city"
 }

@@ -4746,5 +4746,6 @@
   "clubChat": "Trò chuyện",
   "clubChatFailed": "Không mở được cuộc trò chuyện.",
   "clubNoticeTitle": "Thông báo",
-  "clubNoticeLabel": "Thông báo cho thành viên (không bắt buộc)"
+  "clubNoticeLabel": "Thông báo cho thành viên (không bắt buộc)",
+  "sameCity": "Same city"
 }

@@ -13001,4 +13001,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get clubNoticeLabel => 'Объявление для участников (необязательно)';
+
+  @override
+  String get sameCity => 'Same city';
 }

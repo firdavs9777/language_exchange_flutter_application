@@ -12525,4 +12525,7 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get clubNoticeLabel => 'Эълон барои аъзоён (ихтиёрӣ)';
+
+  @override
+  String get sameCity => 'Same city';
 }

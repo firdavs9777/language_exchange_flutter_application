@@ -29,30 +29,10 @@ class _FakeService extends CommunityService {
   final pages = <int>[];
 
   @override
-  Future<PaginatedCommunityResponse> getCommunityPaginated({
-    int page = 1,
-    int limit = 20,
-    String? nativeLanguage,
-    String? learningLanguage,
-    bool matchLanguage = false,
-    String? gender,
-    int? minAge,
-    int? maxAge,
-    bool? onlineOnly,
-    String? country,
-    String? languageLevel,
-    String? search,
-    String? sort,
-    bool reciprocal = false,
-    String? activeWithin,
-    String? joinedWithin,
-    List<String> topics = const [],
-    int topicsAtLeast = 0,
-    bool sameCity = false,
-  }) {
+  Future<PaginatedCommunityResponse> getUsersPage(Map<String, String> query) {
     final c = Completer<PaginatedCommunityResponse>();
     calls.add(c);
-    pages.add(page);
+    pages.add(int.parse(query['page']!));
     return c.future;
   }
 }

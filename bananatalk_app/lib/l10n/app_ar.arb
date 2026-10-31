@@ -4776,5 +4776,6 @@
   "clubChat": "الدردشة",
   "clubChatFailed": "تعذّر فتح الدردشة.",
   "clubNoticeTitle": "إعلان",
-  "clubNoticeLabel": "إعلان للأعضاء (اختياري)"
+  "clubNoticeLabel": "إعلان للأعضاء (اختياري)",
+  "sameCity": "Same city"
 }

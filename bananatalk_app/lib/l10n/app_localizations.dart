@@ -22765,6 +22765,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Notice for members (optional)'**
   String get clubNoticeLabel;
+
+  /// Partners chip: people in the viewer's own city
+  ///
+  /// In en, this message translates to:
+  /// **'Same city'**
+  String get sameCity;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

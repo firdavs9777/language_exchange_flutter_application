@@ -50,6 +50,38 @@ class CommunityService {
   }
 
   /// Get community members with pagination and server-side filtering
+  /// One page of `/users` for an already-built query
+  /// ([PartnerFilterParams.toQuery]).
+  Future<PaginatedCommunityResponse> getUsersPage(
+    Map<String, String> query,
+  ) async {
+    final page = int.tryParse(query['page'] ?? '') ?? 1;
+    final url = Uri.parse(
+      '${Endpoints.baseURL}${Endpoints.usersURL}',
+    ).replace(queryParameters: query);
+    final response = await http
+        .get(url, headers: await _getHeaders())
+        .timeout(const Duration(seconds: 20));
+    if (response.statusCode == 200) {
+      return PaginatedCommunityResponse.fromBody(
+        json.decode(response.body) as Map<String, dynamic>,
+        page: page,
+      );
+    }
+    if (response.statusCode == 401) await _apiClient.handleUnauthorized();
+    throw Exception(_serverError(response.body, response.statusCode));
+  }
+
+  static String _serverError(String body, int status) {
+    try {
+      final decoded = json.decode(body);
+      if (decoded is Map && decoded['error'] is String) {
+        return decoded['error'] as String;
+      }
+    } catch (_) {}
+    return 'Request failed ($status)';
+  }
+
   Future<PaginatedCommunityResponse> getCommunityPaginated({
     int page = 1,
     int limit = 20,
@@ -1163,6 +1195,7 @@ class PartnerFilterParams {
   final String? joinedWithin; // '7d' | '30d'
   final List<String> topics;
   final int topicsAtLeast; // 0 = off
+  final bool sameCity; // the viewer's own city (backend cc5064b+)
 
   const PartnerFilterParams({
     this.nativeLanguage,
@@ -1180,6 +1213,7 @@ class PartnerFilterParams {
     this.joinedWithin,
     this.topics = const [],
     this.topicsAtLeast = 0,
+    this.sameCity = false,
   });
 
   PartnerFilterParams copyWith({
@@ -1198,6 +1232,7 @@ class PartnerFilterParams {
     String? joinedWithin,
     List<String>? topics,
     int? topicsAtLeast,
+    bool? sameCity,
   }) {
     return PartnerFilterParams(
       nativeLanguage: nativeLanguage ?? this.nativeLanguage,
@@ -1215,6 +1250,7 @@ class PartnerFilterParams {
       joinedWithin: joinedWithin ?? this.joinedWithin,
       topics: topics ?? this.topics,
       topicsAtLeast: topicsAtLeast ?? this.topicsAtLeast,
+      sameCity: sameCity ?? this.sameCity,
     );
   }
 
@@ -1236,7 +1272,8 @@ class PartnerFilterParams {
           activeWithin == other.activeWithin &&
           joinedWithin == other.joinedWithin &&
           listEquals(topics, other.topics) &&
-          topicsAtLeast == other.topicsAtLeast;
+          topicsAtLeast == other.topicsAtLeast &&
+          sameCity == other.sameCity;
 
   @override
   int get hashCode =>
@@ -1254,7 +1291,36 @@ class PartnerFilterParams {
       activeWithin.hashCode ^
       joinedWithin.hashCode ^
       Object.hashAll(topics) ^
-      topicsAtLeast.hashCode;
+      topicsAtLeast.hashCode ^
+      sameCity.hashCode;
+
+  /// The `/users` query string. The list always sends `matchLanguage=true`;
+  /// the filter sheet's count calls this without paging/sort so both ask the
+  /// server the same question.
+  Map<String, String> toQuery({int? page, int? limit, String? sort}) {
+    bool set(String? v) => v != null && v.isNotEmpty;
+    return {
+      if (page != null) 'page': '$page',
+      if (limit != null) 'limit': '$limit',
+      if (set(nativeLanguage)) 'nativeLanguage': nativeLanguage!,
+      if (set(learningLanguage)) 'learningLanguage': learningLanguage!,
+      'matchLanguage': 'true',
+      if (set(gender)) 'gender': gender!,
+      if (minAge != null && minAge! > 18) 'minAge': '$minAge',
+      if (maxAge != null && maxAge! < 100) 'maxAge': '$maxAge',
+      if (onlineOnly) 'onlineOnly': 'true',
+      if (set(country)) 'country': country!,
+      if (set(languageLevel)) 'languageLevel': languageLevel!,
+      if (search != null && search!.trim().isNotEmpty) 'search': search!.trim(),
+      if (set(sort)) 'sort': sort!,
+      if (reciprocal) 'reciprocal': 'true',
+      if (set(activeWithin)) 'activeWithin': activeWithin!,
+      if (set(joinedWithin)) 'joinedWithin': joinedWithin!,
+      if (topics.isNotEmpty) 'topics': topics.join(','),
+      if (topicsAtLeast > 0) 'topicsAtLeast': '$topicsAtLeast',
+      if (sameCity) 'sameCity': 'true',
+    };
+  }
 }
 
 /// Quick segment over the partner list (mutually exclusive).
@@ -1370,25 +1436,8 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
     }
 
     try {
-      final response = await _service.getCommunityPaginated(
-        page: 1,
-        limit: _pageSize,
-        nativeLanguage: filters.nativeLanguage,
-        learningLanguage: filters.learningLanguage,
-        matchLanguage: true,
-        gender: filters.gender,
-        minAge: filters.minAge,
-        maxAge: filters.maxAge,
-        onlineOnly: filters.onlineOnly,
-        country: filters.country,
-        languageLevel: filters.languageLevel,
-        search: filters.search,
-        sort: _sortFor(filters),
-        reciprocal: filters.reciprocal,
-        activeWithin: filters.activeWithin,
-        joinedWithin: filters.joinedWithin,
-        topics: filters.topics,
-        topicsAtLeast: filters.topicsAtLeast,
+      final response = await _service.getUsersPage(
+        filters.toQuery(page: 1, limit: _pageSize, sort: _sortFor(filters)),
       );
 
       // Filters changed while this request was in flight: drop the stale page.
@@ -1433,29 +1482,11 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
 
     try {
       final nextPage = state.currentPage + 1;
-      final response = await _service.getCommunityPaginated(
-        page: nextPage,
-        limit: _pageSize,
-        nativeLanguage: state.filters!.nativeLanguage,
-        learningLanguage: state.filters!.learningLanguage,
-        matchLanguage: true,
-        gender: state.filters!.gender,
-        minAge: state.filters!.minAge,
-        maxAge: state.filters!.maxAge,
-        onlineOnly: state.filters!.onlineOnly,
-        country: state.filters!.country,
-        languageLevel: state.filters!.languageLevel,
-        search: state.filters!.search,
-        // Same resolution as page 1. Sending the raw user choice here meant
-        // that under the smart default (sort unset), page 1 was ranked and
-        // every later page used the server's VIP/online order — duplicating
-        // some people and dropping others across the page boundary.
-        sort: _sortFor(state.filters!),
-        reciprocal: state.filters!.reciprocal,
-        activeWithin: state.filters!.activeWithin,
-        joinedWithin: state.filters!.joinedWithin,
-        topics: state.filters!.topics,
-        topicsAtLeast: state.filters!.topicsAtLeast,
+      final filters = state.filters!;
+      // Same sort resolution as page 1: under the smart default, sending the
+      // raw choice made later pages use another order (dupes and gaps).
+      final response = await _service.getUsersPage(
+        filters.toQuery(page: nextPage, limit: _pageSize, sort: _sortFor(filters)),
       );
 
       // Segment/filters switched, or page 1 reloaded, mid-request: drop it.

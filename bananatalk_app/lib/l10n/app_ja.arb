@@ -4746,5 +4746,6 @@
   "clubChat": "チャット",
   "clubChatFailed": "チャットを開けませんでした。",
   "clubNoticeTitle": "お知らせ",
-  "clubNoticeLabel": "メンバーへのお知らせ（任意）"
+  "clubNoticeLabel": "メンバーへのお知らせ（任意）",
+  "sameCity": "Same city"
 }

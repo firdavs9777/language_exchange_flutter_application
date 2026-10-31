@@ -12622,4 +12622,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get clubNoticeLabel => 'إعلان للأعضاء (اختياري)';
+
+  @override
+  String get sameCity => 'Same city';
 }

@@ -8589,5 +8589,7 @@
   "clubNoticeLabel": "Notice for members (optional)",
   "@clubNoticeLabel": {
     "description": "Clubs v2: field in the club edit sheet for the organizers notice"
-  }
+  },
+  "sameCity": "Same city",
+  "@sameCity": {"description": "Partners chip: people in the viewer's own city"}
 }

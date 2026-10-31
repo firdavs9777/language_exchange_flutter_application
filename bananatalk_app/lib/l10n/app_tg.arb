@@ -4239,5 +4239,6 @@
   "clubChat": "Чат",
   "clubChatFailed": "Чат кушода нашуд.",
   "clubNoticeTitle": "Эълон",
-  "clubNoticeLabel": "Эълон барои аъзоён (ихтиёрӣ)"
+  "clubNoticeLabel": "Эълон барои аъзоён (ихтиёрӣ)",
+  "sameCity": "Same city"
 }

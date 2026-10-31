@@ -12523,4 +12523,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get clubNoticeLabel => 'Üyelere duyuru (isteğe bağlı)';
+
+  @override
+  String get sameCity => 'Same city';
 }
