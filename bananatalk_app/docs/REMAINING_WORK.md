@@ -509,7 +509,8 @@ Read-only audits of app (`lib/pages/community/**`), web (`src/components/communi
 - Not in scope: smart sort stays off; no new endpoints except a `city` param.
 - Still to do before building: the app/web/rollout design sections were not walked through with the owner yet → write spec `docs/superpowers/specs/2026-10-30-community-optimization-design.md`, review, then a plan per phase.
 
-### Phase 1 — Backend list contract (ships first, backward compatible)
+### Phase 1 — Backend list contract (ships first, backward compatible) — plan docs/superpowers/plans/2026-10-31-community-phase1-backend.md
+- Measured 2026-10-31: default /users sort 27 ms server-side over 2,105 users, round trip 128 ms, largest room 9 members → the P1 performance items below are NOT in the plan (not worth it at 2.8k users; revisit past ~50k).
 P0 bugs
 - [ ] Filter-sheet count ≠ list: count omits the default `matchLanguage` (own languages), ANDs two language picks while the list ORs them, sends `newUsersOnly` the server ignores (app `community_filter_sheet.dart:200-221` vs `community_provider.dart:1367`). Build both from one params object; server maps `newUsersOnly=true` → `joinedWithin=7d` in `buildUsersQuery` (users.js:264) so old builds get it too. S
 - [ ] "Speaks X + learns Y" returns the union (`$or`, users.js:222-224); use the existing strict `reciprocal` AND form when both are given. S
