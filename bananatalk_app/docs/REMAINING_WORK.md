@@ -571,7 +571,7 @@ P1 performance
 P2 dead code
 - [x] Delete `PaginatedCommunityNotifier` + state, `NearbyUsersParams`, `getCountriesList`, `getTopics`, `communityProvider` (+ its invalidates in single_community_screen.dart:217,294 and moment_card.dart:359); `card/community_card*.dart` (~700 lines, test-only) + its test; `QuickActionButtons`, `TopicChip`, `widgets/community/community_widgets.dart`; dead `_buildVipPromoBanner` (`const isVip = true`, genders_tab.dart:329); commented-out ad banners; empty `if` at nearby_tab.dart:276. S
 
-### Phase 3 — Web (one paged list, 4 tabs; 34 suites / 384 tests pass today)
+### Phase 3 — Web (one paged list, 4 tabs; 34 suites / 384 tests pass today) — plan docs/superpowers/plans/2026-10-31-community-phase3-web.md
 Structure
 - [ ] One paging mechanism replacing the 4 hand-rolled ones (MainCommunity `pager`, Topics `accumulated`, `cityGenders/useMemberPages`, Waves `accumulatedWaves`). Preferred: RTK Query `infiniteQuery` (upgrade @reduxjs/toolkit 2.2.5 → ≥2.6) so pages live in cache keyed by args → Back restores pages, `ScrollRestoration` just works. Fallback: one `usePagedList` hook on the Topics pattern (`currentData` + `originalArgs` key check, server `hasMore`). M
 - [ ] One `<MemberList>` (grid, skeleton, inline error + retry, empty, sentinel, Load more); Nearby/Waves/WaveSheet stop hand-rolling rows and use `MemberCard compact`. M
