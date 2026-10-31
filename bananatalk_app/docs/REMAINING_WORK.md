@@ -489,7 +489,7 @@ Web ↔ app parity (spec `docs/superpowers/specs/2026-10-16-web-app-parity-desig
 
 ## Clubs v2 slice 4: join approval (2026-10-28, branch feat/clubs-v2-approval; plan docs/superpowers/plans/2026-10-28-clubs-v2-join-approval.md)
 - [x] Create/edit a club: "Where does it meet?" Online / In person; "Approve new members" (locked on for in person). Approval clubs show "Ask to join" → "Request pending" + "Withdraw request"; hosts see "N waiting to join" → a sheet with each person's languages and meetups attended, Approve / Deny. `club_join_*` pushes open the club. 9 new strings (19 locales), 5 reused from gatherings.
-- [ ] Backend deploy order: privacy fix → club feed → join approval (stacked branches). S
+- [x] Backend deployed 2026-10-31 in one merge (main `9b15c3f`: privacy fix + club feed + join approval); app branch merged to app main `da260922`.
 - [ ] Device QA: in-person club create, ask/withdraw from a second account, approve and deny, the requester's notice, approved member lands in the club chat. M
 
 ## Community optimization (audit 2026-10-30, plan — nothing built yet)
@@ -573,9 +573,10 @@ P2 dead code
 - [x] Delete `PaginatedCommunityNotifier` + state, `NearbyUsersParams`, `getCountriesList`, `getTopics`, `communityProvider` (+ its invalidates in single_community_screen.dart:217,294 and moment_card.dart:359); `card/community_card*.dart` (~700 lines, test-only) + its test; `QuickActionButtons`, `TopicChip`, `widgets/community/community_widgets.dart`; dead `_buildVipPromoBanner` (`const isVip = true`, genders_tab.dart:329); commented-out ad banners; empty `if` at nearby_tab.dart:276. S
 
 ### Phase 3 — Web (one paged list, 4 tabs; 34 suites / 384 tests pass today) — plan docs/superpowers/plans/2026-10-31-community-phase3-web.md
-- **Code complete 2026-10-31 on web branch `feat/community-p3` (pushed; from origin/main ed5cef6, head e013e0b; NOT merged, NOT deployed — web main push = live).** 8 commits; full web suite 4617/4617 (7 skipped); `npm run build` passes; whole-branch review: 4 Important fixed, 6 minors deferred (listed in the web repo's REMAINING_WORK).
+- **Merged + DEPLOYED 2026-10-31 (web main `99f7ff5`).** 8 commits; full web suite 4617/4617 (7 skipped); `npm run build` passes; whole-branch review: 4 Important fixed, 6 minors deferred (listed in the web repo's REMAINING_WORK).
 - Done differently from the audit list: Waves keeps its own pager (it already read currentData); Women/Men/Topic chips write the existing `gender`/`topics` filters (only `city=1` is new); MemberCard is still role="button" with a nested wave button and WaveSheet has Escape but no focus trap; unused SCSS selectors left.
-- [ ] Owner: browser QA (checklist in the web repo's REMAINING_WORK), then "deploy it" for `feat/community-p3`. M
+- [x] DEPLOYED 2026-10-31: web main `99f7ff5` (deploy run passed; banatalk.com 200).
+- [ ] Browser QA on the live site (checklist in the web repo's REMAINING_WORK). M
 Structure
 - [x] One paging mechanism replacing the 4 hand-rolled ones (MainCommunity `pager`, Topics `accumulated`, `cityGenders/useMemberPages`, Waves `accumulatedWaves`). Preferred: RTK Query `infiniteQuery` (upgrade @reduxjs/toolkit 2.2.5 → ≥2.6) so pages live in cache keyed by args → Back restores pages, `ScrollRestoration` just works. Fallback: one `usePagedList` hook on the Topics pattern (`currentData` + `originalArgs` key check, server `hasMore`). M
 - [x] One `<MemberList>` (grid, skeleton, inline error + retry, empty, sentinel, Load more); Nearby/Waves/WaveSheet stop hand-rolling rows and use `MemberCard compact`. M
