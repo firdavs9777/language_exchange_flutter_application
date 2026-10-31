@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 class FilterState {
   final int minAge;
   final int maxAge;
@@ -88,4 +90,39 @@ class FilterState {
   );
 
   static const FilterState defaults = FilterState();
+
+  // Value equality: CommunityMain keyed tabs on an identity hashCode, so a
+  // reloaded-but-identical FilterState rebuilt every tab and refetched.
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is FilterState &&
+          minAge == other.minAge &&
+          maxAge == other.maxAge &&
+          gender == other.gender &&
+          nativeLanguage == other.nativeLanguage &&
+          learningLanguage == other.learningLanguage &&
+          country == other.country &&
+          listEquals(topics, other.topics) &&
+          languageLevel == other.languageLevel &&
+          onlineOnly == other.onlineOnly &&
+          newUsersOnly == other.newUsersOnly &&
+          prioritizeNearby == other.prioritizeNearby &&
+          topicsAtLeast == other.topicsAtLeast;
+
+  @override
+  int get hashCode => Object.hash(
+    minAge,
+    maxAge,
+    gender,
+    nativeLanguage,
+    learningLanguage,
+    country,
+    Object.hashAll(topics),
+    languageLevel,
+    onlineOnly,
+    newUsersOnly,
+    prioritizeNearby,
+    topicsAtLeast,
+  );
 }

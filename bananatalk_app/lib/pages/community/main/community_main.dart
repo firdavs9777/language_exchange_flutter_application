@@ -19,6 +19,7 @@ import 'package:bananatalk_app/pages/community/filter/filter_state.dart';
 import 'package:bananatalk_app/pages/community/main/community_app_bar.dart';
 import 'package:bananatalk_app/pages/community/main/community_tab_bar.dart';
 import 'package:bananatalk_app/pages/community/main/community_filter_chips.dart';
+import 'package:bananatalk_app/pages/community/main/search_debounce.dart';
 import 'package:bananatalk_app/services/user_service.dart';
 import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
@@ -225,8 +226,6 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
   /// Same, for the Matches-first layout (no Gender/City, plus Matches).
   static const int _matchesBaseTabCount = 6;
 
-  /// Tab index that should display the profile-visitor recall card.
-
   /// Index the conditional "Rooms" tab is inserted at when `roomsEnabled` is
   /// true (All=0, Gender=1, Voice Rooms=2, Rooms=3, ...). Must match its
   /// position in both `CommunityTabBar`'s tab list and this file's
@@ -237,6 +236,14 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
   final TextEditingController _searchController = TextEditingController();
   bool _isSearching = false;
   String _searchQuery = '';
+
+  /// What the lists search for: [_searchQuery] 350 ms after the last key.
+  String _appliedSearch = '';
+  late final SearchDebounce _searchDebounce = SearchDebounce(
+    onApply: (q) {
+      if (mounted) setState(() => _appliedSearch = q);
+    },
+  );
   FilterState _filters = FilterState.defaults;
 
   /// Whether the 8th "Rooms" tab is currently built into `_tabController`.
@@ -252,8 +259,7 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: _baseTabCount, vsync: this)
-      ..addListener(_onTabChanged);
+    _tabController = TabController(length: _baseTabCount, vsync: this);
     _loadSavedFilters();
     // `ref.listen` ignores a value that was set before this widget mounted
     // (e.g. a fresh /tabs/1 landing), so consume it once here.
@@ -343,21 +349,14 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
         newRooms: roomsEnabled,
       );
     }
-    _tabController.removeListener(_onTabChanged);
     _tabController.dispose();
     _tabController = TabController(
       length: newCount,
       initialIndex: remappedIndex,
       vsync: this,
-    )..addListener(_onTabChanged);
+    );
     _roomsTabBuilt = roomsEnabled;
     _matchesLayoutBuilt = matchesLayout;
-  }
-
-  /// Rebuild on tab switch so the visitor card only renders on the
-  /// Partners tab (and never wastes vertical space on the other tabs).
-  void _onTabChanged() {
-    if (mounted) setState(() {});
   }
 
   /// Load saved filters from SharedPreferences.
@@ -389,10 +388,9 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
 
   @override
   void dispose() {
-    _tabController
-      ..removeListener(_onTabChanged)
-      ..dispose();
+    _tabController.dispose();
     _searchController.dispose();
+    _searchDebounce.dispose();
     super.dispose();
   }
 
@@ -475,6 +473,7 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
       if (!_isSearching) {
         _searchController.clear();
         _searchQuery = '';
+        _searchDebounce.clearNow();
       }
     });
   }
@@ -584,14 +583,14 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
                 PartnerDiscoveryTab(
                   key: ValueKey('partners_$filtersKey'),
                   filters: filtersJson,
-                  searchQuery: _searchQuery,
+                  searchQuery: _appliedSearch,
                   onClearFilters: _clearAllFilters,
                 ),
                 if (!matchesLayout)
                   GendersTab(
                     key: ValueKey('genders_$filtersKey'),
                     filters: filtersJson,
-                    searchQuery: _searchQuery,
+                    searchQuery: _appliedSearch,
                   ),
                 // Both group concepts are grouped immediately after Gender
                 // so they read as related features — see
@@ -614,18 +613,18 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
                 NearbyTab(
                   key: ValueKey('nearby_$filtersKey'),
                   filters: filtersJson,
-                  searchQuery: _searchQuery,
+                  searchQuery: _appliedSearch,
                 ),
                 if (!matchesLayout)
                   CityTab(
                     key: ValueKey('city_$filtersKey'),
                     filters: filtersJson,
-                    searchQuery: _searchQuery,
+                    searchQuery: _appliedSearch,
                   ),
                 TopicsTab(
                   key: ValueKey('topics_$filtersKey'),
                   filters: filtersJson,
-                  searchQuery: _searchQuery,
+                  searchQuery: _appliedSearch,
                 ),
                 const WavesTab(),
               ],
@@ -707,6 +706,7 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
                   onPressed: () {
                     _searchController.clear();
                     setState(() => _searchQuery = '');
+                    _searchDebounce.clearNow();
                   },
                 ),
             ],
@@ -733,6 +733,7 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
             return;
           }
           setState(() => _searchQuery = value);
+          _searchDebounce.typed(value);
         },
         onSubmitted: (_) {
           if (isUsernameSearch && username.isNotEmpty) {
@@ -788,6 +789,7 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
           _searchQuery = '';
           _isSearching = false;
         });
+        _searchDebounce.clearNow();
         Navigator.of(
           context,
         ).push(AppPageRoute(builder: (_) => SingleCommunity(community: user)));
