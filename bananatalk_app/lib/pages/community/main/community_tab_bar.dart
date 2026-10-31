@@ -1,9 +1,8 @@
+import 'package:bananatalk_app/pages/community/main/community_main.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
-import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 
 /// Scrollable chip bar for the Community screen.
 ///
@@ -15,59 +14,34 @@ import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 /// conditional-Rooms index arithmetic in community_main.dart, and both kill
 /// switches are untouched: eight icon+label tabs under an underline were what
 /// made the strip feel crowded, not the destinations themselves.
-class CommunityTabBar extends ConsumerWidget {
+class CommunityTabBar extends StatelessWidget {
   const CommunityTabBar({
     super.key,
     required this.tabController,
-    this.showRoomsTab = true,
+    required this.tabs,
     this.gatheringsEnabled = true,
-    this.matchesLayout = false,
   });
-
-  /// Matches-first layout (`AppConfig.matchesLayoutEnabled`): Matches ·
-  /// Partners · Gatherings · [Rooms] · Nearby · Topics · Waves. Must mirror
-  /// the `TabBarView` children in `CommunityMain` — see
-  /// `communityTabLayout`. Off = the legacy list, untouched.
-  final bool matchesLayout;
 
   final TabController tabController;
 
-  /// 모임 REPLACES the voice-rooms entry rather than adding a ninth tab.
-  /// Gatherings are voice rooms with commitment attached, and voice rooms
-  /// failed 93 times out of 93 by depending on people being online at the
-  /// same moment — so the fix is to retire that entry, not to sit beside it.
-  ///
-  /// When the server's kill switch is off this slot falls back to the old
-  /// Voice Rooms tab. It does NOT disappear: the tab count stays flat in both
-  /// states, which keeps the conditional-Rooms index arithmetic below (and
-  /// `remapTabIndexForRoomsFlag`) untouched by this flag.
+  /// From `communityTabLayout`; one chip per tab, in order.
+  final List<CommunityTabId> tabs;
+
+  /// The Clubs slot is labelled "Voice" while 모임 is off.
   final bool gatheringsEnabled;
 
-  /// Workstream D: hides the 8th "Rooms" tab when the server-side
-  /// `roomsEnabled` kill switch is off. Must stay in sync with
-  /// `CommunityMain`'s `TabBarView` children count — see
-  /// `_syncTabCountWithRoomsFlag`.
-  final bool showRoomsTab;
-
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final unread =
-        ref.watch(wavesUnreadProvider).maybeWhen(data: (n) => n, orElse: () => 0);
-
-    // Order MUST mirror community_main.dart's TabBarView children exactly, and
-    // the conditional Rooms entry must stay at index 3 — see
-    // remapTabIndexForRoomsFlag.
-    final labels = <String>[
-      if (matchesLayout) l10n.communityTabMatches,
-      matchesLayout ? l10n.communityTabPartners : l10n.communityTabAll,
-      if (!matchesLayout) l10n.communityTabGender,
-      gatheringsEnabled ? l10n.gatheringsTabLabel : l10n.voiceRooms,
-      if (showRoomsTab) l10n.communityTabRooms,
-      l10n.nearby,
-      if (!matchesLayout) l10n.communityTabCity,
-      l10n.topics,
-      l10n.wavesTab,
+    final labels = [
+      for (final tab in tabs)
+        switch (tab) {
+          CommunityTabId.matches => l10n.communityTabMatches,
+          CommunityTabId.partners => l10n.communityTabPartners,
+          CommunityTabId.clubs =>
+            gatheringsEnabled ? l10n.gatheringsTabLabel : l10n.voiceRooms,
+          CommunityTabId.rooms => l10n.communityTabRooms,
+        },
     ];
 
     return Container(
@@ -96,7 +70,6 @@ class CommunityTabBar extends ConsumerWidget {
                     key: Key('community-chip-$i'),
                     label: labels[i],
                     selected: tabController.index == i,
-                    showDot: labels[i] == l10n.wavesTab && unread > 0,
                     onTap: () => tabController.animateTo(i),
                   ),
                 ),
@@ -114,12 +87,10 @@ class _Chip extends StatelessWidget {
     required this.label,
     required this.selected,
     required this.onTap,
-    this.showDot = false,
   });
 
   final String label;
   final bool selected;
-  final bool showDot;
   final VoidCallback onTap;
 
   @override
@@ -160,19 +131,6 @@ class _Chip extends StatelessWidget {
                   color: selected ? Colors.white : context.textSecondary,
                 ),
               ),
-              if (showDot)
-                Positioned(
-                  right: -8,
-                  top: -2,
-                  child: Container(
-                    width: 8,
-                    height: 8,
-                    decoration: const BoxDecoration(
-                      color: AppColors.error,
-                      shape: BoxShape.circle,
-                    ),
-                  ),
-                ),
             ],
           ),
         ),

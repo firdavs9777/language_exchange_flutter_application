@@ -243,11 +243,11 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
         );
       case PromoType.rooms:
         ref.read(communityPendingSubTabProvider.notifier).state =
-            communityRoomsSubTab;
+            CommunityDestination.rooms;
         ref.read(selectedTabProvider.notifier).state = 1;
       case PromoType.voice:
         ref.read(communityPendingSubTabProvider.notifier).state =
-            communityVoiceRoomsSubTab;
+            CommunityDestination.voiceRooms;
         ref.read(selectedTabProvider.notifier).state = 1;
       case PromoType.aiStudy:
         Navigator.push(

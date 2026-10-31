@@ -269,11 +269,11 @@ void main() {
     );
     await tester.pumpAndSettle();
 
-    // Slot 2 holds Gatherings or Voice Rooms depending on a server flag, so
-    // one index is right either way -- and CommunityMain is what listens.
+    // The Clubs slot holds Gatherings or Voice Rooms depending on a server
+    // flag -- and CommunityMain is what listens.
     expect(
       container.read(communityPendingSubTabProvider),
-      communityVoiceRoomsSubTab,
+      CommunityDestination.clubs,
     );
   });
 

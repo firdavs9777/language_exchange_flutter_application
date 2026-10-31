@@ -163,15 +163,14 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
   /// cross-tab jump already takes (notification router, feature spotlight,
   /// the post-registration landing).
   ///
-  /// Slot 2 holds whichever of the two the flag selects, so one index is
-  /// correct either way.
+  /// The Clubs slot holds whichever of the two the flag selects.
   void _openLiveTab() {
     AnalyticsService.instance.guideCtaTapped(
       surface: 'matches',
       target: 'secondary',
     );
     ref.read(communityPendingSubTabProvider.notifier).state =
-        communityVoiceRoomsSubTab;
+        CommunityDestination.clubs;
   }
 
   void _sayHi(DailyMatch m, {int position = 0}) {

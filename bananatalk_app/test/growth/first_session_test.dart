@@ -20,7 +20,7 @@ import 'package:bananatalk_app/services/notification_permission.dart';
 
 Future<ProviderContainer> _pump(WidgetTester tester,
     {required bool matchesLayout,
-    int pending = communityMatchesSubTab,
+    CommunityDestination pending = CommunityDestination.matches,
     bool rooms = true,
     Duration delay = Duration.zero}) async {
   await tester.pumpWidget(
@@ -57,7 +57,8 @@ Future<ProviderContainer> _pump(WidgetTester tester,
   for (var i = 0; i < 10; i++) {
     await tester.pump(const Duration(milliseconds: 150));
   }
-  return ProviderScope.containerOf(tester.element(find.byType(CommunityMain)));
+  return ProviderScope.containerOf(
+      tester.element(find.byType(CommunityMain, skipOffstage: false)));
 }
 
 class _FakeCommunity implements CommunityService {
@@ -115,38 +116,37 @@ void main() {
   testWidgets('pre-set pending sub-tab is consumed on mount (flag on)',
       (tester) async {
     final c = await _pump(tester,
-        matchesLayout: true, pending: communityGatheringsSubTab);
+        matchesLayout: true, pending: CommunityDestination.clubs);
     expect(find.byType(MatchesTab), findsNothing);
     expect(c.read(communityPendingSubTabProvider), isNull);
   });
 
   testWidgets('pending Waves survives a late-resolving config (flag on)',
       (tester) async {
-    // Matches layout + rooms: Matches, Partners, Gatherings, Rooms, Nearby,
-    // Topics, Waves -> Waves is index 6.
+    // Waves is a screen opened from the header, whatever the layout.
     final c = await _pump(tester,
         matchesLayout: true,
-        pending: 6,
+        pending: CommunityDestination.waves,
         delay: const Duration(milliseconds: 300));
     expect(find.byType(WavesTab), findsOneWidget);
     expect(c.read(communityPendingSubTabProvider), isNull);
   });
 
-  testWidgets('pending Waves with flag off (legacy index 7)', (tester) async {
+  testWidgets('pending Waves with flag off', (tester) async {
     final c = await _pump(tester,
         matchesLayout: false,
-        pending: 7,
+        pending: CommunityDestination.waves,
         delay: const Duration(milliseconds: 300));
     expect(find.byType(WavesTab), findsOneWidget);
     expect(c.read(communityPendingSubTabProvider), isNull);
   });
 
-  testWidgets('pending Rooms with rooms disabled lands on the slot-2 tab',
+  testWidgets('pending Rooms with rooms disabled lands on Clubs',
       (tester) async {
     final c = await _pump(tester,
         matchesLayout: true,
         rooms: false,
-        pending: communityRoomsSubTab,
+        pending: CommunityDestination.rooms,
         delay: const Duration(milliseconds: 300));
     expect(find.byType(NearbyPartnersView), findsNothing);
     expect(find.byType(GatheringsTab), findsOneWidget);
@@ -240,7 +240,7 @@ void main() {
     });
   });
 
-  testWidgets('flag off + same request -> legacy index 0 is Partners',
+  testWidgets('flag off + a Matches request -> Partners',
       (tester) async {
     await _pump(tester, matchesLayout: false);
     expect(find.byType(PartnerDiscoveryTab), findsOneWidget);
