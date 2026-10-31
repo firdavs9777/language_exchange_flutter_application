@@ -538,7 +538,8 @@ P2 contract + cleanup
 - **Code complete 2026-10-31 on app branch `feat/community-p2` (pushed; from origin/main 71d9c3d3, head 2edb0cda; NOT merged, NOT built).** 9 commits, ~6,100 lines removed; full suite 3297/3297; whole-branch review: 2 Important + 1 re-graded fixed, 5 minors deferred (below).
 - Prod flags 2026-10-31: matchesLayoutEnabled, roomsEnabled, gatheringsEnabled, smartSortEnabled all ON → the new app shows Matches · Partners · Clubs · Rooms.
 - Partly / not done: Nearby keeps its own card (Gender/City/Topics cards deleted with their tabs); visitor card + boost row still refetch on scroll back; commented-out ad banners left.
-- [ ] Merge `feat/community-p2` to main (no conflict with the clubs branch: it touches gatherings/moments only, except docs/l10n/native-qa-strings CSV appends) and ship in the next release build. S
+- [x] Merged to app main 2026-10-31 (`36b4387d`); main merged into this clubs branch (arb/CSV appends combined, suite 3317/3317).
+- [ ] Ship in the next release build. S
 - [ ] Device QA: each chip (Online, Nearby, Same city, Women, Men, Topic, New, Serious) incl. a fast Women→Men→Same city; Nearby without location permission; pull-to-refresh at page 3; offline → Retry; push/deep link to Waves, Rooms, Matches, voice promo; first launch makes no Community request until the tab is opened; waves badge in the header. M
 - [ ] Native review of `sameCity` (18 locales, translated by Claude; rows in docs/l10n/native-qa-strings-2026-10.csv on the p2 branch). S
 - [ ] Review minors (deferred): skeleton replaces the tabs during an app-config reload; a pending destination can push Waves twice in a same-frame window; no voice-rooms entry when Rooms is off and Clubs on (not prod's flags); the filter-sheet count ignores the search text and Nearby; `_syncLayout` disposes the TabController during build. S
