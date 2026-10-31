@@ -758,7 +758,9 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
 
     return RefreshIndicator(
       onRefresh: () async {
-        ref.read(partnerFilterProvider.notifier).refresh();
+        // Awaited, so the spinner stays until page 1 is back.
+        await ref.read(partnerFilterProvider.notifier).refresh();
+        if (!mounted) return;
         setState(() {
           _sessionSkippedUsers.clear();
           _sessionWavedUsers.clear();

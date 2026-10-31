@@ -134,34 +134,9 @@ class CommunityService {
       final response = await http.get(url, headers: headers);
 
       if (response.statusCode == 200) {
-        final data = json.decode(response.body);
-        final dataList = data['data'];
-        final total = data['total'] as int? ?? 0;
-        final pages = data['pages'] as int? ?? 1;
-
-        if (dataList == null || dataList is! List) {
-          return PaginatedCommunityResponse(
-            users: [],
-            total: 0,
-            page: page,
-            pages: 1,
-            hasMore: false,
-          );
-        }
-
-        final users = <Community>[];
-        for (int i = 0; i < dataList.length; i++) {
-          final item = dataList[i];
-          if (item == null || item is! Map<String, dynamic>) continue;
-          users.add(Community.fromJson(item));
-        }
-
-        return PaginatedCommunityResponse(
-          users: users,
-          total: total,
+        return PaginatedCommunityResponse.fromBody(
+          json.decode(response.body) as Map<String, dynamic>,
           page: page,
-          pages: pages,
-          hasMore: page < pages,
         );
       } else if (response.statusCode == 401) {
         await _apiClient.handleUnauthorized();
@@ -772,6 +747,35 @@ class PaginatedCommunityResponse {
     required this.pages,
     required this.hasMore,
   });
+
+  /// A `/users` body. `hasMore` is the server's when it sends one (backend
+  /// cc5064b+), else `page < pages` as before.
+  factory PaginatedCommunityResponse.fromBody(
+    Map<String, dynamic> data, {
+    required int page,
+  }) {
+    final dataList = data['data'];
+    final pages = data['pages'] as int? ?? 1;
+    if (dataList is! List) {
+      return PaginatedCommunityResponse(
+        users: [],
+        total: 0,
+        page: page,
+        pages: 1,
+        hasMore: false,
+      );
+    }
+    return PaginatedCommunityResponse(
+      users: [
+        for (final item in dataList)
+          if (item is Map<String, dynamic>) Community.fromJson(item),
+      ],
+      total: data['total'] as int? ?? 0,
+      page: page,
+      pages: pages,
+      hasMore: data['hasMore'] as bool? ?? page < pages,
+    );
+  }
 }
 
 /// State for paginated community list
@@ -1345,13 +1349,20 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
     return _smartSortEnabled() ? 'smart' : null;
   }
 
+  /// Bumped by every page-1 load (new filters or refresh). A page-2 response
+  /// started under an older generation is dropped: a refresh that finished
+  /// first used to end with the old page 2 appended to the new page 1.
+  int _generation = 0;
+
   /// Load partners with filters (server-side)
   Future<void> loadWithFilters(PartnerFilterParams filters) async {
     // A CHANGED filters value must proceed even mid-load (a chip tap would
     // otherwise be dropped forever); the stale response is discarded below.
     if (state.isLoading && state.filters == filters) return;
 
-    // Reset if different filters
+    _generation++;
+    // Reset if different filters; same filters (refresh) keep the rows on
+    // screen until page 1 arrives instead of flashing the skeleton.
     if (state.filters != filters) {
       state = PartnerFilterState(filters: filters, isLoading: true);
     } else {
@@ -1417,6 +1428,7 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
     }
 
     final filtersAtStart = state.filters;
+    final generationAtStart = _generation;
     state = state.copyWith(isLoadingMore: true);
 
     try {
@@ -1446,19 +1458,21 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
         topicsAtLeast: state.filters!.topicsAtLeast,
       );
 
-      // Segment/filters switched mid-request: drop the stale page.
-      if (state.filters != filtersAtStart) return;
+      // Segment/filters switched, or page 1 reloaded, mid-request: drop it.
+      if (state.filters != filtersAtStart || _generation != generationAtStart) {
+        return;
+      }
 
       // If 0 results returned on load more, stop trying to load more
       final hasMore = response.users.isNotEmpty && response.hasMore;
 
+      // A Profile Boost puts a booster on page 1 out of order, so the same
+      // person can come back on a later page; list them once.
+      final seen = {for (final u in state.users) u.id};
       state = state.copyWith(
-        // A Profile Boost puts a booster on page 1 out of order, so the same
-        // person can come back on a later page; list them once.
         users: [
           ...state.users,
-          ...response.users.where(
-              (u) => !state.users.any((seen) => seen.id == u.id)),
+          ...response.users.where((u) => seen.add(u.id)),
         ],
         currentPage: nextPage,
         total: response.total,
@@ -1467,18 +1481,21 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
       );
       _loadMoreFailedAt = null;
     } catch (e) {
-      if (state.filters != filtersAtStart) return;
+      if (state.filters != filtersAtStart || _generation != generationAtStart) {
+        return;
+      }
       _loadMoreFailedAt = DateTime.now();
       state = state.copyWith(isLoadingMore: false, error: e.toString());
     }
   }
 
-  /// Refresh with current filters
+  /// Refresh with current filters. The current rows stay until page 1
+  /// arrives; an in-flight page 2 is dropped (see [_generation]).
   Future<void> refresh() async {
-    if (state.filters != null) {
-      state = state.copyWith(users: [], currentPage: 0, hasMore: true);
-      await loadWithFilters(state.filters!);
-    }
+    final filters = state.filters;
+    if (filters == null) return;
+    state = state.copyWith(isLoading: false, isLoadingMore: false);
+    await loadWithFilters(filters);
   }
 
   /// Clear state
