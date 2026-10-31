@@ -510,8 +510,8 @@ Read-only audits of app (`lib/pages/community/**`), web (`src/components/communi
 - Still to do before building: the app/web/rollout design sections were not walked through with the owner yet → write spec `docs/superpowers/specs/2026-10-30-community-optimization-design.md`, review, then a plan per phase.
 
 ### Phase 1 — Backend list contract (ships first, backward compatible) — plan docs/superpowers/plans/2026-10-31-community-phase1-backend.md
-- **Code complete 2026-10-31 on backend branch `feat/community-p1` (pushed, NOT deployed; f24f345).** 743 related tests pass; whole-branch review clean (6 deferred minors in the backend REMAINING_WORK). App-side half of the count fix (count omits the default `matchLanguage`) is Phase 2. Same-city chip sends `sameCity=true`; open to every tier unless the owner says VIP-only.
-- [ ] Owner: say "deploy it" for `feat/community-p1` (merge to backend main = live). S
+- **DEPLOYED 2026-10-31: backend main `cc5064b` (merge of `feat/community-p1`), Actions run 41177484076, pm2 online, endpoints answer.** 743 related tests pass; whole-branch review clean (6 deferred minors in the backend REMAINING_WORK). App-side half of the count fix (count omits the default `matchLanguage`) is Phase 2. Same-city chip sends `sameCity=true`; open to every tier unless the owner says VIP-only.
+- [x] Deployed (owner said "Deploy + start Phase 2").
 - Measured 2026-10-31: default /users sort 27 ms server-side over 2,105 users, round trip 128 ms, largest room 9 members → the P1 performance items below are NOT in the plan (not worth it at 2.8k users; revisit past ~50k).
 P0 bugs
 - [x] Filter-sheet count ≠ list: count omits the default `matchLanguage` (own languages), ANDs two language picks while the list ORs them, sends `newUsersOnly` the server ignores (app `community_filter_sheet.dart:200-221` vs `community_provider.dart:1367`). Build both from one params object; server maps `newUsersOnly=true` → `joinedWithin=7d` in `buildUsersQuery` (users.js:264) so old builds get it too. S
@@ -534,7 +534,8 @@ P2 contract + cleanup
 - [x] New `city` filter (case-folded exact `location.city`, indexed) for the "Same city" chip (today City filters by country). S
 - [~] (not doing, see measurement) Dead/odd: Wave index `partialFilterExpression` freezes `Date.now()` at load (Wave.js:53-59); `getSimilarUsers` selects non-existent `interests` (matching.js:752); `/matching/language` + `/similar` have no app UI — check web before removing. `Topic.userCount` drifts (no decrement on delete, community.js:627-633). S
 
-### Phase 2 — App (one paged list, 4 tabs)
+### Phase 2 — App (one paged list, 4 tabs) — plan docs/superpowers/plans/2026-10-31-community-phase2-app.md
+- Planned 2026-10-31: 9 tasks on `feat/community-p2` from origin/main. Waves 4×50 fetch no longer matters once Waves is a screen opened on demand; Nearby keeps its own card (Gender/City/Topics cards are deleted with their tabs).
 Structure
 - [ ] One `PagedUsersNotifier<Q>` (Riverpod family keyed by a value-equal query; request token, Set-based de-dupe, retry pause, keep-alive) + one `PagedUserList` widget (pull-to-refresh that awaits and keeps old rows, skeleton, error + retry, empty with "clear filters", retry footer). Partners chips are just different queries. Replaces Gender/Nearby/City/Topics/Partners hand-rolled paging (~1,000 lines each; ≈2,500+ lines removed). L
 - [ ] One list row + one grid tile replacing `PartnerListItem`, `CompactUserTile`, `_GenderUserCard`, `_NearbyUserCardFromApi`, `match_card`; keep `PartnerCard` for swipe. M
