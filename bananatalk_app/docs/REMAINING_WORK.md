@@ -1,6 +1,6 @@
 # Remaining work — BananaTalk app
 
-Last updated: 2026-10-31 (Community optimization audit + plan added at the end; 2.2.7 audit fixes; 모임 decisions). Keep this current: tick items off in the same commit that finishes them.
+Last updated: 2026-10-31 (Community phase 1 deployed, phase 2 app code-complete on feat/community-p2; 2.2.7 audit fixes; 모임 decisions). Keep this current: tick items off in the same commit that finishes them.
 
 See also: backend `language_exchange_backend_application/docs/REMAINING_WORK.md` (server env, prod DB, flags, ops) ·
 web `docs/REMAINING_WORK.md` in the web repo (admin console, `assetlinks.json`, nginx).
@@ -535,34 +535,41 @@ P2 contract + cleanup
 - [~] (not doing, see measurement) Dead/odd: Wave index `partialFilterExpression` freezes `Date.now()` at load (Wave.js:53-59); `getSimilarUsers` selects non-existent `interests` (matching.js:752); `/matching/language` + `/similar` have no app UI — check web before removing. `Topic.userCount` drifts (no decrement on delete, community.js:627-633). S
 
 ### Phase 2 — App (one paged list, 4 tabs) — plan docs/superpowers/plans/2026-10-31-community-phase2-app.md
+- **Code complete 2026-10-31 on app branch `feat/community-p2` (pushed; from origin/main 71d9c3d3, head 2edb0cda; NOT merged, NOT built).** 9 commits, ~6,100 lines removed; full suite 3297/3297; whole-branch review: 2 Important + 1 re-graded fixed, 5 minors deferred (below).
+- Prod flags 2026-10-31: matchesLayoutEnabled, roomsEnabled, gatheringsEnabled, smartSortEnabled all ON → the new app shows Matches · Partners · Clubs · Rooms.
+- Partly / not done: Nearby keeps its own card (Gender/City/Topics cards deleted with their tabs); visitor card + boost row still refetch on scroll back; commented-out ad banners left.
+- [ ] Merge `feat/community-p2` to main (no conflict with the clubs branch: it touches gatherings/moments only, except docs/l10n/native-qa-strings CSV appends) and ship in the next release build. S
+- [ ] Device QA: each chip (Online, Nearby, Same city, Women, Men, Topic, New, Serious) incl. a fast Women→Men→Same city; Nearby without location permission; pull-to-refresh at page 3; offline → Retry; push/deep link to Waves, Rooms, Matches, voice promo; first launch makes no Community request until the tab is opened; waves badge in the header. M
+- [ ] Native review of `sameCity` (18 locales, translated by Claude; rows in docs/l10n/native-qa-strings-2026-10.csv on the p2 branch). S
+- [ ] Review minors (deferred): skeleton replaces the tabs during an app-config reload; a pending destination can push Waves twice in a same-frame window; no voice-rooms entry when Rooms is off and Clubs on (not prod's flags); the filter-sheet count ignores the search text and Nearby; `_syncLayout` disposes the TabController during build. S
 - Planned 2026-10-31: 9 tasks on `feat/community-p2` from origin/main. Waves 4×50 fetch no longer matters once Waves is a screen opened on demand; Nearby keeps its own card (Gender/City/Topics cards are deleted with their tabs).
 Structure
-- [ ] One `PagedUsersNotifier<Q>` (Riverpod family keyed by a value-equal query; request token, Set-based de-dupe, retry pause, keep-alive) + one `PagedUserList` widget (pull-to-refresh that awaits and keeps old rows, skeleton, error + retry, empty with "clear filters", retry footer). Partners chips are just different queries. Replaces Gender/Nearby/City/Topics/Partners hand-rolled paging (~1,000 lines each; ≈2,500+ lines removed). L
+- [x] One `PagedUsersNotifier<Q>` (Riverpod family keyed by a value-equal query; request token, Set-based de-dupe, retry pause, keep-alive) + one `PagedUserList` widget (pull-to-refresh that awaits and keeps old rows, skeleton, error + retry, empty with "clear filters", retry footer). Partners chips are just different queries. Replaces Gender/Nearby/City/Topics/Partners hand-rolled paging (~1,000 lines each; ≈2,500+ lines removed). L
 - [ ] One list row + one grid tile replacing `PartnerListItem`, `CompactUserTile`, `_GenderUserCard`, `_NearbyUserCardFromApi`, `match_card`; keep `PartnerCard` for swipe. M
-- [ ] `FilterState` moves into a provider with value equality + debounced (≈350 ms) search provider; tabs `select` only what they need. M
-- [ ] Tabs: Partners · Matches (flag) · Clubs · Rooms (rooms + voice rooms merged); Waves → header icon + badge; tab order derived from one `communityTabLayout` (today 3 lists + 2 remap fns, community_main.dart:164). Hold a skeleton until app config resolves (no tab reshuffle; Partners not loaded then thrown away when Matches is on). M
-- [ ] `CommunityService` through `ApiClient` (raw `http.get`, no timeout, 401 refresh then throw anyway, double-wrapped errors — community_provider.dart:134,183, `InteractionService.getExcludedUsers`). S
-- [ ] One wave flow everywhere: Nearby/Topics push chat + silently wave (nearby_tab.dart:322, topics_tab.dart:83); use the send-wave sheet with cap handling. S
+- [x] `FilterState` moves into a provider with value equality + debounced (≈350 ms) search provider; tabs `select` only what they need. M
+- [x] Tabs: Partners · Matches (flag) · Clubs · Rooms (rooms + voice rooms merged); Waves → header icon + badge; tab order derived from one `communityTabLayout` (today 3 lists + 2 remap fns, community_main.dart:164). Hold a skeleton until app config resolves (no tab reshuffle; Partners not loaded then thrown away when Matches is on). M
+- [x] `CommunityService` through `ApiClient` (raw `http.get`, no timeout, 401 refresh then throw anyway, double-wrapped errors — community_provider.dart:134,183, `InteractionService.getExcludedUsers`). S
+- [x] One wave flow everywhere: Nearby/Topics push chat + silently wave (nearby_tab.dart:322, topics_tab.dart:83); use the send-wave sheet with cap handling. S
 P0 bugs fixed by the above (verify each after the rewrite)
-- [ ] Gender tab reloads on every parent rebuild (Map identity compare, genders_tab.dart:276; new map each build community_main.dart:530) → 3 requests per tab switch/keystroke.
-- [ ] Saved filter remounts all filter tabs twice (`FilterState` has no `==`; ValueKey on `hashCode`, community_main.dart:531,585…; `_loadSavedFilters` :374).
-- [ ] Topic switch mid-load shows the old topic's users; `loadMore` appends A into B (community_provider.dart:1078,1106).
-- [ ] Search icon shown on Nearby/City/Topics but ignored there; server search per keystroke on Partners (partner_discovery_tab.dart:181,352) and 3×/keystroke on Gender.
-- [ ] Matches tab blank on 404 `/matching/daily` (matches_tab.dart:276) — show empty state + "Browse partners".
-- [ ] Partners pull-to-refresh not awaited and wipes the list; refresh during loadMore appends page 2 to new page 1 (partner_discovery_tab.dart:761, community_provider.dart:1479). Same not-awaited refresh on Topics (topics_tab.dart:304).
-- [ ] Gender/City counts ignore age/online/level/search filters the list applies (genders_tab.dart:88, city_tab.dart:323).
-- [ ] Empty state can't clear topics/topicsAtLeast/newUsersOnly/segment (partner_discovery_tab.dart:950).
+- [x] Gender tab reloads on every parent rebuild (Map identity compare, genders_tab.dart:276; new map each build community_main.dart:530) → 3 requests per tab switch/keystroke.
+- [x] Saved filter remounts all filter tabs twice (`FilterState` has no `==`; ValueKey on `hashCode`, community_main.dart:531,585…; `_loadSavedFilters` :374).
+- [x] Topic switch mid-load shows the old topic's users; `loadMore` appends A into B (community_provider.dart:1078,1106).
+- [x] Search icon shown on Nearby/City/Topics but ignored there; server search per keystroke on Partners (partner_discovery_tab.dart:181,352) and 3×/keystroke on Gender.
+- [x] Matches tab blank on 404 `/matching/daily` (matches_tab.dart:276) — show empty state + "Browse partners".
+- [x] Partners pull-to-refresh not awaited and wipes the list; refresh during loadMore appends page 2 to new page 1 (partner_discovery_tab.dart:761, community_provider.dart:1479). Same not-awaited refresh on Topics (topics_tab.dart:304).
+- [x] Gender/City counts ignore age/online/level/search filters the list applies (genders_tab.dart:88, city_tab.dart:323).
+- [x] Empty state can't clear topics/topicsAtLeast/newUsersOnly/segment (partner_discovery_tab.dart:950).
 P1 performance
-- [ ] `_onTabChanged` setState rebuilds the whole `CommunityMain` for nothing (community_main.dart:359); delete it + orphan doc line :228.
-- [ ] No keep-alive on people tabs: every revisit refetches page 1 (loses pages 2+ and scroll), re-reads GPS, City fires 31 requests (city_tab.dart:318), Waves fetches 4×50 sequentially and re-marks read (waves_tab.dart:77).
+- [x] `_onTabChanged` setState rebuilds the whole `CommunityMain` for nothing (community_main.dart:359); delete it + orphan doc line :228.
+- [x] No keep-alive on people tabs: every revisit refetches page 1 (loses pages 2+ and scroll), re-reads GPS, City fires 31 requests (city_tab.dart:318), Waves fetches 4×50 sequentially and re-marks read (waves_tab.dart:77).
 - [ ] Visitor card + boost row at ListView index 0 refetch on scroll back to top (partner_discovery_tab.dart:785).
-- [ ] Offline load-more retry storm on Nearby/City/Gender (nearby_tab.dart:125, city_tab.dart:263, genders_tab.dart:72).
-- [ ] Network calls started inside `build` (partner_discovery_tab.dart:352,388; matches `_maybeRollOver`, `_onBatchExhausted`) → `ref.listen`/`didUpdateWidget`.
-- [ ] `newUsersOnly` filtered client-side, chaining loadMore through pages (partner_discovery_tab.dart:378) → send `joinedWithin=7d`.
-- [ ] O(n²) loadMore de-dupe (community_provider.dart:1458).
-- [ ] All Community requests fire at app launch because `TabsScreen` builds every page (TabBarMenu.dart:130): ~5–7 calls (10–12 with saved filters) + `/voicerooms` polled every 30 s. Load Community lazily on first visit; poll voice rooms only while Rooms is visible.
+- [x] Offline load-more retry storm on Nearby/City/Gender (nearby_tab.dart:125, city_tab.dart:263, genders_tab.dart:72).
+- [x] Network calls started inside `build` (partner_discovery_tab.dart:352,388; matches `_maybeRollOver`, `_onBatchExhausted`) → `ref.listen`/`didUpdateWidget`.
+- [x] `newUsersOnly` filtered client-side, chaining loadMore through pages (partner_discovery_tab.dart:378) → send `joinedWithin=7d`.
+- [x] O(n²) loadMore de-dupe (community_provider.dart:1458).
+- [x] All Community requests fire at app launch because `TabsScreen` builds every page (TabBarMenu.dart:130): ~5–7 calls (10–12 with saved filters) + `/voicerooms` polled every 30 s. Load Community lazily on first visit; poll voice rooms only while Rooms is visible.
 P2 dead code
-- [ ] Delete `PaginatedCommunityNotifier` + state, `NearbyUsersParams`, `getCountriesList`, `getTopics`, `communityProvider` (+ its invalidates in single_community_screen.dart:217,294 and moment_card.dart:359); `card/community_card*.dart` (~700 lines, test-only) + its test; `QuickActionButtons`, `TopicChip`, `widgets/community/community_widgets.dart`; dead `_buildVipPromoBanner` (`const isVip = true`, genders_tab.dart:329); commented-out ad banners; empty `if` at nearby_tab.dart:276. S
+- [x] Delete `PaginatedCommunityNotifier` + state, `NearbyUsersParams`, `getCountriesList`, `getTopics`, `communityProvider` (+ its invalidates in single_community_screen.dart:217,294 and moment_card.dart:359); `card/community_card*.dart` (~700 lines, test-only) + its test; `QuickActionButtons`, `TopicChip`, `widgets/community/community_widgets.dart`; dead `_buildVipPromoBanner` (`const isVip = true`, genders_tab.dart:329); commented-out ad banners; empty `if` at nearby_tab.dart:276. S
 
 ### Phase 3 — Web (one paged list, 4 tabs; 34 suites / 384 tests pass today)
 Structure
