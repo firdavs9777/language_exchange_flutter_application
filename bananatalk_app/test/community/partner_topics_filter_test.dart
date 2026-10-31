@@ -18,9 +18,9 @@ void main() {
   Future<Uri> requestFor({List<String> topics = const [], int atLeast = 0}) async {
     late Uri seen;
     await http.runWithClient(
-      () => CommunityService().getCommunityPaginated(
-        topics: topics,
-        topicsAtLeast: atLeast,
+      () => CommunityService().getUsersPage(
+        PartnerFilterParams(topics: topics, topicsAtLeast: atLeast)
+            .toQuery(page: 1, limit: 20),
       ),
       () => MockClient((req) async {
         seen = req.url;

@@ -1,3 +1,5 @@
+import 'package:bananatalk_app/pages/community/rooms/live_rooms_pill.dart';
+import 'package:bananatalk_app/pages/community/voice_rooms/voice_rooms_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:bananatalk_app/widgets/navigation/floating_tab_bar.dart';
@@ -74,7 +76,17 @@ class RoomsDirectoryScreen extends ConsumerWidget {
           label: Text(l10n.roomsNewRoom),
         ),
       ),
-      body: roomsAsync.when(
+      body: Column(
+        children: [
+          // Live voice rooms ("🔴 N live"), hidden when none are live.
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 12),
+              child: LiveRoomsPill(onTap: () => openVoiceRoomsScreen(context)),
+            ),
+          ),
+          Expanded(child: roomsAsync.when(
         loading: () => const UserListSkeleton(count: 6),
         error: (error, _) => CommunityErrorState(
           message: l10n.roomsCouldNotLoad,
@@ -91,6 +103,8 @@ class RoomsDirectoryScreen extends ConsumerWidget {
           }
           return _RoomsList(rooms: rooms);
         },
+      )),
+        ],
       ),
     );
   }

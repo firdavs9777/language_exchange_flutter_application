@@ -1,24 +1,25 @@
 import 'dart:convert';
 import 'package:bananatalk_app/widgets/app_shell_drawer.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/pages/community/tabs/matches_tab.dart';
 import 'package:bananatalk_app/pages/community/tabs/partner_discovery_tab.dart';
-import 'package:bananatalk_app/pages/community/tabs/nearby_tab.dart';
-import 'package:bananatalk_app/pages/community/tabs/city_tab.dart';
-import 'package:bananatalk_app/pages/community/tabs/genders_tab.dart';
-import 'package:bananatalk_app/pages/community/tabs/topics_tab.dart';
+import 'package:bananatalk_app/pages/community/partners/partner_query.dart';
 import 'package:bananatalk_app/pages/community/gatherings/gatherings_tab.dart';
 import 'package:bananatalk_app/pages/community/voice_rooms/voice_rooms_tab.dart';
-import 'package:bananatalk_app/pages/community/tabs/waves_tab.dart';
 import 'package:bananatalk_app/pages/community/rooms/rooms_directory_screen.dart';
+import 'package:bananatalk_app/widgets/community/user_skeleton.dart';
+import 'package:bananatalk_app/pages/community/voice_rooms/voice_rooms_screen.dart';
+import 'package:bananatalk_app/pages/community/waves/waves_screen.dart';
 import 'package:bananatalk_app/pages/community/single/single_community_screen.dart';
 import 'package:bananatalk_app/pages/community/filter/community_filter_sheet.dart';
 import 'package:bananatalk_app/pages/community/filter/filter_state.dart';
 import 'package:bananatalk_app/pages/community/main/community_app_bar.dart';
 import 'package:bananatalk_app/pages/community/main/community_tab_bar.dart';
 import 'package:bananatalk_app/pages/community/main/community_filter_chips.dart';
+import 'package:bananatalk_app/pages/community/main/search_debounce.dart';
 import 'package:bananatalk_app/services/user_service.dart';
 import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
@@ -27,172 +28,51 @@ import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/friendly_error.dart';
 
-/// Pure index-remap helper for the conditional "Rooms" tab.
-///
-/// `_syncTabCountWithRoomsFlag` rebuilds `_tabController` with one extra (or
-/// one fewer) tab whenever the `roomsEnabled` flag flips, and needs to move
-/// the user's *currently selected tab* along with it — not just reuse the
-/// same numeric index. That reuse-the-index shortcut only works when the
-/// conditional tab sits at the very end of the list (every other tab's index
-/// is unaffected either way). Now that Rooms is grouped next to Gender at
-/// [CommunityMainState.roomsInsertionIndex], inserting/removing it shifts
-/// every tab after it by one slot, so the index must be remapped explicitly:
-///
-/// - Enabling (7 tabs -> 8): any tab at or after the insertion point shifts
-///   right by one to make room for the newly-inserted Rooms tab.
-/// - Disabling (8 tabs -> 7): any tab strictly after the insertion point
-///   shifts left by one to fill the gap left by the removed Rooms tab. A
-///   `previousIndex` that was pointing *at* Rooms itself has nothing to map
-///   to and falls back to the insertion point (now occupied by the tab that
-///   used to follow Rooms).
-///
-/// The result is always clamped into `[0, newCount - 1]` as a final safety
-/// net.
-int remapTabIndexForRoomsFlag({
-  required int previousIndex,
-  required bool enabling,
-  required int roomsInsertionIndex,
-  required int newCount,
-}) {
-  var index = previousIndex;
-  if (enabling) {
-    if (index >= roomsInsertionIndex) index += 1;
-  } else {
-    if (index > roomsInsertionIndex) index -= 1;
-  }
-  if (index < 0) index = 0;
-  if (index > newCount - 1) index = newCount - 1;
-  return index;
-}
+/// The Community tabs (2026-10-31: four, down from eight). Nearby, City,
+/// Gender and Topics are chips on the Partners list; Waves is a header icon.
+enum CommunityTabId { matches, partners, clubs, rooms }
 
-/// Tab identities, used only to remap the selected tab when the
-/// `matchesLayoutEnabled` flag flips the whole layout (see
-/// [remapTabIndexForMatchesLayout]).
-enum CommunityTabId {
-  matches,
-  partners,
-  gender,
-  gatherings,
-  rooms,
-  nearby,
-  city,
-  topics,
-  waves,
-}
-
-/// Ordered tab identities for a layout. MUST mirror `CommunityMain`'s
-/// `TabBarView` children and `CommunityTabBar`'s labels.
+/// Ordered tabs for a layout; the tab strip, the `TabBarView` and every deep
+/// link derive from this one list.
 ///
-/// Legacy (flag off): All(partners), Gender, Gatherings, [Rooms], Nearby,
-/// City, Topics, Waves. New (flag on): Matches, Partners, Gatherings,
-/// [Rooms], Nearby, Topics, Waves. Gatherings is index 2 and Rooms index 3 in
-/// BOTH layouts, which is why `communityGatheringsSubTab`,
-/// `communityRoomsSubTab`, the live-rooms pill and
-/// `_roomsInsertionIndex` hold for both.
+/// Matches only while `matchesLayoutEnabled`; Rooms only while
+/// `roomsEnabled`. The Clubs slot shows voice rooms while `gatheringsEnabled`
+/// is off (as before), so it always exists.
 List<CommunityTabId> communityTabLayout({
   required bool matchesLayout,
   required bool rooms,
 }) => [
   if (matchesLayout) CommunityTabId.matches,
   CommunityTabId.partners,
-  if (!matchesLayout) CommunityTabId.gender,
-  CommunityTabId.gatherings,
+  CommunityTabId.clubs,
   if (rooms) CommunityTabId.rooms,
-  CommunityTabId.nearby,
-  if (!matchesLayout) CommunityTabId.city,
-  CommunityTabId.topics,
-  CommunityTabId.waves,
 ];
 
-/// Remaps the selected tab by *identity* when the matches-layout flag flips
-/// (optionally together with the rooms flag). Tabs that no longer exist fall
-/// back sensibly: Gender/City -> Partners, Rooms -> the tab that now sits at
-/// its slot, Matches -> Partners. A user still on the first tab when the flag
-/// turns on (config resolves just after first build) lands on Matches.
-int remapTabIndexForMatchesLayout({
-  required int previousIndex,
-  required bool oldMatches,
-  required bool oldRooms,
-  required bool newMatches,
-  required bool newRooms,
-}) {
-  final oldTabs = communityTabLayout(
-    matchesLayout: oldMatches,
-    rooms: oldRooms,
-  );
-  final newTabs = communityTabLayout(
-    matchesLayout: newMatches,
-    rooms: newRooms,
-  );
-  if (newMatches && !oldMatches && previousIndex == 0) return 0;
-  final prev = previousIndex.clamp(0, oldTabs.length - 1);
-  final id = oldTabs[prev];
-  var index = newTabs.indexOf(id);
-  if (index < 0) {
-    switch (id) {
-      case CommunityTabId.rooms:
-        index = newTabs.indexOf(CommunityTabId.nearby);
-      default:
-        index = newTabs.indexOf(CommunityTabId.partners);
-    }
-  }
-  return index.clamp(0, newTabs.length - 1);
-}
-
-/// Community sub-tab indices (post-reorder: All=0, Gender=1, 모임=2,
-/// Rooms=3, ...). Used by deep links (e.g. the feature-spotlight promo) that
-/// want to open a specific Community sub-tab.
-///
-/// Index 2 is the same slot whether it renders 모임 or, with the switch off,
-/// the old voice-rooms tab — so existing deep links keep working and the
-/// name is kept for them.
-const int communityVoiceRoomsSubTab = 2;
-const int communityGatheringsSubTab = 2;
-const int communityRoomsSubTab = 3;
-
-/// Matches is index 0 of the Matches-first layout (flag on).
-const int communityMatchesSubTab = 0;
-
-/// The Partners index when [currentIndex] is a tab the filters do not
-/// change (Matches, Gatherings / voice rooms, Rooms, Waves), else null.
-/// Mirrors the TabBarView order in `CommunityMain.build`.
-int? partnersTabIndexIfFilterless({
-  required int currentIndex,
+/// Index of [id] in the layout. A tab the layout does not have falls back:
+/// Matches -> Partners, Rooms -> Clubs.
+int indexOfTab(
+  CommunityTabId id, {
   required bool matchesLayout,
-  required bool roomsTab,
+  required bool rooms,
 }) {
-  final tabs = <String>[
-    if (matchesLayout) 'matches',
-    'partners',
-    if (!matchesLayout) 'genders',
-    'gatherings',
-    if (roomsTab) 'rooms',
-    'nearby',
-    if (!matchesLayout) 'city',
-    'topics',
-    'waves',
-  ];
-  if (currentIndex < 0 || currentIndex >= tabs.length) return null;
-  const filterless = {'matches', 'gatherings', 'rooms', 'waves'};
-  return filterless.contains(tabs[currentIndex]) ? tabs.indexOf('partners') : null;
+  final tabs = communityTabLayout(matchesLayout: matchesLayout, rooms: rooms);
+  final index = tabs.indexOf(id);
+  if (index >= 0) return index;
+  return switch (id) {
+    CommunityTabId.rooms => tabs.indexOf(CommunityTabId.clubs),
+    _ => tabs.indexOf(CommunityTabId.partners),
+  };
 }
 
-/// Waves is the LAST sub-tab in every layout (legacy 7/8 tabs, Matches 6/7),
-/// so its absolute index depends on two flags. Rather than a layout-specific
-/// number, deep links request this sentinel: `_consumePendingSubTab` runs only
-/// after app-config resolves (controller already final) and clamps to
-/// `length - 1`, which is Waves in all four layouts.
-const int communityWavesSubTab = 99;
+/// Where a deep link, push or promo asks Community to open. By identity, not
+/// index: the tab count depends on two server flags.
+enum CommunityDestination { matches, partners, clubs, rooms, voiceRooms, waves }
 
-/// Where the app bar's "N live" pill goes. It counts live ad-hoc voice
-/// rooms, but with gatherings on, slot 2 is the Gatherings tab (which lists
-/// none) and `VoiceRoomsTab` is not in the strip at all.
-enum LiveRoomsPillTarget { voiceRoomsTab, voiceRoomsScreen }
-
-LiveRoomsPillTarget liveRoomsPillTarget({required bool gatheringsEnabled}) =>
-    gatheringsEnabled
-        ? LiveRoomsPillTarget.voiceRoomsScreen
-        : LiveRoomsPillTarget.voiceRoomsTab;
+/// Set by a deep link to request that Community open a destination once it
+/// builds. `CommunityMain` consumes it, then resets it to null.
+final communityPendingSubTabProvider = StateProvider<CommunityDestination?>(
+  (ref) => null,
+);
 
 /// Where a freshly registered user lands. With the Matches layout on, the
 /// Community tab (top-level index 1) whose first sub-tab is Matches; otherwise
@@ -200,10 +80,7 @@ LiveRoomsPillTarget liveRoomsPillTarget({required bool gatheringsEnabled}) =>
 String homeRouteForNewUser({required bool matchesLayoutEnabled}) =>
     matchesLayoutEnabled ? '/tabs/1' : '/home';
 
-/// Set by a deep link to request that Community open on a specific sub-tab
-/// index once it builds. `CommunityMain` consumes it (animating its
-/// TabController) then resets it to null. null = no pending request.
-final communityPendingSubTabProvider = StateProvider<int?>((ref) => null);
+
 
 /// Main Community screen with HelloTalk-style tabs
 class CommunityMain extends ConsumerStatefulWidget {
@@ -217,43 +94,29 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
     with TickerProviderStateMixin {
   static const String _filtersKey = 'community_filters';
 
-  /// Total number of tabs, not a position — this is a length used to size
-  /// `TabController`, and carries no assumption about where any particular
-  /// tab (including the conditional Rooms tab) sits in the order.
-  static const int _baseTabCount = 7;
-
-  /// Same, for the Matches-first layout (no Gender/City, plus Matches).
-  static const int _matchesBaseTabCount = 6;
-
-  /// Tab index that should display the profile-visitor recall card.
-
-  /// Index the conditional "Rooms" tab is inserted at when `roomsEnabled` is
-  /// true (All=0, Gender=1, Voice Rooms=2, Rooms=3, ...). Must match its
-  /// position in both `CommunityTabBar`'s tab list and this file's
-  /// `TabBarView` children list — see `remapTabIndexForRoomsFlag`.
-  static const int _roomsInsertionIndex = 3;
-
   late TabController _tabController;
   final TextEditingController _searchController = TextEditingController();
   bool _isSearching = false;
   String _searchQuery = '';
+
+  /// What the lists search for: [_searchQuery] 350 ms after the last key.
+  String _appliedSearch = '';
+  late final SearchDebounce _searchDebounce = SearchDebounce(
+    onApply: (q) {
+      if (mounted) setState(() => _appliedSearch = q);
+    },
+  );
   FilterState _filters = FilterState.defaults;
 
-  /// Whether the 8th "Rooms" tab is currently built into `_tabController`.
-  /// Tracked so we only recreate the controller when this actually flips
-  /// (`appConfigProvider` re-resolving to the same value shouldn't churn
-  /// the controller and reset the user's current tab).
-  bool? _roomsTabBuilt;
-
-  /// Whether the controller is currently sized for the Matches-first layout.
-  /// The initial controller is the legacy one.
-  bool _matchesLayoutBuilt = false;
+  /// The tabs `_tabController` is currently built for. Null until app-config
+  /// resolves (a skeleton shows meanwhile, so the strip never reshuffles and
+  /// Partners is never loaded just to be replaced by Matches).
+  List<CommunityTabId>? _layout;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: _baseTabCount, vsync: this)
-      ..addListener(_onTabChanged);
+    _tabController = TabController(length: 1, vsync: this);
     _loadSavedFilters();
     // `ref.listen` ignores a value that was set before this widget mounted
     // (e.g. a fresh /tabs/1 landing), so consume it once here.
@@ -264,16 +127,11 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
     });
   }
 
-  /// Animates to a requested sub-tab (clamped; Rooms falls back to Voice Rooms
-  /// when disabled) then clears the request. Shared by the mount-time and
-  /// listener paths.
-  ///
-  /// While `appConfigProvider` is still loading the controller is the legacy
-  /// one and will be rebuilt (identity-remapped) when config resolves, so the
-  /// request is left in place, we wait for config, and retry post-frame once
-  /// the controller is final.
-  void _consumePendingSubTab(int requested) {
-    if (ref.read(appConfigProvider).isLoading) {
+  /// Opens a requested destination, then clears the request. Waits for
+  /// app-config (the layout depends on it) before acting.
+  void _consumePendingSubTab(CommunityDestination requested) {
+    final layout = _layout;
+    if (layout == null) {
       ref
           .read(appConfigProvider.future)
           .then<void>((_) {}, onError: (_) {})
@@ -287,77 +145,57 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
           });
       return;
     }
-    final roomsEnabled = ref
-        .read(appConfigProvider)
-        .maybeWhen(data: (c) => c?.roomsEnabled ?? true, orElse: () => true);
-    var target = requested;
-    if (target == communityRoomsSubTab && !roomsEnabled) {
-      target = communityVoiceRoomsSubTab;
-    }
-    target = target.clamp(0, _tabController.length - 1);
-    _tabController.animateTo(target);
     ref.read(communityPendingSubTabProvider.notifier).state = null;
+    final matches = layout.contains(CommunityTabId.matches);
+    final rooms = layout.contains(CommunityTabId.rooms);
+    int index(CommunityTabId id) =>
+        indexOfTab(id, matchesLayout: matches, rooms: rooms);
+    switch (requested) {
+      case CommunityDestination.waves:
+        _openWaves();
+      case CommunityDestination.voiceRooms:
+        _openLiveRooms();
+      case CommunityDestination.matches:
+        _tabController.animateTo(index(CommunityTabId.matches));
+      case CommunityDestination.partners:
+        _tabController.animateTo(index(CommunityTabId.partners));
+      case CommunityDestination.clubs:
+        _tabController.animateTo(index(CommunityTabId.clubs));
+      case CommunityDestination.rooms:
+        _tabController.animateTo(index(CommunityTabId.rooms));
+    }
   }
 
-  /// Rebuilds `_tabController` with 8 tabs once `roomsEnabled` resolves to
-  /// true, or shrinks back to 7 if it's false. Remaps the currently selected
-  /// tab index by *identity* (via `remapTabIndexForRoomsFlag`) rather than
-  /// reusing the raw index, since the conditional Rooms tab now sits at
-  /// `_roomsInsertionIndex` (not at the end) and inserting/removing it shifts
-  /// every later tab by one slot.
-  ///
-  /// `matchesLayout` selects the Matches-first layout. When only the rooms
-  /// flag changes the original `remapTabIndexForRoomsFlag` path runs unchanged
-  /// (Rooms sits at index 3 in both layouts); when the layout flag flips the
-  /// selection is remapped by tab identity instead.
-  void _syncTabCountWithRoomsFlag(
-    bool roomsEnabled, {
-    bool matchesLayout = false,
-  }) {
-    if (_roomsTabBuilt == roomsEnabled &&
-        _matchesLayoutBuilt == matchesLayout) {
-      return;
-    }
-    final base = matchesLayout ? _matchesBaseTabCount : _baseTabCount;
-    final newCount = roomsEnabled ? base + 1 : base;
-    if (_tabController.length == newCount &&
-        _matchesLayoutBuilt == matchesLayout) {
-      _roomsTabBuilt = roomsEnabled;
-      return;
-    }
-    final previousIndex = _tabController.index;
-    final int remappedIndex;
-    if (_matchesLayoutBuilt == matchesLayout) {
-      remappedIndex = remapTabIndexForRoomsFlag(
-        previousIndex: previousIndex,
-        enabling: roomsEnabled,
-        roomsInsertionIndex: _roomsInsertionIndex,
-        newCount: newCount,
-      );
+  /// Rebuilds `_tabController` when the layout changes, keeping the selected
+  /// tab by identity (a tab that disappears falls back via [indexOfTab]).
+  void _syncLayout(List<CommunityTabId> layout) {
+    final old = _layout;
+    if (old != null && listEquals(old, layout)) return;
+    final int initial;
+    if (old == null) {
+      initial = 0;
     } else {
-      remappedIndex = remapTabIndexForMatchesLayout(
-        previousIndex: previousIndex,
-        oldMatches: _matchesLayoutBuilt,
-        oldRooms: _roomsTabBuilt ?? false,
-        newMatches: matchesLayout,
-        newRooms: roomsEnabled,
+      final selected = old[_tabController.index.clamp(0, old.length - 1)];
+      initial = indexOfTab(
+        selected,
+        matchesLayout: layout.contains(CommunityTabId.matches),
+        rooms: layout.contains(CommunityTabId.rooms),
       );
     }
-    _tabController.removeListener(_onTabChanged);
     _tabController.dispose();
     _tabController = TabController(
-      length: newCount,
-      initialIndex: remappedIndex,
+      length: layout.length,
+      initialIndex: initial,
       vsync: this,
-    )..addListener(_onTabChanged);
-    _roomsTabBuilt = roomsEnabled;
-    _matchesLayoutBuilt = matchesLayout;
+    );
+    _layout = layout;
   }
 
-  /// Rebuild on tab switch so the visitor card only renders on the
-  /// Partners tab (and never wastes vertical space on the other tabs).
-  void _onTabChanged() {
-    if (mounted) setState(() {});
+  void _openWaves() {
+    Navigator.push(
+      context,
+      AppPageRoute<void>(builder: (_) => const WavesScreen()),
+    );
   }
 
   /// Load saved filters from SharedPreferences.
@@ -389,10 +227,9 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
 
   @override
   void dispose() {
-    _tabController
-      ..removeListener(_onTabChanged)
-      ..dispose();
+    _tabController.dispose();
     _searchController.dispose();
+    _searchDebounce.dispose();
     super.dispose();
   }
 
@@ -418,15 +255,10 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
       builder: (context) => CommunityFilter(
         onApplyFilters: (filtersMap) {
           _applyFilters(FilterState.fromJson(filtersMap));
-          // Applied from a tab that filters do not change (Matches is a fixed
-          // daily batch; Gatherings, Rooms and Waves ignore them): show the
-          // result on Partners instead of an unchanged screen (2026-10-18).
-          final partners = partnersTabIndexIfFilterless(
-            currentIndex: _tabController.index,
-            matchesLayout: _matchesLayoutBuilt,
-            roomsTab: _roomsTabBuilt ?? false,
-          );
-          if (partners != null && mounted) _tabController.animateTo(partners);
+          // Filters only change Partners: show the result there instead of
+          // an unchanged screen (2026-10-18).
+          final partners = _layout?.indexOf(CommunityTabId.partners) ?? -1;
+          if (partners >= 0 && mounted) _tabController.animateTo(partners);
         },
         initialFilters: _filters.toJson(),
       ),
@@ -475,6 +307,7 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
       if (!_isSearching) {
         _searchController.clear();
         _searchQuery = '';
+        _searchDebounce.clearNow();
       }
     });
   }
@@ -483,42 +316,36 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
 
-    // Workstream D: hide the Rooms tab entirely while the server-side kill
-    // switch is off. Defaults to enabled while the config request is still
-    // in flight (matches `AppConfig.roomsEnabled`'s default), then syncs
-    // the controller's tab count once the real value resolves.
-    final roomsEnabled = ref
-        .watch(appConfigProvider)
-        .maybeWhen(
-          data: (config) => config?.roomsEnabled ?? true,
-          orElse: () => true,
-        );
-    // Matches-first layout: swaps Gender/City out and Matches in at index 0.
-    // Off by default (an older server has no flag) = exactly the legacy tabs.
-    final matchesLayout = ref
-        .watch(appConfigProvider)
-        .maybeWhen(
-          data: (config) => config?.matchesLayoutEnabled ?? false,
-          orElse: () => false,
-        );
-    _syncTabCountWithRoomsFlag(roomsEnabled, matchesLayout: matchesLayout);
+    // The layout waits for app-config: guessing defaults first meant the
+    // strip reshuffled when it resolved (and Partners loaded, only to be
+    // replaced by Matches). An error falls back to the defaults.
+    final config = ref.watch(appConfigProvider);
+    final configReady = !config.isLoading;
+    final roomsEnabled =
+        config.maybeWhen(data: (c) => c?.roomsEnabled ?? true, orElse: () => true);
+    final matchesLayout = config.maybeWhen(
+      data: (c) => c?.matchesLayoutEnabled ?? false,
+      orElse: () => false,
+    );
+    // 모임 lives in the Clubs slot; with it off the slot shows voice rooms.
+    final gatheringsEnabled = config.maybeWhen(
+      data: (c) => c?.gatheringsEnabled ?? true,
+      orElse: () => true,
+    );
+    final layout = communityTabLayout(
+      matchesLayout: matchesLayout,
+      rooms: roomsEnabled,
+    );
+    if (configReady) _syncLayout(layout);
 
-    // 모임 occupies the voice-rooms slot. Unlike `roomsEnabled` this flag
-    // never changes the tab COUNT -- it swaps which widget lives in that one
-    // slot -- so it deliberately does not feed `_syncTabCountWithRoomsFlag`
-    // and cannot disturb the index remapping. Defaults to on while the
-    // config request is in flight, matching `AppConfig.gatheringsEnabled`.
-    final gatheringsEnabled = ref
-        .watch(appConfigProvider)
-        .maybeWhen(
-          data: (config) => config?.gatheringsEnabled ?? true,
-          orElse: () => true,
-        );
+    // Nearby has no name search: turning it on closes an open search
+    // (its close button hides with the icon).
+    ref.listen<bool>(partnerQuickChipsProvider.select((c) => c.nearby), (_, on) {
+      if (on && _isSearching) _toggleSearch();
+    });
 
-    // Deep-link: a caller (e.g. the feature-spotlight promo) can request a
-    // specific sub-tab. Animate to it once, clamped, then clear the request.
-    // Rooms (index 3) only exists when enabled — fall back to Voice Rooms.
-    ref.listen<int?>(communityPendingSubTabProvider, (_, next) {
+    // Deep links / pushes / promos request a destination; open it once.
+    ref.listen<CommunityDestination?>(communityPendingSubTabProvider, (_, next) {
       if (next == null) return;
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (mounted) _consumePendingSubTab(next);
@@ -528,7 +355,6 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
     // Compute filter-derived values once per build instead of allocating a
     // fresh Map on every widget that needs them.
     final filtersJson = _filters.toJson();
-    final filtersKey = _filters.hashCode;
     final hasActiveFilters = CommunityFilterChips.hasActiveFilters(filtersJson);
 
     return Scaffold(
@@ -538,8 +364,11 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
         isSearching: _isSearching,
         onSearchToggle: _toggleSearch,
         onFilterTap: _openFilters,
-        onLiveRoomsTap: () => _openLiveRooms(gatheringsEnabled),
+        onWavesTap: _openWaves,
         matchesLayout: matchesLayout,
+        showSearch: !ref.watch(
+          partnerQuickChipsProvider.select((c) => c.nearby),
+        ),
       ),
       body: Column(
         children: [
@@ -557,104 +386,65 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
               child: _isSearching ? _buildSearchBar(colorScheme) : null,
             ),
           ),
-          // Tab bar
-          CommunityTabBar(
-            tabController: _tabController,
-            showRoomsTab: roomsEnabled,
-            matchesLayout: matchesLayout,
-            gatheringsEnabled: gatheringsEnabled,
-          ),
-          // Active filter chips
-          if (hasActiveFilters)
-            CommunityFilterChips(
-              filters: filtersJson,
-              onRemove: _removeFilter,
-              onClearAll: _clearAllFilters,
+          if (!configReady)
+            const Expanded(child: UserListSkeleton(count: 6))
+          else ...[
+            CommunityTabBar(
+              tabController: _tabController,
+              tabs: layout,
+              gatheringsEnabled: gatheringsEnabled,
             ),
-          // Tab content
-          Expanded(
-            child: TabBarView(
-              controller: _tabController,
-              children: [
-                if (matchesLayout)
-                  MatchesTab(
-                    // Partners is index 1 in the Matches-first layout.
-                    onBrowsePartners: () => _tabController.animateTo(1),
-                  ),
-                PartnerDiscoveryTab(
-                  key: ValueKey('partners_$filtersKey'),
-                  filters: filtersJson,
-                  searchQuery: _searchQuery,
-                  onClearFilters: _clearAllFilters,
-                ),
-                if (!matchesLayout)
-                  GendersTab(
-                    key: ValueKey('genders_$filtersKey'),
-                    filters: filtersJson,
-                    searchQuery: _searchQuery,
-                  ),
-                // Both group concepts are grouped immediately after Gender
-                // so they read as related features — see
-                // rooms-audit-report.md §5. This order MUST mirror
-                // `CommunityTabBar`'s tab list exactly, and
-                // `_roomsInsertionIndex` below must stay equal to this
-                // conditional entry's index (3).
-                //
-                // 모임 REPLACES voice rooms in this slot rather than adding a
-                // ninth tab: gatherings are voice rooms with commitment
-                // attached, and 93 voice rooms produced a maximum of one
-                // participant each. The old tab remains as the fallback when
-                // the server switch is off, so the slot is never empty and
-                // the tab count is identical either way.
-                if (gatheringsEnabled)
-                  const GatheringsTab()
-                else
-                  const VoiceRoomsTab(),
-                if (roomsEnabled) const RoomsDirectoryScreen(),
-                NearbyTab(
-                  key: ValueKey('nearby_$filtersKey'),
-                  filters: filtersJson,
-                  searchQuery: _searchQuery,
-                ),
-                if (!matchesLayout)
-                  CityTab(
-                    key: ValueKey('city_$filtersKey'),
-                    filters: filtersJson,
-                    searchQuery: _searchQuery,
-                  ),
-                TopicsTab(
-                  key: ValueKey('topics_$filtersKey'),
-                  filters: filtersJson,
-                  searchQuery: _searchQuery,
-                ),
-                const WavesTab(),
-              ],
+            // Active filter chips (they only change Partners)
+            if (hasActiveFilters)
+              CommunityFilterChips(
+                filters: filtersJson,
+                onRemove: _removeFilter,
+                onClearAll: _clearAllFilters,
+              ),
+            Expanded(
+              child: TabBarView(
+                controller: _tabController,
+                children: [
+                  for (final tab in layout)
+                    switch (tab) {
+                      CommunityTabId.matches => MatchesTab(
+                        onBrowsePartners: () => _tabController.animateTo(
+                          layout.indexOf(CommunityTabId.partners),
+                        ),
+                      ),
+                      CommunityTabId.partners => PartnerDiscoveryTab(
+                        filters: filtersJson,
+                        searchQuery: _appliedSearch,
+                        onClearFilters: _clearAllFilters,
+                      ),
+                      // 모임 replaces voice rooms in this slot; with the
+                      // server switch off the slot shows voice rooms.
+                      CommunityTabId.clubs => gatheringsEnabled
+                          ? const GatheringsTab()
+                          : const VoiceRoomsTab(),
+                      CommunityTabId.rooms => const RoomsDirectoryScreen(),
+                    },
+                ],
+              ),
             ),
-          ),
+          ],
         ],
       ),
     );
   }
 
-  void _openLiveRooms(bool gatheringsEnabled) {
-    switch (liveRoomsPillTarget(gatheringsEnabled: gatheringsEnabled)) {
-      case LiveRoomsPillTarget.voiceRoomsTab:
-        // Voice Rooms is index 2 in both layouts (after All+Gender legacy,
-        // or Matches+Partners new) when gatherings are off.
-        _tabController.animateTo(communityVoiceRoomsSubTab);
-      case LiveRoomsPillTarget.voiceRoomsScreen:
-        Navigator.push(
-          context,
-          AppPageRoute<void>(
-            builder: (context) => Scaffold(
-              appBar: AppBar(
-                title: Text(AppLocalizations.of(context)!.voiceRooms),
-              ),
-              body: const VoiceRoomsTab(),
-            ),
-          ),
-        );
+  /// Live voice rooms: the Clubs slot while it shows voice rooms (모임
+  /// off), else the full voice-rooms list.
+  void _openLiveRooms() {
+    final gatherings = ref
+        .read(appConfigProvider)
+        .maybeWhen(data: (c) => c?.gatheringsEnabled ?? true, orElse: () => true);
+    final clubs = _layout?.indexOf(CommunityTabId.clubs) ?? -1;
+    if (!gatherings && clubs >= 0) {
+      _tabController.animateTo(clubs);
+      return;
     }
+    openVoiceRoomsScreen(context);
   }
 
   Widget _buildSearchBar(ColorScheme colorScheme) {
@@ -707,6 +497,7 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
                   onPressed: () {
                     _searchController.clear();
                     setState(() => _searchQuery = '');
+                    _searchDebounce.clearNow();
                   },
                 ),
             ],
@@ -733,6 +524,7 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
             return;
           }
           setState(() => _searchQuery = value);
+          _searchDebounce.typed(value);
         },
         onSubmitted: (_) {
           if (isUsernameSearch && username.isNotEmpty) {
@@ -788,6 +580,7 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
           _searchQuery = '';
           _isSearching = false;
         });
+        _searchDebounce.clearNow();
         Navigator.of(
           context,
         ).push(AppPageRoute(builder: (_) => SingleCommunity(community: user)));

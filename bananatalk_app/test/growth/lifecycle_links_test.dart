@@ -27,7 +27,7 @@ Future<ProviderContainer> _pump(WidgetTester tester,
           (ref) async => DailyMatchesResult.fromJson({'matches': []}),
         ),
         communityPendingSubTabProvider
-            .overrideWith((ref) => communityWavesSubTab),
+            .overrideWith((ref) => CommunityDestination.waves),
       ],
       child: const MaterialApp(
         localizationsDelegates: [
@@ -44,7 +44,8 @@ Future<ProviderContainer> _pump(WidgetTester tester,
   for (var i = 0; i < 12; i++) {
     await tester.pump(const Duration(milliseconds: 150));
   }
-  return ProviderScope.containerOf(tester.element(find.byType(CommunityMain)));
+  return ProviderScope.containerOf(
+      tester.element(find.byType(CommunityMain, skipOffstage: false)));
 }
 
 void main() {
@@ -72,9 +73,9 @@ void main() {
   group('communitySubTabForType', () {
     test('maps lifecycle types, null otherwise', () {
       expect(NotificationRouter.communitySubTabForType('daily_matches'),
-          communityMatchesSubTab);
+          CommunityDestination.matches);
       expect(NotificationRouter.communitySubTabForType('lifecycle_waves'),
-          communityWavesSubTab);
+          CommunityDestination.waves);
       expect(NotificationRouter.communitySubTabForType('chat_message'),
           isNull);
     });
@@ -99,7 +100,7 @@ void main() {
       expect(type, 'lifecycle_waves');
       expect(pathFor({'route': 'community/waves'}), '/tabs/1');
       expect(NotificationRouter.communitySubTabForType(type),
-          communityWavesSubTab);
+          CommunityDestination.waves);
     });
     test('community/matches -> /tabs/1 + Matches sub-tab', () {
       final type =
@@ -107,7 +108,7 @@ void main() {
       expect(type, 'daily_matches');
       expect(pathFor({'route': 'community/matches'}), '/tabs/1');
       expect(NotificationRouter.communitySubTabForType(type),
-          communityMatchesSubTab);
+          CommunityDestination.matches);
     });
     test('explicit type wins over route', () {
       final raw = <String, dynamic>{

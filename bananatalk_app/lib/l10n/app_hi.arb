@@ -4762,5 +4762,6 @@
   "clubChat": "चैट",
   "clubChatFailed": "चैट नहीं खुल सकी।",
   "clubNoticeTitle": "सूचना",
-  "clubNoticeLabel": "सदस्यों के लिए सूचना (वैकल्पिक)"
+  "clubNoticeLabel": "सदस्यों के लिए सूचना (वैकल्पिक)",
+  "sameCity": "एक ही शहर"
 }

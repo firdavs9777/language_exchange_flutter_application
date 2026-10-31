@@ -12565,4 +12565,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get clubNoticeLabel => 'Notice for members (optional)';
+
+  @override
+  String get sameCity => 'Same city';
 }

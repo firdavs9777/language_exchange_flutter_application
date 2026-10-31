@@ -4437,5 +4437,6 @@
   "clubChat": "聊天",
   "clubChatFailed": "無法開啟聊天。",
   "clubNoticeTitle": "公告",
-  "clubNoticeLabel": "給成員的公告（選填）"
+  "clubNoticeLabel": "給成員的公告（選填）",
+  "sameCity": "同城"
 }

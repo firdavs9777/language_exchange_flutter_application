@@ -4762,5 +4762,6 @@
   "clubChat": "Chat",
   "clubChatFailed": "Não foi possível abrir o chat.",
   "clubNoticeTitle": "Aviso",
-  "clubNoticeLabel": "Aviso para membros (opcional)"
+  "clubNoticeLabel": "Aviso para membros (opcional)",
+  "sameCity": "Mesma cidade"
 }

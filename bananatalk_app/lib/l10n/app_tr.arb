@@ -4958,5 +4958,6 @@
   "clubChat": "Sohbet",
   "clubChatFailed": "Sohbet açılamadı.",
   "clubNoticeTitle": "Duyuru",
-  "clubNoticeLabel": "Üyelere duyuru (isteğe bağlı)"
+  "clubNoticeLabel": "Üyelere duyuru (isteğe bağlı)",
+  "sameCity": "Aynı şehir"
 }

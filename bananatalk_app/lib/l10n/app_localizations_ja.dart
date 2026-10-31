@@ -12505,4 +12505,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get clubNoticeLabel => 'メンバーへのお知らせ（任意）';
+
+  @override
+  String get sameCity => '同じ街';
 }

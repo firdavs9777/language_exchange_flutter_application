@@ -269,11 +269,11 @@ void main() {
     );
     await tester.pumpAndSettle();
 
-    // Slot 2 holds Gatherings or Voice Rooms depending on a server flag, so
-    // one index is right either way -- and CommunityMain is what listens.
+    // The Clubs slot holds Gatherings or Voice Rooms depending on a server
+    // flag -- and CommunityMain is what listens.
     expect(
       container.read(communityPendingSubTabProvider),
-      communityVoiceRoomsSubTab,
+      CommunityDestination.clubs,
     );
   });
 
@@ -433,5 +433,19 @@ void main() {
     expect(events, isEmpty);
     final prefs = await SharedPreferences.getInstance();
     expect(prefs.getBool(GuideSurface.matches.retiredKey), isNull);
+  });
+
+  // A 404 from /matching/daily (switch off) rendered a blank tab -- and
+  // Matches is index 0, where users land (audit 2026-10-30).
+  testWidgets('an unavailable batch shows the empty state, not a blank tab',
+      (tester) async {
+    await tester.pumpWidget(_wrap(
+      daysOld: _pastWindow,
+      session: _fresh,
+      result: DailyMatchesResult.unavailableResult,
+    ));
+    await tester.pumpAndSettle();
+    final l10n = await AppLocalizations.delegate.load(const Locale('en'));
+    expect(find.text(l10n.matchesEmptyTitle), findsOneWidget);
   });
 }

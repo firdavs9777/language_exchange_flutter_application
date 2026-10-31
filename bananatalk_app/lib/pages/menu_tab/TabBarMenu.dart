@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/pages/menu_tab/lazy_tab.dart';
 import 'package:bananatalk_app/pages/chat/list/chat_list_screen.dart';
 import 'package:bananatalk_app/pages/moments/feed/moments_main.dart';
 import 'package:bananatalk_app/pages/profile/profile_main.dart';
@@ -127,7 +128,8 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
     });
     _pages = [
       const LearningMain(),
-      const CommunityMain(),
+      // Built on first visit, not at launch (its requests fired on app start).
+      const LazyTab(index: 1, child: CommunityMain()),
       ChatMain(tabRefreshNotifier: _tabRefreshNotifier),
       MomentsMain(),
       const ProfileMain(),
@@ -243,11 +245,11 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
         );
       case PromoType.rooms:
         ref.read(communityPendingSubTabProvider.notifier).state =
-            communityRoomsSubTab;
+            CommunityDestination.rooms;
         ref.read(selectedTabProvider.notifier).state = 1;
       case PromoType.voice:
         ref.read(communityPendingSubTabProvider.notifier).state =
-            communityVoiceRoomsSubTab;
+            CommunityDestination.voiceRooms;
         ref.read(selectedTabProvider.notifier).state = 1;
       case PromoType.aiStudy:
         Navigator.push(

@@ -4986,5 +4986,6 @@
   "clubChat": "Chat",
   "clubChatFailed": "Chat konnte nicht geöffnet werden.",
   "clubNoticeTitle": "Hinweis",
-  "clubNoticeLabel": "Hinweis für Mitglieder (optional)"
+  "clubNoticeLabel": "Hinweis für Mitglieder (optional)",
+  "sameCity": "Gleiche Stadt"
 }

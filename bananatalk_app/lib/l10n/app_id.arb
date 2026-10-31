@@ -4746,5 +4746,6 @@
   "clubChat": "Obrolan",
   "clubChatFailed": "Obrolan gagal dibuka.",
   "clubNoticeTitle": "Pengumuman",
-  "clubNoticeLabel": "Pengumuman untuk anggota (opsional)"
+  "clubNoticeLabel": "Pengumuman untuk anggota (opsional)",
+  "sameCity": "Kota yang sama"
 }

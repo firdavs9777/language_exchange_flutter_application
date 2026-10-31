@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/pages/community/partners/partner_query.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/widgets/boost/boost_entry.dart';
@@ -153,13 +154,12 @@ final Map<String, ProviderOrFamily> userScopedProviders = {
   // this, logout's GlobalChatListener().stop() left it dead until a restart.
   'globalChatListenerProvider': globalChatListenerProvider,
   // Community / matching
-  'communityProvider': communityProvider,
   'communityServiceProvider': communityServiceProvider,
   'filterMatchCountProvider': filterMatchCountProvider,
   'singleCommunityProvider': singleCommunityProvider,
   'wavesUnreadProvider': wavesUnreadProvider,
   'pendingIntrosProvider': pendingIntrosProvider,
-  'topicUsersProvider': topicUsersProvider,
+  'partnerQuickChipsProvider': partnerQuickChipsProvider,
   'partnerSegmentProvider': partnerSegmentProvider,
   'partnerFilterProvider': partnerFilterProvider,
   'communityPendingSubTabProvider': communityPendingSubTabProvider,

@@ -1,4 +1,4 @@
-import 'package:bananatalk_app/pages/community/tabs/nearby_tab.dart';
+import 'package:bananatalk_app/pages/community/partners/nearby_partners_view.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:flutter_test/flutter_test.dart';
 

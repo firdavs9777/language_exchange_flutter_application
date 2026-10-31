@@ -12505,4 +12505,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get clubNoticeLabel => 'Thông báo cho thành viên (không bắt buộc)';
+
+  @override
+  String get sameCity => 'Cùng thành phố';
 }

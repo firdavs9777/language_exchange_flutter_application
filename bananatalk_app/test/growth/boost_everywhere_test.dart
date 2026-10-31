@@ -24,27 +24,11 @@ class _PagedService implements CommunityService {
   final pages = <int, List<String>>{};
 
   @override
-  Future<PaginatedCommunityResponse> getCommunityPaginated({
-    int page = 1,
-    int limit = 20,
-    String? nativeLanguage,
-    String? learningLanguage,
-    bool matchLanguage = false,
-    String? gender,
-    int? minAge,
-    int? maxAge,
-    bool? onlineOnly,
-    String? country,
-    String? languageLevel,
-    String? search,
-    String? sort,
-    bool reciprocal = false,
-    String? activeWithin,
-    String? joinedWithin,
-    List<String> topics = const [],
-    int topicsAtLeast = 0,
-  }) async =>
-      PaginatedCommunityResponse(
+  Future<PaginatedCommunityResponse> getUsersPage(
+    Map<String, String> query,
+  ) async {
+    final page = int.parse(query['page']!);
+    return PaginatedCommunityResponse(
         users: (pages[page] ?? const <String>[])
             .map((id) => Community.fromJson({'_id': id, 'name': id}))
             .toList(),
@@ -53,6 +37,7 @@ class _PagedService implements CommunityService {
         pages: 2,
         hasMore: page < 2,
       );
+  }
 
   @override
   dynamic noSuchMethod(Invocation i) => super.noSuchMethod(i);

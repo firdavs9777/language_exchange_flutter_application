@@ -86,7 +86,10 @@ class InteractionService {
       final token = await _getToken();
       final url = Uri.parse('${Endpoints.baseURL}interactions/excluded');
 
-      final response = await http.get(url, headers: _getHeaders(token));
+      // A stalled request fell back to the cache only when the OS gave up.
+      final response = await http
+          .get(url, headers: _getHeaders(token))
+          .timeout(const Duration(seconds: 15));
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);

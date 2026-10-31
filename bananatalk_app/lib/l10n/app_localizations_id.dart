@@ -12516,4 +12516,7 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get clubNoticeLabel => 'Pengumuman untuk anggota (opsional)';
+
+  @override
+  String get sameCity => 'Kota yang sama';
 }
