@@ -12624,5 +12624,5 @@ class AppLocalizationsAr extends AppLocalizations {
   String get clubNoticeLabel => 'إعلان للأعضاء (اختياري)';
 
   @override
-  String get sameCity => 'Same city';
+  String get sameCity => 'نفس المدينة';
 }

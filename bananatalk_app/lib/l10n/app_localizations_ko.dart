@@ -12507,5 +12507,5 @@ class AppLocalizationsKo extends AppLocalizations {
   String get clubNoticeLabel => '멤버 공지 (선택)';
 
   @override
-  String get sameCity => 'Same city';
+  String get sameCity => '같은 도시';
 }

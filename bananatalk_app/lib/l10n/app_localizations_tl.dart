@@ -12530,5 +12530,5 @@ class AppLocalizationsTl extends AppLocalizations {
   String get clubNoticeLabel => 'Paalala sa mga miyembro (opsyonal)';
 
   @override
-  String get sameCity => 'Same city';
+  String get sameCity => 'Parehong lungsod';
 }

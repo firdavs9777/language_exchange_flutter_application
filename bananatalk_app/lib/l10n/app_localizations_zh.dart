@@ -12507,7 +12507,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get clubNoticeLabel => '给成员的公告（可选）';
 
   @override
-  String get sameCity => 'Same city';
+  String get sameCity => '同城';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -25013,5 +25013,5 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String get clubNoticeLabel => '給成員的公告（選填）';
 
   @override
-  String get sameCity => 'Same city';
+  String get sameCity => '同城';
 }

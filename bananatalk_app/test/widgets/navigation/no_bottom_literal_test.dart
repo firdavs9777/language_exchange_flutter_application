@@ -37,13 +37,10 @@ void main() {
   const tabBodies = [
     'lib/pages/community/tabs/matches_tab.dart',
     'lib/pages/community/tabs/partner_discovery_tab.dart',
-    'lib/pages/community/tabs/genders_tab.dart',
     'lib/pages/community/gatherings/gatherings_tab.dart',
     'lib/pages/community/voice_rooms/voice_rooms_tab.dart',
     'lib/pages/community/rooms/rooms_directory_screen.dart',
     'lib/pages/community/partners/nearby_partners_view.dart',
-    'lib/pages/community/tabs/city_tab.dart',
-    'lib/pages/community/tabs/topics_tab.dart',
     'lib/pages/community/tabs/waves_tab.dart',
     'lib/pages/profile/profile_main.dart',
     'lib/pages/moments/feed/moments_main.dart',

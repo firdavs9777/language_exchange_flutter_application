@@ -12549,5 +12549,5 @@ class AppLocalizationsPt extends AppLocalizations {
   String get clubNoticeLabel => 'Aviso para membros (opcional)';
 
   @override
-  String get sameCity => 'Same city';
+  String get sameCity => 'Mesma cidade';
 }

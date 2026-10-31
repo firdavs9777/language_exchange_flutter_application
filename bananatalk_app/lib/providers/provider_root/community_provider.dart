@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
-import 'package:bananatalk_app/models/community/topic_model.dart';
 import 'package:bananatalk_app/services/api_client.dart';
 import 'package:bananatalk_app/service/endpoints.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -43,13 +42,6 @@ class CommunityService {
     };
   }
 
-  /// Get all community members (legacy - fetches first page only)
-  Future<List<Community>> getCommunity() async {
-    final result = await getCommunityPaginated(page: 1, limit: 20);
-    return result.users;
-  }
-
-  /// Get community members with pagination and server-side filtering
   /// One page of `/users` for an already-built query
   /// ([PartnerFilterParams.toQuery]).
   Future<PaginatedCommunityResponse> getUsersPage(
@@ -93,106 +85,6 @@ class CommunityService {
     return 'Request failed ($status)';
   }
 
-  Future<PaginatedCommunityResponse> getCommunityPaginated({
-    int page = 1,
-    int limit = 20,
-    String? nativeLanguage,
-    String? learningLanguage,
-    bool matchLanguage = false,
-    String? gender,
-    int? minAge,
-    int? maxAge,
-    bool? onlineOnly,
-    String? country,
-    String? languageLevel,
-    String? search, // Server-side search
-    String? sort, // e.g. 'recently_active'
-    bool reciprocal = false,
-    String? activeWithin, // '7d' | '30d'
-    String? joinedWithin, // '7d' | '30d'
-    List<String> topics = const [],
-    int topicsAtLeast = 0,
-  }) async {
-    try {
-      final headers = await _getHeaders();
-      final queryParams = <String, String>{
-        'page': page.toString(),
-        'limit': limit.toString(),
-      };
-
-      // Add filter parameters
-      if (nativeLanguage != null && nativeLanguage.isNotEmpty) {
-        queryParams['nativeLanguage'] = nativeLanguage;
-      }
-      if (learningLanguage != null && learningLanguage.isNotEmpty) {
-        queryParams['learningLanguage'] = learningLanguage;
-      }
-      if (matchLanguage) {
-        queryParams['matchLanguage'] = 'true';
-      }
-      if (gender != null && gender.isNotEmpty) {
-        queryParams['gender'] = gender;
-      }
-      if (minAge != null && minAge > 18) {
-        queryParams['minAge'] = minAge.toString();
-      }
-      if (maxAge != null && maxAge < 100) {
-        queryParams['maxAge'] = maxAge.toString();
-      }
-      if (onlineOnly == true) {
-        queryParams['onlineOnly'] = 'true';
-      }
-      if (country != null && country.isNotEmpty) {
-        queryParams['country'] = country;
-      }
-      if (languageLevel != null && languageLevel.isNotEmpty) {
-        queryParams['languageLevel'] = languageLevel;
-      }
-      // Server-side search
-      if (search != null && search.trim().isNotEmpty) {
-        queryParams['search'] = search.trim();
-      }
-      // Sort order
-      if (sort != null && sort.isNotEmpty) {
-        queryParams['sort'] = sort;
-      }
-      // Segment params (additive; only '7d'/'30d' are honored server-side)
-      if (reciprocal) queryParams['reciprocal'] = 'true';
-      if (activeWithin != null && activeWithin.isNotEmpty) {
-        queryParams['activeWithin'] = activeWithin;
-      }
-      if (joinedWithin != null && joinedWithin.isNotEmpty) {
-        queryParams['joinedWithin'] = joinedWithin;
-      }
-      // Same encoding as the filter sheet's live count (/users/count).
-      if (topics.isNotEmpty) queryParams['topics'] = topics.join(',');
-      if (topicsAtLeast > 0) {
-        queryParams['topicsAtLeast'] = topicsAtLeast.toString();
-      }
-
-      final url = Uri.parse(
-        '${Endpoints.baseURL}${Endpoints.usersURL}',
-      ).replace(queryParameters: queryParams);
-
-      final response = await http.get(url, headers: headers);
-
-      if (response.statusCode == 200) {
-        return PaginatedCommunityResponse.fromBody(
-          json.decode(response.body) as Map<String, dynamic>,
-          page: page,
-        );
-      } else if (response.statusCode == 401) {
-        await _apiClient.handleUnauthorized();
-        throw Exception('Authentication required');
-      } else {
-        throw Exception('Failed to load community: ${response.statusCode}');
-      }
-    } catch (error) {
-      throw Exception('Failed to load community: $error');
-    }
-  }
-
-  /// Get single user profile
   Future<Community?> getSingleCommunity({required id}) async {
     final response = await _getWithRefresh(
       Uri.parse('${Endpoints.baseURL}${Endpoints.usersURL}/$id'),
@@ -432,56 +324,6 @@ class CommunityService {
   }
 
   /// Get all topics
-  Future<List<Topic>> getTopics({String? category, String? lang}) async {
-    try {
-      final response = await _apiClient.get(
-        Endpoints.topicsURL,
-        queryParams: {
-          if (category != null) 'category': category,
-          if (lang != null) 'lang': lang,
-        },
-      );
-
-      if (response.success && response.data != null) {
-        final dataList =
-            response.data['data'] as List? ?? response.data as List? ?? [];
-        return dataList
-            .map((item) => Topic.fromJson(item as Map<String, dynamic>))
-            .toList();
-      } else {
-        throw Exception(response.error ?? 'Failed to get topics');
-      }
-    } catch (error) {
-      rethrow;
-    }
-  }
-
-  /// Get users by topic
-  Future<List<Community>> getUsersByTopic(
-    String topicId, {
-    int page = 1,
-    int limit = 20,
-  }) async {
-    try {
-      final response = await _apiClient.get(
-        Endpoints.topicUsersURL(topicId),
-        queryParams: {'page': page.toString(), 'limit': limit.toString()},
-      );
-
-      if (response.success && response.data != null) {
-        final dataList = response.data['data'] as List? ?? [];
-        return dataList
-            .map((item) => Community.fromJson(item as Map<String, dynamic>))
-            .toList();
-      } else {
-        throw Exception(response.error ?? 'Failed to get users by topic');
-      }
-    } catch (error) {
-      rethrow;
-    }
-  }
-
-  /// Update my topics
   Future<void> updateMyTopics(List<String> topicIds) async {
     try {
       final response = await _apiClient.put(
@@ -498,16 +340,6 @@ class CommunityService {
   }
 
   /// Get countries list
-  Future<void> getCountriesList() async {
-    final url = Uri.parse(Endpoints.countriesURL);
-    try {
-      await http.get(url);
-    } catch (error) {
-      throw Exception('Failed to call the api: $error');
-    }
-  }
-
-  /// Get push notification preferences for the current user.
   Future<Map<String, bool>> getNotificationPreferences() async {
     final response = await _apiClient.get(
       '${Endpoints.usersURL}/me/notification-preferences',
@@ -807,160 +639,6 @@ class PaginatedCommunityResponse {
   }
 }
 
-/// State for paginated community list
-class PaginatedCommunityState {
-  final List<Community> users;
-  final int currentPage;
-  final int totalPages;
-  final int total;
-  final bool isLoading;
-  final bool isLoadingMore;
-  final bool hasMore;
-  final String? error;
-
-  const PaginatedCommunityState({
-    this.users = const [],
-    this.currentPage = 0,
-    this.totalPages = 1,
-    this.total = 0,
-    this.isLoading = false,
-    this.isLoadingMore = false,
-    this.hasMore = true,
-    this.error,
-  });
-
-  PaginatedCommunityState copyWith({
-    List<Community>? users,
-    int? currentPage,
-    int? totalPages,
-    int? total,
-    bool? isLoading,
-    bool? isLoadingMore,
-    bool? hasMore,
-    String? error,
-  }) {
-    return PaginatedCommunityState(
-      users: users ?? this.users,
-      currentPage: currentPage ?? this.currentPage,
-      totalPages: totalPages ?? this.totalPages,
-      total: total ?? this.total,
-      isLoading: isLoading ?? this.isLoading,
-      isLoadingMore: isLoadingMore ?? this.isLoadingMore,
-      hasMore: hasMore ?? this.hasMore,
-      error: error,
-    );
-  }
-}
-
-/// State notifier for paginated community
-class PaginatedCommunityNotifier
-    extends StateNotifier<PaginatedCommunityState> {
-  final CommunityService _service;
-  static const int _pageSize = 20;
-
-  PaginatedCommunityNotifier(this._service)
-    : super(const PaginatedCommunityState());
-
-  /// Load initial data (first page)
-  Future<void> loadInitial() async {
-    if (state.isLoading) return;
-
-    state = state.copyWith(isLoading: true, error: null);
-
-    try {
-      final response = await _service.getCommunityPaginated(
-        page: 1,
-        limit: _pageSize,
-      );
-
-      // Sort with VIP users first, then by online status
-      final sortedUsers = List<Community>.from(response.users);
-      sortedUsers.sort((a, b) {
-        if (a.isVip && !b.isVip) return -1;
-        if (!a.isVip && b.isVip) return 1;
-        if (a.isOnline && !b.isOnline) return -1;
-        if (!a.isOnline && b.isOnline) return 1;
-        return 0;
-      });
-
-      state = state.copyWith(
-        users: sortedUsers,
-        currentPage: 1,
-        totalPages: response.pages,
-        total: response.total,
-        hasMore: response.hasMore,
-        isLoading: false,
-      );
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  /// Load next page
-  Future<void> loadMore() async {
-    if (state.isLoadingMore || !state.hasMore || state.isLoading) return;
-
-    state = state.copyWith(isLoadingMore: true);
-
-    try {
-      final nextPage = state.currentPage + 1;
-      final response = await _service.getCommunityPaginated(
-        page: nextPage,
-        limit: _pageSize,
-      );
-
-      // Sort new users with VIP first
-      final sortedNewUsers = List<Community>.from(response.users);
-      sortedNewUsers.sort((a, b) {
-        if (a.isVip && !b.isVip) return -1;
-        if (!a.isVip && b.isVip) return 1;
-        if (a.isOnline && !b.isOnline) return -1;
-        if (!a.isOnline && b.isOnline) return 1;
-        return 0;
-      });
-
-      state = state.copyWith(
-        users: [...state.users, ...sortedNewUsers],
-        currentPage: nextPage,
-        totalPages: response.pages,
-        total: response.total,
-        hasMore: response.hasMore,
-        isLoadingMore: false,
-      );
-    } catch (e) {
-      state = state.copyWith(isLoadingMore: false, error: e.toString());
-    }
-  }
-
-  /// Refresh (reload from first page)
-  Future<void> refresh() async {
-    state = const PaginatedCommunityState();
-    await loadInitial();
-  }
-}
-
-// ==================== PROVIDERS ====================
-
-final communityProvider = FutureProvider<List<Community>>((ref) async {
-  final service = CommunityService();
-  final communities = await service.getCommunity();
-
-  // Sort with VIP users first, then by online status
-  communities.sort((a, b) {
-    // VIP users come first
-    if (a.isVip && !b.isVip) return -1;
-    if (!a.isVip && b.isVip) return 1;
-
-    // Then online users
-    if (a.isOnline && !b.isOnline) return -1;
-    if (!a.isOnline && b.isOnline) return 1;
-
-    return 0;
-  });
-
-  return communities;
-});
-
 final communityServiceProvider = Provider((ref) => CommunityService());
 
 /// Live match-count provider — call with [FilterState.toJson()] as the family key.
@@ -978,44 +656,6 @@ final singleCommunityProvider = FutureProvider.family<Community?, String>((
   final service = ref.read(communityServiceProvider);
   return service.getSingleCommunity(id: userId);
 });
-
-class NearbyUsersParams {
-  final double latitude;
-  final double longitude;
-  final int? radius;
-  final int? limit;
-  final int? offset;
-  final String? language;
-  final bool? onlineOnly;
-
-  NearbyUsersParams({
-    required this.latitude,
-    required this.longitude,
-    this.radius,
-    this.limit,
-    this.offset,
-    this.language,
-    this.onlineOnly,
-  });
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is NearbyUsersParams &&
-          latitude == other.latitude &&
-          longitude == other.longitude &&
-          radius == other.radius &&
-          limit == other.limit &&
-          offset == other.offset;
-
-  @override
-  int get hashCode =>
-      latitude.hashCode ^
-      longitude.hashCode ^
-      radius.hashCode ^
-      limit.hashCode ^
-      offset.hashCode;
-}
 
 /// Returns the count of unread waves for the current user. Refresh on
 /// app resume and after `markWavesAsRead`.
@@ -1053,125 +693,6 @@ final pendingIntrosProvider = FutureProvider<List<Wave>>((ref) {
 });
 
 // ==================== TOPIC USERS PAGINATED ====================
-
-/// State for paginated topic users
-class TopicUsersState {
-  final String? topicId;
-  final List<Community> users;
-  final int currentPage;
-  final int total;
-  final bool isLoading;
-  final bool isLoadingMore;
-  final bool hasMore;
-  final String? error;
-
-  const TopicUsersState({
-    this.topicId,
-    this.users = const [],
-    this.currentPage = 0,
-    this.total = 0,
-    this.isLoading = false,
-    this.isLoadingMore = false,
-    this.hasMore = true,
-    this.error,
-  });
-
-  TopicUsersState copyWith({
-    String? topicId,
-    List<Community>? users,
-    int? currentPage,
-    int? total,
-    bool? isLoading,
-    bool? isLoadingMore,
-    bool? hasMore,
-    String? error,
-  }) {
-    return TopicUsersState(
-      topicId: topicId ?? this.topicId,
-      users: users ?? this.users,
-      currentPage: currentPage ?? this.currentPage,
-      total: total ?? this.total,
-      isLoading: isLoading ?? this.isLoading,
-      isLoadingMore: isLoadingMore ?? this.isLoadingMore,
-      hasMore: hasMore ?? this.hasMore,
-      error: error,
-    );
-  }
-}
-
-/// Notifier for paginated topic users
-class TopicUsersNotifier extends StateNotifier<TopicUsersState> {
-  final CommunityService _service;
-  static const int _pageSize = 20;
-
-  TopicUsersNotifier(this._service) : super(const TopicUsersState());
-
-  /// Load users for a topic
-  Future<void> loadTopic(String topicId) async {
-    if (state.isLoading) return;
-
-    // Reset if different topic
-    if (state.topicId != topicId) {
-      state = TopicUsersState(topicId: topicId, isLoading: true);
-    } else {
-      state = state.copyWith(isLoading: true, error: null);
-    }
-
-    try {
-      final users = await _service.getUsersByTopic(
-        topicId,
-        page: 1,
-        limit: _pageSize,
-      );
-
-      state = state.copyWith(
-        users: users,
-        currentPage: 1,
-        hasMore: users.length >= _pageSize,
-        isLoading: false,
-      );
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  /// Load more users for current topic
-  Future<void> loadMore() async {
-    if (state.isLoadingMore || !state.hasMore || state.topicId == null) return;
-
-    state = state.copyWith(isLoadingMore: true);
-
-    try {
-      final nextPage = state.currentPage + 1;
-      final users = await _service.getUsersByTopic(
-        state.topicId!,
-        page: nextPage,
-        limit: _pageSize,
-      );
-
-      state = state.copyWith(
-        users: [...state.users, ...users],
-        currentPage: nextPage,
-        hasMore: users.length >= _pageSize,
-        isLoadingMore: false,
-      );
-    } catch (e) {
-      state = state.copyWith(isLoadingMore: false, error: e.toString());
-    }
-  }
-
-  /// Clear current topic
-  void clear() {
-    state = const TopicUsersState();
-  }
-}
-
-/// Provider for paginated topic users
-final topicUsersProvider =
-    StateNotifierProvider<TopicUsersNotifier, TopicUsersState>((ref) {
-      final service = ref.read(communityServiceProvider);
-      return TopicUsersNotifier(service);
-    });
 
 // ==================== PARTNER FILTER (SERVER-SIDE) ====================
 

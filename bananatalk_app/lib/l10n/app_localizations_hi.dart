@@ -12537,5 +12537,5 @@ class AppLocalizationsHi extends AppLocalizations {
   String get clubNoticeLabel => 'सदस्यों के लिए सूचना (वैकल्पिक)';
 
   @override
-  String get sameCity => 'Same city';
+  String get sameCity => 'एक ही शहर';
 }

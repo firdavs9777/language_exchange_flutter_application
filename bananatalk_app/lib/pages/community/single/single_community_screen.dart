@@ -214,7 +214,6 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
         if (!mounted) return;
         setState(() => isFollower = true);
         ref.invalidate(userProvider);
-        ref.invalidate(communityProvider);
         await _refreshProfile();
         if (mounted) {
           final l10n = AppLocalizations.of(context)!;
@@ -291,7 +290,6 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
         if (!mounted) return;
         setState(() => isFollower = false);
         ref.invalidate(userProvider);
-        ref.invalidate(communityProvider);
         await _refreshProfile();
         if (mounted) {
           final l10n2 = AppLocalizations.of(context)!;

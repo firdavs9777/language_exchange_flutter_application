@@ -12537,5 +12537,5 @@ class AppLocalizationsFr extends AppLocalizations {
   String get clubNoticeLabel => 'Annonce pour les membres (facultatif)';
 
   @override
-  String get sameCity => 'Same city';
+  String get sameCity => 'Même ville';
 }

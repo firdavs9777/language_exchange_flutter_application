@@ -355,7 +355,6 @@ class _MomentCardState extends ConsumerState<MomentCard> {
         );
       }
       ref.invalidate(userProvider);
-      ref.invalidate(communityProvider);
     } catch (_) {
       // Non-fatal: the provider is the source of truth and the next read
       // corrects the pill. A failed follow must not break the feed.
