@@ -22,7 +22,11 @@ class CommunityAppBar extends ConsumerWidget implements PreferredSizeWidget {
     required this.onFilterTap,
     this.onLiveRoomsTap,
     this.matchesLayout = false,
+    this.showSearch = true,
   });
+
+  /// False while the Partners list shows Nearby, which has no name search.
+  final bool showSearch;
 
   /// Matches-first layout: the Matches tab replaces the "Find partners"
   /// overflow entry, so it is hidden.
@@ -67,13 +71,14 @@ class CommunityAppBar extends ConsumerWidget implements PreferredSizeWidget {
         // Notification inbox — reachable from every tab, not just chat.
         NotificationBell(color: context.textPrimary),
         // Search toggle — bare neutral, lowest weight.
-        IconButton(
-          onPressed: onSearchToggle,
-          icon: Icon(
-            isSearching ? Icons.close_rounded : Icons.search_rounded,
-            color: context.textPrimary,
+        if (showSearch)
+          IconButton(
+            onPressed: onSearchToggle,
+            icon: Icon(
+              isSearching ? Icons.close_rounded : Icons.search_rounded,
+              color: context.textPrimary,
+            ),
           ),
-        ),
         // Filter — filled-primary pill, highest weight (most-used action).
         Container(
           margin: const EdgeInsets.only(right: Spacing.sm),

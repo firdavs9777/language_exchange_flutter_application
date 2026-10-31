@@ -7,7 +7,7 @@ import 'package:bananatalk_app/models/app_config.dart';
 import 'package:bananatalk_app/pages/community/main/community_main.dart';
 import 'package:bananatalk_app/pages/community/tabs/matches_tab.dart';
 import 'package:bananatalk_app/pages/community/tabs/partner_discovery_tab.dart';
-import 'package:bananatalk_app/pages/community/tabs/nearby_tab.dart';
+import 'package:bananatalk_app/pages/community/partners/nearby_partners_view.dart';
 import 'package:bananatalk_app/pages/community/gatherings/gatherings_tab.dart';
 import 'package:bananatalk_app/pages/community/tabs/waves_tab.dart';
 import 'package:bananatalk_app/pages/menu_tab/TabBarMenu.dart';
@@ -148,7 +148,7 @@ void main() {
         rooms: false,
         pending: communityRoomsSubTab,
         delay: const Duration(milliseconds: 300));
-    expect(find.byType(NearbyTab), findsNothing);
+    expect(find.byType(NearbyPartnersView), findsNothing);
     expect(find.byType(GatheringsTab), findsOneWidget);
     expect(c.read(communityPendingSubTabProvider), isNull);
   });

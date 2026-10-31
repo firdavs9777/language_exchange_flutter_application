@@ -31,6 +31,7 @@ import 'package:bananatalk_app/pages/community/widgets/partner_segment_chips.dar
 import 'package:bananatalk_app/pages/community/widgets/send_wave_sheet.dart';
 import 'package:bananatalk_app/pages/community/widgets/topic_picker_sheet.dart';
 import 'package:bananatalk_app/pages/community/partners/partner_query.dart';
+import 'package:bananatalk_app/pages/community/partners/nearby_partners_view.dart';
 import 'package:bananatalk_app/models/community/topic_model.dart';
 
 /// View mode for partner discovery
@@ -298,6 +299,25 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
 
     return currentUserAsync.when(
       data: (currentUser) {
+        // Nearby is its own endpoint: it replaces the list, keeping the
+        // segment and chip rows so it is one tap to leave.
+        if (chips.nearby) {
+          return Column(
+            children: [
+              _buildQuickFilterChips(currentUser),
+              Expanded(
+                child: NearbyPartnersView(
+                  filters: {
+                    ...widget.filters,
+                    if (chips.gender != null) 'gender': chips.gender,
+                    if (chips.online) 'onlineOnly': true,
+                  },
+                ),
+              ),
+            ],
+          );
+        }
+
         final filterParams = _buildFilterParams(
           currentUser.native_language,
           currentUser.language_to_learn,
@@ -571,6 +591,22 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
               selected: chips.online,
               onSelected: (selected) =>
                   _updateChips((c) => c.copyWith(online: selected)),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 8),
+            child: _buildLanguageChip(
+              labelWidget: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(Icons.near_me_rounded, size: 14),
+                  const SizedBox(width: 4),
+                  Text(l10n.nearby),
+                ],
+              ),
+              selected: chips.nearby,
+              onSelected: (selected) =>
+                  _updateChips((c) => c.copyWith(nearby: selected)),
             ),
           ),
           Padding(

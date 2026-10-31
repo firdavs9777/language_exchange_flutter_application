@@ -5,7 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/pages/community/tabs/matches_tab.dart';
 import 'package:bananatalk_app/pages/community/tabs/partner_discovery_tab.dart';
-import 'package:bananatalk_app/pages/community/tabs/nearby_tab.dart';
+import 'package:bananatalk_app/pages/community/partners/nearby_partners_view.dart';
+import 'package:bananatalk_app/pages/community/partners/partner_query.dart';
 import 'package:bananatalk_app/pages/community/tabs/city_tab.dart';
 import 'package:bananatalk_app/pages/community/tabs/genders_tab.dart';
 import 'package:bananatalk_app/pages/community/tabs/topics_tab.dart';
@@ -539,6 +540,9 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
         onFilterTap: _openFilters,
         onLiveRoomsTap: () => _openLiveRooms(gatheringsEnabled),
         matchesLayout: matchesLayout,
+        showSearch: !ref.watch(
+          partnerQuickChipsProvider.select((c) => c.nearby),
+        ),
       ),
       body: Column(
         children: [
@@ -610,10 +614,9 @@ class _CommunityMainState extends ConsumerState<CommunityMain>
                 else
                   const VoiceRoomsTab(),
                 if (roomsEnabled) const RoomsDirectoryScreen(),
-                NearbyTab(
+                NearbyPartnersView(
                   key: ValueKey('nearby_$filtersKey'),
                   filters: filtersJson,
-                  searchQuery: _appliedSearch,
                 ),
                 if (!matchesLayout)
                   CityTab(

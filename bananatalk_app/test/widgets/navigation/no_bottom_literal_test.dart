@@ -41,7 +41,7 @@ void main() {
     'lib/pages/community/gatherings/gatherings_tab.dart',
     'lib/pages/community/voice_rooms/voice_rooms_tab.dart',
     'lib/pages/community/rooms/rooms_directory_screen.dart',
-    'lib/pages/community/tabs/nearby_tab.dart',
+    'lib/pages/community/partners/nearby_partners_view.dart',
     'lib/pages/community/tabs/city_tab.dart',
     'lib/pages/community/tabs/topics_tab.dart',
     'lib/pages/community/tabs/waves_tab.dart',
