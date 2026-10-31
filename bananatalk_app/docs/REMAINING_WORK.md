@@ -572,34 +572,37 @@ P2 dead code
 - [x] Delete `PaginatedCommunityNotifier` + state, `NearbyUsersParams`, `getCountriesList`, `getTopics`, `communityProvider` (+ its invalidates in single_community_screen.dart:217,294 and moment_card.dart:359); `card/community_card*.dart` (~700 lines, test-only) + its test; `QuickActionButtons`, `TopicChip`, `widgets/community/community_widgets.dart`; dead `_buildVipPromoBanner` (`const isVip = true`, genders_tab.dart:329); commented-out ad banners; empty `if` at nearby_tab.dart:276. S
 
 ### Phase 3 — Web (one paged list, 4 tabs; 34 suites / 384 tests pass today) — plan docs/superpowers/plans/2026-10-31-community-phase3-web.md
+- **Code complete 2026-10-31 on web branch `feat/community-p3` (pushed; from origin/main ed5cef6, head e013e0b; NOT merged, NOT deployed — web main push = live).** 8 commits; full web suite 4617/4617 (7 skipped); `npm run build` passes; whole-branch review: 4 Important fixed, 6 minors deferred (listed in the web repo's REMAINING_WORK).
+- Done differently from the audit list: Waves keeps its own pager (it already read currentData); Women/Men/Topic chips write the existing `gender`/`topics` filters (only `city=1` is new); MemberCard is still role="button" with a nested wave button and WaveSheet has Escape but no focus trap; unused SCSS selectors left.
+- [ ] Owner: browser QA (checklist in the web repo's REMAINING_WORK), then "deploy it" for `feat/community-p3`. M
 Structure
-- [ ] One paging mechanism replacing the 4 hand-rolled ones (MainCommunity `pager`, Topics `accumulated`, `cityGenders/useMemberPages`, Waves `accumulatedWaves`). Preferred: RTK Query `infiniteQuery` (upgrade @reduxjs/toolkit 2.2.5 → ≥2.6) so pages live in cache keyed by args → Back restores pages, `ScrollRestoration` just works. Fallback: one `usePagedList` hook on the Topics pattern (`currentData` + `originalArgs` key check, server `hasMore`). M
-- [ ] One `<MemberList>` (grid, skeleton, inline error + retry, empty, sentinel, Load more); Nearby/Waves/WaveSheet stop hand-rolling rows and use `MemberCard compact`. M
-- [ ] Same 4-tab layout as the app; Waves to a header icon + badge; City/Genders stop riding on `webLanguageRoomsEnabled` (CommunitySubNav.tsx:135, routes.tsx:351). M
+- [x] One paging mechanism replacing the 4 hand-rolled ones (MainCommunity `pager`, Topics `accumulated`, `cityGenders/useMemberPages`, Waves `accumulatedWaves`). Preferred: RTK Query `infiniteQuery` (upgrade @reduxjs/toolkit 2.2.5 → ≥2.6) so pages live in cache keyed by args → Back restores pages, `ScrollRestoration` just works. Fallback: one `usePagedList` hook on the Topics pattern (`currentData` + `originalArgs` key check, server `hasMore`). M
+- [x] One `<MemberList>` (grid, skeleton, inline error + retry, empty, sentinel, Load more); Nearby/Waves/WaveSheet stop hand-rolling rows and use `MemberCard compact`. M
+- [x] Same 4-tab layout as the app; Waves to a header icon + badge; City/Genders stop riding on `webLanguageRoomsEnabled` (CommunitySubNav.tsx:135, routes.tsx:351). M
 P0 bugs
-- [ ] Paging staples another filter's members: `data` treated as page 1 (MainCommunity.tsx:582-619); after >5 s away (`keepUnusedDataFor`) an old `pager` revives and appends B into A; old results show with no loader on filter change.
-- [ ] Client re-sort (VIP then online) overrides the chosen/server sort and makes cards jump while scrolling (MainCommunity.tsx:611-618) — remove.
-- [ ] Any error (page N, refetchOnFocus) replaces the whole page incl. sub-nav (MainCommunity.tsx:893-907) — inline error, keep rows and nav.
-- [ ] sessionStorage scroll hack restores stale Y on every mount and fights `<ScrollRestoration/>` (MainCommunity.tsx:549-635) — delete.
-- [ ] Back-button trap: `<Navigate to="/gatherings">` without `replace` (AppOnlyTab.tsx:30-31).
-- [ ] Dead "Try BananaTalk Pro" button (`onTryPro` never passed, HighlightedProfilesCarousel.tsx:46-52 / MainCommunity.tsx:1037); `/default-avatar.png` missing from `public/` (also MainNavbar.tsx:279, MomentDetail, ChatContent).
-- [ ] Errors shown as empty states: NearbyUsers.tsx:89, Waves.tsx:71, Topics.tsx ~590-665.
-- [ ] Signed-out visitors hit protected endpoints: `/community/nearby`, `/waves`, `/topics`, `/community/city`, `/community/genders` lack `RequireSignIn` (routes.tsx:342-352); Nearby asks for geolocation then 401s as "nobody nearby".
-- [ ] `useMemberPages` (City/Genders): effect reset asks page N of the new filter, merges stale data, guesses hasMore from `rows.length===20`, flashes empty on filter change (useMemberPages.ts:16-44, CityPage.tsx:83, GendersPage.tsx:51).
-- [ ] Filter sheet lock hint says "Set by the New tab" on the Serious tab (CommunityFilterSheet.tsx ~198-207).
-- [ ] Count uses login-snapshot languages, list uses refreshed `/auth/me` (CommunityFilterSheet.tsx:162 vs MainCommunity.tsx:449-457).
-- [ ] Block/unblock don't invalidate `Community`/`Recommendations`; `getDailyMatches` has no tags (usersSlice.ts:285,294; communitySlice.ts:140) → blocked member stays in For you / Today.
+- [x] Paging staples another filter's members: `data` treated as page 1 (MainCommunity.tsx:582-619); after >5 s away (`keepUnusedDataFor`) an old `pager` revives and appends B into A; old results show with no loader on filter change.
+- [x] Client re-sort (VIP then online) overrides the chosen/server sort and makes cards jump while scrolling (MainCommunity.tsx:611-618) — remove.
+- [x] Any error (page N, refetchOnFocus) replaces the whole page incl. sub-nav (MainCommunity.tsx:893-907) — inline error, keep rows and nav.
+- [x] sessionStorage scroll hack restores stale Y on every mount and fights `<ScrollRestoration/>` (MainCommunity.tsx:549-635) — delete.
+- [x] Back-button trap: `<Navigate to="/gatherings">` without `replace` (AppOnlyTab.tsx:30-31).
+- [x] Dead "Try BananaTalk Pro" button (`onTryPro` never passed, HighlightedProfilesCarousel.tsx:46-52 / MainCommunity.tsx:1037); `/default-avatar.png` missing from `public/` (also MainNavbar.tsx:279, MomentDetail, ChatContent).
+- [x] Errors shown as empty states: NearbyUsers.tsx:89, Waves.tsx:71, Topics.tsx ~590-665.
+- [x] Signed-out visitors hit protected endpoints: `/community/nearby`, `/waves`, `/topics`, `/community/city`, `/community/genders` lack `RequireSignIn` (routes.tsx:342-352); Nearby asks for geolocation then 401s as "nobody nearby".
+- [x] `useMemberPages` (City/Genders): effect reset asks page N of the new filter, merges stale data, guesses hasMore from `rows.length===20`, flashes empty on filter change (useMemberPages.ts:16-44, CityPage.tsx:83, GendersPage.tsx:51).
+- [x] Filter sheet lock hint says "Set by the New tab" on the Serious tab (CommunityFilterSheet.tsx ~198-207).
+- [x] Count uses login-snapshot languages, list uses refreshed `/auth/me` (CommunityFilterSheet.tsx:162 vs MainCommunity.tsx:449-457).
+- [x] Block/unblock don't invalidate `Community`/`Recommendations`; `getDailyMatches` has no tags (usersSlice.ts:285,294; communitySlice.ts:140) → blocked member stays in For you / Today.
 - [ ] Keyboard/a11y: inactive tabs `tabIndex=-1` with no arrow keys (CommunitySubNav.tsx:169); unlabeled search (:283); `role="button"` with nested `<button>` (MemberCard.tsx:123,306); hardcoded English "New"/"Wave at …" (MemberCard.tsx:201,310); WaveSheet no Escape/focus trap.
 P1 performance
-- [ ] Two `/app-config` cache entries (arg-less in MainCommunity.tsx:486, Waves.tsx:66 vs `{platform,lang}` in webFlags.ts:53) → duplicate request + waterfall before the list loads. One shared args hook.
-- [ ] `sendWave`/`markWavesRead` invalidate all of `"Community"` (communitySlice.ts:193,219) → every wave refetches lists. Own `"Waves"` tag; pass `wavedIds` beyond Today.
-- [ ] Visitors query on every tab (MainCommunity.tsx:543) → only on All; Topics query (:531) only for chip labels.
-- [ ] Filter-sheet count fires twice per open (stale debounced value, CommunityFilterSheet.tsx:166); search double-debounced (250 ms URL + 300 ms query, :64/:357).
-- [ ] Lazy-load `CommunityFilterSheet` (613 lines + tables) and `WaveSheet`, mounted only while open.
-- [ ] Drop `backdrop-blur` on every MemberCard (:133) and Nearby row (:302); `loading="lazy"` + width/height on Nearby/Waves/WaveSheet/carousel avatars.
-- [ ] Carousel duplicates grid members incl. non-VIP "fillers" under a Pro heading, unmemoized (MainCommunity.tsx:637-641) — VIPs only or hide.
+- [x] Two `/app-config` cache entries (arg-less in MainCommunity.tsx:486, Waves.tsx:66 vs `{platform,lang}` in webFlags.ts:53) → duplicate request + waterfall before the list loads. One shared args hook.
+- [x] `sendWave`/`markWavesRead` invalidate all of `"Community"` (communitySlice.ts:193,219) → every wave refetches lists. Own `"Waves"` tag; pass `wavedIds` beyond Today.
+- [x] Visitors query on every tab (MainCommunity.tsx:543) → only on All; Topics query (:531) only for chip labels.
+- [x] Filter-sheet count fires twice per open (stale debounced value, CommunityFilterSheet.tsx:166); search double-debounced (250 ms URL + 300 ms query, :64/:357).
+- [x] Lazy-load `CommunityFilterSheet` (613 lines + tables) and `WaveSheet`, mounted only while open.
+- [x] Drop `backdrop-blur` on every MemberCard (:133) and Nearby row (:302); `loading="lazy"` + width/height on Nearby/Waves/WaveSheet/carousel avatars.
+- [x] Carousel duplicates grid members incl. non-VIP "fillers" under a Pro heading, unmemoized (MainCommunity.tsx:637-641) — VIPs only or hide.
 P2 cleanup
-- [ ] Dead: `generateRandomStats`, test-only `getLanguageFlag` (community/utils.ts); all of `community/type.ts` except `COMMON_LANGUAGES`; `todayOff` `!signedIn` branch (MainCommunity.tsx:276); ~25 of 63 selectors in `tandem/tandem-community.scss`. Once `webGatheringsEnabled`/`webLanguageRoomsEnabled` are settled on, `AppOnlyTab` → plain links. S
+- [x] Dead: `generateRandomStats`, test-only `getLanguageFlag` (community/utils.ts); all of `community/type.ts` except `COMMON_LANGUAGES`; `todayOff` `!signedIn` branch (MainCommunity.tsx:276); ~25 of 63 selectors in `tandem/tandem-community.scss`. Once `webGatheringsEnabled`/`webLanguageRoomsEnabled` are settled on, `AppOnlyTab` → plain links. S
 
 ### Rollout
 - [ ] Order: backend phase 1 (deploy; old apps unaffected) → web phase 3 (deploy) and app phase 2 (next release build). Full test suite + build before every push (backend/web push = live deploy). M
