@@ -239,6 +239,22 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
     });
   }
 
+  Widget _emptyView(bool boostsEnabled) => RefreshIndicator(
+    onRefresh: _refresh,
+    child: CustomScrollView(
+      physics: const AlwaysScrollableScrollPhysics(),
+      slivers: [
+        SliverFillRemaining(
+          hasScrollBody: false,
+          child: _Empty(
+            onBrowse: widget.onBrowsePartners,
+            showBoost: boostsEnabled,
+          ),
+        ),
+      ],
+    ),
+  );
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
@@ -268,7 +284,9 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
         ),
       ),
       data: (result) {
-        if (result.unavailable) return const SizedBox.shrink();
+        // Switch off (404): the empty state with "Browse partners", never a
+        // blank tab -- Matches is where users land.
+        if (result.unavailable) return _emptyView(boostsEnabled);
         _maybeRollOver(result);
         final matches = result.matches
             .where((m) => m.user.id.isNotEmpty && !skipped.contains(m.user.id))
@@ -276,21 +294,7 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
         if (matches.isEmpty) {
           _hasMatches = false;
           _onBatchExhausted();
-          return RefreshIndicator(
-            onRefresh: _refresh,
-            child: CustomScrollView(
-              physics: const AlwaysScrollableScrollPhysics(),
-              slivers: [
-                SliverFillRemaining(
-                  hasScrollBody: false,
-                  child: _Empty(
-                    onBrowse: widget.onBrowsePartners,
-                    showBoost: boostsEnabled,
-                  ),
-                ),
-              ],
-            ),
-          );
+          return _emptyView(boostsEnabled);
         }
         _hasMatches = true;
         _sawNonEmptyBatch = true;
