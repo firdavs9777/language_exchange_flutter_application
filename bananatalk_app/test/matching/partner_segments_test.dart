@@ -79,27 +79,8 @@ class _FakeService implements CommunityService {
   final params = <String?>[];
 
   @override
-  Future<PaginatedCommunityResponse> getCommunityPaginated({
-    int page = 1,
-    int limit = 20,
-    String? nativeLanguage,
-    String? learningLanguage,
-    bool matchLanguage = false,
-    String? gender,
-    int? minAge,
-    int? maxAge,
-    bool? onlineOnly,
-    String? country,
-    String? languageLevel,
-    String? search,
-    String? sort,
-    bool reciprocal = false,
-    String? activeWithin,
-    String? joinedWithin,
-    List<String> topics = const [],
-    int topicsAtLeast = 0,
-  }) {
-    params.add(activeWithin ?? joinedWithin);
+  Future<PaginatedCommunityResponse> getUsersPage(Map<String, String> query) {
+    params.add(query['activeWithin'] ?? query['joinedWithin']);
     final c = Completer<PaginatedCommunityResponse>();
     calls.add(c);
     return c.future;

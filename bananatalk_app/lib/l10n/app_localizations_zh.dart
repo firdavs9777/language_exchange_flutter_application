@@ -12574,6 +12574,9 @@ class AppLocalizationsZh extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get sameCity => '同城';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -25146,4 +25149,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
     );
     return '$_temp0';
   }
+
+  @override
+  String get sameCity => '同城';
 }

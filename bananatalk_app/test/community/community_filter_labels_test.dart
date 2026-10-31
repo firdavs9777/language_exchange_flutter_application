@@ -3,7 +3,6 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/community/main/community_filter_chips.dart';
-import 'package:bananatalk_app/pages/community/tabs/city_tab.dart';
 
 Widget _chips(Locale locale, Map<String, dynamic> filters) => MaterialApp(
       locale: locale,
@@ -51,31 +50,5 @@ void main() {
     expect(find.text('♀ Female'), findsOneWidget);
     expect(find.text('🟢 Online'), findsOneWidget);
     expect(find.text('✨ New'), findsOneWidget);
-  });
-
-  test('City tab list titles are localized', () {
-    final ru = lookupAppLocalizations(const Locale('ru'));
-    expect(
-      cityListTitle(ru, worldwide: true, country: null, citySearch: ''),
-      '🌍 Весь мир',
-    );
-    expect(
-      cityListTitle(ru, worldwide: false, country: null, citySearch: 'Сеул'),
-      'Поиск: Сеул',
-    );
-    expect(
-      cityListTitle(ru, worldwide: false, country: 'Корея', citySearch: 'x'),
-      'Корея',
-    );
-
-    final en = lookupAppLocalizations(const Locale('en'));
-    expect(
-      cityListTitle(en, worldwide: true, country: null, citySearch: ''),
-      '🌍 Worldwide',
-    );
-    expect(
-      cityListTitle(en, worldwide: false, country: null, citySearch: 'Seoul'),
-      'Search: Seoul',
-    );
   });
 }

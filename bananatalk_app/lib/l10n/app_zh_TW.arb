@@ -4456,5 +4456,6 @@
   "clubApprove": "核准",
   "clubRequestsEmpty": "沒有人在等待。",
   "clubRequestSent": "申請已送出，由主辦人決定。",
-  "clubRequestMeetups": "{count, plural, =0{還沒參加過聚會} other{參加過 {count} 次聚會}}"
+  "clubRequestMeetups": "{count, plural, =0{還沒參加過聚會} other{參加過 {count} 次聚會}}",
+  "sameCity": "同城"
 }

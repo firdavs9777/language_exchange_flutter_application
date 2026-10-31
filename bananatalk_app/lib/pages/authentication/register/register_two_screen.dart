@@ -390,7 +390,7 @@ class _RegisterTwoState extends ConsumerState<RegisterTwo> {
     }());
     if (matchesLayout) {
       ref.read(communityPendingSubTabProvider.notifier).state =
-          communityMatchesSubTab;
+          CommunityDestination.matches;
     }
     context.go(homeRouteForNewUser(matchesLayoutEnabled: matchesLayout));
   }

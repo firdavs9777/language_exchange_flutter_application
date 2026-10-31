@@ -4738,5 +4738,6 @@
   "clubApprove": "Aprubahan",
   "clubRequestsEmpty": "Walang naghihintay.",
   "clubRequestSent": "Naipadala ang request. Ang host ang magpapasya.",
-  "clubRequestMeetups": "{count, plural, =0{Wala pang meetup} =1{Dumalo sa 1 meetup} other{Dumalo sa {count} meetup}}"
+  "clubRequestMeetups": "{count, plural, =0{Wala pang meetup} =1{Dumalo sa 1 meetup} other{Dumalo sa {count} meetup}}",
+  "sameCity": "Parehong lungsod"
 }

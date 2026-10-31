@@ -4795,5 +4795,6 @@
   "clubApprove": "موافقة",
   "clubRequestsEmpty": "لا أحد في الانتظار.",
   "clubRequestSent": "أُرسل الطلب. سيقرر المضيف.",
-  "clubRequestMeetups": "{count, plural, =0{لم يحضر أي لقاء بعد} =1{حضر لقاءً واحدًا} =2{حضر لقاءين} few{حضر {count} لقاءات} many{حضر {count} لقاءً} other{حضر {count} لقاء}}"
+  "clubRequestMeetups": "{count, plural, =0{لم يحضر أي لقاء بعد} =1{حضر لقاءً واحدًا} =2{حضر لقاءين} few{حضر {count} لقاءات} many{حضر {count} لقاءً} other{حضر {count} لقاء}}",
+  "sameCity": "نفس المدينة"
 }

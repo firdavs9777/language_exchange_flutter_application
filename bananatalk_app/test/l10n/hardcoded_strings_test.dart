@@ -874,6 +874,8 @@ const Map<String, List<String>> _keysByTask = {
     'dailyReminderSubtitle',
     'dailyReminderTime',
   ],
+  // Community optimization phase 2 (2026-10-31): the Partners "Same city" chip.
+  'community-p2': ['sameCity'],
   // Clubs v2 slice 1 (2026-10-28): club rules, the language pair, warnings.
   // Clubs v2 slice 4 (2026-10-28): join approval.
   'clubs-v2-approval': [
@@ -937,6 +939,12 @@ const Map<String, List<String>> _keysByTask = {
 
 /// Files (under lib/) each task must leave with no English Text literal.
 const Map<String, List<String>> _filesByTask = {
+  'community-p2': [
+    'pages/community/widgets/topic_picker_sheet.dart',
+    'pages/community/waves/waves_screen.dart',
+    'pages/community/voice_rooms/voice_rooms_screen.dart',
+    'pages/community/partners/partner_query.dart',
+  ],
   'L1': [
     'pages/chat/chat_screen_wrapper.dart',
     'pages/chat/conversation/chat_conversation_screen.dart',
@@ -974,13 +982,9 @@ const Map<String, List<String>> _filesByTask = {
     'widgets/video_player_screen.dart',
   ],
   'L4': [
-    'pages/community/card/community_card_meta.dart',
     'pages/community/main/community_app_bar.dart',
     'pages/community/main/community_filter_chips.dart',
     'pages/community/main/community_main.dart',
-    'pages/community/tabs/city_tab.dart',
-    'pages/community/tabs/genders_tab.dart',
-    'pages/community/tabs/topics_tab.dart',
     'pages/community/tabs/waves_archive_screen.dart',
     'pages/community/voice_rooms/post_room_connect_sheet.dart',
     'pages/matching/match_card_widget.dart',
@@ -1123,7 +1127,6 @@ const Map<String, List<String>> _filesByTask = {
     'widgets/ads/ad_widgets.dart',
     'widgets/ai/answer_feedback_sheet.dart',
     'widgets/ai/lesson_summary_sheet.dart',
-    'widgets/community/quick_action_buttons.dart',
     'widgets/image_preview_dialog.dart',
     'widgets/promo/ads_notice_modal.dart',
     'widgets/report_dialog.dart',

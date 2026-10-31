@@ -12592,4 +12592,7 @@ class AppLocalizationsTr extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get sameCity => 'Aynı şehir';
 }

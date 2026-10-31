@@ -163,15 +163,14 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
   /// cross-tab jump already takes (notification router, feature spotlight,
   /// the post-registration landing).
   ///
-  /// Slot 2 holds whichever of the two the flag selects, so one index is
-  /// correct either way.
+  /// The Clubs slot holds whichever of the two the flag selects.
   void _openLiveTab() {
     AnalyticsService.instance.guideCtaTapped(
       surface: 'matches',
       target: 'secondary',
     );
     ref.read(communityPendingSubTabProvider.notifier).state =
-        communityVoiceRoomsSubTab;
+        CommunityDestination.clubs;
   }
 
   void _sayHi(DailyMatch m, {int position = 0}) {
@@ -240,6 +239,22 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
     });
   }
 
+  Widget _emptyView(bool boostsEnabled) => RefreshIndicator(
+    onRefresh: _refresh,
+    child: CustomScrollView(
+      physics: const AlwaysScrollableScrollPhysics(),
+      slivers: [
+        SliverFillRemaining(
+          hasScrollBody: false,
+          child: _Empty(
+            onBrowse: widget.onBrowsePartners,
+            showBoost: boostsEnabled,
+          ),
+        ),
+      ],
+    ),
+  );
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
@@ -269,7 +284,9 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
         ),
       ),
       data: (result) {
-        if (result.unavailable) return const SizedBox.shrink();
+        // Switch off (404): the empty state with "Browse partners", never a
+        // blank tab -- Matches is where users land.
+        if (result.unavailable) return _emptyView(boostsEnabled);
         _maybeRollOver(result);
         final matches = result.matches
             .where((m) => m.user.id.isNotEmpty && !skipped.contains(m.user.id))
@@ -277,21 +294,7 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
         if (matches.isEmpty) {
           _hasMatches = false;
           _onBatchExhausted();
-          return RefreshIndicator(
-            onRefresh: _refresh,
-            child: CustomScrollView(
-              physics: const AlwaysScrollableScrollPhysics(),
-              slivers: [
-                SliverFillRemaining(
-                  hasScrollBody: false,
-                  child: _Empty(
-                    onBrowse: widget.onBrowsePartners,
-                    showBoost: boostsEnabled,
-                  ),
-                ),
-              ],
-            ),
-          );
+          return _emptyView(boostsEnabled);
         }
         _hasMatches = true;
         _sawNonEmptyBatch = true;

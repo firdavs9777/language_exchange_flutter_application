@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/foundation.dart' show mapEquals;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:bananatalk_app/pages/community/partners/retry_pause.dart';
+import 'package:bananatalk_app/pages/community/widgets/send_wave_sheet.dart';
 import 'package:bananatalk_app/widgets/navigation/floating_tab_bar.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -14,12 +16,10 @@ import 'package:geocoding/geocoding.dart' show placemarkFromCoordinates;
 import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
-import 'package:bananatalk_app/pages/community/widgets/wave_error_snackbar.dart';
 import 'package:bananatalk_app/pages/community/widgets/community_snackbar.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/pages/community/single/single_community_screen.dart';
-import 'package:bananatalk_app/pages/chat/conversation/chat_conversation_screen.dart';
 import 'package:bananatalk_app/utils/language_flags.dart';
 import 'package:bananatalk_app/utils/country_names.dart';
 import 'package:bananatalk_app/widgets/community/user_skeleton.dart';
@@ -51,21 +51,21 @@ bool nearbyRadiusLocked(int radiusKm, int? maxRadiusKm) =>
     radiusKm > (maxRadiusKm ?? 50);
 
 /// Nearby Tab - Grid view of nearby users with real distance calculation
-class NearbyTab extends ConsumerStatefulWidget {
+/// The Partners list's "Nearby" chip: people around you by distance. It has
+/// its own endpoint (/community/nearby), so it replaces the list body rather
+/// than adding a query param. Was the Nearby tab.
+class NearbyPartnersView extends ConsumerStatefulWidget {
+  /// The filter sheet's values merged with the Partners chips that Nearby
+  /// supports (gender, online).
   final Map<String, dynamic> filters;
-  final String searchQuery;
 
-  const NearbyTab({
-    super.key,
-    required this.filters,
-    required this.searchQuery,
-  });
+  const NearbyPartnersView({super.key, required this.filters});
 
   @override
-  ConsumerState<NearbyTab> createState() => _NearbyTabState();
+  ConsumerState<NearbyPartnersView> createState() => _NearbyPartnersViewState();
 }
 
-class _NearbyTabState extends ConsumerState<NearbyTab> {
+class _NearbyPartnersViewState extends ConsumerState<NearbyPartnersView> {
   String _userId = '';
   Position? _userPosition;
 
@@ -221,8 +221,12 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
     await _fetchNearbyUsers();
   }
 
-  Future<void> _loadMoreUsers() async {
+  final RetryPause _retryPause = RetryPause();
+
+  /// [force]: the user tapped Retry, so skip the failure pause.
+  Future<void> _loadMoreUsers({bool force = false}) async {
     if (_isLoadingMore || !_hasMore || _searchCenter == null) return;
+    if (_retryPause.blocks(force: force)) return;
     await _fetchNearbyUsers();
   }
 
@@ -272,8 +276,6 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
         language: langParam,
       );
 
-      if (response.users.isNotEmpty) {}
-
       // Filter out current user from the list
       final filteredUsers = response.users
           .where((user) => user.id != _userId)
@@ -289,9 +291,11 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
           _loadError = null;
           _maxRadiusKm = response.maxRadiusKm ?? _maxRadiusKm;
         });
+        _retryPause.succeeded();
       }
     } catch (e) {
       if (mounted && token == _fetchToken) {
+        _retryPause.failed();
         setState(() {
           _isLoadingMore = false;
           // Only when there is nothing on screen: a failed page 3 must not
@@ -319,41 +323,21 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
     _loadNearbyUsers();
   }
 
-  Future<void> _onWave(NearbyUser user) async {
+  /// The same send-wave sheet as Partners (wave cap, one wave per pair,
+  /// sent / mutual feedback). It used to open the chat and fire a silent wave.
+  void _onWave(NearbyUser user) {
     HapticFeedback.mediumImpact();
-
-    // Navigate to chat immediately
-    Navigator.push(
+    showSendWaveSheet(
       context,
-      AppPageRoute(
-        builder: (_) => ChatScreen(
-          userId: user.id,
-          userName: user.name,
-          profilePicture: user.images.isNotEmpty ? user.images.first : null,
-        ),
-      ),
+      targetUserId: user.id,
+      targetUserName: user.name,
+      targetUserCountry:
+          (user.country?.isNotEmpty ?? false) ? user.country : null,
     );
-
-    // Real wave path only: the backend mirrors a 👋 into the chat itself.
-    try {
-      final service = ref.read(communityServiceProvider);
-      await service.sendWave(targetUserId: user.id);
-    } catch (e) {
-      if (mounted) {
-        await handleWaveError(
-          context,
-          ref,
-          e,
-          retry: () => ref
-              .read(communityServiceProvider)
-              .sendWave(targetUserId: user.id),
-        );
-      }
-    }
   }
 
   @override
-  void didUpdateWidget(NearbyTab oldWidget) {
+  void didUpdateWidget(NearbyPartnersView oldWidget) {
     super.didUpdateWidget(oldWidget);
     // Reload when filters change — by VALUE. The parent rebuilds a fresh
     // `filters` Map on every keystroke, so an identity `!=` fired a full
@@ -472,6 +456,18 @@ class _NearbyTabState extends ConsumerState<NearbyTab> {
                 padding: EdgeInsets.all(16),
                 child: Center(
                   child: CircularProgressIndicator(color: Color(0xFF00BFA5)),
+                ),
+              ),
+            )
+          // A failed next page: an inline Retry instead of a spinner that
+          // spins until the next scroll.
+          else if (_retryPause.hasFailed && _nearbyUsers.isNotEmpty && _hasMore)
+            SliverToBoxAdapter(
+              child: Center(
+                child: TextButton.icon(
+                  onPressed: () => _loadMoreUsers(force: true),
+                  icon: const Icon(Icons.refresh_rounded),
+                  label: Text(AppLocalizations.of(context)!.retry),
                 ),
               ),
             ),

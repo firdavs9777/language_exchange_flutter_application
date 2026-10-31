@@ -275,12 +275,12 @@ class NotificationRouter {
 
   /// Community sub-tab a lifecycle push should open, or null for none. Kept
   /// separate from [targetPathForType] so that stays a pure path resolver.
-  static int? communitySubTabForType(String type) {
+  static CommunityDestination? communitySubTabForType(String type) {
     switch (type) {
       case 'daily_matches':
-        return communityMatchesSubTab;
+        return CommunityDestination.matches;
       case 'lifecycle_waves':
-        return communityWavesSubTab;
+        return CommunityDestination.waves;
       default:
         return null;
     }

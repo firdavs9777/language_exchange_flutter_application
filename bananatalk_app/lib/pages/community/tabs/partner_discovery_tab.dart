@@ -29,6 +29,10 @@ import 'package:bananatalk_app/pages/community/widgets/community_filter_chip.dar
 import 'package:bananatalk_app/pages/community/widgets/visitor_recall_card.dart';
 import 'package:bananatalk_app/pages/community/widgets/partner_segment_chips.dart';
 import 'package:bananatalk_app/pages/community/widgets/send_wave_sheet.dart';
+import 'package:bananatalk_app/pages/community/widgets/topic_picker_sheet.dart';
+import 'package:bananatalk_app/pages/community/partners/partner_query.dart';
+import 'package:bananatalk_app/pages/community/partners/nearby_partners_view.dart';
+import 'package:bananatalk_app/models/community/topic_model.dart';
 
 /// View mode for partner discovery
 enum PartnerViewMode { list, swipe }
@@ -73,11 +77,13 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
   static const _viewModeKey = 'partner_discovery_view_mode';
   final ScrollController _scrollController = ScrollController();
 
-  // Quick filter chips state
-  bool _quickOnlineOnly = false;
-  String? _quickNativeLanguage; // "Show users who speak X natively"
-  String? _quickLearningLanguage; // "Show users who are learning X"
-  String? _sort; // null = default, 'recently_active' = sort by lastSeenAt
+  /// Quick chips live in [partnerQuickChipsProvider] so the filter sheet's
+  /// live count asks the server the same question as this list.
+  PartnerQuickChips get _chips => ref.read(partnerQuickChipsProvider);
+  void _updateChips(PartnerQuickChips Function(PartnerQuickChips) change) {
+    HapticFeedback.selectionClick();
+    ref.read(partnerQuickChipsProvider.notifier).update(change);
+  }
 
   // Tracks whether the list has been scrolled — used to elevate the chip bar.
   bool _isScrolled = false;
@@ -189,73 +195,23 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
     setState(() => _userId = prefs.getString('userId') ?? '');
   }
 
-  /// Build filter params from current user and UI filters.
-  ///
-  /// IMPORTANT: API semantics are inverted for language-exchange matching:
-  /// - API nativeLanguage param → finds users LEARNING this language
-  /// - API learningLanguage param → finds users who SPEAK this language natively
-  ///
-  /// So when the user selects "Native Language: French" (wants to SEE French
-  /// speakers), we pass it as learningLanguage to the API.
+  /// The list's `/users` params: shared with the filter sheet's live count
+  /// (partner_query.dart), so the two never disagree.
   PartnerFilterParams _buildFilterParams(
     String? myNative,
     String? myLearning,
     PartnerSegment segment,
-  ) {
-    final filterNative = widget.filters['nativeLanguage']?.toString();
-    final filterLearning = widget.filters['learningLanguage']?.toString();
-
-    final hasFilterNative = filterNative != null && filterNative.isNotEmpty;
-    final hasFilterLearning =
-        filterLearning != null && filterLearning.isNotEmpty;
-
-    String? apiNativeParam; // API: finds users LEARNING this language
-    String? apiLearningParam; // API: finds users who SPEAK this natively
-
-    if (hasFilterNative || hasFilterLearning) {
-      // Explicit filters — apply only what was selected (no exchange mixing).
-      if (hasFilterNative) apiLearningParam = filterNative;
-      if (hasFilterLearning) apiNativeParam = filterLearning;
-    } else {
-      // Default: language-exchange matching.
-      apiLearningParam = myLearning;
-      apiNativeParam = myNative;
-    }
-
-    // Quick chips override the full filter screen and focus on one criterion.
-    if (_quickNativeLanguage != null) {
-      apiLearningParam = _quickNativeLanguage;
-      if (_quickLearningLanguage == null) apiNativeParam = null;
-    }
-    if (_quickLearningLanguage != null) {
-      apiNativeParam = _quickLearningLanguage;
-      if (_quickNativeLanguage == null) apiLearningParam = null;
-    }
-
-    return PartnerFilterParams(
-      nativeLanguage: apiNativeParam,
-      learningLanguage: apiLearningParam,
-      gender: widget.filters['gender']?.toString(),
-      minAge: widget.filters['minAge'] as int?,
-      maxAge: widget.filters['maxAge'] as int?,
-      onlineOnly: widget.filters['onlineOnly'] == true || _quickOnlineOnly,
-      // Country is a VIP filter (2026-10-18); a free user's saved one no
-      // longer applies (the server ignores it too).
-      country: (ref.read(userProvider).valueOrNull?.isVip ?? false)
-          ? widget.filters['country']?.toString()
-          : null,
-      languageLevel: widget.filters['languageLevel']?.toString(),
-      search: widget.searchQuery.isNotEmpty ? widget.searchQuery : null,
-      sort: _sort,
-      activeWithin: segment.activeWithin,
-      joinedWithin: segment.joinedWithin,
-      topics: [
-        for (final t in (widget.filters['topics'] as List?) ?? const [])
-          t.toString(),
-      ],
-      topicsAtLeast: (widget.filters['topicsAtLeast'] as num?)?.toInt() ?? 0,
-    );
-  }
+    PartnerQuickChips chips,
+  ) =>
+      partnerParamsFor(
+        filters: widget.filters,
+        myNative: myNative,
+        myLearning: myLearning,
+        segment: segment,
+        chips: chips,
+        isVip: ref.read(userProvider).valueOrNull?.isVip ?? false,
+        search: widget.searchQuery,
+      );
 
   /// Filter out session-skipped/waved/blocked users for instant UI feedback.
   List<Community> _filterSessionUsers(
@@ -339,13 +295,34 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
     final currentUserAsync = ref.watch(userProvider);
     final blockedUserIdsAsync = ref.watch(blockedUserIdsProvider);
     final segment = ref.watch(partnerSegmentProvider);
+    final chips = ref.watch(partnerQuickChipsProvider);
 
     return currentUserAsync.when(
       data: (currentUser) {
+        // Nearby is its own endpoint: it replaces the list, keeping the chip
+        // row so it is one tap to leave (segments do not apply to it).
+        if (chips.nearby) {
+          return Column(
+            children: [
+              _buildQuickFilterChips(currentUser),
+              Expanded(
+                child: NearbyPartnersView(
+                  filters: {
+                    ...widget.filters,
+                    if (chips.gender != null) 'gender': chips.gender,
+                    if (chips.online) 'onlineOnly': true,
+                  },
+                ),
+              ),
+            ],
+          );
+        }
+
         final filterParams = _buildFilterParams(
           currentUser.native_language,
           currentUser.language_to_learn,
           segment,
+          chips,
         );
 
         // Reload when filters or search query change (or on first build).
@@ -361,11 +338,20 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
           });
         }
 
+        // Loading and error keep the segment and chip rows, so quick chip
+        // taps keep working and a chip whose page fails can be undone.
+        Widget withChips(Widget body) => Column(
+              children: [
+                const PartnerSegmentChips(),
+                _buildQuickFilterChips(currentUser),
+                Expanded(child: body),
+              ],
+            );
         if (partnerState.isLoading && partnerState.users.isEmpty) {
-          return _buildLoading();
+          return withChips(_buildLoading());
         }
         if (partnerState.error != null && partnerState.users.isEmpty) {
-          return _buildError(partnerState.error);
+          return withChips(_buildError(partnerState.error));
         }
 
         final blockedUserIds = blockedUserIdsAsync.value ?? <String>{};
@@ -373,13 +359,6 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
           partnerState.users,
           blockedUserIds,
         );
-
-        // Client-side: new users only.
-        if (widget.filters['newUsersOnly'] == true) {
-          filteredCommunities = filteredCommunities
-              .where((u) => u.isNewUser)
-              .toList();
-        }
 
         // Client-side: prioritize nearby (sort by distance).
         if (widget.filters['prioritizeNearby'] == true &&
@@ -407,6 +386,8 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
           return Column(
             children: [
               const PartnerSegmentChips(),
+              // The chips stay, so an empty chip result is one tap to undo.
+              _buildQuickFilterChips(currentUser),
               Expanded(child: _buildEmptyState()),
             ],
           );
@@ -558,8 +539,24 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
   }
 
   /// Build quick filter chips
+  String _topicLabel(String? topicId, AppLocalizations l10n) {
+    if (topicId == null) return l10n.topics;
+    for (final t in Topic.defaultTopics) {
+      if (t.id == topicId) return t.localizedName(l10n);
+    }
+    return l10n.topics;
+  }
+
+  Future<void> _pickTopic(String? current) async {
+    final picked = await showTopicPickerSheet(context, selectedId: current);
+    if (!mounted || picked == null) return;
+    // Picking the selected topic again clears it.
+    _updateChips((c) => c.copyWith(topicId: () => picked == current ? null : picked));
+  }
+
   Widget _buildQuickFilterChips(dynamic currentUser) {
     final l10n = AppLocalizations.of(context)!;
+    final chips = ref.watch(partnerQuickChipsProvider);
     final String userLearning = currentUser.language_to_learn ?? '';
     final String userNative = currentUser.native_language ?? '';
 
@@ -575,13 +572,10 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
             child: CommunityFilterChip(
               label: l10n.sortRecentlyActive,
               icon: Icons.access_time_rounded,
-              isSelected: _sort == 'recently_active',
-              onTap: () {
-                setState(() {
-                  _sort = _sort == 'recently_active' ? null : 'recently_active';
-                });
-                _lastFilters = null; // Force reload
-              },
+              isSelected: chips.sort == 'recently_active',
+              onTap: () => _updateChips((c) => c.copyWith(
+                sort: () => c.sort == 'recently_active' ? null : 'recently_active',
+              )),
             ),
           ),
           // Online Now chip
@@ -603,11 +597,61 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
                   Text(l10n.onlineNow),
                 ],
               ),
-              selected: _quickOnlineOnly,
-              onSelected: (selected) {
-                setState(() => _quickOnlineOnly = selected);
-                _lastFilters = null; // Force reload
-              },
+              selected: chips.online,
+              onSelected: (selected) =>
+                  _updateChips((c) => c.copyWith(online: selected)),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 8),
+            child: _buildLanguageChip(
+              labelWidget: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(Icons.near_me_rounded, size: 14),
+                  const SizedBox(width: 4),
+                  Text(l10n.nearby),
+                ],
+              ),
+              selected: chips.nearby,
+              onSelected: (selected) =>
+                  _updateChips((c) => c.copyWith(nearby: selected)),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 8),
+            child: _buildLanguageChip(
+              label: l10n.sameCity,
+              selected: chips.sameCity,
+              onSelected: (selected) =>
+                  _updateChips((c) => c.copyWith(sameCity: selected)),
+            ),
+          ),
+          // Women / Men: one at a time; they override the sheet's gender.
+          for (final (value, label) in [('female', l10n.female), ('male', l10n.male)])
+            Padding(
+              padding: const EdgeInsets.only(right: 8),
+              child: _buildLanguageChip(
+                label: label,
+                selected: chips.gender == value,
+                onSelected: (selected) => _updateChips(
+                  (c) => c.copyWith(gender: () => selected ? value : null),
+                ),
+              ),
+            ),
+          Padding(
+            padding: const EdgeInsets.only(right: 8),
+            child: _buildLanguageChip(
+              labelWidget: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(_topicLabel(chips.topicId, l10n)),
+                  const SizedBox(width: 2),
+                  const Icon(Icons.arrow_drop_down_rounded, size: 18),
+                ],
+              ),
+              selected: chips.topicId != null,
+              onSelected: (_) => _pickTopic(chips.topicId),
             ),
           ),
           // "Speaks [user's learning language]" chip
@@ -616,13 +660,10 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
               padding: const EdgeInsets.only(right: 8),
               child: _buildLanguageChip(
                 label: l10n.speaksLanguage(_capitalizeFirst(userLearning)),
-                selected: _quickNativeLanguage == userLearning,
-                onSelected: (selected) {
-                  setState(() {
-                    _quickNativeLanguage = selected ? userLearning : null;
-                  });
-                  _lastFilters = null; // Force reload
-                },
+                selected: chips.speaks == userLearning,
+                onSelected: (selected) => _updateChips(
+                  (c) => c.copyWith(speaks: () => selected ? userLearning : null),
+                ),
               ),
             ),
           // "Learning [user's native language]" chip
@@ -631,13 +672,10 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
               padding: const EdgeInsets.only(right: 8),
               child: _buildLanguageChip(
                 label: l10n.learningLanguage(_capitalizeFirst(userNative)),
-                selected: _quickLearningLanguage == userNative,
-                onSelected: (selected) {
-                  setState(() {
-                    _quickLearningLanguage = selected ? userNative : null;
-                  });
-                  _lastFilters = null; // Force reload
-                },
+                selected: chips.learns == userNative,
+                onSelected: (selected) => _updateChips(
+                  (c) => c.copyWith(learns: () => selected ? userNative : null),
+                ),
               ),
             ),
         ],
@@ -758,7 +796,9 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
 
     return RefreshIndicator(
       onRefresh: () async {
-        ref.read(partnerFilterProvider.notifier).refresh();
+        // Awaited, so the spinner stays until page 1 is back.
+        await ref.read(partnerFilterProvider.notifier).refresh();
+        if (!mounted) return;
         setState(() {
           _sessionSkippedUsers.clear();
           _sessionWavedUsers.clear();
@@ -954,20 +994,11 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
   }
 
   /// Check if any non-default filters are active.
-  bool get _hasActiveFilters {
-    final f = widget.filters;
-    return f['gender'] != null ||
-        f['nativeLanguage'] != null ||
-        f['learningLanguage'] != null ||
-        f['languageLevel'] != null ||
-        f['country'] != null ||
-        (f['minAge'] != null && f['minAge'] != 18) ||
-        (f['maxAge'] != null && f['maxAge'] != 100) ||
-        f['onlineOnly'] == true ||
-        _quickOnlineOnly ||
-        _quickNativeLanguage != null ||
-        _quickLearningLanguage != null;
-  }
+  bool get _hasActiveFilters => hasActivePartnerFilters(
+        widget.filters,
+        ref.read(partnerSegmentProvider),
+        _chips,
+      );
 
   Widget _buildEmptyState() {
     final currentUserAsync = ref.watch(userProvider);
@@ -1020,11 +1051,9 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
                     width: double.infinity,
                     child: OutlinedButton.icon(
                       onPressed: () {
-                        setState(() {
-                          _quickOnlineOnly = false;
-                          _quickNativeLanguage = null;
-                          _quickLearningLanguage = null;
-                        });
+                        _updateChips((c) => c.cleared());
+                        ref.read(partnerSegmentProvider.notifier).state =
+                            PartnerSegment.all;
                         widget.onClearFilters?.call();
                       },
                       icon: const Icon(Icons.filter_alt_off_rounded),
@@ -1047,11 +1076,11 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
                   width: double.infinity,
                   child: OutlinedButton.icon(
                     onPressed: () {
-                      setState(() {
-                        _quickNativeLanguage = null;
-                        _quickLearningLanguage = null;
-                        _lastFilters = null;
-                      });
+                      _updateChips((c) => c.copyWith(
+                            speaks: () => null,
+                            learns: () => null,
+                          ));
+                      setState(() => _lastFilters = null);
                       ref
                           .read(partnerFilterProvider.notifier)
                           .loadWithFilters(
@@ -1060,7 +1089,7 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
                               minAge: widget.filters['minAge'] as int?,
                               maxAge: widget.filters['maxAge'] as int?,
                               country: widget.filters['country']?.toString(),
-                              onlineOnly: _quickOnlineOnly,
+                              onlineOnly: _chips.online,
                             ),
                           );
                     },
@@ -1196,11 +1225,7 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
             Spacing.gapSM,
             OutlinedButton.icon(
               onPressed: () {
-                setState(() {
-                  _quickOnlineOnly = false;
-                  _quickNativeLanguage = null;
-                  _quickLearningLanguage = null;
-                });
+                _updateChips((c) => c.cleared());
                 widget.onClearFilters?.call();
               },
               icon: const Icon(Icons.tune_rounded),

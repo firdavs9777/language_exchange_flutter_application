@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:bananatalk_app/pages/community/tabs/nearby_tab.dart';
+import 'package:bananatalk_app/pages/community/partners/nearby_partners_view.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 
 Location _loc(List<double> coords) => Location(

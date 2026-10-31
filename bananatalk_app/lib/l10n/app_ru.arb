@@ -4795,5 +4795,6 @@
   "clubApprove": "Одобрить",
   "clubRequestsEmpty": "Никто не ждёт.",
   "clubRequestSent": "Заявка отправлена. Решение за организатором.",
-  "clubRequestMeetups": "{count, plural, =0{Ещё не был на встречах} one{Был на {count} встрече} few{Был на {count} встречах} many{Был на {count} встречах} other{Был на {count} встречи}}"
+  "clubRequestMeetups": "{count, plural, =0{Ещё не был на встречах} one{Был на {count} встрече} few{Был на {count} встречах} many{Был на {count} встречах} other{Был на {count} встречи}}",
+  "sameCity": "Тот же город"
 }

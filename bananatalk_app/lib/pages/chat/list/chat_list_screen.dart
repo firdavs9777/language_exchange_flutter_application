@@ -1437,7 +1437,7 @@ class _ChatMainState extends ConsumerState<ChatMain>
             acted: _isLoading || _chatPartners.isNotEmpty,
             onCta: () {
               ref.read(communityPendingSubTabProvider.notifier).state =
-                  communityMatchesSubTab;
+                  CommunityDestination.matches;
               ref.read(selectedTabProvider.notifier).state = 1;
             },
           ),

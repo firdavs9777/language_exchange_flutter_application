@@ -12605,4 +12605,7 @@ class AppLocalizationsFr extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get sameCity => 'Même ville';
 }

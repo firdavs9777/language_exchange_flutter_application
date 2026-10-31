@@ -4258,5 +4258,6 @@
   "clubApprove": "Қабул",
   "clubRequestsEmpty": "Ҳеҷ кас интизор нест.",
   "clubRequestSent": "Дархост фиристода шуд. Мизбон қарор медиҳад.",
-  "clubRequestMeetups": "{count, plural, =0{Ҳоло дар вохӯрӣ набуд} other{Дар {count} вохӯрӣ иштирок кард}}"
+  "clubRequestMeetups": "{count, plural, =0{Ҳоло дар вохӯрӣ набуд} other{Дар {count} вохӯрӣ иштирок кард}}",
+  "sameCity": "Ҳамон шаҳр"
 }

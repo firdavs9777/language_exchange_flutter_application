@@ -12574,4 +12574,7 @@ class AppLocalizationsJa extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get sameCity => '同じ街';
 }

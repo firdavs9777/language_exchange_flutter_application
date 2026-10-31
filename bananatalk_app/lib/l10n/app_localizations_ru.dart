@@ -13073,4 +13073,7 @@ class AppLocalizationsRu extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get sameCity => 'Тот же город';
 }

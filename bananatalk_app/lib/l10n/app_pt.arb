@@ -4781,5 +4781,6 @@
   "clubApprove": "Aprovar",
   "clubRequestsEmpty": "Ninguém esperando.",
   "clubRequestSent": "Pedido enviado. O anfitrião vai decidir.",
-  "clubRequestMeetups": "{count, plural, =0{Nenhum encontro ainda} =1{Foi a 1 encontro} other{Foi a {count} encontros}}"
+  "clubRequestMeetups": "{count, plural, =0{Nenhum encontro ainda} =1{Foi a 1 encontro} other{Foi a {count} encontros}}",
+  "sameCity": "Mesma cidade"
 }

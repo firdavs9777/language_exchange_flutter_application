@@ -12605,4 +12605,7 @@ class AppLocalizationsHi extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get sameCity => 'एक ही शहर';
 }

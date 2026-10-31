@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/pages/community/main/community_main.dart';
 import 'package:bananatalk_app/pages/community/main/community_tab_bar.dart';
 
 Widget _host({required int length, bool showRoomsTab = true}) => ProviderScope(
@@ -15,7 +16,10 @@ Widget _host({required int length, bool showRoomsTab = true}) => ProviderScope(
             builder: (context) => Scaffold(
               body: CommunityTabBar(
                 tabController: DefaultTabController.of(context),
-                showRoomsTab: showRoomsTab,
+                tabs: communityTabLayout(
+                  matchesLayout: length == 4,
+                  rooms: showRoomsTab,
+                ),
               ),
             ),
           ),
@@ -25,7 +29,7 @@ Widget _host({required int length, bool showRoomsTab = true}) => ProviderScope(
 
 void main() {
   testWidgets('tapping a chip moves the controller to that tab', (tester) async {
-    await tester.pumpWidget(_host(length: 8));
+    await tester.pumpWidget(_host(length: 4));
     await tester.pumpAndSettle();
 
     final controller = DefaultTabController.of(
@@ -37,19 +41,18 @@ void main() {
     // absent is what makes this test fail against the old render -- tapping a
     // label alone passed either way.
     expect(find.byType(TabBar), findsNothing);
-    expect(find.byKey(const Key('community-chip-4')), findsOneWidget);
+    expect(find.byKey(const Key('community-chip-3')), findsOneWidget);
 
-    await tester.tap(find.byKey(const Key('community-chip-4')));
+    await tester.tap(find.byKey(const Key('community-chip-3')));
     await tester.pumpAndSettle();
 
-    // All=0, Gender=1, 모임=2, Rooms=3, Nearby=4 — the order the
-    // TabBarView and remapTabIndexForRoomsFlag both depend on.
-    expect(controller.index, 4);
+    // Matches=0, Partners=1, Clubs=2, Rooms=3 (communityTabLayout).
+    expect(controller.index, 3);
   });
 
   testWidgets('the Rooms chip is absent when the kill switch is off',
       (tester) async {
-    await tester.pumpWidget(_host(length: 7, showRoomsTab: false));
+    await tester.pumpWidget(_host(length: 2, showRoomsTab: false));
     await tester.pumpAndSettle();
 
     expect(find.text('Rooms'), findsNothing);
@@ -58,7 +61,7 @@ void main() {
 
   testWidgets('a swipe-driven controller change repaints the chips',
       (tester) async {
-    await tester.pumpWidget(_host(length: 8));
+    await tester.pumpWidget(_host(length: 3));
     await tester.pumpAndSettle();
 
     final controller = DefaultTabController.of(

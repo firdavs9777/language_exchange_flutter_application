@@ -4765,5 +4765,6 @@
   "clubApprove": "Setujui",
   "clubRequestsEmpty": "Tidak ada yang menunggu.",
   "clubRequestSent": "Permintaan terkirim. Host yang akan memutuskan.",
-  "clubRequestMeetups": "{count, plural, =0{Belum pernah ikut pertemuan} other{Ikut {count} pertemuan}}"
+  "clubRequestMeetups": "{count, plural, =0{Belum pernah ikut pertemuan} other{Ikut {count} pertemuan}}",
+  "sameCity": "Kota yang sama"
 }

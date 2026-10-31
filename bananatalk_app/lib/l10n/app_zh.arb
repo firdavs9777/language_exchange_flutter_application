@@ -4779,5 +4779,6 @@
   "clubApprove": "批准",
   "clubRequestsEmpty": "没有人在等待。",
   "clubRequestSent": "申请已发送，由组织者决定。",
-  "clubRequestMeetups": "{count, plural, =0{还没参加过聚会} other{参加过 {count} 次聚会}}"
+  "clubRequestMeetups": "{count, plural, =0{还没参加过聚会} other{参加过 {count} 次聚会}}",
+  "sameCity": "同城"
 }

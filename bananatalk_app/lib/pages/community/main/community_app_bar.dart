@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
-import 'package:bananatalk_app/providers/active_voice_room_count_provider.dart';
+import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/widgets/coins/coin_balance_pill.dart';
 import 'package:bananatalk_app/widgets/notifications/notification_bell.dart';
 import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
@@ -20,9 +20,13 @@ class CommunityAppBar extends ConsumerWidget implements PreferredSizeWidget {
     required this.isSearching,
     required this.onSearchToggle,
     required this.onFilterTap,
-    this.onLiveRoomsTap,
+    this.onWavesTap,
     this.matchesLayout = false,
+    this.showSearch = true,
   });
+
+  /// False while the Partners list shows Nearby, which has no name search.
+  final bool showSearch;
 
   /// Matches-first layout: the Matches tab replaces the "Find partners"
   /// overflow entry, so it is hidden.
@@ -32,10 +36,8 @@ class CommunityAppBar extends ConsumerWidget implements PreferredSizeWidget {
   final VoidCallback onSearchToggle;
   final VoidCallback onFilterTap;
 
-  /// Tapped when the "N live" pill is shown; `null` makes taps a no-op.
-  /// `community_main.dart` opens the voice-rooms list (see
-  /// `liveRoomsPillTarget`).
-  final VoidCallback? onLiveRoomsTap;
+  /// Opens the waves inbox (it was the last of eight tabs).
+  final VoidCallback? onWavesTap;
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
@@ -58,22 +60,22 @@ class CommunityAppBar extends ConsumerWidget implements PreferredSizeWidget {
         ),
       ),
       actions: [
-        // "N live" pill — the only always-visible entry point into Voice
-        // Rooms outside the buried tab strip (rooms-audit §3/§6#3). Hides
-        // itself while loading/errored/zero.
-        _LiveRoomsPill(onTap: onLiveRoomsTap),
+        // Waves inbox, with the unread count. The live voice-rooms pill
+        // moved into the Rooms tab, so it only polls while Rooms is open.
+        _WavesButton(onTap: onWavesTap),
         // Coin balance — Coins v1 entry point, hidden when coinsEnabled is off.
         const CoinBalancePill(),
         // Notification inbox — reachable from every tab, not just chat.
         NotificationBell(color: context.textPrimary),
         // Search toggle — bare neutral, lowest weight.
-        IconButton(
-          onPressed: onSearchToggle,
-          icon: Icon(
-            isSearching ? Icons.close_rounded : Icons.search_rounded,
-            color: context.textPrimary,
+        if (showSearch)
+          IconButton(
+            onPressed: onSearchToggle,
+            icon: Icon(
+              isSearching ? Icons.close_rounded : Icons.search_rounded,
+              color: context.textPrimary,
+            ),
           ),
-        ),
         // Filter — filled-primary pill, highest weight (most-used action).
         Container(
           margin: const EdgeInsets.only(right: Spacing.sm),
@@ -141,60 +143,24 @@ class CommunityAppBar extends ConsumerWidget implements PreferredSizeWidget {
   }
 }
 
-/// "🔴 N live" pill fed by [activeVoiceRoomCountProvider]. Hidden entirely
-/// while the count is loading, errored, or zero — a live-room pull is only
-/// worth the app-bar real estate once there's actually something to join.
-class _LiveRoomsPill extends ConsumerWidget {
-  const _LiveRoomsPill({this.onTap});
+class _WavesButton extends ConsumerWidget {
+  const _WavesButton({this.onTap});
 
   final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final countAsync = ref.watch(activeVoiceRoomCountProvider);
-    final count = countAsync.asData?.value ?? 0;
-    if (countAsync.isLoading || countAsync.hasError || count == 0) {
-      return const SizedBox.shrink();
-    }
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 10),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          onTap: onTap,
-          borderRadius: BorderRadius.circular(14),
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-            decoration: BoxDecoration(
-              color: Colors.red.withValues(alpha: 0.12),
-              borderRadius: BorderRadius.circular(14),
-              border: Border.all(color: Colors.red.withValues(alpha: 0.45)),
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  width: 7,
-                  height: 7,
-                  decoration: const BoxDecoration(
-                    color: Colors.red,
-                    shape: BoxShape.circle,
-                  ),
-                ),
-                const SizedBox(width: 5),
-                Text(
-                  AppLocalizations.of(context)!.communityLive(count),
-                  style: const TextStyle(
-                    color: Colors.red,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
+    final unread = ref
+        .watch(wavesUnreadProvider)
+        .maybeWhen(data: (n) => n, orElse: () => 0);
+    return IconButton(
+      key: const Key('community-waves-button'),
+      tooltip: AppLocalizations.of(context)!.waves,
+      onPressed: onTap,
+      icon: Badge(
+        isLabelVisible: unread > 0,
+        label: Text(unread > 99 ? '99+' : '$unread'),
+        child: Icon(Icons.waving_hand_outlined, color: context.textPrimary),
       ),
     );
   }

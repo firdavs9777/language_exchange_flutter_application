@@ -5005,5 +5005,6 @@
   "clubApprove": "Accepter",
   "clubRequestsEmpty": "Personne n'attend.",
   "clubRequestSent": "Demande envoyée. L'hôte décidera.",
-  "clubRequestMeetups": "{count, plural, =0{Aucune rencontre pour l’instant} =1{Venu à 1 rencontre} other{Venu à {count} rencontres}}"
+  "clubRequestMeetups": "{count, plural, =0{Aucune rencontre pour l’instant} =1{Venu à 1 rencontre} other{Venu à {count} rencontres}}",
+  "sameCity": "Même ville"
 }

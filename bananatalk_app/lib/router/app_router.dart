@@ -114,7 +114,7 @@ final callOverlayNavigatorKey = GlobalKey<NavigatorState>();
 /// sub-tab, then shows the tab shell on Community.
 class _CommunitySubTabLanding extends ConsumerStatefulWidget {
   const _CommunitySubTabLanding({required this.subTab});
-  final int subTab;
+  final CommunityDestination subTab;
 
   @override
   ConsumerState<_CommunitySubTabLanding> createState() =>
@@ -321,7 +321,7 @@ final goRouter = GoRouter(
       path: '/community/matches',
       pageBuilder: (context, state) => _buildFadeTransition(
         state: state,
-        child: const _CommunitySubTabLanding(subTab: communityMatchesSubTab),
+        child: const _CommunitySubTabLanding(subTab: CommunityDestination.matches),
         duration: const Duration(milliseconds: 250),
         curve: Curves.easeOut,
       ),
@@ -330,7 +330,7 @@ final goRouter = GoRouter(
       path: '/community/waves',
       pageBuilder: (context, state) => _buildFadeTransition(
         state: state,
-        child: const _CommunitySubTabLanding(subTab: communityWavesSubTab),
+        child: const _CommunitySubTabLanding(subTab: CommunityDestination.waves),
         duration: const Duration(milliseconds: 250),
         curve: Curves.easeOut,
       ),

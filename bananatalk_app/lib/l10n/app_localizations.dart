@@ -22879,6 +22879,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{count, plural, =0{No meetups yet} =1{Came to 1 meetup} other{Came to {count} meetups}}'**
   String clubRequestMeetups(int count);
+
+  /// Partners chip: people in the viewer's own city
+  ///
+  /// In en, this message translates to:
+  /// **'Same city'**
+  String get sameCity;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

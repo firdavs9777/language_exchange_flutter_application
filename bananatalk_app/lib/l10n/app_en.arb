@@ -8680,5 +8680,9 @@
         "type": "int"
       }
     }
+  },
+  "sameCity": "Same city",
+  "@sameCity": {
+    "description": "Partners chip: people in the viewer's own city"
   }
 }

@@ -7,6 +7,7 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/community/gathering_model.dart';
 import 'package:bananatalk_app/pages/community/gatherings/create_gathering_form.dart';
 import 'package:bananatalk_app/pages/community/gatherings/gatherings_tab.dart';
+import 'package:bananatalk_app/pages/community/main/community_main.dart';
 import 'package:bananatalk_app/pages/community/main/community_tab_bar.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
@@ -173,7 +174,7 @@ void main() {
       required bool showRoomsTab,
     }) async {
       final controller = TabController(
-        length: showRoomsTab ? 8 : 7,
+        length: showRoomsTab ? 3 : 2,
         vsync: const TestVSync(),
       );
       addTearDown(controller.dispose);
@@ -191,7 +192,10 @@ void main() {
             home: Scaffold(
               body: CommunityTabBar(
                 tabController: controller,
-                showRoomsTab: showRoomsTab,
+                tabs: communityTabLayout(
+                  matchesLayout: false,
+                  rooms: showRoomsTab,
+                ),
                 gatheringsEnabled: gatheringsEnabled,
               ),
             ),
@@ -212,11 +216,8 @@ void main() {
     testWidgets('the count is identical with the switch on and off', (
       tester,
     ) async {
-      // 모임 is NOT a ninth tab. It takes the voice-rooms slot, so flipping
-      // the switch must never add or remove one — if it did, the tab count
-      // would disagree with the TabController's length and the index
-      // arithmetic in `remapTabIndexForRoomsFlag` would be operating on a
-      // list that no longer matches.
+      // 모임 takes the voice-rooms slot (Clubs), so flipping the switch must
+      // never add or remove a tab.
       final on = await tabCount(
         tester,
         gatheringsEnabled: true,
@@ -228,7 +229,7 @@ void main() {
         showRoomsTab: true,
       );
       expect(on, off);
-      expect(on, 8, reason: 'Community keeps 8 tabs with Rooms enabled');
+      expect(on, 3, reason: 'Partners · Clubs · Rooms with Rooms enabled');
     });
 
     testWidgets('the switch changes the label, not the structure', (

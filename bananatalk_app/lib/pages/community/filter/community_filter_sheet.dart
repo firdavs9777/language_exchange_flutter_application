@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:bananatalk_app/pages/community/partners/partner_query.dart';
 import 'package:bananatalk_app/service/endpoints.dart';
 import 'package:bananatalk_app/models/language_model.dart';
 import 'package:bananatalk_app/widgets/language_selection/language_picker_screen.dart';
@@ -196,17 +197,17 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
     setState(() => _draftFilters = _buildDraftFiltersMap());
   }
 
-  /// Serialises the current sheet state into a plain Map for the count endpoint.
+  /// The count query: the SAME `/users` params the Partners list sends
+  /// (partner_query.dart) built from the sheet's draft values, the segment
+  /// and the quick chips behind the sheet. It used to skip the default
+  /// language match and send language picks the other way round, so the
+  /// count promised a different list.
   Map<String, dynamic> _buildDraftFiltersMap() {
-    // The partner segment lives outside the sheet; the count must honor it so
-    // it matches the list behind the sheet (it cannot change while open).
-    final segment = ref.read(partnerSegmentProvider);
-    return {
-      if (segment.activeWithin != null) 'activeWithin': segment.activeWithin,
-      if (segment.joinedWithin != null) 'joinedWithin': segment.joinedWithin,
+    final me = ref.read(userProvider).valueOrNull;
+    final draft = <String, dynamic>{
       'minAge': _minAge.toInt(),
       'maxAge': _maxAge.toInt(),
-      if (_selectedGender != null) 'gender': _selectedGender!.toLowerCase(),
+      if (_selectedGender != null) 'gender': _selectedGender,
       if (_selectedLanguage != null) 'nativeLanguage': _selectedLanguage!.name,
       if (_selectedLearningLanguage != null)
         'learningLanguage': _selectedLearningLanguage!.name,
@@ -215,10 +216,17 @@ class _CommunityFilterState extends ConsumerState<CommunityFilter> {
       if (_selectedCountry != null) 'country': _selectedCountry,
       'onlineOnly': _onlineOnly,
       'newUsersOnly': _newUsersOnly,
-      'prioritizeNearby': _prioritizeNearby,
       if (_topicsAtLeast > 0) 'topicsAtLeast': _topicsAtLeast,
       if (_selectedTopics.isNotEmpty) 'topics': _selectedTopics,
     };
+    return partnerParamsFor(
+      filters: draft,
+      myNative: me?.native_language,
+      myLearning: me?.language_to_learn,
+      segment: ref.read(partnerSegmentProvider),
+      chips: ref.read(partnerQuickChipsProvider),
+      isVip: me?.isVip ?? false,
+    ).toQuery();
   }
 
   void _clearAll() {
