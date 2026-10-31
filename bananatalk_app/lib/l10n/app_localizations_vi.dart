@@ -12507,5 +12507,74 @@ class AppLocalizationsVi extends AppLocalizations {
   String get clubNoticeLabel => 'Thông báo cho thành viên (không bắt buộc)';
 
   @override
+  String get clubShareToMoments => 'Chia sẻ cả lên Khoảnh khắc';
+
+  @override
+  String get clubShareToMomentsHint => 'Tắt: chỉ thành viên câu lạc bộ xem được.';
+
+  @override
+  String get clubActivityDistance => 'Quãng đường (km)';
+
+  @override
+  String get clubActivityTime => 'Thời gian (phút)';
+
+  @override
+  String clubActivityKm(String distance) {
+    return '$distance km';
+  }
+
+  @override
+  String clubActivityPace(String pace) {
+    return '$pace/km';
+  }
+
+  @override
+  String get clubPost => 'Đăng bản ghi';
+
+  @override
+  String get clubPostsTitle => 'Bài đăng câu lạc bộ';
+
+  @override
+  String get clubPostsEmpty => 'Chưa có bài đăng. Hãy chia sẻ buổi gặp hôm nay thế nào.';
+
+  @override
+  String get clubPostsSeeAll => 'Xem tất cả';
+
+  @override
+  String get clubFormatLabel => 'Câu lạc bộ gặp nhau ở đâu?';
+
+  @override
+  String get clubFormatOnline => 'Trực tuyến';
+
+  @override
+  String get clubFormatOffline => 'Trực tiếp';
+
+  @override
+  String get clubApprovalToggle => 'Duyệt thành viên mới';
+
+  @override
+  String get clubApprovalOfflineHint => 'Câu lạc bộ gặp trực tiếp luôn duyệt thành viên mới.';
+
+  @override
+  String get clubApprove => 'Duyệt';
+
+  @override
+  String get clubRequestsEmpty => 'Không có ai đang chờ.';
+
+  @override
+  String get clubRequestSent => 'Đã gửi yêu cầu. Chủ nhóm sẽ quyết định.';
+
+  @override
+  String clubRequestMeetups(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Đã tham gia $count buổi gặp',
+      zero: 'Chưa tham gia buổi gặp nào',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get sameCity => 'Cùng thành phố';
 }

@@ -8590,6 +8590,99 @@
   "@clubNoticeLabel": {
     "description": "Clubs v2: field in the club edit sheet for the organizers notice"
   },
+  "clubShareToMoments": "Also share to Moments",
+  "@clubShareToMoments": {
+    "description": "Clubs v2: switch in the club post composer; on = the post is also public in Moments"
+  },
+  "clubShareToMomentsHint": "Off: only club members see it.",
+  "@clubShareToMomentsHint": {
+    "description": "Clubs v2: under the share switch"
+  },
+  "clubActivityDistance": "Distance (km)",
+  "@clubActivityDistance": {
+    "description": "Clubs v2: optional distance field (kilometres) in a club post"
+  },
+  "clubActivityTime": "Time (min)",
+  "@clubActivityTime": {
+    "description": "Clubs v2: optional time field (minutes) in a club post"
+  },
+  "clubActivityKm": "{distance} km",
+  "@clubActivityKm": {
+    "description": "Clubs v2: a distance on a club post card, e.g. \"5.2 km\"",
+    "placeholders": {
+      "distance": {
+        "type": "String"
+      }
+    }
+  },
+  "clubActivityPace": "{pace}/km",
+  "@clubActivityPace": {
+    "description": "Clubs v2: a pace on a club post card, e.g. \"5:58/km\"",
+    "placeholders": {
+      "pace": {
+        "type": "String"
+      }
+    }
+  },
+  "clubPost": "Post a record",
+  "@clubPost": {
+    "description": "Clubs v2: button on the club page that opens the composer for a club post"
+  },
+  "clubPostsTitle": "Club posts",
+  "@clubPostsTitle": {
+    "description": "Clubs v2: heading of the club posts section on the club page"
+  },
+  "clubPostsEmpty": "No posts yet. Share how today's meetup went.",
+  "@clubPostsEmpty": {
+    "description": "Clubs v2: empty state of the club posts section"
+  },
+  "clubPostsSeeAll": "See all",
+  "@clubPostsSeeAll": {
+    "description": "Clubs v2: link from the club page to the full club feed"
+  },
+  "clubFormatLabel": "Where does it meet?",
+  "@clubFormatLabel": {
+    "description": "Clubs v2: create/edit club, choice of where the club meets"
+  },
+  "clubFormatOnline": "Online",
+  "@clubFormatOnline": {
+    "description": "Clubs v2: the club meets online"
+  },
+  "clubFormatOffline": "In person",
+  "@clubFormatOffline": {
+    "description": "Clubs v2: the club meets in person"
+  },
+  "clubApprovalToggle": "Approve new members",
+  "@clubApprovalToggle": {
+    "description": "Clubs v2: switch; the host approves each new member"
+  },
+  "clubApprovalOfflineHint": "In-person clubs always approve new members.",
+  "@clubApprovalOfflineHint": {
+    "description": "Clubs v2: under the approval switch when the club meets in person"
+  },
+  "clubApprove": "Approve",
+  "@clubApprove": {
+    "description": "Clubs v2: approve a join request"
+  },
+  "clubRequestsEmpty": "No one is waiting.",
+  "@clubRequestsEmpty": {
+    "description": "Clubs v2: join requests sheet, nobody waiting"
+  },
+  "clubRequestSent": "Request sent. The host will decide.",
+  "@clubRequestSent": {
+    "description": "Clubs v2: snackbar after asking to join an approval club"
+  },
+  "clubRequestMeetups": "{count, plural, =0{No meetups yet} =1{Came to 1 meetup} other{Came to {count} meetups}}",
+  "@clubRequestMeetups": {
+    "description": "Clubs v2: join request row, how many meetups the asker has been to",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "sameCity": "Same city",
-  "@sameCity": {"description": "Partners chip: people in the viewer's own city"}
+  "@sameCity": {
+    "description": "Partners chip: people in the viewer's own city"
+  }
 }

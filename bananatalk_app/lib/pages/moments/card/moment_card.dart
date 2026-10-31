@@ -33,6 +33,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/utils/compact_count.dart';
 import 'package:bananatalk_app/pages/moments/widgets/moment_prompt_label.dart';
+import 'package:bananatalk_app/pages/moments/card/moment_activity_chip.dart';
 
 class MomentCard extends ConsumerStatefulWidget {
   final Moments moments;
@@ -787,6 +788,13 @@ class _MomentCardState extends ConsumerState<MomentCard> {
               },
               onMenuTap: () => _showMoreOptions(context),
             ),
+
+            // ── Club post stats (clubs v2) ──
+            if (widget.moments.activity != null)
+              Padding(
+                padding: const EdgeInsets.fromLTRB(12, 0, 12, 8),
+                child: MomentActivityChip(activity: widget.moments.activity!),
+              ),
 
             // ── Boosted (the author's latest moment during a Profile Boost) ──
             if (widget.moments.boosted)

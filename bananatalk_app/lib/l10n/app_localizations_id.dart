@@ -12518,5 +12518,74 @@ class AppLocalizationsId extends AppLocalizations {
   String get clubNoticeLabel => 'Pengumuman untuk anggota (opsional)';
 
   @override
+  String get clubShareToMoments => 'Bagikan juga ke Momen';
+
+  @override
+  String get clubShareToMomentsHint => 'Mati: hanya anggota klub yang melihat.';
+
+  @override
+  String get clubActivityDistance => 'Jarak (km)';
+
+  @override
+  String get clubActivityTime => 'Waktu (menit)';
+
+  @override
+  String clubActivityKm(String distance) {
+    return '$distance km';
+  }
+
+  @override
+  String clubActivityPace(String pace) {
+    return '$pace/km';
+  }
+
+  @override
+  String get clubPost => 'Unggah catatan';
+
+  @override
+  String get clubPostsTitle => 'Postingan klub';
+
+  @override
+  String get clubPostsEmpty => 'Belum ada postingan. Ceritakan pertemuan hari ini.';
+
+  @override
+  String get clubPostsSeeAll => 'Lihat semua';
+
+  @override
+  String get clubFormatLabel => 'Di mana klub bertemu?';
+
+  @override
+  String get clubFormatOnline => 'Online';
+
+  @override
+  String get clubFormatOffline => 'Tatap muka';
+
+  @override
+  String get clubApprovalToggle => 'Setujui anggota baru';
+
+  @override
+  String get clubApprovalOfflineHint => 'Klub tatap muka selalu menyetujui anggota baru.';
+
+  @override
+  String get clubApprove => 'Setujui';
+
+  @override
+  String get clubRequestsEmpty => 'Tidak ada yang menunggu.';
+
+  @override
+  String get clubRequestSent => 'Permintaan terkirim. Host yang akan memutuskan.';
+
+  @override
+  String clubRequestMeetups(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Ikut $count pertemuan',
+      zero: 'Belum pernah ikut pertemuan',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get sameCity => 'Kota yang sama';
 }

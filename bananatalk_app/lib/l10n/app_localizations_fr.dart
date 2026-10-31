@@ -12537,5 +12537,75 @@ class AppLocalizationsFr extends AppLocalizations {
   String get clubNoticeLabel => 'Annonce pour les membres (facultatif)';
 
   @override
+  String get clubShareToMoments => 'Partager aussi dans Moments';
+
+  @override
+  String get clubShareToMomentsHint => 'Désactivé : seuls les membres du club le voient.';
+
+  @override
+  String get clubActivityDistance => 'Distance (km)';
+
+  @override
+  String get clubActivityTime => 'Temps (min)';
+
+  @override
+  String clubActivityKm(String distance) {
+    return '$distance km';
+  }
+
+  @override
+  String clubActivityPace(String pace) {
+    return '$pace/km';
+  }
+
+  @override
+  String get clubPost => 'Publier un récit';
+
+  @override
+  String get clubPostsTitle => 'Publications du club';
+
+  @override
+  String get clubPostsEmpty => 'Pas encore de publication. Raconte comment s\'est passée la rencontre du jour.';
+
+  @override
+  String get clubPostsSeeAll => 'Tout voir';
+
+  @override
+  String get clubFormatLabel => 'Où se retrouve le club ?';
+
+  @override
+  String get clubFormatOnline => 'En ligne';
+
+  @override
+  String get clubFormatOffline => 'En personne';
+
+  @override
+  String get clubApprovalToggle => 'Valider les nouveaux membres';
+
+  @override
+  String get clubApprovalOfflineHint => 'Les clubs en personne valident toujours les nouveaux membres.';
+
+  @override
+  String get clubApprove => 'Accepter';
+
+  @override
+  String get clubRequestsEmpty => 'Personne n\'attend.';
+
+  @override
+  String get clubRequestSent => 'Demande envoyée. L\'hôte décidera.';
+
+  @override
+  String clubRequestMeetups(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Venu à $count rencontres',
+      one: 'Venu à 1 rencontre',
+      zero: 'Aucune rencontre pour l’instant',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get sameCity => 'Même ville';
 }

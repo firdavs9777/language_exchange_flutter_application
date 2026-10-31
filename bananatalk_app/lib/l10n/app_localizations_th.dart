@@ -12507,5 +12507,74 @@ class AppLocalizationsTh extends AppLocalizations {
   String get clubNoticeLabel => 'ประกาศถึงสมาชิก (ไม่บังคับ)';
 
   @override
+  String get clubShareToMoments => 'แชร์ไปที่โมเมนต์ด้วย';
+
+  @override
+  String get clubShareToMomentsHint => 'ปิด: เห็นได้เฉพาะสมาชิกคลับ';
+
+  @override
+  String get clubActivityDistance => 'ระยะทาง (กม.)';
+
+  @override
+  String get clubActivityTime => 'เวลา (นาที)';
+
+  @override
+  String clubActivityKm(String distance) {
+    return '$distance กม.';
+  }
+
+  @override
+  String clubActivityPace(String pace) {
+    return '$pace/กม.';
+  }
+
+  @override
+  String get clubPost => 'โพสต์บันทึก';
+
+  @override
+  String get clubPostsTitle => 'โพสต์ของคลับ';
+
+  @override
+  String get clubPostsEmpty => 'ยังไม่มีโพสต์ แชร์ว่าการพบกันวันนี้เป็นอย่างไร';
+
+  @override
+  String get clubPostsSeeAll => 'ดูทั้งหมด';
+
+  @override
+  String get clubFormatLabel => 'คลับนัดเจอกันที่ไหน';
+
+  @override
+  String get clubFormatOnline => 'ออนไลน์';
+
+  @override
+  String get clubFormatOffline => 'พบตัวจริง';
+
+  @override
+  String get clubApprovalToggle => 'อนุมัติสมาชิกใหม่';
+
+  @override
+  String get clubApprovalOfflineHint => 'คลับที่พบตัวจริงต้องอนุมัติสมาชิกใหม่เสมอ';
+
+  @override
+  String get clubApprove => 'อนุมัติ';
+
+  @override
+  String get clubRequestsEmpty => 'ไม่มีใครรออยู่';
+
+  @override
+  String get clubRequestSent => 'ส่งคำขอแล้ว โฮสต์จะเป็นผู้ตัดสิน';
+
+  @override
+  String clubRequestMeetups(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'เข้าร่วมแล้ว $count ครั้ง',
+      zero: 'ยังไม่เคยเข้าร่วม',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get sameCity => 'เมืองเดียวกัน';
 }

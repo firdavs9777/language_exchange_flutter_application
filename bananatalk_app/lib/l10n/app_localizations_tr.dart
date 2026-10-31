@@ -12525,5 +12525,74 @@ class AppLocalizationsTr extends AppLocalizations {
   String get clubNoticeLabel => 'Üyelere duyuru (isteğe bağlı)';
 
   @override
+  String get clubShareToMoments => 'Anlar\'da da paylaş';
+
+  @override
+  String get clubShareToMomentsHint => 'Kapalı: yalnızca kulüp üyeleri görür.';
+
+  @override
+  String get clubActivityDistance => 'Mesafe (km)';
+
+  @override
+  String get clubActivityTime => 'Süre (dk)';
+
+  @override
+  String clubActivityKm(String distance) {
+    return '$distance km';
+  }
+
+  @override
+  String clubActivityPace(String pace) {
+    return '$pace/km';
+  }
+
+  @override
+  String get clubPost => 'Kayıt paylaş';
+
+  @override
+  String get clubPostsTitle => 'Kulüp gönderileri';
+
+  @override
+  String get clubPostsEmpty => 'Henüz gönderi yok. Bugünkü buluşmanın nasıl geçtiğini paylaş.';
+
+  @override
+  String get clubPostsSeeAll => 'Tümünü gör';
+
+  @override
+  String get clubFormatLabel => 'Kulüp nerede buluşuyor?';
+
+  @override
+  String get clubFormatOnline => 'Çevrimiçi';
+
+  @override
+  String get clubFormatOffline => 'Yüz yüze';
+
+  @override
+  String get clubApprovalToggle => 'Yeni üyeleri onayla';
+
+  @override
+  String get clubApprovalOfflineHint => 'Yüz yüze kulüpler yeni üyeleri her zaman onaylar.';
+
+  @override
+  String get clubApprove => 'Onayla';
+
+  @override
+  String get clubRequestsEmpty => 'Bekleyen kimse yok.';
+
+  @override
+  String get clubRequestSent => 'İstek gönderildi. Kararı ev sahibi verecek.';
+
+  @override
+  String clubRequestMeetups(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count buluşmaya katıldı',
+      zero: 'Henüz buluşmaya katılmadı',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get sameCity => 'Aynı şehir';
 }

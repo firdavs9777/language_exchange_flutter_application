@@ -12530,5 +12530,75 @@ class AppLocalizationsTl extends AppLocalizations {
   String get clubNoticeLabel => 'Paalala sa mga miyembro (opsyonal)';
 
   @override
+  String get clubShareToMoments => 'Ibahagi rin sa Moments';
+
+  @override
+  String get clubShareToMomentsHint => 'Naka-off: mga miyembro lang ng club ang makakakita.';
+
+  @override
+  String get clubActivityDistance => 'Layo (km)';
+
+  @override
+  String get clubActivityTime => 'Oras (min)';
+
+  @override
+  String clubActivityKm(String distance) {
+    return '$distance km';
+  }
+
+  @override
+  String clubActivityPace(String pace) {
+    return '$pace/km';
+  }
+
+  @override
+  String get clubPost => 'Mag-post ng record';
+
+  @override
+  String get clubPostsTitle => 'Mga post ng club';
+
+  @override
+  String get clubPostsEmpty => 'Wala pang post. Ikuwento kung kumusta ang meetup ngayon.';
+
+  @override
+  String get clubPostsSeeAll => 'Tingnan lahat';
+
+  @override
+  String get clubFormatLabel => 'Saan nagkikita ang club?';
+
+  @override
+  String get clubFormatOnline => 'Online';
+
+  @override
+  String get clubFormatOffline => 'Personal';
+
+  @override
+  String get clubApprovalToggle => 'Aprubahan ang mga bagong miyembro';
+
+  @override
+  String get clubApprovalOfflineHint => 'Laging inaaprubahan ng mga personal na club ang bagong miyembro.';
+
+  @override
+  String get clubApprove => 'Aprubahan';
+
+  @override
+  String get clubRequestsEmpty => 'Walang naghihintay.';
+
+  @override
+  String get clubRequestSent => 'Naipadala ang request. Ang host ang magpapasya.';
+
+  @override
+  String clubRequestMeetups(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Dumalo sa $count meetup',
+      one: 'Dumalo sa 1 meetup',
+      zero: 'Wala pang meetup',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get sameCity => 'Parehong lungsod';
 }

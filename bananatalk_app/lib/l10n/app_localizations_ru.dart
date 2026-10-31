@@ -13003,5 +13003,77 @@ class AppLocalizationsRu extends AppLocalizations {
   String get clubNoticeLabel => 'Объявление для участников (необязательно)';
 
   @override
+  String get clubShareToMoments => 'Также опубликовать в Моментах';
+
+  @override
+  String get clubShareToMomentsHint => 'Выключено: видят только участники клуба.';
+
+  @override
+  String get clubActivityDistance => 'Дистанция (км)';
+
+  @override
+  String get clubActivityTime => 'Время (мин)';
+
+  @override
+  String clubActivityKm(String distance) {
+    return '$distance км';
+  }
+
+  @override
+  String clubActivityPace(String pace) {
+    return '$pace/км';
+  }
+
+  @override
+  String get clubPost => 'Опубликовать запись';
+
+  @override
+  String get clubPostsTitle => 'Записи клуба';
+
+  @override
+  String get clubPostsEmpty => 'Пока нет записей. Расскажите, как прошла сегодняшняя встреча.';
+
+  @override
+  String get clubPostsSeeAll => 'Смотреть все';
+
+  @override
+  String get clubFormatLabel => 'Где встречается клуб?';
+
+  @override
+  String get clubFormatOnline => 'Онлайн';
+
+  @override
+  String get clubFormatOffline => 'Вживую';
+
+  @override
+  String get clubApprovalToggle => 'Одобрять новых участников';
+
+  @override
+  String get clubApprovalOfflineHint => 'Клубы со встречами вживую всегда одобряют новых участников.';
+
+  @override
+  String get clubApprove => 'Одобрить';
+
+  @override
+  String get clubRequestsEmpty => 'Никто не ждёт.';
+
+  @override
+  String get clubRequestSent => 'Заявка отправлена. Решение за организатором.';
+
+  @override
+  String clubRequestMeetups(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Был на $count встречи',
+      many: 'Был на $count встречах',
+      few: 'Был на $count встречах',
+      one: 'Был на $count встрече',
+      zero: 'Ещё не был на встречах',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get sameCity => 'Тот же город';
 }

@@ -12549,5 +12549,75 @@ class AppLocalizationsEs extends AppLocalizations {
   String get clubNoticeLabel => 'Aviso para miembros (opcional)';
 
   @override
+  String get clubShareToMoments => 'Compartir también en Momentos';
+
+  @override
+  String get clubShareToMomentsHint => 'Desactivado: solo lo ven los miembros del club.';
+
+  @override
+  String get clubActivityDistance => 'Distancia (km)';
+
+  @override
+  String get clubActivityTime => 'Tiempo (min)';
+
+  @override
+  String clubActivityKm(String distance) {
+    return '$distance km';
+  }
+
+  @override
+  String clubActivityPace(String pace) {
+    return '$pace/km';
+  }
+
+  @override
+  String get clubPost => 'Publicar un registro';
+
+  @override
+  String get clubPostsTitle => 'Publicaciones del club';
+
+  @override
+  String get clubPostsEmpty => 'Aún no hay publicaciones. Cuenta cómo fue el encuentro de hoy.';
+
+  @override
+  String get clubPostsSeeAll => 'Ver todo';
+
+  @override
+  String get clubFormatLabel => '¿Dónde se reúne?';
+
+  @override
+  String get clubFormatOnline => 'En línea';
+
+  @override
+  String get clubFormatOffline => 'En persona';
+
+  @override
+  String get clubApprovalToggle => 'Aprobar a los nuevos miembros';
+
+  @override
+  String get clubApprovalOfflineHint => 'Los clubes presenciales siempre aprueban a los nuevos miembros.';
+
+  @override
+  String get clubApprove => 'Aprobar';
+
+  @override
+  String get clubRequestsEmpty => 'No hay nadie esperando.';
+
+  @override
+  String get clubRequestSent => 'Solicitud enviada. El anfitrión decidirá.';
+
+  @override
+  String clubRequestMeetups(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Fue a $count encuentros',
+      one: 'Fue a 1 encuentro',
+      zero: 'Aún sin encuentros',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get sameCity => 'Misma ciudad';
 }

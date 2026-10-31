@@ -12527,5 +12527,74 @@ class AppLocalizationsTg extends AppLocalizations {
   String get clubNoticeLabel => 'Эълон барои аъзоён (ихтиёрӣ)';
 
   @override
+  String get clubShareToMoments => 'Инчунин дар Лаҳзаҳо мубодила кунед';
+
+  @override
+  String get clubShareToMomentsHint => 'Хомӯш: танҳо аъзоёни клуб мебинанд.';
+
+  @override
+  String get clubActivityDistance => 'Масофа (км)';
+
+  @override
+  String get clubActivityTime => 'Вақт (дақ.)';
+
+  @override
+  String clubActivityKm(String distance) {
+    return '$distance км';
+  }
+
+  @override
+  String clubActivityPace(String pace) {
+    return '$pace/км';
+  }
+
+  @override
+  String get clubPost => 'Сабтро нашр кунед';
+
+  @override
+  String get clubPostsTitle => 'Паёмҳои клуб';
+
+  @override
+  String get clubPostsEmpty => 'Ҳоло паём нест. Нақл кунед, ки вохӯрии имрӯза чӣ гуна гузашт.';
+
+  @override
+  String get clubPostsSeeAll => 'Ҳамаро дидан';
+
+  @override
+  String get clubFormatLabel => 'Клуб дар куҷо вомехӯрад?';
+
+  @override
+  String get clubFormatOnline => 'Онлайн';
+
+  @override
+  String get clubFormatOffline => 'Ҳузурӣ';
+
+  @override
+  String get clubApprovalToggle => 'Аъзоёни навро тасдиқ кунед';
+
+  @override
+  String get clubApprovalOfflineHint => 'Клубҳои ҳузурӣ ҳамеша аъзоёни навро тасдиқ мекунанд.';
+
+  @override
+  String get clubApprove => 'Қабул';
+
+  @override
+  String get clubRequestsEmpty => 'Ҳеҷ кас интизор нест.';
+
+  @override
+  String get clubRequestSent => 'Дархост фиристода шуд. Мизбон қарор медиҳад.';
+
+  @override
+  String clubRequestMeetups(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Дар $count вохӯрӣ иштирок кард',
+      zero: 'Ҳоло дар вохӯрӣ набуд',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get sameCity => 'Ҳамон шаҳр';
 }

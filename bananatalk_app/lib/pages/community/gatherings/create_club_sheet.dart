@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
 
+import 'package:bananatalk_app/pages/community/gatherings/club_format_picker.dart';
 import 'package:bananatalk_app/pages/community/gatherings/club_rules.dart';
 import 'package:bananatalk_app/pages/community/gatherings/group_cover_picker.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
@@ -46,6 +47,10 @@ class _CreateClubSheetState extends State<CreateClubSheet> {
 
   /// Clubs v2. Null until the editor first builds with the defaults.
   List<String>? _rules;
+
+  /// Clubs v2 slice 4: where it meets, and approval for online clubs.
+  String _format = 'online';
+  bool _joinApproval = false;
   late final TextEditingController _language = TextEditingController(
     text: widget.defaultLanguage,
   );
@@ -97,6 +102,8 @@ class _CreateClubSheetState extends State<CreateClubSheet> {
           ? _secondLanguage.text.trim()
           : null,
       rules: widget.clubsV2 ? (_rules ?? defaultClubRules(l10n)) : null,
+      format: widget.clubsV2 ? _format : null,
+      joinApproval: widget.clubsV2 ? _joinApproval : null,
     );
     if (!mounted) return;
     setState(() => _submitting = false);
@@ -219,6 +226,15 @@ class _CreateClubSheetState extends State<CreateClubSheet> {
             ),
           ),
           if (widget.clubsV2) ...[
+            Spacing.gapMD,
+            ClubFormatPicker(
+              format: _format,
+              joinApproval: _joinApproval,
+              onChanged: (f, a) => setState(() {
+                _format = f;
+                _joinApproval = a;
+              }),
+            ),
             Spacing.gapMD,
             ClubRulesEditor(
               initialRules: defaultClubRules(l10n),

@@ -12507,5 +12507,74 @@ class AppLocalizationsJa extends AppLocalizations {
   String get clubNoticeLabel => 'メンバーへのお知らせ（任意）';
 
   @override
+  String get clubShareToMoments => 'モーメントにも共有';
+
+  @override
+  String get clubShareToMomentsHint => 'オフ：クラブのメンバーだけが見られます。';
+
+  @override
+  String get clubActivityDistance => '距離（km）';
+
+  @override
+  String get clubActivityTime => '時間（分）';
+
+  @override
+  String clubActivityKm(String distance) {
+    return '$distance km';
+  }
+
+  @override
+  String clubActivityPace(String pace) {
+    return '$pace/km';
+  }
+
+  @override
+  String get clubPost => '記録を投稿';
+
+  @override
+  String get clubPostsTitle => 'クラブの投稿';
+
+  @override
+  String get clubPostsEmpty => 'まだ投稿はありません。今日の集まりの様子を共有しましょう。';
+
+  @override
+  String get clubPostsSeeAll => 'すべて見る';
+
+  @override
+  String get clubFormatLabel => 'どこで集まりますか？';
+
+  @override
+  String get clubFormatOnline => 'オンライン';
+
+  @override
+  String get clubFormatOffline => '対面';
+
+  @override
+  String get clubApprovalToggle => '新しいメンバーを承認制にする';
+
+  @override
+  String get clubApprovalOfflineHint => '対面のクラブは常に新しいメンバーを承認制にします。';
+
+  @override
+  String get clubApprove => '承認';
+
+  @override
+  String get clubRequestsEmpty => '待っている人はいません。';
+
+  @override
+  String get clubRequestSent => 'リクエストを送りました。ホストが判断します。';
+
+  @override
+  String clubRequestMeetups(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '集まりに$count回参加',
+      zero: 'まだ参加した集まりはありません',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get sameCity => '同じ街';
 }

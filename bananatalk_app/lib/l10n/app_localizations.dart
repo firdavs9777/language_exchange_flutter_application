@@ -22766,6 +22766,120 @@ abstract class AppLocalizations {
   /// **'Notice for members (optional)'**
   String get clubNoticeLabel;
 
+  /// Clubs v2: switch in the club post composer; on = the post is also public in Moments
+  ///
+  /// In en, this message translates to:
+  /// **'Also share to Moments'**
+  String get clubShareToMoments;
+
+  /// Clubs v2: under the share switch
+  ///
+  /// In en, this message translates to:
+  /// **'Off: only club members see it.'**
+  String get clubShareToMomentsHint;
+
+  /// Clubs v2: optional distance field (kilometres) in a club post
+  ///
+  /// In en, this message translates to:
+  /// **'Distance (km)'**
+  String get clubActivityDistance;
+
+  /// Clubs v2: optional time field (minutes) in a club post
+  ///
+  /// In en, this message translates to:
+  /// **'Time (min)'**
+  String get clubActivityTime;
+
+  /// Clubs v2: a distance on a club post card, e.g. "5.2 km"
+  ///
+  /// In en, this message translates to:
+  /// **'{distance} km'**
+  String clubActivityKm(String distance);
+
+  /// Clubs v2: a pace on a club post card, e.g. "5:58/km"
+  ///
+  /// In en, this message translates to:
+  /// **'{pace}/km'**
+  String clubActivityPace(String pace);
+
+  /// Clubs v2: button on the club page that opens the composer for a club post
+  ///
+  /// In en, this message translates to:
+  /// **'Post a record'**
+  String get clubPost;
+
+  /// Clubs v2: heading of the club posts section on the club page
+  ///
+  /// In en, this message translates to:
+  /// **'Club posts'**
+  String get clubPostsTitle;
+
+  /// Clubs v2: empty state of the club posts section
+  ///
+  /// In en, this message translates to:
+  /// **'No posts yet. Share how today\'s meetup went.'**
+  String get clubPostsEmpty;
+
+  /// Clubs v2: link from the club page to the full club feed
+  ///
+  /// In en, this message translates to:
+  /// **'See all'**
+  String get clubPostsSeeAll;
+
+  /// Clubs v2: create/edit club, choice of where the club meets
+  ///
+  /// In en, this message translates to:
+  /// **'Where does it meet?'**
+  String get clubFormatLabel;
+
+  /// Clubs v2: the club meets online
+  ///
+  /// In en, this message translates to:
+  /// **'Online'**
+  String get clubFormatOnline;
+
+  /// Clubs v2: the club meets in person
+  ///
+  /// In en, this message translates to:
+  /// **'In person'**
+  String get clubFormatOffline;
+
+  /// Clubs v2: switch; the host approves each new member
+  ///
+  /// In en, this message translates to:
+  /// **'Approve new members'**
+  String get clubApprovalToggle;
+
+  /// Clubs v2: under the approval switch when the club meets in person
+  ///
+  /// In en, this message translates to:
+  /// **'In-person clubs always approve new members.'**
+  String get clubApprovalOfflineHint;
+
+  /// Clubs v2: approve a join request
+  ///
+  /// In en, this message translates to:
+  /// **'Approve'**
+  String get clubApprove;
+
+  /// Clubs v2: join requests sheet, nobody waiting
+  ///
+  /// In en, this message translates to:
+  /// **'No one is waiting.'**
+  String get clubRequestsEmpty;
+
+  /// Clubs v2: snackbar after asking to join an approval club
+  ///
+  /// In en, this message translates to:
+  /// **'Request sent. The host will decide.'**
+  String get clubRequestSent;
+
+  /// Clubs v2: join request row, how many meetups the asker has been to
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No meetups yet} =1{Came to 1 meetup} other{Came to {count} meetups}}'**
+  String clubRequestMeetups(int count);
+
   /// Partners chip: people in the viewer's own city
   ///
   /// In en, this message translates to:

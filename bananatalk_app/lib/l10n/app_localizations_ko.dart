@@ -12507,5 +12507,74 @@ class AppLocalizationsKo extends AppLocalizations {
   String get clubNoticeLabel => '멤버 공지 (선택)';
 
   @override
+  String get clubShareToMoments => '모먼트에도 공유';
+
+  @override
+  String get clubShareToMomentsHint => '끄면 클럽 멤버만 볼 수 있어요.';
+
+  @override
+  String get clubActivityDistance => '거리 (km)';
+
+  @override
+  String get clubActivityTime => '시간 (분)';
+
+  @override
+  String clubActivityKm(String distance) {
+    return '$distance km';
+  }
+
+  @override
+  String clubActivityPace(String pace) {
+    return '$pace/km';
+  }
+
+  @override
+  String get clubPost => '기록 올리기';
+
+  @override
+  String get clubPostsTitle => '클럽 게시물';
+
+  @override
+  String get clubPostsEmpty => '아직 게시물이 없어요. 오늘 모임은 어땠는지 공유해 보세요.';
+
+  @override
+  String get clubPostsSeeAll => '모두 보기';
+
+  @override
+  String get clubFormatLabel => '어디서 모이나요?';
+
+  @override
+  String get clubFormatOnline => '온라인';
+
+  @override
+  String get clubFormatOffline => '오프라인';
+
+  @override
+  String get clubApprovalToggle => '새 멤버 승인하기';
+
+  @override
+  String get clubApprovalOfflineHint => '오프라인 클럽은 항상 새 멤버를 승인해요.';
+
+  @override
+  String get clubApprove => '승인';
+
+  @override
+  String get clubRequestsEmpty => '기다리는 사람이 없어요.';
+
+  @override
+  String get clubRequestSent => '요청을 보냈어요. 운영진이 결정할 거예요.';
+
+  @override
+  String clubRequestMeetups(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '모임 $count번 참석',
+      zero: '아직 참석한 모임 없음',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get sameCity => '같은 도시';
 }

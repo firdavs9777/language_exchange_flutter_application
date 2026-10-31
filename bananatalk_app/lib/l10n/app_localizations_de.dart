@@ -12549,5 +12549,75 @@ class AppLocalizationsDe extends AppLocalizations {
   String get clubNoticeLabel => 'Hinweis für Mitglieder (optional)';
 
   @override
+  String get clubShareToMoments => 'Auch in Momente teilen';
+
+  @override
+  String get clubShareToMomentsHint => 'Aus: nur Club-Mitglieder sehen es.';
+
+  @override
+  String get clubActivityDistance => 'Distanz (km)';
+
+  @override
+  String get clubActivityTime => 'Zeit (Min.)';
+
+  @override
+  String clubActivityKm(String distance) {
+    return '$distance km';
+  }
+
+  @override
+  String clubActivityPace(String pace) {
+    return '$pace/km';
+  }
+
+  @override
+  String get clubPost => 'Eintrag posten';
+
+  @override
+  String get clubPostsTitle => 'Club-Beiträge';
+
+  @override
+  String get clubPostsEmpty => 'Noch keine Beiträge. Erzähl, wie das heutige Treffen war.';
+
+  @override
+  String get clubPostsSeeAll => 'Alle anzeigen';
+
+  @override
+  String get clubFormatLabel => 'Wo trifft sich der Club?';
+
+  @override
+  String get clubFormatOnline => 'Online';
+
+  @override
+  String get clubFormatOffline => 'Vor Ort';
+
+  @override
+  String get clubApprovalToggle => 'Neue Mitglieder bestätigen';
+
+  @override
+  String get clubApprovalOfflineHint => 'Clubs vor Ort bestätigen neue Mitglieder immer.';
+
+  @override
+  String get clubApprove => 'Annehmen';
+
+  @override
+  String get clubRequestsEmpty => 'Niemand wartet.';
+
+  @override
+  String get clubRequestSent => 'Anfrage gesendet. Der Host entscheidet.';
+
+  @override
+  String clubRequestMeetups(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'War bei $count Treffen',
+      one: 'War bei 1 Treffen',
+      zero: 'Noch bei keinem Treffen',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get sameCity => 'Gleiche Stadt';
 }

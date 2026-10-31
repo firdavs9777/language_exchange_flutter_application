@@ -1,6 +1,6 @@
 # Remaining work — BananaTalk app
 
-Last updated: 2026-10-28 (2.2.7 audit fixes; P3 chat leaks fixed; 모임 decisions). Keep this current: tick items off in the same commit that finishes them.
+Last updated: 2026-10-31 (Community phase 1 deployed, phase 2 app code-complete on feat/community-p2; 2.2.7 audit fixes; 모임 decisions). Keep this current: tick items off in the same commit that finishes them.
 
 See also: backend `language_exchange_backend_application/docs/REMAINING_WORK.md` (server env, prod DB, flags, ops) ·
 web `docs/REMAINING_WORK.md` in the web repo (admin console, `assetlinks.json`, nginx).
@@ -477,3 +477,135 @@ Web ↔ app parity (spec `docs/superpowers/specs/2026-10-16-web-app-parity-desig
 - [ ] Device QA (two accounts, both on `CLUBS_V2_USER_IDS`): open chat from the club page, send/receive live, @mention push, notice edit shows in chat, remove the member → their chat refuses at once, rejoin → back; an outsider can't open the room link; an account not on the list sees no Chat button. M
 - [ ] Native review of `clubChat`, `clubChatFailed`, `clubNoticeTitle`, `clubNoticeLabel` (CSV rows appended). S
 - [ ] Chat list: club chats do not appear in the Chats tab or the Rooms list (by design for now); decide whether members want them in Chats. S
+
+## Clubs v2 slice 3: club feed (2026-10-28, branch feat/clubs-v2-feed; plan docs/superpowers/plans/2026-10-28-clubs-v2-club-feed.md)
+- [x] "Post a record" on the club page opens the composer in club mode: "Also share to Moments" (off = members only), optional distance (km) / time (min); photos, text or voice (no video or scheduling for club posts).
+- [x] "Club posts" on the club page (latest 3, "See all" → full feed of moment cards); moment cards show "5.2 km · 31:00 · 5:58/km" when a post has stats.
+- [ ] Backend: deploy `fix/moment-byid-visibility` first, then `feat/clubs-v2-feed` (stacked). S
+- [ ] Device QA: post members-only and shared records, check an outsider and the public feeds, edit a club post (privacy stays), stats line on card and page. M
+- [ ] Club feed shows the latest 20 (no infinite paging yet); video records not supported. S
+- [ ] Native review of the 10 club-feed strings (CSV rows appended). S
+- [ ] Club page and full club feed show load errors as "No posts yet" (no error state / retry). S
+
+## Clubs v2 slice 4: join approval (2026-10-28, branch feat/clubs-v2-approval; plan docs/superpowers/plans/2026-10-28-clubs-v2-join-approval.md)
+- [x] Create/edit a club: "Where does it meet?" Online / In person; "Approve new members" (locked on for in person). Approval clubs show "Ask to join" → "Request pending" + "Withdraw request"; hosts see "N waiting to join" → a sheet with each person's languages and meetups attended, Approve / Deny. `club_join_*` pushes open the club. 9 new strings (19 locales), 5 reused from gatherings.
+- [ ] Backend deploy order: privacy fix → club feed → join approval (stacked branches). S
+- [ ] Device QA: in-person club create, ask/withdraw from a second account, approve and deny, the requester's notice, approved member lands in the club chat. M
+
+## Community optimization (audit 2026-10-30, plan — nothing built yet)
+Goal (owner): no new features. Fewer tabs, no bugs, faster and more reliable Community on app + web.
+Read-only audits of app (`lib/pages/community/**`), web (`src/components/community/**`) and backend (origin/main 80df2bd) on 2026-10-30.
+
+**Prod usage, last 30 days (718 active users):** 1,141 waves from 216 senders · 32,962 match impressions · 2,369 profile visits ·
+41 hub/topic rooms got 183 messages total (≈1.2 members each) · 17 gatherings (avg 1.7 attendees) · 1 voice room created, none since 2026-10-01 · 1 club (dark).
+→ Discovery (Partners / matches / waves / profile views) carries the traffic; rooms, voice rooms and gatherings only need to work and load cheaply.
+
+**Decisions (owner, 2026-10-30):**
+- Trim tabs to 4: **Partners · Matches (only while its flag is on) · Clubs · Rooms**.
+  Nearby, City, Genders, Topics become chips/filters on the one Partners list (All · Online · Nearby · Same city · Women · Men · New · Topic ▾).
+  Rooms + Voice rooms merge into one Rooms tab (language rooms first, live voice rooms as a section/pill). Waves moves to a header inbox icon with an unread badge.
+- Approach A: backend list contract first (backward compatible for shipped apps), then app and web in parallel, each with ONE paged list.
+- Start after `feat/clubs-v2-approval` is merged/deployed, or touch only the Clubs tab container, not its contents.
+- Not in scope: smart sort stays off; no new endpoints except a `city` param.
+- Still to do before building: the app/web/rollout design sections were not walked through with the owner yet → write spec `docs/superpowers/specs/2026-10-30-community-optimization-design.md`, review, then a plan per phase.
+
+### Phase 1 — Backend list contract (ships first, backward compatible) — plan docs/superpowers/plans/2026-10-31-community-phase1-backend.md
+- **DEPLOYED 2026-10-31: backend main `cc5064b` (merge of `feat/community-p1`), Actions run 41177484076, pm2 online, endpoints answer.** 743 related tests pass; whole-branch review clean (6 deferred minors in the backend REMAINING_WORK). App-side half of the count fix (count omits the default `matchLanguage`) is Phase 2. Same-city chip sends `sameCity=true`; open to every tier unless the owner says VIP-only.
+- [x] Deployed (owner said "Deploy + start Phase 2").
+- Measured 2026-10-31: default /users sort 27 ms server-side over 2,105 users, round trip 128 ms, largest room 9 members → the P1 performance items below are NOT in the plan (not worth it at 2.8k users; revisit past ~50k).
+P0 bugs
+- [x] Filter-sheet count ≠ list: count omits the default `matchLanguage` (own languages), ANDs two language picks while the list ORs them, sends `newUsersOnly` the server ignores (app `community_filter_sheet.dart:200-221` vs `community_provider.dart:1367`). Build both from one params object; server maps `newUsersOnly=true` → `joinedWithin=7d` in `buildUsersQuery` (users.js:264) so old builds get it too. S
+- [x] "Speaks X + learns Y" returns the union (`$or`, users.js:222-224); use the existing strict `reciprocal` AND form when both are given. S
+- [x] Paging repeats/skips people: no `_id` tie-break on topic users (community.js:569), `findByLanguage` (matching.js:722), gatherings (gatherings.js:311), clubs (clubs.js:228), nearby `$skip` after `$geoNear` (community.js:154). Add `_id` as last sort key everywhere. S
+- [x] Uncapped limits: `/matching/language` (matching.js:724), `/matching/similar` (:774), `/matching/quick` (:645/662/678, also NaN). Cap at 50 like users.js:432. S
+- [x] Wave unread badge counts all-time + blocked senders (models/Wave.js:77-78); list shows 7 days minus blocked (community.js:417-425). Same filter for both. S
+- [x] "Online only" returns people shown offline: nearby/topic users filter stored `isOnline` but respond with lastActive<5min (community.js:145,172-178,560,587). Return the stored flag everywhere. S
+- [x] Nearby filters disagree with `/users`: exact language string (misses "Chinese (Simplified)"), exact gender, no `$gt:''` age guard (community.js:86-106). Nearby + topic users take filters from `buildUsersQuery`. M
+- [x] `getBlockedUserIds` caches `[]` for 120 s on a DB error → blocked users leak (blockingUtils.js:45-48). Don't cache failures. S
+P1 performance
+- [~] (not doing, see measurement) Default `/users` sort runs in memory (`$addFields` before `$sort`, lib/privacySettings.js:290-327; index User.js:2139 unused). Store `visibleLastActive` (null when hidden), keep it in sync where lastActive/privacy are written, one-off backfill, index `{vip, isOnline, visibleLastActive, _id}`. M
+- [~] (not doing, see measurement) `/users` counts on every page and queries `UserInteraction` uncached (users.js:154,497,518). Count on page 1 only; cache exclusions 60 s; cache `/users/count` 30–60 s per user+query hash. S
+- [~] (not doing, see measurement) List rows load full followers/following arrays just for `.length` (users.js:86,579) → project `$size`. S
+- [~] (not doing, see measurement) `GET /rooms` has no limit and loads every room's participants/bannedUsers/joinRequests (rooms.js:75,231); auto-join loads the whole hub on every GET (rooms.js:131). Aggregate `isMember/isBanned/pending`; select `_id` only. M
+- [~] (not doing, see measurement) Clubs list loads every member (clubs.js:226-237), detail populates all members (:250), no `members.user` index for `scope=member` (Club.js:116). `$slice` preview, stored role counts, add index. S
+- [~] (not doing, see measurement) Redundant viewer re-fetches: `checkNearbyAccess` (checkLimitations.js:222), gatherings/clubs languages (gatherings.js:262, clubs.js:190), `/users` smart sort + boost (users.js:461,537). Use `req.user`. S
+P2 contract + cleanup
+- [x] One response shape for every list: `{data, page, hasMore}` (+`total` only where shown), old fields kept alongside. Nearby/topic users get the CDN `imageUrls` rewrite; nearby's `lastSeen` → same name as `/users`. M
+- [x] New `city` filter (case-folded exact `location.city`, indexed) for the "Same city" chip (today City filters by country). S
+- [~] (not doing, see measurement) Dead/odd: Wave index `partialFilterExpression` freezes `Date.now()` at load (Wave.js:53-59); `getSimilarUsers` selects non-existent `interests` (matching.js:752); `/matching/language` + `/similar` have no app UI — check web before removing. `Topic.userCount` drifts (no decrement on delete, community.js:627-633). S
+
+### Phase 2 — App (one paged list, 4 tabs) — plan docs/superpowers/plans/2026-10-31-community-phase2-app.md
+- **Code complete 2026-10-31 on app branch `feat/community-p2` (pushed; from origin/main 71d9c3d3, head 2edb0cda; NOT merged, NOT built).** 9 commits, ~6,100 lines removed; full suite 3297/3297; whole-branch review: 2 Important + 1 re-graded fixed, 5 minors deferred (below).
+- Prod flags 2026-10-31: matchesLayoutEnabled, roomsEnabled, gatheringsEnabled, smartSortEnabled all ON → the new app shows Matches · Partners · Clubs · Rooms.
+- Partly / not done: Nearby keeps its own card (Gender/City/Topics cards deleted with their tabs); visitor card + boost row still refetch on scroll back; commented-out ad banners left.
+- [x] Merged to app main 2026-10-31 (`36b4387d`); main merged into this clubs branch (arb/CSV appends combined, suite 3317/3317).
+- [ ] Ship in the next release build. S
+- [ ] Device QA: each chip (Online, Nearby, Same city, Women, Men, Topic, New, Serious) incl. a fast Women→Men→Same city; Nearby without location permission; pull-to-refresh at page 3; offline → Retry; push/deep link to Waves, Rooms, Matches, voice promo; first launch makes no Community request until the tab is opened; waves badge in the header. M
+- [ ] Native review of `sameCity` (18 locales, translated by Claude; rows in docs/l10n/native-qa-strings-2026-10.csv on the p2 branch). S
+- [ ] Review minors (deferred): skeleton replaces the tabs during an app-config reload; a pending destination can push Waves twice in a same-frame window; no voice-rooms entry when Rooms is off and Clubs on (not prod's flags); the filter-sheet count ignores the search text and Nearby; `_syncLayout` disposes the TabController during build. S
+- Planned 2026-10-31: 9 tasks on `feat/community-p2` from origin/main. Waves 4×50 fetch no longer matters once Waves is a screen opened on demand; Nearby keeps its own card (Gender/City/Topics cards are deleted with their tabs).
+Structure
+- [x] One `PagedUsersNotifier<Q>` (Riverpod family keyed by a value-equal query; request token, Set-based de-dupe, retry pause, keep-alive) + one `PagedUserList` widget (pull-to-refresh that awaits and keeps old rows, skeleton, error + retry, empty with "clear filters", retry footer). Partners chips are just different queries. Replaces Gender/Nearby/City/Topics/Partners hand-rolled paging (~1,000 lines each; ≈2,500+ lines removed). L
+- [ ] One list row + one grid tile replacing `PartnerListItem`, `CompactUserTile`, `_GenderUserCard`, `_NearbyUserCardFromApi`, `match_card`; keep `PartnerCard` for swipe. M
+- [x] `FilterState` moves into a provider with value equality + debounced (≈350 ms) search provider; tabs `select` only what they need. M
+- [x] Tabs: Partners · Matches (flag) · Clubs · Rooms (rooms + voice rooms merged); Waves → header icon + badge; tab order derived from one `communityTabLayout` (today 3 lists + 2 remap fns, community_main.dart:164). Hold a skeleton until app config resolves (no tab reshuffle; Partners not loaded then thrown away when Matches is on). M
+- [x] `CommunityService` through `ApiClient` (raw `http.get`, no timeout, 401 refresh then throw anyway, double-wrapped errors — community_provider.dart:134,183, `InteractionService.getExcludedUsers`). S
+- [x] One wave flow everywhere: Nearby/Topics push chat + silently wave (nearby_tab.dart:322, topics_tab.dart:83); use the send-wave sheet with cap handling. S
+P0 bugs fixed by the above (verify each after the rewrite)
+- [x] Gender tab reloads on every parent rebuild (Map identity compare, genders_tab.dart:276; new map each build community_main.dart:530) → 3 requests per tab switch/keystroke.
+- [x] Saved filter remounts all filter tabs twice (`FilterState` has no `==`; ValueKey on `hashCode`, community_main.dart:531,585…; `_loadSavedFilters` :374).
+- [x] Topic switch mid-load shows the old topic's users; `loadMore` appends A into B (community_provider.dart:1078,1106).
+- [x] Search icon shown on Nearby/City/Topics but ignored there; server search per keystroke on Partners (partner_discovery_tab.dart:181,352) and 3×/keystroke on Gender.
+- [x] Matches tab blank on 404 `/matching/daily` (matches_tab.dart:276) — show empty state + "Browse partners".
+- [x] Partners pull-to-refresh not awaited and wipes the list; refresh during loadMore appends page 2 to new page 1 (partner_discovery_tab.dart:761, community_provider.dart:1479). Same not-awaited refresh on Topics (topics_tab.dart:304).
+- [x] Gender/City counts ignore age/online/level/search filters the list applies (genders_tab.dart:88, city_tab.dart:323).
+- [x] Empty state can't clear topics/topicsAtLeast/newUsersOnly/segment (partner_discovery_tab.dart:950).
+P1 performance
+- [x] `_onTabChanged` setState rebuilds the whole `CommunityMain` for nothing (community_main.dart:359); delete it + orphan doc line :228.
+- [x] No keep-alive on people tabs: every revisit refetches page 1 (loses pages 2+ and scroll), re-reads GPS, City fires 31 requests (city_tab.dart:318), Waves fetches 4×50 sequentially and re-marks read (waves_tab.dart:77).
+- [ ] Visitor card + boost row at ListView index 0 refetch on scroll back to top (partner_discovery_tab.dart:785).
+- [x] Offline load-more retry storm on Nearby/City/Gender (nearby_tab.dart:125, city_tab.dart:263, genders_tab.dart:72).
+- [x] Network calls started inside `build` (partner_discovery_tab.dart:352,388; matches `_maybeRollOver`, `_onBatchExhausted`) → `ref.listen`/`didUpdateWidget`.
+- [x] `newUsersOnly` filtered client-side, chaining loadMore through pages (partner_discovery_tab.dart:378) → send `joinedWithin=7d`.
+- [x] O(n²) loadMore de-dupe (community_provider.dart:1458).
+- [x] All Community requests fire at app launch because `TabsScreen` builds every page (TabBarMenu.dart:130): ~5–7 calls (10–12 with saved filters) + `/voicerooms` polled every 30 s. Load Community lazily on first visit; poll voice rooms only while Rooms is visible.
+P2 dead code
+- [x] Delete `PaginatedCommunityNotifier` + state, `NearbyUsersParams`, `getCountriesList`, `getTopics`, `communityProvider` (+ its invalidates in single_community_screen.dart:217,294 and moment_card.dart:359); `card/community_card*.dart` (~700 lines, test-only) + its test; `QuickActionButtons`, `TopicChip`, `widgets/community/community_widgets.dart`; dead `_buildVipPromoBanner` (`const isVip = true`, genders_tab.dart:329); commented-out ad banners; empty `if` at nearby_tab.dart:276. S
+
+### Phase 3 — Web (one paged list, 4 tabs; 34 suites / 384 tests pass today) — plan docs/superpowers/plans/2026-10-31-community-phase3-web.md
+- **Code complete 2026-10-31 on web branch `feat/community-p3` (pushed; from origin/main ed5cef6, head e013e0b; NOT merged, NOT deployed — web main push = live).** 8 commits; full web suite 4617/4617 (7 skipped); `npm run build` passes; whole-branch review: 4 Important fixed, 6 minors deferred (listed in the web repo's REMAINING_WORK).
+- Done differently from the audit list: Waves keeps its own pager (it already read currentData); Women/Men/Topic chips write the existing `gender`/`topics` filters (only `city=1` is new); MemberCard is still role="button" with a nested wave button and WaveSheet has Escape but no focus trap; unused SCSS selectors left.
+- [ ] Owner: browser QA (checklist in the web repo's REMAINING_WORK), then "deploy it" for `feat/community-p3`. M
+Structure
+- [x] One paging mechanism replacing the 4 hand-rolled ones (MainCommunity `pager`, Topics `accumulated`, `cityGenders/useMemberPages`, Waves `accumulatedWaves`). Preferred: RTK Query `infiniteQuery` (upgrade @reduxjs/toolkit 2.2.5 → ≥2.6) so pages live in cache keyed by args → Back restores pages, `ScrollRestoration` just works. Fallback: one `usePagedList` hook on the Topics pattern (`currentData` + `originalArgs` key check, server `hasMore`). M
+- [x] One `<MemberList>` (grid, skeleton, inline error + retry, empty, sentinel, Load more); Nearby/Waves/WaveSheet stop hand-rolling rows and use `MemberCard compact`. M
+- [x] Same 4-tab layout as the app; Waves to a header icon + badge; City/Genders stop riding on `webLanguageRoomsEnabled` (CommunitySubNav.tsx:135, routes.tsx:351). M
+P0 bugs
+- [x] Paging staples another filter's members: `data` treated as page 1 (MainCommunity.tsx:582-619); after >5 s away (`keepUnusedDataFor`) an old `pager` revives and appends B into A; old results show with no loader on filter change.
+- [x] Client re-sort (VIP then online) overrides the chosen/server sort and makes cards jump while scrolling (MainCommunity.tsx:611-618) — remove.
+- [x] Any error (page N, refetchOnFocus) replaces the whole page incl. sub-nav (MainCommunity.tsx:893-907) — inline error, keep rows and nav.
+- [x] sessionStorage scroll hack restores stale Y on every mount and fights `<ScrollRestoration/>` (MainCommunity.tsx:549-635) — delete.
+- [x] Back-button trap: `<Navigate to="/gatherings">` without `replace` (AppOnlyTab.tsx:30-31).
+- [x] Dead "Try BananaTalk Pro" button (`onTryPro` never passed, HighlightedProfilesCarousel.tsx:46-52 / MainCommunity.tsx:1037); `/default-avatar.png` missing from `public/` (also MainNavbar.tsx:279, MomentDetail, ChatContent).
+- [x] Errors shown as empty states: NearbyUsers.tsx:89, Waves.tsx:71, Topics.tsx ~590-665.
+- [x] Signed-out visitors hit protected endpoints: `/community/nearby`, `/waves`, `/topics`, `/community/city`, `/community/genders` lack `RequireSignIn` (routes.tsx:342-352); Nearby asks for geolocation then 401s as "nobody nearby".
+- [x] `useMemberPages` (City/Genders): effect reset asks page N of the new filter, merges stale data, guesses hasMore from `rows.length===20`, flashes empty on filter change (useMemberPages.ts:16-44, CityPage.tsx:83, GendersPage.tsx:51).
+- [x] Filter sheet lock hint says "Set by the New tab" on the Serious tab (CommunityFilterSheet.tsx ~198-207).
+- [x] Count uses login-snapshot languages, list uses refreshed `/auth/me` (CommunityFilterSheet.tsx:162 vs MainCommunity.tsx:449-457).
+- [x] Block/unblock don't invalidate `Community`/`Recommendations`; `getDailyMatches` has no tags (usersSlice.ts:285,294; communitySlice.ts:140) → blocked member stays in For you / Today.
+- [ ] Keyboard/a11y: inactive tabs `tabIndex=-1` with no arrow keys (CommunitySubNav.tsx:169); unlabeled search (:283); `role="button"` with nested `<button>` (MemberCard.tsx:123,306); hardcoded English "New"/"Wave at …" (MemberCard.tsx:201,310); WaveSheet no Escape/focus trap.
+P1 performance
+- [x] Two `/app-config` cache entries (arg-less in MainCommunity.tsx:486, Waves.tsx:66 vs `{platform,lang}` in webFlags.ts:53) → duplicate request + waterfall before the list loads. One shared args hook.
+- [x] `sendWave`/`markWavesRead` invalidate all of `"Community"` (communitySlice.ts:193,219) → every wave refetches lists. Own `"Waves"` tag; pass `wavedIds` beyond Today.
+- [x] Visitors query on every tab (MainCommunity.tsx:543) → only on All; Topics query (:531) only for chip labels.
+- [x] Filter-sheet count fires twice per open (stale debounced value, CommunityFilterSheet.tsx:166); search double-debounced (250 ms URL + 300 ms query, :64/:357).
+- [x] Lazy-load `CommunityFilterSheet` (613 lines + tables) and `WaveSheet`, mounted only while open.
+- [x] Drop `backdrop-blur` on every MemberCard (:133) and Nearby row (:302); `loading="lazy"` + width/height on Nearby/Waves/WaveSheet/carousel avatars.
+- [x] Carousel duplicates grid members incl. non-VIP "fillers" under a Pro heading, unmemoized (MainCommunity.tsx:637-641) — VIPs only or hide.
+P2 cleanup
+- [x] Dead: `generateRandomStats`, test-only `getLanguageFlag` (community/utils.ts); all of `community/type.ts` except `COMMON_LANGUAGES`; `todayOff` `!signedIn` branch (MainCommunity.tsx:276); ~25 of 63 selectors in `tandem/tandem-community.scss`. Once `webGatheringsEnabled`/`webLanguageRoomsEnabled` are settled on, `AppOnlyTab` → plain links. S
+
+### Rollout
+- [ ] Order: backend phase 1 (deploy; old apps unaffected) → web phase 3 (deploy) and app phase 2 (next release build). Full test suite + build before every push (backend/web push = live deploy). M
+- [ ] Device/browser QA per chip (All, Online, Nearby, Same city, Women, Men, New, Topic), paging to page 3+, Back restores position, offline → retry, block a user → gone from all lists, count matches list. M
+- [ ] Measure after: Community requests on open (app ~5–7 today, web incl. duplicate app-config), `/users` p50 latency, waves/week (1,141 per 30 days baseline). S

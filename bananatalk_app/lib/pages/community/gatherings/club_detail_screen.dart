@@ -16,7 +16,14 @@ import 'package:bananatalk_app/pages/community/gatherings/club_people_section.da
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/pages/community/gatherings/club_rules.dart';
 import 'package:bananatalk_app/pages/community/gatherings/club_warn_sheet.dart';
+import 'package:bananatalk_app/pages/community/gatherings/club_requests_sheet.dart';
+import 'package:bananatalk_app/pages/community/gatherings/club_format_picker.dart';
 import 'package:bananatalk_app/pages/community/rooms/club_notice_banner.dart';
+import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
+import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
+import 'package:bananatalk_app/pages/moments/create/create_moment.dart';
+import 'package:bananatalk_app/pages/moments/card/moment_activity_chip.dart';
+import 'package:bananatalk_app/pages/community/gatherings/club_feed_screen.dart';
 import 'package:bananatalk_app/providers/provider_root/clubs_v2_provider.dart';
 import 'package:bananatalk_app/pages/community/gatherings/group_cover.dart';
 import 'package:bananatalk_app/pages/community/gatherings/group_cover_picker.dart';
@@ -36,6 +43,7 @@ class ClubDetailScreen extends ConsumerStatefulWidget {
     required this.clubId,
     this.apiClient,
     this.openRoom,
+    this.openComposer,
   });
 
   final String clubId;
@@ -43,6 +51,10 @@ class ClubDetailScreen extends ConsumerStatefulWidget {
 
   /// Opens a room by id; defaults to the `/room/:id` route. Tests pass their own.
   final void Function(BuildContext context, String roomId)? openRoom;
+
+  /// Opens the composer for a club post; defaults to [CreateMoment]. Tests
+  /// pass their own.
+  final Future<void> Function(BuildContext context, String clubId)? openComposer;
 
   @override
   ConsumerState<ClubDetailScreen> createState() => _ClubDetailScreenState();
@@ -58,6 +70,10 @@ class _ClubDetailScreenState extends ConsumerState<ClubDetailScreen> {
 
   /// The rules as edited in the open edit sheet (clubs v2).
   List<String> _editedRules = const [];
+
+  /// Format / approval as edited in the open edit sheet (clubs v2 slice 4).
+  String _editedFormat = 'online';
+  bool _editedApproval = false;
 
   @override
   void initState() {
@@ -93,6 +109,8 @@ class _ClubDetailScreenState extends ConsumerState<ClubDetailScreen> {
     );
     final notice = TextEditingController(text: club.notice);
     _editedRules = club.rules;
+    _editedFormat = club.format;
+    _editedApproval = club.joinApproval;
     final l10n = AppLocalizations.of(context)!;
     final controllers = [name, description, interest, city, placeName, secondLanguage, notice];
 
@@ -195,6 +213,17 @@ class _ClubDetailScreenState extends ConsumerState<ClubDetailScreen> {
                       InputDecoration(labelText: l10n.clubSecondLanguageLabel),
                 ),
                 const SizedBox(height: 16),
+                StatefulBuilder(
+                  builder: (_, setSheet) => ClubFormatPicker(
+                    format: _editedFormat,
+                    joinApproval: _editedApproval,
+                    onChanged: (f, a) => setSheet(() {
+                      _editedFormat = f;
+                      _editedApproval = a;
+                    }),
+                  ),
+                ),
+                const SizedBox(height: 16),
                 ClubRulesEditor(
                   initialRules: club.rules,
                   onChanged: (rules) => _editedRules = rules,
@@ -231,6 +260,8 @@ class _ClubDetailScreenState extends ConsumerState<ClubDetailScreen> {
       secondLanguage: clubsV2 ? secondLanguage.text.trim() : null,
       rules: clubsV2 ? _editedRules : null,
       notice: clubsV2 ? notice.text.trim() : null,
+      format: clubsV2 ? _editedFormat : null,
+      joinApproval: clubsV2 ? _editedApproval : null,
     );
     if (!mounted) return;
     setState(() {
@@ -373,6 +404,16 @@ class _ClubDetailScreenState extends ConsumerState<ClubDetailScreen> {
     }
     final open = widget.openRoom ?? (c, id) => c.push('/room/$id');
     open(context, roomId);
+  }
+
+  /// Clubs v2: compose a post into this club's feed.
+  Future<void> _postRecord(Club club) async {
+    final open = widget.openComposer ??
+        (c, id) => Navigator.of(c).push<bool>(
+              AppPageRoute(builder: (_) => CreateMoment(clubId: id)),
+            );
+    await open(context, club.id);
+    if (mounted) ref.invalidate(clubMomentsProvider(club.id));
   }
 
   /// Clubs v2: warn [member]. At the third warning the host is asked whether
@@ -535,9 +576,13 @@ class _ClubDetailScreenState extends ConsumerState<ClubDetailScreen> {
   Future<void> _toggleMembership(Club club) async {
     if (_busy) return;
     setState(() => _busy = true);
-    final error = club.viewerIsMember
+    final asking = !club.viewerIsMember && club.needsApproval && !club.viewerRequestPending;
+    final error = club.viewerIsMember || club.viewerRequestPending
         ? (await _api.leaveClub(club.id)).error
         : (await _api.joinClub(club.id)).error;
+    if (error == null && asking && mounted) {
+      showCommunitySnackBar(context, message: AppLocalizations.of(context)!.clubRequestSent);
+    }
     if (!mounted) return;
     setState(() => _busy = false);
 
@@ -550,6 +595,70 @@ class _ClubDetailScreenState extends ConsumerState<ClubDetailScreen> {
       return;
     }
     await _reload();
+  }
+
+  /// Clubs v2: the latest club posts, "Post a record" and "See all".
+  List<Widget> _clubPosts(Club club) {
+    final l10n = AppLocalizations.of(context)!;
+    final posts = ref.watch(clubMomentsProvider(club.id));
+    final items = posts.valueOrNull ?? const <Moments>[];
+    return [
+      Padding(
+        padding: const EdgeInsets.fromLTRB(Spacing.lg, 0, Spacing.lg, Spacing.sm),
+        child: Row(
+          children: [
+            Expanded(child: Text(l10n.clubPostsTitle, style: context.titleMedium)),
+            if (items.isNotEmpty)
+              TextButton(
+                key: const Key('club-posts-see-all'),
+                onPressed: () => Navigator.of(context).push(AppPageRoute(
+                  builder: (_) => ClubFeedScreen(clubId: club.id, title: club.name),
+                )),
+                child: Text(l10n.clubPostsSeeAll),
+              ),
+          ],
+        ),
+      ),
+      if (posts.isLoading && items.isEmpty)
+        const Padding(
+          padding: EdgeInsets.all(Spacing.md),
+          child: Center(child: CircularProgressIndicator()),
+        )
+      else if (items.isEmpty)
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: Spacing.lg),
+          child: Text(l10n.clubPostsEmpty,
+              style: context.bodyMedium.copyWith(color: context.textSecondary)),
+        )
+      else
+        for (final post in items.take(3))
+          ListTile(
+            key: Key('club-post-${post.id}'),
+            contentPadding: const EdgeInsets.symmetric(horizontal: Spacing.lg),
+            title: Text(post.description,
+                maxLines: 2, overflow: TextOverflow.ellipsis),
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(post.user.name, style: context.bodySmall),
+                if (post.activity != null) ...[
+                  const SizedBox(height: 4),
+                  MomentActivityChip(activity: post.activity!),
+                ],
+              ],
+            ),
+            onTap: () => context.push('/moment/${post.id}'),
+          ),
+      Padding(
+        padding: const EdgeInsets.fromLTRB(Spacing.lg, Spacing.sm, Spacing.lg, Spacing.lg),
+        child: OutlinedButton.icon(
+          key: const Key('club-post-record'),
+          onPressed: () => _postRecord(club),
+          icon: const Icon(Icons.add_a_photo_outlined),
+          label: Text(l10n.clubPost),
+        ),
+      ),
+    ];
   }
 
   @override
@@ -719,6 +828,18 @@ class _ClubDetailScreenState extends ConsumerState<ClubDetailScreen> {
                         style: context.bodyMedium),
                   ),
                 ],
+                if (_clubsV2 && club.viewerCanManage && club.pendingRequestCount > 0) ...[
+                  Spacing.gapMD,
+                  OutlinedButton.icon(
+                    key: const Key('club-requests'),
+                    onPressed: () async {
+                      await showClubRequestsSheet(context, clubId: club.id, api: _api);
+                      if (mounted) await _reload();
+                    },
+                    icon: const Icon(Icons.how_to_reg_rounded),
+                    label: Text(l10n.gatheringRequests(club.pendingRequestCount)),
+                  ),
+                ],
                 // Clubs v2: the rules come before the Join button, and joining
                 // means agreeing to them.
                 if (_clubsV2 && club.rules.isNotEmpty) ...[
@@ -748,7 +869,24 @@ class _ClubDetailScreenState extends ConsumerState<ClubDetailScreen> {
                                 : () => _toggleMembership(club),
                             child: Text(l10n.clubLeave),
                           )
-                        : FilledButton(
+                        : _clubsV2 && club.viewerRequestPending
+                            // Clubs v2 slice 4: waiting for the host.
+                            ? Column(
+                                key: const Key('club-request-pending'),
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  OutlinedButton.icon(
+                                    onPressed: null,
+                                    icon: const Icon(Icons.hourglass_top_rounded),
+                                    label: Text(l10n.gatheringRequestPending),
+                                  ),
+                                  TextButton(
+                                    onPressed: _busy ? null : () => _toggleMembership(club),
+                                    child: Text(l10n.gatheringWithdrawRequest),
+                                  ),
+                                ],
+                              )
+                            : FilledButton(
                             onPressed: _busy
                                 ? null
                                 : () => _toggleMembership(club),
@@ -757,14 +895,18 @@ class _ClubDetailScreenState extends ConsumerState<ClubDetailScreen> {
                                 vertical: Spacing.md,
                               ),
                             ),
-                            child: Text(_clubsV2 && club.rules.isNotEmpty
-                                ? l10n.clubJoinAgree
-                                : l10n.clubJoin),
+                            child: Text(_clubsV2 && club.needsApproval
+                                ? l10n.gatheringAskToJoin
+                                : _clubsV2 && club.rules.isNotEmpty
+                                    ? l10n.clubJoinAgree
+                                    : l10n.clubJoin),
                           ),
                   ),
               ],
             ),
           ),
+
+          if (_clubsV2 && club.viewerIsMember) ..._clubPosts(club),
 
           ClubPeopleSection(
             club: club,

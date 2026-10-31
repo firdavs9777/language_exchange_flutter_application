@@ -90,6 +90,7 @@ final Map<String, ProviderOrFamily> userScopedProviders = {
   'userProvider': userProvider,
   // Clubs v2 access is decided per user
   'clubsV2AccessProvider': clubsV2AccessProvider,
+  'clubMomentsProvider': clubMomentsProvider,
   // Calls list: the unseen-missed badge belongs to the account
   'callHistoryServiceProvider': callHistoryServiceProvider,
   'missedCallsProvider': missedCallsProvider,

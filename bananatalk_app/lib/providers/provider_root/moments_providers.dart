@@ -26,6 +26,28 @@ class MomentsService {
   int count = 0;
 
   // Updated getMoments with pagination support
+  /// GET /clubs/:id/moments — a club's members-only and shared posts (clubs
+  /// v2). Same shape as the main feed.
+  Future<List<Moments>> getClubMoments(String clubId, {int page = 1, int limit = 20}) async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    final response = await http.get(
+      Uri.parse('${Endpoints.baseURL}clubs/$clubId/moments?page=$page&limit=$limit'),
+      headers: {
+        'Accept': 'application/json',
+        if (token != null) 'Authorization': 'Bearer $token',
+      },
+    );
+    if (response.statusCode != 200) {
+      throw Exception('Failed to load club posts (${response.statusCode})');
+    }
+    final data = json.decode(response.body);
+    final list = data is Map ? data['moments'] : null;
+    return list is List
+        ? list.whereType<Map<String, dynamic>>().map(Moments.fromJson).toList()
+        : <Moments>[];
+  }
+
   Future<Map<String, dynamic>> getMoments(
       {int page = 1, int limit = 10, String? feed, String? q}) async {
     // Enforce max limit of 50 per page
@@ -168,6 +190,8 @@ class MomentsService {
     String? backgroundColor,
     String? promptId,
     bool isReel = false,
+    String? club,
+    Map<String, int>? activity,
   }) async {
     final url = Uri.parse('${Endpoints.baseURL}${Endpoints.momentsURL}');
 
@@ -211,6 +235,11 @@ class MomentsService {
     // `docs/superpowers/plans/2026-07-14-reels.md` Task 1.
     if (isReel) {
       body['isReel'] = true;
+    }
+    // Clubs v2: a post in a club's feed (privacy 'club' or 'public').
+    if (club != null && club.isNotEmpty) {
+      body['club'] = club;
+      if (activity != null && activity.isNotEmpty) body['activity'] = activity;
     }
 
     final response = await http.post(
@@ -1112,6 +1141,12 @@ final userMomentsProvider = FutureProvider.family<List<Moments>, String>((ref, u
 });
 
 final momentsServiceProvider = Provider((ref) => MomentsService());
+
+/// Clubs v2: a club's latest posts (first 20). Refreshed after posting.
+final clubMomentsProvider =
+    FutureProvider.autoDispose.family<List<Moments>, String>((ref, clubId) {
+  return ref.read(momentsServiceProvider).getClubMoments(clubId);
+});
 
 /// Provider for explore/discover moments (backend explore endpoint)
 final exploreMomentsProvider = FutureProvider<List<Moments>>((ref) async {

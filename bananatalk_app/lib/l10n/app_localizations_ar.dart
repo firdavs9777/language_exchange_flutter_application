@@ -12624,5 +12624,78 @@ class AppLocalizationsAr extends AppLocalizations {
   String get clubNoticeLabel => 'إعلان للأعضاء (اختياري)';
 
   @override
+  String get clubShareToMoments => 'شاركه أيضًا في اللحظات';
+
+  @override
+  String get clubShareToMomentsHint => 'عند الإيقاف: يراه أعضاء النادي فقط.';
+
+  @override
+  String get clubActivityDistance => 'المسافة (كم)';
+
+  @override
+  String get clubActivityTime => 'الوقت (دقيقة)';
+
+  @override
+  String clubActivityKm(String distance) {
+    return '$distance كم';
+  }
+
+  @override
+  String clubActivityPace(String pace) {
+    return '$pace/كم';
+  }
+
+  @override
+  String get clubPost => 'انشر سجلًا';
+
+  @override
+  String get clubPostsTitle => 'منشورات النادي';
+
+  @override
+  String get clubPostsEmpty => 'لا منشورات بعد. شارك كيف كان لقاء اليوم.';
+
+  @override
+  String get clubPostsSeeAll => 'عرض الكل';
+
+  @override
+  String get clubFormatLabel => 'أين يجتمع النادي؟';
+
+  @override
+  String get clubFormatOnline => 'عبر الإنترنت';
+
+  @override
+  String get clubFormatOffline => 'حضوريًا';
+
+  @override
+  String get clubApprovalToggle => 'الموافقة على الأعضاء الجدد';
+
+  @override
+  String get clubApprovalOfflineHint => 'الأندية الحضورية توافق دائمًا على الأعضاء الجدد.';
+
+  @override
+  String get clubApprove => 'موافقة';
+
+  @override
+  String get clubRequestsEmpty => 'لا أحد في الانتظار.';
+
+  @override
+  String get clubRequestSent => 'أُرسل الطلب. سيقرر المضيف.';
+
+  @override
+  String clubRequestMeetups(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'حضر $count لقاء',
+      many: 'حضر $count لقاءً',
+      few: 'حضر $count لقاءات',
+      two: 'حضر لقاءين',
+      one: 'حضر لقاءً واحدًا',
+      zero: 'لم يحضر أي لقاء بعد',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get sameCity => 'نفس المدينة';
 }
