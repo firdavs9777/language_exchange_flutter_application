@@ -59,17 +59,28 @@ class CommunityService {
     final url = Uri.parse(
       '${Endpoints.baseURL}${Endpoints.usersURL}',
     ).replace(queryParameters: query);
-    final response = await http
-        .get(url, headers: await _getHeaders())
-        .timeout(const Duration(seconds: 20));
+    // Not ApiClient: it unwraps `data` and drops total/pages/hasMore.
+    final response = await _getWithRefresh(url);
     if (response.statusCode == 200) {
       return PaginatedCommunityResponse.fromBody(
         json.decode(response.body) as Map<String, dynamic>,
         page: page,
       );
     }
-    if (response.statusCode == 401) await _apiClient.handleUnauthorized();
     throw Exception(_serverError(response.body, response.statusCode));
+  }
+
+  /// GET with a timeout and, on a 401, one retry after refreshing the token
+  /// (as ApiClient does). It used to refresh and then throw anyway.
+  Future<http.Response> _getWithRefresh(Uri url) async {
+    const timeout = Duration(seconds: 20);
+    var response =
+        await http.get(url, headers: await _getHeaders()).timeout(timeout);
+    if (response.statusCode == 401 && await _apiClient.handleUnauthorized()) {
+      response =
+          await http.get(url, headers: await _getHeaders()).timeout(timeout);
+    }
+    return response;
   }
 
   static String _serverError(String body, int status) {
@@ -183,31 +194,17 @@ class CommunityService {
 
   /// Get single user profile
   Future<Community?> getSingleCommunity({required id}) async {
-    try {
-      final headers = await _getHeaders();
-      final url = '${Endpoints.baseURL}${Endpoints.usersURL}/$id';
-
-      final response = await http.get(Uri.parse(url), headers: headers);
-
-      if (response.statusCode == 200) {
-        final data = json.decode(response.body);
-        final userData = data['data'];
-        if (userData == null || userData is! Map<String, dynamic>) {
-          return null;
-        }
-
-        // Debug: Print user data
-
-        return Community.fromJson(userData);
-      } else if (response.statusCode == 401) {
-        await _apiClient.handleUnauthorized();
-        return null;
-      } else {
-        throw Exception('Failed to load user: ${response.statusCode}');
-      }
-    } catch (error) {
-      throw Exception('Failed to load community: $error');
+    final response = await _getWithRefresh(
+      Uri.parse('${Endpoints.baseURL}${Endpoints.usersURL}/$id'),
+    );
+    if (response.statusCode == 200) {
+      final userData = json.decode(response.body)['data'];
+      if (userData is! Map<String, dynamic>) return null;
+      return Community.fromJson(userData);
     }
+    if (response.statusCode == 401) return null;
+    // The server's message, once (it was wrapped twice and unreadable).
+    throw Exception(_serverError(response.body, response.statusCode));
   }
 
   /// Follow a user (requires auth)
