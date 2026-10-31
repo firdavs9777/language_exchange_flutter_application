@@ -510,27 +510,29 @@ Read-only audits of app (`lib/pages/community/**`), web (`src/components/communi
 - Still to do before building: the app/web/rollout design sections were not walked through with the owner yet → write spec `docs/superpowers/specs/2026-10-30-community-optimization-design.md`, review, then a plan per phase.
 
 ### Phase 1 — Backend list contract (ships first, backward compatible) — plan docs/superpowers/plans/2026-10-31-community-phase1-backend.md
+- **Code complete 2026-10-31 on backend branch `feat/community-p1` (pushed, NOT deployed; f24f345).** 743 related tests pass; whole-branch review clean (6 deferred minors in the backend REMAINING_WORK). App-side half of the count fix (count omits the default `matchLanguage`) is Phase 2. Same-city chip sends `sameCity=true`; open to every tier unless the owner says VIP-only.
+- [ ] Owner: say "deploy it" for `feat/community-p1` (merge to backend main = live). S
 - Measured 2026-10-31: default /users sort 27 ms server-side over 2,105 users, round trip 128 ms, largest room 9 members → the P1 performance items below are NOT in the plan (not worth it at 2.8k users; revisit past ~50k).
 P0 bugs
-- [ ] Filter-sheet count ≠ list: count omits the default `matchLanguage` (own languages), ANDs two language picks while the list ORs them, sends `newUsersOnly` the server ignores (app `community_filter_sheet.dart:200-221` vs `community_provider.dart:1367`). Build both from one params object; server maps `newUsersOnly=true` → `joinedWithin=7d` in `buildUsersQuery` (users.js:264) so old builds get it too. S
-- [ ] "Speaks X + learns Y" returns the union (`$or`, users.js:222-224); use the existing strict `reciprocal` AND form when both are given. S
-- [ ] Paging repeats/skips people: no `_id` tie-break on topic users (community.js:569), `findByLanguage` (matching.js:722), gatherings (gatherings.js:311), clubs (clubs.js:228), nearby `$skip` after `$geoNear` (community.js:154). Add `_id` as last sort key everywhere. S
-- [ ] Uncapped limits: `/matching/language` (matching.js:724), `/matching/similar` (:774), `/matching/quick` (:645/662/678, also NaN). Cap at 50 like users.js:432. S
-- [ ] Wave unread badge counts all-time + blocked senders (models/Wave.js:77-78); list shows 7 days minus blocked (community.js:417-425). Same filter for both. S
-- [ ] "Online only" returns people shown offline: nearby/topic users filter stored `isOnline` but respond with lastActive<5min (community.js:145,172-178,560,587). Return the stored flag everywhere. S
-- [ ] Nearby filters disagree with `/users`: exact language string (misses "Chinese (Simplified)"), exact gender, no `$gt:''` age guard (community.js:86-106). Nearby + topic users take filters from `buildUsersQuery`. M
-- [ ] `getBlockedUserIds` caches `[]` for 120 s on a DB error → blocked users leak (blockingUtils.js:45-48). Don't cache failures. S
+- [x] Filter-sheet count ≠ list: count omits the default `matchLanguage` (own languages), ANDs two language picks while the list ORs them, sends `newUsersOnly` the server ignores (app `community_filter_sheet.dart:200-221` vs `community_provider.dart:1367`). Build both from one params object; server maps `newUsersOnly=true` → `joinedWithin=7d` in `buildUsersQuery` (users.js:264) so old builds get it too. S
+- [x] "Speaks X + learns Y" returns the union (`$or`, users.js:222-224); use the existing strict `reciprocal` AND form when both are given. S
+- [x] Paging repeats/skips people: no `_id` tie-break on topic users (community.js:569), `findByLanguage` (matching.js:722), gatherings (gatherings.js:311), clubs (clubs.js:228), nearby `$skip` after `$geoNear` (community.js:154). Add `_id` as last sort key everywhere. S
+- [x] Uncapped limits: `/matching/language` (matching.js:724), `/matching/similar` (:774), `/matching/quick` (:645/662/678, also NaN). Cap at 50 like users.js:432. S
+- [x] Wave unread badge counts all-time + blocked senders (models/Wave.js:77-78); list shows 7 days minus blocked (community.js:417-425). Same filter for both. S
+- [x] "Online only" returns people shown offline: nearby/topic users filter stored `isOnline` but respond with lastActive<5min (community.js:145,172-178,560,587). Return the stored flag everywhere. S
+- [x] Nearby filters disagree with `/users`: exact language string (misses "Chinese (Simplified)"), exact gender, no `$gt:''` age guard (community.js:86-106). Nearby + topic users take filters from `buildUsersQuery`. M
+- [x] `getBlockedUserIds` caches `[]` for 120 s on a DB error → blocked users leak (blockingUtils.js:45-48). Don't cache failures. S
 P1 performance
-- [ ] Default `/users` sort runs in memory (`$addFields` before `$sort`, lib/privacySettings.js:290-327; index User.js:2139 unused). Store `visibleLastActive` (null when hidden), keep it in sync where lastActive/privacy are written, one-off backfill, index `{vip, isOnline, visibleLastActive, _id}`. M
-- [ ] `/users` counts on every page and queries `UserInteraction` uncached (users.js:154,497,518). Count on page 1 only; cache exclusions 60 s; cache `/users/count` 30–60 s per user+query hash. S
-- [ ] List rows load full followers/following arrays just for `.length` (users.js:86,579) → project `$size`. S
-- [ ] `GET /rooms` has no limit and loads every room's participants/bannedUsers/joinRequests (rooms.js:75,231); auto-join loads the whole hub on every GET (rooms.js:131). Aggregate `isMember/isBanned/pending`; select `_id` only. M
-- [ ] Clubs list loads every member (clubs.js:226-237), detail populates all members (:250), no `members.user` index for `scope=member` (Club.js:116). `$slice` preview, stored role counts, add index. S
-- [ ] Redundant viewer re-fetches: `checkNearbyAccess` (checkLimitations.js:222), gatherings/clubs languages (gatherings.js:262, clubs.js:190), `/users` smart sort + boost (users.js:461,537). Use `req.user`. S
+- [~] (not doing, see measurement) Default `/users` sort runs in memory (`$addFields` before `$sort`, lib/privacySettings.js:290-327; index User.js:2139 unused). Store `visibleLastActive` (null when hidden), keep it in sync where lastActive/privacy are written, one-off backfill, index `{vip, isOnline, visibleLastActive, _id}`. M
+- [~] (not doing, see measurement) `/users` counts on every page and queries `UserInteraction` uncached (users.js:154,497,518). Count on page 1 only; cache exclusions 60 s; cache `/users/count` 30–60 s per user+query hash. S
+- [~] (not doing, see measurement) List rows load full followers/following arrays just for `.length` (users.js:86,579) → project `$size`. S
+- [~] (not doing, see measurement) `GET /rooms` has no limit and loads every room's participants/bannedUsers/joinRequests (rooms.js:75,231); auto-join loads the whole hub on every GET (rooms.js:131). Aggregate `isMember/isBanned/pending`; select `_id` only. M
+- [~] (not doing, see measurement) Clubs list loads every member (clubs.js:226-237), detail populates all members (:250), no `members.user` index for `scope=member` (Club.js:116). `$slice` preview, stored role counts, add index. S
+- [~] (not doing, see measurement) Redundant viewer re-fetches: `checkNearbyAccess` (checkLimitations.js:222), gatherings/clubs languages (gatherings.js:262, clubs.js:190), `/users` smart sort + boost (users.js:461,537). Use `req.user`. S
 P2 contract + cleanup
-- [ ] One response shape for every list: `{data, page, hasMore}` (+`total` only where shown), old fields kept alongside. Nearby/topic users get the CDN `imageUrls` rewrite; nearby's `lastSeen` → same name as `/users`. M
-- [ ] New `city` filter (case-folded exact `location.city`, indexed) for the "Same city" chip (today City filters by country). S
-- [ ] Dead/odd: Wave index `partialFilterExpression` freezes `Date.now()` at load (Wave.js:53-59); `getSimilarUsers` selects non-existent `interests` (matching.js:752); `/matching/language` + `/similar` have no app UI — check web before removing. `Topic.userCount` drifts (no decrement on delete, community.js:627-633). S
+- [x] One response shape for every list: `{data, page, hasMore}` (+`total` only where shown), old fields kept alongside. Nearby/topic users get the CDN `imageUrls` rewrite; nearby's `lastSeen` → same name as `/users`. M
+- [x] New `city` filter (case-folded exact `location.city`, indexed) for the "Same city" chip (today City filters by country). S
+- [~] (not doing, see measurement) Dead/odd: Wave index `partialFilterExpression` freezes `Date.now()` at load (Wave.js:53-59); `getSimilarUsers` selects non-existent `interests` (matching.js:752); `/matching/language` + `/similar` have no app UI — check web before removing. `Topic.userCount` drifts (no decrement on delete, community.js:627-633). S
 
 ### Phase 2 — App (one paged list, 4 tabs)
 Structure
