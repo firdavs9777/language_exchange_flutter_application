@@ -22885,6 +22885,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Same city'**
   String get sameCity;
+
+  /// Club chat card: a club gathering was just scheduled
+  ///
+  /// In en, this message translates to:
+  /// **'New meetup'**
+  String get clubEventScheduled;
+
+  /// Club chat card: a club gathering got a new start time
+  ///
+  /// In en, this message translates to:
+  /// **'New time'**
+  String get clubEventMoved;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

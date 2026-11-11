@@ -12620,4 +12620,10 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get sameCity => 'Mesma cidade';
+
+  @override
+  String get clubEventScheduled => 'Novo encontro';
+
+  @override
+  String get clubEventMoved => 'Novo horário';
 }

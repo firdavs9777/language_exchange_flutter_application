@@ -8684,5 +8684,13 @@
   "sameCity": "Same city",
   "@sameCity": {
     "description": "Partners chip: people in the viewer's own city"
+  },
+  "clubEventScheduled": "New meetup",
+  "clubEventMoved": "New time",
+  "@clubEventScheduled": {
+    "description": "Club chat card: a club gathering was just scheduled"
+  },
+  "@clubEventMoved": {
+    "description": "Club chat card: a club gathering got a new start time"
   }
 }

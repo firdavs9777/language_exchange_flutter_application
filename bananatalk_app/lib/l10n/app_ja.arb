@@ -4766,5 +4766,7 @@
   "clubRequestsEmpty": "待っている人はいません。",
   "clubRequestSent": "リクエストを送りました。ホストが判断します。",
   "clubRequestMeetups": "{count, plural, =0{まだ参加した集まりはありません} other{集まりに{count}回参加}}",
-  "sameCity": "同じ街"
+  "sameCity": "同じ街",
+  "clubEventScheduled": "新しいミートアップ",
+  "clubEventMoved": "時間が変更されました"
 }

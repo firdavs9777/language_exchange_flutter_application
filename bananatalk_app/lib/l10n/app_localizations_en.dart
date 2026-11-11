@@ -12638,4 +12638,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get sameCity => 'Same city';
+
+  @override
+  String get clubEventScheduled => 'New meetup';
+
+  @override
+  String get clubEventMoved => 'New time';
 }

@@ -12577,4 +12577,10 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get sameCity => 'เมืองเดียวกัน';
+
+  @override
+  String get clubEventScheduled => 'นัดพบใหม่';
+
+  @override
+  String get clubEventMoved => 'เวลาใหม่';
 }

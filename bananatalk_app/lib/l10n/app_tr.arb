@@ -4978,5 +4978,7 @@
   "clubRequestsEmpty": "Bekleyen kimse yok.",
   "clubRequestSent": "İstek gönderildi. Kararı ev sahibi verecek.",
   "clubRequestMeetups": "{count, plural, =0{Henüz buluşmaya katılmadı} other{{count} buluşmaya katıldı}}",
-  "sameCity": "Aynı şehir"
+  "sameCity": "Aynı şehir",
+  "clubEventScheduled": "Yeni buluşma",
+  "clubEventMoved": "Yeni saat"
 }

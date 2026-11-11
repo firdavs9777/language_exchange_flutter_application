@@ -12608,4 +12608,10 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get sameCity => 'Même ville';
+
+  @override
+  String get clubEventScheduled => 'Nouvelle rencontre';
+
+  @override
+  String get clubEventMoved => 'Nouvel horaire';
 }

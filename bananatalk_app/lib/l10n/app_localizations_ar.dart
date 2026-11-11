@@ -12698,4 +12698,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get sameCity => 'نفس المدينة';
+
+  @override
+  String get clubEventScheduled => 'لقاء جديد';
+
+  @override
+  String get clubEventMoved => 'موعد جديد';
 }

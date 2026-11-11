@@ -12577,4 +12577,10 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get sameCity => '같은 도시';
+
+  @override
+  String get clubEventScheduled => '새 정모';
+
+  @override
+  String get clubEventMoved => '시간 변경';
 }

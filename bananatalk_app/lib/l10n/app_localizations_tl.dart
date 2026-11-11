@@ -12601,4 +12601,10 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get sameCity => 'Parehong lungsod';
+
+  @override
+  String get clubEventScheduled => 'Bagong meetup';
+
+  @override
+  String get clubEventMoved => 'Bagong oras';
 }

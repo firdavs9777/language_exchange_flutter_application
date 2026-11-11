@@ -12577,6 +12577,12 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get sameCity => '同城';
+
+  @override
+  String get clubEventScheduled => '新的聚会';
+
+  @override
+  String get clubEventMoved => '时间已更改';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -25152,4 +25158,10 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get sameCity => '同城';
+
+  @override
+  String get clubEventScheduled => '新的聚會';
+
+  @override
+  String get clubEventMoved => '時間已更改';
 }

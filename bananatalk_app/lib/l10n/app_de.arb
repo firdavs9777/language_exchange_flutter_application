@@ -5006,5 +5006,7 @@
   "clubRequestsEmpty": "Niemand wartet.",
   "clubRequestSent": "Anfrage gesendet. Der Host entscheidet.",
   "clubRequestMeetups": "{count, plural, =0{Noch bei keinem Treffen} =1{War bei 1 Treffen} other{War bei {count} Treffen}}",
-  "sameCity": "Gleiche Stadt"
+  "sameCity": "Gleiche Stadt",
+  "clubEventScheduled": "Neues Treffen",
+  "clubEventMoved": "Neue Uhrzeit"
 }

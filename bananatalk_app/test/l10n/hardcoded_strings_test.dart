@@ -874,6 +874,8 @@ const Map<String, List<String>> _keysByTask = {
     'dailyReminderSubtitle',
     'dailyReminderTime',
   ],
+  // Clubs v2 (2026-11-11): club gathering milestones as cards in the club chat.
+  'club-event-messages': ['clubEventScheduled', 'clubEventMoved'],
   // Community optimization phase 2 (2026-10-31): the Partners "Same city" chip.
   'community-p2': ['sameCity'],
   // Clubs v2 slice 1 (2026-10-28): club rules, the language pair, warnings.
@@ -939,6 +941,7 @@ const Map<String, List<String>> _keysByTask = {
 
 /// Files (under lib/) each task must leave with no English Text literal.
 const Map<String, List<String>> _filesByTask = {
+  'club-event-messages': ['pages/chat/message/club_event_card.dart'],
   'community-p2': [
     'pages/community/widgets/topic_picker_sheet.dart',
     'pages/community/waves/waves_screen.dart',

@@ -4766,5 +4766,7 @@
   "clubRequestsEmpty": "Tidak ada yang menunggu.",
   "clubRequestSent": "Permintaan terkirim. Host yang akan memutuskan.",
   "clubRequestMeetups": "{count, plural, =0{Belum pernah ikut pertemuan} other{Ikut {count} pertemuan}}",
-  "sameCity": "Kota yang sama"
+  "sameCity": "Kota yang sama",
+  "clubEventScheduled": "Pertemuan baru",
+  "clubEventMoved": "Waktu baru"
 }

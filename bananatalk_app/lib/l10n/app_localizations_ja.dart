@@ -12577,4 +12577,10 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get sameCity => '同じ街';
+
+  @override
+  String get clubEventScheduled => '新しいミートアップ';
+
+  @override
+  String get clubEventMoved => '時間が変更されました';
 }
