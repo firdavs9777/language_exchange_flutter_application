@@ -456,7 +456,7 @@ Test `test/profile/profile_audit_contract_test.dart`; privacy save test rewritte
 - [x] Drawer Admin Tools follows the `admin` role (was a hardcoded email list). Referral claim refreshes the coin balance. Visitors: a failed next page stops auto-paging and shows Retry. Pull-to-refresh offline no longer throws.
 - [x] Edit: "Not Set" can't be saved as a name; no gender picked isn't sent as null; a level change refreshes Today / tutor / hub (`invalidateLanguageDerived`); privacy toggles send only the changed key (no `auth/me` download); photo actions use CDN `imageUrls`; photo delete sends the URL it means (server answers 409 if the photos changed).
 - [x] Someone else's profile: Follow/Unfollow can't double-send; across a block either way there's no action bar and no visit is recorded; after Unblock the real profile loads; profiles opened from list rows fetch the full profile (MBTI/blood type were missing); the wave button no longer re-reads prefs on every rebuild.
-- [ ] Merge with the backend deploy of fix/profile-audit (the app tolerates either server). S
+- [x] (2026-11-11) Backend deployed (8ed35cf) and merged to app main.
 - [x] (2026-11-11) My Moments pages through everything (30 at a time, Retry on a failed page; `userMomentsPagedProvider`); an edit re-reads that one moment in place, a delete drops it, no reload from page 1.
 - [ ] No "set as profile picture" action: a new photo always goes last. M
 - [x] (2026-11-11) The My Moments detail sheet shows the edited moment (reads the list, not the copy it opened with); the card resyncs like/comment counts.
@@ -466,11 +466,11 @@ Test `test/profile/profile_audit_contract_test.dart`; privacy save test rewritte
 
 ## Gatherings + clubs (2026-10-27) — see docs/gatherings-and-clubs-status.md
 - [x] Attendee card: after a gathering, someone who was there sees "Who was there" with a Message button each (reads backend `people`; `test/community/gathering_people_test.dart`). `gathering_time_changed` push taps open the gathering.
-- [ ] Deploy backend `04c3832` (attendee list, no-show sweep, cancel notifications, local time in "time moved"); until then the card never shows. 04c3832 was lost (never pushed, no copy anywhere); rebuilt 2026-11-11 as backend `a4e2d6a` on `fix/gatherings-rebuild-04c3832`, pushed, not merged. Merge + deploy that instead. S
+- [x] (2026-11-11) The lost backend `04c3832` was rebuilt as `a4e2d6a` and is deployed (8ed35cf): the "Who was there" card now has data.
 - [ ] Native review of `gatheringWhoWasThere` / `gatheringWhoWasThereHint` (19 locales, written 2026-10-27). S
 - [ ] Website: no attendee card yet (behind `WEB_GATHERINGS_ENABLED`, off). S
 - [x] (2026-11-11, branch feat/club-event-messages) Club chat shows a club gathering's milestones as cards (new meetup, confirmed · N going, starts in 10 min, cancelled, new time), each opening the gathering. Reads backend `gatheringEvent` (backend `ca35cbf` on fix/gatherings-rebuild-04c3832); older apps show the English text. Test `test/community/club_event_card_test.dart`.
-- [ ] Merge feat/club-event-messages to main together with the backend deploy of fix/gatherings-rebuild-04c3832 (before it, no event messages exist, so merging early is harmless). S
+- [x] (2026-11-11) Backend deployed (8ed35cf) and feat/club-event-messages merged to app main.
 - [ ] Native review of `clubEventScheduled` / `clubEventMoved` (19 locales, 2026-11-11). S
 - [x] (2026-11-11) Notification history: every `gathering_*` row (reminders, host decision, cancel/moved, confirmed, ended…) gets an event icon instead of the generic bell. The backend now writes rows for reminders + host decision (backend `a5c7b91`).
 - [ ] Device check: club chat with a gathering created, confirmed, starting, cancelled and moved; card tap opens the gathering; light + dark. S
