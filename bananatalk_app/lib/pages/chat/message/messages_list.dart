@@ -13,6 +13,7 @@ import 'package:bananatalk_app/pages/chat/error/chat_error_widget.dart';
 import 'package:bananatalk_app/pages/chat/message/chat_row.dart';
 import 'package:bananatalk_app/utils/open_user_profile.dart';
 import 'package:bananatalk_app/pages/chat/message/date_separator_chip.dart';
+import 'package:bananatalk_app/pages/chat/message/club_event_card.dart';
 
 class ChatMessagesList extends StatelessWidget {
   final bool isLoading;
@@ -220,6 +221,16 @@ class ChatMessagesList extends StatelessWidget {
                   final isMe = message.sender.id == currentUserId;
                   final isFirstInGroup = messageRow.isFirstInGroup;
                   final isLastInGroup = messageRow.isLastInGroup;
+
+                  // A club gathering's milestone: a card, not a bubble from
+                  // the system user.
+                  final gatheringEvent = message.gatheringEvent;
+                  if (gatheringEvent != null) {
+                    return ClubEventCard(
+                      key: ValueKey(message.id),
+                      event: gatheringEvent,
+                    );
+                  }
 
                   // Check if this is a correction message (shown as standalone bubble)
                   if (message.type == 'correction') {

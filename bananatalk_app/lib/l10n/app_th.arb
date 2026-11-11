@@ -4766,5 +4766,7 @@
   "clubRequestsEmpty": "ไม่มีใครรออยู่",
   "clubRequestSent": "ส่งคำขอแล้ว โฮสต์จะเป็นผู้ตัดสิน",
   "clubRequestMeetups": "{count, plural, =0{ยังไม่เคยเข้าร่วม} other{เข้าร่วมแล้ว {count} ครั้ง}}",
-  "sameCity": "เมืองเดียวกัน"
+  "sameCity": "เมืองเดียวกัน",
+  "clubEventScheduled": "นัดพบใหม่",
+  "clubEventMoved": "เวลาใหม่"
 }

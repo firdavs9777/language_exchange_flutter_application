@@ -12597,4 +12597,10 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get sameCity => 'Ҳамон шаҳр';
+
+  @override
+  String get clubEventScheduled => 'Вохӯрии нав';
+
+  @override
+  String get clubEventMoved => 'Вақти нав';
 }

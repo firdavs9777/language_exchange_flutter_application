@@ -12588,4 +12588,10 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get sameCity => 'Kota yang sama';
+
+  @override
+  String get clubEventScheduled => 'Pertemuan baru';
+
+  @override
+  String get clubEventMoved => 'Waktu baru';
 }

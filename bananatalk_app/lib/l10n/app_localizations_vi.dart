@@ -12577,4 +12577,10 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get sameCity => 'Cùng thành phố';
+
+  @override
+  String get clubEventScheduled => 'Buổi gặp mới';
+
+  @override
+  String get clubEventMoved => 'Giờ mới';
 }

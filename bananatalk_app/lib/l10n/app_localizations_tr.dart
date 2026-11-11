@@ -12595,4 +12595,10 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get sameCity => 'Aynı şehir';
+
+  @override
+  String get clubEventScheduled => 'Yeni buluşma';
+
+  @override
+  String get clubEventMoved => 'Yeni saat';
 }

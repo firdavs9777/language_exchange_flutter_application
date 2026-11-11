@@ -40,6 +40,7 @@ class Message {
     this.isForwarded = false,
     this.forwardedFrom,
     this.storyReference,
+    this.gatheringEvent,
     this.sendingStatus = MessageSendingStatus.none,
     this.localId,
   });
@@ -73,6 +74,8 @@ class Message {
   final bool isForwarded;
   final ForwardedMessage? forwardedFrom;
   final StoryReference? storyReference;
+  /// A club gathering's milestone, posted by the server into a club chat.
+  final GatheringEvent? gatheringEvent;
   final MessageSendingStatus sendingStatus;
   final String? localId; // For tracking optimistic messages before server response
 
@@ -114,6 +117,7 @@ class Message {
       isForwarded: isForwarded,
       forwardedFrom: forwardedFrom,
       storyReference: storyReference,
+      gatheringEvent: gatheringEvent,
       sendingStatus: status,
       localId: localId,
     );
@@ -213,6 +217,7 @@ class Message {
           && json['storyReference']['storyId'].toString().isNotEmpty)
           ? StoryReference.fromJson(json['storyReference'])
           : null,
+      gatheringEvent: GatheringEvent.tryParse(json['gatheringEvent']),
     );
   }
   
@@ -412,6 +417,7 @@ class Message {
       isForwarded: isForwarded ?? this.isForwarded,
       forwardedFrom: forwardedFrom ?? this.forwardedFrom,
       storyReference: this.storyReference,
+      gatheringEvent: gatheringEvent,
     );
   }
 }
@@ -748,6 +754,47 @@ class StoryReference {
     return StoryReference(
       storyId: json['storyId']?.toString() ?? '',
       thumbnail: json['thumbnail']?.toString(),
+    );
+  }
+}
+
+/// A club gathering's milestone in a club chat (backend lib/clubEvents.js):
+/// scheduled, confirmed, starting, cancelled or moved. Rendered as a card in
+/// the reader's language rather than as the English `message` fallback.
+class GatheringEvent {
+  static const kinds = {'scheduled', 'confirmed', 'starting', 'cancelled', 'moved'};
+
+  final String kind;
+  final String gatheringId;
+  final String title;
+  final DateTime? startsAt;
+  final int going;
+  final int? capacity;
+
+  const GatheringEvent({
+    required this.kind,
+    required this.gatheringId,
+    this.title = '',
+    this.startsAt,
+    this.going = 0,
+    this.capacity,
+  });
+
+  /// Null for anything that isn't a well-formed event, including a kind this
+  /// app version doesn't know: that message then shows its plain text.
+  static GatheringEvent? tryParse(dynamic raw) {
+    if (raw is! Map) return null;
+    final kind = raw['kind']?.toString() ?? '';
+    final gathering = raw['gathering'];
+    final id = (gathering is Map ? gathering['_id'] : gathering)?.toString() ?? '';
+    if (!kinds.contains(kind) || id.isEmpty) return null;
+    return GatheringEvent(
+      kind: kind,
+      gatheringId: id,
+      title: raw['title']?.toString() ?? '',
+      startsAt: DateTime.tryParse(raw['startsAt']?.toString() ?? '')?.toLocal(),
+      going: (raw['going'] as num?)?.toInt() ?? 0,
+      capacity: (raw['capacity'] as num?)?.toInt(),
     );
   }
 }

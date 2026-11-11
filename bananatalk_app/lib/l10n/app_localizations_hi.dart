@@ -12608,4 +12608,10 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get sameCity => 'एक ही शहर';
+
+  @override
+  String get clubEventScheduled => 'नई मीटअप';
+
+  @override
+  String get clubEventMoved => 'नया समय';
 }

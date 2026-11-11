@@ -13076,4 +13076,10 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get sameCity => 'Тот же город';
+
+  @override
+  String get clubEventScheduled => 'Новая встреча';
+
+  @override
+  String get clubEventMoved => 'Новое время';
 }
