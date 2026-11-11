@@ -62,7 +62,6 @@ class ProfileStatsRow extends ConsumerWidget {
                     AppPageRoute(
                       builder: (context) => ProfileFollowers(
                         id: user.id,
-                        followerIds: user.followers,
                       ),
                     ),
                   ).then((_) => ref.invalidate(userProvider));
@@ -83,7 +82,6 @@ class ProfileStatsRow extends ConsumerWidget {
                     AppPageRoute(
                       builder: (context) => ProfileFollowings(
                         id: user.id,
-                        followingIds: user.followings,
                       ),
                     ),
                   ).then((_) => ref.invalidate(userProvider));
@@ -95,10 +93,10 @@ class ProfileStatsRow extends ConsumerWidget {
             Expanded(
               child: Consumer(
                 builder: (context, ref, _) {
-                  final momentsAsync = ref.watch(userMomentsProvider(user.id));
-                  return momentsAsync.when(
-                    data: (moments) => _StatItem(
-                      value: moments.length.toString(),
+                  final totalAsync = ref.watch(userMomentsTotalProvider(user.id));
+                  return totalAsync.when(
+                    data: (total) => _StatItem(
+                      value: total.toString(),
                       label: l10n.moments,
                       icon: Icons.photo_library_rounded,
                       color: AppColors.accent,

@@ -97,6 +97,7 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit>
     final handler = PhotoUploadHandler(userId: widget.user.id);
     final result = await handler.deletePhoto(
       index,
+      expectedUrl: index < _existingImageUrls.length ? _existingImageUrls[index] : null,
       noTokenMessage: l10n.authenticationTokenNotFound,
       failedMessage: l10n.failedToUpdate,
       defaultSuccessMessage: l10n.imageRemovedSuccessfully,
@@ -261,17 +262,21 @@ class _ProfilePictureEditState extends ConsumerState<ProfilePictureEdit>
     );
 
     if (!mounted) return;
+    // A partial failure still carries what the server has left: show that,
+    // not the list from before the first DELETE.
+    final remaining = result.imageUrls;
     setState(() {
-      if (result.success) {
-        _existingImageUrls =
-            result.imageUrls!.isNotEmpty ? result.imageUrls! : _existingImageUrls.take(1).toList();
-        _selectedImages.clear();
+      if (remaining != null && (result.success || remaining.isNotEmpty)) {
+        _existingImageUrls = remaining.isNotEmpty
+            ? remaining
+            : _existingImageUrls.take(1).toList();
       }
+      if (result.success) _selectedImages.clear();
       _isRemoving = false;
     });
 
+    if (remaining != null) ref.invalidate(userProvider);
     if (result.success) {
-      ref.invalidate(userProvider);
       showProfileSnackBar(context, message: result.message);
     } else {
       showProfileSnackBar(

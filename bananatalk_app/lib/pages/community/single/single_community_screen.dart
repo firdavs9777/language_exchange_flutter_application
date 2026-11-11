@@ -53,6 +53,12 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
   bool isFollower = false;
   bool _starterDismissed = false;
   bool isBlocked = false;
+  /// The other side blocked the viewer. The server then serves a bare card;
+  /// the screen must not offer Follow / Message on it (each one 403s).
+  bool _isBlockedBy = false;
+  bool get _inBlockRelation => isBlocked || _isBlockedBy;
+  /// A follow or unfollow request is in flight: a double tap sends one.
+  bool _followBusy = false;
   String userId = '';
   Community? _updatedCommunity;
   late TabController _tabController;
@@ -119,7 +125,12 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
 
     if (userId.isNotEmpty && userId != _community.id) {
       await _checkBlockStatus();
-      _recordProfileVisit();
+      // Not across a block, either way: the owner would be told "X viewed
+      // your profile" by someone who blocked them.
+      if (!_inBlockRelation) _recordProfileVisit();
+      // Opened from a list row (Partners, search…), the profile lacks the
+      // detail-only fields (MBTI, blood type); fetch the full one.
+      if (!_inBlockRelation) _refreshProfile();
     }
 
     _checkProfileViewLimit();
@@ -134,6 +145,7 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
       if (result['success'] == true && mounted) {
         setState(() {
           isBlocked = result['isBlocked'] ?? false;
+          _isBlockedBy = result['isBlockedBy'] ?? false;
         });
       }
     } catch (_) {}
@@ -204,6 +216,8 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
       return;
     }
 
+    if (_followBusy) return;
+    setState(() => _followBusy = true);
     try {
       final result = await ref
           .read(communityServiceProvider)
@@ -246,6 +260,8 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
           type: CommunitySnackBarType.error,
         );
       }
+    } finally {
+      if (mounted) setState(() => _followBusy = false);
     }
   }
 
@@ -278,7 +294,8 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
       ),
     );
 
-    if (shouldUnfollow != true) return;
+    if (shouldUnfollow != true || _followBusy || !mounted) return;
+    setState(() => _followBusy = true);
 
     try {
       final result = await ref
@@ -322,6 +339,8 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
           type: CommunitySnackBarType.error,
         );
       }
+    } finally {
+      if (mounted) setState(() => _followBusy = false);
     }
   }
 
@@ -388,6 +407,8 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
         setState(() => isBlocked = false);
         ref.invalidate(blockedUsersProvider);
         ref.invalidate(blockedUserIdsProvider);
+        // The screen still holds the blocked card; load the real profile.
+        _refreshProfile();
       }
     }
   }
@@ -619,7 +640,7 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
           // The action bar floats over the content instead of scrolling with
           // it, so Chat is reachable from anywhere on the profile. Hidden on
           // your own profile and while the viewer is not signed in.
-          if (userId.isNotEmpty && userId != _community.id)
+          if (userId.isNotEmpty && userId != _community.id && !_inBlockRelation)
             Positioned(
               left: 0,
               right: 0,
@@ -641,7 +662,9 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
                     community: _community,
                     isFollower: isFollower,
                     onMessage: _navigateToChat,
-                    onFollowToggle: isFollower ? _unfollowUser : _followUser,
+                    onFollowToggle: _followBusy
+                        ? null
+                        : (isFollower ? _unfollowUser : _followUser),
                   ),
                 ],
               ),

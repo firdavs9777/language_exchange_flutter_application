@@ -60,4 +60,14 @@ void main() {
       expect(set['scheduledFor'], '2030-01-01T00:00:00.000Z');
     });
   });
+
+  test('keepImages: sent only when the editor removed a photo', () {
+    expect(momentUpdateBody(description: 'x').containsKey('keepImages'), isFalse);
+    expect(
+      momentUpdateBody(description: 'x', keepImages: ['https://cdn/a.jpg'])['keepImages'],
+      ['https://cdn/a.jpg'],
+    );
+    // An empty list is a real answer: every photo removed.
+    expect(momentUpdateBody(description: 'x', keepImages: const [])['keepImages'], isEmpty);
+  });
 }

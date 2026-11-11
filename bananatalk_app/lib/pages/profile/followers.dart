@@ -19,10 +19,8 @@ class ProfileFollowers extends ConsumerStatefulWidget {
   const ProfileFollowers({
     super.key,
     required this.id,
-    this.followerIds,
   });
   final String id;
-  final List<String>? followerIds;
 
   @override
   ConsumerState<ProfileFollowers> createState() => _ProfileFollowersState();
@@ -36,7 +34,6 @@ class _ProfileFollowersState extends ConsumerState<ProfileFollowers> {
     super.initState();
     followers = ref.read(authServiceProvider).getFollowersUser(
           id: widget.id,
-          followerIds: widget.followerIds,
         );
   }
 
@@ -45,7 +42,6 @@ class _ProfileFollowersState extends ConsumerState<ProfileFollowers> {
     setState(() {
       followers = ref.read(authServiceProvider).getFollowersUser(
             id: widget.id,
-            followerIds: widget.followerIds,
           );
     });
   }
@@ -82,6 +78,9 @@ class _ProfileFollowersState extends ConsumerState<ProfileFollowers> {
 
     if (shouldFollow == true) {
       try {
+        // Taken before the await: the user may leave this screen meanwhile,
+        // and the profile counts must still refresh.
+        final container = ProviderScope.containerOf(context, listen: false);
         final result = await ref.read(communityServiceProvider).followUser(
               userId: userId,
               targetUserId: targetUserId,
@@ -89,7 +88,10 @@ class _ProfileFollowersState extends ConsumerState<ProfileFollowers> {
         // The service reports a refusal as 'error' instead of throwing.
         if (result == 'error') throw Exception('follow failed');
 
-        ref.invalidate(userProvider);
+        container.invalidate(userProvider);
+
+        if (!mounted) return;
+
         await _refreshFollowers();
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -153,13 +155,19 @@ class _ProfileFollowersState extends ConsumerState<ProfileFollowers> {
 
     if (shouldUnfollow == true) {
       try {
+        // Taken before the await: the user may leave this screen meanwhile,
+        // and the profile counts must still refresh.
+        final container = ProviderScope.containerOf(context, listen: false);
         final result = await ref.read(communityServiceProvider).unfollowUser(
               userId: userId,
               targetUserId: targetUserId,
             );
         if (result == 'error') throw Exception('unfollow failed');
 
-        ref.invalidate(userProvider);
+        container.invalidate(userProvider);
+
+        if (!mounted) return;
+
         await _refreshFollowers();
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(

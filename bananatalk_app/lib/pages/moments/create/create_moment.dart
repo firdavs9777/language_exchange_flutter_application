@@ -1,5 +1,6 @@
 import 'package:bananatalk_app/services/activation_store.dart';
 import 'package:flutter/foundation.dart';
+import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:bananatalk_app/pages/coins/boost_screen.dart';
 import 'package:bananatalk_app/widgets/boost/boost_entry.dart';
@@ -101,6 +102,16 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
   final ValueNotifier<bool> isButtonEnabled = ValueNotifier(false);
 
   List<File> _selectedImages = [];
+
+  /// Editing: the moment's photos that stay (CDN URLs), shown before any new
+  /// ones with their own remove button. The editor used to show none of them
+  /// and could only add, so a photo could never be taken off a moment.
+  List<String> _keptImageUrls = [];
+  List<String> _initialImageUrls = const [];
+
+  int get _imageCount => _keptImageUrls.length + _selectedImages.length;
+  bool get _hasAnyImages => _imageCount > 0;
+  bool get _keptImagesChanged => !listEquals(_keptImageUrls, _initialImageUrls);
   File? _selectedVideo; // Video file for upload
 
   // Audio (voice-note) state
@@ -274,6 +285,8 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
       }
       _selectedBackgroundColor = moment.backgroundColor;
       _existingLocation = moment.location;
+      _initialImageUrls = List.unmodifiable(moment.imageUrls);
+      _keptImageUrls = List.of(moment.imageUrls);
       // Only a still-pending schedule is editable; a past one means the
       // moment is already published.
       final scheduled = moment.scheduledFor;
@@ -431,7 +444,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
   bool _blockedFrom(MomentMediaKind wanted) {
     final block = blockerFor(
       wanted: wanted,
-      imageCount: _selectedImages.length,
+      imageCount: _imageCount,
       hasVideo: _selectedVideo != null,
       hasAudio: _recordedAudio != null,
     );
@@ -453,7 +466,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
 
   Future<void> _pickImages() async {
     if (_blockedFrom(MomentMediaKind.images)) return;
-    if (_selectedImages.length >= maxImages) {
+    if (_imageCount >= maxImages) {
       _showMaxImagesDialog();
       return;
     }
@@ -462,7 +475,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     final pickedFiles = await picker.pickMultiImage();
 
     final remainingSlots = imagesAddable(
-      current: _selectedImages.length,
+      current: _imageCount,
       adding: pickedFiles.length,
     );
     final filesToAdd = pickedFiles
@@ -487,7 +500,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
 
   Future<void> _takePhoto() async {
     if (_blockedFrom(MomentMediaKind.images)) return;
-    if (_selectedImages.length >= maxImages) {
+    if (_imageCount >= maxImages) {
       _showMaxImagesDialog();
       return;
     }
@@ -1457,6 +1470,9 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
               location: _formatLocationData(),
               includeScheduledFor: _scheduledDate != _initialScheduledDate,
               scheduledFor: _scheduledDate?.toUtc().toIso8601String(),
+              // Before the upload below: removing first frees the slots the
+              // new photos take under the 10-photo limit.
+              keepImages: _keptImagesChanged ? _keptImageUrls : null,
             );
 
         // Upload new images if any were added
@@ -1793,7 +1809,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
       _selectedImages.isNotEmpty ||
       _selectedVideo != null ||
       _recordedAudio != null ||
-      (widget.momentToEdit?.hasImages ?? false) ||
+      _keptImageUrls.isNotEmpty ||
       (widget.momentToEdit?.hasVideo ?? false) ||
       (widget.momentToEdit?.hasAudio ?? false);
 
@@ -1828,6 +1844,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
   bool get _hasUnsavedContent =>
       descriptionController.text.trim() != _initialCaption.trim() ||
       _selectedImages.isNotEmpty ||
+      _keptImagesChanged ||
       _selectedVideo != null ||
       _recordedAudio != null;
 
@@ -2012,7 +2029,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                 icon: Icons.videocam_outlined,
                 label: AppLocalizations.of(context)!.video,
                 onTap: _showVideoSourceSheet,
-                color: _selectedImages.isEmpty
+                color: !_hasAnyImages
                     ? const Color(0xFF9C27B0)
                     : Colors.grey,
               ),
@@ -2159,7 +2176,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
       () {
         final hasGradient =
             _selectedBackgroundColor.isNotEmpty &&
-            _selectedImages.isEmpty &&
+            !_hasAnyImages &&
             _selectedVideo == null;
         final gradientColors = hasGradient
             ? MomentGradients.getColors(
@@ -2255,7 +2272,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
   List<Widget> _sectionBackground() {
     return [
       // Background color picker (text-only posts)
-      if (_selectedImages.isEmpty && _selectedVideo == null) ...[
+      if (!_hasAnyImages && _selectedVideo == null) ...[
         Spacing.gapMD,
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 4),
@@ -2448,8 +2465,8 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
   /// flow can order and group them without touching their contents.
   List<Widget> _sectionImages() {
     return [
-      // Images Section
-      if (_selectedImages.isNotEmpty) ...[
+      // Images Section: kept photos (editing) first, then newly picked ones.
+      if (_hasAnyImages) ...[
         Container(
           decoration: BoxDecoration(
             color: context.cardBackground,
@@ -2466,27 +2483,39 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
               mainAxisSpacing: 8,
               childAspectRatio: 1,
             ),
-            itemCount: _selectedImages.length < maxImages
-                ? _selectedImages.length + 1
-                : _selectedImages.length,
+            itemCount: _imageCount < maxImages ? _imageCount + 1 : _imageCount,
             itemBuilder: (context, index) {
-              if (index < _selectedImages.length) {
+              final kept = _keptImageUrls.length;
+              if (index < _imageCount) {
+                final isKept = index < kept;
                 return Stack(
                   children: [
                     ClipRRect(
                       borderRadius: BorderRadius.circular(8),
-                      child: Image.file(
-                        _selectedImages[index],
-                        fit: BoxFit.cover,
-                        width: double.infinity,
-                        height: double.infinity,
-                      ),
+                      child: isKept
+                          ? CachedImageWidget(
+                              key: Key('composer-kept-image-$index'),
+                              imageUrl: _keptImageUrls[index],
+                              fit: BoxFit.cover,
+                              width: double.infinity,
+                              height: double.infinity,
+                            )
+                          : Image.file(
+                              _selectedImages[index - kept],
+                              fit: BoxFit.cover,
+                              width: double.infinity,
+                              height: double.infinity,
+                              cacheWidth: 400,
+                            ),
                     ),
                     Positioned(
                       top: 4,
                       right: 4,
                       child: GestureDetector(
-                        onTap: () => _removeImage(index),
+                        key: Key('composer-remove-image-$index'),
+                        onTap: () => isKept
+                            ? setState(() => _keptImageUrls.removeAt(index))
+                            : _removeImage(index - kept),
                         child: Container(
                           padding: const EdgeInsets.all(4),
                           decoration: const BoxDecoration(

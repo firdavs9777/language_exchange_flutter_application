@@ -19,10 +19,8 @@ class ProfileFollowings extends ConsumerStatefulWidget {
   const ProfileFollowings({
     super.key,
     required this.id,
-    this.followingIds,
   });
   final String id;
-  final List<String>? followingIds;
 
   @override
   ConsumerState<ProfileFollowings> createState() => _ProfileFollowingsState();
@@ -36,7 +34,6 @@ class _ProfileFollowingsState extends ConsumerState<ProfileFollowings> {
     super.initState();
     followings = ref.read(authServiceProvider).getFollowingsUser(
           id: widget.id,
-          followingIds: widget.followingIds,
         );
   }
 
@@ -45,7 +42,6 @@ class _ProfileFollowingsState extends ConsumerState<ProfileFollowings> {
     setState(() {
       followings = ref.read(authServiceProvider).getFollowingsUser(
             id: widget.id,
-            followingIds: widget.followingIds,
           );
     });
   }
@@ -82,6 +78,9 @@ class _ProfileFollowingsState extends ConsumerState<ProfileFollowings> {
 
     if (shouldUnfollow == true) {
       try {
+        // Taken before the await: the user may leave this screen meanwhile,
+        // and the profile counts must still refresh.
+        final container = ProviderScope.containerOf(context, listen: false);
         final result = await ref.read(communityServiceProvider).unfollowUser(
               userId: userId,
               targetUserId: targetUserId,
@@ -89,7 +88,10 @@ class _ProfileFollowingsState extends ConsumerState<ProfileFollowings> {
         // The service reports a refusal as 'error' instead of throwing.
         if (result == 'error') throw Exception('unfollow failed');
 
-        ref.invalidate(userProvider);
+        container.invalidate(userProvider);
+
+        if (!mounted) return;
+
         await _refreshFollowings();
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(

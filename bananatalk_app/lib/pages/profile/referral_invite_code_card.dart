@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/providers/coins_provider.dart';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/services/deep_link_parser.dart';
 import 'package:bananatalk_app/services/referral_service.dart';
 
@@ -80,12 +82,19 @@ class _InviteCodeEntryCardState extends ConsumerState<InviteCodeEntryCard> {
       _busy = true;
       _error = null;
     });
+    final container = ProviderScope.containerOf(context, listen: false);
     try {
       final result = await ref.read(referralServiceProvider).claim(code);
       try {
         final prefs = await SharedPreferences.getInstance();
         await prefs.remove(pendingReferralPrefsKey);
       } catch (_) {}
+      if (result.invitee > 0) {
+        // The claim credited coins: the balance pill and the cached user
+        // would otherwise show the old number until something else refreshed.
+        container.invalidate(coinBalanceProvider);
+        container.invalidate(userProvider);
+      }
       if (!mounted) return;
       setState(() {
         _busy = false;

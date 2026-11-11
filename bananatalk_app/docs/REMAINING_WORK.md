@@ -1,6 +1,6 @@
 # Remaining work — BananaTalk app
 
-Last updated: 2026-11-11 (backend 04c3832 rebuilt as a4e2d6a; Community phase 1 deployed, phase 2 app code-complete on feat/community-p2; 2.2.7 audit fixes; 모임 decisions). Keep this current: tick items off in the same commit that finishes them.
+Last updated: 2026-11-11 (profile audit on fix/profile-audit; backend 04c3832 rebuilt as a4e2d6a; Community phase 1 deployed, phase 2 app code-complete on feat/community-p2; 2.2.7 audit fixes; 모임 decisions). Keep this current: tick items off in the same commit that finishes them.
 
 See also: backend `language_exchange_backend_application/docs/REMAINING_WORK.md` (server env, prod DB, flags, ops) ·
 web `docs/REMAINING_WORK.md` in the web repo (admin console, `assetlinks.json`, nginx).
@@ -295,7 +295,7 @@ Suspected bugs from the full regression suite (2026-10-15, code reading only —
 - [ ] Notifications / app-wide: announcement "seen" is per device and wiped at logout (repeat pop-up after re-login); iOS badge never cleared (`clearBadge` no-op); cold-start deep links skip the shell and the login redirect; Tajik missing from iOS `CFBundleLocalizations`; check exported iOS build has production `aps-environment`; some interstitials bypass the per-session cap. S–M
 - [ ] Hardcoded English found across auth, chat (swipe labels, header status), calls (permission/quality strings), moments composer, profile drawer, coin shop, topics — fold into the L14 localization item. M
 Moments / stories audit follow-ups (branch `fix/moments-stories-audit`, 2026-10-15)
-- [ ] Profile → Edit moment: removing an existing photo is a no-op — the server ignores `images` on update and has no delete-photo endpoint. Needs a backend route (or hide the remove button). S
+- [x] (2026-11-11) Edit moment: the composer now shows the moment's photos with a remove button and sends `keepImages` (backend deletes the rest). It used to show none of them and could only add. S
 - [ ] Story viewer "Add to highlight" does not update the in-memory story's `highlightId`, so a second tap offers the picker again (server side dedupes). S
 - [ ] Device QA for the audit: prompt label on card/detail; edit clears mood/tags, removes/adds location, reschedules/clears a schedule; text story with a poll/question; reopening a voted poll / answered question / reacted story (new and old backend); web-made text story with a hex background. S
 - Note: the memory/doc claim "AI Tools = sub-tab 0, Learn = sub-tab 1" is stale — legacy AI Study has Today / Practice / Exam Study (Today first).
@@ -442,12 +442,27 @@ Web ↔ app parity (spec `docs/superpowers/specs/2026-10-16-web-app-parity-desig
   - [ ] Chats: delete-for-everyone removes the message live but shows the deleted placeholder after reload (`chat_state_provider.dart` onMessageDeleted).
   - [ ] Chats: chat search shows the GIF error text and a slow older search can overwrite newer results (`chat_search_screen.dart:100`).
   - [ ] Chats: chat list requests `limit=100` and ignores pagination — users with 100+ conversations get a cut list (backend `/messages/senders` paging is also off: total 53 vs 16 rows).
-  - [ ] Profile: privacy switch saved OK but a failed `userProvider` refetch reverts it and says failed (`settings.dart:163-165`).
-  - [ ] Profile: "remove extra photos" reads `images` from the wrong level and reports failed DELETEs as success (`photo_upload_handler.dart` deleteAllExtras).
-  - [ ] Profile: account deletion revokes Google before the delete succeeds (`account_deletion.dart:84-90`).
+  - [x] (2026-11-11) Profile: privacy switch saved OK but a failed `userProvider` refetch reverted it and said failed — the refetch is now background.
+  - [x] (2026-11-11) Profile: "remove extra photos" read `images` from the wrong level and reported failed DELETEs as success — now uses each DELETE's own answer, stops and reports on failure.
+  - [x] (2026-11-11) Profile: account deletion revoked Google before the delete succeeded — now only after.
   - [ ] Moments: composer edit mode never shows existing photos (and backend ignores `images` on update) — see the Moments editing section.
 - [ ] Backend items in the audit doc (cascade delete of follows/blocks, photo limit, messageEdited populate, conversationId on all sends, sync-badges, senders paging, room hubs data). M
 - [ ] Native review of `gatheringRequestPending` / `gatheringWithdrawRequest` (19 locales, written 2026-10-27 for audit CO2). S
+
+## Profile audit (2026-11-11, branch fix/profile-audit; backend fix/profile-audit 8910000)
+Test `test/profile/profile_audit_contract_test.dart`; privacy save test rewritten for key-by-key saves.
+- [x] Followers/Following: an empty list no longer falls back to fetching a snapshot of ids one by one (an unfollowed person stayed listed and Unfollow then 400'd); the profile counts still refresh if you leave mid-request.
+- [x] My Moments: video/reel tiles show their thumbnail + play badge (were blank text tiles); refresh no longer wipes the whole app's image cache; the Moments count is the server's `totalMoments` (was capped at 50) on your and others' profiles.
+- [x] Drawer Admin Tools follows the `admin` role (was a hardcoded email list). Referral claim refreshes the coin balance. Visitors: a failed next page stops auto-paging and shows Retry. Pull-to-refresh offline no longer throws.
+- [x] Edit: "Not Set" can't be saved as a name; no gender picked isn't sent as null; a level change refreshes Today / tutor / hub (`invalidateLanguageDerived`); privacy toggles send only the changed key (no `auth/me` download); photo actions use CDN `imageUrls`; photo delete sends the URL it means (server answers 409 if the photos changed).
+- [x] Someone else's profile: Follow/Unfollow can't double-send; across a block either way there's no action bar and no visit is recorded; after Unblock the real profile loads; profiles opened from list rows fetch the full profile (MBTI/blood type were missing); the wave button no longer re-reads prefs on every rebuild.
+- [ ] Merge with the backend deploy of fix/profile-audit (the app tolerates either server). S
+- [x] (2026-11-11) My Moments pages through everything (30 at a time, Retry on a failed page; `userMomentsPagedProvider`); an edit re-reads that one moment in place, a delete drops it, no reload from page 1.
+- [ ] No "set as profile picture" action: a new photo always goes last. M
+- [x] (2026-11-11) The My Moments detail sheet shows the edited moment (reads the list, not the copy it opened with); the card resyncs like/comment counts.
+- [ ] `HighlightsRow` isn't reloaded by pull-to-refresh; rapid intent-chip taps can land out of order. S
+- [ ] Follower/following counts are raw id-array lengths (include blocked/deleted users the list leaves out). S
+- [ ] Device check: My Moments with 60+ moments scrolls to the oldest; edit a photo moment, remove one photo, save → gone from card, feed and storage; edit from the detail sheet → sheet shows the change; unfollow the only person you follow → list empties; delete one of 3 photos after changing photos on the web → "photos changed" instead of the wrong one; a reel shows in My Moments; open a profile that blocked you → no action bar. S
 
 ## Gatherings + clubs (2026-10-27) — see docs/gatherings-and-clubs-status.md
 - [x] Attendee card: after a gathering, someone who was there sees "Who was there" with a Message button each (reads backend `people`; `test/community/gathering_people_test.dart`). `gathering_time_changed` push taps open the gathering.

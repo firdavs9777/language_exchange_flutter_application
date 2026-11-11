@@ -1206,13 +1206,8 @@ class LeftDrawer extends ConsumerWidget {
     );
   }
 
-  bool _isAdmin(Community user) {
-    final adminEmails = [
-      'testdemo@gmail.com',
-      'fmutalipov7@gmail.com',
-      'fdwvycq6wh@privaterelay.appleid.com',
-      '000104.e36e48f4990f451eabc83e84eaa435f8.0931@privaterelay.appleid.com',
-    ];
-    return adminEmails.contains(user.email.toLowerCase());
-  }
+  // The role, as profile_main.dart uses and the server's authorize('admin')
+  // enforces. A hardcoded email list showed Admin Tools to listed accounts
+  // without the role (every call a 403) and hid it from real admins.
+  bool _isAdmin(Community user) => user.isAdmin;
 }

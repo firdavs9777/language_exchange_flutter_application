@@ -81,16 +81,6 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
     setState(() => _isLoading = true);
 
     try {
-      // Disconnect Google account before deletion (revokes access)
-      if (widget.isGoogleUser) {
-        try {
-          final googleSignIn = GoogleSignIn();
-          await googleSignIn.disconnect(); // Revokes Google access + sign out
-        } catch (_) {
-          // Don't block deletion if Google disconnect fails
-        }
-      }
-
       // Apple token revocation is handled server-side (requires client secret)
 
       final result = await ref.read(authServiceProvider).deleteAccount(
@@ -101,6 +91,17 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
           );
 
       if (result['success'] == true) {
+        // Revoke Google only once the account is really gone. Revoking first
+        // meant a refused delete (wrong confirm text, network) left a live
+        // account whose Google link was already cut.
+        if (widget.isGoogleUser) {
+          try {
+            await GoogleSignIn().disconnect(); // Revokes Google access + sign out
+          } catch (_) {
+            // The account is deleted either way.
+          }
+        }
+
         // deleteAccount() cleared tokens + prefs; this drops the rest of the
         // deleted account's state (providers, socket, listener, badge) and
         // its biometric snapshot. Runs even if this screen was disposed
