@@ -96,6 +96,10 @@ class _NotificationHistoryScreenState
       case 'announcement':
         return Icons.campaign_rounded;
       default:
+        // 모임: reminders, the host decision, cancel/moved, confirmed, ended…
+        if (type.toLowerCase().startsWith('gathering_')) {
+          return Icons.event_rounded;
+        }
         return Icons.notifications_rounded;
     }
   }
@@ -139,6 +143,9 @@ class _NotificationHistoryScreenState
       case 'announcement':
         return const Color(0xFFFF7043); // deep orange
       default:
+        if (type.toLowerCase().startsWith('gathering_')) {
+          return const Color(0xFF5C6BC0); // indigo
+        }
         return const Color(0xFF607D8B);
     }
   }
