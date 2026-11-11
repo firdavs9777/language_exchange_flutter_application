@@ -1,6 +1,6 @@
 # Remaining work — BananaTalk app
 
-Last updated: 2026-10-31 (Community phase 1 deployed, phase 2 app code-complete on feat/community-p2; 2.2.7 audit fixes; 모임 decisions). Keep this current: tick items off in the same commit that finishes them.
+Last updated: 2026-11-11 (backend 04c3832 rebuilt as a4e2d6a; Community phase 1 deployed, phase 2 app code-complete on feat/community-p2; 2.2.7 audit fixes; 모임 decisions). Keep this current: tick items off in the same commit that finishes them.
 
 See also: backend `language_exchange_backend_application/docs/REMAINING_WORK.md` (server env, prod DB, flags, ops) ·
 web `docs/REMAINING_WORK.md` in the web repo (admin console, `assetlinks.json`, nginx).
@@ -451,7 +451,7 @@ Web ↔ app parity (spec `docs/superpowers/specs/2026-10-16-web-app-parity-desig
 
 ## Gatherings + clubs (2026-10-27) — see docs/gatherings-and-clubs-status.md
 - [x] Attendee card: after a gathering, someone who was there sees "Who was there" with a Message button each (reads backend `people`; `test/community/gathering_people_test.dart`). `gathering_time_changed` push taps open the gathering.
-- [ ] Deploy backend `04c3832` (attendee list, no-show sweep, cancel notifications, local time in "time moved"); until then the card never shows. S
+- [ ] Deploy backend `04c3832` (attendee list, no-show sweep, cancel notifications, local time in "time moved"); until then the card never shows. 04c3832 was lost (never pushed, no copy anywhere); rebuilt 2026-11-11 as backend `a4e2d6a` on `fix/gatherings-rebuild-04c3832`, pushed, not merged. Merge + deploy that instead. S
 - [ ] Native review of `gatheringWhoWasThere` / `gatheringWhoWasThereHint` (19 locales, written 2026-10-27). S
 - [ ] Website: no attendee card yet (behind `WEB_GATHERINGS_ENABLED`, off). S
 - [ ] Backend open items for 모임 (in-app history for reminders, "has hosted N", club city/place, repeat, start → VoiceRoom) are in the backend `docs/REMAINING_WORK.md`.
