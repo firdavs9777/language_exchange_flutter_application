@@ -52,7 +52,7 @@ class ProfileStatsRow extends ConsumerWidget {
             // Followers
             Expanded(
               child: _StatItem(
-                value: user.followers.length.toString(),
+                value: user.followerTotal.toString(),
                 label: l10n.followers,
                 icon: Icons.people_rounded,
                 color: AppColors.primary,
@@ -72,7 +72,7 @@ class ProfileStatsRow extends ConsumerWidget {
             // Following
             Expanded(
               child: _StatItem(
-                value: user.followings.length.toString(),
+                value: user.followingTotal.toString(),
                 label: l10n.following,
                 icon: Icons.person_add_rounded,
                 color: AppColors.secondaryDark,

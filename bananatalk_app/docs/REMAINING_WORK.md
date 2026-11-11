@@ -460,8 +460,8 @@ Test `test/profile/profile_audit_contract_test.dart`; privacy save test rewritte
 - [x] (2026-11-11) My Moments pages through everything (30 at a time, Retry on a failed page; `userMomentsPagedProvider`); an edit re-reads that one moment in place, a delete drops it, no reload from page 1.
 - [ ] No "set as profile picture" action: a new photo always goes last. M
 - [x] (2026-11-11) The My Moments detail sheet shows the edited moment (reads the list, not the copy it opened with); the card resyncs like/comment counts.
-- [ ] `HighlightsRow` isn't reloaded by pull-to-refresh; rapid intent-chip taps can land out of order. S
-- [ ] Follower/following counts are raw id-array lengths (include blocked/deleted users the list leaves out). S
+- [x] (2026-11-11) Pull-to-refresh reloads the profile's highlights; intent chips save one at a time, latest tap only.
+- [x] (2026-11-11) Profiles read the server's `followersCount`/`followingCount`/`isFollowing` when sent (backend perf/visitor-lookup), falling back to the id lists. Counts still include blocked/deleted users the list leaves out — a server-side count question for later.
 - [ ] Device check: My Moments with 60+ moments scrolls to the oldest; edit a photo moment, remove one photo, save → gone from card, feed and storage; edit from the detail sheet → sheet shows the change; unfollow the only person you follow → list empties; delete one of 3 photos after changing photos on the web → "photos changed" instead of the wrong one; a reel shows in My Moments; open a profile that blocked you → no action bar. S
 
 ## Gatherings + clubs (2026-10-27) — see docs/gatherings-and-clubs-status.md

@@ -722,7 +722,7 @@ class LeftDrawer extends ConsumerWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 _buildHeaderStat(
-                  '${user.followers.length}',
+                  '${user.followerTotal}',
                   AppLocalizations.of(context)!.followers,
                 ),
                 Container(
@@ -732,7 +732,7 @@ class LeftDrawer extends ConsumerWidget {
                   color: Colors.white.withValues(alpha: 0.3),
                 ),
                 _buildHeaderStat(
-                  '${user.followings.length}',
+                  '${user.followingTotal}',
                   AppLocalizations.of(context)!.following,
                 ),
               ],
