@@ -114,12 +114,12 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
         });
       } else {
         setState(() {
-          isFollower = _community.followers.contains(userId);
+          isFollower = _community.followedBy(userId);
         });
       }
     } catch (e) {
       setState(() {
-        isFollower = _community.followers.contains(userId);
+        isFollower = _community.followedBy(userId);
       });
     }
 
@@ -196,7 +196,7 @@ class _SingleCommunityState extends ConsumerState<SingleCommunity>
       if (refreshedData != null && mounted) {
         setState(() {
           _updatedCommunity = refreshedData;
-          isFollower = refreshedData.followers.contains(userId);
+          isFollower = refreshedData.followedBy(userId);
         });
       }
     } catch (_) {}

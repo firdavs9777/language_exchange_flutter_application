@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/friendly_error.dart';
@@ -122,23 +124,40 @@ class _ProfileEditState extends ConsumerState<ProfileEdit> {
   /// The optimistic local update is reconciled with what the server actually
   /// stored: it strips `date` for under-18 accounts, so the saved value can be
   /// shorter than the tapped one and the chips must reflect the truth.
+  ///
+  /// Saves run one at a time and only the latest tap is sent: three quick taps
+  /// used to send three PUTs whose answers (and writes) could land in any
+  /// order, leaving the chips and the stored value disagreeing.
   Future<void> _onIntentsChanged(List<String> intents) async {
     setState(() => selectedIntents = intents);
+    final seq = ++_intentSeq;
+    final previous = _intentSaveTail;
+    final done = Completer<void>();
+    _intentSaveTail = done.future;
     try {
+      await previous;
+      if (seq != _intentSeq) return; // a newer tap sends its own state
       final saved = await ref.read(authServiceProvider).updateUserIntents(
         intents: intents,
       );
       _savedIntents = List.from(saved.intents);
-      if (mounted) setState(() => selectedIntents = List.from(saved.intents));
+      if (mounted && seq == _intentSeq) {
+        setState(() => selectedIntents = List.from(saved.intents));
+      }
     } catch (e) {
-      if (!mounted) return;
+      if (!mounted || seq != _intentSeq) return;
       // Roll back rather than leave a chip showing a state the server rejected.
       setState(() => selectedIntents = List.from(_savedIntents));
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(friendlyErrorMessage(AppLocalizations.of(context)!, e))),
       );
+    } finally {
+      done.complete();
     }
   }
+
+  Future<void> _intentSaveTail = Future<void>.value();
+  int _intentSeq = 0;
 
   // ─── Build ────────────────────────────────────────────────────────────────
 

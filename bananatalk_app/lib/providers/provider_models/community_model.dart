@@ -77,6 +77,9 @@ class Community {
     this.isBanned = false,
     // Story rings (Task 11): privacy-aware, stamped server-side.
     this.hasActiveStory = false,
+    this.followersCount,
+    this.followingCount,
+    this.isFollowing,
   });
 
   final String id;
@@ -146,6 +149,20 @@ class Community {
   /// viewer (privacy-filtered server-side — see backend
   /// lib/activeStoryFlags.js). Drives the gradient story ring on avatars.
   final bool hasActiveStory;
+
+  /// Server counts and follow state (GET /auth/users/:id). Preferred over the
+  /// id lists, which are on their way out of other users' profiles: a
+  /// popular user's profile shipped every follower id on each open.
+  final int? followersCount;
+  final int? followingCount;
+  final bool? isFollowing;
+
+  int get followerTotal => followersCount ?? followers.length;
+  int get followingTotal => followingCount ?? followings.length;
+
+  /// Whether [viewerId] follows this user: the server's answer when it sent
+  /// one, else the id list.
+  bool followedBy(String viewerId) => isFollowing ?? followers.contains(viewerId);
 
   bool get isAdmin => role == 'admin';
 
@@ -283,6 +300,9 @@ class Community {
       role: (json['role'] ?? 'user').toString(),
       isBanned: json['isBanned'] == true,
       hasActiveStory: json['hasActiveStory'] == true,
+      followersCount: (json['followersCount'] as num?)?.toInt(),
+      followingCount: (json['followingCount'] as num?)?.toInt(),
+      isFollowing: json['isFollowing'] is bool ? json['isFollowing'] as bool : null,
     );
   }
 

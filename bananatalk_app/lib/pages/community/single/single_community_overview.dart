@@ -77,7 +77,7 @@ class SingleCommunityOverview extends ConsumerWidget {
             children: [
               _buildStatItem(
                 context,
-                '${community.followers.length}',
+                '${community.followerTotal}',
                 l10n.followers,
                 Icons.people_rounded,
                 AppColors.accent,
@@ -85,7 +85,7 @@ class SingleCommunityOverview extends ConsumerWidget {
               Container(height: 50, width: 1, color: context.dividerColor),
               _buildStatItem(
                 context,
-                '${community.followings.length}',
+                '${community.followingTotal}',
                 l10n.following,
                 Icons.person_add_rounded,
                 Colors.blue[600]!,

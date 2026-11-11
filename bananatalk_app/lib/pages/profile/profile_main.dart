@@ -58,6 +58,11 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
   UserStories? _myStories;
   bool get _hasActiveStory => _myStories?.activeStories.isNotEmpty == true;
 
+  /// Bumped by pull-to-refresh; part of the highlights row's key, so the row
+  /// reloads (it loads once in initState and had no other way to refresh,
+  /// e.g. a highlight added on another device never appeared).
+  int _highlightsRefresh = 0;
+
   @override
   void initState() {
     super.initState();
@@ -215,6 +220,7 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
           final currentUser = ref.read(userProvider).valueOrNull;
           ref.invalidate(userProvider);
           ref.invalidate(myVisitorStatsProvider);
+          setState(() => _highlightsRefresh++);
           if (currentUser != null) {
             ref.invalidate(userMomentsProvider(currentUser.id));
           }
@@ -285,6 +291,7 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
                     // entry AND an ad, which is nowhere near the face they
                     // belong to.
                     HighlightsRow(
+                      key: ValueKey('own-highlights-$_highlightsRefresh'),
                       userId: user.id,
                       isOwnProfile: true,
                       user: user,

@@ -254,11 +254,11 @@ class _SingleCommunityHeaderState extends ConsumerState<SingleCommunityHeader> {
       children: [
         _StatColumn(value: postsCount?.toString() ?? '-', label: l10n.moments),
         _StatColumn(
-          value: widget.community.followers.length.toString(),
+          value: widget.community.followerTotal.toString(),
           label: l10n.followers,
         ),
         _StatColumn(
-          value: widget.community.followings.length.toString(),
+          value: widget.community.followingTotal.toString(),
           label: l10n.following,
         ),
       ],
