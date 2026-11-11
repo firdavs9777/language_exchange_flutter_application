@@ -24,24 +24,68 @@ class ProfileMoments extends ConsumerStatefulWidget {
 class _ProfileMomentsState extends ConsumerState<ProfileMoments> {
   bool _isGridView = true; // default to grid (more modern, photo-first)
 
+  UserMomentsPagedNotifier get _paged =>
+      ref.read(userMomentsPagedProvider(widget.id).notifier);
+
   Future<void> _refreshMoments() async {
     if (!mounted) return;
     HapticFeedback.lightImpact();
 
+    ref.invalidate(userMomentsPagedProvider(widget.id));
+    // The profile's preview grid and Moments count.
     ref.invalidate(userMomentsProvider(widget.id));
 
     try {
       // No imageCache.clear(): it dropped every decoded image in the app
       // (feed, avatars, chat) on each refresh. A changed URL misses anyway.
-      await ref.read(userMomentsProvider(widget.id).future);
+      await ref.read(userMomentsPagedProvider(widget.id).future);
     } catch (e) {
       // Ignore errors - provider will handle them in the UI
     }
   }
 
+  /// An edit: re-read that one moment in place (it may be on page 3).
+  void _onMomentUpdated(String id) {
+    _paged.refreshMoment(id);
+    ref.invalidate(userMomentsProvider(widget.id));
+  }
+
+  void _onMomentDeleted(String id) {
+    _paged.removeMoment(id);
+    ref.invalidate(userMomentsProvider(widget.id));
+  }
+
+  /// Called as rows near the end are built: the next page, if any.
+  void _maybeLoadMore(int index, int length) {
+    if (index < length - 6) return;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) _paged.loadMore();
+    });
+  }
+
+  /// Spinner while more pages exist, Retry after a failed one.
+  Widget? _pagingFooter() {
+    final paged = _paged;
+    if (paged.loadMoreFailed) {
+      return Center(
+        child: TextButton.icon(
+          key: const Key('my-moments-load-more-retry'),
+          icon: const Icon(Icons.refresh_rounded),
+          label: Text(AppLocalizations.of(context)!.retry),
+          onPressed: () => paged.retry(),
+        ),
+      );
+    }
+    if (!paged.hasMore) return null;
+    return const Padding(
+      padding: EdgeInsets.symmetric(vertical: 16),
+      child: Center(child: CircularProgressIndicator()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final momentsAsync = ref.watch(userMomentsProvider(widget.id));
+    final momentsAsync = ref.watch(userMomentsPagedProvider(widget.id));
     final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
@@ -398,23 +442,33 @@ class _ProfileMomentsState extends ConsumerState<ProfileMoments> {
 
   // ========== GRID VIEW ==========
   Widget _buildGridView(List<Moments> moments) {
-    return GridView.builder(
+    final footer = _pagingFooter();
+    return CustomScrollView(
       physics: const BouncingScrollPhysics(
         parent: AlwaysScrollableScrollPhysics(),
       ),
-      padding: const EdgeInsets.all(12),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3,
-        crossAxisSpacing: 6,
-        mainAxisSpacing: 6,
-        childAspectRatio: 1,
-      ),
-      itemCount: moments.length,
       cacheExtent: 500,
-      itemBuilder: (context, index) {
-        final moment = moments[index];
-        return _buildGridItem(moment, index);
-      },
+      slivers: [
+        SliverPadding(
+          padding: const EdgeInsets.all(12),
+          sliver: SliverGrid(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+              crossAxisSpacing: 6,
+              mainAxisSpacing: 6,
+              childAspectRatio: 1,
+            ),
+            delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                _maybeLoadMore(index, moments.length);
+                return _buildGridItem(moments[index], index);
+              },
+              childCount: moments.length,
+            ),
+          ),
+        ),
+        if (footer != null) SliverToBoxAdapter(child: footer),
+      ],
     );
   }
 
@@ -583,14 +637,17 @@ class _ProfileMomentsState extends ConsumerState<ProfileMoments> {
 
   // ========== LIST VIEW ==========
   Widget _buildListView(List<Moments> moments) {
+    final footer = _pagingFooter();
     return ListView.builder(
       physics: const BouncingScrollPhysics(
         parent: AlwaysScrollableScrollPhysics(),
       ),
-      itemCount: moments.length,
+      itemCount: moments.length + (footer != null ? 1 : 0),
       cacheExtent: 200,
       padding: const EdgeInsets.symmetric(vertical: 8),
       itemBuilder: (context, index) {
+        if (index == moments.length) return footer!;
+        _maybeLoadMore(index, moments.length);
         final moment = moments[index];
         final imageKey = moment.imageUrls.isNotEmpty
             ? moment.imageUrls[0].hashCode
@@ -600,8 +657,8 @@ class _ProfileMomentsState extends ConsumerState<ProfileMoments> {
             'moment_${moment.id}_${moment.imageUrls.length}_$imageKey',
           ),
           moment: moment,
-          onDeleted: () => _refreshMoments(),
-          onUpdated: () => _refreshMoments(),
+          onDeleted: () => _onMomentDeleted(moment.id),
+          onUpdated: () => _onMomentUpdated(moment.id),
         );
       },
     );
@@ -639,15 +696,26 @@ class _ProfileMomentsState extends ConsumerState<ProfileMoments> {
                   ),
                 ),
                 Expanded(
-                  child: ProfileSingleMoment(
-                    key: ValueKey('detail_${moment.id}'),
-                    moment: moment,
-                    onDeleted: () {
-                      Navigator.pop(context);
-                      _refreshMoments();
-                    },
-                    onUpdated: () {
-                      _refreshMoments();
+                  // The current copy from the list, not the one captured
+                  // when the sheet opened: after an edit the sheet used to
+                  // keep showing the old text and photos until closed.
+                  child: Consumer(
+                    builder: (context, ref, _) {
+                      final latest = ref
+                              .watch(userMomentsPagedProvider(widget.id))
+                              .valueOrNull
+                              ?.where((m) => m.id == moment.id)
+                              .firstOrNull ??
+                          moment;
+                      return ProfileSingleMoment(
+                        key: ValueKey('detail_${moment.id}'),
+                        moment: latest,
+                        onDeleted: () {
+                          Navigator.pop(context);
+                          _onMomentDeleted(moment.id);
+                        },
+                        onUpdated: () => _onMomentUpdated(moment.id),
+                      );
                     },
                   ),
                 ),

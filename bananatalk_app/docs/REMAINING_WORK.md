@@ -295,7 +295,7 @@ Suspected bugs from the full regression suite (2026-10-15, code reading only —
 - [ ] Notifications / app-wide: announcement "seen" is per device and wiped at logout (repeat pop-up after re-login); iOS badge never cleared (`clearBadge` no-op); cold-start deep links skip the shell and the login redirect; Tajik missing from iOS `CFBundleLocalizations`; check exported iOS build has production `aps-environment`; some interstitials bypass the per-session cap. S–M
 - [ ] Hardcoded English found across auth, chat (swipe labels, header status), calls (permission/quality strings), moments composer, profile drawer, coin shop, topics — fold into the L14 localization item. M
 Moments / stories audit follow-ups (branch `fix/moments-stories-audit`, 2026-10-15)
-- [ ] Profile → Edit moment: removing an existing photo is a no-op — the server ignores `images` on update and has no delete-photo endpoint. Needs a backend route (or hide the remove button). S
+- [x] (2026-11-11) Edit moment: the composer now shows the moment's photos with a remove button and sends `keepImages` (backend deletes the rest). It used to show none of them and could only add. S
 - [ ] Story viewer "Add to highlight" does not update the in-memory story's `highlightId`, so a second tap offers the picker again (server side dedupes). S
 - [ ] Device QA for the audit: prompt label on card/detail; edit clears mood/tags, removes/adds location, reschedules/clears a schedule; text story with a poll/question; reopening a voted poll / answered question / reacted story (new and old backend); web-made text story with a hex background. S
 - Note: the memory/doc claim "AI Tools = sub-tab 0, Learn = sub-tab 1" is stale — legacy AI Study has Today / Practice / Exam Study (Today first).
@@ -457,11 +457,12 @@ Test `test/profile/profile_audit_contract_test.dart`; privacy save test rewritte
 - [x] Edit: "Not Set" can't be saved as a name; no gender picked isn't sent as null; a level change refreshes Today / tutor / hub (`invalidateLanguageDerived`); privacy toggles send only the changed key (no `auth/me` download); photo actions use CDN `imageUrls`; photo delete sends the URL it means (server answers 409 if the photos changed).
 - [x] Someone else's profile: Follow/Unfollow can't double-send; across a block either way there's no action bar and no visit is recorded; after Unblock the real profile loads; profiles opened from list rows fetch the full profile (MBTI/blood type were missing); the wave button no longer re-reads prefs on every rebuild.
 - [ ] Merge with the backend deploy of fix/profile-audit (the app tolerates either server). S
-- [ ] My Moments still loads only the first 50 (no paging). M
+- [x] (2026-11-11) My Moments pages through everything (30 at a time, Retry on a failed page; `userMomentsPagedProvider`); an edit re-reads that one moment in place, a delete drops it, no reload from page 1.
 - [ ] No "set as profile picture" action: a new photo always goes last. M
-- [ ] Moment detail sheet keeps the moment it opened with after an edit; `HighlightsRow` isn't reloaded by pull-to-refresh; rapid intent-chip taps can land out of order. S
+- [x] (2026-11-11) The My Moments detail sheet shows the edited moment (reads the list, not the copy it opened with); the card resyncs like/comment counts.
+- [ ] `HighlightsRow` isn't reloaded by pull-to-refresh; rapid intent-chip taps can land out of order. S
 - [ ] Follower/following counts are raw id-array lengths (include blocked/deleted users the list leaves out). S
-- [ ] Device check: unfollow the only person you follow → list empties; delete one of 3 photos after changing photos on the web → "photos changed" instead of the wrong one; a reel shows in My Moments; open a profile that blocked you → no action bar. S
+- [ ] Device check: My Moments with 60+ moments scrolls to the oldest; edit a photo moment, remove one photo, save → gone from card, feed and storage; edit from the detail sheet → sheet shows the change; unfollow the only person you follow → list empties; delete one of 3 photos after changing photos on the web → "photos changed" instead of the wrong one; a reel shows in My Moments; open a profile that blocked you → no action bar. S
 
 ## Gatherings + clubs (2026-10-27) — see docs/gatherings-and-clubs-status.md
 - [x] Attendee card: after a gathering, someone who was there sees "Who was there" with a Message button each (reads backend `people`; `test/community/gathering_people_test.dart`). `gathering_time_changed` push taps open the gathering.

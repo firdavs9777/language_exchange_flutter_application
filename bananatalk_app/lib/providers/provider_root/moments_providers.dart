@@ -139,7 +139,12 @@ class MomentsService {
   /// list itself is capped at 50, so its length is not the count.
   static final Map<String, int> userMomentTotals = {};
 
-  Future<List<Moments>> getMomentsUser({required String id, int page = 1, int limit = 10}) async {
+  Future<List<Moments>> getMomentsUser({required String id, int page = 1, int limit = 10}) async =>
+      (await getMomentsUserPage(id: id, page: page, limit: limit)).moments;
+
+  /// One page of a user's moments, with whether another page exists
+  /// (`pagination.hasNextPage`, which the list-only call drops).
+  Future<MomentsFeedPage> getMomentsUserPage({required String id, int page = 1, int limit = 10}) async {
     // Enforce max limit of 50 per page
     if (limit > 50) {
       limit = 50;
@@ -172,7 +177,11 @@ class MomentsService {
         final prefs = await SharedPreferences.getInstance();
         prefs.setString('count', count.toString());
 
-        return momentsList.map((json) => Moments.fromJson(json)).toList();
+        final pagination = data['pagination'];
+        return MomentsFeedPage(
+          momentsList.map((json) => Moments.fromJson(json)).toList(),
+          hasMore: pagination is Map && pagination['hasNextPage'] == true,
+        );
       } else {
         throw Exception(data['error'] ?? 'Failed to load user moments');
       }
@@ -326,6 +335,7 @@ class MomentsService {
     Map<String, dynamic>? location,
     bool includeScheduledFor = false,
     String? scheduledFor,
+    List<String>? keepImages,
   }) async {
     final url = Uri.parse('${Endpoints.baseURL}${Endpoints.momentsURL}/$id');
 
@@ -348,6 +358,7 @@ class MomentsService {
       location: location,
       includeScheduledFor: includeScheduledFor,
       scheduledFor: scheduledFor,
+      keepImages: keepImages,
     );
 
     final response = await http.put(
@@ -1154,6 +1165,88 @@ final userMomentsTotalProvider = Provider.family<AsyncValue<int>, String>((ref, 
       );
 });
 
+/// A user's moments, paged (My Moments). [userMomentsProvider] stays the
+/// first 50 for the profile preview; this screen used to show those 50 and
+/// nothing older, so moments past the 50th could not be seen or deleted.
+class UserMomentsPagedNotifier
+    extends AutoDisposeFamilyAsyncNotifier<List<Moments>, String> {
+  static const pageSize = 30;
+
+  int _page = 1;
+  bool _hasMore = false;
+  bool _loadingMore = false;
+  bool _loadMoreFailed = false;
+
+  bool get hasMore => _hasMore;
+  bool get loadMoreFailed => _loadMoreFailed;
+
+  @override
+  Future<List<Moments>> build(String userId) async {
+    _page = 1;
+    _hasMore = false;
+    _loadingMore = false;
+    _loadMoreFailed = false;
+    final first = await MomentsService()
+        .getMomentsUserPage(id: userId, page: 1, limit: pageSize);
+    _hasMore = first.hasMore && first.moments.isNotEmpty;
+    return first.moments;
+  }
+
+  /// Appends the next page. A failure stops auto-paging until [retry]:
+  /// otherwise every scroll near the end fired another request.
+  Future<void> loadMore() async {
+    final current = state.valueOrNull;
+    if (current == null || state.isLoading || !_hasMore || _loadingMore || _loadMoreFailed) {
+      return;
+    }
+    _loadingMore = true;
+    try {
+      final next = await MomentsService()
+          .getMomentsUserPage(id: arg, page: _page + 1, limit: pageSize);
+      if (!identical(state.valueOrNull, current)) return;
+      _page += 1;
+      _hasMore = next.hasMore && next.moments.isNotEmpty;
+      state = AsyncData(appendMomentsPage(current, next.moments));
+    } catch (_) {
+      _loadMoreFailed = true;
+      // Same list, new instance: the footer rebuilds into its Retry state.
+      if (identical(state.valueOrNull, current)) state = AsyncData([...current]);
+    } finally {
+      _loadingMore = false;
+    }
+  }
+
+  Future<void> retry() {
+    _loadMoreFailed = false;
+    return loadMore();
+  }
+
+  /// Re-reads one moment after an edit and swaps it in wherever it is, so an
+  /// edit on page 3 doesn't reload from page 1 (and lose the open sheet's
+  /// moment) to show itself.
+  Future<void> refreshMoment(String id) async {
+    try {
+      final fresh = await MomentsService().getSingleMoment(id: id);
+      final current = state.valueOrNull;
+      if (current == null) return;
+      state = AsyncData([for (final m in current) m.id == id ? fresh : m]);
+    } catch (_) {
+      ref.invalidateSelf();
+    }
+  }
+
+  void removeMoment(String id) {
+    final current = state.valueOrNull;
+    if (current == null) return;
+    state = AsyncData([for (final m in current) if (m.id != id) m]);
+  }
+}
+
+final userMomentsPagedProvider = AsyncNotifierProvider.autoDispose
+    .family<UserMomentsPagedNotifier, List<Moments>, String>(
+  UserMomentsPagedNotifier.new,
+);
+
 final momentsServiceProvider = Provider((ref) => MomentsService());
 
 /// Clubs v2: a club's latest posts (first 20). Refreshed after posting.
@@ -1211,10 +1304,17 @@ Map<String, dynamic> momentUpdateBody({
   Map<String, dynamic>? location,
   bool includeScheduledFor = false,
   String? scheduledFor,
+  List<String>? keepImages,
 }) {
   final Map<String, dynamic> body = {
     'description': description.trim(),
   };
+
+  // The photos that stay (null = untouched). Sent only when the editor
+  // removed one; the server deletes the rest.
+  if (keepImages != null) {
+    body['keepImages'] = keepImages;
+  }
 
   if (category != null && category.isNotEmpty) {
     body['category'] = category;

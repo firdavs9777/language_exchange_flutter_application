@@ -59,7 +59,17 @@ class _ProfileSingleMomentState extends ConsumerState<ProfileSingleMoment> {
   @override
   void didUpdateWidget(covariant ProfileSingleMoment oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.moment != oldWidget.moment) moment = widget.moment;
+    if (widget.moment != oldWidget.moment) {
+      moment = widget.moment;
+      // A re-read moment (after an edit, or a refresh) carries the server's
+      // counts; keep the local ones only while nothing new came in.
+      if (widget.moment.likeCount != oldWidget.moment.likeCount) {
+        likeCount = widget.moment.likeCount;
+      }
+      if (widget.moment.commentCount != oldWidget.moment.commentCount) {
+        commentCount = widget.moment.commentCount;
+      }
+    }
   }
 
   @override
