@@ -119,7 +119,10 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
     );
     if (mounted) {
       ref.invalidate(userProvider);
-      await ref.read(userProvider.future);
+      // The screen shows the provider's error state; nothing to throw here.
+      try {
+        await ref.read(userProvider.future);
+      } catch (_) {}
     }
   }
 
@@ -215,7 +218,11 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
           if (currentUser != null) {
             ref.invalidate(userMomentsProvider(currentUser.id));
           }
-          await ref.read(userProvider.future);
+          // Offline, this throws; stories must still reload and the error
+          // belongs to the provider's state, not to an uncaught async error.
+          try {
+            await ref.read(userProvider.future);
+          } catch (_) {}
           await _loadOwnStories();
         },
         child: userAsync.when(

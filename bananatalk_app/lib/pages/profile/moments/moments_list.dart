@@ -31,9 +31,9 @@ class _ProfileMomentsState extends ConsumerState<ProfileMoments> {
     ref.invalidate(userMomentsProvider(widget.id));
 
     try {
+      // No imageCache.clear(): it dropped every decoded image in the app
+      // (feed, avatars, chat) on each refresh. A changed URL misses anyway.
       await ref.read(userMomentsProvider(widget.id).future);
-      imageCache.clear();
-      imageCache.clearLiveImages();
     } catch (e) {
       // Ignore errors - provider will handle them in the UI
     }
@@ -455,6 +455,25 @@ class _ProfileMomentsState extends ConsumerState<ProfileMoments> {
                       useNormalization: false,
                       errorWidget: _imagePlaceholder(),
                     )
+                  // A video or reel has no `images`; its preview is
+                  // video.thumbnail, as on the profile's Moments tab.
+                  else if (moment.hasVideo) ...[
+                    if ((moment.video?.thumbnail ?? '').isNotEmpty)
+                      CachedImageWidget(
+                        imageUrl: ImageUtils.normalizeImageUrl(moment.video!.thumbnail!),
+                        fit: BoxFit.cover,
+                        errorWidget: Container(color: Colors.black54),
+                      )
+                    else
+                      Container(color: Colors.black54),
+                    const Center(
+                      child: Icon(
+                        Icons.play_circle_fill_rounded,
+                        color: Colors.white,
+                        size: 32,
+                      ),
+                    ),
+                  ]
                   else
                     TextMomentTile(
                       text: moment.description,

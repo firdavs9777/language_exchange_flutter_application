@@ -246,8 +246,8 @@ class _SingleCommunityHeaderState extends ConsumerState<SingleCommunityHeader> {
   // ---------------------------------------------------------------------------
 
   Widget _buildStatsRow(BuildContext context, AppLocalizations l10n) {
-    final momentsAsync = ref.watch(userMomentsProvider(widget.community.id));
-    final postsCount = momentsAsync.valueOrNull?.length;
+    final postsCount =
+        ref.watch(userMomentsTotalProvider(widget.community.id)).valueOrNull;
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,

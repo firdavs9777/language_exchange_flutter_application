@@ -27,11 +27,20 @@ import 'package:bananatalk_app/utils/theme_extensions.dart';
 /// Video/voice call entry points were removed from this row as part of the
 /// Instagram-style redesign — they remain reachable from the chat header
 /// (see chat_app_bar.dart) once a conversation is open.
+/// Whether the viewer has waved at this user (a local marker, see
+/// send_wave_sheet.dart). A provider rather than a FutureBuilder built inside
+/// build(): that re-read SharedPreferences on every rebuild of the screen and
+/// flickered the icon. Invalidated after the wave sheet closes.
+final alreadyWavedProvider = FutureProvider.autoDispose.family<bool, String>(
+  (ref, userId) => SingleCommunityActionBar._alreadyWaved(userId),
+);
+
 class SingleCommunityActionBar extends ConsumerWidget {
   final Community community;
   final bool isFollower;
   final VoidCallback onMessage;
-  final VoidCallback onFollowToggle;
+  /// Null while a follow request is in flight (the button disables).
+  final VoidCallback? onFollowToggle;
 
   const SingleCommunityActionBar({
     super.key,
@@ -90,10 +99,10 @@ class SingleCommunityActionBar extends ConsumerWidget {
                   Expanded(flex: 14, child: _buildMessageButton(context, l10n)),
                   if (!isOwnProfile) ...[
                     const SizedBox(width: 8),
-                    FutureBuilder<bool>(
-                      future: _alreadyWaved(community.id),
-                      builder: (context, snapshot) =>
-                          _buildWaveButton(context, snapshot.data ?? false),
+                    _buildWaveButton(
+                      context,
+                      ref,
+                      ref.watch(alreadyWavedProvider(community.id)).valueOrNull ?? false,
                     ),
                   ],
                 ],
@@ -162,7 +171,7 @@ class SingleCommunityActionBar extends ConsumerWidget {
   // Wave — outlined square icon button
   // ---------------------------------------------------------------------------
 
-  Widget _buildWaveButton(BuildContext context, bool alreadyWaved) {
+  Widget _buildWaveButton(BuildContext context, WidgetRef ref, bool alreadyWaved) {
     final color = alreadyWaved ? context.textMuted : AppColors.primary;
     return Tooltip(
       message: alreadyWaved
@@ -172,7 +181,7 @@ class SingleCommunityActionBar extends ConsumerWidget {
         width: 46,
         height: 46,
         child: OutlinedButton(
-          onPressed: () {
+          onPressed: () async {
             if (alreadyWaved) {
               showCommunitySnackBar(
                 context,
@@ -181,7 +190,7 @@ class SingleCommunityActionBar extends ConsumerWidget {
               );
               return;
             }
-            showSendWaveSheet(
+            await showSendWaveSheet(
               context,
               targetUserId: community.id,
               targetUserName: community.name,
@@ -189,6 +198,7 @@ class SingleCommunityActionBar extends ConsumerWidget {
                   ? community.location.country
                   : null,
             );
+            if (context.mounted) ref.invalidate(alreadyWavedProvider(community.id));
           },
           style: OutlinedButton.styleFrom(
             foregroundColor: color,

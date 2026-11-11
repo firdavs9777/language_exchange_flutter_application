@@ -162,8 +162,10 @@ class _ProfileSettingsState extends ConsumerState<ProfileSettings> {
           .read(authServiceProvider)
           .updatePrivacySettings(privacySettings: privacySettingsMap);
 
+      // Saved. Refresh the cached user in the background: a failed refetch
+      // must not revert a switch the server already accepted and report it
+      // as a failure.
       ref.invalidate(userProvider);
-      await ref.read(userProvider.future);
 
       if (!mounted) return;
       setState(() => _savingKey = null);

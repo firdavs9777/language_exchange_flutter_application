@@ -83,25 +83,17 @@ void main() {
       SharedPreferences.setMockInitialValues({'token': 't', 'userId': 'u1'});
     });
 
-    test('sends the complete object merged over the stored settings',
-        () async {
+    test('sends only the changed key, with no auth/me read', () async {
+      // The server merges privacySettings key by key, so a toggle sends just
+      // itself. Downloading the user and sending all 14 keys back cost a
+      // round trip and could revert a key changed elsewhere in between.
       Map<String, dynamic>? sent;
+      var gets = 0;
       final server = MockClient((req) async {
-        if (req.method == 'GET' && req.url.path.endsWith('auth/me')) {
-          return http.Response(
-              jsonEncode({
-                'data': _user({
-                  'newFollowerEmails': false,
-                  'weeklyDigest': false,
-                  'anonymousProfileVisits': true,
-                }),
-              }),
-              200);
-        }
+        if (req.method == 'GET') gets++;
         if (req.method == 'PUT') {
           expect(req.url.path, endsWith('/u1'));
-          sent = jsonDecode(req.body)['privacySettings']
-              as Map<String, dynamic>;
+          sent = jsonDecode(req.body)['privacySettings'] as Map<String, dynamic>;
           return http.Response(jsonEncode({'data': _user(sent)}), 200);
         }
         return http.Response('{}', 404);
@@ -113,32 +105,8 @@ void main() {
         () => server,
       );
 
-      expect(sent, isNotNull);
-      expect(sent!.keys.toSet(), _allKeys.toSet());
-      expect(sent!['showAge'], isFalse);
-      expect(sent!['newFollowerEmails'], isFalse);
-      expect(sent!['weeklyDigest'], isFalse);
-      expect(sent!['anonymousProfileVisits'], isTrue);
-      expect(sent!['emailNotifications'], isTrue);
-    });
-
-    test('does not send a partial object when the stored settings fail',
-        () async {
-      var puts = 0;
-      final server = MockClient((req) async {
-        if (req.method == 'PUT') puts++;
-        return http.Response('{"success":false}', 500);
-      });
-
-      await expectLater(
-        http.runWithClient(
-          () => AuthService()
-              .updatePrivacySettings(privacySettings: {'showAge': false}),
-          () => server,
-        ),
-        throwsException,
-      );
-      expect(puts, 0);
+      expect(sent, {'showAge': false});
+      expect(gets, 0);
     });
 
     test('two quick saves do not undo each other', () async {
@@ -151,8 +119,12 @@ void main() {
         if (req.method == 'PUT') {
           // Slow write: the second save's read would land before it.
           await Future<void>.delayed(const Duration(milliseconds: 20));
-          stored = Map<String, dynamic>.from(
-              jsonDecode(req.body)['privacySettings'] as Map);
+          // Merged key by key, as lib/privacySettings.js does.
+          stored = {
+            ...stored,
+            ...Map<String, dynamic>.from(
+                jsonDecode(req.body)['privacySettings'] as Map),
+          };
           return http.Response(jsonEncode({'data': _user(stored)}), 200);
         }
         return http.Response('{}', 404);

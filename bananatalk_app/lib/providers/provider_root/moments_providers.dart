@@ -135,6 +135,10 @@ class MomentsService {
     }
   }
 
+  /// The server's `totalMoments` per user, from the last page fetched. The
+  /// list itself is capped at 50, so its length is not the count.
+  static final Map<String, int> userMomentTotals = {};
+
   Future<List<Moments>> getMomentsUser({required String id, int page = 1, int limit = 10}) async {
     // Enforce max limit of 50 per page
     if (limit > 50) {
@@ -162,6 +166,8 @@ class MomentsService {
       if (data['success'] == true) {
         final List<dynamic> momentsList = data['data'] ?? [];
         count = data['count'] ?? 0;
+        final total = data['totalMoments'];
+        if (total is num) userMomentTotals[id] = total.toInt();
 
         final prefs = await SharedPreferences.getInstance();
         prefs.setString('count', count.toString());
@@ -1138,6 +1144,14 @@ final promptOfDayProvider = FutureProvider<Map<String, dynamic>>((ref) async {
 final userMomentsProvider = FutureProvider.family<List<Moments>, String>((ref, userId) async {
   final service = MomentsService();
   return service.getMomentsUser(id: userId, page: 1, limit: 50);
+});
+
+/// How many moments a user has: the server's total, not the length of the
+/// first 50. Follows [userMomentsProvider], so refreshing that refreshes this.
+final userMomentsTotalProvider = Provider.family<AsyncValue<int>, String>((ref, userId) {
+  return ref.watch(userMomentsProvider(userId)).whenData(
+        (moments) => MomentsService.userMomentTotals[userId] ?? moments.length,
+      );
 });
 
 final momentsServiceProvider = Provider((ref) => MomentsService());

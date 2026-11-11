@@ -60,6 +60,9 @@ class _ProfileVisitorsScreenState extends ConsumerState<ProfileVisitorsScreen> {
   int _page = 1;
   bool _hasMore = false;
   bool _loadingMore = false;
+  /// A failed next page stops auto-paging until Retry: otherwise every scroll
+  /// event fired another request and the list silently stopped growing.
+  bool _loadMoreFailed = false;
   bool _isLoading = true;
   String? _error;
 
@@ -102,6 +105,7 @@ class _ProfileVisitorsScreenState extends ConsumerState<ProfileVisitorsScreen> {
             final fetched = List<dynamic>.from(result['visitors'] ?? const []);
             _visitors = page == 1 ? fetched : [..._visitors, ...fetched];
             _page = page;
+            _loadMoreFailed = false;
             // A full page may have more behind it; a free account always gets
             // one row and never pages.
             _hasMore = fetched.length >= _pageSize;
@@ -118,6 +122,8 @@ class _ProfileVisitorsScreenState extends ConsumerState<ProfileVisitorsScreen> {
             _error = result['error'];
             _isLoading = false;
           });
+        } else if (page > 1) {
+          setState(() => _loadMoreFailed = true);
         }
       }
     } catch (e) {
@@ -126,6 +132,8 @@ class _ProfileVisitorsScreenState extends ConsumerState<ProfileVisitorsScreen> {
           _error = AppLocalizations.of(context)!.visitorTrackingNotAvailableYet;
           _isLoading = false;
         });
+      } else if (mounted && page > 1) {
+        setState(() => _loadMoreFailed = true);
       }
     }
   }
@@ -136,7 +144,7 @@ class _ProfileVisitorsScreenState extends ConsumerState<ProfileVisitorsScreen> {
   }
 
   Future<void> _loadMore() async {
-    if (_loadingMore || !_hasMore || _isLoading) return;
+    if (_loadingMore || !_hasMore || _isLoading || _loadMoreFailed) return;
     setState(() => _loadingMore = true);
     try {
       await _fetchVisitors(page: _page + 1, silent: true);
@@ -264,12 +272,24 @@ class _ProfileVisitorsScreenState extends ConsumerState<ProfileVisitorsScreen> {
                 delegate: SliverChildBuilderDelegate(
                   (context, index) {
                     if (index == rows.length) {
-                      return showLockedTile
-                          ? _buildMaskedTile(_locked)
-                          : const Padding(
-                              padding: EdgeInsets.symmetric(vertical: 16),
-                              child: Center(child: CircularProgressIndicator()),
-                            );
+                      if (showLockedTile) return _buildMaskedTile(_locked);
+                      if (_loadMoreFailed) {
+                        return Center(
+                          child: TextButton.icon(
+                            key: const Key('visitors-load-more-retry'),
+                            icon: const Icon(Icons.refresh_rounded),
+                            label: Text(AppLocalizations.of(context)!.retry),
+                            onPressed: () {
+                              setState(() => _loadMoreFailed = false);
+                              _loadMore();
+                            },
+                          ),
+                        );
+                      }
+                      return const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 16),
+                        child: Center(child: CircularProgressIndicator()),
+                      );
                     }
                     final visitor = rows[index];
                     if (visitor == null) {
@@ -279,7 +299,7 @@ class _ProfileVisitorsScreenState extends ConsumerState<ProfileVisitorsScreen> {
                   },
                   childCount:
                       rows.length +
-                      ((showLockedTile || (_hasMore && _loadingMore)) ? 1 : 0),
+                      ((showLockedTile || (_hasMore && (_loadingMore || _loadMoreFailed))) ? 1 : 0),
                 ),
               ),
             ),

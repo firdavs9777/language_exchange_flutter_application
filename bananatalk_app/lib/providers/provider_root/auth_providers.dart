@@ -1751,7 +1751,8 @@ class AuthService extends ChangeNotifier {
 
     final response = await http.put(
       url,
-      body: json.encode({'name': userName, 'gender': gender}),
+      // No gender picked means "leave it", not "clear it".
+      body: json.encode({'name': userName, if (gender != null) 'gender': gender}),
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
@@ -1987,16 +1988,10 @@ class AuthService extends ChangeNotifier {
   /// Saves the privacy keys in [privacySettings] (only the ones that changed
   /// are needed).
   ///
-  /// `PUT /auth/users/:id` has replaced the whole stored privacySettings
-  /// object, resetting every key it was not sent. So this reads the user's
-  /// stored settings fresh from `auth/me` (the cached user can be stale, e.g.
-  /// after the email preferences screen saved) and always sends the complete
-  /// object with [privacySettings] laid over it. If the stored settings can't
-  /// be read it fails rather than sending a partial object.
+  /// Sends only [privacySettings]; the server merges them key by key over
+  /// the stored object, so keys this call doesn't name keep their values.
   ///
-  /// Saves run one at a time. Two quick toggles used to race: the second
-  /// read `auth/me` before the first had written, then wrote the first key
-  /// back to its old value.
+  /// Saves still run one at a time, so two quick toggles land in order.
   Future<Community> updatePrivacySettings({
     required Map<String, bool> privacySettings,
   }) async {
@@ -2025,37 +2020,36 @@ class AuthService extends ChangeNotifier {
       throw Exception('Authentication required. Please login again.');
     }
 
-    final meResponse = await http.get(
-      Uri.parse('${Endpoints.baseURL}auth/me'),
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token',
-      },
-    );
-    if (meResponse.statusCode != 200) {
-      throw Exception('Could not load your current privacy settings');
+    // Only the changed keys. The server merges privacySettings key by key
+    // (lib/privacySettings.js privacySettingsUpdate), so the old dance --
+    // download the whole user from auth/me, send all 14 keys back -- cost a
+    // round trip per toggle and could revert a key changed elsewhere in
+    // between (an email opt-out saved on another device).
+    var id = userId.isNotEmpty ? userId : (prefs.getString('userId') ?? '');
+    if (id.isEmpty) {
+      final meResponse = await http.get(
+        Uri.parse('${Endpoints.baseURL}auth/me'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+      );
+      final meData = meResponse.statusCode == 200 ? json.decode(meResponse.body) : null;
+      final me = (meData is Map && meData['data'] is Map)
+          ? meData['data'] as Map
+          : (meData is Map && meData['user'] is Map)
+              ? meData['user'] as Map
+              : null;
+      if (me == null || me['_id'] == null) {
+        throw Exception('Could not load your account');
+      }
+      id = me['_id'].toString();
     }
-    final meData = json.decode(meResponse.body);
-    final me = (meData is Map && meData['data'] is Map)
-        ? meData['data'] as Map
-        : (meData is Map && meData['user'] is Map)
-            ? meData['user'] as Map
-            : null;
-    if (me == null || me['_id'] == null) {
-      throw Exception('Could not load your current privacy settings');
-    }
-    final stored = me['privacySettings'] is Map
-        ? Map<String, dynamic>.from(me['privacySettings'] as Map)
-        : null;
-    final id = userId.isNotEmpty ? userId : me['_id'].toString();
 
     final url = Uri.parse('${Endpoints.baseURL}${Endpoints.usersURL}/$id');
     final response = await http.put(
       url,
-      body: json.encode({
-        'privacySettings':
-            PrivacySettings.completeUpdate(stored, privacySettings),
-      }),
+      body: json.encode({'privacySettings': privacySettings}),
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
@@ -2138,7 +2132,6 @@ class AuthService extends ChangeNotifier {
 
   Future<List<Community>> getFollowersUser({
     required id,
-    List<String>? followerIds,
   }) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');
@@ -2179,13 +2172,8 @@ class AuthService extends ChangeNotifier {
         }
       }
 
-      // If API returns empty but we have follower IDs, fetch individually
-      if ((followersList == null || followersList.isEmpty) &&
-          followerIds != null &&
-          followerIds.isNotEmpty) {
-        return await _fetchUsersById(followerIds, token!);
-      }
-
+      // An empty list is the answer, not a reason to fetch the ids one by one
+      // from a snapshot: that fallback re-listed someone who had just left.
       if (followersList == null || followersList.isEmpty) {
         return <Community>[];
       }
@@ -2205,42 +2193,8 @@ class AuthService extends ChangeNotifier {
     }
   }
 
-  /// Helper method to fetch users by their IDs individually
-  Future<List<Community>> _fetchUsersById(
-    List<String> userIds,
-    String token,
-  ) async {
-    List<Community> users = [];
-
-    for (String userId in userIds) {
-      try {
-        final url = Uri.parse(
-          '${Endpoints.baseURL}${Endpoints.usersURL}/$userId',
-        );
-        final response = await http.get(
-          url,
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer $token',
-          },
-        );
-
-        if (response.statusCode == 200) {
-          final data = json.decode(response.body);
-          final userData = data['data'];
-          if (userData != null && userData is Map<String, dynamic>) {
-            users.add(Community.fromJson(userData));
-          }
-        }
-      } catch (e) {}
-    }
-
-    return users;
-  }
-
   Future<List<Community>> getFollowingsUser({
     required id,
-    List<String>? followingIds,
   }) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');
@@ -2281,13 +2235,7 @@ class AuthService extends ChangeNotifier {
         }
       }
 
-      // If API returns empty but we have following IDs, fetch individually
-      if ((followingList == null || followingList.isEmpty) &&
-          followingIds != null &&
-          followingIds.isNotEmpty) {
-        return await _fetchUsersById(followingIds, token!);
-      }
-
+      // Same as followers: an empty list is the answer.
       if (followingList == null || followingList.isEmpty) {
         return <Community>[];
       }

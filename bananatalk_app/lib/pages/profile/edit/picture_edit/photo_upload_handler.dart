@@ -169,9 +169,7 @@ class PhotoUploadHandler {
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body) as Map<String, dynamic>;
-        final urls = data['images'] != null
-            ? List<String>.from(data['images'] as List)
-            : <String>[];
+        final urls = _urlsFrom(data) ?? <String>[];
         return PhotoUploadResult.success(
           message: (data['message'] as String?) ?? '',
           imageUrls: urls,
@@ -194,6 +192,7 @@ class PhotoUploadHandler {
   /// Delete the image at [index]. Returns the updated image list on success.
   Future<PhotoUploadResult> deletePhoto(
     int index, {
+    String? expectedUrl,
     required String noTokenMessage,
     required String failedMessage,
     required String defaultSuccessMessage,
@@ -205,15 +204,17 @@ class PhotoUploadHandler {
 
     try {
       final response = await http.delete(
-        Uri.parse('${Endpoints.baseURL}auth/users/$userId/photo/$index'),
+        // With the URL the user is looking at, the server refuses (409) if
+        // that position now holds a different photo instead of deleting it.
+        Uri.parse('${Endpoints.baseURL}auth/users/$userId/photo/$index').replace(
+          queryParameters: expectedUrl != null ? {'url': expectedUrl} : null,
+        ),
         headers: {'Authorization': 'Bearer $token'},
       );
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body) as Map<String, dynamic>;
-        final urls = data['images'] != null
-            ? List<String>.from(data['images'] as List)
-            : null;
+        final urls = _urlsFrom(data);
         return PhotoUploadResult.success(
           message: (data['message'] as String?) ?? defaultSuccessMessage,
           imageUrls: urls ?? [],
@@ -234,10 +235,13 @@ class PhotoUploadHandler {
   // ---------------------------------------------------------------------------
 
   /// Deletes indices [existingCount-1] down to 1, keeping the profile picture
-  /// at index 0. Then re-fetches the user to get the authoritative list.
+  /// at index 0, highest first so the remaining indices never shift.
   ///
-  /// Returns the server's updated image list (or a best-effort local list of
-  /// just the first image if the re-fetch fails).
+  /// Each DELETE answers with the server's image list, so the last successful
+  /// one is the authoritative result: no re-fetch. A failed DELETE stops the
+  /// loop and is reported as a failure carrying what is left, rather than as
+  /// success with an empty list (which is what reading `images` off the
+  /// GET /users/:id body -- it lives under `data` -- used to produce).
   Future<PhotoUploadResult> deleteAllExtras({
     required int existingCount,
     required String noTokenMessage,
@@ -249,45 +253,39 @@ class PhotoUploadHandler {
       return PhotoUploadResult.failure(noTokenMessage);
     }
 
+    List<String>? remaining;
     try {
       for (int i = existingCount - 1; i >= 1; i--) {
-        await http.delete(
+        final response = await http.delete(
           Uri.parse('${Endpoints.baseURL}auth/users/$userId/photo/$i'),
           headers: {'Authorization': 'Bearer $token'},
         );
+        if (response.statusCode != 200) {
+          return PhotoUploadResult.failure(failedMessage, imageUrls: remaining);
+        }
+        final data = json.decode(response.body) as Map<String, dynamic>;
+        remaining = _urlsFrom(data) ?? remaining;
       }
-
-      // Re-fetch to get the authoritative list.
-      final getUserResponse = await http.get(
-        Uri.parse('${Endpoints.baseURL}auth/users/$userId'),
-        headers: {'Authorization': 'Bearer $token'},
+      return PhotoUploadResult.success(
+        message: successMessage,
+        imageUrls: remaining ?? const [],
       );
-
-      if (getUserResponse.statusCode == 200) {
-        final userData =
-            json.decode(getUserResponse.body) as Map<String, dynamic>;
-        final urls = userData['images'] != null
-            ? List<String>.from(userData['images'] as List)
-            : <String>[];
-        return PhotoUploadResult.success(
-          message: successMessage,
-          imageUrls: urls,
-        );
-      } else {
-        // Best-effort: report success with a locally-trimmed list.
-        return PhotoUploadResult.success(
-          message: successMessage,
-          imageUrls: [],
-        );
-      }
     } catch (_) {
-      return PhotoUploadResult.failure(failedMessage);
+      return PhotoUploadResult.failure(failedMessage, imageUrls: remaining);
     }
   }
 
   // ---------------------------------------------------------------------------
   // Internal helpers
   // ---------------------------------------------------------------------------
+
+  /// The CDN `imageUrls` the photo endpoints now send (what the grid shows
+  /// everywhere else), falling back to raw `images` for an older server.
+  /// Swapping origin `images` in made every photo re-download past the CDN.
+  static List<String>? _urlsFrom(Map<String, dynamic> data) {
+    final list = data['imageUrls'] ?? data['images'];
+    return list is List ? List<String>.from(list) : null;
+  }
 
   static String? _mimeType(String extension) {
     switch (extension) {

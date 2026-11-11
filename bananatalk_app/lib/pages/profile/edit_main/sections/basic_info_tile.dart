@@ -84,9 +84,12 @@ class BasicInfoSection extends ConsumerWidget {
               final result = await Navigator.push<Map<String, String>>(
                 context,
                 AppPageRoute(
+                  // The "Not Set" label is display text, not a value: passed
+                  // through it prefilled the field and could be saved as
+                  // the user's name (blank social signups).
                   builder: (context) => ProfileInfoSet(
-                    userName: selectedName,
-                    gender: selectedGender,
+                    userName: selectedName == profileNotSet ? '' : selectedName,
+                    gender: selectedGender == profileNotSet ? '' : selectedGender,
                   ),
                 ),
               );

@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/providers/provider_root/learning/language_change.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/friendly_error.dart';
@@ -315,6 +316,10 @@ class _LanguageSectionState extends ConsumerState<LanguageSection> {
       await ref
           .read(authServiceProvider)
           .updateUserLanguageLevel(languageLevel: level);
+      if (!mounted) return;
+      // The level drives the Today pack, the tutor and the study hub, the same
+      // as a language change does; without this they kept serving the old one.
+      invalidateLanguageDerived(ref);
       if (mounted) {
         ScaffoldMessenger.of(context).hideCurrentSnackBar();
         ScaffoldMessenger.of(context).showSnackBar(
@@ -337,6 +342,7 @@ class _LanguageSectionState extends ConsumerState<LanguageSection> {
       }
     } catch (e) {
       // The server kept the old level; show that again.
+      if (!mounted) return;
       widget.onLanguageLevelChanged(previous);
       if (mounted) {
         final colorScheme = Theme.of(context).colorScheme;

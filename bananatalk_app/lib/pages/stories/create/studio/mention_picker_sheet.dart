@@ -52,7 +52,7 @@ class _MentionSheetState extends State<_MentionSheet> {
       final me = await widget.ref.read(userProvider.future);
       final followings = await widget.ref
           .read(authServiceProvider)
-          .getFollowingsUser(id: me.id, followingIds: me.followings);
+          .getFollowingsUser(id: me.id);
       if (mounted) setState(() => _followings = followings);
     } catch (_) {
       if (mounted) setState(() => _failed = true);
