@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/models/language_model.dart';
 import 'package:bananatalk_app/utils/language_flags.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
@@ -96,19 +97,20 @@ class _LanguagePickerScreenState extends State<LanguagePickerScreen> {
     final recommendedLanguages = _getRecommendedLanguages();
     final showRecommended = _searchController.text.isEmpty;
 
+    // Theme colours, not white/black: in dark mode this was a full white page.
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: context.scaffoldBackground,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: context.scaffoldBackground,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          icon: Icon(Icons.arrow_back, color: context.textPrimary),
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
           AppLocalizations.of(context)!.selectLanguage,
-          style: const TextStyle(
-            color: Colors.black,
+          style: TextStyle(
+            color: context.textPrimary,
             fontSize: 18,
             fontWeight: FontWeight.w600,
           ),
@@ -123,10 +125,10 @@ class _LanguagePickerScreenState extends State<LanguagePickerScreen> {
               controller: _searchController,
               decoration: InputDecoration(
                 hintText: AppLocalizations.of(context)!.search,
-                hintStyle: TextStyle(color: Colors.grey[400]),
-                prefixIcon: Icon(Icons.search, color: Colors.grey[400]),
+                hintStyle: TextStyle(color: context.textHint),
+                prefixIcon: Icon(Icons.search, color: context.textHint),
                 filled: true,
-                fillColor: Colors.grey[100],
+                fillColor: context.containerColor,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
                   borderSide: BorderSide.none,
@@ -146,13 +148,13 @@ class _LanguagePickerScreenState extends State<LanguagePickerScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.search_off, size: 64, color: Colors.grey[300]),
+                        Icon(Icons.search_off, size: 64, color: context.textMuted),
                         const SizedBox(height: 16),
                         Text(
                           AppLocalizations.of(context)!.noLanguagesFound,
                           style: TextStyle(
                             fontSize: 16,
-                            color: Colors.grey[600],
+                            color: context.textSecondary,
                           ),
                         ),
                       ],
@@ -174,7 +176,7 @@ class _LanguagePickerScreenState extends State<LanguagePickerScreen> {
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w600,
-                                    color: Colors.grey[800],
+                                    color: context.textPrimary,
                                   ),
                                 ),
                               ),
@@ -184,7 +186,7 @@ class _LanguagePickerScreenState extends State<LanguagePickerScreen> {
                             // Divider between recommended and all languages
                             Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                              child: Divider(color: Colors.grey[300]),
+                              child: Divider(color: context.dividerColor),
                             ),
                           ],
 
@@ -208,7 +210,7 @@ class _LanguagePickerScreenState extends State<LanguagePickerScreen> {
                                       style: TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.bold,
-                                        color: Colors.grey[600],
+                                        color: context.textSecondary,
                                       ),
                                     ),
                                   ),
@@ -247,7 +249,7 @@ class _LanguagePickerScreenState extends State<LanguagePickerScreen> {
                                       style: TextStyle(
                                         fontSize: 11,
                                         fontWeight: FontWeight.w500,
-                                        color: hasLanguage ? Colors.blue : Colors.grey[300],
+                                        color: hasLanguage ? context.primaryColor : context.textMuted,
                                       ),
                                     ),
                                   ),
@@ -273,7 +275,7 @@ class _LanguagePickerScreenState extends State<LanguagePickerScreen> {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         decoration: BoxDecoration(
-          color: isSelected ? Colors.blue.withOpacity(0.1) : Colors.transparent,
+          color: isSelected ? context.primaryColor.withValues(alpha: 0.1) : Colors.transparent,
         ),
         child: Row(
           children: [
@@ -294,7 +296,7 @@ class _LanguagePickerScreenState extends State<LanguagePickerScreen> {
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
-                      color: Colors.black,
+                      color: context.textPrimary,
                     ),
                   ),
                   const SizedBox(height: 2),
@@ -302,7 +304,7 @@ class _LanguagePickerScreenState extends State<LanguagePickerScreen> {
                     language.nativeName,
                     style: TextStyle(
                       fontSize: 14,
-                      color: Colors.grey[600],
+                      color: context.textSecondary,
                     ),
                   ),
                 ],
@@ -311,9 +313,9 @@ class _LanguagePickerScreenState extends State<LanguagePickerScreen> {
             
             // Selected Indicator
             if (isSelected)
-              const Icon(
+              Icon(
                 Icons.check_circle,
-                color: Colors.blue,
+                color: context.primaryColor,
                 size: 24,
               ),
           ],

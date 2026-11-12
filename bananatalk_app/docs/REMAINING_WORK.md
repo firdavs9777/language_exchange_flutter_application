@@ -106,7 +106,8 @@ Dark mode (2026-10-17, found on AI Study > Review)
 - [x] Review flashcard was hardcoded white: the word (white theme text) was invisible, and so was the example on the back. `vocabulary_card.dart` (flashcard + list card) now uses theme colors.
 - [x] The dark theme had no button themes, so any ElevatedButton that set only `backgroundColor` showed teal text on a teal button (e.g. Review's "Done"), app-wide. Dark theme now has the same elevated/outlined/text button themes as light. Test `test/theme/dark_mode_contrast_test.dart`.
 - [x] Dark-mode pass: Grammar check (cards, input, history sheet, detail sheet), AI quiz results sheet, quiz player (question, options, counter, bottom bar, results), pronunciation results, lesson builder (chips, suggestions) now use theme colours instead of white cards with grey/black text.
-- [ ] Dark-mode leftovers outside AI Study (`grep -rn "color: Colors.white," lib`); device look-through of the AI Study screens in dark mode. S
+- [x] Dark mode: the full-screen language picker (profile languages, chat/translation/grammar/quiz pickers) was a hardcoded white page — 2026-11-12 on theme colours (test test/widgets/language_picker_dark_test.dart).
+- [ ] Dark-mode leftovers: the 423 `color: Colors.white,` hits are almost all text/icons on coloured or gradient fills (correct); remaining white SURFACES: qr_code_sheet (QR needs white — keep), story_question_box, streak_milestone_celebration, quota_banner — check on device. Device look-through of AI Study in dark mode. S
 
 Daily lesson reminder time (2026-10-17)
 - [x] Notification settings has a "Daily lesson reminder" section: on/off (`dailyDropReminders`) and "Reminder time" (`dailyDropHour`, whole hours). The server already accepted both on PUT /notifications/settings; the app never showed them, so everyone got the daily drop push at 19:00 with no way to move or stop it. 3 strings × 19 locales (CSV rows appended). Test `test/settings/daily_reminder_setting_test.dart`.
