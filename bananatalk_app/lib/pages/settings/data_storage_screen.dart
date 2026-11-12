@@ -9,6 +9,7 @@ import 'package:bananatalk_app/pages/settings/widgets/settings_snackbar.dart';
 import 'package:bananatalk_app/pages/settings/widgets/cache_stats_card.dart';
 import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
+import 'package:bananatalk_app/services/feed_first_page_cache.dart';
 import 'package:bananatalk_app/services/interest_service.dart';
 
 class DataStorageScreen extends ConsumerStatefulWidget {
@@ -177,9 +178,16 @@ class _DataStorageScreenState extends ConsumerState<DataStorageScreen> {
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (context) => const Center(child: CircularProgressIndicator()),
+      // Android back must not close the spinner: the pop below would then
+      // close this screen instead.
+      builder: (context) => const PopScope(
+        canPop: false,
+        child: Center(child: CircularProgressIndicator()),
+      ),
     );
     final ok = await (widget.interestService ?? InterestService()).clear();
+    // The ranked first page on disk would be repainted on the next open.
+    if (ok) await FeedFirstPageCache().clearAll();
     if (mounted) Navigator.of(context).pop();
     if (!mounted) return;
 

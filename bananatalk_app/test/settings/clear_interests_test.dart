@@ -3,7 +3,10 @@ import 'package:bananatalk_app/models/app_config.dart';
 import 'package:bananatalk_app/pages/settings/data_storage_screen.dart';
 import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
 import 'package:bananatalk_app/service/endpoints.dart';
+import 'package:bananatalk_app/services/feed_first_page_cache.dart';
 import 'package:bananatalk_app/services/interest_service.dart';
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -116,7 +119,88 @@ void main() {
     });
   });
 
+  test('InterestService gives up after its timeout', () async {
+    final service = InterestService(
+      client: MockClient((_) => Completer<http.Response>().future),
+      timeout: const Duration(milliseconds: 20),
+    );
+    expect(await service.clear(), isFalse);
+  });
+
   group('DataStorageScreen clear interests row', () {
+    Future<void> openAndConfirm(WidgetTester t) async {
+      final l10n = _l10n(t);
+      await t.scrollUntilVisible(
+        find.text(l10n.clearInterestsTitle),
+        200,
+        scrollable: find.byType(Scrollable).first,
+      );
+      await t.tap(find.text(l10n.clearInterestsTitle));
+      await _settle(t);
+      await t.tap(find.text(l10n.clearInterestsAction));
+      await _settle(t);
+    }
+
+    testWidgets('success also clears the cached first feed page', (t) async {
+      await t.runAsync(() => FeedFirstPageCache().write(
+            feedMode: 'forYou',
+            userId: 'u1',
+            rawMoments: [
+              {'_id': 'ranked'},
+            ],
+          ));
+      final svc = _FakeInterestService(() async => true);
+      await t.pumpWidget(_app(flag: true, service: svc, onInvalidate: () {}));
+      await _settle(t);
+      await openAndConfirm(t);
+      final cached = await t.runAsync(() =>
+          FeedFirstPageCache().read(feedMode: 'forYou', userId: 'u1'));
+      expect(cached, isNull);
+    });
+
+    testWidgets('Android back during the spinner does not leave the screen',
+        (t) async {
+      final pending = Completer<bool>();
+      final svc = _FakeInterestService(() => pending.future);
+      await t.pumpWidget(ProviderScope(
+        overrides: [
+          appConfigProvider
+              .overrideWith((ref) async => _config(interests: true)),
+        ],
+        child: MaterialApp(
+          localizationsDelegates: const [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+          ],
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: Builder(
+            builder: (context) => TextButton(
+              onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                builder: (_) => DataStorageScreen(
+                  interestService: svc,
+                  onInterestsCleared: (_) {},
+                ),
+              )),
+              child: const Text('open'),
+            ),
+          ),
+        ),
+      ));
+      await t.tap(find.text('open'));
+      await _settle(t);
+      await openAndConfirm(t);
+      expect(svc.calls, 1);
+
+      await t.binding.handlePopRoute();
+      await _settle(t);
+      pending.complete(true);
+      await _settle(t);
+      expect(find.byType(DataStorageScreen), findsOneWidget);
+      expect(find.text('open'), findsNothing);
+    });
+
+
     testWidgets('flag off: no row', (t) async {
       final svc = _FakeInterestService(() async => true);
       await t.pumpWidget(_app(flag: false, service: svc, onInvalidate: () {}));
