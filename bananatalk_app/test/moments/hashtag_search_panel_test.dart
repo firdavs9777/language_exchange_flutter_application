@@ -146,7 +146,7 @@ void main() {
 
   group('Moments search', () {
     Widget host(_FakeHashtags svc, _Search log,
-            {required bool flag, bool reels = false}) =>
+            {required bool flag, bool reels = false, List<int>? feedPages}) =>
         ProviderScope(
           overrides: [
             if (reels)
@@ -154,10 +154,22 @@ void main() {
             hashtagServiceProvider.overrideWithValue(svc),
             momentsServiceProvider.overrideWithValue(_SearchService(log)),
             forYouMomentsProvider.overrideWith(() => PagedMomentsFeedNotifier(
-                  (ref, page) async => MomentsFeedPage(
-                    [buildMoment(id: 'm1', description: 'hello')],
-                    hasMore: false,
-                  ),
+                  (ref, page) async {
+                    feedPages?.add(page);
+                    if (feedPages == null) {
+                      return MomentsFeedPage(
+                        [buildMoment(id: 'm1', description: 'hello')],
+                        hasMore: false,
+                      );
+                    }
+                    return MomentsFeedPage(
+                      [
+                        for (var i = 0; i < 12; i++)
+                          buildMoment(id: 'p$page-$i', description: 'post $i'),
+                      ],
+                      hasMore: true,
+                    );
+                  },
                 )),
             userProvider.overrideWith((ref) async => buildCommunity()),
             appConfigProvider.overrideWith((ref) async => AppConfig(
@@ -222,6 +234,36 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.byType(HashtagSearchPanel), findsNothing);
       expect(log.queries, ['ko']);
+    });
+
+    testWidgets('scrolling the panel does not scroll the feed or load more',
+        (tester) async {
+      final svc = _FakeHashtags()
+        ..onTrending = (() async => [
+              for (var i = 0; i < 40; i++)
+                HashtagCount(tag: 'tag$i', postCount: i),
+            ]);
+      final pages = <int>[];
+      await tester.pumpWidget(
+          host(svc, _Search(), flag: true, feedPages: pages));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byIcon(Icons.search));
+      await tester.pumpAndSettle();
+      expect(find.byType(HashtagSearchPanel), findsOneWidget);
+      final before = List<int>.of(pages);
+      for (var i = 0; i < 6; i++) {
+        await tester.drag(
+          find.descendant(
+            of: find.byType(HashtagSearchPanel),
+            matching: find.byType(Scrollable),
+          ),
+          const Offset(0, -600),
+        );
+        await tester.pump(const Duration(milliseconds: 500));
+        await tester.pump(const Duration(milliseconds: 500));
+      }
+      expect(find.text('#tag39'), findsOneWidget);
+      expect(pages, before);
     });
 
     testWidgets('trending empty: the feed body stays, no blank screen', (tester) async {

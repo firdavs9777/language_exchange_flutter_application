@@ -47,6 +47,11 @@ class _HashtagSearchPanelState extends ConsumerState<HashtagSearchPanel> {
 
   Timer? _timer;
   int _generation = 0;
+
+  /// The panel's own: it lies over the hidden feed inside the
+  /// NestedScrollView, whose inner (primary) controller it would otherwise
+  /// share, scrolling the feed and firing its load-more.
+  final ScrollController _scroll = ScrollController();
   List<HashtagCount> _results = const [];
 
   @override
@@ -64,6 +69,7 @@ class _HashtagSearchPanelState extends ConsumerState<HashtagSearchPanel> {
   @override
   void dispose() {
     _timer?.cancel();
+    _scroll.dispose();
     super.dispose();
   }
 
@@ -127,6 +133,8 @@ class _HashtagSearchPanelState extends ConsumerState<HashtagSearchPanel> {
     return ColoredBox(
       color: context.scaffoldBackground,
       child: ListView(
+        controller: _scroll,
+        primary: false,
         padding: const EdgeInsets.only(bottom: 24),
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         children: [
