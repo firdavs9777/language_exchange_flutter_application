@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/utils/caption_language.dart';
 import 'package:bananatalk_app/services/activation_store.dart';
 import 'package:flutter/foundation.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
@@ -153,6 +154,11 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
       widget.clubId != null || widget.momentToEdit?.clubId != null;
   String _selectedCategory = 'General';
   String _selectedLanguage = 'English';
+
+  /// False until the author (or a prompt / reel prefill) picks a language.
+  /// While false, a new moment is filed by its caption (CaptionLanguage),
+  /// not under the dropdown's English default.
+  bool _languageChosen = false;
   String? _selectedMood;
   List<String> _tags = [];
   DateTime? _scheduledDate;
@@ -325,11 +331,13 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
       final langCode = widget.prefillLanguage?.trim();
       if (langCode != null && langCode.isNotEmpty) {
         _applyLanguageCode(langCode);
+        _languageChosen = true;
       } else {
         final cachedUser = ref.read(userProvider).valueOrNull;
         final userLangCode = cachedUser?.language_to_learn;
         if (userLangCode != null && userLangCode.isNotEmpty) {
           _applyLanguageCode(userLangCode);
+          _languageChosen = true;
         }
       }
       // A reel requires video — prompt for record/gallery immediately
@@ -363,6 +371,15 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
   /// in reel mode. Falls back to English if the code isn't in the list.
   void _applyLanguageCode(String code) {
     _selectedLanguage = languageNameForCode(code, _languages);
+  }
+
+  /// The language a NEW moment is created with.
+  String _languageForCreate() {
+    if (_languageChosen) return _languages[_selectedLanguage] ?? 'en';
+    return CaptionLanguage.defaultFor(
+      descriptionController.text,
+      ref.read(userProvider).valueOrNull?.native_language,
+    );
   }
 
   @override
@@ -1522,7 +1539,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                   ? _clubFields.privacy
                   : _selectedPrivacy.toLowerCase(),
               category: _categoryToBackend[_selectedCategory] ?? 'general',
-              language: _languages[_selectedLanguage] ?? 'en',
+              language: _languageForCreate(),
               mood: _selectedMood != null ? _moods[_selectedMood] : null,
               tags: _tags.isNotEmpty ? _tags : null,
               scheduledFor: _scheduledDate?.toUtc().toIso8601String(),
@@ -1701,7 +1718,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
             description: descriptionController.text.trim(),
             privacy: _selectedPrivacy.toLowerCase(),
             category: _categoryToBackend[_selectedCategory] ?? 'general',
-            language: _languages[_selectedLanguage] ?? 'en',
+            language: _languageForCreate(),
             mood: _selectedMood != null ? _moods[_selectedMood] : null,
             tags: _tags.isNotEmpty ? _tags : null,
             location: locationData,
@@ -2936,6 +2953,7 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                       if (newValue != null) {
                         setState(() {
                           _selectedLanguage = newValue;
+                          _languageChosen = true;
                         });
                       }
                     },

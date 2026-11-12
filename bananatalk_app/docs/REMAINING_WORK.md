@@ -365,6 +365,11 @@ Web ↔ app parity (spec `docs/superpowers/specs/2026-10-16-web-app-parity-desig
 - 2026-10-08 — Merge 12c8e2b4 auth audit: session reset, 401 redirect, registration token, biometric on Android (FlutterFragmentActivity), keychain accessibility, biometric snapshot freshness, socket re-enable.
 - 2026-10-02 — Monetization & growth tranches built dark; 2.6.1 (10574) tagged and released, superseding 2.4.0 / 2.5.0 / 2.6.0.
 
+## Moment language (2026-11-12, branch fix/moment-language-default; backend fix/moment-language-default)
+- [x] A new moment whose author never touched the language dropdown is filed by its caption's script, else the author's native language (`CaptionLanguage`, mirrors backend lib/captionLanguage.js); a reel/prompt prefill or a dropdown pick still wins. Was: English default, 152 of 157 posts `en`. Test test/moments/caption_language_test.dart.
+- [ ] Device check: write a Korean caption without touching the dropdown → the moment shows under Korean in For You / the language filter; pick Spanish explicitly → stays Spanish. S
+- [ ] After a month on the release: share of non-`en` moments vs the 5/157 baseline. S
+
 ## Moments editing (2026-10-18)
 - [x] Profile → My Moments → Edit opened an old reduced edit screen (no background colours, unlike create and unlike editing from the feed). It now opens the same composer as create/feed edit (`CreateMoment(momentToEdit:)`); `moment_edit.dart` removed.
 - [ ] Device check: edit a text moment from Profile → My Moments, change its background colour, save → the card and the feed show the new background. S
