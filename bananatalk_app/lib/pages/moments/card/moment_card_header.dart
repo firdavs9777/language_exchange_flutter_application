@@ -75,7 +75,9 @@ class MomentCardHeader extends StatelessWidget {
                       hasStory: moment.user.hasActiveStory,
                       size: 48,
                       child: CachedCircleAvatar(
-                        imageUrl: moment.user.imageUrls.isNotEmpty
+                        imageUrl: (moment.user.avatarThumb?.isNotEmpty ?? false)
+                            ? moment.user.avatarThumb
+                            : moment.user.imageUrls.isNotEmpty
                             ? moment.user.imageUrls[0]
                             : null,
                         radius: 24,

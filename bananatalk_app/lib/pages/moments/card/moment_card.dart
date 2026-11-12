@@ -1014,6 +1014,7 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                   child: MomentCardMedia(
                     imageUrls: widget.moments.imageUrls,
                     audio: widget.moments.audio,
+                    variantFor: widget.moments.variantFor,
                   ),
                 ),
               )
@@ -1022,7 +1023,10 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                 padding: const EdgeInsets.only(bottom: 8),
                 child: MomentCardDoubleTap(
                   onDoubleTap: likeOnlyDoubleTap,
-                  child: MomentCardMedia(imageUrls: widget.moments.imageUrls),
+                  child: MomentCardMedia(
+                    imageUrls: widget.moments.imageUrls,
+                    variantFor: widget.moments.variantFor,
+                  ),
                 ),
               ),
 

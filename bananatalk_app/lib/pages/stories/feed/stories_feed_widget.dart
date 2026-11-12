@@ -351,7 +351,10 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> with Widg
 
   Widget _buildMyStoryItem() {
     final hasActiveStories = _myStories?.activeStories.isNotEmpty == true;
-    final imageUrl = (_myStories?.user.images.isNotEmpty == true || _myStories?.user.imageUrls.isNotEmpty == true)
+    final myThumb = _myStories?.user.avatarThumb;
+    final imageUrl = (myThumb != null && myThumb.isNotEmpty)
+        ? myThumb
+        : (_myStories?.user.images.isNotEmpty == true || _myStories?.user.imageUrls.isNotEmpty == true)
         ? (_myStories!.user.images.isNotEmpty
             ? _myStories!.user.images.first
             : _myStories!.user.imageUrls.first)
@@ -476,7 +479,10 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> with Widg
   Widget _buildStoryItem(UserStories userStories, int index) {
     final hasUnseen = userStories.hasUnviewed;
     final isCloseFriend = userStories.stories.any((s) => s.privacy == StoryPrivacy.closeFriends);
-    final imageUrl = (userStories.user.images.isNotEmpty || userStories.user.imageUrls.isNotEmpty)
+    final thumb = userStories.user.avatarThumb;
+    final imageUrl = (thumb != null && thumb.isNotEmpty)
+        ? thumb
+        : (userStories.user.images.isNotEmpty || userStories.user.imageUrls.isNotEmpty)
         ? (userStories.user.images.isNotEmpty
             ? userStories.user.images.first
             : userStories.user.imageUrls.first)

@@ -716,7 +716,10 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                     ),
                   ],
                   if (widget.moment.imageUrls.isNotEmpty)
-                    MomentImageGrid(imageUrls: widget.moment.imageUrls),
+                    MomentImageGrid(
+                      imageUrls: widget.moment.imageUrls,
+                      variantFor: widget.moment.variantFor,
+                    ),
 
                   // Mood, Tags, Location, Category info
                   if (widget.moment.mood.isNotEmpty ||

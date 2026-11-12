@@ -15,6 +15,7 @@ import 'package:bananatalk_app/pages/stories/highlights/highlight_editor_sheet.d
 import 'package:bananatalk_app/widgets/blocked_content_widget.dart';
 import 'package:bananatalk_app/widgets/report_dialog.dart';
 import 'package:bananatalk_app/widgets/cached_image_widget.dart';
+import 'package:bananatalk_app/widgets/moment_image.dart';
 import 'package:bananatalk_app/widgets/story/story_progress_bar.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/friendly_error.dart';
@@ -1027,8 +1028,9 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
         else if (story.isVideo)
           _buildVideoPlayer(story)
         else
-          CachedImageWidget(
+          MomentImage(
             imageUrl: story.mediaUrl,
+            variant: story.variantFor(story.mediaUrl),
             fit: BoxFit.contain,
             errorWidget: Container(
               color: Colors.grey[900],

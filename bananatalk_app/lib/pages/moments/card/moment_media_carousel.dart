@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/providers/provider_models/image_variant.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
-import 'package:bananatalk_app/widgets/cached_image_widget.dart';
+import 'package:bananatalk_app/widgets/moment_image.dart';
 
 /// Ten is where a carousel stops being browsable and becomes a scroll trap.
 ///
@@ -24,6 +25,7 @@ class MomentMediaCarousel extends StatefulWidget {
     required this.imageUrls,
     this.onPageChanged,
     this.heroPrefix,
+    this.variantFor,
   });
 
   final List<String> imageUrls;
@@ -32,6 +34,10 @@ class MomentMediaCarousel extends StatefulWidget {
   /// When set, each page is wrapped in a Hero tagged `<prefix>-<index>`, so
   /// opening from the third image expands THAT image rather than the first.
   final String? heroPrefix;
+
+  /// The server's smaller rendition of an image, when it sent one. `null`
+  /// (or a `null` result) draws the original at 4:5, as before.
+  final ImageVariant? Function(String imageUrl)? variantFor;
 
   @override
   State<MomentMediaCarousel> createState() => _MomentMediaCarouselState();
@@ -56,6 +62,8 @@ class _MomentMediaCarouselState extends State<MomentMediaCarousel> {
     if (images.isEmpty) return const SizedBox.shrink();
 
     final hidden = widget.imageUrls.length - images.length;
+    final ratio = widget.variantFor?.call(images.first)?.aspectRatio;
+    final frameRatio = ratio == null ? 4 / 5 : ratio.clamp(4 / 5, 1.91);
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -63,7 +71,7 @@ class _MomentMediaCarouselState extends State<MomentMediaCarousel> {
         ClipRRect(
           borderRadius: BorderRadius.circular(8),
           child: AspectRatio(
-            aspectRatio: 4 / 5,
+            aspectRatio: frameRatio,
             child: Stack(
               children: [
                 PageView.builder(
@@ -74,8 +82,9 @@ class _MomentMediaCarouselState extends State<MomentMediaCarousel> {
                     widget.onPageChanged?.call(i);
                   },
                   itemBuilder: (context, index) {
-                    final image = CachedImageWidget(
+                    final image = MomentImage(
                       imageUrl: images[index],
+                      variant: widget.variantFor?.call(images[index]),
                       fit: BoxFit.cover,
                       width: double.infinity,
                       height: double.infinity,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:bananatalk_app/pages/moments/card/moment_media_carousel.dart';
+import 'package:bananatalk_app/providers/provider_models/image_variant.dart';
 
 class MomentImageGrid extends StatelessWidget {
   final List<String> imageUrls;
@@ -9,7 +10,15 @@ class MomentImageGrid extends StatelessWidget {
   /// image rather than the first.
   final String? heroPrefix;
 
-  const MomentImageGrid({super.key, required this.imageUrls, this.heroPrefix});
+  /// See [MomentMediaCarousel.variantFor].
+  final ImageVariant? Function(String imageUrl)? variantFor;
+
+  const MomentImageGrid({
+    super.key,
+    required this.imageUrls,
+    this.heroPrefix,
+    this.variantFor,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +29,11 @@ class MomentImageGrid extends StatelessWidget {
     // most six images, so a nine-image moment lost three of them here too.
     return Padding(
       padding: const EdgeInsets.only(bottom: 16),
-      child: MomentMediaCarousel(imageUrls: imageUrls, heroPrefix: heroPrefix),
+      child: MomentMediaCarousel(
+        imageUrls: imageUrls,
+        heroPrefix: heroPrefix,
+        variantFor: variantFor,
+      ),
     );
   }
 }

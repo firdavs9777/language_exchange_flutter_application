@@ -1,5 +1,6 @@
 import 'package:bananatalk_app/pages/moments/card/moment_media_carousel.dart';
 import 'package:bananatalk_app/pages/moments/viewer/image_viewer.dart';
+import 'package:bananatalk_app/providers/provider_models/image_variant.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/widgets/voice_message_player.dart';
@@ -18,11 +19,15 @@ class MomentCardMedia extends StatelessWidget {
   /// expands the image the reader was actually looking at.
   final String? heroPrefix;
 
+  /// See [MomentMediaCarousel.variantFor].
+  final ImageVariant? Function(String imageUrl)? variantFor;
+
   const MomentCardMedia({
     super.key,
     required this.imageUrls,
     this.audio,
     this.heroPrefix,
+    this.variantFor,
   });
 
   @override
@@ -59,7 +64,11 @@ class MomentCardMedia extends StatelessWidget {
     // reachable, where the grid this replaced rendered at most six.
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12),
-      child: MomentMediaCarousel(imageUrls: imageUrls, heroPrefix: heroPrefix),
+      child: MomentMediaCarousel(
+        imageUrls: imageUrls,
+        heroPrefix: heroPrefix,
+        variantFor: variantFor,
+      ),
     );
   }
 

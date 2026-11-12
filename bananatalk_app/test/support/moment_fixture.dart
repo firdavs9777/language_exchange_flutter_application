@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/providers/provider_models/image_variant.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 
 import 'community_fixture.dart';
@@ -16,6 +17,9 @@ Moments buildMoment({
   int commentCount = 0,
   List<String> images = const [],
   DateTime? createdAt,
+  String? avatarThumb,
+  List<String> avatarImages = const [],
+  List<ImageVariant> imageVariants = const [],
 }) {
   return Moments(
     id: id,
@@ -28,10 +32,13 @@ Moments buildMoment({
       // Keeps the avatar from opening a live presence subscription that
       // outlives the test.
       showOnlineStatus: false,
+      avatarThumb: avatarThumb,
+      imageUrls: avatarImages,
     ),
     description: description,
     images: images,
     imageUrls: images,
+    imageVariants: imageVariants,
     likeCount: likeCount,
     commentCount: commentCount,
     language: language,
