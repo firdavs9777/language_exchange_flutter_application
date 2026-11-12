@@ -12,7 +12,9 @@ import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 /// (same URL, fit, size and error widget), so a server that sends no variants
 /// draws what the app always drew. With a [variant] it shows the tiny blurred
 /// placeholder instantly and the feed-size rendition over it; [fullSize]
-/// (full-screen viewers) keeps the original.
+/// (full-screen viewers) keeps the original; [progressiveFull] (the story
+/// viewer, full screen without zoom) shows the placeholder, then the
+/// feed-size rendition, then the original on top once it has loaded.
 class MomentImage extends StatefulWidget {
   const MomentImage({
     super.key,
@@ -20,6 +22,7 @@ class MomentImage extends StatefulWidget {
     this.variant,
     this.fit = BoxFit.cover,
     this.fullSize = false,
+    this.progressiveFull = false,
     this.width,
     this.height,
     this.errorWidget,
@@ -29,6 +32,7 @@ class MomentImage extends StatefulWidget {
   final ImageVariant? variant;
   final BoxFit fit;
   final bool fullSize;
+  final bool progressiveFull;
   final double? width;
   final double? height;
 
@@ -112,15 +116,29 @@ class _MomentImageState extends State<MomentImage> {
           // The blur is the placeholder; without one the shimmer stays.
           placeholder: hasPlaceholder ? const SizedBox.shrink() : null,
           // A feed-size file that fails to load falls back to the original
-          // once; if that fails too, the caller's error widget shows.
-          errorWidget: CachedImageWidget(
+          // once; if that fails too, the caller's error widget shows. In
+          // progressive mode the original is already the layer above.
+          errorWidget: widget.progressiveFull
+              ? widget.errorWidget
+              : CachedImageWidget(
+                  imageUrl: widget.imageUrl,
+                  fit: widget.fit,
+                  width: widget.width,
+                  height: widget.height,
+                  errorWidget: widget.errorWidget,
+                ),
+        ),
+        if (widget.progressiveFull)
+          // Draws nothing until loaded and nothing if it fails, so the
+          // feed-size image below stays visible meanwhile.
+          CachedImageWidget(
             imageUrl: widget.imageUrl,
             fit: widget.fit,
             width: widget.width,
             height: widget.height,
-            errorWidget: widget.errorWidget,
+            placeholder: const SizedBox.shrink(),
+            errorWidget: const SizedBox.shrink(),
           ),
-        ),
       ],
     );
   }

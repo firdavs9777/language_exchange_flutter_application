@@ -1060,6 +1060,9 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
           MomentImage(
             imageUrl: story.mediaUrl,
             variant: story.variantFor(story.mediaUrl),
+            // Full screen with no zoom: the original replaces the feed-size
+            // rendition once loaded.
+            progressiveFull: true,
             fit: BoxFit.contain,
             errorWidget: Container(
               color: Colors.grey[900],

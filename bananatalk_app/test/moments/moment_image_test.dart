@@ -70,6 +70,43 @@ void main() {
     expect(_memory, findsNothing);
   });
 
+  testWidgets('progressiveFull: placeholder, feed-size, then the original on top',
+      (tester) async {
+    await tester.pumpWidget(_host(MomentImage(
+      imageUrl: 'https://x.test/orig.jpg',
+      variant: _variant(),
+      progressiveFull: true,
+      fit: BoxFit.contain,
+    )));
+    expect(_memory, findsOneWidget);
+    final layers = tester
+        .widgetList<CachedImageWidget>(find.byType(CachedImageWidget))
+        .toList();
+    expect(layers.map((w) => w.imageUrl), [
+      'https://x.test/feed.jpg',
+      'https://x.test/orig.jpg',
+    ]);
+    // The original never hides the feed-size image while it loads or if it
+    // fails.
+    expect(layers.last.placeholder, isA<SizedBox>());
+    expect(layers.last.errorWidget, isA<SizedBox>());
+    expect(layers.every((w) => w.fit == BoxFit.contain), isTrue);
+  });
+
+  testWidgets('progressiveFull without a variant is the plain original',
+      (tester) async {
+    await tester.pumpWidget(_host(const MomentImage(
+      imageUrl: 'https://x.test/orig.jpg',
+      progressiveFull: true,
+    )));
+    expect(find.byType(CachedImageWidget), findsOneWidget);
+    expect(
+      tester.widget<CachedImageWidget>(find.byType(CachedImageWidget)).imageUrl,
+      'https://x.test/orig.jpg',
+    );
+    expect(_memory, findsNothing);
+  });
+
   testWidgets('a corrupt placeholder renders without the memory image',
       (tester) async {
     await tester.pumpWidget(_host(MomentImage(
