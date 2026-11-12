@@ -2,6 +2,7 @@ import 'package:bananatalk_app/widgets/navigation/floating_tab_bar.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 import 'package:bananatalk_app/pages/moments/card/moment_card.dart';
+import 'package:bananatalk_app/pages/moments/feed/moment_card_skeleton.dart';
 import 'package:bananatalk_app/pages/moments/feed/moments_main.dart'
     show momentFilterProvider, MomentsFeedTab;
 import 'package:bananatalk_app/pages/menu_tab/TabBarMenu.dart'
@@ -188,12 +189,13 @@ class MomentsFeedWidget extends ConsumerWidget {
           },
         );
       },
-      loading: () => Center(
-        child: CircularProgressIndicator(
-          valueColor: AlwaysStoppedAnimation<Color>(
-            Theme.of(context).colorScheme.primary,
-          ),
-        ),
+      // No cached first page and nothing loaded yet: card-shaped placeholders
+      // instead of a spinner.
+      loading: () => ListView.builder(
+        key: const ValueKey('feed-skeleton'),
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: 6,
+        itemBuilder: (context, index) => const MomentCardSkeleton(),
       ),
       error: (error, stack) => Center(
         child: Column(

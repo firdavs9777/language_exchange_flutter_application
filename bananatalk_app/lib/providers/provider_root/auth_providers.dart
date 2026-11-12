@@ -9,6 +9,7 @@ import 'package:bananatalk_app/services/chat_socket_service.dart';
 import 'package:bananatalk_app/services/notification_service.dart';
 import 'package:bananatalk_app/services/notification_api_client.dart';
 import 'package:bananatalk_app/services/api_client.dart';
+import 'package:bananatalk_app/services/feed_first_page_cache.dart';
 import 'package:bananatalk_app/services/session_prefs.dart';
 import 'package:bananatalk_app/pages/authentication/biometric/biometric_service.dart';
 import 'package:bananatalk_app/pages/authentication/biometric/biometric_session.dart';
@@ -869,6 +870,10 @@ class AuthService extends ChangeNotifier {
     // biometric opt-in. Device-level keys are kept (see session_prefs.dart);
     // the biometric secure-storage snapshot is dropped unless biometric
     // login is enabled.
+    // The cached feed page is the previous user's posts; clearUserSessionPrefs
+    // drops it too (it is not on the device-level allow-list), this makes the
+    // intent explicit and survives that list changing.
+    await FeedFirstPageCache().clearAll();
     await clearUserSessionPrefs(prefs: prefs);
 
     // 4.5: Clear API client token caches.

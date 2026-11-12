@@ -9,6 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'dart:io';
 import 'package:http_parser/http_parser.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:bananatalk_app/services/feed_first_page_cache.dart';
 import 'package:bananatalk_app/services/moments_service.dart' as api;
 // Only imported for the active-tab → provider mapping reused by
 // `invalidateMomentFeeds` below (`MomentsFeedTab`/`momentsFeedTabProvider`/
@@ -86,6 +87,8 @@ class MomentsService {
         'moments':
             momentsList.map((postJson) => Moments.fromJson(postJson)).toList(),
         'pagination': pagination,
+        // The page-1 JSON as sent, for FeedFirstPageCache.
+        'rawMoments': momentsList,
         'feedMode': data['feedMode'],
       };
     } else {
@@ -955,7 +958,11 @@ const int kMomentsSearchLimit = 50;
 class MomentsFeedPage {
   final List<Moments> moments;
   final bool hasMore;
-  const MomentsFeedPage(this.moments, {required this.hasMore});
+
+  /// The server JSON the [moments] were parsed from, when the fetcher has it
+  /// (what the first-page cache stores).
+  final List<Map<String, dynamic>>? rawMoments;
+  const MomentsFeedPage(this.moments, {required this.hasMore, this.rawMoments});
 }
 
 typedef MomentsPageFetcher = Future<MomentsFeedPage> Function(
@@ -990,9 +997,18 @@ List<Moments> appendMomentsPage(List<Moments> current, List<Moments> nextPage) {
 /// post, sign-out); [softRefresh] re-reads page 1 in place and keeps the
 /// pages already scrolled past.
 class PagedMomentsFeedNotifier extends AsyncNotifier<List<Moments>> {
-  PagedMomentsFeedNotifier(this._fetch);
+  PagedMomentsFeedNotifier(
+    this._fetch, {
+    this.cacheFeedMode,
+    FeedFirstPageCache? cache,
+  }) : _cache = cache ?? FeedFirstPageCache();
 
   final MomentsPageFetcher _fetch;
+
+  /// `forYou` / `following` to keep page 1 on disk and show it first on the
+  /// next open; null (trending, tests) keeps nothing.
+  final String? cacheFeedMode;
+  final FeedFirstPageCache _cache;
   int _page = 1;
   int _firstPageCount = 0;
   bool _hasMore = false;
@@ -1027,11 +1043,62 @@ class PagedMomentsFeedNotifier extends AsyncNotifier<List<Moments>> {
     _hasMore = false;
     _loadingMore = false;
     _loadMoreFailed = false;
-    final first = await _fetch(ref, 1);
+    final userId = await _cacheUserId();
+    final cached = await _readCached(userId);
+    if (cached != null) {
+      // Shown at once; the fetch below replaces it. loadMore stays off
+      // (_hasMore is false) until the fresh page decides it.
+      _firstPageCount = cached.length;
+      state = AsyncData(cached);
+    }
+    final MomentsFeedPage first;
+    try {
+      first = await _fetch(ref, 1);
+    } catch (_) {
+      if (cached == null) rethrow;
+      // Offline: the cached page stays, and scrolling may ask for page 2.
+      _hasMore = cached.length >= kMomentsFeedPageSize;
+      return cached;
+    }
     _firstPageCount = first.moments.length;
     _hasMore = first.hasMore && first.moments.isNotEmpty;
+    _writeCache(userId, first);
     _stampFreshness();
-    return first.moments;
+    if (cached == null) return first.moments;
+    return mergeFreshFirstPage(first.moments, cached, cached.length);
+  }
+
+  /// The signed-in user's id when this feed is cached, else null.
+  Future<String?> _cacheUserId() async {
+    if (cacheFeedMode == null) return null;
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final id = prefs.getString('userId');
+      return id == null || id.isEmpty ? null : id;
+    } catch (_) {
+      return null;
+    }
+  }
+
+  /// The cached page 1, parsed; items that do not parse are skipped, and an
+  /// empty result is null (no cache).
+  Future<List<Moments>?> _readCached(String? userId) async {
+    if (userId == null) return null;
+    final raw = await _cache.read(feedMode: cacheFeedMode!, userId: userId);
+    if (raw == null) return null;
+    final parsed = <Moments>[];
+    for (final item in raw) {
+      try {
+        parsed.add(Moments.fromJson(item));
+      } catch (_) {}
+    }
+    return parsed.isEmpty ? null : parsed;
+  }
+
+  void _writeCache(String? userId, MomentsFeedPage first) {
+    final raw = first.rawMoments;
+    if (userId == null || raw == null || raw.isEmpty) return;
+    _cache.write(feedMode: cacheFeedMode!, userId: userId, rawMoments: raw);
   }
 
   /// Appends the next page. No-op while one is loading, before the first
@@ -1078,6 +1145,7 @@ class PagedMomentsFeedNotifier extends AsyncNotifier<List<Moments>> {
         mergeFreshFirstPage(first.moments, current, _firstPageCount),
       );
       _firstPageCount = first.moments.length;
+      _writeCache(await _cacheUserId(), first);
       _stampFreshness();
     } catch (_) {
       // Keep what is shown.
@@ -1144,10 +1212,14 @@ MomentsPageFetcher momentsFeedFetcher(String feed) => (ref, page) async {
       );
       final raw = response['moments'];
       final moments = raw is List ? raw.cast<Moments>() : <Moments>[];
+      final rawList = response['rawMoments'];
       final pagination = response['pagination'];
       final hasNext = pagination is Map ? pagination['hasNextPage'] : null;
       return MomentsFeedPage(
         moments,
+        rawMoments: rawList is List
+            ? rawList.whereType<Map<String, dynamic>>().toList()
+            : null,
         hasMore: hasNext is bool
             ? hasNext
             : moments.length >= kMomentsFeedPageSize,
@@ -1159,7 +1231,10 @@ MomentsPageFetcher momentsFeedFetcher(String feed) => (ref, page) async {
 /// default feed otherwise (see backend `feed=forYou` contract).
 final forYouMomentsProvider =
     AsyncNotifierProvider<PagedMomentsFeedNotifier, List<Moments>>(
-  () => PagedMomentsFeedNotifier(momentsFeedFetcher('forYou')),
+  () => PagedMomentsFeedNotifier(
+    momentsFeedFetcher('forYou'),
+    cacheFeedMode: 'forYou',
+  ),
 );
 
 /// "Following" feed tab — moments authored by users the current user
@@ -1167,7 +1242,10 @@ final forYouMomentsProvider =
 /// follows no one (see backend `feed=following` contract).
 final followingMomentsProvider =
     AsyncNotifierProvider<PagedMomentsFeedNotifier, List<Moments>>(
-  () => PagedMomentsFeedNotifier(momentsFeedFetcher('following')),
+  () => PagedMomentsFeedNotifier(
+    momentsFeedFetcher('following'),
+    cacheFeedMode: 'following',
+  ),
 );
 
 /// Deterministic prompt-of-the-day shown above the feed tabs.
