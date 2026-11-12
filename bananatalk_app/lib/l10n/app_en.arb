@@ -8771,5 +8771,31 @@
   "clearInterestsDone": "Interests cleared",
   "@clearInterestsDone": {
     "description": "Snackbar after the interest profile was cleared"
+  },
+  "shareAsMomentTitle": "Share this as a moment?",
+  "@shareAsMomentTitle": {
+    "description": "Title of the dismissible card offering to post an achievement as a moment"
+  },
+  "shareAsMomentAction": "Share as a moment",
+  "@shareAsMomentAction": {
+    "description": "Button on that card; opens the post composer with prefilled text"
+  },
+  "shareOfferLessonText": "I just finished the lesson \"{lesson}\"!",
+  "@shareOfferLessonText": {
+    "description": "Prefilled moment text after a lesson; {lesson} is the lesson title. The user edits it before posting",
+    "placeholders": {
+      "lesson": {
+        "type": "String"
+      }
+    }
+  },
+  "shareOfferStreakText": "{days}-day learning streak!",
+  "@shareOfferStreakText": {
+    "description": "Prefilled moment text at a streak milestone; {days} is the number of days",
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
   }
 }

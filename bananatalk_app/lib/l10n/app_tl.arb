@@ -4757,5 +4757,9 @@
   "clearInterestsSubtitle": "Kalimutan ang natutunan ng Moments tungkol sa gusto mo",
   "clearInterestsConfirm": "I-clear ang natutunan ng Moments tungkol sa mga interes mo? Magsisimula muli ang feed mo.",
   "clearInterestsAction": "I-clear",
-  "clearInterestsDone": "Na-clear na ang mga interes"
+  "clearInterestsDone": "Na-clear na ang mga interes",
+  "shareAsMomentTitle": "I-share ito bilang moment?",
+  "shareAsMomentAction": "I-share bilang moment",
+  "shareOfferLessonText": "Katatapos ko lang ng aralin na \"{lesson}\"!",
+  "shareOfferStreakText": "{days} araw nang tuloy-tuloy na pag-aaral!"
 }

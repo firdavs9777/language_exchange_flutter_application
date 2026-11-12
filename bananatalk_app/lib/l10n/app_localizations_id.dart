@@ -12653,4 +12653,20 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get clearInterestsDone => 'Minat dihapus';
+
+  @override
+  String get shareAsMomentTitle => 'Bagikan ini sebagai momen?';
+
+  @override
+  String get shareAsMomentAction => 'Bagikan sebagai momen';
+
+  @override
+  String shareOfferLessonText(String lesson) {
+    return 'Aku baru saja menyelesaikan pelajaran \"$lesson\"!';
+  }
+
+  @override
+  String shareOfferStreakText(int days) {
+    return 'Rentetan belajar $days hari!';
+  }
 }

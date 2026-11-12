@@ -4784,5 +4784,9 @@
   "clearInterestsSubtitle": "モーメントが学習したあなたの好みを消去します",
   "clearInterestsConfirm": "モーメントが学習した興味・関心を消去しますか？フィードは最初から調整し直されます。",
   "clearInterestsAction": "リセット",
-  "clearInterestsDone": "興味・関心をリセットしました"
+  "clearInterestsDone": "興味・関心をリセットしました",
+  "shareAsMomentTitle": "モーメントとしてシェアしますか？",
+  "shareAsMomentAction": "モーメントとしてシェア",
+  "shareOfferLessonText": "レッスン「{lesson}」を完了しました！",
+  "shareOfferStreakText": "{days}日連続で学習中！"
 }

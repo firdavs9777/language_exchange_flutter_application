@@ -12768,4 +12768,20 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get clearInterestsDone => 'تم مسح الاهتمامات';
+
+  @override
+  String get shareAsMomentTitle => 'هل تريد مشاركة هذا كلحظة؟';
+
+  @override
+  String get shareAsMomentAction => 'شارك كلحظة';
+
+  @override
+  String shareOfferLessonText(String lesson) {
+    return 'أنهيت للتو الدرس \"$lesson\"!';
+  }
+
+  @override
+  String shareOfferStreakText(int days) {
+    return 'سلسلة تعلّم لمدة $days يومًا!';
+  }
 }

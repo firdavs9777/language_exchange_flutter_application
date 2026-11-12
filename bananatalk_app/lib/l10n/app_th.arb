@@ -4784,5 +4784,9 @@
   "clearInterestsSubtitle": "ลืมสิ่งที่โมเมนต์เรียนรู้เกี่ยวกับสิ่งที่คุณชอบ",
   "clearInterestsConfirm": "ล้างสิ่งที่โมเมนต์เรียนรู้เกี่ยวกับความสนใจของคุณหรือไม่ ฟีดของคุณจะเริ่มต้นใหม่",
   "clearInterestsAction": "ล้าง",
-  "clearInterestsDone": "ล้างความสนใจแล้ว"
+  "clearInterestsDone": "ล้างความสนใจแล้ว",
+  "shareAsMomentTitle": "แชร์สิ่งนี้เป็นโมเมนต์ไหม?",
+  "shareAsMomentAction": "แชร์เป็นโมเมนต์",
+  "shareOfferLessonText": "เพิ่งเรียนบทเรียน \"{lesson}\" จบแล้ว!",
+  "shareOfferStreakText": "เรียนต่อเนื่อง {days} วันแล้ว!"
 }

@@ -4784,5 +4784,9 @@
   "clearInterestsSubtitle": "Quên những gì Khoảnh khắc đã học về sở thích của bạn",
   "clearInterestsConfirm": "Xóa những gì Khoảnh khắc đã học về sở thích của bạn? Bảng tin sẽ bắt đầu lại từ đầu.",
   "clearInterestsAction": "Xóa",
-  "clearInterestsDone": "Đã xóa sở thích"
+  "clearInterestsDone": "Đã xóa sở thích",
+  "shareAsMomentTitle": "Chia sẻ điều này như một khoảnh khắc?",
+  "shareAsMomentAction": "Chia sẻ thành khoảnh khắc",
+  "shareOfferLessonText": "Mình vừa hoàn thành bài học \"{lesson}\"!",
+  "shareOfferStreakText": "Chuỗi học {days} ngày liên tiếp!"
 }

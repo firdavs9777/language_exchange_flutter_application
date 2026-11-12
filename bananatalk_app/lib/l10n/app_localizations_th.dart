@@ -12642,4 +12642,20 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get clearInterestsDone => 'ล้างความสนใจแล้ว';
+
+  @override
+  String get shareAsMomentTitle => 'แชร์สิ่งนี้เป็นโมเมนต์ไหม?';
+
+  @override
+  String get shareAsMomentAction => 'แชร์เป็นโมเมนต์';
+
+  @override
+  String shareOfferLessonText(String lesson) {
+    return 'เพิ่งเรียนบทเรียน \"$lesson\" จบแล้ว!';
+  }
+
+  @override
+  String shareOfferStreakText(int days) {
+    return 'เรียนต่อเนื่อง $days วันแล้ว!';
+  }
 }

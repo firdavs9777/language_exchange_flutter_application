@@ -889,6 +889,12 @@ const Map<String, List<String>> _keysByTask = {
     'clearInterestsAction',
     'clearInterestsDone',
   ],
+  'moments_smart_feed_12': [
+    'shareAsMomentTitle',
+    'shareAsMomentAction',
+    'shareOfferLessonText',
+    'shareOfferStreakText',
+  ],
   'moments_smart_feed_9': [
     'hashtagPostCount',
     'hashtagSortTop',
@@ -971,6 +977,12 @@ const Map<String, List<String>> _filesByTask = {
   ],
   'moments_smart_feed_9': ['pages/moments/hashtag/hashtag_page_screen.dart'],
   'moments_smart_feed_11': ['pages/settings/data_storage_screen.dart'],
+  'moments_smart_feed_12': [
+    'widgets/share_as_moment_card.dart',
+    'pages/learning/lessons/lesson_player_screen.dart',
+    'pages/learning/animations/streak_milestone_celebration.dart',
+    'widgets/correction_message_bubble.dart',
+  ],
   'community-p2': [
     'pages/community/widgets/topic_picker_sheet.dart',
     'pages/community/waves/waves_screen.dart',

@@ -7,6 +7,8 @@ import 'package:bananatalk_app/services/correction_service.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/pages/chat/header/user_avatar.dart';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'package:bananatalk_app/widgets/share_as_moment_card.dart';
 
 /// A chat bubble that displays a correction as a standalone message
 /// in the chat flow (HelloTalk/Tandem style).
@@ -73,6 +75,13 @@ class _CorrectionMessageBubbleState
     } finally {
       if (mounted) setState(() => _accepting = false);
     }
+  }
+
+  /// True when [createdAt] is within the last day: opening an old chat must
+  /// not offer to share a correction from last month.
+  static bool _isFresh(String createdAt) {
+    final t = DateTime.tryParse(createdAt);
+    return t != null && DateTime.now().difference(t).inHours < 24;
   }
 
   @override
@@ -267,6 +276,21 @@ class _CorrectionMessageBubbleState
                           ),
                         ),
                       ],
+                    ),
+                  ],
+                  // Offer to post the user's OWN corrected sentence, only
+                  // for a correction of their message that just arrived.
+                  // Nothing from the partner or the chat goes in the text.
+                  if (!widget.isCorrector && _isFresh(correction.createdAt)) ...[
+                    const SizedBox(height: 10),
+                    ShareAsMomentCard(
+                      prefillText: correction.correctedText,
+                      language: ref
+                              .watch(userProvider)
+                              .valueOrNull
+                              ?.language_to_learn ??
+                          '',
+                      onDismiss: () {},
                     ),
                   ],
                 ],

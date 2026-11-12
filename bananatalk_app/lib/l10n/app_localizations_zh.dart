@@ -12642,6 +12642,22 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get clearInterestsDone => '兴趣已清除';
+
+  @override
+  String get shareAsMomentTitle => '要把这个分享为动态吗？';
+
+  @override
+  String get shareAsMomentAction => '分享为动态';
+
+  @override
+  String shareOfferLessonText(String lesson) {
+    return '我刚完成了课程“$lesson”！';
+  }
+
+  @override
+  String shareOfferStreakText(int days) {
+    return '连续学习 $days 天！';
+  }
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -25282,4 +25298,20 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get clearInterestsDone => '興趣已清除';
+
+  @override
+  String get shareAsMomentTitle => '要把這個分享為動態嗎？';
+
+  @override
+  String get shareAsMomentAction => '分享為動態';
+
+  @override
+  String shareOfferLessonText(String lesson) {
+    return '我剛完成了課程「$lesson」！';
+  }
+
+  @override
+  String shareOfferStreakText(int days) {
+    return '連續學習 $days 天！';
+  }
 }

@@ -4814,5 +4814,9 @@
   "clearInterestsSubtitle": "Забыть, что Моменты узнали о ваших предпочтениях",
   "clearInterestsConfirm": "Сбросить то, что Моменты узнали о ваших интересах? Лента начнёт подбираться заново.",
   "clearInterestsAction": "Сбросить",
-  "clearInterestsDone": "Интересы сброшены"
+  "clearInterestsDone": "Интересы сброшены",
+  "shareAsMomentTitle": "Поделиться этим как моментом?",
+  "shareAsMomentAction": "Поделиться моментом",
+  "shareOfferLessonText": "Я только что прошёл урок «{lesson}»!",
+  "shareOfferStreakText": "{days} дней подряд учусь!"
 }

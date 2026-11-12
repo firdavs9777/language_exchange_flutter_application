@@ -22993,6 +22993,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Interests cleared'**
   String get clearInterestsDone;
+
+  /// Title of the dismissible card offering to post an achievement as a moment
+  ///
+  /// In en, this message translates to:
+  /// **'Share this as a moment?'**
+  String get shareAsMomentTitle;
+
+  /// Button on that card; opens the post composer with prefilled text
+  ///
+  /// In en, this message translates to:
+  /// **'Share as a moment'**
+  String get shareAsMomentAction;
+
+  /// Prefilled moment text after a lesson; {lesson} is the lesson title. The user edits it before posting
+  ///
+  /// In en, this message translates to:
+  /// **'I just finished the lesson \"{lesson}\"!'**
+  String shareOfferLessonText(String lesson);
+
+  /// Prefilled moment text at a streak milestone; {days} is the number of days
+  ///
+  /// In en, this message translates to:
+  /// **'{days}-day learning streak!'**
+  String shareOfferStreakText(int days);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

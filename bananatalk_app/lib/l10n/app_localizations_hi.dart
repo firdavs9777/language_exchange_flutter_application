@@ -12674,4 +12674,20 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get clearInterestsDone => 'रुचियाँ हटा दी गईं';
+
+  @override
+  String get shareAsMomentTitle => 'इसे मोमेंट के रूप में शेयर करें?';
+
+  @override
+  String get shareAsMomentAction => 'मोमेंट के रूप में शेयर करें';
+
+  @override
+  String shareOfferLessonText(String lesson) {
+    return 'मैंने अभी पाठ \"$lesson\" पूरा किया!';
+  }
+
+  @override
+  String shareOfferStreakText(int days) {
+    return '$days दिन की लर्निंग स्ट्रीक!';
+  }
 }

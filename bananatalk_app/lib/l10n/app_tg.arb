@@ -4277,5 +4277,9 @@
   "clearInterestsSubtitle": "Он чиро, ки Лаҳзаҳо дар бораи завқи шумо омӯхтааст, фаромӯш кунед",
   "clearInterestsConfirm": "Он чиро, ки Лаҳзаҳо дар бораи манфиатҳои шумо омӯхтааст, тоза кунем? Ленти шумо аз нав оғоз мешавад.",
   "clearInterestsAction": "Тоза кардан",
-  "clearInterestsDone": "Манфиатҳо тоза карда шуданд"
+  "clearInterestsDone": "Манфиатҳо тоза карда шуданд",
+  "shareAsMomentTitle": "Инро ҳамчун лаҳза мубодила кунед?",
+  "shareAsMomentAction": "Ҳамчун лаҳза мубодила кардан",
+  "shareOfferLessonText": "Ман ҳоло дарси «{lesson}»-ро анҷом додам!",
+  "shareOfferStreakText": "{days} рӯз пай дар пай меомӯзам!"
 }

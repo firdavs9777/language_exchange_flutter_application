@@ -86,6 +86,12 @@ class CreateMoment extends ConsumerStatefulWidget {
   /// "Also share to Moments" and distance / time; photos only, no schedule.
   final String? clubId;
 
+  /// Caption suggested by a "Share as a moment" offer. Fills the caption of a
+  /// NEW post once, on first build; never over an edit, a reel or a prompt
+  /// (see `textPrefill`). The user edits it before posting. (The composer
+  /// keeps no saved draft, so there is none for this to overwrite.)
+  final String? prefillText;
+
   const CreateMoment({
     Key? key,
     this.momentToEdit,
@@ -95,6 +101,7 @@ class CreateMoment extends ConsumerStatefulWidget {
     this.prefillLanguage,
     this.initialImage,
     this.clubId,
+    this.prefillText,
   }) : super(key: key);
 
   @override
@@ -356,6 +363,21 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
       _promptId = widget.prefillPromptId;
       _showPromptChip = true;
       _updateButtonState();
+    } else {
+      final text = textPrefill(
+        editing: false,
+        isReel: false,
+        prefillText: widget.prefillText,
+      );
+      if (text != null) {
+        descriptionController.text = text;
+        final langCode = widget.prefillLanguage?.trim();
+        if (langCode != null && langCode.isNotEmpty) {
+          _applyLanguageCode(langCode);
+          _languageChosen = true;
+        }
+        _updateButtonState();
+      }
     }
   }
 

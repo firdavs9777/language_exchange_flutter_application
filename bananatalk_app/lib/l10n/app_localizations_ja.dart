@@ -12642,4 +12642,20 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get clearInterestsDone => '興味・関心をリセットしました';
+
+  @override
+  String get shareAsMomentTitle => 'モーメントとしてシェアしますか？';
+
+  @override
+  String get shareAsMomentAction => 'モーメントとしてシェア';
+
+  @override
+  String shareOfferLessonText(String lesson) {
+    return 'レッスン「$lesson」を完了しました！';
+  }
+
+  @override
+  String shareOfferStreakText(int days) {
+    return '$days日連続で学習中！';
+  }
 }

@@ -12686,4 +12686,20 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get clearInterestsDone => 'Interesses limpos';
+
+  @override
+  String get shareAsMomentTitle => 'Compartilhar isto como um momento?';
+
+  @override
+  String get shareAsMomentAction => 'Compartilhar como momento';
+
+  @override
+  String shareOfferLessonText(String lesson) {
+    return 'Acabei de terminar a lição \"$lesson\"!';
+  }
+
+  @override
+  String shareOfferStreakText(int days) {
+    return '$days dias seguidos estudando!';
+  }
 }

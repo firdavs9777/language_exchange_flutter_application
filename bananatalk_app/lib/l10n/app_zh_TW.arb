@@ -4475,5 +4475,9 @@
   "clearInterestsSubtitle": "清除「動態」已了解到的你的喜好",
   "clearInterestsConfirm": "要清除「動態」已了解到的你的興趣嗎？你的動態消息將重新開始。",
   "clearInterestsAction": "清除",
-  "clearInterestsDone": "興趣已清除"
+  "clearInterestsDone": "興趣已清除",
+  "shareAsMomentTitle": "要把這個分享為動態嗎？",
+  "shareAsMomentAction": "分享為動態",
+  "shareOfferLessonText": "我剛完成了課程「{lesson}」！",
+  "shareOfferStreakText": "連續學習 {days} 天！"
 }

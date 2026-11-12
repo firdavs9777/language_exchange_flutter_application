@@ -12663,4 +12663,20 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get clearInterestsDone => 'Манфиатҳо тоза карда шуданд';
+
+  @override
+  String get shareAsMomentTitle => 'Инро ҳамчун лаҳза мубодила кунед?';
+
+  @override
+  String get shareAsMomentAction => 'Ҳамчун лаҳза мубодила кардан';
+
+  @override
+  String shareOfferLessonText(String lesson) {
+    return 'Ман ҳоло дарси «$lesson»-ро анҷом додам!';
+  }
+
+  @override
+  String shareOfferStreakText(int days) {
+    return '$days рӯз пай дар пай меомӯзам!';
+  }
 }

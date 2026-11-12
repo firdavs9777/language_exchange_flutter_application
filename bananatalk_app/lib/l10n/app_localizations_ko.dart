@@ -12642,4 +12642,20 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get clearInterestsDone => '관심사를 초기화했어요';
+
+  @override
+  String get shareAsMomentTitle => '이걸 모먼트로 공유할까요?';
+
+  @override
+  String get shareAsMomentAction => '모먼트로 공유';
+
+  @override
+  String shareOfferLessonText(String lesson) {
+    return '방금 \"$lesson\" 레슨을 끝냈어요!';
+  }
+
+  @override
+  String shareOfferStreakText(int days) {
+    return '$days일 연속 학습 중!';
+  }
 }

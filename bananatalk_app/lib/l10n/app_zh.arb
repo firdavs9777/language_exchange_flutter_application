@@ -4798,5 +4798,9 @@
   "clearInterestsSubtitle": "清除“动态”已了解到的你的喜好",
   "clearInterestsConfirm": "要清除“动态”已了解到的你的兴趣吗？你的信息流将重新开始。",
   "clearInterestsAction": "清除",
-  "clearInterestsDone": "兴趣已清除"
+  "clearInterestsDone": "兴趣已清除",
+  "shareAsMomentTitle": "要把这个分享为动态吗？",
+  "shareAsMomentAction": "分享为动态",
+  "shareOfferLessonText": "我刚完成了课程“{lesson}”！",
+  "shareOfferStreakText": "连续学习 {days} 天！"
 }

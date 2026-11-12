@@ -4814,5 +4814,9 @@
   "clearInterestsSubtitle": "انسَ ما تعلّمته اللحظات عن اهتماماتك",
   "clearInterestsConfirm": "هل تريد مسح ما تعلّمته اللحظات عن اهتماماتك؟ سيبدأ خلاصتك من جديد.",
   "clearInterestsAction": "مسح",
-  "clearInterestsDone": "تم مسح الاهتمامات"
+  "clearInterestsDone": "تم مسح الاهتمامات",
+  "shareAsMomentTitle": "هل تريد مشاركة هذا كلحظة؟",
+  "shareAsMomentAction": "شارك كلحظة",
+  "shareOfferLessonText": "أنهيت للتو الدرس \"{lesson}\"!",
+  "shareOfferStreakText": "سلسلة تعلّم لمدة {days} يومًا!"
 }

@@ -5024,5 +5024,9 @@
   "clearInterestsSubtitle": "Oublier ce que Moments a appris de vos goûts",
   "clearInterestsConfirm": "Effacer ce que Moments a appris sur vos centres d'intérêt ? Votre fil repartira de zéro.",
   "clearInterestsAction": "Effacer",
-  "clearInterestsDone": "Centres d'intérêt effacés"
+  "clearInterestsDone": "Centres d'intérêt effacés",
+  "shareAsMomentTitle": "Partager ceci comme moment ?",
+  "shareAsMomentAction": "Partager comme moment",
+  "shareOfferLessonText": "Je viens de terminer la leçon « {lesson} » !",
+  "shareOfferStreakText": "{days} jours d’apprentissage d’affilée !"
 }

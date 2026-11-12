@@ -4800,5 +4800,9 @@
   "clearInterestsSubtitle": "Esqueça o que os Momentos aprenderam sobre seus gostos",
   "clearInterestsConfirm": "Limpar o que os Momentos aprenderam sobre seus interesses? Seu feed começará do zero.",
   "clearInterestsAction": "Limpar",
-  "clearInterestsDone": "Interesses limpos"
+  "clearInterestsDone": "Interesses limpos",
+  "shareAsMomentTitle": "Compartilhar isto como um momento?",
+  "shareAsMomentAction": "Compartilhar como momento",
+  "shareOfferLessonText": "Acabei de terminar a lição \"{lesson}\"!",
+  "shareOfferStreakText": "{days} dias seguidos estudando!"
 }

@@ -5024,5 +5024,9 @@
   "clearInterestsSubtitle": "Vergiss, was Momente über deine Vorlieben gelernt hat",
   "clearInterestsConfirm": "Möchtest du löschen, was Momente über deine Interessen gelernt hat? Dein Feed beginnt dann von vorn.",
   "clearInterestsAction": "Löschen",
-  "clearInterestsDone": "Interessen gelöscht"
+  "clearInterestsDone": "Interessen gelöscht",
+  "shareAsMomentTitle": "Als Moment teilen?",
+  "shareAsMomentAction": "Als Moment teilen",
+  "shareOfferLessonText": "Ich habe gerade die Lektion „{lesson}“ abgeschlossen!",
+  "shareOfferStreakText": "{days} Tage Lernserie!"
 }

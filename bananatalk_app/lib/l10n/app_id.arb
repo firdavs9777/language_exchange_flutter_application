@@ -4784,5 +4784,9 @@
   "clearInterestsSubtitle": "Lupakan apa yang dipelajari Momen tentang selera Anda",
   "clearInterestsConfirm": "Hapus apa yang dipelajari Momen tentang minat Anda? Feed Anda akan dimulai dari awal.",
   "clearInterestsAction": "Hapus",
-  "clearInterestsDone": "Minat dihapus"
+  "clearInterestsDone": "Minat dihapus",
+  "shareAsMomentTitle": "Bagikan ini sebagai momen?",
+  "shareAsMomentAction": "Bagikan sebagai momen",
+  "shareOfferLessonText": "Aku baru saja menyelesaikan pelajaran \"{lesson}\"!",
+  "shareOfferStreakText": "Rentetan belajar {days} hari!"
 }

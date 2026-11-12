@@ -12686,4 +12686,20 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get clearInterestsDone => 'Interessi cancellati';
+
+  @override
+  String get shareAsMomentTitle => 'Condividere come momento?';
+
+  @override
+  String get shareAsMomentAction => 'Condividi come momento';
+
+  @override
+  String shareOfferLessonText(String lesson) {
+    return 'Ho appena finito la lezione «$lesson»!';
+  }
+
+  @override
+  String shareOfferStreakText(int days) {
+    return '$days giorni di studio di fila!';
+  }
 }

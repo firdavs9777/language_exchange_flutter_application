@@ -17,6 +17,7 @@ import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/pages/learning/animations/xp_gain_overlay.dart';
+import 'package:bananatalk_app/widgets/share_as_moment_card.dart';
 
 /// Lesson player screen
 class LessonPlayerScreen extends ConsumerStatefulWidget {
@@ -404,7 +405,11 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
     final accuracy = total > 0 ? (correct / total * 100).round() : 0;
 
     return Builder(
-      builder: (context) => Center(
+      builder: (context) => Column(
+        children: [
+        Expanded(
+        child: Center(
+        child: SingleChildScrollView(
         child: Padding(
           padding: Spacing.paddingXL,
           child: Column(
@@ -540,6 +545,22 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
           ],
           ),
         ),
+        ),
+        ),
+        ),
+        // Below the results and their buttons, never between them; empty
+        // unless the server's shareOffersEnabled is on and today's offer is
+        // still unused.
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+          child: ShareAsMomentCard(
+            prefillText: AppLocalizations.of(context)!
+                .shareOfferLessonText(lesson.title),
+            language: lesson.language,
+            onDismiss: () {},
+          ),
+        ),
+        ],
       ),
     );
   }

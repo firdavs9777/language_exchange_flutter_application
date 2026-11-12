@@ -12661,4 +12661,20 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get clearInterestsDone => 'İlgi alanları temizlendi';
+
+  @override
+  String get shareAsMomentTitle => 'Bunu an olarak paylaşmak ister misin?';
+
+  @override
+  String get shareAsMomentAction => 'An olarak paylaş';
+
+  @override
+  String shareOfferLessonText(String lesson) {
+    return '\"$lesson\" dersini şimdi bitirdim!';
+  }
+
+  @override
+  String shareOfferStreakText(int days) {
+    return '$days günlük öğrenme serisi!';
+  }
 }

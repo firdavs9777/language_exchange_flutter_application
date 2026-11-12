@@ -4996,5 +4996,9 @@
   "clearInterestsSubtitle": "Anlar'ın zevklerin hakkında öğrendiklerini unut",
   "clearInterestsConfirm": "Anlar'ın ilgi alanların hakkında öğrendiklerini temizlemek istiyor musun? Akışın baştan başlayacak.",
   "clearInterestsAction": "Temizle",
-  "clearInterestsDone": "İlgi alanları temizlendi"
+  "clearInterestsDone": "İlgi alanları temizlendi",
+  "shareAsMomentTitle": "Bunu an olarak paylaşmak ister misin?",
+  "shareAsMomentAction": "An olarak paylaş",
+  "shareOfferLessonText": "\"{lesson}\" dersini şimdi bitirdim!",
+  "shareOfferStreakText": "{days} günlük öğrenme serisi!"
 }

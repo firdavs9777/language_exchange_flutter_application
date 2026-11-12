@@ -13144,4 +13144,20 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get clearInterestsDone => 'Интересы сброшены';
+
+  @override
+  String get shareAsMomentTitle => 'Поделиться этим как моментом?';
+
+  @override
+  String get shareAsMomentAction => 'Поделиться моментом';
+
+  @override
+  String shareOfferLessonText(String lesson) {
+    return 'Я только что прошёл урок «$lesson»!';
+  }
+
+  @override
+  String shareOfferStreakText(int days) {
+    return '$days дней подряд учусь!';
+  }
 }

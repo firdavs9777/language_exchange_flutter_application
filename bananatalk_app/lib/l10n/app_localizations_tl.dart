@@ -12667,4 +12667,20 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get clearInterestsDone => 'Na-clear na ang mga interes';
+
+  @override
+  String get shareAsMomentTitle => 'I-share ito bilang moment?';
+
+  @override
+  String get shareAsMomentAction => 'I-share bilang moment';
+
+  @override
+  String shareOfferLessonText(String lesson) {
+    return 'Katatapos ko lang ng aralin na \"$lesson\"!';
+  }
+
+  @override
+  String shareOfferStreakText(int days) {
+    return '$days araw nang tuloy-tuloy na pag-aaral!';
+  }
 }

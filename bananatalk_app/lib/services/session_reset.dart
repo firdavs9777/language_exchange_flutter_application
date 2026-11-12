@@ -66,6 +66,7 @@ import 'package:bananatalk_app/services/chat_socket_service.dart';
 import 'package:bananatalk_app/services/global_chat_listener.dart';
 import 'package:bananatalk_app/services/notification_service.dart';
 import 'package:bananatalk_app/services/referral_service.dart';
+import 'package:bananatalk_app/services/share_offer_policy.dart';
 import 'package:bananatalk_app/pages/community/first_session/first_session_store.dart';
 import 'package:bananatalk_app/services/activation_store.dart';
 import 'package:bananatalk_app/services/guide_store.dart';
@@ -99,6 +100,9 @@ final Map<String, ProviderOrFamily> userScopedProviders = {
   'hashtagSuggestProvider': hashtagSuggestProvider,
   'trendingHashtagsProvider': trendingHashtagsProvider,
   'hashtagPageProvider': hashtagPageProvider,
+  // Share-as-moment offers: the daily/dismissal state is per user (its prefs
+  // keys are not device-level, so sign-out clears them).
+  'shareOfferPolicyProvider': shareOfferPolicyProvider,
   // Calls list: the unseen-missed badge belongs to the account
   'callHistoryServiceProvider': callHistoryServiceProvider,
   'missedCallsProvider': missedCallsProvider,

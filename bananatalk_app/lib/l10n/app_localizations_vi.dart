@@ -12642,4 +12642,20 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get clearInterestsDone => 'Đã xóa sở thích';
+
+  @override
+  String get shareAsMomentTitle => 'Chia sẻ điều này như một khoảnh khắc?';
+
+  @override
+  String get shareAsMomentAction => 'Chia sẻ thành khoảnh khắc';
+
+  @override
+  String shareOfferLessonText(String lesson) {
+    return 'Mình vừa hoàn thành bài học \"$lesson\"!';
+  }
+
+  @override
+  String shareOfferStreakText(int days) {
+    return 'Chuỗi học $days ngày liên tiếp!';
+  }
 }

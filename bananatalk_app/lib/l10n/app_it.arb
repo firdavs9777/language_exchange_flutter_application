@@ -5024,5 +5024,9 @@
   "clearInterestsSubtitle": "Dimentica ciò che Momenti ha imparato sui tuoi gusti",
   "clearInterestsConfirm": "Cancellare ciò che Momenti ha imparato sui tuoi interessi? Il tuo feed ripartirà da zero.",
   "clearInterestsAction": "Cancella",
-  "clearInterestsDone": "Interessi cancellati"
+  "clearInterestsDone": "Interessi cancellati",
+  "shareAsMomentTitle": "Condividere come momento?",
+  "shareAsMomentAction": "Condividi come momento",
+  "shareOfferLessonText": "Ho appena finito la lezione «{lesson}»!",
+  "shareOfferStreakText": "{days} giorni di studio di fila!"
 }

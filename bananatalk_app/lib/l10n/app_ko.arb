@@ -4805,5 +4805,9 @@
   "clearInterestsSubtitle": "모먼트가 파악한 내 취향을 지웁니다",
   "clearInterestsConfirm": "모먼트가 파악한 관심사를 지울까요? 피드가 처음부터 다시 맞춰집니다.",
   "clearInterestsAction": "초기화",
-  "clearInterestsDone": "관심사를 초기화했어요"
+  "clearInterestsDone": "관심사를 초기화했어요",
+  "shareAsMomentTitle": "이걸 모먼트로 공유할까요?",
+  "shareAsMomentAction": "모먼트로 공유",
+  "shareOfferLessonText": "방금 \"{lesson}\" 레슨을 끝냈어요!",
+  "shareOfferStreakText": "{days}일 연속 학습 중!"
 }
