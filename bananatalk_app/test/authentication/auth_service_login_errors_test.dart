@@ -4,6 +4,10 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
 
+import 'package:flutter/widgets.dart';
+
+import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/pages/authentication/post_login_error.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 
 Future<Map<String, dynamic>> _loginAgainst(MockClient server) =>
@@ -36,6 +40,24 @@ void main() {
     final r = await _loginAgainst(MockClient((_) async =>
         http.Response(jsonEncode({'success': false, 'message': msg}), 400)));
     expect(r['message'], msg);
+  });
+
+  test('a social-only account is told in the reader\'s language', () async {
+    final r = await _loginAgainst(MockClient((_) async => http.Response(
+        jsonEncode({
+          'success': false,
+          'message': 'This account uses Google sign-in. Please continue with Google.',
+          'code': 'SOCIAL_LOGIN_REQUIRED',
+          'provider': 'google',
+        }),
+        400)));
+    final ko = lookupAppLocalizations(const Locale('ko'));
+    expect(authResultMessage(ko, r, fallback: 'x'), ko.loginUseSocialProvider('Google'));
+    expect(authResultMessage(ko, r, fallback: 'x'), contains('Google'));
+    expect(
+      authResultMessage(ko, {'code': 'SOCIAL_LOGIN_REQUIRED', 'provider': null}, fallback: 'x'),
+      ko.loginNoPasswordYet,
+    );
   });
 
   test('a transport failure is flagged, with no raw exception text', () async {

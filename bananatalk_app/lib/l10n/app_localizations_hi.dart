@@ -12614,4 +12614,12 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get clubEventMoved => 'नया समय';
+
+  @override
+  String loginUseSocialProvider(String provider) {
+    return 'यह खाता $provider से साइन इन करता है। कृपया $provider से जारी रखें।';
+  }
+
+  @override
+  String get loginNoPasswordYet => 'इस खाते का अभी कोई पासवर्ड नहीं है। सेट करने के लिए “पासवर्ड भूल गए” का उपयोग करें।';
 }

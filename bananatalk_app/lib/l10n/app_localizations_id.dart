@@ -12594,4 +12594,12 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get clubEventMoved => 'Waktu baru';
+
+  @override
+  String loginUseSocialProvider(String provider) {
+    return 'Akun ini masuk dengan $provider. Silakan lanjutkan dengan $provider.';
+  }
+
+  @override
+  String get loginNoPasswordYet => 'Akun ini belum punya kata sandi. Gunakan “Lupa kata sandi” untuk membuatnya.';
 }

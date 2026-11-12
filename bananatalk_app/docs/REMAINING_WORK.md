@@ -198,7 +198,9 @@ Tab bar clearance
 - [x] Fixed 2026-10-15 (ef1f9ba4, + Moments feed FAB room): every Community sub-tab, Rooms, Topics user list and Profile end on `FloatingTabBar.clearance` (+ `fabSpace` under a create FAB); FABs lift by `FloatingTabBar.fabLift`; the no-bottom-literal guard now covers them. Device row study-hub 4.8 open. Was: Community Waves (`waves_tab.dart`, vertical 8), Matches (`matches_tab.dart`, bottom 24), Gatherings (80), Nearby (100), Voice rooms (72–100) and Profile (100) use fixed bottom padding instead of `FloatingTabBar.clearance` (≈ 98 iPhone, ≈ 88 gesture, ≈ 112 3-button), so their last rows can sit under the bar. The bar ships to everyone in 2.7.0. Device row study-hub 4.8. S
 
 Auth
-- [ ] Map `SOCIAL_LOGIN_REQUIRED` (email login on a Google/Apple-only account) in `auth_error_codes.dart` if a dedicated UI is wanted; today it shows the server message. S
+- [x] `SOCIAL_LOGIN_REQUIRED` (email login on a Google/Apple-only account) — 2026-11-12: localized `loginUseSocialProvider(provider)` / `loginNoPasswordYet` from the server's new `provider` field (backend fix/small-bugs-5); older servers send no provider → the no-password line.
+- [ ] Native review of `loginUseSocialProvider` / `loginNoPasswordYet` (19 locales; ko "{provider}(으)로" is deliberately neutral). S
+- [ ] The other login errors (wrong password, lockout minutes, rate limit) are still the server's / hardcoded English; localize by `code` the same way. S–M
 
 Monetization
 - [ ] `RemoveAdsButton` only under the chat-list banner (visitors-screen banner has none). S

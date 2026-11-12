@@ -161,6 +161,7 @@ class AuthService extends ChangeNotifier {
         'error': data['error'],
         'code': data['code'],
         'banReason': data['banReason'],
+        'provider': data['provider'],
         'statusCode': response.statusCode,
         'lockUntil': data['lockUntil'],
         'remainingAttempts': data['remainingAttempts'],
@@ -332,6 +333,7 @@ class AuthService extends ChangeNotifier {
           'message': errorData['message'] ?? 'Invalid email or password',
           'code': errorData['code'],
           'banReason': errorData['banReason'],
+          'provider': errorData['provider'],
         };
       }
     } catch (e) {

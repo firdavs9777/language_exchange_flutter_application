@@ -4798,5 +4798,7 @@
   "clubRequestMeetups": "{count, plural, =0{Aún sin encuentros} =1{Fue a 1 encuentro} other{Fue a {count} encuentros}}",
   "sameCity": "Misma ciudad",
   "clubEventScheduled": "Nuevo encuentro",
-  "clubEventMoved": "Nueva hora"
+  "clubEventMoved": "Nueva hora",
+  "loginUseSocialProvider": "Esta cuenta inicia sesión con {provider}. Continúa con {provider}.",
+  "loginNoPasswordYet": "Esta cuenta aún no tiene contraseña. Usa «¿Olvidaste tu contraseña?» para crear una."
 }

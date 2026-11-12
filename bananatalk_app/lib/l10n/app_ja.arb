@@ -4768,5 +4768,7 @@
   "clubRequestMeetups": "{count, plural, =0{まだ参加した集まりはありません} other{集まりに{count}回参加}}",
   "sameCity": "同じ街",
   "clubEventScheduled": "新しいミートアップ",
-  "clubEventMoved": "時間が変更されました"
+  "clubEventMoved": "時間が変更されました",
+  "loginUseSocialProvider": "このアカウントは{provider}でサインインします。{provider}で続けてください。",
+  "loginNoPasswordYet": "このアカウントにはまだパスワードがありません。「パスワードをお忘れですか」から設定してください。"
 }

@@ -12603,4 +12603,12 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get clubEventMoved => 'Вақти нав';
+
+  @override
+  String loginUseSocialProvider(String provider) {
+    return 'Ин ҳисоб тавассути $provider ворид мешавад. Лутфан бо $provider идома диҳед.';
+  }
+
+  @override
+  String get loginNoPasswordYet => 'Ин ҳисоб ҳоло парол надорад. Барои гузоштани он «Паролро фаромӯш кардед»-ро истифода баред.';
 }

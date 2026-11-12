@@ -12601,4 +12601,12 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get clubEventMoved => 'Yeni saat';
+
+  @override
+  String loginUseSocialProvider(String provider) {
+    return 'Bu hesap $provider ile giriş yapıyor. Lütfen $provider ile devam edin.';
+  }
+
+  @override
+  String get loginNoPasswordYet => 'Bu hesabın henüz şifresi yok. Şifre belirlemek için “Şifremi unuttum”u kullanın.';
 }

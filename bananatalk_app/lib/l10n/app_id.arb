@@ -4768,5 +4768,7 @@
   "clubRequestMeetups": "{count, plural, =0{Belum pernah ikut pertemuan} other{Ikut {count} pertemuan}}",
   "sameCity": "Kota yang sama",
   "clubEventScheduled": "Pertemuan baru",
-  "clubEventMoved": "Waktu baru"
+  "clubEventMoved": "Waktu baru",
+  "loginUseSocialProvider": "Akun ini masuk dengan {provider}. Silakan lanjutkan dengan {provider}.",
+  "loginNoPasswordYet": "Akun ini belum punya kata sandi. Gunakan “Lupa kata sandi” untuk membuatnya."
 }

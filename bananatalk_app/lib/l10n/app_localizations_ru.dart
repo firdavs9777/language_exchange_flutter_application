@@ -13082,4 +13082,12 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get clubEventMoved => 'Новое время';
+
+  @override
+  String loginUseSocialProvider(String provider) {
+    return 'Этот аккаунт входит через $provider. Продолжите с $provider.';
+  }
+
+  @override
+  String get loginNoPasswordYet => 'У этого аккаунта ещё нет пароля. Задайте его через «Забыли пароль».';
 }

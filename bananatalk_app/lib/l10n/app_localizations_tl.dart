@@ -12607,4 +12607,12 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get clubEventMoved => 'Bagong oras';
+
+  @override
+  String loginUseSocialProvider(String provider) {
+    return 'Gumagamit ang account na ito ng pag-sign in sa $provider. Magpatuloy gamit ang $provider.';
+  }
+
+  @override
+  String get loginNoPasswordYet => 'Wala pang password ang account na ito. Gamitin ang “Nakalimutan ang password” para gumawa nito.';
 }
