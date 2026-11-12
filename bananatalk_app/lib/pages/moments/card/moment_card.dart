@@ -727,6 +727,8 @@ class _MomentCardState extends ConsumerState<MomentCard> {
   @override
   Widget build(BuildContext context) {
     final fullText = widget.moments.description;
+    // Read here, not inside the caption's LayoutBuilder callback.
+    final hashtagLinksEnabled = ref.watch(hashtagsEnabledProvider);
 
     final isGradient =
         (widget.moments.mediaType == 'text' ||
@@ -889,7 +891,7 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                               overflow: isExpanded
                                   ? TextOverflow.visible
                                   : TextOverflow.ellipsis,
-                              linksEnabled: ref.watch(hashtagsEnabledProvider),
+                              linksEnabled: hashtagLinksEnabled,
                             ),
                             if (overflows)
                               GestureDetector(

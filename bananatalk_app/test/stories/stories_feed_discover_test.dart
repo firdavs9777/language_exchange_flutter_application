@@ -15,6 +15,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/providers/provider_models/story_model.dart';
 import 'package:bananatalk_app/services/session_prefs.dart';
 import 'package:bananatalk_app/pages/stories/story_precache.dart';
+import 'package:bananatalk_app/services/blocked_ids_store.dart';
 import 'package:bananatalk_app/services/stories_rail_cache.dart';
 
 Map<String, dynamic> _story(String id, String userId, Duration fromNow) => {
@@ -298,6 +299,27 @@ void main() {
       expect(find.text('Umixed'), findsOneWidget);
       // The kept ring holds only its live story.
       expect(precached.single, ['https://x.test/m-new.jpg']);
+    });
+
+    testWidgets('a block list that does not answer in 3 s: the remembered one '
+        'is used', (tester) async {
+      SharedPreferences.setMockInitialValues({'userId': 'me'});
+      await BlockedIdsStore().write(userId: 'me', ids: {'bad'});
+      await StoriesRailCache().write(
+        userId: 'me',
+        rawData: [_group('ok'), _group('bad')],
+        rawDiscover: [],
+      );
+      final never = Completer<Set<String>>();
+      final feed = Completer<StoriesFeedResult>();
+      await pump(tester,
+          feed: () => feed.future, blocked: () => never.future);
+      await tester.pump(const Duration(milliseconds: 50));
+      expect(find.text('Uok'), findsNothing);
+      await tester.pump(const Duration(seconds: 3));
+      await tester.pump(const Duration(milliseconds: 50));
+      expect(find.text('Uok'), findsOneWidget);
+      expect(find.text('Ubad'), findsNothing);
     });
 
     testWidgets('on mobile data the rail warms nothing', (tester) async {

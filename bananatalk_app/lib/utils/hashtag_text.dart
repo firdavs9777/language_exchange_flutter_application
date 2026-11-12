@@ -16,7 +16,7 @@ final RegExp _joiningMark = RegExp(r'[\p{Mn}\p{Mc}]', unicode: true);
 bool _isVariationSelector(int rune) =>
     (rune >= 0xFE00 && rune <= 0xFE0F) || (rune >= 0xE0100 && rune <= 0xE01EF);
 
-/// What the user typed as a tag: no leading `#`, lower case, no whitespace,
+/// What the user typed as a tag: no leading `#` (or full-width `＃`), lower case, no whitespace,
 /// only letters, digits, combining marks and `_`, at most 30 code points;
 /// `null` when nothing is left. A combining mark is kept only when it
 /// attaches to a kept character.
@@ -54,11 +54,12 @@ class HashtagSpan {
       isHashtag ? 'HashtagSpan.hashtag($text)' : 'HashtagSpan.plain($text)';
 }
 
-// `#` + a letter/digit/underscore, then more of those and combining marks;
+// `#` (or the full-width `＃`, U+FF03, which the server folds to `#` with
+// NFKC) + a letter/digit/underscore, then more of those and combining marks;
 // not right after a letter, digit, mark, `_`, `/` or `&` (so `a#b`, URL
 // fragments and HTML entities such as `&#39;` are not tags).
 final RegExp _hashtagPattern = RegExp(
-  r'(?<![\p{L}\p{N}\p{M}_/&])#([\p{L}\p{N}_](?:[\p{L}\p{N}_]|(?![︀-️])[\p{Mn}\p{Mc}])*)',
+  r'(?<![\p{L}\p{N}\p{M}_/&])[#＃]([\p{L}\p{N}_](?:[\p{L}\p{N}_]|(?![︀-️])[\p{Mn}\p{Mc}])*)',
   unicode: true,
 );
 

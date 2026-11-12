@@ -116,6 +116,44 @@ void main() {
     });
   });
 
+  group('MomentDetailWrapper gone, opened over another screen', () {
+    testWidgets('goes back to that screen and shows the snackbar there', (t) async {
+      final router = GoRouter(
+        initialLocation: '/feed',
+        routes: [
+          GoRoute(
+            path: '/feed',
+            builder: (context, _) => Scaffold(
+              body: TextButton(
+                onPressed: () => context.push('/moment/m1'),
+                child: const Text('feed'),
+              ),
+            ),
+          ),
+          GoRoute(
+            path: '/moment/:momentId',
+            builder: (_, s) => MomentDetailWrapper(
+              momentId: s.pathParameters['momentId']!,
+              loadMoment: (_) async => throw MomentNotFoundException(),
+            ),
+          ),
+          GoRoute(
+            path: '/tabs/:index',
+            builder: (_, s) => Scaffold(body: Text('tab ${s.pathParameters['index']}')),
+          ),
+        ],
+      );
+      await t.pumpWidget(_routed(router));
+      await t.pumpAndSettle();
+      await t.tap(find.text('feed'));
+      await t.pumpAndSettle();
+      expect(find.text('feed'), findsOneWidget);
+      expect(find.byType(MomentDetailWrapper), findsNothing);
+      expect(find.text('tab 3'), findsNothing);
+      expect(find.text('Moment not found'), findsOneWidget);
+    });
+  });
+
   group('MomentDetailWrapper on an unreachable server', () {
     testWidgets('keeps the error page and does not claim not found', (t) async {
       final router = GoRouter(

@@ -52,11 +52,17 @@ class _MomentDetailWrapperState extends ConsumerState<MomentDetailWrapper> {
       debugPrint('❌ Error fetching moment: $e');
       if (!mounted) return;
       if (e is MomentNotFoundException) {
-        // Gone: no error page. Land on the Moments tab and say so; the
+        // Gone: no error page. Back to where the user came from, or (a
+        // cold-start push, nothing below) the Moments tab, and say so; the
         // snackbar outlives this route.
         final messenger = ScaffoldMessenger.of(context);
         final message = AppLocalizations.of(context)!.momentNotFound;
-        context.go('/tabs/$kMomentsTabIndex');
+        final navigator = Navigator.of(context);
+        if (navigator.canPop()) {
+          navigator.pop();
+        } else {
+          context.go('/tabs/$kMomentsTabIndex');
+        }
         messenger.showSnackBar(SnackBar(content: Text(message)));
       } else {
         setState(() {

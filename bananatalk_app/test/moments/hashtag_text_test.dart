@@ -87,4 +87,25 @@ void main() {
       expect(tags, ['one', 'two']);
     });
   });
+
+  group('full-width ＃ (U+FF03, the server folds it with NFKC)', () {
+    test('splitHashtags treats it as a hashtag marker', () {
+      final spans = splitHashtags('今日は ＃日本語 and ＃food!');
+      expect(
+        spans.where((s) => s.isHashtag).map((s) => s.tag).toList(),
+        ['日本語', 'food'],
+      );
+      expect(spans.where((s) => s.isHashtag).first.text, '＃日本語');
+      expect(spans.map((s) => s.text).join(), '今日は ＃日本語 and ＃food!');
+    });
+
+    test('not after a letter, as with #', () {
+      expect(splitHashtags('a＃b').where((s) => s.isHashtag), isEmpty);
+    });
+
+    test('normalizeHashtag drops a leading ＃', () {
+      expect(normalizeHashtag('＃Food'), 'food');
+      expect(normalizeHashtag('＃'), isNull);
+    });
+  });
 }

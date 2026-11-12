@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/providers/provider_models/story_model.dart';
 import 'package:bananatalk_app/services/stories_service.dart';
+import 'package:bananatalk_app/services/blocked_ids_store.dart';
 import 'package:bananatalk_app/services/stories_rail_cache.dart';
 import 'package:bananatalk_app/pages/stories/feed/stories_rail_order.dart';
 import 'package:bananatalk_app/pages/stories/story_precache.dart';
@@ -141,10 +142,26 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> with Widg
         currentUserId: _currentUserId,
       );
 
-  /// The block list, or null when it cannot be read.
+  /// How long the rail waits for the block list before using the one
+  /// remembered from the last successful fetch.
+  static const Duration _blockListWait = Duration(seconds: 3);
+
+  /// The block list, or null when it cannot be read. A request that has not
+  /// answered within [_blockListWait] is not waited for (it holds
+  /// `_inFlight`): the last fetched list stands in.
   Future<Set<String>?> _loadBlocked() async {
     try {
-      return await ref.read(blockedUserIdsProvider.future);
+      return await ref
+          .read(blockedUserIdsProvider.future)
+          .timeout(_blockListWait);
+    } on TimeoutException {
+      try {
+        final prefs = await SharedPreferences.getInstance();
+        return await BlockedIdsStore()
+            .read(userId: prefs.getString('userId') ?? '');
+      } catch (_) {
+        return null;
+      }
     } catch (_) {
       return null;
     }
