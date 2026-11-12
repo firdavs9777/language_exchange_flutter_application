@@ -91,4 +91,18 @@ void main() {
     expect(MomentImage.decodePlaceholder('data:text/plain;base64,$_png'), isNull);
     expect(MomentImage.decodePlaceholder('data:image/jpeg;base64,'), isNull);
   });
+
+  testWidgets('placeholder uses the same fit as the image above it',
+      (tester) async {
+    await tester.pumpWidget(_host(MomentImage(
+      imageUrl: 'https://x.test/orig.jpg',
+      variant: _variant(),
+      fit: BoxFit.contain,
+    )));
+    expect(tester.widget<Image>(_memory).fit, BoxFit.contain);
+    expect(
+      tester.widget<CachedImageWidget>(find.byType(CachedImageWidget)).fit,
+      BoxFit.contain,
+    );
+  });
 }

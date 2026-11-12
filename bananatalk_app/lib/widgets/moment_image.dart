@@ -99,7 +99,9 @@ class _MomentImageState extends State<MomentImage> {
             child: Image.memory(
               bytes,
               gaplessPlayback: true,
-              fit: BoxFit.cover,
+              // Same fit as the image above, or a letterboxed (contain)
+              // photo would keep the blur visible around it.
+              fit: widget.fit,
             ),
           ),
         CachedImageWidget(
