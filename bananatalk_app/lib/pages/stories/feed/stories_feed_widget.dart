@@ -36,6 +36,10 @@ class StoriesFeedWidget extends ConsumerStatefulWidget {
   final StoriesRailCache? cache;
   final StoryPrecacher precache;
 
+  /// Whether the rail may warm story images now: Wi-Fi/Ethernet only (it
+  /// runs on every app start, so never on mobile data).
+  final Future<bool> Function() railPrecacheAllowed;
+
   const StoriesFeedWidget({
     super.key,
     this.onCreateStory,
@@ -46,6 +50,7 @@ class StoriesFeedWidget extends ConsumerStatefulWidget {
     this.myStoriesLoader,
     this.cache,
     this.precache = precacheStoryImages,
+    this.railPrecacheAllowed = isOnUnmeteredNetwork,
   });
 
   @override
@@ -173,12 +178,20 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> with Widg
     }
   }
 
-  /// Preloads the first story of the first three rings once the rail is up.
+  /// Warms the disk cache for the first story of the first three rings once
+  /// the rail is up, on Wi-Fi/Ethernet only.
   void _schedulePrecache() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (!mounted) return;
       final urls = storiesRailPrecacheUrls(_entries(_discoverEnabled()));
       if (urls.isEmpty || _lastPrecached.join('|') == urls.join('|')) return;
+      bool allowed;
+      try {
+        allowed = await widget.railPrecacheAllowed();
+      } catch (_) {
+        allowed = false;
+      }
+      if (!allowed || !mounted) return;
       _lastPrecached = urls;
       await widget.precache(context, urls);
     });

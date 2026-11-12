@@ -13,6 +13,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:bananatalk_app/providers/provider_models/story_model.dart';
 import 'package:bananatalk_app/services/session_prefs.dart';
+import 'package:bananatalk_app/pages/stories/story_precache.dart';
 import 'package:bananatalk_app/services/stories_rail_cache.dart';
 
 Map<String, dynamic> _group(String userId) => {
@@ -142,6 +143,7 @@ void main() {
       required Future<StoriesFeedResult> Function() feed,
       required Future<Set<String>> Function() blocked,
       bool discoverEnabled = true,
+      bool unmetered = true,
     }) async {
       final precached = <List<String>>[];
       await tester.pumpWidget(ProviderScope(
@@ -158,6 +160,7 @@ void main() {
               feedLoader: feed,
               myStoriesLoader: () async => StoriesResponse(success: true),
               precache: (context, urls) async => precached.add(urls),
+              railPrecacheAllowed: () async => unmetered,
             ),
           ),
         ),
@@ -246,6 +249,46 @@ void main() {
         'https://x.test/f2.jpg',
         'https://x.test/f3.jpg',
       ]);
+    });
+  
+    testWidgets('on mobile data the rail warms nothing', (tester) async {
+      SharedPreferences.setMockInitialValues({'userId': 'me'});
+      final result = StoriesFeedResult.fromJson({
+        'success': true,
+        'data': [_group('f1'), _group('f2')],
+      }, 'me');
+      final precached = await pump(tester,
+          feed: () async => result,
+          blocked: () async => <String>{},
+          unmetered: false);
+      await tester.pump(const Duration(milliseconds: 50));
+      await tester.pump(const Duration(milliseconds: 50));
+      expect(find.text('Uf1'), findsOneWidget);
+      expect(precached, isEmpty);
+    });
+  });
+
+  group('precacheStoryImages', () {
+    testWidgets('warms the disk cache for each URL and decodes nothing',
+        (tester) async {
+      final warmed = <String>[];
+      late BuildContext ctx;
+      await tester.pumpWidget(Builder(builder: (c) {
+        ctx = c;
+        return const SizedBox();
+      }));
+      final before = PaintingBinding.instance.imageCache.currentSize;
+      await tester.runAsync(() => precacheStoryImages(
+            ctx,
+            ['https://x.test/a.jpg', 'https://x.test/b.jpg'],
+            warm: (url) async {
+              warmed.add(url);
+              if (url.endsWith('a.jpg')) throw Exception('404');
+            },
+          ));
+      expect(warmed, ['https://x.test/a.jpg', 'https://x.test/b.jpg']);
+      expect(PaintingBinding.instance.imageCache.currentSize, before);
+      expect(PaintingBinding.instance.imageCache.pendingImageCount, 0);
     });
   });
 }
