@@ -4,6 +4,7 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/app_config.dart';
 import 'package:bananatalk_app/pages/moments/feed/hashtag_search_panel.dart';
 import 'package:bananatalk_app/pages/moments/feed/moments_main.dart';
+import 'package:bananatalk_app/pages/moments/reels/reels_grid_screen.dart';
 import 'package:bananatalk_app/providers/hashtag_providers.dart';
 import 'package:bananatalk_app/providers/provider_models/hashtag_model.dart';
 import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
@@ -56,6 +57,12 @@ class _Search {
   final queries = <String?>[];
 }
 
+class _ReelsTab extends MomentsFeedTabNotifier {
+  _ReelsTab() {
+    state = MomentsFeedTab.reels;
+  }
+}
+
 class _SearchService extends MomentsService {
   _SearchService(this.log);
   final _Search log;
@@ -63,7 +70,11 @@ class _SearchService extends MomentsService {
   Future<Map<String, dynamic>> getMoments(
       {int page = 1, int limit = 10, String? feed, String? q}) async {
     log.queries.add(q);
-    return {'moments': <dynamic>[]};
+    return {
+      'moments': q == '#zz'
+          ? <dynamic>[buildMoment(id: 'zz1', description: 'found zz')]
+          : <dynamic>[],
+    };
   }
 }
 
@@ -134,8 +145,12 @@ void main() {
   });
 
   group('Moments search', () {
-    Widget host(_FakeHashtags svc, _Search log, {required bool flag}) => ProviderScope(
+    Widget host(_FakeHashtags svc, _Search log,
+            {required bool flag, bool reels = false}) =>
+        ProviderScope(
           overrides: [
+            if (reels)
+              momentsFeedTabProvider.overrideWith((ref) => _ReelsTab()),
             hashtagServiceProvider.overrideWithValue(svc),
             momentsServiceProvider.overrideWithValue(_SearchService(log)),
             forYouMomentsProvider.overrideWith(() => PagedMomentsFeedNotifier(
@@ -153,6 +168,7 @@ void main() {
                   androidUrl: '',
                   releaseNotes: '',
                   hashtagsEnabled: flag,
+                  reelsEnabled: reels,
                 )),
             blockedUserIdsProvider.overrideWith((ref) async => <String>{}),
             promptOfDayProvider.overrideWith((ref) async => <String, dynamic>{}),
@@ -206,6 +222,69 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.byType(HashtagSearchPanel), findsNothing);
       expect(log.queries, ['ko']);
+    });
+
+    testWidgets('trending empty: the feed body stays, no blank screen', (tester) async {
+      final svc = _FakeHashtags();
+      await tester.pumpWidget(host(svc, _Search(), flag: true));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byIcon(Icons.search));
+      await tester.pumpAndSettle();
+      expect(find.text('hello'), findsOneWidget);
+      expect(find.byType(ListTile), findsNothing);
+    });
+
+    testWidgets('trending failing: the feed body stays', (tester) async {
+      final svc = _FakeHashtags()..onTrending = () async => throw Exception('x');
+      await tester.pumpWidget(host(svc, _Search(), flag: true));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byIcon(Icons.search));
+      await tester.pumpAndSettle();
+      expect(find.text('hello'), findsOneWidget);
+    });
+
+    testWidgets('#zz with no suggestions runs the q search once and shows it',
+        (tester) async {
+      final svc = _FakeHashtags();
+      final log = _Search();
+      await tester.pumpWidget(host(svc, log, flag: true));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byIcon(Icons.search));
+      await tester.pumpAndSettle();
+      await tester.enterText(find.byType(TextField), '#zz');
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 400));
+      await tester.pumpAndSettle();
+      expect(svc.suggested, ['zz']);
+      expect(log.queries, ['#zz']);
+      expect(find.text('found zz'), findsOneWidget);
+    });
+
+    testWidgets('a bare # behaves like an empty query', (tester) async {
+      final svc = _FakeHashtags();
+      final log = _Search();
+      await tester.pumpWidget(host(svc, log, flag: true));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byIcon(Icons.search));
+      await tester.pumpAndSettle();
+      await tester.enterText(find.byType(TextField), '#');
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 400));
+      await tester.pumpAndSettle();
+      expect(svc.suggested, isEmpty);
+      expect(log.queries, isEmpty);
+      expect(find.text('hello'), findsOneWidget);
+    });
+
+    testWidgets('Reels tab: the panel never replaces the grid', (tester) async {
+      final svc = _FakeHashtags()..onTrending = () async => [_korean];
+      await tester.pumpWidget(host(svc, _Search(), flag: true, reels: true));
+      await tester.pump(const Duration(milliseconds: 500));
+      await tester.tap(find.byIcon(Icons.search));
+      await tester.pump(const Duration(milliseconds: 500));
+      expect(find.byType(ReelsGridScreen), findsOneWidget);
+      expect(find.byType(HashtagSearchPanel), findsNothing);
+      expect(svc.trendingCalls, 0);
     });
   });
 }
