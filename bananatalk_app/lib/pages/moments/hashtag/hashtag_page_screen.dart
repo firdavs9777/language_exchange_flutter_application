@@ -3,7 +3,10 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/moments/card/moment_card.dart';
 import 'package:bananatalk_app/pages/moments/feed/feed_load_more_footer.dart';
 import 'package:bananatalk_app/pages/moments/feed/moment_card_skeleton.dart';
+import 'package:bananatalk_app/pages/moments/feed/muted_users_provider.dart';
 import 'package:bananatalk_app/providers/hashtag_providers.dart';
+import 'package:bananatalk_app/providers/provider_root/block_provider.dart';
+import 'package:bananatalk_app/utils/hidden_authors.dart';
 import 'package:bananatalk_app/utils/hashtag_text.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:flutter/material.dart';
@@ -135,7 +138,13 @@ class _MomentList extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final notifier = ref.read(hashtagPageProvider(pageKey).notifier);
-    final moments = state.moments;
+    // Same client-side filter as the feed: mute is local only, and the
+    // block list includes the remembered one when it cannot be fetched.
+    final moments = withoutHiddenAuthors(
+      state.moments,
+      blocked: ref.watch(blockedUserIdsProvider).valueOrNull ?? <String>{},
+      muted: ref.watch(mutedMomentsProvider),
+    );
     return ListView.builder(
       padding: const EdgeInsets.only(bottom: 24),
       itemCount: moments.length + (state.hasMore ? 1 : 0),

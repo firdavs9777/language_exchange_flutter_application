@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:bananatalk_app/providers/provider_root/block_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../support/moment_fixture.dart';
 
@@ -43,8 +45,15 @@ HashtagPage _page({
   hasNextPage: hasNext,
 );
 
-Widget _app(_FakeService service, {String tag = '#Korean'}) => ProviderScope(
-  overrides: [hashtagServiceProvider.overrideWithValue(service)],
+Widget _app(
+  _FakeService service, {
+  String tag = '#Korean',
+  Set<String> blocked = const {},
+}) => ProviderScope(
+  overrides: [
+    hashtagServiceProvider.overrideWithValue(service),
+    blockedUserIdsProvider.overrideWith((ref) async => blocked),
+  ],
   child: MaterialApp(
     localizationsDelegates: const [
       AppLocalizations.delegate,
@@ -60,6 +69,26 @@ AppLocalizations _l10n(WidgetTester t) =>
     AppLocalizations.of(t.element(find.byType(HashtagPageScreen)))!;
 
 void main() {
+  setUp(() => SharedPreferences.setMockInitialValues({}));
+
+  testWidgets('posts by blocked or muted authors are not listed', (
+    tester,
+  ) async {
+    // buildMoment(id: x) is authored by 'author-x'.
+    SharedPreferences.setMockInitialValues({
+      'mutedMoments': ['author-b'],
+    });
+    final service = _FakeService(
+      (_, __, ___) async => _page(ids: ['a', 'b', 'c']),
+    );
+    await tester.pumpWidget(_app(service, blocked: {'author-c'}));
+    await tester.pump(const Duration(seconds: 1));
+    await tester.pump();
+    expect(find.text('post a'), findsOneWidget);
+    expect(find.text('post b'), findsNothing);
+    expect(find.text('post c'), findsNothing);
+  });
+
   testWidgets('title is the tag as typed, then the server tag; shows count', (
     tester,
   ) async {

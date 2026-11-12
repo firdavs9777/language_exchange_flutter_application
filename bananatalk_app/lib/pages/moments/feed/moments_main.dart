@@ -37,6 +37,7 @@ import 'package:bananatalk_app/pages/stories/create/create_story_screen.dart';
 import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
 import 'package:bananatalk_app/services/guide_store.dart';
 import 'package:bananatalk_app/widgets/guides/page_guide.dart';
+import 'package:bananatalk_app/utils/hidden_authors.dart';
 
 const String _momentFilterKey = 'moment_filter';
 
@@ -213,12 +214,11 @@ final filteredMomentsForTabProvider =
       }
 
       return momentsAsync.whenData((moments) {
-        final blockedUserIds = blockedUserIdsAsync.value ?? <String>{};
-
-        final filteredByBlockAndMute = moments.where((moment) {
-          return !blockedUserIds.contains(moment.user.id) &&
-              !mutedUserIds.contains(moment.user.id);
-        }).toList();
+        final filteredByBlockAndMute = withoutHiddenAuthors(
+          moments,
+          blocked: blockedUserIdsAsync.value ?? <String>{},
+          muted: mutedUserIds,
+        );
 
         return MomentFilterUtility.filterMoments(
           filteredByBlockAndMute,
