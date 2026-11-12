@@ -208,6 +208,23 @@ void main() {
       expect(read!.data, isEmpty);
     });
 
+    testWidgets('cache painted, then the fetch fails: the rail stays',
+        (tester) async {
+      SharedPreferences.setMockInitialValues({'userId': 'me'});
+      await StoriesRailCache()
+          .write(userId: 'me', rawData: [_group('ok')], rawDiscover: []);
+      final feed = Completer<StoriesFeedResult>();
+      await pump(tester,
+          feed: () => feed.future, blocked: () async => <String>{});
+      await tester.pump(const Duration(milliseconds: 50));
+      expect(find.text('Uok'), findsOneWidget);
+
+      feed.complete(StoriesFeedResult.failure(error: 'offline'));
+      await tester.pump(const Duration(milliseconds: 50));
+      expect(find.text('Uok'), findsOneWidget);
+      expect(find.byKey(const Key('stories-error-retry')), findsNothing);
+    });
+
     testWidgets('flag off: no Discover rings, no label; precache gets the first 3',
         (tester) async {
       SharedPreferences.setMockInitialValues({'userId': 'me'});

@@ -120,9 +120,13 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> with Widg
     }
   }
 
-  bool get _discoverEnabled => ref
-      .read(appConfigProvider)
-      .maybeWhen(data: (c) => c?.storyDiscoverEnabled ?? false, orElse: () => false);
+  /// `watch` in build so a config that arrives late redraws the rail.
+  bool _discoverEnabled({bool watch = false}) =>
+      (watch ? ref.watch(appConfigProvider) : ref.read(appConfigProvider))
+          .maybeWhen(
+        data: (c) => c?.storyDiscoverEnabled ?? false,
+        orElse: () => false,
+      );
 
   List<RailEntry> _entries(bool discoverEnabled) => orderStoriesRail(
         followed: _followed,
@@ -173,7 +177,7 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> with Widg
   void _schedulePrecache() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (!mounted) return;
-      final urls = storiesRailPrecacheUrls(_entries(_discoverEnabled));
+      final urls = storiesRailPrecacheUrls(_entries(_discoverEnabled()));
       if (urls.isEmpty || _lastPrecached.join('|') == urls.join('|')) return;
       _lastPrecached = urls;
       await widget.precache(context, urls);
@@ -260,7 +264,7 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> with Widg
         _error = storiesFeedError(
           succeeded: ok,
           error: response.error,
-          hasCachedStories: hasCached,
+          hasCachedStories: _followed.isNotEmpty || _discover.isNotEmpty,
         );
       });
     } catch (e) {
@@ -273,7 +277,7 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> with Widg
           _error = storiesFeedError(
             succeeded: false,
             error: e.toString(),
-            hasCachedStories: hasCached,
+            hasCachedStories: _followed.isNotEmpty || _discover.isNotEmpty,
           );
         });
       }
@@ -351,10 +355,7 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> with Widg
 
   @override
   Widget build(BuildContext context) {
-    final entries = _entries(ref.watch(appConfigProvider).maybeWhen(
-          data: (c) => c?.storyDiscoverEnabled ?? false,
-          orElse: () => false,
-        ));
+    final entries = _entries(_discoverEnabled(watch: true));
     // Shimmer loading state
     if (_isLoading) {
       return SizedBox(
