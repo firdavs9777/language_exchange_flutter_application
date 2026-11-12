@@ -197,6 +197,12 @@ class Endpoints {
   static const String trendingMomentsURL = 'moments/trending';
   static const String exploreMomentsURL = 'moments/explore';
   
+  // Moments - Hashtags (404 while the server switch is off)
+  static const String hashtagSuggestURL = 'hashtags/suggest';
+  static const String hashtagTrendingURL = 'hashtags/trending';
+  static String hashtagMomentsURL(String tag) =>
+      'hashtags/${Uri.encodeComponent(tag)}/moments';
+
   // Moments - User specific
   static String userMomentsURL(String userId) => 'moments/user/$userId';
   static String singleMomentURL(String momentId) => 'moments/$momentId';
