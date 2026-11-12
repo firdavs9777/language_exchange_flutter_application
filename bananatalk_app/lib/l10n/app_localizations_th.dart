@@ -12583,4 +12583,12 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get clubEventMoved => 'เวลาใหม่';
+
+  @override
+  String loginUseSocialProvider(String provider) {
+    return 'บัญชีนี้ลงชื่อเข้าใช้ด้วย $provider โปรดดำเนินการต่อด้วย $provider';
+  }
+
+  @override
+  String get loginNoPasswordYet => 'บัญชีนี้ยังไม่มีรหัสผ่าน ใช้ “ลืมรหัสผ่าน” เพื่อตั้งรหัสผ่าน';
 }

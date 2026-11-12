@@ -12583,4 +12583,12 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get clubEventMoved => '시간 변경';
+
+  @override
+  String loginUseSocialProvider(String provider) {
+    return '이 계정은 $provider 로그인을 사용합니다. $provider(으)로 계속해 주세요.';
+  }
+
+  @override
+  String get loginNoPasswordYet => '이 계정에는 아직 비밀번호가 없습니다. ‘비밀번호 찾기’로 설정해 주세요.';
 }

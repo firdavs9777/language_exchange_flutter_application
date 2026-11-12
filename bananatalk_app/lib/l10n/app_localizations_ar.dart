@@ -12704,4 +12704,12 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get clubEventMoved => 'موعد جديد';
+
+  @override
+  String loginUseSocialProvider(String provider) {
+    return 'يستخدم هذا الحساب تسجيل الدخول عبر $provider. يُرجى المتابعة باستخدام $provider.';
+  }
+
+  @override
+  String get loginNoPasswordYet => 'لا توجد كلمة مرور لهذا الحساب بعد. استخدم «نسيت كلمة المرور» لتعيين واحدة.';
 }

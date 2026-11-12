@@ -12583,4 +12583,12 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get clubEventMoved => 'Giờ mới';
+
+  @override
+  String loginUseSocialProvider(String provider) {
+    return 'Tài khoản này đăng nhập bằng $provider. Vui lòng tiếp tục với $provider.';
+  }
+
+  @override
+  String get loginNoPasswordYet => 'Tài khoản này chưa có mật khẩu. Dùng “Quên mật khẩu” để đặt mật khẩu.';
 }

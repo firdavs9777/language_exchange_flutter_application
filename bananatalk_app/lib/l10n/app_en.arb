@@ -8692,5 +8692,18 @@
   },
   "@clubEventMoved": {
     "description": "Club chat card: a club gathering got a new start time"
+  },
+  "loginUseSocialProvider": "This account uses {provider} sign-in. Please continue with {provider}.",
+  "loginNoPasswordYet": "This account has no password yet. Use “Forgot password” to set one.",
+  "@loginUseSocialProvider": {
+    "description": "Email login refused: the account was created with Google/Apple/Facebook. {provider} is the brand name.",
+    "placeholders": {
+      "provider": {
+        "type": "String"
+      }
+    }
+  },
+  "@loginNoPasswordYet": {
+    "description": "Email login refused: the account has no password and no known social provider"
   }
 }

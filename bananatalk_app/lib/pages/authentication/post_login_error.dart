@@ -104,15 +104,30 @@ String? socialSignInErrorMessage(AppLocalizations l10n, Object error) {
   return friendlyErrorMessage(l10n, error);
 }
 
+const _providerNames = {
+  'google': 'Google',
+  'apple': 'Apple',
+  'facebook': 'Facebook',
+};
+
 /// The message for an auth-service result map with `success: false`:
-/// offline maps to the localized string, otherwise the server's own message
-/// (lockout minutes, "use Google/Apple sign-in", ...) is shown as-is.
+/// offline maps to the localized string, a social-only account gets its own
+/// localized line, otherwise the server's own message (lockout minutes, ...)
+/// is shown as-is.
 String authResultMessage(
   AppLocalizations l10n,
   Map<String, dynamic> result, {
   required String fallback,
 }) {
   if (result['isNetworkError'] == true) return l10n.noInternetConnection;
+  // Email login on a Google/Apple/Facebook-only account: in the reader's
+  // language, not the server's English sentence.
+  if (result['code'] == 'SOCIAL_LOGIN_REQUIRED') {
+    final provider = _providerNames[result['provider']?.toString()];
+    return provider != null
+        ? l10n.loginUseSocialProvider(provider)
+        : l10n.loginNoPasswordYet;
+  }
   final message = result['message']?.toString() ?? '';
   return message.isNotEmpty ? message : fallback;
 }

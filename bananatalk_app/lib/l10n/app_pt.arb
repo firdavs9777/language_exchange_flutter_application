@@ -4784,5 +4784,7 @@
   "clubRequestMeetups": "{count, plural, =0{Nenhum encontro ainda} =1{Foi a 1 encontro} other{Foi a {count} encontros}}",
   "sameCity": "Mesma cidade",
   "clubEventScheduled": "Novo encontro",
-  "clubEventMoved": "Novo horário"
+  "clubEventMoved": "Novo horário",
+  "loginUseSocialProvider": "Esta conta entra com {provider}. Continue com {provider}.",
+  "loginNoPasswordYet": "Esta conta ainda não tem senha. Use “Esqueci a senha” para criar uma."
 }

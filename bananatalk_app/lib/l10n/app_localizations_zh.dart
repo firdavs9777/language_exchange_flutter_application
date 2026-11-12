@@ -12583,6 +12583,14 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get clubEventMoved => '时间已更改';
+
+  @override
+  String loginUseSocialProvider(String provider) {
+    return '此账号使用 $provider 登录，请使用 $provider 继续。';
+  }
+
+  @override
+  String get loginNoPasswordYet => '此账号还没有密码，请通过“忘记密码”设置。';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -25164,4 +25172,12 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get clubEventMoved => '時間已更改';
+
+  @override
+  String loginUseSocialProvider(String provider) {
+    return '此帳號使用 $provider 登入，請使用 $provider 繼續。';
+  }
+
+  @override
+  String get loginNoPasswordYet => '此帳號尚未設定密碼，請透過「忘記密碼」設定。';
 }

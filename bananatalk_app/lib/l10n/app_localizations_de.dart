@@ -12626,4 +12626,12 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get clubEventMoved => 'Neue Uhrzeit';
+
+  @override
+  String loginUseSocialProvider(String provider) {
+    return 'Dieses Konto nutzt die Anmeldung mit $provider. Bitte fahre mit $provider fort.';
+  }
+
+  @override
+  String get loginNoPasswordYet => 'Dieses Konto hat noch kein Passwort. Lege über „Passwort vergessen“ eines fest.';
 }

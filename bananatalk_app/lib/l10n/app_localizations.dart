@@ -22897,6 +22897,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'New time'**
   String get clubEventMoved;
+
+  /// Email login refused: the account was created with Google/Apple/Facebook. {provider} is the brand name.
+  ///
+  /// In en, this message translates to:
+  /// **'This account uses {provider} sign-in. Please continue with {provider}.'**
+  String loginUseSocialProvider(String provider);
+
+  /// Email login refused: the account has no password and no known social provider
+  ///
+  /// In en, this message translates to:
+  /// **'This account has no password yet. Use “Forgot password” to set one.'**
+  String get loginNoPasswordYet;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
