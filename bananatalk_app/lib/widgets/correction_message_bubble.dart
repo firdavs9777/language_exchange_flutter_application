@@ -305,11 +305,14 @@ class _CorrectionMessageBubbleState
                   // Offer to post the user's OWN corrected sentence, only
                   // for a correction of their message that just arrived.
                   // Nothing from the partner or the chat goes in the text.
+                  // The flag is read last and the user only inside, so with
+                  // the flag off the bubble is exactly as before.
                   if (widget.offerShare &&
                       !widget.isCorrector &&
-                      _isFresh(correction.createdAt)) ...[
-                    const SizedBox(height: 10),
+                      _isFresh(correction.createdAt) &&
+                      ShareAsMomentCard.enabledIn(ref)) ...[
                     ShareAsMomentCard(
+                      padding: const EdgeInsets.only(top: 10),
                       prefillText: correction.correctedText,
                       language: ref
                               .watch(userProvider)

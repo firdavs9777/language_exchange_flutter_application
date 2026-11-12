@@ -156,22 +156,22 @@ class _CelebrationOverlayState extends ConsumerState<_CelebrationOverlay>
           // A bottom strip: the celebration and its button stay where they
           // were. Empty unless shareOffersEnabled is on and today's offer is
           // unused.
-          if (StreakMilestoneCelebration.shareMilestones.contains(widget.streak))
+          if (StreakMilestoneCelebration.shareMilestones
+                  .contains(widget.streak) &&
+              ShareAsMomentCard.enabledIn(ref))
             Align(
               alignment: Alignment.bottomCenter,
               child: SafeArea(
-                child: Padding(
+                child: ShareAsMomentCard(
                   padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-                  child: ShareAsMomentCard(
-                    prefillText: l10n.shareOfferStreakText(widget.streak),
-                    language: ref
-                            .watch(userProvider)
-                            .valueOrNull
-                            ?.language_to_learn ??
-                        '',
-                    slot: 'streak:${widget.streak}',
-                    onDismiss: () {},
-                  ),
+                  prefillText: l10n.shareOfferStreakText(widget.streak),
+                  language: ref
+                          .watch(userProvider)
+                          .valueOrNull
+                          ?.language_to_learn ??
+                      '',
+                  slot: 'streak:${widget.streak}',
+                  onDismiss: () {},
                 ),
               ),
             ),

@@ -1,6 +1,8 @@
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/app_config.dart';
+import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
 import 'package:bananatalk_app/services/share_offer_policy.dart';
 import 'package:bananatalk_app/widgets/correction_message_bubble.dart';
@@ -80,21 +82,36 @@ void main() {
     });
   });
 
-  Future<void> pump(WidgetTester t, {required bool offerShare}) async {
+  var userReads = 0;
+  setUp(() => userReads = 0);
+
+  Future<void> pump(
+    WidgetTester t, {
+    required bool offerShare,
+    bool flag = true,
+    ShareOfferPolicy? policy,
+  }) async {
+    // A fresh ProviderScope per pump (overrides cannot change in place).
+    await t.pumpWidget(const SizedBox());
     await t.pumpWidget(
       ProviderScope(
         overrides: [
           appConfigProvider.overrideWith(
-            (ref) async => const AppConfig(
+            (ref) async => AppConfig(
               minVersion: '1',
               latestVersion: '1',
               forceUpdate: false,
               iosUrl: '',
               androidUrl: '',
               releaseNotes: '',
-              shareOffersEnabled: true,
+              shareOffersEnabled: flag,
             ),
           ),
+          userProvider.overrideWith((ref) {
+            userReads++;
+            return Future<Community>.value(buildCommunity(id: 'me'));
+          }),
+          if (policy != null) shareOfferPolicyProvider.overrideWithValue(policy),
         ],
         child: MaterialApp(
           localizationsDelegates: const [
@@ -135,4 +152,39 @@ void main() {
     await pump(t, offerShare: false);
     expect(find.byType(ShareAsMomentCard), findsNothing);
   });
+
+  double bubbleHeight(WidgetTester t) =>
+      t.getSize(find.byType(CorrectionMessageBubble)).height;
+
+  testWidgets('flag off: no card, no extra space, no user read', (t) async {
+    await pump(t, offerShare: false);
+    final baseline = bubbleHeight(t);
+    await pump(t, offerShare: true, flag: false);
+    expect(find.byType(ShareAsMomentCard), findsNothing);
+    expect(bubbleHeight(t), baseline);
+    expect(userReads, 0);
+  });
+
+  testWidgets('flag on but no offer today: no extra space', (t) async {
+    await pump(t, offerShare: false);
+    final baseline = bubbleHeight(t);
+    await pump(t, offerShare: true, policy: _FixedPolicy(false));
+    expect(bubbleHeight(t), baseline);
+  });
+
+  testWidgets('flag on and shown: the spacing is part of the card', (t) async {
+    await pump(t, offerShare: false);
+    final baseline = bubbleHeight(t);
+    await pump(t, offerShare: true, policy: _FixedPolicy(true));
+    final card = find.byType(ShareAsMomentCard);
+    expect(t.getSize(card).height, greaterThan(10));
+    expect(bubbleHeight(t), baseline + t.getSize(card).height);
+  });
+}
+
+class _FixedPolicy extends ShareOfferPolicy {
+  _FixedPolicy(this.allowed);
+  final bool allowed;
+  @override
+  Future<bool> tryClaim(DateTime now, {required String slot}) async => allowed;
 }

@@ -19,7 +19,22 @@ class ShareAsMomentCard extends ConsumerStatefulWidget {
     required this.language,
     required this.slot,
     required this.onDismiss,
+    this.padding = EdgeInsets.zero,
   });
+
+  /// Whether the server's `shareOffersEnabled` is on. Call sites check it
+  /// before building the card, so with it off their widget tree and layout
+  /// stay as they were before share offers existed.
+  static bool enabledIn(WidgetRef ref) => ref
+      .watch(appConfigProvider)
+      .maybeWhen(
+        data: (c) => c?.shareOffersEnabled ?? false,
+        orElse: () => false,
+      );
+
+  /// Space around the card, applied only while it is shown, so a hidden
+  /// card takes no room at its call site.
+  final EdgeInsetsGeometry padding;
 
   final String prefillText;
   final String language;
@@ -77,19 +92,13 @@ class _ShareAsMomentCardState extends ConsumerState<ShareAsMomentCard> {
 
   @override
   Widget build(BuildContext context) {
-    final enabled = ref
-        .watch(appConfigProvider)
-        .maybeWhen(
-          data: (c) => c?.shareOffersEnabled ?? false,
-          orElse: () => false,
-        );
-    if (!enabled) return const SizedBox.shrink();
+    if (!ShareAsMomentCard.enabledIn(ref)) return const SizedBox.shrink();
     if (!_checking) _check();
     if (_visible != true) return const SizedBox.shrink();
 
     final l10n = AppLocalizations.of(context)!;
     final scheme = Theme.of(context).colorScheme;
-    return Material(
+    final card = Material(
       color: scheme.surfaceContainerHighest,
       borderRadius: BorderRadius.circular(16),
       child: Padding(
@@ -127,5 +136,6 @@ class _ShareAsMomentCardState extends ConsumerState<ShareAsMomentCard> {
         ),
       ),
     );
+    return Padding(padding: widget.padding, child: card);
   }
 }

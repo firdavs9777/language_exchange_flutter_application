@@ -19,6 +19,24 @@ import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/pages/learning/animations/xp_gain_overlay.dart';
 import 'package:bananatalk_app/widgets/share_as_moment_card.dart';
 
+/// The lesson results screen body. With share offers off (today's server)
+/// it is the original `Center(results)`; with them on, the results scroll
+/// above a bottom strip for [shareCard].
+@visibleForTesting
+Widget lessonResultsLayout({
+  required bool shareOffersEnabled,
+  required Widget results,
+  required Widget shareCard,
+}) {
+  if (!shareOffersEnabled) return Center(child: results);
+  return Column(
+    children: [
+      Expanded(child: Center(child: SingleChildScrollView(child: results))),
+      shareCard,
+    ],
+  );
+}
+
 /// Lesson player screen
 class LessonPlayerScreen extends ConsumerStatefulWidget {
   final String lessonId;
@@ -404,13 +422,11 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
     final correct = state.correctCount;
     final accuracy = total > 0 ? (correct / total * 100).round() : 0;
 
+    final shareOffersEnabled = ShareAsMomentCard.enabledIn(ref);
     return Builder(
-      builder: (context) => Column(
-        children: [
-        Expanded(
-        child: Center(
-        child: SingleChildScrollView(
-        child: Padding(
+      builder: (context) => lessonResultsLayout(
+        shareOffersEnabled: shareOffersEnabled,
+        results: Padding(
           padding: Spacing.paddingXL,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -545,23 +561,16 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
           ],
           ),
         ),
-        ),
-        ),
-        ),
         // Below the results and their buttons, never between them; empty
-        // unless the server's shareOffersEnabled is on and today's offer is
-        // still unused.
-        Padding(
+        // unless today's offer is still unused.
+        shareCard: ShareAsMomentCard(
           padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
-          child: ShareAsMomentCard(
-            prefillText: AppLocalizations.of(context)!
-                .shareOfferLessonText(lesson.title),
-            language: lesson.language,
-            slot: 'lesson:${widget.lessonId}',
-            onDismiss: () {},
-          ),
+          prefillText: AppLocalizations.of(context)!
+              .shareOfferLessonText(lesson.title),
+          language: lesson.language,
+          slot: 'lesson:${widget.lessonId}',
+          onDismiss: () {},
         ),
-        ],
       ),
     );
   }
