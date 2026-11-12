@@ -81,6 +81,35 @@ class StoriesRailCache {
     }
   }
 
+  /// Drops [userId]'s ring from the cached rail (followed and Discover):
+  /// someone just blocked must not be painted on the next cold start.
+  Future<void> removeUser(String userId) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final text = prefs.getString(key);
+      if (text == null) return;
+      final decoded = jsonDecode(text);
+      if (decoded is! Map) return;
+      bool keep(Object? g) {
+        if (g is! Map) return true;
+        final u = g['user'];
+        final id = u is Map ? (u['_id'] ?? u['id'])?.toString() : u?.toString();
+        return id != userId;
+      }
+
+      List<Object?> kept(Object? v) =>
+          v is List ? v.where(keep).toList() : <Object?>[];
+      await prefs.setString(
+        key,
+        jsonEncode({
+          ...decoded,
+          'data': kept(decoded['data']),
+          'discover': kept(decoded['discover']),
+        }),
+      );
+    } catch (_) {}
+  }
+
   Future<void> clearAll() async {
     try {
       final prefs = await SharedPreferences.getInstance();

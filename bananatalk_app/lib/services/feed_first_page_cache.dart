@@ -93,6 +93,14 @@ class FeedFirstPageCache {
         (m) => (m['_id'] ?? m['id'])?.toString() == momentId,
       );
 
+  /// Drops every cached post by [authorId] (just blocked), in every mode.
+  Future<void> removeAuthor(String authorId) => removeWhere((m) {
+        final u = m['user'];
+        final id =
+            u is Map ? (u['_id'] ?? u['id'])?.toString() : u?.toString();
+        return id == authorId;
+      });
+
   Future<void> clearAll() async {
     try {
       final prefs = await SharedPreferences.getInstance();
