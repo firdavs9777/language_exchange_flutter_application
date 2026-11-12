@@ -61,7 +61,7 @@ Everything else (blurred previews, small avatars, Discover rings, hashtags, clea
 **Test and code hygiene (low)**
 13. Some tests use fixed 50-100 ms delays (possible CI flake). No tests of the feed-open tracker provider wiring or sign-out clearing of the feed cache; the lesson results share offer is tested through `lessonResultsLayout`, not the whole lesson screen. `ShareOfferPolicy.recordShown` is public and unused (calling it would block that day's offer). The share-offer day is claimed when the card is built, not when seen. A signed-out `daily_prompt` tap loses the composer target after login.
 14. Pre-existing and not ours: `test/services/session_reset_test.dart` fails the same way on main (`alreadyWavedProvider`, `userMomentsPagedProvider`, `userMomentsTotalProvider` unclassified).
-15. About 61 files under `lib/providers` carry uncommitted formatting-only changes from an earlier accident (not part of any commit). The owner decides whether to discard them (`git checkout -- lib/providers`).
+15. (Resolved 2026-11-12) An accidental formatter run had left 61 uncommitted formatting-only files under `lib/providers` in the work folder; the owner discarded them. Nothing from it was ever committed.
 
 ## 5. Device checks before release
 

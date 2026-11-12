@@ -370,6 +370,8 @@ Web ↔ app parity (spec `docs/superpowers/specs/2026-10-16-web-app-parity-desig
 
 ## Moments smart feed app (Plan A2) (2026-11-12, branch feat/moments-smart-feed-app)
 
+- [x] 2026-11-12 final whole-branch review: 1 critical + 10 important findings fixed (e30e257a..34ba4e4a). Re-check of the five that are visible on today's server in progress; the six dormant ones (I5–I10) are to be re-checked before their server switch is turned on.
+
 - [x] Task 1: models parse `imageVariants` (Moments, Story), `hashtags`, `topics`, `needsFeedback`, `Community.avatarThumb`/`avatarUrl`, and AppConfig flags `feedThumbnailsEnabled`, `storyDiscoverEnabled`, `hashtagsEnabled`, `interestRankingEnabled`, `shareOffersEnabled` (all default false). Parsing only, no UI; variants/thumbs need no flag (server gates them).
 - [x] Task 2: `MomentImage` (lib/widgets/moment_image.dart) shows the blurred placeholder then the feed-size image in the feed carousel, moment detail and the story photo; avatars in the moment header and stories rail use `avatarThumb`. Carousel frame follows the first image's aspect ratio (clamped 4:5 to 1.91). No flag: acts only when the response carries `imageVariants` / `avatarThumb`; without them the widget tree is as before. Full-screen image viewer unchanged (originals).
 - [x] Task 1 follow-up: the five new AppConfig flags parse with `== true` (a malformed value such as the string "true" reads as off instead of throwing and losing the whole config).
