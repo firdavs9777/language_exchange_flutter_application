@@ -25,21 +25,11 @@ class HashtagPageScreen extends ConsumerStatefulWidget {
 class _HashtagPageScreenState extends ConsumerState<HashtagPageScreen> {
   String _sort = 'top';
 
-  /// The route parameter, decoded once (left as is when it is not valid
-  /// percent-encoding).
-  String get _decodedTag {
-    try {
-      return Uri.decodeComponent(widget.tag);
-    } catch (_) {
-      return widget.tag;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final typed = normalizeHashtag(_decodedTag);
-    final key = hashtagPageKey(_decodedTag, sort: _sort);
+    final typed = normalizeHashtag(widget.tag);
+    final key = hashtagPageKey(widget.tag, sort: _sort);
     final page = key == null ? null : ref.watch(hashtagPageProvider(key));
     // As typed until the page loads, then the server's form of the tag.
     final shownTag = page?.valueOrNull?.tag ?? typed ?? '';

@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../support/moment_fixture.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 
@@ -129,5 +130,58 @@ void main() {
     expect(rich.maxLines, 4);
     final spans = (rich.textSpan! as TextSpan).children!.cast<TextSpan>();
     expect(spans.last.recognizer, isA<TapGestureRecognizer>());
+  });
+
+  testWidgets('tapping a hashtag in a card opens the hashtag, not the detail', (
+    tester,
+  ) async {
+    final opened = <String>[];
+    final router = GoRouter(
+      routes: [
+        GoRoute(
+          path: '/',
+          builder: (_, __) => Scaffold(
+            body: SingleChildScrollView(
+              child: MomentCard(
+                moments: buildMoment(description: 'hi #korean'),
+              ),
+            ),
+          ),
+        ),
+        GoRoute(
+          path: '/hashtag/:tag',
+          builder: (_, state) {
+            opened.add(state.uri.path);
+            return const Scaffold(body: Text('hashtag page'));
+          },
+        ),
+      ],
+    );
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [hashtagsEnabledProvider.overrideWithValue(true)],
+        child: MaterialApp.router(
+          routerConfig: router,
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+        ),
+      ),
+    );
+    await tester.pump(const Duration(milliseconds: 300));
+    final caption = find.byWidgetPredicate(
+      (w) => w is Text && w.textSpan?.toPlainText() == 'hi #korean',
+    );
+    // Centre of "#korean" (characters 3..10 of "hi #korean").
+    final paragraph = tester.renderObject<RenderParagraph>(
+      find.descendant(of: caption, matching: find.byType(RichText)).first,
+    );
+    final boxes = paragraph.getBoxesForSelection(
+      const TextSelection(baseOffset: 3, extentOffset: 10),
+    );
+    final target = paragraph.localToGlobal(boxes.first.toRect().center);
+    await tester.tapAt(target);
+    await tester.pumpAndSettle();
+    expect(opened, ['/hashtag/korean']);
+    expect(find.text('hashtag page'), findsOneWidget);
   });
 }

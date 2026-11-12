@@ -43,7 +43,7 @@ HashtagPage _page({
   hasNextPage: hasNext,
 );
 
-Widget _app(_FakeService service, {String tag = '%23Korean'}) => ProviderScope(
+Widget _app(_FakeService service, {String tag = '#Korean'}) => ProviderScope(
   overrides: [hashtagServiceProvider.overrideWithValue(service)],
   child: MaterialApp(
     localizationsDelegates: const [
@@ -132,7 +132,7 @@ void main() {
 
   testWidgets('unusable tag: empty state without a request', (tester) async {
     final service = _FakeService((_, __, ___) async => _page());
-    await tester.pumpWidget(_app(service, tag: '%23%20%21'));
+    await tester.pumpWidget(_app(service, tag: '# !'));
     await tester.pump(const Duration(seconds: 1));
     expect(service.calls, isEmpty);
     expect(find.text(_l10n(tester).hashtagEmpty), findsOneWidget);
@@ -170,5 +170,23 @@ void main() {
     retry.complete(_page(ids: ['z'], hasNext: false));
     await tester.pump(const Duration(seconds: 1));
     expect(find.byKey(const ValueKey('feed-load-more-failed')), findsNothing);
+  });
+
+  testWidgets('a literal % in the (already decoded) tag does not throw', (
+    tester,
+  ) async {
+    final service = _FakeService((_, __, ___) async => _page(tag: '100'));
+    await tester.pumpWidget(_app(service, tag: '100%'));
+    await tester.pump(const Duration(seconds: 1));
+    expect(tester.takeException(), isNull);
+    expect(service.calls.single.tag, '100');
+    expect(find.text('#100'), findsOneWidget);
+  });
+
+  testWidgets('an already decoded %41 is not decoded again', (tester) async {
+    final service = _FakeService((_, __, ___) async => _page(tag: '41'));
+    await tester.pumpWidget(_app(service, tag: '%41'));
+    await tester.pump(const Duration(seconds: 1));
+    expect(service.calls.single.tag, '41');
   });
 }
