@@ -1,5 +1,7 @@
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/moments/card/moment_card.dart';
+import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
+import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
 import 'package:bananatalk_app/widgets/hashtag_text.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -132,9 +134,15 @@ void main() {
     expect(spans.last.recognizer, isA<TapGestureRecognizer>());
   });
 
-  testWidgets('tapping a hashtag in a card opens the hashtag, not the detail', (
-    tester,
-  ) async {
+  /// Pumps a card captioned "hi #korean" (links on) and taps the middle of
+  /// characters [from]..[to] of the caption with a real pointer. Returns the
+  /// hashtag routes opened; [detailFetches] counts the card's detail opens.
+  Future<List<String>> tapCaption(
+    WidgetTester tester, {
+    required int from,
+    required int to,
+    required List<String> detailFetches,
+  }) async {
     final opened = <String>[];
     final router = GoRouter(
       routes: [
@@ -159,7 +167,12 @@ void main() {
     );
     await tester.pumpWidget(
       ProviderScope(
-        overrides: [hashtagsEnabledProvider.overrideWithValue(true)],
+        overrides: [
+          hashtagsEnabledProvider.overrideWithValue(true),
+          momentsServiceProvider.overrideWithValue(
+            _CountingMomentsService(detailFetches),
+          ),
+        ],
         child: MaterialApp.router(
           routerConfig: router,
           localizationsDelegates: AppLocalizations.localizationsDelegates,
@@ -171,17 +184,57 @@ void main() {
     final caption = find.byWidgetPredicate(
       (w) => w is Text && w.textSpan?.toPlainText() == 'hi #korean',
     );
-    // Centre of "#korean" (characters 3..10 of "hi #korean").
     final paragraph = tester.renderObject<RenderParagraph>(
       find.descendant(of: caption, matching: find.byType(RichText)).first,
     );
     final boxes = paragraph.getBoxesForSelection(
-      const TextSelection(baseOffset: 3, extentOffset: 10),
+      TextSelection(baseOffset: from, extentOffset: to),
     );
-    final target = paragraph.localToGlobal(boxes.first.toRect().center);
-    await tester.tapAt(target);
+    await tester.tapAt(paragraph.localToGlobal(boxes.first.toRect().center));
     await tester.pumpAndSettle();
+    return opened;
+  }
+
+  testWidgets('tapping a hashtag in a card opens the hashtag, not the detail', (
+    tester,
+  ) async {
+    final fetches = <String>[];
+    // "#korean" is characters 3..10 of "hi #korean".
+    final opened = await tapCaption(
+      tester,
+      from: 3,
+      to: 10,
+      detailFetches: fetches,
+    );
     expect(opened, ['/hashtag/korean']);
     expect(find.text('hashtag page'), findsOneWidget);
+    expect(fetches, isEmpty);
   });
+
+  testWidgets('a tap on the caption outside a hashtag opens the detail', (
+    tester,
+  ) async {
+    final fetches = <String>[];
+    // "hi" is characters 0..2.
+    final opened = await tapCaption(
+      tester,
+      from: 0,
+      to: 2,
+      detailFetches: fetches,
+    );
+    expect(opened, isEmpty);
+    expect(fetches, ['m1']);
+  });
+}
+
+class _CountingMomentsService extends MomentsService {
+  _CountingMomentsService(this.fetches);
+
+  final List<String> fetches;
+
+  @override
+  Future<Moments> getSingleMoment({required String id}) async {
+    fetches.add(id);
+    throw Exception('offline');
+  }
 }
