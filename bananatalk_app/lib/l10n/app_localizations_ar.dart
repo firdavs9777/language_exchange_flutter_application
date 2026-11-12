@@ -12712,4 +12712,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get loginNoPasswordYet => 'لا توجد كلمة مرور لهذا الحساب بعد. استخدم «نسيت كلمة المرور» لتعيين واحدة.';
+
+  @override
+  String get feedCouldNotLoadMore => 'تعذّر تحميل المزيد من المنشورات';
 }

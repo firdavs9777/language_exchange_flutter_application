@@ -12591,4 +12591,7 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get loginNoPasswordYet => '이 계정에는 아직 비밀번호가 없습니다. ‘비밀번호 찾기’로 설정해 주세요.';
+
+  @override
+  String get feedCouldNotLoadMore => '게시물을 더 불러오지 못했어요';
 }

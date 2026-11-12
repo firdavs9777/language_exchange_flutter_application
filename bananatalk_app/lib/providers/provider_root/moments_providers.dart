@@ -943,8 +943,13 @@ final momentsFeedProvider = FutureProvider<List<Moments>>((ref) async {
   return <Moments>[];
 });
 
-/// Page size of the card feed tabs (the backend caps a page at 50).
-const int kMomentsFeedPageSize = 50;
+/// Page size of the card feed tabs. Small pages make the first screen
+/// arrive quickly; the next one is fetched as the reader nears the end.
+const int kMomentsFeedPageSize = 12;
+
+/// How many results the Moments search asks for (one server page, never
+/// paged, so it stays larger than a feed page; the backend caps it at 50).
+const int kMomentsSearchLimit = 50;
 
 /// One page of a feed endpoint.
 class MomentsFeedPage {
@@ -992,9 +997,22 @@ class PagedMomentsFeedNotifier extends AsyncNotifier<List<Moments>> {
   int _firstPageCount = 0;
   bool _hasMore = false;
   bool _loadingMore = false;
+  bool _loadMoreFailed = false;
 
   /// Whether another page may exist below the loaded ones.
   bool get hasMore => _hasMore;
+
+  /// The last [loadMore] failed; the feed shows a Retry row instead of the
+  /// spinner and stops asking by itself until [retryLoadMore] succeeds.
+  bool get loadMoreFailed => _loadMoreFailed;
+
+  /// Flips [loadMoreFailed] and tells the watchers: the list itself is
+  /// unchanged, so no state write would reach the feed widget.
+  void _setLoadMoreFailed(bool value) {
+    if (_loadMoreFailed == value) return;
+    _loadMoreFailed = value;
+    ref.notifyListeners();
+  }
 
   void _stampFreshness() {
     // Deferred so no other provider is written synchronously from a build.
@@ -1008,6 +1026,7 @@ class PagedMomentsFeedNotifier extends AsyncNotifier<List<Moments>> {
     _page = 1;
     _hasMore = false;
     _loadingMore = false;
+    _loadMoreFailed = false;
     final first = await _fetch(ref, 1);
     _firstPageCount = first.moments.length;
     _hasMore = first.hasMore && first.moments.isNotEmpty;
@@ -1017,7 +1036,7 @@ class PagedMomentsFeedNotifier extends AsyncNotifier<List<Moments>> {
 
   /// Appends the next page. No-op while one is loading, before the first
   /// page arrives, or once the end is reached. A failure keeps what is
-  /// shown; the next scroll retries.
+  /// shown and sets [loadMoreFailed]; a later success clears it.
   Future<void> loadMore() async {
     final current = state.valueOrNull;
     if (current == null || state.isLoading || !_hasMore || _loadingMore) {
@@ -1030,13 +1049,19 @@ class PagedMomentsFeedNotifier extends AsyncNotifier<List<Moments>> {
       if (!identical(state.valueOrNull, current)) return;
       _page += 1;
       _hasMore = next.hasMore && next.moments.isNotEmpty;
+      _loadMoreFailed = false;
       state = AsyncData(appendMomentsPage(current, next.moments));
     } catch (_) {
-      // Keep the loaded list; the next scroll to the end retries.
+      // Keep the loaded list; the feed offers a Retry row.
+      if (identical(state.valueOrNull, current)) _setLoadMoreFailed(true);
     } finally {
       _loadingMore = false;
     }
   }
+
+  /// The Retry row's action: asks again for the page that failed (the page
+  /// counter only moves on success).
+  Future<void> retryLoadMore() => loadMore();
 
   /// Re-reads page 1 and keeps the pages below it. Falls back to a full
   /// reload when only one page is loaded (the same result, simpler).

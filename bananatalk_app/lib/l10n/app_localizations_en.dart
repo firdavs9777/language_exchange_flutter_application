@@ -12652,4 +12652,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get loginNoPasswordYet => 'This account has no password yet. Use “Forgot password” to set one.';
+
+  @override
+  String get feedCouldNotLoadMore => 'Couldn\'t load more posts';
 }

@@ -878,6 +878,8 @@ const Map<String, List<String>> _keysByTask = {
   'club-event-messages': ['clubEventScheduled', 'clubEventMoved'],
   // 2026-11-12: email login on a Google/Apple/Facebook-only account.
   'social-login-required': ['loginUseSocialProvider', 'loginNoPasswordYet'],
+  // Moments smart feed (Plan A2) task 3: the load-more failure row.
+  'moments_smart_feed_3': ['feedCouldNotLoadMore'],
   // Community optimization phase 2 (2026-10-31): the Partners "Same city" chip.
   'community-p2': ['sameCity'],
   // Clubs v2 slice 1 (2026-10-28): club rules, the language pair, warnings.
@@ -945,6 +947,7 @@ const Map<String, List<String>> _keysByTask = {
 const Map<String, List<String>> _filesByTask = {
   'club-event-messages': ['pages/chat/message/club_event_card.dart'],
   'social-login-required': ['pages/authentication/post_login_error.dart'],
+  'moments_smart_feed_3': ['pages/moments/feed/moments_feed_widget.dart'],
   'community-p2': [
     'pages/community/widgets/topic_picker_sheet.dart',
     'pages/community/waves/waves_screen.dart',

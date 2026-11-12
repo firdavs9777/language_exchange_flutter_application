@@ -12622,4 +12622,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get loginNoPasswordYet => 'इस खाते का अभी कोई पासवर्ड नहीं है। सेट करने के लिए “पासवर्ड भूल गए” का उपयोग करें।';
+
+  @override
+  String get feedCouldNotLoadMore => 'और पोस्ट लोड नहीं हो सकीं';
 }

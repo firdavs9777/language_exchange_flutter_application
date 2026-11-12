@@ -12634,4 +12634,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get loginNoPasswordYet => 'Esta cuenta aún no tiene contraseña. Usa «¿Olvidaste tu contraseña?» para crear una.';
+
+  @override
+  String get feedCouldNotLoadMore => 'No se pudieron cargar más publicaciones';
 }

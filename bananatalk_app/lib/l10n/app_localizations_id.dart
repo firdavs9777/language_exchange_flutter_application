@@ -12602,4 +12602,7 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get loginNoPasswordYet => 'Akun ini belum punya kata sandi. Gunakan “Lupa kata sandi” untuk membuatnya.';
+
+  @override
+  String get feedCouldNotLoadMore => 'Tidak dapat memuat postingan lainnya';
 }

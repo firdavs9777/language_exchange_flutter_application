@@ -236,7 +236,7 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
 
   /// Below this many loaded moments, a list too short to scroll (e.g. most
   /// of a page hidden by filters) fetches the next page by itself.
-  static const int _autoFillLimit = 200;
+  static const int _autoFillLimit = 36;
 
   @override
   void initState() {
@@ -267,6 +267,8 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
     final provider = baseProviderFor(tab);
     final notifier = ref.read(provider.notifier);
     if (!notifier.hasMore) return;
+    // A failed page waits for the Retry row instead of hammering the server.
+    if (notifier.loadMoreFailed) return;
     // A list too short to scroll asks by itself, but only up to a bound so
     // a filter that hides everything cannot page through the whole feed.
     final scrollable = metrics.maxScrollExtent > 0;
@@ -315,7 +317,7 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
       try {
         final response = await ref
             .read(momentsServiceProvider)
-            .getMoments(page: 1, limit: kMomentsFeedPageSize, q: trimmed);
+            .getMoments(page: 1, limit: kMomentsSearchLimit, q: trimmed);
         final raw = response['moments'];
         final remote = raw is List ? raw.cast<Moments>() : <Moments>[];
         if (!mounted || generation != _searchGeneration) return;
@@ -399,6 +401,8 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
         !isSearching &&
         ref.watch(baseProviderFor(effectiveTab)).hasValue &&
         ref.read(baseProviderFor(effectiveTab).notifier).hasMore;
+    final loadMoreFailed = hasMorePages &&
+        ref.read(baseProviderFor(effectiveTab).notifier).loadMoreFailed;
     // A page that did not fill the screen (filters, blocks) asks for the
     // next one by itself; a scroll would never come.
     if (hasMorePages) {
@@ -577,6 +581,10 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
                     onRefresh: _refresh,
                     activeTab: effectiveTab,
                     hasMore: hasMorePages,
+                    loadMoreFailed: loadMoreFailed,
+                    onRetryLoadMore: () => ref
+                        .read(baseProviderFor(effectiveTab).notifier)
+                        .retryLoadMore(),
                   ),
                 ),
         ),

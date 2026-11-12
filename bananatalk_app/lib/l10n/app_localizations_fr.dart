@@ -12622,4 +12622,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get loginNoPasswordYet => 'Ce compte n’a pas encore de mot de passe. Utilisez « Mot de passe oublié » pour en créer un.';
+
+  @override
+  String get feedCouldNotLoadMore => 'Impossible de charger plus de publications';
 }

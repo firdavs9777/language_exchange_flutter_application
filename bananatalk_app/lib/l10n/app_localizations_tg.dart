@@ -12611,4 +12611,7 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get loginNoPasswordYet => 'Ин ҳисоб ҳоло парол надорад. Барои гузоштани он «Паролро фаромӯш кардед»-ро истифода баред.';
+
+  @override
+  String get feedCouldNotLoadMore => 'Нашрҳои бештарро бор карда нашуд';
 }

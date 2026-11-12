@@ -12609,4 +12609,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get loginNoPasswordYet => 'Bu hesabın henüz şifresi yok. Şifre belirlemek için “Şifremi unuttum”u kullanın.';
+
+  @override
+  String get feedCouldNotLoadMore => 'Daha fazla gönderi yüklenemedi';
 }

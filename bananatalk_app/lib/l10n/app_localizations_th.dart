@@ -12591,4 +12591,7 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get loginNoPasswordYet => 'บัญชีนี้ยังไม่มีรหัสผ่าน ใช้ “ลืมรหัสผ่าน” เพื่อตั้งรหัสผ่าน';
+
+  @override
+  String get feedCouldNotLoadMore => 'โหลดโพสต์เพิ่มเติมไม่ได้';
 }

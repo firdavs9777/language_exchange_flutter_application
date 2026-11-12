@@ -4982,5 +4982,6 @@
   "clubEventScheduled": "Yeni buluşma",
   "clubEventMoved": "Yeni saat",
   "loginUseSocialProvider": "Bu hesap {provider} ile giriş yapıyor. Lütfen {provider} ile devam edin.",
-  "loginNoPasswordYet": "Bu hesabın henüz şifresi yok. Şifre belirlemek için “Şifremi unuttum”u kullanın."
+  "loginNoPasswordYet": "Bu hesabın henüz şifresi yok. Şifre belirlemek için “Şifremi unuttum”u kullanın.",
+  "feedCouldNotLoadMore": "Daha fazla gönderi yüklenemedi"
 }

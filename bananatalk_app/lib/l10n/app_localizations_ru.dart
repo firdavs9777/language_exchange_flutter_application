@@ -13090,4 +13090,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get loginNoPasswordYet => 'У этого аккаунта ещё нет пароля. Задайте его через «Забыли пароль».';
+
+  @override
+  String get feedCouldNotLoadMore => 'Не удалось загрузить другие публикации';
 }

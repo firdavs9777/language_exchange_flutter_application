@@ -12591,6 +12591,9 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get loginNoPasswordYet => '此账号还没有密码，请通过“忘记密码”设置。';
+
+  @override
+  String get feedCouldNotLoadMore => '无法加载更多帖子';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -25180,4 +25183,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get loginNoPasswordYet => '此帳號尚未設定密碼，請透過「忘記密碼」設定。';
+
+  @override
+  String get feedCouldNotLoadMore => '無法載入更多貼文';
 }

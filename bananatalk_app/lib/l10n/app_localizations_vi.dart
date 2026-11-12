@@ -12591,4 +12591,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get loginNoPasswordYet => 'Tài khoản này chưa có mật khẩu. Dùng “Quên mật khẩu” để đặt mật khẩu.';
+
+  @override
+  String get feedCouldNotLoadMore => 'Không thể tải thêm bài đăng';
 }

@@ -70,6 +70,10 @@ class MomentsFeedWidget extends ConsumerWidget {
   /// fetches it (see `MomentsMain._maybeLoadMore`).
   final bool hasMore;
 
+  /// The last next-page fetch failed: a Retry row replaces the spinner.
+  final bool loadMoreFailed;
+  final VoidCallback? onRetryLoadMore;
+
   const MomentsFeedWidget({
     super.key,
     required this.momentsAsync,
@@ -78,6 +82,8 @@ class MomentsFeedWidget extends ConsumerWidget {
     required this.onRefresh,
     required this.activeTab,
     this.hasMore = false,
+    this.loadMoreFailed = false,
+    this.onRetryLoadMore,
   });
 
   @override
@@ -109,6 +115,29 @@ class MomentsFeedWidget extends ConsumerWidget {
           itemCount: items.length + (hasMore ? 1 : 0),
           itemBuilder: (context, index) {
             if (index == items.length) {
+              if (loadMoreFailed) {
+                final l10n = AppLocalizations.of(context)!;
+                return Padding(
+                  key: const ValueKey('feed-load-more-failed'),
+                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Flexible(
+                        child: Text(
+                          l10n.feedCouldNotLoadMore,
+                          style: context.bodySmall,
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: onRetryLoadMore,
+                        child: Text(l10n.retry),
+                      ),
+                    ],
+                  ),
+                );
+              }
               return Padding(
                 key: const ValueKey('feed-load-more'),
                 padding: const EdgeInsets.symmetric(vertical: 24),

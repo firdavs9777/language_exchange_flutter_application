@@ -8705,5 +8705,9 @@
   },
   "@loginNoPasswordYet": {
     "description": "Email login refused: the account has no password and no known social provider"
+  },
+  "feedCouldNotLoadMore": "Couldn't load more posts",
+  "@feedCouldNotLoadMore": {
+    "description": "Shown under the Moments feed when fetching the next page failed; a Retry button sits next to it"
   }
 }

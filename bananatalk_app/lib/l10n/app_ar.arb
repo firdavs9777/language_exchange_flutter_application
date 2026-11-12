@@ -4800,5 +4800,6 @@
   "clubEventScheduled": "لقاء جديد",
   "clubEventMoved": "موعد جديد",
   "loginUseSocialProvider": "يستخدم هذا الحساب تسجيل الدخول عبر {provider}. يُرجى المتابعة باستخدام {provider}.",
-  "loginNoPasswordYet": "لا توجد كلمة مرور لهذا الحساب بعد. استخدم «نسيت كلمة المرور» لتعيين واحدة."
+  "loginNoPasswordYet": "لا توجد كلمة مرور لهذا الحساب بعد. استخدم «نسيت كلمة المرور» لتعيين واحدة.",
+  "feedCouldNotLoadMore": "تعذّر تحميل المزيد من المنشورات"
 }

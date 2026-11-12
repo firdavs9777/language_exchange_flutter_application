@@ -22909,6 +22909,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This account has no password yet. Use “Forgot password” to set one.'**
   String get loginNoPasswordYet;
+
+  /// Shown under the Moments feed when fetching the next page failed; a Retry button sits next to it
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t load more posts'**
+  String get feedCouldNotLoadMore;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

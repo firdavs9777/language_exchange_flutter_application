@@ -12591,4 +12591,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get loginNoPasswordYet => 'このアカウントにはまだパスワードがありません。「パスワードをお忘れですか」から設定してください。';
+
+  @override
+  String get feedCouldNotLoadMore => 'これ以上の投稿を読み込めませんでした';
 }

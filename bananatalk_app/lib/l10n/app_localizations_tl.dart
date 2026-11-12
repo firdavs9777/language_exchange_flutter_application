@@ -12615,4 +12615,7 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get loginNoPasswordYet => 'Wala pang password ang account na ito. Gamitin ang “Nakalimutan ang password” para gumawa nito.';
+
+  @override
+  String get feedCouldNotLoadMore => 'Hindi na-load ang iba pang post';
 }
