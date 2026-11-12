@@ -41,16 +41,3 @@ class HashtagPage {
   final List<Moments> moments;
   final bool hasNextPage;
 }
-
-/// The page-level fields of a hashtag page, kept next to the paged moments.
-class HashtagPageMeta {
-  const HashtagPageMeta({
-    required this.tag,
-    required this.postCount,
-    this.relatedTopic,
-  });
-
-  final String tag;
-  final int postCount;
-  final String? relatedTopic;
-}

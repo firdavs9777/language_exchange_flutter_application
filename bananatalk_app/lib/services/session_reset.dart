@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/providers/hashtag_providers.dart';
 import 'package:bananatalk_app/pages/community/partners/partner_query.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -92,6 +93,12 @@ final Map<String, ProviderOrFamily> userScopedProviders = {
   // Clubs v2 access is decided per user
   'clubsV2AccessProvider': clubsV2AccessProvider,
   'clubMomentsProvider': clubMomentsProvider,
+  // Hashtag pages carry isLiked, friends-only posts and block-filtered
+  // authors; suggestions/trending follow the signed-in user's token too.
+  'hashtagServiceProvider': hashtagServiceProvider,
+  'hashtagSuggestProvider': hashtagSuggestProvider,
+  'trendingHashtagsProvider': trendingHashtagsProvider,
+  'hashtagPageProvider': hashtagPageProvider,
   // Calls list: the unseen-missed badge belongs to the account
   'callHistoryServiceProvider': callHistoryServiceProvider,
   'missedCallsProvider': missedCallsProvider,

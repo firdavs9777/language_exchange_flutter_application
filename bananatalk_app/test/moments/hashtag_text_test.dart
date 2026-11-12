@@ -68,6 +68,13 @@ void main() {
       expect(splitHashtags('a#b 1#c _#d').any((s) => s.isHashtag), isFalse);
     });
 
+    test('HTML entities and other ASCII-prefixed # are not tags', () {
+      expect(
+        splitHashtags('it&#39;s &#x27; ok').any((s) => s.isHashtag),
+        isFalse,
+      );
+    });
+
     test('lone # and empty text', () {
       expect(splitHashtags('# alone').any((s) => s.isHashtag), isFalse);
       expect(splitHashtags(''), isEmpty);

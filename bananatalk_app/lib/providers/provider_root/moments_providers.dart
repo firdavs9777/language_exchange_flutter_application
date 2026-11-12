@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:bananatalk_app/pages/moments/create/moment_media_rules.dart';
+import 'package:bananatalk_app/providers/hashtag_providers.dart'
+    show HashtagPageNotifier;
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:bananatalk_app/service/endpoints.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -1206,6 +1208,7 @@ void patchMomentInFeeds(
   for (final feed in _pagedCardFeeds) {
     if (ref.exists(feed)) ref.read(feed.notifier).patchMoment(id, update);
   }
+  HashtagPageNotifier.patchEverywhere(id, update);
 }
 
 /// Removes deleted moment [id] from every feed. The non-paged lists reload.
@@ -1213,6 +1216,7 @@ void removeMomentFromFeeds(WidgetRef ref, String id) {
   for (final feed in _pagedCardFeeds) {
     if (ref.exists(feed)) ref.read(feed.notifier).removeMoment(id);
   }
+  HashtagPageNotifier.removeEverywhere(id);
   ref.invalidate(momentsFeedProvider);
   ref.invalidate(momentsProvider(1));
 }

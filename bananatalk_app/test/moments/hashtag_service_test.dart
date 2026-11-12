@@ -170,6 +170,43 @@ void main() {
       expect(page.relatedTopic, isNull);
     });
 
+    test(
+      'a tag with / ? # % is percent-encoded into one path segment',
+      () async {
+        late http.Request seen;
+        final s = HashtagService(
+          client: MockClient((r) async {
+            seen = r;
+            return _json({'success': true, 'data': []});
+          }),
+        );
+        await s.moments('a/b?c#d%e');
+        expect(
+          seen.url.toString(),
+          contains('hashtags/a%2Fb%3Fc%23d%25e/moments?'),
+        );
+        expect(seen.url.pathSegments.last, 'moments');
+      expect(seen.url.pathSegments, contains('a/b?c#d%e'));
+        expect(seen.url.hasFragment, isFalse);
+      },
+    );
+
+    test('a tag with nothing usable makes no request', () async {
+      var calls = 0;
+      final s = HashtagService(
+        client: MockClient((r) async {
+          calls++;
+          return _json({'success': true, 'data': []});
+        }),
+      );
+      for (final t in ['', '#', '🍜', '  ']) {
+        final page = await s.moments(t);
+        expect(page.moments, isEmpty);
+        expect(page.hasNextPage, isFalse);
+      }
+      expect(calls, 0);
+    });
+
     test('a malformed item is skipped, not fatal', () async {
       final s = HashtagService(
         client: MockClient(
@@ -188,130 +225,194 @@ void main() {
   });
 
   group('providers', () {
-    test('hashtagPageProvider pages, de-duplicates and exposes meta', () async {
-      final calls = <int>[];
-      final service = HashtagService(
-        client: MockClient((r) async {
-          final page = int.parse(r.url.queryParameters['page']!);
-          calls.add(page);
-          return _json({
-            'success': true,
-            'tag': 'cafe',
-            'postCount': 20,
-            'relatedTopic': 'coffee',
-            'data': page == 1
-                ? [for (var i = 0; i < 12; i++) _raw('m$i')]
-                : [_raw('m11'), _raw('m12')],
-            'pagination': {'currentPage': page, 'totalPages': 2},
-          });
-        }),
-      );
-      final container = ProviderContainer(
+    ProviderContainer containerFor(HashtagService service) {
+      final c = ProviderContainer(
         overrides: [hashtagServiceProvider.overrideWithValue(service)],
       );
-      addTearDown(container.dispose);
+      addTearDown(c.dispose);
+      return c;
+    }
 
-      const key = (tag: 'café', sort: 'top');
-      final p = hashtagPageProvider(key);
-      container.listen(p, (_, __) {});
-      final first = await container.read(p.future);
-      expect(first.length, 12);
-      await Future<void>.delayed(Duration.zero);
-      final meta = container.read(hashtagPageMetaProvider(key));
-      expect(meta?.tag, 'cafe');
-      expect(meta?.postCount, 20);
-      expect(meta?.relatedTopic, 'coffee');
+    Map<String, dynamic> pageBody(
+      int page,
+      List<String> ids, {
+      int total = 2,
+    }) => {
+      'success': true,
+      'tag': 'cafe',
+      'postCount': 20,
+      'relatedTopic': 'coffee',
+      'data': [for (final id in ids) _raw(id)],
+      'pagination': {'currentPage': page, 'totalPages': total},
+    };
 
-      await container.read(p.notifier).loadMore();
-      expect(container.read(p).value!.length, 13);
-      expect(calls, [1, 2]);
-      expect(container.read(p.notifier).hasMore, isFalse);
+    test('key helper normalises, so one page per tag', () {
+      expect(hashtagPageKey('#Food'), hashtagPageKey('food'));
+      expect(hashtagPageKey('#Food')!.sort, 'top');
+      expect(hashtagPageKey('🍜'), isNull);
     });
 
-    test('same key gives the same provider; sort changes the key', () {
-      expect(
-        hashtagPageProvider((tag: 'a', sort: 'top')),
-        same(hashtagPageProvider((tag: 'a', sort: 'top'))),
-      );
-      expect(
-        hashtagPageProvider((tag: 'a', sort: 'top')),
-        isNot(same(hashtagPageProvider((tag: 'a', sort: 'recent')))),
-      );
-    });
+    test(
+      'state carries server tag, counts, related topic; pages; dedupes',
+      () async {
+        final calls = <int>[];
+        final c = containerFor(
+          HashtagService(
+            client: MockClient((r) async {
+              final page = int.parse(r.url.queryParameters['page']!);
+              calls.add(page);
+              return _json(
+                page == 1
+                    ? pageBody(1, [for (var i = 0; i < 12; i++) 'm$i'])
+                    : pageBody(2, ['m11', 'm12']),
+              );
+            }),
+          ),
+        );
+        final p = hashtagPageProvider(hashtagPageKey('Café')!);
+        c.listen(p, (_, __) {});
+        final first = await c.read(p.future);
+        expect(first.tag, 'cafe');
+        expect(first.postCount, 20);
+        expect(first.relatedTopic, 'coffee');
+        expect(first.moments.length, 12);
+        expect(first.hasMore, isTrue);
 
-    test('loadMore failure sets loadMoreFailed and retry recovers', () async {
-      var fail = false;
-      final service = HashtagService(
-        client: MockClient((r) async {
-          final page = int.parse(r.url.queryParameters['page']!);
-          if (page == 2 && fail) return _json({}, 500);
-          return _json({
-            'success': true,
-            'tag': 'a',
-            'postCount': 20,
-            'data': page == 1
-                ? [for (var i = 0; i < 12; i++) _raw('m$i')]
-                : [_raw('n1')],
-            'pagination': {'currentPage': page, 'totalPages': 2},
-          });
-        }),
-      );
-      final container = ProviderContainer(
-        overrides: [hashtagServiceProvider.overrideWithValue(service)],
-      );
-      addTearDown(container.dispose);
-      const key = (tag: 'a', sort: 'recent');
-      final p = hashtagPageProvider(key);
-      container.listen(p, (_, __) {});
-      await container.read(p.future);
-      fail = true;
-      await container.read(p.notifier).loadMore();
-      expect(container.read(p.notifier).loadMoreFailed, isTrue);
-      expect(container.read(p).value!.length, 12);
-      fail = false;
-      await container.read(p.notifier).retryLoadMore();
-      expect(container.read(p.notifier).loadMoreFailed, isFalse);
-      expect(container.read(p).value!.length, 13);
-    });
+        await c.read(p.notifier).loadMore();
+        final s = c.read(p).value!;
+        expect(s.moments.length, 13);
+        expect(s.hasMore, isFalse);
+        expect(s.tag, 'cafe');
+        expect(calls, [1, 2]);
+      },
+    );
 
-    test('suggest and trending providers', () async {
-      final service = HashtagService(
-        client: MockClient(
-          (r) async => _json({
-            'success': true,
-            'data': [
-              {'tag': 'x', 'postCount': 1},
-            ],
+    test(
+      'failed loadMore keeps the list, stops, retry re-requests page 2',
+      () async {
+        var fail = true;
+        final calls = <int>[];
+        final c = containerFor(
+          HashtagService(
+            client: MockClient((r) async {
+              final page = int.parse(r.url.queryParameters['page']!);
+              calls.add(page);
+              if (page == 2 && fail) return _json({}, 500);
+              return _json(
+                page == 1
+                    ? pageBody(1, [for (var i = 0; i < 12; i++) 'm$i'])
+                    : pageBody(2, ['n1']),
+              );
+            }),
+          ),
+        );
+        final p = hashtagPageProvider(hashtagPageKey('a', sort: 'recent')!);
+        c.listen(p, (_, __) {});
+        await c.read(p.future);
+        await c.read(p.notifier).loadMore();
+        expect(c.read(p).value!.loadMoreFailed, isTrue);
+        expect(c.read(p).value!.moments.length, 12);
+        await c.read(p.notifier).loadMore(); // stays quiet while failed
+        expect(calls, [1, 2]);
+        fail = false;
+        await c.read(p.notifier).retryLoadMore();
+        expect(calls, [1, 2, 2]);
+        expect(c.read(p).value!.loadMoreFailed, isFalse);
+        expect(c.read(p).value!.moments.length, 13);
+      },
+    );
+
+    test('auto-dispose: leaving and reopening refetches', () async {
+      var calls = 0;
+      final c = containerFor(
+        HashtagService(
+          client: MockClient((r) async {
+            calls++;
+            return _json(pageBody(1, ['m1'], total: 1));
           }),
         ),
       );
-      final container = ProviderContainer(
-        overrides: [hashtagServiceProvider.overrideWithValue(service)],
-      );
-      addTearDown(container.dispose);
-      container.listen(hashtagSuggestProvider('x'), (_, __) {});
-      container.listen(trendingHashtagsProvider, (_, __) {});
-      expect(
-        (await container.read(hashtagSuggestProvider('x').future)).single.tag,
-        'x',
-      );
-      expect(
-        (await container.read(trendingHashtagsProvider.future)).single.tag,
-        'x',
-      );
+      final p = hashtagPageProvider(hashtagPageKey('a')!);
+      final sub = c.listen(p, (_, __) {});
+      await c.read(p.future);
+      sub.close();
+      await Future<void>.delayed(Duration.zero);
+      c.listen(p, (_, __) {});
+      await c.read(p.future);
+      expect(calls, 2);
     });
 
-    test('page 404 gives an empty list, not an error', () async {
-      final service = HashtagService(
-        client: MockClient((r) async => _json({}, 404)),
+    test('patchMomentInFeeds-style hooks reach open pages', () async {
+      final c = containerFor(
+        HashtagService(
+          client: MockClient(
+            (r) async => _json(pageBody(1, ['m1', 'm2'], total: 1)),
+          ),
+        ),
       );
-      final container = ProviderContainer(
-        overrides: [hashtagServiceProvider.overrideWithValue(service)],
+      final p = hashtagPageProvider(hashtagPageKey('a')!);
+      c.listen(p, (_, __) {});
+      await c.read(p.future);
+      HashtagPageNotifier.patchEverywhere(
+        'm1',
+        (m) => buildMoment(id: 'm1', description: 'edited'),
       );
-      addTearDown(container.dispose);
-      final p = hashtagPageProvider((tag: 'a', sort: 'top'));
-      container.listen(p, (_, __) {});
-      expect(await container.read(p.future), isEmpty);
+      expect(c.read(p).value!.moments.first.description, 'edited');
+      HashtagPageNotifier.removeEverywhere('m2');
+      expect(c.read(p).value!.moments.map((m) => m.id), ['m1']);
+    });
+
+    test(
+      'invalidate (sign-out reset) drops the old state and reloads',
+      () async {
+        var n = 0;
+        final c = containerFor(
+          HashtagService(
+            client: MockClient((r) async {
+              n++;
+              return _json(pageBody(1, ['u$n'], total: 1));
+            }),
+          ),
+        );
+        final p = hashtagPageProvider(hashtagPageKey('a')!);
+        c.listen(p, (_, __) {});
+        expect((await c.read(p.future)).moments.single.id, 'u1');
+        c.invalidate(hashtagPageProvider);
+        expect((await c.read(p.future)).moments.single.id, 'u2');
+      },
+    );
+
+    test('suggest and trending providers', () async {
+      final c = containerFor(
+        HashtagService(
+          client: MockClient(
+            (r) async => _json({
+              'success': true,
+              'data': [
+                {'tag': 'x', 'postCount': 1},
+              ],
+            }),
+          ),
+        ),
+      );
+      c.listen(hashtagSuggestProvider('x'), (_, __) {});
+      c.listen(trendingHashtagsProvider, (_, __) {});
+      expect(
+        (await c.read(hashtagSuggestProvider('x').future)).single.tag,
+        'x',
+      );
+      expect((await c.read(trendingHashtagsProvider.future)).single.tag, 'x');
+    });
+
+    test('page 404 gives an empty page, not an error', () async {
+      final c = containerFor(
+        HashtagService(client: MockClient((r) async => _json({}, 404))),
+      );
+      final p = hashtagPageProvider(hashtagPageKey('a')!);
+      c.listen(p, (_, __) {});
+      final s = await c.read(p.future);
+      expect(s.moments, isEmpty);
+      expect(s.hasMore, isFalse);
     });
   });
 }

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:bananatalk_app/providers/provider_models/hashtag_model.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:bananatalk_app/service/endpoints.dart';
+import 'package:bananatalk_app/utils/hashtag_text.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -62,6 +63,8 @@ class HashtagService {
     int page = 1,
     int limit = 12,
   }) async {
+    // Nothing usable in the tag: there is no page (and no `hashtags//moments`).
+    if (normalizeHashtag(tag) == null) return HashtagPage.empty(tag);
     final body = await _get(
       _uri(Endpoints.hashtagMomentsURL(tag), {
         'sort': sort,

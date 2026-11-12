@@ -55,10 +55,10 @@ class HashtagSpan {
 }
 
 // `#` + a letter/digit/underscore, then more of those and combining marks;
-// not right after a letter, digit, mark, `_` or `/` (so `a#b` and URL
-// fragments are not tags).
+// not right after a letter, digit, mark, `_`, `/` or `&` (so `a#b`, URL
+// fragments and HTML entities such as `&#39;` are not tags).
 final RegExp _hashtagPattern = RegExp(
-  r'(?<![\p{L}\p{N}\p{M}_/])#([\p{L}\p{N}_](?:[\p{L}\p{N}_]|(?![︀-️])[\p{Mn}\p{Mc}])*)',
+  r'(?<![\p{L}\p{N}\p{M}_/&])#([\p{L}\p{N}_](?:[\p{L}\p{N}_]|(?![︀-️])[\p{Mn}\p{Mc}])*)',
   unicode: true,
 );
 
