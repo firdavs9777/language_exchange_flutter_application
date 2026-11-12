@@ -17,11 +17,16 @@ class ShareAsMomentCard extends ConsumerStatefulWidget {
     super.key,
     required this.prefillText,
     required this.language,
+    required this.slot,
     required this.onDismiss,
   });
 
   final String prefillText;
   final String language;
+
+  /// Identifies this trigger instance for [ShareOfferPolicy.tryClaim], e.g.
+  /// `correction:<messageId>`; a rebuilt card with the same slot keeps showing.
+  final String slot;
   final VoidCallback onDismiss;
 
   @override
@@ -39,8 +44,7 @@ class _ShareAsMomentCardState extends ConsumerState<ShareAsMomentCard> {
     final now = DateTime.now();
     bool allowed;
     try {
-      allowed = await policy.canOffer(now);
-      if (allowed) await policy.recordShown(now);
+      allowed = await policy.tryClaim(now, slot: widget.slot);
     } catch (_) {
       allowed = false;
     }

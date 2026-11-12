@@ -14,6 +14,12 @@ class ShareOfferPolicy {
   static const _lastShownKey = 'share_offer_last_shown_day';
   static const _dismissalsKey = 'share_offer_consecutive_dismissals';
   static const _blockedUntilKey = 'share_offer_blocked_until_day';
+  static const _slotKey = 'share_offer_claimed_slot';
+  static const _endedKey = 'share_offer_ended_day';
+
+  /// Serialises [tryClaim] across every instance: several cards built in one
+  /// frame must not all pass.
+  static Future<void> _claimQueue = Future<void>.value();
 
   /// Days with no offers after the second consecutive dismissal.
   static const quietDays = 7;
@@ -29,11 +35,43 @@ class ShareOfferPolicy {
   Future<bool> canOffer(DateTime now) async {
     final prefs = await SharedPreferences.getInstance();
     final today = _day(now);
-    if (prefs.getString(_lastShownKey) == today) return false;
+    final last = prefs.getString(_lastShownKey);
+    if (last != null && last.compareTo(today) >= 0) return false;
+    if (prefs.getString(_endedKey) == today) return false;
     final blockedUntil = prefs.getString(_blockedUntilKey);
     if (blockedUntil != null && today.compareTo(blockedUntil) < 0) {
       return false;
     }
+    return true;
+  }
+
+  /// Atomic check-and-set for the offer of the local day of [now].
+  ///
+  /// [slot] names the trigger instance (`correction:<messageId>`,
+  /// `lesson:<lessonId>`, `streak:<days>`). The first slot to claim a day owns
+  /// it; the same slot asking again that day gets true again (a rebuilt widget
+  /// keeps its card), another slot gets false. A dismissal or accept ends the
+  /// day's offer for every slot. A last-shown day later than today (clock moved
+  /// back) refuses.
+  Future<bool> tryClaim(DateTime now, {required String slot}) {
+    final run = _claimQueue.then((_) => _claim(now, slot));
+    _claimQueue = run.then((_) {}, onError: (_) {});
+    return run;
+  }
+
+  Future<bool> _claim(DateTime now, String slot) async {
+    final prefs = await SharedPreferences.getInstance();
+    final today = _day(now);
+    final last = prefs.getString(_lastShownKey);
+    if (last != null && last.compareTo(today) > 0) return false;
+    if (prefs.getString(_endedKey) == today) return false;
+    if (last == today) return prefs.getString(_slotKey) == slot;
+    final blockedUntil = prefs.getString(_blockedUntilKey);
+    if (blockedUntil != null && today.compareTo(blockedUntil) < 0) {
+      return false;
+    }
+    await prefs.setString(_lastShownKey, today);
+    await prefs.setString(_slotKey, slot);
     return true;
   }
 
@@ -44,6 +82,7 @@ class ShareOfferPolicy {
 
   Future<void> recordDismissed(DateTime now) async {
     final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_endedKey, _day(now));
     final count = (prefs.getInt(_dismissalsKey) ?? 0) + 1;
     if (count >= 2) {
       final l = now.toLocal();
@@ -60,6 +99,7 @@ class ShareOfferPolicy {
 
   Future<void> recordAccepted(DateTime now) async {
     final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_endedKey, _day(now));
     await prefs.setInt(_dismissalsKey, 0);
   }
 }

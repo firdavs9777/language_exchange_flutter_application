@@ -557,6 +557,7 @@ class _LessonPlayerScreenState extends ConsumerState<LessonPlayerScreen> {
             prefillText: AppLocalizations.of(context)!
                 .shareOfferLessonText(lesson.title),
             language: lesson.language,
+            slot: 'lesson:${widget.lessonId}',
             onDismiss: () {},
           ),
         ),

@@ -252,6 +252,14 @@ class ChatMessagesList extends StatelessWidget {
                     // isCorrector: true when current user sent the correction
                     final isCorrector =
                         correction?.corrector.id == currentUserId;
+                    final resolvedOriginal = correctionId.isNotEmpty
+                        ? messages.cast<Message?>().firstWhere(
+                            (m) =>
+                                m!.type != 'correction' &&
+                                m.corrections.any((c) => c.id == correctionId),
+                            orElse: () => null,
+                          )
+                        : null;
                     return CorrectionMessageBubble(
                       key: ValueKey(message.id),
                       message: message,
@@ -261,6 +269,12 @@ class ChatMessagesList extends StatelessWidget {
                       otherUserNativeLanguage: otherUserNativeLanguage,
                       originalMessageId: originalMessage.id,
                       isCorrector: isCorrector,
+                      offerShare: mayOfferCorrectionShare(
+                        isGroup: isGroup,
+                        currentUserId: currentUserId,
+                        originalMessage: resolvedOriginal,
+                        correctorId: correction?.corrector.id ?? '',
+                      ),
                     );
                   }
 

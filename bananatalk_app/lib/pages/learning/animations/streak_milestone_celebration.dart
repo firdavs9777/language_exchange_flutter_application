@@ -169,6 +169,7 @@ class _CelebrationOverlayState extends ConsumerState<_CelebrationOverlay>
                             .valueOrNull
                             ?.language_to_learn ??
                         '',
+                    slot: 'streak:${widget.streak}',
                     onDismiss: () {},
                   ),
                 ),

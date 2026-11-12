@@ -10,6 +10,24 @@ import 'package:bananatalk_app/pages/chat/header/user_avatar.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/widgets/share_as_moment_card.dart';
 
+/// Whether the correction bubble may offer "Share as a moment": only with
+/// proof that [originalMessage] was resolved, was sent by the signed-in user
+/// ([currentUserId] non-empty), someone else made the correction, and the chat
+/// is one-to-one. Anything uncertain is no.
+bool mayOfferCorrectionShare({
+  required bool isGroup,
+  required String? currentUserId,
+  required Message? originalMessage,
+  required String correctorId,
+}) {
+  if (isGroup || originalMessage == null) return false;
+  final me = currentUserId;
+  if (me == null || me.isEmpty) return false;
+  return originalMessage.sender.id == me &&
+      correctorId.isNotEmpty &&
+      correctorId != me;
+}
+
 /// A chat bubble that displays a correction as a standalone message
 /// in the chat flow (HelloTalk/Tandem style).
 class CorrectionMessageBubble extends ConsumerStatefulWidget {
@@ -26,6 +44,11 @@ class CorrectionMessageBubble extends ConsumerStatefulWidget {
   /// (not the corrector) should see it.
   final bool isCorrector;
 
+  /// Positive proof, decided by the list ([mayOfferCorrectionShare]), that
+  /// this is a correction of the signed-in user's own message in a one-to-one
+  /// chat. False means no "Share as a moment" offer.
+  final bool offerShare;
+
   const CorrectionMessageBubble({
     super.key,
     required this.message,
@@ -35,6 +58,7 @@ class CorrectionMessageBubble extends ConsumerStatefulWidget {
     this.otherUserNativeLanguage,
     required this.originalMessageId,
     required this.isCorrector,
+    this.offerShare = false,
   });
 
   @override
@@ -281,7 +305,9 @@ class _CorrectionMessageBubbleState
                   // Offer to post the user's OWN corrected sentence, only
                   // for a correction of their message that just arrived.
                   // Nothing from the partner or the chat goes in the text.
-                  if (!widget.isCorrector && _isFresh(correction.createdAt)) ...[
+                  if (widget.offerShare &&
+                      !widget.isCorrector &&
+                      _isFresh(correction.createdAt)) ...[
                     const SizedBox(height: 10),
                     ShareAsMomentCard(
                       prefillText: correction.correctedText,
@@ -290,6 +316,7 @@ class _CorrectionMessageBubbleState
                               .valueOrNull
                               ?.language_to_learn ??
                           '',
+                      slot: 'correction:${message.id}',
                       onDismiss: () {},
                     ),
                   ],

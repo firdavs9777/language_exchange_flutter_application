@@ -15,13 +15,11 @@ class _FakePolicy extends ShareOfferPolicy {
   final calls = <String>[];
 
   @override
-  Future<bool> canOffer(DateTime now) async {
-    calls.add('canOffer');
+  Future<bool> tryClaim(DateTime now, {required String slot}) async {
+    calls.add('claim:$slot');
     return allowed;
   }
 
-  @override
-  Future<void> recordShown(DateTime now) async => calls.add('shown');
   @override
   Future<void> recordDismissed(DateTime now) async => calls.add('dismissed');
   @override
@@ -72,6 +70,7 @@ Future<void> _pump(
           body: ShareAsMomentCard(
             prefillText: 'Today I learned a lot',
             language: 'ko',
+            slot: 'lesson:l1',
             onDismiss: onDismiss ?? () {},
           ),
         ),
@@ -96,7 +95,7 @@ void main() {
     final policy = _FakePolicy(allowed: false);
     await _pump(t, flag: true, policy: policy, obs: _Obs());
     expect(find.byType(FilledButton), findsNothing);
-    expect(policy.calls, ['canOffer']);
+    expect(policy.calls, ['claim:lesson:l1']);
   });
 
   testWidgets('flag on and allowed: shows the card and records it shown', (
@@ -105,7 +104,7 @@ void main() {
     final policy = _FakePolicy();
     await _pump(t, flag: true, policy: policy, obs: _Obs());
     expect(find.byType(FilledButton), findsOneWidget);
-    expect(policy.calls, ['canOffer', 'shown']);
+    expect(policy.calls, ['claim:lesson:l1']);
   });
 
   testWidgets('accept opens the composer with the text and language', (

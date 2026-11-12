@@ -79,6 +79,44 @@ void main() {
     expect(await p.canOffer(DateTime.utc(2026, 11, 12, 12).toLocal()), isFalse);
   });
 
+  group('tryClaim', () {
+    test('same slot twice the same day: true, true; another slot: false',
+        () async {
+      final p = ShareOfferPolicy();
+      expect(await p.tryClaim(day1, slot: 'correction:m1'), isTrue);
+      expect(await p.tryClaim(day1, slot: 'correction:m1'), isTrue);
+      expect(await p.tryClaim(day1, slot: 'lesson:l1'), isFalse);
+      expect(await p.tryClaim(later(day1, 1), slot: 'lesson:l1'), isTrue);
+    });
+
+    test('a clock moved back refuses', () async {
+      final p = ShareOfferPolicy();
+      await p.tryClaim(later(day1, 3), slot: 'a');
+      expect(await p.tryClaim(day1, slot: 'a'), isFalse);
+      expect(await p.canOffer(day1), isFalse);
+    });
+
+    test('concurrent claims for two slots: exactly one wins', () async {
+      final results = await Future.wait([
+        ShareOfferPolicy().tryClaim(day1, slot: 'a'),
+        ShareOfferPolicy().tryClaim(day1, slot: 'b'),
+        ShareOfferPolicy().tryClaim(day1, slot: 'c'),
+      ]);
+      expect(results.where((r) => r), hasLength(1));
+    });
+
+    test('a dismissal or accept ends the day for every slot', () async {
+      final p = ShareOfferPolicy();
+      await p.tryClaim(day1, slot: 'a');
+      await p.recordDismissed(day1);
+      expect(await p.tryClaim(day1, slot: 'a'), isFalse);
+      expect(await p.tryClaim(day1, slot: 'b'), isFalse);
+      expect(await p.tryClaim(later(day1, 1), slot: 'b'), isTrue);
+      await p.recordAccepted(later(day1, 1));
+      expect(await p.tryClaim(later(day1, 1), slot: 'b'), isFalse);
+    });
+  });
+
   test('its keys are user-scoped: sign-out removes them', () async {
     final p = ShareOfferPolicy();
     await p.recordShown(day1);
