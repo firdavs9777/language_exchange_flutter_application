@@ -221,6 +221,136 @@ void main() {
     expect(_ids(container.read(filtered).valueOrNull), ['b2']);
   });
 
+  group('a rebuild with a list in hand does not repaint the disk cache', () {
+    // The cache still holds the pre-like JSON; a like followed by the feed
+    // refresh it triggers must never show the like undone.
+    test('a like survives softRefresh on page 1; hasMore never flips',
+        () async {
+      await _seed(['m1', 'm2']);
+      var calls = 0;
+      final second = Completer<void>();
+      final p = _provider((ref, page) async {
+        calls++;
+        if (calls == 1) {
+          return MomentsFeedPage(
+            [buildMoment(id: 'm1'), buildMoment(id: 'm2')],
+            hasMore: true,
+            rawMoments: [_raw('m1'), _raw('m2')],
+          );
+        }
+        await second.future;
+        return MomentsFeedPage(
+          [buildMoment(id: 'm1', likeCount: 1), buildMoment(id: 'm2')],
+          hasMore: true,
+        );
+      });
+      final container = ProviderContainer();
+      addTearDown(container.dispose);
+      await container.read(p.future);
+      await Future<void>.delayed(const Duration(milliseconds: 50));
+      final notifier = container.read(p.notifier);
+      final likes = <int>[];
+      final hasMore = <bool>[];
+      container.listen(p, (_, next) {
+        final v = next.valueOrNull;
+        if (v != null) likes.add(v.first.likeCount);
+        hasMore.add(notifier.hasMore);
+      });
+      notifier.patchMoment('m1', (m) => m.copyWith(likeCount: 1));
+      await notifier.softRefresh();
+      await Future<void>.delayed(const Duration(milliseconds: 50));
+      second.complete();
+      await container.read(p.future);
+      await Future<void>.delayed(const Duration(milliseconds: 50));
+      expect(likes, isNotEmpty);
+      expect(likes, everyElement(1));
+      expect(hasMore, everyElement(isTrue));
+      expect(container.read(p).value!.first.likeCount, 1);
+    });
+
+    test('a like made while the cached page shows survives the refresh',
+        () async {
+      await _seed(['m1', 'm2']);
+      final gate = Completer<void>();
+      final p = _provider((ref, page) async {
+        await gate.future;
+        return MomentsFeedPage(
+          [buildMoment(id: 'm1', likeCount: 1), buildMoment(id: 'm2')],
+          hasMore: false,
+        );
+      });
+      final container = ProviderContainer();
+      addTearDown(container.dispose);
+      container.listen(p, (_, __) {});
+      await Future<void>.delayed(const Duration(milliseconds: 50));
+      final notifier = container.read(p.notifier);
+      final likes = <int>[];
+      container.listen(p, (_, next) {
+        final v = next.valueOrNull;
+        if (v != null) likes.add(v.first.likeCount);
+      });
+      notifier.patchMoment('m1', (m) => m.copyWith(likeCount: 1));
+      await notifier.softRefresh();
+      await Future<void>.delayed(const Duration(milliseconds: 50));
+      gate.complete();
+      await container.read(p.future);
+      await Future<void>.delayed(const Duration(milliseconds: 50));
+      expect(likes, everyElement(1));
+    });
+
+    test('a removed post does not come back when the refetch fails',
+        () async {
+      await _seed(['m1', 'm2']);
+      var calls = 0;
+      final p = _provider((ref, page) async {
+        calls++;
+        if (calls > 1) throw Exception('offline');
+        return MomentsFeedPage(
+          [buildMoment(id: 'm1'), buildMoment(id: 'm2')],
+          hasMore: false,
+          rawMoments: [_raw('m1'), _raw('m2')],
+        );
+      });
+      final container = ProviderContainer();
+      addTearDown(container.dispose);
+      final seen = <List<String>>[];
+      await container.read(p.future);
+      await Future<void>.delayed(const Duration(milliseconds: 50));
+      container.listen(p, (_, next) {
+        final v = next.valueOrNull;
+        if (v != null) seen.add(_ids(v));
+      });
+      container.read(p.notifier).removeMoment('m1');
+      container.invalidate(p);
+      await Future<void>.delayed(const Duration(milliseconds: 100));
+      expect(seen, isNotEmpty);
+      for (final ids in seen) {
+        expect(ids, isNot(contains('m1')));
+      }
+      expect(_ids(container.read(p).valueOrNull), ['m2']);
+    });
+
+    test('a removed post is not in the cached list on the next cold start',
+        () async {
+      final p = _provider((ref, page) async => MomentsFeedPage(
+            [buildMoment(id: 'm1'), buildMoment(id: 'm2')],
+            hasMore: false,
+            rawMoments: [_raw('m1'), _raw('m2')],
+          ));
+      final container = ProviderContainer();
+      addTearDown(container.dispose);
+      await container.read(p.future);
+      await Future<void>.delayed(const Duration(milliseconds: 50));
+      container.read(p.notifier).removeMoment('m1');
+      await Future<void>.delayed(const Duration(milliseconds: 50));
+
+      final offline = _provider((ref, page) async => throw Exception('x'));
+      final c2 = ProviderContainer();
+      addTearDown(c2.dispose);
+      expect(_ids(await c2.read(offline.future)), ['m2']);
+    });
+  });
+
   Widget host(AsyncValue<List<Moments>> value, {Brightness? b}) =>
       ProviderScope(
         child: MaterialApp(

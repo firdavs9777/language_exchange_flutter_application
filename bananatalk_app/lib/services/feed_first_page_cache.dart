@@ -65,6 +65,34 @@ class FeedFirstPageCache {
     }
   }
 
+  /// Drops every cached item [test] matches, in every feed mode (a deleted
+  /// post, a blocked author), so the next cold start does not paint it.
+  Future<void> removeWhere(bool Function(Map<String, dynamic> raw) test) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      for (final key in prefs.getKeys().toList()) {
+        if (!key.startsWith(keyPrefix)) continue;
+        final text = prefs.getString(key);
+        if (text == null) continue;
+        final decoded = jsonDecode(text);
+        if (decoded is! Map || decoded['items'] is! List) continue;
+        final items = (decoded['items'] as List).whereType<Map>().toList();
+        final kept = items
+            .where((m) => !test(Map<String, dynamic>.from(m)))
+            .toList();
+        if (kept.length == items.length) continue;
+        await prefs.setString(key, jsonEncode({...decoded, 'items': kept}));
+      }
+    } catch (_) {
+      // Unreadable: the next fresh page overwrites it anyway.
+    }
+  }
+
+  /// Drops the cached post [momentId] from every feed mode.
+  Future<void> removeMoment(String momentId) => removeWhere(
+        (m) => (m['_id'] ?? m['id'])?.toString() == momentId,
+      );
+
   Future<void> clearAll() async {
     try {
       final prefs = await SharedPreferences.getInstance();

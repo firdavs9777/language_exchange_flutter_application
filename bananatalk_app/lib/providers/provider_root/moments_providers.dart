@@ -1031,6 +1031,14 @@ class PagedMomentsFeedNotifier extends AsyncNotifier<List<Moments>> {
   bool _loadMoreFailed = false;
   bool _showingCached = false;
 
+  /// Survives `invalidateSelf` (Riverpod keeps the notifier across
+  /// rebuilds): only the first build paints the disk cache.
+  bool _built = false;
+
+  /// Bumped by every [build]; async work started under an older value
+  /// belongs to a list that has been replaced and writes nothing.
+  int _generation = 0;
+
   /// The list on screen came from the first-page cache and the fresh page 1
   /// has not replaced it (yet). The feed holds such a list back until the
   /// block and mute lists are known.
@@ -1060,14 +1068,19 @@ class PagedMomentsFeedNotifier extends AsyncNotifier<List<Moments>> {
 
   @override
   Future<List<Moments>> build() async {
-    _page = 1;
-    _hasMore = false;
+    final generation = ++_generation;
+    // A load-more still in flight belongs to the list being replaced.
     _loadingMore = false;
-    _loadMoreFailed = false;
-    _showingCached = false;
+    // The disk cache is painted on the first build only. A rebuild
+    // (pull-to-refresh, a like's refresh, tab return, sign-out) already has
+    // a list on screen, newer than the disk copy (likes, saves, deletions):
+    // it stays as the previous data while page 1 is fetched, and the paging
+    // fields keep describing it until the fresh page replaces it.
+    final firstBuild = !_built;
+    _built = true;
     final userId = await _cacheUserId();
-    final cached = await _readCached(userId);
-    if (cached != null) {
+    final cached = firstBuild ? await _readCached(userId) : null;
+    if (cached != null && generation == _generation) {
       // Shown at once; the fetch below replaces it. loadMore stays off
       // (_hasMore is false) until the fresh page decides it.
       _firstPageCount = cached.length;
@@ -1080,11 +1093,18 @@ class PagedMomentsFeedNotifier extends AsyncNotifier<List<Moments>> {
     } catch (_) {
       if (cached == null) rethrow;
       // Offline: the cached page stays, and scrolling may ask for page 2.
-      _hasMore = cached.length >= kMomentsFeedPageSize;
+      if (generation == _generation) {
+        _hasMore = cached.length >= kMomentsFeedPageSize;
+      }
       return cached;
     }
+    // Superseded by a newer build: its result is discarded, so it must not
+    // touch the paging fields or the cache either.
+    if (generation != _generation) return first.moments;
+    _page = 1;
     _firstPageCount = first.moments.length;
     _hasMore = first.hasMore && first.moments.isNotEmpty;
+    _loadMoreFailed = false;
     _showingCached = false;
     // Only under the id the page was fetched for: an account switch during
     // the fetch must not leave this user's posts under the new user's id.
@@ -1192,8 +1212,10 @@ class PagedMomentsFeedNotifier extends AsyncNotifier<List<Moments>> {
     ]);
   }
 
-  /// Drops the moment [id] from the loaded pages (deleted).
+  /// Drops the moment [id] from the loaded pages (deleted), and from the
+  /// on-disk first page so a cold start does not paint it again.
   void removeMoment(String id) {
+    if (cacheFeedMode != null) _cache.removeMoment(id);
     final current = state.valueOrNull;
     if (current == null || !current.any((m) => m.id == id)) return;
     state = AsyncData([
@@ -1230,6 +1252,9 @@ void removeMomentFromFeeds(WidgetRef ref, String id) {
     if (ref.exists(feed)) ref.read(feed.notifier).removeMoment(id);
   }
   HashtagPageNotifier.removeEverywhere(id);
+  // Also when no cached tab is alive yet: the next cold start must not
+  // paint the deleted post (the notifiers' own removal is idempotent).
+  FeedFirstPageCache().removeMoment(id);
   ref.invalidate(momentsFeedProvider);
   ref.invalidate(momentsProvider(1));
 }
