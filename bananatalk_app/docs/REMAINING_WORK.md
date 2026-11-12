@@ -372,6 +372,7 @@ Web ↔ app parity (spec `docs/superpowers/specs/2026-10-16-web-app-parity-desig
 
 - [x] Task 1: models parse `imageVariants` (Moments, Story), `hashtags`, `topics`, `needsFeedback`, `Community.avatarThumb`/`avatarUrl`, and AppConfig flags `feedThumbnailsEnabled`, `storyDiscoverEnabled`, `hashtagsEnabled`, `interestRankingEnabled`, `shareOffersEnabled` (all default false). Parsing only, no UI; variants/thumbs need no flag (server gates them).
 - [x] Task 2: `MomentImage` (lib/widgets/moment_image.dart) shows the blurred placeholder then the feed-size image in the feed carousel, moment detail and the story photo; avatars in the moment header and stories rail use `avatarThumb`. Carousel frame follows the first image's aspect ratio (clamped 4:5 to 1.91). No flag: acts only when the response carries `imageVariants` / `avatarThumb`; without them the widget tree is as before. Full-screen image viewer unchanged (originals).
+- [x] Task 1 follow-up: the five new AppConfig flags parse with `== true` (a malformed value such as the string "true" reads as off instead of throwing and losing the whole config).
 - [ ] Task 2 open: other avatar sites (chat list, community cards, profile) still load full images; device check of the blur-up on a slow connection. S
 - [ ] Tasks 3-13: UI that uses these fields (hashtags, Discover rings, clear interests, share offers, feed paging/states, reel preload, push types).
 

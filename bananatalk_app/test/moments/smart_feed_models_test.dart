@@ -177,5 +177,20 @@ void main() {
       expect(c.interestRankingEnabled, isTrue);
       expect(c.shareOffersEnabled, isTrue);
     });
+
+    test('a malformed value reads as off and does not throw', () {
+      final c = AppConfig.fromJson({
+        'feedThumbnailsEnabled': 'true',
+        'storyDiscoverEnabled': 1,
+        'hashtagsEnabled': 'yes',
+        'interestRankingEnabled': <String>[],
+        'shareOffersEnabled': 'true',
+      });
+      expect(c.feedThumbnailsEnabled, isFalse);
+      expect(c.storyDiscoverEnabled, isFalse);
+      expect(c.hashtagsEnabled, isFalse);
+      expect(c.interestRankingEnabled, isFalse);
+      expect(c.shareOffersEnabled, isFalse);
+    });
   });
 }

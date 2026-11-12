@@ -202,12 +202,11 @@ class AppConfig {
       studyVipOnlyFeatures: json['studyVipOnlyFeatures'] is List
           ? (json['studyVipOnlyFeatures'] as List).whereType<String>().toSet()
           : const <String>{},
-      feedThumbnailsEnabled: (json['feedThumbnailsEnabled'] as bool?) ?? false,
-      storyDiscoverEnabled: (json['storyDiscoverEnabled'] as bool?) ?? false,
-      hashtagsEnabled: (json['hashtagsEnabled'] as bool?) ?? false,
-      interestRankingEnabled:
-          (json['interestRankingEnabled'] as bool?) ?? false,
-      shareOffersEnabled: (json['shareOffersEnabled'] as bool?) ?? false,
+      feedThumbnailsEnabled: json['feedThumbnailsEnabled'] == true,
+      storyDiscoverEnabled: json['storyDiscoverEnabled'] == true,
+      hashtagsEnabled: json['hashtagsEnabled'] == true,
+      interestRankingEnabled: json['interestRankingEnabled'] == true,
+      shareOffersEnabled: json['shareOffersEnabled'] == true,
     );
   }
 }
