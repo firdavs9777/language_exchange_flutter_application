@@ -12646,4 +12646,19 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get hashtagSuggestedTitle => 'Önerilen etiketler';
+
+  @override
+  String get clearInterestsTitle => 'İlgi alanlarımı temizle';
+
+  @override
+  String get clearInterestsSubtitle => 'Anlar\'ın zevklerin hakkında öğrendiklerini unut';
+
+  @override
+  String get clearInterestsConfirm => 'Anlar\'ın ilgi alanların hakkında öğrendiklerini temizlemek istiyor musun? Akışın baştan başlayacak.';
+
+  @override
+  String get clearInterestsAction => 'Temizle';
+
+  @override
+  String get clearInterestsDone => 'İlgi alanları temizlendi';
 }

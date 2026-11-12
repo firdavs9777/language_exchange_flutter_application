@@ -4800,5 +4800,10 @@
   "hashtagEmpty": "이 해시태그의 게시물이 아직 없어요",
   "hashtagShowingRelated": "이 태그의 게시물이 아직 적어서 {topic} 관련 게시물을 보여드려요.",
   "hashtagTrendingTitle": "인기 해시태그",
-  "hashtagSuggestedTitle": "추천 태그"
+  "hashtagSuggestedTitle": "추천 태그",
+  "clearInterestsTitle": "관심사 초기화",
+  "clearInterestsSubtitle": "모먼트가 파악한 내 취향을 지웁니다",
+  "clearInterestsConfirm": "모먼트가 파악한 관심사를 지울까요? 피드가 처음부터 다시 맞춰집니다.",
+  "clearInterestsAction": "초기화",
+  "clearInterestsDone": "관심사를 초기화했어요"
 }

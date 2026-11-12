@@ -12659,4 +12659,19 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get hashtagSuggestedTitle => 'Tags suggérés';
+
+  @override
+  String get clearInterestsTitle => 'Effacer mes centres d\'intérêt';
+
+  @override
+  String get clearInterestsSubtitle => 'Oublier ce que Moments a appris de vos goûts';
+
+  @override
+  String get clearInterestsConfirm => 'Effacer ce que Moments a appris sur vos centres d\'intérêt ? Votre fil repartira de zéro.';
+
+  @override
+  String get clearInterestsAction => 'Effacer';
+
+  @override
+  String get clearInterestsDone => 'Centres d\'intérêt effacés';
 }

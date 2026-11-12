@@ -4752,5 +4752,10 @@
   "hashtagEmpty": "Wala pang post na may hashtag na ito",
   "hashtagShowingRelated": "Kaunti pa lang ang post na gumagamit ng tag na ito. Ipinapakita ang mga post tungkol sa {topic}.",
   "hashtagTrendingTitle": "Mga trending na hashtag",
-  "hashtagSuggestedTitle": "Mga iminumungkahing tag"
+  "hashtagSuggestedTitle": "Mga iminumungkahing tag",
+  "clearInterestsTitle": "I-clear ang mga interes ko",
+  "clearInterestsSubtitle": "Kalimutan ang natutunan ng Moments tungkol sa gusto mo",
+  "clearInterestsConfirm": "I-clear ang natutunan ng Moments tungkol sa mga interes mo? Magsisimula muli ang feed mo.",
+  "clearInterestsAction": "I-clear",
+  "clearInterestsDone": "Na-clear na ang mga interes"
 }

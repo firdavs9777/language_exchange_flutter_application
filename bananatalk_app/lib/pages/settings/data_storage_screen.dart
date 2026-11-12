@@ -7,9 +7,23 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'package:bananatalk_app/pages/settings/widgets/settings_snackbar.dart';
 import 'package:bananatalk_app/pages/settings/widgets/cache_stats_card.dart';
+import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
+import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
+import 'package:bananatalk_app/services/interest_service.dart';
 
 class DataStorageScreen extends ConsumerStatefulWidget {
-  const DataStorageScreen({super.key});
+  const DataStorageScreen({
+    super.key,
+    this.interestService,
+    this.onInterestsCleared,
+  });
+
+  /// Injectable for tests; defaults to a real [InterestService].
+  final InterestService? interestService;
+
+  /// Runs after the interest profile was cleared; defaults to refreshing
+  /// the Moments feeds.
+  final void Function(WidgetRef ref)? onInterestsCleared;
 
   @override
   ConsumerState<DataStorageScreen> createState() => _DataStorageScreenState();
@@ -136,6 +150,65 @@ class _DataStorageScreenState extends ConsumerState<DataStorageScreen> {
     }
   }
 
+  /// "Clear my interests": confirm, spinner, service call, snackbar
+  /// (the pattern of BlockedUsersScreen._unblockUser).
+  Future<void> _clearInterests() async {
+    final l10n = AppLocalizations.of(context)!;
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(l10n.clearInterestsTitle),
+        content: Text(l10n.clearInterestsConfirm),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: Text(l10n.cancel),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            style: TextButton.styleFrom(foregroundColor: AppColors.error),
+            child: Text(l10n.clearInterestsAction),
+          ),
+        ],
+      ),
+    );
+    if (confirmed != true || !mounted) return;
+
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => const Center(child: CircularProgressIndicator()),
+    );
+    final ok = await (widget.interestService ?? InterestService()).clear();
+    if (mounted) Navigator.of(context).pop();
+    if (!mounted) return;
+
+    if (ok) {
+      (widget.onInterestsCleared ?? invalidateMomentFeeds)(ref);
+    }
+    showSettingsSnackBar(
+      context,
+      message: ok ? l10n.clearInterestsDone : l10n.somethingWentWrong,
+      type: ok ? SettingsSnackBarType.success : SettingsSnackBarType.error,
+    );
+  }
+
+  Widget _buildClearInterestsRow(AppLocalizations l10n) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
+      child: ListTile(
+        contentPadding: EdgeInsets.zero,
+        leading: Icon(Icons.auto_awesome_outlined, color: context.textSecondary),
+        title: Text(l10n.clearInterestsTitle, style: context.bodyLarge),
+        subtitle: Text(
+          l10n.clearInterestsSubtitle,
+          style: context.bodySmall.copyWith(color: context.textSecondary),
+        ),
+        onTap: _clearInterests,
+      ),
+    );
+  }
+
   void _showClearConfirmation(String type, String title, int size) {
     final l10n = AppLocalizations.of(context)!;
 
@@ -216,6 +289,10 @@ class _DataStorageScreenState extends ConsumerState<DataStorageScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final interestsEnabled = ref.watch(appConfigProvider).maybeWhen(
+          data: (c) => c?.interestRankingEnabled ?? false,
+          orElse: () => false,
+        );
 
     return Scaffold(
       backgroundColor: context.scaffoldBackground,
@@ -312,6 +389,11 @@ class _DataStorageScreenState extends ConsumerState<DataStorageScreen> {
                         ),
                       ),
                     ),
+
+                    if (interestsEnabled) ...[
+                      const SizedBox(height: 24),
+                      _buildClearInterestsRow(l10n),
+                    ],
 
                     const SizedBox(height: 32),
                   ],

@@ -4809,5 +4809,10 @@
   "hashtagEmpty": "لا توجد منشورات بهذا الهاشتاغ بعد",
   "hashtagShowingRelated": "عدد المنشورات بهذا الوسم قليل حتى الآن. نعرض منشورات عن {topic}.",
   "hashtagTrendingTitle": "الهاشتاقات الرائجة",
-  "hashtagSuggestedTitle": "وسوم مقترحة"
+  "hashtagSuggestedTitle": "وسوم مقترحة",
+  "clearInterestsTitle": "مسح اهتماماتي",
+  "clearInterestsSubtitle": "انسَ ما تعلّمته اللحظات عن اهتماماتك",
+  "clearInterestsConfirm": "هل تريد مسح ما تعلّمته اللحظات عن اهتماماتك؟ سيبدأ خلاصتك من جديد.",
+  "clearInterestsAction": "مسح",
+  "clearInterestsDone": "تم مسح الاهتمامات"
 }

@@ -278,6 +278,7 @@ class Endpoints {
       'auth/users/$userId/visitors';
   static const String getMyVisitorStatsURL = 'auth/users/me/visitor-stats';
   static const String clearMyVisitorsURL = 'auth/users/me/visitors';
+  static const String myInterestsURL = 'auth/users/me/interests';
   static const String getVisitedProfilesURL = 'auth/users/me/visited-profiles';
 
   // ==================== LEARNING ENDPOINTS ====================

@@ -4795,5 +4795,10 @@
   "hashtagEmpty": "इस हैशटैग वाली कोई पोस्ट अभी नहीं है",
   "hashtagShowingRelated": "इस टैग वाली पोस्ट अभी कम हैं। {topic} से जुड़ी पोस्ट दिखाई जा रही हैं।",
   "hashtagTrendingTitle": "ट्रेंडिंग हैशटैग",
-  "hashtagSuggestedTitle": "सुझाए गए टैग"
+  "hashtagSuggestedTitle": "सुझाए गए टैग",
+  "clearInterestsTitle": "मेरी रुचियाँ हटाएँ",
+  "clearInterestsSubtitle": "मोमेंट्स ने आपकी पसंद के बारे में जो सीखा है उसे भूल जाएँ",
+  "clearInterestsConfirm": "क्या मोमेंट्स ने आपकी रुचियों के बारे में जो सीखा है उसे हटाना है? आपकी फ़ीड नए सिरे से शुरू होगी।",
+  "clearInterestsAction": "हटाएँ",
+  "clearInterestsDone": "रुचियाँ हटा दी गईं"
 }

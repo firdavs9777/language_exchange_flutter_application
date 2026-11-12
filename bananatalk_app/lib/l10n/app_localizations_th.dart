@@ -12627,4 +12627,19 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get hashtagSuggestedTitle => 'แท็กที่แนะนำ';
+
+  @override
+  String get clearInterestsTitle => 'ล้างความสนใจของฉัน';
+
+  @override
+  String get clearInterestsSubtitle => 'ลืมสิ่งที่โมเมนต์เรียนรู้เกี่ยวกับสิ่งที่คุณชอบ';
+
+  @override
+  String get clearInterestsConfirm => 'ล้างสิ่งที่โมเมนต์เรียนรู้เกี่ยวกับความสนใจของคุณหรือไม่ ฟีดของคุณจะเริ่มต้นใหม่';
+
+  @override
+  String get clearInterestsAction => 'ล้าง';
+
+  @override
+  String get clearInterestsDone => 'ล้างความสนใจแล้ว';
 }

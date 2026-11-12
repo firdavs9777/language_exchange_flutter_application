@@ -12627,4 +12627,19 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get hashtagSuggestedTitle => 'おすすめのタグ';
+
+  @override
+  String get clearInterestsTitle => '興味・関心をリセット';
+
+  @override
+  String get clearInterestsSubtitle => 'モーメントが学習したあなたの好みを消去します';
+
+  @override
+  String get clearInterestsConfirm => 'モーメントが学習した興味・関心を消去しますか？フィードは最初から調整し直されます。';
+
+  @override
+  String get clearInterestsAction => 'リセット';
+
+  @override
+  String get clearInterestsDone => '興味・関心をリセットしました';
 }

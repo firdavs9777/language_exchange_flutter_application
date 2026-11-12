@@ -4779,5 +4779,10 @@
   "hashtagEmpty": "Belum ada postingan dengan tagar ini",
   "hashtagShowingRelated": "Postingan dengan tagar ini masih sedikit. Menampilkan postingan tentang {topic}.",
   "hashtagTrendingTitle": "Tagar yang sedang tren",
-  "hashtagSuggestedTitle": "Tag yang disarankan"
+  "hashtagSuggestedTitle": "Tag yang disarankan",
+  "clearInterestsTitle": "Hapus minat saya",
+  "clearInterestsSubtitle": "Lupakan apa yang dipelajari Momen tentang selera Anda",
+  "clearInterestsConfirm": "Hapus apa yang dipelajari Momen tentang minat Anda? Feed Anda akan dimulai dari awal.",
+  "clearInterestsAction": "Hapus",
+  "clearInterestsDone": "Minat dihapus"
 }

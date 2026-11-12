@@ -4779,5 +4779,10 @@
   "hashtagEmpty": "このハッシュタグの投稿はまだありません",
   "hashtagShowingRelated": "このタグの投稿はまだ少ないため、{topic}に関する投稿を表示しています。",
   "hashtagTrendingTitle": "トレンドのハッシュタグ",
-  "hashtagSuggestedTitle": "おすすめのタグ"
+  "hashtagSuggestedTitle": "おすすめのタグ",
+  "clearInterestsTitle": "興味・関心をリセット",
+  "clearInterestsSubtitle": "モーメントが学習したあなたの好みを消去します",
+  "clearInterestsConfirm": "モーメントが学習した興味・関心を消去しますか？フィードは最初から調整し直されます。",
+  "clearInterestsAction": "リセット",
+  "clearInterestsDone": "興味・関心をリセットしました"
 }

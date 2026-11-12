@@ -4272,5 +4272,10 @@
   "hashtagEmpty": "Ҳанӯз нашре бо ин ҳештег нест",
   "hashtagShowingRelated": "Бо ин тег ҳанӯз нашрҳо кам аст. Нашрҳо дар бораи {topic} нишон дода мешаванд.",
   "hashtagTrendingTitle": "Ҳештегҳои машҳур",
-  "hashtagSuggestedTitle": "Тегҳои пешниҳодшуда"
+  "hashtagSuggestedTitle": "Тегҳои пешниҳодшуда",
+  "clearInterestsTitle": "Тоза кардани манфиатҳои ман",
+  "clearInterestsSubtitle": "Он чиро, ки Лаҳзаҳо дар бораи завқи шумо омӯхтааст, фаромӯш кунед",
+  "clearInterestsConfirm": "Он чиро, ки Лаҳзаҳо дар бораи манфиатҳои шумо омӯхтааст, тоза кунем? Ленти шумо аз нав оғоз мешавад.",
+  "clearInterestsAction": "Тоза кардан",
+  "clearInterestsDone": "Манфиатҳо тоза карда шуданд"
 }

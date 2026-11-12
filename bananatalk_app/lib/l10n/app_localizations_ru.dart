@@ -13129,4 +13129,19 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get hashtagSuggestedTitle => 'Рекомендуемые теги';
+
+  @override
+  String get clearInterestsTitle => 'Сбросить мои интересы';
+
+  @override
+  String get clearInterestsSubtitle => 'Забыть, что Моменты узнали о ваших предпочтениях';
+
+  @override
+  String get clearInterestsConfirm => 'Сбросить то, что Моменты узнали о ваших интересах? Лента начнёт подбираться заново.';
+
+  @override
+  String get clearInterestsAction => 'Сбросить';
+
+  @override
+  String get clearInterestsDone => 'Интересы сброшены';
 }

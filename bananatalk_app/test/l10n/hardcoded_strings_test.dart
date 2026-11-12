@@ -882,6 +882,13 @@ const Map<String, List<String>> _keysByTask = {
   'moments_smart_feed_3': ['feedCouldNotLoadMore'],
   'moments_smart_feed_7': ['storiesDiscoverLabel'],
   'moments_smart_feed_10': ['hashtagTrendingTitle', 'hashtagSuggestedTitle'],
+  'moments_smart_feed_11': [
+    'clearInterestsTitle',
+    'clearInterestsSubtitle',
+    'clearInterestsConfirm',
+    'clearInterestsAction',
+    'clearInterestsDone',
+  ],
   'moments_smart_feed_9': [
     'hashtagPostCount',
     'hashtagSortTop',
@@ -963,6 +970,7 @@ const Map<String, List<String>> _filesByTask = {
     'pages/moments/create/create_moment.dart',
   ],
   'moments_smart_feed_9': ['pages/moments/hashtag/hashtag_page_screen.dart'],
+  'moments_smart_feed_11': ['pages/settings/data_storage_screen.dart'],
   'community-p2': [
     'pages/community/widgets/topic_picker_sheet.dart',
     'pages/community/waves/waves_screen.dart',

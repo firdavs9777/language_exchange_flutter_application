@@ -12652,4 +12652,19 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get hashtagSuggestedTitle => 'Mga iminumungkahing tag';
+
+  @override
+  String get clearInterestsTitle => 'I-clear ang mga interes ko';
+
+  @override
+  String get clearInterestsSubtitle => 'Kalimutan ang natutunan ng Moments tungkol sa gusto mo';
+
+  @override
+  String get clearInterestsConfirm => 'I-clear ang natutunan ng Moments tungkol sa mga interes mo? Magsisimula muli ang feed mo.';
+
+  @override
+  String get clearInterestsAction => 'I-clear';
+
+  @override
+  String get clearInterestsDone => 'Na-clear na ang mga interes';
 }

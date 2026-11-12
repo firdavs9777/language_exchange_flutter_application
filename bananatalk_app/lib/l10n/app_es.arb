@@ -4809,5 +4809,10 @@
   "hashtagEmpty": "Aún no hay publicaciones con este hashtag",
   "hashtagShowingRelated": "Aún hay pocas publicaciones con esta etiqueta. Se muestran publicaciones sobre {topic}.",
   "hashtagTrendingTitle": "Hashtags en tendencia",
-  "hashtagSuggestedTitle": "Etiquetas sugeridas"
+  "hashtagSuggestedTitle": "Etiquetas sugeridas",
+  "clearInterestsTitle": "Borrar mis intereses",
+  "clearInterestsSubtitle": "Olvida lo que Momentos ha aprendido de tus gustos",
+  "clearInterestsConfirm": "¿Borrar lo que Momentos ha aprendido sobre tus intereses? Tu feed empezará de cero.",
+  "clearInterestsAction": "Borrar",
+  "clearInterestsDone": "Intereses borrados"
 }

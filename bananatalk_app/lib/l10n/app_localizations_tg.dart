@@ -12648,4 +12648,19 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get hashtagSuggestedTitle => 'Тегҳои пешниҳодшуда';
+
+  @override
+  String get clearInterestsTitle => 'Тоза кардани манфиатҳои ман';
+
+  @override
+  String get clearInterestsSubtitle => 'Он чиро, ки Лаҳзаҳо дар бораи завқи шумо омӯхтааст, фаромӯш кунед';
+
+  @override
+  String get clearInterestsConfirm => 'Он чиро, ки Лаҳзаҳо дар бораи манфиатҳои шумо омӯхтааст, тоза кунем? Ленти шумо аз нав оғоз мешавад.';
+
+  @override
+  String get clearInterestsAction => 'Тоза кардан';
+
+  @override
+  String get clearInterestsDone => 'Манфиатҳо тоза карда шуданд';
 }

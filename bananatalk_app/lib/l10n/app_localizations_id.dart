@@ -12638,4 +12638,19 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get hashtagSuggestedTitle => 'Tag yang disarankan';
+
+  @override
+  String get clearInterestsTitle => 'Hapus minat saya';
+
+  @override
+  String get clearInterestsSubtitle => 'Lupakan apa yang dipelajari Momen tentang selera Anda';
+
+  @override
+  String get clearInterestsConfirm => 'Hapus apa yang dipelajari Momen tentang minat Anda? Feed Anda akan dimulai dari awal.';
+
+  @override
+  String get clearInterestsAction => 'Hapus';
+
+  @override
+  String get clearInterestsDone => 'Minat dihapus';
 }

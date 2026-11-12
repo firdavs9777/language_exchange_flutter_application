@@ -12659,4 +12659,19 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get hashtagSuggestedTitle => 'सुझाए गए टैग';
+
+  @override
+  String get clearInterestsTitle => 'मेरी रुचियाँ हटाएँ';
+
+  @override
+  String get clearInterestsSubtitle => 'मोमेंट्स ने आपकी पसंद के बारे में जो सीखा है उसे भूल जाएँ';
+
+  @override
+  String get clearInterestsConfirm => 'क्या मोमेंट्स ने आपकी रुचियों के बारे में जो सीखा है उसे हटाना है? आपकी फ़ीड नए सिरे से शुरू होगी।';
+
+  @override
+  String get clearInterestsAction => 'हटाएँ';
+
+  @override
+  String get clearInterestsDone => 'रुचियाँ हटा दी गईं';
 }

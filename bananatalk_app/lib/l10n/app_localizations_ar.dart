@@ -12753,4 +12753,19 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get hashtagSuggestedTitle => 'وسوم مقترحة';
+
+  @override
+  String get clearInterestsTitle => 'مسح اهتماماتي';
+
+  @override
+  String get clearInterestsSubtitle => 'انسَ ما تعلّمته اللحظات عن اهتماماتك';
+
+  @override
+  String get clearInterestsConfirm => 'هل تريد مسح ما تعلّمته اللحظات عن اهتماماتك؟ سيبدأ خلاصتك من جديد.';
+
+  @override
+  String get clearInterestsAction => 'مسح';
+
+  @override
+  String get clearInterestsDone => 'تم مسح الاهتمامات';
 }

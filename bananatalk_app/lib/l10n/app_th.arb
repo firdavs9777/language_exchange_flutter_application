@@ -4779,5 +4779,10 @@
   "hashtagEmpty": "ยังไม่มีโพสต์ที่ใช้แฮชแท็กนี้",
   "hashtagShowingRelated": "ยังมีโพสต์ที่ใช้แท็กนี้น้อย จึงแสดงโพสต์เกี่ยวกับ {topic}",
   "hashtagTrendingTitle": "แฮชแท็กยอดนิยม",
-  "hashtagSuggestedTitle": "แท็กที่แนะนำ"
+  "hashtagSuggestedTitle": "แท็กที่แนะนำ",
+  "clearInterestsTitle": "ล้างความสนใจของฉัน",
+  "clearInterestsSubtitle": "ลืมสิ่งที่โมเมนต์เรียนรู้เกี่ยวกับสิ่งที่คุณชอบ",
+  "clearInterestsConfirm": "ล้างสิ่งที่โมเมนต์เรียนรู้เกี่ยวกับความสนใจของคุณหรือไม่ ฟีดของคุณจะเริ่มต้นใหม่",
+  "clearInterestsAction": "ล้าง",
+  "clearInterestsDone": "ล้างความสนใจแล้ว"
 }

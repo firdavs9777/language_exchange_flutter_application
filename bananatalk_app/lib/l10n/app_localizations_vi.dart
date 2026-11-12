@@ -12627,4 +12627,19 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get hashtagSuggestedTitle => 'Thẻ gợi ý';
+
+  @override
+  String get clearInterestsTitle => 'Xóa sở thích của tôi';
+
+  @override
+  String get clearInterestsSubtitle => 'Quên những gì Khoảnh khắc đã học về sở thích của bạn';
+
+  @override
+  String get clearInterestsConfirm => 'Xóa những gì Khoảnh khắc đã học về sở thích của bạn? Bảng tin sẽ bắt đầu lại từ đầu.';
+
+  @override
+  String get clearInterestsAction => 'Xóa';
+
+  @override
+  String get clearInterestsDone => 'Đã xóa sở thích';
 }

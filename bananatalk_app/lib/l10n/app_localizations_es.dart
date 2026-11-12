@@ -12671,4 +12671,19 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get hashtagSuggestedTitle => 'Etiquetas sugeridas';
+
+  @override
+  String get clearInterestsTitle => 'Borrar mis intereses';
+
+  @override
+  String get clearInterestsSubtitle => 'Olvida lo que Momentos ha aprendido de tus gustos';
+
+  @override
+  String get clearInterestsConfirm => '¿Borrar lo que Momentos ha aprendido sobre tus intereses? Tu feed empezará de cero.';
+
+  @override
+  String get clearInterestsAction => 'Borrar';
+
+  @override
+  String get clearInterestsDone => 'Intereses borrados';
 }

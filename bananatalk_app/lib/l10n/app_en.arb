@@ -8751,5 +8751,25 @@
   "hashtagSuggestedTitle": "Suggested tags",
   "@hashtagSuggestedTitle": {
     "description": "Label of the row of tag chips suggested from the caption in the moment composer"
+  },
+  "clearInterestsTitle": "Clear my interests",
+  "@clearInterestsTitle": {
+    "description": "Settings row title: clears the interest profile used to rank the Moments feed"
+  },
+  "clearInterestsSubtitle": "Forget what Moments has learned about what you like",
+  "@clearInterestsSubtitle": {
+    "description": "Settings row subtitle under the clear-interests row"
+  },
+  "clearInterestsConfirm": "Clear what Moments has learned about your interests? Your feed will start fresh.",
+  "@clearInterestsConfirm": {
+    "description": "Confirm dialog body before clearing the interest profile"
+  },
+  "clearInterestsAction": "Clear",
+  "@clearInterestsAction": {
+    "description": "Confirm dialog action button that clears the interest profile"
+  },
+  "clearInterestsDone": "Interests cleared",
+  "@clearInterestsDone": {
+    "description": "Snackbar after the interest profile was cleared"
   }
 }

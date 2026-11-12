@@ -12627,6 +12627,21 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get hashtagSuggestedTitle => '推荐标签';
+
+  @override
+  String get clearInterestsTitle => '清除我的兴趣';
+
+  @override
+  String get clearInterestsSubtitle => '清除“动态”已了解到的你的喜好';
+
+  @override
+  String get clearInterestsConfirm => '要清除“动态”已了解到的你的兴趣吗？你的信息流将重新开始。';
+
+  @override
+  String get clearInterestsAction => '清除';
+
+  @override
+  String get clearInterestsDone => '兴趣已清除';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -25252,4 +25267,19 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get hashtagSuggestedTitle => '推薦標籤';
+
+  @override
+  String get clearInterestsTitle => '清除我的興趣';
+
+  @override
+  String get clearInterestsSubtitle => '清除「動態」已了解到的你的喜好';
+
+  @override
+  String get clearInterestsConfirm => '要清除「動態」已了解到的你的興趣嗎？你的動態消息將重新開始。';
+
+  @override
+  String get clearInterestsAction => '清除';
+
+  @override
+  String get clearInterestsDone => '興趣已清除';
 }

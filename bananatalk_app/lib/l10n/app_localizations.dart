@@ -22963,6 +22963,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Suggested tags'**
   String get hashtagSuggestedTitle;
+
+  /// Settings row title: clears the interest profile used to rank the Moments feed
+  ///
+  /// In en, this message translates to:
+  /// **'Clear my interests'**
+  String get clearInterestsTitle;
+
+  /// Settings row subtitle under the clear-interests row
+  ///
+  /// In en, this message translates to:
+  /// **'Forget what Moments has learned about what you like'**
+  String get clearInterestsSubtitle;
+
+  /// Confirm dialog body before clearing the interest profile
+  ///
+  /// In en, this message translates to:
+  /// **'Clear what Moments has learned about your interests? Your feed will start fresh.'**
+  String get clearInterestsConfirm;
+
+  /// Confirm dialog action button that clears the interest profile
+  ///
+  /// In en, this message translates to:
+  /// **'Clear'**
+  String get clearInterestsAction;
+
+  /// Snackbar after the interest profile was cleared
+  ///
+  /// In en, this message translates to:
+  /// **'Interests cleared'**
+  String get clearInterestsDone;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

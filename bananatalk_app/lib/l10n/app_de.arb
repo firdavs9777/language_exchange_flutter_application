@@ -5019,5 +5019,10 @@
   "hashtagEmpty": "Noch keine Beiträge mit diesem Hashtag",
   "hashtagShowingRelated": "Noch wenige Beiträge mit diesem Tag. Es werden Beiträge zu {topic} angezeigt.",
   "hashtagTrendingTitle": "Trend-Hashtags",
-  "hashtagSuggestedTitle": "Vorgeschlagene Tags"
+  "hashtagSuggestedTitle": "Vorgeschlagene Tags",
+  "clearInterestsTitle": "Meine Interessen löschen",
+  "clearInterestsSubtitle": "Vergiss, was Momente über deine Vorlieben gelernt hat",
+  "clearInterestsConfirm": "Möchtest du löschen, was Momente über deine Interessen gelernt hat? Dein Feed beginnt dann von vorn.",
+  "clearInterestsAction": "Löschen",
+  "clearInterestsDone": "Interessen gelöscht"
 }

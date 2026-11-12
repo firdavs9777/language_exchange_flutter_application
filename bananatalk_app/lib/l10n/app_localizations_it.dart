@@ -12671,4 +12671,19 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get hashtagSuggestedTitle => 'Tag suggeriti';
+
+  @override
+  String get clearInterestsTitle => 'Cancella i miei interessi';
+
+  @override
+  String get clearInterestsSubtitle => 'Dimentica ciò che Momenti ha imparato sui tuoi gusti';
+
+  @override
+  String get clearInterestsConfirm => 'Cancellare ciò che Momenti ha imparato sui tuoi interessi? Il tuo feed ripartirà da zero.';
+
+  @override
+  String get clearInterestsAction => 'Cancella';
+
+  @override
+  String get clearInterestsDone => 'Interessi cancellati';
 }

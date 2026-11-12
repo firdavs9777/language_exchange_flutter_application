@@ -4809,5 +4809,10 @@
   "hashtagEmpty": "Пока нет публикаций с этим хештегом",
   "hashtagShowingRelated": "С этим тегом пока мало публикаций. Показаны публикации по теме «{topic}».",
   "hashtagTrendingTitle": "Популярные хештеги",
-  "hashtagSuggestedTitle": "Рекомендуемые теги"
+  "hashtagSuggestedTitle": "Рекомендуемые теги",
+  "clearInterestsTitle": "Сбросить мои интересы",
+  "clearInterestsSubtitle": "Забыть, что Моменты узнали о ваших предпочтениях",
+  "clearInterestsConfirm": "Сбросить то, что Моменты узнали о ваших интересах? Лента начнёт подбираться заново.",
+  "clearInterestsAction": "Сбросить",
+  "clearInterestsDone": "Интересы сброшены"
 }

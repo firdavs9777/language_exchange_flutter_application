@@ -4779,5 +4779,10 @@
   "hashtagEmpty": "Chưa có bài viết nào với hashtag này",
   "hashtagShowingRelated": "Hiện còn ít bài viết dùng thẻ này. Đang hiển thị bài viết về {topic}.",
   "hashtagTrendingTitle": "Hashtag thịnh hành",
-  "hashtagSuggestedTitle": "Thẻ gợi ý"
+  "hashtagSuggestedTitle": "Thẻ gợi ý",
+  "clearInterestsTitle": "Xóa sở thích của tôi",
+  "clearInterestsSubtitle": "Quên những gì Khoảnh khắc đã học về sở thích của bạn",
+  "clearInterestsConfirm": "Xóa những gì Khoảnh khắc đã học về sở thích của bạn? Bảng tin sẽ bắt đầu lại từ đầu.",
+  "clearInterestsAction": "Xóa",
+  "clearInterestsDone": "Đã xóa sở thích"
 }

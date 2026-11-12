@@ -12671,4 +12671,19 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get hashtagSuggestedTitle => 'Vorgeschlagene Tags';
+
+  @override
+  String get clearInterestsTitle => 'Meine Interessen löschen';
+
+  @override
+  String get clearInterestsSubtitle => 'Vergiss, was Momente über deine Vorlieben gelernt hat';
+
+  @override
+  String get clearInterestsConfirm => 'Möchtest du löschen, was Momente über deine Interessen gelernt hat? Dein Feed beginnt dann von vorn.';
+
+  @override
+  String get clearInterestsAction => 'Löschen';
+
+  @override
+  String get clearInterestsDone => 'Interessen gelöscht';
 }

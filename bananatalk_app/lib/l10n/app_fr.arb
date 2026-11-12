@@ -5019,5 +5019,10 @@
   "hashtagEmpty": "Aucune publication avec ce hashtag pour l'instant",
   "hashtagShowingRelated": "Peu de publications utilisent ce tag pour l'instant. Affichage des publications sur {topic}.",
   "hashtagTrendingTitle": "Hashtags tendance",
-  "hashtagSuggestedTitle": "Tags suggérés"
+  "hashtagSuggestedTitle": "Tags suggérés",
+  "clearInterestsTitle": "Effacer mes centres d'intérêt",
+  "clearInterestsSubtitle": "Oublier ce que Moments a appris de vos goûts",
+  "clearInterestsConfirm": "Effacer ce que Moments a appris sur vos centres d'intérêt ? Votre fil repartira de zéro.",
+  "clearInterestsAction": "Effacer",
+  "clearInterestsDone": "Centres d'intérêt effacés"
 }

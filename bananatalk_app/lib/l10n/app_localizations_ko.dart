@@ -12627,4 +12627,19 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get hashtagSuggestedTitle => '추천 태그';
+
+  @override
+  String get clearInterestsTitle => '관심사 초기화';
+
+  @override
+  String get clearInterestsSubtitle => '모먼트가 파악한 내 취향을 지웁니다';
+
+  @override
+  String get clearInterestsConfirm => '모먼트가 파악한 관심사를 지울까요? 피드가 처음부터 다시 맞춰집니다.';
+
+  @override
+  String get clearInterestsAction => '초기화';
+
+  @override
+  String get clearInterestsDone => '관심사를 초기화했어요';
 }
