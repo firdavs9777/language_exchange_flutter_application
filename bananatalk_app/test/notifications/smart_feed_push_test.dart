@@ -2,11 +2,35 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/moments/create/compose_from_prompt_screen.dart';
 import 'package:bananatalk_app/pages/moments/moment_detail_wrapper.dart';
 import 'package:bananatalk_app/services/notification_router.dart';
+import 'package:bananatalk_app/pages/moments/create/create_moment.dart';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
+
+class _FakeMoments extends MomentsService {
+  _FakeMoments(this.prompt);
+  final Map<String, dynamic> prompt;
+  @override
+  Future<Map<String, dynamic>> getPromptOfDay({String? language}) async => prompt;
+}
+
+Widget _routed(GoRouter router, {List<Override> overrides = const []}) =>
+    ProviderScope(
+      overrides: overrides,
+      child: MaterialApp.router(
+        routerConfig: router,
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        supportedLocales: AppLocalizations.supportedLocales,
+      ),
+    );
 
 void main() {
   group('targetPathForType', () {
@@ -64,7 +88,7 @@ void main() {
             path: '/moment/:momentId',
             builder: (_, s) => MomentDetailWrapper(
               momentId: s.pathParameters['momentId']!,
-              loadMoment: (_) async => throw Exception('Moment not found'),
+              loadMoment: (_) async => throw MomentNotFoundException(),
             ),
           ),
           GoRoute(
@@ -88,6 +112,65 @@ void main() {
       expect(find.text('tab 3'), findsOneWidget);
       expect(find.text('Moment not found'), findsOneWidget);
       expect(find.byType(SnackBar), findsOneWidget);
+    });
+  });
+
+  group('MomentDetailWrapper on an unreachable server', () {
+    testWidgets('keeps the error page and does not claim not found', (t) async {
+      final router = GoRouter(
+        initialLocation: '/moment/m1',
+        routes: [
+          GoRoute(
+            path: '/moment/:momentId',
+            builder: (_, s) => MomentDetailWrapper(
+              momentId: 'm1',
+              loadMoment: (_) async => throw Exception('SocketException'),
+            ),
+          ),
+          GoRoute(
+            path: '/tabs/:index',
+            builder: (_, s) => const Scaffold(body: Text('tab')),
+          ),
+        ],
+      );
+      await t.pumpWidget(_routed(router));
+      await t.pumpAndSettle();
+      final l10n = AppLocalizations.of(t.element(find.byType(MomentDetailWrapper)))!;
+      expect(find.text(l10n.momentFailedToLoad), findsOneWidget);
+      expect(find.text(l10n.goBack), findsOneWidget);
+      expect(find.text(l10n.momentNotFound), findsNothing);
+      expect(find.text('tab'), findsNothing);
+    });
+  });
+
+  group('ComposeFromPromptScreen', () {
+    testWidgets('prefills from a fresh service answer, not the stale cached provider', (t) async {
+      final router = GoRouter(
+        initialLocation: '/moments/compose?promptId=today',
+        routes: [
+          GoRoute(
+            path: '/moments/compose',
+            builder: (_, s) => ComposeFromPromptScreen(
+              promptId: s.uri.queryParameters['promptId'],
+            ),
+          ),
+        ],
+      );
+      await t.pumpWidget(_routed(router, overrides: [
+        authServiceProvider.overrideWith((ref) => AuthService()..isLoggedIn = true),
+        momentsServiceProvider.overrideWithValue(
+          _FakeMoments({'promptId': 'today', 'text': 'Fresh prompt'}),
+        ),
+        promptOfDayProvider.overrideWith(
+          (ref) async => {'promptId': 'yesterday', 'text': 'Stale prompt'},
+        ),
+      ]));
+      // Prime the stale cache first, as an app alive since yesterday would.
+      await t.pump();
+      await t.pump(const Duration(milliseconds: 50));
+      final screen = t.widget<CreateMoment>(find.byType(CreateMoment));
+      expect(screen.prefillPromptId, 'today');
+      expect(screen.prefillPrompt, 'Fresh prompt');
     });
   });
 }

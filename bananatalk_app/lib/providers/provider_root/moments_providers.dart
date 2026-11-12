@@ -25,6 +25,19 @@ import 'package:bananatalk_app/pages/moments/feed/moments_main.dart'
 
 typedef MomentsServiceAPI = api.MomentsService;
 
+/// The server says the moment does not exist (404, or `success: false`), as
+/// opposed to the request failing. `toString` keeps the old message.
+class MomentNotFoundException implements Exception {
+  MomentNotFoundException([String? message])
+      : message = (message == null || message.isEmpty)
+            ? 'Moment not found'
+            : message;
+  final String message;
+
+  @override
+  String toString() => 'Exception: $message';
+}
+
 class MomentsService {
   int count = 0;
 
@@ -307,10 +320,10 @@ class MomentsService {
       if (data['success'] == true && data['data'] != null) {
         return Moments.fromJson(data['data']);
       } else {
-        throw Exception(data['error'] ?? 'Moment not found');
+        throw MomentNotFoundException(data['error']?.toString());
       }
     } else if (response.statusCode == 404) {
-      throw Exception('Moment not found');
+      throw MomentNotFoundException();
     } else {
       final errorData = json.decode(response.body);
       throw Exception(errorData['error'] ?? 

@@ -50,13 +50,19 @@ class _MomentDetailWrapperState extends ConsumerState<MomentDetailWrapper> {
       }
     } catch (e) {
       debugPrint('❌ Error fetching moment: $e');
-      if (mounted) {
-        // Gone, hidden or unreachable: no error page. Land on the Moments
-        // tab and say so; the snackbar outlives this route.
+      if (!mounted) return;
+      if (e is MomentNotFoundException) {
+        // Gone: no error page. Land on the Moments tab and say so; the
+        // snackbar outlives this route.
         final messenger = ScaffoldMessenger.of(context);
         final message = AppLocalizations.of(context)!.momentNotFound;
         context.go('/tabs/$kMomentsTabIndex');
         messenger.showSnackBar(SnackBar(content: Text(message)));
+      } else {
+        setState(() {
+          _error = AppLocalizations.of(context)!.momentFailedToLoad;
+          _isLoading = false;
+        });
       }
     }
   }

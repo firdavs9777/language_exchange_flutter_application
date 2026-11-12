@@ -310,7 +310,7 @@ class NotificationRouter {
         final feedbackMomentId = data['momentId']?.toString();
         return (feedbackMomentId != null && feedbackMomentId.isNotEmpty)
             ? '/moment/$feedbackMomentId'
-            : '/tabs/3';
+            : '/tabs/$kMomentsTabIndex';
 
       // Smart feed: today's prompt; the composer opens with it filled in.
       case 'daily_prompt':

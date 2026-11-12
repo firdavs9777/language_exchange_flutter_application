@@ -40,8 +40,12 @@ class _ComposeFromPromptScreenState
     final id = widget.promptId;
     if (id == null || id.isEmpty) return null;
     try {
+      // Straight from the service: promptOfDayProvider is cached for the life
+      // of the app and may hold yesterday's prompt. The server derives the
+      // language from the profile, so the push's `language` is not needed.
       return await ref
-          .read(promptOfDayProvider.future)
+          .read(momentsServiceProvider)
+          .getPromptOfDay()
           .timeout(const Duration(seconds: 5));
     } catch (_) {
       return null;
