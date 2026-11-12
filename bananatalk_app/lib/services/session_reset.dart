@@ -297,6 +297,7 @@ const Set<String> kAppScopedProviderNames = {
   'appConfigServiceProvider',
   'appConfigProvider',
   'appConfigRefreshStateProvider', // last app-config fetch time
+  'hashtagsEnabledProvider', // derived from appConfigProvider
   'runningAppVersionProvider',
   'iosProductsProvider', // store catalog
   'androidProductsProvider',
