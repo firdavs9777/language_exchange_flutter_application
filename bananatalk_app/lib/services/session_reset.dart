@@ -49,6 +49,7 @@ import 'package:bananatalk_app/providers/provider_root/learning/vocab_packs_prov
 import 'package:bananatalk_app/providers/provider_root/learning/vocabulary_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/message_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
+import 'package:bananatalk_app/services/feed_open_tracker.dart';
 import 'package:bananatalk_app/providers/provider_root/profile_visitor_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/user_limits_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/vip_provider.dart';
@@ -175,6 +176,8 @@ final Map<String, ProviderOrFamily> userScopedProviders = {
   'matchingLanguagesProvider': matchingLanguagesProvider,
   // Moments / reels / comments
   'momentsServiceProvider': momentsServiceProvider,
+  // Queued opens are sent under whoever is signed in at flush time.
+  'feedOpenTrackerProvider': feedOpenTrackerProvider,
   'momentsProvider': momentsProvider,
   'momentsFeedFreshnessProvider': momentsFeedFreshnessProvider,
   'momentsFeedProvider': momentsFeedProvider,

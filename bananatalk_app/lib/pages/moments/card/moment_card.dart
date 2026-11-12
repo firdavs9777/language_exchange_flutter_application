@@ -12,6 +12,7 @@ import 'package:bananatalk_app/pages/moments/widgets/moments_snackbar.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:bananatalk_app/services/moments_service.dart' as api;
 import 'package:bananatalk_app/services/ad_service.dart';
+import 'package:bananatalk_app/services/feed_open_tracker.dart';
 import 'package:bananatalk_app/providers/provider_root/comments_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
@@ -387,6 +388,11 @@ class _MomentCardState extends ConsumerState<MomentCard> {
       }
       return;
     }
+
+    // Fire-and-forget: the server ranks on which posts were opened. Only after
+    // the fetch succeeded, so an offline tap (which opens nothing) records
+    // nothing.
+    ref.read(feedOpenTrackerProvider).opened(widget.moments.id);
 
     ref.invalidate(commentsProvider(singleMoment.id));
 
@@ -886,6 +892,11 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                             if (overflows)
                               GestureDetector(
                                 onTap: () {
+                                  if (!isExpanded) {
+                                    ref
+                                        .read(feedOpenTrackerProvider)
+                                        .opened(widget.moments.id);
+                                  }
                                   setState(() => isExpanded = !isExpanded);
                                 },
                                 child: Padding(
