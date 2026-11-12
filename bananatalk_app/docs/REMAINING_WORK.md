@@ -368,6 +368,11 @@ Web ↔ app parity (spec `docs/superpowers/specs/2026-10-16-web-app-parity-desig
 - 2026-10-08 — Merge 12c8e2b4 auth audit: session reset, 401 redirect, registration token, biometric on Android (FlutterFragmentActivity), keychain accessibility, biometric snapshot freshness, socket re-enable.
 - 2026-10-02 — Monetization & growth tranches built dark; 2.6.1 (10574) tagged and released, superseding 2.4.0 / 2.5.0 / 2.6.0.
 
+## Moments smart feed app (Plan A2) (2026-11-12, branch feat/moments-smart-feed-app)
+
+- [x] Task 1: models parse `imageVariants` (Moments, Story), `hashtags`, `topics`, `needsFeedback`, `Community.avatarThumb`/`avatarUrl`, and AppConfig flags `feedThumbnailsEnabled`, `storyDiscoverEnabled`, `hashtagsEnabled`, `interestRankingEnabled`, `shareOffersEnabled` (all default false). Parsing only, no UI; variants/thumbs need no flag (server gates them).
+- [ ] Tasks 2-13: UI that uses these fields (thumbnails, hashtags, Discover rings, clear interests, share offers, feed paging/states, reel preload, push types).
+
 ## Moment language (2026-11-12, branch fix/moment-language-default; backend fix/moment-language-default)
 - [x] A new moment whose author never touched the language dropdown is filed by its caption's script, else the author's native language (`CaptionLanguage`, mirrors backend lib/captionLanguage.js); a reel/prompt prefill or a dropdown pick still wins. Was: English default, 152 of 157 posts `en`. Test test/moments/caption_language_test.dart.
 - [ ] Device check: write a Korean caption without touching the dropdown → the moment shows under Korean in For You / the language filter; pick Spanish explicitly → stays Spanish. S

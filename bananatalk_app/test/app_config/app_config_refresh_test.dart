@@ -62,4 +62,19 @@ void main() {
     expect(replaced, isFalse);
     expect(service.calls, 1);
   });
+
+  test('smart-feed flags default off and flip after resume', () async {
+    container = make([
+      AppConfig.fromJson({}),
+      AppConfig.fromJson({'hashtagsEnabled': true}),
+    ]);
+    final first = (await container.read(appConfigProvider.future))!;
+    expect(first.hashtagsEnabled, isFalse);
+    expect(first.shareOffersEnabled, isFalse);
+    container.read(appConfigRefreshStateProvider).lastFetch = t0;
+
+    await refreshAppConfig(container, now: t0.add(appConfigRefreshInterval));
+    expect(container.read(appConfigProvider).valueOrNull!.hashtagsEnabled,
+        isTrue);
+  });
 }

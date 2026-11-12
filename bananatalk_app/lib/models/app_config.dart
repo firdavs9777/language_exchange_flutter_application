@@ -132,6 +132,14 @@ class AppConfig {
   /// default — nothing is newly locked at launch.
   final Set<String> studyVipOnlyFeatures;
 
+  /// Smart-feed switches (all off by default; the server ships them dark).
+  /// Feed thumbnails need no flag: variants are used whenever they arrive.
+  final bool feedThumbnailsEnabled;
+  final bool storyDiscoverEnabled;
+  final bool hashtagsEnabled;
+  final bool interestRankingEnabled;
+  final bool shareOffersEnabled;
+
   const AppConfig({
     required this.minVersion,
     required this.latestVersion,
@@ -154,6 +162,11 @@ class AppConfig {
     this.waveCapEnabled = false,
     this.studyHubEnabled = false,
     this.studyVipOnlyFeatures = const <String>{},
+    this.feedThumbnailsEnabled = false,
+    this.storyDiscoverEnabled = false,
+    this.hashtagsEnabled = false,
+    this.interestRankingEnabled = false,
+    this.shareOffersEnabled = false,
   });
 
   factory AppConfig.fromJson(Map<String, dynamic> json) {
@@ -189,6 +202,12 @@ class AppConfig {
       studyVipOnlyFeatures: json['studyVipOnlyFeatures'] is List
           ? (json['studyVipOnlyFeatures'] as List).whereType<String>().toSet()
           : const <String>{},
+      feedThumbnailsEnabled: (json['feedThumbnailsEnabled'] as bool?) ?? false,
+      storyDiscoverEnabled: (json['storyDiscoverEnabled'] as bool?) ?? false,
+      hashtagsEnabled: (json['hashtagsEnabled'] as bool?) ?? false,
+      interestRankingEnabled:
+          (json['interestRankingEnabled'] as bool?) ?? false,
+      shareOffersEnabled: (json['shareOffersEnabled'] as bool?) ?? false,
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
+import 'package:bananatalk_app/providers/provider_models/image_variant.dart';
 import 'package:bananatalk_app/utils/string_sanitizer.dart';
 
 /// Video metadata for video stories
@@ -180,6 +181,13 @@ class Story {
   final DateTime expiresAt;
   final DateTime createdAt;
 
+  /// Small renditions of [mediaUrls], when the server sends them.
+  final List<ImageVariant> imageVariants;
+
+  /// The variant for [imageUrl], or `null` (draw the full image).
+  ImageVariant? variantFor(String imageUrl) =>
+      ImageVariant.find(imageVariants, imageUrl);
+
   const Story({
     required this.id,
     required this.user,
@@ -216,6 +224,7 @@ class Story {
     this.isActive = true,
     required this.expiresAt,
     required this.createdAt,
+    this.imageVariants = const [],
   });
 
   factory Story.fromJson(Map<String, dynamic> json) {
@@ -301,6 +310,7 @@ class Story {
       createdAt: json['createdAt'] != null
           ? DateTime.tryParse(json['createdAt'].toString()) ?? DateTime.now()
           : DateTime.now(),
+      imageVariants: ImageVariant.listFromJson(json['imageVariants']),
     );
   }
 
@@ -430,6 +440,7 @@ class Story {
     bool? isActive,
     DateTime? expiresAt,
     DateTime? createdAt,
+    List<ImageVariant>? imageVariants,
   }) {
     return Story(
       id: id ?? this.id,
@@ -467,6 +478,7 @@ class Story {
       isActive: isActive ?? this.isActive,
       expiresAt: expiresAt ?? this.expiresAt,
       createdAt: createdAt ?? this.createdAt,
+      imageVariants: imageVariants ?? this.imageVariants,
     );
   }
 }
