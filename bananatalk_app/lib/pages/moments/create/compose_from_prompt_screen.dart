@@ -4,6 +4,7 @@ import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// The prompt to fill the composer with: today's prompt only when its id is
 /// the one asked for, else none. Pure.
@@ -21,7 +22,7 @@ import 'package:go_router/go_router.dart';
 /// `/moments/compose?promptId=<id>` (the daily_prompt push). Opens the
 /// moment composer with today's prompt filled in when its id matches; when
 /// the prompt cannot be fetched or has moved on, a plain composer. A signed
-/// out visitor is sent to the login screen.
+/// out visitor (no stored token) is sent to the login screen.
 class ComposeFromPromptScreen extends ConsumerStatefulWidget {
   const ComposeFromPromptScreen({super.key, this.promptId});
 
@@ -52,34 +53,52 @@ class _ComposeFromPromptScreenState
     }
   }
 
-  @override
-  void initState() {
-    super.initState();
-    if (!ref.read(authServiceProvider).isLoggedIn) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (mounted) context.go('/login');
-      });
+  /// Signed in = a stored token (the one the services send), not the
+  /// in-memory flag: on a cold start from the push that flag only turns true
+  /// after the token is validated over the network.
+  late final Future<bool> _signedIn = _hasStoredToken();
+
+  Future<bool> _hasStoredToken() async {
+    if (ref.read(authServiceProvider).isLoggedIn) return true;
+    try {
+      final token = (await SharedPreferences.getInstance()).getString('token');
+      return token != null && token.isNotEmpty;
+    } catch (_) {
+      return false;
     }
   }
 
   @override
+  void initState() {
+    super.initState();
+    _signedIn.then((signedIn) {
+      if (!signedIn && mounted) context.go('/login');
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    if (!ref.read(authServiceProvider).isLoggedIn) {
-      return const Scaffold(body: SizedBox.shrink());
-    }
-    return FutureBuilder<Map<String, dynamic>?>(
-      future: _today,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState != ConnectionState.done) {
-          return const Scaffold(
-            body: Center(child: CircularProgressIndicator()),
-          );
+    return FutureBuilder<bool>(
+      future: _signedIn,
+      builder: (context, signedIn) {
+        if (signedIn.data != true) {
+          return const Scaffold(body: SizedBox.shrink());
         }
-        final prompt = promptToPrefill(snapshot.data, widget.promptId);
-        if (prompt == null) return const CreateMoment();
-        return CreateMoment(
-          prefillPrompt: prompt.text,
-          prefillPromptId: prompt.id,
+        return FutureBuilder<Map<String, dynamic>?>(
+          future: _today,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState != ConnectionState.done) {
+              return const Scaffold(
+                body: Center(child: CircularProgressIndicator()),
+              );
+            }
+            final prompt = promptToPrefill(snapshot.data, widget.promptId);
+            if (prompt == null) return const CreateMoment();
+            return CreateMoment(
+              prefillPrompt: prompt.text,
+              prefillPromptId: prompt.id,
+            );
+          },
         );
       },
     );

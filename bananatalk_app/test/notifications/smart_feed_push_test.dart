@@ -10,6 +10,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class _FakeMoments extends MomentsService {
   _FakeMoments(this.prompt);
@@ -171,6 +172,53 @@ void main() {
       final screen = t.widget<CreateMoment>(find.byType(CreateMoment));
       expect(screen.prefillPromptId, 'today');
       expect(screen.prefillPrompt, 'Fresh prompt');
+    });
+
+    GoRouter composeRouter() => GoRouter(
+          initialLocation: '/moments/compose?promptId=today',
+          routes: [
+            GoRoute(
+              path: '/moments/compose',
+              builder: (_, s) => ComposeFromPromptScreen(
+                promptId: s.uri.queryParameters['promptId'],
+              ),
+            ),
+            GoRoute(path: '/login', builder: (_, __) => const Text('login')),
+          ],
+        );
+
+    testWidgets(
+        'a stored token opens the composer before the token check finishes',
+        (t) async {
+      // Cold start from the push: the token is on disk, but the in-memory
+      // flag waits for the network validation.
+      SharedPreferences.setMockInitialValues({'token': 'stored'});
+      await t.pumpWidget(_routed(composeRouter(), overrides: [
+        authServiceProvider.overrideWith((ref) => AuthService()..isLoggedIn = false),
+        momentsServiceProvider.overrideWithValue(
+          _FakeMoments({'promptId': 'today', 'text': 'Fresh prompt'}),
+        ),
+      ]));
+      await t.pump();
+      await t.pump(const Duration(milliseconds: 50));
+      await t.pump(const Duration(milliseconds: 50));
+      expect(find.text('login'), findsNothing);
+      expect(find.byType(CreateMoment), findsOneWidget);
+    });
+
+    testWidgets('no stored token goes to login', (t) async {
+      SharedPreferences.setMockInitialValues({});
+      await t.pumpWidget(_routed(composeRouter(), overrides: [
+        authServiceProvider.overrideWith((ref) => AuthService()..isLoggedIn = false),
+        momentsServiceProvider.overrideWithValue(
+          _FakeMoments({'promptId': 'today', 'text': 'Fresh prompt'}),
+        ),
+      ]));
+      await t.pump();
+      await t.pump(const Duration(milliseconds: 50));
+      await t.pump(const Duration(milliseconds: 50));
+      expect(find.text('login'), findsOneWidget);
+      expect(find.byType(CreateMoment), findsNothing);
     });
   });
 }
