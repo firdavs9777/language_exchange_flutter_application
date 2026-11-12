@@ -13123,4 +13123,10 @@ class AppLocalizationsRu extends AppLocalizations {
   String hashtagShowingRelated(String topic) {
     return 'С этим тегом пока мало публикаций. Показаны публикации по теме «$topic».';
   }
+
+  @override
+  String get hashtagTrendingTitle => 'Популярные хештеги';
+
+  @override
+  String get hashtagSuggestedTitle => 'Рекомендуемые теги';
 }

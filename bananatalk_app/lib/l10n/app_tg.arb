@@ -4270,5 +4270,7 @@
   "hashtagSortTop": "Беҳтарин",
   "hashtagSortRecent": "Навтарин",
   "hashtagEmpty": "Ҳанӯз нашре бо ин ҳештег нест",
-  "hashtagShowingRelated": "Бо ин тег ҳанӯз нашрҳо кам аст. Нашрҳо дар бораи {topic} нишон дода мешаванд."
+  "hashtagShowingRelated": "Бо ин тег ҳанӯз нашрҳо кам аст. Нашрҳо дар бораи {topic} нишон дода мешаванд.",
+  "hashtagTrendingTitle": "Ҳештегҳои машҳур",
+  "hashtagSuggestedTitle": "Тегҳои пешниҳодшуда"
 }

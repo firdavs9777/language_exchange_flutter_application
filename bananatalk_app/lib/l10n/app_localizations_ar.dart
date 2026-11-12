@@ -12747,4 +12747,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String hashtagShowingRelated(String topic) {
     return 'عدد المنشورات بهذا الوسم قليل حتى الآن. نعرض منشورات عن $topic.';
   }
+
+  @override
+  String get hashtagTrendingTitle => 'الهاشتاقات الرائجة';
+
+  @override
+  String get hashtagSuggestedTitle => 'وسوم مقترحة';
 }

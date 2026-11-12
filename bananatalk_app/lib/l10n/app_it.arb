@@ -5017,5 +5017,7 @@
   "hashtagSortTop": "Popolari",
   "hashtagSortRecent": "Recenti",
   "hashtagEmpty": "Ancora nessun post con questo hashtag",
-  "hashtagShowingRelated": "Ancora pochi post usano questo tag. Vengono mostrati post su {topic}."
+  "hashtagShowingRelated": "Ancora pochi post usano questo tag. Vengono mostrati post su {topic}.",
+  "hashtagTrendingTitle": "Hashtag di tendenza",
+  "hashtagSuggestedTitle": "Tag suggeriti"
 }

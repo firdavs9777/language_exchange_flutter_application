@@ -4777,5 +4777,7 @@
   "hashtagSortTop": "Teratas",
   "hashtagSortRecent": "Terbaru",
   "hashtagEmpty": "Belum ada postingan dengan tagar ini",
-  "hashtagShowingRelated": "Postingan dengan tagar ini masih sedikit. Menampilkan postingan tentang {topic}."
+  "hashtagShowingRelated": "Postingan dengan tagar ini masih sedikit. Menampilkan postingan tentang {topic}.",
+  "hashtagTrendingTitle": "Tagar yang sedang tren",
+  "hashtagSuggestedTitle": "Tag yang disarankan"
 }

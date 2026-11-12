@@ -12665,4 +12665,10 @@ class AppLocalizationsEs extends AppLocalizations {
   String hashtagShowingRelated(String topic) {
     return 'Aún hay pocas publicaciones con esta etiqueta. Se muestran publicaciones sobre $topic.';
   }
+
+  @override
+  String get hashtagTrendingTitle => 'Hashtags en tendencia';
+
+  @override
+  String get hashtagSuggestedTitle => 'Etiquetas sugeridas';
 }

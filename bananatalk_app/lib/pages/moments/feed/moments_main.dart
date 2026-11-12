@@ -5,6 +5,7 @@ import 'package:bananatalk_app/pages/moments/create/create_moment.dart';
 import 'package:bananatalk_app/pages/moments/filter/moment_filter_bar.dart';
 import 'package:bananatalk_app/pages/moments/filter/moment_filter_model.dart';
 import 'package:bananatalk_app/pages/moments/filter/moment_filter_utility.dart';
+import 'package:bananatalk_app/pages/moments/feed/hashtag_search_panel.dart';
 import 'package:bananatalk_app/pages/moments/feed/moments_feed_widget.dart';
 import 'package:bananatalk_app/pages/moments/feed/prompt_of_day_card.dart';
 import 'package:bananatalk_app/pages/stories/feed/stories_feed_widget.dart';
@@ -21,6 +22,8 @@ import 'package:bananatalk_app/pages/moments/reels/reels_grid_screen.dart';
 import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
 import 'package:bananatalk_app/utils/feature_gate.dart';
 import 'package:bananatalk_app/utils/haptic_utils.dart';
+import 'package:bananatalk_app/widgets/hashtag_text.dart'
+    show hashtagsEnabledProvider;
 import 'package:bananatalk_app/widgets/limit_exceeded_dialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
@@ -318,6 +321,12 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
       setState(() => _searchResults = []);
       return;
     }
+    // With hashtags on, `#...` is a tag lookup (the panel suggests tags);
+    // the text search does not run for it.
+    if (ref.read(hashtagsEnabledProvider) && isHashtagSearchQuery(trimmed)) {
+      setState(() => _searchResults = []);
+      return;
+    }
 
     final tab = ref.read(momentsFeedTabProvider);
     final loaded = tab == MomentsFeedTab.reels
@@ -406,6 +415,9 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
         ? const AsyncValue<List<Moments>>.data(<Moments>[])
         : ref.watch(filteredMomentsForTabProvider(effectiveTab));
     final isSearching = _showSearch && _searchController.text.isNotEmpty;
+    final showHashtagPanel = _showSearch &&
+        ref.watch(hashtagsEnabledProvider) &&
+        isHashtagSearchQuery(_searchController.text);
     final displayedList = isSearching
         ? AsyncValue.data(_searchResults)
         : filteredMomentsAsync;
@@ -566,7 +578,9 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
                 ),
               ),
           ],
-          body: isReelsTab
+          body: showHashtagPanel
+              ? HashtagSearchPanel(query: _searchController.text)
+              : isReelsTab
               ? ReelsGridScreen(
                   onPolicyDeclined: () => ref
                       .read(momentsFeedTabProvider.notifier)

@@ -4793,5 +4793,7 @@
   "hashtagSortTop": "Em alta",
   "hashtagSortRecent": "Recentes",
   "hashtagEmpty": "Ainda não há publicações com esta hashtag",
-  "hashtagShowingRelated": "Ainda há poucas publicações com esta tag. Mostrando publicações sobre {topic}."
+  "hashtagShowingRelated": "Ainda há poucas publicações com esta tag. Mostrando publicações sobre {topic}.",
+  "hashtagTrendingTitle": "Hashtags em alta",
+  "hashtagSuggestedTitle": "Tags sugeridas"
 }

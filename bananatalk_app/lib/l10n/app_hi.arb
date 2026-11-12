@@ -4793,5 +4793,7 @@
   "hashtagSortTop": "लोकप्रिय",
   "hashtagSortRecent": "नवीनतम",
   "hashtagEmpty": "इस हैशटैग वाली कोई पोस्ट अभी नहीं है",
-  "hashtagShowingRelated": "इस टैग वाली पोस्ट अभी कम हैं। {topic} से जुड़ी पोस्ट दिखाई जा रही हैं।"
+  "hashtagShowingRelated": "इस टैग वाली पोस्ट अभी कम हैं। {topic} से जुड़ी पोस्ट दिखाई जा रही हैं।",
+  "hashtagTrendingTitle": "ट्रेंडिंग हैशटैग",
+  "hashtagSuggestedTitle": "सुझाए गए टैग"
 }

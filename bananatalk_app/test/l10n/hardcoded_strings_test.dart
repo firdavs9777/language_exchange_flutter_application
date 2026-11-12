@@ -881,6 +881,7 @@ const Map<String, List<String>> _keysByTask = {
   // Moments smart feed (Plan A2) task 3: the load-more failure row.
   'moments_smart_feed_3': ['feedCouldNotLoadMore'],
   'moments_smart_feed_7': ['storiesDiscoverLabel'],
+  'moments_smart_feed_10': ['hashtagTrendingTitle', 'hashtagSuggestedTitle'],
   'moments_smart_feed_9': [
     'hashtagPostCount',
     'hashtagSortTop',
@@ -957,6 +958,10 @@ const Map<String, List<String>> _filesByTask = {
   'social-login-required': ['pages/authentication/post_login_error.dart'],
   'moments_smart_feed_3': ['pages/moments/feed/moments_feed_widget.dart'],
   'moments_smart_feed_7': ['pages/stories/feed/stories_feed_widget.dart'],
+  'moments_smart_feed_10': [
+    'pages/moments/feed/hashtag_search_panel.dart',
+    'pages/moments/create/create_moment.dart',
+  ],
   'moments_smart_feed_9': ['pages/moments/hashtag/hashtag_page_screen.dart'],
   'community-p2': [
     'pages/community/widgets/topic_picker_sheet.dart',

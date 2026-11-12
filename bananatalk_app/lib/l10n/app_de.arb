@@ -5017,5 +5017,7 @@
   "hashtagSortTop": "Beliebt",
   "hashtagSortRecent": "Neueste",
   "hashtagEmpty": "Noch keine Beiträge mit diesem Hashtag",
-  "hashtagShowingRelated": "Noch wenige Beiträge mit diesem Tag. Es werden Beiträge zu {topic} angezeigt."
+  "hashtagShowingRelated": "Noch wenige Beiträge mit diesem Tag. Es werden Beiträge zu {topic} angezeigt.",
+  "hashtagTrendingTitle": "Trend-Hashtags",
+  "hashtagSuggestedTitle": "Vorgeschlagene Tags"
 }

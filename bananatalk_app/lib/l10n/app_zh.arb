@@ -4791,5 +4791,7 @@
   "hashtagSortTop": "热门",
   "hashtagSortRecent": "最新",
   "hashtagEmpty": "还没有使用此话题标签的帖子",
-  "hashtagShowingRelated": "使用此标签的帖子还很少，正在显示与{topic}相关的帖子。"
+  "hashtagShowingRelated": "使用此标签的帖子还很少，正在显示与{topic}相关的帖子。",
+  "hashtagTrendingTitle": "热门话题标签",
+  "hashtagSuggestedTitle": "推荐标签"
 }

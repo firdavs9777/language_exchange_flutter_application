@@ -12640,4 +12640,10 @@ class AppLocalizationsTr extends AppLocalizations {
   String hashtagShowingRelated(String topic) {
     return 'Bu etiketi kullanan gönderi henüz az. $topic ile ilgili gönderiler gösteriliyor.';
   }
+
+  @override
+  String get hashtagTrendingTitle => 'Trend etiketler';
+
+  @override
+  String get hashtagSuggestedTitle => 'Önerilen etiketler';
 }

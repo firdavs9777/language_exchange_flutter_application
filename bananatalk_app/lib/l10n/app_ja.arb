@@ -4777,5 +4777,7 @@
   "hashtagSortTop": "人気",
   "hashtagSortRecent": "新着",
   "hashtagEmpty": "このハッシュタグの投稿はまだありません",
-  "hashtagShowingRelated": "このタグの投稿はまだ少ないため、{topic}に関する投稿を表示しています。"
+  "hashtagShowingRelated": "このタグの投稿はまだ少ないため、{topic}に関する投稿を表示しています。",
+  "hashtagTrendingTitle": "トレンドのハッシュタグ",
+  "hashtagSuggestedTitle": "おすすめのタグ"
 }

@@ -12621,6 +12621,12 @@ class AppLocalizationsZh extends AppLocalizations {
   String hashtagShowingRelated(String topic) {
     return '使用此标签的帖子还很少，正在显示与$topic相关的帖子。';
   }
+
+  @override
+  String get hashtagTrendingTitle => '热门话题标签';
+
+  @override
+  String get hashtagSuggestedTitle => '推荐标签';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -25240,4 +25246,10 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String hashtagShowingRelated(String topic) {
     return '使用此標籤的貼文還很少，目前顯示與$topic相關的貼文。';
   }
+
+  @override
+  String get hashtagTrendingTitle => '熱門主題標籤';
+
+  @override
+  String get hashtagSuggestedTitle => '推薦標籤';
 }

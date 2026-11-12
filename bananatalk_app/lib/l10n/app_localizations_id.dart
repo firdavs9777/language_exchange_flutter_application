@@ -12632,4 +12632,10 @@ class AppLocalizationsId extends AppLocalizations {
   String hashtagShowingRelated(String topic) {
     return 'Postingan dengan tagar ini masih sedikit. Menampilkan postingan tentang $topic.';
   }
+
+  @override
+  String get hashtagTrendingTitle => 'Tagar yang sedang tren';
+
+  @override
+  String get hashtagSuggestedTitle => 'Tag yang disarankan';
 }

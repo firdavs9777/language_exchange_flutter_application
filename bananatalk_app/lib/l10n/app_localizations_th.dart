@@ -12621,4 +12621,10 @@ class AppLocalizationsTh extends AppLocalizations {
   String hashtagShowingRelated(String topic) {
     return 'ยังมีโพสต์ที่ใช้แท็กนี้น้อย จึงแสดงโพสต์เกี่ยวกับ $topic';
   }
+
+  @override
+  String get hashtagTrendingTitle => 'แฮชแท็กยอดนิยม';
+
+  @override
+  String get hashtagSuggestedTitle => 'แท็กที่แนะนำ';
 }

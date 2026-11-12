@@ -5017,5 +5017,7 @@
   "hashtagSortTop": "Populaires",
   "hashtagSortRecent": "Récents",
   "hashtagEmpty": "Aucune publication avec ce hashtag pour l'instant",
-  "hashtagShowingRelated": "Peu de publications utilisent ce tag pour l'instant. Affichage des publications sur {topic}."
+  "hashtagShowingRelated": "Peu de publications utilisent ce tag pour l'instant. Affichage des publications sur {topic}.",
+  "hashtagTrendingTitle": "Hashtags tendance",
+  "hashtagSuggestedTitle": "Tags suggérés"
 }

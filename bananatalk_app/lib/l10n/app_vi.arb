@@ -4777,5 +4777,7 @@
   "hashtagSortTop": "Nổi bật",
   "hashtagSortRecent": "Mới nhất",
   "hashtagEmpty": "Chưa có bài viết nào với hashtag này",
-  "hashtagShowingRelated": "Hiện còn ít bài viết dùng thẻ này. Đang hiển thị bài viết về {topic}."
+  "hashtagShowingRelated": "Hiện còn ít bài viết dùng thẻ này. Đang hiển thị bài viết về {topic}.",
+  "hashtagTrendingTitle": "Hashtag thịnh hành",
+  "hashtagSuggestedTitle": "Thẻ gợi ý"
 }

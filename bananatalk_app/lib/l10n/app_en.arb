@@ -8743,5 +8743,13 @@
         "type": "String"
       }
     }
+  },
+  "hashtagTrendingTitle": "Trending hashtags",
+  "@hashtagTrendingTitle": {
+    "description": "Heading of the trending hashtags list shown when Moments search is opened"
+  },
+  "hashtagSuggestedTitle": "Suggested tags",
+  "@hashtagSuggestedTitle": {
+    "description": "Label of the row of tag chips suggested from the caption in the moment composer"
   }
 }

@@ -12653,4 +12653,10 @@ class AppLocalizationsHi extends AppLocalizations {
   String hashtagShowingRelated(String topic) {
     return 'इस टैग वाली पोस्ट अभी कम हैं। $topic से जुड़ी पोस्ट दिखाई जा रही हैं।';
   }
+
+  @override
+  String get hashtagTrendingTitle => 'ट्रेंडिंग हैशटैग';
+
+  @override
+  String get hashtagSuggestedTitle => 'सुझाए गए टैग';
 }

@@ -12621,4 +12621,10 @@ class AppLocalizationsJa extends AppLocalizations {
   String hashtagShowingRelated(String topic) {
     return 'このタグの投稿はまだ少ないため、$topicに関する投稿を表示しています。';
   }
+
+  @override
+  String get hashtagTrendingTitle => 'トレンドのハッシュタグ';
+
+  @override
+  String get hashtagSuggestedTitle => 'おすすめのタグ';
 }

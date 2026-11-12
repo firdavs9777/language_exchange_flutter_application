@@ -12621,4 +12621,10 @@ class AppLocalizationsVi extends AppLocalizations {
   String hashtagShowingRelated(String topic) {
     return 'Hiện còn ít bài viết dùng thẻ này. Đang hiển thị bài viết về $topic.';
   }
+
+  @override
+  String get hashtagTrendingTitle => 'Hashtag thịnh hành';
+
+  @override
+  String get hashtagSuggestedTitle => 'Thẻ gợi ý';
 }

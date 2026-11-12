@@ -12621,4 +12621,10 @@ class AppLocalizationsKo extends AppLocalizations {
   String hashtagShowingRelated(String topic) {
     return '이 태그의 게시물이 아직 적어서 $topic 관련 게시물을 보여드려요.';
   }
+
+  @override
+  String get hashtagTrendingTitle => '인기 해시태그';
+
+  @override
+  String get hashtagSuggestedTitle => '추천 태그';
 }

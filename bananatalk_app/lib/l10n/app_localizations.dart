@@ -22951,6 +22951,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Few posts use this tag yet. Showing posts about {topic}.'**
   String hashtagShowingRelated(String topic);
+
+  /// Heading of the trending hashtags list shown when Moments search is opened
+  ///
+  /// In en, this message translates to:
+  /// **'Trending hashtags'**
+  String get hashtagTrendingTitle;
+
+  /// Label of the row of tag chips suggested from the caption in the moment composer
+  ///
+  /// In en, this message translates to:
+  /// **'Suggested tags'**
+  String get hashtagSuggestedTitle;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

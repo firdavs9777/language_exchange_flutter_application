@@ -4798,5 +4798,7 @@
   "hashtagSortTop": "인기",
   "hashtagSortRecent": "최신",
   "hashtagEmpty": "이 해시태그의 게시물이 아직 없어요",
-  "hashtagShowingRelated": "이 태그의 게시물이 아직 적어서 {topic} 관련 게시물을 보여드려요."
+  "hashtagShowingRelated": "이 태그의 게시물이 아직 적어서 {topic} 관련 게시물을 보여드려요.",
+  "hashtagTrendingTitle": "인기 해시태그",
+  "hashtagSuggestedTitle": "추천 태그"
 }

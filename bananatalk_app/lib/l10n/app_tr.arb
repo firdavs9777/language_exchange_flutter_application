@@ -4989,5 +4989,7 @@
   "hashtagSortTop": "Popüler",
   "hashtagSortRecent": "En yeni",
   "hashtagEmpty": "Bu etiketle henüz gönderi yok",
-  "hashtagShowingRelated": "Bu etiketi kullanan gönderi henüz az. {topic} ile ilgili gönderiler gösteriliyor."
+  "hashtagShowingRelated": "Bu etiketi kullanan gönderi henüz az. {topic} ile ilgili gönderiler gösteriliyor.",
+  "hashtagTrendingTitle": "Trend etiketler",
+  "hashtagSuggestedTitle": "Önerilen etiketler"
 }

@@ -12642,4 +12642,10 @@ class AppLocalizationsTg extends AppLocalizations {
   String hashtagShowingRelated(String topic) {
     return 'Бо ин тег ҳанӯз нашрҳо кам аст. Нашрҳо дар бораи $topic нишон дода мешаванд.';
   }
+
+  @override
+  String get hashtagTrendingTitle => 'Ҳештегҳои машҳур';
+
+  @override
+  String get hashtagSuggestedTitle => 'Тегҳои пешниҳодшуда';
 }

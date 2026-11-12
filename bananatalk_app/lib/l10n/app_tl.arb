@@ -4750,5 +4750,7 @@
   "hashtagSortTop": "Nangunguna",
   "hashtagSortRecent": "Pinakabago",
   "hashtagEmpty": "Wala pang post na may hashtag na ito",
-  "hashtagShowingRelated": "Kaunti pa lang ang post na gumagamit ng tag na ito. Ipinapakita ang mga post tungkol sa {topic}."
+  "hashtagShowingRelated": "Kaunti pa lang ang post na gumagamit ng tag na ito. Ipinapakita ang mga post tungkol sa {topic}.",
+  "hashtagTrendingTitle": "Mga trending na hashtag",
+  "hashtagSuggestedTitle": "Mga iminumungkahing tag"
 }
