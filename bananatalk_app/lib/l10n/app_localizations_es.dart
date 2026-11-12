@@ -12637,4 +12637,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get feedCouldNotLoadMore => 'No se pudieron cargar más publicaciones';
+
+  @override
+  String get storiesDiscoverLabel => 'Descubrir';
 }

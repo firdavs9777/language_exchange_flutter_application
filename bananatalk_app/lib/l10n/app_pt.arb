@@ -4787,5 +4787,6 @@
   "clubEventMoved": "Novo horário",
   "loginUseSocialProvider": "Esta conta entra com {provider}. Continue com {provider}.",
   "loginNoPasswordYet": "Esta conta ainda não tem senha. Use “Esqueci a senha” para criar uma.",
-  "feedCouldNotLoadMore": "Não foi possível carregar mais publicações"
+  "feedCouldNotLoadMore": "Não foi possível carregar mais publicações",
+  "storiesDiscoverLabel": "Descobrir"
 }

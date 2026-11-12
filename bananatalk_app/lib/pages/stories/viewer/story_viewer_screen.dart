@@ -34,6 +34,8 @@ import 'package:bananatalk_app/pages/stories/viewer/viewer_overlay_layer.dart'
     as overlay_layer;
 import 'package:bananatalk_app/pages/stories/viewer/story_viewers_sheet.dart';
 import 'package:bananatalk_app/pages/stories/viewer/story_share_sheet.dart';
+import 'package:bananatalk_app/pages/stories/feed/stories_rail_order.dart';
+import 'package:bananatalk_app/pages/stories/story_precache.dart';
 import 'package:bananatalk_app/widgets/story/story_poll_widget.dart';
 import 'package:bananatalk_app/widgets/story/story_question_box_widget.dart';
 
@@ -56,6 +58,9 @@ class StoryViewerScreen extends ConsumerStatefulWidget {
   /// Falls back to the first story's own `.user` if omitted.
   final Community? storiesUser;
 
+  /// Preloads the next story's image; replaced in tests.
+  final StoryPrecacher precache;
+
   const StoryViewerScreen({
     super.key,
     this.userStories = const [],
@@ -64,6 +69,7 @@ class StoryViewerScreen extends ConsumerStatefulWidget {
     this.onStoriesUpdated,
     this.stories,
     this.storiesUser,
+    this.precache = precacheStoryImages,
   }) : assert(
          stories != null || userStories.length > 0,
          'Provide either userStories or a non-empty stories list',
@@ -161,9 +167,32 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
     _markAsViewed();
   }
 
+  bool? _onMobileData;
+
+  /// Preloads the next story, and (off mobile data) the next author's first.
+  /// Best effort: any failure is ignored.
+  Future<void> _precacheUpcoming() async {
+    try {
+      _onMobileData ??= await isOnMobileData();
+      if (!mounted) return;
+      final urls = storyViewerPrecacheUrls(
+        groups: _userStories,
+        userIndex: _currentUserIndex,
+        storyIndex: _currentStoryIndex,
+        onMobileData: _onMobileData!,
+      );
+      if (urls.isNotEmpty) await widget.precache(context, urls);
+    } catch (_) {}
+  }
+
   Future<void> _initializeCurrentStory() async {
     final story = _currentStory;
     if (story == null) return;
+    // Highlights play a flat list that may not be "active" stories, and the
+    // own-story viewer has nothing ahead worth the bytes.
+    if (widget.stories == null && !widget.isOwnStory) {
+      unawaited(_precacheUpcoming());
+    }
 
     // Dispose previous video controller if any
     await _disposeVideoController();

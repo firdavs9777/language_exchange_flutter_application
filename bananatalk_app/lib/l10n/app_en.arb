@@ -8709,5 +8709,9 @@
   "feedCouldNotLoadMore": "Couldn't load more posts",
   "@feedCouldNotLoadMore": {
     "description": "Shown under the Moments feed when fetching the next page failed; a Retry button sits next to it"
+  },
+  "storiesDiscoverLabel": "Discover",
+  "@storiesDiscoverLabel": {
+    "description": "Small label under a story ring in the Moments stories rail for someone you do not follow (Discover)"
   }
 }

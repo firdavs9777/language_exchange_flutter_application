@@ -22915,6 +22915,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Couldn\'t load more posts'**
   String get feedCouldNotLoadMore;
+
+  /// Small label under a story ring in the Moments stories rail for someone you do not follow (Discover)
+  ///
+  /// In en, this message translates to:
+  /// **'Discover'**
+  String get storiesDiscoverLabel;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

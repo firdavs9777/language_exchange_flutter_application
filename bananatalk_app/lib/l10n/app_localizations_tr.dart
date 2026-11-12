@@ -12612,4 +12612,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get feedCouldNotLoadMore => 'Daha fazla gönderi yüklenemedi';
+
+  @override
+  String get storiesDiscoverLabel => 'Keşfet';
 }

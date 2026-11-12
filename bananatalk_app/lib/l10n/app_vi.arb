@@ -4771,5 +4771,6 @@
   "clubEventMoved": "Giờ mới",
   "loginUseSocialProvider": "Tài khoản này đăng nhập bằng {provider}. Vui lòng tiếp tục với {provider}.",
   "loginNoPasswordYet": "Tài khoản này chưa có mật khẩu. Dùng “Quên mật khẩu” để đặt mật khẩu.",
-  "feedCouldNotLoadMore": "Không thể tải thêm bài đăng"
+  "feedCouldNotLoadMore": "Không thể tải thêm bài đăng",
+  "storiesDiscoverLabel": "Khám phá"
 }

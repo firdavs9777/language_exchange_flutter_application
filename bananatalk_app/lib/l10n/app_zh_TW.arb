@@ -4462,5 +4462,6 @@
   "clubEventMoved": "時間已更改",
   "loginUseSocialProvider": "此帳號使用 {provider} 登入，請使用 {provider} 繼續。",
   "loginNoPasswordYet": "此帳號尚未設定密碼，請透過「忘記密碼」設定。",
-  "feedCouldNotLoadMore": "無法載入更多貼文"
+  "feedCouldNotLoadMore": "無法載入更多貼文",
+  "storiesDiscoverLabel": "發現"
 }

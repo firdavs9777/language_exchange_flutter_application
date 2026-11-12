@@ -12618,4 +12618,7 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get feedCouldNotLoadMore => 'Hindi na-load ang iba pang post';
+
+  @override
+  String get storiesDiscoverLabel => 'Tuklasin';
 }

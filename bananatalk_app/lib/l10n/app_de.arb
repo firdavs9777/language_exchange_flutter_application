@@ -5011,5 +5011,6 @@
   "clubEventMoved": "Neue Uhrzeit",
   "loginUseSocialProvider": "Dieses Konto nutzt die Anmeldung mit {provider}. Bitte fahre mit {provider} fort.",
   "loginNoPasswordYet": "Dieses Konto hat noch kein Passwort. Lege über „Passwort vergessen“ eines fest.",
-  "feedCouldNotLoadMore": "Weitere Beiträge konnten nicht geladen werden"
+  "feedCouldNotLoadMore": "Weitere Beiträge konnten nicht geladen werden",
+  "storiesDiscoverLabel": "Entdecken"
 }

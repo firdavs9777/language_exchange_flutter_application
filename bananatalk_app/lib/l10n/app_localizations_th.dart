@@ -12594,4 +12594,7 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get feedCouldNotLoadMore => 'โหลดโพสต์เพิ่มเติมไม่ได้';
+
+  @override
+  String get storiesDiscoverLabel => 'ค้นพบ';
 }

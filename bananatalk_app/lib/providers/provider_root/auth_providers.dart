@@ -10,6 +10,7 @@ import 'package:bananatalk_app/services/notification_service.dart';
 import 'package:bananatalk_app/services/notification_api_client.dart';
 import 'package:bananatalk_app/services/api_client.dart';
 import 'package:bananatalk_app/services/feed_first_page_cache.dart';
+import 'package:bananatalk_app/services/stories_rail_cache.dart';
 import 'package:bananatalk_app/services/session_prefs.dart';
 import 'package:bananatalk_app/pages/authentication/biometric/biometric_service.dart';
 import 'package:bananatalk_app/pages/authentication/biometric/biometric_session.dart';
@@ -874,6 +875,7 @@ class AuthService extends ChangeNotifier {
     // drops it too (it is not on the device-level allow-list), this makes the
     // intent explicit and survives that list changing.
     await FeedFirstPageCache().clearAll();
+    await StoriesRailCache().clearAll();
     await clearUserSessionPrefs(prefs: prefs);
 
     // 4.5: Clear API client token caches.

@@ -5011,5 +5011,6 @@
   "clubEventMoved": "Nouvel horaire",
   "loginUseSocialProvider": "Ce compte se connecte avec {provider}. Continuez avec {provider}.",
   "loginNoPasswordYet": "Ce compte n’a pas encore de mot de passe. Utilisez « Mot de passe oublié » pour en créer un.",
-  "feedCouldNotLoadMore": "Impossible de charger plus de publications"
+  "feedCouldNotLoadMore": "Impossible de charger plus de publications",
+  "storiesDiscoverLabel": "Découvrir"
 }

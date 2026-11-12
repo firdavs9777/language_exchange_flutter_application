@@ -12594,4 +12594,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get feedCouldNotLoadMore => 'Không thể tải thêm bài đăng';
+
+  @override
+  String get storiesDiscoverLabel => 'Khám phá';
 }

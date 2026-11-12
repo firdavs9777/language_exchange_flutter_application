@@ -12625,4 +12625,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get feedCouldNotLoadMore => 'और पोस्ट लोड नहीं हो सकीं';
+
+  @override
+  String get storiesDiscoverLabel => 'खोजें';
 }

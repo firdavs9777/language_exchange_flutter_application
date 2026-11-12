@@ -4785,5 +4785,6 @@
   "clubEventMoved": "时间已更改",
   "loginUseSocialProvider": "此账号使用 {provider} 登录，请使用 {provider} 继续。",
   "loginNoPasswordYet": "此账号还没有密码，请通过“忘记密码”设置。",
-  "feedCouldNotLoadMore": "无法加载更多帖子"
+  "feedCouldNotLoadMore": "无法加载更多帖子",
+  "storiesDiscoverLabel": "发现"
 }

@@ -12605,4 +12605,7 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get feedCouldNotLoadMore => 'Tidak dapat memuat postingan lainnya';
+
+  @override
+  String get storiesDiscoverLabel => 'Jelajahi';
 }

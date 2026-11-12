@@ -12594,6 +12594,9 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get feedCouldNotLoadMore => '无法加载更多帖子';
+
+  @override
+  String get storiesDiscoverLabel => '发现';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -25186,4 +25189,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get feedCouldNotLoadMore => '無法載入更多貼文';
+
+  @override
+  String get storiesDiscoverLabel => '發現';
 }

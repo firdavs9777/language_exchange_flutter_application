@@ -1152,6 +1152,66 @@ class StoriesResponse {
 
 }
 
+/// `GET /stories/feed`: the followed groups plus, when the server's Discover
+/// switch is on, public stories from people the viewer does not follow.
+class StoriesFeedResult {
+  const StoriesFeedResult({
+    required this.success,
+    this.followed = const [],
+    this.discover = const [],
+    this.rawData = const [],
+    this.rawDiscover = const [],
+    this.message,
+    this.error,
+  });
+
+  final bool success;
+  final List<UserStories> followed;
+
+  /// `[]` when the response has no `discover` key or it is not a list.
+  final List<UserStories> discover;
+
+  /// The arrays as sent, for `StoriesRailCache`.
+  final List<Map<String, dynamic>> rawData;
+  final List<Map<String, dynamic>> rawDiscover;
+  final String? message;
+  final String? error;
+
+  factory StoriesFeedResult.failure({String? error}) =>
+      StoriesFeedResult(success: false, error: error);
+
+  factory StoriesFeedResult.fromJson(
+    Map<String, dynamic> json,
+    String currentUserId,
+  ) {
+    // An item that does not parse is skipped, never fatal.
+    (List<Map<String, dynamic>>, List<UserStories>) parse(Object? raw) {
+      final maps = <Map<String, dynamic>>[];
+      final groups = <UserStories>[];
+      if (raw is! List) return (maps, groups);
+      for (final item in raw.whereType<Map>()) {
+        try {
+          final map = Map<String, dynamic>.from(item);
+          groups.add(UserStories.fromJson(map, currentUserId));
+          maps.add(map);
+        } catch (_) {}
+      }
+      return (maps, groups);
+    }
+
+    final (rawData, followed) = parse(json['data']);
+    final (rawDiscover, discover) = parse(json['discover']);
+    return StoriesFeedResult(
+      success: json['success'] == true,
+      followed: followed,
+      discover: discover,
+      rawData: rawData,
+      rawDiscover: rawDiscover,
+      message: json['message'],
+    );
+  }
+}
+
 /// A story post refused before it reached the server, for the screen to say
 /// in the user's language (the service has no BuildContext).
 enum StoryPostFailure { noMedia, noText, videoTooLarge }

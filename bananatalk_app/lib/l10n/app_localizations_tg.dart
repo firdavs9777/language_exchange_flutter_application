@@ -12614,4 +12614,7 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get feedCouldNotLoadMore => 'Нашрҳои бештарро бор карда нашуд';
+
+  @override
+  String get storiesDiscoverLabel => 'Кашф';
 }

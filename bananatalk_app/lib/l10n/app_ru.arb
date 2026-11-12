@@ -4801,5 +4801,6 @@
   "clubEventMoved": "Новое время",
   "loginUseSocialProvider": "Этот аккаунт входит через {provider}. Продолжите с {provider}.",
   "loginNoPasswordYet": "У этого аккаунта ещё нет пароля. Задайте его через «Забыли пароль».",
-  "feedCouldNotLoadMore": "Не удалось загрузить другие публикации"
+  "feedCouldNotLoadMore": "Не удалось загрузить другие публикации",
+  "storiesDiscoverLabel": "Обзор"
 }

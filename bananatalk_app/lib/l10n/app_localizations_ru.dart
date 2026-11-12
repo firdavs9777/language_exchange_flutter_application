@@ -13093,4 +13093,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get feedCouldNotLoadMore => 'Не удалось загрузить другие публикации';
+
+  @override
+  String get storiesDiscoverLabel => 'Обзор';
 }

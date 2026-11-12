@@ -4771,5 +4771,6 @@
   "clubEventMoved": "Waktu baru",
   "loginUseSocialProvider": "Akun ini masuk dengan {provider}. Silakan lanjutkan dengan {provider}.",
   "loginNoPasswordYet": "Akun ini belum punya kata sandi. Gunakan “Lupa kata sandi” untuk membuatnya.",
-  "feedCouldNotLoadMore": "Tidak dapat memuat postingan lainnya"
+  "feedCouldNotLoadMore": "Tidak dapat memuat postingan lainnya",
+  "storiesDiscoverLabel": "Jelajahi"
 }

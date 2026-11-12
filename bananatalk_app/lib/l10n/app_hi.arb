@@ -4787,5 +4787,6 @@
   "clubEventMoved": "नया समय",
   "loginUseSocialProvider": "यह खाता {provider} से साइन इन करता है। कृपया {provider} से जारी रखें।",
   "loginNoPasswordYet": "इस खाते का अभी कोई पासवर्ड नहीं है। सेट करने के लिए “पासवर्ड भूल गए” का उपयोग करें।",
-  "feedCouldNotLoadMore": "और पोस्ट लोड नहीं हो सकीं"
+  "feedCouldNotLoadMore": "और पोस्ट लोड नहीं हो सकीं",
+  "storiesDiscoverLabel": "खोजें"
 }

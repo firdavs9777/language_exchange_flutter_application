@@ -12594,4 +12594,7 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get feedCouldNotLoadMore => '게시물을 더 불러오지 못했어요';
+
+  @override
+  String get storiesDiscoverLabel => '발견';
 }

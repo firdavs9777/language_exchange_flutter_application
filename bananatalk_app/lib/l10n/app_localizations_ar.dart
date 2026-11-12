@@ -12715,4 +12715,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get feedCouldNotLoadMore => 'تعذّر تحميل المزيد من المنشورات';
+
+  @override
+  String get storiesDiscoverLabel => 'اكتشف';
 }
