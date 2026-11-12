@@ -96,6 +96,11 @@ class HashtagPageNotifier
   int _page = 1;
   bool _loadingMore = false;
 
+  /// Bumped by every [build]; a load-more started under an older value
+  /// belongs to the replaced list and writes nothing (during a reload the
+  /// state still holds that list as its previous value).
+  int _generation = 0;
+
   // Riverpod 2 has no `ref.mounted`: a fetch that lands after the page was
   // left must not write state.
   bool _alive = true;
@@ -108,6 +113,7 @@ class HashtagPageNotifier
       _alive = false;
       _live.remove(this);
     });
+    _generation++;
     _page = 1;
     _loadingMore = false;
     final first = await ref
@@ -151,6 +157,11 @@ class HashtagPageNotifier
 
   Future<void> _fetchNext(HashtagPageState current) async {
     _loadingMore = true;
+    final generation = _generation;
+    bool stale() =>
+        !_alive ||
+        generation != _generation ||
+        !identical(state.valueOrNull, current);
     try {
       final next = await ref
           .read(hashtagServiceProvider)
@@ -161,7 +172,7 @@ class HashtagPageNotifier
             limit: kMomentsFeedPageSize,
           );
       // Reloaded or disposed meanwhile: this page belongs to the old list.
-      if (!_alive || !identical(state.valueOrNull, current)) return;
+      if (stale()) return;
       _page += 1;
       state = AsyncData(
         current.copyWith(
@@ -171,11 +182,11 @@ class HashtagPageNotifier
         ),
       );
     } catch (_) {
-      if (_alive && identical(state.valueOrNull, current)) {
+      if (!stale()) {
         state = AsyncData(current.copyWith(loadMoreFailed: true));
       }
     } finally {
-      _loadingMore = false;
+      if (generation == _generation) _loadingMore = false;
     }
   }
 

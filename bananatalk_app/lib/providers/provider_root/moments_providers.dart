@@ -1158,19 +1158,23 @@ class PagedMomentsFeedNotifier extends AsyncNotifier<List<Moments>> {
       return;
     }
     _loadingMore = true;
+    final generation = _generation;
+    // Reloaded meanwhile (a new build started, even one still loading with
+    // this list as its previous value): the page belongs to the old list.
+    bool stale() =>
+        generation != _generation || !identical(state.valueOrNull, current);
     try {
       final next = await _fetch(ref, _page + 1);
-      // Reloaded meanwhile: this page belongs to the old list.
-      if (!identical(state.valueOrNull, current)) return;
+      if (stale()) return;
       _page += 1;
       _hasMore = next.hasMore && next.moments.isNotEmpty;
       _loadMoreFailed = false;
       state = AsyncData(appendMomentsPage(current, next.moments));
     } catch (_) {
       // Keep the loaded list; the feed offers a Retry row.
-      if (identical(state.valueOrNull, current)) _setLoadMoreFailed(true);
+      if (!stale()) _setLoadMoreFailed(true);
     } finally {
-      _loadingMore = false;
+      if (generation == _generation) _loadingMore = false;
     }
   }
 
@@ -1186,10 +1190,14 @@ class PagedMomentsFeedNotifier extends AsyncNotifier<List<Moments>> {
       ref.invalidateSelf();
       return;
     }
+    final generation = _generation;
     try {
       final userId = await _cacheUserId();
       final first = await _fetch(ref, 1);
-      if (!identical(state.valueOrNull, current)) return;
+      if (generation != _generation ||
+          !identical(state.valueOrNull, current)) {
+        return;
+      }
       _showingCached = false;
       state = AsyncData(
         mergeFreshFirstPage(first.moments, current, _firstPageCount),
