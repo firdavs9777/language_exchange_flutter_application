@@ -7,6 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/app_config.dart';
 import 'package:bananatalk_app/pages/stories/feed/stories_feed_widget.dart';
+import 'package:bananatalk_app/pages/stories/feed/stories_rail_order.dart';
 import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/block_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -15,6 +16,26 @@ import 'package:bananatalk_app/providers/provider_models/story_model.dart';
 import 'package:bananatalk_app/services/session_prefs.dart';
 import 'package:bananatalk_app/pages/stories/story_precache.dart';
 import 'package:bananatalk_app/services/stories_rail_cache.dart';
+
+Map<String, dynamic> _story(String id, String userId, Duration fromNow) => {
+      '_id': id,
+      'user': {'_id': userId, 'name': 'U$userId'},
+      'mediaType': 'image',
+      'mediaUrl': 'https://x.test/$id.jpg',
+      'privacy': 'public',
+      'isActive': true,
+      'isArchived': false,
+      'expiresAt': DateTime.now().add(fromNow).toIso8601String(),
+      'createdAt': DateTime.now().toIso8601String(),
+      'views': <dynamic>[],
+    };
+
+Map<String, dynamic> _groupOf(String userId, List<Map<String, dynamic>> s) =>
+    {
+      'user': {'_id': userId, 'name': 'U$userId'},
+      'stories': s,
+      'hasUnviewed': s.length,
+    };
 
 Map<String, dynamic> _group(String userId) => {
       'user': {'_id': userId, 'name': 'U$userId'},
@@ -251,6 +272,34 @@ void main() {
       ]);
     });
   
+    testWidgets('cached rings whose stories all expired are not drawn',
+        (tester) async {
+      SharedPreferences.setMockInitialValues({'userId': 'me'});
+      await StoriesRailCache().write(
+        userId: 'me',
+        rawData: [
+          _groupOf('gone', [_story('g1', 'gone', const Duration(hours: -2))]),
+          _groupOf('mixed', [
+            _story('m-old', 'mixed', const Duration(hours: -1)),
+            _story('m-new', 'mixed', const Duration(hours: 3)),
+          ]),
+        ],
+        rawDiscover: [
+          _groupOf('dgone', [_story('d1', 'dgone', const Duration(hours: -1))]),
+        ],
+      );
+      final feed = Completer<StoriesFeedResult>();
+      final precached = await pump(tester,
+          feed: () => feed.future, blocked: () async => <String>{});
+      await tester.pump(const Duration(milliseconds: 50));
+      await tester.pump(const Duration(milliseconds: 50));
+      expect(find.text('Ugone'), findsNothing);
+      expect(find.text('Udgone'), findsNothing);
+      expect(find.text('Umixed'), findsOneWidget);
+      // The kept ring holds only its live story.
+      expect(precached.single, ['https://x.test/m-new.jpg']);
+    });
+
     testWidgets('on mobile data the rail warms nothing', (tester) async {
       SharedPreferences.setMockInitialValues({'userId': 'me'});
       final result = StoriesFeedResult.fromJson({
@@ -265,6 +314,27 @@ void main() {
       await tester.pump(const Duration(milliseconds: 50));
       expect(find.text('Uf1'), findsOneWidget);
       expect(precached, isEmpty);
+    });
+  });
+
+  group('dropExpiredStoryGroups', () {
+    test('drops expired stories and groups left with none', () {
+      final groups = [
+        UserStories.fromJson(
+            _groupOf('a', [_story('a1', 'a', const Duration(hours: -1))]),
+            'me'),
+        UserStories.fromJson(
+            _groupOf('b', [
+              _story('b1', 'b', const Duration(hours: -1)),
+              _story('b2', 'b', const Duration(hours: 1)),
+            ]),
+            'me'),
+      ];
+      final kept = dropExpiredStoryGroups(groups);
+      expect(kept.map((g) => g.user.id), ['b']);
+      expect(kept.single.stories.map((s) => s.id), ['b2']);
+      expect(kept.single.latestStory?.id, 'b2');
+      expect(kept.single.unviewedCount, 1);
     });
   });
 

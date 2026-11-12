@@ -165,9 +165,14 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> with Widg
         {'success': true, 'data': snapshot.data, 'discover': snapshot.discover},
         userId,
       );
+      // The cache outlives the stories in it (7 days vs 24 hours); nothing
+      // live left is the same as no cache (the skeleton stays).
+      final followed = dropExpiredStoryGroups(parsed.followed);
+      final discover = dropExpiredStoryGroups(parsed.discover);
+      if (followed.isEmpty && discover.isEmpty) return;
       setState(() {
-        _followed = parsed.followed;
-        _discover = parsed.discover;
+        _followed = followed;
+        _discover = discover;
         _blocked = blocked;
         _currentUserId = userId;
         _isLoading = false;

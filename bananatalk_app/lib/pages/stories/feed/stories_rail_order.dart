@@ -117,3 +117,31 @@ List<String> storyViewerPrecacheUrls({
   }
   return urls;
 }
+
+/// [groups] with expired stories removed, and without the groups left with
+/// no live story. For a rail painted from the cache: it lives 7 days, a
+/// story 24 hours, and a ring with nothing live opens an empty viewer.
+List<UserStories> dropExpiredStoryGroups(List<UserStories> groups) {
+  final kept = <UserStories>[];
+  for (final g in groups) {
+    final live = g.activeStories;
+    if (live.isEmpty) continue;
+    if (live.length == g.stories.length) {
+      kept.add(g);
+      continue;
+    }
+    final latest = g.latestStory;
+    final unviewed =
+        g.unviewedCount < live.length ? g.unviewedCount : live.length;
+    kept.add(UserStories(
+      user: g.user,
+      stories: live,
+      hasUnviewed: g.hasUnviewed && unviewed > 0,
+      unviewedCount: unviewed,
+      latestStory: latest != null && live.any((s) => s.id == latest.id)
+          ? latest
+          : live.last,
+    ));
+  }
+  return kept;
+}
