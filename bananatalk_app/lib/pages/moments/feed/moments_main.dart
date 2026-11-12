@@ -196,6 +196,19 @@ final filteredMomentsForTabProvider =
       final blockedUserIdsAsync = ref.watch(blockedUserIdsProvider);
       final mutedUserIds = ref.watch(mutedMomentsProvider);
 
+      // A list painted from the first-page cache waits for the block and
+      // mute lists: until they are read the filter below sees empty sets and
+      // a blocked author's cached post would flash. Fresh pages keep today's
+      // behaviour.
+      final listsPending =
+          (blockedUserIdsAsync.isLoading && !blockedUserIdsAsync.hasValue) ||
+              !ref.read(mutedMomentsProvider.notifier).loaded;
+      if (listsPending &&
+          momentsAsync.hasValue &&
+          ref.read(baseProviderFor(tab).notifier).showingCached) {
+        return const AsyncValue<List<Moments>>.loading();
+      }
+
       return momentsAsync.whenData((moments) {
         final blockedUserIds = blockedUserIdsAsync.value ?? <String>{};
 

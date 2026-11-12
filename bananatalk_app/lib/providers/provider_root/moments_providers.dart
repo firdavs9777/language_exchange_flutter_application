@@ -1014,6 +1014,12 @@ class PagedMomentsFeedNotifier extends AsyncNotifier<List<Moments>> {
   bool _hasMore = false;
   bool _loadingMore = false;
   bool _loadMoreFailed = false;
+  bool _showingCached = false;
+
+  /// The list on screen came from the first-page cache and the fresh page 1
+  /// has not replaced it (yet). The feed holds such a list back until the
+  /// block and mute lists are known.
+  bool get showingCached => _showingCached;
 
   /// Whether another page may exist below the loaded ones.
   bool get hasMore => _hasMore;
@@ -1043,12 +1049,14 @@ class PagedMomentsFeedNotifier extends AsyncNotifier<List<Moments>> {
     _hasMore = false;
     _loadingMore = false;
     _loadMoreFailed = false;
+    _showingCached = false;
     final userId = await _cacheUserId();
     final cached = await _readCached(userId);
     if (cached != null) {
       // Shown at once; the fetch below replaces it. loadMore stays off
       // (_hasMore is false) until the fresh page decides it.
       _firstPageCount = cached.length;
+      _showingCached = true;
       state = AsyncData(cached);
     }
     final MomentsFeedPage first;
@@ -1062,7 +1070,10 @@ class PagedMomentsFeedNotifier extends AsyncNotifier<List<Moments>> {
     }
     _firstPageCount = first.moments.length;
     _hasMore = first.hasMore && first.moments.isNotEmpty;
-    _writeCache(userId, first);
+    _showingCached = false;
+    // Only under the id the page was fetched for: an account switch during
+    // the fetch must not leave this user's posts under the new user's id.
+    if (await _cacheUserId() == userId) _writeCache(userId, first);
     _stampFreshness();
     if (cached == null) return first.moments;
     return mergeFreshFirstPage(first.moments, cached, cached.length);
@@ -1097,7 +1108,9 @@ class PagedMomentsFeedNotifier extends AsyncNotifier<List<Moments>> {
 
   void _writeCache(String? userId, MomentsFeedPage first) {
     final raw = first.rawMoments;
-    if (userId == null || raw == null || raw.isEmpty) return;
+    // An empty page is written too: the next cold start must not show the
+    // posts that are gone.
+    if (userId == null || raw == null) return;
     _cache.write(feedMode: cacheFeedMode!, userId: userId, rawMoments: raw);
   }
 
@@ -1139,13 +1152,15 @@ class PagedMomentsFeedNotifier extends AsyncNotifier<List<Moments>> {
       return;
     }
     try {
+      final userId = await _cacheUserId();
       final first = await _fetch(ref, 1);
       if (!identical(state.valueOrNull, current)) return;
+      _showingCached = false;
       state = AsyncData(
         mergeFreshFirstPage(first.moments, current, _firstPageCount),
       );
       _firstPageCount = first.moments.length;
-      _writeCache(await _cacheUserId(), first);
+      if (await _cacheUserId() == userId) _writeCache(userId, first);
       _stampFreshness();
     } catch (_) {
       // Keep what is shown.
