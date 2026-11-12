@@ -12615,4 +12615,29 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get storiesDiscoverLabel => 'Keşfet';
+
+  @override
+  String hashtagPostCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count gönderi',
+      one: '$count gönderi',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get hashtagSortTop => 'Popüler';
+
+  @override
+  String get hashtagSortRecent => 'En yeni';
+
+  @override
+  String get hashtagEmpty => 'Bu etiketle henüz gönderi yok';
+
+  @override
+  String hashtagShowingRelated(String topic) {
+    return 'Bu etiketi kullanan gönderi henüz az. $topic ile ilgili gönderiler gösteriliyor.';
+  }
 }

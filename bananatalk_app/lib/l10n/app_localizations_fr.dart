@@ -12628,4 +12628,29 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get storiesDiscoverLabel => 'Découvrir';
+
+  @override
+  String hashtagPostCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count publications',
+      one: '$count publication',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get hashtagSortTop => 'Populaires';
+
+  @override
+  String get hashtagSortRecent => 'Récents';
+
+  @override
+  String get hashtagEmpty => 'Aucune publication avec ce hashtag pour l\'instant';
+
+  @override
+  String hashtagShowingRelated(String topic) {
+    return 'Peu de publications utilisent ce tag pour l\'instant. Affichage des publications sur $topic.';
+  }
 }

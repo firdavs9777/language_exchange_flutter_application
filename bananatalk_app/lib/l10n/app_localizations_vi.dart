@@ -12597,4 +12597,28 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get storiesDiscoverLabel => 'Khám phá';
+
+  @override
+  String hashtagPostCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count bài viết',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get hashtagSortTop => 'Nổi bật';
+
+  @override
+  String get hashtagSortRecent => 'Mới nhất';
+
+  @override
+  String get hashtagEmpty => 'Chưa có bài viết nào với hashtag này';
+
+  @override
+  String hashtagShowingRelated(String topic) {
+    return 'Hiện còn ít bài viết dùng thẻ này. Đang hiển thị bài viết về $topic.';
+  }
 }

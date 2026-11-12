@@ -6,6 +6,7 @@ import 'package:bananatalk_app/pages/coins/boost_screen.dart';
 import 'package:bananatalk_app/pages/home/Home.dart';
 import 'package:bananatalk_app/pages/home/splash_screen.dart';
 import 'package:bananatalk_app/pages/menu_tab/TabBarMenu.dart';
+import 'package:bananatalk_app/pages/moments/hashtag/hashtag_page_screen.dart';
 import 'package:bananatalk_app/pages/moments/moment_detail_wrapper.dart';
 import 'package:bananatalk_app/pages/stories/viewer/story_link_screen.dart';
 import 'package:bananatalk_app/pages/profile/profile_wrapper.dart';
@@ -238,6 +239,16 @@ final goRouter = GoRouter(
           child: MomentDetailWrapper(momentId: momentId),
         );
       },
+    ),
+
+    // A hashtag's page. The screen shows its empty state while the server
+    // has hashtags off, so a deep link never crashes.
+    GoRoute(
+      path: '/hashtag/:tag',
+      pageBuilder: (context, state) => _buildSlideTransition(
+        state: state,
+        child: HashtagPageScreen(tag: state.pathParameters['tag']!),
+      ),
     ),
 
     // Shared story link: https://banatalk.com/story/<id> (links#1). Reached

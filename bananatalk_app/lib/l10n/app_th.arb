@@ -4772,5 +4772,10 @@
   "loginUseSocialProvider": "บัญชีนี้ลงชื่อเข้าใช้ด้วย {provider} โปรดดำเนินการต่อด้วย {provider}",
   "loginNoPasswordYet": "บัญชีนี้ยังไม่มีรหัสผ่าน ใช้ “ลืมรหัสผ่าน” เพื่อตั้งรหัสผ่าน",
   "feedCouldNotLoadMore": "โหลดโพสต์เพิ่มเติมไม่ได้",
-  "storiesDiscoverLabel": "ค้นพบ"
+  "storiesDiscoverLabel": "ค้นพบ",
+  "hashtagPostCount": "{count, plural, other{{count} โพสต์}}",
+  "hashtagSortTop": "ยอดนิยม",
+  "hashtagSortRecent": "ล่าสุด",
+  "hashtagEmpty": "ยังไม่มีโพสต์ที่ใช้แฮชแท็กนี้",
+  "hashtagShowingRelated": "ยังมีโพสต์ที่ใช้แท็กนี้น้อย จึงแสดงโพสต์เกี่ยวกับ {topic}"
 }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:bananatalk_app/widgets/hashtag_text.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:bananatalk_app/services/moments_service.dart';
 import 'package:bananatalk_app/pages/moments/widgets/moments_snackbar.dart';
@@ -248,7 +250,7 @@ class _SavedMomentsScreenState extends State<SavedMomentsScreen> {
 }
 
 /// Reusable moment card that can be used across the app
-class MomentCard extends StatelessWidget {
+class MomentCard extends ConsumerWidget {
   final Moments moment;
   final VoidCallback? onSaveChanged;
   final VoidCallback? onTap;
@@ -261,7 +263,8 @@ class MomentCard extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final hashtagsEnabled = ref.watch(hashtagsEnabledProvider);
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: InkWell(
@@ -404,13 +407,17 @@ class MomentCard extends StatelessWidget {
                 Wrap(
                   spacing: 8,
                   children: moment.tags.take(5).map((tag) {
-                    return Chip(
-                      label: Text(
-                        '#$tag',
-                        style: const TextStyle(fontSize: 12),
+                    return HashtagTap(
+                      enabled: hashtagsEnabled,
+                      tag: tag,
+                      child: Chip(
+                        label: Text(
+                          '#$tag',
+                          style: const TextStyle(fontSize: 12),
+                        ),
+                        padding: EdgeInsets.zero,
+                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       ),
-                      padding: EdgeInsets.zero,
-                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     );
                   }).toList(),
                 ),

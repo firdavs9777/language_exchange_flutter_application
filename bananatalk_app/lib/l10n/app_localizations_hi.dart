@@ -12628,4 +12628,29 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get storiesDiscoverLabel => 'खोजें';
+
+  @override
+  String hashtagPostCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count पोस्ट',
+      one: '$count पोस्ट',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get hashtagSortTop => 'लोकप्रिय';
+
+  @override
+  String get hashtagSortRecent => 'नवीनतम';
+
+  @override
+  String get hashtagEmpty => 'इस हैशटैग वाली कोई पोस्ट अभी नहीं है';
+
+  @override
+  String hashtagShowingRelated(String topic) {
+    return 'इस टैग वाली पोस्ट अभी कम हैं। $topic से जुड़ी पोस्ट दिखाई जा रही हैं।';
+  }
 }

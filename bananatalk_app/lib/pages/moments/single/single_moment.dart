@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:bananatalk_app/widgets/hashtag_text.dart';
 import 'package:bananatalk_app/pages/comments/comments_main.dart';
 import 'package:bananatalk_app/pages/comments/create_comment.dart';
 import 'package:bananatalk_app/providers/provider_root/comments_providers.dart';
@@ -473,6 +474,7 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
 
   @override
   Widget build(BuildContext context) {
+    final hashtagsEnabled = ref.watch(hashtagsEnabledProvider);
     return Scaffold(
       backgroundColor: context.surfaceColor,
       appBar: AppBar(
@@ -684,9 +686,10 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                       widget.moment.description.trim().isNotEmpty) ...[
                     Padding(
                       padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
-                      child: Text(
-                        widget.moment.description,
+                      child: HashtagText(
+                        text: widget.moment.description,
                         style: context.bodyMedium,
+                        linksEnabled: hashtagsEnabled,
                       ),
                     ),
                     // Inline translate affordance — chip when collapsed, full
@@ -756,21 +759,25 @@ class _SingleMomentState extends ConsumerState<SingleMoment> {
                             ),
                           // Tags
                           ...widget.moment.tags.map(
-                            (tag) => Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 8,
-                                vertical: 4,
-                              ),
-                              decoration: BoxDecoration(
-                                color: AppColors.primary.withValues(alpha: 0.1),
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: Text(
-                                '#$tag',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: AppColors.primary,
-                                  fontWeight: FontWeight.w500,
+                            (tag) => HashtagTap(
+                              enabled: hashtagsEnabled,
+                              tag: tag,
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 8,
+                                  vertical: 4,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: AppColors.primary.withValues(alpha: 0.1),
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Text(
+                                  '#$tag',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: AppColors.primary,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
                               ),
                             ),

@@ -5012,5 +5012,10 @@
   "loginUseSocialProvider": "Dieses Konto nutzt die Anmeldung mit {provider}. Bitte fahre mit {provider} fort.",
   "loginNoPasswordYet": "Dieses Konto hat noch kein Passwort. Lege über „Passwort vergessen“ eines fest.",
   "feedCouldNotLoadMore": "Weitere Beiträge konnten nicht geladen werden",
-  "storiesDiscoverLabel": "Entdecken"
+  "storiesDiscoverLabel": "Entdecken",
+  "hashtagPostCount": "{count, plural, one{{count} Beitrag} other{{count} Beiträge}}",
+  "hashtagSortTop": "Beliebt",
+  "hashtagSortRecent": "Neueste",
+  "hashtagEmpty": "Noch keine Beiträge mit diesem Hashtag",
+  "hashtagShowingRelated": "Noch wenige Beiträge mit diesem Tag. Es werden Beiträge zu {topic} angezeigt."
 }

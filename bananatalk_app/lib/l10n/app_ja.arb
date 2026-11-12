@@ -4772,5 +4772,10 @@
   "loginUseSocialProvider": "このアカウントは{provider}でサインインします。{provider}で続けてください。",
   "loginNoPasswordYet": "このアカウントにはまだパスワードがありません。「パスワードをお忘れですか」から設定してください。",
   "feedCouldNotLoadMore": "これ以上の投稿を読み込めませんでした",
-  "storiesDiscoverLabel": "発見"
+  "storiesDiscoverLabel": "発見",
+  "hashtagPostCount": "{count, plural, other{{count}件の投稿}}",
+  "hashtagSortTop": "人気",
+  "hashtagSortRecent": "新着",
+  "hashtagEmpty": "このハッシュタグの投稿はまだありません",
+  "hashtagShowingRelated": "このタグの投稿はまだ少ないため、{topic}に関する投稿を表示しています。"
 }

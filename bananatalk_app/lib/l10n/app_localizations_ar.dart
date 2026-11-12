@@ -12718,4 +12718,33 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get storiesDiscoverLabel => 'اكتشف';
+
+  @override
+  String hashtagPostCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count منشور',
+      many: '$count منشورًا',
+      few: '$count منشورات',
+      two: 'منشوران',
+      one: 'منشور واحد',
+      zero: 'لا منشورات',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get hashtagSortTop => 'الأكثر رواجًا';
+
+  @override
+  String get hashtagSortRecent => 'الأحدث';
+
+  @override
+  String get hashtagEmpty => 'لا توجد منشورات بهذا الهاشتاغ بعد';
+
+  @override
+  String hashtagShowingRelated(String topic) {
+    return 'عدد المنشورات بهذا الوسم قليل حتى الآن. نعرض منشورات عن $topic.';
+  }
 }

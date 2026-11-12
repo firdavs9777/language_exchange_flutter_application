@@ -12597,4 +12597,28 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get storiesDiscoverLabel => 'ค้นพบ';
+
+  @override
+  String hashtagPostCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count โพสต์',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get hashtagSortTop => 'ยอดนิยม';
+
+  @override
+  String get hashtagSortRecent => 'ล่าสุด';
+
+  @override
+  String get hashtagEmpty => 'ยังไม่มีโพสต์ที่ใช้แฮชแท็กนี้';
+
+  @override
+  String hashtagShowingRelated(String topic) {
+    return 'ยังมีโพสต์ที่ใช้แท็กนี้น้อย จึงแสดงโพสต์เกี่ยวกับ $topic';
+  }
 }

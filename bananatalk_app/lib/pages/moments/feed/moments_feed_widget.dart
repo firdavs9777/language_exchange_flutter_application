@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:bananatalk_app/widgets/navigation/floating_tab_bar.dart';
+import 'package:bananatalk_app/pages/moments/feed/feed_load_more_footer.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 import 'package:bananatalk_app/pages/moments/card/moment_card.dart';
@@ -73,7 +76,7 @@ class MomentsFeedWidget extends ConsumerWidget {
 
   /// The last next-page fetch failed: a Retry row replaces the spinner.
   final bool loadMoreFailed;
-  final VoidCallback? onRetryLoadMore;
+  final FutureOr<void> Function()? onRetryLoadMore;
 
   const MomentsFeedWidget({
     super.key,
@@ -116,44 +119,9 @@ class MomentsFeedWidget extends ConsumerWidget {
           itemCount: items.length + (hasMore ? 1 : 0),
           itemBuilder: (context, index) {
             if (index == items.length) {
-              if (loadMoreFailed) {
-                final l10n = AppLocalizations.of(context)!;
-                return Padding(
-                  key: const ValueKey('feed-load-more-failed'),
-                  padding: const EdgeInsets.symmetric(vertical: 12),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Flexible(
-                        child: Text(
-                          l10n.feedCouldNotLoadMore,
-                          style: context.bodySmall,
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      TextButton(
-                        onPressed: onRetryLoadMore,
-                        child: Text(l10n.retry),
-                      ),
-                    ],
-                  ),
-                );
-              }
-              return Padding(
-                key: const ValueKey('feed-load-more'),
-                padding: const EdgeInsets.symmetric(vertical: 24),
-                child: Center(
-                  child: SizedBox(
-                    width: 24,
-                    height: 24,
-                    child: CircularProgressIndicator(
-                      strokeWidth: 2,
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                        Theme.of(context).colorScheme.primary,
-                      ),
-                    ),
-                  ),
-                ),
+              return FeedLoadMoreFooter(
+                failed: loadMoreFailed,
+                onRetry: onRetryLoadMore,
               );
             }
             final item = items[index];

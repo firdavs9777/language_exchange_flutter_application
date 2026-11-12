@@ -12597,4 +12597,28 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get storiesDiscoverLabel => '発見';
+
+  @override
+  String hashtagPostCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count件の投稿',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get hashtagSortTop => '人気';
+
+  @override
+  String get hashtagSortRecent => '新着';
+
+  @override
+  String get hashtagEmpty => 'このハッシュタグの投稿はまだありません';
+
+  @override
+  String hashtagShowingRelated(String topic) {
+    return 'このタグの投稿はまだ少ないため、$topicに関する投稿を表示しています。';
+  }
 }

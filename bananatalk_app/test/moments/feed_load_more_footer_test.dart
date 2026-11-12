@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/moments/feed/moments_feed_widget.dart';
 import 'package:bananatalk_app/pages/moments/feed/moments_main.dart'
@@ -73,5 +75,28 @@ void main() {
     await tester.pump(const Duration(seconds: 1));
     expect(find.byKey(const ValueKey('feed-load-more')), findsNothing);
     expect(find.byKey(const ValueKey('feed-load-more-failed')), findsNothing);
+  });
+
+  testWidgets('Retry shows a spinner in place of the button while it runs',
+      (tester) async {
+    final done = Completer<void>();
+    await tester.pumpWidget(
+      _feed(hasMore: true, loadMoreFailed: true, onRetry: () => done.future),
+    );
+    await tester.pump(const Duration(seconds: 1));
+    final row = find.byKey(const ValueKey('feed-load-more-failed'));
+    await tester.scrollUntilVisible(row, 300);
+    final l10n = AppLocalizations.of(tester.element(row))!;
+    await tester.tap(find.widgetWithText(TextButton, l10n.retry));
+    await tester.pump();
+    expect(find.widgetWithText(TextButton, l10n.retry), findsNothing);
+    expect(
+      find.descendant(of: row, matching: find.byType(CircularProgressIndicator)),
+      findsOneWidget,
+    );
+    // A second tap cannot start a second retry (no button).
+    done.complete();
+    await tester.pump();
+    expect(find.widgetWithText(TextButton, l10n.retry), findsOneWidget);
   });
 }

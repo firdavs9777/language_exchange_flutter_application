@@ -5012,5 +5012,10 @@
   "loginUseSocialProvider": "Ce compte se connecte avec {provider}. Continuez avec {provider}.",
   "loginNoPasswordYet": "Ce compte n’a pas encore de mot de passe. Utilisez « Mot de passe oublié » pour en créer un.",
   "feedCouldNotLoadMore": "Impossible de charger plus de publications",
-  "storiesDiscoverLabel": "Découvrir"
+  "storiesDiscoverLabel": "Découvrir",
+  "hashtagPostCount": "{count, plural, one{{count} publication} other{{count} publications}}",
+  "hashtagSortTop": "Populaires",
+  "hashtagSortRecent": "Récents",
+  "hashtagEmpty": "Aucune publication avec ce hashtag pour l'instant",
+  "hashtagShowingRelated": "Peu de publications utilisent ce tag pour l'instant. Affichage des publications sur {topic}."
 }

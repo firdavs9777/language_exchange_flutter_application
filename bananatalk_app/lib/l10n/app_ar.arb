@@ -4802,5 +4802,10 @@
   "loginUseSocialProvider": "يستخدم هذا الحساب تسجيل الدخول عبر {provider}. يُرجى المتابعة باستخدام {provider}.",
   "loginNoPasswordYet": "لا توجد كلمة مرور لهذا الحساب بعد. استخدم «نسيت كلمة المرور» لتعيين واحدة.",
   "feedCouldNotLoadMore": "تعذّر تحميل المزيد من المنشورات",
-  "storiesDiscoverLabel": "اكتشف"
+  "storiesDiscoverLabel": "اكتشف",
+  "hashtagPostCount": "{count, plural, zero{لا منشورات} one{منشور واحد} two{منشوران} few{{count} منشورات} many{{count} منشورًا} other{{count} منشور}}",
+  "hashtagSortTop": "الأكثر رواجًا",
+  "hashtagSortRecent": "الأحدث",
+  "hashtagEmpty": "لا توجد منشورات بهذا الهاشتاغ بعد",
+  "hashtagShowingRelated": "عدد المنشورات بهذا الوسم قليل حتى الآن. نعرض منشورات عن {topic}."
 }

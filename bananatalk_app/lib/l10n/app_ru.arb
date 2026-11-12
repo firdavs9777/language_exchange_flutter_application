@@ -4802,5 +4802,10 @@
   "loginUseSocialProvider": "Этот аккаунт входит через {provider}. Продолжите с {provider}.",
   "loginNoPasswordYet": "У этого аккаунта ещё нет пароля. Задайте его через «Забыли пароль».",
   "feedCouldNotLoadMore": "Не удалось загрузить другие публикации",
-  "storiesDiscoverLabel": "Обзор"
+  "storiesDiscoverLabel": "Обзор",
+  "hashtagPostCount": "{count, plural, one{{count} публикация} few{{count} публикации} many{{count} публикаций} other{{count} публикации}}",
+  "hashtagSortTop": "Популярные",
+  "hashtagSortRecent": "Новые",
+  "hashtagEmpty": "Пока нет публикаций с этим хештегом",
+  "hashtagShowingRelated": "С этим тегом пока мало публикаций. Показаны публикации по теме «{topic}»."
 }

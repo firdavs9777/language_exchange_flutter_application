@@ -12597,4 +12597,28 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get storiesDiscoverLabel => '발견';
+
+  @override
+  String hashtagPostCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '게시물 $count개',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get hashtagSortTop => '인기';
+
+  @override
+  String get hashtagSortRecent => '최신';
+
+  @override
+  String get hashtagEmpty => '이 해시태그의 게시물이 아직 없어요';
+
+  @override
+  String hashtagShowingRelated(String topic) {
+    return '이 태그의 게시물이 아직 적어서 $topic 관련 게시물을 보여드려요.';
+  }
 }

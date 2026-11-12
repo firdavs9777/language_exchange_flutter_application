@@ -12621,4 +12621,29 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get storiesDiscoverLabel => 'Tuklasin';
+
+  @override
+  String hashtagPostCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count post',
+      one: '$count post',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get hashtagSortTop => 'Nangunguna';
+
+  @override
+  String get hashtagSortRecent => 'Pinakabago';
+
+  @override
+  String get hashtagEmpty => 'Wala pang post na may hashtag na ito';
+
+  @override
+  String hashtagShowingRelated(String topic) {
+    return 'Kaunti pa lang ang post na gumagamit ng tag na ito. Ipinapakita ang mga post tungkol sa $topic.';
+  }
 }

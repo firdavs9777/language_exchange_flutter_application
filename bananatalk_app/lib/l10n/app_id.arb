@@ -4772,5 +4772,10 @@
   "loginUseSocialProvider": "Akun ini masuk dengan {provider}. Silakan lanjutkan dengan {provider}.",
   "loginNoPasswordYet": "Akun ini belum punya kata sandi. Gunakan “Lupa kata sandi” untuk membuatnya.",
   "feedCouldNotLoadMore": "Tidak dapat memuat postingan lainnya",
-  "storiesDiscoverLabel": "Jelajahi"
+  "storiesDiscoverLabel": "Jelajahi",
+  "hashtagPostCount": "{count, plural, other{{count} postingan}}",
+  "hashtagSortTop": "Teratas",
+  "hashtagSortRecent": "Terbaru",
+  "hashtagEmpty": "Belum ada postingan dengan tagar ini",
+  "hashtagShowingRelated": "Postingan dengan tagar ini masih sedikit. Menampilkan postingan tentang {topic}."
 }

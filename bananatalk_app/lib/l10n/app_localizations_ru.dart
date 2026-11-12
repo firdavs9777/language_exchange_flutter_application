@@ -13096,4 +13096,31 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get storiesDiscoverLabel => 'Обзор';
+
+  @override
+  String hashtagPostCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count публикации',
+      many: '$count публикаций',
+      few: '$count публикации',
+      one: '$count публикация',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get hashtagSortTop => 'Популярные';
+
+  @override
+  String get hashtagSortRecent => 'Новые';
+
+  @override
+  String get hashtagEmpty => 'Пока нет публикаций с этим хештегом';
+
+  @override
+  String hashtagShowingRelated(String topic) {
+    return 'С этим тегом пока мало публикаций. Показаны публикации по теме «$topic».';
+  }
 }

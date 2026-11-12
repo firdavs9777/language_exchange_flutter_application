@@ -22921,6 +22921,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Discover'**
   String get storiesDiscoverLabel;
+
+  /// Post count line under a hashtag page title
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{{count} post} other{{count} posts}}'**
+  String hashtagPostCount(int count);
+
+  /// Hashtag page sort segment: most popular posts first
+  ///
+  /// In en, this message translates to:
+  /// **'Top'**
+  String get hashtagSortTop;
+
+  /// Hashtag page sort segment: newest posts first
+  ///
+  /// In en, this message translates to:
+  /// **'Recent'**
+  String get hashtagSortRecent;
+
+  /// Empty state of a hashtag page with no posts
+  ///
+  /// In en, this message translates to:
+  /// **'No posts with this hashtag yet'**
+  String get hashtagEmpty;
+
+  /// Banner on a hashtag page with few posts: the list shows posts about a related topic instead
+  ///
+  /// In en, this message translates to:
+  /// **'Few posts use this tag yet. Showing posts about {topic}.'**
+  String hashtagShowingRelated(String topic);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

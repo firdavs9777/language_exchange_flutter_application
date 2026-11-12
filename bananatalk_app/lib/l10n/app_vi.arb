@@ -4772,5 +4772,10 @@
   "loginUseSocialProvider": "Tài khoản này đăng nhập bằng {provider}. Vui lòng tiếp tục với {provider}.",
   "loginNoPasswordYet": "Tài khoản này chưa có mật khẩu. Dùng “Quên mật khẩu” để đặt mật khẩu.",
   "feedCouldNotLoadMore": "Không thể tải thêm bài đăng",
-  "storiesDiscoverLabel": "Khám phá"
+  "storiesDiscoverLabel": "Khám phá",
+  "hashtagPostCount": "{count, plural, other{{count} bài viết}}",
+  "hashtagSortTop": "Nổi bật",
+  "hashtagSortRecent": "Mới nhất",
+  "hashtagEmpty": "Chưa có bài viết nào với hashtag này",
+  "hashtagShowingRelated": "Hiện còn ít bài viết dùng thẻ này. Đang hiển thị bài viết về {topic}."
 }

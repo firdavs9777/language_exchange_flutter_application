@@ -12608,4 +12608,28 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get storiesDiscoverLabel => 'Jelajahi';
+
+  @override
+  String hashtagPostCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count postingan',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get hashtagSortTop => 'Teratas';
+
+  @override
+  String get hashtagSortRecent => 'Terbaru';
+
+  @override
+  String get hashtagEmpty => 'Belum ada postingan dengan tagar ini';
+
+  @override
+  String hashtagShowingRelated(String topic) {
+    return 'Postingan dengan tagar ini masih sedikit. Menampilkan postingan tentang $topic.';
+  }
 }

@@ -4786,5 +4786,10 @@
   "loginUseSocialProvider": "此账号使用 {provider} 登录，请使用 {provider} 继续。",
   "loginNoPasswordYet": "此账号还没有密码，请通过“忘记密码”设置。",
   "feedCouldNotLoadMore": "无法加载更多帖子",
-  "storiesDiscoverLabel": "发现"
+  "storiesDiscoverLabel": "发现",
+  "hashtagPostCount": "{count, plural, other{{count} 篇帖子}}",
+  "hashtagSortTop": "热门",
+  "hashtagSortRecent": "最新",
+  "hashtagEmpty": "还没有使用此话题标签的帖子",
+  "hashtagShowingRelated": "使用此标签的帖子还很少，正在显示与{topic}相关的帖子。"
 }

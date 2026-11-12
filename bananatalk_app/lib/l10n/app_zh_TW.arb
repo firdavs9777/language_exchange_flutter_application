@@ -4463,5 +4463,10 @@
   "loginUseSocialProvider": "此帳號使用 {provider} 登入，請使用 {provider} 繼續。",
   "loginNoPasswordYet": "此帳號尚未設定密碼，請透過「忘記密碼」設定。",
   "feedCouldNotLoadMore": "無法載入更多貼文",
-  "storiesDiscoverLabel": "發現"
+  "storiesDiscoverLabel": "發現",
+  "hashtagPostCount": "{count, plural, other{{count} 則貼文}}",
+  "hashtagSortTop": "熱門",
+  "hashtagSortRecent": "最新",
+  "hashtagEmpty": "還沒有使用此主題標籤的貼文",
+  "hashtagShowingRelated": "使用此標籤的貼文還很少，目前顯示與{topic}相關的貼文。"
 }

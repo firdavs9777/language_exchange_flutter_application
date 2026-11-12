@@ -5012,5 +5012,10 @@
   "loginUseSocialProvider": "Questo account accede con {provider}. Continua con {provider}.",
   "loginNoPasswordYet": "Questo account non ha ancora una password. Usa «Password dimenticata» per impostarne una.",
   "feedCouldNotLoadMore": "Impossibile caricare altri post",
-  "storiesDiscoverLabel": "Scopri"
+  "storiesDiscoverLabel": "Scopri",
+  "hashtagPostCount": "{count, plural, one{{count} post} other{{count} post}}",
+  "hashtagSortTop": "Popolari",
+  "hashtagSortRecent": "Recenti",
+  "hashtagEmpty": "Ancora nessun post con questo hashtag",
+  "hashtagShowingRelated": "Ancora pochi post usano questo tag. Vengono mostrati post su {topic}."
 }

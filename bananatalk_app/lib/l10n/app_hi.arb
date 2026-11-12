@@ -4788,5 +4788,10 @@
   "loginUseSocialProvider": "यह खाता {provider} से साइन इन करता है। कृपया {provider} से जारी रखें।",
   "loginNoPasswordYet": "इस खाते का अभी कोई पासवर्ड नहीं है। सेट करने के लिए “पासवर्ड भूल गए” का उपयोग करें।",
   "feedCouldNotLoadMore": "और पोस्ट लोड नहीं हो सकीं",
-  "storiesDiscoverLabel": "खोजें"
+  "storiesDiscoverLabel": "खोजें",
+  "hashtagPostCount": "{count, plural, one{{count} पोस्ट} other{{count} पोस्ट}}",
+  "hashtagSortTop": "लोकप्रिय",
+  "hashtagSortRecent": "नवीनतम",
+  "hashtagEmpty": "इस हैशटैग वाली कोई पोस्ट अभी नहीं है",
+  "hashtagShowingRelated": "इस टैग वाली पोस्ट अभी कम हैं। {topic} से जुड़ी पोस्ट दिखाई जा रही हैं।"
 }

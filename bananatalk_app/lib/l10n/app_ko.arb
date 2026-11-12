@@ -4793,5 +4793,10 @@
   "loginUseSocialProvider": "이 계정은 {provider} 로그인을 사용합니다. {provider}(으)로 계속해 주세요.",
   "loginNoPasswordYet": "이 계정에는 아직 비밀번호가 없습니다. ‘비밀번호 찾기’로 설정해 주세요.",
   "feedCouldNotLoadMore": "게시물을 더 불러오지 못했어요",
-  "storiesDiscoverLabel": "발견"
+  "storiesDiscoverLabel": "발견",
+  "hashtagPostCount": "{count, plural, other{게시물 {count}개}}",
+  "hashtagSortTop": "인기",
+  "hashtagSortRecent": "최신",
+  "hashtagEmpty": "이 해시태그의 게시물이 아직 없어요",
+  "hashtagShowingRelated": "이 태그의 게시물이 아직 적어서 {topic} 관련 게시물을 보여드려요."
 }

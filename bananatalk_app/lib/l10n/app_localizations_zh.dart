@@ -12597,6 +12597,30 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get storiesDiscoverLabel => '发现';
+
+  @override
+  String hashtagPostCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count 篇帖子',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get hashtagSortTop => '热门';
+
+  @override
+  String get hashtagSortRecent => '最新';
+
+  @override
+  String get hashtagEmpty => '还没有使用此话题标签的帖子';
+
+  @override
+  String hashtagShowingRelated(String topic) {
+    return '使用此标签的帖子还很少，正在显示与$topic相关的帖子。';
+  }
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -25192,4 +25216,28 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get storiesDiscoverLabel => '發現';
+
+  @override
+  String hashtagPostCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count 則貼文',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get hashtagSortTop => '熱門';
+
+  @override
+  String get hashtagSortRecent => '最新';
+
+  @override
+  String get hashtagEmpty => '還沒有使用此主題標籤的貼文';
+
+  @override
+  String hashtagShowingRelated(String topic) {
+    return '使用此標籤的貼文還很少，目前顯示與$topic相關的貼文。';
+  }
 }

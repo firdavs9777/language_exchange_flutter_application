@@ -4802,5 +4802,10 @@
   "loginUseSocialProvider": "Esta cuenta inicia sesión con {provider}. Continúa con {provider}.",
   "loginNoPasswordYet": "Esta cuenta aún no tiene contraseña. Usa «¿Olvidaste tu contraseña?» para crear una.",
   "feedCouldNotLoadMore": "No se pudieron cargar más publicaciones",
-  "storiesDiscoverLabel": "Descubrir"
+  "storiesDiscoverLabel": "Descubrir",
+  "hashtagPostCount": "{count, plural, one{{count} publicación} other{{count} publicaciones}}",
+  "hashtagSortTop": "Populares",
+  "hashtagSortRecent": "Recientes",
+  "hashtagEmpty": "Aún no hay publicaciones con este hashtag",
+  "hashtagShowingRelated": "Aún hay pocas publicaciones con esta etiqueta. Se muestran publicaciones sobre {topic}."
 }

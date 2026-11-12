@@ -4745,5 +4745,10 @@
   "loginUseSocialProvider": "Gumagamit ang account na ito ng pag-sign in sa {provider}. Magpatuloy gamit ang {provider}.",
   "loginNoPasswordYet": "Wala pang password ang account na ito. Gamitin ang “Nakalimutan ang password” para gumawa nito.",
   "feedCouldNotLoadMore": "Hindi na-load ang iba pang post",
-  "storiesDiscoverLabel": "Tuklasin"
+  "storiesDiscoverLabel": "Tuklasin",
+  "hashtagPostCount": "{count, plural, one{{count} post} other{{count} post}}",
+  "hashtagSortTop": "Nangunguna",
+  "hashtagSortRecent": "Pinakabago",
+  "hashtagEmpty": "Wala pang post na may hashtag na ito",
+  "hashtagShowingRelated": "Kaunti pa lang ang post na gumagamit ng tag na ito. Ipinapakita ang mga post tungkol sa {topic}."
 }

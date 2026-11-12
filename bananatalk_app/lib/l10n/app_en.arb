@@ -8713,5 +8713,35 @@
   "storiesDiscoverLabel": "Discover",
   "@storiesDiscoverLabel": {
     "description": "Small label under a story ring in the Moments stories rail for someone you do not follow (Discover)"
+  },
+  "hashtagPostCount": "{count, plural, one{{count} post} other{{count} posts}}",
+  "@hashtagPostCount": {
+    "description": "Post count line under a hashtag page title",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "hashtagSortTop": "Top",
+  "@hashtagSortTop": {
+    "description": "Hashtag page sort segment: most popular posts first"
+  },
+  "hashtagSortRecent": "Recent",
+  "@hashtagSortRecent": {
+    "description": "Hashtag page sort segment: newest posts first"
+  },
+  "hashtagEmpty": "No posts with this hashtag yet",
+  "@hashtagEmpty": {
+    "description": "Empty state of a hashtag page with no posts"
+  },
+  "hashtagShowingRelated": "Few posts use this tag yet. Showing posts about {topic}.",
+  "@hashtagShowingRelated": {
+    "description": "Banner on a hashtag page with few posts: the list shows posts about a related topic instead",
+    "placeholders": {
+      "topic": {
+        "type": "String"
+      }
+    }
   }
 }

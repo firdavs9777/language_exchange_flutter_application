@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/widgets/hashtag_text.dart';
 import 'package:bananatalk_app/pages/community/single/single_community_screen.dart';
 import 'package:bananatalk_app/pages/moments/card/moment_card_double_tap.dart';
 import 'package:bananatalk_app/pages/moments/card/moment_card_gradient.dart';
@@ -881,13 +882,14 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              fullText,
+                            HashtagText(
+                              text: fullText,
                               style: style,
                               maxLines: isExpanded ? null : _captionMaxLines,
                               overflow: isExpanded
                                   ? TextOverflow.visible
                                   : TextOverflow.ellipsis,
+                              linksEnabled: ref.watch(hashtagsEnabledProvider),
                             ),
                             if (overflows)
                               GestureDetector(

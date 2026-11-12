@@ -12617,4 +12617,29 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get storiesDiscoverLabel => 'Кашф';
+
+  @override
+  String hashtagPostCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count нашр',
+      one: '$count нашр',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get hashtagSortTop => 'Беҳтарин';
+
+  @override
+  String get hashtagSortRecent => 'Навтарин';
+
+  @override
+  String get hashtagEmpty => 'Ҳанӯз нашре бо ин ҳештег нест';
+
+  @override
+  String hashtagShowingRelated(String topic) {
+    return 'Бо ин тег ҳанӯз нашрҳо кам аст. Нашрҳо дар бораи $topic нишон дода мешаванд.';
+  }
 }
