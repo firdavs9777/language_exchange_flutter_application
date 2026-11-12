@@ -11,8 +11,9 @@ class ReelsPage {
 
   final List<Moments> reels;
 
-  /// ISO-8601 `createdAt` cursor for the next page (`?before=`), or `null`
-  /// when there's nothing more to load.
+  /// Opaque cursor for the next page, sent back verbatim as `?before=`
+  /// (`s2:<anchorMs>:<offset>`, or the old ISO-8601 form), or `null` when
+  /// there's nothing more to load.
   final String? nextCursor;
 }
 
@@ -20,12 +21,16 @@ class ReelsPage {
 ///
 /// API contract (backend track, built in parallel — see
 /// `docs/superpowers/plans/2026-07-14-reels.md` Task 2):
-/// `GET /api/v1/moments/reels?limit=&before=<ISO createdAt cursor>` ->
+/// `GET /api/v1/moments/reels?limit=&before=<opaque cursor>` ->
 /// `{success, data: [moments], nextCursor}`. Reels are standard Moment JSON
 /// (populated user/video/language/promptId/likeCount/commentCount/isLiked),
 /// so this reuses the existing `Moments.fromJson` — no separate reel model.
 /// The endpoint 404s when the server-side `REELS_ENABLED` kill switch is off.
 class ReelsApiClient {
+  ReelsApiClient({http.Client? client}) : _client = client ?? http.Client();
+
+  final http.Client _client;
+
   Future<ReelsPage> getReels({String? before, int limit = 12}) async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token');
@@ -35,7 +40,7 @@ class ReelsApiClient {
       url += '&before=${Uri.encodeComponent(before)}';
     }
 
-    final response = await http.get(
+    final response = await _client.get(
       Uri.parse(url),
       headers: {
         'Content-Type': 'application/json',
