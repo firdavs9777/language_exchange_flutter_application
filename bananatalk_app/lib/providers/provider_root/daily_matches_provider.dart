@@ -10,10 +10,11 @@ import 'package:bananatalk_app/services/matching_daily_service.dart';
 ///
 /// With the fast-list flag off (read, never watched) this is exactly the
 /// plain fetch it always was. With it on, the fetch also keeps the batch on
-/// disk for the next cold open, and the first fetch starts the one disk read
-/// of [dailyMatchesCachedProvider] -- which therefore only exists when the
-/// flag was on at that first fetch, so a flag that turns on later never
-/// paints from disk.
+/// disk for the next cold open, and starts [dailyMatchesCachedProvider] (read
+/// from disk once per session; later fetches reuse it). What keeps the disk
+/// copy from ever painting late or over live state is the Matches tab's gate:
+/// it shows that copy only while this provider has neither a value nor an
+/// error, and only if the copy exists -- i.e. a flag-on fetch has started.
 final dailyMatchesProvider = FutureProvider<DailyMatchesResult>((ref) {
   if (!ref.read(communityFastListEnabledProvider)) {
     return MatchingDailyService.getDaily();
@@ -23,9 +24,11 @@ final dailyMatchesProvider = FutureProvider<DailyMatchesResult>((ref) {
 });
 
 Future<DailyMatchesResult> _fetchAndKeep(CommunityFirstPageCache cache) async {
+  // Taken first: a sign-out (cache cleared) during the fetch drops the write.
+  final epoch = cache.epoch;
   final userId = await cache.signedInUserId();
   final fetched = await MatchingDailyService.getDailyWithRaw();
-  if (userId != null) unawaited(_keep(cache, userId, fetched.raw));
+  if (userId != null) unawaited(_keep(cache, userId, fetched.raw, epoch));
   return fetched.result;
 }
 
@@ -36,8 +39,9 @@ Future<void> _keep(
   CommunityFirstPageCache cache,
   String userId,
   Map<String, dynamic>? raw,
+  int epoch,
 ) async {
-  if (await cache.signedInUserId() != userId) return;
+  if (await cache.signedInUserId() != userId || cache.epoch != epoch) return;
   final next = raw?['nextRefreshAt'];
   final rows = raw?['matches'];
   if (next is! String || DateTime.tryParse(next) == null || rows is! List) {
@@ -49,6 +53,7 @@ Future<void> _keep(
     slot: CommunityFirstPageCache.daily,
     rows: rows.whereType<Map<String, dynamic>>().toList(),
     meta: {CommunityFirstPageCache.nextRefreshAtKey: next},
+    epoch: epoch,
   );
 }
 

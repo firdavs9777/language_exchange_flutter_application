@@ -1037,9 +1037,15 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
     }
   }
 
-  /// Identifies the exact filter set a cached page 1 was loaded for.
-  static String diskFingerprint(PartnerFilterParams filters) =>
-      jsonEncode(SplayTreeMap<String, String>.of(filters.toQuery()));
+  /// [diskFingerprint] of the request this notifier sends for [filters].
+  String _diskFingerprintFor(PartnerFilterParams filters) =>
+      diskFingerprint(filters, sort: _sortFor(filters));
+
+  /// Identifies the exact request a cached page 1 was loaded for: the filter
+  /// set plus the effective [sort] (the server's `smart` default included),
+  /// so a list kept under one ordering is never painted under another.
+  static String diskFingerprint(PartnerFilterParams filters, {String? sort}) =>
+      jsonEncode(SplayTreeMap<String, String>.of(filters.toQuery(sort: sort)));
 
   /// True when the state already holds page 1 for exactly [filters] (search
   /// included), loaded under [freshFor] ago, and the fast-list flag is on.
@@ -1129,11 +1135,16 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
 
     final fast = _fastListEnabled();
     // Flag off: no disk access of any kind.
-    final diskUserId = fast && diskCacheable
-        ? await _diskCache.signedInUserId()
-        : null;
+    final diskOn = fast && diskCacheable;
+    // Taken before the user id: a sign-out (cache cleared) from here on
+    // makes the write below a no-op even while the stored id still matches.
+    final diskEpoch = _diskCache.epoch;
+    final diskUserId = diskOn ? await _diskCache.signedInUserId() : null;
+    // A session reset disposed this notifier during the disk access.
+    if (!mounted) return;
     if (diskUserId != null && mayPaintFromDisk) {
       await _paintFromDisk(diskUserId, filters, generation);
+      if (!mounted) return;
     }
     try {
       final response = await _service.getUsersPage(
@@ -1146,7 +1157,7 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
       );
 
       // Filters changed while this request was in flight: drop the stale page.
-      if (state.filters != filters) return;
+      if (!mounted || state.filters != filters) return;
 
       // With the flag off the server's cursor is ignored, whatever it sends.
       final cursor = fast ? response.nextCursor : null;
@@ -1171,10 +1182,10 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
       );
       _loadedFilters = filters;
       if (diskUserId != null && generation == _generation) {
-        await _writeToDisk(diskUserId, filters, response);
+        await _writeToDisk(diskUserId, filters, response, diskEpoch);
       }
     } catch (e) {
-      if (state.filters != filters) return;
+      if (!mounted || state.filters != filters) return;
       _loadedFilters = null;
       state = state.copyWith(isLoading: false, error: e.toString());
     }
@@ -1192,8 +1203,9 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
       userId: userId,
       slot: CommunityFirstPageCache.partners,
     );
-    if (snapshot == null ||
-        snapshot.meta['fingerprint'] != diskFingerprint(filters)) {
+    if (!mounted ||
+        snapshot == null ||
+        snapshot.meta['fingerprint'] != _diskFingerprintFor(filters)) {
       return;
     }
     final users = <Community>[];
@@ -1228,6 +1240,7 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
     String userId,
     PartnerFilterParams filters,
     PaginatedCommunityResponse response,
+    int epoch,
   ) async {
     if (await _diskCache.signedInUserId() != userId) return;
     await _diskCache.write(
@@ -1235,9 +1248,10 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
       slot: CommunityFirstPageCache.partners,
       rows: response.rawUsers,
       meta: {
-        'fingerprint': diskFingerprint(filters),
+        'fingerprint': _diskFingerprintFor(filters),
         'total': response.total,
       },
+      epoch: epoch,
     );
   }
 

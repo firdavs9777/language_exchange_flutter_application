@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/models/app_config.dart';
+import 'package:bananatalk_app/providers/provider_models/daily_match_model.dart';
 import 'package:bananatalk_app/pages/community/card/match_card.dart';
 import 'package:bananatalk_app/pages/community/tabs/matches_tab.dart';
 import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
@@ -87,6 +89,8 @@ void main() {
   late RecordingPrefs prefs;
   late ProviderContainer container;
   var showTab = true;
+  var boosts = false;
+  Override? cachedOverride;
   late StateSetter swap;
 
   ProviderContainer makeContainer() {
@@ -95,6 +99,18 @@ void main() {
       communityFirstPageCacheProvider.overrideWithValue(
         CommunityFirstPageCache(prefs: RecordingPrefs.getter(prefs)),
       ),
+      if (boosts)
+        appConfigProvider.overrideWith(
+            (ref) async => const AppConfig(
+                  minVersion: '0',
+                  latestVersion: '0',
+                  forceUpdate: false,
+                  iosUrl: '',
+                  androidUrl: '',
+                  releaseNotes: '',
+                  boostsEnabled: true,
+                )),
+      if (cachedOverride != null) cachedOverride!,
     ]);
     addTearDown(c.dispose);
     return c;
@@ -139,6 +155,8 @@ void main() {
       net = _Net();
       flag = true;
       showTab = true;
+      boosts = false;
+      cachedOverride = null;
       prefs = RecordingPrefs(await SharedPreferences.getInstance());
       await http.runWithClient(() => body(tester), () => net.client);
     });
@@ -303,6 +321,47 @@ void main() {
     net.dailyGate!.complete();
     await settle(tester);
     expect(find.text('Person n1'), findsOneWidget);
+  });
+
+  run('no extra-matches purchase offer on a cached batch', (tester) async {
+    boosts = true;
+    await _seed('me', ['x']);
+    net.dailyGate = Completer();
+    await pumpTab(tester);
+    expect(find.text('Person x'), findsOneWidget);
+    expect(find.byKey(const Key('extra-matches-cta')), findsNothing);
+    net.dailyGate!.complete();
+    await settle(tester);
+    expect(find.text('Person n1'), findsOneWidget);
+    expect(find.byKey(const Key('extra-matches-cta')), findsOneWidget);
+  });
+
+  run('the network batch landing before the disk read: the disk copy is '
+      'never shown', (tester) async {
+    final diskGate = Completer<void>();
+    cachedOverride = dailyMatchesCachedProvider.overrideWith((ref) async {
+      await diskGate.future;
+      return DailyMatchesResult.fromJson({
+        'nextRefreshAt': _next.toUtc().toIso8601String(),
+        'matches': [_match('x')],
+      });
+    });
+    await pumpTab(tester);
+    expect(find.text('Person n1'), findsOneWidget);
+    diskGate.complete();
+    await settle(tester);
+    expect(find.text('Person x'), findsNothing);
+    expect(find.text('Person n1'), findsOneWidget);
+  });
+
+  run('a batch write that straddles a sign-out writes nothing', (tester) async {
+    net.dailyGate = Completer();
+    await pumpTab(tester);
+    // Sign-out has cleared the cache; the stored userId is not gone yet.
+    await CommunityFirstPageCache().clearAll();
+    net.dailyGate!.complete();
+    await settle(tester);
+    expect(await onDisk('me'), isNull);
   });
 
   run('kill switch (404) removes the cached batch', (tester) async {

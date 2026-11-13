@@ -56,6 +56,13 @@ class CommunityFirstPageCache {
   /// painted at or after it.
   static const String nextRefreshAtKey = 'nextRefreshAt';
 
+  /// Bumped by every [clearAll] (sign-out, "clear all cache"). A caller takes
+  /// [epoch] before its fetch and passes it to [write]: a write begun before
+  /// a clear is dropped, even if the stored user id has not been removed yet.
+  static int _epoch = 0;
+
+  int get epoch => _epoch;
+
   static String keyFor(String userId, String slot) =>
       '$keyPrefix${userId}_$slot';
 
@@ -78,10 +85,12 @@ class CommunityFirstPageCache {
     required String slot,
     required List<Map<String, dynamic>> rows,
     Map<String, dynamic>? meta,
+    int? epoch,
   }) async {
     if (userId.isEmpty || !slots.contains(slot)) return;
     try {
       final prefs = await _prefs();
+      if (epoch != null && epoch != _epoch) return;
       final kept = rows
           .where((r) => rowUserId(r) != userId)
           .take(maxRows)
@@ -98,6 +107,9 @@ class CommunityFirstPageCache {
         await prefs.remove(keyFor(userId, slot));
         return;
       }
+      // Checked again with no await before the store: a clear that started
+      // during the encoding wins.
+      if (epoch != null && epoch != _epoch) return;
       await prefs.setString(keyFor(userId, slot), encoded);
     } catch (_) {
       // A cache that cannot be written is just a cold start next time.
@@ -209,6 +221,7 @@ class CommunityFirstPageCache {
 
   /// Every entry of every user (sign-out, Data & Storage "clear all").
   Future<void> clearAll() async {
+    _epoch++;
     try {
       final prefs = await _prefs();
       for (final key in prefs.getKeys().toList()) {

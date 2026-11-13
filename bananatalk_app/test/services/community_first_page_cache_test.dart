@@ -172,6 +172,18 @@ void main() {
     expect(daily.meta['nextRefreshAt'], next);
   });
 
+  test('a write begun before a clearAll is dropped; one begun after is kept',
+      () async {
+    final cache = CommunityFirstPageCache(now: () => t0);
+    final before = cache.epoch;
+    await cache.clearAll();
+    await cache.write(userId: 'me', slot: p, rows: [_row('a')], epoch: before);
+    expect(await cache.read(userId: 'me', slot: p), isNull);
+    await cache.write(
+        userId: 'me', slot: p, rows: [_row('a')], epoch: cache.epoch);
+    expect(await cache.read(userId: 'me', slot: p), isNotNull);
+  });
+
   test('clearAll removes every entry and nothing else', () async {
     final cache = CommunityFirstPageCache(now: () => t0);
     await cache.write(userId: 'me', slot: p, rows: [_row('a')]);

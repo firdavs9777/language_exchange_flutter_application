@@ -306,7 +306,8 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
           _exhaustedAdFired = false;
           _maybePrimeOnFirstMatches();
         }
-        final showExtra = shouldShowExtraMatchesCta(
+        // A coins purchase is never offered on the copy from disk.
+        final showExtra = !fromCache && shouldShowExtraMatchesCta(
           boostsEnabled: boostsEnabled,
           count: result.matches.length,
         );

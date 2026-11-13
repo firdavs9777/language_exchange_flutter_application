@@ -10,6 +10,7 @@ import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/services/community_first_page_cache.dart';
 import 'package:bananatalk_app/services/session_reset.dart';
 import 'package:bananatalk_app/widgets/community/partner_card.dart';
+import 'package:bananatalk_app/widgets/community/user_skeleton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -92,12 +93,13 @@ void main() {
   group('PartnerFilterNotifier disk-first', () {
     late _FakeService service;
     late bool flag;
+    late bool smart;
     late RecordingPrefs prefs;
     late CommunityFirstPageCache cache;
 
     PartnerFilterNotifier make() => PartnerFilterNotifier(
           service,
-          () => false,
+          () => smart,
           () => flag,
           DateTime.now,
           cache,
@@ -107,9 +109,17 @@ void main() {
       SharedPreferences.setMockInitialValues({'userId': 'me'});
       service = _FakeService();
       flag = true;
+      smart = false;
       prefs = RecordingPrefs(await SharedPreferences.getInstance());
       cache = CommunityFirstPageCache(prefs: RecordingPrefs.getter(prefs));
     });
+
+    /// A cache whose every preferences access waits for [gate].
+    CommunityFirstPageCache gated(Completer<void> gate) =>
+        CommunityFirstPageCache(prefs: () async {
+          await gate.future;
+          return prefs;
+        });
 
     test('flag off: no preferences call at all, no paint, no write', () async {
       await _seed('me', ['x', 'y']);
@@ -307,6 +317,76 @@ void main() {
           .read(userId: 'me', slot: CommunityFirstPageCache.partners);
       expect(written!.rows.single, _raw('a'));
     });
+
+    test('the fingerprint includes the effective sort', () {
+      expect(PartnerFilterNotifier.diskFingerprint(_default, sort: 'smart'),
+          isNot(PartnerFilterNotifier.diskFingerprint(_default)));
+      expect(
+          PartnerFilterNotifier.diskFingerprint(_default, sort: 'smart'),
+          PartnerFilterNotifier.diskFingerprint(_default, sort: 'smart'));
+    });
+
+    test('a page cached under one ordering is not painted under another',
+        () async {
+      await _seed('me', ['x']); // written with smart sort off
+      smart = true;
+      final n = make();
+      service.gate = Completer();
+      unawaited(n.loadWithFilters(_default, diskCacheable: true));
+      await _flush();
+      expect(n.state.users, isEmpty);
+      expect(n.state.fromCache, isFalse);
+    });
+
+    test('a filter change while the disk read is pending wins', () async {
+      await _seed('me', ['x']);
+      final gate = Completer<void>();
+      cache = gated(gate);
+      final n = make();
+      final first = n.loadWithFilters(_default, diskCacheable: true);
+      await _flush();
+      const male = PartnerFilterParams(gender: 'male');
+      final second = n.loadWithFilters(male);
+      await _flush();
+      gate.complete();
+      await first;
+      await second;
+      await _flush();
+      expect(n.state.filters, male);
+      expect(n.state.fromCache, isFalse);
+      expect(_ids(n.state), ['a', 'b', 'c', 'd', 'e', 'f']);
+      expect(service.queries.where((q) => q['gender'] == 'male'), hasLength(1));
+    });
+
+    test('a notifier disposed during the disk read throws nothing', () async {
+      await _seed('me', ['x']);
+      final gate = Completer<void>();
+      cache = gated(gate);
+      final n = make();
+      final load = n.loadWithFilters(_default, diskCacheable: true);
+      await _flush();
+      n.dispose();
+      gate.complete();
+      await load;
+      await _flush();
+      expect(service.queries, isEmpty);
+    });
+
+    test('a page-1 write that straddles a sign-out writes nothing', () async {
+      final n = make();
+      service.gate = Completer();
+      final load = n.loadWithFilters(_default, diskCacheable: true);
+      await _flush();
+      // Sign-out has cleared the cache; the stored userId is not gone yet.
+      await CommunityFirstPageCache().clearAll();
+      service.gate!.complete(_page(['a']));
+      await load;
+      await _flush();
+      expect(
+          await CommunityFirstPageCache()
+              .read(userId: 'me', slot: CommunityFirstPageCache.partners),
+          isNull);
+    });
   });
 
   group('Partners tab', () {
@@ -319,6 +399,7 @@ void main() {
     var showTab = true;
     late StateSetter swap;
     String search = '';
+    CommunityFirstPageCache? tabCache;
 
     Future<void> pumpHost(WidgetTester tester) async {
       container = ProviderContainer(
@@ -332,7 +413,7 @@ void main() {
               () => false,
               () => flag,
               DateTime.now,
-              CommunityFirstPageCache(),
+              tabCache ?? CommunityFirstPageCache(),
             ),
           ),
         ],
@@ -377,6 +458,7 @@ void main() {
         excludedGate = null;
         showTab = true;
         search = '';
+        tabCache = null;
         client = MockClient((req) async {
           if (req.url.path.endsWith('interactions/excluded')) {
             await excludedGate?.future;
@@ -418,6 +500,48 @@ void main() {
       await settle(tester);
       expect(find.text('Person x'), findsNothing);
       expect(find.text('Person n1'), findsOneWidget);
+    });
+
+    run('flag off: the tab makes no preferences call for the cache',
+        (tester) async {
+      await _seed('me', ['x']);
+      flag = false;
+      final rec = RecordingPrefs(await SharedPreferences.getInstance());
+      tabCache = CommunityFirstPageCache(prefs: RecordingPrefs.getter(rec));
+      service.gate = Completer();
+      await pumpHost(tester);
+      expect(find.text('Person x'), findsNothing);
+      service.gate!.complete(_page(['n1']));
+      await settle(tester);
+      expect(find.text('Person n1'), findsOneWidget);
+      unawaited(tester
+          .state<RefreshIndicatorState>(find.byType(RefreshIndicator))
+          .show());
+      await settle(tester);
+      expect(rec.calls, isEmpty);
+    });
+
+    run('cached rows all filtered out: the loading skeleton, not the empty '
+        'state, until the network page lands', (tester) async {
+      excludedIds = {'x', 'y'};
+      await coldStartWithCache(tester, ['x', 'y']);
+      expect(container.read(partnerFilterProvider).fromCache, isTrue);
+      expect(find.text('No partners found'), findsNothing);
+      expect(find.byType(UserListSkeleton), findsOneWidget);
+      service.gate!.complete(_page(['n1']));
+      await settle(tester);
+      expect(find.byType(UserListSkeleton), findsNothing);
+      expect(find.text('Person n1'), findsOneWidget);
+    });
+
+    run('cached rows all filtered out and the network fails: the error body',
+        (tester) async {
+      excludedIds = {'x'};
+      await coldStartWithCache(tester, ['x']);
+      service.gate!.completeError(Exception('down'));
+      await settle(tester);
+      expect(find.text('No partners found'), findsNothing);
+      expect(find.byIcon(Icons.error_outline_rounded), findsOneWidget);
     });
 
     run('cold start shows cached rows before the network, then replaces them',

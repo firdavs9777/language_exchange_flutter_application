@@ -435,6 +435,16 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
         }
 
         if (filteredCommunities.isEmpty) {
+          // Everyone from disk is filtered out while page 1 is still out:
+          // show what a load without a disk copy shows now, never "no
+          // partners".
+          if (partnerState.fromCache) {
+            return withChips(
+              partnerState.isLoading
+                  ? _buildLoading()
+                  : _buildError(partnerState.error),
+            );
+          }
           if (partnerState.isLoadingMore) return _buildLoading();
           // Keep the segment row visible so an empty segment is escapable.
           return Column(
