@@ -233,7 +233,7 @@ class _FailedSheetState extends ConsumerState<_FailedSheet> {
                   Navigator.pop(context);
                   notifier.retryUpload(taskId);
                 },
-                child: Text(l10n.storyUploadRetry),
+                child: Text(l10n.retry),
               ),
             TextButton(
               key: const Key('story-upload-remove'),

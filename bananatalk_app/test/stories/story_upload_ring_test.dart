@@ -193,6 +193,12 @@ void main() {
       await t.tap(find.byKey(const Key('story-upload-failed')));
       await t.pumpAndSettle();
       expect(find.text("Your story couldn't be posted."), findsOneWidget);
+      // A button, not the chip's "Tap to retry".
+      expect(
+          find.descendant(
+              of: find.byKey(const Key('story-upload-retry')),
+              matching: find.text('Retry')),
+          findsOneWidget);
       await t.tap(find.byKey(const Key('story-upload-retry')));
       await t.pumpAndSettle();
       expect(manager.retried, ['x']);

@@ -506,7 +506,10 @@ void main() {
       await _dispose(tester);
     });
 
-    testWidgets('a missing language is sent as auto', (tester) async {
+    testWidgets(
+        'a missing language is sent empty (the server then uses the '
+        "saver's learning language, never a language called auto)",
+        (tester) async {
       String? lang;
       await _pump(
         tester,
@@ -528,7 +531,7 @@ void main() {
       );
       await tester.tap(find.text('Save word'));
       await tester.pump();
-      expect(lang, 'auto');
+      expect(lang, '');
       await _dispose(tester);
     });
 

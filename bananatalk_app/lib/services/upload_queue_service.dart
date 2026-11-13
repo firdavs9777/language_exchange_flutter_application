@@ -424,12 +424,14 @@ class UploadQueueService {
   Future<void> cancelUpload(String taskId) async {
     final taskIndex = _tasks.indexWhere((t) => t.id == taskId);
     if (taskIndex != -1) {
-      _tasks[taskIndex] = _tasks[taskIndex].copyWith(
+      final cancelled = _tasks[taskIndex].copyWith(
         status: UploadStatus.cancelled,
       );
+      _tasks[taskIndex] = cancelled;
       _notifyTasksChanged();
       await _saveTasks();
-      await _deleteStoryCopy(_tasks[taskIndex]);
+      // Not _tasks[taskIndex]: the save awaited, and the list may have moved.
+      await _deleteStoryCopy(cancelled);
     }
   }
 
@@ -513,7 +515,7 @@ class UploadQueueService {
       if (task.isStory) {
         await _processStoryTask(task, generation);
       } else {
-        await _processTask(task, taskIndex, generation);
+        await _processTask(task, generation);
       }
     }
 
@@ -524,16 +526,26 @@ class UploadQueueService {
     }
   }
 
+  /// Writes [update] onto the task with [id] wherever it sits now; false,
+  /// writing nothing, when it has left the queue.
+  ///
+  /// The moment path must never hold a list index across an await: a task
+  /// removed meanwhile (the stories ring's Remove) shifts every task after
+  /// it, and a stale index writes into another task or past the end.
+  bool _updateTask(String id, UploadTask Function(UploadTask) update) {
+    final i = _tasks.indexWhere((t) => t.id == id);
+    if (i == -1) return false;
+    _tasks[i] = update(_tasks[i]);
+    return true;
+  }
+
   /// Process a single upload task
-  Future<void> _processTask(
-    UploadTask task,
-    int taskIndex, [
-    int? generation,
-  ]) async {
+  Future<void> _processTask(UploadTask task, [int? generation]) async {
     final gen = generation ?? _sessionGeneration;
+    final id = task.id;
     try {
       // Update status to uploading
-      _tasks[taskIndex] = task.copyWith(status: UploadStatus.uploading);
+      _updateTask(id, (_) => task.copyWith(status: UploadStatus.uploading));
       _notifyTasksChanged();
       _notifyProgress(task.id, 0.0, UploadStatus.uploading);
 
@@ -541,10 +553,10 @@ class UploadQueueService {
 
       switch (task.type) {
         case UploadType.moment:
-          resultId = await _uploadMoment(task, taskIndex, gen);
+          resultId = await _uploadMoment(task, gen);
           break;
         case UploadType.momentVideo:
-          resultId = await _uploadMomentWithVideo(task, taskIndex, gen);
+          resultId = await _uploadMomentWithVideo(task, gen);
           break;
         case UploadType.story:
         case UploadType.storyVideo:
@@ -554,13 +566,17 @@ class UploadQueueService {
       }
 
       _checkSession(gen);
-      // Mark as completed
-      _tasks[taskIndex] = _tasks[taskIndex].copyWith(
-        status: UploadStatus.completed,
-        progress: 1.0,
-        completedAt: DateTime.now(),
-        resultId: resultId,
-      );
+      // Mark as completed (unless it was removed while uploading).
+      if (!_updateTask(
+          id,
+          (t) => t.copyWith(
+                status: UploadStatus.completed,
+                progress: 1.0,
+                completedAt: DateTime.now(),
+                resultId: resultId,
+              ))) {
+        return;
+      }
       _notifyTasksChanged();
       _notifyProgress(task.id, 1.0, UploadStatus.completed, message: 'Upload complete!');
       await _saveTasks();
@@ -569,6 +585,8 @@ class UploadQueueService {
       // Signed out mid-upload: the task is gone with its account. Writing
       // its failure would index into the next account's queue.
       if (e is _SessionEnded || gen != _sessionGeneration) return;
+      // Removed while uploading: nothing left to mark or retry.
+      if (!_tasks.any((t) => t.id == id)) return;
 
       // Increment retry count and check if should retry
       final newRetryCount = task.retryCount + 1;
@@ -581,11 +599,15 @@ class UploadQueueService {
         if (gen != _sessionGeneration) return;
       }
 
-      _tasks[taskIndex] = task.copyWith(
-        status: shouldRetry ? UploadStatus.queued : UploadStatus.failed,
-        error: e.toString(),
-        retryCount: newRetryCount,
-      );
+      if (!_updateTask(
+          id,
+          (_) => task.copyWith(
+                status: shouldRetry ? UploadStatus.queued : UploadStatus.failed,
+                error: e.toString(),
+                retryCount: newRetryCount,
+              ))) {
+        return;
+      }
       _notifyTasksChanged();
       _notifyProgress(
         task.id,
@@ -617,8 +639,7 @@ class UploadQueueService {
   /// restart -- re-runs only the media step that failed. Before this, every
   /// retry created another moment: a photo or video step that failed twice
   /// left three caption-only copies in the feed.
-  Future<String> _createOrReuseMoment(
-      UploadTask task, int taskIndex, int gen) async {
+  Future<String> _createOrReuseMoment(UploadTask task, int gen) async {
     final metadata = task.metadata;
     final existing = metadata[kCreatedMomentIdKey];
     if (existing is String && existing.isNotEmpty) return existing;
@@ -672,11 +693,11 @@ class UploadQueueService {
   }
 
   /// Upload a moment (text + optional images, no video)
-  Future<String?> _uploadMoment(UploadTask task, int taskIndex, int gen) async {
-    final momentId = await _createOrReuseMoment(task, taskIndex, gen);
+  Future<String?> _uploadMoment(UploadTask task, int gen) async {
+    final momentId = await _createOrReuseMoment(task, gen);
 
     // Update progress
-    _tasks[taskIndex] = _tasks[taskIndex].copyWith(progress: 0.3);
+    _updateTask(task.id, (t) => t.copyWith(progress: 0.3));
     _notifyProgress(task.id, 0.3, UploadStatus.uploading, message: 'Uploading images...');
 
     // Upload images if any
@@ -685,18 +706,17 @@ class UploadQueueService {
       await _momentsService.uploadMomentPhotos(momentId, imageFiles);
     }
 
-    _tasks[taskIndex] = _tasks[taskIndex].copyWith(progress: 1.0);
+    _updateTask(task.id, (t) => t.copyWith(progress: 1.0));
     return momentId;
   }
 
   /// Upload a moment with video
-  Future<String?> _uploadMomentWithVideo(
-      UploadTask task, int taskIndex, int gen) async {
+  Future<String?> _uploadMomentWithVideo(UploadTask task, int gen) async {
     final metadata = task.metadata;
-    final momentId = await _createOrReuseMoment(task, taskIndex, gen);
+    final momentId = await _createOrReuseMoment(task, gen);
 
     // Update progress
-    _tasks[taskIndex] = _tasks[taskIndex].copyWith(progress: 0.2);
+    _updateTask(task.id, (t) => t.copyWith(progress: 0.2));
     _notifyProgress(task.id, 0.2, UploadStatus.uploading, message: 'Uploading video...');
 
     // Upload video
@@ -710,7 +730,7 @@ class UploadQueueService {
           if (gen != _sessionGeneration) return;
           // Map progress (0-100) to our range (0.2-0.9)
           final mappedProgress = 0.2 + (progress / 100) * 0.7;
-          _tasks[taskIndex] = _tasks[taskIndex].copyWith(progress: mappedProgress);
+          _updateTask(task.id, (t) => t.copyWith(progress: mappedProgress));
           _notifyProgress(task.id, mappedProgress, UploadStatus.uploading,
               message: 'Uploading video... $progress%');
         },
@@ -726,7 +746,7 @@ class UploadQueueService {
       await _momentsService.uploadMomentPhotos(momentId, imageFiles);
     }
 
-    _tasks[taskIndex] = _tasks[taskIndex].copyWith(progress: 1.0);
+    _updateTask(task.id, (t) => t.copyWith(progress: 1.0));
     return momentId;
   }
 

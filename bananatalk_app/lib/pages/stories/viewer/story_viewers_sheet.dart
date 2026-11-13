@@ -41,11 +41,17 @@ class StoryViewersSheet extends StatefulWidget {
   /// sheet shows the error snackbar and pops itself.
   final VoidCallback? onLoadFailed;
 
+  /// True when a page hosts the content (the story-insights screen): it then
+  /// fills its parent with no draggable sheet or handle, and a viewer tap
+  /// opens the profile on top of the page instead of closing a modal first.
+  final bool embedded;
+
   const StoryViewersSheet({
     super.key,
     required this.storyId,
     required this.initialViewCount,
     this.onLoadFailed,
+    this.embedded = false,
   });
 
   /// Shows the sheet modally. Returns after the sheet is dismissed so the
@@ -167,9 +173,47 @@ class _StoryViewersSheetState extends State<StoryViewersSheet> {
     });
   }
 
+  Widget _buildHeader(ColorScheme colorScheme) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: Row(
+        children: [
+          Icon(Icons.visibility_outlined, size: 20, color: colorScheme.onSurface),
+          const SizedBox(width: 8),
+          Text(
+            AppLocalizations.of(context)!.storySeenBy(_viewCount),
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              color: colorScheme.onSurface,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+
+    if (widget.embedded) {
+      // The page's host passes no real count: no "Seen by 0" while loading.
+      return ColoredBox(
+        color: colorScheme.surface,
+        child: Column(
+          children: [
+            if (!_loading && !_hasError) ...[
+              _buildHeader(colorScheme),
+              Divider(
+                  height: 1,
+                  color: colorScheme.outlineVariant.withValues(alpha: 0.3)),
+            ],
+            Expanded(child: _buildBody(null, colorScheme)),
+          ],
+        ),
+      );
+    }
 
     return DraggableScrollableSheet(
       initialChildSize: 0.5,
@@ -193,23 +237,7 @@ class _StoryViewersSheetState extends State<StoryViewersSheet> {
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                child: Row(
-                  children: [
-                    Icon(Icons.visibility_outlined, size: 20, color: colorScheme.onSurface),
-                    const SizedBox(width: 8),
-                    Text(
-                      AppLocalizations.of(context)!.storySeenBy(_viewCount),
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: colorScheme.onSurface,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              _buildHeader(colorScheme),
               Divider(height: 1, color: colorScheme.outlineVariant.withValues(alpha: 0.3)),
               Expanded(
                 child: _buildBody(scrollController, colorScheme),
@@ -221,7 +249,7 @@ class _StoryViewersSheetState extends State<StoryViewersSheet> {
     );
   }
 
-  Widget _buildBody(ScrollController scrollController, ColorScheme colorScheme) {
+  Widget _buildBody(ScrollController? scrollController, ColorScheme colorScheme) {
     if (_loading) {
       return ListView.builder(
         controller: scrollController,
@@ -434,7 +462,9 @@ class _StoryViewersSheetState extends State<StoryViewersSheet> {
       onTap: user == null
           ? null
           : () {
-              Navigator.pop(context);
+              // In the modal, close it first; on a page, stay under the
+              // profile so back returns here.
+              if (!widget.embedded) Navigator.pop(context);
               Navigator.push(
                 context,
                 MaterialPageRoute(

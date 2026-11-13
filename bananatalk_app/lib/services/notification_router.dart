@@ -504,7 +504,6 @@ class NotificationRouter {
       '/chat/',
       '/moment/',
       '/moments/compose',
-      '/story-insights/',
       '/profile/',
       '/tabs/',
       '/matching',

@@ -808,7 +808,9 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
     final result = await widget.saveWord(
       word: sticker.word,
       translation: sticker.meaning,
-      language: sticker.language ?? 'auto',
+      // Empty, not 'auto': the server falls back to the saver's learning
+      // language only for an empty field.
+      language: sticker.language ?? '',
       exampleSentence: sticker.example,
     );
     if (!mounted) return;

@@ -61,6 +61,7 @@ class _StoryInsightsScreenState extends ConsumerState<StoryInsightsScreen> {
           body: StoryViewersSheet(
             storyId: widget.storyId,
             initialViewCount: 0,
+            embedded: true,
             onLoadFailed: () {
               if (mounted) setState(() => _showArchive = true);
             },

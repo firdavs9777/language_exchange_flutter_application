@@ -280,6 +280,14 @@ void main() {
       expect(seenBody, '{"optionIndex":0}');
     });
 
+    test('200 with an unreadable body is a success without a quiz', () async {
+      respond(200, 'not json');
+      final r = await StoriesService.answerQuiz(storyId: 's1', optionIndex: 0);
+      expect(r.success, isTrue, reason: 'the server recorded the answer');
+      expect(r.quiz, isNull);
+      expect(r.isCorrect, isFalse);
+    });
+
     test('400 and 404 are failures with the message', () async {
       respond(400, '{"message":"Story has expired"}');
       var r = await StoriesService.answerQuiz(storyId: 's1', optionIndex: 0);
@@ -334,5 +342,31 @@ void main() {
       expect(s.reactions, 3);
       expect((r['views'] as List).single.completed, isTrue);
     });
+  });
+
+  test(
+      'with no test client every request gets its own client, as the '
+      'top-level http calls on main did (no shared keep-alive client)',
+      () async {
+    var first = 0;
+    var second = 0;
+    String ok() => jsonEncode({
+          'success': true,
+          'data': {'viewCount': 0, 'views': []},
+        });
+    await http.runWithClient(
+        () => StoriesService.getStoryViewers(storyId: 's1'),
+        () => MockClient((_) async {
+              first++;
+              return http.Response(ok(), 200);
+            }));
+    await http.runWithClient(
+        () => StoriesService.getStoryViewers(storyId: 's1'),
+        () => MockClient((_) async {
+              second++;
+              return http.Response(ok(), 200);
+            }));
+    expect(first, 1);
+    expect(second, 1, reason: 'a client kept from the first call was reused');
   });
 }

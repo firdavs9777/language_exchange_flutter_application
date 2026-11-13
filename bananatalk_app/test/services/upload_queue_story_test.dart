@@ -817,6 +817,51 @@ void main() {
       expect(active(), isEmpty);
     });
 
+    test(
+        'removing a failed story while a moment uploads: the moment completes '
+        'and the queue keeps draining', () async {
+      answers = [() => limit()];
+      final story = await queue.queueStoryUpload(photo());
+      await idle(story);
+      expect(taskOf(story)!.status, UploadStatus.failed);
+
+      final createStarted = Completer<void>();
+      final releaseCreate = Completer<void>();
+      var creates = 0;
+      late String moment;
+      late String later;
+      await http.runWithClient(() async {
+        // The story sits failed at index 0; the moment is index 1.
+        moment = await queue.queueMomentUpload(description: 'first');
+        await createStarted.future;
+
+        // The ring's Remove, while the moment's create is on the wire.
+        await queue.removeTask(story);
+        releaseCreate.complete();
+
+        await until(() => taskOf(moment)?.status == UploadStatus.completed,
+            'moment completed');
+        later = await queue.queueMomentUpload(description: 'second');
+        await until(() => taskOf(later)?.status == UploadStatus.completed,
+            'later moment completed');
+      }, () => MockClient((req) async {
+            creates++;
+            if (!createStarted.isCompleted) createStarted.complete();
+            await releaseCreate.future;
+            return http.Response(
+                jsonEncode({
+                  'success': true,
+                  'data': {'_id': 'm$creates', 'description': 'x'},
+                }),
+                201);
+          }));
+
+      expect(taskOf(story), isNull);
+      expect(taskOf(moment)!.resultId, 'm1');
+      expect(taskOf(later)!.resultId, 'm2');
+      expect(creates, 2, reason: 'each moment is created exactly once');
+    });
+
     test('remove and cancel delete the private copy', () async {
       answers = [() => limit()];
       final a = await queue.queueStoryUpload(photo());

@@ -22,7 +22,10 @@ class StoriesService {
   static http.Client? httpClient;
 
   static http.Client get _client => httpClient ?? _defaultClient;
-  static final http.Client _defaultClient = http.Client();
+
+  /// One client per request, closed when its response is read: exactly what
+  /// the top-level `http.post` / `request.send()` calls did before the seam.
+  static final http.Client _defaultClient = _PerRequestClient();
 
   static Future<String?> _getToken() async {
     final prefs = await SharedPreferences.getInstance();
@@ -785,7 +788,10 @@ class StoriesService {
         body: jsonEncode({'optionIndex': optionIndex}),
       );
       if (response.statusCode == 200) {
-        final data = (jsonDecode(response.body) as Map?)?['data'];
+        Object? data;
+        try {
+          data = (jsonDecode(response.body) as Map?)?['data'];
+        } catch (_) {}
         final quiz = data is Map
             ? StoryQuizSticker.fromJsonOrNull(data['quiz'])
             : null;
@@ -1176,4 +1182,12 @@ class StoriesService {
       default: return 'image/jpeg';
     }
   }
+}
+
+/// Sends every request through `BaseRequest.send()`, which makes a fresh
+/// client and closes it once the response stream is done.
+class _PerRequestClient extends http.BaseClient {
+  @override
+  Future<http.StreamedResponse> send(http.BaseRequest request) =>
+      request.send();
 }
