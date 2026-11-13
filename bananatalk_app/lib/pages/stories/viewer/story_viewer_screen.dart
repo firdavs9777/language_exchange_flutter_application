@@ -160,6 +160,7 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
   final Set<String> _correctionSentIds = {};
   final Set<String> _correctionRepliesOffIds = {};
   final Set<String> _savedWordIds = {};
+  final Set<String> _correctionSendingIds = {};
 
   /// The signed-in user's id, used to recover the viewer's own vote /
   /// answer / reaction from older backends that do not send
@@ -251,6 +252,9 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
   Future<void> _initializeCurrentStory() async {
     final story = _currentStory;
     if (story == null) return;
+    // A pause requested by a sticker field that left the tree with the old
+    // story (focused field, paged away) must not outlive it.
+    _isPaused = false;
     // Highlights play a flat list that may not be "active" stories, and the
     // own-story viewer has nothing ahead worth the bytes.
     if (widget.stories == null && !widget.isOwnStory) {
@@ -722,8 +726,14 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
       optionIndex: optionIndex,
     );
     if (!mounted) return false;
-    if (result.success && result.quiz != null) {
-      setState(() => _quizOverrides[story.id] = result.quiz!);
+    if (result.success) {
+      // No readable quiz in a successful answer: keep the pick as answered
+      // (no percentages; the next story load brings them).
+      final current = _quizOverrides[story.id] ?? story.quizSticker!;
+      setState(() {
+        _quizOverrides[story.id] = result.quiz ??
+            current.copyWith(hasAnswered: true, userAnswerIndex: optionIndex);
+      });
       return true;
     }
     showStoriesSnackBar(
@@ -735,11 +745,23 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
   }
 
   Future<CorrectionResult> _submitCorrection(Story story, String text) async {
-    final result = await StoriesService.submitCorrection(
-      storyId: story.id,
-      text: text,
-    );
+    // In flight is viewer state (keyed by story) so paging away and back
+    // cannot offer a second send.
+    if (!_correctionSendingIds.add(story.id)) {
+      return const CorrectionResult(outcome: CorrectionOutcome.failure);
+    }
+    if (mounted) setState(() {});
+    final CorrectionResult result;
+    try {
+      result = await StoriesService.submitCorrection(
+        storyId: story.id,
+        text: text,
+      );
+    } finally {
+      _correctionSendingIds.remove(story.id);
+    }
     if (!mounted) return result;
+    setState(() {});
     final previous = _correctionOverrides[story.id] ?? story.correctionSticker!;
     switch (result.outcome) {
       case CorrectionOutcome.success:
@@ -797,13 +819,6 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
         context,
         message: l10n.addedToVocabulary,
         type: StoriesSnackBarType.success,
-      );
-    } else if ('${result['error']}'.toLowerCase().contains('already')) {
-      setState(() => _savedWordIds.add(story.id));
-      showStoriesSnackBar(
-        context,
-        message: l10n.alreadyInVocabulary,
-        type: StoriesSnackBarType.info,
       );
     } else {
       showStoriesSnackBar(
@@ -1785,6 +1800,7 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
                   story.allowReplies &&
                   !_correctionRepliesOffIds.contains(story.id),
               sent: _correctionSentIds.contains(story.id),
+              sending: _correctionSendingIds.contains(story.id),
               onSubmit: widget.isOwnStory
                   ? null
                   : (text) => _submitCorrection(story, text),

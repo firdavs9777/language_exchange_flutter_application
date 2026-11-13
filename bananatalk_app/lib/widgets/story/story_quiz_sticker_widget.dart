@@ -45,6 +45,7 @@ class _StoryQuizStickerWidgetState extends State<StoryQuizStickerWidget> {
     if (widget.readOnly ||
         widget.isOwner ||
         _revealed ||
+        widget.quiz.hasAnswered ||
         _pending != null ||
         widget.onAnswer == null) {
       return;
@@ -154,6 +155,9 @@ class _StoryQuizStickerWidgetState extends State<StoryQuizStickerWidget> {
       );
     } else if (isWrongPick) {
       trailing = const Icon(Icons.cancel, color: Colors.orangeAccent, size: 20);
+    } else if (!revealed && o.index == widget.quiz.userAnswerIndex) {
+      // Answered, but the server sent no results: just mark the pick.
+      trailing = const Icon(Icons.check, color: Colors.white, size: 20);
     } else if (isPending) {
       trailing = KeyedSubtree(
         key: Key('quiz-pending-${o.index}'),
@@ -165,7 +169,10 @@ class _StoryQuizStickerWidgetState extends State<StoryQuizStickerWidget> {
       );
     }
 
-    final tappable = !revealed && !widget.readOnly && !widget.isOwner;
+    final tappable = !revealed &&
+        !widget.readOnly &&
+        !widget.isOwner &&
+        !widget.quiz.hasAnswered;
     return Material(
       color: Colors.transparent,
       child: InkWell(

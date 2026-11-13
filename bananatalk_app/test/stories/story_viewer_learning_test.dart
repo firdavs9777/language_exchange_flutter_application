@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ import 'package:bananatalk_app/providers/provider_models/story_model.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/services/stories_service.dart';
 import 'package:bananatalk_app/widgets/story/story_correction_sticker_widget.dart';
+import 'package:bananatalk_app/widgets/story/story_progress_bar.dart';
 import 'package:bananatalk_app/widgets/story/story_quiz_sticker_widget.dart';
 import 'package:bananatalk_app/widgets/story/story_word_sticker_widget.dart';
 
@@ -155,6 +157,22 @@ void main() {
       },
     );
 
+    testWidgets('a successful answer without a readable quiz keeps the pick',
+        (tester) async {
+      _respond((r) => http.Response('{"success":true}', 200));
+      await _pump(tester, [_story({'quizSticker': _quizJson})]);
+      await tester.tap(find.text('goed'));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 50));
+      expect(find.byType(SnackBar), findsNothing);
+      expect(find.byIcon(Icons.check), findsOneWidget);
+      expect(find.textContaining('%'), findsNothing);
+      await tester.tap(find.text('went'));
+      await tester.pump();
+      expect(_calls.length, 1, reason: 'cannot answer twice');
+      await _dispose(tester);
+    });
+
     testWidgets('a failed answer rolls back and says so', (tester) async {
       _respond((r) => http.Response('{"success":false}', 400));
       await _pump(tester, [
@@ -237,6 +255,78 @@ void main() {
         await _dispose(tester);
       },
     );
+
+    testWidgets('a send in flight stays disabled after paging away and back',
+        (tester) async {
+      final held = Completer<http.Response>();
+      var sends = 0;
+      StoriesService.httpClient = MockClient((req) async {
+        if (req.url.path.endsWith('/correction')) {
+          sends++;
+          return held.future;
+        }
+        return http.Response('{}', 200);
+      });
+      await _pump(tester, [
+        _story({'correctionSticker': sticker}),
+        _story({}, id: '64b7f0c2a1b2c3d4e5f60719'),
+      ]);
+      await openAndSend(tester, 'I went');
+      expect(sends, 1);
+      await tester.tapAt(const Offset(350, 300));
+      await tester.pump(const Duration(milliseconds: 300));
+      await tester.tapAt(const Offset(20, 300));
+      await tester.pump(const Duration(milliseconds: 300));
+      // Back on the story: the field is closed (new State); open it again.
+      await tester.tap(find.text('Correct this'));
+      await tester.pump();
+      await tester.enterText(find.byType(TextField), 'again');
+      final send = tester.widget<IconButton>(find.byKey(const Key('correction-send')));
+      expect(send.onPressed, isNull);
+      expect(sends, 1);
+      held.complete(http.Response(
+          '{"success":true,"data":{"correctionCount":1,"hasCorrected":true}}',
+          201));
+      await tester.pump(const Duration(milliseconds: 50));
+      expect(find.text('Correction sent'), findsOneWidget);
+      await _dispose(tester);
+    });
+
+    testWidgets('paging away with the field focused releases the pause',
+        (tester) async {
+      await _pump(tester, [
+        _story({'correctionSticker': sticker}),
+        _story({}, id: '64b7f0c2a1b2c3d4e5f60719'),
+      ]);
+      await tester.tap(find.text('Correct this'));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 100));
+      await tester.tapAt(const Offset(350, 300));
+      await tester.pump(const Duration(milliseconds: 300));
+      final before = tester
+          .widget<StoryProgressBar>(find.byType(StoryProgressBar))
+          .currentProgress;
+      await tester.pump(const Duration(seconds: 1));
+      final after = tester
+          .widget<StoryProgressBar>(find.byType(StoryProgressBar))
+          .currentProgress;
+      expect(after, greaterThan(before));
+      // Holding the screen must still pause (a stale paused flag would make
+      // the pause a no-op and the bar would keep running).
+      final hold = await tester.startGesture(const Offset(200, 300));
+      await tester.pump(const Duration(milliseconds: 100));
+      final held = tester
+          .widget<StoryProgressBar>(find.byType(StoryProgressBar))
+          .currentProgress;
+      await tester.pump(const Duration(seconds: 1));
+      expect(
+        tester.widget<StoryProgressBar>(find.byType(StoryProgressBar)).currentProgress,
+        held,
+      );
+      await hold.up();
+      await tester.pump(const Duration(milliseconds: 50));
+      await _dispose(tester);
+    });
 
     testWidgets('409: the already corrected state', (tester) async {
       _respond(

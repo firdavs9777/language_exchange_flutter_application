@@ -23,6 +23,10 @@ class StoryCorrectionStickerWidget extends StatefulWidget {
   /// server already knowing about an earlier one).
   final bool sent;
 
+  /// A send for this story is in flight (kept by the viewer, so it survives
+  /// paging away and back).
+  final bool sending;
+
   /// Sends the correction. The text stays in the field unless the result is a
   /// success (the viewer then flips [sticker] to corrected).
   final Future<CorrectionResult> Function(String text)? onSubmit;
@@ -37,6 +41,7 @@ class StoryCorrectionStickerWidget extends StatefulWidget {
     this.readOnly = false,
     this.allowReplies = true,
     this.sent = false,
+    this.sending = false,
     this.onSubmit,
     this.onInteracting,
   });
@@ -78,7 +83,7 @@ class _StoryCorrectionStickerWidgetState
 
   Future<void> _send() async {
     final text = _controller.text.trim();
-    if (_sending || text.isEmpty || widget.onSubmit == null) return;
+    if (_sending || widget.sending || text.isEmpty || widget.onSubmit == null) return;
     setState(() => _sending = true);
     _focus.unfocus();
     try {
@@ -142,7 +147,7 @@ class _StoryCorrectionStickerWidgetState
               maxLength: _maxLength,
               maxLines: 3,
               minLines: 1,
-              enabled: !_sending,
+              enabled: !_sending && !widget.sending,
               style: const TextStyle(color: Colors.white),
               decoration: InputDecoration(
                 hintText: l10n.storyCorrectionFieldHint,
@@ -164,8 +169,8 @@ class _StoryCorrectionStickerWidgetState
           IconButton(
             key: const Key('correction-send'),
             tooltip: l10n.send,
-            onPressed: _sending ? null : _send,
-            icon: _sending
+            onPressed: (_sending || widget.sending) ? null : _send,
+            icon: (_sending || widget.sending)
                 ? const SizedBox(
                     width: 18,
                     height: 18,

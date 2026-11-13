@@ -789,13 +789,13 @@ class StoriesService {
         final quiz = data is Map
             ? StoryQuizSticker.fromJsonOrNull(data['quiz'])
             : null;
-        if (quiz != null) {
-          return QuizAnswerResult(
-            success: true,
-            quiz: quiz,
-            isCorrect: data['isCorrect'] == true,
-          );
-        }
+        // The answer was recorded even when the body is unreadable: success
+        // without a quiz, so the viewer keeps the pick instead of failing.
+        return QuizAnswerResult(
+          success: true,
+          quiz: quiz,
+          isCorrect: data is Map && data['isCorrect'] == true,
+        );
       }
       return QuizAnswerResult(
           success: false, error: serverErrorOf(response));
