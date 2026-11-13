@@ -8872,5 +8872,54 @@
   "storyUploadFailed": "Your story couldn't be posted.",
   "@storyUploadFailed": {
     "description": "Shown on a queued story that could not be posted after several tries"
+  },
+  "storyInsightViews": "{count, plural, one{{count} view} other{{count} views}}",
+  "@storyInsightViews": {
+    "description": "Story insights: how many views the story got, shown to its owner",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "storyInsightCompleted": "{count, plural, one{{count} watched to the end} other{{count} watched to the end}}",
+  "@storyInsightCompleted": {
+    "description": "Story insights: how many viewers watched the whole story",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "storyInsightReplies": "{count, plural, one{{count} reply} other{{count} replies}}",
+  "@storyInsightReplies": {
+    "description": "Story insights: how many replies the story got",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "storyInsightReactions": "{count, plural, one{{count} reaction} other{{count} reactions}}",
+  "@storyInsightReactions": {
+    "description": "Story insights: how many reactions the story got",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "storyInsightQuizCorrect": "{count, plural, one{{count} answered correctly} other{{count} answered correctly}}",
+  "@storyInsightQuizCorrect": {
+    "description": "Story insights: how many people answered the quiz sticker correctly",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "storyInsightCompletedMark": "Watched to the end",
+  "@storyInsightCompletedMark": {
+    "description": "Small mark and screen-reader label on a viewer who watched the story to the end"
   }
 }

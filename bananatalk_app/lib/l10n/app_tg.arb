@@ -4305,5 +4305,11 @@
   "storyUploading": "Стории шумо нашр шуда истодааст…",
   "storyUploadRetry": "Барои такрор пахш кунед",
   "storyUploadRemove": "Тоза кардан",
-  "storyUploadFailed": "Стории шумо нашр нашуд."
+  "storyUploadFailed": "Стории шумо нашр нашуд.",
+  "storyInsightViews": "{count, plural, one{{count} тамошо} other{{count} тамошо}}",
+  "storyInsightCompleted": "{count, plural, one{{count} то охир дид} other{{count} то охир диданд}}",
+  "storyInsightReplies": "{count, plural, one{{count} ҷавоб} other{{count} ҷавоб}}",
+  "storyInsightReactions": "{count, plural, one{{count} реаксия} other{{count} реаксия}}",
+  "storyInsightQuizCorrect": "{count, plural, one{{count} дуруст ҷавоб дод} other{{count} дуруст ҷавоб доданд}}",
+  "storyInsightCompletedMark": "То охир тамошо шуд"
 }

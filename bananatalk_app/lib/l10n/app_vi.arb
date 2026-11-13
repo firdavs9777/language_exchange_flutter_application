@@ -4812,5 +4812,11 @@
   "storyUploading": "Đang đăng story của bạn…",
   "storyUploadRetry": "Chạm để thử lại",
   "storyUploadRemove": "Xóa",
-  "storyUploadFailed": "Không thể đăng story của bạn."
+  "storyUploadFailed": "Không thể đăng story của bạn.",
+  "storyInsightViews": "{count, plural, other{{count} lượt xem}}",
+  "storyInsightCompleted": "{count, plural, other{{count} người xem đến hết}}",
+  "storyInsightReplies": "{count, plural, other{{count} phản hồi}}",
+  "storyInsightReactions": "{count, plural, other{{count} lượt phản ứng}}",
+  "storyInsightQuizCorrect": "{count, plural, other{{count} người trả lời đúng}}",
+  "storyInsightCompletedMark": "Đã xem đến hết"
 }

@@ -12870,4 +12870,82 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get storyUploadFailed => 'تعذّر نشر قصتك.';
+
+  @override
+  String storyInsightViews(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count مشاهدة',
+      one: 'مشاهدة واحدة',
+      many: '$count مشاهدةً',
+      few: '$count مشاهدات',
+      two: 'مشاهدتان',
+      zero: 'لا مشاهدات',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String storyInsightCompleted(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'شاهده $count حتى النهاية',
+      one: 'شاهده واحد حتى النهاية',
+      many: 'شاهده $count حتى النهاية',
+      few: 'شاهده $count حتى النهاية',
+      two: 'شاهده اثنان حتى النهاية',
+      zero: 'لم يشاهده أحد حتى النهاية',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String storyInsightReplies(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count رد',
+      one: 'رد واحد',
+      many: '$count ردًا',
+      few: '$count ردود',
+      two: 'ردان',
+      zero: 'لا ردود',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String storyInsightReactions(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count تفاعل',
+      one: 'تفاعل واحد',
+      many: '$count تفاعلًا',
+      few: '$count تفاعلات',
+      two: 'تفاعلان',
+      zero: 'لا تفاعلات',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String storyInsightQuizCorrect(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'أجاب $count بشكل صحيح',
+      one: 'أجاب واحد بشكل صحيح',
+      many: 'أجاب $count بشكل صحيح',
+      few: 'أجاب $count بشكل صحيح',
+      two: 'أجاب اثنان بشكل صحيح',
+      zero: 'لم يُجب أحد بشكل صحيح',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyInsightCompletedMark => 'شوهدت حتى النهاية';
 }

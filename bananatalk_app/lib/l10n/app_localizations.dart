@@ -23161,6 +23161,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Your story couldn\'t be posted.'**
   String get storyUploadFailed;
+
+  /// Story insights: how many views the story got, shown to its owner
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{{count} view} other{{count} views}}'**
+  String storyInsightViews(int count);
+
+  /// Story insights: how many viewers watched the whole story
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{{count} watched to the end} other{{count} watched to the end}}'**
+  String storyInsightCompleted(int count);
+
+  /// Story insights: how many replies the story got
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{{count} reply} other{{count} replies}}'**
+  String storyInsightReplies(int count);
+
+  /// Story insights: how many reactions the story got
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{{count} reaction} other{{count} reactions}}'**
+  String storyInsightReactions(int count);
+
+  /// Story insights: how many people answered the quiz sticker correctly
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{{count} answered correctly} other{{count} answered correctly}}'**
+  String storyInsightQuizCorrect(int count);
+
+  /// Small mark and screen-reader label on a viewer who watched the story to the end
+  ///
+  /// In en, this message translates to:
+  /// **'Watched to the end'**
+  String get storyInsightCompletedMark;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

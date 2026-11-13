@@ -4503,5 +4503,11 @@
   "storyUploading": "正在發佈限時動態…",
   "storyUploadRetry": "點一下重試",
   "storyUploadRemove": "移除",
-  "storyUploadFailed": "限時動態發佈失敗。"
+  "storyUploadFailed": "限時動態發佈失敗。",
+  "storyInsightViews": "{count, plural, other{{count} 次觀看}}",
+  "storyInsightCompleted": "{count, plural, other{{count} 人看完}}",
+  "storyInsightReplies": "{count, plural, other{{count} 則回覆}}",
+  "storyInsightReactions": "{count, plural, other{{count} 個互動表情}}",
+  "storyInsightQuizCorrect": "{count, plural, other{{count} 人答對}}",
+  "storyInsightCompletedMark": "已看完"
 }

@@ -15,12 +15,14 @@ class _ViewerRow {
   final Community? user;
   final DateTime viewedAt;
   final String? emoji;
+  final bool completed;
 
   const _ViewerRow({
     required this.userId,
     required this.user,
     required this.viewedAt,
     this.emoji,
+    this.completed = false,
   });
 }
 
@@ -67,6 +69,7 @@ class _StoryViewersSheetState extends State<StoryViewersSheet> {
   bool _hasError = false;
   int _viewCount = 0;
   List<_ViewerRow> _rows = const [];
+  StoryViewsSummary? _summary;
 
   @override
   void initState() {
@@ -115,6 +118,7 @@ class _StoryViewersSheetState extends State<StoryViewersSheet> {
           user: v.user,
           viewedAt: v.viewedAt,
           emoji: emojiByUserId[v.userId],
+          completed: v.completed,
         );
       }).toList()
         ..sort((a, b) => b.viewedAt.compareTo(a.viewedAt));
@@ -122,6 +126,7 @@ class _StoryViewersSheetState extends State<StoryViewersSheet> {
       if (mounted) {
         setState(() {
           _rows = rows;
+          _summary = viewersResult['summary'] as StoryViewsSummary?;
           _viewCount = (viewersResult['viewCount'] as int?) ?? _viewCount;
           _loading = false;
         });
@@ -218,10 +223,13 @@ class _StoryViewersSheetState extends State<StoryViewersSheet> {
       return const SizedBox.shrink();
     }
 
+    final summary = _summary;
+
     if (_rows.isEmpty) {
       return ListView(
         controller: scrollController,
         children: [
+          if (summary != null) _buildSummary(summary, colorScheme),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 48),
             child: Center(
@@ -238,11 +246,151 @@ class _StoryViewersSheetState extends State<StoryViewersSheet> {
       );
     }
 
+    if (summary != null) {
+      // The summary scrolls with the list so a short sheet never overflows.
+      return ListView.builder(
+        controller: scrollController,
+        itemCount: _rows.length + 1,
+        itemBuilder: (context, index) => index == 0
+            ? _buildSummary(summary, colorScheme)
+            : _buildViewerRow(_rows[index - 1], colorScheme),
+      );
+    }
+
     return ListView.builder(
       controller: scrollController,
       itemCount: _rows.length,
       itemBuilder: (context, index) => _buildViewerRow(_rows[index], colorScheme),
     );
+  }
+
+  Widget _buildSummary(StoryViewsSummary summary, ColorScheme colorScheme) {
+    final l10n = AppLocalizations.of(context)!;
+    final sticker = summary.sticker;
+    final stickerBlock =
+        sticker == null ? null : _buildStickerBlock(sticker, colorScheme);
+
+    Widget stat(IconData icon, String text) => Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(icon, size: 16, color: colorScheme.onSurfaceVariant),
+            const SizedBox(width: 4),
+            Flexible(
+              child: Text(
+                text,
+                style: TextStyle(
+                  fontSize: 13,
+                  color: colorScheme.onSurfaceVariant,
+                ),
+              ),
+            ),
+          ],
+        );
+
+    return Padding(
+      key: const Key('story-insights-summary'),
+      padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Wrap(
+            spacing: 16,
+            runSpacing: 8,
+            children: [
+              stat(Icons.visibility_outlined,
+                  l10n.storyInsightViews(summary.views)),
+              stat(Icons.done_all, l10n.storyInsightCompleted(summary.completions)),
+              stat(Icons.reply_outlined, l10n.storyInsightReplies(summary.replies)),
+              stat(Icons.favorite_border,
+                  l10n.storyInsightReactions(summary.reactions)),
+            ],
+          ),
+          if (stickerBlock != null) ...[
+            const SizedBox(height: 12),
+            stickerBlock,
+          ],
+          const SizedBox(height: 4),
+          Divider(
+            height: 16,
+            color: colorScheme.outlineVariant.withValues(alpha: 0.3),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// Null when there is nothing to show (a word sticker has nothing to count).
+  Widget? _buildStickerBlock(StorySummarySticker sticker, ColorScheme colorScheme) {
+    final l10n = AppLocalizations.of(context)!;
+    final style = TextStyle(fontSize: 13, color: colorScheme.onSurface);
+    final mutedStyle = TextStyle(
+      fontSize: 13,
+      color: colorScheme.onSurfaceVariant,
+    );
+
+    Widget block(List<Widget> children) => Column(
+          key: const Key('story-insights-sticker'),
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: children,
+        );
+
+    switch (sticker.type) {
+      case 'poll':
+      case 'quiz':
+        if (sticker.options.isEmpty) return null;
+        final isQuiz = sticker.type == 'quiz';
+        return block([
+          for (var i = 0; i < sticker.options.length; i++)
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 3),
+              child: Row(
+                children: [
+                  if (isQuiz && i == sticker.correctIndex)
+                    Padding(
+                      padding: const EdgeInsetsDirectional.only(end: 6),
+                      child: Icon(
+                        Icons.check_circle,
+                        key: Key('story-insights-correct-$i'),
+                        size: 16,
+                        color: Colors.green,
+                        semanticLabel: l10n.storyQuizCorrect,
+                      ),
+                    ),
+                  Expanded(
+                    child: Text(
+                      sticker.options[i].text,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: style,
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Text('${sticker.options[i].count}', style: mutedStyle),
+                ],
+              ),
+            ),
+          if (isQuiz && sticker.correctCount != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 4),
+              child: Text(
+                l10n.storyInsightQuizCorrect(sticker.correctCount!),
+                style: mutedStyle,
+              ),
+            ),
+        ]);
+      case 'correction':
+        return block([
+          Text(l10n.storyCorrectionsReceived(sticker.count), style: style),
+        ]);
+      case 'questionBox':
+        // The responses list itself opens from the story viewer; the sheet
+        // has no access to it, so it shows the count only.
+        return block([
+          Text('${l10n.storyResponsesTitle}: ${sticker.count}', style: style),
+        ]);
+      default:
+        return null;
+    }
   }
 
   Widget _buildShimmerRow(ColorScheme colorScheme) {
@@ -293,6 +441,17 @@ class _StoryViewersSheetState extends State<StoryViewersSheet> {
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
+          if (row.completed) ...[
+            Icon(
+              Icons.done_all,
+              key: const Key('story-viewer-completed'),
+              size: 16,
+              color: colorScheme.primary,
+              semanticLabel:
+                  AppLocalizations.of(context)!.storyInsightCompletedMark,
+            ),
+            const SizedBox(width: 8),
+          ],
           if (row.emoji != null) ...[
             Text(row.emoji!, style: const TextStyle(fontSize: 18)),
             const SizedBox(width: 8),

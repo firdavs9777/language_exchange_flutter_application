@@ -4785,5 +4785,11 @@
   "storyUploading": "Pino-post ang story mo…",
   "storyUploadRetry": "I-tap para subukan muli",
   "storyUploadRemove": "Alisin",
-  "storyUploadFailed": "Hindi na-post ang story mo."
+  "storyUploadFailed": "Hindi na-post ang story mo.",
+  "storyInsightViews": "{count, plural, one{{count} view} other{{count} view}}",
+  "storyInsightCompleted": "{count, plural, one{{count} ang nanood hanggang dulo} other{{count} ang nanood hanggang dulo}}",
+  "storyInsightReplies": "{count, plural, one{{count} sagot} other{{count} sagot}}",
+  "storyInsightReactions": "{count, plural, one{{count} reaksyon} other{{count} reaksyon}}",
+  "storyInsightQuizCorrect": "{count, plural, one{{count} ang tama ang sagot} other{{count} ang tama ang sagot}}",
+  "storyInsightCompletedMark": "Pinanood hanggang dulo"
 }

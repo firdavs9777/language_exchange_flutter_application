@@ -4812,5 +4812,11 @@
   "storyUploading": "กำลังโพสต์สตอรี่ของคุณ…",
   "storyUploadRetry": "แตะเพื่อลองอีกครั้ง",
   "storyUploadRemove": "ลบ",
-  "storyUploadFailed": "โพสต์สตอรี่ของคุณไม่สำเร็จ"
+  "storyUploadFailed": "โพสต์สตอรี่ของคุณไม่สำเร็จ",
+  "storyInsightViews": "{count, plural, other{ดู {count} ครั้ง}}",
+  "storyInsightCompleted": "{count, plural, other{ดูจนจบ {count} คน}}",
+  "storyInsightReplies": "{count, plural, other{ตอบกลับ {count} รายการ}}",
+  "storyInsightReactions": "{count, plural, other{รีแอคชัน {count} รายการ}}",
+  "storyInsightQuizCorrect": "{count, plural, other{ตอบถูก {count} คน}}",
+  "storyInsightCompletedMark": "ดูจนจบแล้ว"
 }

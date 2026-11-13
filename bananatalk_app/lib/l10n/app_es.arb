@@ -4842,5 +4842,11 @@
   "storyUploading": "Publicando tu historia…",
   "storyUploadRetry": "Toca para reintentar",
   "storyUploadRemove": "Quitar",
-  "storyUploadFailed": "No se pudo publicar tu historia."
+  "storyUploadFailed": "No se pudo publicar tu historia.",
+  "storyInsightViews": "{count, plural, one{{count} vista} other{{count} vistas}}",
+  "storyInsightCompleted": "{count, plural, one{{count} la vieron hasta el final} other{{count} la vieron hasta el final}}",
+  "storyInsightReplies": "{count, plural, one{{count} respuesta} other{{count} respuestas}}",
+  "storyInsightReactions": "{count, plural, one{{count} reacción} other{{count} reacciones}}",
+  "storyInsightQuizCorrect": "{count, plural, one{{count} acertó} other{{count} acertaron}}",
+  "storyInsightCompletedMark": "Vista hasta el final"
 }

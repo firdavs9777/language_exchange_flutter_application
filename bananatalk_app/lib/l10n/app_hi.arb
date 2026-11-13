@@ -4828,5 +4828,11 @@
   "storyUploading": "आपकी स्टोरी पोस्ट हो रही है…",
   "storyUploadRetry": "दोबारा कोशिश के लिए टैप करें",
   "storyUploadRemove": "हटाएं",
-  "storyUploadFailed": "आपकी स्टोरी पोस्ट नहीं हो सकी।"
+  "storyUploadFailed": "आपकी स्टोरी पोस्ट नहीं हो सकी।",
+  "storyInsightViews": "{count, plural, one{{count} व्यू} other{{count} व्यू}}",
+  "storyInsightCompleted": "{count, plural, one{{count} ने अंत तक देखा} other{{count} ने अंत तक देखा}}",
+  "storyInsightReplies": "{count, plural, one{{count} जवाब} other{{count} जवाब}}",
+  "storyInsightReactions": "{count, plural, one{{count} रिएक्शन} other{{count} रिएक्शन}}",
+  "storyInsightQuizCorrect": "{count, plural, one{{count} ने सही जवाब दिया} other{{count} ने सही जवाब दिया}}",
+  "storyInsightCompletedMark": "अंत तक देखा"
 }

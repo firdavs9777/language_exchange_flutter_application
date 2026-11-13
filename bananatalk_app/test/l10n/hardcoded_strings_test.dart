@@ -926,6 +926,14 @@ const Map<String, List<String>> _keysByTask = {
     'storyUploadRemove',
     'storyUploadFailed',
   ],
+  'stories_features_8': [
+    'storyInsightViews',
+    'storyInsightCompleted',
+    'storyInsightReplies',
+    'storyInsightReactions',
+    'storyInsightQuizCorrect',
+    'storyInsightCompletedMark',
+  ],
   'moments_smart_feed_9': [
     'hashtagPostCount',
     'hashtagSortTop',
@@ -1026,6 +1034,7 @@ const Map<String, List<String>> _filesByTask = {
     'pages/stories/feed/story_upload_ring.dart',
     'pages/stories/create/create_story_screen.dart',
   ],
+  'stories_features_8': ['pages/stories/viewer/story_viewers_sheet.dart'],
   'moments_smart_feed_9': ['pages/moments/hashtag/hashtag_page_screen.dart'],
   'moments_smart_feed_11': ['pages/settings/data_storage_screen.dart'],
   'moments_smart_feed_12': [

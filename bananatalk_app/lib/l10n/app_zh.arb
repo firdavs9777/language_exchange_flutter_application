@@ -4826,5 +4826,11 @@
   "storyUploading": "正在发布故事…",
   "storyUploadRetry": "点按重试",
   "storyUploadRemove": "移除",
-  "storyUploadFailed": "故事发布失败。"
+  "storyUploadFailed": "故事发布失败。",
+  "storyInsightViews": "{count, plural, other{{count} 次观看}}",
+  "storyInsightCompleted": "{count, plural, other{{count} 人看完}}",
+  "storyInsightReplies": "{count, plural, other{{count} 条回复}}",
+  "storyInsightReactions": "{count, plural, other{{count} 个互动表情}}",
+  "storyInsightQuizCorrect": "{count, plural, other{{count} 人答对}}",
+  "storyInsightCompletedMark": "已看完"
 }

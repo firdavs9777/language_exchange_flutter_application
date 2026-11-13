@@ -13244,4 +13244,72 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get storyUploadFailed => 'Не удалось опубликовать историю.';
+
+  @override
+  String storyInsightViews(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count просмотра',
+      one: '$count просмотр',
+      many: '$count просмотров',
+      few: '$count просмотра',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String storyInsightCompleted(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count досмотрели до конца',
+      one: '$count досмотрел до конца',
+      many: '$count досмотрели до конца',
+      few: '$count досмотрели до конца',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String storyInsightReplies(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ответа',
+      one: '$count ответ',
+      many: '$count ответов',
+      few: '$count ответа',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String storyInsightReactions(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count реакции',
+      one: '$count реакция',
+      many: '$count реакций',
+      few: '$count реакции',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String storyInsightQuizCorrect(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ответили правильно',
+      one: '$count ответил правильно',
+      many: '$count ответили правильно',
+      few: '$count ответили правильно',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyInsightCompletedMark => 'Досмотрено до конца';
 }

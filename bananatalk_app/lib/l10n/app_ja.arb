@@ -4812,5 +4812,11 @@
   "storyUploading": "ストーリーを投稿中…",
   "storyUploadRetry": "タップして再試行",
   "storyUploadRemove": "削除",
-  "storyUploadFailed": "ストーリーを投稿できませんでした。"
+  "storyUploadFailed": "ストーリーを投稿できませんでした。",
+  "storyInsightViews": "{count, plural, other{閲覧 {count}件}}",
+  "storyInsightCompleted": "{count, plural, other{最後まで視聴 {count}人}}",
+  "storyInsightReplies": "{count, plural, other{返信 {count}件}}",
+  "storyInsightReactions": "{count, plural, other{リアクション {count}件}}",
+  "storyInsightQuizCorrect": "{count, plural, other{正解 {count}人}}",
+  "storyInsightCompletedMark": "最後まで視聴"
 }

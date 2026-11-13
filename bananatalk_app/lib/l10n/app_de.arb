@@ -5052,5 +5052,11 @@
   "storyUploading": "Deine Story wird gepostet …",
   "storyUploadRetry": "Tippen zum Wiederholen",
   "storyUploadRemove": "Entfernen",
-  "storyUploadFailed": "Deine Story konnte nicht gepostet werden."
+  "storyUploadFailed": "Deine Story konnte nicht gepostet werden.",
+  "storyInsightViews": "{count, plural, one{{count} Aufruf} other{{count} Aufrufe}}",
+  "storyInsightCompleted": "{count, plural, one{{count} bis zum Ende angesehen} other{{count} bis zum Ende angesehen}}",
+  "storyInsightReplies": "{count, plural, one{{count} Antwort} other{{count} Antworten}}",
+  "storyInsightReactions": "{count, plural, one{{count} Reaktion} other{{count} Reaktionen}}",
+  "storyInsightQuizCorrect": "{count, plural, one{{count} richtig beantwortet} other{{count} richtig beantwortet}}",
+  "storyInsightCompletedMark": "Bis zum Ende angesehen"
 }

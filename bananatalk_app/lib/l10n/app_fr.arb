@@ -5052,5 +5052,11 @@
   "storyUploading": "Publication de ta story…",
   "storyUploadRetry": "Appuie pour réessayer",
   "storyUploadRemove": "Supprimer",
-  "storyUploadFailed": "Ta story n'a pas pu être publiée."
+  "storyUploadFailed": "Ta story n'a pas pu être publiée.",
+  "storyInsightViews": "{count, plural, one{{count} vue} other{{count} vues}}",
+  "storyInsightCompleted": "{count, plural, one{{count} l'ont vue jusqu'au bout} other{{count} l'ont vue jusqu'au bout}}",
+  "storyInsightReplies": "{count, plural, one{{count} réponse} other{{count} réponses}}",
+  "storyInsightReactions": "{count, plural, one{{count} réaction} other{{count} réactions}}",
+  "storyInsightQuizCorrect": "{count, plural, one{{count} bonne réponse} other{{count} bonnes réponses}}",
+  "storyInsightCompletedMark": "Vue jusqu'au bout"
 }

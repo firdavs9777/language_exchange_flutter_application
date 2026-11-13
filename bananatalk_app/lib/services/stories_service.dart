@@ -613,7 +613,7 @@ class StoriesService {
     try {
       final token = await _getToken();
       final url = Uri.parse('${Endpoints.baseURL}${Endpoints.storyReactionsURL(storyId)}');
-      final response = await http.get(url, headers: _getHeaders(token));
+      final response = await _client.get(url, headers: _getHeaders(token));
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);

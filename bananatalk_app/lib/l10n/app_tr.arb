@@ -5024,5 +5024,11 @@
   "storyUploading": "Hikayen paylaşılıyor…",
   "storyUploadRetry": "Tekrar denemek için dokun",
   "storyUploadRemove": "Kaldır",
-  "storyUploadFailed": "Hikayen paylaşılamadı."
+  "storyUploadFailed": "Hikayen paylaşılamadı.",
+  "storyInsightViews": "{count, plural, one{{count} görüntülenme} other{{count} görüntülenme}}",
+  "storyInsightCompleted": "{count, plural, one{{count} kişi sonuna kadar izledi} other{{count} kişi sonuna kadar izledi}}",
+  "storyInsightReplies": "{count, plural, one{{count} yanıt} other{{count} yanıt}}",
+  "storyInsightReactions": "{count, plural, one{{count} tepki} other{{count} tepki}}",
+  "storyInsightQuizCorrect": "{count, plural, one{{count} kişi doğru yanıtladı} other{{count} kişi doğru yanıtladı}}",
+  "storyInsightCompletedMark": "Sonuna kadar izlendi"
 }

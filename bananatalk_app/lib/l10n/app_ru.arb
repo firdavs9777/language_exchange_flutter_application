@@ -4842,5 +4842,11 @@
   "storyUploading": "Публикуем вашу историю…",
   "storyUploadRetry": "Нажмите, чтобы повторить",
   "storyUploadRemove": "Удалить",
-  "storyUploadFailed": "Не удалось опубликовать историю."
+  "storyUploadFailed": "Не удалось опубликовать историю.",
+  "storyInsightViews": "{count, plural, few{{count} просмотра} many{{count} просмотров} one{{count} просмотр} other{{count} просмотра}}",
+  "storyInsightCompleted": "{count, plural, few{{count} досмотрели до конца} many{{count} досмотрели до конца} one{{count} досмотрел до конца} other{{count} досмотрели до конца}}",
+  "storyInsightReplies": "{count, plural, few{{count} ответа} many{{count} ответов} one{{count} ответ} other{{count} ответа}}",
+  "storyInsightReactions": "{count, plural, few{{count} реакции} many{{count} реакций} one{{count} реакция} other{{count} реакции}}",
+  "storyInsightQuizCorrect": "{count, plural, few{{count} ответили правильно} many{{count} ответили правильно} one{{count} ответил правильно} other{{count} ответили правильно}}",
+  "storyInsightCompletedMark": "Досмотрено до конца"
 }
