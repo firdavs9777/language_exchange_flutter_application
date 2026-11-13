@@ -42,6 +42,8 @@ import 'package:bananatalk_app/widgets/story/story_correction_sticker_widget.dar
 import 'package:bananatalk_app/widgets/story/story_quiz_sticker_widget.dart';
 import 'package:bananatalk_app/widgets/story/story_word_sticker_widget.dart';
 import 'package:bananatalk_app/services/learning_service.dart';
+import 'package:bananatalk_app/pages/stories/viewer/story_completion_tracker.dart';
+import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
 
 /// Saves a word sticker to the viewer's vocabulary; replaced in tests.
 typedef StoryWordSaver = Future<Map<String, dynamic>> Function({
@@ -88,6 +90,10 @@ class StoryViewerScreen extends ConsumerStatefulWidget {
   /// Saves a word sticker to the vocabulary; replaced in tests.
   final StoryWordSaver saveWord;
 
+  /// Reports stories played to the end; replaced in tests. Defaults to one
+  /// per viewer session.
+  final StoryCompletionTracker? completionTracker;
+
   const StoryViewerScreen({
     super.key,
     this.userStories = const [],
@@ -98,6 +104,7 @@ class StoryViewerScreen extends ConsumerStatefulWidget {
     this.storiesUser,
     this.precache = precacheStoryImages,
     this.saveWord = defaultStoryWordSaver,
+    this.completionTracker,
   }) : assert(
          stories != null || userStories.length > 0,
          'Provide either userStories or a non-empty stories list',
@@ -193,6 +200,7 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
 
     _progressController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
+        _reportCompleted();
         _nextStory();
       }
     });
@@ -202,6 +210,24 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
 
     _initializeCurrentStory();
     _markAsViewed();
+  }
+
+  late final StoryCompletionTracker _completionTracker =
+      widget.completionTracker ??
+      StoryCompletionTracker(
+        send: (id) => StoriesService.viewStory(storyId: id, completed: true),
+      );
+
+  /// Only the progress animation reaching its end calls this; a tap-skip,
+  /// a swipe to the next user or closing the viewer never does. The flag is
+  /// read now, not watched, so a flag-off viewer subscribes to nothing.
+  void _reportCompleted() {
+    final story = _currentStory;
+    if (story == null || widget.isOwnStory) return;
+    if (ref.read(appConfigProvider).valueOrNull?.storyInsightsEnabled != true) {
+      return;
+    }
+    _completionTracker.completed(story.id);
   }
 
   bool? _onMobileData;
