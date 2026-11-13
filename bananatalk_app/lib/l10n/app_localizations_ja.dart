@@ -12690,4 +12690,35 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get storyWordExampleHint => '例文（任意）';
+
+  @override
+  String get storyCorrectThis => '添削する';
+
+  @override
+  String get storyCorrectionFieldHint => '添削した文を入力';
+
+  @override
+  String get storyCorrectionSent => '添削を送信しました';
+
+  @override
+  String get storyCorrectionAlready => 'すでに添削済みです';
+
+  @override
+  String storyCorrectionsReceived(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '添削 $count件',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyQuizCorrect => '正解!';
+
+  @override
+  String get storyQuizWrong => 'おしい';
+
+  @override
+  String get storySaveWord => '単語を保存';
 }

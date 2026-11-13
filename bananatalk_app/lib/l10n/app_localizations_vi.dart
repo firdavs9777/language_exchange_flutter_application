@@ -12690,4 +12690,35 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get storyWordExampleHint => 'Câu ví dụ (không bắt buộc)';
+
+  @override
+  String get storyCorrectThis => 'Sửa câu này';
+
+  @override
+  String get storyCorrectionFieldHint => 'Viết câu đã sửa';
+
+  @override
+  String get storyCorrectionSent => 'Đã gửi bản sửa';
+
+  @override
+  String get storyCorrectionAlready => 'Bạn đã sửa câu này rồi';
+
+  @override
+  String storyCorrectionsReceived(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count lượt sửa',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyQuizCorrect => 'Chính xác!';
+
+  @override
+  String get storyQuizWrong => 'Chưa đúng';
+
+  @override
+  String get storySaveWord => 'Lưu từ';
 }

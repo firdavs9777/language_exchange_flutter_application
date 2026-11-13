@@ -4798,5 +4798,13 @@
   "storyQuizMarkCorrect": "Đánh dấu là đáp án đúng",
   "storyWordHint": "Từ hoặc cụm từ",
   "storyWordMeaningHint": "Nghĩa",
-  "storyWordExampleHint": "Câu ví dụ (không bắt buộc)"
+  "storyWordExampleHint": "Câu ví dụ (không bắt buộc)",
+  "storyCorrectThis": "Sửa câu này",
+  "storyCorrectionFieldHint": "Viết câu đã sửa",
+  "storyCorrectionSent": "Đã gửi bản sửa",
+  "storyCorrectionAlready": "Bạn đã sửa câu này rồi",
+  "storyCorrectionsReceived": "{count, plural, other{{count} lượt sửa}}",
+  "storyQuizCorrect": "Chính xác!",
+  "storyQuizWrong": "Chưa đúng",
+  "storySaveWord": "Lưu từ"
 }

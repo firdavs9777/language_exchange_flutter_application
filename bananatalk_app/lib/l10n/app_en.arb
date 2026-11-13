@@ -8814,5 +8814,42 @@
   "storyQuizMarkCorrect": "Mark as correct answer",
   "storyWordHint": "Word or phrase",
   "storyWordMeaningHint": "Meaning",
-  "storyWordExampleHint": "Example sentence (optional)"
+  "storyWordExampleHint": "Example sentence (optional)",
+  "storyCorrectThis": "Correct this",
+  "@storyCorrectThis": {
+    "description": "Button on a story's correction sticker: the viewer offers a correction of the sentence"
+  },
+  "storyCorrectionFieldHint": "Write the corrected sentence",
+  "@storyCorrectionFieldHint": {
+    "description": "Hint inside the field where the viewer types the corrected sentence"
+  },
+  "storyCorrectionSent": "Correction sent",
+  "@storyCorrectionSent": {
+    "description": "Shown after the viewer's correction was sent"
+  },
+  "storyCorrectionAlready": "You already corrected this",
+  "@storyCorrectionAlready": {
+    "description": "Shown when the viewer has already corrected this story's sentence"
+  },
+  "storyCorrectionsReceived": "{count, plural, one{{count} correction} other{{count} corrections}}",
+  "@storyCorrectionsReceived": {
+    "description": "How many corrections the story owner received on their correction sticker",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "storyQuizCorrect": "Correct!",
+  "@storyQuizCorrect": {
+    "description": "Quiz sticker: the viewer picked the right answer"
+  },
+  "storyQuizWrong": "Not quite",
+  "@storyQuizWrong": {
+    "description": "Quiz sticker: the viewer picked a wrong answer"
+  },
+  "storySaveWord": "Save word",
+  "@storySaveWord": {
+    "description": "Button on a story's word sticker that saves the word to the viewer's vocabulary"
+  }
 }

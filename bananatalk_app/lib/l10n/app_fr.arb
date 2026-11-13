@@ -5038,5 +5038,13 @@
   "storyQuizMarkCorrect": "Marquer comme bonne réponse",
   "storyWordHint": "Mot ou expression",
   "storyWordMeaningHint": "Signification",
-  "storyWordExampleHint": "Phrase d'exemple (facultatif)"
+  "storyWordExampleHint": "Phrase d'exemple (facultatif)",
+  "storyCorrectThis": "Corriger",
+  "storyCorrectionFieldHint": "Écris la phrase corrigée",
+  "storyCorrectionSent": "Correction envoyée",
+  "storyCorrectionAlready": "Tu as déjà corrigé ceci",
+  "storyCorrectionsReceived": "{count, plural, one{{count} correction reçue} other{{count} corrections reçues}}",
+  "storyQuizCorrect": "Correct !",
+  "storyQuizWrong": "Pas tout à fait",
+  "storySaveWord": "Enregistrer le mot"
 }

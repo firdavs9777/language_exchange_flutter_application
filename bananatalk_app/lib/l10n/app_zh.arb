@@ -4812,5 +4812,13 @@
   "storyQuizMarkCorrect": "设为正确答案",
   "storyWordHint": "单词或短语",
   "storyWordMeaningHint": "释义",
-  "storyWordExampleHint": "例句（可选）"
+  "storyWordExampleHint": "例句（可选）",
+  "storyCorrectThis": "纠正",
+  "storyCorrectionFieldHint": "输入纠正后的句子",
+  "storyCorrectionSent": "纠正已发送",
+  "storyCorrectionAlready": "你已经纠正过了",
+  "storyCorrectionsReceived": "{count, plural, other{{count} 条纠正}}",
+  "storyQuizCorrect": "正确!",
+  "storyQuizWrong": "不太对",
+  "storySaveWord": "保存单词"
 }

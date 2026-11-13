@@ -13192,4 +13192,38 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get storyWordExampleHint => 'Пример предложения (необязательно)';
+
+  @override
+  String get storyCorrectThis => 'Исправить';
+
+  @override
+  String get storyCorrectionFieldHint => 'Напишите исправленное предложение';
+
+  @override
+  String get storyCorrectionSent => 'Исправление отправлено';
+
+  @override
+  String get storyCorrectionAlready => 'Вы уже исправили это';
+
+  @override
+  String storyCorrectionsReceived(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count исправления',
+      many: '$count исправлений',
+      few: '$count исправления',
+      one: '$count исправление',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyQuizCorrect => 'Верно!';
+
+  @override
+  String get storyQuizWrong => 'Не совсем';
+
+  @override
+  String get storySaveWord => 'Сохранить слово';
 }

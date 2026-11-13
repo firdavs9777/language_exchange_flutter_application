@@ -4814,5 +4814,13 @@
   "storyQuizMarkCorrect": "सही उत्तर के रूप में चिह्नित करें",
   "storyWordHint": "शब्द या वाक्यांश",
   "storyWordMeaningHint": "अर्थ",
-  "storyWordExampleHint": "उदाहरण वाक्य (वैकल्पिक)"
+  "storyWordExampleHint": "उदाहरण वाक्य (वैकल्पिक)",
+  "storyCorrectThis": "इसे सुधारें",
+  "storyCorrectionFieldHint": "सुधारा हुआ वाक्य लिखें",
+  "storyCorrectionSent": "सुधार भेज दिया गया",
+  "storyCorrectionAlready": "आप इसे पहले ही सुधार चुके हैं",
+  "storyCorrectionsReceived": "{count, plural, one{{count} सुधार} other{{count} सुधार}}",
+  "storyQuizCorrect": "सही!",
+  "storyQuizWrong": "बिल्कुल नहीं",
+  "storySaveWord": "शब्द सहेजें"
 }

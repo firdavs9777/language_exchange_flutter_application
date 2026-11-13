@@ -12715,4 +12715,36 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get storyWordExampleHint => 'Halimbawang pangungusap (opsyonal)';
+
+  @override
+  String get storyCorrectThis => 'Itama ito';
+
+  @override
+  String get storyCorrectionFieldHint => 'Isulat ang naitamang pangungusap';
+
+  @override
+  String get storyCorrectionSent => 'Naipadala ang pagtatama';
+
+  @override
+  String get storyCorrectionAlready => 'Naitama mo na ito';
+
+  @override
+  String storyCorrectionsReceived(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count pagtatama',
+      one: '$count pagtatama',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyQuizCorrect => 'Tama!';
+
+  @override
+  String get storyQuizWrong => 'Malapit na';
+
+  @override
+  String get storySaveWord => 'I-save ang salita';
 }

@@ -4828,5 +4828,13 @@
   "storyQuizMarkCorrect": "تحديد كإجابة صحيحة",
   "storyWordHint": "كلمة أو عبارة",
   "storyWordMeaningHint": "المعنى",
-  "storyWordExampleHint": "جملة مثال (اختياري)"
+  "storyWordExampleHint": "جملة مثال (اختياري)",
+  "storyCorrectThis": "صحّح هذا",
+  "storyCorrectionFieldHint": "اكتب الجملة المصحّحة",
+  "storyCorrectionSent": "تم إرسال التصحيح",
+  "storyCorrectionAlready": "لقد صحّحت هذا بالفعل",
+  "storyCorrectionsReceived": "{count, plural, zero{لا تصحيحات} one{تصحيح واحد} two{تصحيحان} few{{count} تصحيحات} many{{count} تصحيحًا} other{{count} تصحيح}}",
+  "storyQuizCorrect": "صحيح!",
+  "storyQuizWrong": "ليس تمامًا",
+  "storySaveWord": "احفظ الكلمة"
 }

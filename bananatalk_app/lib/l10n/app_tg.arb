@@ -4291,5 +4291,13 @@
   "storyQuizMarkCorrect": "Ҳамчун ҷавоби дуруст қайд кардан",
   "storyWordHint": "Калима ё ибора",
   "storyWordMeaningHint": "Маъно",
-  "storyWordExampleHint": "Ҷумлаи намуна (ихтиёрӣ)"
+  "storyWordExampleHint": "Ҷумлаи намуна (ихтиёрӣ)",
+  "storyCorrectThis": "Ислоҳ кардан",
+  "storyCorrectionFieldHint": "Ҷумлаи ислоҳшударо нависед",
+  "storyCorrectionSent": "Ислоҳ фиристода шуд",
+  "storyCorrectionAlready": "Шумо инро аллакай ислоҳ кардаед",
+  "storyCorrectionsReceived": "{count, plural, one{{count} ислоҳ} other{{count} ислоҳ}}",
+  "storyQuizCorrect": "Дуруст!",
+  "storyQuizWrong": "Тамоман не",
+  "storySaveWord": "Захира кардани калима"
 }

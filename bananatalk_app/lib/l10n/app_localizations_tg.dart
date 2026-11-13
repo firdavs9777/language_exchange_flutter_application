@@ -12711,4 +12711,36 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get storyWordExampleHint => 'Ҷумлаи намуна (ихтиёрӣ)';
+
+  @override
+  String get storyCorrectThis => 'Ислоҳ кардан';
+
+  @override
+  String get storyCorrectionFieldHint => 'Ҷумлаи ислоҳшударо нависед';
+
+  @override
+  String get storyCorrectionSent => 'Ислоҳ фиристода шуд';
+
+  @override
+  String get storyCorrectionAlready => 'Шумо инро аллакай ислоҳ кардаед';
+
+  @override
+  String storyCorrectionsReceived(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ислоҳ',
+      one: '$count ислоҳ',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyQuizCorrect => 'Дуруст!';
+
+  @override
+  String get storyQuizWrong => 'Тамоман не';
+
+  @override
+  String get storySaveWord => 'Захира кардани калима';
 }

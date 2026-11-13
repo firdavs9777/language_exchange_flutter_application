@@ -12734,4 +12734,36 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get storyWordExampleHint => 'Beispielsatz (optional)';
+
+  @override
+  String get storyCorrectThis => 'Korrigieren';
+
+  @override
+  String get storyCorrectionFieldHint => 'Schreibe den korrigierten Satz';
+
+  @override
+  String get storyCorrectionSent => 'Korrektur gesendet';
+
+  @override
+  String get storyCorrectionAlready => 'Du hast das bereits korrigiert';
+
+  @override
+  String storyCorrectionsReceived(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Korrekturen',
+      one: '$count Korrektur',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyQuizCorrect => 'Richtig!';
+
+  @override
+  String get storyQuizWrong => 'Nicht ganz';
+
+  @override
+  String get storySaveWord => 'Wort speichern';
 }

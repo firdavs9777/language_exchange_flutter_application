@@ -4828,5 +4828,13 @@
   "storyQuizMarkCorrect": "Отметить как правильный ответ",
   "storyWordHint": "Слово или выражение",
   "storyWordMeaningHint": "Значение",
-  "storyWordExampleHint": "Пример предложения (необязательно)"
+  "storyWordExampleHint": "Пример предложения (необязательно)",
+  "storyCorrectThis": "Исправить",
+  "storyCorrectionFieldHint": "Напишите исправленное предложение",
+  "storyCorrectionSent": "Исправление отправлено",
+  "storyCorrectionAlready": "Вы уже исправили это",
+  "storyCorrectionsReceived": "{count, plural, one{{count} исправление} few{{count} исправления} many{{count} исправлений} other{{count} исправления}}",
+  "storyQuizCorrect": "Верно!",
+  "storyQuizWrong": "Не совсем",
+  "storySaveWord": "Сохранить слово"
 }

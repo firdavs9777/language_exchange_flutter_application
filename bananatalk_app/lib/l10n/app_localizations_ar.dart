@@ -12816,4 +12816,40 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get storyWordExampleHint => 'جملة مثال (اختياري)';
+
+  @override
+  String get storyCorrectThis => 'صحّح هذا';
+
+  @override
+  String get storyCorrectionFieldHint => 'اكتب الجملة المصحّحة';
+
+  @override
+  String get storyCorrectionSent => 'تم إرسال التصحيح';
+
+  @override
+  String get storyCorrectionAlready => 'لقد صحّحت هذا بالفعل';
+
+  @override
+  String storyCorrectionsReceived(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count تصحيح',
+      many: '$count تصحيحًا',
+      few: '$count تصحيحات',
+      two: 'تصحيحان',
+      one: 'تصحيح واحد',
+      zero: 'لا تصحيحات',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyQuizCorrect => 'صحيح!';
+
+  @override
+  String get storyQuizWrong => 'ليس تمامًا';
+
+  @override
+  String get storySaveWord => 'احفظ الكلمة';
 }

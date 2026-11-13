@@ -12690,4 +12690,35 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get storyWordExampleHint => 'ประโยคตัวอย่าง (ไม่บังคับ)';
+
+  @override
+  String get storyCorrectThis => 'แก้ไขประโยคนี้';
+
+  @override
+  String get storyCorrectionFieldHint => 'เขียนประโยคที่แก้แล้ว';
+
+  @override
+  String get storyCorrectionSent => 'ส่งการแก้ไขแล้ว';
+
+  @override
+  String get storyCorrectionAlready => 'คุณแก้ไขประโยคนี้แล้ว';
+
+  @override
+  String storyCorrectionsReceived(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'แก้ไข $count รายการ',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyQuizCorrect => 'ถูกต้อง!';
+
+  @override
+  String get storyQuizWrong => 'เกือบแล้ว';
+
+  @override
+  String get storySaveWord => 'บันทึกคำศัพท์';
 }

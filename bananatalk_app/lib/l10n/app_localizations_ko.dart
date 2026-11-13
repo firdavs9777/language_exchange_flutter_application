@@ -12690,4 +12690,35 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get storyWordExampleHint => '예문 (선택)';
+
+  @override
+  String get storyCorrectThis => '첨삭하기';
+
+  @override
+  String get storyCorrectionFieldHint => '수정한 문장을 입력하세요';
+
+  @override
+  String get storyCorrectionSent => '첨삭을 보냈어요';
+
+  @override
+  String get storyCorrectionAlready => '이미 첨삭했어요';
+
+  @override
+  String storyCorrectionsReceived(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '첨삭 $count개',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyQuizCorrect => '정답!';
+
+  @override
+  String get storyQuizWrong => '아쉬워요';
+
+  @override
+  String get storySaveWord => '단어 저장';
 }

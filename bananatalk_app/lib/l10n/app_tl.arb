@@ -4771,5 +4771,13 @@
   "storyQuizMarkCorrect": "Markahan bilang tamang sagot",
   "storyWordHint": "Salita o parirala",
   "storyWordMeaningHint": "Kahulugan",
-  "storyWordExampleHint": "Halimbawang pangungusap (opsyonal)"
+  "storyWordExampleHint": "Halimbawang pangungusap (opsyonal)",
+  "storyCorrectThis": "Itama ito",
+  "storyCorrectionFieldHint": "Isulat ang naitamang pangungusap",
+  "storyCorrectionSent": "Naipadala ang pagtatama",
+  "storyCorrectionAlready": "Naitama mo na ito",
+  "storyCorrectionsReceived": "{count, plural, one{{count} pagtatama} other{{count} pagtatama}}",
+  "storyQuizCorrect": "Tama!",
+  "storyQuizWrong": "Malapit na",
+  "storySaveWord": "I-save ang salita"
 }

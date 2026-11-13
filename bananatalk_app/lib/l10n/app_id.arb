@@ -4798,5 +4798,13 @@
   "storyQuizMarkCorrect": "Tandai sebagai jawaban benar",
   "storyWordHint": "Kata atau frasa",
   "storyWordMeaningHint": "Arti",
-  "storyWordExampleHint": "Kalimat contoh (opsional)"
+  "storyWordExampleHint": "Kalimat contoh (opsional)",
+  "storyCorrectThis": "Koreksi ini",
+  "storyCorrectionFieldHint": "Tulis kalimat yang sudah dikoreksi",
+  "storyCorrectionSent": "Koreksi terkirim",
+  "storyCorrectionAlready": "Kamu sudah mengoreksi ini",
+  "storyCorrectionsReceived": "{count, plural, other{{count} koreksi}}",
+  "storyQuizCorrect": "Benar!",
+  "storyQuizWrong": "Belum tepat",
+  "storySaveWord": "Simpan kata"
 }

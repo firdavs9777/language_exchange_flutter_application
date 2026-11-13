@@ -4798,5 +4798,13 @@
   "storyQuizMarkCorrect": "ตั้งเป็นคำตอบที่ถูกต้อง",
   "storyWordHint": "คำหรือวลี",
   "storyWordMeaningHint": "ความหมาย",
-  "storyWordExampleHint": "ประโยคตัวอย่าง (ไม่บังคับ)"
+  "storyWordExampleHint": "ประโยคตัวอย่าง (ไม่บังคับ)",
+  "storyCorrectThis": "แก้ไขประโยคนี้",
+  "storyCorrectionFieldHint": "เขียนประโยคที่แก้แล้ว",
+  "storyCorrectionSent": "ส่งการแก้ไขแล้ว",
+  "storyCorrectionAlready": "คุณแก้ไขประโยคนี้แล้ว",
+  "storyCorrectionsReceived": "{count, plural, other{แก้ไข {count} รายการ}}",
+  "storyQuizCorrect": "ถูกต้อง!",
+  "storyQuizWrong": "เกือบแล้ว",
+  "storySaveWord": "บันทึกคำศัพท์"
 }

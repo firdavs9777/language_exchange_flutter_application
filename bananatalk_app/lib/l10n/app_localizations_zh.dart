@@ -12690,6 +12690,37 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get storyWordExampleHint => '例句（可选）';
+
+  @override
+  String get storyCorrectThis => '纠正';
+
+  @override
+  String get storyCorrectionFieldHint => '输入纠正后的句子';
+
+  @override
+  String get storyCorrectionSent => '纠正已发送';
+
+  @override
+  String get storyCorrectionAlready => '你已经纠正过了';
+
+  @override
+  String storyCorrectionsReceived(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count 条纠正',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyQuizCorrect => '正确!';
+
+  @override
+  String get storyQuizWrong => '不太对';
+
+  @override
+  String get storySaveWord => '保存单词';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -25378,4 +25409,35 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get storyWordExampleHint => '例句（選填）';
+
+  @override
+  String get storyCorrectThis => '修正';
+
+  @override
+  String get storyCorrectionFieldHint => '輸入修正後的句子';
+
+  @override
+  String get storyCorrectionSent => '已送出修正';
+
+  @override
+  String get storyCorrectionAlready => '你已經修正過了';
+
+  @override
+  String storyCorrectionsReceived(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count 則修正',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyQuizCorrect => '正確!';
+
+  @override
+  String get storyQuizWrong => '不太對';
+
+  @override
+  String get storySaveWord => '儲存單字';
 }

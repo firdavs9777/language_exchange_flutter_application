@@ -5038,5 +5038,13 @@
   "storyQuizMarkCorrect": "Als richtige Antwort markieren",
   "storyWordHint": "Wort oder Ausdruck",
   "storyWordMeaningHint": "Bedeutung",
-  "storyWordExampleHint": "Beispielsatz (optional)"
+  "storyWordExampleHint": "Beispielsatz (optional)",
+  "storyCorrectThis": "Korrigieren",
+  "storyCorrectionFieldHint": "Schreibe den korrigierten Satz",
+  "storyCorrectionSent": "Korrektur gesendet",
+  "storyCorrectionAlready": "Du hast das bereits korrigiert",
+  "storyCorrectionsReceived": "{count, plural, one{{count} Korrektur} other{{count} Korrekturen}}",
+  "storyQuizCorrect": "Richtig!",
+  "storyQuizWrong": "Nicht ganz",
+  "storySaveWord": "Wort speichern"
 }

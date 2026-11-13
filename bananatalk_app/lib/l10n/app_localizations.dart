@@ -23077,6 +23077,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Example sentence (optional)'**
   String get storyWordExampleHint;
+
+  /// Button on a story's correction sticker: the viewer offers a correction of the sentence
+  ///
+  /// In en, this message translates to:
+  /// **'Correct this'**
+  String get storyCorrectThis;
+
+  /// Hint inside the field where the viewer types the corrected sentence
+  ///
+  /// In en, this message translates to:
+  /// **'Write the corrected sentence'**
+  String get storyCorrectionFieldHint;
+
+  /// Shown after the viewer's correction was sent
+  ///
+  /// In en, this message translates to:
+  /// **'Correction sent'**
+  String get storyCorrectionSent;
+
+  /// Shown when the viewer has already corrected this story's sentence
+  ///
+  /// In en, this message translates to:
+  /// **'You already corrected this'**
+  String get storyCorrectionAlready;
+
+  /// How many corrections the story owner received on their correction sticker
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{{count} correction} other{{count} corrections}}'**
+  String storyCorrectionsReceived(int count);
+
+  /// Quiz sticker: the viewer picked the right answer
+  ///
+  /// In en, this message translates to:
+  /// **'Correct!'**
+  String get storyQuizCorrect;
+
+  /// Quiz sticker: the viewer picked a wrong answer
+  ///
+  /// In en, this message translates to:
+  /// **'Not quite'**
+  String get storyQuizWrong;
+
+  /// Button on a story's word sticker that saves the word to the viewer's vocabulary
+  ///
+  /// In en, this message translates to:
+  /// **'Save word'**
+  String get storySaveWord;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -4489,5 +4489,13 @@
   "storyQuizMarkCorrect": "設為正確答案",
   "storyWordHint": "單字或片語",
   "storyWordMeaningHint": "釋義",
-  "storyWordExampleHint": "例句（選填）"
+  "storyWordExampleHint": "例句（選填）",
+  "storyCorrectThis": "修正",
+  "storyCorrectionFieldHint": "輸入修正後的句子",
+  "storyCorrectionSent": "已送出修正",
+  "storyCorrectionAlready": "你已經修正過了",
+  "storyCorrectionsReceived": "{count, plural, other{{count} 則修正}}",
+  "storyQuizCorrect": "正確!",
+  "storyQuizWrong": "不太對",
+  "storySaveWord": "儲存單字"
 }

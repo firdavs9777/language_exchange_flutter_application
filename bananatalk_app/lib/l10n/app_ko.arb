@@ -4819,5 +4819,13 @@
   "storyQuizMarkCorrect": "정답으로 표시",
   "storyWordHint": "단어 또는 표현",
   "storyWordMeaningHint": "뜻",
-  "storyWordExampleHint": "예문 (선택)"
+  "storyWordExampleHint": "예문 (선택)",
+  "storyCorrectThis": "첨삭하기",
+  "storyCorrectionFieldHint": "수정한 문장을 입력하세요",
+  "storyCorrectionSent": "첨삭을 보냈어요",
+  "storyCorrectionAlready": "이미 첨삭했어요",
+  "storyCorrectionsReceived": "{count, plural, other{첨삭 {count}개}}",
+  "storyQuizCorrect": "정답!",
+  "storyQuizWrong": "아쉬워요",
+  "storySaveWord": "단어 저장"
 }

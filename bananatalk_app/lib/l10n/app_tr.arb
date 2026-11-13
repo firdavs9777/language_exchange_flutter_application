@@ -5010,5 +5010,13 @@
   "storyQuizMarkCorrect": "Doğru cevap olarak işaretle",
   "storyWordHint": "Kelime veya ifade",
   "storyWordMeaningHint": "Anlamı",
-  "storyWordExampleHint": "Örnek cümle (isteğe bağlı)"
+  "storyWordExampleHint": "Örnek cümle (isteğe bağlı)",
+  "storyCorrectThis": "Düzelt",
+  "storyCorrectionFieldHint": "Düzeltilmiş cümleyi yaz",
+  "storyCorrectionSent": "Düzeltme gönderildi",
+  "storyCorrectionAlready": "Bunu zaten düzelttin",
+  "storyCorrectionsReceived": "{count, plural, one{{count} düzeltme} other{{count} düzeltme}}",
+  "storyQuizCorrect": "Doğru!",
+  "storyQuizWrong": "Pek değil",
+  "storySaveWord": "Kelimeyi kaydet"
 }

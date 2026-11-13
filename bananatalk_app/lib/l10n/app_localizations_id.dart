@@ -12701,4 +12701,35 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get storyWordExampleHint => 'Kalimat contoh (opsional)';
+
+  @override
+  String get storyCorrectThis => 'Koreksi ini';
+
+  @override
+  String get storyCorrectionFieldHint => 'Tulis kalimat yang sudah dikoreksi';
+
+  @override
+  String get storyCorrectionSent => 'Koreksi terkirim';
+
+  @override
+  String get storyCorrectionAlready => 'Kamu sudah mengoreksi ini';
+
+  @override
+  String storyCorrectionsReceived(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count koreksi',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyQuizCorrect => 'Benar!';
+
+  @override
+  String get storyQuizWrong => 'Belum tepat';
+
+  @override
+  String get storySaveWord => 'Simpan kata';
 }
