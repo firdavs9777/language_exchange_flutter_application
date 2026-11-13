@@ -4828,5 +4828,6 @@
   "storyQuizCorrect": "정답!",
   "storyQuizWrong": "아쉬워요",
   "storySaveWord": "단어 저장",
-  "storyQuizDuplicateOption": "같은 보기가 있어요"
+  "storyQuizDuplicateOption": "같은 보기가 있어요",
+  "storyUploadFileMissing": "이 스토리의 사진이나 동영상이 기기에 더 이상 없어요."
 }

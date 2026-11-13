@@ -4823,5 +4823,6 @@
   "storyQuizCorrect": "सही!",
   "storyQuizWrong": "बिल्कुल नहीं",
   "storySaveWord": "शब्द सहेजें",
-  "storyQuizDuplicateOption": "दो विकल्प एक जैसे हैं"
+  "storyQuizDuplicateOption": "दो विकल्प एक जैसे हैं",
+  "storyUploadFileMissing": "इस स्टोरी की फ़ोटो या वीडियो अब आपके डिवाइस पर नहीं है।"
 }

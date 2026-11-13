@@ -8852,5 +8852,9 @@
   "@storySaveWord": {
     "description": "Button on a story's word sticker that saves the word to the viewer's vocabulary"
   },
-  "storyQuizDuplicateOption": "Two options are the same"
+  "storyQuizDuplicateOption": "Two options are the same",
+  "storyUploadFileMissing": "This story's photo or video is no longer on your device.",
+  "@storyUploadFileMissing": {
+    "description": "Shown on a queued story that cannot be posted because its photo or video file is gone from the device"
+  }
 }

@@ -12769,4 +12769,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get storyQuizDuplicateOption => 'Hay dos opciones iguales';
+
+  @override
+  String get storyUploadFileMissing => 'La foto o el video de esta historia ya no está en tu dispositivo.';
 }

@@ -4837,5 +4837,6 @@
   "storyQuizCorrect": "¡Correcto!",
   "storyQuizWrong": "No del todo",
   "storySaveWord": "Guardar palabra",
-  "storyQuizDuplicateOption": "Hay dos opciones iguales"
+  "storyQuizDuplicateOption": "Hay dos opciones iguales",
+  "storyUploadFileMissing": "La foto o el video de esta historia ya no está en tu dispositivo."
 }

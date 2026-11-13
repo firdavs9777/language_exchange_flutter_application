@@ -12750,4 +12750,7 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get storyQuizDuplicateOption => 'Magkapareho ang dalawang opsyon';
+
+  @override
+  String get storyUploadFileMissing => 'Wala na sa device mo ang larawan o video ng story na ito.';
 }

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/models/upload_task.dart';
+import 'package:bananatalk_app/services/story_upload_payload.dart';
 import 'package:bananatalk_app/services/upload_queue_service.dart';
 import 'package:bananatalk_app/providers/provider_models/story_model.dart';
 
@@ -35,6 +36,10 @@ class UploadManagerState {
   /// Get failed tasks
   List<UploadTask> get failedTasks =>
       tasks.where((t) => t.status == UploadStatus.failed).toList();
+
+  /// Story tasks (see `StoryUploadTaskInfo` for their payload and
+  /// failure code).
+  List<UploadTask> get storyTasks => tasks.where((t) => t.isStory).toList();
 
   /// Get completed tasks
   List<UploadTask> get completedTasks =>
@@ -126,15 +131,21 @@ class UploadManagerNotifier extends StateNotifier<UploadManagerState> {
     );
   }
 
-  /// Queue a story upload
-  Future<String> queueStoryUpload({
+  /// Queue a story with everything it carries (stickers, overlays, ...).
+  /// Throws [StoryUploadQueueException] when nothing could be queued.
+  Future<String> queueStoryUpload(StoryUploadPayload payload) {
+    return _uploadService.queueStoryUpload(payload);
+  }
+
+  /// The pre-payload form: a media story with a caption, colour and privacy.
+  Future<String> queueSimpleStoryUpload({
     required String mediaPath,
     bool isVideo = false,
     String? text,
     String? backgroundColor,
     StoryPrivacy privacy = StoryPrivacy.everyone,
   }) async {
-    return _uploadService.queueStoryUpload(
+    return _uploadService.queueSimpleStoryUpload(
       mediaPath: mediaPath,
       isVideo: isVideo,
       text: text,

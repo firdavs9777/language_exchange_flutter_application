@@ -2,12 +2,16 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:bananatalk_app/services/activation_store.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/foundation.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:uuid/uuid.dart';
 import 'package:bananatalk_app/models/upload_task.dart';
 import 'package:bananatalk_app/pages/moments/create/moment_media_rules.dart';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
 import 'package:bananatalk_app/services/stories_service.dart';
+import 'package:bananatalk_app/services/story_upload_payload.dart';
 import 'package:bananatalk_app/providers/provider_models/story_model.dart';
 
 /// Task-metadata key holding the id of the moment this task already created.
@@ -16,6 +20,31 @@ import 'package:bananatalk_app/providers/provider_models/story_model.dart';
 /// one after an app restart — re-runs only the failed media step instead of
 /// creating the moment again.
 const String kCreatedMomentIdKey = 'createdMomentId';
+
+/// Posts one attempt of a queued story; [idempotencyKey] is sent as the
+/// `Idempotency-Key` header, so a repeat can never create a second story.
+typedef StoryPoster = Future<SingleStoryResponse> Function(
+    StoryUploadPayload payload, String idempotencyKey);
+
+/// [UploadQueueService.queueStoryUpload] could not queue the story (its
+/// media could not be copied, or nobody is signed in). Nothing was queued;
+/// the caller can post the blocking way instead.
+class StoryUploadQueueException implements Exception {
+  StoryUploadQueueException(this.message);
+  final String message;
+
+  @override
+  String toString() => 'StoryUploadQueueException: $message';
+}
+
+// Story-task bookkeeping, persisted in the task's metadata next to the
+// payload (StoryUploadPayload.fromJson ignores these keys).
+const String _kNextAttemptAt = 'storyNextAttemptAt'; // ms since epoch
+const String _kWaitReason = 'storyWaitReason'; // failure | inProgress | tryAgain
+const String _kInProgressSince = 'storyInProgressSince'; // ms since epoch
+const String _kInProgressCount = 'storyInProgressCount';
+const String _kTryAgainCount = 'storyTryAgainCount';
+const String _waitForFailure = 'failure';
 
 /// Service for managing background upload queue
 /// Handles moments and stories uploads with persistence and retry logic
@@ -34,6 +63,144 @@ class UploadQueueService {
   /// wait real seconds.
   @visibleForTesting
   static Duration Function(int attempt) retryDelay = defaultRetryDelay;
+
+  // ---- Stories ------------------------------------------------------------
+  // A story task has its own policy (moments keep the one above): the
+  // Idempotency-Key is the task id on every attempt, so any attempt -- an
+  // automatic retry, a manual one, one after a restart -- is safe to send.
+
+  /// Private copies of queued story media live here, under the app's
+  /// documents directory, as `<taskId>.<ext>`.
+  static const String storyUploadsFolder = 'story_uploads';
+
+  /// Waits after an ordinary failure: 5 automatic retries, then `failed`.
+  static const List<Duration> storyRetryDelays = [
+    Duration(seconds: 5),
+    Duration(seconds: 15),
+    Duration(seconds: 45),
+    Duration(minutes: 2),
+    Duration(minutes: 5),
+  ];
+
+  /// Waits after "Story upload already in progress" (409); the last repeats.
+  /// The whole multipart body is re-sent each time, hence the back-off.
+  static const List<Duration> storyInProgressDelays = [
+    Duration(seconds: 30),
+    Duration(minutes: 2),
+    Duration(minutes: 5),
+    Duration(minutes: 10),
+  ];
+
+  /// "In progress" for this long (from the first such answer) gives up.
+  static const Duration storyInProgressGiveUp = Duration(minutes: 30);
+
+  /// Wait after a 503, at most [storyTryAgainInARow] times in a row.
+  static const Duration storyTryAgainDelay = Duration(seconds: 30);
+  static const int storyTryAgainInARow = 5;
+
+  /// A stored retry time further away than this is not trusted (the device
+  /// clock moved) and the attempt runs at once.
+  static const Duration _longestStoryWait = Duration(minutes: 10);
+
+  static Future<SingleStoryResponse> defaultStoryPoster(
+      StoryUploadPayload p, String idempotencyKey) {
+    if (p.isTextStory) {
+      return StoriesService.createTextStory(
+        text: p.text ?? ' ',
+        backgroundColor: p.backgroundColor ?? '#000000',
+        textColor: p.textColor ?? '#FFFFFF',
+        fontStyle: p.fontStyle ?? 'normal',
+        privacy: p.privacy,
+        allowReplies: p.allowReplies,
+        allowSharing: p.allowSharing,
+        overlays: p.overlays,
+        hashtags: p.hashtags,
+        location: p.location,
+        mentions: p.mentions,
+        link: p.link,
+        poll: p.poll,
+        questionBox: p.questionBox,
+        correctionSticker: p.correctionSticker,
+        quizSticker: p.quizSticker,
+        wordSticker: p.wordSticker,
+        idempotencyKey: idempotencyKey,
+      );
+    }
+    return StoriesService.createStory(
+      mediaFiles: [File(p.mediaPath!)],
+      text: p.text,
+      backgroundColor: p.backgroundColor,
+      textColor: p.textColor,
+      fontStyle: p.fontStyle,
+      privacy: p.privacy,
+      poll: p.poll,
+      questionBox: p.questionBox,
+      location: p.location,
+      link: p.link,
+      mentions: p.mentions,
+      hashtags: p.hashtags,
+      allowReplies: p.allowReplies,
+      allowSharing: p.allowSharing,
+      overlays: p.overlays,
+      correctionSticker: p.correctionSticker,
+      quizSticker: p.quizSticker,
+      wordSticker: p.wordSticker,
+      idempotencyKey: idempotencyKey,
+    );
+  }
+
+  static Future<String?> _storedUserId() async =>
+      (await SharedPreferences.getInstance()).getString('userId');
+
+  static Timer _realTimer(Duration d, void Function() cb) => Timer(d, cb);
+
+  static Stream<List<ConnectivityResult>> _realConnectivity() =>
+      Connectivity().onConnectivityChanged;
+
+  @visibleForTesting
+  static StoryPoster storyPoster = defaultStoryPoster;
+  @visibleForTesting
+  static Future<Directory> Function() documentsDirectory =
+      getApplicationDocumentsDirectory;
+  @visibleForTesting
+  static Future<String?> Function() signedInUserId = _storedUserId;
+  @visibleForTesting
+  static DateTime Function() clock = DateTime.now;
+  @visibleForTesting
+  static Timer Function(Duration, void Function()) startTimer = _realTimer;
+  @visibleForTesting
+  static Stream<List<ConnectivityResult>> Function() connectivityChanges =
+      _realConnectivity;
+
+  /// One story attempt may take this long (a large video on a slow line);
+  /// then it counts as a failure and is retried with the same key.
+  @visibleForTesting
+  static Duration storyAttemptTimeout = const Duration(minutes: 10);
+
+  @visibleForTesting
+  static void resetStorySeamsForTest() {
+    storyPoster = defaultStoryPoster;
+    documentsDirectory = getApplicationDocumentsDirectory;
+    signedInUserId = _storedUserId;
+    clock = DateTime.now;
+    startTimer = _realTimer;
+    connectivityChanges = _realConnectivity;
+    storyAttemptTimeout = const Duration(minutes: 10);
+  }
+
+  final _storyPostedController = StreamController<String>.broadcast();
+
+  /// The id of a story task, once, when its story is on the server (posted
+  /// now, or found already posted by an earlier attempt).
+  Stream<String> get storyPostedStream => _storyPostedController.stream;
+
+  /// Wakes the queue for the earliest waiting story retry.
+  Timer? _storyWakeTimer;
+  StreamSubscription<List<ConnectivityResult>>? _connectivitySubscription;
+  bool _wasOffline = false;
+
+  /// Copies being made by [queueStoryUpload]; the orphan sweep spares them.
+  final Set<String> _copiesInProgress = {};
 
   final MomentsService _momentsService = MomentsService();
 
@@ -73,6 +240,13 @@ class UploadQueueService {
       final prefs = await SharedPreferences.getInstance();
       await prefs.remove(_storageKey);
     } catch (_) {}
+    // Stories: no retry may wake up, and the account's private media
+    // copies go with its tasks. (The subscription is already cancelled by
+    // _notifyTasksChanged above: no story task is left.)
+    _storyWakeTimer?.cancel();
+    _storyWakeTimer = null;
+    _wasOffline = false;
+    await _sweepStoryFiles();
   }
 
   void _checkSession(int generation) {
@@ -102,6 +276,7 @@ class UploadQueueService {
   /// Initialize service and restore pending tasks
   Future<void> initialize() async {
     await _loadTasks();
+    await _restoreStoryTasks();
     _resumeFailedUploads();
   }
 
@@ -159,27 +334,66 @@ class UploadQueueService {
     return queueUpload(task);
   }
 
-  /// Queue story upload
-  Future<String> queueStoryUpload({
+  /// Queue a story with everything it carries. Returns the task id, which is
+  /// also the story's Idempotency-Key on every attempt.
+  ///
+  /// The media is first copied to `<documents>/story_uploads/<taskId>.<ext>`
+  /// so a cleared cache or a deleted gallery file cannot lose the story; the
+  /// copy is deleted once the story is posted, or the task is cancelled or
+  /// removed. If the copy fails (or nobody is signed in) this throws
+  /// [StoryUploadQueueException] and nothing is queued.
+  Future<String> queueStoryUpload(StoryUploadPayload payload) async {
+    final generation = _sessionGeneration;
+    final id = const Uuid().v4();
+
+    var owner = payload.ownerUserId;
+    if (owner == null || owner.isEmpty) owner = await _signedInUserIdOrNull();
+    if (owner == null || owner.isEmpty) {
+      throw StoryUploadQueueException('nobody is signed in');
+    }
+
+    // Until the task is in the list, the orphan sweep must spare its copy.
+    _copiesInProgress.add(id);
+    try {
+      String? copyPath;
+      if (!payload.isTextStory) {
+        copyPath = await _copyStoryMedia(id, payload.mediaPath!);
+        if (generation != _sessionGeneration) {
+          // Signed out while copying: this story belongs to nobody now.
+          await _deleteStoryFile(copyPath);
+          throw StoryUploadQueueException('the session ended');
+        }
+      }
+
+      final task = UploadTask(
+        id: id,
+        type: payload.isVideo ? UploadType.storyVideo : UploadType.story,
+        localFilePath: copyPath ?? '',
+        metadata: payload
+            .copyWith(mediaPath: copyPath, ownerUserId: owner)
+            .toJson(),
+      );
+      return await queueUpload(task);
+    } finally {
+      _copiesInProgress.remove(id);
+    }
+  }
+
+  /// The pre-payload form: a media story with a caption, colour and privacy.
+  Future<String> queueSimpleStoryUpload({
     required String mediaPath,
     bool isVideo = false,
     String? text,
     String? backgroundColor,
     StoryPrivacy privacy = StoryPrivacy.everyone,
-  }) async {
-    final task = UploadTask(
-      type: isVideo ? UploadType.storyVideo : UploadType.story,
-      localFilePath: mediaPath,
-      metadata: {
-        'mediaPath': mediaPath,
-        'isVideo': isVideo,
-        'text': text,
-        'backgroundColor': backgroundColor,
-        'privacy': privacy.name,
-      },
-    );
-
-    return queueUpload(task);
+  }) {
+    return queueStoryUpload(StoryUploadPayload(
+      mediaPath: mediaPath,
+      isVideo: isVideo,
+      text: text,
+      backgroundColor: backgroundColor,
+      privacy: privacy,
+    ));
   }
 
   /// Cancel an upload task
@@ -191,6 +405,7 @@ class UploadQueueService {
       );
       _notifyTasksChanged();
       await _saveTasks();
+      await _deleteStoryCopy(_tasks[taskIndex]);
     }
   }
 
@@ -198,10 +413,18 @@ class UploadQueueService {
   Future<void> retryUpload(String taskId) async {
     final taskIndex = _tasks.indexWhere((t) => t.id == taskId);
     if (taskIndex != -1 && _tasks[taskIndex].status == UploadStatus.failed) {
-      _tasks[taskIndex] = _tasks[taskIndex].copyWith(
+      final task = _tasks[taskIndex];
+      if (task.isStory) {
+        // A fresh automatic schedule; the key (the task id) stays the same,
+        // so if an earlier attempt did post, this gets that story back.
+        _clearStoryWait(task.metadata);
+        task.metadata.remove(kStoryFailureKey);
+      }
+      _tasks[taskIndex] = task.copyWith(
         status: UploadStatus.queued,
         progress: 0.0,
         error: null,
+        retryCount: task.isStory ? 0 : null,
       );
       _notifyTasksChanged();
       await _saveTasks();
@@ -211,9 +434,13 @@ class UploadQueueService {
 
   /// Remove a task from the queue
   Future<void> removeTask(String taskId) async {
+    final removed = _tasks.where((t) => t.id == taskId).toList();
     _tasks.removeWhere((t) => t.id == taskId);
     _notifyTasksChanged();
     await _saveTasks();
+    for (final task in removed) {
+      await _deleteStoryCopy(task);
+    }
   }
 
   /// Clear all completed tasks
@@ -230,16 +457,36 @@ class UploadQueueService {
     final generation = _sessionGeneration;
 
     while (generation == _sessionGeneration) {
+      // Story tasks run only as their owner and only once their retry time
+      // has come; with no story queued this is exactly the moment loop.
+      String? userId;
+      if (_tasks.any((t) => t.isStory && t.status == UploadStatus.queued)) {
+        userId = await _signedInUserIdOrNull();
+        if (generation != _sessionGeneration) break;
+        await _dropStoryTasksOfOtherUsers(userId);
+        if (generation != _sessionGeneration) break;
+      }
+
       // Find next queued task
-      final taskIndex = _tasks.indexWhere((t) => t.status == UploadStatus.queued);
+      final now = clock();
+      final taskIndex = _tasks.indexWhere((t) =>
+          t.status == UploadStatus.queued &&
+          (!t.isStory || _storyRunnable(t, userId, now)));
       if (taskIndex == -1) break;
 
       final task = _tasks[taskIndex];
-      await _processTask(task, taskIndex, generation);
+      if (task.isStory) {
+        await _processStoryTask(task, generation);
+      } else {
+        await _processTask(task, taskIndex, generation);
+      }
     }
 
     // A newer session owns the flag now (endSession reset it).
-    if (generation == _sessionGeneration) _isProcessing = false;
+    if (generation == _sessionGeneration) {
+      _isProcessing = false;
+      _armStoryWakeTimer();
+    }
   }
 
   /// Process a single upload task
@@ -265,11 +512,10 @@ class UploadQueueService {
           resultId = await _uploadMomentWithVideo(task, taskIndex, gen);
           break;
         case UploadType.story:
-          resultId = await _uploadStory(task, taskIndex, gen, isVideo: false);
-          break;
         case UploadType.storyVideo:
-          resultId = await _uploadStory(task, taskIndex, gen, isVideo: true);
-          break;
+          // Never reached: _processQueue runs story tasks through
+          // _processStoryTask, which has its own outcomes and retry policy.
+          throw StateError('story task outside _processStoryTask');
       }
 
       _checkSession(gen);
@@ -449,40 +695,407 @@ class UploadQueueService {
     return momentId;
   }
 
-  /// Upload a story (image or video)
-  Future<String?> _uploadStory(UploadTask task, int taskIndex, int gen,
-      {required bool isVideo}) async {
-    final metadata = task.metadata;
+  /// One attempt of a story task, and what its outcome means:
+  ///  - posted (201, a replay included) -> completed; the copy is deleted;
+  ///  - "already posted" (409) -> the story exists or existed: completed and
+  ///    removed from the queue, never failed;
+  ///  - "in progress" (409) -> retried after 30 s, 2 min, 5 min, then every
+  ///    10 min, without using an attempt; failed after 30 minutes of it;
+  ///  - 503 -> retried after 30 s without using an attempt, at most
+  ///    [storyTryAgainInARow] times in a row, then an ordinary failure;
+  ///  - daily limit (429) -> failed, no automatic retry;
+  ///  - private copy missing -> failed, no retry;
+  ///  - anything else, a timeout or an exception -> [storyRetryDelays], then
+  ///    failed until the user retries or removes it.
+  /// The Idempotency-Key is the task id every time.
+  Future<void> _processStoryTask(UploadTask task, int gen) async {
+    final id = task.id;
+    var index = _tasks.indexWhere((t) => t.id == id);
+    if (index == -1) return;
+    task.metadata.remove(_kNextAttemptAt);
+    _tasks[index] = task.copyWith(status: UploadStatus.uploading, progress: 0.0);
+    _notifyTasksChanged();
+    _notifyProgress(id, 0.0, UploadStatus.uploading);
 
-    _notifyProgress(task.id, 0.1, UploadStatus.uploading, message: 'Creating story...');
+    SingleStoryResponse? result;
+    var fileMissing = false;
+    String? error;
+    try {
+      var payload = StoryUploadPayload.fromJson(task.metadata);
+      if (!payload.isTextStory) {
+        final media = await _currentStoryFile(payload.mediaPath!);
+        if (!await media.exists()) {
+          fileMissing = true;
+        } else {
+          payload = payload.copyWith(mediaPath: media.path);
+        }
+      }
+      if (!fileMissing && gen == _sessionGeneration) {
+        _notifyProgress(id, 0.1, UploadStatus.uploading,
+            message: 'Creating story...');
+        result = await storyPoster(payload, id).timeout(storyAttemptTimeout);
+      }
+    } catch (e) {
+      error = e.toString();
+    }
 
-    final mediaPath = metadata['mediaPath'];
-    final mediaFile = File(mediaPath);
+    // Signed out meanwhile: the task left with its account.
+    if (gen != _sessionGeneration) return;
+    index = _tasks.indexWhere((t) => t.id == id);
+    // Cancelled or removed while the request was out: leave it as it is.
+    if (index == -1 || _tasks[index].status != UploadStatus.uploading) return;
+    final current = _tasks[index];
+    final m = current.metadata;
+    error ??= result?.error;
 
-    // Map privacy string back to enum
-    StoryPrivacy privacy = StoryPrivacy.everyone;
-    final privacyStr = metadata['privacy'];
-    if (privacyStr != null) {
-      privacy = StoryPrivacy.values.firstWhere(
-        (p) => p.name == privacyStr,
-        orElse: () => StoryPrivacy.everyone,
+    if (fileMissing) {
+      return _failStory(index, StoryUploadFailure.fileMissing, error);
+    }
+    if (result != null && result.success) {
+      _clearStoryWait(m);
+      m.remove(kStoryFailureKey);
+      _tasks[index] = current.copyWith(
+        status: UploadStatus.completed,
+        progress: 1.0,
+        completedAt: DateTime.now(),
+        resultId: result.data?.id,
       );
+      _notifyTasksChanged();
+      _notifyProgress(id, 1.0, UploadStatus.completed,
+          message: 'Upload complete!');
+      await _saveTasks();
+      _storyPostedController.add(id);
+      await _deleteStoryCopy(current);
+      return;
+    }
+    if (result?.failure == StoryPostFailure.alreadyPosted) {
+      // An earlier attempt of this same task posted it.
+      _tasks[index] = current.copyWith(
+        status: UploadStatus.completed,
+        progress: 1.0,
+        completedAt: DateTime.now(),
+      );
+      _notifyTasksChanged();
+      _notifyProgress(id, 1.0, UploadStatus.completed,
+          message: 'Upload complete!');
+      _tasks.removeWhere((t) => t.id == id);
+      _notifyTasksChanged();
+      await _saveTasks();
+      _storyPostedController.add(id);
+      await _deleteStoryCopy(current);
+      return;
+    }
+    if (result?.failure == StoryPostFailure.inProgress) {
+      m.remove(_kTryAgainCount);
+      final now = clock();
+      final since = m[_kInProgressSince] is int
+          ? DateTime.fromMillisecondsSinceEpoch(m[_kInProgressSince] as int)
+          : now;
+      if (now.difference(since) >= storyInProgressGiveUp) {
+        return _failStory(index, StoryUploadFailure.failed, error);
+      }
+      final count = m[_kInProgressCount] is int ? m[_kInProgressCount] as int : 0;
+      m[_kInProgressSince] = since.millisecondsSinceEpoch;
+      m[_kInProgressCount] = count + 1;
+      final delay = storyInProgressDelays[
+          count < storyInProgressDelays.length
+              ? count
+              : storyInProgressDelays.length - 1];
+      return _scheduleStoryRetry(index, delay, 'inProgress', error);
+    }
+    m.remove(_kInProgressSince);
+    m.remove(_kInProgressCount);
+    if (result?.failure == StoryPostFailure.tryAgain) {
+      final streak = m[_kTryAgainCount] is int ? m[_kTryAgainCount] as int : 0;
+      if (streak < storyTryAgainInARow) {
+        m[_kTryAgainCount] = streak + 1;
+        return _scheduleStoryRetry(
+            index, storyTryAgainDelay, 'tryAgain', error);
+      }
+      // Too many 503s in a row: an ordinary failure from here.
+    }
+    m.remove(_kTryAgainCount);
+    if (result != null && result.limitReached) {
+      return _failStory(index, StoryUploadFailure.limitReached, error);
+    }
+    final failure = result?.failure;
+    if (failure == StoryPostFailure.noMedia ||
+        failure == StoryPostFailure.noText ||
+        failure == StoryPostFailure.videoTooLarge) {
+      // Refused on the device; the same payload would be refused again.
+      return _failStory(index, StoryUploadFailure.failed, error);
     }
 
-    final result = await StoriesService.createStory(
-      mediaFiles: [mediaFile],
-      text: metadata['text'],
-      backgroundColor: metadata['backgroundColor'],
-      privacy: privacy,
+    final failures = current.retryCount + 1;
+    if (failures <= storyRetryDelays.length) {
+      return _scheduleStoryRetry(
+          index, storyRetryDelays[failures - 1], _waitForFailure, error,
+          retryCount: failures);
+    }
+    return _failStory(index, StoryUploadFailure.failed, error,
+        retryCount: failures);
+  }
+
+  Future<void> _scheduleStoryRetry(
+    int index,
+    Duration delay,
+    String reason,
+    String? error, {
+    int? retryCount,
+  }) async {
+    final task = _tasks[index];
+    task.metadata[_kNextAttemptAt] = clock().add(delay).millisecondsSinceEpoch;
+    task.metadata[_kWaitReason] = reason;
+    _tasks[index] = task.copyWith(
+      status: UploadStatus.queued,
+      error: error,
+      retryCount: retryCount,
     );
+    _notifyTasksChanged();
+    _notifyProgress(task.id, task.progress, UploadStatus.queued,
+        message: 'Retrying...');
+    await _saveTasks();
+  }
 
-    _checkSession(gen);
-    if (!result.success) {
-      throw Exception(result.error ?? 'Failed to create story');
+  Future<void> _failStory(
+    int index,
+    StoryUploadFailure code,
+    String? error, {
+    int? retryCount,
+  }) async {
+    final task = _tasks[index];
+    _clearStoryWait(task.metadata);
+    task.metadata[kStoryFailureKey] = code.name;
+    _tasks[index] = task.copyWith(
+      status: UploadStatus.failed,
+      error: error ?? code.name,
+      retryCount: retryCount,
+    );
+    _notifyTasksChanged();
+    _notifyProgress(task.id, task.progress, UploadStatus.failed,
+        message: 'Upload failed: ${error ?? code.name}');
+    await _saveTasks();
+  }
+
+  void _clearStoryWait(Map<String, dynamic> m) {
+    m.remove(_kNextAttemptAt);
+    m.remove(_kWaitReason);
+    m.remove(_kInProgressSince);
+    m.remove(_kInProgressCount);
+    m.remove(_kTryAgainCount);
+  }
+
+  /// When a waiting story task may run, or null when it may run now.
+  DateTime? _storyRetryAt(UploadTask t, DateTime now) {
+    final at = t.metadata[_kNextAttemptAt];
+    if (at is! int) return null;
+    final when = DateTime.fromMillisecondsSinceEpoch(at);
+    if (!when.isAfter(now)) return null;
+    if (when.difference(now) > _longestStoryWait) return null;
+    return when;
+  }
+
+  bool _storyRunnable(UploadTask t, String? userId, DateTime now) {
+    if (userId == null || userId.isEmpty) return false;
+    final owner = t.metadata['ownerUserId'];
+    if (owner is String && owner.isNotEmpty && owner != userId) return false;
+    return _storyRetryAt(t, now) == null;
+  }
+
+  /// Arms one timer for the earliest waiting story retry.
+  void _armStoryWakeTimer() {
+    _storyWakeTimer?.cancel();
+    _storyWakeTimer = null;
+    final now = clock();
+    DateTime? earliest;
+    for (final t in _tasks) {
+      if (!t.isStory || t.status != UploadStatus.queued) continue;
+      final at = _storyRetryAt(t, now);
+      if (at != null && (earliest == null || at.isBefore(earliest))) {
+        earliest = at;
+      }
     }
+    if (earliest == null) return;
+    final gen = _sessionGeneration;
+    _storyWakeTimer = startTimer(earliest.difference(now), () {
+      _storyWakeTimer = null;
+      if (gen == _sessionGeneration) _processQueue();
+    });
+  }
 
-    _tasks[taskIndex] = _tasks[taskIndex].copyWith(progress: 1.0);
-    return result.data?.id;
+  Future<String?> _signedInUserIdOrNull() async {
+    try {
+      return await signedInUserId();
+    } catch (_) {
+      return null;
+    }
+  }
+
+  /// A story task queued by another account is never uploaded: dropped,
+  /// with its private copy. Legacy tasks (no owner) stay: the queue is
+  /// cleared at every sign-out, so they can only be the current user's.
+  Future<void> _dropStoryTasksOfOtherUsers(String? userId) async {
+    if (userId == null || userId.isEmpty) return;
+    final foreign = _tasks.where((t) {
+      if (!t.isStory) return false;
+      final owner = t.metadata['ownerUserId'];
+      return owner is String && owner.isNotEmpty && owner != userId;
+    }).toList();
+    if (foreign.isEmpty) return;
+    _tasks.removeWhere(foreign.contains);
+    _notifyTasksChanged();
+    await _saveTasks();
+    for (final t in foreign) {
+      await _deleteStoryCopy(t);
+    }
+  }
+
+  /// After a restart: drop other accounts' story tasks and delete private
+  /// copies that belong to no task.
+  Future<void> _restoreStoryTasks() async {
+    final generation = _sessionGeneration;
+    if (_tasks.any((t) => t.isStory)) {
+      final userId = await _signedInUserIdOrNull();
+      if (generation != _sessionGeneration) return;
+      await _dropStoryTasksOfOtherUsers(userId);
+    }
+    await _sweepStoryFiles();
+  }
+
+  /// Deletes every file in the uploads folder no task (and no copy being
+  /// made) refers to.
+  Future<void> _sweepStoryFiles() async {
+    try {
+      final dir = await _storyUploadsDir();
+      if (!await dir.exists()) return;
+      final referenced = <String>{
+        for (final t in _tasks)
+          if (t.isStory && t.metadata['mediaPath'] is String)
+            _fileName(t.metadata['mediaPath'] as String),
+      };
+      await for (final entry in dir.list()) {
+        final name = _fileName(entry.path);
+        if (referenced.contains(name)) continue;
+        if (_copiesInProgress.any(name.startsWith)) continue;
+        try {
+          await entry.delete(recursive: true);
+        } catch (_) {}
+      }
+    } catch (_) {
+      // No documents directory (tests, a broken install): nothing to sweep.
+    }
+  }
+
+  Future<Directory> _storyUploadsDir() async =>
+      Directory('${(await documentsDirectory()).path}/$storyUploadsFolder');
+
+  static String _fileName(String path) => path.split('/').last;
+
+  /// [path] as stored, re-rooted on today's documents directory when it is
+  /// one of our copies: on iOS the app container's path changes with an app
+  /// update, so a stored absolute path can go stale.
+  Future<File> _currentStoryFile(String path) async {
+    if (!path.contains('/$storyUploadsFolder/')) return File(path);
+    try {
+      final dir = await _storyUploadsDir();
+      return File('${dir.path}/${_fileName(path)}');
+    } catch (_) {
+      return File(path);
+    }
+  }
+
+  Future<String> _copyStoryMedia(String id, String sourcePath) async {
+    File? dest;
+    try {
+      final dir = await _storyUploadsDir();
+      await dir.create(recursive: true);
+      final name = _fileName(sourcePath);
+      final dot = name.lastIndexOf('.');
+      final ext = dot > 0 ? name.substring(dot) : '';
+      dest = File('${dir.path}/$id$ext');
+      await File(sourcePath).copy(dest.path);
+      return dest.path;
+    } catch (e) {
+      if (dest != null) await _deleteStoryFile(dest.path);
+      throw StoryUploadQueueException('could not copy the story media: $e');
+    }
+  }
+
+  /// Deletes a story task's private copy. Never touches a file outside the
+  /// uploads folder (a task from an older release points at the user's own
+  /// file).
+  Future<void> _deleteStoryCopy(UploadTask task) async {
+    if (!task.isStory) return;
+    final path = task.metadata['mediaPath'];
+    if (path is! String || !path.contains('/$storyUploadsFolder/')) return;
+    try {
+      await _deleteStoryFile((await _currentStoryFile(path)).path);
+    } catch (_) {}
+  }
+
+  Future<void> _deleteStoryFile(String path) async {
+    try {
+      final f = File(path);
+      if (await f.exists()) await f.delete();
+    } catch (_) {}
+  }
+
+  /// Subscribed to connectivity only while a story task could use it.
+  void _syncStoryConnectivity() {
+    final wanted = _tasks.any((t) =>
+        t.isStory &&
+        (t.isActive ||
+            (t.status == UploadStatus.failed &&
+                t.storyFailure == StoryUploadFailure.failed)));
+    if (wanted && _connectivitySubscription == null) {
+      try {
+        _connectivitySubscription = connectivityChanges()
+            .listen(_onConnectivityChanged, onError: (_) {});
+      } catch (_) {
+        // Plugin missing (tests, unsupported platform): timers still retry.
+      }
+    } else if (!wanted && _connectivitySubscription != null) {
+      _connectivitySubscription!.cancel();
+      _connectivitySubscription = null;
+      _wasOffline = false;
+    }
+  }
+
+  void _onConnectivityChanged(List<ConnectivityResult> results) {
+    final online = results.any((r) => r != ConnectivityResult.none);
+    if (!online) {
+      _wasOffline = true;
+      return;
+    }
+    if (!_wasOffline) return;
+    _wasOffline = false;
+    _retryStoriesOnReconnect();
+  }
+
+  /// Back online: each story task waiting after an ordinary failure, or
+  /// failed by one, gets one attempt now. Not a task in flight, not a 429,
+  /// not a missing file, not one the server says is still uploading.
+  void _retryStoriesOnReconnect() {
+    var changed = false;
+    for (var i = 0; i < _tasks.length; i++) {
+      final t = _tasks[i];
+      if (!t.isStory) continue;
+      final m = t.metadata;
+      if (t.status == UploadStatus.queued && m[_kWaitReason] == _waitForFailure) {
+        m.remove(_kNextAttemptAt);
+        m.remove(_kWaitReason);
+        changed = true;
+      } else if (t.status == UploadStatus.failed &&
+          t.storyFailure == StoryUploadFailure.failed) {
+        m.remove(kStoryFailureKey);
+        _tasks[i] = t.copyWith(status: UploadStatus.queued, progress: 0.0);
+        changed = true;
+      }
+    }
+    if (!changed) return;
+    _notifyTasksChanged();
+    _saveTasks();
+    _processQueue();
   }
 
   /// Notify progress update
@@ -498,6 +1111,7 @@ class UploadQueueService {
   /// Notify tasks changed
   void _notifyTasksChanged() {
     _tasksController.add(List.unmodifiable(_tasks));
+    _syncStoryConnectivity();
   }
 
   /// Resume failed uploads on init
@@ -533,8 +1147,16 @@ class UploadQueueService {
       final tasksString = prefs.getString(_storageKey);
       if (tasksString != null) {
         final tasksList = jsonDecode(tasksString) as List;
+        final loaded = tasksList.map((t) => UploadTask.fromJson(t)).toList();
+        // A task queued while this load was reading prefs is kept: a story
+        // posted as the queue starts up must not vanish from memory (and
+        // have its private copy swept as an orphan).
+        final loadedIds = loaded.map((t) => t.id).toSet();
+        final queuedMeanwhile =
+            _tasks.where((t) => !loadedIds.contains(t.id)).toList();
         _tasks.clear();
-        _tasks.addAll(tasksList.map((t) => UploadTask.fromJson(t)));
+        _tasks.addAll(loaded);
+        _tasks.addAll(queuedMeanwhile);
 
         // Remove very old completed tasks (older than 24 hours)
         final cutoff = DateTime.now().subtract(const Duration(hours: 24));
@@ -553,6 +1175,7 @@ class UploadQueueService {
   void dispose() {
     _progressController.close();
     _tasksController.close();
+    _storyPostedController.close();
   }
 }
 

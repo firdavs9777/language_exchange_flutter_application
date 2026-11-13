@@ -4780,5 +4780,6 @@
   "storyQuizCorrect": "Tama!",
   "storyQuizWrong": "Malapit na",
   "storySaveWord": "I-save ang salita",
-  "storyQuizDuplicateOption": "Magkapareho ang dalawang opsyon"
+  "storyQuizDuplicateOption": "Magkapareho ang dalawang opsyon",
+  "storyUploadFileMissing": "Wala na sa device mo ang larawan o video ng story na ito."
 }

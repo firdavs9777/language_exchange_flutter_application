@@ -23131,6 +23131,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Two options are the same'**
   String get storyQuizDuplicateOption;
+
+  /// Shown on a queued story that cannot be posted because its photo or video file is gone from the device
+  ///
+  /// In en, this message translates to:
+  /// **'This story\'s photo or video is no longer on your device.'**
+  String get storyUploadFileMissing;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -12855,4 +12855,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get storyQuizDuplicateOption => 'هناك خياران متطابقان';
+
+  @override
+  String get storyUploadFileMissing => 'لم تعد صورة هذه القصة أو الفيديو الخاص بها على جهازك.';
 }

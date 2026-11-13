@@ -4498,5 +4498,6 @@
   "storyQuizCorrect": "正確!",
   "storyQuizWrong": "不太對",
   "storySaveWord": "儲存單字",
-  "storyQuizDuplicateOption": "有兩個選項相同"
+  "storyQuizDuplicateOption": "有兩個選項相同",
+  "storyUploadFileMissing": "這則限時動態的照片或影片已不在你的裝置上。"
 }

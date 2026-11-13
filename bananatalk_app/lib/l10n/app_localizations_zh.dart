@@ -12724,6 +12724,9 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get storyQuizDuplicateOption => '有两个选项相同';
+
+  @override
+  String get storyUploadFileMissing => '这个故事的照片或视频已不在你的设备上。';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -25446,4 +25449,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get storyQuizDuplicateOption => '有兩個選項相同';
+
+  @override
+  String get storyUploadFileMissing => '這則限時動態的照片或影片已不在你的裝置上。';
 }

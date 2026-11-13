@@ -5019,5 +5019,6 @@
   "storyQuizCorrect": "Doğru!",
   "storyQuizWrong": "Pek değil",
   "storySaveWord": "Kelimeyi kaydet",
-  "storyQuizDuplicateOption": "İki seçenek aynı"
+  "storyQuizDuplicateOption": "İki seçenek aynı",
+  "storyUploadFileMissing": "Bu hikayenin fotoğrafı veya videosu artık cihazında yok."
 }

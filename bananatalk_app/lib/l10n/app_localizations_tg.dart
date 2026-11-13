@@ -12746,4 +12746,7 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get storyQuizDuplicateOption => 'Ду вариант якхела аст';
+
+  @override
+  String get storyUploadFileMissing => 'Акс ё видеои ин стори дигар дар дастгоҳи шумо нест.';
 }

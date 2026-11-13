@@ -12724,4 +12724,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get storyQuizDuplicateOption => 'Có hai lựa chọn giống nhau';
+
+  @override
+  String get storyUploadFileMissing => 'Ảnh hoặc video của story này không còn trên thiết bị của bạn.';
 }

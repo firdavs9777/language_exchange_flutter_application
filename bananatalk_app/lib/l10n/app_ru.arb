@@ -4837,5 +4837,6 @@
   "storyQuizCorrect": "Верно!",
   "storyQuizWrong": "Не совсем",
   "storySaveWord": "Сохранить слово",
-  "storyQuizDuplicateOption": "Два варианта совпадают"
+  "storyQuizDuplicateOption": "Два варианта совпадают",
+  "storyUploadFileMissing": "Фото или видео этой истории больше нет на вашем устройстве."
 }

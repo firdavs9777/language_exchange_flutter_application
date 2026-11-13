@@ -13229,4 +13229,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get storyQuizDuplicateOption => 'Два варианта совпадают';
+
+  @override
+  String get storyUploadFileMissing => 'Фото или видео этой истории больше нет на вашем устройстве.';
 }

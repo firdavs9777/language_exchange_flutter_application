@@ -4821,5 +4821,6 @@
   "storyQuizCorrect": "正确!",
   "storyQuizWrong": "不太对",
   "storySaveWord": "保存单词",
-  "storyQuizDuplicateOption": "有两个选项相同"
+  "storyQuizDuplicateOption": "有两个选项相同",
+  "storyUploadFileMissing": "这个故事的照片或视频已不在你的设备上。"
 }

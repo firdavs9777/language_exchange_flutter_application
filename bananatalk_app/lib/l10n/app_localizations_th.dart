@@ -12724,4 +12724,7 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get storyQuizDuplicateOption => 'มีสองตัวเลือกที่ซ้ำกัน';
+
+  @override
+  String get storyUploadFileMissing => 'รูปภาพหรือวิดีโอของสตอรี่นี้ไม่อยู่ในอุปกรณ์ของคุณแล้ว';
 }

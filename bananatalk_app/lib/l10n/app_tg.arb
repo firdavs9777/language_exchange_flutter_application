@@ -4300,5 +4300,6 @@
   "storyQuizCorrect": "Дуруст!",
   "storyQuizWrong": "Тамоман не",
   "storySaveWord": "Захира кардани калима",
-  "storyQuizDuplicateOption": "Ду вариант якхела аст"
+  "storyQuizDuplicateOption": "Ду вариант якхела аст",
+  "storyUploadFileMissing": "Акс ё видеои ин стори дигар дар дастгоҳи шумо нест."
 }

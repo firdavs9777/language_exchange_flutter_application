@@ -4807,5 +4807,6 @@
   "storyQuizCorrect": "Chính xác!",
   "storyQuizWrong": "Chưa đúng",
   "storySaveWord": "Lưu từ",
-  "storyQuizDuplicateOption": "Có hai lựa chọn giống nhau"
+  "storyQuizDuplicateOption": "Có hai lựa chọn giống nhau",
+  "storyUploadFileMissing": "Ảnh hoặc video của story này không còn trên thiết bị của bạn."
 }

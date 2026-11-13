@@ -12724,4 +12724,7 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get storyQuizDuplicateOption => '같은 보기가 있어요';
+
+  @override
+  String get storyUploadFileMissing => '이 스토리의 사진이나 동영상이 기기에 더 이상 없어요.';
 }

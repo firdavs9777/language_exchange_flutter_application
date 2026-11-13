@@ -5047,5 +5047,6 @@
   "storyQuizCorrect": "Richtig!",
   "storyQuizWrong": "Nicht ganz",
   "storySaveWord": "Wort speichern",
-  "storyQuizDuplicateOption": "Zwei Antworten sind gleich"
+  "storyQuizDuplicateOption": "Zwei Antworten sind gleich",
+  "storyUploadFileMissing": "Das Foto oder Video dieser Story ist nicht mehr auf deinem Gerät."
 }

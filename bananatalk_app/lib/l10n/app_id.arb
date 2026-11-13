@@ -4807,5 +4807,6 @@
   "storyQuizCorrect": "Benar!",
   "storyQuizWrong": "Belum tepat",
   "storySaveWord": "Simpan kata",
-  "storyQuizDuplicateOption": "Dua opsi sama"
+  "storyQuizDuplicateOption": "Dua opsi sama",
+  "storyUploadFileMissing": "Foto atau video story ini sudah tidak ada di perangkatmu."
 }

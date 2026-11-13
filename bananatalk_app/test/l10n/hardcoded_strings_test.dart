@@ -918,6 +918,8 @@ const Map<String, List<String>> _keysByTask = {
     'storyQuizWrong',
     'storySaveWord',
   ],
+  // The upload queue stores a failure code; Task 7's ring localises it.
+  'stories_features_6': ['storyUploadFileMissing'],
   'moments_smart_feed_9': [
     'hashtagPostCount',
     'hashtagSortTop',
@@ -1009,6 +1011,10 @@ const Map<String, List<String>> _filesByTask = {
     'widgets/story/story_quiz_sticker_widget.dart',
     'widgets/story/story_word_sticker_widget.dart',
     'pages/stories/viewer/story_viewer_screen.dart',
+  ],
+  'stories_features_6': [
+    'services/upload_queue_service.dart',
+    'services/story_upload_payload.dart',
   ],
   'moments_smart_feed_9': ['pages/moments/hashtag/hashtag_page_screen.dart'],
   'moments_smart_feed_11': ['pages/settings/data_storage_screen.dart'],
