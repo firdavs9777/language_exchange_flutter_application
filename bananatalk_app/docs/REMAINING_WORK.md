@@ -88,6 +88,7 @@ After release (production data):
 Stories features app (Plan B2)
 - [x] Task 1: models parse `correctionSticker` / `quizSticker` / `wordSticker`, `StoryView.completed` and `StoryViewsSummary` defensively; five flags added to `AppConfig` (`storyStickerCorrectionEnabled`, `storyStickerQuizEnabled`, `storyStickerWordEnabled`, `storyInsightsEnabled`, `storyUploadQueueEnabled`, default off); `StoriesService.answerQuestion` now treats any 2xx as success (the server answers 201, so answers were reported as failed). Nothing user-visible behind a flag yet.
 - [x] Task 2: service calls. `createStory`/`createTextStory` take the three stickers and `idempotencyKey` (header only when non-null); `StoryPostFailure` gained `inProgress` / `alreadyPosted` / `tryAgain`; `submitCorrection` -> `CorrectionResult`, `answerQuiz` -> `QuizAnswerResult`, `viewStory(completed:)`, `getStoryViewers` returns `summary`. `StoriesService` methods touched now go through the `httpClient` test seam. No UI, no flag needed yet.
+- [x] Task 1 follow-up: story_model int helpers no longer throw on Infinity/NaN (fall back / null); `StoryQuizSticker.toCreateJson` omits `correctIndex` when null.
 - [ ] Tasks 3-9: composer entries (gated by the sticker flags), viewer interaction, background story posting (`storyUploadQueueEnabled`: back off on inProgress 30 s / 2 min / 5 min / 10 min, drop on alreadyPosted), author insights (`storyInsightsEnabled`), l10n.
 
 Camera on Android: app killed while the camera is open (2026-10-17, Galaxy Tab S7 FE)

@@ -979,9 +979,10 @@ String? _nonEmptyString(Object? v) {
   return t.isEmpty ? null : t;
 }
 
-int _intOr(Object? v, int fallback) => v is num ? v.toInt() : fallback;
+int _intOr(Object? v, int fallback) =>
+    v is num && v.isFinite ? v.toInt() : fallback;
 
-int? _intOrNull(Object? v) => v is num ? v.toInt() : null;
+int? _intOrNull(Object? v) => v is num && v.isFinite ? v.toInt() : null;
 
 /// "Correct my sentence" sticker: the author posts a sentence, viewers fix it.
 class StoryCorrectionSticker {
@@ -1132,7 +1133,7 @@ class StoryQuizSticker {
   Map<String, dynamic> toCreateJson() => {
     'question': question,
     'options': options.map((o) => o.text).toList(),
-    'correctIndex': correctIndex,
+    if (correctIndex != null) 'correctIndex': correctIndex,
   };
 
   StoryQuizSticker copyWith({

@@ -353,4 +353,50 @@ void main() {
       }
     });
   });
+
+  group('non-finite numbers', () {
+    test('Infinity / NaN counts fall back instead of throwing', () {
+      final c = StoryCorrectionSticker.fromJsonOrNull({
+        'sentence': 'I goed home',
+        'correctionCount': double.infinity,
+      });
+      expect(c, isNotNull);
+      expect(c!.correctionCount, 0);
+
+      final q = StoryQuizSticker.fromJsonOrNull({
+        'question': 'Q?',
+        'options': [
+          {'index': 0, 'text': 'a', 'count': double.nan},
+          {'index': 1, 'text': 'b', 'percentage': double.infinity},
+        ],
+        'totalAnswers': double.infinity,
+        'correctIndex': double.infinity,
+        'userAnswerIndex': double.nan,
+      });
+      expect(q, isNotNull);
+      expect(q!.totalAnswers, 0);
+      expect(q.correctIndex, isNull);
+      expect(q.userAnswerIndex, isNull);
+      expect(q.options[0].count, isNull);
+      expect(q.options[1].percentage, isNull);
+    });
+  });
+
+  group('StoryQuizSticker.toCreateJson', () {
+    test('omits correctIndex when null', () {
+      final q = StoryQuizSticker(question: 'Q?', options: const [
+        StoryQuizOption(index: 0, text: 'a'),
+        StoryQuizOption(index: 1, text: 'b'),
+      ]);
+      expect(q.toCreateJson().containsKey('correctIndex'), isFalse);
+    });
+
+    test('sends correctIndex as int when set', () {
+      final q = StoryQuizSticker(question: 'Q?', correctIndex: 1, options: const [
+        StoryQuizOption(index: 0, text: 'a'),
+        StoryQuizOption(index: 1, text: 'b'),
+      ]);
+      expect(q.toCreateJson()['correctIndex'], 1);
+    });
+  });
 }
