@@ -29,10 +29,11 @@ UploadTask? storyTaskForRing(List<UploadTask> tasks, String? userId) {
   return active;
 }
 
-/// Whether the Retry button is offered: only for a failure another attempt
-/// can fix (not the daily limit, not a deleted file).
+/// Whether the Retry button is offered: always, except when the private copy
+/// of the media is gone (nothing can bring it back). The daily limit can be
+/// retried tomorrow.
 bool storyFailureRetryable(StoryUploadFailure? failure) =>
-    failure == null || failure == StoryUploadFailure.failed;
+    failure != StoryUploadFailure.fileMissing;
 
 /// The localized sentence for a failed story task's stable failure code.
 String storyUploadFailureText(
@@ -179,13 +180,23 @@ UploadTask? _failedTask(WidgetRef ref, String taskId) {
 
 /// Watches the task: when it is no longer failed (another attempt started,
 /// or it was removed) the sheet closes instead of acting on a stale task.
-class _FailedSheet extends ConsumerWidget {
+class _FailedSheet extends ConsumerStatefulWidget {
   const _FailedSheet({required this.taskId});
 
   final String taskId;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<_FailedSheet> createState() => _FailedSheetState();
+}
+
+class _FailedSheetState extends ConsumerState<_FailedSheet> {
+  /// The sheet pops itself at most once, however often the queue notifies
+  /// while it closes (a second pop would take the screen underneath).
+  bool _closing = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final taskId = widget.taskId;
     final l10n = AppLocalizations.of(context)!;
     final notifier = ref.read(uploadManagerProvider.notifier);
     UploadTask? task;
@@ -193,9 +204,12 @@ class _FailedSheet extends ConsumerWidget {
       if (t.id == taskId && t.status == UploadStatus.failed) task = t;
     }
     if (task == null) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (context.mounted) Navigator.maybePop(context);
-      });
+      if (!_closing) {
+        _closing = true;
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (mounted) Navigator.maybePop(context);
+        });
+      }
       return const SizedBox.shrink();
     }
     final failure = task.storyFailure;
@@ -211,7 +225,7 @@ class _FailedSheet extends ConsumerWidget {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 16),
-            // Retrying cannot lift the daily limit or bring a deleted file back.
+            // Retrying cannot bring a deleted file back.
             if (storyFailureRetryable(failure))
               FilledButton(
                 key: const Key('story-upload-retry'),

@@ -54,10 +54,10 @@ void main() {
     });
   });
 
-  test('Retry is offered only when another attempt can help', () {
+  test('Retry is offered for everything except a deleted file', () {
     expect(storyFailureRetryable(null), isTrue);
     expect(storyFailureRetryable(StoryUploadFailure.failed), isTrue);
-    expect(storyFailureRetryable(StoryUploadFailure.limitReached), isFalse);
+    expect(storyFailureRetryable(StoryUploadFailure.limitReached), isTrue);
     expect(storyFailureRetryable(StoryUploadFailure.fileMissing), isFalse);
   });
 
@@ -92,11 +92,25 @@ void main() {
     Future<void> pumpRail(WidgetTester tester,
         {required bool flag,
         Future<StoriesFeedResult> Function(int call)? feed,
-        bool settle = true}) async {
+        bool underneath = false}) async {
       await tester.runAsync(() async {
         manager = FakeUploadManager();
         await manager.ready();
       });
+      final railScreen = Scaffold(
+            body: StoriesFeedWidget(
+              feedLoader: () async {
+                loads++;
+                return feed != null
+                    ? feed(loads)
+                    : StoriesFeedResult(success: true);
+              },
+              myStoriesLoader: () async => StoriesResponse(success: true),
+              railPrecacheAllowed: () async => false,
+              storyPostedStream: () => posted.stream,
+            ),
+          );
+      var pushed = false;
       await tester.pumpWidget(ProviderScope(
         overrides: [
           blockedUserIdsProvider.overrideWith((ref) async => <String>{}),
@@ -110,19 +124,17 @@ void main() {
         child: MaterialApp(
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
-          home: Scaffold(
-            body: StoriesFeedWidget(
-              feedLoader: () async {
-                loads++;
-                return feed != null
-                    ? feed(loads)
-                    : StoriesFeedResult(success: true);
-              },
-              myStoriesLoader: () async => StoriesResponse(success: true),
-              railPrecacheAllowed: () async => false,
-              storyPostedStream: () => posted.stream,
-            ),
-          ),
+          home: underneath
+              ? Builder(builder: (context) {
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    if (pushed) return;
+                    pushed = true;
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => railScreen));
+                  });
+                  return const Scaffold(body: Text('underneath'));
+                })
+              : railScreen,
         ),
       ));
       await tester.pump(const Duration(milliseconds: 50));
@@ -254,23 +266,68 @@ void main() {
       expect(find.text('Uf1'), findsOneWidget);
     });
 
-    testWidgets('a failed chip for the limit or a missing file says failed, not retry',
+    testWidgets('chip text: retry for failed and the limit, failed for a missing file',
         (t) async {
       await pumpRail(t, flag: true);
       for (final f in [
-        StoryUploadFailure.limitReached,
-        StoryUploadFailure.fileMissing
+        null,
+        StoryUploadFailure.failed,
+        StoryUploadFailure.limitReached
       ]) {
         manager.setTasks([storyTask(UploadStatus.failed, failure: f)]);
         await t.pump();
-        expect(find.text('Tap to retry'), findsNothing, reason: '$f');
-        expect(find.text("Your story couldn't be posted."), findsOneWidget);
+        expect(find.text('Tap to retry'), findsOneWidget, reason: '$f');
       }
       manager.setTasks([
-        storyTask(UploadStatus.failed, failure: StoryUploadFailure.failed)
+        storyTask(UploadStatus.failed, failure: StoryUploadFailure.fileMissing)
       ]);
       await t.pump();
-      expect(find.text('Tap to retry'), findsOneWidget);
+      expect(find.text('Tap to retry'), findsNothing);
+      expect(find.text("Your story couldn't be posted."), findsOneWidget);
+    });
+
+    testWidgets('the limit: dialog first, then a sheet with Retry and Remove',
+        (t) async {
+      await pumpRail(t, flag: true);
+      manager.setTasks([
+        storyTask(UploadStatus.failed,
+            id: 'x', failure: StoryUploadFailure.limitReached)
+      ]);
+      await t.pump();
+      await t.tap(find.byKey(const Key('story-upload-failed')));
+      await t.pumpAndSettle();
+      expect(find.byType(AlertDialog), findsOneWidget);
+      expect(find.byKey(const Key('story-upload-retry')), findsNothing);
+      // Close the (non-dismissible) dialog the way its own button does.
+      Navigator.of(t.element(find.byType(AlertDialog))).pop();
+      await t.pumpAndSettle();
+      expect(find.byKey(const Key('story-upload-retry')), findsOneWidget);
+      expect(find.byKey(const Key('story-upload-remove')), findsOneWidget);
+      await t.tap(find.byKey(const Key('story-upload-retry')));
+      await t.pumpAndSettle();
+      expect(manager.retried, ['x']);
+    });
+
+    testWidgets('two notifications while the sheet closes pop it only once',
+        (t) async {
+      await pumpRail(t, flag: true, underneath: true);
+      await t.pump();
+      await t.pump(const Duration(milliseconds: 500));
+      manager.setTasks([storyTask(UploadStatus.failed, id: 'x')]);
+      await t.pump();
+      await t.tap(find.byKey(const Key('story-upload-failed')));
+      await t.pumpAndSettle();
+      manager.setTasks([storyTask(UploadStatus.uploading, id: 'x')]);
+      await t.pump();
+      manager.setTasks([storyTask(UploadStatus.uploading, id: 'x', owner: 'me')]);
+      await t.pump(const Duration(milliseconds: 20));
+      manager.setTasks([storyTask(UploadStatus.uploading, id: 'x')]);
+      await t.pump(const Duration(milliseconds: 500));
+      expect(find.byKey(const Key('story-upload-remove')), findsNothing);
+      expect(find.byType(StoriesFeedWidget), findsOneWidget,
+          reason: 'the rail screen under the sheet is still there');
+      expect(find.text('underneath'), findsNothing,
+          reason: 'a second pop would have taken the rail screen too');
     });
 
     testWidgets('an attempt starting while the sheet is open closes it without acting',
