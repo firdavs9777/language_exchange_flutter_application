@@ -722,4 +722,6 @@ P2 cleanup
 - [x] Task 5: Partners page 1 (default view only, filter fingerprint) and today's daily matches kept on disk per user (`CommunityFirstPageCache`, flag on) and painted on the next cold open until the network result lands; painted once per notifier / first daily fetch; cleared on sign-out, block and Data & Storage "clear all"
 - [ ] Task 5 follow-up: device check of the cold-open paint (Partners + Matches) with the flag on; Matches tab `dataView` body keeps its old indentation (not reformatted on purpose)
 - [ ] Task 5 open: daily network failure after a cached paint shows today's full error view (the cached cards go); keeping them would need an error-with-data affordance the tab does not have
-- [ ] Tasks 6-7: remaining plan items
+- [x] Task 6 (measured, no code change): first `/users` is issued ~10ms after the later of app-config and the profile fetch, never later; it needs the profile (default filter = viewer's languages, country is VIP-only) and the profile fetch is already started at launch by TabBarMenu. Recorded in `test/community/community_first_open_test.dart`
+- [ ] Task 6 open (only if wanted): starting `/users` before the profile would need the viewer's learning language + VIP flag cached per user (only `user_native_language` is stored today) and could load the wrong list when stale; not done
+- [ ] Task 7: remaining plan item
