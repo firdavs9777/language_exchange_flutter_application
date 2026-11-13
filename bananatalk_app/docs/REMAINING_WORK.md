@@ -735,3 +735,8 @@ P2 cleanup
 - [ ] **OWNER DECISION B (pre-existing, backend, NOT fixed):** a person blocked today stays in the server's cached daily batch until UTC midnight, so Matches shows them again. Smallest fix (backend repo): in `withoutSkipped` (`controllers/matching.js`, cached path) also drop `getBlockedUserIds(viewerId)`
 - [ ] Deferred (cosmetic): the chip-reset load never writes the Partners disk cache (the next default load refreshes it)
 - [ ] Owner: merge, version bump, signed release build, store submission; turn on the server `COMMUNITY_SLIM_LIST_ENABLED` only after the build is adopted and the avatar-thumb backfill is done
+
+## Backend + app check (2026-11-14)
+- [x] Logout reset: `alreadyWavedProvider`, `userMomentsPagedProvider`, `userMomentsTotalProvider` were never added to `userScopedProviders`, so the next account could inherit the previous one's wave state and moment lists (`session_reset_test` failed). Now reset.
+- [ ] Backend branch `fix/gatherings-admin-cancel` (admin cancel notifies; no-shows grant no free message): merge + deploy, then move the backend pointer here. S
+- [ ] `flutter analyze`: 0 errors, 3 warnings, all in tests (unused imports in `chat_state_edit_failed_test.dart`, `moments_main_layout_test.dart`; unused parameter `active`). S
