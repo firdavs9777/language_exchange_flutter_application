@@ -4788,5 +4788,15 @@
   "shareAsMomentTitle": "แชร์สิ่งนี้เป็นโมเมนต์ไหม?",
   "shareAsMomentAction": "แชร์เป็นโมเมนต์",
   "shareOfferLessonText": "เพิ่งเรียนบทเรียน \"{lesson}\" จบแล้ว!",
-  "shareOfferStreakText": "เรียนต่อเนื่อง {days} วันแล้ว!"
+  "shareOfferStreakText": "เรียนต่อเนื่อง {days} วันแล้ว!",
+  "storyStickerCorrection": "ช่วยแก้ให้หน่อย",
+  "storyStickerQuiz": "แบบทดสอบ",
+  "storyStickerWord": "คำศัพท์",
+  "storyCorrectionSentenceHint": "เขียนประโยคให้คนอื่นช่วยแก้",
+  "storyQuizQuestionHint": "พิมพ์คำถามแบบทดสอบ",
+  "storyQuizOptionHint": "ตัวเลือก {number}",
+  "storyQuizMarkCorrect": "ตั้งเป็นคำตอบที่ถูกต้อง",
+  "storyWordHint": "คำหรือวลี",
+  "storyWordMeaningHint": "ความหมาย",
+  "storyWordExampleHint": "ประโยคตัวอย่าง (ไม่บังคับ)"
 }

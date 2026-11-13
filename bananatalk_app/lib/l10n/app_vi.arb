@@ -4788,5 +4788,15 @@
   "shareAsMomentTitle": "Chia sẻ điều này như một khoảnh khắc?",
   "shareAsMomentAction": "Chia sẻ thành khoảnh khắc",
   "shareOfferLessonText": "Mình vừa hoàn thành bài học \"{lesson}\"!",
-  "shareOfferStreakText": "Chuỗi học {days} ngày liên tiếp!"
+  "shareOfferStreakText": "Chuỗi học {days} ngày liên tiếp!",
+  "storyStickerCorrection": "Sửa giúp mình",
+  "storyStickerQuiz": "Câu đố",
+  "storyStickerWord": "Từ vựng",
+  "storyCorrectionSentenceHint": "Viết một câu để mọi người sửa giúp",
+  "storyQuizQuestionHint": "Nhập câu hỏi đố",
+  "storyQuizOptionHint": "Lựa chọn {number}",
+  "storyQuizMarkCorrect": "Đánh dấu là đáp án đúng",
+  "storyWordHint": "Từ hoặc cụm từ",
+  "storyWordMeaningHint": "Nghĩa",
+  "storyWordExampleHint": "Câu ví dụ (không bắt buộc)"
 }

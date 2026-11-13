@@ -4809,5 +4809,15 @@
   "shareAsMomentTitle": "이걸 모먼트로 공유할까요?",
   "shareAsMomentAction": "모먼트로 공유",
   "shareOfferLessonText": "방금 \"{lesson}\" 레슨을 끝냈어요!",
-  "shareOfferStreakText": "{days}일 연속 학습 중!"
+  "shareOfferStreakText": "{days}일 연속 학습 중!",
+  "storyStickerCorrection": "문장 교정",
+  "storyStickerQuiz": "퀴즈",
+  "storyStickerWord": "단어",
+  "storyCorrectionSentenceHint": "다른 사람이 고쳐 줄 문장을 써 보세요",
+  "storyQuizQuestionHint": "퀴즈 질문을 입력하세요",
+  "storyQuizOptionHint": "보기 {number}",
+  "storyQuizMarkCorrect": "정답으로 표시",
+  "storyWordHint": "단어 또는 표현",
+  "storyWordMeaningHint": "뜻",
+  "storyWordExampleHint": "예문 (선택)"
 }

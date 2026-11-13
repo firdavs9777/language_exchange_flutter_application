@@ -12683,4 +12683,36 @@ class AppLocalizationsTl extends AppLocalizations {
   String shareOfferStreakText(int days) {
     return '$days araw nang tuloy-tuloy na pag-aaral!';
   }
+
+  @override
+  String get storyStickerCorrection => 'Itama mo ako';
+
+  @override
+  String get storyStickerQuiz => 'Kuwis';
+
+  @override
+  String get storyStickerWord => 'Salita';
+
+  @override
+  String get storyCorrectionSentenceHint => 'Magsulat ng pangungusap para itama ng iba';
+
+  @override
+  String get storyQuizQuestionHint => 'Magtanong para sa kuwis';
+
+  @override
+  String storyQuizOptionHint(String number) {
+    return 'Opsyon $number';
+  }
+
+  @override
+  String get storyQuizMarkCorrect => 'Markahan bilang tamang sagot';
+
+  @override
+  String get storyWordHint => 'Salita o parirala';
+
+  @override
+  String get storyWordMeaningHint => 'Kahulugan';
+
+  @override
+  String get storyWordExampleHint => 'Halimbawang pangungusap (opsyonal)';
 }

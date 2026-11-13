@@ -12784,4 +12784,36 @@ class AppLocalizationsAr extends AppLocalizations {
   String shareOfferStreakText(int days) {
     return 'سلسلة تعلّم لمدة $days يومًا!';
   }
+
+  @override
+  String get storyStickerCorrection => 'صحّح لي';
+
+  @override
+  String get storyStickerQuiz => 'اختبار';
+
+  @override
+  String get storyStickerWord => 'كلمة';
+
+  @override
+  String get storyCorrectionSentenceHint => 'اكتب جملة ليصحّحها الآخرون';
+
+  @override
+  String get storyQuizQuestionHint => 'اكتب سؤال الاختبار';
+
+  @override
+  String storyQuizOptionHint(String number) {
+    return 'الخيار $number';
+  }
+
+  @override
+  String get storyQuizMarkCorrect => 'تحديد كإجابة صحيحة';
+
+  @override
+  String get storyWordHint => 'كلمة أو عبارة';
+
+  @override
+  String get storyWordMeaningHint => 'المعنى';
+
+  @override
+  String get storyWordExampleHint => 'جملة مثال (اختياري)';
 }

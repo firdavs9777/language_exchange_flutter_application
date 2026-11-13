@@ -4818,5 +4818,15 @@
   "shareAsMomentTitle": "هل تريد مشاركة هذا كلحظة؟",
   "shareAsMomentAction": "شارك كلحظة",
   "shareOfferLessonText": "أنهيت للتو الدرس \"{lesson}\"!",
-  "shareOfferStreakText": "سلسلة تعلّم لمدة {days} يومًا!"
+  "shareOfferStreakText": "سلسلة تعلّم لمدة {days} يومًا!",
+  "storyStickerCorrection": "صحّح لي",
+  "storyStickerQuiz": "اختبار",
+  "storyStickerWord": "كلمة",
+  "storyCorrectionSentenceHint": "اكتب جملة ليصحّحها الآخرون",
+  "storyQuizQuestionHint": "اكتب سؤال الاختبار",
+  "storyQuizOptionHint": "الخيار {number}",
+  "storyQuizMarkCorrect": "تحديد كإجابة صحيحة",
+  "storyWordHint": "كلمة أو عبارة",
+  "storyWordMeaningHint": "المعنى",
+  "storyWordExampleHint": "جملة مثال (اختياري)"
 }

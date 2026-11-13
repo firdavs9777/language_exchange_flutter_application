@@ -12658,4 +12658,36 @@ class AppLocalizationsTh extends AppLocalizations {
   String shareOfferStreakText(int days) {
     return 'เรียนต่อเนื่อง $days วันแล้ว!';
   }
+
+  @override
+  String get storyStickerCorrection => 'ช่วยแก้ให้หน่อย';
+
+  @override
+  String get storyStickerQuiz => 'แบบทดสอบ';
+
+  @override
+  String get storyStickerWord => 'คำศัพท์';
+
+  @override
+  String get storyCorrectionSentenceHint => 'เขียนประโยคให้คนอื่นช่วยแก้';
+
+  @override
+  String get storyQuizQuestionHint => 'พิมพ์คำถามแบบทดสอบ';
+
+  @override
+  String storyQuizOptionHint(String number) {
+    return 'ตัวเลือก $number';
+  }
+
+  @override
+  String get storyQuizMarkCorrect => 'ตั้งเป็นคำตอบที่ถูกต้อง';
+
+  @override
+  String get storyWordHint => 'คำหรือวลี';
+
+  @override
+  String get storyWordMeaningHint => 'ความหมาย';
+
+  @override
+  String get storyWordExampleHint => 'ประโยคตัวอย่าง (ไม่บังคับ)';
 }

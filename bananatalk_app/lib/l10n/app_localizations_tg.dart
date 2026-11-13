@@ -12679,4 +12679,36 @@ class AppLocalizationsTg extends AppLocalizations {
   String shareOfferStreakText(int days) {
     return '$days рӯз пай дар пай меомӯзам!';
   }
+
+  @override
+  String get storyStickerCorrection => 'Маро ислоҳ кунед';
+
+  @override
+  String get storyStickerQuiz => 'Викторина';
+
+  @override
+  String get storyStickerWord => 'Калима';
+
+  @override
+  String get storyCorrectionSentenceHint => 'Ҷумлае нависед, ки дигарон ислоҳ кунанд';
+
+  @override
+  String get storyQuizQuestionHint => 'Саволи викторинаро нависед';
+
+  @override
+  String storyQuizOptionHint(String number) {
+    return 'Вариант $number';
+  }
+
+  @override
+  String get storyQuizMarkCorrect => 'Ҳамчун ҷавоби дуруст қайд кардан';
+
+  @override
+  String get storyWordHint => 'Калима ё ибора';
+
+  @override
+  String get storyWordMeaningHint => 'Маъно';
+
+  @override
+  String get storyWordExampleHint => 'Ҷумлаи намуна (ихтиёрӣ)';
 }

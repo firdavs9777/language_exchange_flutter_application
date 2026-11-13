@@ -4281,5 +4281,15 @@
   "shareAsMomentTitle": "Инро ҳамчун лаҳза мубодила кунед?",
   "shareAsMomentAction": "Ҳамчун лаҳза мубодила кардан",
   "shareOfferLessonText": "Ман ҳоло дарси «{lesson}»-ро анҷом додам!",
-  "shareOfferStreakText": "{days} рӯз пай дар пай меомӯзам!"
+  "shareOfferStreakText": "{days} рӯз пай дар пай меомӯзам!",
+  "storyStickerCorrection": "Маро ислоҳ кунед",
+  "storyStickerQuiz": "Викторина",
+  "storyStickerWord": "Калима",
+  "storyCorrectionSentenceHint": "Ҷумлае нависед, ки дигарон ислоҳ кунанд",
+  "storyQuizQuestionHint": "Саволи викторинаро нависед",
+  "storyQuizOptionHint": "Вариант {number}",
+  "storyQuizMarkCorrect": "Ҳамчун ҷавоби дуруст қайд кардан",
+  "storyWordHint": "Калима ё ибора",
+  "storyWordMeaningHint": "Маъно",
+  "storyWordExampleHint": "Ҷумлаи намуна (ихтиёрӣ)"
 }

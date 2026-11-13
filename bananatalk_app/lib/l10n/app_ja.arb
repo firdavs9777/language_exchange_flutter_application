@@ -4788,5 +4788,15 @@
   "shareAsMomentTitle": "モーメントとしてシェアしますか？",
   "shareAsMomentAction": "モーメントとしてシェア",
   "shareOfferLessonText": "レッスン「{lesson}」を完了しました！",
-  "shareOfferStreakText": "{days}日連続で学習中！"
+  "shareOfferStreakText": "{days}日連続で学習中！",
+  "storyStickerCorrection": "添削して",
+  "storyStickerQuiz": "クイズ",
+  "storyStickerWord": "単語",
+  "storyCorrectionSentenceHint": "添削してもらう文を書いてください",
+  "storyQuizQuestionHint": "クイズの質問を入力",
+  "storyQuizOptionHint": "選択肢 {number}",
+  "storyQuizMarkCorrect": "正解にする",
+  "storyWordHint": "単語またはフレーズ",
+  "storyWordMeaningHint": "意味",
+  "storyWordExampleHint": "例文（任意）"
 }

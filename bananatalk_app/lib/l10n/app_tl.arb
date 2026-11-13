@@ -4761,5 +4761,15 @@
   "shareAsMomentTitle": "I-share ito bilang moment?",
   "shareAsMomentAction": "I-share bilang moment",
   "shareOfferLessonText": "Katatapos ko lang ng aralin na \"{lesson}\"!",
-  "shareOfferStreakText": "{days} araw nang tuloy-tuloy na pag-aaral!"
+  "shareOfferStreakText": "{days} araw nang tuloy-tuloy na pag-aaral!",
+  "storyStickerCorrection": "Itama mo ako",
+  "storyStickerQuiz": "Kuwis",
+  "storyStickerWord": "Salita",
+  "storyCorrectionSentenceHint": "Magsulat ng pangungusap para itama ng iba",
+  "storyQuizQuestionHint": "Magtanong para sa kuwis",
+  "storyQuizOptionHint": "Opsyon {number}",
+  "storyQuizMarkCorrect": "Markahan bilang tamang sagot",
+  "storyWordHint": "Salita o parirala",
+  "storyWordMeaningHint": "Kahulugan",
+  "storyWordExampleHint": "Halimbawang pangungusap (opsyonal)"
 }

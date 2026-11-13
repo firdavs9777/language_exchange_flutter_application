@@ -12658,6 +12658,38 @@ class AppLocalizationsZh extends AppLocalizations {
   String shareOfferStreakText(int days) {
     return '连续学习 $days 天！';
   }
+
+  @override
+  String get storyStickerCorrection => '帮我纠错';
+
+  @override
+  String get storyStickerQuiz => '测验';
+
+  @override
+  String get storyStickerWord => '单词';
+
+  @override
+  String get storyCorrectionSentenceHint => '写一句话让大家帮你纠正';
+
+  @override
+  String get storyQuizQuestionHint => '输入测验问题';
+
+  @override
+  String storyQuizOptionHint(String number) {
+    return '选项 $number';
+  }
+
+  @override
+  String get storyQuizMarkCorrect => '设为正确答案';
+
+  @override
+  String get storyWordHint => '单词或短语';
+
+  @override
+  String get storyWordMeaningHint => '释义';
+
+  @override
+  String get storyWordExampleHint => '例句（可选）';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -25314,4 +25346,36 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String shareOfferStreakText(int days) {
     return '連續學習 $days 天！';
   }
+
+  @override
+  String get storyStickerCorrection => '幫我糾錯';
+
+  @override
+  String get storyStickerQuiz => '測驗';
+
+  @override
+  String get storyStickerWord => '單字';
+
+  @override
+  String get storyCorrectionSentenceHint => '寫一句話讓大家幫你糾正';
+
+  @override
+  String get storyQuizQuestionHint => '輸入測驗問題';
+
+  @override
+  String storyQuizOptionHint(String number) {
+    return '選項 $number';
+  }
+
+  @override
+  String get storyQuizMarkCorrect => '設為正確答案';
+
+  @override
+  String get storyWordHint => '單字或片語';
+
+  @override
+  String get storyWordMeaningHint => '釋義';
+
+  @override
+  String get storyWordExampleHint => '例句（選填）';
 }

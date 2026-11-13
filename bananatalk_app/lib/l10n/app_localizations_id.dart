@@ -12669,4 +12669,36 @@ class AppLocalizationsId extends AppLocalizations {
   String shareOfferStreakText(int days) {
     return 'Rentetan belajar $days hari!';
   }
+
+  @override
+  String get storyStickerCorrection => 'Koreksi saya';
+
+  @override
+  String get storyStickerQuiz => 'Kuis';
+
+  @override
+  String get storyStickerWord => 'Kata';
+
+  @override
+  String get storyCorrectionSentenceHint => 'Tulis kalimat untuk dikoreksi orang lain';
+
+  @override
+  String get storyQuizQuestionHint => 'Tulis pertanyaan kuis';
+
+  @override
+  String storyQuizOptionHint(String number) {
+    return 'Opsi $number';
+  }
+
+  @override
+  String get storyQuizMarkCorrect => 'Tandai sebagai jawaban benar';
+
+  @override
+  String get storyWordHint => 'Kata atau frasa';
+
+  @override
+  String get storyWordMeaningHint => 'Arti';
+
+  @override
+  String get storyWordExampleHint => 'Kalimat contoh (opsional)';
 }

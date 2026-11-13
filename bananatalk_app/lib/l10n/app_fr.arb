@@ -5028,5 +5028,15 @@
   "shareAsMomentTitle": "Partager ceci comme moment ?",
   "shareAsMomentAction": "Partager comme moment",
   "shareOfferLessonText": "Je viens de terminer la leçon « {lesson} » !",
-  "shareOfferStreakText": "{days} jours d’apprentissage d’affilée !"
+  "shareOfferStreakText": "{days} jours d’apprentissage d’affilée !",
+  "storyStickerCorrection": "Corrigez-moi",
+  "storyStickerQuiz": "Mini-quiz",
+  "storyStickerWord": "Mot",
+  "storyCorrectionSentenceHint": "Écrivez une phrase que les autres pourront corriger",
+  "storyQuizQuestionHint": "Posez une question de quiz",
+  "storyQuizOptionHint": "Choix {number}",
+  "storyQuizMarkCorrect": "Marquer comme bonne réponse",
+  "storyWordHint": "Mot ou expression",
+  "storyWordMeaningHint": "Signification",
+  "storyWordExampleHint": "Phrase d'exemple (facultatif)"
 }

@@ -12658,4 +12658,36 @@ class AppLocalizationsVi extends AppLocalizations {
   String shareOfferStreakText(int days) {
     return 'Chuỗi học $days ngày liên tiếp!';
   }
+
+  @override
+  String get storyStickerCorrection => 'Sửa giúp mình';
+
+  @override
+  String get storyStickerQuiz => 'Câu đố';
+
+  @override
+  String get storyStickerWord => 'Từ vựng';
+
+  @override
+  String get storyCorrectionSentenceHint => 'Viết một câu để mọi người sửa giúp';
+
+  @override
+  String get storyQuizQuestionHint => 'Nhập câu hỏi đố';
+
+  @override
+  String storyQuizOptionHint(String number) {
+    return 'Lựa chọn $number';
+  }
+
+  @override
+  String get storyQuizMarkCorrect => 'Đánh dấu là đáp án đúng';
+
+  @override
+  String get storyWordHint => 'Từ hoặc cụm từ';
+
+  @override
+  String get storyWordMeaningHint => 'Nghĩa';
+
+  @override
+  String get storyWordExampleHint => 'Câu ví dụ (không bắt buộc)';
 }

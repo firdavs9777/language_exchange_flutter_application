@@ -895,6 +895,18 @@ const Map<String, List<String>> _keysByTask = {
     'shareOfferLessonText',
     'shareOfferStreakText',
   ],
+  'stories_features_3': [
+    'storyStickerCorrection',
+    'storyStickerQuiz',
+    'storyStickerWord',
+    'storyCorrectionSentenceHint',
+    'storyQuizQuestionHint',
+    'storyQuizOptionHint',
+    'storyQuizMarkCorrect',
+    'storyWordHint',
+    'storyWordMeaningHint',
+    'storyWordExampleHint',
+  ],
   'moments_smart_feed_9': [
     'hashtagPostCount',
     'hashtagSortTop',
@@ -974,6 +986,12 @@ const Map<String, List<String>> _filesByTask = {
   'moments_smart_feed_10': [
     'pages/moments/feed/hashtag_search_panel.dart',
     'pages/moments/create/create_moment.dart',
+  ],
+  'stories_features_3': [
+    'pages/stories/create/correction_sticker_editor.dart',
+    'pages/stories/create/quiz_sticker_editor.dart',
+    'pages/stories/create/word_sticker_editor.dart',
+    'pages/stories/create/create_story_screen.dart',
   ],
   'moments_smart_feed_9': ['pages/moments/hashtag/hashtag_page_screen.dart'],
   'moments_smart_feed_11': ['pages/settings/data_storage_screen.dart'],

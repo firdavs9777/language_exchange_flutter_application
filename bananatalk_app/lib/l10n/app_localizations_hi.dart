@@ -12690,4 +12690,36 @@ class AppLocalizationsHi extends AppLocalizations {
   String shareOfferStreakText(int days) {
     return '$days दिन की लर्निंग स्ट्रीक!';
   }
+
+  @override
+  String get storyStickerCorrection => 'मुझे सुधारें';
+
+  @override
+  String get storyStickerQuiz => 'क्विज़';
+
+  @override
+  String get storyStickerWord => 'शब्द';
+
+  @override
+  String get storyCorrectionSentenceHint => 'दूसरों के सुधारने के लिए एक वाक्य लिखें';
+
+  @override
+  String get storyQuizQuestionHint => 'क्विज़ का प्रश्न लिखें';
+
+  @override
+  String storyQuizOptionHint(String number) {
+    return 'विकल्प $number';
+  }
+
+  @override
+  String get storyQuizMarkCorrect => 'सही उत्तर के रूप में चिह्नित करें';
+
+  @override
+  String get storyWordHint => 'शब्द या वाक्यांश';
+
+  @override
+  String get storyWordMeaningHint => 'अर्थ';
+
+  @override
+  String get storyWordExampleHint => 'उदाहरण वाक्य (वैकल्पिक)';
 }

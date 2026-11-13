@@ -5000,5 +5000,15 @@
   "shareAsMomentTitle": "Bunu an olarak paylaşmak ister misin?",
   "shareAsMomentAction": "An olarak paylaş",
   "shareOfferLessonText": "\"{lesson}\" dersini şimdi bitirdim!",
-  "shareOfferStreakText": "{days} günlük öğrenme serisi!"
+  "shareOfferStreakText": "{days} günlük öğrenme serisi!",
+  "storyStickerCorrection": "Beni düzelt",
+  "storyStickerQuiz": "Test",
+  "storyStickerWord": "Kelime",
+  "storyCorrectionSentenceHint": "Başkalarının düzeltmesi için bir cümle yaz",
+  "storyQuizQuestionHint": "Bir test sorusu sor",
+  "storyQuizOptionHint": "Seçenek {number}",
+  "storyQuizMarkCorrect": "Doğru cevap olarak işaretle",
+  "storyWordHint": "Kelime veya ifade",
+  "storyWordMeaningHint": "Anlamı",
+  "storyWordExampleHint": "Örnek cümle (isteğe bağlı)"
 }

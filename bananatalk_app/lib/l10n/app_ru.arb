@@ -4818,5 +4818,15 @@
   "shareAsMomentTitle": "Поделиться этим как моментом?",
   "shareAsMomentAction": "Поделиться моментом",
   "shareOfferLessonText": "Я только что прошёл урок «{lesson}»!",
-  "shareOfferStreakText": "{days} дней подряд учусь!"
+  "shareOfferStreakText": "{days} дней подряд учусь!",
+  "storyStickerCorrection": "Исправьте меня",
+  "storyStickerQuiz": "Викторина",
+  "storyStickerWord": "Слово",
+  "storyCorrectionSentenceHint": "Напишите предложение, которое другие смогут исправить",
+  "storyQuizQuestionHint": "Задайте вопрос викторины",
+  "storyQuizOptionHint": "Вариант {number}",
+  "storyQuizMarkCorrect": "Отметить как правильный ответ",
+  "storyWordHint": "Слово или выражение",
+  "storyWordMeaningHint": "Значение",
+  "storyWordExampleHint": "Пример предложения (необязательно)"
 }

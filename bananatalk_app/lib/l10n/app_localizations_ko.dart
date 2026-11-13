@@ -12658,4 +12658,36 @@ class AppLocalizationsKo extends AppLocalizations {
   String shareOfferStreakText(int days) {
     return '$days일 연속 학습 중!';
   }
+
+  @override
+  String get storyStickerCorrection => '문장 교정';
+
+  @override
+  String get storyStickerQuiz => '퀴즈';
+
+  @override
+  String get storyStickerWord => '단어';
+
+  @override
+  String get storyCorrectionSentenceHint => '다른 사람이 고쳐 줄 문장을 써 보세요';
+
+  @override
+  String get storyQuizQuestionHint => '퀴즈 질문을 입력하세요';
+
+  @override
+  String storyQuizOptionHint(String number) {
+    return '보기 $number';
+  }
+
+  @override
+  String get storyQuizMarkCorrect => '정답으로 표시';
+
+  @override
+  String get storyWordHint => '단어 또는 표현';
+
+  @override
+  String get storyWordMeaningHint => '뜻';
+
+  @override
+  String get storyWordExampleHint => '예문 (선택)';
 }

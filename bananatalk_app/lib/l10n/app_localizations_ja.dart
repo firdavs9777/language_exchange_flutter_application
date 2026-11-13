@@ -12658,4 +12658,36 @@ class AppLocalizationsJa extends AppLocalizations {
   String shareOfferStreakText(int days) {
     return '$days日連続で学習中！';
   }
+
+  @override
+  String get storyStickerCorrection => '添削して';
+
+  @override
+  String get storyStickerQuiz => 'クイズ';
+
+  @override
+  String get storyStickerWord => '単語';
+
+  @override
+  String get storyCorrectionSentenceHint => '添削してもらう文を書いてください';
+
+  @override
+  String get storyQuizQuestionHint => 'クイズの質問を入力';
+
+  @override
+  String storyQuizOptionHint(String number) {
+    return '選択肢 $number';
+  }
+
+  @override
+  String get storyQuizMarkCorrect => '正解にする';
+
+  @override
+  String get storyWordHint => '単語またはフレーズ';
+
+  @override
+  String get storyWordMeaningHint => '意味';
+
+  @override
+  String get storyWordExampleHint => '例文（任意）';
 }

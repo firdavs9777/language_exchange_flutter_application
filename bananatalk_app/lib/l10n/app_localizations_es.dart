@@ -12702,4 +12702,36 @@ class AppLocalizationsEs extends AppLocalizations {
   String shareOfferStreakText(int days) {
     return '¡Racha de $days días aprendiendo!';
   }
+
+  @override
+  String get storyStickerCorrection => 'Corrígeme';
+
+  @override
+  String get storyStickerQuiz => 'Trivia';
+
+  @override
+  String get storyStickerWord => 'Palabra';
+
+  @override
+  String get storyCorrectionSentenceHint => 'Escribe una frase para que otros la corrijan';
+
+  @override
+  String get storyQuizQuestionHint => 'Haz una pregunta de quiz';
+
+  @override
+  String storyQuizOptionHint(String number) {
+    return 'Opción $number';
+  }
+
+  @override
+  String get storyQuizMarkCorrect => 'Marcar como respuesta correcta';
+
+  @override
+  String get storyWordHint => 'Palabra o expresión';
+
+  @override
+  String get storyWordMeaningHint => 'Significado';
+
+  @override
+  String get storyWordExampleHint => 'Frase de ejemplo (opcional)';
 }

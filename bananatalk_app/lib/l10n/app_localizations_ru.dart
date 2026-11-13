@@ -13160,4 +13160,36 @@ class AppLocalizationsRu extends AppLocalizations {
   String shareOfferStreakText(int days) {
     return '$days дней подряд учусь!';
   }
+
+  @override
+  String get storyStickerCorrection => 'Исправьте меня';
+
+  @override
+  String get storyStickerQuiz => 'Викторина';
+
+  @override
+  String get storyStickerWord => 'Слово';
+
+  @override
+  String get storyCorrectionSentenceHint => 'Напишите предложение, которое другие смогут исправить';
+
+  @override
+  String get storyQuizQuestionHint => 'Задайте вопрос викторины';
+
+  @override
+  String storyQuizOptionHint(String number) {
+    return 'Вариант $number';
+  }
+
+  @override
+  String get storyQuizMarkCorrect => 'Отметить как правильный ответ';
+
+  @override
+  String get storyWordHint => 'Слово или выражение';
+
+  @override
+  String get storyWordMeaningHint => 'Значение';
+
+  @override
+  String get storyWordExampleHint => 'Пример предложения (необязательно)';
 }

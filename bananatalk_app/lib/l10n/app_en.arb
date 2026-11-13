@@ -8797,5 +8797,22 @@
         "type": "int"
       }
     }
-  }
+  },
+  "storyStickerCorrection": "Correct me",
+  "storyStickerQuiz": "Quiz",
+  "storyStickerWord": "Word",
+  "storyCorrectionSentenceHint": "Write a sentence for others to correct",
+  "storyQuizQuestionHint": "Ask a quiz question",
+  "storyQuizOptionHint": "Option {number}",
+  "@storyQuizOptionHint": {
+    "placeholders": {
+      "number": {
+        "type": "String"
+      }
+    }
+  },
+  "storyQuizMarkCorrect": "Mark as correct answer",
+  "storyWordHint": "Word or phrase",
+  "storyWordMeaningHint": "Meaning",
+  "storyWordExampleHint": "Example sentence (optional)"
 }

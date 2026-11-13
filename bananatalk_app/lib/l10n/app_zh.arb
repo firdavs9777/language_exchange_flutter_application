@@ -4802,5 +4802,15 @@
   "shareAsMomentTitle": "要把这个分享为动态吗？",
   "shareAsMomentAction": "分享为动态",
   "shareOfferLessonText": "我刚完成了课程“{lesson}”！",
-  "shareOfferStreakText": "连续学习 {days} 天！"
+  "shareOfferStreakText": "连续学习 {days} 天！",
+  "storyStickerCorrection": "帮我纠错",
+  "storyStickerQuiz": "测验",
+  "storyStickerWord": "单词",
+  "storyCorrectionSentenceHint": "写一句话让大家帮你纠正",
+  "storyQuizQuestionHint": "输入测验问题",
+  "storyQuizOptionHint": "选项 {number}",
+  "storyQuizMarkCorrect": "设为正确答案",
+  "storyWordHint": "单词或短语",
+  "storyWordMeaningHint": "释义",
+  "storyWordExampleHint": "例句（可选）"
 }

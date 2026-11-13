@@ -4804,5 +4804,15 @@
   "shareAsMomentTitle": "इसे मोमेंट के रूप में शेयर करें?",
   "shareAsMomentAction": "मोमेंट के रूप में शेयर करें",
   "shareOfferLessonText": "मैंने अभी पाठ \"{lesson}\" पूरा किया!",
-  "shareOfferStreakText": "{days} दिन की लर्निंग स्ट्रीक!"
+  "shareOfferStreakText": "{days} दिन की लर्निंग स्ट्रीक!",
+  "storyStickerCorrection": "मुझे सुधारें",
+  "storyStickerQuiz": "क्विज़",
+  "storyStickerWord": "शब्द",
+  "storyCorrectionSentenceHint": "दूसरों के सुधारने के लिए एक वाक्य लिखें",
+  "storyQuizQuestionHint": "क्विज़ का प्रश्न लिखें",
+  "storyQuizOptionHint": "विकल्प {number}",
+  "storyQuizMarkCorrect": "सही उत्तर के रूप में चिह्नित करें",
+  "storyWordHint": "शब्द या वाक्यांश",
+  "storyWordMeaningHint": "अर्थ",
+  "storyWordExampleHint": "उदाहरण वाक्य (वैकल्पिक)"
 }

@@ -4479,5 +4479,15 @@
   "shareAsMomentTitle": "要把這個分享為動態嗎？",
   "shareAsMomentAction": "分享為動態",
   "shareOfferLessonText": "我剛完成了課程「{lesson}」！",
-  "shareOfferStreakText": "連續學習 {days} 天！"
+  "shareOfferStreakText": "連續學習 {days} 天！",
+  "storyStickerCorrection": "幫我糾錯",
+  "storyStickerQuiz": "測驗",
+  "storyStickerWord": "單字",
+  "storyCorrectionSentenceHint": "寫一句話讓大家幫你糾正",
+  "storyQuizQuestionHint": "輸入測驗問題",
+  "storyQuizOptionHint": "選項 {number}",
+  "storyQuizMarkCorrect": "設為正確答案",
+  "storyWordHint": "單字或片語",
+  "storyWordMeaningHint": "釋義",
+  "storyWordExampleHint": "例句（選填）"
 }

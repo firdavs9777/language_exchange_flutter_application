@@ -12677,4 +12677,36 @@ class AppLocalizationsTr extends AppLocalizations {
   String shareOfferStreakText(int days) {
     return '$days günlük öğrenme serisi!';
   }
+
+  @override
+  String get storyStickerCorrection => 'Beni düzelt';
+
+  @override
+  String get storyStickerQuiz => 'Test';
+
+  @override
+  String get storyStickerWord => 'Kelime';
+
+  @override
+  String get storyCorrectionSentenceHint => 'Başkalarının düzeltmesi için bir cümle yaz';
+
+  @override
+  String get storyQuizQuestionHint => 'Bir test sorusu sor';
+
+  @override
+  String storyQuizOptionHint(String number) {
+    return 'Seçenek $number';
+  }
+
+  @override
+  String get storyQuizMarkCorrect => 'Doğru cevap olarak işaretle';
+
+  @override
+  String get storyWordHint => 'Kelime veya ifade';
+
+  @override
+  String get storyWordMeaningHint => 'Anlamı';
+
+  @override
+  String get storyWordExampleHint => 'Örnek cümle (isteğe bağlı)';
 }

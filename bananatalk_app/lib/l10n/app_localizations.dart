@@ -23017,6 +23017,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{days}-day learning streak!'**
   String shareOfferStreakText(int days);
+
+  /// No description provided for @storyStickerCorrection.
+  ///
+  /// In en, this message translates to:
+  /// **'Correct me'**
+  String get storyStickerCorrection;
+
+  /// No description provided for @storyStickerQuiz.
+  ///
+  /// In en, this message translates to:
+  /// **'Quiz'**
+  String get storyStickerQuiz;
+
+  /// No description provided for @storyStickerWord.
+  ///
+  /// In en, this message translates to:
+  /// **'Word'**
+  String get storyStickerWord;
+
+  /// No description provided for @storyCorrectionSentenceHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Write a sentence for others to correct'**
+  String get storyCorrectionSentenceHint;
+
+  /// No description provided for @storyQuizQuestionHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Ask a quiz question'**
+  String get storyQuizQuestionHint;
+
+  /// No description provided for @storyQuizOptionHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Option {number}'**
+  String storyQuizOptionHint(String number);
+
+  /// No description provided for @storyQuizMarkCorrect.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark as correct answer'**
+  String get storyQuizMarkCorrect;
+
+  /// No description provided for @storyWordHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Word or phrase'**
+  String get storyWordHint;
+
+  /// No description provided for @storyWordMeaningHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Meaning'**
+  String get storyWordMeaningHint;
+
+  /// No description provided for @storyWordExampleHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Example sentence (optional)'**
+  String get storyWordExampleHint;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
