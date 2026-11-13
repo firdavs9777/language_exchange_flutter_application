@@ -78,4 +78,17 @@ void main() {
       isTrue,
     );
   });
+
+  test('slim=1 only when asked; cursor only when given, page kept', () {
+    const p = PartnerFilterParams(gender: 'female');
+    final plain = p.toQuery(page: 2, limit: 20);
+    expect(plain.containsKey('slim'), isFalse);
+    expect(plain.containsKey('cursor'), isFalse);
+    final fast = p.toQuery(page: 2, limit: 20, slim: true, cursor: 'abc');
+    expect(fast['slim'], '1');
+    expect(fast['cursor'], 'abc');
+    expect(fast['page'], '2');
+    final noCursor = p.toQuery(page: 1, limit: 20, slim: true);
+    expect(noCursor.containsKey('cursor'), isFalse);
+  });
 }

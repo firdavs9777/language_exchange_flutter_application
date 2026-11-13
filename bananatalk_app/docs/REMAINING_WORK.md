@@ -714,4 +714,6 @@ P2 cleanup
 - [x] Task 1: read `communityFastListEnabled` (default off) + `communityFastListEnabledProvider`
 - [x] Task 2: list/card avatars use `avatarUrl` (thumbnail when sent): MatchCard, PartnerListItem, PartnerCard story badge
 - [ ] Open from Task 2: Nearby grid card (large cover, `NearbyUser` has no `avatarThumb`) and chat `profilePicture:` args deliberately unchanged; decide if a larger server thumb is wanted
-- [ ] Tasks 3-7: slim list request + cursor paging, tab-switch refetch, disk paint, remaining plan items
+- [x] Task 3: Partners list sends `slim=1` and pages by the server cursor when `communityFastListEnabled` is on (off = today's requests; cursor ignored); id de-dup, 3-empty-page stop
+- [ ] Task 3 follow-up: the tab's "< 5 rows, load more" top-up has no widget test with cursor paging (notifier-level termination is tested)
+- [ ] Tasks 4-7: tab-switch refetch, disk paint, remaining plan items

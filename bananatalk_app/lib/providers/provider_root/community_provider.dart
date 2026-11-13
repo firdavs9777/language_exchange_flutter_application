@@ -601,12 +601,17 @@ class PaginatedCommunityResponse {
   final int pages;
   final bool hasMore;
 
+  /// Opaque continuation token (never parsed); null on the last page, from an
+  /// older server, or when the server fell back to number paging.
+  final String? nextCursor;
+
   PaginatedCommunityResponse({
     required this.users,
     required this.total,
     required this.page,
     required this.pages,
     required this.hasMore,
+    this.nextCursor,
   });
 
   /// A `/users` body. `hasMore` is the server's when it sends one (backend
@@ -635,6 +640,9 @@ class PaginatedCommunityResponse {
       page: page,
       pages: pages,
       hasMore: data['hasMore'] as bool? ?? page < pages,
+      nextCursor: data['nextCursor'] is String
+          ? data['nextCursor'] as String
+          : null,
     );
   }
 }
@@ -815,7 +823,16 @@ class PartnerFilterParams {
   /// The `/users` query string. The list always sends `matchLanguage=true`;
   /// the filter sheet's count calls this without paging/sort so both ask the
   /// server the same question.
-  Map<String, String> toQuery({int? page, int? limit, String? sort}) {
+  ///
+  /// [slim] asks for rows without follower arrays; [cursor] is the server's
+  /// continuation token and goes alongside [page], never instead of it.
+  Map<String, String> toQuery({
+    int? page,
+    int? limit,
+    String? sort,
+    bool slim = false,
+    String? cursor,
+  }) {
     bool set(String? v) => v != null && v.isNotEmpty;
     return {
       if (page != null) 'page': '$page',
@@ -837,6 +854,8 @@ class PartnerFilterParams {
       if (topics.isNotEmpty) 'topics': topics.join(','),
       if (topicsAtLeast > 0) 'topicsAtLeast': '$topicsAtLeast',
       if (sameCity) 'sameCity': 'true',
+      if (slim) 'slim': '1',
+      if (cursor != null) 'cursor': cursor,
     };
   }
 }
@@ -871,6 +890,13 @@ class PartnerFilterState {
   final bool hasMore;
   final String? error;
 
+  /// The server's token for the page after [currentPage]; only ever set
+  /// while the fast-list flag is on.
+  final String? nextCursor;
+
+  /// When page 1 last arrived (not set by later pages).
+  final DateTime? loadedAt;
+
   const PartnerFilterState({
     this.filters,
     this.users = const [],
@@ -880,6 +906,8 @@ class PartnerFilterState {
     this.isLoadingMore = false,
     this.hasMore = true,
     this.error,
+    this.nextCursor,
+    this.loadedAt,
   });
 
   PartnerFilterState copyWith({
@@ -891,6 +919,9 @@ class PartnerFilterState {
     bool? isLoadingMore,
     bool? hasMore,
     String? error,
+    String? nextCursor,
+    bool clearCursor = false,
+    DateTime? loadedAt,
   }) {
     return PartnerFilterState(
       filters: filters ?? this.filters,
@@ -901,6 +932,8 @@ class PartnerFilterState {
       isLoadingMore: isLoadingMore ?? this.isLoadingMore,
       hasMore: hasMore ?? this.hasMore,
       error: error,
+      nextCursor: clearCursor ? null : (nextCursor ?? this.nextCursor),
+      loadedAt: loadedAt ?? this.loadedAt,
     );
   }
 }
@@ -915,10 +948,24 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
   /// the rest of the session.
   final bool Function() _smartSortEnabled;
 
+  /// Whether slim rows and cursor paging are on (the server's fast-list
+  /// switch). Read per request for the same reason as [_smartSortEnabled].
+  final bool Function() _fastListEnabled;
+
+  static bool _fastListOff() => false;
+
   static const int _pageSize = 20;
 
-  PartnerFilterNotifier(this._service, this._smartSortEnabled)
-    : super(const PartnerFilterState());
+  /// Consecutive pages that added nobody new while the server still said
+  /// there was more (cursor paging only); a server bug must not loop forever.
+  int _emptyPages = 0;
+  static const int _maxEmptyPages = 3;
+
+  PartnerFilterNotifier(
+    this._service,
+    this._smartSortEnabled, [
+    this._fastListEnabled = _fastListOff,
+  ]) : super(const PartnerFilterState());
 
   /// The sort to ask the server for.
   ///
@@ -945,24 +992,39 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
     if (state.isLoading && state.filters == filters) return;
 
     _generation++;
+    _emptyPages = 0;
     // Reset if different filters; same filters (refresh) keep the rows on
-    // screen until page 1 arrives instead of flashing the skeleton.
+    // screen until page 1 arrives instead of flashing the skeleton. Either
+    // way the old cursor goes: it belongs to the list being replaced.
     if (state.filters != filters) {
       state = PartnerFilterState(filters: filters, isLoading: true);
     } else {
-      state = state.copyWith(isLoading: true, error: null);
+      state = state.copyWith(isLoading: true, error: null, clearCursor: true);
     }
 
+    final fast = _fastListEnabled();
     try {
       final response = await _service.getUsersPage(
-        filters.toQuery(page: 1, limit: _pageSize, sort: _sortFor(filters)),
+        filters.toQuery(
+          page: 1,
+          limit: _pageSize,
+          sort: _sortFor(filters),
+          slim: fast,
+        ),
       );
 
       // Filters changed while this request was in flight: drop the stale page.
       if (state.filters != filters) return;
 
-      // If 0 results returned, set hasMore to false to prevent infinite loading
-      final hasMore = response.users.isNotEmpty && response.hasMore;
+      // With the flag off the server's cursor is ignored, whatever it sends.
+      final cursor = fast ? response.nextCursor : null;
+      // If 0 results returned, set hasMore to false to prevent infinite
+      // loading -- unless the server handed back a cursor (see _hasMoreAfter).
+      final hasMore = _hasMoreAfter(
+        response,
+        newUsers: response.users.length,
+        cursor: cursor,
+      );
 
       state = state.copyWith(
         users: response.users,
@@ -970,11 +1032,34 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
         total: response.total,
         hasMore: hasMore,
         isLoading: false,
+        nextCursor: cursor,
+        clearCursor: cursor == null,
+        loadedAt: DateTime.now(),
       );
     } catch (e) {
       if (state.filters != filters) return;
       state = state.copyWith(isLoading: false, error: e.toString());
     }
+  }
+
+  /// Whether another page is worth asking for after [response].
+  ///
+  /// Number paging keeps the original rule: an empty page ends the list.
+  /// With a cursor the server may return a short or all-repeat page while more
+  /// remain, so [hasMore] stands -- for at most [_maxEmptyPages] such pages in
+  /// a row. [newUsers] is the count the page added to the list.
+  bool _hasMoreAfter(
+    PaginatedCommunityResponse response, {
+    required int newUsers,
+    required String? cursor,
+  }) {
+    if (cursor == null) return response.users.isNotEmpty && response.hasMore;
+    if (newUsers > 0) {
+      _emptyPages = 0;
+    } else {
+      _emptyPages++;
+    }
+    return response.hasMore && _emptyPages < _maxEmptyPages;
   }
 
   /// Load more partners with same filters
@@ -1002,6 +1087,7 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
 
     final filtersAtStart = state.filters;
     final generationAtStart = _generation;
+    final fast = _fastListEnabled();
     state = state.copyWith(isLoadingMore: true);
 
     try {
@@ -1010,7 +1096,13 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
       // Same sort resolution as page 1: under the smart default, sending the
       // raw choice made later pages use another order (dupes and gaps).
       final response = await _service.getUsersPage(
-        filters.toQuery(page: nextPage, limit: _pageSize, sort: _sortFor(filters)),
+        filters.toQuery(
+          page: nextPage,
+          limit: _pageSize,
+          sort: _sortFor(filters),
+          slim: fast,
+          cursor: fast ? state.nextCursor : null,
+        ),
       );
 
       // Segment/filters switched, or page 1 reloaded, mid-request: drop it.
@@ -1018,21 +1110,28 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
         return;
       }
 
-      // If 0 results returned on load more, stop trying to load more
-      final hasMore = response.users.isNotEmpty && response.hasMore;
-
-      // A Profile Boost puts a booster on page 1 out of order, so the same
-      // person can come back on a later page; list them once.
+      // A Profile Boost puts a booster on page 1 out of order, and a
+      // server-side rebuild mid-scroll can repeat people; list them once
+      // (the first sighting stays).
       final seen = {for (final u in state.users) u.id};
+      final added = response.users.where((u) => seen.add(u.id)).toList();
+
+      final cursor = fast ? response.nextCursor : null;
+      // If 0 results returned on load more, stop trying to load more
+      final hasMore = _hasMoreAfter(
+        response,
+        newUsers: added.length,
+        cursor: cursor,
+      );
+
       state = state.copyWith(
-        users: [
-          ...state.users,
-          ...response.users.where((u) => seen.add(u.id)),
-        ],
+        users: [...state.users, ...added],
         currentPage: nextPage,
         total: response.total,
         hasMore: hasMore,
         isLoadingMore: false,
+        nextCursor: cursor,
+        clearCursor: cursor == null,
       );
       _loadMoreFailedAt = null;
     } catch (e) {
@@ -1055,6 +1154,7 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
 
   /// Clear state
   void clear() {
+    _emptyPages = 0;
     state = const PartnerFilterState();
   }
 }
@@ -1073,5 +1173,8 @@ final partnerFilterProvider =
                   orElse: () => false,
                 ) ??
             false,
+        // Read per request, never watched: a rebuild on app-config arrival
+        // would drop the list.
+        () => ref.read(communityFastListEnabledProvider),
       );
     });
