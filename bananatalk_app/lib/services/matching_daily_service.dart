@@ -33,6 +33,28 @@ class MatchingDailyService {
     return parseResponse(response.statusCode, response.body);
   }
 
+  /// [getDaily] plus the body's `matches` rows and `nextRefreshAt` exactly as
+  /// sent (null unless a 200 with a JSON object), for the first-page disk
+  /// cache. Same request, same errors.
+  static Future<({DailyMatchesResult result, Map<String, dynamic>? raw})>
+      getDailyWithRaw() async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    final response = await http.get(
+      Uri.parse('${Endpoints.baseURL}matching/daily'),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        if (token != null) 'Authorization': 'Bearer $token',
+      },
+    );
+    final result = parseResponse(response.statusCode, response.body);
+    final raw = response.statusCode == 200
+        ? json.decode(response.body) as Map<String, dynamic>
+        : null;
+    return (result: result, raw: raw);
+  }
+
   @visibleForTesting
   static DailyMatchesResult parseResponse(int statusCode, String body) {
     if (statusCode == 404) return DailyMatchesResult.unavailableResult;

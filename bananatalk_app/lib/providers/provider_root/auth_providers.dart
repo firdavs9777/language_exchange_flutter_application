@@ -9,6 +9,7 @@ import 'package:bananatalk_app/services/chat_socket_service.dart';
 import 'package:bananatalk_app/services/notification_service.dart';
 import 'package:bananatalk_app/services/notification_api_client.dart';
 import 'package:bananatalk_app/services/api_client.dart';
+import 'package:bananatalk_app/services/community_first_page_cache.dart';
 import 'package:bananatalk_app/services/feed_first_page_cache.dart';
 import 'package:bananatalk_app/services/stories_rail_cache.dart';
 import 'package:bananatalk_app/services/session_prefs.dart';
@@ -876,6 +877,10 @@ class AuthService extends ChangeNotifier {
     // intent explicit and survives that list changing.
     await FeedFirstPageCache().clearAll();
     await StoriesRailCache().clearAll();
+    // Partners page 1 and today's matches. Runs whatever the fast-list flag
+    // says now: an entry written while it was on must not outlive the
+    // account. With no entry this removes nothing.
+    await CommunityFirstPageCache().clearAll();
     await clearUserSessionPrefs(prefs: prefs);
 
     // 4.5: Clear API client token caches.

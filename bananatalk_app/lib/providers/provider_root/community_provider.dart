@@ -1,5 +1,7 @@
+import 'dart:collection';
 import 'dart:convert';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
+import 'package:bananatalk_app/services/community_first_page_cache.dart';
 import 'package:bananatalk_app/services/api_client.dart';
 import 'package:bananatalk_app/service/endpoints.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -605,6 +607,10 @@ class PaginatedCommunityResponse {
   /// older server, or when the server fell back to number paging.
   final String? nextCursor;
 
+  /// The rows of [users] as the server sent them (same order), for the
+  /// first-page disk cache.
+  final List<Map<String, dynamic>> rawUsers;
+
   PaginatedCommunityResponse({
     required this.users,
     required this.total,
@@ -612,6 +618,7 @@ class PaginatedCommunityResponse {
     required this.pages,
     required this.hasMore,
     this.nextCursor,
+    this.rawUsers = const [],
   });
 
   /// A `/users` body. `hasMore` is the server's when it sends one (backend
@@ -631,11 +638,13 @@ class PaginatedCommunityResponse {
         hasMore: false,
       );
     }
+    final rawUsers = [
+      for (final item in dataList)
+        if (item is Map<String, dynamic>) item,
+    ];
     return PaginatedCommunityResponse(
-      users: [
-        for (final item in dataList)
-          if (item is Map<String, dynamic>) Community.fromJson(item),
-      ],
+      users: [for (final item in rawUsers) Community.fromJson(item)],
+      rawUsers: rawUsers,
       total: data['total'] as int? ?? 0,
       page: page,
       pages: pages,
@@ -897,6 +906,11 @@ class PartnerFilterState {
   /// When page 1 last arrived (not set by later pages).
   final DateTime? loadedAt;
 
+  /// [users] came from the first-page disk cache and the network page 1 has
+  /// not replaced them (yet). There is no page or cursor behind them, so
+  /// paging waits for the network page.
+  final bool fromCache;
+
   const PartnerFilterState({
     this.filters,
     this.users = const [],
@@ -908,6 +922,7 @@ class PartnerFilterState {
     this.error,
     this.nextCursor,
     this.loadedAt,
+    this.fromCache = false,
   });
 
   PartnerFilterState copyWith({
@@ -922,6 +937,7 @@ class PartnerFilterState {
     String? nextCursor,
     bool clearCursor = false,
     DateTime? loadedAt,
+    bool? fromCache,
   }) {
     return PartnerFilterState(
       filters: filters ?? this.filters,
@@ -934,6 +950,7 @@ class PartnerFilterState {
       error: error,
       nextCursor: clearCursor ? null : (nextCursor ?? this.nextCursor),
       loadedAt: loadedAt ?? this.loadedAt,
+      fromCache: fromCache ?? this.fromCache,
     );
   }
 }
@@ -972,12 +989,30 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
   int _emptyPages = 0;
   static const int _maxEmptyPages = 3;
 
+  /// Page 1 of the default view on disk (flag on only).
+  final CommunityFirstPageCache _diskCache;
+
+  /// Set by the first page-1 load of this notifier's life, whatever the flag:
+  /// only that load may paint from disk. A later load (refresh, filter change,
+  /// retry, the flag turning on late) already has newer state than the disk.
+  bool _diskPaintDecided = false;
+
+  /// The filters the tab declared to be its default view (no search, the
+  /// saved filters, no segment or quick chip): only their page 1 is cached.
+  PartnerFilterParams? _diskCacheableFilters;
+
   PartnerFilterNotifier(
     this._service,
     this._smartSortEnabled, [
     this._fastListEnabled = _fastListOff,
     this._now = DateTime.now,
-  ]) : super(const PartnerFilterState());
+    CommunityFirstPageCache? diskCache,
+  ])  : _diskCache = diskCache ?? CommunityFirstPageCache(),
+        super(const PartnerFilterState());
+
+  /// Identifies the exact filter set a cached page 1 was loaded for.
+  static String diskFingerprint(PartnerFilterParams filters) =>
+      jsonEncode(SplayTreeMap<String, String>.of(filters.toQuery()));
 
   /// True when the state already holds page 1 for exactly [filters] (search
   /// included), loaded under [freshFor] ago, and the fast-list flag is on.
@@ -1036,13 +1071,24 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
   /// first used to end with the old page 2 appended to the new page 1.
   int _generation = 0;
 
-  /// Load partners with filters (server-side)
-  Future<void> loadWithFilters(PartnerFilterParams filters) async {
+  /// Load partners with filters (server-side).
+  ///
+  /// [diskCacheable]: [filters] are the tab's default view. With the
+  /// fast-list flag on, its page 1 is written to disk, and on this notifier's
+  /// first load the copy on disk is shown while page 1 loads.
+  Future<void> loadWithFilters(
+    PartnerFilterParams filters, {
+    bool diskCacheable = false,
+  }) async {
     // A CHANGED filters value must proceed even mid-load (a chip tap would
     // otherwise be dropped forever); the stale response is discarded below.
     if (state.isLoading && state.filters == filters) return;
 
     _generation++;
+    final generation = _generation;
+    final mayPaintFromDisk = !_diskPaintDecided;
+    _diskPaintDecided = true;
+    _diskCacheableFilters = diskCacheable ? filters : null;
     _emptyPages = 0;
     // Reset if different filters; same filters (refresh) keep the rows on
     // screen until page 1 arrives instead of flashing the skeleton. Either
@@ -1055,6 +1101,13 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
     }
 
     final fast = _fastListEnabled();
+    // Flag off: no disk access of any kind.
+    final diskUserId = fast && diskCacheable
+        ? await _diskCache.signedInUserId()
+        : null;
+    if (diskUserId != null && mayPaintFromDisk) {
+      await _paintFromDisk(diskUserId, filters, generation);
+    }
     try {
       final response = await _service.getUsersPage(
         filters.toQuery(
@@ -1087,13 +1140,78 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
         nextCursor: cursor,
         clearCursor: cursor == null,
         loadedAt: _now(),
+        fromCache: false,
       );
       _loadedFilters = filters;
+      if (diskUserId != null && generation == _generation) {
+        await _writeToDisk(diskUserId, filters, response);
+      }
     } catch (e) {
       if (state.filters != filters) return;
       _loadedFilters = null;
       state = state.copyWith(isLoading: false, error: e.toString());
     }
+  }
+
+  /// Shows the cached page 1 of [filters] while the network one loads, if
+  /// one exists for this user and these exact filters, and nothing newer
+  /// is on screen. Cached rows are filtered by the tab like live ones.
+  Future<void> _paintFromDisk(
+    String userId,
+    PartnerFilterParams filters,
+    int generation,
+  ) async {
+    final snapshot = await _diskCache.read(
+      userId: userId,
+      slot: CommunityFirstPageCache.partners,
+    );
+    if (snapshot == null ||
+        snapshot.meta['fingerprint'] != diskFingerprint(filters)) {
+      return;
+    }
+    final users = <Community>[];
+    for (final row in snapshot.rows) {
+      try {
+        final user = Community.fromJson(row);
+        if (user.id.isNotEmpty && user.id != userId) users.add(user);
+      } catch (_) {}
+    }
+    if (users.isEmpty) return;
+    // A newer load started, or rows arrived, while the disk was read.
+    if (generation != _generation ||
+        state.filters != filters ||
+        !state.isLoading ||
+        state.users.isNotEmpty) {
+      return;
+    }
+    final total = snapshot.meta['total'];
+    state = state.copyWith(
+      users: users,
+      total: total is int ? total : users.length,
+      // Keeps the list's trailing progress row (and, after a failure, its
+      // Retry) in place; loadMore itself waits for the network page.
+      hasMore: true,
+      fromCache: true,
+    );
+  }
+
+  /// Keeps [response] as the page 1 of [filters], under the user it was
+  /// fetched for only (an account switch during the fetch writes nothing).
+  Future<void> _writeToDisk(
+    String userId,
+    PartnerFilterParams filters,
+    PaginatedCommunityResponse response,
+  ) async {
+    if (await _diskCache.signedInUserId() != userId) return;
+    await _diskCache.write(
+      userId: userId,
+      slot: CommunityFirstPageCache.partners,
+      rows: response.rawUsers,
+      meta: {
+        'fingerprint': diskFingerprint(filters),
+        'total': response.total,
+      },
+    );
   }
 
   /// Whether another page is worth asking for after [response].
@@ -1125,6 +1243,12 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
 
   /// [force]: the user tapped Retry, so skip the pause.
   Future<void> loadMore({bool force = false}) async {
+    // A list from disk has no page behind it. The Retry row (force) after a
+    // failed network page 1 asks for page 1 again.
+    if (state.fromCache) {
+      if (force && !state.isLoading && state.filters != null) await refresh();
+      return;
+    }
     // Not while page 1 is (re)loading: that page would land on top of it.
     if (state.isLoading ||
         state.isLoadingMore ||
@@ -1203,13 +1327,17 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
     final filters = state.filters;
     if (filters == null) return;
     state = state.copyWith(isLoading: false, isLoadingMore: false);
-    await loadWithFilters(filters);
+    await loadWithFilters(
+      filters,
+      diskCacheable: _diskCacheableFilters == filters,
+    );
   }
 
   /// Clear state
   void clear() {
     _emptyPages = 0;
     _loadedFilters = null;
+    _diskCacheableFilters = null;
     _serverExcluded = {};
     _locallyHidden.clear();
     _exclusionsLoaded = false;
@@ -1234,5 +1362,7 @@ final partnerFilterProvider =
         // Read per request, never watched: a rebuild on app-config arrival
         // would drop the list.
         () => ref.read(communityFastListEnabledProvider),
+        DateTime.now,
+        ref.read(communityFirstPageCacheProvider),
       );
     });

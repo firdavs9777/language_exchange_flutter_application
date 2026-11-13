@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:bananatalk_app/service/endpoints.dart';
 import 'package:bananatalk_app/models/blocked_user.dart';
 import 'package:bananatalk_app/services/blocked_ids_store.dart';
+import 'package:bananatalk_app/services/community_first_page_cache.dart';
 import 'package:bananatalk_app/services/feed_first_page_cache.dart';
 import 'package:bananatalk_app/services/stories_rail_cache.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,7 +20,8 @@ class BlockService {
   }
 
   /// Every block goes through [blockUser]: once the server confirms it, the
-  /// author leaves the on-disk caches (feed first pages, stories rail) and
+  /// author leaves the on-disk caches (feed first pages, stories rail,
+  /// Partners page 1 and daily matches) and
   /// joins the remembered block list, so no cached list paints them again,
   /// not even offline. Best effort: a failure here never fails the block.
   static Future<void> _forgetBlockedLocally(String blockedUserId) async {
@@ -28,6 +30,11 @@ class BlockService {
           .add(userId: await _signedInUserId(), id: blockedUserId);
       await FeedFirstPageCache().removeAuthor(blockedUserId);
       await StoriesRailCache().removeUser(blockedUserId);
+      // Partners page 1 and today's matches on disk. Not flag-gated: an
+      // entry kept while the flag was on must not paint them later either;
+      // with no entry this reads two absent keys and writes nothing.
+      await CommunityFirstPageCache()
+          .removeUser(await _signedInUserId(), blockedUserId);
     } catch (_) {}
   }
 

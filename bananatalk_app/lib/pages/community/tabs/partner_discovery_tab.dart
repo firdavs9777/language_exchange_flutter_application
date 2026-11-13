@@ -73,6 +73,10 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
   /// are asked of the server or taken from the kept list (flag on only).
   bool _exclusionsResolved = true;
 
+  /// The skip/wave exclusions this list is filtered with have arrived (or
+  /// were taken from the kept list). A page painted from disk waits for them.
+  bool _exclusionsKnown = false;
+
   // Tracks which user ids have already played their entrance animation so it
   // runs once per user instead of replaying on every list rebuild.
   final Set<String> _animatedIds = {};
@@ -172,7 +176,10 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
       final excluded = await InteractionService.getExcludedUsers();
       ref.read(partnerFilterProvider.notifier).rememberServerExcluded(excluded);
       if (mounted) {
-        setState(() => _serverExcludedUsers = excluded);
+        setState(() {
+          _serverExcludedUsers = excluded;
+          _exclusionsKnown = true;
+        });
       }
     } catch (_) {
       // Non-fatal.
@@ -351,14 +358,24 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
             _exclusionsResolved = true;
             if (keep && notifier.hasKeptExclusions) {
               _serverExcludedUsers = notifier.keptExclusions;
+              _exclusionsKnown = true;
             } else {
               _loadServerExcludedUsers();
             }
           }
           if (!keep) {
+            // Only the default view (no search, segment or quick chip; the
+            // saved filters) is kept on disk -- flag on only, the notifier
+            // checks.
+            final diskCacheable = widget.searchQuery.isEmpty &&
+                segment == PartnerSegment.all &&
+                chips == const PartnerQuickChips();
             Future(() {
               if (!mounted) return;
-              notifier.loadWithFilters(filterParams);
+              notifier.loadWithFilters(
+                filterParams,
+                diskCacheable: diskCacheable,
+              );
             });
           }
         }
@@ -377,6 +394,16 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
         }
         if (partnerState.error != null && partnerState.users.isEmpty) {
           return withChips(_buildError(partnerState.error));
+        }
+        // Rows from disk are shown only once they can be filtered like live
+        // ones: someone skipped, waved to or blocked must not flash back.
+        if (partnerState.fromCache &&
+            (!_exclusionsKnown || !blockedUserIdsAsync.hasValue)) {
+          return withChips(
+            partnerState.isLoading
+                ? _buildLoading()
+                : _buildError(partnerState.error),
+          );
         }
 
         final blockedUserIds = blockedUserIdsAsync.value ?? <String>{};

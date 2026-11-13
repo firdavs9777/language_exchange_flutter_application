@@ -24,6 +24,7 @@ import 'package:bananatalk_app/services/guide_store.dart';
 import 'package:bananatalk_app/pages/community/main/community_main.dart';
 import 'package:bananatalk_app/services/ad_service.dart';
 import 'package:bananatalk_app/providers/provider_root/daily_matches_provider.dart';
+import 'package:bananatalk_app/services/community_first_page_cache.dart';
 import 'package:bananatalk_app/services/interaction_service.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/widgets/coins/unlock_cta.dart';
@@ -213,6 +214,16 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
     final skipped = ref.read(dailyMatchesSkippedProvider.notifier);
     skipped.state = {...skipped.state, m.user.id};
     InteractionService.skipUser(m.user.id);
+    // Flag on: today's batch on disk must not bring them back next cold open.
+    if (ref.read(communityFastListEnabledProvider)) {
+      _forgetOnDisk(m.user.id);
+    }
+  }
+
+  Future<void> _forgetOnDisk(String targetId) async {
+    final cache = ref.read(communityFirstPageCacheProvider);
+    final userId = await cache.signedInUserId();
+    if (userId != null) await cache.removeUser(userId, targetId);
   }
 
   /// A non-empty batch has been shown; only then can "exhausted" fire, so the
@@ -269,37 +280,32 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
         );
     final async = ref.watch(dailyMatchesProvider);
     final skipped = ref.watch(dailyMatchesSkippedProvider);
-    return async.when(
-      loading: () => const Center(child: CircularProgressIndicator()),
-      error: (_, __) => RefreshIndicator(
-        onRefresh: _refresh,
-        child: CustomScrollView(
-          physics: const AlwaysScrollableScrollPhysics(),
-          slivers: [
-            SliverFillRemaining(
-              hasScrollBody: false,
-              child: _LoadError(onRetry: _refresh),
-            ),
-          ],
-        ),
-      ),
-      data: (result) {
+    // The view of a batch. [fromCache]: today's batch from disk, shown while
+    // the first fetch is out; it records nothing (analytics, guide, priming,
+    // roll-over, exhausted ad) -- the network batch does that when it lands.
+    Widget dataView(DailyMatchesResult result, {bool fromCache = false}) {
         // Switch off (404): the empty state with "Browse partners", never a
         // blank tab -- Matches is where users land.
         if (result.unavailable) return _emptyView(boostsEnabled);
-        _maybeRollOver(result);
+        if (!fromCache) _maybeRollOver(result);
         final matches = result.matches
             .where((m) => m.user.id.isNotEmpty && !skipped.contains(m.user.id))
             .toList();
         if (matches.isEmpty) {
+          // Everyone on disk was skipped: keep waiting for the network.
+          if (fromCache) {
+            return const Center(child: CircularProgressIndicator());
+          }
           _hasMatches = false;
           _onBatchExhausted();
           return _emptyView(boostsEnabled);
         }
-        _hasMatches = true;
-        _sawNonEmptyBatch = true;
-        _exhaustedAdFired = false;
-        _maybePrimeOnFirstMatches();
+        if (!fromCache) {
+          _hasMatches = true;
+          _sawNonEmptyBatch = true;
+          _exhaustedAdFired = false;
+          _maybePrimeOnFirstMatches();
+        }
         final showExtra = shouldShowExtraMatchesCta(
           boostsEnabled: boostsEnabled,
           count: result.matches.length,
@@ -346,7 +352,8 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
               hasMessaged: messaged,
               milestonesDone: done.length,
             );
-        if (!showGuidance &&
+        if (!fromCache &&
+            !showGuidance &&
             // Clean data only: an errored refresh still reports hasValue.
             _isCleanData(user) &&
             _isCleanData(sessionAsync) &&
@@ -371,7 +378,9 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
             'views=${session.timesShown} matches=${matches.length})',
           );
         }
-        if (isNew) _reportMatchesShownAfterFrame(matches.length);
+        if (isNew && !fromCache) {
+          _reportMatchesShownAfterFrame(matches.length);
+        }
         return RefreshIndicator(
           onRefresh: _refresh,
           child: ListView.builder(
@@ -393,7 +402,11 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
                       if (showGuidance)
                         Builder(
                           builder: (_) {
-                            _recordGuidanceShownAfterFrame(session.timesShown);
+                            if (!fromCache) {
+                              _recordGuidanceShownAfterFrame(
+                                session.timesShown,
+                              );
+                            }
                             return MatchesFirstSessionPanel(
                               matchCount: matches.length,
                               progressCount: done.length,
@@ -455,7 +468,33 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
             },
           ),
         );
-      },
+    }
+
+    // Flag on (decided at the first fetch, see dailyMatchesProvider): until
+    // that fetch has produced anything, show today's batch from disk if one
+    // was kept. Never once a value or an error exists.
+    if (async.isLoading &&
+        !async.hasValue &&
+        !async.hasError &&
+        ref.exists(dailyMatchesCachedProvider)) {
+      final cached = ref.watch(dailyMatchesCachedProvider).valueOrNull;
+      if (cached != null) return dataView(cached, fromCache: true);
+    }
+    return async.when(
+      loading: () => const Center(child: CircularProgressIndicator()),
+      error: (_, __) => RefreshIndicator(
+        onRefresh: _refresh,
+        child: CustomScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          slivers: [
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: _LoadError(onRetry: _refresh),
+            ),
+          ],
+        ),
+      ),
+      data: dataView,
     );
   }
 }

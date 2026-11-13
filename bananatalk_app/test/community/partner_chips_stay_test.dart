@@ -19,7 +19,10 @@ class _Fixed extends PartnerFilterNotifier {
     state = s;
   }
   @override
-  Future<void> loadWithFilters(PartnerFilterParams filters) async {}
+  Future<void> loadWithFilters(
+    PartnerFilterParams filters, {
+    bool diskCacheable = false,
+  }) async {}
   @override
   Future<void> loadMore({bool force = false}) async {}
 }
