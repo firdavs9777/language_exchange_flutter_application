@@ -1581,7 +1581,67 @@ class StoriesFeedResult {
 
 /// A story post refused before it reached the server, for the screen to say
 /// in the user's language (the service has no BuildContext).
-enum StoryPostFailure { noMedia, noText, videoTooLarge }
+///
+/// [inProgress], [alreadyPosted] and [tryAgain] come from the server on an
+/// idempotent create: retry later, already done (terminal), retry now.
+enum StoryPostFailure {
+  noMedia,
+  noText,
+  videoTooLarge,
+  inProgress,
+  alreadyPosted,
+  tryAgain,
+}
+
+/// How a correction submit ended. The UI and callers branch on this, never
+/// on a message string.
+enum CorrectionOutcome {
+  success,
+  alreadyCorrected,
+  repliesDisabled,
+  blocked,
+  limitReached,
+  invalid,
+  unavailable,
+  failure,
+}
+
+class CorrectionResult {
+  final CorrectionOutcome outcome;
+
+  /// From the 201; can be stale by one, show max(returned, previous + 1).
+  final int? correctionCount;
+
+  /// The server's sentence for limit / invalid outcomes, or a raw exception
+  /// text on [CorrectionOutcome.failure]; may be null.
+  final String? message;
+
+  const CorrectionResult({
+    required this.outcome,
+    this.correctionCount,
+    this.message,
+  });
+
+  bool get success => outcome == CorrectionOutcome.success;
+  bool get alreadyCorrected => outcome == CorrectionOutcome.alreadyCorrected;
+  bool get blocked => outcome == CorrectionOutcome.blocked;
+}
+
+class QuizAnswerResult {
+  final bool success;
+
+  /// The answered shape (correctIndex, counts, userAnswerIndex present).
+  final StoryQuizSticker? quiz;
+  final bool isCorrect;
+  final String? error;
+
+  const QuizAnswerResult({
+    required this.success,
+    this.quiz,
+    this.isCorrect = false,
+    this.error,
+  });
+}
 
 class SingleStoryResponse {
   final bool success;

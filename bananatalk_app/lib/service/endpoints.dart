@@ -242,6 +242,12 @@ class Endpoints {
   static String storyPollVoteURL(String storyId) =>
       'stories/$storyId/poll/vote';
   
+  // Stories - Learning stickers
+  static String storyCorrectionURL(String storyId) =>
+      'stories/$storyId/correction';
+  static String storyQuizAnswerURL(String storyId) =>
+      'stories/$storyId/quiz-answer';
+
   // Stories - Question Box
   static String storyQuestionAnswerURL(String storyId) =>
       'stories/$storyId/question/answer';

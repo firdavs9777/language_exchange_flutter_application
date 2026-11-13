@@ -55,6 +55,11 @@ String storyPostFailureText(
       return l10n.pleaseEnterSomeText;
     case StoryPostFailure.videoTooLarge:
       return l10n.chatVideoTooLarge;
+    // Server-side outcomes the upload queue handles itself; if one reaches
+    // the screen, say the generic "couldn't post" with the server's sentence.
+    case StoryPostFailure.inProgress:
+    case StoryPostFailure.alreadyPosted:
+    case StoryPostFailure.tryAgain:
     case null:
       return friendlyErrorMessage(
         l10n,
