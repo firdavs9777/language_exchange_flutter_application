@@ -12602,4 +12602,71 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get loginNoPasswordYet => 'Akun ini belum punya kata sandi. Gunakan “Lupa kata sandi” untuk membuatnya.';
+
+  @override
+  String get feedCouldNotLoadMore => 'Tidak dapat memuat postingan lainnya';
+
+  @override
+  String get storiesDiscoverLabel => 'Jelajahi';
+
+  @override
+  String hashtagPostCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count postingan',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get hashtagSortTop => 'Teratas';
+
+  @override
+  String get hashtagSortRecent => 'Terbaru';
+
+  @override
+  String get hashtagEmpty => 'Belum ada postingan dengan tagar ini';
+
+  @override
+  String hashtagShowingRelated(String topic) {
+    return 'Postingan dengan tagar ini masih sedikit. Menampilkan postingan tentang $topic.';
+  }
+
+  @override
+  String get hashtagTrendingTitle => 'Tagar yang sedang tren';
+
+  @override
+  String get hashtagSuggestedTitle => 'Tag yang disarankan';
+
+  @override
+  String get clearInterestsTitle => 'Hapus minat saya';
+
+  @override
+  String get clearInterestsSubtitle => 'Lupakan apa yang dipelajari Momen tentang selera Anda';
+
+  @override
+  String get clearInterestsConfirm => 'Hapus apa yang dipelajari Momen tentang minat Anda? Feed Anda akan dimulai dari awal.';
+
+  @override
+  String get clearInterestsAction => 'Hapus';
+
+  @override
+  String get clearInterestsDone => 'Minat dihapus';
+
+  @override
+  String get shareAsMomentTitle => 'Bagikan ini sebagai momen?';
+
+  @override
+  String get shareAsMomentAction => 'Bagikan sebagai momen';
+
+  @override
+  String shareOfferLessonText(String lesson) {
+    return 'Aku baru saja menyelesaikan pelajaran \"$lesson\"!';
+  }
+
+  @override
+  String shareOfferStreakText(int days) {
+    return 'Rentetan belajar $days hari!';
+  }
 }

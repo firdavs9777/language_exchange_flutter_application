@@ -12634,4 +12634,72 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get loginNoPasswordYet => 'Esta cuenta aún no tiene contraseña. Usa «¿Olvidaste tu contraseña?» para crear una.';
+
+  @override
+  String get feedCouldNotLoadMore => 'No se pudieron cargar más publicaciones';
+
+  @override
+  String get storiesDiscoverLabel => 'Descubrir';
+
+  @override
+  String hashtagPostCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count publicaciones',
+      one: '$count publicación',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get hashtagSortTop => 'Populares';
+
+  @override
+  String get hashtagSortRecent => 'Recientes';
+
+  @override
+  String get hashtagEmpty => 'Aún no hay publicaciones con este hashtag';
+
+  @override
+  String hashtagShowingRelated(String topic) {
+    return 'Aún hay pocas publicaciones con esta etiqueta. Se muestran publicaciones sobre $topic.';
+  }
+
+  @override
+  String get hashtagTrendingTitle => 'Hashtags en tendencia';
+
+  @override
+  String get hashtagSuggestedTitle => 'Etiquetas sugeridas';
+
+  @override
+  String get clearInterestsTitle => 'Borrar mis intereses';
+
+  @override
+  String get clearInterestsSubtitle => 'Olvida lo que Momentos ha aprendido de tus gustos';
+
+  @override
+  String get clearInterestsConfirm => '¿Borrar lo que Momentos ha aprendido sobre tus intereses? Tu feed empezará de cero.';
+
+  @override
+  String get clearInterestsAction => 'Borrar';
+
+  @override
+  String get clearInterestsDone => 'Intereses borrados';
+
+  @override
+  String get shareAsMomentTitle => '¿Compartir esto como un momento?';
+
+  @override
+  String get shareAsMomentAction => 'Compartir como momento';
+
+  @override
+  String shareOfferLessonText(String lesson) {
+    return '¡Acabo de terminar la lección «$lesson»!';
+  }
+
+  @override
+  String shareOfferStreakText(int days) {
+    return '¡Racha de $days días aprendiendo!';
+  }
 }

@@ -7,6 +7,26 @@ import 'package:bananatalk_app/services/correction_service.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/pages/chat/header/user_avatar.dart';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'package:bananatalk_app/widgets/share_as_moment_card.dart';
+
+/// Whether the correction bubble may offer "Share as a moment": only with
+/// proof that [originalMessage] was resolved, was sent by the signed-in user
+/// ([currentUserId] non-empty), someone else made the correction, and the chat
+/// is one-to-one. Anything uncertain is no.
+bool mayOfferCorrectionShare({
+  required bool isGroup,
+  required String? currentUserId,
+  required Message? originalMessage,
+  required String correctorId,
+}) {
+  if (isGroup || originalMessage == null) return false;
+  final me = currentUserId;
+  if (me == null || me.isEmpty) return false;
+  return originalMessage.sender.id == me &&
+      correctorId.isNotEmpty &&
+      correctorId != me;
+}
 
 /// A chat bubble that displays a correction as a standalone message
 /// in the chat flow (HelloTalk/Tandem style).
@@ -24,6 +44,11 @@ class CorrectionMessageBubble extends ConsumerStatefulWidget {
   /// (not the corrector) should see it.
   final bool isCorrector;
 
+  /// Positive proof, decided by the list ([mayOfferCorrectionShare]), that
+  /// this is a correction of the signed-in user's own message in a one-to-one
+  /// chat. False means no "Share as a moment" offer.
+  final bool offerShare;
+
   const CorrectionMessageBubble({
     super.key,
     required this.message,
@@ -33,6 +58,7 @@ class CorrectionMessageBubble extends ConsumerStatefulWidget {
     this.otherUserNativeLanguage,
     required this.originalMessageId,
     required this.isCorrector,
+    this.offerShare = false,
   });
 
   @override
@@ -73,6 +99,13 @@ class _CorrectionMessageBubbleState
     } finally {
       if (mounted) setState(() => _accepting = false);
     }
+  }
+
+  /// True when [createdAt] is within the last day: opening an old chat must
+  /// not offer to share a correction from last month.
+  static bool _isFresh(String createdAt) {
+    final t = DateTime.tryParse(createdAt);
+    return t != null && DateTime.now().difference(t).inHours < 24;
   }
 
   @override
@@ -267,6 +300,27 @@ class _CorrectionMessageBubbleState
                           ),
                         ),
                       ],
+                    ),
+                  ],
+                  // Offer to post the user's OWN corrected sentence, only
+                  // for a correction of their message that just arrived.
+                  // Nothing from the partner or the chat goes in the text.
+                  // The flag is read last and the user only inside, so with
+                  // the flag off the bubble is exactly as before.
+                  if (widget.offerShare &&
+                      !widget.isCorrector &&
+                      _isFresh(correction.createdAt) &&
+                      ShareAsMomentCard.enabledIn(ref)) ...[
+                    ShareAsMomentCard(
+                      padding: const EdgeInsets.only(top: 10),
+                      prefillText: correction.correctedText,
+                      language: ref
+                              .watch(userProvider)
+                              .valueOrNull
+                              ?.language_to_learn ??
+                          '',
+                      slot: 'correction:${message.id}',
+                      onDismiss: () {},
                     ),
                   ],
                 ],

@@ -2,12 +2,33 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:bananatalk_app/service/endpoints.dart';
 import 'package:bananatalk_app/models/blocked_user.dart';
+import 'package:bananatalk_app/services/blocked_ids_store.dart';
+import 'package:bananatalk_app/services/feed_first_page_cache.dart';
+import 'package:bananatalk_app/services/stories_rail_cache.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class BlockService {
   static Future<String?> _getToken() async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString('token');
+  }
+
+  static Future<String> _signedInUserId() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('userId') ?? '';
+  }
+
+  /// Every block goes through [blockUser]: once the server confirms it, the
+  /// author leaves the on-disk caches (feed first pages, stories rail) and
+  /// joins the remembered block list, so no cached list paints them again,
+  /// not even offline. Best effort: a failure here never fails the block.
+  static Future<void> _forgetBlockedLocally(String blockedUserId) async {
+    try {
+      await BlockedIdsStore()
+          .add(userId: await _signedInUserId(), id: blockedUserId);
+      await FeedFirstPageCache().removeAuthor(blockedUserId);
+      await StoriesRailCache().removeUser(blockedUserId);
+    } catch (_) {}
   }
 
   static Map<String, String> _getHeaders(String? token) {
@@ -49,8 +70,10 @@ class BlockService {
       );
 
       final data = jsonDecode(response.body);
+      final success = response.statusCode == 200 || response.statusCode == 201;
+      if (success) await _forgetBlockedLocally(blockedUserId);
       return {
-        'success': response.statusCode == 200 || response.statusCode == 201,
+        'success': success,
         'message': data['message'] ?? 'User blocked successfully',
       };
     } catch (e) {
@@ -87,8 +110,15 @@ class BlockService {
       );
 
       final data = jsonDecode(response.body);
+      final success = response.statusCode == 200;
+      if (success) {
+        try {
+          await BlockedIdsStore()
+              .remove(userId: await _signedInUserId(), id: blockedUserId);
+        } catch (_) {}
+      }
       return {
-        'success': response.statusCode == 200,
+        'success': success,
         'message': data['message'] ?? 'User unblocked successfully',
       };
     } catch (e) {
@@ -103,11 +133,19 @@ class BlockService {
   /// GET /api/v1/users/:userId/blocked (userId = current user)
   static Future<List<BlockedUser>> getBlockedUsers({
     required String userId,
+  }) async =>
+      await fetchBlockedUsers(userId: userId) ?? [];
+
+  /// Like [getBlockedUsers], but null when the list could not be fetched
+  /// (no token, offline, non-200), so a caller can tell "you blocked no one"
+  /// from "unknown".
+  static Future<List<BlockedUser>?> fetchBlockedUsers({
+    required String userId,
   }) async {
     try {
       final token = await _getToken();
       if (token == null) {
-        return [];
+        return null;
       }
 
       final url = Uri.parse(
@@ -124,9 +162,9 @@ class BlockService {
         final List blockedList = data['data'] ?? [];
         return blockedList.map((json) => BlockedUser.fromJson(json)).toList();
       }
-      return [];
+      return null;
     } catch (e) {
-      return [];
+      return null;
     }
   }
 

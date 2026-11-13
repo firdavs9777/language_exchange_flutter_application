@@ -12611,4 +12611,72 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get loginNoPasswordYet => 'Ин ҳисоб ҳоло парол надорад. Барои гузоштани он «Паролро фаромӯш кардед»-ро истифода баред.';
+
+  @override
+  String get feedCouldNotLoadMore => 'Нашрҳои бештарро бор карда нашуд';
+
+  @override
+  String get storiesDiscoverLabel => 'Кашф';
+
+  @override
+  String hashtagPostCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count нашр',
+      one: '$count нашр',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get hashtagSortTop => 'Беҳтарин';
+
+  @override
+  String get hashtagSortRecent => 'Навтарин';
+
+  @override
+  String get hashtagEmpty => 'Ҳанӯз нашре бо ин ҳештег нест';
+
+  @override
+  String hashtagShowingRelated(String topic) {
+    return 'Бо ин тег ҳанӯз нашрҳо кам аст. Нашрҳо дар бораи $topic нишон дода мешаванд.';
+  }
+
+  @override
+  String get hashtagTrendingTitle => 'Ҳештегҳои машҳур';
+
+  @override
+  String get hashtagSuggestedTitle => 'Тегҳои пешниҳодшуда';
+
+  @override
+  String get clearInterestsTitle => 'Тоза кардани манфиатҳои ман';
+
+  @override
+  String get clearInterestsSubtitle => 'Он чиро, ки Лаҳзаҳо дар бораи завқи шумо омӯхтааст, фаромӯш кунед';
+
+  @override
+  String get clearInterestsConfirm => 'Он чиро, ки Лаҳзаҳо дар бораи манфиатҳои шумо омӯхтааст, тоза кунем? Ленти шумо аз нав оғоз мешавад.';
+
+  @override
+  String get clearInterestsAction => 'Тоза кардан';
+
+  @override
+  String get clearInterestsDone => 'Манфиатҳо тоза карда шуданд';
+
+  @override
+  String get shareAsMomentTitle => 'Инро ҳамчун лаҳза мубодила кунед?';
+
+  @override
+  String get shareAsMomentAction => 'Ҳамчун лаҳза мубодила кардан';
+
+  @override
+  String shareOfferLessonText(String lesson) {
+    return 'Ман ҳоло дарси «$lesson»-ро анҷом додам!';
+  }
+
+  @override
+  String shareOfferStreakText(int days) {
+    return '$days рӯз пай дар пай меомӯзам!';
+  }
 }

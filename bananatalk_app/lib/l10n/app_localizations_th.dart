@@ -12591,4 +12591,71 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get loginNoPasswordYet => 'บัญชีนี้ยังไม่มีรหัสผ่าน ใช้ “ลืมรหัสผ่าน” เพื่อตั้งรหัสผ่าน';
+
+  @override
+  String get feedCouldNotLoadMore => 'โหลดโพสต์เพิ่มเติมไม่ได้';
+
+  @override
+  String get storiesDiscoverLabel => 'ค้นพบ';
+
+  @override
+  String hashtagPostCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count โพสต์',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get hashtagSortTop => 'ยอดนิยม';
+
+  @override
+  String get hashtagSortRecent => 'ล่าสุด';
+
+  @override
+  String get hashtagEmpty => 'ยังไม่มีโพสต์ที่ใช้แฮชแท็กนี้';
+
+  @override
+  String hashtagShowingRelated(String topic) {
+    return 'ยังมีโพสต์ที่ใช้แท็กนี้น้อย จึงแสดงโพสต์เกี่ยวกับ $topic';
+  }
+
+  @override
+  String get hashtagTrendingTitle => 'แฮชแท็กยอดนิยม';
+
+  @override
+  String get hashtagSuggestedTitle => 'แท็กที่แนะนำ';
+
+  @override
+  String get clearInterestsTitle => 'ล้างความสนใจของฉัน';
+
+  @override
+  String get clearInterestsSubtitle => 'ลืมสิ่งที่โมเมนต์เรียนรู้เกี่ยวกับสิ่งที่คุณชอบ';
+
+  @override
+  String get clearInterestsConfirm => 'ล้างสิ่งที่โมเมนต์เรียนรู้เกี่ยวกับความสนใจของคุณหรือไม่ ฟีดของคุณจะเริ่มต้นใหม่';
+
+  @override
+  String get clearInterestsAction => 'ล้าง';
+
+  @override
+  String get clearInterestsDone => 'ล้างความสนใจแล้ว';
+
+  @override
+  String get shareAsMomentTitle => 'แชร์สิ่งนี้เป็นโมเมนต์ไหม?';
+
+  @override
+  String get shareAsMomentAction => 'แชร์เป็นโมเมนต์';
+
+  @override
+  String shareOfferLessonText(String lesson) {
+    return 'เพิ่งเรียนบทเรียน \"$lesson\" จบแล้ว!';
+  }
+
+  @override
+  String shareOfferStreakText(int days) {
+    return 'เรียนต่อเนื่อง $days วันแล้ว!';
+  }
 }

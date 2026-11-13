@@ -12615,4 +12615,72 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get loginNoPasswordYet => 'Wala pang password ang account na ito. Gamitin ang “Nakalimutan ang password” para gumawa nito.';
+
+  @override
+  String get feedCouldNotLoadMore => 'Hindi na-load ang iba pang post';
+
+  @override
+  String get storiesDiscoverLabel => 'Tuklasin';
+
+  @override
+  String hashtagPostCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count post',
+      one: '$count post',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get hashtagSortTop => 'Nangunguna';
+
+  @override
+  String get hashtagSortRecent => 'Pinakabago';
+
+  @override
+  String get hashtagEmpty => 'Wala pang post na may hashtag na ito';
+
+  @override
+  String hashtagShowingRelated(String topic) {
+    return 'Kaunti pa lang ang post na gumagamit ng tag na ito. Ipinapakita ang mga post tungkol sa $topic.';
+  }
+
+  @override
+  String get hashtagTrendingTitle => 'Mga trending na hashtag';
+
+  @override
+  String get hashtagSuggestedTitle => 'Mga iminumungkahing tag';
+
+  @override
+  String get clearInterestsTitle => 'I-clear ang mga interes ko';
+
+  @override
+  String get clearInterestsSubtitle => 'Kalimutan ang natutunan ng Moments tungkol sa gusto mo';
+
+  @override
+  String get clearInterestsConfirm => 'I-clear ang natutunan ng Moments tungkol sa mga interes mo? Magsisimula muli ang feed mo.';
+
+  @override
+  String get clearInterestsAction => 'I-clear';
+
+  @override
+  String get clearInterestsDone => 'Na-clear na ang mga interes';
+
+  @override
+  String get shareAsMomentTitle => 'I-share ito bilang moment?';
+
+  @override
+  String get shareAsMomentAction => 'I-share bilang moment';
+
+  @override
+  String shareOfferLessonText(String lesson) {
+    return 'Katatapos ko lang ng aralin na \"$lesson\"!';
+  }
+
+  @override
+  String shareOfferStreakText(int days) {
+    return '$days araw nang tuloy-tuloy na pag-aaral!';
+  }
 }

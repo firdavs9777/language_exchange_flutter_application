@@ -23,6 +23,8 @@ Community buildCommunity({
   // so the avatar does not open a live presence subscription that outlives the
   // test and throws "used after dispose" during teardown.
   bool showOnlineStatus = true,
+  String? avatarThumb,
+  List<String> imageUrls = const [],
 }) {
   return Community(
     id: id,
@@ -32,7 +34,8 @@ Community buildCommunity({
     mbti: '',
     bloodType: '',
     images: const [],
-    imageUrls: const [],
+    imageUrls: imageUrls,
+    avatarThumb: avatarThumb,
     birth_day: '1',
     birth_month: '1',
     birth_year: birthYear,

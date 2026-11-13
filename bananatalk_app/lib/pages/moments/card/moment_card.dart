@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/widgets/hashtag_text.dart';
 import 'package:bananatalk_app/pages/community/single/single_community_screen.dart';
 import 'package:bananatalk_app/pages/moments/card/moment_card_double_tap.dart';
 import 'package:bananatalk_app/pages/moments/card/moment_card_gradient.dart';
@@ -12,6 +13,7 @@ import 'package:bananatalk_app/pages/moments/widgets/moments_snackbar.dart';
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:bananatalk_app/services/moments_service.dart' as api;
 import 'package:bananatalk_app/services/ad_service.dart';
+import 'package:bananatalk_app/services/feed_open_tracker.dart';
 import 'package:bananatalk_app/providers/provider_root/comments_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
@@ -388,6 +390,11 @@ class _MomentCardState extends ConsumerState<MomentCard> {
       return;
     }
 
+    // Fire-and-forget: the server ranks on which posts were opened. Only after
+    // the fetch succeeded, so an offline tap (which opens nothing) records
+    // nothing.
+    ref.read(feedOpenTrackerProvider).opened(widget.moments.id);
+
     ref.invalidate(commentsProvider(singleMoment.id));
 
     // SingleMoment actually renders comments via CommentsMain(paginated:
@@ -720,6 +727,8 @@ class _MomentCardState extends ConsumerState<MomentCard> {
   @override
   Widget build(BuildContext context) {
     final fullText = widget.moments.description;
+    // Read here, not inside the caption's LayoutBuilder callback.
+    final hashtagLinksEnabled = ref.watch(hashtagsEnabledProvider);
 
     final isGradient =
         (widget.moments.mediaType == 'text' ||
@@ -875,17 +884,23 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              fullText,
+                            HashtagText(
+                              text: fullText,
                               style: style,
                               maxLines: isExpanded ? null : _captionMaxLines,
                               overflow: isExpanded
                                   ? TextOverflow.visible
                                   : TextOverflow.ellipsis,
+                              linksEnabled: hashtagLinksEnabled,
                             ),
                             if (overflows)
                               GestureDetector(
                                 onTap: () {
+                                  if (!isExpanded) {
+                                    ref
+                                        .read(feedOpenTrackerProvider)
+                                        .opened(widget.moments.id);
+                                  }
                                   setState(() => isExpanded = !isExpanded);
                                 },
                                 child: Padding(
@@ -1014,6 +1029,7 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                   child: MomentCardMedia(
                     imageUrls: widget.moments.imageUrls,
                     audio: widget.moments.audio,
+                    variantFor: widget.moments.variantFor,
                   ),
                 ),
               )
@@ -1022,7 +1038,10 @@ class _MomentCardState extends ConsumerState<MomentCard> {
                 padding: const EdgeInsets.only(bottom: 8),
                 child: MomentCardDoubleTap(
                   onDoubleTap: likeOnlyDoubleTap,
-                  child: MomentCardMedia(imageUrls: widget.moments.imageUrls),
+                  child: MomentCardMedia(
+                    imageUrls: widget.moments.imageUrls,
+                    variantFor: widget.moments.variantFor,
+                  ),
                 ),
               ),
 

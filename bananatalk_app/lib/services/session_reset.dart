@@ -1,3 +1,4 @@
+import 'package:bananatalk_app/providers/hashtag_providers.dart';
 import 'package:bananatalk_app/pages/community/partners/partner_query.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -49,6 +50,7 @@ import 'package:bananatalk_app/providers/provider_root/learning/vocab_packs_prov
 import 'package:bananatalk_app/providers/provider_root/learning/vocabulary_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/message_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
+import 'package:bananatalk_app/services/feed_open_tracker.dart';
 import 'package:bananatalk_app/providers/provider_root/profile_visitor_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/user_limits_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/vip_provider.dart';
@@ -64,6 +66,7 @@ import 'package:bananatalk_app/services/chat_socket_service.dart';
 import 'package:bananatalk_app/services/global_chat_listener.dart';
 import 'package:bananatalk_app/services/notification_service.dart';
 import 'package:bananatalk_app/services/referral_service.dart';
+import 'package:bananatalk_app/services/share_offer_policy.dart';
 import 'package:bananatalk_app/pages/community/first_session/first_session_store.dart';
 import 'package:bananatalk_app/services/activation_store.dart';
 import 'package:bananatalk_app/services/guide_store.dart';
@@ -91,6 +94,15 @@ final Map<String, ProviderOrFamily> userScopedProviders = {
   // Clubs v2 access is decided per user
   'clubsV2AccessProvider': clubsV2AccessProvider,
   'clubMomentsProvider': clubMomentsProvider,
+  // Hashtag pages carry isLiked, friends-only posts and block-filtered
+  // authors; suggestions/trending follow the signed-in user's token too.
+  'hashtagServiceProvider': hashtagServiceProvider,
+  'hashtagSuggestProvider': hashtagSuggestProvider,
+  'trendingHashtagsProvider': trendingHashtagsProvider,
+  'hashtagPageProvider': hashtagPageProvider,
+  // Share-as-moment offers: the daily/dismissal state is per user (its prefs
+  // keys are not device-level, so sign-out clears them).
+  'shareOfferPolicyProvider': shareOfferPolicyProvider,
   // Calls list: the unseen-missed badge belongs to the account
   'callHistoryServiceProvider': callHistoryServiceProvider,
   'missedCallsProvider': missedCallsProvider,
@@ -175,6 +187,8 @@ final Map<String, ProviderOrFamily> userScopedProviders = {
   'matchingLanguagesProvider': matchingLanguagesProvider,
   // Moments / reels / comments
   'momentsServiceProvider': momentsServiceProvider,
+  // Queued opens are sent under whoever is signed in at flush time.
+  'feedOpenTrackerProvider': feedOpenTrackerProvider,
   'momentsProvider': momentsProvider,
   'momentsFeedFreshnessProvider': momentsFeedFreshnessProvider,
   'momentsFeedProvider': momentsFeedProvider,
@@ -287,6 +301,7 @@ const Set<String> kAppScopedProviderNames = {
   'appConfigServiceProvider',
   'appConfigProvider',
   'appConfigRefreshStateProvider', // last app-config fetch time
+  'hashtagsEnabledProvider', // derived from appConfigProvider
   'runningAppVersionProvider',
   'iosProductsProvider', // store catalog
   'androidProductsProvider',

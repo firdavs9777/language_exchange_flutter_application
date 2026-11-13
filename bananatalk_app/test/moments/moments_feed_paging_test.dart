@@ -106,4 +106,96 @@ void main() {
       ['x', 'a', 'c'],
     );
   });
+
+  test('a feed page is 12 posts', () {
+    expect(kMomentsFeedPageSize, 12);
+  });
+
+  test('a failed page sets loadMoreFailed and keeps the posts', () async {
+    await container.read(provider.future);
+    final notifier = container.read(provider.notifier);
+    expect(notifier.loadMoreFailed, isFalse);
+    feed.failNext = true;
+    await notifier.loadMore();
+    expect(notifier.loadMoreFailed, isTrue);
+    expect(_idsOf(container.read(provider).valueOrNull), ['a', 'b']);
+    expect(notifier.hasMore, isTrue);
+  });
+
+  test('flipping loadMoreFailed notifies watchers', () async {
+    await container.read(provider.future);
+    final notifier = container.read(provider.notifier);
+    var notified = 0;
+    container.listen(provider, (_, __) => notified++);
+    feed.failNext = true;
+    await notifier.loadMore();
+    expect(notified, 1);
+    await notifier.retryLoadMore();
+    expect(notified, 2, reason: 'the success rewrites the list');
+  });
+
+  test('retryLoadMore asks for the failed page again, once, without repeats',
+      () async {
+    await container.read(provider.future);
+    final notifier = container.read(provider.notifier);
+    feed.failNext = true;
+    await notifier.loadMore();
+    await notifier.retryLoadMore();
+    expect(feed.requested, [1, 2, 2]);
+    expect(notifier.loadMoreFailed, isFalse);
+    expect(_idsOf(container.read(provider).valueOrNull), ['a', 'b', 'c', 'd']);
+  });
+
+  test('a page of posts already shown appends nothing', () async {
+    feed.rest[2] = ['a', 'b'];
+    await container.read(provider.future);
+    final notifier = container.read(provider.notifier);
+    await notifier.loadMore();
+    expect(_idsOf(container.read(provider).valueOrNull), ['a', 'b']);
+    expect(notifier.loadMoreFailed, isFalse);
+  });
+
+  test('a reload clears loadMoreFailed', () async {
+    await container.read(provider.future);
+    final notifier = container.read(provider.notifier);
+    feed.failNext = true;
+    await notifier.loadMore();
+    container.invalidate(provider);
+    await container.read(provider.future);
+    expect(container.read(provider.notifier).loadMoreFailed, isFalse);
+  });
+
+  test('pull-to-refresh refetches page 1 even right after a fetch', () async {
+    await container.read(provider.future);
+    expect(feed.requested, [1]);
+    // What MomentsMain._refresh does; the 60 s gate is only in
+    // refreshMomentsIfStale.
+    await container.refresh(provider.future);
+    expect(feed.requested, [1, 1]);
+  });
+
+  test('the feed fetcher asks the server for 12 per page', () async {
+    final limits = <int>[];
+    final c = ProviderContainer(overrides: [
+      momentsServiceProvider.overrideWithValue(_LimitSpy(limits)),
+    ]);
+    addTearDown(c.dispose);
+    final p = AsyncNotifierProvider<PagedMomentsFeedNotifier, List<Moments>>(
+      () => PagedMomentsFeedNotifier(momentsFeedFetcher('forYou')),
+    );
+    await c.read(p.future);
+    expect(limits, [12]);
+  });
+}
+
+class _LimitSpy extends MomentsService {
+  _LimitSpy(this.limits);
+  final List<int> limits;
+
+  @override
+  Future<Map<String, dynamic>> getMoments(
+      {int page = 1, int limit = 10, String? feed, String? q}) async {
+    limits.add(limit);
+    return {'moments': <Moments>[], 'pagination': {'hasNextPage': false}};
+  }
 }

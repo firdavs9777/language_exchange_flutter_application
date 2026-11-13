@@ -1,4 +1,5 @@
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
+import 'package:bananatalk_app/providers/provider_models/image_variant.dart';
 import 'package:bananatalk_app/providers/provider_models/message_model.dart';
 import 'package:bananatalk_app/utils/string_sanitizer.dart';
 
@@ -235,6 +236,10 @@ class Moments {
     this.boosted = false,
     this.clubId,
     this.activity,
+    this.imageVariants = const [],
+    this.hashtags = const [],
+    this.topics = const [],
+    this.needsFeedback = false,
   });
 
   final String id;
@@ -304,6 +309,23 @@ class Moments {
   /// The author's latest moment while they have a Profile Boost; For You
   /// lifts it and the card says "Boosted".
   final bool boosted;
+
+  /// Small renditions of the images, when the server sends them. May hold
+  /// fewer entries than [imageUrls].
+  final List<ImageVariant> imageVariants;
+
+  /// Hashtags on the post (empty when the server does not send them).
+  final List<String> hashtags;
+
+  /// Topics the server classified the post under.
+  final List<String> topics;
+
+  /// The author asked for feedback on this post.
+  final bool needsFeedback;
+
+  /// The variant for [imageUrl], or `null` (draw the full image).
+  ImageVariant? variantFor(String imageUrl) =>
+      ImageVariant.find(imageVariants, imageUrl);
 
   /// Check if this moment has a video
   bool get hasVideo => video != null && video!.url.isNotEmpty;
@@ -440,6 +462,10 @@ class Moments {
           ? (json['club']['_id'] ?? json['club']['id'])?.toString()
           : json['club']?.toString(),
       activity: MomentActivity.tryParse(json['activity']),
+      imageVariants: ImageVariant.listFromJson(json['imageVariants']),
+      hashtags: safeList(json['hashtags']),
+      topics: safeList(json['topics']),
+      needsFeedback: json['needsFeedback'] == true,
     );
   }
 
@@ -528,6 +554,10 @@ class Moments {
     Location? location,
     bool? isReel,
     bool? boosted,
+    List<ImageVariant>? imageVariants,
+    List<String>? hashtags,
+    List<String>? topics,
+    bool? needsFeedback,
   }) {
     return Moments(
       id: id ?? this.id,
@@ -566,6 +596,10 @@ class Moments {
       boosted: boosted ?? this.boosted,
       clubId: clubId,
       activity: activity,
+      imageVariants: imageVariants ?? this.imageVariants,
+      hashtags: hashtags ?? this.hashtags,
+      topics: topics ?? this.topics,
+      needsFeedback: needsFeedback ?? this.needsFeedback,
     );
   }
 }

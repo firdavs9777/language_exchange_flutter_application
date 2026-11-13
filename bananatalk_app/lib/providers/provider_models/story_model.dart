@@ -1,4 +1,5 @@
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
+import 'package:bananatalk_app/providers/provider_models/image_variant.dart';
 import 'package:bananatalk_app/utils/string_sanitizer.dart';
 
 /// Video metadata for video stories
@@ -180,6 +181,13 @@ class Story {
   final DateTime expiresAt;
   final DateTime createdAt;
 
+  /// Small renditions of [mediaUrls], when the server sends them.
+  final List<ImageVariant> imageVariants;
+
+  /// The variant for [imageUrl], or `null` (draw the full image).
+  ImageVariant? variantFor(String imageUrl) =>
+      ImageVariant.find(imageVariants, imageUrl);
+
   const Story({
     required this.id,
     required this.user,
@@ -216,6 +224,7 @@ class Story {
     this.isActive = true,
     required this.expiresAt,
     required this.createdAt,
+    this.imageVariants = const [],
   });
 
   factory Story.fromJson(Map<String, dynamic> json) {
@@ -301,6 +310,7 @@ class Story {
       createdAt: json['createdAt'] != null
           ? DateTime.tryParse(json['createdAt'].toString()) ?? DateTime.now()
           : DateTime.now(),
+      imageVariants: ImageVariant.listFromJson(json['imageVariants']),
     );
   }
 
@@ -430,6 +440,7 @@ class Story {
     bool? isActive,
     DateTime? expiresAt,
     DateTime? createdAt,
+    List<ImageVariant>? imageVariants,
   }) {
     return Story(
       id: id ?? this.id,
@@ -467,6 +478,7 @@ class Story {
       isActive: isActive ?? this.isActive,
       expiresAt: expiresAt ?? this.expiresAt,
       createdAt: createdAt ?? this.createdAt,
+      imageVariants: imageVariants ?? this.imageVariants,
     );
   }
 }
@@ -1138,6 +1150,66 @@ class StoriesResponse {
     );
   }
 
+}
+
+/// `GET /stories/feed`: the followed groups plus, when the server's Discover
+/// switch is on, public stories from people the viewer does not follow.
+class StoriesFeedResult {
+  const StoriesFeedResult({
+    required this.success,
+    this.followed = const [],
+    this.discover = const [],
+    this.rawData = const [],
+    this.rawDiscover = const [],
+    this.message,
+    this.error,
+  });
+
+  final bool success;
+  final List<UserStories> followed;
+
+  /// `[]` when the response has no `discover` key or it is not a list.
+  final List<UserStories> discover;
+
+  /// The arrays as sent, for `StoriesRailCache`.
+  final List<Map<String, dynamic>> rawData;
+  final List<Map<String, dynamic>> rawDiscover;
+  final String? message;
+  final String? error;
+
+  factory StoriesFeedResult.failure({String? error}) =>
+      StoriesFeedResult(success: false, error: error);
+
+  factory StoriesFeedResult.fromJson(
+    Map<String, dynamic> json,
+    String currentUserId,
+  ) {
+    // An item that does not parse is skipped, never fatal.
+    (List<Map<String, dynamic>>, List<UserStories>) parse(Object? raw) {
+      final maps = <Map<String, dynamic>>[];
+      final groups = <UserStories>[];
+      if (raw is! List) return (maps, groups);
+      for (final item in raw.whereType<Map>()) {
+        try {
+          final map = Map<String, dynamic>.from(item);
+          groups.add(UserStories.fromJson(map, currentUserId));
+          maps.add(map);
+        } catch (_) {}
+      }
+      return (maps, groups);
+    }
+
+    final (rawData, followed) = parse(json['data']);
+    final (rawDiscover, discover) = parse(json['discover']);
+    return StoriesFeedResult(
+      success: json['success'] == true,
+      followed: followed,
+      discover: discover,
+      rawData: rawData,
+      rawDiscover: rawDiscover,
+      message: json['message'],
+    );
+  }
 }
 
 /// A story post refused before it reached the server, for the screen to say

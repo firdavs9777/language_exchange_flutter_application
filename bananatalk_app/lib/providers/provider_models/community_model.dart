@@ -80,6 +80,7 @@ class Community {
     this.followersCount,
     this.followingCount,
     this.isFollowing,
+    this.avatarThumb,
   });
 
   final String id;
@@ -150,6 +151,9 @@ class Community {
   /// lib/activeStoryFlags.js). Drives the gradient story ring on avatars.
   final bool hasActiveStory;
 
+  /// 160 px avatar rendition, when the server sends one.
+  final String? avatarThumb;
+
   /// Server counts and follow state (GET /auth/users/:id). Preferred over the
   /// id lists, which are on their way out of other users' profiles: a
   /// popular user's profile shipped every follower id on each open.
@@ -198,6 +202,14 @@ class Community {
     }
     // Fallback to images array - include all non-empty URLs (relative or absolute)
     return images.where((url) => url.isNotEmpty).toList();
+  }
+
+  /// The URL to draw an avatar from: the thumbnail when the server sent one,
+  /// else today's first image, else `null`.
+  String? get avatarUrl {
+    final thumb = avatarThumb;
+    if (thumb != null && thumb.isNotEmpty) return thumb;
+    return profileImageUrl;
   }
 
   /// Get the first available profile image URL
@@ -300,6 +312,10 @@ class Community {
       role: (json['role'] ?? 'user').toString(),
       isBanned: json['isBanned'] == true,
       hasActiveStory: json['hasActiveStory'] == true,
+      avatarThumb: json['avatarThumb'] is String &&
+              (json['avatarThumb'] as String).isNotEmpty
+          ? json['avatarThumb'] as String
+          : null,
       followersCount: (json['followersCount'] as num?)?.toInt(),
       followingCount: (json['followingCount'] as num?)?.toInt(),
       isFollowing: json['isFollowing'] is bool ? json['isFollowing'] as bool : null,

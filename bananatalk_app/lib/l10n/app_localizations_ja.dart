@@ -12591,4 +12591,71 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get loginNoPasswordYet => 'このアカウントにはまだパスワードがありません。「パスワードをお忘れですか」から設定してください。';
+
+  @override
+  String get feedCouldNotLoadMore => 'これ以上の投稿を読み込めませんでした';
+
+  @override
+  String get storiesDiscoverLabel => '発見';
+
+  @override
+  String hashtagPostCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count件の投稿',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get hashtagSortTop => '人気';
+
+  @override
+  String get hashtagSortRecent => '新着';
+
+  @override
+  String get hashtagEmpty => 'このハッシュタグの投稿はまだありません';
+
+  @override
+  String hashtagShowingRelated(String topic) {
+    return 'このタグの投稿はまだ少ないため、$topicに関する投稿を表示しています。';
+  }
+
+  @override
+  String get hashtagTrendingTitle => 'トレンドのハッシュタグ';
+
+  @override
+  String get hashtagSuggestedTitle => 'おすすめのタグ';
+
+  @override
+  String get clearInterestsTitle => '興味・関心をリセット';
+
+  @override
+  String get clearInterestsSubtitle => 'モーメントが学習したあなたの好みを消去します';
+
+  @override
+  String get clearInterestsConfirm => 'モーメントが学習した興味・関心を消去しますか？フィードは最初から調整し直されます。';
+
+  @override
+  String get clearInterestsAction => 'リセット';
+
+  @override
+  String get clearInterestsDone => '興味・関心をリセットしました';
+
+  @override
+  String get shareAsMomentTitle => 'モーメントとしてシェアしますか？';
+
+  @override
+  String get shareAsMomentAction => 'モーメントとしてシェア';
+
+  @override
+  String shareOfferLessonText(String lesson) {
+    return 'レッスン「$lesson」を完了しました！';
+  }
+
+  @override
+  String shareOfferStreakText(int days) {
+    return '$days日連続で学習中！';
+  }
 }

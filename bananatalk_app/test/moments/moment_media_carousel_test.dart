@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/moments/card/moment_media_carousel.dart';
+import 'package:bananatalk_app/providers/provider_models/image_variant.dart';
+import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 
 /// Phone-width, and scrollable.
 ///
@@ -26,6 +28,7 @@ List<String> _urls(int n) =>
     List.generate(n, (i) => 'https://example.com/$i.jpg');
 
 void main() {
+  _variantTests();
   testWidgets('GLOBAL CONSTRAINT: a 9-image post exposes all 9', (tester) async {
     // The grid this replaces rendered `imageCount > 6 ? 6 : imageCount`, so
     // images 7-9 were unreachable and the poster had no way to know.
@@ -107,5 +110,68 @@ void main() {
     await tester.pump(const Duration(milliseconds: 50));
     final hero = tester.widget<Hero>(find.byType(Hero).first);
     expect(hero.tag, 'moment-abc-0');
+  });
+}
+
+// ── Smart-feed variants ─────────────────────────────────────────────────────
+
+ImageVariant _v(String url, int w, int h) => ImageVariant(
+      url: url,
+      feedUrl: '$url?feed',
+      width: w,
+      height: h,
+    );
+
+double _aspect(WidgetTester tester) =>
+    tester.widget<AspectRatio>(find.byType(AspectRatio).first).aspectRatio;
+
+void _variantTests() {
+  group('variants', () {
+    testWidgets('no variants keeps 4:5', (tester) async {
+      await tester.pumpWidget(_host(MomentMediaCarousel(imageUrls: _urls(2))));
+      await tester.pump(const Duration(milliseconds: 50));
+      expect(_aspect(tester), 4 / 5);
+    });
+
+    testWidgets('a square variant gives 1.0', (tester) async {
+      final u = _urls(1);
+      await tester.pumpWidget(_host(MomentMediaCarousel(
+        imageUrls: u,
+        variantFor: (url) => _v(url, 1000, 1000),
+      )));
+      await tester.pump(const Duration(milliseconds: 50));
+      expect(_aspect(tester), 1.0);
+    });
+
+    testWidgets('a panorama is clamped to 1.91', (tester) async {
+      await tester.pumpWidget(_host(MomentMediaCarousel(
+        imageUrls: _urls(1),
+        variantFor: (url) => _v(url, 2000, 500),
+      )));
+      await tester.pump(const Duration(milliseconds: 50));
+      expect(_aspect(tester), 1.91);
+    });
+
+    testWidgets('a tall image is clamped to 4:5', (tester) async {
+      await tester.pumpWidget(_host(MomentMediaCarousel(
+        imageUrls: _urls(1),
+        variantFor: (url) => _v(url, 500, 2000),
+      )));
+      await tester.pump(const Duration(milliseconds: 50));
+      expect(_aspect(tester), 4 / 5);
+    });
+
+    testWidgets('pages use the feed-size url', (tester) async {
+      final u = _urls(1);
+      await tester.pumpWidget(_host(MomentMediaCarousel(
+        imageUrls: u,
+        variantFor: (url) => _v(url, 1000, 1000),
+      )));
+      await tester.pump(const Duration(milliseconds: 50));
+      expect(
+        tester.widget<CachedImageWidget>(find.byType(CachedImageWidget)).imageUrl,
+        '${u.first}?feed',
+      );
+    });
   });
 }

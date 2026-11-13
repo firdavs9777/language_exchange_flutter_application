@@ -12609,4 +12609,72 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get loginNoPasswordYet => 'Bu hesabın henüz şifresi yok. Şifre belirlemek için “Şifremi unuttum”u kullanın.';
+
+  @override
+  String get feedCouldNotLoadMore => 'Daha fazla gönderi yüklenemedi';
+
+  @override
+  String get storiesDiscoverLabel => 'Keşfet';
+
+  @override
+  String hashtagPostCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count gönderi',
+      one: '$count gönderi',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get hashtagSortTop => 'Popüler';
+
+  @override
+  String get hashtagSortRecent => 'En yeni';
+
+  @override
+  String get hashtagEmpty => 'Bu etiketle henüz gönderi yok';
+
+  @override
+  String hashtagShowingRelated(String topic) {
+    return 'Bu etiketi kullanan gönderi henüz az. $topic ile ilgili gönderiler gösteriliyor.';
+  }
+
+  @override
+  String get hashtagTrendingTitle => 'Trend etiketler';
+
+  @override
+  String get hashtagSuggestedTitle => 'Önerilen etiketler';
+
+  @override
+  String get clearInterestsTitle => 'İlgi alanlarımı temizle';
+
+  @override
+  String get clearInterestsSubtitle => 'Anlar\'ın zevklerin hakkında öğrendiklerini unut';
+
+  @override
+  String get clearInterestsConfirm => 'Anlar\'ın ilgi alanların hakkında öğrendiklerini temizlemek istiyor musun? Akışın baştan başlayacak.';
+
+  @override
+  String get clearInterestsAction => 'Temizle';
+
+  @override
+  String get clearInterestsDone => 'İlgi alanları temizlendi';
+
+  @override
+  String get shareAsMomentTitle => 'Bunu an olarak paylaşmak ister misin?';
+
+  @override
+  String get shareAsMomentAction => 'An olarak paylaş';
+
+  @override
+  String shareOfferLessonText(String lesson) {
+    return '\"$lesson\" dersini şimdi bitirdim!';
+  }
+
+  @override
+  String shareOfferStreakText(int days) {
+    return '$days günlük öğrenme serisi!';
+  }
 }

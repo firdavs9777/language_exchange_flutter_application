@@ -58,12 +58,13 @@ class StoriesService {
 
   // ==================== BASIC STORY OPERATIONS ====================
 
-  /// Get stories feed
-  static Future<StoriesResponse> getStoriesFeed({int page = 1, int limit = 20}) async {
+  /// Get stories feed. `followed` is `data`; `discover` is `[]` unless the
+  /// server sent it.
+  static Future<StoriesFeedResult> getStoriesFeed({int page = 1, int limit = 20}) async {
     try {
       final token = await _getToken();
       final currentUserId = await _getCurrentUserId();
-      
+
       final url = Uri.parse('${Endpoints.baseURL}${Endpoints.storiesFeedURL}')
           .replace(queryParameters: {'page': '$page', 'limit': '$limit'});
 
@@ -71,32 +72,20 @@ class StoriesService {
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
-        
+
         if (data['success'] == true) {
-          // API returns: { success: true, count: 3, data: [UserStories, UserStories] }
-          final userStoriesList = data['data'] != null
-              ? (data['data'] as List)
-                  .map((d) => UserStories.fromJson(d, currentUserId ?? ''))
-                  .toList()
-              : <UserStories>[];
-          
-          
-          return StoriesResponse(
-            success: true,
-            count: data['count'] ?? userStoriesList.length,
-            data: userStoriesList,
-            message: data['message'],
+          // API returns: { success, count, data: [UserStories], discover?: [UserStories] }
+          return StoriesFeedResult.fromJson(
+            Map<String, dynamic>.from(data as Map),
+            currentUserId ?? '',
           );
         }
-        
-        return StoriesResponse(
-          success: false,
-          error: data['error'] ?? data['message'],
-        );
+
+        return StoriesFeedResult.failure(error: data['error'] ?? data['message']);
       }
-      return StoriesResponse(success: false, error: null);
+      return StoriesFeedResult.failure();
     } catch (e) {
-      return StoriesResponse(success: false, error: e.toString());
+      return StoriesFeedResult.failure(error: e.toString());
     }
   }
 

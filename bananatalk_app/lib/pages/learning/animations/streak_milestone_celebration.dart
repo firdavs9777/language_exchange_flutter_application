@@ -1,9 +1,15 @@
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'package:bananatalk_app/widgets/share_as_moment_card.dart';
 
 class StreakMilestoneCelebration {
   static const milestones = {7, 30, 100, 365};
+
+  /// Streaks that also offer "Share as a moment" (spec 7.2).
+  static const shareMilestones = {7, 30, 100};
 
   /// Call after streak update. If newStreak is a milestone AND wasn't
   /// already at that milestone, show celebration.
@@ -35,15 +41,16 @@ class StreakMilestoneCelebration {
   }
 }
 
-class _CelebrationOverlay extends StatefulWidget {
+class _CelebrationOverlay extends ConsumerStatefulWidget {
   final int streak;
   const _CelebrationOverlay({required this.streak});
 
   @override
-  State<_CelebrationOverlay> createState() => _CelebrationOverlayState();
+  ConsumerState<_CelebrationOverlay> createState() =>
+      _CelebrationOverlayState();
 }
 
-class _CelebrationOverlayState extends State<_CelebrationOverlay>
+class _CelebrationOverlayState extends ConsumerState<_CelebrationOverlay>
     with SingleTickerProviderStateMixin {
   late ConfettiController _confettiController;
   late AnimationController _scaleController;
@@ -146,6 +153,28 @@ class _CelebrationOverlayState extends State<_CelebrationOverlay>
               ],
             ),
           ),
+          // A bottom strip: the celebration and its button stay where they
+          // were. Empty unless shareOffersEnabled is on and today's offer is
+          // unused.
+          if (StreakMilestoneCelebration.shareMilestones
+                  .contains(widget.streak) &&
+              ShareAsMomentCard.enabledIn(ref))
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: SafeArea(
+                child: ShareAsMomentCard(
+                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                  prefillText: l10n.shareOfferStreakText(widget.streak),
+                  language: ref
+                          .watch(userProvider)
+                          .valueOrNull
+                          ?.language_to_learn ??
+                      '',
+                  slot: 'streak:${widget.streak}',
+                  onDismiss: () {},
+                ),
+              ),
+            ),
         ],
       ),
     );

@@ -1,7 +1,11 @@
+import 'dart:async';
+
 import 'package:bananatalk_app/widgets/navigation/floating_tab_bar.dart';
+import 'package:bananatalk_app/pages/moments/feed/feed_load_more_footer.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 import 'package:bananatalk_app/pages/moments/card/moment_card.dart';
+import 'package:bananatalk_app/pages/moments/feed/moment_card_skeleton.dart';
 import 'package:bananatalk_app/pages/moments/feed/moments_main.dart'
     show momentFilterProvider, MomentsFeedTab;
 import 'package:bananatalk_app/pages/menu_tab/TabBarMenu.dart'
@@ -70,6 +74,10 @@ class MomentsFeedWidget extends ConsumerWidget {
   /// fetches it (see `MomentsMain._maybeLoadMore`).
   final bool hasMore;
 
+  /// The last next-page fetch failed: a Retry row replaces the spinner.
+  final bool loadMoreFailed;
+  final FutureOr<void> Function()? onRetryLoadMore;
+
   const MomentsFeedWidget({
     super.key,
     required this.momentsAsync,
@@ -78,6 +86,8 @@ class MomentsFeedWidget extends ConsumerWidget {
     required this.onRefresh,
     required this.activeTab,
     this.hasMore = false,
+    this.loadMoreFailed = false,
+    this.onRetryLoadMore,
   });
 
   @override
@@ -109,21 +119,9 @@ class MomentsFeedWidget extends ConsumerWidget {
           itemCount: items.length + (hasMore ? 1 : 0),
           itemBuilder: (context, index) {
             if (index == items.length) {
-              return Padding(
-                key: const ValueKey('feed-load-more'),
-                padding: const EdgeInsets.symmetric(vertical: 24),
-                child: Center(
-                  child: SizedBox(
-                    width: 24,
-                    height: 24,
-                    child: CircularProgressIndicator(
-                      strokeWidth: 2,
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                        Theme.of(context).colorScheme.primary,
-                      ),
-                    ),
-                  ),
-                ),
+              return FeedLoadMoreFooter(
+                failed: loadMoreFailed,
+                onRetry: onRetryLoadMore,
               );
             }
             final item = items[index];
@@ -159,12 +157,13 @@ class MomentsFeedWidget extends ConsumerWidget {
           },
         );
       },
-      loading: () => Center(
-        child: CircularProgressIndicator(
-          valueColor: AlwaysStoppedAnimation<Color>(
-            Theme.of(context).colorScheme.primary,
-          ),
-        ),
+      // No cached first page and nothing loaded yet: card-shaped placeholders
+      // instead of a spinner.
+      loading: () => ListView.builder(
+        key: const ValueKey('feed-skeleton'),
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: 6,
+        itemBuilder: (context, index) => const MomentCardSkeleton(),
       ),
       error: (error, stack) => Center(
         child: Column(

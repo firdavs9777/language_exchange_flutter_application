@@ -8705,5 +8705,97 @@
   },
   "@loginNoPasswordYet": {
     "description": "Email login refused: the account has no password and no known social provider"
+  },
+  "feedCouldNotLoadMore": "Couldn't load more posts",
+  "@feedCouldNotLoadMore": {
+    "description": "Shown under the Moments feed when fetching the next page failed; a Retry button sits next to it"
+  },
+  "storiesDiscoverLabel": "Discover",
+  "@storiesDiscoverLabel": {
+    "description": "Small label under a story ring in the Moments stories rail for someone you do not follow (Discover)"
+  },
+  "hashtagPostCount": "{count, plural, one{{count} post} other{{count} posts}}",
+  "@hashtagPostCount": {
+    "description": "Post count line under a hashtag page title",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "hashtagSortTop": "Top",
+  "@hashtagSortTop": {
+    "description": "Hashtag page sort segment: most popular posts first"
+  },
+  "hashtagSortRecent": "Recent",
+  "@hashtagSortRecent": {
+    "description": "Hashtag page sort segment: newest posts first"
+  },
+  "hashtagEmpty": "No posts with this hashtag yet",
+  "@hashtagEmpty": {
+    "description": "Empty state of a hashtag page with no posts"
+  },
+  "hashtagShowingRelated": "Few posts use this tag yet. Showing posts about {topic}.",
+  "@hashtagShowingRelated": {
+    "description": "Banner on a hashtag page with few posts: the list shows posts about a related topic instead",
+    "placeholders": {
+      "topic": {
+        "type": "String"
+      }
+    }
+  },
+  "hashtagTrendingTitle": "Trending hashtags",
+  "@hashtagTrendingTitle": {
+    "description": "Heading of the trending hashtags list shown when Moments search is opened"
+  },
+  "hashtagSuggestedTitle": "Suggested tags",
+  "@hashtagSuggestedTitle": {
+    "description": "Label of the row of tag chips suggested from the caption in the moment composer"
+  },
+  "clearInterestsTitle": "Clear my interests",
+  "@clearInterestsTitle": {
+    "description": "Settings row title: clears the interest profile used to rank the Moments feed"
+  },
+  "clearInterestsSubtitle": "Forget what Moments has learned about what you like",
+  "@clearInterestsSubtitle": {
+    "description": "Settings row subtitle under the clear-interests row"
+  },
+  "clearInterestsConfirm": "Clear what Moments has learned about your interests? Your feed will start fresh.",
+  "@clearInterestsConfirm": {
+    "description": "Confirm dialog body before clearing the interest profile"
+  },
+  "clearInterestsAction": "Clear",
+  "@clearInterestsAction": {
+    "description": "Confirm dialog action button that clears the interest profile"
+  },
+  "clearInterestsDone": "Interests cleared",
+  "@clearInterestsDone": {
+    "description": "Snackbar after the interest profile was cleared"
+  },
+  "shareAsMomentTitle": "Share this as a moment?",
+  "@shareAsMomentTitle": {
+    "description": "Title of the dismissible card offering to post an achievement as a moment"
+  },
+  "shareAsMomentAction": "Share as a moment",
+  "@shareAsMomentAction": {
+    "description": "Button on that card; opens the post composer with prefilled text"
+  },
+  "shareOfferLessonText": "I just finished the lesson \"{lesson}\"!",
+  "@shareOfferLessonText": {
+    "description": "Prefilled moment text after a lesson; {lesson} is the lesson title. The user edits it before posting",
+    "placeholders": {
+      "lesson": {
+        "type": "String"
+      }
+    }
+  },
+  "shareOfferStreakText": "{days}-day learning streak!",
+  "@shareOfferStreakText": {
+    "description": "Prefilled moment text at a streak milestone; {days} is the number of days",
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
   }
 }

@@ -22909,6 +22909,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This account has no password yet. Use “Forgot password” to set one.'**
   String get loginNoPasswordYet;
+
+  /// Shown under the Moments feed when fetching the next page failed; a Retry button sits next to it
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t load more posts'**
+  String get feedCouldNotLoadMore;
+
+  /// Small label under a story ring in the Moments stories rail for someone you do not follow (Discover)
+  ///
+  /// In en, this message translates to:
+  /// **'Discover'**
+  String get storiesDiscoverLabel;
+
+  /// Post count line under a hashtag page title
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{{count} post} other{{count} posts}}'**
+  String hashtagPostCount(int count);
+
+  /// Hashtag page sort segment: most popular posts first
+  ///
+  /// In en, this message translates to:
+  /// **'Top'**
+  String get hashtagSortTop;
+
+  /// Hashtag page sort segment: newest posts first
+  ///
+  /// In en, this message translates to:
+  /// **'Recent'**
+  String get hashtagSortRecent;
+
+  /// Empty state of a hashtag page with no posts
+  ///
+  /// In en, this message translates to:
+  /// **'No posts with this hashtag yet'**
+  String get hashtagEmpty;
+
+  /// Banner on a hashtag page with few posts: the list shows posts about a related topic instead
+  ///
+  /// In en, this message translates to:
+  /// **'Few posts use this tag yet. Showing posts about {topic}.'**
+  String hashtagShowingRelated(String topic);
+
+  /// Heading of the trending hashtags list shown when Moments search is opened
+  ///
+  /// In en, this message translates to:
+  /// **'Trending hashtags'**
+  String get hashtagTrendingTitle;
+
+  /// Label of the row of tag chips suggested from the caption in the moment composer
+  ///
+  /// In en, this message translates to:
+  /// **'Suggested tags'**
+  String get hashtagSuggestedTitle;
+
+  /// Settings row title: clears the interest profile used to rank the Moments feed
+  ///
+  /// In en, this message translates to:
+  /// **'Clear my interests'**
+  String get clearInterestsTitle;
+
+  /// Settings row subtitle under the clear-interests row
+  ///
+  /// In en, this message translates to:
+  /// **'Forget what Moments has learned about what you like'**
+  String get clearInterestsSubtitle;
+
+  /// Confirm dialog body before clearing the interest profile
+  ///
+  /// In en, this message translates to:
+  /// **'Clear what Moments has learned about your interests? Your feed will start fresh.'**
+  String get clearInterestsConfirm;
+
+  /// Confirm dialog action button that clears the interest profile
+  ///
+  /// In en, this message translates to:
+  /// **'Clear'**
+  String get clearInterestsAction;
+
+  /// Snackbar after the interest profile was cleared
+  ///
+  /// In en, this message translates to:
+  /// **'Interests cleared'**
+  String get clearInterestsDone;
+
+  /// Title of the dismissible card offering to post an achievement as a moment
+  ///
+  /// In en, this message translates to:
+  /// **'Share this as a moment?'**
+  String get shareAsMomentTitle;
+
+  /// Button on that card; opens the post composer with prefilled text
+  ///
+  /// In en, this message translates to:
+  /// **'Share as a moment'**
+  String get shareAsMomentAction;
+
+  /// Prefilled moment text after a lesson; {lesson} is the lesson title. The user edits it before posting
+  ///
+  /// In en, this message translates to:
+  /// **'I just finished the lesson \"{lesson}\"!'**
+  String shareOfferLessonText(String lesson);
+
+  /// Prefilled moment text at a streak milestone; {days} is the number of days
+  ///
+  /// In en, this message translates to:
+  /// **'{days}-day learning streak!'**
+  String shareOfferStreakText(int days);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

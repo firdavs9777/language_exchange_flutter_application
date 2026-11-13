@@ -12652,4 +12652,72 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get loginNoPasswordYet => 'This account has no password yet. Use “Forgot password” to set one.';
+
+  @override
+  String get feedCouldNotLoadMore => 'Couldn\'t load more posts';
+
+  @override
+  String get storiesDiscoverLabel => 'Discover';
+
+  @override
+  String hashtagPostCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count posts',
+      one: '$count post',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get hashtagSortTop => 'Top';
+
+  @override
+  String get hashtagSortRecent => 'Recent';
+
+  @override
+  String get hashtagEmpty => 'No posts with this hashtag yet';
+
+  @override
+  String hashtagShowingRelated(String topic) {
+    return 'Few posts use this tag yet. Showing posts about $topic.';
+  }
+
+  @override
+  String get hashtagTrendingTitle => 'Trending hashtags';
+
+  @override
+  String get hashtagSuggestedTitle => 'Suggested tags';
+
+  @override
+  String get clearInterestsTitle => 'Clear my interests';
+
+  @override
+  String get clearInterestsSubtitle => 'Forget what Moments has learned about what you like';
+
+  @override
+  String get clearInterestsConfirm => 'Clear what Moments has learned about your interests? Your feed will start fresh.';
+
+  @override
+  String get clearInterestsAction => 'Clear';
+
+  @override
+  String get clearInterestsDone => 'Interests cleared';
+
+  @override
+  String get shareAsMomentTitle => 'Share this as a moment?';
+
+  @override
+  String get shareAsMomentAction => 'Share as a moment';
+
+  @override
+  String shareOfferLessonText(String lesson) {
+    return 'I just finished the lesson \"$lesson\"!';
+  }
+
+  @override
+  String shareOfferStreakText(int days) {
+    return '$days-day learning streak!';
+  }
 }

@@ -252,6 +252,12 @@ class ChatMessagesList extends StatelessWidget {
                     // isCorrector: true when current user sent the correction
                     final isCorrector =
                         correction?.corrector.id == currentUserId;
+                    // The lookup above falls back to this correction bubble
+                    // itself; only a real (non-correction) message is proof.
+                    final resolvedOriginal =
+                        originalMessage.type != 'correction'
+                            ? originalMessage
+                            : null;
                     return CorrectionMessageBubble(
                       key: ValueKey(message.id),
                       message: message,
@@ -261,6 +267,12 @@ class ChatMessagesList extends StatelessWidget {
                       otherUserNativeLanguage: otherUserNativeLanguage,
                       originalMessageId: originalMessage.id,
                       isCorrector: isCorrector,
+                      offerShare: mayOfferCorrectionShare(
+                        isGroup: isGroup,
+                        currentUserId: currentUserId,
+                        originalMessage: resolvedOriginal,
+                        correctorId: correction?.corrector.id ?? '',
+                      ),
                     );
                   }
 

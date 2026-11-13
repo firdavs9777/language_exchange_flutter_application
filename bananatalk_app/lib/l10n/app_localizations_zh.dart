@@ -12591,6 +12591,73 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get loginNoPasswordYet => '此账号还没有密码，请通过“忘记密码”设置。';
+
+  @override
+  String get feedCouldNotLoadMore => '无法加载更多帖子';
+
+  @override
+  String get storiesDiscoverLabel => '发现';
+
+  @override
+  String hashtagPostCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count 篇帖子',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get hashtagSortTop => '热门';
+
+  @override
+  String get hashtagSortRecent => '最新';
+
+  @override
+  String get hashtagEmpty => '还没有使用此话题标签的帖子';
+
+  @override
+  String hashtagShowingRelated(String topic) {
+    return '使用此标签的帖子还很少，正在显示与$topic相关的帖子。';
+  }
+
+  @override
+  String get hashtagTrendingTitle => '热门话题标签';
+
+  @override
+  String get hashtagSuggestedTitle => '推荐标签';
+
+  @override
+  String get clearInterestsTitle => '清除我的兴趣';
+
+  @override
+  String get clearInterestsSubtitle => '清除“动态”已了解到的你的喜好';
+
+  @override
+  String get clearInterestsConfirm => '要清除“动态”已了解到的你的兴趣吗？你的信息流将重新开始。';
+
+  @override
+  String get clearInterestsAction => '清除';
+
+  @override
+  String get clearInterestsDone => '兴趣已清除';
+
+  @override
+  String get shareAsMomentTitle => '要把这个分享为动态吗？';
+
+  @override
+  String get shareAsMomentAction => '分享为动态';
+
+  @override
+  String shareOfferLessonText(String lesson) {
+    return '我刚完成了课程“$lesson”！';
+  }
+
+  @override
+  String shareOfferStreakText(int days) {
+    return '连续学习 $days 天！';
+  }
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -25180,4 +25247,71 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get loginNoPasswordYet => '此帳號尚未設定密碼，請透過「忘記密碼」設定。';
+
+  @override
+  String get feedCouldNotLoadMore => '無法載入更多貼文';
+
+  @override
+  String get storiesDiscoverLabel => '發現';
+
+  @override
+  String hashtagPostCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count 則貼文',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get hashtagSortTop => '熱門';
+
+  @override
+  String get hashtagSortRecent => '最新';
+
+  @override
+  String get hashtagEmpty => '還沒有使用此主題標籤的貼文';
+
+  @override
+  String hashtagShowingRelated(String topic) {
+    return '使用此標籤的貼文還很少，目前顯示與$topic相關的貼文。';
+  }
+
+  @override
+  String get hashtagTrendingTitle => '熱門主題標籤';
+
+  @override
+  String get hashtagSuggestedTitle => '推薦標籤';
+
+  @override
+  String get clearInterestsTitle => '清除我的興趣';
+
+  @override
+  String get clearInterestsSubtitle => '清除「動態」已了解到的你的喜好';
+
+  @override
+  String get clearInterestsConfirm => '要清除「動態」已了解到的你的興趣嗎？你的動態消息將重新開始。';
+
+  @override
+  String get clearInterestsAction => '清除';
+
+  @override
+  String get clearInterestsDone => '興趣已清除';
+
+  @override
+  String get shareAsMomentTitle => '要把這個分享為動態嗎？';
+
+  @override
+  String get shareAsMomentAction => '分享為動態';
+
+  @override
+  String shareOfferLessonText(String lesson) {
+    return '我剛完成了課程「$lesson」！';
+  }
+
+  @override
+  String shareOfferStreakText(int days) {
+    return '連續學習 $days 天！';
+  }
 }

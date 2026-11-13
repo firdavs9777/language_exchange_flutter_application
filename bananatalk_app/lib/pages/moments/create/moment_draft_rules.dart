@@ -18,6 +18,23 @@ const int kMaxDescriptionLength = 2000;
 /// Tags per moment. This was a bare `5` inside a validation branch.
 const int kMaxTags = 5;
 
+/// The caption a "Share as a moment" offer prefills, or null for none.
+///
+/// Only a new, non-reel post takes it, and a prompt-of-the-day answer keeps
+/// its own text: an edit must never show someone else's words in place of the
+/// moment being edited.
+String? textPrefill({
+  required bool editing,
+  required bool isReel,
+  String? prefillPrompt,
+  String? prefillText,
+}) {
+  if (editing || isReel) return null;
+  if (prefillPrompt != null && prefillPrompt.isNotEmpty) return null;
+  final text = prefillText?.trim() ?? '';
+  return text.isEmpty ? null : text;
+}
+
 /// Whether the draft has anything to post: words, or media.
 ///
 /// Drives the Post button's enabled state. Same rule as `canAdvanceFrom` for

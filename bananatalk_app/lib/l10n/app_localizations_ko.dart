@@ -12591,4 +12591,71 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get loginNoPasswordYet => '이 계정에는 아직 비밀번호가 없습니다. ‘비밀번호 찾기’로 설정해 주세요.';
+
+  @override
+  String get feedCouldNotLoadMore => '게시물을 더 불러오지 못했어요';
+
+  @override
+  String get storiesDiscoverLabel => '발견';
+
+  @override
+  String hashtagPostCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '게시물 $count개',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get hashtagSortTop => '인기';
+
+  @override
+  String get hashtagSortRecent => '최신';
+
+  @override
+  String get hashtagEmpty => '이 해시태그의 게시물이 아직 없어요';
+
+  @override
+  String hashtagShowingRelated(String topic) {
+    return '이 태그의 게시물이 아직 적어서 $topic 관련 게시물을 보여드려요.';
+  }
+
+  @override
+  String get hashtagTrendingTitle => '인기 해시태그';
+
+  @override
+  String get hashtagSuggestedTitle => '추천 태그';
+
+  @override
+  String get clearInterestsTitle => '관심사 초기화';
+
+  @override
+  String get clearInterestsSubtitle => '모먼트가 파악한 내 취향을 지웁니다';
+
+  @override
+  String get clearInterestsConfirm => '모먼트가 파악한 관심사를 지울까요? 피드가 처음부터 다시 맞춰집니다.';
+
+  @override
+  String get clearInterestsAction => '초기화';
+
+  @override
+  String get clearInterestsDone => '관심사를 초기화했어요';
+
+  @override
+  String get shareAsMomentTitle => '이걸 모먼트로 공유할까요?';
+
+  @override
+  String get shareAsMomentAction => '모먼트로 공유';
+
+  @override
+  String shareOfferLessonText(String lesson) {
+    return '방금 \"$lesson\" 레슨을 끝냈어요!';
+  }
+
+  @override
+  String shareOfferStreakText(int days) {
+    return '$days일 연속 학습 중!';
+  }
 }

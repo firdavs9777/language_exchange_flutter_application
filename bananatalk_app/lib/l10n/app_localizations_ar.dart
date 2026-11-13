@@ -12712,4 +12712,76 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get loginNoPasswordYet => 'لا توجد كلمة مرور لهذا الحساب بعد. استخدم «نسيت كلمة المرور» لتعيين واحدة.';
+
+  @override
+  String get feedCouldNotLoadMore => 'تعذّر تحميل المزيد من المنشورات';
+
+  @override
+  String get storiesDiscoverLabel => 'اكتشف';
+
+  @override
+  String hashtagPostCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count منشور',
+      many: '$count منشورًا',
+      few: '$count منشورات',
+      two: 'منشوران',
+      one: 'منشور واحد',
+      zero: 'لا منشورات',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get hashtagSortTop => 'الأكثر رواجًا';
+
+  @override
+  String get hashtagSortRecent => 'الأحدث';
+
+  @override
+  String get hashtagEmpty => 'لا توجد منشورات بهذا الهاشتاغ بعد';
+
+  @override
+  String hashtagShowingRelated(String topic) {
+    return 'عدد المنشورات بهذا الوسم قليل حتى الآن. نعرض منشورات عن $topic.';
+  }
+
+  @override
+  String get hashtagTrendingTitle => 'الهاشتاقات الرائجة';
+
+  @override
+  String get hashtagSuggestedTitle => 'وسوم مقترحة';
+
+  @override
+  String get clearInterestsTitle => 'مسح اهتماماتي';
+
+  @override
+  String get clearInterestsSubtitle => 'انسَ ما تعلّمته اللحظات عن اهتماماتك';
+
+  @override
+  String get clearInterestsConfirm => 'هل تريد مسح ما تعلّمته اللحظات عن اهتماماتك؟ سيبدأ خلاصتك من جديد.';
+
+  @override
+  String get clearInterestsAction => 'مسح';
+
+  @override
+  String get clearInterestsDone => 'تم مسح الاهتمامات';
+
+  @override
+  String get shareAsMomentTitle => 'هل تريد مشاركة هذا كلحظة؟';
+
+  @override
+  String get shareAsMomentAction => 'شارك كلحظة';
+
+  @override
+  String shareOfferLessonText(String lesson) {
+    return 'أنهيت للتو الدرس \"$lesson\"!';
+  }
+
+  @override
+  String shareOfferStreakText(int days) {
+    return 'سلسلة تعلّم لمدة $days يومًا!';
+  }
 }

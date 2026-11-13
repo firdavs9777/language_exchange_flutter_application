@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/pages/moments/card/moment_card_header.dart';
+import 'package:bananatalk_app/widgets/cached_image_widget.dart';
 import 'package:bananatalk_app/widgets/language/language_exchange_pill.dart';
 
 import '../support/moment_fixture.dart';
@@ -75,5 +76,36 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('the avatar uses avatarThumb when the server sent one',
+      (tester) async {
+    await tester.pumpWidget(_host(MomentCardHeader(
+      moment: buildMoment(
+        avatarThumb: 'https://x.test/thumb.jpg',
+        avatarImages: const ['https://x.test/full.jpg'],
+      ),
+      onAvatarTap: () {},
+      onMenuTap: () {},
+    )));
+    await tester.pump();
+    expect(
+      tester.widget<CachedCircleAvatar>(find.byType(CachedCircleAvatar)).imageUrl,
+      'https://x.test/thumb.jpg',
+    );
+  });
+
+  testWidgets('without a thumb the avatar is the first image, as before',
+      (tester) async {
+    await tester.pumpWidget(_host(MomentCardHeader(
+      moment: buildMoment(avatarImages: const ['https://x.test/full.jpg']),
+      onAvatarTap: () {},
+      onMenuTap: () {},
+    )));
+    await tester.pump();
+    expect(
+      tester.widget<CachedCircleAvatar>(find.byType(CachedCircleAvatar)).imageUrl,
+      'https://x.test/full.jpg',
+    );
   });
 }

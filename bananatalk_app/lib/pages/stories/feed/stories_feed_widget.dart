@@ -6,6 +6,11 @@ import 'package:flutter/services.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/providers/provider_models/story_model.dart';
 import 'package:bananatalk_app/services/stories_service.dart';
+import 'package:bananatalk_app/services/blocked_ids_store.dart';
+import 'package:bananatalk_app/services/stories_rail_cache.dart';
+import 'package:bananatalk_app/pages/stories/feed/stories_rail_order.dart';
+import 'package:bananatalk_app/pages/stories/story_precache.dart';
+import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
 import 'package:bananatalk_app/pages/stories/feed/stories_feed_state.dart';
 import 'package:bananatalk_app/pages/stories/viewer/story_viewer_screen.dart';
 import 'package:bananatalk_app/pages/stories/create/create_story_screen.dart';
@@ -26,12 +31,27 @@ class StoriesFeedWidget extends ConsumerStatefulWidget {
   final double avatarSize;
   final ValueNotifier<int>? refreshNotifier;
 
+  /// Seams for tests; the defaults are the real service, cache and preloader.
+  final Future<StoriesFeedResult> Function()? feedLoader;
+  final Future<StoriesResponse> Function()? myStoriesLoader;
+  final StoriesRailCache? cache;
+  final StoryPrecacher precache;
+
+  /// Whether the rail may warm story images now: Wi-Fi/Ethernet only (it
+  /// runs on every app start, so never on mobile data).
+  final Future<bool> Function() railPrecacheAllowed;
+
   const StoriesFeedWidget({
     super.key,
     this.onCreateStory,
     this.height = 130,
     this.avatarSize = 64,
     this.refreshNotifier,
+    this.feedLoader,
+    this.myStoriesLoader,
+    this.cache,
+    this.precache = precacheStoryImages,
+    this.railPrecacheAllowed = isOnUnmeteredNetwork,
   });
 
   @override
@@ -39,7 +59,21 @@ class StoriesFeedWidget extends ConsumerStatefulWidget {
 }
 
 class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> with WidgetsBindingObserver {
-  List<UserStories> _stories = [];
+  /// The groups as the server sent them (unfiltered); [_entries] filters and
+  /// orders them for the current flag, block list and user.
+  List<UserStories> _followed = [];
+  List<UserStories> _discover = [];
+
+  /// Null until the block list has loaded. A rail painted from the cache
+  /// waits for it, so a person you blocked never flashes up.
+  Set<String>? _blocked;
+  String? _currentUserId;
+
+  /// Set once a fresh answer has landed, so a slow cache read cannot paint
+  /// over it.
+  bool _freshApplied = false;
+  List<String> _lastPrecached = const [];
+  late final StoriesRailCache _cache = widget.cache ?? StoriesRailCache();
   bool _isLoading = true;
   String? _error;
   UserStories? _myStories;
@@ -60,6 +94,7 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> with Widg
     // the banner and tap it is asking them to do the phone's job.
     _connectivitySub =
         Connectivity().onConnectivityChanged.listen(_onConnectivityChanged);
+    _loadCachedRail();
     _loadStories();
   }
 
@@ -91,11 +126,104 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> with Widg
     }
   }
 
+  /// `watch` in build so a config that arrives late redraws the rail.
+  bool _discoverEnabled({bool watch = false}) =>
+      (watch ? ref.watch(appConfigProvider) : ref.read(appConfigProvider))
+          .maybeWhen(
+        data: (c) => c?.storyDiscoverEnabled ?? false,
+        orElse: () => false,
+      );
+
+  List<RailEntry> _entries(bool discoverEnabled) => orderStoriesRail(
+        followed: _followed,
+        discover: _discover,
+        discoverEnabled: discoverEnabled,
+        blockedUserIds: _blocked ?? const {},
+        currentUserId: _currentUserId,
+      );
+
+  /// How long the rail waits for the block list before using the one
+  /// remembered from the last successful fetch.
+  static const Duration _blockListWait = Duration(seconds: 3);
+
+  /// The block list, or null when it cannot be read. A request that has not
+  /// answered within [_blockListWait] is not waited for (it holds
+  /// `_inFlight`): the last fetched list stands in.
+  Future<Set<String>?> _loadBlocked() async {
+    try {
+      return await ref
+          .read(blockedUserIdsProvider.future)
+          .timeout(_blockListWait);
+    } on TimeoutException {
+      try {
+        final prefs = await SharedPreferences.getInstance();
+        return await BlockedIdsStore()
+            .read(userId: prefs.getString('userId') ?? '');
+      } catch (_) {
+        return null;
+      }
+    } catch (_) {
+      return null;
+    }
+  }
+
+  /// Draws the last rail at once. Skipped when it belongs to another user,
+  /// is too old, or the block list cannot be read (its entries could be
+  /// someone you have since blocked).
+  Future<void> _loadCachedRail() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final userId = prefs.getString('userId') ?? '';
+      final snapshot = await _cache.read(userId: userId);
+      if (snapshot == null || !mounted || _freshApplied) return;
+      final blocked = await _loadBlocked();
+      if (blocked == null || !mounted || _freshApplied) return;
+      final parsed = StoriesFeedResult.fromJson(
+        {'success': true, 'data': snapshot.data, 'discover': snapshot.discover},
+        userId,
+      );
+      // The cache outlives the stories in it (7 days vs 24 hours); nothing
+      // live left is the same as no cache (the skeleton stays).
+      final followed = dropExpiredStoryGroups(parsed.followed);
+      final discover = dropExpiredStoryGroups(parsed.discover);
+      if (followed.isEmpty && discover.isEmpty) return;
+      setState(() {
+        _followed = followed;
+        _discover = discover;
+        _blocked = blocked;
+        _currentUserId = userId;
+        _isLoading = false;
+      });
+      _schedulePrecache();
+    } catch (e) {
+      debugPrint('Stories rail cache unavailable: $e');
+    }
+  }
+
+  /// Warms the disk cache for the first story of the first three rings once
+  /// the rail is up, on Wi-Fi/Ethernet only.
+  void _schedulePrecache() {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      if (!mounted) return;
+      final urls = storiesRailPrecacheUrls(_entries(_discoverEnabled()));
+      if (urls.isEmpty || _lastPrecached.join('|') == urls.join('|')) return;
+      bool allowed;
+      try {
+        allowed = await widget.railPrecacheAllowed();
+      } catch (_) {
+        allowed = false;
+      }
+      if (!allowed || !mounted) return;
+      _lastPrecached = urls;
+      await widget.precache(context, urls);
+    });
+  }
+
   Future<void> _loadStories({bool showLoading = true}) async {
     if (_inFlight) return;
     _inFlight = true;
 
-    final hasCached = _stories.isNotEmpty;
+    final hasCached = _followed.isNotEmpty || _discover.isNotEmpty;
     if (mounted && storiesFeedShowsShimmer(
       explicitLoad: showLoading,
       hasCachedStories: hasCached,
@@ -107,8 +235,12 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> with Widg
     }
 
     try {
+      final prefs = await SharedPreferences.getInstance();
+      final userIdBefore = prefs.getString('userId') ?? '';
+
       // Load my stories
-      final myStoriesResponse = await StoriesService.getMyStories();
+      final myStoriesResponse =
+          await (widget.myStoriesLoader ?? StoriesService.getMyStories)();
 
       // Only a *successful* answer may clear this. Treating a failed call as
       // "you have no stories" made your own ring vanish from the row
@@ -121,43 +253,53 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> with Widg
       }
 
       // Load stories feed
-      final response = await StoriesService.getStoriesFeed();
+      final response =
+          await (widget.feedLoader ?? StoriesService.getStoriesFeed)();
       if (!mounted) return;
 
-      // `blocked` is not a failure — it is a complete answer that happens to
-      // be empty, so it clears the banner like any other success.
-      final ok = response.success || response.blocked;
-
-      List<UserStories> next = _stories;
-      if (response.success) {
-        // Get current user ID to filter out own stories from feed (avoid duplicates)
-        final prefs = await SharedPreferences.getInstance();
-        final currentUserId = prefs.getString('userId');
-
-        // Get blocked user IDs
-        final blockedUserIdsAsync = ref.read(blockedUserIdsProvider);
-        final blockedUserIds = blockedUserIdsAsync.value ?? <String>{};
-
-        // Filter out stories from blocked users AND current user (to avoid duplicates)
-        next = response.data.where((userStories) {
-          // Filter out blocked users
-          if (blockedUserIds.contains(userStories.user.id)) return false;
-          // Filter out current user's stories (they're shown separately in _myStories)
-          if (currentUserId != null && userStories.user.id == currentUserId) return false;
-          return true;
-        }).toList();
-      } else if (response.blocked) {
-        next = const [];
+      // A rail fetched for one account must not be drawn or cached for
+      // another that signed in while it was in flight.
+      final userIdNow = (await SharedPreferences.getInstance()).getString('userId') ?? '';
+      if (!mounted) return;
+      if (userIdNow != userIdBefore) {
+        setState(() => _isLoading = false);
+        return;
       }
 
-      if (!mounted) return;
+      final ok = response.success;
+      if (response.success) {
+        // Own stories are filtered out of the rail (they have their own
+        // ring); blocked users too, once the block list is known.
+        final blocked = await _loadBlocked();
+        if (!mounted) return;
+        _freshApplied = true;
+        setState(() {
+          _followed = response.followed;
+          _discover = response.discover;
+          _blocked = blocked ?? _blocked ?? <String>{};
+          _currentUserId = userIdNow;
+          _isLoading = false;
+          _error = null;
+        });
+        _schedulePrecache();
+        // An empty answer overwrites the cache too, or the next open would
+        // paint rings that no longer exist.
+        if (userIdNow.isNotEmpty) {
+          unawaited(_cache.write(
+            userId: userIdNow,
+            rawData: response.rawData,
+            rawDiscover: response.rawDiscover,
+          ));
+        }
+        return;
+      }
+
       setState(() {
-        _stories = next;
         _isLoading = false;
         _error = storiesFeedError(
           succeeded: ok,
           error: response.error,
-          hasCachedStories: hasCached,
+          hasCachedStories: _followed.isNotEmpty || _discover.isNotEmpty,
         );
       });
     } catch (e) {
@@ -170,7 +312,7 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> with Widg
           _error = storiesFeedError(
             succeeded: false,
             error: e.toString(),
-            hasCachedStories: hasCached,
+            hasCachedStories: _followed.isNotEmpty || _discover.isNotEmpty,
           );
         });
       }
@@ -184,14 +326,14 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> with Widg
     await _loadStories(showLoading: false);
   }
 
-  void _openStoryViewer(int initialIndex) {
+  void _openStoryViewer(List<RailEntry> entries, int initialIndex) {
     Navigator.push(
       context,
       PageRouteBuilder(
         opaque: false,
         pageBuilder: (context, animation, secondaryAnimation) {
           return StoryViewerScreen(
-            userStories: _stories,
+            userStories: entries.map((e) => e.group).toList(),
             initialUserIndex: initialIndex,
             onStoriesUpdated: _refreshStoriesSilently,
           );
@@ -248,6 +390,7 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> with Widg
 
   @override
   Widget build(BuildContext context) {
+    final entries = _entries(_discoverEnabled(watch: true));
     // Shimmer loading state
     if (_isLoading) {
       return SizedBox(
@@ -256,7 +399,7 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> with Widg
           scrollDirection: Axis.horizontal,
           physics: const NeverScrollableScrollPhysics(),
           padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.sm),
-          itemCount: 6,
+          itemCount: 5,
           itemBuilder: (context, index) => _buildShimmerItem(),
         ),
       );
@@ -302,12 +445,12 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> with Widg
         scrollDirection: Axis.horizontal,
         physics: const BouncingScrollPhysics(),
         padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.sm),
-        itemCount: _stories.length + 1, // +1 for my story / add story
+        itemCount: entries.length + 1, // +1 for my story / add story
         itemBuilder: (context, index) {
           if (index == 0) {
             return _buildMyStoryItem();
           }
-          return _buildStoryItem(_stories[index - 1], index - 1);
+          return _buildStoryItem(entries, index - 1);
         },
       ),
     );
@@ -351,7 +494,10 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> with Widg
 
   Widget _buildMyStoryItem() {
     final hasActiveStories = _myStories?.activeStories.isNotEmpty == true;
-    final imageUrl = (_myStories?.user.images.isNotEmpty == true || _myStories?.user.imageUrls.isNotEmpty == true)
+    final myThumb = _myStories?.user.avatarThumb;
+    final imageUrl = (myThumb != null && myThumb.isNotEmpty)
+        ? myThumb
+        : (_myStories?.user.images.isNotEmpty == true || _myStories?.user.imageUrls.isNotEmpty == true)
         ? (_myStories!.user.images.isNotEmpty
             ? _myStories!.user.images.first
             : _myStories!.user.imageUrls.first)
@@ -473,10 +619,15 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> with Widg
     );
   }
 
-  Widget _buildStoryItem(UserStories userStories, int index) {
+  Widget _buildStoryItem(List<RailEntry> entries, int index) {
+    final entry = entries[index];
+    final userStories = entry.group;
     final hasUnseen = userStories.hasUnviewed;
     final isCloseFriend = userStories.stories.any((s) => s.privacy == StoryPrivacy.closeFriends);
-    final imageUrl = (userStories.user.images.isNotEmpty || userStories.user.imageUrls.isNotEmpty)
+    final thumb = userStories.user.avatarThumb;
+    final imageUrl = (thumb != null && thumb.isNotEmpty)
+        ? thumb
+        : (userStories.user.images.isNotEmpty || userStories.user.imageUrls.isNotEmpty)
         ? (userStories.user.images.isNotEmpty
             ? userStories.user.images.first
             : userStories.user.imageUrls.first)
@@ -487,7 +638,7 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> with Widg
       child: GestureDetector(
         onTap: () {
           HapticFeedback.lightImpact();
-          _openStoryViewer(index);
+          _openStoryViewer(entries, index);
         },
         child: SizedBox(
           width: widget.avatarSize + 12,
@@ -533,11 +684,25 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> with Widg
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
               ),
-              _buildStoryDots(
-                context,
-                userStories.activeStories.length,
-                userStories.activeStories.length - userStories.unviewedCount,
-              ),
+              // A Discover ring says so instead of showing progress dots (the
+              // rail is one line short of room for both).
+              if (entry.isDiscover)
+                Text(
+                  AppLocalizations.of(context)!.storiesDiscoverLabel,
+                  key: const Key('stories-discover-label'),
+                  style: context.captionSmall.copyWith(
+                    color: AppColors.primary,
+                    fontSize: 10,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                )
+              else
+                _buildStoryDots(
+                  context,
+                  userStories.activeStories.length,
+                  userStories.activeStories.length - userStories.unviewedCount,
+                ),
             ],
           ),
         ),

@@ -12622,4 +12622,72 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get loginNoPasswordYet => 'Ce compte n’a pas encore de mot de passe. Utilisez « Mot de passe oublié » pour en créer un.';
+
+  @override
+  String get feedCouldNotLoadMore => 'Impossible de charger plus de publications';
+
+  @override
+  String get storiesDiscoverLabel => 'Découvrir';
+
+  @override
+  String hashtagPostCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count publications',
+      one: '$count publication',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get hashtagSortTop => 'Populaires';
+
+  @override
+  String get hashtagSortRecent => 'Récents';
+
+  @override
+  String get hashtagEmpty => 'Aucune publication avec ce hashtag pour l\'instant';
+
+  @override
+  String hashtagShowingRelated(String topic) {
+    return 'Peu de publications utilisent ce tag pour l\'instant. Affichage des publications sur $topic.';
+  }
+
+  @override
+  String get hashtagTrendingTitle => 'Hashtags tendance';
+
+  @override
+  String get hashtagSuggestedTitle => 'Tags suggérés';
+
+  @override
+  String get clearInterestsTitle => 'Effacer mes centres d\'intérêt';
+
+  @override
+  String get clearInterestsSubtitle => 'Oublier ce que Moments a appris de vos goûts';
+
+  @override
+  String get clearInterestsConfirm => 'Effacer ce que Moments a appris sur vos centres d\'intérêt ? Votre fil repartira de zéro.';
+
+  @override
+  String get clearInterestsAction => 'Effacer';
+
+  @override
+  String get clearInterestsDone => 'Centres d\'intérêt effacés';
+
+  @override
+  String get shareAsMomentTitle => 'Partager ceci comme moment ?';
+
+  @override
+  String get shareAsMomentAction => 'Partager comme moment';
+
+  @override
+  String shareOfferLessonText(String lesson) {
+    return 'Je viens de terminer la leçon « $lesson » !';
+  }
+
+  @override
+  String shareOfferStreakText(int days) {
+    return '$days jours d’apprentissage d’affilée !';
+  }
 }

@@ -8,9 +8,13 @@ class MutedMomentsNotifier extends StateNotifier<Set<String>> {
     _load();
   }
 
+  /// The saved list has been read (until then [state] is just empty).
+  bool loaded = false;
+
   Future<void> _load() async {
     final prefs = await SharedPreferences.getInstance();
     final list = prefs.getStringList(_kMutedMomentsKey) ?? <String>[];
+    loaded = true;
     state = list.toSet();
   }
 

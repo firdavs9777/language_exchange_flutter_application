@@ -304,6 +304,21 @@ class NotificationRouter {
         final momentId = data['momentId']?.toString();
         return momentId != null ? '/moment/$momentId' : null;
 
+      // Smart feed: someone's post still has no feedback; open it. No id → the
+      // Moments tab.
+      case 'moment_needs_feedback':
+        final feedbackMomentId = data['momentId']?.toString();
+        return (feedbackMomentId != null && feedbackMomentId.isNotEmpty)
+            ? '/moment/$feedbackMomentId'
+            : '/tabs/$kMomentsTabIndex';
+
+      // Smart feed: today's prompt; the composer opens with it filled in.
+      case 'daily_prompt':
+        final promptId = data['promptId']?.toString();
+        return (promptId != null && promptId.isNotEmpty)
+            ? '/moments/compose?promptId=${Uri.encodeQueryComponent(promptId)}'
+            : '/moments/compose';
+
       case 'friend_request':
       case 'profile_visit':
         final userId = data['userId']?.toString();
@@ -479,6 +494,7 @@ class NotificationRouter {
     const knownPrefixes = [
       '/chat/',
       '/moment/',
+      '/moments/compose',
       '/profile/',
       '/tabs/',
       '/matching',

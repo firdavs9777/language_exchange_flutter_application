@@ -12622,4 +12622,72 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get loginNoPasswordYet => 'इस खाते का अभी कोई पासवर्ड नहीं है। सेट करने के लिए “पासवर्ड भूल गए” का उपयोग करें।';
+
+  @override
+  String get feedCouldNotLoadMore => 'और पोस्ट लोड नहीं हो सकीं';
+
+  @override
+  String get storiesDiscoverLabel => 'खोजें';
+
+  @override
+  String hashtagPostCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count पोस्ट',
+      one: '$count पोस्ट',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get hashtagSortTop => 'लोकप्रिय';
+
+  @override
+  String get hashtagSortRecent => 'नवीनतम';
+
+  @override
+  String get hashtagEmpty => 'इस हैशटैग वाली कोई पोस्ट अभी नहीं है';
+
+  @override
+  String hashtagShowingRelated(String topic) {
+    return 'इस टैग वाली पोस्ट अभी कम हैं। $topic से जुड़ी पोस्ट दिखाई जा रही हैं।';
+  }
+
+  @override
+  String get hashtagTrendingTitle => 'ट्रेंडिंग हैशटैग';
+
+  @override
+  String get hashtagSuggestedTitle => 'सुझाए गए टैग';
+
+  @override
+  String get clearInterestsTitle => 'मेरी रुचियाँ हटाएँ';
+
+  @override
+  String get clearInterestsSubtitle => 'मोमेंट्स ने आपकी पसंद के बारे में जो सीखा है उसे भूल जाएँ';
+
+  @override
+  String get clearInterestsConfirm => 'क्या मोमेंट्स ने आपकी रुचियों के बारे में जो सीखा है उसे हटाना है? आपकी फ़ीड नए सिरे से शुरू होगी।';
+
+  @override
+  String get clearInterestsAction => 'हटाएँ';
+
+  @override
+  String get clearInterestsDone => 'रुचियाँ हटा दी गईं';
+
+  @override
+  String get shareAsMomentTitle => 'इसे मोमेंट के रूप में शेयर करें?';
+
+  @override
+  String get shareAsMomentAction => 'मोमेंट के रूप में शेयर करें';
+
+  @override
+  String shareOfferLessonText(String lesson) {
+    return 'मैंने अभी पाठ \"$lesson\" पूरा किया!';
+  }
+
+  @override
+  String shareOfferStreakText(int days) {
+    return '$days दिन की लर्निंग स्ट्रीक!';
+  }
 }

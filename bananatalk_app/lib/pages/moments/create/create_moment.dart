@@ -9,7 +9,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:bananatalk_app/services/camera_recovery.dart';
 import 'dart:io';
+import 'package:bananatalk_app/providers/hashtag_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
+import 'package:bananatalk_app/widgets/hashtag_text.dart'
+    show hashtagsEnabledProvider;
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/user_limits_provider.dart';
 import 'package:bananatalk_app/providers/upload_manager_provider.dart';
@@ -83,6 +86,12 @@ class CreateMoment extends ConsumerStatefulWidget {
   /// "Also share to Moments" and distance / time; photos only, no schedule.
   final String? clubId;
 
+  /// Caption suggested by a "Share as a moment" offer. Fills the caption of a
+  /// NEW post once, on first build; never over an edit, a reel or a prompt
+  /// (see `textPrefill`). The user edits it before posting. (The composer
+  /// keeps no saved draft, so there is none for this to overwrite.)
+  final String? prefillText;
+
   const CreateMoment({
     Key? key,
     this.momentToEdit,
@@ -92,6 +101,7 @@ class CreateMoment extends ConsumerStatefulWidget {
     this.prefillLanguage,
     this.initialImage,
     this.clubId,
+    this.prefillText,
   }) : super(key: key);
 
   @override
@@ -353,6 +363,21 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
       _promptId = widget.prefillPromptId;
       _showPromptChip = true;
       _updateButtonState();
+    } else {
+      final text = textPrefill(
+        editing: false,
+        isReel: false,
+        prefillText: widget.prefillText,
+      );
+      if (text != null) {
+        descriptionController.text = text;
+        final langCode = widget.prefillLanguage?.trim();
+        if (langCode != null && langCode.isNotEmpty) {
+          _applyLanguageCode(langCode);
+          _languageChosen = true;
+        }
+        _updateButtonState();
+      }
     }
   }
 
@@ -2422,6 +2447,9 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
                 context,
                 existingTags: _tags,
                 maxTags: 5,
+                suggest: ref.read(hashtagsEnabledProvider)
+                    ? (q) => ref.read(hashtagServiceProvider).suggest(q)
+                    : null,
               );
               setState(() => _tags = updated);
             },
@@ -2807,10 +2835,51 @@ class _CreateMomentState extends ConsumerState<CreateMoment> {
     ];
   }
 
+  /// Chips for the hashtags written in the caption that are not tags of the
+  /// moment yet; tapping one adds it (disabled at the 5-tag cap). Nothing
+  /// when the caption has none. No network.
+  Widget _suggestedTagsRow() {
+    return ValueListenableBuilder<TextEditingValue>(
+      valueListenable: descriptionController,
+      builder: (context, value, _) {
+        final suggestions = suggestedTagsFromCaption(value.text, _tags);
+        if (suggestions.isEmpty) return const SizedBox.shrink();
+        final full = _tags.length >= 5;
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 12),
+          child: Wrap(
+            spacing: 8,
+            runSpacing: 4,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            children: [
+              Text(
+                AppLocalizations.of(context)!.hashtagSuggestedTitle,
+                style: context.labelMedium,
+              ),
+              for (final tag in suggestions)
+                ActionChip(
+                  key: ValueKey('suggested-tag-$tag'),
+                  label: Text('#$tag'),
+                  onPressed: full
+                      ? null
+                      : () => setState(() {
+                            if (!_tags.contains(tag) && _tags.length < 5) {
+                              _tags.add(tag);
+                            }
+                          }),
+                ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   /// One section of the composer body, extracted so the staged
   /// flow can order and group them without touching their contents.
   List<Widget> _sectionTags() {
     return [
+      if (ref.watch(hashtagsEnabledProvider)) _suggestedTagsRow(),
       // Tags Display
       if (_tags.isNotEmpty) ...[
         Wrap(

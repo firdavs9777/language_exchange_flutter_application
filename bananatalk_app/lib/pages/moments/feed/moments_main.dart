@@ -5,6 +5,7 @@ import 'package:bananatalk_app/pages/moments/create/create_moment.dart';
 import 'package:bananatalk_app/pages/moments/filter/moment_filter_bar.dart';
 import 'package:bananatalk_app/pages/moments/filter/moment_filter_model.dart';
 import 'package:bananatalk_app/pages/moments/filter/moment_filter_utility.dart';
+import 'package:bananatalk_app/pages/moments/feed/hashtag_search_panel.dart';
 import 'package:bananatalk_app/pages/moments/feed/moments_feed_widget.dart';
 import 'package:bananatalk_app/pages/moments/feed/prompt_of_day_card.dart';
 import 'package:bananatalk_app/pages/stories/feed/stories_feed_widget.dart';
@@ -21,6 +22,8 @@ import 'package:bananatalk_app/pages/moments/reels/reels_grid_screen.dart';
 import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
 import 'package:bananatalk_app/utils/feature_gate.dart';
 import 'package:bananatalk_app/utils/haptic_utils.dart';
+import 'package:bananatalk_app/widgets/hashtag_text.dart'
+    show hashtagsEnabledProvider;
 import 'package:bananatalk_app/widgets/limit_exceeded_dialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
@@ -34,6 +37,7 @@ import 'package:bananatalk_app/pages/stories/create/create_story_screen.dart';
 import 'package:bananatalk_app/pages/vip/vip_plans_screen.dart';
 import 'package:bananatalk_app/services/guide_store.dart';
 import 'package:bananatalk_app/widgets/guides/page_guide.dart';
+import 'package:bananatalk_app/utils/hidden_authors.dart';
 
 const String _momentFilterKey = 'moment_filter';
 
@@ -196,13 +200,25 @@ final filteredMomentsForTabProvider =
       final blockedUserIdsAsync = ref.watch(blockedUserIdsProvider);
       final mutedUserIds = ref.watch(mutedMomentsProvider);
 
-      return momentsAsync.whenData((moments) {
-        final blockedUserIds = blockedUserIdsAsync.value ?? <String>{};
+      // A list painted from the first-page cache waits for the block and
+      // mute lists: until they are read the filter below sees empty sets and
+      // a blocked author's cached post would flash. Fresh pages keep today's
+      // behaviour.
+      final listsPending =
+          (blockedUserIdsAsync.isLoading && !blockedUserIdsAsync.hasValue) ||
+              !ref.read(mutedMomentsProvider.notifier).loaded;
+      if (listsPending &&
+          momentsAsync.hasValue &&
+          ref.read(baseProviderFor(tab).notifier).showingCached) {
+        return const AsyncValue<List<Moments>>.loading();
+      }
 
-        final filteredByBlockAndMute = moments.where((moment) {
-          return !blockedUserIds.contains(moment.user.id) &&
-              !mutedUserIds.contains(moment.user.id);
-        }).toList();
+      return momentsAsync.whenData((moments) {
+        final filteredByBlockAndMute = withoutHiddenAuthors(
+          moments,
+          blocked: blockedUserIdsAsync.value ?? <String>{},
+          muted: mutedUserIds,
+        );
 
         return MomentFilterUtility.filterMoments(
           filteredByBlockAndMute,
@@ -226,6 +242,13 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
   final TextEditingController _searchController = TextEditingController();
   bool _showSearch = false;
   List<Moments> _searchResults = [];
+
+  /// A `#...` query the hashtag panel found no suggestions for: it is run as
+  /// the plain text search, as with hashtags off.
+  bool _hashtagTextFallback = false;
+
+  /// The Reels grid is showing (set by build).
+  bool _onReelsTab = false;
   final ValueNotifier<int> _storiesRefreshNotifier = ValueNotifier(0);
   Timer? _searchDebounce;
   int _searchGeneration = 0;
@@ -236,7 +259,7 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
 
   /// Below this many loaded moments, a list too short to scroll (e.g. most
   /// of a page hidden by filters) fetches the next page by itself.
-  static const int _autoFillLimit = 200;
+  static const int _autoFillLimit = 36;
 
   @override
   void initState() {
@@ -267,6 +290,8 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
     final provider = baseProviderFor(tab);
     final notifier = ref.read(provider.notifier);
     if (!notifier.hasMore) return;
+    // A failed page waits for the Retry row instead of hammering the server.
+    if (notifier.loadMoreFailed) return;
     // A list too short to scroll asks by itself, but only up to a bound so
     // a filter that hides everything cannot page through the whole feed.
     final scrollable = metrics.maxScrollExtent > 0;
@@ -288,6 +313,7 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
       if (!_showSearch) {
         _searchController.clear();
         _searchResults = [];
+        _hashtagTextFallback = false;
       }
     });
   }
@@ -303,7 +329,33 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
       setState(() => _searchResults = []);
       return;
     }
+    // With hashtags on, `#...` is first a tag lookup (the panel suggests
+    // tags); the text search runs for it only if nothing is suggested.
+    if (_hashtagSearchOn() && trimmed.startsWith('#')) {
+      setState(() {
+        _searchResults = [];
+        _hashtagTextFallback = false;
+      });
+      return;
+    }
+    _hashtagTextFallback = false;
+    _startTextSearch(trimmed, generation, const Duration(milliseconds: 350));
+  }
 
+  /// Hashtag search is on: the server flag, and not the Reels tab (its grid
+  /// is never replaced).
+  bool _hashtagSearchOn() => ref.read(hashtagsEnabledProvider) && !_onReelsTab;
+
+  /// The panel found no suggestions for [query] (or failed): search the text.
+  void _onNoSuggestions(String query) {
+    if (!mounted || _searchController.text.trim() != query) return;
+    _searchDebounce?.cancel();
+    final generation = ++_searchGeneration;
+    setState(() => _hashtagTextFallback = true);
+    _startTextSearch(query, generation, Duration.zero);
+  }
+
+  void _startTextSearch(String trimmed, int generation, Duration delay) {
     final tab = ref.read(momentsFeedTabProvider);
     final loaded = tab == MomentsFeedTab.reels
         ? const <Moments>[]
@@ -311,11 +363,11 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
     final local = MomentFilterUtility.searchMoments(loaded, trimmed);
     setState(() => _searchResults = local);
 
-    _searchDebounce = Timer(const Duration(milliseconds: 350), () async {
+    _searchDebounce = Timer(delay, () async {
       try {
         final response = await ref
             .read(momentsServiceProvider)
-            .getMoments(page: 1, limit: kMomentsFeedPageSize, q: trimmed);
+            .getMoments(page: 1, limit: kMomentsSearchLimit, q: trimmed);
         final raw = response['moments'];
         final remote = raw is List ? raw.cast<Moments>() : <Moments>[];
         if (!mounted || generation != _searchGeneration) return;
@@ -390,7 +442,19 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
     final filteredMomentsAsync = isReelsTab
         ? const AsyncValue<List<Moments>>.data(<Moments>[])
         : ref.watch(filteredMomentsForTabProvider(effectiveTab));
-    final isSearching = _showSearch && _searchController.text.isNotEmpty;
+    // Hashtags on (and not the Reels tab): the panel is laid over the body
+    // and draws only when it has rows; a `#...` query is a text search only
+    // once the panel found no suggestions for it.
+    _onReelsTab = isReelsTab;
+    final hashtagSearch = ref.watch(hashtagsEnabledProvider) && !isReelsTab;
+    final hashtagQuery =
+        hashtagSearch && _searchController.text.trim().startsWith('#');
+    final isSearching = _showSearch &&
+        _searchController.text.isNotEmpty &&
+        (!hashtagQuery || _hashtagTextFallback);
+    final showHashtagPanel = _showSearch &&
+        hashtagSearch &&
+        isHashtagSearchQuery(_searchController.text);
     final displayedList = isSearching
         ? AsyncValue.data(_searchResults)
         : filteredMomentsAsync;
@@ -399,6 +463,8 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
         !isSearching &&
         ref.watch(baseProviderFor(effectiveTab)).hasValue &&
         ref.read(baseProviderFor(effectiveTab).notifier).hasMore;
+    final loadMoreFailed = hasMorePages &&
+        ref.read(baseProviderFor(effectiveTab).notifier).loadMoreFailed;
     // A page that did not fill the screen (filters, blocks) asks for the
     // next one by itself; a scroll would never come.
     if (hasMorePages) {
@@ -408,6 +474,40 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
     final textPrimary = context.textPrimary;
 
     final isVip = ref.watch(userProvider).valueOrNull?.isVip ?? false;
+    final Widget feedBody = isReelsTab
+              ? ReelsGridScreen(
+                  onPolicyDeclined: () => ref
+                      .read(momentsFeedTabProvider.notifier)
+                      .setTab(MomentsFeedTab.forYou),
+                )
+              : NotificationListener<Notification>(
+                  // Scroll updates, plus the metrics notification a list sends
+                  // after layout, so a first page too short to scroll still
+                  // asks for the next one.
+                  onNotification: (n) {
+                    final ScrollMetrics? m = n is ScrollNotification && n.depth == 0
+                        ? n.metrics
+                        : n is ScrollMetricsNotification && n.depth == 0
+                            ? n.metrics
+                            : null;
+                    if (m != null && m.axis == Axis.vertical) {
+                      _feedMetrics = m;
+                      _maybeLoadMore();
+                    }
+                    return false;
+                  },
+                  child: MomentsFeedWidget(
+                    momentsAsync: displayedList,
+                    isSearching: isSearching,
+                    onRefresh: _refresh,
+                    activeTab: effectiveTab,
+                    hasMore: hasMorePages,
+                    loadMoreFailed: loadMoreFailed,
+                    onRetryLoadMore: () => ref
+                        .read(baseProviderFor(effectiveTab).notifier)
+                        .retryLoadMore(),
+                  ),
+                );
     return Scaffold(
       backgroundColor: context.scaffoldBackground,
       drawer: AppShellDrawer(
@@ -549,36 +649,19 @@ class _MomentsMainState extends ConsumerState<MomentsMain> {
                 ),
               ),
           ],
-          body: isReelsTab
-              ? ReelsGridScreen(
-                  onPolicyDeclined: () => ref
-                      .read(momentsFeedTabProvider.notifier)
-                      .setTab(MomentsFeedTab.forYou),
+          body: showHashtagPanel
+              ? Stack(
+                  children: [
+                    feedBody,
+                    Positioned.fill(
+                      child: HashtagSearchPanel(
+                        query: _searchController.text,
+                        onNoSuggestions: _onNoSuggestions,
+                      ),
+                    ),
+                  ],
                 )
-              : NotificationListener<Notification>(
-                  // Scroll updates, plus the metrics notification a list sends
-                  // after layout, so a first page too short to scroll still
-                  // asks for the next one.
-                  onNotification: (n) {
-                    final ScrollMetrics? m = n is ScrollNotification && n.depth == 0
-                        ? n.metrics
-                        : n is ScrollMetricsNotification && n.depth == 0
-                            ? n.metrics
-                            : null;
-                    if (m != null && m.axis == Axis.vertical) {
-                      _feedMetrics = m;
-                      _maybeLoadMore();
-                    }
-                    return false;
-                  },
-                  child: MomentsFeedWidget(
-                    momentsAsync: displayedList,
-                    isSearching: isSearching,
-                    onRefresh: _refresh,
-                    activeTab: effectiveTab,
-                    hasMore: hasMorePages,
-                  ),
-                ),
+              : feedBody,
         ),
       ),
       floatingActionButton: isReelsTab

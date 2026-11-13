@@ -3,12 +3,15 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:bananatalk_app/pages/moments/create/moment_media_rules.dart';
+import 'package:bananatalk_app/providers/hashtag_providers.dart'
+    show HashtagPageNotifier;
 import 'package:bananatalk_app/providers/provider_models/moments_model.dart';
 import 'package:bananatalk_app/service/endpoints.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'dart:io';
 import 'package:http_parser/http_parser.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:bananatalk_app/services/feed_first_page_cache.dart';
 import 'package:bananatalk_app/services/moments_service.dart' as api;
 // Only imported for the active-tab → provider mapping reused by
 // `invalidateMomentFeeds` below (`MomentsFeedTab`/`momentsFeedTabProvider`/
@@ -21,6 +24,19 @@ import 'package:bananatalk_app/pages/moments/feed/moments_main.dart'
     show momentsFeedTabProvider, baseProviderFor;
 
 typedef MomentsServiceAPI = api.MomentsService;
+
+/// The server says the moment does not exist (404, or `success: false`), as
+/// opposed to the request failing. `toString` keeps the old message.
+class MomentNotFoundException implements Exception {
+  MomentNotFoundException([String? message])
+      : message = (message == null || message.isEmpty)
+            ? 'Moment not found'
+            : message;
+  final String message;
+
+  @override
+  String toString() => 'Exception: $message';
+}
 
 class MomentsService {
   int count = 0;
@@ -86,6 +102,8 @@ class MomentsService {
         'moments':
             momentsList.map((postJson) => Moments.fromJson(postJson)).toList(),
         'pagination': pagination,
+        // The page-1 JSON as sent, for FeedFirstPageCache.
+        'rawMoments': momentsList,
         'feedMode': data['feedMode'],
       };
     } else {
@@ -302,10 +320,10 @@ class MomentsService {
       if (data['success'] == true && data['data'] != null) {
         return Moments.fromJson(data['data']);
       } else {
-        throw Exception(data['error'] ?? 'Moment not found');
+        throw MomentNotFoundException(data['error']?.toString());
       }
     } else if (response.statusCode == 404) {
-      throw Exception('Moment not found');
+      throw MomentNotFoundException();
     } else {
       final errorData = json.decode(response.body);
       throw Exception(errorData['error'] ?? 
@@ -943,14 +961,23 @@ final momentsFeedProvider = FutureProvider<List<Moments>>((ref) async {
   return <Moments>[];
 });
 
-/// Page size of the card feed tabs (the backend caps a page at 50).
-const int kMomentsFeedPageSize = 50;
+/// Page size of the card feed tabs. Small pages make the first screen
+/// arrive quickly; the next one is fetched as the reader nears the end.
+const int kMomentsFeedPageSize = 12;
+
+/// How many results the Moments search asks for (one server page, never
+/// paged, so it stays larger than a feed page; the backend caps it at 50).
+const int kMomentsSearchLimit = 50;
 
 /// One page of a feed endpoint.
 class MomentsFeedPage {
   final List<Moments> moments;
   final bool hasMore;
-  const MomentsFeedPage(this.moments, {required this.hasMore});
+
+  /// The server JSON the [moments] were parsed from, when the fetcher has it
+  /// (what the first-page cache stores).
+  final List<Map<String, dynamic>>? rawMoments;
+  const MomentsFeedPage(this.moments, {required this.hasMore, this.rawMoments});
 }
 
 typedef MomentsPageFetcher = Future<MomentsFeedPage> Function(
@@ -985,16 +1012,52 @@ List<Moments> appendMomentsPage(List<Moments> current, List<Moments> nextPage) {
 /// post, sign-out); [softRefresh] re-reads page 1 in place and keeps the
 /// pages already scrolled past.
 class PagedMomentsFeedNotifier extends AsyncNotifier<List<Moments>> {
-  PagedMomentsFeedNotifier(this._fetch);
+  PagedMomentsFeedNotifier(
+    this._fetch, {
+    this.cacheFeedMode,
+    FeedFirstPageCache? cache,
+  }) : _cache = cache ?? FeedFirstPageCache();
 
   final MomentsPageFetcher _fetch;
+
+  /// `forYou` / `following` to keep page 1 on disk and show it first on the
+  /// next open; null (trending, tests) keeps nothing.
+  final String? cacheFeedMode;
+  final FeedFirstPageCache _cache;
   int _page = 1;
   int _firstPageCount = 0;
   bool _hasMore = false;
   bool _loadingMore = false;
+  bool _loadMoreFailed = false;
+  bool _showingCached = false;
+
+  /// Survives `invalidateSelf` (Riverpod keeps the notifier across
+  /// rebuilds): only the first build paints the disk cache.
+  bool _built = false;
+
+  /// Bumped by every [build]; async work started under an older value
+  /// belongs to a list that has been replaced and writes nothing.
+  int _generation = 0;
+
+  /// The list on screen came from the first-page cache and the fresh page 1
+  /// has not replaced it (yet). The feed holds such a list back until the
+  /// block and mute lists are known.
+  bool get showingCached => _showingCached;
 
   /// Whether another page may exist below the loaded ones.
   bool get hasMore => _hasMore;
+
+  /// The last [loadMore] failed; the feed shows a Retry row instead of the
+  /// spinner and stops asking by itself until [retryLoadMore] succeeds.
+  bool get loadMoreFailed => _loadMoreFailed;
+
+  /// Flips [loadMoreFailed] and tells the watchers: the list itself is
+  /// unchanged, so no state write would reach the feed widget.
+  void _setLoadMoreFailed(bool value) {
+    if (_loadMoreFailed == value) return;
+    _loadMoreFailed = value;
+    ref.notifyListeners();
+  }
 
   void _stampFreshness() {
     // Deferred so no other provider is written synchronously from a build.
@@ -1005,38 +1068,119 @@ class PagedMomentsFeedNotifier extends AsyncNotifier<List<Moments>> {
 
   @override
   Future<List<Moments>> build() async {
-    _page = 1;
-    _hasMore = false;
+    final generation = ++_generation;
+    // A load-more still in flight belongs to the list being replaced.
     _loadingMore = false;
-    final first = await _fetch(ref, 1);
+    // The disk cache is painted on the first build only. A rebuild
+    // (pull-to-refresh, a like's refresh, tab return, sign-out) already has
+    // a list on screen, newer than the disk copy (likes, saves, deletions):
+    // it stays as the previous data while page 1 is fetched, and the paging
+    // fields keep describing it until the fresh page replaces it.
+    final firstBuild = !_built;
+    _built = true;
+    final userId = await _cacheUserId();
+    final cached = firstBuild ? await _readCached(userId) : null;
+    if (cached != null && generation == _generation) {
+      // Shown at once; the fetch below replaces it. loadMore stays off
+      // (_hasMore is false) until the fresh page decides it.
+      _firstPageCount = cached.length;
+      _showingCached = true;
+      state = AsyncData(cached);
+    }
+    final MomentsFeedPage first;
+    try {
+      first = await _fetch(ref, 1);
+    } catch (_) {
+      if (cached == null) rethrow;
+      // Offline: the cached page stays, and scrolling may ask for page 2.
+      if (generation == _generation) {
+        _hasMore = cached.length >= kMomentsFeedPageSize;
+      }
+      return cached;
+    }
+    // Superseded by a newer build: its result is discarded, so it must not
+    // touch the paging fields or the cache either.
+    if (generation != _generation) return first.moments;
+    _page = 1;
     _firstPageCount = first.moments.length;
     _hasMore = first.hasMore && first.moments.isNotEmpty;
+    _loadMoreFailed = false;
+    _showingCached = false;
+    // Only under the id the page was fetched for: an account switch during
+    // the fetch must not leave this user's posts under the new user's id.
+    if (await _cacheUserId() == userId) _writeCache(userId, first);
     _stampFreshness();
-    return first.moments;
+    if (cached == null) return first.moments;
+    return mergeFreshFirstPage(first.moments, cached, cached.length);
+  }
+
+  /// The signed-in user's id when this feed is cached, else null.
+  Future<String?> _cacheUserId() async {
+    if (cacheFeedMode == null) return null;
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final id = prefs.getString('userId');
+      return id == null || id.isEmpty ? null : id;
+    } catch (_) {
+      return null;
+    }
+  }
+
+  /// The cached page 1, parsed; items that do not parse are skipped, and an
+  /// empty result is null (no cache).
+  Future<List<Moments>?> _readCached(String? userId) async {
+    if (userId == null) return null;
+    final raw = await _cache.read(feedMode: cacheFeedMode!, userId: userId);
+    if (raw == null) return null;
+    final parsed = <Moments>[];
+    for (final item in raw) {
+      try {
+        parsed.add(Moments.fromJson(item));
+      } catch (_) {}
+    }
+    return parsed.isEmpty ? null : parsed;
+  }
+
+  void _writeCache(String? userId, MomentsFeedPage first) {
+    final raw = first.rawMoments;
+    // An empty page is written too: the next cold start must not show the
+    // posts that are gone.
+    if (userId == null || raw == null) return;
+    _cache.write(feedMode: cacheFeedMode!, userId: userId, rawMoments: raw);
   }
 
   /// Appends the next page. No-op while one is loading, before the first
   /// page arrives, or once the end is reached. A failure keeps what is
-  /// shown; the next scroll retries.
+  /// shown and sets [loadMoreFailed]; a later success clears it.
   Future<void> loadMore() async {
     final current = state.valueOrNull;
     if (current == null || state.isLoading || !_hasMore || _loadingMore) {
       return;
     }
     _loadingMore = true;
+    final generation = _generation;
+    // Reloaded meanwhile (a new build started, even one still loading with
+    // this list as its previous value): the page belongs to the old list.
+    bool stale() =>
+        generation != _generation || !identical(state.valueOrNull, current);
     try {
       final next = await _fetch(ref, _page + 1);
-      // Reloaded meanwhile: this page belongs to the old list.
-      if (!identical(state.valueOrNull, current)) return;
+      if (stale()) return;
       _page += 1;
       _hasMore = next.hasMore && next.moments.isNotEmpty;
+      _loadMoreFailed = false;
       state = AsyncData(appendMomentsPage(current, next.moments));
     } catch (_) {
-      // Keep the loaded list; the next scroll to the end retries.
+      // Keep the loaded list; the feed offers a Retry row.
+      if (!stale()) _setLoadMoreFailed(true);
     } finally {
-      _loadingMore = false;
+      if (generation == _generation) _loadingMore = false;
     }
   }
+
+  /// The Retry row's action: asks again for the page that failed (the page
+  /// counter only moves on success).
+  Future<void> retryLoadMore() => loadMore();
 
   /// Re-reads page 1 and keeps the pages below it. Falls back to a full
   /// reload when only one page is loaded (the same result, simpler).
@@ -1046,13 +1190,20 @@ class PagedMomentsFeedNotifier extends AsyncNotifier<List<Moments>> {
       ref.invalidateSelf();
       return;
     }
+    final generation = _generation;
     try {
+      final userId = await _cacheUserId();
       final first = await _fetch(ref, 1);
-      if (!identical(state.valueOrNull, current)) return;
+      if (generation != _generation ||
+          !identical(state.valueOrNull, current)) {
+        return;
+      }
+      _showingCached = false;
       state = AsyncData(
         mergeFreshFirstPage(first.moments, current, _firstPageCount),
       );
       _firstPageCount = first.moments.length;
+      if (await _cacheUserId() == userId) _writeCache(userId, first);
       _stampFreshness();
     } catch (_) {
       // Keep what is shown.
@@ -1069,8 +1220,10 @@ class PagedMomentsFeedNotifier extends AsyncNotifier<List<Moments>> {
     ]);
   }
 
-  /// Drops the moment [id] from the loaded pages (deleted).
+  /// Drops the moment [id] from the loaded pages (deleted), and from the
+  /// on-disk first page so a cold start does not paint it again.
   void removeMoment(String id) {
+    if (cacheFeedMode != null) _cache.removeMoment(id);
     final current = state.valueOrNull;
     if (current == null || !current.any((m) => m.id == id)) return;
     state = AsyncData([
@@ -1098,6 +1251,7 @@ void patchMomentInFeeds(
   for (final feed in _pagedCardFeeds) {
     if (ref.exists(feed)) ref.read(feed.notifier).patchMoment(id, update);
   }
+  HashtagPageNotifier.patchEverywhere(id, update);
 }
 
 /// Removes deleted moment [id] from every feed. The non-paged lists reload.
@@ -1105,6 +1259,10 @@ void removeMomentFromFeeds(WidgetRef ref, String id) {
   for (final feed in _pagedCardFeeds) {
     if (ref.exists(feed)) ref.read(feed.notifier).removeMoment(id);
   }
+  HashtagPageNotifier.removeEverywhere(id);
+  // Also when no cached tab is alive yet: the next cold start must not
+  // paint the deleted post (the notifiers' own removal is idempotent).
+  FeedFirstPageCache().removeMoment(id);
   ref.invalidate(momentsFeedProvider);
   ref.invalidate(momentsProvider(1));
 }
@@ -1119,10 +1277,14 @@ MomentsPageFetcher momentsFeedFetcher(String feed) => (ref, page) async {
       );
       final raw = response['moments'];
       final moments = raw is List ? raw.cast<Moments>() : <Moments>[];
+      final rawList = response['rawMoments'];
       final pagination = response['pagination'];
       final hasNext = pagination is Map ? pagination['hasNextPage'] : null;
       return MomentsFeedPage(
         moments,
+        rawMoments: rawList is List
+            ? rawList.whereType<Map<String, dynamic>>().toList()
+            : null,
         hasMore: hasNext is bool
             ? hasNext
             : moments.length >= kMomentsFeedPageSize,
@@ -1134,7 +1296,10 @@ MomentsPageFetcher momentsFeedFetcher(String feed) => (ref, page) async {
 /// default feed otherwise (see backend `feed=forYou` contract).
 final forYouMomentsProvider =
     AsyncNotifierProvider<PagedMomentsFeedNotifier, List<Moments>>(
-  () => PagedMomentsFeedNotifier(momentsFeedFetcher('forYou')),
+  () => PagedMomentsFeedNotifier(
+    momentsFeedFetcher('forYou'),
+    cacheFeedMode: 'forYou',
+  ),
 );
 
 /// "Following" feed tab — moments authored by users the current user
@@ -1142,7 +1307,10 @@ final forYouMomentsProvider =
 /// follows no one (see backend `feed=following` contract).
 final followingMomentsProvider =
     AsyncNotifierProvider<PagedMomentsFeedNotifier, List<Moments>>(
-  () => PagedMomentsFeedNotifier(momentsFeedFetcher('following')),
+  () => PagedMomentsFeedNotifier(
+    momentsFeedFetcher('following'),
+    cacheFeedMode: 'following',
+  ),
 );
 
 /// Deterministic prompt-of-the-day shown above the feed tabs.

@@ -13090,4 +13090,74 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get loginNoPasswordYet => 'У этого аккаунта ещё нет пароля. Задайте его через «Забыли пароль».';
+
+  @override
+  String get feedCouldNotLoadMore => 'Не удалось загрузить другие публикации';
+
+  @override
+  String get storiesDiscoverLabel => 'Обзор';
+
+  @override
+  String hashtagPostCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count публикации',
+      many: '$count публикаций',
+      few: '$count публикации',
+      one: '$count публикация',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get hashtagSortTop => 'Популярные';
+
+  @override
+  String get hashtagSortRecent => 'Новые';
+
+  @override
+  String get hashtagEmpty => 'Пока нет публикаций с этим хештегом';
+
+  @override
+  String hashtagShowingRelated(String topic) {
+    return 'С этим тегом пока мало публикаций. Показаны публикации по теме «$topic».';
+  }
+
+  @override
+  String get hashtagTrendingTitle => 'Популярные хештеги';
+
+  @override
+  String get hashtagSuggestedTitle => 'Рекомендуемые теги';
+
+  @override
+  String get clearInterestsTitle => 'Сбросить мои интересы';
+
+  @override
+  String get clearInterestsSubtitle => 'Забыть, что Моменты узнали о ваших предпочтениях';
+
+  @override
+  String get clearInterestsConfirm => 'Сбросить то, что Моменты узнали о ваших интересах? Лента начнёт подбираться заново.';
+
+  @override
+  String get clearInterestsAction => 'Сбросить';
+
+  @override
+  String get clearInterestsDone => 'Интересы сброшены';
+
+  @override
+  String get shareAsMomentTitle => 'Поделиться этим как моментом?';
+
+  @override
+  String get shareAsMomentAction => 'Поделиться моментом';
+
+  @override
+  String shareOfferLessonText(String lesson) {
+    return 'Я только что прошёл урок «$lesson»!';
+  }
+
+  @override
+  String shareOfferStreakText(int days) {
+    return '$days дней подряд учусь!';
+  }
 }

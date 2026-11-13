@@ -5,11 +5,20 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/widgets/navigation/app_back_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:bananatalk_app/pages/menu_tab/TabBarMenu.dart' show kMomentsTabIndex;
 
 class MomentDetailWrapper extends ConsumerStatefulWidget {
   final String momentId;
 
-  const MomentDetailWrapper({super.key, required this.momentId});
+  /// Fetches the moment; defaults to [MomentsService.getSingleMoment].
+  final Future<Moments> Function(String id)? loadMoment;
+
+  const MomentDetailWrapper({
+    super.key,
+    required this.momentId,
+    this.loadMoment,
+  });
 
   @override
   ConsumerState<MomentDetailWrapper> createState() =>
@@ -29,8 +38,9 @@ class _MomentDetailWrapperState extends ConsumerState<MomentDetailWrapper> {
 
   Future<void> _fetchMoment() async {
     try {
-      final momentsService = MomentsService();
-      final moment = await momentsService.getSingleMoment(id: widget.momentId);
+      final load = widget.loadMoment ??
+          (id) => MomentsService().getSingleMoment(id: id);
+      final moment = await load(widget.momentId);
 
       if (mounted) {
         setState(() {
@@ -40,7 +50,21 @@ class _MomentDetailWrapperState extends ConsumerState<MomentDetailWrapper> {
       }
     } catch (e) {
       debugPrint('❌ Error fetching moment: $e');
-      if (mounted) {
+      if (!mounted) return;
+      if (e is MomentNotFoundException) {
+        // Gone: no error page. Back to where the user came from, or (a
+        // cold-start push, nothing below) the Moments tab, and say so; the
+        // snackbar outlives this route.
+        final messenger = ScaffoldMessenger.of(context);
+        final message = AppLocalizations.of(context)!.momentNotFound;
+        final navigator = Navigator.of(context);
+        if (navigator.canPop()) {
+          navigator.pop();
+        } else {
+          context.go('/tabs/$kMomentsTabIndex');
+        }
+        messenger.showSnackBar(SnackBar(content: Text(message)));
+      } else {
         setState(() {
           _error = AppLocalizations.of(context)!.momentFailedToLoad;
           _isLoading = false;
