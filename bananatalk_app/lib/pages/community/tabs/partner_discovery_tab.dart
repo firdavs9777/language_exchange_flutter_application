@@ -170,6 +170,18 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
     }
   }
 
+  /// On a refresh: forget this session's local hides and, flag on, take the
+  /// exclusions from the notifier again (server set plus blocks), so someone
+  /// unblocked since they were copied here is shown when the server returns
+  /// them. Flag off: hasKeptExclusions is false; only the no-op clear runs.
+  void _reseedKeptExclusions() {
+    final notifier = ref.read(partnerFilterProvider.notifier);
+    notifier.clearLocalHides();
+    if (notifier.hasKeptExclusions) {
+      _serverExcludedUsers = notifier.keptExclusions;
+    }
+  }
+
   /// Load excluded users from server (skipped + waved)
   Future<void> _loadServerExcludedUsers() async {
     // Read before the await: ref.read throws once this State is disposed.
@@ -873,7 +885,7 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
         await ref.read(partnerFilterProvider.notifier).refresh();
         if (!mounted) return;
         setState(() {
-          ref.read(partnerFilterProvider.notifier).clearLocalHides();
+          _reseedKeptExclusions();
           _sessionSkippedUsers.clear();
           _sessionWavedUsers.clear();
           _animatedIds.clear();
@@ -1277,7 +1289,7 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
               onPressed: () {
                 ref.read(partnerFilterProvider.notifier).refresh();
                 setState(() {
-                  ref.read(partnerFilterProvider.notifier).clearLocalHides();
+                  _reseedKeptExclusions();
                   _sessionSkippedUsers.clear();
                   _sessionWavedUsers.clear();
                   _animatedIds.clear();

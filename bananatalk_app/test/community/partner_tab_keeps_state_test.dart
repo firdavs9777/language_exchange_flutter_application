@@ -331,6 +331,36 @@ void main() {
       expect(find.text('Person a'), findsNothing);
     });
 
+    run('flag on: blocked while away, then unblocked: back after a '
+        'pull-to-refresh', (tester) async {
+      await pumpHost(tester);
+      swap(() => showTab = false);
+      await tester.pump();
+      SharedPreferences.setMockInitialValues({'userId': 'me', 'token': 't'});
+      await BlockService.blockUser(
+        currentUserId: 'me',
+        blockedUserId: 'a',
+        blockedUserName: 'B',
+      );
+      swap(() => showTab = true);
+      await settle(tester);
+      expect(find.text('Person a'), findsNothing);
+      final result = await BlockService.unblockUser(
+        currentUserId: 'me',
+        blockedUserId: 'a',
+      );
+      expect(result['success'], isTrue);
+      await settle(tester);
+      // Not re-inserted until a reload.
+      expect(find.text('Person a'), findsNothing);
+      unawaited(tester
+          .state<RefreshIndicatorState>(find.byType(RefreshIndicator))
+          .show());
+      await settle(tester);
+      expect(service.queries.length, 2);
+      expect(find.text('Person a'), findsOneWidget);
+    });
+
     test('removeUser: flag off changes nothing', () async {
       final n = PartnerFilterNotifier(_FakeService(), () => false, () => false);
       await n.loadWithFilters(a);

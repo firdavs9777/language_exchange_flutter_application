@@ -17,6 +17,14 @@ class BlockService {
   /// so in-memory lists that outlive a screen can drop them at once.
   static Stream<String> get blockedUserIds => _blocked.stream;
 
+  static final StreamController<String> _unblocked =
+      StreamController<String>.broadcast(sync: true);
+
+  /// Ids of users unblocked through [unblockUser] (after the server
+  /// confirmed), so a list that hid them on [blockedUserIds] stops hiding
+  /// them on its next reload.
+  static Stream<String> get unblockedUserIds => _unblocked.stream;
+
   static Future<String?> _getToken() async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString('token');
@@ -128,6 +136,7 @@ class BlockService {
       final data = jsonDecode(response.body);
       final success = response.statusCode == 200;
       if (success) {
+        _unblocked.add(blockedUserId);
         try {
           await BlockedIdsStore()
               .remove(userId: await _signedInUserId(), id: blockedUserId);

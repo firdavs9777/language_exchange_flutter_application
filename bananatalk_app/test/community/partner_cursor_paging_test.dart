@@ -2,7 +2,11 @@ import 'dart:async';
 
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
+import 'package:bananatalk_app/services/block_service.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:http/http.dart' as http;
+import 'package:http/testing.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// Slim rows and cursor paging for the Partners list (Plan C2, Task 3).
 /// Both are behind the server's fast-list flag; with it off every request is
@@ -331,6 +335,51 @@ void main() {
       await more([], cursor: 'C4');
       // Two empty pages so far, not three.
       expect(n.state.hasMore, isTrue);
+    });
+
+    Future<bool> unblock(String id, {int status = 200}) async {
+      SharedPreferences.setMockInitialValues({'userId': 'me', 'token': 't'});
+      final result = await http.runWithClient(
+        () => BlockService.unblockUser(currentUserId: 'me', blockedUserId: id),
+        () => MockClient((_) async => http.Response('{"message":"m"}', status)),
+      );
+      return result['success'] == true;
+    }
+
+    test('unblocked through BlockService: back on the next reload, not before',
+        () async {
+      await page1(['x1', 'x2']);
+      blocks.add('x2');
+      expect(n.state.users.map((u) => u.id), ['x1']);
+      expect(await unblock('x2'), isTrue);
+      // Not re-inserted into the current list.
+      expect(n.state.users.map((u) => u.id), ['x1']);
+      expect(n.keptExclusions, isEmpty);
+      final r = n.refresh();
+      service.answer(_page(['x1', 'x2']));
+      await r;
+      expect(n.state.users.map((u) => u.id), ['x1', 'x2']);
+    });
+
+    test('a failed unblock keeps them hidden', () async {
+      await page1(['x1', 'x2']);
+      blocks.add('x2');
+      expect(await unblock('x2', status: 500), isFalse);
+      final r = n.refresh();
+      service.answer(_page(['x1', 'x2']));
+      await r;
+      expect(n.state.users.map((u) => u.id), ['x1']);
+      expect(n.keptExclusions, {'x2'});
+    });
+
+    test('flag off: the unblock listener does nothing', () async {
+      blocks.add('x2');
+      fast = false;
+      expect(await unblock('x2'), isTrue);
+      fast = true;
+      // The id the block put there is untouched by an unblock heard with
+      // the flag off.
+      expect(n.keptExclusions, {'x2'});
     });
 
     test('flag off: a block filters nothing', () async {

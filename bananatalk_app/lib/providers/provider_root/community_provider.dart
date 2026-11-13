@@ -1010,17 +1010,30 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
     this._now = DateTime.now,
     CommunityFirstPageCache? diskCache,
     Stream<String>? blockedIds,
+    Stream<String>? unblockedIds,
   ])  : _diskCache = diskCache ?? CommunityFirstPageCache(),
         super(const PartnerFilterState()) {
     _blockedSub = (blockedIds ?? BlockService.blockedUserIds).listen(removeUser);
+    _unblockedSub =
+        (unblockedIds ?? BlockService.unblockedUserIds).listen(forgetBlock);
   }
 
   StreamSubscription<String>? _blockedSub;
+  StreamSubscription<String>? _unblockedSub;
 
   @override
   void dispose() {
     _blockedSub?.cancel();
+    _unblockedSub?.cancel();
     super.dispose();
+  }
+
+  /// A user was unblocked: stop hiding them. They are not put back into the
+  /// list on screen; the next reload (refresh, filter change, expiry) brings
+  /// them back if the server returns them, as before. Flag off: no-op.
+  void forgetBlock(String userId) {
+    if (!_fastListEnabled()) return;
+    _blocked.remove(userId);
   }
 
   /// A user was blocked (from any screen) while this list may be kept for a
