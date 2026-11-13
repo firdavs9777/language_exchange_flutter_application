@@ -41,10 +41,24 @@ void main() {
       );
     });
 
+    test('until the user is known the ring shows nothing, never any owner', () {
+      final tasks = [storyTask(UploadStatus.failed), storyTask(UploadStatus.queued, id: 'b', owner: null)];
+      expect(storyTaskForRing(tasks, null), isNull);
+      expect(storyTaskForRing(tasks, ''), isNull);
+      expect(storyTaskForRing(tasks, 'me'), isNotNull);
+    });
+
     test('a task without an owner belongs to the signed-in user', () {
       expect(storyTaskForRing([storyTask(UploadStatus.queued, owner: null)], 'me'),
           isNotNull);
     });
+  });
+
+  test('Retry is offered only when another attempt can help', () {
+    expect(storyFailureRetryable(null), isTrue);
+    expect(storyFailureRetryable(StoryUploadFailure.failed), isTrue);
+    expect(storyFailureRetryable(StoryUploadFailure.limitReached), isFalse);
+    expect(storyFailureRetryable(StoryUploadFailure.fileMissing), isFalse);
   });
 
   group('failure text', () {
@@ -75,7 +89,10 @@ void main() {
       addTearDown(posted.close);
     });
 
-    Future<void> pumpRail(WidgetTester tester, {required bool flag}) async {
+    Future<void> pumpRail(WidgetTester tester,
+        {required bool flag,
+        Future<StoriesFeedResult> Function(int call)? feed,
+        bool settle = true}) async {
       await tester.runAsync(() async {
         manager = FakeUploadManager();
         await manager.ready();
@@ -97,7 +114,9 @@ void main() {
             body: StoriesFeedWidget(
               feedLoader: () async {
                 loads++;
-                return StoriesFeedResult(success: true);
+                return feed != null
+                    ? feed(loads)
+                    : StoriesFeedResult(success: true);
               },
               myStoriesLoader: () async => StoriesResponse(success: true),
               railPrecacheAllowed: () async => false,
@@ -109,6 +128,27 @@ void main() {
       await tester.pump(const Duration(milliseconds: 50));
       await tester.pump(const Duration(milliseconds: 50));
     }
+
+    Map<String, dynamic> group(String id) => {
+          'user': {'_id': id, 'name': 'U$id'},
+          'stories': [
+            {
+              '_id': 's-$id',
+              'user': {'_id': id, 'name': 'U$id'},
+              'mediaType': 'image',
+              'mediaUrl': 'https://x.test/$id.jpg',
+              'privacy': 'public',
+              'isActive': true,
+              'isArchived': false,
+              'expiresAt': DateTime.now()
+                  .add(const Duration(hours: 5))
+                  .toIso8601String(),
+              'createdAt': DateTime.now().toIso8601String(),
+              'views': <dynamic>[],
+            },
+          ],
+          'hasUnviewed': 1,
+        };
 
     testWidgets('queued: a progress chip with the posting text', (t) async {
       await pumpRail(t, flag: true);
@@ -193,6 +233,74 @@ void main() {
       posted.add('t1');
       await t.pump(const Duration(milliseconds: 50));
       expect(loads, before + 1);
+    });
+
+    testWidgets('a story landing during a load still reloads, once, afterwards',
+        (t) async {
+      final first = Completer<StoriesFeedResult>();
+      await pumpRail(t, flag: true, feed: (call) {
+        if (call == 1) return first.future;
+        return Future.value(StoriesFeedResult.fromJson(
+            {'success': true, 'data': [group('f1')]}, 'me'));
+      });
+      expect(loads, 1, reason: 'the first load is held in flight');
+      posted.add('t1');
+      await t.pump(const Duration(milliseconds: 50));
+      expect(loads, 1, reason: 'not started on top of the running one');
+      first.complete(StoriesFeedResult(success: true));
+      await t.pump(const Duration(milliseconds: 50));
+      await t.pump(const Duration(milliseconds: 50));
+      expect(loads, 2);
+      expect(find.text('Uf1'), findsOneWidget);
+    });
+
+    testWidgets('a failed chip for the limit or a missing file says failed, not retry',
+        (t) async {
+      await pumpRail(t, flag: true);
+      for (final f in [
+        StoryUploadFailure.limitReached,
+        StoryUploadFailure.fileMissing
+      ]) {
+        manager.setTasks([storyTask(UploadStatus.failed, failure: f)]);
+        await t.pump();
+        expect(find.text('Tap to retry'), findsNothing, reason: '$f');
+        expect(find.text("Your story couldn't be posted."), findsOneWidget);
+      }
+      manager.setTasks([
+        storyTask(UploadStatus.failed, failure: StoryUploadFailure.failed)
+      ]);
+      await t.pump();
+      expect(find.text('Tap to retry'), findsOneWidget);
+    });
+
+    testWidgets('an attempt starting while the sheet is open closes it without acting',
+        (t) async {
+      await pumpRail(t, flag: true);
+      manager.setTasks([storyTask(UploadStatus.failed, id: 'x')]);
+      await t.pump();
+      await t.tap(find.byKey(const Key('story-upload-failed')));
+      await t.pumpAndSettle();
+      expect(find.byKey(const Key('story-upload-remove')), findsOneWidget);
+      manager.setTasks([storyTask(UploadStatus.uploading, id: 'x')]);
+      // The progress chip animates forever: pump, do not settle.
+      await t.pump();
+      await t.pump(const Duration(milliseconds: 500));
+      expect(find.byKey(const Key('story-upload-remove')), findsNothing);
+      expect(manager.removed, isEmpty);
+      expect(manager.retried, isEmpty);
+    });
+
+    testWidgets('a tap on a chip whose task is no longer failed opens nothing',
+        (t) async {
+      await pumpRail(t, flag: true);
+      manager.setTasks([storyTask(UploadStatus.failed, id: 'x')]);
+      await t.pump();
+      final chip = find.byKey(const Key('story-upload-failed'));
+      manager.setTasks([storyTask(UploadStatus.uploading, id: 'x')]);
+      // No pump: the chip on screen is still the failed one.
+      await t.tap(chip, warnIfMissed: false);
+      await t.pump(const Duration(milliseconds: 500));
+      expect(find.byKey(const Key('story-upload-remove')), findsNothing);
     });
 
     testWidgets('flag on: the upload manager is started with the rail',

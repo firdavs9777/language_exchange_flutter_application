@@ -12,11 +12,13 @@ import 'package:bananatalk_app/services/story_upload_payload.dart';
 /// shown (the queue drops those anyway; a task with no owner is treated as
 /// the signed-in user's).
 UploadTask? storyTaskForRing(List<UploadTask> tasks, String? userId) {
+  // Until the signed-in user is known, show nothing (never "any owner").
+  if (userId == null || userId.isEmpty) return null;
   UploadTask? active;
   for (final t in tasks) {
     if (!t.isStory) continue;
     final owner = t.metadata['ownerUserId'];
-    if (owner != null && userId != null && owner != userId) continue;
+    if (owner != null && owner != userId) continue;
     if (t.status == UploadStatus.failed) return t;
     if (t.status == UploadStatus.queued ||
         t.status == UploadStatus.uploading ||
@@ -26,6 +28,11 @@ UploadTask? storyTaskForRing(List<UploadTask> tasks, String? userId) {
   }
   return active;
 }
+
+/// Whether the Retry button is offered: only for a failure another attempt
+/// can fix (not the daily limit, not a deleted file).
+bool storyFailureRetryable(StoryUploadFailure? failure) =>
+    failure == null || failure == StoryUploadFailure.failed;
 
 /// The localized sentence for a failed story task's stable failure code.
 String storyUploadFailureText(
@@ -44,15 +51,27 @@ String storyUploadFailureText(
 /// A small pill: a spinner and "posting" while the story is queued or
 /// uploading; a warning and "Tap to retry" when it failed.
 class StoryUploadChip extends StatelessWidget {
-  const StoryUploadChip({super.key, required this.failed, this.maxWidth});
+  const StoryUploadChip(
+      {super.key,
+      required this.failed,
+      this.retryable = true,
+      this.maxWidth});
 
   final bool failed;
+
+  /// Failed and Retry will be offered: says "Tap to retry", else the plain
+  /// failure label.
+  final bool retryable;
   final double? maxWidth;
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final label = failed ? l10n.storyUploadRetry : l10n.storyUploading;
+    final label = !failed
+        ? l10n.storyUploading
+        : retryable
+            ? l10n.storyUploadRetry
+            : l10n.storyUploadFailed;
     return ConstrainedBox(
       constraints: BoxConstraints(maxWidth: maxWidth ?? double.infinity),
       child: Semantics(
@@ -125,7 +144,11 @@ class StoryUploadRing extends ConsumerWidget {
         child: GestureDetector(
           behavior: HitTestBehavior.opaque,
           onTap: failed ? () => _onFailedTap(context, ref, task) : null,
-          child: StoryUploadChip(failed: failed, maxWidth: avatarSize),
+          child: StoryUploadChip(
+            failed: failed,
+            retryable: storyFailureRetryable(task.storyFailure),
+            maxWidth: avatarSize,
+          ),
         ),
       ),
     );
@@ -133,31 +156,49 @@ class StoryUploadRing extends ConsumerWidget {
 
   Future<void> _onFailedTap(
       BuildContext context, WidgetRef ref, UploadTask task) async {
-    final failure = task.storyFailure;
-    if (failure == StoryUploadFailure.limitReached) {
+    // The queue may have started another attempt since this was drawn.
+    if (_failedTask(ref, task.id) == null) return;
+    if (task.storyFailure == StoryUploadFailure.limitReached) {
       await showStoryLimitDialog(context);
       if (!context.mounted) return;
+      if (_failedTask(ref, task.id) == null) return;
     }
     await showModalBottomSheet<void>(
       context: context,
-      builder: (sheetContext) =>
-          _FailedSheet(taskId: task.id, failure: failure, ref: ref),
+      builder: (sheetContext) => _FailedSheet(taskId: task.id),
     );
   }
 }
 
-class _FailedSheet extends StatelessWidget {
-  const _FailedSheet(
-      {required this.taskId, required this.failure, required this.ref});
+UploadTask? _failedTask(WidgetRef ref, String taskId) {
+  for (final t in ref.read(uploadManagerProvider).tasks) {
+    if (t.id == taskId) return t.status == UploadStatus.failed ? t : null;
+  }
+  return null;
+}
+
+/// Watches the task: when it is no longer failed (another attempt started,
+/// or it was removed) the sheet closes instead of acting on a stale task.
+class _FailedSheet extends ConsumerWidget {
+  const _FailedSheet({required this.taskId});
 
   final String taskId;
-  final StoryUploadFailure? failure;
-  final WidgetRef ref;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
     final notifier = ref.read(uploadManagerProvider.notifier);
+    UploadTask? task;
+    for (final t in ref.watch(uploadManagerProvider).tasks) {
+      if (t.id == taskId && t.status == UploadStatus.failed) task = t;
+    }
+    if (task == null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (context.mounted) Navigator.maybePop(context);
+      });
+      return const SizedBox.shrink();
+    }
+    final failure = task.storyFailure;
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -170,8 +211,8 @@ class _FailedSheet extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 16),
-            // Retrying cannot bring a deleted file back.
-            if (failure != StoryUploadFailure.fileMissing)
+            // Retrying cannot lift the daily limit or bring a deleted file back.
+            if (storyFailureRetryable(failure))
               FilledButton(
                 key: const Key('story-upload-retry'),
                 onPressed: () {

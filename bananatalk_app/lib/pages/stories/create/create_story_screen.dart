@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart' show visibleForTesting;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -45,10 +46,41 @@ class CreateStoryScreen extends ConsumerStatefulWidget {
   const CreateStoryScreen({super.key, this.onStoryCreated, this.initialImage});
 
   @override
-  ConsumerState<CreateStoryScreen> createState() => _CreateStoryScreenState();
+  ConsumerState<CreateStoryScreen> createState() => CreateStoryScreenState();
 }
 
-class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
+/// Public only so tests can seed what the editors would have produced.
+@visibleForTesting
+class CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
+  /// Test seam: sets the attachments and options the composer's pickers and
+  /// editors would have set, so a test can check each reaches the payload.
+  @visibleForTesting
+  void debugSeed({
+    StoryPrivacy? privacy,
+    List<String>? hashtags,
+    StoryLocation? location,
+    List<StoryMention>? mentions,
+    StoryLink? link,
+    StoryPoll? poll,
+    StoryQuestionBox? questionBox,
+    StoryCorrectionSticker? correction,
+    StoryQuizSticker? quiz,
+    StoryWordSticker? word,
+  }) {
+    setState(() {
+      if (privacy != null) _privacy = privacy;
+      if (hashtags != null) _hashtags.addAll(hashtags);
+      if (location != null) _pickedLocation = location;
+      if (mentions != null) _mentions.addAll(mentions);
+      if (link != null) _link = link;
+      if (poll != null) _poll = poll;
+      if (questionBox != null) _questionBox = questionBox;
+      if (correction != null) _correction = correction;
+      if (quiz != null) _quiz = quiz;
+      if (word != null) _word = word;
+    });
+  }
+
   File? _mediaFile;
   String _mediaType = 'image';
   final TextEditingController _captionController = TextEditingController();
@@ -712,6 +744,12 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
         orElse: () => false,
       );
 
+  Future<void> _deleteQuietly(File? f) async {
+    try {
+      await f?.delete();
+    } catch (_) {}
+  }
+
   /// Queues the story with every field the blocking calls below send, pops
   /// at once and says it is posting (not "posted": it is only queued).
   /// Returns false, queuing nothing, when the queue refuses it.
@@ -767,12 +805,12 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
     try {
       await ref.read(uploadManagerProvider.notifier).queueStoryUpload(payload);
     } on StoryUploadQueueException {
+      // The blocking path bakes its own; this temp file is ours to drop.
+      await _deleteQuietly(baked);
       return false;
     }
     // The queue keeps its own copy; the baked temp file is ours to drop.
-    try {
-      await baked?.delete();
-    } catch (_) {}
+    await _deleteQuietly(baked);
     if (mounted) {
       final l10n = AppLocalizations.of(context)!;
       Navigator.pop(context);

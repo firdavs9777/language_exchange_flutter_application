@@ -11,10 +11,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/app_config.dart';
+import 'package:bananatalk_app/providers/provider_models/story_model.dart';
 import 'package:bananatalk_app/pages/stories/create/create_story_screen.dart';
 import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
 import 'package:bananatalk_app/providers/upload_manager_provider.dart';
 import 'package:bananatalk_app/services/stories_service.dart';
+import 'package:bananatalk_app/services/story_upload_payload.dart';
 import 'package:bananatalk_app/services/upload_queue_service.dart';
 
 import 'support/fake_upload_manager.dart';
@@ -147,6 +149,89 @@ void main() {
       expect(p.allowReplies, isTrue);
       expect(p.allowSharing, isTrue);
     });
+
+    // One interactive sticker per case (the server accepts at most one), the
+    // shared attachments every time.
+    const loc = StoryLocation(name: 'Seoul', address: 'KR', latitude: 1.5, longitude: 2.5, placeId: 'p1');
+    const mention = StoryMention(userId: 'u9', username: 'kim', x: 0.2, y: 0.3);
+    const link = StoryLink(url: 'https://x.test', title: 'T', displayText: 'Go');
+    const poll = StoryPoll(question: 'Q?', options: []);
+    const qbox = StoryQuestionBox(prompt: 'Ask me');
+    const correction = StoryCorrectionSticker(sentence: 'I goed', language: 'en');
+    const quiz = StoryQuizSticker(question: 'Capital?', options: [], correctIndex: 0);
+    const word = StoryWordSticker(word: 'hello', meaning: 'hi', example: 'hello you', language: 'en');
+
+    CreateStoryScreenState screen(WidgetTester t) =>
+        t.state<CreateStoryScreenState>(find.byType(CreateStoryScreen));
+
+    void expectShared(StoryUploadPayload p) {
+      expect(p.privacy, StoryPrivacy.closeFriends);
+      expect(p.hashtags, ['a', 'b']);
+      expect(identical(p.location, loc), isTrue);
+      expect(p.mentions!.single, same(mention));
+      expect(identical(p.link, link), isTrue);
+      expect(p.allowReplies, isTrue);
+      expect(p.allowSharing, isTrue);
+    }
+
+    final stickerCases = <String, void Function(CreateStoryScreenState)>{
+      'poll': (s) => s.debugSeed(poll: poll),
+      'question box': (s) => s.debugSeed(questionBox: qbox),
+      'correction': (s) => s.debugSeed(correction: correction),
+      'quiz': (s) => s.debugSeed(quiz: quiz),
+      'word': (s) => s.debugSeed(word: word),
+    };
+    for (final c in stickerCases.entries) {
+      for (final media in [false, true]) {
+        testWidgets('every field reaches the payload: ${c.key}, ${media ? 'photo' : 'text'} story',
+            (tester) async {
+          final f = File('${tmp.path}/pic.png')..writeAsBytesSync(_png);
+          await open(tester, flag: true, image: media ? XFile(f.path) : null);
+          if (media) {
+            await tester.pumpAndSettle();
+          } else {
+            await writeTextStory(tester);
+          }
+          screen(tester).debugSeed(
+            privacy: StoryPrivacy.closeFriends,
+            hashtags: ['a', 'b'],
+            location: loc,
+            mentions: [mention],
+            link: link,
+          );
+          c.value(screen(tester));
+          await tester.pump();
+          await tester.tap(find.text('Share'));
+          await tester.pumpAndSettle();
+
+          final p = manager.queued.single;
+          expectShared(p);
+          expect(identical(p.poll, c.key == 'poll' ? poll : null), isTrue);
+          expect(identical(p.questionBox, c.key == 'question box' ? qbox : null), isTrue);
+          expect(identical(p.correctionSticker, c.key == 'correction' ? correction : null), isTrue);
+          expect(identical(p.quizSticker, c.key == 'quiz' ? quiz : null), isTrue);
+          expect(identical(p.wordSticker, c.key == 'word' ? word : null), isTrue);
+          expect(p.overlays, isNotNull);
+          if (media) {
+            expect(p.mediaPath, f.path);
+            expect(p.isVideo, isFalse);
+            expect(p.isTextStory, isFalse);
+            expect(p.text, '');
+            expect(p.textColor, isNull);
+            expect(p.fontStyle, isNull);
+          } else {
+            expect(p.isTextStory, isTrue);
+            expect(p.mediaPath, isNull);
+            expect(p.isVideo, isFalse);
+            expect(p.text, 'hello');
+            expect(p.fontStyle, 'normal');
+            expect(p.textColor, isNull, reason: 'the blocking path sends no textColor');
+            expect(p.backgroundColor, isNotEmpty);
+            expect(p.overlays!.single['content'], 'hello');
+          }
+        });
+      }
+    }
 
     testWidgets('a photo story queues the chosen file with its caption',
         (tester) async {

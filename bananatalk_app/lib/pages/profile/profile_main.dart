@@ -1,3 +1,7 @@
+import 'dart:async';
+
+import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
+import 'package:bananatalk_app/services/upload_queue_service.dart';
 import 'package:bananatalk_app/services/activation_store.dart';
 import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
 import 'package:bananatalk_app/widgets/notifications/notification_bell.dart';
@@ -75,6 +79,30 @@ class _ProfileMainState extends ConsumerState<ProfileMain> {
       final u = next.valueOrNull;
       if (u != null) checkProfileComplete(u).ignore();
     }, fireImmediately: true);
+    // A queued story reaches the server after its composer is gone, so the
+    // composer's callback cannot refresh this ring. Flag on only.
+    ref.listenManual(appConfigProvider, (_, __) {
+      final on = ref.read(appConfigProvider).maybeWhen(
+            data: (c) => c?.storyUploadQueueEnabled ?? false,
+            orElse: () => false,
+          );
+      if (!on) {
+        _storyPostedSub?.cancel();
+        _storyPostedSub = null;
+      } else if (_storyPostedSub == null) {
+        _storyPostedSub = UploadQueueService()
+            .storyPostedStream
+            .listen((_) => _loadOwnStories());
+      }
+    }, fireImmediately: true);
+  }
+
+  StreamSubscription<String>? _storyPostedSub;
+
+  @override
+  void dispose() {
+    _storyPostedSub?.cancel();
+    super.dispose();
   }
 
   Future<void> _loadOwnStories() async {

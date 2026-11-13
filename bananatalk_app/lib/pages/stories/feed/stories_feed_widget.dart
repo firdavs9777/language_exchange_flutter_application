@@ -90,9 +90,14 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> with Widg
   /// requests whose responses land in an arbitrary order, and the last one to
   /// arrive wins — which can be the oldest failure.
   bool _inFlight = false;
+
+  /// A queued story landed while a load was running: load again after it.
+  bool _reloadPending = false;
   StreamSubscription<List<ConnectivityResult>>? _connectivitySub;
 
-  /// Reloads the rail once when a queued story reaches the server. Only
+  /// Reloads the rail once when a queued story reaches the server (this also
+  /// covers the viewer's "add more" `onStoriesUpdated` and moments_main's
+  /// `onStoryCreated`, which only reload this rail, on the queued path). Only
   /// listening while `storyUploadQueueEnabled` is on.
   StreamSubscription<String>? _storyPostedSub;
 
@@ -131,7 +136,14 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> with Widg
     _storyPostedSub = (widget.storyPostedStream ??
             () => UploadQueueService().storyPostedStream)()
         .listen((_) {
-      if (mounted) _loadStories(showLoading: false);
+      if (!mounted) return;
+      // A load already running started before this story existed; run once
+      // more when it ends instead of dropping the reload.
+      if (_inFlight) {
+        _reloadPending = true;
+      } else {
+        _loadStories(showLoading: false);
+      }
     });
   }
 
@@ -356,6 +368,10 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> with Widg
       }
     } finally {
       _inFlight = false;
+      if (_reloadPending) {
+        _reloadPending = false;
+        if (mounted) unawaited(_loadStories(showLoading: false));
+      }
     }
   }
 
