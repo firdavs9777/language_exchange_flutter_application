@@ -177,6 +177,8 @@ final Map<String, ProviderOrFamily> userScopedProviders = {
   'partnerFilterProvider': partnerFilterProvider,
   'communityPendingSubTabProvider': communityPendingSubTabProvider,
   'dailyMatchesProvider': dailyMatchesProvider,
+  // Today's batch as read from disk, for the signed-in user only.
+  'dailyMatchesCachedProvider': dailyMatchesCachedProvider,
   'dailyMatchesSkippedProvider': dailyMatchesSkippedProvider,
   'matchingRecommendationsProvider': matchingRecommendationsProvider,
   'quickMatchesProvider': quickMatchesProvider,
@@ -302,6 +304,10 @@ const Set<String> kAppScopedProviderNames = {
   'appConfigProvider',
   'appConfigRefreshStateProvider', // last app-config fetch time
   'hashtagsEnabledProvider', // derived from appConfigProvider
+  'communityFastListEnabledProvider', // derived from appConfigProvider
+  // Stateless: every entry is keyed by user id, and sign-out clears them
+  // (AuthService._clearAuthData).
+  'communityFirstPageCacheProvider',
   'runningAppVersionProvider',
   'iosProductsProvider', // store catalog
   'androidProductsProvider',

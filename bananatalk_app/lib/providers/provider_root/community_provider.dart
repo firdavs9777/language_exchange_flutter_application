@@ -1,5 +1,9 @@
+import 'dart:async';
+import 'dart:collection';
 import 'dart:convert';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
+import 'package:bananatalk_app/services/block_service.dart';
+import 'package:bananatalk_app/services/community_first_page_cache.dart';
 import 'package:bananatalk_app/services/api_client.dart';
 import 'package:bananatalk_app/service/endpoints.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -601,12 +605,22 @@ class PaginatedCommunityResponse {
   final int pages;
   final bool hasMore;
 
+  /// Opaque continuation token (never parsed); null on the last page, from an
+  /// older server, or when the server fell back to number paging.
+  final String? nextCursor;
+
+  /// The rows of [users] as the server sent them (same order), for the
+  /// first-page disk cache.
+  final List<Map<String, dynamic>> rawUsers;
+
   PaginatedCommunityResponse({
     required this.users,
     required this.total,
     required this.page,
     required this.pages,
     required this.hasMore,
+    this.nextCursor,
+    this.rawUsers = const [],
   });
 
   /// A `/users` body. `hasMore` is the server's when it sends one (backend
@@ -626,15 +640,20 @@ class PaginatedCommunityResponse {
         hasMore: false,
       );
     }
+    final rawUsers = [
+      for (final item in dataList)
+        if (item is Map<String, dynamic>) item,
+    ];
     return PaginatedCommunityResponse(
-      users: [
-        for (final item in dataList)
-          if (item is Map<String, dynamic>) Community.fromJson(item),
-      ],
+      users: [for (final item in rawUsers) Community.fromJson(item)],
+      rawUsers: rawUsers,
       total: data['total'] as int? ?? 0,
       page: page,
       pages: pages,
       hasMore: data['hasMore'] as bool? ?? page < pages,
+      nextCursor: data['nextCursor'] is String
+          ? data['nextCursor'] as String
+          : null,
     );
   }
 }
@@ -815,7 +834,16 @@ class PartnerFilterParams {
   /// The `/users` query string. The list always sends `matchLanguage=true`;
   /// the filter sheet's count calls this without paging/sort so both ask the
   /// server the same question.
-  Map<String, String> toQuery({int? page, int? limit, String? sort}) {
+  ///
+  /// [slim] asks for rows without follower arrays; [cursor] is the server's
+  /// continuation token and goes alongside [page], never instead of it.
+  Map<String, String> toQuery({
+    int? page,
+    int? limit,
+    String? sort,
+    bool slim = false,
+    String? cursor,
+  }) {
     bool set(String? v) => v != null && v.isNotEmpty;
     return {
       if (page != null) 'page': '$page',
@@ -837,6 +865,8 @@ class PartnerFilterParams {
       if (topics.isNotEmpty) 'topics': topics.join(','),
       if (topicsAtLeast > 0) 'topicsAtLeast': '$topicsAtLeast',
       if (sameCity) 'sameCity': 'true',
+      if (slim) 'slim': '1',
+      if (cursor != null) 'cursor': cursor,
     };
   }
 }
@@ -871,6 +901,18 @@ class PartnerFilterState {
   final bool hasMore;
   final String? error;
 
+  /// The server's token for the page after [currentPage]; only ever set
+  /// while the fast-list flag is on.
+  final String? nextCursor;
+
+  /// When page 1 last arrived (not set by later pages).
+  final DateTime? loadedAt;
+
+  /// [users] came from the first-page disk cache and the network page 1 has
+  /// not replaced them (yet). There is no page or cursor behind them, so
+  /// paging waits for the network page.
+  final bool fromCache;
+
   const PartnerFilterState({
     this.filters,
     this.users = const [],
@@ -880,6 +922,9 @@ class PartnerFilterState {
     this.isLoadingMore = false,
     this.hasMore = true,
     this.error,
+    this.nextCursor,
+    this.loadedAt,
+    this.fromCache = false,
   });
 
   PartnerFilterState copyWith({
@@ -891,6 +936,10 @@ class PartnerFilterState {
     bool? isLoadingMore,
     bool? hasMore,
     String? error,
+    String? nextCursor,
+    bool clearCursor = false,
+    DateTime? loadedAt,
+    bool? fromCache,
   }) {
     return PartnerFilterState(
       filters: filters ?? this.filters,
@@ -901,6 +950,9 @@ class PartnerFilterState {
       isLoadingMore: isLoadingMore ?? this.isLoadingMore,
       hasMore: hasMore ?? this.hasMore,
       error: error,
+      nextCursor: clearCursor ? null : (nextCursor ?? this.nextCursor),
+      loadedAt: loadedAt ?? this.loadedAt,
+      fromCache: fromCache ?? this.fromCache,
     );
   }
 }
@@ -915,10 +967,150 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
   /// the rest of the session.
   final bool Function() _smartSortEnabled;
 
+  /// Whether slim rows and cursor paging are on (the server's fast-list
+  /// switch). Read per request for the same reason as [_smartSortEnabled].
+  final bool Function() _fastListEnabled;
+
+  static bool _fastListOff() => false;
+
+  /// The clock behind [isFreshFor]; injected so tests can age a list.
+  final DateTime Function() _now;
+
   static const int _pageSize = 20;
 
-  PartnerFilterNotifier(this._service, this._smartSortEnabled)
-    : super(const PartnerFilterState());
+  /// How long a loaded page 1 stays good for a remounted tab.
+  static const Duration freshFor = Duration(minutes: 10);
+
+  /// The filters of the last page-1 load that SUCCEEDED (null after a failed
+  /// one, a clear, or before any load). The tab State is rebuilt on a tab
+  /// switch; this notifier is not.
+  PartnerFilterParams? _loadedFilters;
+
+  /// Consecutive pages that added nobody new while the server still said
+  /// there was more (cursor paging only); a server bug must not loop forever.
+  int _emptyPages = 0;
+  static const int _maxEmptyPages = 3;
+
+  /// Page 1 of the default view on disk (flag on only).
+  final CommunityFirstPageCache _diskCache;
+
+  /// Set by the first page-1 load of this notifier's life, whatever the flag:
+  /// only that load may paint from disk. A later load (refresh, filter change,
+  /// retry, the flag turning on late) already has newer state than the disk.
+  bool _diskPaintDecided = false;
+
+  /// The filters the tab declared to be its default view (no search, the
+  /// saved filters, no segment or quick chip): only their page 1 is cached.
+  PartnerFilterParams? _diskCacheableFilters;
+
+  PartnerFilterNotifier(
+    this._service,
+    this._smartSortEnabled, [
+    this._fastListEnabled = _fastListOff,
+    this._now = DateTime.now,
+    CommunityFirstPageCache? diskCache,
+    Stream<String>? blockedIds,
+    Stream<String>? unblockedIds,
+  ])  : _diskCache = diskCache ?? CommunityFirstPageCache(),
+        super(const PartnerFilterState()) {
+    _blockedSub = (blockedIds ?? BlockService.blockedUserIds).listen(removeUser);
+    _unblockedSub =
+        (unblockedIds ?? BlockService.unblockedUserIds).listen(forgetBlock);
+  }
+
+  StreamSubscription<String>? _blockedSub;
+  StreamSubscription<String>? _unblockedSub;
+
+  @override
+  void dispose() {
+    _blockedSub?.cancel();
+    _unblockedSub?.cancel();
+    super.dispose();
+  }
+
+  /// A user was unblocked: stop hiding them. They are not put back into the
+  /// list on screen; the next reload (refresh, filter change, expiry) brings
+  /// them back if the server returns them, as before. Flag off: no-op.
+  void forgetBlock(String userId) {
+    if (!_fastListEnabled()) return;
+    _blocked.remove(userId);
+  }
+
+  /// A user was blocked (from any screen) while this list may be kept for a
+  /// tab switch: drop them from it and from what it is filtered by, now,
+  /// without waiting for the blocked-ids provider. Flag off: no-op (the tab
+  /// reloads on return anyway).
+  void removeUser(String userId) {
+    if (!_fastListEnabled()) return;
+    _blocked.add(userId);
+    if (state.users.any((u) => u.id == userId)) {
+      state = state.copyWith(
+        users: state.users.where((u) => u.id != userId).toList(),
+      );
+    }
+  }
+
+  /// [diskFingerprint] of the request this notifier sends for [filters].
+  String _diskFingerprintFor(PartnerFilterParams filters) =>
+      diskFingerprint(filters, sort: _sortFor(filters));
+
+  /// Identifies the exact request a cached page 1 was loaded for: the filter
+  /// set plus the effective [sort] (the server's `smart` default included),
+  /// so a list kept under one ordering is never painted under another.
+  static String diskFingerprint(PartnerFilterParams filters, {String? sort}) =>
+      jsonEncode(SplayTreeMap<String, String>.of(filters.toQuery(sort: sort)));
+
+  /// True when the state already holds page 1 for exactly [filters] (search
+  /// included), loaded under [freshFor] ago, and the fast-list flag is on.
+  /// Flag off: always false, so every mount reloads as it always did.
+  bool isFreshFor(PartnerFilterParams filters, {DateTime? now}) {
+    if (!_fastListEnabled()) return false;
+    final loaded = _loadedFilters;
+    final at = state.loadedAt;
+    if (loaded == null || at == null || loaded != filters) return false;
+    return (now ?? _now()).difference(at) < freshFor;
+  }
+
+  // Exclusions the list on screen was filtered with. They live here, next to
+  // the list they apply to, so a remounted tab filters a kept list the same
+  // way. Flag on only; with the flag off the tab keeps its own, as before.
+  Set<String> _serverExcluded = {};
+  final Set<String> _locallyHidden = {};
+  bool _exclusionsLoaded = false;
+
+  /// Users blocked this session (see [removeUser]). Unlike [_locallyHidden]
+  /// a refresh keeps them: a page already in flight, or a server that still
+  /// returns them, must not bring them back. Only [clear] (and the session
+  /// reset, which disposes this notifier) forgets them.
+  final Set<String> _blocked = {};
+
+  /// [users] without anyone blocked this session. Flag off: [users] as is.
+  List<Community> _withoutBlocked(List<Community> users) =>
+      !_fastListEnabled() || _blocked.isEmpty
+          ? users
+          : users.where((u) => !_blocked.contains(u.id)).toList();
+
+  bool get hasKeptExclusions => _fastListEnabled() && _exclusionsLoaded;
+
+  Set<String> get keptExclusions => _fastListEnabled()
+      ? {..._serverExcluded, ..._locallyHidden, ..._blocked}
+      : const {};
+
+  /// The server's skipped + waved set, as just fetched.
+  void rememberServerExcluded(Set<String> ids) {
+    if (!_fastListEnabled()) return;
+    _serverExcluded = {...ids};
+    _exclusionsLoaded = true;
+  }
+
+  /// Someone skipped or waved to during this session.
+  void hideLocally(String id) {
+    if (!_fastListEnabled()) return;
+    _locallyHidden.add(id);
+  }
+
+  /// A refresh brings the server's own view back.
+  void clearLocalHides() => _locallyHidden.clear();
 
   /// The sort to ask the server for.
   ///
@@ -938,43 +1130,184 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
   /// first used to end with the old page 2 appended to the new page 1.
   int _generation = 0;
 
-  /// Load partners with filters (server-side)
-  Future<void> loadWithFilters(PartnerFilterParams filters) async {
+  /// Load partners with filters (server-side).
+  ///
+  /// [diskCacheable]: [filters] are the tab's default view. With the
+  /// fast-list flag on, its page 1 is written to disk, and on this notifier's
+  /// first load the copy on disk is shown while page 1 loads.
+  Future<void> loadWithFilters(
+    PartnerFilterParams filters, {
+    bool diskCacheable = false,
+  }) async {
     // A CHANGED filters value must proceed even mid-load (a chip tap would
     // otherwise be dropped forever); the stale response is discarded below.
     if (state.isLoading && state.filters == filters) return;
 
     _generation++;
+    final generation = _generation;
+    final mayPaintFromDisk = !_diskPaintDecided;
+    _diskPaintDecided = true;
+    _diskCacheableFilters = diskCacheable ? filters : null;
+    _emptyPages = 0;
     // Reset if different filters; same filters (refresh) keep the rows on
-    // screen until page 1 arrives instead of flashing the skeleton.
+    // screen until page 1 arrives instead of flashing the skeleton. Either
+    // way the old cursor goes: it belongs to the list being replaced.
     if (state.filters != filters) {
+      _loadedFilters = null;
       state = PartnerFilterState(filters: filters, isLoading: true);
     } else {
-      state = state.copyWith(isLoading: true, error: null);
+      state = state.copyWith(isLoading: true, error: null, clearCursor: true);
     }
 
+    final fast = _fastListEnabled();
+    // Flag off: no disk access of any kind.
+    final diskOn = fast && diskCacheable;
+    // Taken before the user id: a sign-out (cache cleared) from here on
+    // makes the write below a no-op even while the stored id still matches.
+    final diskEpoch = _diskCache.epoch;
+    final diskUserId = diskOn ? await _diskCache.signedInUserId() : null;
+    // A session reset disposed this notifier during the disk access.
+    if (!mounted) return;
+    if (diskUserId != null && mayPaintFromDisk) {
+      await _paintFromDisk(diskUserId, filters, generation);
+      if (!mounted) return;
+    }
     try {
       final response = await _service.getUsersPage(
-        filters.toQuery(page: 1, limit: _pageSize, sort: _sortFor(filters)),
+        filters.toQuery(
+          page: 1,
+          limit: _pageSize,
+          sort: _sortFor(filters),
+          slim: fast,
+        ),
       );
 
       // Filters changed while this request was in flight: drop the stale page.
-      if (state.filters != filters) return;
+      if (!mounted || state.filters != filters) return;
 
-      // If 0 results returned, set hasMore to false to prevent infinite loading
-      final hasMore = response.users.isNotEmpty && response.hasMore;
+      // With the flag off the server's cursor is ignored, whatever it sends.
+      final cursor = fast ? response.nextCursor : null;
+      // If 0 results returned, set hasMore to false to prevent infinite
+      // loading -- unless the server handed back a cursor (see _hasMoreAfter).
+      final hasMore = _hasMoreAfter(
+        response,
+        newUsers: response.users.length,
+        cursor: cursor,
+      );
 
       state = state.copyWith(
-        users: response.users,
+        users: _withoutBlocked(response.users),
         currentPage: 1,
         total: response.total,
         hasMore: hasMore,
         isLoading: false,
+        nextCursor: cursor,
+        clearCursor: cursor == null,
+        loadedAt: _now(),
+        fromCache: false,
       );
+      _loadedFilters = filters;
+      if (diskUserId != null && generation == _generation) {
+        await _writeToDisk(diskUserId, filters, response, diskEpoch);
+      }
     } catch (e) {
-      if (state.filters != filters) return;
+      if (!mounted || state.filters != filters) return;
+      _loadedFilters = null;
       state = state.copyWith(isLoading: false, error: e.toString());
     }
+  }
+
+  /// Shows the cached page 1 of [filters] while the network one loads, if
+  /// one exists for this user and these exact filters, and nothing newer
+  /// is on screen. Cached rows are filtered by the tab like live ones.
+  Future<void> _paintFromDisk(
+    String userId,
+    PartnerFilterParams filters,
+    int generation,
+  ) async {
+    final snapshot = await _diskCache.read(
+      userId: userId,
+      slot: CommunityFirstPageCache.partners,
+    );
+    if (!mounted ||
+        snapshot == null ||
+        snapshot.meta['fingerprint'] != _diskFingerprintFor(filters)) {
+      return;
+    }
+    final users = <Community>[];
+    for (final row in snapshot.rows) {
+      try {
+        final user = Community.fromJson(row);
+        // Disk paint runs with the flag on only: blocked ids apply.
+        if (user.id.isNotEmpty &&
+            user.id != userId &&
+            !_blocked.contains(user.id)) {
+          users.add(user);
+        }
+      } catch (_) {}
+    }
+    if (users.isEmpty) return;
+    // A newer load started, or rows arrived, while the disk was read.
+    if (generation != _generation ||
+        state.filters != filters ||
+        !state.isLoading ||
+        state.users.isNotEmpty) {
+      return;
+    }
+    final total = snapshot.meta['total'];
+    state = state.copyWith(
+      users: users,
+      total: total is int ? total : users.length,
+      // Keeps the list's trailing progress row (and, after a failure, its
+      // Retry) in place; loadMore itself waits for the network page.
+      hasMore: true,
+      fromCache: true,
+    );
+  }
+
+  /// Keeps [response] as the page 1 of [filters], under the user it was
+  /// fetched for only (an account switch during the fetch writes nothing).
+  Future<void> _writeToDisk(
+    String userId,
+    PartnerFilterParams filters,
+    PaginatedCommunityResponse response,
+    int epoch,
+  ) async {
+    if (await _diskCache.signedInUserId() != userId) return;
+    await _diskCache.write(
+      userId: userId,
+      slot: CommunityFirstPageCache.partners,
+      rows: response.rawUsers,
+      meta: {
+        'fingerprint': _diskFingerprintFor(filters),
+        'total': response.total,
+      },
+      epoch: epoch,
+    );
+  }
+
+  /// Whether another page is worth asking for after [response].
+  ///
+  /// Number paging keeps the original rule: an empty page ends the list.
+  /// With a cursor the server may return a short or all-repeat page while more
+  /// remain, so [hasMore] stands -- for at most [_maxEmptyPages] such pages in
+  /// a row. [newUsers] is the count the page added to the list.
+  bool _hasMoreAfter(
+    PaginatedCommunityResponse response, {
+    required int newUsers,
+    required String? cursor,
+  }) {
+    if (cursor == null) {
+      // A server fallback page: the all-repeat run (if any) is broken.
+      _emptyPages = 0;
+      return response.users.isNotEmpty && response.hasMore;
+    }
+    if (newUsers > 0) {
+      _emptyPages = 0;
+    } else {
+      _emptyPages++;
+    }
+    return response.hasMore && _emptyPages < _maxEmptyPages;
   }
 
   /// Load more partners with same filters
@@ -986,6 +1319,12 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
 
   /// [force]: the user tapped Retry, so skip the pause.
   Future<void> loadMore({bool force = false}) async {
+    // A list from disk has no page behind it. The Retry row (force) after a
+    // failed network page 1 asks for page 1 again.
+    if (state.fromCache) {
+      if (force && !state.isLoading && state.filters != null) await refresh();
+      return;
+    }
     // Not while page 1 is (re)loading: that page would land on top of it.
     if (state.isLoading ||
         state.isLoadingMore ||
@@ -1002,6 +1341,7 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
 
     final filtersAtStart = state.filters;
     final generationAtStart = _generation;
+    final fast = _fastListEnabled();
     state = state.copyWith(isLoadingMore: true);
 
     try {
@@ -1010,7 +1350,13 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
       // Same sort resolution as page 1: under the smart default, sending the
       // raw choice made later pages use another order (dupes and gaps).
       final response = await _service.getUsersPage(
-        filters.toQuery(page: nextPage, limit: _pageSize, sort: _sortFor(filters)),
+        filters.toQuery(
+          page: nextPage,
+          limit: _pageSize,
+          sort: _sortFor(filters),
+          slim: fast,
+          cursor: fast ? state.nextCursor : null,
+        ),
       );
 
       // Segment/filters switched, or page 1 reloaded, mid-request: drop it.
@@ -1018,21 +1364,30 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
         return;
       }
 
-      // If 0 results returned on load more, stop trying to load more
-      final hasMore = response.users.isNotEmpty && response.hasMore;
-
-      // A Profile Boost puts a booster on page 1 out of order, so the same
-      // person can come back on a later page; list them once.
+      // A Profile Boost puts a booster on page 1 out of order, and a
+      // server-side rebuild mid-scroll can repeat people; list them once
+      // (the first sighting stays).
       final seen = {for (final u in state.users) u.id};
+      final added = response.users.where((u) => seen.add(u.id)).toList();
+
+      final cursor = fast ? response.nextCursor : null;
+      // If 0 results returned on load more, stop trying to load more
+      // Counted before the blocked filter: a page whose only new person was
+      // just blocked is not an empty page.
+      final hasMore = _hasMoreAfter(
+        response,
+        newUsers: added.length,
+        cursor: cursor,
+      );
+
       state = state.copyWith(
-        users: [
-          ...state.users,
-          ...response.users.where((u) => seen.add(u.id)),
-        ],
+        users: [...state.users, ..._withoutBlocked(added)],
         currentPage: nextPage,
         total: response.total,
         hasMore: hasMore,
         isLoadingMore: false,
+        nextCursor: cursor,
+        clearCursor: cursor == null,
       );
       _loadMoreFailedAt = null;
     } catch (e) {
@@ -1050,11 +1405,21 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
     final filters = state.filters;
     if (filters == null) return;
     state = state.copyWith(isLoading: false, isLoadingMore: false);
-    await loadWithFilters(filters);
+    await loadWithFilters(
+      filters,
+      diskCacheable: _diskCacheableFilters == filters,
+    );
   }
 
   /// Clear state
   void clear() {
+    _emptyPages = 0;
+    _loadedFilters = null;
+    _diskCacheableFilters = null;
+    _serverExcluded = {};
+    _locallyHidden.clear();
+    _blocked.clear();
+    _exclusionsLoaded = false;
     state = const PartnerFilterState();
   }
 }
@@ -1073,5 +1438,10 @@ final partnerFilterProvider =
                   orElse: () => false,
                 ) ??
             false,
+        // Read per request, never watched: a rebuild on app-config arrival
+        // would drop the list.
+        () => ref.read(communityFastListEnabledProvider),
+        DateTime.now,
+        ref.read(communityFirstPageCacheProvider),
       );
     });

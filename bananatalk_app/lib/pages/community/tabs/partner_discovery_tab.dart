@@ -12,6 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
+import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/block_provider.dart';
 import 'package:bananatalk_app/services/interaction_service.dart';
 import 'package:bananatalk_app/widgets/community/partner_card.dart';
@@ -68,6 +69,14 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
   PartnerFilterParams? _lastFilters;
   String _lastSearchQuery = '';
 
+  /// False until the first reload check has decided whether the exclusions
+  /// are asked of the server or taken from the kept list (flag on only).
+  bool _exclusionsResolved = true;
+
+  /// The skip/wave exclusions this list is filtered with have arrived (or
+  /// were taken from the kept list). A page painted from disk waits for them.
+  bool _exclusionsKnown = false;
+
   // Tracks which user ids have already played their entrance animation so it
   // runs once per user instead of replaying on every list rebuild.
   final Set<String> _animatedIds = {};
@@ -95,7 +104,10 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
   void initState() {
     super.initState();
     _loadUserId();
-    _loadServerExcludedUsers();
+    // Flag on: whether to ask is decided with the first reload check in
+    // build(), once the filters (and so the list's freshness) are known.
+    _exclusionsResolved = !ref.read(communityFastListEnabledProvider);
+    if (_exclusionsResolved) _loadServerExcludedUsers();
     _loadViewMode();
     _scrollController.addListener(_onScroll);
   }
@@ -158,12 +170,35 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
     }
   }
 
+  /// On a refresh: forget this session's local hides and, flag on, take the
+  /// exclusions from the notifier again (server set plus blocks), so someone
+  /// unblocked since they were copied here is shown when the server returns
+  /// them. Flag off: hasKeptExclusions is false; only the no-op clear runs.
+  void _reseedKeptExclusions() {
+    final notifier = ref.read(partnerFilterProvider.notifier);
+    notifier.clearLocalHides();
+    if (notifier.hasKeptExclusions) {
+      _serverExcludedUsers = notifier.keptExclusions;
+    }
+  }
+
   /// Load excluded users from server (skipped + waved)
   Future<void> _loadServerExcludedUsers() async {
+    // Read before the await: ref.read throws once this State is disposed.
+    final notifier = ref.read(partnerFilterProvider.notifier);
     try {
       final excluded = await InteractionService.getExcludedUsers();
+      notifier.rememberServerExcluded(excluded);
       if (mounted) {
-        setState(() => _serverExcludedUsers = excluded);
+        setState(() {
+          // Flag on: the server set plus this session's skips, waves and
+          // blocks (a skip still on its way to the server stays hidden).
+          // Flag off: hasKeptExclusions is false, so exactly the server set.
+          _serverExcludedUsers = notifier.hasKeptExclusions
+              ? notifier.keptExclusions
+              : excluded;
+          _exclusionsKnown = true;
+        });
       }
     } catch (_) {
       // Non-fatal.
@@ -262,6 +297,7 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
     _showWaveSheet(
       community,
       onSent: () {
+        ref.read(partnerFilterProvider.notifier).hideLocally(community.id);
         if (mounted) setState(() => _sessionWavedUsers.add(community.id));
       },
     );
@@ -271,6 +307,7 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
     HapticFeedback.mediumImpact();
     // The Dismissible is gone, so the card has to leave the deck now.
     _sessionWavedUsers.add(community.id);
+    ref.read(partnerFilterProvider.notifier).hideLocally(community.id);
     setState(() => _isProcessingSwipe = false);
     _showWaveSheet(community);
   }
@@ -286,6 +323,7 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
 
   void _skip(Community community) {
     _sessionSkippedUsers.add(community.id);
+    ref.read(partnerFilterProvider.notifier).hideLocally(community.id);
     InteractionService.skipUser(community.id);
   }
 
@@ -330,12 +368,39 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
         if (_lastFilters != filterParams || searchChanged) {
           _lastFilters = filterParams;
           _lastSearchQuery = widget.searchQuery;
-          Future(() {
-            if (!mounted) return;
-            ref
-                .read(partnerFilterProvider.notifier)
-                .loadWithFilters(filterParams);
-          });
+          final notifier = ref.read(partnerFilterProvider.notifier);
+          // Flag on: a list loaded under 10 minutes ago for these very
+          // filters survived the tab switch in the provider -- keep it. The
+          // flag off makes isFreshFor false, so this is today's reload.
+          final keep = notifier.isFreshFor(filterParams);
+          if (!_exclusionsResolved) {
+            _exclusionsResolved = true;
+            // A kept list is filtered by what the notifier kept at once,
+            // this session's skips and blocks included, even while the
+            // server set is still being fetched.
+            if (keep) _serverExcludedUsers = notifier.keptExclusions;
+            if (keep && notifier.hasKeptExclusions) {
+              _exclusionsKnown = true;
+            } else {
+              _loadServerExcludedUsers();
+            }
+          }
+          if (!keep) {
+            // Only the default view (no search, segment or quick chip; the
+            // saved filters) is kept on disk -- flag on only, the notifier
+            // checks.
+            final diskCacheable = widget.searchQuery.isEmpty &&
+                segment == PartnerSegment.all &&
+                chips == const PartnerQuickChips();
+            Future(() {
+              if (!mounted) return;
+              // Read again here, as before: a session reset may have
+              // replaced the notifier since this build.
+              ref
+                  .read(partnerFilterProvider.notifier)
+                  .loadWithFilters(filterParams, diskCacheable: diskCacheable);
+            });
+          }
         }
 
         // Loading and error keep the segment and chip rows, so quick chip
@@ -352,6 +417,16 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
         }
         if (partnerState.error != null && partnerState.users.isEmpty) {
           return withChips(_buildError(partnerState.error));
+        }
+        // Rows from disk are shown only once they can be filtered like live
+        // ones: someone skipped, waved to or blocked must not flash back.
+        if (partnerState.fromCache &&
+            (!_exclusionsKnown || !blockedUserIdsAsync.hasValue)) {
+          return withChips(
+            partnerState.isLoading
+                ? _buildLoading()
+                : _buildError(partnerState.error),
+          );
         }
 
         final blockedUserIds = blockedUserIdsAsync.value ?? <String>{};
@@ -381,6 +456,16 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
         }
 
         if (filteredCommunities.isEmpty) {
+          // Everyone from disk is filtered out while page 1 is still out:
+          // show what a load without a disk copy shows now, never "no
+          // partners".
+          if (partnerState.fromCache) {
+            return withChips(
+              partnerState.isLoading
+                  ? _buildLoading()
+                  : _buildError(partnerState.error),
+            );
+          }
           if (partnerState.isLoadingMore) return _buildLoading();
           // Keep the segment row visible so an empty segment is escapable.
           return Column(
@@ -800,6 +885,7 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
         await ref.read(partnerFilterProvider.notifier).refresh();
         if (!mounted) return;
         setState(() {
+          _reseedKeptExclusions();
           _sessionSkippedUsers.clear();
           _sessionWavedUsers.clear();
           _animatedIds.clear();
@@ -1203,6 +1289,7 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
               onPressed: () {
                 ref.read(partnerFilterProvider.notifier).refresh();
                 setState(() {
+                  _reseedKeptExclusions();
                   _sessionSkippedUsers.clear();
                   _sessionWavedUsers.clear();
                   _animatedIds.clear();

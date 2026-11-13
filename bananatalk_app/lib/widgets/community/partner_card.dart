@@ -96,7 +96,7 @@ class PartnerCard extends StatelessWidget {
   /// in the top-left of the card, wrapped in the gradient story ring —
   /// tapping it opens the story viewer via [onAvatarTap].
   Widget _buildMiniAvatarBadge() {
-    final profileImage = user.profileImageUrl;
+    final profileImage = user.avatarUrl;
     final avatar = ClipOval(
       child: Container(
         width: 32,

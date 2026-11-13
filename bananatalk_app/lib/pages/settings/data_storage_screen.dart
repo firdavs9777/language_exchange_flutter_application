@@ -9,6 +9,7 @@ import 'package:bananatalk_app/pages/settings/widgets/settings_snackbar.dart';
 import 'package:bananatalk_app/pages/settings/widgets/cache_stats_card.dart';
 import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
+import 'package:bananatalk_app/services/community_first_page_cache.dart';
 import 'package:bananatalk_app/services/feed_first_page_cache.dart';
 import 'package:bananatalk_app/services/interest_service.dart';
 
@@ -112,6 +113,8 @@ class _DataStorageScreenState extends ConsumerState<DataStorageScreen> {
           break;
         case 'all':
           await StorageService.clearAllCache();
+          // Partners page 1 and today's matches kept for the next open.
+          await CommunityFirstPageCache().clearAll();
           break;
       }
 

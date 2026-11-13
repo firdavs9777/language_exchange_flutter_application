@@ -1,13 +1,30 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:bananatalk_app/service/endpoints.dart';
 import 'package:bananatalk_app/models/blocked_user.dart';
 import 'package:bananatalk_app/services/blocked_ids_store.dart';
+import 'package:bananatalk_app/services/community_first_page_cache.dart';
 import 'package:bananatalk_app/services/feed_first_page_cache.dart';
 import 'package:bananatalk_app/services/stories_rail_cache.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class BlockService {
+  static final StreamController<String> _blocked =
+      StreamController<String>.broadcast(sync: true);
+
+  /// Ids of users blocked through [blockUser] (after the server confirmed),
+  /// so in-memory lists that outlive a screen can drop them at once.
+  static Stream<String> get blockedUserIds => _blocked.stream;
+
+  static final StreamController<String> _unblocked =
+      StreamController<String>.broadcast(sync: true);
+
+  /// Ids of users unblocked through [unblockUser] (after the server
+  /// confirmed), so a list that hid them on [blockedUserIds] stops hiding
+  /// them on its next reload.
+  static Stream<String> get unblockedUserIds => _unblocked.stream;
+
   static Future<String?> _getToken() async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString('token');
@@ -19,15 +36,22 @@ class BlockService {
   }
 
   /// Every block goes through [blockUser]: once the server confirms it, the
-  /// author leaves the on-disk caches (feed first pages, stories rail) and
+  /// author leaves the on-disk caches (feed first pages, stories rail,
+  /// Partners page 1 and daily matches) and
   /// joins the remembered block list, so no cached list paints them again,
   /// not even offline. Best effort: a failure here never fails the block.
   static Future<void> _forgetBlockedLocally(String blockedUserId) async {
+    _blocked.add(blockedUserId);
     try {
       await BlockedIdsStore()
           .add(userId: await _signedInUserId(), id: blockedUserId);
       await FeedFirstPageCache().removeAuthor(blockedUserId);
       await StoriesRailCache().removeUser(blockedUserId);
+      // Partners page 1 and today's matches on disk. Not flag-gated: an
+      // entry kept while the flag was on must not paint them later either;
+      // with no entry this reads two absent keys and writes nothing.
+      await CommunityFirstPageCache()
+          .removeUser(await _signedInUserId(), blockedUserId);
     } catch (_) {}
   }
 
@@ -112,6 +136,7 @@ class BlockService {
       final data = jsonDecode(response.body);
       final success = response.statusCode == 200;
       if (success) {
+        _unblocked.add(blockedUserId);
         try {
           await BlockedIdsStore()
               .remove(userId: await _signedInUserId(), id: blockedUserId);

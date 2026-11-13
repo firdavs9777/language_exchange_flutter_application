@@ -105,6 +105,10 @@ class AppConfig {
   /// server (no flag) keeps the current layout.
   final bool matchesLayoutEnabled;
 
+  /// Mirrors the server's slim-list switch for Community Partners; off by
+  /// default so an older server (no flag) keeps today's list requests.
+  final bool communityFastListEnabled;
+
   /// Invite-friends screen entry; off by default (server ships it dark).
   final bool referralsEnabled;
 
@@ -163,6 +167,7 @@ class AppConfig {
     this.gatheringsEnabled = true,
     this.smartSortEnabled = false,
     this.matchesLayoutEnabled = false,
+    this.communityFastListEnabled = false,
     this.referralsEnabled = false,
     this.boostsEnabled = false,
     this.rewardedLimitsEnabled = false,
@@ -202,6 +207,8 @@ class AppConfig {
       gatheringsEnabled: (json['gatheringsEnabled'] as bool?) ?? true,
       smartSortEnabled: (json['smartSortEnabled'] as bool?) ?? false,
       matchesLayoutEnabled: (json['matchesLayoutEnabled'] as bool?) ?? false,
+      // `is bool`, not `as bool?`: a non-bool value must read as off, not throw.
+      communityFastListEnabled: json['communityFastListEnabled'] == true,
       referralsEnabled: (json['referralsEnabled'] as bool?) ?? false,
       boostsEnabled: (json['boostsEnabled'] as bool?) ?? false,
       rewardedLimitsEnabled:

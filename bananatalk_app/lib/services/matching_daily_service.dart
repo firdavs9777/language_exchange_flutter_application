@@ -20,9 +20,23 @@ class MatchingDailyService {
   /// tab hides itself. Every other failure (network, 5xx, bad body) throws,
   /// so the tab shows its error state with Retry.
   static Future<DailyMatchesResult> getDaily() async {
+    final response = await _request();
+    return parseResponse(response.statusCode, response.body);
+  }
+
+  /// [getDaily] plus the decoded body as sent (null for the 404), for the
+  /// first-page disk cache. Same request, same errors, one decode.
+  static Future<({DailyMatchesResult result, Map<String, dynamic>? raw})>
+      getDailyWithRaw() async {
+    final response = await _request();
+    return _parse(response.statusCode, response.body);
+  }
+
+  /// The one `GET matching/daily` both paths send.
+  static Future<http.Response> _request() async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token');
-    final response = await http.get(
+    return http.get(
       Uri.parse('${Endpoints.baseURL}matching/daily'),
       headers: {
         'Content-Type': 'application/json',
@@ -30,12 +44,19 @@ class MatchingDailyService {
         if (token != null) 'Authorization': 'Bearer $token',
       },
     );
-    return parseResponse(response.statusCode, response.body);
   }
 
   @visibleForTesting
-  static DailyMatchesResult parseResponse(int statusCode, String body) {
-    if (statusCode == 404) return DailyMatchesResult.unavailableResult;
+  static DailyMatchesResult parseResponse(int statusCode, String body) =>
+      _parse(statusCode, body).result;
+
+  static ({DailyMatchesResult result, Map<String, dynamic>? raw}) _parse(
+    int statusCode,
+    String body,
+  ) {
+    if (statusCode == 404) {
+      return (result: DailyMatchesResult.unavailableResult, raw: null);
+    }
     if (statusCode != 200) {
       throw MatchingDailyException('HTTP $statusCode');
     }
@@ -43,6 +64,6 @@ class MatchingDailyService {
     if (data is! Map<String, dynamic>) {
       throw const MatchingDailyException('unexpected body');
     }
-    return DailyMatchesResult.fromJson(data);
+    return (result: DailyMatchesResult.fromJson(data), raw: data);
   }
 }
