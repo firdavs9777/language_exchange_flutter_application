@@ -168,6 +168,31 @@ void main() {
           PartnerFilterNotifier.diskFingerprint(_default));
     });
 
+    test('someone blocked this session is not painted from disk', () async {
+      // The block removes them from disk too; this covers a copy written
+      // after that (or a removal that failed).
+      await _seed('me', ['x', 'y']);
+      final blocks = StreamController<String>.broadcast(sync: true);
+      addTearDown(blocks.close);
+      final n = PartnerFilterNotifier(
+        service,
+        () => smart,
+        () => flag,
+        DateTime.now,
+        cache,
+        blocks.stream,
+      );
+      blocks.add('x');
+      service.gate = Completer();
+      final load = n.loadWithFilters(_default, diskCacheable: true);
+      await _flush();
+      expect(_ids(n.state), ['y']);
+      expect(n.state.fromCache, isTrue);
+      service.gate!.complete(_page(['x', 'a']));
+      await load;
+      expect(_ids(n.state), ['a']);
+    });
+
     test('a cache for another filter fingerprint is ignored', () async {
       await _seed('me', ['x'], filters: const PartnerFilterParams(gender: 'male'));
       final n = make();

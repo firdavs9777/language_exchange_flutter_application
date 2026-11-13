@@ -478,7 +478,11 @@ class _MatchesTabState extends ConsumerState<MatchesTab> {
         !async.hasValue &&
         !async.hasError &&
         ref.exists(dailyMatchesCachedProvider)) {
-      final cached = ref.watch(dailyMatchesCachedProvider).valueOrNull;
+      final cachedAsync = ref.watch(dailyMatchesCachedProvider);
+      // Not while it reloads: after a sign-out it still carries the previous
+      // user's batch until the new user's disk read lands.
+      final cached =
+          cachedAsync.isLoading ? null : cachedAsync.valueOrNull;
       if (cached != null) return dataView(cached, fromCache: true);
     }
     return async.when(

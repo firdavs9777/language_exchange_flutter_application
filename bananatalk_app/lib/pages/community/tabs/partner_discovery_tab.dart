@@ -179,7 +179,12 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
       notifier.rememberServerExcluded(excluded);
       if (mounted) {
         setState(() {
-          _serverExcludedUsers = excluded;
+          // Flag on: the server set plus this session's skips, waves and
+          // blocks (a skip still on its way to the server stays hidden).
+          // Flag off: hasKeptExclusions is false, so exactly the server set.
+          _serverExcludedUsers = notifier.hasKeptExclusions
+              ? notifier.keptExclusions
+              : excluded;
           _exclusionsKnown = true;
         });
       }
@@ -358,8 +363,11 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
           final keep = notifier.isFreshFor(filterParams);
           if (!_exclusionsResolved) {
             _exclusionsResolved = true;
+            // A kept list is filtered by what the notifier kept at once,
+            // this session's skips and blocks included, even while the
+            // server set is still being fetched.
+            if (keep) _serverExcludedUsers = notifier.keptExclusions;
             if (keep && notifier.hasKeptExclusions) {
-              _serverExcludedUsers = notifier.keptExclusions;
               _exclusionsKnown = true;
             } else {
               _loadServerExcludedUsers();
@@ -374,10 +382,11 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
                 chips == const PartnerQuickChips();
             Future(() {
               if (!mounted) return;
-              notifier.loadWithFilters(
-                filterParams,
-                diskCacheable: diskCacheable,
-              );
+              // Read again here, as before: a session reset may have
+              // replaced the notifier since this build.
+              ref
+                  .read(partnerFilterProvider.notifier)
+                  .loadWithFilters(filterParams, diskCacheable: diskCacheable);
             });
           }
         }

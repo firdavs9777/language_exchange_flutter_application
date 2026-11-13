@@ -98,9 +98,6 @@ void main() {
         elapsed += const Duration(milliseconds: 10);
       }
 
-      // ignore: avoid_print
-      print('flag ${flag ? 'on' : 'off'}, shell=$shellStartsProfile: ${events.map((k, v) => MapEntry(k, '${v.inMilliseconds}ms'))}');
-
       final configDone = events['config-done']!;
       final userDone = events['user-done']!;
       final usersStart = events['users-start']!;

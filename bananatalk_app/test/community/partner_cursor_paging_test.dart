@@ -241,10 +241,108 @@ void main() {
       expect(n.state.hasMore, isFalse);
     });
 
+    test('a number-paged page resets the empty-page count', () async {
+      // Two all-repeat cursor pages, one server fallback page without a
+      // cursor, then the cursor is back: one more all-repeat page must not
+      // end the list.
+      await page1(['x1'], cursor: 'C1');
+      await more([], cursor: 'C2');
+      await more(['x1'], cursor: 'C3');
+      await more(['x2']);
+      expect(n.state.hasMore, isTrue);
+      await more(['x1'], cursor: 'C4');
+      expect(n.state.hasMore, isTrue);
+    });
+
+    test('a loadMore with a cursor still in flight after a filter change '
+        'appends nothing and restores no cursor', () async {
+      await page1(['x1'], cursor: 'C1');
+      final old = n.loadMore(force: true);
+      final oldCall = service.calls.last;
+      expect(service.queries.last['cursor'], 'C1');
+      final reload = n.loadWithFilters(b);
+      final reloadCall = service.calls.last;
+      oldCall.complete(_page(['x2'], cursor: 'C2'));
+      await old;
+      expect(n.state.users, isEmpty);
+      expect(n.state.nextCursor, isNull);
+      expect(n.state.filters, b);
+      reloadCall.complete(_page(['y1'], cursor: 'D1'));
+      await reload;
+      expect(n.state.users.map((u) => u.id), ['y1']);
+      expect(n.state.nextCursor, 'D1');
+      expect(n.state.currentPage, 1);
+    });
+
     test('a page-1 load records when it arrived', () async {
       expect(n.state.loadedAt, isNull);
       await page1(['x1']);
       expect(n.state.loadedAt, isNotNull);
+    });
+  });
+
+  group('blocked ids', () {
+    late StreamController<String> blocks;
+    late bool fast;
+
+    setUp(() {
+      blocks = StreamController<String>.broadcast(sync: true);
+      addTearDown(blocks.close);
+      fast = true;
+      service = _FakeService();
+      n = PartnerFilterNotifier(
+        service,
+        () => false,
+        () => fast,
+        DateTime.now,
+        null,
+        blocks.stream,
+      );
+    });
+
+    test('a block while page 2 is in flight: the person is not appended, '
+        'and a refresh does not bring them back', () async {
+      await page1(['x1'], cursor: 'C1');
+      final f = n.loadMore(force: true);
+      blocks.add('x2');
+      service.answer(_page(['x2', 'x3'], cursor: 'C2'));
+      await f;
+      expect(n.state.users.map((u) => u.id), ['x1', 'x3']);
+      final r = n.refresh();
+      service.answer(_page(['x2', 'x1']));
+      await r;
+      expect(n.state.users.map((u) => u.id), ['x1']);
+    });
+
+    test('a refresh clears local hides but not blocked ids', () async {
+      n.hideLocally('s1');
+      blocks.add('x2');
+      n.clearLocalHides();
+      expect(n.keptExclusions, {'x2'});
+    });
+
+    test('a page whose only new row was blocked does not count as empty',
+        () async {
+      await page1(['x1'], cursor: 'C1');
+      blocks.add('x2');
+      await more(['x2'], cursor: 'C2');
+      expect(n.state.users.map((u) => u.id), ['x1']);
+      await more([], cursor: 'C3');
+      await more([], cursor: 'C4');
+      // Two empty pages so far, not three.
+      expect(n.state.hasMore, isTrue);
+    });
+
+    test('flag off: a block filters nothing', () async {
+      fast = false;
+      await page1(['x1', 'x2']);
+      blocks.add('x2');
+      expect(n.state.users.map((u) => u.id), ['x1', 'x2']);
+      final r = n.refresh();
+      service.answer(_page(['x1', 'x2']));
+      await r;
+      expect(n.state.users.map((u) => u.id), ['x1', 'x2']);
+      expect(n.keptExclusions, isEmpty);
     });
   });
 

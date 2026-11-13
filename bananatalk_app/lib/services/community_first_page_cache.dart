@@ -45,7 +45,12 @@ class CommunityFirstPageCache {
   static const String daily = 'daily';
   static const List<String> slots = [partners, daily];
 
+  /// Partners page 1 is 20 rows. A daily batch is up to 24 (a VIP's 15 plus
+  /// up to 9 extra matches, backend `lib/dailyMatches.js`).
   static const int maxRows = 20;
+  static const int maxDailyRows = 24;
+
+  static int maxRowsFor(String slot) => slot == daily ? maxDailyRows : maxRows;
   static const int maxBytes = 300 * 1024;
 
   /// Partners entries expire after this; daily entries at their stored
@@ -77,8 +82,8 @@ class CommunityFirstPageCache {
     }
   }
 
-  /// Stores at most [maxRows] [rows] for [userId]'s [slot]. Rows that are the
-  /// user's own profile are dropped. An entry over [maxBytes] is not stored
+  /// Stores at most [maxRowsFor] [rows] for [userId]'s [slot]. Rows that are
+  /// the user's own profile are dropped. An entry over [maxBytes] is not stored
   /// and the previous one is removed: a stale page is worse than none.
   Future<void> write({
     required String userId,
@@ -93,7 +98,7 @@ class CommunityFirstPageCache {
       if (epoch != null && epoch != _epoch) return;
       final kept = rows
           .where((r) => rowUserId(r) != userId)
-          .take(maxRows)
+          .take(maxRowsFor(slot))
           .toList();
       final encoded = jsonEncode({
         'v': 1,
@@ -164,7 +169,9 @@ class CommunityFirstPageCache {
     if (age.isNegative || age > maxAge) return null;
     final rawMeta = decoded['meta'];
     final rawRows = decoded['rows'];
-    if (rawMeta is! Map || rawRows is! List || rawRows.length > maxRows) {
+    if (rawMeta is! Map ||
+        rawRows is! List ||
+        rawRows.length > maxRowsFor(slot)) {
       return null;
     }
     final meta = Map<String, dynamic>.from(rawMeta);

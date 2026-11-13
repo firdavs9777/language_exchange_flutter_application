@@ -76,6 +76,16 @@ void main() {
     expect((await cache.read(userId: 'me', slot: p))!.rows, hasLength(20));
   });
 
+  test('a daily entry keeps a full VIP batch with extras (24 rows)', () async {
+    final cache = CommunityFirstPageCache(now: () => t0);
+    await cache.write(
+        userId: 'me',
+        slot: d,
+        rows: [for (var i = 0; i < 30; i++) _match('$i')],
+        meta: {'nextRefreshAt': t0.add(const Duration(hours: 1)).toIso8601String()});
+    expect((await cache.read(userId: 'me', slot: d))!.rows, hasLength(24));
+  });
+
   test('an over-size write is dropped and removes the previous entry',
       () async {
     final cache = CommunityFirstPageCache(now: () => t0);

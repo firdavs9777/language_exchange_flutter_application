@@ -1029,7 +1029,7 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
   /// reloads on return anyway).
   void removeUser(String userId) {
     if (!_fastListEnabled()) return;
-    _locallyHidden.add(userId);
+    _blocked.add(userId);
     if (state.users.any((u) => u.id == userId)) {
       state = state.copyWith(
         users: state.users.where((u) => u.id != userId).toList(),
@@ -1065,10 +1065,23 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
   final Set<String> _locallyHidden = {};
   bool _exclusionsLoaded = false;
 
+  /// Users blocked this session (see [removeUser]). Unlike [_locallyHidden]
+  /// a refresh keeps them: a page already in flight, or a server that still
+  /// returns them, must not bring them back. Only [clear] (and the session
+  /// reset, which disposes this notifier) forgets them.
+  final Set<String> _blocked = {};
+
+  /// [users] without anyone blocked this session. Flag off: [users] as is.
+  List<Community> _withoutBlocked(List<Community> users) =>
+      !_fastListEnabled() || _blocked.isEmpty
+          ? users
+          : users.where((u) => !_blocked.contains(u.id)).toList();
+
   bool get hasKeptExclusions => _fastListEnabled() && _exclusionsLoaded;
 
-  Set<String> get keptExclusions =>
-      _fastListEnabled() ? {..._serverExcluded, ..._locallyHidden} : const {};
+  Set<String> get keptExclusions => _fastListEnabled()
+      ? {..._serverExcluded, ..._locallyHidden, ..._blocked}
+      : const {};
 
   /// The server's skipped + waved set, as just fetched.
   void rememberServerExcluded(Set<String> ids) {
@@ -1170,7 +1183,7 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
       );
 
       state = state.copyWith(
-        users: response.users,
+        users: _withoutBlocked(response.users),
         currentPage: 1,
         total: response.total,
         hasMore: hasMore,
@@ -1212,7 +1225,12 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
     for (final row in snapshot.rows) {
       try {
         final user = Community.fromJson(row);
-        if (user.id.isNotEmpty && user.id != userId) users.add(user);
+        // Disk paint runs with the flag on only: blocked ids apply.
+        if (user.id.isNotEmpty &&
+            user.id != userId &&
+            !_blocked.contains(user.id)) {
+          users.add(user);
+        }
       } catch (_) {}
     }
     if (users.isEmpty) return;
@@ -1266,7 +1284,11 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
     required int newUsers,
     required String? cursor,
   }) {
-    if (cursor == null) return response.users.isNotEmpty && response.hasMore;
+    if (cursor == null) {
+      // A server fallback page: the all-repeat run (if any) is broken.
+      _emptyPages = 0;
+      return response.users.isNotEmpty && response.hasMore;
+    }
     if (newUsers > 0) {
       _emptyPages = 0;
     } else {
@@ -1337,6 +1359,8 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
 
       final cursor = fast ? response.nextCursor : null;
       // If 0 results returned on load more, stop trying to load more
+      // Counted before the blocked filter: a page whose only new person was
+      // just blocked is not an empty page.
       final hasMore = _hasMoreAfter(
         response,
         newUsers: added.length,
@@ -1344,7 +1368,7 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
       );
 
       state = state.copyWith(
-        users: [...state.users, ...added],
+        users: [...state.users, ..._withoutBlocked(added)],
         currentPage: nextPage,
         total: response.total,
         hasMore: hasMore,
@@ -1381,6 +1405,7 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
     _diskCacheableFilters = null;
     _serverExcluded = {};
     _locallyHidden.clear();
+    _blocked.clear();
     _exclusionsLoaded = false;
     state = const PartnerFilterState();
   }

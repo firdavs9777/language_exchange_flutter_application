@@ -371,6 +371,29 @@ void main() {
     expect(await onDisk('me'), isNull);
   });
 
+  run("user A's cached cards are not shown to user B for even one frame "
+      'after sign-out and sign-in in one process', (tester) async {
+    await prefs.setString('userId', 'A');
+    await _seed('A', ['x']);
+    // A's network batch never lands: the cached one is what A sees.
+    net.dailyGate = Completer();
+    await pumpTab(tester);
+    expect(find.text('Person x'), findsOneWidget);
+    swap(() => showTab = false);
+    await tester.pump();
+    invalidateUserScopedProviders(container.invalidate);
+    await prefs.setString('userId', 'B');
+    swap(() => showTab = true);
+    // The first frame for B: the disk read for B has not resolved yet.
+    await tester.pump();
+    expect(find.text('Person x'), findsNothing);
+    await settle(tester);
+    expect(find.text('Person x'), findsNothing);
+    net.dailyGate!.complete();
+    await settle(tester);
+    expect(find.text('Person n1'), findsOneWidget);
+  });
+
   test("user A's cached batch is never read for user B after a reset",
       () async {
     SharedPreferences.setMockInitialValues({'userId': 'A'});

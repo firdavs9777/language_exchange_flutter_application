@@ -149,13 +149,14 @@ void main() {
     late bool flag;
     late int excludedCalls;
     late Set<String> excludedIds;
+    Completer<void>? excludedGate;
     late ProviderContainer container;
     late http.Client client;
     var showTab = true;
     late StateSetter swap;
     Map<String, dynamic> filters = {};
 
-    Future<void> pumpHost(WidgetTester tester) async {
+    Future<void> pumpHost(WidgetTester tester, {bool settleNow = true}) async {
       container = ProviderContainer(
         overrides: [
           communityFastListEnabledProvider.overrideWith((ref) => flag),
@@ -197,7 +198,7 @@ void main() {
           ),
         ),
       );
-      await settle(tester);
+      if (settleNow) await settle(tester);
     }
 
     Future<void> switchAwayAndBack(WidgetTester tester, {Map<String, dynamic>? whileAway}) async {
@@ -219,11 +220,14 @@ void main() {
         flag = true;
         excludedCalls = 0;
         excludedIds = {};
+        excludedGate = null;
         showTab = true;
         filters = {};
         client = MockClient((req) async {
           if (req.url.path.endsWith('interactions/excluded')) {
             excludedCalls++;
+            final gate = excludedGate;
+            if (gate != null) await gate.future;
             return http.Response('{"data": ${excludedIds.map((e) => '"$e"').toList()}}', 200);
           }
           return http.Response('{"message": "ok"}', 200);
@@ -349,6 +353,51 @@ void main() {
       expect(excludedCalls, 2);
       expect(find.text('Person a'), findsOneWidget);
     });
+
+    run('flag on: a session skip stays hidden on a remount before any '
+        'exclusions fetch has answered', (tester) async {
+      excludedGate = Completer();
+      await pumpHost(tester);
+      final kept = container.read(partnerFilterProvider.notifier);
+      expect(kept.hasKeptExclusions, isFalse);
+      tester
+          .widgetList<PartnerCard>(find.byType(PartnerCard))
+          .firstWhere((c) => c.onSkip != null)
+          .onSkip!();
+      await settle(tester);
+      final gone = kept.keptExclusions.single;
+      await switchAwayAndBack(tester);
+      expect(service.queries.length, 1);
+      expect(excludedCalls, 2);
+      expect(find.text('Person $gone'), findsNothing);
+      excludedGate!.complete();
+      await settle(tester);
+      // The fetch landing (the server has no record of the skip yet) does
+      // not bring them back either.
+      expect(find.text('Person $gone'), findsNothing);
+    }, view: 'swipe');
+
+    for (final on in [false, true]) {
+      run('flag ${on ? 'on' : 'off'}: the first load lands on the live '
+          'notifier when the provider is reset before it starts', (tester) async {
+        flag = on;
+        await pumpHost(tester, settleNow: false);
+        // Reset the provider after every frame until the load has started:
+        // the frame that schedules the load is followed by a reset before
+        // the scheduled load runs.
+        for (var i = 0; i < 20 && service.queries.isEmpty; i++) {
+          await tester.pump();
+          if (service.queries.isEmpty) {
+            container.invalidate(partnerFilterProvider);
+          }
+        }
+        await settle(tester);
+        expect(tester.takeException(), isNull);
+        expect(service.queries.length, 1);
+        expect(container.read(partnerFilterProvider).filters, isNotNull);
+        expect(find.text('Person a'), findsOneWidget);
+      });
+    }
 
     run('flag on: pull-to-refresh still reloads', (tester) async {
       await pumpHost(tester);

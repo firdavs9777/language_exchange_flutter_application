@@ -116,5 +116,14 @@ void main() {
       )));
       expect(_urls(t), everyElement(fullUrl));
     });
+    testWidgets('mini story badge with empty thumb -> first image', (t) async {
+      await t.pumpWidget(_wrap(SizedBox(
+        height: 700,
+        child: PartnerCard(
+          user: Community.fromJson(_user(thumb: '', story: true)),
+        ),
+      )));
+      expect(_urls(t), everyElement(fullUrl));
+    });
   });
 }
