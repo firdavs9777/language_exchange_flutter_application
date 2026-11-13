@@ -33,6 +33,15 @@ final appConfigProvider = FutureProvider<AppConfig?>((ref) async {
   return config;
 });
 
+/// Server's slim Community list switch. False while app-config loads, on
+/// error, and when the server predates the flag.
+final communityFastListEnabledProvider = Provider<bool>((ref) {
+  return ref.watch(appConfigProvider).maybeWhen(
+        data: (c) => c?.communityFastListEnabled ?? false,
+        orElse: () => false,
+      );
+});
+
 /// How long after a fetch a resume does not fetch again.
 const Duration appConfigRefreshInterval = Duration(minutes: 2);
 

@@ -708,3 +708,9 @@ P2 cleanup
 - [ ] Order: backend phase 1 (deploy; old apps unaffected) → web phase 3 (deploy) and app phase 2 (next release build). Full test suite + build before every push (backend/web push = live deploy). M
 - [ ] Device/browser QA per chip (All, Online, Nearby, Same city, Women, Men, New, Topic), paging to page 3+, Back restores position, offline → retry, block a user → gone from all lists, count matches list. M
 - [ ] Measure after: Community requests on open (app ~5–7 today, web incl. duplicate app-config), `/users` p50 latency, waves/week (1,141 per 30 days baseline). S
+
+## Community matching app (Plan C2)
+
+- [x] Task 1: read `communityFastListEnabled` (default off) + `communityFastListEnabledProvider`
+- [ ] Task 2: list/card avatars use `avatarUrl` (thumbnail when sent)
+- [ ] Tasks 3-7: slim list request + cursor paging, tab-switch refetch, disk paint, remaining plan items
