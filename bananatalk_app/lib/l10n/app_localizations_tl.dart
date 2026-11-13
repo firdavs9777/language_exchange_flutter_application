@@ -12753,4 +12753,16 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get storyUploadFileMissing => 'Wala na sa device mo ang larawan o video ng story na ito.';
+
+  @override
+  String get storyUploading => 'Pino-post ang story mo…';
+
+  @override
+  String get storyUploadRetry => 'I-tap para subukan muli';
+
+  @override
+  String get storyUploadRemove => 'Alisin';
+
+  @override
+  String get storyUploadFailed => 'Hindi na-post ang story mo.';
 }

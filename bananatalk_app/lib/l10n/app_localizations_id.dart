@@ -12738,4 +12738,16 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get storyUploadFileMissing => 'Foto atau video story ini sudah tidak ada di perangkatmu.';
+
+  @override
+  String get storyUploading => 'Memposting story kamu…';
+
+  @override
+  String get storyUploadRetry => 'Ketuk untuk coba lagi';
+
+  @override
+  String get storyUploadRemove => 'Hapus';
+
+  @override
+  String get storyUploadFailed => 'Story kamu tidak bisa diposting.';
 }

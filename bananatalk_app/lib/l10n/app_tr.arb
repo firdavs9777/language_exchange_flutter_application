@@ -5020,5 +5020,9 @@
   "storyQuizWrong": "Pek değil",
   "storySaveWord": "Kelimeyi kaydet",
   "storyQuizDuplicateOption": "İki seçenek aynı",
-  "storyUploadFileMissing": "Bu hikayenin fotoğrafı veya videosu artık cihazında yok."
+  "storyUploadFileMissing": "Bu hikayenin fotoğrafı veya videosu artık cihazında yok.",
+  "storyUploading": "Hikayen paylaşılıyor…",
+  "storyUploadRetry": "Tekrar denemek için dokun",
+  "storyUploadRemove": "Kaldır",
+  "storyUploadFailed": "Hikayen paylaşılamadı."
 }

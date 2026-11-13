@@ -12727,4 +12727,16 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get storyUploadFileMissing => 'รูปภาพหรือวิดีโอของสตอรี่นี้ไม่อยู่ในอุปกรณ์ของคุณแล้ว';
+
+  @override
+  String get storyUploading => 'กำลังโพสต์สตอรี่ของคุณ…';
+
+  @override
+  String get storyUploadRetry => 'แตะเพื่อลองอีกครั้ง';
+
+  @override
+  String get storyUploadRemove => 'ลบ';
+
+  @override
+  String get storyUploadFailed => 'โพสต์สตอรี่ของคุณไม่สำเร็จ';
 }

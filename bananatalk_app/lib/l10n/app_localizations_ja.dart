@@ -12727,4 +12727,16 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get storyUploadFileMissing => 'このストーリーの写真または動画が端末に見つかりません。';
+
+  @override
+  String get storyUploading => 'ストーリーを投稿中…';
+
+  @override
+  String get storyUploadRetry => 'タップして再試行';
+
+  @override
+  String get storyUploadRemove => '削除';
+
+  @override
+  String get storyUploadFailed => 'ストーリーを投稿できませんでした。';
 }

@@ -4808,5 +4808,9 @@
   "storyQuizWrong": "Chưa đúng",
   "storySaveWord": "Lưu từ",
   "storyQuizDuplicateOption": "Có hai lựa chọn giống nhau",
-  "storyUploadFileMissing": "Ảnh hoặc video của story này không còn trên thiết bị của bạn."
+  "storyUploadFileMissing": "Ảnh hoặc video của story này không còn trên thiết bị của bạn.",
+  "storyUploading": "Đang đăng story của bạn…",
+  "storyUploadRetry": "Chạm để thử lại",
+  "storyUploadRemove": "Xóa",
+  "storyUploadFailed": "Không thể đăng story của bạn."
 }

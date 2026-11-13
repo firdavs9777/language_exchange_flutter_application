@@ -12749,4 +12749,16 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get storyUploadFileMissing => 'Акс ё видеои ин стори дигар дар дастгоҳи шумо нест.';
+
+  @override
+  String get storyUploading => 'Стории шумо нашр шуда истодааст…';
+
+  @override
+  String get storyUploadRetry => 'Барои такрор пахш кунед';
+
+  @override
+  String get storyUploadRemove => 'Тоза кардан';
+
+  @override
+  String get storyUploadFailed => 'Стории шумо нашр нашуд.';
 }

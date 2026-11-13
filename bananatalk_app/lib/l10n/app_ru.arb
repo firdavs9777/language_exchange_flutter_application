@@ -4838,5 +4838,9 @@
   "storyQuizWrong": "Не совсем",
   "storySaveWord": "Сохранить слово",
   "storyQuizDuplicateOption": "Два варианта совпадают",
-  "storyUploadFileMissing": "Фото или видео этой истории больше нет на вашем устройстве."
+  "storyUploadFileMissing": "Фото или видео этой истории больше нет на вашем устройстве.",
+  "storyUploading": "Публикуем вашу историю…",
+  "storyUploadRetry": "Нажмите, чтобы повторить",
+  "storyUploadRemove": "Удалить",
+  "storyUploadFailed": "Не удалось опубликовать историю."
 }

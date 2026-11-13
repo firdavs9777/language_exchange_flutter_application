@@ -12858,4 +12858,16 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get storyUploadFileMissing => 'لم تعد صورة هذه القصة أو الفيديو الخاص بها على جهازك.';
+
+  @override
+  String get storyUploading => 'جارٍ نشر قصتك…';
+
+  @override
+  String get storyUploadRetry => 'اضغط لإعادة المحاولة';
+
+  @override
+  String get storyUploadRemove => 'إزالة';
+
+  @override
+  String get storyUploadFailed => 'تعذّر نشر قصتك.';
 }

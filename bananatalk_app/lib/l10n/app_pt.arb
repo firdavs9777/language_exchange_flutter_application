@@ -4824,5 +4824,9 @@
   "storyQuizWrong": "Quase",
   "storySaveWord": "Salvar palavra",
   "storyQuizDuplicateOption": "Duas opções são iguais",
-  "storyUploadFileMissing": "A foto ou o vídeo deste story não está mais no seu dispositivo."
+  "storyUploadFileMissing": "A foto ou o vídeo deste story não está mais no seu dispositivo.",
+  "storyUploading": "Publicando seu story…",
+  "storyUploadRetry": "Toque para tentar de novo",
+  "storyUploadRemove": "Remover",
+  "storyUploadFailed": "Não foi possível publicar seu story."
 }

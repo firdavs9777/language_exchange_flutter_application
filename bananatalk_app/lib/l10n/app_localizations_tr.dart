@@ -12747,4 +12747,16 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get storyUploadFileMissing => 'Bu hikayenin fotoğrafı veya videosu artık cihazında yok.';
+
+  @override
+  String get storyUploading => 'Hikayen paylaşılıyor…';
+
+  @override
+  String get storyUploadRetry => 'Tekrar denemek için dokun';
+
+  @override
+  String get storyUploadRemove => 'Kaldır';
+
+  @override
+  String get storyUploadFailed => 'Hikayen paylaşılamadı.';
 }

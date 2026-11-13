@@ -4808,5 +4808,9 @@
   "storyQuizWrong": "Belum tepat",
   "storySaveWord": "Simpan kata",
   "storyQuizDuplicateOption": "Dua opsi sama",
-  "storyUploadFileMissing": "Foto atau video story ini sudah tidak ada di perangkatmu."
+  "storyUploadFileMissing": "Foto atau video story ini sudah tidak ada di perangkatmu.",
+  "storyUploading": "Memposting story kamu…",
+  "storyUploadRetry": "Ketuk untuk coba lagi",
+  "storyUploadRemove": "Hapus",
+  "storyUploadFailed": "Story kamu tidak bisa diposting."
 }

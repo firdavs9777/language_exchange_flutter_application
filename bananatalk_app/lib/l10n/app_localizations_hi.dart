@@ -12760,4 +12760,16 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get storyUploadFileMissing => 'इस स्टोरी की फ़ोटो या वीडियो अब आपके डिवाइस पर नहीं है।';
+
+  @override
+  String get storyUploading => 'आपकी स्टोरी पोस्ट हो रही है…';
+
+  @override
+  String get storyUploadRetry => 'दोबारा कोशिश के लिए टैप करें';
+
+  @override
+  String get storyUploadRemove => 'हटाएं';
+
+  @override
+  String get storyUploadFailed => 'आपकी स्टोरी पोस्ट नहीं हो सकी।';
 }

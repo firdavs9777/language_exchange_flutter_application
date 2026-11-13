@@ -13232,4 +13232,16 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get storyUploadFileMissing => 'Фото или видео этой истории больше нет на вашем устройстве.';
+
+  @override
+  String get storyUploading => 'Публикуем вашу историю…';
+
+  @override
+  String get storyUploadRetry => 'Нажмите, чтобы повторить';
+
+  @override
+  String get storyUploadRemove => 'Удалить';
+
+  @override
+  String get storyUploadFailed => 'Не удалось опубликовать историю.';
 }

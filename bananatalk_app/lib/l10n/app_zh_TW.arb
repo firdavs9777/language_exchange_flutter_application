@@ -4499,5 +4499,9 @@
   "storyQuizWrong": "不太對",
   "storySaveWord": "儲存單字",
   "storyQuizDuplicateOption": "有兩個選項相同",
-  "storyUploadFileMissing": "這則限時動態的照片或影片已不在你的裝置上。"
+  "storyUploadFileMissing": "這則限時動態的照片或影片已不在你的裝置上。",
+  "storyUploading": "正在發佈限時動態…",
+  "storyUploadRetry": "點一下重試",
+  "storyUploadRemove": "移除",
+  "storyUploadFailed": "限時動態發佈失敗。"
 }

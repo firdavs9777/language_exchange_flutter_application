@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:bananatalk_app/widgets/limit_exceeded_dialog.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:bananatalk_app/pages/stories/widgets/story_limit.dart';
+import 'package:bananatalk_app/providers/upload_manager_provider.dart';
+import 'package:bananatalk_app/services/story_upload_payload.dart';
+import 'package:bananatalk_app/services/upload_queue_service.dart' show StoryUploadQueueException;
 import 'package:bananatalk_app/services/camera_recovery.dart';
 import 'package:video_player/video_player.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
@@ -578,6 +580,11 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
     setState(() => _isUploading = true);
 
     try {
+      // Flag on: bake / compress as below, then hand the story to the upload
+      // queue and leave. False only when nothing could be queued (e.g. the
+      // private file copy failed); the blocking path below then posts it.
+      if (_storyQueueEnabled() && await _postThroughQueue()) return;
+
       if (_isTextStory) {
         // Text-only stories must still send real `text` so older client
         // versions (which render only `story.text`, not `overlays[]`) show
@@ -700,17 +707,87 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
     }
   }
 
+  bool _storyQueueEnabled() => ref.read(appConfigProvider).maybeWhen(
+        data: (c) => c?.storyUploadQueueEnabled ?? false,
+        orElse: () => false,
+      );
+
+  /// Queues the story with every field the blocking calls below send, pops
+  /// at once and says it is posting (not "posted": it is only queued).
+  /// Returns false, queuing nothing, when the queue refuses it.
+  Future<bool> _postThroughQueue() async {
+    File? baked;
+    final StoryUploadPayload payload;
+    if (_isTextStory) {
+      final composedText = _overlays
+          .where((o) => o.type == 'text')
+          .map((o) => o.content)
+          .join('\n');
+      payload = StoryUploadPayload(
+        text: composedText.trim().isEmpty ? ' ' : composedText,
+        backgroundColor: _gradientId,
+        fontStyle: 'normal',
+        privacy: _privacy,
+        hashtags: _hashtags,
+        overlays: _overlays.map((o) => o.toJson()).toList(),
+        location: _pickedLocation,
+        mentions: _mentions,
+        link: _link,
+        poll: _poll,
+        questionBox: _questionBox,
+        correctionSticker: _correction,
+        quizSticker: _quiz,
+        wordSticker: _word,
+      );
+    } else {
+      File uploadFile = _mediaFile!;
+      if (_mediaType == 'image' && (_filterIndex != 0 || _strokes.isNotEmpty)) {
+        uploadFile = await bakeImage(_bakeKey, _mediaFile!);
+        baked = uploadFile;
+      }
+      payload = StoryUploadPayload(
+        mediaPath: uploadFile.path,
+        isVideo: _isVideo,
+        text: _captionController.text.trim(),
+        backgroundColor: _selectedColor,
+        privacy: _privacy,
+        overlays: _overlays.map((o) => o.toJson()).toList(),
+        poll: _poll,
+        questionBox: _questionBox,
+        correctionSticker: _correction,
+        quizSticker: _quiz,
+        wordSticker: _word,
+        hashtags: _hashtags,
+        location: _pickedLocation,
+        mentions: _mentions,
+        link: _link,
+      );
+    }
+
+    try {
+      await ref.read(uploadManagerProvider.notifier).queueStoryUpload(payload);
+    } on StoryUploadQueueException {
+      return false;
+    }
+    // The queue keeps its own copy; the baked temp file is ours to drop.
+    try {
+      await baked?.delete();
+    } catch (_) {}
+    if (mounted) {
+      final l10n = AppLocalizations.of(context)!;
+      Navigator.pop(context);
+      showStoriesSnackBar(
+        context,
+        message: l10n.storyUploading,
+        type: StoriesSnackBarType.info,
+      );
+    }
+    return true;
+  }
+
   /// Daily story limit reached: the same upgrade dialog as moments and
   /// comments, instead of a dead-end error snackbar.
-  Future<void> _showStoryLimit() async {
-    final prefs = await SharedPreferences.getInstance();
-    if (!mounted) return;
-    await LimitExceededDialog.show(
-      context: context,
-      limitType: 'stories',
-      userId: prefs.getString('userId') ?? '',
-    );
-  }
+  Future<void> _showStoryLimit() => showStoryLimitDialog(context);
 
   @override
   Widget build(BuildContext context) {

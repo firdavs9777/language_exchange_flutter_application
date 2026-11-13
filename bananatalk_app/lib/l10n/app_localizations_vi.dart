@@ -12727,4 +12727,16 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get storyUploadFileMissing => 'Ảnh hoặc video của story này không còn trên thiết bị của bạn.';
+
+  @override
+  String get storyUploading => 'Đang đăng story của bạn…';
+
+  @override
+  String get storyUploadRetry => 'Chạm để thử lại';
+
+  @override
+  String get storyUploadRemove => 'Xóa';
+
+  @override
+  String get storyUploadFailed => 'Không thể đăng story của bạn.';
 }

@@ -4808,5 +4808,9 @@
   "storyQuizWrong": "เกือบแล้ว",
   "storySaveWord": "บันทึกคำศัพท์",
   "storyQuizDuplicateOption": "มีสองตัวเลือกที่ซ้ำกัน",
-  "storyUploadFileMissing": "รูปภาพหรือวิดีโอของสตอรี่นี้ไม่อยู่ในอุปกรณ์ของคุณแล้ว"
+  "storyUploadFileMissing": "รูปภาพหรือวิดีโอของสตอรี่นี้ไม่อยู่ในอุปกรณ์ของคุณแล้ว",
+  "storyUploading": "กำลังโพสต์สตอรี่ของคุณ…",
+  "storyUploadRetry": "แตะเพื่อลองอีกครั้ง",
+  "storyUploadRemove": "ลบ",
+  "storyUploadFailed": "โพสต์สตอรี่ของคุณไม่สำเร็จ"
 }

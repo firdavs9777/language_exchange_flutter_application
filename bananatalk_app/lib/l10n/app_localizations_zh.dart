@@ -12727,6 +12727,18 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get storyUploadFileMissing => '这个故事的照片或视频已不在你的设备上。';
+
+  @override
+  String get storyUploading => '正在发布故事…';
+
+  @override
+  String get storyUploadRetry => '点按重试';
+
+  @override
+  String get storyUploadRemove => '移除';
+
+  @override
+  String get storyUploadFailed => '故事发布失败。';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -25452,4 +25464,16 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get storyUploadFileMissing => '這則限時動態的照片或影片已不在你的裝置上。';
+
+  @override
+  String get storyUploading => '正在發佈限時動態…';
+
+  @override
+  String get storyUploadRetry => '點一下重試';
+
+  @override
+  String get storyUploadRemove => '移除';
+
+  @override
+  String get storyUploadFailed => '限時動態發佈失敗。';
 }

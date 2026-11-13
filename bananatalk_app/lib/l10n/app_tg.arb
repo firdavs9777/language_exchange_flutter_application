@@ -4301,5 +4301,9 @@
   "storyQuizWrong": "Тамоман не",
   "storySaveWord": "Захира кардани калима",
   "storyQuizDuplicateOption": "Ду вариант якхела аст",
-  "storyUploadFileMissing": "Акс ё видеои ин стори дигар дар дастгоҳи шумо нест."
+  "storyUploadFileMissing": "Акс ё видеои ин стори дигар дар дастгоҳи шумо нест.",
+  "storyUploading": "Стории шумо нашр шуда истодааст…",
+  "storyUploadRetry": "Барои такрор пахш кунед",
+  "storyUploadRemove": "Тоза кардан",
+  "storyUploadFailed": "Стории шумо нашр нашуд."
 }

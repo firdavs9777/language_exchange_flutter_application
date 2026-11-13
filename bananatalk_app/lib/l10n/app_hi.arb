@@ -4824,5 +4824,9 @@
   "storyQuizWrong": "बिल्कुल नहीं",
   "storySaveWord": "शब्द सहेजें",
   "storyQuizDuplicateOption": "दो विकल्प एक जैसे हैं",
-  "storyUploadFileMissing": "इस स्टोरी की फ़ोटो या वीडियो अब आपके डिवाइस पर नहीं है।"
+  "storyUploadFileMissing": "इस स्टोरी की फ़ोटो या वीडियो अब आपके डिवाइस पर नहीं है।",
+  "storyUploading": "आपकी स्टोरी पोस्ट हो रही है…",
+  "storyUploadRetry": "दोबारा कोशिश के लिए टैप करें",
+  "storyUploadRemove": "हटाएं",
+  "storyUploadFailed": "आपकी स्टोरी पोस्ट नहीं हो सकी।"
 }

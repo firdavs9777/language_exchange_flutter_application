@@ -12,6 +12,9 @@ import 'package:bananatalk_app/pages/stories/feed/stories_rail_order.dart';
 import 'package:bananatalk_app/pages/stories/story_precache.dart';
 import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
 import 'package:bananatalk_app/pages/stories/feed/stories_feed_state.dart';
+import 'package:bananatalk_app/pages/stories/feed/story_upload_ring.dart';
+import 'package:bananatalk_app/providers/upload_manager_provider.dart';
+import 'package:bananatalk_app/services/upload_queue_service.dart';
 import 'package:bananatalk_app/pages/stories/viewer/story_viewer_screen.dart';
 import 'package:bananatalk_app/pages/stories/create/create_story_screen.dart';
 import 'package:bananatalk_app/providers/provider_root/block_provider.dart';
@@ -37,6 +40,10 @@ class StoriesFeedWidget extends ConsumerStatefulWidget {
   final StoriesRailCache? cache;
   final StoryPrecacher precache;
 
+  /// Task ids of queued stories that reached the server (the upload queue's
+  /// own stream by default).
+  final Stream<String> Function()? storyPostedStream;
+
   /// Whether the rail may warm story images now: Wi-Fi/Ethernet only (it
   /// runs on every app start, so never on mobile data).
   final Future<bool> Function() railPrecacheAllowed;
@@ -51,6 +58,7 @@ class StoriesFeedWidget extends ConsumerStatefulWidget {
     this.myStoriesLoader,
     this.cache,
     this.precache = precacheStoryImages,
+    this.storyPostedStream,
     this.railPrecacheAllowed = isOnUnmeteredNetwork,
   });
 
@@ -84,6 +92,10 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> with Widg
   bool _inFlight = false;
   StreamSubscription<List<ConnectivityResult>>? _connectivitySub;
 
+  /// Reloads the rail once when a queued story reaches the server. Only
+  /// listening while `storyUploadQueueEnabled` is on.
+  StreamSubscription<String>? _storyPostedSub;
+
   @override
   void initState() {
     super.initState();
@@ -96,10 +108,36 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> with Widg
         Connectivity().onConnectivityChanged.listen(_onConnectivityChanged);
     _loadCachedRail();
     _loadStories();
+    ref.listenManual(appConfigProvider, (_, __) => _syncStoryQueue(),
+        fireImmediately: true);
+  }
+
+  bool _storyQueueEnabled() => ref.read(appConfigProvider).maybeWhen(
+        data: (c) => c?.storyUploadQueueEnabled ?? false,
+        orElse: () => false,
+      );
+
+  /// With the flag on: start the upload manager now (so a story queued before
+  /// the app was killed resumes without the composer being opened) and reload
+  /// the rail when one lands. With it off: nothing.
+  void _syncStoryQueue() {
+    if (!_storyQueueEnabled()) {
+      _storyPostedSub?.cancel();
+      _storyPostedSub = null;
+      return;
+    }
+    if (_storyPostedSub != null) return;
+    ref.read(uploadManagerProvider);
+    _storyPostedSub = (widget.storyPostedStream ??
+            () => UploadQueueService().storyPostedStream)()
+        .listen((_) {
+      if (mounted) _loadStories(showLoading: false);
+    });
   }
 
   @override
   void dispose() {
+    _storyPostedSub?.cancel();
     _connectivitySub?.cancel();
     widget.refreshNotifier?.removeListener(_onRefreshNotified);
     WidgetsBinding.instance.removeObserver(this);
@@ -570,6 +608,12 @@ class _StoriesFeedWidgetState extends ConsumerState<StoriesFeedWidget> with Widg
                           ),
                         ),
                       ),
+                    ),
+                  // Own story still posting / failed (queue flag on only).
+                  if (_storyQueueEnabled())
+                    StoryUploadRing(
+                      userId: _currentUserId,
+                      avatarSize: widget.avatarSize,
                     ),
                   // Add button (always visible at bottom right)
                   Positioned(

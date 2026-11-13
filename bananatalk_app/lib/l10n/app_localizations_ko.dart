@@ -12727,4 +12727,16 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get storyUploadFileMissing => '이 스토리의 사진이나 동영상이 기기에 더 이상 없어요.';
+
+  @override
+  String get storyUploading => '스토리 올리는 중…';
+
+  @override
+  String get storyUploadRetry => '탭하여 다시 시도';
+
+  @override
+  String get storyUploadRemove => '삭제';
+
+  @override
+  String get storyUploadFailed => '스토리를 올리지 못했어요.';
 }

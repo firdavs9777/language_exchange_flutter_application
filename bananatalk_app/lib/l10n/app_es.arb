@@ -4838,5 +4838,9 @@
   "storyQuizWrong": "No del todo",
   "storySaveWord": "Guardar palabra",
   "storyQuizDuplicateOption": "Hay dos opciones iguales",
-  "storyUploadFileMissing": "La foto o el video de esta historia ya no está en tu dispositivo."
+  "storyUploadFileMissing": "La foto o el video de esta historia ya no está en tu dispositivo.",
+  "storyUploading": "Publicando tu historia…",
+  "storyUploadRetry": "Toca para reintentar",
+  "storyUploadRemove": "Quitar",
+  "storyUploadFailed": "No se pudo publicar tu historia."
 }

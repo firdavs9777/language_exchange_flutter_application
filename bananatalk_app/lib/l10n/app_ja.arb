@@ -4808,5 +4808,9 @@
   "storyQuizWrong": "おしい",
   "storySaveWord": "単語を保存",
   "storyQuizDuplicateOption": "同じ選択肢があります",
-  "storyUploadFileMissing": "このストーリーの写真または動画が端末に見つかりません。"
+  "storyUploadFileMissing": "このストーリーの写真または動画が端末に見つかりません。",
+  "storyUploading": "ストーリーを投稿中…",
+  "storyUploadRetry": "タップして再試行",
+  "storyUploadRemove": "削除",
+  "storyUploadFailed": "ストーリーを投稿できませんでした。"
 }

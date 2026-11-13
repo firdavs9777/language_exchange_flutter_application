@@ -23137,6 +23137,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This story\'s photo or video is no longer on your device.'**
   String get storyUploadFileMissing;
+
+  /// Chip on your own story ring while the story is posting in the background
+  ///
+  /// In en, this message translates to:
+  /// **'Posting your story…'**
+  String get storyUploading;
+
+  /// Chip on your own story ring when posting failed; tapping it opens retry / remove
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to retry'**
+  String get storyUploadRetry;
+
+  /// Button that removes a story that failed to post from the queue
+  ///
+  /// In en, this message translates to:
+  /// **'Remove'**
+  String get storyUploadRemove;
+
+  /// Shown on a queued story that could not be posted after several tries
+  ///
+  /// In en, this message translates to:
+  /// **'Your story couldn\'t be posted.'**
+  String get storyUploadFailed;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

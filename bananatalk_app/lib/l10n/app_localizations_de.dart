@@ -12772,4 +12772,16 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get storyUploadFileMissing => 'Das Foto oder Video dieser Story ist nicht mehr auf deinem Gerät.';
+
+  @override
+  String get storyUploading => 'Deine Story wird gepostet …';
+
+  @override
+  String get storyUploadRetry => 'Tippen zum Wiederholen';
+
+  @override
+  String get storyUploadRemove => 'Entfernen';
+
+  @override
+  String get storyUploadFailed => 'Deine Story konnte nicht gepostet werden.';
 }
