@@ -152,6 +152,11 @@ class Story {
   // Question box
   final StoryQuestionBox? questionBox;
   
+  // Learning stickers
+  final StoryCorrectionSticker? correctionSticker;
+  final StoryQuizSticker? quizSticker;
+  final StoryWordSticker? wordSticker;
+
   // Music
   final StoryMusic? music;
   
@@ -211,6 +216,9 @@ class Story {
     this.link,
     this.poll,
     this.questionBox,
+    this.correctionSticker,
+    this.quizSticker,
+    this.wordSticker,
     this.music,
     this.hashtags = const [],
     this.highlightId,
@@ -284,6 +292,10 @@ class Story {
       // and this refuses them too so a single fix does not have to hold on
       // both sides forever.
       questionBox: StoryQuestionBox.fromJsonOrNull(json['questionBox']),
+      correctionSticker:
+          StoryCorrectionSticker.fromJsonOrNull(json['correctionSticker']),
+      quizSticker: StoryQuizSticker.fromJsonOrNull(json['quizSticker']),
+      wordSticker: StoryWordSticker.fromJsonOrNull(json['wordSticker']),
       music: json['music'] != null ? StoryMusic.fromJson(json['music']) : null,
       hashtags: json['hashtags'] != null
           ? (json['hashtags'] as List).map((h) => h.toString()).toList()
@@ -384,6 +396,14 @@ class Story {
     return null;
   }
 
+  /// Poll, question box and the three learning stickers that are present.
+  int get interactiveStickerCount =>
+      (poll != null ? 1 : 0) +
+      (questionBox != null ? 1 : 0) +
+      (correctionSticker != null ? 1 : 0) +
+      (quizSticker != null ? 1 : 0) +
+      (wordSticker != null ? 1 : 0);
+
   /// Check if this story is a video
   bool get isVideo => mediaType == 'video';
 
@@ -427,6 +447,9 @@ class Story {
     StoryLink? link,
     StoryPoll? poll,
     StoryQuestionBox? questionBox,
+    StoryCorrectionSticker? correctionSticker,
+    StoryQuizSticker? quizSticker,
+    StoryWordSticker? wordSticker,
     StoryMusic? music,
     List<String>? hashtags,
     String? highlightId,
@@ -465,6 +488,9 @@ class Story {
       link: link ?? this.link,
       poll: poll ?? this.poll,
       questionBox: questionBox ?? this.questionBox,
+      correctionSticker: correctionSticker ?? this.correctionSticker,
+      quizSticker: quizSticker ?? this.quizSticker,
+      wordSticker: wordSticker ?? this.wordSticker,
       music: music ?? this.music,
       hashtags: hashtags ?? this.hashtags,
       highlightId: highlightId ?? this.highlightId,
@@ -491,12 +517,16 @@ class StoryView {
   final DateTime viewedAt;
   final int? viewDuration;
 
+  /// The viewer watched the story to the end.
+  final bool completed;
+
   const StoryView({
     this.id,
     required this.userId,
     this.user,
     required this.viewedAt,
     this.viewDuration,
+    this.completed = false,
   });
 
   factory StoryView.fromJson(Map<String, dynamic> json) {
@@ -508,6 +538,7 @@ class StoryView {
           ? DateTime.tryParse(json['viewedAt'].toString()) ?? DateTime.now()
           : DateTime.now(),
       viewDuration: json['viewDuration'],
+      completed: json['completed'] == true,
     );
   }
 
@@ -935,6 +966,342 @@ class StoryQuestionBox {
     'prompt': prompt,
     'responses': responses.map((r) => r.toJson()).toList(),
   };
+}
+
+double _unitFraction(Object? v) {
+  if (v is! num || v.isNaN) return 0.5;
+  return v.toDouble().clamp(0.0, 1.0);
+}
+
+String? _nonEmptyString(Object? v) {
+  if (v is! String) return null;
+  final t = v.trim();
+  return t.isEmpty ? null : t;
+}
+
+int _intOr(Object? v, int fallback) => v is num ? v.toInt() : fallback;
+
+int? _intOrNull(Object? v) => v is num ? v.toInt() : null;
+
+/// "Correct my sentence" sticker: the author posts a sentence, viewers fix it.
+class StoryCorrectionSticker {
+  final String sentence;
+
+  /// Base language code (`en`, `ko`); absent on older stickers.
+  final String? language;
+
+  /// Position on the story canvas, 0..1 fractions.
+  final double x;
+  final double y;
+  final int correctionCount;
+  final bool hasCorrected;
+
+  const StoryCorrectionSticker({
+    required this.sentence,
+    this.language,
+    this.x = 0.5,
+    this.y = 0.5,
+    this.correctionCount = 0,
+    this.hasCorrected = false,
+  });
+
+  /// Null unless [json] is a map with a non-empty `sentence`.
+  static StoryCorrectionSticker? fromJsonOrNull(dynamic json) {
+    if (json is! Map) return null;
+    final sentence = _nonEmptyString(json['sentence']);
+    if (sentence == null) return null;
+    return StoryCorrectionSticker(
+      sentence: sentence,
+      language: _nonEmptyString(json['language']),
+      x: _unitFraction(json['x']),
+      y: _unitFraction(json['y']),
+      correctionCount: _intOr(json['correctionCount'], 0),
+      hasCorrected: json['hasCorrected'] == true,
+    );
+  }
+
+  /// The shape sent on story create.
+  Map<String, dynamic> toCreateJson() => {
+    'sentence': sentence,
+    if (language != null) 'language': language,
+    'x': x,
+    'y': y,
+  };
+
+  StoryCorrectionSticker copyWith({
+    String? sentence,
+    String? language,
+    double? x,
+    double? y,
+    int? correctionCount,
+    bool? hasCorrected,
+  }) {
+    return StoryCorrectionSticker(
+      sentence: sentence ?? this.sentence,
+      language: language ?? this.language,
+      x: x ?? this.x,
+      y: y ?? this.y,
+      correctionCount: correctionCount ?? this.correctionCount,
+      hasCorrected: hasCorrected ?? this.hasCorrected,
+    );
+  }
+}
+
+/// One option of a quiz sticker. [count] and [percentage] are absent until the
+/// viewer has answered (always present for the owner).
+class StoryQuizOption {
+  final int index;
+  final String text;
+  final int? count;
+  final int? percentage;
+
+  const StoryQuizOption({
+    required this.index,
+    required this.text,
+    this.count,
+    this.percentage,
+  });
+
+  StoryQuizOption copyWith({
+    int? index,
+    String? text,
+    int? count,
+    int? percentage,
+  }) {
+    return StoryQuizOption(
+      index: index ?? this.index,
+      text: text ?? this.text,
+      count: count ?? this.count,
+      percentage: percentage ?? this.percentage,
+    );
+  }
+}
+
+/// Quiz sticker: a question with 2..4 options and one correct answer.
+///
+/// Reveal results when the viewer is the owner or [correctIndex] != null —
+/// never from [hasAnswered] (the owner gets `hasAnswered: false`).
+class StoryQuizSticker {
+  final String question;
+  final List<StoryQuizOption> options;
+  final bool hasAnswered;
+  final int totalAnswers;
+  final int? correctIndex;
+  final int? userAnswerIndex;
+
+  const StoryQuizSticker({
+    required this.question,
+    required this.options,
+    this.hasAnswered = false,
+    this.totalAnswers = 0,
+    this.correctIndex,
+    this.userAnswerIndex,
+  });
+
+  /// Null unless there is a non-empty `question` and 2..4 usable options.
+  static StoryQuizSticker? fromJsonOrNull(dynamic json) {
+    if (json is! Map) return null;
+    final question = _nonEmptyString(json['question']);
+    final rawOptions = json['options'];
+    if (question == null || rawOptions is! List) return null;
+    final options = <StoryQuizOption>[];
+    for (var i = 0; i < rawOptions.length; i++) {
+      final o = rawOptions[i];
+      if (o is! Map) return null;
+      final text = _nonEmptyString(o['text']);
+      if (text == null) return null;
+      options.add(StoryQuizOption(
+        index: _intOr(o['index'], i),
+        text: text,
+        count: _intOrNull(o['count']),
+        percentage: _intOrNull(o['percentage']),
+      ));
+    }
+    if (options.length < 2 || options.length > 4) return null;
+    return StoryQuizSticker(
+      question: question,
+      options: options,
+      hasAnswered: json['hasAnswered'] == true,
+      totalAnswers: _intOr(json['totalAnswers'], 0),
+      correctIndex: _intOrNull(json['correctIndex']),
+      userAnswerIndex: _intOrNull(json['userAnswerIndex']),
+    );
+  }
+
+  /// The shape sent on story create; `correctIndex` is a JSON integer.
+  Map<String, dynamic> toCreateJson() => {
+    'question': question,
+    'options': options.map((o) => o.text).toList(),
+    'correctIndex': correctIndex,
+  };
+
+  StoryQuizSticker copyWith({
+    String? question,
+    List<StoryQuizOption>? options,
+    bool? hasAnswered,
+    int? totalAnswers,
+    int? correctIndex,
+    int? userAnswerIndex,
+  }) {
+    return StoryQuizSticker(
+      question: question ?? this.question,
+      options: options ?? this.options,
+      hasAnswered: hasAnswered ?? this.hasAnswered,
+      totalAnswers: totalAnswers ?? this.totalAnswers,
+      correctIndex: correctIndex ?? this.correctIndex,
+      userAnswerIndex: userAnswerIndex ?? this.userAnswerIndex,
+    );
+  }
+}
+
+/// "Word of the story" sticker: a word with its meaning, savable to vocabulary.
+class StoryWordSticker {
+  final String word;
+  final String meaning;
+  final String? example;
+
+  /// Base language code (`en`, `ko`); may be absent.
+  final String? language;
+  final double x;
+  final double y;
+
+  const StoryWordSticker({
+    required this.word,
+    required this.meaning,
+    this.example,
+    this.language,
+    this.x = 0.5,
+    this.y = 0.5,
+  });
+
+  /// Null unless both `word` and `meaning` are non-empty strings.
+  static StoryWordSticker? fromJsonOrNull(dynamic json) {
+    if (json is! Map) return null;
+    final word = _nonEmptyString(json['word']);
+    final meaning = _nonEmptyString(json['meaning']);
+    if (word == null || meaning == null) return null;
+    return StoryWordSticker(
+      word: word,
+      meaning: meaning,
+      example: _nonEmptyString(json['example']),
+      language: _nonEmptyString(json['language']),
+      x: _unitFraction(json['x']),
+      y: _unitFraction(json['y']),
+    );
+  }
+
+  /// The shape sent on story create.
+  Map<String, dynamic> toCreateJson() => {
+    'word': word,
+    'meaning': meaning,
+    if (example != null) 'example': example,
+    if (language != null) 'language': language,
+    'x': x,
+    'y': y,
+  };
+
+  StoryWordSticker copyWith({
+    String? word,
+    String? meaning,
+    String? example,
+    String? language,
+    double? x,
+    double? y,
+  }) {
+    return StoryWordSticker(
+      word: word ?? this.word,
+      meaning: meaning ?? this.meaning,
+      example: example ?? this.example,
+      language: language ?? this.language,
+      x: x ?? this.x,
+      y: y ?? this.y,
+    );
+  }
+}
+
+/// One option row of [StorySummarySticker.options].
+class StorySummaryOption {
+  final String text;
+  final int count;
+
+  const StorySummaryOption({required this.text, this.count = 0});
+}
+
+/// The owner's per-sticker result line in [StoryViewsSummary].
+class StorySummarySticker {
+  /// One of [knownTypes].
+  final String type;
+  final int count;
+  final List<StorySummaryOption> options;
+  final int? correctIndex;
+  final int? correctCount;
+
+  const StorySummarySticker({
+    required this.type,
+    this.count = 0,
+    this.options = const [],
+    this.correctIndex,
+    this.correctCount,
+  });
+
+  static const knownTypes = {
+    'poll',
+    'questionBox',
+    'quiz',
+    'correction',
+    'word',
+  };
+
+  /// Null for a missing sticker or an unknown `type`.
+  static StorySummarySticker? fromJsonOrNull(dynamic json) {
+    if (json is! Map) return null;
+    final type = json['type'];
+    if (type is! String || !knownTypes.contains(type)) return null;
+    return StorySummarySticker(
+      type: type,
+      count: _intOr(json['count'], 0),
+      options: json['options'] is List
+          ? (json['options'] as List)
+              .whereType<Map>()
+              .map((o) => StorySummaryOption(
+                    text: o['text']?.toString() ?? '',
+                    count: _intOr(o['count'], 0),
+                  ))
+              .toList()
+          : const [],
+      correctIndex: _intOrNull(json['correctIndex']),
+      correctCount: _intOrNull(json['correctCount']),
+    );
+  }
+}
+
+/// `data.summary` of `GET stories/:id/views` (owner insights).
+class StoryViewsSummary {
+  final int views;
+  final int completions;
+  final int replies;
+  final int reactions;
+  final StorySummarySticker? sticker;
+
+  const StoryViewsSummary({
+    this.views = 0,
+    this.completions = 0,
+    this.replies = 0,
+    this.reactions = 0,
+    this.sticker,
+  });
+
+  /// Null unless [json] is a map.
+  static StoryViewsSummary? fromJsonOrNull(dynamic json) {
+    if (json is! Map) return null;
+    return StoryViewsSummary(
+      views: _intOr(json['views'], 0),
+      completions: _intOr(json['completions'], 0),
+      replies: _intOr(json['replies'], 0),
+      reactions: _intOr(json['reactions'], 0),
+      sticker: StorySummarySticker.fromJsonOrNull(json['sticker']),
+    );
+  }
 }
 
 /// Question response

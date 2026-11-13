@@ -85,6 +85,10 @@ After release (production data):
 
 ## 4. Code work — open
 
+Stories features app (Plan B2)
+- [x] Task 1: models parse `correctionSticker` / `quizSticker` / `wordSticker`, `StoryView.completed` and `StoryViewsSummary` defensively; five flags added to `AppConfig` (`storyStickerCorrectionEnabled`, `storyStickerQuizEnabled`, `storyStickerWordEnabled`, `storyInsightsEnabled`, `storyUploadQueueEnabled`, default off); `StoriesService.answerQuestion` now treats any 2xx as success (the server answers 201, so answers were reported as failed). Nothing user-visible behind a flag yet.
+- [ ] Tasks 2-9: services, composer entries (gated by the sticker flags), viewer interaction, background story posting (`storyUploadQueueEnabled`), author insights (`storyInsightsEnabled`), l10n.
+
 Camera on Android: app killed while the camera is open (2026-10-17, Galaxy Tab S7 FE)
 - [x] Talk → Photo: taking a picture "crashed" the app. Logcat: `lmkd: Reclaim 'com.bananatalk.app' ... low watermark is breached` → `Process com.bananatalk.app has died` → restarted for the ImagePickerFileProvider. Not an exception: Android killed the backgrounded app for memory (debug build ~650 MB). `CameraRecovery` marks the screen before opening the camera; on restart the shell reads `ImagePicker.retrieveLostData()` and reopens Talk → Photo with the photo. Test `test/services/camera_recovery_test.dart`.
 - [x] Same recovery for the moment composer (photo comes back in the composer; the typed caption is still lost), story camera (opens the story editor with the photo) and chat camera (reopens that chat with the photo in the send preview; `CameraRecovery.markPending(..., extra:)` keeps which chat).

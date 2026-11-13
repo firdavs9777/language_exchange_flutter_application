@@ -17,6 +17,13 @@ bool textStoryHasContent(String text, List<Map<String, dynamic>>? overlays) =>
     text.trim().isNotEmpty || (overlays?.isNotEmpty ?? false);
 
 class StoriesService {
+  /// Test seam: replaces the HTTP client for the methods that use [_client].
+  @visibleForTesting
+  static http.Client? httpClient;
+
+  static http.Client get _client => httpClient ?? _defaultClient;
+  static final http.Client _defaultClient = http.Client();
+
   static Future<String?> _getToken() async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString('token');
@@ -637,13 +644,14 @@ class StoriesService {
       final token = await _getToken();
       final url = Uri.parse('${Endpoints.baseURL}${Endpoints.storyQuestionAnswerURL(storyId)}');
       
-      final response = await http.post(
+      final response = await _client.post(
         url,
         headers: _getHeaders(token),
         body: jsonEncode({'text': text, 'isAnonymous': isAnonymous}),
       );
 
-      if (response.statusCode == 200) {
+      // The server answers 201 for a created answer.
+      if (response.statusCode >= 200 && response.statusCode < 300) {
         return {'success': true};
       }
       return {'success': false};

@@ -140,6 +140,14 @@ class AppConfig {
   final bool interestRankingEnabled;
   final bool shareOffersEnabled;
 
+  /// Stories features (all off by default; the server ships them dark).
+  /// A sticker's composer entry needs its flag; viewing one needs none.
+  final bool storyStickerCorrectionEnabled;
+  final bool storyStickerQuizEnabled;
+  final bool storyStickerWordEnabled;
+  final bool storyInsightsEnabled;
+  final bool storyUploadQueueEnabled;
+
   const AppConfig({
     required this.minVersion,
     required this.latestVersion,
@@ -167,6 +175,11 @@ class AppConfig {
     this.hashtagsEnabled = false,
     this.interestRankingEnabled = false,
     this.shareOffersEnabled = false,
+    this.storyStickerCorrectionEnabled = false,
+    this.storyStickerQuizEnabled = false,
+    this.storyStickerWordEnabled = false,
+    this.storyInsightsEnabled = false,
+    this.storyUploadQueueEnabled = false,
   });
 
   factory AppConfig.fromJson(Map<String, dynamic> json) {
@@ -207,6 +220,12 @@ class AppConfig {
       hashtagsEnabled: json['hashtagsEnabled'] == true,
       interestRankingEnabled: json['interestRankingEnabled'] == true,
       shareOffersEnabled: json['shareOffersEnabled'] == true,
+      storyStickerCorrectionEnabled:
+          json['storyStickerCorrectionEnabled'] == true,
+      storyStickerQuizEnabled: json['storyStickerQuizEnabled'] == true,
+      storyStickerWordEnabled: json['storyStickerWordEnabled'] == true,
+      storyInsightsEnabled: json['storyInsightsEnabled'] == true,
+      storyUploadQueueEnabled: json['storyUploadQueueEnabled'] == true,
     );
   }
 }
