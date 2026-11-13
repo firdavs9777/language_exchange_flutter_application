@@ -738,5 +738,5 @@ P2 cleanup
 
 ## Backend + app check (2026-11-14)
 - [x] Logout reset: `alreadyWavedProvider`, `userMomentsPagedProvider`, `userMomentsTotalProvider` were never added to `userScopedProviders`, so the next account could inherit the previous one's wave state and moment lists (`session_reset_test` failed). Now reset.
-- [ ] Backend branch `fix/gatherings-admin-cancel` (admin cancel notifies; no-shows grant no free message): merge + deploy, then move the backend pointer here. S
+- [x] Backend `fix/gatherings-admin-cancel` (admin cancel notifies; no-shows grant no free message) merged and deployed 2026-11-13 (d00703df); backend pointer moved.
 - [ ] `flutter analyze`: 0 errors, 3 warnings, all in tests (unused imports in `chat_state_edit_failed_test.dart`, `moments_main_layout_test.dart`; unused parameter `active`). S
