@@ -172,9 +172,11 @@ class _PartnerDiscoveryTabState extends ConsumerState<PartnerDiscoveryTab> {
 
   /// Load excluded users from server (skipped + waved)
   Future<void> _loadServerExcludedUsers() async {
+    // Read before the await: ref.read throws once this State is disposed.
+    final notifier = ref.read(partnerFilterProvider.notifier);
     try {
       final excluded = await InteractionService.getExcludedUsers();
-      ref.read(partnerFilterProvider.notifier).rememberServerExcluded(excluded);
+      notifier.rememberServerExcluded(excluded);
       if (mounted) {
         setState(() {
           _serverExcludedUsers = excluded;

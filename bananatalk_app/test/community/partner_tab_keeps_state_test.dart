@@ -7,6 +7,8 @@ import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/provider_root/block_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/community_provider.dart';
+import 'package:bananatalk_app/services/block_service.dart';
+import 'package:bananatalk_app/services/session_reset.dart';
 import 'package:bananatalk_app/widgets/community/partner_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -158,6 +160,8 @@ void main() {
         overrides: [
           communityFastListEnabledProvider.overrideWith((ref) => flag),
           userProvider.overrideWith((ref) async => _me()),
+          // Never refetched after the block, as when the fetch is slow or
+          // failed (the real provider swallows errors into a stale/empty set).
           blockedUserIdsProvider.overrideWith((ref) async => <String>{}),
           partnerFilterProvider.overrideWith(
             (ref) => PartnerFilterNotifier(
@@ -222,7 +226,7 @@ void main() {
             excludedCalls++;
             return http.Response('{"data": ${excludedIds.map((e) => '"$e"').toList()}}', 200);
           }
-          return http.Response('{}', 200);
+          return http.Response('{"message": "ok"}', 200);
         });
         await http.runWithClient(() => body(tester), () => client);
       });
@@ -277,14 +281,15 @@ void main() {
     });
 
     run('flag on: the kept list is still filtered by the server exclusions', (tester) async {
-      excludedIds = {'b'};
+      excludedIds = {'a'};
       await pumpHost(tester);
-      expect(find.text('Person b'), findsNothing);
+      expect(find.text('Person a'), findsNothing);
+      expect(find.text('Person c'), findsOneWidget);
       excludedIds = {};
       await switchAwayAndBack(tester);
       expect(excludedCalls, 1);
-      expect(find.text('Person a'), findsOneWidget);
-      expect(find.text('Person b'), findsNothing);
+      expect(find.text('Person a'), findsNothing);
+      expect(find.text('Person c'), findsOneWidget);
     });
 
     run('flag on: a user skipped this session stays hidden after a remount', (tester) async {
@@ -303,6 +308,47 @@ void main() {
       expect(service.queries.length, 1);
       expect(find.text('Person $gone'), findsNothing);
     }, view: 'swipe');
+
+    run('flag on: a user blocked while the tab is away is gone on return, even if the blocked-ids provider is not refetched', (tester) async {
+      await pumpHost(tester);
+      expect(find.text('Person a'), findsOneWidget);
+      swap(() => showTab = false);
+      await tester.pump();
+      SharedPreferences.setMockInitialValues({'userId': 'me', 'token': 't'});
+      final result = await BlockService.blockUser(
+        currentUserId: 'me',
+        blockedUserId: 'a',
+        blockedUserName: 'B',
+      );
+      expect(result['success'], isTrue);
+      swap(() => showTab = true);
+      await settle(tester);
+      expect(service.queries.length, 1);
+      expect(find.text('Person a'), findsNothing);
+    });
+
+    test('removeUser: flag off changes nothing', () async {
+      final n = PartnerFilterNotifier(_FakeService(), () => false, () => false);
+      await n.loadWithFilters(a);
+      n.removeUser('a');
+      expect(n.state.users.map((u) => u.id), contains('a'));
+      expect(n.keptExclusions, isEmpty);
+    });
+
+    run('sign-out then another user: nothing of the previous list or exclusions survives', (tester) async {
+      excludedIds = {'a'};
+      await pumpHost(tester);
+      expect(find.text('Person a'), findsNothing);
+      swap(() => showTab = false);
+      await tester.pump();
+      invalidateUserScopedProviders(container.invalidate);
+      excludedIds = {};
+      swap(() => showTab = true);
+      await settle(tester);
+      expect(service.queries.length, 2);
+      expect(excludedCalls, 2);
+      expect(find.text('Person a'), findsOneWidget);
+    });
 
     run('flag on: pull-to-refresh still reloads', (tester) async {
       await pumpHost(tester);

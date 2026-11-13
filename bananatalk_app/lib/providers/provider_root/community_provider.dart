@@ -1,6 +1,8 @@
+import 'dart:async';
 import 'dart:collection';
 import 'dart:convert';
 import 'package:bananatalk_app/providers/provider_models/community_model.dart';
+import 'package:bananatalk_app/services/block_service.dart';
 import 'package:bananatalk_app/services/community_first_page_cache.dart';
 import 'package:bananatalk_app/services/api_client.dart';
 import 'package:bananatalk_app/service/endpoints.dart';
@@ -1007,8 +1009,33 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
     this._fastListEnabled = _fastListOff,
     this._now = DateTime.now,
     CommunityFirstPageCache? diskCache,
+    Stream<String>? blockedIds,
   ])  : _diskCache = diskCache ?? CommunityFirstPageCache(),
-        super(const PartnerFilterState());
+        super(const PartnerFilterState()) {
+    _blockedSub = (blockedIds ?? BlockService.blockedUserIds).listen(removeUser);
+  }
+
+  StreamSubscription<String>? _blockedSub;
+
+  @override
+  void dispose() {
+    _blockedSub?.cancel();
+    super.dispose();
+  }
+
+  /// A user was blocked (from any screen) while this list may be kept for a
+  /// tab switch: drop them from it and from what it is filtered by, now,
+  /// without waiting for the blocked-ids provider. Flag off: no-op (the tab
+  /// reloads on return anyway).
+  void removeUser(String userId) {
+    if (!_fastListEnabled()) return;
+    _locallyHidden.add(userId);
+    if (state.users.any((u) => u.id == userId)) {
+      state = state.copyWith(
+        users: state.users.where((u) => u.id != userId).toList(),
+      );
+    }
+  }
 
   /// Identifies the exact filter set a cached page 1 was loaded for.
   static String diskFingerprint(PartnerFilterParams filters) =>

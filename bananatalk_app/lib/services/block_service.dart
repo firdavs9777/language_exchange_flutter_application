@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:bananatalk_app/service/endpoints.dart';
@@ -9,6 +10,13 @@ import 'package:bananatalk_app/services/stories_rail_cache.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class BlockService {
+  static final StreamController<String> _blocked =
+      StreamController<String>.broadcast(sync: true);
+
+  /// Ids of users blocked through [blockUser] (after the server confirmed),
+  /// so in-memory lists that outlive a screen can drop them at once.
+  static Stream<String> get blockedUserIds => _blocked.stream;
+
   static Future<String?> _getToken() async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString('token');
@@ -25,6 +33,7 @@ class BlockService {
   /// joins the remembered block list, so no cached list paints them again,
   /// not even offline. Best effort: a failure here never fails the block.
   static Future<void> _forgetBlockedLocally(String blockedUserId) async {
+    _blocked.add(blockedUserId);
     try {
       await BlockedIdsStore()
           .add(userId: await _signedInUserId(), id: blockedUserId);

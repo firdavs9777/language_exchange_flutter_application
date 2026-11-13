@@ -717,6 +717,7 @@ P2 cleanup
 - [x] Task 3: Partners list sends `slim=1` and pages by the server cursor when `communityFastListEnabled` is on (off = today's requests; cursor ignored); id de-dup, 3-empty-page stop
 - [ ] Task 3 follow-up: the tab's "< 5 rows, load more" top-up has no widget test with cursor paging (notifier-level termination is tested)
 - [x] Task 4: Partners list kept across tab switches for 10 minutes (same filters+search, flag on); excluded-users fetch skipped then; exclusions + session skips/waves kept in `PartnerFilterNotifier` (off = reload on every mount as before)
+- [x] Task 4 fix round 1: a user blocked from any screen leaves the kept Partners list at once (`BlockService.blockedUserIds` -> `PartnerFilterNotifier.removeUser`, flag on only); excluded fetch reads the notifier before its await; sign-out reset test added
 - [x] Task 4 follow-up: `communityFastListEnabledProvider` classified app-scoped (`kAppScopedProviderNames`); session_reset_test now fails only for the 3 known on main
 - [x] Task 5: Partners page 1 (default view only, filter fingerprint) and today's daily matches kept on disk per user (`CommunityFirstPageCache`, flag on) and painted on the next cold open until the network result lands; painted once per notifier / first daily fetch; cleared on sign-out, block and Data & Storage "clear all"
 - [ ] Task 5 follow-up: device check of the cold-open paint (Partners + Matches) with the flag on; Matches tab `dataView` body keeps its old indentation (not reformatted on purpose)
