@@ -446,6 +446,15 @@ class NotificationRouter {
         final commenterId = data['commenterId']?.toString();
         return commenterId != null ? '/profile/$commenterId' : null;
 
+      // Stories: a story did well (sent 24-48 h after posting, when it has
+      // expired); open its insights. No usable id -> the Moments tab.
+      case 'story_did_well':
+        final insightsStoryId = data['storyId']?.toString().trim();
+        return (insightsStoryId != null &&
+                RegExp(r'^[A-Za-z0-9_-]+$').hasMatch(insightsStoryId))
+            ? '/story-insights/$insightsStoryId'
+            : '/tabs/$kMomentsTabIndex';
+
       // Step 16 — VIP renewal warning. No /vip route in GoRouter;
       // VisitorUpgradeScreen is reached via Navigator.push only.
       // Tap opens the app to home; push body tells user to renew.
@@ -495,6 +504,7 @@ class NotificationRouter {
       '/chat/',
       '/moment/',
       '/moments/compose',
+      '/story-insights/',
       '/profile/',
       '/tabs/',
       '/matching',

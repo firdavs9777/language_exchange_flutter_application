@@ -36,10 +36,16 @@ class StoryViewersSheet extends StatefulWidget {
   final String storyId;
   final int initialViewCount;
 
+  /// Hosts that show the sheet's content outside a modal (the story-insights
+  /// screen) pass this to handle a failed load themselves; without it the
+  /// sheet shows the error snackbar and pops itself.
+  final VoidCallback? onLoadFailed;
+
   const StoryViewersSheet({
     super.key,
     required this.storyId,
     required this.initialViewCount,
+    this.onLoadFailed,
   });
 
   /// Shows the sheet modally. Returns after the sheet is dismissed so the
@@ -143,6 +149,13 @@ class _StoryViewersSheetState extends State<StoryViewersSheet> {
   }
 
   void _closeWithError() {
+    final handler = widget.onLoadFailed;
+    if (handler != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) handler();
+      });
+      return;
+    }
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
       showStoriesSnackBar(

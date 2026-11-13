@@ -8,6 +8,7 @@ import 'package:bananatalk_app/pages/home/splash_screen.dart';
 import 'package:bananatalk_app/pages/menu_tab/TabBarMenu.dart';
 import 'package:bananatalk_app/pages/moments/hashtag/hashtag_page_screen.dart';
 import 'package:bananatalk_app/pages/moments/create/compose_from_prompt_screen.dart';
+import 'package:bananatalk_app/pages/stories/insights/story_insights_screen.dart';
 import 'package:bananatalk_app/pages/moments/moment_detail_wrapper.dart';
 import 'package:bananatalk_app/pages/stories/viewer/story_link_screen.dart';
 import 'package:bananatalk_app/pages/profile/profile_wrapper.dart';
@@ -250,6 +251,15 @@ final goRouter = GoRouter(
         child: ComposeFromPromptScreen(
           promptId: state.uri.queryParameters['promptId'],
         ),
+      ),
+    ),
+
+    // The story_did_well push: the viewers summary of an (expired) own story.
+    GoRoute(
+      path: '/story-insights/:storyId',
+      pageBuilder: (context, state) => _buildSlideTransition(
+        state: state,
+        child: StoryInsightsScreen(storyId: state.pathParameters['storyId']!),
       ),
     ),
 
