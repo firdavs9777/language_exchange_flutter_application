@@ -336,12 +336,24 @@ void main() {
       final id = await queue.queueStoryUpload(photo());
       await idle(id);
       final start = now;
+      final delays = <Duration>[];
       while (taskOf(id)!.status != UploadStatus.failed) {
-        await fireRetry(id);
+        expect(now.difference(start), lessThan(const Duration(minutes: 30)),
+            reason: 'still trying at 30 min');
+        delays.add(await fireRetry(id));
         expect(calls.length, lessThan(20));
       }
-      expect(now.difference(start), greaterThanOrEqualTo(const Duration(minutes: 30)));
-      expect(now.difference(start), lessThan(const Duration(minutes: 41)));
+      // Looks at 0, 0.5, 2.5, 7.5, 17.5, 27.5 and finally exactly 30 min.
+      expect(delays, const [
+        Duration(seconds: 30),
+        Duration(minutes: 2),
+        Duration(minutes: 5),
+        Duration(minutes: 10),
+        Duration(minutes: 10),
+        Duration(minutes: 2, seconds: 30),
+      ]);
+      expect(now.difference(start), const Duration(minutes: 30),
+          reason: 'fails at the 30-minute mark, not up to 10 min later');
       expect(taskOf(id)!.storyFailure, StoryUploadFailure.failed);
       expect(active(), isEmpty);
     });
@@ -668,6 +680,82 @@ void main() {
           '${docs.path}/story_uploads/moved.jpg');
       expect(File('${docs.path}/story_uploads/moved.jpg').existsSync(),
           isFalse);
+    });
+
+    test('a story queued while the sweep is listing keeps its copy',
+        () async {
+      File('${docs.path}/story_uploads/orphan.jpg')
+        ..createSync(recursive: true)
+        ..writeAsBytesSync([1]);
+      final listing = Completer<void>();
+      final gate = Completer<void>();
+      UploadQueueService.storyDirLister = (dir) async* {
+        listing.complete();
+        await gate.future; // the listing is slow
+        yield* dir.list();
+      };
+      final release = Completer<SingleStoryResponse>();
+      answers = [() => release.future];
+      await store([]);
+
+      final init = queue.initialize();
+      await listing.future;
+      final id = await queue.queueStoryUpload(photo());
+      final copy = File(taskOf(id)!.localFilePath);
+      gate.complete();
+      await init;
+
+      expect(copy.existsSync(), isTrue, reason: 'the sweep spared it');
+      expect(File('${docs.path}/story_uploads/orphan.jpg').existsSync(),
+          isFalse);
+      release.complete(ok());
+      final t = await idle(id);
+      expect(t!.status, UploadStatus.completed);
+      expect(calls.single.key, id);
+    });
+
+    test('no readable user id: the story looks again after 30 s, then 2 min',
+        () async {
+      String? user;
+      UploadQueueService.signedInUserId = () async => user;
+      final f = File('${docs.path}/story_uploads/wait.jpg')
+        ..createSync(recursive: true)
+        ..writeAsBytesSync([1]);
+      await store([
+        {
+          'id': 'wait',
+          'type': 'story',
+          'localFilePath': f.path,
+          'metadata': {'mediaPath': f.path, 'ownerUserId': 'u1'},
+          'status': 'queued',
+          'createdAt': '2026-11-13T11:00:00.000',
+          'retryCount': 0,
+        },
+      ]);
+      await queue.initialize();
+      await until(() => active().isNotEmpty, 'first look armed');
+      expect(active().single.duration, const Duration(seconds: 30));
+      expect(calls, isEmpty);
+
+      Future<void> fire() async {
+        final t = active().single;
+        now = now.add(t.duration);
+        t.fired = true;
+        t.callback();
+      }
+
+      await fire(); // still nobody readable
+      await until(() => active().isNotEmpty, 'second look armed');
+      expect(active().single.duration, const Duration(minutes: 2));
+      expect(calls, isEmpty);
+      expect(timers, hasLength(2), reason: 'no tight loop');
+
+      user = 'u1';
+      await fire();
+      await until(() => taskOf('wait')!.status == UploadStatus.completed,
+          'uploaded once the user is readable');
+      expect(calls.single.key, 'wait');
+      expect(active(), isEmpty);
     });
 
     test('orphaned files in the uploads folder are swept on start', () async {

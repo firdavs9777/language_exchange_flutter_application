@@ -177,6 +177,13 @@ class UploadQueueService {
   @visibleForTesting
   static Duration storyAttemptTimeout = const Duration(minutes: 10);
 
+  static Stream<FileSystemEntity> _realLister(Directory d) => d.list();
+
+  /// Lists the uploads folder for the orphan sweep (tests slow it down).
+  @visibleForTesting
+  static Stream<FileSystemEntity> Function(Directory) storyDirLister =
+      _realLister;
+
   @visibleForTesting
   static void resetStorySeamsForTest() {
     storyPoster = defaultStoryPoster;
@@ -186,6 +193,7 @@ class UploadQueueService {
     startTimer = _realTimer;
     connectivityChanges = _realConnectivity;
     storyAttemptTimeout = const Duration(minutes: 10);
+    storyDirLister = _realLister;
   }
 
   final _storyPostedController = StreamController<String>.broadcast();
@@ -196,8 +204,22 @@ class UploadQueueService {
 
   /// Wakes the queue for the earliest waiting story retry.
   Timer? _storyWakeTimer;
+
+  /// A story could run but no signed-in user id was readable: look again
+  /// after [_noUserDelays] (the last repeats), counted by [_noUserLooks].
+  bool _storyWaitingForUser = false;
+  int _noUserLooks = 0;
+  static const List<Duration> _noUserDelays = [
+    Duration(seconds: 30),
+    Duration(minutes: 2),
+    Duration(minutes: 5),
+    Duration(minutes: 10),
+  ];
   StreamSubscription<List<ConnectivityResult>>? _connectivitySubscription;
   bool _wasOffline = false;
+
+  /// Story tasks whose attempt is running right now.
+  final Set<String> _storyAttemptsInFlight = {};
 
   /// Copies being made by [queueStoryUpload]; the orphan sweep spares them.
   final Set<String> _copiesInProgress = {};
@@ -246,6 +268,8 @@ class UploadQueueService {
     _storyWakeTimer?.cancel();
     _storyWakeTimer = null;
     _wasOffline = false;
+    _storyWaitingForUser = false;
+    _noUserLooks = 0;
     await _sweepStoryFiles();
   }
 
@@ -460,9 +484,20 @@ class UploadQueueService {
       // Story tasks run only as their owner and only once their retry time
       // has come; with no story queued this is exactly the moment loop.
       String? userId;
+      _storyWaitingForUser = false;
       if (_tasks.any((t) => t.isStory && t.status == UploadStatus.queued)) {
         userId = await _signedInUserIdOrNull();
         if (generation != _sessionGeneration) break;
+        if (userId == null || userId.isEmpty) {
+          final now = clock();
+          _storyWaitingForUser = _tasks.any((t) =>
+              t.isStory &&
+              t.status == UploadStatus.queued &&
+              _storyRetryAt(t, now) == null);
+        } else {
+          _storyWaitingForUser = false;
+          _noUserLooks = 0;
+        }
         await _dropStoryTasksOfOtherUsers(userId);
         if (generation != _sessionGeneration) break;
       }
@@ -720,6 +755,7 @@ class UploadQueueService {
     SingleStoryResponse? result;
     var fileMissing = false;
     String? error;
+    _storyAttemptsInFlight.add(id);
     try {
       var payload = StoryUploadPayload.fromJson(task.metadata);
       if (!payload.isTextStory) {
@@ -737,6 +773,8 @@ class UploadQueueService {
       }
     } catch (e) {
       error = e.toString();
+    } finally {
+      _storyAttemptsInFlight.remove(id);
     }
 
     // Signed out meanwhile: the task left with its account.
@@ -797,10 +835,14 @@ class UploadQueueService {
       final count = m[_kInProgressCount] is int ? m[_kInProgressCount] as int : 0;
       m[_kInProgressSince] = since.millisecondsSinceEpoch;
       m[_kInProgressCount] = count + 1;
-      final delay = storyInProgressDelays[
+      var delay = storyInProgressDelays[
           count < storyInProgressDelays.length
               ? count
               : storyInProgressDelays.length - 1];
+      // The last look lands exactly at the give-up time, not up to 10 min
+      // after it: an "in progress" answer then fails the task at 30 min.
+      final left = since.add(storyInProgressGiveUp).difference(now);
+      if (delay > left) delay = left;
       return _scheduleStoryRetry(index, delay, 'inProgress', error);
     }
     m.remove(_kInProgressSince);
@@ -915,6 +957,14 @@ class UploadQueueService {
         earliest = at;
       }
     }
+    if (_storyWaitingForUser) {
+      final wait = _noUserDelays[_noUserLooks < _noUserDelays.length
+          ? _noUserLooks
+          : _noUserDelays.length - 1];
+      _noUserLooks++;
+      final at = now.add(wait);
+      if (earliest == null || at.isBefore(earliest)) earliest = at;
+    }
     if (earliest == null) return;
     final gen = _sessionGeneration;
     _storyWakeTimer = startTimer(earliest.difference(now), () {
@@ -968,14 +1018,12 @@ class UploadQueueService {
     try {
       final dir = await _storyUploadsDir();
       if (!await dir.exists()) return;
-      final referenced = <String>{
-        for (final t in _tasks)
-          if (t.isStory && t.metadata['mediaPath'] is String)
-            _fileName(t.metadata['mediaPath'] as String),
-      };
-      await for (final entry in dir.list()) {
+      await for (final entry in storyDirLister(dir)) {
         final name = _fileName(entry.path);
-        if (referenced.contains(name)) continue;
+        // Checked live per entry: a story queued while the listing runs is
+        // in _tasks by the time its file is reached (a snapshot taken
+        // before the listing would miss it and delete its copy).
+        if (_isReferencedStoryFile(name)) continue;
         if (_copiesInProgress.any(name.startsWith)) continue;
         try {
           await entry.delete(recursive: true);
@@ -985,6 +1033,11 @@ class UploadQueueService {
       // No documents directory (tests, a broken install): nothing to sweep.
     }
   }
+
+  bool _isReferencedStoryFile(String name) => _tasks.any((t) {
+        final path = t.metadata['mediaPath'];
+        return t.isStory && path is String && _fileName(path) == name;
+      });
 
   Future<Directory> _storyUploadsDir() async =>
       Directory('${(await documentsDirectory()).path}/$storyUploadsFolder');
@@ -1118,6 +1171,9 @@ class UploadQueueService {
   void _resumeFailedUploads() {
     // Reset any uploads that were in progress when app closed
     for (var i = 0; i < _tasks.length; i++) {
+      // A story queued while initialize() ran may already be on the wire:
+      // resetting it would drop that attempt's answer and send it again.
+      if (_storyAttemptsInFlight.contains(_tasks[i].id)) continue;
       if (_tasks[i].status == UploadStatus.uploading ||
           _tasks[i].status == UploadStatus.processing) {
         _tasks[i] = _tasks[i].copyWith(
@@ -1176,6 +1232,10 @@ class UploadQueueService {
     _progressController.close();
     _tasksController.close();
     _storyPostedController.close();
+    _storyWakeTimer?.cancel();
+    _storyWakeTimer = null;
+    _connectivitySubscription?.cancel();
+    _connectivitySubscription = null;
   }
 }
 

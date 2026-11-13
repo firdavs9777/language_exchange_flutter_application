@@ -27,7 +27,9 @@ enum StoryUploadFailure {
 ///
 /// Stickers, poll, location, link and mentions are stored through their
 /// constructors' fields, not their server-read parsers, so the restored
-/// object sends exactly what the original would have.
+/// object sends exactly what the original would have. The question box is
+/// the exception: it is restored with `StoryQuestionBox.fromJson` from its
+/// own `toJson()` (prompt and responses), which round-trips what is sent.
 class StoryUploadPayload {
   const StoryUploadPayload({
     this.mediaPath,
