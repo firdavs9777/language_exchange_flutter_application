@@ -12658,6 +12658,140 @@ class AppLocalizationsZh extends AppLocalizations {
   String shareOfferStreakText(int days) {
     return '连续学习 $days 天！';
   }
+
+  @override
+  String get storyStickerCorrection => '帮我纠错';
+
+  @override
+  String get storyStickerQuiz => '测验';
+
+  @override
+  String get storyStickerWord => '单词';
+
+  @override
+  String get storyCorrectionSentenceHint => '写一句话让大家帮你纠正';
+
+  @override
+  String get storyQuizQuestionHint => '输入测验问题';
+
+  @override
+  String storyQuizOptionHint(String number) {
+    return '选项 $number';
+  }
+
+  @override
+  String get storyQuizMarkCorrect => '设为正确答案';
+
+  @override
+  String get storyWordHint => '单词或短语';
+
+  @override
+  String get storyWordMeaningHint => '释义';
+
+  @override
+  String get storyWordExampleHint => '例句（可选）';
+
+  @override
+  String get storyCorrectThis => '纠正';
+
+  @override
+  String get storyCorrectionFieldHint => '输入纠正后的句子';
+
+  @override
+  String get storyCorrectionSent => '纠正已发送';
+
+  @override
+  String get storyCorrectionAlready => '你已经纠正过了';
+
+  @override
+  String storyCorrectionsReceived(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count 条纠正',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyQuizCorrect => '正确!';
+
+  @override
+  String get storyQuizWrong => '不太对';
+
+  @override
+  String get storySaveWord => '保存单词';
+
+  @override
+  String get storyQuizDuplicateOption => '有两个选项相同';
+
+  @override
+  String get storyUploadFileMissing => '这个故事的照片或视频已不在你的设备上。';
+
+  @override
+  String get storyUploading => '正在发布故事…';
+
+  @override
+  String get storyUploadRetry => '点按重试';
+
+  @override
+  String get storyUploadRemove => '移除';
+
+  @override
+  String get storyUploadFailed => '故事发布失败。';
+
+  @override
+  String storyInsightViews(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count 次观看',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String storyInsightCompleted(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count 人看完',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String storyInsightReplies(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count 条回复',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String storyInsightReactions(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count 个互动表情',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String storyInsightQuizCorrect(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count 人答对',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyInsightCompletedMark => '已看完';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -25314,4 +25448,138 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   String shareOfferStreakText(int days) {
     return '連續學習 $days 天！';
   }
+
+  @override
+  String get storyStickerCorrection => '幫我糾錯';
+
+  @override
+  String get storyStickerQuiz => '測驗';
+
+  @override
+  String get storyStickerWord => '單字';
+
+  @override
+  String get storyCorrectionSentenceHint => '寫一句話讓大家幫你糾正';
+
+  @override
+  String get storyQuizQuestionHint => '輸入測驗問題';
+
+  @override
+  String storyQuizOptionHint(String number) {
+    return '選項 $number';
+  }
+
+  @override
+  String get storyQuizMarkCorrect => '設為正確答案';
+
+  @override
+  String get storyWordHint => '單字或片語';
+
+  @override
+  String get storyWordMeaningHint => '釋義';
+
+  @override
+  String get storyWordExampleHint => '例句（選填）';
+
+  @override
+  String get storyCorrectThis => '修正';
+
+  @override
+  String get storyCorrectionFieldHint => '輸入修正後的句子';
+
+  @override
+  String get storyCorrectionSent => '已送出修正';
+
+  @override
+  String get storyCorrectionAlready => '你已經修正過了';
+
+  @override
+  String storyCorrectionsReceived(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count 則修正',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyQuizCorrect => '正確!';
+
+  @override
+  String get storyQuizWrong => '不太對';
+
+  @override
+  String get storySaveWord => '儲存單字';
+
+  @override
+  String get storyQuizDuplicateOption => '有兩個選項相同';
+
+  @override
+  String get storyUploadFileMissing => '這則限時動態的照片或影片已不在你的裝置上。';
+
+  @override
+  String get storyUploading => '正在發佈限時動態…';
+
+  @override
+  String get storyUploadRetry => '點一下重試';
+
+  @override
+  String get storyUploadRemove => '移除';
+
+  @override
+  String get storyUploadFailed => '限時動態發佈失敗。';
+
+  @override
+  String storyInsightViews(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count 次觀看',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String storyInsightCompleted(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count 人看完',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String storyInsightReplies(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count 則回覆',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String storyInsightReactions(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count 個互動表情',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String storyInsightQuizCorrect(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count 人答對',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyInsightCompletedMark => '已看完';
 }

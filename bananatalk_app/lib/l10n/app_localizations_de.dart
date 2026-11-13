@@ -12702,4 +12702,144 @@ class AppLocalizationsDe extends AppLocalizations {
   String shareOfferStreakText(int days) {
     return '$days Tage Lernserie!';
   }
+
+  @override
+  String get storyStickerCorrection => 'Korrigiere mich';
+
+  @override
+  String get storyStickerQuiz => 'Quizfrage';
+
+  @override
+  String get storyStickerWord => 'Wort';
+
+  @override
+  String get storyCorrectionSentenceHint => 'Schreibe einen Satz, den andere korrigieren können';
+
+  @override
+  String get storyQuizQuestionHint => 'Stelle eine Quizfrage';
+
+  @override
+  String storyQuizOptionHint(String number) {
+    return 'Antwort $number';
+  }
+
+  @override
+  String get storyQuizMarkCorrect => 'Als richtige Antwort markieren';
+
+  @override
+  String get storyWordHint => 'Wort oder Ausdruck';
+
+  @override
+  String get storyWordMeaningHint => 'Bedeutung';
+
+  @override
+  String get storyWordExampleHint => 'Beispielsatz (optional)';
+
+  @override
+  String get storyCorrectThis => 'Korrigieren';
+
+  @override
+  String get storyCorrectionFieldHint => 'Schreibe den korrigierten Satz';
+
+  @override
+  String get storyCorrectionSent => 'Korrektur gesendet';
+
+  @override
+  String get storyCorrectionAlready => 'Du hast das bereits korrigiert';
+
+  @override
+  String storyCorrectionsReceived(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Korrekturen',
+      one: '$count Korrektur',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyQuizCorrect => 'Richtig!';
+
+  @override
+  String get storyQuizWrong => 'Nicht ganz';
+
+  @override
+  String get storySaveWord => 'Wort speichern';
+
+  @override
+  String get storyQuizDuplicateOption => 'Zwei Antworten sind gleich';
+
+  @override
+  String get storyUploadFileMissing => 'Das Foto oder Video dieser Story ist nicht mehr auf deinem Gerät.';
+
+  @override
+  String get storyUploading => 'Deine Story wird gepostet …';
+
+  @override
+  String get storyUploadRetry => 'Tippen zum Wiederholen';
+
+  @override
+  String get storyUploadRemove => 'Entfernen';
+
+  @override
+  String get storyUploadFailed => 'Deine Story konnte nicht gepostet werden.';
+
+  @override
+  String storyInsightViews(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Aufrufe',
+      one: '$count Aufruf',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String storyInsightCompleted(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count bis zum Ende angesehen',
+      one: '$count bis zum Ende angesehen',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String storyInsightReplies(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Antworten',
+      one: '$count Antwort',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String storyInsightReactions(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Reaktionen',
+      one: '$count Reaktion',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String storyInsightQuizCorrect(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count richtig beantwortet',
+      one: '$count richtig beantwortet',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyInsightCompletedMark => 'Bis zum Ende angesehen';
 }

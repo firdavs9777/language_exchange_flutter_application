@@ -8797,5 +8797,129 @@
         "type": "int"
       }
     }
+  },
+  "storyStickerCorrection": "Correct me",
+  "storyStickerQuiz": "Quiz",
+  "storyStickerWord": "Word",
+  "storyCorrectionSentenceHint": "Write a sentence for others to correct",
+  "storyQuizQuestionHint": "Ask a quiz question",
+  "storyQuizOptionHint": "Option {number}",
+  "@storyQuizOptionHint": {
+    "placeholders": {
+      "number": {
+        "type": "String"
+      }
+    }
+  },
+  "storyQuizMarkCorrect": "Mark as correct answer",
+  "storyWordHint": "Word or phrase",
+  "storyWordMeaningHint": "Meaning",
+  "storyWordExampleHint": "Example sentence (optional)",
+  "storyCorrectThis": "Correct this",
+  "@storyCorrectThis": {
+    "description": "Button on a story's correction sticker: the viewer offers a correction of the sentence"
+  },
+  "storyCorrectionFieldHint": "Write the corrected sentence",
+  "@storyCorrectionFieldHint": {
+    "description": "Hint inside the field where the viewer types the corrected sentence"
+  },
+  "storyCorrectionSent": "Correction sent",
+  "@storyCorrectionSent": {
+    "description": "Shown after the viewer's correction was sent"
+  },
+  "storyCorrectionAlready": "You already corrected this",
+  "@storyCorrectionAlready": {
+    "description": "Shown when the viewer has already corrected this story's sentence"
+  },
+  "storyCorrectionsReceived": "{count, plural, one{{count} correction} other{{count} corrections}}",
+  "@storyCorrectionsReceived": {
+    "description": "How many corrections the story owner received on their correction sticker",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "storyQuizCorrect": "Correct!",
+  "@storyQuizCorrect": {
+    "description": "Quiz sticker: the viewer picked the right answer"
+  },
+  "storyQuizWrong": "Not quite",
+  "@storyQuizWrong": {
+    "description": "Quiz sticker: the viewer picked a wrong answer"
+  },
+  "storySaveWord": "Save word",
+  "@storySaveWord": {
+    "description": "Button on a story's word sticker that saves the word to the viewer's vocabulary"
+  },
+  "storyQuizDuplicateOption": "Two options are the same",
+  "storyUploadFileMissing": "This story's photo or video is no longer on your device.",
+  "@storyUploadFileMissing": {
+    "description": "Shown on a queued story that cannot be posted because its photo or video file is gone from the device"
+  },
+  "storyUploading": "Posting your story…",
+  "@storyUploading": {
+    "description": "Chip on your own story ring while the story is posting in the background"
+  },
+  "storyUploadRetry": "Tap to retry",
+  "@storyUploadRetry": {
+    "description": "Chip on your own story ring when posting failed; tapping it opens retry / remove"
+  },
+  "storyUploadRemove": "Remove",
+  "@storyUploadRemove": {
+    "description": "Button that removes a story that failed to post from the queue"
+  },
+  "storyUploadFailed": "Your story couldn't be posted.",
+  "@storyUploadFailed": {
+    "description": "Shown on a queued story that could not be posted after several tries"
+  },
+  "storyInsightViews": "{count, plural, one{{count} view} other{{count} views}}",
+  "@storyInsightViews": {
+    "description": "Story insights: how many views the story got, shown to its owner",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "storyInsightCompleted": "{count, plural, one{{count} watched to the end} other{{count} watched to the end}}",
+  "@storyInsightCompleted": {
+    "description": "Story insights: how many viewers watched the whole story",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "storyInsightReplies": "{count, plural, one{{count} reply} other{{count} replies}}",
+  "@storyInsightReplies": {
+    "description": "Story insights: how many replies the story got",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "storyInsightReactions": "{count, plural, one{{count} reaction} other{{count} reactions}}",
+  "@storyInsightReactions": {
+    "description": "Story insights: how many reactions the story got",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "storyInsightQuizCorrect": "{count, plural, one{{count} answered correctly} other{{count} answered correctly}}",
+  "@storyInsightQuizCorrect": {
+    "description": "Story insights: how many people answered the quiz sticker correctly",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "storyInsightCompletedMark": "Watched to the end",
+  "@storyInsightCompletedMark": {
+    "description": "Small mark and screen-reader label on a viewer who watched the story to the end"
   }
 }

@@ -12679,4 +12679,144 @@ class AppLocalizationsTg extends AppLocalizations {
   String shareOfferStreakText(int days) {
     return '$days рӯз пай дар пай меомӯзам!';
   }
+
+  @override
+  String get storyStickerCorrection => 'Маро ислоҳ кунед';
+
+  @override
+  String get storyStickerQuiz => 'Викторина';
+
+  @override
+  String get storyStickerWord => 'Калима';
+
+  @override
+  String get storyCorrectionSentenceHint => 'Ҷумлае нависед, ки дигарон ислоҳ кунанд';
+
+  @override
+  String get storyQuizQuestionHint => 'Саволи викторинаро нависед';
+
+  @override
+  String storyQuizOptionHint(String number) {
+    return 'Вариант $number';
+  }
+
+  @override
+  String get storyQuizMarkCorrect => 'Ҳамчун ҷавоби дуруст қайд кардан';
+
+  @override
+  String get storyWordHint => 'Калима ё ибора';
+
+  @override
+  String get storyWordMeaningHint => 'Маъно';
+
+  @override
+  String get storyWordExampleHint => 'Ҷумлаи намуна (ихтиёрӣ)';
+
+  @override
+  String get storyCorrectThis => 'Ислоҳ кардан';
+
+  @override
+  String get storyCorrectionFieldHint => 'Ҷумлаи ислоҳшударо нависед';
+
+  @override
+  String get storyCorrectionSent => 'Ислоҳ фиристода шуд';
+
+  @override
+  String get storyCorrectionAlready => 'Шумо инро аллакай ислоҳ кардаед';
+
+  @override
+  String storyCorrectionsReceived(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ислоҳ',
+      one: '$count ислоҳ',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyQuizCorrect => 'Дуруст!';
+
+  @override
+  String get storyQuizWrong => 'Тамоман не';
+
+  @override
+  String get storySaveWord => 'Захира кардани калима';
+
+  @override
+  String get storyQuizDuplicateOption => 'Ду вариант якхела аст';
+
+  @override
+  String get storyUploadFileMissing => 'Акс ё видеои ин стори дигар дар дастгоҳи шумо нест.';
+
+  @override
+  String get storyUploading => 'Стории шумо нашр шуда истодааст…';
+
+  @override
+  String get storyUploadRetry => 'Барои такрор пахш кунед';
+
+  @override
+  String get storyUploadRemove => 'Тоза кардан';
+
+  @override
+  String get storyUploadFailed => 'Стории шумо нашр нашуд.';
+
+  @override
+  String storyInsightViews(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count тамошо',
+      one: '$count тамошо',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String storyInsightCompleted(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count то охир диданд',
+      one: '$count то охир дид',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String storyInsightReplies(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ҷавоб',
+      one: '$count ҷавоб',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String storyInsightReactions(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count реаксия',
+      one: '$count реаксия',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String storyInsightQuizCorrect(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count дуруст ҷавоб доданд',
+      one: '$count дуруст ҷавоб дод',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyInsightCompletedMark => 'То охир тамошо шуд';
 }

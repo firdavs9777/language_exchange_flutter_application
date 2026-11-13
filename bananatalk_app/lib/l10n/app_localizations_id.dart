@@ -12669,4 +12669,138 @@ class AppLocalizationsId extends AppLocalizations {
   String shareOfferStreakText(int days) {
     return 'Rentetan belajar $days hari!';
   }
+
+  @override
+  String get storyStickerCorrection => 'Koreksi saya';
+
+  @override
+  String get storyStickerQuiz => 'Kuis';
+
+  @override
+  String get storyStickerWord => 'Kata';
+
+  @override
+  String get storyCorrectionSentenceHint => 'Tulis kalimat untuk dikoreksi orang lain';
+
+  @override
+  String get storyQuizQuestionHint => 'Tulis pertanyaan kuis';
+
+  @override
+  String storyQuizOptionHint(String number) {
+    return 'Opsi $number';
+  }
+
+  @override
+  String get storyQuizMarkCorrect => 'Tandai sebagai jawaban benar';
+
+  @override
+  String get storyWordHint => 'Kata atau frasa';
+
+  @override
+  String get storyWordMeaningHint => 'Arti';
+
+  @override
+  String get storyWordExampleHint => 'Kalimat contoh (opsional)';
+
+  @override
+  String get storyCorrectThis => 'Koreksi ini';
+
+  @override
+  String get storyCorrectionFieldHint => 'Tulis kalimat yang sudah dikoreksi';
+
+  @override
+  String get storyCorrectionSent => 'Koreksi terkirim';
+
+  @override
+  String get storyCorrectionAlready => 'Kamu sudah mengoreksi ini';
+
+  @override
+  String storyCorrectionsReceived(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count koreksi',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyQuizCorrect => 'Benar!';
+
+  @override
+  String get storyQuizWrong => 'Belum tepat';
+
+  @override
+  String get storySaveWord => 'Simpan kata';
+
+  @override
+  String get storyQuizDuplicateOption => 'Dua opsi sama';
+
+  @override
+  String get storyUploadFileMissing => 'Foto atau video story ini sudah tidak ada di perangkatmu.';
+
+  @override
+  String get storyUploading => 'Memposting story kamu…';
+
+  @override
+  String get storyUploadRetry => 'Ketuk untuk coba lagi';
+
+  @override
+  String get storyUploadRemove => 'Hapus';
+
+  @override
+  String get storyUploadFailed => 'Story kamu tidak bisa diposting.';
+
+  @override
+  String storyInsightViews(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count tayangan',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String storyInsightCompleted(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count menonton sampai habis',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String storyInsightReplies(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count balasan',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String storyInsightReactions(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count reaksi',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String storyInsightQuizCorrect(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count menjawab dengan benar',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyInsightCompletedMark => 'Ditonton sampai habis';
 }

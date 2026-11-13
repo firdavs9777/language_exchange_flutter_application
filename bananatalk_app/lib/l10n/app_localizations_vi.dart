@@ -12658,4 +12658,138 @@ class AppLocalizationsVi extends AppLocalizations {
   String shareOfferStreakText(int days) {
     return 'Chuỗi học $days ngày liên tiếp!';
   }
+
+  @override
+  String get storyStickerCorrection => 'Sửa giúp mình';
+
+  @override
+  String get storyStickerQuiz => 'Câu đố';
+
+  @override
+  String get storyStickerWord => 'Từ vựng';
+
+  @override
+  String get storyCorrectionSentenceHint => 'Viết một câu để mọi người sửa giúp';
+
+  @override
+  String get storyQuizQuestionHint => 'Nhập câu hỏi đố';
+
+  @override
+  String storyQuizOptionHint(String number) {
+    return 'Lựa chọn $number';
+  }
+
+  @override
+  String get storyQuizMarkCorrect => 'Đánh dấu là đáp án đúng';
+
+  @override
+  String get storyWordHint => 'Từ hoặc cụm từ';
+
+  @override
+  String get storyWordMeaningHint => 'Nghĩa';
+
+  @override
+  String get storyWordExampleHint => 'Câu ví dụ (không bắt buộc)';
+
+  @override
+  String get storyCorrectThis => 'Sửa câu này';
+
+  @override
+  String get storyCorrectionFieldHint => 'Viết câu đã sửa';
+
+  @override
+  String get storyCorrectionSent => 'Đã gửi bản sửa';
+
+  @override
+  String get storyCorrectionAlready => 'Bạn đã sửa câu này rồi';
+
+  @override
+  String storyCorrectionsReceived(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count lượt sửa',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyQuizCorrect => 'Chính xác!';
+
+  @override
+  String get storyQuizWrong => 'Chưa đúng';
+
+  @override
+  String get storySaveWord => 'Lưu từ';
+
+  @override
+  String get storyQuizDuplicateOption => 'Có hai lựa chọn giống nhau';
+
+  @override
+  String get storyUploadFileMissing => 'Ảnh hoặc video của story này không còn trên thiết bị của bạn.';
+
+  @override
+  String get storyUploading => 'Đang đăng story của bạn…';
+
+  @override
+  String get storyUploadRetry => 'Chạm để thử lại';
+
+  @override
+  String get storyUploadRemove => 'Xóa';
+
+  @override
+  String get storyUploadFailed => 'Không thể đăng story của bạn.';
+
+  @override
+  String storyInsightViews(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count lượt xem',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String storyInsightCompleted(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count người xem đến hết',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String storyInsightReplies(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count phản hồi',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String storyInsightReactions(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count lượt phản ứng',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String storyInsightQuizCorrect(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count người trả lời đúng',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyInsightCompletedMark => 'Đã xem đến hết';
 }

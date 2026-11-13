@@ -17,6 +17,16 @@ bool textStoryHasContent(String text, List<Map<String, dynamic>>? overlays) =>
     text.trim().isNotEmpty || (overlays?.isNotEmpty ?? false);
 
 class StoriesService {
+  /// Test seam: replaces the HTTP client for the methods that use [_client].
+  @visibleForTesting
+  static http.Client? httpClient;
+
+  static http.Client get _client => httpClient ?? _defaultClient;
+
+  /// One client per request, closed when its response is read: exactly what
+  /// the top-level `http.post` / `request.send()` calls did before the seam.
+  static final http.Client _defaultClient = _PerRequestClient();
+
   static Future<String?> _getToken() async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString('token');
@@ -191,6 +201,12 @@ class StoriesService {
     bool allowReplies = true,
     bool allowSharing = true,
     List<Map<String, dynamic>>? overlays,
+    StoryCorrectionSticker? correctionSticker,
+    StoryQuizSticker? quizSticker,
+    StoryWordSticker? wordSticker,
+
+    /// Sent as the `Idempotency-Key` header when non-null. Never logged.
+    String? idempotencyKey,
   }) async {
     try {
       final token = await _getToken();
@@ -311,8 +327,21 @@ class StoriesService {
       }
       request.fields['allowReplies'] = allowReplies.toString();
       request.fields['allowSharing'] = allowSharing.toString();
+      if (correctionSticker != null) {
+        request.fields['correctionSticker'] =
+            jsonEncode(correctionSticker.toCreateJson());
+      }
+      if (quizSticker != null) {
+        request.fields['quizSticker'] = jsonEncode(quizSticker.toCreateJson());
+      }
+      if (wordSticker != null) {
+        request.fields['wordSticker'] = jsonEncode(wordSticker.toCreateJson());
+      }
+      if (idempotencyKey != null) {
+        request.headers['Idempotency-Key'] = idempotencyKey;
+      }
 
-      final streamedResponse = await request.send();
+      final streamedResponse = await _client.send(request);
       final response = await http.Response.fromStream(streamedResponse);
 
 
@@ -321,15 +350,39 @@ class StoriesService {
         return SingleStoryResponse.fromJson(data);
       }
 
-      return SingleStoryResponse(
-        success: false,
-        error: _serverErrorOf(response, 'createStory'),
-        limitReached: response.statusCode == 429,
-      );
+      return _createFailure(response, 'createStory');
     } catch (e) {
       debugPrint('StoriesService.createStory failed: $e');
       return SingleStoryResponse(success: false, error: e.toString());
     }
+  }
+
+  /// Maps a refused story create to its outcome. The two 409s differ by
+  /// message: "already in progress" is retry-later, "already posted" is
+  /// terminal. Anything unrecognised stays a generic failure.
+  static SingleStoryResponse _createFailure(
+      http.Response response, String call) {
+    final error = _serverErrorOf(response, call);
+    final status = response.statusCode;
+    StoryPostFailure? failure;
+    if (status == 409) {
+      final message = (error ?? '').toLowerCase();
+      // Server message "Story upload already in progress" (retry later).
+      if (message.contains('already in progress')) {
+        failure = StoryPostFailure.inProgress;
+      // Server message "Story was already posted" (terminal).
+      } else if (message.contains('already posted')) {
+        failure = StoryPostFailure.alreadyPosted;
+      }
+    } else if (status == 503) {
+      failure = StoryPostFailure.tryAgain;
+    }
+    return SingleStoryResponse(
+      success: false,
+      error: error,
+      failure: failure,
+      limitReached: status == 429,
+    );
   }
 
   /// Backend's `parseMentions` expects the client-declared, flat shape
@@ -373,6 +426,12 @@ class StoriesService {
     /// Poll or question sticker (mutually exclusive, as on media stories).
     StoryPoll? poll,
     StoryQuestionBox? questionBox,
+    StoryCorrectionSticker? correctionSticker,
+    StoryQuizSticker? quizSticker,
+    StoryWordSticker? wordSticker,
+
+    /// Sent as the `Idempotency-Key` header when non-null. Never logged.
+    String? idempotencyKey,
   }) async {
     try {
       final token = await _getToken();
@@ -404,11 +463,18 @@ class StoriesService {
           'mentions': _mentionsToBackendJson(mentions),
         if (poll != null) 'poll': poll.toJson(),
         if (questionBox != null) 'questionBox': questionBox.toJson(),
+        if (correctionSticker != null)
+          'correctionSticker': correctionSticker.toCreateJson(),
+        if (quizSticker != null) 'quizSticker': quizSticker.toCreateJson(),
+        if (wordSticker != null) 'wordSticker': wordSticker.toCreateJson(),
       };
 
-      final response = await http.post(
+      final response = await _client.post(
         url,
-        headers: _getHeaders(token),
+        headers: {
+          ..._getHeaders(token),
+          if (idempotencyKey != null) 'Idempotency-Key': idempotencyKey,
+        },
         body: jsonEncode(body),
       );
 
@@ -418,11 +484,7 @@ class StoriesService {
         return SingleStoryResponse.fromJson(data);
       }
 
-      return SingleStoryResponse(
-        success: false,
-        error: _serverErrorOf(response, 'createTextStory'),
-        limitReached: response.statusCode == 429,
-      );
+      return _createFailure(response, 'createTextStory');
     } catch (e) {
       debugPrint('StoriesService.createTextStory failed: $e');
       return SingleStoryResponse(success: false, error: e.toString());
@@ -449,15 +511,21 @@ class StoriesService {
   static Future<Map<String, dynamic>> viewStory({
     required String storyId,
     int? viewDuration,
+
+    /// Only sent when true: the viewer reached the end of the story.
+    bool completed = false,
   }) async {
     try {
       final token = await _getToken();
       final url = Uri.parse('${Endpoints.baseURL}${Endpoints.viewStoryURL(storyId)}');
       
-      final response = await http.post(
+      final response = await _client.post(
         url,
         headers: _getHeaders(token),
-        body: jsonEncode({if (viewDuration != null) 'viewDuration': viewDuration}),
+        body: jsonEncode({
+          if (viewDuration != null) 'viewDuration': viewDuration,
+          if (completed) 'completed': true,
+        }),
       );
 
       if (response.statusCode == 200) {
@@ -475,7 +543,7 @@ class StoriesService {
     try {
       final token = await _getToken();
       final url = Uri.parse('${Endpoints.baseURL}${Endpoints.storyViewsURL(storyId)}');
-      final response = await http.get(url, headers: _getHeaders(token));
+      final response = await _client.get(url, headers: _getHeaders(token));
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
@@ -484,6 +552,7 @@ class StoriesService {
           'viewCount': data['data']?['viewCount'] ?? 0,
           'views': (data['data']?['views'] as List?)
               ?.map((v) => StoryView.fromJson(v)).toList() ?? [],
+          'summary': StoryViewsSummary.fromJsonOrNull(data['data']?['summary']),
         };
       }
       return {'success': false};
@@ -547,7 +616,7 @@ class StoriesService {
     try {
       final token = await _getToken();
       final url = Uri.parse('${Endpoints.baseURL}${Endpoints.storyReactionsURL(storyId)}');
-      final response = await http.get(url, headers: _getHeaders(token));
+      final response = await _client.get(url, headers: _getHeaders(token));
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
@@ -625,6 +694,123 @@ class StoriesService {
     }
   }
 
+  // ==================== LEARNING STICKERS ====================
+
+  /// Send a correction for a story's correction sticker. It reaches the
+  /// author as a chat message, so the chat's message limit applies.
+  static Future<CorrectionResult> submitCorrection({
+    required String storyId,
+    required String text,
+  }) async {
+    try {
+      final token = await _getToken();
+      final url = Uri.parse('${Endpoints.baseURL}${Endpoints.storyCorrectionURL(storyId)}');
+      final response = await _client.post(
+        url,
+        headers: _getHeaders(token),
+        body: jsonEncode({'text': text}),
+      );
+      final message = serverErrorOf(response);
+      switch (response.statusCode) {
+        case 201:
+          // A sent correction is never reported as failed, even when the
+          // body is unreadable: the UI would invite a second send.
+          int? count;
+          try {
+            final data = (jsonDecode(response.body) as Map?)?['data'];
+            final raw = data is Map ? data['correctionCount'] : null;
+            count = raw is num ? raw.toInt() : null;
+          } catch (_) {}
+          return CorrectionResult(
+            outcome: CorrectionOutcome.success,
+            correctionCount: count,
+          );
+        case 409:
+          return CorrectionResult(
+              outcome: CorrectionOutcome.alreadyCorrected, message: message);
+        case 403:
+          return CorrectionResult(
+            outcome: _correction403Outcome(response, message),
+            message: message,
+          );
+        case 429:
+          return CorrectionResult(
+              outcome: CorrectionOutcome.limitReached, message: message);
+        case 400:
+          return CorrectionResult(
+              outcome: CorrectionOutcome.invalid, message: message);
+        case 404:
+          return CorrectionResult(
+              outcome: CorrectionOutcome.unavailable, message: message);
+      }
+      return CorrectionResult(
+          outcome: CorrectionOutcome.failure, message: message);
+    } catch (e) {
+      debugPrint('StoriesService.submitCorrection failed: $e');
+      return CorrectionResult(
+          outcome: CorrectionOutcome.failure, message: e.toString());
+    }
+  }
+
+  /// The correction endpoint answers several different refusals with 403.
+  static CorrectionOutcome _correction403Outcome(
+      http.Response response, String? message) {
+    String? code;
+    try {
+      final body = jsonDecode(response.body);
+      if (body is Map && body['code'] is String) code = body['code'];
+    } catch (_) {}
+    // Server body `code: CONVERSATION_START_LIMIT` (the chat path's cap on
+    // starting conversations): a product limit, not a block.
+    if (code == 'CONVERSATION_START_LIMIT') return CorrectionOutcome.limitReached;
+    final text = (message ?? '').toLowerCase();
+    // Server message "This content is not available" (viewer may not see it).
+    if (text.contains('not available')) return CorrectionOutcome.unavailable;
+    // Server message "Replies are disabled for this story".
+    if (text.contains('replies are disabled')) {
+      return CorrectionOutcome.repliesDisabled;
+    }
+    // "Cannot reply to this story" (a block either way) and anything else.
+    return CorrectionOutcome.blocked;
+  }
+
+  /// Answer a story quiz. A repeat returns the first answer's result.
+  static Future<QuizAnswerResult> answerQuiz({
+    required String storyId,
+    required int optionIndex,
+  }) async {
+    try {
+      final token = await _getToken();
+      final url = Uri.parse('${Endpoints.baseURL}${Endpoints.storyQuizAnswerURL(storyId)}');
+      final response = await _client.post(
+        url,
+        headers: _getHeaders(token),
+        body: jsonEncode({'optionIndex': optionIndex}),
+      );
+      if (response.statusCode == 200) {
+        Object? data;
+        try {
+          data = (jsonDecode(response.body) as Map?)?['data'];
+        } catch (_) {}
+        final quiz = data is Map
+            ? StoryQuizSticker.fromJsonOrNull(data['quiz'])
+            : null;
+        // The answer was recorded even when the body is unreadable: success
+        // without a quiz, so the viewer keeps the pick instead of failing.
+        return QuizAnswerResult(
+          success: true,
+          quiz: quiz,
+          isCorrect: data is Map && data['isCorrect'] == true,
+        );
+      }
+      return QuizAnswerResult(
+          success: false, error: serverErrorOf(response));
+    } catch (e) {
+      debugPrint('StoriesService.answerQuiz failed: $e');
+      return QuizAnswerResult(success: false, error: e.toString());
+    }
+  }
+
   // ==================== QUESTION BOX ====================
 
   /// Answer question on story
@@ -637,13 +823,14 @@ class StoriesService {
       final token = await _getToken();
       final url = Uri.parse('${Endpoints.baseURL}${Endpoints.storyQuestionAnswerURL(storyId)}');
       
-      final response = await http.post(
+      final response = await _client.post(
         url,
         headers: _getHeaders(token),
         body: jsonEncode({'text': text, 'isAnonymous': isAnonymous}),
       );
 
-      if (response.statusCode == 200) {
+      // The server answers 201 for a created answer.
+      if (response.statusCode >= 200 && response.statusCode < 300) {
         return {'success': true};
       }
       return {'success': false};
@@ -995,4 +1182,12 @@ class StoriesService {
       default: return 'image/jpeg';
     }
   }
+}
+
+/// Sends every request through `BaseRequest.send()`, which makes a fresh
+/// client and closes it once the response stream is done.
+class _PerRequestClient extends http.BaseClient {
+  @override
+  Future<http.StreamedResponse> send(http.BaseRequest request) =>
+      request.send();
 }

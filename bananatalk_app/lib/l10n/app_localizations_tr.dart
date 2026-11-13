@@ -12677,4 +12677,144 @@ class AppLocalizationsTr extends AppLocalizations {
   String shareOfferStreakText(int days) {
     return '$days günlük öğrenme serisi!';
   }
+
+  @override
+  String get storyStickerCorrection => 'Beni düzelt';
+
+  @override
+  String get storyStickerQuiz => 'Test';
+
+  @override
+  String get storyStickerWord => 'Kelime';
+
+  @override
+  String get storyCorrectionSentenceHint => 'Başkalarının düzeltmesi için bir cümle yaz';
+
+  @override
+  String get storyQuizQuestionHint => 'Bir test sorusu sor';
+
+  @override
+  String storyQuizOptionHint(String number) {
+    return 'Seçenek $number';
+  }
+
+  @override
+  String get storyQuizMarkCorrect => 'Doğru cevap olarak işaretle';
+
+  @override
+  String get storyWordHint => 'Kelime veya ifade';
+
+  @override
+  String get storyWordMeaningHint => 'Anlamı';
+
+  @override
+  String get storyWordExampleHint => 'Örnek cümle (isteğe bağlı)';
+
+  @override
+  String get storyCorrectThis => 'Düzelt';
+
+  @override
+  String get storyCorrectionFieldHint => 'Düzeltilmiş cümleyi yaz';
+
+  @override
+  String get storyCorrectionSent => 'Düzeltme gönderildi';
+
+  @override
+  String get storyCorrectionAlready => 'Bunu zaten düzelttin';
+
+  @override
+  String storyCorrectionsReceived(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count düzeltme',
+      one: '$count düzeltme',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyQuizCorrect => 'Doğru!';
+
+  @override
+  String get storyQuizWrong => 'Pek değil';
+
+  @override
+  String get storySaveWord => 'Kelimeyi kaydet';
+
+  @override
+  String get storyQuizDuplicateOption => 'İki seçenek aynı';
+
+  @override
+  String get storyUploadFileMissing => 'Bu hikayenin fotoğrafı veya videosu artık cihazında yok.';
+
+  @override
+  String get storyUploading => 'Hikayen paylaşılıyor…';
+
+  @override
+  String get storyUploadRetry => 'Tekrar denemek için dokun';
+
+  @override
+  String get storyUploadRemove => 'Kaldır';
+
+  @override
+  String get storyUploadFailed => 'Hikayen paylaşılamadı.';
+
+  @override
+  String storyInsightViews(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count görüntülenme',
+      one: '$count görüntülenme',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String storyInsightCompleted(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count kişi sonuna kadar izledi',
+      one: '$count kişi sonuna kadar izledi',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String storyInsightReplies(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count yanıt',
+      one: '$count yanıt',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String storyInsightReactions(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count tepki',
+      one: '$count tepki',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String storyInsightQuizCorrect(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count kişi doğru yanıtladı',
+      one: '$count kişi doğru yanıtladı',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyInsightCompletedMark => 'Sonuna kadar izlendi';
 }

@@ -38,6 +38,32 @@ import 'package:bananatalk_app/pages/stories/feed/stories_rail_order.dart';
 import 'package:bananatalk_app/pages/stories/story_precache.dart';
 import 'package:bananatalk_app/widgets/story/story_poll_widget.dart';
 import 'package:bananatalk_app/widgets/story/story_question_box_widget.dart';
+import 'package:bananatalk_app/widgets/story/story_correction_sticker_widget.dart';
+import 'package:bananatalk_app/widgets/story/story_quiz_sticker_widget.dart';
+import 'package:bananatalk_app/widgets/story/story_word_sticker_widget.dart';
+import 'package:bananatalk_app/services/learning_service.dart';
+import 'package:bananatalk_app/pages/stories/viewer/story_completion_tracker.dart';
+import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
+
+/// Saves a word sticker to the viewer's vocabulary; replaced in tests.
+typedef StoryWordSaver = Future<Map<String, dynamic>> Function({
+  required String word,
+  required String translation,
+  required String language,
+  String? exampleSentence,
+});
+
+Future<Map<String, dynamic>> defaultStoryWordSaver({
+  required String word,
+  required String translation,
+  required String language,
+  String? exampleSentence,
+}) => LearningService.addVocabulary(
+  word: word,
+  translation: translation,
+  language: language,
+  exampleSentence: exampleSentence,
+);
 
 class StoryViewerScreen extends ConsumerStatefulWidget {
   final List<UserStories> userStories;
@@ -61,6 +87,13 @@ class StoryViewerScreen extends ConsumerStatefulWidget {
   /// Preloads the next story's image; replaced in tests.
   final StoryPrecacher precache;
 
+  /// Saves a word sticker to the vocabulary; replaced in tests.
+  final StoryWordSaver saveWord;
+
+  /// Reports stories played to the end; replaced in tests. Defaults to one
+  /// per viewer session.
+  final StoryCompletionTracker? completionTracker;
+
   const StoryViewerScreen({
     super.key,
     this.userStories = const [],
@@ -70,6 +103,8 @@ class StoryViewerScreen extends ConsumerStatefulWidget {
     this.stories,
     this.storiesUser,
     this.precache = precacheStoryImages,
+    this.saveWord = defaultStoryWordSaver,
+    this.completionTracker,
   }) : assert(
          stories != null || userStories.length > 0,
          'Provide either userStories or a non-empty stories list',
@@ -117,6 +152,16 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
   final Map<String, String> _reactionOverrides = {};
   final Set<String> _answeredStoryIds = {};
 
+  /// Learning-sticker state of this viewer session, keyed by story id, so
+  /// paging away from a story and back shows the same answer / correction /
+  /// saved word (the story objects are not refetched).
+  final Map<String, StoryQuizSticker> _quizOverrides = {};
+  final Map<String, StoryCorrectionSticker> _correctionOverrides = {};
+  final Set<String> _correctionSentIds = {};
+  final Set<String> _correctionRepliesOffIds = {};
+  final Set<String> _savedWordIds = {};
+  final Set<String> _correctionSendingIds = {};
+
   /// The signed-in user's id, used to recover the viewer's own vote /
   /// answer / reaction from older backends that do not send
   /// userVoteIndex / hasAnswered / myReaction.
@@ -156,6 +201,7 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
 
     _progressController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
+        _reportCompleted();
         _nextStory();
       }
     });
@@ -165,6 +211,24 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
 
     _initializeCurrentStory();
     _markAsViewed();
+  }
+
+  late final StoryCompletionTracker _completionTracker =
+      widget.completionTracker ??
+      StoryCompletionTracker(
+        send: (id) => StoriesService.viewStory(storyId: id, completed: true),
+      );
+
+  /// Only the progress animation reaching its end calls this; a tap-skip,
+  /// a swipe to the next user or closing the viewer never does. The flag is
+  /// read now, not watched, so a flag-off viewer subscribes to nothing.
+  void _reportCompleted() {
+    final story = _currentStory;
+    if (story == null || widget.isOwnStory) return;
+    if (ref.read(appConfigProvider).valueOrNull?.storyInsightsEnabled != true) {
+      return;
+    }
+    _completionTracker.completed(story.id);
   }
 
   bool? _onMobileData;
@@ -188,6 +252,9 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
   Future<void> _initializeCurrentStory() async {
     final story = _currentStory;
     if (story == null) return;
+    // A pause requested by a sticker field that left the tree with the old
+    // story (focused field, paged away) must not outlive it.
+    _isPaused = false;
     // Highlights play a flat list that may not be "active" stories, and the
     // own-story viewer has nothing ahead worth the bytes.
     if (widget.stories == null && !widget.isOwnStory) {
@@ -637,6 +704,128 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
       showStoriesSnackBar(
         context,
         message: AppLocalizations.of(context)!.storyAnswerFailed,
+        type: StoriesSnackBarType.error,
+      );
+    }
+  }
+
+  /// Stickers are read-only (no input, no server calls) when the server would
+  /// refuse them: the story is expired or archived, or it is being replayed
+  /// from a highlight.
+  bool _stickersReadOnly(Story story) =>
+      story.isArchived ||
+      !story.expiresAt.isAfter(DateTime.now()) ||
+      (story.isHighlighted && widget.stories != null);
+
+  String _failureText() => AppLocalizations.of(context)!.somethingWentWrong;
+
+  /// Sends a quiz answer; `true` once the answered quiz is stored.
+  Future<bool> _answerQuiz(Story story, int optionIndex) async {
+    final result = await StoriesService.answerQuiz(
+      storyId: story.id,
+      optionIndex: optionIndex,
+    );
+    if (!mounted) return false;
+    if (result.success) {
+      // No readable quiz in a successful answer: keep the pick as answered
+      // (no percentages; the next story load brings them).
+      final current = _quizOverrides[story.id] ?? story.quizSticker!;
+      setState(() {
+        _quizOverrides[story.id] = result.quiz ??
+            current.copyWith(hasAnswered: true, userAnswerIndex: optionIndex);
+      });
+      return true;
+    }
+    showStoriesSnackBar(
+      context,
+      message: _failureText(),
+      type: StoriesSnackBarType.error,
+    );
+    return false;
+  }
+
+  Future<CorrectionResult> _submitCorrection(Story story, String text) async {
+    // In flight is viewer state (keyed by story) so paging away and back
+    // cannot offer a second send.
+    if (!_correctionSendingIds.add(story.id)) {
+      return const CorrectionResult(outcome: CorrectionOutcome.failure);
+    }
+    if (mounted) setState(() {});
+    final CorrectionResult result;
+    try {
+      result = await StoriesService.submitCorrection(
+        storyId: story.id,
+        text: text,
+      );
+    } finally {
+      _correctionSendingIds.remove(story.id);
+    }
+    if (!mounted) return result;
+    setState(() {});
+    final previous = _correctionOverrides[story.id] ?? story.correctionSticker!;
+    switch (result.outcome) {
+      case CorrectionOutcome.success:
+        final returned = result.correctionCount ?? 0;
+        final shown = returned > previous.correctionCount + 1
+            ? returned
+            : previous.correctionCount + 1;
+        setState(() {
+          _correctionSentIds.add(story.id);
+          _correctionOverrides[story.id] = previous.copyWith(
+            correctionCount: shown,
+            hasCorrected: true,
+          );
+        });
+      case CorrectionOutcome.alreadyCorrected:
+        setState(() {
+          _correctionOverrides[story.id] = previous.copyWith(hasCorrected: true);
+        });
+      case CorrectionOutcome.repliesDisabled:
+        setState(() => _correctionRepliesOffIds.add(story.id));
+      case CorrectionOutcome.limitReached:
+      case CorrectionOutcome.invalid:
+        showStoriesSnackBar(
+          context,
+          message: (result.message != null && result.message!.isNotEmpty)
+              ? result.message!
+              : _failureText(),
+          type: StoriesSnackBarType.error,
+        );
+      case CorrectionOutcome.blocked:
+      case CorrectionOutcome.unavailable:
+      case CorrectionOutcome.failure:
+        showStoriesSnackBar(
+          context,
+          message: _failureText(),
+          type: StoriesSnackBarType.error,
+        );
+    }
+    return result;
+  }
+
+  Future<void> _saveWordSticker(Story story) async {
+    final sticker = story.wordSticker!;
+    final result = await widget.saveWord(
+      word: sticker.word,
+      translation: sticker.meaning,
+      // Empty, not 'auto': the server falls back to the saver's learning
+      // language only for an empty field.
+      language: sticker.language ?? '',
+      exampleSentence: sticker.example,
+    );
+    if (!mounted) return;
+    final l10n = AppLocalizations.of(context)!;
+    if (result['success'] == true) {
+      setState(() => _savedWordIds.add(story.id));
+      showStoriesSnackBar(
+        context,
+        message: l10n.addedToVocabulary,
+        type: StoriesSnackBarType.success,
+      );
+    } else {
+      showStoriesSnackBar(
+        context,
+        message: l10n.somethingWentWrong,
         type: StoriesSnackBarType.error,
       );
     }
@@ -1591,6 +1780,78 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
             ),
           ),
 
+        // Learning stickers (correction / quiz / word). Built only for a story
+        // that carries one, so every other story renders exactly as before.
+        if (story.correctionSticker != null)
+          Positioned(
+            left: 0,
+            right: 0,
+            // Lower while the keyboard is up so the field stays visible.
+            bottom:
+                MediaQuery.of(context).padding.bottom +
+                (widget.isOwnStory
+                    ? 100
+                    : (MediaQuery.of(context).viewInsets.bottom > 0 ? 80 : 180)),
+            child: StoryCorrectionStickerWidget(
+              key: ValueKey('correction_${story.id}'),
+              sticker:
+                  _correctionOverrides[story.id] ?? story.correctionSticker!,
+              isOwner: widget.isOwnStory,
+              readOnly: _stickersReadOnly(story),
+              allowReplies:
+                  story.allowReplies &&
+                  !_correctionRepliesOffIds.contains(story.id),
+              sent: _correctionSentIds.contains(story.id),
+              sending: _correctionSendingIds.contains(story.id),
+              onSubmit: widget.isOwnStory
+                  ? null
+                  : (text) => _submitCorrection(story, text),
+              onInteracting: widget.isOwnStory
+                  ? null
+                  : (interacting) =>
+                        interacting ? _pauseStory() : _resumeStory(),
+            ),
+          ),
+        if (story.quizSticker != null)
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom:
+                MediaQuery.of(context).padding.bottom +
+                (widget.isOwnStory ? 100 : 180),
+            child: StoryQuizStickerWidget(
+              key: ValueKey('quiz_${story.id}'),
+              quiz: _quizOverrides[story.id] ?? story.quizSticker!,
+              isOwner: widget.isOwnStory,
+              readOnly: _stickersReadOnly(story),
+              onAnswer: widget.isOwnStory
+                  ? null
+                  : (index) => _answerQuiz(story, index),
+              onInteracting: widget.isOwnStory
+                  ? null
+                  : (interacting) =>
+                        interacting ? _pauseStory() : _resumeStory(),
+            ),
+          ),
+        if (story.wordSticker != null)
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom:
+                MediaQuery.of(context).padding.bottom +
+                (widget.isOwnStory ? 100 : 180),
+            child: StoryWordStickerWidget(
+              key: ValueKey('word_${story.id}'),
+              sticker: story.wordSticker!,
+              isOwner: widget.isOwnStory,
+              readOnly: _stickersReadOnly(story),
+              saved: _savedWordIds.contains(story.id),
+              onSave: widget.isOwnStory
+                  ? null
+                  : () => _saveWordSticker(story),
+            ),
+          ),
+
         // Link sticker pill — sits above the poll/question sticker (if any)
         // to avoid overlapping it, since a story can carry both.
         if (story.link != null && story.link!.url.isNotEmpty)
@@ -1600,7 +1861,11 @@ class _StoryViewerScreenState extends ConsumerState<StoryViewerScreen>
             bottom:
                 MediaQuery.of(context).padding.bottom +
                 (widget.isOwnStory ? 100 : 180) +
-                ((story.poll != null || story.questionBox != null) ? 90 : 0),
+                ((story.poll != null || story.questionBox != null)
+                    ? 90
+                    : (story.quizSticker != null
+                          ? 300
+                          : (story.interactiveStickerCount > 0 ? 170 : 0))),
             child: Center(child: _buildLinkPill(story.link!)),
           ),
 

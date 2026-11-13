@@ -1,10 +1,13 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart' show visibleForTesting;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:bananatalk_app/widgets/limit_exceeded_dialog.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:bananatalk_app/pages/stories/widgets/story_limit.dart';
+import 'package:bananatalk_app/providers/upload_manager_provider.dart';
+import 'package:bananatalk_app/services/story_upload_payload.dart';
+import 'package:bananatalk_app/services/upload_queue_service.dart' show StoryUploadQueueException;
 import 'package:bananatalk_app/services/camera_recovery.dart';
 import 'package:video_player/video_player.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
@@ -20,6 +23,12 @@ import 'package:bananatalk_app/pages/stories/models/story_gradient.dart';
 import 'package:bananatalk_app/pages/stories/create/poll_sticker_editor.dart';
 import 'package:bananatalk_app/pages/stories/create/link_sticker_editor.dart';
 import 'package:bananatalk_app/pages/stories/create/question_sticker_editor.dart';
+import 'package:bananatalk_app/pages/stories/create/correction_sticker_editor.dart';
+import 'package:bananatalk_app/pages/stories/create/quiz_sticker_editor.dart';
+import 'package:bananatalk_app/pages/stories/create/sticker_editor_kit.dart';
+import 'package:bananatalk_app/pages/stories/create/word_sticker_editor.dart';
+import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart' show userProvider;
 import 'package:bananatalk_app/pages/stories/create/studio/draw_layer.dart';
 import 'package:bananatalk_app/pages/stories/create/studio/filter_bar.dart';
 import 'package:bananatalk_app/pages/stories/create/studio/location_picker_sheet.dart';
@@ -37,10 +46,41 @@ class CreateStoryScreen extends ConsumerStatefulWidget {
   const CreateStoryScreen({super.key, this.onStoryCreated, this.initialImage});
 
   @override
-  ConsumerState<CreateStoryScreen> createState() => _CreateStoryScreenState();
+  ConsumerState<CreateStoryScreen> createState() => CreateStoryScreenState();
 }
 
-class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
+/// Public only so tests can seed what the editors would have produced.
+@visibleForTesting
+class CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
+  /// Test seam: sets the attachments and options the composer's pickers and
+  /// editors would have set, so a test can check each reaches the payload.
+  @visibleForTesting
+  void debugSeed({
+    StoryPrivacy? privacy,
+    List<String>? hashtags,
+    StoryLocation? location,
+    List<StoryMention>? mentions,
+    StoryLink? link,
+    StoryPoll? poll,
+    StoryQuestionBox? questionBox,
+    StoryCorrectionSticker? correction,
+    StoryQuizSticker? quiz,
+    StoryWordSticker? word,
+  }) {
+    setState(() {
+      if (privacy != null) _privacy = privacy;
+      if (hashtags != null) _hashtags.addAll(hashtags);
+      if (location != null) _pickedLocation = location;
+      if (mentions != null) _mentions.addAll(mentions);
+      if (link != null) _link = link;
+      if (poll != null) _poll = poll;
+      if (questionBox != null) _questionBox = questionBox;
+      if (correction != null) _correction = correction;
+      if (quiz != null) _quiz = quiz;
+      if (word != null) _word = word;
+    });
+  }
+
   File? _mediaFile;
   String _mediaType = 'image';
   final TextEditingController _captionController = TextEditingController();
@@ -88,6 +128,19 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
   /// The optional link sticker. Null is the normal state.
   StoryLink? _link;
   StoryQuestionBox? _questionBox;
+
+  // Learning stickers (flag-gated entries in the sticker sheet). Part of the
+  // same one-interactive-sticker rule as _poll / _questionBox.
+  StoryCorrectionSticker? _correction;
+  StoryQuizSticker? _quiz;
+  StoryWordSticker? _word;
+
+  bool get _hasInteractiveSticker =>
+      _poll != null ||
+      _questionBox != null ||
+      _correction != null ||
+      _quiz != null ||
+      _word != null;
 
   // Location tag (Task 7) — independent of poll/questionBox, may be combined
   // with either.
@@ -559,6 +612,11 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
     setState(() => _isUploading = true);
 
     try {
+      // Flag on: bake / compress as below, then hand the story to the upload
+      // queue and leave. False only when nothing could be queued (e.g. the
+      // private file copy failed); the blocking path below then posts it.
+      if (_storyQueueEnabled() && await _postThroughQueue()) return;
+
       if (_isTextStory) {
         // Text-only stories must still send real `text` so older client
         // versions (which render only `story.text`, not `overlays[]`) show
@@ -584,6 +642,9 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
           link: _link,
           poll: _poll,
           questionBox: _questionBox,
+          correctionSticker: _correction,
+          quizSticker: _quiz,
+          wordSticker: _word,
         );
 
         if (mounted) {
@@ -631,6 +692,9 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
           overlays: _overlays.map((o) => o.toJson()).toList(),
           poll: _poll,
           questionBox: _questionBox,
+          correctionSticker: _correction,
+          quizSticker: _quiz,
+          wordSticker: _word,
           hashtags: _hashtags,
           location: _pickedLocation,
           mentions: _mentions,
@@ -675,17 +739,93 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
     }
   }
 
+  bool _storyQueueEnabled() => ref.read(appConfigProvider).maybeWhen(
+        data: (c) => c?.storyUploadQueueEnabled ?? false,
+        orElse: () => false,
+      );
+
+  Future<void> _deleteQuietly(File? f) async {
+    try {
+      await f?.delete();
+    } catch (_) {}
+  }
+
+  /// Queues the story with every field the blocking calls below send, pops
+  /// at once and says it is posting (not "posted": it is only queued).
+  /// Returns false, queuing nothing, when the queue refuses it.
+  Future<bool> _postThroughQueue() async {
+    File? baked;
+    final StoryUploadPayload payload;
+    if (_isTextStory) {
+      final composedText = _overlays
+          .where((o) => o.type == 'text')
+          .map((o) => o.content)
+          .join('\n');
+      payload = StoryUploadPayload(
+        text: composedText.trim().isEmpty ? ' ' : composedText,
+        backgroundColor: _gradientId,
+        fontStyle: 'normal',
+        privacy: _privacy,
+        hashtags: _hashtags,
+        overlays: _overlays.map((o) => o.toJson()).toList(),
+        location: _pickedLocation,
+        mentions: _mentions,
+        link: _link,
+        poll: _poll,
+        questionBox: _questionBox,
+        correctionSticker: _correction,
+        quizSticker: _quiz,
+        wordSticker: _word,
+      );
+    } else {
+      File uploadFile = _mediaFile!;
+      if (_mediaType == 'image' && (_filterIndex != 0 || _strokes.isNotEmpty)) {
+        uploadFile = await bakeImage(_bakeKey, _mediaFile!);
+        baked = uploadFile;
+      }
+      payload = StoryUploadPayload(
+        mediaPath: uploadFile.path,
+        isVideo: _isVideo,
+        text: _captionController.text.trim(),
+        backgroundColor: _selectedColor,
+        privacy: _privacy,
+        overlays: _overlays.map((o) => o.toJson()).toList(),
+        poll: _poll,
+        questionBox: _questionBox,
+        correctionSticker: _correction,
+        quizSticker: _quiz,
+        wordSticker: _word,
+        hashtags: _hashtags,
+        location: _pickedLocation,
+        mentions: _mentions,
+        link: _link,
+      );
+    }
+
+    try {
+      await ref.read(uploadManagerProvider.notifier).queueStoryUpload(payload);
+    } on StoryUploadQueueException {
+      // The blocking path bakes its own; this temp file is ours to drop.
+      await _deleteQuietly(baked);
+      return false;
+    }
+    // The queue keeps its own copy; the baked temp file is ours to drop.
+    await _deleteQuietly(baked);
+    if (mounted) {
+      final l10n = AppLocalizations.of(context)!;
+      Navigator.pop(context);
+      showStoriesSnackBar(
+        context,
+        message: l10n.storyUploading,
+        type: StoriesSnackBarType.info,
+      );
+    }
+    return true;
+  }
+
   /// Daily story limit reached: the same upgrade dialog as moments and
   /// comments, instead of a dead-end error snackbar.
-  Future<void> _showStoryLimit() async {
-    final prefs = await SharedPreferences.getInstance();
-    if (!mounted) return;
-    await LimitExceededDialog.show(
-      context: context,
-      limitType: 'stories',
-      userId: prefs.getString('userId') ?? '',
-    );
-  }
+  Future<void> _showStoryLimit() => showStoryLimitDialog(context);
 
   @override
   Widget build(BuildContext context) {
@@ -1048,6 +1188,9 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
                 _overlays.clear();
                 _poll = null;
                 _questionBox = null;
+                _correction = null;
+                _quiz = null;
+                _word = null;
                 _pickedLocation = null;
                 _mentions.clear();
                 _filterIndex = 0;
@@ -1125,8 +1268,7 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
         // quick remove. Independent attachments — several may be present at
         // once — so they stack in a column rather than overwriting the same
         // Positioned slot.
-        if (_poll != null ||
-            _questionBox != null ||
+        if (_hasInteractiveSticker ||
             _pickedLocation != null ||
             _mentions.isNotEmpty)
           Positioned(
@@ -1137,7 +1279,7 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                if (_poll != null || _questionBox != null) ...[
+                if (_hasInteractiveSticker) ...[
                   _buildAttachedStickerChip(),
                   const SizedBox(height: 8),
                 ],
@@ -1154,10 +1296,25 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
   }
 
   Widget _buildAttachedStickerChip() {
-    final isPoll = _poll != null;
-    final label = isPoll
-        ? 'Poll: ${_poll!.question}'
-        : 'Question: ${_questionBox!.prompt}';
+    final l10n = AppLocalizations.of(context)!;
+    final String label;
+    final IconData icon;
+    if (_poll != null) {
+      label = 'Poll: ${_poll!.question}';
+      icon = Icons.poll;
+    } else if (_questionBox != null) {
+      label = 'Question: ${_questionBox!.prompt}';
+      icon = Icons.chat_bubble_outline;
+    } else if (_correction != null) {
+      label = '${l10n.storyStickerCorrection}: ${_correction!.sentence}';
+      icon = Icons.spellcheck;
+    } else if (_quiz != null) {
+      label = '${l10n.storyStickerQuiz}: ${_quiz!.question}';
+      icon = Icons.quiz_outlined;
+    } else {
+      label = '${l10n.storyStickerWord}: ${_word!.word}';
+      icon = Icons.translate;
+    }
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
@@ -1167,11 +1324,7 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
-            isPoll ? Icons.poll : Icons.chat_bubble_outline,
-            color: Colors.white,
-            size: 16,
-          ),
+          Icon(icon, color: Colors.white, size: 16),
           const SizedBox(width: 6),
           Flexible(
             child: Text(
@@ -1190,6 +1343,9 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
             onTap: () => setState(() {
               _poll = null;
               _questionBox = null;
+              _correction = null;
+              _quiz = null;
+              _word = null;
             }),
             child: const Icon(Icons.close, color: Colors.white, size: 16),
           ),
@@ -1419,6 +1575,11 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
 
   void _openStickerMenu() {
     final l10n = AppLocalizations.of(context)!;
+    // Read once when the sheet opens (no subscription); all off = today's sheet.
+    final config = ref.read(appConfigProvider).valueOrNull;
+    final correctionOn = config?.storyStickerCorrectionEnabled ?? false;
+    final quizOn = config?.storyStickerQuizEnabled ?? false;
+    final wordOn = config?.storyStickerWordEnabled ?? false;
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.grey[900],
@@ -1456,6 +1617,36 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
                 _openQuestionEditor();
               },
             ),
+            if (correctionOn)
+              _StickerOption(
+                key: const Key('sticker-correction'),
+                icon: Icons.spellcheck,
+                title: l10n.storyStickerCorrection,
+                onTap: () {
+                  Navigator.pop(ctx);
+                  _openCorrectionEditor();
+                },
+              ),
+            if (quizOn)
+              _StickerOption(
+                key: const Key('sticker-quiz'),
+                icon: Icons.quiz_outlined,
+                title: l10n.storyStickerQuiz,
+                onTap: () {
+                  Navigator.pop(ctx);
+                  _openQuizEditor();
+                },
+              ),
+            if (wordOn)
+              _StickerOption(
+                key: const Key('sticker-word'),
+                icon: Icons.translate,
+                title: l10n.storyStickerWord,
+                onTap: () {
+                  Navigator.pop(ctx);
+                  _openWordEditor();
+                },
+              ),
             _StickerOption(
               icon: Icons.place_outlined,
               title: l10n.storyStickerLocation,
@@ -1511,6 +1702,7 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
       setState(() {
         _poll = result;
         _questionBox = null; // Mutually exclusive with backend schema
+        _correction = _quiz = _word = null;
       });
     }
   }
@@ -1526,8 +1718,63 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
       setState(() {
         _questionBox = result;
         _poll = null; // Mutually exclusive with backend schema
+        _correction = _quiz = _word = null;
       });
     }
+  }
+
+  /// Picks the one interactive sticker: clears the other four.
+  void _chooseLearningSticker({
+    StoryCorrectionSticker? correction,
+    StoryQuizSticker? quiz,
+    StoryWordSticker? word,
+  }) {
+    setState(() {
+      _poll = null;
+      _questionBox = null;
+      _correction = correction;
+      _quiz = quiz;
+      _word = word;
+    });
+  }
+
+  /// The user's learning language (base code) for a new sticker.
+  String? _learningLanguageCode() => stickerLanguageDefault(
+        ref.read(userProvider).valueOrNull?.language_to_learn,
+      );
+
+  Future<void> _openCorrectionEditor() async {
+    final result = await Navigator.push<StoryCorrectionSticker>(
+      context,
+      MaterialPageRoute(
+        builder: (_) => CorrectionStickerEditor(
+          initial: _correction,
+          defaultLanguage: _learningLanguageCode(),
+        ),
+      ),
+    );
+    if (result != null && mounted) _chooseLearningSticker(correction: result);
+  }
+
+  Future<void> _openQuizEditor() async {
+    final result = await Navigator.push<StoryQuizSticker>(
+      context,
+      MaterialPageRoute(builder: (_) => QuizStickerEditor(initial: _quiz)),
+    );
+    if (result != null && mounted) _chooseLearningSticker(quiz: result);
+  }
+
+  Future<void> _openWordEditor() async {
+    final result = await Navigator.push<StoryWordSticker>(
+      context,
+      MaterialPageRoute(
+        builder: (_) => WordStickerEditor(
+          initial: _word,
+          defaultLanguage: _learningLanguageCode(),
+        ),
+      ),
+    );
+    if (result != null && mounted) _chooseLearningSticker(word: result);
   }
 
   Future<void> _pickLocation() async {
@@ -1574,7 +1821,7 @@ class _CreateStoryScreenState extends ConsumerState<CreateStoryScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        if (_poll != null || _questionBox != null) ...[
+                        if (_hasInteractiveSticker) ...[
                           _buildAttachedStickerChip(),
                           const SizedBox(height: 8),
                         ],
@@ -1890,13 +2137,13 @@ class _StickerOption extends StatelessWidget {
     super.key,
     required this.icon,
     required this.title,
-    required this.subtitle,
+    this.subtitle,
     required this.onTap,
   });
 
   final IconData icon;
   final String title;
-  final String subtitle;
+  final String? subtitle;
   final VoidCallback onTap;
 
   @override
@@ -1904,7 +2151,9 @@ class _StickerOption extends StatelessWidget {
     return ListTile(
       leading: Icon(icon, color: const Color(0xFF00BFA5)),
       title: Text(title, style: const TextStyle(color: Colors.white)),
-      subtitle: Text(subtitle, style: const TextStyle(color: Colors.white54)),
+      subtitle: subtitle == null
+          ? null
+          : Text(subtitle!, style: const TextStyle(color: Colors.white54)),
       onTap: onTap,
     );
   }

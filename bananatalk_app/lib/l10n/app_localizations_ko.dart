@@ -12658,4 +12658,138 @@ class AppLocalizationsKo extends AppLocalizations {
   String shareOfferStreakText(int days) {
     return '$days일 연속 학습 중!';
   }
+
+  @override
+  String get storyStickerCorrection => '문장 교정';
+
+  @override
+  String get storyStickerQuiz => '퀴즈';
+
+  @override
+  String get storyStickerWord => '단어';
+
+  @override
+  String get storyCorrectionSentenceHint => '다른 사람이 고쳐 줄 문장을 써 보세요';
+
+  @override
+  String get storyQuizQuestionHint => '퀴즈 질문을 입력하세요';
+
+  @override
+  String storyQuizOptionHint(String number) {
+    return '보기 $number';
+  }
+
+  @override
+  String get storyQuizMarkCorrect => '정답으로 표시';
+
+  @override
+  String get storyWordHint => '단어 또는 표현';
+
+  @override
+  String get storyWordMeaningHint => '뜻';
+
+  @override
+  String get storyWordExampleHint => '예문 (선택)';
+
+  @override
+  String get storyCorrectThis => '첨삭하기';
+
+  @override
+  String get storyCorrectionFieldHint => '수정한 문장을 입력하세요';
+
+  @override
+  String get storyCorrectionSent => '첨삭을 보냈어요';
+
+  @override
+  String get storyCorrectionAlready => '이미 첨삭했어요';
+
+  @override
+  String storyCorrectionsReceived(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '첨삭 $count개',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyQuizCorrect => '정답!';
+
+  @override
+  String get storyQuizWrong => '아쉬워요';
+
+  @override
+  String get storySaveWord => '단어 저장';
+
+  @override
+  String get storyQuizDuplicateOption => '같은 보기가 있어요';
+
+  @override
+  String get storyUploadFileMissing => '이 스토리의 사진이나 동영상이 기기에 더 이상 없어요.';
+
+  @override
+  String get storyUploading => '스토리 올리는 중…';
+
+  @override
+  String get storyUploadRetry => '탭하여 다시 시도';
+
+  @override
+  String get storyUploadRemove => '삭제';
+
+  @override
+  String get storyUploadFailed => '스토리를 올리지 못했어요.';
+
+  @override
+  String storyInsightViews(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '조회 $count회',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String storyInsightCompleted(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '끝까지 본 사람 $count명',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String storyInsightReplies(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '답장 $count개',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String storyInsightReactions(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '반응 $count개',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String storyInsightQuizCorrect(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '정답 $count명',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyInsightCompletedMark => '끝까지 시청함';
 }

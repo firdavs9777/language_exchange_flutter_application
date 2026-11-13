@@ -23017,6 +23017,186 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{days}-day learning streak!'**
   String shareOfferStreakText(int days);
+
+  /// No description provided for @storyStickerCorrection.
+  ///
+  /// In en, this message translates to:
+  /// **'Correct me'**
+  String get storyStickerCorrection;
+
+  /// No description provided for @storyStickerQuiz.
+  ///
+  /// In en, this message translates to:
+  /// **'Quiz'**
+  String get storyStickerQuiz;
+
+  /// No description provided for @storyStickerWord.
+  ///
+  /// In en, this message translates to:
+  /// **'Word'**
+  String get storyStickerWord;
+
+  /// No description provided for @storyCorrectionSentenceHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Write a sentence for others to correct'**
+  String get storyCorrectionSentenceHint;
+
+  /// No description provided for @storyQuizQuestionHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Ask a quiz question'**
+  String get storyQuizQuestionHint;
+
+  /// No description provided for @storyQuizOptionHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Option {number}'**
+  String storyQuizOptionHint(String number);
+
+  /// No description provided for @storyQuizMarkCorrect.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark as correct answer'**
+  String get storyQuizMarkCorrect;
+
+  /// No description provided for @storyWordHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Word or phrase'**
+  String get storyWordHint;
+
+  /// No description provided for @storyWordMeaningHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Meaning'**
+  String get storyWordMeaningHint;
+
+  /// No description provided for @storyWordExampleHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Example sentence (optional)'**
+  String get storyWordExampleHint;
+
+  /// Button on a story's correction sticker: the viewer offers a correction of the sentence
+  ///
+  /// In en, this message translates to:
+  /// **'Correct this'**
+  String get storyCorrectThis;
+
+  /// Hint inside the field where the viewer types the corrected sentence
+  ///
+  /// In en, this message translates to:
+  /// **'Write the corrected sentence'**
+  String get storyCorrectionFieldHint;
+
+  /// Shown after the viewer's correction was sent
+  ///
+  /// In en, this message translates to:
+  /// **'Correction sent'**
+  String get storyCorrectionSent;
+
+  /// Shown when the viewer has already corrected this story's sentence
+  ///
+  /// In en, this message translates to:
+  /// **'You already corrected this'**
+  String get storyCorrectionAlready;
+
+  /// How many corrections the story owner received on their correction sticker
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{{count} correction} other{{count} corrections}}'**
+  String storyCorrectionsReceived(int count);
+
+  /// Quiz sticker: the viewer picked the right answer
+  ///
+  /// In en, this message translates to:
+  /// **'Correct!'**
+  String get storyQuizCorrect;
+
+  /// Quiz sticker: the viewer picked a wrong answer
+  ///
+  /// In en, this message translates to:
+  /// **'Not quite'**
+  String get storyQuizWrong;
+
+  /// Button on a story's word sticker that saves the word to the viewer's vocabulary
+  ///
+  /// In en, this message translates to:
+  /// **'Save word'**
+  String get storySaveWord;
+
+  /// No description provided for @storyQuizDuplicateOption.
+  ///
+  /// In en, this message translates to:
+  /// **'Two options are the same'**
+  String get storyQuizDuplicateOption;
+
+  /// Shown on a queued story that cannot be posted because its photo or video file is gone from the device
+  ///
+  /// In en, this message translates to:
+  /// **'This story\'s photo or video is no longer on your device.'**
+  String get storyUploadFileMissing;
+
+  /// Chip on your own story ring while the story is posting in the background
+  ///
+  /// In en, this message translates to:
+  /// **'Posting your story…'**
+  String get storyUploading;
+
+  /// Chip on your own story ring when posting failed; tapping it opens retry / remove
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to retry'**
+  String get storyUploadRetry;
+
+  /// Button that removes a story that failed to post from the queue
+  ///
+  /// In en, this message translates to:
+  /// **'Remove'**
+  String get storyUploadRemove;
+
+  /// Shown on a queued story that could not be posted after several tries
+  ///
+  /// In en, this message translates to:
+  /// **'Your story couldn\'t be posted.'**
+  String get storyUploadFailed;
+
+  /// Story insights: how many views the story got, shown to its owner
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{{count} view} other{{count} views}}'**
+  String storyInsightViews(int count);
+
+  /// Story insights: how many viewers watched the whole story
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{{count} watched to the end} other{{count} watched to the end}}'**
+  String storyInsightCompleted(int count);
+
+  /// Story insights: how many replies the story got
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{{count} reply} other{{count} replies}}'**
+  String storyInsightReplies(int count);
+
+  /// Story insights: how many reactions the story got
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{{count} reaction} other{{count} reactions}}'**
+  String storyInsightReactions(int count);
+
+  /// Story insights: how many people answered the quiz sticker correctly
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{{count} answered correctly} other{{count} answered correctly}}'**
+  String storyInsightQuizCorrect(int count);
+
+  /// Small mark and screen-reader label on a viewer who watched the story to the end
+  ///
+  /// In en, this message translates to:
+  /// **'Watched to the end'**
+  String get storyInsightCompletedMark;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

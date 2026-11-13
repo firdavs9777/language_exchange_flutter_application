@@ -12658,4 +12658,138 @@ class AppLocalizationsTh extends AppLocalizations {
   String shareOfferStreakText(int days) {
     return 'เรียนต่อเนื่อง $days วันแล้ว!';
   }
+
+  @override
+  String get storyStickerCorrection => 'ช่วยแก้ให้หน่อย';
+
+  @override
+  String get storyStickerQuiz => 'แบบทดสอบ';
+
+  @override
+  String get storyStickerWord => 'คำศัพท์';
+
+  @override
+  String get storyCorrectionSentenceHint => 'เขียนประโยคให้คนอื่นช่วยแก้';
+
+  @override
+  String get storyQuizQuestionHint => 'พิมพ์คำถามแบบทดสอบ';
+
+  @override
+  String storyQuizOptionHint(String number) {
+    return 'ตัวเลือก $number';
+  }
+
+  @override
+  String get storyQuizMarkCorrect => 'ตั้งเป็นคำตอบที่ถูกต้อง';
+
+  @override
+  String get storyWordHint => 'คำหรือวลี';
+
+  @override
+  String get storyWordMeaningHint => 'ความหมาย';
+
+  @override
+  String get storyWordExampleHint => 'ประโยคตัวอย่าง (ไม่บังคับ)';
+
+  @override
+  String get storyCorrectThis => 'แก้ไขประโยคนี้';
+
+  @override
+  String get storyCorrectionFieldHint => 'เขียนประโยคที่แก้แล้ว';
+
+  @override
+  String get storyCorrectionSent => 'ส่งการแก้ไขแล้ว';
+
+  @override
+  String get storyCorrectionAlready => 'คุณแก้ไขประโยคนี้แล้ว';
+
+  @override
+  String storyCorrectionsReceived(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'แก้ไข $count รายการ',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyQuizCorrect => 'ถูกต้อง!';
+
+  @override
+  String get storyQuizWrong => 'เกือบแล้ว';
+
+  @override
+  String get storySaveWord => 'บันทึกคำศัพท์';
+
+  @override
+  String get storyQuizDuplicateOption => 'มีสองตัวเลือกที่ซ้ำกัน';
+
+  @override
+  String get storyUploadFileMissing => 'รูปภาพหรือวิดีโอของสตอรี่นี้ไม่อยู่ในอุปกรณ์ของคุณแล้ว';
+
+  @override
+  String get storyUploading => 'กำลังโพสต์สตอรี่ของคุณ…';
+
+  @override
+  String get storyUploadRetry => 'แตะเพื่อลองอีกครั้ง';
+
+  @override
+  String get storyUploadRemove => 'ลบ';
+
+  @override
+  String get storyUploadFailed => 'โพสต์สตอรี่ของคุณไม่สำเร็จ';
+
+  @override
+  String storyInsightViews(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'ดู $count ครั้ง',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String storyInsightCompleted(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'ดูจนจบ $count คน',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String storyInsightReplies(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'ตอบกลับ $count รายการ',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String storyInsightReactions(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'รีแอคชัน $count รายการ',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String storyInsightQuizCorrect(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'ตอบถูก $count คน',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyInsightCompletedMark => 'ดูจนจบแล้ว';
 }

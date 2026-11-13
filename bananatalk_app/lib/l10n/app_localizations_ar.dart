@@ -12784,4 +12784,168 @@ class AppLocalizationsAr extends AppLocalizations {
   String shareOfferStreakText(int days) {
     return 'سلسلة تعلّم لمدة $days يومًا!';
   }
+
+  @override
+  String get storyStickerCorrection => 'صحّح لي';
+
+  @override
+  String get storyStickerQuiz => 'اختبار';
+
+  @override
+  String get storyStickerWord => 'كلمة';
+
+  @override
+  String get storyCorrectionSentenceHint => 'اكتب جملة ليصحّحها الآخرون';
+
+  @override
+  String get storyQuizQuestionHint => 'اكتب سؤال الاختبار';
+
+  @override
+  String storyQuizOptionHint(String number) {
+    return 'الخيار $number';
+  }
+
+  @override
+  String get storyQuizMarkCorrect => 'تحديد كإجابة صحيحة';
+
+  @override
+  String get storyWordHint => 'كلمة أو عبارة';
+
+  @override
+  String get storyWordMeaningHint => 'المعنى';
+
+  @override
+  String get storyWordExampleHint => 'جملة مثال (اختياري)';
+
+  @override
+  String get storyCorrectThis => 'صحّح هذا';
+
+  @override
+  String get storyCorrectionFieldHint => 'اكتب الجملة المصحّحة';
+
+  @override
+  String get storyCorrectionSent => 'تم إرسال التصحيح';
+
+  @override
+  String get storyCorrectionAlready => 'لقد صحّحت هذا بالفعل';
+
+  @override
+  String storyCorrectionsReceived(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count تصحيح',
+      many: '$count تصحيحًا',
+      few: '$count تصحيحات',
+      two: 'تصحيحان',
+      one: 'تصحيح واحد',
+      zero: 'لا تصحيحات',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyQuizCorrect => 'صحيح!';
+
+  @override
+  String get storyQuizWrong => 'ليس تمامًا';
+
+  @override
+  String get storySaveWord => 'احفظ الكلمة';
+
+  @override
+  String get storyQuizDuplicateOption => 'هناك خياران متطابقان';
+
+  @override
+  String get storyUploadFileMissing => 'لم تعد صورة هذه القصة أو الفيديو الخاص بها على جهازك.';
+
+  @override
+  String get storyUploading => 'جارٍ نشر قصتك…';
+
+  @override
+  String get storyUploadRetry => 'اضغط لإعادة المحاولة';
+
+  @override
+  String get storyUploadRemove => 'إزالة';
+
+  @override
+  String get storyUploadFailed => 'تعذّر نشر قصتك.';
+
+  @override
+  String storyInsightViews(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count مشاهدة',
+      one: 'مشاهدة واحدة',
+      many: '$count مشاهدةً',
+      few: '$count مشاهدات',
+      two: 'مشاهدتان',
+      zero: 'لا مشاهدات',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String storyInsightCompleted(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'شاهده $count حتى النهاية',
+      one: 'شاهده واحد حتى النهاية',
+      many: 'شاهده $count حتى النهاية',
+      few: 'شاهده $count حتى النهاية',
+      two: 'شاهده اثنان حتى النهاية',
+      zero: 'لم يشاهده أحد حتى النهاية',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String storyInsightReplies(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count رد',
+      one: 'رد واحد',
+      many: '$count ردًا',
+      few: '$count ردود',
+      two: 'ردان',
+      zero: 'لا ردود',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String storyInsightReactions(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count تفاعل',
+      one: 'تفاعل واحد',
+      many: '$count تفاعلًا',
+      few: '$count تفاعلات',
+      two: 'تفاعلان',
+      zero: 'لا تفاعلات',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String storyInsightQuizCorrect(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'أجاب $count بشكل صحيح',
+      one: 'أجاب واحد بشكل صحيح',
+      many: 'أجاب $count بشكل صحيح',
+      few: 'أجاب $count بشكل صحيح',
+      two: 'أجاب اثنان بشكل صحيح',
+      zero: 'لم يُجب أحد بشكل صحيح',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyInsightCompletedMark => 'شوهدت حتى النهاية';
 }

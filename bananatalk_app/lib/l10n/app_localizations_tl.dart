@@ -12683,4 +12683,144 @@ class AppLocalizationsTl extends AppLocalizations {
   String shareOfferStreakText(int days) {
     return '$days araw nang tuloy-tuloy na pag-aaral!';
   }
+
+  @override
+  String get storyStickerCorrection => 'Itama mo ako';
+
+  @override
+  String get storyStickerQuiz => 'Kuwis';
+
+  @override
+  String get storyStickerWord => 'Salita';
+
+  @override
+  String get storyCorrectionSentenceHint => 'Magsulat ng pangungusap para itama ng iba';
+
+  @override
+  String get storyQuizQuestionHint => 'Magtanong para sa kuwis';
+
+  @override
+  String storyQuizOptionHint(String number) {
+    return 'Opsyon $number';
+  }
+
+  @override
+  String get storyQuizMarkCorrect => 'Markahan bilang tamang sagot';
+
+  @override
+  String get storyWordHint => 'Salita o parirala';
+
+  @override
+  String get storyWordMeaningHint => 'Kahulugan';
+
+  @override
+  String get storyWordExampleHint => 'Halimbawang pangungusap (opsyonal)';
+
+  @override
+  String get storyCorrectThis => 'Itama ito';
+
+  @override
+  String get storyCorrectionFieldHint => 'Isulat ang naitamang pangungusap';
+
+  @override
+  String get storyCorrectionSent => 'Naipadala ang pagtatama';
+
+  @override
+  String get storyCorrectionAlready => 'Naitama mo na ito';
+
+  @override
+  String storyCorrectionsReceived(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count pagtatama',
+      one: '$count pagtatama',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyQuizCorrect => 'Tama!';
+
+  @override
+  String get storyQuizWrong => 'Malapit na';
+
+  @override
+  String get storySaveWord => 'I-save ang salita';
+
+  @override
+  String get storyQuizDuplicateOption => 'Magkapareho ang dalawang opsyon';
+
+  @override
+  String get storyUploadFileMissing => 'Wala na sa device mo ang larawan o video ng story na ito.';
+
+  @override
+  String get storyUploading => 'Pino-post ang story mo…';
+
+  @override
+  String get storyUploadRetry => 'I-tap para subukan muli';
+
+  @override
+  String get storyUploadRemove => 'Alisin';
+
+  @override
+  String get storyUploadFailed => 'Hindi na-post ang story mo.';
+
+  @override
+  String storyInsightViews(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count view',
+      one: '$count view',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String storyInsightCompleted(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ang nanood hanggang dulo',
+      one: '$count ang nanood hanggang dulo',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String storyInsightReplies(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count sagot',
+      one: '$count sagot',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String storyInsightReactions(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count reaksyon',
+      one: '$count reaksyon',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String storyInsightQuizCorrect(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ang tama ang sagot',
+      one: '$count ang tama ang sagot',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get storyInsightCompletedMark => 'Pinanood hanggang dulo';
 }
