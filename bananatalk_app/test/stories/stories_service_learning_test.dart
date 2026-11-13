@@ -197,6 +197,35 @@ void main() {
       expect(r.outcome, CorrectionOutcome.blocked);
     });
 
+    test('deployed 403 wordings and code', () async {
+      var r = await go(403,
+          '{"success":false,"code":"CONVERSATION_START_LIMIT","message":"Daily conversation limit reached"}');
+      expect(r.outcome, CorrectionOutcome.limitReached);
+      expect(r.message, 'Daily conversation limit reached');
+      r = await go(403, '{"message":"This content is not available"}');
+      expect(r.outcome, CorrectionOutcome.unavailable);
+      r = await go(403, '{"message":"Cannot reply to this story"}');
+      expect(r.outcome, CorrectionOutcome.blocked);
+      r = await go(403, 'not json');
+      expect(r.outcome, CorrectionOutcome.blocked);
+    });
+
+    test('deployed 409 and 429 wordings', () async {
+      var r = await go(409, '{"message":"You already corrected this story"}');
+      expect(r.outcome, CorrectionOutcome.alreadyCorrected);
+      r = await go(429, '{"message":"Daily messages limit exceeded. Upgrade."}');
+      expect(r.outcome, CorrectionOutcome.limitReached);
+      expect(r.message, startsWith('Daily messages limit exceeded'));
+    });
+
+    test('a 201 with an unreadable body is still success', () async {
+      var r = await go(201, 'not json');
+      expect(r.success, isTrue);
+      expect(r.correctionCount, isNull);
+      r = await go(201, '[]');
+      expect(r.success, isTrue);
+    });
+
     test('429 is limitReached and carries the message', () async {
       final r = await go(429, '{"message":"Message limit reached"}');
       expect(r.outcome, CorrectionOutcome.limitReached);

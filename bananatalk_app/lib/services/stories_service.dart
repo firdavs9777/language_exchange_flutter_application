@@ -364,8 +364,10 @@ class StoriesService {
     StoryPostFailure? failure;
     if (status == 409) {
       final message = (error ?? '').toLowerCase();
+      // Server message "Story upload already in progress" (retry later).
       if (message.contains('already in progress')) {
         failure = StoryPostFailure.inProgress;
+      // Server message "Story was already posted" (terminal).
       } else if (message.contains('already posted')) {
         failure = StoryPostFailure.alreadyPosted;
       }
@@ -708,22 +710,24 @@ class StoriesService {
       final message = serverErrorOf(response);
       switch (response.statusCode) {
         case 201:
-          final data = (jsonDecode(response.body) as Map?)?['data'];
-          final count = data is Map ? data['correctionCount'] : null;
+          // A sent correction is never reported as failed, even when the
+          // body is unreadable: the UI would invite a second send.
+          int? count;
+          try {
+            final data = (jsonDecode(response.body) as Map?)?['data'];
+            final raw = data is Map ? data['correctionCount'] : null;
+            count = raw is num ? raw.toInt() : null;
+          } catch (_) {}
           return CorrectionResult(
             outcome: CorrectionOutcome.success,
-            correctionCount: count is num ? count.toInt() : null,
+            correctionCount: count,
           );
         case 409:
           return CorrectionResult(
               outcome: CorrectionOutcome.alreadyCorrected, message: message);
         case 403:
-          // Blocked and "replies are disabled" share the status.
-          final disabled = (message ?? '').toLowerCase().contains('replies');
           return CorrectionResult(
-            outcome: disabled
-                ? CorrectionOutcome.repliesDisabled
-                : CorrectionOutcome.blocked,
+            outcome: _correction403Outcome(response, message),
             message: message,
           );
         case 429:
@@ -743,6 +747,28 @@ class StoriesService {
       return CorrectionResult(
           outcome: CorrectionOutcome.failure, message: e.toString());
     }
+  }
+
+  /// The correction endpoint answers several different refusals with 403.
+  static CorrectionOutcome _correction403Outcome(
+      http.Response response, String? message) {
+    String? code;
+    try {
+      final body = jsonDecode(response.body);
+      if (body is Map && body['code'] is String) code = body['code'];
+    } catch (_) {}
+    // Server body `code: CONVERSATION_START_LIMIT` (the chat path's cap on
+    // starting conversations): a product limit, not a block.
+    if (code == 'CONVERSATION_START_LIMIT') return CorrectionOutcome.limitReached;
+    final text = (message ?? '').toLowerCase();
+    // Server message "This content is not available" (viewer may not see it).
+    if (text.contains('not available')) return CorrectionOutcome.unavailable;
+    // Server message "Replies are disabled for this story".
+    if (text.contains('replies are disabled')) {
+      return CorrectionOutcome.repliesDisabled;
+    }
+    // "Cannot reply to this story" (a block either way) and anything else.
+    return CorrectionOutcome.blocked;
   }
 
   /// Answer a story quiz. A repeat returns the first answer's result.
