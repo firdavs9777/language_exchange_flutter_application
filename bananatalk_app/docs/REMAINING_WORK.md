@@ -716,4 +716,6 @@ P2 cleanup
 - [ ] Open from Task 2: Nearby grid card (large cover, `NearbyUser` has no `avatarThumb`) and chat `profilePicture:` args deliberately unchanged; decide if a larger server thumb is wanted
 - [x] Task 3: Partners list sends `slim=1` and pages by the server cursor when `communityFastListEnabled` is on (off = today's requests; cursor ignored); id de-dup, 3-empty-page stop
 - [ ] Task 3 follow-up: the tab's "< 5 rows, load more" top-up has no widget test with cursor paging (notifier-level termination is tested)
-- [ ] Tasks 4-7: tab-switch refetch, disk paint, remaining plan items
+- [x] Task 4: Partners list kept across tab switches for 10 minutes (same filters+search, flag on); excluded-users fetch skipped then; exclusions + session skips/waves kept in `PartnerFilterNotifier` (off = reload on every mount as before)
+- [ ] Task 4 follow-up: `communityFastListEnabledProvider` is unclassified in `test/services/session_reset_test.dart` (app-scoped; add to `kAppScopedProviderNames`), alongside the 3 known-failing on main
+- [ ] Tasks 5-7: disk paint, remaining plan items

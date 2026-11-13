@@ -954,7 +954,18 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
 
   static bool _fastListOff() => false;
 
+  /// The clock behind [isFreshFor]; injected so tests can age a list.
+  final DateTime Function() _now;
+
   static const int _pageSize = 20;
+
+  /// How long a loaded page 1 stays good for a remounted tab.
+  static const Duration freshFor = Duration(minutes: 10);
+
+  /// The filters of the last page-1 load that SUCCEEDED (null after a failed
+  /// one, a clear, or before any load). The tab State is rebuilt on a tab
+  /// switch; this notifier is not.
+  PartnerFilterParams? _loadedFilters;
 
   /// Consecutive pages that added nobody new while the server still said
   /// there was more (cursor paging only); a server bug must not loop forever.
@@ -965,7 +976,47 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
     this._service,
     this._smartSortEnabled, [
     this._fastListEnabled = _fastListOff,
+    this._now = DateTime.now,
   ]) : super(const PartnerFilterState());
+
+  /// True when the state already holds page 1 for exactly [filters] (search
+  /// included), loaded under [freshFor] ago, and the fast-list flag is on.
+  /// Flag off: always false, so every mount reloads as it always did.
+  bool isFreshFor(PartnerFilterParams filters, {DateTime? now}) {
+    if (!_fastListEnabled()) return false;
+    final loaded = _loadedFilters;
+    final at = state.loadedAt;
+    if (loaded == null || at == null || loaded != filters) return false;
+    return (now ?? _now()).difference(at) < freshFor;
+  }
+
+  // Exclusions the list on screen was filtered with. They live here, next to
+  // the list they apply to, so a remounted tab filters a kept list the same
+  // way. Flag on only; with the flag off the tab keeps its own, as before.
+  Set<String> _serverExcluded = {};
+  final Set<String> _locallyHidden = {};
+  bool _exclusionsLoaded = false;
+
+  bool get hasKeptExclusions => _fastListEnabled() && _exclusionsLoaded;
+
+  Set<String> get keptExclusions =>
+      _fastListEnabled() ? {..._serverExcluded, ..._locallyHidden} : const {};
+
+  /// The server's skipped + waved set, as just fetched.
+  void rememberServerExcluded(Set<String> ids) {
+    if (!_fastListEnabled()) return;
+    _serverExcluded = {...ids};
+    _exclusionsLoaded = true;
+  }
+
+  /// Someone skipped or waved to during this session.
+  void hideLocally(String id) {
+    if (!_fastListEnabled()) return;
+    _locallyHidden.add(id);
+  }
+
+  /// A refresh brings the server's own view back.
+  void clearLocalHides() => _locallyHidden.clear();
 
   /// The sort to ask the server for.
   ///
@@ -997,6 +1048,7 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
     // screen until page 1 arrives instead of flashing the skeleton. Either
     // way the old cursor goes: it belongs to the list being replaced.
     if (state.filters != filters) {
+      _loadedFilters = null;
       state = PartnerFilterState(filters: filters, isLoading: true);
     } else {
       state = state.copyWith(isLoading: true, error: null, clearCursor: true);
@@ -1034,10 +1086,12 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
         isLoading: false,
         nextCursor: cursor,
         clearCursor: cursor == null,
-        loadedAt: DateTime.now(),
+        loadedAt: _now(),
       );
+      _loadedFilters = filters;
     } catch (e) {
       if (state.filters != filters) return;
+      _loadedFilters = null;
       state = state.copyWith(isLoading: false, error: e.toString());
     }
   }
@@ -1155,6 +1209,10 @@ class PartnerFilterNotifier extends StateNotifier<PartnerFilterState> {
   /// Clear state
   void clear() {
     _emptyPages = 0;
+    _loadedFilters = null;
+    _serverExcluded = {};
+    _locallyHidden.clear();
+    _exclusionsLoaded = false;
     state = const PartnerFilterState();
   }
 }
