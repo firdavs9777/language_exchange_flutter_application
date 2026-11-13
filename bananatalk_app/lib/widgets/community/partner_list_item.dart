@@ -78,9 +78,9 @@ class PartnerListItem extends StatelessWidget {
           ),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(20),
-            child: user.profileImageUrl != null
+            child: user.avatarUrl != null
                 ? CachedImageWidget(
-                    imageUrl: user.profileImageUrl!,
+                    imageUrl: user.avatarUrl!,
                     width: 68,
                     height: 68,
                     fit: BoxFit.cover,

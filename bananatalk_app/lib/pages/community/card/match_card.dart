@@ -62,7 +62,7 @@ class MatchCard extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _Avatar(url: user.profileImageUrl, name: user.name),
+              _Avatar(url: user.avatarUrl, name: user.name),
               const SizedBox(width: 12),
               Expanded(
                 child: Column(

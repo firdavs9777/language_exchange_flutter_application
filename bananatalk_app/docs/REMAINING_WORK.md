@@ -712,5 +712,6 @@ P2 cleanup
 ## Community matching app (Plan C2)
 
 - [x] Task 1: read `communityFastListEnabled` (default off) + `communityFastListEnabledProvider`
-- [ ] Task 2: list/card avatars use `avatarUrl` (thumbnail when sent)
+- [x] Task 2: list/card avatars use `avatarUrl` (thumbnail when sent): MatchCard, PartnerListItem, PartnerCard story badge
+- [ ] Open from Task 2: Nearby grid card (large cover, `NearbyUser` has no `avatarThumb`) and chat `profilePicture:` args deliberately unchanged; decide if a larger server thumb is wanted
 - [ ] Tasks 3-7: slim list request + cursor paging, tab-switch refetch, disk paint, remaining plan items
