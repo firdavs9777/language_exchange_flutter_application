@@ -12721,6 +12721,9 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get storySaveWord => '保存单词';
+
+  @override
+  String get storyQuizDuplicateOption => '有两个选项相同';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -25440,4 +25443,7 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get storySaveWord => '儲存單字';
+
+  @override
+  String get storyQuizDuplicateOption => '有兩個選項相同';
 }

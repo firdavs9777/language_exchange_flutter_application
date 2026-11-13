@@ -8851,5 +8851,6 @@
   "storySaveWord": "Save word",
   "@storySaveWord": {
     "description": "Button on a story's word sticker that saves the word to the viewer's vocabulary"
-  }
+  },
+  "storyQuizDuplicateOption": "Two options are the same"
 }

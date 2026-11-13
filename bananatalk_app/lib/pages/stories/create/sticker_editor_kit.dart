@@ -134,9 +134,14 @@ class StickerLanguageField extends StatelessWidget {
   }
 }
 
-/// A user's learning-language code reduced to the base code the server
-/// accepts, or null when it cannot be represented.
-String? stickerLanguageDefault(String? learningLanguage) =>
-    learningLanguage == null || learningLanguage.trim().isEmpty
-    ? null
-    : LanguageCodes.toBaseIso6391(learningLanguage);
+/// The user's learning language (stored as a NAME such as "Korean" or
+/// "Chinese (Simplified)", or already a code) reduced to the base code the
+/// server accepts; null when it cannot be resolved. Uses the static table in
+/// [LanguageFlags], so nothing waits on the network.
+String? stickerLanguageDefault(String? learningLanguage) {
+  if (learningLanguage == null || learningLanguage.trim().isEmpty) return null;
+  final code =
+      LanguageFlags.codeForName(learningLanguage) ??
+      LanguageFlags.codeForName(LanguageCodes.stripVariant(learningLanguage));
+  return code == null ? null : LanguageCodes.toBaseIso6391(code);
+}

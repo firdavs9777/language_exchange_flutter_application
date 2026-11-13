@@ -12721,4 +12721,7 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get storySaveWord => 'บันทึกคำศัพท์';
+
+  @override
+  String get storyQuizDuplicateOption => 'มีสองตัวเลือกที่ซ้ำกัน';
 }

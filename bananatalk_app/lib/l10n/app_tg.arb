@@ -4299,5 +4299,6 @@
   "storyCorrectionsReceived": "{count, plural, one{{count} ислоҳ} other{{count} ислоҳ}}",
   "storyQuizCorrect": "Дуруст!",
   "storyQuizWrong": "Тамоман не",
-  "storySaveWord": "Захира кардани калима"
+  "storySaveWord": "Захира кардани калима",
+  "storyQuizDuplicateOption": "Ду вариант якхела аст"
 }

@@ -12741,4 +12741,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get storySaveWord => 'Kelimeyi kaydet';
+
+  @override
+  String get storyQuizDuplicateOption => 'İki seçenek aynı';
 }

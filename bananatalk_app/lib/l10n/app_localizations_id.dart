@@ -12732,4 +12732,7 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get storySaveWord => 'Simpan kata';
+
+  @override
+  String get storyQuizDuplicateOption => 'Dua opsi sama';
 }

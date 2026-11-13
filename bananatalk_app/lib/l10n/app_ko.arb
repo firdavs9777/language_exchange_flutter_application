@@ -4827,5 +4827,6 @@
   "storyCorrectionsReceived": "{count, plural, other{첨삭 {count}개}}",
   "storyQuizCorrect": "정답!",
   "storyQuizWrong": "아쉬워요",
-  "storySaveWord": "단어 저장"
+  "storySaveWord": "단어 저장",
+  "storyQuizDuplicateOption": "같은 보기가 있어요"
 }

@@ -12721,4 +12721,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get storySaveWord => 'Lưu từ';
+
+  @override
+  String get storyQuizDuplicateOption => 'Có hai lựa chọn giống nhau';
 }

@@ -4806,5 +4806,6 @@
   "storyCorrectionsReceived": "{count, plural, other{添削 {count}件}}",
   "storyQuizCorrect": "正解!",
   "storyQuizWrong": "おしい",
-  "storySaveWord": "単語を保存"
+  "storySaveWord": "単語を保存",
+  "storyQuizDuplicateOption": "同じ選択肢があります"
 }

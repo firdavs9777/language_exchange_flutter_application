@@ -4779,5 +4779,6 @@
   "storyCorrectionsReceived": "{count, plural, one{{count} pagtatama} other{{count} pagtatama}}",
   "storyQuizCorrect": "Tama!",
   "storyQuizWrong": "Malapit na",
-  "storySaveWord": "I-save ang salita"
+  "storySaveWord": "I-save ang salita",
+  "storyQuizDuplicateOption": "Magkapareho ang dalawang opsyon"
 }

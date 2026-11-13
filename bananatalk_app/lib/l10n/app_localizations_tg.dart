@@ -12743,4 +12743,7 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get storySaveWord => 'Захира кардани калима';
+
+  @override
+  String get storyQuizDuplicateOption => 'Ду вариант якхела аст';
 }

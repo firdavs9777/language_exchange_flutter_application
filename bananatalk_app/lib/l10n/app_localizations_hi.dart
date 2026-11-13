@@ -12754,4 +12754,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get storySaveWord => 'शब्द सहेजें';
+
+  @override
+  String get storyQuizDuplicateOption => 'दो विकल्प एक जैसे हैं';
 }

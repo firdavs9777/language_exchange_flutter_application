@@ -4822,5 +4822,6 @@
   "storyCorrectionsReceived": "{count, plural, one{{count} सुधार} other{{count} सुधार}}",
   "storyQuizCorrect": "सही!",
   "storyQuizWrong": "बिल्कुल नहीं",
-  "storySaveWord": "शब्द सहेजें"
+  "storySaveWord": "शब्द सहेजें",
+  "storyQuizDuplicateOption": "दो विकल्प एक जैसे हैं"
 }

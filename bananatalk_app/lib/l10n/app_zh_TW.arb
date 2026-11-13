@@ -4497,5 +4497,6 @@
   "storyCorrectionsReceived": "{count, plural, other{{count} 則修正}}",
   "storyQuizCorrect": "正確!",
   "storyQuizWrong": "不太對",
-  "storySaveWord": "儲存單字"
+  "storySaveWord": "儲存單字",
+  "storyQuizDuplicateOption": "有兩個選項相同"
 }

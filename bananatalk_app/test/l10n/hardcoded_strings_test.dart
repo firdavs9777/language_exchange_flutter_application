@@ -906,6 +906,7 @@ const Map<String, List<String>> _keysByTask = {
     'storyWordHint',
     'storyWordMeaningHint',
     'storyWordExampleHint',
+    'storyQuizDuplicateOption',
   ],
   'stories_features_4': [
     'storyCorrectThis',

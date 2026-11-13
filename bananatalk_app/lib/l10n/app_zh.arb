@@ -4820,5 +4820,6 @@
   "storyCorrectionsReceived": "{count, plural, other{{count} 条纠正}}",
   "storyQuizCorrect": "正确!",
   "storyQuizWrong": "不太对",
-  "storySaveWord": "保存单词"
+  "storySaveWord": "保存单词",
+  "storyQuizDuplicateOption": "有两个选项相同"
 }

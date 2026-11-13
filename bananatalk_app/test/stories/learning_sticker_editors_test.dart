@@ -12,6 +12,9 @@ import 'package:bananatalk_app/models/app_config.dart';
 import 'package:bananatalk_app/pages/stories/create/correction_sticker_editor.dart';
 import 'package:bananatalk_app/pages/stories/create/create_story_screen.dart';
 import 'package:bananatalk_app/pages/stories/create/quiz_sticker_editor.dart';
+import 'package:bananatalk_app/pages/stories/create/sticker_editor_kit.dart';
+import 'package:bananatalk_app/providers/provider_models/community_model.dart';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/pages/stories/create/word_sticker_editor.dart';
 import 'package:bananatalk_app/providers/provider_models/story_model.dart';
 import 'package:bananatalk_app/providers/provider_root/app_config_providers.dart';
@@ -172,6 +175,53 @@ void main() {
       await tester.pumpAndSettle();
     }
 
+    testWidgets(
+      'a user whose learning language is a name gets it preselected',
+      (tester) async {
+        tester.view.physicalSize = const Size(900, 2400);
+        tester.view.devicePixelRatio = 1.0;
+        addTearDown(tester.view.reset);
+        await tester.pumpWidget(
+          _app(
+            const CreateStoryScreen(),
+            overrides: [
+              appConfigProvider.overrideWith(
+                (ref) async =>
+                    AppConfig.fromJson({'storyStickerCorrectionEnabled': true}),
+              ),
+              userProvider.overrideWith(
+                (ref) async => Community.fromJson({
+                  '_id': 'u1',
+                  'name': 'A',
+                  'language_to_learn': 'Korean',
+                }),
+              ),
+            ],
+          ),
+        );
+        await tester.pumpAndSettle();
+        final container = ProviderScope.containerOf(
+          tester.element(find.byType(CreateStoryScreen)),
+        );
+        await container.read(appConfigProvider.future);
+        await container.read(userProvider.future);
+        await tester.tap(find.byIcon(Icons.text_fields));
+        await tester.pumpAndSettle();
+        await pick(tester, 'Correct me');
+        expect(
+          find.descendant(
+            of: find.byKey(const Key('sticker-language')),
+            matching: find.text('Korean'),
+          ),
+          findsOneWidget,
+        );
+        await _type(tester, 'correction-sentence', 'hi');
+        await tester.tap(find.text('Done'));
+        await tester.pumpAndSettle();
+        expect(find.textContaining('Correct me: hi'), findsOneWidget);
+      },
+    );
+
     testWidgets('quiz after poll replaces the poll; chip removes the quiz', (
       tester,
     ) async {
@@ -253,6 +303,17 @@ void main() {
       expect(quiz['correctIndex'], 0);
       expect(bodies.single.containsKey('correctionSticker'), isFalse);
       expect(bodies.single.containsKey('wordSticker'), isFalse);
+    });
+  });
+
+  group('stickerLanguageDefault', () {
+    test('resolves names, codes and variants; unknown is null', () {
+      expect(stickerLanguageDefault('Korean'), 'ko');
+      expect(stickerLanguageDefault('ko'), 'ko');
+      expect(stickerLanguageDefault('Chinese (Simplified)'), 'zh');
+      expect(stickerLanguageDefault('Klingon-ish'), isNull);
+      expect(stickerLanguageDefault(''), isNull);
+      expect(stickerLanguageDefault(null), isNull);
     });
   });
 
@@ -421,6 +482,65 @@ void main() {
         expect(r.value!.correctIndex, 1);
       },
     );
+
+    testWidgets('duplicate help line shows only while two options match', (
+      tester,
+    ) async {
+      await _open<StoryQuizSticker>(tester, const QuizStickerEditor());
+      expect(find.byKey(const Key('quiz-duplicate-help')), findsNothing);
+      await _type(tester, 'quiz-option-0', 'Paris');
+      await _type(tester, 'quiz-option-1', 'PARIS');
+      expect(find.text('Two options are the same'), findsOneWidget);
+      await _type(tester, 'quiz-option-1', 'Rome');
+      expect(find.byKey(const Key('quiz-duplicate-help')), findsNothing);
+    });
+
+    testWidgets('removing the marked option clears the mark', (tester) async {
+      await _open<StoryQuizSticker>(tester, const QuizStickerEditor());
+      await tester.tap(find.byKey(const Key('quiz-add-option')));
+      await tester.pump();
+      await _type(tester, 'quiz-question', 'Q?');
+      await _type(tester, 'quiz-option-0', 'a');
+      await _type(tester, 'quiz-option-1', 'b');
+      await _type(tester, 'quiz-option-2', 'c');
+      await tester.tap(find.byKey(const Key('quiz-correct-1')));
+      await tester.pump();
+      expect(_doneEnabled(tester), isTrue);
+      await tester.tap(find.byKey(const Key('quiz-remove-1')));
+      await tester.pump();
+      expect(_doneEnabled(tester), isFalse);
+      expect(find.byIcon(Icons.check_circle), findsNothing);
+    });
+
+    testWidgets('removing an earlier option keeps the same correct option', (
+      tester,
+    ) async {
+      final r = await _open<StoryQuizSticker>(
+        tester,
+        const QuizStickerEditor(),
+      );
+      await tester.tap(find.byKey(const Key('quiz-add-option')));
+      await tester.pump();
+      await _type(tester, 'quiz-question', 'Q?');
+      await _type(tester, 'quiz-option-0', 'a');
+      await _type(tester, 'quiz-option-1', 'b');
+      await _type(tester, 'quiz-option-2', 'c');
+      await tester.tap(find.byKey(const Key('quiz-correct-2')));
+      await tester.pump();
+      await tester.tap(find.byKey(const Key('quiz-remove-0')));
+      await tester.pump();
+      await tester.tap(find.text('Done'));
+      await tester.pumpAndSettle();
+      expect(r.value!.options.map((o) => o.text), ['b', 'c']);
+      expect(r.value!.correctIndex, 1);
+    });
+
+    testWidgets('remove button has a tooltip', (tester) async {
+      await _open<StoryQuizSticker>(tester, const QuizStickerEditor());
+      await tester.tap(find.byKey(const Key('quiz-add-option')));
+      await tester.pump();
+      expect(find.byTooltip('Remove'), findsWidgets);
+    });
 
     testWidgets('at most 4 options', (tester) async {
       await _open<StoryQuizSticker>(tester, const QuizStickerEditor());

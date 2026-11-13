@@ -5018,5 +5018,6 @@
   "storyCorrectionsReceived": "{count, plural, one{{count} düzeltme} other{{count} düzeltme}}",
   "storyQuizCorrect": "Doğru!",
   "storyQuizWrong": "Pek değil",
-  "storySaveWord": "Kelimeyi kaydet"
+  "storySaveWord": "Kelimeyi kaydet",
+  "storyQuizDuplicateOption": "İki seçenek aynı"
 }

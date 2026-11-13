@@ -12852,4 +12852,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get storySaveWord => 'احفظ الكلمة';
+
+  @override
+  String get storyQuizDuplicateOption => 'هناك خياران متطابقان';
 }

@@ -5046,5 +5046,6 @@
   "storyCorrectionsReceived": "{count, plural, one{{count} correction reçue} other{{count} corrections reçues}}",
   "storyQuizCorrect": "Correct !",
   "storyQuizWrong": "Pas tout à fait",
-  "storySaveWord": "Enregistrer le mot"
+  "storySaveWord": "Enregistrer le mot",
+  "storyQuizDuplicateOption": "Deux choix sont identiques"
 }

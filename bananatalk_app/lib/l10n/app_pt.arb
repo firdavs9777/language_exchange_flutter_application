@@ -4822,5 +4822,6 @@
   "storyCorrectionsReceived": "{count, plural, one{{count} correção} other{{count} correções}}",
   "storyQuizCorrect": "Correto!",
   "storyQuizWrong": "Quase",
-  "storySaveWord": "Salvar palavra"
+  "storySaveWord": "Salvar palavra",
+  "storyQuizDuplicateOption": "Duas opções são iguais"
 }

@@ -4836,5 +4836,6 @@
   "storyCorrectionsReceived": "{count, plural, zero{لا تصحيحات} one{تصحيح واحد} two{تصحيحان} few{{count} تصحيحات} many{{count} تصحيحًا} other{{count} تصحيح}}",
   "storyQuizCorrect": "صحيح!",
   "storyQuizWrong": "ليس تمامًا",
-  "storySaveWord": "احفظ الكلمة"
+  "storySaveWord": "احفظ الكلمة",
+  "storyQuizDuplicateOption": "هناك خياران متطابقان"
 }

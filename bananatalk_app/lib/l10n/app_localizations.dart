@@ -23125,6 +23125,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Save word'**
   String get storySaveWord;
+
+  /// No description provided for @storyQuizDuplicateOption.
+  ///
+  /// In en, this message translates to:
+  /// **'Two options are the same'**
+  String get storyQuizDuplicateOption;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

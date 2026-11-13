@@ -12747,4 +12747,7 @@ class AppLocalizationsTl extends AppLocalizations {
 
   @override
   String get storySaveWord => 'I-save ang salita';
+
+  @override
+  String get storyQuizDuplicateOption => 'Magkapareho ang dalawang opsyon';
 }

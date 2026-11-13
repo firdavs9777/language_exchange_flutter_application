@@ -4806,5 +4806,6 @@
   "storyCorrectionsReceived": "{count, plural, other{{count} koreksi}}",
   "storyQuizCorrect": "Benar!",
   "storyQuizWrong": "Belum tepat",
-  "storySaveWord": "Simpan kata"
+  "storySaveWord": "Simpan kata",
+  "storyQuizDuplicateOption": "Dua opsi sama"
 }

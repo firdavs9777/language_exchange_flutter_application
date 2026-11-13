@@ -4806,5 +4806,6 @@
   "storyCorrectionsReceived": "{count, plural, other{แก้ไข {count} รายการ}}",
   "storyQuizCorrect": "ถูกต้อง!",
   "storyQuizWrong": "เกือบแล้ว",
-  "storySaveWord": "บันทึกคำศัพท์"
+  "storySaveWord": "บันทึกคำศัพท์",
+  "storyQuizDuplicateOption": "มีสองตัวเลือกที่ซ้ำกัน"
 }

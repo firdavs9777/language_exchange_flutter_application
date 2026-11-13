@@ -12754,4 +12754,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get storySaveWord => 'Enregistrer le mot';
+
+  @override
+  String get storyQuizDuplicateOption => 'Deux choix sont identiques';
 }

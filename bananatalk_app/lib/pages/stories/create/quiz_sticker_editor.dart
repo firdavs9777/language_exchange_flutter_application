@@ -83,6 +83,13 @@ class _QuizStickerEditorState extends State<QuizStickerEditor> {
     return false;
   }
 
+  bool get _hasDuplicate {
+    for (var i = 0; i < _options.length; i++) {
+      if (_isDuplicate(i)) return true;
+    }
+    return false;
+  }
+
   bool get _isValid {
     final q = trimmedLength(_question.text);
     if (q == 0 || q > QuizStickerEditor.maxQuestion) return false;
@@ -212,6 +219,8 @@ class _QuizStickerEditorState extends State<QuizStickerEditor> {
                       ),
                       if (_options.length > QuizStickerEditor.minOptions)
                         IconButton(
+                          key: Key('quiz-remove-$i'),
+                          tooltip: l10n.remove,
                           icon: const Icon(
                             Icons.remove_circle_outline,
                             color: Colors.redAccent,
@@ -219,6 +228,18 @@ class _QuizStickerEditorState extends State<QuizStickerEditor> {
                           onPressed: () => _removeOption(i),
                         ),
                     ],
+                  ),
+                ),
+              if (_hasDuplicate)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: Text(
+                    l10n.storyQuizDuplicateOption,
+                    key: const Key('quiz-duplicate-help'),
+                    style: const TextStyle(
+                      color: Colors.redAccent,
+                      fontSize: 13,
+                    ),
                   ),
                 ),
               if (_options.length < QuizStickerEditor.maxOptions)

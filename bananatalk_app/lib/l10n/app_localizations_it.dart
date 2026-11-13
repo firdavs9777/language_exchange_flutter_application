@@ -12766,4 +12766,7 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get storySaveWord => 'Salva parola';
+
+  @override
+  String get storyQuizDuplicateOption => 'Due opzioni sono uguali';
 }

@@ -12721,4 +12721,7 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get storySaveWord => '단어 저장';
+
+  @override
+  String get storyQuizDuplicateOption => '같은 보기가 있어요';
 }

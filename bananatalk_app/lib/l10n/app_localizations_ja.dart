@@ -12721,4 +12721,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get storySaveWord => '単語を保存';
+
+  @override
+  String get storyQuizDuplicateOption => '同じ選択肢があります';
 }

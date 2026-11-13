@@ -13226,4 +13226,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get storySaveWord => 'Сохранить слово';
+
+  @override
+  String get storyQuizDuplicateOption => 'Два варианта совпадают';
 }

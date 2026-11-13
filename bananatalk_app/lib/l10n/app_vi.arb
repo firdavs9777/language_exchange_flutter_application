@@ -4806,5 +4806,6 @@
   "storyCorrectionsReceived": "{count, plural, other{{count} lượt sửa}}",
   "storyQuizCorrect": "Chính xác!",
   "storyQuizWrong": "Chưa đúng",
-  "storySaveWord": "Lưu từ"
+  "storySaveWord": "Lưu từ",
+  "storyQuizDuplicateOption": "Có hai lựa chọn giống nhau"
 }

@@ -4836,5 +4836,6 @@
   "storyCorrectionsReceived": "{count, plural, one{{count} исправление} few{{count} исправления} many{{count} исправлений} other{{count} исправления}}",
   "storyQuizCorrect": "Верно!",
   "storyQuizWrong": "Не совсем",
-  "storySaveWord": "Сохранить слово"
+  "storySaveWord": "Сохранить слово",
+  "storyQuizDuplicateOption": "Два варианта совпадают"
 }
