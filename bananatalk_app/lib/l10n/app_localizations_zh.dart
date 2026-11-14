@@ -12813,6 +12813,105 @@ class AppLocalizationsZh extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get myWordsTitle => '我的单词和错误';
+
+  @override
+  String myWordsCountWords(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count个单词',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String myWordsCountMistakes(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count个错误',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String myWordsCardBoth(String words, String mistakes) {
+    return '$words，$mistakes待查看';
+  }
+
+  @override
+  String myWordsCardOne(String items) {
+    return '$items待查看';
+  }
+
+  @override
+  String get myWordsCardEmpty => '你在聊天中查过的单词会显示在这里';
+
+  @override
+  String get myWordsFromChats => '来自你的聊天';
+
+  @override
+  String get myWordsMistakes => '错误';
+
+  @override
+  String get myWordsToReview => '待复习的单词';
+
+  @override
+  String myWordsDueCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count个单词可以复习了',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get myWordsKeep => '保留';
+
+  @override
+  String get myWordsDismiss => '忽略';
+
+  @override
+  String get myWordsGotIt => '明白了';
+
+  @override
+  String myWordsGotItProgress(int done) {
+    return '$done/3';
+  }
+
+  @override
+  String get myWordsSayIt => '说出来';
+
+  @override
+  String get myWordsReview => '复习';
+
+  @override
+  String get myWordsEmpty => '暂无待办。在聊天中查一个单词，它就会出现在这里。';
+
+  @override
+  String get myWordsActionFailed => '未能保存，请重试。';
+
+  @override
+  String get myWordsYouWrote => '你写的';
+
+  @override
+  String get myWordsCorrection => '修正';
+
+  @override
+  String get studyDoorTalk => '对话';
+
+  @override
+  String get studyDoorTalkSubtitle => '和你的导师练习口语';
+
+  @override
+  String get studyDoorRoleplay => '角色扮演';
+
+  @override
+  String get studyDoorMore => '更多学习方式';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -25624,4 +25723,103 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
     );
     return '$_temp0';
   }
+
+  @override
+  String get myWordsTitle => '我的單字和錯誤';
+
+  @override
+  String myWordsCountWords(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count個單字',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String myWordsCountMistakes(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count個錯誤',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String myWordsCardBoth(String words, String mistakes) {
+    return '$words，$mistakes待查看';
+  }
+
+  @override
+  String myWordsCardOne(String items) {
+    return '$items待查看';
+  }
+
+  @override
+  String get myWordsCardEmpty => '你在聊天中查過的單字會顯示在這裡';
+
+  @override
+  String get myWordsFromChats => '來自你的聊天';
+
+  @override
+  String get myWordsMistakes => '錯誤';
+
+  @override
+  String get myWordsToReview => '待複習的單字';
+
+  @override
+  String myWordsDueCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count個單字可以複習了',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get myWordsKeep => '保留';
+
+  @override
+  String get myWordsDismiss => '忽略';
+
+  @override
+  String get myWordsGotIt => '明白了';
+
+  @override
+  String myWordsGotItProgress(int done) {
+    return '$done/3';
+  }
+
+  @override
+  String get myWordsSayIt => '說出來';
+
+  @override
+  String get myWordsReview => '複習';
+
+  @override
+  String get myWordsEmpty => '目前沒有待辦。在聊天中查一個單字，它就會出現在這裡。';
+
+  @override
+  String get myWordsActionFailed => '未能儲存，請再試一次。';
+
+  @override
+  String get myWordsYouWrote => '你寫的';
+
+  @override
+  String get myWordsCorrection => '修正';
+
+  @override
+  String get studyDoorTalk => '對話';
+
+  @override
+  String get studyDoorTalkSubtitle => '和你的導師練習口說';
+
+  @override
+  String get studyDoorRoleplay => '角色扮演';
+
+  @override
+  String get studyDoorMore => '更多學習方式';
 }

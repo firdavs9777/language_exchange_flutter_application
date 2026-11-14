@@ -59,6 +59,24 @@ final studyEventsEnabledProvider = Provider<bool>((ref) {
       );
 });
 
+/// Server's "my words and mistakes" switch; same shape as
+/// [paywallEventsEnabledProvider].
+final studyFromChatsEnabledProvider = Provider<bool>((ref) {
+  return ref.watch(appConfigProvider).maybeWhen(
+        data: (c) => c?.studyFromChatsEnabled ?? false,
+        orElse: () => false,
+      );
+});
+
+/// Server's study-hub doors switch; same shape as
+/// [paywallEventsEnabledProvider].
+final studyDoorsEnabledProvider = Provider<bool>((ref) {
+  return ref.watch(appConfigProvider).maybeWhen(
+        data: (c) => c?.studyDoorsEnabled ?? false,
+        orElse: () => false,
+      );
+});
+
 /// Server's offer-engine switch; same shape as [paywallEventsEnabledProvider].
 final offerEngineEnabledProvider = Provider<bool>((ref) {
   return ref.watch(appConfigProvider).maybeWhen(

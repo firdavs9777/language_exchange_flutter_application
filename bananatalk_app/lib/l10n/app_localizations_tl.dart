@@ -12844,4 +12844,103 @@ class AppLocalizationsTl extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get myWordsTitle => 'Aking mga salita at pagkakamali';
+
+  @override
+  String myWordsCountWords(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count salita',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String myWordsCountMistakes(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count pagkakamali',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String myWordsCardBoth(String words, String mistakes) {
+    return '$words, $mistakes na titingnan';
+  }
+
+  @override
+  String myWordsCardOne(String items) {
+    return '$items na titingnan';
+  }
+
+  @override
+  String get myWordsCardEmpty => 'Lalabas dito ang mga salitang hinahanap mo sa mga chat';
+
+  @override
+  String get myWordsFromChats => 'Mula sa mga chat mo';
+
+  @override
+  String get myWordsMistakes => 'Mga pagkakamali';
+
+  @override
+  String get myWordsToReview => 'Mga salitang rerepasuhin';
+
+  @override
+  String myWordsDueCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count salita ang handa',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get myWordsKeep => 'Itago';
+
+  @override
+  String get myWordsDismiss => 'Itapon';
+
+  @override
+  String get myWordsGotIt => 'Gets ko na';
+
+  @override
+  String myWordsGotItProgress(int done) {
+    return '$done sa 3';
+  }
+
+  @override
+  String get myWordsSayIt => 'Sabihin ito';
+
+  @override
+  String get myWordsReview => 'Repasuhin';
+
+  @override
+  String get myWordsEmpty => 'Walang naghihintay. Maghanap ng salita sa chat at lalabas ito dito.';
+
+  @override
+  String get myWordsActionFailed => 'Hindi ito nai-save. Subukan ulit.';
+
+  @override
+  String get myWordsYouWrote => 'Isinulat mo';
+
+  @override
+  String get myWordsCorrection => 'Pagwawasto';
+
+  @override
+  String get studyDoorTalk => 'Magsalita';
+
+  @override
+  String get studyDoorTalkSubtitle => 'Magsanay magsalita kasama ang tutor mo';
+
+  @override
+  String get studyDoorRoleplay => 'Roleplay';
+
+  @override
+  String get studyDoorMore => 'Iba pang paraan ng pag-aaral';
 }

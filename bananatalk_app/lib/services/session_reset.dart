@@ -330,6 +330,10 @@ const Set<String> kAppScopedProviderNames = {
   'communityFastListEnabledProvider', // derived from appConfigProvider
   'paywallEventsEnabledProvider', // derived from appConfigProvider
   'studyEventsEnabledProvider', // derived from appConfigProvider
+  'studyFromChatsEnabledProvider', // derived from appConfigProvider
+  'studyDoorsEnabledProvider', // derived from appConfigProvider
+  'myWordsProvider', // the signed-in learner's words and mistakes
+  'myWordsApiProvider', // stateless
   'offerEngineEnabledProvider', // derived from appConfigProvider
   'offersClockProvider', // the wall clock (a test seam)
   // Stateless: every entry is keyed by user id, and sign-out clears them

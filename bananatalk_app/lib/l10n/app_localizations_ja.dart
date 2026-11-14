@@ -12813,4 +12813,103 @@ class AppLocalizationsJa extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get myWordsTitle => 'マイ単語とミス';
+
+  @override
+  String myWordsCountWords(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count語',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String myWordsCountMistakes(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count件のミス',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String myWordsCardBoth(String words, String mistakes) {
+    return '$words、$mistakesを確認';
+  }
+
+  @override
+  String myWordsCardOne(String items) {
+    return '$itemsを確認';
+  }
+
+  @override
+  String get myWordsCardEmpty => 'チャットで調べた単語がここに表示されます';
+
+  @override
+  String get myWordsFromChats => 'チャットから';
+
+  @override
+  String get myWordsMistakes => 'ミス';
+
+  @override
+  String get myWordsToReview => '復習する単語';
+
+  @override
+  String myWordsDueCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count語が復習できます',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get myWordsKeep => '保存';
+
+  @override
+  String get myWordsDismiss => '閉じる';
+
+  @override
+  String get myWordsGotIt => 'わかった';
+
+  @override
+  String myWordsGotItProgress(int done) {
+    return '$done/3';
+  }
+
+  @override
+  String get myWordsSayIt => '言ってみる';
+
+  @override
+  String get myWordsReview => '復習';
+
+  @override
+  String get myWordsEmpty => '待っているものはありません。チャットで単語を調べると、ここに表示されます。';
+
+  @override
+  String get myWordsActionFailed => '保存できませんでした。もう一度お試しください。';
+
+  @override
+  String get myWordsYouWrote => 'あなたが書いた文';
+
+  @override
+  String get myWordsCorrection => '修正';
+
+  @override
+  String get studyDoorTalk => '会話';
+
+  @override
+  String get studyDoorTalkSubtitle => 'チューターと話す練習をしましょう';
+
+  @override
+  String get studyDoorRoleplay => 'ロールプレイ';
+
+  @override
+  String get studyDoorMore => 'ほかの学習方法';
 }

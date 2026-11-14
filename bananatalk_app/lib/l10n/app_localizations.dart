@@ -23221,6 +23221,150 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{count, plural, one{{count} conversation left today} other{{count} conversations left today}}'**
   String tutorConversationsLeft(int count);
+
+  /// No description provided for @myWordsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'My words and mistakes'**
+  String get myWordsTitle;
+
+  /// No description provided for @myWordsCountWords.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 word} other{{count} words}}'**
+  String myWordsCountWords(int count);
+
+  /// No description provided for @myWordsCountMistakes.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 mistake} other{{count} mistakes}}'**
+  String myWordsCountMistakes(int count);
+
+  /// Study hub card subtitle: the word count and mistake count strings joined, e.g. "3 words, 2 mistakes to look at"
+  ///
+  /// In en, this message translates to:
+  /// **'{words}, {mistakes} to look at'**
+  String myWordsCardBoth(String words, String mistakes);
+
+  /// Study hub card subtitle when only one of words or mistakes is present; items is a count string such as "3 words"
+  ///
+  /// In en, this message translates to:
+  /// **'{items} to look at'**
+  String myWordsCardOne(String items);
+
+  /// No description provided for @myWordsCardEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Words you look up in chats will appear here'**
+  String get myWordsCardEmpty;
+
+  /// No description provided for @myWordsFromChats.
+  ///
+  /// In en, this message translates to:
+  /// **'From your chats'**
+  String get myWordsFromChats;
+
+  /// No description provided for @myWordsMistakes.
+  ///
+  /// In en, this message translates to:
+  /// **'Mistakes'**
+  String get myWordsMistakes;
+
+  /// No description provided for @myWordsToReview.
+  ///
+  /// In en, this message translates to:
+  /// **'Words to review'**
+  String get myWordsToReview;
+
+  /// No description provided for @myWordsDueCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 word is ready} other{{count} words are ready}}'**
+  String myWordsDueCount(int count);
+
+  /// No description provided for @myWordsKeep.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep'**
+  String get myWordsKeep;
+
+  /// No description provided for @myWordsDismiss.
+  ///
+  /// In en, this message translates to:
+  /// **'Dismiss'**
+  String get myWordsDismiss;
+
+  /// No description provided for @myWordsGotIt.
+  ///
+  /// In en, this message translates to:
+  /// **'Got it'**
+  String get myWordsGotIt;
+
+  /// Progress on a mistake: how many of the 3 successful practices are done
+  ///
+  /// In en, this message translates to:
+  /// **'{done} of 3'**
+  String myWordsGotItProgress(int done);
+
+  /// No description provided for @myWordsSayIt.
+  ///
+  /// In en, this message translates to:
+  /// **'Say it'**
+  String get myWordsSayIt;
+
+  /// No description provided for @myWordsReview.
+  ///
+  /// In en, this message translates to:
+  /// **'Review'**
+  String get myWordsReview;
+
+  /// No description provided for @myWordsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing waiting. Look up a word in a chat and it will show up here.'**
+  String get myWordsEmpty;
+
+  /// No description provided for @myWordsActionFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'That didn\'t save. Try again.'**
+  String get myWordsActionFailed;
+
+  /// No description provided for @myWordsYouWrote.
+  ///
+  /// In en, this message translates to:
+  /// **'You wrote'**
+  String get myWordsYouWrote;
+
+  /// No description provided for @myWordsCorrection.
+  ///
+  /// In en, this message translates to:
+  /// **'Correction'**
+  String get myWordsCorrection;
+
+  /// No description provided for @studyDoorTalk.
+  ///
+  /// In en, this message translates to:
+  /// **'Talk'**
+  String get studyDoorTalk;
+
+  /// No description provided for @studyDoorTalkSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Practise speaking with your tutor'**
+  String get studyDoorTalkSubtitle;
+
+  /// No description provided for @studyDoorRoleplay.
+  ///
+  /// In en, this message translates to:
+  /// **'Roleplay'**
+  String get studyDoorRoleplay;
+
+  /// No description provided for @studyDoorMore.
+  ///
+  /// In en, this message translates to:
+  /// **'More ways to study'**
+  String get studyDoorMore;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

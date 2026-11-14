@@ -17,6 +17,14 @@ web `docs/REMAINING_WORK.md` in the web repo (admin console, `assetlinks.json`, 
 - All new server flags are still off (dark); see the backend file for the flag table.
 - fix/moments-stories-audit merged into main (2026-10-16, web-parity P2-1); its device rows are in docs/audits/2026-10-16-web-parity/moments.md.
 
+### AI Study phase 2a app (Plan S4) — branch feat/ai-study-my-words-app, dark behind studyFromChatsEnabled / studyDoorsEnabled
+
+- [x] Task 1: both app-config flags, MyWordsApi, models, myWordsProvider, 24 strings in 19 locales (the 18 non-English machine-drafted; need native review)
+- [ ] Task 2: "My words and mistakes" screen (keep / dismiss, got it)
+- [ ] Task 3: study-hub card for it
+- [ ] Task 4: hub doors (Talk, Roleplay, More)
+- [ ] Task 5: "Say it" pronunciation (`source: 'own'`) and final QA
+
 ## 2. Owner — manual steps (in order)
 
 1. Release build 2.7.0 (10580) on the keystore MacBook: `2.7.0-handoff.md` §1–§2 (`flutter build appbundle`, JDK 17 flag).

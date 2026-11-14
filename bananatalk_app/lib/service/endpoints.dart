@@ -50,6 +50,12 @@ class Endpoints {
   static const String paywallEventsURL = 'purchases/paywall-events';
   // AI Study events (gated server-side by studyEventsEnabled)
   static const String studyEventsURL = 'study/events';
+
+  // "My words and mistakes" (gated server-side by studyFromChatsEnabled)
+  static const String myWordsURL = 'study/my-words';
+  static String candidateKeepURL(String id) => 'study/candidates/$id/keep';
+  static String candidateDismissURL(String id) => 'study/candidates/$id/dismiss';
+  static String mistakeGotItURL(String id) => 'study/mistakes/$id/got-it';
   // The server's daily offer (gated server-side by offerEngineEnabled)
   static const String offersURL = 'offers';
 

@@ -115,6 +115,12 @@ class AppConfig {
   /// AI Study events (`POST study/events`); off by default.
   final bool studyEventsEnabled;
 
+  /// "My words and mistakes" (`GET study/my-words`); off by default.
+  final bool studyFromChatsEnabled;
+
+  /// The new study-hub doors (Talk, Roleplay, More); off by default.
+  final bool studyDoorsEnabled;
+
   /// Offer engine (`GET offers`); off by default.
   final bool offerEngineEnabled;
 
@@ -179,6 +185,8 @@ class AppConfig {
     this.communityFastListEnabled = false,
     this.paywallEventsEnabled = false,
     this.studyEventsEnabled = false,
+    this.studyFromChatsEnabled = false,
+    this.studyDoorsEnabled = false,
     this.offerEngineEnabled = false,
     this.referralsEnabled = false,
     this.boostsEnabled = false,
@@ -223,6 +231,8 @@ class AppConfig {
       communityFastListEnabled: json['communityFastListEnabled'] == true,
       paywallEventsEnabled: json['paywallEventsEnabled'] == true,
       studyEventsEnabled: json['studyEventsEnabled'] == true,
+      studyFromChatsEnabled: json['studyFromChatsEnabled'] == true,
+      studyDoorsEnabled: json['studyDoorsEnabled'] == true,
       offerEngineEnabled: json['offerEngineEnabled'] == true,
       referralsEnabled: (json['referralsEnabled'] as bool?) ?? false,
       boostsEnabled: (json['boostsEnabled'] as bool?) ?? false,
