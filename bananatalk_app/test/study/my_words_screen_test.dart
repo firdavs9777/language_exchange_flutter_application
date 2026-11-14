@@ -62,6 +62,7 @@ class _ServerApi extends MyWordsApi {
   final List<WordCandidate> candidates;
   final List<StudyMistakeItem> mistakes;
   int fetches = 0;
+  bool failFetch = false;
   Completer<void>? fetchGate, keepGate;
 
   @override
@@ -69,6 +70,7 @@ class _ServerApi extends MyWordsApi {
     fetches++;
     final gate = fetchGate;
     if (gate != null) await gate.future;
+    if (failFetch) throw StateError('offline');
     return MyWords(
       candidateCount: candidates.length,
       mistakeCount: mistakes.length,
@@ -659,6 +661,33 @@ void main() {
     await tester.pumpAndSettle();
     expect(tester.takeException(), isNull);
     expect(find.text('1 word to look at'), findsOneWidget);
+  });
+
+  testWidgets('a failed background refresh, then Keep on the last row: '
+      'progress while it is in flight, never the full-screen error', (
+    tester,
+  ) async {
+    final api = _ServerApi(
+      candidates: [_cand('c1', 'one'), _cand('c2', 'two')],
+    );
+    await _pumpLive(tester, api);
+    // The refetch after this Keep fails silently: the other row stays.
+    api.failFetch = true;
+    await tester.tap(find.text('Keep').first);
+    await tester.pumpAndSettle();
+    expect(find.text('two'), findsOneWidget);
+    expect(find.text('Retry'), findsNothing);
+    // Keep the last row with the request held open.
+    api.keepGate = Completer<void>();
+    await tester.tap(find.text('Keep'));
+    await tester.pump();
+    expect(find.text('Retry'), findsNothing);
+    expect(find.byType(CircularProgressIndicator), findsOneWidget);
+    api.failFetch = false;
+    api.keepGate!.complete();
+    await tester.pumpAndSettle();
+    expect(find.text('Retry'), findsNothing);
+    expect(find.textContaining('Nothing waiting'), findsOneWidget);
   });
 
   testWidgets('a got-it count survives reopening (it comes from the server)', (

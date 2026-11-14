@@ -24,7 +24,7 @@ The server starts saving words people look up in chats and the corrections they 
 
 The AI Study tab changes from today's grid of features to three doors, in this order under Today's pack:
 
-1. **My words and mistakes** (green card). It shows a count line such as "3 words, 1 mistake to look at". With no words and no mistakes it shows how many review words are due ("4 words are ready"). With nothing due either, it shows "Words you look up in chats will appear here", but only while `studyFromChatsEnabled` is on. Otherwise it shows the title alone. Tapping it opens the My words screen.
+1. **My words and mistakes** (green card). It shows a count line such as "3 words, 1 mistake to look at". With no words and no mistakes it shows how many review words are due ("4 words are ready"). With nothing due either, it shows "Words you look up in chats will appear here". Both of those lines show only while chat capture (`studyFromChatsEnabled`) is on. With capture off, the card shows its title alone. Tapping it opens the My words screen.
 2. **Talk** (purple card). Tapping it opens the AI tutor. If no tutor persona is chosen yet, the persona picker opens first, as it does from today's tutor tile. The card shows the same "VIP" or "N conversations left today" note as today's tutor tile. A **Roleplay** text button on the card opens roleplay the same way.
 3. **More ways to study** (plain row). This opens the More screen: the recommended tile (when there is one), the vocabulary packs card, and every feature group from today's grid except the tutor and roleplay (those are on the Talk card). A group with nothing left in it is not shown.
 
@@ -72,7 +72,13 @@ Use a test account with the switches turned on for it, or a staging server. Chec
 - [ ] Got it on one mistake three times: "1 of 3", then "2 of 3", then the row goes. Leave after the first tap, reopen, and "1 of 3" is still shown.
 - [ ] Back on the hub after each of the above: the card's count has dropped.
 - [ ] Pull to refresh: the list reloads.
-- [ ] Airplane mode: Keep and Dismiss put the row back with "That didn't work. Try again.". Got it shows the same line. Pull to refresh says "Something went wrong" once and keeps the rows. Opening the screen offline shows Retry, and tapping Retry shows a spinner.
+- [ ] Airplane mode, with rows already loaded (open the study tab online first, so the card has its counts):
+  - Go offline and open the screen: the rows are shown.
+  - Pull to refresh: "Something went wrong" shows once, and the rows stay.
+  - Tap Keep: the row goes, then comes back in its place with "That didn't work. Try again.". Dismiss and Got it show the same line.
+- [ ] Airplane mode from a cold start:
+  - Force-quit the app and stay offline. Open the study tab, then the My words screen: "Something went wrong" and a Retry button are shown.
+  - Go online and tap Retry: a spinner shows (a second tap does nothing), then the list loads.
 - [ ] Reopen after all of the above: nothing kept, dismissed or finished comes back.
 - [ ] An account with more than 20 words: clear the first rows and the next ones come in. "Nothing waiting" never shows in between.
 

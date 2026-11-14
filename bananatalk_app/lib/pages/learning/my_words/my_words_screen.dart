@@ -189,14 +189,18 @@ class _MyWordsScreenState extends ConsumerState<MyWordsScreen> {
       final moreOnServer =
           data.candidateCount > data.candidates.length ||
           data.mistakeCount > data.mistakes.length;
-      final waiting =
-          statsLoading || _busy.isNotEmpty || async.isLoading || moreOnServer;
+      final inFlight = statsLoading || _busy.isNotEmpty || async.isLoading;
       if (!nothingShown) {
+        // A failed background refresh keeps the rows on screen.
         body = _list(context, l10n, candidates, mistakes, due);
+      } else if (inFlight) {
+        // Never the full-screen error while a request is still out.
+        body = progress;
       } else if (failed) {
-        // Every row left and the refetch failed: what is left is unknown.
+        // Every row left, nothing is in flight and the last fetch failed:
+        // what is left on the server is unknown.
         body = _loadError(l10n);
-      } else if (waiting) {
+      } else if (moreOnServer) {
         body = progress;
       } else {
         body = _list(context, l10n, candidates, mistakes, due, empty: true);
