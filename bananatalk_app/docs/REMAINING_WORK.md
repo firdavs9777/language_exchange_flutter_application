@@ -770,3 +770,11 @@ P2 cleanup
 - [x] Logout reset: `alreadyWavedProvider`, `userMomentsPagedProvider`, `userMomentsTotalProvider` were never added to `userScopedProviders`, so the next account could inherit the previous one's wave state and moment lists (`session_reset_test` failed). Now reset.
 - [x] Backend `fix/gatherings-admin-cancel` (admin cancel notifies; no-shows grant no free message) merged and deployed 2026-11-13 (d00703df); backend pointer moved.
 - [ ] `flutter analyze`: 0 errors, 3 warnings, all in tests (unused imports in `chat_state_edit_failed_test.dart`, `moments_main_layout_test.dart`; unused parameter `active`). S
+
+## AI Study path (project 4; design 2026-11-14, branch docs/ai-study-spec)
+Design: `docs/superpowers/specs/2026-11-14-ai-study-path-design.md`. Nothing built yet.
+- [ ] Owner: approve the design and the four decisions in its section 12 (free/paid line; store trial offers and regional prices; chat capture default and privacy forms; new free allowances on pronunciation and writing feedback). M
+- [ ] Phase 1 plans (backend, app): fixes, level per language, study events, fast open. M
+- [ ] Phase 2 plans: learner record, From your chats, Today's session, tutor context. L
+- [ ] Phase 3 plans: free/paid line, 7-day store trial incl. server-side trial state, reminder push. M
+- [ ] Content for Chinese, Korean, Japanese to B1 and check-your-level sets (authored outside the code plans). L
