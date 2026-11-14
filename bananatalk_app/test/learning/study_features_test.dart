@@ -15,7 +15,7 @@ TutorQuotaInfo q({int used = 0, int? cap = 10, bool unlimited = false, int bonus
     );
 
 WeakArea area(String name, double acc, int attempts) => WeakArea(
-    name: name, category: 'grammar', accuracy: acc, attempts: attempts, recommendation: '');
+    name: name, category: 'quiz', accuracy: acc, attempts: attempts, recommendation: '');
 
 void main() {
   group('catalogue', () {

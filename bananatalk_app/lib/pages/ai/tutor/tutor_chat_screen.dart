@@ -31,6 +31,10 @@ class _TutorChatScreenState extends ConsumerState<TutorChatScreen> {
   final _voice = TutorVoiceService();
   bool _started = false;
 
+  /// A start request is in flight; taps that would start another are ignored
+  /// (each start spends one of the day's conversations).
+  bool _starting = false;
+
   /// Set when a send failed; its text is back in the input for a retry.
   bool _sendFailed = false;
   bool _voiceMode = false;
@@ -62,9 +66,15 @@ class _TutorChatScreenState extends ConsumerState<TutorChatScreen> {
   /// start() records a failure in state.error rather than throwing; build
   /// shows a retry view while there is no session.
   Future<void> _start() async {
+    if (_starting) return;
+    _starting = true;
     if (_started) setState(() => _started = false);
     _sendFailed = false;
-    await ref.read(tutorChatControllerProvider.notifier).start();
+    try {
+      await ref.read(tutorChatControllerProvider.notifier).start();
+    } finally {
+      _starting = false;
+    }
     if (!mounted) return;
     // No persona yet: pick one, then come back to this chat. Retrying here
     // could never succeed (it used to show "Something went wrong / Retry").
@@ -303,7 +313,7 @@ class _TutorChatScreenState extends ConsumerState<TutorChatScreen> {
                   Expanded(child: Text(l10n.tutorConversationFull)),
                   TextButton(
                     key: const Key('tutor-new-conversation'),
-                    onPressed: _start,
+                    onPressed: _starting ? null : _start,
                     child: Text(l10n.tutorStartNewConversation),
                   ),
                 ],

@@ -134,7 +134,9 @@ FeatureCoverage featureCoverage(
 WeakArea? pickRecommended(List<WeakArea> areas) {
   WeakArea? best;
   for (final a in areas) {
-    if (a.name.isEmpty) continue;
+    // The tile opens the quiz screen, which does nothing with a vocabulary
+    // tag, so only quiz areas qualify.
+    if (a.name.isEmpty || a.category != 'quiz') continue;
     if (a.attempts > 0 && a.attempts < 3) continue;
     if (best == null || a.accuracy < best.accuracy) best = a;
   }

@@ -4312,6 +4312,6 @@
   "storyInsightReactions": "{count, plural, one{{count} реаксия} other{{count} реаксия}}",
   "storyInsightQuizCorrect": "{count, plural, one{{count} дуруст ҷавоб дод} other{{count} дуруст ҷавоб доданд}}",
   "storyInsightCompletedMark": "То охир тамошо шуд",
-  "tutorConversationFull": "Это сӯҳбат пур шудааст.",
+  "tutorConversationFull": "Ин сӯҳбат пур шудааст.",
   "tutorStartNewConversation": "Сӯҳбати нав оғоз кунед"
 }

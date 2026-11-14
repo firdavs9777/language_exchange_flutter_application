@@ -411,7 +411,12 @@ class TutorChatController extends StateNotifier<TutorChatState> {
     } on PersonaRequiredException {
       _safeSet(const TutorChatState(personaRequired: true));
     } catch (e) {
-      _safeSet(state.copyWith(error: e.toString()));
+      // A failed start leaves the old conversation in place, so a "full"
+      // notice stays until a new conversation has actually started.
+      _safeSet(state.copyWith(
+        error: e.toString(),
+        conversationFull: state.conversationFull,
+      ));
     }
   }
 
@@ -464,6 +469,8 @@ class TutorChatController extends StateNotifier<TutorChatState> {
         // Another request is still opening this conversation; the server
         // asks for a retry after 2 seconds. Once, silently.
         await Future<void>.delayed(const Duration(seconds: 2));
+        // The screen was left meanwhile: no second request, no state write.
+        if (!mounted) return false;
         reply = await _svc.sendMessage(s.id, content);
       }
       final updated = TutorSession(

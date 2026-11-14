@@ -79,8 +79,10 @@ void main() {
         ),
       );
       await tester.pumpAndSettle();
-      // The weakest of the two (food, 20%) is recommended.
-      expect(find.textContaining('food'), findsOneWidget);
+      // Only the quiz area qualifies (the vocabulary one is weaker, but the
+      // tile opens the quiz screen).
+      expect(find.textContaining('Past tense'), findsOneWidget);
+      expect(find.textContaining('food'), findsNothing);
       expect(find.byType(InkWell), findsOneWidget);
     },
   );
@@ -93,6 +95,29 @@ void main() {
         overrides: [
           weakAreasProvider.overrideWith(
             (ref) async => parseWeakAreas({'weakAreas': []}),
+          ),
+        ],
+        child: const MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: Scaffold(body: RecommendedTile()),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    expect(find.byType(InkWell), findsNothing);
+  });
+
+  testWidgets('a vocabulary-only list shows no tile', (tester) async {
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          weakAreasProvider.overrideWith(
+            (ref) async => parseWeakAreas({
+              'weakAreas': [
+                {'topic': 'food', 'category': 'vocabulary', 'score': 0.2},
+              ],
+            }),
           ),
         ],
         child: const MaterialApp(

@@ -12821,7 +12821,7 @@ class AppLocalizationsTg extends AppLocalizations {
   String get storyInsightCompletedMark => 'То охир тамошо шуд';
 
   @override
-  String get tutorConversationFull => 'Это сӯҳбат пур шудааст.';
+  String get tutorConversationFull => 'Ин сӯҳбат пур шудааст.';
 
   @override
   String get tutorStartNewConversation => 'Сӯҳбати нав оғоз кунед';
