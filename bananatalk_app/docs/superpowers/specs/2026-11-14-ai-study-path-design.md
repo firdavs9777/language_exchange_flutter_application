@@ -100,7 +100,7 @@ Anti-goals:
 - Achievements and Challenges tiles are hidden while nothing can populate them; the tab stops requesting achievements on open.
 - Daily reminder push names the pack's actual lesson, counts completion as the pack does, and uses the person's language where a translation exists.
 - Words saved from chat get the learner's target language instead of `auto`; one backfill script normalises existing vocabulary language values to codes (dry run first).
-- Plain "Chinese" learners are served the Simplified pool.
+- (Dropped after measuring, 2026-11-14: serving plain "Chinese" learners the Simplified pool. No active learner has plain "Chinese" on their profile, 37 have Simplified, and the two pools share all 30 syllabus unit numbers, so merging them would confuse grammar progress for no one's benefit.)
 - Free tutor allowance: 5 conversations a day of up to 10 messages each, replacing 5 messages a day. A conversation is one tutor session as the server already records it (free chat or roleplay); the count is sessions started that day. (My call: a 5-message cap ends a first try before it gets anywhere. This loosens a limit, so it needs no switch.)
 - Server changes in this phase stay compatible with the app build people have today; app-side fixes take effect in whichever build the owner releases next.
 

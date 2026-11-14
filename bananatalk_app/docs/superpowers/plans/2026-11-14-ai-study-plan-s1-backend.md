@@ -52,7 +52,11 @@
 
 ---
 
-### Task 1: The tutor reads the right data; plain "Chinese" gets the Simplified pool
+### Task 1: The tutor reads the right data
+
+> Amended 2026-11-14 during the build: the plain-"Chinese" pool alias in this task was built, reviewed and then removed by ruling. Production has no active plain-"Chinese" learner and the `zh` and `zh-Hans` pools share all 30 syllabus unit numbers. Ignore the Chinese rules and tests below; `lib/studyLanguage.js` is created by Task 3 instead.
+
+#### Original text (Chinese parts no longer apply)
 
 **Files:**
 - Modify: `services/tutorService.js` (`buildSystemPrompt` around line 54; `generateDailyPlan` around line 203), `services/dailyPackService.js` (theme and grammar selection), `controllers/dailyStudy.js` only if selection needs the alias passed in
