@@ -14,8 +14,8 @@ These parts have no switch. They are the visible or behavioural differences from
 
 1. **The recommended tile can appear.** The weak-areas answer is read in the server's real shape (`data.weakAreas`, items `{topic, category, score, mistakeRate}`), so a learner with a weak quiz area now sees the "recommended" tile; before, it could never show. Only quiz areas count. (`lib/services/ai_service.dart` `parseWeakAreas`, `lib/models/ai/ai_quiz_model.dart` `WeakArea.fromJson`, `pickRecommended` in `lib/pages/learning/main/study_features.dart`.)
 2. **Challenges and the Achievements link are gone from the hub.** The Challenges tile (11 tiles now, not 12) and the progress card's Achievements shortcut are removed. The tab no longer requests achievements on open, and the achievement-unlock overlay no longer fires from the tab. The screens and routes still exist; the legacy Learn tab still links Challenges.
-3. **Tutor notices.** A tutor `429` with `reason: conversation_full` shows an inline "This conversation is full." with a "Start a new conversation" button instead of the upgrade sheet. `conversation_starting` is retried once, silently, after 2 seconds; a second refusal shows the chat's existing send-failed banner with the text restored. `daily_conversations` (today's 5 conversations used), any other reason, and no reason open the upgrade sheet exactly as before. The same refusals are handled in roleplay.
-4. **The tab's first paint.** The hub's top section (streak, language and level chip, a "Today's pack 2/4" row) paints from a per-user snapshot on disk while live data is loading, instead of a spinner. Live data replaces it and it never comes back in that session. It is used only while loading, only when the pack's date and the save day are today (device date) and it is under 24 hours old, and it is cleared on sign-out. The row's tap waits for the real pack and then does what the live row does.
+3. **Tutor notices.** A tutor `429` with `reason: conversation_full` shows an inline "This conversation is full." with a "Start a new conversation" button instead of the upgrade sheet. `conversation_starting` is retried once, silently, after 2 seconds; a second refusal shows the chat's existing send-failed banner with the text restored. `daily_conversations` (today's 5 conversations used), any other reason, and no reason open the upgrade sheet exactly as before. The same refusals are handled in roleplay. Once the new conversation has started, the full one is ended on the server (the same `POST tutor/sessions/:id/end` the screen already sends when it closes), so its summary, XP, streak tick and minutes are recorded; a failed start ends nothing. With none of today's conversations left (the tutor quota snapshot), the button opens today's upgrade sheet instead and the full conversation stays on screen; no session is requested. Sending is blocked while a new conversation is starting. The chat's quota pill and the hub's AI Tutor tile badge now say "N conversations left today" (`tutorConversationsLeft`); other chips keep "N left today".
+4. **The tab's first paint.** The hub's top section (streak, language and level chip, a "Today's pack 2/4" row) paints from a per-user snapshot on disk while live data is loading, instead of a spinner. Live data replaces it and it never paints over live values; it can show again during a retry after a failed load (while that retry is still loading), never once live values are on screen. It is used only while loading, only when the pack's date is today by the server's day (UTC, which is how the server keys packs) and it is under 24 hours old, and it is cleared on sign-out. The device's own date is stored beside it for display but does not decide. The row's tap waits for the real pack and then does what the live row does.
 5. **Roleplay now removes a failed message from the list and restores the text.** Before, a failed roleplay send left the message in the list. Now it is removed, the text goes back into the input, and a snackbar says it failed.
 6. **The level chip and level check follow the server when it sends `levelMeasured`** (see section 3: with the switch off, nothing differs from today).
 7. **"Start a new conversation" is one request per tap** (a second quick tap does nothing while the first is running).
@@ -25,13 +25,13 @@ Internal differences (no request, nothing visible):
 - New prefs key `study_hub_v1_<userId>` (per account, removed on sign-out).
 - `studyTrackerProvider` and `studyHubSnapshotProvider` are user-scoped, `studyEventsEnabledProvider` and `studyHubCacheProvider` app-scoped (`lib/services/session_reset.dart:203, 263, 332, 338`).
 - With the events flag off `studyLog` builds nothing: no tracker, no client, no lifecycle observer.
-- New strings: `tutorConversationFull`, `tutorStartNewConversation`, `studyLevelChanges` (19 locales each). The orphaned `studyTileChallenges` / `studyTileChallengesDesc` stay because the l10n tests enforce them.
+- New strings: `tutorConversationFull`, `tutorStartNewConversation`, `studyLevelChanges`, `tutorConversationsLeft` (19 locales each). The orphaned `studyTileChallenges` / `studyTileChallengesDesc` stay because the l10n tests enforce them.
 
 ## 2. What each server switch needs from this build
 
 | Server switch (app-config key) | What the app does when it is on |
 |---|---|
-| `STUDY_EVENTS_ENABLED` (`studyEventsEnabled`) | The tracker batches events in memory and sends them to `POST /study/events` (flush at 20 queued, 10 s after the first, and when the app leaves the foreground; chunks of 50; failures dropped; nothing written to disk). Events: `tab_opened` (each time the tab becomes the selected one, once the first frame settled), `session_started`, `step_started`, `step_finished` (kind, score, total; scores omitted when the station has no questions), `session_finished`, `feature_opened` (kind is the tile slug; `detail` is `locked` or `exhausted` when a sheet follows the tap), `level_check_started`, `level_check_finished` (detail is the resulting level). Turn it on only after this build is out. |
+| `STUDY_EVENTS_ENABLED` (`studyEventsEnabled`) | The tracker batches events in memory and sends them to `POST /study/events` (flush at 20 queued, 10 s after the first, and when the app leaves the foreground; chunks of 50; failures dropped; nothing written to disk). Events: `tab_opened` (each time the tab becomes the selected one, once the first frame settled; while the pack is still loading it waits up to 3 s for it so it carries the pack's language, and is dropped if the tab is left meanwhile), `session_started`, `step_started`, `step_finished` (kind, score, total; scores omitted when the station has no questions), `session_finished`, `feature_opened` (kind is the tile slug; `detail` is `locked` or `exhausted` when a sheet follows the tap), `level_check_started`, `level_check_finished` (detail is the resulting level). Turn it on only after this build is out. |
 | `STUDY_LEVELS_V2_ENABLED` (`levelMeasured` in the pack, `levelChange` on completions) | The chip shows `requestedLevel`; "Find your level" follows `levelMeasured`; a completion with `levelChange` shows "From tomorrow your practice moves to {level}." under the step result and on the day-complete sheet; the pack and mastery are refetched once, the moment a level check is saved. **This switch must stay off until this build is out.** Older builds would not show the level change and would keep the old pack after a level check. |
 | `STUDY_NIGHTLY_TRIM_ENABLED` | Nothing in the app. |
 
@@ -44,17 +44,17 @@ Verified by reading the code and by grep (`grep -rn "studyEventsURL\|StudyEvents
 **No call to `/study/events` while the flag is off.**
 - The endpoint string is used in exactly one place, `StudyEventsApi.send` (`lib/services/study/study_events_api.dart:13`, `Endpoints.studyEventsURL` at `lib/service/endpoints.dart:52`). Its only caller is the tracker's `send` (`lib/services/study/study_tracker.dart:151-153`), built only by `studyTrackerProvider`.
 - `studyTrackerProvider` is read in one place: `studyLog` (`study_tracker.dart:193`), after `if (!container.read(studyEventsEnabledProvider)) return;` (`:192`). Flag off: no tracker, no `StudyEventsApi`, no lifecycle observer is built.
-- Every event point goes through `studyLog` (`daily_pack_flow.dart:96, 106, 113, 148`; `study_feature_groups.dart:117`; `placement_screen.dart:67, 97`; `study_tab_opened_reporter.dart:71`). No other caller.
+- Every event point goes through `studyLog` (`daily_pack_flow.dart:96, 106, 113, 148`; `study_feature_groups.dart:117`; `placement_screen.dart:67, 97`; `study_tab_opened_reporter.dart:98, 107`). No other caller.
 - Defence in depth inside the tracker: `log` drops and clears the queue when `enabled()` is false (`study_tracker.dart:77-80`), `flush` re-checks it (`:108-111`), so a flag that turns off after events were queued sends nothing.
-- The tab reporter returns before reading the pack when the flag is off (`study_tab_opened_reporter.dart:69`), so it starts no pack fetch.
+- The tab reporter returns before reading or listening to the pack when the flag is off (`study_tab_opened_reporter.dart:84`), so it starts no pack fetch and no wait timer.
 - The flag is `json['studyEventsEnabled'] == true` with default false (`lib/models/app_config.dart:181, 225`), and `false` while app-config is loading or failed (`lib/providers/provider_root/app_config_providers.dart:55-60`). `studyEventsEnabledProvider` only watches `appConfigProvider`, which the app already loads; no new request.
 
 **Without `levelMeasured` and `levelChange` the hub, pack row and completion screens take today's paths.**
 - `levelMeasured` parses to `null` unless the server sends a bool (`lib/models/learning/daily_pack_model.dart:441`). `LevelChange.tryParse` returns null when the key is absent (`:460`, used at `:534`).
-- Chip level: `packCefrLevel` (`lib/pages/learning/main/study_hub.dart:424-427`) uses the old order (`servedLevel`, then `requestedLevel`) whenever `levelMeasured` is null.
+- Chip level: `packCefrLevel` (`lib/pages/learning/main/study_hub.dart:425-428`) uses the old order (`servedLevel`, then `requestedLevel`) whenever `levelMeasured` is null.
 - "Find your level": `offersLevelCheck` is `!levelPlaced` when `levelMeasured` is null (`daily_pack_model.dart:384`); used by `today_pack_row.dart:46, 53` and `daily_pack_hero_card.dart:143`, replacing `!pack.levelPlaced`, so the result is the same.
 - Completion screens: `daily_pack_flow.dart:144` and `:297` and the sheet (`day_complete_sheet.dart:38`) show the level line only when `result.levelChange != null`; absent, nothing is added and no space is taken.
-- Level check: the pack and mastery are refetched when the check is saved (`placement_screen.dart:99`, `learn_tab.dart:587-590`). That is a refetch the app already did on return from the check; it now happens once, at save time, and not a second time on return. It does not depend on the switch.
+- Level check: the pack and mastery are refetched when the check is saved (`placement_screen.dart:102`, guarded so a failing refetch never makes the saved check look failed; `learn_tab.dart:587-590`). That is a refetch the app already did on return from the check; it now happens once, at save time, and not a second time on return. It does not depend on the switch.
 
 **A tutor `429` without `reason` opens today's sheet.** `QuotaError.reason` is null when the body has none (`lib/services/api_client.dart:951`); `isHandledByChat` is true only for `conversation_full` or `conversation_starting` (`:941-942`); the global hook is called otherwise (`:484`), exactly as before. In the tutor service only the two handled reasons become `TutorSendRefused` (`lib/providers/tutor_provider.dart:142`); every other failure is the old `StateError`. `daily_conversations` also falls to the sheet.
 
@@ -66,7 +66,8 @@ Use a test server. Switch by editing `config/config.env` and `pm2 restart langua
 
 Tutor (no flag):
 - [ ] A tutor conversation to its tenth learner message, then one more: the inline "This conversation is full." notice and the new-conversation button; no upgrade sheet; the typed text is kept.
-- [ ] A sixth conversation in a day (free user): today's upgrade sheet opens.
+- [ ] A sixth conversation in a day (free user): today's upgrade sheet opens. Normally the hub's AI Tutor tile already shows the exhausted badge and opens that sheet before the chat is reached; to reach the chat's own path, fill the fifth conversation to its tenth message and tap "Start a new conversation": the sheet opens and the full conversation stays on screen.
+- [ ] After "Start a new conversation" succeeds, the old conversation is ended on the server (its summary appears in tutor memory, chat XP is awarded).
 - [ ] "Start a new conversation" tapped twice quickly: one new conversation.
 - [ ] Roleplay: a refused or failed send removes the message and restores the text; the voice path (see open item 2).
 - [ ] The reminder push tap (type `daily_drop`) still opens the right screen.
@@ -74,7 +75,7 @@ Tutor (no flag):
 Tab first paint (no flag):
 - [ ] Cold open with the network off: chips and the "Today's pack" row from disk, no spinner; the row's tap does nothing harmful when the pack cannot load.
 - [ ] Cold open with a slow network: the cached row shows, then live data replaces it; tapping the cached row shows its spinner and then opens the pack.
-- [ ] The tab left open across midnight: yesterday's cached values do not come back.
+- [ ] The tab left open across the UTC day's end: yesterday's cached values do not come back. On a device west of UTC (e.g. UTC-8) in the evening after UTC midnight, a cold open does not paint yesterday's "Done for today".
 - [ ] Sign out and sign in as another user: the second user never sees the first user's chips or row.
 
 Level (server's level switch on, test environment):
@@ -88,7 +89,7 @@ Events (`STUDY_EVENTS_ENABLED` on):
 ## 5. Known limits and open items
 
 1. **Device checks above have not been run.**
-2. **Machine-drafted strings.** `tutorConversationFull`, `tutorStartNewConversation` and `studyLevelChanges` in the 18 non-English locales (ar, de, es, fr, hi, id, it, ja, ko, pt, ru, tg, th, tl, tr, vi, zh, zh_TW) are machine-drafted and need a native read.
+2. **Machine-drafted strings.** `tutorConversationFull`, `tutorStartNewConversation`, `studyLevelChanges` and `tutorConversationsLeft` in the 18 non-English locales (ar, de, es, fr, hi, id, it, ja, ko, pt, ru, tg, th, tl, tr, vi, zh, zh_TW) are machine-drafted and need a native read.
 3. **Open items carried from the task reviews:**
    - After a level check, if the pack refetch fails, the pack row stays hidden until pull-to-refresh.
    - Roleplay's voice path overwrites the input field on failure.
@@ -100,16 +101,24 @@ Events (`STUDY_EVENTS_ENABLED` on):
    - The cached row shows no topic or "Find your level" (live data only); the XP-level chip ("Lv 3") is not cached.
    - `AchievementUnlockOverlay` is no longer shown from the tab; unlocks only show in the Achievements screen.
    - The tab reporter's wiring inside `LearningMain` is not covered by a test (the reporter itself is).
+   - The hub removals (Challenges, Achievements link), the recommended-tile fix, the first-paint snapshot and `feature_opened` exist only in the new hub (`studyHubEnabled`), not in the legacy study page.
+   - `tab_opened` counts roughly app launches as well as tab switches, because the study tab is the default tab.
+   - The recommended tile can rest on a single quiz answer (the server reports no attempt count).
+   - The longer "N conversations left today" badge may be shortened with an ellipsis on a narrow AI Tutor tile (device check).
 4. **Phases 2 and 3 of the AI Study path** (the spec) are not part of this build.
 5. **The owner's server scripts** (none run yet; see the backend guide): `normalizeVocabularyLanguages.js` (dry run, then `--apply`), `pregeneratePlacementSets.js` (calls the AI provider), `studyContentGaps.js` (read-only, before the nightly trim), `studyFunnel.js` (read-only, once events flow).
 
-## 6. Checks run on this branch
+## 6. Owner decisions
 
-Final check on HEAD (before this handoff's commit):
+1. **Each visit to the tutor screen starts a new conversation.** Leaving the chat and coming back opens a fresh session, and its first learner message spends one of the day's five conversations. That is never worse than the old limit of 5 messages a day, but a learner who steps out for a moment pays a conversation to continue. Decide whether the app should instead reopen today's unfinished conversation (it would need the server to return it, e.g. from `GET tutor/sessions`).
+
+## 7. Checks run on this branch
+
+Final check after the final review's fix wave (findings I-1 to I-4, M-1 to M-6):
 
 - `flutter analyze`: 1,119 issues, 0 errors. 3 warnings, the same pre-existing ones in tests this work did not touch: `test/chat/chat_state_edit_failed_test.dart:3:8` (unused import) and `:92:18` (unused element parameter), `test/moments/moments_main_layout_test.dart:4:8` (unused import). The other 1,116 are infos.
-- Full `flutter test`: 4,263 passed, 0 failed ("All tests passed!").
+- Full `flutter test`: 4,292 passed, 0 failed ("All tests passed!"); 4,263 before the fix wave.
 
-## 7. Release steps still to do (owner)
+## 8. Release steps still to do (owner)
 
 Merge, version bump, release build (the signed build is manual; see the release how-to), store submission, the device checks above, then the server switches in the order of section 2. Not pushed, not built, no version bump.
