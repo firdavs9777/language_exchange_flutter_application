@@ -742,7 +742,7 @@ P2 cleanup
 - [x] Task 2: `openVipPlans` / `openCoinShop` (`lib/services/paywall/paywall_navigation.dart`) open the VIP screen and coin shop from every site (logs cta_*, screens log plans_viewed / shop_viewed); source-scan test keeps it that way
 - [x] Task 3: limit dialogs, upgrade sheets, `UnlockCta`, boost, visitors screen and the VIP / coin purchase screens report shown / dismissed / cta_* / unlock_succeeded / purchase_* on one flow per showing (`PaywallShowing`, `paywall_purchase_events.dart`)
 - [x] Task 4: server-decided offers (`GET /offers`, `lib/services/offers/`) on four surfaces (visitor recall, profile banner, moments chip, matches empty Boost/VIP buttons), behind `offerEngineEnabled`; `offerGateProvider` Legacy / Hidden / Show; one flow per offer id; refresh on first frame, resume, engine turning on, and after VIP / coin purchase, unlock and boost; the visitors screen sends `seen=1` only with the engine on
-- [ ] Task 5: a masked visit push opens the visitors screen
+- [x] Task 5: a masked visit push (`screen: visitors` or `masked: true`) opens the visitors list through a new `/visitors` route (signed-out goes to splash); a named visit push is unchanged
 - [ ] Task 6: store prices on first paint, and a failed price query is retried
 - [ ] Task 7: an expired receipt is sent once, not at every launch
 - [ ] Task 8: remove dead upsell code (visitor_limit_dialog, visitor_upgrade_screen, daily_chat_limit_service, feature_gate branches)

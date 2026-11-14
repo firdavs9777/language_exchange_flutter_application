@@ -12,6 +12,8 @@ import 'package:bananatalk_app/pages/stories/insights/story_insights_screen.dart
 import 'package:bananatalk_app/pages/moments/moment_detail_wrapper.dart';
 import 'package:bananatalk_app/pages/stories/viewer/story_link_screen.dart';
 import 'package:bananatalk_app/pages/profile/profile_wrapper.dart';
+import 'package:bananatalk_app/pages/profile/visitors_screen.dart';
+import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/pages/community/rooms/room_screen_wrapper.dart';
 import 'package:bananatalk_app/pages/matching/smart_matching_screen.dart';
 import 'package:bananatalk_app/pages/learning/leaderboard/leaderboard_screen.dart';
@@ -139,6 +141,22 @@ class _CommunitySubTabLandingState
 
   @override
   Widget build(BuildContext context) => const TabsScreen(initialIndex: 1);
+}
+
+/// Landing for `/visitors` (masked "someone viewed your profile" push): the
+/// visitors list needs the signed-in user's id, which the push does not carry.
+class _VisitorsLanding extends ConsumerWidget {
+  const _VisitorsLanding();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final id = ref.watch(userProvider).valueOrNull?.id;
+    if (id != null && id.isNotEmpty) return ProfileVisitorsScreen(userId: id);
+    final failed = ref.watch(userProvider).hasError;
+    return Scaffold(
+      body: failed ? null : const Center(child: CircularProgressIndicator()),
+    );
+  }
 }
 
 final goRouter = GoRouter(
@@ -406,6 +424,22 @@ final goRouter = GoRouter(
       path: '/boost',
       pageBuilder: (context, state) =>
           _buildSlideTransition(state: state, child: const BoostScreen()),
+    ),
+
+    // Masked `profile_visit` push: the visitors list. Signed-out → splash,
+    // which makes the usual auth decision (same as the invite route).
+    GoRoute(
+      path: '/visitors',
+      redirect: (context, state) async {
+        try {
+          final prefs = await SharedPreferences.getInstance();
+          final id = prefs.getString('userId');
+          if (id == null || id.isEmpty) return '/splash';
+        } catch (_) {}
+        return null;
+      },
+      pageBuilder: (context, state) =>
+          _buildSlideTransition(state: state, child: const _VisitorsLanding()),
     ),
 
     // Announcement detail: notifications-list rows and `announcement` pushes.

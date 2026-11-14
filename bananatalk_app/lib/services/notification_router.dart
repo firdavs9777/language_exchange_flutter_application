@@ -319,8 +319,17 @@ class NotificationRouter {
             ? '/moments/compose?promptId=${Uri.encodeQueryComponent(promptId)}'
             : '/moments/compose';
 
-      case 'friend_request':
+      // A masked visit push carries no userId (the visitor is hidden); it opens
+      // the visitors list instead.
       case 'profile_visit':
+        if (data['screen']?.toString() == 'visitors' ||
+            data['masked']?.toString() == 'true') {
+          return '/visitors';
+        }
+        final visitorId = data['userId']?.toString();
+        return visitorId != null ? '/profile/$visitorId' : null;
+
+      case 'friend_request':
         final userId = data['userId']?.toString();
         return userId != null ? '/profile/$userId' : null;
 
