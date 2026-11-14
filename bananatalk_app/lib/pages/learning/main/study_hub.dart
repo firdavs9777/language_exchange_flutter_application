@@ -396,13 +396,16 @@ class _StudyHubState extends ConsumerState<StudyHub> {
   }
 }
 
-/// The pack's CEFR level for the header chip: the level the server serves
-/// today (`level`, when its level switch is on), else what was served, else
-/// what was asked for; null unless it looks like A1–C2 (the server sends the bare
-/// code, as the hero card's fallback line shows).
+/// The pack's CEFR level for the header chip; null unless it looks like
+/// A1–C2 (the server sends the bare code). With the server's level switch on
+/// (`levelMeasured` present) the level in force is `requestedLevel`, else what
+/// was served; with it off, what was served, else what was asked for.
 @visibleForTesting
 String? packCefrLevel(DailyPack? pack) {
-  for (final raw in [pack?.level, pack?.servedLevel, pack?.requestedLevel]) {
+  final order = pack?.levelMeasured != null
+      ? [pack?.requestedLevel, pack?.servedLevel]
+      : [pack?.servedLevel, pack?.requestedLevel];
+  for (final raw in order) {
     final v = raw?.trim().toUpperCase();
     if (v != null && RegExp(r'^[ABC][12]$').hasMatch(v)) return v;
   }

@@ -52,7 +52,6 @@ DailyPack _livePack({int done = 0}) => DailyPack(
   language: 'ko',
   requestedLevel: 'A2',
   servedLevel: 'A2',
-  level: 'A2',
   theme: const PackTheme(id: 'p', topic: 'Travel', level: 'beginner'),
   stations: [
     for (var i = 0; i < 3; i++)

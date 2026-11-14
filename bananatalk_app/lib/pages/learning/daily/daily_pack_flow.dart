@@ -294,12 +294,12 @@ class _DailyPackFlowState extends State<DailyPackFlow> {
                 currentIndex: widget.pack.stations.indexOf(station),
               ),
             ),
-            Expanded(child: _stationBody(station)),
             if (_stepLevelChange != null)
               Padding(
-                padding: const EdgeInsets.fromLTRB(20, 4, 20, 12),
+                padding: const EdgeInsets.fromLTRB(20, 4, 20, 4),
                 child: LevelChangeLine(level: _stepLevelChange!.to),
               ),
+            Expanded(child: _stationBody(station)),
           ],
         ),
       ),

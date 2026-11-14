@@ -35,13 +35,15 @@ Map<String, dynamic> _packJson({Map<String, dynamic> extra = const {}}) => {
 DailyPack _pack({
   bool? levelMeasured,
   bool levelPlaced = true,
-  String? level,
+  String? requested,
+  String? served,
 }) => DailyPack.fromJson(
   _packJson(
     extra: {
       'levelPlaced': levelPlaced,
       if (levelMeasured != null) 'levelMeasured': levelMeasured,
-      if (level != null) 'level': level,
+      if (requested != null) 'requestedLevel': requested,
+      if (served != null) 'servedLevel': served,
       'stations': [
         {
           'kind': 'review',
@@ -128,7 +130,6 @@ void main() {
     () {
       final pack = DailyPack.fromJson(_packJson());
       expect(pack.levelMeasured, isNull);
-      expect(pack.level, isNull);
       expect(
         StationResult.fromJson({'score': 1, 'total': 2}).levelChange,
         isNull,
@@ -142,10 +143,9 @@ void main() {
         isNull,
       );
       final measured = DailyPack.fromJson(
-        _packJson(extra: {'levelMeasured': false, 'level': 'B1'}),
+        _packJson(extra: {'levelMeasured': false}),
       );
       expect(measured.levelMeasured, isFalse);
-      expect(measured.level, 'B1');
       final change = StationResult.fromJson({
         'score': 1,
         'total': 2,
@@ -200,18 +200,67 @@ void main() {
       ],
     );
 
-    testWidgets('shows the pack level once the pack has loaded', (t) async {
-      await t.pumpWidget(
-        chips(() async => _pack(levelMeasured: true, level: 'B2')),
-      );
-      await t.pumpAndSettle();
-      expect(find.text('Korean · B2'), findsOneWidget);
-    });
+    testWidgets(
+      'switch on (levelMeasured present): shows requestedLevel, not the lower servedLevel',
+      (t) async {
+        await t.pumpWidget(
+          chips(
+            () async =>
+                _pack(levelMeasured: true, requested: 'B2', served: 'B1'),
+          ),
+        );
+        await t.pumpAndSettle();
+        expect(find.text('Korean · B2'), findsOneWidget);
+      },
+    );
 
-    testWidgets('without a pack level it shows what it shows today', (t) async {
-      await t.pumpWidget(chips(() async => _pack()));
-      await t.pumpAndSettle();
-      expect(find.text('Korean · A2'), findsOneWidget);
+    testWidgets(
+      'switch on: falls back to servedLevel when requestedLevel is unusable',
+      (t) async {
+        await t.pumpWidget(
+          chips(
+            () async => _pack(
+              levelMeasured: false,
+              requested: 'beginner',
+              served: 'A1',
+            ),
+          ),
+        );
+        await t.pumpAndSettle();
+        expect(find.text('Korean · A1'), findsOneWidget);
+      },
+    );
+
+    testWidgets(
+      'switch off (levelMeasured absent): servedLevel first, as before Task 3',
+      (t) async {
+        await t.pumpWidget(
+          chips(() async => _pack(requested: 'B2', served: 'B1')),
+        );
+        await t.pumpAndSettle();
+        expect(find.text('Korean · B1'), findsOneWidget);
+      },
+    );
+
+    test('packCefrLevel order with the switch off and on', () {
+      expect(packCefrLevel(_pack(requested: 'B2', served: 'B1')), 'B1');
+      DailyPack p({bool? measured, String? requested, String? served}) =>
+          DailyPack(
+            needsLanguage: false,
+            dateKey: 'd',
+            weekKey: 'w',
+            dayInWeek: 1,
+            levelMeasured: measured,
+            requestedLevel: requested,
+            servedLevel: served,
+          );
+      expect(packCefrLevel(p(requested: 'B2')), 'B2');
+      expect(
+        packCefrLevel(p(measured: true, requested: 'B2', served: 'B1')),
+        'B2',
+      );
+      expect(packCefrLevel(p(measured: true, served: 'B1')), 'B1');
+      expect(packCefrLevel(null), isNull);
     });
 
     testWidgets('before the pack loads it shows the language alone', (t) async {
@@ -320,6 +369,90 @@ void main() {
       2,
       reason: 'refetched as soon as the level check completed',
     );
+    // Leaving the result screen does not fetch a second time.
+    await t.tap(find.byKey(const Key('placement-start')));
+    await t.pumpAndSettle();
+    expect(find.byKey(const Key('open')), findsOneWidget);
+    expect(fetches, 2, reason: 'one fetch per level check, none on return');
     expect(capturedRef, isNotNull);
   });
+
+  group('lenient parsing', () {
+    test(
+      'a non-bool levelMeasured reads as absent and the pack still parses',
+      () {
+        for (final bad in <Object?>['true', 1, 'yes', <String>[], null]) {
+          final pack = DailyPack.fromJson(
+            _packJson(extra: {'levelMeasured': bad}),
+          );
+          expect(pack.levelMeasured, isNull, reason: '$bad');
+          expect(pack.language, 'ko');
+        }
+      },
+    );
+
+    test(
+      'LevelChange.tryParse: needs a non-empty string to, and a real change',
+      () {
+        expect(LevelChange.tryParse({'from': 'B1', 'to': 'B1'}), isNull);
+        expect(
+          LevelChange.tryParse({'from': ' b1', 'to': 'B1 '}),
+          isNull,
+          reason: 'only exact equality after trimming counts as no change',
+        );
+        expect(LevelChange.tryParse({'from': 'B1', 'to': 2}), isNull);
+        expect(LevelChange.tryParse({'from': 'B1', 'to': null}), isNull);
+        expect(LevelChange.tryParse({'from': 'B1', 'to': '  '}), isNull);
+        expect(LevelChange.tryParse({'from': 'B1'}), isNull);
+        expect(LevelChange.tryParse('B2'), isNull);
+        final ok = LevelChange.tryParse({'from': 'B1', 'to': 'B2'});
+        expect(ok?.to, 'B2');
+        // A missing or non-string from still reports the new level.
+        expect(LevelChange.tryParse({'to': 'B2'})?.to, 'B2');
+        expect(LevelChange.tryParse({'from': 3, 'to': 'B2'})?.to, 'B2');
+      },
+    );
+  });
+
+  testWidgets(
+    'on a small screen at text scale 1.5 the line causes no overflow and Continue is reachable',
+    (t) async {
+      t.view.physicalSize = const Size(320, 480);
+      t.view.devicePixelRatio = 1;
+      t.platformDispatcher.textScaleFactorTestValue = 1.5;
+      addTearDown(t.view.reset);
+      addTearDown(t.platformDispatcher.clearTextScaleFactorTestValue);
+      await t.pumpWidget(
+        _flow(
+          const StationResult(
+            score: 2,
+            total: 3,
+            packComplete: true,
+            levelChange: LevelChange(from: 'B1', to: 'B2'),
+          ),
+        ),
+      );
+      for (final k in ['check-q0-opt1', 'station-submit']) {
+        await t.scrollUntilVisible(
+          find.byKey(Key(k)),
+          100,
+          scrollable: find.byType(Scrollable).first,
+        );
+        await t.pumpAndSettle();
+        await t.tap(find.byKey(Key(k)));
+        await t.pumpAndSettle();
+      }
+      expect(find.text(_fromTomorrow), findsOneWidget);
+      await t.scrollUntilVisible(
+        find.byKey(const Key('station-continue')),
+        100,
+        scrollable: find.byType(Scrollable).first,
+      );
+      await t.pumpAndSettle();
+      await t.tap(find.byKey(const Key('station-continue')));
+      await t.pumpAndSettle();
+      expect(find.byKey(const Key('day-complete-sheet')), findsOneWidget);
+      expect(t.takeException(), isNull);
+    },
+  );
 }

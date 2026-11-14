@@ -374,12 +374,9 @@ class DailyPack {
   /// does not nag every learner.
   final bool levelPlaced;
 
-  /// The level in force today for [language], as the server serves it. Only
-  /// sent when the server's level switch is on; null otherwise.
-  final String? level;
-
-  /// Whether [level] was measured for this language. Null (absent) when the
-  /// server's level switch is off — then [levelPlaced] decides, as before.
+  /// Whether [requestedLevel] (the level in force for [language] today) was
+  /// measured. Null (absent, or not a bool) when the server's level switch is
+  /// off — then [levelPlaced] decides, as before.
   final bool? levelMeasured;
 
   /// Whether the pack offers "Find your level". [levelMeasured] wins when the
@@ -398,7 +395,6 @@ class DailyPack {
     this.stations = const [],
     this.packComplete = false,
     this.levelPlaced = true,
-    this.level,
     this.levelMeasured,
     this.contentLanguage,
     this.contentLanguageName,
@@ -442,8 +438,10 @@ class DailyPack {
             .toList(),
         packComplete: json['packComplete'] as bool? ?? false,
         levelPlaced: json['levelPlaced'] as bool? ?? true,
-        level: json['level'] as String?,
-        levelMeasured: json['levelMeasured'] as bool?,
+        levelMeasured: switch (json['levelMeasured']) {
+          final bool v => v,
+          _ => null,
+        },
         contentLanguage: json['contentLanguage'] as String?,
         contentLanguageName: json['contentLanguageName'] as String?,
         contentLanguageMatches: json['contentLanguageMatches'] as bool? ?? true,
@@ -457,12 +455,17 @@ class LevelChange {
 
   const LevelChange({required this.from, required this.to});
 
-  /// Null for an absent or null value, or one with no target level.
+  /// Null for an absent or null value, a `to` that is not a non-empty
+  /// string, or a "change" to the same level.
   static LevelChange? tryParse(Object? json) {
     if (json is! Map) return null;
-    final to = json['to']?.toString().trim() ?? '';
-    if (to.isEmpty) return null;
-    return LevelChange(from: json['from']?.toString() ?? '', to: to);
+    final rawTo = json['to'];
+    if (rawTo is! String || rawTo.trim().isEmpty) return null;
+    final to = rawTo.trim();
+    final rawFrom = json['from'];
+    final from = rawFrom is String ? rawFrom.trim() : '';
+    if (from.toUpperCase() == to.toUpperCase()) return null;
+    return LevelChange(from: from, to: to);
   }
 }
 
