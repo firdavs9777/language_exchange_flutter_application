@@ -109,6 +109,12 @@ class AppConfig {
   /// default so an older server (no flag) keeps today's list requests.
   final bool communityFastListEnabled;
 
+  /// Paywall funnel events (`POST purchases/paywall-events`); off by default.
+  final bool paywallEventsEnabled;
+
+  /// Offer engine (`GET offers`); off by default.
+  final bool offerEngineEnabled;
+
   /// Invite-friends screen entry; off by default (server ships it dark).
   final bool referralsEnabled;
 
@@ -168,6 +174,8 @@ class AppConfig {
     this.smartSortEnabled = false,
     this.matchesLayoutEnabled = false,
     this.communityFastListEnabled = false,
+    this.paywallEventsEnabled = false,
+    this.offerEngineEnabled = false,
     this.referralsEnabled = false,
     this.boostsEnabled = false,
     this.rewardedLimitsEnabled = false,
@@ -209,6 +217,8 @@ class AppConfig {
       matchesLayoutEnabled: (json['matchesLayoutEnabled'] as bool?) ?? false,
       // `is bool`, not `as bool?`: a non-bool value must read as off, not throw.
       communityFastListEnabled: json['communityFastListEnabled'] == true,
+      paywallEventsEnabled: json['paywallEventsEnabled'] == true,
+      offerEngineEnabled: json['offerEngineEnabled'] == true,
       referralsEnabled: (json['referralsEnabled'] as bool?) ?? false,
       boostsEnabled: (json['boostsEnabled'] as bool?) ?? false,
       rewardedLimitsEnabled:

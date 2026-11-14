@@ -735,3 +735,15 @@ P2 cleanup
 - [ ] **OWNER DECISION B (pre-existing, backend, NOT fixed):** a person blocked today stays in the server's cached daily batch until UTC midnight, so Matches shows them again. Smallest fix (backend repo): in `withoutSkipped` (`controllers/matching.js`, cached path) also drop `getBlockedUserIds(viewerId)`
 - [ ] Deferred (cosmetic): the chip-reset load never writes the Partners disk cache (the next default load refreshes it)
 - [ ] Owner: merge, version bump, signed release build, store submission; turn on the server `COMMUNITY_SLIM_LIST_ENABLED` only after the build is adopted and the avatar-thumb backfill is done
+
+## Monetization offers app (Plan D2, branch feat/monetization-offers-app)
+
+- [x] Task 1: `paywallEventsEnabled` / `offerEngineEnabled` flags + providers, `PaywallFlow`, batched in-memory `PaywallTracker`, `PaywallApi`, `paywallLog` (nothing calls it yet; flags off = no request)
+- [ ] Task 2
+- [ ] Task 3
+- [ ] Task 4
+- [ ] Task 5
+- [ ] Task 6
+- [ ] Task 7
+- [ ] Task 8
+- [ ] Task 9
