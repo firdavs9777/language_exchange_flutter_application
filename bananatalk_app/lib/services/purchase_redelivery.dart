@@ -7,6 +7,12 @@ enum RedeliveryAction {
   verifiedCoinPack,
   verifyFailed,
   ignored,
+
+  /// The server already refused this exact transaction as expired.
+  skippedKnownExpired,
+
+  /// The subscription's last period clearly ended; nothing was sent.
+  skippedLapsed,
 }
 
 /// Handles store transactions that arrive with no purchase call waiting for
@@ -37,6 +43,9 @@ class PurchaseRedeliveryHandler {
     this.onVipChanged,
     this.onCoinsChanged,
     this.verifyWhenVipActive = false,
+    this.isKnownExpired,
+    this.rememberExpired,
+    this.isLapsed,
   });
 
   final Set<String> vipProductIds;
@@ -45,7 +54,8 @@ class PurchaseRedeliveryHandler {
   /// False when signed out — nothing to credit it to yet.
   final bool Function() canVerify;
   final Future<bool> Function() isVipActive;
-  final Future<bool> Function(RestoredPurchase) verifySubscription;
+  final Future<RestoreVerifyResult> Function(RestoredPurchase)
+      verifySubscription;
   final Future<bool> Function(RestoredPurchase) verifyCoinPack;
   final Future<void> Function(RestoredPurchase) completeCoinPack;
   final void Function()? onVipChanged;
@@ -57,6 +67,13 @@ class PurchaseRedeliveryHandler {
   /// replaced token. Safe since the backend dedupes by order id and takes
   /// the end date from the store (479b2d2).
   final bool verifyWhenVipActive;
+
+  /// Expired-receipt memo (all optional; without them every subscription is
+  /// verified as before). A transaction the server refused as expired is not
+  /// sent again, and a clearly lapsed one is not sent at all.
+  final Future<bool> Function(RestoredPurchase)? isKnownExpired;
+  final Future<void> Function(RestoredPurchase)? rememberExpired;
+  final bool Function(RestoredPurchase)? isLapsed;
 
   final Set<String> _inFlight = {};
 
@@ -83,8 +100,18 @@ class PurchaseRedeliveryHandler {
       active = await isVipActive();
     } catch (_) {}
     if (active && !verifyWhenVipActive) return RedeliveryAction.skippedAlreadyVip;
-    final ok = await verifySubscription(purchase);
-    if (!ok) return RedeliveryAction.verifyFailed;
+    if (isKnownExpired != null && await isKnownExpired!(purchase)) {
+      return RedeliveryAction.skippedKnownExpired;
+    }
+    if (isLapsed != null && isLapsed!(purchase)) {
+      await rememberExpired?.call(purchase);
+      return RedeliveryAction.skippedLapsed;
+    }
+    final result = await verifySubscription(purchase);
+    if (!result.success) {
+      if (result.expired) await rememberExpired?.call(purchase);
+      return RedeliveryAction.verifyFailed;
+    }
     onVipChanged?.call();
     return RedeliveryAction.verifiedSubscription;
   }

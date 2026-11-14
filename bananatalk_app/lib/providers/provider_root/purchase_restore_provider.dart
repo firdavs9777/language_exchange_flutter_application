@@ -11,6 +11,7 @@ import 'package:bananatalk_app/providers/provider_root/user_limits_provider.dart
 import 'package:bananatalk_app/providers/provider_root/vip_provider.dart';
 import 'package:bananatalk_app/services/android_purchase_service.dart';
 import 'package:bananatalk_app/services/coin_api_client.dart';
+import 'package:bananatalk_app/services/expired_receipt_memo.dart';
 import 'package:bananatalk_app/services/ios_purchase_service.dart';
 import 'package:bananatalk_app/services/purchase_redelivery.dart';
 import 'package:bananatalk_app/services/purchase_restorer.dart';
@@ -73,7 +74,13 @@ Future<RestoreVerifyResult> verifySubscriptionWithBackend(
         );
   return result['success'] == true
       ? const RestoreVerifyResult.success()
-      : RestoreVerifyResult.failure(result['error']?.toString());
+      : RestoreVerifyResult.failure(
+          result['error']?.toString(),
+          // Only an answer from the server counts; a network error's text
+          // has no status code.
+          expired: result['statusCode'] != null &&
+              isExpiredVerifyError(result['error']),
+        );
 }
 
 void _refreshVip(WidgetRef ref, String? userId) {
@@ -123,8 +130,20 @@ Object? installPurchaseRedelivery(WidgetRef ref) {
     verifyWhenVipActive: !isIOS,
     canVerify: () => _currentUserId(ref, null) != null,
     isVipActive: () => _isVipActive(_currentUserId(ref, null)),
-    verifySubscription: (p) async =>
-        (await verifySubscriptionWithBackend(p)).success,
+    verifySubscription: verifySubscriptionWithBackend,
+    isKnownExpired: (p) async {
+      final uid = _currentUserId(ref, null);
+      if (uid == null) return false;
+      return ExpiredReceiptMemo(userId: uid).contains(p);
+    },
+    rememberExpired: (p) async {
+      final uid = _currentUserId(ref, null);
+      if (uid == null) return;
+      await ExpiredReceiptMemo(userId: uid).add(p);
+    },
+    isLapsed: isIOS
+        ? (p) => clearlyLapsed(p, DateTime.now(), planPeriod: vipPlanPeriod)
+        : null,
     verifyCoinPack: (p) async {
       if (p.receipt.isEmpty) return false;
       // Same idempotency ids as the coin shop: iOS the StoreKit transaction

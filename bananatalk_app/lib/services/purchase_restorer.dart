@@ -36,11 +36,32 @@ class RestoredPurchase {
 class RestoreVerifyResult {
   const RestoreVerifyResult.success()
       : success = true,
-        error = null;
-  const RestoreVerifyResult.failure(this.error) : success = false;
+        error = null,
+        expired = false;
+  const RestoreVerifyResult.failure(this.error, {this.expired = false})
+      : success = false;
 
   final bool success;
   final String? error;
+
+  /// The server answered that the subscription has expired: final, resending
+  /// the same receipt cannot succeed.
+  final bool expired;
+}
+
+/// True when the subscription's last period ended more than [grace] ago (iOS
+/// restores and redeliveries include every past transaction). False when the
+/// store gave no renewal time or the product has no known period.
+bool clearlyLapsed(
+  RestoredPurchase p,
+  DateTime now, {
+  required Duration? Function(String productId) planPeriod,
+  Duration grace = const Duration(days: 3),
+}) {
+  final renewedAt = p.renewedAt;
+  final period = planPeriod(p.productId);
+  if (renewedAt == null || period == null) return false;
+  return renewedAt.add(period).add(grace).isBefore(now);
 }
 
 enum RestoreOutcome {
@@ -141,14 +162,10 @@ class PurchaseRestorer {
         return bd.compareTo(ad);
       });
     final newest = sorted.first;
-    if (checkExpiry && _clearlyLapsed(newest)) return null;
+    if (checkExpiry &&
+        clearlyLapsed(newest, now(), planPeriod: planPeriod, grace: grace)) {
+      return null;
+    }
     return newest;
-  }
-
-  bool _clearlyLapsed(RestoredPurchase p) {
-    final renewedAt = p.renewedAt;
-    final period = planPeriod(p.productId);
-    if (renewedAt == null || period == null) return false;
-    return renewedAt.add(period).add(grace).isBefore(now());
   }
 }
