@@ -23,13 +23,13 @@ class StudyHubSnapshot {
     required this.savedAt,
   });
 
-  /// The device's local date (`YYYY-MM-DD`) when this was written. The pack's
-  /// own `dateKey` may differ around midnight; the snapshot is compared with
-  /// the device date again at read time.
+  /// The device's local date (`YYYY-MM-DD`) when this was written. Kept for
+  /// display and diagnosis only; it does not decide freshness.
   final String dateKey;
 
-  /// The pack's own date key. A snapshot is only ever written from a pack
-  /// whose key equals the device date, and only painted while it still does.
+  /// The pack's own date key, a UTC date (the server's day). A snapshot is
+  /// only ever written from a pack whose key equals the UTC date at that
+  /// moment, and only painted while it still does.
   final String packDateKey;
 
   /// The language chip's text, and the CEFR level the chip showed.
@@ -48,14 +48,23 @@ class StudyHubSnapshot {
 /// [clearAll] beside the other first-page caches. A corrupt, foreign or
 /// old-format entry reads as null and is removed, never thrown.
 class StudyHubCache {
+  /// [now] is the clock; [utcOffset], when given, is the device's offset
+  /// from UTC (tests set both to stand anywhere on the globe), otherwise the
+  /// platform's local time zone is used.
   StudyHubCache({
     DateTime Function()? now,
+    Duration Function()? utcOffset,
     Future<SharedPreferences> Function()? prefs,
   }) : _now = now ?? DateTime.now,
+       _utcOffset = utcOffset,
        _prefs = prefs ?? SharedPreferences.getInstance;
 
   final DateTime Function() _now;
+  final Duration Function()? _utcOffset;
   final Future<SharedPreferences> Function() _prefs;
+
+  /// The current time, from the injected clock.
+  DateTime now() => _now();
 
   static const String keyPrefix = 'study_hub_v1_';
 
@@ -68,25 +77,33 @@ class StudyHubCache {
   /// write begun before a [clearAll] is dropped.
   int get epoch => _epoch;
 
-  /// A snapshot may be painted only when the device day is still the day it
-  /// was saved, its pack was today's pack, and it is under 24 hours old.
-  /// Checked when painting, not only when it was read from disk.
+  /// A snapshot may be painted only while its pack is today's pack by the
+  /// server's (UTC) day and it is under 24 hours old. The device day is not
+  /// consulted: west of UTC it lags the server's day every evening, east of
+  /// it it runs ahead every morning. Checked when painting, not only when it
+  /// was read from disk.
   static const Duration maxAge = Duration(hours: 24);
 
   bool isFresh(StudyHubSnapshot s) {
-    final today = todayKey();
     final age = _now().difference(s.savedAt);
-    return s.dateKey == today &&
-        s.packDateKey == today &&
-        !age.isNegative &&
-        age < maxAge;
+    return s.packDateKey == utcDateKey() && !age.isNegative && age < maxAge;
   }
+
+  /// The UTC date as `YYYY-MM-DD`: the day the server keys its pack by
+  /// (`dateKey`), and what decides a snapshot's freshness.
+  String utcDateKey() => _key(_now().toUtc());
 
   static String keyFor(String userId) => '$keyPrefix$userId';
 
-  /// The device's local date as `YYYY-MM-DD`: what "today" means for a snapshot.
+  /// The device's local date as `YYYY-MM-DD`, stored beside a snapshot for
+  /// display; freshness uses [utcDateKey].
   String todayKey() {
-    final d = _now();
+    final offset = _utcOffset;
+    // A UTC DateTime shifted by the offset carries the local wall date.
+    return _key(offset == null ? _now().toLocal() : _now().toUtc().add(offset()));
+  }
+
+  static String _key(DateTime d) {
     String two(int n) => n.toString().padLeft(2, '0');
     return '${d.year.toString().padLeft(4, '0')}-${two(d.month)}-${two(d.day)}';
   }
@@ -189,8 +206,8 @@ class StudyHubCache {
 
   /// A station was just committed: moves today's saved progress to
   /// [stationsRemaining] stations left, so a kill mid-pack still opens on the
-  /// right count. Touches nothing without a signed-in user and a snapshot
-  /// written today.
+  /// right count. Touches nothing without a signed-in user and a fresh
+  /// snapshot (today's UTC pack).
   Future<void> recordStationCompleted({required int stationsRemaining}) async {
     // Before the first await: a sign-out clear that runs while this reads
     // must also stop the write below.

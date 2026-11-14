@@ -455,4 +455,34 @@ void main() {
       expect(t.takeException(), isNull);
     },
   );
+
+  testWidgets(
+    'a throwing onLevelSet does not make a saved level check look failed (M-1)',
+    (t) async {
+      var submits = 0;
+      await t.pumpWidget(
+        MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: PlacementScreen(
+            onLevelSet: () => throw StateError('refetch blew up'),
+            load: () async => [
+              const PackCheck(prompt: 'Q0', options: ['a', 'b']),
+            ],
+            submit: (_) async {
+              submits++;
+              return {'level': 'B1', 'correct': 1};
+            },
+          ),
+        ),
+      );
+      await t.pumpAndSettle();
+      await t.tap(find.byKey(const Key('check-q0-opt1')));
+      await t.pumpAndSettle();
+      expect(submits, 1);
+      expect(find.byKey(const Key('placement-level')), findsOneWidget);
+      expect(find.byKey(const Key('placement-submit-error')), findsNothing);
+      expect(find.byKey(const Key('placement-submit-retry')), findsNothing);
+    },
+  );
 }

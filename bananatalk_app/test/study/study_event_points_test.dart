@@ -293,10 +293,14 @@ void main() {
           ),
         );
 
-    ProviderContainer make({required int selected, bool enabled = true}) {
+    ProviderContainer make({
+      required int selected,
+      bool enabled = true,
+      Future<DailyPack> Function()? pack,
+    }) {
       container = ProviderContainer(overrides: [
         studyEventsEnabledProvider.overrideWith((ref) => ref.watch(flagProvider)),
-        dailyPackProvider.overrideWith((ref) async => _pack()),
+        dailyPackProvider.overrideWith((ref) => pack != null ? pack() : Future.value(_pack())),
       ]);
       flag = container.read(flagProvider.notifier);
       flag.state = enabled;
@@ -381,5 +385,82 @@ void main() {
       await tester.pump();
       expect(names(), ['tab_opened'], reason: 'selecting it later still logs once');
     });
-  });
+  
+    group('a cold start waits for the pack (I-4)', () {
+      testWidgets('the pack arriving within 3 seconds: one event with its language',
+          (tester) async {
+        final pack = Completer<DailyPack>();
+        make(selected: studyTab, pack: () => pack.future);
+        await tester.pumpWidget(host());
+        await tester.pump();
+        expect(logged, isEmpty, reason: 'held while the pack loads');
+
+        await tester.pump(const Duration(seconds: 1));
+        pack.complete(_pack());
+        await tester.pump();
+        await tester.pump();
+        expect(names(), ['tab_opened']);
+        expect(logged.single.fields['language'], 'ko');
+
+        await tester.pump(const Duration(seconds: 5));
+        expect(names(), ['tab_opened'], reason: 'once, the timer is gone');
+      });
+
+      testWidgets('a pack that fails settles the wait: one event, no language',
+          (tester) async {
+        final pack = Completer<DailyPack>();
+        make(selected: studyTab, pack: () => pack.future);
+        await tester.pumpWidget(host());
+        await tester.pump();
+        pack.completeError(Exception('offline'));
+        await tester.pump();
+        await tester.pump();
+        expect(names(), ['tab_opened']);
+        expect(logged.single.fields['language'], isNull);
+        await tester.pump(const Duration(seconds: 5));
+        expect(names(), ['tab_opened']);
+      });
+
+      testWidgets('the pack never arriving: one event without a language after 3 seconds',
+          (tester) async {
+        make(selected: studyTab, pack: () => Completer<DailyPack>().future);
+        await tester.pumpWidget(host());
+        await tester.pump();
+        await tester.pump(const Duration(milliseconds: 2900));
+        expect(logged, isEmpty);
+        await tester.pump(const Duration(milliseconds: 200));
+        expect(names(), ['tab_opened']);
+        expect(logged.single.fields['language'], isNull);
+        await tester.pump(const Duration(seconds: 5));
+        expect(names(), ['tab_opened']);
+      });
+
+      testWidgets('leaving the tab during the wait logs none', (tester) async {
+        final pack = Completer<DailyPack>();
+        make(selected: studyTab, pack: () => pack.future);
+        await tester.pumpWidget(host());
+        await tester.pump();
+        select(2);
+        await tester.pump();
+        pack.complete(_pack());
+        await tester.pump(const Duration(seconds: 5));
+        expect(logged, isEmpty);
+
+        select(studyTab);
+        await tester.pump();
+        expect(names(), ['tab_opened'], reason: 'a new selection logs again');
+        expect(logged.single.fields['language'], 'ko');
+      });
+
+      testWidgets('leaving the screen during the wait leaves no timer and logs none',
+          (tester) async {
+        make(selected: studyTab, pack: () => Completer<DailyPack>().future);
+        await tester.pumpWidget(host());
+        await tester.pump();
+        await tester.pumpWidget(const SizedBox());
+        await tester.pump(const Duration(seconds: 5));
+        expect(logged, isEmpty);
+      });
+    });
+});
 }

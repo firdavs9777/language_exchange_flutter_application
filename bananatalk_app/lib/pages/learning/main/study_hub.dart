@@ -93,21 +93,22 @@ class _StudyHubState extends ConsumerState<StudyHub> {
     final cache = ref.read(studyHubCacheProvider);
     // Taken before any await: a sign-out clear must stop this write.
     final epoch = cache.epoch;
-    final today = cache.todayKey();
-    // Only today's pack (by the device's date) is worth painting tomorrow
-    // morning; near midnight the server's day may differ.
-    if (pack.dateKey != today) return;
+    // Only the pack of the server's day now is worth painting on the next
+    // open. The server keys packs by UTC date, so compare with that, not with
+    // the device's date (which differs every evening west of UTC and every
+    // morning east of it).
+    if (pack.dateKey != cache.utcDateKey()) return;
     final target =
         ref.read(userProvider).valueOrNull?.language_to_learn ?? '';
     final snapshot = StudyHubSnapshot(
-      dateKey: today,
+      dateKey: cache.todayKey(),
       packDateKey: pack.dateKey,
       language: target.isNotEmpty ? target : null,
       level: packCefrLevel(pack),
       streak: progress.currentStreak,
       stationsDone: pack.doneCount,
       stationsTotal: pack.stations.length,
-      savedAt: DateTime.now(),
+      savedAt: cache.now(),
     );
     () async {
       final userId = await cache.signedInUserId();
@@ -394,11 +395,11 @@ class _StudyHubState extends ConsumerState<StudyHub> {
                             maxHeight: double.infinity,
                             child: Opacity(
                               opacity: t,
-                              // Keyed by the device day so a rebuild after midnight re-checks
-                              // the saved snapshot's freshness.
+                              // Keyed by the UTC day (the pack's day) so a rebuild after
+                              // it rolls re-checks the saved snapshot's freshness.
                               child: StudyHeaderChips(
                                 key: ValueKey(
-                                  ref.read(studyHubCacheProvider).todayKey(),
+                                  ref.read(studyHubCacheProvider).utcDateKey(),
                                 ),
                               ),
                             ),
@@ -432,9 +433,9 @@ String? packCefrLevel(DailyPack? pack) {
   return null;
 }
 
-/// The saved snapshot while it is still fresh at this moment (device date,
-/// pack date and age are re-checked on every build, so an app left open past
-/// midnight stops painting yesterday's values).
+/// The saved snapshot while it is still fresh at this moment (the pack's UTC
+/// date and the age are re-checked on every build, so an app left open past
+/// the UTC day's end stops painting yesterday's values).
 StudyHubSnapshot? _freshSnapshot(WidgetRef ref) {
   final snapshot = ref.watch(studyHubSnapshotProvider).valueOrNull;
   if (snapshot == null) return null;

@@ -6,6 +6,10 @@ import 'package:bananatalk_app/services/study/study_hub_cache.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+/// Noon UTC on Nov 14, on the device's clock: the same UTC and local date in
+/// any time zone the tests run in.
+final _noon = DateTime.utc(2026, 11, 14, 12).toLocal();
+
 StudyHubSnapshot _snap({
   String dateKey = '2026-11-14',
   String packDateKey = '2026-11-14',
@@ -21,11 +25,11 @@ StudyHubSnapshot _snap({
   streak: streak,
   stationsDone: done,
   stationsTotal: total,
-  savedAt: savedAt ?? DateTime(2026, 11, 14, 23, 50),
+  savedAt: savedAt ?? _noon,
 );
 
 void main() {
-  final t0 = DateTime(2026, 11, 14, 23, 50);
+  final t0 = _noon;
 
   setUp(() => SharedPreferences.setMockInitialValues({'userId': 'me'}));
 
@@ -41,7 +45,7 @@ void main() {
     expect(read.stationsDone, 2);
     expect(read.stationsTotal, 4);
     expect(read.packDateKey, '2026-11-14');
-    expect(read.savedAt, DateTime(2026, 11, 14, 23, 50));
+    expect(read.savedAt, _noon);
     expect(await cache.read('other'), isNull);
     final prefs = await SharedPreferences.getInstance();
     expect(prefs.containsKey('study_hub_v1_me'), isTrue);
@@ -160,10 +164,14 @@ void main() {
     });
 
     test(
-      "a pack from yesterday, a save day of yesterday or a day-old save is not",
+      "a pack from yesterday or a day-old save is not; the device day does not decide",
       () {
         expect(cache.isFresh(_snap(packDateKey: '2026-11-13')), isFalse);
-        expect(cache.isFresh(_snap(dateKey: '2026-11-13')), isFalse);
+        expect(
+          cache.isFresh(_snap(dateKey: '2026-11-13')),
+          isTrue,
+          reason: 'the device day is display only; the UTC pack day decides',
+        );
         expect(
           StudyHubCache(
             now: () => DateTime(2026, 11, 14, 23, 50),
@@ -193,6 +201,64 @@ void main() {
         }),
       );
       expect(await cache.read('me'), isNull);
+    });
+  });
+
+  group("freshness follows the pack's UTC date (I-3)", () {
+    test('UTC-8 after UTC midnight: yesterday\'s pack is not painted', () {
+      // 17:00 on Nov 14 in California is 01:00 UTC on Nov 15: the server has
+      // rolled to the Nov 15 pack, the device day is still Nov 14.
+      final cache = StudyHubCache(
+        now: () => DateTime.utc(2026, 11, 15, 1),
+        utcOffset: () => const Duration(hours: -8),
+      );
+      expect(cache.todayKey(), '2026-11-14', reason: 'the device day');
+      final saved = _snap(
+        dateKey: '2026-11-14',
+        packDateKey: '2026-11-14',
+        savedAt: DateTime.utc(2026, 11, 14, 23), // 15:00 local, an hour ago
+      );
+      expect(cache.isFresh(saved), isFalse);
+    });
+
+    test('UTC+9 in the local morning: a snapshot from earlier the same UTC day '
+        'is painted', () {
+      // 08:00 on Nov 15 in Seoul is 23:00 UTC on Nov 14: today's pack is still
+      // the Nov 14 one, saved at 07:00 local.
+      final cache = StudyHubCache(
+        now: () => DateTime.utc(2026, 11, 14, 23),
+        utcOffset: () => const Duration(hours: 9),
+      );
+      expect(cache.todayKey(), '2026-11-15', reason: 'the device day');
+      final saved = _snap(
+        dateKey: '2026-11-15',
+        packDateKey: '2026-11-14',
+        savedAt: DateTime.utc(2026, 11, 14, 22),
+      );
+      expect(cache.isFresh(saved), isTrue);
+    });
+
+    test('the pack date must be today in UTC and the save under 24 hours old',
+        () {
+      final cache = StudyHubCache(
+        now: () => DateTime.utc(2026, 11, 14, 12),
+        utcOffset: () => const Duration(hours: -8),
+      );
+      expect(
+        cache.isFresh(_snap(
+          packDateKey: '2026-11-13',
+          savedAt: DateTime.utc(2026, 11, 14, 11),
+        )),
+        isFalse,
+      );
+      expect(
+        cache.isFresh(_snap(
+          packDateKey: '2026-11-14',
+          savedAt: DateTime.utc(2026, 11, 13, 11),
+        )),
+        isFalse,
+      );
+      expect(cache.utcDateKey(), '2026-11-14');
     });
   });
 
@@ -254,7 +320,7 @@ void main() {
         final cache = StudyHubCache(now: () => t0);
         await cache.write(
           'me',
-          _snap(dateKey: '2026-11-13', done: 1, total: 4),
+          _snap(packDateKey: '2026-11-13', done: 1, total: 4),
         );
         await cache.recordStationCompleted(stationsRemaining: 0);
         expect((await cache.read('me'))!.stationsDone, 1);

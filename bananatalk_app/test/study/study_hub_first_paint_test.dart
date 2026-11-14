@@ -29,11 +29,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../helpers/community_fixture.dart';
 
-/// The device clock the hub's cache reads; tests move it.
-DateTime _clock = DateTime(2026, 11, 14, 9);
+/// The clock the hub's cache reads (a UTC instant); tests move it. The device
+/// sits on UTC unless a test passes its own cache, so the device day and the
+/// pack's UTC day agree.
+DateTime _clock = DateTime.utc(2026, 11, 14, 9);
 const _today = '2026-11-14';
 
-StudyHubCache _cache() => StudyHubCache(now: () => _clock);
+StudyHubCache _cache() =>
+    StudyHubCache(now: () => _clock, utcOffset: () => Duration.zero);
+
+/// A device [hours] from UTC, on the same clock.
+StudyHubCache _cacheAt(int hours) =>
+    StudyHubCache(now: () => _clock, utcOffset: () => Duration(hours: hours));
 
 StudyHubSnapshot _snapshot({
   String dateKey = _today,
@@ -111,11 +118,15 @@ class _Harness {
   late final ProviderContainer container;
 }
 
-Future<_Harness> _pump(WidgetTester t, {Future<Community>? user}) async {
+Future<_Harness> _pump(
+  WidgetTester t, {
+  Future<Community>? user,
+  StudyHubCache? cache,
+}) async {
   final h = _Harness();
   final app = ProviderScope(
     overrides: [
-      studyHubCacheProvider.overrideWithValue(_cache()),
+      studyHubCacheProvider.overrideWithValue(cache ?? _cache()),
       dailyPackProvider.overrideWith((ref) => h.nextPack()),
       learningProgressProvider.overrideWith((ref) => h.nextProgress()),
       userProvider.overrideWith((ref) => user ?? Completer<Community>().future),
@@ -163,7 +174,7 @@ String _streak(WidgetTester t, int n) =>
 
 void main() {
   setUp(() {
-    _clock = DateTime(2026, 11, 14, 9);
+    _clock = DateTime.utc(2026, 11, 14, 9);
     SharedPreferences.setMockInitialValues({'userId': 'me'});
   });
 
@@ -181,7 +192,7 @@ void main() {
   );
 
   testWidgets("yesterday's snapshot is not painted", (t) async {
-    await _seed(_snapshot(dateKey: '2026-11-13'));
+    await _seed(_snapshot(dateKey: '2026-11-13', packDateKey: '2026-11-13'));
     await _pump(t);
     expect(find.text('Korean · B1'), findsNothing);
     expect(find.text('2/4'), findsNothing);
@@ -291,7 +302,7 @@ void main() {
   });
 
   testWidgets('a snapshot older than 24 hours is not painted', (t) async {
-    await _seed(_snapshot(savedAt: DateTime(2026, 11, 13, 8)));
+    await _seed(_snapshot(savedAt: DateTime.utc(2026, 11, 13, 8)));
     await _pump(t);
     expect(find.text('2/4'), findsNothing);
     expect(find.text(_streak(t, 7)), findsNothing);
@@ -300,11 +311,11 @@ void main() {
   testWidgets('a hub open across midnight stops painting cached values', (
     t,
   ) async {
-    _clock = DateTime(2026, 11, 14, 23, 58);
+    _clock = DateTime.utc(2026, 11, 14, 23, 58);
     await _seed(_snapshot());
     final h = await _pump(t);
     expect(find.text('2/4'), findsOneWidget);
-    _clock = DateTime(2026, 11, 15, 0, 2);
+    _clock = DateTime.utc(2026, 11, 15, 0, 2);
     h.container.invalidate(appConfigProvider); // any rebuild of the hub
     await t.pump();
     await t.pump();
@@ -423,5 +434,93 @@ void main() {
     await _pump(t);
     expect(find.text('2/4'), findsNothing);
     expect(find.byType(CircularProgressIndicator), findsOneWidget);
+  });
+
+  group("the pack's day is a UTC day (I-3)", () {
+    testWidgets(
+      'UTC-8 after UTC midnight: the snapshot of the rolled pack is not painted',
+      (t) async {
+        // 17:00 on Nov 14 in California = 01:00 UTC on Nov 15.
+        _clock = DateTime.utc(2026, 11, 15, 1);
+        SharedPreferences.setMockInitialValues({'userId': 'me'});
+        await _cacheAt(-8).write(
+          'me',
+          _snapshot(
+            dateKey: '2026-11-14',
+            packDateKey: '2026-11-14',
+            savedAt: DateTime.utc(2026, 11, 14, 23),
+          ),
+        );
+        await _pump(t, cache: _cacheAt(-8));
+        expect(find.text('2/4'), findsNothing);
+        expect(find.text('Korean · B1'), findsNothing);
+        expect(find.byKey(const Key('today-cached-row')), findsNothing);
+        expect(find.byType(CircularProgressIndicator), findsOneWidget);
+      },
+    );
+
+    testWidgets(
+      'UTC+9 in the local morning: a snapshot saved earlier the same UTC day is painted',
+      (t) async {
+        // 08:00 on Nov 15 in Seoul = 23:00 UTC on Nov 14; saved at 07:00.
+        _clock = DateTime.utc(2026, 11, 14, 23);
+        SharedPreferences.setMockInitialValues({'userId': 'me'});
+        await _cacheAt(9).write(
+          'me',
+          _snapshot(
+            dateKey: '2026-11-15',
+            packDateKey: '2026-11-14',
+            savedAt: DateTime.utc(2026, 11, 14, 22),
+          ),
+        );
+        await _pump(t, cache: _cacheAt(9));
+        expect(find.text('2/4'), findsOneWidget);
+        expect(find.text('Korean · B1'), findsOneWidget);
+      },
+    );
+
+    testWidgets(
+      "UTC-8 after UTC midnight: the server's new pack is written, the old one is not",
+      (t) async {
+        _clock = DateTime.utc(2026, 11, 15, 1); // still Nov 14 on the device
+        SharedPreferences.setMockInitialValues({'userId': 'me'});
+        final h = await _pump(
+          t,
+          user: Future.value(communityFixture()),
+          cache: _cacheAt(-8),
+        );
+        h.progress.complete(_progress(5));
+        h.pack.complete(_livePack(dateKey: '2026-11-15'));
+        await t.pump();
+        await t.pump();
+        await t.runAsync(
+          () => Future<void>.delayed(const Duration(milliseconds: 50)),
+        );
+        final s = await _cacheAt(-8).read('me');
+        expect(s, isNotNull, reason: 'the pack of the UTC day now is saved');
+        expect(s!.packDateKey, '2026-11-15');
+        expect(s.dateKey, '2026-11-14', reason: 'the device day, display only');
+        expect(_cacheAt(-8).isFresh(s), isTrue);
+      },
+    );
+
+    testWidgets('a pack from the previous UTC day is not written', (t) async {
+      _clock = DateTime.utc(2026, 11, 15, 1);
+      SharedPreferences.setMockInitialValues({'userId': 'me'});
+      final h = await _pump(
+        t,
+        user: Future.value(communityFixture()),
+        cache: _cacheAt(-8),
+      );
+      h.progress.complete(_progress(5));
+      // Matches the device day (Nov 14), not the UTC day.
+      h.pack.complete(_livePack(dateKey: '2026-11-14'));
+      await t.pump();
+      await t.pump();
+      await t.runAsync(
+        () => Future<void>.delayed(const Duration(milliseconds: 50)),
+      );
+      expect(await _cacheAt(-8).read('me'), isNull);
+    });
   });
 }

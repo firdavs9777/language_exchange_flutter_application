@@ -96,7 +96,13 @@ class _PlacementScreenState extends State<PlacementScreen> {
       final level = '${result['level'] ?? ''}';
       studyLog(StudyEvent.levelCheckFinished,
           detail: level.isEmpty ? null : level);
-      widget.onLevelSet?.call();
+      // The level is saved now: a failing callback must not turn this into
+      // the submit-failed state, whose retry would send the answers again.
+      try {
+        widget.onLevelSet?.call();
+      } catch (e) {
+        debugPrint('[placement] onLevelSet failed: $e');
+      }
       if (mounted) setState(() => _result = result);
     } catch (_) {
       // Stay on the last question with the answers kept, and offer a retry.
