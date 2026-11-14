@@ -145,10 +145,10 @@ Future<void> _main() async {
         userId != null &&
         userId.isNotEmpty) {
       await chatSocketService.connect();
-
-      final notificationService = NotificationService();
-      await notificationService.initialize();
-      await notificationService.registerToken(userId);
+      // No push set-up here. The splash screen (always the first route)
+      // initializes notifications and registers the FCM token on every
+      // session restore. Doing it here as well registered the token twice per
+      // launch, and held the first frame on that network round trip.
     }
   } catch (e, stack) {
     debugPrint('❌ Socket/notification setup failed: $e');
