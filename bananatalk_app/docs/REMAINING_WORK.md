@@ -738,7 +738,9 @@ P2 cleanup
 
 ## Monetization offers (project 3; design 2026-11-14, branch docs/monetization-offers-spec)
 Design: `docs/superpowers/specs/2026-11-14-monetization-offers-design.md`. Nothing built yet.
-- [ ] Owner: approve the design, then backend plan and app plan. M
+- [x] Design approved 2026-11-14.
+- [x] Backend plan written: `docs/superpowers/plans/2026-11-14-monetization-offers-plan-d1-backend.md` (8 tasks, backend branch `feat/monetization-offers`, not started).
+- [ ] App plan (D2) not written. M
 - [ ] Part A: paywall funnel events from every upsell surface, shared open helpers, `scripts/paywallFunnel.js` (switch `PAYWALL_EVENTS_ENABLED`). M
 - [ ] Part B: offer engine for four passive surfaces with caps (switch `OFFER_ENGINE_ENABLED`); masked visitor push for free users (switch `VISITOR_PUSH_MASK_ENABLED`, owner decision). M
 - [ ] Part C: prices on first paint, retry a failed product query, stop re-sending an expired receipt at launch. S–M

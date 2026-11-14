@@ -130,7 +130,7 @@ New collection `offerstates`, one row per user: today's reserved offer, per surf
 - At most one engine offer per person per UTC day, and the same surface at most once per 3 days.
 - None of the four widgets has a close control and none is added. Instead: a surface seen 3 times in a row without a tap is quiet for 14 days; a tap resets the count.
 - Any successful purchase or unlock by the person, whether or not it started from an engine offer, makes all engine offers quiet for 7 days.
-- Seen and tapped come from the batch endpoint (`shown` and `cta_*` events carrying the `offerId`); purchases and unlocks are read from any stored success event for that user. So the engine needs `PAYWALL_EVENTS_ENABLED` on; with it off, `/offers` returns no offers.
+- Seen and tapped come from the batch endpoint (`shown` and `cta_*` events carrying the `offerId`), so the engine needs `PAYWALL_EVENTS_ENABLED` on; with it off, `/offers` returns no offers. Purchases and unlocks are read from the server's own coin ledger (a coin purchase or spend in the last 7 days), which does not depend on the app reporting them; a new VIP is excluded anyway.
 - The row is removed in the account delete cascade.
 
 ### 5.5 Visitor push for free users (separate switch)
