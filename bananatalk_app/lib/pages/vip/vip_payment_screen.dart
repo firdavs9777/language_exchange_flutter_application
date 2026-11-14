@@ -21,6 +21,7 @@ import 'package:bananatalk_app/utils/friendly_error.dart';
 import 'dart:async';
 import 'package:bananatalk_app/services/paywall/paywall_flow.dart';
 import 'package:bananatalk_app/services/paywall/paywall_purchase_events.dart';
+import 'package:bananatalk_app/services/offers/offers_provider.dart';
 
 class VipPaymentScreen extends ConsumerStatefulWidget {
   final String userId;
@@ -238,6 +239,7 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
             PurchaseOutcome.succeeded,
             productId: productId,
           );
+          refreshOffersAfterPurchase(ref);
           AnalyticsService.instance.subscriptionPurchased(
             plan: widget.plan.name,
             platform: Platform.isIOS ? 'ios' : 'android',
@@ -441,6 +443,7 @@ class _VipPaymentScreenState extends ConsumerState<VipPaymentScreen> {
             PurchaseOutcome.succeeded,
             productId: productId,
           );
+          refreshOffersAfterPurchase(ref);
           AnalyticsService.instance.subscriptionPurchased(
             plan: widget.plan.name, platform: 'android',
           );

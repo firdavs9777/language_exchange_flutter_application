@@ -16,6 +16,7 @@ import 'package:bananatalk_app/services/coin_api_client.dart';
 import 'package:bananatalk_app/services/ios_purchase_service.dart';
 import 'package:bananatalk_app/services/paywall/paywall_flow.dart';
 import 'package:bananatalk_app/services/paywall/paywall_purchase_events.dart';
+import 'package:bananatalk_app/services/offers/offers_provider.dart';
 import 'package:bananatalk_app/services/paywall/paywall_tracker.dart';
 import 'package:bananatalk_app/utils/app_page_route.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
@@ -153,6 +154,9 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
         purchaseOutcomeForCoinVerify(outcome),
         productId: productId,
       );
+      if (purchaseOutcomeForCoinVerify(outcome) == PurchaseOutcome.succeeded) {
+        refreshOffersAfterPurchase(ref);
+      }
       if (outcome.finishesPurchase) {
         // Only now is it safe to finish/consume — the backend confirmed
         // the receipt and credited coins (or refused it for good because

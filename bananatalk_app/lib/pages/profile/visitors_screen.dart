@@ -26,6 +26,7 @@ typedef VisitorsFetcher =
       int limit,
       int page,
       bool reveal,
+      bool seen,
     });
 
 class ProfileVisitorsScreen extends ConsumerStatefulWidget {
@@ -103,15 +104,19 @@ class _ProfileVisitorsScreenState extends ConsumerState<ProfileVisitorsScreen> {
 
     try {
       var reveal = false;
+      var seen = false;
       try {
         final config = await ref.read(appConfigProvider.future);
         reveal = config?.boostsEnabled ?? false;
+        seen = config?.offerEngineEnabled ?? false;
       } catch (_) {}
       final result = await widget.fetchVisitors(
         userId: widget.userId,
         page: page,
         limit: _pageSize,
         reveal: reveal,
+        // Only this screen marks visitors seen, and only for the offer engine.
+        seen: seen,
       );
 
       if (mounted) {

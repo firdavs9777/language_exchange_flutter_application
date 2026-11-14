@@ -52,6 +52,7 @@ import 'package:bananatalk_app/providers/provider_root/message_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/moments_providers.dart';
 import 'package:bananatalk_app/services/feed_open_tracker.dart';
 import 'package:bananatalk_app/services/paywall/paywall_tracker.dart';
+import 'package:bananatalk_app/services/offers/offers_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/profile_visitor_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/user_limits_provider.dart';
 import 'package:bananatalk_app/providers/provider_root/vip_provider.dart';
@@ -194,6 +195,11 @@ final Map<String, ProviderOrFamily> userScopedProviders = {
   'feedOpenTrackerProvider': feedOpenTrackerProvider,
   // Queued paywall events are sent under whoever is signed in at flush time.
   'paywallTrackerProvider': paywallTrackerProvider,
+  // The signed-in user's server offer; the next user starts with none (its
+  // expiry timer is cancelled when it is disposed).
+  'offersProvider': offersProvider,
+  'offerGateProvider': offerGateProvider,
+  'offersApiProvider': offersApiProvider,
   'momentsProvider': momentsProvider,
   'momentsFeedFreshnessProvider': momentsFeedFreshnessProvider,
   'momentsFeedProvider': momentsFeedProvider,
@@ -310,6 +316,7 @@ const Set<String> kAppScopedProviderNames = {
   'communityFastListEnabledProvider', // derived from appConfigProvider
   'paywallEventsEnabledProvider', // derived from appConfigProvider
   'offerEngineEnabledProvider', // derived from appConfigProvider
+  'offersClockProvider', // the wall clock (a test seam)
   // Stateless: every entry is keyed by user id, and sign-out clears them
   // (AuthService._clearAuthData).
   'communityFirstPageCacheProvider',

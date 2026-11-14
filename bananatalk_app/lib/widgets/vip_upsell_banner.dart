@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:bananatalk_app/services/offers/offer.dart';
+import 'package:bananatalk_app/services/offers/offers_provider.dart';
 import 'package:bananatalk_app/services/paywall/paywall_navigation.dart';
 import 'package:bananatalk_app/services/paywall/paywall_flow.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 /// Banner shown when viewing a VIP user's profile
-/// Encourages non-VIP users to upgrade
-class VipUpsellBanner extends StatelessWidget {
+/// Encourages non-VIP users to upgrade. With the offer engine on it shows
+/// only when the server's offer names [OfferSurface.profileBanner].
+class VipUpsellBanner extends ConsumerWidget {
   final String userName;
   final bool isCurrentUserVip;
 
@@ -16,11 +20,14 @@ class VipUpsellBanner extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     // Don't show if current user is already VIP
     if (isCurrentUserVip) return const SizedBox.shrink();
+    final gate = ref.watch(offerGateProvider(OfferSurface.profileBanner));
+    if (gate is OfferGateHidden) return const SizedBox.shrink();
+    final offerFlow = gate is OfferGateShow ? gate.flow : null;
 
-    return Container(
+    final banner = Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
         gradient: const LinearGradient(
@@ -43,7 +50,9 @@ class VipUpsellBanner extends StatelessWidget {
           onTap: () {
             openVipPlans<void>(
               context,
-              PaywallFlow.start(PaywallPlacement.vipEntry, detail: 'profile_banner'),
+              offerFlow ??
+                  PaywallFlow.start(PaywallPlacement.vipEntry, detail: 'profile_banner'),
+              logCta: true,
             );
           },
           borderRadius: BorderRadius.circular(16),
@@ -111,6 +120,8 @@ class VipUpsellBanner extends StatelessWidget {
         ),
       ),
     );
+    if (offerFlow == null) return banner;
+    return OfferShownReporter(flow: offerFlow, child: banner);
   }
 }
 

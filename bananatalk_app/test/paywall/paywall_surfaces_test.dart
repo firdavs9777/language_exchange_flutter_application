@@ -505,6 +505,7 @@ void main() {
           int limit = 20,
           int page = 1,
           bool reveal = false,
+          bool seen = false,
         }) async => {
           'success': true,
           'visitors': [masked(), masked(), masked()],

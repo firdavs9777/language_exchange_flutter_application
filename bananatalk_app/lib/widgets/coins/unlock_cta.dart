@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:bananatalk_app/services/paywall/paywall_navigation.dart';
 import 'package:bananatalk_app/services/paywall/paywall_flow.dart';
 import 'package:bananatalk_app/services/paywall/paywall_tracker.dart';
+import 'package:bananatalk_app/services/offers/offers_provider.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -192,6 +193,7 @@ class _UnlockButtonState extends ConsumerState<_UnlockButton> {
           detail: widget.featureKey,
         );
         refreshCoinBalance(ref);
+        refreshOffersAfterPurchase(ref);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('${l10n.unlockedMore(widget.grant)} 💎')),
         );

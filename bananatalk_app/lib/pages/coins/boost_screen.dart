@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/services/paywall/paywall_navigation.dart';
 import 'package:bananatalk_app/services/paywall/paywall_flow.dart';
 import 'package:bananatalk_app/services/paywall/paywall_tracker.dart';
+import 'package:bananatalk_app/services/offers/offers_provider.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/models/boost.dart';
@@ -146,6 +147,7 @@ class _BoostScreenState extends ConsumerState<BoostScreen> {
       if (!mounted) return;
       paywallLog(_flow, PaywallAction.unlockSucceeded, detail: 'boost');
       refreshCoinBalance(ref);
+      refreshOffersAfterPurchase(ref);
       _setActive(b);
     } on BoostException catch (e) {
       if (!mounted) return;

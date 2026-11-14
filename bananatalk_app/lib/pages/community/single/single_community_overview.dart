@@ -7,6 +7,8 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/utils/theme_extensions.dart';
 import 'package:bananatalk_app/widgets/ads/ad_widgets.dart';
+import 'package:bananatalk_app/services/offers/offer.dart';
+import 'package:bananatalk_app/services/offers/offers_provider.dart';
 import 'package:bananatalk_app/widgets/vip_upsell_banner.dart';
 import 'package:bananatalk_app/widgets/community/language_match_card.dart';
 import 'package:bananatalk_app/widgets/community/engagement_stats_bar.dart';
@@ -28,13 +30,17 @@ class SingleCommunityOverview extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
+    // The engine's offer names another surface: no banner and no gap.
+    final bannerHidden =
+        ref.watch(offerGateProvider(OfferSurface.profileBanner))
+            is OfferGateHidden;
 
     return ListView(
       key: const PageStorageKey<String>('overview'),
       padding: const EdgeInsets.all(16),
       children: [
         // VIP Upsell Banner
-        if (PrivacyUtils.showsVipBadge(community)) ...[
+        if (PrivacyUtils.showsVipBadge(community) && !bannerHidden) ...[
           Builder(
             builder: (context) {
               final userAsync = ref.watch(userProvider);

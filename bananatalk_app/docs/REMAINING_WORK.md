@@ -1,11 +1,4 @@
-- [x] Task 3: limit dialogs, upgrade sheets, `UnlockCta`, boost, visitors screen and the VIP / coin purchase screens report shown / dismissed / cta_* / unlock_succeeded / purchase_* on one flow per showing (`PaywallShowing`, `paywall_purchase_events.dart`)
-- [ ] Task 4: server-decided offers (`/offers`) on four surfaces (visitor recall, profile banner, moments chip, matches empty), behind `offerEngineEnabled`
-- [ ] Task 5: a masked visit push opens the visitors screen
-- [ ] Task 6: store prices on first paint, and a failed price query is retried
-- [ ] Task 7: an expired receipt is sent once, not at every launch
-- [ ] Task 8: remove dead upsell code (visitor_limit_dialog, visitor_upgrade_screen, daily_chat_limit_service, feature_gate branches)
-- [ ] Task 9: whole-app check and handoff doc
-- [ ] Not covered by Task 3 tests: translation_bottom_sheet limit state, watch-ad button, store purchase paths are not widget-testable (pure mappings tested instead)# Remaining work — BananaTalk app
+# Remaining work — BananaTalk app
 
 Last updated: 2026-11-11 (profile audit on fix/profile-audit; backend 04c3832 rebuilt as a4e2d6a; Community phase 1 deployed, phase 2 app code-complete on feat/community-p2; 2.2.7 audit fixes; 모임 decisions). Keep this current: tick items off in the same commit that finishes them.
 
@@ -747,10 +740,12 @@ P2 cleanup
 
 - [x] Task 1: `paywallEventsEnabled` / `offerEngineEnabled` flags + providers, `PaywallFlow`, batched in-memory `PaywallTracker`, `PaywallApi`, `paywallLog` (nothing calls it yet; flags off = no request)
 - [x] Task 2: `openVipPlans` / `openCoinShop` (`lib/services/paywall/paywall_navigation.dart`) open the VIP screen and coin shop from every site (logs cta_*, screens log plans_viewed / shop_viewed); source-scan test keeps it that way
-- [ ] Task 3
-- [ ] Task 4
-- [ ] Task 5
-- [ ] Task 6
-- [ ] Task 7
-- [ ] Task 8
-- [ ] Task 9
+- [x] Task 3: limit dialogs, upgrade sheets, `UnlockCta`, boost, visitors screen and the VIP / coin purchase screens report shown / dismissed / cta_* / unlock_succeeded / purchase_* on one flow per showing (`PaywallShowing`, `paywall_purchase_events.dart`)
+- [x] Task 4: server-decided offers (`GET /offers`, `lib/services/offers/`) on four surfaces (visitor recall, profile banner, moments chip, matches empty Boost/VIP buttons), behind `offerEngineEnabled`; `offerGateProvider` Legacy / Hidden / Show; one flow per offer id; refresh on first frame, resume, engine turning on, and after VIP / coin purchase, unlock and boost; the visitors screen sends `seen=1` only with the engine on
+- [ ] Task 5: a masked visit push opens the visitors screen
+- [ ] Task 6: store prices on first paint, and a failed price query is retried
+- [ ] Task 7: an expired receipt is sent once, not at every launch
+- [ ] Task 8: remove dead upsell code (visitor_limit_dialog, visitor_upgrade_screen, daily_chat_limit_service, feature_gate branches)
+- [ ] Task 9: whole-app check and handoff doc
+- [ ] Not covered by Task 3 tests: translation_bottom_sheet limit state, watch-ad button, store purchase paths are not widget-testable (pure mappings tested instead)
+- [ ] Task 4 follow-ups: the Matches empty-state Boost and VIP buttons share one style, so `lead` changes no styling there (no new styles allowed); an offer for `matches_empty` while `boostsEnabled` is off draws no buttons; a 429 on `GET /offers` would show the global rate-limit toast (`ApiClient.get` has no opt-out); device QA with the engine on
