@@ -23215,6 +23215,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Start a new conversation'**
   String get tutorStartNewConversation;
+
+  /// Pill in the AI tutor chat header and the AI Tutor tile badge on the study hub: how many of today's tutor conversations are left (each conversation holds 10 learner messages)
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{{count} conversation left today} other{{count} conversations left today}}'**
+  String tutorConversationsLeft(int count);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

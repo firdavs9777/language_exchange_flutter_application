@@ -4842,5 +4842,6 @@
   "storyInsightQuizCorrect": "{count, plural, other{정답 {count}명}}",
   "storyInsightCompletedMark": "끝까지 시청함",
   "tutorConversationFull": "이 대화는 가득 찼어요.",
-  "tutorStartNewConversation": "새 대화 시작하기"
+  "tutorStartNewConversation": "새 대화 시작하기",
+  "tutorConversationsLeft": "{count, plural, other{오늘 대화 {count}회 남음}}"
 }

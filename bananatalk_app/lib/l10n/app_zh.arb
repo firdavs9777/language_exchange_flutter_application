@@ -4835,5 +4835,6 @@
   "storyInsightQuizCorrect": "{count, plural, other{{count} 人答对}}",
   "storyInsightCompletedMark": "已看完",
   "tutorConversationFull": "此对话已满。",
-  "tutorStartNewConversation": "开始新对话"
+  "tutorStartNewConversation": "开始新对话",
+  "tutorConversationsLeft": "{count, plural, other{今日还剩 {count} 次对话}}"
 }

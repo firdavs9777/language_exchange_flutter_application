@@ -4,6 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bananatalk_app/models/tutor/tutor_session.dart';
 import 'package:bananatalk_app/providers/provider_root/auth_providers.dart';
 import 'package:bananatalk_app/providers/tutor_provider.dart';
+import 'package:bananatalk_app/providers/tutor_quota_provider.dart';
+import 'package:bananatalk_app/pages/learning/main/sections/study_features.dart';
 import 'package:bananatalk_app/pages/ai/tutor/persona_picker_screen.dart';
 import 'package:bananatalk_app/services/analytics_service.dart';
 import 'package:bananatalk_app/services/tutor_voice_service.dart';
@@ -16,6 +18,7 @@ import 'package:bananatalk_app/widgets/tutor/vocab_card.dart';
 import 'package:bananatalk_app/widgets/tutor/grammar_card.dart';
 import 'package:bananatalk_app/widgets/tutor/srs_due_card.dart';
 import 'package:bananatalk_app/widgets/tutor/mini_lesson_card.dart';
+import 'package:bananatalk_app/widgets/study/study_upgrade_sheet.dart';
 import 'package:bananatalk_app/services/ad_service.dart';
 
 class TutorChatScreen extends ConsumerStatefulWidget {
@@ -32,7 +35,9 @@ class _TutorChatScreenState extends ConsumerState<TutorChatScreen> {
   bool _started = false;
 
   /// A start request is in flight; taps that would start another are ignored
-  /// (each start spends one of the day's conversations).
+  /// and sending waits (a message sent now would go to the old session). The
+  /// server charges a conversation on its first learner message, not on the
+  /// start, but a second start would still leave an orphan session behind.
   bool _starting = false;
 
   /// Set when a send failed; its text is back in the input for a retry.
@@ -70,6 +75,10 @@ class _TutorChatScreenState extends ConsumerState<TutorChatScreen> {
     _starting = true;
     if (_started) setState(() => _started = false);
     _sendFailed = false;
+    // Per-conversation state: a new conversation's replies are counted (and
+    // spoken) from its own first message.
+    _lastSpokenIndex = -1;
+    _adShownAtMilestone = false;
     try {
       await ref.read(tutorChatControllerProvider.notifier).start();
     } finally {
@@ -91,6 +100,24 @@ class _TutorChatScreenState extends ConsumerState<TutorChatScreen> {
     _scrollToBottom();
   }
 
+  /// "Start a new conversation" under a full one. With none of today's
+  /// conversations left, today's upgrade sheet opens instead and the full
+  /// conversation stays on screen; a coin unlock from that sheet goes on to
+  /// start the new conversation.
+  Future<void> _startNewConversation() async {
+    if (_starting) return;
+    final chat = ref.read(tutorQuotaProvider).chat;
+    if (chat != null && chat.isExhausted) {
+      final unlocked = await showStudyUpgradeSheet(
+        context,
+        feature: StudyFeature.tutor,
+        reason: StudyUpgradeReason.exhausted,
+      );
+      if (!unlocked || !mounted) return;
+    }
+    await _start();
+  }
+
   void _scrollToBottom() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (_scrollCtl.hasClients) {
@@ -104,6 +131,9 @@ class _TutorChatScreenState extends ConsumerState<TutorChatScreen> {
   }
 
   Future<void> _send() async {
+    // Not while a new conversation is starting: the message would go to the
+    // old session, and its failure could put that session back on screen.
+    if (_starting) return;
     final text = _controller.text.trim();
     if (text.isEmpty) return;
     if (ref.read(tutorChatControllerProvider).session == null) return;
@@ -161,7 +191,10 @@ class _TutorChatScreenState extends ConsumerState<TutorChatScreen> {
       final text = await _voice.transcribe(sessionId, path);
       if (!mounted) return;
       setState(() => _transcribing = false);
-      if (text != null && text.trim().isNotEmpty) {
+      if (text != null && text.trim().isNotEmpty && _starting) {
+        // A new conversation is starting: keep the words for it.
+        _controller.text = text.trim();
+      } else if (text != null && text.trim().isNotEmpty) {
         final ok = await ref
             .read(tutorChatControllerProvider.notifier)
             .send(text.trim(), rollbackOnError: true);
@@ -313,7 +346,7 @@ class _TutorChatScreenState extends ConsumerState<TutorChatScreen> {
                   Expanded(child: Text(l10n.tutorConversationFull)),
                   TextButton(
                     key: const Key('tutor-new-conversation'),
-                    onPressed: _starting ? null : _start,
+                    onPressed: _starting ? null : _startNewConversation,
                     child: Text(l10n.tutorStartNewConversation),
                   ),
                 ],
@@ -349,7 +382,9 @@ class _TutorChatScreenState extends ConsumerState<TutorChatScreen> {
                 children: [
                   IconButton.filledTonal(
                     onPressed:
-                        (state.sending || _transcribing) ? null : _toggleRecord,
+                        (state.sending || _transcribing || (_starting && !_recording))
+                            ? null
+                            : _toggleRecord,
                     icon: Icon(_recording
                         ? Icons.stop
                         : (_transcribing ? Icons.hourglass_empty : Icons.mic)),
@@ -392,6 +427,7 @@ class _TutorChatScreenState extends ConsumerState<TutorChatScreen> {
                   const SizedBox(width: 8),
                   IconButton.filled(
                     onPressed: (state.sending ||
+                            _starting ||
                             _recording ||
                             _transcribing ||
                             state.session == null)

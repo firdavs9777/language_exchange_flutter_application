@@ -4851,5 +4851,6 @@
   "storyInsightQuizCorrect": "{count, plural, few{{count} ответили правильно} many{{count} ответили правильно} one{{count} ответил правильно} other{{count} ответили правильно}}",
   "storyInsightCompletedMark": "Досмотрено до конца",
   "tutorConversationFull": "Этот разговор заполнен.",
-  "tutorStartNewConversation": "Начать новый разговор"
+  "tutorStartNewConversation": "Начать новый разговор",
+  "tutorConversationsLeft": "{count, plural, one{Сегодня остался {count} разговор} few{Сегодня осталось {count} разговора} many{Сегодня осталось {count} разговоров} other{Сегодня осталось {count} разговора}}"
 }

@@ -4851,5 +4851,6 @@
   "storyInsightQuizCorrect": "{count, plural, zero{لم يُجب أحد بشكل صحيح} two{أجاب اثنان بشكل صحيح} few{أجاب {count} بشكل صحيح} many{أجاب {count} بشكل صحيح} one{أجاب واحد بشكل صحيح} other{أجاب {count} بشكل صحيح}}",
   "storyInsightCompletedMark": "شوهدت حتى النهاية",
   "tutorConversationFull": "هذه المحادثة ممتلئة.",
-  "tutorStartNewConversation": "ابدأ محادثة جديدة"
+  "tutorStartNewConversation": "ابدأ محادثة جديدة",
+  "tutorConversationsLeft": "{count, plural, zero{لا محادثات متبقية اليوم} one{محادثة واحدة متبقية اليوم} two{محادثتان متبقيتان اليوم} few{{count} محادثات متبقية اليوم} many{{count} محادثة متبقية اليوم} other{{count} محادثة متبقية اليوم}}"
 }

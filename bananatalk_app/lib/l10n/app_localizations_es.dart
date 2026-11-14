@@ -12853,4 +12853,15 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get tutorStartNewConversation => 'Iniciar una conversación nueva';
+
+  @override
+  String tutorConversationsLeft(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Quedan $count conversaciones hoy',
+      one: 'Queda $count conversación hoy',
+    );
+    return '$_temp0';
+  }
 }

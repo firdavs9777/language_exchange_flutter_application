@@ -165,7 +165,7 @@ void main() {
     );
     await tester.pumpWidget(harness(quota: quota, pushed: pushed));
     await tester.pumpAndSettle();
-    expect(find.text('0 left'), findsOneWidget);
+    expect(find.text('0 conversations left today'), findsOneWidget);
     await tester.tap(find.text('AI Tutor'));
     await tester.pumpAndSettle();
     expect(pushed, isEmpty);
@@ -188,8 +188,8 @@ void main() {
     );
     await tester.pumpWidget(harness(quota: quota, pushed: pushed));
     await tester.pumpAndSettle();
-    expect(find.text('0 left'), findsNothing);
-    expect(find.text('2 left'), findsOneWidget);
+    expect(find.text('0 conversations left today'), findsNothing);
+    expect(find.text('2 conversations left today'), findsOneWidget);
     await tester.tap(find.text('AI Tutor'));
     await tester.pumpAndSettle();
     expect(find.text("You've used today's AI Tutor"), findsNothing);

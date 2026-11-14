@@ -5033,5 +5033,6 @@
   "storyInsightQuizCorrect": "{count, plural, one{{count} kişi doğru yanıtladı} other{{count} kişi doğru yanıtladı}}",
   "storyInsightCompletedMark": "Sonuna kadar izlendi",
   "tutorConversationFull": "Bu sohbet doldu.",
-  "tutorStartNewConversation": "Yeni sohbet başlat"
+  "tutorStartNewConversation": "Yeni sohbet başlat",
+  "tutorConversationsLeft": "{count, plural, other{Bugün {count} sohbet kaldı}}"
 }

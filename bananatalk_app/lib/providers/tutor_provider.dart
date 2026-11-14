@@ -405,9 +405,18 @@ class TutorChatController extends StateNotifier<TutorChatState> {
   }
 
   Future<void> start() async {
+    // The conversation on screen, if any (a full one, when the learner asks
+    // for a new conversation). Ended on the server only once the new one has
+    // actually started, so its summary, XP and minutes are recorded; a failed
+    // start leaves it as it was.
+    final previous = state.session;
     try {
       final s = await _svc.startSession();
       _safeSet(TutorChatState(session: s));
+      // Not when the screen was left meanwhile: its dispose already ended it.
+      if (mounted && previous != null && previous.id != s.id) {
+        _endQuietly(previous.id);
+      }
     } on PersonaRequiredException {
       _safeSet(const TutorChatState(personaRequired: true));
     } catch (e) {
@@ -503,6 +512,14 @@ class TutorChatController extends StateNotifier<TutorChatState> {
     final s = state.session;
     if (s == null) return;
     await _svc.endSession(s.id);
+  }
+
+  /// The same request as [end], for a session no longer on screen;
+  /// fire-and-forget, a failure is only logged.
+  void _endQuietly(String sessionId) {
+    Future<void>.sync(() => _svc.endSession(sessionId)).catchError((Object e) {
+      debugPrint('[tutor] ending the previous conversation failed: $e');
+    });
   }
 }
 

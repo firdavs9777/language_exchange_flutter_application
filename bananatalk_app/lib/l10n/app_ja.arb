@@ -4821,5 +4821,6 @@
   "storyInsightQuizCorrect": "{count, plural, other{正解 {count}人}}",
   "storyInsightCompletedMark": "最後まで視聴",
   "tutorConversationFull": "この会話は上限に達しました。",
-  "tutorStartNewConversation": "新しい会話を始める"
+  "tutorStartNewConversation": "新しい会話を始める",
+  "tutorConversationsLeft": "{count, plural, other{今日の会話はあと{count}回}}"
 }

@@ -5061,5 +5061,6 @@
   "storyInsightQuizCorrect": "{count, plural, one{{count} richtig beantwortet} other{{count} richtig beantwortet}}",
   "storyInsightCompletedMark": "Bis zum Ende angesehen",
   "tutorConversationFull": "Dieses Gespräch ist voll.",
-  "tutorStartNewConversation": "Neues Gespräch beginnen"
+  "tutorStartNewConversation": "Neues Gespräch beginnen",
+  "tutorConversationsLeft": "{count, plural, one{Heute noch {count} Gespräch} other{Heute noch {count} Gespräche}}"
 }

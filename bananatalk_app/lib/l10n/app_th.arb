@@ -4821,5 +4821,6 @@
   "storyInsightQuizCorrect": "{count, plural, other{ตอบถูก {count} คน}}",
   "storyInsightCompletedMark": "ดูจนจบแล้ว",
   "tutorConversationFull": "การสนทนานี้เต็มแล้ว",
-  "tutorStartNewConversation": "เริ่มการสนทนาใหม่"
+  "tutorStartNewConversation": "เริ่มการสนทนาใหม่",
+  "tutorConversationsLeft": "{count, plural, other{วันนี้เหลือการสนทนา {count} ครั้ง}}"
 }

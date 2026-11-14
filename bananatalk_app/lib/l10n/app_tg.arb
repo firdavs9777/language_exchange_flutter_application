@@ -4314,5 +4314,6 @@
   "storyInsightQuizCorrect": "{count, plural, one{{count} дуруст ҷавоб дод} other{{count} дуруст ҷавоб доданд}}",
   "storyInsightCompletedMark": "То охир тамошо шуд",
   "tutorConversationFull": "Ин сӯҳбат пур шудааст.",
-  "tutorStartNewConversation": "Сӯҳбати нав оғоз кунед"
+  "tutorStartNewConversation": "Сӯҳбати нав оғоз кунед",
+  "tutorConversationsLeft": "{count, plural, other{Имрӯз {count} сӯҳбат боқӣ мондааст}}"
 }

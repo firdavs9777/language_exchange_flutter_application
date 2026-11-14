@@ -4821,5 +4821,6 @@
   "storyInsightQuizCorrect": "{count, plural, other{{count} người trả lời đúng}}",
   "storyInsightCompletedMark": "Đã xem đến hết",
   "tutorConversationFull": "Cuộc trò chuyện này đã đầy.",
-  "tutorStartNewConversation": "Bắt đầu cuộc trò chuyện mới"
+  "tutorStartNewConversation": "Bắt đầu cuộc trò chuyện mới",
+  "tutorConversationsLeft": "{count, plural, other{Hôm nay còn {count} cuộc trò chuyện}}"
 }

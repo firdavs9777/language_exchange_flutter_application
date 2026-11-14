@@ -12830,4 +12830,14 @@ class AppLocalizationsTg extends AppLocalizations {
 
   @override
   String get tutorStartNewConversation => 'Сӯҳбати нав оғоз кунед';
+
+  @override
+  String tutorConversationsLeft(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Имрӯз $count сӯҳбат боқӣ мондааст',
+    );
+    return '$_temp0';
+  }
 }

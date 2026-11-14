@@ -24,6 +24,12 @@ class TutorQuotaIndicator extends ConsumerWidget {
     }
     final remaining = info.available ?? 0;
     final l10n = AppLocalizations.of(context)!;
+    // The chat allowance counts conversations, not messages: "0 left today"
+    // read as if the open conversation were over.
+    final countsConversations = featureKey == 'chat';
+    final label = countsConversations
+        ? l10n.tutorConversationsLeft(remaining)
+        : l10n.aiTutorQuotaRemaining(remaining);
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
@@ -36,7 +42,7 @@ class TutorQuotaIndicator extends ConsumerWidget {
           Icon(icon, size: 16, color: Theme.of(context).primaryColor),
           const SizedBox(width: 6),
           Text(
-            l10n.aiTutorQuotaRemaining(remaining),
+            label,
             style: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.bold,

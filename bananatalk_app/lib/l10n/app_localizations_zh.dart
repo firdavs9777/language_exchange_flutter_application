@@ -12803,6 +12803,16 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get tutorStartNewConversation => '开始新对话';
+
+  @override
+  String tutorConversationsLeft(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '今日还剩 $count 次对话',
+    );
+    return '$_temp0';
+  }
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -25604,4 +25614,14 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get tutorStartNewConversation => '開始新對話';
+
+  @override
+  String tutorConversationsLeft(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '今日還剩 $count 次對話',
+    );
+    return '$_temp0';
+  }
 }

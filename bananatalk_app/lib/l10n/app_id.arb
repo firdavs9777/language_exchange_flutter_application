@@ -4821,5 +4821,6 @@
   "storyInsightQuizCorrect": "{count, plural, other{{count} menjawab dengan benar}}",
   "storyInsightCompletedMark": "Ditonton sampai habis",
   "tutorConversationFull": "Percakapan ini sudah penuh.",
-  "tutorStartNewConversation": "Mulai percakapan baru"
+  "tutorStartNewConversation": "Mulai percakapan baru",
+  "tutorConversationsLeft": "{count, plural, other{{count} percakapan tersisa hari ini}}"
 }

@@ -4837,5 +4837,6 @@
   "storyInsightQuizCorrect": "{count, plural, one{{count} ने सही जवाब दिया} other{{count} ने सही जवाब दिया}}",
   "storyInsightCompletedMark": "अंत तक देखा",
   "tutorConversationFull": "यह बातचीत पूरी हो चुकी है।",
-  "tutorStartNewConversation": "नई बातचीत शुरू करें"
+  "tutorStartNewConversation": "नई बातचीत शुरू करें",
+  "tutorConversationsLeft": "{count, plural, one{आज {count} बातचीत बची है} other{आज {count} बातचीत बची हैं}}"
 }

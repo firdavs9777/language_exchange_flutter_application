@@ -939,6 +939,7 @@ const Map<String, List<String>> _keysByTask = {
     'tutorStartNewConversation',
   ],
   'ai_study_foundations_3': ['studyLevelChanges'],
+  'ai_study_foundations_fix': ['tutorConversationsLeft'],
   'moments_smart_feed_9': [
     'hashtagPostCount',
     'hashtagSortTop',
@@ -1044,6 +1045,10 @@ const Map<String, List<String>> _filesByTask = {
   'ai_study_foundations_3': [
     'pages/learning/daily/widgets/day_complete_sheet.dart',
     'pages/learning/daily/daily_pack_flow.dart',
+  ],
+  'ai_study_foundations_fix': [
+    'widgets/tutor/tutor_quota_indicator.dart',
+    'pages/learning/main/sections/study_feature_tile.dart',
   ],
   'moments_smart_feed_9': ['pages/moments/hashtag/hashtag_page_screen.dart'],
   'moments_smart_feed_11': ['pages/settings/data_storage_screen.dart'],

@@ -29,7 +29,7 @@ class StudyFeatureTile extends StatelessWidget {
     final dark = theme.brightness == Brightness.dark;
     final colors = studyGroupColors(feature.group, dark: dark);
     final title = studyFeatureTitle(l, feature);
-    final badgeText = badge == null ? null : _badgeLabel(l, badge!);
+    final badgeText = badge == null ? null : _badgeLabel(l, feature, badge!);
 
     return Semantics(
       button: true,
@@ -110,9 +110,14 @@ class StudyFeatureTile extends StatelessWidget {
     );
   }
 
-  static String _badgeLabel(AppLocalizations l, TileBadge b) =>
+  static String _badgeLabel(AppLocalizations l, StudyFeature f, TileBadge b) =>
       switch (b.kind) {
         TileBadgeKind.locked => l.studyBadgeVip,
+        // The tutor's allowance counts conversations.
+        TileBadgeKind.exhausted when f.quotaKey == 'chat' =>
+          l.tutorConversationsLeft(0),
+        TileBadgeKind.low when f.quotaKey == 'chat' =>
+          l.tutorConversationsLeft(b.count ?? 0),
         TileBadgeKind.exhausted => l.studyBadgeLeft(0),
         TileBadgeKind.low => l.studyBadgeLeft(b.count ?? 0),
         TileBadgeKind.due => l.studyBadgeDue(b.count ?? 0),

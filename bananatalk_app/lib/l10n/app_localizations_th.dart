@@ -12803,4 +12803,14 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get tutorStartNewConversation => 'เริ่มการสนทนาใหม่';
+
+  @override
+  String tutorConversationsLeft(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'วันนี้เหลือการสนทนา $count ครั้ง',
+    );
+    return '$_temp0';
+  }
 }

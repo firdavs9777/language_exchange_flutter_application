@@ -12959,4 +12959,19 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get tutorStartNewConversation => 'ابدأ محادثة جديدة';
+
+  @override
+  String tutorConversationsLeft(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count محادثة متبقية اليوم',
+      many: '$count محادثة متبقية اليوم',
+      few: '$count محادثات متبقية اليوم',
+      two: 'محادثتان متبقيتان اليوم',
+      one: 'محادثة واحدة متبقية اليوم',
+      zero: 'لا محادثات متبقية اليوم',
+    );
+    return '$_temp0';
+  }
 }
