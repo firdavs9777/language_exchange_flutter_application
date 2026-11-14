@@ -4403,6 +4403,7 @@
   "studyFullReport": "Laporan lengkap",
   "studyStreakDays": "Streak {count} hari",
   "studyLevelShort": "Lv {level}",
+  "studyLevelChanges": "Mulai besok latihanmu naik ke {level}.",
   "studyUpgradeLockedTitle": "{feature} adalah fitur VIP",
   "studyUpgradeExhaustedTitle": "Kamu sudah memakai {feature} hari ini",
   "studyUpgradeBenefitUnlimited": "Latihan AI tanpa batas setiap hari",

@@ -11377,6 +11377,11 @@ class AppLocalizationsJa extends AppLocalizations {
   }
 
   @override
+  String studyLevelChanges(String level) {
+    return '明日から練習は$levelに変わります。';
+  }
+
+  @override
   String studyUpgradeLockedTitle(String feature) {
     return '$featureはVIP機能です';
   }

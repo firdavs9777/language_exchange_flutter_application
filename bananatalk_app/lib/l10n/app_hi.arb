@@ -4419,6 +4419,7 @@
   "studyFullReport": "पूरी रिपोर्ट",
   "studyStreakDays": "{count} दिन की स्ट्रीक",
   "studyLevelShort": "लेवल {level}",
+  "studyLevelChanges": "कल से आपका अभ्यास {level} पर चला जाएगा।",
   "studyUpgradeLockedTitle": "{feature} एक VIP फ़ीचर है",
   "studyUpgradeExhaustedTitle": "आपने आज का {feature} इस्तेमाल कर लिया",
   "studyUpgradeBenefitUnlimited": "हर दिन असीमित AI अभ्यास",

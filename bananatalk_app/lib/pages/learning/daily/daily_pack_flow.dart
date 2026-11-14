@@ -70,6 +70,11 @@ class _DailyPackFlowState extends State<DailyPackFlow> {
   bool _reviewAsked = false;
   StationResult? _last;
 
+  /// The latest level change a completion reported today (applies from
+  /// tomorrow), and the one the current step's result shows.
+  LevelChange? _levelChange;
+  LevelChange? _stepLevelChange;
+
   @override
   void initState() {
     super.initState();
@@ -129,6 +134,10 @@ class _DailyPackFlowState extends State<DailyPackFlow> {
       ActivationStore().markDone(ActivationAction.lesson).ignore();
     }
     _last = result;
+    if (result.levelChange != null) {
+      _levelChange = result.levelChange;
+      if (mounted) setState(() => _stepLevelChange = result.levelChange);
+    }
     studyLog(StudyEvent.stepFinished,
         language: widget.pack.language,
         kind: station,
@@ -140,7 +149,10 @@ class _DailyPackFlowState extends State<DailyPackFlow> {
 
   void _advance() {
     if (_index + 1 < _outstanding.length && !(_last?.packComplete ?? false)) {
-      setState(() => _index += 1);
+      setState(() {
+        _index += 1;
+        _stepLevelChange = null;
+      });
       _logStepStarted();
       return;
     }
@@ -238,6 +250,7 @@ class _DailyPackFlowState extends State<DailyPackFlow> {
                 themeTopic: widget.pack.theme?.topic != null
                     ? context.packTopic(widget.pack.theme!.topic)
                     : null,
+                levelChangeTo: _levelChange?.to,
                 onClose: _exit,
               ),
             ),
@@ -275,6 +288,11 @@ class _DailyPackFlowState extends State<DailyPackFlow> {
               ),
             ),
             Expanded(child: _stationBody(station)),
+            if (_stepLevelChange != null)
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 4, 20, 12),
+                child: LevelChangeLine(level: _stepLevelChange!.to),
+              ),
           ],
         ),
       ),

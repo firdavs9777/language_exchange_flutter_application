@@ -4643,6 +4643,7 @@
   "studyFullReport": "Vollständiger Bericht",
   "studyStreakDays": "{count} Tage in Folge",
   "studyLevelShort": "Lv {level}",
+  "studyLevelChanges": "Ab morgen wechselt dein Training zu {level}.",
   "studyUpgradeLockedTitle": "{feature} ist ein VIP-Feature",
   "studyUpgradeExhaustedTitle": "Du hast {feature} für heute aufgebraucht",
   "studyUpgradeBenefitUnlimited": "Unbegrenztes KI-Training jeden Tag",

@@ -4403,6 +4403,7 @@
   "studyFullReport": "詳しいレポート",
   "studyStreakDays": "{count}日連続",
   "studyLevelShort": "Lv {level}",
+  "studyLevelChanges": "明日から練習は{level}に変わります。",
   "studyUpgradeLockedTitle": "{feature}はVIP機能です",
   "studyUpgradeExhaustedTitle": "今日の{feature}を使い切りました",
   "studyUpgradeBenefitUnlimited": "毎日AI練習が無制限",

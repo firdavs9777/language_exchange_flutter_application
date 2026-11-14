@@ -4643,6 +4643,7 @@
   "studyFullReport": "Report completo",
   "studyStreakDays": "Serie di {count} giorni",
   "studyLevelShort": "Liv. {level}",
+  "studyLevelChanges": "Da domani la tua pratica passa al livello {level}.",
   "studyUpgradeLockedTitle": "{feature} è una funzione VIP",
   "studyUpgradeExhaustedTitle": "Hai usato {feature} per oggi",
   "studyUpgradeBenefitUnlimited": "Pratica IA illimitata ogni giorno",

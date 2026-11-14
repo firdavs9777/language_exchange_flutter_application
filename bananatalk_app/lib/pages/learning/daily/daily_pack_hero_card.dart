@@ -140,7 +140,7 @@ class DailyPackHeroCard extends StatelessWidget {
                       ],
                     ),
                   ),
-                if (!pack.levelPlaced)
+                if (pack.offersLevelCheck)
                   Padding(
                     padding: const EdgeInsets.only(top: 4),
                     child: Align(

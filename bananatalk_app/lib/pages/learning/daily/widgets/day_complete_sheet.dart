@@ -7,6 +7,7 @@ class DayCompleteSheet extends StatelessWidget {
   final int? streak;
   final int xpAwarded;
   final String? themeTopic;
+  final String? levelChangeTo;
   final VoidCallback onClose;
 
   const DayCompleteSheet({
@@ -15,6 +16,7 @@ class DayCompleteSheet extends StatelessWidget {
     this.streak,
     this.xpAwarded = 0,
     this.themeTopic,
+    this.levelChangeTo,
   });
 
   @override
@@ -33,6 +35,10 @@ class DayCompleteSheet extends StatelessWidget {
             Text(l10n.dailyStreakDays(streak!), style: theme.textTheme.headlineSmall),
           if (xpAwarded > 0)
             Text(l10n.dailyXpEarned(xpAwarded), style: theme.textTheme.titleMedium),
+          if (levelChangeTo != null) ...[
+            const SizedBox(height: 8),
+            LevelChangeLine(level: levelChangeTo!),
+          ],
           const SizedBox(height: 16),
           if (themeTopic != null)
             Text(
@@ -50,4 +56,20 @@ class DayCompleteSheet extends StatelessWidget {
       ),
     );
   }
+}
+
+/// "From tomorrow your practice moves to {level}." — shown on a step result
+/// and on the day-complete sheet when a completion reports a level change.
+class LevelChangeLine extends StatelessWidget {
+  final String level;
+
+  const LevelChangeLine({super.key, required this.level});
+
+  @override
+  Widget build(BuildContext context) => Text(
+        AppLocalizations.of(context)!.studyLevelChanges(level),
+        key: const Key('level-change-line'),
+        textAlign: TextAlign.center,
+        style: Theme.of(context).textTheme.bodyMedium,
+      );
 }

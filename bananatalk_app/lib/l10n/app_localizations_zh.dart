@@ -11377,6 +11377,11 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
+  String studyLevelChanges(String level) {
+    return '从明天起，你的练习将调整为 $level。';
+  }
+
+  @override
   String studyUpgradeLockedTitle(String feature) {
     return '$feature是 VIP 功能';
   }
@@ -24170,6 +24175,11 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
   @override
   String studyLevelShort(int level) {
     return 'Lv $level';
+  }
+
+  @override
+  String studyLevelChanges(String level) {
+    return '從明天起，你的練習將調整為 $level。';
   }
 
   @override

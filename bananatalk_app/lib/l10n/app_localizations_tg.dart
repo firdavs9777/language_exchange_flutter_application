@@ -11397,6 +11397,11 @@ class AppLocalizationsTg extends AppLocalizations {
   }
 
   @override
+  String studyLevelChanges(String level) {
+    return 'Аз фардо машқи шумо ба сатҳи $level мегузарад.';
+  }
+
+  @override
   String studyUpgradeLockedTitle(String feature) {
     return '$feature имкони VIP аст';
   }

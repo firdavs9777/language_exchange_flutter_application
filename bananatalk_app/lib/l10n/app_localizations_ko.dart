@@ -11377,6 +11377,11 @@ class AppLocalizationsKo extends AppLocalizations {
   }
 
   @override
+  String studyLevelChanges(String level) {
+    return '내일부터 연습이 $level(으)로 바뀝니다.';
+  }
+
+  @override
   String studyUpgradeLockedTitle(String feature) {
     return '$feature은(는) VIP 기능이에요';
   }

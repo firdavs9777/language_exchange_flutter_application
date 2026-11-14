@@ -20702,6 +20702,12 @@ abstract class AppLocalizations {
   /// **'Lv {level}'**
   String studyLevelShort(int level);
 
+  /// One line shown when a level change applies from tomorrow. {level} is the new CEFR level, e.g. B2.
+  ///
+  /// In en, this message translates to:
+  /// **'From tomorrow your practice moves to {level}.'**
+  String studyLevelChanges(String level);
+
   /// No description provided for @studyUpgradeLockedTitle.
   ///
   /// In en, this message translates to:

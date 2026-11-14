@@ -4615,6 +4615,7 @@
   "studyFullReport": "Tam rapor",
   "studyStreakDays": "{count} günlük seri",
   "studyLevelShort": "Sv {level}",
+  "studyLevelChanges": "Yarından itibaren pratiğiniz {level} seviyesine geçiyor.",
   "studyUpgradeLockedTitle": "{feature} bir VIP özelliğidir",
   "studyUpgradeExhaustedTitle": "Bugünkü {feature} hakkını kullandın",
   "studyUpgradeBenefitUnlimited": "Her gün sınırsız yapay zekâ pratiği",

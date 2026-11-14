@@ -11396,6 +11396,11 @@ class AppLocalizationsTl extends AppLocalizations {
   }
 
   @override
+  String studyLevelChanges(String level) {
+    return 'Simula bukas, lilipat ang iyong pagsasanay sa $level.';
+  }
+
+  @override
   String studyUpgradeLockedTitle(String feature) {
     return 'Ang $feature ay VIP feature';
   }

@@ -304,7 +304,7 @@ class _StudyHubState extends ConsumerState<StudyHub> {
                             maxHeight: double.infinity,
                             child: Opacity(
                               opacity: t,
-                              child: const _HeaderChips(),
+                              child: const StudyHeaderChips(),
                             ),
                           ),
                         ),
@@ -320,12 +320,13 @@ class _StudyHubState extends ConsumerState<StudyHub> {
   }
 }
 
-/// The pack's CEFR level for the header chip: what was served, else what
-/// was asked for; null unless it looks like A1–C2 (the server sends the bare
+/// The pack's CEFR level for the header chip: the level the server serves
+/// today (`level`, when its level switch is on), else what was served, else
+/// what was asked for; null unless it looks like A1–C2 (the server sends the bare
 /// code, as the hero card's fallback line shows).
 @visibleForTesting
 String? packCefrLevel(DailyPack? pack) {
-  for (final raw in [pack?.servedLevel, pack?.requestedLevel]) {
+  for (final raw in [pack?.level, pack?.servedLevel, pack?.requestedLevel]) {
     final v = raw?.trim().toUpperCase();
     if (v != null && RegExp(r'^[ABC][12]$').hasMatch(v)) return v;
   }
@@ -333,8 +334,9 @@ String? packCefrLevel(DailyPack? pack) {
 }
 
 /// Header line 2: streak, level and target language.
-class _HeaderChips extends ConsumerWidget {
-  const _HeaderChips();
+@visibleForTesting
+class StudyHeaderChips extends ConsumerWidget {
+  const StudyHeaderChips({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

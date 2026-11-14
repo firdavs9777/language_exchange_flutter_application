@@ -11377,6 +11377,11 @@ class AppLocalizationsTh extends AppLocalizations {
   }
 
   @override
+  String studyLevelChanges(String level) {
+    return 'ตั้งแต่พรุ่งนี้ การฝึกของคุณจะเปลี่ยนเป็น $level';
+  }
+
+  @override
   String studyUpgradeLockedTitle(String feature) {
     return '$feature เป็นฟีเจอร์ VIP';
   }

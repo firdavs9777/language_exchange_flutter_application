@@ -4433,6 +4433,7 @@
   "studyFullReport": "Полный отчёт",
   "studyStreakDays": "Серия: {count} дн.",
   "studyLevelShort": "Ур. {level}",
+  "studyLevelChanges": "Со следующего дня ваша практика переходит на уровень {level}.",
   "studyUpgradeLockedTitle": "{feature} — функция VIP",
   "studyUpgradeExhaustedTitle": "Вы использовали {feature} на сегодня",
   "studyUpgradeBenefitUnlimited": "Безлимитная ИИ-практика каждый день",

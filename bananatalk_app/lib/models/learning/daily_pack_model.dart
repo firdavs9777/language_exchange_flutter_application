@@ -374,6 +374,18 @@ class DailyPack {
   /// does not nag every learner.
   final bool levelPlaced;
 
+  /// The level in force today for [language], as the server serves it. Only
+  /// sent when the server's level switch is on; null otherwise.
+  final String? level;
+
+  /// Whether [level] was measured for this language. Null (absent) when the
+  /// server's level switch is off — then [levelPlaced] decides, as before.
+  final bool? levelMeasured;
+
+  /// Whether the pack offers "Find your level". [levelMeasured] wins when the
+  /// server sends it; [levelPlaced] keeps its old meaning and is the fallback.
+  bool get offersLevelCheck => levelMeasured != null ? !levelMeasured! : !levelPlaced;
+
   const DailyPack({
     required this.needsLanguage,
     required this.dateKey,
@@ -386,6 +398,8 @@ class DailyPack {
     this.stations = const [],
     this.packComplete = false,
     this.levelPlaced = true,
+    this.level,
+    this.levelMeasured,
     this.contentLanguage,
     this.contentLanguageName,
     this.contentLanguageMatches = true,
@@ -428,10 +442,28 @@ class DailyPack {
             .toList(),
         packComplete: json['packComplete'] as bool? ?? false,
         levelPlaced: json['levelPlaced'] as bool? ?? true,
+        level: json['level'] as String?,
+        levelMeasured: json['levelMeasured'] as bool?,
         contentLanguage: json['contentLanguage'] as String?,
         contentLanguageName: json['contentLanguageName'] as String?,
         contentLanguageMatches: json['contentLanguageMatches'] as bool? ?? true,
       );
+}
+
+/// A level change a completion reports: applies from the next day.
+class LevelChange {
+  final String from;
+  final String to;
+
+  const LevelChange({required this.from, required this.to});
+
+  /// Null for an absent or null value, or one with no target level.
+  static LevelChange? tryParse(Object? json) {
+    if (json is! Map) return null;
+    final to = json['to']?.toString().trim() ?? '';
+    if (to.isEmpty) return null;
+    return LevelChange(from: json['from']?.toString() ?? '', to: to);
+  }
 }
 
 class StationResult {
@@ -457,6 +489,10 @@ class StationResult {
   final List<int> answerKey;
   final List<String> explanations;
 
+  /// Present only when this completion changed the learner's level (from the
+  /// next day). Null otherwise.
+  final LevelChange? levelChange;
+
   const StationResult({
     required this.score,
     required this.total,
@@ -470,6 +506,7 @@ class StationResult {
     this.aiScore,
     this.answerKey = const [],
     this.explanations = const [],
+    this.levelChange,
   });
 
   factory StationResult.fromJson(Map<String, dynamic> json) => StationResult(
@@ -491,6 +528,7 @@ class StationResult {
         explanations: (json['explanations'] as List? ?? const [])
             .map((e) => e?.toString() ?? '')
             .toList(),
+        levelChange: LevelChange.tryParse(json['levelChange']),
       );
 }
 

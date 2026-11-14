@@ -4403,6 +4403,7 @@
   "studyFullReport": "Báo cáo đầy đủ",
   "studyStreakDays": "Chuỗi {count} ngày",
   "studyLevelShort": "Cấp {level}",
+  "studyLevelChanges": "Từ ngày mai, bài luyện tập của bạn chuyển sang {level}.",
   "studyUpgradeLockedTitle": "{feature} là tính năng VIP",
   "studyUpgradeExhaustedTitle": "Bạn đã dùng hết {feature} hôm nay",
   "studyUpgradeBenefitUnlimited": "Luyện tập với AI không giới hạn mỗi ngày",

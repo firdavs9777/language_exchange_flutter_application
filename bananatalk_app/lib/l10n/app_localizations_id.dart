@@ -11388,6 +11388,11 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
+  String studyLevelChanges(String level) {
+    return 'Mulai besok latihanmu naik ke $level.';
+  }
+
+  @override
   String studyUpgradeLockedTitle(String feature) {
     return '$feature adalah fitur VIP';
   }

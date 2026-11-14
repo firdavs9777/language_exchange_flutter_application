@@ -4424,6 +4424,7 @@
   "studyFullReport": "전체 리포트",
   "studyStreakDays": "{count}일 연속",
   "studyLevelShort": "Lv {level}",
+  "studyLevelChanges": "내일부터 연습이 {level}(으)로 바뀝니다.",
   "studyUpgradeLockedTitle": "{feature}은(는) VIP 기능이에요",
   "studyUpgradeExhaustedTitle": "오늘의 {feature}을(를) 모두 사용했어요",
   "studyUpgradeBenefitUnlimited": "매일 무제한 AI 연습",

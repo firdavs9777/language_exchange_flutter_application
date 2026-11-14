@@ -4433,6 +4433,7 @@
   "studyFullReport": "التقرير الكامل",
   "studyStreakDays": "سلسلة {count} يوم",
   "studyLevelShort": "المستوى {level}",
+  "studyLevelChanges": "ابتداءً من الغد ينتقل تدريبك إلى المستوى {level}.",
   "studyUpgradeLockedTitle": "{feature} ميزة VIP",
   "studyUpgradeExhaustedTitle": "استخدمت {feature} لهذا اليوم",
   "studyUpgradeBenefitUnlimited": "تدرّب بالذكاء الاصطناعي بلا حدود كل يوم",

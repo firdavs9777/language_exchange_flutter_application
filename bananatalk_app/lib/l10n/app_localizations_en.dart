@@ -11427,6 +11427,11 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String studyLevelChanges(String level) {
+    return 'From tomorrow your practice moves to $level.';
+  }
+
+  @override
   String studyUpgradeLockedTitle(String feature) {
     return '$feature is a VIP feature';
   }

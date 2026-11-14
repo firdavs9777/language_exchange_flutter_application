@@ -4376,6 +4376,7 @@
   "studyFullReport": "Buong ulat",
   "studyStreakDays": "{count} araw na streak",
   "studyLevelShort": "Lv {level}",
+  "studyLevelChanges": "Simula bukas, lilipat ang iyong pagsasanay sa {level}.",
   "studyUpgradeLockedTitle": "Ang {feature} ay VIP feature",
   "studyUpgradeExhaustedTitle": "Naubos mo na ang {feature} ngayong araw",
   "studyUpgradeBenefitUnlimited": "Walang limitasyong AI practice araw-araw",

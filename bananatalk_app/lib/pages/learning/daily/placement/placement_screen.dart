@@ -32,7 +32,12 @@ class PlacementScreen extends StatefulWidget {
   final Future<Map<String, dynamic>> Function(List<int>)? submit;
   final VoidCallback? onFinished;
 
-  const PlacementScreen({super.key, this.load, this.submit, this.onFinished});
+  /// Called as soon as the level check is saved, before the result shows, so
+  /// the caller can refetch what the new level changes.
+  final VoidCallback? onLevelSet;
+
+  const PlacementScreen(
+      {super.key, this.load, this.submit, this.onFinished, this.onLevelSet});
 
   @override
   State<PlacementScreen> createState() => _PlacementScreenState();
@@ -91,6 +96,7 @@ class _PlacementScreenState extends State<PlacementScreen> {
       final level = '${result['level'] ?? ''}';
       studyLog(StudyEvent.levelCheckFinished,
           detail: level.isEmpty ? null : level);
+      widget.onLevelSet?.call();
       if (mounted) setState(() => _result = result);
     } catch (_) {
       // Stay on the last question with the answers kept, and offer a retry.

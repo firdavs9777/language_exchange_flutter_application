@@ -11853,6 +11853,11 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
+  String studyLevelChanges(String level) {
+    return 'Со следующего дня ваша практика переходит на уровень $level.';
+  }
+
+  @override
   String studyUpgradeLockedTitle(String feature) {
     return '$feature — функция VIP';
   }

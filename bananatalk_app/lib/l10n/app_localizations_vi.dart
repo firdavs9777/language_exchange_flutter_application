@@ -11377,6 +11377,11 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
+  String studyLevelChanges(String level) {
+    return 'Từ ngày mai, bài luyện tập của bạn chuyển sang $level.';
+  }
+
+  @override
   String studyUpgradeLockedTitle(String feature) {
     return '$feature là tính năng VIP';
   }

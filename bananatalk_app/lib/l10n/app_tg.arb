@@ -3896,6 +3896,7 @@
   "studyFullReport": "Ҳисоботи пурра",
   "studyStreakDays": "Силсилаи {count} рӯз",
   "studyLevelShort": "Сат. {level}",
+  "studyLevelChanges": "Аз фардо машқи шумо ба сатҳи {level} мегузарад.",
   "studyUpgradeLockedTitle": "{feature} имкони VIP аст",
   "studyUpgradeExhaustedTitle": "Шумо {feature}-и имрӯзро истифода бурдед",
   "studyUpgradeBenefitUnlimited": "Машқи бемаҳдуди AI ҳар рӯз",

@@ -42,14 +42,14 @@ class TodayPackRow extends StatelessWidget {
     } else if (pack.nextStation == null || pack.packComplete) {
       title = l.packDoneForToday;
       trailing = const Icon(Icons.check_circle_rounded, color: Colors.white);
-      offerPlacement = !pack.levelPlaced;
+      offerPlacement = pack.offersLevelCheck;
     } else {
       caption = l.studyTodayPack;
       title = pack.theme?.topic != null
           ? context.packTopic(pack.theme!.topic)
           : l.studyTodayPack;
       trailing = FilledButton.tonal(onPressed: onOpen, child: Text(l.studyTodayStart));
-      offerPlacement = !pack.levelPlaced;
+      offerPlacement = pack.offersLevelCheck;
     }
 
     final radius = BorderRadius.circular(StudyHubMetrics.cardRadius);

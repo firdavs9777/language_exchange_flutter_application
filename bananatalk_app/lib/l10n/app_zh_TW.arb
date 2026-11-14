@@ -4094,6 +4094,7 @@
   "studyFullReport": "完整報告",
   "studyStreakDays": "連續 {count} 天",
   "studyLevelShort": "Lv {level}",
+  "studyLevelChanges": "從明天起，你的練習將調整為 {level}。",
   "studyUpgradeLockedTitle": "{feature}是 VIP 功能",
   "studyUpgradeExhaustedTitle": "你已用完今天的{feature}",
   "studyUpgradeBenefitUnlimited": "每天無限 AI 練習",

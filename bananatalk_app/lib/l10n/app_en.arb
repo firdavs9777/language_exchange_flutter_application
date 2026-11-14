@@ -7919,6 +7919,15 @@
       }
     }
   },
+  "studyLevelChanges": "From tomorrow your practice moves to {level}.",
+  "@studyLevelChanges": {
+    "description": "One line shown when a level change applies from tomorrow. {level} is the new CEFR level, e.g. B2.",
+    "placeholders": {
+      "level": {
+        "type": "String"
+      }
+    }
+  },
   "studyUpgradeLockedTitle": "{feature} is a VIP feature",
   "@studyUpgradeLockedTitle": {
     "placeholders": {
