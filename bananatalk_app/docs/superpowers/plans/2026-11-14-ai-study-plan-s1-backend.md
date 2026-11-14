@@ -10,7 +10,7 @@
 
 **Spec:** `docs/superpowers/specs/2026-11-14-ai-study-path-design.md` (app repo, branch `docs/ai-study-spec`), section 5 and the server half of 9. The app half is Plan S2; phases 2 and 3 have their own plans.
 
-**Repo and branch:** backend repo, new worktree `/Users/davis/Desktop/Personal/be-study`, branch `feat/ai-study-foundations` from `origin/main` (fetch first; another session pushes to main).
+**Repo and branch:** backend repo, new worktree `/Users/davis/Desktop/Personal/be-study-s1`, branch `feat/ai-study-foundations` from `origin/main` (fetch first; another session pushes to main).
 
 ## Global Constraints
 
