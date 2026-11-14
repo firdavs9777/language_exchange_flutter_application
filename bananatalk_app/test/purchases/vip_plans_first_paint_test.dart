@@ -196,4 +196,53 @@ void main() {
     expect(calls, 1);
     expect(find.text('₩5,900'), findsOneWidget);
   });
+
+  testWidgets(
+      'with a saved price and no store product the payment screen shows the plans screen price',
+      (tester) async {
+    // Host platform (neither iOS nor Android): the store is never asked, so
+    // the saved price is the only source on both screens.
+    tester.view.physicalSize = const Size(900, 3200);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.reset);
+    final savedMonthly = _saved('₩5,500', 5500, 'KRW');
+    Widget app(Widget home) => ProviderScope(
+          overrides: [
+            userProvider.overrideWith((ref) async => communityFixture()),
+            androidOwnedVipPlanProvider.overrideWith((ref) async => null),
+            appConfigProvider.overrideWith((ref) async => const AppConfig(
+                  minVersion: '0.0.0',
+                  latestVersion: '0.0.0',
+                  forceUpdate: false,
+                  iosUrl: '',
+                  androidUrl: '',
+                  releaseNotes: '',
+                  boostsEnabled: false,
+                )),
+            savedStorePricesProvider.overrideWith((ref) async =>
+                {VipPlan.monthly.productId(false): savedMonthly}),
+          ],
+          child: MaterialApp(
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+            ],
+            supportedLocales: AppLocalizations.supportedLocales,
+            home: home,
+          ),
+        );
+
+    await tester.pumpWidget(app(const VipPlansScreen(userId: 'me')));
+    await tester.pump();
+    await tester.pump();
+    expect(find.text('₩5,500'), findsOneWidget);
+
+    await tester.pumpWidget(app(
+        VipPaymentScreen(userId: 'me', plan: VipPlan.monthly)));
+    await tester.pump();
+    await tester.pump();
+    expect(find.textContaining('₩5,500'), findsWidgets);
+    expect(find.textContaining(r'$3.99'), findsNothing);
+  });
 }

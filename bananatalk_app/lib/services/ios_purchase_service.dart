@@ -526,6 +526,7 @@ class IOSPurchaseService {
     _redeliveryHandler = null;
     _isAvailable = false;
     _isInitializing = false;
+    _productQuery.reset();
     _initializationCompleter = null;
     _queryProductError = null;
     _purchaseCallback = null;

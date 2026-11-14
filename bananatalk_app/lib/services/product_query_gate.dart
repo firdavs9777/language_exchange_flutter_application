@@ -13,6 +13,10 @@ bool storeNeedsProductQuery({
 class SingleFlight<T> {
   Future<T>? _running;
 
+  /// Forgets a run that is still going (sign-out), so it cannot block the
+  /// next session's call; the old run's own result is ignored.
+  void reset() => _running = null;
+
   Future<T> run(Future<T> Function() job) {
     final running = _running;
     if (running != null) return running;

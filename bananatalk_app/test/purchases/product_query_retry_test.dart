@@ -75,4 +75,22 @@ void main() {
       expect(queries, 2);
     });
   });
+
+  test('reset forgets a hung query so the next session queries again',
+      () async {
+    final flight = SingleFlight<void>();
+    final hung = Completer<void>();
+    var queries = 0;
+    unawaited(flight.run(() {
+      queries++;
+      return hung.future;
+    }));
+    flight.reset();
+    await flight.run(() async => queries++);
+    expect(queries, 2);
+    hung.complete(); // the old run finishing late changes nothing
+    await Future<void>.delayed(Duration.zero);
+    await flight.run(() async => queries++);
+    expect(queries, 3);
+  });
 }

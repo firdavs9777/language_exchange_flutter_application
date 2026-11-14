@@ -63,4 +63,65 @@ void main() {
       (tester) async {
     expect(await priceWith(tester, const []), '\$3.99');
   });
+
+  group('a saved price is only a placeholder until the store answers', () {
+    final answered = [monthly(true)]; // non-empty, but not the yearly product
+    const yearlyFallback = '\$24.99';
+
+    test('no answer, an error or an empty list: the saved price', () {
+      for (final answer in <List<ProductDetails>?>[null, const []]) {
+        expect(
+            storePriceText(
+                id: 'p', answer: answer, saved: saved, fallback: 'fb'),
+            '₩5,500');
+      }
+      expect(savedPlaceholder(null, saved), saved);
+      expect(savedPlaceholder(const [], saved), saved);
+    });
+
+    test('a non-empty answer containing the product: the store price', () {
+      expect(
+          storePriceText(
+              id: VipPlan.monthly.productId(true),
+              answer: answered,
+              saved: saved,
+              fallback: 'fb'),
+          '₩14,000');
+    });
+
+    test('a non-empty answer without it: the plan fallback, not the saved',
+        () {
+      expect(
+          storePriceText(
+              id: VipPlan.yearly.productId(true),
+              answer: answered,
+              saved: saved,
+              fallback: yearlyFallback),
+          yearlyFallback);
+      expect(savedPlaceholder(answered, saved), isNull);
+    });
+
+    testWidgets('vipPriceText follows the same rule', (tester) async {
+      expect(await priceWith(tester, answered, saved: saved), '₩14,000');
+    });
+
+    testWidgets('vipPriceText: answered without the plan, fallback not saved',
+        (tester) async {
+      late String text;
+      await tester.pumpWidget(ProviderScope(
+        overrides: [
+          iosProductsProvider.overrideWith((ref) async => answered),
+        ],
+        child: MaterialApp(
+          home: Consumer(builder: (context, ref, _) {
+            text = vipPriceText(ref, VipPlan.yearly,
+                isIOS: true, isAndroid: false, saved: saved);
+            return Text(text);
+          }),
+        ),
+      ));
+      await tester.pumpAndSettle();
+      expect(text, yearlyFallback);
+    });
+  });
 }

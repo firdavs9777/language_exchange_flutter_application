@@ -3,7 +3,6 @@ import 'package:bananatalk_app/l10n/app_localizations.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:in_app_purchase/in_app_purchase.dart';
 
 import 'package:bananatalk_app/core/theme/app_theme.dart';
 import 'package:bananatalk_app/models/coin_pack.dart';
@@ -267,23 +266,6 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
     } finally {
       if (mounted) setState(() => _adClaiming = false);
     }
-  }
-
-  ProductDetails? _storeProduct(WidgetRef ref, String productId) {
-    final productsAsync = _isIOS
-        ? ref.watch(iosProductsProvider)
-        : _isAndroid
-        ? ref.watch(androidProductsProvider)
-        : const AsyncValue<List<ProductDetails>>.data(<ProductDetails>[]);
-    return productsAsync.maybeWhen(
-      data: (products) {
-        for (final p in products) {
-          if (p.id == productId) return p;
-        }
-        return null;
-      },
-      orElse: () => null,
-    );
   }
 
   @override
@@ -629,10 +611,17 @@ class _CoinShopScreenState extends ConsumerState<CoinShopScreen> {
   Widget _buildPackCard(CoinPack pack) {
     const accent = Color(0xFF1E88E5);
     final productId = pack.productId(_isIOS);
-    final product = _storeProduct(ref, productId);
-    final saved = ref.watch(savedStorePricesProvider).valueOrNull?[productId];
-    final priceText =
-        product?.price ?? saved?.price ?? '\$${pack.usdPrice.toStringAsFixed(2)}';
+    final answer = _isIOS
+        ? ref.watch(iosProductsProvider).valueOrNull
+        : _isAndroid
+            ? ref.watch(androidProductsProvider).valueOrNull
+            : null;
+    final priceText = storePriceText(
+      id: productId,
+      answer: answer,
+      saved: ref.watch(savedStorePricesProvider).valueOrNull?[productId],
+      fallback: '\$${pack.usdPrice.toStringAsFixed(2)}',
+    );
     final isBusy = _purchasingPackId == pack.id;
     final isBestValue = pack.id == 'large';
 
