@@ -22,29 +22,54 @@ class StudyTabOpenedReporter extends ConsumerStatefulWidget {
 }
 
 class _StudyTabOpenedReporterState extends ConsumerState<StudyTabOpenedReporter> {
+  /// Null when not inside a tab wrapper (a pushed route).
+  int? _tab;
+
+  /// False until the first frame has settled. The tab bar seeds its initial
+  /// tab (initialIndex / deep link) in a post-frame callback it registers in
+  /// its own initState, which runs before this one is registered, so by the
+  /// time ours runs the selection is final.
+  bool _settled = false;
+
+  /// A `tab_opened` has been logged for the current selection.
+  bool _logged = false;
+
+  bool get _selected => _tab == null || ref.read(selectedTabProvider) == _tab;
+
   @override
   void initState() {
     super.initState();
-    final tab = context.findAncestorWidgetOfExactType<TabReselectScrollToTop>()?.tab;
-    // Not inside a tab wrapper (a pushed route): opening it is opening it.
-    if (tab == null || ref.read(selectedTabProvider) == tab) {
-      WidgetsBinding.instance.addPostFrameCallback((_) => _log());
-    }
-    if (tab != null) {
+    _tab = context.findAncestorWidgetOfExactType<TabReselectScrollToTop>()?.tab;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      _settled = true;
+      _maybeLog();
+    });
+    if (_tab != null) {
       ref.listenManual<int>(selectedTabProvider, (previous, next) {
-        if (next == tab && previous != tab) _log();
+        if (next == _tab && previous != _tab) {
+          _logged = false;
+          _maybeLog();
+        } else if (next != _tab) {
+          _logged = false;
+        }
       });
     }
+    // Config can arrive after the first frame: log once when the flag turns
+    // on while this tab is still the selected one.
+    ref.listenManual<bool>(studyEventsEnabledProvider, (previous, next) {
+      if (next) _maybeLog();
+    });
   }
 
-  void _log() {
-    if (!mounted) return;
-    // Reading the pack provider can start a fetch; with events off the tab
-    // must send nothing new.
-    final language = ref.read(studyEventsEnabledProvider)
-        ? ref.read(dailyPackProvider).valueOrNull?.language
-        : null;
-    studyLog(StudyEvent.tabOpened, language: language);
+  void _maybeLog() {
+    if (!mounted || !_settled || _logged || !_selected) return;
+    // The flag check also stops the pack read below from starting a fetch
+    // while events are off.
+    if (!ref.read(studyEventsEnabledProvider)) return;
+    _logged = true;
+    studyLog(StudyEvent.tabOpened,
+        language: ref.read(dailyPackProvider).valueOrNull?.language);
   }
 
   @override

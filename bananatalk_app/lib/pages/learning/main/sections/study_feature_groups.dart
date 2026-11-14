@@ -111,7 +111,11 @@ class StudyFeatureGroups extends ConsumerWidget {
 
   Future<void> _onTap(BuildContext context, WidgetRef ref, StudyFeature f, TileBadge? badge) async {
     AnalyticsService.instance.studyTileTap(feature: f.slug, badge: badge?.analyticsName);
-    studyLog(StudyEvent.featureOpened, kind: f.slug);
+    // A lock or an exhausted allowance puts a sheet in front of the feature.
+    final blocked = badge?.kind == TileBadgeKind.locked ||
+        badge?.kind == TileBadgeKind.exhausted;
+    studyLog(StudyEvent.featureOpened,
+        kind: f.slug, detail: blocked ? badge?.analyticsName : null);
     // The tile may be gone when markSeen resolves; `ref` would throw then,
     // so invalidate through the container captured now.
     final container = ProviderScope.containerOf(context, listen: false);

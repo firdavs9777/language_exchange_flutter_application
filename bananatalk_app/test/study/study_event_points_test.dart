@@ -30,15 +30,6 @@ import 'package:bananatalk_app/widgets/navigation/tab_reselect_scroll_to_top.dar
 
 typedef Logged = ({String name, Map<String, Object?> fields});
 
-const _cfg = AppConfig(
-  minVersion: '0',
-  latestVersion: '0',
-  forceUpdate: false,
-  iosUrl: '',
-  androidUrl: '',
-  releaseNotes: '',
-);
-
 DailyPack _pack() => const DailyPack(
       needsLanguage: false,
       language: 'ko',
@@ -122,6 +113,19 @@ void main() {
       expect(finished['total'], 3);
     });
 
+    testWidgets('an unscored station (total 0) sends no score or total',
+        (tester) async {
+      await tester.pumpWidget(_flowHost(
+        submit: (station, {answers = const [], reviews = const [], text = ''}) async =>
+            const StationResult(score: 0, total: 0, packComplete: false),
+      ));
+      await _finishStation(tester);
+      final finished = logged.firstWhere((e) => e.name == 'step_finished');
+      expect(finished.fields['kind'], 'grammar');
+      expect(finished.fields['score'], isNull);
+      expect(finished.fields['total'], isNull);
+    });
+
     testWidgets('the day-complete sheet logs session_finished', (tester) async {
       await tester.pumpWidget(_flowHost(submit: done(true)));
       await _finishStation(tester);
@@ -186,12 +190,23 @@ void main() {
   });
 
   group('StudyFeatureGroups', () {
-    testWidgets('tapping a feature tile logs feature_opened with its slug',
-        (tester) async {
+    Future<void> pumpTiles(
+      WidgetTester tester, {
+      Set<String> vipOnly = const {},
+      TutorQuotaState quota = TutorQuotaState.empty,
+    }) async {
       await tester.pumpWidget(ProviderScope(
         overrides: [
-          appConfigProvider.overrideWith((ref) async => _cfg),
-          tutorQuotaProvider.overrideWithValue(TutorQuotaState.empty),
+          appConfigProvider.overrideWith((ref) async => AppConfig(
+                minVersion: '0',
+                latestVersion: '0',
+                forceUpdate: false,
+                iosUrl: '',
+                androidUrl: '',
+                releaseNotes: '',
+                studyVipOnlyFeatures: vipOnly,
+              )),
+          tutorQuotaProvider.overrideWithValue(quota),
           tutorMemoryAndQuotasProvider.overrideWith((ref) =>
               Completer<({TutorMemory memory, Map<String, dynamic>? quotas})>().future),
           featureSeenProvider.overrideWith(
@@ -215,16 +230,56 @@ void main() {
       ));
       await tester.pumpAndSettle();
       expect(logged, isEmpty, reason: 'building the tiles logs nothing');
+    }
+
+    testWidgets('tapping a feature tile logs feature_opened with its slug, no detail',
+        (tester) async {
+      await pumpTiles(tester);
       await tester.tap(find.text('Leaderboard'));
       await tester.pumpAndSettle();
       expect(names(), ['feature_opened']);
       expect(logged.single.fields['kind'], StudyFeature.leaderboard.slug);
+      expect(logged.single.fields['detail'], isNull);
+    });
+
+    testWidgets('a locked tile logs feature_opened with detail locked',
+        (tester) async {
+      await pumpTiles(tester, vipOnly: {StudyFeature.leaderboard.slug});
+      await tester.tap(find.text('Leaderboard'));
+      await tester.pumpAndSettle();
+      expect(names(), ['feature_opened']);
+      expect(logged.single.fields['kind'], StudyFeature.leaderboard.slug);
+      expect(logged.single.fields['detail'], 'locked');
+    });
+
+    testWidgets('an exhausted tile logs feature_opened with detail exhausted',
+        (tester) async {
+      await pumpTiles(
+        tester,
+        quota: const TutorQuotaState(
+          chat: TutorQuotaInfo(
+            used: 10,
+            cap: 10,
+            remaining: 0,
+            resetAt: null,
+            unlimited: false,
+          ),
+        ),
+      );
+      await tester.tap(find.text('AI Tutor'));
+      await tester.pumpAndSettle();
+      expect(names(), ['feature_opened']);
+      expect(logged.single.fields['kind'], StudyFeature.tutor.slug);
+      expect(logged.single.fields['detail'], 'exhausted');
     });
   });
 
   group('StudyTabOpenedReporter', () {
     const studyTab = 0;
     late ProviderContainer container;
+    late StateController<bool> flag;
+
+    final flagProvider = StateProvider<bool>((ref) => true);
 
     Widget host() => UncontrolledProviderScope(
           container: container,
@@ -238,15 +293,19 @@ void main() {
           ),
         );
 
-    ProviderContainer make({required int selected}) {
+    ProviderContainer make({required int selected, bool enabled = true}) {
       container = ProviderContainer(overrides: [
-        studyEventsEnabledProvider.overrideWithValue(true),
+        studyEventsEnabledProvider.overrideWith((ref) => ref.watch(flagProvider)),
         dailyPackProvider.overrideWith((ref) async => _pack()),
       ]);
+      flag = container.read(flagProvider.notifier);
+      flag.state = enabled;
       container.read(selectedTabProvider.notifier).state = selected;
       addTearDown(container.dispose);
       return container;
     }
+
+    void select(int i) => container.read(selectedTabProvider.notifier).state = i;
 
     testWidgets('selecting the study tab logs tab_opened once, not on rebuild',
         (tester) async {
@@ -255,7 +314,7 @@ void main() {
       await tester.pump();
       expect(logged, isEmpty, reason: 'mounted while another tab is selected');
 
-      container.read(selectedTabProvider.notifier).state = studyTab;
+      select(studyTab);
       await tester.pump();
       expect(names(), ['tab_opened']);
 
@@ -263,9 +322,9 @@ void main() {
       await tester.pump();
       expect(names(), ['tab_opened']);
 
-      container.read(selectedTabProvider.notifier).state = 1;
+      select(1);
       await tester.pump();
-      container.read(selectedTabProvider.notifier).state = studyTab;
+      select(studyTab);
       await tester.pump();
       expect(names(), ['tab_opened', 'tab_opened'],
           reason: 'each time it becomes the selected tab');
@@ -279,6 +338,48 @@ void main() {
       await tester.pump();
       expect(names(), ['tab_opened']);
       expect(logged.single.fields['language'], 'ko');
+    });
+
+    testWidgets('cold start with the flag arriving late logs one tab_opened when it turns on',
+        (tester) async {
+      make(selected: studyTab, enabled: false);
+      await tester.pumpWidget(host());
+      await tester.pump();
+      expect(logged, isEmpty, reason: 'config still loading');
+
+      flag.state = true;
+      await tester.pump();
+      expect(names(), ['tab_opened']);
+
+      flag.state = false;
+      await tester.pump();
+      flag.state = true;
+      await tester.pump();
+      expect(names(), ['tab_opened'], reason: 'once per selection');
+    });
+
+    testWidgets('cold start where another tab is selected in the first post-frame callback logs none',
+        (tester) async {
+      make(selected: studyTab);
+      // The tab bar registers its seeding callback before the page mounts.
+      WidgetsBinding.instance.addPostFrameCallback((_) => select(3));
+      await tester.pumpWidget(host());
+      await tester.pump();
+      expect(logged, isEmpty);
+    });
+
+    testWidgets('the flag turning on while another tab is selected logs none',
+        (tester) async {
+      make(selected: 2, enabled: false);
+      await tester.pumpWidget(host());
+      await tester.pump();
+      flag.state = true;
+      await tester.pump();
+      expect(logged, isEmpty);
+
+      select(studyTab);
+      await tester.pump();
+      expect(names(), ['tab_opened'], reason: 'selecting it later still logs once');
     });
   });
 }

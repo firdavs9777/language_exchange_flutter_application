@@ -132,8 +132,9 @@ class _DailyPackFlowState extends State<DailyPackFlow> {
     studyLog(StudyEvent.stepFinished,
         language: widget.pack.language,
         kind: station,
-        score: result.score,
-        total: result.total);
+        // An unscored station (total 0) has no score to report.
+        score: result.total > 0 ? result.score : null,
+        total: result.total > 0 ? result.total : null);
     return result;
   }
 
